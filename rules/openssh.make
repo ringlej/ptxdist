@@ -37,13 +37,13 @@ OPENSSH_DIR 		= $(BUILDDIR)/$(OPENSSH)
 
 openssh_get: $(STATEDIR)/openssh.get
 
-$(STATEDIR)/openssh.get: $(OPENSSL_SOURCE)
-	@$(call targetinfo, @$)
+$(STATEDIR)/openssh.get: $(OPENSSH_SOURCE)
+	@$(call targetinfo, $@)
 	@$(call get_patches, $(OPENSSH))
 	touch $@
 
 $(OPENSSH_SOURCE):
-	@$(call targetinfo, @$)
+	@$(call targetinfo, $@)
 	@$(call get, $(OPENSSH_URL))
 
 # ----------------------------------------------------------------------------
@@ -161,7 +161,7 @@ $(STATEDIR)/openssh.prepare: $(openssh_prepare_deps)
 openssh_compile: $(STATEDIR)/openssh.compile
 
 $(STATEDIR)/openssh.compile: $(STATEDIR)/openssh.prepare 
-	@$(call targetinfo, openssh.compile)
+	@$(call targetinfo, $@)
 	$(OPENSSH_PATH) make -C $(OPENSSH_DIR)
 	touch $@
 
@@ -172,7 +172,7 @@ $(STATEDIR)/openssh.compile: $(STATEDIR)/openssh.prepare
 openssh_install: $(STATEDIR)/openssh.install
 
 $(STATEDIR)/openssh.install: $(STATEDIR)/openssh.compile
-	@$(call targetinfo, openssh.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -187,7 +187,7 @@ openssh_targetinstall_deps = \
 	$(STATEDIR)/openssh.compile
 
 $(STATEDIR)/openssh.targetinstall: $(openssh_targetinstall_deps)
-	@$(call targetinfo, openssh.targetinstall)
+	@$(call targetinfo, $@)
 
 ifdef PTXCONF_OPENSSH_SSH
 	install -m 644 -D $(OPENSSH_DIR)/ssh_config.out $(ROOTDIR)/etc/ssh/ssh_config
