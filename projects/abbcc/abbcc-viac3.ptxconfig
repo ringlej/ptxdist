@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="abbcc"
+PTXCONF_PROJECT="abbcc-viac3"
 
 #
 # General Options             
