@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.2-svn
-# Sat Mar 19 21:38:20 2005
+# Sat Mar 19 22:33:43 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -189,6 +189,8 @@ PTXCONF_GLIBC_2_3_3=y
 #
 # Install options
 #
+PTXCONF_GLIBC_INSTALL=y
+PTXCONF_GLIBC_LIBC=y
 # PTXCONF_GLIBC_PTHREAD is not set
 # PTXCONF_GLIBC_THREAD_DB is not set
 # PTXCONF_GLIBC_LIBRT is not set

@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.2-svn
-# Sat Mar 19 21:38:16 2005
+# Sat Mar 19 22:33:32 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -221,27 +221,7 @@ PTXCONF_GLIBC_2_2_5=y
 #
 # Install options
 #
-# PTXCONF_GLIBC_PTHREAD is not set
-# PTXCONF_GLIBC_THREAD_DB is not set
-# PTXCONF_GLIBC_LIBRT is not set
-# PTXCONF_GLIBC_DL is not set
-# PTXCONF_GLIBC_CRYPT is not set
-# PTXCONF_GLIBC_UTIL is not set
-# PTXCONF_GLIBC_LIBM is not set
-# PTXCONF_GLIBC_NSS_DNS is not set
-# PTXCONF_GLIBC_NSS_FILES is not set
-# PTXCONF_GLIBC_NSS_HESIOD is not set
-# PTXCONF_GLIBC_NSS_NIS is not set
-# PTXCONF_GLIBC_NSS_NISPLUS is not set
-# PTXCONF_GLIBC_NSS_COMPAT is not set
-# PTXCONF_GLIBC_RESOLV is not set
-# PTXCONF_GLIBC_NSL is not set
-# PTXCONF_GLIBC_GCONV is not set
-
-#
-# Timezone Files
-#
-# PTXCONF_GLIBC_ZONEINFO is not set
+# PTXCONF_GLIBC_INSTALL is not set
 
 #
 # GCC Libraries       
