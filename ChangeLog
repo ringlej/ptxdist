@@ -1,5 +1,6 @@
 2003-08-xx Robert Schwebel <r.schwebel@pengutronix.de>
-	* general: added generic "patchin" macro
+	* general: added generic "patchin" macro. Execute dot only when 
+	  available and avoid error otherwhise. 
 	* busybox: update to 1.00-pre2. 
 	* XFree86: added
 	* Mozilla-Firebird: added
