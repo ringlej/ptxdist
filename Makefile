@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.28 2003/09/16 16:25:30 mkl Exp $
+# $Id: Makefile,v 1.29 2003/09/16 17:25:12 mkl Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -51,7 +51,7 @@ endif
 
 include $(wildcard rules/*.make)
 
--include config/arch/"$(PTXCONF_TARGET_CONFIG_FILE)"
+-include config/arch/$(subst ",,$(PTXCONF_TARGET_CONFIG_FILE))
 
 # install targets 
 PACKAGES_TARGETINSTALL 	= $(addsuffix _targetinstall,$(PACKAGES))
