@@ -48,7 +48,7 @@ endif
 
 ifdef PTXCONF_BOOTDISK_SIZE_AUTODETECT
 PTXCONF_BOOTDISK_SIZE = $$(du -s $(TOPDIR)/root | \
-       awk '{size = $$1 + $(PTXCONF_BOOTDISK_SIZE_ADD); print size}')
+       $(AWK) '{size = $$1 + $(PTXCONF_BOOTDISK_SIZE_ADD); print size}')
 endif
 
 # ----------------------------------------------------------------------------
@@ -84,7 +84,7 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	
 	# calculate size of "free" space and fill with 0xFF
 	/bin/ls -l $(BOOTDISK_IMG) | \
-	awk '{size = $$5} END{size = $(PTXCONF_BOOTDISK_HEAD)*$(PTXCONF_BOOTDISK_SECT)*512 - size;for (i = 0; i < size; i++) printf ("\xff")}' >> $(BOOTDISK_IMG)
+	$(AWK) '{size = $$5} END{size = $(PTXCONF_BOOTDISK_HEAD)*$(PTXCONF_BOOTDISK_SECT)*512 - size;for (i = 0; i < size; i++) printf ("\xff")}' >> $(BOOTDISK_IMG)
 	
 	# create ext2 image for root fs	
 	$(PTXCONF_PREFIX)/bin/genext2fs -r 0 -d $(TOPDIR)/root \
