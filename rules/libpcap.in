@@ -1,6 +1,6 @@
 menu    "libpcap             "
 
-config LIBNET
+config LIBPCAP
         bool
         prompt "Compile libpcap-0.7.2"
 
