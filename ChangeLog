@@ -1,4 +1,17 @@
+2003-09-25 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* Documentation: added attempt of a documentation dir
+	* Toplevel Makefile: fixed "dot" detecttion (thanks 
+	  to Dan Kegel) 
+	* pcmcia-cs: added initial support, although untested. 
+	* inetutils: added. (Milan Bobde, Ixia) 
+	* general: lots of new handy macros (Marc Kleine-Budde)
+	* genext2fs: added, untested. (Milan Bobde, Ixia) 
+	* ltt: fixed cross compilation (Kai-Uwe Bloem, Auerswald)
+	* 0.3.25 released
+
 2003-09-19 Robert Schwebel <r.schwebel@pengutronix.de>
+
 	* Rules.make: fixed get_patches. 
 	  Kai-Uwe Bloem <linux-development@auerswald.de>
 	* rootdir: replaced platform dependend links in rootdir by new 
