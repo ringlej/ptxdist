@@ -673,6 +673,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # PTXCONF_BB_CONFIG_DEBUG is not set
 
 #
+# mgetty & sendfax      
+#
+# PTXCONF_MGETTY is not set
+
+#
 # Gawk                
 #
 # PTXCONF_GAWK is not set
@@ -709,6 +714,7 @@ PTXCONF_MTD_UNLOCK=y
 # util-linux          
 #
 # PTXCONF_UTLNX is not set
+# PTXCONF_CLOCK is not set
 
 #
 # procps              
