@@ -1,4 +1,4 @@
-# $Id: ncurses.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: ncurses.make,v 1.2 2003/04/24 16:07:09 jst Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -64,16 +64,18 @@ ncurses_prepare: $(STATEDIR)/ncurses.prepare
 
 # FIXME: this has to be filled...
 NCURSES_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
-NCURSES_AUTOCONF	+= --with-shared
+NCURSES_AUTOCONF	+= --with-shared --target=$(PTXCONF_GNU_TARGET)
 NCURSES_ENVIRONMENT	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(PTXCONF_PREFIX)/bin:$$PATH
 NCURSES_MAKEVARS	=  AR=$(PTXCONF_GNU_TARGET)-ar
 NCURSES_MAKEVARS	+= RANLIB=$(PTXCONF_GNU_TARGET)-ranlib
 NCURSES_MAKEVARS	+= CC=$(PTXCONF_GNU_TARGET)-gcc
+NCURSES_MAKEVARS	+= CXX=$(PTXCONF_GNU_TARGET)-g++
 #
 #
 
 
-$(STATEDIR)/ncurses.prepare: $(STATEDIR)/ncurses.extract
+# FIXME: gcc stage2 is just a workaround here:
+$(STATEDIR)/ncurses.prepare: $(STATEDIR)/xchain-gccstage2.install $(STATEDIR)/ncurses.extract
 	@echo
 	@echo --------------- 
 	@echo target: ncurses.prepare

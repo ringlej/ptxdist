@@ -1,4 +1,4 @@
-# $Id: u-boot-mkimage.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: u-boot-mkimage.make,v 1.2 2003/04/24 16:07:09 jst Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -15,7 +15,7 @@ PACKAGES += umkimage
 #
 # Paths and names 
 #
-UMKIMAGE			= u-boot-mkimage-20030314
+UMKIMAGE			= u-boot-mkimage-20030424
 UMKIMAGE_URL			= http://www.pengutronix.de/software/ptxdist/temporary-src/$(UMKIMAGE).tar.gz
 UMKIMAGE_SOURCE			= $(SRCDIR)/$(UMKIMAGE).tar.gz
 UMKIMAGE_DIR			= $(BUILDDIR)/$(UMKIMAGE)
@@ -79,7 +79,8 @@ $(STATEDIR)/umkimage.compile: $(STATEDIR)/umkimage.prepare
 	@echo target: umkimage.compile
 	@echo ------------------------
 	@echo
-	make -C $(UMKIMAGE_DIR) 
+	# FIXME: no spaces in pathnames:
+	CC=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc CFLAGS=-I$(PTXCONF_PREFIX)/include LIBS=-L$(PTXCONF_PREFIX)/lib make -C $(UMKIMAGE_DIR) 
 	touch $@
 
 # ----------------------------------------------------------------------------

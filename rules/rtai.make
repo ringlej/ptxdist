@@ -1,4 +1,4 @@
-# $Id: rtai.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: rtai.make,v 1.2 2003/04/24 16:07:09 jst Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -84,6 +84,16 @@ $(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
 	install .rtaiconfig $(RTAI_DIR)
 	cd $(RTAI_DIR) && 						\
 		yes no | ./configure --non-interactive --linuxdir $(KERNEL_DIR) --reconf
+	# FIXME: spaces in pathnames are forbidden right now...
+	echo '# this is ugly like hell and committed by ptxdist' >> $(RTAI_DIR)/.buildvars
+	# we honestly doubt anyone of them has ever used a cross compiler...
+	echo CC=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc >> $(RTAI_DIR)/.buildvars
+	echo CROSS_COMPILE=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)- >> $(RTAI_DIR)/.buildvars
+	echo LD=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-ld >> $(RTAI_DIR)/.buildvars
+	echo AS=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-as >> $(RTAI_DIR)/.buildvars
+	# FIXME: Hopefully someone will fix this one:
+	cp -f $(RTAI_DIR)/lxrt/Makefile $(RTAI_DIR)/lxrt/Makefile.orig
+	sed -e "s/pressa//g" $(RTAI_DIR)/lxrt/Makefile.orig >$(RTAI_DIR)/lxrt/Makefile
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -98,7 +108,7 @@ $(STATEDIR)/rtai.compile: $(STATEDIR)/rtai.prepare
 	@echo target: rtai.compile
 	@echo --------------------
 	@echo
-	cd $(RTAI_DIR) && make
+	cd $(RTAI_DIR) && TOPDIR=$(RTAI_DIR) PATH=$(PTXCONF_PREFIX)/bin:$$PATH make 
 	touch $@
 
 # ----------------------------------------------------------------------------

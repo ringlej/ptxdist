@@ -1,4 +1,4 @@
-# $Id: xchain-glibc.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: xchain-glibc.make,v 1.2 2003/04/24 16:07:09 jst Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -265,6 +265,7 @@ $(STATEDIR)/glibc.compile: $(STATEDIR)/glibc.prepare
 	# let makefile find autoconf-2.13 as default
 	cd $(BUILDDIR)/$(GLIBC)-obj && $(GLIBC_ENVIRONMENT) make $(MAKEVARS) 
         endif
+# FIXME: We need 2 separate targets *here*
 	@echo
 	@echo -----------------------------
 	@echo "target: glibc.compile (ld-so)"

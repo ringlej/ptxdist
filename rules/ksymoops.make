@@ -1,4 +1,4 @@
-# $Id: ksymoops.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: ksymoops.make,v 1.2 2003/04/24 16:07:09 jst Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -81,7 +81,7 @@ $(STATEDIR)/ksymoops.compile: $(STATEDIR)/ksymoops.prepare
 	@echo target: ksymoops.compile
 	@echo ------------------------
 	@echo
-	make -C $(KSYMOOPS_DIR)
+	CFLAGS="-I$(PTXCONF_PREFIX)/include" make -C $(KSYMOOPS_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
