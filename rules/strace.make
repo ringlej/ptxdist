@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: strace.make,v 1.5 2003/10/23 15:01:19 mkl Exp $
+# $Id: strace.make,v 1.6 2003/10/26 21:00:06 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
@@ -72,11 +72,12 @@ ifndef PTXCONF_STRACE_SHARED
 STRACE_ENV	=  LDFLAGS=-static
 endif
 
-STRACE_AUTOCONF	=  --build=$(GNU_HOST)
-STRACE_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-STRACE_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
-STRACE_AUTOCONF	+= --disable-sanity-checks
-STRACE_AUTOCONF	+= --prefix=/
+STRACE_AUTOCONF	=  \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--target=$(PTXCONF_GNU_TARGET) \
+	--prefix=/usr \
+	--disable-sanity-checks
 
 $(STATEDIR)/strace.prepare: $(strace_prepare_deps)
 	@$(call targetinfo, $@)
@@ -114,9 +115,8 @@ strace_targetinstall: $(STATEDIR)/strace.targetinstall
 
 $(STATEDIR)/strace.targetinstall: $(STATEDIR)/strace.compile
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/bin
-	install $(STRACE_DIR)/strace $(ROOTDIR)/bin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/strace
+	install -D $(STRACE_DIR)/strace $(ROOTDIR)/usr/bin/strace
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/strace
 	touch $@
 
 # ----------------------------------------------------------------------------
