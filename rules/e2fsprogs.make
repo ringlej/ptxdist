@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: e2fsprogs.make,v 1.11 2003/12/23 10:50:30 robert Exp $
+# $Id: e2fsprogs.make,v 1.12 2004/03/19 11:55:01 bbu Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names 
 #
-E2FSPROGS_VERSION		= 1.34
+E2FSPROGS_VERSION		= 1.35
 E2FSPROGS			= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX		= tar.gz
 E2FSPROGS_URL			= http://cesnet.dl.sourceforge.net/sourceforge/e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)

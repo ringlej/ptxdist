@@ -1,6 +1,7 @@
 menu	"Host Tools          "
 
 source "rules/genext2fs.in"
+source "rules/hosttool-e2fsprogs.in"
 source "rules/fakeroot.in"
 source "rules/hosttool-util-linux.in"
 endmenu
