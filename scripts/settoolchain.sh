@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: settoolchain.sh,v 1.3 2003/10/28 11:13:39 mkl Exp $
+# $Id: settoolchain.sh,v 1.4 2003/10/29 02:58:40 mkl Exp $
 #
 # Copyright (C) 2003 Ixia Communications, by Dan Kegel
 #
@@ -32,8 +32,8 @@ esac
 
 case $TARGET in
 	*arm*uclinux*) PTXARCH=ARM_NOMMU ;;
-	*armb*)        PTXARCH=ARM ;; PTXSUBARCH=ARM_ARCH_BE;;
-	*arm*)         PTXARCH=ARM ;; PTXSUBARCH=ARM_ARCH_LE;;
+	*armb*)        PTXARCH=ARM ; PTXSUBARCH=ARM_ARCH_BE;;
+	*arm*)         PTXARCH=ARM ; PTXSUBARCH=ARM_ARCH_LE;;
 	*i*86*)        PTXARCH=X86 ;;
 	*pentium*)     PTXARCH=X86 ;;
 	*ppc*)         abort "Please use a target of powerpc-*-*-* rather than ppc-*" ;;
