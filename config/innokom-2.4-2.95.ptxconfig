@@ -70,7 +70,7 @@ PTXCONF_ARCH="arm"
 PTXCONF_ARCH_USERSPACE="arm"
 PTXCONF_ARM_PROC="armv"
 PTXCONF_GNU_TARGET="arm-unknown-linux-gnu"
-PTXCONF_PREFIX="/tmp/ptxdist-innokom-rsc"
+PTXCONF_PREFIX="/tmp/ptxdist-innokom"
 PTXCONF_ROOT=""
 
 #
