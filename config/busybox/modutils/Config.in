@@ -3,21 +3,21 @@
 # see scripts/kbuild/config-language.txt.
 #
 
-menu "Module Utilities"
+menu "Linux Module Utilities"
 	depends on BUSYBOX
 
 config BB_CONFIG_INSMOD
 	bool "insmod"
 	default n
 	help
-	  Please submit a patch to add help text for this item.
+	  insmod is used to load specified modules in the running kernel.
 
 config BB_CONFIG_FEATURE_OLD_MODULE_INTERFACE
 	bool "  Support older (pre 2.1) Linux kernels"
 	default n
 	depends on BB_CONFIG_INSMOD
 	help
-	  Please submit a patch to add help text for this item.
+	  Provide insmod support for older (pre 2.1) Linux kernels.
 
 if BB_CONFIG_INSMOD && !BB_CONFIG_FEATURE_OLD_MODULE_INTERFACE
     config BB_CONFIG_FEATURE_NEW_MODULE_INTERFACE
@@ -31,7 +31,7 @@ config BB_CONFIG_FEATURE_NEW_MODULE_INTERFACE
 	default y
 	depends on BB_CONFIG_INSMOD
 	help
-	  Please submit a patch to add help text for this item.
+	  Support module loading for newer (post 2.1) Linux kernels.
 endif
 
 config BB_CONFIG_FEATURE_INSMOD_VERSION_CHECKING
@@ -39,7 +39,8 @@ config BB_CONFIG_FEATURE_INSMOD_VERSION_CHECKING
 	default n
 	depends on BB_CONFIG_INSMOD
 	help
-	  Please submit a patch to add help text for this item.
+	  Support checking of versions for modules.  This is used to
+	  ensure that the kernel and module are made for each other.
 
 config BB_CONFIG_FEATURE_INSMOD_KSYMOOPS_SYMBOLS
 	bool "  Add module symbols to kernel symbol table"
@@ -57,7 +58,10 @@ config BB_CONFIG_FEATURE_INSMOD_LOADINKMEM
 	default n
 	depends on BB_CONFIG_INSMOD
 	help
-	  Please submit a patch to add help text for this item.
+	  This is a special uClinux only memory optimization that lets insmod
+	  load the specified kernel module directly into kernel space, reducing
+	  memory usage by preventing the need for two copies of the module
+	  being loaded into memory.
 
 config BB_CONFIG_FEATURE_INSMOD_LOAD_MAP
 	bool "  Enable load map (-m) option" 
@@ -84,33 +88,38 @@ config BB_CONFIG_LSMOD
 	bool "lsmod"
 	default n
 	help
-	  Please submit a patch to add help text for this item.
+	  lsmod is used to display a list of loaded modules.
 
 config BB_CONFIG_FEATURE_QUERY_MODULE_INTERFACE
 	bool "  Support lsmod query_module interface (add 638 bytes)"
 	default y
 	depends on BB_CONFIG_LSMOD && BB_CONFIG_FEATURE_NEW_MODULE_INTERFACE
 	help
-	  Please submit a patch to add help text for this item.
+	  This will provide some extra information about each module when
+	  running lsmod.  The fields provided are address, size, flags and
+	  usage count.
 
 config BB_CONFIG_MODPROBE
 	bool "modprobe"
 	default n
 	help
-	  Please submit a patch to add help text for this item.
+	  Handle the loading of modules, and their dependancies on a high 
+	  level.
 
 config BB_CONFIG_RMMOD
 	bool "rmmod"
 	default n
 	help
-	  Please submit a patch to add help text for this item.
+	  rmmod is used to unload specified modules from the kernel.
 
 config BB_CONFIG_FEATURE_CHECK_TAINTED_MODULE
 	bool "Support tainted module checking with new kernels"
 	default y
 	depends on BB_CONFIG_INSMOD || BB_CONFIG_LSMOD
 	help
-	  Please submit a patch to add help text for this item.
+	  Support checking for tainted modules.  These are usually binary
+	  only modules that will make the linux-kernel list ignore your
+	  support request.
 
 
 endmenu

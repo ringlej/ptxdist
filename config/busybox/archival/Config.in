@@ -121,20 +121,25 @@ config BB_CONFIG_GUNZIP
 	bool "gunzip"
 	default n
 	help
-	  Please submit a patch to add help text for this item.
+	  gunzip is used to decompress archives created by gzip.
+	  You can use the `-t' option to test the integrity of
+	  an archive, without decompressing it.
 
 config BB_CONFIG_FEATURE_GUNZIP_UNCOMPRESS
 	bool "  Uncompress support"
 	default n
 	depends on BB_CONFIG_GUNZIP
 	help
-	  Please submit a patch to add help text for this item.
+	  If you want gunzip to have the ability to decompress
+	  archives created by the program compress (not much
+	  used anymore).
 
 config BB_CONFIG_GZIP
 	bool "gzip"
 	default n
 	help
-	  Please submit a patch to add help text for this item.
+	  gzip is used to compress files.
+	  It's probably the most used UNIX compression program.
 
 config BB_CONFIG_RPM2CPIO
 	bool "rpm2cpio"
@@ -152,36 +157,41 @@ config BB_CONFIG_TAR
 	bool "tar"
 	default n
 	help
-	  tar has at least 512 bytes of overheads for every stored file.
-	  Please submit a patch to add help text for this item.
+	  tar is an archiving program. It's commonly used with gzip to
+	  create compressed archives. It's probably the most used
+	  UNIX archive program.
 
 config BB_CONFIG_FEATURE_TAR_CREATE
 	bool "  Enable archive creation"
 	default y
 	depends on BB_CONFIG_TAR
 	help
-	  Please submit a patch to add help text for this item.
+	  If you enable this option you'll be able to create
+	  tar archives using the `-c' option.
 
 config BB_CONFIG_FEATURE_TAR_BZIP2
 	bool "  Enable -j option to handle .tar.bz2 files"
 	default n
 	depends on BB_CONFIG_TAR
 	help
-	  Please submit a patch to add help text for this item.
+	  If you enable this option you'll be able to extract
+	  archives compressed with bzip2.
 
 config BB_CONFIG_FEATURE_TAR_EXCLUDE
 	bool "  Enable -X and --exclude options (exclude files)"
 	default n
 	depends on BB_CONFIG_TAR
 	help
-	  Please submit a patch to add help text for this item.
+	  If you enable this option you'll be able to specify
+	  a list of files to exclude from an archive.
 
 config BB_CONFIG_FEATURE_TAR_GZIP
 	bool "  Enable -z option"
 	default y
 	depends on BB_CONFIG_TAR
 	help
-	  Please submit a patch to add help text for this item.
+	  If you enable this option tar will be able to call gzip,
+	  when creating or extracting tar gziped archives.
 
 config BB_CONFIG_FEATURE_TAR_OLDGNU_COMPATABILITY
 	bool "  Enable support for old tar header format"
@@ -197,8 +207,8 @@ config BB_CONFIG_FEATURE_TAR_GNU_EXTENSIONS
 	default y
 	depends on BB_CONFIG_TAR
 	help
-	  With this option usybox supports the GNU long filename
-	  and linkanmes.
+	  With this option busybox supports GNU long filenames and 
+	  linknames.
 
 config BB_CONFIG_FEATURE_UNARCHIVE_TAPE
 	bool "  Enable tape drive support"
@@ -211,12 +221,17 @@ config BB_CONFIG_UNCOMPRESS
 	bool "uncompress"
 	default n
 	help
-	  Please submit a patch to add help text for this item.
+	  uncompress is used to decompress archives created by compress.
+	  Not much used anymore, replaced by gzip/gunzip.
 
 config BB_CONFIG_UNZIP
 	bool "unzip"
 	default n
 	help
-	  Please submit a patch to add help text for this item.
+	  unzip will list or extract files from a ZIP archive,
+	  commonly found on DOS/WIN systems. The default behavior
+	  (with no options) is to extract the archive into the
+	  current directory. Use the `-d' option to extract to a
+	  directory of your choice.
 
 endmenu

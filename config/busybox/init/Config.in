@@ -10,70 +10,89 @@ config BB_CONFIG_INIT
 	bool "init"
 	default n
 	help
-	  Please submit a patch to add help text for this item.
+	  init is the first program run when the system boots.
 
 config BB_CONFIG_FEATURE_USE_INITTAB
 	bool "  Support reading an inittab file?"
 	default y
 	depends on BB_CONFIG_INIT
 	help
-	  Please submit a patch to add help text for this item.
+	  Allow init to read an inittab file when the system boot.
 
 config BB_CONFIG_FEATURE_INITRD
 	bool "  Support running init from within an initrd?"
 	default y
 	depends on BB_CONFIG_INIT
 	help
-	  Please submit a patch to add help text for this item.
+	  Allow init to be called from an initrd as linuxrc.
 
 config BB_CONFIG_FEATURE_INIT_COREDUMPS
 	bool "  Support dumping core for child processes (debugging only)?"
-	default y
+	default n
 	depends on BB_CONFIG_INIT
 	help
-	  Please submit a patch to add help text for this item.
+	  If this option is enabled and the file /.init_enable_core
+	  exists, then init will call setrlimit() to allow unlimited
+	  core file sizes.  If this option is disabled, processes
+	  will not generate any core files.
 
 config BB_CONFIG_FEATURE_EXTRA_QUIET
 	bool "  Should init be _extra_ quiet on boot?"
 	default y
 	depends on BB_CONFIG_INIT
 	help
-	  Please submit a patch to add help text for this item.
+	  Prevent init from logging some messages to the console
+	  during boot.
 
-# Some apps that are meaningless without BusyBox running as init
 config BB_CONFIG_HALT
 	bool "halt"
 	default y
-	depends on BB_CONFIG_INIT
 	help
-	  Please submit a patch to add help text for this item.
+	  Stop all processes and halt the system.
 
 config BB_CONFIG_POWEROFF
 	bool "poweroff"
 	default y
-	depends on BB_CONFIG_INIT
 	help
-	  Please submit a patch to add help text for this item.
+	  Stop all processes and (try to) power off the system.
 
 config BB_CONFIG_REBOOT
 	bool "reboot"
 	default y
-	depends on BB_CONFIG_INIT
 	help
-	  Please submit a patch to add help text for this item.
+	  Stop all processes and reboot the system.
 
-# Should start-stop-daemon be moved under debianutils?
-config BB_CONFIG_START_STOP_DAEMON
-	bool "start-stop-daemon"
-	default y
+config BB_CONFIG_MINIT
+	bool "minit"
+	default n
+	depends on ! BB_CONFIG_INIT
 	help
-	  Please submit a patch to add help text for this item.
+	  Minimal init, based on minit v0.9.1.  This is a simple
+	  init replacement that handles starting/stopping services,
+	  and service dependencies.  See http://www.fefe.de/minit/
+	  for additional information.
+
+config BB_CONFIG_PIDFILEHACK
+	bool "pidfilehack"
+	default y
+	depends on BB_CONFIG_MINIT
+	help
+	  pidfilehack is used by minit to run servers.
+
+config BB_CONFIG_MSVC
+	bool "msvc"
+	default y
+	depends on BB_CONFIG_MINIT
+	help
+	  msvc is used to start and stop processes controlled by minit
 
 config BB_CONFIG_MESG
 	bool "mesg"
 	default y
 	help
-	  Please submit a patch to add help text for this item.
+	  Mesg  controls  the  access to your terminal by others.  It
+	  is typically used to allow or disallow other users to write
+	  to your  terminal
 
 endmenu
 

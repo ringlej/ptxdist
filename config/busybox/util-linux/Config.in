@@ -60,6 +60,12 @@ config BB_CONFIG_FDFLUSH
 	  you change a disk.  Most people have working hardware and can safely
 	  say leave this disabled.
 
+config BB_CONFIG_FDFORMAT
+	bool "fdformat"
+	default n
+	help
+	  Fdformat is used to low-level format a floppy disk.
+
 config BB_CONFIG_FDISK
 	bool "fdisk"
 	default n
@@ -240,20 +246,6 @@ config BB_CONFIG_FEATURE_USE_TERMIOS
 	  will be unable to determine the current screen size, and will be
 	  unable to move the cursor.
 
-comment "Common options for ls and more"
-	depends on BB_CONFIG_LS || BB_CONFIG_MORE
-
-config BB_CONFIG_FEATURE_AUTOWIDTH
-	bool "  Calculate terminal & column widths"
-	default y
-	depends on BB_CONFIG_LS || BB_CONFIG_MORE
-	help
-	  This option allows utilities such as 'ls' and 'more' to determine the
-	  width of the screen, which can allow them to display additional text
-	  or avoid wrapping text onto the next line.  If you leave this
-	  disabled, your utilities will be especially primitive and will be
-	  unable to determine the current screen width.
-
 config BB_CONFIG_PIVOT_ROOT
 	bool "pivot_root"
 	default n
@@ -299,7 +291,7 @@ config BB_CONFIG_NFSMOUNT
 	default n
 	depends on BB_CONFIG_MOUNT
 	help
-	  Please submit a patch to add help text for this item.
+	 Enable mounting of NFS file systems.
 
 config BB_CONFIG_UMOUNT
 	bool "umount"
