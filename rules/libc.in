@@ -51,6 +51,12 @@ choice
 		bool
 		prompt "0.9.20"
 		depends on UCLIBC
+
+	config UCLIBC_0_9_23
+		bool
+		prompt "0.9.23"
+		depends on UCLIBC
+		
 endchoice
 
 source "rules/glibc.in"
