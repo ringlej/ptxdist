@@ -49,6 +49,9 @@ endif
 #	make scripts executable
 	chmod 755 $(ROOTDIR)/etc/init.d/*
 
+#	create localtime link
+	ln -sf /data/etc/localtime $(ROOTDIR)/etc/localtime
+
 #	create ppp link
 	ln -sf /data/ppp/chap-secrets $(ROOTDIR)/etc/ppp/chap-secrets
 
