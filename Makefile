@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.60 2003/12/15 21:49:16 robert Exp $
+# $Id: Makefile,v 1.61 2003/12/18 17:04:26 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -103,6 +103,7 @@ help:
 	@echo
 	@echo "  make virtual-xchain_install  build the toolchain only"
 	@echo "  make archive-toolchain       dito, but do also create a tarball"
+	@echo "  make configs                 show predefined configs"
 	@echo
 	@echo "Calling these targets affects the whole system. If you want to"
 	@echo "do something for a packet do 'make packet_<action>'."
@@ -202,12 +203,12 @@ innokom_config:
 rayonic_config:
 	@echo "copying rayonic configuration"
 	@cp config/i386-rayonic.ptxconfig .config
-	@cp $(call latestconfig, rtaiconfig-rayonic) .rtaiconfig
+	@cp config/rtaiconfig-rayonic .rtaiconfig
 
 roi-eics_config:
 	@echo "copying ROI EICS configuration"
 	@cp config/geode-roi_eics.ptxconfig .config
-	@cp $(call latestconfig, rtaiconfig-roi-eics) .rtaiconfig
+	@cp config/rtaiconfig-roi .rtaiconfig
 
 scII-bmw_config:
 	@echo "copying solidcard-bmw configuration"
@@ -292,6 +293,13 @@ archive:
 archive-toolchain: virtual-xchain_install
 	$(TAR) -C $(PTXCONF_PREFIX)/.. -jcvf $(TOPDIR)/$(PTXCONF_GNU_TARGET).tar.bz2 \
 		$(shell basename $(PTXCONF_PREFIX))
+
+configs:
+	@echo
+	@echo "Available configs: "
+	@echo
+	@grep -e ".*_config:" Makefile | grep -v grep
+	@echo
 
 $(INSTALL_LOG): 
 	make -C $(TOPDIR)/tools/install-log-1.9
