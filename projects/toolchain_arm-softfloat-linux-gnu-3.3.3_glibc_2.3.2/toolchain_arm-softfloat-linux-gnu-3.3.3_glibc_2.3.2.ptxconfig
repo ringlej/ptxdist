@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="toolchain-arm-linux-3.3.3"
+PTXCONF_PROJECT="toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2"
 
 #
 # General Options             
