@@ -102,6 +102,16 @@ ifdef PTXCONF_SOFTFLOAT
 CROSSTOOL_GLIBC_EXTRA_CONFIG 	+= --without-fp
 endif
 
+ifdef PTXCONF_GLIBC
+CROSSTOOL_LIBC_DIR		= $(GLIBC_DIR)
+CROSSTOOL_LIBC			= glibc
+else
+ifdef PTXCONF_UCLIBC
+CROSSTOOL_LIBC_DIR		= $(UCLIBC_DIR)
+CROSSTOOL_LIBC			= uclibc
+endif
+endif
+
 $(STATEDIR)/crosstool.prepare: $(crosstool_prepare_deps)
 	@$(call targetinfo, $@)
 	touch $@
@@ -151,7 +161,8 @@ $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 		GLIBC_EXTRA_CONFIG=$(CROSSTOOL_GLIBC_EXTRA_CONFIG) \
 		BINUTILS_DIR=binutils-$(BINUTILS_VERSION) \
 		GCC_DIR=gcc-$(GCC_VERSION) \
-		GLIBC_DIR=glibc-$(GLIBC_VERSION) \
+		LIBC_DIR=$(CROSSTOOL_LIBC_DIR) \
+		C_LIBRARY=$(CROSSTOOL_LIBC) \
 		LINUX_DIR=linux-$(KERNEL_VERSION) \
 		GLIBCTHREADS_FILENAME=glibc-linuxthreads-$(GLIBC_VERSION) \
 		sh $(CROSSTOOL_DIR)/all.sh --notest; \
