@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bash.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
+# $Id: bash.make,v 1.7 2004/06/21 11:41:35 rsc Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -29,8 +29,16 @@ BASH_DIR		= $(BUILDDIR)/$(BASH)
 
 bash_get: $(STATEDIR)/bash.get
 
-$(STATEDIR)/bash.get: $(BASH_SOURCE)
+bash_get_deps = \
+	$(BASH_SOURCE) \
+	$(STATEDIR)/bash-patches.get
+
+$(STATEDIR)/bash.get: $(bash_get_deps)
 	@$(call targetinfo, $@)
+	touch $@
+
+$(STATEDIR)/bash-patches.get:
+	@$(call get_patches, $(BASH))
 	touch $@
 
 $(BASH_SOURCE):
@@ -47,6 +55,7 @@ $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
 	@$(call targetinfo, $@)
 	@$(call clean $(BASH_DIR))
 	@$(call extract, $(BASH_SOURCE))
+	@$(call patchin, $(BASH))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -208,7 +217,7 @@ bash_compile: $(STATEDIR)/bash.compile
 
 $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare 
 	@$(call targetinfo, $@)
-	$(BASH_PATH) make -C $(BASH_DIR)
+	cd $(BASH_DIR) && $(BASH_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
