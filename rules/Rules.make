@@ -845,13 +845,13 @@ copy_root = 									\
 	PER=`echo $(3) | sed -e 's/[[:space:]]//g'`;				\
 	SRC=`echo $(4) | sed -e 's/[[:space:]]//g'`;				\
 	DST=`echo $(5) | sed -e 's/[[:space:]]//g'`;				\
-	rm -fr $(ROOTDIR)$$DST; 						\
 	if [ -z "$(5)" ]; then									 \
 		echo "copy_root dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER"; 		 \
-		$(INSTALL) -D $(ROOTDIR)/$$SRC;							 \
+		$(INSTALL) -d $(ROOTDIR)/$$SRC;							 \
 		echo "$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
 	else											 \
 		echo "copy_root src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER";  \
+		rm -fr $(ROOTDIR)$$DST; 							 \
 		$(INSTALL) -D $$SRC $(ROOTDIR)/$$DST;						 \
 		echo "$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
 	fi;
