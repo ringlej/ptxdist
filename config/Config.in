@@ -63,11 +63,12 @@ comment "Network Tools --- "
 ##############################################################################
 
 menu	"Network Security    "
-source "rules/shorewall.in"
+source "rules/dropbear.in"
+source "rules/iptables.in"
 source "rules/lsh.in"
 source "rules/openssl.in"
 source "rules/openssh.in"
-source "rules/dropbear.in"
+source "rules/shorewall.in"
 endmenu
 
 menu   "Networking Apps     "
@@ -129,6 +130,14 @@ source "rules/setmixer.in"
 menu "Tools               "
 
 source "rules/tools.in"
+
+endmenu
+
+############################################################################## 
+
+menu "Editors             "
+
+source "rules/nano.in"
 
 endmenu
 
