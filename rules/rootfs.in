@@ -166,4 +166,13 @@ config IMAGE_JFFS2_BLOCKSIZE
 	prompt "Erase Block Size"
 	depends on IMAGE_JFFS2
 
+config IMAGE_JFFS2_EXTRA_ARGS
+	string
+	default ""
+	prompt "extra arguments passed to mkfs.jffs2"
+	depends on IMAGE_JFFS2
+	help
+	  If needed you can add extra arguments for mkfs.jffs2 here
+	  (e.g. --devtable=$(PROJECTDIR)/device_table.txt)
+
 endmenu

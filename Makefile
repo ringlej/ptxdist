@@ -176,6 +176,7 @@ ifdef PTXCONF_IMAGE_JFFS2
 	( \
 		echo -n "$(PTXCONF_PREFIX)/bin/mkfs.jffs2 -d $(ROOTDIR) "; \
 		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
+		echo -n "$(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS) "; \
 		echo "-o $(TOPDIR)/images/root.jffs2" ) \
 	) | $(FAKEROOT) --
 endif
