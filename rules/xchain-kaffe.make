@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kaffe.make,v 1.1 2003/07/16 04:23:28 mkl Exp $
+# $Id: xchain-kaffe.make,v 1.2 2003/09/08 23:42:39 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
@@ -47,12 +47,14 @@ $(STATEDIR)/xchain-kaffe.extract: $(kaffe_extract_deps)
 
 xchain-kaffe_prepare: $(STATEDIR)/xchain-kaffe.prepare
 
+xchain-kaffe_prepare_deps = \
+	$(STATEDIR)/xchain-kaffe.extract
+
 XCHAIN_KAFFE_ENV = $(HOSTCC_ENV)
 
-$(STATEDIR)/xchain-kaffe.prepare: $(STATEDIR)/xchain-kaffe.extract \
-		$(STATEDIR)/xchain-kaffe.extract
+$(STATEDIR)/xchain-kaffe.prepare: $(xchain-kaffe_prepare_deps)
 	@$(call targetinfo, xchain-kaffe.prepare)
-	@$(calll clean, $(XCHAIN_KAFFE_BUILDDIR))
+	@$(call clean, $(XCHAIN_KAFFE_BUILDDIR))
 	mkdir -p $(XCHAIN_KAFFE_BUILDDIR)
 	cd $(XCHAIN_KAFFE_BUILDDIR) && \
 		$(XCHAIN_KAFFE_ENV) \
