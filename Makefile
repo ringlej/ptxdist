@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.46 2003/10/24 01:55:49 mkl Exp $
+# $Id: Makefile,v 1.47 2003/10/24 01:58:42 mkl Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -10,7 +10,7 @@ PROJECT		= PTXdist
 VERSION		= 0
 PATCHLEVEL	= 5
 SUBLEVEL	= 0
-EXTRAVERSION	=
+EXTRAVERSION	= -cvs
 
 FULLVERSION	= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
