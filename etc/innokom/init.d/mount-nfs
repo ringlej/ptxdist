@@ -8,13 +8,13 @@
 
 echo -n "mounting nfs filesystems... "
 
-if [ ! -e /data/etc/system.conf ]; then
+if [ ! -e /data/etc/network.conf ]; then
 	echo "failed."
-	echo "-> no /data/etc/system.conf, disabling nfsmount"
+	echo "-> no /data/etc/network.conf, disabling nfsmount"
 	exit 0;
 fi	
 
-grep '^nfs-mount:' /data/etc/system.conf | sed 's/^nfs-mount: *//g' |
+grep '^nfs-mount:' /data/etc/network.conf | sed 's/^nfs-mount: *//g' |
 	while read nfsmount mountpoint; do
 		mount -o nfsvers=2,nolock,rsize=4096,wsize=4096 $nfsmount ${mountpoint:-/opt}
 	done

@@ -1,0 +1,10 @@
+sync
+
+netmask 0xffffffff
+nodefaultroute
+noproxyarp
+
+nobsdcomp
+nodeflate
+nopredictor1
+

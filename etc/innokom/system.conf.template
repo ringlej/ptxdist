@@ -1,4 +1,0 @@
-ip-address: <targetip>
-nfs-server: yes
-nfs-mount: <hostip>:<path> <mntpoint>
-nfs-mount: <hostip>:<path> <mntpoint>

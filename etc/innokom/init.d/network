@@ -1,9 +1,0 @@
-#!/bin/sh
-#
-# /etc/init.d/network
-#
-
-echo -n "starting network and services... "
-echo -n "no network devices configured. "
-echo "done."
-

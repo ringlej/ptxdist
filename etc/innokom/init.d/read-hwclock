@@ -2,7 +2,19 @@
 #
 # /etc/init.d/read-hwclock
 #
+# Copyright (C) 2003 Auerswald GmbH & Co. KG
+# Kai-Uwe Bloem <linux-development@auerswald.de>
+#
 
 echo -n "reading the hardware clock... "
-echo -n "no hardware driver. "
-echo "done."
+
+if [ ! -e /opt/auerswald/modules/auerrtc.o ]; then
+	echo "no driver found.";
+	exit 0;
+fi
+
+echo
+/sbin/insmod /opt/auerswald/modules/auerrtc.o
+/sbin/hwclock -s
+date
+

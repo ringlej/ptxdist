@@ -1,0 +1,42 @@
+#!/bin/sh
+#
+# /etc/init.d/network-eth
+#
+# Copyright (C) 2003 Auerswald GmbH & Co. KG
+# Kai-Uwe Bloem <linux-development@auerswald.de>
+#
+
+echo -n "starting network... "
+
+if [ ! -e /data/etc/eth.conf ]; then
+	echo "failed"
+	echo "-> no /data/etc/eth.conf, disabling eth0"
+	exit 0
+fi
+
+if lsmod | grep af_packet/dev/null; then
+	echo -n "[modules already loaded] "
+else
+	echo
+	insmod af_packet
+fi
+                                        
+ipaddr=`grep '^ip-address:' /data/etc/eth.conf |
+	sed 's/^ip-address: *//g'`
+netmask=`grep '^net-mask:' /data/etc/eth.conf |
+	sed 's/^net-mask: *//g'`
+gateway=`grep '^gateway-address:' /data/etc/eth.conf |
+	sed 's/^gateway-address: *//g'`
+dhcp=`grep '^dhcp-server:' /data/etc/eth.conf |
+	sed 's/^dhcp-server: *//g'`
+
+/sbin/route del default 2>/dev/null
+/sbin/ifconfig eth0 down
+
+if [ -n "$netmask" ]; then	netmask="netmask $netmask"; fi
+if [ -n "$ipaddr" ]; then	/sbin/ifconfig eth0 $ipaddr $netmask up; fi
+if [ -n "$gateway" ]; then	/sbin/route add default gw $gateway eth0; fi
+if [ "_$dhcp" = "_yes" ]; then	/usr/sbin/udhcpd /etc/udhcpd_eth.conf; fi
+
+echo "done."
+

@@ -2,6 +2,9 @@
 #
 # /etc/init.d/syslog
 #
+# Copyright (C) 2003 Auerswald GmbH & Co. KG
+# Kai-Uwe Bloem <linux-development@auerswald.de>
+#
 
 echo -n "starting the system logger... "
 /sbin/klogd

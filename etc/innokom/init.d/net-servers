@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# /etc/init.d/net-servers
+#
+# Copyright (C) 2003 Auerswald GmbH & Co. KG
+# Kai-Uwe Bloem <linux-development@auerswald.de>
+#
+
+echo -n "starting network services... "
+
+if [ ! -e /data/etc/network.conf ]; then
+	echo "failed"
+	echo "-> no /data/etc/network.conf, disabling services"
+	exit 0
+fi
+
+telnet=`grep '^telnet-server:' /data/etc/network.conf |
+	sed 's/^telnet-server: *//g'`
+ftp=`grep '^ftp-server:' /data/etc/network.conf |
+	sed 's/^ftp-server: *//g'`
+nfs=`grep '^nfs-server:' /data/etc/network.conf |
+	sed 's/^nfs-server: *//g'`
+
+
+if [ "_$telnet" = "_yes" ]; then	/sbin/utelnetd -d >/dev/null; fi
+if [ "_$ftp" = "_yes" ]; then		/sbin/proftpd -n; fi
+if [ "_$nfs" = "_yes" -a -e /etc/exports ]; then
+	/sbin/portmap
+	/sbin/nfsd 2
+	/sbin/mountd
+	/sbin/exportfs -a
+fi
+
+echo "done."
+
