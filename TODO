@@ -11,7 +11,10 @@ High Priority
        copy mechanism to config specific tree if necessary... 
 - RSC: fix busybox extract script to support "select CONFIG_foo"
 - RSC: make MTDutils release and, by the way, fix build process. 
-       This "override" mechanism in the Makefile seems to be broken. 
+       This "override" mechanism in the Makefile seems to be broken.
+       - MKL: mtdutils buildprocess fixed, splitted into 2 seperate file
+              mtd.make and xchain-mtd.make
+              'override' seems to be working
 - RSC: audit all configure calls to be relative; configure scripts
        seem to have major problems when being called with absulute path
 - RSC: test flash
@@ -21,7 +24,7 @@ High Priority
        effect is observed only on certain systems (all Debian unstable,
        but downgrading does not help). Has to be evaluated!!!
        - MKL: this _may_ be fixed by the new xchain building process in 
-              the feature-patch branch
+              the HEAD
 - RSC: add #ifdef __cplusplus ... #else ... #endif to bits/in.h
 - RSC: add .in file for xvkbd; integrate fixes for Makefile...
 - RSC: busybox 1.00-pre2 has lots of problems (broken job control/
@@ -37,8 +40,8 @@ High Priority
 - RSC: - patches/ 
        - src/*.diff, *.patch
        - etc/solidcard-bmwm-20030821-1/xmodmap
-- MKL: someone with real life(TM) experiece should look at the kernel
-       patches for arm (rmkX) and delete all old stuff
+- MKL: have a look at CFLAGS, do not supply of empty
+- MKL: include with wildcard ifeq style?
 
 Low Priority
 ------------
@@ -66,7 +69,6 @@ Low Priority
        with the "exec" option
 - JST: GPL version 2
 - LGR: recompile x86 compilers recursively
-  MKB: let's think more general: recompile native compiler recursively
 - RSC: integrate big endian toolchain for ARM: 
 - RSC: make bootdisk contents part of the nfsroot directory, but 
        let ptxflash not copy it to the target flash disk
