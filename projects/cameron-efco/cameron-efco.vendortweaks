@@ -23,7 +23,7 @@ $(STATEDIR)/cameron-efco.targetinstall:
 	echo "efco::500:100:Custom User:/home:/bin/sh" >> $(ROOTDIR)/etc/passwd
 	echo "efco::12215:0:99999:7:::" >> $(ROOTDIR)/etc/shadow
 	echo "none	/home	tmpfs	size=5M,mode=775,uid=501,gid=100	0	0" >> $(ROOTDIR)/etc/fstab
-	
+	touch $(ROOTDIR)/etc/busybox.conf
 	# create /etc/rc.d links
 	mkdir -p $(ROOTDIR)/etc/rc.d
 	ln -sf ../init.d/banner $(ROOTDIR)/etc/rc.d/S00_banner
