@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# Linux kernel version: 2.6.9-rc2-pxa3
-# Wed Nov 10 14:37:52 2004
+# Linux kernel version: 2.6.9-rc2-pxa5
+# Mon Jan 17 11:37:47 2005
 #
 CONFIG_ARM=y
 CONFIG_MMU=y
@@ -332,7 +332,10 @@ CONFIG_NETDEVICES=y
 CONFIG_NET_ETHERNET=y
 CONFIG_MII=y
 CONFIG_NET_VENDOR_SMC=y
-# CONFIG_SMC91X is not set
+CONFIG_SMC91X=y
+# CONFIG_SMC91X_OLD is not set
+# CONFIG_SMC91X_NAPI is not set
+# CONFIG_SMC91X_HAL is not set
 # CONFIG_CIRRUS is not set
 
 #
@@ -502,8 +505,8 @@ CONFIG_I2C_CHARDEV=m
 #
 # I2C Algorithms
 #
-CONFIG_I2C_ALGOBIT=m
-CONFIG_I2C_ALGOPCF=m
+# CONFIG_I2C_ALGOBIT is not set
+# CONFIG_I2C_ALGOPCF is not set
 # CONFIG_I2C_ALGOPCA is not set
 
 #
@@ -545,10 +548,12 @@ CONFIG_I2C_SENSOR=m
 #
 # Other I2C Chip support
 #
-CONFIG_SENSORS_EEPROM=m
+# CONFIG_SENSORS_EEPROM is not set
 # CONFIG_SENSORS_PCF8574 is not set
 # CONFIG_SENSORS_PCF8591 is not set
 # CONFIG_SENSORS_RTC8564 is not set
+CONFIG_SENSOR_X1226_RTC=m
+CONFIG_SENSOR_X1226_EEPROM=m
 CONFIG_I2C_DEBUG_CORE=y
 CONFIG_I2C_DEBUG_ALGO=y
 CONFIG_I2C_DEBUG_BUS=y
