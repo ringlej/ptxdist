@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="rayonic"
+PTXCONF_PROJECT="rayonic-i586"
 
 #
 # General Options             
