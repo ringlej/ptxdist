@@ -30,7 +30,8 @@ STATEDIR		:= $(TOPDIR)/state
 BOOTDISKDIR		:= $(TOPDIR)/bootdisk
 IMAGEDIR		:= $(TOPDIR)/images
 MISCDIR			:= $(TOPDIR)/misc
-PROJECTCONFFILE		=  $(shell find $(TOPDIR)/projects/ -name $(PTXCONF_PROJECT).ptxconfig)
+PROJECTDIRS		:= $(TOPDIR)/projects $(TOPDIR)/../ptxdist-projects/$(BASENAME)
+PROJECTCONFFILE		=  $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
 PROJECTDIR		=  $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE))
 
 # Pengutronix Patch Repository
@@ -229,25 +230,25 @@ oldconfig: scripts/kconfig/conf
 
 %_config:
 	@echo; \
-	echo "[Searching for Config File:]"; 				\
-	CFG=`find projects -name $(subst _config,.ptxconfig,$@)`; 	\
-	if [ `echo $$CFG | wc -w` -gt 1 ]; then				\
-		echo "ERROR: more than one config file found:"; 	\
-		echo $$CFG; echo; 					\
-		exit 1;							\
-	fi;								\
-	if [ -n "$$CFG" ]; then 					\
-		echo "using config file \"$$CFG\""; 			\
-		cp $$CFG $(TOPDIR)/.config; 				\
-	else 								\
-		echo "could not find config file \"$@\""; 		\
-	fi; 								\
+	echo "[Searching for Config File:]"; 					\
+	CFG="`find $(PROJECTDIRS) -name $(subst _config,.ptxconfig,$@)`";	\
+	if [ `echo $$CFG | wc -w` -gt 1 ]; then					\
+		echo "ERROR: more than one config file found:"; 		\
+		echo $$CFG; echo; 						\
+		exit 1;								\
+	fi;									\
+	if [ -n "$$CFG" ]; then 						\
+		echo "using config file \"$$CFG\""; 				\
+		cp $$CFG $(TOPDIR)/.config; 					\
+	else 									\
+		echo "could not find config file \"$@\""; 			\
+	fi; 									\
 	echo
 
 # Test -----------------------------------------------------------------------
 
 config-test: 
-	@for i in `find $(TOPDIR)/projects/ -name "*.ptxconfig"`; do 	\
+	@for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 	\
 		OUT=`basename $$i`;					\
 		$(call targetinfo,$$OUT);				\
 		cp $$i .config;						\
@@ -384,11 +385,21 @@ archive-toolchain: virtual-xchain_install
 
 configs:
 	@echo
-	@echo "Available configs: "
+	@echo "------------------ Available PTXdist vanilla configurations: ------------------"
 	@echo
-	@for i in `find projects -name "*.ptxconfig"`; do \
-		basename `echo $$i | perl -p -e "s/.ptxconfig/_config/g"`; \
+	@for i in `find projects -name "*.ptxconfig"`; do 				\
+		basename `echo $$i | perl -p -e "s/.ptxconfig/_config/g"`; 		\
 	done | sort 
+	@echo
+	@if [ -d "$(TOPDIR)/../ptxdist-projects/$(BASENAME)" ]; then					\
+		echo "------------------- Available PTXdist local configurations: -------------------"; \
+		echo; 											\
+		for i in `find $(TOPDIR)/../ptxdist-projects/$(BASENAME) -name "*.ptxconfig"`; do	\
+			basename `echo $$i | perl -p -e "s/.ptxconfig/_config/g"`; 	\
+		done | sort;								\
+		echo; 									\
+	fi; 
+	@echo "-------------------------------------------------------------------------------"
 	@echo
 
 $(INSTALL_LOG): 
