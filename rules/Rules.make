@@ -444,13 +444,13 @@ get_feature_patch =						\
 	FP_PARENT="$(strip $(1))";				\
 	FP_URL="$(strip $(2))";					\
 	FP_NAME="$(strip $(3))";				\
-	FP_FILE="$$(basename $$FP_URL)";                        \
-	if [ -f $(TOPDIR)/feature-patches/$$FP_NAME/$$FP_FILE ]; then	\
-		echo "patch already downloaded, skipping...";	\
-		exit 0;						\
+	FP_FILE="$$(basename $$FP_URL)";                        				\
+	if [ -f $(PTXCONF_SETUP_LOCAL_FEATUREPATCH_REPOSITORY)/$$FP_NAME/$$FP_FILE ]; then	\
+		echo "patch already in local FP repository, skipping...";			\
+		exit 0;										\
 	fi;							\
 	if [ "$$FP_URL" == "" ] && [ "$$FP_NAME" == "" ]; then	\
-		echo "patch not set, silently dropping";	\
+		echo "patch inactive" > /dev/null;		\
 		exit 0;						\
 	fi;							\
 	if [ "$$FP_URL" == "" ] || [ "$$FP_NAME" == "" ]; then	\
@@ -458,12 +458,12 @@ get_feature_patch =						\
 		echo "Error: empty feature patch name or URL";	\
 		echo;						\
 		exit -1;					\
-	fi;							\
-	FP_DIR="$(TOPDIR)/feature-patches/$$FP_NAME";		\
-	[ -d $$FP_DIR ] || $(MKDIR) -p $$FP_DIR;		\
-	[ "$$(expr match $$FP_URL http://)" != "0" ] && FP_URLTYPE="http"; \
-        [ "$$(expr match $$FP_URL ftp://)" != "0" ]  && FP_URLTYPE="ftp";  \
-        [ "$$(expr match $$FP_URL file://)" != "0" ] && FP_URLTYPE="file"; \
+	fi;											\
+	FP_DIR="$(PTXCONF_SETUP_LOCAL_FEATUREPATCH_REPOSITORY)/$$FP_NAME/";			\
+	[ -d $$FP_DIR ] || $(MKDIR) -p $$FP_DIR;						\
+	[ "$$(expr match $$FP_URL http://)" != "0" ] && FP_URLTYPE="http"; 			\
+        [ "$$(expr match $$FP_URL ftp://)" != "0" ]  && FP_URLTYPE="ftp";  			\
+        [ "$$(expr match $$FP_URL file://)" != "0" ] && FP_URLTYPE="file"; 			\
 	case $$FP_URLTYPE in                                    \
         http)                                                   \
                 $(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR --passive-ftp $$FP_URL; \
@@ -508,8 +508,11 @@ get_feature_patch =						\
 #
 # get_patches
 # 
-# Download patches from Pengutronix' patch repository. 
-# 
+# Download patches from a local or global patch repository. 
+# PTXPATCH_URL contains a list of URLs where to search for patches. 
+# First hit matches, so URLs earlier in the list superseed later ones. 
+#
+#
 # $1: packet name. The packet name is the identifier for a patch
 #     subdirecotry. 
 # 
@@ -541,38 +544,47 @@ get_patches =											\
 	if [ -d $(PATCHDIR)/$$PACKET_NAME ]; then						\
 		$(RM) -fr $(PATCHDIR)/$$PACKET_NAME;						\
 	fi;											\
-	echo "checking for local or net patches...";						\
-	if [ -d $(PATCHDIR)-local ]; then							\
-		echo "patches-local/ exists, using this one instead of Pengutronix server";	\
-		if [ -d "$(PATCHDIR)-local/$$PACKET_NAME" ]; then 				\
-			echo "patch found";							\
-			$(CP) -vr $(PATCHDIR)-local/$$PACKET_NAME $(PATCHDIR);			\
-		else										\
-			echo "no patch available";						\
-		fi;										\
-	else											\
-		echo "copying network patches from Pengutronix server"; 				\
-		$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-			--passive-ftp $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/;		\
-		[ $$? -eq 0 ] || {									\
-			echo;										\
-			echo "Could not get patch!";							\
-			echo "URL: $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/";		\
-			echo;										\
-			exit -1;									\
-		};											\
-		$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-			--passive-ftp $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;	\
-		[ $$? -eq 0 ] || {									\
-			echo;										\
-			echo "Could not get patch!";							\
-			echo "URL: $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";	\
-			echo;										\
-			exit -1;									\
-		};											\
-		true;											\
-	fi;
-
+	echo "checking for patches...";								\
+	for URL in $(PTXPATCH_URL); do 								\
+		echo "checking in $$URL";							\
+		[ "$$(expr match $$URL http://)" != "0" ] && URLTYPE="http"; 			\
+		[ "$$(expr match $$URL ftp://)" != "0" ]  && URLTYPE="ftp";			\
+		[ "$$(expr match $$URL file://)" != "0" ] && URLTYPE="file";			\
+		case $$URLTYPE in 								\
+		file)										\
+			echo "copying local patches"; 						\
+			URL_PATH="$$(echo $$URL | sed s-file://--g)";				\
+			if [ -d "$$URL_PATH/$$PACKET_NAME" ]; then 				\
+				echo "patch found";						\
+				$(CP) -vr $$URL_PATH/$$PACKET_NAME $(PATCHDIR);			\
+			else									\
+				echo "no patch available";					\
+			fi;									\
+			;;									\
+		http)										\
+			echo "copying network patches from Pengutronix server"; 				\
+			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
+				--passive-ftp $$URL/$$PACKET_NAME/generic/;					\
+			[ $$? -eq 0 ] || {									\
+				echo;										\
+				echo "Could not get patch!";							\
+				echo "URL: $$URL/$$PACKET_NAME/generic/";					\
+				echo;										\
+				exit -1;									\
+			};											\
+			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
+				--passive-ftp $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/;				\
+			[ $$? -eq 0 ] || {									\
+				echo;										\
+				echo "Could not get patch!";							\
+				echo "URL: $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";				\
+				echo;										\
+				exit -1;									\
+			};											\
+			true;											\
+			;;											\
+		esac; 												\
+	done
 
 #
 # get_options
@@ -810,8 +822,6 @@ patch_apply =								\
 #
 # feature_patchin
 #
-# FIXME: obsolete
-# 
 # Go into a directory, look for either a 'series' file and apply all 
 # patches listed there into a sourcetree, or, if no 'series' file
 # exists, apply the patches as they come
@@ -819,9 +829,9 @@ patch_apply =								\
 # $1: $(FP_TARGET): path to source tree where the feature patch is
 #     to be applied  
 #
-# $2: $(FP_NAME): name of the patch to be applied; patches usually live 
-#     in $(TOPDIR)/feature-patches/$(FP_NAME). Patches without a name 
-#     are silently ignored. 
+# $2: $(FP_NAME): name of the patch to be applied; patches usually live in
+#     $(PTXCONF_SETUP_LOCAL_FEATUREPATCH_REPOSITORY)/$$FP_NAME/$$FP_FILE
+#     Patches without a name are silently being ignored. 
 #
 feature_patchin =								\
 	FP_TARGET="$(strip $(1))";						\
@@ -837,7 +847,7 @@ feature_patchin =								\
 		echo "No patch name specified, dropping.";			\
 		exit 0;								\
 	fi;									\
-	FP_DIR=$(TOPDIR)/feature-patches/$$FP_NAME;				\
+	FP_DIR=$(PTXCONF_SETUP_LOCAL_FEATUREPATCH_REPOSITORY)/$$FP_NAME;	\
 	if [ -f $$FP_DIR/series ]; then						\
 		for PATCH_NAME in `$(CAT) $$FP_DIR/series`; do			\
 			echo "patchin' $$PATCH_NAME ...";			\
