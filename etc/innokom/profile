@@ -1,0 +1,21 @@
+#
+# /etc/profile
+#
+# Configuration for Auerswald Innokom
+#
+# Copyright (C) 2003 Pengutronix
+# Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+export PATH="$PATH:/usr/bin:/bin:/sbin:."
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:-/lib:/usr/lib}:/opt/auerswald/lib:."
+
+#umask 022
+
+# This fixes the backspace when telnetting in.
+if [ "$TERM" != "linux" ]; then
+        stty erase ^H
+fi
+
+#PS1="# "
+

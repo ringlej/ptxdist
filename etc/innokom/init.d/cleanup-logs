@@ -1,9 +1,10 @@
-#! /bin/sh
+#!/bin/sh
 #
 # /etc/init.d/cleanup-logs
 #
 # Copyright (C) 2003 Auerswald GmbH & Co. KG
-# Author: Kai-Uwe Bloem, <linux-development@auerswald.de>
+# Kai-Uwe Bloem <linux-development@auerswald.de>
+#
 
 echo -n "cleaning up logfiles... "
 

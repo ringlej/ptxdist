@@ -2,9 +2,8 @@
 # /etc/fstab
 #
 # Copyright (C) 2003 Auerswald GmbH & Co. KG
-# Author: Kai-Uwe Bloem, <linux-development@auerswald.de>
+# Kai-Uwe Bloem <linux-development@auerswald.de>
 #
-# based on the fstab file by  Robert Schwebel <r.schwebel@pengutronix.de>
 
 proc		/proc		proc	defaults	0	0
 devpts		/dev/pts	devpts	defaults	0	0

@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# /etc/init.d/unlock-flash
+#
+# Copyright (C) 2003 Auerswald GmbH & Co. KG
+# Kai-Uwe Bloem <linux-development@auerswald.de>
+#
+
+echo -n "unlock flash partitions... "
+
+root=`/bin/cat /proc/cmdline | /usr/bin/tr " " "\012" |
+		/bin/grep ^root= | /usr/bin/cut -c6-`
+type=`/bin/cat /proc/mounts | grep "^/dev/root " | cut "-d " -f3`
+
+if [ "_$type" = "_jffs2" ]; then
+	if [ "_$root" = "_/dev/mtdblock2" ]; then
+		/sbin/unlock /dev/mtd/2
+	elif [ "_$root" = "_/dev/mtdblock1" ]; then
+		/sbin/unlock /dev/mtd/1
+	fi
+fi
+
+/sbin/unlock /dev/mtd/3
+/bin/cp -a /dev/mtdblock/3 /dev/mtdblock/data
+
+echo "done."
+

@@ -2,11 +2,11 @@
 # /etc/inittab
 #
 # Copyright (C) 2003 Auerswald GmbH & Co. KG
-# Author: Kai-Uwe Bloem, <linux-development@auerswald.de>
+# Kai-Uwe Bloem <linux-development@auerswald.de>
 #
-# based on the inittab file by  Robert Schwebel <r.schwebel@pengutronix.de>
 
 ::sysinit:/etc/init.d/banner
+::sysinit:/etc/init.d/mount-proc
 ::sysinit:/etc/init.d/unlock-flash
 ::sysinit:/etc/init.d/mount-local
 ::sysinit:/etc/init.d/root-remount

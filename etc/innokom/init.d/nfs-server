@@ -1,14 +1,15 @@
-#! /bin/sh
+#!/bin/sh
 #
 # /etc/init.d/nfs-server
 #
 # Copyright (C) 2003 Auerswald GmbH & Co. KG
-# Author: Kai-Uwe Bloem, <linux-development@auerswald.de>
-
+# Kai-Uwe Bloem <linux-development@auerswald.de>
+#
 
 nfsd=`grep '^nfs-server:' /data/etc/system.conf |
 	sed 's/^nfs-server: *//g'`
-if [ "x$nfsd" = "xyes" ]; then
+
+if [ "_$nfsd" = "_yes" -a -e /etc/exports ]; then
 	echo -n "starting NFS server... "
 	/sbin/portmap
 	/sbin/nfsd 2
@@ -16,3 +17,4 @@ if [ "x$nfsd" = "xyes" ]; then
 	/sbin/exportfs -a
 	echo "done." 
 fi
+

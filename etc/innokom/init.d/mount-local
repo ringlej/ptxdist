@@ -1,12 +1,14 @@
-#! /bin/sh
+#!/bin/sh
 #
 # /etc/init.d/mount-local
 #
 # Configuration for Auerswald Innokom
 #
-# 2002/10/03    Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 Pengutronix
+# Robert Schwebel <r.schwebel@pengutronix.de>
 #
 
 echo -n "mounting filesystems... "
 mount -a 
 echo "done."
+
