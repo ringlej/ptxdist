@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssh.make,v 1.16 2004/06/30 11:17:42 bbu Exp $
+# $Id: openssh.make,v 1.17 2004/06/30 11:25:11 bbu Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -143,11 +143,11 @@ OPENSSH_AUTOCONF = \
 	--without-pam \
 	--with-ipv4-default \
 	--disable-etc-default-login \
-	--disable-lastlog \ 
-  	--disable-utmp \
-  	--disable-utmpx \
-  	--disable-wtmp \
-  	--disable-wtmpx 
+	--disable-lastlog \
+	--disable-utmp \
+	--disable-utmpx \
+	--disable-wtmp \
+	--disable-wtmpx 
 
 
 $(STATEDIR)/openssh.prepare: $(openssh_prepare_deps)
