@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="Hynix H7202 Evalboard"
+PTXCONF_PROJECT="h7202"
 
 #
 # General Options             
