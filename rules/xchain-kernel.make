@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.8 2003/07/16 04:23:28 mkl Exp $
+# $Id: xchain-kernel.make,v 1.9 2003/07/17 07:41:05 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -67,7 +67,6 @@ $(STATEDIR)/xchain-kernel.extract:  $(xchain_kernel_extract_deps)
 #	# MTD patch
 #	#
         ifeq (y, $(PTXCONF_KERNEL_MTD))
-	echo "y" | /bin/sh $(MTD_DIR)/patches/patchin.sh -j $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL)
 	cd $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL) &&						\
 		$(KERNEL_MTDPATCH_EXTRACT) $(KERNEL_MTDPATCH_SOURCE) |	\
 		patch -p1
