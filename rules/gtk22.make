@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gtk22.make,v 1.7 2004/02/25 09:46:50 robert Exp $
+# $Id: gtk22.make,v 1.8 2004/02/25 22:33:07 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -86,8 +86,7 @@ GTK22_ENV	+= FREETYPE_CONFIG="pkg-config freetype2"
 GTK22_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 GTK22_AUTOCONF	+= --build=$(GNU_HOST)
 GTK22_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-GTK22_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-GTK22_AUTOCONF  += --x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+GTK22_AUTOCONF	+= --with-x=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6
 # FIXME
 GTK22_AUTOCONF	+= --without-libtiff
 GTK22_AUTOCONF	+= --without-libjpeg
@@ -152,7 +151,7 @@ $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps)
 	ln -sf libgdk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk-x11-2.0.so.0
 	ln -sf libgdk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk-x11-2.0.so
 
-	install $(GTK22_DIR)/gdk-pixbuf/.libs/*.so $(ROOTDIR)/usr/lib
+	install $(GTK22_DIR)/gdk-pixbuf/.libs/libgdk_pixbuf-2.0.so.0.302.0 $(ROOTDIR)/usr/lib
 	ln -sf libgdk_pixbuf-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk_pixbuf-2.0.so.0
 	ln -sf libgdk_pixbuf-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk_pixbuf-2.0.so
 	
