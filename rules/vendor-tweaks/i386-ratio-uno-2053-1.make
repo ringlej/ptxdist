@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: i386-ratio-uno-2053-1.make,v 1.8 2004/04/14 16:49:47 bbu Exp $
+# $Id: i386-ratio-uno-2053-1.make,v 1.9 2004/04/14 18:29:07 bbu Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -57,7 +57,7 @@ $(STATEDIR)/ratio-uno-2053-1.targetinstall:
 	echo " " >> $(ROOTDIR)/boot/grub/menu.lst
 	echo 'title "Compact Flash - Serial Console: COM1"' >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "kernel /boot/bzImage root=/dev/hda1 ide=nodma console=vc/0,9600n8" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "kernel /boot/bzImage root=/dev/hda1 ide=nodma console=ttyS0,9600n8" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo " " >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "# Kernelparameter (ip=<params>) :" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "# Dokumentiert in Linux Kernel Decumentation" >> $(ROOTDIR)/boot/grub/menu.lst
