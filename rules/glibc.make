@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.10 2003/10/23 15:01:19 mkl Exp $
+# $Id: glibc.make,v 1.11 2003/10/23 20:40:41 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -128,7 +128,7 @@ endif
 ifeq ($(GLIBC_VERSION_MAJOR).$(GLIBC_VERSION_MINOR),2.2)
 GLIBC_PATH	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(CROSS_PATH)
 else
-#FIXME: wich autoconf version wants the glibc?
+#FIXME: wich autoconf version wants the glibc 2.3.x?
 GLIBC_PATH	=  PATH=$(CROSS_PATH)
 endif
 
@@ -181,7 +181,7 @@ $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
 #
 # don't compile programs
 #
-# 	echo "build-programs=no" >> $(XCHAIN_GLIBC_BUILDDIR)/configparms
+	echo "build-programs=no" >> $(GLIBC_BUILDDIR)/configparms
 
 	touch $@
 
@@ -198,8 +198,8 @@ $(STATEDIR)/glibc.compile: $(STATEDIR)/glibc.prepare
 # fake files which are installed by make install although
 # compiling binaries was switched of (tested with 2.2.5)
 #
-# 	touch $(XCHAIN_GLIBC_BUILDDIR)/iconv/iconv_prog
-# 	touch $(XCHAIN_GLIBC_BUILDDIR)/login/pt_chown
+	touch $(GLIBC_BUILDDIR)/iconv/iconv_prog
+	touch $(GLIBC_BUILDDIR)/login/pt_chown
 	touch $@
 
 # ----------------------------------------------------------------------------
