@@ -182,6 +182,11 @@ endmenu
 
 menu	"Debugging Tools     "
 
+config STRACE
+	bool
+	prompt "strace"
+	default n
+
 config KSYMOOPS
 	bool
 	prompt "ksymoops"
