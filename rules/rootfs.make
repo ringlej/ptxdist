@@ -190,22 +190,16 @@ ifdef PTXCONF_ROOTFS_ETC
 	fi
 
 	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_PS1))"; \
-	if [ -n "$$x" ]; then \
-		echo $$x; \
-		perl -i -p -e "s,\@PS1@,\"$$x\",g" $(ROOTDIR)/etc/profile; \
-	fi
+	echo $$x; \
+	perl -i -p -e "s,\@PS1@,\"$$x\",g" $(ROOTDIR)/etc/profile; \
 
 	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_PS2))"; \
-	if [ -n "$$x" ]; then \
-		echo $$x; \
-		perl -i -p -e "s,\@PS2@,\"$$x\",g" $(ROOTDIR)/etc/profile; \
-	fi
+	echo $$x; \
+	perl -i -p -e "s,\@PS2@,\"$$x\",g" $(ROOTDIR)/etc/profile; \
 
 	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_PS4))"; \
-	if [ -n "$$x" ]; then \
-		echo $$x; \
-		perl -i -p -e "s,\@PS4@,\"$$x\",g" $(ROOTDIR)/etc/profile; \
-	fi
+	echo $$x; \
+	perl -i -p -e "s,\@PS4@,\"$$x\",g" $(ROOTDIR)/etc/profile; \
 
 	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_VENDOR))"; \
 	if [ -n "$$x" ]; then \
