@@ -61,14 +61,13 @@ PTXCONF_ROOT=""
 #
 # Cross Toolchain     
 #
-PTXCONF_BUILD_CROSSCHAIN=y
-PTXCONF_BINUTILS_2_13_2_1=y
+# PTXCONF_BUILD_CROSSCHAIN is not set
+# PTXCONF_BINUTILS_2_13_2_1 is not set
 # PTXCONF_BINUTILS_2_14 is not set
 # PTXCONF_GCC_2_95_3 is not set
-PTXCONF_GCC_3_2_3=y
+# PTXCONF_GCC_3_2_3 is not set
 # PTXCONF_GCC_3_3_2 is not set
-PTXCONF_GCC_3=y
-PTXCONF_GCC_SHARED=y
+# PTXCONF_GCC_SHARED is not set
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
@@ -879,16 +878,6 @@ PTXCONF_UTELNETD=y
 # Kaffe               
 #
 # PTXCONF_KAFFE is not set
-# PTXCONF_KAFFE_ENG_INTRP is not set
-# PTXCONF_KAFFE_ENG_JIT is not set
-# PTXCONF_KAFFE_ENG_JIT3 is not set
-# PTXCONF_KAFFE_THREAD_P is not set
-# PTXCONF_KAFFE_THREAD_J is not set
-# PTXCONF_KAFFE_API_CLDC is not set
-# PTXCONF_KAFFE_API_SE is not set
-# PTXCONF_KAFFE_AWT_NO is not set
-# PTXCONF_KAFFE_AWT_X is not set
-# PTXCONF_KAFFE_AWT_QT is not set
 
 #
 # mad                 
@@ -907,7 +896,6 @@ PTXCONF_UTELNETD=y
 #
 # gettext          
 #
-# PTXCONF_GETTEXT is not set
 
 #
 # popt             
