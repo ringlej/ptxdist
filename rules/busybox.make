@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.26 2004/07/27 12:24:20 rsc Exp $
+# $Id: busybox.make,v 1.27 2004/08/09 08:55:40 rsc Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -80,7 +80,7 @@ BUSYBOX_MAKEVARS	+= LDFLAGS='$(strip $(subst ",,$(TARGET_LDFLAGS)))'
 #
 busybox_prepare_deps	=  $(STATEDIR)/virtual-xchain.install
 busybox_prepare_deps	+= $(STATEDIR)/busybox.extract
-busybox_prepare_deps	+= $(STATEDIR)/virtual-libc.targetinstall
+busybox_prepare_deps	+= $(STATEDIR)/virtual-libc.install
 
 $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	@$(call targetinfo, $@)
@@ -126,6 +126,7 @@ $(STATEDIR)/busybox.install: $(STATEDIR)/busybox.compile
 busybox_targetinstall: $(STATEDIR)/busybox.targetinstall
 
 busybox_targetinstall_deps	=  $(STATEDIR)/busybox.compile
+busybox_targetinstall_deps	+= $(STATEDIR)/virtual-libc.targetinstall
 
 $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 	@$(call targetinfo, $@)
