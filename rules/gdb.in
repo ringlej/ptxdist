@@ -37,5 +37,5 @@ choice
 		bool "termcap"
 
 	config GDB_NCURSES
-		bool "ncurses
+		bool "ncurses"
 endchoice
