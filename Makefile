@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.22 2003/08/26 12:57:06 robert Exp $
+# $Id: Makefile,v 1.23 2003/08/26 13:22:57 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -154,6 +154,7 @@ rayonic_config:
 roi-eics_config:
 	@echo "copying ROI EICS config" $(call latestconfig, roi-eics)
 	@cp $(call latestconfig, ptxconfig-roi-eics) .config
+	@cp $(call latestconfig, rtaiconfig-roi) .rtaiconfig
 
 solidcard-bmw_config:
 	@echo "copying solidcard-bmw config" $(call latestconfig, ptxconfig-solidcard-bmw)
