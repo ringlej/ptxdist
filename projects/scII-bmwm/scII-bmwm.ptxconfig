@@ -1128,6 +1128,7 @@ PTXCONF_CRAMFS=y
 # Communication Utilities     
 #
 # PTXCONF_EFAX is not set
+# PTXCONF_POP3SPAM is not set
 
 #
 # Applications                
@@ -1172,6 +1173,11 @@ PTXCONF_CRAMFS=y
 #
 # gettext          
 #
+
+#
+# pcre             
+#
+# PTXCONF_PCRE is not set
 
 #
 # popt             

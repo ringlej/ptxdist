@@ -1008,6 +1008,7 @@ PTXCONF_UTELNETD=y
 # Communication Utilities     
 #
 # PTXCONF_EFAX is not set
+# PTXCONF_POP3SPAM is not set
 
 #
 # Applications                
@@ -1052,6 +1053,11 @@ PTXCONF_UTELNETD=y
 #
 # gettext          
 #
+
+#
+# pcre             
+#
+# PTXCONF_PCRE is not set
 
 #
 # popt             

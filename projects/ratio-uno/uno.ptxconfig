@@ -1072,6 +1072,7 @@ PTXCONF_GRUB_PRESET_MENU=""
 # Communication Utilities     
 #
 # PTXCONF_EFAX is not set
+# PTXCONF_POP3SPAM is not set
 
 #
 # Applications                
@@ -1116,6 +1117,11 @@ PTXCONF_GRUB_PRESET_MENU=""
 #
 # gettext          
 #
+
+#
+# pcre             
+#
+# PTXCONF_PCRE is not set
 
 #
 # popt             
