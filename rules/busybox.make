@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.6 2003/08/25 05:08:20 robert Exp $
+# $Id: busybox.make,v 1.7 2003/08/26 13:00:19 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -130,6 +130,7 @@ busybox_targetinstall_deps	=  $(STATEDIR)/busybox.compile
 
 $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 	@$(call targetinfo, busybox.targetinstall)
+	install -d $(ROOTDIR)
 	rm -f $(BUSYBOX_DIR)/busybox.links
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) install          \
 		PREFIX=$(ROOTDIR) $(BUSYBOX_MAKEVARS)
