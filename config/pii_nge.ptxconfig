@@ -70,7 +70,7 @@ PTXCONF_ARCH="arm"
 PTXCONF_ARCH_USERSPACE="arm"
 PTXCONF_ARM_PROC="armv"
 PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
-PTXCONF_PREFIX="/ptx/ptxdist-20040705-1/local/"
+PTXCONF_PREFIX="/home/robert/work/ptxdist-pii/local/"
 PTXCONF_ROOT=""
 
 #
@@ -130,7 +130,7 @@ PTXCONF_UTLNX_FDISK=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.6.7-pii_nge"
+PTXCONF_KERNEL_CONFIG="kernel-2.6.8-rc2-pii_nge"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
@@ -153,16 +153,16 @@ PTXCONF_KERNEL_INSTALL=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.7-ptx4/linux-2.6.7-mtd20040622.diff"
-PTXCONF_KERNEL_PATCH1_NAME="mtd20040622"
+PTXCONF_KERNEL_PATCH1_URL="http://www.kernel.org/pub/linux/kernel/v2.6/testing/patch-2.6.8-rc2.bz2"
+PTXCONF_KERNEL_PATCH1_NAME="2.6.8-rc2"
 PTXCONF_KERNEL_PATCH1_XCHAIN=y
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.7-ptx4/linux-2.6.7-mtd20040622-ptx4.diff"
-PTXCONF_KERNEL_PATCH2_NAME="mtd20040622-ptx4"
-PTXCONF_KERNEL_PATCH2_XCHAIN=y
+PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.7-ptx5/linux-2.6.7-ptx5.diff"
+PTXCONF_KERNEL_PATCH2_NAME="2.6.8-rc2-ptx5"
+# PTXCONF_KERNEL_PATCH2_XCHAIN is not set
 
 #
 # 
@@ -689,6 +689,25 @@ PTXCONF_COREUTILS_CP=y
 # Gawk                
 #
 # PTXCONF_GAWK is not set
+
+#
+# Hotplug             
+#
+PTXCONF_HOTPLUG=y
+
+#
+# hotplug scripts
+#
+# PTXCONF_HOTPLUG_BLACKLIST is not set
+PTXCONF_HOTPLUG_FIRMWARE=y
+# PTXCONF_HOTPLUG_IEEE1394 is not set
+# PTXCONF_HOTPLUG_NET is not set
+# PTXCONF_HOTPLUG_PCI is not set
+# PTXCONF_HOTPLUG_SCSI is not set
+# PTXCONF_HOTPLUG_USB is not set
+# PTXCONF_HOTPLUG_INPUT is not set
+# PTXCONF_HOTPLUG_DASD is not set
+# PTXCONF_HOTPLUG_TAPE is not set
 
 #
 # mgetty & sendfax    
