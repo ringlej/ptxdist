@@ -1,3 +1,8 @@
+2003-08-xx Robert Schwebel <r.schwebel@pengutronix.de>
+	* XFree86: added
+	* Mozilla-Firebird: added
+	* NEWPACKET: added script to support creation of new rules files
+
 2003-08-14 Robert Schwebel <r.schwebel@pengutronix.de>
 	* Preparation for release
 	* glibc: some fixes to find out where the _G_config.h problem comes
