@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-binutils.make,v 1.7 2003/08/26 13:03:52 bsp Exp $
+# $Id: xchain-binutils.make,v 1.8 2003/09/18 00:42:49 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -7,6 +7,10 @@
 # For further information about the PTXDIST project and license conditions
 # see the README file.
 #
+
+ifdef PTXCONF_BUILD_CROSSCHAIN
+XCHAIN += xchain-binutils
+endif
 
 #
 # Paths and names 
@@ -19,14 +23,14 @@ ifdef PTXCONF_ARCH_NOMMU
 XBINUTILS		= binutils-2.10
 XBINUTILS_URL		= ftp://ftp.gnu.org/pub/gnu/binutils/$(XBINUTILS).tar.gz
 endif
-ifdef PTXCONF_ARCH_MIPS
-XBINUTILS		= binutils-2.14.90.0.4
-XBINUTILS_URL		= ftp://ftp.de.kernel.org/pub/linux/devel/binutils/$(XBINUTILS).tar.gz
-endif
-ifdef PTXCONF_ARCH_PARISC
-XBINUTILS		= binutils-2.14.90.0.4
-XBINUTILS_URL		= ftp://ftp.de.kernel.org/pub/linux/devel/binutils/$(XBINUTILS).tar.gz
-endif
+# ifdef PTXCONF_ARCH_MIPS
+# XBINUTILS		= binutils-2.14.90.0.4
+# XBINUTILS_URL		= ftp://ftp.de.kernel.org/pub/linux/devel/binutils/$(XBINUTILS).tar.gz
+# endif
+# ifdef PTXCONF_ARCH_PARISC
+# XBINUTILS		= binutils-2.14.90.0.4
+# XBINUTILS_URL		= ftp://ftp.de.kernel.org/pub/linux/devel/binutils/$(XBINUTILS).tar.gz
+# endif
 
 XBINUTILS_NOMMU_PATCH		= binutils-2.10-full.patch
 XBINUTILS_NOMMU_PATCH_URL	= http://www.uclinux.org/pub/uClinux/m68k-elf-tools/tools-20030314/$(XBINUTILS_NOMMU_PATCH)
@@ -102,12 +106,12 @@ endif
 xchain-binutils_prepare: $(STATEDIR)/xchain-binutils.prepare
 
 XCHAIN_XBINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET)
-ifdef PTXCONF_ARCH_MIPS
-XCHAIN_XBINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET),mips64-linux
-endif
-ifdef PTXCONF_OPT_PA8X00
-XCHAIN_XBINUTILS_AUTOCONF_TARGET = --enable-targets=$(PTXCONF_GNU_TARGET),hppa64-linux
-endif
+# ifdef PTXCONF_ARCH_MIPS
+# XCHAIN_XBINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET),mips64-linux
+# endif
+# ifdef PTXCONF_OPT_PA8X00
+# XCHAIN_XBINUTILS_AUTOCONF_TARGET = --enable-targets=$(PTXCONF_GNU_TARGET),hppa64-linux
+# endif
 
 XCHAIN_XBINUTILS_AUTOCONF = \
 	--target=$(PTXCONF_GNU_TARGET) \
