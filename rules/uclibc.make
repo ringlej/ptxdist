@@ -52,7 +52,7 @@ uclibc_fix_config_general =							\
 	echo 'KERNEL_SOURCE="$(XCHAIN_KERNEL_BUILDDIR)"'	>> $(1);	\
 	echo 'SHARED_LIB_LOADER_PREFIX="/lib"'			>> $(1);	\
 	echo 'RUNTIME_PREFIX="/"'				>> $(1);	\
-	echo 'DEVEL_PREFIX=$(CROSS_LIB_DIR)'			>> $(1);	\
+	echo 'DEVEL_PREFIX="$(CROSS_LIB_DIR)"'			>> $(1);	\
 	perl -i -p -e 's/^(.*=)"(.*?)"(.*)"(.*)"/$$1"$$2$$3$$4"/'  $(1);	\
 	perl -i -p -e 's/^(.*=)"(.*?)"(.*)/$$1"$$2$$3"/'           $(1)
 
