@@ -38,7 +38,7 @@ choice
 	config GCC_3_3_2
 		bool
 		prompt "3.3.2"
-		depends on ARCH_ARM
+		depends on ARCH_X86 || ARCH_ARM
 	
 endchoice
 
