@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: penguzilla.make,v 1.10 2004/03/10 17:34:31 robert Exp $
+# $Id: penguzilla.make,v 1.11 2004/03/31 16:18:58 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -69,7 +69,8 @@ penguzilla_prepare_deps =  \
 	$(STATEDIR)/penguzilla.extract \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/mfirebird.install \
-	$(STATEDIR)/gail.install
+	$(STATEDIR)/gail.install \
+	$(STATEDIR)/libxml2.install
 
 PENGUZILLA_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 PENGUZILLA_ENV 	=  $(CROSS_ENV)
@@ -123,7 +124,11 @@ $(STATEDIR)/penguzilla.install: $(STATEDIR)/penguzilla.compile
 
 penguzilla_targetinstall: $(STATEDIR)/penguzilla.targetinstall
 
-penguzilla_targetinstall_deps	=  $(STATEDIR)/penguzilla.compile
+penguzilla_targetinstall_deps =	\
+	$(STATEDIR)/penguzilla.compile	\
+	$(STATEDIR)/gtk2-engines.targetinstall \
+	$(STATEDIR)/gail.targetinstall \
+	$(STATEDIR)/libxml2.targetinstall
 
 $(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps)
 	@$(call targetinfo, $@)
