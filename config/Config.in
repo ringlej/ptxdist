@@ -1705,6 +1705,22 @@ comment	"Linking options"
 endmenu
 ############################################################################## 
 
+menu "System Libraries    "
+
+source rules/gettext.in
+
+endmenu
+
+############################################################################## 
+
+menu "Graphics Libraries  "
+
+source rules/glib22.in
+
+endmenu
+
+############################################################################## 
+
 menu "Web Applications    "
 
 source rules/mfirebird.in
