@@ -145,6 +145,7 @@ ifdef PTXCONF_ROOTFS_ETC
 	# Copy generic etc
 	# FIXME: some parts of this have to be put into the packet make files!
 
+	mkdir -p $(ROOTDIR)/etc
 	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/fstab,        /etc/fstab)
 	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/group,        /etc/group)
 	$(call copy_root, 0, 0, 0640, $(TOPDIR)/projects/generic/etc/gshadow,      /etc/gshadow)
