@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.13 2003/10/29 16:45:14 mkl Exp $
+# $Id: xchain-kernel.make,v 1.14 2003/10/31 22:51:18 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -34,7 +34,7 @@ XCHAIN_KERNEL_BUILDDIR	= $(BUILDDIR)/xchain-$(KERNEL)
 # so we pull in the kernel's patches and drop ltt
 # (rtai isn't included in kernel flavour)
 #
-XCHAIN_KERNEL_PATCHES	= $(addprefix xchain-kernel-, \
+XCHAIN_KERNEL_PATCHES	+= $(addprefix xchain-kernel-, \
 	$(call get_option_ext, s/^PTXCONF_KERNEL_[0-9]_[0-9]_[0-9]*_\(.*\)=y/\1/, sed -e 's/_/ /g' -e 's/[0-9]//g' -e 's/ltt//g'))
 
 # ----------------------------------------------------------------------------
