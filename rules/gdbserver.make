@@ -1,8 +1,9 @@
 # -*-makefile-*-
-# $Id: gdbserver.make,v 1.3 2003/10/23 17:52:22 mkl Exp $
+# $Id: gdbserver.make,v 1.4 2003/11/17 03:25:08 mkl Exp $
 #
-# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -12,7 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BUILD_GDBSERVER
+ifdef PTXCONF_GDBSERVER
 PACKAGES += gdbserver
 endif
 
@@ -100,9 +101,9 @@ gdbserver_targetinstall: $(STATEDIR)/gdbserver.targetinstall
 
 $(STATEDIR)/gdbserver.targetinstall: $(STATEDIR)/gdbserver.compile
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/bin
-	install $(GDBSERVER_BUILDDIR)/gdbserver $(ROOTDIR)/bin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/bin/gdbserver
+	mkdir -p $(ROOTDIR)/usr/bin
+	install $(GDBSERVER_BUILDDIR)/gdbserver $(ROOTDIR)/usr/bin
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/gdbserver
 	touch $@
 
 # ----------------------------------------------------------------------------
