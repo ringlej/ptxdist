@@ -145,7 +145,8 @@ STATE_DIR="state";
 RULE_DIR="rules";
 PKG_LIST="$STATE_DIR/packetlist"
 SRC_DIR=$TOPDIR/src
-SRC_TMP=/tmp/ptxdist_src-$MAGIC
+SRC_TMP=/tmp/ptxdist_src-$$-$MAGIC
+PTX_TMP=/tmp/ptxdist_ptx-$$-$MAGIC
 SRC_TAR=$ARCH_PATH/$RELEASE-additional_sources.tar
 PATCH_TAR=$ARCH_PATH/$RELEASE-additional_patches.tar
 PTXDIST_TAR=$ARCH_PATH/$RELEASE.tgz
@@ -155,6 +156,7 @@ TAR="tar"
 echo "preparing ... " 
 mkdir -p $SRC_TMP/src && echo "OK"
 rm -rf $SRC_TMP/src/*
+mkdir -p $PTX_TMP
 
 rm -f $SRC_TAR
 rm -f $PATCH_TAR $PATCH_TAR.gz $PATCH_TAR.bz2
@@ -194,7 +196,7 @@ echo "constructing ptxdist archive"
 # echo "WHRERE AM I ? $(pwd)"
 echo "$ARCH_BASENAME"
 
-$TAR -C $TOPDIR/.. -zcvf $PTXDIST_TAR 			\
+$TAR -C $TOPDIR/.. -cf -                                \
 	--exclude CVS					\
 	--exclude .svn					\
 	--exclude $ARCH_BASENAME/build/*		\
@@ -208,7 +210,17 @@ $TAR -C $TOPDIR/.. -zcvf $PTXDIST_TAR 			\
 	--exclude $ARCH_BASENAME/patches		\
 	--exclude $ARCH_BASENAME/Documentation/manual	\
 	--exclude "\.#*"				\
+	--exclude "*~"                                  \
+	$ARCH_BASENAME |
+        $TAR -C $PTX_TMP -xf -
+
+make -C $PTX_TMP/$ARCH_BASENAME distclean
+
+$TAR -C $PTX_TMP/ -zcvf $PTXDIST_TAR                    \
 	$ARCH_BASENAME
+
+echo "removing temp dir..."
+rm -rf $PTX_TMP && echo "OK"
 
 # -------------------------------------------
 # Cleanup
