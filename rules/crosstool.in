@@ -66,13 +66,17 @@ choice
 	prompt "binutils"
 		depends on CROSSTOOL
 
-	config BINUTILS_2_14
-		bool
-		prompt "2.14"
-
 	config BINUTILS_2_15
 		bool
 		prompt "2.15"
+
+	config BINUTILS_2_14_90_0_5
+		bool
+		prompt "2.14.90.0.5"
+
+	config BINUTILS_2_14
+		bool
+		prompt "2.14"
 
 endchoice
 
@@ -100,8 +104,9 @@ config CROSSTOOL_KERNELCONFIG
 
 config BINUTILS_VERSION
 	string
-	default "2.14"		if BINUTILS_2_14
 	default "2.15"		if BINUTILS_2_15
+	default "2.14"		if BINUTILS_2_14
+	default "2.14.90.0.5"	if BINUTILS_2_14_90_0_5
 
 comment "Generic Options"
 

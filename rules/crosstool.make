@@ -146,7 +146,7 @@ $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 #
 	(	cd $(CROSSTOOL_DIR); \
 		set -ex; \
-		TARBALLS_DIR=$(TOPDIR)/src; \
+		TARBALLS_DIR=$(SRCDIR); \
 		RESULT_TOP=$(subst $(quote),,$(PTXCONF_PREFIX)); \
 		export TARBALLS_DIR RESULT_TOP;	\
 		export GCC_LANGUAGES="$(CROSSTOOL_GCCLANG)"; \
