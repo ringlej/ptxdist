@@ -387,7 +387,7 @@ CROSS_ENV := \
 
 
 #
-# CROSS_LIB_DIR	= into this dir, the libs for the target system, are installed
+# CROSS_LIB_DIR	= the libs for the target system are installed into this dir
 #
 CROSS_LIB_DIR		= $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 
