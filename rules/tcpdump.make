@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: tcpdump.make,v 1.1 2004/03/31 16:23:29 robert Exp $
+# $Id: tcpdump.make,v 1.2 2004/03/31 16:27:52 mkl Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          
@@ -22,7 +22,7 @@ endif
 TCPDUMP_VERSION		= 3.8.1
 TCPDUMP			= tcpdump-$(TCPDUMP_VERSION)
 TCPDUMP_SUFFIX		= tar.gz
-TCPDUMP_URL		= http://www.tcpdump.org/release//$(TCPDUMP).$(TCPDUMP_SUFFIX)
+TCPDUMP_URL		= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX)
 TCPDUMP_SOURCE		= $(SRCDIR)/$(TCPDUMP).$(TCPDUMP_SUFFIX)
 TCPDUMP_DIR		= $(BUILDDIR)/$(TCPDUMP)
 

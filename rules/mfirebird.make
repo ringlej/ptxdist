@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.17 2004/03/31 16:18:04 robert Exp $
+# $Id: mfirebird.make,v 1.18 2004/03/31 16:27:52 mkl Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
-#                       Pengutronix e.K. <info@pengutronix.de>, Germany
+#                       Pengutronix e.K.<info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -471,7 +471,7 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 
 	# cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make install DESTDIR=$(ROOTDIR)
 	install -d $(ROOTDIR)/usr/lib
-	
+
 	install $(MFIREBIRD_DIR)/dist/lib/libgkgfx.so $(ROOTDIR)/usr/lib
 	install $(MFIREBIRD_DIR)/dist/lib/libgtkembedmoz.so $(ROOTDIR)/usr/lib
 	install $(MFIREBIRD_DIR)/dist/lib/libgtkxtbin.so $(ROOTDIR)/usr/lib

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bing.make,v 1.1 2004/03/31 16:23:29 robert Exp $
+# $Id: bing.make,v 1.2 2004/03/31 16:27:52 mkl Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel
 #          
@@ -22,7 +22,7 @@ endif
 BING_VERSION		= 1.0.5
 BING			= bing-$(BING_VERSION)
 BING_SUFFIX		= tar.gz
-BING_URL		= http://www.freenix.org/reseau//$(BING).$(BING_SUFFIX)
+BING_URL		= http://www.freenix.org/reseau/$(BING).$(BING_SUFFIX)
 BING_SOURCE		= $(SRCDIR)/$(BING).$(BING_SUFFIX)
 BING_DIR		= $(BUILDDIR)/$(BING)
 
