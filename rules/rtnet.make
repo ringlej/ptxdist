@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtnet.make,v 1.1 2003/11/02 04:25:18 mkl Exp $
+# $Id: rtnet.make,v 1.2 2003/11/02 23:51:39 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #          
@@ -54,6 +54,10 @@ $(STATEDIR)/rtnet.extract: $(rtnet_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTNET_DIR))
 	@$(call extract, $(RTNET_SOURCE))
+#
+# rtai's rtnet.h conflicts with our rtnet.h
+#
+	@$(call clean, $(RTAI_DIR)/include/rtnet.h)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -67,7 +71,9 @@ rtnet_prepare: $(STATEDIR)/rtnet.prepare
 #
 rtnet_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/kernel-modversions.prepare \
 	$(STATEDIR)/rtai.prepare \
+	$(STATEDIR)/ncurses.install \
 	$(STATEDIR)/rtnet.extract
 
 RTNET_PATH	=  PATH=$(CROSS_PATH)
@@ -81,6 +87,47 @@ RTNET_AUTOCONF = \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--prefix=$(CROSS_LIB_DIR) \
 	--with-rtai=$(RTAI_DIR)
+
+ifdef PTXCONF_RTNET_3C59X
+RTNET_AUTOCONF	+= --enable-3c59x
+endif
+
+ifdef PTXCONF_RTNET_8139
+RTNET_AUTOCONF	+= --enable-8139
+endif
+
+ifdef PTXCONF_RTNET_EEPRO100
+RTNET_AUTOCONF	+= --enable-eepro100
+endif
+
+ifdef PTXCONF_RTNET_PCNET32
+RTNET_AUTOCONF	+= --enable-pcnet32
+endif
+
+ifdef PTXCONF_RTNET_VIA_RHINE
+RTNET_AUTOCONF	+= --enable-via-rhine
+endif
+
+ifdef PTXCONF_RTNET_LOOPBACK
+RTNET_AUTOCONF	+= --enable-loopback
+endif
+
+ifdef PTXCONF_RTNET_TULIP
+RTNET_AUTOCONF	+= --enable-tulip
+endif
+
+ifdef PTXCONF_RTNET_FCC_ENET
+RTNET_AUTOCONF	+= --enable-fcc-enet
+endif
+
+ifdef PTXCONF_RTNET_SCC_ENET
+RTNET_AUTOCONF	+= --enable-scc-enet
+endif
+
+ifdef PTXCONF_RTNET_FEC_ENET
+RTNET_AUTOCONF	+= --enable-fec-enet
+endif
+
 
 $(STATEDIR)/rtnet.prepare: $(rtnet_prepare_deps)
 	@$(call targetinfo, $@)
