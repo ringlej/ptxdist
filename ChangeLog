@@ -1,10 +1,26 @@
-2003-08-xx Robert Schwebel <r.schwebel@pengutronix.de>
-	* general: added generic "patchin" macro. Execute dot only when 
-	  available and avoid error otherwhise. 
-	* busybox: update to 1.00-pre2. 
+2003-09-17 Robert Schwebel <r.schwebel@pengutronix.de>
+	* patch system: added generic patch system which gets patches
+	  from a web repository; inserted all of Dan Kegel's patches
+	* ltt: added support for Linux Trace Toolkit
+	* general: Execute dot only when available and avoid error otherwhise. 
+	* general: made root/ directory configurable
+	* general: introduced generic architecture support file in
+          config/arch/
+	* configs: added configurations for roi-eics, scII-bmwm, scII-cameron;
+	  updated innokom configs
+	* toplevel make: added getclean target; fixes in archive mechanism
+	* config: support for extra CFLAGS and CXXFLAGS
+	* general: add customer specific "addons" directory
+	* kernel: support for linux-2.4.22
+	* rtai: support for rtai-24.1.11
+	* mtd: added mkjffs2 tools
+	* libnet: added support for libnet
+	* mips: support for big and little endian
+	* busybox: update to 1.00-pre3; configuration allows multiple bbs now. 
 	* XFree86: added
 	* Mozilla-Firebird: added
 	* NEWPACKET: added script to support creation of new rules files
+	* 0.3.24 released
 
 2003-08-14 Robert Schwebel <r.schwebel@pengutronix.de>
 	* Preparation for release
