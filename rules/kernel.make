@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.14 2003/11/02 23:46:23 mkl Exp $
+# $Id: kernel.make,v 1.15 2003/11/02 23:56:52 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -47,11 +47,19 @@ endif
 # Patches
 # ----------------------------------------------------------------------------
 
-KERNEL_PATCHES =  $(addprefix kernel-, \
+KERNEL_PATCHES	=  $(addprefix kernel-, \
 	$(call get_option_ext, s/^PTXCONF_KERNEL_[0-9]_[0-9]_[0-9]*_\(.*\)=y/\1/, sed -e 's/_/ /g' -e 's/[0-9]//g' ))
 
 ifdef PTXCONF_RTAI
-KERNEL_PATCHES += kernel-rtai
+KERNEL_PATCHES	+= kernel-rtai
+endif
+
+ifdef PTXCONF_KERNEL_SYS-EPOLL
+KERNEL_PATCHES	+= kernel-sys-epoll
+endif
+
+ifdef PTXCONF_KERNEL_DEV-EPOLL
+KERNEL_PATCHES	+= kernel-dev-epoll
 endif
 
 # ----------------------------------------------------------------------------

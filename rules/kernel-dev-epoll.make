@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel-dev-epoll.make,v 1.1 2003/10/31 22:48:51 mkl Exp $
+# $Id: kernel-dev-epoll.make,v 1.2 2003/11/02 23:56:52 mkl Exp $
 #
 # Copyright (C) 2003 by Ixia Corporation, by Milan Bobde
 #          
@@ -12,9 +12,9 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_KERNEL_DEV-EPOLL
-KERNEL_PATCHES += kernel-dev-epoll
-endif
+# ifdef PTXCONF_KERNEL_DEV-EPOLL
+# KERNEL_PATCHES += kernel-dev-epoll
+# endif
 
 #
 # Paths and names
