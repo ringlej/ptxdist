@@ -128,10 +128,11 @@ disable_sh =					\
 # $2 = $(PACKETNAME) -> identifier
 #
 patchin =						\
-	set -e; 					\
-	cd $(1);	 				\
-	for p in $(TOPDIR)/patches/$(2)/*.patch; do	\
-		if test -f $$p ; then 			\
+	set -e &&  					\
+	cd $(1) && 	 				\
+	for p in $(TOPDIR)/patches/`echo -n $(2)`/*.diff; do	\
+		if [ -f $$p ]; then 			\
+			echo "patchin' $$p ...";	\
 			$(PATCH) -p1 < $$p; 		\
 		fi;					\
 	done
