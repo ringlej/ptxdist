@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bash.make,v 1.7 2004/06/21 11:41:35 rsc Exp $
+# $Id: bash.make,v 1.8 2004/06/21 13:35:03 rsc Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -249,6 +249,6 @@ $(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.compile
 # ----------------------------------------------------------------------------
 
 bash_clean: 
-	rm -rf $(STATEDIR)/bash.* $(BASH_DIR)
+	rm -rf $(STATEDIR)/bash.* $(STATEDIR)/bash-patches.get $(BASH_DIR)
 
 # vim: syntax=make
