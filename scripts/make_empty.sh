@@ -38,12 +38,11 @@ mkdir -p ${COMMON}
 COMMON=$(cd ${COMMON}; echo $PWD)
 
 cp -R ${PTXDIST}/* ${EMPTY}
-find ${EMPTY} -name "CVS" -type d -print0 | xargs -0 -- rm -rf
+find ${EMPTY} -name ".svn" -type d -print0 | xargs -0 -- rm -rf
 find ${EMPTY} -name "*~*" -type f -print0 | xargs -0 -- rm -rf
 find ${EMPTY} -name ".#*" -type f -print0 | xargs -0 -- rm -rf
   
 for OBJ in \
-    AUDIT \
     COPYING \
     CREDITS \
     ChangeLog \
@@ -52,9 +51,10 @@ for OBJ in \
     README \
     SPECIFICATION \
     TODO \
+    \
     config \
-    etc \
     misc \
+    projects \
     rules \
     \
     Documentation/NEWPACKETHOWTO \
@@ -67,13 +67,18 @@ for OBJ in \
     Documentation/manual/intro \
     Documentation/manual/user \
     \
+    scripts/collect_sources.sh\
+    scripts/compile-test \
     scripts/config.guess \
+    scripts/cuckoo-test \
     scripts/cvs2cl \
+    scripts/genhdimg \
     scripts/get_tool_versions.sh \
     scripts/make_empty.sh \
     scripts/makedeptree \
     scripts/mkprefix \
     scripts/settoolchain.sh \
+    scritps/sysinclude_test \
     scripts/ptx-modifications \
     \
     ; do
@@ -88,7 +93,6 @@ done
 
 
 for OBJ in \
-    patches-local \
     src \
     ; do
   echo -n .
