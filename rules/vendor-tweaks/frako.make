@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: frako.make,v 1.10 2004/03/15 11:41:20 bbu Exp $
+# $Id: frako.make,v 1.11 2004/03/23 11:13:25 bbu Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -76,7 +76,9 @@ $(STATEDIR)/frako.targetinstall:
 	echo "#    6. Device (z.B. eth0)" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "#    7. Autoconf (on oder off)" >> $(ROOTDIR)/boot/grub/menu.lst
 	
-	# create some mountpoints
+	# create some mountpoints	
+	install -d $(ROOTDIR)/data/
+
 	install -d $(ROOTDIR)/var/run
 	install -d $(ROOTDIR)/var/log
 	install -d $(ROOTDIR)/var/lock
@@ -85,14 +87,9 @@ $(STATEDIR)/frako.targetinstall:
 	install -d $(ROOTDIR)/home/frako
 	install -d $(ROOTDIR)/home/system
 	
-	# create mgetty directories
-	install -d $(ROOTDIR)/var/spool/fax/incoming
-	install -d $(ROOTDIR)/var/spool/fax/outgoing
-
-	# create crond directories
-	install -d $(ROOTDIR)/var/spool/cron/crontabs
-
 	# create some symlinks
+	ln -sf /data/var/spool $(ROOTDIR)/var/spool
+	ln -sf /data/var/cron $(ROOTDIR)/var/cron
 	ln -sf /home/system/localtime $(ROOTDIR)/etc/localtime
 
 	# we need to fix owner / permissions at first startup 

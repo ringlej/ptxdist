@@ -44,9 +44,11 @@ echo -n "---creating FRAKO-links in /dev..."
 ln -s /dev/misc/lcd /dev/lcd
 ln -s /dev/misc/led /dev/led
 ln -s /dev/misc/kpd /dev/kpd
+ln -s /dev/misc/relais /dev/relais
 chmod 666 /dev/misc/lcd
 chmod 666 /dev/misc/led
 chmod 666 /dev/misc/kpd
+chmod 666 /dev/misc/relais
 echo "done."
 
 echo -n "---creating Network-Device lo..."
