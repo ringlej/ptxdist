@@ -18,7 +18,6 @@ GNU_HOST	= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 CROSSSTRIP	= PATH=$(CROSS_PATH) $(PTXCONF_COMPILER_PREFIX)strip
 DEP_OUTPUT	= depend.out
 DEP_TREE_PS	= deptree.ps
-DEBPOOL_MIRROR	= http://ftp.fr.debian.org/debian
 
 SUDO		= sudo
 HOSTCC		= gcc
