@@ -1,4 +1,4 @@
-# $Id: portmap.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# $Id: portmap.make,v 1.3 2003/06/30 15:43:26 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -70,7 +70,7 @@ $(STATEDIR)/portmap.prepare: $(STATEDIR)/portmap.extract
 
 portmap_compile: $(STATEDIR)/portmap.compile
 
-PORTMAP_ENVIRONMENT = CC=$(PTXCONF_GNU_TARGET)-gcc
+PORTMAP_ENVIRONMENT = CC=$(PTXCONF_GNU_TARGET)-gcc PATH=$(PTXCONF_PREFIX)/bin:$$PATH
 
 portmap_compile_deps = $(STATEDIR)/portmap.prepare
 portmap_compile_deps += $(STATEDIR)/tcpwrapper.compile

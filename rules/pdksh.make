@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pdksh.make,v 1.2 2003/06/27 12:32:45 robert Exp $
+# $Id: pdksh.make,v 1.3 2003/06/30 15:43:26 bsp Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
@@ -134,7 +134,7 @@ pdksh_compile: $(STATEDIR)/pdksh.compile
 
 $(STATEDIR)/pdksh.compile: $(STATEDIR)/pdksh.prepare 
 	@$(call targetinfo, pdksh.compile)
-	make -C $(PDKSH_DIR) $(PDKSH_MAKEVARS) $(MAKEPARMS)
+	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(PDKSH_DIR) $(PDKSH_MAKEVARS) $(MAKEPARMS)
 	touch $@
 
 # ----------------------------------------------------------------------------

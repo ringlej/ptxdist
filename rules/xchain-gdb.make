@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gdb.make,v 1.2 2003/06/27 12:33:10 robert Exp $
+# $Id: xchain-gdb.make,v 1.3 2003/06/30 15:43:26 bsp Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -64,6 +64,7 @@ $(STATEDIR)/xchain-gdb.prepare: $(STATEDIR)/xchain-gdb.extract
 		--enable-targets=$(PTXCONF_GNU_TARGET)	
 ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN_GDBSERVER))
 	cd $(GDB_DIR)/gdb/gdbserver &&					\
+	PATH=$(PTXCONF_PREFIX)/bin:$$PATH				\
 	CC=$(PTXCONF_GNU_TARGET)-gcc sh ./configure			\
 		--host=$(PTXCONF_GNU_TARGET)				\
 		--prefix=$(ROOTDIR) 
@@ -80,7 +81,7 @@ $(STATEDIR)/xchain-gdb.compile: $(STATEDIR)/xchain-gdb.prepare
 	@$(call targetinfo, xchain-gdb.compile)
 	cd $(GDB_DIR) && make 
 ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN_GDB))
-	cd $(GDB_DIR)/gdb/gdbserver && make
+	cd $(GDB_DIR)/gdb/gdbserver && PATH=$(PTXCONF_PREFIX)/bin:$$PATH make
 endif
 	touch $@
 

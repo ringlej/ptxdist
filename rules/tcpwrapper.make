@@ -1,4 +1,4 @@
-# $Id: tcpwrapper.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# $Id: tcpwrapper.make,v 1.3 2003/06/30 15:43:26 bsp Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -72,7 +72,7 @@ $(STATEDIR)/tcpwrapper.prepare: $(STATEDIR)/tcpwrapper.extract
 
 tcpwrapper_compile: $(STATEDIR)/tcpwrapper.compile
 
-TCPWRAPPER_ENVIRONMENT = CC=$(PTXCONF_GNU_TARGET)-gcc
+TCPWRAPPER_ENVIRONMENT = CC=$(PTXCONF_GNU_TARGET)-gcc PATH=$(PTXCONF_PREFIX)/bin:$$PATH
 
 $(STATEDIR)/tcpwrapper.compile: $(STATEDIR)/tcpwrapper.prepare 
 	@$(call targetinfo, tcpwrapper.compile)
