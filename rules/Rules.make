@@ -37,22 +37,32 @@ targetinfo=echo;					\
 #
 # if $2 is not given, it is extracted to the BUILDDIR
 #
-extract =						\
-	DEST="$(strip $(2))";				\
-	DEST=$${DEST:-$(BUILDDIR)};			\
-	case "$(strip $(1))" in				\
-	*gz)						\
-		EXTRACT=gzip				\
-		;;					\
-	*bz2)						\
-		EXTRACT=bzip2				\
-		;;					\
-	*)						\
-		EXTRACT=false				\
-		;;					\
-	esac;						\
-	[ -d $$DEST ] || mkdir -p $$DEST;		\
-	$$EXTRACT -dc $(1) | $(TAR) -C $$DEST -xf -
+extract =							\
+	PACKET="$(strip $(1))";					\
+	if [ "$$PACKET" = "" ]; then				\
+		echo;						\
+		echo Error: empty parameter to \"extract\(\)\";	\
+		echo;						\
+		exit -1;					\
+	fi;							\
+	DEST="$(strip $(2))";					\
+	DEST=$${DEST:-$(BUILDDIR)};				\
+	case "$$PACKET" in					\
+	*gz)							\
+		EXTRACT=gzip					\
+		;;						\
+	*bz2)							\
+		EXTRACT=bzip2					\
+		;;						\
+	*)							\
+		echo;						\
+		echo Unknown format, cannot extect!;		\
+		echo;						\
+		exit -1;					\
+		;;						\
+	esac;							\
+	[ -d $$DEST ] || mkdir -p $$DEST;			\
+	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -
 
 #
 # download the given URL
@@ -60,11 +70,18 @@ extract =						\
 # $1 = URL of the packet
 # $2 = source dir
 # 
-get =							\
-	SRC="$(strip $(2))";				\
-	SRC=$${SRC:-$(SRCDIR)};				\
-	[ -d $$SRC ] || mkdir -p $$SRC;			\
-	wget -P $$SRC $(PASSIVEFTP) $(1)
+get =								\
+	URL="$(strip $(1))";					\
+	if [ "$$URL" = "" ]; then				\
+		echo;						\
+		echo Error: empty parameter to \"get\(\)\";	\
+		echo;						\
+		exit -1;					\
+	fi;							\
+	SRC="$(strip $(2))";					\
+	SRC=$${SRC:-$(SRCDIR)};					\
+	[ -d $$SRC ] || mkdir -p $$SRC;				\
+	wget -P $$SRC $(PASSIVEFTP) $$URL
 
 #
 # download patches from Pengutronix' patch repository
@@ -80,6 +97,12 @@ get =							\
 #
 get_patches =											\
 	PACKET_NAME="$(strip $(1))";								\
+	if [ "$$PACKET_NAME" = "" ]; then							\
+		echo;										\
+		echo Error: empty parameter to \"get_pachtes\(\)\";				\
+		echo;										\
+		exit -1;									\
+	fi;											\
 	if [ "$(EXTRAVERSION)" = "-cvs" ]; then							\
 		PATCH_TREE=cvs;									\
 	else											\
@@ -141,6 +164,12 @@ get_option_ext =									\
 #
 clean =							\
 	DIR="$(strip $(1))";				\
+	if [ "$$DIR" = "" ]; then			\
+	echo;						\
+	echo Error: empty parameter to \"clean\(\)\";	\
+	echo;						\
+	exit -1;					\
+	fi;						\
 	if [ -e $$DIR ]; then				\
 		rm -rf $$DIR;				\
 	fi
@@ -221,6 +250,12 @@ disable_sh =						\
 #
 patchin =									\
 	PACKET_NAME="$(strip $(1))";						\
+	if [ "$$PACKET_NAME" = "" ]; then					\
+	echo;									\
+	echo Error: empty parameter to \"patchin\(\)\";				\
+	echo;									\
+	exit -1;								\
+	fi;									\
 	PACKET_DIR="$(strip $(2))";						\
 	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};			\
 	for PATCH_NAME in							\
@@ -245,7 +280,10 @@ patchin =									\
 				CAT=cat						\
 				;;						\
 			*)							\
-				CAT=false					\
+				echo;						\
+				echo Unknown patch format, cannot apply!;	\
+				echo;						\
+				exit -1;					\
 				;;						\
 			esac;							\
 			echo "patchin' $$PATCH_NAME ...";			\
@@ -261,6 +299,12 @@ patchin =									\
 #
 patch_apply =								\
 	PATCH_NAME="$(strip $(1))";					\
+	if [ "$$PATCH_NAME" = "" ]; then				\
+		echo;							\
+		echo Error: empty parameter to \"patch_apply\(\)\";	\
+		echo;							\
+		exit -1;						\
+	fi;								\
 	PACKET_DIR="$(strip $(2))";					\
 	if [ -f $$PATCH_NAME ]; then					\
 		case `basename $$PATCH_NAME` in				\
@@ -274,7 +318,10 @@ patch_apply =								\
 			CAT=cat						\
 			;;						\
 		*)							\
-			CAT=false					\
+			echo;						\
+			echo Unknown patch format, cannot apply!;	\
+			echo;						\
+			exit -1;					\
 			;;						\
 		esac;							\
 		echo "patchin' $$PATCH_NAME ...";			\
