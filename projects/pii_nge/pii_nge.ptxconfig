@@ -159,8 +159,8 @@ PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/pii_nge/pii_nge.kernelconfig"
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
-PTXCONF_KERNEL_2_6_7=y
-# PTXCONF_KERNEL_2_6_8 is not set
+# PTXCONF_KERNEL_2_6_7 is not set
+PTXCONF_KERNEL_2_6_8=y
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -171,15 +171,15 @@ PTXCONF_KERNEL_INSTALL=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH1_URL="http://www.kernel.org/pub/linux/kernel/v2.6/testing/patch-2.6.8-rc2.bz2"
-PTXCONF_KERNEL_PATCH1_NAME="2.6.8-rc2"
+PTXCONF_KERNEL_PATCH1_URL="http://www.kernel.org/pub/linux/kernel/v2.6/testing/patch-2.6.9-rc2.bz2"
+PTXCONF_KERNEL_PATCH1_NAME="2.6.9-rc2"
 PTXCONF_KERNEL_PATCH1_XCHAIN=y
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.8-rc2-pxa4/linux-2.6.8-rc2-pxa4.diff"
-PTXCONF_KERNEL_PATCH2_NAME="2.6.8-rc2-pxa4"
+PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.9-rc2-pxa1/linux-2.6.9-rc2-pxa1.diff"
+PTXCONF_KERNEL_PATCH2_NAME="2.6.9-rc2-pxa1"
 # PTXCONF_KERNEL_PATCH2_XCHAIN is not set
 
 #
@@ -916,6 +916,11 @@ PTXCONF_INETUTILS_PING=y
 # libpcap             
 #
 PTXCONF_LIBPCAP=y
+
+#
+# mii-diag            
+#
+# PTXCONF_MII-DIAG is not set
 
 #
 # netcat              
