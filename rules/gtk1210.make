@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gtk1210.make,v 1.1 2003/08/19 12:04:27 robert Exp $
+# $Id: gtk1210.make,v 1.2 2003/08/22 15:31:14 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -125,6 +125,7 @@ $(STATEDIR)/gtk1210.install: $(STATEDIR)/gtk1210.compile
 gtk1210_targetinstall: $(STATEDIR)/gtk1210.targetinstall
 
 gtk1210_targetinstall_deps	=  $(STATEDIR)/gtk1210.compile
+gtk1210_targetinstall_deps	+= $(STATEDIR)/glib1210.targetinstall
 
 $(STATEDIR)/gtk1210.targetinstall: $(gtk1210_targetinstall_deps)
 	@$(call targetinfo, gtk1210.targetinstall)
