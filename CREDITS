@@ -26,16 +26,19 @@ S: 24121 Bergamo
 S: Italia
 
 N: Sascha Hauer 
-E: sascha.hauer@gyro-net.de
-W: http://www.gyro-net.de
+E: s.hauer@pengutronix.de
+W: http://www.pengutronix.de
 D: Developer
-S: Gyro-net GmbH
+S: Pengutronix
+S: Hannoversche Straﬂe 2
+S: 31134 Hildesheim
+S: Germany
 
 N: Marc Kleine-Budde
-E: kleine-budde@gmx.de
+E: m.kleine-budde@pengutronix.de
 D: Maintainer
 S: Pengutronix
-S: Hornemannstr. 12
+S: Hannoversche Straﬂe 2
 S: 31134 Hildesheim
 S: Germany
 
@@ -53,10 +56,15 @@ E: r.schwebel@pengutronix.de
 W: http://www.pengutronix.de
 D: Maintainer, Release Manager 
 S: Pengutronix
-S: Hornemannstr. 12
+S: Hannoversche Straﬂe 2
 S: 31134 Hildesheim
 S: Germany
 
 N: Jochen Striepe
 E: jochen@tolot.escape.de
 D: Developer
+
+N: Thibaut Varene
+E: varenet@gmail.co
+D: Developer
+
