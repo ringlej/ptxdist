@@ -6,9 +6,8 @@
 # 2003/08/15 Robert Schwebel <r.schwebel@pengutronix.de>
 #
 
-::sysinit:/bin/mount -a 
 ::sysinit:/bin/echo 
-#::sysinit:/etc/init.d/root-remount
+::sysinit:/etc/init.d/rcS
 #::sysinit:/sbin/syslogd
 #::sysinit:/sbin/syslogd host:514 (for remote logging)
 #::sysinit:/sbin/sshd -f /etc/sshd_config
@@ -21,6 +20,9 @@
 
 # Start an "askfirst" shell on the console
 ::askfirst:-/bin/sh
+
+# Start X11R6 TinyX server
+::respawn:/usr/X11R6/bin/xinit /start_m -- /usr/X11R6/bin/Xfbdev -br -once -screen 640x240 -mouse /dev/misc/psaux
 
 # Stuff to do before rebooting
 ::ctrlaltdel:/sbin/reboot
