@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.86 2004/04/02 13:03:41 bbu Exp $
+# $Id: Makefile,v 1.87 2004/04/07 10:17:47 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -216,9 +216,9 @@ innokom-3.3.2_config:
 	@echo "copying innokom-3.3.2 configuration (WORK IN PROGRESS!)"
 	@cp config/innokom-3.3.2-tmp.ptxconfig .config
 
-flowscreen2_config:
-	@echo "copying flowscreen2 configuration"
-	@cp config/flowscreen2.ptxconfig .config
+mx1fs2_config:
+	@echo "copying mx1fs2 configuration"
+	@cp config/mx1fs2.ptxconfig .config
 
 i586-rayonic_config:
 	@echo "copying 586 rayonic configuration"
