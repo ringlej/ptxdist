@@ -2,6 +2,7 @@ menu	"OpenSSH             "
 
 config OPENSSH
 	bool
+	select zlib
 	prompt "OpenSSH"
 
 config OPENSSH_SSH
