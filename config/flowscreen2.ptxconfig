@@ -77,6 +77,7 @@ PTXCONF_ROOT=""
 # Cross Toolchain     
 #
 # PTXCONF_BUILD_CROSSCHAIN is not set
+PTXCONF_CROSSCHAIN_CHECK="2.95.3"
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
