@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.13 2003/11/13 19:29:34 mkl Exp $
+# $Id: xchain-gccstage1.make,v 1.14 2003/11/17 03:41:56 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -128,13 +128,12 @@ endif # PTXCONFIG_GCC_2
 
 ifdef PTXCONF_GCC_3
 #
-# Hack up the soname for libstdc++
+# Hack up the soname for libgcc_s
 # 
-	perl -i -p -e "s,\.so\.1,.so.0.9.9,g;" $(GCC_DIR)/gcc/config/t-slibgcc-elf-ver;
-	perl -i -p -e "s,-version-info.*[0-9]:[0-9]:[0-9],-version-info 9:9:0,g;" \
-		$(GCC_DIR)/libstdc++-v3/src/Makefile.am $(GCC_DIR)/libstdc++-v3/src/Makefile.in;
-	perl -i -p -e "s,3\.0\.0,9.9.0,g;" $(GCC_DIR)/libstdc++-v3/acinclude.m4 \
-		$(GCC_DIR)/libstdc++-v3/aclocal.m4 $(GCC_DIR)/libstdc++-v3/configure;
+	perl -i -p -e "s,\.so\.1,.so.$(UCLIBC_VERSION_MAJOR).$(UCLIBC_VERSION_MINOR).$(UCLIBC_VERSION_MICRO),g;" \
+		$(GCC_DIR)/gcc/config/t-slibgcc-elf-ver
+#
+# FIXME:
 #
 # For now, we don't support locale-ified ctype (we will soon), 
 # so bypass that problem for now...
@@ -160,8 +159,8 @@ xchain-gccstage1_prepare: $(STATEDIR)/xchain-gccstage1.prepare
 
 xchain-gccstage1_prepare_deps = \
 	$(STATEDIR)/xchain-binutils.install \
-	$(STATEDIR)/xchain-kernel.install \
 	$(STATEDIR)/xchain-gccstage1.extract
+
 #
 # Dan Kegel says:
 #
@@ -182,16 +181,37 @@ xchain-gccstage1_prepare_deps = \
 # /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3/gcc/libgcc2.c
 # -o libgcc/./_muldi3.o
 #
-# In file included from tconfig.h:21,
-#                 from /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3/gcc/libgcc2.c:36:
-# /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3/gcc/config/rs6000/linux.h:82:20: signal.h: No such file or directory
-# /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3/gcc/config/rs6000/linux.h:83:26: sys/ucontext.h: No such file or directory
+# In file included from tconfig.h:21, from
+# /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3/gcc/libgcc2.c:36:
+# /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3/gcc/config/rs6000/linux.h:82:20:
+# signal.h: No such file or directory
+# /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3/gcc/config/rs6000/linux.h:83:26:
+# sys/ucontext.h: No such file or directory
 # make[3]: *** [libgcc/./_muldi3.o] Error 1
+# [MKL]
 #
-ifdef PTXCONF_GLIBC 
+
+#
+# the header thing is even more complicated:
+#
+# - we've learned so far that gcc > 3 need the libc headers
+# - uClibc installs the kernel headers,
+#   so we don't need to do that here again
+# - so we need to install the kernel headers if gcc < 3 or
+#   we are building a glibc based toolchain
+# [MKL]
+#
 ifeq (3,$(GCC_VERSION_MAJOR))
-xchain-gccstage1_prepare_deps += $(STATEDIR)/xchain-glibc.install
+ifdef PTXCONF_GLIBC 
+xchain-gccstage1_prepare_deps += \
+	$(STATEDIR)/xchain-glibc.install \
+	$(STATEDIR)/xchain-kernel.install
 endif
+ifdef PTXCONF_UCLIBC
+xchain-gccstage1_prepare_deps += $(STATEDIR)/xchain-uclibc.install
+endif
+else
+xchain-gccstage1_prepare_deps += $(STATEDIR)/xchain-kernel.install
 endif
 
 GCC_STAGE1_PATH	= PATH=$(CROSS_PATH)
