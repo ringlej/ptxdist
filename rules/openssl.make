@@ -1,4 +1,4 @@
-# $Id: openssl.make,v 1.5 2003/06/26 15:05:58 bsp Exp $
+# $Id: openssl.make,v 1.6 2003/06/27 12:19:59 bsp Exp $
 #
 # (c) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -68,7 +68,7 @@ openssl_prepare: $(STATEDIR)/openssl.prepare
 
 openssl_prepare_deps =  $(STATEDIR)/openssl.extract 
 openssl_prepare_deps += $(STATEDIR)/zlib.install 
-openssl_prepare_deps += $(STATEDIR)/glibc.install
+openssl_prepare_deps += $(STATEDIR)/xchain-gccstage2.install
 
 $(STATEDIR)/openssl.prepare: $(openssl_prepare_deps)
 	@$(call targetinfo, openssl.prepare)
