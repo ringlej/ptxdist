@@ -200,7 +200,8 @@ PTXCONF_GLIBC_2_3_3=y
 #
 # GCC Libraries       
 #
-# PTXCONF_GCCLIBS is not set
+# PTXCONF_GCCLIBS_CXX is not set
+# PTXCONF_GCCLIBS_GCC_S is not set
 
 #
 # Shell & Console Tools       

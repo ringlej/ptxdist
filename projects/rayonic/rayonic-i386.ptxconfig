@@ -310,27 +310,12 @@ PTXCONF_GLIBC_OMITFP=y
 PTXCONF_GLIBC_CRYPT=y
 PTXCONF_GLIBC_UTIL=y
 PTXCONF_GLIBC_LIBM=y
-
-#
-# libnss_dns depends on libresolv
-#
+# PTXCONF_GLIBC_NSS_DNS is not set
 PTXCONF_GLIBC_NSS_FILES=y
-
-#
-# libnss_hesiod depends on libresolv and libnss_files
-#
-
-#
-# libnss_nis depends on libnsl and libnss_files
-#
-
-#
-# libnss_nisplus depends on libnsl
-#
-
-#
-# libnss_compat depends on libnsl
-#
+# PTXCONF_GLIBC_NSS_HESIOD is not set
+# PTXCONF_GLIBC_NSS_NIS is not set
+# PTXCONF_GLIBC_NSS_NISPLUS is not set
+# PTXCONF_GLIBC_NSS_COMPAT is not set
 # PTXCONF_GLIBC_RESOLV is not set
 # PTXCONF_GLIBC_NSL is not set
 # PTXCONF_GLIBC_GCONV is not set
@@ -344,7 +329,8 @@ PTXCONF_UC_TARGET_i386=y
 #
 # GCC Libraries       
 #
-# PTXCONF_GCCLIBS is not set
+# PTXCONF_GCCLIBS_CXX is not set
+# PTXCONF_GCCLIBS_GCC_S is not set
 
 #
 # Shell & Console Tools       

@@ -241,7 +241,8 @@ PTXCONF_UC_TARGET_i386=y
 #
 # GCC Libraries       
 #
-# PTXCONF_GCCLIBS is not set
+PTXCONF_GCCLIBS_CXX=y
+PTXCONF_GCCLIBS_GCC_S=y
 
 #
 # Shell & Console Tools       

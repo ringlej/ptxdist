@@ -337,7 +337,8 @@ PTXCONF_UC_TARGET_arm=y
 #
 # GCC Libraries       
 #
-# PTXCONF_GCCLIBS is not set
+# PTXCONF_GCCLIBS_CXX is not set
+# PTXCONF_GCCLIBS_GCC_S is not set
 
 #
 # Shell & Console Tools       
