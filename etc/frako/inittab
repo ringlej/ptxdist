@@ -15,6 +15,7 @@
 # busybox syslogd ignores /etc/syslogd.conf
 ::sysinit:/sbin/syslogd -O /dev/tty8
 #::sysinit:/sbin/syslogd host:514 (for remote logging)
+::sysinit:/usr/sbin/crond -L /var/log/cron
 
 # Start userland network services 
 ::sysinit:/usr/sbin/sshd -4 -f /etc/ssh/sshd_config
