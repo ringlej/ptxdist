@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: proftpd.make,v 1.5 2003/10/23 15:01:19 mkl Exp $
+# $Id: proftpd.make,v 1.6 2003/10/23 20:41:41 mkl Exp $
 #
-# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -11,19 +12,20 @@
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_PROFTPD))
+ifdef PTXCONF_PROFTPD
 PACKAGES += proftpd
 endif
 
 #
 # Paths and names 
 #
-PROFTPD_VERSION 	= 1.2.8
+PROFTPD_VERSION		= 1.2.8
 PROFTPD			= proftpd-$(PROFTPD_VERSION)
-PROFTPD_URL		= ftp://ftp.proftpd.org/distrib/source/$(PROFTPD).tar.gz
-PROFTPD_SOURCE		= $(SRCDIR)/$(PROFTPD).tar.gz
+PROFTPD_TARBALL		= proftpd-$(PROFTPD_VERSION)p.$(PROFTPD_SUFFIX)
+PROFTPD_SUFFIX		= tar.gz
+PROFTPD_URL		= ftp://ftp.proftpd.org/distrib/source/$(PROFTPD_TARBALL)
+PROFTPD_SOURCE		= $(SRCDIR)/$(PROFTPD_TARBALL)
 PROFTPD_DIR		= $(BUILDDIR)/$(PROFTPD)
-PROFTPD_EXTRACT 	= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -32,12 +34,12 @@ PROFTPD_EXTRACT 	= gzip -dc
 proftpd_get: $(STATEDIR)/proftpd.get
 
 $(STATEDIR)/proftpd.get: $(PROFTPD_SOURCE)
-	@$(call targetinfo, proftpd.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(PROFTPD_SOURCE):
-	@$(call targetinfo, $(PROFTPD_SOURCE))
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(PROFTPD_URL)
+	@$(call targetinfo, $@)
+	@$(call get, $(PROFTPD_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -46,8 +48,9 @@ $(PROFTPD_SOURCE):
 proftpd_extract: $(STATEDIR)/proftpd.extract
 
 $(STATEDIR)/proftpd.extract: $(STATEDIR)/proftpd.get
-	@$(call targetinfo, proftpd.extract)
-	$(PROFTPD_EXTRACT) $(PROFTPD_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	@$(call targetinfo, $@)
+	@$(call clean, $(PROFTPD_DIR))
+	@$(call extract, $(PROFTPD_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -56,8 +59,14 @@ $(STATEDIR)/proftpd.extract: $(STATEDIR)/proftpd.get
 
 proftpd_prepare: $(STATEDIR)/proftpd.prepare
 
-PROFTPD_AUTOCONF = --prefix=/
-PROFTPD_ENVIRONMENT =
+PROFTPD_AUTOCONF	=  --build=$(GNU_HOST)
+PROFTPD_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+PROFTPD_AUTOCONF	+= --prefix=/usr
+PROFTPD_AUTOCONF	+= --sysconfdir=/etc
+
+PROFTPD_PATH		=  PATH=$(CROSS_PATH)
+PROFTPD_ENV		=  $(CROSS_ENV) ac_cv_func_setgrent_void=yes
+PROFTPD_MAKEVARS	=  $(CROSS_ENV_CC)
 
 ifdef PTXCONF_PROFTPD_PAM
 PROFTPD_AUTOCONF += --enable-pam
@@ -80,10 +89,15 @@ else
 PROFTPD_AUTOCONF += --disable-autoshadow
 endif
 
-$(STATEDIR)/proftpd.prepare: $(STATEDIR)/proftpd.extract
-	@$(call targetinfo, proftpd.prepare)
-	cd $(PROFTPD_DIR) && 						\
-	$(PROFTPD_ENVIRONMENT) ./configure $(PROFTPD_AUTOCONF) 
+proftpd_extract_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/proftpd.extract
+
+$(STATEDIR)/proftpd.prepare: $(proftpd_extract_deps)
+	@$(call targetinfo, $@)
+	cd $(PROFTPD_DIR) && \
+		$(PROFTPD_PATH) $(PROFTPD_ENV) \
+		./configure $(PROFTPD_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -93,8 +107,8 @@ $(STATEDIR)/proftpd.prepare: $(STATEDIR)/proftpd.extract
 proftpd_compile: $(STATEDIR)/proftpd.compile
 
 $(STATEDIR)/proftpd.compile: $(STATEDIR)/proftpd.prepare 
-	@$(call targetinfo, proftpd.compile)
-	make -C $(PROFTPD_DIR) $(MAKEPARMS)
+	@$(call targetinfo, $@)
+	$(PROFTPD_PATH)	make -C $(PROFTPD_DIR) $(PROFTPD_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -104,8 +118,7 @@ $(STATEDIR)/proftpd.compile: $(STATEDIR)/proftpd.prepare
 proftpd_install: $(STATEDIR)/proftpd.install
 
 $(STATEDIR)/proftpd.install: $(STATEDIR)/proftpd.compile
-	@$(call targetinfo, proftpd.install)
-	# don't make install - would install files on development host...
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -115,9 +128,9 @@ $(STATEDIR)/proftpd.install: $(STATEDIR)/proftpd.compile
 proftpd_targetinstall: $(STATEDIR)/proftpd.targetinstall
 
 $(STATEDIR)/proftpd.targetinstall: $(STATEDIR)/proftpd.install
-	@$(call targetinfo, proftpd.targetinstall)
-	install $(PROFTPD_DIR)/proftpd $(ROOTDIR)/sbin/proftpd
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/proftpd
+	@$(call targetinfo, $@)
+	install $(PROFTPD_DIR)/proftpd $(ROOTDIR)/usr/sbin/proftpd
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/proftpd
 	touch $@
 
 # ----------------------------------------------------------------------------
