@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.4 2003/08/25 16:23:34 mkl Exp $
+# $Id: kernel.make,v 1.5 2003/09/16 22:18:42 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -476,5 +476,6 @@ kernel_menuconfig: $(STATEDIR)/kernel.extract
 
 	install -m 644 $(KERNEL_DIR)/.config \
 		$(TOPDIR)/config/kernel/$(PTXCONF_KERNEL_CONFIG) ; \
-	rm $(STATEDIR)/kernel.compile || true
+	[ -f $(STATEDIR)/kernel.compile ] && rm $(STATEDIR)/kernel.compile
+
 # vim: syntax=make
