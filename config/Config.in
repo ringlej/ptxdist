@@ -44,7 +44,10 @@ choice
 		bool "SPARC"
 
 	config ARCH_MIPS
-		bool "MIPS"
+		bool "MIPS (Big Endien)"
+
+	config ARCH_MIPSEL
+		bool "MIPS (Little Endien)"
 
 	config ARCH_CRIS
 		bool "CRIS"
@@ -73,8 +76,6 @@ endchoice
 
 choice
 	prompt "Code Optimization"
-	default OPT_ARM4 if ARCH_ARM
-	default OPT_PPC if ARCH_PPC
 
 	config OPT_ARM4
 		bool "arm4"
@@ -100,12 +101,21 @@ choice
 	config OPT_PPC405
 		bool "PPC 405"
 		depends on ARCH_PPC
+	config OPT_PPC750
+		bool "PPC 750"
+		depends on ARCH_PPC
+	config OPT_PPC7450
+		bool "PPC 7450"
+		depends on ARCH_PPC
 	config OPT_SPARC
 		bool "sparc"
 		depends on ARCH_SPARC
 	config OPT_MIPS
 		bool "mips"
 		depends on ARCH_MIPS
+	config OPT_MIPSEL
+		bool "mipsel"
+		depends on ARCH_MIPSEL
 	config OPT_CRIS
 		bool "cris"
 		depends on ARCH_CRIS
@@ -114,12 +124,32 @@ choice
 		depends on ARCH_PARISC
 endchoice
 
-config FPU
-	bool 
-	prompt "FPU available" if ARCH_ARM || OPT_I386 || OPT_PPC || \
-	ARCH_MIPS || ARCH_CRIS || ARCH_PARISC 
-	default y if !OPT_PPC405
-	default n if OPT_PPC405
+comment "---"
+
+config TARGET_EXTRA_CFLAGS
+	string
+	prompt "Extra CFLAGS (c)"
+
+config TARGET_EXTRA_CXXFLAGS
+	string
+	prompt "Extra CXXFLAGS (c++)"
+
+config TARGET_CONFIG_FILE
+	string
+	prompt "Name if architecture config file in $PTXDIST/config/arch"
+	default "arm.dat"		if ARCH_ARM
+	default "ix86.dat"		if ARCH_X86
+	default "powerpc.dat"		if OPT_PPC
+	default "powerpc-405.dat"	if OPT_PPC405
+	default "powerpc-750.dat"	if OPT_PPC750
+	default "powerpc-7450.dat"	if OPT_PPC7450
+	default "sparc.dat"		if ARCH_SPARC
+	default "mips.dat"		if ARCH_MIPS
+	default "mipsel.dat"		if ARCH_MIPSEL
+	default "cris.dat"		if ARCH_CRIS
+	default "hppa.dat"		if ARCH_PARISC
+
+comment "---"
 
 config ARCH_NOMMU
 	bool
@@ -133,6 +163,7 @@ config ARCH
 	default "ppc" if ARCH_PPC
 	default "sparc" if ARCH_SPARC
 	default "mips" if ARCH_MIPS
+	default "mipsel" if ARCH_MIPSEL
 	default "cris" if ARCH_CRIS
 	default "parisc" if ARCH_PARISC
 
@@ -144,6 +175,7 @@ config ARCH_USERSPACE
 	default "powerpc" if ARCH_PPC
 	default "sparc" if ARCH_SPARC
 	default "mips" if ARCH_MIPS
+	default "mipsel" if ARCH_MIPSEL
 	default "cris" if ARCH_CRIS
 	default "parisc" if ARCH_PARISC
 
@@ -159,30 +191,38 @@ config ARM_ARCH
 
 config GNU_TARGET
 	string
-	default "arm-linux" 		if ARCH_ARM		&& GLIBC
-	default "arm-elf"		if ARCH_ARM_NOMMU	&& GLIBC
-	default "i386-linux"		if OPT_I386		&& GLIBC
-	default "i486-linux"		if OPT_I486		&& GLIBC
-	default "i586-linux"		if OPT_I586		&& GLIBC
-	default "i686-linux"		if OPT_I686		&& GLIBC
-	default "powerpc-linux"		if ARCH_PPC		&& GLIBC
-	default "sparc-linux"		if OPT_SPARC		&& GLIBC
-	default "mips-linux"		if ARCH_MIPS		&& GLIBC
-	default "cris-linux"		if ARCH_CRIS		&& GLIBC
-	default "hppa-linux"		if ARCH_PARISC		&& GLIBC
+	default "arm-linux" 			if ARCH_ARM		&& GLIBC
+	default "arm-elf"			if ARCH_ARM_NOMMU	&& GLIBC
+	default "i386-linux"			if OPT_I386		&& GLIBC
+	default "i486-linux"			if OPT_I486		&& GLIBC
+	default "i586-linux"			if OPT_I586		&& GLIBC
+	default "i686-linux"			if OPT_I686		&& GLIBC
+	default "powerpc-linux"			if OPT_PPC		&& GLIBC
+	default "powerpc-405-linux-gnu"		if OPT_PPC405		&& GLIBC
+	default "powerpc-750-linux-gnu"		if OPT_PPC750		&& GLIBC
+	default "powerpc-7450-linux-gnu"	if OPT_PPC4750		&& GLIBC
+	default "sparc-linux"			if OPT_SPARC		&& GLIBC
+	default "mips-linux"			if ARCH_MIPS		&& GLIBC
+	default "mipsel-linux"			if ARCH_MIPSEL		&& GLIBC
+	default "cris-linux"			if ARCH_CRIS		&& GLIBC
+	default "hppa-linux"			if ARCH_PARISC		&& GLIBC
 
-	default "arm-uclibc-linux" 	if ARCH_ARM		&& UCLIBC
-	default "arm-elf"		if ARCH_ARM_NOMMU	&& UCLIBC
-	default "i386-uclibc-linux"	if OPT_I386		&& UCLIBC
-	default "i486-uclibc-linux"	if OPT_I486		&& UCLIBC
-	default "i586-uclibc-linux"	if OPT_I586		&& UCLIBC
-	default "i686-uclibc-linux"	if OPT_I686		&& UCLIBC
-	default "powerpc-uclibc-linux"	if ARCH_PPC		&& UCLIBC
-	default "sparc-uclibc-linux"	if OPT_SPARC		&& UCLIBC
-	default "mips-uclibc-linux"	if ARCH_MIPS		&& UCLIBC
-	default "cris-uclibc-linux"	if ARCH_CRIS		&& UCLIBC
-	default "hppa-uclibc-linux"	if ARCH_PARISC		&& UCLIBC
-	
+	default "arm-uclibc-linux-gnu" 		if ARCH_ARM		&& UCLIBC
+	default "arm-elf"			if ARCH_ARM_NOMMU	&& UCLIBC
+	default "i386-uclibc-linux-gnu"		if OPT_I386		&& UCLIBC
+	default "i486-uclibc-linux-gnu"		if OPT_I486		&& UCLIBC
+	default "i586-uclibc-linux-gnu"		if OPT_I586		&& UCLIBC
+	default "i686-uclibc-linux-gnu"		if OPT_I686		&& UCLIBC
+	default "powerpc-uclibc-linux-gnu"	if OPT_PPC		&& UCLIBC
+	default "powerpc-405_uclibc-linux-gnu"	if OPT_PPC405		&& UCLIBC
+	default "powerpc-750_uclibc-linux-gnu"	if OPT_PPC750		&& UCLIBC
+	default "powerpc-7450_uclibc-linux-gnu"	if OPT_PPC7450		&& UCLIBC
+	default "sparc-uclibc-linux-gnu"	if OPT_SPARC		&& UCLIBC
+	default "mips-uclibc-linux-gnu"		if ARCH_MIPS		&& UCLIBC
+	default "mipsel-uclibc-linux-gnu"	if ARCH_MIPSEL		&& UCLIBC
+	default "cris-uclibc-linux-gnu"		if ARCH_CRIS		&& UCLIBC
+	default "hppa-uclibc-linux-gnu"		if ARCH_PARISC		&& UCLIBC
+
 config PREFIX
 	prompt "Prefix for development envirionment"
 	string
@@ -201,12 +241,8 @@ menu 	"Cross Toolchain     "
 config BUILD_CROSSCHAIN
 	bool
 	prompt "Build Cross Toolchain"
-	default y if ARCH_ARM
-	default n if ARCH_X86
-	default y if ARCH_SPARC
-	default y if ARCH_MIPS
-	default y if ARCH_CRIS
-	default y if ARCH_PARISC
+	default y
+
 choice
 	prompt "GCC (GNU Compiler Collection) Version"
 		default GCC_3_2_3 if ARCH_X86 || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC
@@ -215,7 +251,7 @@ choice
 	config GCC_2_95_3
 		bool
 		prompt "2.95.3"
-		depends on ARCH_X86 || ARCH_ARM || ARCH_SPARC || ARCH_PPC || ARCH_ARM_NOMMU
+		depends on ARCH_X86 || ARCH_ARM || ARCH_SPARC || ARCH_ARM_NOMMU
 
 	config GCC_3_2_3
 		bool
