@@ -1,0 +1,70 @@
+# File:
+# gprs
+#
+# Description:
+# This file holds the serial cable and IrDA pppd options for GPRS phones 
+
+# To give some debug info
+#debug
+
+# Serial device to which terminal is connected;
+# with serial port (COM1 in Windows) use /dev/ttyS0
+# and with IrDA use /dev/ircomm0.
+/dev/tts/1 # serial cable
+       
+
+# Serial port line speed
+115200
+
+# Hardware flow control needs to be used with serial cable.
+# With IrDA it should be disabled with nocrtscts option.
+crtscts  # serial cable  
+
+# To keep pppd on the terminal
+#nodetach
+
+# Connect script
+connect /etc/ppp/peers/gprs-connect-chat
+
+# IP addresses:
+# - accept peers idea of our local address and set address peer as 10.0.0.1 
+# (any address would do, since IPCP gives 0.0.0.0 to it)
+# - if you use the 10. network at home or something and pppd rejects it,
+# change the address to something else 
+:10.0.0.1
+
+# pppd must not propose any IP address to the peer!
+noipdefault
+
+# Accept peers idea of our local address
+ipcp-accept-local
+
+# Ignore carrier detect signal from the modem 
+local
+
+# No ppp compression
+novj
+novjccomp
+
+# Disconnect script
+disconnect /etc/ppp/peers/gprs-disconnect-chat
+
+# Add default route
+defaultroute
+
+# Benutzername und Kennwort wie in der pap-secrets
+user bmwgprs
+demand
+deflate 0
+bsdcomp 0
+noaccomp
+noccp
+#noip
+noauth
+logfile /tmp/ppp.log
+mtu 1492
+mru 1492
+#
+# nach n Sekunden wieder auflegen, falls kein Datenverkehr stattfindet!
+
+idle 120

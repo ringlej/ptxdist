@@ -37,6 +37,9 @@ High Priority
        the problem be addressed by the virtual toolchain rules? I only
        had a short look at the patch but it seemed to cry for a more general
        solution.
+- RSC: - patches/ 
+       - src/*.diff, *.patch
+       - etc/solidcard-bmwm-20030821-1/xmodmap
 
 Low Priority
 ------------
