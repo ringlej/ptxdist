@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pppd.make,v 1.2 2003/07/23 12:01:24 mkl Exp $
+# $Id: pppd.make,v 1.3 2003/07/23 12:39:06 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
@@ -89,13 +89,13 @@ else
 endif
 
 ifndef PTXCONF_PPP_IPX
-	perl -p -i -e 's/-DIPX_CHANGE //' $(PPP_DIR)/pppd/Makefile
-	perl -p -i -e 's/ipxcp.o //' $(PPP_DIR)/pppd/Makefile
+	@perl -p -i -e 's/-DIPX_CHANGE //' $(PPP_DIR)/pppd/Makefile
+	@perl -p -i -e 's/ipxcp.o //' $(PPP_DIR)/pppd/Makefile
 endif
 
 ifndef PTXCONF_PPP_MULTILINK
-	perl -p -i -e 's/-DHAVE_MULTILINK //' $(PPP_DIR)/pppd/Makefile
-	perl -p -i -e 's/multilink.o //' $(PPP_DIR)/pppd/Makefile
+	@perl -p -i -e 's/-DHAVE_MULTILINK //' $(PPP_DIR)/pppd/Makefile
+	@perl -p -i -e 's/multilink.o //' $(PPP_DIR)/pppd/Makefile
 endif
 	touch $@
 
@@ -131,6 +131,7 @@ ppp_targetinstall: $(STATEDIR)/ppp.targetinstall
 
 $(STATEDIR)/ppp.targetinstall: $(STATEDIR)/ppp.compile
 	@$(call targetinfo, ppp.targetinstalll)
+	mkdir -p $(ROOTDIR)/sbin
 	install $(PPP_DIR)/pppd/pppd $(ROOTDIR)/sbin/
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/pppd
 

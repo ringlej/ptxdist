@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssh.make,v 1.8 2003/07/23 08:52:49 mkl Exp $
+# $Id: openssh.make,v 1.9 2003/07/23 12:39:06 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -107,7 +107,10 @@ OPENSSH_PATH	= PATH=$(CROSS_PATH)
 # openssh is a little F*CKED up, is won't compile without ld=gcc in environment
 # perhaps someone should fix this....
 #
-OPENSSH_ENV	= $(CROSS_ENV_AR) $(CORSS_ENV_AS) $(CROSS_ENV_CXX) $(CROSS_ENV_CC) $(CROSS_ENV_NM) $(CROSS_ENV_OBJCOPY) $(CROSS_ENV_RANLIB) $(CROSS_ENV_STRIP) LD=$(PTXCONF_GNU_TARGET)-gcc
+OPENSSH_ENV	= \
+	$(CROSS_ENV_AR) $(CORSS_ENV_AS) $(CROSS_ENV_CXX) $(CROSS_ENV_CC) \
+	$(CROSS_ENV_NM) $(CROSS_ENV_OBJCOPY) $(CROSS_ENV_RANLIB) \
+	$(CROSS_ENV_STRIP) LD=$(PTXCONF_GNU_TARGET)-gcc
 
 $(STATEDIR)/openssh.prepare: $(openssh_prepare_deps)
 	@$(call targetinfo, openssh.prepare)

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: uclibc.make,v 1.1 2003/07/16 04:23:28 mkl Exp $
+# $Id: uclibc.make,v 1.2 2003/07/23 12:39:06 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 # See CREDITS for details about who has contributed to this project.
@@ -39,7 +39,7 @@ UCLIBC_CRIS_PATCH_SOURCE	= $(SRCDIR)/$(UCLIBC)-mkb1.patch
 # for uClibc that gets installed on target
 #
 uclibc_fix_config =					\
-	@$(call uclibx_fix_config_general, $(1))
+	@$(call uclibc_fix_config_general, $(1))
 
 #
 #
@@ -208,9 +208,6 @@ endif
 # ----------------------------------------------------------------------------
 
 uclibc_clean: 
-	-rm -rf $(STATEDIR)/xchain-uclibc.extract
-	-rm -rf $(STATEDIR)/xchain-uclibc.prepare
-	-rm -rf $(STATEDIR)/xchain-uclibc.compile
 	-rm -rf $(STATEDIR)/uclibc*
 	-rm -rf $(UCLIBC_DIR)
 
