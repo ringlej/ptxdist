@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: e2fsprogs.make,v 1.9 2003/12/04 13:19:46 bsp Exp $
+# $Id: e2fsprogs.make,v 1.10 2003/12/19 08:09:23 bsp Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -26,8 +26,6 @@ E2FSPROGS_URL			= http://cesnet.dl.sourceforge.net/sourceforge/e2fsprogs/$(E2FSP
 E2FSPROGS_SOURCE		= $(SRCDIR)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
 E2FSPROGS_DIR			= $(BUILDDIR)/$(E2FSPROGS)
 E2FSPROGS_BUILD_DIR		= $(BUILDDIR)/$(E2FSPROGS)-build
-
-HOSTTOOL_E2FSPROGS_DIR		= $(BUILDDIR)/hosttool/$(E2FSPROGS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -66,6 +64,8 @@ E2FSPROGS_AUTOCONF	=  --prefix=/usr
 E2FSPROGS_AUTOCONF	+= --enable-fsck
 E2FSPROGS_AUTOCONF	+= --build=$(GNU_HOST)
 E2FSPROGS_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+E2FSPROGS_AUTOCONF	+= --with-cc=$(PTXCONF_GNU_TARGET)-gcc
+E2FSPROGS_AUTOCONF	+= --with-linker=$(PTXCONF_GNU_TARGET)-ld
 E2FSPROGS_PATH		=  PATH=$(CROSS_PATH)
 E2FSPROGS_ENV		=  $(CROSS_ENV) 
 E2FSPROGS_ENV		+= BUILD_CC=$(HOSTCC)
@@ -77,30 +77,6 @@ e2fsprogs_prepare_deps = \
 $(STATEDIR)/e2fsprogs.prepare: $(e2fsprogs_prepare_deps)
 	@$(call targetinfo, $@)
 	mkdir -p $(E2FSPROGS_BUILD_DIR) && \
-	cd $(E2FSPROGS_BUILD_DIR) && \
-		$(E2FSPROGS_PATH) $(E2FSPROGS_ENV) \
-		$(E2FSPROGS_DIR)/configure $(E2FSPROGS_AUTOCONF)
-	touch $@
-
-# ----------------------------------------------------------------------------
-# Hosttool Prepare
-# ----------------------------------------------------------------------------
-
-hosttool-e2fsprogs_prepare: $(STATEDIR)/hosttool-e2fsprogs.prepare
-
-E2FSPROGS_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
-E2FSPROGS_AUTOCONF	+= --enable-fsck
-E2FSPROGS_AUTOCONF	+= --build=$(GNU_HOST)
-E2FSPROGS_AUTOCONF	+= --host=$(GNU_HOST)
-E2FSPROGS_PATH		=  
-E2FSPROGS_ENV		=  $(HOSTCC_ENV) 
-
-hosttool-e2fsprogs_prepare_deps = \
-	$(STATEDIR)/e2fsprogs.extract
-
-$(STATEDIR)/hosttool-e2fsprogs.prepare: $(hosttool-e2fsprogs_prepare_deps)
-	@$(call targetinfo, $@)
-	mkdir -p $(HOSTTOOL_E2FSPROGS_BUILD_DIR) && \
 	cd $(E2FSPROGS_BUILD_DIR) && \
 		$(E2FSPROGS_PATH) $(E2FSPROGS_ENV) \
 		$(E2FSPROGS_DIR)/configure $(E2FSPROGS_AUTOCONF)
@@ -123,7 +99,7 @@ $(STATEDIR)/e2fsprogs.compile: $(e2fsprogs_compile_deps)
 # it's not good to pass target CFLAGS to the host compiler :)
 # so override these
 #
-	$(E2FSPROGS_PATH) make -C $(E2FSPROGS_BUILD_DIR)/util CFLAGS='' CXXFLAGS=''
+	$(E2FSPROGS_PATH) make -C $(E2FSPROGS_BUILD_DIR)/util
 	$(E2FSPROGS_PATH) make -C $(E2FSPROGS_BUILD_DIR)
 	touch $@
 
@@ -161,13 +137,6 @@ endif
 # ----------------------------------------------------------------------------
 
 e2fsprogs_clean: 
-	rm -rf $(STATEDIR)/e2fsprogs.* $(E2FSPROGS_DIR)
-
-# ----------------------------------------------------------------------------
-# Hosttool Clean
-# ----------------------------------------------------------------------------
-
-hosttool-e2fsprogs_clean:
-	rm -rf $(STATEDIR)/hosttool-e2fsprogs.* $(HOSTTOOL_E2FSPROGS_DIR)
+	rm -rf $(STATEDIR)/e2fsprogs.* $(E2FSPROGS_DIR) $(E2FSPROGS_BUILD_DIR)
 
 # vim: syntax=make

@@ -45,9 +45,6 @@ config GRUB_CS89X0
 	prompt "cs89x0   network driver"
 	depends on GRUB
 
-config GRUB_BOOTDISK
-	bool 
-	prompt "make bootdisk in $PTXDIST/bootdisk"
-	depends on GRUB
+source "rules/bootdisk.in"
 
 endmenu

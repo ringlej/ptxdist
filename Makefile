@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.61 2003/12/18 17:04:26 robert Exp $
+# $Id: Makefile,v 1.62 2003/12/19 08:09:23 bsp Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -79,6 +79,11 @@ PACKAGES_COMPILE		:= $(addsuffix _compile,$(PACKAGES))
 
 VENDORTWEAKS_TARGETINSTALL	:= $(addsuffix _targetinstall,$(VENDORTWEAKS))
 
+BOOTDISK_TARGETINSTALL = 
+ifeq (y, $(PTXCONF_BOOTDISK))
+BOOTDISK_TARGETINSTALL += $(STATEDIR)/bootdisk.targetinstall
+endif
+
 help:
 # help message {{{
 	@echo
@@ -148,7 +153,7 @@ skip_vendortweaks:
 dep_world: $(PACKAGES_TARGETINSTALL) $(VENDORTWEAKS_TARGETINSTALL)
 	@echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
 
-world: dep_output_clean dep_world dep_tree 
+world: dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
 
 # Configuration system -------------------------------------------------------
 

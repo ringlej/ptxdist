@@ -1,5 +1,5 @@
 # -*-makefile-*- 
-# $Id: bootdisk.make,v 1.11 2003/10/23 15:01:19 mkl Exp $
+# $Id: bootdisk.make,v 1.12 2003/12/19 08:09:23 bsp Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -11,75 +11,34 @@
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_GRUB_BOOTDISK))
-PACKAGES += bootdisk
-endif
+#ifeq (y, $(PTXCONF_BOOTDISK))
+#PACKAGES += bootdisk
+#endif
 
 #
 # Paths and names 
 #
 
-BOOTDISK			= rayonic-bootdisk-20030808-2
-BOOTDISK_SOURCE			= $(SRCDIR)/$(BOOTDISK).tar.gz
-BOOTDISK_URL			= http://www.pengutronix.de/software/ptxdist/temporary-src/$(BOOTDISK).tar.gz
-BOOTDISK_DIR			= $(BUILDDIR)/$(BOOTDISK)
-BOOTDISK_EXTRACT		= gzip -dc
+BOOTDISK_DIR = $(TOPDIR)/bootdisk
+BOOTDISK_IMG = $(BOOTDISK_DIR)/boot.img
 
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-bootdisk_get: $(STATEDIR)/bootdisk.get
-
-$(STATEDIR)/bootdisk.get: $(BOOTDISK_SOURCE)
-	@$(call targetinfo, $@)
-	touch $@
-
-$(BOOTDISK_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, $(BOOTDISK_URL))
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-bootdisk_extract: $(STATEDIR)/bootdisk.extract
-
-$(STATEDIR)/bootdisk.extract: $(STATEDIR)/bootdisk.get
-	@$(call targetinfo, $@)
-	@$(call clean, $(BOOTDISK_DIR))
-	@$(call extract, $(BOOTDISK_SOURCE))
-	touch $@
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-bootdisk_prepare: $(STATEDIR)/bootdisk.prepare
-
-$(STATEDIR)/bootdisk.prepare: $(STATEDIR)/bootdisk.extract
-	@$(call targetinfo, $@)
-	touch $@
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-bootdisk_compile: $(STATEDIR)/bootdisk.compile
-
-$(STATEDIR)/bootdisk.compile: $(STATEDIR)/bootdisk.prepare 
-	@$(call targetinfo, $@)
-	touch $@
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-bootdisk_install: $(STATEDIR)/bootdisk.install
-
-$(STATEDIR)/bootdisk.install: $(STATEDIR)/bootdisk.compile
-	@$(call targetinfo, $@)
-	touch $@
+ifdef PTXCONF_BOOTDISK_DEV
+BOOTDISK_DEV = `cat > $TMPDEVLIST << _EOF_ \
+/dev/ram0         b  640  0     0       1       0 \
+/dev/mem          c  640  0     0       1       1 \
+/dev/kmem         c  640  0     0       1       2 \
+/dev/null         c  640  0     0       1       3 \
+/dev/zero         c  640  0     0       1       5 \
+/dev/random       c  640  0     0       1       8 \
+/dev/urandom      c  640  0     0       1       9 \
+/dev/ttyS0        c  640  0     0       4       64 \
+/dev/console      c  640  0     0       5       1 \
+/dev/ptmx         c  640  0     0       5       2 \
+/dev/pts/0        c  640  0     0       136     0 \
+_EOF_`
+else
+BOOTDISK_DEV =
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -87,34 +46,28 @@ $(STATEDIR)/bootdisk.install: $(STATEDIR)/bootdisk.compile
 
 bootdisk_targetinstall: $(STATEDIR)/bootdisk.targetinstall
 
-bootdisk_targetinstall_deps =  $(STATEDIR)/bootdisk.install
-bootdisk_targetinstall_deps += $(STATEDIR)/kernel.compile
+bootdisk_targetinstall_deps = $(STATEDIR)/kernel.compile
 bootdisk_targetinstall_deps += $(STATEDIR)/grub.compile
 bootdisk_targetinstall_deps += $(STATEDIR)/e2fsprogs.compile
 bootdisk_targetinstall_deps += $(STATEDIR)/ncurses.compile
+bootdisk_targetinstall_deps += $(STATEDIR)/hosttool-genext2fs.install
 
 $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
-	@$(call targetinfo, $@)
-	install $(KERNEL_TARGET_PATH) $(BOOTDISK_DIR)/boot/
-	install $(GRUB_DIR)/stage1/stage1 $(BOOTDISK_DIR)/boot/grub/
-	install $(GRUB_DIR)/stage2/stage2 $(BOOTDISK_DIR)/boot/grub/
-	install $(GRUB_DIR)/grub/grub $(BOOTDISK_DIR)/bin/
-	$(CROSSSTRIP) -R .note -R .comment $(BOOTDISK_DIR)/bin/grub
-	# FIXME: make this a config option
-	ln -sf menu-disk.lst $(BOOTDISK_DIR)/boot/grub/menu.lst
-	ln -sf menu.lst $(BOOTDISK_DIR)/boot/grub/grub.conf
-	install $(E2FSPROGS_DIR)/misc/mke2fs $(BOOTDISK_DIR)/bin/
-	$(CROSSSTRIP) -R .note -R .comment $(BOOTDISK_DIR)/bin/mke2fs
-	install $(NCURSES_DIR)/lib/libncurses.so.5.2 $(BOOTDISK_DIR)/lib/
-	$(CROSSSTRIP) -S -R .note -R .comment $(BOOTDISK_DIR)/lib/libncurses.so.5.2
-	# FIXME: is this the correct file for this rule? 
-	install $(SRCDIR)/ptxflash $(BOOTDISK_DIR)/sbin/
-	rm -fr $(BUILDDIR)/tmpboot && install -d $(BUILDDIR)/tmpboot
-	cd $(BOOTDISK_DIR) && tar cf $(BUILDDIR)/tmpboot/bootdisk.tar *
-	$(SUDO) sh -c \
-		"GRUBPATH=$(BOOTDISK_DIR)/bin/; $(BOOTDISK_DIR)/sbin/mkbimage -d $(BUILDDIR)/tmpboot -f $(BUILDDIR)/tmpboot/bootdisk.tar -s ext2 -t 1.44"
-	mv $(BUILDDIR)/tmpboot/1.44.image $(TOPDIR)/boot.image
-	$(SUDO) rm -rf $(BUILDDIR)/tmpboot
+	@$(call targetinfo, $@)	
+	cp $(GRUB_DIR)/stage1/stage1 $(BOOTDISK_IMG)
+	cat $(GRUB_DIR)/stage2/stage2 >> $(BOOTDISK_IMG)
+	SIZE=`ls -l | awk '{print $$5}'` awk -v size=SIZE \
+		'BEGIN{size = $(PTXCONF_BOOTDISK_HEAD)*$(PTXCONF_BOOTDISK_SECT)*512 - size;for (i = 0; i < size; i++) printf ("\xff")}' >> $(BOOTDISK_IMG)
+	$(PTXCONF_PREFIX)/bin/genext2fs -r 0 -d $(TOPDIR)/root \
+		-b $(PTXCONF_BOOTDISK_SIZE) \
+		$(BOOTDISK_DEV) \
+		$(BOOTDISK_IMG).ext2
+	cat $(BOOTDISK_IMG).ext2 >> $(BOOTDISK_IMG)
+	if [ -f $(PTXCONF_BOOTDISK_PART) ] ; then \
+	   $(PTXCONF_PREFIX)/sbin/sfdisk -H $(PTXCONF_BOOTDISK_HEAD) \
+	   -S $(PTXCONF_BOOTDISK_SECT) $(BOOTDISK_IMG) < \
+	   	$(TOPDIR)/config/bootdisk/$(PTXCONF_BOOTDISK_PART) ; \
+	fi
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -122,6 +75,6 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 # ----------------------------------------------------------------------------
 
 bootdisk_clean: 
-	rm -rf $(STATEDIR)/bootdisk.* $(BOOTDISK_DIR)
+	rm -rf $(STATEDIR)/bootdisk.* $(BOOTDISK_IMG)*
 
 # vim: syntax=make
