@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: innokom.make,v 1.8 2003/10/23 15:01:19 mkl Exp $
+# $Id: innokom.make,v 1.9 2003/10/23 18:05:17 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -18,7 +18,7 @@ VENDORTWEAKS = innokom
 
 innokom_targetinstall: $(STATEDIR)/innokom.targetinstall
 
-$(STATEDIR)/vendor-tweaks.targetinstall:
+$(STATEDIR)/innokom.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	the application resides in /opt
