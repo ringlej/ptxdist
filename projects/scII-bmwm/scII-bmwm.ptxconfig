@@ -120,7 +120,11 @@ PTXCONF_GDB=y
 PTXCONF_GDB_SHARED=y
 # PTXCONF_GDB_TERMCAP is not set
 PTXCONF_GDB_NCURSES=y
-# PTXCONF_GDB_WRAPPERS is not set
+# PTXCONF_GDB_THREAD_DEBUG is not set
+
+#
+# ---
+#
 # PTXCONF_KSYMOOPS is not set
 # PTXCONF_LTT is not set
 # PTXCONF_LIBBFD is not set
@@ -1192,7 +1196,11 @@ PTXCONF_CRAMFS=y
 #
 # ncurses          
 #
-# PTXCONF_NCURSES is not set
+PTXCONF_NCURSES=y
+PTXCONF_NCURSES_TERMCAP=y
+# PTXCONF_NCURSES_FORM is not set
+# PTXCONF_NCURSES_MENU is not set
+# PTXCONF_NCURSES_PANEL is not set
 
 #
 # termcap          

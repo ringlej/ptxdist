@@ -129,7 +129,10 @@ PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/innokom.vendortweaks"
 # PTXCONF_XGDB is not set
 # PTXCONF_GDBSERVER is not set
 # PTXCONF_GDB is not set
-# PTXCONF_GDB_WRAPPERS is not set
+
+#
+# ---
+#
 # PTXCONF_KSYMOOPS is not set
 PTXCONF_LTT=y
 # PTXCONF_LIBBFD is not set

@@ -129,7 +129,10 @@ PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/mx1fs2.vendortweaks"
 # PTXCONF_XGDB is not set
 # PTXCONF_GDBSERVER is not set
 # PTXCONF_GDB is not set
-# PTXCONF_GDB_WRAPPERS is not set
+
+#
+# ---
+#
 # PTXCONF_KSYMOOPS is not set
 # PTXCONF_LTT is not set
 # PTXCONF_LIBBFD is not set
