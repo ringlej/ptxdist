@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_VHLL_PYTHON23
+ifdef PTXCONF_PYTHON23
 PACKAGES += python
 endif
 
