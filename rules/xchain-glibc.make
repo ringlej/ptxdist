@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-glibc.make,v 1.18 2003/11/13 19:30:42 mkl Exp $
+# $Id: xchain-glibc.make,v 1.19 2003/11/20 10:13:05 robert Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -89,6 +89,11 @@ $(STATEDIR)/xchain-glibc.compile: $(STATEDIR)/xchain-glibc.prepare
 # satisfying its dependencies.  Another workaround might be to tell
 # configure to not use any cross options to $(CC).  The real fix would
 # be to get install-headers to not generate errlist-compat.c.
+#
+# Robert Schwebel writes:
+#
+# Is this necessary? The lines below are commented out but it seems 
+# to compile anyway...
 #
 ifeq ($(GLIBC_VERSION_MAJOR).$(GLIBC_VERSION_MINOR),2.3)
 # 	cd $(XCHAIN_GLIBC_BUILDDIR) && \
