@@ -37,7 +37,7 @@ EMPTY=$(cd ${EMPTY}; echo $PWD)
 mkdir -p ${COMMON}
 COMMON=$(cd ${COMMON}; echo $PWD)
 
-cp -a ${PTXDIST}/* ${EMPTY}
+cp -R ${PTXDIST}/* ${EMPTY}
 find ${EMPTY} -name "CVS" -type d -print0 | xargs -0 -- rm -rf
 find ${EMPTY} -name "*~*" -type f -print0 | xargs -0 -- rm -rf
 find ${EMPTY} -name ".#*" -type f -print0 | xargs -0 -- rm -rf
