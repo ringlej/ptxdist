@@ -1,6 +1,8 @@
 Current TODO List
 =================
 
+- RSC: wget seems to always return 0 as it's retval when being called
+       with -r. This is bad as it breaks the error detection mechanism. 
 - RSC: busybox is somehow rebuilt when you make rootclean & world
 - RSC:	This todo is not very current... add "update todo" to the todo file :-) 
 - RSC:	patches/$PACKET is not cleaned by make clean; this may be
