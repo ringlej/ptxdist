@@ -1,4 +1,4 @@
-#ident "$Id: policy-frako.h,v 1.1 2004/02/12 09:44:03 bsp Exp $ Copyright (c) Gert Doering"
+#ident "$Id: policy-frako.h,v 1.2 2004/03/12 16:20:15 bsp Exp $ Copyright (c) Gert Doering"
 
 /* this is the file where all configuration defaults for mgetty / sendfax
  * are specified.
@@ -92,11 +92,11 @@
 /* user id of the "uucp" user. The tty device will be owned by this user,
  * so parallel dial-out of uucico will be possible
  */
-#define DEVICE_OWNER	"uucp"
+#define DEVICE_OWNER	"root"
 /* group id that the device is chown()ed to. If not defined, the
  * primary group of "DEVICE_OWNER" is used.
  */
-#define DEVICE_GROUP	"modem"
+#define DEVICE_GROUP	"root"
 
 /* access mode for the line while getty has it - it should be accessible
  * by uucp / uucp, but not by others (imagine someone dialing into your
@@ -363,7 +363,8 @@
 /* incoming faxes will be chown()ed to this uid and gid.
  * if FAX_IN_GROUP is undefined, the group of ...OWNER is used.
  */
-#define FAX_IN_OWNER	"uucp"
+/* #define FAX_IN_OWNER	"uucp" */
+#define FAX_IN_OWNER "root"
 /* #define FAX_IN_GROUP	"root" */
 
 /* incoming faxes will be chmod()ed to this mode

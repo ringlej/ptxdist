@@ -623,6 +623,7 @@ CONFIG_RTC=y
 # CONFIG_AGP is not set
 # CONFIG_DRM is not set
 # CONFIG_MWAVE is not set
+CONFIG_FRAKO_RELAIS=m
 
 #
 # Multimedia devices
