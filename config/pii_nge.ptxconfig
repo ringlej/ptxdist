@@ -85,14 +85,15 @@ PTXCONF_CROSSCHAIN_CHECK="3.3.3"
 #
 # Root Filesystem     
 #
-PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_DEV=y
-PTXCONF_ROOTFS_MNT=y
+PTXCONF_ROOTFS_ETC=y
 # PTXCONF_ROOTFS_FLOPPY is not set
-PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_HOME=y
-PTXCONF_ROOTFS_VAR=y
+PTXCONF_ROOTFS_MNT=y
+PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
+PTXCONF_ROOTFS_TMP=y
+PTXCONF_ROOTFS_VAR=y
 PTXCONF_VENDORTWEAKS="pii_nge.make"
 
 #
@@ -119,7 +120,7 @@ PTXCONF_STRACE_SHARED=y
 #
 # PTXCONF_GENEXT2FS is not set
 # PTXCONF_HOSTTOOL_E2FSPROGS is not set
-# PTXCONF_FAKEROOT is not set
+PTXCONF_FAKEROOT=y
 PTXCONF_UTLNX_FDISK=y
 # PTXCONF_UTLNX_CFDISK is not set
 # PTXCONF_UTLNX_SFDISK is not set
@@ -795,9 +796,14 @@ PTXCONF_UTLNX=y
 #
 
 #
-# shorewall firewall  
+# Dropbear SSH-Server 
 #
-# PTXCONF_SHOREWALL is not set
+# PTXCONF_DROPBEAR is not set
+
+#
+# iptables            
+#
+# PTXCONF_IPTABLES is not set
 
 #
 # LSH                 
@@ -815,9 +821,9 @@ PTXCONF_UTLNX=y
 # PTXCONF_OPENSSH is not set
 
 #
-# Dropbear SSH-Server 
+# shorewall firewall  
 #
-# PTXCONF_DROPBEAR is not set
+# PTXCONF_SHOREWALL is not set
 
 #
 # Networking Apps     
@@ -1046,6 +1052,11 @@ PTXCONF_E2FSPROGS_E2FSCK=y
 # Tools               
 #
 PTXCONF_FIGLET=y
+
+#
+# Editors             
+#
+# PTXCONF_NANO is not set
 
 #
 # System Libraries    
