@@ -70,7 +70,7 @@ choice
 	config KERNEL_2_4_26
 		bool
 		prompt "2.4.26"
-		depends on ARCH_X86 || ARCH_ARM
+		depends on ARCH_X86 || ARCH_ARM || ARCH_ALPHA
 
 	config KERNEL_2_4_27
 		bool
@@ -85,22 +85,22 @@ choice
 	config KERNEL_2_6_1
 		bool
 		prompt "2.6.1"
-		depends on ARCH_X86 || ARCH_ARM
+		depends on ARCH_X86 || ARCH_ARM || ARCH_ALPHA
 
 	config KERNEL_2_6_6
 		bool
 		prompt "2.6.6"
-		depends on ARCH_X86 || ARCH_ARM
+		depends on ARCH_X86 || ARCH_ARM || ARCH_ALPHA
 	
 	config KERNEL_2_6_7
 		bool
 		prompt "2.6.7"
-		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC
+		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC || ARCH_ALPHA
 
 	config KERNEL_2_6_8
 		bool
 		prompt "2.6.8"
-		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC
+		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC || ARCH_ALPHA
 
 endchoice
 
