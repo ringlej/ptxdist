@@ -7,9 +7,10 @@
 #
 
 echo
-echo "@PROJECT@-@VERSION@.@PATCHLEVEL@.@SUBLEVEL@@EXTRAVERSION@ (@DATE@)"
+echo "PTXdist-0.5.2-cvs (2004-06-30T10:50:59+0200)"
 echo 
-host=`cat /etc/hostname`
+host=`/bin/hostname`
 /usr/sbin/figlet -f /usr/share/figlet/standard "PII $host"
+echo
 echo
 
