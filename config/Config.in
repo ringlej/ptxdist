@@ -66,6 +66,7 @@ source "rules/utelnetd.in"
 source "rules/inetutils.in"
 source "rules/netcat.in"
 source "rules/proftpd.in"
+source "rules/betaftpd.in"
 source "rules/nfs-utils.in"
 source "rules/portmap.in"
 source "rules/tcpwrapper.in"
@@ -105,6 +106,7 @@ source "rules/popt.in"
 source "rules/zlib.in"
 source "rules/ncurses.in"
 source "rules/db41.in"
+source "rules/rn.in"
 
 endmenu
 
