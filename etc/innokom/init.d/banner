@@ -7,7 +7,5 @@
 #
 
 echo
-echo "PTXDIST - release 0.3.25 (2003-09-30)"
-echo "Please report problems with this software"
-echo "to Robert Schwebel <r.schwebel@pengutronix.de>"
+echo "@PROJECT@-@VERSION@.@PATCHLEVEL@.@SUBLEVEL@@EXTRAVERSION@ (@DATE@)"
 echo 
