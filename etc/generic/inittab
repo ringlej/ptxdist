@@ -4,8 +4,7 @@
 # 2004-06-17 Robert Schwebel <r.schwebel@pengutronix.de>
 #
 
-::sysinit:/etc/init.d/banner 
-::sysinit:/etc/init.d/rcS
+console::sysinit:/etc/init.d/rcS
 #::sysinit:/sbin/ptx-init-permissions.sh
 #::sysinit:/sbin/openssh-host-keygen.sh
 # busybox syslogd ignores /etc/syslogd.conf
@@ -13,10 +12,10 @@
 #::sysinit:/sbin/syslogd host:514 (for remote logging)
 #::sysinit:/usr/sbin/crond -L /var/log/cron
 #::sysinit:/usr/sbin/sshd -4 -f /etc/ssh/sshd_config
-::sysinit:/sbin/utelnetd -d
-::sysinit:/bin/echo
+null::sysinit:/sbin/utelnetd -d
+console::sysinit:/etc/init.d/banner 
 
-@CONSOLE@::respawn:/sbin/getty -L 115200 @CONSOLE@ vt100
+console::respawn:/sbin/getty -L @SPEED@ @CONSOLE@ vt100
 
 # Stuff to do before rebooting
 ::ctrlaltdel:/sbin/reboot
