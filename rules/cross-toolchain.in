@@ -57,6 +57,17 @@ config GCC_SHARED
 	default y
 	depends on BUILD_CROSSCHAIN
 
+config GCC_MULTILIB
+	bool
+	prompt "  build gcc with multilib support"
+	default n
+	depends on BUILD_CROSSCHAIN
+	help
+	  RSC: if I understand this correctly this option defines, for
+	  example, that libgcc.a can support soft-float and hard-float
+	  at the same time. Feel free to document this better if you
+	  know what it _really_ means :-) 
+
 config XCHAIN-DISTCC
 	bool
 	prompt "Build distcc"
