@@ -1,5 +1,5 @@
 # -*-makefile-*- 
-# $Id: bootdisk.make,v 1.9 2003/08/08 17:17:20 robert Exp $
+# $Id: bootdisk.make,v 1.10 2003/08/12 08:20:12 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -110,11 +110,11 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	# FIXME: is this the correct file for this rule? 
 	install $(SRCDIR)/ptxflash $(BOOTDISK_DIR)/sbin/
 	rm -fr $(BUILDDIR)/tmpboot && install -d $(BUILDDIR)/tmpboot
-	cd $(BUILDDIR)/tmpboot && tar cf bootdisk.tar $(BOOTDISK_DIR)
+	cd $(BOOTDISK_DIR) && tar cf $(BUILDDIR)/tmpboot/bootdisk.tar *
 	$(SUDO) sh -c \
 		"GRUBPATH=$(BOOTDISK_DIR)/bin/; $(BOOTDISK_DIR)/sbin/mkbimage -d $(BUILDDIR)/tmpboot -f $(BUILDDIR)/tmpboot/bootdisk.tar -s ext2 -t 1.44"
 	mv $(BUILDDIR)/tmpboot/1.44.image $(TOPDIR)/boot.image
-	rm -rf $(BUILDDIR)/tmpboot
+	$(SUDO) rm -rf $(BUILDDIR)/tmpboot
 	touch $@
 
 # ----------------------------------------------------------------------------
