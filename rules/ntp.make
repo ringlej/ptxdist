@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ntp.make,v 1.3 2004/01/22 00:49:19 robert Exp $
+# $Id: ntp.make,v 1.4 2004/06/23 15:33:28 rsc Exp $
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          
@@ -300,6 +300,8 @@ ifdef PTXCONF_NTP_CRYPTO
 NTP_AUTOCONF += --enable-crypto
 NTP_AUTOCONF += --with-openssl-libdir=$(OPENSSL_DIR)
 NTP_AUTOCONF += --with-openssl-incdir=$(OPENSSL_DIR)
+else
+NTP_AUTOCONF += --disable-crypto
 endif
 ifdef PTXCONF_NTP_SNTP
 NTP_AUTOCONF += --enable-sntp
@@ -359,6 +361,10 @@ ntp_targetinstall_deps = $(STATEDIR)/ntp.compile
 
 $(STATEDIR)/ntp.targetinstall: $(ntp_targetinstall_deps)
 	@$(call targetinfo, $@)
+ifdef PTXCONF_NTP_NTPDATE
+	cp $(NTP_DIR)/ntpdate/ntpdate $(ROOTDIR)/usr/sbin/
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/ntpdate
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
