@@ -1,0 +1,10 @@
+config BUILD_CROSSCHAIN_GDB
+	bool
+	prompt "Build Cross GDB"
+	depends on BUILD_CROSSCHAIN
+	comment "gdbserver needs libthreads_db on target"
+
+config BUILD_CROSSCHAIN_GDBSERVER
+	bool
+	prompt "Build gdbserver for target"
+	depends on BUILD_CROSSCHAIN_GDB && GLIBC_THREAD_DB

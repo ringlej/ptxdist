@@ -1,0 +1,104 @@
+# menue to chose C library
+
+choice
+        prompt "Which C library do you want to use?"
+        default GLIBC
+	
+	config GLIBC
+		bool
+ 		prompt "GLIBC"
+ 		depends on !ARCH_NOMMU
+    
+	config UCLIBC
+		bool
+ 		prompt "uClibc"
+endchoice
+
+comment "C Library options"
+
+choice
+	prompt "C-Lib Version"
+		default GLIBC_2_2_5
+	
+	config GLIBC_2_2_5
+		bool
+		prompt "2.2.5"
+		depends on GLIBC
+
+	config GLIBC_2_2_4
+		bool
+		prompt "2.2.4"
+		depends on GLIBC
+		depends on ARCH_X86
+
+	config GLIBC_2_2_3
+		bool
+		prompt "2.2.3"
+		depends on GLIBC
+		depends on ARCH_X86
+
+	config UCLIBC_0_9_19
+		bool
+		prompt "0.9.19"
+		depends on UCLIBC
+
+	config UCLIBC_0_9_20
+		bool
+		prompt "0.9.20"
+		depends on UCLIBC
+endchoice
+
+source "rules/glibc.in"
+          
+source "config/uClibc/extra/Configs/Config.alpha"
+source "config/uClibc/extra/Configs/Config.arm"
+source "config/uClibc/extra/Configs/Config.cris"
+source "config/uClibc/extra/Configs/Config.h8300"
+source "config/uClibc/extra/Configs/Config.i386"
+source "config/uClibc/extra/Configs/Config.i960"
+source "config/uClibc/extra/Configs/Config.m68k"
+source "config/uClibc/extra/Configs/Config.mips"
+source "config/uClibc/extra/Configs/Config.mipsel"
+source "config/uClibc/extra/Configs/Config.powerpc"
+source "config/uClibc/extra/Configs/Config.sh"
+source "config/uClibc/extra/Configs/Config.sparc"
+source "config/uClibc/extra/Configs/Config.v850"
+
+comment "Install options"
+	depends on UCLIBC
+
+config UCLIBC_CRYPT
+	bool
+	prompt "Install libcrypt on the target"
+	depends on UCLIBC
+
+config UCLIBC_DL
+	bool
+	prompt "Install libdl on the target"
+	depends on UCLIBC
+
+config UCLIBC_M
+	bool
+	prompt "Install libm on the target"
+	depends on UCLIBC
+
+config UCLIBC_NSL
+	bool
+	prompt "Install libnsl on the target"
+	depends on UCLIBC
+
+config UCLIBC_PTHREAD
+	bool
+	prompt "Install libpthread on the target"
+	depends on UCLIBC
+
+config UCLIBC_RESOLV
+	bool
+	prompt "Install libresolv on the target"
+	depends on UCLIBC
+
+config UCLIBC_UTIL
+	bool
+	prompt "Install libutil on the target"
+	depends on UCLIBC
+

@@ -1,0 +1,109 @@
+config GLIBC_PTHREADS
+	bool
+	prompt "Compile glibc with pthreads"
+	default y
+	depends on GLIBC
+
+config GLIBC_FLOATINGPOINT
+	bool
+	prompt "Enable glibc floating point support"
+	default y
+	depends on GLIBC
+
+config GLIBC_LIBIO
+	bool
+	prompt "Build in GNU libio instead of GNU stdio"
+	default n
+	depends on GLIBC
+
+config GLIBC_SHARED
+	bool
+	prompt "Build shared library"
+	default y
+	depends on GLIBC
+
+config GLIBC_PROFILED
+	bool
+	prompt "Include profiling support"
+	default n
+	depends on GLIBC
+
+config GLIBC_OMITFP
+	bool
+	prompt "Build undebuggable optimized library"
+	default n
+	depends on GLIBC
+
+config GLIBC_BOUNDED
+	bool
+	prompt "Build with runtime bounds checking"
+	depends on GLIBC
+
+comment	"Install options"
+	depends on GLIBC
+
+config GLIBC_THREAD_DB
+	bool
+	prompt "Install libthread_db on the target"
+	depends on GLIBC
+
+config GLIBC_DL
+	bool
+	prompt "Install libdl on the target"
+	default y if BASH
+	depends on GLIBC
+
+config GLIBC_CRYPT
+	bool
+	prompt "Install libcrypt on the target"
+	depends on GLIBC
+
+config GLIBC_UTIL
+	bool
+	prompt "Install libutil on the target"
+	depends on GLIBC
+
+config GLIBC_LIBM
+	bool
+	prompt "Install libm on the target"
+	depends on GLIBC
+
+config GLIBC_NSS_DNS
+	bool
+	prompt "Install libnss_dns"
+	depends on GLIBC
+
+config GLIBC_NSS_FILES
+	bool
+	prompt "Install libnss_files"
+	depends on GLIBC
+
+config GLIBC_NSS_HESIOD
+	bool
+	prompt "Install libnss_hesiod"
+	depends on GLIBC
+
+config GLIBC_NSS_NIS
+	bool
+	prompt "Install libnss_nis"
+	depends on GLIBC
+
+config GLIBC_NSS_NISPLUS
+	bool
+	prompt "Install libnss_nisplus"
+	depends on GLIBC
+
+config GLIBC_NSS_COMPAT
+	bool
+	prompt "Install libnss_compat"
+	depends on GLIBC
+
+config GLIBC_RESOLV
+	bool
+	prompt "Install libresolv"
+	depends on GLIBC
+
+config GLIBC_NSL
+	bool
+	prompt "Install libnsl"
+	depends on GLIBC
