@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: cramfs.make,v 1.2 2003/10/07 07:13:16 robert Exp $
+# $Id: cramfs.make,v 1.3 2003/10/07 08:31:47 mkl Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 #          
@@ -65,13 +65,7 @@ cramfs_prepare: $(STATEDIR)/cramfs.prepare
 # dependencies
 #
 cramfs_prepare_deps =  \
-	$(STATEDIR)/cramfs.extract \
-	$(STATEDIR)/virtual-xchain.install
-
-#CRAMFS_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
-#CRAMFS_ENV 	=  $(CROSS_ENV)
-#CRAMFS_ENV	+=
-
+	$(STATEDIR)/cramfs.extract
 
 $(STATEDIR)/cramfs.prepare: $(cramfs_prepare_deps)
 	@$(call targetinfo, $@)
@@ -88,7 +82,7 @@ cramfs_compile_deps =  $(STATEDIR)/cramfs.prepare
 $(STATEDIR)/cramfs.compile: $(cramfs_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(CRAMFS_DIR) && \
-		$(CRAMFS_PATH) $(CRAMFS_ENV) make
+		make
 	touch $@
 
 # ----------------------------------------------------------------------------
