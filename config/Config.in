@@ -66,6 +66,7 @@ source "rules/dropbear.in"
 endmenu
 
 menu   "Networking Apps     "
+source "rules/bing.in"
 source "rules/ppp.in"
 source "rules/nmap.in"
 source "rules/utelnetd.in"
@@ -86,6 +87,7 @@ source "rules/ntp.in"
 source "rules/bind.in"
 source "rules/dhcp.in"
 source "rules/dnsmasq.in"
+source "rules/tcpdump.in"
 endmenu
 
 ############################################################################## 
