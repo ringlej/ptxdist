@@ -304,7 +304,7 @@ config GNU_TARGET
 config PREFIX
 	prompt "Prefix for development environment"
 	string
-	default "/tmp/ptxdist-local"
+	default "$(TOPDIR)/local"
 
 config ROOT
 	prompt "Prefix for root filesystem"
