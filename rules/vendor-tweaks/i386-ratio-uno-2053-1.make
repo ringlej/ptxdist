@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: i386-ratio-uno-2053-1.make,v 1.4 2004/04/07 14:20:01 bbu Exp $
+# $Id: i386-ratio-uno-2053-1.make,v 1.5 2004/04/14 15:19:53 bbu Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -53,14 +53,10 @@ $(STATEDIR)/ratio-uno-2053-1.targetinstall:
 	echo "default 0" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo 'title "Compact Flash"' >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "kernel /boot/bzImage ip=:::::eth0:on root=/dev/hda1 ide=nodma" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "kernel /boot/bzImage root=/dev/hda1 ide=nodma console=tty0 console=ttyS0,9600n8" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo " " >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "#Alternativ: Services für 2 NICs anmelden:" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "#kernel /boot/bzImage ip=192.168.0.209::192.168.0.254:255.255.255.0::eth0:off,192.168.1.254:::255.255.255.0::eth1:off root=/dev/hdc1" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo " " >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "# Kernelparameter:" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "# Kernelparameter (ip=<params>) :" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "# Dokumentiert in Linux Kernel Decumentation" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "#    Verzeichnis ..ptxdist-0.5.0/build/linux-2.4.22/Documentation/kernel-parameters.txt" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "#    IP-Parameter: nfsroot.txt" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "#  Bedeutung der IP-Parameter von links nach rechts:" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "#    1. Client-IP" >> $(ROOTDIR)/boot/grub/menu.lst
