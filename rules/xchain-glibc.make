@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-glibc.make,v 1.14 2003/09/16 16:56:02 mkl Exp $
+# $Id: xchain-glibc.make,v 1.15 2003/10/09 15:12:27 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -59,6 +59,10 @@ $(STATEDIR)/xchain-glibc.prepare: $(xchain_glibc_prepare_deps)
 		$(GLIBC_AUTOCONF)						\
 		--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)		\
 		--libexecdir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/bin
+		
+	# don't compile programs
+	echo "build-programs=no" >> $(XCHAIN_GLIBC_BUILDDIR)/configparms
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -70,6 +74,12 @@ xchain-glibc_compile:	$(STATEDIR)/xchain-glibc.compile
 $(STATEDIR)/xchain-glibc.compile: $(STATEDIR)/xchain-glibc.prepare 
 	@$(call targetinfo, xchain-glibc.compile)
 	cd $(XCHAIN_GLIBC_BUILDDIR) && $(GLIBC_PATH) make
+	
+	# fake files which are installed by make install although
+	# compiling binaries was switched of (tested with 2.2.5)
+	touch $(XCHAIN_GLIBC_BUILDDIR)/iconv/iconv_prog
+	touch $(XCHAIN_GLIBC_BUILDDIR)/login/pt_chown
+	
 	touch $@
 
 # ----------------------------------------------------------------------------
