@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ntp.make,v 1.5 2004/08/18 13:48:55 rsc Exp $
+# $Id: ntp.make,v 1.6 2004/08/18 17:13:09 rsc Exp $
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          
@@ -336,7 +336,8 @@ $(STATEDIR)/ntp.compile: $(ntp_compile_deps)
 	# ntp-4.2.0 tries to build ntpdc/ntpdc-layout for the target but
 	# trys to run it on the build machine - this is wrong... 
 	perl -i -p -e "s/^CC =/CC ?=/g" $(NTP_DIR)/ntpdc/Makefile
-	cd $(NTP_DIR)/ntpdc && CC=$(HOSTCC) make ntpdc-layout 
+	perl -i -p -e "s/^LDFLAGS =/LDFLAGS ?=/g" $(NTP_DIR)/ntpdc/Makefile
+	cd $(NTP_DIR)/ntpdc && CC=$(HOSTCC) LDFLAGS='' make ntpdc-layout 
 
 	# now build the rest
 	cd $(NTP_DIR) && $(NTP_ENV) $(NTP_PATH) make
