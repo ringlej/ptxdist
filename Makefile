@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.71 2004/01/22 00:45:52 robert Exp $
+# $Id: Makefile,v 1.72 2004/01/27 13:58:19 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -183,6 +183,9 @@ menuconfig: scripts/lxdialog/lxdialog scripts/kconfig/mconf
 
 xconfig: scripts/kconfig/qconf
 	scripts/kconfig/qconf config/Config.in
+
+gconfig: scripts/kconfig/gconf
+	LD_LIBRARY_PATH=./scripts/kconfig ./scripts/kconfig/gconf config/Config.in
 
 oldconfig: ptx_kconfig scripts/kconfig/conf
 	scripts/kconfig/conf -o config/Config.in 
