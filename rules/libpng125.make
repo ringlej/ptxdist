@@ -35,8 +35,14 @@ libpng125_get: $(STATEDIR)/libpng125.get
 
 libpng125_get_deps	=  $(LIBPNG125_SOURCE)
 
-$(STATEDIR)/libpng125.get: $(libpng125_get_deps)
+
+$(STATEDIR)/libpng125.get: $(libpng125_get_deps) $(STATEDIR)/libpng125-patches.get
 	@$(call targetinfo, $@)
+	touch $@
+
+$(STATEDIR)/libpng125-patches.get:
+	@$(call targetinfo, $@)
+	@$(call get_patches, $(LIBPNG125))
 	touch $@
 
 $(LIBPNG125_SOURCE):
@@ -55,6 +61,7 @@ $(STATEDIR)/libpng125.extract: $(libpng125_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPNG125_DIR))
 	@$(call extract, $(LIBPNG125_SOURCE))
+	@$(call patchin, $(LIBPNG125))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -73,6 +80,8 @@ libpng125_prepare_deps =  \
 LIBPNG125_PATH	=  PATH=$(CROSS_PATH)
 LIBPNG125_ENV 	=  $(CROSS_ENV)
 LIBPNG125_ENV   += prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+LIBPNG125_ENV	+= ZLIBLIB=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+LIBPNG125_ENV	+= ZLIBINC=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 
 ifdef PTXCONF_LIBPNG125_FOO
 LIBPNG125_AUTOCONF	+= --enable-foo
@@ -82,9 +91,6 @@ $(STATEDIR)/libpng125.prepare: $(libpng125_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPNG125_BUILDDIR))
 	cp $(LIBPNG125_DIR)/scripts/makefile.linux $(LIBPNG125_DIR)/Makefile
-	# Fix some cross unfriendly mess
-	perl -i -p -e "s/CC=/CC?=/g" $(LIBPNG125_DIR)/Makefile
-	perl -i -p -e "s/^prefix=/prefix?=/g" $(LIBPNG125_DIR)/Makefile
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -109,13 +115,12 @@ libpng125_install: $(STATEDIR)/libpng125.install
 
 $(STATEDIR)/libpng125.install: $(STATEDIR)/libpng125.compile
 	@$(call targetinfo, $@)
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	install $(LIBPNG125_DIR)/libpng12.so.0.1.2.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	ln -sf libpng12.so.0.1.2.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpng12.so.0
-	ln -sf libpng12.so.0.1.2.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpng12.so
-	ln -sf libpng12.so.0.1.2.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpng.so.0
-	ln -sf libpng12.so.0.1.2.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpng.so
-	install $(LIBPNG125_DIR)/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/
+	cd $(LIBPNG125_DIR) && $(LIBPNG125_PATH) $(LIBPNG125_ENV) make install
+	# and now the ugly part
+	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/libpng12 && \
+		ln -s ../zlib.h .
+	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/libpng12 && \
+		ln -s ../zconf.h .
 	touch $@
 
 # ----------------------------------------------------------------------------
