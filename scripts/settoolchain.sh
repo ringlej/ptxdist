@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: settoolchain.sh,v 1.2 2003/10/28 11:00:25 robert Exp $
+# $Id: settoolchain.sh,v 1.3 2003/10/28 11:13:39 mkl Exp $
 #
 # Copyright (C) 2003 Ixia Communications, by Dan Kegel
 #
@@ -21,8 +21,10 @@ test -z "${TARGET}"           && abort "Please set TARGET to the Gnu target iden
 test -z "${PREFIX}"           && abort "Please set PREFIX to where you want the toolchain installed."
 
 # Grumble.  Convert TARGET to internal ptxdist booleans.
-# This is really fragile, and I probably missed a bunch of subarch flags.
-
+# This is really fragile, and I probably missed a bunch of subarch flags. (dank)
+#
+# yes: arm le/be discrimination, but I added this  (mkl)
+#
 case $TARGET in
         *-*-*-*) ;;
 	*)       abort "Please use a canonical target name.  These always contain three dashes, e.g. mipsle-unknown-linux-gnu." ;;
@@ -30,7 +32,8 @@ esac
 
 case $TARGET in
 	*arm*uclinux*) PTXARCH=ARM_NOMMU ;;
-	*arm*)         PTXARCH=ARM ;;
+	*armb*)        PTXARCH=ARM ;; PTXSUBARCH=ARM_ARCH_BE;;
+	*arm*)         PTXARCH=ARM ;; PTXSUBARCH=ARM_ARCH_LE;;
 	*i*86*)        PTXARCH=X86 ;;
 	*pentium*)     PTXARCH=X86 ;;
 	*ppc*)         abort "Please use a target of powerpc-*-*-* rather than ppc-*" ;;
