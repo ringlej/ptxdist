@@ -2,6 +2,7 @@ menu "gettext          "
 
 config GETTEXT
 	bool
+	depends on GCC_SHARED
 	prompt "Compile GNU gettext"
 
 config GETTEXT_LIBINTL

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gettext.make,v 1.6 2003/12/15 07:15:35 bsp Exp $
+# $Id: gettext.make,v 1.7 2003/12/23 10:53:34 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -114,9 +114,9 @@ $(STATEDIR)/gettext.install: $(STATEDIR)/gettext.compile
 	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)/lib
 	rm -f $(PTXCONF_PREFIX)/lib/libgnuintl.so*
-	install $(GETTEXT_DIR)/gettext-runtime/intl/.libs/libgnuintl.so.2.3.0 $(PTXCONF_PREFIX)/lib/
-	ln -s libgnuintl.so.2.3.0 $(PTXCONF_PREFIX)/lib/libgnuintl.so.2 
-	ln -s libgnuintl.so.2.3.0 $(PTXCONF_PREFIX)/lib/libgnuintl.so 
+	install $(GETTEXT_DIR)/gettext-runtime/intl/.libs/libgnuintl.so* $(PTXCONF_PREFIX)/lib/
+#	ln -s $(PTXCONF_PREFIX)/lib/libgnuintl.so* $(PTXCONF_PREFIX)/lib/libgnuintl.so.2 
+#	ln -s $(PTXCONF_PREFIX)/lib/libgnuintl.so.2 $(PTXCONF_PREFIX)/lib/libgnuintl.so 
 	install $(GETTEXT_DIR)/gettext-runtime/intl/libgnuintl.h $(PTXCONF_PREFIX)/include
 	install $(GETTEXT_DIR)/gettext-tools/src/msgfmt $(PTXCONF_PREFIX)/bin
 	touch $@
@@ -133,9 +133,9 @@ $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps)
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/lib
 	rm -f $(ROOTDIR)/lib/libgnuintl.so*
-	install $(GETTEXT_DIR)/gettext-runtime/intl/.libs/libgnuintl.so.2.3.0 $(ROOTDIR)/lib/
-	ln -s libgnuintl.so.2.3.0 $(ROOTDIR)/lib/libgnuintl.so.2
-	ln -s libgnuintl.so.2.3.0 $(ROOTDIR)/lib/libgnuintl.so
+	install $(GETTEXT_DIR)/gettext-runtime/intl/.libs/libgnuintl.so.* $(ROOTDIR)/lib/
+#	ln -s $(ROOTDIR)/lib/libgnuintl.so.* $(ROOTDIR)/lib/libgnuintl.so.2
+#	ln -s $(ROOTDIR)/lib/libgnuintl.so.2 $(ROOTDIR)/lib/libgnuintl.so
 	touch $@
 
 # ----------------------------------------------------------------------------
