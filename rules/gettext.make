@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gettext.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
+# $Id: gettext.make,v 1.5 2003/10/28 01:57:38 mkl Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -33,7 +33,7 @@ GETTEXT_DIR		= $(BUILDDIR)/$(GETTEXT)
 
 gettext_get: $(STATEDIR)/gettext.get
 
-gettext_get_deps	=  $(GETTEXT_SOURCE)
+gettext_get_deps = $(GETTEXT_SOURCE)
 
 $(STATEDIR)/gettext.get: $(gettext_get_deps)
 	@$(call targetinfo, $@)
@@ -49,7 +49,7 @@ $(GETTEXT_SOURCE):
 
 gettext_extract: $(STATEDIR)/gettext.extract
 
-gettext_extract_deps	=  $(STATEDIR)/gettext.get
+gettext_extract_deps = $(STATEDIR)/gettext.get
 
 $(STATEDIR)/gettext.extract: $(gettext_extract_deps)
 	@$(call targetinfo, $@)
@@ -77,9 +77,9 @@ GETTEXT_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 
-GETTEXT_AUTOCONF	=  --prefix=/usr
-GETTEXT_AUTOCONF	+= --build=$(GNU_HOST)
-GETTEXT_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+GETTEXT_AUTOCONF =  --prefix=/usr \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET)
 
 # This is braindead but correct :-) 
 GETTEXT_AUTOCONF	+= --disable-nls
@@ -97,7 +97,7 @@ $(STATEDIR)/gettext.prepare: $(gettext_prepare_deps)
 
 gettext_compile: $(STATEDIR)/gettext.compile
 
-gettext_compile_deps =  $(STATEDIR)/gettext.prepare
+gettext_compile_deps = $(STATEDIR)/gettext.prepare
 
 $(STATEDIR)/gettext.compile: $(gettext_compile_deps)
 	@$(call targetinfo, $@)
@@ -127,7 +127,7 @@ $(STATEDIR)/gettext.install: $(STATEDIR)/gettext.compile
 
 gettext_targetinstall: $(STATEDIR)/gettext.targetinstall
 
-gettext_targetinstall_deps	=  $(STATEDIR)/gettext.compile
+gettext_targetinstall_deps = $(STATEDIR)/gettext.compile
 
 $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps)
 	@$(call targetinfo, $@)
