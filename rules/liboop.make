@@ -1,4 +1,4 @@
-# $Id: liboop.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: liboop.make,v 1.2 2003/05/13 11:23:13 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -85,7 +85,7 @@ $(STATEDIR)/liboop.extract: $(STATEDIR)/liboop.get
 liboop_prepare: $(STATEDIR)/liboop.prepare
 
 LIBOOP_AUTOCONF =
-LIBOOP_AUTOCONF += --build=i686-linux
+LIBOOP_AUTOCONF += --build=$(GNU_HOST)
 LIBOOP_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 LIBOOP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)
 LIBOOP_AUTOCONF += --without-tcl
