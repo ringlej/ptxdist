@@ -31,26 +31,17 @@ echo
 echo $CPUVENDOR cuckoo test
 
 echo "1 pass (egg test)"
-# 
-# FIXME: positive lists are not handleble any more when python is
-# installed...
-# 
-#find . -type f -exec file {} \; | sed -e "s/ASCII.*/+++OK+++/" \
-#-e "s/Bourne.*executable/+++OK+++/" -e "s/empty/+++OK+++/" \
-#-e "s/PPCBoot.*/+++OK+++/" \
-#-e "s/ELF.*$CPUVENDOR.*/+++OK+++/" \
-#-e "s/FIGlet.*/+++OK+++/" \
-#-e "s/python script.*/+++OK+++/" \
-#-e "s/news or mail text.*/+++OK+++/" \
-#-e "s/Berkeley DB.*/+++OK+++/" \
-#-e "s/Compiled terminfo entry.*/+++OK+++/" \
-#-e "s/MIME entity text.*/+++OK+++/" \
-#-e "s/python.*byte-compiled.*/+++OK+++/" | \
-#grep -v "+++OK+++" | \
-find . -type f -exec file {} \; | \
-	grep "ELF" | sed -e "s/ELF.*$CPUVENDOR.*/+++OK+++/" | \
-	grep -v "+++OK+++" | \
-	awk -F, '{print substr($1, 1, index($1,":"))" wrong architecture! ("$2")"}'
+find . -type f -exec file {} \; | sed -e "s/ASCII.*/+++OK+++/" \
+-e "s/Bourne.*executable/+++OK+++/" -e "s/empty/+++OK+++/" \
+-e "s/PPCBoot.*/+++OK+++/" \
+-e "s/ELF.*$CPUVENDOR.*/+++OK+++/" \
+-e "s/FIGlet.*/+++OK+++/" \
+-e "s/python script.*/+++OK+++/" \
+-e "s/Berkeley DB.*/+++OK+++/" \
+-e "s/Compiled terminfo entry.*/+++OK+++/" \
+-e "s/python.*byte-compiled.*/+++OK+++/" | \
+grep -v "+++OK+++" | \
+awk -F, '{print substr($1, 1, index($1,":"))" wrong architecture! ("$2")"}'
 echo "---"
 
 echo "2 pass (fluff up test)"
