@@ -19,7 +19,7 @@ DEP_TREE_PS	= deptree.ps
 #
 # print out header information
 #
-targetinfo=echo;					\
+targetinfo = echo;					\
 	TG=`echo $(1) | sed -e "s,/.*/,,g"`; 		\
 	LINE=`echo target: $$TG |sed -e "s/./-/g"`;	\
 	echo $$LINE;					\
@@ -49,14 +49,14 @@ extract =							\
 	DEST=$${DEST:-$(BUILDDIR)};				\
 	case "$$PACKET" in					\
 	*gz)							\
-		EXTRACT=gzip					\
+		EXTRACT=$(GZIP)					\
 		;;						\
 	*bz2)							\
-		EXTRACT=bzip2					\
+		EXTRACT=$(BZIP2)				\
 		;;						\
 	*)							\
 		echo;						\
-		echo Unknown format, cannot extect!;		\
+		echo Unknown format, cannot extract!;		\
 		echo;						\
 		exit -1;					\
 		;;						\
@@ -81,7 +81,7 @@ get =								\
 	SRC="$(strip $(2))";					\
 	SRC=$${SRC:-$(SRCDIR)};					\
 	[ -d $$SRC ] || mkdir -p $$SRC;				\
-	wget -P $$SRC $(PASSIVEFTP) $$URL
+	$(WGET) -P $$SRC $(PASSIVEFTP) $$URL
 
 #
 # download patches from Pengutronix' patch repository
@@ -114,9 +114,9 @@ get_patches =											\
 	if [ -d $(PATCHDIR)/$$PACKET_NAME ]; then						\
 		rm -fr $(PATCHDIR)/$$PACKET_NAME;						\
 	fi;											\
-	wget -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
+	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/;		\
-	wget -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
+	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;	\
 	if [ -d $(PATCHDIR)-local/$$PACKET_NAME ]; then						\
 		echo "Copying Local patches from patches-local/"$$PACKET_NAME;			\
@@ -179,7 +179,7 @@ clean =								\
 #
 # find latest config
 #
-latestconfig=`find $(TOPDIR)/config -name $(1)* -print | sort | tail -1`
+latestconfig = `find $(TOPDIR)/config -name $(1)* -print | sort | tail -1`
 
 
 #
@@ -273,13 +273,13 @@ patchin =									\
 		if [ -f $$PATCH_NAME ]; then					\
 			case `basename $$PATCH_NAME` in				\
 			*.gz)							\
-				CAT=zcat					\
+				CAT=$(ZCAT)					\
 				;;						\
 			*.bz2)							\
-				CAT=bzcat					\
+				CAT=$(BZCAT)					\
 				;;						\
 			*.diff|diff*|*.patch|patch*)				\
-				CAT=cat						\
+				CAT=$(CAT)					\
 				;;						\
 			*)							\
 				echo;						\
@@ -311,13 +311,13 @@ patch_apply =								\
 	if [ -f $$PATCH_NAME ]; then					\
 		case `basename $$PATCH_NAME` in				\
 		*.gz)							\
-			CAT=zcat					\
+			CAT=$(ZCAT)					\
 			;;						\
 		*.bz2)							\
-			CAT=bzcat					\
+			CAT=$(BZCAT)					\
 			;;						\
 		*.diff|diff*|*.patch|patch*)				\
-			CAT=cat						\
+			CAT=$(CAT)					\
 			;;						\
 		*)							\
 			echo;						\
@@ -358,23 +358,26 @@ CROSS_ENV_OBJCOPY	= OBJCOPY=$(PTXCONF_GNU_TARGET)-objcopy
 CROSS_ENV_OBJDUMP	= OBJDUMP=$(PTXCONF_GNU_TARGET)-objdump
 CROSS_ENV_RANLIB	= RANLIB=$(PTXCONF_GNU_TARGET)-ranlib
 CROSS_ENV_STRIP		= STRIP=$(PTXCONF_GNU_TARGET)-strip
-CROSS_ENV_CFLAGS	= CFLAGS='$(subst ",,$(TARGET_CFLAGS))'
-CROSS_ENV_CXXFLAGS	= CXXFLAGS='$(subst ",,$(TARGET_CXXFLAGS))'
+ifneq ('','$(strip $(subst ",,$(TARGET_CFLAGS)))')
+CROSS_ENV_CFLAGS	= CFLAGS='$(strip $(subst ",,$(TARGET_CFLAGS)))'
+endif
+ifneq ('','$(strip $(subst ",,$(TARGET_CXXFLAGS)))')
+CROSS_ENV_CXXFLAGS	= CXXFLAGS='$(strip $(subst ",,$(TARGET_CXXFLAGS)))'
+endif
 
-CROSS_ENV		=  $(CROSS_ENV_AR)
-CROSS_ENV		+= $(CROSS_ENV_AS)
-CROSS_ENV		+= $(CROSS_ENV_CXX)
-CROSS_ENV		+= $(CROSS_ENV_CC)
-CROSS_ENV		+= $(CROSS_ENV_LD)
-CROSS_ENV		+= $(CROSS_ENV_NM)
-CROSS_ENV		+= $(CROSS_ENV_OBJCOPY)
-CROSS_ENV		+= $(CROSS_ENV_OBJDUMP)
-CROSS_ENV		+= $(CROSS_ENV_RANLIB)
-CROSS_ENV		+= $(CROSS_ENV_STRIP)
-CROSS_ENV		+= $(CROSS_ENV_CFLAGS)
-CROSS_ENV		+= $(CROSS_ENV_CXXFLAGS)
-
-CROSS_ENV		+= \
+CROSS_ENV := \
+	$(CROSS_ENV_AR) \
+	$(CROSS_ENV_AS) \
+	$(CROSS_ENV_CXX) \
+	$(CROSS_ENV_CC) \
+	$(CROSS_ENV_LD) \
+	$(CROSS_ENV_NM) \
+	$(CROSS_ENV_OBJCOPY) \
+	$(CROSS_ENV_OBJDUMP) \
+	$(CROSS_ENV_RANLIB) \
+	$(CROSS_ENV_STRIP) \
+	$(CROSS_ENV_CFLAGS) \
+	$(CROSS_ENV_CXXFLAGS) \
 	ac_cv_func_getpgrp_void=yes \
 	ac_cv_func_setpgrp_void=yes \
 	ac_cv_sizeof_long_long=8 \
@@ -402,22 +405,24 @@ SHORT_TARGET		:= `echo $(PTXCONF_GNU_TARGET) |  perl -i -p -e 's/(.*?)-.*/$$1/'`
 #
 # change this if you have some wired configuration :)
 #
-SH		= /bin/sh
-WGET		= wget
-MAKE		= make
-PATCH		= patch
-TAR		= tar
-GZIP		= gzip
-BZIP2		= bzip2
-CAT		= cat
-RM		= rm
-MKDIR		= mkdir
-CD		= cd
-MV		= mv
-CP		= cp
-LN		= ln
-PERL		= perl
-GREP		= grep
-INSTALL		= install
+SH		:= /bin/sh
+WGET		:= wget
+MAKE		:= make
+PATCH		:= patch
+TAR		:= tar
+GZIP		:= gzip
+ZCAT		:= zcat
+BZIP2		:= bzip2
+BZCAT		:= bzcat
+CAT		:= cat
+RM		:= rm
+MKDIR		:= mkdir
+CD		:= cd
+MV		:= mv
+CP		:= cp
+LN		:= ln
+PERL		:= perl
+GREP		:= grep
+INSTALL		:= install
 
 # vim: syntax=make
