@@ -8,6 +8,7 @@
 
 proc	/proc		proc	defaults	0	0
 devpts	/dev/pts	devpts	defaults	0	0
-none	/tmp		ramfs	defaults	0	0
+sysfs	/sys		sysfs	defaults	0	0
 none	/var/log	ramfs	defaults	0	0
+none	/var/run	ramfs	defaults	0	0
 
