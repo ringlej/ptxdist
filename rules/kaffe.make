@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kaffe.make,v 1.1 2003/07/16 04:23:28 mkl Exp $
+# $Id: kaffe.make,v 1.2 2003/07/23 16:46:09 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
@@ -259,7 +259,7 @@ ifdef PTXCONF_KAFFE_LINK_GMP
 # - during linking this lib against the kaffe-bin, it is passed to the linker
 # - we replace the shared library (-lgmp) with the static one (/path/to/libgmp.a)
 #
-	perl -i -p -e 's,-lgmp,$(CROSS_LIB_DIR)/lib/libgmp.a,' \
+	perl -i -p -e 's,((\s-lgmp)|(\s.*libgmp.la), $(CROSS_LIB_DIR)/lib/libgmp.a,' \
 		$(KAFFE_BUILDDIR)/libraries/clib-cldc/native/libnative.la
 	$(KAFFE_PATH) make -C $(KAFFE_BUILDDIR) $(KAFFE_MAKEVARS)
 endif
@@ -330,13 +330,9 @@ endif
 # ----------------------------------------------------------------------------
 
 kaffe_clean:
-	rm -rf $(STATEDIR)/xchain-kaffe.extract
-	rm -rf $(STATEDIR)/xchain-kaffe.prepare
-	rm -rf $(STATEDIR)/xchain-kaffe.compile
 	rm -rf $(STATEDIR)/kaffe*
 	rm -rf $(KAFFE_DIR)
 	rm -rf $(KAFFE_BUILDDIR)
-	rm -rf $(XCHAIN_KAFFE_BUILDDIR)
 	rm -rf $(KAFFE_KANGAROO_DIR)
 
 # vim: syntax=make
