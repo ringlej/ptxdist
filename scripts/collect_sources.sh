@@ -14,9 +14,12 @@ SRC_TAR=$1/ptxdist_additional_sources.tar
 PATCH_TAR=$1/ptxdist_additional_patches.tar
 ZIP="bzip2"
 
-echo "preparing directories ... " 
+echo "preparing ... " 
 mkdir -p $SRC_TMP/src && echo "OK"
 rm $SRC_TMP/src/*
+
+rm $SRC_TAR
+rm $PATCH_TAR $PATCH_TAR.gz $PATCH_TAR.bz2
 
 echo "copying package-archives to $SRC_TMP"
 while read package ; do {
@@ -31,8 +34,8 @@ echo "making tar archives from $SRC_TMP"
 tar -C $SRC_TMP -cvf $SRC_TAR src
 tar -C $SRC_TMP -cvf $PATCH_TAR patches feature-patches
 
-echo "compressing patch archive"
-$ZIP $PATCH_TAR
+#echo "compressing patch archive"
+#$ZIP $PATCH_TAR
 
 echo "removing temp dir..."
 rm -rf $SRC_TMP && echo "OK"

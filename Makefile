@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.97 2004/07/16 17:23:37 bbu Exp $
+# $Id: Makefile,v 1.98 2004/07/16 17:34:52 bbu Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -339,9 +339,9 @@ getclean:
 	@echo "done."
 	@echo
 
-archive:
+archive: source_archive
 # FIXME: this should be automated
-	$(TAR) -C $(TOPDIR)/.. -zcvf /tmp/$(BASENAME).tgz 	\
+	$(TAR) -C $(TOPDIR)/.. -zcvf $(TOPDIR)/../$(BASENAME).tgz 	\
 		--exclude CVS					\
 		--exclude $(BASENAME)/build/* 			\
 		--exclude $(BASENAME)/state/* 			\
