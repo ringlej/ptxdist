@@ -76,6 +76,11 @@ PTXCONF_ROOT=""
 # Cross Toolchain     
 #
 # PTXCONF_BUILD_CROSSCHAIN is not set
+# PTXCONF_BINUTILS_2_13_2_1 is not set
+# PTXCONF_BINUTILS_2_14 is not set
+# PTXCONF_GCC_2_95_3 is not set
+# PTXCONF_GCC_3_2_3 is not set
+# PTXCONF_GCC_3_3_2 is not set
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
@@ -94,10 +99,14 @@ PTXCONF_VENDORTWEAKS="innokom.make"
 #
 # Debugging Tools     
 #
-# PTXCONF_XGDB is not set
-# PTXCONF_GDBSERVER is not set
-# PTXCONF_GDB is not set
-# PTXCONF_GDB_WRAPPERS is not set
+PTXCONF_XGDB=y
+PTXCONF_GDBSERVER=y
+PTXCONF_GDBSERVER_SHARED=y
+PTXCONF_GDB=y
+PTXCONF_GDB_SHARED=y
+PTXCONF_GDB_TERMCAP=y
+# PTXCONF_GDB_NCURSES is not set
+PTXCONF_GDB_WRAPPERS=y
 # PTXCONF_KSYMOOPS is not set
 PTXCONF_LTT=y
 # PTXCONF_LIBBFD is not set
@@ -189,7 +198,7 @@ PTXCONF_GLIBC_THREAD_DB=y
 # PTXCONF_GLIBC_DL is not set
 PTXCONF_GLIBC_CRYPT=y
 PTXCONF_GLIBC_UTIL=y
-# PTXCONF_GLIBC_LIBM is not set
+PTXCONF_GLIBC_LIBM=y
 PTXCONF_GLIBC_NSS_DNS=y
 PTXCONF_GLIBC_NSS_FILES=y
 # PTXCONF_GLIBC_NSS_HESIOD is not set
@@ -662,7 +671,7 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # PTXCONF_BB_CONFIG_DEBUG is not set
 
 #
-# mgetty & sendfax      
+# mgetty & sendfax    
 #
 # PTXCONF_MGETTY is not set
 
@@ -943,7 +952,12 @@ PTXCONF_ZLIB=y
 #
 # termcap          
 #
-# PTXCONF_TERMCAP is not set
+PTXCONF_TERMCAP=y
+
+#
+# termcap is always built because gdb is selected with termcap support
+#
+PTXCONF_TERMCAP_TERMCAP=y
 
 #
 # Berkeley db 4    
@@ -951,12 +965,12 @@ PTXCONF_ZLIB=y
 # PTXCONF_DB is not set
 
 #
-# rn                  
+# rn               
 #
 # PTXCONF_RN is not set
 
 #
-# libxml2             
+# libxml2          
 #
 # PTXCONF_LIBXML2 is not set
 
