@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.4 2003/08/17 08:13:32 robert Exp $
+# $Id: glibc.make,v 1.5 2003/08/20 17:11:57 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -513,7 +513,7 @@ $(STATEDIR)/glibc.targetinstall: $(STATEDIR)/glibc.compile
         ifeq (y, $(PTXCONF_GLIBC_NSS_DNS))
 	install $(GLIBC_BUILDDIR)/resolv/libnss_dns.so.2 $(ROOTDIR)/lib/libnss_dns-$(GLIBC_VERSION).so
 	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libnss_dns-$(GLIBC_VERSION).so
-	ln -sf libnss_dns-$(GLIBC_VERSION) $(ROOTDIR)/lib/libnss_dns.so.2
+	ln -sf libnss_dns-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libnss_dns.so.2
         endif
 
         ifeq (y, $(PTXCONF_GLIBC_NSS_FILES))
@@ -549,7 +549,7 @@ $(STATEDIR)/glibc.targetinstall: $(STATEDIR)/glibc.compile
         ifeq (y, $(PTXCONF_GLIBC_RESOLV))
 	install $(GLIBC_BUILDDIR)/resolv/libresolv.so $(ROOTDIR)/lib/libresolv-$(GLIBC_VERSION).so
 	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libresolv-$(GLIBC_VERSION).so
-	ln -sf libresolv.$(GLIBC_VERSION).so $(ROOTDIR)/lib/libresolv.so.2
+	ln -sf libresolv-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libresolv.so.2
         endif
 
         ifeq (y, $(PTXCONF_GLIBC_NSL))
