@@ -7,3 +7,4 @@ config PYTHON23
 	bool
 	prompt "Python 2.3"
 	depends on GLIBC_DL || UCLIBC_DL
+	select GLIBC_UTIL if GLIBC
