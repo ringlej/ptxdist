@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.9 2003/08/30 11:42:27 robert Exp $
+# $Id: xchain-gccstage2.make,v 1.10 2003/09/16 16:55:29 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -64,6 +64,7 @@ GCC_STAGE2_AUTOCONF = \
 	--host=$(GNU_HOST) \
 	--build=$(GNU_HOST) \
 	--prefix=$(PTXCONF_PREFIX) \
+	$(GCC_EXTRA_CONFIG) \
 	--disable-nls \
 	--disable-shared \
 	--enable-target-optspace \
