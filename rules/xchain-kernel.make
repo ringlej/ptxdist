@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.27 2004/03/31 20:50:45 mkl Exp $
+# $Id: xchain-kernel.make,v 1.28 2004/04/03 09:16:02 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -65,7 +65,6 @@ $(STATEDIR)/xchain-kernel.extract: $(xchain-kernel_extract_deps)
 ifeq (2.4.18,$(KERNEL_VERSION))
 	mv $(XCHAIN_KERNEL_BUILDDIR)/linux $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)
 endif
-
 	# Add "patchstack" patches
 ifdef PTXCONF_KERNEL_PATCH1_XCHAIN
 	$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH1_NAME)) 
@@ -97,7 +96,6 @@ endif
 ifdef PTXCONF_KERNEL_PATCH10_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH10_NAME)) 
 endif
-
 	mv $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/* $(XCHAIN_KERNEL_BUILDDIR)
 
 	rmdir $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)
