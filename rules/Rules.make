@@ -18,15 +18,24 @@ DEP_TREE_PS	= deptree.ps
 
 ifneq (y, $(PTXCONF_BUILD_CROSSCHAIN))
 compilercheck =								\
-	if [ "$(PTXCONF_CROSSCHAIN_CHECK)" != `$(PTXCONF_GNU_TARGET)-gcc -dumpversion` ]; then	\
+	echo -n "compiler check...";					\
+	if [ ! -x `which $(PTXCONF_GNU_TARGET)-gcc` ]; then		\
+		echo; echo;						\
+		echo "No compiler installed!";				\
+		echo "Specified: $(PTXCONF_GNU_TARGET)-gcc";		\
 		echo;							\
+		exit -1;						\
+	fi;								\
+	if [ "$(PTXCONF_CROSSCHAIN_CHECK)" != `$(PTXCONF_GNU_TARGET)-gcc -dumpversion` ]; then	\
+		echo; echo;						\
 		echo "Please use the specified compiler!";		\
 		echo;							\
 		echo "Specified: $(PTXCONF_CROSSCHAIN_CHECK)";		\
 		echo "Found:     "`$(PTXCONF_GNU_TARGET)-gcc -dumpversion`;\
 		echo;							\
 		exit -1;						\
-	fi;
+	fi;								\
+	echo "ok";
 else
 compilercheck =								\
 	echo > /dev/null;
@@ -36,7 +45,6 @@ endif
 # print out header information and check if we have the right compiler
 #
 targetinfo = 						\
-	$(call compilercheck)				\
 	echo;						\
 	TG=`echo $(1) | sed -e "s,/.*/,,g"`; 		\
 	LINE=`echo target: $$TG |sed -e "s/./-/g"`;	\
@@ -44,6 +52,12 @@ targetinfo = 						\
 	echo target: $$TG;				\
 	echo $$LINE;					\
 	echo;						\
+	if [ `echo $$TG | grep "\.compile"` ]; then	\
+		$(call compilercheck)			\
+	fi;						\
+	if [ `echo $$TG | grep "\.prepare"` ]; then	\
+		$(call compilercheck)			\
+	fi;						\
 	echo $@ : $^ | sed -e "s@$(TOPDIR)@@g" -e "s@/src/@@g" -e "s@/state/@@g" >> $(DEP_OUTPUT)
 
 
