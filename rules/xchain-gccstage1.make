@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.8 2003/09/09 21:54:50 robert Exp $
+# $Id: xchain-gccstage1.make,v 1.9 2003/09/16 16:55:16 mkl Exp $
 #
 # (c) 2002,2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -29,25 +29,6 @@ GCC_DIR			= $(BUILDDIR)/$(GCC)
 GCC_STAGE1_DIR		= $(BUILDDIR)/$(GCC)-$(GCC_PREFIX)stage1
 GCC_STAGE2_DIR		= $(BUILDDIR)/$(GCC)-$(GCC_PREFIX)stage2
 
-# FIXME: replace these by patchin mechanism...
-GCC_ARMPATCH		= gcc-2.95.3.diff
-GCC_ARMPATCH_URL	= ftp://ftp.arm.linux.org.uk/pub/armlinux/toolchain/src-2.95.3/$(GCC_ARMPATCH).bz2
-GCC_ARMPATCH_SOURCE	= $(SRCDIR)/$(GCC_ARMPATCH).bz2
-GCC_ARMPATCH_DIR	= $(GCC_DIR)
-GCC_ARMPATCH_EXTRACT	= bzip2 -dc
-
-GCC_PATCH		= gcc-2.95.3-2.patch
-GCC_PATCH_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(GCC_PATCH).bz2
-GCC_PATCH_SOURCE	= $(SRCDIR)/$(GCC_PATCH).bz2
-GCC_PATCH_DIR		= $(GCC_DIR)
-GCC_PATCH_EXTRACT	= bzip2 -dc
-
-GCC_PPCPATCH		= gcc-3.2.3-ppc-mkb1.patch
-GCC_PPCPATCH_URL	= http://www.pengutronix.de/software/ptxdist/patches/$(GCC)/$(GCC_PPCPATCH)
-GCC_PPCPATCH_SOURCE	= $(SRCDIR)/$(GCC_PPCPATCH)
-GCC_PPCPATCH_DIR	= $(GCC_DIR)
-GCC_PPCPATCH_EXTRACT	= cat
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -55,35 +36,15 @@ GCC_PPCPATCH_EXTRACT	= cat
 xchain-gccstage1_get: $(STATEDIR)/xchain-gccstage1.get
 
 xchain-gccstage1_get_deps =  $(GCC_SOURCE)
-ifdef PTXCONF_GCC_2_95_3
-xchain-gccstage1_get_deps += $(GCC_PATCH_SOURCE)
-endif
-ifdef PTXCONF_ARCH_ARM
-xchain-gccstage1_get_deps += $(GCC_ARMPATCH_SOURCE)
-endif
-ifdef PTXCONF_ARCH_PPC
-xchain-gccstage1_get_deps += $(GCC_PPCPATCH_SOURCE)
-endif
 
 $(STATEDIR)/xchain-gccstage1.get: $(xchain-gccstage1_get_deps)
 	@$(call targetinfo, xchain-gccstage1.get)
+	@$(call get_patches, $(GCC))
 	touch $@
 
 $(GCC_SOURCE): 
 	@$(call targetinfo, $(GCC_SOURCE))
 	@$(call get, $(GCC_URL))
-
-$(GCC_PATCH_SOURCE):
-	@$(call targetinfo, $(GCC_PATCH_SOURCE))
-	@$(call get, $(GCC_PATCH_URL))
-
-$(GCC_ARMPATCH_SOURCE): 
-	@$(call targetinfo, $(GCC_ARMPATCH_SOURCE))
-	@$(call get, $(GCC_ARMPATCH_URL))
-
-$(GCC_PPCPATCH_SOURCE): 
-	@$(call targetinfo, $(GCC_PPCPATCH_SOURCE))
-	@$(call get, $(GCC_PPCPATCH_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -96,29 +57,8 @@ xchain-gccstage1_extract_deps = $(STATEDIR)/xchain-gccstage1.get
 $(STATEDIR)/xchain-gccstage1.extract: $(xchain-gccstage1_extract_deps)
 	@$(call targetinfo, xchain-gccstage1.extract)
 	@$(call clean, $(GCC_DIR))
-
 	@$(call extract, $(GCC_SOURCE))
-
-        ifdef PTXCONF_GCC_2_95_3
-        ifdef PTXCONF_ARCH_ARM
-	#
-	# ARM: add architecure patch
-	# 
-	cd $(GCC_DIR) && \
-		$(GCC_ARMPATCH_EXTRACT) $(GCC_ARMPATCH_SOURCE) | patch -p1
-#         else #PTXCONF_ARCH_ARM
-	cd $(GCC_DIR) && \
-		$(GCC_PATCH_EXTRACT) $(GCC_PATCH_SOURCE) | patch -p1
-        endif #PTXCONF_ARCH_ARM
-        endif #PTXCONF_GCC_2_95_3
-
-
-        ifdef PTXCONF_GCC_3_2_3
-        ifdef PTXCONF_ARCH_PPC
-	cd $(GCC_DIR) && \
-		$(GCC_PPCPATCH_EXTRACT) $(GCC_PPCPATCH_SOURCE) | patch -p1
-        endif
-        endif
+	@$(call patchin, $(GCC))
 
 #
 # sto^H^H^Hinspired by Erik Andersen's buildroot
@@ -226,6 +166,7 @@ GCC_STAGE1_AUTOCONF = \
 	--host=$(GNU_HOST) \
 	--build=$(GNU_HOST) \
 	--prefix=$(PTXCONF_PREFIX) \
+	$(GCC_EXTRA_CONFIG) \
 	--disable-nls \
 	--disable-shared \
 	--enable-target-optspace \
