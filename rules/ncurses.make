@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ncurses.make,v 1.8 2003/08/29 23:27:56 mkl Exp $
+# $Id: ncurses.make,v 1.9 2003/09/08 23:44:13 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -116,7 +116,7 @@ $(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
 	ln -sf libpanel.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpanel.so
 	install $(NCURSES_DIR)/include/curses.h $(PTXCONF_PREFIX)/include/
 	ln -sf curses.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/ncurses.h
-	install $(NCURSES_DIR)/include/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/
+	install -m 644 $(NCURSES_DIR)/include/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/
 	touch $@
 
 # ----------------------------------------------------------------------------
