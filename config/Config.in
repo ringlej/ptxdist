@@ -939,13 +939,31 @@ menu	"ppp                 "
 config PPP
 	bool
 	prompt "Compile ppp"
-#
-# FIXME: enable/disable
-#
-# plugins
-# ms-chap
-# crypt
-#
+
+config PPP_MS_CHAP
+	bool
+	prompt "supprt Micro$oft's MS-CHAP authentication protocol"
+	depends on PPP
+
+config PPP_SHADOW
+	bool
+	prompt "ppp server: support for shadow passwords"
+	depends on PPP
+
+config PPP_PLUGINS
+	bool
+	prompt "support plugins"
+	depends on PPP
+
+config PPP_IPX
+	bool
+	prompt "support IPX protocol"
+	depends on PPP
+
+config PPP_MULTILINK
+	bool
+	prompt "support multilink"
+	depends on PPP
 endmenu
 
 # ----------------------------------------------------------------------------
@@ -1029,6 +1047,10 @@ config LSH_WRITEKEY
 config OPENSSH
 	bool
 	prompt "OpenSSH"
+
+# ----------------------------------------------------------------------------
+
+menu	"Dropbear SSH-Server"
 
 config DROPBEAR
 	bool
@@ -1182,11 +1204,18 @@ config DROPBEAR_DROPBEAR_KEY
 	bool
 	prompt "Install dropbearkey"
 	depends on DROPBEAR
+	help
+		This programm is used to generate the host key(s).
+		Select this, if you want this program on your target platform.
 
 config DROPBEAR_DROPBEAR_CONVERT
 	bool
 	prompt "Install dropbearconvert"
 	depends on DROPBEAR
+	help
+		With this utility you can convert ssh hostkeys from openssh to dropbear formt.
+		Select this, if you want this program on your target platform.
+endmenu
 
 endmenu
 
@@ -1634,7 +1663,8 @@ comment	"Linking options"
 	config KAFFE_LINK_GMP
 		bool
 		prompt "Link libgmp static into kaffe-bin"
-		depends on KAFFE_FEAT_CLDC_GMP
+		depends on KAFFE_FEAT_CLDC_GMP || \
+			KAFFE_API_SE && !KAFFE_FEAT_JAVAMATH
 		depends on KAFFE
 
 	config KAFFE_LINK_BIN

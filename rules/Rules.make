@@ -70,7 +70,7 @@ latestconfig=`find $(TOPDIR)/config -name $(1)* -print | sort | tail -1`
 
 
 #
-# enables a define
+# enables a define, removes /* */
 #
 # (often found in .c or .h files)
 #
@@ -83,7 +83,7 @@ enable_c =									\
 		$(1)
 
 #
-# disables a define
+# disables a define with, adds /* */
 #
 # (often found in .c or .h files)
 #
@@ -93,6 +93,32 @@ enable_c =									\
 disable_c =										\
 	perl -p -i -e									\
 		's,^\s*(\/\*)?\s*(\#\s*define\s+$(2))\s*(\*\/)?$$,\/\*$$2\*\/\n,'	\
+		$(1)
+
+#
+# enabled something, removes #
+#
+# often found in shell scripts, Makefiles
+#
+# $1 = file
+# $2 = parameter
+#
+enable_sh =					\
+	perl -p -i -e				\
+		's,^\s*(\#)?\s*($(2)),$$2,'	\
+		$(1)
+
+#
+# disables a comment, adds #
+#
+# often found in shell scripts, Makefiles
+#
+# $1 = file
+# $2 = parameter
+#
+disable_sh =					\
+	perl -p -i -e				\
+		's,^\s*(\#)?\s*($(2)),\#$$2,'	\
 		$(1)
 
 #

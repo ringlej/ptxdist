@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: pppd.make,v 1.1 2003/07/16 04:23:28 mkl Exp $
+# $Id: pppd.make,v 1.2 2003/07/23 12:01:24 mkl Exp $
 #
-# (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
+# (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
+#             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXDIST project and license conditions
@@ -66,6 +67,36 @@ $(STATEDIR)/ppp.prepare: \
 	@$(call targetinfo, ppp.prepare)
 	cd $(PPP_DIR) && \
 		./configure
+
+ifdef PTXCONF_PPP_MS_CHAP
+	@$(call enable_sh,$(PPP_DIR)/pppd/Makefile,CHAPMS=y)
+	@$(call enable_sh,$(PPP_DIR)/pppd/Makefile,USE_CRYPT=y)
+else
+	@$(call disable_sh,$(PPP_DIR)/pppd/Makefile,CHAPMS=y)
+	@$(call disable_sh,$(PPP_DIR)/pppd/Makefile,USE_CRYPT=y)
+endif
+
+ifdef PTXCONF_PPP_SHADOW
+	@$(call enable_sh,$(PPP_DIR)/pppd/Makefile,HAS_SHADOW=y)
+else
+	@$(call disable_sh,$(PPP_DIR)/pppd/Makefile,HAS_SHADOW=y)
+endif
+
+ifdef PTXCONF_PPP_PLUGINS
+	@$(call enable_sh,$(PPP_DIR)/pppd/Makefile,PLUGIN=y)
+else
+	@$(call disable_sh,$(PPP_DIR)/pppd/Makefile,PLUGIN=y)
+endif
+
+ifndef PTXCONF_PPP_IPX
+	perl -p -i -e 's/-DIPX_CHANGE //' $(PPP_DIR)/pppd/Makefile
+	perl -p -i -e 's/ipxcp.o //' $(PPP_DIR)/pppd/Makefile
+endif
+
+ifndef PTXCONF_PPP_MULTILINK
+	perl -p -i -e 's/-DHAVE_MULTILINK //' $(PPP_DIR)/pppd/Makefile
+	perl -p -i -e 's/multilink.o //' $(PPP_DIR)/pppd/Makefile
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
