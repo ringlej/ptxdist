@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.11 2004/02/17 16:02:56 bsp Exp $
+# $Id: mfirebird.make,v 1.12 2004/02/23 16:13:24 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -434,7 +434,7 @@ mfirebird_compile_deps =  $(STATEDIR)/mfirebird.prepare
 
 $(STATEDIR)/mfirebird.compile: $(mfirebird_compile_deps)
 	@$(call targetinfo, $@)
-	$(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make -C $(MFIREBIRD_DIR)
+	cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make
 	touch $@
 
 # ----------------------------------------------------------------------------
