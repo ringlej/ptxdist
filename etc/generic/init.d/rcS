@@ -20,8 +20,4 @@ ifconfig lo up 127.0.0.1
 echo "done."
 
 echo "running rc.d services..."
-for i in /etc/rc.d/* ; do
-	echo "[ $i ] ..." 
-	$i || echo "*** FAILED ***" 
-done;
-
+run-parts /etc/rc.d
