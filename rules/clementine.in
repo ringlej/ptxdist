@@ -1,0 +1,7 @@
+menu "Clementine WM    "
+
+config CLEMENTINE
+        bool
+        prompt "Compile Clementine Window-Manager"
+
+endmenu
