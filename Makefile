@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.68 2004/01/05 12:04:25 robert Exp $
+# $Id: Makefile,v 1.69 2004/01/06 15:54:53 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -9,8 +9,8 @@
 PROJECT		:= PTXdist
 VERSION		:= 0
 PATCHLEVEL	:= 5
-SUBLEVEL	:= 0
-EXTRAVERSION	:=
+SUBLEVEL	:= 1
+EXTRAVERSION	:= -cvs
 
 FULLVERSION	:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
@@ -50,16 +50,16 @@ ifndef PTXCONF_ROOT
 ROOTDIR=$(TOPDIR)/root
 endif
 
-include rules/Rules.make
-include rules/Version.make
-include $(filter-out rules/Virtual.make,$(wildcard rules/*.make))
-include rules/Virtual.make
-
 PTXCONF_TARGET_CONFIG_FILE ?= none
 ifeq ("", $(PTXCONF_TARGET_CONFIG_FILE))
 PTXCONF_TARGET_CONFIG_FILE =  none
 endif
 -include config/arch/$(subst ",,$(PTXCONF_TARGET_CONFIG_FILE))
+
+include rules/Rules.make
+include rules/Version.make
+include $(filter-out rules/Virtual.make rules/Rules.make rules/Version.make,$(wildcard rules/*.make))
+include rules/Virtual.make
 
 # if specified, include vendor tweak makefile (run at the end of build)
 # rewrite variable to make the magic in 'world' target work
