@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.20 2003/11/13 19:30:14 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.21 2003/11/17 03:43:08 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -33,7 +34,7 @@ $(STATEDIR)/xchain-gccstage2.get: $(xchain-gccstate1_get_deps)
 
 xchain-gccstage2_extract: $(STATEDIR)/xchain-gccstage2.extract
 
-$(STATEDIR)/xchain-gccstage2.extract: $(xchain-gccstage1_extract_deps)
+$(STATEDIR)/xchain-gccstage2.extract: $(STATEDIR)/xchain-gccstage1.extract
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -44,11 +45,12 @@ $(STATEDIR)/xchain-gccstage2.extract: $(xchain-gccstage1_extract_deps)
 xchain-gccstage2_prepare: $(STATEDIR)/xchain-gccstage2.prepare
 
 xchain-gccstage2_prepare_deps =  $(STATEDIR)/xchain-gccstage2.extract
+
 ifdef PTXCONF_GLIBC
 xchain-gccstage2_prepare_deps += $(STATEDIR)/glibc.install
 endif
 ifdef PTXCONF_UCLIBC
-xchain-gccstage2_prepare_deps += $(STATEDIR)/xchain-uclibc.install
+xchain-gccstage2_prepare_deps += $(STATEDIR)/uclibc.install
 endif
 
 GCC_STAGE2_PATH	= PATH=$(CROSS_PATH)
@@ -61,7 +63,6 @@ GCC_STAGE2_ENV	= $(HOSTCC_ENV)
 # the c++ compiler cannot be compiled. occours in 2.95.3
 #
 # the error looks like this:
-#
 # /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3-i386-linux-stage2/gcc/xgcc
 # -B/home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3-i386-linux-stage2/gcc/
 # -B/home/frogger/ptxdist/xchain/generic/i386-linux/bin/ -c -g -Os
@@ -70,11 +71,17 @@ GCC_STAGE2_ENV	= $(HOSTCC_ENV)
 # -nostdinc++ -D_IO_MTSAFE_IO -fpic
 # /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3/libio/iostream.cc
 # -o pic/iostream.o
-# /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3/libio/iostream.cc: In method `class istream & istream::get(char &)':
-# /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3/libio/iostream.cc:75: `_pthread_cleanup_push_defer' undeclared (first use this function)
-# /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3/libio/iostream.cc:75: (Each undeclared identifier is reported only once
-# /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3/libio/iostream.cc:75: for each function it appears in.)
-# /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3/libio/iostream.cc:86: implicit declaration of function `int _pthread_cleanup_pop_restore(...)'
+# /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3/libio/iostream.cc:
+# In method `class istream & istream::get(char &)':
+# /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3/libio/iostream.cc:75:
+# `_pthread_cleanup_push_defer' undeclared (first use this function)
+# /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3/libio/iostream.cc:75:
+# (Each undeclared identifier is reported only once
+# /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3/libio/iostream.cc:75:
+# for each function it appears in.)
+# /home/frogger/projects/ptxdist/ptxdist-generic/build/gcc-2.95.3/libio/iostream.cc:86:
+# implicit declaration of function `int
+# _pthread_cleanup_pop_restore(...)'
 #
 ifdef PTXCONF_GCC_2_95_3
 GCC_STAGE2_MAKEVARS	= CXXFLAGS_FOR_TARGET="-D_GNU_SOURCE"
@@ -101,7 +108,6 @@ GCC_STAGE2_AUTOCONF = \
 	--disable-multilib \
 	--enable-symvers=gnu \
 	--enable-target-optspace \
-	--enable-version-specific-runtime-libs \
 	--enable-c99 \
 	--enable-long-long
 
@@ -114,7 +120,7 @@ endif
 #
 # build C++ by default
 #
-# ifdef PTXCONF_LIBSTDCXX
+# ifdef PTXCONF_CXX
 GCC_STAGE2_AUTOCONF	+= --enable-languages="c,c++"
 # else
 # GCC_STAGE2_AUTOCONF	+= --enable-languages="c"
@@ -123,7 +129,6 @@ GCC_STAGE2_AUTOCONF	+= --enable-languages="c,c++"
 ifdef PTXCONF_GLIBC
 GCC_STAGE2_AUTOCONF	+= --enable-__cxa_atexit
 endif
-
 ifdef PTXCONF_UCLIBC
 GCC_STAGE2_AUTOCONF	+= --disable-__cxa_atexit
 endif
@@ -173,26 +178,28 @@ endif
 $(STATEDIR)/xchain-gccstage2.targetinstall: $(xchain-gccstage2_targetinstall_deps)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_LIBSTDCXX_SHARED
+	mkdir -p $(ROOTDIR)/usr/lib
+
+	for FILE in											\
+		`find $(CROSS_LIB_DIR)/lib/ -name "libgcc_s[-.]*so*"`					\
+		`find $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/ -name "libgcc_s[-.]*so*"`	\
+		;do											\
+			cp -d $$FILE $(ROOTDIR)/lib/;							\
+			chmod 755 $$FILE;								\
+			$(CROSSSTRIP) -R .note -R .comment $$FILE;					\
+	done
+
 #
-# gcc-2.95.3 has weired permission on libstdc++
+# gcc-2.95.3 has weird permission on libstdc++
 # chmod 755 fixes that
 #
-	mkdir -p $(ROOTDIR)/usr/lib
-	cp -d $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libstdc++[-.]*so* \
-		$(ROOTDIR)/usr/lib/
-	chmod 755 $(ROOTDIR)/usr/lib/libstdc++[-.]*so*
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libstdc++[-.]*so*
-
-#
-# only gcc-3 has libgcc_s
-# and if we don't build a xchain, we don't know which version we have....
-#
-#
-	mkdir -p $(ROOTDIR)/lib
-
-	for FILE in `find $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/ -name "libgcc_s[-.]*so*"`; do	\
-		cp -d $$FILE $(ROOTDIR)/lib/;									\
-		$(CROSSSTRIP) -S -R .note -R .comment $$FILE;							\
+	for FILE in											\
+		`find $(CROSS_LIB_DIR)/lib/ -name "libstdc++[-.]*so*"`					\
+		`find $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/ -name "libstdc++[-.]*so*"`	\
+		;do											\
+			cp -d $$FILE $(ROOTDIR)/usr/lib/;						\
+			chmod 755 $$FILE;								\
+			$(CROSSSTRIP) -R .note -R .comment $$FILE;					\
 	done
 endif
 	touch $@
