@@ -410,6 +410,10 @@ choice
 	config RTAI_24_1_10
 		bool
 		prompt "24.1.10"
+
+	config RTAI_24_1_11
+		bool
+		prompt "24.1.11"
 endchoice
 
 choice
