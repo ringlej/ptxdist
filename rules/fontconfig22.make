@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: fontconfig22.make,v 1.6 2004/02/25 09:08:35 bsp Exp $
+# $Id: fontconfig22.make,v 1.7 2004/02/25 09:45:50 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -142,7 +142,10 @@ $(STATEDIR)/fontconfig22.install: $(STATEDIR)/fontconfig22.compile
 
 fontconfig22_targetinstall: $(STATEDIR)/fontconfig22.targetinstall
 
-fontconfig22_targetinstall_deps	=  $(STATEDIR)/fontconfig22.compile
+fontconfig22_targetinstall_deps	=	$(STATEDIR)/fontconfig22.compile
+fontconfig22_targetinstall_deps +=	$(STATEDIR)/glib22.targetinstall
+fontconfig22_targetinstall_deps +=	$(STATEDIR)/expat.targetinstall
+fontconfig22_targetinstall_deps +=	$(STATEDIR)/freetype214.targetinstall
 
 $(STATEDIR)/fontconfig22.targetinstall: $(fontconfig22_targetinstall_deps)
 	@$(call targetinfo, $@)
