@@ -42,7 +42,6 @@ PTXCONF_OPT_I386=y
 # PTXCONF_OPT_PARISC is not set
 # PTXCONF_OPT_SH3 is not set
 # PTXCONF_OPT_SH4 is not set
-# PTXCONF_SOFTFLOAT is not set
 
 #
 # ---
@@ -164,7 +163,7 @@ PTXCONF_KERNEL_PATCH3_NAME="vesafb"
 #
 # 
 #
-PTXCONF_KERNEL_PATCH4_URL="file:///ptx/home/Projects/BMW/Projekt-Autosalon2004/patches/linux-2.6.1-idrive-1.10.diff"
+PTXCONF_KERNEL_PATCH4_URL="file:///ptx/home/Projects/BMW/Projekt-Autosalon2004/patches/linux-2.6.1-idrive-1.11.diff"
 PTXCONF_KERNEL_PATCH4_NAME="idrive"
 # PTXCONF_KERNEL_PATCH4_XCHAIN is not set
 
@@ -183,9 +182,15 @@ PTXCONF_KERNEL_PATCH5_NAME=""
 #
 
 #
+# RTAI                
+#
+# PTXCONF_RTAI is not set
+
+#
 # C Library           
 #
 PTXCONF_GLIBC=y
+# PTXCONF_UCLIBC is not set
 
 #
 # C Library options
@@ -194,6 +199,7 @@ PTXCONF_GLIBC_2_3_2=y
 # PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
+# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 PTXCONF_GLIBC_LIBIO=y
 PTXCONF_GLIBC_SHARED=y
@@ -230,6 +236,7 @@ PTXCONF_GLIBC_RESOLV=y
 # PTXCONF_GLIBC_NSL is not set
 PTXCONF_GLIBC_GCONV=y
 PTXCONF_GLIBC_GCONV_ISO8859_1=y
+PTXCONF_UC_TARGET_i386=y
 
 #
 # C++ Library         
@@ -280,15 +287,6 @@ PTXCONF_BB_CONFIG_FEATURE_SUID_CONFIG_QUIET=y
 #
 # PTXCONF_BB_CONFIG_STATIC is not set
 # PTXCONF_BB_CONFIG_LFS is not set
-PTXCONF_BB_USING_CROSS_COMPILER=y
-PTXCONF_BB_CROSS_COMPILER_PREFIX="i386-linux-"
-PTXCONF_BB_EXTRA_CFLAGS_OPTIONS=""
-
-#
-# Installation Options
-#
-# PTXCONF_BB_CONFIG_INSTALL_NO_USR is not set
-PTXCONF_BB_PREFIX="./_install"
 
 #
 # Archival Utilities
@@ -585,6 +583,7 @@ PTXCONF_BB_CONFIG_FEATURE_FANCY_PING=y
 PTXCONF_BB_CONFIG_ROUTE=y
 PTXCONF_BB_CONFIG_TELNET=y
 PTXCONF_BB_CONFIG_FEATURE_TELNET_TTYPE=y
+PTXCONF_BB_CONFIG_FEATURE_TELNET_AUTOLOGIN=y
 # PTXCONF_BB_CONFIG_TELNETD is not set
 # PTXCONF_BB_CONFIG_TFTP is not set
 PTXCONF_BB_CONFIG_TRACEROUTE=y
@@ -845,6 +844,11 @@ PTXCONF_DROPBEAR_SCP=y
 #
 
 #
+# bing                
+#
+# PTXCONF_BING is not set
+
+#
 # ppp                 
 #
 PTXCONF_PPP=y
@@ -948,6 +952,11 @@ PTXCONF_UTELNETD=y
 # dnsmasq             
 #
 # PTXCONF_DNSMASQ is not set
+
+#
+# tcpdump             
+#
+# PTXCONF_TCPDUMP is not set
 
 #
 # Disk and file ---   
