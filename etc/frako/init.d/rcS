@@ -11,7 +11,7 @@
 #
 
 echo -n "mounting filesystems..."
-mount -a 
+mount -a &>/dev/null
 echo "done."
 
 echo -n "creating links in /dev..."
