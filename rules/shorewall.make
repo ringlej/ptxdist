@@ -1,6 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
+# Copyright (C) 2005 by Rex Tsai <chihchun@kalug.linux.org.tw>
 # Copyright (C) 2003 by Dan Kegel, Ixia Communications (http://ixiacom.com)
 #
 # See CREDITS for details about who has contributed to this project.
@@ -19,12 +20,12 @@ endif
 #
 # Paths and names
 #
-SHOREWALL_VERSION	= 1.4.7-RC1
+SHOREWALL_VERSION	= 2.2.2
 SHOREWALL		= shorewall-$(SHOREWALL_VERSION)
 SHOREWALL_SUFFIX	= tgz
-SHOREWALL_URL		= http://www.shorewall.net/pub/shorewall/Beta/$(SHOREWALL).$(SHOREWALL_SUFFIX)
+SHOREWALL_URL		= http://www.shorewall.net/pub/shorewall/2.2/$(SHOREWALL)/$(SHOREWALL).$(SHOREWALL_SUFFIX)
 SHOREWALL_SOURCE	= $(SRCDIR)/$(SHOREWALL).$(SHOREWALL_SUFFIX)
-SHOREWALL_DIR		= $(BUILDDIR)/shorewall-1.4.7
+SHOREWALL_DIR		= $(BUILDDIR)/$(SHOREWALL)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -91,7 +92,7 @@ shorewall_targetinstall_deps	=  $(STATEDIR)/shorewall.extract
 $(STATEDIR)/shorewall.targetinstall: $(shorewall_targetinstall_deps)
 	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/etc/shorewall
-	PREFIX=$(ROOTDIR) sh $(SHOREWALL_DIR)/install.sh /etc/init.d
+	PREFIX=$(ROOTDIR) $(FAKEROOT) $(SHOREWALL_DIR)/install.sh
 	touch $@
 
 # ----------------------------------------------------------------------------
