@@ -7,16 +7,10 @@ High Priority
 - RSC: fix busybox extract script to support "select CONFIG_foo"
 - RSC: make MTDutils release and, by the way, fix build process. 
        This "override" mechanism in the Makefile seems to be broken. 
-- BSP: make PTXCONF_FPU either configurable or fixed (for certain
-       cpu types); see Rules.make
-- RSC: you currently need libXcursor.so.* and xcursorgen on the
-       development host
-- RSC: you currently need gdk-pixbuf-csourde on the host       
-- RSC: pango has a patch which has to be verified (GLIB_CFLAGS)
 - RSC: audit all configure calls to be relative; configure scripts
        seem to have major problems when being called with absulute path
 - RSC: test flash
-- RSC: finish integration of iwconfig, zebra
+- RSC: finish integration of iwconfig
 - RSC: glibc does somehow not install _G_config.h when libio is not
        used, which breaks gcc-stage2. At least sometimes :-( This 
        effect is observed only on certain systems (all Debian unstable,
@@ -31,13 +25,7 @@ High Priority
        to do this yet.
 - RSC: For the patches I would like to have a selection mechanism 
        in kconfig.
-- RSC: Tests with the rayonic, innokom and i386-generic-glibc 
-       configurations. These need to work at least on Debian stable; the 
-       problem that it does not work on unstable is still there.
-- RSC: Look at Dan's patch for runs without internal toolchain. Marc, can
-       the problem be addressed by the virtual toolchain rules? I only
-       had a short look at the patch but it seemed to cry for a more general
-       solution.
+- RSC: Before release test: innokom, cameron and i386-generic-glibc 
 - RSC: - patches/ 
        - src/*.diff, *.patch
        - etc/solidcard-bmwm-20030821-1/xmodmap
@@ -45,7 +33,13 @@ High Priority
 Low Priority
 ------------
 
-- RSC: replace bootdisk build mechanism by genext2fs
+- RSC: finish integration of zebra
+- RSC: you currently need gdk-pixbuf-csource on the host       
+- RSC: pango has a patch which has to be verified (GLIB_CFLAGS)
+- RSC: you currently need libXcursor.so.* and xcursorgen on the
+       development host
+- RSC: replace bootdisk build mechanism by genext2fs; mke2fs is able 
+       to reserve N blocks at the beginning of the image!
 - RSC: audit configurations for local directory
 - KUB: busybox/ash job control is broken
 - RSC: audit for LSB compatiblity
@@ -54,7 +48,6 @@ Low Priority
 - RSC: have a look at http://asic-linux.com.mx/~izto/checkinstall/ 
 - RSC: install e2fsck
 - RSC: create users 
-- RSC: update to new version of busybox
 - RSC: restructure config file layout
 - RSC: add a test: if #!/bin/sh scripts return 
        "/bin/sh: bad interpreter: Permission denied"
@@ -66,9 +59,23 @@ Low Priority
 - RSC: integrate big endian toolchain for ARM: 
 - RSC: make bootdisk contents part of the nfsroot directory, but 
        let ptxflash not copy it to the target flash disk
-- RSC: check if Dan Kegel's scripts can be integrated
+- RSC: check if Dan Kegel's scripts can be integrated:
+	- regression tests
+	- separate per-cpu features into one file
 - RSC: check for uImage targets: have to depend on vmlinux, not on
        zImage. 
+- LGR: concept for debug levels: strip, -g, -S 
+
+Nice-to-Have Packets
+--------------------
+
+- RSC: structure for menues: 
+	"Network Services"	zebra, nfsd, ntp
+	"Network Tools"		ip, tcpdump, ciscoshell, hping2, libnet
+	"Audit Tools"		dsnif, shadow code
+	"User Interfaces"	flash, Shell Menues (Robin), JVisu
+	"Init"			lmainit
+	"Languages"		perl, miniperl
 
 
 8<----------
