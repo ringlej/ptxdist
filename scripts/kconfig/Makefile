@@ -2,9 +2,11 @@ VERSION=1.2
 CC=gcc
 CXX=g++
 CFLAGS=-O2 -Wall -g -fPIC
-CXXFLAGS=$(CFLAGS) -I$(QTDIR)/include
+#CXXFLAGS=$(CFLAGS) -I$(QTDIR)/include -I/usr/include/qt3
+CXXFLAGS=$(CFLAGS) -I/usr/include/qt3
 LDFLAGS=
-LXXFLAGS=$(LDFLAGS) -L$(QTDIR)/lib -Wl,-rpath,$(QTDIR)/lib
+#LXXFLAGS=$(LDFLAGS) -L$(QTDIR)/lib -L/usr/lib/qt3 -Wl,-rpath,$(QTDIR)/lib -Wl,-rpath,/usr/lib/qt3
+LXXFLAGS=$(LDFLAGS) -L/usr/lib/qt3 -Wl,-rpath,$(QTDIR)/lib -Wl,-rpath,/usr/lib/qt3
 LEX=flex
 YACC=bison
 YFLAGS=-d -t -v
@@ -125,6 +127,7 @@ lkc_defs.h: lkc_proto.h
 
 clean:
 	rm -f $(OBJ) lkcc conf qconf mconf *.moc lex.* *.tab.? *.output libkconfig.so
+	rm -f .gconf.o.d .kconfig_load.o.d .mconf.o.d .qconf.o.d .zconf.tab.o.d gconf logfile
 
 tgz:
 	mkdir tmp
