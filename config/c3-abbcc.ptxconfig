@@ -850,9 +850,14 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 #
 
 #
-# shorewall firewall  
+# Dropbear SSH-Server 
 #
-# PTXCONF_SHOREWALL is not set
+# PTXCONF_DROPBEAR is not set
+
+#
+# iptables            
+#
+# PTXCONF_IPTABLES is not set
 
 #
 # LSH                 
@@ -870,9 +875,9 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_OPENSSH is not set
 
 #
-# Dropbear SSH-Server 
+# shorewall firewall  
 #
-# PTXCONF_DROPBEAR is not set
+# PTXCONF_SHOREWALL is not set
 
 #
 # Networking Apps     
