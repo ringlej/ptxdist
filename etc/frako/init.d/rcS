@@ -47,6 +47,7 @@ ln -s /dev/misc/kpd /dev/kpd
 chmod 666 /dev/misc/lcd
 chmod 666 /dev/misc/led
 chmod 666 /dev/misc/kpd
+echo "done."
 
 echo -n "---creating Network-Device lo..."
 ifconfig lo up 127.0.0.1
