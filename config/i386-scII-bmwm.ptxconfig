@@ -143,7 +143,7 @@ PTXCONF_KERNEL_INSTALL=y
 #
 PTXCONF_KERNEL_PATCH1_URL="http://metis/bmwm-patches/fb.h.diff"
 PTXCONF_KERNEL_PATCH1_NAME="fb"
-# PTXCONF_KERNEL_PATCH1_XCHAIN is not set
+PTXCONF_KERNEL_PATCH1_XCHAIN=y
 
 #
 # 
@@ -781,7 +781,58 @@ PTXCONF_UTLNX=y
 #
 # Dropbear SSH-Server 
 #
-# PTXCONF_DROPBEAR is not set
+PTXCONF_DROPBEAR=y
+# PTXCONF_DROPBEAR_DIS_ZLIB is not set
+# PTXCONF_DROPBEAR_DIS_OPENPTY is not set
+# PTXCONF_DROPBEAR_DIS_SYSLOG is not set
+# PTXCONF_DROPBEAR_DIS_LASTLOG is not set
+PTXCONF_DROPBEAR_DIS_UTMP=y
+PTXCONF_DROPBEAR_DIS_UTMPX=y
+PTXCONF_DROPBEAR_DIS_WTMP=y
+PTXCONF_DROPBEAR_DIS_WTMPX=y
+PTXCONF_DROPBEAR_DIS_LIBUTIL=y
+PTXCONF_DROPBEAR_DIS_PUTUTLINE=y
+PTXCONF_DROPBEAR_DIS_PUTUTXLINE=y
+
+#
+# features
+#
+PTXCONF_DROPBEAR_DIS_X11=y
+PTXCONF_DROPBEAR_DIS_TCP=y
+PTXCONF_DROPBEAR_DIS_AGENT=y
+
+#
+# Encryption, at least one required --- RFC Draft requires 3DES
+#
+# PTXCONF_DROPBEAR_AES128 is not set
+# PTXCONF_DROPBEAR_BLOWFISH is not set
+# PTXCONF_DROPBEAR_TWOFISH128 is not set
+PTXCONF_DROPBEAR_3DES=y
+
+#
+# Integrity, at least one required --- RFC Draft requires sha1-hmac
+#
+PTXCONF_DROPBEAR_SHA1=y
+# PTXCONF_DROPBEAR_MD5 is not set
+
+#
+# Hostkey/public key algorithms, at least one required --- SSH2 RFC Draft requires dss
+#
+# PTXCONF_DROPBEAR_RSA is not set
+PTXCONF_DROPBEAR_DSS=y
+
+#
+# Authentication types, at least one required --- RFC Draft requires pubkey auth
+#
+PTXCONF_DROPBEAR_PASSWD=y
+PTXCONF_DROPBEAR_PUBKEY=y
+
+#
+# installation options
+#
+PTXCONF_DROPBEAR_DROPBEAR=y
+PTXCONF_DROPBEAR_DROPBEAR_KEY=y
+# PTXCONF_DROPBEAR_DROPBEAR_CONVERT is not set
 
 #
 # Networking Apps     
