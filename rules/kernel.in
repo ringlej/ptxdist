@@ -56,6 +56,11 @@ choice
 		prompt "2.4.26"
 		depends on ARCH_X86 || ARCH_ARM
 
+	config KERNEL_2_4_27
+		bool
+		prompt "2.4.27"
+		depends on ARCH_X86 || ARCH_ARM
+
 	config KERNEL_2_6_0
 		bool
 		prompt "2.6.0"
