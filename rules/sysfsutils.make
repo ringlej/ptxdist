@@ -125,8 +125,8 @@ $(STATEDIR)/sysfsutils.targetinstall: $(sysfsutils_targetinstall_deps)
 ifdef PTXCONF_SYSFSUTILS_LIB
 	$(call copy_root, 0, 0, 0644, $(SYSFSUTILS_DIR)/lib/.libs/libsysfs.so.1.0.2, /lib/libsysfs.so.1.0.2)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/lib/libsysfs.so.1.0.2
-	$(call link_root, /lib/libsysfs.so.1.0.2, /lib/libsysfs.so.1)
-	$(call link_root, /lib/libsysfs.so.1.0.2, /lib/libsysfs.so)
+	$(call link_root, libsysfs.so.1.0.2, /lib/libsysfs.so.1)
+	$(call link_root, libsysfs.so.1.0.2, /lib/libsysfs.so)
 endif
 ifdef PTXCONF_SYSFSUTILS_SYSTOOL
 	$(call copy_root, 0, 0, 0775, $(SYSFSUTILS_DIR)/cmd/systool, /bin/systool)
