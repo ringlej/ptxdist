@@ -93,8 +93,12 @@ mkdir /home/system/temp
 chmod 755 /home/system/temp
 chown system:users /home/system/temp
 
-mount /home/system/alarm /home/frako/alarm -o bind
+mount /data/alarm /home/frako/alarm -o bind
 mount /home/system/conf  /home/frako/conf -o bind
+
+mount /data/alarm /home/system/alarm -o bind
+mount /data/history /home/system/history -o bind
+
 echo "done."
 
 echo -n "---Bootzeitpunkt festhalten in /home/system/boottime.log..."

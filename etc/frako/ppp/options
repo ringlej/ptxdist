@@ -9,6 +9,10 @@
 
 # The name of this server. Often, the FQDN is used here.
 #name <host>
+name EMIS-IP 
+
+# The local IP (needed)
+192.168.168.1:
 
 # Enforce the use of the hostname as the name of the local system for
 # authentication purposes (overrides the name option).
@@ -21,11 +25,11 @@
 
 # With this option, pppd will accept the peer's idea of our local IP
 # address, even if the local IP address was specified in an option.
-#ipcp-accept-local
+ipcp-accept-local
 
 # With this option, pppd will accept the peer's idea of its (remote) IP
 # address, even if the remote IP address was specified in an option.
-#ipcp-accept-remote
+ipcp-accept-remote
 
 # Run the executable or shell command specified after pppd has terminated
 # the link.  This script could, for example, issue commands to the modem
@@ -146,8 +150,8 @@ idle 600
 # is useful for dial on demand. Default value is 10.
 #maxfail 3
 
-# Disable the IPXCP and IPX protocols.
-noipx
+# Disable the IPXCP and IPX protocols (not compiled into emis-ip, leave default)
+# noipx
 
 # In the file /etc/ppp/filters are some active-filter rules. See man pppd
 # and man tcpdump for more informations.
