@@ -86,11 +86,13 @@ endif
 
 # Environment variables for toolchain components
 
-CROSS_ENV_AR		= AR=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ar)
+CROSS_ENV_AR_PROG	= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ar)
+CROSS_ENV_AR		= AR=$(CROSS_ENV_AR_PROG)
 CROSS_ENV_AS		= AS=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)as)
 CROSS_ENV_LD		= LD=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ld)
 CROSS_ENV_NM		= NM=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)nm)
-CROSS_ENV_CC		= CC=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)gcc)
+CROSS_ENV_CC_PROG	= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)gcc)
+CROSS_ENV_CC		= CC=$(CROSS_ENV_CC_PROG)
 CROSS_ENV_CC_FOR_BUILD	= CC_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
 CROSS_ENV_CPP_FOR_BUILD	= CPP_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
 CROSS_ENV_CXX		= CXX=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)g++)

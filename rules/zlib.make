@@ -68,8 +68,8 @@ $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps)
 	cd $(ZLIB_DIR) && \
 		$(ZLIB_PATH) \
 		./configure $(ZLIB_AUTOCONF)
-	perl -i -p -e 's/=gcc/=$(PTXCONF_GNU_TARGET)-gcc/g' $(ZLIB_DIR)/Makefile
-	perl -i -p -e 's/=ar/=$(PTXCONF_GNU_TARGET)-ar/g' $(ZLIB_DIR)/Makefile
+	perl -i -p -e 's/=gcc/=$(CROSS_ENV_CC_PROG)/g' $(ZLIB_DIR)/Makefile
+	perl -i -p -e 's/=ar/=$(CROSS_ENV_AR_PROG)/g' $(ZLIB_DIR)/Makefile
 	touch $@
 
 # ----------------------------------------------------------------------------

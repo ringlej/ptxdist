@@ -70,7 +70,7 @@ $(STATEDIR)/utelnetd.prepare: $(utelnetd_prepare_deps)
 utelnetd_compile: $(STATEDIR)/utelnetd.compile
 
 UTELNETD_ENVIRONMENT += PATH=$(CROSS_PATH)
-UTELNETD_MAKEVARS    += CROSS=$(PTXCONF_GNU_TARGET)-
+UTELNETD_MAKEVARS    += CROSS=$(PTXCONF_COMPILER_PREFIX)
 
 $(STATEDIR)/utelnetd.compile: $(STATEDIR)/utelnetd.prepare 
 	@$(call targetinfo, $@)
