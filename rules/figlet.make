@@ -73,6 +73,8 @@ figlet_prepare_deps = \
 
 FIGLET_PATH	=  PATH=$(CROSS_PATH)
 FIGLET_ENV 	=  $(CROSS_ENV)
+FIGLET_ENV	+= CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))'
+FIGLET_ENV	+= LDFLAGS='$(call remove_quotes,$(TARGET_LDFLAGS))'
 
 $(STATEDIR)/figlet.prepare: $(figlet_prepare_deps)
 	@$(call targetinfo, $@)
