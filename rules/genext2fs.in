@@ -1,6 +1,0 @@
-
-config GENEXT2FS
-	bool
-	prompt "genext2fs"
-	default n
-

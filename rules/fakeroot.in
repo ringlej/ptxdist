@@ -1,5 +1,0 @@
-
-config FAKEROOT
-	bool
-	default y
-
