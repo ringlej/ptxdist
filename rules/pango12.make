@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pango12.make,v 1.10 2004/02/25 09:47:42 robert Exp $
+# $Id: pango12.make,v 1.11 2004/02/25 22:36:34 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -26,6 +26,7 @@ PANGO12_SUFFIX		= tar.gz
 PANGO12_URL		= ftp://ftp.gnome.org/pub/GNOME/sources/pango/1.3/$(PANGO12).$(PANGO12_SUFFIX)
 PANGO12_SOURCE		= $(SRCDIR)/$(PANGO12).$(PANGO12_SUFFIX)
 PANGO12_DIR		= $(BUILDDIR)/$(PANGO12)
+PANGO_MODULE_VERSION	= 1.4
 
 # ----------------------------------------------------------------------------
 # Get
@@ -91,6 +92,7 @@ PANGO12_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 PANGO12_AUTOCONF	+= --build=$(GNU_HOST)
 PANGO12_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 PANGO12_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+PANGO12_AUTOCONF	+= --enable-explicit-deps
 
 $(STATEDIR)/pango12.prepare: $(pango12_prepare_deps)
 	@$(call targetinfo, $@)
@@ -160,7 +162,9 @@ $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps)
 	install $(PANGO12_DIR)/pango/.libs/pango-querymodules $(ROOTDIR)/usr/bin
 	cp -a $(CROSS_LIB_DIR)/lib/pango $(ROOTDIR)/usr/lib
 	touch $@
-
+	
+	install -d $(ROOTDIR)/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules
+	cp $(PANGO12_DIR)/modules/basic/.libs/*.so $(ROOTDIR)/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
