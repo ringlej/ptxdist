@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: abbcc.make,v 1.5 2004/08/17 13:10:54 sha Exp $
+# $Id: abbcc.make,v 1.6 2004/08/18 19:20:00 rsc Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -60,7 +60,6 @@ $(STATEDIR)/abbcc.targetinstall:
 	# FIXME: this will be done with fakeroot later...
 	install -m 755 -D $(MISCDIR)/ptx-init-permissions.sh $(ROOTDIR)/sbin/ptx-init-permissions.sh
 	chmod a+x $(ROOTDIR)/etc/init.d/*
-	chmod a+x $(ROOTDIR)/etc/rc.d/*
 
 	# maintenance mode helper script
 	install -m 755 -D $(MISCDIR)/maintenance $(ROOTDIR)/sbin/maintenance
