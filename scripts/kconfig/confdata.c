@@ -118,13 +118,13 @@ int conf_read(const char *name)
 		case '#':
 			if (memcmp(line + 2, CFGSYM, CFGSYMLEN))
 				continue;
-			p = strchr(line + CFGSYMLEN+3, ' ');
+			p = strchr(line + CFGSYMLEN + 2, ' ');
 			if (!p)
 				continue;
 			*p++ = 0;
-			if (strncmp(p, "is not set", CFGSYMLEN+3))
+			if (strncmp(p, "is not set", 10))
 				continue;
-			sym = sym_find(line + CFGSYMLEN+3);
+			sym = sym_find(line + CFGSYMLEN+2);
 			if (!sym) {
 				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + CFGSYMLEN+2);
 				break;
