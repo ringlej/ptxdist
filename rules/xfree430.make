@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.4 2003/08/27 18:50:52 robert Exp $
+# $Id: xfree430.make,v 1.5 2003/09/16 16:58:57 mkl Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -59,6 +59,7 @@ xfree430_get_deps	= $(XFREE430_SOURCE)
 
 $(STATEDIR)/xfree430.get: $(xfree430_get_deps)
 	@$(call targetinfo, xfree430.get)
+	@$(call get_patches, $(XFREE))
 	touch $@
 
 $(XFREE430_SOURCE):
@@ -98,7 +99,7 @@ $(STATEDIR)/xfree430.extract: $(xfree430_extract_deps)
 	@$(call targetinfo, xfree430.extract)
 	@$(call clean, $(XFREE430_DIR))
 	@$(call extract, $(XFREE430_SOURCE))
-	@$(call patchin, $(XFREE430_DIR), $(XFREE430))
+	@$(call patchin, $(XFREE430), $(XFREE430_DIR))
 
 # FIXME: for a release use split sources
 #	@$(call extract, $(XFREE430_1_SOURCE))
@@ -130,8 +131,8 @@ XFREE430_ENV	=  XCURSORGEN=xcursorgen
 $(STATEDIR)/xfree430.prepare: $(xfree430_prepare_deps)
 	@$(call targetinfo, xfree430.prepare)
 	@$(call clean, $(XFREE430_BUILDDIR))
-	
-	# Out-of-Tree build preparation
+
+#	# Out-of-Tree build preparation
 	install -d $(XFREE430_BUILDDIR)
 	cd $(XFREE430_DIR)/config/util && make -f Makefile.ini lndir
 	cd $(XFREE430_BUILDDIR) && $(XFREE430_DIR)/config/util/lndir $(XFREE430_DIR)
@@ -157,7 +158,7 @@ xfree430_compile_deps =  $(STATEDIR)/xfree430.prepare
 
 $(STATEDIR)/xfree430.compile: $(xfree430_compile_deps)
 	@$(call targetinfo, xfree430.compile)
-	
+
 	cd $(XFREE430_BUILDDIR) && \
 		$(XFREE430_ENV) make World CROSSCOMPILEDIR=$(XFREE430_BUILDDIR)/cross_compiler
 
@@ -172,35 +173,35 @@ xfree430_install: $(STATEDIR)/xfree430.install
 $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	@$(call targetinfo, xfree430.install)
 
-	# These links are set incorrectly :-(
+#	# These links are set incorrectly :-(
 	ln -sf $(XFREE430_BUILDDIR)/programs/Xserver/hw/xfree86/xf86Date.h $(XFREE430_BUILDDIR)/config/cf/date.def
 	ln -sf $(XFREE430_BUILDDIR)/programs/Xserver/hw/xfree86/xf86Version.h $(XFREE430_BUILDDIR)/config/cf/version.def
 
-	# FIXME
+#	# FIXME
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11
 	cp -f $(XFREE430_BUILDDIR)/lib/Xft/libXft.so.2.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libXft.so.2.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXft.so.2
 	ln -sf libXft.so.2.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXft.so
 	cp -f $(XFREE430_BUILDDIR)/lib/Xft/Xft.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-	
+
 	rm -fr $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11
 	cp -fa $(XFREE430_BUILDDIR)/lib/X11 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/
 	cp -fa $(XFREE430_BUILDDIR)/include/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xft
 	cp -fa $(XFREE430_BUILDDIR)/lib/Xft/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xft/
-	
+
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/extensions
 	cp -fa $(XFREE430_BUILDDIR)/lib/Xrender/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/extensions/
 	cp -fa $(XFREE430_BUILDDIR)/include/extensions/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/extensions/
 
 	cp -fa $(XFREE430_BUILDDIR)/lib/Xrender/libXrender.so.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libXrender.so.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXrender.so
-	
+
 	cp -fa $(XFREE430_BUILDDIR)/lib/Xext/libXext.so.6.4 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libXext.so.6.4 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXext.so.6
 	ln -sf libXext.so.6.4 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXext.so
 	cp -fa $(XFREE430_BUILDDIR)/include/extensions/Xext.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/extensions/
-	
+
 	cp -fa $(XFREE430_BUILDDIR)/lib/SM/libSM.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libSM.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libSM.so.6
 	ln -sf libSM.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libSM.so
@@ -217,7 +218,7 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	ln -sf libXt.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXt.so.6
 	ln -sf libXt.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXt.so
 	cp -f $(XFREE430_BUILDDIR)/lib/Xt/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/
-	
+
 	cp -fa $(XFREE430_BUILDDIR)/lib/X11/libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libX11.so.6
 	ln -sf libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libX11.so
@@ -226,7 +227,7 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 #	cp -fa $(XFREE430_BUILDDIR)/lib/X11/libXpm.so.4.11 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 #	ln -sf libXpm.so.4.11 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXpm.so.4
 #	ln -sf libXpm.so.4.11 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXpm.so
-	
+
 	cp -f $(XFREE430_BUILDDIR)/lib/freetype2/libfreetype.so.6.3.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libfreetype.so.6.3.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfreetype.so.6
 	ln -sf libfreetype.so.6.3.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfreetype.so
@@ -254,7 +255,7 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	ln -sf libXtst.so.6.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXtst.so.6
 	ln -sf libXtst.so.6.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXtst.so
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xtst
-	#cp -af $(XFREE430_BUILDDIR)/lib/Xtst/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xtst/
+#	#cp -af $(XFREE430_BUILDDIR)/lib/Xtst/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xtst/
 
 	cp -f $(XFREE430_BUILDDIR)/lib/Xi/libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXi.so.6
@@ -279,16 +280,16 @@ xfree430_targetinstall_deps += $(STATEDIR)/zlib.targetinstall
 
 $(STATEDIR)/xfree430.targetinstall: $(xfree430_targetinstall_deps)
 	@$(call targetinfo, xfree430.targetinstall)
-	
-	# These links are set incorrectly :-(
+
+#	# These links are set incorrectly :-(
 	ln -sf $(XFREE430_BUILDDIR)/programs/Xserver/hw/xfree86/xf86Date.h $(XFREE430_BUILDDIR)/config/cf/date.def
 	ln -sf $(XFREE430_BUILDDIR)/programs/Xserver/hw/xfree86/xf86Version.h $(XFREE430_BUILDDIR)/config/cf/version.def
 
-	# FIXME: this is somehow not being built...
+#	# FIXME: this is somehow not being built...
 	touch $(XFREE430_BUILDDIR)/fonts/encodings/encodings.dir
 	cd $(XFREE430_BUILDDIR) && make install DESTDIR=$(ROOTDIR)
 
-	# FIXME: correct path? 
+#	# FIXME: correct path? 
 	cp -f $(XFREE430_BUILDDIR)/lib/freetype2/libfreetype.so.6.3.3 $(ROOTDIR)/lib
 	ln -sf libfreetype.so.6.3.3 $(ROOTDIR)/lib/libfreetype.so.6
 	ln -sf libfreetype.so.6.3.3 $(ROOTDIR)/lib/libfreetype.so
