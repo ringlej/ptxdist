@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.15 2003/08/10 18:27:42 robert Exp $
+# $Id: Makefile,v 1.16 2003/08/21 15:31:41 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -139,6 +139,10 @@ rayonic_config:
 	@echo "copying rayonic config" $(call latestconfig, ptxconfig-rayonic)
 	@cp $(call latestconfig, ptxconfig-rayonic) .config
 	@cp $(call latestconfig, rtaiconfig-rayonic) .rtaiconfig
+
+solidcard-bmw_config:
+	@echo "copying solidcard-bmw config" $(call latestconfig, ptxconfig-solidcard-bmw)
+	@cp $(call latestconfig, ptxconfig-solidcard-bmw) .config
 
 # ----------------------------------------------------------------------------
 
