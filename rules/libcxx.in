@@ -1,0 +1,17 @@
+menu	"C++ Library         "
+
+config CXX
+	bool "C++ support"
+	depends on GLIBC || ( UCLIBC && GCC_3 )
+
+choice
+        bool "Which C++ library do you want to use?"
+        	default LIBSTDCXX
+		depends on CXX
+	
+	config LIBSTDCXX
+ 		bool "libstdc++"
+		depends on GLIBC || ( UCLIBC && GCC_3 )
+endchoice
+
+endmenu
