@@ -348,6 +348,11 @@ config NASM
 	prompt "x86 NASM"
 	depends on ARCH_X86
 
+config XCHAIN-SCONS
+	bool
+	prompt "Build scons"
+	default n
+
 endmenu
 
 # ----------------------------------------------------------------------------
