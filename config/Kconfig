@@ -19,6 +19,10 @@ config PTXCONF
 config PROJECT
 	string
 	prompt "Project Name "
+	help
+	  Name of this project; the name you enter here has to be
+	  identical to the name of the default config file in
+	  $(PROJECTDIR). 
 
 ############################################################################## 
 menu "General Options             "
