@@ -35,6 +35,11 @@ config ROOTFS_VAR
 	prompt "Create /var"
 	default y
 
+config ROOTFS_SYS
+	bool
+	prompt "Create /sys"
+	default y
+
 config VENDORTWEAKS
 	string
 	prompt "Run vendor Makefile at the end of build"

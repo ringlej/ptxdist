@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rootfs.make,v 1.7 2003/10/26 13:32:10 mkl Exp $
+# $Id: rootfs.make,v 1.8 2004/07/01 16:07:33 rsc Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -123,6 +123,10 @@ endif
 ifdef PTXCONF_ROOTFS_VAR
 	mkdir -p $(ROOTDIR)/var
 	mkdir -p $(ROOTDIR)/var/log
+endif
+
+ifdef PTXCONF_ROOTFS_SYS
+	mkdir -p $(ROOTDIR)/sys
 endif
 
 ifdef PTXCONF_ROOTFS_VAR_LOG_DATALINK
