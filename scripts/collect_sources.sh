@@ -196,6 +196,7 @@ echo "$ARCH_BASENAME"
 
 $TAR -C $TOPDIR/.. -zcvf $PTXDIST_TAR 			\
 	--exclude CVS					\
+	--exclude .svn					\
 	--exclude $ARCH_BASENAME/build/*		\
 	--exclude $ARCH_BASENAME/state/*		\
 	--exclude $ARCH_BASENAME/src/*			\
