@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
+# $Id: xfree430.make,v 1.7 2003/11/07 00:44:38 mkl Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -59,7 +59,7 @@ xfree430_get_deps	= $(XFREE430_SOURCE)
 
 $(STATEDIR)/xfree430.get: $(xfree430_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XFREE))
+	@$(call get_patches, $(XFREE430))
 	touch $@
 
 $(XFREE430_SOURCE):
