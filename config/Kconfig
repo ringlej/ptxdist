@@ -138,6 +138,7 @@ menu "System Libraries            "
 ############################################################################## 
 
 source "rules/db41.in"
+source "rules/expat.in"
 source "rules/gettext.in"
 source "rules/glib26.in"
 source "rules/libxml2.in"
