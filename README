@@ -63,10 +63,6 @@ your target) or copy it to your embedded system.
 Bugs
 ----
 
-- kernel: configuration is not yet included (kconfig vs. cml1 problem). 
-  As long as we don't have a solution the kernel configuration is
-  actually taken from the path configured in .config.  
-  
 - busybox: patch compiler config variable in configuration
 
 - check if all tools use the correct compilers 
