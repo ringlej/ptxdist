@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: cramfs.make,v 1.3 2003/10/07 08:31:47 mkl Exp $
+# $Id: cramfs.make,v 1.4 2003/10/23 17:51:47 mkl Exp $
 #
-# (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
