@@ -1,4 +1,4 @@
-# $Id: xchain-glibc.make,v 1.7 2003/06/26 15:05:58 bsp Exp $
+# $Id: xchain-glibc.make,v 1.8 2003/06/29 13:27:36 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -47,7 +47,7 @@ GLIBC_THREADS_SOURCE	= $(SRCDIR)/$(GLIBC_THREADS).tar.gz
 GLIBC_THREADS_DIR	= $(GLIBC_DIR)
 GLIBC_THREADS_EXTRACT	= gzip -dc
 
-GLIBC_PTXPATCH		= glibc-$(GLIBC_VERSION)-ptx2.diff
+GLIBC_PTXPATCH		= glibc-$(GLIBC_VERSION)-ptx3.diff
 GLIBC_PTXPATCH_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(GLIBC_PTXPATCH)
 GLIBC_PTXPATCH_SOURCE	= $(SRCDIR)/$(GLIBC_PTXPATCH)
 GLIBC_PTXPATCH_DIR	= $(GLIBC_DIR)
@@ -238,7 +238,7 @@ $(STATEDIR)/glibc.compile: $(STATEDIR)/glibc.prepare
 	# let makefile find autoconf-2.13 as default
 	cd $(BUILDDIR)/$(GLIBC)-obj && $(GLIBC_ENVIRONMENT) make $(MAKEVARS) 
         endif
-# FIXME: We need 2 separate targets *here*
+#	# FIXME: We need 2 separate targets *here*
 	# FIXME: is there another possibility to create an ld.so which has 
 	# correct search paths compiled in for /lib? 
 	cd $(BUILDDIR)/$(GLIBC)-ldso && $(GLIBC_ENVIRONMENT) make $(MAKEVARS)
@@ -254,8 +254,6 @@ $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 	@$(call targetinfo, glibc.install)
         ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN))
 	cd $(BUILDDIR)/$(GLIBC)-obj && $(GLIBC_ENVIRONMENT) make install
-	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include && ln -fs $(KERNEL_DIR)/include/linux
-	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include && ln -fs $(KERNEL_DIR)/include/asm
         endif
 	touch $@
 

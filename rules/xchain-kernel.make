@@ -1,4 +1,4 @@
-# $Id: xchain-kernel.make,v 1.5 2003/06/26 15:37:06 robert Exp $
+# $Id: xchain-kernel.make,v 1.6 2003/06/29 13:27:36 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -357,10 +357,10 @@ $(STATEDIR)/xchain-kernel.prepare: $(STATEDIR)/xchain-kernel.extract
 
 kernel_compile: $(STATEDIR)/kernel.compile
 
-kernel_compile_deps = $(STATEDIR)/kernel.prepare
-kernel_compile_deps = $(STATEDIR)/umkimage.install
+kernel_compile_deps =  $(STATEDIR)/kernel.prepare
+kernel_compile_deps += $(STATEDIR)/umkimage.install
 
-$(STATEDIR)/kernel.compile: $(STATEDIR)/kernel.prepare 
+$(STATEDIR)/kernel.compile: $(kernel_compile_deps) 
 	@$(call targetinfo, kernel.compile)
         ifneq (y, $(PTXCONF_DONT_COMPILE_KERNEL))
 	$(KERNEL_ENVIRONMENT) make -C $(KERNEL_DIR) oldconfig dep clean $(KERNEL_TARGET) modules
@@ -369,7 +369,8 @@ $(STATEDIR)/kernel.compile: $(STATEDIR)/kernel.prepare
 
 xchain-kernel_compile: $(STATEDIR)/xchain-kernel.compile
 
-$(STATEDIR)/xchain-kernel.compile:
+$(STATEDIR)/xchain-kernel.compile: $(STATEDIR)/xchain-kernel.prepare
+	@$(call targetinfo, xchain-kernel.compile)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -388,7 +389,10 @@ $(STATEDIR)/kernel.install: $(STATEDIR)/kernel.compile
 
 xchain-kernel_install: $(STATEDIR)/xchain-kernel.install
 
-$(STATEDIR)/xchain-kernel.install:
+$(STATEDIR)/xchain-kernel.install: $(STATEDIR)/xchain-kernel.compile
+	@$(call targetinfo, xchain-kernel.install)
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+	cp -a $(BUILDDIR)/xchain-kernel/include $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/
 	touch $@
 
 
@@ -412,7 +416,8 @@ $(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.install
 
 xchain-kernel_targetinstall: $(STATEDIR)/xchain-kernel.targetinstall
 
-$(STATEDIR)/xchain-kernel.targetinstall:
+$(STATEDIR)/xchain-kernel.targetinstall: $(STATEDIR)/xchain-kernel.compile
+	@$(call targetinfo,xchain-kernel.targetinstall)
 	touch $@
 
 # ----------------------------------------------------------------------------

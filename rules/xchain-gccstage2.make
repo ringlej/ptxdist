@@ -1,4 +1,4 @@
-# $Id: xchain-gccstage2.make,v 1.4 2003/06/26 15:34:58 robert Exp $
+# $Id: xchain-gccstage2.make,v 1.5 2003/06/29 13:27:36 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -80,23 +80,6 @@ xchain-gccstage2_prepare_deps += $(STATEDIR)/xchain-kernel.prepare
 $(STATEDIR)/xchain-gccstage2.prepare: $(xchain-gccstage2_prepare_deps)
 	@$(call targetinfo, xchain-gccstage2.prepare)
 	[ -d $(GCC_STAGE2_DIR) ] || mkdir $(GCC_STAGE2_DIR)
-	#
-	# copy some header files
-	#
-	mkdir -p $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include
-	#
-	# permanent asm-arm directory (temporarily created in stage 1)
-	#
-	rm -fr  $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm-$(PTXCONF_ARCH)
-	cp -a   $(BUILDDIR)/xchain-kernel/include/asm-$(PTXCONF_ARCH)		 	\
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm-$(PTXCONF_ARCH)
-	rm -f	$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm
-	ln -s	asm-$(PTXCONF_ARCH) $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm
-	#
-	# permanent linux directory (temporarily created in stage 1)
-	#
-	rm -fr   $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/linux
-	cp -a    $(BUILDDIR)/xchain-kernel/include/linux $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/linux
 #	#
 #	# configure
 #	# 

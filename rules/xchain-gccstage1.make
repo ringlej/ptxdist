@@ -1,4 +1,4 @@
-# $Id: xchain-gccstage1.make,v 1.3 2003/06/25 12:12:31 robert Exp $
+# $Id: xchain-gccstage1.make,v 1.4 2003/06/29 13:27:36 robert Exp $
 #
 # (c) 2002,2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -92,54 +92,11 @@ xchain-gccstage1_prepare: $(STATEDIR)/xchain-gccstage1.prepare
 
 xchain-gccstage1_prepare_deps =  $(STATEDIR)/xchain-binutils.install
 xchain-gccstage1_prepare_deps += $(STATEDIR)/xchain-gccstage1.extract
-xchain-gccstage1_prepare_deps += $(STATEDIR)/xchain-kernel.prepare
+xchain-gccstage1_prepare_deps += $(STATEDIR)/xchain-kernel.install
 
 $(STATEDIR)/xchain-gccstage1.prepare: $(xchain-gccstage1_prepare_deps)
 	@$(call targetinfo, xchain-gccstage1.prepare)
 	mkdir -p $(GCC_STAGE1_DIR)
-	#
-	# copy some header files
-	#
-	mkdir -p $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include
-	#
-	# temporary asm-$(PTXCONF_ARCH) directory
-	#
-	rm -fr \
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm-$(PTXCONF_ARCH)
-	# FIXME: replace by install? 
-	cp -a   $(BUILDDIR)/xchain-kernel/include/asm-$(PTXCONF_ARCH) \
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm-$(PTXCONF_ARCH)
-	#
-	rm -f	$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm
-	ln -sf  asm-$(PTXCONF_ARCH) $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm
-	#
-	# link correct proc/ and arch/ directories for architecture
-	# 
-        ifeq (y, $(PTXCONF_ARCH_ARM))	
-	#
-	rm -f 	$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm/proc
-	ln -sf  proc-armv $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm/proc
-	#
-        ifeq (y, $(PTXCONF_ARM_ARCH_PXA))
-	rm -f 	$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm/arch
-	ln -sf	arch-pxa $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm/arch
-        endif
-        endif
-	#
-	# temporary linux directory
-	#
-	# FIXME: replace by install? 
-	cp -a $(BUILDDIR)/xchain-kernel/include/linux $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/linux
-	#
-	# temporary autoconf.h and version.h (FIXME - correct versions...)
-	#
-	touch 	$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/linux/autoconf.h
-	echo "#define UTS_RELEASE \"2.4.18\"" > 			\
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/linux/version.h;
-	echo "#define LINUX_VERSION_CODE 132114" >> 			\
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/linux/version.h;
-	echo "#define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + (c))" >> \
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/linux/version.h;
 	#
 	# configure 
 	#
