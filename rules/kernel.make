@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.27 2004/06/22 06:53:03 rsc Exp $
+# $Id: kernel.make,v 1.28 2004/06/22 10:21:29 sha Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -303,7 +303,7 @@ KERNEL_MAKEVARS	= \
 KERNEL_ENV	= $(CROSS_ENV_CFLAGS)
 
 ifdef PTXCONF_KERNEL_IMAGE_U
-	KERNEL_MAKEVARS += MKIMAGE=u-boot-mkimage
+	KERNEL_MAKEVARS += MKIMAGE=u-boot-mkimage.sh
 endif
 
 $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
@@ -320,6 +320,8 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 		oldconfig
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) 		\
 		dep
+	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
+	echo 'u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 
 	touch $@
 
