@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: i386-ratio-uno-2053-1.make,v 1.5 2004/04/14 15:19:53 bbu Exp $
+# $Id: i386-ratio-uno-2053-1.make,v 1.6 2004/04/14 16:24:59 bbu Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -41,7 +41,7 @@ $(STATEDIR)/ratio-uno-2053-1.targetinstall:
 
 	# create menu.lst for grub
 	install -d $(ROOTDIR)/boot
-	echo "# Konfiguration grub" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "# Konfiguration grub" > $(ROOTDIR)/boot/grub/menu.lst
 	echo "#" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "# RATIO " >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "#             www.ratiosystem.de" >> $(ROOTDIR)/boot/grub/menu.lst
@@ -85,6 +85,9 @@ $(STATEDIR)/ratio-uno-2053-1.targetinstall:
 
 	# we need to fix owner / permissions at first startup 
 	install -m 755 -D $(MISCDIR)/ptx-init-permissions.sh $(ROOTDIR)/sbin/ptx-init-permissions.sh
+
+	# maintenance mode helper script
+	install -m 755 -D $(MISCDIR)/maintenance $(ROOTDIR)/sbin/
 
 	touch $@
 

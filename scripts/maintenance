@@ -1,0 +1,17 @@
+#!/bin/sh
+case $1 in 
+	on)
+	echo "$PS1" > /tmp/ps1.old
+	echo "Entering System Maintenance Mode ..."
+	mount -o remount,rw / && export PS1="SYSTEM MAINTENANCE #>"
+	;;
+	
+	off)
+	echo "Leaving System Maintenance Mode ..."
+	mount -o remount,ro / && export PS1=$(cat /tmp/ps1.old)
+	;;
+
+	*)
+	echo "usage: $0 [on|off]"
+	;;
+esac
