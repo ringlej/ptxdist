@@ -19,7 +19,7 @@ endif
 # Paths and names 
 #
 BASH			= bash-3.0
-BASH_URL		= $(PTXCONF_GNUMIRROR)/bash/$(BASH).tar.gz 
+BASH_URL		= $(PTXCONF_SETUP_GNUMIRROR)/bash/$(BASH).tar.gz 
 BASH_SOURCE		= $(SRCDIR)/$(BASH).tar.gz
 BASH_DIR		= $(BUILDDIR)/$(BASH)
 

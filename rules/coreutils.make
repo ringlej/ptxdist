@@ -19,7 +19,7 @@ endif
 # Paths and names 
 #
 COREUTILS		= coreutils-5.0
-COREUTILS_URL		= $(PTXCONF_GNUMIRROR)/coreutils/$(COREUTILS).tar.bz2 
+COREUTILS_URL		= $(PTXCONF_SETUP_GNUMIRROR)/coreutils/$(COREUTILS).tar.bz2 
 COREUTILS_SOURCE	= $(SRCDIR)/$(COREUTILS).tar.bz2
 COREUTILS_DIR		= $(BUILDDIR)/$(COREUTILS)
 
