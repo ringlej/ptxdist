@@ -4,6 +4,7 @@ config ROOTFS
 	bool
 	prompt "Populate root filesystem"
 	default y
+        select BB_CONFIG_FEATURE_SHADOWPASSWDS  if BUSYBOX
 
 config ROOTFS_DEV
 	depends on ROOTFS
