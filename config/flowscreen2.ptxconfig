@@ -142,15 +142,22 @@ PTXCONF_KERNEL_PATCH1_XCHAIN=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-i.MX/linux-2.4.25-vrs2-imx3.diff"
-PTXCONF_KERNEL_PATCH2_NAME="imx2"
+PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/mtd-snapshots/linux-2.4.25-vrs2-mtd20040321.diff"
+PTXCONF_KERNEL_PATCH2_NAME="mtd20040321"
 PTXCONF_KERNEL_PATCH2_XCHAIN=y
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH3_URL=""
+PTXCONF_KERNEL_PATCH3_URL="http://www.pengutronix.de/software/linux-i.MX/linux-2.4.25-vrs2-mtd20040321-imx9.diff"
 PTXCONF_KERNEL_PATCH3_NAME=""
+# PTXCONF_KERNEL_PATCH3_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH4_URL=""
+PTXCONF_KERNEL_PATCH4_NAME=""
 
 #
 # Extentions
@@ -161,9 +168,15 @@ PTXCONF_KERNEL_PATCH3_NAME=""
 #
 
 #
+# RTAI                
+#
+# PTXCONF_RTAI is not set
+
+#
 # C Library           
 #
 PTXCONF_GLIBC=y
+# PTXCONF_UCLIBC is not set
 
 #
 # C Library options
@@ -172,6 +185,7 @@ PTXCONF_GLIBC=y
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
+# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -197,6 +211,8 @@ PTXCONF_GLIBC_NSS_FILES=y
 # PTXCONF_GLIBC_NSS_COMPAT is not set
 PTXCONF_GLIBC_RESOLV=y
 PTXCONF_GLIBC_NSL=y
+# PTXCONF_GLIBC_GCONV is not set
+PTXCONF_UC_TARGET_arm=y
 
 #
 # C++ Library         
@@ -244,15 +260,6 @@ PTXCONF_BB_CONFIG_FEATURE_SUID=y
 #
 # PTXCONF_BB_CONFIG_STATIC is not set
 # PTXCONF_BB_CONFIG_LFS is not set
-PTXCONF_BB_USING_CROSS_COMPILER=y
-PTXCONF_BB_CROSS_COMPILER_PREFIX="arm-linux-"
-PTXCONF_BB_EXTRA_CFLAGS_OPTIONS=""
-
-#
-# Installation Options
-#
-# PTXCONF_BB_CONFIG_INSTALL_NO_USR is not set
-PTXCONF_BB_PREFIX="./_install"
 
 #
 # Archival Utilities
@@ -765,6 +772,11 @@ PTXCONF_MTD_UNLOCK=y
 #
 
 #
+# bing                
+#
+# PTXCONF_BING is not set
+
+#
 # ppp                 
 #
 # PTXCONF_PPP is not set
@@ -863,6 +875,11 @@ PTXCONF_UTELNETD=y
 # dnsmasq             
 #
 # PTXCONF_DNSMASQ is not set
+
+#
+# tcpdump             
+#
+# PTXCONF_TCPDUMP is not set
 
 #
 # Disk and file ---   
