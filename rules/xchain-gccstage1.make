@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.12 2003/10/31 11:48:11 mkl Exp $
+# $Id: xchain-gccstage1.make,v 1.13 2003/11/13 19:29:34 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -8,6 +8,10 @@
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
+
+ifdef PTXCONF_BUILD_CROSSCHAIN
+XCHAIN += xchain-gccstage1
+endif
 
 #
 # Paths and names 
