@@ -138,8 +138,8 @@ PTXCONF_VENDORTWEAKS=""
 #
 # Kernel              
 #
+# PTXCONF_USE_EXTERNAL_KERNEL is not set
 PTXCONF_KERNEL_CONFIG="kernel-2.6.8"
-# PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
 # PTXCONF_KERNEL_2_4_21 is not set

@@ -139,8 +139,8 @@ PTXCONF_HOSTTOOLS_FAKEROOT=y
 #
 # Kernel              
 #
+# PTXCONF_USE_EXTERNAL_KERNEL is not set
 PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/i386-generic-glibc-2.4.26.kernelconfig"
-# PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
 # PTXCONF_KERNEL_2_4_21 is not set
