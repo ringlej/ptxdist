@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.5 2003/06/16 12:05:16 bsp Exp $
+# $Id: Makefile,v 1.6 2003/06/25 10:31:20 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -123,8 +123,19 @@ xconfig: scripts/kconfig/qconf
 oldconfig: ptx_kconfig scripts/kconfig/conf
 	scripts/kconfig/conf -o config/Config.in 
 
-# ----------------------------------------------------------------------------
+# Config Targets -------------------------------------------------------------
 
+innokom_config:
+	@echo "copying innokom config"
+	@cp $(call latestconfig, ptxconfig-auerswald) .config
+	@cp $(call latestconfig, kernel*auerswald) .kernelconfig
+
+rayonic_config:
+	@echo "copying rayonic config"
+	@cp $(call latestconfig, ptxconfig-rayonic) .config
+	@cp $(call latestconfig, kernel*rayonic) .kernelconfig
+
+# ----------------------------------------------------------------------------
 clean: rootclean
 	@echo
 	@echo -n "cleaning build dir............... "
