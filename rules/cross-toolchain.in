@@ -21,6 +21,15 @@ choice
 		depends on ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
 endchoice
 
+config GCC_2
+	bool
+	default y if GCC_2_95_3
+
+config GCC_3
+	bool
+	default y if GCC_3_2_3
+	default y if GCC_3_3_2
+
 config NASM
 	bool
 	prompt "x86 NASM"
