@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glib1210.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: glib1210.make,v 1.3 2003/12/15 07:16:22 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -68,6 +68,7 @@ glib1210_prepare: $(STATEDIR)/glib1210.prepare
 #
 glib1210_prepare_deps =  \
 	$(STATEDIR)/glib1210.extract \
+	$(STATEDIR)/xfree430.install \
 	$(STATEDIR)/virtual-xchain.install
 
 GLIB1210_PATH	=  PATH=$(CROSS_PATH)
