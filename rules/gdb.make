@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gdb.make,v 1.5 2003/12/18 17:01:57 bsp Exp $
+# $Id: gdb.make,v 1.6 2004/01/07 14:11:07 robert Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
@@ -91,6 +91,8 @@ endif
 
 GDB_PATH	=  PATH=$(CROSS_PATH)
 GDB_ENV		=  $(CROSS_ENV)
+GDB_ENV		+= bash_cv_have_mbstate_t=yes	# is not determined correctly in gdb-6.0
+GDB_ENV		+= ac_cv_header_stdc=yes	# FIXME: libiberty doesn' find out correctly
 
 ifndef PTXCONF_GDB_SHARED
 GDB_MAKEVARS	=  LDFLAGS=-static
@@ -111,6 +113,31 @@ $(STATEDIR)/gdb.prepare: $(gdb_prepare_deps)
 	cd $(GDB_BUILDDIR) && \
 		$(GDB_PATH) $(GDB_ENV) \
 		$(GDB_DIR)/configure $(GDB_AUTOCONF)
+
+	# RSC: nobody seems to have tried to _crosscompile_ gdb yet - 
+	# everybody seems to build cross-gdbs only. So we have to 
+	# prepare libiberty first with the cross options to avoid that 
+	# it runs the configure stages automatically and with the wrong
+	# options (host) during the compile stage
+	# 
+	mkdir -p $(GDB_BUILDDIR)/libiberty
+	ln -s $(GDB_BUILDDIR)/libiberty $(GDB_BUILDDIR)/build-i686-host-linux-gnu/libiberty
+	cd $(GDB_BUILDDIR)/libiberty && \
+		$(GDB_PATH) $(GDB_ENV) \
+		$(GDB_DIR)/libiberty/configure $(GDB_AUTOCONF)
+
+	# same with sim/
+	mkdir -p $(GDB_BUILDDIR)/sim
+	cd $(GDB_BUILDDIR)/sim && \
+		$(GDB_PATH) $(GDB_ENV) \
+		$(GDB_DIR)/sim/configure $(GDB_AUTOCONF)
+	
+	# same with gdb/
+	mkdir -p $(GDB_BUILDDIR)/gdb
+	cd $(GDB_BUILDDIR)/gdb && \
+		$(GDB_PATH) $(GDB_ENV) \
+		$(GDB_DIR)/gdb/configure $(GDB_AUTOCONF)
+		
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -121,13 +148,15 @@ gdb_compile: $(STATEDIR)/gdb.compile
 
 $(STATEDIR)/gdb.compile: $(STATEDIR)/gdb.prepare 
 	@$(call targetinfo, $@)
-#
-# the libiberty part is compiled for the host system
-#
-# don't pass target CFLAGS to it, so override them and call the configure script
-#
-	$(GDB_PATH) make -C $(GDB_BUILDDIR) $(GDB_MAKEVARS) CFLAGS='' CXXFLAGS='' configure-build-libiberty
-	$(GDB_PATH) make -C $(GDB_BUILDDIR) $(GDB_MAKEVARS) 
+##
+## the libiberty part is compiled for the host system
+##
+## don't pass target CFLAGS to it, so override them and call the configure script
+##
+#	$(GDB_PATH) make -C $(GDB_BUILDDIR) $(GDB_MAKEVARS) CFLAGS='' CXXFLAGS='' configure-build-libiberty
+#	$(GDB_PATH) make -C $(GDB_BUILDDIR) $(GDB_MAKEVARS) 
+	$(GDB_PATH) $(GDB_ENV) make -C $(GDB_BUILDDIR)
+
 	touch $@
 
 # ----------------------------------------------------------------------------

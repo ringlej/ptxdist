@@ -39,3 +39,9 @@ choice
 	config GDB_NCURSES
 		bool "ncurses"
 endchoice
+
+config GDB_WRAPPERS
+	bool "Build cross-GDB wrapper"
+	help
+	  Creates wrapper scripts in $PTXCONF_PREFIX/bin which preset
+	  all necessary preferences to use the cross debugger. 
