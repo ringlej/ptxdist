@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: fontconfig22.make,v 1.5 2004/02/24 09:08:53 robert Exp $
+# $Id: fontconfig22.make,v 1.6 2004/02/25 09:08:35 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -120,11 +120,8 @@ fontconfig22_compile_deps =  $(STATEDIR)/fontconfig22.prepare
 
 $(STATEDIR)/fontconfig22.compile: $(fontconfig22_compile_deps)
 	@$(call targetinfo, $@)
-# FIXME: uggly hack to fix wrongly detected libfreetype.la path
-	- $(FONTCONFIG22_PATH) make -C $(FONTCONFIG22_DIR)
-	cd $(FONTCONFIG22_DIR)/src && \
-		perl -i -p -e "s,/usr/lib/libfreetype.la,$(FREETYPE214_DIR)/objs/libfreetype.la,g" libfontconfig.la
-	cd $(FONTCONFIG22_DIR) && $(FONTCONFIG22_PATH) make
+	cd $(FONTCONFIG22_DIR) && \
+	   $(FONTCONFIG22_PATH) make 
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -135,13 +132,8 @@ fontconfig22_install: $(STATEDIR)/fontconfig22.install
 
 $(STATEDIR)/fontconfig22.install: $(STATEDIR)/fontconfig22.compile
 	@$(call targetinfo, $@)
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/$(PTXCONF_GNU_TARGET)/lib/libfontconfig.so*
-	install $(FONTCONFIG22_DIR)/src/.libs/libfontconfig.so.1.0.4 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/
-	ln -sf libfontconfig.so.1.0.4 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfontconfig.so.1
-	ln -sf libfontconfig.so.1.0.4 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfontconfig.so
-	rm -fr $(PTXCONF_PREFIX)/$(PTXCONV_GNU_TARGET)/include/fontconfig
-	cp -a $(FONTCONFIG22_DIR)/fontconfig $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/
+	cd $(FONTCONFIG22_DIR) && \
+	   $(FONTCONFIG22_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
