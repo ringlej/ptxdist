@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.7 2003/08/14 10:02:18 mkl Exp $
+# $Id: xchain-gccstage1.make,v 1.8 2003/09/09 21:54:50 robert Exp $
 #
 # (c) 2002,2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -29,6 +29,7 @@ GCC_DIR			= $(BUILDDIR)/$(GCC)
 GCC_STAGE1_DIR		= $(BUILDDIR)/$(GCC)-$(GCC_PREFIX)stage1
 GCC_STAGE2_DIR		= $(BUILDDIR)/$(GCC)-$(GCC_PREFIX)stage2
 
+# FIXME: replace these by patchin mechanism...
 GCC_ARMPATCH		= gcc-2.95.3.diff
 GCC_ARMPATCH_URL	= ftp://ftp.arm.linux.org.uk/pub/armlinux/toolchain/src-2.95.3/$(GCC_ARMPATCH).bz2
 GCC_ARMPATCH_SOURCE	= $(SRCDIR)/$(GCC_ARMPATCH).bz2
@@ -42,7 +43,7 @@ GCC_PATCH_DIR		= $(GCC_DIR)
 GCC_PATCH_EXTRACT	= bzip2 -dc
 
 GCC_PPCPATCH		= gcc-3.2.3-ppc-mkb1.patch
-GCC_PPCPATCH_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(GCC_PPCPATCH)
+GCC_PPCPATCH_URL	= http://www.pengutronix.de/software/ptxdist/patches/$(GCC)/$(GCC_PPCPATCH)
 GCC_PPCPATCH_SOURCE	= $(SRCDIR)/$(GCC_PPCPATCH)
 GCC_PPCPATCH_DIR	= $(GCC_DIR)
 GCC_PPCPATCH_EXTRACT	= cat
