@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssl.make,v 1.10 2003/10/27 10:17:32 mkl Exp $
+# $Id: openssl.make,v 1.11 2003/10/27 10:34:07 mkl Exp $
 #
 # Copyright (C) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
 #               2003 by Pengutronix e.K., Hildesheim, Germany
@@ -88,7 +88,7 @@ OPENSSL_MAKEVARS = \
 	$(CROSS_ENV_CC) \
 	$(CROSS_ENV_RANLIB) \
 	AR='$(PTXCONF_GNU_TARGET)-ar r' \
-	MANDIR=$(CROSS_LIB_DIR)/man
+	MANDIR=/man
 
 OPENSSL_AUTOCONF = \
 	--prefix=/usr \
@@ -115,6 +115,7 @@ openssl_compile: $(STATEDIR)/openssl.compile
 
 $(STATEDIR)/openssl.compile: $(STATEDIR)/openssl.prepare 
 	@$(call targetinfo, $@)
+	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) INSTALLTOP=$(CROSS_LIB_DIR) openssl.pc
 	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) $(OPENSSL_MAKEVARS)
 	touch $@
 
@@ -127,8 +128,11 @@ openssl_install: $(STATEDIR)/openssl.install
 $(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
 	@$(call targetinfo, $@)
 	mkdir -p $(CROSS_LIB_DIR)/lib/pkgconfig
+	chmod 755 $(CROSS_LIB_DIR)/lib/pkgconfig
 	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) install $(OPENSSL_MAKEVARS) \
 		INSTALL_PREFIX=$(CROSS_LIB_DIR) INSTALLTOP=''
+	chmod 755 $(CROSS_LIB_DIR)/lib/pkgconfig
+
 #
 # FIXME:
 # 	OPENSSL=${D}/usr/bin/openssl /usr/bin/perl tools/c_rehash ${D}/etc/ssl/certs
