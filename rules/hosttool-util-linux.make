@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: hosttool-util-linux.make,v 1.1 2003/12/08 12:39:19 bsp Exp $
+# $Id: hosttool-util-linux.make,v 1.2 2004/08/26 06:24:21 rsc Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -13,7 +13,7 @@
 # Paths and names
 #
 
-HOSTTOOL_UTIL-LINUX_DIR	= $(BUILDDIR)/hosttool/$(UTIL-LINUX)
+HOSTTOOLS_UTIL-LINUX_DIR	= $(BUILDDIR)/hosttool/$(UTIL-LINUX)
 
 # ----------------------------------------------------------------------------
 # Hosttool Extract
@@ -43,7 +43,7 @@ hosttool-util-linux_prepare_deps = $(STATEDIR)/hosttool-util-linux.extract
 
 $(STATEDIR)/hosttool-util-linux.prepare: $(hosttool-util-linux_prepare_deps)
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOL_UTIL-LINUX_DIR) && \
+	cd $(HOSTTOOLS_UTIL-LINUX_DIR) && \
 		$(HOSTCC_ENV) ./configure
 	touch $@
 
@@ -59,15 +59,15 @@ $(STATEDIR)/hosttool-util-linux.compile: $(hosttool-util-linux_compile_deps)
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_UTLNX_SFDISK
-	$(UTIL-LINUX_PATH) make -C $(HOSTTOOL_UTIL-LINUX_DIR)/fdisk sfdisk
+	$(UTIL-LINUX_PATH) make -C $(HOSTTOOLS_UTIL-LINUX_DIR)/fdisk sfdisk
 endif
 
 ifdef PTXCONF_UTLNX_FDISK
-	$(UTIL-LINUX_PATH) make -C $(HOSTTOOL_UTIL-LINUX_DIR)/fdisk fdisk
+	$(UTIL-LINUX_PATH) make -C $(HOSTTOOLS_UTIL-LINUX_DIR)/fdisk fdisk
 endif
 
 ifdef PTXCONF_UTLNX_CFFDISK
-	$(UTIL-LINUX_PATH) make -C $(HOSTTOOL_UTIL-LINUX_DIR)/fdisk cfdisk
+	$(UTIL-LINUX_PATH) make -C $(HOSTTOOLS_UTIL-LINUX_DIR)/fdisk cfdisk
 endif
 
 # ----------------------------------------------------------------------------
@@ -80,17 +80,17 @@ $(STATEDIR)/hosttool-util-linux.install: $(STATEDIR)/hosttool-util-linux.compile
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_UTLNX_SFDISK
-	install -D $(HOSTTOOL_UTIL-LINUX_DIR)/fdisk/sfdisk \
+	install -D $(HOSTTOOLS_UTIL-LINUX_DIR)/fdisk/sfdisk \
 		$(PTXCONF_PREFIX)/sbin/sfdisk
 endif
 
 ifdef PTXCONF_UTLNX_FDISK
-	install -D $(HOSTTOOL_UTIL-LINUX_DIR)/fdisk/sfdisk \
+	install -D $(HOSTTOOLS_UTIL-LINUX_DIR)/fdisk/sfdisk \
 		$(PTXCONF_PREFIX)/sbin/sfdisk
 endif
 
 ifdef PTXCONF_UTLNX_CFFDISK
-	install -D $(HOSTTOOL_UTIL-LINUX_DIR)/fdisk/sfdisk \
+	install -D $(HOSTTOOLS_UTIL-LINUX_DIR)/fdisk/sfdisk \
 		$(PTXCONF_PREFIX)/sbin/sfdisk
 endif
 
@@ -102,6 +102,6 @@ endif
 
 hosttool-util-linux_clean:
 	rm -rf $(STATEDIR)/hosttool-util-linux.*
-	rm -rf $(HOSTTOOL_UTIL-LINUX_DIR)
+	rm -rf $(HOSTTOOLS_UTIL-LINUX_DIR)
 
 # vim: syntax=make

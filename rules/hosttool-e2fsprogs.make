@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: hosttool-e2fsprogs.make,v 1.2 2004/06/21 13:47:49 bbu Exp $
+# $Id: hosttool-e2fsprogs.make,v 1.3 2004/08/26 06:23:42 rsc Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -12,21 +12,21 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_E2FSPROGS
-PACKAGES += hosttool-e2fsprogs
+ifdef PTXCONF_HOSTTOOLS_E2FSPROGS
+HOSTTOOLS += hosttool-e2fsprogs
 endif
 
 #
 # Paths and names 
 #
-HOSTTOOL_E2FSPROGS_VERSION		= 1.35
-HOSTTOOL_E2FSPROGS			= e2fsprogs-$(HOSTTOOL_E2FSPROGS_VERSION)
-HOSTTOOL_E2FSPROGS_SUFFIX		= tar.gz
-HOSTTOOL_E2FSPROGS_URL			= http://switch.dl.sourceforge.net/sourceforge/e2fsprogs/$(HOSTTOOL_E2FSPROGS).$(HOSTTOOL_E2FSPROGS_SUFFIX)
-HOSTTOOL_E2FSPROGS_SOURCE_DIR		= $(SRCDIR)/hosttool/
-HOSTTOOL_E2FSPROGS_SOURCE		= $(HOSTTOOL_E2FSPROGS_SOURCE_DIR)/$(HOSTTOOL_E2FSPROGS).$(HOSTTOOL_E2FSPROGS_SUFFIX)
-HOSTTOOL_E2FSPROGS_DIR			= $(BUILDDIR)/hosttool/$(HOSTTOOL_E2FSPROGS)
-HOSTTOOL_E2FSPROGS_BUILD_DIR		= $(BUILDDIR)/hosttool/$(HOSTTOOL_E2FSPROGS)-build
+HOSTTOOLS_E2FSPROGS_VERSION		= 1.35
+HOSTTOOLS_E2FSPROGS			= e2fsprogs-$(HOSTTOOLS_E2FSPROGS_VERSION)
+HOSTTOOLS_E2FSPROGS_SUFFIX		= tar.gz
+HOSTTOOLS_E2FSPROGS_URL			= http://switch.dl.sourceforge.net/sourceforge/e2fsprogs/$(HOSTTOOLS_E2FSPROGS).$(HOSTTOOLS_E2FSPROGS_SUFFIX)
+HOSTTOOLS_E2FSPROGS_SOURCE_DIR		= $(SRCDIR)/hosttool/
+HOSTTOOLS_E2FSPROGS_SOURCE		= $(HOSTTOOLS_E2FSPROGS_SOURCE_DIR)/$(HOSTTOOLS_E2FSPROGS).$(HOSTTOOLS_E2FSPROGS_SUFFIX)
+HOSTTOOLS_E2FSPROGS_DIR			= $(BUILDDIR)/hosttool/$(HOSTTOOLS_E2FSPROGS)
+HOSTTOOLS_E2FSPROGS_BUILD_DIR		= $(BUILDDIR)/hosttool/$(HOSTTOOLS_E2FSPROGS)-build
 
 # ----------------------------------------------------------------------------
 # Get
@@ -34,14 +34,14 @@ HOSTTOOL_E2FSPROGS_BUILD_DIR		= $(BUILDDIR)/hosttool/$(HOSTTOOL_E2FSPROGS)-build
 
 hosttool-e2fsprogs_get: $(STATEDIR)/hosttool-e2fsprogs.get
 
-$(STATEDIR)/hosttool-e2fsprogs.get: $(HOSTTOOL_E2FSPROGS_SOURCE)
+$(STATEDIR)/hosttool-e2fsprogs.get: $(HOSTTOOLS_E2FSPROGS_SOURCE)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOSTTOOL_E2FSPROGS))
+	@$(call get_patches, $(HOSTTOOLS_E2FSPROGS))
 	touch $@
 
-$(HOSTTOOL_E2FSPROGS_SOURCE):
+$(HOSTTOOLS_E2FSPROGS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOSTTOOL_E2FSPROGS_URL), $(HOSTTOOL_E2FSPROGS_SOURCE_DIR) )
+	@$(call get, $(HOSTTOOLS_E2FSPROGS_URL), $(HOSTTOOLS_E2FSPROGS_SOURCE_DIR) )
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,10 +51,10 @@ hosttool-e2fsprogs_extract: $(STATEDIR)/hosttool-e2fsprogs.extract
 
 $(STATEDIR)/hosttool-e2fsprogs.extract: $(STATEDIR)/hosttool-e2fsprogs.get
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOL_E2FSPROGS_DIR))
-	@$(call extract, $(HOSTTOOL_E2FSPROGS_SOURCE) , $(BUILDDIR)/hosttool/ )
-	@$(call patchin, $(HOSTTOOL_E2FSPROGS), $(HOSTTOOL_E2FSPROGS_DIR) )
-	chmod +w $(HOSTTOOL_E2FSPROGS_DIR)/po/*.po
+	@$(call clean, $(HOSTTOOLS_E2FSPROGS_DIR))
+	@$(call extract, $(HOSTTOOLS_E2FSPROGS_SOURCE) , $(BUILDDIR)/hosttool/ )
+	@$(call patchin, $(HOSTTOOLS_E2FSPROGS), $(HOSTTOOLS_E2FSPROGS_DIR) )
+	chmod +w $(HOSTTOOLS_E2FSPROGS_DIR)/po/*.po
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -63,15 +63,15 @@ $(STATEDIR)/hosttool-e2fsprogs.extract: $(STATEDIR)/hosttool-e2fsprogs.get
 
 hosttool-e2fsprogs_prepare: $(STATEDIR)/hosttool-e2fsprogs.prepare
 
-HOSTTOOL_E2FSPROGS_AUTOCONF	=  --prefix=/usr
-HOSTTOOL_E2FSPROGS_AUTOCONF	+= --enable-fsck
-HOSTTOOL_E2FSPROGS_AUTOCONF	+= --build=$(GNU_HOST)
-HOSTTOOL_E2FSPROGS_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-HOSTTOOL_E2FSPROGS_AUTOCONF	+= --with-cc=$(PTXCONF_GNU_TARGET)-gcc
-HOSTTOOL_E2FSPROGS_AUTOCONF	+= --with-linker=$(PTXCONF_GNU_TARGET)-ld
-HOSTTOOL_E2FSPROGS_PATH		=  PATH=$(CROSS_PATH)
-HOSTTOOL_E2FSPROGS_ENV		=  $(CROSS_ENV) 
-HOSTTOOL_E2FSPROGS_ENV		+= BUILD_CC=$(HOSTCC)
+HOSTTOOLS_E2FSPROGS_AUTOCONF	=  --prefix=/usr
+HOSTTOOLS_E2FSPROGS_AUTOCONF	+= --enable-fsck
+HOSTTOOLS_E2FSPROGS_AUTOCONF	+= --build=$(GNU_HOST)
+HOSTTOOLS_E2FSPROGS_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+HOSTTOOLS_E2FSPROGS_AUTOCONF	+= --with-cc=$(PTXCONF_GNU_TARGET)-gcc
+HOSTTOOLS_E2FSPROGS_AUTOCONF	+= --with-linker=$(PTXCONF_GNU_TARGET)-ld
+HOSTTOOLS_E2FSPROGS_PATH		=  PATH=$(CROSS_PATH)
+HOSTTOOLS_E2FSPROGS_ENV		=  $(CROSS_ENV) 
+HOSTTOOLS_E2FSPROGS_ENV		+= BUILD_CC=$(HOSTCC)
 
 hosttool-e2fsprogs_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
@@ -79,10 +79,10 @@ hosttool-e2fsprogs_prepare_deps = \
 
 $(STATEDIR)/hosttool-e2fsprogs.prepare: $(hosttool-e2fsprogs_prepare_deps)
 	@$(call targetinfo, $@)
-	mkdir -p $(HOSTTOOL_E2FSPROGS_BUILD_DIR) && \
-	cd $(HOSTTOOL_E2FSPROGS_BUILD_DIR) && \
-		$(HOSTTOOL_E2FSPROGS_PATH) $(HOSTTOOL_E2FSPROGS_ENV) \
-		$(HOSTTOOL_E2FSPROGS_DIR)/configure $(HOSTTOOL_E2FSPROGS_AUTOCONF)
+	mkdir -p $(HOSTTOOLS_E2FSPROGS_BUILD_DIR) && \
+	cd $(HOSTTOOLS_E2FSPROGS_BUILD_DIR) && \
+		$(HOSTTOOLS_E2FSPROGS_PATH) $(HOSTTOOLS_E2FSPROGS_ENV) \
+		$(HOSTTOOLS_E2FSPROGS_DIR)/configure $(HOSTTOOLS_E2FSPROGS_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -102,8 +102,8 @@ $(STATEDIR)/hosttool-e2fsprogs.compile: $(hosttool-e2fsprogs_compile_deps)
 # it's not good to pass target CFLAGS to the host compiler :)
 # so override these
 #
-	$(HOSTTOOL_E2FSPROGS_PATH) make -C $(HOSTTOOL_E2FSPROGS_BUILD_DIR)/util
-	$(HOSTTOOL_E2FSPROGS_PATH) make -C $(HOSTTOOL_E2FSPROGS_BUILD_DIR)
+	$(HOSTTOOLS_E2FSPROGS_PATH) make -C $(HOSTTOOLS_E2FSPROGS_BUILD_DIR)/util
+	$(HOSTTOOLS_E2FSPROGS_PATH) make -C $(HOSTTOOLS_E2FSPROGS_BUILD_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -125,11 +125,11 @@ hosttool-e2fsprogs_targetinstall: $(STATEDIR)/hosttool-e2fsprogs.targetinstall
 $(STATEDIR)/hosttool-e2fsprogs.targetinstall: $(STATEDIR)/hosttool-e2fsprogs.compile
 	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/sbin
-ifdef PTXCONF_HOSTTOOL_E2FSPROGS_TUNE2FS
-	install -D $(HOSTTOOL_E2FSPROGS_BUILD_DIR)/misc/tune2fs $(PTXCONF_PREFIX)/sbin/tune2fs
+ifdef PTXCONF_HOSTTOOLS_E2FSPROGS_TUNE2FS
+	install -D $(HOSTTOOLS_E2FSPROGS_BUILD_DIR)/misc/tune2fs $(PTXCONF_PREFIX)/sbin/tune2fs
 endif
-ifdef PTXCONF_HOSTTOOL_E2FSPROGS_RESIZE2FS
-	install -D $(HOSTTOOL_E2FSPROGS_BUILD_DIR)/resize/resize2fs $(PTXCONF_PREFIX)/sbin/resize2fs
+ifdef PTXCONF_HOSTTOOLS_E2FSPROGS_RESIZE2FS
+	install -D $(HOSTTOOLS_E2FSPROGS_BUILD_DIR)/resize/resize2fs $(PTXCONF_PREFIX)/sbin/resize2fs
 endif
 	touch $@
 
@@ -138,6 +138,6 @@ endif
 # ----------------------------------------------------------------------------
 
 hosttool-e2fsprogs_clean: 
-	rm -rf $(STATEDIR)/hosttool-e2fsprogs.* $(HOSTTOOL_E2FSPROGS_DIR) $(HOSTTOOL_E2FSPROGS_BUILD_DIR)
+	rm -rf $(STATEDIR)/hosttool-e2fsprogs.* $(HOSTTOOLS_E2FSPROGS_DIR) $(HOSTTOOLS_E2FSPROGS_BUILD_DIR)
 
 # vim: syntax=make

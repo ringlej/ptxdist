@@ -1,0 +1,5 @@
+
+config HOSTTOOLS_FAKEROOT
+	bool
+	default y
+

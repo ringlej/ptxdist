@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: e2tools.make,v 1.1 2003/12/04 13:19:46 bsp Exp $
+# $Id: e2tools.make,v 1.2 2004/08/26 06:22:15 rsc Exp $
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          
@@ -19,12 +19,12 @@ endif
 #
 # Paths and names
 #
-HOSTTOOL_E2TOOLS_VERSION	= 0.0.15
-HOSTTOOL_E2TOOLS		= e2tools-$(HOSTTOOL_E2TOOLS_VERSION)
-HOSTTOOL_E2TOOLS_SUFFIX		= tar.gz
-HOSTTOOL_E2TOOLS_URL		= http://home.earthlink.net/~k_sheff/sw/e2tools/$(E2TOOLS).$(HOSTTOOL_E2TOOLS_SUFFIX)
-HOSTTOOL_E2TOOLS_SOURCE		= $(SRCDIR)/$(E2TOOLS).$(HOSTTOOL_E2TOOLS_SUFFIX)
-HOSTTOOL_E2TOOLS_DIR		= $(BUILDDIR)/$(E2TOOLS)
+HOSTTOOLS_E2TOOLS_VERSION	= 0.0.15
+HOSTTOOLS_E2TOOLS		= e2tools-$(HOSTTOOLS_E2TOOLS_VERSION)
+HOSTTOOLS_E2TOOLS_SUFFIX		= tar.gz
+HOSTTOOLS_E2TOOLS_URL		= http://home.earthlink.net/~k_sheff/sw/e2tools/$(E2TOOLS).$(HOSTTOOLS_E2TOOLS_SUFFIX)
+HOSTTOOLS_E2TOOLS_SOURCE		= $(SRCDIR)/$(E2TOOLS).$(HOSTTOOLS_E2TOOLS_SUFFIX)
+HOSTTOOLS_E2TOOLS_DIR		= $(BUILDDIR)/$(E2TOOLS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -32,15 +32,15 @@ HOSTTOOL_E2TOOLS_DIR		= $(BUILDDIR)/$(E2TOOLS)
 
 hosttool-e2tools_get: $(STATEDIR)/hosttool-e2tools.get
 
-hosttool-e2tools_get_deps = $(HOSTTOOL_E2TOOLS_SOURCE)
+hosttool-e2tools_get_deps = $(HOSTTOOLS_E2TOOLS_SOURCE)
 
 $(STATEDIR)/hosttool-e2tools.get: $(hosttool-e2tools_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
-$(HOSTTOOL_E2TOOLS_SOURCE):
+$(HOSTTOOLS_E2TOOLS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOSTTOOL_E2TOOLS_URL))
+	@$(call get, $(HOSTTOOLS_E2TOOLS_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -52,8 +52,8 @@ hosttool-e2tools_extract_deps = $(STATEDIR)/hosttool-e2tools.get
 
 $(STATEDIR)/hosttool-e2tools.extract: $(hosttool-e2tools_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOL_E2TOOLS_DIR))
-	@$(call extract, $(HOSTTOOL_E2TOOLS_SOURCE))
+	@$(call clean, $(HOSTTOOLS_E2TOOLS_DIR))
+	@$(call extract, $(HOSTTOOLS_E2TOOLS_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -69,14 +69,14 @@ hosttool-e2tools_prepare_deps = \
 	$(STATEDIR)/hosttool-e2tools.extract \
 	$(STATEDIR)/hosttool-e2fsprogs.install
 
-HOSTTOOL_E2TOOLS_PATH	=  PATH=$(CROSS_PATH)
-HOSTTOOL_E2TOOLS_ENV 	=  $(CROSS_ENV)
-#HOSTTOOL_E2TOOLS_ENV	+=
+HOSTTOOLS_E2TOOLS_PATH	=  PATH=$(CROSS_PATH)
+HOSTTOOLS_E2TOOLS_ENV 	=  $(CROSS_ENV)
+#HOSTTOOLS_E2TOOLS_ENV	+=
 
 #
 # autoconf
 #
-HOSTTOOL_E2TOOLS_AUTOCONF = \
+HOSTTOOLS_E2TOOLS_AUTOCONF = \
 	--prefix=$(PTXCONF_PREFIX) \
 	--build=$(GNU_HOST)
 	--host=$(GNU_HOST)
@@ -84,10 +84,10 @@ HOSTTOOL_E2TOOLS_AUTOCONF = \
 
 $(STATEDIR)/hosttool-e2tools.prepare: $(hosttool-e2tools_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOL_E2TOOLS_DIR)/config.cache)
-	cd $(HOSTTOOL_E2TOOLS_DIR) && \
-		$(HOSTTOOL_E2TOOLS_PATH) $(HOSTTOOL_E2TOOLS_ENV) \
-		./configure $(HOSTTOOL_E2TOOLS_AUTOCONF)
+	@$(call clean, $(HOSTTOOLS_E2TOOLS_DIR)/config.cache)
+	cd $(HOSTTOOLS_E2TOOLS_DIR) && \
+		$(HOSTTOOLS_E2TOOLS_PATH) $(HOSTTOOLS_E2TOOLS_ENV) \
+		./configure $(HOSTTOOLS_E2TOOLS_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -100,7 +100,7 @@ hosttool-e2tools_compile_deps = $(STATEDIR)/hosttool-e2tools.prepare
 
 $(STATEDIR)/hosttool-e2tools.compile: $(hosttool-e2tools_compile_deps)
 	@$(call targetinfo, $@)
-	$(HOSTTOOL_E2TOOLS_PATH) make -C $(HOSTTOOL_E2TOOLS_DIR)
+	$(HOSTTOOLS_E2TOOLS_PATH) make -C $(HOSTTOOLS_E2TOOLS_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -111,7 +111,7 @@ hosttool-e2tools_install: $(STATEDIR)/hosttool-e2tools.install
 
 $(STATEDIR)/hosttool-e2tools.install: $(STATEDIR)/hosttool-e2tools.compile
 	@$(call targetinfo, $@)
-	$(HOSTTOOL_E2TOOLS_PATH) make -C $(HOSTTOOL_E2TOOLS_DIR) install
+	$(HOSTTOOLS_E2TOOLS_PATH) make -C $(HOSTTOOLS_E2TOOLS_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -132,6 +132,6 @@ $(STATEDIR)/hosttool-e2tools.targetinstall: $(hosttool-e2tools_targetinstall_dep
 
 hosttool-e2tools_clean:
 	rm -rf $(STATEDIR)/hosttool-e2tools.*
-	rm -rf $(HOSTTOOL_E2TOOLS_DIR)
+	rm -rf $(HOSTTOOLS_E2TOOLS_DIR)
 
 # vim: syntax=make
