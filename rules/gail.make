@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gail.make,v 1.1 2004/02/25 06:20:08 bsp Exp $
+# $Id: gail.make,v 1.2 2004/02/25 09:53:35 bsp Exp $
 #
 # Copyright (C) 2003 by BSP
 #          
@@ -67,7 +67,8 @@ gail_prepare: $(STATEDIR)/gail.prepare
 #
 gail_prepare_deps = \
 	$(STATEDIR)/gail.extract \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/libgnomecanvas.install
 
 GAIL_PATH	=  PATH=$(CROSS_PATH)
 GAIL_ENV 	=  $(CROSS_ENV)

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: penguzilla.make,v 1.8 2004/02/24 09:12:23 robert Exp $
+# $Id: penguzilla.make,v 1.9 2004/02/25 09:56:29 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -68,7 +68,8 @@ penguzilla_prepare: $(STATEDIR)/penguzilla.prepare
 penguzilla_prepare_deps =  \
 	$(STATEDIR)/penguzilla.extract \
 	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/mfirebird.install
+	$(STATEDIR)/mfirebird.install \
+	$(STATEDIR)/gail.install
 
 PENGUZILLA_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 PENGUZILLA_ENV 	=  $(CROSS_ENV)
