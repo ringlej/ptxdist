@@ -18,24 +18,13 @@ PACKAGES += gdb
 endif
 
 #
-# We depend on this package
-#
-ifdef PTXCONF_GDB_TERMCAP
-PACKAGES += termcap
-endif
-
-ifdef PTXCONF_GDB_NCURSES
-PACKAGES += ncurses
-endif
-
-#
 # Paths and names 
 #
-GDB_VERSION	= 6.0
+GDB_VERSION	= 6.3
 GDB		= gdb-$(GDB_VERSION)
-GDB_SUFFIX	= tar.gz
+GDB_SUFFIX	= tar.bz2
 GDB_URL		= ftp://ftp.gnu.org/pub/gnu/gdb/$(GDB).$(GDB_SUFFIX)
-GDB_SOURCE	= $(SRCDIR)/$(GDB).tar.gz
+GDB_SOURCE	= $(SRCDIR)/$(GDB).$(GDB_SUFFIX)
 GDB_DIR		= $(BUILDDIR)/$(GDB)
 GDB_BUILDDIR	= $(BUILDDIR)/$(GDB)-build
 
@@ -112,45 +101,46 @@ $(STATEDIR)/gdb.prepare: $(gdb_prepare_deps)
 		$(GDB_PATH) $(GDB_ENV) \
 		$(GDB_DIR)/configure $(GDB_AUTOCONF)
 
-	# RSC: nobody seems to have tried to _crosscompile_ gdb yet - 
-	# everybody seems to build cross-gdbs only. So we have to 
-	# prepare libiberty first with the cross options to avoid that 
-	# it runs the configure stages automatically and with the wrong
-	# options (host) during the compile stage
+# RSC: nobody seems to have tried to _crosscompile_ gdb yet - 
+# everybody seems to build cross-gdbs only. So we have to 
+# prepare libiberty first with the cross options to avoid that 
+# it runs the configure stages automatically and with the wrong
+# options (host) during the compile stage
 
 	mkdir -p $(GDB_BUILDDIR)/libiberty
+	mkdir -p $(GDB_BUILDDIR)/build-$(GNU_HOST)
 	ln -s $(GDB_BUILDDIR)/libiberty $(GDB_BUILDDIR)/build-$(GNU_HOST)/libiberty
 	cd $(GDB_BUILDDIR)/libiberty && \
 		$(GDB_PATH) $(GDB_ENV) \
 		$(GDB_DIR)/libiberty/configure $(GDB_AUTOCONF)
 
-	# same with sim/
+# same with sim/
 	mkdir -p $(GDB_BUILDDIR)/sim
 	cd $(GDB_BUILDDIR)/sim && \
 		$(GDB_PATH) $(GDB_ENV) \
 		$(GDB_DIR)/sim/configure $(GDB_AUTOCONF)
-	
-	# same with gdb/
+
+# same with gdb/
 	mkdir -p $(GDB_BUILDDIR)/gdb
 	cd $(GDB_BUILDDIR)/gdb && \
 		$(GDB_PATH) $(GDB_ENV) \
 		$(GDB_DIR)/gdb/configure $(GDB_AUTOCONF)
 
-	#
-	# RSC: we seem to need a tweek here: normally
-	# $(INTERNAL_LDFLAGS) is used for linking gdb; it contains
-	# $(LDFLAGS) with the correct -L path. But somehow $(LDFLAGS)
-	# got lost when it is used, the variable is just empty. 
-	# No idea why this happens...
-	#
-	
+#
+# RSC: we seem to need a tweek here: normally
+# $(INTERNAL_LDFLAGS) is used for linking gdb; it contains
+# $(LDFLAGS) with the correct -L path. But somehow $(LDFLAGS)
+# got lost when it is used, the variable is just empty. 
+# No idea why this happens...
+#
+
 	if [ -z `grep "# PTXdist: tweaked!" $(GDB_BUILDDIR)/gdb/Makefile` ]; then				\
 		perl -i -p -e 's/^LDFLAGS(.*)$$/LDFLAGS$$1\nMY_LDFLAGS$$1/g' $(GDB_BUILDDIR)/gdb/Makefile;	\
 		perl -i -p -e 's/^INTERNAL_LDFLAGS(.*)\(LDFLAGS\)(.*)$$/INTERNAL_LDFLAGS$$1\(MY_LDFLAGS\)$$2/g' \
 			$(GDB_BUILDDIR)/gdb/Makefile; 								\
 		echo "# PTXdist: tweaked!" >> $(GDB_BUILDDIR)/gdb/Makefile;					\
 	fi;
-	
+
 	touch $@
 
 # ----------------------------------------------------------------------------

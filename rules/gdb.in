@@ -3,30 +3,21 @@ config XGDB
 
 config GDBSERVER
 	bool "Build gdbserver for target"
-	depends on !ARCH_SPARC
-
-comment "building gdbserver static, install libthreads_db on target (see C Library) to enable shared"
-	depends on GDBSERVER
-	depends on !GDBSERVER_SHARED && !(GLIBC_THREAD_DB || UCLIBC_PTHREAD)
 
 config GDBSERVER_SHARED
 	bool "Build shared"
 	default y
 	depends on GDBSERVER
-	depends on GLIBC_THREAD_DB || UCLIBC_PTHREAD
+        select GLIBC_THREAD_DB
 
 config GDB
 	bool "Build GDB for target"
-
-comment "building GDB static, install libm on target (see C Library) to enables shared"
-	depends on GDB
-	depends on !GDB_SHARED && ! (GLIBC_LIBM || UCLIBC_M)
 
 config GDB_SHARED
 	bool "Build shared"
 	default y
 	depends on GDB
-	depends on GLIBC_LIBM || UCLIBC_M
+        select GLIBC_LIBM
 
 choice
 	prompt "Select term library"
@@ -35,9 +26,11 @@ choice
 
 	config GDB_TERMCAP
 		bool "termcap"
+                select TERMCAP
 
 	config GDB_NCURSES
 		bool "ncurses"
+                select NCURSES
 endchoice
 
 config GDB_WRAPPERS

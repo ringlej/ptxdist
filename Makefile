@@ -255,7 +255,7 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 		echo "using config file \"$$CFG\""; 			\
 		cp $$CFG $(TOPDIR)/.config; 				\
 	else 								\
-		echo "could not find config file \"$$CFG\""; 		\
+		echo "could not find config file \"$@\""; 		\
 	fi; 								\
 	echo
 

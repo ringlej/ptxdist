@@ -62,7 +62,6 @@ config GLIBC_LIBRT
 config GLIBC_DL
 	bool
 	prompt "Install libdl on the target"
-	default y if BASH || BUILD_GDBSERVER
 	depends on GLIBC && LIBC
 
 config GLIBC_CRYPT
@@ -78,7 +77,6 @@ config GLIBC_UTIL
 config GLIBC_LIBM
 	bool
 	prompt "Install libm on the target"
-	default y if BUILD_GDB
 	depends on GLIBC && LIBC
 
 config GLIBC_NSS_DNS

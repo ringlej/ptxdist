@@ -2,7 +2,6 @@ menu "termcap          "
 
 config TERMCAP
 	bool "Compile termcap"
-	depends on !GDB_TERMCAP
 
 config TERMCAP
 	default y

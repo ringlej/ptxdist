@@ -3,6 +3,7 @@ menu	"Bash                "
 config BASH
 	bool
 	prompt "Bash"
+        select GLIBC_DL
 
 config BASH_SHLIKE
 	bool	
