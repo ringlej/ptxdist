@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gtk22.make,v 1.6 2004/02/24 09:10:12 robert Exp $
+# $Id: gtk22.make,v 1.7 2004/02/25 09:46:50 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -68,9 +68,11 @@ gtk22_prepare: $(STATEDIR)/gtk22.prepare
 #
 gtk22_prepare_deps =  \
 	$(STATEDIR)/gtk22.extract \
+	$(STATEDIR)/glib22.install \
 	$(STATEDIR)/atk.install \
+	$(STATEDIR)/pango12.install \
+	$(STATEDIR)/freetype214.install \
 	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/freetype214.install 
 
 GTK22_PATH	=  PATH=$(CROSS_PATH)
 GTK22_ENV 	=  $(CROSS_ENV)
@@ -109,7 +111,7 @@ gtk22_compile_deps =  $(STATEDIR)/gtk22.prepare
 
 $(STATEDIR)/gtk22.compile: $(gtk22_compile_deps)
 	@$(call targetinfo, $@)
-	$(GTK22_PATH) $(GTK22_ENV) make -C $(GTK22_DIR)
+	cd $(GTK22_DIR) && $(GTK22_PATH) $(GTK22_ENV) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -118,7 +120,9 @@ $(STATEDIR)/gtk22.compile: $(gtk22_compile_deps)
 
 gtk22_install: $(STATEDIR)/gtk22.install
 
-$(STATEDIR)/gtk22.install: $(STATEDIR)/gtk22.compile
+gtk22_install_deps	=  $(STATEDIR)/gtk22.compile
+
+$(STATEDIR)/gtk22.install: $(gtk22_install_deps)
 	@$(call targetinfo, $@)
 	cd $(GTK22_DIR) && $(GTK22_PATH) $(GTK22_ENV) make install
 	touch $@
@@ -129,7 +133,11 @@ $(STATEDIR)/gtk22.install: $(STATEDIR)/gtk22.compile
 
 gtk22_targetinstall: $(STATEDIR)/gtk22.targetinstall
 
-gtk22_targetinstall_deps	=  $(STATEDIR)/gtk22.compile
+gtk22_targetinstall_deps	=  $(STATEDIR)/gtk22.install
+gtk22_targetinstall_deps	+= $(STATEDIR)/fontconfig22.targetinstall
+gtk22_targetinstall_deps	+= $(STATEDIR)/freetype214.targetinstall
+gtk22_targetinstall_deps	+= $(STATEDIR)/libidl-2.targetinstall
+gtk22_targetinstall_deps	+= $(STATEDIR)/pango12.targetinstall
 
 $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps)
 	@$(call targetinfo, $@)

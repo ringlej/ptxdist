@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pango12.make,v 1.9 2004/02/25 08:58:24 bsp Exp $
+# $Id: pango12.make,v 1.10 2004/02/25 09:47:42 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -76,6 +76,7 @@ pango12_prepare_deps =  \
 	$(STATEDIR)/glib22.install \
 	$(STATEDIR)/xfree430.install \
 	$(STATEDIR)/fontconfig22.install \
+	$(STATEDIR)/freetype214.install \
 	$(STATEDIR)/virtual-xchain.install
 
 
@@ -109,7 +110,7 @@ pango12_compile_deps =  $(STATEDIR)/pango12.prepare
 
 $(STATEDIR)/pango12.compile: $(pango12_compile_deps)
 	@$(call targetinfo, $@)
-	$(PANGO12_PATH) $(PANGO12_ENV) make -C $(PANGO12_DIR)
+	cd $(PANGO12_DIR) && $(PANGO12_PATH) $(PANGO12_ENV) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -120,7 +121,7 @@ pango12_install: $(STATEDIR)/pango12.install
 
 $(STATEDIR)/pango12.install: $(STATEDIR)/pango12.compile
 	@$(call targetinfo, $@)
-	$(PANGO12_PATH) $(PANGO12_ENV) make -C $(PANGO12_DIR) install
+	cd $(PANGO12_DIR) && $(PANGO12_PATH) $(PANGO12_ENV) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -129,7 +130,11 @@ $(STATEDIR)/pango12.install: $(STATEDIR)/pango12.compile
 
 pango12_targetinstall: $(STATEDIR)/pango12.targetinstall
 
-pango12_targetinstall_deps	=  $(STATEDIR)/pango12.compile
+pango12_targetinstall_deps	=  $(STATEDIR)/pango12.install
+pango12_targetinstall_deps	+= $(STATEDIR)/glib22.targetinstall
+pango12_targetinstall_deps	+= $(STATEDIR)/xfree430.targetinstall
+pango12_targetinstall_deps	+= $(STATEDIR)/fontconfig22.targetinstall
+pango12_targetinstall_deps	+= $(STATEDIR)/freetype214.targetinstall
 
 $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps)
 	@$(call targetinfo, $@)
