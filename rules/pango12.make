@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pango12.make,v 1.8 2004/02/24 09:11:59 robert Exp $
+# $Id: pango12.make,v 1.9 2004/02/25 08:58:24 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -82,9 +82,6 @@ pango12_prepare_deps =  \
 PANGO12_PATH	=  PATH=$(CROSS_PATH)
 PANGO12_ENV 	=  $(CROSS_ENV)
 PANGO12_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
-
-# FIXME: pango does not use pkg-config yet...
-PANGO12_ENV	+= ac_cv_path_FREETYPE_CONFIG=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin/freetype-config
 
 #
 # autoconf
