@@ -1,68 +1,74 @@
 Automatic Compilation Test
 --------------------------
 
-start: Fr Nov 26 16:22:34 CET 2004
+start: Mi Dez 22 10:01:09 CET 2004
 
 config...: abbcc-viac3
-date.....: Fr Nov 26 16:22:35 CET 2004
+date.....: Mi Dez 22 10:01:12 CET 2004
 user.....: robert@himalia
-buildtime: 0h25m10s
+buildtime: 0h23m10s
 result...: 0
 
 config...: i586-generic-glibc
-date.....: Fr Nov 26 16:47:57 CET 2004
+date.....: Mi Dez 22 10:24:30 CET 2004
 user.....: robert@himalia
-buildtime: 0h19m36s
+buildtime: 0h19m21s
 result...: 0
 
 config...: frako
-date.....: Fr Nov 26 17:07:41 CET 2004
+date.....: Mi Dez 22 10:43:59 CET 2004
 user.....: robert@himalia
-buildtime: 0h17m3s
+buildtime: 0h13m20s
 result...: 2
 
 config...: visbox
-date.....: Fr Nov 26 17:24:58 CET 2004
+date.....: Mi Dez 22 10:57:25 CET 2004
 user.....: robert@himalia
-buildtime: 0h26m20s
+buildtime: 0h26m14s
 result...: 0
 
-config...: innokom-2.4-2.95
-date.....: Fr Nov 26 17:51:27 CET 2004
+config...: rayonic-i586
+date.....: Mi Dez 22 11:23:48 CET 2004
 user.....: robert@himalia
-buildtime: 0h14m21s
+buildtime: 0h27m59s
+result...:
+
+config...: innokom-2.4-2.95
+date.....: Mi Dez 22 11:51:54 CET 2004
+user.....: robert@himalia
+buildtime: 0h14m18s
 result...: 0
 
 config...: innokom-2.4-3.3.2
-date.....: Fr Nov 26 18:05:57 CET 2004
+date.....: Mi Dez 22 12:06:20 CET 2004
 user.....: robert@himalia
-buildtime: 0h22m41s
+buildtime: 0h22m33s
 result...: 0
 
 config...: mx1fs2
-date.....: Fr Nov 26 18:28:47 CET 2004
+date.....: Mi Dez 22 12:29:02 CET 2004
 user.....: robert@himalia
-buildtime: 0h18m12s
+buildtime: 0h18m6s
 result...: 0
 
 config...: pii_nge
-date.....: Fr Nov 26 18:47:08 CET 2004
+date.....: Mi Dez 22 12:47:17 CET 2004
 user.....: robert@himalia
-buildtime: 0h32m58s
-result...: 0
+buildtime: 0h18m7s
+result...: 2
 
 config...: eb8245
-date.....: Fr Nov 26 19:20:29 CET 2004
+date.....: Mi Dez 22 13:05:32 CET 2004
 user.....: robert@himalia
-buildtime: 0h15m16s
+buildtime: 0h15m4s
 result...: 0
 
 config...: cameron-efco
-date.....: Fr Nov 26 19:35:53 CET 2004
+date.....: Mi Dez 22 13:20:43 CET 2004
 user.....: robert@himalia
-buildtime: 0h18m13s
-result...: 0
+buildtime: 0h19m4s
+result...: 2
 
 
-stop: Fr Nov 26 19:54:11 CET 2004
+stop: Mi Dez 22 13:39:56 CET 2004
 
