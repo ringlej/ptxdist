@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gtk22.make,v 1.9 2004/02/26 14:42:59 robert Exp $
+# $Id: gtk22.make,v 1.10 2004/02/26 18:44:38 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -162,6 +162,8 @@ $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps)
 	ln -sf libgdk_pixbuf-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk_pixbuf-2.0.so
 	
 	install $(GTK22_DIR)/gdk-pixbuf/.libs/gdk-pixbuf-query-loaders $(ROOTDIR)/usr/bin
+	install -d  $(ROOTDIR)/usr/lib/gdk-pixbuf-loaders
+	cp -a  $(GTK22_DIR)/gdk-pixbuf/.libs/libpixbufloader*so $(ROOTDIR)/usr/lib/gdk-pixbuf-loaders
 	touch $@
 
 # ----------------------------------------------------------------------------
