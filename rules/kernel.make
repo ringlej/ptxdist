@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.10 2003/10/23 15:01:19 mkl Exp $
+# $Id: kernel.make,v 1.11 2003/10/23 17:54:06 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -117,10 +117,16 @@ kernel_prepare: $(STATEDIR)/kernel.prepare
 
 kernel_prepare_deps = \
 	$(STATEDIR)/kernel.extract \
+	$(STATEDIR)/xchain-modutils.install \
 	$(STATEDIR)/virtual-xchain.install
 
 KERNEL_PATH	= PATH=$(CROSS_PATH)
-KERNEL_MAKEVARS	= ARCH=$(PTXCONF_ARCH) CROSS_COMPILE=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC)
+KERNEL_MAKEVARS	= \
+	ARCH=$(PTXCONF_ARCH) \
+	CROSS_COMPILE=$(PTXCONF_GNU_TARGET)- \
+	HOSTCC=$(HOSTCC) \
+	GENKSYMS=$(PTXCONF_GNU_TARGET)-genksyms \
+	DEPMOD=$(PTXCONF_GNU_TARGET)-depmod
 
 $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
@@ -145,7 +151,7 @@ kernel_compile: $(STATEDIR)/kernel.compile
 
 kernel_compile_deps =  $(STATEDIR)/kernel.prepare
 ifdef PTXCONF_KERNEL_IMAGE_U
-kernel_compile_deps += $(STATEDIR)/umkimage.install
+kernel_compile_deps += $(STATEDIR)/xchain-umkimage.install
 endif
 
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
