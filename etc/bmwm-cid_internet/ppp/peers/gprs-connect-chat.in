@@ -1,0 +1,61 @@
+#!/bin/sh
+# 
+# File: 
+# chat-gprs-connect
+#
+# Description: 
+# chat script to open Sonera GPRS service with GPRS phones. If ppp 
+# negotiation stalls, try restarting the phone. To try with other GPRS 
+# operator setting, change the PDP contex setting. The settings work with 
+# all Ericsson models, but Nokia 8310 does not suppor QoS parameters with 
+# AT commands, so just delete those lines and it'll work.
+#
+# Set PDP context CID=1, protocol=IP, APN=internet:
+# AT+CGDCONT=1,"IP","internet","",0,0
+#
+# Set CID=1 QoS requirements from the network, not supported by 8310:
+# AT+CGQREQ=1,0,0,0,0,0
+#
+# Set CID=1 minimum acceptable QoS parameters, not supported by 8310:
+# AT+CGQMIN=1,0,0,0,0,0
+#
+# 'Call' CID=1 (activate PDP context one, perform GPRS attach):
+# ATD*99***1#
+#
+# The actual chat script:
+# 	OK		'AT+CGQREQ=1,0,0,0,0,0'		\
+#	OK		'AT+CGQREQ=1,3,4,3,7,31'		\
+#	OK		AT+CGQMIN=1,0,0,0,0,0		\
+#	OK		'AT+CGDCONT=1,"IP","volume.d2gprs.de","",0,0'	\
+#	OK		'ATD*99***1#'			\
+#	OK		'AT+CGDCONT=1,"IP","internet.t-d1.de"'	\
+#        'CPIN: READY'-AT+CPIN=3722-OK     ''            \
+exec chat  						\
+	TIMEOUT		5				\
+	ECHO 		ON				\
+	ABORT		'\nBUSY\r'			\
+	ABORT		'\nERROR\r'			\
+	ABORT		'\nNO ANSWER\r'			\
+	ABORT		'\nNO CARRIER\r'		\
+	ABORT		'\nNO DIALTONE\r'		\
+	ABORT		'\nRINGING\r\n\r\nRINGING\r'	\
+	''		\rAT				\
+	TIMEOUT		12				\
+	SAY		"Press CTRL-C to close the connection at any stage!"	\
+        SAY             '\nchecking PIN'                \
+        OK              'AT+CPIN?'                      \
+        TIMEOUT 30                                      \
+        'CPIN: READY'-AT+CPIN=@PIN@-OK     ''            \
+        SAY             "\nset PIN"                     \
+	SAY		"\ndefining PDP context...\n"	\
+     	''		'ATE1'				\
+	OK		'AT+CGDCONT=1,"IP","internet.t-d1.de"'\
+	OK		'AT+CGQMIN=1,0,0,0,0,0'		\
+	OK		'AT+CGQREQ=1,3,4,1,7,31'	\
+	OK		'ATD*99**PPP*1#'		\
+	TIMEOUT		32				\
+	SAY		"\nwaiting for connect...\n"	\
+	CONNECT		""				\
+	SAY		"\nConnected." \
+	SAY		"\nIf the following ppp negotiations fail,\n"	\
+	SAY		"try restarting the phone.\n"
