@@ -171,23 +171,28 @@ world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree
 
 # Images ----------------------------------------------------------------------
 
+DOPERMISSIONS = '{	\
+	if ($$1 == "f")	\
+		printf("chmod %s .%s; chown %s.%s .%s;\n", $$5, $$2, $$3, $$4, $$2);	\
+	if ($$1 == "n")	\
+		printf("mknod -m %s .%s %s %s %s; chown %s.%s .%s;\n", $$5, $$2, $$6, $$7, $$8, $$3, $$4, $$2);}'
+
 images: $(STATEDIR)/images
 
 $(STATEDIR)/images:
 ifdef PTXCONF_IMAGE_TGZ
 	cd $(ROOTDIR); \
-	(awk -F: '{printf("chmod %s .%s; chown %s.%s .%s;\n", $$4, $$1, $$2, $$3, $$1);}' $(TOPDIR)/permissions && \
-	echo "tar -zcvf $(TOPDIR)/images/root.tgz . ") | \
-	$(PTXCONF_PREFIX)/bin/fakeroot -- 
+	($(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions && \
+	echo "tar -zcvf $(TOPDIR)/images/root.tgz . ") | $(FAKEROOT) -- 
 endif
 ifdef PTXCONF_IMAGE_JFFS2
 	cd $(ROOTDIR); \
-	(awk -F: '{printf("chmod %s .%s; chown %s.%s .%s;\n", $$4, $$1, $$2, $$3, $$1);}' $(TOPDIR)/permissions && \
+	($(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions && \
 	( \
 		echo -n "$(PTXCONF_PREFIX)/bin/mkfs.jffs2 -d $(ROOTDIR) "; \
 		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
 		echo "-o $(TOPDIR)/images/root.jffs2" ) \
-	) | $(PTXCONF_PREFIX)/bin/fakeroot -- 
+	) | $(FAKEROOT) --
 endif
 ifdef PTXCONF_IMAGE_HD
 	$(TOPDIR)/scripts/genhdimg \
@@ -270,12 +275,13 @@ compile-test:
 	cd $(TOPDIR); 							\
 	rm -f COMPILE-TEST;						\
 	echo "Automatic Compilation Test" >> COMPILE-TEST;		\
-	echo "-----------------------------------------" >> COMPILE-TEST;\
+	echo "--------------------------" >> COMPILE-TEST;		\
 	echo >> COMPILE-TEST;						\
 	echo start: `date` >> COMPILE-TEST;				\
 	echo >> COMPILE-TEST;						\
 	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin abbcc-viac3; 		\
 	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin i586-generic-glibc; 		\
+	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-2.95.3-glibc-2.2.5/bin frako;	 		\
 	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-2.95.3-glibc-2.2.5/bin innokom-2.4-2.95; 		\
 	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.2-glibc-2.3.2/bin innokom-2.4-3.3.2; 		\
 	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin mx1fs2; 			\
