@@ -24,4 +24,5 @@ config UTLNX_READPROFILE
 	prompt "readprofile"
 	depends on UTLNX
 
+source "rules/clock.in"
 endmenu
