@@ -8,7 +8,7 @@
 #
 
 echo
-echo "PTXDIST - prerelease 2003/08/23"
+echo "PTXDIST - prerelease 2003/08/28"
 echo "Please report problems with this software"
 echo "to Robert Schwebel <r.schwebel@pengutronix.de>"
 echo 
@@ -30,4 +30,31 @@ ln -s /dev/vc/8 /dev/tty8
 ln -s /dev/vc/9 /dev/tty9
 ln -s /dev/fb/0 /dev/fb0
 echo "done."
+
+#echo -n "Starting PPP Deamon" 
+#/usr/sbin/pppd call gprs >/dev/null
+#echo "done."
+
+#echo -n "Initialize input subsystem"
+#/sbin/modprobe mousedev
+#echo "done."
+
+# This needs a running input subsystem!
+# FIXME: fix broken driver
+#echo -n "Initialize CAN subsystem"
+#/sbin/modprobe pcan type=isa io=0x300 irq=7 
+#echo "done."
+
+# We emulate a PS/2 mouse
+#echo -n "Initialize PS/2 device </dev/psaux>"
+#ln -s /dev/input/mouse0 /dev/psaux
+#echo "done."
+
+# Start I-Driver once 
+# FIXME: What's this crap? 
+#echo -n "Starting commdrive..."
+#/bin/commdrive &
+#echo "done."
+
+/usr/X11R6/bin/xmodmap /etc/xmodmap
 
