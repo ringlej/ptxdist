@@ -163,6 +163,9 @@ source "rules/wxWindows.in"
 source "rules/qte.in"
 source "rules/blackbox.in"
 
+comment "Framebuffer"
+source "rules/fbtest.in"
+source "rules/fbutils.in"
 endmenu
 
 ############################################################################## 

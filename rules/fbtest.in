@@ -1,0 +1,3 @@
+config FBTEST
+	bool
+	prompt "fbtest"

@@ -1,0 +1,26 @@
+config FBUTILS
+	bool
+	prompt "Compile fbutils"
+
+comment	"Target Options"
+	depends on FBUTILS
+	config FBUTILS_FBSET
+		depends on FBUTILS
+		bool
+		default y
+		prompt "install fbset util on target"
+	config FBUTILS_FBCMAP
+		depends on FBUTILS
+		bool
+		default y
+		prompt "install fbcmap util on target"
+	config FBUTILS_CON2FBMAP
+		depends on FBUTILS
+		bool
+		default y
+		prompt "install con2fbmap util on target"
+	config FBUTILS_FBCONVERT
+		depends on FBUTILS
+		bool
+		default y
+		prompt "install fbconvert util on target"
