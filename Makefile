@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.95 2004/07/02 10:57:41 bsp Exp $
+# $Id: Makefile,v 1.96 2004/07/04 16:32:15 rsc Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -281,7 +281,8 @@ distclean: clean
 	@echo "done."
 	@echo -n "cleaning patches dir............. "
 	@rm -rf $(TOPDIR)/patches/*
-	@echo "done."	@echo -n "cleaning feature patches dir..... "
+	@echo "done."	
+	@echo -n "cleaning feature patches dir..... "
 	@rm -fr $(TOPDIR)/feature-patches/*
 	@echo "done."
 	@echo
