@@ -20,6 +20,7 @@ endif
 # Paths and names
 #
 XLIBS-XEXT_VERSION	= 20041103-1
+XLIBS-XEXT_REAL_VERSION	= 6.4.1
 XLIBS-XEXT		= Xext-$(XLIBS-XEXT_VERSION)
 XLIBS-XEXT_SUFFIX	= tar.bz2
 XLIBS-XEXT_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-XEXT).$(XLIBS-XEXT_SUFFIX)
@@ -127,11 +128,10 @@ xlibs-xext_targetinstall_deps = $(STATEDIR)/xlibs-xext.compile
 
 $(STATEDIR)/xlibs-xext.targetinstall: $(xlibs-xext_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0644, $(XLIBS-XEXT_DIR)/.libs/libXext.0.0.0,  /usr/X11R6/lib/libXext.so.0.0.0)
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libXext.so.0.0.0
-	$(call link_root, /usr/X11R6/lib/libXext.so.0.0.0, /usr/X11R6/lib/libXext.0)
-	$(call link_root, /usr/X11R6/lib/libXext.so.0.0.0, /usr/X11R6/lib/libXext.so.0)
-	$(call link_root, /usr/X11R6/lib/libXext.so.0.0.0, /usr/X11R6/lib/libXext.so)
+	$(call copy_root, 0, 0, 0644, $(XLIBS-XEXT_DIR)/.libs/libXext.so.$(XLIBS-XEXT_REAL_VERSION),  /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION))
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION)
+	$(call link_root, /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION), /usr/X11R6/lib/libXext.so.6)
+	$(call link_root, /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION), /usr/X11R6/lib/libXext.so)
 	touch $@
 
 # ----------------------------------------------------------------------------
