@@ -6,7 +6,7 @@ PTXCONF_PTXCONF=y
 PTXCONF_PROJECT="generic"
 
 #
-# General Options ---    
+# General Options             
 #
 
 #
@@ -71,6 +71,7 @@ PTXCONF_ROOT=""
 #
 PTXCONF_CROSSCHAIN_CHECK="3.4.2"
 PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
+PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 
 #
 # Non-Crosstool Tools
@@ -99,7 +100,6 @@ PTXCONF_VENDORTWEAKS=""
 #
 PTXCONF_IMAGE_TGZ=y
 # PTXCONF_IMAGE_HD is not set
-PTXCONF_IMAGE_HD_CONF="n"
 # PTXCONF_IMAGE_JFFS2 is not set
 
 #
@@ -126,7 +126,7 @@ PTXCONF_HOSTTOOLS_E2FSPROGS_RESIZE2FS=y
 PTXCONF_HOSTTOOLS_FAKEROOT=y
 
 #
-# Core System ---    
+# Core System                 
 #
 
 #
@@ -222,7 +222,7 @@ PTXCONF_UC_TARGET_i386=y
 # PTXCONF_CXX is not set
 
 #
-# Core Tools ---  
+# Shell & Console Tools       
 #
 
 #
@@ -732,9 +732,17 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_CLOCK is not set
 
 #
-# VHLL Support        
+# Scripting Languages         
 #
-# PTXCONF_VHLL_PYTHON23 is not set
+
+#
+# Scripting Languages 
+#
+# PTXCONF_PYTHON23 is not set
+
+#
+# Networking Tools            
+#
 
 #
 # Network Tools --- 
@@ -942,11 +950,7 @@ PTXCONF_UTELNETD=y
 #
 
 #
-# Disk and file ---   
-#
-
-#
-# Disk and file utils 
+# Disk and File Utilities     
 #
 
 #
@@ -975,16 +979,12 @@ PTXCONF_UTELNETD=y
 # PTXCONF_BONNIE is not set
 
 #
-# Communication ---   
-#
-
-#
-# Communication utils 
+# Communication Utilities     
 #
 # PTXCONF_EFAX is not set
 
 #
-# Applications ---    
+# Applications                
 #
 
 #
@@ -1008,19 +1008,19 @@ PTXCONF_UTELNETD=y
 # PTXCONF_SETMIXER is not set
 
 #
-# Tools               
+# Tools                       
 #
 # PTXCONF_FIGLET is not set
 
 #
-# Editors             
+# Editors                     
 #
 # PTXCONF_NANO is not set
 # PTXCONF_JED is not set
 # PTXCONF_HEXEDIT is not set
 
 #
-# System Libraries    
+# System Libraries            
 #
 
 #
@@ -1063,13 +1063,31 @@ PTXCONF_UTELNETD=y
 # PTXCONF_LIBXML2 is not set
 
 #
-# Graphics Libraries  
+# Graphics Libraries          
+#
+
+#
+# X Infrastructure
 #
 
 #
 # XFree86-4.3.0         
 #
 # PTXCONF_XFREE430 is not set
+
+#
+# xlibs                 
+#
+# PTXCONF_XLIBS is not set
+
+#
+# xserver               
+#
+# PTXCONF_XSERVER is not set
+
+#
+# X Applications
+#
 
 #
 # Clementine WM         
@@ -1089,12 +1107,12 @@ PTXCONF_UTELNETD=y
 #
 
 #
-# Blackbox WM         
+# Blackbox WM           
 #
 # PTXCONF_BLACKBOX is not set
 
 #
-# Scientific Apps     
+# Scientific Apps             
 #
 
 #
@@ -1103,7 +1121,7 @@ PTXCONF_UTELNETD=y
 # PTXCONF_GNUPLOT is not set
 
 #
-# Web Applications    
+# Web Applications            
 #
 
 #

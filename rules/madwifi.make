@@ -94,10 +94,8 @@ MADWIFI_ENV    += TARGET=i386-elf
 #
 # autoconf
 #
-MADWIFI_AUTOCONF = \
-	--build=$(HOST) \
-	--host=$(TARGET) \
-	--prefix=$(SYSROOT)
+MADWIFI_AUTOCONF =  $(CROSS_AUTOCONF)
+MADWIFI_AUTOCONF += --prefix=$(SYSROOT)
 
 $(STATEDIR)/madwifi.prepare: $(madwifi_prepare_deps)
 	@$(call targetinfo, $@)

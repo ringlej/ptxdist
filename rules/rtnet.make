@@ -79,9 +79,8 @@ RTNET_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-RTNET_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
+RTNET_AUTOCONF =  $(CROSS_AUTOCONF)
+RTNET_AUTOCONF += \
 	--prefix=$(CROSS_LIB_DIR) \
 	--with-rtai=$(RTAI_BUILDDIR)/usr/realtime
 #	--with-rtai=$(RTAI_DIR)

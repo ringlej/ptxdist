@@ -76,10 +76,8 @@ THTTPD_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-THTTPD_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+THTTPD_AUTOCONF =  $(CROSS_AUTOCONF)
+THTTPD_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/thttpd.prepare: $(thttpd_prepare_deps)
 	@$(call targetinfo, $@)

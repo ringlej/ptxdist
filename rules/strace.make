@@ -19,7 +19,7 @@ endif
 #
 # Paths and names 
 #
-STRACE			= strace-4.5.1
+STRACE			= strace-4.5.7
 STRACE_URL		= http://umn.dl.sourceforge.net/sourceforge/strace/$(STRACE).tar.bz2
 STRACE_SOURCE		= $(SRCDIR)/$(STRACE).tar.bz2
 STRACE_DIR		= $(BUILDDIR)/$(STRACE)
@@ -72,9 +72,8 @@ ifndef PTXCONF_STRACE_SHARED
 STRACE_ENV	=  LDFLAGS=-static
 endif
 
-STRACE_AUTOCONF	=  \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
+STRACE_AUTOCONF =  $(CROSS_AUTOCONF)
+STRACE_AUTOCONF	+= \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--prefix=/usr \
 	--disable-sanity-checks

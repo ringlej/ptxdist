@@ -67,9 +67,8 @@ zebra_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/zebra.extract
 
-ZEBRA_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
+ZEBRA_AUTOCONF =  $(CROSS_AUTOCONF)
+ZEBRA_AUTOCONF += \
 	--with-cflags="$(TARGET_CFLAGS)" \
 	--prefix=/usr \
 	--exec-prefix=/usr \

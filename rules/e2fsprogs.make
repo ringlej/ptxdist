@@ -62,10 +62,9 @@ $(STATEDIR)/e2fsprogs.extract: $(STATEDIR)/e2fsprogs.get
 
 e2fsprogs_prepare: $(STATEDIR)/e2fsprogs.prepare
 
-E2FSPROGS_AUTOCONF	=  --prefix=/usr
+E2FSPROGS_AUTOCONF	=  $(CROSS_AUTOCONF)
+E2FSPROGS_AUTOCONF	+= --prefix=/usr
 E2FSPROGS_AUTOCONF	+= --enable-fsck
-E2FSPROGS_AUTOCONF	+= --build=$(GNU_HOST)
-E2FSPROGS_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 E2FSPROGS_AUTOCONF	+= --with-cc=$(PTXCONF_GNU_TARGET)-gcc
 E2FSPROGS_AUTOCONF	+= --with-linker=$(PTXCONF_GNU_TARGET)-ld
 E2FSPROGS_PATH		=  PATH=$(CROSS_PATH)

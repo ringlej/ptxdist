@@ -81,10 +81,8 @@ GNUPLOT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-GNUPLOT_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+GNUPLOT_AUTOCONF =  $(CROSS_AUTOCONF)
+GNUPLOT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 GNUPLOT_AUTOCONF += --disable-history-file
 GNUPLOT_AUTOCONF += --disable-mouse

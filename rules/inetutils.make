@@ -77,10 +77,8 @@ INETUTILS_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-INETUTILS_AUTOCONF = \
-	--prefix=/usr \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
+INETUTILS_AUTOCONF =  $(CROSS_AUTOCONF)
+INETUTILS_AUTOCONF += --prefix=/usr \
 	--with-PATH-CP=/bin/cp \
 	--localstatedir=/var \
 	--sysconfdir=/etc

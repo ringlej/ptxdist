@@ -78,10 +78,8 @@ BETAFTPD_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BETAFTPD_AUTOCONF = \
-	--prefix=$(CROSS_LIB_DIR) \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET)
+BETAFTPD_AUTOCONF =  $(CROSS_AUTOCONF)
+BETAFTPD_AUTOCONF += --prefix=$(CROSS_LIB_DIR) \
 
 $(STATEDIR)/betaftpd.prepare: $(betaftpd_prepare_deps)
 	@$(call targetinfo, $@)

@@ -77,10 +77,8 @@ GAIL_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-GAIL_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+GAIL_AUTOCONF =  $(CROSS_AUTOCONF)
+GAIL_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/gail.prepare: $(gail_prepare_deps)
 	@$(call targetinfo, $@)

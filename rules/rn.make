@@ -76,10 +76,8 @@ rn_prepare_deps =  \
 #rn_prepare_deps += $(STATEDIR)/sys-epoll-lib.install
 #endif
 
-RN_AUTOCONF  = \
-	--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET)
+RN_AUTOCONF  =  $(CROSS_AUTOCONF)
+RN_AUTOCONF  += --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 
 RN_MAKEVARS = \
 	PREFIX=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \

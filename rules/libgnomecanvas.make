@@ -78,10 +78,8 @@ LIBGNOMECANVAS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 # autoconf
 #
-LIBGNOMECANVAS_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+LIBGNOMECANVAS_AUTOCONF =  $(CROSS_AUTOCONF)
+LIBGNOMECANVAS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/libgnomecanvas.prepare: $(libgnomecanvas_prepare_deps)
 	@$(call targetinfo, $@)

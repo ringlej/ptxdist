@@ -55,9 +55,11 @@ $(STATEDIR)/xchain-zlib.prepare: $(STATEDIR)/xchain-zlib.extract
 # Compile
 # ----------------------------------------------------------------------------
 
+xchain-zlib_compile: $(STATEDIR)/xchain-zlib.compile
+
 $(STATEDIR)/xchain-zlib.compile: $(STATEDIR)/xchain-zlib.prepare 
 	@$(call targetinfo, $@)
-	make -C $(XCHAIN_ZLIB_BUILDDIR) $(XCHAIN_ZLIB_MAKEVARS)
+	cd $(XCHAIN_ZLIB_BUILDDIR) && make $(XCHAIN_ZLIB_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -68,8 +70,7 @@ xchain-zlib_install: $(STATEDIR)/xchain-zlib.install
 
 $(STATEDIR)/xchain-zlib.install: $(STATEDIR)/xchain-zlib.compile
 	@$(call targetinfo, $@)
-	make -C $(XCHAIN_ZLIB_BUILDDIR) $(XCHAIN_ZLIB_MAKEVARS) \
-		install
+	cd $(XCHAIN_ZLIB_BUILDDIR) && make $(XCHAIN_ZLIB_MAKEVARS) install
 	touch $@
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -76,10 +76,8 @@ OPROFILE_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-OPROFILE_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-OPROFILE_AUTOCONF	+= --build=$(GNU_HOST)
-OPROFILE_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-
+OPROFILE_AUTOCONF	=  $(CROSS_AUTOCONF)
+OPROFILE_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 OPROFILE_AUTOCONF	+= --with-kernel-support
 #
 # note: we must use here the kernel's makevars (ARCH=fo CROSS_COMPILE=bar)

@@ -6,7 +6,7 @@ PTXCONF_PTXCONF=y
 PTXCONF_PROJECT="innokom-2.4-2.95"
 
 #
-# General Options ---    
+# General Options             
 #
 
 #
@@ -33,6 +33,7 @@ PTXCONF_ARM_ARCH_PXA=y
 # PTXCONF_ARM_ARCH_IXP2000 is not set
 # PTXCONF_ARM_ARCH_NETARM is not set
 # PTXCONF_ARM_ARCH_ATMEL is not set
+# PTXCONF_ARM_ARCH_AT91RM9200 is not set
 # PTXCONF_ARM_ARCH_IMX is not set
 PTXCONF_ARM_ARCH="pxa"
 PTXCONF_ARM_ARCH_LE=y
@@ -83,6 +84,7 @@ PTXCONF_ROOT=""
 #
 PTXCONF_CROSSCHAIN_CHECK="2.95.3"
 PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
+PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 
 #
 # Non-Crosstool Tools
@@ -104,6 +106,13 @@ PTXCONF_ROOTFS_SYS=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_VAR=y
 PTXCONF_VENDORTWEAKS="projects/innokom/innokom.vendortweaks"
+
+#
+# Image Creation
+#
+# PTXCONF_IMAGE_TGZ is not set
+# PTXCONF_IMAGE_HD is not set
+# PTXCONF_IMAGE_JFFS2 is not set
 
 #
 # Debugging Tools     
@@ -128,7 +137,7 @@ PTXCONF_STRACE_SHARED=y
 PTXCONF_HOSTTOOLS_FAKEROOT=y
 
 #
-# Core System ---    
+# Core System                 
 #
 
 #
@@ -143,6 +152,7 @@ PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/innokom/innokom-2.4.26.kernelconfig"
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_4_25 is not set
 PTXCONF_KERNEL_2_4_26=y
+# PTXCONF_KERNEL_2_4_27 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
@@ -218,11 +228,11 @@ PTXCONF_GLIBC=y
 #
 # C Library options
 #
+# PTXCONF_GLIBC_2_3_3 is not set
 # PTXCONF_GLIBC_2_3_2 is not set
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
-# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -318,7 +328,7 @@ PTXCONF_UC_TARGET_arm=y
 # PTXCONF_CXX is not set
 
 #
-# Core Tools ---  
+# Shell & Console Tools       
 #
 
 #
@@ -846,6 +856,11 @@ PTXCONF_PDKSH_BRACE_EXPAND=y
 # PTXCONF_PROCPS is not set
 
 #
+# sysfsutils          
+#
+# PTXCONF_SYSFSUTILS is not set
+
+#
 # sysutils            
 #
 # PTXCONF_SYSUTILS is not set
@@ -857,9 +872,17 @@ PTXCONF_PDKSH_BRACE_EXPAND=y
 # PTXCONF_CLOCK is not set
 
 #
-# VHLL Support        
+# Scripting Languages         
 #
-# PTXCONF_VHLL_PYTHON23 is not set
+
+#
+# Scripting Languages 
+#
+# PTXCONF_PYTHON23 is not set
+
+#
+# Networking Tools            
+#
 
 #
 # Network Tools --- 
@@ -938,6 +961,11 @@ PTXCONF_IPTABLES_INSTALL_IPTABLES=y
 # PTXCONF_ETHEREAL is not set
 
 #
+# ethewake            
+#
+# PTXCONF_ETHERWAKE is not set
+
+#
 # inetutils           
 #
 # PTXCONF_INETUTILS is not set
@@ -951,6 +979,11 @@ PTXCONF_IPTABLES_INSTALL_IPTABLES=y
 # libpcap             
 #
 # PTXCONF_LIBPCAP is not set
+
+#
+# mii-diag            
+#
+# PTXCONF_MII-DIAG is not set
 
 #
 # netcat              
@@ -1118,11 +1151,7 @@ PTXCONF_UTELNETD=y
 #
 
 #
-# Disk and file ---   
-#
-
-#
-# Disk and file utils 
+# Disk and File Utilities     
 #
 
 #
@@ -1149,7 +1178,12 @@ PTXCONF_CRAMFS=y
 # PTXCONF_BONNIE is not set
 
 #
-# Applications ---    
+# Communication Utilities     
+#
+# PTXCONF_EFAX is not set
+
+#
+# Applications                
 #
 
 #
@@ -1173,17 +1207,19 @@ PTXCONF_CRAMFS=y
 # PTXCONF_SETMIXER is not set
 
 #
-# Tools               
+# Tools                       
 #
 # PTXCONF_FIGLET is not set
 
 #
-# Editors             
+# Editors                     
 #
 # PTXCONF_NANO is not set
+# PTXCONF_JED is not set
+# PTXCONF_HEXEDIT is not set
 
 #
-# System Libraries    
+# System Libraries            
 #
 
 #
@@ -1226,13 +1262,31 @@ PTXCONF_ZLIB=y
 # PTXCONF_LIBXML2 is not set
 
 #
-# Graphics Libraries  
+# Graphics Libraries          
+#
+
+#
+# X Infrastructure
 #
 
 #
 # XFree86-4.3.0         
 #
 # PTXCONF_XFREE430 is not set
+
+#
+# xlibs                 
+#
+# PTXCONF_XLIBS is not set
+
+#
+# xserver               
+#
+# PTXCONF_XSERVER is not set
+
+#
+# X Applications
+#
 
 #
 # Clementine WM         
@@ -1254,12 +1308,12 @@ PTXCONF_ZLIB=y
 # PTXCONF_QTE is not set
 
 #
-# Blackbox WM         
+# Blackbox WM           
 #
 # PTXCONF_BLACKBOX is not set
 
 #
-# Scientific Apps     
+# Scientific Apps             
 #
 
 #
@@ -1268,7 +1322,7 @@ PTXCONF_ZLIB=y
 # PTXCONF_GNUPLOT is not set
 
 #
-# Web Applications    
+# Web Applications            
 #
 
 #

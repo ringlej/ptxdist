@@ -83,10 +83,6 @@ LIBPNG125_ENV   += prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 LIBPNG125_ENV	+= ZLIBLIB=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 LIBPNG125_ENV	+= ZLIBINC=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 
-ifdef PTXCONF_LIBPNG125_FOO
-LIBPNG125_AUTOCONF	+= --enable-foo
-endif
-
 $(STATEDIR)/libpng125.prepare: $(libpng125_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPNG125_BUILDDIR))

@@ -75,10 +75,8 @@ MAD_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-MAD_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+MAD_AUTOCONF =  $(CROSS_AUTOCONF)
+MAD_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/mad.prepare: $(mad_prepare_deps)
 	@$(call targetinfo, $@)

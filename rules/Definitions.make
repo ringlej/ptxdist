@@ -7,3 +7,14 @@ comma=,
 space= 
 quote="
 
+#
+# remove_quotes
+#
+# Remove quotes from a variable definition
+#
+# $1: variable
+#
+remove_quotes = $(subst $(quote),,$(1))
+
+
+

@@ -80,10 +80,8 @@ JED_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-JED_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+JED_AUTOCONF =  $(CROSS_AUTOCONF) 
+JED_AUTOCONF = --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/jed.prepare: $(jed_prepare_deps)
 	@$(call targetinfo, $@)

@@ -83,12 +83,9 @@ NMAP_ENV = \
 #
 # autoconf
 #
-NMAP_AUTOCONF =\
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=/usr \
-	--with-pcap=linux 
-
+NMAP_AUTOCONF =  $(CROSS_AUTOCONF)
+NMAP_AUTOCONF += --prefix=/usr
+NMAP_AUTOCONF += --with-pcap=linux 
 #
 # FIXME:
 #

@@ -19,8 +19,8 @@ endif
 #
 # Paths and names
 #
-GAWK_VERSION	= 3.1.4
-GAWK		= gawk-$(GAWK_VERSION)
+GAWK_VERSION		= 3.1.4
+GAWK			= gawk-$(GAWK_VERSION)
 GAWK_SUFFIX		= tar.gz
 GAWK_URL		= http://ftp.gnu.org/gnu/gawk/$(GAWK).$(GAWK_SUFFIX)
 GAWK_SOURCE		= $(SRCDIR)/$(GAWK).$(GAWK_SUFFIX)
@@ -76,10 +76,8 @@ GAWK_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-GAWK_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+GAWK_AUTOCONF =  $(CROSS_AUTOCONF)
+GAWK_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/gawk.prepare: $(gawk_prepare_deps)
 	@$(call targetinfo, $@)

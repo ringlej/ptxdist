@@ -86,9 +86,8 @@ GLIB22_ENV	+= glib_cv_stack_grows=no
 #
 # autoconf
 #
-GLIB22_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
-GLIB22_AUTOCONF	+= --build=$(GNU_HOST)
-GLIB22_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+GLIB22_AUTOCONF =  $(CROSS_AUTOCONF)
+GLIB22_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
 
 GLIB22_AUTOCONF	+= --with-threads=posix
 

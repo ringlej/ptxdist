@@ -70,10 +70,10 @@ busybox_prepare: $(STATEDIR)/busybox.prepare
 
 BUSYBOX_PATH		=  PATH=$(CROSS_PATH)
 BUSYBOX_ENV 		=  $(CROSS_ENV)
-BUSYBOX_MAKEVARS	=  CROSS=$(PTXCONF_GNU_TARGET)- 
+BUSYBOX_MAKEVARS	=  CROSS=$(PTXCONF_COMPILER_PREFIX)
 BUSYBOX_MAKEVARS	+= HOSTCC=$(HOSTCC) 
-BUSYBOX_MAKEVARS	+= EXTRA_CFLAGS='$(strip $(subst ",,$(TARGET_CFLAGS)))'
-BUSYBOX_MAKEVARS	+= LDFLAGS='$(strip $(subst ",,$(TARGET_LDFLAGS)))'
+BUSYBOX_MAKEVARS	+= EXTRA_CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))'
+BUSYBOX_MAKEVARS	+= LDFLAGS='$(call remove_quotes,$(TARGET_LDFLAGS))'
 
 #
 # dependencies
@@ -91,6 +91,8 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
 	grep -e PTXCONF_BB_ .config > $(BUSYBOX_DIR)/.config
 	perl -i -p -e 's/PTXCONF_BB_//g' $(BUSYBOX_DIR)/.config
+	echo GCC_PREFIX=$(GCC_PREFIX)
+	perl -i -p -e 's/^CROSS_COMPILER_PREFIX=.*$$/CROSS_COMPILER_PREFIX=\"\"$(GCC_PREFIX)/g' $(BUSYBOX_DIR)/.config
 	yes "" | $(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) dep $(BUSYBOX_MAKEVARS)
 

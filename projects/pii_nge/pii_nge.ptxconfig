@@ -6,7 +6,7 @@ PTXCONF_PTXCONF=y
 PTXCONF_PROJECT="pii_nge"
 
 #
-# General Options ---    
+# General Options             
 #
 
 #
@@ -33,6 +33,7 @@ PTXCONF_ARM_ARCH_PXA=y
 # PTXCONF_ARM_ARCH_IXP2000 is not set
 # PTXCONF_ARM_ARCH_NETARM is not set
 # PTXCONF_ARM_ARCH_ATMEL is not set
+# PTXCONF_ARM_ARCH_AT91RM9200 is not set
 # PTXCONF_ARM_ARCH_IMX is not set
 PTXCONF_ARM_ARCH="pxa"
 PTXCONF_ARM_ARCH_LE=y
@@ -83,6 +84,7 @@ PTXCONF_ROOT=""
 #
 PTXCONF_CROSSCHAIN_CHECK="3.3.3"
 PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
+PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 
 #
 # Non-Crosstool Tools
@@ -109,6 +111,7 @@ PTXCONF_VENDORTWEAKS="projects/pii_nge/pii_nge.vendortweaks"
 # Image Creation
 #
 PTXCONF_IMAGE_TGZ=y
+# PTXCONF_IMAGE_HD is not set
 # PTXCONF_IMAGE_JFFS2 is not set
 
 #
@@ -141,7 +144,7 @@ PTXCONF_HOSTTOOLS_FAKEROOT=y
 # PTXCONF_HOSTTOOLS_UTLNX_SFDISK is not set
 
 #
-# Core System ---    
+# Core System                 
 #
 
 #
@@ -156,6 +159,7 @@ PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/pii_nge/pii_nge.kernelconfig"
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_4_25 is not set
 # PTXCONF_KERNEL_2_4_26 is not set
+# PTXCONF_KERNEL_2_4_27 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
@@ -211,11 +215,11 @@ PTXCONF_GLIBC=y
 #
 # C Library options
 #
+# PTXCONF_GLIBC_2_3_3 is not set
 PTXCONF_GLIBC_2_3_2=y
 # PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
-# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -255,7 +259,7 @@ PTXCONF_UC_TARGET_arm=y
 # PTXCONF_CXX is not set
 
 #
-# Core Tools ---  
+# Shell & Console Tools       
 #
 
 #
@@ -817,9 +821,17 @@ PTXCONF_UTLNX_FDISK=y
 # PTXCONF_CLOCK is not set
 
 #
-# VHLL Support        
+# Scripting Languages         
 #
-# PTXCONF_VHLL_PYTHON23 is not set
+
+#
+# Scripting Languages 
+#
+# PTXCONF_PYTHON23 is not set
+
+#
+# Networking Tools            
+#
 
 #
 # Network Tools --- 
@@ -1036,11 +1048,7 @@ PTXCONF_UTELNETD=y
 #
 
 #
-# Disk and file ---   
-#
-
-#
-# Disk and file utils 
+# Disk and File Utilities     
 #
 
 #
@@ -1069,16 +1077,12 @@ PTXCONF_E2FSPROGS_E2FSCK=y
 # PTXCONF_BONNIE is not set
 
 #
-# Communication ---   
-#
-
-#
-# Communication utils 
+# Communication Utilities     
 #
 # PTXCONF_EFAX is not set
 
 #
-# Applications ---    
+# Applications                
 #
 
 #
@@ -1102,19 +1106,19 @@ PTXCONF_E2FSPROGS_E2FSCK=y
 # PTXCONF_SETMIXER is not set
 
 #
-# Tools               
+# Tools                       
 #
 PTXCONF_FIGLET=y
 
 #
-# Editors             
+# Editors                     
 #
 # PTXCONF_NANO is not set
 # PTXCONF_JED is not set
 PTXCONF_HEXEDIT=y
 
 #
-# System Libraries    
+# System Libraries            
 #
 
 #
@@ -1166,13 +1170,31 @@ PTXCONF_TERMCAP=y
 # PTXCONF_LIBXML2 is not set
 
 #
-# Graphics Libraries  
+# Graphics Libraries          
+#
+
+#
+# X Infrastructure
 #
 
 #
 # XFree86-4.3.0         
 #
 # PTXCONF_XFREE430 is not set
+
+#
+# xlibs                 
+#
+# PTXCONF_XLIBS is not set
+
+#
+# xserver               
+#
+# PTXCONF_XSERVER is not set
+
+#
+# X Applications
+#
 
 #
 # Clementine WM         
@@ -1194,12 +1216,12 @@ PTXCONF_TERMCAP=y
 # PTXCONF_QTE is not set
 
 #
-# Blackbox WM         
+# Blackbox WM           
 #
 # PTXCONF_BLACKBOX is not set
 
 #
-# Scientific Apps     
+# Scientific Apps             
 #
 
 #
@@ -1208,7 +1230,7 @@ PTXCONF_TERMCAP=y
 # PTXCONF_GNUPLOT is not set
 
 #
-# Web Applications    
+# Web Applications            
 #
 
 #

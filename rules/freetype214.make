@@ -79,9 +79,8 @@ FREETYPE214_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 # autoconf
 #
-FREETYPE214_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
-FREETYPE214_AUTOCONF	+= --build=$(GNU_HOST)
-FREETYPE214_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+FREETYPE214_AUTOCONF	=  $(CROSS_AUTOCONF)
+FREETYPE214_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/freetype214.prepare: $(freetype214_prepare_deps)
 	@$(call targetinfo, $@)

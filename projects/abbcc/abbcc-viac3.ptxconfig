@@ -6,7 +6,7 @@ PTXCONF_PTXCONF=y
 PTXCONF_PROJECT="abbcc"
 
 #
-# General Options ---    
+# General Options             
 #
 
 #
@@ -70,8 +70,9 @@ PTXCONF_ROOT=""
 #
 # Generic Options
 #
-PTXCONF_CROSSCHAIN_CHECK="3.3.2"
+PTXCONF_CROSSCHAIN_CHECK="3.4.2"
 PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
+PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 
 #
 # Non-Crosstool Tools
@@ -125,7 +126,7 @@ PTXCONF_IMAGE_HD_CONF="projects/abbcc/cf128MB.geometry"
 PTXCONF_HOSTTOOLS_FAKEROOT=y
 
 #
-# Core System ---    
+# Core System                 
 #
 
 #
@@ -140,6 +141,7 @@ PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/abbcc/abbcc-viac3.kernelconfig"
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_4_25 is not set
 PTXCONF_KERNEL_2_4_26=y
+# PTXCONF_KERNEL_2_4_27 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
@@ -295,11 +297,11 @@ PTXCONF_GLIBC=y
 #
 # C Library options
 #
-PTXCONF_GLIBC_2_3_2=y
+PTXCONF_GLIBC_2_3_3=y
+# PTXCONF_GLIBC_2_3_2 is not set
 # PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
-# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -339,7 +341,7 @@ PTXCONF_UC_TARGET_i386=y
 # PTXCONF_CXX is not set
 
 #
-# Core Tools ---  
+# Shell & Console Tools       
 #
 
 #
@@ -865,9 +867,17 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_CLOCK is not set
 
 #
-# VHLL Support        
+# Scripting Languages         
 #
-# PTXCONF_VHLL_PYTHON23 is not set
+
+#
+# Scripting Languages 
+#
+# PTXCONF_PYTHON23 is not set
+
+#
+# Networking Tools            
+#
 
 #
 # Network Tools --- 
@@ -1093,11 +1103,7 @@ PTXCONF_RTNET_8139=y
 PTXCONF_RTNET_LOOPBACK=y
 
 #
-# Disk and file ---   
-#
-
-#
-# Disk and file utils 
+# Disk and File Utilities     
 #
 
 #
@@ -1137,16 +1143,12 @@ PTXCONF_GRUB_RTL8139=y
 # PTXCONF_BONNIE is not set
 
 #
-# Communication ---   
-#
-
-#
-# Communication utils 
+# Communication Utilities     
 #
 # PTXCONF_EFAX is not set
 
 #
-# Applications ---    
+# Applications                
 #
 
 #
@@ -1170,19 +1172,19 @@ PTXCONF_FLASH=y
 # PTXCONF_SETMIXER is not set
 
 #
-# Tools               
+# Tools                       
 #
 PTXCONF_FIGLET=y
 
 #
-# Editors             
+# Editors                     
 #
 # PTXCONF_NANO is not set
 # PTXCONF_JED is not set
 # PTXCONF_HEXEDIT is not set
 
 #
-# System Libraries    
+# System Libraries            
 #
 
 #
@@ -1229,13 +1231,31 @@ PTXCONF_NCURSES_TERMCAP=y
 # PTXCONF_LIBXML2 is not set
 
 #
-# Graphics Libraries  
+# Graphics Libraries          
+#
+
+#
+# X Infrastructure
 #
 
 #
 # XFree86-4.3.0         
 #
 # PTXCONF_XFREE430 is not set
+
+#
+# xlibs                 
+#
+# PTXCONF_XLIBS is not set
+
+#
+# xserver               
+#
+# PTXCONF_XSERVER is not set
+
+#
+# X Applications
+#
 
 #
 # Clementine WM         
@@ -1257,12 +1277,12 @@ PTXCONF_NCURSES_TERMCAP=y
 # PTXCONF_QTE is not set
 
 #
-# Blackbox WM         
+# Blackbox WM           
 #
 # PTXCONF_BLACKBOX is not set
 
 #
-# Scientific Apps     
+# Scientific Apps             
 #
 
 #
@@ -1278,7 +1298,7 @@ PTXCONF_GNUPLOT_PNG=y
 # PTXCONF_GNUPLOT_PDF is not set
 
 #
-# Web Applications    
+# Web Applications            
 #
 
 #

@@ -77,10 +77,8 @@ LIBART_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-LIBART_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+LIBART_AUTOCONF =  $(CROSS_AUTOCONF)
+LIBART_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/libart.prepare: $(libart_prepare_deps)
 	@$(call targetinfo, $@)

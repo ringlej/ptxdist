@@ -70,6 +70,7 @@ LTT_PATH	=  PATH=$(CROSS_PATH)
 LTT_ENV		=  $(CROSS_ENV)
 LTT_ENV		+= ac_cv_func_setvbuf_reversed=no ltt_cv_have_mbstate_t=yes
 
+LTT_AUTOCONF	=  $(CROSS_AUTOCONF)
 LTT_AUTOCONF	+= --prefix=/usr
 LTT_AUTOCONF	+= --with-gtk=no
 

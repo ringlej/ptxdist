@@ -77,9 +77,8 @@ GETTEXT_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 
-GETTEXT_AUTOCONF =  --prefix=/usr \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET)
+GETTEXT_AUTOCONF =  $(CROSS_AUTOCONF)
+GETTEXT_AUTOCONF +=  --prefix=/usr
 
 # This is braindead but correct :-) 
 GETTEXT_AUTOCONF	+= --disable-nls

@@ -76,11 +76,9 @@ BLACKBOX_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BLACKBOX_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR) \
-	-disable-nls
+BLACKBOX_AUTOCONF =  $(CROSS_AUTOCONF)
+BLACKBOX_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+BLACKBOX_AUTOCONF += -disable-nls
 
 BLACKBOX_AUTOCONF	+= --x-includes=/home/koan/ptxdist/ptxdist-testing/root/usr/X11R6/include
 BLACKBOX_AUTOCONF	+= --x-libraries=/home/koan/ptxdist/ptxdist-testing/root/usr/X11R6/lib

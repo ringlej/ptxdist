@@ -78,11 +78,9 @@ LIBPCAP_ENV = \
 #
 # autoconf
 #
-LIBPCAP_AUTOCONF = \
-	--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--with-pcap=linux
+LIBPCAP_AUTOCONF =  $(CROSS_AUTOCONF)
+LIBPCAP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+LIBPCAP_AUTOCONF += --with-pcap=linux
 
 $(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps)
 	@$(call targetinfo, $@)

@@ -55,8 +55,7 @@ $(STATEDIR)/coreutils.extract: $(STATEDIR)/coreutils.get
 
 coreutils_prepare: $(STATEDIR)/coreutils.prepare
 
-COREUTILS_AUTOCONF	=  --build=$(GNU_HOST)
-COREUTILS_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+COREUTILS_AUTOCONF	=  $(CROSS_AUTOCONF)
 COREUTILS_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 
 COREUTILS_PATH		=  PATH=$(CROSS_PATH)

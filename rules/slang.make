@@ -76,10 +76,8 @@ SLANG_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-SLANG_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+SLANG_AUTOCONF =  $(CROSS_AUTOCONF)
+SLANG_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/slang.prepare: $(slang_prepare_deps)
 	@$(call targetinfo, $@)

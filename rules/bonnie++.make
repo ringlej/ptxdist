@@ -79,10 +79,8 @@ BONNIE++_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BONNIE++_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+BONNIE++_AUTOCONF =  $(CROSS_AUTOCONF)
+BONNIE++_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/bonnie++.prepare: $(bonnie++_prepare_deps)
 	@$(call targetinfo, $@)

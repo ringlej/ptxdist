@@ -77,9 +77,8 @@ rtai_prepare_deps = \
 	$(STATEDIR)/kernel.prepare \
 	$(STATEDIR)/rtai.extract
 
-RTAI_AUTOCONF  = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
+RTAI_AUTOCONF =  $(CROSS_AUTOCONF)
+RTAI_AUTOCONF += \
 	--with-kconfig-file=$(RTAI_DIR)/.config \
 	--with-linux-dir=$(KERNEL_DIR)
 

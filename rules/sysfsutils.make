@@ -77,10 +77,8 @@ SYSFSUTILS_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-SYSFSUTILS_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+SYSFSUTILS_AUTOCONF =  $(CROSS_AUTOCONF)
+SYSFSUTILS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/sysfsutils.prepare: $(sysfsutils_prepare_deps)
 	@$(call targetinfo, $@)
@@ -126,7 +124,7 @@ $(STATEDIR)/sysfsutils.targetinstall: $(sysfsutils_targetinstall_deps)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_SYSFSUTILS_LIB
 	$(call copy_root, 0, 0, 0644, $(SYSFSUTILS_DIR)/lib/.libs/libsysfs.so.1.0.2, /lib/libsysfs.so.1.0.2)
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libsysfs.so.1.0.2
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/lib/libsysfs.so.1.0.2
 	$(call link_root, /lib/libsysfs.so.1.0.2, /lib/libsysfs.so.1)
 	$(call link_root, /lib/libsysfs.so.1.0.2, /lib/libsysfs.so)
 endif

@@ -77,13 +77,8 @@ EXPAT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 # autoconf
 #
-EXPAT_AUTOCONF	=  --prefix=/usr
-EXPAT_AUTOCONF	+= --build=$(GNU_HOST)
-EXPAT_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-
-ifdef PTXCONF_EXPAT_FOO
-EXPAT_AUTOCONF	+= --enable-foo
-endif
+EXPAT_AUTOCONF  =  $(CROSS_AUTOCONF)
+EXPAT_AUTOCONF	+= --prefix=/usr
 
 $(STATEDIR)/expat.prepare: $(expat_prepare_deps)
 	@$(call targetinfo, $@)

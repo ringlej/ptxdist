@@ -77,11 +77,8 @@ KONQ-E_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-KONQ-E_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-KONQ-E_AUTOCONF	+= --build=$(GNU_HOST)
-KONQ-E_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-
-#KONQ-E_AUTOCONF	+= 
+KONQ-E_AUTOCONF =  $(CROSS_AUTOCONF)
+KONQ-E_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/konq-e.prepare: $(konq-e_prepare_deps)
 	@$(call targetinfo, $@)

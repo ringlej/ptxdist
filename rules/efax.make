@@ -79,10 +79,8 @@ EFAX_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-EFAX_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+EFAX_AUTOCONF =  $(CROSS_AUTOCONF)
+EFAX_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/efax.prepare: $(efax_prepare_deps)
 	@$(call targetinfo, $@)

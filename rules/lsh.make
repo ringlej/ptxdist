@@ -85,11 +85,10 @@ LSH_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
+LSH_AUTOCONF =  $(CROSS_AUTOCONF)
 LSH_AUTOCONF = \
 	--prefix=/usr \
 	--sysconfdir=/etc/lsh \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
 	--disable-kerberos \
 	--disable-pam \
 	--disable-tcp-forward \

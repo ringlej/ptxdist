@@ -1,4 +1,4 @@
-# -*-makefile-*-
+#
 # $Id$
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
@@ -33,6 +33,8 @@ GLIBC_THREADS		= glibc-linuxthreads-$(GLIBC_VERSION)
 GLIBC_THREADS_URL	= ftp://ftp.gnu.org/gnu/glibc/$(GLIBC_THREADS).tar.gz
 GLIBC_THREADS_SOURCE	= $(SRCDIR)/$(GLIBC_THREADS).tar.gz
 GLIBC_THREADS_DIR	= $(GLIBC_DIR)
+
+# We build off-tree and build zoneinfo files in a separate directory
 
 GLIBC_BUILDDIR		= $(BUILDDIR)/$(GLIBC)-build
 GLIBC_ZONEDIR		= $(BUILDDIR)/$(GLIBC)-zoneinfo
@@ -101,32 +103,26 @@ GLIBC_ZONEFILES-$(PTXCONF_GLIBC_ZONEINFO_UNIVERSAL) += Universal
 # Get
 # ----------------------------------------------------------------------------
 
-glibc_get:		$(STATEDIR)/glibc.get
+glibc_get: $(STATEDIR)/glibc.get
 
-glibc_get_deps = \
-	$(GLIBC_SOURCE) \
-	$(STATEDIR)/glibc-patches.get
+glibc_get_deps =  $(GLIBC_SOURCE)
 
 ifdef PTXCONF_GLIBC_PTHREADS
-glibc_get_deps += \
-	$(GLIBC_THREADS_SOURCE) \
-	$(STATEDIR)/glibc-threads-patches.get
+glibc_get_deps += $(STATEDIR)/glibc-threads.get
 endif
 
-$(STATEDIR)/glibc.get: $(glibc_get_deps)
-	@$(call targetinfo, $@)
-	touch $@
+glibc_threads_get_deps = $(GLIBC_THREADS_SOURCE)
 
-$(STATEDIR)/glibc-patches.get:
+$(STATEDIR)/glibc.get: $(glibc_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GLIBC))
 	touch $@
 
-$(STATEDIR)/glibc-threads-patches.get:
+$(STATEDIR)/glibc-threads.get: $(glibc_threads_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GLIBC_THREADS))
 	touch $@
-
+	
 $(GLIBC_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(GLIBC_URL))
@@ -167,41 +163,33 @@ $(STATEDIR)/glibc-threads.extract: $(STATEDIR)/glibc.get
 # Prepare
 # ----------------------------------------------------------------------------
 
-glibc_prepare:		$(STATEDIR)/glibc.prepare
+glibc_prepare: $(STATEDIR)/glibc.prepare
 
-#
-# dependencies
-#
 glibc_prepare_deps =  $(STATEDIR)/autoconf213.install
 glibc_prepare_deps += $(STATEDIR)/glibc.extract
 glibc_prepare_deps += $(STATEDIR)/xchain-kernel.install
 
-# 
-# arcitecture dependend configuration
-#
-GLIBC_AUTOCONF	= \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--with-headers=$(CROSS_LIB_DIR)/include \
-	--enable-clocale=gnu \
-	--without-tls \
-	--without-cvs \
-	--without-gd \
-	--prefix=/usr \
-	--libexecdir=/usr/bin
+GLIBC_AUTOCONF =  $(CROSS_AUTOCONF)
+GLIBC_AUTOCONF += --with-headers=$(CROSS_LIB_DIR)/include
+GLIBC_AUTOCONF += --enable-clocale=gnu
+GLIBC_AUTOCONF += --without-tls
+GLIBC_AUTOCONF += --without-cvs
+GLIBC_AUTOCONF += --without-gd
+GLIBC_AUTOCONF += --prefix=/usr
+GLIBC_AUTOCONF += --libexecdir=/usr/bin
 
-ifdef GLIBC_OPTKERNEL
+ifdef PTXCONF_GLIBC_OPTKERNEL
 GLIBC_AUTOCONF += --enable-kernel=$(KERNEL_VERSION)
 endif
 
 ifeq ($(GLIBC_VERSION_MAJOR).$(GLIBC_VERSION_MINOR),2.2)
-GLIBC_PATH	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(CROSS_PATH)
+GLIBC_PATH	=  PATH=$(call remove_quotes,$(PTXCONF_PREFIX))/$(call remove_quotes,$(AUTOCONF213))/bin:$(CROSS_PATH)
 else
 #FIXME: wich autoconf version wants the glibc 2.3.x?
 GLIBC_PATH	=  PATH=$(CROSS_PATH)
 endif
 
-GLIBC_ENV	=  $(CROSS_ENV) BUILD_CC=$(HOSTCC)
+GLIBC_ENV	=  $(CROSS_ENV) BUILD_CC=$(HOSTCC) 
 
 #
 # features
@@ -230,26 +218,30 @@ ifdef PTXCONF_GLIBC_PTHREADS
 GLIBC_AUTOCONF	+= --enable-add-ons=linuxthreads
 endif
 
+# from config/arch/*.dat: 
+# additional architecture dependend configure options
+
 GLIBC_AUTOCONF	+= $(GLIBC_EXTRA_CONFIG)
 
 $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
 	@$(call targetinfo, $@)
-	#
-	# Let's build off-tree
-	#
-	mkdir -p $(GLIBC_BUILDDIR)
-	cd $(GLIBC_BUILDDIR) &&	\
-	        $(GLIBC_PATH) $(GLIBC_ENV) \
-		$(GLIBC_DIR)/configure $(PTXCONF_GNU_TARGET) \
-			$(GLIBC_AUTOCONF)
-	# don't compile programs
-	echo "build-programs=no" >> $(GLIBC_BUILDDIR)/configparms
 
-	#
+	# Let's build off-tree
+	mkdir -p $(GLIBC_BUILDDIR)
+	cd $(GLIBC_BUILDDIR) &&						\
+	        $(GLIBC_PATH) $(GLIBC_ENV) 				\
+		$(GLIBC_DIR)/configure $(GLIBC_AUTOCONF)
+
+#			$(call remove_quotes,$(PTXCONF_GNU_TARGET)) 	\
+
+	# # FIXME: RSC: this crashed because it wants to run elf/sln
+	# # don't compile programs
+	# echo "build-programs=no" >> $(GLIBC_BUILDDIR)/configparms
+
 	# Zoneinfo files are not created when being cross compiled :-(
 	# So we configure a new tree, but without cross... 
-	# FIXME: check if this had endianess issues.  
-	#
+	# FIXME: check if this has endianess issues.  
+
 	cp -a $(GLIBC_DIR)/timezone $(GLIBC_ZONEDIR)
 	perl -i -p -e "s,include \.\.\/Makeconfig.*,# include\.\.\/Makeconfig,g" $(GLIBC_ZONEDIR)/Makefile
 	perl -i -p -e "s,include \.\.\/Rules,# include \.\.\/Rules,g" $(GLIBC_ZONEDIR)/Makefile
@@ -260,44 +252,65 @@ $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
 # Compile
 # ----------------------------------------------------------------------------
 
-glibc_compile:		$(STATEDIR)/glibc.compile
+glibc_compile: $(STATEDIR)/glibc.compile
 
 $(STATEDIR)/glibc.compile: $(STATEDIR)/glibc.prepare 
 	@$(call targetinfo, $@)
+
+	# some tools have to be built for host, not for target!
+	cd $(GLIBC_ZONEDIR) && CC=$(HOSTCC) make zic
+
+	# Now the "normal" build; override some programs which are being
+	# run during compile time to avoid glibc runs cross compiled
+	# binaries
+	#cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) make 		\
+	#	rpcgen_FOR_BUILD=rpcgen				\
+	#	zic_FOR_BUILD=$(GLIBC_ZONEDIR)/timezone/zic	\
+
 	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) make
-	#
+
 	# fake files which are installed by make install although
 	# compiling binaries was switched of (tested with 2.2.5)
-	#
-	touch $(GLIBC_BUILDDIR)/iconv/iconv_prog
-	touch $(GLIBC_BUILDDIR)/login/pt_chown
+	#touch $(GLIBC_BUILDDIR)/iconv/iconv_prog
+	#touch $(GLIBC_BUILDDIR)/login/pt_chown
+
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-
-glibc_install:		$(STATEDIR)/glibc.install
+glibc_install: $(STATEDIR)/glibc.install
 
 $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 	@$(call targetinfo, $@)
-	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) make \
-		install_root=$(CROSS_LIB_DIR) prefix="" install
-#
-# Dan Kegel writes:
-#
-# Fix problems in linker scripts.
-# 
-# 1. Remove absolute paths
-# Any file in a list of known suspects that isn't a symlink is assumed to be a linker script.
-# FIXME: test -h is not portable
-# FIXME: probably need to check more files than just these three...
-# Need to use sed instead of just assuming we know what's in libc.so because otherwise alpha breaks
-#
-# 2. Remove lines containing BUG per http://sources.redhat.com/ml/bug-glibc/2003-05/msg00055.html,
-# needed to fix gcc-3.2.3/glibc-2.3.2 targeting arm
-#
+	
+	
+	# Install as usual
+	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) make 		\
+		install_root=$(CROSS_LIB_DIR) 			\
+		prefix="" 					\
+		zic_FOR_BUILD=$(GLIBC_BUILDDIR)/timezone/zic	\
+		install
+
+	# Dan Kegel writes:
+	#
+	# Fix problems in linker scripts.
+	# 
+	# 1. Remove absolute paths
+	# Any file in a list of known suspects that isn't a symlink is assumed 
+	# to be a linker script.
+	# 
+	# FIXME: test -h is not portable
+	# FIXME: probably need to check more files than just these three...
+	# 
+	# Need to use sed instead of just assuming we know what's in libc.so 
+	# because otherwise alpha breaks
+	#
+	# 2. Remove lines containing BUG per 
+	# http://sources.redhat.com/ml/bug-glibc/2003-05/msg00055.html,
+	# needed to fix gcc-3.2.3/glibc-2.3.2 targeting arm
+
 	for file in libc.so libpthread.so libgcc_s.so; do								\
 		if [ -f $(CROSS_LIB_DIR)/lib/$$file -a ! -h $(CROSS_LIB_DIR)/lib/$$file ]; then				\
 			echo $$file;											\
@@ -309,11 +322,7 @@ $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 		fi;													\
 	done
 
-	#
-	# Now build the zoneinfo files; see note in prepare stage
-	# 
 ifdef PTXCONF_GLIBC_ZONEINFO
-	cd $(GLIBC_ZONEDIR) && CC=$(HOSTCC) make zic
 	( cd $(GLIBC_ZONEDIR) &&  							\
 		for file in `find . -name "z.*" | sed -e "s,.*z.\(.*\),\1,g"`; do	\
 			./zic -d zoneinfo $$file || echo "failed [$$FILE]";		\
@@ -326,7 +335,7 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
-glibc_targetinstall:		$(STATEDIR)/glibc.targetinstall
+glibc_targetinstall: $(STATEDIR)/glibc.targetinstall
 
 glibc_targetinstall_deps = $(STATEDIR)/glibc.install
 
@@ -338,26 +347,27 @@ endif
 
 $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps)
 	@$(call targetinfo, $@)
-#
-# CAREFUL: don't never ever make install!!!
-# but we never ever run ptxdist as root, do we? :)
-#
+
+	# FIXME: use our root install macros here
+
+	# CAREFUL: don't never ever make install!!!
+	# but we never ever run ptxdist as root, do we? :)
 	mkdir -p $(ROOTDIR)/lib
 
 	cp -d $(CROSS_LIB_DIR)/lib/ld[-.]*so* $(ROOTDIR)/lib/
 	$(GLIBC_STRIP) $(ROOTDIR)/lib/ld[-.]*so*
 	cd $(CROSS_LIB_DIR)/lib && \
 		ln -sf ld-$(GLIBC_VERSION).so $(ROOTDIR)$(DYNAMIC_LINKER)
-#
-# we don't wanna copy libc.so, cause this is a ld linker script, no shared lib
-#
+
+	# we don't wanna copy libc.so, cause this is a ld linker script, 
+	# no shared lib
 	cp -d $(CROSS_LIB_DIR)/lib/libc-*so* $(ROOTDIR)/lib/
 	cp -d $(CROSS_LIB_DIR)/lib/libc.so.* $(ROOTDIR)/lib/
 	$(GLIBC_STRIP) $(ROOTDIR)/lib/libc[-.]*so*
 
-#
-# we don't wanna copy libpthread.so, cause this may be a ld linker script, no shared lib
-#
+	# we don't wanna copy libpthread.so, cause this may be a 
+	# ld linker script, no shared lib
+
 ifdef PTXCONF_GLIBC_PTHREADS
 	cp -d $(CROSS_LIB_DIR)/lib/libpthread-*so* $(ROOTDIR)/lib/
 	cp -d $(CROSS_LIB_DIR)/lib/libpthread.so.* $(ROOTDIR)/lib/
@@ -442,9 +452,7 @@ ifdef PTXCONF_GLIBC_GCONV_ISO8859_1
 endif
 	
 endif
-	# 
 	# Zonefiles
-	 
 	$(call copy_root, 0, 0, 0755, /usr/share/zoneinfo)
 	for target in $(GLIBC_ZONEFILES-y); do 							\
 		cp -a $(GLIBC_ZONEDIR)/zoneinfo/$$target $(ROOTDIR)/usr/share/zoneinfo/;	\

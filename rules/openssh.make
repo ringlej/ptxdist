@@ -133,7 +133,8 @@ OPENSSH_ENV	= \
 #
 # autoconf
 #
-OPENSSH_AUTOCONF = \
+OPENSSH_AUTOCONF =  $(CROSS_AUTOCONF)
+OPENSSH_AUTOCONF =  \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--prefix=/usr \

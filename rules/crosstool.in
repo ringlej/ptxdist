@@ -28,6 +28,10 @@ choice
 		bool
 		prompt "3.3.2"
 
+	config GCC_3_3_3
+		bool
+		prompt "3.3.3"
+
 	config GCC_3_4_0
 		bool
 		prompt "3.4.0"
@@ -47,6 +51,7 @@ config GCC_VERSION
 	default "2.95.3"	if GCC_2_95_3
 	default "3.2.3"		if GCC_3_2_3
 	default "3.3.2"		if GCC_3_3_2
+	default "3.3.3"		if GCC_3_3_2
 	default "3.4.0"		if GCC_3_4_0
 	default "3.4.1"		if GCC_3_4_1
 	default "3.4.2"		if GCC_3_4_2
@@ -139,7 +144,7 @@ config GCC_MULTILIB
 
 config GNU_TARGET
 	string
-	prompt "Compiler Prefix"
+	prompt "GNU Target"
 	default "arm-softfloat-linux-gnu"       if ARM_ARCH_LE          && GLIBC
 	default "armb-unknown-linux-gnu"        if ARM_ARCH_BE          && GLIBC
 	default "arm-elf"                       if ARCH_ARM_NOMMU       && GLIBC
@@ -177,6 +182,11 @@ config GNU_TARGET
 	default "hppa-uclibc-linux-gnu"         if ARCH_PARISC          && UCLIBC
 	default "sh3-uclibc-linux-gnu"          if SH_ARCH_SH3          && UCLIBC
 	default "sh4-uclibc-linux-gnu"          if SH_ARCH_SH4          && UCLIBC
+
+config COMPILER_PREFIX
+	string
+	prompt "Compiler Prefix"
+	default "$(PTXCONF_GNU_TARGET)-"
 
 comment "Non-Crosstool Tools"
 

@@ -94,6 +94,7 @@ config IMAGE_HD
 config IMAGE_HD_CONF
 	string
 	prompt "Geometry file for hd image"
+	depends on IMAGE_HD
 	help
 
 config IMAGE_JFFS2

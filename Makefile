@@ -1,3 +1,4 @@
+#
 # $Id$
 #
 # Copyright (C) 2002-2004 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -6,6 +7,7 @@
 #
 # For further information about the PTXdist project see the README file.
 #
+
 PROJECT		:= PTXdist
 VERSION		:= 0
 PATCHLEVEL	:= 7
@@ -45,7 +47,7 @@ all: help
 
 include rules/Definitions.make
 
-ROOTDIR=$(subst $(quote),,$(PTXCONF_ROOT))
+ROOTDIR=$(call remove_quotes,$(PTXCONF_ROOT))
 ifeq ("", $(PTXCONF_ROOT))
 ROOTDIR=$(TOPDIR)/root
 endif
@@ -55,12 +57,15 @@ endif
 
 PTXCONF_TARGET_CONFIG_FILE ?= none
 ifeq ("", $(PTXCONF_TARGET_CONFIG_FILE))
-PTXCONF_TARGET_CONFIG_FILE =  none
+PTXCONF_TARGET_CONFIG_FILE = none
 endif
--include config/arch/$(subst $(quote),,$(PTXCONF_TARGET_CONFIG_FILE))
+-include config/arch/$(call remove_quotes,$(PTXCONF_TARGET_CONFIG_FILE))
 
 include rules/Rules.make
 include rules/Version.make
+
+CROSS_AUTOCONF = $(call remove_quotes,"--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) ")
+
 include $(filter-out rules/Virtual.make rules/Rules.make rules/Version.make rules/Definitions.make,$(wildcard rules/*.make))
 include rules/Virtual.make
 
@@ -89,9 +94,8 @@ BOOTDISK_TARGETINSTALL += $(STATEDIR)/bootdisk.targetinstall
 endif
 
 help:
-# help message {{{
 	@echo
-	@echo "PTXdist - Pengutronix Distribution Build System"
+	@echo "PTXdist - Build System for Embedded Linux Systems"
 	@echo
 	@echo "Syntax:"
 	@echo
@@ -114,7 +118,7 @@ help:
 	@echo "  make archive-toolchain       dito, but do also create a tarball"
 	@echo "  make configs                 show predefined configs"
 	@echo
-	@echo "  make cuckoo-test             look for cuckoo-eggs in system"
+	@echo "  make cuckoo-test             search for cuckoo-eggs in root system"
 	@echo
 	@echo "Calling these targets affects the whole system. If you want to"
 	@echo "do something for a packet do 'make packet_<action>'."
@@ -132,9 +136,11 @@ help:
 	@echo " $(HOSTTOOLS)"
 	@echo
 	@echo "Available vendortweaks:"
-	@echo "  $(VENDORTWEAKS)"
+	@echo " $(VENDORTWEAKS)"
 	@echo
-# }}}
+
+# FIXME: this is not fully working yet, do to dependencies being defined
+# in make files and Kconfig files in a non-consistent way. 
 
 get:     check_tools getclean $(PACKAGES_GET)
 extract: check_tools $(PACKAGES_EXTRACT)
@@ -240,9 +246,39 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 	fi; \
 	echo
 
-# Cuckoo Test ----------------------------------------------------------------
+# Test -----------------------------------------------------------------------
+
+config-test: 
+	@for i in `find projects -name *.ptxconfig`; do 		\
+		echo -n "Project: $$i [press enter]"; read;		\
+		cp $$i .config;						\
+		make oldconfig;						\
+		cp .config $$i;						\
+	done
+
+
+default_crosstool=/opt/crosstool-0.28-rc37
+
+audit:
+	cd $(TOPDIR); 							\
+	rm -f AUDIT; 							\
+	echo >> AUDIT;							\
+	echo "Automatically Generated Compilation Audit" >> AUDIT;	\
+	echo "-----------------------------------------" >> AUDIT; 	\
+	echo >> AUDIT;							\
+	echo start: `date` >> AUDIT;					\
+	scripts/audit $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin abbcc-viac3; 			\
+	scripts/audit $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin i586-generic-glibc; 		\
+	scripts/audit $(default_crosstool)/arm-softfloat-linux-gnu/gcc-2.95.3-glibc-2.2.5/bin innokom-2.4-2.95; 		\
+	scripts/audit $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.2-glibc-2.3.2/bin innokom-2.4-3.3.2; 		\
+	scripts/audit $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.2-glibc-2.3.2/bin innokom-2.6-3.3.2.ptxconfig; 	\
+	scripts/audit $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin mx1fs2; 				\
+	scripts/audit $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin pii_nge; 				\
+	echo >> AUDIT;							\
+	echo stop: `date` >> AUDIT;
+
 cuckoo-test: world
-	@scripts/cuckoo-test $(PTXCONF_ARCH) root $(PTXCONF_GNU_TARGET)-
+	@scripts/cuckoo-test $(PTXCONF_ARCH) root $(PTXCONF_COMPILER_PREFIX)
 
 # ----------------------------------------------------------------------------
 
@@ -286,7 +322,7 @@ clean: rootclean imagesclean
 	@rm -f $(DEP_OUTPUT) $(DEP_TREE_PS)
 	@echo "done."
 	@echo -n "cleaning logfile................. "
-	@rm -f logfile*
+	@rm -f logfile* 
 	@echo "done."
 	@echo -n "cleaning local dir............... "
 	@rm -fr local

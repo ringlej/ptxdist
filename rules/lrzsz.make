@@ -77,9 +77,8 @@ LSZRZ_ENV	+= CFLAGS=-Wstrict-prototypes
 #
 # autoconf
 #
+LSZRZ_AUTOCONF	=  $(CROSS_AUTOCONF)
 LSZRZ_AUTOCONF	=  --prefix=/usr
-LSZRZ_AUTOCONF	+= --build=$(GNU_HOST)
-LSZRZ_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/lrzsz.prepare: $(lrzsz_prepare_deps)
 	@$(call targetinfo, $@)

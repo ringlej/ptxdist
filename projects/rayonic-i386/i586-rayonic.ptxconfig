@@ -6,7 +6,7 @@ PTXCONF_PTXCONF=y
 PTXCONF_PROJECT="rayonic"
 
 #
-# General Options ---    
+# General Options             
 #
 
 #
@@ -58,23 +58,24 @@ PTXCONF_TARGET_CONFIG_FILE="i586.dat"
 #
 PTXCONF_ARCH="i386"
 PTXCONF_ARCH_USERSPACE="i386"
-PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
 PTXCONF_PREFIX="$(TOPDIR)/local"
 PTXCONF_ROOT=""
 
 #
-# Cross Toolchain     
+# Toolchain/Crosstool 
 #
-PTXCONF_BUILD_CROSSCHAIN=y
-# PTXCONF_BINUTILS_2_13_2_1 is not set
-PTXCONF_BINUTILS_2_14=y
-# PTXCONF_BINUTILS_2_15 is not set
-PTXCONF_GCC_2_95_3=y
-# PTXCONF_GCC_3_2_3 is not set
-# PTXCONF_GCC_3_3_2 is not set
-PTXCONF_GCC_2=y
-PTXCONF_GCC_SHARED=y
-# PTXCONF_GCC_MULTILIB is not set
+# PTXCONF_CROSSTOOL is not set
+
+#
+# Generic Options
+#
+PTXCONF_CROSSCHAIN_CHECK="2.95.3"
+PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
+PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
+
+#
+# Non-Crosstool Tools
+#
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_NASM is not set
 # PTXCONF_XCHAIN-SCONS is not set
@@ -82,15 +83,24 @@ PTXCONF_GCC_SHARED=y
 #
 # Root Filesystem     
 #
-PTXCONF_ROOTFS_PROC=y
+PTXCONF_ROOTFS=y
 PTXCONF_ROOTFS_DEV=y
-PTXCONF_ROOTFS_MNT=y
+PTXCONF_ROOTFS_ETC=y
 PTXCONF_ROOTFS_FLOPPY=y
-PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_HOME=y
-PTXCONF_ROOTFS_VAR=y
+PTXCONF_ROOTFS_MNT=y
+PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
+PTXCONF_ROOTFS_TMP=y
+PTXCONF_ROOTFS_VAR=y
 PTXCONF_VENDORTWEAKS=""
+
+#
+# Image Creation
+#
+# PTXCONF_IMAGE_TGZ is not set
+# PTXCONF_IMAGE_HD is not set
+# PTXCONF_IMAGE_JFFS2 is not set
 
 #
 # Debugging Tools     
@@ -109,12 +119,12 @@ PTXCONF_KSYMOOPS=y
 #
 # Host Tools          
 #
-# PTXCONF_GENEXT2FS is not set
-# PTXCONF_HOSTTOOL_E2FSPROGS is not set
-# PTXCONF_FAKEROOT is not set
+# PTXCONF_HOSTTOOLS_GENEXT2FS is not set
+# PTXCONF_HOSTTOOLS_E2FSPROGS is not set
+PTXCONF_HOSTTOOLS_FAKEROOT=y
 
 #
-# Core System ---    
+# Core System                 
 #
 
 #
@@ -129,6 +139,7 @@ PTXCONF_KERNEL_CONFIG="kernel-2.6.7-rayonic"
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_4_25 is not set
 # PTXCONF_KERNEL_2_4_26 is not set
+# PTXCONF_KERNEL_2_4_27 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
@@ -163,17 +174,18 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 #
 # C Library           
 #
+PTXCONF_LIBC=y
 PTXCONF_GLIBC=y
 # PTXCONF_UCLIBC is not set
 
 #
 # C Library options
 #
+# PTXCONF_GLIBC_2_3_3 is not set
 # PTXCONF_GLIBC_2_3_2 is not set
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
-# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -215,6 +227,11 @@ PTXCONF_GLIBC_NSS_FILES=y
 # PTXCONF_GLIBC_RESOLV is not set
 # PTXCONF_GLIBC_NSL is not set
 # PTXCONF_GLIBC_GCONV is not set
+
+#
+# Timezone Files
+#
+# PTXCONF_GLIBC_ZONEINFO is not set
 PTXCONF_UC_TARGET_i386=y
 
 #
@@ -223,7 +240,7 @@ PTXCONF_UC_TARGET_i386=y
 # PTXCONF_CXX is not set
 
 #
-# Core Tools ---  
+# Shell & Console Tools       
 #
 
 #
@@ -716,6 +733,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_PROCPS is not set
 
 #
+# sysfsutils          
+#
+# PTXCONF_SYSFSUTILS is not set
+
+#
 # sysutils            
 #
 # PTXCONF_SYSUTILS is not set
@@ -727,11 +749,19 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_CLOCK is not set
 
 #
-# VHLL Support        
+# Scripting Languages         
+#
+
+#
+# Scripting Languages 
 #
 
 #
 # Python requires libdl on the target (see C Library)
+#
+
+#
+# Networking Tools            
 #
 
 #
@@ -743,9 +773,14 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 #
 
 #
-# shorewall firewall  
+# Dropbear SSH-Server 
 #
-# PTXCONF_SHOREWALL is not set
+# PTXCONF_DROPBEAR is not set
+
+#
+# iptables            
+#
+# PTXCONF_IPTABLES is not set
 
 #
 # LSH                 
@@ -768,9 +803,9 @@ PTXCONF_OPENSSH_SSHD=y
 PTXCONF_OPENSSH_KEYGEN=y
 
 #
-# Dropbear SSH-Server 
+# shorewall firewall  
 #
-# PTXCONF_DROPBEAR is not set
+# PTXCONF_SHOREWALL is not set
 
 #
 # Networking Apps     
@@ -807,6 +842,11 @@ PTXCONF_OPENSSH_KEYGEN=y
 # PTXCONF_ETHEREAL is not set
 
 #
+# ethewake            
+#
+# PTXCONF_ETHERWAKE is not set
+
+#
 # inetutils           
 #
 # PTXCONF_INETUTILS is not set
@@ -820,6 +860,11 @@ PTXCONF_OPENSSH_KEYGEN=y
 # libpcap             
 #
 # PTXCONF_LIBPCAP is not set
+
+#
+# mii-diag            
+#
+# PTXCONF_MII-DIAG is not set
 
 #
 # netcat              
@@ -865,7 +910,7 @@ PTXCONF_OPENSSH_KEYGEN=y
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
-PTXCONF_OPENAFS_1_2_11=y
+# PTXCONF_OPENAFS_1_2_11 is not set
 
 #
 # Portmapper          
@@ -934,11 +979,7 @@ PTXCONF_UTELNETD=y
 #
 
 #
-# Disk and file ---   
-#
-
-#
-# Disk and file utils 
+# Disk and File Utilities     
 #
 
 #
@@ -978,7 +1019,12 @@ PTXCONF_GRUB_CS89X0=y
 # PTXCONF_BONNIE is not set
 
 #
-# Applications ---    
+# Communication Utilities     
+#
+# PTXCONF_EFAX is not set
+
+#
+# Applications                
 #
 
 #
@@ -1002,18 +1048,24 @@ PTXCONF_GRUB_CS89X0=y
 # PTXCONF_SETMIXER is not set
 
 #
-# Tools               
+# Tools                       
 #
 # PTXCONF_FIGLET is not set
 
 #
-# System Libraries    
+# Editors                     
+#
+# PTXCONF_NANO is not set
+# PTXCONF_JED is not set
+# PTXCONF_HEXEDIT is not set
+
+#
+# System Libraries            
 #
 
 #
 # gettext          
 #
-# PTXCONF_GETTEXT is not set
 
 #
 # popt             
@@ -1023,7 +1075,7 @@ PTXCONF_GRUB_CS89X0=y
 #
 # zlib             
 #
-# PTXCONF_ZLIB is not set
+PTXCONF_ZLIB=y
 
 #
 # ncurses          
@@ -1051,13 +1103,31 @@ PTXCONF_GRUB_CS89X0=y
 # PTXCONF_LIBXML2 is not set
 
 #
-# Graphics Libraries  
+# Graphics Libraries          
+#
+
+#
+# X Infrastructure
 #
 
 #
 # XFree86-4.3.0         
 #
 # PTXCONF_XFREE430 is not set
+
+#
+# xlibs                 
+#
+# PTXCONF_XLIBS is not set
+
+#
+# xserver               
+#
+# PTXCONF_XSERVER is not set
+
+#
+# X Applications
+#
 
 #
 # Clementine WM         
@@ -1077,12 +1147,12 @@ PTXCONF_GRUB_CS89X0=y
 #
 
 #
-# Blackbox WM         
+# Blackbox WM           
 #
 # PTXCONF_BLACKBOX is not set
 
 #
-# Scientific Apps     
+# Scientific Apps             
 #
 
 #
@@ -1091,7 +1161,7 @@ PTXCONF_GRUB_CS89X0=y
 # PTXCONF_GNUPLOT is not set
 
 #
-# Web Applications    
+# Web Applications            
 #
 
 #

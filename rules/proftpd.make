@@ -62,8 +62,7 @@ $(STATEDIR)/proftpd.extract: $(STATEDIR)/proftpd.get
 
 proftpd_prepare: $(STATEDIR)/proftpd.prepare
 
-PROFTPD_AUTOCONF	=  --build=$(GNU_HOST)
-PROFTPD_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+PROFTPD_AUTOCONF	=  $(CROSS_AUTOCONF)
 PROFTPD_AUTOCONF	+= --prefix=/usr
 PROFTPD_AUTOCONF	+= --sysconfdir=/etc
 

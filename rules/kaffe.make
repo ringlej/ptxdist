@@ -114,9 +114,8 @@ KAFFE_ENV 	= $(CROSS_ENV) KAFFEH=$(PTXCONF_PREFIX)/bin/kaffeh
 #
 # autoconf
 #
-KAFFE_AUTOCONF	=  --prefix=/usr
-KAFFE_AUTOCONF	+= --build=$(GNU_HOST)
-KAFFE_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+KAFFE_AUTOCONF  =  $(CROSS_KAFFEE)
+KAFFE_AUTOCONF  += --prefix=/usr
 
 ifdef PTXCONF_KAFFE_ENG_INTRP
 KAFFE_AUTOCONF	+= --with-engine=intrp

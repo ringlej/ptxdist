@@ -76,11 +76,9 @@ BIND_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BIND_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR) \
-	--with-randomdev=/dev/random
+BIND_AUTOCONF =  $(CROSS_AUTOCONF)
+BIND_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+BIND_AUTOCONF += --with-randomdev=/dev/random
 
 ifdef BIND_THREADS
 BIND_AUTOCONF += --enable-threads

@@ -79,13 +79,8 @@ ATK_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 # autoconf
 #
-ATK_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
-ATK_AUTOCONF	+= --build=$(GNU_HOST)
-ATK_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-
-ifdef PTXCONF_ATK_FOO
-ATK_AUTOCONF	+= --enable-foo
-endif
+ATK_AUTOCONF	= $(CROSS_AUTOCONF)
+ATK_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/atk.prepare: $(atk_prepare_deps)
 	@$(call targetinfo, $@)

@@ -78,10 +78,8 @@ LIBGLADE_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-LIBGLADE_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+LIBGLADE_AUTOCONF =  $(CROSS_AUTOCONF)
+LIBGLADE_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/libglade.prepare: $(libglade_prepare_deps)
 	@$(call targetinfo, $@)

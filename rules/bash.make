@@ -64,8 +64,7 @@ $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
 
 bash_prepare: $(STATEDIR)/bash.prepare
 
-BASH_AUTOCONF	=  --build=$(GNU_HOST)
-BASH_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+BASH_AUTOCONF	= $(CROSS_AUTOCONF)
 BASH_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 BASH_AUTOCONF	+= --disable-sanity-checks
 BASH_AUTOCONF	+= --prefix=/usr --bindir=/bin

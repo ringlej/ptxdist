@@ -57,12 +57,10 @@ gmp3_prepare_deps = \
 GMP3_PATH	= PATH=$(CROSS_PATH)
 GMP3_ENV	= $(CROSS_ENV)
 
-GMP3_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR) \
-	--enable-shared \
-	--enable-static
+GMP3_AUTOCONF =  $(CROSS_AUTOCONF)
+GMP3_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+GMP3_AUTOCONF += --enable-shared
+GMP3_AUTOCONF += --enable-static
 
 $(STATEDIR)/gmp3.prepare: $(gmp3_prepare_deps)
 	@$(call targetinfo, $@)

@@ -75,15 +75,13 @@ hexedit_prepare_deps = \
 
 HEXEDIT_PATH	=  PATH=$(CROSS_PATH)
 HEXEDIT_ENV 	=  $(CROSS_ENV)
-HEXEDIT_ENV	+= LDFLAGS='$(strip $(subst ",,$(TARGET_LDFLAGS))) -static'
+HEXEDIT_ENV	+= LDFLAGS='$(strip $(subst $(quote),,$(TARGET_LDFLAGS))) -static'
 
 #
 # autoconf
 #
-HEXEDIT_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+HEXEDIT_AUTOCONF =  $(CROSS_AUTOCONF)
+HEXEDIT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/hexedit.prepare: $(hexedit_prepare_deps)
 	@$(call targetinfo, $@)

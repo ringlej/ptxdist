@@ -83,10 +83,8 @@ TERMCAP_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-TERMCAP_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+TERMCAP_AUTOCONF =  $(CROSS_AUTOCONF)
+TERMCAP_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/termcap.prepare: $(termcap_prepare_deps)
 	@$(call targetinfo, $@)

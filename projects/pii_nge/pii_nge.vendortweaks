@@ -60,6 +60,10 @@ $(STATEDIR)/pii_nge.targetinstall:
 	rm -f $(ROOTDIR)/JUST_FOR_CVS
 	find $(ROOTDIR) -name ".svn" | xargs rm -fr
 
+	# launch cuckoo-test
+	@$(call targetinfo, cuckoo-test)
+	cd $(TOPDIR) && scripts/cuckoo-test $(PTXCONF_ARCH) root $(PTXCONF_COMPILER_PREFIX)
+
 	touch $@
 
 # vim: syntax=make

@@ -80,10 +80,8 @@ LIBOOP_ENV = \
 #
 # autoconf
 #
-LIBOOP_AUTOCONF	= \
-	--prefix=$(CROSS_LIB_DIR) \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
+LIBOOP_AUTOCONF =  $(CROSS_AUTOCONF)
+LIBOOP_AUTOCONF	= --prefix=$(CROSS_LIB_DIR) \
 	--without-tcl \
 	--without-glib
 

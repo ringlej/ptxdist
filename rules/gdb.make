@@ -78,9 +78,8 @@ gdb_prepare: $(STATEDIR)/gdb.prepare
 #
 # dependencies
 #
-gdb_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/gdb.extract
+gdb_prepare_deps =  $(STATEDIR)/virtual-xchain.install
+gdb_prepare_deps += $(STATEDIR)/gdb.extract
 
 ifdef PTXCONF_GDB_TERMCAP
 gdb_prepare_deps += $(STATEDIR)/termcap.install
@@ -101,10 +100,9 @@ endif
 #
 # autoconf
 #
-GDB_AUTOCONF	=  --prefix=/usr
-GDB_AUTOCONF	+= --build=$(GNU_HOST)
-GDB_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-GDB_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
+GDB_AUTOCONF	=  $(CROSS_AUTOCONF)
+GDB_AUTOCONF	+= --target=$(call remove_quotes,$(PTXCONF_GNU_TARGET))
+GDB_AUTOCONF	+= --prefix=/usr
 
 $(STATEDIR)/gdb.prepare: $(gdb_prepare_deps)
 	@$(call targetinfo, $@)
@@ -119,9 +117,9 @@ $(STATEDIR)/gdb.prepare: $(gdb_prepare_deps)
 	# prepare libiberty first with the cross options to avoid that 
 	# it runs the configure stages automatically and with the wrong
 	# options (host) during the compile stage
-	# 
+
 	mkdir -p $(GDB_BUILDDIR)/libiberty
-	ln -s $(GDB_BUILDDIR)/libiberty $(GDB_BUILDDIR)/build-i686-host-linux-gnu/libiberty
+	ln -s $(GDB_BUILDDIR)/libiberty $(GDB_BUILDDIR)/build-$(GNU_HOST)/libiberty
 	cd $(GDB_BUILDDIR)/libiberty && \
 		$(GDB_PATH) $(GDB_ENV) \
 		$(GDB_DIR)/libiberty/configure $(GDB_AUTOCONF)

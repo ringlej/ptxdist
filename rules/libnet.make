@@ -86,11 +86,9 @@ LIBNET_ENV = \
 #
 # autoconf
 #
-LIBNET_AUTOCONF	= \
-	--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--with-pf_packet=yes
+LIBNET_AUTOCONF	=  $(CROSS_AUTOCONF)
+LIBNET_AUTOCONF += --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+LIBNET_AUTOCONF += --with-pf_packet=yes
 
 $(STATEDIR)/libnet.prepare: $(libnet_prepare_deps)
 	@$(call targetinfo, $@)

@@ -1,6 +1,0 @@
-#!/bin/sh
-
-insmod /usr/realtime/testsuite/kern/latency/latency_rt.o overall=0
-/usr/realtime/testsuite/kern/latency/display | tee /logfile
-
-

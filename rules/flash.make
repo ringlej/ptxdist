@@ -93,9 +93,8 @@ FLASH_ENV	= $(CROSS_ENV)
 #
 # autoconf
 #
-FLASH_AUTOCONF	=  --prefix=/usr
-FLASH_AUTOCONF	+= --build=$(GNU_HOST)
-FLASH_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+FLASH_AUTOCONF  =  $(CROSS_AUTOCONF)
+FLASH_AUTOCONF	+= --prefix=/usr
 FLASH_AUTOCONF	+= --with-ncurses-path=$(NCURSES_DIR)
 
 $(STATEDIR)/flash.prepare: $(flash_prepare_deps)

@@ -67,10 +67,9 @@ binutils_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/binutils.extract
 
-BINUTILS_AUTOCONF = \
+BINUTILS_AUTOCONF =  $(CROSS_AUTOCONF)
+BINUTILS_AUTOCONF += \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--build=$(GNU_HOST) \
 	--enable-targets=$(PTXCONF_GNU_TARGET) \
 	--prefix=/usr \
 	--disable-nls \

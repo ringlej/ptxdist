@@ -66,18 +66,16 @@ ncurses_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/ncurses.extract
 
-NCURSES_PATH	=  PATH=$(CROSS_PATH)
-NCURSES_ENV = \
-	$(CROSS_ENV)
+NCURSES_PATH	= PATH=$(CROSS_PATH)
+NCURSES_ENV 	= $(CROSS_ENV)
 
 #
 # RSC: --with-build-cflags: ncurses seems to forget to include it's own
 # include directory...
 #
 
-NCURSES_AUTOCONF =\
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
+NCURSES_AUTOCONF =  $(CROSS_AUTOCONF)
+NCURSES_AUTOCONF += \
 	--prefix=/usr \
 	--exec-prefix=/usr \
 	--sysconfdir=/etc \

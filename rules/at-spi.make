@@ -76,10 +76,8 @@ AT-SPI_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-AT-SPI_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+AT-SPI_AUTOCONF =  $(CROSS_AUTOCONF)
+AT-SPI_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/at-spi.prepare: $(at-spi_prepare_deps)
 	@$(call targetinfo, $@)

@@ -76,11 +76,9 @@ NTP_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-NTP_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
-	
+NTP_AUTOCONF =  $(CROSS_AUTOCONF)
+NTP_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+
 # NTP: options, we need lots of options ;-)
 
 ifdef PTXCONF_NTP_CLOCKCTL

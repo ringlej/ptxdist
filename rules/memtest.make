@@ -77,10 +77,8 @@ MEMTEST_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-MEMTEST_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+MEMTEST_AUTOCONF =  $(CROSS_AUTOCONF)
+MEMTEST_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/memtest.prepare: $(memtest_prepare_deps)
 	@$(call targetinfo, $@)

@@ -77,10 +77,8 @@ LIBXML2_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-LIBXML2_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+LIBXML2_AUTOCONF =  $(CROSS_AUTOCONF)
+LIBXML2_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/libxml2.prepare: $(libxml2_prepare_deps)
 	@$(call targetinfo, $@)
