@@ -30,7 +30,7 @@ STATEDIR		:= $(TOPDIR)/state
 BOOTDISKDIR		:= $(TOPDIR)/bootdisk
 IMAGEDIR		:= $(TOPDIR)/images
 MISCDIR			:= $(TOPDIR)/misc
-PROJECTDIR		=  $(shell dirname `find $(TOPDIR) -name $(PTXCONF_PROJECT).ptxconfig`) 
+PROJECTDIR		=  $(subst \ ,,$(shell dirname `find $(TOPDIR) -name $(PTXCONF_PROJECT).ptxconfig`))
 
 # Pengutronix Patch Repository
 PTXPATCH_URL		:= http://www.pengutronix.de/software/ptxdist/patches
@@ -396,7 +396,7 @@ $(INSTALL_LOG):
 	make -C $(TOPDIR)/tools/install-log-1.9
 
 print-%:
-	@echo $* is $($*)
+	@echo "$* is \"$($*)\""
 
 .PHONY: dep_output_clean dep_tree dep_world skip_vendortweaks
 # vim600:set foldmethod=marker:
