@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.2 2003/04/24 08:41:07 jst Exp $
+# $Id: Makefile,v 1.3 2003/04/24 11:46:24 jst Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -117,24 +117,24 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 clean: rootclean
 	@echo
 	@echo -n "cleaning build dir..............."
-	@rm -fr $(BUILDDIR)/*
+	@for i in $$(ls -I CVS $(BUILDDIR)); do rm -rf "$$i"; done
 	@echo "done."
 	@echo -n "cleaning state dir..............."
-	@rm -fr $(STATEDIR)/*
+	@for i in $$(ls -I CVS $(STATEDIR)); do rm -rf "$$i"; done
 	@echo "done."
 	@echo -n "cleaning scripts dir............."
 	@make -s -C scripts/kconfig clean
 	@make -s -C scripts/lxdialog clean
 	@echo "done."
 	@echo -n "cleaning bootdisk dir............"
-	@rm -fr $(BOOTDISKDIR)/*
+	@for i in $$(ls -I CVS $(BOOTDISKDIR)); do rm -rf "$$i"; done
 	@echo "done."
 	@echo
 	
 rootclean:
 	@echo
 	@echo -n "cleaning root/ directory........."
-	@rm -fr $(ROOTDIR)/*
+	@for i in $$(ls -I CVS $(ROOTDIR)); do rm -rf "$$i"; done
 	@echo "done."
 	@echo -n "cleaning state/*.targetinstall..."
 	@rm -f $(STATEDIR)/*.targetinstall
