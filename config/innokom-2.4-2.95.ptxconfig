@@ -627,6 +627,8 @@ PTXCONF_MTD_LOCK=y
 # PTXCONF_MTD_NFTL_FORMAT is not set
 # PTXCONF_MTD_NFTLDUMP is not set
 PTXCONF_MTD_UNLOCK=y
+# PTXCONF_MTD_MKJFFS is not set
+# PTXCONF_MTD_MKJFFS2 is not set
 
 #
 # GNU coreutils       
@@ -642,6 +644,11 @@ PTXCONF_MTD_UNLOCK=y
 # VHLL Support        
 #
 # PTXCONF_VHLL_PYTHON23 is not set
+
+#
+# PCMCIA Tools        
+#
+# PTXCONF_PCMCIA_TOOLS is not set
 
 #
 # Network Tools
@@ -663,8 +670,14 @@ PTXCONF_MTD_UNLOCK=y
 PTXCONF_UTELNETD=y
 
 #
+# inetutils           
+#
+# PTXCONF_INETUTILS is not set
+
+#
 # Network Security    
 #
+# PTXCONF_SHOREWALL is not set
 # PTXCONF_LSH is not set
 # PTXCONF_OPENSSH is not set
 
@@ -740,7 +753,9 @@ PTXCONF_TCPWRAPPER_INSTALL_TCPD=y
 # Disk and file utils 
 #
 # PTXCONF_E2FSPROGS is not set
+PTXCONF_CRAMFS=y
 # PTXCONF_PTXFLASH is not set
+# PTXCONF_GENEXT2FS is not set
 
 #
 # Applications        
@@ -773,7 +788,7 @@ PTXCONF_TCPWRAPPER_INSTALL_TCPD=y
 #
 # zlib             
 #
-# PTXCONF_ZLIB is not set
+PTXCONF_ZLIB=y
 
 #
 # Graphics Libraries  
