@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-binutils.make,v 1.13 2003/11/24 01:14:52 mkl Exp $
+# $Id: xchain-binutils.make,v 1.14 2003/12/07 21:42:25 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -127,10 +127,14 @@ $(STATEDIR)/xchain-binutils.install: $(STATEDIR)/xchain-binutils.compile
 #
 # make short-name links to long-name programms
 # e.g.: arm-linux-gcc -> arm-unknown-linux-gnu-gcc
+# take care not to make liks in case the short names are identical to 
+# the long names
 #
 	cd $(PTXCONF_PREFIX)/bin &&										\
 		for FILE in addr2line ar as ld nm objcompy objdump ranlib readelf size strings strip; do	\
-		ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;				\
+		if [ ! -e $(SHORT_TARGET)-linux-$$FILE ]; then 							\
+			ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;			\
+		fi;												\
 	done
 
 #

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.22 2003/11/17 18:36:49 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.23 2003/12/07 21:43:38 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -167,15 +167,20 @@ $(STATEDIR)/xchain-gccstage2.install: $(STATEDIR)/xchain-gccstage2.compile
 #
 # make short-name links to long-name programms
 # e.g.: arm-linux-gcc -> arm-unknown-linux-gnu-gcc
+# don't link if short-name == long-name. 
 #
 	cd $(PTXCONF_PREFIX)/bin &&							\
 		for FILE in gcc gccbug cpp gcov; do					\
-		ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;	\
+		if [ ! -e $(SHORT_TARGET)-linux-$$FILE ]; then				\
+		       ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;\
+		fi; 									\
 	done
 ifdef PTXCONF_CXX
 	cd $(PTXCONF_PREFIX)/bin &&							\
 		for FILE in c++ g++ c++flit; do						\
-		ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;	\
+		if [ ! -e $(SHORT_TARGET)-linux-$$FILE ]; then				\
+		       ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;\
+		fi;									\
 	done
 endif
 	touch $@
