@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.107 2004/08/17 17:24:45 bbu Exp $
+# $Id: Makefile,v 1.108 2004/08/24 12:52:00 rsc Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -343,6 +343,9 @@ rootclean:
 	@echo -n "cleaning state/*.targetinstall... "
 	@rm -f $(STATEDIR)/*.targetinstall
 	@echo "done."	
+	@echo -n "cleaning permissions...           "
+	@rm -f $(TOPDIR)/permissions
+	@echo "done."
 	@echo
 
 getclean:
