@@ -82,7 +82,7 @@ get =								\
 	SRC=$${SRC:-$(SRCDIR)};					\
 	[ -d $$SRC ] || mkdir -p $$SRC;				\
 	$(WGET) -P $$SRC $(PASSIVEFTP) $$URL;			\
-	[ $? -eq 0 ] || {					\
+	[ $$? -eq 0 ] || {					\
 		echo;						\
 		echo "Could not get patch!";			\
 		echo "URL: $$URL";				\
@@ -115,7 +115,7 @@ get_feature_patch =						\
 	FP_DIR="$(TOPDIR)/feature-patches/$$FP_NAME";		\
 	[ -d $$FP_DIR ] || mkdir -p $$FP_DIR;			\
 	$(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR $(PASSIVEFTP) $$FP_URL;	\
-	[ $? -eq 0 ] || {					\
+	[ $$? -eq 0 ] || {					\
 		echo;						\
 		echo "Could not get patch!";			\
 		echo "URL $$URL not reachable.";		\
@@ -156,7 +156,7 @@ get_patches =											\
 	fi;											\
 	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/;		\
-	[ $? -eq 0 ] || {									\
+	[ $$? -eq 0 ] || {									\
 		echo;										\
 		echo "Could not get patch!";							\
 		echo "URL: $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/";		\
@@ -165,7 +165,7 @@ get_patches =											\
 	};											\
 	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;	\
-	[ $? -eq 0 ] || {									\
+	[ $$? -eq 0 ] || {									\
 		echo;										\
 		echo "Could not get patch!";							\
 		echo "URL: $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";	\
