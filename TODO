@@ -21,6 +21,7 @@
       tell the user to look if his filesystem was monted 
       with the "exec" option
 - LG: recompile x86 compilers recursively
+  MKB: let's think more general: recompile native compiler recursively
 - RS: integrate big endian toolchain for ARM: 
 
 8<----------
