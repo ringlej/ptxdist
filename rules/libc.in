@@ -30,6 +30,11 @@ choice
 		default GLIBC_2_2_5
 		depends on GLIBC
 
+	config GLIBC_2_3_4
+		bool
+		prompt "2.3.4"
+		depends on GLIBC
+
 	config GLIBC_2_3_3
 		bool
 		prompt "2.3.3"
