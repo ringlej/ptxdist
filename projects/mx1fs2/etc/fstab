@@ -1,8 +1,0 @@
-#
-# /etc/fstab
-#
-
-proc		/proc		proc	defaults	0	0
-tmpfs		/tmp		tmpfs	defaults	0	0
-devpts		/dev/pts	devpts	defaults	0	0
-/dev/mtdblock/5	/data		jffs2	defaults	0	0

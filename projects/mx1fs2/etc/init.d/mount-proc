@@ -1,9 +1,0 @@
-#!/bin/sh
-#
-# /etc/init.d/mount-proc
-#
-
-echo -n "mounting /proc-filesystem... "
-/bin/mount /proc
-echo "done."
-
