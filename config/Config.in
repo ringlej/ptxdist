@@ -29,6 +29,7 @@ comment "Core System ---    "
 
 source "rules/kernel.in"
 source "rules/libc.in"
+source "rules/libcxx.in"
 
 ##############################################################################
 comment "Core Tools ---  "
