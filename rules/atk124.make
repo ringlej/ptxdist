@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: atk124.make,v 1.5 2004/02/23 16:15:18 bsp Exp $
+# $Id: atk124.make,v 1.6 2004/02/24 09:58:38 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -34,7 +34,7 @@ ATK_LIB_VERSION	= 501.3
 
 atk_get: $(STATEDIR)/atk.get
 
-atk_get_deps	=  $(atk_SOURCE)
+atk_get_deps	=  $(ATK_SOURCE)
 
 $(STATEDIR)/atk.get: $(atk_get_deps)
 	@$(call targetinfo, $@)
