@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# $1: compiler path
+# $2: configuration name
+
+PATH=$1:$PATH 
+
+make $2_config
+make oldconfig
+
+echo config...: $2 >> AUDIT
+echo date.....: `date` >> AUDIT
+echo user.....: $USER@$HOSTNAME >> AUDIT
+
+#
+# Now start the compilation
+#
+
+PTX_STARTTIME=`date +"%s"`
+(make world; echo PTX_RESULT=$?) 2>&1 | tee logfile
+PTX_STOPTIME=`date +"%s"`
+PTX_RESULT=`grep PTX_RESULT logfile | awk -F"=" -- '{print $2}'`
+let "PTX_TIME=$PTX_STOPTIME-$PTX_STARTTIME"
+
+echo buildtime: $PTX_TIME >> AUDIT
+echo result...: $PTX_RESULT >> AUDIT
+echo >> AUDIT
+
+# save logfile in case of an error
+[ "$PTX_RESULT" != "0" ] && cp logfile logs/$2.log
+
+# save root filesystem 
+# FIXME: use image mechanism...
+tar -zcvf logs/$2-root.tar.gz root
+
+make distclean
+	
+
