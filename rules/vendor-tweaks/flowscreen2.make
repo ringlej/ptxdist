@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: flowscreen2.make,v 1.5 2004/08/17 10:06:04 sha Exp $
+# $Id: flowscreen2.make,v 1.6 2004/08/17 10:30:15 sha Exp $
 #
 # Copyright (C) 2004 by Pengutronix, Robert Schwebel
 #          
@@ -44,7 +44,7 @@ $(STATEDIR)/flowscreen2.targetinstall:
 
 	perl -i -p -e "s,\@CONSOLE@,ttsmx/1,g" $(ROOTDIR)/etc/inittab
 	perl -i -p -e "s,\@SPEED@,115200,g" $(ROOTDIR)/etc/inittab
-	perl -i -p -e "s,\@VENDOR@,PII ,g" $(ROOTDIR)/etc/init.d/banner
+	perl -i -p -e "s,\@VENDOR@,Viasys ,g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@PS1@,\'\\\u@\\\h:\\\w> \',g" $(ROOTDIR)/etc/profile
 	perl -i -p -e "s,\@PS2@,\'> \',g" $(ROOTDIR)/etc/profile
 	perl -i -p -e "s,\@PS4@,\'+ \',g" $(ROOTDIR)/etc/profile
