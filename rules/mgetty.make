@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mgetty.make,v 1.2 2004/02/19 11:25:41 bsp Exp $
+# $Id: mgetty.make,v 1.3 2004/03/09 14:07:50 bsp Exp $
 #
 # Copyright (C) 2003 by BSP
 #          
@@ -78,6 +78,8 @@ $(STATEDIR)/mgetty.prepare: $(mgetty_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MGETTY_DIR)/config.cache)
 	cp $(PTXCONF_MGETTY_CONFIG) $(MGETTY_DIR)/policy.h
+	find $(MGETTY_DIR) -name Makefile \
+		-exec perl -i -p -e 's/^CC.*=.*//' {} \;
 	touch $@
 
 # ----------------------------------------------------------------------------
