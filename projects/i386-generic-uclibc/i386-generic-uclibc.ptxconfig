@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.2-svn
-# Sat Mar 19 22:33:46 2005
+# Sun Mar 20 13:22:05 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -140,6 +140,11 @@ PTXCONF_IMAGE_TGZ=y
 # PTXCONF_HOSTTOOLS_GENEXT2FS is not set
 # PTXCONF_HOSTTOOLS_E2FSPROGS is not set
 PTXCONF_HOSTTOOLS_FAKEROOT=y
+
+#
+# Module Init Tools   
+#
+PTXCONF_HOSTTOOLS_MODULE_INIT_TOOLS=y
 # PTXCONF_XCHAIN_UMKIMAGE is not set
 
 #
