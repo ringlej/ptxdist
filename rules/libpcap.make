@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libpcap.make,v 1.4 2003/10/28 01:50:31 mkl Exp $
+# $Id: libpcap.make,v 1.5 2004/06/23 15:30:15 rsc Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-LIBPCAP_VERSION	= 0.7.2
+LIBPCAP_VERSION	= 0.8.3
 LIBPCAP		= libpcap-$(LIBPCAP_VERSION)
 LIBPCAP_SUFFIX	= tar.gz
 LIBPCAP_URL	= http://www.tcpdump.org/release/$(LIBPCAP).$(LIBPCAP_SUFFIX)
