@@ -8,11 +8,13 @@ config MFIREBIRD_CALENDAR
 	bool
 	prompt "Compile Calender Client"
 	depends on MFIREBIRD
+	default n
 
 config MFIREBIRD_MAILNEWS
 	bool
 	prompt "Compile Mail+News Client"
 	depends on MFIREBIRD
+	default n
 
 #config MFIREBIRD_MAILNEWS_STATICBUILD
 #	bool
@@ -28,11 +30,13 @@ config MFIREBIRD_FREETYPE2
 	bool
 	prompt "FreeType2 support"
 	depends on MFIREBIRD
+	default y
 
 config MFIREBIRD_XFT
 	bool
 	prompt "Xft support"
 	depends on MFIREBIRD
+	default n
 
 #config MFIREBIRD_POSTSCRIPT
 #	bool
@@ -108,6 +112,7 @@ config MFIREBIRD_COMPOSER
 	bool
 	prompt "Compile Composer"
 	depends on MFIREBIRD
+	default n
 	
 #config MFIREBIRD_EXTENSIONS
 #	bool
@@ -164,11 +169,18 @@ config MFIREBIRD_COMPOSER
 #	prompt "Use Lea malloc in xpcom"
 #	depends on MFIREBIRD
 	
-#config MFIREBIRD_DEBUG
-#	bool
-#	prompt "Build with debug info"
-#	depends on MFIREBIRD
-	
+config MFIREBIRD_DEBUG
+	bool
+	prompt "Build with debug info"
+	depends on MFIREBIRD
+	default n
+
+config MFIREBIRD_OPTIMIZE
+	string
+	prompt "Optimisation Flags"
+	depends on MFIREBIRD
+	default "-O"
+
 #config MFIREBIRD_BOEHM
 #	bool
 #	prompt "Boehm Garbage Collector"

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.3 2003/08/22 15:32:11 robert Exp $
+# $Id: mfirebird.make,v 1.4 2003/08/26 13:01:51 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #             Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -85,7 +85,7 @@ mfirebird_prepare_deps =  \
 #	$(STATEDIR)/virtual-xchain.install \
 
 MFIREBIRD_PATH	=  PATH=$(CROSS_PATH)
-#MFIREBIRD_PATH	=  PATH=$(PTXCONF_PREFIX)/bin:$$PATH
+#MFIREBIRD_PATH	+= PATH=$(PTXCONF_PREFIX)/bin:$$PATH
 
 MFIREBIRD_ENV	=  $(CROSS_ENV)
 MFIREBIRD_ENV	+= MOZILLA_OFFICIAL=1
@@ -108,25 +108,24 @@ MFIREBIRD_AUTOCONF	+= --disable-gtktest
 MFIREBIRD_AUTOCONF	+= --disable-gdktest
 
 MFIREBIRD_AUTOCONF	+= --disable-tests
-MFIREBIRD_AUTOCONF	+= --disable-jsloader
-MFIREBIRD_AUTOCONF	+= --disable-jsd
-MFIREBIRD_AUTOCONF	+= --disable-oji
+#MFIREBIRD_AUTOCONF	+= --disable-jsloader
+#MFIREBIRD_AUTOCONF	+= --disable-jsd
+#MFIREBIRD_AUTOCONF	+= --disable-oji
 MFIREBIRD_AUTOCONF	+= --disable-xinerama
 MFIREBIRD_AUTOCONF	+= --disable-calendar
 MFIREBIRD_AUTOCONF	+= --disable-mailnews
 MFIREBIRD_AUTOCONF	+= --disable-ldap
-MFIREBIRD_AUTOCONF	+= --disable-freetype2
 MFIREBIRD_AUTOCONF	+= --disable-freetypetest
-MFIREBIRD_AUTOCONF	+= --disable-postscript
+#MFIREBIRD_AUTOCONF	+= --disable-postscript
 MFIREBIRD_AUTOCONF	+= --disable-xprint
-MFIREBIRD_AUTOCONF	+= --disable-crypto
-MFIREBIRD_AUTOCONF	+= --disable-accessability
-MFIREBIRD_AUTOCONF	+= --enable-xfpe-components
-#MFIREBIRD_AUTOCONF	+= --enable-single-profile
+#MFIREBIRD_AUTOCONF	+= --disable-crypto
+#MFIREBIRD_AUTOCONF	+= --disable-accessability
+#MFIREBIRD_AUTOCONF	+= --enable-xfpe-components
+##MFIREBIRD_AUTOCONF	+= --enable-single-profile
 MFIREBIRD_AUTOCONF	+= --disable-composer
 MFIREBIRD_AUTOCONF	+= --disable-mathml
 MFIREBIRD_AUTOCONF	+= --disable-svg
-MFIREBIRD_AUTOCONF	+= --disable-installer
+#MFIREBIRD_AUTOCONF	+= --disable-installer
 MFIREBIRD_AUTOCONF	+= --disable-activex
 
 # g++ currently seems to have a bug with -pedantic (at least the
@@ -320,13 +319,17 @@ endif
 #else
 #MFIREBIRD_AUTOCONF	+= --disable-xpcom-lea
 #endif
-#
-#ifdef PTXCONF_MFIREBIRD_DEBUG
-#MFIREBIRD_AUTOCONF	+= --enable-debug
-#else
-#MFIREBIRD_AUTOCONF	+= --disable-debug
-#endif
-#
+
+ifdef PTXCONF_MFIREBIRD_DEBUG
+MFIREBIRD_AUTOCONF	+= --enable-debug
+else
+MFIREBIRD_AUTOCONF	+= --disable-debug
+endif
+
+ifdef PTXCONF_MFIREBIRD_OPTIMIZE
+MFIREBIRD_AUTOCONF	+= --enable-optimize=$(PTXCONF_MFIREBIRD_OPTIMIZE)
+endif
+
 #ifdef PTXCONF_MFIREBIRD_BOEHM
 #MFIREBIRD_AUTOCONF	+= --enable-boehm
 #else
@@ -450,7 +453,7 @@ mfirebird_targetinstall_deps	+= $(STATEDIR)/gtk1210.targetinstall
 $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 	@$(call targetinfo, mfirebird.targetinstall)
 
-	cd $(MFIREBIRD_DIR) && make install DESTDIR=$(ROOTDIR)
+	cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make install DESTDIR=$(ROOTDIR)
 
 	touch $@
 
@@ -458,7 +461,7 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 # Clean
 # ----------------------------------------------------------------------------
 
-mfirebird_clean:
+mfirebird_clean_dont_use:
 	rm -rf $(STATEDIR)/mfirebird.*
 	rm -rf $(MFIREBIRD_DIR)
 
