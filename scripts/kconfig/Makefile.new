@@ -1,0 +1,42 @@
+CFLAGS= -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer
+CC=gcc
+
+zconf.tab.h: zconf.tab.h_shipped
+	cat $< > $@
+
+conf.o: conf.c zconf.tab.h
+	$(CC) -Wp,-Md,.conf.o.d $(CFLAGS) -c -o $@ $<
+
+lkc_defs.h: lkc_proto.h
+	sed < $< > $@ 's/P(\([^,]*\),.*/#define \1 (\*\1_p)/'
+
+gconf.o: gconf.c lkc_defs.h
+	$(CC) -Wp,-MD,.gconf.o.d $(CFLAGS) `pkg-config gtk+-2.0 gmodule-2.0 libglade-2.0 --cflags` -c $< -o $@
+
+kconfig_load.o: kconfig_load.c
+	$(CC) -Wp,-MD,.kconfig_load.o.d $(CFLAGS) -c $< -o $@
+
+mconf.o: mconf.c
+	$(CC) -Wp,-MD,.mconf.o.d $(CFLAGS) -c $< -o $@
+
+zconf.tab.c: zconf.tab.c_shipped zconf.tab.h lex.zconf.c
+	cat $< > $@
+
+lex.zconf.c: lex.zconf.c_shipped
+	cat $< > $@
+
+zconf.tab.o: zconf.tab.c
+	$(CC) -Wp,-MD,.zconf.tab.o.d $(CFLAGS) -c $< -o $@
+
+libkconfig.so: zconf.tab.o
+	$(CC) -shared -o $@ $^
+
+gconf: gconf.o kconfig_load.o libkconfig.so
+	$(CC) -o $@ $^ `pkg-config gtk+-2.0 gmodule-2.0 libglade-2.0 --libs`
+
+# ./scripts/kconfig/gconf  arch/i386/Kconfig
+
+.PHONY: clean
+clean:
+	rm -f zconf.tab.h *.o lkc_defs.h zconf.tab.c lex.zconf.c libkconfig.so gconf logfile 
+
