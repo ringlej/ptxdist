@@ -29,7 +29,7 @@ targetinfo=echo;					\
 
 
 #
-# extract the given source to sourcedir
+# extract the given source to builddir
 #
 extract =						\
 	DEST="$(2)";					\
@@ -81,9 +81,9 @@ get_patches =											\
 	fi;											\
 	[ -d $(PATCHDIR) ] || mkdir -p $(PATCHDIR);						\
 	wget -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
-		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic;		\
+		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/;		\
 	wget -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
-		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH);
+		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;
 
 #
 # cleanup the given directory
