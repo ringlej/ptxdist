@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.25 2004/01/28 21:55:06 robert Exp $
+# $Id: xchain-gccstage2.make,v 1.26 2004/01/30 12:43:57 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -123,9 +123,9 @@ GCC_STAGE2_AUTOCONF	+= --disable-multilib
 endif
 
 ifdef PTXCONF_SOFTFLOAT
-GCC_STAGE2_AUTOCONF	+= --without-float
+GCC_STAGE2_AUTOCONF	+= --enable-softfloat
 else
-GCC_STAGE2_AUTOCONF	+= --with-float
+GCC_STAGE2_AUTOCONF	+= --disable-softfloat
 endif
 
 #
