@@ -1,7 +1,19 @@
-2004-xx-xx
+2004-01-31 Robert Schwebel <r.schwebel@pengutronix.de>
+	* glibc: compile with softfloat when target does not have floating
+	  point support
+	* penguzilla: some bug fixes (BSP)
+	* xchain-gcc: made softfloat and multilib configurable options,
+	  necessary if you want to build 3.3.2 toolchain for targets 
+	  without FPU; added gcc-3.3.2 support for x86 target; added new
+	  standard target for building a gcc-2.95.3 standalone toolchain
+	* grub: added reiserfs tweak; some bugfixing; more network chips
+	  supported
+	* kernel: don't simply answer yes when oldconfig fails
 	* Makefile: fix multiple inclusion of Rules.make & friends
 	* rules: fix CROSS_ENV_* variables for preprocessor and cc
 	* kconfig: added PTXCONF_PROJECT to have the name available
+
+	* 0.5.1 released
 
 2004-01-05 Robert Schwebel <r.schwebel@pengutronix.de>
 	* general: feature patch is merged
