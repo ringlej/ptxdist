@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.1 2003/07/16 04:23:28 mkl Exp $
+# $Id: glibc.make,v 1.2 2003/08/13 14:54:36 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -355,6 +355,11 @@ endif # PTXCONF_GLIBC_2_2_5
 	# this is magically recreated if missing (necessary because
 	# of patch against configure.in)
 	rm -f $(GLIBC_DIR)/sysdeps/unix/sysv/linux/configure
+	
+	# We have to rebuild the toplevel configure script. Nobody knows
+	# why...
+	rm -f $(GLIBC_DIR)/configure
+	cd $(GLIBC_DIR) && $(GLIBC_PATH) autoconf
 	touch $@
 
 $(STATEDIR)/glibc-threads.extract: $(STATEDIR)/glibc.get
