@@ -135,7 +135,7 @@ PTXCONF_KERNEL_INSTALL=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/ptxdist/feature-patches-cvs/linux-2.4.18/linux-2.4.18-rthal5g.patch"
+PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/ptxdist/feature-patches/linux-2.4.18/linux-2.4.18-rthal5g.patch"
 PTXCONF_KERNEL_PATCH1_NAME="rtai"
 PTXCONF_KERNEL_PATCH1_XCHAIN=y
 
