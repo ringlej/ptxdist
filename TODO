@@ -1,6 +1,8 @@
 Current TODO List
 =================
 
+- RSC: add http://www.reportlab.com/ftp/
+- RSC: check bash (doesn't compile according to Lisa Hsu)
 - RSC: add http://rlib.sicompos.com/
 - sandeep: add a script to setup a new project interactively
 - RSC: do module stuff in kernel only when modules are enabled
