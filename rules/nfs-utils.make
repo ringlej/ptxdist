@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: nfs-utils.make,v 1.9 2004/06/23 15:31:55 rsc Exp $
+# $Id: nfs-utils.make,v 1.10 2004/06/25 13:18:51 rsc Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -18,7 +18,7 @@ endif
 #
 # Paths and names 
 #
-NFSUTILS		= nfs-utils-1.0.6-ptx3
+NFSUTILS		= nfs-utils-1.0.6-ptx4
 NFSUTILS_URL		= http://www.pengutronix.de/software/nfs-utils/$(NFSUTILS).tar.gz
 NFSUTILS_SOURCE		= $(SRCDIR)/$(NFSUTILS).tar.gz
 NFSUTILS_DIR		= $(BUILDDIR)/$(NFSUTILS)
