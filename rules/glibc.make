@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.13 2003/10/28 00:21:06 mkl Exp $
+# $Id: glibc.make,v 1.14 2003/10/28 01:47:47 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -228,10 +228,10 @@ $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 	for file in libc.so libpthread.so libgcc_s.so; do								\
 		if [ -f $(CROSS_LIB_DIR)/lib/$$file -a ! -h $(CROSS_LIB_DIR)/lib/$$file ]; then				\
 			echo $$file;											\
-			if [ ! -f $(CROSS_LIB_DIR)/lib/$$file.orig ]; then						\
-				mv $(CROSS_LIB_DIR)/lib/$$file $(CROSS_LIB_DIR)/lib/$$file.orig;			\
+			if [ ! -f $(CROSS_LIB_DIR)/lib/$$file-orig ]; then						\
+				mv $(CROSS_LIB_DIR)/lib/$$file $(CROSS_LIB_DIR)/lib/$$file-orig;			\
 			fi;												\
-			sed 's,/lib/,,g;/BUG in libc.scripts.output-format.sed/d' < $(CROSS_LIB_DIR)/lib/$$file.orig	\
+			sed 's,/lib/,,g;/BUG in libc.scripts.output-format.sed/d' < $(CROSS_LIB_DIR)/lib/$$file-orig	\
 				> $(CROSS_LIB_DIR)/lib/$$file;								\
 		fi;													\
 	done
@@ -253,12 +253,6 @@ else
 GLIBC_STRIP	= $(CROSSSTRIP) -S -R .note -R .comment
 endif
 
-ifeq ($(GLIBC_VERSION_MAJOR).$(GLIBC_VERSION_MINOR),2.2)
-GLIBC_PTHREAD_VERSION	= 0.9
-else
-GLIBC_PTHREAD_VERSION	= 0.10
-endif
-
 $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps)
 	@$(call targetinfo, $@)
 #
@@ -267,97 +261,84 @@ $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps)
 #
 	mkdir -p $(ROOTDIR)/lib
 
-	install $(CROSS_LIB_DIR)/lib/ld-$(GLIBC_VERSION).so $(ROOTDIR)/lib/ld-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/ld-$(GLIBC_VERSION).so
-	ln -sf ld-$(GLIBC_VERSION).so $(ROOTDIR)/lib/ld.so.1
-	ln -sf ld-$(GLIBC_VERSION).so $(ROOTDIR)/lib/ld-linux.so.2
-
-	install $(CROSS_LIB_DIR)/lib/libc-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libc-$(GLIBC_VERSION).so.6
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libc-$(GLIBC_VERSION).so.6
-	ln -sf libc-$(GLIBC_VERSION).so.6 $(ROOTDIR)/lib/libc.so.6
+	cp -d $(CROSS_LIB_DIR)/lib/ld[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/ld[-,.]*so*
+	ln -sf ld-$(GLIBC_VERSION).so $(ROOTDIR)$(DYNAMIC_LINKER)
+#
+# we don't wanna copy libc.so, cause this is ld linker script, no shared lib
+#
+	cp -d $(CROSS_LIB_DIR)/lib/libc-*so* $(ROOTDIR)/lib/
+	cp -d $(CROSS_LIB_DIR)/lib/libc.so.* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libc[-,.]*so*
 
 ifdef PTXCONF_GLIBC_PTHREADS
-	install $(CROSS_LIB_DIR)/lib/libpthread-$(GLIBC_PTHREAD_VERSION).so $(ROOTDIR)/lib/libpthread-$(GLIBC_PTHREAD_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libpthread-$(GLIBC_PTHREAD_VERSION).so
-	ln -sf libpthread-$(GLIBC_PTHREAD_VERSION).so $(ROOTDIR)/lib/libpthread.so.0
+	cp -d $(CROSS_LIB_DIR)/lib/libpthread[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libpthread[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_THREAD_DB
-	install $(CROSS_LIB_DIR)/lib/libthread_db.so $(ROOTDIR)/lib/libthread_db-1.0.so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libthread_db-1.0.so
-	ln -sf libthread_db-1.0.so $(ROOTDIR)/lib/libthread_db.so.1
+	cp -d $(CROSS_LIB_DIR)/lib/libthread_db[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libthread_db[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_DL
-	install $(CROSS_LIB_DIR)/lib/libdl.so $(ROOTDIR)/lib/libdl-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libdl-$(GLIBC_VERSION).so
-	ln -sf libdl-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libdl.so.2
+	cp -d $(CROSS_LIB_DIR)/lib/libdl[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libdl[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_CRYPT
-	install $(CROSS_LIB_DIR)/lib/libcrypt.so $(ROOTDIR)/lib/libcrypt-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libcrypt-$(GLIBC_VERSION).so
-	ln -sf libcrypt-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libcrypt.so.1
+	cp -d $(CROSS_LIB_DIR)/lib/libcrypt[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libcrypt[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_UTIL
-	install $(CROSS_LIB_DIR)/lib/libutil.so $(ROOTDIR)/lib/libutil-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libutil-$(GLIBC_VERSION).so
-	ln -sf libutil-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libutil.so.1
+	cp -d $(CROSS_LIB_DIR)/lib/libutil[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libutil[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_LIBM
-	install $(CROSS_LIB_DIR)/lib/libm.so $(ROOTDIR)/lib/libm-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libm-$(GLIBC_VERSION).so
-	ln -sf libm-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libm.so.6
+	cp -d $(CROSS_LIB_DIR)/lib/libm[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libm[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_DNS
-	install $(CROSS_LIB_DIR)/lib/libnss_dns.so.2 $(ROOTDIR)/lib/libnss_dns-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_dns-$(GLIBC_VERSION).so
-	ln -sf libnss_dns-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libnss_dns.so.2
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_dns[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_dns[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_FILES
-	install $(CROSS_LIB_DIR)/lib/libnss_files.so.2 $(ROOTDIR)/lib/libnss_files-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_files-$(GLIBC_VERSION).so
-	ln -sf libnss_files-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libnss_files.so.2
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_files[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_files[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_HESIOD
-	install $(CROSS_LIB_DIR)/lib/libnss_hesiod.so.2 $(ROOTDIR)/lib/libnss_hesiod-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_hesiod-$(GLIBC_VERSION).so
-	ln -sf libnss_hesiod-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libnss_hesiod.so.2
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_hesiod[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_hesiod[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_NIS
-	install $(CROSS_LIB_DIR)/lib/libnss_nis.so.2 $(ROOTDIR)/lib/libnss_nis-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_nis-$(GLIBC_VERSION).so
-	ln -sf libnss_nis-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libnss_nis.so.2
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_nis[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_nis[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_NISPLUS
-	install $(CROSS_LIB_DIR)/lib/libnss_nisplus.so.2 $(ROOTDIR)/lib/libnss_nisplus-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_nisplus-$(GLIBC_VERSION).so
-	ln -sf libnss_nisplus-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libnss_nisplus.so.2
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_nisplus[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_nisplus[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_COMPAT
-	install $(CROSS_LIB_DIR)/lib/libnss_compat.so.2 $(ROOTDIR)/lib/libnss_compat-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_compat-$(GLIBC_VERSION).so
-	ln -sf libnss_compat-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libnss_compat.so.2
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_compat[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_compat[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_RESOLV
-	install $(CROSS_LIB_DIR)/lib/libresolv.so $(ROOTDIR)/lib/libresolv-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libresolv-$(GLIBC_VERSION).so
-	ln -sf libresolv-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libresolv.so.2
+	cp -d $(CROSS_LIB_DIR)/lib/libresolv[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libresolv[-,.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSL
-	install $(CROSS_LIB_DIR)/lib/libnsl.so $(ROOTDIR)/lib/libnsl-$(GLIBC_VERSION).so
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnsl-$(GLIBC_VERSION).so
-	ln -sf libnsl-$(GLIBC_VERSION).so $(ROOTDIR)/lib/libnsl.so.1
+	cp -d $(CROSS_LIB_DIR)/lib/libnsl[-,.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnsl[-,.]*so*
 endif
 
 	touch $@
