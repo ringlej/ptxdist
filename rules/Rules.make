@@ -56,6 +56,12 @@ check_prog_version = 				\
 		exit -1;			\
 	fi;
 
+check_file_exists = 				\
+	@if [ ! -e $(1) ]; then			\
+		echo "$(1) not found";		\
+		exit -1;			\
+	fi;
+
 #
 # print out header information and check if we have the right compiler
 #
@@ -621,30 +627,6 @@ link_root =									\
 	ln -sf $$SRC $(ROOTDIR)$$DST
 
 #
-# CFLAGS // CXXFLAGS
-#
-# the TARGET_CFLAGS and TARGET_CXXFLAGS are included from the architecture
-# depended config file that is specified in .config
-#
-# the option in the .config is called 'TARGET_CONFIG_FILE'
-#
-#
-TARGET_CFLAGS		+= $(PTXCONF_TARGET_EXTRA_CFLAGS)
-TARGET_CXXFLAGS		+= $(PTXCONF_TARGET_EXTRA_CXXFLAGS)
-TARGET_CPPFLAGS		+= $(PTXCONF_TARGET_EXTRA_CPPFLAGS)
-TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
-
-#
-# if we use an external crosschain set include and lib dirs correctly
-#
-ifndef $(PTXCONF_CROSSTOOL)
-TARGET_CFLAGS		+= -idirafter$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-TARGET_CXXFLAGS		+= -idirafter$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-TARGET_CPPFLAGS		+= -idirafter$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-endif
-
-#
 # crossenvironment
 #
 CROSS_ENV_AR		= AR=$(PTXCONF_GNU_TARGET)-ar
@@ -658,17 +640,17 @@ CROSS_ENV_OBJCOPY	= OBJCOPY=$(PTXCONF_GNU_TARGET)-objcopy
 CROSS_ENV_OBJDUMP	= OBJDUMP=$(PTXCONF_GNU_TARGET)-objdump
 CROSS_ENV_RANLIB	= RANLIB=$(PTXCONF_GNU_TARGET)-ranlib
 CROSS_ENV_STRIP		= STRIP=$(PTXCONF_GNU_TARGET)-strip
-ifneq ('','$(strip $(subst ",,$(TARGET_CFLAGS)))')
-CROSS_ENV_CFLAGS	= CFLAGS='$(strip $(subst ",,$(TARGET_CFLAGS)))'
+ifneq ('','$(strip $(subst $(quote),,$(TARGET_CFLAGS)))')
+CROSS_ENV_CFLAGS	= CFLAGS='$(strip $(subst $(quote),,$(TARGET_CFLAGS)))'
 endif
-ifneq ('','$(strip $(subst ",,$(TARGET_CXXFLAGS)))')
-CROSS_ENV_CXXFLAGS	= CXXFLAGS='$(strip $(subst ",,$(TARGET_CXXFLAGS)))'
+ifneq ('','$(strip $(subst $(quote),,$(TARGET_CXXFLAGS)))')
+CROSS_ENV_CXXFLAGS	= CXXFLAGS='$(strip $(subst $(quote),,$(TARGET_CXXFLAGS)))'
 endif
-ifneq ('','$(strip $(subst ",,$(TARGET_CPPFLAGS)))')
-CROSS_ENV_CPPFLAGS	= CPPFLAGS='$(strip $(subst ",,$(TARGET_CPPFLAGS)))'
+ifneq ('','$(strip $(subst $(quote),,$(TARGET_CPPFLAGS)))')
+CROSS_ENV_CPPFLAGS	= CPPFLAGS='$(strip $(subst $(quote),,$(TARGET_CPPFLAGS)))'
 endif
-ifneq ('','$(strip $(subst ",,$(TARGET_LDFLAGS)))')
-CROSS_ENV_LDFLAGS	= LDFLAGS='$(strip $(subst ",,$(TARGET_LDFLAGS)))'
+ifneq ('','$(strip $(subst $(quote),,$(TARGET_LDFLAGS)))')
+CROSS_ENV_LDFLAGS	= LDFLAGS='$(strip $(subst $(quote),,$(TARGET_LDFLAGS)))'
 endif
 
 CROSS_ENV := \
@@ -693,6 +675,37 @@ CROSS_ENV := \
 	ac_cv_func_memcmp_clean=yes \
 	ac_cv_func_setvbuf_reversed=no \
 	ac_cv_func_getrlimit=yes
+
+#
+# CFLAGS / CXXFLAGS
+#
+# the TARGET_CFLAGS and TARGET_CXXFLAGS are included from the architecture
+# depended config file that is specified in .config
+#
+# the option in the .config is called 'TARGET_CONFIG_FILE'
+#
+#
+TARGET_CFLAGS		+= $(PTXCONF_TARGET_EXTRA_CFLAGS)
+TARGET_CXXFLAGS		+= $(PTXCONF_TARGET_EXTRA_CXXFLAGS)
+TARGET_CPPFLAGS		+= $(PTXCONF_TARGET_EXTRA_CPPFLAGS)
+TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
+
+#
+# if we use an external crosschain set include and lib dirs correctly: 
+# 
+# - don't use system standard include paths
+# - find out the compiler's sysincludedir
+#
+ifndef $(PTXCONF_CROSSTOOL)
+TARGET_CFLAGS		+= -nostdinc -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include 
+TARGET_CFLAGS		+= -isystem $(shell GCC=$(PTXCONF_GNU_TARGET)-gcc $(TOPDIR)/scripts/sysinclude_test)
+TARGET_CXXFLAGS		+= -nostdinc -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+TARGET_CXXFLAGS		+= -isystem $(shell GCC=$(PTXCONF_GNU_TARGET)-g++ $(TOPDIR)/scripts/sysinclude_test)
+TARGET_CPPFLAGS		+= -nostdinc -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+TARGET_CPPFLAGS		+= -isystem $(shell GCC=$(PTXCONF_GNU_TARGET)-gcc $(TOPDIR)/scripts/sysinclude_test)
+TARGET_LDFLAGS		+= -nostdlib -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+endif
+
 
 
 #
