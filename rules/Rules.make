@@ -114,9 +114,9 @@ get_patches =											\
 	if [ -d $(PATCHDIR)/$$PACKET_NAME ]; then						\
 		rm -fr $(PATCHDIR)/$$PACKET_NAME;						\
 	fi;											\
-	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
+	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/;		\
-	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
+	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;	\
 	if [ -d $(PATCHDIR)-local/$$PACKET_NAME ]; then						\
 		echo "Copying Local patches from patches-local/"$$PACKET_NAME;			\
