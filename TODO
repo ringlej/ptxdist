@@ -18,6 +18,21 @@ High Priority
        but downgrading does not help). Has to be evaluated!!!
 - RSC: add #ifdef __cplusplus ... #else ... #endif to bits/in.h
 - RSC: add .in file for xvkbd; integrate fixes for Makefile...
+- RSC: busybox 1.00-pre2 has lots of problems (broken job control/
+       controlling ttys, strange terminal effects etc.). This makes it 
+       worse than the old 0.6x versions. We probably should make the 
+       version configurable, but this needs the kconfig extraction 
+       mechanism to be run at runtime. I don't have a good idea how 
+       to do this yet.
+- RSC: For the patches I would like to have a selection mechanism 
+       in kconfig.
+- RSC: Tests with the rayonic, innokom and i386-generic-glibc 
+       configurations. These need to work at least on Debian stable; the 
+       problem that it does not work on unstable is still there.
+- RSC: Look at Dan's patch for runs without internal toolchain. Marc, can
+       the problem be addressed by the virtual toolchain rules? I only
+       had a short look at the patch but it seemed to cry for a more general
+       solution.
 
 Low Priority
 ------------
