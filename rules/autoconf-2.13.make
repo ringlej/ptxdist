@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: autoconf-2.13.make,v 1.4 2003/07/16 20:05:17 robert Exp $
+# $Id: autoconf-2.13.make,v 1.5 2003/07/17 07:40:38 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -88,7 +88,7 @@ $(STATEDIR)/autoconf213.install: $(STATEDIR)/autoconf213.compile
 # Target-Install
 # ----------------------------------------------------------------------------
 
-autoconf213_targetinstall: $(STATEDIR)/autoconf213.compile
+autoconf213_targetinstall: $(STATEDIR)/autoconf213.targetinstall
 
 $(STATEDIR)/autoconf213.targetinstall: $(STATEDIR)/autoconf213.install
 	@$(call targetinfo, autoconf213.targetinstall)
