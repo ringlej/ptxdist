@@ -93,7 +93,7 @@ PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_VAR=y
-PTXCONF_VENDORTWEAKS="projects/scII-bmwm/i386-scII-bmwm.vendortweaks"
+PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/scII-bmwm.vendortweaks"
 
 #
 # Image Creation

@@ -93,7 +93,7 @@ PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_VAR=y
-PTXCONF_VENDORTWEAKS="projects/cameron-efco/cameron-efco.vendortweaks"
+PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/cameron-efco.vendortweaks"
 
 #
 # Image Creation

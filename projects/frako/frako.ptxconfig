@@ -93,7 +93,7 @@ PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_VAR=y
-PTXCONF_VENDORTWEAKS="projects/frako/frako.vendortweaks"
+PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/frako.vendortweaks"
 
 #
 # Image Creation

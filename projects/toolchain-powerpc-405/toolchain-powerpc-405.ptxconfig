@@ -93,7 +93,7 @@ PTXCONF_ROOTFS_ETC=y
 PTXCONF_ROOTFS_SYS=y
 # PTXCONF_ROOTFS_TMP is not set
 # PTXCONF_ROOTFS_VAR is not set
-PTXCONF_VENDORTWEAKS="projects/toolchain-powerpc-405/toolchain-powerpc-405.vendortweaks"
+PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/toolchain-powerpc-405.vendortweaks"
 
 #
 # Image Creation
