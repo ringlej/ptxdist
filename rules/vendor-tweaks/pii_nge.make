@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pii_nge.make,v 1.3 2004/08/17 07:21:49 rsc Exp $
+# $Id: pii_nge.make,v 1.4 2004/08/17 09:42:50 sha Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -22,6 +22,7 @@ $(STATEDIR)/pii_nge.targetinstall:
 
 #	copy /etc template
 	cp -a $(TOPDIR)/etc/generic/. $(ROOTDIR)/etc
+	cp $(TOPDIR)/etc/pii_nge/init.d/* $(ROOTDIR)/etc/init.d/
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
@@ -39,12 +40,13 @@ $(STATEDIR)/pii_nge.targetinstall:
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
 
 #	other config data
-	perl -i -p -e "s,\@HOSTNAME@,,g" $(ROOTDIR)/etc/inittab
+	rm -f $(ROOTDIR)/etc/hostname
 	perl -i -p -e "s,\@CONSOLE@,tts/0,g" $(ROOTDIR)/etc/inittab
 	perl -i -p -e "s,\@SPEED@,115200,g" $(ROOTDIR)/etc/inittab
-	perl -i -p -e "s,\@PS1@,\\u\@\\h:\\w\$ ,g" $(ROOTDIR)/profile
-	perl -i -p -e "s,\@PS2@,> ,g" $(ROOTDIR)/profile
-	perl -i -p -e "s,\@PS4@,+ ,g" $(ROOTDIR)/profile
+	perl -i -p -e "s,\@VENDOR@,PII ,g" $(ROOTDIR)/etc/init.d/banner
+	perl -i -p -e "s,\@PS1@,\'\\\u@\\\h:\\\w> \',g" $(ROOTDIR)/etc/profile
+	perl -i -p -e "s,\@PS2@,\'> \',g" $(ROOTDIR)/etc/profile
+	perl -i -p -e "s,\@PS4@,\'+ \',g" $(ROOTDIR)/etc/profile
 
 	# create some mountpoints	
 	#install -d $(ROOTDIR)/data/

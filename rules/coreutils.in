@@ -9,6 +9,11 @@ config COREUTILS_CP
 	prompt "cp"
 	depends on COREUTILS
 
+config COREUTILS_MD5SUM
+	bool
+	prompt "md5sum"
+	depends on COREUTILS
+
 config COREUTILS_SEQ
         bool
         prompt "seq"

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: proftpd.make,v 1.6 2003/10/23 20:41:41 mkl Exp $
+# $Id: proftpd.make,v 1.7 2004/08/17 09:42:50 sha Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -19,9 +19,10 @@ endif
 #
 # Paths and names 
 #
-PROFTPD_VERSION		= 1.2.8
+PROFTPD_VERSION		= 1.2.10rc3
+# PROFTPD_VERSION         = 1.2.8
 PROFTPD			= proftpd-$(PROFTPD_VERSION)
-PROFTPD_TARBALL		= proftpd-$(PROFTPD_VERSION)p.$(PROFTPD_SUFFIX)
+PROFTPD_TARBALL		= proftpd-$(PROFTPD_VERSION).$(PROFTPD_SUFFIX)
 PROFTPD_SUFFIX		= tar.gz
 PROFTPD_URL		= ftp://ftp.proftpd.org/distrib/source/$(PROFTPD_TARBALL)
 PROFTPD_SOURCE		= $(SRCDIR)/$(PROFTPD_TARBALL)
@@ -35,6 +36,7 @@ proftpd_get: $(STATEDIR)/proftpd.get
 
 $(STATEDIR)/proftpd.get: $(PROFTPD_SOURCE)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(PROFTPD))
 	touch $@
 
 $(PROFTPD_SOURCE):
@@ -51,6 +53,7 @@ $(STATEDIR)/proftpd.extract: $(STATEDIR)/proftpd.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(PROFTPD_DIR))
 	@$(call extract, $(PROFTPD_SOURCE))
+	@$(call patchin, $(PROFTPD))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -108,7 +111,7 @@ proftpd_compile: $(STATEDIR)/proftpd.compile
 
 $(STATEDIR)/proftpd.compile: $(STATEDIR)/proftpd.prepare 
 	@$(call targetinfo, $@)
-	$(PROFTPD_PATH)	make -C $(PROFTPD_DIR) $(PROFTPD_MAKEVARS)
+	cd $(PROFTPD_DIR) && $(PROFTPD_PATH) $(PROFTPD_ENV) make $(PROFTPD_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------

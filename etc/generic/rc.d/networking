@@ -1,4 +1,31 @@
 #!/bin/sh
 
-# ifconfig eth0 192.168.0.21 netmask 255.255.255.0 up
+# some interesting variables
+eth0_current_mac=`ifconfig eth0 | sed -n 's/^.*HWaddr \([0-9A-Za-z:]*\).*/\1/p'`
+eth0_ip=`cat /proc/cmdline | sed -n 's/.*ip=\([^:]*\):.*/\1/gp'`
+
+# check if eth0 is uninitialized and needs to be set up with 
+# MAC address
+
+echo -n "eth0: mac address state: "; 
+
+if [ "$eth0_current_mac" = "00:00:00:00:00:00" ]; then
+	echo -n "unconfigured, setting to [$eth0_mac] "
+	ifconfig eth0 hw ether $eth0_mac
+	ifconfig eth0 $eth0_ip up
+	echo 
+else
+	echo "initialized [$eth0_mac]"
+fi
+
+# check if we are already listed in /etc/hosts
+
+hostname=`hostname`
+if [ -z "`grep $hostname /etc/hosts`" ]; then
+	echo "adding $hostname to /etc/hosts"
+	mount_state=`mount | grep root | sed -n 's/^.*(\(r.\),.*$/\1/p'`
+	mount /dev/root / -o remount,rw
+	echo `ifconfig eth0 | sed -n '/addr:/s/ [^r]*..//gp'` `hostname` >> /etc/hosts
+	mount /dev/root / -o remount,$mount_state
+fi
 

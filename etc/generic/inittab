@@ -12,7 +12,12 @@ console::sysinit:/etc/init.d/rcS
 #::sysinit:/sbin/syslogd host:514 (for remote logging)
 #::sysinit:/usr/sbin/crond -L /var/log/cron
 #::sysinit:/usr/sbin/sshd -4 -f /etc/ssh/sshd_config
+
+# Network daemons
 null::sysinit:/sbin/utelnetd -d
+null::sysinit:/usr/sbin/proftpd
+
+# Announce we are here
 console::sysinit:/etc/init.d/banner 
 
 console::respawn:/sbin/getty -L @SPEED@ @CONSOLE@ vt100

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: coreutils.make,v 1.4 2004/07/16 09:12:12 rsc Exp $
+# $Id: coreutils.make,v 1.5 2004/08/17 09:42:50 sha Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -93,11 +93,14 @@ coreutils_compile: $(STATEDIR)/coreutils.compile
 $(STATEDIR)/coreutils.compile: $(STATEDIR)/coreutils.prepare 
 	@$(call targetinfo, $@)
 	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/lib libfetish.a
-ifdef PTXCONF_COREUTILS_SEQ
-	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src seq
-endif
 ifdef PTXCONF_COREUTILS_CP
 	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src cp
+endif
+ifdef PTXCONF_COREUTILS_MD5SUM
+	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src md5sum
+endif
+ifdef PTXCONF_COREUTILS_SEQ
+	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src seq
 endif
 	touch $@
 
@@ -120,13 +123,17 @@ coreutils_targetinstall: $(STATEDIR)/coreutils.targetinstall
 $(STATEDIR)/coreutils.targetinstall: $(STATEDIR)/coreutils.compile
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/usr/bin
-ifdef PTXCONF_COREUTILS_SEQ
-	install $(COREUTILS_DIR)/src/seq $(ROOTDIR)/usr/bin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/seq
-endif
 ifdef PTXCONF_COREUTILS_CP
 	install $(COREUTILS_DIR)/src/cp $(ROOTDIR)/bin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/cp
+endif
+ifdef PTXCONF_COREUTILS_MD5SUM
+	install $(COREUTILS_DIR)/src/md5sum $(ROOTDIR)/bin
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/md5sum
+endif
+ifdef PTXCONF_COREUTILS_SEQ
+	install $(COREUTILS_DIR)/src/seq $(ROOTDIR)/usr/bin
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/seq
 endif
 	touch $@
 
