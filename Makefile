@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.1 2003/04/24 08:06:32 jst Exp $
+# $Id: Makefile,v 1.2 2003/04/24 08:41:07 jst Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -82,10 +82,16 @@ world: $(PACKAGES_TARGETINSTALL)
 
 # Configuration system -------------------------------------------------------
 
-scripts/lxdialog/lxdialog:
+ptx_lxdialog:
+	cd scripts/lxdialog && ln -s -f ../ptx-modifications/Makefile.lxdialog.ptx Makefile
+
+ptx_kconfig:
+	cd scripts/kconfig && ln -s -f ../ptx-modifications/Makefile.kconfig.ptx Makefile
+
+scripts/lxdialog/lxdialog: ptx_lxdialog
 	make -C scripts/lxdialog lxdialog
 
-scripts/kconfig/libkconfig.so:
+scripts/kconfig/libkconfig.so: ptx_kconfig
 	make -C scripts/kconfig libkconfig.so
 
 scripts/kconfig/conf: scripts/kconfig/libkconfig.so
@@ -103,7 +109,7 @@ menuconfig: scripts/lxdialog/lxdialog scripts/kconfig/mconf
 xconfig: scripts/kconfig/qconf
 	scripts/kconfig/qconf config/Config.in
 
-oldconfig: scripts/kconfig/conf
+oldconfig: ptx_kconfig scripts/kconfig/conf
 	scripts/kconfig/conf -o config/Config.in 
 
 # ----------------------------------------------------------------------------
