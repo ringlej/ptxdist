@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: grub.make,v 1.9 2004/01/27 14:52:14 bsp Exp $
+# $Id: grub.make,v 1.10 2004/01/27 18:34:53 robert Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -31,6 +31,7 @@ grub_get: $(STATEDIR)/grub.get
 
 $(STATEDIR)/grub.get: $(GRUB_SOURCE)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(GRUB))
 	touch $@
 
 $(GRUB_SOURCE):
@@ -47,6 +48,7 @@ $(STATEDIR)/grub.extract: $(STATEDIR)/grub.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(GRUB_DIR))
 	@$(call extract, $(GRUB_SOURCE))
+	@$(call patchin, $(GRUB))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -56,7 +58,12 @@ $(STATEDIR)/grub.extract: $(STATEDIR)/grub.get
 grub_prepare: $(STATEDIR)/grub.prepare
 
 GRUB_PATH	= PATH=$(CROSS_PATH)
-GRUB_ENV	= $(CROSS_ENV)
+
+# RSC: grub 0.93 decides to build without optimization when it detects
+# non-standard CFLAGS. We can unset them here as grub is compiled
+# standalone anyway (without Linux/glibc includes)
+
+GRUB_ENV	= $(CROSS_ENV) CFLAGS=''
 
 GRUB_AUTOCONF =  --build=$(GNU_HOST)
 GRUB_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
