@@ -138,7 +138,7 @@ PTXCONF_KERNEL_INSTALL=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH1_URL="http://metis/frako.diff"
+PTXCONF_KERNEL_PATCH1_URL="file://tmp/frako_src/frako.diff"
 PTXCONF_KERNEL_PATCH1_NAME="frako_relais"
 # PTXCONF_KERNEL_PATCH1_XCHAIN is not set
 
