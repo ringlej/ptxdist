@@ -85,6 +85,12 @@ ifdef PTXCONF_ARCH_ARM
 CROSSTOOL_GCC_EXTRA_CONFIG	=  "--with-float=soft --with-cpu=strongarm"
 endif
 
+ifndef PTXCONF_GCC_2_95_3
+ifdef PTXCONF_OPT_PPC405
+CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-cpu=405 --enable-cxx-flags=-mpcu=405"
+endif
+endif
+
 CROSSTOOL_GCCLANG		=  c
 ifdef PTXCONF_CROSSTOOL_GCCLANG_CC
 CROSSTOOL_GCCLANG		+= ,c++
@@ -125,9 +131,9 @@ crosstool_install_deps = $(STATEDIR)/crosstool.compile
 
 $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 	@$(call targetinfo, $@)
-	#
-	# We set all the stuff crosstool expects in it's environment
-	#
+#
+# We set all the stuff crosstool expects in it's environment
+#
 	(	cd $(CROSSTOOL_DIR); \
 		set -ex; \
 		TARBALLS_DIR=$(TOPDIR)/src; \
@@ -153,7 +159,7 @@ $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 		echo "done" \
 		exit 1;	\
 	)
-		
+
 	touch $@
 
 # ----------------------------------------------------------------------------
