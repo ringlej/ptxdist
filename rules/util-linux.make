@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: util-linux.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
+# $Id: util-linux.make,v 1.5 2003/10/26 06:28:35 mkl Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -76,10 +76,6 @@ UTIL-LINUX_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/util-linux.prepare: $(util-linux_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(UTIL-LINUX_BUILDDIR))
-#
-# FIXME: strange configure script, not cross enabled...
-#
 	cd $(UTIL-LINUX_DIR) && \
 		$(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) \
 		./configure
