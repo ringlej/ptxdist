@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pango12.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
+# $Id: pango12.make,v 1.4 2004/02/17 16:02:56 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -20,15 +20,12 @@ endif
 #
 # Paths and names
 #
-PANGO12_VERSION		= 1.2.3
+PANGO12_VERSION		= 1.2.5
 PANGO12			= pango-$(PANGO12_VERSION)
 PANGO12_SUFFIX		= tar.gz
 PANGO12_URL		= ftp://ftp.gtk.org/pub/gtk/v2.2/$(PANGO12).$(PANGO12_SUFFIX)
 PANGO12_SOURCE		= $(SRCDIR)/$(PANGO12).$(PANGO12_SUFFIX)
 PANGO12_DIR		= $(BUILDDIR)/$(PANGO12)
-PANGO12_PATCH		= $(PANGO12)-ptx1.diff
-PANGO12_PATCH_SOURCE	= $(SRCDIR)/$(PANGO12_PATCH)
-PANGO12_PATCH_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(PANGO12_PATCH)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -63,7 +60,6 @@ $(STATEDIR)/pango12.extract: $(pango12_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PANGO12_DIR))
 	@$(call extract, $(PANGO12_SOURCE))
-	cd $(PANGO12_DIR) && patch -p1 < $(PANGO12_PATCH_SOURCE)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -79,11 +75,12 @@ pango12_prepare_deps =  \
 	$(STATEDIR)/pango12.extract \
 	$(STATEDIR)/glib22.install \
 	$(STATEDIR)/virtual-xchain.install
-#	$(STATEDIR)/fontconfig22.install \
+#	$(STATEDIR)/fontconfig22.install
+
 
 PANGO12_PATH	=  PATH=$(CROSS_PATH)
 PANGO12_ENV 	=  $(CROSS_ENV)
-PANGO12_ENV	+= PKG_CONFIG_PATH=../$(GLIB22):../$(ATK124):../$(PANGO12):../$(GTK22)
+PANGO12_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 # FIXME: pango does not use pkg-config yet...
 PANGO12_ENV	+= ac_cv_path_FREETYPE_CONFIG=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin/freetype-config
@@ -91,7 +88,7 @@ PANGO12_ENV	+= ac_cv_path_FREETYPE_CONFIG=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET
 #
 # autoconf
 #
-PANGO12_AUTOCONF	=  --prefix=/usr
+PANGO12_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 PANGO12_AUTOCONF	+= --build=$(GNU_HOST)
 PANGO12_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 PANGO12_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
@@ -114,19 +111,7 @@ pango12_compile_deps =  $(STATEDIR)/pango12.prepare
 
 $(STATEDIR)/pango12.compile: $(pango12_compile_deps)
 	@$(call targetinfo, $@)
-
-# FIXME: feed upstream; these links are expected by gtk and seem
-# to have been forgetten. 
-	ln -sf libpangoxft-1.0.la $(PANGO12_DIR)/pango/libpangoxft.la
-	ln -sf libpango-1.0.la $(PANGO12_DIR)/pango/libpango.la
-	ln -sf libpangox-1.0.la $(PANGO12_DIR)/pango/libpangox.la
-
 	$(PANGO12_PATH) $(PANGO12_ENV) make -C $(PANGO12_DIR)
-
-# FIXME: let gtk not see xft
-	cd $(PANGO12_DIR) && mv pangoxft-uninstalled.pc NOINST-pangoxft-uninstalled.pc
-	cd $(PANGO12_DIR) && mv pangoxft.pc NOINST-pangoxft.pc
-
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -137,16 +122,7 @@ pango12_install: $(STATEDIR)/pango12.install
 
 $(STATEDIR)/pango12.install: $(STATEDIR)/pango12.compile
 	@$(call targetinfo, $@)
-
-	install -d $(PTXCONF_PREFIX)/$(PTX_GNU_TARGET)/lib
-	rm -f $(PTXCONF_PREFIX)/$(PTX_GNU_TARGET)/lib/libpango-1.0.so*
-	install $(PANGO12_DIR)/pango/.libs/libpango-1.0.so.0.200.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/
-	ln -sf libpango-1.0.so.0.200.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpango-1.0.so.0
-	ln -sf libpango-1.0.so.0.200.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpango-1.0.so
-	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/pango*.h
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/pango
-	cp $(PANGO12_DIR)/pango/pango*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/pango
-
+	$(PANGO12_PATH) $(PANGO12_ENV) make -C $(PANGO12_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: fontconfig22.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: fontconfig22.make,v 1.3 2004/02/17 16:02:56 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -79,21 +79,19 @@ fontconfig22_prepare_deps =  \
 
 FONTCONFIG22_PATH	=  PATH=$(CROSS_PATH)
 FONTCONFIG22_ENV 	=  $(CROSS_ENV)
-FONTCONFIG22_ENV	+= PKG_CONFIG_PATH=../$(GLIB22):../$(PANGO12):../$(ATK124):../$(FONTCONFIG22)
+FONTCONFIG22_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 #
 # autoconf
 #
-FONTCONFIG22_AUTOCONF	=  --prefix=/usr
+FONTCONFIG22_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 FONTCONFIG22_AUTOCONF	+= --build=$(GNU_HOST)
 FONTCONFIG22_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
 FONTCONFIG22_AUTOCONF	+= --disable-docs
 FONTCONFIG22_AUTOCONF	+= --with-expat-lib=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 FONTCONFIG22_AUTOCONF	+= --with-expat-include=$(PTXCONF_PREFIX)/include
-
-# FIXME: does it work without freetype? 
-FONTCONFIG22_AUTOCONF	+= --with-freetype-config=$(TOPDIR)/freetype-config
+FONTCONFIG22_AUTOCONF	+= --with-freetype-config="pkg-config freetype2"
 
 ifdef PTXCONF_FONTCONFIG22_FOO
 FONTCONFIG22_AUTOCONF	+= --enable-foo

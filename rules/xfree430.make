@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.9 2004/01/29 13:16:15 bsp Exp $
+# $Id: xfree430.make,v 1.10 2004/02/17 16:02:56 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -139,8 +139,8 @@ $(STATEDIR)/xfree430.prepare: $(xfree430_prepare_deps)
 	cp $(PTXCONF_XFREE430_CONFIG) $(XFREE430_BUILDDIR)/config/cf/host.def
 	cd $(XFREE430_BUILDDIR) && mkdir cross_compiler
 	for i in $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin/*; do ln -s $$i $(XFREE430_BUILDDIR)/cross_compiler; done
-	ln -sf $(PTXCONF_PREFIX)/bin/cpp $(XFREE430_BUILDDIR)/cross_compiler/
-	ln -sf $(PTXCONF_PREFIX)/bin/gcov $(XFREE430_BUILDDIR)/cross_compiler/
+	ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-cpp $(XFREE430_BUILDDIR)/cross_compiler/cpp
+	ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcov $(XFREE430_BUILDDIR)/cross_compiler/gcov
 	ln -sf gcc $(XFREE430_BUILDDIR)/cross_compiler/cc
 	ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-g++ $(XFREE430_BUILDDIR)/cross_compiler/
 	ln -sf $(PTXCONF_GNU_TARGET)-g++ $(XFREE430_BUILDDIR)/cross_compiler/g++

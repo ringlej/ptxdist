@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.10 2004/01/31 18:08:17 bsp Exp $
+# $Id: mfirebird.make,v 1.11 2004/02/17 16:02:56 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -20,10 +20,10 @@ endif
 #
 # Paths and names
 #
-MFIREBIRD_VERSION		= 0.7
-MFIREBIRD			= MozillaFirebird-source-$(MFIREBIRD_VERSION)
-MFIREBIRD_SUFFIX		= tar.gz
-MFIREBIRD_URL			= http://ftp.mozilla.org/pub/firebird/releases/0.7/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
+MFIREBIRD_VERSION		= 0.8
+MFIREBIRD			= firefox-source-$(MFIREBIRD_VERSION)
+MFIREBIRD_SUFFIX		= tar.bz2
+MFIREBIRD_URL			= ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$(MFIREBIRD_VERSION)/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
 MFIREBIRD_SOURCE		= $(SRCDIR)/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
 MFIREBIRD_DIR			= $(BUILDDIR)/$(MFIREBIRD)
 
@@ -68,14 +68,25 @@ $(STATEDIR)/mfirebird.extract: $(mfirebird_extract_deps)
 mfirebird_prepare: $(STATEDIR)/mfirebird.prepare
 
 #
-# dependencies
+# dependencies GTK 1.2
+#
+#mfirebird_prepare_deps =  \
+#	$(STATEDIR)/mfirebird.extract \
+#	$(STATEDIR)/gtk1210.install \
+#	$(STATEDIR)/libidl068.install \
+#	$(STATEDIR)/freetype214.install \
+#	$(STATEDIR)/virtual-xchain.install \
+
+#
+# dependencies GTK 2.0
 #
 mfirebird_prepare_deps =  \
 	$(STATEDIR)/mfirebird.extract \
-	$(STATEDIR)/gtk1210.install \
-	$(STATEDIR)/libidl068.install \
-	$(STATEDIR)/freetype214.install \
+	$(STATEDIR)/gtk22.install \
+	$(STATEDIR)/libidl-2.install \
 	$(STATEDIR)/virtual-xchain.install \
+
+
 
 MFIREBIRD_PATH	=  PATH=$(CROSS_PATH)
 
@@ -84,7 +95,7 @@ MFIREBIRD_ENV	+= MOZILLA_OFFICIAL=1
 MFIREBIRD_ENV	+= BUILD_OFFICIAL=1
 MFIREBIRD_ENV	+= MOZ_PHOENIX=1
 MFIREBIRD_ENV	+= ac_cv_have_x='have_x=yes ac_x_includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include ac_x_libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib'
-
+MFIREBIRD_ENV   += PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 # autoconf
 #
@@ -92,7 +103,7 @@ MFIREBIRD_AUTOCONF	=  --prefix=/usr
 MFIREBIRD_AUTOCONF	+= --build=$(GNU_HOST)
 MFIREBIRD_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
-#MFIREBIRD_AUTOCONF	+= --enable-default-toolkit=gtk
+MFIREBIRD_AUTOCONF	+= --enable-default-toolkit=gtk2
 
 MFIREBIRD_AUTOCONF	+= --with-gtk-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 MFIREBIRD_AUTOCONF	+= --with-glib-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
@@ -110,7 +121,7 @@ MFIREBIRD_AUTOCONF	+= --disable-ldap
 MFIREBIRD_AUTOCONF	+= --disable-freetypetest
 #MFIREBIRD_AUTOCONF	+= --disable-postscript
 MFIREBIRD_AUTOCONF	+= --disable-xprint
-MFIREBIRD_AUTOCONF	+= --disable-crypto
+MFIREBIRD_AUTOCONF	+= --enable-crypto
 MFIREBIRD_AUTOCONF	+= --enable-accessability
 #MFIREBIRD_AUTOCONF	+= --enable-xfpe-components
 ##MFIREBIRD_AUTOCONF	+= --enable-single-profile

@@ -1,4 +1,4 @@
-XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
+XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.187 2003/09/06 23:38:04 dawes Exp $
 /******************************************************************************/
 /*
  * This file is to provide a quick method for most people to change the
@@ -40,35 +40,34 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 /*
  * Which servers to build.  There is now only one XFree86 server.
  * It can be disabled by the following.
+ *
+#define XF86Server		NO
  */
-#define KDriveXServer           	YES
-#define XchipsServer			YES
-#define BuildForBMWM			YES
 
 /*
-#define TinyXServer			YES
-*/
-#define XfbdevServer            	YES
-#define BuildIPv6			NO
-/*
  * To disable building the Xnest server, uncomment this.
+ *
  */
-#define XnestServer			NO
+#define XnestServer		NO
+
 
 /*
  * To disable building Xvfb, uncomment this.
+ *
  */
 #define XVirtualFramebufferServer	NO
 
 /*
  * To disable building Xprt, uncomment this.
+ *
  */
-#define XprtServer 			NO
+#define XprtServer NO
 
 /*
  * Set the default server (ie the one that gets the sym-link to "X")
+ *
+#define ServerToInstall		XFree86
  */
-#define ServerToInstall			Xfbdev
 
 /*
  * If you only run the X server under xdm the X servers don't need to be
@@ -77,8 +76,48 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  * installed SetUID on most platforms.
  *
  * Consult your system administrator before making the X server setuid.
+ *
+#define InstallXserverSetUID	NO
  */
-#define InstallXserverSetUID		YES
+
+/* some other stuff */
+
+#define PreProcessCmd           CcCmd -E
+
+#define BuildGlxExt            	NO
+#define BuildGLXLibrary		NO
+#define BuildGLwLibrary		NO
+#define BuildGLULibrary		NO
+
+#define BuildXInputExt          YES
+#define BuildXF86VidModeExt     YES
+#define BuildXF86DGA            YES
+#define BuildXvExt              NO
+#define BuildXF86MiscExt        NO
+#define BuildRender             YES
+#define BuildRandR              NO
+#define BuildXF86DRI            YES
+#define BuildXF86DRM            NO
+#define BuildXKB                YES
+#define BuildXCMiscExt          YES
+#define BuildTestExt            YES
+#define BuildMITMiscExt         YES
+#define BuildSyncExt            YES
+#define BuildBigReqsExt         YES
+#define BuildEVI                YES
+#define BuildXF86BigfontExt     YES
+#define BuildRECORD             YES
+#define BuildDBE                YES
+#define BuildFontCache          YES
+#define BuildLBX                YES
+#define BuildCup                YES
+#define BuildXCSecurity         YES
+#define BuildAppgroup           YES
+#define BuildShapeExt           YES
+#define BuildScanpci            YES
+
+#define BuildScreenSaverExt     NO
+
 
 /*
  * Server configuration parameters.  The defaults are shown here:
@@ -88,30 +127,19 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  * Which drivers to build.  When building a static server, each of these
  * will be included in it.  When building the loadable server each of these
  * modules will be built.
- *
-#define XF86CardDrivers		mga glint nv tga s3virge sis rendition \
-				neomagic i740 tdfx savage \
-				cirrus vmware tseng trident chips apm \
-				GlideDriver fbdev i128 \
-				ati AgpGartDrivers DevelDrivers ark cyrix \
-				siliconmotion \
-				vesa vga XF86OSCardDrivers XF86ExtraCardDrivers
  */
-#define XF86CardDrivers		vesa vga chips
+ 
+#define XF86CardDrivers	        fbdev vesa 
 
 /*
  * To add third party drivers to the standard driver list, set the
  * following.
+ *
 #define XF86ExtraCardDrivers	extradriver1 extradriver2 ...
  */
 
 /*
  * Select the XInput devices you want by uncommenting this.
- *
-#define XInputDrivers		mouse keyboard acecad calcomp citron \
-				digitaledge dmc dynapro elographics \
-				microtouch mutouch penmount spaceorb summa \
-				wacom void magictouch aiptek
  */
 #define XInputDrivers		mouse keyboard
 
@@ -146,120 +174,173 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 /*
  * If you have the HALlib.a binary installed in xfree86/drivers/mga/HALlib,
  * uncomment this:
+ *
+#define HaveMatroxHal		YES
  */
-#define HaveMatroxHal		NO
 
 /*
  * If you have the HALlib source code installed in xfree86/drivers/mga/hallib,
  * uncomment this:
+#define BuildMatroxHal		YES
  */
-#define BuildMatroxHal		NO
 
 /*
  * To disable building the font server, uncomment this.
- */
+ *
 #define BuildFontServer		NO
-
+ */
+ 
 /*
  * To disable support for Speedo fonts, uncomment this.
- */
+ *
 #define BuildSpeedo		NO
+ */
 
 /*
  * To disable support for Type1 fonts, uncomment this.
- */
+ *
 #define BuildType1		NO
+ */
 
 /*
  * To disable support for CID fonts, uncomment this.
- */
+ *
 #define BuildCID		NO
+ */
 
 /*
  * To disable support for TrueType fonts, uncomment these.
  *
+#define BuildFreeType		NO
+#define BuildXTrueType		NO
  */
-#define BuildFreeType		YES
-#define BuildXTrueType		YES
+
+/*
+ * To set non-default build options for the underlying FreeType libraries,
+ * add them here and uncomment.
+ *
+#define Freetype2BuildDefines	-DFREETYPE_BUILD_DEFINES
+ */
+
+/*
+ * If you want to use FreeType 1.x build options that differ from the FreeType2
+ * build options, set them here and uncomment.  Otherwise the Freetype2 build
+ * options will be used for both FreeType 2.x and 1.x.  Note: FreeType 1.x
+ * is currently only used for the X-TrueType (xtt) module.
+ *
+#define Freetype1BuildDefines	-DFREETYPE1_BUILD_DEFINES
+ */
+
+/*
+ * To build the FreeType libraries with the TrueType byte code interpreter
+ * enabled, uncomment this.  Note that there are patent issues related to the
+ * TrueType byte code interpreter, and we only recommend you enabling this
+ * if you are sure that there are no legal impediments to you doing so.  See
+ * <http://www.freetype.org/patents.html> for further information.
+ *
+#define Freetype2BuildDefines -DTT_CONFIG_OPTION_BYTECODE_INTERPRETER
+ */
+
+/*
+ * Do you want to Build Fonts (Usually you only want to build and install
+ * fonts once, if this is a first time install you will want to build the
+ * fonts)
+ *
+#define BuildFonts		NO
+ */
 
 /*
  * To not build/install the 75dpi fonts, uncomment the following
+ *
+#define Build75DpiFonts		NO
  */
-#define Build75DpiFonts		YES
 
 /*
  * To not build/install the 100dpi fonts, uncomment the following
- */
+ *
 #define Build100DpiFonts	NO
+ */
 
 /*
  * To not build/install the Speedo fonts, uncomment the following
- */
+ *
 #define BuildSpeedoFonts	NO
+ */
 
 /*
  * To not build/install the Type1 fonts, uncomment the following
- */
+ *
 #define BuildType1Fonts		NO
+ */
 
 /*
  * To not build/install the CID fonts, uncomment the following
- */
+ *
 #define BuildCIDFonts		NO
+ */
 
 /*
  * To not build/install the True Type fonts, uncomment the following
+ *
+#define BuildTrueTypeFonts	NO
  */
-#define BuildTrueTypeFonts	YES
 
 /*
  * To not build/install the Cyrillic fonts, uncomment the following
- */
+ *
 #define BuildCyrillicFonts	NO
+ */
 
 /*
  * To not install the local font directory, uncomment the following
+ *
+#define MakeLocalFontDir	NO
  */
-#define MakeLocalFontDir	YES
 
 /*
  * To build only the servers with a cut-down source tree, uncomment
  * this.
+ *
+#define BuildServersOnly	YES
  */
-#define BuildServersOnly	NO
 
 /*
  * By default, the sample config files for xinit, xdm and xfs are installed
  * only when there is no pre-existing version installed.  Uncommenting the
  * following lines will force the sample versions to be installed even if
  * it means over-writing existing versions.
- */
+ *
 #define InstallXinitConfig	YES
 #define InstallXdmConfig	YES
 #define InstallFSConfig		YES
+ */
 
 /*
  * By default the application defaults files are always installed.
  * Uncommenting the the following will prevent exising application
  * defaults files from being over-written.
- */
+ *
 #define InstallAppDefFiles	NO
+ */
 
 /*
  * Undefine the following if you don't want to have config files and
  * app-defaults installed in a separate directory (i.e. /etc/X11).
+ *
+#define UseSeparateConfDir NO
  */
-#define UseSeparateConfDir 	YES
 
 /* 
  * To enable building the glide driver, you need to define 
  * HasGlide2 to YES and set the Glide2IncDir variable. 
  * HasGlide2 is per default NO.
+ *
+#define HasGlide2 YES
  */
-#define HasGlide2 		NO
 
 /*
  * Set the path to your Glide include files.
+ *
 #define Glide2IncDir /usr/include/glide
  */
 
@@ -275,30 +356,7 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 #define Glide3IncDir /usr/include/glide3
  */
 
-/* 
- * Additional stuff for SolidCard
- */
-#define HasCplusplus 			NO
-#define BuildSuperProbe			YES
-#define UseInstalledOnCrossCompile 	YES
-#define CrossCompiling 			YES
 
-#define SharedLibXi			YES
-#define XInputDrivers  			mouse keyboard
-#define BuildXInputLib			YES
-
-/* stuff from TinyX configuration */
-#define BuildLBX                NO
-#define BuildAppgroup           NO
-#define BuildDBE                NO
-#define BuildXCSecurity         NO
-#define FontServerAccess        NO
-#undef BuildXF86RushExt
-#define BuildXF86RushExt        NO
-#undef BuildRender
-#define BuildRender             YES
-#define UseRgbTxt               YES
-#define BuildFontServer         NO
 
 /*
  * Unless you're a developer you shouldn't need to change anything
@@ -319,15 +377,17 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  * uncomment the following line, and remove '-fno-strength-reduce'
  * If you are building binaries for a 486, it may be beneficial to add
  * -m486
+ *
+#define DefaultGcc2i386Opt	-O2 -fno-strength-reduce
  */
-#define DefaultGcc2i386Opt	-O2 -fno-strength-reduce -mcpu=i486
 
 /*
  * This allows the GCC warning flags to be set.  The default is shown here.
- */
+ *
 #define GccWarningOptions -Wall -Wpointer-arith -Wstrict-prototypes \
                           -Wmissing-prototypes -Wmissing-declarations \
                           -Wredundant-decls -Wnested-externs
+ */
 
 /* 
  * Sun Compiler stuff.. 
@@ -370,9 +430,9 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  *
  * This should automatically get set correctly by imake.
  *
-#define LinuxCLibMajorVersion	6
-#define LinuxClibMinorVersion	2
-*/
+#define LinuxCLibMajorVersion	5
+#define LinuxClibMinorVersion	4
+ */
 
 /*
  * If you want to use the GNU malloc library, uncomment this
@@ -396,16 +456,17 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 /*
  * Some Linux releases don't have a libtermcap.  In this case you may need
  * to uncomment the following
- */
+ *
 #define TermcapLibrary		-lncurses
+ */
 
 /*
  * Build a server that dynamically loads the modules by setting
  * this to YES.  This defaults to YES on most platforms.  A static server
  * can be built by setting this to NO.
  *
+#define DoLoadableServer	NO
  */
-
 
 /*
  * Build dlopen() style modules instead of the standard loader modules.
@@ -420,18 +481,26 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 
 /*
  * Build XAA.  This can be disabled with:
+ *
+#define XF86XAA			NO
  */
 
 /*
  * Build vgahw.  This can be disabled with:
+ *
+#define XF86VgaHw		NO
  */
 
 /*
  * Build xf1bpp.  This can be disabled with:
+ *
+#define XF1Bpp			NO
  */
 
 /*
  * Build xf4bpp.  This can be disabled with:
+ *
+#define XF4Bpp			NO
  */
 
 
@@ -479,13 +548,14 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 /*
  * To disable the ScreenSaver Extension, uncomment this line.
  *
- */
 #define BuildScreenSaverExt	NO
+ */
 
 /* 
  * If you don't want to build Xinerama support, uncomment this.
- */
+ *
 #define BuildXinerama		NO
+ */
 
 /*
  * If you don't want to build support for the GLX extension, uncomment this.
@@ -561,8 +631,9 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 /*
  * To forceably build static libraries in addition to shared libraries,
  * uncomment this.
+ *
+#define ForceNormalLib		YES
  */
-#define ForceNormalLib		NO
 
 /*
  * Uncomment this if your default tools (eg, gcc, ld, as, etc) are
@@ -579,14 +650,16 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  *
  * For FreeBSD this should automatically be set correctly by imake.  Only
  * change it here if you need to override the automatic setting.
- */
+ *
 #define UseElfFormat		YES
+ */
 
 /*
  * For FreeBSD/ELF (FreeBSD 3.0) it is possible to also build and install
  * a.out compatibility libraries.  To enable that, uncomment this.
+ *
+#define BuildAoutLibraries	YES
  */
-#define BuildAoutLibraries	NO
 
 /*
  * If you have trouble with make bombing out in Xlib, try uncommenting this.
@@ -611,17 +684,19 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 
 /*
  * To disable building some document formats, uncomment some of these.
- */
+ *
 #define BuildLinuxDocText	NO
 #define BuildLinuxDocHtml	NO
 #define BuildLinuxDocPS		NO
+ */
 
 /*
  * To install Japanese versions of the documentation uncomment this.
  * Note: The Japanese documentation consists of a subset of the
  * XFree86 3.1 docs.
+ *
+#define InstallJapaneseDocs	YES
  */
-#define InstallJapaneseDocs	NO
 
 /*
  * To build/install X specs docs, uncomment the following.
@@ -645,3 +720,5 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  *
 #define X86EMU_LIBPATH /usr/local/lib
  */ 
+
+

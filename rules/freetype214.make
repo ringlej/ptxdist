@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: freetype214.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: freetype214.make,v 1.3 2004/02/17 16:02:56 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -20,7 +20,7 @@ endif
 #
 # Paths and names
 #
-FREETYPE214_VERSION	= 2.1.4
+FREETYPE214_VERSION	= 2.1.7
 FREETYPE214		= freetype-$(FREETYPE214_VERSION)
 FREETYPE214_SUFFIX	= tar.gz
 FREETYPE214_URL		= ftp://gd.tuwien.ac.at/publishing/freetype/freetype2/$(FREETYPE214).$(FREETYPE214_SUFFIX)
@@ -80,7 +80,7 @@ FREETYPE214_ENV		+= PKG_CONFIG_PATH=../$(GLIB22):../$(PANGO12):../$(ATK124):../$
 #
 # autoconf
 #
-FREETYPE214_AUTOCONF	=  --prefix=/usr
+FREETYPE214_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 FREETYPE214_AUTOCONF	+= --build=$(GNU_HOST)
 FREETYPE214_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
@@ -118,15 +118,7 @@ freetype214_install: $(STATEDIR)/freetype214.install
 
 $(STATEDIR)/freetype214.install: $(STATEDIR)/freetype214.compile
 	@$(call targetinfo, $@)
-	install -d $(PTXCONF_PREFIX)
-	rm -f $(PTXCONF_PREFIX)/lib/libfreetype.so*
-	install $(FREETYPE214_DIR)/objs/.libs/libfreetype.so.6.3.3 $(PTXCONF_PREFIX)/lib/
-	ln -sf libfreetype.so.6.3.3 $(PTXCONF_PREFIX)/lib/libfreetype.so.6
-	ln -sf libfreetype.so.6.3.3 $(PTXCONF_PREFIX)/lib/libfreetype.so
-	rm -fr $(PTXCONF_PREFIX)/include/freetype/
-	rm -f $(PTXCONF_PREFIX)/include/ft2build.h
-	cp -a $(FREETYPE214_DIR)/include/freetype $(PTXCONF_PREFIX)/include
-	install $(FREETYPE214_DIR)/include/ft2build.h $(PTXCONF_PREFIX)/include
+	$(FREETYPE214_PATH) make -C $(FREETYPE214_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------

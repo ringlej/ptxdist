@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glib22.make,v 1.5 2003/10/23 15:01:19 mkl Exp $
+# $Id: glib22.make,v 1.6 2004/02/17 16:02:56 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -20,7 +20,7 @@ endif
 #
 # Paths and names
 #
-GLIB22_VERSION		= 2.2.2
+GLIB22_VERSION		= 2.2.3
 GLIB22			= glib-$(GLIB22_VERSION)
 GLIB22_SUFFIX		= tar.gz
 GLIB22_URL		= ftp://ftp.gtk.org/pub/gtk/v2.2/$(GLIB22).$(GLIB22_SUFFIX)
@@ -72,7 +72,7 @@ glib22_prepare_deps =  \
 
 GLIB22_PATH	=  PATH=$(CROSS_PATH)
 GLIB22_ENV 	=  $(CROSS_ENV)
-GLIB22_ENV	+= PKG_CONFIG_PATH=../$(GLIB22):../$(ATK124):../$(PANGO12):../$(GTK22)
+GLIB22_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 GLIB22_ENV	+= glib_cv_use_pid_surrogate=no
 GLIB22_ENV	+= ac_cv_func_posix_getpwuid_r=yes 
@@ -86,7 +86,7 @@ GLIB22_ENV	+= glib_cv_stack_grows=no
 #
 # autoconf
 #
-GLIB22_AUTOCONF	=  --prefix=/usr
+GLIB22_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 GLIB22_AUTOCONF	+= --build=$(GNU_HOST)
 GLIB22_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
@@ -121,19 +121,7 @@ glib22_install: $(STATEDIR)/glib22.install
 
 $(STATEDIR)/glib22.install: $(STATEDIR)/glib22.compile
 	@$(call targetinfo, $@)
-
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libglib-2.0.so*
-	install $(GLIB22_DIR)/glib/.libs/libglib-2.0.so.0.200.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/
-	ln -s libglib-2.0.so.0.200.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libglib-2.0.so.0
-	ln -s libglib-2.0.so.0.200.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libglib-2.0.so
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/glib
-	cp -a $(GLIB22_DIR)/glib/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/glib/
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/gobject
-	cp -a $(GLIB22_DIR)/gobject/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/gobject/
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/gmodule
-	cp -a $(GLIB22_DIR)/gmodule/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/
-
+	$(GLIB22_PATH) $(GLIB22_ENV) make -C $(GLIB22_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -148,9 +136,9 @@ $(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps)
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)
 	rm -f $(ROOTDIR)/lib/libglib-2.0.so*
-	install $(GLIB22_DIR)/glib/.libs/libglib-2.0.so.0.200.2 $(ROOTDIR)/lib/
-	ln -s libglib-2.0.so.0.200.2 $(ROOTDIR)/lib/libglib-2.0.so.0
-	ln -s libglib-2.0.so.0.200.2 $(ROOTDIR)/lib/libglib-2.0.so
+	install $(GLIB22_DIR)/glib/.libs/libglib-2.0.so.0.200.3 $(ROOTDIR)/lib/
+	ln -s libglib-2.0.so.0.200.3 $(ROOTDIR)/lib/libglib-2.0.so.0
+	ln -s libglib-2.0.so.0.200.3 $(ROOTDIR)/lib/libglib-2.0.so
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: atk124.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
+# $Id: atk124.make,v 1.4 2004/02/17 16:02:56 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -78,7 +78,7 @@ ATK124_ENV	+= PKG_CONFIG_PATH=../$(GLIB22):../$(ATK124):../$(PANGO12):../$(GTK22
 #
 # autoconf
 #
-ATK124_AUTOCONF	=  --prefix=/usr
+ATK124_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 ATK124_AUTOCONF	+= --build=$(GNU_HOST)
 ATK124_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
@@ -105,10 +105,6 @@ atk124_compile_deps =  $(STATEDIR)/atk124.prepare
 $(STATEDIR)/atk124.compile: $(atk124_compile_deps)
 	@$(call targetinfo, $@)
 	$(ATK124_PATH) make -C $(ATK124_DIR) 
-
-# FIXME: this is somehow not done by the packet; file bug report
-	ln -sf libatk-1.0.la $(ATK124_DIR)/atk/libatk.la
-
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -119,16 +115,7 @@ atk124_install: $(STATEDIR)/atk124.install
 
 $(STATEDIR)/atk124.install: $(STATEDIR)/atk124.compile
 	@$(call targetinfo, $@)
-
-	install -d $(PTXCONF_PREFIX)
-	rm -f $(PTXCONF_PREFIX)/lib/libatk-1.0.so*
-	install $(ATK124_DIR)/atk/.libs/libatk-1.0.so.0.200.4 $(PTXCONF_PREFIX)/lib/
-	ln -s libatk-1.0.so.0.200.4 $(PTXCONF_PREFIX)/lib/libatk-1.0.so.0
-	ln -s libatk-1.0.so.0.200.4 $(PTXCONF_PREFIX)/lib/libatk-1.0.so
-
-	rm -f $(PTXCONF_PREFIX)/include/atk*.h
-	install $(ATK124_DIR)/atk/atk*.h $(PTXCONF_PREFIX)/include
-
+	$(ATK124_PATH) make -C $(ATK124_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------

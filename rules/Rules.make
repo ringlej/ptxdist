@@ -83,6 +83,7 @@ get =								\
 	[ -d $$SRC ] || mkdir -p $$SRC;				\
 	$(WGET) -P $$SRC $(PASSIVEFTP) $$URL
 
+
 #
 # download the given URL
 #
@@ -107,7 +108,7 @@ get_feature_patch =						\
 	fi;							\
 	FP_DIR="$(TOPDIR)/feature-patches/$$FP_NAME";		\
 	[ -d $$FP_DIR ] || mkdir -p $$FP_DIR;			\
-	$(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR $(PASSIVEFTP) $$FP_URL;
+	$(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR $(PASSIVEFTP) $$FP_URL; 
 
 #
 # download patches from Pengutronix' patch repository
@@ -375,16 +376,19 @@ feature_patchin =								\
 		exit -1;							\
 	fi;									\
 	FP_DIR=$(TOPDIR)/feature-patches/"$(strip $(2))";			\
-	if [ ! "x$(strip $(2))" == "x" ]; then						\
+	if [ ! "x$(strip $(2))" == "x" ]; then					\
 		if [ -f $$FP_DIR/series ]; then					\
 			for PATCH_NAME in `cat $$FP_DIR/series`; do		\
 				echo "patchin' $$PATCH_NAME ...";		\
-				cat $$FP_DIR/$$PATCH_NAME.patch | $(PATCH) -Np1 -d $$PACKET_NAME || exit -1; \
+				cat $$FP_DIR/$$PATCH_NAME.patch | 		\
+				     $(PATCH) -Np1 -d $$PACKET_NAME || exit -1; \
 			done;							\
 		else								\
-			for PATCH_NAME in `ls $$FP_DIR/*.diff $$FP_DIR/*.patch`; do	\
+			for PATCH_NAME in $$(find $$FP_DIR -name "*.patch")	\
+			                  $$(find $$FP_DIR -name "*.diff") ; do	\
 				echo "patchin' $$PATCH_NAME ...";		\
-				cat $$FP_DIR/$$PATCH_NAME.patch | $(PATCH) -Np1 -d $$PACKET_NAME || exit -1; \
+				cat $$PATCH_NAME | 				\
+				     $(PATCH) -Np1 -d $$PACKET_NAME || exit -1; \
 			done;							\
 		fi;								\
 	fi;
