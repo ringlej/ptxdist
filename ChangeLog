@@ -1,4 +1,5 @@
 2003-08-xx Robert Schwebel <r.schwebel@pengutronix.de>
+	* general: added generic "patchin" macro
 	* busybox: update to 1.00-pre2. 
 	* XFree86: added
 	* Mozilla-Firebird: added

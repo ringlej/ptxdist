@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.5 2003/08/24 11:40:19 robert Exp $
+# $Id: busybox.make,v 1.6 2003/08/25 05:08:20 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -54,6 +54,7 @@ $(STATEDIR)/busybox.extract: $(busybox_extract_deps)
 	@$(call targetinfo, busybox.extract)
 	@$(call clean, $(BUSYBOX_DIR))
 	@$(call extract, $(BUSYBOX_SOURCE))
+	@$(call patchin, $(BUSYBOX_DIR), $(BUSYBOX))
 	
 #	# fix: turn off debugging in init.c
 	perl -i -p -e 's/^#define DEBUG_INIT/#undef DEBUG_INIT/g' $(BUSYBOX_DIR)/init/init.c
