@@ -1,0 +1,5 @@
+#!/bin/sh
+
+insmod /usr/realtime/modules/rtai_hal.o
+insmod /usr/realtime/modules/rtai_up.o
+
