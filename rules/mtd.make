@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mtd.make,v 1.5 2003/09/09 21:53:40 robert Exp $
+# $Id: mtd.make,v 1.6 2003/09/16 17:26:21 mkl Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -118,9 +118,8 @@ MTD-UTIL_ENVIRONMENT	=
 MTD-UTIL_MAKEVARS	=
 MTD-UTIL_ENVIRONMENT	+= PATH=$(PTXCONF_PREFIX)/bin:$$PATH
 MTD-UTIL_MAKEVARS	+= CROSS=$(PTXCONF_GNU_TARGET)-
-ifndef PTXCONF_FPU
-MTD_MAKEVARS            += CFLAGS+=-msoft-float
-endif
+
+MTD_MAKEVARS            += CFLAGS=$(TARGET_CFLAGS)
 
 mtdutil_compile: $(STATEDIR)/mtdutil.compile
 
