@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtnet.make,v 1.2 2003/11/02 23:51:39 mkl Exp $
+# $Id: rtnet.make,v 1.3 2003/11/10 00:49:50 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-RTNET_VERSION	= 0.5.0
+RTNET_VERSION	= 0.5.5
 RTNET		= rtnet-$(RTNET_VERSION)
 RTNET_SUFFIX	= tar.gz
 RTNET_URL	= http://www.rts.uni-hannover.de/rtnet/$(RTNET).$(RTNET_SUFFIX)
@@ -54,10 +54,6 @@ $(STATEDIR)/rtnet.extract: $(rtnet_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTNET_DIR))
 	@$(call extract, $(RTNET_SOURCE))
-#
-# rtai's rtnet.h conflicts with our rtnet.h
-#
-	@$(call clean, $(RTAI_DIR)/include/rtnet.h)
 	touch $@
 
 # ----------------------------------------------------------------------------
