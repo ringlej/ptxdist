@@ -1,3 +1,5 @@
+- KUB: bash is build for the host, not for the target!
+- KUB: busybox/ash job control is broken
 - RS: audit for LSB compatiblity
 - RS: rename glibc to xchain-glibc
 - RS: audit for FOODIR vs. FOO_DIR
@@ -235,3 +237,5 @@ Subscription options: http://lists.arm.linux.org.uk/mailman/listinfo/linux-arm
 FAQ/Etiquette:       http://www.arm.linux.org.uk/armlinux/mailinglists.php
 8<----------
 
+- RS: check for uImage targets: have to depend on vmlinux, not on
+  zImage. 
