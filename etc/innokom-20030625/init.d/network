@@ -1,0 +1,15 @@
+#! /bin/sh
+#
+# /etc/init.d/network
+#
+# Copyright (C) 2003 Auerswald GmbH & Co. KG
+# Author: Kai-Uwe Bloem, <linux-development@auerswald.de>
+
+echo -n "starting network and services... "
+ipaddr=`grep '^ip-address:' /data/etc/system.conf |
+	sed 's/^ip-address: *//g'`
+/sbin/ifconfig eth0 $ipaddr up
+
+/sbin/utelnetd -d >/dev/null
+#/sbin/proftpd -n
+echo "done."

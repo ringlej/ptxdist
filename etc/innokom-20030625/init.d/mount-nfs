@@ -1,0 +1,14 @@
+#! /bin/sh
+#
+# /etc/init.d/mount-nfs
+#
+# Copyright (C) 2003 Auerswald GmbH & Co. KG
+# Author: Kai-Uwe Bloem, <linux-development@auerswald.de>
+
+nfsmount=`grep '^nfs-mount:' /data/etc/system.conf |
+	sed 's/^nfs-mount: *//g'`
+if [ "x$nfsmount" != "x" ]; then
+	echo -n "mounting nfs filesystem... "
+	mount -o nfsvers=2,nolock,rsize=4096,wsize=4096 $nfsmount /opt
+	echo "done."
+fi

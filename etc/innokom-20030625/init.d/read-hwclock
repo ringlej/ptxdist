@@ -1,0 +1,12 @@
+#! /bin/sh
+#
+# /etc/init.d/read-hwclock
+#
+# Copyright (C) 2003 Auerswald GmbH & Co. KG
+# Author: Kai-Uwe Bloem, <linux-development@auerswald.de>
+
+echo -n "reading the hardware clock... "
+/sbin/insmod /opt/auerswald/modules/auerrtc.o
+/sbin/hwclock -s
+date
+

@@ -1,0 +1,7 @@
+#
+# /etc/exports
+#
+# Copyright (C) 2003 Auerswald GmbH & Co. KG
+# Author: Kai-Uwe Bloem, <linux-development@auerswald.de>
+
+/ 192.168.21.0/24(sync,no_root_squash,rw)

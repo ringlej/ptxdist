@@ -1,0 +1,12 @@
+#! /bin/sh
+#
+# /etc/init.d/root-remount
+#
+# Configuration for Auerswald Innokom
+#
+# 2002/10/03    Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+echo -n "remounting root filesystem read/write... "
+mount -o remount,rw /dev/root /
+echo "done."

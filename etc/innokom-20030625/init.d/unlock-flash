@@ -1,0 +1,20 @@
+#! /bin/sh
+#
+# /etc/init.d/unlock-flash
+#
+# Copyright (C) 2003 Auerswald GmbH & Co. KG
+# Author: Kai-Uwe Bloem, <linux-development@auerswald.de>
+
+echo -n "unlock flash partitions... "
+
+if [ -c /dev/mtd/4 ]; then
+	/sbin/unlock /dev/mtd/3
+	/sbin/unlock /dev/mtd/4
+	/bin/cp -a /dev/mtdblock/4 /dev/mtdblock/data
+elif [ -c /dev/mtd/3 ]; then 
+	/sbin/unlock /dev/mtd/2
+	/sbin/unlock /dev/mtd/3
+	/bin/cp -a /dev/mtdblock/3 /dev/mtdblock/data
+fi
+
+echo "done."
