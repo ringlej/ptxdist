@@ -2,6 +2,46 @@ config RTNET
 	bool "RTnet"
 	depends on RTAI
 
+comment "Optional Features"
+
+config RTNET_RTCFG
+	bool "RTcfg"
+	depends on RTNET
+
+config RTNET_RTCFG_DEBUG
+	bool "Enable debugging in RTcfg"
+	depends on RTNET_RTCFG
+
+config RTNET_RTCAP
+	bool "RTcap"
+	depends on RTNET
+
+config RTNET_PROXY
+	bool "Proxy"
+	depends on RTNET
+
+config RTNET_RTDM
+	bool "realtime driver module"
+	depends on RTNET
+
+config RTNET_EXAMPLES
+	bool "examples"
+	depends on RTNET
+
+config RTNET_NET_ROUTING
+	bool "net routing"
+	depends on RTNET
+
+config RTNET_ROUTER
+	bool "router"
+	depends on RTNET
+
+config RTNET_BUG_CHECK
+	bool "internal bug checks"
+	depends on RTNET
+
+comment "Network Card Support"
+
 config RTNET_3C59X
 	bool "build 3Com 59x driver (see help)"
 	depends on RTNET
@@ -28,8 +68,8 @@ config RTNET_VIA_RHINE
 	bool "build VIA Rhine driver"
 	depends on RTNET
 
-config RTNET_LOOPBACK
-	bool "build loopback driver"
+config RTNET_NATSEMI
+	bool "build NatSemi driver"
 	depends on RTNET
 
 config RTNET_TULIP
@@ -50,4 +90,13 @@ config RTNET_FEC_ENET
 	bool "build fec enet driver"
 	depends on RTNET
 	depends on ARCH_PPC
+
+config RTNET_SMC91111
+	bool "build smc91111 driver"
+	depends on RTNET
+
+config RTNET_LOOPBACK
+	bool "build loopback driver"
+	depends on RTNET
+
 
