@@ -1,0 +1,13 @@
+menu "mgetty & sendfax      "
+
+config MGETTY
+	bool
+	prompt "Compile mgetty"
+
+config MGETTY_CONFIG
+        prompt "Name of policy.h file to be used"
+	string
+	default "build/mgetty-1.1.30/policy.h-dist"
+	depends on MGETTY
+
+endmenu
