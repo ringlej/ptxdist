@@ -1,74 +1,80 @@
 Automatic Compilation Test
 --------------------------
 
-start: Mi Feb 9 19:59:20 CET 2005
+start: Do Mär 3 20:05:22 CET 2005
 
 config...: abbcc-viac3
-date.....: Mi Feb 9 19:59:24 CET 2005
+date.....: Do Mär 3 20:05:23 CET 2005
 user.....: robert@himalia
-buildtime: 0h50m39s
+buildtime: 0h23m48s
 result...: 0
 
 config...: i586-generic-glibc
-date.....: Mi Feb 9 20:50:35 CET 2005
+date.....: Do Mär 3 20:29:21 CET 2005
 user.....: robert@himalia
-buildtime: 0h37m43s
+buildtime: 0h19m51s
 result...: 0
 
 config...: frako
-date.....: Mi Feb 9 21:28:45 CET 2005
+date.....: Do Mär 3 20:49:21 CET 2005
 user.....: robert@himalia
-buildtime: 1h29m3s
+buildtime: 0h22m19s
 result...: 0
 
 config...: visbox
-date.....: Mi Feb 9 22:58:21 CET 2005
+date.....: Do Mär 3 21:11:58 CET 2005
 user.....: robert@himalia
-buildtime: 0h46m39s
+buildtime: 0h28m12s
 result...: 0
 
 config...: rayonic-i586
-date.....: Mi Feb 9 23:45:27 CET 2005
+date.....: Do Mär 3 21:40:21 CET 2005
 user.....: robert@himalia
-buildtime: 0h50m45s
+buildtime: 0h30m19s
 result...: 0
 
 config...: innokom-2.4-2.95
-date.....: Do Feb 10 00:36:41 CET 2005
+date.....: Do Mär 3 22:10:51 CET 2005
 user.....: robert@himalia
-buildtime: 1h6m55s
+buildtime: 0h0m33s
 result...: 2
 
 config...: innokom-2.4-3.3.2
-date.....: Do Feb 10 01:44:00 CET 2005
+date.....: Do Mär 3 22:11:28 CET 2005
 user.....: robert@himalia
-buildtime: 1h6m54s
+buildtime: 0h0m31s
 result...: 2
 
 config...: mx1fs2
-date.....: Do Feb 10 02:51:14 CET 2005
+date.....: Do Mär 3 22:12:05 CET 2005
 user.....: robert@himalia
-buildtime: 0h58m23s
+buildtime: 0h18m28s
 result...: 0
 
 config...: pii_nge
-date.....: Do Feb 10 03:50:03 CET 2005
+date.....: Do Mär 3 22:30:44 CET 2005
 user.....: robert@himalia
-buildtime: 1h31m16s
+buildtime: 0h24m20s
+result...: 2
+
+config...: ssv_pnp2110_eva1
+date.....: Do Mär 3 22:55:17 CET 2005
+user.....: robert@himalia
+buildtime: 0h35m27s
 result...: 0
 
 config...: eb8245
-date.....: Do Feb 10 05:22:02 CET 2005
+date.....: Do Mär 3 23:31:11 CET 2005
 user.....: robert@himalia
-buildtime: 0h41m12s
+buildtime: 0h15m33s
 result...: 0
 
 config...: cameron-efco
-date.....: Do Feb 10 06:03:38 CET 2005
+date.....: Do Mär 3 23:46:52 CET 2005
 user.....: robert@himalia
-buildtime: 1h35m1s
-result...: 0
+buildtime: 0h9m26s
+result...: 2
 
 
-stop: Do Feb 10 07:39:04 CET 2005
+stop: Do Mär 3 23:56:21 CET 2005
 
