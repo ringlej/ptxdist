@@ -30,7 +30,8 @@ STATEDIR		:= $(TOPDIR)/state
 BOOTDISKDIR		:= $(TOPDIR)/bootdisk
 IMAGEDIR		:= $(TOPDIR)/images
 MISCDIR			:= $(TOPDIR)/misc
-PROJECTDIR		=  $(subst \ ,,$(shell dirname `find $(TOPDIR) -name $(PTXCONF_PROJECT).ptxconfig`))
+PROJECTCONFFILE		=  $(shell find $(TOPDIR) -name $(PTXCONF_PROJECT).ptxconfig)
+PROJECTDIR		=  $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE))
 
 # Pengutronix Patch Repository
 PTXPATCH_URL		:= http://www.pengutronix.de/software/ptxdist/patches

@@ -10,3 +10,16 @@ check_tools:
 
 	# check if we have a toplevel .config file
 	$(call check_file_exists, $(TOPDIR)/.config)
+
+	# check if we have a project dir
+	@if [ -z "$(PROJECTDIR)" ]; then									\
+		echo; 											\
+		echo "PROJECTDIR is empty. This usually means that you have"; 				\
+		echo "set PTXCONF_PROJECT, but there is no .ptxconfig file "; 				\
+		echo "in projects/some-project/\$$PTXCONF_PROJECT.ptxconfig.";				\
+		echo "Please copy your .config file to that location."; 				\
+		echo; 											\
+		echo "Example: projects/foo/foo4711.ptxconfig if \$$PTXCONF_PROJECT is foo4711"; 	\
+		echo; 											\
+		exit 1; 										\
+	fi
