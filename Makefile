@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.44 2003/10/23 20:44:46 robert Exp $
+# $Id: Makefile,v 1.45 2003/10/24 01:26:27 mkl Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -277,5 +277,7 @@ archive:
 $(INSTALL_LOG): 
 	make -C $(TOPDIR)/tools/install-log-1.9
 
+print-%:
+	@echo $* is $($*)
 .PHONY: dep_output_clean dep_tree dep_world skip_vendortweaks
 # vim600:set foldmethod=marker:
