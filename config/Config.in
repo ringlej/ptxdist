@@ -212,16 +212,6 @@ choice
 		depends on ARCH_X86 || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_PPC || !ARCH_ARM_NOMMU
 endchoice
 
-config BUILD_CROSSCHAIN_GDB
-	bool
-	prompt "Build Cross GDB"
-	depends on BUILD_CROSSCHAIN
-
-config BUILD_CROSSCHAIN_GDBSERVER
-	bool
-	prompt "Build gdbserver for target"
-	depends on BUILD_CROSSCHAIN_GDB
-
 endmenu
 
 # ----------------------------------------------------------------------------
@@ -305,6 +295,9 @@ config KSYMOOPS
 	bool
 	prompt "ksymoops"
 	default n
+
+# gdb
+source "rules/gdb.in"
 
 endmenu
 
@@ -448,219 +441,9 @@ endmenu
 
 menu	"C Library           "
 
-# menue to chose C library 
+source "rules/libc.in"
 
-choice
-	prompt "Which C library do you want to use?"
-	default GLIBC
-	
-	config GLIBC
-		bool
-		prompt "GLIBC"
-		depends on !ARCH_NOMMU
-
-	config UCLIBC
-		bool
-		prompt "uClibc"
-endchoice
-
-comment	"C Library options"
-
-choice
-	prompt "C-Lib Version"
-		default GLIBC_2_2_5
-	
-	config GLIBC_2_2_5
-		bool
-		prompt "2.2.5"
-		depends on GLIBC
-
-	config GLIBC_2_2_4
-		bool
-		prompt "2.2.4"
-		depends on GLIBC
-		depends on ARCH_X86
-
-	config GLIBC_2_2_3
-		bool
-		prompt "2.2.3"
-		depends on GLIBC
-		depends on ARCH_X86
-
-	config UCLIBC_0_9_19
-		bool
-		prompt "0.9.19"
-		depends on UCLIBC
-
-	config UCLIBC_0_9_20
-		bool
-		prompt "0.9.20"
-		depends on UCLIBC
-endchoice
-
-config GLIBC_PTHREADS
-	bool
-	prompt "Compile glibc with pthreads"
-	default y
-	depends on GLIBC
-
-config GLIBC_FLOATINGPOINT
-	bool
-	prompt "Enable glibc floating point support"
-	default y
-	depends on GLIBC
-
-config GLIBC_LIBIO
-	bool
-	prompt "Build in GNU libio instead of GNU stdio"
-	default n
-	depends on GLIBC
-
-config GLIBC_SHARED
-	bool
-	prompt "Build shared library"
-	default y
-	depends on GLIBC
-
-config GLIBC_PROFILED
-	bool
-	prompt "Include profiling support"
-	default n
-	depends on GLIBC
-
-config GLIBC_OMITFP
-	bool
-	prompt "Build undebuggable optimized library"
-	default n
-	depends on GLIBC
-
-config GLIBC_BOUNDED
-	bool
-	prompt "Build with runtime bounds checking"
-	depends on GLIBC
-
-comment	"Install options"
-	depends on GLIBC
-
-config GLIBC_THREAD_DB
-	bool
-	prompt "Install libthread_db on the target"
-	depends on GLIBC
-
-config GLIBC_DL
-	bool
-	prompt "Install libdl on the target"
-	default y if BASH
-	depends on GLIBC
-
-config GLIBC_CRYPT
-	bool
-	prompt "Install libcrypt on the target"
-	depends on GLIBC
-
-config GLIBC_UTIL
-	bool
-	prompt "Install libutil on the target"
-	depends on GLIBC
-
-config GLIBC_LIBM
-	bool
-	prompt "Install libm on the target"
-	depends on GLIBC
-
-config GLIBC_NSS_DNS
-	bool
-	prompt "Install libnss_dns"
-	depends on GLIBC
-
-config GLIBC_NSS_FILES
-	bool
-	prompt "Install libnss_files"
-	depends on GLIBC
-
-config GLIBC_NSS_HESIOD
-	bool
-	prompt "Install libnss_hesiod"
-	depends on GLIBC
-
-config GLIBC_NSS_NIS
-	bool
-	prompt "Install libnss_nis"
-	depends on GLIBC
-
-config GLIBC_NSS_NISPLUS
-	bool
-	prompt "Install libnss_nisplus"
-	depends on GLIBC
-
-config GLIBC_NSS_COMPAT
-	bool
-	prompt "Install libnss_compat"
-	depends on GLIBC
-
-config GLIBC_RESOLV
-	bool
-	prompt "Install libresolv"
-	depends on GLIBC
-
-config GLIBC_NSL
-	bool
-	prompt "Install libnsl"
-	depends on GLIBC
-
-source "config/uClibc/extra/Configs/Config.alpha"
-source "config/uClibc/extra/Configs/Config.arm"
-source "config/uClibc/extra/Configs/Config.cris"
-source "config/uClibc/extra/Configs/Config.h8300"
-source "config/uClibc/extra/Configs/Config.i386"
-source "config/uClibc/extra/Configs/Config.i960"
-source "config/uClibc/extra/Configs/Config.m68k"
-source "config/uClibc/extra/Configs/Config.mips"
-source "config/uClibc/extra/Configs/Config.mipsel"
-source "config/uClibc/extra/Configs/Config.powerpc"
-source "config/uClibc/extra/Configs/Config.sh"
-source "config/uClibc/extra/Configs/Config.sparc"
-source "config/uClibc/extra/Configs/Config.v850"
-
-comment	"Install options"
-	depends on UCLIBC
-
-config UCLIBC_CRYPT
-	bool
-	prompt "Install libcrypt on the target"
-	depends on UCLIBC
-
-config UCLIBC_DL
-	bool
-	prompt "Install libdl on the target"
-	depends on UCLIBC
-
-config UCLIBC_M
-	bool
-	prompt "Install libm on the target"
-	depends on UCLIBC
-
-config UCLIBC_NSL
-	bool
-	prompt "Install libnsl on the target"
-	depends on UCLIBC
-
-config UCLIBC_PTHREAD
-	bool
-	prompt "Install libpthread on the target"
-	depends on UCLIBC
-
-config UCLIBC_RESOLV
-	bool
-	prompt "Install libresolv on the target"
-	depends on UCLIBC
-
-config UCLIBC_UTIL
-	bool
-	prompt "Install libutil on the target"
-	depends on UCLIBC
 endmenu
-
 # ============================================================================
 comment "Core Tools"
 # ============================================================================
@@ -1715,8 +1498,9 @@ endmenu
 
 menu "Graphics Libraries  "
 
-source rules/glib22.in
+#source rules/gtk22.in
 source rules/xfree430.in
+source rules/clementine.in
 
 endmenu
 
