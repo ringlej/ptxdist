@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="flowscreen2"
+PTXCONF_PROJECT="mx1fs2"
 
 #
 # General Options             
