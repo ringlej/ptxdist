@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.11 2003/10/23 15:01:19 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.12 2003/10/26 23:12:49 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -8,6 +8,9 @@
 # see the README file.
 #
 
+ifdef PTXCONF_LIBSTDCXX
+PACKAGES += xchain-gccstage2
+endif
 #
 # Paths and names 
 #
@@ -51,14 +54,6 @@ endif
 GCC_STAGE2_PATH	= PATH=$(CROSS_PATH)
 GCC_STAGE2_ENV	= $(HOSTCC_ENV)
 
-GCC_STAGE2_AUTOCONF_THREADS = --disable-threads
-ifdef PTXCONF_GLIBC_PTHREADS
-GCC_STAGE2_AUTOCONF_THREADS = --enable-threads=posix
-endif
-ifdef PTXCONF_UCLIBC_UCLIBC_HAS_THREADS
-GCC_STAGE2_AUTOCONF_THREADS = --enable-threads=posix
-endif
-
 #
 # Robert Schwebel says:
 #
@@ -85,6 +80,14 @@ ifdef PTXCONF_GCC_2_95_3
 GCC_STAGE2_MAKEVARS	= CXXFLAGS_FOR_TARGET="-D_GNU_SOURCE"
 endif
 
+GCC_STAGE2_AUTOCONF_THREADS = --disable-threads
+ifdef PTXCONF_GLIBC_PTHREADS
+GCC_STAGE2_AUTOCONF_THREADS = --enable-threads=posix
+endif
+ifdef PTXCONF_UCLIBC_UCLIBC_HAS_THREADS
+GCC_STAGE2_AUTOCONF_THREADS = --enable-threads=posix
+endif
+
 GCC_STAGE2_AUTOCONF = \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--host=$(GNU_HOST) \
@@ -96,7 +99,6 @@ GCC_STAGE2_AUTOCONF = \
 	--with-headers=$(CROSS_LIB_DIR)/include \
 	--disable-nls \
 	--disable-multilib \
-	--enable-languages="c,c++" \
 	--enable-symvers=gnu \
 	--enable-target-optspace \
 	--enable-version-specific-runtime-libs \
@@ -108,6 +110,15 @@ GCC_STAGE2_AUTOCONF	+= --enable-shared
 else
 GCC_STAGE2_AUTOCONF	+= --disable-shared
 endif
+
+#
+# build C++ by default
+#
+# ifdef PTXCONF_LIBSTDCXX
+# GCC_STAGE2_AUTOCONF	+= --enable-languages="c,c++"
+# else
+# GCC_STAGE2_AUTOCONF	+= --enable-languages="c"
+# endif
 
 ifdef PTXCONF_GLIBC
 GCC_STAGE2_AUTOCONF	+= --enable-__cxa_atexit
@@ -122,8 +133,8 @@ $(STATEDIR)/xchain-gccstage2.prepare: $(xchain-gccstage2_prepare_deps)
 	@$(call clean, $(GCC_STAGE2_DIR))
 	[ -d $(GCC_STAGE2_DIR) ] || mkdir -p $(GCC_STAGE2_DIR)
 
-	cd $(GCC_STAGE2_DIR) &&						\
-	     	$(GCC_STAGE2_PATH) $(GCC_STAGE2_ENV)			\
+	cd $(GCC_STAGE2_DIR) &&	\
+	     	$(GCC_STAGE2_PATH) $(GCC_STAGE2_ENV) \
 		$(GCC_DIR)/configure $(GCC_STAGE2_AUTOCONF)
 	touch $@
 
@@ -155,36 +166,21 @@ $(STATEDIR)/xchain-gccstage2.install: $(STATEDIR)/xchain-gccstage2.compile
 
 xchain-gccstage2_targetinstall: $(STATEDIR)/xchain-gccstage2.targetinstall
 
-#
-# FIXME: install libstdc++
-#
-# gcc-3.2.3:
-#
-# [frogger@timberwolf:~/ptxdist/xchain/i586]$ find . -name "libstd*"
-# ./lib/gcc-lib/i586-linux/3.2.3/libstdc++.so
-# ./lib/gcc-lib/i586-linux/3.2.3/libstdc++.so.5.0.3
-# ./lib/gcc-lib/i586-linux/3.2.3/libstdc++.so.5
-# ./lib/gcc-lib/i586-linux/3.2.3/libstdc++.la
-# ./lib/gcc-lib/i586-linux/3.2.3/libstdc++.a
-# [frogger@timberwolf:~/ptxdist/xchain/i586]$ find . -name "libgcc*"
-# ./lib/gcc-lib/i586-linux/3.2.3/libgcc_s.so
-# ./lib/gcc-lib/i586-linux/3.2.3/libgcc.a
-# ./lib/gcc-lib/i586-linux/3.2.3/libgcc_eh.a
-# ./lib/gcc-lib/i586-linux/3.2.3/libgcc_s.so.1
-#
-# gcc-2.95.3:
-#
-# [frogger@timberwolf:~/ptxdist/xchain/i586-2.95.3]$ find . -name "libstd*"
-# ./lib/gcc-lib/i586-linux/2.95.3/libstdc++.a
-# ./lib/gcc-lib/i586-linux/2.95.3/libstdc++-3-libc6.1-2-2.10.0.a
-# ./lib/gcc-lib/i586-linux/2.95.3/libstdc++-libc6.1-2.a.3
-# ./lib/gcc-lib/i586-linux/2.95.3/libstdc++.so
-# ./lib/gcc-lib/i586-linux/2.95.3/libstdc++-3-libc6.1-2-2.10.0.so
-# ./lib/gcc-lib/i586-linux/2.95.3/libstdc++-libc6.1-2.so.3
-#
-
-$(STATEDIR)/xchain-gccstage2.targetinstall:
+$(STATEDIR)/xchain-gccstage2.targetinstall: $(STATEDIR)/xchain-gccstage2.install
 	@$(call targetinfo, $@)
+ifdef PTXCONF_LIBSTDCXX
+	mkdir -p $(ROOTDIR)/usr/lib
+	cp -a $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/$(GCC_VERSION)/libstdc++*so* \
+		$(ROOTDIR)/usr/lib/
+	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libstdc++*so*
+
+  ifdef PTXCONF_GCC_3
+	mkdir -p $(ROOTDIR)/lib
+	cp -a $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/$(GCC_VERSION)/libgcc_s*so* \
+		$(ROOTDIR)/lib/
+	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libgcc_s*so*
+  endif
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
