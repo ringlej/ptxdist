@@ -263,7 +263,7 @@ config ARM_PROC
 
 config GNU_TARGET
 	string
-	default "arm-unknown-linux-gnu" 	if ARM_ARCH_LE		&& GLIBC
+	default "arm-softfloat-linux-gnu" 	if ARM_ARCH_LE		&& GLIBC
 	default "armb-unknown-linux-gnu" 	if ARM_ARCH_BE		&& GLIBC
 	default "arm-elf"			if ARCH_ARM_NOMMU	&& GLIBC
 	default "i386-unknown-linux-gnu"	if OPT_I386		&& GLIBC
