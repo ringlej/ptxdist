@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: coreutils.make,v 1.3 2003/10/23 20:40:00 mkl Exp $
+# $Id: coreutils.make,v 1.4 2004/07/16 09:12:12 rsc Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -96,6 +96,9 @@ $(STATEDIR)/coreutils.compile: $(STATEDIR)/coreutils.prepare
 ifdef PTXCONF_COREUTILS_SEQ
 	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src seq
 endif
+ifdef PTXCONF_COREUTILS_CP
+	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src cp
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -120,6 +123,10 @@ $(STATEDIR)/coreutils.targetinstall: $(STATEDIR)/coreutils.compile
 ifdef PTXCONF_COREUTILS_SEQ
 	install $(COREUTILS_DIR)/src/seq $(ROOTDIR)/usr/bin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/seq
+endif
+ifdef PTXCONF_COREUTILS_CP
+	install $(COREUTILS_DIR)/src/cp $(ROOTDIR)/bin
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/cp
 endif
 	touch $@
 

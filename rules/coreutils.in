@@ -4,7 +4,12 @@ config COREUTILS
         bool
         prompt "Compile GNU coreutils"
 
-config COPREUTILS_SEQ
+config COREUTILS_CP
+	bool
+	prompt "cp"
+	depends on COREUTILS
+
+config COREUTILS_SEQ
         bool
         prompt "seq"
         depends on COREUTILS
