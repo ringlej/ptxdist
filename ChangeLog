@@ -1,3 +1,14 @@
+2004-01-05 Robert Schwebel <r.schwebel@pengutronix.de>
+	* general: feature patch is merged
+	* general: lots of added packages all over the place
+	* general: added 'configs' target
+	* general: audited supported configurations
+	* uclibc: removed for now; it did not configure and 
+	  compile cleanly. Will be re-added after the problems 
+	  have been fixed. 
+
+	* 0.5.0 released
+
 2003-11-xx Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* distcc: added support (Dan Kegel)
