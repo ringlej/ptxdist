@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.16 2004/02/26 08:37:33 robert Exp $
+# $Id: mfirebird.make,v 1.17 2004/03/31 16:18:04 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -472,13 +472,27 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 	# cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make install DESTDIR=$(ROOTDIR)
 	install -d $(ROOTDIR)/usr/lib
 	
+	install $(MFIREBIRD_DIR)/dist/lib/libgkgfx.so $(ROOTDIR)/usr/lib
 	install $(MFIREBIRD_DIR)/dist/lib/libgtkembedmoz.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libxpcom.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libgtkxtbin.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libjsj.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libmozjs.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libmozz.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libnspr4.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libnss3.so $(ROOTDIR)/usr/lib
 	install $(MFIREBIRD_DIR)/dist/lib/libplds4.so $(ROOTDIR)/usr/lib
 	install $(MFIREBIRD_DIR)/dist/lib/libplc4.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libnspr4.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libsmime3.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libsoftokn3.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libssl3.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libxpcom.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libxpcom_compat.so $(ROOTDIR)/usr/lib
+
 	install -d $(ROOTDIR)/usr/lib/mozilla-1.6
 	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/components $(ROOTDIR)/usr/lib/mozilla-1.6
+	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/chrome $(ROOTDIR)/usr/lib/mozilla-1.6
+	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/res $(ROOTDIR)/usr/lib/mozilla-1.6
+
 	touch $@
 
 # ----------------------------------------------------------------------------
