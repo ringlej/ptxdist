@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mtd.make,v 1.8 2003/10/24 01:10:01 mkl Exp $
+# $Id: mtd.make,v 1.9 2003/10/24 01:27:16 mkl Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -112,7 +112,13 @@ $(STATEDIR)/mtd.install: $(STATEDIR)/mtd.compile
 
 mtd_targetinstall: $(STATEDIR)/mtd.targetinstall
 
-mtd_targetinstall_deps = $(STATEDIR)/mtd.compile
+mtd_targetinstall_deps	=  $(STATEDIR)/mtd.compile
+ifdef PTXCONF_MTD_MKJFFS
+mtd_targetinstall_deps	+= $(STATEDIR)/zlib.targetinstall
+endif
+ifdef PTXCONF_MTD_MKJFFS2
+mtd_targetinstall_deps	+= $(STATEDIR)/zlib.targetinstall
+endif
 
 $(STATEDIR)/mtd.targetinstall: $(mtd_targetinstall_deps)
 	@$(call targetinfo, $@)
