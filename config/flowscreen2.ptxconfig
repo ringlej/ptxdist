@@ -109,6 +109,7 @@ PTXCONF_VENDORTWEAKS="flowscreen2.make"
 # Host Tools          
 #
 # PTXCONF_GENEXT2FS is not set
+# PTXCONF_HOSTTOOL_E2FSPROGS is not set
 # PTXCONF_FAKEROOT is not set
 
 #
