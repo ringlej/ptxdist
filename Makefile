@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.74 2004/01/31 15:27:31 robert Exp $
+# $Id: Makefile,v 1.75 2004/02/04 08:42:26 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -207,6 +207,10 @@ i386-generic-glibc_config:
 innokom_config:
 	@echo "copying innokom configuration"
 	@cp config/innokom.ptxconfig .config
+
+innokom-3.3.2_config:
+	@echo "copying innokom-3.3.2 configuration (WORK IN PROGRESS!)"
+	@cp config/innokom-3.3.2-tmp.ptxconfig .config
 
 i586-rayonic_config:
 	@echo "copying 586 rayonic configuration"
