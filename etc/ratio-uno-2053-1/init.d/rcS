@@ -64,3 +64,9 @@ chown system:users /home/system/boottime.log
 sync
 echo "done."
 
+echo -n "--- running rc.d services..."
+for i in /etc/init.d/* ; do {
+echo -n "[ $i ] ..." 
+$i || echo "*** FAILED ***" 
+}
+done;
