@@ -1,0 +1,15 @@
+
+# geometry of your (flash-)disk. You can obtain this information
+# from the output of fdisk -l <dev>
+CYLINDERS=1015
+HEADS=1
+SECTORS=31
+
+# The partition table. Sizes are in (HEADS*SECTORS*512) bytes
+# Be sure to leave an offset of ~200kb at the beginning for grub
+
+# start, size, type, bootable
+PART1="17,400,L,*"
+PART2="417,50"
+PART3="467,10"
+PART4=""
