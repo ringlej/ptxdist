@@ -294,6 +294,8 @@ ifdef PTXCONF_RTNET_ROUTER
 	echo "FIXME!"
 	exit -1
 endif
+	install $(RTNET_DIR)/tools/rtifconfig $(ROOTDIR)/sbin
+	install $(RTNET_DIR)/tools/rtroute $(ROOTDIR)/sbin
 	touch $@
 
 # ----------------------------------------------------------------------------
