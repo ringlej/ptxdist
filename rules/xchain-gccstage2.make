@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.13 2003/10/27 08:15:02 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.14 2003/10/27 09:40:26 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -115,7 +115,7 @@ endif
 # build C++ by default
 #
 # ifdef PTXCONF_LIBSTDCXX
-# GCC_STAGE2_AUTOCONF	+= --enable-languages="c,c++"
+GCC_STAGE2_AUTOCONF	+= --enable-languages="c,c++"
 # else
 # GCC_STAGE2_AUTOCONF	+= --enable-languages="c"
 # endif
