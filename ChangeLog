@@ -1,5 +1,7 @@
 2005-01-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* source options: add unified path for programs 
+	  hosted on debian mirrors. Patch by Thibaut Varene. 
 	* kconfig/lxdialog: updated to version from 2.6.10;
 	  kconfig has a unified prefix (PTXCONF_) macro now.
 	  Patch by Thibaut Varene. 
