@@ -695,7 +695,15 @@ patchin =									\
 	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff		\
 	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch		\
 	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz		\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;		\
+	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2		\
+	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.diff			\
+	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.patch			\
+	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.gz			\
+	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.bz2			\
+	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff		\
+	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch		\
+	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz		\
+	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;		\
 	    do									\
 		if [ -f $$PATCH_NAME ]; then					\
 			case `basename $$PATCH_NAME` in				\
