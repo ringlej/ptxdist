@@ -901,11 +901,19 @@ copy_root = 									\
 	if [ -z "$(5)" ]; then									 \
 		echo "copy_root dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER"; 		 \
 		$(INSTALL) -d $(ROOTDIR)/$$SRC;							 \
+		if [ $$? -ne 0 ]; then					\
+			echo "Error: copy_root failed!";		\
+			exit -1;					\
+		fi;							\
 		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
 	else											 \
 		echo "copy_root src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER";  \
 		rm -fr $(ROOTDIR)$$DST; 							 \
 		$(INSTALL) -D $$SRC $(ROOTDIR)$$DST;						 \
+		if [ $$? -ne 0 ]; then					\
+			echo "Error: copy_root failed!";		\
+			exit -1;					\
+		fi;							\
 		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
 	fi;
 
