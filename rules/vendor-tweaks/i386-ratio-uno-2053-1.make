@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: i386-ratio-uno-2053-1.make,v 1.6 2004/04/14 16:24:59 bbu Exp $
+# $Id: i386-ratio-uno-2053-1.make,v 1.7 2004/04/14 16:28:21 bbu Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -51,9 +51,13 @@ $(STATEDIR)/ratio-uno-2053-1.targetinstall:
 	echo "terminal --timeout=10 serial console" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "timeout 3" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "default 0" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo 'title "Compact Flash"' >> $(ROOTDIR)/boot/grub/menu.lst
+	echo 'title "Compact Flash - Local Console"' >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "kernel /boot/bzImage root=/dev/hda1 ide=nodma console=tty0 console=ttyS0,9600n8" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo " " >> $(ROOTDIR)/boot/grub/menu.lst
+	echo 'title "Compact Flash - Serial Console: COM1"' >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "kernel /boot/bzImage root=/dev/hda1 ide=nodma console=ttyS0,9600n8 console=tty0" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo " " >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "# Kernelparameter (ip=<params>) :" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "# Dokumentiert in Linux Kernel Decumentation" >> $(ROOTDIR)/boot/grub/menu.lst
