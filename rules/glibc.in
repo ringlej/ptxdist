@@ -230,18 +230,6 @@ config GLIBC_ZONEINFO_NAVAJO
 	depends on GLIBC_ZONEINFO
 	default N
 
-config GLIBC_ZONEINFO_PORTUGAL
-	bool
-	prompt "Portugal"
-	depends on GLIBC_ZONEINFO
-	default N
-
-config GLIBC_ZONEINFO_TURKEY
-	bool
-	prompt "Turkey"
-	depends on GLIBC_ZONEINFO
-	default N
-
 config GLIBC_ZONEINFO_WSU
 	bool
 	prompt "W-SU"
@@ -347,18 +335,6 @@ config GLIBC_ZONEINFO_CUBA
 config GLIBC_ZONEINFO_EIRE
 	bool
 	prompt "Eire"
-	depends on GLIBC_ZONEINFO
-	default N
-
-config GLIBC_ZONEINFO_GBEIRE
-	bool
-	prompt "GB-Eire"
-	depends on GLIBC_ZONEINFO
-	default N
-
-config GLIBC_ZONEINFO_GREENWICH
-	bool
-	prompt "Greenwich"
 	depends on GLIBC_ZONEINFO
 	default N
 
@@ -521,12 +497,6 @@ config GLIBC_ZONEINFO_MST
 config GLIBC_ZONEINFO_NZ-CHAT
 	bool
 	prompt "NZ-CHAT"
-	depends on GLIBC_ZONEINFO
-	default N
-
-config GLIBC_ZONEINFO_POLAND
-	bool
-	prompt "Poland"
 	depends on GLIBC_ZONEINFO
 	default N
 
