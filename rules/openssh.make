@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: openssh.make,v 1.10 2003/10/23 15:01:19 mkl Exp $
+# $Id: openssh.make,v 1.11 2003/10/26 21:58:28 mkl Exp $
 #
-# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -11,21 +12,17 @@
 #
 # We provide this package
 #
-ifeq (y,$(PTXCONF_OPENSSH))
+ifdef PTXCONF_OPENSSH
 PACKAGES += openssh
 endif
 
 #
 # Paths and names 
 #
-OPENSSH			= openssh-3.6.1p2
+OPENSSH			= openssh-3.7.1p2
 OPENSSH_URL 		= ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).tar.gz
 OPENSSH_SOURCE		= $(SRCDIR)/$(OPENSSH).tar.gz
 OPENSSH_DIR 		= $(BUILDDIR)/$(OPENSSH)
-
-OPENSSH_PATCH		= openssh.patch
-OPENSSH_PATCH_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(OPENSSH_PATCH)
-OPENSSH_PATCH_SOURCE	= $(SRCDIR)/$(OPENSSH_PATCH)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -35,19 +32,20 @@ openssh_get: $(STATEDIR)/openssh.get
 
 openssh_get_deps = \
 	$(OPENSSH_SOURCE) \
-	$(OPENSSH_PATCH_SOURCE)
+	$(STATEDIR)/openssh-patches.get
 
 $(STATEDIR)/openssh.get: $(openssh_get_deps)
 	@$(call targetinfo, openssh.get)
 	touch $@
 
+$(STATEDIR)/openssh-patches.get:
+	@$(call targetinfo, $@)
+	@$(call get_patches, $(OPENSSH))
+	touch $@
+
 $(OPENSSH_SOURCE):
 	@$(call targetinfo, $(OPENSSH_SOURCE))
 	@$(call get, $(OPENSSH_URL))
-
-$(OPENSSH_PATCH_SOURCE):
-	@$(call targetinfo, $(OPENSSH_PATCH_SOURCE))
-	@$(call get, $(OPENSSH_PATCH_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -69,8 +67,8 @@ $(STATEDIR)/openssh.extract: $(openssh_extract_deps)
 	@$(call targetinfo, openssh.extract)
 	@$(call clean, $(OPENSSH_DIR))
 	@$(call extract, $(OPENSSH_SOURCE))
+	@$(call patchin, $(OPENSSH))
 
-	cd $(OPENSSH_DIR) && patch -p1 < $(OPENSSH_PATCH_SOURCE)
 	OPENSSL_VERSION_NUMBER="`sed -n -e 's/.*OPENSSL_VERSION_NUMBER.*0x[0]*\([0-9a-f]*\)L/\1/p' \
 		$(CROSS_LIB_DIR)/include/openssl/opensslv.h`" \
 	OPENSSL_VERSION_TEXT="`sed -n -e 's/.*OPENSSL_VERSION_TEXT.*"\(.*\)"/\1/p' \
@@ -89,28 +87,54 @@ $(STATEDIR)/openssh.extract: $(openssh_extract_deps)
 
 openssh_prepare: $(STATEDIR)/openssh.prepare
 
-OPENSSH_AUTOCONF =  --prefix=/usr --libexecdir=/usr/sbin
-OPENSSH_AUTOCONF += --without-pam --with-ipv4-default
-OPENSSH_AUTOCONF += --build=$(GNU_HOST)
-OPENSSH_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
-OPENSSH_AUTOCONF += --with-privsep-path=/var/run/sshd
-
-
+#
+# dependencies
+#
 openssh_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/openssh.extract
 
 OPENSSH_PATH	= PATH=$(CROSS_PATH)
 #
-# FIXME:
-#
-# openssh is a little F*CKED up, is won't compile without ld=gcc in environment
+# openssh is a little F*CKED up, is won't compile without LD=gcc in environment
 # perhaps someone should fix this....
 #
+# powerpc-linux-ld -o ssh ssh.o readconf.o clientloop.o sshtty.o
+# sshconnect.o sshconnect1.o sshconnect2.o -L. -Lopenbsd-compat/ -lssh
+# -lopenbsd-compat -lutil -lz -lnsl -lcrypto -lcrypt
+# powerpc-linux-ld: warning: cannot find entry symbol _start;
+# defaulting to 10001ba8
+# ./libssh.a(packet.o): In function `set_newkeys':
+# /home/frogger/projects/ptxdist/ptxdist-ppc/build/openssh-3.7.1p2/packet.c:643:
+# undefined reference to `__ashldi3'
+# /home/frogger/projects/ptxdist/ptxdist-ppc/build/openssh-3.7.1p2/packet.c:643:
+# relocation truncated to fit: R_PPC_REL24 __ashldi3
+# make[1]: *** [ssh] Error 1
+#
 OPENSSH_ENV	= \
-	$(CROSS_ENV_AR) $(CORSS_ENV_AS) $(CROSS_ENV_CXX) $(CROSS_ENV_CC) \
-	$(CROSS_ENV_NM) $(CROSS_ENV_OBJCOPY) $(CROSS_ENV_RANLIB) \
-	$(CROSS_ENV_STRIP) LD=$(PTXCONF_GNU_TARGET)-gcc
+	$(CROSS_ENV_AR) \
+	$(CORSS_ENV_AS) \
+	$(CROSS_ENV_CXX) \
+	$(CROSS_ENV_CC) \
+	$(CROSS_ENV_NM) \
+	$(CROSS_ENV_OBJCOPY) \
+	$(CROSS_ENV_RANLIB) \
+	$(CROSS_ENV_STRIP) \
+	LD=$(PTXCONF_GNU_TARGET)-gcc
+
+#
+# autoconf
+#
+OPENSSH_AUTOCONF = \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--prefix=/usr \
+	--libexecdir=/usr/sbin \
+	--sysconfdir=/etc/ssh \
+	--with-privsep-path=/var/run/sshd \
+	--without-pam \
+	--with-ipv4-default \
+	--disable-etc-default-login
 
 $(STATEDIR)/openssh.prepare: $(openssh_prepare_deps)
 	@$(call targetinfo, openssh.prepare)
@@ -146,14 +170,42 @@ $(STATEDIR)/openssh.install: $(STATEDIR)/openssh.compile
 
 openssh_targetinstall: $(STATEDIR)/openssh.targetinstall
 
-$(STATEDIR)/openssh.targetinstall: $(STATEDIR)/openssh.compile
-	@$(call targetinfo, openssh.targetinstall)
-	touch $(ROOTDIR)/SSH_hostkeys_needed
-	install -m 0755 -s $(OPENSSH_DIR)/ssh-keygen $(ROOTDIR)/sbin/ssh-keygen
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/ssh-keygen
+openssh_targetinstall_deps = \
+	$(STATEDIR)/openssl.targetinstall \
+	$(STATEDIR)/openssh.compile
 
-	install -m 0755 -s $(OPENSSH_DIR)/sshd $(ROOTDIR)/sbin/sshd
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/sshd
+$(STATEDIR)/openssh.targetinstall: $(openssh_targetinstall_deps)
+	@$(call targetinfo, openssh.targetinstall)
+
+ifdef PTXCONF_OPENSSH_SSH
+	install -m 644 -D $(OPENSSH_DIR)/ssh_config.out $(ROOTDIR)/etc/ssh/ssh_config
+	install -m 755 -D $(OPENSSH_DIR)/ssh $(ROOTDIR)/usr/bin/ssh
+endif
+
+ifdef PTXCONF_OPENSSH_SSHD
+	touch $(ROOTDIR)/SSH_hostkeys_needed
+	mkdir -p $(ROOTDIR)/var/run/sshd
+	chmod 700 $(ROOTDIR)/var/run/sshd
+	install -m 644 -D $(OPENSSH_DIR)/moduli.out $(ROOTDIR)/etc/ssh/moduli
+	install -m 644 -D $(OPENSSH_DIR)/sshd_config.out $(ROOTDIR)/etc/ssh/sshd_config
+	install -m 755 -D $(OPENSSH_DIR)/sshd $(ROOTDIR)/usr/sbin/sshd
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/sbin/sshd
+endif
+
+ifdef PTXCONF_OPENSSH_SCP
+	install -m 755 -D $(OPENSSH_DIR)/scp $(ROOTDIR)/usr/bin/scp
+endif
+
+ifdef PTXCONF_OPENSSH_SFTP_SERVER
+	install -m 755 -D $(OPENSSH_DIR)/sftp-server $(ROOTDIR)/usr/sbin/sftp-server
+endif
+
+ifdef PTXCONF_OPENSSH_KEYGEN
+	install -m 755 -D $(MISCDIR)/openssh-host-keygen.sh $(ROOTDIR)/openssh-host-keygen.sh
+	install -m 755 -D $(OPENSSH_DIR)/ssh-keygen $(ROOTDIR)/usr/bin/ssh-keygen
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/ssh-keygen
+endif
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -161,6 +213,6 @@ $(STATEDIR)/openssh.targetinstall: $(STATEDIR)/openssh.compile
 # ----------------------------------------------------------------------------
 
 openssh_clean: 
-	rm -rf $(STATEDIR)/openssh.* $(OPENSSH_DIR)
+	rm -rf $(STATEDIR)/openssh* $(OPENSSH_DIR)
 
 # vim: syntax=make
