@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libnet.make,v 1.3 2003/09/06 02:28:06 mkl Exp $
+# $Id: libnet.make,v 1.4 2003/09/07 18:29:42 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde
 #          
@@ -48,12 +48,19 @@ $(LIBNET_SOURCE):
 
 libnet_extract: $(STATEDIR)/libnet.extract
 
-libnet_extract_deps	=  $(STATEDIR)/libnet.get
+libnet_extract_deps = \
+	$(STATEDIR)/automake15.install \
+	$(STATEDIR)/libnet.get
 
 $(STATEDIR)/libnet.extract: $(libnet_extract_deps)
 	@$(call targetinfo, libnet.extract)
 	@$(call clean, $(LIBNET_DIR))
 	@$(call extract, $(LIBNET_SOURCE))
+	$(call patchin,$(LIBNET_DIR),$(LIBNET))
+	cd $(LIBNET_DIR) && \
+		$(PTXCONF_PREFIX)/$(AUTOMAKE15)/bin/aclocal && \
+		$(PTXCONF_PREFIX)/$(AUTOMAKE15)/bin/automake && \
+		$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin/autoconf
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -71,7 +78,7 @@ libnet_prepare_deps =  \
 
 LIBNET_PATH	=  PATH=$(CROSS_PATH)
 LIBNET_ENV 	=  $(CROSS_ENV)
-
+LIBNET_ENV 	+= ac_libnet_have_packet_socket=yes
 
 #
 # autoconf
@@ -79,8 +86,7 @@ LIBNET_ENV 	=  $(CROSS_ENV)
 LIBNET_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 LIBNET_AUTOCONF	+= --build=$(GNU_HOST)
 LIBNET_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-
-#LIBNET_AUTOCONF	+= 
+LIBNET_AUTOCONF	+= --with-pf_packet=yes
 
 $(STATEDIR)/libnet.prepare: $(libnet_prepare_deps)
 	@$(call targetinfo, libnet.prepare)
