@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: strace.make,v 1.6 2003/10/26 21:00:06 mkl Exp $
+# $Id: strace.make,v 1.7 2004/01/31 18:08:17 bsp Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names 
 #
-STRACE			= strace-4.4.98
+STRACE			= strace-4.5.1
 STRACE_URL		= http://umn.dl.sourceforge.net/sourceforge/strace/$(STRACE).tar.bz2
 STRACE_SOURCE		= $(SRCDIR)/$(STRACE).tar.bz2
 STRACE_DIR		= $(BUILDDIR)/$(STRACE)

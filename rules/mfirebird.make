@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.9 2004/01/29 13:16:15 bsp Exp $
+# $Id: mfirebird.make,v 1.10 2004/01/31 18:08:17 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -111,7 +111,7 @@ MFIREBIRD_AUTOCONF	+= --disable-freetypetest
 #MFIREBIRD_AUTOCONF	+= --disable-postscript
 MFIREBIRD_AUTOCONF	+= --disable-xprint
 MFIREBIRD_AUTOCONF	+= --disable-crypto
-#MFIREBIRD_AUTOCONF	+= --disable-accessability
+MFIREBIRD_AUTOCONF	+= --enable-accessability
 #MFIREBIRD_AUTOCONF	+= --enable-xfpe-components
 ##MFIREBIRD_AUTOCONF	+= --enable-single-profile
 MFIREBIRD_AUTOCONF	+= --disable-composer
@@ -121,7 +121,7 @@ MFIREBIRD_AUTOCONF	+= --disable-svg
 MFIREBIRD_AUTOCONF	+= --disable-activex
 MFIREBIRD_AUTOCONF	+= --enable-extensions
 MFIREBIRD_AUTOCONF	+= --without-system-nspr
-
+MFIREBIRD_AUTOCONF	+= --disable-necko-disk-cache
 
 # g++ currently seems to have a bug with -pedantic (at least the
 # configure script claims so)

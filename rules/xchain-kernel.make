@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.17 2004/01/30 17:58:55 bsp Exp $
+# $Id: xchain-kernel.make,v 1.18 2004/01/31 18:08:17 bsp Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -55,10 +55,10 @@ endif
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/xchain-kernel-patchstack.extract: \
-	$(STATEDIR)/kernel.extract
+	$(STATEDIR)/xchain-kernel.extract
 	@$(call targetinfo, $@)
 	for i in $(subst ",,$(PTXCONF_KERNEL_PATCHSTACK)) ; do \
-	awk -v patch=$$i '{if (patch == $$1) print "$(CAT) patches/"$$2" | $(PATCH) -Np1 -d $(KERNEL_DIR) || exit -1"}' \
+	awk -v patch=$$i '{if (patch == $$1) print "$(CAT) patches/"$$2" | $(PATCH) -Np1 -d $(XCHAIN_KERNEL_BUILDDIR) || exit -1"}' \
 		patches/patches.lst | sh ; \
 	done
 	touch $@
