@@ -1,0 +1,7 @@
+menu	"FLTK GUI Toolkit "
+
+config FLTK
+	bool
+	prompt "FLTK-GUI Toolkit"
+	depends on XFREE430
+endmenu

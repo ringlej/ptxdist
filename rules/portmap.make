@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: portmap.make,v 1.6 2003/09/17 23:43:59 mkl Exp $
+# $Id: portmap.make,v 1.7 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -30,11 +30,11 @@ PORTMAP_DIR		= $(BUILDDIR)/$(PORTMAP)
 portmap_get: $(STATEDIR)/portmap.get
 
 $(STATEDIR)/portmap.get: $(PORTMAP_SOURCE)
-	@$(call targetinfo, portmap.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(PORTMAP_SOURCE):
-	@$(call targetinfo, $(PORTMAP_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(PORTMAP_URL))
 
 # ----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ $(PORTMAP_SOURCE):
 portmap_extract: $(STATEDIR)/portmap.extract
 
 $(STATEDIR)/portmap.extract: $(STATEDIR)/portmap.get
-	@$(call targetinfo, portmap.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(PORTMAP_DIR))
 	@$(call extract, $(PORTMAP_SOURCE))
 #	apply some fixes
@@ -67,7 +67,7 @@ portmap_prepare_deps = \
 	$(STATEDIR)/portmap.extract
 
 $(STATEDIR)/portmap.prepare: $(portmap_prepare_deps)
-	@$(call targetinfo, portmap.prepare)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -81,7 +81,7 @@ PORTMAP_PATH		= PATH=$(CROSS_PATH)
 PORTMAP_MAKEVARS	= WRAP_DIR=$(CROSS_LIB_DIR)/lib
 
 $(STATEDIR)/portmap.compile: $(STATEDIR)/portmap.prepare
-	@$(call targetinfo, portmap.compile)
+	@$(call targetinfo, $@)
 	$(PORTMAP_ENV) $(PORTMAP_PATH) \
 		make -C $(PORTMAP_DIR) $(PORTMAP_MAKEVARS)
 	touch $@
@@ -93,7 +93,7 @@ $(STATEDIR)/portmap.compile: $(STATEDIR)/portmap.prepare
 portmap_install: $(STATEDIR)/portmap.install
 
 $(STATEDIR)/portmap.install: $(STATEDIR)/portmap.compile
-	@$(call targetinfo, portmap.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -103,11 +103,11 @@ $(STATEDIR)/portmap.install: $(STATEDIR)/portmap.compile
 portmap_targetinstall: $(STATEDIR)/portmap.targetinstall
 
 $(STATEDIR)/portmap.targetinstall: $(STATEDIR)/portmap.install
-	@$(call targetinfo, portmap.targetinstall)
+	@$(call targetinfo, $@)
 ifdef PTXCONF_PORTMAP_INSTALL_PORTMAPPER
 	mkdir -p $(ROOTDIR)/sbin
 	install $(PORTMAP_DIR)/portmap $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/portmap
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/portmap
 endif
 	touch $@
 

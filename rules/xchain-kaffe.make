@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: xchain-kaffe.make,v 1.2 2003/09/08 23:42:39 mkl Exp $
+# $Id: xchain-kaffe.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
+# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -28,7 +28,7 @@ XCHAIN_KAFFE_BUILDDIR	= $(BUILDDIR)/xchain-$(KAFFE)-build
 xchain-kaffe_get: $(STATEDIR)/xchain-kaffe.get
 
 $(STATEDIR)/xchain-kaffe.get: $(kaffe_get_deps)
-	@$(call targetinfo, xchain-kaffe.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -38,7 +38,7 @@ $(STATEDIR)/xchain-kaffe.get: $(kaffe_get_deps)
 xchain-kaffe_extract: $(STATEDIR)/xchain-kaffe.extract
 
 $(STATEDIR)/xchain-kaffe.extract: $(kaffe_extract_deps)
-	@$(call targetinfo, xchain-kaffe.extract)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ xchain-kaffe_prepare_deps = \
 XCHAIN_KAFFE_ENV = $(HOSTCC_ENV)
 
 $(STATEDIR)/xchain-kaffe.prepare: $(xchain-kaffe_prepare_deps)
-	@$(call targetinfo, xchain-kaffe.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN_KAFFE_BUILDDIR))
 	mkdir -p $(XCHAIN_KAFFE_BUILDDIR)
 	cd $(XCHAIN_KAFFE_BUILDDIR) && \
@@ -68,7 +68,7 @@ $(STATEDIR)/xchain-kaffe.prepare: $(xchain-kaffe_prepare_deps)
 xchain-kaffe_compile: $(STATEDIR)/xchain-kaffe.compile
 
 $(STATEDIR)/xchain-kaffe.compile: $(STATEDIR)/xchain-kaffe.prepare
-	@$(call targetinfo, xchain-kaffe.compile)
+	@$(call targetinfo, $@)
 	make -C $(XCHAIN_KAFFE_BUILDDIR)/config
 	make -C $(XCHAIN_KAFFE_BUILDDIR)/kaffe/kaffeh
 	touch $@
@@ -80,7 +80,7 @@ $(STATEDIR)/xchain-kaffe.compile: $(STATEDIR)/xchain-kaffe.prepare
 xchain-kaffe_install: $(STATEDIR)/xchain-kaffe.install
 
 $(STATEDIR)/xchain-kaffe.install: $(STATEDIR)/xchain-kaffe.compile
-	@$(call targetinfo, xchain-kaffe.install)
+	@$(call targetinfo, $@)
 	make -C $(XCHAIN_KAFFE_BUILDDIR)/kaffe/kaffeh install
 	touch $@
 
@@ -91,7 +91,7 @@ $(STATEDIR)/xchain-kaffe.install: $(STATEDIR)/xchain-kaffe.compile
 xchain-kaffe_targetinstall: $(STATEDIR)/xchain-kaffe.targetinstall
 
 $(STATEDIR)/xchain-kaffe.targetinstall:
-	@$(call targetinfo, xchain-kaffe.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -100,11 +100,6 @@ $(STATEDIR)/xchain-kaffe.targetinstall:
 
 xchain-kaffe_clean: 
 	rm -rf $(STATEDIR)/xchain-kaffe*
-	rm -rf $(STATEDIR)/kaffe.extract
-	rm -rf $(STATEDIR)/kaffe.prepare
-	rm -rf $(STATEDIR)/kaffe.compile
 	rm -rf $(XCHAIN_KAFFE_BUILDDIR)
-	rm -rf $(KAFFE_BUILDDIR)
-	rm -rf $(KAFFE_DIR)
 
 # vim: syntax=make

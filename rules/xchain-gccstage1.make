@@ -1,33 +1,24 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.9 2003/09/16 16:55:16 mkl Exp $
+# $Id: xchain-gccstage1.make,v 1.10 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002,2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
-# We provide this package
-#
-
-ifdef PTXCONF_GCC_2_95_3
-GCC_VERSION		= 2.95.3
-endif
-ifdef PTXCONF_GCC_3_2_3
-GCC_VERSION		= 3.2.3
-endif
-
-#
 # Paths and names 
-GCC_PREFIX		= $(PTXCONF_GNU_TARGET)-
-GCC			= gcc-$(GCC_VERSION)
-GCC_URL			= ftp://ftp.gnu.org/pub/gnu/gcc/$(GCC).tar.gz
-GCC_SOURCE		= $(SRCDIR)/$(GCC).tar.gz
-GCC_DIR			= $(BUILDDIR)/$(GCC)
-GCC_STAGE1_DIR		= $(BUILDDIR)/$(GCC)-$(GCC_PREFIX)stage1
-GCC_STAGE2_DIR		= $(BUILDDIR)/$(GCC)-$(GCC_PREFIX)stage2
+#
+# version stuff in now in rules/Version.make
+# NB: make s*cks
+#
+GCC			=  gcc-$(GCC_VERSION)
+GCC_URL			=  ftp://ftp.gnu.org/pub/gnu/gcc/$(GCC).tar.gz
+GCC_SOURCE		=  $(SRCDIR)/$(GCC).tar.gz
+GCC_DIR			=  $(BUILDDIR)/$(GCC)
+GCC_STAGE1_DIR		=  $(BUILDDIR)/$(GCC)-$(PTXCONF_GNU_TARGET)-stage1
 
 # ----------------------------------------------------------------------------
 # Get
@@ -35,15 +26,21 @@ GCC_STAGE2_DIR		= $(BUILDDIR)/$(GCC)-$(GCC_PREFIX)stage2
 
 xchain-gccstage1_get: $(STATEDIR)/xchain-gccstage1.get
 
-xchain-gccstage1_get_deps =  $(GCC_SOURCE)
+xchain-gccstage1_get_deps = \
+	$(GCC_SOURCE) \
+	$(STATEDIR)/xchain-gccstage1-patches.get
 
 $(STATEDIR)/xchain-gccstage1.get: $(xchain-gccstage1_get_deps)
-	@$(call targetinfo, xchain-gccstage1.get)
+	@$(call targetinfo, $@)
+	touch $@
+
+$(STATEDIR)/xchain-gccstage1-patches.get:
+	@$(call targetinfo, $@)
 	@$(call get_patches, $(GCC))
 	touch $@
 
 $(GCC_SOURCE): 
-	@$(call targetinfo, $(GCC_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(GCC_URL))
 
 # ----------------------------------------------------------------------------
@@ -55,7 +52,7 @@ xchain-gccstage1_extract: $(STATEDIR)/xchain-gccstage1.extract
 xchain-gccstage1_extract_deps = $(STATEDIR)/xchain-gccstage1.get
 
 $(STATEDIR)/xchain-gccstage1.extract: $(xchain-gccstage1_extract_deps)
-	@$(call targetinfo, xchain-gccstage1.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(GCC_DIR))
 	@$(call extract, $(GCC_SOURCE))
 	@$(call patchin, $(GCC))
@@ -76,8 +73,10 @@ $(STATEDIR)/xchain-gccstage1.extract: $(xchain-gccstage1_extract_deps)
 #
 # Prevent system glibc start files from leaking in uninvited...
 #
-	perl -i -p -e "s,standard_startfile_prefix_1 = \".*,standard_startfile_prefix_1 =\"$(CROSS_LIB_DIR)/lib/\";,;" $(GCC_DIR)/gcc/gcc.c;
-	perl -i -p -e "s,standard_startfile_prefix_2 = \".*,standard_startfile_prefix_2 =\"$(CROSS_LIB_DIR)/usr/lib/\";,;" $(GCC_DIR)/gcc/gcc.c;
+	perl -i -p -e "s,standard_startfile_prefix_1 = \".*,standard_startfile_prefix_1 =\"$(CROSS_LIB_DIR)/lib/\";,;" \
+		$(GCC_DIR)/gcc/gcc.c;
+	perl -i -p -e "s,standard_startfile_prefix_2 = \".*,standard_startfile_prefix_2 =\"$(CROSS_LIB_DIR)/usr/lib/\";,;" \
+		$(GCC_DIR)/gcc/gcc.c;
 
 #
 # Prevent system glibc include files from leaking in uninvited...
@@ -154,9 +153,41 @@ endif # PTXCON_UCLIBC
 
 xchain-gccstage1_prepare: $(STATEDIR)/xchain-gccstage1.prepare
 
-xchain-gccstage1_prepare_deps =  $(STATEDIR)/xchain-binutils.install
-xchain-gccstage1_prepare_deps += $(STATEDIR)/xchain-gccstage1.extract
-xchain-gccstage1_prepare_deps += $(STATEDIR)/xchain-kernel.install
+xchain-gccstage1_prepare_deps = \
+	$(STATEDIR)/xchain-binutils.install \
+	$(STATEDIR)/xchain-kernel.install \
+	$(STATEDIR)/xchain-gccstage1.extract
+#
+# Dan Kegel says:
+#
+# Only need to install bootstrap glibc headers for gcc-3.0 and above?
+# Or maybe just gcc-3.3 and above? This will change for gcc-3.5, I
+# think (I hope). See also http://gcc.gnu.org/PR8180, which complains
+# about the need for this step. Don't install them if they're already
+# there (it's really slow)
+#
+# Comments:
+# gcc-3.2.3 for PPC needs some headers (or a patch that disables the
+# #include of the headers)
+#
+# you will get an error like this:
+#
+# /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3-powerpc-405-linux-gnu-stage1/gcc/xgcc
+# [...]
+# /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3/gcc/libgcc2.c
+# -o libgcc/./_muldi3.o
+#
+# In file included from tconfig.h:21,
+#                 from /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3/gcc/libgcc2.c:36:
+# /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3/gcc/config/rs6000/linux.h:82:20: signal.h: No such file or directory
+# /home/frogger/projects/ptxdist/ptxdist-ppc/build/gcc-3.2.3/gcc/config/rs6000/linux.h:83:26: sys/ucontext.h: No such file or directory
+# make[3]: *** [libgcc/./_muldi3.o] Error 1
+#
+ifdef PTXCONF_GLIBC 
+ifeq (3,$(GCC_VERSION_MAJOR))
+xchain-gccstage1_prepare_deps += $(STATEDIR)/xchain-glibc.install
+endif
+endif
 
 GCC_STAGE1_PATH	= PATH=$(CROSS_PATH)
 GCC_STAGE1_ENV	= $(HOSTCC_ENV)
@@ -166,18 +197,49 @@ GCC_STAGE1_AUTOCONF = \
 	--host=$(GNU_HOST) \
 	--build=$(GNU_HOST) \
 	--prefix=$(PTXCONF_PREFIX) \
+	--with-local-prefix=$(CROSS_LIB_DIR) \
 	$(GCC_EXTRA_CONFIG) \
 	--disable-nls \
-	--disable-shared \
-	--enable-target-optspace \
+	--disable-multilib \
 	--disable-threads \
-	--with-gnu-ld \
-	--enable-languages=c
+	--disable-shared \
+	--enable-languages=c \
+	--enable-symvers=gnu \
+	--enable-target-optspace \
+	--enable-version-specific-runtime-libs \
+	--with-newlib \
+        --without-headers \
+	--with-gnu-ld
 
-#	--enable-multilib \
+ifdef PTXCONF_GLIBC
+GCC_STAGE1_AUTOCONF	+= --enable-__cxa_atexit
+endif
 
+ifdef PTXCONF_UCLIBC
+GCC_STAGE1_AUTOCONF	+= --disable-__cxa_atexit
+endif
+
+#
+# FIXME: "configure: line 193: cd: no: No such file or directory"
+#
+# cd /home/frogger/ptxdist/ptxdist-i386/build/gcc-3.2.3-"i386-linux"-stage1 && \
+#        PATH="/home/frogger/ptxdist/xchain/i386"/bin:$PATH CC=gcc \
+#
+# /home/frogger/ptxdist/ptxdist-i386/build/gcc-3.2.3/configure
+# --target="i386-linux" --host=powerpc-host-linux-gnu
+# --build=powerpc-host-linux-gnu
+# --prefix="/home/frogger/ptxdist/xchain/i386"
+# --with-local-prefix="/home/frogger/ptxdist/xchain/i386"/"i386-linux"
+# --disable-nls --disable-multilib --disable-threads --disable-shared
+# --enable-languages=c --enable-symvers=gnu --enable-target-optspace
+# --enable-version-specific-runtime-libs --with-newlib
+# --without-headers --with-gnu-ld --enable-__cxa_atexit Copying no to
+# /home/frogger/ptxdist/xchain/i386/i386-linux/sys-include
+# /home/frogger/ptxdist/ptxdist-i386/build/gcc-3.2.3/configure: line
+# 193: cd: no: No such file or directory
+#
 $(STATEDIR)/xchain-gccstage1.prepare: $(xchain-gccstage1_prepare_deps)
-	@$(call targetinfo, xchain-gccstage1.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(GCC_STAGE1_DIR))
 	[ -d $(GCC_STAGE1_DIR) ] || mkdir -p $(GCC_STAGE1_DIR)
 
@@ -193,20 +255,10 @@ $(STATEDIR)/xchain-gccstage1.prepare: $(xchain-gccstage1_prepare_deps)
 xchain-gccstage1_compile: $(STATEDIR)/xchain-gccstage1.compile
 
 $(STATEDIR)/xchain-gccstage1.compile: $(STATEDIR)/xchain-gccstage1.prepare
-	@$(call targetinfo, xchain-gccstage1.compile)
-        ifdef PTXCONF_GCC_2_95_3
+	@$(call targetinfo, $@)
 	cd $(GCC_STAGE1_DIR) && \
 		$(GCC_STAGE1_PATH) \
-		make MAKE="make TARGET_LIBGCC2_CFLAGS='-Dinhibit_libc -D__gthr_posix_h'"
-        else
-#
-# -DSTAGE1 is a switch for the PPC platfrom
-#          it makes some modification active needed only for stage 1
-#
-	cd $(GCC_STAGE1_DIR) && \
-		$(GCC_STAGE1_PATH) \
-		make MAKE="make TARGET_LIBGCC2_CFLAGS='-Dinhibit_libc -DSTAGE1'"
-        endif
+		make all-gcc
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -216,7 +268,7 @@ $(STATEDIR)/xchain-gccstage1.compile: $(STATEDIR)/xchain-gccstage1.prepare
 xchain-gccstage1_install: $(STATEDIR)/xchain-gccstage1.install
 
 $(STATEDIR)/xchain-gccstage1.install: $(STATEDIR)/xchain-gccstage1.compile
-	@$(call targetinfo, xchain-gccstage1.install)
+	@$(call targetinfo, $@)
 	cd $(GCC_STAGE1_DIR) &&	\
 		$(GCC_STAGE1_PATH) $(GCC_STAGE1_ENV) \
 		make install
@@ -229,7 +281,7 @@ $(STATEDIR)/xchain-gccstage1.install: $(STATEDIR)/xchain-gccstage1.compile
 xchain-gccstage1_targetinstall: $(STATEDIR)/xchain-gccstage1.targetinstall
 
 $(STATEDIR)/xchain-gccstage1.targetinstall:
-	@$(call targetinfo, xchain-gccstage1.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -240,6 +292,5 @@ xchain-gccstage1_clean:
 	rm -fr $(GCC_STAGE1_DIR)
 	rm -fr $(STATEDIR)/xchain-gccstage1.*
 	rm -fr $(GCC_DIR)
-
 
 # vim: syntax=make

@@ -1,0 +1,19 @@
+#
+# Copyright (C) 08/10/2003 by Marco Cavallini <m.cavallini@koansoftware.com>
+#
+
+menu "wxWindows GUI [X11]  "
+
+config WXWINDOWS_X11
+	bool
+	prompt "Compile wxWindows / X11"
+	depends on EXP
+#	depends on XFREE430
+
+config WXWINDOWS_X11_CONFIG
+        prompt "Configuration to be used (not used)"
+	string
+	default "--with-x11"
+	depends on WXWINDOWS_X11
+
+endmenu

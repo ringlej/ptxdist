@@ -1,10 +1,10 @@
 # -*-makefile-*-
 # $id$
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -25,7 +25,7 @@ XCHAIN_ZLIB_BUILDDIR	= $(BUILDDIR)/xchain/$(ZLIB)
 xchain-zlib_get: $(STATEDIR)/xchain-zlib.get
 
 $(STATEDIR)/xchain-zlib.get: $(STATEDIR)/zlib.get
-	@$(call targetinfo, xchain-zlib.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ $(STATEDIR)/xchain-zlib.get: $(STATEDIR)/zlib.get
 xchain-zlib_extract: $(STATEDIR)/xchain-zlib.extract
 
 $(STATEDIR)/xchain-zlib.extract: $(STATEDIR)/xchain-zlib.get
-	@$(call targetinfo, xchain-zlib.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN_ZLIB_BUILDDIR))
 	@$(call extract, $(ZLIB_SOURCE), $(XCHAIN_BUILDDIR))
 	touch $@
@@ -51,7 +51,7 @@ XCHAIN_ZLIB_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)
 XCHAIN_ZLIB_MAKEVARS	=  $(HOSTCC_ENV)
 
 $(STATEDIR)/xchain-zlib.prepare: $(STATEDIR)/xchain-zlib.extract
-	@$(call targetinfo, xchain-zlib.prepare)
+	@$(call targetinfo, $@)
 	cd $(XCHAIN_ZLIB_BUILDDIR) && \
 		./configure $(XCHAIN_ZLIB_AUTOCONF)
 	touch $@
@@ -61,7 +61,7 @@ $(STATEDIR)/xchain-zlib.prepare: $(STATEDIR)/xchain-zlib.extract
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/xchain-zlib.compile: $(STATEDIR)/xchain-zlib.prepare 
-	@$(call targetinfo, xchain-zlib.compile)
+	@$(call targetinfo, $@)
 	make -C $(XCHAIN_ZLIB_BUILDDIR) $(XCHAIN_ZLIB_MAKEVARS)
 	touch $@
 
@@ -72,7 +72,7 @@ $(STATEDIR)/xchain-zlib.compile: $(STATEDIR)/xchain-zlib.prepare
 xchain-zlib_install: $(STATEDIR)/xchain-zlib.install
 
 $(STATEDIR)/xchain-zlib.install: $(STATEDIR)/xchain-zlib.compile
-	@$(call targetinfo, xchain-zlib.install)
+	@$(call targetinfo, $@)
 	make -C $(XCHAIN_ZLIB_BUILDDIR) $(XCHAIN_ZLIB_MAKEVARS) \
 		install
 	touch $@
@@ -83,7 +83,7 @@ $(STATEDIR)/xchain-zlib.install: $(STATEDIR)/xchain-zlib.compile
 xchain-zlib_targetinstall: $(STATEDIR)/xchain-zlib.targetinstall
 
 $(STATEDIR)/xchain-zlib.targetinstall: $(STATEDIR)/xchain-zlib.install
-	@$(call targetinfo, xchain-zlib.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

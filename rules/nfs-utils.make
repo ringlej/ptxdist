@@ -1,17 +1,17 @@
 # -*-makefile-*-
-# $Id: nfs-utils.make,v 1.6 2003/08/29 19:05:15 mkl Exp $
+# $Id: nfs-utils.make,v 1.7 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_NFSUTILS))
+ifdef PTXCONF_NFSUTILS
 PACKAGES += nfsutils
 endif
 
@@ -22,7 +22,6 @@ NFSUTILS		= nfs-utils-1.0.1
 NFSUTILS_URL		= http://unc.dl.sourceforge.net/sourceforge/nfs/$(NFSUTILS).tar.gz
 NFSUTILS_SOURCE		= $(SRCDIR)/$(NFSUTILS).tar.gz
 NFSUTILS_DIR		= $(BUILDDIR)/$(NFSUTILS)
-NFSUTILS_EXTRACT	= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,12 +30,12 @@ NFSUTILS_EXTRACT	= gzip -dc
 nfsutils_get: $(STATEDIR)/nfsutils.get
 
 $(STATEDIR)/nfsutils.get: $(NFSUTILS_SOURCE)
-	@$(call targetinfo, nfsutils.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(NFSUTILS_SOURCE):
-	@$(call targetinfo, $(NFSUTILS_SOURCE))
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(NFSUTILS_URL)
+	@$(call targetinfo, $@)
+	@$(call get, $(NFSUTILS_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -45,11 +44,12 @@ $(NFSUTILS_SOURCE):
 nfsutils_extract: $(STATEDIR)/nfsutils.extract
 
 $(STATEDIR)/nfsutils.extract: $(STATEDIR)/nfsutils.get $(STATEDIR)/autoconf257.install
-	@$(call targetinfo, nfsutils.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(NFSUTILS_DIR))
 	@$(call extract, $(NFSUTILS_SOURCE))
-	#
-	# regenerate configure script with new autoconf, to make cross compiling work
+#
+# regenerate configure script with new autoconf, to make cross compiling work
+#
 	cd $(NFSUTILS_DIR) && PATH=$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin:$$PATH autoconf
 	touch $@
 
@@ -60,8 +60,7 @@ $(STATEDIR)/nfsutils.extract: $(STATEDIR)/nfsutils.get $(STATEDIR)/autoconf257.i
 nfsutils_prepare: $(STATEDIR)/nfsutils.prepare
 
 # 
-# # arcitecture dependend configuration
-# #
+# arcitecture dependend configuration
 #
 NFSUTILS_AUTOCONF	=  --build=$(GNU_HOST)
 NFSUTILS_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
@@ -69,17 +68,19 @@ NFSUTILS_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 NFSUTILS_PATH		=  PATH=$(CROSS_PATH)
 NFSUTILS_ENV		+= CC_FOR_BUILD=$(HOSTCC) $(CROSS_ENV)
 
-ifeq (y, $(PTXCONF_NFSUTILS_V3))
+ifdef PTXCONF_NFSUTILS_V3
 NFSUTILS_AUTOCONF += --enable-nfsv3
 else
 NFSUTILS_AUTOCONF += --disable-nfsv3
 endif
-ifeq (y, $(PTXCONF_NFSUTILS_SECURE_STATD))
+
+ifdef PTXCONF_NFSUTILS_SECURE_STATD
 NFSUTILS_AUTOCONF += --enable-secure-statd
 else
 NFSUTILS_AUTOCONF += --disable-secure-statd
 endif
-ifeq (y, $(PTXCONF_NFSUTILS_RQUOTAD))
+
+ifdef PTXCONF_NFSUTILS_RQUOTAD
 NFSUTILS_AUTOCONF += --enable-rquotad
 else
 NFSUTILS_AUTOCONF += --disable-rquotad
@@ -90,7 +91,7 @@ nfsutils_prepare_deps = \
 	$(STATEDIR)/nfsutils.extract
 
 $(STATEDIR)/nfsutils.prepare: $(nfsutils_prepare_deps)
-	@$(call targetinfo, nfsutils.prepare)
+	@$(call targetinfo, $@)
 	cd $(NFSUTILS_DIR) &&						\
 		$(NFSUTILS_PATH) $(NFSUTILS_ENV)			\
 		$(NFSUTILS_DIR)/configure $(NFSUTILS_AUTOCONF)
@@ -103,7 +104,7 @@ $(STATEDIR)/nfsutils.prepare: $(nfsutils_prepare_deps)
 nfsutils_compile: $(STATEDIR)/nfsutils.compile
 
 $(STATEDIR)/nfsutils.compile: $(STATEDIR)/nfsutils.prepare 
-	@$(call targetinfo, nfsutils.compile)
+	@$(call targetinfo, $@)
 	$(NFSUTILS_PATH) make -C $(NFSUTILS_DIR)
 	touch $@
 
@@ -114,7 +115,7 @@ $(STATEDIR)/nfsutils.compile: $(STATEDIR)/nfsutils.prepare
 nfsutils_install: $(STATEDIR)/nfsutils.install
 
 $(STATEDIR)/nfsutils.install: $(STATEDIR)/nfsutils.compile
-	@$(call targetinfo, nfsutils.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -124,7 +125,7 @@ $(STATEDIR)/nfsutils.install: $(STATEDIR)/nfsutils.compile
 nfsutils_targetinstall: $(STATEDIR)/nfsutils.targetinstall
 
 $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
-	@$(call targetinfo, nfsutils.targetinstall)
+	@$(call targetinfo, $@)
 
 	mkdir -p $(ROOTDIR)/etc/init.d
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_CLIENTSCRIPT))
@@ -140,23 +141,23 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 	mkdir -p $(ROOTDIR)/sbin
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_EXPORTFS))
 	install $(NFSUTILS_DIR)/utils/exportfs/exportfs $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/exportfs
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/exportfs
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_LOCKD))
 	install $(NFSUTILS_DIR)/utils/lockd/lockd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/lockd
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/lockd
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_MOUNTD))
 	install $(NFSUTILS_DIR)/utils/mountd/mountd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/mountd
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mountd
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NFSD))
 	install $(NFSUTILS_DIR)/utils/nfsd/nfsd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/nfsd
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nfsd
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NFSSTAT))
 	install $(NFSUTILS_DIR)/utils/nfsstat/nfsstat $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/nfsstat
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nfsstat
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSGRAPH))
 	# don't strip, this is a shell script
@@ -172,15 +173,15 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSSTONE))
 	install $(NFSUTILS_DIR)/utils/nhfsstone/nhfsstone $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/nhfsstone
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nhfsstone
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_SHOWMOUNT))
 	install $(NFSUTILS_DIR)/utils/showmount/showmount $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/showmount
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/showmount
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_STATD))
 	install $(NFSUTILS_DIR)/utils/statd/statd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/statd
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/statd
         endif
 	# create stuff necessary for nfs
 	mkdir -p $(ROOTDIR)/var/lib/nfs

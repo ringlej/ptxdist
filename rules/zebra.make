@@ -1,19 +1,19 @@
 # -*-makefile-*-
-# $Id: zebra.make,v 1.1 2003/08/08 18:28:43 robert Exp $
+# $Id: zebra.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 Jochen Striepe, Pengutronix e.K. <info@pengutronix.de>, Germany
-# (c) 2003 Robert Schwebel, Pengutronix e.K. <info@pengutronix.de>, Germany
+# Copyright (C) 2003 Jochen Striepe, Pengutronix e.K. <info@pengutronix.de>, Germany
+# Copyright (C) 2003 Robert Schwebel, Pengutronix e.K. <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-ifeq (y,$(PTXCONF_ZEBRA))
+ifdef PTXCONF_ZEBRA
 PACKAGES += zebra
 endif
 
@@ -36,11 +36,11 @@ zebra_get: $(STATEDIR)/zebra.get
 zebra_get_deps	= $(ZEBRA_SOURCE)
 
 $(STATEDIR)/zebra.get: $(zebra_get_deps)
-	@$(call targetinfo, zebra.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(ZEBRA_SOURCE):
-	@$(call targetinfo, $(ZEBRA_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(ZEBRA_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,9 +52,10 @@ zebra_extract: $(STATEDIR)/zebra.extract
 zebra_extract_deps	= $(STATEDIR)/zebra.get
 
 $(STATEDIR)/zebra.extract: $(zebra_extract_deps)
-	@$(call targetinfo, zebra.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(ZEBRA_DIR))
 	@$(call extract, $(ZEBRA_SOURCE))
+	touch $@
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -62,21 +63,35 @@ $(STATEDIR)/zebra.extract: $(zebra_extract_deps)
 
 zebra_prepare: $(STATEDIR)/zebra.prepare
 
-zebra_prepare_deps	= $(STATEDIR)/zebra.extract
+zebra_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/zebra.extract
 
-ZEBRA_AUTOCONF		=  --prefix=/usr
-ZEBRA_AUTOCONF		+= --build=$(GNU_HOST)
-ZEBRA_AUTOCONF		+= --host=$(PTXCONF_GNU_TARGET)
+ZEBRA_AUTOCONF = \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--with-cflags=$(TARGET_CFLAGS) \
+	--prefix=/usr \
+	--exec-prefix=/usr \
+	--sysconfdir=/etc/zebra \
+	--localstatedir=/var
+
+ZEBRA_ENV = \
+	$(CROSS_ENV) \
+	ac_cv_func_getpgrp_void=yes \
+	ac_cv_func_setpgrp_void=yes \
+	ac_cv_sizeof_long_long=8 \
+	ac_cv_func_memcmp_clean=yes \
+	ac_cv_func_getrlimit=yes
+
+ZEBRA_PATH	=  PATH=$(CROSS_PATH)
+
 
 $(STATEDIR)/zebra.prepare: $(zebra_prepare_deps)
-	@$(call targetinfo, zebra.prepare)
+	@$(call targetinfo, $@)
 	cd $(ZEBRA_DIR) && \
-		ac_cv_func_getpgrp_void=yes	\
-		ac_cv_func_setpgrp_void=yes	\
-		ac_cv_sizeof_long_long=8	\
-		ac_cv_func_memcmp_clean=yes	\
-		ac_cv_func_getrlimit=yes	\
-		$(ZEBRA_PATH) $(ZEBRA_ENV) $(ZEBRA_DIR)/configure $(ZEBRA_AUTOCONF)
+		$(ZEBRA_PATH) $(ZEBRA_ENV) \
+		./configure $(ZEBRA_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -86,7 +101,7 @@ $(STATEDIR)/zebra.prepare: $(zebra_prepare_deps)
 zebra_compile: $(STATEDIR)/zebra.compile
 
 $(STATEDIR)/zebra.compile: $(STATEDIR)/zebra.prepare 
-	@$(call targetinfo, zebra.compile)
+	@$(call targetinfo, $@)
 	$(ZEBRA_PATH) make -C $(ZEBRA_DIR)
 	touch $@
 
@@ -97,7 +112,7 @@ $(STATEDIR)/zebra.compile: $(STATEDIR)/zebra.prepare
 zebra_install: $(STATEDIR)/zebra.install
 
 $(STATEDIR)/zebra.install: $(STATEDIR)/zebra.compile
-	@$(call targetinfo, zebra.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -107,8 +122,8 @@ $(STATEDIR)/zebra.install: $(STATEDIR)/zebra.compile
 zebra_targetinstall: $(STATEDIR)/zebra.targetinstall
 
 $(STATEDIR)/zebra.targetinstall: $(STATEDIR)/zebra.install
-	@$(call targetinfo, zebra.targetinstall)
-# TODO
+	@$(call targetinfo, $@)
+	$(ZEBRA_PATH) make -C $(ZEBRA_DIR) DESTDIR=$(ROOTDIR)
 	touch $@
 # ----------------------------------------------------------------------------
 # Clean

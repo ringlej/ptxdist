@@ -1,49 +1,60 @@
 # -*-makefile-*-
-# $Id: gdb.make,v 1.2 2003/10/07 07:13:43 robert Exp $
+# $Id: gdb.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_BUILD_GDB))
-PACKAGES += gdb
-endif
-ifeq (y, $(PTXCONF_BUILD_GDBSERVER))
+ifdef PTXCONF_BUILD_GDB
 PACKAGES += gdb
 endif
 
 #
 # Paths and names 
 #
-GDB_VERSION		= $(XGDB_VERSION)
-GDB			= gdb-$(GDB_VERSION)
-GDB_SUFFIX		= $(XGDB_SUFFIX)
-GDB_SOURCE		= $(XGDB_SOURCE)
-GDB_DIR			= $(BUILDDIR)/$(GDB)
+GDB_VERSION	= 5.3
+GDB		= gdb-$(GDB_VERSION)
+GDB_SUFFIX	= tar.gz
+GDB_URL		= ftp://ftp.gnu.org/pub/gnu/gdb/$(GDB).$(GDB_SUFFIX)
+GDB_SOURCE	= $(SRCDIR)/$(GDB).tar.gz
+GDB_DIR		= $(BUILDDIR)/$(GDB)
+GDB_BUILDDIR	= $(BUILDDIR)/$(GDB)-build
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-gdb_get: $(STATEDIR)/xchain-gdb.get
-	
+gdb_get: $(STATEDIR)/gdb.get
+
+gdb_get_deps = $(GDB_SOURCE)
+
+$(STATEDIR)/gdb.get: $(gdb_get_deps)
+	@$(call targetinfo, $@)
+	@$(call get_patches, $(GDB))
+	touch $@
+
+$(GDB_SOURCE):
+	@$(call targetinfo, $@)
+	@$(call get, $(GDB_URL))
+
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
 gdb_extract: $(STATEDIR)/gdb.extract
 
-$(STATEDIR)/gdb.extract: $(STATEDIR)/xchain-gdb.get
-	@$(call targetinfo, gdb.extract)
+$(STATEDIR)/gdb.extract: $(STATEDIR)/gdb.get
+	@$(call targetinfo, $@)
 	@$(call clean, $(GDB_DIR))
 	@$(call extract, $(GDB_SOURCE))
+	@$(call patchin, $(GDB))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -52,30 +63,36 @@ $(STATEDIR)/gdb.extract: $(STATEDIR)/xchain-gdb.get
 
 gdb_prepare: $(STATEDIR)/gdb.prepare
 
+#
+# dependencies
+#
+gdb_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/ncurses.install \
+	$(STATEDIR)/gdb.extract
+
 GDB_PATH	=  PATH=$(CROSS_PATH)
 GDB_ENV		=  $(CROSS_ENV)
+
+ifndef PTXCONF_GDB_SHARED
+GDB_MAKEVARS	+= LDFLAGS=-static
+endif
 
 #
 # autoconf
 #
-GDB_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
+GDB_AUTOCONF	=  --prefix=/usr
 GDB_AUTOCONF	+= --build=$(GNU_HOST)
 GDB_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 GDB_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/gdb.prepare: $(STATEDIR)/gdb.extract
-	@$(call targetinfo, gdb.prepare)
-
-ifeq (y,$(PTXCONF_BUILD_GDB))
-	cd $(GDB_DIR) && 						\
-		$(GDB_PATH) $(GDB_ENV) ./configure $(GDB_AUTOCONF)
-endif
-
-ifeq (y,$(PTXCONF_BUILD_GDBSERVER))
-	# configure is not executable, so run it with sh
-	cd $(GDB_DIR)/gdb/gdbserver &&					\
-		$(GDB_PATH) $(GDB_ENV) /bin/sh configure $(GDB_AUTOCONF)
-endif
+$(STATEDIR)/gdb.prepare: $(gdb_prepare_deps)
+	@$(call targetinfo, $@)
+	@$(call clean, $(GDB_BUILDDIR))
+	mkdir -p $(GDB_BUILDDIR)
+	cd $(GDB_BUILDDIR) && \
+		$(GDB_PATH) $(GDB_ENV) \
+		$(GDB_DIR)/configure $(GDB_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -85,17 +102,14 @@ endif
 gdb_compile: $(STATEDIR)/gdb.compile
 
 $(STATEDIR)/gdb.compile: $(STATEDIR)/gdb.prepare 
-	@$(call targetinfo, gdb.compile)
-	
-ifeq (y,$(PTXCONF_BUILD_GDB))
-	cd $(GDB_DIR) && \
-		$(GDB_PATH) $(GDB_ENV) make 
-endif
-
-ifeq (y,$(PTXCONF_BUILD_GDBSERVER))
-	cd $(GDB_DIR)/gdb/gdbserver && \
-		$(GDB_PATH) $(GDB_ENV) make
-endif
+	@$(call targetinfo, $@)
+#
+# the libiberty part is compiled for the host system
+#
+# don't pass target CFLAGS to it, so override them and call the configure script
+#
+	$(GDB_PATH) make -C $(GDB_BUILDDIR) $(GDB_MAKEVARS) CFLAGS='' CXXFLAGS='' configure-build-libiberty
+	$(GDB_PATH) make -C $(GDB_BUILDDIR) $(GDB_MAKEVARS) 
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -104,8 +118,8 @@ endif
 
 gdb_install: $(STATEDIR)/gdb.install
 
-$(STATEDIR)/gdb.install: $(STATEDIR)/gdb.compile
-	@$(call targetinfo, gdb.install)
+$(STATEDIR)/gdb.install:
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -114,18 +128,19 @@ $(STATEDIR)/gdb.install: $(STATEDIR)/gdb.compile
 
 gdb_targetinstall: $(STATEDIR)/gdb.targetinstall
 
-$(STATEDIR)/gdb.targetinstall: $(STATEDIR)/gdb.install
-	@$(call targetinfo, gdb.targetinstall)
-	
-ifeq (y,$(PTXCONF_BUILD_GDB))
-	install $(GDB_DIR)/gdb/gdb $(ROOTDIR)/bin
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/bin/gdb
+gdb_targetinstall_deps = \
+	$(STATEDIR)/gdb.compile
+
+ifdef PTXCONF_GDB_SHARED
+gdb_targetinstall_deps += \
+	$(STATEDIR)/ncurses.targetinstall
 endif
 
-ifeq (y,$(PTXCONF_BUILD_GDBSERVER))
-	install $(GDB_DIR)/gdb/gdbserver/gdbserver $(ROOTDIR)/bin
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/bin/gdbserver
-endif
+$(STATEDIR)/gdb.targetinstall: $(gdb_targetinstall_deps)
+	@$(call targetinfo, $@)
+	mkdir -p $(ROOTDIR)/usr/bin
+	install $(GDB_BUILDDIR)/gdb/gdb $(ROOTDIR)/usr/bin
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/gdb
 	touch $@
 
 # ----------------------------------------------------------------------------

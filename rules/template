@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: template,v 1.6 2003/09/24 14:45:16 mkl Exp $
+# $Id: template,v 1.7 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by @AUTHOR@
+# Copyright (C) 2003 by @AUTHOR@
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -69,7 +69,7 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 	$(STATEDIR)/@packet@.extract \
 	$(STATEDIR)/virtual-xchain.install
 
-@PACKET@_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+@PACKET@_PATH	=  PATH=$(CROSS_PATH)
 @PACKET@_ENV 	=  $(CROSS_ENV)
 #@PACKET@_ENV	+=
 
@@ -85,7 +85,7 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 
 $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(@PACKET@_BUILDDIR))
+	@$(call clean, $(@PACKET@_DIR)/config.cache)
 	cd $(@PACKET@_DIR) && \
 		$(@PACKET@_PATH) $(@PACKET@_ENV) \
 		./configure $(@PACKET@_AUTOCONF)
@@ -101,7 +101,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
 
 $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
 	@$(call targetinfo, $@)
-	$(@PACKET@_PATH) $(@PACKET@_ENV) make -C $(@PACKET@_DIR)
+	$(@PACKET@_PATH) make -C $(@PACKET@_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -112,7 +112,7 @@ $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
 
 $(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
 	@$(call targetinfo, $@)
-	$(@PACKET@_PATH) $(@PACKET@_ENV) make -C $(@PACKET@_DIR) install
+	$(@PACKET@_PATH) make -C $(@PACKET@_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------

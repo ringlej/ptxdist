@@ -1,0 +1,21 @@
+menu "procps              "
+
+config PROCPS
+	bool
+	prompt "Compile procps"
+
+config PROCPS_TOP
+	bool
+        prompt "top"
+	depends on PROCPS
+
+config PROCPS_SLABTOP
+	bool
+	prompt "slabtop"
+	depends on PROCPS
+
+config PROCPS_SYSCTL
+	bool
+	prompt "sysctl"
+	depends on PROCPS
+endmenu

@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: oprofile.make,v 1.1 2003/08/26 13:03:52 bsp Exp $
+# $Id: oprofile.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
+# Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -35,11 +35,11 @@ oprofile_get: $(STATEDIR)/oprofile.get
 oprofile_get_deps	=  $(OPROFILE_SOURCE)
 
 $(STATEDIR)/oprofile.get: $(oprofile_get_deps)
-	@$(call targetinfo, oprofile.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(OPROFILE_SOURCE):
-	@$(call targetinfo, $(OPROFILE_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(OPROFILE_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ oprofile_extract: $(STATEDIR)/oprofile.extract
 oprofile_extract_deps	=  $(STATEDIR)/oprofile.get
 
 $(STATEDIR)/oprofile.extract: $(oprofile_extract_deps)
-	@$(call targetinfo, oprofile.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(OPROFILE_DIR))
 	@$(call extract, $(OPROFILE_SOURCE))
 	touch $@
@@ -66,15 +66,14 @@ oprofile_prepare: $(STATEDIR)/oprofile.prepare
 # dependencies
 #
 oprofile_prepare_deps =  \
-	$(STATEDIR)/oprofile.extract \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/binutils.install \
 	$(STATEDIR)/popt.install \
 	$(STATEDIR)/kernel.prepare \
-	$(STATEDIR)/binutils.install
+	$(STATEDIR)/oprofile.extract
 
 OPROFILE_PATH	=  PATH=$(CROSS_PATH)
 OPROFILE_ENV 	=  $(CROSS_ENV)
-#OPROFILE_ENV	+=
-
 
 #
 # autoconf
@@ -84,10 +83,17 @@ OPROFILE_AUTOCONF	+= --build=$(GNU_HOST)
 OPROFILE_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
 OPROFILE_AUTOCONF	+= --with-linux=$(KERNEL_DIR)
+#
+# note: we must use here the kernel's makevars (ARCH=fo CROSS_COMPILE=bar)
+#       (see kernel.make) because oprofile includes the kernel's makefile
+#       in it's modules subdir, and there it doesn't care about the CC
+#       we gave him at ./configure-time....
+#
+OPROFILE_MAKEVARS	=  $(KERNEL_MAKEVARS)
 
 $(STATEDIR)/oprofile.prepare: $(oprofile_prepare_deps)
-	@$(call targetinfo, oprofile.prepare)
-	@$(call clean, $(OPROFILE_BUILDDIR))
+	@$(call targetinfo, $@)
+	@$(call clean, $(OPROFILE_DIR)/config.cache)
 	cd $(OPROFILE_DIR) && \
 		$(OPROFILE_PATH) $(OPROFILE_ENV) \
 		./configure $(OPROFILE_AUTOCONF)
@@ -102,8 +108,8 @@ oprofile_compile: $(STATEDIR)/oprofile.compile
 oprofile_compile_deps =  $(STATEDIR)/oprofile.prepare
 
 $(STATEDIR)/oprofile.compile: $(oprofile_compile_deps)
-	@$(call targetinfo, oprofile.compile)
-	$(OPROFILE_PATH) $(OPROFILE_ENV) make -C $(OPROFILE_DIR)
+	@$(call targetinfo, $@)
+	$(OPROFILE_PATH) make -C $(OPROFILE_DIR) $(OPROFILE_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -113,8 +119,8 @@ $(STATEDIR)/oprofile.compile: $(oprofile_compile_deps)
 oprofile_install: $(STATEDIR)/oprofile.install
 
 $(STATEDIR)/oprofile.install: $(STATEDIR)/oprofile.compile
-	@$(call targetinfo, oprofile.install)
-	$(OPROFILE_PATH) $(OPROFILE_ENV) make -C $(OPROFILE_DIR) install
+	@$(call targetinfo, $@)
+	$(OPROFILE_PATH) make -C $(OPROFILE_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -126,7 +132,7 @@ oprofile_targetinstall: $(STATEDIR)/oprofile.targetinstall
 oprofile_targetinstall_deps	=  $(STATEDIR)/oprofile.compile
 
 $(STATEDIR)/oprofile.targetinstall: $(oprofile_targetinstall_deps)
-	@$(call targetinfo, oprofile.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: grub.make,v 1.6 2003/07/16 04:23:28 mkl Exp $
+# $Id: grub.make,v 1.7 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -30,11 +30,11 @@ GRUB_DIR		= $(BUILDDIR)/$(GRUB)
 grub_get: $(STATEDIR)/grub.get
 
 $(STATEDIR)/grub.get: $(GRUB_SOURCE)
-	@$(call targetinfo, grub.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(GRUB_SOURCE):
-	@$(call targetinfo, $(GRUB_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(GRUB_URL))
 
 # ----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ $(GRUB_SOURCE):
 grub_extract: $(STATEDIR)/grub.extract
 
 $(STATEDIR)/grub.extract: $(STATEDIR)/grub.get
-	@$(call targetinfo, grub.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(GRUB_DIR))
 	@$(call extract, $(GRUB_SOURCE))
 	touch $@
@@ -109,7 +109,7 @@ grub_prepare_deps = \
 	$(STATEDIR)/grub.extract
 
 $(STATEDIR)/grub.prepare: $(grub_prepare_deps)
-	@$(call targetinfo, grub.prepare)
+	@$(call targetinfo, $@)
 	cd $(GRUB_DIR) && \
 		$(GRUB_PATH) $(GRUB_ENV) ./configure $(GRUB_AUTOCONF)
 	touch $@
@@ -121,7 +121,7 @@ $(STATEDIR)/grub.prepare: $(grub_prepare_deps)
 grub_compile: $(STATEDIR)/grub.compile
 
 $(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare 
-	@$(call targetinfo, grub.compile)
+	@$(call targetinfo, $@)
 	$(GRUB_PATH) make -C $(GRUB_DIR)
 	touch $@
 
@@ -132,7 +132,7 @@ $(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare
 grub_install: $(STATEDIR)/grub.install
 
 $(STATEDIR)/grub.install: $(STATEDIR)/grub.compile
-	@$(call targetinfo, grub.install)
+	@$(call targetinfo, $@)
 #	make -C $(GRUB_DIR) install
 	touch $@
 
@@ -143,7 +143,7 @@ $(STATEDIR)/grub.install: $(STATEDIR)/grub.compile
 grub_targetinstall: $(STATEDIR)/grub.targetinstall
 
 $(STATEDIR)/grub.targetinstall: $(STATEDIR)/grub.install
-	@$(call targetinfo, grub.targetinstall)
+	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/boot/grub
 	install $(GRUB_DIR)/stage1/stage1 $(ROOTDIR)/boot/grub/
 	touch $@

@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: pcmcia-cs.make,v 1.1 2003/09/25 06:14:49 robert Exp $
+# $Id: pcmcia-cs.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -67,7 +67,7 @@ pcmcia-cs_prepare: $(STATEDIR)/pcmcia-cs.prepare
 #
 pcmcia-cs_prepare_deps =  \
 	$(STATEDIR)/pcmcia-cs.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 PCMCIA-CS_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 PCMCIA-CS_ENV 	=  $(CROSS_ENV)

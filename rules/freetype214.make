@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: freetype214.make,v 1.1 2003/08/17 00:34:18 robert Exp $
+# $Id: freetype214.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -36,11 +36,11 @@ freetype214_get: $(STATEDIR)/freetype214.get
 freetype214_get_deps	=  $(FREETYPE214_SOURCE)
 
 $(STATEDIR)/freetype214.get: $(freetype214_get_deps)
-	@$(call targetinfo, freetype214.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(FREETYPE214_SOURCE):
-	@$(call targetinfo, $(FREETYPE214_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(FREETYPE214_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ freetype214_extract: $(STATEDIR)/freetype214.extract
 freetype214_extract_deps	=  $(STATEDIR)/freetype214.get
 
 $(STATEDIR)/freetype214.extract: $(freetype214_extract_deps)
-	@$(call targetinfo, freetype214.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(FREETYPE214_DIR))
 	@$(call extract, $(FREETYPE214_SOURCE))
 	touch $@
@@ -89,7 +89,7 @@ FREETYPE214_AUTOCONF	+= --enable-foo
 endif
 
 $(STATEDIR)/freetype214.prepare: $(freetype214_prepare_deps)
-	@$(call targetinfo, freetype214.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(FREETYPE214_BUILDDIR))
 	cd $(FREETYPE214_DIR) && \
 		$(FREETYPE214_PATH) $(FREETYPE214_ENV) \
@@ -105,7 +105,7 @@ freetype214_compile: $(STATEDIR)/freetype214.compile
 freetype214_compile_deps =  $(STATEDIR)/freetype214.prepare
 
 $(STATEDIR)/freetype214.compile: $(freetype214_compile_deps)
-	@$(call targetinfo, freetype214.compile)
+	@$(call targetinfo, $@)
 	$(FREETYPE214_PATH) make -C $(FREETYPE214_DIR)
 	chmod a+x $(FREETYPE214_DIR)/builds/unix/freetype-config
 	touch $@
@@ -117,7 +117,7 @@ $(STATEDIR)/freetype214.compile: $(freetype214_compile_deps)
 freetype214_install: $(STATEDIR)/freetype214.install
 
 $(STATEDIR)/freetype214.install: $(STATEDIR)/freetype214.compile
-	@$(call targetinfo, freetype214.install)
+	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)
 	rm -f $(PTXCONF_PREFIX)/lib/libfreetype.so*
 	install $(FREETYPE214_DIR)/objs/.libs/libfreetype.so.6.3.3 $(PTXCONF_PREFIX)/lib/
@@ -138,7 +138,7 @@ freetype214_targetinstall: $(STATEDIR)/freetype214.targetinstall
 freetype214_targetinstall_deps	=  $(STATEDIR)/freetype214.compile
 
 $(STATEDIR)/freetype214.targetinstall: $(freetype214_targetinstall_deps)
-	@$(call targetinfo, freetype214.targetinstall)
+	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)
 	rm -f $(ROOTDIR)/lib/libfreetype.so*
 	install $(FREETYPE214_DIR)/objs/.libs/libfreetype.so.6.3.3 $(ROOTDIR)/lib/

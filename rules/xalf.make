@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: xalf.make,v 1.1 2003/09/02 14:11:13 robert Exp $
+# $Id: xalf.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -35,11 +35,11 @@ xalf_get: $(STATEDIR)/xalf.get
 xalf_get_deps	=  $(XALF_SOURCE)
 
 $(STATEDIR)/xalf.get: $(xalf_get_deps)
-	@$(call targetinfo, xalf.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(XALF_SOURCE):
-	@$(call targetinfo, $(XALF_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(XALF_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ xalf_extract: $(STATEDIR)/xalf.extract
 xalf_extract_deps	=  $(STATEDIR)/xalf.get
 
 $(STATEDIR)/xalf.extract: $(xalf_extract_deps)
-	@$(call targetinfo, xalf.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(XALF_DIR))
 	@$(call extract, $(XALF_SOURCE))
 	touch $@
@@ -67,7 +67,7 @@ xalf_prepare: $(STATEDIR)/xalf.prepare
 #
 xalf_prepare_deps =  \
 	$(STATEDIR)/xalf.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 XALF_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 XALF_ENV 	=  $(CROSS_ENV)
@@ -84,7 +84,7 @@ XALF_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 #XALF_AUTOCONF	+= 
 
 $(STATEDIR)/xalf.prepare: $(xalf_prepare_deps)
-	@$(call targetinfo, xalf.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(XALF_BUILDDIR))
 	cd $(XALF_DIR) && \
 		$(XALF_PATH) $(XALF_ENV) \
@@ -100,7 +100,7 @@ xalf_compile: $(STATEDIR)/xalf.compile
 xalf_compile_deps =  $(STATEDIR)/xalf.prepare
 
 $(STATEDIR)/xalf.compile: $(xalf_compile_deps)
-	@$(call targetinfo, xalf.compile)
+	@$(call targetinfo, $@)
 	$(XALF_PATH) $(XALF_ENV) make -C $(XALF_DIR)
 	touch $@
 
@@ -111,7 +111,7 @@ $(STATEDIR)/xalf.compile: $(xalf_compile_deps)
 xalf_install: $(STATEDIR)/xalf.install
 
 $(STATEDIR)/xalf.install: $(STATEDIR)/xalf.compile
-	@$(call targetinfo, xalf.install)
+	@$(call targetinfo, $@)
 	$(XALF_PATH) $(XALF_ENV) make -C $(XALF_DIR) install
 	touch $@
 
@@ -124,7 +124,7 @@ xalf_targetinstall: $(STATEDIR)/xalf.targetinstall
 xalf_targetinstall_deps	=  $(STATEDIR)/xalf.compile
 
 $(STATEDIR)/xalf.targetinstall: $(xalf_targetinstall_deps)
-	@$(call targetinfo, xalf.targetinstall)
+	@$(call targetinfo, $@)
 	install $(XALF_DIR)/src/xalf $(ROOTDIR)/usr/bin
 	$(CROSSSTRIP) $(ROOTDIR)/usr/bin/xalf
 	touch $@

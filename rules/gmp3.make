@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: gmp3.make,v 1.2 2003/07/22 13:39:15 mkl Exp $
+# $Id: gmp3.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -26,11 +26,11 @@ GMP3_EXTRACT	= gzip -dc
 gmp3_get: $(STATEDIR)/gmp3.get
 
 $(STATEDIR)/gmp3.get: $(GMP3_SOURCE)
-	@$(call targetinfo, gmp3.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(GMP3_SOURCE):
-	@$(call targetinfo, $(GMP3_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(GMP3_URL))
 
 # ----------------------------------------------------------------------------
@@ -40,7 +40,7 @@ $(GMP3_SOURCE):
 gmp3_extract: $(STATEDIR)/gmp3.extract
 
 $(STATEDIR)/gmp3.extract: $(STATEDIR)/gmp3.get
-	@$(call targetinfo, gmp3.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(GMP3_DIR))
 	@$(call extract, $(GMP3_SOURCE))
 	touch $@
@@ -64,7 +64,7 @@ GMP3_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 GMP3_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/gmp3.prepare: $(gmp3_prepare_deps)
-	@$(call targetinfo, gmp3.prepare)
+	@$(call targetinfo, $@)
 	cd $(GMP3_DIR) && \
 		$(GMP3_PATH) $(GMP3_ENV) ./configure $(GMP3_AUTOCONF)
 	touch $@
@@ -76,7 +76,7 @@ $(STATEDIR)/gmp3.prepare: $(gmp3_prepare_deps)
 gmp3_compile: $(STATEDIR)/gmp3.compile
 
 $(STATEDIR)/gmp3.compile: $(STATEDIR)/gmp3.prepare 
-	@$(call targetinfo, gmp3.compile)
+	@$(call targetinfo, $@)
 	$(GMP3_PATH) make -C $(GMP3_DIR)
 	touch $@
 
@@ -87,7 +87,7 @@ $(STATEDIR)/gmp3.compile: $(STATEDIR)/gmp3.prepare
 gmp3_install: $(STATEDIR)/gmp3.install
 
 $(STATEDIR)/gmp3.install: $(STATEDIR)/gmp3.compile
-	@$(call targetinfo, gmp3.install)
+	@$(call targetinfo, $@)
 	$(GMP3_PATH) make -C $(GMP3_DIR) install 
 	touch $@
 
@@ -98,7 +98,7 @@ $(STATEDIR)/gmp3.install: $(STATEDIR)/gmp3.compile
 gmp3_targetinstall: $(STATEDIR)/gmp3.targetinstall
 
 $(STATEDIR)/gmp3.targetinstall: $(STATEDIR)/gmp3.install
-	@$(call targetinfo, gmp3.targetinstall)
+	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/lib
 	cp -a $(CROSS_LIB_DIR)/lib/libgmp.so* $(ROOTDIR)/lib
 	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libgmp.so*

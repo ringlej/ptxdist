@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: libgd.make,v 1.1 2003/08/22 19:44:28 bsp Exp $
+# $Id: libgd.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
+# Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -35,11 +35,11 @@ libgd_get: $(STATEDIR)/libgd.get
 libgd_get_deps	=  $(LIBGD_SOURCE)
 
 $(STATEDIR)/libgd.get: $(libgd_get_deps)
-	@$(call targetinfo, libgd.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(LIBGD_SOURCE):
-	@$(call targetinfo, $(LIBGD_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(LIBGD_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ libgd_extract: $(STATEDIR)/libgd.extract
 libgd_extract_deps	=  $(STATEDIR)/libgd.get
 
 $(STATEDIR)/libgd.extract: $(libgd_extract_deps)
-	@$(call targetinfo, libgd.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGD_DIR))
 	@$(call extract, $(LIBGD_SOURCE))
 	touch $@
@@ -67,7 +67,7 @@ libgd_prepare: $(STATEDIR)/libgd.prepare
 #
 libgd_prepare_deps =  \
 	$(STATEDIR)/libgd.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 LIBGD_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 LIBGD_ENV 	=  $(CROSS_ENV)
@@ -84,7 +84,7 @@ LIBGD_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 #LIBGD_AUTOCONF	+= 
 
 $(STATEDIR)/libgd.prepare: $(libgd_prepare_deps)
-	@$(call targetinfo, libgd.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGD_BUILDDIR))
 	cd $(LIBGD_DIR) && \
 		$(LIBGD_PATH) $(LIBGD_ENV) \
@@ -100,7 +100,7 @@ libgd_compile: $(STATEDIR)/libgd.compile
 libgd_compile_deps =  $(STATEDIR)/libgd.prepare
 
 $(STATEDIR)/libgd.compile: $(libgd_compile_deps)
-	@$(call targetinfo, libgd.compile)
+	@$(call targetinfo, $@)
 	$(LIBGD_PATH) $(LIBGD_ENV) make -C $(LIBGD_DIR)
 	touch $@
 
@@ -111,7 +111,7 @@ $(STATEDIR)/libgd.compile: $(libgd_compile_deps)
 libgd_install: $(STATEDIR)/libgd.install
 
 $(STATEDIR)/libgd.install: $(STATEDIR)/libgd.compile
-	@$(call targetinfo, libgd.install)
+	@$(call targetinfo, $@)
 	$(LIBGD_PATH) $(LIBGD_ENV) make -C $(LIBGD_DIR) install
 	touch $@
 
@@ -124,7 +124,7 @@ libgd_targetinstall: $(STATEDIR)/libgd.targetinstall
 libgd_targetinstall_deps	=  $(STATEDIR)/libgd.compile
 
 $(STATEDIR)/libgd.targetinstall: $(libgd_targetinstall_deps)
-	@$(call targetinfo, libgd.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: glib22.make,v 1.4 2003/08/17 00:32:04 robert Exp $
+# $Id: glib22.make,v 1.5 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#             Pengutronix <info@pengutronix.de>, Germany
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+#                       Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -36,11 +36,11 @@ glib22_get: $(STATEDIR)/glib22.get
 glib22_get_deps	=  $(GLIB22_SOURCE)
 
 $(STATEDIR)/glib22.get: $(glib22_get_deps)
-	@$(call targetinfo, glib22.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(GLIB22_SOURCE):
-	@$(call targetinfo, $(GLIB22_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(GLIB22_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ glib22_extract: $(STATEDIR)/glib22.extract
 glib22_extract_deps	=  $(STATEDIR)/glib22.get
 
 $(STATEDIR)/glib22.extract: $(glib22_extract_deps)
-	@$(call targetinfo, glib22.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB22_DIR))
 	@$(call extract, $(GLIB22_SOURCE))
 	touch $@
@@ -68,7 +68,7 @@ glib22_prepare: $(STATEDIR)/glib22.prepare
 #
 glib22_prepare_deps =  \
 	$(STATEDIR)/glib22.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 GLIB22_PATH	=  PATH=$(CROSS_PATH)
 GLIB22_ENV 	=  $(CROSS_ENV)
@@ -93,7 +93,7 @@ GLIB22_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 GLIB22_AUTOCONF	+= --with-threads=posix
 
 $(STATEDIR)/glib22.prepare: $(glib22_prepare_deps)
-	@$(call targetinfo, glib22.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB22_BUILDDIR))
 	cd $(GLIB22_DIR) && \
 		$(GLIB22_PATH) $(GLIB22_ENV) \
@@ -109,7 +109,7 @@ glib22_compile: $(STATEDIR)/glib22.compile
 glib22_compile_deps =  $(STATEDIR)/glib22.prepare
 
 $(STATEDIR)/glib22.compile: $(glib22_compile_deps)
-	@$(call targetinfo, glib22.compile)
+	@$(call targetinfo, $@)
 	$(GLIB22_PATH) $(GLIB22_ENV) make -C $(GLIB22_DIR)
 	touch $@
 
@@ -120,8 +120,8 @@ $(STATEDIR)/glib22.compile: $(glib22_compile_deps)
 glib22_install: $(STATEDIR)/glib22.install
 
 $(STATEDIR)/glib22.install: $(STATEDIR)/glib22.compile
-	@$(call targetinfo, glib22.install)
-	
+	@$(call targetinfo, $@)
+
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libglib-2.0.so*
 	install $(GLIB22_DIR)/glib/.libs/libglib-2.0.so.0.200.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/
@@ -145,7 +145,7 @@ glib22_targetinstall: $(STATEDIR)/glib22.targetinstall
 glib22_targetinstall_deps	=  $(STATEDIR)/glib22.compile
 
 $(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps)
-	@$(call targetinfo, glib22.targetinstall)
+	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)
 	rm -f $(ROOTDIR)/lib/libglib-2.0.so*
 	install $(GLIB22_DIR)/glib/.libs/libglib-2.0.so.0.200.2 $(ROOTDIR)/lib/

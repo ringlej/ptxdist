@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: pppd.make,v 1.3 2003/07/23 12:39:06 mkl Exp $
+# $Id: pppd.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
+# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -33,11 +33,12 @@ ppp_get:	$(STATEDIR)/ppp.get
 ppp_get_deps	= $(PPP_SOURCE)
 
 $(STATEDIR)/ppp.get: $(ppp_get_deps)
-	@$(call targetinfo, ppp.get)
+	@$(call targetinfo, $@)
+	@$(call get_patches, $(PPP))
 	touch $@
 
 $(PPP_SOURCE):
-	@$(call targetinfo, $(PPP_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(PPP_URL))
 
 # ----------------------------------------------------------------------------
@@ -47,9 +48,10 @@ $(PPP_SOURCE):
 ppp_extract: $(STATEDIR)/ppp.extract
 
 $(STATEDIR)/ppp.extract: $(STATEDIR)/ppp.get
-	@$(call targetinfo, ppp.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(PPP_DIR))
 	@$(call extract, $(PPP_SOURCE))
+	@$(call patchin, $(PPP))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -64,7 +66,7 @@ PPP_MAKEVARS	= CROSS=$(CROSS_ENV)
 $(STATEDIR)/ppp.prepare: \
 		$(STATEDIR)/virtual-xchain.install \
 		$(STATEDIR)/ppp.extract
-	@$(call targetinfo, ppp.prepare)
+	@$(call targetinfo, $@)
 	cd $(PPP_DIR) && \
 		./configure
 
@@ -108,7 +110,7 @@ ppp_compile: $(STATEDIR)/ppp.compile
 ppp_compile_deps =  $(STATEDIR)/ppp.prepare
 
 $(STATEDIR)/ppp.compile: $(ppp_compile_deps) 
-	@$(call targetinfo, ppp.compile)
+	@$(call targetinfo, $@)
 	cd $(PPP_DIR) && \
 		$(PPP_PATH) make $(PPP_MAKEVARS)
 	touch $@
@@ -120,7 +122,7 @@ $(STATEDIR)/ppp.compile: $(ppp_compile_deps)
 ppp_install: $(STATEDIR)/ppp.install
 
 $(STATEDIR)/ppp.install: $(STATEDIR)/ppp.compile
-	@$(call targetinfo, ppp.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -130,13 +132,13 @@ $(STATEDIR)/ppp.install: $(STATEDIR)/ppp.compile
 ppp_targetinstall: $(STATEDIR)/ppp.targetinstall
 
 $(STATEDIR)/ppp.targetinstall: $(STATEDIR)/ppp.compile
-	@$(call targetinfo, ppp.targetinstalll)
-	mkdir -p $(ROOTDIR)/sbin
-	install $(PPP_DIR)/pppd/pppd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/pppd
+	@$(call targetinfo, $@)
+	mkdir -p $(ROOTDIR)/usr/sbin
+	install $(PPP_DIR)/pppd/pppd $(ROOTDIR)/usr/sbin/
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/pppd
 
-	install $(PPP_DIR)/chat/chat $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/chat
+	install $(PPP_DIR)/chat/chat $(ROOTDIR)/usr/sbin/
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/chat
 
 	touch $@
 

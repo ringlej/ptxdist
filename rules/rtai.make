@@ -1,48 +1,56 @@
 # -*-makefile-*-
-# $Id: rtai.make,v 1.7 2003/08/26 13:23:59 robert Exp $
+# $Id: rtai.make,v 1.8 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-ifeq (y,$(PTXCONF_RTAI))
+ifdef PTXCONF_RTAI
 PACKAGES += rtai
 endif
 
 #
 # Paths and names 
 #
-ifeq (y, $(PTXCONF_RTAI_24_1_11))
-RTAI			= rtai-24.1.11
-endif
-ifeq (y, $(PTXCONF_RTAI_24_1_10))
-RTAI			= rtai-24.1.10
-endif
-ifeq (y, $(PTXCONF_RTAI_24_1_9))
-RTAI			= rtai-24.1.9
-endif
-RTAI_URL		= http://www.aero.polimi.it/RTAI/$(RTAI).tgz
-RTAI_SOURCE		= $(SRCDIR)/$(RTAI).tgz
+RTAI_VERSION		= $(RTAI_VERSION_RELEASE)
+RTAI			= rtai-$(RTAI_VERSION)
+RTAI_SUFFIX		= tgz
+RTAI_URL		= http://www.aero.polimi.it/RTAI/$(RTAI).$(RTAI_SUFFIX)
+RTAI_SOURCE		= $(SRCDIR)/$(RTAI).$(RTAI_SUFFIX)
 RTAI_DIR		= $(BUILDDIR)/$(RTAI)
-RTAI_EXTRACT 		= gzip -dc
-ifeq (y, $(PTXCONF_KERNEL_2_4_18))
-RTAI_MODULEDIR		= /lib/modules/2.4.18-rthal5/rtai
-endif
-ifeq (y, $(PTXCONF_KERNEL_2_4_19))
-RTAI_MODULEDIR		= /lib/modules/2.4.19-rthal5/rtai
-endif
-ifeq (y, $(PTXCONF_KERNEL_2_4_20))
-RTAI_MODULEDIR		= /lib/modules/2.4.20-rthal5/rtai
-endif
-ifeq (y, $(PTXCONF_KERNEL_2_4_21))
-RTAI_MODULEDIR		= /lib/modules/2.4.21-rthal5/rtai
-endif
+RTAI_MODULEDIR		= /lib/modules/$(KERNEL_VERSION)-$(RTAI_TECH_SHORT)/rtai
+RTAI_PATCH		= $(RTAI_DIR)/patches/patch-$(KERNEL_VERSION)-$(RTAI_TECH)
+
+# ----------------------------------------------------------------------------
+# Menuconfig
+# ----------------------------------------------------------------------------
+#
+# FIXME: not tested
+#
+# rtai_menuconfig: $(STATEDIR)/rtai.prepare
+# 	@if [ -f $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG) ]; then \
+# 		install -m 644 $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG) \
+# 			$(RTAI_DIR)/.config; \
+# 	fi
+
+# 	$(RTAI_PATH) make -C $(RTAI_DIR) $(RTAI_MAKEVARS) \
+# 		menuconfig
+
+# 	@if [ -f $(RTAI_DIR)/.config ]; then \
+# 		install -m 644 $(RTAI_DIR)/.config \
+# 			$(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG); \
+# 	fi
+
+# 	@if [ -f $(STATEDIR)/rtai.compile ]; then \
+# 		rm $(STATEDIR)/rtai.compile; \
+# 	fi
 
 # ----------------------------------------------------------------------------
 # Get
@@ -51,12 +59,12 @@ endif
 rtai_get: $(STATEDIR)/rtai.get
 
 $(STATEDIR)/rtai.get: $(RTAI_SOURCE)
-	@$(call targetinfo, rtai.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(RTAI_SOURCE):
-	@$(call targetinfo, $(RTAI_SOURCE))
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(RTAI_URL)
+	@$(call targetinfo, $@)
+	@$(call get, $(RTAI_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -65,8 +73,9 @@ $(RTAI_SOURCE):
 rtai_extract: $(STATEDIR)/rtai.extract
 
 $(STATEDIR)/rtai.extract: $(STATEDIR)/rtai.get
-	@$(call targetinfo, rtai.extract)
-	$(RTAI_EXTRACT) $(RTAI_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	@$(call targetinfo, $@)
+	@$(call clean, $(RTAI_DIR))
+	@$(call extract, $(RTAI_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -75,22 +84,32 @@ $(STATEDIR)/rtai.extract: $(STATEDIR)/rtai.get
 
 rtai_prepare: $(STATEDIR)/rtai.prepare
 
-rtai_prepare_deps =  $(STATEDIR)/kernel.prepare
-rtai_prepare_deps += $(STATEDIR)/rtai.extract
+RTAI_PATH	=  PATH=$(CROSS_PATH)
+RTAI_ENV	= \
+	ARCH=$(PTXCONF_ARCH) \
+	CROSS_COMPILE=$(PTXCONF_GNU_TARGET)- \
+	LINUXDIR=$(KERNEL_DIR) \
+	MAKE='make CROSS_COMPILE=$(PTXCONF_GNU_TARGET)-'
+
+rtai_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/kernel.prepare \
+	$(STATEDIR)/rtai.extract
 
 $(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
-	@$(call targetinfo, rtai.prepare)
-	install .rtaiconfig $(RTAI_DIR)
-	cd $(RTAI_DIR) && 						\
-		yes no | ./configure --non-interactive --linuxdir $(KERNEL_DIR) --reconf
-	# FIXME: spaces in pathnames are forbidden right now...
-	echo '# this is ugly like hell and committed by ptxdist' >> $(RTAI_DIR)/.buildvars
-	# we honestly doubt anyone of them has ever used a cross compiler...
-	echo CC=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc >> $(RTAI_DIR)/.buildvars
-	echo CROSS_COMPILE=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)- >> $(RTAI_DIR)/.buildvars
-	echo LD=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-ld >> $(RTAI_DIR)/.buildvars
-	echo AS=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-as >> $(RTAI_DIR)/.buildvars
-	# FIXME: Hopefully someone will fix this one:
+	@$(call targetinfo, $@)
+
+	if [ -f $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG) ]; then		\
+		install -m 644 $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG)	\
+		$(RTAI_DIR)/.config;						\
+	fi
+
+	cd $(RTAI_DIR) && \
+		yes no | $(RTAI_PATH) $(RTAI_ENV) ./configure --reconf
+
+#
+# FIXME: Hopefully someone will fix this one:
+#
 	cp -f $(RTAI_DIR)/lxrt/Makefile $(RTAI_DIR)/lxrt/Makefile.orig
 	sed -e "s/pressa//g" $(RTAI_DIR)/lxrt/Makefile.orig >$(RTAI_DIR)/lxrt/Makefile
 	touch $@
@@ -102,8 +121,8 @@ $(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
 rtai_compile: $(STATEDIR)/rtai.compile
 
 $(STATEDIR)/rtai.compile: $(STATEDIR)/rtai.prepare 
-	@$(call targetinfo, rtai.compile)
-	cd $(RTAI_DIR) && TOPDIR=$(RTAI_DIR) PATH=$(PTXCONF_PREFIX)/bin:$$PATH make 
+	@$(call targetinfo, $@)
+	$(RTAI_PATH) $(RTAI_ENV) TOPDIR=$(RTAI_DIR) make -C $(RTAI_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -113,7 +132,7 @@ $(STATEDIR)/rtai.compile: $(STATEDIR)/rtai.prepare
 rtai_install: $(STATEDIR)/rtai.install
 
 $(STATEDIR)/rtai.install: $(STATEDIR)/rtai.compile
-	@$(call targetinfo, rtai.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -123,22 +142,24 @@ $(STATEDIR)/rtai.install: $(STATEDIR)/rtai.compile
 rtai_targetinstall: $(STATEDIR)/rtai.targetinstall
 
 $(STATEDIR)/rtai.targetinstall: $(STATEDIR)/rtai.install
-	@$(call targetinfo, rtai.targetinstall)
+	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/$(RTAI_MODULEDIR)
+
 	install $(RTAI_DIR)/rtaidir/rtai.o $(ROOTDIR)/$(RTAI_MODULEDIR)
 	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai.o
+
 	install $(RTAI_DIR)/upscheduler/rtai_sched_up.o $(ROOTDIR)/$(RTAI_MODULEDIR)
 	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_sched_up.o
 	ln -sf rtai_sched_up.o $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_sched.o
-        ifeq (y, $(PTXCONF_RTAI_24_1_9))
+
+ifeq ($(RTAI_VERSION_RELEASE),24.1.9)
 	install $(RTAI_DIR)/lxrt/rtai_lxrt.o $(ROOTDIR)/$(RTAI_MODULEDIR)
 	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_lxrt.o
-        endif
-        ifeq (y, $(PTXCONF_RTAI_24_1_10))		
+else
 	install $(RTAI_DIR)/lxrt/rtai_lxrt_old.o $(ROOTDIR)/$(RTAI_MODULEDIR)
 	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_lxrt_old.o
 	ln -sf rtai_lxrt_old.o $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_lxrt.o
-        endif
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -147,8 +168,5 @@ $(STATEDIR)/rtai.targetinstall: $(STATEDIR)/rtai.install
 
 rtai_clean: 
 	rm -rf $(STATEDIR)/rtai.* $(RTAI_DIR)
-
-rtai_kernel_clean:
-	rm -fr $(STATEDIR)/rtai_kernel.* $(BUILDDIR)/rtai-patches/
 
 # vim: syntax=make

@@ -1,17 +1,17 @@
 # -*-makefile-*-
-# $Id: tcpwrapper.make,v 1.8 2003/09/17 23:43:59 mkl Exp $
+# $Id: tcpwrapper.make,v 1.9 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_TCPWRAPPER))
+ifdef PTXCONF_TCPWRAPPER
 PACKAGES += tcpwrapper
 endif
 
@@ -34,15 +34,15 @@ TCPWRAPPER_PTXPATCH_SOURCE	= $(SRCDIR)/$(TCPWRAPPER_PTXPATCH).diff
 tcpwrapper_get: $(STATEDIR)/tcpwrapper.get
 
 $(STATEDIR)/tcpwrapper.get: $(TCPWRAPPER_SOURCE) $(TCPWRAPPER_PTXPATCH_SOURCE)
-	@$(call targetinfo, tcpwrapper.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(TCPWRAPPER_SOURCE):
-	@$(call targetinfo, $(TCPWRAPPER_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(TCPWRAPPER_URL))
 
 $(TCPWRAPPER_PTXPATCH_SOURCE): 
-	@$(call targetinfo, $(TCPWRAPPER_PTXPATCH_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(TCPWRAPPER_PTXPATCH_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ $(TCPWRAPPER_PTXPATCH_SOURCE):
 tcpwrapper_extract: $(STATEDIR)/tcpwrapper.extract
 
 $(STATEDIR)/tcpwrapper.extract: $(STATEDIR)/tcpwrapper.get
-	@$(call targetinfo, tcpwrapper.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(TCPWRAPPER_DIR))
 	@$(call extract, $(TCPWRAPPER_SOURCE))
 	cd $(TCPWRAPPER_DIR) && patch -p1 < $(TCPWRAPPER_PTXPATCH_SOURCE)
@@ -65,7 +65,7 @@ $(STATEDIR)/tcpwrapper.extract: $(STATEDIR)/tcpwrapper.get
 tcpwrapper_prepare: $(STATEDIR)/tcpwrapper.prepare
 
 $(STATEDIR)/tcpwrapper.prepare: $(STATEDIR)/virtual-xchain.install $(STATEDIR)/tcpwrapper.extract
-	@$(call targetinfo, tcpwrapper.prepare)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -78,7 +78,7 @@ TCPWRAPPER_ENV	= $(CROSS_ENV)
 TCPWRAPPER_PATH	= PATH=$(CROSS_PATH)
 
 $(STATEDIR)/tcpwrapper.compile: $(STATEDIR)/tcpwrapper.prepare
-	@$(call targetinfo, tcpwrapper.compile)
+	@$(call targetinfo, $@)
 	$(TCPWRAPPER_PATH) $(TCPWRAPPER_ENV) \
 		make -C $(TCPWRAPPER_DIR) linux 
 	touch $@
@@ -90,7 +90,7 @@ $(STATEDIR)/tcpwrapper.compile: $(STATEDIR)/tcpwrapper.prepare
 tcpwrapper_install: $(STATEDIR)/tcpwrapper.install
 
 $(STATEDIR)/tcpwrapper.install: $(STATEDIR)/tcpwrapper.compile
-	@$(call targetinfo, tcpwrapper.install)
+	@$(call targetinfo, $@)
 	install -d $(CROSS_LIB_DIR)/lib
 	install $(TCPWRAPPER_DIR)/libwrap.a $(CROSS_LIB_DIR)/lib
 	touch $@
@@ -102,11 +102,11 @@ $(STATEDIR)/tcpwrapper.install: $(STATEDIR)/tcpwrapper.compile
 tcpwrapper_targetinstall: $(STATEDIR)/tcpwrapper.targetinstall
 
 $(STATEDIR)/tcpwrapper.targetinstall: $(STATEDIR)/tcpwrapper.install
-	@$(call targetinfo, tcpwrapper.targetinstall)
+	@$(call targetinfo, $@)
 ifdef PTXCONF_TCPWRAPPER_INSTALL_TCPD
 	mkdir -p $(ROOTDIR)/usr/sbin
 	install $(TCPWRAPPER_DIR)/tcpd $(ROOTDIR)/usr/sbin
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/sbin/tcpd
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/tcpd
 endif
 	touch $@
 

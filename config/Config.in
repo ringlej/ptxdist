@@ -1,6 +1,6 @@
 #
 # config/Config.in: Main menu structure definition
-# (c) Robert Schwebel <r.schwebel@pengutronix.de> 2002 
+# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2002, 2003
 #
 
 mainmenu "Configuration"
@@ -9,18 +9,27 @@ config PTXCONF
 	bool
 	default y
 	help
-	  This is the Pengutronix Distribution Build System. A better name 
-	  for the Projest still has to be found. 
+	  This is the Pengutronix Distribution Build System. A better name
+	  for the Projest still has to be found.
+
+menu	"Code maturity       "
+
+	config EXP
+		bool "Support experimental Stuff"
+
+	config EXP_M
+		bool "Support even more experimental Suff"
+		depends on EXP
+endmenu
 
 ############################################################################## 
-comment	"General Options     "
+comment	"General Options ---    "
 ##############################################################################
 
-menu	"Target Options      " 
+menu	"Target Options      "
 
 choice
 	prompt "CPU Architecture "
-	default ARCH_ARM
 
 	config ARCH_ARM
 		bool "ARM"
@@ -29,6 +38,7 @@ choice
 
 	config ARCH_ARM_NOMMU
 		bool "ARM-nommu"
+		depends on EXP_M
 		help
 		  This is support for the ARM processor architecture w/o MMU.
 
@@ -42,28 +52,44 @@ choice
 
 	config ARCH_SPARC
 		bool "SPARC"
+		depends on EXP
 
 	config ARCH_MIPS
 		bool "MIPS"
+		depends on EXP
 
 	config ARCH_CRIS
+		depends on EXP_M
 		bool "CRIS"
 
 	config ARCH_PARISC
+		depends on EXP_M
 		bool "PARISC"
+
+	config ARCH_SH
+		depends on EXP_M
+		bool "SuperH"
 endchoice
 
-choice 
+choice
 	prompt "ARM architecture"
-	depends on ARCH_ARM || ARCH_ARM_NOMMU
+		depends on ARCH_ARM || ARCH_ARM_NOMMU
 
 	config ARM_ARCH_PXA
 		bool "pxa (little endian)"
 		depends on ARCH_ARM
 
+	config ARM_ARCH_EPXA
+		bool "Excalibur (little endian)"
+		depends on ARCH_ARM
+
+	config ARM_ARCH_SA1100
+		bool "sa1100 (little endian)"
+		depends on ARCH_ARM
+
 	config ARM_ARCH_IXP2000
 		bool "ixp2000 (big endian)"
-		depends on ARCH_ARM
+		depends on ARCH_ARM && EXP_M
 
 	config ARM_ARCH_NETARM
 		bool "net+arm (little endian)"
@@ -72,12 +98,25 @@ choice
 	config ARM_ARCH_ATMEL
 		bool "atmel (little endian)"
 		depends on ARCH_ARM_NOMMU
-
-	config ARM_ARCH_EPXA
-		bool "Excalibur (little endian)"
-		depends on ARCH_ARM
 		
 endchoice
+
+config ARM_ARCH
+	string
+	default "pxa"			if ARM_ARCH_PXA
+	default "sa1100"		if ARM_ARCH_SA1100
+	default "netarm"		if ARM_ARCH_NETARM
+	default "atmel"			if ARM_ARCH_ATMEL
+	default "ixp2000"		if ARM_ARCH_IXP2000
+	default "epxa"			if ARM_ARCH_EPXA
+
+config ARM_ARCH_BE
+	bool
+	default y if ARM_ARCH_IXP2000
+
+config ARM_ARCH_LE
+	bool
+	default y if ARM_ARCH_PXA || ARM_ARCH_SA1100 || ARM_ARCH_NETARM || ARM_ARCH_ATMEL
 
 choice 
 	prompt "MIPS architecture"
@@ -88,6 +127,17 @@ choice
 
 	config MIPS_ARCH_LE
 		bool "mipsel (little endian)"
+endchoice
+
+choice
+	prompt "SuperH architecture"
+	depends on ARCH_SH
+
+	config SH_ARCH_SH3
+		bool "SH3"
+
+	config SH_ARCH_SH4
+		bool "SH4"
 endchoice
 
 choice
@@ -144,6 +194,14 @@ choice
 	config OPT_PARISC
 		bool "generic parisc"
 		depends on ARCH_PARISC
+
+	config OPT_SH3
+		bool "generic SH3"
+		depends on SH_ARCH_SH3
+
+	config OPT_SH4
+		bool "generic SH4"
+		depends on SH_ARCH_SH4
 endchoice
 
 comment "---"
@@ -170,6 +228,8 @@ config TARGET_CONFIG_FILE
 	default "mipsel.dat"		if MIPS_ARCH_LE
 	default "cris.dat"		if ARCH_CRIS
 	default "hppa.dat"		if ARCH_PARISC
+	default "sh3.dat"		if SH_ARCH_SH3
+	default "sh4.dat"		if SH_ARCH_SH4
 
 comment "---"
 
@@ -188,6 +248,7 @@ config ARCH
 	default "mips"			if ARCH_MIPSEL
 	default "cris"			if ARCH_CRIS
 	default "parisc"		if ARCH_PARISC
+	default "sh"			if ARCH_SH
 
 config ARCH_USERSPACE
 	string
@@ -200,23 +261,16 @@ config ARCH_USERSPACE
 	default "mips"			if ARCH_MIPSEL
 	default "cris"			if ARCH_CRIS
 	default "hppa"			if ARCH_PARISC
+	default "sh"			if ARCH_SH
 
 config ARM_PROC
 	string
 	default "armv" if ARCH_ARM || ARCH_ARM_NOMMU
 
-config ARM_ARCH
-	string
-	default "pxa"			if ARM_ARCH_PXA
-	default "netarm"		if ARM_ARCH_NETARM
-	default "atmel"			if ARM_ARCH_ATMEL
-	default "ixp2000"		if ARM_ARCH_IXP2000
-	default "epxa"			if ARM_ARCH_EPXA
-
 config GNU_TARGET
 	string
-	default "arm-linux" 			if ARM_ARCH_PXA		&& GLIBC
-	default "armb-unknown-linux-gnu" 	if ARM_ARCH_IXP2000	&& GLIBC
+	default "arm-linux" 			if ARM_ARCH_LE		&& GLIBC
+	default "armb-unknown-linux-gnu" 	if ARM_ARCH_BE		&& GLIBC
 	default "arm-elf"			if ARCH_ARM_NOMMU	&& GLIBC
 	default "i386-linux"			if OPT_I386		&& GLIBC
 	default "i486-linux"			if OPT_I486		&& GLIBC
@@ -231,9 +285,11 @@ config GNU_TARGET
 	default "mipsel-linux"			if MIPS_ARCH_LE		&& GLIBC
 	default "cris-linux"			if ARCH_CRIS		&& GLIBC
 	default "hppa-linux"			if ARCH_PARISC		&& GLIBC
+	default "sh3-linux"			if SH_ARCH_SH3		&& GLIBC
+	default "sh4-linux"			if SH_ARCH_SH4		&& GLIBC
 
-	default "arm-uclibc-linux-gnu" 		if ARM_ARCH_PXA		&& UCLIBC
-	default "armb-uclibc-linux-gnu"		if ARM_ARCH_IXP2000	&& UCLIBC
+	default "arm-uclibc-linux-gnu" 		if ARM_ARCH_LE		&& UCLIBC
+	default "armb-uclibc-linux-gnu"		if ARM_ARCH_BE		&& UCLIBC
 	default "arm-elf"			if ARCH_ARM_NOMMU	&& UCLIBC
 	default "i386-uclibc-linux-gnu"		if OPT_I386		&& UCLIBC
 	default "i486-uclibc-linux-gnu"		if OPT_I486		&& UCLIBC
@@ -248,9 +304,11 @@ config GNU_TARGET
 	default "mipsel-uclibc-linux-gnu"	if MIPS_ARCH_LE		&& UCLIBC
 	default "cris-uclibc-linux-gnu"		if ARCH_CRIS		&& UCLIBC
 	default "hppa-uclibc-linux-gnu"		if ARCH_PARISC		&& UCLIBC
+	default "sh3-uclibc-linux-gnu"		if SH_ARCH_SH3		&& UCLIBC
+	default "sh4-uclibc-linux-gnu"		if SH_ARCH_SH4		&& UCLIBC
 
 config PREFIX
-	prompt "Prefix for development envirionment"
+	prompt "Prefix for development environment"
 	string
 	default "/tmp/ptxdist-local"
 
@@ -277,12 +335,22 @@ choice
 	config GCC_2_95_3
 		bool
 		prompt "2.95.3"
-		depends on ARCH_X86 || ARCH_ARM || ARCH_ARM_NOMMU
+		depends on ARCH_X86 || ARCH_ARM || ARCH_ARM_NOMMU || ARCH_SPARC
 
 	config GCC_3_2_3
 		bool
 		prompt "3.2.3"
-		depends on ARCH_X86 || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_PPC
+		depends on ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
+
+	config GCC_3_3_1
+		bool
+		prompt "3.3.1"
+		depends on EXP
+
+	config GCC_3_3_2
+		bool
+		prompt "3.3.2"
+		depends on EXP
 endchoice
 
 config NASM
@@ -354,172 +422,42 @@ config KSYMOOPS
 	prompt "ksymoops"
 	default n
 
-config LIBBFD
-	bool
-	prompt "libbfd on target (needed for profiling)"
-	default n
-
 config LTT
 	bool
 	prompt "Linux Trace Toolkit (LTT)"
+	default n
+
+config LIBBFD
+	bool
+	prompt "libbfd on target (needed for profiling)"
 	default n
 
 config OPROFILE
 	bool
 	prompt "oprofile"
 	default n
-	depends on POPT && LIBBFD
 
 config STRACE
 	bool
 	prompt "strace"
 	default n
 
+config STRACE_SHARED
+	bool "build shared"
+	default y
+	depends on STRACE
+
 endmenu
 
 
 ##############################################################################
-comment	"Core System         "
+comment "Core System ---    "
 ##############################################################################
 
 menu	"Kernel              "
 
-config DONT_COMPILE_KERNEL
-	bool
-	prompt "Don't compile kernel"
-	default n
+source "rules/kernel.in"
 
-config KERNEL_CONFIG
-	string
-	default "kernel-2.4."
-	prompt "Name of config in $PTXDIST/config/kernel to be used"
-
-choice 
-	prompt "Kernel Version"
-		default KERNEL_2_4_19
-	
-	config KERNEL_2_4_18
-		bool
-		prompt "2.4.18"
-		depends on !ARCH_ARM_NOMMU
-
-	config KERNEL_2_4_19
-		bool
-		prompt "2.4.19"
-		depends on !ARCH_ARM_NOMMU
-
-	config KERNEL_2_4_20
-		bool
-		prompt "2.4.20"
-		depends on ARCH_SPARC || ARCH_X86 || ARCH_MIPS || ARCH_CRIS || ARCH_PPC
-		depends on !ARCH_ARM_NOMMU
-
-	config KERNEL_2_4_21
-		bool
-		prompt "2.4.21"
-		depends on ARCH_SPARC || ARCH_X86 || ARCH_MIPS || ARCH_CRIS || ARCH_PPC || ARCH_ARM_NOMMU
-
-	config KERNEL_2_4_22
-		bool
-		prompt "2.4.22"
-		depends on ARCH_SPARC || ARCH_X86 || ARCH_MIPS || ARCH_CRIS || ARCH_PPC
-endchoice
-
-config KERNEL_XSCALE
-	bool
-	prompt "Use XScale patch (rmkX-pxaY)"
-	default n
-	depends on ARCH_ARM
-
-config KERNEL_XSCALE_PTX
-	bool
-	prompt "Use Pengutronix XScale patch (rmkX-pxaY-ptxZ)"
-	default n
-	depends on ARCH_ARM
-
-config KERNEL_MTD
-	bool
-	prompt "Use mtd-20030301-1 snapshot"
-	default n
-
-config KERNEL_INSTALL
-	bool
-	prompt "Install kernel into /boot on target"
-	default n
-	depends on !DONT_COMPILE_KERNEL
-
-choice
-	prompt "Kernel Image"
-	default KERNEL_IMAGE_BZ
-	depends on !DONT_COMPILE_KERNEL
-
-	config KERNEL_IMAGE_BZ
-		bool
-		prompt "bzImage"
-		depends on ARCH_X86
-		
-	config KERNEL_IMAGE_Z
-		bool
-		prompt "zImage"
-		depends on ARCH_X86
-
-	config KERNEL_IMAGE_U
-		bool
-		prompt "uImage"
-		depends on ARCH_ARM
-
-	config KERNEL_IMAGE_VMLINUX
-		bool
-		prompt "vmlinux"
-endchoice
-
-config RTAI
-	bool
-	prompt "Realtime Extension: RTAI"
-	depends on KERNEL_2_4_21 || KERNEL_2_4_20 || KERNEL_2_4_19 || KERNEL_2_4_18
-	default n
-
-choice
-	prompt "RTAI Version"
-	depends on RTAI
-	default RTAI_24_1_10
-
-	config RTAI_24_1_9
-		bool
-		prompt "24.1.9 "
-
-	config RTAI_24_1_10
-		bool
-		prompt "24.1.10"
-
-	config RTAI_24_1_11
-		bool
-		prompt "24.1.11"
-endchoice
-
-choice
-	prompt "RTAI Technology"
-	depends on RTAI
-	default RTAI_ALLSOFT
-
-	config RTAI_RTHAL
-		bool
-		prompt "rthal"
-
-	config RTAI_ALLSOFT
-		bool
-		prompt "allsoft"
-endchoice
-
-#
-# FIXME: add this if we have the 2.4 configuration in kconfig format
-# 
-#config KERNEL
-#	bool
-#	prompt "Compile Kernel"
-#
-#source "config/kernel/Config.in"
-	
 endmenu
 
 # ----------------------------------------------------------------------------
@@ -529,9 +467,10 @@ menu	"C Library           "
 source "rules/libc.in"
 
 endmenu
-# ============================================================================
-comment "Core Tools"
-# ============================================================================
+
+##############################################################################
+comment "Core Tools ---  "
+##############################################################################
 
 menu	"Pdksh               "
 
@@ -814,12 +753,14 @@ source "rules/coreutils.in"
 
 source "rules/util-linux.in"
 
+source "rules/procps.in"
+
 source "rules/vhll.in"
 
 source "rules/pcmcia-cs.in"
 
 ##############################################################################
-comment "Network Tools"
+comment "Network Tools --- "
 ##############################################################################
 
 menu	"ppp                 "
@@ -877,6 +818,15 @@ config UDHCP_DUMPLEASES
 	bool
 	prompt "Compile dumpleases"
 	depends on UDHCP
+
+endmenu
+# ----------------------------------------------------------------------------
+
+menu    "nmap                "
+
+config NMAP
+        bool
+	prompt "Compile nmap"
 
 endmenu
 
@@ -952,11 +902,28 @@ config OPENSSH
 	bool
 	prompt "OpenSSH"
 
+config OPENSSL
+	bool "OpenSSL support in various tools"
+
+config OPENSSL_SHARED
+	bool "build shared lib"
+	default y
+	depends on OPENSSL
+
 # ----------------------------------------------------------------------------
 
 source "rules/dropbear.in"
 
 # ----------------------------------------------------------------------------
+
+endmenu
+# ----------------------------------------------------------------------------
+
+menu    "netcat              "
+
+config NETCAT
+        bool
+        prompt "Compile netcat"
 
 endmenu
 
@@ -1080,7 +1047,7 @@ config  NFSUTILS_INSTALL_SHOWMOUNT
 
 config  NFSUTILS_INSTALL_STATD
         bool
-        prompt "Install /sbin/showmount"
+        prompt "Install /sbin/statd"
         depends on NFSUTILS
 
 endmenu
@@ -1132,8 +1099,12 @@ source "rules/libpcap.in"
 
 # ----------------------------------------------------------------------------
 
+source "rules/rsync.in"
+
+# ----------------------------------------------------------------------------
+
 ############################################################################## 
-comment	"Disk and file       "
+comment	"Disk and file ---   "
 ##############################################################################
 
 menu	"Disk and file utils "
@@ -1220,7 +1191,7 @@ endmenu
 
 
 ############################################################################## 
-comment	"Applications        "
+comment	"Applications ---    "
 ##############################################################################
 
 menu	"Flash               "
@@ -1468,6 +1439,8 @@ menu "System Libraries    "
 source rules/gettext.in
 source rules/popt.in
 source rules/zlib.in
+source rules/ncurses.in
+source rules/db41.in
 
 endmenu
 
@@ -1478,6 +1451,8 @@ menu "Graphics Libraries  "
 #source rules/gtk22.in
 source rules/xfree430.in
 source rules/clementine.in
+source rules/fltk.in
+source rules/wxWindows.in
 
 endmenu
 

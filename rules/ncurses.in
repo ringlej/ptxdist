@@ -1,0 +1,37 @@
+menu "ncurses          "
+
+config NCURSES
+	bool "Compile ncurses"
+
+#config NCURSES_NCURSES
+#	bool "Install libncurses on the target"
+#	default y
+#	depends on NCURSES
+
+config NCURSES_TERMCAP
+	bool "install minimal termcap"
+	default y
+	depends on NCURSES
+	help
+		Installes the following termcap files:
+		- xterm
+		- xterm-color
+		- xterm-xfree86
+		- vt100
+		- vt200
+		- ansi
+		- linux
+
+config NCURSES_FORM
+	bool "Install libform on the target"
+	depends on NCURSES
+
+config NCURSES_MENU
+	bool "Install libmenu on the target"
+	depends on NCURSES
+
+config NCURSES_PANEL
+	bool "Install libpanel on the target"
+	depends on NCURSES
+
+endmenu

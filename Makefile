@@ -1,19 +1,20 @@
-# $Id: Makefile,v 1.42 2003/10/23 10:19:03 robert Exp $
+# $Id: Makefile,v 1.43 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
-# (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
+# Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
+# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #
-# For further information about the PTXDIST project see the README file.
+# For further information about the PTXdist project see the README file.
 
 PROJECT		= PTXdist
 VERSION		= 0
 PATCHLEVEL	= 4
 SUBLEVEL	= 0
-EXTRAVERSION	=
+EXTRAVERSION	= -cvs
 
 FULLVERSION	= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
-export PROJECT VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION
+export PROJECT VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION FULLVERSION
 
 MAKE=make
 TAR=tar
@@ -22,6 +23,8 @@ TOPDIR=$(shell /bin/pwd)
 BASENAME=$(shell /usr/bin/basename $(TOPDIR))
 BUILDDIR=$(TOPDIR)/build
 XCHAIN_BUILDDIR=$(BUILDDIR)/xchain
+NATIVE_BUILDDIR=$(BUILDDIR)/native
+PATCHES_BUILDDIR=$(BUILDDIR)/patches
 SRCDIR=$(TOPDIR)/src
 PTXSRCDIR=$(TOPDIR)/src_ptx
 PATCHDIR=$(TOPDIR)/patches
@@ -35,6 +38,7 @@ INSTALL_LOG=$(TOPDIR)/tools/install-log-1.9/install-log
 
 PACKAGES=
 XCHAIN=
+NATIVE=
 
 export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR PACKAGES
 
@@ -42,10 +46,7 @@ all: help
 
 -include .config 
 
-# remove quotes
-PTXCONF_VENDORTWEAKS:=$(subst ",,$(PTXCONF_VENDORTWEAKS))
-
-ROOTDIR=$(shell echo $(PTXCONF_ROOT) | sed -e s/\"//g)
+ROOTDIR=$(subst ",,$(PTXCONF_ROOT))
 ifeq ("", $(PTXCONF_ROOT))
 ROOTDIR=$(TOPDIR)/root
 endif
@@ -53,19 +54,25 @@ ifndef PTXCONF_ROOT
 ROOTDIR=$(TOPDIR)/root
 endif
 
-include $(wildcard rules/*.make)
+include rules/Rules.make
+include rules/Version.make
+include $(filter-out rules/Virtual.make,$(wildcard rules/*.make))
+include rules/Virtual.make
+
+PTXCONF_TARGET_CONFIG_FILE ?= none
+ifeq ("", $(PTXCONF_TARGET_CONFIG_FILE))
+PTXCONF_TARGET_CONFIG_FILE =  none
+endif
+-include config/arch/$(subst ",,$(PTXCONF_TARGET_CONFIG_FILE))
 
 # if specified, include vendor tweak makefile (run at the end of build)
 # rewrite variable to make the magic in 'world' target work
-ifeq (exists, $(shell test -f rules/vendor-tweaks/$(PTXCONF_VENDORTWEAKS) && echo exists))
-include rules/vendor-tweaks/$(PTXCONF_VENDORTWEAKS)
-PTXCONF_VENDORTWEAKS=vendor-tweaks_targetinstall
-else
-PTXCONF_VENDORTWEAKS=skip_vendortweaks
-endif
 
-PTXCONF_TARGET_CONFIG_FILE?="arm"
--include config/arch/$(subst ",,$(PTXCONF_TARGET_CONFIG_FILE))
+PTXCONF_VENDORTWEAKS ?= none
+ifeq ("", $(PTXCONF_VENDORTWEAKS))
+PTXCONF_VENDORTWEAKS =  none
+endif
+-include rules/vendor-tweaks/$(subst ",,$(PTXCONF_VENDORTWEAKS))
 
 # install targets 
 PACKAGES_TARGETINSTALL 	= $(addsuffix _targetinstall,$(PACKAGES))
@@ -74,15 +81,17 @@ PACKAGES_EXTRACT	= $(addsuffix _extract,$(PACKAGES))
 PACKAGES_PREPARE	= $(addsuffix _prepare,$(PACKAGES))
 PACKAGES_COMPILE	= $(addsuffix _compile,$(PACKAGES))
 
+VENDORTWEAKS_TARGETINSTALL	= $(addsuffix _targetinstall,$(VENDORTWEAKS))
+
 help:
 # help message {{{
-	@echo 
-	@echo "PTXDIST - Pengutronix Distribution Build System"
+	@echo
+	@echo "PTXdist - Pengutronix Distribution Build System"
 	@echo
 	@echo "Syntax:"
-	@echo 
+	@echo
 	@echo "  make menuconfig       Configure the whole system"
-	@echo 
+	@echo
 	@echo "  make extract          Extract all needed archives"
 	@echo "  make prepare          Prepare the configured system for compilation"
 	@echo "  make compile          Compile the packages"
@@ -90,18 +99,24 @@ help:
 	@echo "  make clean            Remove everything but local/"
 	@echo "  make rootclean        Remove root directory contents"
 	@echo "  make distclean        Clean everything"
-	@echo 
+	@echo
 	@echo "  make world            Make-everything-and-be-happy"
 	@echo
 	@echo "Calling these targets affects the whole system. If you want to"
 	@echo "do something for a packet do 'make packet_<action>'."
 	@echo
 	@echo "Available packages and versions:"
-	@echo "$(PACKAGES)"
+	@echo " $(PACKAGES)"
 	@echo
 	@echo "Available cross-chain packages:"
-	@echo "$(XCHAIN)"
-	@echo 
+	@echo " $(XCHAIN)"
+	@echo
+	@echo "Eventually needed native packes:"
+	@echo " $(NATIVE)"
+	@echo
+	@echo "Available vendortweaks:"
+	@echo "  $(VENDORTWEAKS)"
+	@echo
 # }}}
 
 get:     getclean $(PACKAGES_GET)
@@ -122,12 +137,12 @@ dep_tree:
 	fi
 
 skip_vendortweaks:
-	@echo "Vendor-Tweaks file (PTXCONF_VENDORTWEAKS) does not exist, skipping."
+	@echo "Vendor-Tweaks file $(PTXCONF_VENDORTWEAKS) does not exist, skipping."
 
-dep_world: $(PACKAGES_TARGETINSTALL)
+dep_world: $(PACKAGES_TARGETINSTALL) $(VENDORTWEAKS_TARGETINSTALL)
 	@echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
 
-world: dep_output_clean dep_world $(PTXCONF_VENDORTWEAKS) dep_tree 
+world: dep_output_clean dep_world dep_tree 
 
 # Configuration system -------------------------------------------------------
 
@@ -167,6 +182,10 @@ i386-generic-glibc_config:
 	@echo "copying i386-generic-glibc config" $(call latestconfig, ptxconfig-i386-generic-glibc)
 	@cp $(call latestconfig, ptxconfig-i386-generic-glibc) .config
 
+i386-generic-uclibc_config: 
+	@echo "copying i386-generic-uclibc config" $(call latestconfig, ptxconfig-i386-generic-uclibc)
+	@cp $(call latestconfig, ptxconfig-i386-generic-uclibc) .config
+
 innokom_config:
 	@echo "copying innokom configuration"
 	@cp config/innokom.ptxconfig .config
@@ -195,6 +214,9 @@ distclean: clean
 	@echo -n "cleaning .config, .kernelconfig.. "
 	@rm -f .config* .kernelconfig .tmp* .rtaiconfig
 	@echo "done."
+	@echo -n "cleaning patches dir............. "
+	@rm -rf $(TOPDIR)/patches
+	@echo "done."
 	@echo
 
 clean: rootclean
@@ -208,9 +230,6 @@ clean: rootclean
 	@echo -n "cleaning scripts dir............. "
 	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.kconfig.ptx  -C scripts/kconfig clean
 	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx -C scripts/lxdialog clean
-	@echo "done."
-	@echo -n "cleaning patches dir............. "
-	@rm -rf $(TOPDIR)/patches
 	@echo "done."
 	@echo -n "cleaning bootdisk image.......... "
 	@rm -f $(TOPDIR)/boot.image

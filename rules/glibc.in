@@ -39,6 +39,16 @@ config GLIBC_BOUNDED
 	prompt "Build with runtime bounds checking"
 	depends on GLIBC
 
+config GLIBC_OPTKERNEL
+	bool
+	prompt "Optimize glibc for selected kernel version"
+	default n
+	depends on GLIBC
+
+config GLIBC_DEBUG
+	bool "Don't strip debugging symbols"
+	depends on GLIBC
+
 comment	"Install options"
 	depends on GLIBC
 
@@ -50,7 +60,7 @@ config GLIBC_THREAD_DB
 config GLIBC_DL
 	bool
 	prompt "Install libdl on the target"
-	default y if BASH
+	default y if BASH || BUILD_GDBSERVER
 	depends on GLIBC
 
 config GLIBC_CRYPT
@@ -66,6 +76,7 @@ config GLIBC_UTIL
 config GLIBC_LIBM
 	bool
 	prompt "Install libm on the target"
+	default y if BUILD_GDB
 	depends on GLIBC
 
 config GLIBC_NSS_DNS

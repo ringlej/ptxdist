@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: penguzilla.make,v 1.2 2003/09/02 14:13:08 robert Exp $
+# $Id: penguzilla.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -35,11 +35,11 @@ penguzilla_get: $(STATEDIR)/penguzilla.get
 penguzilla_get_deps	=  $(PENGUZILLA_SOURCE)
 
 $(STATEDIR)/penguzilla.get: $(penguzilla_get_deps)
-	@$(call targetinfo, penguzilla.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(PENGUZILLA_SOURCE):
-	@$(call targetinfo, $(PENGUZILLA_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(PENGUZILLA_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ penguzilla_extract: $(STATEDIR)/penguzilla.extract
 penguzilla_extract_deps	=  $(STATEDIR)/penguzilla.get
 
 $(STATEDIR)/penguzilla.extract: $(penguzilla_extract_deps)
-	@$(call targetinfo, penguzilla.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(PENGUZILLA_DIR))
 	@$(call extract, $(PENGUZILLA_SOURCE))
 	touch $@
@@ -67,7 +67,7 @@ penguzilla_prepare: $(STATEDIR)/penguzilla.prepare
 #
 penguzilla_prepare_deps =  \
 	$(STATEDIR)/penguzilla.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 PENGUZILLA_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 PENGUZILLA_ENV 	=  $(CROSS_ENV)
@@ -85,7 +85,7 @@ PENGUZILLA_AUTOCONF	+= --with-mozilla=$(MFIREBIRD_DIR)
 PENGUZILLA_AUTOCONF	+= --with-gtk-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/penguzilla.prepare: $(penguzilla_prepare_deps)
-	@$(call targetinfo, penguzilla.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(PENGUZILLA_BUILDDIR))
 	cd $(PENGUZILLA_DIR) && \
 		$(PENGUZILLA_PATH) $(PENGUZILLA_ENV) \
@@ -101,7 +101,7 @@ penguzilla_compile: $(STATEDIR)/penguzilla.compile
 penguzilla_compile_deps =  $(STATEDIR)/penguzilla.prepare
 
 $(STATEDIR)/penguzilla.compile: $(penguzilla_compile_deps)
-	@$(call targetinfo, penguzilla.compile)
+	@$(call targetinfo, $@)
 	$(PENGUZILLA_PATH) $(PENGUZILLA_ENV) make -C $(PENGUZILLA_DIR)
 	touch $@
 
@@ -112,7 +112,7 @@ $(STATEDIR)/penguzilla.compile: $(penguzilla_compile_deps)
 penguzilla_install: $(STATEDIR)/penguzilla.install
 
 $(STATEDIR)/penguzilla.install: $(STATEDIR)/penguzilla.compile
-	@$(call targetinfo, penguzilla.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -124,9 +124,9 @@ penguzilla_targetinstall: $(STATEDIR)/penguzilla.targetinstall
 penguzilla_targetinstall_deps	=  $(STATEDIR)/penguzilla.compile
 
 $(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps)
-	@$(call targetinfo, penguzilla.targetinstall)
+	@$(call targetinfo, $@)
 
-	# pixmap directory
+# pixmap directory
 	install -d $(ROOTDIR)/usr/share/penguzilla/pixmaps
 	install $(PENGUZILLA_DIR)/pixmaps/* $(ROOTDIR)/usr/share/penguzilla/pixmaps
 
@@ -134,9 +134,9 @@ $(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps)
 	install $(PENGUZILLA_DIR)/src/penguzilla $(ROOTDIR)/usr/bin/
 	install $(PENGUZILLA_DIR)/src/penguzilla_bin $(ROOTDIR)/usr/lib/mozilla-1.5a/
 
-	# Style
+# Style
 	install $(PENGUZILLA_DIR)/gtkrc $(ROOTDIR)/.gtkrc
-	
+
 	touch $@
 
 # ----------------------------------------------------------------------------

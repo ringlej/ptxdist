@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: openssh.make,v 1.9 2003/07/23 12:39:06 mkl Exp $
+# $Id: openssh.make,v 1.10 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 

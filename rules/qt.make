@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: qt.make,v 1.1 2003/08/26 13:20:12 robert Exp $
+# $Id: qt.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -35,11 +35,11 @@ qt_get: $(STATEDIR)/qt.get
 qt_get_deps	=  $(QT_SOURCE)
 
 $(STATEDIR)/qt.get: $(qt_get_deps)
-	@$(call targetinfo, qt.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(QT_SOURCE):
-	@$(call targetinfo, $(QT_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(QT_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ qt_extract: $(STATEDIR)/qt.extract
 qt_extract_deps	=  $(STATEDIR)/qt.get
 
 $(STATEDIR)/qt.extract: $(qt_extract_deps)
-	@$(call targetinfo, qt.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(QT_DIR))
 	@$(call extract, $(QT_SOURCE))
 	touch $@
@@ -67,7 +67,7 @@ qt_prepare: $(STATEDIR)/qt.prepare
 #
 qt_prepare_deps =  \
 	$(STATEDIR)/qt.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 QT_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 QT_ENV 	=  $(CROSS_ENV)
@@ -98,7 +98,7 @@ QT_AUTOCONF	+= -no-qvfb
 QT_AUTOCONF	+= -xplatform linux-g++
 
 $(STATEDIR)/qt.prepare: $(qt_prepare_deps)
-	@$(call targetinfo, qt.prepare)
+	@$(call targetinfo, $@)
 	cd $(QT_DIR) && \
 		echo "yes" | $(QT_PATH) $(QT_ENV) \
 		./configure $(QT_AUTOCONF)
@@ -113,7 +113,7 @@ qt_compile: $(STATEDIR)/qt.compile
 qt_compile_deps =  $(STATEDIR)/qt.prepare
 
 $(STATEDIR)/qt.compile: $(qt_compile_deps)
-	@$(call targetinfo, qt.compile)
+	@$(call targetinfo, $@)
 	$(QT_PATH) $(QT_ENV) make -C $(QT_DIR)
 	touch $@
 
@@ -124,7 +124,7 @@ $(STATEDIR)/qt.compile: $(qt_compile_deps)
 qt_install: $(STATEDIR)/qt.install
 
 $(STATEDIR)/qt.install: $(STATEDIR)/qt.compile
-	@$(call targetinfo, qt.install)
+	@$(call targetinfo, $@)
 	$(QT_PATH) $(QT_ENV) make -C $(QT_DIR) install
 	touch $@
 
@@ -137,7 +137,7 @@ qt_targetinstall: $(STATEDIR)/qt.targetinstall
 qt_targetinstall_deps	=  $(STATEDIR)/qt.compile
 
 $(STATEDIR)/qt.targetinstall: $(qt_targetinstall_deps)
-	@$(call targetinfo, qt.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

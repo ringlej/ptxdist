@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: uclibc.make,v 1.3 2003/09/16 16:43:00 mkl Exp $
+# $Id: uclibc.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
+# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -32,8 +32,6 @@ UCLIBC_URL			= http://www.uclibc.org/downloads/$(UCLIBC).$(UCLIBC_SUFFIX)
 UCLIBC_SOURCE			= $(SRCDIR)/$(UCLIBC).$(UCLIBC_SUFFIX)
 UCLIBC_DIR			= $(BUILDDIR)/$(UCLIBC)
 
-UCLIBC_CRIS_PATCH_SOURCE	= $(SRCDIR)/$(UCLIBC)-mkb1.patch
-
 #
 # uClibc config file fixup
 #
@@ -48,7 +46,8 @@ uclibc_fix_config =					\
 #
 # for uClibc that is used for the xchain
 #
-xchain_uclibc_fix_config =				\
+# FIXME: enable widechar support for c++
+xchain-uclibc_fix_config =				\
 	@$(call uclibc_fix_config_general, $(1))
 
 #
@@ -72,11 +71,12 @@ uclibc_get: $(STATEDIR)/uclibc.get
 uclibc_get_deps =  $(UCLIBC_SOURCE)
 
 $(STATEDIR)/uclibc.get: $(uclibc_get_deps)
-	@$(call targetinfo, uclibc.get)
+	@$(call targetinfo, $@)
+	@$(call get_patches, $(UCLIBC))
 	touch $@
 
 $(UCLIBC_SOURCE):
-	@$(call targetinfo, $(UCLIBC_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(UCLIBC_URL))
 
 # ----------------------------------------------------------------------------
@@ -88,9 +88,10 @@ uclibc_extract: $(STATEDIR)/uclibc.extract
 uclibc_extract_deps = $(STATEDIR)/uclibc.get
 
 $(STATEDIR)/uclibc.extract: $(uclibc_extract_deps)
-	@$(call targetinfo, uclibc.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(UCLIBC_DIR))
 	@$(call extract, $(UCLIBC_SOURCE))
+	@$(call patchin, $(UCLIBC))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -111,7 +112,7 @@ uclibc_prepare_deps = \
 
 
 $(STATEDIR)/uclibc.prepare: $(uclibc_prepare_deps)
-	@$(call targetinfo, uclibc.prepare)
+	@$(call targetinfo, $@)
 
 	grep -e PTXCONF_UCLIBC_ .config > $(UCLIBC_DIR)/.config
 	perl -i -p -e 's/PTXCONF_UCLIBC_//g' $(UCLIBC_DIR)/.config
@@ -129,7 +130,7 @@ uclibc_compile: $(STATEDIR)/uclibc.compile
 uclibc_compile_deps =  $(STATEDIR)/uclibc.prepare
 
 $(STATEDIR)/uclibc.compile: $(uclibc_compile_deps)
-	@$(call targetinfo, uclibc.compile)
+	@$(call targetinfo, $@)
 	$(UCLIBC_PATH) make -C $(UCLIBC_DIR) $(UCLIBC_MAKEVARS)
 	touch $@
 
@@ -140,7 +141,7 @@ $(STATEDIR)/uclibc.compile: $(uclibc_compile_deps)
 uclibc_install: $(STATEDIR)/uclibc.install
 
 $(STATEDIR)/uclibc.install:
-	@$(call targetinfo, uclibc.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -150,7 +151,7 @@ $(STATEDIR)/uclibc.install:
 uclibc_targetinstall: $(STATEDIR)/uclibc.targetinstall
 
 $(STATEDIR)/uclibc.targetinstall: $(STATEDIR)/uclibc.compile
-	@$(call targetinfo, uclibc.targetinstall)
+	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/lib
 
 	install $(UCLIBC_DIR)/lib/ld-uClibc-$(UCLIBC_VERSION).so \

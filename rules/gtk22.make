@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: gtk22.make,v 1.2 2003/08/17 00:32:04 robert Exp $
+# $Id: gtk22.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#             Pengutronix <info@pengutronix.de>, Germany
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+#                       Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -36,11 +36,11 @@ gtk22_get: $(STATEDIR)/gtk22.get
 gtk22_get_deps	=  $(GTK22_SOURCE)
 
 $(STATEDIR)/gtk22.get: $(gtk22_get_deps)
-	@$(call targetinfo, gtk22.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(GTK22_SOURCE):
-	@$(call targetinfo, $(GTK22_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(GTK22_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ gtk22_extract: $(STATEDIR)/gtk22.extract
 gtk22_extract_deps	=  $(STATEDIR)/gtk22.get
 
 $(STATEDIR)/gtk22.extract: $(gtk22_extract_deps)
-	@$(call targetinfo, gtk22.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(GTK22_DIR))
 	@$(call extract, $(GTK22_SOURCE))
 	touch $@
@@ -69,8 +69,8 @@ gtk22_prepare: $(STATEDIR)/gtk22.prepare
 gtk22_prepare_deps =  \
 	$(STATEDIR)/gtk22.extract \
 	$(STATEDIR)/atk124.install \
+	$(STATEDIR)/virtual-xchain.install
 #	$(STATEDIR)/fontconfig22.install \
-#	$(STATEDIR)/virtual-xchain.install
 
 GTK22_PATH	=  PATH=$(CROSS_PATH)
 GTK22_ENV 	=  $(CROSS_ENV)
@@ -97,7 +97,7 @@ GTK22_AUTOCONF	+= --enable-foo
 endif
 
 $(STATEDIR)/gtk22.prepare: $(gtk22_prepare_deps)
-	@$(call targetinfo, gtk22.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(GTK22_BUILDDIR))
 	cd $(GTK22_DIR) && \
 		$(GTK22_PATH) $(GTK22_ENV) \
@@ -113,7 +113,7 @@ gtk22_compile: $(STATEDIR)/gtk22.compile
 gtk22_compile_deps =  $(STATEDIR)/gtk22.prepare
 
 $(STATEDIR)/gtk22.compile: $(gtk22_compile_deps)
-	@$(call targetinfo, gtk22.compile)
+	@$(call targetinfo, $@)
 	$(GTK22_PATH) $(GTK22_ENV) make -C $(GTK22_DIR)
 	touch $@
 
@@ -124,7 +124,7 @@ $(STATEDIR)/gtk22.compile: $(gtk22_compile_deps)
 gtk22_install: $(STATEDIR)/gtk22.install
 
 $(STATEDIR)/gtk22.install: $(STATEDIR)/gtk22.compile
-	@$(call targetinfo, gtk22.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -136,7 +136,7 @@ gtk22_targetinstall: $(STATEDIR)/gtk22.targetinstall
 gtk22_targetinstall_deps	=  $(STATEDIR)/gtk22.compile
 
 $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps)
-	@$(call targetinfo, gtk22.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

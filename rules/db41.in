@@ -1,0 +1,12 @@
+menu "Berkeley db 4 "
+
+config DB   
+	bool
+	prompt "Compile Berkeley DB-4"
+
+config DB_INSTALL_BIN_UTIL
+	bool
+	prompt "install db_* tools on target"
+	depends on DB
+
+endmenu

@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: libpcap.make,v 1.2 2003/09/10 01:39:34 mkl Exp $
+# $Id: libpcap.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Marc Kleine-Budde
+# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -35,11 +35,11 @@ libpcap_get: $(STATEDIR)/libpcap.get
 libpcap_get_deps	=  $(LIBPCAP_SOURCE)
 
 $(STATEDIR)/libpcap.get: $(libpcap_get_deps)
-	@$(call targetinfo, libpcap.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(LIBPCAP_SOURCE):
-	@$(call targetinfo, $(LIBPCAP_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(LIBPCAP_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ libpcap_extract: $(STATEDIR)/libpcap.extract
 libpcap_extract_deps	=  $(STATEDIR)/libpcap.get
 
 $(STATEDIR)/libpcap.extract: $(libpcap_extract_deps)
-	@$(call targetinfo, libpcap.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPCAP_DIR))
 	@$(call extract, $(LIBPCAP_SOURCE))
 	touch $@
@@ -83,7 +83,7 @@ LIBPCAP_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 LIBPCAP_AUTOCONF	+= --with-pcap=linux
 
 $(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps)
-	@$(call targetinfo, libpcap.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPCAP_BUILDDIR))
 	cd $(LIBPCAP_DIR) && \
 		$(LIBPCAP_PATH) $(LIBPCAP_ENV) \
@@ -99,7 +99,7 @@ libpcap_compile: $(STATEDIR)/libpcap.compile
 libpcap_compile_deps =  $(STATEDIR)/libpcap.prepare
 
 $(STATEDIR)/libpcap.compile: $(libpcap_compile_deps)
-	@$(call targetinfo, libpcap.compile)
+	@$(call targetinfo, $@)
 	$(LIBPCAP_PATH) make -C $(LIBPCAP_DIR)
 	touch $@
 
@@ -110,7 +110,7 @@ $(STATEDIR)/libpcap.compile: $(libpcap_compile_deps)
 libpcap_install: $(STATEDIR)/libpcap.install
 
 $(STATEDIR)/libpcap.install: $(STATEDIR)/libpcap.compile
-	@$(call targetinfo, libpcap.install)
+	@$(call targetinfo, $@)
 	$(LIBPCAP_PATH) make -C $(LIBPCAP_DIR) install
 	touch $@
 
@@ -123,7 +123,7 @@ libpcap_targetinstall: $(STATEDIR)/libpcap.targetinstall
 libpcap_targetinstall_deps	=  $(STATEDIR)/libpcap.install
 
 $(STATEDIR)/libpcap.targetinstall: $(libpcap_targetinstall_deps)
-	@$(call targetinfo, libpcap.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

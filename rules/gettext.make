@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: gettext.make,v 1.3 2003/08/13 14:53:16 robert Exp $
+# $Id: gettext.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -36,11 +36,11 @@ gettext_get: $(STATEDIR)/gettext.get
 gettext_get_deps	=  $(GETTEXT_SOURCE)
 
 $(STATEDIR)/gettext.get: $(gettext_get_deps)
-	@$(call targetinfo, gettext.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(GETTEXT_SOURCE):
-	@$(call targetinfo, $(GETTEXT_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(GETTEXT_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ gettext_extract: $(STATEDIR)/gettext.extract
 gettext_extract_deps	=  $(STATEDIR)/gettext.get
 
 $(STATEDIR)/gettext.extract: $(gettext_extract_deps)
-	@$(call targetinfo, gettext.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(GETTEXT_DIR))
 	@$(call extract, $(GETTEXT_SOURCE))
 	touch $@
@@ -67,8 +67,8 @@ gettext_prepare: $(STATEDIR)/gettext.prepare
 # dependencies
 #
 gettext_prepare_deps =  \
-	$(STATEDIR)/gettext.extract
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/gettext.extract \
+	$(STATEDIR)/virtual-xchain.install
 
 GETTEXT_PATH	=  PATH=$(CROSS_PATH)
 GETTEXT_ENV 	=  $(CROSS_ENV)
@@ -85,7 +85,7 @@ GETTEXT_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 GETTEXT_AUTOCONF	+= --disable-nls
 
 $(STATEDIR)/gettext.prepare: $(gettext_prepare_deps)
-	@$(call targetinfo, gettext.prepare)
+	@$(call targetinfo, $@)
 	cd $(GETTEXT_DIR) && \
 		$(GETTEXT_PATH) $(GETTEXT_ENV) \
 		./configure $(GETTEXT_AUTOCONF)
@@ -100,7 +100,7 @@ gettext_compile: $(STATEDIR)/gettext.compile
 gettext_compile_deps =  $(STATEDIR)/gettext.prepare
 
 $(STATEDIR)/gettext.compile: $(gettext_compile_deps)
-	@$(call targetinfo, gettext.compile)
+	@$(call targetinfo, $@)
 	$(GETTEXT_PATH) make -C $(GETTEXT_DIR)
 	touch $@
 
@@ -111,7 +111,7 @@ $(STATEDIR)/gettext.compile: $(gettext_compile_deps)
 gettext_install: $(STATEDIR)/gettext.install
 
 $(STATEDIR)/gettext.install: $(STATEDIR)/gettext.compile
-	@$(call targetinfo, gettext.install)
+	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)/lib
 	rm -f $(PTXCONF_PREFIX)/lib/libgnuintl.so*
 	install $(GETTEXT_DIR)/gettext-runtime/intl/.libs/libgnuintl.so.2.3.0 $(PTXCONF_PREFIX)/lib/
@@ -130,7 +130,7 @@ gettext_targetinstall: $(STATEDIR)/gettext.targetinstall
 gettext_targetinstall_deps	=  $(STATEDIR)/gettext.compile
 
 $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps)
-	@$(call targetinfo, gettext.targetinstall)
+	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/lib
 	rm -f $(ROOTDIR)/lib/libgnuintl.so*
 	install $(GETTEXT_DIR)/gettext-runtime/intl/.libs/libgnuintl.so.2.3.0 $(ROOTDIR)/lib/

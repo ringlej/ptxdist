@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: inetutils.make,v 1.3 2003/09/24 23:43:23 mkl Exp $
+# $Id: inetutils.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
 #
-# (C) 2003 by Ixia Corporation (www.ixiacom.com)
+# Copyright (C) 2003 by Ixia Corporation (www.ixiacom.com)
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -73,18 +73,17 @@ inetutils_prepare_deps =  \
 
 INETUTILS_PATH	=  PATH=$(CROSS_PATH)
 INETUTILS_ENV 	=  $(CROSS_ENV)
-# Override autoconf tests that break when cross-compiling.
-# Value given is for Linux.
-# FIXME: Should this be part of the default $(CROSS_ENV)?
-INETUTILS_ENV		+=  ac_cv_func_setvbuf_reversed=no
 
 #
 # autoconf
 #
-INETUTILS_AUTOCONF	=  --prefix=/usr
-INETUTILS_AUTOCONF	+= --build=$(GNU_HOST)
-INETUTILS_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-INETUTILS_AUTOCONF	+= --with-PATH-CP=/bin/cp
+INETUTILS_AUTOCONF = \
+	--prefix=/usr \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--with-PATH-CP=/bin/cp \
+	--localstatedir=/var \
+	--sysconfdir=/etc
 
 $(STATEDIR)/inetutils.prepare: $(inetutils_prepare_deps)
 	@$(call targetinfo, $@)
@@ -139,17 +138,17 @@ $(STATEDIR)/inetutils.targetinstall: $(inetutils_targetinstall_deps)
 	install -d $(ROOTDIR)/usr/sbin
 ifdef PTXCONF_INETUTILS_RCP
 	install -D $(INETUTILS_DIR)/rcp/rcp  $(ROOTDIR)/usr/bin/rcp
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/rcp
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/rcp
 endif
 
 ifdef PTXCONF_INETUTILS_RLOGIND
 	install -D $(INETUTILS_DIR)/rlogind/rlogind  $(ROOTDIR)/usr/sbin/rlogind
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/sbin/rlogind
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/rlogind
 endif
 
 ifdef PTXCONF_INETUTILS_RSHD
 	install -D $(INETUTILS_DIR)/rshd/rshd $(ROOTDIR)/usr/bin/rshd
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/rshd
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/rshd
 endif
 	touch $@
 

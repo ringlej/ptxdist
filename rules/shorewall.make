@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: shorewall.make,v 1.3 2003/09/27 16:34:16 mkl Exp $
+# $Id: shorewall.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Dan Kegel, Ixia Communications (http://ixiacom.com)
+# Copyright (C) 2003 by Dan Kegel, Ixia Communications (http://ixiacom.com)
 #
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -83,7 +83,6 @@ $(STATEDIR)/shorewall.compile:
 shorewall_targetinstall: $(STATEDIR)/shorewall.targetinstall
 
 shorewall_targetinstall_deps	=  $(STATEDIR)/shorewall.extract
-
 
 #
 # create /etc/shorewall directory before installing to keep it from

@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: libIDL068.make,v 1.1 2003/08/19 12:04:27 robert Exp $
+# $Id: libIDL068.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#             Pengutronix <info@pengutronix.de>, Germany
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+#                       Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -36,11 +36,11 @@ libidl068_get: $(STATEDIR)/libidl068.get
 libidl068_get_deps	=  $(LIBIDL068_SOURCE)
 
 $(STATEDIR)/libidl068.get: $(libidl068_get_deps)
-	@$(call targetinfo, libidl068.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(LIBIDL068_SOURCE):
-	@$(call targetinfo, $(LIBIDL068_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(LIBIDL068_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ libidl068_extract: $(STATEDIR)/libidl068.extract
 libidl068_extract_deps	=  $(STATEDIR)/libidl068.get
 
 $(STATEDIR)/libidl068.extract: $(libidl068_extract_deps)
-	@$(call targetinfo, libidl068.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LIBIDL068_DIR))
 	@$(call extract, $(LIBIDL068_SOURCE))
 	touch $@
@@ -68,7 +68,7 @@ libidl068_prepare: $(STATEDIR)/libidl068.prepare
 #
 libidl068_prepare_deps =  \
 	$(STATEDIR)/libidl068.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 LIBIDL068_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 LIBIDL068_ENV 	=  $(CROSS_ENV)
@@ -87,7 +87,7 @@ LIBIDL068_AUTOCONF	+= --enable-foo
 endif
 
 $(STATEDIR)/libidl068.prepare: $(libidl068_prepare_deps)
-	@$(call targetinfo, libidl068.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LIBIDL068_BUILDDIR))
 	cd $(LIBIDL068_DIR) && \
 		$(LIBIDL068_PATH) $(LIBIDL068_ENV) \
@@ -103,10 +103,10 @@ libidl068_compile: $(STATEDIR)/libidl068.compile
 libidl068_compile_deps =  $(STATEDIR)/libidl068.prepare
 
 $(STATEDIR)/libidl068.compile: $(libidl068_compile_deps)
-	@$(call targetinfo, libidl068.compile)
-	
+	@$(call targetinfo, $@)
+
 	$(LIBIDL068_PATH) $(LIBIDL068_ENV) make -C $(LIBIDL068_DIR)
-	
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -116,7 +116,7 @@ $(STATEDIR)/libidl068.compile: $(libidl068_compile_deps)
 libidl068_install: $(STATEDIR)/libidl068.install
 
 $(STATEDIR)/libidl068.install: $(STATEDIR)/libidl068.compile
-	@$(call targetinfo, libidl068.install)
+	@$(call targetinfo, $@)
 
 	$(LIBIDL068_PATH) $(LIBIDL068_ENV) make -C $(LIBIDL068_DIR) install
 
@@ -131,7 +131,7 @@ libidl068_targetinstall: $(STATEDIR)/libidl068.targetinstall
 libidl068_targetinstall_deps	=  $(STATEDIR)/libidl068.compile
 
 $(STATEDIR)/libidl068.targetinstall: $(libidl068_targetinstall_deps)
-	@$(call targetinfo, libidl068.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,36 +1,49 @@
 # -*-makefile-*-
-# $Id: binutils.make,v 1.3 2003/09/16 08:12:55 mkl Exp $
+# $Id: binutils.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
+
+ifdef PTXCONF_LIBBFD
+PACKAGES += binutils
+endif
 
 #
 # Paths and names 
 #
-BINUTILS		= binutils-2.13.2.1
+BINUTILS_VERSION	= 2.13.2.1
+BINUTILS		= binutils-$(BINUTILS_VERSION)
 BINUTILS_URL		= ftp://ftp.gnu.org/pub/gnu/binutils/$(BINUTILS).tar.gz
 BINUTILS_SOURCE		= $(SRCDIR)/$(BINUTILS).tar.gz
 BINUTILS_DIR		= $(BUILDDIR)/$(BINUTILS)
-ifdef PTXCONF_ARCH_NOMMU
-BINUTILS		= binutils-2.10
-BINUTILS_URL		= ftp://ftp.gnu.org/pub/gnu/binutils/$(BINUTILS).tar.gz
-endif
-ifdef PTXCONF_ARCH_MIPS
-BINUTILS		= binutils-2.14.90.0.4
-BINUTILS_URL		= ftp://ftp.de.kernel.org/pub/linux/devel/binutils/$(BINUTILS).tar.gz
-endif
-ifdef PTXCONF_ARCH_PARISC
-BINUTILS		= binutils-2.14.90.0.4
-BINUTILS_URL		= ftp://ftp.de.kernel.org/pub/linux/devel/binutils/$(BINUTILS).tar.gz
-endif
+BINUTILS_BUILDDIR	= $(BINUTILS_DIR)-build
 
-BINUTILS_NOMMU_PATCH		= binutils-2.10-full.patch
-BINUTILS_NOMMU_PATCH_URL	= http://www.uclinux.org/pub/uClinux/m68k-elf-tools/tools-20030314/$(BINUTILS_NOMMU_PATCH)
-BINUTILS_NOMMU_PATCH_SOURCE	= $(SRCDIR)/$(BINUTILS_NOMMU_PATCH)
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+binutils_get: $(STATEDIR)/binutils.get
+
+binutils_get_deps = \
+	$(BINUTILS_SOURCE) \
+	$(STATEDIR)/binutils-patches.get
+
+$(STATEDIR)/binutils.get: $(binutils_get_deps)
+	@$(call targetinfo, $@)
+	touch $@
+
+$(STATEDIR)/binutils-patches.get:
+	@$(call targetinfo, $@)
+	@$(call get_patches, $(BINUTILS))
+	touch $@
+
+$(BINUTILS_SOURCE):
+	@$(call targetinfo, $@)
+	@$(call get, $(BINUTILS_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -38,38 +51,11 @@ BINUTILS_NOMMU_PATCH_SOURCE	= $(SRCDIR)/$(BINUTILS_NOMMU_PATCH)
 
 binutils_extract: $(STATEDIR)/binutils.extract
 
-$(STATEDIR)/binutils.extract: $(STATEDIR)/xchain-binutils.get
-	@$(call targetinfo, binutils.extract)
+$(STATEDIR)/binutils.extract: $(STATEDIR)/binutils.get
+	@$(call targetinfo, $@)
 	@$(call clean, $(BINUTILS_DIR))
 	@$(call extract, $(BINUTILS_SOURCE))
-
-#
-# inspired by Erik Andersen's buildroot
-#
-
-#
-# Enable combreloc, since it is such a nice thing to have...
-#
-	perl -i -p -e "s,link_info.combreloc = false,link_info.combreloc = true,g;" $(BINUTILS_DIR)/ld/ldmain.c
-
-#
-# Hack binutils to use the correct shared lib loader
-#
-	cd $(BINUTILS_DIR) && \
-		perl -i -p -e "s,#.*define.*ELF_DYNAMIC_INTERPRETER.*\".*\",#define ELF_DYNAMIC_INTERPRETER \"$(DYNAMIC_LINKER)\",;" \
-		`grep -lr "#define ELF_DYNAMIC_INTERPRETER" $(BINUTILS_DIR)`
-
-#
-# Hack binutils to prevent it from searching the host system
-# for libraries.  We only want libraries for the target system.
-#
-	cd $(BINUTILS_DIR) && \
-		perl -i -p -e "s,^NATIVE_LIB_DIRS.*,NATIVE_LIB_DIRS='$(CROSS_LIB_DIR)/usr/lib $(CROSS_LIB_DIR)/lib',;" \
-		$(BINUTILS_DIR)/ld/configure.host
-
-ifdef PTXCONF_ARCH_ARM_NOMMU
-	cd $(BINUTILS_DIR) && patch -p1 < $(BINUTILS_NOMMU_PATCH_SOURCE)
-endif
+	@$(call patchin, $(BINUTILS))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -82,31 +68,27 @@ binutils_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/binutils.extract
 
-BINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET)
-ifdef PTXCONF_ARCH_MIPS
-BINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET),mips64-linux
-endif
-ifdef PTXCONF_OPT_PA8X00
-BINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET),hppa64-linux
-endif
-
 BINUTILS_AUTOCONF = \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--build=$(GNU_HOST) \
-	--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
+	--enable-targets=$(PTXCONF_GNU_TARGET) \
+	--prefix=/usr \
 	--disable-nls \
 	--enable-shared \
-	$(BINUTILS_AUTOCONF_TARGET)
+	--enable-commonbfdlib \
+	--enable-install-libiberty \
+	--disable-multilib
 
-#	--enable-multilib \
-
-BINUTILS_ENV	= $(CROSS_ENV) PATH=$(CROSS_PATH)
+BINUTILS_ENV	= $(CROSS_ENV)
+BINUTILS_PATH	= PATH=$(CROSS_PATH)
 
 $(STATEDIR)/binutils.prepare: $(binutils_prepare_deps)
-	@$(call targetinfo, binutils.prepare)
-	cd $(BINUTILS_DIR) && $(BINUTILS_ENV) \
-		./configure $(BINUTILS_AUTOCONF)
+	@$(call targetinfo, $@)
+	@$(call clean, $(BINUTILS_BUILDDIR))
+	mkdir -p $(BINUTILS_BUILDDIR)
+	cd $(BINUTILS_BUILDDIR) && $(BINUTILS_PATH) $(BINUTILS_ENV) \
+		$(BINUTILS_DIR)/configure $(BINUTILS_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -116,8 +98,21 @@ $(STATEDIR)/binutils.prepare: $(binutils_prepare_deps)
 binutils_compile: $(STATEDIR)/binutils.compile
 
 $(STATEDIR)/binutils.compile: $(STATEDIR)/binutils.prepare 
-	@$(call targetinfo, binutils.compile)
-	$(BINUTILS_ENV) make -C $(BINUTILS_DIR)
+	@$(call targetinfo, $@)
+#
+# the libiberty part is compiled for the host system
+#
+# don't pass target CFLAGS to it, so override them and call the configure script
+#
+	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR) CFLAGS='' CXXFLAGS='' configure-build-libiberty
+
+	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR)
+
+#
+# the chew tool is needed later during installation, compile it now
+# else it will fail cause it gets target CFLAGS
+#
+	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR)/bfd/doc CFLAGS='' CXXFLAGS='' chew
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -127,8 +122,8 @@ $(STATEDIR)/binutils.compile: $(STATEDIR)/binutils.prepare
 binutils_install: $(STATEDIR)/binutils.install
 
 $(STATEDIR)/binutils.install: $(STATEDIR)/binutils.compile
-	@$(call targetinfo, binutils.install)
-	make install -C $(BINUTILS_DIR)
+	@$(call targetinfo, $@)
+	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR)/bfd DESTDIR=$(CROSS_LIB_DIR) prefix='' install 
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -138,11 +133,9 @@ $(STATEDIR)/binutils.install: $(STATEDIR)/binutils.compile
 binutils_targetinstall: $(STATEDIR)/binutils.targetinstall
 
 $(STATEDIR)/binutils.targetinstall: $(STATEDIR)/binutils.install
-	@$(call targetinfo, binutils.targetinstall)
-	ifeq (y, $(PTXCONF_LIBBFD))
-	install -d $(ROOTDIR)/lib
-	cp -d $(BINUTILS_DIR)/bfd/.libs/libbfd.* $(ROOTDIR)/lib
-	endif
+	@$(call targetinfo, $@)
+	install -d $(ROOTDIR)/usr/lib
+	cp -d $(BINUTILS_BUILDDIR)/bfd/.libs/libbfd*.so $(ROOTDIR)/usr/lib
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -150,6 +143,6 @@ $(STATEDIR)/binutils.targetinstall: $(STATEDIR)/binutils.install
 # ----------------------------------------------------------------------------
 
 binutils_clean: 
-	rm -rf $(STATEDIR)/binutils.* $(BINUTILS_DIR)
+	rm -rf $(STATEDIR)/binutils-* $(BINUTILS_DIR)
 
 # vim: syntax=make

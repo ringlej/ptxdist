@@ -1,28 +1,27 @@
 # -*-makefile-*-
-# $Id: ksymoops.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
+# $Id: xchain-ksymoops.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_KSYMOOPS))
+ifdef PTXCONF_KSYMOOPS
 PACKAGES += ksymoops
 endif
 
 #
 # Paths and names 
 #
-KSYMOOPS			= ksymoops-2.4.6
+KSYMOOPS			= ksymoops-2.4.9
 KSYMOOPS_URL			= http://www.kernel.org/pub/linux/utils/kernel/ksymoops/v2.4/$(KSYMOOPS).tar.bz2
 KSYMOOPS_SOURCE			= $(SRCDIR)/$(KSYMOOPS).tar.bz2
 KSYMOOPS_DIR			= $(BUILDDIR)/$(KSYMOOPS)
-KSYMOOPS_EXTRACT 		= bzip2 -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,12 +30,12 @@ KSYMOOPS_EXTRACT 		= bzip2 -dc
 ksymoops_get: $(STATEDIR)/ksymoops.get
 
 $(STATEDIR)/ksymoops.get: $(KSYMOOPS_SOURCE)
-	@$(call targetinfo, ksymoops.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(KSYMOOPS_SOURCE):
-	@$(call targetinfo, $(KSYMOOPS_SOURCE))
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(KSYMOOPS_URL)
+	@$(call targetinfo, $@)
+	@$(call get, $(KSYMOOPS_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -45,8 +44,9 @@ $(KSYMOOPS_SOURCE):
 ksymoops_extract: $(STATEDIR)/ksymoops.extract
 
 $(STATEDIR)/ksymoops.extract: $(STATEDIR)/ksymoops.get
-	@$(call targetinfo, ksymoops.extract)
-	$(KSYMOOPS_EXTRACT) $(KSYMOOPS_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	@$(call targetinfo, $@)
+	@$(call clean, $(KSYMOOPS_DIR))
+	@$(call extract, $(KSYMOOPS_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -55,8 +55,12 @@ $(STATEDIR)/ksymoops.extract: $(STATEDIR)/ksymoops.get
 
 ksymoops_prepare: $(STATEDIR)/ksymoops.prepare
 
-$(STATEDIR)/ksymoops.prepare: $(STATEDIR)/ksymoops.extract
-	@$(call targetinfo, ksymoops.prepare)
+KSYMOOPS_MAKEVARS = \
+	CROSS=$(PTXCONF_GNU_TARGET)- \
+	INSTALL_PREFIX=$(PTXCONF_PREFIX) \
+	BFD_PREFIX=$(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET)
+
+$(STATEDIR)/ksymoops.prepare:
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -65,9 +69,13 @@ $(STATEDIR)/ksymoops.prepare: $(STATEDIR)/ksymoops.extract
 
 ksymoops_compile: $(STATEDIR)/ksymoops.compile
 
-$(STATEDIR)/ksymoops.compile: $(STATEDIR)/ksymoops.prepare 
-	@$(call targetinfo, ksymoops.compile)
-	CFLAGS="-I$(PTXCONF_PREFIX)/include" make -C $(KSYMOOPS_DIR)
+ksymoops_compile_deps = \
+	$(STATEDIR)/xchain-binutils.install \
+	$(STATEDIR)/ksymoops.extract
+
+$(STATEDIR)/ksymoops.compile: $(ksymoops_compile_deps)
+	@$(call targetinfo, $@)
+	make -C $(KSYMOOPS_DIR) $(KSYMOOPS_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -77,8 +85,8 @@ $(STATEDIR)/ksymoops.compile: $(STATEDIR)/ksymoops.prepare
 ksymoops_install: $(STATEDIR)/ksymoops.install
 
 $(STATEDIR)/ksymoops.install: $(STATEDIR)/ksymoops.compile
-	@$(call targetinfo, ksymoops.install)
-	make -C $(KSYMOOPS_DIR) install INSTALL_PREFIX=$(PTXCONF_PREFIX)
+	@$(call targetinfo, $@)
+	make -C $(KSYMOOPS_DIR) $(KSYMOOPS_MAKEVARS) install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -88,7 +96,7 @@ $(STATEDIR)/ksymoops.install: $(STATEDIR)/ksymoops.compile
 ksymoops_targetinstall: $(STATEDIR)/ksymoops.targetinstall
 
 $(STATEDIR)/ksymoops.targetinstall: $(STATEDIR)/ksymoops.install
-	@$(call targetinfo, ksymoops.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.6 2003/09/16 16:41:58 mkl Exp $
+# $Id: mfirebird.make,v 1.7 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
-#             Pengutronix e.K. <info@pengutronix.de>, Germany
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
+#                       Pengutronix e.K. <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -37,12 +37,12 @@ mfirebird_get_deps		=  $(MFIREBIRD_SOURCE)
 mfirebird_get_deps		+= $(MFIREBIRD_PATCH_SOURCE)
 
 $(STATEDIR)/mfirebird.get: $(mfirebird_get_deps)
-	@$(call targetinfo, mfirebird.get)
+	@$(call targetinfo, $@)
 	@$(call get_patches, $(MFIREBIRD))
 	touch $@
 
 $(MFIREBIRD_SOURCE):
-	@$(call targetinfo, $(MFIREBIRD_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(MFIREBIRD_URL))
 
 # ----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ mfirebird_extract: $(STATEDIR)/mfirebird.extract
 mfirebird_extract_deps	=  $(STATEDIR)/mfirebird.get
 
 $(STATEDIR)/mfirebird.extract: $(mfirebird_extract_deps)
-	@$(call targetinfo, mfirebird.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(MFIREBIRD_DIR))
 	@$(call extract, $(MFIREBIRD_SOURCE))
 	cd $(BUILDDIR) && mv mozilla $(MFIREBIRD)
@@ -74,10 +74,9 @@ mfirebird_prepare_deps =  \
 	$(STATEDIR)/mfirebird.extract \
 	$(STATEDIR)/gtk1210.install \
 	$(STATEDIR)/libidl068.install \
-#	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/virtual-xchain.install \
 
 MFIREBIRD_PATH	=  PATH=$(CROSS_PATH)
-#MFIREBIRD_PATH	+= PATH=$(PTXCONF_PREFIX)/bin:$$PATH
 
 MFIREBIRD_ENV	=  $(CROSS_ENV)
 MFIREBIRD_ENV	+= MOZILLA_OFFICIAL=1
@@ -403,7 +402,7 @@ endif
 #endif
 
 $(STATEDIR)/mfirebird.prepare: $(mfirebird_prepare_deps)
-	@$(call targetinfo, mfirebird.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(MFIREBIRD_BUILDDIR))
 	cd $(MFIREBIRD_DIR) && \
 		$(MFIREBIRD_PATH) $(MFIREBIRD_ENV) \
@@ -419,7 +418,7 @@ mfirebird_compile: $(STATEDIR)/mfirebird.compile
 mfirebird_compile_deps =  $(STATEDIR)/mfirebird.prepare
 
 $(STATEDIR)/mfirebird.compile: $(mfirebird_compile_deps)
-	@$(call targetinfo, mfirebird.compile)
+	@$(call targetinfo, $@)
 	$(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make -C $(MFIREBIRD_DIR)
 	touch $@
 
@@ -430,7 +429,7 @@ $(STATEDIR)/mfirebird.compile: $(mfirebird_compile_deps)
 mfirebird_install: $(STATEDIR)/mfirebird.install
 
 $(STATEDIR)/mfirebird.install: $(STATEDIR)/mfirebird.compile
-	@$(call targetinfo, mfirebird.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -443,7 +442,7 @@ mfirebird_targetinstall_deps	=  $(STATEDIR)/mfirebird.compile
 mfirebird_targetinstall_deps	+= $(STATEDIR)/gtk1210.targetinstall
 
 $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
-	@$(call targetinfo, mfirebird.targetinstall)
+	@$(call targetinfo, $@)
 
 	cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make install DESTDIR=$(ROOTDIR)
 

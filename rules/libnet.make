@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: libnet.make,v 1.6 2003/09/16 16:41:22 mkl Exp $
+# $Id: libnet.make,v 1.7 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Marc Kleine-Budde
+# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -35,12 +35,12 @@ libnet_get: $(STATEDIR)/libnet.get
 libnet_get_deps	=  $(LIBNET_SOURCE)
 
 $(STATEDIR)/libnet.get: $(libnet_get_deps)
-	@$(call targetinfo, libnet.get)
+	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBNET))
 	touch $@
 
 $(LIBNET_SOURCE):
-	@$(call targetinfo, $(LIBNET_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(LIBNET_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,10 +51,11 @@ libnet_extract: $(STATEDIR)/libnet.extract
 
 libnet_extract_deps = \
 	$(STATEDIR)/automake15.install \
+	$(STATEDIR)/autoconf257.install \
 	$(STATEDIR)/libnet.get
 
 $(STATEDIR)/libnet.extract: $(libnet_extract_deps)
-	@$(call targetinfo, libnet.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LIBNET_DIR))
 	@$(call extract, $(LIBNET_SOURCE))
 	@$(call patchin, $(LIBNET), $(LIBNET_DIR))
@@ -90,7 +91,7 @@ LIBNET_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 LIBNET_AUTOCONF	+= --with-pf_packet=yes
 
 $(STATEDIR)/libnet.prepare: $(libnet_prepare_deps)
-	@$(call targetinfo, libnet.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LIBNET_BUILDDIR))
 	cd $(LIBNET_DIR) && \
 		$(LIBNET_PATH) $(LIBNET_ENV) \
@@ -106,7 +107,7 @@ libnet_compile: $(STATEDIR)/libnet.compile
 libnet_compile_deps =  $(STATEDIR)/libnet.prepare
 
 $(STATEDIR)/libnet.compile: $(libnet_compile_deps)
-	@$(call targetinfo, libnet.compile)
+	@$(call targetinfo, $@)
 	$(LIBNET_PATH) $(LIBNET_ENV) make -C $(LIBNET_DIR)
 	touch $@
 
@@ -117,7 +118,7 @@ $(STATEDIR)/libnet.compile: $(libnet_compile_deps)
 libnet_install: $(STATEDIR)/libnet.install
 
 $(STATEDIR)/libnet.install: $(STATEDIR)/libnet.compile
-	@$(call targetinfo, libnet.install)
+	@$(call targetinfo, $@)
 	$(LIBNET_PATH) $(LIBNET_ENV) make -C $(LIBNET_DIR) install
 	touch $@
 
@@ -130,7 +131,7 @@ libnet_targetinstall: $(STATEDIR)/libnet.targetinstall
 libnet_targetinstall_deps	=  $(STATEDIR)/libnet.install
 
 $(STATEDIR)/libnet.targetinstall: $(libnet_targetinstall_deps)
-	@$(call targetinfo, libnet.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

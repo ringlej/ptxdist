@@ -1,10 +1,10 @@
 # -*-makefile-*-
 # $id$
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -30,11 +30,11 @@ ZLIB_DIR		= $(BUILDDIR)/$(ZLIB)
 zlib_get: $(STATEDIR)/zlib.get
 
 $(STATEDIR)/zlib.get: $(ZLIB_SOURCE)
-	@$(call targetinfo, zlib.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(ZLIB_SOURCE):
-	@$(call targetinfo, $(ZLIB_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(ZLIB_URL))
 
 # ----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ $(ZLIB_SOURCE):
 zlib_extract: $(STATEDIR)/zlib.extract
 
 $(STATEDIR)/zlib.extract: $(STATEDIR)/zlib.get
-	@$(call targetinfo, zlib.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(ZLIB_DIR))
 	@$(call extract, $(ZLIB_SOURCE))
 	touch $@
@@ -64,7 +64,7 @@ ZLIB_AUTOCONF 	=  --shared
 ZLIB_AUTOCONF 	+= --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps)
-	@$(call targetinfo, zlib.prepare)
+	@$(call targetinfo, $@)
 	cd $(ZLIB_DIR) && \
 		$(ZLIB_PATH) \
 		./configure $(ZLIB_AUTOCONF)
@@ -79,7 +79,7 @@ $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps)
 zlib_compile: $(STATEDIR)/zlib.compile
 
 $(STATEDIR)/zlib.compile: $(STATEDIR)/zlib.prepare 
-	@$(call targetinfo, zlib.compile)
+	@$(call targetinfo, $@)
 	$(ZLIB_PATH) make -C $(ZLIB_DIR)
 	touch $@
 
@@ -90,7 +90,7 @@ $(STATEDIR)/zlib.compile: $(STATEDIR)/zlib.prepare
 zlib_install: $(STATEDIR)/zlib.install
 
 $(STATEDIR)/zlib.install: $(STATEDIR)/zlib.compile
-	@$(call targetinfo, zlib.install)
+	@$(call targetinfo, $@)
 	$(ZLIB_PATH) make -C $(ZLIB_DIR) install
 	touch $@
 
@@ -101,7 +101,7 @@ $(STATEDIR)/zlib.install: $(STATEDIR)/zlib.compile
 zlib_targetinstall: $(STATEDIR)/zlib.targetinstall
 
 $(STATEDIR)/zlib.targetinstall: $(STATEDIR)/zlib.install
-	@$(call targetinfo, zlib.targetinstall)
+	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/lib
 	cp -d $(ZLIB_DIR)/libz.so* $(ROOTDIR)/lib
 	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libz.so*

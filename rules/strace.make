@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: strace.make,v 1.4 2003/09/18 00:37:40 mkl Exp $
+# $Id: strace.make,v 1.5 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
-# (c) 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+# Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -31,12 +31,12 @@ STRACE_DIR		= $(BUILDDIR)/$(STRACE)
 strace_get: $(STATEDIR)/strace.get
 
 $(STATEDIR)/strace.get: $(STRACE_SOURCE)
-	@$(call targetinfo, strace.get)
+	@$(call targetinfo, $@)
 	@$(call get_patches, $(STRACE))
 	touch $@
 
 $(STRACE_SOURCE):
-	@$(call targetinfo, $(STRACE_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(STRACE_URL))
 
 # ----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ strace_extract_deps = \
 	$(STATEDIR)/strace.get
 
 $(STATEDIR)/strace.extract: $(strace_extract_deps)
-	@$(call targetinfo, strace.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(STRACE_DIR))
 	@$(call extract, $(STRACE_SOURCE))
 	@$(call patchin, $(STRACE))
@@ -68,6 +68,10 @@ strace_prepare_deps = \
 STRACE_PATH	=  PATH=$(CROSS_PATH)
 STRACE_ENV	=  $(CROSS_ENV)
 
+ifndef PTXCONF_STRACE_SHARED
+STRACE_ENV	=  LDFLAGS=-static
+endif
+
 STRACE_AUTOCONF	=  --build=$(GNU_HOST)
 STRACE_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 STRACE_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
@@ -75,7 +79,7 @@ STRACE_AUTOCONF	+= --disable-sanity-checks
 STRACE_AUTOCONF	+= --prefix=/
 
 $(STATEDIR)/strace.prepare: $(strace_prepare_deps)
-	@$(call targetinfo, strace.prepare)
+	@$(call targetinfo, $@)
 	cd $(STRACE_DIR) && \
 		$(STRACE_PATH) $(STRACE_ENV) \
 		./configure $(STRACE_AUTOCONF)
@@ -88,7 +92,7 @@ $(STATEDIR)/strace.prepare: $(strace_prepare_deps)
 strace_compile: $(STATEDIR)/strace.compile
 
 $(STATEDIR)/strace.compile: $(STATEDIR)/strace.prepare 
-	@$(call targetinfo, strace.compile)
+	@$(call targetinfo, $@)
 	$(STRACE_PATH) $(STRACE_ENV) make -C $(STRACE_DIR)
 	touch $@
 
@@ -99,7 +103,7 @@ $(STATEDIR)/strace.compile: $(STATEDIR)/strace.prepare
 strace_install: $(STATEDIR)/strace.install
 
 $(STATEDIR)/strace.install: $(STATEDIR)/strace.compile
-	@$(call targetinfo, strace.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -109,7 +113,7 @@ $(STATEDIR)/strace.install: $(STATEDIR)/strace.compile
 strace_targetinstall: $(STATEDIR)/strace.targetinstall
 
 $(STATEDIR)/strace.targetinstall: $(STATEDIR)/strace.compile
-	@$(call targetinfo, strace.targetinstall)
+	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/bin
 	install $(STRACE_DIR)/strace $(ROOTDIR)/bin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/strace

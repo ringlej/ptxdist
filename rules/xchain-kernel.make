@@ -1,10 +1,11 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.10 2003/09/16 22:13:59 mkl Exp $
+# $Id: xchain-kernel.make,v 1.11 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -14,13 +15,30 @@
 # runtime kernel.
 #
 
-ifdef BUILD_CROSSCHAIN
+ifdef PTXCONF_BUILD_CROSSCHAIN
 XCHAIN += xchain-kernel
 endif
 
+XCHAIN_KERNEL_BUILDDIR	= $(BUILDDIR)/xchain-$(KERNEL)
+# XCHAIN_KERNEL_PATCHES	= $(subst kernel-,xchain-kernel-,$(KERNEL_PATCHES))
 
-XCHAIN_KERNEL_BUILDDIR	= $(BUILDDIR)/xchain-kernel
-
+#
+# Robert says: Aber dokumentier' das entsprechend...
+#
+# Well, to build the glibc we need the kernel headers.
+# We want to use the kernel plus the selected patches (e.g.: rmk-pxa-ptx)
+# But without the ltt (linux trace toolkit) or rtai patches.
+#
+# The most important thing is, that the glibc and the kernel header
+# (against the glibc is built) always stay together, the kernel that
+# is running on the system does not matter...
+#
+# so we pull in the kernel's patches and drop ltt and rtai
+#
+XCHAIN_KERNEL_PATCHES	= $(addprefix $(STATEDIR)/xchain-kernel-, $(addsuffix .install,	\
+	$(call get_option_ext, s/^PTXCONF_KERNEL_[0-9]_[0-9]_[0-9]*_\(.*\)=y/\1/, 	\
+		sed -e 's/_/ /g' -e 's/[0-9]//g' -e 's/ltt//g' )			\
+	) )
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -28,7 +46,7 @@ XCHAIN_KERNEL_BUILDDIR	= $(BUILDDIR)/xchain-kernel
 xchain-kernel_get: $(STATEDIR)/xchain-kernel.get
 
 $(STATEDIR)/xchain-kernel.get: $(kernel_get_deps)
-	@$(call targetinfo, xchain-kernel.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -37,67 +55,27 @@ $(STATEDIR)/xchain-kernel.get: $(kernel_get_deps)
 
 xchain-kernel_extract: $(STATEDIR)/xchain-kernel.extract
 
-xchain_kernel_extract_deps =  $(kernel_get_deps)
-ifdef PTXCONF_KERNEL_MTD
-xchain_kernel_extract_deps += $(STATEDIR)/mtd.extract
-endif
+xchain-kernel_extract_deps = \
+	$(STATEDIR)/xchain-kernel-base.extract \
+	$(XCHAIN_KERNEL_PATCHES)
 
-$(STATEDIR)/xchain-kernel.extract:  $(xchain_kernel_extract_deps)
-	@$(call targetinfo, xchain-kernel.extract)
-	@$(call clean, $(BUILDDIR)/xchain-kernel)
-	@$(call extract, $(KERNEL_SOURCE), $(BUILDDIR)/xchain-kernel/tmp)
-#	#
-#	# kernels before 2.4.19 extract to "linux" instead of "linux-version"
-#	# 
-        ifeq (y,$(PTXCONF_KERNEL_2_4_18))
-	cd $(BUILDDIR)/xchain-kernel/tmp && mv linux $(KERNEL)
-        endif
-#	#
-#	# ARM patch 
-#	#
-        ifeq (y,$(PTXCONF_ARCH_ARM))
-	cd $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL) && 			\
-		$(KERNEL_RMKPATCH_EXTRACT) $(KERNEL_RMKPATCH_SOURCE) |  \
-		patch -p1
-        endif
-#	# 
-#	# XSCALE patch
-#	#
-        ifeq (y, $(PTXCONF_KERNEL_XSCALE))
-	cd $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL) && 			\
-		$(KERNEL_PXAPATCH_EXTRACT) $(KERNEL_PXAPATCH_SOURCE) |  \
-		patch -p1
-        endif
-#	#
-#	# MTD patch
-#	#
-        ifeq (y, $(PTXCONF_KERNEL_MTD))
-	cd $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL) &&						\
-		$(KERNEL_MTDPATCH_EXTRACT) $(KERNEL_MTDPATCH_SOURCE) |	\
-		patch -p1
-        endif
-#	#
-#	# XSCALE_PTX patch
-#	# 
-        ifeq (y, $(PTXCONF_KERNEL_XSCALE_PTX))
-	cd $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL) && 			\
-		$(KERNEL_PTXPATCH_EXTRACT) $(KERNEL_PTXPATCH_SOURCE) |	\
-		patch -p1
-        endif
-#	#
-# 	# patch for mmu-less architectures
-#	#
-        ifdef PTXCONF_ARCH_NOMMU
-	cd $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL) && \
-		$(KERNEL_UCLINUXPATCH_EXTRACT) $(KERNEL_UCLINUXPATCH_SOURCE) | \
-		patch -p1 || true
-        endif
-#	# fake headers
-	make -C $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL) include/linux/version.h
-	touch $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL)/include/linux/autoconf.h
-#	# we are only interested in include/ here 
-	cp -a $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL)/include $(BUILDDIR)/xchain-kernel/
-	rm -fr $(BUILDDIR)/xchain-kernel/tmp
+$(STATEDIR)/xchain-kernel.extract: $(xchain-kernel_extract_deps)
+	@$(call targetinfo, $@)
+	touch $@
+
+$(STATEDIR)/xchain-kernel-base.extract: $(STATEDIR)/xchain-kernel.get
+	@$(call targetinfo, $@)
+	@$(call clean, $(XCHAIN_KERNEL_BUILDDIR))
+	@$(call extract, $(KERNEL_SOURCE), $(XCHAIN_KERNEL_BUILDDIR))
+#
+# kernels before 2.4.19 extract to "linux" instead of "linux-version"
+#
+ifeq (2.4.18,$(KERNEL_VERSION))
+	mv $(XCHAIN_KERNEL_BUILDDIR)/linux $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)
+endif
+	mv $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/* $(XCHAIN_KERNEL_BUILDDIR)
+	rmdir $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -107,19 +85,18 @@ $(STATEDIR)/xchain-kernel.extract:  $(xchain_kernel_extract_deps)
 xchain-kernel_prepare: $(STATEDIR)/xchain-kernel.prepare
 
 $(STATEDIR)/xchain-kernel.prepare: $(STATEDIR)/xchain-kernel.extract
-	@$(call targetinfo, xchain-kernel.prepare)
+	@$(call targetinfo, $@)
 
-	rm -rf `find $(XCHAIN_KERNEL_BUILDDIR)/include -name "asm*" -type d |grep -v asm-$(PTXCONF_ARCH)`
-	cd $(BUILDDIR)/xchain-kernel/include && ln -s asm-$(PTXCONF_ARCH) asm
+# fake headers
+	make -C $(XCHAIN_KERNEL_BUILDDIR) include/linux/version.h
+	touch $(XCHAIN_KERNEL_BUILDDIR)/include/linux/autoconf.h
 
-ifdef PTXCONF_ARCH_ARM
-	cd $(BUILDDIR)/xchain-kernel/include/asm && ln -s proc-$(PTXCONF_ARM_PROC) proc
-	cd $(BUILDDIR)/xchain-kernel/include/asm && ln -s arch-$(PTXCONF_ARM_ARCH) arch
-endif
+	rm -rf `find $(XCHAIN_KERNEL_BUILDDIR)/include -name "asm*" -type d |grep -v asm-$(PTXCONF_ARCH) | grep -v asm-generic`
+	ln -s asm-$(PTXCONF_ARCH) $(XCHAIN_KERNEL_BUILDDIR)/include/asm
 
-ifdef PTXCONF_ARCH_ARM_NOMMU
-	cd $(BUILDDIR)/xchain-kernel/include/asm && ln -s proc-$(PTXCONF_ARM_PROC) proc
-	cd $(BUILDDIR)/xchain-kernel/include/asm && ln -s arch-$(PTXCONF_ARM_ARCH) arch
+ifdef PTXCONF_ARM_PROC
+	ln -s proc-$(PTXCONF_ARM_PROC) $(XCHAIN_KERNEL_BUILDDIR)/include/asm/proc
+	ln -s arch-$(PTXCONF_ARM_ARCH) $(XCHAIN_KERNEL_BUILDDIR)/include/asm/arch
 endif
 	touch $@
 
@@ -131,17 +108,19 @@ endif
 xchain-kernel_compile: $(STATEDIR)/xchain-kernel.compile
 
 $(STATEDIR)/xchain-kernel.compile:
-	@$(call targetinfo, xchain-kernel.compile)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
+xchain-kernel_install: $(STATEDIR)/xchain-kernel.install
+
 $(STATEDIR)/xchain-kernel.install: $(STATEDIR)/xchain-kernel.prepare
-	@$(call targetinfo, xchain-kernel.install)
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-	cp -a $(BUILDDIR)/xchain-kernel/include $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/
+	@$(call targetinfo, $@)
+	install -d $(CROSS_LIB_DIR)
+	cp -a $(XCHAIN_KERNEL_BUILDDIR)/include $(CROSS_LIB_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -151,7 +130,7 @@ $(STATEDIR)/xchain-kernel.install: $(STATEDIR)/xchain-kernel.prepare
 xchain-kernel_targetinstall: $(STATEDIR)/xchain-kernel.targetinstall
 
 $(STATEDIR)/xchain-kernel.targetinstall:
-	@$(call targetinfo, xchain-kernel.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,0 +1,7 @@
+menu	"rsync               "
+
+config RSYNC   
+	bool
+	prompt "Compile rsync"
+
+endmenu

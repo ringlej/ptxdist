@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: bash.make,v 1.5 2003/07/16 04:23:28 mkl Exp $
+# $Id: bash.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -30,11 +30,11 @@ BASH_DIR		= $(BUILDDIR)/$(BASH)
 bash_get: $(STATEDIR)/bash.get
 
 $(STATEDIR)/bash.get: $(BASH_SOURCE)
-	@$(call targetinfo, bash.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(BASH_SOURCE):
-	@$(call targetinfo, $(BASH_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(BASH_URL))
 
 # ----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ $(BASH_SOURCE):
 bash_extract: $(STATEDIR)/bash.extract
 
 $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
-	@$(call targetinfo, bash.extract)
+	@$(call targetinfo, $@)
 	@$(call clean $(BASH_DIR))
 	@$(call extract, $(BASH_SOURCE))
 	touch $@
@@ -194,7 +194,7 @@ bash_prepare_deps = \
 	$(STATEDIR)/bash.extract
 
 $(STATEDIR)/bash.prepare: $(bash_prepare_deps)
-	@$(call targetinfo, bash.prepare)
+	@$(call targetinfo, $@)
 	cd $(BASH_DIR) && \
 		$(BASH_PATH) $(BASH_ENV) \
 		./configure $(BASH_AUTOCONF)
@@ -207,7 +207,7 @@ $(STATEDIR)/bash.prepare: $(bash_prepare_deps)
 bash_compile: $(STATEDIR)/bash.compile
 
 $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare 
-	@$(call targetinfo, bash.compile)
+	@$(call targetinfo, $@)
 	$(BASH_PATH) make -C $(BASH_DIR)
 	touch $@
 
@@ -218,7 +218,7 @@ $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare
 bash_install: $(STATEDIR)/bash.install
 
 $(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
-	@$(call targetinfo, bash.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -228,7 +228,7 @@ $(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
 bash_targetinstall: $(STATEDIR)/bash.targetinstall
 
 $(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.compile
-	@$(call targetinfo, bash.targetinstall)
+	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/bin
 	install $(BASH_DIR)/bash $(ROOTDIR)/bin/bash
 	ln -sf bash $(ROOTDIR)/bin/sh

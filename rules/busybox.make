@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.14 2003/09/17 22:41:31 mkl Exp $
+# $Id: busybox.make,v 1.15 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -35,12 +35,12 @@ busybox_get: $(STATEDIR)/busybox.get
 busybox_get_deps	=  $(BUSYBOX_SOURCE)
 
 $(STATEDIR)/busybox.get: $(busybox_get_deps)
-	@$(call targetinfo, busybox.get)
+	@$(call targetinfo, $@)
 	@$(call get_patches, $(BUSYBOX))
 	touch $@
 
 $(BUSYBOX_SOURCE):
-	@$(call targetinfo, $(BUSYBOX_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(BUSYBOX_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ busybox_extract: $(STATEDIR)/busybox.extract
 busybox_extract_deps	=  $(STATEDIR)/busybox.get
 
 $(STATEDIR)/busybox.extract: $(busybox_extract_deps)
-	@$(call targetinfo, busybox.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(BUSYBOX_DIR))
 	@$(call extract, $(BUSYBOX_SOURCE))
 	@$(call patchin, $(BUSYBOX))
@@ -73,7 +73,7 @@ busybox_prepare: $(STATEDIR)/busybox.prepare
 #
 busybox_prepare_deps =  \
 	$(STATEDIR)/busybox.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 BUSYBOX_PATH		=  PATH=$(CROSS_PATH)
 BUSYBOX_ENV 		=  $(CROSS_ENV)
@@ -85,7 +85,7 @@ BUSYBOX_MAKEVARS	=  CROSS=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC) EXTRA_CFLAGS=$
 busybox_prepare_deps	=  $(STATEDIR)/virtual-xchain.install $(STATEDIR)/busybox.extract
 
 $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
-	@$(call targetinfo, busybox.prepare)
+	@$(call targetinfo, $@)
 
 	# FIXME: is this necessary?
 	touch $(BUSYBOX_DIR)/busybox.links
@@ -107,7 +107,7 @@ busybox_compile: $(STATEDIR)/busybox.compile
 busybox_compile_deps =  $(STATEDIR)/busybox.prepare
 
 $(STATEDIR)/busybox.compile: $(busybox_compile_deps)
-	@$(call targetinfo, busybox.compile)
+	@$(call targetinfo, $@)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) $(BUSYBOX_MAKEVARS)
 	touch $@
 
@@ -118,7 +118,7 @@ $(STATEDIR)/busybox.compile: $(busybox_compile_deps)
 busybox_install: $(STATEDIR)/busybox.install
 
 $(STATEDIR)/busybox.install: $(STATEDIR)/busybox.compile
-	@$(call targetinfo, busybox.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -130,13 +130,13 @@ busybox_targetinstall: $(STATEDIR)/busybox.targetinstall
 busybox_targetinstall_deps	=  $(STATEDIR)/busybox.compile
 
 $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
-	@$(call targetinfo, busybox.targetinstall)
+	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)
 	rm -f $(BUSYBOX_DIR)/busybox.links
 	cd $(BUSYBOX_DIR) &&					\
 		$(BUSYBOX_PATH) $(MAKE) install 		\
 		PREFIX=$(ROOTDIR) $(BUSYBOX_MAKEVARS)
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/bin/busybox
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/busybox
 	touch $@
 
 # ----------------------------------------------------------------------------

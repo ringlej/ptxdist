@@ -2,7 +2,8 @@
 PASSIVEFTP	= --passive-ftp
 SUDO		= sudo
 PTXUSER		= $(shell echo $$USER)
-GNU_HOST	= $(shell $(TOPDIR)/scripts/config.guess)
+GNU_BUILD	= $(shell $(TOPDIR)/scripts/config.guess)
+GNU_HOST	= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 HOSTCC		= gcc
 HOSTCC_ENV	= CC=$(HOSTCC)
 CROSSSTRIP	= PATH=$(CROSS_PATH) $(PTXCONF_GNU_TARGET)-strip
@@ -31,6 +32,11 @@ targetinfo=echo;					\
 #
 # extract the given source to builddir
 #
+# $1 = filename to extract
+# $2 = dir into extract
+#
+# if $2 is not given, it is extracted to the BUILDDIR
+#
 extract =						\
 	DEST="$(strip $(2))";				\
 	DEST=$${DEST:-$(BUILDDIR)};			\
@@ -42,7 +48,7 @@ extract =						\
 		EXTRACT=bzip2				\
 		;;					\
 	*)						\
-		false					\
+		EXTRACT=false				\
 		;;					\
 	esac;						\
 	[ -d $$DEST ] || mkdir -p $$DEST;		\
@@ -89,6 +95,10 @@ get_patches =											\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/;		\
 	wget -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;	\
+	if [ -d $(PATCHDIR)-local/$$PACKET_NAME ]; then						\
+		echo "Copying Local patches from patches-local/"$$PACKET_NAME;			\
+		cp -vr $(PATCHDIR)-local/$$PACKET_NAME $(PATCHDIR);				\
+	fi;											\
 	true
 
 #
@@ -127,11 +137,11 @@ get_option_ext =									\
 
 
 #
-# cleanup the given directory
+# cleanup the given directory or file
 #
 clean =							\
 	DIR="$(strip $(1))";				\
-	if [ -d $$DIR ]; then				\
+	if [ -e $$DIR ]; then				\
 		rm -rf $$DIR;				\
 	fi
 
@@ -224,18 +234,18 @@ patchin =									\
 	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;		\
 	    do									\
 		if [ -f $$PATCH_NAME ]; then					\
-			case "$$PATCH_NAME" in					\
-			*.diff|*.patch)						\
-				CAT=cat						\
-				;;						\
+			case `basename $$PATCH_NAME` in				\
 			*.gz)							\
 				CAT=zcat					\
 				;;						\
 			*.bz2)							\
 				CAT=bzcat					\
 				;;						\
+			*.diff|diff*|*.patch|patch*)				\
+				CAT=cat						\
+				;;						\
 			*)							\
-				false						\
+				CAT=false					\
 				;;						\
 			esac;							\
 			echo "patchin' $$PATCH_NAME ...";			\
@@ -253,18 +263,18 @@ patch_apply =								\
 	PATCH_NAME="$(strip $(1))";					\
 	PACKET_DIR="$(strip $(2))";					\
 	if [ -f $$PATCH_NAME ]; then					\
-		case "$$PATCH_NAME" in					\
-		*.diff|*.patch)						\
-			CAT=cat						\
-			;;						\
+		case `basename $$PATCH_NAME` in				\
 		*.gz)							\
 			CAT=zcat					\
 			;;						\
 		*.bz2)							\
 			CAT=bzcat					\
 			;;						\
+		*.diff|diff*|*.patch|patch*)				\
+			CAT=cat						\
+			;;						\
 		*)							\
-			false						\
+			CAT=false					\
 			;;						\
 		esac;							\
 		echo "patchin' $$PATCH_NAME ...";			\
@@ -299,9 +309,8 @@ CROSS_ENV_OBJCOPY	= OBJCOPY=$(PTXCONF_GNU_TARGET)-objcopy
 CROSS_ENV_OBJDUMP	= OBJDUMP=$(PTXCONF_GNU_TARGET)-objdump
 CROSS_ENV_RANLIB	= RANLIB=$(PTXCONF_GNU_TARGET)-ranlib
 CROSS_ENV_STRIP		= STRIP=$(PTXCONF_GNU_TARGET)-strip
-CROSS_ENV_CFLAGS	= CFLAGS=$(TARGET_CFLAGS)
-CROSS_ENV_CXXFLAGS	= CXXFLAGS=$(TARGET_CXXFLAGS)
-
+CROSS_ENV_CFLAGS	= CFLAGS='$(subst ",,$(TARGET_CFLAGS))'
+CROSS_ENV_CXXFLAGS	= CXXFLAGS='$(subst ",,$(TARGET_CXXFLAGS))'
 
 CROSS_ENV		=  $(CROSS_ENV_AR)
 CROSS_ENV		+= $(CROSS_ENV_AS)
@@ -316,31 +325,35 @@ CROSS_ENV		+= $(CROSS_ENV_STRIP)
 CROSS_ENV		+= $(CROSS_ENV_CFLAGS)
 CROSS_ENV		+= $(CROSS_ENV_CXXFLAGS)
 
+CROSS_ENV		+= \
+	ac_cv_func_getpgrp_void=yes \
+	ac_cv_func_setpgrp_void=yes \
+	ac_cv_sizeof_long_long=8 \
+	ac_cv_func_memcmp_clean=yes \
+	ac_cv_func_setvbuf_reversed=no \
+	ac_cv_func_getrlimit=yes
+
+
 #
 # CROSS_LIB_DIR	= into this dir, the libs for the target system, are installed
 #
 CROSS_LIB_DIR		= $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 
 #
-# distcc, perhaps we will use this feature in far future :)
-# for more info see:
-# http://distcc.samba.org
-#
-DISTCC_ENV		= CC='distcc $(PTXCONF_GNU_TARGET)-gcc'
-DISTCC_MAKE		= CC='distcc $(PTXCONF_GNU_TARGET)-gcc' -j16
-
-
-#
 # prepare the search path
 #
 CROSS_PATH		= $(PTXCONF_PREFIX)/bin:$$PATH
 
+#
+# prepare the search path
+#
+NATIVE_PATH		= $(PTXCONF_PREFIX)/$(NATIVE_GCC)/bin:$(PTXCONF_PREFIX)/$(NATIVE_BINUTILS)/bin:$$PATH
 
 #
 # same as PTXCONF_GNU_TARGET, but w/o -linux
 # e.g. i486 instead of i486-linux
 #
-SHORT_TARGET		= `echo $(PTXCONF_GNU_TARGET) |  perl -i -p -e 's/(.*?)-.*/$$1/'`
+SHORT_TARGET		:= `echo $(PTXCONF_GNU_TARGET) |  perl -i -p -e 's/(.*?)-.*/$$1/'`
 
 #
 # change this if you have some wired configuration :)

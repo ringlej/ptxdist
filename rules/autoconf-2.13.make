@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: autoconf-2.13.make,v 1.5 2003/07/17 07:40:38 robert Exp $
+# $Id: autoconf-2.13.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -28,11 +28,11 @@ AUTOCONF213_DIR			= $(BUILDDIR)/$(AUTOCONF213)
 autoconf213_get: $(STATEDIR)/autoconf213.get
 
 $(STATEDIR)/autoconf213.get: $(AUTOCONF213_SOURCE)
-	@$(call targetinfo, autoconf213.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(AUTOCONF213_SOURCE):
-	@$(call targetinfo, $(AUTOCONF213_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(AUTOCONF213_URL))
 
 # ----------------------------------------------------------------------------
@@ -42,7 +42,7 @@ $(AUTOCONF213_SOURCE):
 autoconf213_extract: $(STATEDIR)/autoconf213.extract
 
 $(STATEDIR)/autoconf213.extract: $(STATEDIR)/autoconf213.get
-	@$(call targetinfo, autoconf213.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(AUTOCONF213_DIR))
 	@$(call extract, $(AUTOCONF213_SOURCE))
 	touch $@
@@ -56,7 +56,7 @@ autoconf213_prepare: $(STATEDIR)/autoconf213.prepare
 AUTOCONF213_ENV = $(HOSTCC_ENV)
 
 $(STATEDIR)/autoconf213.prepare: $(STATEDIR)/autoconf213.extract
-	@$(call targetinfo, autoconf213.prepare)
+	@$(call targetinfo, $@)
 	cd $(AUTOCONF213_DIR) && \
 		$(AUTOCONF213_ENV) \
 		./configure --prefix=$(PTXCONF_PREFIX)/$(AUTOCONF213)
@@ -69,7 +69,7 @@ $(STATEDIR)/autoconf213.prepare: $(STATEDIR)/autoconf213.extract
 autoconf213_compile: $(STATEDIR)/autoconf213.compile
 
 $(STATEDIR)/autoconf213.compile: $(STATEDIR)/autoconf213.prepare 
-	@$(call targetinfo, autoconf213.compile)
+	@$(call targetinfo, $@)
 	make -C $(AUTOCONF213_DIR)
 	touch $@
 
@@ -80,7 +80,7 @@ $(STATEDIR)/autoconf213.compile: $(STATEDIR)/autoconf213.prepare
 autoconf213_install: $(STATEDIR)/autoconf213.install
 
 $(STATEDIR)/autoconf213.install: $(STATEDIR)/autoconf213.compile
-	@$(call targetinfo, autoconf213.install)
+	@$(call targetinfo, $@)
 	make -C $(AUTOCONF213_DIR) install
 	touch $@
 
@@ -91,7 +91,7 @@ $(STATEDIR)/autoconf213.install: $(STATEDIR)/autoconf213.compile
 autoconf213_targetinstall: $(STATEDIR)/autoconf213.targetinstall
 
 $(STATEDIR)/autoconf213.targetinstall: $(STATEDIR)/autoconf213.install
-	@$(call targetinfo, autoconf213.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

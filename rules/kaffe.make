@@ -1,11 +1,12 @@
 # -*-makefile-*-
-# $Id: kaffe.make,v 1.5 2003/09/16 22:11:56 mkl Exp $
+# $Id: kaffe.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
-#             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
+# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
+#                       GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
+#
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -46,15 +47,15 @@ kaffe_get_deps	+= $(KAFFE_KANGAROO_SOURCE)
 endif
 
 $(STATEDIR)/kaffe.get: $(kaffe_get_deps)
-	@$(call targetinfo, kaffe.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(KAFFE_SOURCE):
-	@$(call targetinfo, $(KAFFE_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(KAFFE_URL))
 
 $(KAFFE_KANGAROO_SOURCE):
-	@$(call targetinfo, $(KAFFE_KANGAROO_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(KAFFE_KANGAROO_URL))
 
 # ----------------------------------------------------------------------------
@@ -69,17 +70,17 @@ kaffe_extract_deps	+= $(STATEDIR)/kaffe-kangaroo.extract
 endif
 
 $(STATEDIR)/kaffe.extract: $(kaffe_extract_deps)
-	@$(call targetinfo, kaffe.extract)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(STATEDIR)/kaffe-base.extract: $(STATEDIR)/kaffe.get
-	@$(call targetinfo, kaffe-base.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(KAFFE_DIR))
 	@$(call extract, $(KAFFE_SOURCE))
 	touch $@
 
 $(STATEDIR)/kaffe-kangaroo.extract: $(STATEDIR)/kaffe.get
-	@$(call targetinfo, kaffe-kangaroo.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(KAFFE_KANGAROO_DIR))
 	@$(call extract, $(KAFFE_KANGAROO_SOURCE))
 	cp -a $(BUILDDIR)/$(KAFFE_KANGAROO)/* $(BUILDDIR)/$(KAFFE)
@@ -138,9 +139,9 @@ ifdef PTXCONF_KAFFE_JIKES
 KAFFE_AUTOCONF	+= --with-jikes=$(PTXCONF_KAFFE_JIKES)
 endif
 
-ifdef PTXCONF_KAFFE_API_SE
-KAFFE_AUTOCONF	+= --with-api=se
-endif
+# ifdef PTXCONF_KAFFE_API_SE
+# KAFFE_AUTOCONF	+= --with-api=se
+# endif
 ifdef PTXCONF_KAFFE_API_CLDC
 KAFFE_AUTOCONF	+= --with-api=cldc
 endif
@@ -230,7 +231,7 @@ KAFFE_AUTOCONF	+= --with-staticlib
 endif
 
 $(STATEDIR)/kaffe.prepare: $(kaffe_prepare_deps)
-	@$(call targetinfo, kaffe.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(KAFFE_BUILDDIR))
 	mkdir -p $(KAFFE_BUILDDIR)
 	cd $(KAFFE_BUILDDIR) && \
@@ -253,7 +254,7 @@ KAFFE_MAKEVARS	= JAVAC_FLAGS="-verbose"
 endif
 
 $(STATEDIR)/kaffe.compile: $(kaffe_compile_deps)
-	@$(call targetinfo, kaffe.compile)
+	@$(call targetinfo, $@)
 	$(KAFFE_PATH) make -C $(KAFFE_BUILDDIR) $(KAFFE_MAKEVARS)
 
 ifdef PTXCONF_KAFFE_LINK_GMP
@@ -276,7 +277,7 @@ endif
 kaffe_install: $(STATEDIR)/kaffe.install
 
 $(STATEDIR)/kaffe.install: $(STATEDIR)/kaffe.compile
-	@$(call targetinfo, kaffe.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -292,7 +293,7 @@ kaffe_targetinstall_deps	+= $(STATEDIR)/gmp3.targetinstall
 endif
 
 $(STATEDIR)/kaffe.targetinstall: $(kaffe_targetinstall_deps)
-	@$(call targetinfo, kaffe.targetinstall)
+	@$(call targetinfo, $@)
 	@$(call clean, $(KAFFE_BUILDDIR)-tmp)
 	mkdir -p $(ROOTDIR)/usr/jre/bin
 	mkdir -p $(ROOTDIR)/usr/jre/lib/$(PTXCONF_ARCH_USERSPACE)

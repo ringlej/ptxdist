@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.5 2003/09/16 16:58:57 mkl Exp $
+# $Id: xfree430.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -58,33 +58,33 @@ xfree430_get_deps	= $(XFREE430_SOURCE)
 #xfree430_get_deps	+= $(XFREE430_5_SOURCE)
 
 $(STATEDIR)/xfree430.get: $(xfree430_get_deps)
-	@$(call targetinfo, xfree430.get)
+	@$(call targetinfo, $@)
 	@$(call get_patches, $(XFREE))
 	touch $@
 
 $(XFREE430_SOURCE):
-	@$(call targetinfo, $(XFREE430_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(XFREE430_URL))
 
 # FIXME: for a release use split sources
 #$(XFREE430_1_SOURCE):
-#	@$(call targetinfo, $(XFREE430_1_SOURCE))
+#	@$(call targetinfo, $@)
 #	@$(call get, $(XFREE430_1_URL))
 #
 #$(XFREE430_2_SOURCE):
-#	@$(call targetinfo, $(XFREE430_2_SOURCE))
+#	@$(call targetinfo, $@)
 #	@$(call get, $(XFREE430_2_URL))
 #
 #$(XFREE430_3_SOURCE):
-#	@$(call targetinfo, $(XFREE430_3_SOURCE))
+#	@$(call targetinfo, $@)
 #	@$(call get, $(XFREE430_3_URL))
 #
 #$(XFREE430_4_SOURCE):
-#	@$(call targetinfo, $(XFREE430_4_SOURCE))
+#	@$(call targetinfo, $@)
 #	@$(call get, $(XFREE430_4_URL))
 #
 #$(XFREE430_5_SOURCE):
-#	@$(call targetinfo, $(XFREE430_5_SOURCE))
+#	@$(call targetinfo, $@)
 #	@$(call get, $(XFREE430_5_URL))
 
 # ----------------------------------------------------------------------------
@@ -96,7 +96,7 @@ xfree430_extract: $(STATEDIR)/xfree430.extract
 xfree430_extract_deps	=  $(STATEDIR)/xfree430.get
 
 $(STATEDIR)/xfree430.extract: $(xfree430_extract_deps)
-	@$(call targetinfo, xfree430.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(XFREE430_DIR))
 	@$(call extract, $(XFREE430_SOURCE))
 	@$(call patchin, $(XFREE430), $(XFREE430_DIR))
@@ -129,7 +129,7 @@ XFREE430_PATH	=  PATH=$(CROSS_PATH)
 XFREE430_ENV	=  XCURSORGEN=xcursorgen
 
 $(STATEDIR)/xfree430.prepare: $(xfree430_prepare_deps)
-	@$(call targetinfo, xfree430.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(XFREE430_BUILDDIR))
 
 #	# Out-of-Tree build preparation
@@ -157,7 +157,7 @@ xfree430_compile: $(STATEDIR)/xfree430.compile
 xfree430_compile_deps =  $(STATEDIR)/xfree430.prepare
 
 $(STATEDIR)/xfree430.compile: $(xfree430_compile_deps)
-	@$(call targetinfo, xfree430.compile)
+	@$(call targetinfo, $@)
 
 	cd $(XFREE430_BUILDDIR) && \
 		$(XFREE430_ENV) make World CROSSCOMPILEDIR=$(XFREE430_BUILDDIR)/cross_compiler
@@ -171,7 +171,7 @@ $(STATEDIR)/xfree430.compile: $(xfree430_compile_deps)
 xfree430_install: $(STATEDIR)/xfree430.install
 
 $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
-	@$(call targetinfo, xfree430.install)
+	@$(call targetinfo, $@)
 
 #	# These links are set incorrectly :-(
 	ln -sf $(XFREE430_BUILDDIR)/programs/Xserver/hw/xfree86/xf86Date.h $(XFREE430_BUILDDIR)/config/cf/date.def
@@ -279,7 +279,7 @@ xfree430_targetinstall_deps += $(STATEDIR)/libpng125.targetinstall
 xfree430_targetinstall_deps += $(STATEDIR)/zlib.targetinstall
 
 $(STATEDIR)/xfree430.targetinstall: $(xfree430_targetinstall_deps)
-	@$(call targetinfo, xfree430.targetinstall)
+	@$(call targetinfo, $@)
 
 #	# These links are set incorrectly :-(
 	ln -sf $(XFREE430_BUILDDIR)/programs/Xserver/hw/xfree86/xf86Date.h $(XFREE430_BUILDDIR)/config/cf/date.def

@@ -1,0 +1,35 @@
+#!/usr/bin/perl -w 
+
+print "\nCreate new rules file from template:\n";
+print "------------------------------------\n\n";
+
+print "Name of new pach................: "; $patch = <STDIN>;
+print "Patches wich packet.............: "; $packet = <STDIN>;
+print "Filename of patch w/o version...: "; $name = <STDIN>;
+print "Archive file suffix.............: "; $suffix = <STDIN>;
+print "URL of download directory.......: "; $url = <STDIN>;
+print "PTXdist Packet Author...........: "; $author = <STDIN>;
+
+chop ($patch, $packet, $name, $suffix, $url, $author);
+$PATCH = uc($patch);
+$PACKET = uc($packet);
+
+open(INFILE,  "template-patch") || die "Can't open template";
+open(OUTFILE, ">$packet-$patch\.make") || die "Can't open new file";
+
+while (<INFILE>) {
+	s,\@PATCH@,$PATCH,g;
+	s,\@patch@,$patch,g;
+	s,\@PACKET@,$PACKET,g;
+	s,\@packet@,$packet,g;
+	s,\@NAME@,$name,g;
+	s,\@URL@,$url,g;
+	s,\@AUTHOR@,$author,g;
+	s,\@SUFFIX@,$suffix,g;
+	print OUTFILE $_;
+}
+
+close(OUTFILE);
+close(INFILE);
+
+print "\n";

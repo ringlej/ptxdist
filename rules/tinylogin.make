@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: tinylogin.make,v 1.1 2003/07/16 04:23:28 mkl Exp $
+# $Id: tinylogin.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
+# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -33,11 +33,11 @@ tinylogin_get: $(STATEDIR)/tinylogin.get
 tinylogin_get_deps =  $(TINYLOGIN_SOURCE)
 
 $(STATEDIR)/tinylogin.get: $(tinylogin_get_deps)
-	@$(call targetinfo, tinylogin.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(TINYLOGIN_SOURCE):
-	@$(call targetinfo, $(TINYLOGIN_SOURCE))
+	@$(call targetinfo, $@)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(TINYLOGIN_URL)
 
 # ----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ $(TINYLOGIN_SOURCE):
 tinylogin_extract: $(STATEDIR)/tinylogin.extract
 
 $(STATEDIR)/tinylogin.extract: $(STATEDIR)/tinylogin.get
-	@$(call targetinfo, tinylogin.extract)
+	@$(call targetinfo, $@)
 	$(TINYLOGIN_EXTRACT) $(TINYLOGIN_SOURCE) | tar -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -66,7 +66,7 @@ TINYLOGIN_MAKEVARS = CROSS=$(PTXCONF_GNU_TARGET)-
 tinylogin_prepare_deps =  $(STATEDIR)/tinylogin.extract $(STATEDIR)/virtual-xchain.install
 
 $(STATEDIR)/tinylogin.prepare: $(tinylogin_prepare_deps)
-	@$(call targetinfo, tinylogin.prepare)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -78,7 +78,7 @@ tinylogin_compile: $(STATEDIR)/tinylogin.compile
 tinylogin_compile_deps =  $(STATEDIR)/tinylogin.prepare
 
 $(STATEDIR)/tinylogin.compile: $(tinylogin_compile_deps) 
-	@$(call targetinfo, tinylogin.compile)
+	@$(call targetinfo, $@)
 	$(TINYLOGIN_PATH) make -C $(TINYLOGIN_DIR) $(TINYLOGIN_MAKEVARS)
 	touch $@
 
@@ -89,7 +89,7 @@ $(STATEDIR)/tinylogin.compile: $(tinylogin_compile_deps)
 tinylogin_install: $(STATEDIR)/tinylogin.install
 
 $(STATEDIR)/tinylogin.install: $(STATEDIR)/tinylogin.compile
-	@$(call targetinfo, tinylogin.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -99,7 +99,7 @@ $(STATEDIR)/tinylogin.install: $(STATEDIR)/tinylogin.compile
 tinylogin_targetinstall: $(STATEDIR)/tinylogin.targetinstall
 
 $(STATEDIR)/tinylogin.targetinstall: $(STATEDIR)/tinylogin.install
-	@$(call targetinfo, tinylogin.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

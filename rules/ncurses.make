@@ -1,18 +1,17 @@
 # -*-makefile-*-
-# $Id: ncurses.make,v 1.11 2003/09/30 13:54:16 mkl Exp $
+# $Id: ncurses.make,v 1.12 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-# FIXME: this is currently not integrated into PTXCONF
-ifeq (y, $(PTXCONF_NCURSES))
+ifdef PTXCONF_NCURSES
 PACKAGES += ncurses
 endif
 
@@ -33,12 +32,12 @@ NCURSES_DIR			= $(BUILDDIR)/$(NCURSES)
 ncurses_get: $(STATEDIR)/ncurses.get
 
 $(STATEDIR)/ncurses.get: $(NCURSES_SOURCE)
-	@$(call targetinfo, ncurses.get)
+	@$(call targetinfo, $@)
 	@$(call get_patches, $(NCURSES))
 	touch $@
 
 $(NCURSES_SOURCE):
-	@$(call targetinfo, $(NCURSES_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(NCURSES_URL))
 
 # ----------------------------------------------------------------------------
@@ -48,10 +47,10 @@ $(NCURSES_SOURCE):
 ncurses_extract: $(STATEDIR)/ncurses.extract
 
 $(STATEDIR)/ncurses.extract: $(STATEDIR)/ncurses.get
-	@$(call targetinfo, ncurses.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(NCURSES_DIR))
 	@$(call extract, $(NCURSES_SOURCE))
-	$(call patchin, $(NCURSES))
+	@$(call patchin, $(NCURSES))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -64,20 +63,38 @@ ncurses_prepare: $(STATEDIR)/ncurses.prepare
 # dependencies
 #
 ncurses_prepare_deps =  \
-	$(STATEDIR)/ncurses.extract \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/ncurses.extract
 
-NCURSES_PATH		=  PATH=$(CROSS_PATH)
-NCURSES_MAKEVARS	=  BUILD_CC=$(HOSTCC)
+NCURSES_PATH	=  PATH=$(CROSS_PATH)
+NCURSES_ENV	=  $(CROSS_ENV)
+NCURSES_ENV	+= BUILD_CC=$(HOSTCC) 
 
-NCURSES_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
-NCURSES_AUTOCONF	+= --build=$(GNU_HOST)
-NCURSES_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-NCURSES_AUTOCONF	+= --with-shared
-NCURSES_AUTOCONF	+= --without-ada
+NCURSES_AUTOCONF =\
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--prefix=/usr \
+	--exec-prefix=/usr \
+	--sysconfdir=/etc \
+	--localstatedir=/var \
+	--with-shared \
+	--disable-nls \
+	--disable-rpath \
+	--without-ada \
+	--enable-const \
+	--enable-overwrite \
+	--with-terminfo-dirs=/usr/share/terminfo \
+	--with-default-terminfo-dir=/usr/share/terminfo
+
+ifdef PTXCONF_UCLIBC
+ifdef PTXCONF_GCC_2_95_3
+# FIXME: there's got to be a better way to detect whether we disabled libstdc++ in xchain-gccstage1.make 
+NCURSES_AUTOCONF += --without-cxx-binding
+endif
+endif
 
 $(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps)
-	@$(call targetinfo, ncurses.prepare)
+	@$(call targetinfo, $@)
 	cd $(NCURSES_DIR) && \
 		$(NCURSES_PATH) $(NCURSES_ENV) \
 		./configure $(NCURSES_AUTOCONF)
@@ -90,8 +107,16 @@ $(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps)
 ncurses_compile: $(STATEDIR)/ncurses.compile
 
 $(STATEDIR)/ncurses.compile: $(STATEDIR)/ncurses.prepare 
-	@$(call targetinfo, ncurses.compile)
-	$(NCURSES_PATH) $(NCURSES_ENV) make -C $(NCURSES_DIR) $(NCURSES_MAKEVARS)
+	@$(call targetinfo, $@)
+#
+# the two tools make_hash and make_keys are compiled for the host system
+# these tools are needed later in the compile progress
+#
+# it's not good to pass target CFLAGS to the host compiler :)
+# so override these
+#
+	$(NCURSES_PATH) make -C $(NCURSES_DIR)/ncurses CFLAGS='' CXXFLAGS='' make_hash make_keys
+	$(NCURSES_PATH) make -C $(NCURSES_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -101,24 +126,8 @@ $(STATEDIR)/ncurses.compile: $(STATEDIR)/ncurses.prepare
 ncurses_install: $(STATEDIR)/ncurses.install
 
 $(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
-	@$(call targetinfo, ncurses.install)
-#	$(NCURSES_PATH) make -C $(NCURSES_DIR) install
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	install $(NCURSES_DIR)/lib/libncurses.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	ln -sf libncurses.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so.5
-	ln -sf libncurses.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so
-	install $(NCURSES_DIR)/lib/libform.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	ln -sf libform.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libform.so.5
-	ln -sf libform.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libform.so
-	install $(NCURSES_DIR)/lib/libmenu.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	ln -sf libmenu.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libmenu.so.5
-	ln -sf libmenu.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libmenu.so
-	install $(NCURSES_DIR)/lib/libpanel.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	ln -sf libpanel.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpanel.so.5
-	ln -sf libpanel.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpanel.so
-	install $(NCURSES_DIR)/include/curses.h $(PTXCONF_PREFIX)/include/
-	ln -sf curses.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/ncurses.h
-	install -m 644 $(NCURSES_DIR)/include/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/
+	@$(call targetinfo, $@)
+	$(NCURSES_PATH) make -C $(NCURSES_DIR) DESTDIR=$(CROSS_LIB_DIR) prefix='' exec_prefix='' install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -128,21 +137,43 @@ $(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
 ncurses_targetinstall: $(STATEDIR)/ncurses.targetinstall
 
 $(STATEDIR)/ncurses.targetinstall: $(STATEDIR)/ncurses.install
-	@$(call targetinfo, ncurses.targetinstall)
-	# FIXME: make configurable which libraries are installed!
+	@$(call targetinfo, $@)
+
 	install -d $(ROOTDIR)/lib
+	install -d $(ROOTDIR)/usr/lib
+
 	install $(NCURSES_DIR)/lib/libncurses.so.5.3 $(ROOTDIR)/lib
 	ln -sf libncurses.so.5.3 $(ROOTDIR)/lib/libncurses.so.5
 	ln -sf libncurses.so.5.3 $(ROOTDIR)/lib/libncurses.so
-	install $(NCURSES_DIR)/lib/libform.so.5.3 $(ROOTDIR)/lib
-	ln -sf libform.so.5.3 $(ROOTDIR)/lib/libform.so.5
-	ln -sf libform.so.5.3 $(ROOTDIR)/lib/libform.so
-	install $(NCURSES_DIR)/lib/libmenu.so.5.3 $(ROOTDIR)/lib
-	ln -sf libmenu.so.5.3 $(ROOTDIR)/lib/libmenu.so.5
-	ln -sf libmenu.so.5.3 $(ROOTDIR)/lib/libmenu.so
-	install $(NCURSES_DIR)/lib/libpanel.so.5.3 $(ROOTDIR)/lib
-	ln -sf libpanel.so.5.3 $(ROOTDIR)/lib/libpanel.so.5
-	ln -sf libpanel.so.5.3 $(ROOTDIR)/lib/libpanel.so
+	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/lib/libncurses.so.5.3
+
+ifdef PTXCONF_NCURSES_FORM
+	install $(NCURSES_DIR)/lib/libform.so.5.3 $(ROOTDIR)/usr/lib
+	ln -sf libform.so.5.3 $(ROOTDIR)/usr/lib/libform.so.5
+	ln -sf libform.so.5.3 $(ROOTDIR)/usr/lib/libform.so
+	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libform.so.5.3
+endif
+
+ifdef PTXCONF_NCURSES_MENU
+	install $(NCURSES_DIR)/lib/libmenu.so.5.3 $(ROOTDIR)/usr/lib
+	ln -sf libmenu.so.5.3 $(ROOTDIR)/usr/lib/libmenu.so.5
+	ln -sf libmenu.so.5.3 $(ROOTDIR)/usr/lib/libmenu.so
+	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libmenu.so.5.3
+endif
+
+ifdef PTXCONF_NCURSES_PANEL
+	install $(NCURSES_DIR)/lib/libpanel.so.5.3 $(ROOTDIR)/usr/lib
+	ln -sf libpanel.so.5.3 $(ROOTDIR)/usr/lib/libpanel.so.5
+	ln -sf libpanel.so.5.3 $(ROOTDIR)/usr/lib/libpanel.so
+	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libpanel.so.5.3
+endif
+
+ifdef PTXCONF_NCURSES_TERMCAP
+	mkdir -p $(ROOTDIR)/usr/share/terminfo
+	for FILE in x/xterm x/xterm-color x/xterm-xfree86 v/vt100 v/vt200 a/ansi l/linux; do		\
+		install -D $(CROSS_LIB_DIR)/usr/share/terminfo/$$FILE $(ROOTDIR)/usr/share/terminfo/$$FILE;	\
+	done
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------

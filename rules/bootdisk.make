@@ -1,10 +1,10 @@
 # -*-makefile-*- 
-# $Id: bootdisk.make,v 1.10 2003/08/12 08:20:12 robert Exp $
+# $Id: bootdisk.make,v 1.11 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -32,11 +32,11 @@ BOOTDISK_EXTRACT		= gzip -dc
 bootdisk_get: $(STATEDIR)/bootdisk.get
 
 $(STATEDIR)/bootdisk.get: $(BOOTDISK_SOURCE)
-	@$(call targetinfo, bootdisk.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(BOOTDISK_SOURCE):
-	@$(call targetinfo, $(BOOTDISK_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(BOOTDISK_URL))
 
 # ----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ $(BOOTDISK_SOURCE):
 bootdisk_extract: $(STATEDIR)/bootdisk.extract
 
 $(STATEDIR)/bootdisk.extract: $(STATEDIR)/bootdisk.get
-	@$(call targetinfo, bootdisk.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(BOOTDISK_DIR))
 	@$(call extract, $(BOOTDISK_SOURCE))
 	touch $@
@@ -58,7 +58,7 @@ $(STATEDIR)/bootdisk.extract: $(STATEDIR)/bootdisk.get
 bootdisk_prepare: $(STATEDIR)/bootdisk.prepare
 
 $(STATEDIR)/bootdisk.prepare: $(STATEDIR)/bootdisk.extract
-	@$(call targetinfo, bootdisk.prepare)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -68,7 +68,7 @@ $(STATEDIR)/bootdisk.prepare: $(STATEDIR)/bootdisk.extract
 bootdisk_compile: $(STATEDIR)/bootdisk.compile
 
 $(STATEDIR)/bootdisk.compile: $(STATEDIR)/bootdisk.prepare 
-	@$(call targetinfo, bootdisk.compile)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -78,7 +78,7 @@ $(STATEDIR)/bootdisk.compile: $(STATEDIR)/bootdisk.prepare
 bootdisk_install: $(STATEDIR)/bootdisk.install
 
 $(STATEDIR)/bootdisk.install: $(STATEDIR)/bootdisk.compile
-	@$(call targetinfo, bootdisk.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -94,17 +94,17 @@ bootdisk_targetinstall_deps += $(STATEDIR)/e2fsprogs.compile
 bootdisk_targetinstall_deps += $(STATEDIR)/ncurses.compile
 
 $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
-	@$(call targetinfo, bootdisk.targetinstall)
+	@$(call targetinfo, $@)
 	install $(KERNEL_TARGET_PATH) $(BOOTDISK_DIR)/boot/
 	install $(GRUB_DIR)/stage1/stage1 $(BOOTDISK_DIR)/boot/grub/
 	install $(GRUB_DIR)/stage2/stage2 $(BOOTDISK_DIR)/boot/grub/
 	install $(GRUB_DIR)/grub/grub $(BOOTDISK_DIR)/bin/
-	$(CROSSSTRIP) -R .notes -R .comment $(BOOTDISK_DIR)/bin/grub
+	$(CROSSSTRIP) -R .note -R .comment $(BOOTDISK_DIR)/bin/grub
 	# FIXME: make this a config option
 	ln -sf menu-disk.lst $(BOOTDISK_DIR)/boot/grub/menu.lst
 	ln -sf menu.lst $(BOOTDISK_DIR)/boot/grub/grub.conf
 	install $(E2FSPROGS_DIR)/misc/mke2fs $(BOOTDISK_DIR)/bin/
-	$(CROSSSTRIP) -R .notes -R .comment $(BOOTDISK_DIR)/bin/mke2fs
+	$(CROSSSTRIP) -R .note -R .comment $(BOOTDISK_DIR)/bin/mke2fs
 	install $(NCURSES_DIR)/lib/libncurses.so.5.2 $(BOOTDISK_DIR)/lib/
 	$(CROSSSTRIP) -S -R .note -R .comment $(BOOTDISK_DIR)/lib/libncurses.so.5.2
 	# FIXME: is this the correct file for this rule? 

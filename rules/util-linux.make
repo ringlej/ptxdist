@@ -1,28 +1,28 @@
 # -*-makefile-*-
-# $Id: util-linux.make,v 1.3 2003/09/16 16:52:14 mkl Exp $
+# $Id: util-linux.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-ifdef PTXCONF_UTIL-LINUX
+ifdef PTXCONF_UTLNX
 PACKAGES += util-linux
 endif
 
 #
 # Paths and names
 #
-UTIL-LINUX_VERSION	= 2.12pre
+UTIL-LINUX_VERSION	= 2.12
 UTIL-LINUX		= util-linux-$(UTIL-LINUX_VERSION)
-UTIL-LINUX_SUFFIX	= tar.bz2
-UTIL-LINUX_URL		= http://www.kernel.org/pub/linux/utils/util-linux/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
+UTIL-LINUX_SUFFIX	= tar.gz
+UTIL-LINUX_URL		= http://ftp.cwi.nl/aeb/util-linux/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
 UTIL-LINUX_SOURCE	= $(SRCDIR)/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
 UTIL-LINUX_DIR		= $(BUILDDIR)/$(UTIL-LINUX)
 
@@ -35,12 +35,12 @@ util-linux_get: $(STATEDIR)/util-linux.get
 util-linux_get_deps	=  $(UTIL-LINUX_SOURCE)
 
 $(STATEDIR)/util-linux.get: $(util-linux_get_deps)
-	@$(call targetinfo, util-linux.get)
-	@$(call get_patches, $(UTIL_LINUX))
+	@$(call targetinfo, $@)
+	@$(call get_patches, $(UTIL-LINUX))
 	touch $@
 
 $(UTIL-LINUX_SOURCE):
-	@$(call targetinfo, $(UTIL-LINUX_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(UTIL-LINUX_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ util-linux_extract: $(STATEDIR)/util-linux.extract
 util-linux_extract_deps	=  $(STATEDIR)/util-linux.get
 
 $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps)
-	@$(call targetinfo, util-linux.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(UTIL-LINUX_DIR))
 	@$(call extract, $(UTIL-LINUX_SOURCE))
 	@$(call patchin, $(UTIL-LINUX))
@@ -73,12 +73,13 @@ util-linux_prepare_deps =  \
 
 UTIL-LINUX_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 UTIL-LINUX_ENV 	=  $(CROSS_ENV)
-#UTIL-LINUX_ENV	+=
 
 $(STATEDIR)/util-linux.prepare: $(util-linux_prepare_deps)
-	@$(call targetinfo, util-linux.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(UTIL-LINUX_BUILDDIR))
-#	# FIXME: strange configure script, not cross enabled...
+#
+# FIXME: strange configure script, not cross enabled...
+#
 	cd $(UTIL-LINUX_DIR) && \
 		$(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) \
 		./configure
@@ -93,23 +94,23 @@ util-linux_compile: $(STATEDIR)/util-linux.compile
 util-linux_compile_deps =  $(STATEDIR)/util-linux.prepare
 
 $(STATEDIR)/util-linux.compile: $(util-linux_compile_deps)
-	@$(call targetinfo, util-linux.compile)
+	@$(call targetinfo, $@)
 
-ifeq (y, $(PTXCONF_UTLNX_MKSWAP))
-	cd $(UTIL-LINUX_DIR)/disk-utils && $(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) make mkswap
+ifdef PTXCONF_UTLNX_MKSWAP
+	$(UTIL-LINUX_PATH) make -C $(UTIL-LINUX_DIR)/disk-utils mkswap
 endif
-ifeq (y, $(PTXCONF_UTLNX_SWAPON))
-	cd $(UTIL-LINUX_DIR)/mount && $(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) make swapon
+ifdef PTXCONF_UTLNX_SWAPON
+	$(UTIL-LINUX_PATH) make -C $(UTIL-LINUX_DIR)/mount swapon
 endif	
-ifeq (y, $(PTXCONF_UTLNX_IPCS))
-	cd $(UTIL-LINUX_DIR)/sys-utils && $(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) make ipcs
+ifdef PTXCONF_UTLNX_IPCS
+	$(UTIL-LINUX_PATH) make -C $(UTIL-LINUX_DIR)/sys-utils ipcs
 endif
-ifeq (y, $(PTXCONF_UTLNX_READPROFILE))
-	cd $(UTIL-LINUX_DIR)/sys-utils && $(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) make readprofile
+ifdef PTXCONF_UTLNX_READPROFILE
+	$(UTIL-LINUX_PATH) make -C $(UTIL-LINUX_DIR)/sys-utils readprofile
 endif
-
+#
 # FIXME: implement other utilities
-
+#
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -119,7 +120,7 @@ endif
 util-linux_install: $(STATEDIR)/util-linux.install
 
 $(STATEDIR)/util-linux.install: $(STATEDIR)/util-linux.compile
-	@$(call targetinfo, util-linux.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -131,25 +132,23 @@ util-linux_targetinstall: $(STATEDIR)/util-linux.targetinstall
 util-linux_targetinstall_deps	=  $(STATEDIR)/util-linux.compile
 
 $(STATEDIR)/util-linux.targetinstall: $(util-linux_targetinstall_deps)
-	@$(call targetinfo, util-linux.targetinstall)
-
-ifeq (y, $(PTXCONF_UTLNX_MKSWAP))
-	install $(UTIL-LINUX_DIR)/disk-utils/mkswap $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) $(ROOTDIR)/sbin/mkswap
+	@$(call targetinfo, $@)
+ifdef PTXCONF_UTLNX_MKSWAP
+	install -D $(UTIL-LINUX_DIR)/disk-utils/mkswap $(ROOTDIR)/sbin/mkswap
+	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/sbin/mkswap
 endif
-ifeq (y, $(PTXCONF_UTLNX_SWAPON))
-	install $(UTIL-LINUX_DIR)/mount/swapon $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) $(ROOTDIR)/sbin/swapon
+ifdef PTXCONF_UTLNX_SWAPON
+	install -D $(UTIL-LINUX_DIR)/mount/swapon $(ROOTDIR)/sbin/swapon
+	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/sbin/swapon
 endif
-ifeq (y, $(PTXCONF_UTLNX_IPCS))
-	install $(UTIL-LINUX_DIR)/sys-utils/ipcs $(ROOTDIR)/usr/bin/
-	$(CROSSSTRIP) $(ROOTDIR)/usr/bin/ipcs
+ifdef PTXCONF_UTLNX_IPCS
+	install -D $(UTIL-LINUX_DIR)/sys-utils/ipcs $(ROOTDIR)/usr/bin/ipcs
+	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/usr/bin/ipcs
 endif
-ifeq (y, $(PTXCONF_UTLNX_READPROFILE))
-	install $(UTIL-LINUX_DIR)/sys-utils/readprofile $(ROOTDIR)/usr/sbin/
-	$(CROSSSTRIP) $(ROOTDIR)/usr/sbin/readprofile
+ifdef PTXCONF_UTLNX_READPROFILE
+	install -D $(UTIL-LINUX_DIR)/sys-utils/readprofile $(ROOTDIR)/usr/sbin/readprofile
+	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/usr/sbin/readprofile
 endif
-
 	touch $@
 
 # ----------------------------------------------------------------------------

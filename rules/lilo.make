@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: lilo.make,v 1.1 2003/07/16 04:23:28 mkl Exp $
+# $Id: lilo.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
+# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -33,11 +33,11 @@ lilo_get: $(STATEDIR)/lilo.get
 lilo_get_deps =  $(LILO_SOURCE)
 
 $(STATEDIR)/lilo.get: $(lilo_get_deps)
-	@$(call targetinfo, lilo.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(LILO_SOURCE):
-	@$(call targetinfo, $(LILO_SOURCE))
+	@$(call targetinfo, $@)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(LILO_URL)
 
 # ----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ $(LILO_SOURCE):
 lilo_extract: $(STATEDIR)/lilo.extract
 
 $(STATEDIR)/lilo.extract: $(STATEDIR)/lilo.get
-	@$(call targetinfo, lilo.extract)
+	@$(call targetinfo, $@)
 	$(LILO_EXTRACT) $(LILO_SOURCE) | tar -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -66,7 +66,7 @@ LILO_MAKEVARS 	= CROSS=$(PTXCONF_GNU_TARGET)-
 lilo_prepare_deps =  $(STATEDIR)/lilo.extract $(STATEDIR)/virtual-xchain.install
 
 $(STATEDIR)/lilo.prepare: $(lilo_prepare_deps)
-	@$(call targetinfo, lilo.prepare)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -78,7 +78,7 @@ lilo_compile: $(STATEDIR)/lilo.compile
 lilo_compile_deps =  $(STATEDIR)/lilo.prepare
 
 $(STATEDIR)/lilo.compile: $(lilo_compile_deps) 
-	@$(call targetinfo, lilo.compile)
+	@$(call targetinfo, $@)
 	$(LILO_PATH) make -C $(LILO_DIR) $(LILO_MAKEVARS)
 	touch $@
 
@@ -89,7 +89,7 @@ $(STATEDIR)/lilo.compile: $(lilo_compile_deps)
 lilo_install: $(STATEDIR)/lilo.install
 
 $(STATEDIR)/lilo.install: $(STATEDIR)/lilo.compile
-	@$(call targetinfo, lilo.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -99,7 +99,7 @@ $(STATEDIR)/lilo.install: $(STATEDIR)/lilo.compile
 lilo_targetinstall: $(STATEDIR)/lilo.targetinstall
 
 $(STATEDIR)/lilo.targetinstall: $(STATEDIR)/lilo.install
-	@$(call targetinfo, lilo.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

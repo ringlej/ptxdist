@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: xvkbd.make,v 1.2 2003/09/13 08:09:06 robert Exp $
+# $Id: xvkbd.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -35,11 +35,11 @@ xvkbd_get: $(STATEDIR)/xvkbd.get
 xvkbd_get_deps	=  $(XVKBD_SOURCE)
 
 $(STATEDIR)/xvkbd.get: $(xvkbd_get_deps)
-	@$(call targetinfo, xvkbd.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(XVKBD_SOURCE):
-	@$(call targetinfo, $(XVKBD_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(XVKBD_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ xvkbd_extract: $(STATEDIR)/xvkbd.extract
 xvkbd_extract_deps	=  $(STATEDIR)/xvkbd.get
 
 $(STATEDIR)/xvkbd.extract: $(xvkbd_extract_deps)
-	@$(call targetinfo, xvkbd.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(XVKBD_DIR))
 	@$(call extract, $(XVKBD_SOURCE))
 	touch $@
@@ -67,14 +67,14 @@ xvkbd_prepare: $(STATEDIR)/xvkbd.prepare
 #
 xvkbd_prepare_deps =  \
 	$(STATEDIR)/xvkbd.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 XVKBD_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 XVKBD_ENV 	=  $(CROSS_ENV)
 #XVKBD_ENV	+=
 
 $(STATEDIR)/xvkbd.prepare: $(xvkbd_prepare_deps)
-	@$(call targetinfo, xvkbd.prepare)
+	@$(call targetinfo, $@)
 	cd $(XVKBD_DIR) && \
 		$(XVKBD_PATH) $(XVKBD_ENV) \
 		xmkmf
@@ -89,7 +89,7 @@ xvkbd_compile: $(STATEDIR)/xvkbd.compile
 xvkbd_compile_deps =  $(STATEDIR)/xvkbd.prepare
 
 $(STATEDIR)/xvkbd.compile: $(xvkbd_compile_deps)
-	@$(call targetinfo, xvkbd.compile)
+	@$(call targetinfo, $@)
 	$(XVKBD_PATH) $(XVKBD_ENV) make -C $(XVKBD_DIR)
 	touch $@
 
@@ -100,7 +100,7 @@ $(STATEDIR)/xvkbd.compile: $(xvkbd_compile_deps)
 xvkbd_install: $(STATEDIR)/xvkbd.install
 
 $(STATEDIR)/xvkbd.install: $(STATEDIR)/xvkbd.compile
-	@$(call targetinfo, xvkbd.install)
+	@$(call targetinfo, $@)
 	$(XVKBD_PATH) $(XVKBD_ENV) make -C $(XVKBD_DIR) install
 	touch $@
 
@@ -113,7 +113,7 @@ xvkbd_targetinstall: $(STATEDIR)/xvkbd.targetinstall
 xvkbd_targetinstall_deps	=  $(STATEDIR)/xvkbd.compile
 
 $(STATEDIR)/xvkbd.targetinstall: $(xvkbd_targetinstall_deps)
-	@$(call targetinfo, xvkbd.targetinstall)
+	@$(call targetinfo, $@)
 	install $(XVKBD_DIR)/xvkbd $(ROOTDIR)/usr/X11R6/bin/
 	install $(XVKBD_DIR)/XVkbd-common.ad $(ROOTDIR)/etc/X11/app-defaults/XVkbd-common
 	install $(XVKBD_DIR)/XVkbd-german.ad $(ROOTDIR)/etc/X11/app-defaults/XVkbd-german

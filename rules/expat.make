@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: expat.make,v 1.1 2003/08/17 00:34:18 robert Exp $
+# $Id: expat.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#             Pengutronix <info@pengutronix.de>, Germany
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+#                       Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -36,11 +36,11 @@ expat_get: $(STATEDIR)/expat.get
 expat_get_deps	=  $(EXPAT_SOURCE)
 
 $(STATEDIR)/expat.get: $(expat_get_deps)
-	@$(call targetinfo, expat.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(EXPAT_SOURCE):
-	@$(call targetinfo, $(EXPAT_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(EXPAT_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ expat_extract: $(STATEDIR)/expat.extract
 expat_extract_deps	=  $(STATEDIR)/expat.get
 
 $(STATEDIR)/expat.extract: $(expat_extract_deps)
-	@$(call targetinfo, expat.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(EXPAT_DIR))
 	@$(call extract, $(EXPAT_SOURCE))
 	touch $@
@@ -68,7 +68,7 @@ expat_prepare: $(STATEDIR)/expat.prepare
 #
 expat_prepare_deps =  \
 	$(STATEDIR)/expat.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 EXPAT_PATH	=  PATH=$(CROSS_PATH)
 EXPAT_ENV 	=  $(CROSS_ENV)
@@ -86,7 +86,7 @@ EXPAT_AUTOCONF	+= --enable-foo
 endif
 
 $(STATEDIR)/expat.prepare: $(expat_prepare_deps)
-	@$(call targetinfo, expat.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(EXPAT_BUILDDIR))
 	cd $(EXPAT_DIR) && \
 		$(EXPAT_PATH) $(EXPAT_ENV) \
@@ -102,7 +102,7 @@ expat_compile: $(STATEDIR)/expat.compile
 expat_compile_deps =  $(STATEDIR)/expat.prepare
 
 $(STATEDIR)/expat.compile: $(expat_compile_deps)
-	@$(call targetinfo, expat.compile)
+	@$(call targetinfo, $@)
 	$(EXPAT_PATH) $(EXPAT_ENV) make -C $(EXPAT_DIR)
 	touch $@
 
@@ -113,7 +113,7 @@ $(STATEDIR)/expat.compile: $(expat_compile_deps)
 expat_install: $(STATEDIR)/expat.install
 
 $(STATEDIR)/expat.install: $(STATEDIR)/expat.compile
-	@$(call targetinfo, expat.install)
+	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)/lib
 	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libexpat.so*
 	install $(EXPAT_DIR)/.libs/libexpat.so.0.4.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/
@@ -132,7 +132,7 @@ expat_targetinstall: $(STATEDIR)/expat.targetinstall
 expat_targetinstall_deps	=  $(STATEDIR)/expat.compile
 
 $(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps)
-	@$(call targetinfo, expat.targetinstall)
+	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/lib
 	rm -f $(ROOTDIR)/lib/libglib-2.0.so*
 	install $(EXPAT_DIR)/.libs/libexpat.so.0.4.0 $(ROOTDIR)/lib/

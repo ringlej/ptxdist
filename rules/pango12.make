@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: pango12.make,v 1.2 2003/08/17 00:32:04 robert Exp $
+# $Id: pango12.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#             Pengutronix <info@pengutronix.de>, Germany
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+#                       Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -40,17 +40,17 @@ pango12_get_deps	=  $(PANGO12_SOURCE)
 pango12_get_deps	+= $(PANGO12_PATCH_SOURCE)
 
 $(STATEDIR)/pango12.get: $(pango12_get_deps)
-	@$(call targetinfo, pango12.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(PANGO12_SOURCE):
-	@$(call targetinfo, $(PANGO12_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(PANGO12_URL))
 
 $(PANGO12_PATCH_SOURCE):
-	@$(call targetinfo, $(PANGO12_PATCH_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(PANGO12_PATCH_URL))
-	
+
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ pango12_extract: $(STATEDIR)/pango12.extract
 pango12_extract_deps	=  $(STATEDIR)/pango12.get
 
 $(STATEDIR)/pango12.extract: $(pango12_extract_deps)
-	@$(call targetinfo, pango12.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(PANGO12_DIR))
 	@$(call extract, $(PANGO12_SOURCE))
 	cd $(PANGO12_DIR) && patch -p1 < $(PANGO12_PATCH_SOURCE)
@@ -78,8 +78,8 @@ pango12_prepare: $(STATEDIR)/pango12.prepare
 pango12_prepare_deps =  \
 	$(STATEDIR)/pango12.extract \
 	$(STATEDIR)/glib22.install \
+	$(STATEDIR)/virtual-xchain.install
 #	$(STATEDIR)/fontconfig22.install \
-#	$(STATEDIR)/virtual-xchain.install
 
 PANGO12_PATH	=  PATH=$(CROSS_PATH)
 PANGO12_ENV 	=  $(CROSS_ENV)
@@ -97,7 +97,7 @@ PANGO12_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 PANGO12_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 
 $(STATEDIR)/pango12.prepare: $(pango12_prepare_deps)
-	@$(call targetinfo, pango12.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(PANGO12_BUILDDIR))
 	cd $(PANGO12_DIR) && \
 		$(PANGO12_PATH) $(PANGO12_ENV) \
@@ -113,17 +113,17 @@ pango12_compile: $(STATEDIR)/pango12.compile
 pango12_compile_deps =  $(STATEDIR)/pango12.prepare
 
 $(STATEDIR)/pango12.compile: $(pango12_compile_deps)
-	@$(call targetinfo, pango12.compile)
+	@$(call targetinfo, $@)
 
-	# FIXME: feed upstream; these links are expected by gtk and seem
-	# to have been forgetten. 
+# FIXME: feed upstream; these links are expected by gtk and seem
+# to have been forgetten. 
 	ln -sf libpangoxft-1.0.la $(PANGO12_DIR)/pango/libpangoxft.la
 	ln -sf libpango-1.0.la $(PANGO12_DIR)/pango/libpango.la
 	ln -sf libpangox-1.0.la $(PANGO12_DIR)/pango/libpangox.la
-	
+
 	$(PANGO12_PATH) $(PANGO12_ENV) make -C $(PANGO12_DIR)
 
-	# FIXME: let gtk not see xft
+# FIXME: let gtk not see xft
 	cd $(PANGO12_DIR) && mv pangoxft-uninstalled.pc NOINST-pangoxft-uninstalled.pc
 	cd $(PANGO12_DIR) && mv pangoxft.pc NOINST-pangoxft.pc
 
@@ -136,8 +136,8 @@ $(STATEDIR)/pango12.compile: $(pango12_compile_deps)
 pango12_install: $(STATEDIR)/pango12.install
 
 $(STATEDIR)/pango12.install: $(STATEDIR)/pango12.compile
-	@$(call targetinfo, pango12.install)
-	
+	@$(call targetinfo, $@)
+
 	install -d $(PTXCONF_PREFIX)/$(PTX_GNU_TARGET)/lib
 	rm -f $(PTXCONF_PREFIX)/$(PTX_GNU_TARGET)/lib/libpango-1.0.so*
 	install $(PANGO12_DIR)/pango/.libs/libpango-1.0.so.0.200.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/
@@ -158,7 +158,7 @@ pango12_targetinstall: $(STATEDIR)/pango12.targetinstall
 pango12_targetinstall_deps	=  $(STATEDIR)/pango12.compile
 
 $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps)
-	@$(call targetinfo, pango12.targetinstall)
+	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/lib
 	rm -f $(ROOTDIR)/lib/libpango-1.0.so*
 	install $(PANGO12_DIR)/pango/.libs/libpango-1.0.so.0.200.3 $(ROOTDIR)/lib/

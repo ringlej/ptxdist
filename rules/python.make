@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: python.make,v 1.4 2003/09/16 16:42:38 mkl Exp $
+# $Id: python.make,v 1.5 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by David R Bacon
+# Copyright (C) 2003 by David R Bacon
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -37,12 +37,12 @@ python_get_deps = \
 	$(PYTHON_SOURCE)
 
 $(STATEDIR)/python.get: $(python_get_deps)
-	@$(call targetinfo, python.get)
+	@$(call targetinfo, $@)
 	@$(call get_patches, $(PYTHON))
 	touch $@
 
 $(PYTHON_SOURCE):
-	@$(call targetinfo, $(PYTHON_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(PYTHON_URL))
 
 # ----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ python_extract_deps = \
 	$(STATEDIR)/python.get
 
 $(STATEDIR)/python.extract: $(python_extract_deps)
-	@$(call targetinfo, python.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(PYTHON_DIR))
 	@$(call extract, $(PYTHON_SOURCE))
 	@$(call patchin, $(PYTHON))
@@ -87,7 +87,7 @@ PYTHON_MAKEVARS	+= HOSTPGEN=$(XCHAIN_PYTHON_BUILDDIR)/Parser/pgen
 PYTHON_MAKEVARS	+= CROSS_COMPILE=yes
 
 $(STATEDIR)/python.prepare: $(python_prepare_deps)
-	@$(call targetinfo, python.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(PYTHON_BUILDDIR))
 	mkdir -p $(PYTHON_BUILDDIR)
 	cd $(PYTHON_BUILDDIR) && \
@@ -106,7 +106,7 @@ python_compile_deps = \
 	$(STATEDIR)/python.prepare
 
 $(STATEDIR)/python.compile: $(python_compile_deps)
-	@$(call targetinfo, python.compile)
+	@$(call targetinfo, $@)
 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS)
 	touch $@
 
@@ -117,7 +117,7 @@ $(STATEDIR)/python.compile: $(python_compile_deps)
 python_install: $(STATEDIR)/python.install
 
 $(STATEDIR)/python.install:
-	@$(call targetinfo, python.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -127,7 +127,7 @@ $(STATEDIR)/python.install:
 python_targetinstall: $(STATEDIR)/python.targetinstall
 
 $(STATEDIR)/python.targetinstall: $(STATEDIR)/python.compile
-	@$(call targetinfo, python.targetinstall)
+	@$(call targetinfo, $@)
 
 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
 		altbininstall DESTDIR=$(ROOTDIR)
@@ -145,7 +145,7 @@ $(STATEDIR)/python.targetinstall: $(STATEDIR)/python.compile
 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
 		oldsharedinstall DESTDIR=$(ROOTDIR)
 
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/python2.3
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/python2.3
 
 	touch $@
 

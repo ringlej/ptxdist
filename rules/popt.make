@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: popt.make,v 1.2 2003/08/28 14:27:29 mkl Exp $
+# $Id: popt.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
+# Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -35,11 +35,11 @@ popt_get: $(STATEDIR)/popt.get
 popt_get_deps	=  $(POPT_SOURCE)
 
 $(STATEDIR)/popt.get: $(popt_get_deps)
-	@$(call targetinfo, popt.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(POPT_SOURCE):
-	@$(call targetinfo, $(POPT_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(POPT_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ popt_extract: $(STATEDIR)/popt.extract
 popt_extract_deps	=  $(STATEDIR)/popt.get
 
 $(STATEDIR)/popt.extract: $(popt_extract_deps)
-	@$(call targetinfo, popt.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(POPT_DIR))
 	@$(call extract, $(POPT_SOURCE))
 	touch $@
@@ -71,8 +71,6 @@ popt_prepare_deps =  \
 
 POPT_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 POPT_ENV 	=  $(CROSS_ENV)
-#POPT_ENV	+=
-
 
 #
 # autoconf
@@ -82,8 +80,8 @@ POPT_AUTOCONF	+= --build=$(GNU_HOST)
 POPT_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/popt.prepare: $(popt_prepare_deps)
-	@$(call targetinfo, popt.prepare)
-	@$(call clean, $(POPT_BUILDDIR))
+	@$(call targetinfo, $@)
+	@$(call clean, $(POP_DIR)/config.cache)
 	cd $(POPT_DIR) && \
 		$(POPT_PATH) $(POPT_ENV) \
 		./configure $(POPT_AUTOCONF)
@@ -98,8 +96,8 @@ popt_compile: $(STATEDIR)/popt.compile
 popt_compile_deps =  $(STATEDIR)/popt.prepare
 
 $(STATEDIR)/popt.compile: $(popt_compile_deps)
-	@$(call targetinfo, popt.compile)
-	$(POPT_PATH) $(POPT_ENV) make -C $(POPT_DIR)
+	@$(call targetinfo, $@)
+	$(POPT_PATH) make -C $(POPT_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -109,8 +107,8 @@ $(STATEDIR)/popt.compile: $(popt_compile_deps)
 popt_install: $(STATEDIR)/popt.install
 
 $(STATEDIR)/popt.install: $(STATEDIR)/popt.compile
-	@$(call targetinfo, popt.install)
-	$(POPT_PATH) $(POPT_ENV) make -C $(POPT_DIR) install
+	@$(call targetinfo, $@)
+	$(POPT_PATH) make -C $(POPT_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -122,7 +120,7 @@ popt_targetinstall: $(STATEDIR)/popt.targetinstall
 popt_targetinstall_deps	=  $(STATEDIR)/popt.compile
 
 $(STATEDIR)/popt.targetinstall: $(popt_targetinstall_deps)
-	@$(call targetinfo, popt.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,17 +1,17 @@
 # -*-makefile-*-
-# $Id: wireless.make,v 1.2 2003/08/08 18:28:43 robert Exp $
+# $Id: wireless.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-ifeq (y,$(PTXCONF_WIRELESS))
+ifdef PTXCONF_WIRELESS
 PACKAGES += wireless
 endif
 
@@ -24,7 +24,6 @@ WIRELESS_SUFFIX		= tar.gz
 WIRELESS_URL		= http://pcmcia-cs.sourceforge.net/ftp/contrib/$(WIRELESS).$(WIRELESS_SUFFIX)
 WIRELESS_SOURCE		= $(SRCDIR)/$(WIRELESS).$(WIRELESS_SUFFIX)
 WIRELESS_DIR 		= $(BUILDDIR)/$(WIRELESS)
-WIRELESS_EXTRACT	= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -35,11 +34,11 @@ wireless_get: $(STATEDIR)/wireless.get
 wireless_get_deps	= $(WIRELESS_SOURCE)
 
 $(STATEDIR)/wireless.get: $(wireless_get_deps)
-	@$(call targetinfo, wireless.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(WIRELESS_SOURCE):
-	@$(call targetinfo, $(WIRELESS_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(WIRELESS_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,7 +50,7 @@ wireless_extract: $(STATEDIR)/wireless.extract
 wireless_extract_deps	= $(STATEDIR)/wireless.get
 
 $(STATEDIR)/wireless.extract: $(wireless_extract_deps)
-	@$(call targetinfo, wireless.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(WIRELESS_DIR))
 	@$(call extract, $(WIRELESS_SOURCE))
 	touch $@
@@ -65,7 +64,7 @@ wireless_prepare: $(STATEDIR)/wireless.prepare
 wireless_prepare_deps	= $(STATEDIR)/wireless.extract
 
 $(STATEDIR)/wireless.prepare: $(wireless_prepare_deps)
-	@$(call targetinfo, wireless.prepare)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -77,7 +76,7 @@ wireless_compile: $(STATEDIR)/wireless.compile
 wireless_compile_deps	= $(STATEDIR)/wireless.prepare
 
 $(STATEDIR)/wireless.compile: $(wireless_compile_deps) 
-	@$(call targetinfo, wireless.compile)
+	@$(call targetinfo, $@)
 	make -C $(WIRELESS_DIR) 
 	touch $@
 
@@ -90,7 +89,7 @@ wireless_install: $(STATEDIR)/wireless.install
 wireless_compile_deps	= $(STATEDIR)/wireless.compile
 
 $(STATEDIR)/wireless.install: $(wireless_compile_deps)
-	@$(call targetinfo, wireless.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -100,7 +99,7 @@ $(STATEDIR)/wireless.install: $(wireless_compile_deps)
 wireless_targetinstall: $(STATEDIR)/wireless.targetinstall
 
 $(STATEDIR)/wireless.targetinstall: $(STATEDIR)/wireless.install
-	@$(call targetinfo, wireless.targetinstall)
+	@$(call targetinfo, $@)
 # TODO
 	touch $@
 # ----------------------------------------------------------------------------

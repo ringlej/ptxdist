@@ -1,31 +1,30 @@
 # -*-makefile-*-
-# $Id: innokom.make,v 1.7 2003/10/09 07:43:00 robert Exp $
+# $Id: innokom.make,v 1.8 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
-# leave this intact for all vendor tweaks
-VENDORTWEAKS=vendor-tweaks.targetinstall
+VENDORTWEAKS = innokom
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-vendor-tweaks_targetinstall: $(STATEDIR)/vendor-tweaks.targetinstall
+innokom_targetinstall: $(STATEDIR)/innokom.targetinstall
 
 $(STATEDIR)/vendor-tweaks.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
-	# the application resides in /opt
+#	the application resides in /opt
 	install -d $(ROOTDIR)/opt
 
-	# writable directories must be on /data (ramdisk)
+#	writable directories must be on /data (ramdisk)
 	install -d $(ROOTDIR)/data
 
 	mv $(ROOTDIR)/var/log $(ROOTDIR)/data/log || mkdir $(ROOTDIR)/data/log
@@ -34,22 +33,22 @@ $(STATEDIR)/vendor-tweaks.targetinstall:
 	mv $(ROOTDIR)/tmp $(ROOTDIR)/data/tmp || mkdir $(ROOTDIR)/data/tmp
 	ln -sf /data/tmp $(ROOTDIR)/tmp
 
-ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NFSD))
+ifdef PTXCONF_NFSUTILS_INSTALL_NFSD
 	mv $(ROOTDIR)/var/lib/nfs $(ROOTDIR)/data/nfs || mkdir $(ROOTDIR)/data/nfs
 	ln -sf /data/nfs $(ROOTDIR)/var/lib/nfs
 endif
 
-	# copy /etc template
+#	copy /etc template
 	cp -a $(TOPDIR)/etc/innokom/. $(ROOTDIR)/etc
 
-	# remove CVS stuff
+#	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
 	rm -f $(ROOTDIR)/JUST_FOR_CVS
 
-	# make scripts executable
+#	make scripts executable
 	chmod 755 $(ROOTDIR)/etc/init.d/*
 
-	# generate version stamps
+#	generate version stamps
 	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@PATCHLEVEL@,$(PATCHLEVEL),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@SUBLEVEL@,$(SUBLEVEL),g" $(ROOTDIR)/etc/init.d/banner

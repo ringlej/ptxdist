@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: lsh.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
+# $Id: lsh.make,v 1.5 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 

@@ -1,31 +1,22 @@
 # -*-makefile-*-
-# $Id: xchain-gdb.make,v 1.5 2003/08/27 18:55:13 robert Exp $
+# $Id: xchain-gdb.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-ifeq (y,$(PTXCONF_BUILD_XGDB))
+ifdef PTXCONF_BUILD_XGDB
 PACKAGES += xchain-gdb
 endif
 
-#
-# Paths and names 
-#
-XGDB_VERSION		= 5.3
-XGDB			= gdb-$(XGDB_VERSION)
-XGDB_SUFFIX		= tar.gz
-XGDB_URL		= ftp://ftp.gnu.org/pub/gnu/gdb/$(XGDB).$(XGDB_SUFFIX)
-XGDB_SOURCE		= $(SRCDIR)/$(XGDB).tar.gz
-XGDB_DIR		= $(BUILDDIR)/xchain-$(XGDB)
-XGDB_EXTRACT 		= gzip -dc
+XCHAIN_GDB_BUILDDIR	= $(BUILDDIR)/xchain-$(GDB)-build
 
 # ----------------------------------------------------------------------------
 # Get
@@ -33,13 +24,9 @@ XGDB_EXTRACT 		= gzip -dc
 
 xchain-gdb_get: $(STATEDIR)/xchain-gdb.get
 
-$(STATEDIR)/xchain-gdb.get: $(XGDB_SOURCE)
-	@$(call targetinfo, xchain-gdb.get)
+$(STATEDIR)/xchain-gdb.get: $(gdb_get_deps)
+	@$(call targetinfo, $@)
 	touch $@
-
-$(XGDB_SOURCE):
-	@$(call targetinfo, $(XGDB_SOURCE))
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(XGDB_URL)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,12 +34,7 @@ $(XGDB_SOURCE):
 
 xchain-gdb_extract: $(STATEDIR)/xchain-gdb.extract
 
-$(STATEDIR)/xchain-gdb.extract: $(STATEDIR)/xchain-gdb.get
-	@$(call targetinfo, xchain-gdb.extract)
-	@$(call clean, $(XGDB_DIR))
-	install -d $(XGDB_DIR)
-	cd $(XGDB_DIR) && $(XGDB_EXTRACT) $(XGDB_SOURCE) | $(TAR) -C $(XGDB_DIR) -xf -
-	mv $(XGDB_DIR)/$(XGDB)/* $(XGDB_DIR)
+$(STATEDIR)/xchain-gdb.extract: $(STATEDIR)/gdb.extract
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -64,14 +46,19 @@ xchain-gdb_prepare: $(STATEDIR)/xchain-gdb.prepare
 #
 # autoconf
 #
-XGDB_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
-XGDB_AUTOCONF	+= --build=$(GNU_HOST)
-XGDB_AUTOCONF	+= --host=$(GNU_HOST)
-XGDB_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
+XCHAIN_GDB_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
+XCHAIN_GDB_AUTOCONF	+= --build=$(GNU_HOST)
+XCHAIN_GDB_AUTOCONF	+= --host=$(GNU_HOST)
+XCHAIN_GDB_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
+
+XCHAIN_GDB_ENV		=  $(HOSTCC_ENV)
 
 $(STATEDIR)/xchain-gdb.prepare: $(STATEDIR)/xchain-gdb.extract
-	@$(call targetinfo, xchain-gdb.prepare)
-	cd $(XGDB_DIR) && ./configure $(XGDB_AUTOCONF)
+	@$(call targetinfo, $@)
+	@$(call clean, $(XCHAIN_GDB_BUILDDIR))
+	mkdir -p $(XCHAIN_GDB_BUILDDIR)
+	cd $(XCHAIN_GDB_BUILDDIR) && $(XCHAIN_GDB_ENV) \
+		$(GDB_DIR)/configure $(XCHAIN_GDB_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -81,8 +68,8 @@ $(STATEDIR)/xchain-gdb.prepare: $(STATEDIR)/xchain-gdb.extract
 xchain-gdb_compile: $(STATEDIR)/xchain-gdb.compile
 
 $(STATEDIR)/xchain-gdb.compile: $(STATEDIR)/xchain-gdb.prepare 
-	@$(call targetinfo, xchain-gdb.compile)
-	cd $(XGDB_DIR) && make 
+	@$(call targetinfo, $@)
+	make -C $(XCHAIN_GDB_BUILDDIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -92,8 +79,8 @@ $(STATEDIR)/xchain-gdb.compile: $(STATEDIR)/xchain-gdb.prepare
 xchain-gdb_install: $(STATEDIR)/xchain-gdb.install
 
 $(STATEDIR)/xchain-gdb.install: $(STATEDIR)/xchain-gdb.compile
-	@$(call targetinfo, xchain-gdb.install)
-	cd $(XGDB_DIR) && make install
+	@$(call targetinfo, $@)
+	make -C $(XCHAIN_GDB_BUILDDIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -103,7 +90,7 @@ $(STATEDIR)/xchain-gdb.install: $(STATEDIR)/xchain-gdb.compile
 xchain-gdb_targetinstall: $(STATEDIR)/xchain-gdb.targetinstall
 
 $(STATEDIR)/xchain-gdb.targetinstall: $(STATEDIR)/xchain-gdb.install
-	@$(call targetinfo, xchain-gdb.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -111,6 +98,6 @@ $(STATEDIR)/xchain-gdb.targetinstall: $(STATEDIR)/xchain-gdb.install
 # ----------------------------------------------------------------------------
 
 xchain-gdb_clean: 
-	rm -rf $(STATEDIR)/xchain-gdb.* $(XGDB_DIR)
+	rm -rf $(STATEDIR)/xchain-gdb.* $(XCHAIN_GDB_BUILDDIR)
 
 # vim: syntax=make

@@ -140,6 +140,7 @@ comment "Authentication types, at least one required --- RFC Draft requires pubk
 config DROPBEAR_PASSWD
 	bool
 	prompt "password"
+	default y
 	depends on DROPBEAR
 
 config DROPBEAR_PUBKEY

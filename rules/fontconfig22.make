@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: fontconfig22.make,v 1.1 2003/08/17 00:34:18 robert Exp $
+# $Id: fontconfig22.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#             Pengutronix <info@pengutronix.de>, Germany
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+#                       Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -36,11 +36,11 @@ fontconfig22_get: $(STATEDIR)/fontconfig22.get
 fontconfig22_get_deps	=  $(FONTCONFIG22_SOURCE)
 
 $(STATEDIR)/fontconfig22.get: $(fontconfig22_get_deps)
-	@$(call targetinfo, fontconfig22.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(FONTCONFIG22_SOURCE):
-	@$(call targetinfo, $(FONTCONFIG22_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(FONTCONFIG22_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,13 +52,13 @@ fontconfig22_extract: $(STATEDIR)/fontconfig22.extract
 fontconfig22_extract_deps	=  $(STATEDIR)/fontconfig22.get
 
 $(STATEDIR)/fontconfig22.extract: $(fontconfig22_extract_deps)
-	@$(call targetinfo, fontconfig22.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(FONTCONFIG22_DIR))
 	@$(call extract, $(FONTCONFIG22_SOURCE))
-	# FIXME: src/Makefile tries to link in the host's libfreetype;
-	# this is a workaround but not a real solution.
-	# perl -i -p -e 's,-rpath ..libdir.,-L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib,g' $(FONTCONFIG22_DIR)/src/Makefile.in
-	# (workaround does not work yet :-( ) 
+# FIXME: src/Makefile tries to link in the host's libfreetype;
+# this is a workaround but not a real solution.
+# 	perl -i -p -e 's,-rpath ..libdir.,-L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib,g' $(FONTCONFIG22_DIR)/src/Makefile.in
+# (workaround does not work yet :-( ) 
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -75,7 +75,7 @@ fontconfig22_prepare_deps =  \
 	$(STATEDIR)/glib22.install \
 	$(STATEDIR)/expat.install \
 	$(STATEDIR)/freetype214.install \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 FONTCONFIG22_PATH	=  PATH=$(CROSS_PATH)
 FONTCONFIG22_ENV 	=  $(CROSS_ENV)
@@ -100,7 +100,7 @@ FONTCONFIG22_AUTOCONF	+= --enable-foo
 endif
 
 $(STATEDIR)/fontconfig22.prepare: $(fontconfig22_prepare_deps)
-	@$(call targetinfo, fontconfig22.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(FONTCONFIG22_BUILDDIR))
 	cd $(FONTCONFIG22_DIR) && \
 		$(FONTCONFIG22_PATH) $(FONTCONFIG22_ENV) \
@@ -116,8 +116,8 @@ fontconfig22_compile: $(STATEDIR)/fontconfig22.compile
 fontconfig22_compile_deps =  $(STATEDIR)/fontconfig22.prepare
 
 $(STATEDIR)/fontconfig22.compile: $(fontconfig22_compile_deps)
-	@$(call targetinfo, fontconfig22.compile)
-	# FIXME: uggly hack to fix wrongly detected libfreetype.la path
+	@$(call targetinfo, $@)
+# FIXME: uggly hack to fix wrongly detected libfreetype.la path
 	- $(FONTCONFIG22_PATH) make -C $(FONTCONFIG22_DIR)
 	cd $(FONTCONFIG22_DIR)/src && \
 		perl -i -p -e "s,/usr/lib/libfreetype.la,$(FREETYPE214_DIR)/objs/libfreetype.la,g" libfontconfig.la
@@ -131,7 +131,7 @@ $(STATEDIR)/fontconfig22.compile: $(fontconfig22_compile_deps)
 fontconfig22_install: $(STATEDIR)/fontconfig22.install
 
 $(STATEDIR)/fontconfig22.install: $(STATEDIR)/fontconfig22.compile
-	@$(call targetinfo, fontconfig22.install)
+	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/$(PTXCONF_GNU_TARGET)/lib/libfontconfig.so*
 	install $(FONTCONFIG22_DIR)/src/.libs/libfontconfig.so.1.0.4 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/
@@ -150,7 +150,7 @@ fontconfig22_targetinstall: $(STATEDIR)/fontconfig22.targetinstall
 fontconfig22_targetinstall_deps	=  $(STATEDIR)/fontconfig22.compile
 
 $(STATEDIR)/fontconfig22.targetinstall: $(fontconfig22_targetinstall_deps)
-	@$(call targetinfo, fontconfig22.targetinstall)
+	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)
 	rm -f $(ROOTDIR)/lib/libfontconfig.so*
 	install $(FONTCONFIG22_DIR)/src/.libs/libfontconfig.so.1.0.4 $(ROOTDIR)/lib/

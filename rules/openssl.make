@@ -1,17 +1,19 @@
 # -*-makefile-*-
-# $Id: openssl.make,v 1.7 2003/07/16 04:23:28 mkl Exp $
+# $Id: openssl.make,v 1.8 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
+#               2003 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-ifeq (y,$(PTXCONF_OPENSSL))
+ifdef PTXCONF_OPENSSL
 PACKAGES += openssl
 endif
 
@@ -38,7 +40,9 @@ endif
 ifeq (y,$(PTXCONF_ARCH_PPC))
     THUD = linux-ppc
 endif
-
+ifeq (y,$(PTXCONF_ARCH_SPARC))
+    THUD = linux-sparcv7
+endif
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -46,11 +50,11 @@ endif
 openssl_get: $(STATEDIR)/openssl.get
 
 $(STATEDIR)/openssl.get: $(OPENSSL_SOURCE)
-	@$(call targetinfo, openssl.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(OPENSSL_SOURCE):
-	@$(call targetinfo, $(OPENSSL_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(OPENSSL_URL))
 
 # ----------------------------------------------------------------------------
@@ -60,9 +64,10 @@ $(OPENSSL_SOURCE):
 openssl_extract: $(STATEDIR)/openssl.extract
 
 $(STATEDIR)/openssl.extract: $(STATEDIR)/openssl.get
-	@$(call targetinfo, openssl.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(OPENSSL_DIR))
 	@$(call extract, $(OPENSSL_SOURCE))
+	perl -p -i -e 's/-m486//' $(OPENSSL_DIR)/Configure
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -79,12 +84,21 @@ openssl_prepare_deps =  \
 OPENSSL_PATH	= PATH=$(CROSS_PATH)
 OPENSSL_MAKEVARS= $(CROSS_ENV_CC) $(CROSS_ENV_RANLIB) AR='$(PTXCONF_GNU_TARGET)-ar r'
 
+OPENSSL_AUTOCONF = \
+	--prefix=/usr \
+#	--openssldir=/etc/ssl
+
+ifdef PTXCONF_OPENSSL_SHARED
+OPENSSL_AUTOCONF	+= shared
+else
+OPENSSL_AUTOCONF	+= no-shared
+endif
+
 $(STATEDIR)/openssl.prepare: $(openssl_prepare_deps)
-	@$(call targetinfo, openssl.prepare)
-	perl -p -i -e 's/-m486//' $(OPENSSL_DIR)/Configure
+	@$(call targetinfo, $@)
 	cd $(OPENSSL_DIR) && \
 		$(OPENSSL_PATH) \
-		./Configure $(THUD) --prefix=$(CROSS_LIB_DIR) no-shared
+		./Configure $(THUD) $(OPENSSL_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -94,7 +108,7 @@ $(STATEDIR)/openssl.prepare: $(openssl_prepare_deps)
 openssl_compile: $(STATEDIR)/openssl.compile
 
 $(STATEDIR)/openssl.compile: $(STATEDIR)/openssl.prepare 
-	@$(call targetinfo, openssl.compile)
+	@$(call targetinfo, $@)
 	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) $(OPENSSL_MAKEVARS)
 	touch $@
 
@@ -105,8 +119,8 @@ $(STATEDIR)/openssl.compile: $(STATEDIR)/openssl.prepare
 openssl_install: $(STATEDIR)/openssl.install
 
 $(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
-	@$(call targetinfo, openssl.install)
-	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) install  $(OPENSSL_MAKEVARS)
+	@$(call targetinfo, $@)
+	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) install $(OPENSSL_MAKEVARS) INSTALL_PREFIX=$(CROSS_LIB_DIR) INSTALLTOP=''
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -116,8 +130,7 @@ $(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
 openssl_targetinstall: $(STATEDIR)/openssl.targetinstall
 
 $(STATEDIR)/openssl.targetinstall: $(STATEDIR)/openssl.install
-	@$(call targetinfo, openssl.targetinstall)
-	echo NO TARGET INSTALL FOR STATIC LIBS
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: pdksh.make,v 1.8 2003/08/29 19:05:15 mkl Exp $
+# $Id: pdksh.make,v 1.9 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
-# (c) 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+# Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -32,11 +32,11 @@ PDKSH_EXTRACT 		= gzip -dc
 pdksh_get: $(STATEDIR)/pdksh.get
 
 $(STATEDIR)/pdksh.get: $(PDKSH_SOURCE)
-	@$(call targetinfo, pdksh.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(PDKSH_SOURCE):
-	@$(call targetinfo, $(PDKSH_SOURCE))
+	@$(call targetinfo, $@)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(PDKSH_URL)
 
 # ----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ $(PDKSH_SOURCE):
 pdksh_extract: $(STATEDIR)/pdksh.extract
 
 $(STATEDIR)/pdksh.extract: $(STATEDIR)/pdksh.get
-	@$(call targetinfo, pdksh.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(PDKSH_DIR))
 	$(PDKSH_EXTRACT) $(PDKSH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
@@ -115,7 +115,7 @@ pdksh_prepare_deps =  $(STATEDIR)/pdksh.extract
 pdksh_prepare_deps += $(STATEDIR)/virtual-xchain.install
 
 $(STATEDIR)/pdksh.prepare: $(pdksh_prepare_deps)
-	@$(call targetinfo, pdksh.prepare)
+	@$(call targetinfo, $@)
 	mkdir -p $(BUILDDIR)/$(PDKSH)
 	cd $(PDKSH_DIR) && \
 		$(PDKSH_PATH) $(PDKSH_ENV) \
@@ -131,7 +131,7 @@ pdksh_compile_deps = $(STATEDIR)/pdksh.prepare
 pdksh_compile: $(STATEDIR)/pdksh.compile
 
 $(STATEDIR)/pdksh.compile: $(STATEDIR)/pdksh.prepare 
-	@$(call targetinfo, pdksh.compile)
+	@$(call targetinfo, $@)
 	$(PDKSH_PATH) make -C $(PDKSH_DIR)
 	touch $@
 
@@ -142,7 +142,7 @@ $(STATEDIR)/pdksh.compile: $(STATEDIR)/pdksh.prepare
 pdksh_install: $(STATEDIR)/pdksh.install
 
 $(STATEDIR)/pdksh.install: $(STATEDIR)/pdksh.compile
-	@$(call targetinfo, pdksh.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -152,10 +152,10 @@ $(STATEDIR)/pdksh.install: $(STATEDIR)/pdksh.compile
 pdksh_targetinstall: $(STATEDIR)/pdksh.targetinstall
 
 $(STATEDIR)/pdksh.targetinstall: $(STATEDIR)/pdksh.install
-	@$(call targetinfo, pdksh.targetinstall)
+	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/bin
 	install $(PDKSH_DIR)/ksh $(ROOTDIR)/bin
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/bin/ksh
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/ksh
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,10 +1,11 @@
 # -*-makefile-*-
-# $Id: liboop.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
+# $Id: liboop.make,v 1.5 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -31,11 +32,11 @@ LIBOOP_EXTRACT		= gzip -dc
 liboop_get: $(STATEDIR)/liboop.get
 
 $(STATEDIR)/liboop.get: $(LIBOOP_SOURCE)
-	@$(call targetinfo, liboop.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(LIBOOP_SOURCE):
-	@$(call targetinfo, $(LIBOOP_SOURCES))
+	@$(call targetinfo, $@)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(LIBOOP_URL)
 
 # ----------------------------------------------------------------------------
@@ -50,7 +51,7 @@ LIBOOP_USE_AUTOCONF   = autoconf
 LIBOOP_USE_AUTOMAKE   = automake
 
 $(STATEDIR)/liboop.extract: $(STATEDIR)/liboop.get
-	@$(call targetinfo, liboop.extract)
+	@$(call targetinfo, $@)
 	$(LIBOOP_EXTRACT) $(LIBOOP_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	# 
 	# we have to add a switch to disable tcl
@@ -82,7 +83,7 @@ LIBOOP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)
 LIBOOP_AUTOCONF += --without-tcl
 
 $(STATEDIR)/liboop.prepare: $(STATEDIR)/liboop.extract
-	@$(call targetinfo, liboop.prepare)
+	@$(call targetinfo, $@)
 	cd $(LIBOOP_DIR) &&						\
 		PATH=$(PTXCONF_PREFIX)/bin:$$PATH ./configure $(LIBOOP_AUTOCONF)
 	touch $@
@@ -94,7 +95,7 @@ $(STATEDIR)/liboop.prepare: $(STATEDIR)/liboop.extract
 liboop_compile: $(STATEDIR)/liboop.compile
 
 $(STATEDIR)/liboop.compile: $(STATEDIR)/liboop.prepare 
-	@$(call targetinfo, liboop.compile)
+	@$(call targetinfo, $@)
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(LIBOOP_DIR)
 	touch $@
 
@@ -105,7 +106,7 @@ $(STATEDIR)/liboop.compile: $(STATEDIR)/liboop.prepare
 liboop_install: $(STATEDIR)/liboop.install
 
 $(STATEDIR)/liboop.install: $(STATEDIR)/liboop.compile
-	@$(call targetinfo, liboop.install)
+	@$(call targetinfo, $@)
 	# FIXME: this doesn't work when using local bin dir
 	make -C $(LIBOOP_DIR) install
 	touch $@
@@ -117,7 +118,7 @@ $(STATEDIR)/liboop.install: $(STATEDIR)/liboop.compile
 liboop_targetinstall: $(STATEDIR)/liboop.targetinstall
 
 $(STATEDIR)/liboop.targetinstall: $(STATEDIR)/liboop.install
-	@$(call targetinfo, liboop.targetinstall)
+	@$(call targetinfo, $@)
 	# FIXME: the other liboop libraries should optionally be installed 
 	# we want to preserve links, so we cannot use install
 	cp -d $(PTXCONF_PREFIX)/lib/liboop.so* $(ROOTDIR)/lib/

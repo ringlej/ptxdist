@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: lrzsz.make,v 1.1 2003/08/13 12:04:17 robert Exp $
+# $Id: lrzsz.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#             Pengutronix <info@pengutronix.de>, Germany
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+#                       Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -36,11 +36,11 @@ lrzsz_get: $(STATEDIR)/lrzsz.get
 lrzsz_get_deps	=  $(LSZRZ_SOURCE)
 
 $(STATEDIR)/lrzsz.get: $(lrzsz_get_deps)
-	@$(call targetinfo, lrzsz.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(LSZRZ_SOURCE):
-	@$(call targetinfo, $(LSZRZ_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(LSZRZ_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ lrzsz_extract: $(STATEDIR)/lrzsz.extract
 lrzsz_extract_deps	=  $(STATEDIR)/lrzsz.get
 
 $(STATEDIR)/lrzsz.extract: $(lrzsz_extract_deps)
-	@$(call targetinfo, lrzsz.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LSZRZ_DIR))
 	@$(call extract, $(LSZRZ_SOURCE))
 	touch $@
@@ -68,7 +68,7 @@ lrzsz_prepare: $(STATEDIR)/lrzsz.prepare
 #
 lrzsz_prepare_deps =  \
 	$(STATEDIR)/lrzsz.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 LSZRZ_PATH	=  PATH=$(CROSS_PATH)
 LSZRZ_ENV 	=  $(CROSS_ENV)
@@ -82,7 +82,7 @@ LSZRZ_AUTOCONF	+= --build=$(GNU_HOST)
 LSZRZ_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/lrzsz.prepare: $(lrzsz_prepare_deps)
-	@$(call targetinfo, lrzsz.prepare)
+	@$(call targetinfo, $@)
 	cd $(LSZRZ_DIR) && \
 		$(LSZRZ_PATH) $(LSZRZ_ENV) \
 		./configure $(LSZRZ_AUTOCONF)
@@ -97,7 +97,7 @@ lrzsz_compile: $(STATEDIR)/lrzsz.compile
 lrzsz_compile_deps =  $(STATEDIR)/lrzsz.prepare
 
 $(STATEDIR)/lrzsz.compile: $(lrzsz_compile_deps)
-	@$(call targetinfo, lrzsz.compile)
+	@$(call targetinfo, $@)
 	$(LSZRZ_PATH) make -C $(LSZRZ_DIR)
 	touch $@
 
@@ -108,7 +108,7 @@ $(STATEDIR)/lrzsz.compile: $(lrzsz_compile_deps)
 lrzsz_install: $(STATEDIR)/lrzsz.install
 
 $(STATEDIR)/lrzsz.install: $(STATEDIR)/lrzsz.compile
-	@$(call targetinfo, lrzsz.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -120,7 +120,7 @@ lrzsz_targetinstall: $(STATEDIR)/lrzsz.targetinstall
 lrzsz_targetinstall_deps	=  $(STATEDIR)/lrzsz.compile
 
 $(STATEDIR)/lrzsz.targetinstall: $(lrzsz_targetinstall_deps)
-	@$(call targetinfo, lrzsz.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

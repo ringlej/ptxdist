@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: dropbear.make,v 1.5 2003/08/29 19:05:15 mkl Exp $
+# $Id: dropbear.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
-#             for Pengutronix e.K. <info@pengutronix.de>, Germany
+# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
+#                       Pengutronix e.K. <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -36,11 +36,11 @@ dropbear_get: $(STATEDIR)/dropbear.get
 dropbear_get_deps	=  $(DROPBEAR_SOURCE)
 
 $(STATEDIR)/dropbear.get: $(dropbear_get_deps)
-	@$(call targetinfo, dropbear.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(DROPBEAR_SOURCE):
-	@$(call targetinfo, $(DROPBEAR_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(DROPBEAR_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ dropbear_extract: $(STATEDIR)/dropbear.extract
 dropbear_extract_deps	=  $(STATEDIR)/dropbear.get
 
 $(STATEDIR)/dropbear.extract: $(dropbear_extract_deps)
-	@$(call targetinfo, dropbear.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(DROPBEAR_DIR))
 	@$(call extract, $(DROPBEAR_SOURCE))
 	touch $@
@@ -130,7 +130,7 @@ DROPBEAR_AUTOCONF	+= --disable-pututxline
 endif
 
 $(STATEDIR)/dropbear.prepare: $(dropbear_prepare_deps)
-	@$(call targetinfo, dropbear.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(DROPBEAR_BUILDDIR))
 	cd $(DROPBEAR_DIR) && \
 		$(DROPBEAR_PATH) $(DROPBEAR_ENV) \
@@ -228,7 +228,7 @@ dropbear_compile: $(STATEDIR)/dropbear.compile
 dropbear_compile_deps =  $(STATEDIR)/dropbear.prepare
 
 $(STATEDIR)/dropbear.compile: $(dropbear_compile_deps)
-	@$(call targetinfo, dropbear.compile)
+	@$(call targetinfo, $@)
 	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) dropbear
 ifdef PTXCONF_DROPBEAR_DROPBEAR_KEY
 	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) dropbearkey
@@ -245,7 +245,7 @@ endif
 dropbear_install: $(STATEDIR)/dropbear.install
 
 $(STATEDIR)/dropbear.install: $(STATEDIR)/dropbear.compile
-	@$(call targetinfo, dropbear.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -260,7 +260,7 @@ dropbear_targetinstall_deps	+= $(STATEDIR)/zlib.targetinstall
 endif
 
 $(STATEDIR)/dropbear.targetinstall: $(dropbear_targetinstall_deps)
-	@$(call targetinfo, dropbear.targetinstall)
+	@$(call targetinfo, $@)
 
 	install -d $(ROOTDIR)/usr/bin
 	install -d $(ROOTDIR)/usr/sbin

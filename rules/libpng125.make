@@ -1,12 +1,12 @@
 # -*-makefile-*-
-# $Id: libpng125.make,v 1.1 2003/08/17 00:34:18 robert Exp $
+# $Id: libpng125.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#             Pengutronix <info@pengutronix.de>, Germany
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+#                       Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -36,11 +36,11 @@ libpng125_get: $(STATEDIR)/libpng125.get
 libpng125_get_deps	=  $(LIBPNG125_SOURCE)
 
 $(STATEDIR)/libpng125.get: $(libpng125_get_deps)
-	@$(call targetinfo, libpng125.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(LIBPNG125_SOURCE):
-	@$(call targetinfo, $(LIBPNG125_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(LIBPNG125_URL))
 
 # ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ libpng125_extract: $(STATEDIR)/libpng125.extract
 libpng125_extract_deps	=  $(STATEDIR)/libpng125.get
 
 $(STATEDIR)/libpng125.extract: $(libpng125_extract_deps)
-	@$(call targetinfo, libpng125.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPNG125_DIR))
 	@$(call extract, $(LIBPNG125_SOURCE))
 	touch $@
@@ -68,7 +68,7 @@ libpng125_prepare: $(STATEDIR)/libpng125.prepare
 #
 libpng125_prepare_deps =  \
 	$(STATEDIR)/libpng125.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 LIBPNG125_PATH	=  PATH=$(CROSS_PATH)
 LIBPNG125_ENV 	=  $(CROSS_ENV)
@@ -78,7 +78,7 @@ LIBPNG125_AUTOCONF	+= --enable-foo
 endif
 
 $(STATEDIR)/libpng125.prepare: $(libpng125_prepare_deps)
-	@$(call targetinfo, libpng125.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPNG125_BUILDDIR))
 	cp $(LIBPNG125_DIR)/scripts/makefile.linux $(LIBPNG125_DIR)/Makefile
 	perl -i -p -e "s/CC=/CC?=/g" $(LIBPNG125_DIR)/Makefile
@@ -94,7 +94,7 @@ libpng125_compile_deps =  $(STATEDIR)/libpng125.prepare
 libpng125_compile_deps += $(STATEDIR)/zlib.install
 
 $(STATEDIR)/libpng125.compile: $(libpng125_compile_deps)
-	@$(call targetinfo, libpng125.compile)
+	@$(call targetinfo, $@)
 	$(LIBPNG125_PATH) $(LIBPNG125_ENV) make -C $(LIBPNG125_DIR)
 	touch $@
 
@@ -105,7 +105,7 @@ $(STATEDIR)/libpng125.compile: $(libpng125_compile_deps)
 libpng125_install: $(STATEDIR)/libpng125.install
 
 $(STATEDIR)/libpng125.install: $(STATEDIR)/libpng125.compile
-	@$(call targetinfo, libpng125.install)
+	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	install $(LIBPNG125_DIR)/libpng12.so.0.1.2.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libpng12.so.0.1.2.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpng12.so.0
@@ -124,7 +124,7 @@ libpng125_targetinstall: $(STATEDIR)/libpng125.targetinstall
 libpng125_targetinstall_deps	=  $(STATEDIR)/libpng125.compile
 
 $(STATEDIR)/libpng125.targetinstall: $(libpng125_targetinstall_deps)
-	@$(call targetinfo, libpng125.targetinstall)
+	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/lib
 	install $(LIBPNG125_DIR)/libpng12.so.0.1.2.5 $(ROOTDIR)/lib
 	ln -sf libpng12.so.0.1.2.5 $(ROOTDIR)/lib/libpng12.so.0

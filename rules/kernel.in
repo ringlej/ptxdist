@@ -1,0 +1,863 @@
+config KERNEL_CONFIG
+	string
+	prompt "Name of config in $PTXDIST/config/kernel to be used"
+	default "kernel-2.4.18-" if KERNEL_2_4_18
+	default "kernel-2.4.19-" if KERNEL_2_4_19
+	default "kernel-2.4.20-" if KERNEL_2_4_20
+	default "kernel-2.4.21-" if KERNEL_2_4_21
+	default "kernel-2.4.22-" if KERNEL_2_4_22
+	default "kernel-2.4.23-" if KERNEL_2_4_23
+
+choice 
+	prompt "Kernel Version"
+		default KERNEL_2_4_19
+	
+	config KERNEL_2_4_18
+		bool
+		prompt "2.4.18"
+		depends on !ARCH_ARM_NOMMU
+
+	config KERNEL_2_4_19
+		bool
+		prompt "2.4.19"
+ 
+	config KERNEL_2_4_20
+		bool
+		prompt "2.4.20"
+		depends on ARCH_ARM_NOMMU || ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
+
+	config KERNEL_2_4_21
+		bool
+		prompt "2.4.21"
+		depends on !ARM_ARCH_BE && !ARM_ARCH_PXA
+
+	config KERNEL_2_4_22
+		bool
+		prompt "2.4.22"
+		depends on ARCH_ARM_NOMMU || ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
+endchoice
+
+
+choice
+	prompt "Select flavour"
+
+	config KERNEL_RMK
+		bool "-rmk"
+		depends on ARM_ARCH_LE && !ARM_ARCH_PXA && !ARCH_NOMMU
+
+	config KERNEL_RMK_PXA
+		bool "-rmk-pxa"
+		depends on ARM_ARCH_LE && !ARCH_NOMMU
+
+	config KERNEL_RMK_DS
+		bool "-rmk-ds"
+		depends on ARM_ARCH_BE && !ARCH_NOMMU
+
+	config KERNEL_RMK_PXA_PTX
+		bool "-rmk-pxa-ptx"
+		depends on ARM_ARCH_LE && !ARCH_NOMMU
+
+	config KERNEL_RMK_PXA_PTX_LTT
+		bool "-rmk-pxa-ptx-ltt"
+		depends on ARM_ARCH_LE && !ARCH_NOMMU
+
+	config KERNEL_UC
+		bool "-uc"
+		depends on ARCH_NOMMU
+
+	config KERNEL_BEN
+		bool "-ben"
+		depends on ARCH_PPC
+		depends on !KERNEL_2_4_18 && !KERNEL_2_4_19
+
+	config KERNEL_VANILLA
+		bool "vanilla"
+		depends on !ARCH_ARM && !ARCH_NOMMU
+endchoice
+
+
+
+choice
+	prompt "Select Patch version"
+	depends on !KERNEL_VANILLA
+
+#---------------------------------------------------------------------
+#------------------------------- RMK ---------------------------------
+#---------------------------------------------------------------------
+
+#--------------- 2.4.18
+
+	config KERNEL_2_4_18_rmk7
+		bool "2.4.18-rmk7"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_18_rmk6
+		bool "2.4.18-rmk6"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_18_rmk5
+		bool "2.4.18-rmk5"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_18_rmk4
+		bool "2.4.18-rmk4"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_18_rmk3
+		bool "2.4.18-rmk3"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_18_rmk2
+		bool "2.4.18-rmk2"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_18_rmk1
+		bool "2.4.18-rmk1"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK
+
+
+#--------------- 2.4.19
+
+	config KERNEL_2_4_19_rmk7
+		bool "2.4.19-rmk7"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_19_rmk6
+		bool "2.4.19-rmk6"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_19_rmk5
+		bool "2.4.19-rmk5"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_19_rmk4
+		bool "2.4.19-rmk4"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_19_rmk3
+		bool "2.4.19-rmk3"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_19_rmk2
+		bool "2.4.19-rmk2"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK
+
+	config KERNEL_2_4_19_rmk1
+		bool "2.4.19-rmk1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK
+
+
+#--------------- 2.4.21
+
+	config KERNEL_2_4_21_rmk1
+		bool "2.4.21-rmk1"
+		depends on KERNEL_2_4_21
+		depends on KERNEL_RMK
+
+#---------------------------------------------------------------------
+#------------------------------- RMK-DS ------------------------------
+#---------------------------------------------------------------------
+
+#--------------- 2.4.18-rmk7
+
+	config KERNEL_2_4_18_rmk7_ds3
+		bool "2.4.18-rmk7-ds3"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_DS
+
+	config KERNEL_2_4_18_rmk7_ds2
+		bool "2.4.18-rmk7-ds2"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_DS
+
+	config KERNEL_2_4_18_rmk7_ds1
+		bool "2.4.18-rmk7-ds1"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_DS
+
+#--------------- 2.4.18-rmk6
+
+	config KERNEL_2_4_18_rmk6_ds1
+		bool "2.4.18-rmk6-ds1"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_DS
+
+#--------------- 2.4.18-rmk5
+
+	config KERNEL_2_4_18_rmk5_ds1
+		bool "2.4.18-rmk5-ds1"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_DS
+
+
+
+#--------------- 2.4.19-rmk7
+
+	config KERNEL_2_4_19_rmk7_ds3
+		bool "2.4.19-rmk7-ds3"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_DS
+
+	config KERNEL_2_4_19_rmk7_ds2
+		bool "2.4.19-rmk7-ds2"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_DS
+
+	config KERNEL_2_4_19_rmk7_ds1
+		bool "2.4.19-rmk7-ds1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_DS
+
+#--------------- 2.4.19-rmk6
+
+	config KERNEL_2_4_19_rmk6_ds2
+		bool "2.4.19-rmk6-ds2"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_DS
+
+	config KERNEL_2_4_19_rmk6_ds1
+		bool "2.4.19-rmk6-ds1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_DS
+
+#--------------- 2.4.19-rmk4
+
+	config KERNEL_2_4_19_rmk4_ds2
+		bool "2.4.19-rmk4-ds2"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_DS
+
+	config KERNEL_2_4_19_rmk4_ds1
+		bool "2.4.19-rmk4-ds1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_DS
+
+#---------------------------------------------------------------------
+#------------------------------- RMK-PXA -----------------------------
+#---------------------------------------------------------------------
+
+#--------------- 2.4.18-rmk7
+
+	config KERNEL_2_4_18_rmk7_pxa3
+		bool "2.4.18-rmk7-pxa3"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_PXA
+
+	config KERNEL_2_4_18_rmk7_pxa2
+		bool "2.4.18-rmk7-pxa2"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_PXA
+
+	config KERNEL_2_4_18_rmk7_pxa1
+		bool "2.4.18-rmk7-pxa1"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_PXA
+
+#--------------- 2.4.18-rmk6
+
+	config KERNEL_2_4_18_rmk6_pxa2
+		bool "2.4.18-rmk6-pxa2"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_PXA
+
+	config KERNEL_2_4_18_rmk6_pxa1
+		bool "2.4.18-rmk6-pxa1"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_PXA
+
+#--------------- 2.4.18-rmk5
+
+	config KERNEL_2_4_18_rmk5_pxa1
+		bool "2.4.18-rmk5-pxa1"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_PXA
+
+#--------------- 2.4.18-rmk3
+
+	config KERNEL_2_4_18_rmk3_pxa2
+		bool "2.4.18-rmk3-pxa2"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_PXA
+
+	config KERNEL_2_4_18_rmk3_pxa1
+		bool "2.4.18-rmk3-pxa1"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_PXA
+
+#--------------- 2.4.18-rmk2
+
+	config KERNEL_2_4_18_rmk2_pxa1
+		bool "2.4.18-rmk2-pxa1"
+		depends on KERNEL_2_4_18
+		depends on KERNEL_RMK_PXA
+
+
+
+#--------------- 2.4.19-rmk7
+
+	config KERNEL_2_4_19_rmk7_pxa2
+		bool "2.4.19-rmk7-pxa2"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA
+
+	config KERNEL_2_4_19_rmk7_pxa1
+		bool "2.4.19-rmk7-pxa1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA
+
+#--------------- 2.4.19-rmk6
+
+	config KERNEL_2_4_19_rmk6_pxa1
+		bool "2.4.19-rmk6-pxa1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA
+
+#--------------- 2.4.19-rmk4
+
+	config KERNEL_2_4_19_rmk4_pxa1
+		bool "2.4.19-rmk4-pxa1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA
+
+	config KERNEL_2_4_19_rmk4_pxa2
+		bool "2.4.19-rmk4-pxa2"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA
+
+#--------------- 2.4.19-rmk2
+
+	config KERNEL_2_4_19_rmk2_pxa2
+		bool "2.4.19-rmk2-pxa2"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA
+
+	config KERNEL_2_4_19_rmk2_pxa1
+		bool "2.4.19-rmk2-pxa1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA
+
+#---------------------------------------------------------------------
+#------------------------------- RMK-PXA-PTX -------------------------
+#---------------------------------------------------------------------
+
+	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7
+		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx7"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA_PTX
+
+	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6
+		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx6"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA_PTX
+
+#---------------------------------------------------------------------
+#------------------------------- RMK-PXA-PTX-LTT ---------------------
+#---------------------------------------------------------------------
+
+	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7_ltt1
+		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx7-ltt1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA_PTX_LTT
+
+	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6_ltt1
+		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx6-ltt1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA_PTX_LTT
+
+#---------------------------------------------------------------------
+#------------------------------- UC ----------------------------------
+#---------------------------------------------------------------------
+
+#--------------- 2.4.19
+
+	config KERNEL_2_4_19_uc2
+		bool "2.4.19-uc2"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_UC
+
+	config KERNEL_2_4_19_uc1
+		bool "2.4.19-uc1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_UC
+
+	config KERNEL_2_4_19_uc0
+		bool "2.4.19-uc0"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_UC
+
+#--------------- 2.4.20
+
+	config KERNEL_2_4_20_uc1
+		bool "2.4.20-uc1"
+		depends on KERNEL_2_4_20
+		depends on KERNEL_UC
+
+	config KERNEL_2_4_20_uc0
+		bool "2.4.20-uc0"
+		depends on KERNEL_2_4_20
+		depends on KERNEL_UC
+
+#--------------- 2.4.21
+
+	config KERNEL_2_4_21_uc0
+		bool "2.4.21-uc0"
+		depends on KERNEL_2_4_21
+		depends on KERNEL_UC
+
+#--------------- 2.4.22
+
+	config KERNEL_2_4_22_uc0
+		bool "2.4.22-uc0"
+		depends on KERNEL_2_4_22
+		depends on KERNEL_UC
+
+#---------------------------------------------------------------------
+#------------------------------- BEN ---------------------------------
+#---------------------------------------------------------------------
+
+#--------------- 2.4.20
+
+	config KERNEL_2_4_20_ben10
+		bool "2.4.20-ben10"
+		depends on KERNEL_2_4_20
+		depends on KERNEL_BEN
+
+	config KERNEL_2_4_20_ben9
+		bool "2.4.20-ben9"
+		depends on KERNEL_2_4_20
+		depends on KERNEL_BEN
+
+	config KERNEL_2_4_20_ben8
+		bool "2.4.20-ben8"
+		depends on KERNEL_2_4_20
+		depends on KERNEL_BEN
+
+	config KERNEL_2_4_20_ben7
+		bool "2.4.20-ben7"
+		depends on KERNEL_2_4_20
+		depends on KERNEL_BEN
+
+	config KERNEL_2_4_20_ben6
+		bool "2.4.20-ben6"
+		depends on KERNEL_2_4_20
+		depends on KERNEL_BEN
+
+	config KERNEL_2_4_20_ben5
+		bool "2.4.20-ben5"
+		depends on KERNEL_2_4_20
+		depends on KERNEL_BEN
+
+	config KERNEL_2_4_20_ben4
+		bool "2.4.20-ben4"
+		depends on KERNEL_2_4_20
+		depends on KERNEL_BEN
+
+	config KERNEL_2_4_20_ben3
+		bool "2.4.20-ben3"
+		depends on KERNEL_2_4_20
+		depends on KERNEL_BEN
+
+#--------------- 2.4.21
+
+	config KERNEL_2_4_21_ben3
+		bool "2.4.21-ben3"
+		depends on KERNEL_2_4_21
+		depends on KERNEL_BEN
+
+	config KERNEL_2_4_21_ben2
+		bool "2.4.21-ben2"
+		depends on KERNEL_2_4_21
+		depends on KERNEL_BEN
+
+#--------------- 2.4.22
+
+	config KERNEL_2_4_22_ben2
+		bool "2.4.22-ben2"
+		depends on KERNEL_2_4_22
+		depends on KERNEL_BEN
+
+	config KERNEL_2_4_22_ben1
+		bool "2.4.22-ben1"
+		depends on KERNEL_2_4_22
+		depends on KERNEL_BEN
+endchoice
+
+comment "---"
+
+config RTAI
+	bool "Realtime Extension: RTAI"
+
+config RTAI_CONFIG
+	string
+	depends on RTAI
+	prompt "Name of config in $PTXDIST/config/rtai to be used"
+	default "rtai-24.1.9-"		if RTAI_24_1_9
+	default "rtai-24.1.10-"		if RTAI_24_1_10
+	default "rtai-24.1.11-"		if RTAI_24_1_11
+	default "rtai-24.1.12-"		if RTAI_24_1_12
+	default "rtai-stable-"		if RTAI_CVS_stable
+	default "rtai-testing-"		if RTAI_CVS_testing
+	default "rtai-unstable-"	if RTAI_CVS_unstable
+
+choice
+	prompt "RTAI Version"
+	depends on RTAI
+	default RTAI_24_1_10
+
+	config RTAI_24_1_9
+		bool "24.1.9 "
+
+	config RTAI_24_1_10
+		bool "24.1.10"
+
+	config RTAI_24_1_11
+		bool "24.1.11"
+
+	config RTAI_24_1_12
+		bool "24.1.12"
+
+	config RTAI_CVS_stable
+		bool "CVS stable tree"
+
+	config RTAI_CVS_testing
+		bool "CVS testing tree"
+
+#	config RTAI_CVS_unstable
+#		bool "CVS unstable tree"
+endchoice
+
+
+config RTAI_CVS_DATE
+	string
+	prompt "Date for CVS checkout (blank for HEAD)"
+	depends on RTAI_CVS_stable || RTAI_CVS_testing || RTAI_CVS_unstable
+
+choice
+	prompt "Select RTAI technology"
+	depends on RTAI
+
+#---------------------------------------------------------------------
+#------------------------------- 24.1.9 ------------------------------
+#---------------------------------------------------------------------
+
+	config RTAI_24_1_9_2_4_18_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_18
+		depends on RTAI_24_1_9
+
+#---------------------------------------------------------------------
+#------------------------------- 24.1.10 -----------------------------
+#---------------------------------------------------------------------
+
+#--------------- 2.4.18
+
+	config RTAI_24_1_10_2_4_18_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_18
+		depends on RTAI_24_1_10
+
+	config RTAI_24_1_10_2_4_18_allsoft
+		bool "allsoft"
+		depends on KERNEL_2_4_18
+		depends on RTAI_24_1_10
+
+#--------------- 2.4.19
+
+	config RTAI_24_1_10_2_4_19_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_19
+		depends on RTAI_24_1_10
+
+	config RTAI_24_1_10_2_4_19_allsoft
+		bool "allsoft"
+		depends on KERNEL_2_4_19
+		depends on RTAI_24_1_10
+
+#---------------------------------------------------------------------
+#------------------------------- 24.1.11 -----------------------------
+#---------------------------------------------------------------------
+
+#--------------- 2.4.18
+
+	config RTAI_24_1_11_2_4_18_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_18
+		depends on RTAI_24_1_11
+
+	config RTAI_24_1_11_2_4_18_allsoft
+		bool "allsoft"
+		depends on KERNEL_2_4_18
+		depends on RTAI_24_1_11
+
+#--------------- 2.4.19
+
+	config RTAI_24_1_11_2_4_19_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_19
+		depends on RTAI_24_1_11
+
+	config RTAI_24_1_11_2_4_19_adeos-r6
+		bool "adeos-r6"
+		depends on KERNEL_2_4_19
+		depends on RTAI_24_1_11
+
+	config RTAI_24_1_11_2_4_19_allsoft
+		bool "allsoft"
+		depends on KERNEL_2_4_19
+		depends on RTAI_24_1_11
+
+#--------------- 2.4.20
+
+	config RTAI_24_1_11_2_4_20_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_20
+		depends on RTAI_24_1_11
+
+	config RTAI_24_1_11_2_4_20_adeos-r6
+		bool "adeos-r6"
+		depends on KERNEL_2_4_20
+		depends on RTAI_24_1_11
+
+#---------------------------------------------------------------------
+#------------------------------- 24.1.12 -----------------------------
+#---------------------------------------------------------------------
+
+#--------------- 2.4.18
+
+	config RTAI_24_1_12_2_4_18_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_18
+		depends on RTAI_24_1_12
+
+	config RTAI_24_1_12_2_4_18_allsoft
+		bool "allsoft"
+		depends on KERNEL_2_4_18
+		depends on RTAI_24_1_12
+
+#--------------- 2.4.19
+
+	config RTAI_24_1_12_2_4_19_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_19
+		depends on RTAI_24_1_12
+
+	config RTAI_24_1_12_2_4_19_adeos-r8
+		bool "adeos-r8"
+		depends on KERNEL_2_4_19
+		depends on RTAI_24_1_12
+
+	config RTAI_24_1_12_2_4_19_allsoft
+		bool "allsoft"
+		depends on KERNEL_2_4_19
+		depends on RTAI_24_1_12
+
+#--------------- 2.4.20
+
+	config RTAI_24_1_12_2_4_20_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_20
+		depends on RTAI_24_1_12
+
+	config RTAI_24_1_12_2_4_20_adeos-r8
+		bool "adeos-r8"
+		depends on KERNEL_2_4_20
+		depends on RTAI_24_1_12
+
+#--------------- 2.4.21
+
+	config RTAI_24_1_12_2_4_21_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_21
+		depends on RTAI_24_1_12
+
+	config RTAI_24_1_12_2_4_21_adeos-r8
+		bool "adeos-r8"
+		depends on KERNEL_2_4_21
+		depends on RTAI_24_1_12
+
+#--------------- 2.4.22
+
+	config RTAI_24_1_12_2_4_22_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_22
+		depends on RTAI_24_1_12
+
+	config RTAI_24_1_12_2_4_22_adeos-r8
+		bool "adeos-r8"
+		depends on KERNEL_2_4_22
+		depends on RTAI_24_1_12
+
+#---------------------------------------------------------------------
+#------------------------------- CVS/stable --------------------------
+#---------------------------------------------------------------------
+
+#--------------- 2.4.18
+
+	config RTAI_CVS_stable_2_4_18_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_18
+		depends on RTAI_CVS_stable
+
+	config RTAI_CVS_stable_2_4_18_allsoft
+		bool "allsoft"
+		depends on KERNEL_2_4_18
+		depends on RTAI_CVS_stable
+
+#--------------- 2.4.19
+
+	config RTAI_CVS_stable_2_4_19_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_19
+		depends on RTAI_CVS_stable
+
+	config RTAI_CVS_stable_2_4_19_adeos-r8
+		bool "adeos-r8"
+		depends on KERNEL_2_4_19
+		depends on RTAI_CVS_stable
+
+	config RTAI_CVS_stable_2_4_19_allsoft
+		bool "allsoft"
+		depends on KERNEL_2_4_19
+		depends on RTAI_CVS_stable
+
+#--------------- 2.4.20
+
+	config RTAI_CVS_stable_2_4_20_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_20
+		depends on RTAI_CVS_stable
+
+	config RTAI_CVS_stable_2_4_20_adeos-r8
+		bool "adeos-r8"
+		depends on KERNEL_2_4_20
+		depends on RTAI_CVS_stable
+
+#--------------- 2.4.21
+
+	config RTAI_CVS_stable_2_4_21_adeos-r8
+		bool "adeos-r8"
+		depends on KERNEL_2_4_21
+		depends on RTAI_CVS_stable
+
+#---------------------------------------------------------------------
+#------------------------------- CVS/testing -------------------------
+#---------------------------------------------------------------------
+
+#--------------- 2.4.18
+
+	config RTAI_CVS_testing_2_4_18_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_18
+		depends on RTAI_CVS_testing
+
+	config RTAI_CVS_testing_2_4_18_allsoft
+		bool "allsoft"
+		depends on KERNEL_2_4_18
+		depends on RTAI_CVS_testing
+
+#--------------- 2.4.19
+
+	config RTAI_CVS_testing_2_4_19_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_19
+		depends on RTAI_CVS_testing
+
+	config RTAI_CVS_testing_2_4_19_adeos-r8
+		bool "adeos-r8"
+		depends on KERNEL_2_4_19
+		depends on RTAI_CVS_testing
+
+	config RTAI_CVS_testing_2_4_19_allsoft
+		bool "allsoft"
+		depends on KERNEL_2_4_19
+		depends on RTAI_CVS_testing
+
+#--------------- 2.4.20
+
+	config RTAI_CVS_testing_2_4_20_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_20
+		depends on RTAI_CVS_testing
+
+	config RTAI_CVS_testing_2_4_20_adeos-r8
+		bool "adeos-r8"
+		depends on KERNEL_2_4_20
+		depends on RTAI_CVS_testing
+
+#--------------- 2.4.21
+
+	config RTAI_CVS_testing_2_4_21_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_21
+		depends on RTAI_CVS_testing
+
+	config RTAI_CVS_testing_2_4_21_adeos-r8
+		bool "adeos-r8"
+		depends on KERNEL_2_4_21
+		depends on RTAI_CVS_testing
+
+#--------------- 2.4.22
+
+	config RTAI_CVS_testing_2_4_22_rthal5g
+		bool "rthal5g"
+		depends on KERNEL_2_4_22
+		depends on RTAI_CVS_testing
+
+	config RTAI_CVS_testing_2_4_21_adeos-r9c2
+		bool "adeos-r9c2"
+		depends on KERNEL_2_4_22
+		depends on RTAI_CVS_testing
+endchoice
+	
+comment "---"
+
+config DONT_COMPILE_KERNEL
+	bool
+	prompt "Don't compile kernel"
+	default n
+
+choice
+	prompt "Kernel Image"
+	default KERNEL_IMAGE_BZ
+	depends on !DONT_COMPILE_KERNEL
+
+	config KERNEL_IMAGE_BZ
+		bool
+		prompt "bzImage"
+		depends on ARCH_X86
+		
+	config KERNEL_IMAGE_Z
+		bool
+		prompt "zImage"
+		depends on ARCH_X86
+
+	config KERNEL_IMAGE_U
+		bool
+		prompt "uImage"
+		depends on ARCH_ARM
+
+	config KERNEL_IMAGE_VMLINUX
+		bool
+		prompt "vmlinux"
+endchoice
+
+
+config KERNEL_INSTALL
+	bool
+	prompt "Install kernel into /boot on target"
+	default n
+	depends on !DONT_COMPILE_KERNEL

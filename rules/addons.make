@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: addons.make,v 1.1 2003/09/02 14:10:22 robert Exp $
+# $Id: addons.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -25,7 +25,7 @@ ADDONS_DIR		= $(TOPDIR)/addons
 addons_get: $(STATEDIR)/addons.get
 
 $(STATEDIR)/addons.get:
-	@$(call targetinfo, addons.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ $(STATEDIR)/addons.get:
 addons_extract: $(STATEDIR)/addons.extract
 
 $(STATEDIR)/addons.extract: $(STATEDIR)/addons.get
-	@$(call targetinfo, addons.extract)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -45,7 +45,7 @@ $(STATEDIR)/addons.extract: $(STATEDIR)/addons.get
 addons_prepare: $(STATEDIR)/addons.prepare
 
 $(STATEDIR)/addons.prepare: $(STATEDIR)/addons.extract
-	@$(call targetinfo, addons.prepare)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -55,7 +55,7 @@ $(STATEDIR)/addons.prepare: $(STATEDIR)/addons.extract
 addons_compile: $(STATEDIR)/addons.compile
 
 $(STATEDIR)/addons.compile: $(STATEDIR)/addons.prepare
-	@$(call targetinfo, addons.compile)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ $(STATEDIR)/addons.compile: $(STATEDIR)/addons.prepare
 addons_install: $(STATEDIR)/addons.install
 
 $(STATEDIR)/addons.install: $(STATEDIR)/addons.compile
-	@$(call targetinfo, addons.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -77,7 +77,7 @@ addons_targetinstall: $(STATEDIR)/addons.targetinstall
 addons_targetinstall_deps	=  $(STATEDIR)/addons.compile
 
 $(STATEDIR)/addons.targetinstall: $(addons_targetinstall_deps)
-	@$(call targetinfo, addons.targetinstall)
+	@$(call targetinfo, $@)
 	@cd $(ROOTDIR) && 					\
 		for i in $(ADDONS_DIR)/*.tar.gz; do 		\
 			echo "Adding stuff from $$i...";	\

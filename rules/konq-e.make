@@ -1,11 +1,11 @@
 # -*-makefile-*-
-# $Id: konq-e.make,v 1.1 2003/08/26 13:20:12 robert Exp $
+# $Id: konq-e.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -35,11 +35,11 @@ konq-e_get: $(STATEDIR)/konq-e.get
 konq-e_get_deps	=  $(KONQ-E_SOURCE)
 
 $(STATEDIR)/konq-e.get: $(konq-e_get_deps)
-	@$(call targetinfo, konq-e.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(KONQ-E_SOURCE):
-	@$(call targetinfo, $(KONQ-E_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(KONQ-E_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ konq-e_extract: $(STATEDIR)/konq-e.extract
 konq-e_extract_deps	=  $(STATEDIR)/konq-e.get
 
 $(STATEDIR)/konq-e.extract: $(konq-e_extract_deps)
-	@$(call targetinfo, konq-e.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(KONQ-E_DIR))
 	@$(call extract, $(KONQ-E_SOURCE))
 	touch $@
@@ -67,7 +67,7 @@ konq-e_prepare: $(STATEDIR)/konq-e.prepare
 #
 konq-e_prepare_deps =  \
 	$(STATEDIR)/konq-e.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 KONQ-E_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 KONQ-E_ENV 	=  $(CROSS_ENV)
@@ -84,7 +84,7 @@ KONQ-E_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 #KONQ-E_AUTOCONF	+= 
 
 $(STATEDIR)/konq-e.prepare: $(konq-e_prepare_deps)
-	@$(call targetinfo, konq-e.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(KONQ-E_BUILDDIR))
 	cd $(KONQ-E_DIR) && \
 		$(KONQ-E_PATH) $(KONQ-E_ENV) \
@@ -100,7 +100,7 @@ konq-e_compile: $(STATEDIR)/konq-e.compile
 konq-e_compile_deps =  $(STATEDIR)/konq-e.prepare
 
 $(STATEDIR)/konq-e.compile: $(konq-e_compile_deps)
-	@$(call targetinfo, konq-e.compile)
+	@$(call targetinfo, $@)
 	$(KONQ-E_PATH) $(KONQ-E_ENV) make -C $(KONQ-E_DIR)
 	touch $@
 
@@ -111,7 +111,7 @@ $(STATEDIR)/konq-e.compile: $(konq-e_compile_deps)
 konq-e_install: $(STATEDIR)/konq-e.install
 
 $(STATEDIR)/konq-e.install: $(STATEDIR)/konq-e.compile
-	@$(call targetinfo, konq-e.install)
+	@$(call targetinfo, $@)
 	$(KONQ-E_PATH) $(KONQ-E_ENV) make -C $(KONQ-E_DIR) install
 	touch $@
 
@@ -124,7 +124,7 @@ konq-e_targetinstall: $(STATEDIR)/konq-e.targetinstall
 konq-e_targetinstall_deps	=  $(STATEDIR)/konq-e.compile
 
 $(STATEDIR)/konq-e.targetinstall: $(konq-e_targetinstall_deps)
-	@$(call targetinfo, konq-e.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

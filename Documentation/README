@@ -20,4 +20,13 @@ the kernel is started. PTXdist takes care of changes in the kernels
 .config files, it is copied from and to the specified config file.
 
 
+Developement - new Packets
+--------------------------
 
+When adding a new packet to ptxdist which requires a patch, you'd like
+to use $(call get_patches) and $(call patchin), but you can't, because
+the patch isn't in the public repository yet.
+
+So, here's a patch against 'ptxdist-testing-20031001-1.tar.bz2' that
+adds a local repository called patches-local; patches in there are
+applied after those from the public repository.

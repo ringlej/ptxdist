@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: autoconf-2.57.make,v 1.3 2003/07/16 04:23:28 mkl Exp $
+# $Id: autoconf-2.57.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -28,11 +28,11 @@ AUTOCONF257_DIR			= $(BUILDDIR)/$(AUTOCONF257)
 autoconf257_get: $(STATEDIR)/autoconf257.get
 
 $(STATEDIR)/autoconf257.get: $(AUTOCONF257_SOURCE)
-	@$(call targetinfo, autoconf257.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(AUTOCONF257_SOURCE):
-	@$(call targetinfo, $(AUTOCONF257_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(AUTOCONF257_URL))
 
 # ----------------------------------------------------------------------------
@@ -42,7 +42,7 @@ $(AUTOCONF257_SOURCE):
 autoconf257_extract: $(STATEDIR)/autoconf257.extract
 
 $(STATEDIR)/autoconf257.extract: $(STATEDIR)/autoconf257.get
-	@$(call targetinfo, autoconf257.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(AUTOCONF257_DIR))
 	@$(call extract, $(AUTOCONF257_SOURCE))
 	touch $@
@@ -56,7 +56,7 @@ autoconf257_prepare: $(STATEDIR)/autoconf257.prepare
 AUTOCONF257_ENV = $(HOSTCC_ENV)
 
 $(STATEDIR)/autoconf257.prepare: $(STATEDIR)/autoconf257.extract
-	@$(call targetinfo, autoconf257.prepare)
+	@$(call targetinfo, $@)
 	cd $(AUTOCONF257_DIR) && \
 		$(AUTOCONF257_ENV) \
 		./configure --prefix=$(PTXCONF_PREFIX)/$(AUTOCONF257)
@@ -69,7 +69,7 @@ $(STATEDIR)/autoconf257.prepare: $(STATEDIR)/autoconf257.extract
 autoconf257_compile: $(STATEDIR)/autoconf257.compile
 
 $(STATEDIR)/autoconf257.compile: $(STATEDIR)/autoconf257.prepare 
-	@$(call targetinfo, autoconf257.compile)
+	@$(call targetinfo, $@)
 	make -C $(AUTOCONF257_DIR)
 	touch $@
 
@@ -80,7 +80,7 @@ $(STATEDIR)/autoconf257.compile: $(STATEDIR)/autoconf257.prepare
 autoconf257_install: $(STATEDIR)/autoconf257.install
 
 $(STATEDIR)/autoconf257.install: $(STATEDIR)/autoconf257.compile
-	@$(call targetinfo, autoconf257.install)
+	@$(call targetinfo, $@)
 	make -C $(AUTOCONF257_DIR) install
 	touch $@
 
@@ -91,7 +91,7 @@ $(STATEDIR)/autoconf257.install: $(STATEDIR)/autoconf257.compile
 autoconf257_targetinstall: $(STATEDIR)/autoconf257.targetinstall
 
 $(STATEDIR)/autoconf257.targetinstall: $(STATEDIR)/autoconf257.install
-	@$(call targetinfo, autoconf257.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,10 +1,10 @@
 # -*-makefile-*-
-# $Id: flash.make,v 1.2 2003/08/08 16:28:17 robert Exp $
+# $Id: flash.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
@@ -40,15 +40,15 @@ flash_get_deps	=  $(FLASH_SOURCE)
 flash_get_deps	+= $(FLASH_PATCH_SOURCE)
 
 $(STATEDIR)/flash.get: $(flash_get_deps)
-	@$(call targetinfo, flash.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(FLASH_SOURCE):
-	@$(call targetinfo, $(FLASH_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(FLASH_URL))
 
 $(FLASH_PATCH_SOURCE):
-	@$(call targetinfo, $(FLASH_PATCH))
+	@$(call targetinfo, $@)
 	@$(call get, $(FLASH_PATCH_URL))
 
 
@@ -59,7 +59,7 @@ $(FLASH_PATCH_SOURCE):
 flash_extract: $(STATEDIR)/flash.extract
 
 $(STATEDIR)/flash.extract: $(STATEDIR)/flash.get
-	@$(call targetinfo, flash.extract)
+	@$(call targetinfo, $@)
 	$(FLASH_EXTRACT) $(FLASH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	cd $(FLASH_DIR) && patch -p1 < $(FLASH_PATCH_SOURCE)
 	touch $@
@@ -92,12 +92,12 @@ FLASH_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 FLASH_AUTOCONF	+= --with-ncurses-path=$(BUILDDIR)/ncurses-5.2
 
 $(STATEDIR)/flash.prepare: $(flash_prepare_deps)
-	@$(call targetinfo, flash.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(FLASH_BUILDDIR))
 	mkdir -p $(FLASH_DIR)
 	rm -f $(FLASH_DIR)/configure
 	cd $(FLASH_DIR) && autoconf
-	# Workaround for broken autoconf magic for cross compilation
+#	# Workaround for broken autoconf magic for cross compilation
 	cd $(FLASH_DIR) && \
 		ac_cv_func_getpgrp_void=yes	\
 		ac_cv_func_setpgrp_void=yes	\
@@ -114,7 +114,7 @@ $(STATEDIR)/flash.prepare: $(flash_prepare_deps)
 flash_compile: $(STATEDIR)/flash.compile
 
 $(STATEDIR)/flash.compile: $(STATEDIR)/flash.prepare 
-	@$(call targetinfo, flash.compile)
+	@$(call targetinfo, $@)
 	$(FLASH_PATH) make -C $(FLASH_DIR)
 	touch $@
 
@@ -125,7 +125,7 @@ $(STATEDIR)/flash.compile: $(STATEDIR)/flash.prepare
 flash_install: $(STATEDIR)/flash.install
 
 $(STATEDIR)/flash.install: $(STATEDIR)/flash.compile
-	@$(call targetinfo, flash.install)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -135,7 +135,7 @@ $(STATEDIR)/flash.install: $(STATEDIR)/flash.compile
 flash_targetinstall: $(STATEDIR)/flash.targetinstall
 
 $(STATEDIR)/flash.targetinstall: $(STATEDIR)/flash.install
-	@$(call targetinfo, flash.targetinstall)
+	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/usr/bin
 	install $(FLASH_DIR)/flash $(ROOTDIR)/usr/bin
 	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/flash

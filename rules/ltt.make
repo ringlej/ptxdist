@@ -1,18 +1,18 @@
 # -*-makefile-*-
-# $Id: ltt.make,v 1.3 2003/09/19 13:43:36 mkl Exp $
+# $Id: ltt.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
 #
-# (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
-# (c) 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+# Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
-# For further information about the PTXDIST project and license conditions
+# For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_LTT))
+ifdef PTXCONF_LTT
 PACKAGES += ltt
 endif
 
@@ -26,6 +26,7 @@ LTT_SUFFIX		= tgz
 LTT_URL			= http://www.opersys.com/ftp/pub/LTT/$(LTT)a.$(LTT_SUFFIX)
 LTT_SOURCE		= $(SRCDIR)/$(LTT)a.$(LTT_SUFFIX)
 LTT_DIR			= $(BUILDDIR)/$(LTT)
+LTT_BUILDDIR		= $(BUILDDIR)/$(LTT)-build
 
 # ----------------------------------------------------------------------------
 # Get
@@ -36,12 +37,12 @@ ltt_get: $(STATEDIR)/ltt.get
 ltt_get_deps = $(LTT_SOURCE)
 
 $(STATEDIR)/ltt.get: $(ltt_get_deps)
-	@$(call targetinfo, ltt.get)
+	@$(call targetinfo, $@)
 	@$(call get_patches, $(LTT))
 	touch $@
 
 $(LTT_SOURCE):
-	@$(call targetinfo, ltt.get)
+	@$(call targetinfo, $@)
 	@$(call get, $(LTT_URL))
 
 # ----------------------------------------------------------------------------
@@ -53,7 +54,7 @@ ltt_extract: $(STATEDIR)/ltt.extract
 ltt_extract_deps =  $(STATEDIR)/ltt.get
 
 $(STATEDIR)/ltt.extract: $(ltt_extract_deps)
-	@$(call targetinfo, ltt.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(LTT_DIR))
 	@$(call extract, $(LTT_SOURCE))
 	@$(call patchin, $(LTT))
@@ -65,27 +66,27 @@ $(STATEDIR)/ltt.extract: $(ltt_extract_deps)
 
 ltt_prepare: $(STATEDIR)/ltt.prepare
 
-LTT_PATH	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(CROSS_PATH)
+LTT_PATH	=  PATH=$(CROSS_PATH)
 LTT_ENV		=  $(CROSS_ENV)
 LTT_ENV		+= ac_cv_func_setvbuf_reversed=no ltt_cv_have_mbstate_t=yes
 
-LTT_AUTOCONF	= --disable-sanity-checks
-LTT_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)
+LTT_AUTOCONF	+= --prefix=/usr
+LTT_AUTOCONF	+= --with-gtk=no
 
 #
 # dependencies
 #
-ltt_prepare_deps =  $(STATEDIR)/ltt.extract 
-ltt_prepare_deps += $(STATEDIR)/virtual-xchain.install
+ltt_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/ltt.extract 
 
 $(STATEDIR)/ltt.prepare: $(ltt_prepare_deps)
-	@$(call targetinfo, ltt.prepare)
-
-	# configure without $(LTT_ENV) now, add this later;
-	# visualizer has to be built for host...
-	cd $(LTT_DIR) &&					\
-		$(LTT_PATH)					\
-		./configure $(LTT_AUTOCONF)
+	@$(call targetinfo, $@)
+	@$(call clean, $(LTT_BUILDDIR))
+	mkdir -p $(LTT_BUILDDIR)
+	cd $(LTT_BUILDDIR) && \
+		$(LTT_PATH) $(LTT_ENV) \
+		$(LTT_DIR)/configure $(LTT_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -97,16 +98,11 @@ ltt_compile: $(STATEDIR)/ltt.compile
 ltt_compile_deps = $(STATEDIR)/ltt.prepare
 
 $(STATEDIR)/ltt.compile: $(STATEDIR)/ltt.prepare 
-	@$(call targetinfo, ltt.compile)
+	@$(call targetinfo, $@)
 
-#	build for target:
-	make -C $(LTT_DIR)/LibUserTrace $(LTT_ENV) UserTrace.o
-	make -C $(LTT_DIR)/LibUserTrace $(LTT_ENV) LDFLAGS="-static"
-	make -C $(LTT_DIR)/Daemon $(LTT_ENV) LDFLAGS="-static"
-
-#	build for host:
-	make -C $(LTT_DIR)/LibLTT
-	make -C $(LTT_DIR)/Visualizer
+	$(LTT_PATH) make -C $(LTT_BUILDDIR)/LibUserTrace UserTrace.o
+	$(LTT_PATH) make -C $(LTT_BUILDDIR)/LibUserTrace LDFLAGS="-static"
+	$(LTT_PATH) make -C $(LTT_BUILDDIR)/Daemon LDFLAGS="-static"
 
 	touch $@
 
@@ -116,10 +112,12 @@ $(STATEDIR)/ltt.compile: $(STATEDIR)/ltt.prepare
 
 ltt_install: $(STATEDIR)/ltt.install
 
-$(STATEDIR)/ltt.install: $(STATEDIR)/ltt.compile
-	@$(call targetinfo, ltt.install)
-	make -C $(LTT_DIR)/LibLTT install
-	make -C $(LTT_DIR)/Visualizer install
+ltt_install_deps = \
+	$(STATEDIR)/ltt.compile \
+	$(STATEDIR)/xchain-ltt.compile
+
+$(STATEDIR)/ltt.install: $(ltt_install_deps)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -129,10 +127,13 @@ $(STATEDIR)/ltt.install: $(STATEDIR)/ltt.compile
 ltt_targetinstall: $(STATEDIR)/ltt.targetinstall
 
 $(STATEDIR)/ltt.targetinstall: $(STATEDIR)/ltt.install
-	@$(call targetinfo, ltt.targetinstall)
-	$(CROSSSTRIP) $(LTT_DIR)/Daemon/tracedaemon
-	cp $(LTT_DIR)/Daemon/tracedaemon $(ROOTDIR)/usr/sbin
-	cp $(LTT_DIR)/createdev.sh $(ROOTDIR)/usr/sbin/tracecreatedev
+	@$(call targetinfo, $@)
+	mkdir -p $(ROOTDIR)/usr/sbin
+
+	install $(LTT_BUILDDIR)/Daemon/tracedaemon $(ROOTDIR)/usr/sbin
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/tracedaemon
+
+	install $(LTT_DIR)/createdev.sh $(ROOTDIR)/usr/sbin/tracecreatedev
 	cp $(LTT_DIR)/Daemon/Scripts/trace* $(ROOTDIR)/usr/sbin
 	touch $@
 
