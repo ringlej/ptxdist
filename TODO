@@ -1,6 +1,7 @@
 Current TODO List
 =================
 
+- RSC: add http://doolittle.faludi.com/ntpclient/
 - RSC/NGE: is "select GLIBC_DEBUG" in gdb.in necessary??
 
 - RSC: add http://www.reportlab.com/ftp/
