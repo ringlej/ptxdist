@@ -103,11 +103,11 @@ CROSSTOOL_GLIBC_EXTRA_CONFIG 	+= --without-fp
 endif
 
 ifdef PTXCONF_GLIBC
-CROSSTOOL_LIBC_DIR		= $(GLIBC_DIR)
+CROSSTOOL_LIBC_DIR		= $(GLIBC)
 CROSSTOOL_LIBC			= glibc
 else
 ifdef PTXCONF_UCLIBC
-CROSSTOOL_LIBC_DIR		= $(UCLIBC_DIR)
+CROSSTOOL_LIBC_DIR		= $(UCLIBC)
 CROSSTOOL_LIBC			= uclibc
 endif
 endif
@@ -159,7 +159,7 @@ $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 		TARGET_CFLAGS="$(call remove_quotes,$(CROSSTOOL_TARGET_CFLAGS))" \
 		GCC_EXTRA_CONFIG=$(CROSSTOOL_GCC_EXTRA_CONFIG) \
 		GLIBC_EXTRA_CONFIG=$(CROSSTOOL_GLIBC_EXTRA_CONFIG) \
-		BINUTILS_DIR=binutils-$(BINUTILS_VERSION) \
+		BINUTILS_DIR=binutils-$(PTXCONF_BINUTILS_VERSION) \
 		GCC_DIR=gcc-$(GCC_VERSION) \
 		LIBC_DIR=$(CROSSTOOL_LIBC_DIR) \
 		C_LIBRARY=$(CROSSTOOL_LIBC) \
@@ -170,7 +170,7 @@ $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 		echo "done" \
 		exit 1;	\
 	)
-	touch $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/gcc-$(GCC_VERSION)-glibc-$(GLIBC_VERSION)/$(PTXCONF_GNU_TARGET)/include/linux/autoconf.h
+	touch $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/gcc-$(GCC_VERSION)-$(CROSSTOOL_LIBC_DIR)/$(PTXCONF_GNU_TARGET)/include/linux/autoconf.h
 	touch $@
 
 # ----------------------------------------------------------------------------
