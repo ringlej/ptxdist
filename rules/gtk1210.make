@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gtk1210.make,v 1.2 2003/08/22 15:31:14 robert Exp $
+# $Id: gtk1210.make,v 1.3 2003/08/22 20:55:54 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -132,13 +132,13 @@ $(STATEDIR)/gtk1210.targetinstall: $(gtk1210_targetinstall_deps)
 
 	# glib 
 	install $(GTK1210_DIR)/gdk/.libs/libgdk-1.2.so.0.9.1 $(ROOTDIR)/lib
-	ln -s libgdk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgdk-1.2.so.0
-	ln -s libgdk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgdk-1.2.so
+	ln -sf libgdk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgdk-1.2.so.0
+	ln -sf libgdk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgdk-1.2.so
 
 	# gtk
 	install $(GTK1210_DIR)/gtk/.libs/libgtk-1.2.so.0.9.1 $(ROOTDIR)/lib
-	ln -s libgtk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgtk-1.2.so.0
-	ln -s libgtk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgtk-1.2.so
+	ln -sf libgtk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgtk-1.2.so.0
+	ln -sf libgtk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgtk-1.2.so
 
 	touch $@
 
