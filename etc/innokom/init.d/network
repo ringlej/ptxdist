@@ -7,8 +7,16 @@
 #
 
 echo -n "starting network and services... "
+
+if [ ! -e /data/etc/system.conf ]; then
+	echo "failed"
+	echo "-> no /data/etc/system.conf, disabling eth0"
+	exit 0
+fi
+
 ipaddr=`grep '^ip-address:' /data/etc/system.conf |
 	sed 's/^ip-address: *//g'`
+	
 /sbin/ifconfig eth0 $ipaddr up
 
 /sbin/utelnetd -d >/dev/null

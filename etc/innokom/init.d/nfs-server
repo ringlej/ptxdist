@@ -6,15 +6,24 @@
 # Kai-Uwe Bloem <linux-development@auerswald.de>
 #
 
+echo -n "starting NFS server... "
+
+if [ ! -e /data/etc/system.conf ]; then
+	echo "failed."
+	echo "-> no /data/etc/system.conf, disabling NFS server."
+	exit 0
+fi
+		
 nfsd=`grep '^nfs-server:' /data/etc/system.conf |
 	sed 's/^nfs-server: *//g'`
 
 if [ "_$nfsd" = "_yes" -a -e /etc/exports ]; then
-	echo -n "starting NFS server... "
 	/sbin/portmap
 	/sbin/nfsd 2
 	/sbin/mountd
 	/sbin/exportfs -a
 	echo "done." 
+else
+	echo "disabled."
 fi
 

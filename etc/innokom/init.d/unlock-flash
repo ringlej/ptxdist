@@ -20,8 +20,13 @@ if [ "_$type" = "_jffs2" ]; then
 	fi
 fi
 
-/sbin/unlock /dev/mtd/3
-/bin/cp -a /dev/mtdblock/3 /dev/mtdblock/data
+if [ -c /dev/mtd/3 ]; then
+	/sbin/unlock /dev/mtd/3
+	/bin/cp -a /dev/mtdblock/3 /dev/mtdblock/data
+else
+	echo "couldn't find /dev/mtd/3"
+	exit 0
+fi
 
 echo "done."
 

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: innokom.make,v 1.4 2003/10/07 07:16:44 robert Exp $
+# $Id: innokom.make,v 1.5 2003/10/07 08:55:05 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -42,6 +42,9 @@ endif
 	# remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
 	rm -f $(ROOTDIR)/JUST_FOR_CVS
+
+	# make scripts executable
+	chmod 755 $(ROOTDIR)/etc/init.d/*
 
 	# generate version stamps
 	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
