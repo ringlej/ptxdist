@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.26 2004/08/25 11:33:06 rsc Exp $
+# $Id: glibc.make,v 1.27 2004/08/26 06:23:13 rsc Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -320,13 +320,14 @@ $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 	#
 	# Now build the zoneinfo files; see note in prepare stage
 	# 
+ifdef PTXCONF_GLIBC_ZONEINFO
 	cd $(GLIBC_ZONEDIR) && CC=$(HOSTCC) make zic
 	cd $(GLIBC_ZONEDIR) && ( 							\
 		for file in `find . -name "z.*" | sed -e "s,.*z.\(.*\),\1,g"`; do	\
 			./zic -d zoneinfo $$file || exit -1;				\
 		done									\
 	)
-
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
