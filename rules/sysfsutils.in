@@ -1,0 +1,17 @@
+menu    "sysfsutils          "
+
+config SYSFSUTILS
+        bool
+        prompt "Compile sysfsutils" 
+
+config SYSFSUTILS_LIB
+	bool
+	prompt "install libsysfs"
+	depends on SYSFSUTILS
+
+config SYSFSUTILS_SYSTOOL
+	bool
+	prompt "install sysfs systool"
+	depends on SYSFSUTILS
+
+endmenu
