@@ -25,7 +25,6 @@ ln -s /dev/vc/9 /dev/tty9
 ln -s /dev/fb/0 /dev/fb0
 echo "done."
 
-echo "loading keymap..."
-loadkmap < /etc/boottime.kmap
-echo "done."
-
+# echo "loading keymap..."
+# loadkmap < /etc/boottime.kmap
+# echo "done."
