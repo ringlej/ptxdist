@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.58 2003/12/09 12:26:17 bsp Exp $
+# $Id: Makefile,v 1.59 2003/12/15 07:22:59 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -216,6 +216,12 @@ scII-bmw_config:
 scIII-cameron_config:
 	@echo "copying scII-cameron configuration"
 	@cp config/ppc405-cameron.ptxconfig .config
+
+# Toolchain Config Targets ---------------------------------------------------
+
+toolchain-powerpc-405-linux_config:
+	@echo "copying toolchain-powerpc-405-linux configuration"
+	@cp config/toolchain-powerpc-405-linux .config
 
 # ----------------------------------------------------------------------------
 
