@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.6 2003/08/29 17:49:01 robert Exp $
+# $Id: glibc.make,v 1.7 2003/09/09 21:51:17 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -411,6 +411,11 @@ ifdef PTXCONF_GLIBC_PTHREADS
   GLIBC_AUTOCONF+=--enable-add-ons=linuxthreads
 endif
 
+ifdef PTXCONF_FPU
+GLIBC_FP=--with-fp
+else
+GLIBC_FP=--without-fp
+endif
 
 #
 # dependencies
@@ -428,7 +433,8 @@ $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
 		$(GLIBC_DIR)/configure $(PTXCONF_GNU_TARGET) 		\
 			$(GLIBC_AUTOCONF)				\
 			--prefix=/usr					\
-			--libexecdir=/usr/bin
+			--libexecdir=/usr/bin				\
+			$(GLIBC_FP)
 	touch $@
 
 # ----------------------------------------------------------------------------
