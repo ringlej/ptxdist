@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.7 2003/11/07 00:44:38 mkl Exp $
+# $Id: xfree430.make,v 1.8 2003/11/10 00:51:39 mkl Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -257,11 +257,17 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xtst
 #	#cp -af $(XFREE430_BUILDDIR)/lib/Xtst/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xtst/
 
-	cp -f $(XFREE430_BUILDDIR)/lib/Xi/libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	ln -sf libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXi.so.6
-	ln -sf libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXi.so
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xi
-	cp -af $(XFREE430_BUILDDIR)/lib/Xi/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xi/
+
+#
+# libXi _can_ be shared, we dunno if we have it
+#
+	if [ -f $(XFREE430_BUILDDIR)/lib/Xi/libXi.so.6.0 ]; then
+		cp -f $(XFREE430_BUILDDIR)/lib/Xi/libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+		ln -sf libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXi.so.6
+		ln -sf libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXi.so
+		install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xi
+		cp -af $(XFREE430_BUILDDIR)/lib/Xi/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xi/
+	fi
 
 	cp -af $(XFREE430_BUILDDIR)/include/Xmd.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/
 
