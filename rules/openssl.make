@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssl.make,v 1.9 2003/10/26 20:59:26 mkl Exp $
+# $Id: openssl.make,v 1.10 2003/10/27 10:17:32 mkl Exp $
 #
 # Copyright (C) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
 #               2003 by Pengutronix e.K., Hildesheim, Germany
@@ -84,11 +84,15 @@ openssl_prepare_deps =  \
 	$(STATEDIR)/openssl.extract 
 
 OPENSSL_PATH	= PATH=$(CROSS_PATH)
-OPENSSL_MAKEVARS= $(CROSS_ENV_CC) $(CROSS_ENV_RANLIB) AR='$(PTXCONF_GNU_TARGET)-ar r'
+OPENSSL_MAKEVARS = \
+	$(CROSS_ENV_CC) \
+	$(CROSS_ENV_RANLIB) \
+	AR='$(PTXCONF_GNU_TARGET)-ar r' \
+	MANDIR=$(CROSS_LIB_DIR)/man
 
 OPENSSL_AUTOCONF = \
 	--prefix=/usr \
-#	--openssldir=/etc/ssl
+	--openssldir=/etc/ssl
 
 ifdef PTXCONF_OPENSSL_SHARED
 OPENSSL_AUTOCONF	+= shared
