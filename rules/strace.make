@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: strace.make,v 1.3 2003/08/29 19:07:21 mkl Exp $
+# $Id: strace.make,v 1.4 2003/09/18 00:37:40 mkl Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_STRACE))
+ifdef PTXCONF_STRACE
 PACKAGES += strace
 endif
 
@@ -24,12 +24,6 @@ STRACE_URL		= http://umn.dl.sourceforge.net/sourceforge/strace/$(STRACE).tar.bz2
 STRACE_SOURCE		= $(SRCDIR)/$(STRACE).tar.bz2
 STRACE_DIR		= $(BUILDDIR)/$(STRACE)
 
-STRACE_PTXPATCH		= strace-4.4.98-gds1.diff
-STRACE_PTXPATCH_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(STRACE_PTXPATCH)
-STRACE_PTXPATCH_SOURCE	= $(SRCDIR)/$(STRACE_PTXPATCH)
-STRACE_PTXPATCH_DIR	= $(BUILDDIR)/$(STRACE)
-STRACE_PTXPATCH_EXTRACT	= cat
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -37,18 +31,13 @@ STRACE_PTXPATCH_EXTRACT	= cat
 strace_get: $(STATEDIR)/strace.get
 
 $(STATEDIR)/strace.get: $(STRACE_SOURCE)
-	touch $@
-
-$(STATEDIR)/strace-ptxpatch.get: $(STRACE_PTXPATCH_SOURCE)
+	@$(call targetinfo, strace.get)
+	@$(call get_patches, $(STRACE))
 	touch $@
 
 $(STRACE_SOURCE):
-	@$(call targetinfo, strace.get)
+	@$(call targetinfo, $(STRACE_SOURCE))
 	@$(call get, $(STRACE_URL))
-
-$(STRACE_PTXPATCH_SOURCE):
-	@$(call targetinfo, strace-ptxpatch.get)
-	@$(call get, $(STRACE_PTXPATCH_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -57,13 +46,13 @@ $(STRACE_PTXPATCH_SOURCE):
 strace_extract: $(STATEDIR)/strace.extract
 
 strace_extract_deps = \
-	$(STATEDIR)/strace.get \
-	$(STATEDIR)/strace-ptxpatch.get
+	$(STATEDIR)/strace.get
 
 $(STATEDIR)/strace.extract: $(strace_extract_deps)
 	@$(call targetinfo, strace.extract)
+	@$(call clean, $(STRACE_DIR))
 	@$(call extract, $(STRACE_SOURCE))
-	cd $(STRACE_DIR) && patch -p1 < $(STRACE_PTXPATCH_SOURCE)
+	@$(call patchin, $(STRACE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -83,12 +72,12 @@ STRACE_AUTOCONF	=  --build=$(GNU_HOST)
 STRACE_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 STRACE_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 STRACE_AUTOCONF	+= --disable-sanity-checks
-STRACE_AUTOCONF	+= --prefix=$(ROOTDIR)
+STRACE_AUTOCONF	+= --prefix=/
 
 $(STATEDIR)/strace.prepare: $(strace_prepare_deps)
 	@$(call targetinfo, strace.prepare)
 	cd $(STRACE_DIR) && \
-		$(NCURSES_PATH) $(NCURSES_ENV) \
+		$(STRACE_PATH) $(STRACE_ENV) \
 		./configure $(STRACE_AUTOCONF)
 	touch $@
 
