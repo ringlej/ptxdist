@@ -15,7 +15,7 @@ endif
 #
 # Paths and names 
 #
-BINUTILS		= binutils-$(BINUTILS_VERSION)
+BINUTILS		= binutils-$(PTXCONF_BINUTILS_VERSION)
 BINUTILS_URL		= ftp://ftp.gnu.org/pub/gnu/binutils/$(BINUTILS).tar.gz
 BINUTILS_SOURCE		= $(SRCDIR)/$(BINUTILS).tar.gz
 BINUTILS_DIR		= $(BUILDDIR)/$(BINUTILS)
