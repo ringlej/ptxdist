@@ -255,9 +255,9 @@ oldconfig: scripts/kconfig/conf
 
 %_config:
 	@echo; \
-	echo "[Searching for Config File:]"; 					\
-	CFG="`find $(PROJECTDIRS) -name $(subst _config,.ptxconfig,$@)`";	\
-	if [ `echo $$CFG | wc -w` -gt 1 ]; then					\
+	echo "[Searching for Config File:]"; 						\
+	CFG="`find $(PROJECTDIRS) -name $(subst _config,.ptxconfig,$@) 2> /dev/null`";	\
+	if [ `echo $$CFG | wc -w` -gt 1 ]; then						\
 		echo "ERROR: more than one config file found:"; 		\
 		echo $$CFG; echo; 						\
 		exit 1;								\
