@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-distcc.make,v 1.1 2003/10/28 11:17:37 robert Exp $
+# $Id: xchain-distcc.make,v 1.2 2003/10/29 16:43:30 mkl Exp $
 #
 # Copyright (C) 2003 Ixia Communications, by Dan Kegel
 #          
@@ -66,22 +66,13 @@ xchain-distcc_prepare: $(STATEDIR)/xchain-distcc.prepare
 # dependencies
 #
 xchain-distcc_prepare_deps =  \
-	$(STATEDIR)/xchain-distcc.extract \
-	$(STATEDIR)/virtual-xchain.install
-
-#XCHAIN-DISTCC_PATH	=  PATH=$(CROSS_PATH)
-#XCHAIN-DISTCC_ENV 	=  $(CROSS_ENV)
-#XCHAIN-DISTCC_ENV	+=
-
+	$(STATEDIR)/xchain-distcc.extract
 
 #
 # autoconf
 #
-XCHAIN-DISTCC_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
-#XCHAIN-DISTCC_AUTOCONF	+= --build=$(GNU_HOST)
-#XCHAIN-DISTCC_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-
-#XCHAIN-DISTCC_AUTOCONF	+= 
+XCHAIN-DISTCC_AUTOCONF = \
+	--prefix=$(PTXCONF_PREFIX)
 
 $(STATEDIR)/xchain-distcc.prepare: $(xchain-distcc_prepare_deps)
 	@$(call targetinfo, $@)
