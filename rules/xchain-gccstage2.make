@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.14 2003/10/27 09:40:26 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.15 2003/10/28 00:37:20 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -170,20 +170,18 @@ ifdef PTXCONF_BUILD_CROSSCHAIN
 xchain-gccstage2_targetinstall_deps = $(STATEDIR)/xchain-gccstage2.install
 endif
 
-$(STATEDIR)/xchain-gccstage2.targetinstall: $(xchain-gccstage2_targetinstall_deps)
+$(STATEDIR)/xchain-gccstage2.targetinstall:
 	@$(call targetinfo, $@)
 ifdef PTXCONF_LIBSTDCXX_SHARED
 	mkdir -p $(ROOTDIR)/usr/lib
-	cp -a $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/$(GCC_VERSION)/libstdc++*so* \
+	cp -a $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libstdc++*so* \
 		$(ROOTDIR)/usr/lib/
 	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libstdc++*so*
 
-  ifdef PTXCONF_GCC_3
 	mkdir -p $(ROOTDIR)/lib
-	cp -a $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/$(GCC_VERSION)/libgcc_s*so* \
+	cp -a $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libgcc_s*so* \
 		$(ROOTDIR)/lib/
 	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libgcc_s*so*
-  endif
 endif
 	touch $@
 
