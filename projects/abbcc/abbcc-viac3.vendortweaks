@@ -20,7 +20,7 @@ abbcc_targetinstall: $(STATEDIR)/abbcc.targetinstall
 $(STATEDIR)/abbcc.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
-#	copy /etc template and do some changes
+#	do some substitutions
 	perl -i -p -e "s,\@HOSTNAME@,cc1,g" $(ROOTDIR)/etc/hostname
 	perl -i -p -e "s,\@SPEED@,19200,g" $(ROOTDIR)/etc/inittab
 	perl -i -p -e "s,\@CONSOLE@,tts/0,g" $(ROOTDIR)/etc/inittab
