@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.12 2003/10/26 21:59:07 mkl Exp $
+# $Id: glibc.make,v 1.13 2003/10/28 00:21:06 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -14,9 +14,7 @@
 # We provide this package
 #
 ifdef PTXCONF_GLIBC
-ifdef PTXCONF_BUILD_CROSSCHAIN
 PACKAGES	+= glibc
-endif
 DYNAMIC_LINKER	=  /lib/ld-linux.so.2
 endif
 
