@@ -1,4 +1,5 @@
-# $Id: bash.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# -*-makefile-*-
+# $Id: bash.make,v 1.2 2003/05/13 11:46:42 robert Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -61,7 +62,7 @@ $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
 
 bash_prepare: $(STATEDIR)/bash.prepare
 
-BASH_AUTOCONF	=  --build=i686-linux
+BASH_AUTOCONF	=  --build=$(GNU_HOST)
 BASH_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 BASH_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 BASH_AUTOCONF	+= --disable-sanity-checks
@@ -194,7 +195,16 @@ else
 BASH_AUTOCONF	+= --disable-static-link
 endif
 
-$(STATEDIR)/bash.prepare: $(STATEDIR)/bash.extract
+#
+# dependencies
+#
+bash_prepare_deps =  $(STATEDIR)/bash.extract 
+ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN))
+bash_prepare_deps += $(STATEDIR)/xchain-gccstage2.install
+endif
+
+
+$(STATEDIR)/bash.prepare: $(bash_prepare_deps)
 	@echo
 	@echo -------------------- 
 	@echo target: bash.prepare
