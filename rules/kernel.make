@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.1 2003/07/16 04:23:28 mkl Exp $
+# $Id: kernel.make,v 1.2 2003/08/06 21:19:20 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -24,7 +24,8 @@ endif
 #
 # Paths and names 
 #
-# FIXME: make extraversion configurable!
+# FIXME: make extraversion configurable and add this into a predefined
+# scheme!
 # 
 ifeq (y,$(PTXCONF_KERNEL_2_4_18))
 KERNEL			= linux-2.4.18
@@ -56,6 +57,8 @@ KERNEL_RTAIPATCH	= patch-2.4.18-rthal5g
 endif
 KERNEL_RTAIPATCH_DIR	= $(BUILDDIR)/rtai-patches
 endif
+
+# -----
 
 ifeq (y,$(PTXCONF_KERNEL_2_4_19))
 KERNEL			= linux-2.4.19
@@ -127,6 +130,8 @@ KERNEL_RTAIPATCH	= patch-2.4.20-rthal5g
 endif
 KERNEL_RTAIPATCH_DIR	= $(BUILDDIR)/rtai-patches
 endif
+
+# -----
 
 ifeq (y,$(PTXCONF_KERNEL_2_4_21))
 KERNEL			= linux-2.4.21
@@ -239,7 +244,7 @@ $(KERNEL_UCLINUXPATCH_SOURCE):
 # 
 rtai-patches_get: $(STATEDIR)/rtai-patches.get
 
-$(STATEDIR)/rtai-patches.get: $(RTAI_SOURCE)
+$(STATEDIR)/rtai-patches.get: $(STATEDIR)/rtai.get
 	@$(call targetinfo, rtai-patches.get)
 	touch $@
 
