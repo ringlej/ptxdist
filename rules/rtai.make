@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtai.make,v 1.6 2003/08/24 12:14:14 robert Exp $
+# $Id: rtai.make,v 1.7 2003/08/26 13:23:59 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -18,7 +18,7 @@ endif
 #
 # Paths and names 
 #
-ifeq (y, $(PTXCONF_RTAI_24.1.11))
+ifeq (y, $(PTXCONF_RTAI_24_1_11))
 RTAI			= rtai-24.1.11
 endif
 ifeq (y, $(PTXCONF_RTAI_24_1_10))
