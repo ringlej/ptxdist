@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: penguzilla.make,v 1.4 2004/01/29 13:16:15 bsp Exp $
+# $Id: penguzilla.make,v 1.5 2004/01/30 13:26:40 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-PENGUZILLA_VERSION	= 0.3.1
+PENGUZILLA_VERSION	= 0.3.2
 PENGUZILLA		= penguzilla-$(PENGUZILLA_VERSION)
 PENGUZILLA_SUFFIX	= tar.gz
 PENGUZILLA_URL		= http://www.pengutronix.de/software/penguzilla/$(PENGUZILLA).$(PENGUZILLA_SUFFIX)
