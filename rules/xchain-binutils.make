@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-binutils.make,v 1.15 2003/12/18 16:07:40 robert Exp $
+# $Id: xchain-binutils.make,v 1.16 2004/03/31 20:50:45 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -56,24 +56,12 @@ $(STATEDIR)/xchain-binutils.extract: $(STATEDIR)/xchain-binutils.get
 #
 
 #
-# Enable combreloc, since it is such a nice thing to have...
-#
-	perl -i -p -e "s,link_info.combreloc = false,link_info.combreloc = true,g;" $(XCHAIN_BINUTILS_DIR)/ld/ldmain.c
-
-#
 # Hack binutils to use the correct shared lib loader
 #
 	cd $(XCHAIN_BINUTILS_DIR) && \
 		perl -i -p -e "s,#.*define.*ELF_DYNAMIC_INTERPRETER.*\".*\",#define ELF_DYNAMIC_INTERPRETER \"$(DYNAMIC_LINKER)\",;" \
 		`grep -lr "#define ELF_DYNAMIC_INTERPRETER" $(XCHAIN_BINUTILS_DIR)`
 
-#
-# Hack binutils to prevent it from searching the host system
-# for libraries.  We only want libraries for the target system.
-#
-	cd $(XCHAIN_BINUTILS_DIR) && \
-		perl -i -p -e "s,^NATIVE_LIB_DIRS.*,NATIVE_LIB_DIRS='$(CROSS_LIB_DIR)/usr/lib $(CROSS_LIB_DIR)/lib',;" \
-		$(XCHAIN_BINUTILS_DIR)/ld/configure.host
 	touch $@
 
 # ----------------------------------------------------------------------------

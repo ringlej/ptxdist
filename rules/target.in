@@ -185,6 +185,7 @@ config SOFTFLOAT
 	bool
 	prompt "Use Softfloat"
 	default n
+	depends on ARCH_ARM || ARCH_PPC
 	help
 	  Set this option if you want to let the toolchain replace the
 	  floating point instructions by emulation code. 

@@ -28,7 +28,7 @@ choice
 	config BINUTILS_2_14
 		bool
 		prompt "2.14    "
-		depends on ARCH_ARM 
+		depends on ARCH_ARM || ARCH_X86
 endchoice
 
 choice

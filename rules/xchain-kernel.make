@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.26 2004/03/28 10:58:18 robert Exp $
+# $Id: xchain-kernel.make,v 1.27 2004/03/31 20:50:45 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -22,6 +22,16 @@ endif
 XCHAIN_KERNEL_BUILDDIR	= $(BUILDDIR)/xchain-$(KERNEL)
 
 # ----------------------------------------------------------------------------
+# Get patchstack-patches
+# ----------------------------------------------------------------------------
+
+xchain-kernel-patchstack_get: $(STATEDIR)/xchain-kernel-patchstack.get
+
+$(STATEDIR)/xchain-kernel-patchstack.get: $(xchain_kernel_patchstack_get_deps)
+	@$(call targetinfo, $@)
+	touch $@
+
+# ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
@@ -29,7 +39,7 @@ xchain-kernel_get: $(STATEDIR)/xchain-kernel.get
 
 xchain-kernel_get_deps = \
 	$(KERNEL_SOURCE) \
-	$(STATEDIR)/kernel-patchstack.get
+	$(STATEDIR)/xchain-kernel-patchstack.get
 
 $(STATEDIR)/xchain-kernel.get: $(xchain-kernel_get_deps)
 	@$(call targetinfo, $@)
@@ -41,11 +51,10 @@ $(STATEDIR)/xchain-kernel.get: $(xchain-kernel_get_deps)
 
 xchain-kernel_extract: $(STATEDIR)/xchain-kernel.extract
 
-$(STATEDIR)/xchain-kernel.extract: $(STATEDIR)/xchain-kernel-base.extract
-	@$(call targetinfo, $@)
-	touch $@
+xchain-kernel_extract_deps = \
+	$(STATEDIR)/xchain-kernel.get
 
-$(STATEDIR)/xchain-kernel-base.extract: $(STATEDIR)/xchain-kernel.get
+$(STATEDIR)/xchain-kernel.extract: $(xchain-kernel_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN_KERNEL_BUILDDIR))
 	@$(call extract, $(KERNEL_SOURCE), $(XCHAIN_KERNEL_BUILDDIR))
@@ -59,7 +68,7 @@ endif
 
 	# Add "patchstack" patches
 ifdef PTXCONF_KERNEL_PATCH1_XCHAIN
-	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH1_NAME)) 
+	$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH1_NAME)) 
 endif
 ifdef PTXCONF_KERNEL_PATCH2_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH2_NAME)) 
@@ -99,13 +108,12 @@ endif
 # Prepare
 # ----------------------------------------------------------------------------
 
+xchain-kernel_prepare: $(STATEDIR)/xchain-kernel.prepare
+
 xchain-kernel_prepare_deps = \
-	$(STATEDIR)/xchain-kernel.prepare \
-	$(STATEDIR)/xchain-kernel-patchstack.extract
+	$(STATEDIR)/xchain-kernel.extract
 
-xchain-kernel_prepare: $(xchain-kernel_prepare_deps)
-
-$(STATEDIR)/xchain-kernel.prepare: $(STATEDIR)/xchain-kernel.extract
+$(STATEDIR)/xchain-kernel.prepare: $(xchain-kernel_prepare_deps)
 	@$(call targetinfo, $@)
 
 	# fake headers

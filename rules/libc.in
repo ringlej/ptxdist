@@ -9,9 +9,9 @@ choice
  		prompt "GLIBC"
  		depends on !ARCH_NOMMU
     
-#	config UCLIBC
-#		bool
-# 		prompt "uClibc"
+	config UCLIBC
+		bool
+ 		prompt "uClibc"
 endchoice
 
 comment "C Library options"
@@ -42,15 +42,15 @@ choice
 		depends on GLIBC
 		depends on ARCH_X86
 
-#	config UCLIBC_0_9_24
-#		bool
-#		prompt "0.9.24"
-#		depends on UCLIBC
+	config UCLIBC_0_9_26
+		bool
+		prompt "0.9.26"
+		depends on UCLIBC
 		
 endchoice
 
 source "rules/glibc.in"
 
-# source "rules/uclibc.in"          
+source "rules/uclibc.in"
 
 endmenu

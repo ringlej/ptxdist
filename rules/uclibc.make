@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: uclibc.make,v 1.5 2003/11/17 03:36:57 mkl Exp $
+# $Id: uclibc.make,v 1.6 2004/03/31 20:50:45 mkl Exp $
 #
-# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
+# Copyright (C) 2003, 2004 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -42,21 +42,20 @@ uclibc_fix_config =					\
 #
 # for uClibc that is used for the xchain
 #
-# FIXME: enable widechar support for c++
 xchain-uclibc_fix_config =				\
 	@$(call uclibc_fix_config_general, $(1))
 
 #
 #
 #
-uclibc_fix_config_general =								\
-	perl -i -p -e 's,^(KERNEL_SOURCE=).*,$$1\"$(XCHAIN_KERNEL_BUILDDIR)\",' $(1);	\
-	perl -i -p -e 's,^(SHARED_LIB_LOADER_PATH=).*,$$1"/lib",' $(1);			\
-	perl -i -p -e 's,^(DEVEL_PREFIX=).*,$$1$(CROSS_LIB_DIR),' $(1);			\
-	perl -i -p -e 's,^(SYSTEM_DEVEL_PREFIX=).*,$$1$(PTXCONF_PREFIX),' $(1);		\
-	perl -i -p -e 's,^(DEVEL_TOOL_PREFIX=).*,$$1"\$$(DEVEL_PREFIX)",' $(1);		\
-	perl -i -p -e 's/^(.*=)"(.*?)"(.*)"(.*)"/$$1"$$2$$3$$4"/' $(1);			\
-	perl -i -p -e 's/^(.*=)"(.*?)"(.*)/$$1"$$2$$3"/' $(1)
+uclibc_fix_config_general =							\
+	echo 'KERNEL_SOURCE="$(XCHAIN_KERNEL_BUILDDIR)"'	>> $(1);	\
+	echo 'SHARED_LIB_LOADER_PREFIX="/lib"'			>> $(1);	\
+	echo 'RUNTIME_PREFIX="/"'				>> $(1);	\
+	echo 'DEVEL_PREFIX=$(CROSS_LIB_DIR)'			>> $(1);	\
+	perl -i -p -e 's/^(.*=)"(.*?)"(.*)"(.*)"/$$1"$$2$$3$$4"/'  $(1);	\
+	perl -i -p -e 's/^(.*=)"(.*?)"(.*)/$$1"$$2$$3"/'           $(1)
+
 
 # ----------------------------------------------------------------------------
 # Get
@@ -109,11 +108,11 @@ uclibc_prepare_deps = \
 $(STATEDIR)/uclibc.prepare: $(uclibc_prepare_deps)
 	@$(call targetinfo, $@)
 
-	grep -e PTXCONF_UCLIBC_ .config > $(UCLIBC_DIR)/.config
-	perl -i -p -e 's/PTXCONF_UCLIBC_//g' $(UCLIBC_DIR)/.config
+	grep -e PTXCONF_UC_ .config > $(UCLIBC_DIR)/.config
+	perl -i -p -e 's/PTXCONF_UC_//g' $(UCLIBC_DIR)/.config
 	@$(call uclibc_fix_config, $(UCLIBC_DIR)/.config)
 
-	$(UCLIBC_PATH) make -C $(UCLIBC_DIR) \
+	yes "" | $(UCLIBC_PATH) $(MAKE) -C $(UCLIBC_DIR) \
 		$(UCLIBC_MAKEVARS) \
 		oldconfig
 	touch $@
@@ -128,7 +127,8 @@ uclibc_compile_deps = $(STATEDIR)/uclibc.prepare
 
 $(STATEDIR)/uclibc.compile: $(uclibc_compile_deps)
 	@$(call targetinfo, $@)
-	$(UCLIBC_PATH) make -C $(UCLIBC_DIR) $(UCLIBC_MAKEVARS)
+#	uClibc does not work with PARALLELMFLAGS
+	$(UCLIBC_PATH) $(MAKE) -C $(UCLIBC_DIR) $(UCLIBC_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -139,9 +139,13 @@ uclibc_install: $(STATEDIR)/uclibc.install
 
 $(STATEDIR)/uclibc.install: $(STATEDIR)/uclibc.compile
 	@$(call targetinfo, $@)
-	$(UCLIBC_PATH) make -C  $(UCLIBC_DIR) \
-		$(UCLIBC_MAKEVARS) TARGET_ARCH=$(SHORT_TARGET) \
-		install_dev install_runtime install_utils
+	$(UCLIBC_PATH) $(MAKE) -C  $(UCLIBC_DIR) \
+		$(UCLIBC_MAKEVARS) \
+		install_dev
+
+	$(UCLIBC_PATH) $(MAKE) -C  $(UCLIBC_DIR) \
+		$(UCLIBC_MAKEVARS) PREFIX=$(CROSS_LIB_DIR) \
+		install_runtime
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.16 2004/01/30 12:43:35 robert Exp $
+# $Id: xchain-gccstage1.make,v 1.17 2004/03/31 20:50:45 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -75,42 +75,6 @@ $(STATEDIR)/xchain-gccstage1.extract: $(xchain-gccstage1_extract_deps)
 			perl -i -p -e "s,-dynamic-linker.*\.so[\.0-9]*},-dynamic-linker $(DYNAMIC_LINKER)},;" $$LIST; \
 		fi;
 
-#
-# Prevent system glibc start files from leaking in uninvited...
-#
-	perl -i -p -e "s,standard_startfile_prefix_1 = \".*,standard_startfile_prefix_1 =\"$(CROSS_LIB_DIR)/lib/\";,;" \
-		$(GCC_DIR)/gcc/gcc.c;
-	perl -i -p -e "s,standard_startfile_prefix_2 = \".*,standard_startfile_prefix_2 =\"$(CROSS_LIB_DIR)/usr/lib/\";,;" \
-		$(GCC_DIR)/gcc/gcc.c;
-
-#
-# Prevent system glibc include files from leaking in uninvited...
-#
-	perl -i -p -e "s,^NATIVE_SYSTEM_HEADER_DIR.*,NATIVE_SYSTEM_HEADER_DIR=$(CROSS_LIB_DIR)/include,;" $(GCC_DIR)/gcc/Makefile.in;
-	perl -i -p -e "s,^CROSS_SYSTEM_HEADER_DIR.*,CROSS_SYSTEM_HEADER_DIR=$(CROSS_LIB_DIR)/include,;" $(GCC_DIR)/gcc/Makefile.in;
-	cd $(GCC_DIR) && \
-		export LIST=`grep -lr -- "define STANDARD_INCLUDE_DIR" *` && \
-		if [ -n "$$LIST" ] ; then \
-			perl -i -p -e "s,^#\s*define.*STANDARD_INCLUDE_DIR.*,#define STANDARD_INCLUDE_DIR \"$(CROSS_LIB_DIR)/include\",;" $$LIST; \
-		fi;
-
-#
-# Prevent system glibc libraries from being found by collect2 
-# when it calls locatelib() and rummages about the system looking 
-# for libraries with the correct name...
-#
-	perl -i -p -e "s,\"/lib,\"$(CROSS_LIB_DIR)/lib,g;" $(GCC_DIR)/gcc/collect2.c
-	perl -i -p -e "s,\"/usr/,\"$(CROSS_LIB_DIR)/usr/,g;" $(GCC_DIR)/gcc/collect2.c
-
-
-ifdef PTXCONF_UCLIBC
-#
-# Prevent gcc from using the unwind-dw2-fde-glibc code
-#
-	perl -i -p -e "s,^#ifndef inhibit_libc,#define inhibit_libc\n#ifndef inhibit_libc,g;" $(GCC_DIR)/gcc/unwind-dw2-fde-glibc.c;
-endif
-
-
 ifdef PTXCONF_UCLIBC
 ifdef PTXCONF_GCC_2
 #
@@ -125,29 +89,6 @@ ifdef PTXCONF_GCC_2
 	mv $(GCC_DIR)/libstdc++ $(GCC_DIR)/libstdc++.orig
 	mv $(GCC_DIR)/libio $(GCC_DIR)/libio.orig
 endif # PTXCONFIG_GCC_2
-
-ifdef PTXCONF_GCC_3
-#
-# Hack up the soname for libgcc_s
-# 
-	perl -i -p -e "s,\.so\.1,.so.$(UCLIBC_VERSION_MAJOR).$(UCLIBC_VERSION_MINOR).$(UCLIBC_VERSION_MICRO),g;" \
-		$(GCC_DIR)/gcc/config/t-slibgcc-elf-ver
-#
-# FIXME:
-#
-# For now, we don't support locale-ified ctype (we will soon), 
-# so bypass that problem for now...
-#
-	perl -i -p -e "s,defined.*_GLIBCPP_USE_C99.*,1,g;" \
-		$(GCC_DIR)/libstdc++-v3/config/locale/generic/c_locale.cc;
-	cp $(GCC_DIR)/libstdc++-v3/config/os/generic/bits/ctype_base.h \
-		$(GCC_DIR)/libstdc++-v3/config/os/gnu-linux/bits/
-	cp $(GCC_DIR)/libstdc++-v3/config/os/generic/bits/ctype_inline.h \
-		$(GCC_DIR)/libstdc++-v3/config/os/gnu-linux/bits/
-	cp $(GCC_DIR)/libstdc++-v3/config/os/generic/bits/ctype_noninline.h \
-		$(GCC_DIR)/libstdc++-v3/config/os/gnu-linux/bits/
-
-endif # PTXCONF_GCC_3
 endif # PTXCON_UCLIBC
 	touch $@
 

@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: xchain-uclibc.make,v 1.3 2003/11/17 03:36:57 mkl Exp $
+# $Id: xchain-uclibc.make,v 1.4 2004/03/31 20:50:45 mkl Exp $
 #
-# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
+# Copyright (C) 2003, 2004 by Marc Kleine-Budde <kleine-budde@gmx.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -58,18 +59,19 @@ xchain-uclibc_prepare_deps = \
 XCHAIN_UCLIBC_PATH	= PATH=$(CROSS_PATH)
 
 XCHAIN_UCLIBC_MAKEVARS = \
-	CROSS=$(PTXCONF_GNU_TARGET)- \
 	HOSTCC=$(HOSTCC) \
 	TARGET_ARCH=$(PTXCONF_ARCH_USERSPACE)
+
+# 	CROSS=$(PTXCONF_GNU_TARGET)- \
 
 $(STATEDIR)/xchain-uclibc.prepare: $(xchain-uclibc_prepare_deps)
 	@$(call targetinfo, $@)
 
-	grep -e PTXCONF_UCLIBC_ .config > $(XCHAIN_UCLIBC_DIR)/.config
-	perl -i -p -e 's/PTXCONF_UCLIBC_//g' $(XCHAIN_UCLIBC_DIR)/.config
+	grep -e PTXCONF_UC_ .config > $(XCHAIN_UCLIBC_DIR)/.config
+	perl -i -p -e 's/PTXCONF_UC_//g' $(XCHAIN_UCLIBC_DIR)/.config
 	@$(call xchain-uclibc_fix_config, $(XCHAIN_UCLIBC_DIR)/.config)
 
-	$(XCHAIN_UCLIBC_PATH) make -C $(XCHAIN_UCLIBC_DIR) \
+	yes "" | $(XCHAIN_UCLIBC_PATH) $(MAKE) -C $(XCHAIN_UCLIBC_DIR) \
 		$(XCHAIN_UCLIBC_MAKEVARS) \
 		oldconfig
 	touch $@
@@ -92,7 +94,8 @@ xchain-uclibc_install: $(STATEDIR)/xchain-uclibc.install
 
 $(STATEDIR)/xchain-uclibc.install: $(STATEDIR)/xchain-uclibc.compile
 	@$(call targetinfo, $@)
-	$(XCHAIN_UCLIBC_PATH) make -C  $(XCHAIN_UCLIBC_DIR) \
+	$(INSTALL) -d $(XCHAIN_UCLIBC_DIR)/lib
+	$(XCHAIN_UCLIBC_PATH) $(MAKE) -C  $(XCHAIN_UCLIBC_DIR) \
 		$(XCHAIN_UCLIBC_MAKEVARS) \
 		headers install_dev
 	touch $@

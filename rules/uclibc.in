@@ -1,16 +1,4 @@
-source "config/uClibc/extra/Configs/Config.alpha"
-source "config/uClibc/extra/Configs/Config.arm"
-source "config/uClibc/extra/Configs/Config.cris"
-source "config/uClibc/extra/Configs/Config.h8300"
-source "config/uClibc/extra/Configs/Config.i386"
-source "config/uClibc/extra/Configs/Config.i960"
-source "config/uClibc/extra/Configs/Config.m68k"
-source "config/uClibc/extra/Configs/Config.mips"
-source "config/uClibc/extra/Configs/Config.mipsel"
-source "config/uClibc/extra/Configs/Config.powerpc"
-source "config/uClibc/extra/Configs/Config.sh"
-source "config/uClibc/extra/Configs/Config.sparc"
-source "config/uClibc/extra/Configs/Config.v850"
+source "config/uClibc-0.9.26/extra/Configs/Config.in"
 
 comment "Install options"
 	depends on UCLIBC

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.22 2004/02/27 11:56:07 robert Exp $
+# $Id: busybox.make,v 1.23 2004/03/31 20:50:45 mkl Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-BUSYBOX_VERSION		= 1.00-pre7
+BUSYBOX_VERSION		= 1.00-pre8
 BUSYBOX			= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX		= tar.bz2
 BUSYBOX_URL		= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
@@ -88,7 +88,7 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
 	grep -e PTXCONF_BB_ .config > $(BUSYBOX_DIR)/.config
 	perl -i -p -e 's/PTXCONF_BB_//g' $(BUSYBOX_DIR)/.config
-	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)
+	yes "" | $(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) dep $(BUSYBOX_MAKEVARS)
 
 	touch $@
