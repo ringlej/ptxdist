@@ -1,3 +1,21 @@
+/etc/boottime.kmap root.root 0644
+/etc/fstab root.root 0644
+/etc/group root.root 0644
+/etc/gshadow root.root 0640
+/etc/hostname root.root 0644
+/etc/hosts root.root 0644
+/etc/init.d root.root 0755
+/etc/inittab root.root 0644
+/etc/nsswitch.conf root.root 0644
+/etc/passwd root.root 0644
+/etc/profile root.root 0644
+/etc/proftpd.conf root.root 0644
+/etc/ptx_permissions.unconfigured
+/etc/resolv.conf root.root 0644
+/etc/shadow root.root 0640
+/etc/shadow- root.root 0640
+/etc/ssh root.root 0755
+/etc/mgetty+sendfax root.root 0755
 /etc/mgetty+sendfax/sendfax.config root.root 0600
 /etc/mgetty+sendfax/mgetty.config root.root 0600
 /etc/mgetty+sendfax/login.config root.root 0600
