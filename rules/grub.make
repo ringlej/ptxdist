@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: grub.make,v 1.8 2003/12/04 13:19:46 bsp Exp $
+# $Id: grub.make,v 1.9 2004/01/27 14:52:14 bsp Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -102,6 +102,16 @@ ifeq (y, $(PTXCONF_GRUB_CS89X0))
 GRUB_AUTOCONF += --enable-cs89x0
 else
 GRUB_AUTOCONF += --disable-cs89x0
+endif
+ifeq (y, $(PTXCONF_GRUB_EEPRO100))
+GRUB_AUTOCONF += --enable-eepro100
+else
+GRUB_AUTOCONF += --disable-eepro100
+endif
+ifeq (y, $(PTXCONF_GRUB_RTL8139))
+GRUB_AUTOCONF += --enable-rtl8139
+else
+GRUB_AUTOCONF += --disable-rtl8139
 endif
 
 grub_prepare_deps = \
