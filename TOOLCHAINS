@@ -1,50 +1,62 @@
 Automatic Toolchain Compilation
 --------------------------
 
-start: Mo Mär 7 21:59:00 CET 2005
+start: So Mär 13 21:20:22 CET 2005
 
 config...: toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5
-date.....: Mo Mär 7 21:59:00 CET 2005
+date.....: So Mär 13 21:20:22 CET 2005
 user.....: robert@himalia
-buildtime: 0h15m26s
+buildtime: 0h15m36s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2
-date.....: Mo Mär 7 22:14:31 CET 2005
+date.....: So Mär 13 21:36:05 CET 2005
 user.....: robert@himalia
-buildtime: 0h31m27s
+buildtime: 0h31m45s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Mo Mär 7 22:46:18 CET 2005
+date.....: So Mär 13 22:08:05 CET 2005
 user.....: robert@himalia
-buildtime: 0h13m27s
+buildtime: 0h13m49s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5
-date.....: Mo Mär 7 22:59:53 CET 2005
+date.....: So Mär 13 22:21:59 CET 2005
 user.....: robert@himalia
-buildtime: 0h15m38s
+buildtime: 0h15m46s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3
-date.....: Mo Mär 7 23:15:37 CET 2005
+date.....: So Mär 13 22:37:51 CET 2005
 user.....: robert@himalia
-buildtime: 0h32m56s
+buildtime: 0h33m8s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Mo Mär 7 23:48:54 CET 2005
+date.....: So Mär 13 23:11:09 CET 2005
 user.....: robert@himalia
-buildtime: 0h14m16s
+buildtime: 0h14m19s
 result...: 0
 
 config...: toolchain_m68k-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Di Mär 8 00:03:16 CET 2005
+date.....: So Mär 13 23:25:35 CET 2005
 user.....: robert@himalia
-buildtime: 0h10m4s
+buildtime: 0h10m11s
 result...: 0
 
-config...: toolchain-powerpc-405
-date.....: Di Mär 8 00:13:25 CET 2005
+config...: toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5
+date.....: So Mär 13 23:35:53 CET 2005
 user.....: robert@himalia
+buildtime: 0h27m18s
+result...: 0
+
+config...: toolchain_powerpc-604-linux-gnu-3.4.1_glibc-2.3.3
+date.....: Mo Mär 14 00:03:24 CET 2005
+user.....: robert@himalia
+buildtime: 0h39m24s
+result...: 0
+
+
+stop: Mo Mär 14 00:43:08 CET 2005
+
