@@ -4,12 +4,18 @@ config OPENSSH
 	bool
 	prompt "OpenSSH"
 
+config OPENSSH_SSH
+	bool "Install ssh (client)"
+
 config OPENSSH_SSHD
 	bool "Install sshd (server)"
 	default y
 
-config OPENSSH_SSH
-	bool "Install ssh (client)"
+config OPENSSH_SCP
+	bool "Install scp"
+
+config OPENSSH_SFTP_SERVER
+	bool "Install sftp-server"
 
 config OPENSSH_KEYGEN
 	bool "Install ssh-keygen"
