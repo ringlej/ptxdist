@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.5 2003/07/16 04:23:28 mkl Exp $
+# $Id: xchain-gccstage1.make,v 1.6 2003/07/16 04:40:24 mkl Exp $
 #
 # (c) 2002,2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -36,7 +36,7 @@ GCC_ARMPATCH_DIR	= $(GCC_DIR)
 GCC_ARMPATCH_EXTRACT	= bzip2 -dc
 
 GCC_PATCH		= gcc-2.95.3-2.patch
-GCC_PATCH_URL		= ftp://igwe.vub.ac.be/pub/linux/lfs/lfs-packages/3.3/$(GCC_PATCH).bz2
+GCC_PATCH_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(GCC_PATCH).bz2
 GCC_PATCH_SOURCE	= $(SRCDIR)/$(GCC_PATCH).bz2
 GCC_PATCH_DIR		= $(GCC_DIR)
 GCC_PATCH_EXTRACT	= bzip2 -dc
