@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.23 2004/03/31 16:17:21 robert Exp $
+# $Id: glibc.make,v 1.24 2004/08/24 14:17:34 rsc Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -35,6 +35,7 @@ GLIBC_THREADS_SOURCE	= $(SRCDIR)/$(GLIBC_THREADS).tar.gz
 GLIBC_THREADS_DIR	= $(GLIBC_DIR)
 
 GLIBC_BUILDDIR		= $(BUILDDIR)/$(GLIBC)-build
+GLIBC_ZONEDIR		= $(BUILDDIR)/$(GLIBC)-zoneinfo
 
 # ----------------------------------------------------------------------------
 # Get
@@ -181,15 +182,25 @@ GLIBC_AUTOCONF	+= $(GLIBC_EXTRA_CONFIG)
 
 $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
 	@$(call targetinfo, $@)
+	#
+	# Let's build off-tree
+	#
 	mkdir -p $(GLIBC_BUILDDIR)
 	cd $(GLIBC_BUILDDIR) &&	\
 	        $(GLIBC_PATH) $(GLIBC_ENV) \
 		$(GLIBC_DIR)/configure $(PTXCONF_GNU_TARGET) \
 			$(GLIBC_AUTOCONF)
-#
-# don't compile programs
-#
+	# don't compile programs
 	echo "build-programs=no" >> $(GLIBC_BUILDDIR)/configparms
+
+	#
+	# Zoneinfo files are not created when being cross compiled :-(
+	# So we configure a new tree, but without cross... 
+	# FIXME: check if this had endianess issues.  
+	#
+	cp -a $(GLIBC_DIR)/timezone $(GLIBC_ZONEDIR)
+	perl -i -p -e "s,include \.\.\/Makeconfig.*,# include\.\.\/Makeconfig,g" $(GLIBC_ZONEDIR)/Makefile
+	perl -i -p -e "s,include \.\.\/Rules,# include \.\.\/Rules,g" $(GLIBC_ZONEDIR)/Makefile
 
 	touch $@
 
@@ -202,10 +213,10 @@ glibc_compile:		$(STATEDIR)/glibc.compile
 $(STATEDIR)/glibc.compile: $(STATEDIR)/glibc.prepare 
 	@$(call targetinfo, $@)
 	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) make
-#
-# fake files which are installed by make install although
-# compiling binaries was switched of (tested with 2.2.5)
-#
+	#
+	# fake files which are installed by make install although
+	# compiling binaries was switched of (tested with 2.2.5)
+	#
 	touch $(GLIBC_BUILDDIR)/iconv/iconv_prog
 	touch $(GLIBC_BUILDDIR)/login/pt_chown
 	touch $@
@@ -213,6 +224,7 @@ $(STATEDIR)/glibc.compile: $(STATEDIR)/glibc.prepare
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
+
 
 glibc_install:		$(STATEDIR)/glibc.install
 
@@ -244,6 +256,17 @@ $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 				> $(CROSS_LIB_DIR)/lib/$$file;								\
 		fi;													\
 	done
+
+	#
+	# Now build the zoneinfo files; see note in prepare stage
+	# 
+	cd $(GLIBC_ZONEDIR) && CC=$(HOSTCC) make zic
+	cd $(GLIBC_ZONEDIR) && ( 							\
+		for file in `find . -name "z.*" | sed -e "s,.*z.\(.*\),\1,g"`; do	\
+			./zic -d zoneinfo $$file || exit -1;				\
+		done									\
+	)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -380,5 +403,6 @@ glibc_clean:
 	-rm -rf $(STATEDIR)/glibc*
 	-rm -rf $(GLIBC_DIR)
 	-rm -rf $(GLIBC_BUILDDIR)
+	-rm -rf $(GLIBC_ZONEDIR)
 
 # vim: syntax=make
