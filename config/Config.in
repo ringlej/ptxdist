@@ -107,6 +107,7 @@ source "rules/gettext.in"
 source "rules/popt.in"
 source "rules/zlib.in"
 source "rules/ncurses.in"
+source "rules/termcap.in"
 source "rules/db41.in"
 source "rules/rn.in"
 
