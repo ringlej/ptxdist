@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.8 2003/08/14 10:02:18 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.9 2003/08/30 11:42:27 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -70,9 +70,9 @@ GCC_STAGE2_AUTOCONF = \
 	--with-gnu-ld \
 	--enable-languages="c,c++" \
 	--with-headers=$(CROSS_LIB_DIR)/include \
+	--disable-multilib \
 	$(GCC_STAGE2_AUTOCONF_THREADS)
 
-#	--enable-multilib \
 
 $(STATEDIR)/xchain-gccstage2.prepare: $(xchain-gccstage2_prepare_deps)
 	@$(call targetinfo, xchain-gccstage2.prepare)
