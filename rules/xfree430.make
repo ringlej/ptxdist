@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.11 2004/02/24 09:12:46 robert Exp $
+# $Id: xfree430.make,v 1.12 2004/02/25 08:28:49 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -222,7 +222,11 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	cp -fa $(XFREE430_BUILDDIR)/lib/X11/libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libX11.so.6
 	ln -sf libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libX11.so
-
+	
+	cp -fa $(XFREE430_BUILDDIR)/lib/X11/libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	ln -sf libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libX11.so.6
+	ln -sf libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libX11.so
+	
 # FIXME
 #	cp -fa $(XFREE430_BUILDDIR)/lib/X11/libXpm.so.4.11 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 #	ln -sf libXpm.so.4.11 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXpm.so.4
@@ -255,6 +259,10 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	ln -sf libXtst.so.6.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXtst.so.6
 	ln -sf libXtst.so.6.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXtst.so
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xtst
+	
+	cp -fa $(XFREE430_BUILDDIR)/lib/Xrender/libXrender.so.1.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	ln -sf libXrender.so.1.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXrender.so.1
+	ln -sf libXrender.so.1.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXrender.so
 #	#cp -af $(XFREE430_BUILDDIR)/lib/Xtst/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xtst/
 
 
