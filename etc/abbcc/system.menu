@@ -1,0 +1,20 @@
+#!../flash
+#
+# /usr/lib/flash/system.menu
+# 
+# $Id: system.menu,v 1.1 2004/08/23 08:12:15 rsc Exp $
+#
+
+Menu Color Top Left Offset 1 1 Main
+
+	Exec:Configure Non-RT Network Cards:/bin/vi /etc/network/interfaces:
+	Exec:Configure RT Network Cards:/bin/vi /etc/rtnet.conf:
+	Nop::
+	Exec:RTAI Latency Test:C:/bin/sh:
+	Exec:RTnet Test (Master):C:/bin/sh:
+	Exec:RTnet Test (Slave):C:/bin/sh:
+	Nop::
+	Quit:Logout :C:
+
+EndMenu
+
