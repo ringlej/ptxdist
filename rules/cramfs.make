@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: cramfs.make,v 1.1 2003/10/07 05:54:46 robert Exp $
+# $Id: cramfs.make,v 1.2 2003/10/07 07:13:16 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 #          
@@ -75,7 +75,6 @@ cramfs_prepare_deps =  \
 
 $(STATEDIR)/cramfs.prepare: $(cramfs_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(CRAMFS_BUILDDIR))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -110,7 +109,7 @@ $(STATEDIR)/cramfs.install: $(STATEDIR)/cramfs.compile
 
 cramfs_targetinstall: $(STATEDIR)/cramfs.targetinstall
 
-cramfs_targetinstall_deps	=  $(STATEDIR)/cramfs.compile
+cramfs_targetinstall_deps	=  $(STATEDIR)/cramfs.install
 
 $(STATEDIR)/cramfs.targetinstall: $(cramfs_targetinstall_deps)
 	@$(call targetinfo, $@)
