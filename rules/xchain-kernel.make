@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.22 2004/02/23 20:54:08 robert Exp $
+# $Id: xchain-kernel.make,v 1.23 2004/02/26 18:45:33 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -69,7 +69,10 @@ $(STATEDIR)/xchain-kernel-patchstack.extract: \
 
 xchain-kernel_get: $(STATEDIR)/xchain-kernel.get
 
-$(STATEDIR)/xchain-kernel.get: $(kernel_get_deps)
+$(STATEDIR)/xchain-kernel.get: $(STATEDIR)/kernel-patchstack.get
+# FIXME: old variant... correct? Pulls in the whole tree when changing 
+# kernel...
+# $(STATEDIR)/xchain-kernel.get: $(kernel_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -178,6 +181,16 @@ $(STATEDIR)/xchain-kernel.targetinstall:
 # ----------------------------------------------------------------------------
 
 xchain-kernel_clean: 
+	# remove feature patches, but only if kernel was cleaned before.  
+	if [ ! -f $(STATEDIR)/xchain-kernel.get ]; then                                                                 \
+		for i in `ls $(STATEDIR)/kernel-feature-*.* | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do        \
+			if [ $$? -eq 0 ]; then                                                                          \
+				rm -f $(STATEDIR)/kernel-feature-$$i*;                                                  \
+				rm -fr $(TOPDIR)/feature-patches/$$i;                                                   \
+			fi;                                                                                             \
+		done;													\
+	fi;
+
 	rm -fr $(STATEDIR)/xchain-kernel.*
 	rm -fr $(XCHAIN_KERNEL_BUILDDIR)
 

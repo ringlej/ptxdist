@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.22 2004/02/23 16:15:18 bsp Exp $
+# $Id: kernel.make,v 1.23 2004/02/26 18:45:15 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -372,14 +372,17 @@ endif
 # ----------------------------------------------------------------------------
 
 kernel_clean:
-	# remove feature patches
-	for i in `ls $(STATEDIR)/kernel-feature-*.* | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do 	\
-		if [ $$? -eq 0 ]; then				\
-			rm -f $(STATEDIR)/kernel-feature-$$i*;	\
-			rm -fr $(TOPDIR)/feature-patches/$$i;	\
-		fi						\
-	done;
+	# remove feature patches, but only if xchain-kernel was cleaned
+	# before. 
+	if [ ! -f $(STATEDIR)/xchain-kernel.get ]; then 								\
+		for i in `ls $(STATEDIR)/kernel-feature-*.* | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do 	\
+			if [ $$? -eq 0 ]; then										\
+				rm -f $(STATEDIR)/kernel-feature-$$i*;							\
+				rm -fr $(TOPDIR)/feature-patches/$$i;							\
+			fi;												\
+		done;													\
+	fi;
 	# remove kernel & dir
-	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-patchstack.* $(KERNEL_DIR)
+	rm -rf $(STATEDIR)/kernel.* $(KERNEL_DIR)
 		
 # vim: syntax=make
