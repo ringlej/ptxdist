@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.98 2004/07/16 17:34:52 bbu Exp $
+# $Id: Makefile,v 1.99 2004/07/27 12:24:47 rsc Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -368,7 +368,7 @@ configs:
 	@echo
 	@echo "Available configs: "
 	@echo
-	@grep -e ".*_config:" Makefile | grep -v grep | grep -v "^#"
+	@grep "_config" Makefile | grep -v grep | sed -e "s/://g"
 	@echo
 
 $(INSTALL_LOG): 
