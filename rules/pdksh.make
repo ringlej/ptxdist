@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pdksh.make,v 1.7 2003/07/16 04:23:28 mkl Exp $
+# $Id: pdksh.make,v 1.8 2003/08/29 19:05:15 mkl Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
@@ -153,6 +153,7 @@ pdksh_targetinstall: $(STATEDIR)/pdksh.targetinstall
 
 $(STATEDIR)/pdksh.targetinstall: $(STATEDIR)/pdksh.install
 	@$(call targetinfo, pdksh.targetinstall)
+	install -d $(ROOTDIR)/bin
 	install $(PDKSH_DIR)/ksh $(ROOTDIR)/bin
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/bin/ksh
 	touch $@

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mtd.make,v 1.3 2003/07/16 04:23:28 mkl Exp $
+# $Id: mtd.make,v 1.4 2003/08/29 19:05:15 mkl Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -134,6 +134,7 @@ mtd_install: $(STATEDIR)/mtd.install
 
 $(STATEDIR)/mtd.install: $(STATEDIR)/mtd.compile
 	@$(call targetinfo, mtd.install)
+	install -d $(PTXCONF_PREFIX)/bin
 	install $(MTD_DIR)/util/mkfs.jffs $(PTXCONF_PREFIX)/bin
 	install $(MTD_DIR)/util/mkfs.jffs2 $(PTXCONF_PREFIX)/bin
 	touch $@
@@ -158,6 +159,7 @@ mtdutil_targetinstall: $(STATEDIR)/mtdutil.targetinstall
 
 $(STATEDIR)/mtdutil.targetinstall: $(STATEDIR)/mtdutil.install
 	@$(call targetinfo, mtdutil.targetinstall)
+	install -d $(ROOTDIR)/sbin
         ifeq (y, $(PTXCONF_MTD_EINFO))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/einfo $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/einfo

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: nfs-utils.make,v 1.5 2003/07/23 14:55:40 mkl Exp $
+# $Id: nfs-utils.make,v 1.6 2003/08/29 19:05:15 mkl Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -137,6 +137,7 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 	install $(NFSUTILS_DIR)/etc/nodist/nfs-server $(ROOTDIR)/etc/init.d/
         endif
 
+	mkdir -p $(ROOTDIR)/sbin
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_EXPORTFS))
 	install $(NFSUTILS_DIR)/utils/exportfs/exportfs $(ROOTDIR)/sbin/
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/exportfs

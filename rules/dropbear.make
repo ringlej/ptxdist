@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: dropbear.make,v 1.4 2003/08/25 09:18:34 mkl Exp $
+# $Id: dropbear.make,v 1.5 2003/08/29 19:05:15 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             for Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -262,8 +262,8 @@ endif
 $(STATEDIR)/dropbear.targetinstall: $(dropbear_targetinstall_deps)
 	@$(call targetinfo, dropbear.targetinstall)
 
-	mkdir -p $(ROOTDIR)/usr/bin
-	mkdir -p $(ROOTDIR)/usr/sbin
+	install -d $(ROOTDIR)/usr/bin
+	install -d $(ROOTDIR)/usr/sbin
 
 ifdef PTXCONF_DROPBEAR_DROPBEAR
 	install $(DROPBEAR_DIR)/dropbear \
