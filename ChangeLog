@@ -1,3 +1,13 @@
+2005-03-22 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* 0.7.3 released
+
+2005-03-21 Sascha Hauer <s.hauer@pengutronix.de>
+
+	* configs: the PS1 prompt somehow gets mangled from time 
+	  to time. We cannot reproduce when it happens, but fix
+	  it for the release. 
+
 2005-03-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* setup: we now use ~/.ptxdistrc
@@ -5,8 +15,6 @@
 	  kernel tries to depmod the modules, but at least on
 	  debian depmod claims that the modules are for the 
 	  wrong architecture.
-
-	* 0.7.3 released
 
 2005-03-19 Robert Schwebel <r.schwebel@pengutronix.de>
 
