@@ -573,6 +573,44 @@ feature_patchin =								\
 	fi;									\
 
 #
+# Install function with user/group ownership and permissions via fakeroot
+#
+# $1 = UID
+# $2 = GID
+# $3 = permissions (octal)
+# $4 = source (for files); directory (for directories)
+# $5 = destination (for files); empty (for directories). Prefixed with $(ROOTDIR)
+#
+copy_root = 									\
+	@OWN=`echo $(1) | sed -e 's/[[:space:]]//g'`;				\
+	GRP=`echo $(2) | sed -e 's/[[:space:]]//g'`;				\
+	PER=`echo $(3) | sed -e 's/[[:space:]]//g'`;				\
+	SRC=`echo $(4) | sed -e 's/[[:space:]]//g'`;				\
+	DST=`echo $(5) | sed -e 's/[[:space:]]//g'`;				\
+	[ -e $(TOPDIR)/permissions ] || touch $(TOPDIR)/permissions; 		\
+	if [ -z "$(5)" ]; then									\
+		echo "copy_root dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER"; 		\
+		fakeroot -s $(TOPDIR)/permissions -i $(TOPDIR)/permissions 			\
+			install -o $$OWN -g $$GRP -m $$PER -d $(ROOTDIR)$$SRC;			\
+	else											\
+		echo "copy_root src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER"; \
+		fakeroot -s $(TOPDIR)/permissions -i $(TOPDIR)/permissions			\
+			install -o $$OWN -g $$GRP -m $$PER $$SRC $(ROOTDIR)$$DST;		\
+	fi;
+
+#
+# Link function: consistent syntax for soft links
+# 
+# $1 = source
+# $2 = destination
+#
+link_root =									\
+	@SRC=`echo $(1) | sed -e 's/[[:space:]]//g'`;				\
+	DST=`echo $(2) | sed -e 's/[[:space:]]//g'`;				\
+	echo "link_root src=$$SRC dst=$$DST "; 					\
+	ln -sf $$SRC $(ROOTDIR)$$DST
+
+#
 # CFLAGS // CXXFLAGS
 #
 # the TARGET_CFLAGS and TARGET_CXXFLAGS are included from the architecture
