@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: dropbear.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
+# $Id: dropbear.make,v 1.7 2004/02/28 14:27:20 robert Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -20,7 +20,7 @@ endif
 #
 # Paths and names
 #
-DROPBEAR_VERSION		= 0.36
+DROPBEAR_VERSION		= 0.41
 DROPBEAR			= dropbear-$(DROPBEAR_VERSION)
 DROPBEAR_SUFFIX			= tar.bz2
 DROPBEAR_URL			= http://matt.ucc.asn.au/dropbear/$(DROPBEAR).$(DROPBEAR_SUFFIX)
