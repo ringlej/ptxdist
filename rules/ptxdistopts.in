@@ -1,0 +1,11 @@
+menu    "Source Archive Opts "
+
+config DEBPOOLM
+	string
+	default "http://ftp.se.debian.org/debian/"
+	prompt "Debian Pool Mirror "
+	help
+	  The Debian pool mirror to use for downloading various components of
+	  the target root filesystem.
+
+endmenu	 
