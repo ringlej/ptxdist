@@ -80,16 +80,23 @@ CROSSTOOL_ENV 	=  $(CROSS_ENV)
 
 # FIXME: where do we get this from? 
 CROSSTOOL_TARGET_CFLAGS		=  -O
+
+ifdef PTXCONF_GCC_2_95_3
+ifdef PTXCONF_OPT_PPC405
+#CROSSTOOL_TARGET_CFLAGS		+= -mcpu=405
+endif
+endif
+
 # BSP: I like --with-cpu=strongarm on my x86...
 ifdef PTXCONF_ARCH_ARM
 CROSSTOOL_GCC_EXTRA_CONFIG	=  "--with-float=soft --with-cpu=strongarm"
 endif
 
-ifndef PTXCONF_GCC_2_95_3
+#ifndef PTXCONF_GCC_2_95_3
 ifdef PTXCONF_OPT_PPC405
 CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-cpu=405 --enable-cxx-flags=-mpcu=405"
 endif
-endif
+#endif
 
 CROSSTOOL_GCCLANG		=  c
 ifdef PTXCONF_CROSSTOOL_GCCLANG_CC
@@ -144,9 +151,9 @@ $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 		mkdir -p $(subst $(quote),,$(PTXCONF_PREFIX)); \
 		\
 		export KERNELCONFIG=$(subst $(quote),,$(CROSSTOOL_DIR)/$(PTXCONF_CROSSTOOL_KERNELCONFIG)); \
-		 \
+		\
 		TARGET=$(subst $(quote),,$(PTXCONF_GNU_TARGET)) \
-		TARGET_CFLAGS=$(CROSSTOOL_TARGET_CFLAGS) \
+		TARGET_CFLAGS="$(call remove_quotes,$(CROSSTOOL_TARGET_CFLAGS))" \
 		GCC_EXTRA_CONFIG=$(CROSSTOOL_GCC_EXTRA_CONFIG) \
 		GLIBC_EXTRA_CONFIG=$(CROSSTOOL_GLIBC_EXTRA_CONFIG) \
 		BINUTILS_DIR=binutils-$(BINUTILS_VERSION) \

@@ -1,4 +1,4 @@
-#
+# -*-makefile-*-
 # $Id$
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
