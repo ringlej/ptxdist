@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-binutils.make,v 1.12 2003/11/17 18:36:29 mkl Exp $
+# $Id: xchain-binutils.make,v 1.13 2003/11/24 01:14:52 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -31,7 +31,7 @@ xchain-binutils_get_deps = \
 	$(XCHAIN_BINUTILS_SOURCE) \
 	$(STATEDIR)/xchain-binutils-patches.get
 
-$(STATEDIR)/xchain-binutils.get: $(binutils_get_deps)
+$(STATEDIR)/xchain-binutils.get: $(xchain-binutils_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
