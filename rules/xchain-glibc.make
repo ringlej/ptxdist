@@ -1,4 +1,4 @@
-# $Id: xchain-glibc.make,v 1.2 2003/04/24 16:07:09 jst Exp $
+# $Id: xchain-glibc.make,v 1.3 2003/04/30 14:14:16 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -117,7 +117,7 @@ endif
 $(STATEDIR)/glibc.extract: $(glibc_extract_deps)
 	touch $@
 
-$(STATEDIR)/glibc-base.extract: $(STATEDIR)/glibc-base.get
+$(STATEDIR)/glibc-base.extract: $(STATEDIR)/glibc-base.get $(STATEDIR)/glibc-ptxpatch.get
 	@echo
 	@echo -------------------------- 
 	@echo target: glibc-base.extract
@@ -125,7 +125,7 @@ $(STATEDIR)/glibc-base.extract: $(STATEDIR)/glibc-base.get
 	@echo
 	$(GLIBC_EXTRACT) $(GLIBC_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	# fix some bugs...
-	cd $(GLIBC_DIR) && patch -p1 < $(GLIBC_PTXPATCH_SOURCE)
+	cd $(GLIBC_DIR) && patch -p0 < $(GLIBC_PTXPATCH_SOURCE)
 	# fix: sunrpc's makefile has the wrong magic to find cpp...
 	# FIXME: is this the right fix for other versions than 2.2.5? 
 	cd $(GLIBC_DIR)/sunrpc && mkdir cpp && ln -s $(PTXCONF_PREFIX)/bin/cpp cpp/
