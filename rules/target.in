@@ -3,6 +3,11 @@ menu	"Target Options      "
 choice
 	prompt "CPU Architecture "
 
+	config ARCH_ALPHA
+		bool "ALPHA"
+		help
+		  This is support for the Alpha processor architecture.
+
 	config ARCH_ARM
 		bool "ARM"
 		help
@@ -229,6 +234,7 @@ config TARGET_CONFIG_FILE
 	default "hppa.dat"		if ARCH_PARISC
 	default "sh3.dat"		if SH_ARCH_SH3
 	default "sh4.dat"		if SH_ARCH_SH4
+	default "alpha.dat"		if ARCH_ALPHA
 
 comment "---"
 
@@ -240,6 +246,7 @@ config ARCH
 	string
 	default "arm"			if ARCH_ARM
 	default "armnommu"		if ARCH_ARM_NOMMU
+	default "alpha"			if ARCH_ALPHA
 	default "i386"			if ARCH_X86
 	default "ppc"			if ARCH_PPC
 	default "sparc"			if ARCH_SPARC
@@ -253,6 +260,7 @@ config ARCH_USERSPACE
 	string
 	default "arm"			if ARCH_ARM
 	default "arm"			if ARCH_ARM_NOMMU
+	default "alpha"			if ARCH_ALPHA
 	default "i386"			if ARCH_X86
 	default "powerpc"		if ARCH_PPC
 	default "sparc"			if ARCH_SPARC
