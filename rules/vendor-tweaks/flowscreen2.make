@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: flowscreen2.make,v 1.9 2004/08/18 09:29:01 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Pengutronix, Robert Schwebel
 #          
@@ -21,7 +21,7 @@ $(STATEDIR)/flowscreen2.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	copy /etc template
-	cp -a $(TOPDIR)/etc/generic/. $(ROOTDIR)/etc
+	cp -a $(TOPDIR)/projects/mx1fs2/. $(ROOTDIR)/etc
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 

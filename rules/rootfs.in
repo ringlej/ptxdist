@@ -1,11 +1,18 @@
 menu	"Root Filesystem     "
 
+config ROOTFS
+	bool
+	prompt "Populate root filesystem"
+	default y
+
 config ROOTFS_DEV
+	depends on ROOTFS
 	bool
 	prompt "Create /dev"
 	default y
 
 config ROOTFS_ETC
+	depends on ROOTFS
 	bool
 	prompt "Use generic template for /etc"
 	default y
@@ -17,36 +24,43 @@ config ROOTFS_ETC
 	  directory you should problably switch this on. 
 
 config ROOTFS_FLOPPY
+	depends on ROOTFS
 	bool
 	prompt "Create /floppy"
 	default y
 
 config ROOTFS_HOME
+	depends on ROOTFS
 	bool
 	prompt "Create /home"
 	default y
 
 config ROOTFS_MNT
+	depends on ROOTFS
 	bool
 	prompt "Create /mnt"
 	default y
 
 config ROOTFS_PROC
+	depends on ROOTFS
 	bool
 	prompt "Create /proc"
 	default y 
 
 config ROOTFS_SYS
+	depends on ROOTFS
 	bool
 	prompt "Create /sys"
 	default y
 
 config ROOTFS_TMP
+	depends on ROOTFS
 	bool
 	prompt "Create /tmp"
 	default y
 
 config ROOTFS_VAR
+	depends on ROOTFS
 	bool
 	prompt "Create /var"
 	default y

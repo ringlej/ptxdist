@@ -27,7 +27,7 @@ comment	"General Options ---    "
 
 source "rules/experimental.in"
 source "rules/target.in"
-source "rules/cross-toolchain.in"
+source "rules/crosstool.in"
 source "rules/rootfs.in"
 source "rules/debug.in"
 source "rules/hosttools.in"

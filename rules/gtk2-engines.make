@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gtk2-engines.make,v 1.1 2004/03/31 16:23:29 robert Exp $
+# $Id$
 #
 # Copyright (C) 2003 by BSP
 #          

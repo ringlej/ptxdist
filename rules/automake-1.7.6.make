@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: automake-1.7.6.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          

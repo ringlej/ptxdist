@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: slang.make,v 1.1 2004/02/16 13:17:44 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          

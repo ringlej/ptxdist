@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: proftpd.make,v 1.7 2004/08/17 09:42:50 sha Exp $
+# $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #

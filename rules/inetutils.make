@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: inetutils.make,v 1.5 2004/07/22 18:21:05 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation (www.ixiacom.com)
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: hotplug.make,v 1.1 2004/07/23 18:12:27 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libpng125.make,v 1.3 2004/08/18 19:18:33 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany

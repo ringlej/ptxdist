@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-python.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by David R Bacon
 #             Marc Kleine-Budde <kleine-budde@gmx.de>

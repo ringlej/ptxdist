@@ -1,14 +1,22 @@
+#
+# rules/openafs.in
+#
+
 menu    "OpenAFS             "
+
 config OPENAFS
 	bool
 	prompt "Compile OpenAFS"
 
-	choice
-		prompt "OpenAFS Version"
+choice
+	prompt "OpenAFS Version"
 		default OPENAFS_1_2_11 
 
-		config OPENAFS_1_2_11
+	config OPENAFS_1_2_11
+		depends on OPENAFS
 		bool
 		prompt "1.2.11"
-	endchoice
+
+endchoice
+
 endmenu

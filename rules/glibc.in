@@ -2,166 +2,166 @@ config GLIBC_PTHREADS
 	bool
 	prompt "Compile glibc with pthreads"
 	default y
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_LIBIO
 	bool
 	prompt "Build in GNU libio instead of GNU stdio"
 	default n
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_SHARED
 	bool
 	prompt "Build shared library"
 	default y
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_PROFILED
 	bool
 	prompt "Include profiling support"
 	default n
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_OMITFP
 	bool
 	prompt "Build undebuggable optimized library"
 	default n
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_BOUNDED
 	bool
 	prompt "Build with runtime bounds checking"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_OPTKERNEL
 	bool
 	prompt "Optimize glibc for selected kernel version"
 	default n
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_DEBUG
 	bool "Don't strip debugging symbols"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 # ----------
 
 comment	"Install options"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_THREAD_DB
 	bool
 	prompt "Install libthread_db on the target"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_DL
 	bool
 	prompt "Install libdl on the target"
 	default y if BASH || BUILD_GDBSERVER
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_CRYPT
 	bool
 	prompt "Install libcrypt on the target"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_UTIL
 	bool
 	prompt "Install libutil on the target"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_LIBM
 	bool
 	prompt "Install libm on the target"
 	default y if BUILD_GDB
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 
 comment "libnss_dns depends on libresolv"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 	depends on !GLIBC_RESOLV
 
 config GLIBC_NSS_DNS
 	bool
 	prompt "Install libnss_dns"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 	depends on GLIBC_RESOLV
 
 config GLIBC_NSS_FILES
 	bool
 	prompt "Install libnss_files"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 comment "libnss_hesiod depends on libresolv and libnss_files"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 	depends on ! (GLIBC_RESOLV && GLIBC_NSS_FILES)
 
 config GLIBC_NSS_HESIOD
 	bool
 	prompt "Install libnss_hesiod"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 	depends on GLIBC_RESOLV && GLIBC_NSS_FILES
 
 comment "libnss_nis depends on libnsl and libnss_files"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 	depends on ! (GLIBC_NSL && GLIBC_NSS_FILES)
 
 config GLIBC_NSS_NIS
 	bool
 	prompt "Install libnss_nis"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 	depends on GLIBC_NSL && GLIBC_NSS_FILES
 
 comment "libnss_nisplus depends on libnsl"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 	depends on !GLIBC_NSL
 
 config GLIBC_NSS_NISPLUS
 	bool
 	prompt "Install libnss_nisplus"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 	depends on GLIBC_NSL
 
 comment "libnss_compat depends on libnsl"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 	depends on !GLIBC_NSL
 
 config GLIBC_NSS_COMPAT
 	bool
 	prompt "Install libnss_compat"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 	depends on GLIBC_NSL
 
 config GLIBC_RESOLV
 	bool
 	prompt "Install libresolv"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_NSL
 	bool
 	prompt "Install libnsl"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 # -----
 
 config GLIBC_GCONV
 	bool
 	prompt "Install gconv libraries"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_GCONV_ISO8859_1
 	bool
 	prompt "  ISO8859-1"
-	depends on GLIBC_GCONV
+	depends on GLIBC_GCONV && LIBC
 
 # -----
 
 comment "Timezone Files"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 
 config GLIBC_ZONEINFO
 	bool
 	prompt "Install zoneinfo files"
-	depends on GLIBC
+	depends on GLIBC && LIBC
 	default N
 
 config GLIBC_ZONEINFO_AFRICA

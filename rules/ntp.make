@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ntp.make,v 1.6 2004/08/18 17:13:09 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          

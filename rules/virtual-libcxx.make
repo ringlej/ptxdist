@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: virtual-libcxx.make,v 1.1 2003/11/13 19:28:24 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: hosttool-fakeroot.make,v 1.2 2004/08/26 06:23:52 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          

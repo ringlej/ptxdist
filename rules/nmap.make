@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: nmap.make,v 1.6 2003/11/17 03:34:45 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 Ixia Corporation (www.ixiacom.com), by Milan Bobde
 #

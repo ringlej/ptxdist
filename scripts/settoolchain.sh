@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: settoolchain.sh,v 1.9 2004/07/28 01:13:09 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 Ixia Communications, by Dan Kegel
 #

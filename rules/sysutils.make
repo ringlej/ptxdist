@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: sysutils.make,v 1.1 2004/07/01 16:06:26 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          

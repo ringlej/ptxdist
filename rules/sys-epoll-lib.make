@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: sys-epoll-lib.make,v 1.3 2003/11/05 01:01:08 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation, by Milan Bobde
 #          

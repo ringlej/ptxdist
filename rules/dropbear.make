@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: dropbear.make,v 1.8 2004/03/10 17:31:33 robert Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany

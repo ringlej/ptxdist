@@ -1,4 +1,13 @@
+#
+# rules/libc.in
+#
+
 menu	"C Library           "
+
+config LIBC
+	bool
+	prompt "Compile a C Library"
+	default y
 
 choice
         prompt "Which C library do you want to use?"
@@ -17,8 +26,9 @@ endchoice
 comment "C Library options"
 
 choice
-	prompt "C-Lib Version"
+	prompt "glibc Version"
 		default GLIBC_2_2_5
+		depends on GLIBC
 
 	config GLIBC_2_3_2
 		bool

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: oprofile.make,v 1.4 2004/06/23 22:53:05 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #          

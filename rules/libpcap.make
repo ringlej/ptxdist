@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libpcap.make,v 1.5 2004/06/23 15:30:15 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: e2tools.make,v 1.2 2004/08/26 06:22:15 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: popt.make,v 1.4 2003/10/28 01:50:31 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rn.make,v 1.2 2003/11/13 04:29:04 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 Ixia Corporation, by Milan Bobde
 #          

@@ -13,8 +13,8 @@ exec perl -w -x $0 ${1+"$@"} # -*- mode: perl; perl-indent-level: 2; -*-
 ##############################################################
 
 ## $Revision: 1.1 $
-## $Date: 2004/02/02 19:34:53 $
-## $Author: robert $
+## $Date$
+## $Author$
 ##
 
 use strict;

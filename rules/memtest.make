@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: memtest.make,v 1.1 2004/06/07 18:29:07 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtnet.make,v 1.4 2004/08/10 21:22:42 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #          

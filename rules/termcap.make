@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: termcap.make,v 1.3 2004/04/01 19:40:32 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003, 2004 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #          

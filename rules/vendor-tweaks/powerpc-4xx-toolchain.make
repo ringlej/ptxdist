@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: powerpc-4xx-toolchain.make,v 1.1 2003/12/12 15:46:54 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #          

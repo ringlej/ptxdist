@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: jed.make,v 1.1 2004/08/27 18:37:40 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2004 by BSP
 #          

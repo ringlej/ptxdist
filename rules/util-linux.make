@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: util-linux.make,v 1.8 2004/07/16 09:13:48 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          

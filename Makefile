@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.110 2004/08/26 15:22:21 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -207,90 +207,17 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 
 # Config Targets -------------------------------------------------------------
 
-i386-ratio-uno-2053-1_config:
-	@echo "copying ratio UNO-2053-1 configuration"
-	@cp config/i386-ratio-uno-2053-1.ptxconfig .config
-
-i386-frako_config:
-	@echo "copying frako configuration"
-	@cp config/i386-frako.ptxconfig .config
-
-i386-generic-glibc_config: 
-	@echo "copying i386-generic-glibc configuration"
-	@cp config/i386-generic-glibc.ptxconfig .config
-
-i386-generic-uclibc_config: 
-	@echo "copying i386-generic-uclibc configuration"
-	@cp config/i386-generic-uclibc.ptxconfig .config
-
-c3-abbcc_config:
-	@echo "copying abbcc configuration"
-	@cp config/c3-abbcc.ptxconfig .config
-
-innokom-2.4-2.95_config:
-	@echo "copying innokom-2.4-2.95 configuration"
-	@cp config/innokom-2.4-2.95.ptxconfig .config
-
-innokom-2.4-3.3.2_config:
-	@echo "copying innokom-2.4-3.3.2 configuration"
-	@cp config/innokom-2.4-3.3.2.ptxconfig .config
-
-innokom-2.6-3.3.2_config:
-	@echo "copying innokom-2.6-3.3.2 configuration"
-	@cp config/innokom-2.6-3.3.2.ptxconfig .config
-
-mx1fs2_config:
-	@echo "copying mx1fs2 configuration"
-	@cp config/mx1fs2.ptxconfig .config
-
-pii_nge_config:
-	@echo "copying pii_nge configuration"
-	@cp config/pii_nge.ptxconfig .config
-
-i586-rayonic_config:
-	@echo "copying 586 rayonic configuration"
-	@cp config/i586-rayonic.ptxconfig .config
-	@cp config/rtaiconfig-rayonic .rtaiconfig
-
-i386-rayonic_config:
-	@echo "copying 386 rayonic configuration"
-	@cp config/i386-rayonic.ptxconfig .config
-	@cp config/rtaiconfig-rayonic .rtaiconfig
-
-roi-eics_config:
-	@echo "copying ROI EICS configuration"
-	@cp config/geode-roi_eics.ptxconfig .config
-	@cp config/rtaiconfig-roi .rtaiconfig
-
-i386-scII-bmwm_config:
-	@echo "copying solidcard-bmw configuration"
-	@cp config/i386-scII-bmwm.ptxconfig .config
-
-scIII-cameron_config:
-	@echo "copying scIII-cameron configuration"
-	@cp config/ppc405-cameron.ptxconfig .config
-
-wystup_config:
-	@echo "copying wystup configuration"
-	@cp config/wystup.ptxconfig .config
-
-h7202_config:
-	@echo "copying HMS7202 Evalboard configuration"
-	@cp config/h7202.ptxconfig .config
-
-# Toolchain Config Targets ---------------------------------------------------
-
-toolchain-powerpc-405-linux_config:
-	@echo "copying toolchain-powerpc-405-linux configuration"
-	@cp config/toolchain-powerpc-405-linux .config
-
-toolchain-arm-linux-3.3.2_config:
-	@echo "copying toolchain-arm-linux configuration"
-	@cp config/toolchain-arm-linux-3.3.2 .config
-
-toolchain-arm-linux-2.95_config:
-	@echo "copying toolchain-arm-linux-2.95 configuration"
-	@cp config/toolchain-arm-linux-2.95 .config
+%_config:
+	@echo; \
+	echo "[Searching for Config File:]"; \
+	CFG=`find projects -name $(subst _config,.ptxconfig,$@)`; \
+	if [ -n "$$CFG" ]; then \
+		echo "using config file \"$$CFG\""; \
+		cp $$CFG $(TOPDIR)/.config; \
+	else \
+		echo "could not find config file \"$$CFG\""; \
+	fi; \
+	echo
 
 # Cuckoo Test ----------------------------------------------------------------
 cuckoo-test: world
@@ -387,7 +314,9 @@ configs:
 	@echo
 	@echo "Available configs: "
 	@echo
-	@grep "_config" Makefile | grep -v grep | sed -e "s/://g"
+	@for i in `find projects -name "*.ptxconfig"`; do \
+		basename `echo $$i | perl -p -e "s/.ptxconfig/_config/g"`; \
+	done
 	@echo
 
 $(INSTALL_LOG): 

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: lrzsz.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: sysvinit.make,v 1.1 2003/12/04 13:19:46 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: zebra.make,v 1.3 2003/10/28 00:10:09 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 Jochen Striepe, Pengutronix e.K. <info@pengutronix.de>, Germany
 # Copyright (C) 2003 Robert Schwebel, Pengutronix e.K. <info@pengutronix.de>, Germany

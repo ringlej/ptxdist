@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: lilo.make,v 1.4 2004/06/10 10:33:22 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bmwm.make,v 1.9 2004/06/10 11:18:43 rsc Exp $
+# $Id$
 
 VENDORTWEAKS = bmwm
 
@@ -30,7 +30,7 @@ $(STATEDIR)/bmwm.targetinstall:
 	cp /usr/lib/libexpat.so.1 $(ROOTDIR)/usr/lib/
 
 	# copy /etc skeleton
-	cp -a $(TOPDIR)/etc/bmwm-cid_internet/* $(ROOTDIR)/etc/
+	cp -a $(TOPDIR)/scII-bmwm/etc/* $(ROOTDIR)/etc/
 	
 	# menu.lst for grub
 	install -d $(ROOTDIR)/boot/grub

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glib1210.make,v 1.3 2003/12/15 07:16:22 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany

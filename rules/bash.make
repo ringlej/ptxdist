@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bash.make,v 1.8 2004/06/21 13:35:03 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

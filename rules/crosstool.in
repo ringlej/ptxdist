@@ -1,0 +1,173 @@
+#
+# rules/crosstool.in
+#
+
+menu	"Toolchain/Crosstool "
+
+comment "Crosstool Options"
+	depends on CROSSTOOL
+
+config CROSSTOOL
+	bool
+	prompt "Build Cross Toolchain with Crosstool"
+	default n
+
+choice
+	prompt "GCC Version"
+		depends on CROSSTOOL
+
+	config GCC_2_95_3
+		bool
+		prompt "2.95.3"
+
+	config GCC_3_2_3
+		bool
+		prompt "3.2.3"
+
+	config GCC_3_3_2
+		bool
+		prompt "3.3.2"
+
+	config GCC_3_4_0
+		bool
+		prompt "3.4.0"
+
+
+	config GCC_3_4_1
+		bool
+		prompt "3.4.1"
+
+endchoice
+
+config GCC_VERSION
+	string 
+	default "2.95.3"	if GCC_2_95_3
+	default "3.2.3"		if GCC_3_2_3
+	default "3.3.2"		if GCC_3_3_2
+	default "3.4.0"		if GCC_3_4_0
+	default "3.4.1"		if GCC_3_4_1
+
+config CROSSTOOL_GCCLANG_CC
+	depends on CROSSTOOL
+	bool
+	prompt "C++ language support"
+	default y
+
+choice
+	prompt "binutils"
+		depends on CROSSTOOL
+
+	config BINUTILS_2_14
+		bool
+		prompt "2.14"
+
+	config BINUTILS_2_15
+		bool
+		prompt "2.15"
+
+endchoice
+
+config BINUTILS_VERSION
+	string
+	default "2.14"		if BINUTILS_2_14
+	default "2.15"		if BINUTILS_2_15
+
+comment "Generic Options"
+
+config CROSSCHAIN_CHECK
+	string
+	prompt "Check for specific gcc version"
+	default "2.95.3"
+	depends on !CROSSTOOL
+	help
+	  PTXdist calls your cross compiler with -dumpversion and
+	  compares the output with this string. This should help
+	  to avoid compilation with the wrong compiler version 
+	  when you use your own external toolchain. 
+
+#config GCC_2
+#	bool
+#	default y if GCC_2_95_3
+#
+#config GCC_3
+#	bool
+#	default y if GCC_3_2_3
+#	default y if GCC_3_3_2
+#	default y if GCC_3_4_1
+#
+#config GCC_SHARE
+#	bool
+#	prompt "  build gcc shared"
+#	default y
+#	depends on CROSSTOOL
+#	help
+#	  FIXME: is this working and being used? [RSC]
+
+config GCC_MULTILIB
+	bool
+	prompt "build gcc with multilib support"
+	default n
+	depends on CROSSTOOL
+	help
+	  FIXME: is this working and being used? [RSC]
+
+config GNU_TARGET
+	string
+	prompt "Compiler Prefix"
+	default "arm-softfloat-linux-gnu"       if ARM_ARCH_LE          && GLIBC
+	default "armb-unknown-linux-gnu"        if ARM_ARCH_BE          && GLIBC
+	default "arm-elf"                       if ARCH_ARM_NOMMU       && GLIBC
+	default "i386-unknown-linux-gnu"        if OPT_I386             && GLIBC
+	default "i486-unknown-linux-gnu"        if OPT_I486             && GLIBC
+	default "i586-unknown-linux-gnu"        if OPT_I586             && GLIBC
+	default "i686-unknown-linux-gnu"        if OPT_I686             && GLIBC
+	default "powerpc-unknown-linux-gnu"     if OPT_PPC              && GLIBC
+	default "powerpc-405-linux-gnu"         if OPT_PPC405           && GLIBC
+	default "powerpc-750-linux-gnu"         if OPT_PPC750           && GLIBC
+	default "powerpc-7450-linux-gnu"        if OPT_PPC7450          && GLIBC
+	default "sparc-unknown-linux-gnu"       if OPT_SPARC            && GLIBC
+	default "mips-unknown-linux-gnu"        if MIPS_ARCH_BE         && GLIBC
+	default "mipsel-unknown-linux-gnu"      if MIPS_ARCH_LE         && GLIBC
+	default "cris-unknown-linux-gnu"        if ARCH_CRIS            && GLIBC
+	default "hppa-unknown-linux-gnu"        if ARCH_PARISC          && GLIBC
+	default "sh3-unknown-linux-gnu"         if SH_ARCH_SH3          && GLIBC
+	default "sh4-unknown-linux-gnu"         if SH_ARCH_SH4          && GLIBC
+
+	default "arm-uclibc-linux-gnu"          if ARM_ARCH_LE          && UCLIBC
+	default "armb-uclibc-linux-gnu"         if ARM_ARCH_BE          && UCLIBC
+	default "arm-elf"                       if ARCH_ARM_NOMMU       && UCLIBC
+	default "i386-uclibc-linux-gnu"         if OPT_I386             && UCLIBC
+	default "i486-uclibc-linux-gnu"         if OPT_I486             && UCLIBC
+	default "i586-uclibc-linux-gnu"         if OPT_I586             && UCLIBC
+	default "i686-uclibc-linux-gnu"         if OPT_I686             && UCLIBC
+	default "powerpc-uclibc-linux-gnu"      if OPT_PPC              && UCLIBC
+	default "powerpc-405_uclibc-linux-gnu"  if OPT_PPC405           && UCLIBC
+	default "powerpc-750_uclibc-linux-gnu"  if OPT_PPC750           && UCLIBC
+	default "powerpc-7450_uclibc-linux-gnu" if OPT_PPC7450          && UCLIBC
+	default "sparc-uclibc-linux-gnu"        if OPT_SPARC            && UCLIBC
+	default "mips-uclibc-linux-gnu"         if MIPS_ARCH_BE         && UCLIBC
+	default "mipsel-uclibc-linux-gnu"       if MIPS_ARCH_LE         && UCLIBC
+	default "cris-uclibc-linux-gnu"         if ARCH_CRIS            && UCLIBC
+	default "hppa-uclibc-linux-gnu"         if ARCH_PARISC          && UCLIBC
+	default "sh3-uclibc-linux-gnu"          if SH_ARCH_SH3          && UCLIBC
+	default "sh4-uclibc-linux-gnu"          if SH_ARCH_SH4          && UCLIBC
+
+comment "Non-Crosstool Tools"
+
+config XCHAIN-DISTCC
+	bool
+	prompt "Build distcc"
+	default n
+
+config NASM
+	bool
+	prompt "x86 NASM"
+	depends on ARCH_X86
+
+config XCHAIN-SCONS
+	bool
+	prompt "Build scons (see help)"
+	help
+		Requires Python-1.6 or later and Python distutils on the Host,
+		these tools are not (yet) part of ptxdist
+endmenu

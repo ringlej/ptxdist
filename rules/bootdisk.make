@@ -1,5 +1,5 @@
 # -*-makefile-*- 
-# $Id: bootdisk.make,v 1.15 2004/03/22 09:02:43 bbu Exp $
+# $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

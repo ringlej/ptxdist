@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: Version.make,v 1.7 2004/07/28 01:13:09 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 # See CREDITS for details about who has contributed to this project. 

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: wystup.make,v 1.3 2004/08/30 15:41:20 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -22,7 +22,7 @@ $(STATEDIR)/wystup.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	copy /etc template
-#	cp -a $(TOPDIR)/etc/wystup/. $(ROOTDIR)/etc
+#	cp -a $(TOPDIR)/projects/wystup/etc/. $(ROOTDIR)/etc
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr

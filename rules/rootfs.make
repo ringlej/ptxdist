@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rootfs.make,v 1.10 2004/08/26 06:25:15 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -11,7 +11,9 @@
 #
 # We provide this package
 #
+ifdef PTXCONF_ROOTFS
 PACKAGES += rootfs
+endif
 
 #
 # Paths and names 
@@ -143,27 +145,27 @@ ifdef PTXCONF_ROOTFS_ETC
 	# Copy generic etc
 	# FIXME: some parts of this have to be put into the packet make files!
 
-	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/fstab,        /etc/fstab)
-	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/group,        /etc/group)
-	$(call copy_root, 0, 0, 0640, $(TOPDIR)/etc/generic/gshadow,      /etc/gshadow)
-	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/hostname,     /etc/hostname)
-	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/hosts,        /etc/hosts)
-	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/inittab,      /etc/inittab)
-	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/passwd,       /etc/passwd)
-	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/profile,      /etc/profile)
-	$(call copy_root, 11, 101, 0644, $(TOPDIR)/etc/generic/proftpd.conf, /etc/proftpd.conf)
-	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/protocols,    /etc/protocols)
-	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/resolv.conf,  /etc/resolv.conf)
-	$(call copy_root, 0, 0, 0640, $(TOPDIR)/etc/generic/shadow,       /etc/shadow)
-	$(call copy_root, 0, 0, 0600, $(TOPDIR)/etc/generic/shadow-,      /etc/shadow-)
-	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/udhcpc.script,/etc/udhcpc.script)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/fstab,        /etc/fstab)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/group,        /etc/group)
+	$(call copy_root, 0, 0, 0640, $(TOPDIR)/projects/generic/etc/gshadow,      /etc/gshadow)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/hostname,     /etc/hostname)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/hosts,        /etc/hosts)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/inittab,      /etc/inittab)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/passwd,       /etc/passwd)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/profile,      /etc/profile)
+	$(call copy_root, 11, 101, 0644, $(TOPDIR)/projects/generic/etc/proftpd.conf, /etc/proftpd.conf)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/protocols,    /etc/protocols)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/resolv.conf,  /etc/resolv.conf)
+	$(call copy_root, 0, 0, 0640, $(TOPDIR)/projects/generic/etc/shadow,       /etc/shadow)
+	$(call copy_root, 0, 0, 0600, $(TOPDIR)/projects/generic/etc/shadow-,      /etc/shadow-)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/udhcpc.script,/etc/udhcpc.script)
 	$(call copy_root, 0, 0, 0755, /etc/init.d)
-	$(call copy_root, 0, 0, 0755, $(TOPDIR)/etc/generic/init.d/banner,     /etc/init.d/banner)
-	$(call copy_root, 0, 0, 0755, $(TOPDIR)/etc/generic/init.d/networking, /etc/init.d/networking)
-	$(call copy_root, 0, 0, 0755, $(TOPDIR)/etc/generic/init.d/net2flash,  /etc/init.d/net2flash)
-	$(call copy_root, 0, 0, 0755, $(TOPDIR)/etc/generic/init.d/proftpd,    /etc/init.d/proftpd)
-	$(call copy_root, 0, 0, 0755, $(TOPDIR)/etc/generic/init.d/rcS,        /etc/init.d/rcS)
-	$(call copy_root, 0, 0, 0755, $(TOPDIR)/etc/generic/init.d/utelnetd,   /etc/init.d/utelnetd)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/banner,     /etc/init.d/banner)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/networking, /etc/init.d/networking)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/net2flash,  /etc/init.d/net2flash)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/proftpd,    /etc/init.d/proftpd)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/rcS,        /etc/init.d/rcS)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/utelnetd,   /etc/init.d/utelnetd)
 	$(call copy_root, 0, 0, 0755, /etc/rc.d)
 
 endif

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-uclibc.make,v 1.4 2004/03/31 20:50:45 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003, 2004 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #

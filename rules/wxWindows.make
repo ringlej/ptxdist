@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: wxWindows.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id$
 #
 # Copyright (C) 08/10/2003 by Marco Cavallini <m.cavallini@koansoftware.com>
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: innokom.make,v 1.10 2004/06/23 15:38:27 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -39,7 +39,8 @@ ifdef PTXCONF_NFSUTILS_INSTALL_NFSD
 endif
 
 #	copy /etc template
-	cp -a $(TOPDIR)/etc/innokom/. $(ROOTDIR)/etc
+	install -d $(ROOTDIR)/etc
+	cp -a $(TOPDIR)/projects/innokom/etc/* $(ROOTDIR)/etc/
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 

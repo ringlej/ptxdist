@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bing.make,v 1.3 2004/06/22 06:52:13 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: figlet.make,v 1.2 2004/07/01 16:06:48 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          

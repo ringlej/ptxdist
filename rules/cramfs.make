@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: cramfs.make,v 1.5 2004/01/22 00:47:07 robert Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 #          

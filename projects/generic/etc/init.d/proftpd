@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# /etc/init.d/proftpd
+#
+# $Id$
+#
+
+echo Starting proftpd...
+/usr/sbin/proftpd
+

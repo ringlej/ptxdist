@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: dnsmasq.make,v 1.2 2003/12/23 10:49:10 robert Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          

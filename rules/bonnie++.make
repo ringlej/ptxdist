@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bonnie++.make,v 1.1 2004/07/28 01:11:18 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          

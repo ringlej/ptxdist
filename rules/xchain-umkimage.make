@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-umkimage.make,v 1.5 2004/06/22 06:53:53 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #          

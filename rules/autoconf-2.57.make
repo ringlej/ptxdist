@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: autoconf-2.57.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: shorewall.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Dan Kegel, Ixia Communications (http://ixiacom.com)
 #

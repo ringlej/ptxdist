@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: iptables.make,v 1.2 2004/08/26 12:46:49 bbu Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          

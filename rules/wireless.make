@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: wireless.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

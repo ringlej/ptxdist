@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libxml2.make,v 1.1 2003/11/17 16:51:14 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          

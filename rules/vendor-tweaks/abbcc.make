@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: abbcc.make,v 1.7 2004/08/23 09:33:50 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -21,7 +21,7 @@ $(STATEDIR)/abbcc.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	copy /etc template and do some changes
-	cp -a $(TOPDIR)/etc/generic/. $(ROOTDIR)/etc
+	cp -a $(TOPDIR)/projects/generic/etc $(ROOTDIR)/etc
 	perl -i -p -e "s,\@HOSTNAME@,cc1,g" $(ROOTDIR)/etc/hostname
 	cp -a $(TOPDIR)/etc/generic/inittab $(ROOTDIR)/etc/
 	perl -i -p -e "s,\@SPEED@,19200,g" $(ROOTDIR)/etc/inittab

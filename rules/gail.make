@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gail.make,v 1.4 2004/02/27 11:56:42 robert Exp $
+# $Id$
 #
 # Copyright (C) 2003 by BSP
 #          

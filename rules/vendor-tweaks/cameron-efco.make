@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: cameron-efco.make,v 1.1 2003/12/24 13:39:44 robert Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -21,7 +21,7 @@ $(STATEDIR)/cameron-efco.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	copy /etc template
-	cp -a $(TOPDIR)/etc/cameron-efco/. $(ROOTDIR)/etc
+	cp -a $(TOPDIR)/cameron-efco/etc/. $(ROOTDIR)/etc
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 

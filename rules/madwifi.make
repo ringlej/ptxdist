@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: madwifi.make,v 1.1 2004/06/10 10:36:56 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Greg Brackley
 #          

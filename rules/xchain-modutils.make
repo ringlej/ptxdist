@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-modutils.make,v 1.2 2003/11/02 14:24:08 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #          

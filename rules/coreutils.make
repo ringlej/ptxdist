@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: coreutils.make,v 1.5 2004/08/17 09:42:50 sha Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openafs.make,v 1.1 2004/06/12 09:54:42 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003,2004 by leifj@it.su.se
 #          

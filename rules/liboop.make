@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: liboop.make,v 1.8 2003/10/26 20:55:29 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #          

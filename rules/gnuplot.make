@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gnuplot.make,v 1.1 2004/08/18 19:18:33 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          

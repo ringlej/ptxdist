@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: portmap.make,v 1.8 2004/06/23 15:34:20 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

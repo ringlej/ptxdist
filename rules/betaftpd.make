@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: betaftpd.make,v 1.1 2003/11/05 00:56:58 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation, by Milan Bobde
 #          

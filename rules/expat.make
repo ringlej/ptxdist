@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: expat.make,v 1.5 2004/02/25 22:30:46 robert Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany

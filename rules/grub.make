@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: grub.make,v 1.12 2004/08/27 14:50:40 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

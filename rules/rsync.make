@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rsync.make,v 1.3 2003/12/04 09:51:39 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by wschmitt@envicomp.de
 #          

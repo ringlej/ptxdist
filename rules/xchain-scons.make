@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-scons.make,v 1.3 2003/10/26 21:01:36 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Dan Kegel
 #          

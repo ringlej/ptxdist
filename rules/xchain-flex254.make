@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-flex254.make,v 1.1 2003/11/02 14:24:08 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #          

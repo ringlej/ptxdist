@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gdb.make,v 1.7 2004/02/26 13:26:42 robert Exp $
+# $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany

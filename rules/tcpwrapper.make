@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: tcpwrapper.make,v 1.10 2003/10/26 21:59:07 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libnet.make,v 1.8 2003/10/28 01:50:31 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          

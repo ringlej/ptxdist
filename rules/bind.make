@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bind.make,v 1.3 2004/08/30 10:32:24 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          

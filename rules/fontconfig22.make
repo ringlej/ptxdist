@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: fontconfig22.make,v 1.8 2004/07/08 16:49:48 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany

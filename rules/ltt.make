@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ltt.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany

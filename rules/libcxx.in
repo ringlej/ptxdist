@@ -1,3 +1,7 @@
+#
+# rules/libcxx.in
+#
+
 menu	"C++ Library         "
 
 config CXX
@@ -5,7 +9,8 @@ config CXX
 
 choice
 	depends on GLIBC || ( UCLIBC && GCC_3 )
-	depends on BUILD_CROSSCHAIN
+	# FIXME: this is not really true...
+	depends on CROSSTOOL
 
         bool "Which C++ library do you want to use?"
         	default LIBSTDCXX
@@ -19,11 +24,11 @@ endchoice
 config LIBSTDCXX_SHARED
 	bool "Build and install shared library"
 	default y
-	depends on CXX && BUILD_CROSSCHAIN
+	depends on CXX && CROSSTOOL
 
 config LIBSTDCXX_SHARED
 	bool "Install shared library"
 	default y
-	depends on CXX && !BUILD_CROSSCHAIN
+	depends on CXX && !CROSSTOOL
 
 endmenu

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: blackbox.make,v 1.1 2004/06/10 10:33:01 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marco Cavallini <m.cavallini@koansoftware.com>
 #          

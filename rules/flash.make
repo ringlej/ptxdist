@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: flash.make,v 1.5 2004/08/23 09:33:02 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

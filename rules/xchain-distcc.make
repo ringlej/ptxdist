@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-distcc.make,v 1.2 2003/10/29 16:43:30 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 Ixia Communications, by Dan Kegel
 #          

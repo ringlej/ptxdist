@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel-sys-epoll.make,v 1.2 2003/11/05 00:58:41 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation, by Milan Bobde
 #          

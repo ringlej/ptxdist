@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: freetype214.make,v 1.7 2004/02/25 22:31:09 robert Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: db41.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Werner Schmitt mail2ws@gmx.de
 #          

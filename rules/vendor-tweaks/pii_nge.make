@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #  
-# $Id: pii_nge.make,v 1.9 2004/08/26 06:25:51 rsc Exp $
+# $Id$
 #
 # See CREDITS for details about who has contributed to this project.
 #

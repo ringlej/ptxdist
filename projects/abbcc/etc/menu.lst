@@ -1,0 +1,21 @@
+#
+# file: /boot/menu.lst
+#
+# $Id$
+#
+
+# Boot automatically after 3 secs.
+timeout 3
+
+# By default, boot the first entry (there is only one)
+default 0
+
+# Boot on serial port
+serial --unit=0 --speed=19200
+terminal --timeout=0 serial
+
+# for booting default
+title Default
+root (hd0,0)
+kernel /boot/bzImage console=ttyS0,19200 root=/dev/hdc1
+

@@ -1,3 +1,7 @@
+#
+# rules/kernel.in
+#
+
 menu	"Kernel              "
 
 config KERNEL_CONFIG

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: strace.make,v 1.7 2004/01/31 18:08:17 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany

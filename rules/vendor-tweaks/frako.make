@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: frako.make,v 1.12 2004/04/07 12:37:31 bbu Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -29,7 +29,7 @@ $(STATEDIR)/frako.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	copy /etc template
-	cp -a $(TOPDIR)/etc/frako/. $(ROOTDIR)/etc
+	cp -a $(TOPDIR)/projects/frako/etc/. $(ROOTDIR)/etc
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 

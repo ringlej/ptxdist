@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: uclibc.make,v 1.6 2004/03/31 20:50:45 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003, 2004 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #
@@ -13,7 +13,7 @@
 # We provide this package
 #
 ifdef PTXCONF_UCLIBC
-ifdef PTXCONF_BUILD_CROSSCHAIN
+ifdef PTXCONF_LIBC
 PACKAGES	+= uclibc
 endif
 DYNAMIC_LINKER	=  /lib/ld-uClibc.so.0
@@ -154,9 +154,7 @@ $(STATEDIR)/uclibc.install: $(STATEDIR)/uclibc.compile
 
 uclibc_targetinstall: $(STATEDIR)/uclibc.targetinstall
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
 uclibc_targetinstall_deps = $(STATEDIR)/uclibc.install
-endif
 
 $(STATEDIR)/uclibc.targetinstall: $(uclibc_targetinstall_deps)
 	@$(call targetinfo, $@)

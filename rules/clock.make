@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: clock.make,v 1.1 2004/02/12 09:26:40 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by BSP
 #          

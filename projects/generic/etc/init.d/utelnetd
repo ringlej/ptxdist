@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# /etc/init.d/utelnetd
+#
+# $Id$
+#
+
+echo Starting utelnetd...
+/sbin/utelnetd -d
+

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: python.make,v 1.5 2003/10/23 15:01:19 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by David R Bacon
 # See CREDITS for details about who has contributed to this project. 

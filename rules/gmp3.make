@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gmp3.make,v 1.6 2003/10/31 11:48:11 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

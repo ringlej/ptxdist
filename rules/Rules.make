@@ -16,7 +16,7 @@ DEP_TREE_PS	= deptree.ps
 # some convenience functions
 #
 
-ifneq (y, $(PTXCONF_BUILD_CROSSCHAIN))
+ifneq (y, $(PTXCONF_CROSSTOOL))
 compilercheck =								\
 	echo -n "compiler check...";					\
 	which $(PTXCONF_GNU_TARGET)-gcc > /dev/null 2>&1 || {		\
@@ -636,7 +636,7 @@ TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
 #
 # if we use an external crosschain set include and lib dirs correctly
 #
-ifndef $(PTXCONF_BUILD_CROSSCHAIN)
+ifndef $(PTXCONF_CROSSTOOL)
 TARGET_CFLAGS		+= -idirafter$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 TARGET_CXXFLAGS		+= -idirafter$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 TARGET_CPPFLAGS		+= -idirafter$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include

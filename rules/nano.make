@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: nano.make,v 1.1 2004/08/23 09:36:54 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          

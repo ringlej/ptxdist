@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libart.make,v 1.1 2004/02/25 22:39:22 robert Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          

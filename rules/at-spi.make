@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: at-spi.make,v 1.1 2004/02/25 06:20:08 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by BSP
 #          

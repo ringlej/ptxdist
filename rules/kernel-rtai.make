@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel-rtai.make,v 1.6 2003/12/02 14:09:03 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: tcpdump.make,v 1.3 2004/06/23 15:37:49 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: dhcp.make,v 1.4 2004/08/27 14:50:40 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          

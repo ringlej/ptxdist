@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtai.make,v 1.13 2004/08/10 21:21:57 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #

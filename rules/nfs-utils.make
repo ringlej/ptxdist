@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: nfs-utils.make,v 1.11 2004/08/24 10:12:22 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

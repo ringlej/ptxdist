@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: qte.make,v 1.2 2003/11/13 04:28:40 mkl Exp $
+# $Id$
 #
 # (c) 2003 by Marco Cavallini <m.cavallini@koansoftware.com>
 #          

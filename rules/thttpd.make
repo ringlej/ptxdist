@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: thttpd.make,v 1.2 2004/02/12 09:44:52 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          

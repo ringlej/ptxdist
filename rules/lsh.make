@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: lsh.make,v 1.7 2003/10/26 13:29:46 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #          

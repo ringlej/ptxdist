@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.27 2004/08/26 06:23:13 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -14,7 +14,7 @@
 # We provide this package
 #
 ifdef PTXCONF_GLIBC
-ifdef PTXCONF_BUILD_CROSSCHAIN
+ifdef PTXCONF_LIBC
 PACKAGES	+= glibc
 endif
 DYNAMIC_LINKER	=  /lib/ld-linux.so.2
@@ -172,17 +172,9 @@ glibc_prepare:		$(STATEDIR)/glibc.prepare
 #
 # dependencies
 #
-glibc_prepare_deps = \
-	$(STATEDIR)/autoconf213.install \
-	$(STATEDIR)/glibc.extract
-
-ifdef PTXCONF_BUILD_CROSSCHAIN
-glibc_prepare_deps += \
-	$(STATEDIR)/xchain-gccstage1.install
-endif
-
-glibc_prepare_deps += \
-	$(STATEDIR)/xchain-kernel.install
+glibc_prepare_deps =  $(STATEDIR)/autoconf213.install
+glibc_prepare_deps += $(STATEDIR)/glibc.extract
+glibc_prepare_deps += $(STATEDIR)/xchain-kernel.install
 
 # 
 # arcitecture dependend configuration
@@ -336,11 +328,7 @@ endif
 
 glibc_targetinstall:		$(STATEDIR)/glibc.targetinstall
 
-# FIXME: RSC: commented out, we need to compile and install glibc also if 
-# we don't have installed a toolchain...
-#ifdef PTXCONF_BUILD_CROSSCHAIN
 glibc_targetinstall_deps = $(STATEDIR)/glibc.install
-#endif
 
 ifdef PTXCONF_GLIBC_DEBUG
 GLIBC_STRIP	= true

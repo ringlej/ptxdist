@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: setmixer.make,v 1.1 2003/11/13 15:31:55 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Sascha Hauer <sascha.hauer@gyro-net.de>
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel-dev-epoll.make,v 1.2 2003/11/02 23:56:52 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation, by Milan Bobde
 #          

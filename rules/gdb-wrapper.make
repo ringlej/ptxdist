@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gdb-wrapper.make,v 1.1 2004/01/08 15:47:49 robert Exp $
+# $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mgetty.make,v 1.5 2004/03/25 15:53:07 bbu Exp $
+# $Id$
 #
 # Copyright (C) 2003 by BSP
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: fltk.make,v 1.3 2003/11/10 00:46:58 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Werner Schmitt mail2ws@gmx.de
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-mtd.make,v 1.4 2004/06/22 17:10:41 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #          

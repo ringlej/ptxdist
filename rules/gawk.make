@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gawk.make,v 1.2 2004/08/30 10:33:22 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation, By Milan Bobde
 #          

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel-uc.make,v 1.3 2003/10/28 11:12:24 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #

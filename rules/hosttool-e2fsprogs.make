@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: hosttool-e2fsprogs.make,v 1.3 2004/08/26 06:23:42 rsc Exp $
+# $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #

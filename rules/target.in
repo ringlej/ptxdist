@@ -261,46 +261,6 @@ config ARM_PROC
 	string
 	default "armv" if ARCH_ARM || ARCH_ARM_NOMMU
 
-config GNU_TARGET
-	string
-	default "arm-softfloat-linux-gnu" 	if ARM_ARCH_LE		&& GLIBC
-	default "armb-unknown-linux-gnu" 	if ARM_ARCH_BE		&& GLIBC
-	default "arm-elf"			if ARCH_ARM_NOMMU	&& GLIBC
-	default "i386-unknown-linux-gnu"	if OPT_I386		&& GLIBC
-	default "i486-unknown-linux-gnu"	if OPT_I486		&& GLIBC
-	default "i586-unknown-linux-gnu"	if OPT_I586		&& GLIBC
-	default "i686-unknown-linux-gnu"	if OPT_I686		&& GLIBC
-	default "powerpc-unknown-linux-gnu"	if OPT_PPC		&& GLIBC
-	default "powerpc-405-linux-gnu"		if OPT_PPC405		&& GLIBC
-	default "powerpc-750-linux-gnu"		if OPT_PPC750		&& GLIBC
-	default "powerpc-7450-linux-gnu"	if OPT_PPC7450		&& GLIBC
-	default "sparc-unknown-linux-gnu"	if OPT_SPARC		&& GLIBC
-	default "mips-unknown-linux-gnu"	if MIPS_ARCH_BE		&& GLIBC
-	default "mipsel-unknown-linux-gnu"	if MIPS_ARCH_LE		&& GLIBC
-	default "cris-unknown-linux-gnu"	if ARCH_CRIS		&& GLIBC
-	default "hppa-unknown-linux-gnu"	if ARCH_PARISC		&& GLIBC
-	default "sh3-unknown-linux-gnu"		if SH_ARCH_SH3		&& GLIBC
-	default "sh4-unknown-linux-gnu"		if SH_ARCH_SH4		&& GLIBC
-
-	default "arm-uclibc-linux-gnu" 		if ARM_ARCH_LE		&& UCLIBC
-	default "armb-uclibc-linux-gnu"		if ARM_ARCH_BE		&& UCLIBC
-	default "arm-elf"			if ARCH_ARM_NOMMU	&& UCLIBC
-	default "i386-uclibc-linux-gnu"		if OPT_I386		&& UCLIBC
-	default "i486-uclibc-linux-gnu"		if OPT_I486		&& UCLIBC
-	default "i586-uclibc-linux-gnu"		if OPT_I586		&& UCLIBC
-	default "i686-uclibc-linux-gnu"		if OPT_I686		&& UCLIBC
-	default "powerpc-uclibc-linux-gnu"	if OPT_PPC		&& UCLIBC
-	default "powerpc-405_uclibc-linux-gnu"	if OPT_PPC405		&& UCLIBC
-	default "powerpc-750_uclibc-linux-gnu"	if OPT_PPC750		&& UCLIBC
-	default "powerpc-7450_uclibc-linux-gnu"	if OPT_PPC7450		&& UCLIBC
-	default "sparc-uclibc-linux-gnu"	if OPT_SPARC		&& UCLIBC
-	default "mips-uclibc-linux-gnu"		if MIPS_ARCH_BE		&& UCLIBC
-	default "mipsel-uclibc-linux-gnu"	if MIPS_ARCH_LE		&& UCLIBC
-	default "cris-uclibc-linux-gnu"		if ARCH_CRIS		&& UCLIBC
-	default "hppa-uclibc-linux-gnu"		if ARCH_PARISC		&& UCLIBC
-	default "sh3-uclibc-linux-gnu"		if SH_ARCH_SH3		&& UCLIBC
-	default "sh4-uclibc-linux-gnu"		if SH_ARCH_SH4		&& UCLIBC
-
 config PREFIX
 	prompt "Prefix for development environment"
 	string

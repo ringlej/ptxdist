@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gdbserver.make,v 1.4 2003/11/17 03:25:08 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany

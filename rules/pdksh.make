@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pdksh.make,v 1.10 2003/10/26 13:31:45 mkl Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany

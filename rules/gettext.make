@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gettext.make,v 1.7 2003/12/23 10:53:34 robert Exp $
+# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany

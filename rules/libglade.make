@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libglade.make,v 1.3 2004/02/25 22:33:33 robert Exp $
+# $Id$
 #
 # Copyright (C) 2003 by BSP
 #          

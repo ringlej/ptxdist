@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ethereal.make,v 1.2 2004/08/27 14:50:40 bsp Exp $
+# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          
