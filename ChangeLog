@@ -1,7 +1,26 @@
-2004-xx-yy Robert Schwebel <r.schwebel@pengutronix.de>
+2004-12-23 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* configs: add support for Motorola i.MX architecture, 
-	  flowscreen2. 
+	* Decided that we need a ChangeLog again :-) 
+	* scripts/collect-sources.sh: fixes to make this script work (MKL)
+	* make xconfig: fixed and works now. 
+	* CVS directory magic: not needed any more on SVN
+	* fs2: image creation done by default mechanism
+	* efco: use standard mechanisms for etc copying
+	* frako: removed relais driver
+	* rayonic: fixed configuration, added to audit runs
+	* innokom: activated getty, run-parts
+	* nge: use coreutils dd instead of busybox; added fpgaedit
+	* troll-ftpd: added
+	* dropbear: update
+	* nc: make installable
+	* gdb: update to 6.3
+	* openssl: fixed crosscomp stuff
+	* mgetty: added sendfax support
+	* fpgaedit: added
+	* procps: update (2.0.16 -> 3.0.4)
+	* readline: added
+	* coreutils: added dd
+	* dialog: added snapshot release
 
 2004-02-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
