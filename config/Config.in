@@ -310,19 +310,9 @@ config ROOTFS_TMP
 	prompt "Create /tmp"
 	default y
 
-config ROOTFS_TMP_DATALINK
-	bool "Make /tmp a link to /data/tmp"
-	default y
-	depends on ROOTFS_TMP && ROOTFS_DATA
-
 config ROOTFS_HOME
 	bool
 	prompt "Create /home"
-	default y
-
-config ROOTFS_DATA
-	bool
-	prompt "Create /data"
 	default y
 
 config ROOTFS_VAR
@@ -330,26 +320,14 @@ config ROOTFS_VAR
 	prompt "Create /var"
 	default y
 
-config ROOTFS_VAR_LOG_DATALINK
-	bool
-	prompt "Make /var/log a link to /data/log"
-	default y
-	depends on ROOTFS_VAR && ROOTFS_DATA
-
-config ROOTFS_ETC
-	bool
-	prompt "Create /etc from $PTXDIST/etc"
-	default y
-
-config ETC_NAME
-	prompt "Name of dir in $PTXDIST/etc to be used"
+config VENDORTWEAKS
 	string
-	default "innokom"
-	depends on ROOTFS_ETC
-
-config ADDONS
-	bool
-	prompt "Add customer archives from addons/*.tar.gz"
+	prompt "Run vendor Makefile at the end of build"
+	help
+	  At the end of the build the target vendor-tweaks.targetinstall
+	  is run from the Makefile you specify here. The name you give
+	  here is searched in rules/vendor-tweaks; this is normally a 
+	  *.make file.  
 
 endmenu
 

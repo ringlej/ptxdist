@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.36 2003/09/18 05:49:06 robert Exp $
+# $Id: Makefile,v 1.37 2003/09/19 08:20:28 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -42,6 +42,9 @@ all: help
 
 -include .config 
 
+# remove quotes
+PTXCONF_VENDORTWEAKS:=$(subst ",,$(PTXCONF_VENDORTWEAKS))
+
 ROOTDIR=$(shell echo $(PTXCONF_ROOT) | sed -e s/\"//g)
 ifeq ("", $(PTXCONF_ROOT))
 ROOTDIR=$(TOPDIR)/root
@@ -51,6 +54,15 @@ ROOTDIR=$(TOPDIR)/root
 endif
 
 include $(wildcard rules/*.make)
+
+# if specified, include vendor tweak makefile (run at the end of build)
+# rewrite variable to make the magic in 'world' target work
+ifeq (exists, $(shell test -f rules/vendor-tweaks/$(PTXCONF_VENDORTWEAKS) && echo exists))
+include rules/vendor-tweaks/$(PTXCONF_VENDORTWEAKS)
+PTXCONF_VENDORTWEAKS=vendor-tweaks_targetinstall
+else
+PTXCONF_VENDORTWEAKS=skip_vendortweaks
+endif
 
 PTXCONF_TARGET_CONFIG_FILE?="arm"
 -include config/arch/$(subst ",,$(PTXCONF_TARGET_CONFIG_FILE))
@@ -109,13 +121,13 @@ else
 	echo "Install 'dot' from graphviz packet if you want to have a nice dependency tree" > $(DEP_TREE_PS)
 endif	
 
+skip_vendortweaks:
+	@echo "Vendor-Tweaks file (PTXCONF_VENDORTWEAKS) does not exist, skipping."
+
 dep_world: $(PACKAGES_TARGETINSTALL)
 	@echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
 
-world: dep_output_clean dep_world dep_tree
-
-# menuconfig:
-# 	CONFIGDIR=$(TOPDIR)/config make -C config/config_system menuconfig
+world: dep_output_clean dep_world $(PTXCONF_VENDORTWEAKS) dep_tree 
 
 # Configuration system -------------------------------------------------------
 
@@ -243,5 +255,5 @@ archive:
 $(INSTALL_LOG): 
 	make -C $(TOPDIR)/tools/install-log-1.9
 
-.PHONY: dep_output_clean dep_tree dep_world
+.PHONY: dep_output_clean dep_tree dep_world skip_vendortweaks
 # vim600:set foldmethod=marker:
