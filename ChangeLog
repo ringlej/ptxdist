@@ -1,5 +1,7 @@
 2005-02-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* images: added support for UBoot ramdisk images; patch 
+	  by Steven Scholz
 	* efax: path fix; patch by Steven Scholz
 	* mgetty+sendfax: moved to communication utilities; patch
 	  by Steven Scholz. 

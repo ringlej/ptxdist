@@ -107,7 +107,7 @@ $(STATEDIR)/xchain-umkimage.install: $(STATEDIR)/xchain-umkimage.compile
 
 xchain-umkimage_targetinstall: $(STATEDIR)/xchain-umkimage.targetinstall
 
-xchain-umkimage_targetinstall_deps = $(STATEDIR)/xchain-umkimage.compile
+xchain-umkimage_targetinstall_deps = $(STATEDIR)/xchain-umkimage.install
 
 $(STATEDIR)/xchain-umkimage.targetinstall: $(xchain-umkimage_targetinstall_deps)
 	@$(call targetinfo, $@)

@@ -169,7 +169,7 @@ $(STATEDIR)/images:
 ifdef PTXCONF_IMAGE_TGZ
 	cd $(ROOTDIR); \
 	($(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions && \
-	echo "tar -zcvf $(TOPDIR)/images/root.tgz . ") | $(FAKEROOT) -- 
+	echo "tar -zcvf $(TOPDIR)/images/root.tgz . ") | $(FAKEROOT) --
 endif
 ifdef PTXCONF_IMAGE_JFFS2
 	cd $(ROOTDIR); \
@@ -188,6 +188,31 @@ ifdef PTXCONF_IMAGE_HD
 	-r $(ROOTDIR) \
 	-i images \
 	-f $(PTXCONF_IMAGE_HD_CONF)
+endif
+ifdef PTXCONF_IMAGE_EXT2
+	cd $(ROOTDIR); \
+	($(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions && \
+	( \
+		echo -n "$(PTXCONF_PREFIX)/bin/genext2fs "; \
+		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) "; \
+		echo -n "$(PTXCONF_IMAGE_EXT2_EXTRA_ARGS) "; \
+		echo -n "-d $(ROOTDIR) "; \
+		echo "$(TOPDIR)/images/root.ext2" ) \
+	) | $(FAKEROOT) --
+endif
+ifdef PTXCONF_IMAGE_EXT2_GZIP
+	rm -f $(TOPDIR)/images/root.ext2.gz
+	gzip -v9 $(TOPDIR)/images/root.ext2
+endif
+ifdef PTXCONF_IMAGE_UIMAGE
+	$(PTXCONF_PREFIX)/bin/u-boot-mkimage \
+		-A $(PTXCONF_ARCH) \
+		-O Linux \
+		-T ramdisk \
+		-C gzip \
+		-n $(PTXCONF_IMAGE_UIMAGE_NAME) \
+		-d  $(TOPDIR)/images/root.ext2.gz \
+		$(TOPDIR)/images/uRamdisk
 endif
 	touch $@
 

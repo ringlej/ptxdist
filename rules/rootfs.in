@@ -132,7 +132,7 @@ config IMAGE_TGZ
 	prompt "Generate images/root.tgz"
 	help
 	  Build a tar.gz archive of the root filesystem, containing the
-	  right owner/group and access permissions. 
+	  right owner/group and access permissions.
 
 config IMAGE_HD
 	bool
@@ -174,5 +174,59 @@ config IMAGE_JFFS2_EXTRA_ARGS
 	help
 	  If needed you can add extra arguments for mkfs.jffs2 here
 	  (e.g. --devtable=$(PROJECTDIR)/device_table.txt)
+
+config IMAGE_UIMAGE
+	bool
+	default n
+	prompt "Generate images/uRamdisk"
+	select XCHAIN_UMKIMAGE
+	select IMAGE_EXT2
+	select IMAGE_EXT2_GZIP
+	help
+	  The file images/uRamdisk can be loaded by the bootloader U-Boot
+
+config IMAGE_UIMAGE_NAME
+	string
+	default "Application Ramdisk"
+	prompt "name of the ramdisk image"
+	depends IMAGE_UIMAGE
+
+config IMAGE_UIMAGE_EXTRA_ARGS
+	string
+	default ""
+	prompt "extra arguments passed to umkimage"
+	depends on IMAGE_UIMAGE
+	help
+	  If needed you can add extra arguments for umkimage here
+          (e.g. -a 0xaa00000 -e 0xaa00000 )
+
+config IMAGE_EXT2
+	bool
+	default n
+	select HOSTTOOLS_GENEXT2FS
+	prompt "Generate images/root.ext2 (initrd)"
+	help
+	  Build an ext2 image of the root filesystem that can be used as an initrd
+
+config IMAGE_EXT2_SIZE
+	int
+	default -1
+	prompt "Size in blocks"
+	depends on IMAGE_EXT2
+
+config IMAGE_EXT2_EXTRA_ARGS
+	string
+	default ""
+	prompt "extra arguments passed to genext2fs"
+	depends on IMAGE_EXT2
+	help
+	  If needed you can add extra arguments for genext2fs here
+	  (e.g. -U -r 0 -D=$(PROJECTDIR)/device_table.txt)
+
+config IMAGE_EXT2_GZIP
+	bool
+	default n
+	prompt "Compress the image using gzip"
+	depends on IMAGE_EXT2
 
 endmenu
