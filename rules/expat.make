@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: expat.make,v 1.4 2004/02/25 09:51:29 robert Exp $
+# $Id: expat.make,v 1.5 2004/02/25 22:30:46 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -134,10 +134,11 @@ expat_targetinstall_deps	=  $(STATEDIR)/expat.compile
 $(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps)
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/lib
-	rm -f $(ROOTDIR)/lib/libglib-2.0.so*
+
 	install $(EXPAT_DIR)/.libs/libexpat.so.0.4.0 $(ROOTDIR)/lib/
 	ln -s libexpat.so.0.4.0 $(ROOTDIR)/lib/libexpat.so.0
 	ln -s libexpat.so.0.4.0 $(ROOTDIR)/lib/libexpat.so
+
 	touch $@
 
 # ----------------------------------------------------------------------------
