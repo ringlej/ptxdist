@@ -1,3 +1,13 @@
+2005-01-31 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libexpat: update to 1.95.8, patch by Benedikt Spranger 
+	* freetype: update to 2.1.9, patch by Benedikt Spranger
+	* glibc: fixed NPTL config dependencies; patch by Benedikt Spranger
+	* glibc: support for 2.3.4; patch by Bendikt Spranger
+	* libxml2: build without python support by default; patch 
+	  by Benedikt Spranger
+	* netcat: new URL; patch by Benedikt Spranger
+
 2005-01-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* jffs2: make adding extra arguments to mkfs.jffs2 
