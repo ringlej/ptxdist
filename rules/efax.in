@@ -1,0 +1,7 @@
+config EFAX
+	bool
+	prompt "efax"
+	default n
+	help
+	  efax is a small program which can generate g3 faxes from
+	  sources like text or tiff. 
