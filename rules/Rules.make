@@ -15,13 +15,11 @@
 PTXUSER		= $(shell echo $$USER)
 GNU_BUILD	= $(shell $(TOPDIR)/scripts/config.guess)
 GNU_HOST	= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
-CROSSSTRIP	= PATH=$(CROSS_PATH) $(PTXCONF_COMPILER_PREFIX)strip
 DEP_OUTPUT	= depend.out
 DEP_TREE_PS	= deptree.ps
 
 SUDO		= sudo
 HOSTCC		= gcc
-CROSS_STRIP	= $(CROSSSTRIP)
 DOT		= dot
 SH		= /bin/sh
 WGET		= wget
@@ -87,17 +85,20 @@ endif
 
 # Environment variables for toolchain components
 #
-# FIXME: Should be consolidated in some way...
+# FIXME: Consolidate a bit more
 #
-CROSS_AR		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ar)
-CROSS_AS		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)as)
-CROSS_LD		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ld)
-CROSS_NM		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)nm)
-CROSS_CC		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)gcc)
-CROSS_CXX		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)g++)
-CROSS_RANLIB		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ranlib)
-CROSS_OBJCOPY		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)objcopy)
-CROSS_OBJDUMP		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)objdump)
+COMPILER_PREFIX		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX))
+CROSS_AR		= $(COMPILER_PREFIX)ar
+CROSS_AS		= $(COMPILER_PREFIX)as
+CROSS_LD		= $(COMPILER_PREFIX)ld
+CROSS_NM		= $(COMPILER_PREFIX)nm
+CROSS_CC		= $(COMPILER_PREFIX)gcc
+CROSS_CXX		= $(COMPILER_PREFIX)g++
+CROSS_RANLIB		= $(COMPILER_PREFIX)ranlib
+CROSS_OBJCOPY		= $(COMPILER_PREFIX)objcopy
+CROSS_OBJDUMP		= $(COMPILER_PREFIX)objdump
+CROSS_STRIP		= $(COMPILER_PREFIX)strip
+CROSSSTRIP		= $(CROSS_STRIP)
 
 CROSS_ENV_AR		= AR=$(CROSS_AR)
 CROSS_ENV_AS		= AS=$(CROSS_AS)
@@ -108,7 +109,7 @@ CROSS_ENV_CXX		= CXX=$(CROSS_CXX)
 CROSS_ENV_RANLIB	= RANLIB=$(CROSS_RANLIB)
 CROSS_ENV_OBJCOPY	= OBJCOPY=$(CROSS_OBJCOPY)
 CROSS_ENV_OBJDUMP	= OBJDUMP=$(CROSS_OBJDUMP)
-CROSS_ENV_STRIP		= STRIP=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)strip)
+CROSS_ENV_STRIP		= STRIP=$(CROSS_STRIP)
 CROSS_ENV_CC_FOR_BUILD	= CC_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
 CROSS_ENV_CPP_FOR_BUILD	= CPP_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
 CROSS_ENV_LINK_FOR_BUILD= LINK_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
@@ -234,19 +235,19 @@ SHORT_TARGET		:= `echo $(PTXCONF_GNU_TARGET) |  $(PERL) -i -p -e 's/(.*?)-.*/$$1
 ifneq (y, $(PTXCONF_CROSSTOOL))
 compilercheck =								\
 	echo -n "compiler check...";					\
-	which $(PTXCONF_COMPILER_PREFIX)gcc > /dev/null 2>&1 || {	\
+	which $(CROSS_CC) > /dev/null 2>&1 || {				\
 		echo; echo;						\
 		echo "No compiler installed!";				\
-		echo "Specified: $(PTXCONF_COMPILER_PREFIX)gcc";	\
+		echo "Specified: $(CROSS_CC)";				\
 		echo;							\
 		exit -1;						\
 	};								\
-	if [ "$(PTXCONF_CROSSCHAIN_CHECK)" != `$(PTXCONF_COMPILER_PREFIX)gcc -dumpversion` ]; then	\
+	if [ "$(PTXCONF_CROSSCHAIN_CHECK)" != `$(CROSS_CC) -dumpversion` ]; then \
 		echo; echo;						\
 		echo "Please use the specified compiler!";		\
 		echo;							\
 		echo "Specified: $(PTXCONF_CROSSCHAIN_CHECK)";		\
-		echo "Found:     "`$(PTXCONF_COMPILER_PREFIX)gcc -dumpversion`;\
+		echo "Found:     "`$(CROSS_CC) -dumpversion`;		\
 		echo;							\
 		exit -1;						\
 	fi;								\

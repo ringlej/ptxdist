@@ -319,14 +319,12 @@ kernel_prepare_deps = \
 KERNEL_PATH	= PATH=$(CROSS_PATH)
 KERNEL_MAKEVARS	= \
 	ARCH=$(call remove_quotes,$(PTXCONF_ARCH)) \
-	CROSS_COMPILE=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)) \
+	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	HOSTCC=$(HOSTCC) \
 	DEPMOD=true
 
 	# This was defined before; we leave it here for reference. [RSC]
-	# GENKSYMS=$(PTXCONF_COMPILER_PREFIX)genksyms
-
-KERNEL_ENV	= $(CROSS_ENV_CFLAGS)
+	# GENKSYMS=$(COMPILER_PREFIX)genksyms
 
 $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
@@ -386,7 +384,7 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	echo 'u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	chmod +x $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) make $(KERNEL_MAKEVARS) \
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make $(KERNEL_MAKEVARS) \
 		$(KERNEL_TARGET) modules
 	touch $@
 

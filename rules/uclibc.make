@@ -96,7 +96,7 @@ $(STATEDIR)/uclibc.extract: $(uclibc_extract_deps)
 uclibc_prepare: $(STATEDIR)/uclibc.prepare
 
 UCLIBC_PATH	= PATH=$(CROSS_PATH)
-UCLIBC_MAKEVARS	= CROSS=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC)
+UCLIBC_MAKEVARS	= CROSS=$(COMPILER_PREFIX) HOSTCC=$(HOSTCC)
 
 #
 # dependencies
