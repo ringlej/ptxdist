@@ -108,7 +108,7 @@ PTXCONF_VENDORTWEAKS="projects/pii_nge/pii_nge.vendortweaks"
 #
 # Image Creation
 #
-# PTXCONF_IMAGE_TGZ is not set
+PTXCONF_IMAGE_TGZ=y
 # PTXCONF_IMAGE_JFFS2 is not set
 
 #
@@ -1099,6 +1099,7 @@ PTXCONF_FIGLET=y
 #
 # PTXCONF_NANO is not set
 # PTXCONF_JED is not set
+# PTXCONF_HEXEDIT is not set
 
 #
 # System Libraries    
