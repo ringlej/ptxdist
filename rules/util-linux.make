@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: util-linux.make,v 1.1 2003/08/26 13:20:12 robert Exp $
+# $Id: util-linux.make,v 1.2 2003/09/02 04:55:16 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -54,6 +54,7 @@ $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps)
 	@$(call targetinfo, util-linux.extract)
 	@$(call clean, $(UTIL-LINUX_DIR))
 	@$(call extract, $(UTIL-LINUX_SOURCE))
+	@$(call patchin, $(UTIL-LINUX_DIR), $(UTIL-LINUX))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -67,7 +68,7 @@ util-linux_prepare: $(STATEDIR)/util-linux.prepare
 #
 util-linux_prepare_deps =  \
 	$(STATEDIR)/util-linux.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 UTIL-LINUX_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 UTIL-LINUX_ENV 	=  $(CROSS_ENV)
@@ -100,6 +101,12 @@ endif
 ifeq (y, $(PTXCONF_UTLNX_SWAPON))
 	cd $(UTIL-LINUX_DIR)/mount && $(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) make swapon
 endif	
+ifeq (y, $(PTXCONF_UTLNX_IPCS))
+	cd $(UTIL-LINUX_DIR)/sys-utils && $(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) make ipcs
+endif
+ifeq (y, $(PTXCONF_UTLNX_READPROFILE))
+	cd $(UTIL-LINUX_DIR)/sys-utils && $(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) make readprofile
+endif
 
 	# FIXME: implement other utilities
 
@@ -133,6 +140,14 @@ endif
 ifeq (y, $(PTXCONF_UTLNX_SWAPON))
 	install $(UTIL-LINUX_DIR)/mount/swapon $(ROOTDIR)/sbin/
 	$(CROSSSTRIP) $(ROOTDIR)/sbin/swapon
+endif
+ifeq (y, $(PTXCONF_UTLNX_IPCS))
+	install $(UTIL-LINUX_DIR)/sys-utils/ipcs $(ROOTDIR)/usr/bin/
+	$(CROSSSTRIP) $(ROOTDIR)/usr/bin/ipcs
+endif
+ifeq (y, $(PTXCONF_UTLNX_READPROFILE))
+	install $(UTIL-LINUX_DIR)/sys-utils/readprofile $(ROOTDIR)/usr/sbin/
+	$(CROSSSTRIP) $(ROOTDIR)/usr/sbin/readprofile
 endif
 
 	touch $@

@@ -14,4 +14,14 @@ config UTLNX_SWAPON
 	prompt "swapon"
 	depends on UTLNX
 
+config UTLNX_IPCS
+	bool
+	prompt "ipcs"
+	depends on UTLNX
+
+config UTLNX_READPROFILE
+	bool
+	prompt "readprofile"
+	depends on UTLNX
+
 endmenu
