@@ -1,6 +1,8 @@
 2005-02-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* openssh: update to 3.9p1 (patch by Ladislav Michl)
+	* rootfs: make /tmp accessable for all and make it
+	  sticky (patch by Ladislav Michl)
 
 2005-02-08 Robert Schwebel <r.schwebel@pengutronix.de>
 
