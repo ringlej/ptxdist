@@ -119,6 +119,7 @@ source "rules/xfree430.in"
 source "rules/clementine.in"
 source "rules/fltk.in"
 source "rules/wxWindows.in"
+source "rules/qte.in"
 
 endmenu
 
