@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.8 2003/08/28 14:27:29 mkl Exp $
+# $Id: busybox.make,v 1.9 2003/09/09 21:50:31 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -92,6 +92,9 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
 	grep -e PTXCONF_BB_ .config > $(BUSYBOX_DIR)/.config
 	perl -i -p -e 's/PTXCONF_BB_//g' $(BUSYBOX_DIR)/.config
+        ifndef PTXCONF_FP
+	perl -i -p -e 's/EXTRA_CFLAGS_OPTIONS="/EXTRA_CFLAGS_OPTIONS="-msoft-float /g' $(BUSYBOX_DIR)/.config
+        endif
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) dep $(BUSYBOX_MAKEVARS)
 
@@ -132,7 +135,8 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 	@$(call targetinfo, busybox.targetinstall)
 	install -d $(ROOTDIR)
 	rm -f $(BUSYBOX_DIR)/busybox.links
-	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) install          \
+	cd $(BUSYBOX_DIR) &&					\
+		$(BUSYBOX_PATH) $(MAKE) install 		\
 		PREFIX=$(ROOTDIR) $(BUSYBOX_MAKEVARS)
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/bin/busybox
 	touch $@
