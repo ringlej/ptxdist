@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-ksymoops.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: xchain-ksymoops.make,v 1.3 2003/10/23 20:42:01 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -58,7 +58,8 @@ ksymoops_prepare: $(STATEDIR)/ksymoops.prepare
 KSYMOOPS_MAKEVARS = \
 	CROSS=$(PTXCONF_GNU_TARGET)- \
 	INSTALL_PREFIX=$(PTXCONF_PREFIX) \
-	BFD_PREFIX=$(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET)
+	BFD_PREFIX=$(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET) \
+	DEF_TARGET='\"elf32-$(subst ",,$(PTXCONF_ARCH))\"'
 
 $(STATEDIR)/ksymoops.prepare:
 	touch $@
