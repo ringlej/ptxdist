@@ -99,6 +99,7 @@ menu "Communication Utilities     "
 ############################################################################## 
 
 source "rules/efax.in"
+source "rules/pop3spam.in"
 
 endmenu
 
