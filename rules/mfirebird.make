@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.12 2004/02/23 16:13:24 robert Exp $
+# $Id: mfirebird.make,v 1.13 2004/02/23 16:15:18 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -99,7 +99,7 @@ MFIREBIRD_ENV   += PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 # autoconf
 #
-MFIREBIRD_AUTOCONF	=  --prefix=/usr
+MFIREBIRD_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 MFIREBIRD_AUTOCONF	+= --build=$(GNU_HOST)
 MFIREBIRD_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
@@ -445,6 +445,7 @@ mfirebird_install: $(STATEDIR)/mfirebird.install
 
 $(STATEDIR)/mfirebird.install: $(STATEDIR)/mfirebird.compile
 	@$(call targetinfo, $@)
+	$(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make -C $(MFIREBIRD_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------

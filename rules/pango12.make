@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pango12.make,v 1.5 2004/02/19 14:35:04 jbe Exp $
+# $Id: pango12.make,v 1.6 2004/02/23 16:15:18 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -20,10 +20,10 @@ endif
 #
 # Paths and names
 #
-PANGO12_VERSION		= 1.2.5
+PANGO12_VERSION		= 1.3.2
 PANGO12			= pango-$(PANGO12_VERSION)
 PANGO12_SUFFIX		= tar.gz
-PANGO12_URL		= ftp://ftp.gtk.org/pub/gtk/v2.2/$(PANGO12).$(PANGO12_SUFFIX)
+PANGO12_URL		= ftp://ftp.gnome.org/pub/GNOME/sources/pango/1.3/$(PANGO12).$(PANGO12_SUFFIX)
 PANGO12_SOURCE		= $(SRCDIR)/$(PANGO12).$(PANGO12_SUFFIX)
 PANGO12_DIR		= $(BUILDDIR)/$(PANGO12)
 

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glib22.make,v 1.6 2004/02/17 16:02:56 bsp Exp $
+# $Id: glib22.make,v 1.7 2004/02/23 16:15:18 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -20,10 +20,10 @@ endif
 #
 # Paths and names
 #
-GLIB22_VERSION		= 2.2.3
+GLIB22_VERSION		= 2.3.2
 GLIB22			= glib-$(GLIB22_VERSION)
 GLIB22_SUFFIX		= tar.gz
-GLIB22_URL		= ftp://ftp.gtk.org/pub/gtk/v2.2/$(GLIB22).$(GLIB22_SUFFIX)
+GLIB22_URL		= ftp://ftp.gtk.org/pub/gtk/v2.3/$(GLIB22).$(GLIB22_SUFFIX)
 GLIB22_SOURCE		= $(SRCDIR)/$(GLIB22).$(GLIB22_SUFFIX)
 GLIB22_DIR		= $(BUILDDIR)/$(GLIB22)
 

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: fontconfig22.make,v 1.3 2004/02/17 16:02:56 bsp Exp $
+# $Id: fontconfig22.make,v 1.4 2004/02/23 16:15:18 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -17,13 +17,15 @@ ifdef PTXCONF_FONTCONFIG22
 PACKAGES += fontconfig22
 endif
 
+
+# http://pdx.freedesktop.org/~fontconfig/release/fontconfig-2.2.92.tar.gz
 #
 # Paths and names
 #
-FONTCONFIG22_VERSION		= 2.2.0
+FONTCONFIG22_VERSION		= 2.2.92
 FONTCONFIG22			= fontconfig-$(FONTCONFIG22_VERSION)
 FONTCONFIG22_SUFFIX		= tar.gz
-FONTCONFIG22_URL		= http://www.fontconfig.org/release/$(FONTCONFIG22).$(FONTCONFIG22_SUFFIX)
+FONTCONFIG22_URL		= http://pdx.freedesktop.org/~fontconfig/release/$(FONTCONFIG22).$(FONTCONFIG22_SUFFIX)
 FONTCONFIG22_SOURCE		= $(SRCDIR)/$(FONTCONFIG22).$(FONTCONFIG22_SUFFIX)
 FONTCONFIG22_DIR		= $(BUILDDIR)/$(FONTCONFIG22)
 
@@ -55,10 +57,6 @@ $(STATEDIR)/fontconfig22.extract: $(fontconfig22_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FONTCONFIG22_DIR))
 	@$(call extract, $(FONTCONFIG22_SOURCE))
-# FIXME: src/Makefile tries to link in the host's libfreetype;
-# this is a workaround but not a real solution.
-# 	perl -i -p -e 's,-rpath ..libdir.,-L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib,g' $(FONTCONFIG22_DIR)/src/Makefile.in
-# (workaround does not work yet :-( ) 
 	touch $@
 
 # ----------------------------------------------------------------------------

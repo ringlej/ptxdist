@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gtk22.make,v 1.4 2004/02/17 16:02:56 bsp Exp $
+# $Id: gtk22.make,v 1.5 2004/02/23 16:15:18 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -20,10 +20,10 @@ endif
 #
 # Paths and names
 #
-GTK22_VERSION		= 2.2.4
+GTK22_VERSION		= 2.3.2
 GTK22			= gtk+-$(GTK22_VERSION)
 GTK22_SUFFIX		= tar.gz
-GTK22_URL		= ftp://ftp.gtk.org/pub/gtk/v2.2/$(GTK22).$(GTK22_SUFFIX)
+GTK22_URL		= ftp://ftp.gtk.org/pub/gtk/v2.3/$(GTK22).$(GTK22_SUFFIX)
 GTK22_SOURCE		= $(SRCDIR)/$(GTK22).$(GTK22_SUFFIX)
 GTK22_DIR		= $(BUILDDIR)/$(GTK22)
 
@@ -68,17 +68,15 @@ gtk22_prepare: $(STATEDIR)/gtk22.prepare
 #
 gtk22_prepare_deps =  \
 	$(STATEDIR)/gtk22.extract \
-	$(STATEDIR)/atk124.install \
-	$(STATEDIR)/virtual-xchain.install
-#	$(STATEDIR)/fontconfig22.install \
+	$(STATEDIR)/atk.install \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/freetype214.install 
 
 GTK22_PATH	=  PATH=$(CROSS_PATH)
 GTK22_ENV 	=  $(CROSS_ENV)
 GTK22_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
+GTK22_ENV	+= FREETYPE_CONFIG="pkg-config freetype2"
 #GTK22_ENV	+= CFLAGS=-I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-
-# FIXME: gtk+ doesn't use pkg-config yet, so we have to do this. 
-GTK22_ENV	+= ac_cv_path_FREETYPE_CONFIG=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin/freetype-config
 
 #
 # autoconf
@@ -87,14 +85,11 @@ GTK22_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 GTK22_AUTOCONF	+= --build=$(GNU_HOST)
 GTK22_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 GTK22_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-
+GTK22_AUTOCONF  += --x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 # FIXME
 GTK22_AUTOCONF	+= --without-libtiff
 GTK22_AUTOCONF	+= --without-libjpeg
 
-ifdef PTXCONF_GTK22_FOO
-GTK22_AUTOCONF	+= --enable-foo
-endif
 
 $(STATEDIR)/gtk22.prepare: $(gtk22_prepare_deps)
 	@$(call targetinfo, $@)

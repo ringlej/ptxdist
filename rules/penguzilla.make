@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: penguzilla.make,v 1.6 2004/02/17 16:02:56 bsp Exp $
+# $Id: penguzilla.make,v 1.7 2004/02/23 16:15:18 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -19,10 +19,10 @@ endif
 #
 # Paths and names
 #
-PENGUZILLA_VERSION	= 0.3.2
+PENGUZILLA_VERSION	= 0.4.0pre
 PENGUZILLA		= penguzilla-$(PENGUZILLA_VERSION)
 PENGUZILLA_SUFFIX	= tar.gz
-PENGUZILLA_URL		= http://www.pengutronix.de/software/penguzilla/$(PENGUZILLA).$(PENGUZILLA_SUFFIX)
+PENGUZILLA_URL		= http://metis/$(PENGUZILLA).$(PENGUZILLA_SUFFIX)
 PENGUZILLA_SOURCE	= $(SRCDIR)/$(PENGUZILLA).$(PENGUZILLA_SUFFIX)
 PENGUZILLA_DIR		= $(BUILDDIR)/$(PENGUZILLA)
 
@@ -67,7 +67,8 @@ penguzilla_prepare: $(STATEDIR)/penguzilla.prepare
 #
 penguzilla_prepare_deps =  \
 	$(STATEDIR)/penguzilla.extract \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/mfirebird.install
 
 PENGUZILLA_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 PENGUZILLA_ENV 	=  $(CROSS_ENV)

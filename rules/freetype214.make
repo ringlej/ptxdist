@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: freetype214.make,v 1.3 2004/02/17 16:02:56 bsp Exp $
+# $Id: freetype214.make,v 1.4 2004/02/23 16:15:18 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -75,7 +75,7 @@ freetype214_prepare_deps =  \
 FREETYPE214_PATH	=  PATH=$(CROSS_PATH)
 FREETYPE214_ENV 	=  $(CROSS_ENV)
 # FIXME: do we need this? 
-FREETYPE214_ENV		+= PKG_CONFIG_PATH=../$(GLIB22):../$(PANGO12):../$(ATK124):../$(FREETYPE214)
+FREETYPE214_ENV		+= PKG_CONFIG_PATH=../$(GLIB22):../$(PANGO12):../$(ATK):../$(FREETYPE214)
 
 #
 # autoconf
@@ -83,10 +83,6 @@ FREETYPE214_ENV		+= PKG_CONFIG_PATH=../$(GLIB22):../$(PANGO12):../$(ATK124):../$
 FREETYPE214_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 FREETYPE214_AUTOCONF	+= --build=$(GNU_HOST)
 FREETYPE214_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-
-ifdef PTXCONF_FREETYPE214_FOO
-FREETYPE214_AUTOCONF	+= --enable-foo
-endif
 
 $(STATEDIR)/freetype214.prepare: $(freetype214_prepare_deps)
 	@$(call targetinfo, $@)

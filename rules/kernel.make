@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.21 2004/02/06 12:35:09 robert Exp $
+# $Id: kernel.make,v 1.22 2004/02/23 16:15:18 bsp Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -359,7 +359,7 @@ ifdef PTXCONF_KERNEL_INSTALL
 	mkdir -p $(ROOTDIR)/boot;				\
 	for i in $(KERNEL_TARGET_PATH); do 			\
 		if [ -f $$i ]; then				\
-			install $$i $(ROOTDIR)/boot/uImage;	\
+			install $$i $(ROOTDIR)/boot/ ;		\
 		fi;						\
 	done;							\
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
