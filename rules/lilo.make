@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: lilo.make,v 1.3 2003/10/26 13:28:29 mkl Exp $
+# $Id: lilo.make,v 1.4 2004/06/10 10:33:22 rsc Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names 
 #
-LILO		= lilo-22.5.4
+LILO		= lilo-22.5.9
 LILO_URL	= http://home.san.rr.com/johninsd/pub/linux/lilo/$(LILO).tar.gz
 LILO_SOURCE	= $(SRCDIR)/$(LILO).tar.gz
 LILO_DIR	= $(BUILDDIR)/$(LILO)
