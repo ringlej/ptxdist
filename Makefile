@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.66 2003/12/23 12:18:30 robert Exp $
+# $Id: Makefile,v 1.67 2004/01/02 16:51:07 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -189,7 +189,7 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 
 # Config Targets -------------------------------------------------------------
 
-frako_config:
+i386-frako_config:
 	@echo "copying frako configuration"
 	@cp config/i386-frako.ptxconfig .config
 
@@ -220,7 +220,7 @@ roi-eics_config:
 	@cp config/geode-roi_eics.ptxconfig .config
 	@cp config/rtaiconfig-roi .rtaiconfig
 
-scII-bmw_config:
+i386-scII-bmwm_config:
 	@echo "copying solidcard-bmw configuration"
 	@cp config/i386-scII-bmwm.ptxconfig .config
 
