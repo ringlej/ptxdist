@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libgnomecanvas.make,v 1.2 2004/02/25 09:51:29 robert Exp $
+# $Id: libgnomecanvas.make,v 1.3 2004/02/25 22:34:06 robert Exp $
 #
 # Copyright (C) 2003 by BSP
 #          
@@ -67,6 +67,8 @@ libgnomecanvas_prepare: $(STATEDIR)/libgnomecanvas.prepare
 #
 libgnomecanvas_prepare_deps = \
 	$(STATEDIR)/libgnomecanvas.extract \
+	$(STATEDIR)/libglade.install \
+	$(STATEDIR)/libart.install \
 	$(STATEDIR)/virtual-xchain.install
 
 LIBGNOMECANVAS_PATH	=  PATH=$(CROSS_PATH)
@@ -122,9 +124,17 @@ $(STATEDIR)/libgnomecanvas.install: $(STATEDIR)/libgnomecanvas.compile
 libgnomecanvas_targetinstall: $(STATEDIR)/libgnomecanvas.targetinstall
 
 libgnomecanvas_targetinstall_deps = $(STATEDIR)/libgnomecanvas.compile
+libgnomecanvas_targetinstall_deps = $(STATEDIR)/libart.targetinstall
 
 $(STATEDIR)/libgnomecanvas.targetinstall: $(libgnomecanvas_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	install -d $(ROOTDIR)/usr/lib
+        
+	install $(LIBGNOMECANVAS_DIR)/libgnomecanvas/.libs/libgnomecanvas-2.so.0.590.0 $(ROOTDIR)/usr/lib
+	ln -sf libgnomecanvas-2.so.0.590.0 $(ROOTDIR)/usr/lib/libgnomecanvas-2.so.0
+	ln -sf libgnomecanvas-2.so.0.590.0 $(ROOTDIR)/usr/lib/libgnomecanvas-2.so
+
 	touch $@
 
 # ----------------------------------------------------------------------------
