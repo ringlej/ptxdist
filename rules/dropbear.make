@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: dropbear.make,v 1.3 2003/08/07 10:06:26 mkl Exp $
+# $Id: dropbear.make,v 1.4 2003/08/25 09:18:34 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             for Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -20,7 +20,7 @@ endif
 #
 # Paths and names
 #
-DROPBEAR_VERSION		= 0.33
+DROPBEAR_VERSION		= 0.36
 DROPBEAR			= dropbear-$(DROPBEAR_VERSION)
 DROPBEAR_SUFFIX			= tar.bz2
 DROPBEAR_URL			= http://matt.ucc.asn.au/dropbear/$(DROPBEAR).$(DROPBEAR_SUFFIX)
@@ -76,7 +76,6 @@ endif
 
 DROPBEAR_PATH	=  PATH=$(CROSS_PATH)
 DROPBEAR_ENV 	=  $(CROSS_ENV)
-DROPBEAR_ENV	+= ac_cv_func_setpgrp_void=yes
 
 #
 # autoconf
@@ -88,6 +87,14 @@ DROPBEAR_AUTOCONF	+= --disable-nls
 
 ifdef PTXCONF_DROPBEAR_DIS_ZLIB
 DROPBEAR_AUTOCONF	+= --disable-zlib
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_OPENPTY
+DROPBEAR_AUTOCONF	+= --disable-openpty
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_SYSLOG
+DROPBEAR_AUTOCONF	+= --disable-syslog
 endif
 
 ifdef PTXCONF_DROPBEAR_DIS_LASTLOG
