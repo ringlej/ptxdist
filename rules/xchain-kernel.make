@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.21 2004/02/06 12:35:09 robert Exp $
+# $Id: xchain-kernel.make,v 1.22 2004/02/23 20:54:08 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -128,7 +128,7 @@ $(STATEDIR)/xchain-kernel.prepare: $(STATEDIR)/xchain-kernel.extract
 	@$(call targetinfo, $@)
 
 # fake headers
-	make -C $(XCHAIN_KERNEL_BUILDDIR) include/linux/version.h
+	cd $(XCHAIN_KERNEL_BUILDDIR) && make include/linux/version.h
 	touch $(XCHAIN_KERNEL_BUILDDIR)/include/linux/autoconf.h
 
 	ln -s asm-$(PTXCONF_ARCH) $(XCHAIN_KERNEL_BUILDDIR)/include/asm
