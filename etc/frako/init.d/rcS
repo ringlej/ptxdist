@@ -36,21 +36,25 @@ echo "done."
 
 loadkmap < /etc/boottime.kmap
 
+# set hostname 
+test -e /etc/hostname && hostname -F /etc/hostname
+
 echo -n "---creating Network-Device lo..."
 ifconfig lo up 127.0.0.1
 echo "done."
 
-#echo -n "---creating RATIO directories and links..."
+echo -n "---creating RATIO directories and links..."
+
+chmod 755 /home
+chown root:users /home
+
 #mkdir /home/ratio
 #chmod 775 /home/ratio/
-#chown frako:users /home/ratio
+#chown ratio:users /home/ratio
 #
-#mkdir /home/system
-#chmod 755 /home/system
-#chown system:users /home/system
-#
-#mount /data/alarm /home/system/alarm -o bind
-#mount /data/history /home/system/history -o bind
+mkdir /home/system
+chmod 755 /home/system
+chown system:users /home/system
 
 echo "done."
 
