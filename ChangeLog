@@ -1,5 +1,7 @@
 2005-01-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* jffs2: make adding extra arguments to mkfs.jffs2 
+	  possible (patch by Steven Scholz)
 	* mgetty: install callback as suid root (patch
 	  by Steven Scholz) 
 	* source options: add unified path for programs 
