@@ -42,7 +42,6 @@ PTXCONF_OPT_I586=y
 # PTXCONF_OPT_PARISC is not set
 # PTXCONF_OPT_SH3 is not set
 # PTXCONF_OPT_SH4 is not set
-# PTXCONF_SOFTFLOAT is not set
 
 #
 # ---
@@ -51,7 +50,7 @@ PTXCONF_TARGET_EXTRA_CPPFLAGS=""
 PTXCONF_TARGET_EXTRA_CFLAGS=""
 PTXCONF_TARGET_EXTRA_CXXFLAGS=""
 PTXCONF_TARGET_EXTRA_LDFLAGS=""
-PTXCONF_TARGET_CONFIG_FILE="ix86.dat"
+PTXCONF_TARGET_CONFIG_FILE="i586.dat"
 
 #
 # ---
@@ -59,15 +58,16 @@ PTXCONF_TARGET_CONFIG_FILE="ix86.dat"
 PTXCONF_ARCH="i386"
 PTXCONF_ARCH_USERSPACE="i386"
 PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
-PTXCONF_PREFIX="/tmp/ptxdist-rayonic-bbu"
+PTXCONF_PREFIX="/tmp/ptxdist-rayonic"
 PTXCONF_ROOT=""
 
 #
 # Cross Toolchain     
 #
 PTXCONF_BUILD_CROSSCHAIN=y
-PTXCONF_BINUTILS_2_13_2_1=y
-# PTXCONF_BINUTILS_2_14 is not set
+# PTXCONF_BINUTILS_2_13_2_1 is not set
+PTXCONF_BINUTILS_2_14=y
+# PTXCONF_BINUTILS_2_15 is not set
 PTXCONF_GCC_2_95_3=y
 # PTXCONF_GCC_3_2_3 is not set
 # PTXCONF_GCC_3_3_2 is not set
@@ -100,6 +100,7 @@ PTXCONF_VENDORTWEAKS=""
 PTXCONF_KSYMOOPS=y
 # PTXCONF_LTT is not set
 # PTXCONF_LIBBFD is not set
+# PTXCONF_MEMTEST is not set
 # PTXCONF_OPROFILE is not set
 # PTXCONF_STRACE is not set
 
@@ -107,6 +108,7 @@ PTXCONF_KSYMOOPS=y
 # Host Tools          
 #
 # PTXCONF_GENEXT2FS is not set
+# PTXCONF_HOSTTOOL_E2FSPROGS is not set
 # PTXCONF_FAKEROOT is not set
 
 #
@@ -116,15 +118,19 @@ PTXCONF_KSYMOOPS=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.4.18-rayonic-i586"
-PTXCONF_KERNEL_2_4_18=y
+PTXCONF_KERNEL_CONFIG="kernel-2.6.7-rayonic"
+# PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
 # PTXCONF_KERNEL_2_4_21 is not set
 # PTXCONF_KERNEL_2_4_22 is not set
 # PTXCONF_KERNEL_2_4_23 is not set
+# PTXCONF_KERNEL_2_4_25 is not set
+# PTXCONF_KERNEL_2_4_26 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
+# PTXCONF_KERNEL_2_6_6 is not set
+PTXCONF_KERNEL_2_6_7=y
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -135,15 +141,8 @@ PTXCONF_KERNEL_INSTALL=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/ptxdist/feature-patches/linux-2.4.18/linux-2.4.18-rthal5g.patch"
-PTXCONF_KERNEL_PATCH1_NAME="rtai"
-PTXCONF_KERNEL_PATCH1_XCHAIN=y
-
-#
-# 
-#
-PTXCONF_KERNEL_PATCH2_URL=""
-PTXCONF_KERNEL_PATCH2_NAME=""
+PTXCONF_KERNEL_PATCH1_URL=""
+PTXCONF_KERNEL_PATCH1_NAME=""
 
 #
 # Extentions
@@ -154,9 +153,15 @@ PTXCONF_KERNEL_PATCH2_NAME=""
 #
 
 #
+# RTAI                
+#
+# PTXCONF_RTAI is not set
+
+#
 # C Library           
 #
 PTXCONF_GLIBC=y
+# PTXCONF_UCLIBC is not set
 
 #
 # C Library options
@@ -165,6 +170,7 @@ PTXCONF_GLIBC=y
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
+# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -189,7 +195,7 @@ PTXCONF_GLIBC_LIBM=y
 PTXCONF_GLIBC_NSS_FILES=y
 
 #
-# libnss_hesiod depends on libreslov and libnss_files
+# libnss_hesiod depends on libresolv and libnss_files
 #
 
 #
@@ -205,6 +211,8 @@ PTXCONF_GLIBC_NSS_FILES=y
 #
 # PTXCONF_GLIBC_RESOLV is not set
 # PTXCONF_GLIBC_NSL is not set
+# PTXCONF_GLIBC_GCONV is not set
+PTXCONF_UC_TARGET_i386=y
 
 #
 # C++ Library         
@@ -253,15 +261,6 @@ PTXCONF_BB_CONFIG_FEATURE_SUID_CONFIG=y
 #
 # PTXCONF_BB_CONFIG_STATIC is not set
 # PTXCONF_BB_CONFIG_LFS is not set
-PTXCONF_BB_USING_CROSS_COMPILER=y
-PTXCONF_BB_CROSS_COMPILER_PREFIX="i386-linux-"
-PTXCONF_BB_EXTRA_CFLAGS_OPTIONS=""
-
-#
-# Installation Options
-#
-# PTXCONF_BB_CONFIG_INSTALL_NO_USR is not set
-PTXCONF_BB_PREFIX="./_install"
 
 #
 # Archival Utilities
@@ -753,6 +752,11 @@ PTXCONF_OPENSSH_KEYGEN=y
 #
 
 #
+# bing                
+#
+# PTXCONF_BING is not set
+
+#
 # ppp                 
 #
 # PTXCONF_PPP is not set
@@ -794,7 +798,15 @@ PTXCONF_PROFTPD_AUTOSHADOW=y
 #
 # nfs-utils           
 #
+
+#
+# compile options
+#
 # PTXCONF_NFSUTILS is not set
+
+#
+# install options
+#
 
 #
 # Portmapper          
@@ -842,6 +854,18 @@ PTXCONF_PROFTPD_AUTOSHADOW=y
 # PTXCONF_NTP is not set
 
 #
+# Compile Options
+#
+
+#
+# crypto needs openssl
+#
+
+#
+# Install Options
+#
+
+#
 # Bind                
 #
 # PTXCONF_BIND is not set
@@ -857,6 +881,17 @@ PTXCONF_PROFTPD_AUTOSHADOW=y
 # PTXCONF_DNSMASQ is not set
 
 #
+# tcpdump             
+#
+# PTXCONF_TCPDUMP is not set
+
+#
+# OpenAFS  
+#
+# PTXCONF_OPENAFS is not set
+PTXCONF_OPENAFS_1_2_11=y
+
+#
 # Disk and file ---   
 #
 
@@ -867,9 +902,7 @@ PTXCONF_PROFTPD_AUTOSHADOW=y
 #
 # e2fsprogs           
 #
-PTXCONF_E2FSPROGS=y
-# PTXCONF_E2FSPROGS_MKFS is not set
-PTXCONF_E2FSPROGS_E2FSCK=y
+# PTXCONF_E2FSPROGS is not set
 
 #
 # grub                
@@ -911,6 +944,11 @@ PTXCONF_GRUB_CS89X0=y
 # setmixer            
 #
 # PTXCONF_SETMIXER is not set
+
+#
+# Tools               
+#
+# PTXCONF_FIGLET is not set
 
 #
 # System Libraries    
@@ -981,6 +1019,11 @@ PTXCONF_GRUB_CS89X0=y
 #
 # Qt embedded GUI       
 #
+
+#
+# Blackbox WM         
+#
+# PTXCONF_BLACKBOX is not set
 
 #
 # Web Applications    
