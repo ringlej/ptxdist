@@ -168,7 +168,7 @@ ifdef PTXCONF_ROOTFS_ETC
 	$(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/proftpd,    /etc/init.d/proftpd)
 	$(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/rcS,        /etc/init.d/rcS)
 	$(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/utelnetd,   /etc/init.d/utelnetd)
-        $(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/startup,    /etc/init.d/startup)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/startup,    /etc/init.d/startup)
 	$(call copy_root, 0, 0, 0755, /etc/rc.d)
 
 	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME))"; \
