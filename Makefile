@@ -1,15 +1,17 @@
-# $Id: Makefile,v 1.27 2003/09/16 08:10:55 mkl Exp $
+# $Id: Makefile,v 1.28 2003/09/16 16:25:30 mkl Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
 #
 # For further information about the PTXDIST project see the README file.
 
-PROJECT = PTXdist
-VERSION = 0
-PATCHLEVEL = 3
-SUBLEVEL = 23
-EXTRAVERSION =
+PROJECT		= PTXdist
+VERSION		= 0
+PATCHLEVEL	= 3
+SUBLEVEL	= 23
+EXTRAVERSION	= -cvs
+
+FULLVERSION	= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
 export PROJECT VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION
 
@@ -49,6 +51,8 @@ endif
 
 include $(wildcard rules/*.make)
 
+-include config/arch/"$(PTXCONF_TARGET_CONFIG_FILE)"
+
 # install targets 
 PACKAGES_TARGETINSTALL 	= $(addsuffix _targetinstall,$(PACKAGES))
 PACKAGES_GET		= $(addsuffix _get,$(PACKAGES))
@@ -83,7 +87,7 @@ help:
 	@echo 
 # }}}
 
-get:     $(PACKAGES_GET)
+get:     getclean $(PACKAGES_GET)
 extract: $(PACKAGES_EXTRACT)
 prepare: $(PACKAGES_PREPARE)
 compile: $(PACKAGES_COMPILE)
@@ -207,6 +211,13 @@ rootclean:
 	@echo -n "cleaning state/*.targetinstall... "
 	@rm -f $(STATEDIR)/*.targetinstall
 	@echo "done."	
+	@echo
+
+getclean:
+	@echo
+	@echo -n "cleaning state/*.get............. "
+	@rm -f $(STATEDIR)/*.get
+	@echo "done."
 	@echo
 
 archive:
