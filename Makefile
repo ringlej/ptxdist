@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.39 2003/09/20 10:27:39 mkl Exp $
+# $Id: Makefile,v 1.40 2003/09/24 23:37:16 mkl Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -208,6 +208,9 @@ clean: rootclean
 	@echo -n "cleaning scripts dir............. "
 	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.kconfig.ptx  -C scripts/kconfig clean
 	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx -C scripts/lxdialog clean
+	@echo "done."
+	@echo -n "cleaning patches dir............. "
+	@rm -rf $(TOPDIR)/patches
 	@echo "done."
 	@echo -n "cleaning bootdisk image.......... "
 	@rm -f $(TOPDIR)/boot.image
