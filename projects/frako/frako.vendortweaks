@@ -95,19 +95,20 @@ $(STATEDIR)/frako.targetinstall:
 	# we need to fix owner / permissions at first startup 
 	install -m 755 -D $(MISCDIR)/ptx-init-permissions.sh $(ROOTDIR)/sbin/ptx-init-permissions.sh
 
+	@echo "FIXME: lcd_modules is currently not being built (look in vendortweaks)"
 #	make lcd_modules
 	
-	@$(call clean, $(LCD_DIR))
-	@$(call extract, $(LCD_SOURCE))
-	cd $(LCD_DIR) && \
-	$(LCD_PATH) $(LCD_ENV) autoconf
-	cd $(LCD_DIR) && \
-		$(LCD_PATH) $(LCD_ENV) \
-	./configure --build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) \
-	--with-linux=$(KERNEL_DIR)
-	$(LCD_PATH) $(LCD_ENV) make -C $(LCD_DIR)
-	install -d $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)/kernel/drivers/char/
-	install $(LCD_DIR)/lcd_module.o $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)/kernel/drivers/char/
+#	@$(call clean, $(LCD_DIR))
+#	@$(call extract, $(LCD_SOURCE))
+#	cd $(LCD_DIR) && \
+#	$(LCD_PATH) $(LCD_ENV) autoconf
+#	cd $(LCD_DIR) && \
+#		$(LCD_PATH) $(LCD_ENV) \
+#	./configure --build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) \
+#	--with-linux=$(KERNEL_DIR)
+#	$(LCD_PATH) $(LCD_ENV) make -C $(LCD_DIR)
+#	install -d $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)/kernel/drivers/char/
+#	install $(LCD_DIR)/lcd_module.o $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)/kernel/drivers/char/
 	
 	# FIXME: tweak, tweak
 	# Grrrrr... an old libpthread.so.0 from SuSE was installed # here...
