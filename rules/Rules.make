@@ -289,7 +289,7 @@ patchin =									\
 				;;						\
 			esac;							\
 			echo "patchin' $$PATCH_NAME ...";			\
-			$$CAT $$PATCH_NAME | $(PATCH) -Np1 -d $$PACKET_DIR;	\
+			$$CAT $$PATCH_NAME | $(PATCH) -Np1 -d $$PACKET_DIR || exit -1;	\
 		fi;								\
 	    done
 
@@ -327,7 +327,7 @@ patch_apply =								\
 			;;						\
 		esac;							\
 		echo "patchin' $$PATCH_NAME ...";			\
-		$$CAT $$PATCH_NAME | $(PATCH) -Np1 -d $$PACKET_DIR;	\
+		$$CAT $$PATCH_NAME | $(PATCH) -Np1 -d $$PACKET_DIR || exit -1;	\
 	fi;								\
 	true;
 
@@ -399,7 +399,7 @@ ifdef PTXCONF_XCHAIN-DISTCC
 # FIXME: should also allow use of DISTCC for native stuff
 DISTCC_PATH_COLON     = $(PTXCONF_PREFIX)/lib/distcc/bin:
 endif
-    
+
 #
 # prepare the search path
 #
