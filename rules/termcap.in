@@ -13,6 +13,6 @@ comment "termcap is always built because gdb is selected with termcap support"
 
 config TERMCAP_TERMCAP
 	bool "install termcap data file"
-	default y
+	default n
 	depends on TERMCAP
 endmenu

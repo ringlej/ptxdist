@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: termcap.make,v 1.1 2003/11/17 03:52:43 mkl Exp $
+# $Id: termcap.make,v 1.2 2004/04/01 19:39:04 mkl Exp $
 #
-# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
+# Copyright (C) 2003, 2004 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -88,10 +88,6 @@ TERMCAP_AUTOCONF = \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--prefix=$(CROSS_LIB_DIR)
 
-ifdef PTXCONF_TERMCAP_TERMCAP
-TERMCAP_AUTOCONF += --enable-install-termcap
-endif
-
 $(STATEDIR)/termcap.prepare: $(termcap_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TERMCAP_DIR)/config.cache)
@@ -134,6 +130,11 @@ termcap_targetinstall_deps = $(STATEDIR)/termcap.install
 
 $(STATEDIR)/termcap.targetinstall: $(termcap_targetinstall_deps)
 	@$(call targetinfo, $@)
+ifdef PTXCONF_TERMCAP_TERMCAP
+	install -d $(ROOTDIR)/etc
+	install $(TERMCAP_DIR)/termcap.src $(ROOTDIR)/etc
+endif
+	install 
 	touch $@
 
 # ----------------------------------------------------------------------------
