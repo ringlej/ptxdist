@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.18 2004/03/31 16:27:52 mkl Exp $
+# $Id: mfirebird.make,v 1.19 2004/06/10 11:18:18 rsc Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #                       Pengutronix e.K.<info@pengutronix.de>, Germany
@@ -489,9 +489,12 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 	install $(MFIREBIRD_DIR)/dist/lib/libxpcom_compat.so $(ROOTDIR)/usr/lib
 
 	install -d $(ROOTDIR)/usr/lib/mozilla-1.6
-	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/components $(ROOTDIR)/usr/lib/mozilla-1.6
-	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/chrome $(ROOTDIR)/usr/lib/mozilla-1.6
-	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/res $(ROOTDIR)/usr/lib/mozilla-1.6
+#	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/components $(ROOTDIR)/usr/lib/mozilla-1.6
+#	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/chrome $(ROOTDIR)/usr/lib/mozilla-1.6
+#	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/res $(ROOTDIR)/usr/lib/mozilla-1.6
+
+# BSP: Quick and ... 
+	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6 $(ROOTDIR)/usr/lib/
 
 	touch $@
 
