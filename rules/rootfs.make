@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: rootfs.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
+# $Id: rootfs.make,v 1.7 2003/10/26 13:32:10 mkl Exp $
 #
-# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,6 @@ ROOTFS			= root-0.1.1
 ROOTFS_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(ROOTFS).tgz
 ROOTFS_SOURCE		= $(SRCDIR)/$(ROOTFS).tgz
 ROOTFS_DIR		= $(BUILDDIR)/$(ROOTFS)
-ROOTFS_EXTRACT 		= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -34,7 +33,7 @@ $(STATEDIR)/rootfs.get: $(ROOTFS_SOURCE)
 
 $(ROOTFS_SOURCE):
 	@$(call targetinfo, $@)
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(ROOTFS_URL)
+	@$(call get, $(ROOTFS_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -44,7 +43,7 @@ rootfs_extract: $(STATEDIR)/rootfs.extract
 
 $(STATEDIR)/rootfs.extract: $(STATEDIR)/rootfs.get
 	@$(call targetinfo, $@)
-	$(ROOTFS_EXTRACT) $(ROOTFS_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	@$(call extract, $(ROOTFS_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -85,52 +84,61 @@ rootfs_targetinstall: $(STATEDIR)/rootfs.targetinstall
 
 $(STATEDIR)/rootfs.targetinstall: $(STATEDIR)/rootfs.install
 	@$(call targetinfo, $@)
-        ifeq (y, $(PTXCONF_ROOTFS_PROC))
+
+ifdef PTXCONF_ROOTFS_PROC
 	mkdir -p $(ROOTDIR)/proc
-        endif
-        ifeq (y, $(PTXCONF_ROOTFS_DEV))
+endif
+
+ifdef PTXCONF_ROOTFS_DEV
 	mkdir -p $(ROOTDIR)/dev
-        endif
-        ifeq (y, $(PTXCONF_ROOTFS_MNT))
+endif
+
+ifdef PTXCONF_ROOTFS_MNT
 	mkdir -p $(ROOTDIR)/mnt
-        endif
-        ifeq (y, $(PTXCONF_ROOTFS_FLOPPY))
+endif
+
+ifdef PTXCONF_ROOTFS_FLOPPY
 	mkdir -p $(ROOTDIR)/floppy
-        endif
-        ifeq (y, $(PTXCONF_ROOTFS_ETC))
-	rm -fr $(ROOTDIR)/etc
+endif
+
+ifdef PTXCONF_ROOTFS_ETC
+	@$(call clean, $(ROOTDIR)/etc)
 	mkdir -p $(ROOTDIR)/etc
-	cp -a $(TOPDIR)/etc/`ls -1 etc | grep $(PTXCONF_ETC_NAME) | \
-	sort | tail -1`/* $(ROOTDIR)/etc/
-        ifeq (y,$(PTXCONF_OPENSSH))
-	cd $(OPENSSH_DIR) && install -m 644 sshd_config.out $(ROOTDIR)/etc/sshd_config
-        endif
-        endif
-        ifeq (y, $(PTXCONF_ROOTFS_TMP))
-	rm -fr $(ROOTDIR)/tmp || true
-        ifeq (y, $(PTXCONF_ROOTFS_TMP_DATALINK))
-#	# FIXME: can we do this with 'test'?
+	cp -a $(TOPDIR)/etc/`ls -1 etc | grep $(PTXCONF_ETC_NAME) | sort | tail -1`/* $(ROOTDIR)/etc/
+
+  ifdef PTXCONF_OPENSSH
+	cd $(OPENSSH_DIR) && install -m 644 sshd_config.out $(ROOTDIR)/etc/ssh/sshd_config
+  endif
+endif
+
+ifdef PTXCONF_ROOTFS_TMP
+	@$(call clean, $(ROOTDIR)/tmp)
+  ifdef PTXCONF_ROOTFS_TMP_DATALINK
 	ln -s /data/tmp $(ROOTDIR)/tmp
-        else
+  else
 	mkdir -p $(ROOTDIR)/tmp
-        endif
-        endif
-        ifeq (y, $(PTXCONF_ROOTFS_VAR))
+  endif
+endif
+
+ifdef PTXCONF_ROOTFS_VAR
 	mkdir -p $(ROOTDIR)/var
 	mkdir -p $(ROOTDIR)/var/log
-        endif
-        ifeq (y, $(PTXCONF_ROOTFS_VAR_LOG_DATALINK))
+endif
+
+ifdef PTXCONF_ROOTFS_VAR_LOG_DATALINK
 	mkdir -p $(ROOTDIR)/var
-#	# FIXME: can we do this with 'test'? 
-	rm -fr $(ROOTDIR)/var/log
+	@$(call clean, $(ROOTDIR)/var/log)
 	ln -s /data/log $(ROOTDIR)/var/log
-        endif	
-        ifeq (y, $(PTXCONF_ROOTFS_DATA))
+endif	
+
+ifdef PTXCONF_ROOTFS_DATA
 	mkdir -p $(ROOTDIR)/data
-        endif
-        ifeq (y, $(PTXCONF_ROOTFS_HOME))
+endif
+
+ifdef PTXCONF_ROOTFS_HOME
 	mkdir -p $(ROOTDIR)/home
-        endif
+endif
+
 	touch $@
 
 # ----------------------------------------------------------------------------
