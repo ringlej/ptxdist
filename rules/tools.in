@@ -14,4 +14,9 @@ config MEMEDIT
 	  memedit is a command line tool which is able to open
 	  a file or pseudo file representing a memory device 
 	  (for example memory mapped I/O or FPGA memory) and
-	  let's you edit it's contents from a command line. 
+	  let's you edit it's contents from a command line.
+
+config CANCONFIG
+	bool
+	prompt "Compile canconfig"
+
