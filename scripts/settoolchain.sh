@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: settoolchain.sh,v 1.4 2003/10/29 02:58:40 mkl Exp $
+# $Id: settoolchain.sh,v 1.5 2003/10/31 11:49:16 mkl Exp $
 #
 # Copyright (C) 2003 Ixia Communications, by Dan Kegel
 #
@@ -17,13 +17,17 @@ abort() {
 	exec /bin/false
 }
 
-test -z "${TARGET}"           && abort "Please set TARGET to the Gnu target identifier (e.g. pentium-linux)"
+test -z "${TARGET}"           && abort "Please set TARGET to the Gnu target identifier (e.g. pentium-unknown-linux-gnu)"
 test -z "${PREFIX}"           && abort "Please set PREFIX to where you want the toolchain installed."
 
 # Grumble.  Convert TARGET to internal ptxdist booleans.
 # This is really fragile, and I probably missed a bunch of subarch flags. (dank)
 #
 # yes: arm le/be discrimination, but I added this  (mkl)
+#      x86 also added (mkl)
+#
+# fixed mips (mkl)
+# fixed help message (mkl)
 #
 case $TARGET in
         *-*-*-*) ;;
@@ -34,16 +38,20 @@ case $TARGET in
 	*arm*uclinux*) PTXARCH=ARM_NOMMU ;;
 	*armb*)        PTXARCH=ARM ; PTXSUBARCH=ARM_ARCH_BE;;
 	*arm*)         PTXARCH=ARM ; PTXSUBARCH=ARM_ARCH_LE;;
-	*i*86*)        PTXARCH=X86 ;;
-	*pentium*)     PTXARCH=X86 ;;
+	*i386*)        PTXARCH=X86 ; PTXSUBARCH=OPT_I386;;
+	*i486*)        PTXARCH=X86 ; PTXSUBARCH=OPT_I486;;
+	*i586*)        PTXARCH=X86 ; PTXSUBARCH=OPT_I586;;
+	*i586*)        PTXARCH=X86 ; PTXSUBARCH=OPT_I686;;
+	*i*86*)        PTXARCH=X86 ; PTXSUBARCH=OPT_I386;;
+	*pentium*)     PTXARCH=X86 ; PTXSUBARCH=OPT_I586;;
 	*ppc*)         abort "Please use a target of powerpc-*-*-* rather than ppc-*" ;;
 	*powerpc-405-*)  PTXARCH=PPC; PTXSUBARCH=OPT_PPC405;;
 	*powerpc-750-*)  PTXARCH=PPC; PTXSUBARCH=OPT_PPC750;;
 	*powerpc-7450-*) PTXARCH=PPC; PTXSUBARCH=OPT_PPC7450;;
-	*powerpc*)     PTXARCH=PPC ;;
+	*powerpc*)     PTXARCH=PPC ; PTXSUBARCH=OPT_PPC;;
 	*sparc*)       PTXARCH=SPARC ;;
-	*mipsbe*)      PTXARCH=MIPS ; PTXSUBARCH=MIPS_ARCH_BE ;;
-	*mips*)        PTXARCH=MIPS ; PTXSUBARCH=MIPS_ARCH_LE ;;
+	*mipsle*)      PTXARCH=MIPS ; PTXSUBARCH=MIPS_ARCH_LE ;;
+	*mips*)        PTXARCH=MIPS ; PTXSUBARCH=MIPS_ARCH_BE ;;
 	*cris*)        PTXARCH=CRIS ;;
 	*parisc*)      PTXARCH=PARISC ;;
 	*sh*)          PTXARCH=SH ;;
