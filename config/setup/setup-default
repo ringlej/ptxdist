@@ -1,0 +1,33 @@
+#
+# Automatically generated make config: don't edit
+# PTXdist version: 0.7.2-svn
+# Sat Mar 19 17:38:01 2005
+#
+PTXCONF_SETUP_MODULES=y
+PTXCONF_SETUP_PTXCONF=y
+
+#
+# PTXDIST Setup Menu
+#
+
+#
+# Sources         
+#
+PTXCONF_SETUP_SRCDIR="$(TOPDIR)/local_src"
+
+#
+# Patches         
+#
+PTXCONF_SETUP_PATCH_REPOSITORY=y
+PTXCONF_SETUP_LOCAL_PATCH_REPOSITORY="file://$(TOPDIR)/local_patches"
+
+#
+# Feature Patches 
+#
+PTXCONF_SETUP_LOCAL_FEATUREPATCH_REPOSITORY="$(TOPDIR)/local_featurepatches"
+
+#
+# Projects        
+#
+PTXCONF_SETUP_PROJECTDIR1="$(TOPDIR)/projects"
+PTXCONF_SETUP_PROJECTDIR2="$(TOPDIR)/local_projects"

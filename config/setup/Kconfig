@@ -1,0 +1,104 @@
+#
+# config/Kconfig: Main menu structure definition
+# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2002, 2003, 2004
+#
+
+mainmenu "Setup"
+
+# We need this: otherwhise kconfig doesn't handle tristate entries!!
+config SETUP_MODULES
+        bool
+        default y
+
+config SETUP_PTXCONF
+	bool
+	default y
+	help
+	  This is the Pengutronix Distribution Build System.
+
+comment "PTXDIST Setup Menu"
+
+menu "Sources         "
+
+config SETUP_SRCDIR
+	prompt "Source Directory"
+	string
+	default "$(TOPDIR)/local_src"
+	help
+	  This directoy is taken if PTXdist searches for vanilla
+	  sources. If the source is not already there, PTXdist 
+	  downloads it to this location. 
+
+endmenu
+
+menu "Patches         "
+
+config SETUP_PATCH_REPOSITORY
+	prompt "Use PTXdist Online Patch Repository"
+	bool
+	default y
+	help
+	  If this option is active, PTXdist directly downloads patches
+	  from the PTXdist Patch Repository. 
+
+config SETUP_LOCAL_PATCH_REPOSITORY
+	prompt "Local Patch Repository (URL)"
+	string
+	default "file://$(TOPDIR)/local_patches"
+	help
+	  PTXdist searches for local patches in this location. 
+	  "patches" are bug fixing patches only; if you need patches
+	  which introduce special features to a packet, use the 
+	  "feature patches" options below. 
+
+	  The string entered here has to be URL style; for local 
+	  patch repositories it can also contain file://
+
+	  Local patches superseed PTXdist repository patches. 
+
+endmenu
+
+menu "Feature Patches "
+
+config SETUP_LOCAL_FEATUREPATCH_REPOSITORY
+	prompt "Local Feature Patch Repository (URL)"
+	string
+	default "$(TOPDIR)/local_featurepatches"
+	help
+	  PTXdist searches for local feature patches in this directory. 
+	  "feature patches" are patches which add a certain feature to a
+	  software packet. This is not intended to be used with
+	  bugfixing patches. 
+
+endmenu
+
+menu "Projects        "
+
+config SETUP_PROJECTDIR1
+	prompt "1st Project Directory"
+	string
+	default "$(TOPDIR)/projects"
+	help
+	  PTXdist uses the term "projecst" for configurations which form
+	  a configuration for a certain embedded board. A project
+	  consists of a .config file and maybe additional scripts, 
+	  file or whatever is needed to build a project. 
+
+	  This directory is used when PTXdist is looking for project
+	  files. 
+
+config SETUP_PROJECTDIR2
+	prompt "2nd Project Directory"
+	string
+	default "$(TOPDIR)/local_projects"
+	depends on SETUP_PROJECTDIR1 != ""
+	help
+	  PTXdist uses the term "projecst" for configurations which form
+	  a configuration for a certain embedded board. A project
+	  consists of a .config file and maybe additional scripts, 
+	  file or whatever is needed to build a project. 
+
+	  This directory is used when PTXdist is looking for project
+	  files. 
+
+endmenu
