@@ -279,6 +279,11 @@ choice
 		depends on ARCH_X86 || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_PPC
 endchoice
 
+config NASM
+	bool
+	prompt "x86 NASM"
+	depends on ARCH_X86
+
 endmenu
 
 # ----------------------------------------------------------------------------
@@ -819,7 +824,7 @@ config PPP
 
 config PPP_MS_CHAP
 	bool
-	prompt "supprt Micro$oft's MS-CHAP authentication protocol"
+	prompt "support Micro$oft's MS-CHAP authentication protocol"
 	depends on PPP
 
 config PPP_SHADOW
@@ -841,6 +846,7 @@ config PPP_MULTILINK
 	bool
 	prompt "support multilink"
 	depends on PPP
+
 endmenu
 
 # ----------------------------------------------------------------------------
@@ -892,6 +898,10 @@ endmenu
 # ----------------------------------------------------------------------------
 
 menu 	"Network Security    "
+
+config SHOREWALL
+	bool
+	prompt "shorewall firewall scripts"
 
 config LSH
 	bool
