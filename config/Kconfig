@@ -135,17 +135,18 @@ endmenu
 menu "System Libraries            "
 ############################################################################## 
 
+source "rules/db41.in"
 source "rules/gettext.in"
 source "rules/glib26.in"
+source "rules/libxml2.in"
+source "rules/ncurses.in"
 source "rules/pcre.in"
 source "rules/popt.in"
-source "rules/zlib.in"
-source "rules/ncurses.in"
-source "rules/termcap.in"
-source "rules/db41.in"
+source "rules/readline.in"
 source "rules/rn.in"
-source "rules/libxml2.in"
 source "rules/sqlite.in"
+source "rules/termcap.in"
+source "rules/zlib.in"
 
 endmenu
 
