@@ -251,14 +251,6 @@ choice
 		depends on KERNEL_BEN
 endchoice
 
-comment "---"
-
-source "rules/epoll.in"
-
-source "rules/rtai.in"
-	
-comment "---"
-
 config DONT_COMPILE_KERNEL
 	bool
 	prompt "Don't compile kernel"
@@ -296,4 +288,10 @@ config KERNEL_INSTALL
 	default n
 	depends on !DONT_COMPILE_KERNEL
 
+comment "Extentions"
+
+source "rules/epoll.in"
+
+source "rules/rtai.in"
+	
 endmenu

@@ -1,3 +1,5 @@
+menu	"RTAI                "
+
 config RTAI
 	bool "Realtime Extension: RTAI"
 
@@ -30,13 +32,13 @@ choice
 	config RTAI_24_1_12
 		bool "24.1.12"
 
-	config RTAI_CVS_stable
-		bool "CVS stable tree"
-		depends on EXP_M
+#	config RTAI_CVS_stable
+#		bool "CVS stable tree"
+#		depends on EXP_M
 
-	config RTAI_CVS_testing
-		bool "CVS testing tree"
-		depends on EXP_M
+#	config RTAI_CVS_testing
+#		bool "CVS testing tree"
+#		depends on EXP_M
 
 #	config RTAI_CVS_unstable
 #		bool "CVS unstable tree"
@@ -325,3 +327,7 @@ choice
 		depends on KERNEL_2_4_22
 		depends on RTAI_CVS_testing
 endchoice
+
+source "rules/rtnet.in"
+
+endmenu

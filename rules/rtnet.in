@@ -1,0 +1,44 @@
+config RTNET
+	bool "Real-Time Networking for RTAI"
+	depends on RTAI
+
+config RTNET_3C59X
+	bool "build 3Com 59x driver"
+	depends on RTNET
+
+config RTNET_8139
+	bool "build Realtek 8139 driver"
+	depends on RTNET
+
+config RTNET_EEPRO100
+	bool "build Intel EtherExpressPro/100 driver"
+	depends on RTNET
+
+config RTNET_PCNET32
+	bool "build AMD PCnet32 driver"
+	depends on RTNET
+
+config RTNET_VIA_RHINE
+	bool "build VIA Rhine driver"
+	depends on RTNET
+
+config RTNET_loopback
+	bool "build loopback driver"
+	depends on RTNET
+
+config RTNET_TULIP
+	bool "build tulip driver"
+	depends on RTNET
+
+config RTNET_FCC_ENET
+	bool "build fcc net driver"
+	depends on RTNET
+
+config RTNET_SCC_ENET
+	bool "build scc enet driver"
+	depends on RTNET
+
+config RTNET_FEC_ENET
+	bool "build fec enet driver"
+	depends on RTNET
+

@@ -1,3 +1,5 @@
+menu	"epoll               "
+
 config KERNEL_SYS-EPOLL
 	bool
 	prompt "Add Kernel support for sys_epoll"
@@ -13,4 +15,4 @@ config KERNEL_DEV-EPOLL
 	prompt "Add Kernel support for /dev/epoll"
 	depends on KERNEL_2_4_18
 
-       
+endmenu
