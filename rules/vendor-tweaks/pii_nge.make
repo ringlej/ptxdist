@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #  
-# $Id: pii_nge.make,v 1.8 2004/08/24 13:08:27 rsc Exp $
+# $Id: pii_nge.make,v 1.9 2004/08/26 06:25:51 rsc Exp $
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -50,6 +50,10 @@ $(STATEDIR)/pii_nge.targetinstall:
 	$(call link_root, ../init.d/banner,     /etc/rc.d/S00_banner)
 	$(call link_root, ../init.d/networking, /etc/rc.d/S01_networking)
 	$(call link_root, ../init.d/utelnetd,   /etc/rc.d/S02_utelnetd)
+	$(call link_root, ../init.d/proftpd,    /etc/rc.d/S02_proftpd)
+
+	# donate /home to ftp.ftp so that we can download files 
+	$(call copy_root, 11, 101, 0755, /home)
 
 	touch $@
 
