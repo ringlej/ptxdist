@@ -1,5 +1,7 @@
 2005-01-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* mgetty: install callback as suid root (patch
+	  by Steven Scholz) 
 	* source options: add unified path for programs 
 	  hosted on debian mirrors. Patch by Thibaut Varene. 
 	* kconfig/lxdialog: updated to version from 2.6.10;
