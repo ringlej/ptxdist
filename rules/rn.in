@@ -1,4 +1,4 @@
-menu	"rn                  "
+menu	"rn               "
 
 config RN
         bool

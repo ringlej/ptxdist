@@ -1,4 +1,4 @@
-menu    "libxml2             "
+menu    "libxml2          "
 
 config LIBXML2
         bool
