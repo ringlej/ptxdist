@@ -108,6 +108,15 @@ endif
 ifdef PTXCONF_PROCPS_SYSCTL
 	cd $(PROCPS_DIR) && $(PROCPS_PATH) make $(PROCPS_MAKEVARS) sysctl 
 endif
+ifdef PTXCONF_PROCPS_PS
+	cd $(PROCPS_DIR) && $(PROCPS_PATH) make $(PROCPS_MAKEVARS) ps/ps
+endif
+ifdef PTXCONF_PROCPS_W
+	cd $(PROCPS_DIR) && $(PROCPS_PATH) make $(PROCPS_MAKEVARS) w
+endif
+ifdef PTXCONF_PROCPS_PGREP
+	cd $(PROCPS_DIR) && $(PROCPS_PATH) make $(PROCPS_MAKEVARS) pgrep
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -150,6 +159,18 @@ endif
 ifdef PTXCONF_PROCPS_SYSCTL
 	install -D $(PROCPS_DIR)/sysctl  $(ROOTDIR)/sbin/sysctl
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/sysctl
+endif
+ifdef PTXCONF_PROCPS_PS
+	install -D $(PROCPS_DIR)/ps/ps  $(ROOTDIR)/sbin/ps
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/ps
+endif
+ifdef PTXCONF_PROCPS_W
+	install -D $(PROCPS_DIR)/w  $(ROOTDIR)/sbin/w
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/w
+endif
+ifdef PTXCONF_PROCPS_PGREP
+	install -D $(PROCPS_DIR)/pgrep  $(ROOTDIR)/sbin/pgrep
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/pgrep
 endif
 	touch $@
 
