@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libIDL-2.make,v 1.1 2004/02/17 16:02:56 bsp Exp $
+# $Id: libIDL-2.make,v 1.2 2004/02/25 09:47:20 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -105,7 +105,7 @@ libidl-2_compile_deps =  $(STATEDIR)/libidl-2.prepare
 $(STATEDIR)/libidl-2.compile: $(libidl-2_compile_deps)
 	@$(call targetinfo, $@)
 
-	$(LIBIDL-2_PATH) $(LIBIDL-2_ENV) make -C $(LIBIDL-2_DIR)
+	cd $(LIBIDL-2_DIR) && $(LIBIDL-2_PATH) $(LIBIDL-2_ENV) make
 
 	touch $@
 
@@ -118,7 +118,7 @@ libidl-2_install: $(STATEDIR)/libidl-2.install
 $(STATEDIR)/libidl-2.install: $(STATEDIR)/libidl-2.compile
 	@$(call targetinfo, $@)
 
-	$(LIBIDL-2_PATH) $(LIBIDL-2_ENV) make -C $(LIBIDL-2_DIR) install
+	cd $(LIBIDL-2_DIR) && $(LIBIDL-2_PATH) $(LIBIDL-2_ENV) make install
 
 	touch $@
 
