@@ -178,8 +178,8 @@ PTXCONF_KERNEL_PATCH1_XCHAIN=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.8-rc2-pxa3/linux-2.6.8-rc2-pxa3.diff"
-PTXCONF_KERNEL_PATCH2_NAME="2.6.8-rc2-pxa3"
+PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.8-rc2-pxa4/linux-2.6.8-rc2-pxa4.diff"
+PTXCONF_KERNEL_PATCH2_NAME="2.6.8-rc2-pxa4"
 # PTXCONF_KERNEL_PATCH2_XCHAIN is not set
 
 #
@@ -792,11 +792,18 @@ PTXCONF_MTD_JFFS2_DUMP=y
 # PTXCONF_PROCPS is not set
 
 #
+# sysfsutils          
+#
+PTXCONF_SYSFSUTILS=y
+PTXCONF_SYSFSUTILS_LIB=y
+PTXCONF_SYSFSUTILS_SYSTOOL=y
+
+#
 # sysutils            
 #
 PTXCONF_SYSUTILS=y
 PTXCONF_SYSUTILS_LSBUS=y
-PTXCONF_SYSUTILS_SYSTOOL=y
+# PTXCONF_SYSUTILS_SYSTOOL is not set
 
 #
 # util-linux          
