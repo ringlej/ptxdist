@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pango12.make,v 1.4 2004/02/17 16:02:56 bsp Exp $
+# $Id: pango12.make,v 1.5 2004/02/19 14:35:04 jbe Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -74,6 +74,7 @@ pango12_prepare: $(STATEDIR)/pango12.prepare
 pango12_prepare_deps =  \
 	$(STATEDIR)/pango12.extract \
 	$(STATEDIR)/glib22.install \
+	$(STATEDIR)/xfree430.install \
 	$(STATEDIR)/virtual-xchain.install
 #	$(STATEDIR)/fontconfig22.install
 
