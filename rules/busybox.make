@@ -1,4 +1,5 @@
-# $Id: busybox.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# -*-makefile-*-
+# $Id: busybox.make,v 1.2 2003/05/13 11:37:14 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

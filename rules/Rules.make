@@ -1,3 +1,4 @@
+# -*-makefile-*-
 PASSIVEFTP	= --passive-ftp
 SUDO		= sudo
 PTXUSER		= $(shell echo $$USER)
