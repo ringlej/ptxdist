@@ -1,8 +1,9 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.11 2003/10/23 20:40:41 mkl Exp $
+# $Id: glibc.make,v 1.12 2003/10/26 21:59:07 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions

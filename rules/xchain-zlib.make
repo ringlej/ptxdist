@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $id$
+# $Id: xchain-zlib.make,v 1.4 2003/10/26 21:59:07 mkl Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -9,14 +9,9 @@
 #
 
 #
-# We provide this package
-#
-
-#
 # Paths and names 
 #
 XCHAIN_ZLIB_BUILDDIR	= $(BUILDDIR)/xchain/$(ZLIB)
-
 
 # ----------------------------------------------------------------------------
 # Get

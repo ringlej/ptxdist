@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $id$
+# $Id: e2fsprogs.make,v 1.8 2003/10/26 21:59:07 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #

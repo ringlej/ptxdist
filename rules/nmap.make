@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $id$
+# $Id: nmap.make,v 1.3 2003/10/26 21:59:07 mkl Exp $
 #
 # Copyright (C) 2003 Ixia Corporation (www.ixiacom.com), by Milan Bobde
 #
@@ -19,9 +19,11 @@ endif
 #
 # Paths and names 
 #
-NMAP			= nmap-3.46
-NMAP_URL		= http://download.insecure.org/nmap/dist/nmap-3.46.tgz
-NMAP_SOURCE		= $(SRCDIR)/$(NMAP).tgz
+NMAP_VERSION		= 3.48
+NMAP			= nmap-$(NMAP_VERSION)
+NMAP_SUFFIX		= tgz
+NMAP_URL		= http://download.insecure.org/nmap/dist/$(NMAP).$(NMAP_SUFFIX)
+NMAP_SOURCE		= $(SRCDIR)/$(NMAP).$(NMAP_SUFFIX)
 NMAP_DIR		= $(BUILDDIR)/$(NMAP)
 
 # ----------------------------------------------------------------------------
@@ -58,22 +60,35 @@ $(STATEDIR)/nmap.extract: $(STATEDIR)/nmap.get
 
 nmap_prepare: $(STATEDIR)/nmap.prepare
 
-NMAP_AUTOCONF	=  --prefix=/usr
-NMAP_AUTOCONF	+= --build=$(GNU_HOST)
-NMAP_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-NMAP_AUTOCONF	+= --with-pcap=linux 
-
-NMAP_PATH	=  PATH=$(CROSS_PATH)
-NMAP_ENV	=  $(CROSS_ENV)
-NMAP_ENV   	+= ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR)
-
+#
+# dependencies
+#
 nmap_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/nmap.extract \
 	$(STATEDIR)/libpcap.install
 
+NMAP_PATH	=  PATH=$(CROSS_PATH)
+NMAP_ENV = \
+	$(CROSS_ENV) \
+	ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR)
+
+#
+# autoconf
+#
+NMAP_AUTOCONF =\
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--prefix=/usr \
+	--with-pcap=linux 
+
+#
+# FIXME:
+#
+# nmap works only with openssh shared libs, dunnno why...
+#
 ifdef PTXCONF_OPENSSL_SHARED
-NMAP_AUTOCONF		+= --with-openssl
+NMAP_AUTOCONF		+= --with-openssl=$(CROSS_LIB_DIR)
 nmap_prepare_deps	+= $(STATEDIR)/openssl.install
 else
 NMAP_AUTOCONF		+= --without-openssl
@@ -84,16 +99,6 @@ $(STATEDIR)/nmap.prepare: $(nmap_prepare_deps)
 	cd $(NMAP_DIR) && \
 		$(NMAP_PATH) $(NMAP_ENV) \
 		./configure $(NMAP_AUTOCONF)
-#
-# Kludge:
-# touch 3 files to avoid cross build failure
-#
-	touch $(NMAP_DIR)/libpcre/dftables.o
-	sleep 1
-	touch $(NMAP_DIR)/libpcre/dftables
-	sleep 1
-	touch $(NMAP_DIR)/libpcre/chartables.c
-
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -106,6 +111,10 @@ nmap_compile_deps = $(STATEDIR)/nmap.prepare
 
 $(STATEDIR)/nmap.compile: $(nmap_compile_deps) 
 	@$(call targetinfo, $@)
+#
+# dftables is a tool that is run during make in the host system
+#
+	$(NMAP_PATH) make -C $(NMAP_DIR)/libpcre $(HOSTCC_ENV) CFLAGS='' CXXFLAGS='' dftables
 	$(NMAP_PATH) make -C $(NMAP_DIR) nmap
 	touch $@
 
@@ -125,12 +134,20 @@ $(STATEDIR)/nmap.install: $(STATEDIR)/nmap.compile
 
 nmap_targetinstall: $(STATEDIR)/nmap.targetinstall
 
-$(STATEDIR)/nmap.targetinstall: $(STATEDIR)/nmap.install
+nmap_targetinstall_deps	=  $(STATEDIR)/nmap.install
+ifdef PTXCONF_OPENSSL_SHARED
+nmap_targetinstall_deps	+= $(STATEDIR)/openssl.targetinstall
+endif
+
+$(STATEDIR)/nmap.targetinstall: $(nmap_targetinstall_deps)
 	@$(call targetinfo, $@)
-
-	install -d $(ROOTDIR)/usr/bin
-
-	install $(NMAP_DIR)/nmap $(ROOTDIR)/usr/bin/nmap
+	install -D $(NMAP_DIR)/nmap $(ROOTDIR)/usr/bin/nmap
+#
+# FIXME:
+#
+# /usr/share/nmap
+# c++
+#
 	touch $@
 
 # ----------------------------------------------------------------------------

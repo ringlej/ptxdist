@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gmp3.make,v 1.4 2003/10/26 06:22:12 mkl Exp $
+# $Id: gmp3.make,v 1.5 2003/10/26 21:59:07 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -57,10 +57,12 @@ gmp3_prepare_deps = \
 GMP3_PATH	= PATH=$(CROSS_PATH)
 GMP3_ENV	= $(CROSS_ENV)
 
-GMP3_AUTOCONF \
+GMP3_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+	--prefix=$(CROSS_LIB_DIR) \
+	--enable-shared \
+	--enable-static
 
 $(STATEDIR)/gmp3.prepare: $(gmp3_prepare_deps)
 	@$(call targetinfo, $@)

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $id$
+# $Id: zlib.make,v 1.7 2003/10/26 21:59:07 mkl Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $id$
+# $Id: hosttool-genext2fs.make,v 1.3 2003/10/26 21:59:07 mkl Exp $
 #
 # Copyright (C) 2003 by Ixia Corporation (www.ixiacom.com)
 #

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: utelnetd.make,v 1.7 2003/10/26 13:51:51 mkl Exp $
+# $Id: utelnetd.make,v 1.8 2003/10/26 21:59:07 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -95,8 +95,7 @@ utelnetd_targetinstall: $(STATEDIR)/utelnetd.targetinstall
 
 $(STATEDIR)/utelnetd.targetinstall: $(STATEDIR)/utelnetd.install
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/sbin/
-	install $(UTELNETD_DIR)/utelnetd $(ROOTDIR)/sbin/
+	install -D $(UTELNETD_DIR)/utelnetd $(ROOTDIR)/sbin/utelnetd
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/utelnetd
 	touch $@
 

@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: tcpwrapper.make,v 1.9 2003/10/23 15:01:19 mkl Exp $
+# $Id: tcpwrapper.make,v 1.10 2003/10/26 21:59:07 mkl Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
