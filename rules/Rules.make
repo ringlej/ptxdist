@@ -127,10 +127,14 @@ disable_sh =					\
 # $1 = path to source tree 
 # $2 = $(PACKETNAME) -> identifier
 #
-patchin =					\
-	set -e; 				\
-	cd $(1);	 			\
-	for p in $(TOPDIR)/patches/$(2)/*.patch; do $(PATCH) -p1 < $$p; done
+patchin =						\
+	set -e; 					\
+	cd $(1);	 				\
+	for p in $(TOPDIR)/patches/$(2)/*.patch; do	\
+		if test -f $$p ; then 			\
+			$(PATCH) -p1 < $$p; 		\
+		fi;					\
+	done
 
 #
 # crossenvironment
