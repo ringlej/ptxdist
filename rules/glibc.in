@@ -53,6 +53,12 @@ config GLIBC_THREAD_DB
 	prompt "Install libthread_db on the target"
 	depends on GLIBC && LIBC
 
+config GLIBC_LIBRT
+	bool
+	prompt "Install librt on the target"
+	default n
+	depends on GLIBC && LIBC
+
 config GLIBC_DL
 	bool
 	prompt "Install libdl on the target"

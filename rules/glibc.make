@@ -365,6 +365,12 @@ $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps)
 	cp -d $(CROSS_LIB_DIR)/lib/libc.so.* $(ROOTDIR)/lib/
 	$(GLIBC_STRIP) $(ROOTDIR)/lib/libc[-.]*so*
 
+	# copy librt
+ifdef PTXCONF_GLIBC_LIBRT
+	cp -d $(CROSS_LIB_DIR)/lib/librt[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/librt[-.]*so*
+endif
+
 	# we don't wanna copy libpthread.so, cause this may be a 
 	# ld linker script, no shared lib
 
