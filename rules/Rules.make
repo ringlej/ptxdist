@@ -51,11 +51,28 @@ extract =						\
 #
 # download the given URL
 #
+# $1 = URL of the packet
+# $2 = source dir
+# 
 get =							\
 	SRC="$(2)";					\
 	SRC=$${SRC:-$(SRCDIR)};				\
 	[ -d $$SRC ] || mkdir -p $$SRC;			\
 	wget -P $$SRC $(PASSIVEFTP) $(1)
+
+#
+# download patches from Pengutronix' patch repository
+# 
+# $1 = packet name = identifier for patch subdir
+# $2 = patch dir
+# $3 = architecture
+# 
+get_patches =
+	PATCH_SRC="$(2)";				\
+	PATCH_SRC=$${PATCH_SRC:-$(PATCHDIR)};		\
+	[ -d $$PATCH_SRC ] || mkdir -p $$PATCH_SRC;	\
+	wget -r -P $$PATCH_SRC $(PASSIVEFTP) $(PTXPATCH_URL)/$(1)/$(3);		\
+	wget -r -P $$PATCH_SRC $(PASSIVEFTP) $(PTXPATCH_URL)/$(1)/generic;
 
 #
 # cleanup the given directory
