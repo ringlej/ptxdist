@@ -181,12 +181,12 @@ config PREFIX
 	string
 	default "/tmp/ptxdist-local"
 
-endmenu
-
 config ROOT
 	prompt "Prefix for root filesystem"
 	string
 	default "root"
+
+endmenu
 
 # ----------------------------------------------------------------------------
 
