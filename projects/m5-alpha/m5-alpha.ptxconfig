@@ -6,7 +6,7 @@ PTXCONF_PTXCONF=y
 PTXCONF_PROJECT="M5-alpha"
 
 #
-# General Options ---    
+# General Options             
 #
 
 #
@@ -73,8 +73,10 @@ PTXCONF_CROSSTOOL=y
 # PTXCONF_GCC_2_95_3 is not set
 # PTXCONF_GCC_3_2_3 is not set
 PTXCONF_GCC_3_3_2=y
+# PTXCONF_GCC_3_3_3 is not set
 # PTXCONF_GCC_3_4_0 is not set
 # PTXCONF_GCC_3_4_1 is not set
+# PTXCONF_GCC_3_4_2 is not set
 PTXCONF_GCC_VERSION="3.3.2"
 PTXCONF_CROSSTOOL_GCCLANG_CC=y
 # PTXCONF_BINUTILS_2_14 is not set
@@ -87,6 +89,7 @@ PTXCONF_BINUTILS_VERSION="2.15"
 #
 # PTXCONF_GCC_MULTILIB is not set
 PTXCONF_GNU_TARGET="alpha-unknown-linux-gnu"
+PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 
 #
 # Non-Crosstool Tools
@@ -105,7 +108,6 @@ PTXCONF_VENDORTWEAKS=""
 #
 # PTXCONF_IMAGE_TGZ is not set
 # PTXCONF_IMAGE_HD is not set
-PTXCONF_IMAGE_HD_CONF=""
 # PTXCONF_IMAGE_JFFS2 is not set
 
 #
@@ -130,14 +132,14 @@ PTXCONF_IMAGE_HD_CONF=""
 # PTXCONF_HOSTTOOLS_FAKEROOT is not set
 
 #
-# Core System ---    
+# Core System                 
 #
 
 #
 # Kernel              
 #
+# PTXCONF_USE_EXTERNAL_KERNEL is not set
 PTXCONF_KERNEL_CONFIG="kernel-2.6.8"
-# PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
 # PTXCONF_KERNEL_2_4_21 is not set
@@ -145,6 +147,7 @@ PTXCONF_KERNEL_CONFIG="kernel-2.6.8"
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_4_25 is not set
 # PTXCONF_KERNEL_2_4_26 is not set
+# PTXCONF_KERNEL_2_4_27 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
@@ -191,7 +194,6 @@ PTXCONF_GLIBC_2_3_3=y
 # PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
-# PTXCONF_UCLIBC_0_9_26 is not set
 
 #
 # C++ Library         
@@ -199,7 +201,7 @@ PTXCONF_GLIBC_2_3_3=y
 # PTXCONF_CXX is not set
 
 #
-# Core Tools ---  
+# Shell & Console Tools       
 #
 
 #
@@ -332,6 +334,7 @@ PTXCONF_BB_CONFIG_TEST=y
 #
 # test (forced enabled for use with shell)
 #
+# PTXCONF_BB_CONFIG_FEATURE_TEST_64 is not set
 # PTXCONF_BB_CONFIG_TOUCH is not set
 # PTXCONF_BB_CONFIG_TR is not set
 # PTXCONF_BB_CONFIG_TRUE is not set
@@ -392,7 +395,6 @@ PTXCONF_BB_CONFIG_START_STOP_DAEMON=y
 PTXCONF_BB_CONFIG_HALT=y
 PTXCONF_BB_CONFIG_POWEROFF=y
 PTXCONF_BB_CONFIG_REBOOT=y
-# PTXCONF_BB_CONFIG_MINIT is not set
 PTXCONF_BB_CONFIG_MESG=y
 
 #
@@ -500,6 +502,7 @@ PTXCONF_BB_CONFIG_ASH=y
 PTXCONF_BB_CONFIG_ASH_JOB_CONTROL=y
 PTXCONF_BB_CONFIG_ASH_ALIAS=y
 PTXCONF_BB_CONFIG_ASH_MATH_SUPPORT=y
+# PTXCONF_BB_CONFIG_ASH_MATH_SUPPORT_64 is not set
 # PTXCONF_BB_CONFIG_ASH_GETOPTS is not set
 # PTXCONF_BB_CONFIG_ASH_CMDCMD is not set
 PTXCONF_BB_CONFIG_ASH_MAIL=y
@@ -612,11 +615,19 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 # PTXCONF_CLOCK is not set
 
 #
-# VHLL Support        
+# Scripting Languages         
+#
+
+#
+# Scripting Languages
 #
 
 #
 # Python requires libdl on the target (see C Library)
+#
+
+#
+# Networking Tools            
 #
 
 #
@@ -825,11 +836,7 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 #
 
 #
-# Disk and file ---   
-#
-
-#
-# Disk and file utils 
+# Disk and File Utilities     
 #
 
 #
@@ -856,16 +863,13 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 # PTXCONF_BONNIE is not set
 
 #
-# Communication ---   
-#
-
-#
-# Communication utils 
+# Communication Utilities     
 #
 # PTXCONF_EFAX is not set
+# PTXCONF_POP3SPAM is not set
 
 #
-# Applications ---    
+# Applications                
 #
 
 #
@@ -889,24 +893,29 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 # PTXCONF_SETMIXER is not set
 
 #
-# Tools               
+# Tools                       
 #
 # PTXCONF_FIGLET is not set
 
 #
-# Editors             
+# Editors                     
 #
 # PTXCONF_NANO is not set
 # PTXCONF_JED is not set
 # PTXCONF_HEXEDIT is not set
 
 #
-# System Libraries    
+# System Libraries            
 #
 
 #
 # gettext          
 #
+
+#
+# pcre             
+#
+# PTXCONF_PCRE is not set
 
 #
 # popt             
@@ -944,13 +953,31 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 # PTXCONF_LIBXML2 is not set
 
 #
-# Graphics Libraries  
+# Graphics Libraries          
+#
+
+#
+# X Infrastructure
 #
 
 #
 # XFree86-4.3.0         
 #
 # PTXCONF_XFREE430 is not set
+
+#
+# xlibs                 
+#
+# PTXCONF_XLIBS is not set
+
+#
+# xserver               
+#
+# PTXCONF_XSERVER is not set
+
+#
+# X Applications
+#
 
 #
 # Clementine WM         
@@ -970,12 +997,12 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 #
 
 #
-# Blackbox WM         
+# Blackbox WM           
 #
 # PTXCONF_BLACKBOX is not set
 
 #
-# Scientific Apps     
+# Scientific Apps             
 #
 
 #
@@ -984,7 +1011,7 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 # PTXCONF_GNUPLOT is not set
 
 #
-# Web Applications    
+# Web Applications            
 #
 
 #

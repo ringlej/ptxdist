@@ -17,6 +17,7 @@ PTXCONF_PROJECT="Cameron-EFCO"
 #
 # Target Options      
 #
+# PTXCONF_ARCH_ALPHA is not set
 # PTXCONF_ARCH_ARM is not set
 # PTXCONF_ARCH_ARM_NOMMU is not set
 # PTXCONF_ARCH_X86 is not set
