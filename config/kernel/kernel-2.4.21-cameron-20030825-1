@@ -23,17 +23,23 @@ CONFIG_KMOD=y
 #
 CONFIG_PPC=y
 CONFIG_PPC32=y
-# CONFIG_6xx is not set
-CONFIG_4xx=y
+CONFIG_6xx=y
+# CONFIG_4xx is not set
 # CONFIG_POWER3 is not set
 # CONFIG_POWER4 is not set
 # CONFIG_8xx is not set
-# CONFIG_PPC_STD_MMU is not set
-CONFIG_OAK=y
-# CONFIG_WALNUT is not set
-# CONFIG_ALL_PPC is not set
+# CONFIG_8260 is not set
+CONFIG_PPC_STD_MMU=y
+CONFIG_ALL_PPC=y
+# CONFIG_APUS is not set
+# CONFIG_SPRUCE is not set
+# CONFIG_LOPEC is not set
+# CONFIG_PAL4 is not set
+# CONFIG_GEMINI is not set
 # CONFIG_SMP is not set
-CONFIG_MATH_EMULATION=y
+# CONFIG_ALTIVEC is not set
+# CONFIG_TAU is not set
+CONFIG_PPC_ISATIMER=y
 
 #
 # General setup
@@ -43,7 +49,7 @@ CONFIG_MATH_EMULATION=y
 # CONFIG_EISA is not set
 # CONFIG_SBUS is not set
 # CONFIG_MCA is not set
-# CONFIG_PCI is not set
+CONFIG_PCI=y
 CONFIG_NET=y
 CONFIG_SYSCTL=y
 CONFIG_SYSVIPC=y
@@ -52,6 +58,7 @@ CONFIG_KCORE_ELF=y
 CONFIG_BINFMT_ELF=y
 CONFIG_KERNEL_ELF=y
 # CONFIG_BINFMT_MISC is not set
+CONFIG_PCI_NAMES=y
 # CONFIG_HOTPLUG is not set
 # CONFIG_PCMCIA is not set
 
@@ -60,6 +67,12 @@ CONFIG_KERNEL_ELF=y
 #
 # CONFIG_PARPORT is not set
 CONFIG_GEN_RTC=y
+CONFIG_PPC601_SYNC_FIX=y
+CONFIG_PROC_DEVICETREE=y
+CONFIG_PPC_RTAS=y
+CONFIG_PREP_RESIDUAL=y
+CONFIG_PROC_PREPRESIDUAL=y
+CONFIG_PPCBUG_NVRAM=y
 # CONFIG_CMDLINE_BOOL is not set
 
 #
@@ -169,6 +182,11 @@ CONFIG_IP_PNP_DHCP=y
 # CONFIG_SCSI is not set
 
 #
+# IEEE 1394 (FireWire) support (EXPERIMENTAL)
+#
+# CONFIG_IEEE1394 is not set
+
+#
 # Network device support
 #
 CONFIG_NETDEVICES=y
@@ -248,6 +266,7 @@ CONFIG_NETDEVICES=y
 #
 # Console drivers
 #
+CONFIG_VGA_CONSOLE=y
 
 #
 # Frame-buffer support
@@ -266,6 +285,11 @@ CONFIG_NETDEVICES=y
 #
 # Macintosh device drivers
 #
+# CONFIG_ADB_CUDA is not set
+# CONFIG_ADB_PMU is not set
+# CONFIG_MAC_FLOPPY is not set
+# CONFIG_MAC_SERIAL is not set
+# CONFIG_ADB is not set
 
 #
 # Character devices
@@ -438,12 +462,5 @@ CONFIG_MSDOS_PARTITION=y
 #
 # Kernel hacking
 #
-CONFIG_DEBUG_KERNEL=y
-# CONFIG_MAGIC_SYSRQ is not set
-# CONFIG_DEBUG_HIGHMEM is not set
-# CONFIG_DEBUG_SLAB is not set
-# CONFIG_DEBUG_WAITQ is not set
-# CONFIG_KGDB is not set
-CONFIG_XMON=y
-# CONFIG_BDI_SWITCH is not set
-# CONFIG_MORE_COMPILE_OPTIONS is not set
+# CONFIG_DEBUG_KERNEL is not set
+CONFIG_BOOTX_TEXT=y
