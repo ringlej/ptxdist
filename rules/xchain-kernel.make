@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.24 2004/02/27 17:10:32 robert Exp $
+# $Id: xchain-kernel.make,v 1.25 2004/03/02 15:42:50 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -57,17 +57,37 @@ ifeq (2.4.18,$(KERNEL_VERSION))
 	mv $(XCHAIN_KERNEL_BUILDDIR)/linux $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)
 endif
 
-	# Also add the "patchstack" like patches
+	# Add "patchstack" patches
+ifdef PTXCONF_KERNEL_PATCH1_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH1_NAME)) 
+endif
+ifdef PTXCONF_KERNEL_PATCH2_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH2_NAME)) 
+endif
+ifdef PTXCONF_KERNEL_PATCH3_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH3_NAME)) 
+endif
+ifdef PTXCONF_KERNEL_PATCH4_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH4_NAME)) 
+endif
+ifdef PTXCONF_KERNEL_PATCH5_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH5_NAME)) 
+endif
+ifdef PTXCONF_KERNEL_PATCH6_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH6_NAME)) 
+endif
+ifdef PTXCONF_KERNEL_PATCH7_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH7_NAME)) 
+endif
+ifdef PTXCONF_KERNEL_PATCH8_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH8_NAME)) 
+endif
+ifdef PTXCONF_KERNEL_PATCH9_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH9_NAME)) 
+endif
+ifdef PTXCONF_KERNEL_PATCH10_XCHAIN
 	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH10_NAME)) 
+endif
 
 	mv $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/* $(XCHAIN_KERNEL_BUILDDIR)
 
@@ -137,7 +157,7 @@ $(STATEDIR)/xchain-kernel.targetinstall:
 
 xchain-kernel_clean: 
 	# remove feature patches, but only if kernel was cleaned before.  
-	if [ ! -f $(STATEDIR)/xchain-kernel.get ]; then                                                                 \
+	if [ ! -f $(STATEDIR)/kernel.get ]; then                                                                 \
 		for i in `ls $(STATEDIR)/kernel-feature-*.* | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do        \
 			if [ $$? -eq 0 ]; then                                                                          \
 				rm -f $(STATEDIR)/kernel-feature-$$i*;                                                  \
