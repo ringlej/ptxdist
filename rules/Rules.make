@@ -109,7 +109,8 @@ extract =							\
 		;;						\
 	esac;							\
 	[ -d $$DEST ] || mkdir -p $$DEST;			\
-	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -
+	echo $$PACKET >> state/packetlist; 			\
+	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -	;	
 
 #
 # download the given URL
