@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.1-cvs
-# Mon Jan 31 21:31:03 2005
+# Wed Feb  9 19:56:26 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -10,6 +10,11 @@ PTXCONF_PROJECT="i586-generic-glibc"
 #
 # General Options             
 #
+
+#
+# PTXdist Options     
+#
+PTXCONF_DEBPOOLM="http://ftp.se.debian.org/debian/"
 
 #
 # Code maturity       
@@ -138,11 +143,6 @@ PTXCONF_HOSTTOOLS_E2FSPROGS=y
 PTXCONF_HOSTTOOLS_E2FSPROGS_TUNE2FS=y
 PTXCONF_HOSTTOOLS_E2FSPROGS_RESIZE2FS=y
 PTXCONF_HOSTTOOLS_FAKEROOT=y
-
-#
-# Source Archive Opts 
-#
-PTXCONF_DEBPOOLM="http://ftp.se.debian.org/debian/"
 
 #
 # Core System                 
@@ -1041,6 +1041,7 @@ PTXCONF_UTELNETD=y
 #
 # PTXCONF_EFAX is not set
 # PTXCONF_POP3SPAM is not set
+# PTXCONF_SMTPCLIENT is not set
 
 #
 # Applications                
