@@ -47,7 +47,12 @@ High Priority
 
 Low Priority
 ------------
-
+- MKL: uclinux, patch breaks due to unclean produced patch at uclinux
+- MKL: test betaftp, old breaks due to a patch from DKE
+- MKL: test qte, wxwindows
+- MKL: teach qte to crosscompile
+- MKL: autotoolize rn
+- MKL: gawk fix prefix, due to hard coded path
 - MKL: integrate ldd (./build/glibc-2.2.5/elf/ldd.bash.in)
 - MKL: fix targetinstall *so* -> [-.]*so*
 - MKL: include with wildcard ifeq style?
