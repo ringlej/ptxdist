@@ -1,6 +1,8 @@
 Current TODO List
 =================
 
+- RSC:	add ethtool: 
+	http://sourceforge.net/project/showfiles.php?group_id=3242&package_id=19201 
 - RSC:	Add more test suite stuff: 
 	- http://gcc.gnu.org/install/test.html
 	- http://www.plumhall.com/stec.html
