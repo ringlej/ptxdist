@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: fltk.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: fltk.make,v 1.3 2003/11/10 00:46:58 mkl Exp $
 #
 # Copyright (C) 2003 by Werner Schmitt mail2ws@gmx.de
 #          
@@ -80,7 +80,7 @@ FLTK_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 FLTK_AUTOCONF	+= --build=$(GNU_HOST)
 FLTK_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 FLTK_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11
-FLTK_AUTOCONF	+= --x-librarie=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+FLTK_AUTOCONF	+= --x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 FLTK_AUTOCONF	+= --enable-shared 
 #FLTK_AUTOCONF	+= --enable-threads
 
