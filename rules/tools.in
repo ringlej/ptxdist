@@ -1,0 +1,8 @@
+config FIGLET
+	bool
+	prompt "Compile figlet"
+	help
+	  Figlet is a tool to create bit ASCII text. 
+
+          For more information see http://www.figlet.org
+~
