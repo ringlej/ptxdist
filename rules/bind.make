@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bind.make,v 1.2 2003/12/23 10:41:51 robert Exp $
+# $Id: bind.make,v 1.3 2004/08/30 10:32:24 bsp Exp $
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          
@@ -19,10 +19,10 @@ endif
 #
 # Paths and names
 #
-BIND_VERSION	= 9.2.3
+BIND_VERSION	= 9.3.0rc3
 BIND		= bind-$(BIND_VERSION)
 BIND_SUFFIX		= tar.gz
-BIND_URL		= ftp://ftp.isc.org/isc/bind9/9.2.3//$(BIND).$(BIND_SUFFIX)
+BIND_URL		= ftp://ftp.isc.org/isc/bind9/$(BIND_VERSION)/$(BIND).$(BIND_SUFFIX)
 BIND_SOURCE		= $(SRCDIR)/$(BIND).$(BIND_SUFFIX)
 BIND_DIR		= $(BUILDDIR)/$(BIND)
 
