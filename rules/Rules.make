@@ -78,49 +78,66 @@ TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
 ## - find out the compiler's sysincludedir
 ##
 ifndef $(PTXCONF_CROSSTOOL)
-#TARGET_CFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include 
-# TARGET_CFLAGS		+= -isystem $(shell GCC=$(PTXCONF_COMPILER_PREFIX)gcc $(TOPDIR)/scripts/sysinclude_test)
+# TARGET_CFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 TARGET_CXXFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-# TARGET_CXXFLAGS	+= -isystem $(shell GCC=$(PTXCONF_COMPILER_PREFIX)g++ $(TOPDIR)/scripts/sysinclude_test)
 TARGET_CPPFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-# TARGET_CPPFLAGS	+= -isystem $(shell GCC=$(PTXCONF_COMPILER_PREFIX)gcc $(TOPDIR)/scripts/sysinclude_test)
 TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib 
-# FIXME: hack alert...
-# TARGET_LDFLAGS	+= --dynamic-linker $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/ld-linux.so.2
 endif
 
 
 # Environment variables for toolchain components
+#
+# FIXME: Should be consolidated in some way...
+#
+CROSS_AR		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ar)
+CROSS_AS		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)as)
+CROSS_LD		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ld)
+CROSS_NM		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)nm)
+CROSS_CC		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)gcc)
+CROSS_CXX		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)g++)
+CROSS_RANLIB		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ranlib)
+CROSS_OBJCOPY		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)objcopy)
+CROSS_OBJDUMP		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)objdump)
 
-CROSS_ENV_AR_PROG	= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ar)
-CROSS_ENV_AR		= AR=$(CROSS_ENV_AR_PROG)
-CROSS_ENV_AS		= AS=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)as)
-CROSS_ENV_LD		= LD=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ld)
-CROSS_ENV_NM		= NM=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)nm)
-CROSS_ENV_CC_PROG	= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)gcc)
-CROSS_ENV_CC		= CC=$(CROSS_ENV_CC_PROG)
+CROSS_ENV_AR		= AR=$(CROSS_AR)
+CROSS_ENV_AS		= AS=$(CROSS_AS)
+CROSS_ENV_LD		= LD=$(CROSS_LD)
+CROSS_ENV_NM		= NM=$(CROSS_NM)
+CROSS_ENV_CC		= CC=$(CROSS_CC)
+CROSS_ENV_CXX		= CXX=$(CROSS_CXX)
+CROSS_ENV_RANLIB	= RANLIB=$(CROSS_RANLIB)
+CROSS_ENV_OBJCOPY	= OBJCOPY=$(CROSS_OBJCOPY)
+CROSS_ENV_OBJDUMP	= OBJDUMP=$(CROSS_OBJDUMP)
+CROSS_ENV_STRIP		= STRIP=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)strip)
 CROSS_ENV_CC_FOR_BUILD	= CC_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
 CROSS_ENV_CPP_FOR_BUILD	= CPP_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
 CROSS_ENV_LINK_FOR_BUILD= LINK_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
-CROSS_ENV_CXX		= CXX=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)g++)
-CROSS_ENV_OBJCOPY	= OBJCOPY=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)objcopy)
-CROSS_ENV_OBJDUMP	= OBJDUMP=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)objdump)
-CROSS_ENV_RANLIB	= RANLIB=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ranlib)
-CROSS_ENV_STRIP		= STRIP=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)strip)
 
 # FIXME: check if we have to add quotes for grouping here
 
-ifneq ('','$(strip $(subst $(quote),,$(TARGET_CFLAGS)))')
-CROSS_ENV_CFLAGS	= CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))'
+CROSS_CFLAGS		= $(call remove_quotes,$(TARGET_CFLAGS))
+CROSS_CXXFLAGS		= $(call remove_quotes,$(TARGET_CXXFLAGS))
+CROSS_CPPFLAGS		= $(call remove_quotes,$(TARGET_CPPFLAGS))
+CROSS_LDFLAGS		= $(call remove_quotes,$(TARGET_LDFLAGS))
+
+ifneq ('','$(strip $(CROSS_CFLAGS))')
+CROSS_ENV_CFLAGS		= CFLAGS='$(strip $(CROSS_CFLAGS))'
+CROSS_ENV_CFLAGS_FOR_TARGET	= CFLAGS_FOR_TARGET='$(strip $(CROSS_CFLAGS))'
 endif
-ifneq ('','$(strip $(subst $(quote),,$(TARGET_CXXFLAGS)))')
-CROSS_ENV_CXXFLAGS	= CXXFLAGS='$(call remove_quotes,$(TARGET_CXXFLAGS))'
+
+ifneq ('','$(strip $(CROSS_CXXFLAGS))')
+CROSS_ENV_CXXFLAGS		= CXXFLAGS='$(strip $(CROSS_CXXFLAGS))'
+CROSS_ENV_CXXFLAGS_FOR_TARGET	= CXXFLAGS_FOR_TARGET='$(strip $(CROSS_CXXFLAGS))'
 endif
-ifneq ('','$(strip $(subst $(quote),,$(TARGET_CPPFLAGS)))')
-CROSS_ENV_CPPFLAGS	= CPPFLAGS='$(call remove_quotes,$(TARGET_CPPFLAGS))'
+
+ifneq ('','$(strip $(CROSS_CPPFLAGS))')
+CROSS_ENV_CPPFLAGS		= CPPFLAGS='$(strip $(CROSS_CPPFLAGS))'
+CROSS_ENF_CPPFLAGS_FOR_TARGET	= CPPFLAGS_FOR_TARGET='$(strip $(CROSS_CPPFLAGS))'
 endif
-ifneq ('','$(strip $(subst $(quote),,$(TARGET_LDFLAGS)))')
-CROSS_ENV_LDFLAGS	= LDFLAGS='$(call remove_quotes,$(TARGET_LDFLAGS))'
+
+ifneq ('','$(strip $(CROSS_LDFLAGS))')
+CROSS_ENV_LDFLAGS		= LDFLAGS='$(strip $(CROSS_LDFLAGS))'
+CROSS_ENV_LDFLAGS_FOR_TARGET	= LDFLAGS_FOR_TARGET='$(strip $(CROSS_LDFLAGS))'
 endif
 
 # 
@@ -130,7 +147,7 @@ endif
 # The ac_cv_* variables are needed to tell configure scripts not to use
 # AC_TRY_RUN and run cross compiled things on the development host
 # 
-CROSS_ENV := \
+CROSS_ENV_PROGS := \
 	$(CROSS_ENV_AR) \
 	$(CROSS_ENV_AS) \
 	$(CROSS_ENV_CXX) \
@@ -143,28 +160,38 @@ CROSS_ENV := \
 	$(CROSS_ENV_OBJCOPY) \
 	$(CROSS_ENV_OBJDUMP) \
 	$(CROSS_ENV_RANLIB) \
-	$(CROSS_ENV_STRIP) \
+	$(CROSS_ENV_STRIP)
+
+CROSS_ENV_FLAGS := \
 	$(CROSS_ENV_CFLAGS) \
 	$(CROSS_ENV_CPPFLAGS) \
 	$(CROSS_ENV_LDFLAGS) \
-	$(CROSS_ENV_CXXFLAGS) \
-	ac_cv_func_getpgrp_void=yes \
-	ac_cv_func_setpgrp_void=yes \
+	$(CROSS_ENV_CXXFLAGS)
+
+CROSS_ENV_FLAGS_FOR_TARGET := \
+	$(CROSS_ENV_CFLAGS_FOR_TARGET) \
+	$(CROSS_ENV_CXXFLAGS_FOR_TARGET) \
+	$(CROSS_ENV_CPPFLAGS_FOR_TARGET) \
+	$(CROSS_ENV_LDFLAGS_FOR_TARGET)
+
+CROSS_ENV_AC := \
 	ac_cv_sizeof_long_long=8 \
 	ac_cv_sizeof_long_double=8 \
+	ac_cv_func_getpgrp_void=yes \
+	ac_cv_func_setpgrp_void=yes \
 	ac_cv_func_memcmp_clean=yes \
 	ac_cv_func_setvbuf_reversed=no \
-	ac_cv_func_getrlimit=yes
+	ac_cv_func_getrlimit=yes \
+	ac_cv_type_uintptr_t=yes \
+	ac_cv_func_dcgettext=yes \
+	gt_cv_func_gettext_libintl=yes
 
-#
-# FIXME: Should be consolidated in some way...
-#
-CROSS_AR		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ar)
-CROSS_AS		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)as)
-CROSS_LD		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ld)
-CROSS_NM		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)nm)
-CROSS_CC		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)gcc)
-CROSS_RANLIB		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ranlib)
+CROSS_ENV := \
+	$(CROSS_ENV_PROGS) \
+	$(CROSS_ENV_FLAGS) \
+	$(CROSS_ENV_AC)
+
+CROSS_AUTOCONF = $(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
 
 #
 # CROSS_LIB_DIR	= the libs for the target system are installed into this dir
