@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pango12.make,v 1.7 2004/02/24 00:12:20 robert Exp $
+# $Id: pango12.make,v 1.8 2004/02/24 09:11:59 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -138,9 +138,25 @@ $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps)
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/lib
 	rm -f $(ROOTDIR)/lib/libpango-1.0.so*
-	install $(PANGO12_DIR)/pango/.libs/libpango-1.0.so.0.200.3 $(ROOTDIR)/lib/
-	ln -sf libpango-1.0.so.0.200.3 $(ROOTDIR)/lib/libpango-1.0.so.0
-	ln -sf libpango-1.0.so.0.200.3 $(ROOTDIR)/lib/libpango-1.0.so
+
+	install $(PANGO12_DIR)/pango/.libs/libpango-1.0.so.0.300.2 $(ROOTDIR)/lib/
+	ln -sf libpango-1.0.so.0.300.2 $(ROOTDIR)/lib/libpango-1.0.so.0
+	ln -sf libpango-1.0.so.0.300.2 $(ROOTDIR)/lib/libpango-1.0.so
+
+	install $(PANGO12_DIR)/pango/.libs/libpangox-1.0.so.0.300.2 $(ROOTDIR)/lib/
+	ln -sf libpangox-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangox-1.0.so.0
+	ln -sf  libpangox-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangox-1.0.so
+
+	install $(PANGO12_DIR)/pango/.libs/libpangoxft-1.0.so.0.300.2 $(ROOTDIR)/lib/
+	ln -sf libpangoxft-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangoxft-1.0.so.0
+	ln -sf  libpangoxft-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangoxft-1.0.so
+
+	install $(PANGO12_DIR)/pango/.libs/libpangoft2-1.0.so.0.300.2 $(ROOTDIR)/lib/
+	ln -sf libpangoft2-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangoft2-1.0.so.0
+	ln -sf  libpangoft2-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangoft2-1.0.so
+	
+	install $(PANGO12_DIR)/pango/.libs/pango-querymodules $(ROOTDIR)/usr/bin
+	cp -a $(CROSS_LIB_DIR)/lib/pango $(ROOTDIR)/usr/lib
 	touch $@
 
 # ----------------------------------------------------------------------------
