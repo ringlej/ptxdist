@@ -16,6 +16,7 @@ High Priority
        used, which breaks gcc-stage2. At least sometimes :-( This 
        effect is observed only on certain systems (all Debian unstable,
        but downgrading does not help). Has to be evaluated!!!
+- RSC: add #ifdef __cplusplus ... #else ... #endif to bits/in.h
 
 Low Priority
 ------------
