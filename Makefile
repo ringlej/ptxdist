@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.109 2004/08/26 06:20:38 rsc Exp $
+# $Id: Makefile,v 1.110 2004/08/26 15:22:21 rsc Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -370,7 +370,7 @@ getclean:
 
 imageclean:
 	@echo -n "cleaning images dir.............. "
-	@rm -f $(TOPDIR)/images/*
+	@for i in $$(ls -I CVS $(TOPDIR)/images); do echo -n $$i' '; rm -fr $(TOPDIR)/images/"$$i"; done
 	@rm -f $(STATEDIR)/*.image
 	@echo "done."
 
