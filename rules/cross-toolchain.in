@@ -32,7 +32,6 @@ choice
 	config BINUTILS_2_15
 		bool
 		prompt "2.15    "
-		depends on ARCH_ARM || ARCH_X86	
 endchoice
 
 choice
@@ -54,6 +53,12 @@ choice
 		bool
 		prompt "3.3.2   "
 		depends on ARCH_X86 || ARCH_ARM
+	
+	config GCC_3_4_0
+		bool
+		prompt "3.4.0   "
+		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC
+	
 	
 endchoice
 
