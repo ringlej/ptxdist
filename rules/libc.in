@@ -42,19 +42,9 @@ choice
 		depends on GLIBC
 		depends on ARCH_X86
 
-	config UCLIBC_0_9_19
+	config UCLIBC_0_9_24
 		bool
-		prompt "0.9.19"
-		depends on UCLIBC
-
-	config UCLIBC_0_9_20
-		bool
-		prompt "0.9.20"
-		depends on UCLIBC
-
-	config UCLIBC_0_9_23
-		bool
-		prompt "0.9.23"
+		prompt "0.9.24"
 		depends on UCLIBC
 		
 endchoice
