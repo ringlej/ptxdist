@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-mtd.make,v 1.2 2004/03/28 10:59:11 robert Exp $
+# $Id: xchain-mtd.make,v 1.3 2004/04/22 13:36:13 robert Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -107,6 +107,9 @@ ifdef PTXCONF_MTD_XCHAIN_MKJFFS
 endif
 ifdef PTXCONF_MTD_XCHAIN_MKJFFS2
 	install $(XCHAIN_MTD_DIR)/util/mkfs.jffs2 $(PTXCONF_PREFIX)/bin
+endif
+ifdef PTXCONF_MTD_XCHAIN_JFFS2DUMP
+	install $(XCHAIN_MTD_DIR)/util/jffs2dump $(PTXCONF_PREFIX)/bin
 endif
 	touch $@
 

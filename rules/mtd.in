@@ -11,6 +11,10 @@ config MTD_XCHAIN_MKJFFS2
 	bool "mkfs.jffs2"
 	depends on MTD_XCHAIN
 
+config MTD_XCHAIN_JFFS2DUMP
+	bool "jffs2dump"
+	depends on MTD_XCHAIN
+
 config MTD_UTILS
 	bool
 	prompt "Compile MTD Utilities (for target)"
