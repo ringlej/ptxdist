@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: flowscreen2.make,v 1.4 2004/06/22 17:11:29 rsc Exp $
+# $Id: flowscreen2.make,v 1.5 2004/08/17 10:06:04 sha Exp $
 #
 # Copyright (C) 2004 by Pengutronix, Robert Schwebel
 #          
@@ -21,7 +21,7 @@ $(STATEDIR)/flowscreen2.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	copy /etc template
-	cp -a $(TOPDIR)/etc/flowscreen2/. $(ROOTDIR)/etc
+	cp -a $(TOPDIR)/etc/generic/. $(ROOTDIR)/etc
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
@@ -38,7 +38,22 @@ $(STATEDIR)/flowscreen2.targetinstall:
 	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
 
-	mkdir -p $(ROOTDIR)/data
+#	other config data
+	rm -rf $(ROOTDIR)/etc/proftpd.conf
+	rm -f $(ROOTDIR)/etc/rc.d/networking
+
+	perl -i -p -e "s,\@CONSOLE@,ttsmx/1,g" $(ROOTDIR)/etc/inittab
+	perl -i -p -e "s,\@SPEED@,115200,g" $(ROOTDIR)/etc/inittab
+	perl -i -p -e "s,\@VENDOR@,PII ,g" $(ROOTDIR)/etc/init.d/banner
+	perl -i -p -e "s,\@PS1@,\'\\\u@\\\h:\\\w> \',g" $(ROOTDIR)/etc/profile
+	perl -i -p -e "s,\@PS2@,\'> \',g" $(ROOTDIR)/etc/profile
+	perl -i -p -e "s,\@PS4@,\'+ \',g" $(ROOTDIR)/etc/profile
+	perl -i -p -e "s,\@HOSTNAME@,mx1fs2,g" $(ROOTDIR)/etc/hostname
+
+	install -d $(ROOTDIR)/data/
+	install -d $(ROOTDIR)/var/run
+	install -d $(ROOTDIR)/var/log
+	install -d $(ROOTDIR)/var/lock
 	
 	$(PTXCONF_PREFIX)/bin/mkfs.jffs2 -d root --eraseblock=131072 -o /tmp/root.jffs2 --pad=5242880
 	
