@@ -354,6 +354,11 @@ choice
 #------------------------------- RMK-PXA-PTX -------------------------
 #---------------------------------------------------------------------
 
+	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10
+		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx10"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA_PTX
+
 	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7
 		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx7"
 		depends on KERNEL_2_4_19
@@ -367,6 +372,11 @@ choice
 #---------------------------------------------------------------------
 #------------------------------- RMK-PXA-PTX-LTT ---------------------
 #---------------------------------------------------------------------
+
+	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10_ltt1
+		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx10-ltt1"
+		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA_PTX_LTT
 
 	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7_ltt1
 		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx7-ltt1"
@@ -532,12 +542,15 @@ choice
 
 	config RTAI_CVS_stable
 		bool "CVS stable tree"
+		depends on EXP_M
 
 	config RTAI_CVS_testing
 		bool "CVS testing tree"
+		depends on EXP_M
 
 #	config RTAI_CVS_unstable
 #		bool "CVS unstable tree"
+#		depends on EXP_M
 endchoice
 
 
