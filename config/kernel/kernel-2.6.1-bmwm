@@ -534,9 +534,9 @@ CONFIG_MOUSE_PS2=m
 # IDRIVE support with CAN Bus
 #
 CONFIG_IDRIVE=y
-# CONFIG_CAN_PEAK is not set
+CONFIG_CAN_PEAK=m
 CONFIG_CAN_PEAK_DIRECT=m
-# CONFIG_CAN_IDRIVE is not set
+CONFIG_CAN_IDRIVE=m
 
 #
 # Character devices
