@@ -1,6 +1,7 @@
 Current TODO List
 =================
 
+- RSC: maybe add something like http://www.reportlab.org/rl_toolkit.html
 - RSC: bing outputs strange large numbers when being compiled for ARM :-) 
 - RSC: LTT needs gtk-devel on host side; test if gtk-config is available
        and print out nice warning if not. 
