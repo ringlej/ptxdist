@@ -78,7 +78,7 @@ TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
 ## - find out the compiler's sysincludedir
 ##
 ifndef $(PTXCONF_CROSSTOOL)
-TARGET_CFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include 
+#TARGET_CFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include 
 # TARGET_CFLAGS		+= -isystem $(shell GCC=$(PTXCONF_COMPILER_PREFIX)gcc $(TOPDIR)/scripts/sysinclude_test)
 TARGET_CXXFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 # TARGET_CXXFLAGS	+= -isystem $(shell GCC=$(PTXCONF_COMPILER_PREFIX)g++ $(TOPDIR)/scripts/sysinclude_test)
