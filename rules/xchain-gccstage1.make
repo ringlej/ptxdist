@@ -1,4 +1,4 @@
-# $Id: xchain-gccstage1.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# $Id: xchain-gccstage1.make,v 1.3 2003/06/25 12:12:31 robert Exp $
 #
 # (c) 2002,2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -17,11 +17,7 @@ endif
 #
 # Paths and names 
 #
-ifeq (y, $(PTXCONF_ARCH_ARM))
-GCC_PREFIX		= arm-linux-
-else
-GCC_PREFIX		=
-endif
+GCC_PREFIX		= $(PTXCONF_GNU_TARGET)-
 
 GCC			= gcc-2.95.3
 GCC_URL			= ftp://ftp.gnu.org/pub/gnu/gcc/$(GCC).tar.gz
@@ -32,7 +28,7 @@ GCC_STAGE2_DIR		= $(BUILDDIR)/$(GCC)-$(GCC_PREFIX)stage2
 GCC_EXTRACT		= gzip -dc
 
 GCC_ARMPATCH		= gcc-2.95.3.diff
-GCC_ARMPATCH_URL	= ftp://ftp.arm.linux.org.uk/pub/armlinux/toolchain/src-2.95.3/gcc-2.95.3.diff.bz2
+GCC_ARMPATCH_URL	= ftp://ftp.arm.linux.org.uk/pub/armlinux/toolchain/src-2.95.3/$(GCC_ARMPATCH).bz2
 GCC_ARMPATCH_SOURCE	= $(SRCDIR)/$(GCC_ARMPATCH).bz2
 GCC_ARMPATCH_DIR	= $(GCC_DIR)
 GCC_ARMPATCH_EXTRACT	= bzip2 -dc
@@ -148,13 +144,13 @@ $(STATEDIR)/xchain-gccstage1.prepare: $(xchain-gccstage1_prepare_deps)
 	# configure 
 	#
 	cd $(GCC_STAGE1_DIR) && 					\
-		PATH=$(PTXCONF_PREFIX)/bin:$$PATH		\
+		PATH=$(PTXCONF_PREFIX)/bin:$$PATH			\
 	  	AR=$(PTXCONF_GNU_TARGET)-ar				\
 		RANLIB=$(PTXCONF_GNU_TARGET)-ranlib			\
 	     	CC=$(HOSTCC)						\
 		$(GCC_DIR)/configure 					\
 			--target=$(PTXCONF_GNU_TARGET)			\
-			--prefix=$(PTXCONF_PREFIX)		\
+			--prefix=$(PTXCONF_PREFIX)			\
 			--enable-target-optspace			\
 			--disable-nls					\
 			--with-gnu-ld					\

@@ -1,4 +1,4 @@
-# $Id: nfs-utils.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# $Id: nfs-utils.make,v 1.3 2003/06/25 12:12:31 robert Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -63,7 +63,7 @@ NFSUTILS_ENVIRONMENT =
 # # arcitecture dependend configuration
 # #
 #
-NFSUTILS_AUTOCONF    += --build=i686-linux
+NFSUTILS_AUTOCONF    += --build=$(GNU_HOST)
 NFSUTILS_AUTOCONF    += --host=$(PTXCONF_GNU_TARGET)
 NFSUTILS_ENVIRONMENT =  PATH=$(PTXCONF_PREFIX)/bin:$$PATH
 NFSUTILS_ENVIRONMENT += CC=$(PTXCONF_GNU_TARGET)-gcc CC_FOR_BUILD=gcc

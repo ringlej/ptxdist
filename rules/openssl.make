@@ -1,4 +1,4 @@
-# $Id: openssl.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
+# $Id: openssl.make,v 1.4 2003/06/25 12:12:31 robert Exp $
 #
 # (c) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -28,6 +28,9 @@ ifeq (y,$(PTXCONF_ARCH_ARM))
 endif
 ifeq (y,$(PTXCONF_ARCH_X86))
     THUD = linux-elf
+endif
+ifeq (y,$(PTXCONF_OPT_i586))
+	THUD = linux-pentium
 endif
 ifeq (y,$(PTXCONF_OPT_I686))
     THUD = linux-ppro

@@ -1,4 +1,4 @@
-# $Id: nettle.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# $Id: nettle.make,v 1.3 2003/06/25 12:12:31 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -54,7 +54,7 @@ $(STATEDIR)/nettle.extract: $(STATEDIR)/nettle.get
 nettle_prepare: $(STATEDIR)/nettle.prepare
 
 NETTLE_AUTOCONF =
-NETTLE_AUTOCONF += --build=i686-linux
+NETTLE_AUTOCONF += --build=$(GNU_HOST)
 NETTLE_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 NETTLE_AUTOCONF += --prefix=$(PTXCONF_PREFIX)
 

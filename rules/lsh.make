@@ -1,4 +1,4 @@
-# $Id: lsh.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# $Id: lsh.make,v 1.3 2003/06/25 12:12:31 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -70,7 +70,7 @@ LSH_AUTOCONF += --disable-agent-forward
 LSH_AUTOCONF += --disable-ipv6
 LSH_AUTOCONF += --disable-utmp
 LSH_AUTOCONF += --without-system-argp
-LSH_AUTOCONF += --build=i686-linux
+LSH_AUTOCONF += --build=$(GNU_HOST)
 LSH_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 LSH_AUTOCONF += --with-lib-path=$(PTXCONF_PREFIX)/lib 
 LSH_AUTOCONF += --with-include-path=$(PTXCONF_PREFIX)/include

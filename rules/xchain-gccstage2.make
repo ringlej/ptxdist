@@ -1,4 +1,4 @@
-# $Id: xchain-gccstage2.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# $Id: xchain-gccstage2.make,v 1.3 2003/06/25 12:12:31 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -60,6 +60,20 @@ $(STATEDIR)/xchain-gccstage2.extract: 					\
 
 xchain-gccstage2_prepare: $(STATEDIR)/xchain-gccstage2.prepare
 
+GCC_STAGE2_AUTOCONF	=  --target=$(PTXCONF_GNU_TARGET)
+GCC_STAGE2_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)
+GCC_STAGE2_AUTOCONF	+= --enable-target-optspace
+GCC_STAGE2_AUTOCONF	+= --disable-nls
+GCC_STAGE2_AUTOCONF	+= --with-gnu-ld
+GCC_STAGE2_AUTOCONF	+= --disable-shared
+GCC_STAGE2_AUTOCONF	+= --enable-languages="c,c++"
+GCC_STAGE2_AUTOCONF	+= --with-headers=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+ifeq (y, $(PTXCONF_GLIBC_PTHREADS))
+GCC_STAGE2_AUTOCONF	+= --enable-threads=posix
+else
+GCC_STAGE2_AUTOCONF	+= --disable-threads
+endif
+
 xchain-gccstage2_prepare_deps =  $(STATEDIR)/xchain-gccstage2.extract
 xchain-gccstage2_prepare_deps += $(STATEDIR)/xchain-kernel.prepare
 
@@ -93,15 +107,7 @@ $(STATEDIR)/xchain-gccstage2.prepare: $(xchain-gccstage2_prepare_deps)
 	  	AR=$(PTXCONF_GNU_TARGET)-ar					\
 		RANLIB=$(PTXCONF_GNU_TARGET)-ranlib				\
 	     	CC=$(HOSTCC)							\
-		$(GCC_DIR)/configure 						\
-			--target=$(PTXCONF_GNU_TARGET)				\
-			--prefix=$(PTXCONF_PREFIX)				\
-			--enable-target-optspace				\
-			--disable-nls						\
-			--with-gnu-ld						\
-			--disable-shared					\
-			--enable-languages="c,c++"				\
-			--with-headers=$(PTXCONF_PREFIX)/include
+		$(GCC_DIR)/configure $(GCC_STAGE2_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -116,7 +122,7 @@ $(STATEDIR)/xchain-gccstage2.compile: 					\
 	# FIXME: why do we have to define _GNU_SOURCE here? Otherwhise 
 	# the c++ compiler cannot be compiled. 
 	cd $(GCC_STAGE2_DIR) && 					\
-		PATH=$(PATH):$(PTXCONF_PREFIX)/bin make CXXFLAGS_FOR_TARGET="-g -Os -D_GNU_SOURCE"
+		PATH=$(PATH):$(PTXCONF_PREFIX)/bin make CXXFLAGS_FOR_TARGET="-D_GNU_SOURCE"
 	touch $@
 
 # ----------------------------------------------------------------------------
