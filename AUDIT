@@ -1,0 +1,7 @@
+List of audited targets
+-----------------------
+
+CONFIG					DATE		RESULT		WHO
+---------------------------------------------------------------------------
+toolchain-powerpc-405-linux_config:	2003/12/18	compiles	RSC
+
