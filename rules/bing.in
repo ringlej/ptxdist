@@ -1,0 +1,7 @@
+menu	"bing                "
+
+config BING
+	bool
+	prompt "Compile bing"
+
+endmenu
