@@ -1,3 +1,27 @@
+
+2004-02-13 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* configs: updated to current Kconfig scenario
+	* rules/util-linux.in: 'PTXdist goes stoneage': clock added (BSP)
+	* mgetty+sendfax: added (BSP)
+	* thttpd: cosmetics... (BSP)
+	* innokom: udhcpd.conf, init.d/usbnet: Add udhcp config
+	  options and USB net start script.
+	* dhcp.make: update to later version, but still does not
+	  crosscompile. 
+	* innokom/inittab: Add USB network port.
+	* config/innokom.ptxconfig: Enable udhcpd.
+	* Makefile: Update version number
+	* busybox: Update to BB 1.0.0-pre7
+	* kernel: Finally fix feature patch stack mechanism. 
+          Should work now as expected...
+	* config/innokom.ptxconfig: Fixup configuration for ppp & patch
+	  stack
+	* config/innokom.ptxconfig: fix correct config file
+	* config/kernel/kernel-2.4.19-innokom: fix correct kernel config
+
+	* 0.5.2 released
+
 2004-02-05 Robert Schwebel <r.schwebel@pengutronix.de>
 	* xchain: lots of tweaks to make innokom work again
 	* glibc: compile with softfloat when target does not have floating
