@@ -161,11 +161,11 @@ dep_world: $(HOSTTOOLS_INSTALL) $(PACKAGES_TARGETINSTALL) $(VENDORTWEAKS_TARGETI
 
 world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
 
-# Image ----------------------------------------------------------------------
+# Images ----------------------------------------------------------------------
 
-image: $(STATEDIR)/image
+images: $(STATEDIR)/images
 
-$(STATEDIR)/image:
+$(STATEDIR)/images:
 ifdef PTXCONF_IMAGE_TGZ
 	cd $(ROOTDIR); \
 	(awk -F: '{printf("chmod %s .%s; chown %s.%s .%s;\n", $$4, $$1, $$2, $$3, $$1);}' $(TOPDIR)/permissions && \
@@ -250,7 +250,7 @@ distclean: clean
 	@echo "done."
 	@echo
 
-clean: rootclean imageclean
+clean: rootclean imagesclean
 	@echo
 	@echo -n "cleaning build dir............... "
 	@for i in $$(ls -I CVS $(BUILDDIR)); do 			\
@@ -312,10 +312,10 @@ getclean:
 	@echo "done."
 	@echo
 
-imageclean:
+imagesclean:
 	@echo -n "cleaning images dir.............. "
 	@for i in $$(ls -I CVS $(TOPDIR)/images); do echo -n $$i' '; rm -fr $(TOPDIR)/images/"$$i"; done
-	@rm -f $(STATEDIR)/image
+	@rm -f $(STATEDIR)/images
 	@echo "done."
 
 archive:  
