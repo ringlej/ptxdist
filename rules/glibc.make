@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.18 2003/11/13 19:26:17 mkl Exp $
+# $Id: glibc.make,v 1.19 2003/11/17 03:26:15 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -108,6 +108,14 @@ $(STATEDIR)/glibc-threads.extract: $(STATEDIR)/glibc.get
 
 glibc_prepare:		$(STATEDIR)/glibc.prepare
 
+#
+# dependencies
+#
+glibc_prepare_deps = \
+	$(STATEDIR)/autoconf213.install \
+	$(STATEDIR)/xchain-gccstage1.install \
+	$(STATEDIR)/glibc.extract
+
 # 
 # arcitecture dependend configuration
 #
@@ -163,14 +171,6 @@ GLIBC_AUTOCONF	+= --enable-add-ons=linuxthreads
 endif
 
 GLIBC_AUTOCONF	+= $(GLIBC_EXTRA_CONFIG)
-
-#
-# dependencies
-#
-glibc_prepare_deps = \
-	$(STATEDIR)/autoconf213.install \
-	$(STATEDIR)/xchain-gccstage1.install \
-	$(STATEDIR)/glibc.extract
 
 $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
 	@$(call targetinfo, $@)
@@ -252,7 +252,7 @@ endif
 ifdef PTXCONF_GLIBC_DEBUG
 GLIBC_STRIP	= true
 else
-GLIBC_STRIP	= $(CROSSSTRIP) -S -R .note -R .comment
+GLIBC_STRIP	= $(CROSSSTRIP) -R .note -R .comment
 endif
 
 $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps)
