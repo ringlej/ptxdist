@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: fontconfig22.make,v 1.7 2004/02/25 09:45:50 robert Exp $
+# $Id: fontconfig22.make,v 1.8 2004/07/08 16:49:48 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -22,7 +22,7 @@ endif
 #
 # Paths and names
 #
-FONTCONFIG22_VERSION		= 2.2.92
+FONTCONFIG22_VERSION		= 2.2.95
 FONTCONFIG22			= fontconfig-$(FONTCONFIG22_VERSION)
 FONTCONFIG22_SUFFIX		= tar.gz
 FONTCONFIG22_URL		= http://pdx.freedesktop.org/~fontconfig/release/$(FONTCONFIG22).$(FONTCONFIG22_SUFFIX)
