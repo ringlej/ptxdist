@@ -1,3 +1,8 @@
+2005-03-13 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* dropbear: fixed make environment; thanks to 
+	  Manfred Gruber for showing up the problem. 
+
 2005-03-01 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* mgetty: add patching support (patch by Steven Scholz)
