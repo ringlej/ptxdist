@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: zebra.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: zebra.make,v 1.3 2003/10/28 00:10:09 mkl Exp $
 #
 # Copyright (C) 2003 Jochen Striepe, Pengutronix e.K. <info@pengutronix.de>, Germany
 # Copyright (C) 2003 Robert Schwebel, Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -70,7 +70,7 @@ zebra_prepare_deps = \
 ZEBRA_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
-	--with-cflags=$(TARGET_CFLAGS) \
+	--with-cflags="$(TARGET_CFLAGS)" \
 	--prefix=/usr \
 	--exec-prefix=/usr \
 	--sysconfdir=/etc/zebra \

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.15 2003/10/23 15:01:19 mkl Exp $
+# $Id: busybox.make,v 1.16 2003/10/28 00:10:09 mkl Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -77,7 +77,7 @@ busybox_prepare_deps =  \
 
 BUSYBOX_PATH		=  PATH=$(CROSS_PATH)
 BUSYBOX_ENV 		=  $(CROSS_ENV)
-BUSYBOX_MAKEVARS	=  CROSS=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC) EXTRA_CFLAGS=$(TARGET_CFLAGS)
+BUSYBOX_MAKEVARS	=  CROSS=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC) EXTRA_CFLAGS="$(TARGET_CFLAGS)"
 
 #
 # dependencies
