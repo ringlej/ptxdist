@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssh.make,v 1.12 2003/10/28 00:30:07 mkl Exp $
+# $Id: openssh.make,v 1.13 2003/10/28 02:21:14 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -182,6 +182,7 @@ $(STATEDIR)/openssh.targetinstall: $(openssh_targetinstall_deps)
 ifdef PTXCONF_OPENSSH_SSH
 	install -m 644 -D $(OPENSSH_DIR)/ssh_config.out $(ROOTDIR)/etc/ssh/ssh_config
 	install -m 755 -D $(OPENSSH_DIR)/ssh $(ROOTDIR)/usr/bin/ssh
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/ssh
 endif
 
 ifdef PTXCONF_OPENSSH_SSHD
@@ -196,10 +197,12 @@ endif
 
 ifdef PTXCONF_OPENSSH_SCP
 	install -m 755 -D $(OPENSSH_DIR)/scp $(ROOTDIR)/usr/bin/scp
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/scp
 endif
 
 ifdef PTXCONF_OPENSSH_SFTP_SERVER
 	install -m 755 -D $(OPENSSH_DIR)/sftp-server $(ROOTDIR)/usr/sbin/sftp-server
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/sbin/sftp-server
 endif
 
 ifdef PTXCONF_OPENSSH_KEYGEN
