@@ -1,3 +1,4 @@
+/etc root.root 0755
 /etc/ptx_permissions.unconfigured root.root 0644
 /etc/boottime.kmap root.root 0644
 /etc/fstab root.root 0644
