@@ -9,7 +9,7 @@ print "Minor version number........: "; $minor = <STDIN>;
 print "Micro version number........: "; $micro = <STDIN>;
 print "Archive file suffix.........: "; $suffix = <STDIN>;
 print "URL of download directory...: "; $url = <STDIN>;
-print "Author......................: "; $author = <STDIN>;
+print "PTXdist Packet Author.......: "; $author = <STDIN>;
 
 chop ($packet, $major, $minor, $micro, $url, $author, $suffix);
 $PACKET = uc($packet);
