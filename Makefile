@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.33 2003/09/17 13:30:43 robert Exp $
+# $Id: Makefile,v 1.34 2003/09/17 13:47:45 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -228,6 +228,7 @@ getclean:
 archive:
 	# FIXME: this should be automated
 	$(TAR) -C $(TOPDIR)/.. -zcvf /tmp/$(BASENAME).tgz 	\
+		--exclude CVS					\
 		--exclude $(BASENAME)/arm-linux/* 		\
 		--exclude $(BASENAME)/build/* 			\
 		--exclude $(BASENAME)/state/* 			\
