@@ -20,4 +20,4 @@ ifconfig lo up 127.0.0.1
 echo "done."
 
 echo "running rc.d services..."
-run-parts /etc/rc.d
+run-parts -a start /etc/rc.d
