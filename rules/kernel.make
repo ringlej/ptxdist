@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.6 2003/09/17 13:22:58 robert Exp $
+# $Id: kernel.make,v 1.7 2003/09/19 14:43:27 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -83,12 +83,12 @@ KERNEL_MTDPATCH_URL	= http://www.pengutronix.de/software/linux-arm/$(KERNEL_MTDP
 KERNEL_MTDPATCH_DIR	= $(BUILDDIR)/$(KERNEL)
 KERNEL_MTDPATCH_EXTRACT	= bzip2 -cd
 
-KERNEL_PTXPATCH		= linux-2.4.19-rmk7-pxa2-ptx6.diff
+KERNEL_PTXPATCH		= linux-2.4.19-rmk7-pxa2-ptx7.diff
 KERNEL_PTXPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_PTXPATCH)
 KERNEL_PTXPATCH_URL	= http://www.pengutronix.de/software/linux-arm/$(KERNEL_PTXPATCH)
 KERNEL_PTXPATCH_EXTRACT	= cat
 
-KERNEL_LTTPATCH		= linux-2.4.19-rmk7-pxa2-ptx6-ltt1.diff
+KERNEL_LTTPATCH		= linux-2.4.19-rmk7-pxa2-ptx7-ltt1.diff
 KERNEL_LTTPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_LTTPATCH)
 KERNEL_LTTPATCH_URL	= http://www.pengutronix.de/software/ltt/$(KERNEL_LTTPATCH)
 KERNEL_LTTPATCH_EXTRACT = cat
