@@ -1,7 +1,10 @@
 menu    "nmap                "
 
 config NMAP
-        bool
-	prompt "Compile nmap"
+        bool "Compile nmap"
 
+config NMAP_SERVICES
+	bool "Install nmap-services"
+	default y
+	depends on NMAP
 endmenu
