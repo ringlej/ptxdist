@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.82 2004/02/25 11:43:13 robert Exp $
+# $Id: Makefile,v 1.83 2004/03/03 15:49:49 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -271,6 +271,9 @@ clean: rootclean
 	@echo
 	@echo -n "cleaning build dir............... "
 	@for i in $$(ls -I CVS $(BUILDDIR)); do echo -n $$i' '; rm -rf $(BUILDDIR)/"$$i"; done
+	@echo "done."
+	@echo -n "cleaning feature-patch dir....... "
+	@for i in $$(ls -I CVS $(TOPDIR)/feature-patches/); do rm -rf $(TOPDIR)/feature-patches/"$$i"; done
 	@echo "done."
 	@echo -n "cleaning state dir............... "
 	@for i in $$(ls -I CVS $(STATEDIR)); do rm -rf $(STATEDIR)/"$$i"; done
