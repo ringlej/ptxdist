@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.19 2003/11/17 03:26:15 mkl Exp $
+# $Id: glibc.make,v 1.20 2003/12/09 11:09:32 bsp Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -266,7 +266,7 @@ $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps)
 	cp -d $(CROSS_LIB_DIR)/lib/ld[-.]*so* $(ROOTDIR)/lib/
 	$(GLIBC_STRIP) $(ROOTDIR)/lib/ld[-.]*so*
 	cd $(CROSS_LIB_DIR)/lib && \
-		ln -sf ld-*.so $(ROOTDIR)$(DYNAMIC_LINKER)
+		ln -sf ld-$(GLIBC_VERSION).so $(ROOTDIR)$(DYNAMIC_LINKER)
 #
 # we don't wanna copy libc.so, cause this is a ld linker script, no shared lib
 #
