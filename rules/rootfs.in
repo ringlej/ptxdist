@@ -84,6 +84,18 @@ config IMAGE_TGZ
 	  Build a tar.gz archive of the root filesystem, containing the
 	  right owner/group and access permissions. 
 
+config IMAGE_HD
+	bool
+	default n
+	prompt "Generate images/hd.img"
+	help
+	  Build a harddisk root image
+
+config IMAGE_HD_CONF
+	string
+	prompt "Geometry file for hd image"
+	help
+
 config IMAGE_JFFS2
 	bool
 	default n

@@ -1,0 +1,100 @@
+#!/bin/bash
+
+# Create a bootable harddisk (or compact flash) image based upon a geometry
+# given in cylinders, heads and sectors
+
+Usage() {
+cat <<-EOF
+
+Usage: `basename "$0"` OPTIONS <svn rep>
+
+    -h          this help
+    -C <CYL>    set cylinders
+    -H <HEAD>   set heads
+    -S <SEC>    set sectors
+    -m <stage1> path to grub stage1
+    -n <stafe2> path to grub stage2
+    -r <dir>    path to root dir
+    -f <file>   read options from file
+EOF
+}
+
+while getopts "hC:H:S:m:n:r:i:f:" OPT
+do
+    case "$OPT" in
+        h)  Usage
+	    exit 1
+            ;;
+        C)  CYLINDERS="$OPTARG"
+            ;;
+	H)  HEADS="$OPTARG"
+	    ;;
+	S)  SECTORS="$OPTARG"
+	    ;;
+	m)  STAGE1="$OPTARG"
+	    ;;
+	n)  STAGE2="$OPTARG"
+	    ;;
+	r)  ROOTDIR="$OPTARG"
+	    ;;
+	i)  IMAGEDIR="$OPTARG"
+	    ;;
+	f)  source "$OPTARG"
+	    ;;
+    esac
+done
+
+echo $IMAGEDIR
+# sanity checks
+if [ $(($HEADS)) = 0 ] || [ $((CYLINDERS)) = 0 ] || [ $((SECTORS)) = 0 ]
+then
+	echo "set cylinders, heads and sectors"
+	exit 1
+fi
+
+if [ ! -f "$STAGE1" ]; then
+	echo "stage1 file \"$STAGE1\" not found"
+	exit 1
+fi
+
+if [ ! -f "$STAGE2" ]; then
+	echo "stage2 file \"$STAGE2\" not found"
+	exit 1
+fi
+
+# Size of whole hd image, in bytes
+IMGSIZE=$(($HEADS * $CYLINDERS * $SECTORS * 512))
+
+# size of one unit, in bytes
+UNITSIZE=$(( $SECTORS * $HEADS * 512 ))
+
+# Offset for first partition in bytes
+PART1OFFSET=$(( $(echo $PART1 | awk -F "," '{print $1}') * $UNITSIZE))
+
+# Size of the root partition in bytes
+PART1SIZE=$(($(echo $PART1 | awk -F "," '{print $2}') * $UNITSIZE))
+
+echo ofs: $PART1OFFSET
+echo size: $PART1SIZE
+
+# cat grub stages together, pad with zeros to offset of first partition
+cat $STAGE1 $STAGE2 /dev/zero | \
+	dd bs=1 count=$PART1OFFSET > $IMAGEDIR/hd.img.loader
+
+# generate a ext2 filesystem
+genext2fs -b $(($PART1SIZE/1024)) -d $ROOTDIR $IMAGEDIR/root.ext2
+
+# put the pieces together
+cat $IMAGEDIR/hd.img.loader $IMAGEDIR/root.ext2 > $IMAGEDIR/hd.img
+
+rm -f $IMAGEDIR/root.ext2 $IMAGEDIR/hd.img.loader
+
+TMPFILE=`mktemp`
+
+# generate a partition table
+sfdisk -x -C $CYLINDERS -H $HEADS -S $SECTORS $IMAGEDIR/hd.img << EOF
+$PART1
+$PART2
+$PART3
+$PART4
+EOF

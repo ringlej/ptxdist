@@ -181,6 +181,14 @@ ifdef PTXCONF_IMAGE_JFFS2
 		echo "-o $(TOPDIR)/images/root.jffs2" ) \
 	) | $(PTXCONF_PREFIX)/bin/fakeroot -- 
 endif
+ifdef PTXCONF_IMAGE_HD
+	$(TOPDIR)/scripts/genhdimg \
+	-m $(GRUB_DIR)/stage1/stage1 \
+	-n $(GRUB_DIR)/stage2/stage2 \
+	-r $(ROOTDIR) \
+	-i images \
+	-f $(PTXCONF_IMAGE_HD_CONF)
+endif
 	touch $@
 
 # Configuration system -------------------------------------------------------
