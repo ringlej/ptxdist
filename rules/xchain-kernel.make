@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.9 2003/07/17 07:41:05 robert Exp $
+# $Id: xchain-kernel.make,v 1.10 2003/09/16 22:13:59 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -13,6 +13,11 @@
 # only used for the cross chain. The "normal" targets are used for building the
 # runtime kernel.
 #
+
+ifdef BUILD_CROSSCHAIN
+XCHAIN += xchain-kernel
+endif
+
 
 XCHAIN_KERNEL_BUILDDIR	= $(BUILDDIR)/xchain-kernel
 
