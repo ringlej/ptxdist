@@ -120,7 +120,8 @@ PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/pii_nge.vendortweaks"
 #
 PTXCONF_IMAGE_TGZ=y
 # PTXCONF_IMAGE_HD is not set
-# PTXCONF_IMAGE_JFFS2 is not set
+PTXCONF_IMAGE_JFFS2=y
+PTXCONF_IMAGE_JFFS2_BLOCKSIZE=131072
 
 #
 # Debugging Tools     
@@ -191,7 +192,7 @@ PTXCONF_KERNEL_PATCH1_XCHAIN=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.9-rc2-pxa1/linux-2.6.9-rc2-pxa1.diff"
+PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.9-rc2-pxa3/linux-2.6.9-rc2-pxa3.diff"
 PTXCONF_KERNEL_PATCH2_NAME="2.6.9-rc2-pxa1"
 # PTXCONF_KERNEL_PATCH2_XCHAIN is not set
 
@@ -264,9 +265,9 @@ PTXCONF_GLIBC_NSL=y
 PTXCONF_UC_TARGET_arm=y
 
 #
-# C++ Library         
+# GCC Libraries       
 #
-# PTXCONF_CXX is not set
+# PTXCONF_GCCLIBS is not set
 
 #
 # Shell & Console Tools       
@@ -771,7 +772,11 @@ PTXCONF_HOTPLUG_FIRMWARE=y
 #
 # MTD Tools           
 #
-# PTXCONF_MTD_XCHAIN is not set
+PTXCONF_MTD_XCHAIN=y
+# PTXCONF_MTD_XCHAIN_MKJFFS is not set
+PTXCONF_MTD_XCHAIN_MKJFFS2=y
+# PTXCONF_MTD_XCHAIN_JFFS_DUMP is not set
+# PTXCONF_MTD_XCHAIN_JFFS2_DUMP is not set
 PTXCONF_MTD_UTILS=y
 PTXCONF_MTD_FLASH_ERASE=y
 PTXCONF_MTD_FLASH_ERASEALL=y
