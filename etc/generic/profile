@@ -18,3 +18,7 @@ PS2=@PS2@
 PS4=@PS4@
 
 alias ll='ls -l'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias md='mkdir'
+alias rd='rmdir'
