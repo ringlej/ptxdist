@@ -3,6 +3,7 @@
 	* pdksh: added;  Kai-Uwe Bloem * <linux-development@auerswald.de>
 	* ltt: added; Kai-Uwe Bloem * <linux-development@auerswald.de>
 	* gdb/gdbserver: Kai-Uwe Bloem * <linux-development@auerswald.de>
+	* strace: Kai-Uwe Bloem * <linux-development@auerswald.de>
 
 2003-09-17 Robert Schwebel <r.schwebel@pengutronix.de>
 	* patch system: added generic patch system which gets patches
