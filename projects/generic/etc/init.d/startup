@@ -1,16 +1,5 @@
 #! /bin/sh
 
-case $1 in
-	start)
-	[ -x /home/startup ] && /home/startup
-	;;
-	stop)
-	echo "nothing to do here"
-	;;
-	*)
-	echo "usage: $0 [start|stop]"
-	exit 0;
-	;;
-esac									
+[ -x /home/startup ] && /home/startup
 
 exit 0
