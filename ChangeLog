@@ -1,5 +1,6 @@
 2005-02-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* general: support for OMAP added (Ladislav Michl)
 	* fakeroot: update to 1.2.4 (Robert Schwebel)
 	* openssh: update to 3.9p1 (patch by Ladislav Michl)
 	* rootfs: make /tmp accessable for all and make it
