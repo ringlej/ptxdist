@@ -17,6 +17,11 @@ config LIBBFD
 	prompt "libbfd on target (needed for profiling)"
 	default n
 
+config MEMTEST
+	bool 
+	prompt "memtest"
+	default n
+
 config OPROFILE
 	bool
 	prompt "oprofile"
