@@ -6,12 +6,12 @@ config FIGLET
 
           For more information see http://www.figlet.org
 
-config FPGAEDIT
+config MEMEDIT
 	bool
 	select READLINE
-	prompt "Compile fpgaedit"
+	prompt "Compile memedit"
 	help
-	  fpgaedit is a command line tool which is able to open
+	  memedit is a command line tool which is able to open
 	  a file or pseudo file representing a memory device 
 	  (for example memory mapped I/O or FPGA memory) and
 	  let's you edit it's contents from a command line. 
