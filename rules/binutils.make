@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: binutils.make,v 1.5 2003/10/28 01:57:15 mkl Exp $
+# $Id: binutils.make,v 1.6 2003/11/20 10:09:39 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -15,7 +15,6 @@ endif
 #
 # Paths and names 
 #
-BINUTILS_VERSION	= 2.13.2.1
 BINUTILS		= binutils-$(BINUTILS_VERSION)
 BINUTILS_URL		= ftp://ftp.gnu.org/pub/gnu/binutils/$(BINUTILS).tar.gz
 BINUTILS_SOURCE		= $(SRCDIR)/$(BINUTILS).tar.gz
