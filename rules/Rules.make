@@ -78,18 +78,52 @@ get =								\
 		echo;						\
 		exit -1;					\
 	fi;							\
+	[ "$$(expr match $$URL http://)" != "0" ] && URLTYPE="http"; \
+	[ "$$(expr match $$URL ftp://)" != "0" ] && URLTYPE="ftp";   \
+	[ "$$(expr match $$URL file://)" != "0" ] && URLTYPE="file"; \
 	SRC="$(strip $(2))";					\
 	SRC=$${SRC:-$(SRCDIR)};					\
 	[ -d $$SRC ] || mkdir -p $$SRC;				\
-	$(WGET) -P $$SRC $(PASSIVEFTP) $$URL;			\
-	[ $$? -eq 0 ] || {					\
+	case $$URLTYPE in 					\
+	http)							\
+		$(WGET) -P $$SRC $(PASSIVEFTP) $$URL;		\
+		[ $$? -eq 0 ] || {				\
+			echo;					\
+			echo "Could not get packet via http!";	\
+			echo "URL: $$URL";			\
+			echo;					\
+			exit -1;				\
+			};					\
+		;;						\
+	ftp)							\
+		$(WGET) -P $$SRC $(PASSIVEFTP) $$URL;		\
+		[ $$? -eq 0 ] || {				\
+			echo;					\
+			echo "Could not get packet via ftp!";	\
+			echo "URL: $$URL";			\
+			echo;					\
+			exit -1;				\
+			};					\
+		;;						\
+	file)							\
+		FILE="$$(echo $$URL | sed s-file://-/-g)";	\
+		cp -av $$FILE $$SRC;				\
+		[ $$? -eq 0 ] || {				\
+			echo;					\
+			echo "Could not copy packet!";		\
+			echo "File: $$FILE";			\
+			echo;					\
+			exit -1;				\
+			};					\
+		;;						\
+	*)							\
 		echo;						\
-		echo "Could not get patch!";			\
+		echo "Unknown URL Type!";			\
 		echo "URL: $$URL";				\
 		echo;						\
 		exit -1;					\
-	};
-
+		;;						\
+	esac;								
 #
 # download the given URL
 #

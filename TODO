@@ -116,7 +116,7 @@ Low Priority
        when running the release cycle. 
 - BBU: Implement scheme for alternative download-URLs as 
        fallback (e.g. mirrors)
-
+- BBU: rsync URLs
 
 Nice-to-Have Packets
 --------------------
