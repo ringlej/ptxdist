@@ -450,10 +450,12 @@ patch_apply =								\
 #      to be applied  
 #
 # $2 = $(FP_NAME): name of the patch to be applied; patches usually live 
-#      in $(TOPDIR)/feature-patches/$(FP_NAME)
+#      in $(TOPDIR)/feature-patches/$(FP_NAME). Patches without a name 
+#      are silently ignored. 
 #
 feature_patchin =								\
 	FP_TARGET="$(strip $(1))";						\
+	FP_NAME="$(strip $(2))";						\
 	if [ "x$$FP_TARGET" = "x" ]; then					\
 		echo;								\
 		echo "Error: you didn't specify a feature patch target dir!";	\
@@ -461,15 +463,11 @@ feature_patchin =								\
 		echo;								\
 		exit -1;							\
 	fi;									\
-	FP_NAME="$(strip $(2))";						\
 	if [ "x$$FP_NAME" = "x" ]; then						\
-		echo;								\
-		echo "Error: you didn't specify a feature patch name";		\
-		echo "Error: feature_patchin needs this as parameter 1";	\
-		echo;								\
-		exit -1;							\
+		echo "No patch name specified, dropping.";			\
+		exit 0;								\
 	fi;									\
-	FP_DIR=$(TOPDIR)/feature-patches/$(FP_NAME);				\
+	FP_DIR=$(TOPDIR)/feature-patches/$$FP_NAME;				\
 	if [ -f $$FP_DIR/series ]; then						\
 		for PATCH_NAME in `cat $$FP_DIR/series`; do			\
 			echo "patchin' $$PATCH_NAME ...";			\
@@ -477,8 +475,10 @@ feature_patchin =								\
 			     $(PATCH) -Np1 -d $$FP_TARGET || exit -1; 		\
 		done;								\
 	else									\
-		for PATCH_NAME in $$(find $$FP_DIR -name "*patch*")		\
-				  $$(find $$FP_DIR -name "*diff*"); do		\
+		echo "feature-patchin' in $$FP_DIR...";				\
+		cd $$FP_DIR && for PATCH_NAME in 				\
+			$$(find . -name "*patch*")				\
+			$$(find . -name "*diff*"); do				\
 			PATCH_NAME_BASE=`basename $$PATCH_NAME`;		\
 			echo "basename=$$PATCH_NAME_BASE";			\
 			case $$PATCH_NAME_BASE in				\
@@ -501,7 +501,7 @@ feature_patchin =								\
 				exit -1; 					\
 			fi; 							\
 			$$CAT $$PATCH_NAME | $(PATCH) -Np1 -d $$FP_TARGET;	\
-			if [ $? -ne 0 ]; then					\
+			if [ $$? -ne 0 ]; then					\
 				echo "Error: feature_patchin failed!";		\
 				exit -1;					\
 			fi;							\
