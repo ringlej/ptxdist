@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: uclibc.make,v 1.2 2003/07/23 12:39:06 mkl Exp $
+# $Id: uclibc.make,v 1.3 2003/09/16 16:43:00 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 # See CREDITS for details about who has contributed to this project.
@@ -12,7 +12,8 @@
 # We provide this package
 #
 ifdef PTXCONF_UCLIBC
-PACKAGES += uclibc
+PACKAGES	+= uclibc
+DYNAMIC_LINKER	=  /lib/ld-uClibc.so.0
 endif
 
 #
