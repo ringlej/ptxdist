@@ -1,0 +1,7 @@
+menu "expat            "
+
+config EXPAT
+	bool
+	prompt "expat XML parser library"
+
+endmenu
