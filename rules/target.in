@@ -251,7 +251,7 @@ config GNU_TARGET
 	default "powerpc-linux"			if OPT_PPC		&& GLIBC
 	default "powerpc-405-linux-gnu"		if OPT_PPC405		&& GLIBC
 	default "powerpc-750-linux-gnu"		if OPT_PPC750		&& GLIBC
-	default "powerpc-7450-linux-gnu"	if OPT_PPC4750		&& GLIBC
+	default "powerpc-7450-linux-gnu"	if OPT_PPC7450		&& GLIBC
 	default "sparc-linux"			if OPT_SPARC		&& GLIBC
 	default "mips-linux"			if MIPS_ARCH_BE		&& GLIBC
 	default "mipsel-linux"			if MIPS_ARCH_LE		&& GLIBC
