@@ -1,4 +1,4 @@
-menu "mgetty & sendfax      "
+menu "mgetty & sendfax    "
 
 config MGETTY
 	bool
