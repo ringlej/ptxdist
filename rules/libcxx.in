@@ -14,4 +14,9 @@ choice
 		depends on GLIBC || ( UCLIBC && GCC_3 )
 endchoice
 
+config LIBSTDCXX_SHARED
+	bool "Build shared library"
+	default y
+	depends on LIBSTDCXX
+
 endmenu

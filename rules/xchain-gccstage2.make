@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.12 2003/10/26 23:12:49 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.13 2003/10/27 08:15:02 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -105,7 +105,7 @@ GCC_STAGE2_AUTOCONF = \
 	--enable-c99 \
 	--enable-long-long
 
-ifdef PTXCONF_GLIBC_SHARED
+ifdef PTXCONF_LIBSTDCXX_SHARED
 GCC_STAGE2_AUTOCONF	+= --enable-shared
 else
 GCC_STAGE2_AUTOCONF	+= --disable-shared
@@ -166,9 +166,13 @@ $(STATEDIR)/xchain-gccstage2.install: $(STATEDIR)/xchain-gccstage2.compile
 
 xchain-gccstage2_targetinstall: $(STATEDIR)/xchain-gccstage2.targetinstall
 
-$(STATEDIR)/xchain-gccstage2.targetinstall: $(STATEDIR)/xchain-gccstage2.install
+ifdef PTXCONF_BUILD_CROSSCHAIN
+xchain-gccstage2_targetinstall_deps = $(STATEDIR)/xchain-gccstage2.install
+endif
+
+$(STATEDIR)/xchain-gccstage2.targetinstall: $(xchain-gccstage2_targetinstall_deps)
 	@$(call targetinfo, $@)
-ifdef PTXCONF_LIBSTDCXX
+ifdef PTXCONF_LIBSTDCXX_SHARED
 	mkdir -p $(ROOTDIR)/usr/lib
 	cp -a $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/$(GCC_VERSION)/libstdc++*so* \
 		$(ROOTDIR)/usr/lib/
