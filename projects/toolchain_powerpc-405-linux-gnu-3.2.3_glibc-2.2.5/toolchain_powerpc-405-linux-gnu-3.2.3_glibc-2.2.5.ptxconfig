@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.1-cvs
-# Thu Mar  3 20:04:17 2005
+# Fri Mar  4 20:44:46 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -29,6 +29,7 @@ PTXCONF_DEBPOOLM="http://ftp.se.debian.org/debian/"
 # PTXCONF_ARCH_ARM_NOMMU is not set
 # PTXCONF_ARCH_X86 is not set
 PTXCONF_ARCH_PPC=y
+# PTXCONF_ARCH_M68K is not set
 # PTXCONF_ARCH_SPARC is not set
 # PTXCONF_ARCH_MIPS is not set
 # PTXCONF_ARCH_CRIS is not set
@@ -88,8 +89,9 @@ PTXCONF_GCC_3_2_3=y
 # PTXCONF_GCC_3_4_2 is not set
 PTXCONF_GCC_VERSION="3.2.3"
 PTXCONF_CROSSTOOL_GCCLANG_CC=y
-# PTXCONF_BINUTILS_2_14 is not set
 PTXCONF_BINUTILS_2_15=y
+# PTXCONF_BINUTILS_2_14_90_0_5 is not set
+# PTXCONF_BINUTILS_2_14 is not set
 PTXCONF_BINUTILS_VERSION="2.15"
 
 #
@@ -169,6 +171,7 @@ PTXCONF_KERNEL_2_4_23=y
 # PTXCONF_KERNEL_2_6_8 is not set
 # PTXCONF_KERNEL_2_6_9 is not set
 # PTXCONF_KERNEL_2_6_10 is not set
+# PTXCONF_KERNEL_2_6_11 is not set
 PTXCONF_DONT_COMPILE_KERNEL=y
 
 #

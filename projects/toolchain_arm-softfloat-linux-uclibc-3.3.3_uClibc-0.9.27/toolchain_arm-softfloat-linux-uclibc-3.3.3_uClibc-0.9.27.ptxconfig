@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.1-cvs
-# Fri Mar  4 15:22:49 2005
+# Fri Mar  4 20:44:40 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -29,6 +29,7 @@ PTXCONF_ARCH_ARM=y
 # PTXCONF_ARCH_ARM_NOMMU is not set
 # PTXCONF_ARCH_X86 is not set
 # PTXCONF_ARCH_PPC is not set
+# PTXCONF_ARCH_M68K is not set
 # PTXCONF_ARCH_SPARC is not set
 # PTXCONF_ARCH_MIPS is not set
 # PTXCONF_ARCH_CRIS is not set
