@@ -1,4 +1,4 @@
-# $Id: xchain-kernel.make,v 1.6 2003/06/29 13:27:36 robert Exp $
+# $Id: xchain-kernel.make,v 1.7 2003/07/16 03:58:31 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -49,6 +49,12 @@ KERNEL_PXAPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_PXAPATCH).gz
 KERNEL_PXAPATCH_DIR	= $(BUILDDIR)/$(KERNEL)
 KERNEL_PXAPATCH_EXTRACT = gzip -dc
 
+KERNEL_MTDPATCH		= linux-2.4.19-rmk7-pxa2-mtd20030424.diff
+KERNEL_MTDPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_MTDPATCH).bz2
+KERNEL_MTDPATCH_URL	= http://www.pengutronix.de/software/linux-arm/$(KERNEL_MTDPATCH).bz2
+KERNEL_MTDPATCH_DIR	= $(BUILDDIR)/$(KERNEL)
+KERNEL_MTDPATCH_EXTRACT	= bzip2 -cd
+
 KERNEL_PTXPATCH		= patch-2.4.18-rmk7-ptx3
 KERNEL_PTXPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_PTXPATCH)
 KERNEL_PTXPATCH_URL	= http://www.pengutronix.de/software/dnp/patch-2.4.18-rmk7-ptx3
@@ -77,13 +83,13 @@ KERNEL_RMKPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_RMKPATCH).bz2
 KERNEL_RMKPATCH_DIR	= $(BUILDDIR)/$(KERNEL)
 KERNEL_RMKPATCH_EXTRACT	= bzip2 -dc
 
-KERNEL_PXAPATCH 	= diff-2.4.19-rmk7-pxa1
+KERNEL_PXAPATCH 	= diff-2.4.19-rmk7-pxa2
 KERNEL_PXAPATCH_URL 	= ftp://ftp.arm.linux.org.uk/pub/armlinux/people/nico/$(KERNEL_PXAPATCH).gz
 KERNEL_PXAPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_PXAPATCH).gz
 KERNEL_PXAPATCH_DIR	= $(BUILDDIR)/$(KERNEL)
 KERNEL_PXAPATCH_EXTRACT = gzip -dc
 
-KERNEL_PTXPATCH		= linux-2.4.19-rmk7-pxa1-ptx4.diff
+KERNEL_PTXPATCH		= linux-2.4.19-rmk7-pxa2-ptx4.diff
 KERNEL_PTXPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_PTXPATCH)
 KERNEL_PTXPATCH_URL	= http://www.pengutronix.de/software/linux-arm/$(KERNEL_PTXPATCH)
 KERNEL_PTXPATCH_DIR	= $(BUILDDIR)/$(KERNEL)
@@ -125,6 +131,7 @@ kernel_get_deps += $(KERNEL_PTXPATCH_SOURCE)
 ifeq (y, $(PTXCONF_KERNEL_XSCALE))
 kernel_get_deps += $(KERNEL_PXAPATCH_SOURCE)
 ifeq (y, $(PTXCONF_KERNEL_XSCALE_PTX))
+kernel_get_deps += $(KERNEL_MTDPATCH_SOURCE)
 kernel_get_deps += $(KERNEL_PTXPATCH_SOURCE)
 endif # PTXCONF_KERNEL_XSCALE_PTX
 endif # PTXCONF_KERNEL_XSCALE
@@ -142,6 +149,10 @@ $(KERNEL_SOURCE):
 $(KERNEL_RMKPATCH_SOURCE):
 	@$(call targetinfo, kernel-armpatch.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(KERNEL_RMKPATCH_URL)
+
+$(KERNEL_MTDPATCH_SOURCE):
+	@$(call targetinfo, kernel-mtdpatch.get)
+	wget -P $(SRCDIR) $(PASSIVEFTP) $(KERNEL_MTDPATCH_URL)
 
 $(KERNEL_PXAPATCH_SOURCE):
 	@$(call targetinfo, kernel-pxapatch.get)
@@ -211,7 +222,9 @@ $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
 #	# MTD patch
 #	#
         ifeq (y, $(PTXCONF_KERNEL_MTD))
-	echo "y" | /bin/sh $(MTD_DIR)/patches/patchin.sh -j $(KERNEL_DIR)
+	cd $(KERNEL_DIR) &&                                             \
+		$(KERNEL_MTDPATCH_EXTRACT) $(KERNEL_MTDPATCH_SOURCE) |	\
+		patch -p1
         endif
 #	#
 #	# XSCALE_PTX patch
@@ -286,6 +299,9 @@ $(STATEDIR)/xchain-kernel.extract: $(STATEDIR)/xchain-kernel.get $(STATEDIR)/mtd
 #	#
         ifeq (y, $(PTXCONF_KERNEL_MTD))
 	echo "y" | /bin/sh $(MTD_DIR)/patches/patchin.sh -j $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL)
+	cd $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL) &&						\
+		$(KERNEL_MTDPATCH_EXTRACT) $(KERNEL_MTDPATCH_SOURCE) |	\
+		patch -p1
         endif
 #	#
 #	# XSCALE_PTX patch
