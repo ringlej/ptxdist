@@ -91,7 +91,7 @@ config GLIBC_NSS_FILES
 	prompt "Install libnss_files"
 	depends on GLIBC
 
-comment "libnss_hesiod depends on libreslov and libnss_files"
+comment "libnss_hesiod depends on libresolv and libnss_files"
 	depends on GLIBC
 	depends on ! (GLIBC_RESOLV && GLIBC_NSS_FILES)
 
