@@ -31,12 +31,16 @@ choice
 	config KERNEL_2_4_21
 		bool
 		prompt "2.4.21"
-		depends on !ARM_ARCH_PXA
 
 	config KERNEL_2_4_22
 		bool
 		prompt "2.4.22"
 		depends on ARCH_ARM_NOMMU || ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
+
+	config KERNEL_2_4_23
+		bool
+		prompt "2.4.23"
+		depends on ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
 endchoice
 
 
@@ -138,6 +142,11 @@ choice
 	config KERNEL_2_4_19_rmk7_pxa2
 		bool "2.4.19-rmk7-pxa2"
 		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA
+
+	config KERNEL_2_4_21_rmk1_pxa1
+		bool "2.4.21-rmk1-pxa1"
+		depends on KERNEL_2_4_21
 		depends on KERNEL_RMK_PXA
 
 #---------------------------------------------------------------------
