@@ -1,4 +1,4 @@
-# $Id: gmp.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: gmp.make,v 1.2 2003/05/13 11:17:58 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -65,7 +65,7 @@ $(STATEDIR)/gmp.extract: $(STATEDIR)/gmp.get
 gmp_prepare: $(STATEDIR)/gmp.prepare
 
 GMP_AUTOCONF =
-GMP_AUTOCONF += --build=i686-linux
+GMP_AUTOCONF += --build=$(GNU_HOST)
 GMP_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 GMP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)
 
