@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# /etc/init.d/banner
+#
+# Copyright (C) 2004 Pengutronix
+# Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+echo
+echo "@PROJECT@-@VERSION@.@PATCHLEVEL@.@SUBLEVEL@@EXTRAVERSION@ (@DATE@)"
+echo 
+host=`cat /etc/hostname`
+/usr/sbin/figlet -f /usr/share/figlet/standard "PII $host"
+echo
+
