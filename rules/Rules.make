@@ -345,11 +345,6 @@ CROSS_LIB_DIR		= $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 CROSS_PATH		= $(PTXCONF_PREFIX)/bin:$$PATH
 
 #
-# prepare the search path
-#
-NATIVE_PATH		= $(PTXCONF_PREFIX)/$(NATIVE_GCC)/bin:$(PTXCONF_PREFIX)/$(NATIVE_BINUTILS)/bin:$$PATH
-
-#
 # same as PTXCONF_GNU_TARGET, but w/o -linux
 # e.g. i486 instead of i486-linux
 #
