@@ -113,7 +113,7 @@ ifdef PTXCONF_ROOTFS_TMP
   ifdef PTXCONF_ROOTFS_TMP_DATALINK
 	ln -s /data/tmp $(ROOTDIR)/tmp
   else
-	mkdir -p $(ROOTDIR)/tmp
+  	mkdir -p -m 1777 $(ROOTDIR)/tmp
   endif
 endif
 
