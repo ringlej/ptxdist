@@ -1,4 +1,4 @@
-# $Id: xchain-binutils.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: xchain-binutils.make,v 1.2 2003/04/24 16:33:18 jst Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -102,10 +102,10 @@ $(STATEDIR)/xchain-binutils.install: $(STATEDIR)/xchain-binutils.compile
 	@echo target: xchain-binutils.install
 	@echo -----------------------
 	@echo
-	[ -d $(PTXCONF_PREFIX) ] || 					\
-		$(SUDO) install -g users -m 0755 			\
-				-o $(PTXUSER) 				\
-				-d $(PTXCONF_PREFIX)
+#	[ -d $(PTXCONF_PREFIX) ] || 					\
+#		$(SUDO) install -g users -m 0755 			\
+#				-o $(PTXUSER) 				\
+#				-d $(PTXCONF_PREFIX)
 	cd $(BINUTILS_DIR) && make install
 	touch $@
 
