@@ -39,30 +39,19 @@ echo "done."
 /etc/init.d/serial	start
 /etc/init.d/ppp-drivers	start
 
-#echo -n "Starting PPP Deamon" 
-#/usr/sbin/pppd call gprs >/dev/null
-#echo "done."
-
-#echo -n "Initialize input subsystem"
-#/sbin/modprobe mousedev
-#echo "done."
-
-# This needs a running input subsystem!
-# FIXME: fix broken driver
-#echo -n "Initialize CAN subsystem"
-#/sbin/modprobe pcan type=isa io=0x300 irq=7 
-#echo "done."
-
-# We emulate a PS/2 mouse
-#echo -n "Initialize PS/2 device </dev/psaux>"
-#ln -s /dev/input/mouse0 /dev/psaux
-#echo "done."
-
-# Start I-Driver once 
-# FIXME: What's this crap? 
-#echo -n "Starting commdrive..."
-#/bin/commdrive &
-#echo "done."
+# run some scripts only once for initialisation
+if [ ! -f /etc/gtk-2.0/gdk-pixbuf.loaders ]; then
+	echo "creating /etc/gtk-2.0/gdk-pixbuf.loaders"
+	/usr/bin/gdk-pixbuf-query-loaders 		\
+		/usr/lib/gdk-pixbuf-loaders/*.so > 	\
+		/etc/gtk-2.0/gdk-pixbuf.loaders
+fi;
+if [ ! -f /etc/pango/pango.modules ]; then
+	echo "creating /etc/pango/pango.modules"
+	/usr/bin/pango-querymodules 			\
+		/usr/lib/pango/1.4/modules/*.so	>	\
+		/etc/pango/pango.modules
+fi;
 
 # /usr/X11R6/bin/xmodmap /etc/xmodmap
 
