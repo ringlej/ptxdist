@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: flowscreen2.make,v 1.3 2004/06/21 16:23:32 sha Exp $
+# $Id: flowscreen2.make,v 1.4 2004/06/22 17:11:29 rsc Exp $
 #
 # Copyright (C) 2004 by Pengutronix, Robert Schwebel
 #          
@@ -40,7 +40,7 @@ $(STATEDIR)/flowscreen2.targetinstall:
 
 	mkdir -p $(ROOTDIR)/data
 	
-	mkfs.jffs2 -d root --eraseblock=131072 -o root.jffs2 --pad=5242880
+	$(PTXCONF_PREFIX)/bin/mkfs.jffs2 -d root --eraseblock=131072 -o /tmp/root.jffs2 --pad=5242880
 	
 	touch $@
 
