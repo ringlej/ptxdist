@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.48 2003/10/26 20:43:50 mkl Exp $
+# $Id: Makefile,v 1.49 2003/11/09 21:49:46 mkl Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -16,8 +16,8 @@ FULLVERSION	:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
 export PROJECT VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION FULLVERSION
 
-TOPDIR			:= $(shell /bin/pwd)
-BASENAME		:= $(shell /usr/bin/basename $(TOPDIR))
+TOPDIR			:= $(shell pwd)
+BASENAME		:= $(shell basename $(TOPDIR))
 BUILDDIR		:= $(TOPDIR)/build
 XCHAIN_BUILDDIR		:= $(BUILDDIR)/xchain
 NATIVE_BUILDDIR		:= $(BUILDDIR)/native
