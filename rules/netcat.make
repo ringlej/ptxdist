@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $id$
+# $Id: netcat.make,v 1.3 2003/10/26 20:57:12 mkl Exp $
 #
 # Copyright (C) 2003 Ixia Corporation (www.ixiacom.com), by Milan Bobde
 #
