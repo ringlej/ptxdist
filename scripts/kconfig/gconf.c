@@ -1,7 +1,7 @@
 /* Hey EMACS -*- linux-c -*- */
 /*
  *
- * Copyright (C) 2002-2003 Romain Lievin <roms@lpg.ticalc.org>
+ * Copyright (C) 2002-2003 Romain Lievin <roms@tilp.info>
  * Released under the terms of the GNU GPL v2.0.
  *
  */
@@ -275,9 +275,8 @@ void init_main_window(const gchar * glade_file)
 					  /*"style", PANGO_STYLE_OBLIQUE, */
 					  NULL);
 
-	sprintf(title, "Linux Kernel v%s.%s.%s%s Configuration",
-		getenv("VERSION"), getenv("PATCHLEVEL"),
-		getenv("SUBLEVEL"), getenv("EXTRAVERSION"));
+	sprintf(title, "%s v%s Configuration",
+		getenv("PROJECT"), getenv("FULLVERSION"));
 	gtk_window_set_title(GTK_WINDOW(main_wnd), title);
 
 	gtk_widget_show(main_wnd);
@@ -956,16 +955,10 @@ static void change_sym_value(struct menu *menu, gint col)
 
 static void toggle_sym_value(struct menu *menu)
 {
-	const tristate next_val[3] = { no, mod, yes };
-	tristate newval;
-
 	if (!menu->sym)
 		return;
 
-	newval = next_val[(sym_get_tristate_value(menu->sym) + 1) % 3];
-	if (!sym_tristate_within_range(menu->sym, newval))
-		newval = yes;
-	sym_set_tristate_value(menu->sym, newval);
+	sym_toggle_tristate_value(menu->sym);
 	if (view_mode == FULL_VIEW)
 		update_tree(&rootmenu, NULL);
 	else if (view_mode == SPLIT_VIEW) {
@@ -1046,7 +1039,8 @@ on_treeview2_button_press_event(GtkWidget * widget,
 	if (path == NULL)
 		return FALSE;
 
-	gtk_tree_model_get_iter(model2, &iter, path);
+	if (!gtk_tree_model_get_iter(model2, &iter, path))
+		return FALSE;
 	gtk_tree_model_get(model2, &iter, COL_MENU, &menu, -1);
 
 	col = column2index(column);
@@ -1172,7 +1166,7 @@ on_treeview1_button_press_event(GtkWidget * widget,
 
 	gtk_widget_realize(tree2_w);
 	gtk_tree_view_set_cursor(view, path, NULL, FALSE);
-	gtk_widget_grab_focus(GTK_TREE_VIEW(tree2_w));
+	gtk_widget_grab_focus(tree2_w);
 
 	return FALSE;
 }
@@ -1401,7 +1395,6 @@ static void update_tree(struct menu *src, GtkTreeIter * dst)
 	struct symbol *sym;
 	struct property *prop;
 	struct menu *menu1, *menu2;
-	static GtkTreePath *path = NULL;
 
 	if (src == &rootmenu)
 		indent = 1;
@@ -1526,8 +1519,8 @@ static void display_tree(struct menu *menu)
 		if (((menu != &rootmenu) && !(menu->flags & MENU_ROOT)) ||
 		    (view_mode == FULL_VIEW)
 		    || (view_mode == SPLIT_VIEW))*/
-		if ((view_mode == SINGLE_VIEW) && (menu->flags & MENU_ROOT) 
-		|| (view_mode == FULL_VIEW) || (view_mode == SPLIT_VIEW)) {
+		if (((view_mode == SINGLE_VIEW) && (menu->flags & MENU_ROOT))
+		    || (view_mode == FULL_VIEW) || (view_mode == SPLIT_VIEW)) {
 			indent++;
 			display_tree(child);
 			indent--;
@@ -1582,7 +1575,7 @@ void fixup_rootmenu(struct menu *menu)
 int main(int ac, char *av[])
 {
 	const char *name;
-	gchar *cur_dir, *exe_path;
+	char *env;
 	gchar *glade_file;
 
 #ifndef LKC_DIRECT_LINK
@@ -1598,12 +1591,13 @@ int main(int ac, char *av[])
 	//add_pixmap_directory (PACKAGE_SOURCE_DIR "/pixmaps");
 
 	/* Determine GUI path */
-	cur_dir = g_get_current_dir();
-	exe_path = g_strdup(av[0]);
-	exe_path[0] = '/';
-	glade_file = g_strconcat(cur_dir, exe_path, ".glade", NULL);
-	g_free(cur_dir);
-	g_free(exe_path);
+	env = getenv(SRCTREE);
+	if (env)
+		glade_file = g_strconcat(env, "/scripts/kconfig/gconf.glade", NULL);
+	else if (av[0][0] == '/')
+		glade_file = g_strconcat(av[0], ".glade", NULL);
+	else
+		glade_file = g_strconcat(g_get_current_dir(), "/", av[0], ".glade", NULL);
 
 	/* Load the interface and connect signals */
 	init_main_window(glade_file);

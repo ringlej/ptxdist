@@ -10,6 +10,8 @@
 #define LKC_DIRECT_LINK
 #include "lkc.h"
 
+#define DEBUG_EXPR	0
+
 struct expr *expr_alloc_symbol(struct symbol *sym)
 {
 	struct expr *e = malloc(sizeof(*e));
@@ -219,10 +221,13 @@ int expr_eq(struct expr *e1, struct expr *e2)
 	case E_NONE:
 		/* panic */;
 	}
-	expr_fprint(e1, stdout);
-	printf(" = ");
-	expr_fprint(e2, stdout);
-	printf(" ?\n");
+
+	if (DEBUG_EXPR) {
+		expr_fprint(e1, stdout);
+		printf(" = ");
+		expr_fprint(e2, stdout);
+		printf(" ?\n");
+	}
 
 	return 0;
 }
@@ -396,14 +401,14 @@ struct expr *expr_join_or(struct expr *e1, struct expr *e2)
 			return expr_alloc_symbol(&symbol_yes);
 	}
 
-	printf("optimize (");
-	expr_fprint(e1, stdout);
-	printf(") || (");
-	expr_fprint(e2, stdout);
-	printf(")?\n");
-
+	if (DEBUG_EXPR) {
+		printf("optimize (");
+		expr_fprint(e1, stdout);
+		printf(") || (");
+		expr_fprint(e2, stdout);
+		printf(")?\n");
+	}
 	return NULL;
-
 }
 
 struct expr *expr_join_and(struct expr *e1, struct expr *e2)
@@ -489,11 +494,14 @@ struct expr *expr_join_and(struct expr *e1, struct expr *e2)
 		    (e2->type == E_SYMBOL && e1->type == E_UNEQUAL && e1->right.sym == &symbol_yes))
 			return NULL;
 	}
-	printf("optimize (");
-	expr_fprint(e1, stdout);
-	printf(") && (");
-	expr_fprint(e2, stdout);
-	printf(")?\n");
+
+	if (DEBUG_EXPR) {
+		printf("optimize (");
+		expr_fprint(e1, stdout);
+		printf(") && (");
+		expr_fprint(e2, stdout);
+		printf(")?\n");
+	}
 	return NULL;
 }
 

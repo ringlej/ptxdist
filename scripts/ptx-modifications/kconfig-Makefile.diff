@@ -1,0 +1,10 @@
+--- lkc-1.4/Makefile	2003-06-01 00:13:30.000000000 +0200
++++ ptxdist-0.7-trunk/scripts/kconfig/Makefile	2005-01-19 17:48:39.921572456 +0100
+@@ -125,6 +125,7 @@
+ 
+ clean:
+ 	rm -f $(OBJ) conf qconf mconf *.moc lex.* *.tab.? *.output
++	rm -f libkconfig.so lkc_defs.h gconf
+ 	rm -rf .ruby .python
+ 
+ tgz:

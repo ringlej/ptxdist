@@ -22,6 +22,12 @@ extern "C" {
 #undef P
 
 #define SRCTREE "srctree"
+#define CFGSYM "PTXCONF_"
+#define CFGSYMFC 'P'
+#define CFGSYMLEN 8
+#define RELEASESYM "FULLVERSION"
+#define RELEASENAME "PTXDist"
+	
 
 int zconfparse(void);
 void zconfdump(FILE *out);
@@ -58,9 +64,6 @@ void menu_finalize(struct menu *parent);
 void menu_set_type(int type);
 struct file *file_lookup(const char *name);
 int file_write_dep(const char *name);
-
-extern struct menu *current_entry;
-extern struct menu *current_menu;
 
 /* symbol.c */
 void sym_init(void);

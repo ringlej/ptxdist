@@ -10,14 +10,12 @@
 #include "lkc.h"
 
 struct menu rootmenu;
-struct menu *current_menu, *current_entry;
 static struct menu **last_entry_ptr;
 
 struct file *file_list;
 struct file *current_file;
 
-static void
-menu_warn(struct menu *menu, const char *fmt, ...)
+static void menu_warn(struct menu *menu, const char *fmt, ...)
 {
 	va_list ap;
 	va_start(ap, fmt);
@@ -27,8 +25,7 @@ menu_warn(struct menu *menu, const char *fmt, ...)
 	va_end(ap);
 }
 
-static void
-prop_warn(struct property *prop, const char *fmt, ...)
+static void prop_warn(struct property *prop, const char *fmt, ...)
 {
 	va_list ap;
 	va_start(ap, fmt);
@@ -117,8 +114,8 @@ void menu_set_type(int type)
 		return;
 	}
 	menu_warn(current_entry, "type of '%s' redefined from '%s' to '%s'\n",
-		sym->name ? sym->name : "<choice>",
-		sym_type_name(sym->type), sym_type_name(type));
+	    sym->name ? sym->name : "<choice>",
+	    sym_type_name(sym->type), sym_type_name(type));
 }
 
 struct property *menu_add_prop(enum prop_type type, char *prompt, struct expr *expr, struct expr *dep)
@@ -154,47 +151,42 @@ void menu_add_symbol(enum prop_type type, struct symbol *sym, struct expr *dep)
 	menu_add_prop(type, NULL, expr_alloc_symbol(sym), dep);
 }
 
-void
-sym_check_prop(struct symbol *sym)
+void sym_check_prop(struct symbol *sym)
 {
 	struct property *prop;
 	struct symbol *sym2;
 	for (prop = sym->prop; prop; prop = prop->next) {
 		switch (prop->type) {
 		case P_DEFAULT:
-			if ((sym->type == S_STRING || sym->type == S_INT
-			     || sym->type == S_HEX)
-			    && prop->expr->type != E_SYMBOL)
+			if ((sym->type == S_STRING || sym->type == S_INT || sym->type == S_HEX) &&
+			    prop->expr->type != E_SYMBOL)
 				prop_warn(prop,
-					  "default for config symbol '%'"
-					  " must be a single symbol",
-					  sym->name);
+				    "default for config symbol '%'"
+				    " must be a single symbol", sym->name);
 			break;
 		case P_SELECT:
 			sym2 = prop_get_symbol(prop);
 			if (sym->type != S_BOOLEAN && sym->type != S_TRISTATE)
 				prop_warn(prop,
-					  "config symbol '%s' uses select, but is "
-					  "not boolean or tristate", sym->name);
+				    "config symbol '%s' uses select, but is "
+				    "not boolean or tristate", sym->name);
 			else if (sym2->type == S_UNKNOWN)
 				prop_warn(prop,
-					  "'select' used by config symbol '%s' "
-					  "refer to undefined symbol '%s'",
-					  sym->name, sym2->name);
-			else if (sym2->type != S_BOOLEAN
-				 && sym2->type != S_TRISTATE)
+				    "'select' used by config symbol '%s' "
+				    "refer to undefined symbol '%s'",
+				    sym->name, sym2->name);
+			else if (sym2->type != S_BOOLEAN && sym2->type != S_TRISTATE)
 				prop_warn(prop,
-					  "'%s' has wrong type. 'select' only "
-					  "accept arguments of boolean and "
-					  "tristate type", sym2->name);
+				    "'%s' has wrong type. 'select' only "
+				    "accept arguments of boolean and "
+				    "tristate type", sym2->name);
 			break;
 		case P_RANGE:
 			if (sym->type != S_INT && sym->type != S_HEX)
 				prop_warn(prop, "range is only allowed "
-					  "for int or hex symbols");
-			if (!sym_string_valid(sym, prop->expr->left.sym->name)
-			    || !sym_string_valid(sym,
-						 prop->expr->right.sym->name))
+				                "for int or hex symbols");
+			if (!sym_string_valid(sym, prop->expr->left.sym->name) ||
+			    !sym_string_valid(sym, prop->expr->right.sym->name))
 				prop_warn(prop, "range is invalid");
 			break;
 		default:

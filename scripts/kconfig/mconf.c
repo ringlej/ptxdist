@@ -18,6 +18,7 @@
 #include <string.h>
 #include <termios.h>
 #include <unistd.h>
+#include <regex.h>
 
 #define LKC_DIRECT_LINK
 #include "lkc.h"
@@ -28,7 +29,7 @@ static const char menu_instructions[] =
 	"<Enter> selects submenus --->.  "
 	"Highlighted letters are hotkeys.  "
 	"Pressing <Y> includes, <N> excludes, <M> modularizes features.  "
-	"Press <Esc><Esc> to exit, <?> for Help.  "
+	"Press <Esc><Esc> to exit, <?> for Help, </> for Search.  "
 	"Legend: [*] built-in  [ ] excluded  <M> module  < > module capable",
 radiolist_instructions[] =
 	"Use the arrow keys to navigate this window or "
@@ -49,18 +50,18 @@ setmod_text[] =
 	"This feature depends on another which has been configured as a module.\n"
 	"As a result, this feature will be built as a module.",
 nohelp_text[] =
-	"There is no help available for this kernel option.\n",
+	"There is no help available for this option.\n",
 load_config_text[] =
 	"Enter the name of the configuration file you wish to load.  "
 	"Accept the name shown to restore the configuration you "
 	"last retrieved.  Leave blank to abort.",
 load_config_help[] =
 	"\n"
-	"For various reasons, one may wish to keep several different kernel\n"
+	"For various reasons, one may wish to keep several different\n"
 	"configurations available on a single machine.\n"
 	"\n"
 	"If you have saved a previous configuration in a file other than the\n"
-	"kernel's default, entering the name of the file here will allow you\n"
+	"default, entering the name of the file here will allow you\n"
 	"to modify that configuration.\n"
 	"\n"
 	"If you are uncertain, then you have probably never used alternate\n"
@@ -70,7 +71,7 @@ save_config_text[] =
 	"as an alternate.  Leave blank to abort.",
 save_config_help[] =
 	"\n"
-	"For various reasons, one may wish to keep different kernel\n"
+	"For various reasons, one may wish to keep different\n"
 	"configurations available on a single machine.\n"
 	"\n"
 	"Entering a file name here will allow you to later retrieve, modify\n"
@@ -81,13 +82,13 @@ save_config_help[] =
 	"leave this blank.\n"
 ;
 
-static char buf[4096], *bufptr = buf;
-static char input_buf[4096];
+static signed char buf[4096], *bufptr = buf;
+static signed char input_buf[4096];
 static char filename[PATH_MAX+1] = ".config";
 static char *args[1024], **argptr = args;
 static int indent;
 static struct termios ios_org;
-static int rows, cols;
+static int rows = 0, cols = 0;
 static struct menu *current_menu;
 static int child_count;
 static int do_resize;
@@ -102,6 +103,10 @@ static void show_textbox(const char *title, const char *text, int r, int c);
 static void show_helptext(const char *title, const char *text);
 static void show_help(struct menu *menu);
 static void show_readme(void);
+static void show_file(const char *filename, const char *title, int r, int c);
+static void show_expr(struct menu *menu, FILE *fp);
+static void search_conf(char *pattern);
+static int regex_match(const char *string, regex_t *re);
 
 static void cprint_init(void);
 static int cprint1(const char *fmt, ...);
@@ -113,26 +118,24 @@ static void init_wsize(void)
 	struct winsize ws;
 	char *env;
 
-	if (ioctl(1, TIOCGWINSZ, &ws) == -1) {
-		rows = 24;
-		cols = 80;
-	} else {
+	if (!ioctl(STDIN_FILENO, TIOCGWINSZ, &ws)) {
 		rows = ws.ws_row;
 		cols = ws.ws_col;
-		if (!rows) {
-			env = getenv("LINES");
-			if (env)
-				rows = atoi(env);
-			if (!rows)
-				rows = 24;
-		}
-		if (!cols) {
-			env = getenv("COLUMNS");
-			if (env)
-				cols = atoi(env);
-			if (!cols)
-				cols = 80;
-		}
+	}
+
+	if (!rows) {
+		env = getenv("LINES");
+		if (env)
+			rows = atoi(env);
+		if (!rows)
+			rows = 24;
+	}
+	if (!cols) {
+		env = getenv("COLUMNS");
+		if (env)
+			cols = atoi(env);
+		if (!cols)
+			cols = 80;
 	}
 
 	if (rows < 19 || cols < 80) {
@@ -274,6 +277,114 @@ static int exec_conf(void)
 	sigprocmask(SIG_SETMASK, &osset, NULL);
 
 	return WEXITSTATUS(stat);
+}
+
+static int regex_match(const char *string, regex_t *re)
+{
+	int rc;
+
+	rc = regexec(re, string, (size_t) 0, NULL, 0);
+	if (rc)
+		return 0;
+	return 1;
+}
+
+static void show_expr(struct menu *menu, FILE *fp)
+{
+	bool hit = false;
+	fprintf(fp, "Depends:\n ");
+	if (menu->prompt->visible.expr) {
+		if (!hit)
+			hit = true;
+		expr_fprint(menu->prompt->visible.expr, fp);
+	}
+	if (!hit)
+		fprintf(fp, "None");
+	if (menu->sym) {
+		struct property *prop;
+		hit = false;
+		fprintf(fp, "\nSelects:\n ");
+		for_all_properties(menu->sym, prop, P_SELECT) {
+			if (!hit)
+				hit = true;
+			expr_fprint(prop->expr, fp);
+		}
+		if (!hit)
+			fprintf(fp, "None");
+		hit = false;
+		fprintf(fp, "\nSelected by:\n ");
+		if (menu->sym->rev_dep.expr) {
+			hit = true;
+			expr_fprint(menu->sym->rev_dep.expr, fp);
+		}
+		if (!hit)
+			fprintf(fp, "None");
+	}
+}
+
+static void search_conf(char *pattern)
+{
+	struct symbol *sym = NULL;
+	struct menu *menu[32] = { 0 };
+	struct property *prop = NULL;
+	FILE *fp = NULL;
+	bool hit = false;
+	int i, j, k, l;
+	regex_t re;
+
+	if (regcomp(&re, pattern, REG_EXTENDED|REG_NOSUB))
+		return;
+
+	fp = fopen(".search.tmp", "w");
+	if (fp == NULL) {
+		perror("fopen");
+		return;
+	}
+	for_all_symbols(i, sym) {
+		if (!sym->name)
+			continue;
+		if (!regex_match(sym->name, &re))
+			continue;
+		for_all_prompts(sym, prop) {
+			struct menu *submenu = prop->menu;
+			if (!submenu)
+				continue;
+			j = 0;
+			hit = false;
+			while (submenu) {
+				menu[j++] = submenu;
+				submenu = submenu->parent;
+			}
+			if (j > 0) {
+				if (!hit)
+					hit = true;
+				fprintf(fp, "%s (%s)\n", prop->text, sym->name);
+				fprintf(fp, "Location:\n");
+			}
+			for (k = j-2, l=1; k > 0; k--, l++) {
+				const char *prompt = menu_get_prompt(menu[k]);
+				if (menu[k]->sym)
+					fprintf(fp, "%*c-> %s (%s)\n",
+								l, ' ',
+								prompt,
+								menu[k]->sym->name);
+				else
+					fprintf(fp, "%*c-> %s\n",
+								l, ' ',
+								prompt);
+			}
+			if (hit) {
+				show_expr(menu[0], fp);
+				fprintf(fp, "\n\n\n");
+			}
+		}
+	}
+	if (!hit)
+		fprintf(fp, "No matches found.");
+	regfree(&re);
+	fclose(fp);
+	show_file(".search.tmp", "Search Results", rows, cols);
+	unlink(".search.tmp");
 }
 
 static void build_conf(struct menu *menu)
@@ -465,6 +576,23 @@ static void conf(struct menu *menu)
 			cprint("    Save Configuration to an Alternate File");
 		}
 		stat = exec_conf();
+		if (stat == 26) {
+			char *pattern;
+
+			if (!strlen(input_buf))
+				continue;
+			pattern = malloc(sizeof(char)*sizeof(input_buf));
+			if (pattern == NULL) {
+				perror("malloc");
+				continue;
+			}
+			for (i = 0; input_buf[i]; i++)
+				pattern[i] = toupper(input_buf[i]);
+			pattern[i] = '\0';
+			search_conf(pattern);
+			free(pattern);
+			continue;
+		}
 		if (stat < 0)
 			continue;
 
@@ -552,17 +680,7 @@ static void show_textbox(const char *title, const char *text, int r, int c)
 	fd = creat(".help.tmp", 0777);
 	write(fd, text, strlen(text));
 	close(fd);
-	do {
-		cprint_init();
-		if (title) {
-			cprint("--title");
-			cprint("%s", title);
-		}
-		cprint("--textbox");
-		cprint(".help.tmp");
-		cprint("%d", r);
-		cprint("%d", c);
-	} while (exec_conf() < 0);
+	show_file(".help.tmp", title, r, c);
 	unlink(".help.tmp");
 }
 
@@ -582,7 +700,7 @@ static void show_help(struct menu *menu)
 		help = nohelp_text;
 	if (sym->name) {
 		helptext = malloc(strlen(sym->name) + strlen(help) + 16);
-		sprintf(helptext, "CONFIG_%s:\n\n%s", sym->name, help);
+		sprintf(helptext, CFGSYM "%s:\n\n%s", sym->name, help);
 		show_helptext(menu_get_prompt(menu), helptext);
 		free(helptext);
 	} else
@@ -591,13 +709,22 @@ static void show_help(struct menu *menu)
 
 static void show_readme(void)
 {
+	show_file("scripts/README.Menuconfig", NULL, rows, cols);
+}
+
+static void show_file(const char *filename, const char *title, int r, int c)
+{
 	do {
 		cprint_init();
+		if (title) {
+			cprint("--title");
+			cprint("%s", title);
+		}
 		cprint("--textbox");
-		cprint("scripts/README.Menuconfig");
-		cprint("%d", rows);
-		cprint("%d", cols);
-	} while (exec_conf() == -1);
+		cprint("%s", filename);
+		cprint("%d", r);
+		cprint("%d", c);
+	} while (exec_conf() < 0);
 }
 
 static void conf_choice(struct menu *menu)
@@ -761,22 +888,14 @@ static void conf_cleanup(void)
 
 int main(int ac, char **av)
 {
-	struct symbol *sym;
 	char *mode;
 	int stat;
 
 	conf_parse(av[1]);
 	conf_read(NULL);
 
-	sym = sym_lookup("KERNELRELEASE", 0);
-	sym_calc_value(sym);
-	sprintf(menu_backtitle, "%s v%s.%s.%s%s Configuration",
-		getenv("PROJECT"), 
-		getenv("VERSION"), 
-		getenv("PATCHLEVEL"),
-		getenv("SUBLEVEL"), 
-		getenv("EXTRAVERSION")
-	);
+	sprintf(menu_backtitle, "%s v%s Configuration",
+		getenv("PROJECT"), getenv("FULLVERSION"));
 
 	mode = getenv("MENUCONFIG_MODE");
 	if (mode) {
@@ -792,24 +911,29 @@ int main(int ac, char **av)
 	do {
 		cprint_init();
 		cprint("--yesno");
-		cprint("Do you wish to save your new %s configuration?", getenv("PROJECT"));
+		cprint("Do you wish to save your new configuration?");
 		cprint("5");
 		cprint("60");
 		stat = exec_conf();
 	} while (stat < 0);
 
 	if (stat == 0) {
-		conf_write(NULL);
+		if (conf_write(NULL)) {
+			fprintf(stderr, "\n\n"
+				"Error during writing of the configuration.\n"
+				"Your configuration changes were NOT saved."
+				"\n\n");
+			return 1;
+		}
 		printf("\n\n"
-			"*** End of %s configuration.\n"
-			"*** Execute 'make' to see possible build options."
-			"\n\n",
-			getenv("PROJECT")
-		);
-	} else
-		printf("\n\n"
+			"*** End of configuration.\n"
+			"*** Execute 'make' to build or try 'make help'."
+			"\n\n");
+	} else {
+		fprintf(stderr, "\n\n"
 			"Your configuration changes were NOT saved."
 			"\n\n");
+	}
 
 	return 0;
 }

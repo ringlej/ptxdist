@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <unistd.h>
 
 #define LKC_DIRECT_LINK
@@ -15,21 +16,18 @@
 
 const char conf_def_filename[] = ".config";
 
-const char conf_defname[] = "arch/$ARCH/defconfig";
+const char conf_defname[] = "defconfig";
 
 const char *conf_confnames[] = {
 	".config",
-	"/lib/modules/$UNAME_RELEASE/.config",
-	"/etc/kernel-config",
-	"/boot/config-$UNAME_RELEASE",
 	conf_defname,
 	NULL,
 };
 
-static char *conf_expand_value(const char *in)
+static char *conf_expand_value(const signed char *in)
 {
 	struct symbol *sym;
-	const char *src;
+	const signed char *src;
 	static char res_value[SYMBOL_MAXLENGTH];
 	char *dst, name[SYMBOL_MAXLENGTH];
 
@@ -118,17 +116,17 @@ int conf_read(const char *name)
 		sym = NULL;
 		switch (line[0]) {
 		case '#':
-			if (memcmp(line + 2, "PTXCONF_", 8))
+			if (memcmp(line + 2, CFGSYM, CFGSYMLEN))
 				continue;
-			p = strchr(line + 10, ' ');
+			p = strchr(line + CFGSYMLEN+3, ' ');
 			if (!p)
 				continue;
 			*p++ = 0;
-			if (strncmp(p, "is not set", 10))
+			if (strncmp(p, "is not set", CFGSYMLEN+3))
 				continue;
-			sym = sym_find(line + 10);
+			sym = sym_find(line + CFGSYMLEN+3);
 			if (!sym) {
-				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + 10);
+				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + CFGSYMLEN+2);
 				break;
 			}
 			switch (sym->type) {
@@ -141,19 +139,19 @@ int conf_read(const char *name)
 				;
 			}
 			break;
-		case 'P':
-			if (memcmp(line, "PTXCONF_", 8))
+		case CFGSYMFC:
+			if (memcmp(line, CFGSYM, CFGSYMLEN))
 				continue;
-			p = strchr(line + 8, '=');
+			p = strchr(line + CFGSYMLEN, '=');
 			if (!p)
 				continue;
 			*p++ = 0;
 			p2 = strchr(p, '\n');
 			if (p2)
 				*p2 = 0;
-			sym = sym_find(line + 8);
+			sym = sym_find(line + CFGSYMLEN);
 			if (!sym) {
-				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + 8);
+				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + CFGSYMLEN);
 				break;
 			}
 			switch (sym->type) {
@@ -231,7 +229,6 @@ int conf_read(const char *name)
 
 	if (modules_sym)
 		sym_calc_value(modules_sym);
-	
 	for_all_symbols(i, sym) {
 		sym_calc_value(sym);
 		if (sym_has_value(sym) && !sym_is_choice_value(sym)) {
@@ -269,6 +266,9 @@ int conf_write(const char *name)
 	char dirname[128], tmpname[128], newname[128];
 	int type, l;
 	const char *str;
+	time_t now;
+	int use_timestamp = 1;
+	char *env;
 
 	dirname[0] = 0;
 	if (name && name[0]) {
@@ -292,7 +292,7 @@ int conf_write(const char *name)
 	} else
 		basename = conf_def_filename;
 
-	sprintf(newname, "%s.tmpconfig.%d", dirname, getpid());
+	sprintf(newname, "%s.tmpconfig.%d", dirname, (int)getpid());
 	out = fopen(newname, "w");
 	if (!out)
 		return 1;
@@ -302,14 +302,29 @@ int conf_write(const char *name)
 		if (!out_h)
 			return 1;
 	}
+	time(&now);
+	env = getenv("KCONFIG_NOTIMESTAMP");
+	if (env && *env)
+		use_timestamp = 0;
+
 	fprintf(out, "#\n"
 		     "# Automatically generated make config: don't edit\n"
-		     "#\n");
+		     "# %s version: %s\n"
+		     "%s%s"
+		     "#\n",
+		     getenv("PROJECT"), getenv("FULLVERSION"),
+		     use_timestamp ? "# " : "",
+		     use_timestamp ? ctime(&now) : "");
 	if (out_h)
 		fprintf(out_h, "/*\n"
 			       " * Automatically generated C config: don't edit\n"
+			       " * %s version: %s\n"
+			       "%s%s"
 			       " */\n"
-			       "#define AUTOCONF_INCLUDED\n");
+			       "#define AUTOCONF_INCLUDED\n",
+			       getenv("PROJECT"), getenv("FULLVERSION"),
+			       use_timestamp ? " * " : "",
+			       use_timestamp ? ctime(&now) : "");
 
 	if (!sym_change_count)
 		sym_clear_all_valid();
@@ -346,28 +361,28 @@ int conf_write(const char *name)
 			case S_TRISTATE:
 				switch (sym_get_tristate_value(sym)) {
 				case no:
-					fprintf(out, "# PTXCONF_%s is not set\n", sym->name);
+					fprintf(out, "# " CFGSYM "%s is not set\n", sym->name);
 					if (out_h)
-						fprintf(out_h, "#undef PTXCONF_%s\n", sym->name);
+						fprintf(out_h, "#undef " CFGSYM "%s\n", sym->name);
 					break;
 				case mod:
-					fprintf(out, "PTXCONF_%s=m\n", sym->name);
+					fprintf(out, CFGSYM "%s=m\n", sym->name);
 					if (out_h)
-						fprintf(out_h, "#define PTXCONF_%s_MODULE 1\n", sym->name);
+						fprintf(out_h, "#define " CFGSYM "%s_MODULE 1\n", sym->name);
 					break;
 				case yes:
-					fprintf(out, "PTXCONF_%s=y\n", sym->name);
+					fprintf(out, CFGSYM "%s=y\n", sym->name);
 					if (out_h)
-						fprintf(out_h, "#define PTXCONF_%s 1\n", sym->name);
+						fprintf(out_h, "#define " CFGSYM "%s 1\n", sym->name);
 					break;
 				}
 				break;
 			case S_STRING:
 				// fix me
 				str = sym_get_string_value(sym);
-				fprintf(out, "PTXCONF_%s=\"", sym->name);
+				fprintf(out, CFGSYM "%s=\"", sym->name);
 				if (out_h)
-					fprintf(out_h, "#define PTXCONF_%s \"", sym->name);
+					fprintf(out_h, "#define " CFGSYM "%s \"", sym->name);
 				do {
 					l = strcspn(str, "\"\\");
 					if (l) {
@@ -390,16 +405,16 @@ int conf_write(const char *name)
 			case S_HEX:
 				str = sym_get_string_value(sym);
 				if (str[0] != '0' || (str[1] != 'x' && str[1] != 'X')) {
-					fprintf(out, "PTXCONF_%s=%s\n", sym->name, str);
+					fprintf(out, CFGSYM "%s=%s\n", sym->name, str);
 					if (out_h)
-						fprintf(out_h, "#define PTXCONF_%s 0x%s\n", sym->name, str);
+						fprintf(out_h, "#define " CFGSYM "%s 0x%s\n", sym->name, str);
 					break;
 				}
 			case S_INT:
 				str = sym_get_string_value(sym);
-				fprintf(out, "PTXCONF_%s=%s\n", sym->name, str);
+				fprintf(out, CFGSYM "%s=%s\n", sym->name, str);
 				if (out_h)
-					fprintf(out_h, "#define PTXCONF_%s %s\n", sym->name, str);
+					fprintf(out_h, "#define " CFGSYM "%s %s\n", sym->name, str);
 				break;
 			}
 		}
