@@ -20,7 +20,7 @@ endif
 # Paths and names 
 #
 STRACE			= strace-4.5.7
-STRACE_URL		= $(PTXCONF_SFMIRROR)/strace/$(STRACE).tar.bz2
+STRACE_URL		= $(PTXCONF_SETUP_SFMIRROR)/strace/$(STRACE).tar.bz2
 STRACE_SOURCE		= $(SRCDIR)/$(STRACE).tar.bz2
 STRACE_DIR		= $(BUILDDIR)/$(STRACE)
 
