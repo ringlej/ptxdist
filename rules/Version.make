@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: Version.make,v 1.5 2003/11/20 10:09:06 robert Exp $
+# $Id: Version.make,v 1.6 2003/11/20 18:54:49 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 # See CREDITS for details about who has contributed to this project. 
@@ -33,6 +33,5 @@ UCLIBC_VERSION_MINOR	:= $(call get_option, s/^PTXCONF_UCLIBC_\([0-9]*\)_\([0-9]*
 UCLIBC_VERSION_MICRO	:= $(call get_option, s/^PTXCONF_UCLIBC_\([0-9]*\)_\([0-9]*\)_\([0-9]*\).*/\3/)
 UCLIBC_VERSION		:= $(UCLIBC_VERSION_MAJOR).$(UCLIBC_VERSION_MINOR).$(UCLIBC_VERSION_MICRO)
 
-BINUTILS_VERSION	:= $(call get_option, s/^PTXCONF_BINUTILS_\([0-9]*\)_\([0-9]*\).*/\1.\2/)
-BINUTILS_VERSION	?= $(call get_option, s/^PTXCONF_BINUTILS_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)_\([0-9]*\).*/\1.\2.\3.\4/)
+BINUTILS_VERSION	:= $(call get_option_ext, s/^PTXCONF_BINUTILS_\([0-9]*\)_\([0-9]*\)\(_\([0-9]*\)_\([0-9]*\)\)*=y/\1.\2.\4.\5/, sed -e 's/\([0-9][.0-9]*[0-9]\)\.*/\1/')
 
