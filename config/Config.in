@@ -114,6 +114,13 @@ choice
 		depends on ARCH_PARISC
 endchoice
 
+config FPU
+	bool 
+	prompt "FPU available" if ARCH_ARM || OPT_I386 || OPT_PPC || \
+	ARCH_MIPS || ARCH_CRIS || ARCH_PARISC 
+	default y if !OPT_PPC405
+	default n if OPT_PPC405
+
 config ARCH_NOMMU
 	bool
 	default y if ARCH_ARM_NOMMU
@@ -175,7 +182,7 @@ config GNU_TARGET
 	default "mips-uclibc-linux"	if ARCH_MIPS		&& UCLIBC
 	default "cris-uclibc-linux"	if ARCH_CRIS		&& UCLIBC
 	default "hppa-uclibc-linux"	if ARCH_PARISC		&& UCLIBC
-
+	
 config PREFIX
 	prompt "Prefix for development envirionment"
 	string

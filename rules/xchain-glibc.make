@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-glibc.make,v 1.12 2003/09/09 21:56:01 robert Exp $
+# $Id: xchain-glibc.make,v 1.13 2003/09/15 14:19:22 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -48,12 +48,6 @@ xchain_glibc_prepare_deps =  $(STATEDIR)/autoconf213.install
 xchain_glibc_prepare_deps += $(STATEDIR)/xchain-gccstage1.install
 xchain_glibc_prepare_deps += $(STATEDIR)/xchain-glibc.extract
 
-ifdef PTXCONF_FPU
-GLIBC_FP=--with-fp
-else
-GLIBC_FP=--without-fp
-endif
-
 $(STATEDIR)/xchain-glibc.prepare: $(xchain_glibc_prepare_deps)
 	@$(call targetinfo, xchain-glibc.prepare)
 	@$(call clean, $(XCHAIN_GLIBC_BUILDDIR))
@@ -63,8 +57,7 @@ $(STATEDIR)/xchain-glibc.prepare: $(xchain_glibc_prepare_deps)
 		$(GLIBC_DIR)/configure $(PTXCONF_GNU_TARGET) 		\
 		$(GLIBC_AUTOCONF)					\
 		--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)	\
-		--libexecdir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/bin \
-		$(GLIBC_FP)
+		--libexecdir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/bin
 	touch $@
 
 # ----------------------------------------------------------------------------

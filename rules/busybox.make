@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.10 2003/09/13 09:53:28 robert Exp $
+# $Id: busybox.make,v 1.11 2003/09/15 14:19:22 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -92,7 +92,9 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
 	grep -e PTXCONF_BB_ .config > $(BUSYBOX_DIR)/.config
 	perl -i -p -e 's/PTXCONF_BB_//g' $(BUSYBOX_DIR)/.config
-        ifndef PTXCONF_FP
+        ifdef PTXCONF_FPU
+	perl -i -p -e 's/EXTRA_CFLAGS_OPTIONS="/EXTRA_CFLAGS_OPTIONS="-mhard-float /g' $(BUSYBOX_DIR)/.config
+        else
 	perl -i -p -e 's/EXTRA_CFLAGS_OPTIONS="/EXTRA_CFLAGS_OPTIONS="-msoft-float /g' $(BUSYBOX_DIR)/.config
         endif
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.7 2003/09/09 21:51:17 robert Exp $
+# $Id: glibc.make,v 1.8 2003/09/15 14:19:22 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -386,11 +386,6 @@ GLIBC_ENV	+= ac_cv_prog_cc_cross=yes
 #
 # features
 #
-ifdef PTXCONF_GLIBC_FLOATINGPOINT
-  GLIBC_AUTOCONF+=--with-fp=yes
-else
-  GLIBC_AUTOCONF+=--with-fp=no
-endif
 ifdef PTXCONF_GLIBC_LIBIO
   GLIBC_AUTOCONF+=--enable-libio
 endif
@@ -412,9 +407,9 @@ ifdef PTXCONF_GLIBC_PTHREADS
 endif
 
 ifdef PTXCONF_FPU
-GLIBC_FP=--with-fp
+  GLIBC_AUTOCONF+=--with-fp
 else
-GLIBC_FP=--without-fp
+  GLIBC_AUTOCONF+=--without-fp
 endif
 
 #
@@ -433,8 +428,7 @@ $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
 		$(GLIBC_DIR)/configure $(PTXCONF_GNU_TARGET) 		\
 			$(GLIBC_AUTOCONF)				\
 			--prefix=/usr					\
-			--libexecdir=/usr/bin				\
-			$(GLIBC_FP)
+			--libexecdir=/usr/bin
 	touch $@
 
 # ----------------------------------------------------------------------------
