@@ -1,4 +1,4 @@
-#
+# -*-makefile-*-
 # $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
