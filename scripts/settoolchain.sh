@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: settoolchain.sh,v 1.6 2003/11/09 17:34:38 robert Exp $
+# $Id: settoolchain.sh,v 1.7 2003/11/11 01:33:52 mkl Exp $
 #
 # Copyright (C) 2003 Ixia Communications, by Dan Kegel
 #
@@ -43,8 +43,7 @@ case $TARGET in
 	*i386*)        PTXARCH=X86 ; PTXSUBARCH=OPT_I386;;
 	*i486*)        PTXARCH=X86 ; PTXSUBARCH=OPT_I486;;
 	*i586*)        PTXARCH=X86 ; PTXSUBARCH=OPT_I586;;
-	*i586*)        PTXARCH=X86 ; PTXSUBARCH=OPT_I686;;
-	*i*86*)        PTXARCH=X86 ; PTXSUBARCH=OPT_I386;;
+	*i686*)        PTXARCH=X86 ; PTXSUBARCH=OPT_I686;;
 	*pentium*)     PTXARCH=X86 ; PTXSUBARCH=OPT_I586;;
 	*ppc*)         abort "Please use a target of powerpc-*-*-* rather than ppc-*" ;;
 	*powerpc-405-*)  PTXARCH=PPC; PTXSUBARCH=OPT_PPC405;;
@@ -60,7 +59,20 @@ case $TARGET in
 	*)             abort "unrecognized target $TARGET"
 esac
 
+# Translate to names used by, um, userspace and the kernel
+# Not sure why we need so many identifiers for arch
+# I'm only doing the ones I'm somewhat familiar with, others will have to be filled in later
+case $PTXARCH in
+	ARM)	PTXCONF_ARCH_USERSPACE=arm     ; PTXCONF_ARCH=arm ;;
+	X86)	PTXCONF_ARCH_USERSPACE=i386    ; PTXCONF_ARCH=i386 ;;
+	PPC)	PTXCONF_ARCH_USERSPACE=powerpc ; PTXCONF_ARCH=ppc ;;
+	SPARC)	PTXCONF_ARCH_USERSPACE=sparc   ; PTXCONF_ARCH=sparc ;;
+	*)	abort "unrecognized target $TARGET, please fix settoolchain.sh" ;;
+esac
+
 echo PTXCONF_GNU_TARGET=\"$TARGET\" > .config.tmp
+echo "PTXCONF_ARCH=\"$PTXCONF_ARCH\"" >> .config.tmp
+echo "PTXCONF_ARCH_USERSPACE=\"$PTXCONF_ARCH_USERSPACE\"" >> .config.tmp
 echo "PTXCONF_ARCH_$PTXARCH=y" >> .config.tmp
 test x$PTXSUBARCH != x && echo "PTXCONF_$PTXSUBARCH=y" >> .config.tmp
 echo PTXCONF_PREFIX=\"$PREFIX\" >> .config.tmp
@@ -71,7 +83,7 @@ echo '# PTXCONF_BUILD_CROSSCHAIN is not set' >> .config.tmp
 echo "PTXCONF_EXP=y" >> .config.tmp
 echo "PTXCONF_EXP_M=y" >> .config.tmp
 
-egrep -v "PTXCONF_GNU_TARGET|PTXCONF_OPT_PPC|PTXCONF_ARCH_|PTXCONF_PREFIX|PTXCONF_ROOT" .config >> .config.tmp
+egrep -v "PTXCONF_ARCH=|PTXCONF_ARCH_|PTXCONF_ARM|PTXCONF_GNU_TARGET|PTXCONF_OPT_|PTXCONF_PREFIX|PTXCONF_ROOT" .config >> .config.tmp
 
 test -f .config && cp .config .config.bak
 mv .config.tmp .config
