@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.100 2004/07/28 01:11:37 rsc Exp $
+# $Id: Makefile,v 1.101 2004/08/09 08:54:02 rsc Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -318,6 +318,9 @@ clean: rootclean
 	@echo "done."
 	@echo -n "cleaning logfile................. "
 	@rm -f logfile*
+	@echo "done."
+	@echo -n "cleaning local dir............... "
+	@rm -fr local
 	@echo "done."
 	@if [ -d $(TOPDIR)/Documentation/manual ]; then		\
 		echo -n "cleaning manual.................. ";	\
