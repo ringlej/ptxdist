@@ -64,14 +64,14 @@ get =							\
 # download patches from Pengutronix' patch repository
 # 
 # $1 = packet name = identifier for patch subdir
-# $2 = patch dir
-# $3 = architecture
+# $2 = architecture
+# $3 = patch dir
 # 
 get_patches =
-	PATCH_SRC="$(2)";				\
-	PATCH_SRC=$${PATCH_SRC:-$(PATCHDIR)};		\
-	[ -d $$PATCH_SRC ] || mkdir -p $$PATCH_SRC;	\
-	wget -r -P $$PATCH_SRC $(PASSIVEFTP) $(PTXPATCH_URL)/$(1)/$(3);		\
+	PATCH_SRC="$(3)";							\
+	PATCH_SRC=$${PATCH_SRC:-$(PATCHDIR)};					\
+	[ -d $$PATCH_SRC ] || mkdir -p $$PATCH_SRC;				\
+	wget -r -P $$PATCH_SRC $(PASSIVEFTP) $(PTXPATCH_URL)/$(1)/$(2);		\
 	wget -r -P $$PATCH_SRC $(PASSIVEFTP) $(PTXPATCH_URL)/$(1)/generic;
 
 #
