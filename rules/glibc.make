@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.21 2004/01/02 17:50:26 robert Exp $
+# $Id: glibc.make,v 1.22 2004/03/06 08:51:09 robert Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -201,7 +201,7 @@ glibc_compile:		$(STATEDIR)/glibc.compile
 
 $(STATEDIR)/glibc.compile: $(STATEDIR)/glibc.prepare 
 	@$(call targetinfo, $@)
-	$(GLIBC_PATH) make -C $(GLIBC_BUILDDIR)
+	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) make
 #
 # fake files which are installed by make install although
 # compiling binaries was switched of (tested with 2.2.5)
@@ -218,7 +218,7 @@ glibc_install:		$(STATEDIR)/glibc.install
 
 $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 	@$(call targetinfo, $@)
-	$(GLIBC_PATH) make -C $(GLIBC_BUILDDIR) \
+	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) make \
 		install_root=$(CROSS_LIB_DIR) prefix="" install
 #
 # Dan Kegel writes:
