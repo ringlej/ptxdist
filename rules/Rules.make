@@ -32,9 +32,9 @@ targetinfo=echo;					\
 # extract the given source to builddir
 #
 extract =						\
-	DEST="$(2)";					\
+	DEST="$(strip $(2))";				\
 	DEST=$${DEST:-$(BUILDDIR)};			\
-	case "$(1)" in					\
+	case "$(strip $(1))" in				\
 	*gz)						\
 		EXTRACT=gzip				\
 		;;					\
@@ -55,7 +55,7 @@ extract =						\
 # $2 = source dir
 # 
 get =							\
-	SRC="$(2)";					\
+	SRC="$(strip $(2))";				\
 	SRC=$${SRC:-$(SRCDIR)};				\
 	[ -d $$SRC ] || mkdir -p $$SRC;			\
 	wget -P $$SRC $(PASSIVEFTP) $(1)
@@ -73,7 +73,7 @@ get =							\
 #			becomes "glibc-2.2.5/*"
 #
 get_patches =											\
-	PACKET_NAME=$(patsubst ' %',,$(1));							\
+	PACKET_NAME="$(strip $(1))";								\
 	if [ "$(EXTRAVERSION)" = "-cvs" ]; then							\
 		PATCH_TREE=cvs;									\
 	else											\
@@ -89,7 +89,10 @@ get_patches =											\
 # cleanup the given directory
 #
 clean =							\
-	[ -d $(1) ] && rm -rf $(1) || true
+	DIR="$(strip $(1))";				\
+	if [ -d $$DIR ]; then				\
+		rm -rf $$DIR;				\
+	fi
 
 #
 # find latest config
@@ -105,10 +108,12 @@ latestconfig=`find $(TOPDIR)/config -name $(1)* -print | sort | tail -1`
 # $1 = file
 # $2 = parameter
 #
-enable_c =									\
-	perl -p -i -e								\
-		's,^\s*(\/\*)?\s*(\#\s*define\s+$(2))\s*(\*\/)?$$,$$2\n,'	\
-		$(1)
+enable_c =											\
+	FILENAME="$(strip $(1))";								\
+	PARAMETER="$(strip $(2))";								\
+	perl -p -i -e										\
+		"s,^\s*(\/\*)?\s*(\#\s*define\s+$$PARAMETER)\s*(\*\/)?$$,\$$2\n,"		\
+		$$FILENAME
 
 #
 # disables a define with, adds /* */
@@ -118,10 +123,12 @@ enable_c =									\
 # $1 = file
 # $2 = parameter
 #
-disable_c =										\
-	perl -p -i -e									\
-		's,^\s*(\/\*)?\s*(\#\s*define\s+$(2))\s*(\*\/)?$$,\/\*$$2\*\/\n,'	\
-		$(1)
+disable_c =											\
+	FILENAME="$(strip $(1))";								\
+	PARAMETER="$(strip $(2))";								\
+	perl -p -i -e										\
+		"s,^\s*(\/\*)?\s*(\#\s*define\s+$$PARAMETER)\s*(\*\/)?$$,\/\*\$$2\*\/\n,"	\
+		$$FILENAME
 
 #
 # enabled something, removes #
@@ -131,10 +138,12 @@ disable_c =										\
 # $1 = file
 # $2 = parameter
 #
-enable_sh =					\
-	perl -p -i -e				\
-		's,^\s*(\#)?\s*($(2)),$$2,'	\
-		$(1)
+enable_sh =						\
+	FILENAME="$(strip $(1))";			\
+	PARAMETER="$(strip $(2))";			\
+	perl -p -i -e					\
+		"s,^\s*(\#)?\s*($#PARAMETER)),\$$2,"	\
+		$$FILENAME
 
 #
 # disables a comment, adds #
@@ -144,10 +153,12 @@ enable_sh =					\
 # $1 = file
 # $2 = parameter
 #
-disable_sh =					\
-	perl -p -i -e				\
-		's,^\s*(\#)?\s*($(2)),\#$$2,'	\
-		$(1)
+disable_sh =						\
+	FILENAME="$(strip $(1))";			\
+	PARAMETER="$(strip $(2))";			\
+	perl -p -i -e					\
+		"s,^\s*(\#)?\s*($$PARAMETER),\#\$$2,"	\
+		$$FILENAME
 
 #
 # go into a directory and apply all patches from there into a sourcetree
@@ -158,9 +169,9 @@ disable_sh =					\
 #      from the packet name
 #
 patchin =								\
-	set -e &&							\
-	PACKET_NAME=$(patsubst ' %',,$(1));				\
-	PACKET_DIR="$(patsubst ' %',,$(2))";				\
+	set -e;								\
+	PACKET_NAME="$(strip $(1))";					\
+	PACKET_DIR="$(strip $(2))";					\
 	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};		\
 	for p in							\
 	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.diff		\
@@ -191,8 +202,6 @@ patchin =								\
 			$$CAT $$p | $(PATCH) -p1 -d $$PACKET_DIR;	\
 		fi;							\
 	done
-
-
 
 #
 # CFLAGS // CXXFLAGS
