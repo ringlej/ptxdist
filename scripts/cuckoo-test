@@ -31,7 +31,7 @@ echo
 echo $CPUVENDOR cuckoo test
 
 echo "1 pass (egg test)"
-find . -type f -exec file {} \; | sed -e "s/ASCII.*/+++OK+++/" \
+find . -type f -exec file {} \; | grep -v "usr/share/terminfo" | sed -e "s/ASCII.*/+++OK+++/" \
 -e "s/Bourne.*executable/+++OK+++/" -e "s/empty/+++OK+++/" \
 -e "s/PPCBoot.*/+++OK+++/" \
 -e "s/ELF.*$CPUVENDOR.*/+++OK+++/" \
