@@ -32,6 +32,7 @@ PTXCONF_ARM_ARCH_PXA=y
 # PTXCONF_ARM_ARCH_IXP2000 is not set
 # PTXCONF_ARM_ARCH_NETARM is not set
 # PTXCONF_ARM_ARCH_ATMEL is not set
+# PTXCONF_ARM_ARCH_IMX is not set
 PTXCONF_ARM_ARCH="pxa"
 PTXCONF_ARM_ARCH_LE=y
 PTXCONF_OPT_ARM=y
@@ -76,6 +77,7 @@ PTXCONF_ROOT=""
 # Cross Toolchain     
 #
 # PTXCONF_BUILD_CROSSCHAIN is not set
+PTXCONF_CROSSCHAIN_CHECK="2.95.3"
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
@@ -101,6 +103,7 @@ PTXCONF_VENDORTWEAKS="innokom.make"
 # PTXCONF_KSYMOOPS is not set
 PTXCONF_LTT=y
 # PTXCONF_LIBBFD is not set
+# PTXCONF_MEMTEST is not set
 # PTXCONF_OPROFILE is not set
 PTXCONF_STRACE=y
 PTXCONF_STRACE_SHARED=y
@@ -109,6 +112,7 @@ PTXCONF_STRACE_SHARED=y
 # Host Tools          
 #
 # PTXCONF_GENEXT2FS is not set
+# PTXCONF_HOSTTOOL_E2FSPROGS is not set
 # PTXCONF_FAKEROOT is not set
 
 #
@@ -125,8 +129,10 @@ PTXCONF_KERNEL_2_4_19=y
 # PTXCONF_KERNEL_2_4_21 is not set
 # PTXCONF_KERNEL_2_4_22 is not set
 # PTXCONF_KERNEL_2_4_23 is not set
+# PTXCONF_KERNEL_2_4_25 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
+# PTXCONF_KERNEL_2_6_6 is not set
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -156,9 +162,15 @@ PTXCONF_KERNEL_PATCH2_NAME=""
 #
 
 #
+# RTAI                
+#
+# PTXCONF_RTAI is not set
+
+#
 # C Library           
 #
 PTXCONF_GLIBC=y
+# PTXCONF_UCLIBC is not set
 
 #
 # C Library options
@@ -167,6 +179,7 @@ PTXCONF_GLIBC=y
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
+# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -192,6 +205,8 @@ PTXCONF_GLIBC_NSS_FILES=y
 # PTXCONF_GLIBC_NSS_COMPAT is not set
 PTXCONF_GLIBC_RESOLV=y
 PTXCONF_GLIBC_NSL=y
+# PTXCONF_GLIBC_GCONV is not set
+PTXCONF_UC_TARGET_arm=y
 
 #
 # C++ Library         
@@ -246,15 +261,6 @@ PTXCONF_BB_CONFIG_FEATURE_SUID=y
 #
 # PTXCONF_BB_CONFIG_STATIC is not set
 # PTXCONF_BB_CONFIG_LFS is not set
-PTXCONF_BB_USING_CROSS_COMPILER=y
-PTXCONF_BB_CROSS_COMPILER_PREFIX="arm-linux-"
-PTXCONF_BB_EXTRA_CFLAGS_OPTIONS=""
-
-#
-# Installation Options
-#
-# PTXCONF_BB_CONFIG_INSTALL_NO_USR is not set
-PTXCONF_BB_PREFIX="./_install"
 
 #
 # Archival Utilities
@@ -765,6 +771,11 @@ PTXCONF_MTD_UNLOCK=y
 #
 
 #
+# bing                
+#
+# PTXCONF_BING is not set
+
+#
 # ppp                 
 #
 PTXCONF_PPP=y
@@ -920,6 +931,11 @@ PTXCONF_NTP_ACCURATE_ADJTIME=y
 # PTXCONF_DNSMASQ is not set
 
 #
+# tcpdump             
+#
+# PTXCONF_TCPDUMP is not set
+
+#
 # Disk and file ---   
 #
 
@@ -1031,6 +1047,11 @@ PTXCONF_ZLIB=y
 # Qt embedded GUI       
 #
 # PTXCONF_QTE is not set
+
+#
+# Blackbox WM         
+#
+# PTXCONF_BLACKBOX is not set
 
 #
 # Web Applications    
