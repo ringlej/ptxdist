@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.19 2003/11/13 04:32:07 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.20 2003/11/13 19:30:14 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -8,24 +8,20 @@
 # see the README file.
 #
 
-ifdef PTXCONF_LIBSTDCXX
-PACKAGES += xchain-gccstage2
+ifdef PTXCONF_BUILD_CROSSCHAIN
+XCHAIN += xchain-gccstage2
 endif
+
 #
 # Paths and names 
 #
 GCC_STAGE2_DIR		= $(BUILDDIR)/$(GCC)-$(PTXCONF_GNU_TARGET)-stage2
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
 xchain-gccstage2_get: $(STATEDIR)/xchain-gccstage2.get
-else
-xchain-gccstage2_get:
-endif
 
 $(STATEDIR)/xchain-gccstage2.get: $(xchain-gccstate1_get_deps)
 	@$(call targetinfo, $@)
@@ -35,11 +31,7 @@ $(STATEDIR)/xchain-gccstage2.get: $(xchain-gccstate1_get_deps)
 # Extract
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
 xchain-gccstage2_extract: $(STATEDIR)/xchain-gccstage2.extract
-else
-xchain-gccstage2_extract:
-endif
 
 $(STATEDIR)/xchain-gccstage2.extract: $(xchain-gccstage1_extract_deps)
 	@$(call targetinfo, $@)
@@ -49,11 +41,7 @@ $(STATEDIR)/xchain-gccstage2.extract: $(xchain-gccstage1_extract_deps)
 # Prepare
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
 xchain-gccstage2_prepare: $(STATEDIR)/xchain-gccstage2.prepare
-else
-xchain-gccstage2_prepare:
-endif
 
 xchain-gccstage2_prepare_deps =  $(STATEDIR)/xchain-gccstage2.extract
 ifdef PTXCONF_GLIBC
@@ -154,11 +142,7 @@ $(STATEDIR)/xchain-gccstage2.prepare: $(xchain-gccstage2_prepare_deps)
 # Compile
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
 xchain-gccstage2_compile: $(STATEDIR)/xchain-gccstage2.compile
-else
-xchain-gccstage2_compile:
-endif
 
 $(STATEDIR)/xchain-gccstage2.compile: $(STATEDIR)/xchain-gccstage2.prepare
 	@$(call targetinfo, $@)
@@ -169,11 +153,7 @@ $(STATEDIR)/xchain-gccstage2.compile: $(STATEDIR)/xchain-gccstage2.prepare
 # Install
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
 xchain-gccstage2_install: $(STATEDIR)/xchain-gccstage2.install
-else
-xchain-gccstage2_install:
-endif
 
 $(STATEDIR)/xchain-gccstage2.install: $(STATEDIR)/xchain-gccstage2.compile
 	@$(call targetinfo, $@)
