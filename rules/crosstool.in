@@ -32,10 +32,13 @@ choice
 		bool
 		prompt "3.4.0"
 
-
 	config GCC_3_4_1
 		bool
 		prompt "3.4.1"
+
+	config GCC_3_4_2
+		bool
+		prompt "3.4.2"
 
 endchoice
 
@@ -46,6 +49,7 @@ config GCC_VERSION
 	default "3.3.2"		if GCC_3_3_2
 	default "3.4.0"		if GCC_3_4_0
 	default "3.4.1"		if GCC_3_4_1
+	default "3.4.2"		if GCC_3_4_2
 
 config CROSSTOOL_GCCLANG_CC
 	depends on CROSSTOOL
