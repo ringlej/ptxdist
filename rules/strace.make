@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: strace.make,v 1.1 2003/07/15 13:58:22 robert Exp $
+# $Id: strace.make,v 1.2 2003/08/19 12:01:59 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
@@ -114,7 +114,7 @@ strace_compile: $(STATEDIR)/strace.compile
 
 $(STATEDIR)/strace.compile: $(STATEDIR)/strace.prepare 
 	@$(call targetinfo, strace.compile)
-	make -C $(STRACE_DIR) $(STRACE_MAKEVARS) $(MAKEPARMS)
+	$(STRACE_ENVIRONMENT) make -C $(STRACE_DIR) $(STRACE_MAKEVARS) $(MAKEPARMS)
 	touch $@
 
 # ----------------------------------------------------------------------------
