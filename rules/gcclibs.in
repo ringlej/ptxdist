@@ -1,0 +1,21 @@
+#
+# rules/gcclibs.in
+#
+
+menu	"GCC Libraries       "
+
+config GCCLIBS
+	bool "gcc language support libraries"
+	default n
+
+config GCCLIBS_CXX
+	bool "libstdc++"
+	depends on GCCLIBS
+	default n
+
+config GCCLIBS_GCC
+	bool "libgcc"
+	depends on GCCLIBS
+	default n
+
+endmenu
