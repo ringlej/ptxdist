@@ -744,7 +744,11 @@ endmenu
 # ----------------------------------------------------------------------------
 
 source "rules/coreutils.in"
+
 source "rules/util-linux.in"
+
+source "rules/vhll.in"
+
 
 ##############################################################################
 comment "Network Tools"
