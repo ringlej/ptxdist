@@ -1,6 +1,14 @@
 config XGDB
 	bool "Build Cross GDB"
 
+config GDB_WRAPPERS
+	bool "Build cross-GDB wrapper"
+        depends on XGDB
+	help
+	  Creates wrapper scripts in $PTXCONF_PREFIX/bin which preset
+	  all necessary preferences to use the cross debugger. 
+
+
 config GDBSERVER
 	bool "Build gdbserver for target"
 
@@ -8,7 +16,8 @@ config GDBSERVER_SHARED
 	bool "Build shared"
 	default y
 	depends on GDBSERVER
-        select GLIBC_THREAD_DB
+        select GLIBC_THREAD_DB if GLIBC
+
 
 config GDB
 	bool "Build GDB for target"
@@ -17,7 +26,7 @@ config GDB_SHARED
 	bool "Build shared"
 	default y
 	depends on GDB
-        select GLIBC_LIBM
+        select GLIBC_LIBM if GLIBC
 
 choice
 	prompt "Select term library"
@@ -31,10 +40,12 @@ choice
 	config GDB_NCURSES
 		bool "ncurses"
                 select NCURSES
-endchoice
+endchoice        
 
-config GDB_WRAPPERS
-	bool "Build cross-GDB wrapper"
-	help
-	  Creates wrapper scripts in $PTXCONF_PREFIX/bin which preset
-	  all necessary preferences to use the cross debugger. 
+config GDB_THREAD_DEBUG
+        bool "enable Thread Debugging (i.e.: don't strip C-library)"
+        depends on GDB || GDBSERVER
+        default y
+        select GLIBC_DEBUG if GLIBC
+
+comment "---"

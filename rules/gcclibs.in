@@ -7,7 +7,7 @@ menu	"GCC Libraries       "
 config GCCLIBS_CXX
 	bool "libstdc++"
 	select GCCLIBS_GCC_S
-	select GCCLIBS_GCC_S_NOF if OPT_PPC405
+	select GCCLIBS_GCC_S_NOF if ARCH_PPC
 	select GLIBC_LIBM
 	default n
 
@@ -18,6 +18,6 @@ config GCCLIBS_GCC_S
 config GCCLIBS_GCC_S_NOF
 	bool "libgcc_s_nof"
 	default n
-	depends on OPT_PPC405
+	depends on ARCH_PPC
 
 endmenu
