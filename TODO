@@ -4,6 +4,9 @@ Current TODO List
 High Priority
 -------------
 
+- RSC: uClibc is removed at the moment: the "Extract" and regexp magic 
+       doesn't seem to work properly. mkprefix makes wrong UCLIBC_ fixes 
+       in Config.in and Config.in is not included at all. 
 - RSC: use new config/innokom.ptxconfig vs. config/kernel/... scheme
        also for other platforms. 
 - RSC: audit configurations: we now have the rules/vendor-tweaks
