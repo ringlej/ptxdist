@@ -1,0 +1,17 @@
+/* Server */
+
+#define BuildServersOnly	NO
+#define KDriveXServer		YES
+#define TinyXServer		YES
+#define XfbdevServer		YES
+
+/* Fonts */
+
+/*
+#define BuildSpeedo		NO
+#define BuildType1		NO
+#define BuildCID 		NO
+#define BuildFreeType		NO
+#define FontServerAccess	NO
+#define BuildBuiltinFonts	YES 
+*/
