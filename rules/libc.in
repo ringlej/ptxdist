@@ -52,6 +52,13 @@ choice
 		depends on GLIBC
 		depends on ARCH_X86
 
+endchoice
+
+choice
+	prompt "uClibc Version"
+	default UCLIBC_0_9_26
+	depends on UCLIBC
+
 	config UCLIBC_0_9_26
 		bool
 		prompt "0.9.26"
