@@ -1,5 +1,5 @@
 # -*-makefile-*- 
-# $Id: bootdisk.make,v 1.4 2003/07/04 13:58:13 bsp Exp $
+# $Id: bootdisk.make,v 1.5 2003/07/07 13:19:04 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -123,6 +123,8 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	cd $(BUILDDIR)/tmpboot && tar cf $(BUILDDIR)/bootdisk.tar *
 	rm -rf $(BUILDDIR)/tmpboot
 	sudo $(SRCDIR)/mkbimage -d $(BUILDDIR) -f $(BUILDDIR)/bootdisk.tar -s ext2 -t 1.44
+	mv $(BUILDDIR)/1.44.image $(BOOTDISK_DIR)/boot.image
+	rm -rf $(BUILDDIR)/1.44.image*
 	touch $@
 
 # ----------------------------------------------------------------------------

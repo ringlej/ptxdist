@@ -11,6 +11,7 @@
 #::sysinit:/etc/init.d/root-remount
 ::sysinit:/sbin/syslogd
 #::sysinit:/sbin/syslogd host:514 (for remote logging)
+::sysinit:/sbin/sshd -f /etc/sshd_config
 
 # Start userland network services 
 #::respawn:/sbin/utelnetd

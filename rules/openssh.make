@@ -1,4 +1,4 @@
-# $Id: openssh.make,v 1.5 2003/07/04 13:58:13 bsp Exp $
+# $Id: openssh.make,v 1.6 2003/07/07 13:19:04 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -53,11 +53,11 @@ $(STATEDIR)/openssh.extract: $(STATEDIR)/openssh.get
 
 openssh_prepare: $(STATEDIR)/openssh.prepare
 
-OPENSSH_AUTOCONF =  --prefix=$(PTXCONF_PREFIX) --with-ipv4-default 
-OPENSSH_AUTOCONF += --without-pam --without-shadow --without-md5-passwords 
+OPENSSH_AUTOCONF =  --prefix=/ --with-ipv4-default 
+OPENSSH_AUTOCONF += --without-pam --without-md5-passwords 
 OPENSSH_AUTOCONF += --with-zlib=$(PTXCONF_PREFIX)
 # TODO dont know if this finds its way hardcoded into some binary:
-OPENSSH_AUTOCONF += --with-privsep-path=$(PTXCONF_PREFIX)/var/run/sshd
+OPENSSH_AUTOCONF += --with-privsep-path=/var/run/sshd
 
 $(STATEDIR)/openssh.prepare: $(STATEDIR)/openssh.extract $(STATEDIR)/openssl.install
 	@$(call targetinfo, openssh.prepare)
@@ -84,7 +84,6 @@ openssh_install: $(STATEDIR)/openssh.install
 
 $(STATEDIR)/openssh.install: $(STATEDIR)/openssh.compile
 	@$(call targetinfo, openssh.install)
-	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(OPENSSH_DIR) install PREFIX=$(PTXCONF_PREFIX)
 	touch $@
 
 # ----------------------------------------------------------------------------
