@@ -30,8 +30,8 @@ menu "Configure original RTAI options"
 source "config/rtai-3.1-test4/rtai-core/arch/i386/Kconfig"
 endmenu
 
-config RTAI_LATENCY_CALIBRATE
-	bool "install latency calibration tool"
+config RTAI_TESTSUITE
+	bool "install RTAI testsuite"
 	depends on RTAI
 	default n
 
