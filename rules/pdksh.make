@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pdksh.make,v 1.3 2003/06/30 15:43:26 bsp Exp $
+# $Id: pdksh.make,v 1.4 2003/07/08 08:38:25 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
@@ -64,6 +64,7 @@ PDKSH_ENVIRONMENT+= ac_cv_func_setvbuf_reversed=no pdksh_cv_have_mbstate_t=yes
 PDKSH_MAKEVARS	=  AR=$(PTXCONF_GNU_TARGET)-ar
 PDKSH_MAKEVARS	+= RANLIB=$(PTXCONF_GNU_TARGET)-ranlib
 PDKSH_MAKEVARS	+= CC=$(PTXCONF_GNU_TARGET)-gcc
+PDKSH_MAKEVARS	+= "CFLAGS=-Os -fomit-frame-pointer -fstrict-aliasing"
 
 ifeq (y, $(PTXCONF_PDKSH_SHLIKE))
 PDKSH_AUTOCONF	+= --enable-shell=sh
