@@ -207,7 +207,7 @@ PTXCONF_KERNEL_PATCH1_XCHAIN=y
 # 
 #
 PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.9-rc2-pxa5/linux-2.6.9-rc2-pxa5.diff"
-PTXCONF_KERNEL_PATCH2_NAME="2.6.9-rc2-pxa1"
+PTXCONF_KERNEL_PATCH2_NAME="2.6.9-rc2-pxa5"
 # PTXCONF_KERNEL_PATCH2_XCHAIN is not set
 
 #
