@@ -648,8 +648,8 @@ CONFIG_AUTOFS4_FS=y
 # CONFIG_BEFS_FS is not set
 # CONFIG_BEFS_DEBUG is not set
 # CONFIG_BFS_FS is not set
-# CONFIG_EXT3_FS is not set
-# CONFIG_JBD is not set
+CONFIG_EXT3_FS=y
+CONFIG_JBD=y
 # CONFIG_JBD_DEBUG is not set
 # CONFIG_FAT_FS is not set
 # CONFIG_MSDOS_FS is not set
