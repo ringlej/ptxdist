@@ -11,7 +11,7 @@ export DISPLAY=:0.0
 
 #umask 022
 
-This fixes the backspace when telnetting in.
+# This fixes the backspace when telnetting in.
 if [ "$TERM" != "linux" ]; then
         stty erase ^H
 fi
