@@ -1,3 +1,7 @@
+2005-03-01 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* mgetty: add patching support (patch by Steven Scholz)
+
 2005-02-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* images: added support for UBoot ramdisk images; patch 
