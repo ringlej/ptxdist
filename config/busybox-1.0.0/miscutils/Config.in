@@ -16,6 +16,7 @@ config BB_CONFIG_ADJTIMEX
 config BB_CONFIG_CROND
 	bool "crond"
 	default n
+	select BB_CONFIG_FEATURE_SUID
 	help
 	  Crond is a background daemon that parses individual crontab
 	  files and executes commands on behalf of the users in question.
@@ -24,6 +25,8 @@ config BB_CONFIG_CROND
 	      $ cat /var/spool/cron/crontabs/root
 	      # Run daily cron jobs at 4:40 every day:
 	      40 4 * * * /etc/cron/daily > /dev/null 2>&1
+	  Note that Busybox binary must be setuid root for this applet to
+	  work properly.
 
 config BB_CONFIG_FEATURE_CROND_CALL_SENDMAIL
 	bool "  Using /usr/sbin/sendmail?"
@@ -84,7 +87,7 @@ config BB_CONFIG_DEVFSD_VERBOSE
 config BB_CONFIG_LAST
 	bool "last"
 	default n
-	select CONFIG_FEATURE_U_W_TMP
+	select BB_CONFIG_FEATURE_U_W_TMP
 	help
 	  'last' displays a list of the last users that logged into the system.
 

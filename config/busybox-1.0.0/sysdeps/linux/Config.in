@@ -162,7 +162,7 @@ config BB_CONFIG_STATIC
 config BB_CONFIG_LFS
 	bool "Build with Large File Support (for accessing files > 2 GB)"
 	default n
-	select FDISK_SUPPORT_LARGE_DISKS
+	select BB_FDISK_SUPPORT_LARGE_DISKS
 	help
 	  If you want to build BusyBox with large file support, then enable
 	  this option.  This will have no effect if your kernel or your C
