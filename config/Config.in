@@ -96,6 +96,8 @@ comment	"Applications ---    "
 
 source "rules/flash.in"
 source "rules/kaffe.in"
+source "rules/mad.in"
+source "rules/setmixer.in"
 
 ############################################################################## 
 
