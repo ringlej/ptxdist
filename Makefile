@@ -67,8 +67,6 @@ endif
 include rules/Rules.make
 include rules/Version.make
 
-CROSS_AUTOCONF = $(call remove_quotes,"--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) ")
-
 include $(filter-out rules/Virtual.make rules/Rules.make rules/Version.make rules/Definitions.make,$(wildcard rules/*.make))
 include rules/Virtual.make
 
