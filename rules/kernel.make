@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.15 2003/11/02 23:56:52 mkl Exp $
+# $Id: kernel.make,v 1.16 2004/01/22 00:48:13 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -154,7 +154,7 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 		$(KERNEL_DIR)/.config;						\
 	fi
 
-	yes no | $(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
+	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
 		oldconfig
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
 		dep
@@ -226,6 +226,6 @@ endif
 # ----------------------------------------------------------------------------
 
 kernel_clean:
-	rm -rf $(STATEDIR)/kernel.* $(KERNEL_DIR)
+	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-* $(KERNEL_DIR)
 
 # vim: syntax=make
