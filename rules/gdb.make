@@ -1,8 +1,9 @@
 # -*-makefile-*-
-# $Id: gdb.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
+# $Id: gdb.make,v 1.4 2003/11/17 03:24:42 mkl Exp $
 #
-# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -12,8 +13,19 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BUILD_GDB
+ifdef PTXCONF_GDB
 PACKAGES += gdb
+endif
+
+#
+# We depend on this package
+#
+ifdef PTXCONF_GDB_TERMCAP
+PACKAGES += termcap
+endif
+
+ifdef PTXCONF_GDB_NCURSES
+PACKAGES += ncurses
 endif
 
 #
@@ -68,14 +80,20 @@ gdb_prepare: $(STATEDIR)/gdb.prepare
 #
 gdb_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/ncurses.install \
 	$(STATEDIR)/gdb.extract
+
+ifdef PTXCONF_GDB_TERMCAP
+gdb_prepare_deps += $(STATEDIR)/termcap.install
+endif
+ifdef PTXCONF_GDB_NCURSES
+gdb_prepare_deps += $(STATEDIR)/ncurses.install
+endif
 
 GDB_PATH	=  PATH=$(CROSS_PATH)
 GDB_ENV		=  $(CROSS_ENV)
 
 ifndef PTXCONF_GDB_SHARED
-GDB_MAKEVARS	+= LDFLAGS=-static
+GDB_MAKEVARS	=  LDFLAGS=-static
 endif
 
 #
@@ -132,8 +150,9 @@ gdb_targetinstall_deps = \
 	$(STATEDIR)/gdb.compile
 
 ifdef PTXCONF_GDB_SHARED
-gdb_targetinstall_deps += \
-	$(STATEDIR)/ncurses.targetinstall
+ifdef PTXCONF_NCURSES
+gdb_targetinstall_deps += $(STATEDIR)/ncurses.targetinstall
+endif
 endif
 
 $(STATEDIR)/gdb.targetinstall: $(gdb_targetinstall_deps)
