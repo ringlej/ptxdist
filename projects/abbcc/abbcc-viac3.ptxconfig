@@ -59,23 +59,30 @@ PTXCONF_TARGET_CONFIG_FILE="i386.dat"
 #
 PTXCONF_ARCH="i386"
 PTXCONF_ARCH_USERSPACE="i386"
-PTXCONF_GNU_TARGET="i386-unknown-linux-gnu"
 PTXCONF_PREFIX="$(TOPDIR)/local"
 PTXCONF_ROOT=""
 
 #
-# Cross Toolchain     
+# Toolchain/Crosstool 
 #
-PTXCONF_BUILD_CROSSCHAIN=y
-# PTXCONF_BINUTILS_2_13_2_1 is not set
-PTXCONF_BINUTILS_2_14=y
-# PTXCONF_BINUTILS_2_15 is not set
-PTXCONF_GCC_2_95_3=y
+# PTXCONF_CROSSTOOL is not set
+# PTXCONF_GCC_2_95_3 is not set
 # PTXCONF_GCC_3_2_3 is not set
 # PTXCONF_GCC_3_3_2 is not set
-PTXCONF_GCC_2=y
-PTXCONF_GCC_SHARED=y
-# PTXCONF_GCC_MULTILIB is not set
+# PTXCONF_GCC_3_4_0 is not set
+# PTXCONF_GCC_3_4_1 is not set
+# PTXCONF_BINUTILS_2_14 is not set
+# PTXCONF_BINUTILS_2_15 is not set
+
+#
+# Generic Options
+#
+PTXCONF_CROSSCHAIN_CHECK="2.95.3"
+PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
+
+#
+# Non-Crosstool Tools
+#
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_NASM is not set
 # PTXCONF_XCHAIN-SCONS is not set
@@ -83,15 +90,23 @@ PTXCONF_GCC_SHARED=y
 #
 # Root Filesystem     
 #
-PTXCONF_ROOTFS_PROC=y
+PTXCONF_ROOTFS=y
 PTXCONF_ROOTFS_DEV=y
-PTXCONF_ROOTFS_MNT=y
+PTXCONF_ROOTFS_ETC=y
 PTXCONF_ROOTFS_FLOPPY=y
-PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_HOME=y
-PTXCONF_ROOTFS_VAR=y
+PTXCONF_ROOTFS_MNT=y
+PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
+PTXCONF_ROOTFS_TMP=y
+PTXCONF_ROOTFS_VAR=y
 PTXCONF_VENDORTWEAKS="projects/abbcc/abbcc-viac3.vendortweaks"
+
+#
+# Image Creation
+#
+PTXCONF_IMAGE_TGZ=y
+# PTXCONF_IMAGE_JFFS2 is not set
 
 #
 # Debugging Tools     
@@ -110,9 +125,9 @@ PTXCONF_VENDORTWEAKS="projects/abbcc/abbcc-viac3.vendortweaks"
 #
 # Host Tools          
 #
-# PTXCONF_GENEXT2FS is not set
-# PTXCONF_HOSTTOOL_E2FSPROGS is not set
-# PTXCONF_FAKEROOT is not set
+# PTXCONF_HOSTTOOLS_GENEXT2FS is not set
+# PTXCONF_HOSTTOOLS_E2FSPROGS is not set
+PTXCONF_HOSTTOOLS_FAKEROOT=y
 
 #
 # Core System ---    
@@ -271,6 +286,7 @@ PTXCONF_RTAI_TESTSUITE=y
 #
 # C Library           
 #
+PTXCONF_LIBC=y
 PTXCONF_GLIBC=y
 # PTXCONF_UCLIBC is not set
 
@@ -308,6 +324,11 @@ PTXCONF_GLIBC_NSS_COMPAT=y
 PTXCONF_GLIBC_RESOLV=y
 PTXCONF_GLIBC_NSL=y
 # PTXCONF_GLIBC_GCONV is not set
+
+#
+# Timezone Files
+#
+# PTXCONF_GLIBC_ZONEINFO is not set
 PTXCONF_UC_TARGET_i386=y
 
 #
@@ -972,7 +993,7 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
-PTXCONF_OPENAFS_1_2_11=y
+# PTXCONF_OPENAFS_1_2_11 is not set
 
 #
 # Portmapper          
@@ -1099,6 +1120,15 @@ PTXCONF_GRUB_RTL8139=y
 # PTXCONF_BONNIE is not set
 
 #
+# Communication ---   
+#
+
+#
+# Communication utils 
+#
+# PTXCONF_EFAX is not set
+
+#
 # Applications ---    
 #
 
@@ -1139,7 +1169,6 @@ PTXCONF_FIGLET=y
 #
 # gettext          
 #
-# PTXCONF_GETTEXT is not set
 
 #
 # popt             
