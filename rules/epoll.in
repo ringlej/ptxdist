@@ -1,0 +1,16 @@
+config KERNEL_SYS-EPOLL
+	bool
+	prompt "Add Kernel support for sys_epoll"
+	depends on KERNEL_2_4_20 || KERNEL_2_4_21
+
+config SYS-EPOLL-LIB
+	bool
+	prompt "Add user access library for sys_epoll"
+	depends on KERNEL_SYS-EPOLL
+
+config KERNEL_DEV-EPOLL
+	bool
+	prompt "Add Kernel support for /dev/epoll"
+	depends on KERNEL_2_4_18
+
+       
