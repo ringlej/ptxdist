@@ -20,25 +20,17 @@ cameron-efco_targetinstall: $(STATEDIR)/cameron-efco.targetinstall
 $(STATEDIR)/cameron-efco.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
-#	copy /etc template
-	cp -a $(TOPDIR)/cameron-efco/etc/. $(ROOTDIR)/etc
+	# copy /etc template
+	cp -a $(PROJECTDIR/etc/. $(ROOTDIR)/etc
 
-#	remove CVS stuff
+	# remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
 	rm -f $(ROOTDIR)/JUST_FOR_CVS
 
-#	make scripts executable
+	# make scripts executable
 	chmod 755 $(ROOTDIR)/etc/init.d/*
 
-#	generate version stamps
-	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@PATCHLEVEL@,$(PATCHLEVEL),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@SUBLEVEL@,$(SUBLEVEL),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@PROJECT@,$(PROJECT),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
-
-#	create some directories
+	# create some directories
 	mkdir $(ROOTDIR)/var/run
 	mkdir $(ROOTDIR)/var/lock
 

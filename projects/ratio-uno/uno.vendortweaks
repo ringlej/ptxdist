@@ -31,14 +31,6 @@ $(STATEDIR)/ratio-uno-2053-1.targetinstall:
 #	make scripts executable
 	chmod 755 $(ROOTDIR)/etc/init.d/*
 
-#	generate version stamps
-	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@PATCHLEVEL@,$(PATCHLEVEL),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@SUBLEVEL@,$(SUBLEVEL),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@PROJECT@,$(PROJECT),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
-
 	# create menu.lst for grub
 	install -d $(ROOTDIR)/boot
 	echo "# Konfiguration grub" > $(ROOTDIR)/boot/grub/menu.lst
