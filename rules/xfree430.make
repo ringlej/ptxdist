@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.8 2003/11/10 00:51:39 mkl Exp $
+# $Id: xfree430.make,v 1.9 2004/01/29 13:16:15 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -20,7 +20,7 @@ endif
 #
 # Paths and names
 #
-XFREE430_VERSION	= 4.3.99.10
+XFREE430_VERSION	= 4.3.99.902
 XFREE430		= XFree86-$(XFREE430_VERSION)
 XFREE430_SUFFIX		= tar.bz2
 XFREE430_DIR		= $(BUILDDIR)/xc
@@ -261,12 +261,12 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 #
 # libXi _can_ be shared, we dunno if we have it
 #
-	if [ -f $(XFREE430_BUILDDIR)/lib/Xi/libXi.so.6.0 ]; then
-		cp -f $(XFREE430_BUILDDIR)/lib/Xi/libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-		ln -sf libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXi.so.6
-		ln -sf libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXi.so
-		install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xi
-		cp -af $(XFREE430_BUILDDIR)/lib/Xi/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xi/
+	if [ -f $(XFREE430_BUILDDIR)/lib/Xi/libXi.so.6.0 ]; then \
+		cp -f $(XFREE430_BUILDDIR)/lib/Xi/libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib ;  \
+		ln -sf libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXi.so.6 ; \
+		ln -sf libXi.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXi.so ; \
+		install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xi ; \
+		cp -af $(XFREE430_BUILDDIR)/lib/Xi/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xi/ ; \
 	fi
 
 	cp -af $(XFREE430_BUILDDIR)/include/Xmd.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/

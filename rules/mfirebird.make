@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.8 2003/12/15 07:17:16 bsp Exp $
+# $Id: mfirebird.make,v 1.9 2004/01/29 13:16:15 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -74,6 +74,7 @@ mfirebird_prepare_deps =  \
 	$(STATEDIR)/mfirebird.extract \
 	$(STATEDIR)/gtk1210.install \
 	$(STATEDIR)/libidl068.install \
+	$(STATEDIR)/freetype214.install \
 	$(STATEDIR)/virtual-xchain.install \
 
 MFIREBIRD_PATH	=  PATH=$(CROSS_PATH)
@@ -109,7 +110,7 @@ MFIREBIRD_AUTOCONF	+= --disable-ldap
 MFIREBIRD_AUTOCONF	+= --disable-freetypetest
 #MFIREBIRD_AUTOCONF	+= --disable-postscript
 MFIREBIRD_AUTOCONF	+= --disable-xprint
-MFIREBIRD_AUTOCONF	+= --enable-crypto
+MFIREBIRD_AUTOCONF	+= --disable-crypto
 #MFIREBIRD_AUTOCONF	+= --disable-accessability
 #MFIREBIRD_AUTOCONF	+= --enable-xfpe-components
 ##MFIREBIRD_AUTOCONF	+= --enable-single-profile
@@ -118,6 +119,9 @@ MFIREBIRD_AUTOCONF	+= --disable-mathml
 MFIREBIRD_AUTOCONF	+= --disable-svg
 #MFIREBIRD_AUTOCONF	+= --disable-installer
 MFIREBIRD_AUTOCONF	+= --disable-activex
+MFIREBIRD_AUTOCONF	+= --enable-extensions
+MFIREBIRD_AUTOCONF	+= --without-system-nspr
+
 
 # g++ currently seems to have a bug with -pedantic (at least the
 # configure script claims so)

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: penguzilla.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
+# $Id: penguzilla.make,v 1.4 2004/01/29 13:16:15 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -132,7 +132,7 @@ $(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps)
 
 	install -d $(ROOTDIR)/usr/bin
 	install $(PENGUZILLA_DIR)/src/penguzilla $(ROOTDIR)/usr/bin/
-	install $(PENGUZILLA_DIR)/src/penguzilla_bin $(ROOTDIR)/usr/lib/mozilla-1.5a/
+	install $(PENGUZILLA_DIR)/src/penguzilla_bin $(ROOTDIR)/usr/lib/mozilla-1.5/
 
 # Style
 	install $(PENGUZILLA_DIR)/gtkrc $(ROOTDIR)/.gtkrc
