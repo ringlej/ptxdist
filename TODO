@@ -40,13 +40,13 @@ High Priority
 - RSC: - patches/ 
        - src/*.diff, *.patch
        - etc/solidcard-bmwm-20030821-1/xmodmap
-- MKL: have a look at CFLAGS, do not supply of empty
 - MKL: include with wildcard ifeq style?
 
 Low Priority
 ------------
 
 - MKL: tweak wireless to xcompile
+- MKL: lilo, tinylogin targetinstall
 - RSC: finish integration of zebra
 - RSC: you currently need gdk-pixbuf-csource on the host       
 - RSC: pango has a patch which has to be verified (GLIB_CFLAGS)
