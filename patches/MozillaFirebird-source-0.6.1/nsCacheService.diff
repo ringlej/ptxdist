@@ -1,0 +1,30 @@
+diff -urN MozillaFirebird-source-0.6.1/netwerk/cache/src/nsCacheService.cpp MozillaFirebird-source-0.6.1-ptx1/netwerk/cache/src/nsCacheService.cpp
+--- MozillaFirebird-source-0.6.1/netwerk/cache/src/nsCacheService.cpp	2003-08-26 16:12:11.000000000 +0200
++++ MozillaFirebird-source-0.6.1-ptx1/netwerk/cache/src/nsCacheService.cpp	2003-07-09 04:28:07.000000000 +0200
+@@ -361,22 +361,16 @@
+ PRBool
+ nsCacheProfilePrefObserver::DiskCacheEnabled()
+ {
+-//    if ((mDiskCacheCapacity == 0) || (!mDiskCacheParentDirectory))  return PR_FALSE;
+-//    return mDiskCacheEnabled;
+-
+-      // FIXME: PTX: we fake this because it is not autodetected correctly
+-      return PR_FALSE;
++    if ((mDiskCacheCapacity == 0) || (!mDiskCacheParentDirectory))  return PR_FALSE;
++    return mDiskCacheEnabled;
+ }
+ 
+     
+ PRBool
+ nsCacheProfilePrefObserver::MemoryCacheEnabled()
+ {
+-//    if (mMemoryCacheCapacity == 0)  return PR_FALSE;
+-//    return mMemoryCacheEnabled;
+-
+-      // FIXME: PTX: we fake this because it is not autodetected correctly
+-      return PR_FALSE;
++    if (mMemoryCacheCapacity == 0)  return PR_FALSE;
++    return mMemoryCacheEnabled;
+ }
+ 
+ 
