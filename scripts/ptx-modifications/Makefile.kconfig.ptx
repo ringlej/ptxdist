@@ -2,16 +2,15 @@ VERSION=1.2
 CC=gcc
 CXX=g++
 CFLAGS=-O2 -Wall -g -fPIC
-#CXXFLAGS=$(CFLAGS) -I$(QTDIR)/include -I/usr/include/qt3
-CXXFLAGS=$(CFLAGS) -I/usr/include/qt3
+CXXFLAGS=$(CFLAGS) -I$(QTDIR)/include
 LDFLAGS=
-#LXXFLAGS=$(LDFLAGS) -L$(QTDIR)/lib -L/usr/lib/qt3 -Wl,-rpath,$(QTDIR)/lib -Wl,-rpath,/usr/lib/qt3
-LXXFLAGS=$(LDFLAGS) -L/usr/lib/qt3 -Wl,-rpath,$(QTDIR)/lib -Wl,-rpath,/usr/lib/qt3
+LXXFLAGS=$(LDFLAGS) -L$(QTDIR)/lib  -Wl,-rpath,$(QTDIR)/lib
+#LXXFLAGS=$(LDFLAGS) -L/usr/lib/qt3 -Wl,-rpath,$(QTDIR)/lib -Wl,-rpath,/usr/lib/qt3
 LEX=flex
 YACC=bison
 YFLAGS=-d -t -v
 ifndef QTDIR
-QTDIR=/usr/share/qt
+QTDIR=/usr/share/qt3
 endif
 MOC=$(wildcard $(QTDIR)/bin/moc)
 
