@@ -2,6 +2,8 @@
 #
 # collect_sources.sh
 # 
+# b.buerger@pengutronix.de
+# Fri Jul 16 19:23:52 CEST 2004
 
 MAGIC=`whoami`-`eval date +%s`-tmp
 STATE_DIR="state";
