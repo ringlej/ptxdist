@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: wireless.make,v 1.1 2003/08/08 17:18:42 robert Exp $
+# $Id: wireless.make,v 1.2 2003/08/08 18:28:43 robert Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -20,7 +20,7 @@ endif
 #
 WIRELESS_VERSION	= 26
 WIRELESS		= wireless_tools.$(WIRELESS_VERSION)
-WIRELESS_SUFFIX		= .tar.gz
+WIRELESS_SUFFIX		= tar.gz
 WIRELESS_URL		= http://pcmcia-cs.sourceforge.net/ftp/contrib/$(WIRELESS).$(WIRELESS_SUFFIX)
 WIRELESS_SOURCE		= $(SRCDIR)/$(WIRELESS).$(WIRELESS_SUFFIX)
 WIRELESS_DIR 		= $(BUILDDIR)/$(WIRELESS)
@@ -48,7 +48,7 @@ $(WIRELESS_SOURCE):
 
 wireless_extract: $(STATEDIR)/wireless.extract
 
-wireless_extract_deps	= $(STATEDIR)/wireless.extract
+wireless_extract_deps	= $(STATEDIR)/wireless.get
 
 $(STATEDIR)/wireless.extract: $(wireless_extract_deps)
 	@$(call targetinfo, wireless.extract)
@@ -78,7 +78,7 @@ wireless_compile_deps	= $(STATEDIR)/wireless.prepare
 
 $(STATEDIR)/wireless.compile: $(wireless_compile_deps) 
 	@$(call targetinfo, wireless.compile)
-	cd $(WIRELESS_DIR) && PATH=$(PTXCONF_PREFIX)/bin:$$PATH make
+	make -C $(WIRELESS_DIR) 
 	touch $@
 
 # ----------------------------------------------------------------------------
