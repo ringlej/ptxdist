@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xvkbd.make,v 1.1 2003/08/26 13:20:12 robert Exp $
+# $Id: xvkbd.make,v 1.2 2003/09/13 08:09:06 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -115,6 +115,9 @@ xvkbd_targetinstall_deps	=  $(STATEDIR)/xvkbd.compile
 $(STATEDIR)/xvkbd.targetinstall: $(xvkbd_targetinstall_deps)
 	@$(call targetinfo, xvkbd.targetinstall)
 	install $(XVKBD_DIR)/xvkbd $(ROOTDIR)/usr/X11R6/bin/
+	install $(XVKBD_DIR)/XVkbd-common.ad $(ROOTDIR)/etc/X11/app-defaults/XVkbd-common
+	install $(XVKBD_DIR)/XVkbd-german.ad $(ROOTDIR)/etc/X11/app-defaults/XVkbd-german
+	echo '#include "XVkbd-german"' > $(ROOTDIR)/etc/X11/app-defaults/XVkbd
 	touch $@
 
 # ----------------------------------------------------------------------------
