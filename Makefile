@@ -346,7 +346,7 @@ compile-test:
 	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin visbox             COMPILE-TEST;\
 	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin rayonic-i586       COMPILE-TEST;\
 	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-2.95.3-glibc-2.2.5/bin innokom-2.4-2.95 COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.2-glibc-2.3.2/bin innokom-2.4-3.3.2 COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin innokom-2.4-3.3.3 COMPILE-TEST;\
 	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin mx1fs2            COMPILE-TEST;\
 	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin pii_nge           COMPILE-TEST;\
 	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin ssv_pnp2110_eva1  COMPILE-TEST;\
@@ -357,7 +357,7 @@ compile-test:
 	echo >> COMPILE-TEST;
 
 #	# FIXME: doesn't work right now...
-#	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.2-glibc-2.3.2/bin innokom-2.6-3.3.2;		\
+#	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin innokom-2.6-3.3.3;		\
 
 cuckoo-test: world
 	@scripts/cuckoo-test $(PTXCONF_ARCH) root $(PTXCONF_COMPILER_PREFIX)
