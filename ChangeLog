@@ -1,5 +1,11 @@
 2005-03-19 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* offline building: we have a new mechanism for offline 
+	  building now. Site configurations, like where the sources
+	  directory, patches and feature patches can be found, are
+	  now configurable via 'make setup' and a .setup file. 
+	  Note that the default paths are now $(TOPDIR)/local_src,
+	  $(TOPDIR)/local_patches and $(TOPDIR)/local_featurepatches
 	* bootdisk: moved content of bootdisk/ into images/
 	* expat: added in file for libexpat, to make it selectable
 
