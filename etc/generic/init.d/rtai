@@ -1,0 +1,36 @@
+#!/bin/sh
+
+case $1 in
+
+	start)
+		echo "loading RTAI modules..."
+		if [ -e /usr/realtime/modules/rtai_hal.o ]; then
+			insmod /usr/realtime/modules/rtai_hal.o
+		else
+			echo "could not load rtai_hal.o"
+			exit -1;
+		fi
+		if [ -e /usr/realtime/modules/rtai_up.o ]; then
+			insmod /usr/realtime/modules/rtai_up.o
+		else
+			echo "could not load rtai_up.o"
+			rmmod rtai_hal.o
+			exit -1;
+		fi
+		echo "done"
+		exit 0;
+		;;		
+		
+	stop)
+		echo "unloading RTAI modules..."
+		rmmod rtai_up
+		rmmod rtai_hal
+		echo "done"
+		exit 0;
+		;;
+	*)
+		echo "usage: $0 [start|stop]"
+		;;
+esac
+
+
