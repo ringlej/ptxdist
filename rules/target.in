@@ -70,6 +70,10 @@ choice
 	config ARM_ARCH_ATMEL
 		bool "atmel (little endian)"
 		depends on ARCH_ARM_NOMMU
+
+	config ARM_ARCH_IMX
+		bool "i.MX (little endian)"
+		depends on ARCH_ARM
 		
 endchoice
 
@@ -81,6 +85,7 @@ config ARM_ARCH
 	default "atmel"			if ARM_ARCH_ATMEL
 	default "ixp2000"		if ARM_ARCH_IXP2000
 	default "epxa"			if ARM_ARCH_EPXA
+	default "imx"			if ARM_ARCH_IMX
 
 config ARM_ARCH_BE
 	bool
@@ -88,7 +93,7 @@ config ARM_ARCH_BE
 
 config ARM_ARCH_LE
 	bool
-	default y if ARM_ARCH_PXA || ARM_ARCH_SA1100 || ARM_ARCH_NETARM || ARM_ARCH_ATMEL
+	default y if ARM_ARCH_PXA || ARM_ARCH_SA1100 || ARM_ARCH_NETARM || ARM_ARCH_ATMEL || ARM_ARCH_IMX
 
 choice 
 	prompt "MIPS architecture"
