@@ -5,6 +5,32 @@
 # b.buerger@pengutronix.de
 # Fri Jul 16 19:23:52 CEST 2004
 
+exit_release() {
+cat << _EOF_
+---------------------------------------------
+
+Something went wrong. ../release.lck indicates,
+that there was a PTXDist Directory 
+>>$(cat ../release.lck)<< which was renamed 
+during a make archive release cycle. 
+
+_EOF_
+exit;
+}
+
+my_error() {
+cat << _EOF_
+---------------------------------------------
+
+Something went wrong. 
+Please investigate. 
+
+_EOF_
+exit;
+}
+
+test -e ../release.lck && exit_release
+
 if [ "$1" == "" ]; then {
 cat << _EOF_
 ---------------------------------------------
@@ -32,10 +58,19 @@ fi;
 # -------------------------------------------
 # Command line arguments:
 # -------------------------------------------
+# TOPDIR is the TOP of PTX Directory
 TOPDIR=$1
+# ARCH_PATH is where the archives will be created
 ARCH_PATH=$TOPDIR/..
-
+# ARCH_BASENAME is the basename of the archive,
+# usually the name of the ptxdist-directory
 ARCH_BASENAME=$2
+
+cat << EOF
+TOPDIR=$TOPDIR
+ARCH_PATH=$ARCH_PATH
+ARCH_BASENAME=$ARCH_BASENAME
+EOF
 
 # -------------------------------------------
 # The Release TAG:
@@ -62,8 +97,41 @@ to build a specific archive.
 ---------------------------------------------
 
 _EOF_
-
 sleep 10;
+}
+elif [ "$RELEASE" != "" ]; then {
+cat << _EOF_
+---------------------------------------------
+                N O T I C E
+---------------------------------------------
+
+As you requested, the archive will be built
+with a specific RELEASE TAG. 
+
+TAG: $RELEASE
+
+Hit Strg+C to abort... sleeping a few seconds
+
+---------------------------------------------
+
+_EOF_
+sleep 10;
+
+echo $ARCH_BASENAME > ../release.lck
+cd $TOPDIR/..
+mv -v $ARCH_BASENAME $RELEASE || my_error
+ARCH_BASENAME=$RELEASE
+TOPDIR="$(dirname $TOPDIR)/$RELEASE"
+ARCH_PATH=$TOPDIR/..
+
+cat << EOF
+TOPDIR=$TOPDIR
+ARCH_PATH=$ARCH_PATH
+ARCH_BASENAME=$ARCH_BASENAME
+EOF
+
+cd $TOPDIR
+sleep 3;
 }
 fi; 
 
@@ -121,7 +189,7 @@ rm -rf $SRC_TMP && echo "OK"
 
 echo "constructing ptxdist archive"
 
-echo "WHRERE AM I ? $(pwd)"
+# echo "WHRERE AM I ? $(pwd)"
 echo "$ARCH_BASENAME"
 
 $TAR -C $TOPDIR/.. -zcvf $PTXDIST_TAR 	\
@@ -137,4 +205,24 @@ $TAR -C $TOPDIR/.. -zcvf $PTXDIST_TAR 	\
 	--exclude $ARCH_BASENAME/patches		      \
 	--exclude $ARCH_BASENAME/Documentation/manual      \
 	$ARCH_BASENAME
+
+# -------------------------------------------
+# Cleanup
+# -------------------------------------------
+
+if [ -e $TOPDIR/.. ]; then {
+
+ARCH_BASENAME=$(cat ../release.lck)
+echo "archive release cycle for >>$RELEASE<< has ended,"
+echo "restoring old name >>$ARCH_BASENAME<<"
+
+cd $TOPDIR/..
+mv -v $(basename $TOPDIR) $ARCH_BASENAME
+rm -v release.lck
+
+echo "I am done. Have a nice day :-)"
+}
+fi;
+
+
 
