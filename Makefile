@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.64 2003/12/22 09:01:47 robert Exp $
+# $Id: Makefile,v 1.65 2003/12/23 10:36:23 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -228,6 +228,10 @@ scIII-cameron_config:
 	@echo "copying scIII-cameron configuration"
 	@cp config/ppc405-cameron.ptxconfig .config
 
+wystup_config:
+	@echo "copying wystup configuration"
+	@cp config/wystup.ptxconfig .config
+
 # Toolchain Config Targets ---------------------------------------------------
 
 toolchain-powerpc-405-linux_config:
@@ -262,7 +266,7 @@ clean: rootclean
 	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx -C scripts/lxdialog clean
 	@echo "done."
 	@echo -n "cleaning bootdisk image.......... "
-	@rm -f $(TOPDIR)/boot.image
+	@rm -f $(TOPDIR)/bootdisk/boot.*
 	@echo "done."
 	@echo -n "cleaning dependency tree ........ "
 	@rm -f $(DEP_OUTPUT) $(DEP_TREE_PS)
