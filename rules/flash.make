@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: flash.make,v 1.1 2003/08/06 21:22:06 robert Exp $
+# $Id: flash.make,v 1.2 2003/08/08 16:28:17 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -24,8 +24,9 @@ FLASH_SOURCE		= $(SRCDIR)/$(FLASH).tar.gz
 FLASH_DIR 		= $(BUILDDIR)/$(FLASH)
 FLASH_EXTRACT		= gzip -dc
 
-FLASH_PATCH		= flash-0.9.5-ptx1.diff
+FLASH_PATCH		= flash-0.9.5-ptx2.diff
 FLASH_PATCH_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FLASH_PATCH)
+FLASH_PATCH_SOURCE	= $(SRCDIR)/$(FLASH_PATCH)
 FLASH_PATCH_EXTRACT	= cat
 
 
@@ -36,7 +37,7 @@ FLASH_PATCH_EXTRACT	= cat
 flash_get: $(STATEDIR)/flash.get
 
 flash_get_deps	=  $(FLASH_SOURCE)
-flash_get_deps	+= $(FLASH_PATCH)
+flash_get_deps	+= $(FLASH_PATCH_SOURCE)
 
 $(STATEDIR)/flash.get: $(flash_get_deps)
 	@$(call targetinfo, flash.get)
@@ -46,7 +47,7 @@ $(FLASH_SOURCE):
 	@$(call targetinfo, $(FLASH_SOURCE))
 	@$(call get, $(FLASH_URL))
 
-$(FLASH_PATCH):
+$(FLASH_PATCH_SOURCE):
 	@$(call targetinfo, $(FLASH_PATCH))
 	@$(call get, $(FLASH_PATCH_URL))
 
@@ -60,6 +61,7 @@ flash_extract: $(STATEDIR)/flash.extract
 $(STATEDIR)/flash.extract: $(STATEDIR)/flash.get
 	@$(call targetinfo, flash.extract)
 	$(FLASH_EXTRACT) $(FLASH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	cd $(FLASH_DIR) && patch -p1 < $(FLASH_PATCH_SOURCE)
 	touch $@
 
 
@@ -85,25 +87,23 @@ FLASH_ENV	= $(CROSS_ENV)
 # autoconf
 #
 FLASH_AUTOCONF	=  --prefix=/usr
+FLASH_AUTOCONF	+= --build=$(GNU_HOST)
+FLASH_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 FLASH_AUTOCONF	+= --with-ncurses-path=$(BUILDDIR)/ncurses-5.2
 
 $(STATEDIR)/flash.prepare: $(flash_prepare_deps)
 	@$(call targetinfo, flash.prepare)
 	@$(call clean, $(FLASH_BUILDDIR))
-	mkdir -p $(FLASH_BUILDDIR)
-#	#
-#	# FIXME: 
-# 	# I guess we need to do this twice because the patch seems b0rken. Ignoring errors
-# 	# is an even worse strategy, so we stick with it until someone fixes the patch.
-#	#
+	mkdir -p $(FLASH_DIR)
+	rm -f $(FLASH_DIR)/configure
+	cd $(FLASH_DIR) && autoconf
+	# Workaround for broken autoconf magic for cross compilation
 	cd $(FLASH_DIR) && \
-		$(FLASH_PATH) $(FLASH_ENV) $(FLASH_DIR)/configure $(FLASH_AUTOCONF)
-	cd $(FLASH_DIR) && \
-		$(FLASH_PATCH_EXTRACT) $(SRCDIR)/$(FLASH_PATCH) | patch -p1
-	rm -f $(FLASH_DIR)/config.cache
-	cd $(FLASH_DIR) && \
-		$(FLASH_PATH) $(FLASH_ENV) autoconf
-	cd $(FLASH_DIR) && \
+		ac_cv_func_getpgrp_void=yes	\
+		ac_cv_func_setpgrp_void=yes	\
+		ac_cv_sizeof_long_long=8	\
+		ac_cv_func_memcmp_clean=yes	\
+		ac_cv_func_getrlimit=yes	\
 		$(FLASH_PATH) $(FLASH_ENV) $(FLASH_DIR)/configure $(FLASH_AUTOCONF)
 	touch $@
 
@@ -111,11 +111,11 @@ $(STATEDIR)/flash.prepare: $(flash_prepare_deps)
 # Compile
 # ----------------------------------------------------------------------------
 
-flash_compile:
+flash_compile: $(STATEDIR)/flash.compile
 
 $(STATEDIR)/flash.compile: $(STATEDIR)/flash.prepare 
 	@$(call targetinfo, flash.compile)
-	cd $(FLASH_DIR) && $(FLASH_PATH) make
+	$(FLASH_PATH) make -C $(FLASH_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -137,7 +137,7 @@ flash_targetinstall: $(STATEDIR)/flash.targetinstall
 $(STATEDIR)/flash.targetinstall: $(STATEDIR)/flash.install
 	@$(call targetinfo, flash.targetinstall)
 	install -d $(ROOTDIR)/usr/bin
-	install $(FLASH_BUILDDIR)/flash $(ROOTDIR)/usr/bin
+	install $(FLASH_DIR)/flash $(ROOTDIR)/usr/bin
 	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/flash
 	touch $@
 # ----------------------------------------------------------------------------
