@@ -1,3 +1,4 @@
+- RS: audit for LSB compatiblity
 - RS: rename glibc to xchain-glibc
 - RS: audit for FOODIR vs. FOO_DIR
 - RS: add checksums for download 
