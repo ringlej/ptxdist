@@ -28,12 +28,12 @@ else
 # version stuff in now in rules/Version.make
 # NB: make s*cks
 
-KERNEL			= linux-$(KERNEL_VERSION)
-KERNEL_SUFFIX		= tar.bz2
-KERNEL_URL		= ftp://ftp.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX)
-KERNEL_SOURCE		= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
-KERNEL_DIR		= $(BUILDDIR)/$(KERNEL)
-KERNEL_CONFIG		= $(PTXCONF_KERNEL_CONFIG)
+KERNEL		= linux-$(KERNEL_VERSION)
+KERNEL_SUFFIX	= tar.bz2
+KERNEL_URL	= ftp://ftp.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX)
+KERNEL_SOURCE	= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
+KERNEL_DIR	= $(BUILDDIR)/$(KERNEL)
+KERNEL_CONFIG	= $(PTXCONF_KERNEL_CONFIG)
 endif
 
 #
@@ -91,16 +91,16 @@ endif
 kernel-patchstack_get: $(STATEDIR)/kernel-patchstack.get
 
 # Remove quotes from patch names
-PTXCONF_KERNEL_PATCH1_NAME := $(subst ",,$(PTXCONF_KERNEL_PATCH1_NAME))#"	<-- emacs, vi hack
-PTXCONF_KERNEL_PATCH2_NAME := $(subst ",,$(PTXCONF_KERNEL_PATCH2_NAME))#"	<-- emacs, vi hack
-PTXCONF_KERNEL_PATCH3_NAME := $(subst ",,$(PTXCONF_KERNEL_PATCH3_NAME))#"	<-- emacs, vi hack
-PTXCONF_KERNEL_PATCH4_NAME := $(subst ",,$(PTXCONF_KERNEL_PATCH4_NAME))#"	<-- emacs, vi hack
-PTXCONF_KERNEL_PATCH5_NAME := $(subst ",,$(PTXCONF_KERNEL_PATCH5_NAME))#"	<-- emacs, vi hack
-PTXCONF_KERNEL_PATCH6_NAME := $(subst ",,$(PTXCONF_KERNEL_PATCH6_NAME))#"	<-- emacs, vi hack
-PTXCONF_KERNEL_PATCH7_NAME := $(subst ",,$(PTXCONF_KERNEL_PATCH7_NAME))#"	<-- emacs, vi hack
-PTXCONF_KERNEL_PATCH8_NAME := $(subst ",,$(PTXCONF_KERNEL_PATCH8_NAME))#"	<-- emacs, vi hack
-PTXCONF_KERNEL_PATCH9_NAME := $(subst ",,$(PTXCONF_KERNEL_PATCH9_NAME))#"	<-- emacs, vi hack
-PTXCONF_KERNEL_PATCH10_NAME := $(subst ",,$(PTXCONF_KERNEL_PATCH10_NAME))#"	<-- emacs, vi hack
+PTXCONF_KERNEL_PATCH1_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH1_NAME))
+PTXCONF_KERNEL_PATCH2_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH2_NAME))
+PTXCONF_KERNEL_PATCH3_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH3_NAME))
+PTXCONF_KERNEL_PATCH4_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH4_NAME))
+PTXCONF_KERNEL_PATCH5_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH5_NAME))
+PTXCONF_KERNEL_PATCH6_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH6_NAME))
+PTXCONF_KERNEL_PATCH7_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH7_NAME))
+PTXCONF_KERNEL_PATCH8_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH8_NAME))
+PTXCONF_KERNEL_PATCH9_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH9_NAME))
+PTXCONF_KERNEL_PATCH10_NAME := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH10_NAME))
 
 # This is for kernel & xchain-kernel!
 
