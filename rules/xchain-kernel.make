@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.12 2003/10/28 11:12:24 mkl Exp $
+# $Id: xchain-kernel.make,v 1.13 2003/10/29 16:45:14 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -89,7 +89,6 @@ $(STATEDIR)/xchain-kernel.prepare: $(STATEDIR)/xchain-kernel.extract
 	make -C $(XCHAIN_KERNEL_BUILDDIR) include/linux/version.h
 	touch $(XCHAIN_KERNEL_BUILDDIR)/include/linux/autoconf.h
 
-	rm -rf `find $(XCHAIN_KERNEL_BUILDDIR)/include -name "asm*" -type d |grep -v asm-$(PTXCONF_ARCH) | grep -v asm-generic`
 	ln -s asm-$(PTXCONF_ARCH) $(XCHAIN_KERNEL_BUILDDIR)/include/asm
 
 ifdef PTXCONF_ARM_PROC
