@@ -19,10 +19,6 @@ pii_nge_targetinstall: $(STATEDIR)/pii_nge.targetinstall
 $(STATEDIR)/pii_nge.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
-	# remove CVS stuff
-	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
-	rm -f $(ROOTDIR)/JUST_FOR_CVS
-
 	# copy template
 	cp -a $(TOPDIR)/projects/generic/etc/* $(ROOTDIR)/etc/
 
@@ -57,6 +53,11 @@ $(STATEDIR)/pii_nge.targetinstall:
 
 	# donate /home to ftp.ftp so that we can download files 
 	$(call copy_root, 11, 101, 0755, /home)
+
+	# remove CVS and SVN stuff
+	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
+	rm -f $(ROOTDIR)/JUST_FOR_CVS
+	find $(ROOTDIR) -name ".svn" | xargs rm -fr
 
 	touch $@
 
