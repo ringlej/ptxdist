@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: hosttool-e2fsprogs.make,v 1.1 2004/03/19 11:55:44 bbu Exp $
+# $Id: hosttool-e2fsprogs.make,v 1.2 2004/06/21 13:47:49 bbu Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -22,7 +22,7 @@ endif
 HOSTTOOL_E2FSPROGS_VERSION		= 1.35
 HOSTTOOL_E2FSPROGS			= e2fsprogs-$(HOSTTOOL_E2FSPROGS_VERSION)
 HOSTTOOL_E2FSPROGS_SUFFIX		= tar.gz
-HOSTTOOL_E2FSPROGS_URL			= http://cesnet.dl.sourceforge.net/sourceforge/e2fsprogs/$(HOSTTOOL_E2FSPROGS).$(HOSTTOOL_E2FSPROGS_SUFFIX)
+HOSTTOOL_E2FSPROGS_URL			= http://switch.dl.sourceforge.net/sourceforge/e2fsprogs/$(HOSTTOOL_E2FSPROGS).$(HOSTTOOL_E2FSPROGS_SUFFIX)
 HOSTTOOL_E2FSPROGS_SOURCE_DIR		= $(SRCDIR)/hosttool/
 HOSTTOOL_E2FSPROGS_SOURCE		= $(HOSTTOOL_E2FSPROGS_SOURCE_DIR)/$(HOSTTOOL_E2FSPROGS).$(HOSTTOOL_E2FSPROGS_SUFFIX)
 HOSTTOOL_E2FSPROGS_DIR			= $(BUILDDIR)/hosttool/$(HOSTTOOL_E2FSPROGS)
