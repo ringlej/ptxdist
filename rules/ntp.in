@@ -1,11 +1,13 @@
-# --- NTP main config ---
-
 menu "NTP                 "
 
 config NTP
 bool             
 prompt "NTP"             
 default n
+
+# ----- Compile Options 
+
+comment "Compile Options"
 
 config NTP_CLOCKCTL
 bool
@@ -133,6 +135,9 @@ prompt "use openssl"
 default n
 depends NTP && OPENSSL
 
+comment "crypto needs openssl"
+depends on !(NTP && OPENSSL)
+
 config NTP_SNTP
 bool
 prompt "Build SNTP"
@@ -147,5 +152,15 @@ depends NTP
 
 source "rules/ntp_parse.in"
 source "rules/ntp_nonparse.in"
+
+# ---------- Install Options
+
+comment "Install Options"
+
+config NTP_NTPDATE
+	bool
+	prompt "install ntpdate"
+	default n
+	depends on NTP
 
 endmenu
