@@ -24,7 +24,7 @@ XCHAIN_ZLIB_BUILDDIR	= $(BUILDDIR)/xchain/$(ZLIB)
 
 xchain-zlib_get: $(STATEDIR)/xchain-zlib.get
 
-$(STATEDIR)/xchain-zlib.get: $(ZLIB_SOURCE)
+$(STATEDIR)/xchain-zlib.get: $(STATEDIR)/zlib.get
 	@$(call targetinfo, xchain-zlib.get)
 	touch $@
 
