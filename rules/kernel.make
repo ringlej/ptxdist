@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.5 2003/09/16 22:18:42 mkl Exp $
+# $Id: kernel.make,v 1.6 2003/09/17 13:22:58 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -77,16 +77,21 @@ KERNEL_PXAPATCH_URL 	= ftp://ftp.arm.linux.org.uk/pub/armlinux/people/nico/$(KER
 KERNEL_PXAPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_PXAPATCH).gz
 KERNEL_PXAPATCH_EXTRACT = gzip -dc
 
-KERNEL_MTDPATCH		= linux-2.4.19-rmk7-pxa2-mtd20030424.diff
+KERNEL_MTDPATCH		= linux-2.4.19-rmk7-pxa2-mtd20030728.diff
 KERNEL_MTDPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_MTDPATCH).bz2
 KERNEL_MTDPATCH_URL	= http://www.pengutronix.de/software/linux-arm/$(KERNEL_MTDPATCH).bz2
 KERNEL_MTDPATCH_DIR	= $(BUILDDIR)/$(KERNEL)
 KERNEL_MTDPATCH_EXTRACT	= bzip2 -cd
 
-KERNEL_PTXPATCH		= linux-2.4.19-rmk7-pxa2-ptx4.diff
+KERNEL_PTXPATCH		= linux-2.4.19-rmk7-pxa2-ptx6.diff
 KERNEL_PTXPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_PTXPATCH)
 KERNEL_PTXPATCH_URL	= http://www.pengutronix.de/software/linux-arm/$(KERNEL_PTXPATCH)
 KERNEL_PTXPATCH_EXTRACT	= cat
+
+KERNEL_LTTPATCH		= linux-2.4.19-rmk7-pxa2-ptx6-ltt1.diff
+KERNEL_LTTPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_LTTPATCH)
+KERNEL_LTTPATCH_URL	= http://www.pengutronix.de/software/ltt/$(KERNEL_LTTPATCH)
+KERNEL_LTTPATCH_EXTRACT = cat
 
 ifeq (y, $(PTXCONF_RTAI_ALLSOFT))
 KERNEL_RTAIPATCH	= patch-2.4.19-allsoft
@@ -256,6 +261,9 @@ ifdef PTXCONF_KERNEL_XSCALE_PTX
 kernel_get_deps += $(KERNEL_MTDPATCH_SOURCE)
 kernel_get_deps += $(KERNEL_PTXPATCH_SOURCE)
 endif
+ifdef PTXCONF_LTT
+kernel_get_deps += $(KERNEL_LTTPATCH_SOURCE)
+endif
 
 $(STATEDIR)/kernel.get: $(kernel_get_deps)
 	@$(call targetinfo, kernel.get)
@@ -280,6 +288,10 @@ $(KERNEL_MTDPATCH_SOURCE):
 $(KERNEL_PTXPATCH_SOURCE):
 	@$(call targetinfo, $(KERNEL_PTXPATCH_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(KERNEL_PTXPATCH_URL)
+
+$(KERNEL_LTTPATCH_SOURCE):
+	@$(call targetinfo, $(KERNEL_LTTPATCH_SOURCE))
+	wget -P $(SRCDIR) $(PASSIVEFTP) $(KERNEL_LTTPATCH_URL)
 
 $(KERNEL_UCLINUXPATCH_SOURCE):
 	@$(call targetinfo, $(KERNEL_UCLINUXPATCH_SOURCE))
@@ -364,6 +376,14 @@ $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
         ifeq (y, $(PTXCONF_RTAI))
 	cd $(KERNEL_DIR) && 						 \
 		patch -p1 < $(KERNEL_RTAIPATCH_DIR)/$(RTAI)/patches/$(KERNEL_RTAIPATCH)
+        endif
+#	#
+#	# LTT patch
+#	#
+        ifeq (y, $(PTXCONF_LTT))
+	cd $(KERNEL_DIR) &&						\
+		$(KERNEL_LTTPATCH_EXTRACT) $(KERNEL_LTTPATCH_SOURCE) |	\
+		patch -p1 
         endif
 	touch $@
 
