@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kaffe.make,v 1.4 2003/07/23 18:50:21 mkl Exp $
+# $Id: kaffe.make,v 1.5 2003/09/16 22:11:56 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
@@ -213,6 +213,10 @@ endif
 
 ifdef PTXCONF_KAFFE_FEAT_CLDC_GMP
 KAFFE_AUTOCONF	+= --enable-cldc-bigint
+endif
+
+ifdef PTXCONF_KAFFE_FEAT_CLDC_COMM
+KAFFE_AUTOCONF	+= --enable-cldc-comm
 endif
 
 ifdef PTXCONF_KAFFE_LINK_BIN
