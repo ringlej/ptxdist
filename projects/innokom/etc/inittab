@@ -10,6 +10,7 @@
 ::sysinit:/etc/init.d/unlock-flash
 ::sysinit:/etc/init.d/mount-local
 ::sysinit:/etc/init.d/root-remount
+::sysinit:/opt/auerswald/scripts/data-setup
 ::sysinit:/etc/init.d/sys-config
 ::sysinit:/etc/init.d/syslog
 ::sysinit:/etc/init.d/network-eth
@@ -33,3 +34,9 @@
 ::ctrlaltdel:/sbin/reboot
 ::shutdown:/bin/umount -a -r
 
+# Auerswald
+::sysinit:/opt/auerswald/lk.sh
+::respawn:opt/auerswald/stats >/dev/null 2>/dev/null </dev/null
+::respawn:opt/auerswald/scripts/run-webserver >/dev/null 2>/dev/null </dev/null
+::respawn:opt/auerswald/scripts/run-ets >/dev/null 2>/dev/null </dev/null
+::respawn:opt/auerswald/scripts/run-syslogd >/dev/null 2>/dev/null </dev/null
