@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ncurses.make,v 1.5 2003/08/17 00:32:04 robert Exp $
+# $Id: ncurses.make,v 1.6 2003/08/24 23:01:12 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -23,7 +23,6 @@ NCURSES				= ncurses-5.2
 NCURSES_URL			= ftp://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES).tar.gz
 NCURSES_SOURCE			= $(SRCDIR)/$(NCURSES).tar.gz
 NCURSES_DIR			= $(BUILDDIR)/$(NCURSES)
-NCURSES_EXTRACT 		= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -37,7 +36,7 @@ $(STATEDIR)/ncurses.get: $(NCURSES_SOURCE)
 
 $(NCURSES_SOURCE):
 	@$(call targetinfo, $(NCURSES_SOURCE))
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(NCURSES_URL)
+	@$(call get, $(NCURSES_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,7 +46,8 @@ ncurses_extract: $(STATEDIR)/ncurses.extract
 
 $(STATEDIR)/ncurses.extract: $(STATEDIR)/ncurses.get
 	@$(call targetinfo, ncurses.extract)
-	$(NCURSES_EXTRACT) $(NCURSES_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	@$(call clean, $(NCURSES_DIR))
+	@$(call extract, $(NCURSES_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -56,22 +56,30 @@ $(STATEDIR)/ncurses.extract: $(STATEDIR)/ncurses.get
 
 ncurses_prepare: $(STATEDIR)/ncurses.prepare
 
-# FIXME: this has to be filled...
+#
+# dependencies
+#
+ncurses_prepare_deps =  \
+	$(STATEDIR)/ncurses.extract \
+	$(STATEDIR)/virtual-xchain.install
+
+NCURSES_PATH	=  PATH=$(CROSS_PATH)
+NCURSES_ENV 	=  $(CROSS_ENV)
+NCURSES_MAKEVARS=  HOSTCC=$(HOSTCC)
+
 NCURSES_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
-NCURSES_AUTOCONF	+= --with-shared --target=$(PTXCONF_GNU_TARGET)
-NCURSES_ENVIRONMENT	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(PTXCONF_PREFIX)/bin:$$PATH
-NCURSES_MAKEVARS	=  AR=$(PTXCONF_GNU_TARGET)-ar
-NCURSES_MAKEVARS	+= RANLIB=$(PTXCONF_GNU_TARGET)-ranlib
-NCURSES_MAKEVARS	+= CC=$(PTXCONF_GNU_TARGET)-gcc
-NCURSES_MAKEVARS	+= CXX=$(PTXCONF_GNU_TARGET)-g++
-#
-#
+NCURSES_AUTOCONF	+= --build=$(GNU_HOST)
+NCURSES_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+NCURSES_AUTOCONF	+= --with-shared
+ifdef PTXCONF_GCC_3_2_3
+NCURSES_AUTOCONF	+= --without-cxx
+endif
 
-
-# FIXME: gcc stage2 is just a workaround here:
-$(STATEDIR)/ncurses.prepare: $(STATEDIR)/xchain-gccstage2.install $(STATEDIR)/ncurses.extract
+$(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps)
 	@$(call targetinfo, ncurses.prepare)
-	cd $(NCURSES_DIR) && ./configure $(NCURSES_AUTOCONF)
+	cd $(NCURSES_DIR) && \
+		$(NCURSES_PATH) $(NCURSES_ENV) \
+		./configure $(NCURSES_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -82,7 +90,7 @@ ncurses_compile: $(STATEDIR)/ncurses.compile
 
 $(STATEDIR)/ncurses.compile: $(STATEDIR)/ncurses.prepare 
 	@$(call targetinfo, ncurses.compile)
-	cd $(NCURSES_DIR) && $(NCURSES_ENVIRONMENT) make $(NCURSES_MAKEVARS)
+	$(NCURSES_PATH) make -C $(NCURSES_DIR) $(NCURSES_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -93,6 +101,7 @@ ncurses_install: $(STATEDIR)/ncurses.install
 
 $(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
 	@$(call targetinfo, ncurses.install)
+# 	$(NCURSES_PATH) make -C $(NCURSES_DIR) install
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	install $(NCURSES_DIR)/lib/libncurses.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libncurses.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so.5
