@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: dropbear.make,v 1.2 2003/07/23 08:52:49 mkl Exp $
+# $Id: dropbear.make,v 1.3 2003/08/07 10:06:26 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             for Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -222,12 +222,12 @@ dropbear_compile_deps =  $(STATEDIR)/dropbear.prepare
 
 $(STATEDIR)/dropbear.compile: $(dropbear_compile_deps)
 	@$(call targetinfo, dropbear.compile)
-	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) $(DROPBEAR_MAKEVARS) dropbear
+	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) dropbear
 ifdef PTXCONF_DROPBEAR_DROPBEAR_KEY
-	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) $(DROPBEAR_MAKEVARS) dropbearkey
+	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) dropbearkey
 endif
 ifdef PTXCONF_DROPBEAR_CONVERT
-	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) $(DROPBEAR_MAKEVARS) dropbearconvert
+	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) dropbearconvert
 endif
 	touch $@
 
