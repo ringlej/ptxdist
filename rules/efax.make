@@ -120,8 +120,8 @@ efax_targetinstall_deps = $(STATEDIR)/efax.compile
 
 $(STATEDIR)/efax.targetinstall: $(efax_targetinstall_deps)
 	@$(call targetinfo, $@)
-	@$(call copy_root, 0, 0, 0755, $(EFAX_DIR)/efax, /usr/bin)	
-	@$(call copy_root, 0, 0, 0755, $(EFAX_DIR)/efix, /usr/bin)	
+	@$(call copy_root, 0, 0, 0755, $(EFAX_DIR)/efax, /usr/bin/efax)
+	@$(call copy_root, 0, 0, 0755, $(EFAX_DIR)/efix, /usr/bin/efix)
 	touch $@
 
 # ----------------------------------------------------------------------------
