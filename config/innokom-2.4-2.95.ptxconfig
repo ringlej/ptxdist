@@ -135,7 +135,7 @@ PTXCONF_KERNEL_2_4_19=y
 # PTXCONF_KERNEL_UC is not set
 # PTXCONF_KERNEL_BEN is not set
 PTXCONF_KERNEL_VANILLA=y
-PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.19-rmk7-pxa2-ptx13/"
+PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.19-rmk7-pxa2-ptx14/"
 PTXCONF_KERNEL_PATCH1_NAME="rmk-pxa-mtd-ptx"
 PTXCONF_KERNEL_PATCH2_URL=""
 PTXCONF_KERNEL_PATCH2_NAME=""
