@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libIDL-2.make,v 1.2 2004/02/25 09:47:20 robert Exp $
+# $Id: libIDL-2.make,v 1.3 2004/02/25 09:51:29 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -72,7 +72,7 @@ libidl-2_prepare_deps =  \
 
 LIBIDL-2_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 LIBIDL-2_ENV 	=  $(CROSS_ENV)
-LIBIDL-2_ENV	+= PKG_CONFIG_PATH=../$(GLIB22):../$(PANGO12):../$(ATK124):../$(LIBIDL-2):../$(FREETYPE214):../$(FONTCONFIG22)
+LIBIDL-2_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 LIBIDL-2_ENV	+= libIDL_cv_long_long_format=ll
 
 #

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: freetype214.make,v 1.5 2004/02/25 09:46:19 robert Exp $
+# $Id: freetype214.make,v 1.6 2004/02/25 09:51:29 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -74,8 +74,7 @@ freetype214_prepare_deps =  \
 
 FREETYPE214_PATH	=  PATH=$(CROSS_PATH)
 FREETYPE214_ENV 	=  $(CROSS_ENV)
-# FIXME: do we need this? 
-FREETYPE214_ENV		+= PKG_CONFIG_PATH=../$(GLIB22):../$(PANGO12):../$(ATK):../$(FREETYPE214)
+FREETYPE214_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 #
 # autoconf

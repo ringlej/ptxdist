@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: expat.make,v 1.3 2004/02/23 16:15:18 bsp Exp $
+# $Id: expat.make,v 1.4 2004/02/25 09:51:29 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -72,7 +72,7 @@ expat_prepare_deps =  \
 
 EXPAT_PATH	=  PATH=$(CROSS_PATH)
 EXPAT_ENV 	=  $(CROSS_ENV)
-EXPAT_ENV	+= PKG_CONFIG_PATH=../$(GLIB22):../$(PANGO12):../$(ATK):../$(EXPAT)
+EXPAT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 #
 # autoconf

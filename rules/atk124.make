@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: atk124.make,v 1.6 2004/02/24 09:58:38 robert Exp $
+# $Id: atk124.make,v 1.7 2004/02/25 09:51:29 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -74,7 +74,7 @@ atk_prepare_deps =  \
 
 ATK_PATH	=  PATH=$(CROSS_PATH)
 ATK_ENV 	=  $(CROSS_ENV)
-ATK_ENV	+= PKG_CONFIG_PATH=../$(GLIB22):../$(ATK):../$(PANGO12):../$(GTK22)
+ATK_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 #
 # autoconf

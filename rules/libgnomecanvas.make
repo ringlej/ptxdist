@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libgnomecanvas.make,v 1.1 2004/02/25 06:20:08 bsp Exp $
+# $Id: libgnomecanvas.make,v 1.2 2004/02/25 09:51:29 robert Exp $
 #
 # Copyright (C) 2003 by BSP
 #          
@@ -71,7 +71,7 @@ libgnomecanvas_prepare_deps = \
 
 LIBGNOMECANVAS_PATH	=  PATH=$(CROSS_PATH)
 LIBGNOMECANVAS_ENV 	=  $(CROSS_ENV)
-LIBGNOMECANVAS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+LIBGNOMECANVAS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 #
 # autoconf
