@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.10 2003/10/23 15:01:19 mkl Exp $
+# $Id: xchain-gccstage1.make,v 1.11 2003/10/26 23:11:47 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -107,7 +108,7 @@ endif
 
 
 ifdef PTXCONF_UCLIBC
-ifdef PTXCONF_GCC_2_95_3
+ifdef PTXCONF_GCC_2
 #
 # Use atexit() directly, rather than cxa_atexit
 #
@@ -119,9 +120,9 @@ ifdef PTXCONF_GCC_2_95_3
 #
 	mv $(GCC_DIR)/libstdc++ $(GCC_DIR)/libstdc++.orig
 	mv $(GCC_DIR)/libio $(GCC_DIR)/libio.orig
-endif # PTXCONFIG_GCC_2_95_3
+endif # PTXCONFIG_GCC_2
 
-ifdef PTXCONF_GCC_3_2_3
+ifdef PTXCONF_GCC_3
 #
 # Hack up the soname for libstdc++
 # 
@@ -143,7 +144,7 @@ ifdef PTXCONF_GCC_3_2_3
 	cp $(GCC_DIR)/libstdc++-v3/config/os/generic/bits/ctype_noninline.h \
 		$(GCC_DIR)/libstdc++-v3/config/os/gnu-linux/bits/
 
-endif # PTXCONF_GCC_3_2_3
+endif # PTXCONF_GCC_3
 endif # PTXCON_UCLIBC
 	touch $@
 
@@ -243,8 +244,8 @@ $(STATEDIR)/xchain-gccstage1.prepare: $(xchain-gccstage1_prepare_deps)
 	@$(call clean, $(GCC_STAGE1_DIR))
 	[ -d $(GCC_STAGE1_DIR) ] || mkdir -p $(GCC_STAGE1_DIR)
 
-	cd $(GCC_STAGE1_DIR) && 					\
-		$(GCC_STAGE1_PATH) $(GCC_STAGE1_ENV)			\
+	cd $(GCC_STAGE1_DIR) && \
+		$(GCC_STAGE1_PATH) $(GCC_STAGE1_ENV) \
 		$(GCC_DIR)/configure $(GCC_STAGE1_AUTOCONF)
 	touch $@
 
