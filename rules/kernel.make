@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.2 2003/08/06 21:19:20 robert Exp $
+# $Id: kernel.make,v 1.3 2003/08/25 15:36:57 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -344,11 +344,9 @@ $(STATEDIR)/rtai-patches.extract: $(STATEDIR)/rtai-patches.get
 kernel_prepare: $(STATEDIR)/kernel.prepare
 
 kernel_prepare_deps =  $(STATEDIR)/kernel.extract
+kernel_prepare_deps += $(STATEDIR)/virtual-xchain.install
 ifdef PTXCONF_RTAI
 kernel_prepare_deps += $(STATEDIR)/rtai-patches.extract
-endif
-ifdef PTXCONF_BUILD_CROSSCHAIN
-kernel_prepare_deps += $(STATEDIR)/xchain-gccstage2.install 
 endif
 
 KERNEL_PATH	= PATH=$(CROSS_PATH)
