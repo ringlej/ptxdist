@@ -1,5 +1,6 @@
-# $Id: xchain-glibc.make,v 1.5 2003/06/25 12:21:54 robert Exp $
+# $Id: xchain-glibc.make,v 1.6 2003/06/25 13:29:34 robert Exp $
 #
+# (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
@@ -103,6 +104,7 @@ glibc_extract_deps += $(STATEDIR)/glibc-threads.extract
 endif
 
 $(STATEDIR)/glibc.extract: $(glibc_extract_deps)
+	@$(call targetinfo, glibc.extract)
 	touch $@
 
 $(STATEDIR)/glibc-base.extract: $(STATEDIR)/glibc.get
@@ -274,6 +276,10 @@ $(STATEDIR)/glibc.targetinstall: $(STATEDIR)/glibc.install
         ifeq (y, $(PTXCONF_GLIBC_PTHREADS))
 	install $(BUILDDIR)/$(GLIBC)-ldso/linuxthreads/libpthread.so $(ROOTDIR)/lib/libpthread.so.0
 	$(CROSSSTRIP) -S $(ROOTDIR)/lib/libpthread.so.0
+        endif
+        ifeq (y, $(PTXCONF_GLIBC_THREAD_DB))
+	install $(BUILDDIR)/$(GLIBC)-ldso/linuxthreads_db/libthread_db.so $(ROOTDIR)/lib/libthread_db.so.1
+	$(CROSSSTRIP) -S $(ROOTDIR)/lib/libthread_db.so.1
         endif
         ifeq (y, $(PTXCONF_GLIBC_CRYPT))
 	install $(BUILDDIR)/$(GLIBC)-ldso/crypt/libcrypt.so.1 $(ROOTDIR)/lib
