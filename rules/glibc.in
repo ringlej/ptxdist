@@ -4,12 +4,6 @@ config GLIBC_PTHREADS
 	default y
 	depends on GLIBC
 
-config GLIBC_FLOATINGPOINT
-	bool
-	prompt "Enable glibc floating point support"
-	default y
-	depends on GLIBC
-
 config GLIBC_LIBIO
 	bool
 	prompt "Build in GNU libio instead of GNU stdio"
