@@ -70,7 +70,7 @@ choice
 	config KERNEL_2_6_7
 		bool
 		prompt "2.6.7"
-		depends on ARCH_X86 || ARCH_ARM
+		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC
 
 endchoice
 
