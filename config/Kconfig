@@ -143,6 +143,7 @@ source "rules/termcap.in"
 source "rules/db41.in"
 source "rules/rn.in"
 source "rules/libxml2.in"
+source "rules/sqlite.in"
 
 endmenu
 

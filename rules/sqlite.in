@@ -1,0 +1,31 @@
+menu "sqlite           "
+
+config SQLITE
+	bool
+	prompt "Compile sqlite"
+
+choice
+	prompt "Assume text encoding"
+	default ISO8859
+	depends on SQLITE
+
+	config SQLITE_ISO8859
+		bool
+ 		prompt "ISO8859"
+    
+	config SQLITE_UTF8
+		bool
+ 		prompt "UTF-8"
+endchoice
+
+config SQLITE_DISABLE_LFS
+	bool
+	prompt "Disable large file support"
+	depends on SQLITE
+
+config SQLITE_THREADSAFE
+	bool 
+	prompt "Safe for use within a multi-threaded program"
+	depends on SQLITE
+
+endmenu

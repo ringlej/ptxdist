@@ -157,6 +157,16 @@ CROSS_ENV := \
 	ac_cv_func_getrlimit=yes
 
 #
+# FIXME: Should be consolidated in some way...
+#
+CROSS_AR		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ar)
+CROSS_AS		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)as)
+CROSS_LD		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ld)
+CROSS_NM		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)nm)
+CROSS_CC		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)gcc)
+CROSS_RANLIB		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)ranlib)
+
+#
 # CROSS_LIB_DIR	= the libs for the target system are installed into this dir
 #
 CROSS_LIB_DIR = $(call remove_quotes,$(PTXCONF_PREFIX))/$(call remove_quotes,$(PTXCONF_GNU_TARGET))
