@@ -90,7 +90,7 @@ fbutils_compile_deps = $(STATEDIR)/fbutils.prepare
 
 $(STATEDIR)/fbutils.compile: $(fbutils_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(FBUTILS_DIR) && $(FBUTILS_ENV) $(FBUTILS_PATH) make
+	cd $(FBUTILS_DIR) && $(FBUTILS_ENV) $(FBUTILS_PATH) make $(CROSS_ENV)
 	touch $@
 
 # ----------------------------------------------------------------------------

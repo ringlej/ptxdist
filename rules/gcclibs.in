@@ -4,18 +4,20 @@
 
 menu	"GCC Libraries       "
 
-config GCCLIBS
-	bool "gcc language support libraries"
-	default n
-
 config GCCLIBS_CXX
 	bool "libstdc++"
-	depends on GCCLIBS
+	select GCCLIBS_GCC_S
+	select GCCLIBS_GCC_S_NOF if OPT_PPC405
+	select GLIBC_LIBM
 	default n
 
-config GCCLIBS_GCC
-	bool "libgcc"
-	depends on GCCLIBS
+config GCCLIBS_GCC_S
+	bool "libgcc_s"
 	default n
+
+config GCCLIBS_GCC_S_NOF
+	bool "libgcc_s_nof"
+	default n
+	depends on OPT_PPC405
 
 endmenu

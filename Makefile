@@ -262,7 +262,7 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 # Test -----------------------------------------------------------------------
 
 config-test: 
-	@for i in `find projects -name *.ptxconfig`; do 		\
+	@for i in `find $(TOPDIR)/projects/ -name "*.ptxconfig"`; do 	\
 		OUT=`basename $$i`;					\
 		$(call targetinfo,$$OUT);				\
 		cp $$i .config;						\
@@ -290,7 +290,7 @@ compile-test:
 	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin pii_nge; 			\
 	scripts/compile-test $(default_crosstool)/powerpc-604-linux-gnu/gcc-3.4.1-glibc-2.3.3/bin eb8245_config;		\
 	scripts/compile-test $(default_crosstool)/powerpc-405-linux-gnu/gcc-3.2.3-glibc-2.2.5/bin cameron-efco;			\
-	
+
 	echo >> COMPILE-TEST;						\
 	echo stop: `date` >> COMPILE-TEST;				\
 	echo >> COMPILE-TEST;

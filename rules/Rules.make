@@ -920,4 +920,45 @@ node_root = 									\
 	echo "node_root name=$$DEV owner=$$OWN group=$$GRP permissions=$$PER type=$$TYP major=$$MAJ minor=$$MIN";	\
 	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(TOPDIR)/permissions
 
+#
+# copy_lib_root
+#
+# $1: source
+# $2: destination
+#
+copy_lib_root =											\
+	LIB="$(strip $1)";									\
+	DST="$(strip $2)";									\
+												\
+	LIB_DIR=`$(CROSS_CC) -print-file-name=$$LIB | sed -e "s/$$LIB\$$//" -e "s,/$$,,"`;	\
+												\
+	if test -z "$${LIB_DIR}"; then								\
+		echo "copy_lib_root: lib=$${LIB} not found";					\
+		exit -1;									\
+	fi;											\
+												\
+	while test \! -z "$${LIB}"; do								\
+		echo "copy_lib_root lib=$${LIB} dst=$${DST}";					\
+		rm -fr $(ROOTDIR)$${DST}/$${LIB};						\
+		mkdir -p $(ROOTDIR)$${DST};							\
+		if test -h $${LIB_DIR}/$${LIB}; then						\
+			cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/;				\
+		elif test -f $${LIB_DIR}/$${LIB}; then						\
+			$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/$${LIB};		\
+			$(CROSS_STRIP) $(ROOTDIR)$${DST}/$${LIB};				\
+			echo "f:$${DST}/$${LIB}:0:0:755" >> $(TOPDIR)/permissions;		\
+		else										\
+			exit;									\
+		fi;										\
+		LIB="`readlink $${LIB_DIR}/$${LIB}`";						\
+	done;											\
+												\
+	LIB="$(strip $1)";									\
+	for LINK in `find $${LIB_DIR} -type l -name "$${LIB}*" -maxdepth 1`; do			\
+		cp -d $${LINK} $(ROOTDIR)$${DST}/;						\
+	done;											\
+												\
+	echo -n
+
+
 # vim: syntax=make

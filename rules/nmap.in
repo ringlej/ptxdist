@@ -7,4 +7,5 @@ config NMAP_SERVICES
 	bool "Install nmap-services"
 	default y
 	depends on NMAP
+	select GCCLIBS_CXX
 endmenu

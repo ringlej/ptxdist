@@ -81,61 +81,42 @@ config GLIBC_LIBM
 	default y if BUILD_GDB
 	depends on GLIBC && LIBC
 
-
-comment "libnss_dns depends on libresolv"
-	depends on GLIBC && LIBC
-	depends on !GLIBC_RESOLV
-
 config GLIBC_NSS_DNS
 	bool
 	prompt "Install libnss_dns"
 	depends on GLIBC && LIBC
-	depends on GLIBC_RESOLV
+	select GLIBC_RESOLV
 
 config GLIBC_NSS_FILES
 	bool
 	prompt "Install libnss_files"
 	depends on GLIBC && LIBC
 
-comment "libnss_hesiod depends on libresolv and libnss_files"
-	depends on GLIBC && LIBC
-	depends on ! (GLIBC_RESOLV && GLIBC_NSS_FILES)
-
 config GLIBC_NSS_HESIOD
 	bool
 	prompt "Install libnss_hesiod"
 	depends on GLIBC && LIBC
-	depends on GLIBC_RESOLV && GLIBC_NSS_FILES
-
-comment "libnss_nis depends on libnsl and libnss_files"
-	depends on GLIBC && LIBC
-	depends on ! (GLIBC_NSL && GLIBC_NSS_FILES)
+	select GLIBC_RESOLV
+	select GLIBC_NSS_FILES
 
 config GLIBC_NSS_NIS
 	bool
 	prompt "Install libnss_nis"
 	depends on GLIBC && LIBC
-	depends on GLIBC_NSL && GLIBC_NSS_FILES
-
-comment "libnss_nisplus depends on libnsl"
-	depends on GLIBC && LIBC
-	depends on !GLIBC_NSL
+	select GLIBC_NSL
+	select GLIBC_NSS_FILES
 
 config GLIBC_NSS_NISPLUS
 	bool
 	prompt "Install libnss_nisplus"
 	depends on GLIBC && LIBC
-	depends on GLIBC_NSL
-
-comment "libnss_compat depends on libnsl"
-	depends on GLIBC && LIBC
-	depends on !GLIBC_NSL
+	select GLIBC_NSL
 
 config GLIBC_NSS_COMPAT
 	bool
 	prompt "Install libnss_compat"
 	depends on GLIBC && LIBC
-	depends on GLIBC_NSL
+	select GLIBC_NSL
 
 config GLIBC_RESOLV
 	bool
