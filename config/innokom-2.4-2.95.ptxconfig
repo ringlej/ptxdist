@@ -151,29 +151,29 @@ PTXCONF_KERNEL_PATCH1_XCHAIN=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx2/linux-2.4.26-vrs1-pxa1.patch"
+PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx3/linux-2.4.26-vrs1-pxa1.patch"
 PTXCONF_KERNEL_PATCH2_NAME="2.4.26-vrs1-pxa1"
 PTXCONF_KERNEL_PATCH2_XCHAIN=y
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH3_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx2/linux-2.4.26-vrs1-pxa1-mtd20040502.patch"
+PTXCONF_KERNEL_PATCH3_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx3/linux-2.4.26-vrs1-pxa1-mtd20040502.patch"
 PTXCONF_KERNEL_PATCH3_NAME="2.4.26-vrs1-pxa1-mtd20040502"
 PTXCONF_KERNEL_PATCH3_XCHAIN=y
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH4_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx2/linux-2.4.26-vrs1-pxa1-mtd20040502-usb20040610.patch"
+PTXCONF_KERNEL_PATCH4_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx3/linux-2.4.26-vrs1-pxa1-mtd20040502-usb20040610.patch"
 PTXCONF_KERNEL_PATCH4_NAME="2.4.26-vrs1-pxa1-mtd20040502-usb20040607"
 # PTXCONF_KERNEL_PATCH4_XCHAIN is not set
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH5_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx2/linux-2.4.26-vrs1-pxa1-mtd20040502-usb20040610-ptx2.patch"
-PTXCONF_KERNEL_PATCH5_NAME="2.4.26-vrs1-pxa1-mtd20040502-usb20040607-ptx2"
+PTXCONF_KERNEL_PATCH5_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx3/linux-2.4.26-vrs1-pxa1-mtd20040502-usb20040610-ptx3.patch"
+PTXCONF_KERNEL_PATCH5_NAME="2.4.26-vrs1-pxa1-mtd20040502-usb20040607-ptx3"
 # PTXCONF_KERNEL_PATCH5_XCHAIN is not set
 
 #
@@ -962,6 +962,12 @@ PTXCONF_NTP_ACCURATE_ADJTIME=y
 # tcpdump             
 #
 # PTXCONF_TCPDUMP is not set
+
+#
+# OpenAFS  
+#
+# PTXCONF_OPENAFS is not set
+PTXCONF_OPENAFS_1_2_11=y
 
 #
 # Disk and file ---   
