@@ -1,0 +1,6 @@
+menu    "slang            "
+
+config SLANG
+        bool
+        prompt "Compile S-Lang"
+endmenu
