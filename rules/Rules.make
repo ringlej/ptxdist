@@ -184,6 +184,7 @@ get_feature_patch =						\
 	FP_PARENT="$(strip $(1))";				\
 	FP_URL="$(strip $(2))";					\
 	FP_NAME="$(strip $(3))";				\
+	FP_FILE="$$(basename $$FP_URL)";                        \
 	if [ -f $(TOPDIR)/feature-patches/$$FP_NAME/$$FP_FILE ]; then	\
 		echo "patch already downloaded, skipping...";	\
 		exit 0;						\
