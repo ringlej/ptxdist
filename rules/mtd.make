@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mtd.make,v 1.10 2004/01/22 00:48:34 robert Exp $
+# $Id: mtd.make,v 1.11 2004/02/04 22:48:52 robert Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -36,6 +36,7 @@ mtd_get_deps = $(MTD_SOURCE)
 
 $(STATEDIR)/mtd.get: $(mtd_get_deps)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(MTD))
 	touch $@
 
 $(MTD_SOURCE):
@@ -54,6 +55,7 @@ $(STATEDIR)/mtd.extract: $(mtd_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MTD_DIR))
 	@$(call extract, $(MTD_SOURCE))
+	@$(call patchin, $(MTD))
 #
 # Makefile is currently fucked up... @#*$
 # FIXME: patch sent to maintainer, remove this for fixed version

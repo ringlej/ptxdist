@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: nfs-utils.make,v 1.7 2003/10/23 15:01:19 mkl Exp $
+# $Id: nfs-utils.make,v 1.8 2004/02/04 22:50:09 robert Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -31,6 +31,7 @@ nfsutils_get: $(STATEDIR)/nfsutils.get
 
 $(STATEDIR)/nfsutils.get: $(NFSUTILS_SOURCE)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(NFSUTILS))
 	touch $@
 
 $(NFSUTILS_SOURCE):
@@ -47,6 +48,7 @@ $(STATEDIR)/nfsutils.extract: $(STATEDIR)/nfsutils.get $(STATEDIR)/autoconf257.i
 	@$(call targetinfo, $@)
 	@$(call clean, $(NFSUTILS_DIR))
 	@$(call extract, $(NFSUTILS_SOURCE))
+	@$(call patchin, $(NFSUTILS))
 #
 # regenerate configure script with new autoconf, to make cross compiling work
 #
