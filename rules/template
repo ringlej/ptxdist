@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: template,v 1.7 2003/10/23 15:01:19 mkl Exp $
+# $Id: template,v 1.8 2003/10/24 01:10:26 mkl Exp $
 #
 # Copyright (C) 2003 by @AUTHOR@
 #          
@@ -21,9 +21,9 @@ endif
 #
 @PACKET@_VERSION	= @MAJOR@.@MINOR@.@MICRO@
 @PACKET@		= @packet@-$(@PACKET@_VERSION)
-@PACKET@_SUFFIX	= @SUFFIX@
+@PACKET@_SUFFIX		= @SUFFIX@
 @PACKET@_URL		= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_SOURCE	= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
+@PACKET@_SOURCE		= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
 @PACKET@_DIR		= $(BUILDDIR)/$(@PACKET@)
 
 # ----------------------------------------------------------------------------
@@ -32,7 +32,7 @@ endif
 
 @packet@_get: $(STATEDIR)/@packet@.get
 
-@packet@_get_deps	=  $(@PACKET@_SOURCE)
+@packet@_get_deps = $(@PACKET@_SOURCE)
 
 $(STATEDIR)/@packet@.get: $(@packet@_get_deps)
 	@$(call targetinfo, $@)
@@ -48,7 +48,7 @@ $(@PACKET@_SOURCE):
 
 @packet@_extract: $(STATEDIR)/@packet@.extract
 
-@packet@_extract_deps	=  $(STATEDIR)/@packet@.get
+@packet@_extract_deps = $(STATEDIR)/@packet@.get
 
 $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 	@$(call targetinfo, $@)
@@ -65,7 +65,7 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 #
 # dependencies
 #
-@packet@_prepare_deps =  \
+@packet@_prepare_deps = \
 	$(STATEDIR)/@packet@.extract \
 	$(STATEDIR)/virtual-xchain.install
 
@@ -73,14 +73,12 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 @PACKET@_ENV 	=  $(CROSS_ENV)
 #@PACKET@_ENV	+=
 
-
 #
 # autoconf
 #
 @PACKET@_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 @PACKET@_AUTOCONF	+= --build=$(GNU_HOST)
 @PACKET@_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-
 #@PACKET@_AUTOCONF	+= 
 
 $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
@@ -97,7 +95,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
 
 @packet@_compile: $(STATEDIR)/@packet@.compile
 
-@packet@_compile_deps =  $(STATEDIR)/@packet@.prepare
+@packet@_compile_deps = $(STATEDIR)/@packet@.prepare
 
 $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
 	@$(call targetinfo, $@)
@@ -121,7 +119,7 @@ $(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
 
 @packet@_targetinstall: $(STATEDIR)/@packet@.targetinstall
 
-@packet@_targetinstall_deps	=  $(STATEDIR)/@packet@.compile
+@packet@_targetinstall_deps = $(STATEDIR)/@packet@.compile
 
 $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
 	@$(call targetinfo, $@)

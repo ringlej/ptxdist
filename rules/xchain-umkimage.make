@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-umkimage.make,v 1.3 2003/10/23 18:04:16 mkl Exp $
+# $Id: xchain-umkimage.make,v 1.4 2003/10/24 01:10:56 mkl Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -32,7 +32,7 @@ XCHAIN_UMKIMAGE_DIR	= $(BUILDDIR)/$(XCHAIN_UMKIMAGE)
 
 xchain-umkimage_get: $(STATEDIR)/xchain-umkimage.get
 
-xchain-umkimage_get_deps	=  $(XCHAIN_UMKIMAGE_SOURCE)
+xchain-umkimage_get_deps = $(XCHAIN_UMKIMAGE_SOURCE)
 
 $(STATEDIR)/xchain-umkimage.get: $(xchain-umkimage_get_deps)
 	@$(call targetinfo, $@)
@@ -48,7 +48,7 @@ $(XCHAIN_UMKIMAGE_SOURCE):
 
 xchain-umkimage_extract: $(STATEDIR)/xchain-umkimage.extract
 
-xchain-umkimage_extract_deps	=  $(STATEDIR)/xchain-umkimage.get
+xchain-umkimage_extract_deps = $(STATEDIR)/xchain-umkimage.get
 
 $(STATEDIR)/xchain-umkimage.extract: $(xchain-umkimage_extract_deps)
 	@$(call targetinfo, $@)
@@ -65,7 +65,7 @@ xchain-umkimage_prepare: $(STATEDIR)/xchain-umkimage.prepare
 #
 # dependencies
 #
-xchain-umkimage_prepare_deps =  \
+xchain-umkimage_prepare_deps = \
 	$(STATEDIR)/xchain-umkimage.extract \
 	$(STATEDIR)/xchain-zlib.install
 
@@ -82,7 +82,7 @@ $(STATEDIR)/xchain-umkimage.prepare: $(xchain-umkimage_prepare_deps)
 
 xchain-umkimage_compile: $(STATEDIR)/xchain-umkimage.compile
 
-xchain-umkimage_compile_deps =  $(STATEDIR)/xchain-umkimage.prepare
+xchain-umkimage_compile_deps = $(STATEDIR)/xchain-umkimage.prepare
 
 $(STATEDIR)/xchain-umkimage.compile: $(xchain-umkimage_compile_deps)
 	@$(call targetinfo, $@)
@@ -106,7 +106,7 @@ $(STATEDIR)/xchain-umkimage.install: $(STATEDIR)/xchain-umkimage.compile
 
 xchain-umkimage_targetinstall: $(STATEDIR)/xchain-umkimage.targetinstall
 
-xchain-umkimage_targetinstall_deps	=  $(STATEDIR)/xchain-umkimage.compile
+xchain-umkimage_targetinstall_deps = $(STATEDIR)/xchain-umkimage.compile
 
 $(STATEDIR)/xchain-umkimage.targetinstall: $(xchain-umkimage_targetinstall_deps)
 	@$(call targetinfo, $@)
