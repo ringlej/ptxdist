@@ -2,7 +2,7 @@
 # Automatically generated make config: don't edit
 #
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="innokom"
+PTXCONF_PROJECT="innokom-2.4-2.95"
 
 #
 # General Options ---    
