@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.19 2004/02/04 08:46:42 robert Exp $
+# $Id: xchain-kernel.make,v 1.20 2004/02/04 22:57:16 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -114,7 +114,9 @@ endif
 	mv $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/* $(XCHAIN_KERNEL_BUILDDIR)
 
 	# 'patcher' directory is not copied by default...
-	mv $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/.patches* $(XCHAIN_KERNEL_BUILDDIR)
+	if [ -d $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/.patches ]; then \
+		mv $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/.patches $(XCHAIN_KERNEL_BUILDDIR); \
+	fi; 
 
 	rmdir $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)
 
