@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gdb.make,v 1.1 2003/06/25 13:30:33 robert Exp $
+# $Id: xchain-gdb.make,v 1.2 2003/06/27 12:33:10 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -35,11 +35,7 @@ $(STATEDIR)/xchain-gdb.get: $(GDB_SOURCE)
 	touch $@
 
 $(GDB_SOURCE):
-	@echo
-	@echo ------------------- 
-	@echo target: xchain-gdb.get
-	@echo -------------------
-	@echo
+	@$(call targetinfo, xchain-gdb.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(GDB_URL)
 
 # ----------------------------------------------------------------------------
@@ -49,11 +45,7 @@ $(GDB_SOURCE):
 xchain-gdb_extract: $(STATEDIR)/xchain-gdb.extract
 
 $(STATEDIR)/xchain-gdb.extract: $(STATEDIR)/xchain-gdb.get
-	@echo
-	@echo ----------------------- 
-	@echo target: xchain-gdb.extract
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, xchain-gdb.extract)
 	$(GDB_EXTRACT) $(GDB_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -64,11 +56,7 @@ $(STATEDIR)/xchain-gdb.extract: $(STATEDIR)/xchain-gdb.get
 xchain-gdb_prepare: $(STATEDIR)/xchain-gdb.prepare
 
 $(STATEDIR)/xchain-gdb.prepare: $(STATEDIR)/xchain-gdb.extract
-	@echo
-	@echo ----------------------- 
-	@echo target: xchain-gdb.prepare
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, xchain-gdb.prepare)
 	cd $(GDB_DIR) && 						\
 	./configure 							\
 		--target=$(PTXCONF_GNU_TARGET)				\
@@ -89,11 +77,7 @@ endif
 xchain-gdb_compile: $(STATEDIR)/xchain-gdb.compile
 
 $(STATEDIR)/xchain-gdb.compile: $(STATEDIR)/xchain-gdb.prepare 
-	@echo
-	@echo ----------------------- 
-	@echo target: xchain-gdb.compile
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, xchain-gdb.compile)
 	cd $(GDB_DIR) && make 
 ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN_GDB))
 	cd $(GDB_DIR)/gdb/gdbserver && make
@@ -107,11 +91,7 @@ endif
 xchain-gdb_install: $(STATEDIR)/xchain-gdb.install
 
 $(STATEDIR)/xchain-gdb.install: $(STATEDIR)/xchain-gdb.compile
-	@echo
-	@echo ----------------------- 
-	@echo target: xchain-gdb.install
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, xchain-gdb.install)
 #	[ -d $(PTXCONF_PREFIX) ] || 					\
 #		$(SUDO) install -g users -m 0755 			\
 #				-o $(PTXUSER) 				\
@@ -126,11 +106,7 @@ $(STATEDIR)/xchain-gdb.install: $(STATEDIR)/xchain-gdb.compile
 xchain-gdb_targetinstall: $(STATEDIR)/xchain-gdb.targetinstall
 
 $(STATEDIR)/xchain-gdb.targetinstall: $(STATEDIR)/xchain-gdb.install
-	@echo
-	@echo ----------------------------- 
-	@echo target: xchain-gdb.targetinstall
-	@echo -----------------------------
-	@echo
+	@$(call targetinfo, xchain-gdb.targetinstall)
 ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN_GDBSERVER))
 	$(CROSSSTRIP) -S $(GDB_DIR)/gdb/gdbserver/gdbserver
 	cp $(GDB_DIR)/gdb/gdbserver/gdbserver $(ROOTDIR)/bin
