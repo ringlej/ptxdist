@@ -26,7 +26,7 @@ extern "C" {
 #define CFGSYMFC 'P'
 #define CFGSYMLEN 8
 #define RELEASESYM "FULLVERSION"
-#define RELEASENAME "PTXDist"
+#define RELEASENAME "PTXdist"
 	
 
 int zconfparse(void);
