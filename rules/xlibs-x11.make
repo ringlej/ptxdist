@@ -20,6 +20,7 @@ endif
 # Paths and names
 #
 XLIBS-X11_VERSION	= 20041103-1
+XLIBS-X11_REAL_VERSION	= 6.2.1
 XLIBS-X11		= libX11-$(XLIBS-X11_VERSION)
 XLIBS-X11_SUFFIX	= tar.bz2
 XLIBS-X11_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-X11).$(XLIBS-X11_SUFFIX)
@@ -128,11 +129,10 @@ xlibs-x11_targetinstall_deps = $(STATEDIR)/xlibs-x11.compile
 
 $(STATEDIR)/xlibs-x11.targetinstall: $(xlibs-x11_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0644, $(XLIBS-X11_DIR)/src/.libs/libX11.0.0.0,	/usr/X11R6/lib/libX11.so.0.0.0)
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libX11.so.0.0.0
-	$(call link_root, /usr/X11R6/lib/libX11.so.0.0.0, /usr/X11R6/lib/libX11.0)
-	$(call link_root, /usr/X11R6/lib/libX11.so.0.0.0, /usr/X11R6/lib/libX11.so.0)
-	$(call link_root, /usr/X11R6/lib/libX11.so.0.0.0, /usr/X11R6/lib/libX11.so)
+	$(call copy_root, 0, 0, 0644, $(XLIBS-X11_DIR)/src/.libs/libX11.so.$(XLIBS-X11_REAL_VERSION), /usr/X11R6/lib/libX11.so.$(XLIBS-X11_REAL_VERSION))
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libX11.so.$(XLIBS-X11_REAL_VERSION)
+	$(call link_root, /usr/X11R6/lib/libX11.so.$(XLIBS-X11_REAL_VERSION), /usr/X11R6/lib/libX11.so.6)
+	$(call link_root, /usr/X11R6/lib/libX11.so.$(XLIBS-X11_REAL_VERSION), /usr/X11R6/lib/libX11.so)
 	touch $@
 
 # ----------------------------------------------------------------------------
