@@ -1,0 +1,7 @@
+menu    "dnsmasq             "
+
+config DNSMASQ
+        bool
+        prompt "Compile dnsmasq-1-18"
+
+endmenu
