@@ -1,0 +1,6 @@
+menu    "mii-diag            "
+
+config MII-DIAG
+        bool
+        prompt "Compile mii-diag"
+endmenu

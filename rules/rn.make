@@ -22,7 +22,7 @@ endif
 RN_VERSION	= 0.4
 RN		= rn-$(RN_VERSION)
 RN_SUFFIX	= tar.gz
-RN_URL		= www.kegel.com/rn/$(RN).$(RN_SUFFIX)
+RN_URL		= http://www.kegel.com/rn/$(RN).$(RN_SUFFIX)
 RN_SOURCE	= $(SRCDIR)/$(RN).$(RN_SUFFIX)
 RN_DIR		= $(BUILDDIR)/$(RN)
 
