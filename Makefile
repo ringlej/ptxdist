@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.103 2004/08/17 10:24:39 bbu Exp $
+# $Id: Makefile,v 1.104 2004/08/17 12:28:34 bsp Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -109,6 +109,8 @@ help:
 	@echo "  make virtual-xchain_install  build the toolchain only"
 	@echo "  make archive-toolchain       dito, but do also create a tarball"
 	@echo "  make configs                 show predefined configs"
+	@echo
+	@echo "  make cuckoo-test             look for cuckoo-eggs in system"
 	@echo
 	@echo "Calling these targets affects the whole system. If you want to"
 	@echo "do something for a packet do 'make packet_<action>'."
@@ -276,6 +278,10 @@ toolchain-arm-linux-3.3.2_config:
 toolchain-arm-linux-2.95_config:
 	@echo "copying toolchain-arm-linux-2.95 configuration"
 	@cp config/toolchain-arm-linux-2.95 .config
+
+# Cuckoo Test ----------------------------------------------------------------
+cuckoo-test: world
+	@scripts/cuckoo-test $(PTXCONF_ARCH) root $(PTXCONF_GNU_TARGET)-
 
 # ----------------------------------------------------------------------------
 

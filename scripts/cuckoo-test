@@ -1,0 +1,52 @@
+#! /bin/sh
+
+if [ $# != 3 ]; then
+	echo "usage: $0 <arch> <root-path> <arch-prefix>"
+	exit 1
+fi
+
+case $1 in
+	arm)
+		CPUVENDOR="ARM"
+	;;
+	i?86)
+		CPUVENDOR="Intel"
+	;;
+	ppc)
+		CPUVENDOR="PowerPC"
+	;;
+	sparc)
+		CPUVENDOR="SPARC"
+	;;
+	mips)
+		CPUVENDOR="MIPS"
+	;;
+	*)
+		@echo please add CPUVENDOR to Makefile
+		exit 1
+	;;
+esac
+cd $2
+echo
+echo $CPUVENDOR cuckoo test
+echo "1 pass (egg test)"
+find . -type f -exec file {} \; | sed -e "s/ASCII.*/+++OK+++/" \
+-e "s/Bourne.*executable/+++OK+++/" -e "s/empty/+++OK+++/" \
+-e "s/PPCBoot.*/+++OK+++/" -e "s/ELF.*$CPUVENDOR,.*/+++OK+++/" \
+-e "s/FIGlet.*/+++OK+++/"| \
+grep -v "+++OK+++" | \
+awk -F, '{print substr($1, 1, index($1,":"))" wrong architecture! ("$2")"}'
+echo "---"
+
+echo "2 pass (fluff up test)"
+find . -type f -exec file {} \; | grep "not stripped" | 
+awk -F: '{print $1" not stripped"}'
+echo "---"
+
+echo "3 pass (in laws test)"
+find . -type f -exec file {} \; | \
+awk -F: -vARCH=$3 '{if (index($2,"ELF")) print ARCH"readelf -d "$1}' | \
+sh | grep "(NEEDED)" | \
+awk '{gsub("\\[","");gsub("\\]","");print "if [ \"x$(find . -name "$5")\" = \"x\" ]; then echo "$5" not found ; fi"}' | \
+sort -u | sh
+echo "---"
