@@ -20,13 +20,6 @@ choice
 	prompt "C-Lib Version"
 		default GLIBC_2_2_5
 	
-	config GLIBC_2_3_2
-		bool
-		prompt "2.3.2"
-		depends on GLIBC
-		depends on GCC_3_2_3 || GCC_3_3_1
-		depends on EXP
-
 	config GLIBC_2_2_5
 		bool
 		prompt "2.2.5"

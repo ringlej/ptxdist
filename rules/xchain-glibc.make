@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-glibc.make,v 1.16 2003/10/23 15:01:19 mkl Exp $
+# $Id: xchain-glibc.make,v 1.17 2003/10/23 15:06:00 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -51,14 +51,6 @@ xchain-glibc_prepare:	$(STATEDIR)/xchain-glibc.prepare
 xchain-glibc_prepare_deps = \
 	$(STATEDIR)/xchain-binutils.install \
 	$(STATEDIR)/xchain-glibc.extract
-#
-# glibc-2.3.x needs gcc-3.2 and binutils 2.13 on host
-# maybe we need to install this...
-# handled by virtual-nchain
-#
-ifeq ($(GLIBC_VERSION_MAJOR).$(GLIBC_VERSION_MINOR),2.3)
-xchain-glibc_prepare_deps += $(STATEDIR)/virtual-nchain.install
-endif
 
 XCHAIN_GLIBC_AUTOCONF = \
 	--build=$(GNU_HOST) \
@@ -68,12 +60,7 @@ XCHAIN_GLIBC_AUTOCONF = \
 	--disable-sanity-checks \
 	--enable-hacker-mode
 
-ifeq ($(GLIBC_VERSION_MAJOR).$(GLIBC_VERSION_MINOR),2.3)
-XCHAIN_GLIBC_ENV	=  CC=$(NATIVE_CC)
-else
 XCHAIN_GLIBC_ENV	=  CC=$(HOSTCC)
-endif
-XCHAIN_GLIBC_PATH	=  PATH=$(NATIVE_PATH)
 
 $(STATEDIR)/xchain-glibc.prepare: $(xchain-glibc_prepare_deps)
 	@$(call targetinfo, $@)
