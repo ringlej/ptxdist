@@ -1,0 +1,7 @@
+menu	"betaftpd            "
+
+config BETAFTPD
+      bool
+      prompt "betaftpd"
+
+endmenu
