@@ -1,0 +1,12 @@
+menu "util-linux          "
+
+config UTLNX
+	bool
+	prompt "Compile Util-Linux"
+
+config UTLNX_MKSWAP
+	bool
+        prompt "mkswap"
+	depends on UTLNX
+
+endmenu
