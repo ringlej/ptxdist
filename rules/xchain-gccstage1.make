@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.11 2003/10/26 23:11:47 mkl Exp $
+# $Id: xchain-gccstage1.make,v 1.12 2003/10/31 11:48:11 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -242,8 +242,8 @@ endif
 $(STATEDIR)/xchain-gccstage1.prepare: $(xchain-gccstage1_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GCC_STAGE1_DIR))
-	[ -d $(GCC_STAGE1_DIR) ] || mkdir -p $(GCC_STAGE1_DIR)
 
+	mkdir -p $(GCC_STAGE1_DIR)
 	cd $(GCC_STAGE1_DIR) && \
 		$(GCC_STAGE1_PATH) $(GCC_STAGE1_ENV) \
 		$(GCC_DIR)/configure $(GCC_STAGE1_AUTOCONF)

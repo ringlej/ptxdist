@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gmp3.make,v 1.5 2003/10/26 21:59:07 mkl Exp $
+# $Id: gmp3.make,v 1.6 2003/10/31 11:48:11 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -102,7 +102,7 @@ gmp3_targetinstall: $(STATEDIR)/gmp3.targetinstall
 $(STATEDIR)/gmp3.targetinstall: $(STATEDIR)/gmp3.install
 	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/lib
-	cp -a $(CROSS_LIB_DIR)/lib/libgmp.so* $(ROOTDIR)/lib
+	cp -d $(CROSS_LIB_DIR)/lib/libgmp.so* $(ROOTDIR)/lib
 	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libgmp.so*
 	touch $@
 

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: zlib.make,v 1.8 2003/10/26 23:13:48 mkl Exp $
+# $Id: zlib.make,v 1.9 2003/10/31 11:48:11 mkl Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -103,7 +103,7 @@ zlib_targetinstall: $(STATEDIR)/zlib.targetinstall
 $(STATEDIR)/zlib.targetinstall: $(STATEDIR)/zlib.install
 	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/usr/lib
-	cp -d $(ZLIB_DIR)/libz.so* $(ROOTDIR)/usr/lib
+	cp -d $(ZLIB_DIR)/libz.so* $(ROOTDIR)/usr/lib/
 	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libz.so*
 	touch $@
 
