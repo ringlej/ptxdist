@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.106 2004/08/17 17:24:13 bbu Exp $
+# $Id: Makefile,v 1.107 2004/08/17 17:24:45 bbu Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -352,7 +352,7 @@ getclean:
 	@echo "done."
 	@echo
 
-archive: world 
+archive:  
 	@echo
 	@echo -n "packaging additional sources ...... "
 	scripts/collect_sources.sh $(TOPDIR) $(BASENAME)
