@@ -1,0 +1,43 @@
+menu "gnuplot          "
+
+config GNUPLOT
+	bool
+	prompt "Gnuplot"
+	select ZLIB
+
+config GNUPLOT_FITERRVARS
+	bool
+	prompt "Support for itting error variables"
+	depends on GNUPLOT
+
+config GNUPLOT_WITH_X
+	bool
+	prompt "X support"
+	depends on GNUPLOT
+
+config GNUPLOT_PLOT
+	bool
+	prompt "use Unix plot library"
+	depends on GNUPLOT
+
+config GNUPLOT_PNG
+	bool
+	prompt "PNG support"
+	depends on GNUPLOT
+
+config GNUPLOT_GD
+	bool
+	prompt "GD support"
+	depends on GNUPLOT
+
+config GNUPLOT_GIF
+	bool
+	prompt "GIF support"
+	depends on GNUPLOT
+
+config GNUPLOT_PDF
+	bool
+	prompt "PDF support"
+	depends on GNUPLOT
+
+endmenu

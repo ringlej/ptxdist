@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libpng125.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: libpng125.make,v 1.3 2004/08/18 19:18:33 rsc Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -72,6 +72,7 @@ libpng125_prepare_deps =  \
 
 LIBPNG125_PATH	=  PATH=$(CROSS_PATH)
 LIBPNG125_ENV 	=  $(CROSS_ENV)
+LIBPNG125_ENV   += prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 
 ifdef PTXCONF_LIBPNG125_FOO
 LIBPNG125_AUTOCONF	+= --enable-foo
@@ -81,7 +82,9 @@ $(STATEDIR)/libpng125.prepare: $(libpng125_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPNG125_BUILDDIR))
 	cp $(LIBPNG125_DIR)/scripts/makefile.linux $(LIBPNG125_DIR)/Makefile
+	# Fix some cross unfriendly mess
 	perl -i -p -e "s/CC=/CC?=/g" $(LIBPNG125_DIR)/Makefile
+	perl -i -p -e "s/^prefix=/prefix?=/g" $(LIBPNG125_DIR)/Makefile
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -95,7 +98,7 @@ libpng125_compile_deps += $(STATEDIR)/zlib.install
 
 $(STATEDIR)/libpng125.compile: $(libpng125_compile_deps)
 	@$(call targetinfo, $@)
-	$(LIBPNG125_PATH) $(LIBPNG125_ENV) make -C $(LIBPNG125_DIR)
+	cd $(LIBPNG125_DIR) && $(LIBPNG125_PATH) $(LIBPNG125_ENV) make
 	touch $@
 
 # ----------------------------------------------------------------------------
