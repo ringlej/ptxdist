@@ -102,6 +102,11 @@ choice
 		prompt "2.6.8"
 		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC || ARCH_ALPHA
 
+	config KERNEL_2_6_9
+		bool
+		prompt "2.6.9"
+		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC || ARCH_ALPHA
+
 endchoice
 
 config DONT_COMPILE_KERNEL
