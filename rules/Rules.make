@@ -109,7 +109,7 @@ extract =							\
 		;;						\
 	esac;							\
 	[ -d $$DEST ] || mkdir -p $$DEST;			\
-	echo $$PACKET >> state/packetlist; 			\
+	echo $$(basename $$PACKET) >> state/packetlist; 			\
 	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -	;	
 
 #

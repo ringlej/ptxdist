@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.102 2004/08/09 08:58:17 rsc Exp $
+# $Id: Makefile,v 1.103 2004/08/17 10:24:39 bbu Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -346,26 +346,10 @@ getclean:
 	@echo "done."
 	@echo
 
-archive: source_archive
-# FIXME: this should be automated
-	$(TAR) -C $(TOPDIR)/.. -zcvf $(TOPDIR)/../$(BASENAME).tgz 	\
-		--exclude CVS					\
-		--exclude $(BASENAME)/build/* 			\
-		--exclude $(BASENAME)/state/* 			\
-		--exclude $(BASENAME)/src/* 			\
-		--exclude $(BASENAME)/src			\
-		--exclude $(BASENAME)/root/*			\
-		--exclude $(BASENAME)/local/*			\
-		--exclude $(BASENAME)/bootdisk/*		\
-		--exclude $(BASENAME)/PATCHES-INCOMING		\
-		--exclude $(BASENAME)/patches			\
-		--exclude $(BASENAME)/Documentation/manual	\
-		$(BASENAME)
-
-source_archive:
+archive: world
 	@echo
 	@echo -n "packaging additional sources ...... "
-	scripts/collect_sources.sh $(TOPDIR)/..
+	scripts/collect_sources.sh $(TOPDIR) $(BASENAME)
 
 archive-toolchain: virtual-xchain_install
 	$(TAR) -C $(PTXCONF_PREFIX)/.. -jcvf $(TOPDIR)/$(PTXCONF_GNU_TARGET).tar.bz2 \
