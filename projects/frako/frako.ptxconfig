@@ -1081,7 +1081,8 @@ PTXCONF_GRUB_XFS=y
 #
 # Communication Utilities     
 #
-PTXCONF_EFAX=y
+# PTXCONF_EFAX is not set
+PTXCONF_POP3SPAM=y
 
 #
 # Applications                
@@ -1126,6 +1127,11 @@ PTXCONF_EFAX=y
 #
 # gettext          
 #
+
+#
+# pcre             
+#
+PTXCONF_PCRE=y
 
 #
 # popt             
