@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.3 2003/08/25 15:36:57 mkl Exp $
+# $Id: kernel.make,v 1.4 2003/08/25 16:23:34 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -97,6 +97,8 @@ endif
 KERNEL_RTAIPATCH_DIR	= $(BUILDDIR)/rtai-patches
 endif
 
+# -----
+
 ifeq (y,$(PTXCONF_KERNEL_2_4_20))
 KERNEL			= linux-2.4.20
 KERNEL_URL		= ftp://ftp.rfc822.org/pub/linux/kernel/v2.4/$(KERNEL).tar.bz2 
@@ -171,6 +173,50 @@ KERNEL_RTAIPATCH	= patch-2.4.21-rthal5g
 endif
 KERNEL_RTAIPATCH_DIR	= $(BUILDDIR)/rtai-patches
 endif
+
+# -----
+
+ifeq (y,$(PTXCONF_KERNEL_2_4_22))
+KERNEL			= linux-2.4.22
+KERNEL_URL		= ftp://ftp.rfc822.org/pub/linux/kernel/v2.4/$(KERNEL).tar.bz2 
+KERNEL_SOURCE		= $(SRCDIR)/$(KERNEL).tar.bz2
+KERNEL_DIR		= $(BUILDDIR)/$(KERNEL)
+KERNEL_EXTRACT 		= bzip2 -dc
+
+#FIXME: find right patch // not yet available
+KERNEL_RMKPATCH		= patch-2.4.19-rmk4
+KERNEL_RMKPATCH_URL	= ftp://ftp.arm.linux.org.uk/pub/armlinux/kernel/v2.4/$(KERNEL_RMKPATCH).bz2
+KERNEL_RMKPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_RMKPATCH).bz2
+KERNEL_RMKPATCH_EXTRACT	= bzip2 -dc
+
+#FIXME: find right patch // not yet available
+KERNEL_PXAPATCH 	= diff-2.4.19-rmk4-pxa1
+KERNEL_PXAPATCH_URL 	= ftp://ftp.arm.linux.org.uk/pub/armlinux/people/nico/$(KERNEL_PXAPATCH).gz
+KERNEL_PXAPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_PXAPATCH).gz
+KERNEL_PXAPATCH_EXTRACT = gzip -dc
+
+#FIXME: find right patch // not yet available
+KERNEL_PTXPATCH		= linux-2.4.19-rmk4-pxa1-ptx10.diff
+KERNEL_PTXPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_PTXPATCH)
+KERNEL_PTXPATCH_URL	= http://www.pengutronix.de/software/linux-arm/$(KERNEL_PTXPATCH)
+KERNEL_PTXPATCH_EXTRACT	= cat
+
+#FIXME: find right patch // not yet available
+KERNEL_UCLINUXPATCH		= uClinux-2.4.21-uc0.diff.gz
+KERNEL_UCLINUXPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_UCLINUXPATCH)
+KERNEL_UCLINUXPATCH_URL		= http://www.uclinux.org/pub/uClinux/uClinux-2.4.x/$(KERNEL_UCLINUXPATCH)
+KERNEL_UCLINUXPATCH_EXTRACT	= zcat
+
+ifeq (y, $(PTXCONF_RTAI_ALLSOFT))
+KERNEL_RTAIPATCH	= patch-2.4.22-allsoft
+endif
+ifeq (y, $(PTXCONF_RTAI_RTHAL))
+KERNEL_RTAIPATCH	= patch-2.4.22-rthal5g
+endif
+KERNEL_RTAIPATCH_DIR	= $(BUILDDIR)/rtai-patches
+endif
+
+# -----
 
 ifeq (y, $(PTXCONF_KERNEL_IMAGE_Z))
 KERNEL_TARGET		= zImage

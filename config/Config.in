@@ -347,6 +347,11 @@ choice
 		bool
 		prompt "2.4.21"
 		depends on ARCH_SPARC || ARCH_X86 || ARCH_MIPS || ARCH_CRIS || ARCH_PPC || ARCH_ARM_NOMMU
+
+	config KERNEL_2_4_22
+		bool
+		prompt "2.4.22"
+		depends on ARCH_SPARC || ARCH_X86 || ARCH_MIPS || ARCH_CRIS || ARCH_PPC
 endchoice
 
 config KERNEL_XSCALE
