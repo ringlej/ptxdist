@@ -284,6 +284,10 @@ config ETC_NAME
 	default "innokom"
 	depends on ROOTFS_ETC
 
+config ADDONS
+	bool
+	prompt "Add customer archives from addons/*.tar.gz"
+
 endmenu
 
 # ----------------------------------------------------------------------------
