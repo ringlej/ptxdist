@@ -10,6 +10,7 @@ High Priority
 Low Priority
 ------------
 
+- RSC: replace bootdisk build mechanism by genext2fs
 - RSC: audit configurations for local directory
 - KUB: busybox/ash job control is broken
 - RSC: audit for LSB compatiblity
