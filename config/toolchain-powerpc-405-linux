@@ -1,0 +1,536 @@
+#
+# Automatically generated make config: don't edit
+#
+PTXCONF_PTXCONF=y
+
+#
+# Code maturity       
+#
+# PTXCONF_EXP is not set
+
+#
+# General Options ---    
+#
+
+#
+# Target Options      
+#
+# PTXCONF_ARCH_ARM is not set
+# PTXCONF_ARCH_ARM_NOMMU is not set
+# PTXCONF_ARCH_X86 is not set
+PTXCONF_ARCH_PPC=y
+# PTXCONF_ARCH_SPARC is not set
+# PTXCONF_ARCH_MIPS is not set
+# PTXCONF_ARCH_CRIS is not set
+# PTXCONF_ARCH_PARISC is not set
+# PTXCONF_ARCH_SH is not set
+# PTXCONF_ARM_ARCH_PXA is not set
+# PTXCONF_ARM_ARCH_EPXA is not set
+# PTXCONF_ARM_ARCH_SA1100 is not set
+# PTXCONF_ARM_ARCH_IXP2000 is not set
+# PTXCONF_ARM_ARCH_NETARM is not set
+# PTXCONF_ARM_ARCH_ATMEL is not set
+# PTXCONF_OPT_ARM is not set
+# PTXCONF_OPT_ARM_NOMMU is not set
+# PTXCONF_OPT_I386 is not set
+# PTXCONF_OPT_I486 is not set
+# PTXCONF_OPT_I586 is not set
+# PTXCONF_OPT_I686 is not set
+# PTXCONF_OPT_PPC is not set
+PTXCONF_OPT_PPC405=y
+# PTXCONF_OPT_PPC750 is not set
+# PTXCONF_OPT_PPC7450 is not set
+# PTXCONF_OPT_SPARC is not set
+# PTXCONF_OPT_MIPS is not set
+# PTXCONF_OPT_MIPSEL is not set
+# PTXCONF_OPT_CRIS is not set
+# PTXCONF_OPT_PARISC is not set
+# PTXCONF_OPT_SH3 is not set
+# PTXCONF_OPT_SH4 is not set
+
+#
+# ---
+#
+PTXCONF_TARGET_EXTRA_CFLAGS=""
+PTXCONF_TARGET_EXTRA_CXXFLAGS=""
+PTXCONF_TARGET_CONFIG_FILE="powerpc-405.dat"
+
+#
+# ---
+#
+PTXCONF_ARCH="ppc"
+PTXCONF_ARCH_USERSPACE="powerpc"
+PTXCONF_GNU_TARGET="powerpc-405-linux-gnu"
+PTXCONF_PREFIX="/opt/ptxdist/powerpc-linux-405"
+PTXCONF_ROOT=""
+
+#
+# Cross Toolchain     
+#
+PTXCONF_BUILD_CROSSCHAIN=y
+PTXCONF_BINUTILS_2_13_2_1=y
+# PTXCONF_BINUTILS_2_14 is not set
+# PTXCONF_GCC_2_95_3 is not set
+PTXCONF_GCC_3_2_3=y
+# PTXCONF_GCC_3_3_2 is not set
+PTXCONF_GCC_3=y
+# PTXCONF_XCHAIN-DISTCC is not set
+# PTXCONF_XCHAIN-SCONS is not set
+
+#
+# Root Filesystem     
+#
+# PTXCONF_ROOTFS_PROC is not set
+# PTXCONF_ROOTFS_DEV is not set
+# PTXCONF_ROOTFS_MNT is not set
+# PTXCONF_ROOTFS_FLOPPY is not set
+# PTXCONF_ROOTFS_TMP is not set
+# PTXCONF_ROOTFS_HOME is not set
+# PTXCONF_ROOTFS_VAR is not set
+PTXCONF_VENDORTWEAKS=""
+
+#
+# Debugging Tools     
+#
+PTXCONF_XGDB=y
+# PTXCONF_GDBSERVER is not set
+# PTXCONF_GDB is not set
+# PTXCONF_KSYMOOPS is not set
+# PTXCONF_LTT is not set
+# PTXCONF_LIBBFD is not set
+# PTXCONF_OPROFILE is not set
+# PTXCONF_STRACE is not set
+
+#
+# Host Tools          
+#
+# PTXCONF_GENEXT2FS is not set
+# PTXCONF_FAKEROOT is not set
+
+#
+# Core System ---    
+#
+
+#
+# Kernel              
+#
+PTXCONF_KERNEL_CONFIG="kernel-2.4.19-"
+# PTXCONF_KERNEL_2_4_18 is not set
+PTXCONF_KERNEL_2_4_19=y
+# PTXCONF_KERNEL_2_4_20 is not set
+# PTXCONF_KERNEL_2_4_21 is not set
+# PTXCONF_KERNEL_2_4_22 is not set
+# PTXCONF_KERNEL_2_4_23 is not set
+# PTXCONF_KERNEL_RMK is not set
+# PTXCONF_KERNEL_RMK_PXA is not set
+# PTXCONF_KERNEL_RMK_DS is not set
+# PTXCONF_KERNEL_RMK_PXA_PTX is not set
+# PTXCONF_KERNEL_RMK_PXA_PTX_LTT is not set
+# PTXCONF_KERNEL_UC is not set
+# PTXCONF_KERNEL_BEN is not set
+PTXCONF_KERNEL_VANILLA=y
+# PTXCONF_KERNEL_2_4_19_rmk7 is not set
+# PTXCONF_KERNEL_2_4_21_rmk1 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_ds3 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_ds2 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_ds1 is not set
+# PTXCONF_KERNEL_2_4_21_rmk1_ds1 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2 is not set
+# PTXCONF_KERNEL_2_4_21_rmk1_pxa1 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10_ltt1 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7_ltt1 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6_ltt1 is not set
+# PTXCONF_KERNEL_2_4_19_uc2 is not set
+# PTXCONF_KERNEL_2_4_19_uc1 is not set
+# PTXCONF_KERNEL_2_4_19_uc0 is not set
+# PTXCONF_KERNEL_2_4_20_uc1 is not set
+# PTXCONF_KERNEL_2_4_20_uc0 is not set
+# PTXCONF_KERNEL_2_4_21_uc0 is not set
+# PTXCONF_KERNEL_2_4_22_uc0 is not set
+# PTXCONF_KERNEL_2_4_20_ben10 is not set
+# PTXCONF_KERNEL_2_4_21_ben3 is not set
+# PTXCONF_KERNEL_2_4_22_ben2 is not set
+PTXCONF_DONT_COMPILE_KERNEL=y
+# PTXCONF_KERNEL_IMAGE_BZ is not set
+# PTXCONF_KERNEL_IMAGE_Z is not set
+# PTXCONF_KERNEL_IMAGE_U is not set
+# PTXCONF_KERNEL_IMAGE_VMLINUX is not set
+
+#
+# Extentions
+#
+
+#
+# epoll               
+#
+
+#
+# RTAI                
+#
+# PTXCONF_RTAI is not set
+
+#
+# C Library           
+#
+PTXCONF_GLIBC=y
+# PTXCONF_UCLIBC is not set
+
+#
+# C Library options
+#
+# PTXCONF_GLIBC_2_3_2 is not set
+PTXCONF_GLIBC_2_2_5=y
+# PTXCONF_GLIBC_2_2_4 is not set
+# PTXCONF_GLIBC_2_2_3 is not set
+# PTXCONF_UCLIBC_0_9_19 is not set
+# PTXCONF_UCLIBC_0_9_20 is not set
+# PTXCONF_UCLIBC_0_9_23 is not set
+PTXCONF_GLIBC_PTHREADS=y
+# PTXCONF_GLIBC_LIBIO is not set
+PTXCONF_GLIBC_SHARED=y
+# PTXCONF_GLIBC_PROFILED is not set
+PTXCONF_GLIBC_OMITFP=y
+# PTXCONF_GLIBC_BOUNDED is not set
+# PTXCONF_GLIBC_OPTKERNEL is not set
+# PTXCONF_GLIBC_DEBUG is not set
+
+#
+# Install options
+#
+# PTXCONF_GLIBC_THREAD_DB is not set
+# PTXCONF_GLIBC_DL is not set
+# PTXCONF_GLIBC_CRYPT is not set
+# PTXCONF_GLIBC_UTIL is not set
+# PTXCONF_GLIBC_LIBM is not set
+
+#
+# libnss_dns depends on libresolv
+#
+# PTXCONF_GLIBC_NSS_FILES is not set
+
+#
+# libnss_hesiod depends on libreslov and libnss_files
+#
+
+#
+# libnss_nis depends on libnsl and libnss_files
+#
+
+#
+# libnss_nisplus depends on libnsl
+#
+
+#
+# libnss_compat depends on libnsl
+#
+# PTXCONF_GLIBC_RESOLV is not set
+# PTXCONF_GLIBC_NSL is not set
+PTXCONF_UCLIBC_HAVE_DOT_CONFIG=y
+
+#
+# C++ Library         
+#
+PTXCONF_CXX=y
+PTXCONF_LIBSTDCXX=y
+PTXCONF_LIBSTDCXX_SHARED=y
+
+#
+# Core Tools ---  
+#
+
+#
+# Pdksh               
+#
+# PTXCONF_PDKSH is not set
+
+#
+# Bash                
+#
+# PTXCONF_BASH is not set
+
+#
+# BusyBox             
+#
+# PTXCONF_BUSYBOX is not set
+PTXCONF_BB_HAVE_DOT_CONFIG=y
+
+#
+# Gawk                
+#
+# PTXCONF_GAWK is not set
+
+#
+# MTD Tools           
+#
+# PTXCONF_MTD_XCHAIN is not set
+# PTXCONF_MTD_UTILS is not set
+
+#
+# GNU coreutils       
+#
+# PTXCONF_COREUTILS is not set
+
+#
+# util-linux          
+#
+# PTXCONF_UTLNX is not set
+
+#
+# procps              
+#
+# PTXCONF_PROCPS is not set
+
+#
+# VHLL Support        
+#
+
+#
+# Python requires libdl on the target (see C Library)
+#
+
+#
+# PCMCIA Tools        
+#
+# PTXCONF_PCMCIA_TOOLS is not set
+
+#
+# Network Tools --- 
+#
+
+#
+# Network Security    
+#
+
+#
+# shorewall firewall  
+#
+# PTXCONF_SHOREWALL is not set
+
+#
+# LSH                 
+#
+# PTXCONF_LSH is not set
+
+#
+# OpenSSL             
+#
+# PTXCONF_OPENSSL is not set
+
+#
+# OpenSSH             
+#
+# PTXCONF_OPENSSH is not set
+
+#
+# Dropbear SSH-Server 
+#
+# PTXCONF_DROPBEAR is not set
+
+#
+# ppp                 
+#
+# PTXCONF_PPP is not set
+
+#
+# nmap                
+#
+# PTXCONF_NMAP is not set
+
+#
+# utelnetd            
+#
+# PTXCONF_UTELNETD is not set
+
+#
+# inetutils           
+#
+# PTXCONF_INETUTILS is not set
+
+#
+# netcat              
+#
+# PTXCONF_NETCAT is not set
+
+#
+# proftpd             
+#
+# PTXCONF_PROFTPD is not set
+
+#
+# betaftpd            
+#
+# PTXCONF_BETAFTPD is not set
+
+#
+# nfs-utils           
+#
+# PTXCONF_NFSUTILS is not set
+
+#
+# Portmapper          
+#
+# PTXCONF_PORTMAP is not set
+
+#
+# tcpwrapper          
+#
+# PTXCONF_TCPWRAPPER is not set
+
+#
+# Wireless Tools      
+#
+# PTXCONF_WIRELESS is not set
+
+#
+# GNU Zebra           
+#
+# PTXCONF_ZEBRA is not set
+
+#
+# libnet              
+#
+# PTXCONF_LIBNET is not set
+
+#
+# libpcap             
+#
+# PTXCONF_LIBPCAP is not set
+
+#
+# rsync               
+#
+# PTXCONF_RSYNC is not set
+
+#
+# thttpd              
+#
+# PTXCONF_THTTPD is not set
+
+#
+# Disk and file ---   
+#
+
+#
+# Disk and file utils 
+#
+
+#
+# e2fsprogs           
+#
+# PTXCONF_E2FSPROGS is not set
+
+#
+# grub                
+#
+# PTXCONF_CRAMFS is not set
+
+#
+# Applications ---    
+#
+
+#
+# Flash               
+#
+# PTXCONF_FLASH is not set
+
+#
+# Kaffe               
+#
+# PTXCONF_KAFFE is not set
+
+#
+# mad                 
+#
+# PTXCONF_MAD is not set
+
+#
+# setmixer            
+#
+# PTXCONF_SETMIXER is not set
+
+#
+# System Libraries    
+#
+
+#
+# gettext          
+#
+# PTXCONF_GETTEXT is not set
+
+#
+# popt             
+#
+# PTXCONF_POPT is not set
+
+#
+# zlib             
+#
+# PTXCONF_ZLIB is not set
+
+#
+# ncurses          
+#
+# PTXCONF_NCURSES is not set
+
+#
+# termcap          
+#
+# PTXCONF_TERMCAP is not set
+
+#
+# Berkeley db 4    
+#
+# PTXCONF_DB is not set
+
+#
+# rn                  
+#
+# PTXCONF_RN is not set
+
+#
+# libxml2             
+#
+# PTXCONF_LIBXML2 is not set
+
+#
+# Graphics Libraries  
+#
+
+#
+# XFree86-4.3.0         
+#
+# PTXCONF_XFREE430 is not set
+
+#
+# Clementine WM         
+#
+# PTXCONF_CLEMENTINE is not set
+
+#
+# FLTK GUI Toolkit      
+#
+
+#
+# wxWindows GUI [X11]   
+#
+
+#
+# Qt embedded GUI       
+#
+
+#
+# Web Applications    
+#
+
+#
+# Mozilla Firebird 
+#
+# PTXCONF_MFIREBIRD is not set
+
+#
+# Penguzilla       
+#
+# PTXCONF_PENGUZILLA is not set
