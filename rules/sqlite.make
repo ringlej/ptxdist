@@ -89,6 +89,9 @@ ifdef PTXCONF_SQLITE_DISABLE_LFS
 SQLITE_DISABLE_LFS = -DSQLITE_DISABLE_LFS
 endif
 
+SQLITE_CFLAGS = $(call remove_quotes,$(TARGET_CFLAGS)) -fpic
+SQLITE_LDFLAGS = $(call remove_quotes,$(TARGET_LDFLAGS)) -shared -o libsqlite3.so
+
 $(STATEDIR)/sqlite.prepare: $(sqlite_prepare_deps)
 	@$(call targetinfo, $@)
 	# Create Makefile
@@ -99,7 +102,7 @@ $(STATEDIR)/sqlite.prepare: $(sqlite_prepare_deps)
 	echo "THREADLIB = "					>> $(SQLITE_MK)
 	echo "OPTS = -DNDEBUG=1 $(SQLITE_DISABLE_LFS)"		>> $(SQLITE_MK)
 	echo "EXE = "						>> $(SQLITE_MK)
-	echo "TCC = $(CROSS_CC) $(TARGET_CFLAGS) -fpic"		>> $(SQLITE_MK)
+	echo "TCC = $(CROSS_CC) $(SQLITE_CFLAGS)"		>> $(SQLITE_MK)
 	echo "AR = $(CROSS_AR) cr"				>> $(SQLITE_MK)
 	echo "RANLIB = $(CROSS_RANLIB)"				>> $(SQLITE_MK)
 	echo "TCL_FLAGS = -DNO_TCL=1"				>> $(SQLITE_MK)
@@ -109,7 +112,7 @@ $(STATEDIR)/sqlite.prepare: $(sqlite_prepare_deps)
 	echo "ENCODING = $(SQLITE_ENCODING)"			>> $(SQLITE_MK)
 	echo 'include $$(TOP)/main.mk'				>> $(SQLITE_MK)
 	echo 'libsqlite:   $$(LIBOBJ) libsqlite3.a'		>> $(SQLITE_MK)
-	echo -e '\t$$(TCCX) -shared -o libsqlite3.so $$(LIBOBJ)'>> $(SQLITE_MK)
+	echo -e '\t$$(TCCX) $(SQLITE_LDFLAGS) $$(LIBOBJ)'	>> $(SQLITE_MK)
 	touch $@
 		
 
@@ -135,13 +138,13 @@ sqlite_install: $(STATEDIR)/sqlite.install
 $(STATEDIR)/sqlite.install: $(STATEDIR)/sqlite.compile
 	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/lib
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	cp $(SQLITE_DIR)/sqlite3.h \
 		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 	cp $(SQLITE_DIR)/libsqlite3.a \
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/lib
+		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	cp $(SQLITE_DIR)/libsqlite3.so \
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/lib
+		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -150,9 +153,7 @@ $(STATEDIR)/sqlite.install: $(STATEDIR)/sqlite.compile
 
 sqlite_targetinstall: $(STATEDIR)/sqlite.targetinstall
 
-sqlite_targetinstall_deps = $(STATEDIR)/sqlite.compile
-
-$(STATEDIR)/sqlite.targetinstall: $(sqlite_targetinstall_deps)
+$(STATEDIR)/sqlite.targetinstall: $(STATEDIR)/sqlite.install
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/usr/lib
 	cp $(SQLITE_DIR)/libsqlite3.so $(ROOTDIR)/usr/lib
