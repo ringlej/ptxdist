@@ -1,0 +1,7 @@
+menu    "Wireless Tools      "
+
+config WIRELESS
+        bool
+        prompt "Compile Wireless Tools"
+
+endmenu
