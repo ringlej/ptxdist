@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-CROSSTOOL_VERSION	= 0.28-rc34
+CROSSTOOL_VERSION	= 0.28-rc35
 CROSSTOOL		= crosstool-$(CROSSTOOL_VERSION)
 CROSSTOOL_SUFFIX	= tar.gz
 CROSSTOOL_URL		= http://www.kegel.com/crosstool/$(CROSSTOOL).$(CROSSTOOL_SUFFIX)
@@ -78,12 +78,6 @@ CROSSTOOL_ENV 	=  $(CROSS_ENV)
 # Configuration
 #
 
-ifdef PTXCONF_ARCH_ARM
-CROSSTOOL_KERNELCONFIG = arm.dat
-else
-# AAAARRRRRGGGGHHHHH! FIXME!
-endif
-
 # FIXME: where do we get this from? 
 CROSSTOOL_TARGET_CFLAGS		=  -O
 CROSSTOOL_GCC_EXTRA_CONFIG	=  "--with-float=soft --with-cpu=strongarm"
@@ -140,7 +134,7 @@ $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 		\
 		mkdir -p $(subst $(quote),,$(PTXCONF_PREFIX)); \
 		\
-		export KERNELCONFIG=$(CROSSTOOL_DIR)/$(CROSSTOOL_KERNELCONFIG); \
+		export KERNELCONFIG=$(subst $(quote),,$(CROSSTOOL_DIR)/$(PTXCONF_CROSSTOOL_KERNELCONFIG)); \
 		 \
 		TARGET=$(subst $(quote),,$(PTXCONF_GNU_TARGET)) \
 		TARGET_CFLAGS=$(CROSSTOOL_TARGET_CFLAGS) \

@@ -67,6 +67,28 @@ choice
 
 endchoice
 
+config CROSSTOOL_KERNELCONFIG
+	string
+	depends on CROSSTOOL
+	default "arm.config" 			if ARCH_ARM
+	default "i386.config"			if ARCH_X86 && OPT_I386
+	default "i486.config"			if ARCH_X86 && OPT_I486
+	default "i586.config"			if ARCH_X86 && OPT_I586
+	default "i686.config"			if ARCH_X86 && OPT_I686
+#	default "alpha.config"
+#	default "cris.config"
+#	default "ia64.config"
+#	default "mipsel.config"
+#	default "sh3.config"
+#	default "sparc.config"
+#	default "x86_64.config"
+#	default "hppa.config"
+#	default "m68k.config"
+#	default "powerpc64.config"
+#	default "s390.config"
+#	default "sh4.config"
+#	default "sparc64.config"
+
 config BINUTILS_VERSION
 	string
 	default "2.14"		if BINUTILS_2_14
