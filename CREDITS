@@ -25,6 +25,12 @@ S: Via Pascoli, 3
 S: 24121 Bergamo
 S: Italia
 
+N: Sascha Hauer 
+E: sascha.hauer@gyro-net.de
+W: http://www.gyro-net.de
+D: Developer
+S: Gyro-net GmbH
+
 N: Marc Kleine-Budde
 E: kleine-budde@gmx.de
 D: Maintainer
@@ -37,6 +43,10 @@ N: Dan Kegel
 E: dank@kegel.com
 D: Developer
 S: Ixia Corp. 
+
+N: Werner Schmitt 
+E: mail2ws@gmx.de
+D: Developer
 
 N: Robert Schwebel
 E: r.schwebel@pengutronix.de
