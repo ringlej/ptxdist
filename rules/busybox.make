@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.21 2004/02/06 14:39:22 robert Exp $
+# $Id: busybox.make,v 1.22 2004/02/27 11:56:07 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -103,7 +103,7 @@ busybox_compile_deps =  $(STATEDIR)/busybox.prepare
 
 $(STATEDIR)/busybox.compile: $(busybox_compile_deps)
 	@$(call targetinfo, $@)
-	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) $(BUSYBOX_MAKEVARS)
+	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) make $(BUSYBOX_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
