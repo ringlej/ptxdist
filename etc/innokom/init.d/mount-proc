@@ -2,11 +2,6 @@
 #
 # /etc/init.d/mount-proc
 #
-# Configuration for Auerswald Innokom
-#
-# Copyright (C) 2003 Auerswald GmbH & Co. KG
-# Kai-Uwe Bloem <linux-development@auerswald.de>
-#
 
 echo -n "mounting /proc-filesystem... "
 /bin/mount /proc

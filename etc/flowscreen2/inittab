@@ -1,0 +1,20 @@
+# 
+# /etc/inittab
+#
+
+::sysinit:/etc/init.d/banner
+#::sysinit:/etc/init.d/mount-proc
+#::sysinit:/etc/init.d/unlock-flash
+#::sysinit:/etc/init.d/mount-local
+#::sysinit:/etc/init.d/root-remount
+#::sysinit:/etc/init.d/sys-config
+#::sysinit:/etc/init.d/cleanup-logs
+#::sysinit:/etc/init.d/read-hwclock
+
+# Start an "askfirst" shell on the console
+::askfirst:/bin/sh
+
+# Stuff to do before rebooting
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
+

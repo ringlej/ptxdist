@@ -2,11 +2,6 @@
 #
 # /etc/init.d/root-remount
 #
-# Configuration for Auerswald Innokom
-#
-# Copyright (C) 2003 Auerswald GmbH & Co. KG
-# Kai-Uwe Bloem <linux-development@auerswald.de>
-#
 
 type=`/bin/cat /proc/mounts | grep "^/dev/root " | cut "-d " -f3`
 

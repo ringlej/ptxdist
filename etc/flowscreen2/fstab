@@ -1,0 +1,7 @@
+#
+# /etc/fstab
+#
+
+proc		/proc		proc	defaults	0	0
+devpts		/dev/pts	devpts	defaults	0	0
+
