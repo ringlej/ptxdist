@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: frako.make,v 1.3 2004/02/19 16:48:04 bsp Exp $
+# $Id: frako.make,v 1.4 2004/03/03 10:19:34 robert Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -80,6 +80,7 @@ $(STATEDIR)/frako.targetinstall:
 	./configure --build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) \
 	--with-linux=$(KERNEL_DIR)
 	$(LCD_PATH) $(LCD_ENV) make -C $(LCD_DIR)
+	install -d $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)/kernel/drivers/char/
 	install $(LCD_DIR)/lcd_module.o $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)/kernel/drivers/char/
 	touch $@
 
