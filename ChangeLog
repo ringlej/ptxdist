@@ -1,6 +1,10 @@
 2005-03-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* setup: we now use ~/.ptxdistrc
+	* module-init-tools: added variant for hosttools; the
+	  kernel tries to depmod the modules, but at least on
+	  debian depmod claims that the modules are for the 
+	  wrong architecture.
 
 	* 0.7.3 released
 
