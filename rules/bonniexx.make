@@ -20,7 +20,7 @@ endif
 # Paths and names
 #
 BONNIEXX_VERSION	= 1.03a
-BONNIEXX		= bonniexx-$(BONNIEXX_VERSION)
+BONNIEXX		= bonnie++-$(BONNIEXX_VERSION)
 BONNIEXX_SUFFIX		= tgz
 BONNIEXX_URL		= http://www.coker.com.au/bonniexx/$(BONNIEXX).$(BONNIEXX_SUFFIX)
 BONNIEXX_SOURCE		= $(SRCDIR)/$(BONNIEXX).$(BONNIEXX_SUFFIX)
@@ -124,7 +124,7 @@ bonniexx_targetinstall_deps = $(STATEDIR)/bonniexx.compile
 
 $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0644, $(BONNIEXX_DIR)/bonniexx,/usr/bin/bonniexx)
+	$(call copy_root, 0, 0, 0644, $(BONNIEXX_DIR)/bonnie++,/usr/bin/bonnie++)
 	touch $@
 
 # ----------------------------------------------------------------------------
