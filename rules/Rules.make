@@ -16,10 +16,28 @@ DEP_TREE_PS	= deptree.ps
 # some convenience functions
 #
 
+ifneq (y, $(PTXCONF_BUILD_CROSSCHAIN))
+compilercheck =								\
+	if [ "$(PTXCONF_CROSSCHAIN_CHECK)" != `$(PTXCONF_GNU_TARGET)-gcc -dumpversion` ]; then	\
+		echo;							\
+		echo "Please use the specified compiler!";		\
+		echo;							\
+		echo "Specified: $(PTXCONF_CROSSCHAIN_CHECK)";		\
+		echo "Found:     "`$(PTXCONF_GNU_TARGET)-gcc -dumpversion`;\
+		echo;							\
+		exit -1;						\
+	fi;
+else
+compilercheck =
+	echo > /dev/null;
+endif
+
 #
-# print out header information
+# print out header information and check if we have the right compiler
 #
-targetinfo = echo;					\
+targetinfo = 						\
+	$(call compilercheck)				\
+	echo;						\
 	TG=`echo $(1) | sed -e "s,/.*/,,g"`; 		\
 	LINE=`echo target: $$TG |sed -e "s/./-/g"`;	\
 	echo $$LINE;					\

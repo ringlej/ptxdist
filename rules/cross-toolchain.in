@@ -5,6 +5,17 @@ config BUILD_CROSSCHAIN
 	prompt "Build Cross Toolchain"
 	default y
 
+config CROSSCHAIN_CHECK
+	string
+	prompt "Check for specific gcc version"
+	default "2.95.3"
+	depends on !BUILD_CROSSCHAIN
+	help
+	  PTXdist calls your cross compiler with -dumpversion and
+	  compares the output with this string. This should help
+	  to avoid compilation with the wrong compiler version 
+	  when you use your own external toolchain. 
+
 choice
 	prompt "binutils Version"
 		default 2.13.2.1
