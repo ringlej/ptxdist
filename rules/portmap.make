@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: portmap.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
+# $Id: portmap.make,v 1.5 2003/09/17 13:22:39 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -78,12 +78,11 @@ $(STATEDIR)/portmap.prepare: $(portmap_prepare_deps)
 
 portmap_compile: $(STATEDIR)/portmap.compile
 
-PORTMAP_ENVIRONMENT	= PATH=$(CROSS_PATH)
-PORTMAP_MAKEVARS	= $(CROSS_ENV)
+PORTMAP_ENVIRONMENT	= $(CROSS_ENV)
 
 $(STATEDIR)/portmap.compile: $(STATEDIR)/portmap.prepare
 	@$(call targetinfo, portmap.compile)
-	$(PORTMAP_ENVIRONMENT) make -C $(PORTMAP_DIR) $(PORTMAP_MAKEVARS)
+	$(PORTMAP_ENVIRONMENT) make -C $(PORTMAP_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
