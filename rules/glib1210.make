@@ -66,10 +66,15 @@ glib1210_prepare: $(STATEDIR)/glib1210.prepare
 #
 # dependencies
 #
-glib1210_prepare_deps =  \
-	$(STATEDIR)/glib1210.extract \
-	$(STATEDIR)/xfree430.install \
-	$(STATEDIR)/virtual-xchain.install
+glib1210_prepare_deps =  $(STATEDIR)/glib1210.extract
+glib1210_prepare_deps += $(STATEDIR)/virtual-xchain.install
+ifdef PTXCONF_XFREE430
+glib1210_prepare_deps += $(STATEDIR)/xfree430.install
+else
+ifdef PTXCONF_XSERVER
+glib1210_prepare_deps += $(STATEDIR)/xserver.install
+endif
+endif
 
 GLIB1210_PATH	=  PATH=$(CROSS_PATH)
 GLIB1210_ENV 	=  $(CROSS_ENV)
