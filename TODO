@@ -5,7 +5,16 @@ Current TODO List
 - RSC:	patches/$PACKET is not cleaned by make clean; this may be
 	irritating. On the other hand locally thrown-in patches should
 	_not_ be removed on clean. Find a solution. 
-
+- RSC: add libsysfs: http://linux-diag.sourceforge.net
+- RSC: add regression tests from crosstool
+- RSC: look at Herbert Poetzl's cross test stuff: 
+       20040224182505.GA25038@MAIL.13thfloor.at
+- RSC: look at Linux Kernel Headers project:
+       http://ep09.pld-linux.org/~mmazur/linux-libc-headers/
+- RSC: Mozilla has still problems with cross compilation. See the
+       following Bugzilla entries for possible solutions: 
+       http://bugzilla.mozilla.org/show_bug.cgi?id=104541
+       http://bugzilla.mozilla.org/show_bug.cgi?id=172651 
 
 High Priority
 -------------

@@ -36,6 +36,7 @@ mount /dev/root / -o remount,rw
 echo "done."
 
 /etc/init.d/syslog	start
+/etc/init.d/dropbear	start
 /etc/init.d/serial	start
 /etc/init.d/ppp-drivers	start
 

@@ -17,7 +17,9 @@ case $1 in
 		echo "loading ppp daemon:"
 		/usr/sbin/pppd call gprs
 		sleep 1
+		echo "initially shuting down link"
 		ifconfig ppp0 down
+		[ "$?" ] || { echo "failed!"; exit -1; } 
 		echo "done."
 		;;
 	stop)

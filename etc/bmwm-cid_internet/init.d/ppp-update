@@ -18,6 +18,7 @@ case $1 in
 		sed -e "s/@USER@/$user/g" -e "s/@PASS@/$pass/g" \
 			/etc/ppp/pap-secrets.in > 		\
 			/etc/ppp/pap-secrets
+		chmod 600 /etc/ppp/pap-secrets
 		sed -e "s/@PIN@/$pin/g" \
 			/etc/ppp/peers/gprs-connect-chat.in > 	\
 			/etc/ppp/peers/gprs-connect-chat

@@ -6,8 +6,8 @@ mkdir /tmp/ptxdist-bmwm-rsc/i386-unknown-linux-gnu
 ln -s /etc /tmp/ptxdist-bmwm-rsc/i386-unknown-linux-gnu/etc
 
 insmod /lib/modules/2.6.1/kernel/drivers/input/evdev.ko
-# insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/pcan_drvd.ko
-insmod /lib/modules/2.6.1/kernel/drivers/input/mouse/psmouse.ko 
-/usr/X11R6/bin/X -mouse /dev/input/event1,5 &
+insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/pcan_drvd.ko
+# insmod /lib/modules/2.6.1/kernel/drivers/input/mouse/psmouse.ko 
+/usr/X11R6/bin/X -br -mouse /dev/input/event1,5 &
 
 DISPLAY=:0.0 /start_penguzilla
