@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ltt.make,v 1.2 2003/09/19 09:11:32 robert Exp $
+# $Id: ltt.make,v 1.3 2003/09/19 13:43:36 mkl Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
@@ -98,14 +98,14 @@ ltt_compile_deps = $(STATEDIR)/ltt.prepare
 
 $(STATEDIR)/ltt.compile: $(STATEDIR)/ltt.prepare 
 	@$(call targetinfo, ltt.compile)
-	
-	# build for target:
+
+#	build for target:
 	make -C $(LTT_DIR)/LibUserTrace $(LTT_ENV) UserTrace.o
 	make -C $(LTT_DIR)/LibUserTrace $(LTT_ENV) LDFLAGS="-static"
 	make -C $(LTT_DIR)/Daemon $(LTT_ENV) LDFLAGS="-static"
-	make -C $(LTT_DIR)/LibLTT
 
-	# build for host:
+#	build for host:
+	make -C $(LTT_DIR)/LibLTT
 	make -C $(LTT_DIR)/Visualizer
 
 	touch $@
