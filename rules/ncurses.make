@@ -169,7 +169,7 @@ endif
 
 ifdef PTXCONF_NCURSES_TERMCAP
 	mkdir -p $(ROOTDIR)/usr/share/terminfo
-	for FILE in x/xterm x/xterm-color x/xterm-xfree86 v/vt100 v/vt200 a/ansi l/linux; do			\
+	for FILE in x/xterm x/xterm-color x/xterm-xfree86 v/vt100 v/vt102 v/vt200 a/ansi l/linux; do		\
 		install -D $(CROSS_LIB_DIR)/usr/share/terminfo/$$FILE $(ROOTDIR)/usr/share/terminfo/$$FILE;	\
 	done
 endif
