@@ -1,4 +1,4 @@
-# $Id: xchain-kernel.make,v 1.4 2003/06/26 15:05:58 bsp Exp $
+# $Id: xchain-kernel.make,v 1.5 2003/06/26 15:37:06 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -297,6 +297,7 @@ $(STATEDIR)/xchain-kernel.extract: $(STATEDIR)/xchain-kernel.get $(STATEDIR)/mtd
         endif
 	# fake headers
 	make -C $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL) include/linux/version.h
+	touch $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL)/include/linux/autoconf.h
 	# we are only interested in include/ here 
 	cp -a $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL)/include $(BUILDDIR)/xchain-kernel/
 	rm -fr $(BUILDDIR)/xchain-kernel/tmp
@@ -422,6 +423,7 @@ kernel_clean: rtai-patches_clean
 	rm -rf $(STATEDIR)/kernel.* $(KERNEL_DIR)
 
 xchain-kernel_clean: 
+	rm -fr $(BUILDDIR)/xchain-kernel
 	rm -fr $(STATEDIR)/xchain-kernel.*
 
 rtai-patches_clean:
