@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gail.make,v 1.3 2004/02/25 22:31:50 robert Exp $
+# $Id: gail.make,v 1.4 2004/02/27 11:56:42 robert Exp $
 #
 # Copyright (C) 2003 by BSP
 #          
@@ -123,6 +123,7 @@ $(STATEDIR)/gail.install: $(STATEDIR)/gail.compile
 gail_targetinstall: $(STATEDIR)/gail.targetinstall
 
 gail_targetinstall_deps = $(STATEDIR)/gail.compile
+gail_targetinstall_deps = $(STATEDIR)/libgnomecanvas.targetinstall
 
 $(STATEDIR)/gail.targetinstall: $(gail_targetinstall_deps)
 	@$(call targetinfo, $@)
