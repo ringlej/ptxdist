@@ -1,4 +1,4 @@
-# $Id: xchain-glibc.make,v 1.4 2003/06/16 12:05:16 bsp Exp $
+# $Id: xchain-glibc.make,v 1.5 2003/06/25 12:21:54 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -105,7 +105,7 @@ endif
 $(STATEDIR)/glibc.extract: $(glibc_extract_deps)
 	touch $@
 
-$(STATEDIR)/glibc-base.extract: $(STATEDIR)/glibc-base.get $(STATEDIR)/glibc-ptxpatch.get
+$(STATEDIR)/glibc-base.extract: $(STATEDIR)/glibc.get
 	@$(call targetinfo, glibc-base.extract)
 	$(GLIBC_EXTRACT) $(GLIBC_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	# fix some bugs...
@@ -138,7 +138,7 @@ ifdef PTXCONF_GLIBC
 # arcitecture dependend configuration
 #
 
-GLIBC_AUTOCONF    += --build=i686-linux
+GLIBC_AUTOCONF    += --build=$(GNU_HOST)
 GLIBC_AUTOCONF    += --host=$(PTXCONF_GNU_TARGET)
 GLIBC_AUTOCONF    += --disable-sanity-checks
 GLIBC_ENVIRONMENT =  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(PTXCONF_PREFIX)/bin:$$PATH
