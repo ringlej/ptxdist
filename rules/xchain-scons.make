@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-scons.make,v 1.2 2003/10/24 13:28:33 mkl Exp $
+# $Id: xchain-scons.make,v 1.3 2003/10/26 21:01:36 mkl Exp $
 #
 # Copyright (C) 2003 by Dan Kegel
 #          
@@ -12,9 +12,9 @@
 #
 # We provide this package
 #
-#ifdef PTXCONF_XCHAIN-SCONS
+ifdef PTXCONF_XCHAIN-SCONS
 PACKAGES += xchain-scons
-#endif
+endif
 
 #
 # Paths and names
@@ -32,7 +32,7 @@ XCHAIN-SCONS_DIR	= $(BUILDDIR)/$(XCHAIN-SCONS)
 
 xchain-scons_get: $(STATEDIR)/xchain-scons.get
 
-xchain-scons_get_deps	=  $(XCHAIN-SCONS_SOURCE)
+xchain-scons_get_deps = $(XCHAIN-SCONS_SOURCE)
 
 $(STATEDIR)/xchain-scons.get: $(xchain-scons_get_deps)
 	@$(call targetinfo, $@)
@@ -48,7 +48,7 @@ $(XCHAIN-SCONS_SOURCE):
 
 xchain-scons_extract: $(STATEDIR)/xchain-scons.extract
 
-xchain-scons_extract_deps	=  $(STATEDIR)/xchain-scons.get
+xchain-scons_extract_deps = $(STATEDIR)/xchain-scons.get
 
 $(STATEDIR)/xchain-scons.extract: $(xchain-scons_extract_deps)
 	@$(call targetinfo, $@)
@@ -78,7 +78,7 @@ $(STATEDIR)/xchain-scons.prepare: $(xchain-scons_prepare_deps)
 
 xchain-scons_compile: $(STATEDIR)/xchain-scons.compile
 
-xchain-scons_compile_deps =  $(STATEDIR)/xchain-scons.prepare
+xchain-scons_compile_deps = $(STATEDIR)/xchain-scons.prepare
 
 $(STATEDIR)/xchain-scons.compile: $(xchain-scons_compile_deps)
 	@$(call targetinfo, $@)
@@ -92,7 +92,7 @@ xchain-scons_install: $(STATEDIR)/xchain-scons.install
 
 $(STATEDIR)/xchain-scons.install: $(STATEDIR)/xchain-scons.compile
 	@$(call targetinfo, $@)
-	cd $(XCHAIN-SCONS_DIR) &&
+	cd $(XCHAIN-SCONS_DIR) && \
 		python setup.py install --prefix=$(PTXCONF_PREFIX)
 	touch $@
 
@@ -102,7 +102,7 @@ $(STATEDIR)/xchain-scons.install: $(STATEDIR)/xchain-scons.compile
 
 xchain-scons_targetinstall: $(STATEDIR)/xchain-scons.targetinstall
 
-xchain-scons_targetinstall_deps	=  $(STATEDIR)/xchain-scons.compile
+xchain-scons_targetinstall_deps	= $(STATEDIR)/xchain-scons.install
 
 $(STATEDIR)/xchain-scons.targetinstall: $(xchain-scons_targetinstall_deps)
 	@$(call targetinfo, $@)
