@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.16 2004/01/22 00:48:13 robert Exp $
+# $Id: kernel.make,v 1.17 2004/01/30 17:58:55 bsp Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -85,6 +85,31 @@ kernel_menuconfig: $(STATEDIR)/kernel.extract
 	fi
 
 # ----------------------------------------------------------------------------
+# Get patchstack-patches
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/kernel-patchstack.get:
+	@$(call targetinfo, $@)
+	for i in $(subst ",,$(PTXCONF_KERNEL_PATCHSTACK)) ; do \
+		$$(awk -v patch=$$i '{if (patch == $$1) print "$(WGET) -P patches $(PASSIVEFTP) "$$3"/"$$2}' \
+		patches/patches.lst) ; \
+	done
+	touch $@
+
+# ----------------------------------------------------------------------------
+# patch kernel with patchstack-patches
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/kernel-patchstack.extract: \
+	$(STATEDIR)/kernel.extract
+	@$(call targetinfo, $@)
+	for i in $(subst ",,$(PTXCONF_KERNEL_PATCHSTACK)) ; do \
+		awk -v patch=$$i '{if (patch == $$1) print "$(CAT) patches/"$$2" | $(PATCH) -Np1 -d $(KERNEL_DIR) || exit -1"}' \
+		patches/patches.lst | sh ; \
+	done
+	touch $@
+
+# ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
@@ -136,7 +161,8 @@ kernel_prepare: $(STATEDIR)/kernel.prepare
 kernel_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/xchain-modutils.install \
-	$(STATEDIR)/kernel.extract
+	$(STATEDIR)/kernel.extract \
+	$(STATEDIR)/kernel-patchstack.extract
 
 KERNEL_PATH	= PATH=$(CROSS_PATH)
 KERNEL_MAKEVARS	= \
@@ -226,6 +252,7 @@ endif
 # ----------------------------------------------------------------------------
 
 kernel_clean:
-	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-* $(KERNEL_DIR)
+	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-* $(KERNEL_DIR) \
+$(STATEDIR)/kernel-patchstack.get
 
 # vim: syntax=make

@@ -104,8 +104,7 @@ PTXCONF_GDB_NCURSES=y
 # PTXCONF_LTT is not set
 # PTXCONF_LIBBFD is not set
 # PTXCONF_OPROFILE is not set
-PTXCONF_STRACE=y
-PTXCONF_STRACE_SHARED=y
+# PTXCONF_STRACE is not set
 
 #
 # Host Tools          

@@ -287,6 +287,9 @@ choice
 		depends on KERNEL_BEN
 endchoice
 
+config KERNEL_PATCHSTACK
+	string "Kernel Patchstack"
+	
 config DONT_COMPILE_KERNEL
 	bool
 	prompt "Don't compile kernel"
