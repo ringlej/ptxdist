@@ -228,15 +228,18 @@ dropbear_compile_deps =  $(STATEDIR)/dropbear.prepare
 
 $(STATEDIR)/dropbear.compile: $(dropbear_compile_deps)
 	@$(call targetinfo, $@)
-	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) dropbear
+	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make dropbear
+
 ifdef PTXCONF_DROPBEAR_DROPBEAR_KEY
-	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) dropbearkey
+	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make dropbearkey
 endif
+
 ifdef PTXCONF_DROPBEAR_CONVERT
-	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) dropbearconvert
+	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make dropbearconvert
 endif
+
 ifdef PTXCONF_DROPBEAR_SCP
-	cd $(DROPBEAR_DIR) && $(DROPBEAR_PATH) make scp
+	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make scp
 endif
 	touch $@
 
