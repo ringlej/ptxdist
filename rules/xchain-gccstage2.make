@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.16 2003/10/28 15:06:08 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.17 2003/10/29 16:39:15 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -131,8 +131,8 @@ endif
 $(STATEDIR)/xchain-gccstage2.prepare: $(xchain-gccstage2_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GCC_STAGE2_DIR))
-	[ -d $(GCC_STAGE2_DIR) ] || mkdir -p $(GCC_STAGE2_DIR)
 
+	mkdir -p $(GCC_STAGE2_DIR)
 	cd $(GCC_STAGE2_DIR) &&	\
 	     	$(GCC_STAGE2_PATH) $(GCC_STAGE2_ENV) \
 		$(GCC_DIR)/configure $(GCC_STAGE2_AUTOCONF)
@@ -178,21 +178,21 @@ ifdef PTXCONF_LIBSTDCXX_SHARED
 # chmod 755 fixes that
 #
 	mkdir -p $(ROOTDIR)/usr/lib
-	cp -d $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libstdc++[-,.]*so* \
+	cp -d $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libstdc++[-.]*so* \
 		$(ROOTDIR)/usr/lib/
-	chmod 755 $(ROOTDIR)/usr/lib/libstdc++[-,.]*so*
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libstdc++[-,.]*so*
+	chmod 755 $(ROOTDIR)/usr/lib/libstdc++[-.]*so*
+	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libstdc++[-.]*so*
 
 #
 # only gcc-3 has libgcc_s
 # and if we don't build a xchain, we don't know which version we have....
 #
 #
-	if [ -f $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libgcc_s[-,.]*so* ]; then	\
+	if [ -f $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libgcc_s[-.]*so* ]; then	\
 		mkdir -p $(ROOTDIR)/lib;							\
-		cp -d $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libgcc_s[-,.]*so*	\
+		cp -d $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libgcc_s[-.]*so*	\
 			$(ROOTDIR)/lib/;							\
-		$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libgcc_s[-,.]*so*;		\
+		$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libgcc_s[-.]*so*;		\
 	fi
 endif
 	touch $@

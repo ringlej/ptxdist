@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.15 2003/10/28 20:31:26 mkl Exp $
+# $Id: glibc.make,v 1.16 2003/10/29 16:39:15 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -261,84 +261,84 @@ $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps)
 #
 	mkdir -p $(ROOTDIR)/lib
 
-	cp -d $(CROSS_LIB_DIR)/lib/ld[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/ld[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/ld[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/ld[-.]*so*
 	ln -sf ld-$(GLIBC_VERSION).so $(ROOTDIR)$(DYNAMIC_LINKER)
 #
 # we don't wanna copy libc.so, cause this is ld linker script, no shared lib
 #
 	cp -d $(CROSS_LIB_DIR)/lib/libc-*so* $(ROOTDIR)/lib/
 	cp -d $(CROSS_LIB_DIR)/lib/libc.so.* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libc[-,.]*so*
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libc[-.]*so*
 
 ifdef PTXCONF_GLIBC_PTHREADS
-	cp -d $(CROSS_LIB_DIR)/lib/libpthread[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libpthread[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libpthread[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libpthread[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_THREAD_DB
-	cp -d $(CROSS_LIB_DIR)/lib/libthread_db[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libthread_db[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libthread_db[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libthread_db[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_DL
-	cp -d $(CROSS_LIB_DIR)/lib/libdl[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libdl[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libdl[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libdl[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_CRYPT
-	cp -d $(CROSS_LIB_DIR)/lib/libcrypt[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libcrypt[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libcrypt[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libcrypt[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_UTIL
-	cp -d $(CROSS_LIB_DIR)/lib/libutil[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libutil[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libutil[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libutil[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_LIBM
-	cp -d $(CROSS_LIB_DIR)/lib/libm[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libm[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libm[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libm[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_DNS
-	cp -d $(CROSS_LIB_DIR)/lib/libnss_dns[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_dns[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_dns[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_dns[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_FILES
-	cp -d $(CROSS_LIB_DIR)/lib/libnss_files[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_files[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_files[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_files[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_HESIOD
-	cp -d $(CROSS_LIB_DIR)/lib/libnss_hesiod[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_hesiod[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_hesiod[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_hesiod[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_NIS
-	cp -d $(CROSS_LIB_DIR)/lib/libnss_nis[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_nis[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_nis[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_nis[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_NISPLUS
-	cp -d $(CROSS_LIB_DIR)/lib/libnss_nisplus[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_nisplus[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_nisplus[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_nisplus[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSS_COMPAT
-	cp -d $(CROSS_LIB_DIR)/lib/libnss_compat[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_compat[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libnss_compat[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnss_compat[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_RESOLV
-	cp -d $(CROSS_LIB_DIR)/lib/libresolv[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libresolv[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libresolv[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libresolv[-.]*so*
 endif
 
 ifdef PTXCONF_GLIBC_NSL
-	cp -d $(CROSS_LIB_DIR)/lib/libnsl[-,.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnsl[-,.]*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libnsl[-.]*so* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnsl[-.]*so*
 endif
 
 	touch $@
