@@ -9,11 +9,6 @@ echo -n "mounting filesystems..."
 mount -a 2>/dev/null
 echo "done."
 
-#echo -n "creating links in /dev..."
-#ln -s /dev/vc/0 /dev/tty0
-#ln -s /dev/vc/1 /dev/tty1
-#echo "done."
-
 # modprobe ppp_async
 # loadkmap < /etc/boottime.kmap
 

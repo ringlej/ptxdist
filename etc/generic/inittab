@@ -16,7 +16,7 @@
 ::sysinit:/sbin/utelnetd -d
 ::sysinit:/bin/echo
 
-tts/0::respawn:/sbin/getty -L tts/0 115200 vt100
+@CONSOLE@::respawn:/sbin/getty -L 115200 @CONSOLE@ vt100
 
 # Stuff to do before rebooting
 ::ctrlaltdel:/sbin/reboot
