@@ -81,22 +81,15 @@ CROSSTOOL_ENV 	=  $(CROSS_ENV)
 # FIXME: where do we get this from? 
 CROSSTOOL_TARGET_CFLAGS		=  -O
 
-ifdef PTXCONF_GCC_2_95_3
-ifdef PTXCONF_OPT_PPC405
-#CROSSTOOL_TARGET_CFLAGS		+= -mcpu=405
-endif
-endif
-
 # BSP: I like --with-cpu=strongarm on my x86...
 ifdef PTXCONF_ARCH_ARM
 CROSSTOOL_GCC_EXTRA_CONFIG	=  "--with-float=soft --with-cpu=strongarm"
 endif
 
-#ifndef PTXCONF_GCC_2_95_3
 ifdef PTXCONF_OPT_PPC405
-CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-cpu=405 --enable-cxx-flags=-mpcu=405"
+CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-cpu=405 --enable-cxx-flags=-mcpu=405"
+CROSSTOOL_TARGET_CFLAGS		= "-O -mcpu=405"
 endif
-#endif
 
 CROSSTOOL_GCCLANG		=  c
 ifdef PTXCONF_CROSSTOOL_GCCLANG_CC
