@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.53 2003/11/17 06:30:20 robert Exp $
+# $Id: Makefile,v 1.54 2003/11/17 07:20:58 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -184,12 +184,12 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 # Config Targets -------------------------------------------------------------
 
 i386-generic-glibc_config: 
-	@echo "copying i386-generic-glibc config" $(call latestconfig, ptxconfig-i386-generic-glibc)
-	@cp $(call latestconfig, ptxconfig-i386-generic-glibc) .config
+	@echo "copying i386-generic-glibc configuration"
+	@cp config/i386-generic-glibc.ptxconfig .config
 
 i386-generic-uclibc_config: 
-	@echo "copying i386-generic-uclibc config" $(call latestconfig, ptxconfig-i386-generic-uclibc)
-	@cp $(call latestconfig, ptxconfig-i386-generic-uclibc) .config
+	@echo "copying i386-generic-uclibc configuration"
+	@cp config/i386-generic-uclibc.ptxconfig .config
 
 innokom_config:
 	@echo "copying innokom configuration"
