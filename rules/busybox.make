@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.19 2003/12/23 12:19:32 robert Exp $
+# $Id: busybox.make,v 1.20 2004/02/04 08:45:22 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -68,13 +68,6 @@ $(STATEDIR)/busybox.extract: $(busybox_extract_deps)
 
 busybox_prepare: $(STATEDIR)/busybox.prepare
 
-#
-# dependencies
-#
-busybox_prepare_deps =  \
-	$(STATEDIR)/busybox.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 BUSYBOX_PATH		=  PATH=$(CROSS_PATH)
 BUSYBOX_ENV 		=  $(CROSS_ENV)
 BUSYBOX_MAKEVARS	=  CROSS=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC) EXTRA_CFLAGS='$(strip $(subst ",,$(TARGET_CFLAGS)))'
@@ -82,7 +75,9 @@ BUSYBOX_MAKEVARS	=  CROSS=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC) EXTRA_CFLAGS='
 #
 # dependencies
 #
-busybox_prepare_deps	=  $(STATEDIR)/virtual-xchain.install $(STATEDIR)/busybox.extract
+busybox_prepare_deps	=  $(STATEDIR)/virtual-xchain.install
+busybox_prepare_deps	+= $(STATEDIR)/busybox.extract
+busybox_prepare_deps	+= $(STATEDIR)/virtual-libc.targetinstall
 
 $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	@$(call targetinfo, $@)
