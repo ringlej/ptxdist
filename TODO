@@ -65,6 +65,9 @@ Low Priority
 - RSC: check for uImage targets: have to depend on vmlinux, not on
        zImage. 
 - LGR: concept for debug levels: strip, -g, -S 
+- LGR: Binary packets: system V package tools (cpio/pre/post)
+- LGR: key infrastructure: integrate signing, activate this only 
+       when running the release cycle. 
 
 Nice-to-Have Packets
 --------------------
@@ -76,7 +79,6 @@ Nice-to-Have Packets
 	"User Interfaces"	flash, Shell Menues (Robin), JVisu
 	"Init"			lmainit
 	"Languages"		perl, miniperl
-
 
 8<----------
 Hello,
