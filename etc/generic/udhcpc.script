@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# udhcpc script edited by Tim Riker <Tim@Rikers.org>
+# $Id: udhcpc.script,v 1.2 2004/08/23 08:10:43 rsc Exp $
 
 [ -z "$1" ] && echo "Error: should be called from udhcpc" && exit 1
 

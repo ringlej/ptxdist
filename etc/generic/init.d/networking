@@ -19,6 +19,7 @@ else
 fi
 
 # check if we are already listed in /etc/hosts
+# FIXME: put this into deployment script
 
 hostname=`hostname`
 if [ -z "`grep $hostname /etc/hosts`" ]; then
