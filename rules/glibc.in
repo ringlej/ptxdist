@@ -86,12 +86,10 @@ config GLIBC_NSS_DNS
 	depends on GLIBC
 	depends on GLIBC_RESOLV
 
-
 config GLIBC_NSS_FILES
 	bool
 	prompt "Install libnss_files"
 	depends on GLIBC
-
 
 comment "libnss_hesiod depends on libreslov and libnss_files"
 	depends on GLIBC
@@ -103,7 +101,6 @@ config GLIBC_NSS_HESIOD
 	depends on GLIBC
 	depends on GLIBC_RESOLV && GLIBC_NSS_FILES
 
-
 comment "libnss_nis depends on libnsl and libnss_files"
 	depends on GLIBC
 	depends on ! (GLIBC_NSL && GLIBC_NSS_FILES)
@@ -113,8 +110,6 @@ config GLIBC_NSS_NIS
 	prompt "Install libnss_nis"
 	depends on GLIBC
 	depends on GLIBC_NSL && GLIBC_NSS_FILES
-
-
 
 comment "libnss_nisplus depends on libnsl"
 	depends on GLIBC
@@ -126,7 +121,6 @@ config GLIBC_NSS_NISPLUS
 	depends on GLIBC
 	depends on GLIBC_NSL
 
-
 comment "libnss_compat depends on libnsl"
 	depends on GLIBC
 	depends on !GLIBC_NSL
@@ -137,14 +131,25 @@ config GLIBC_NSS_COMPAT
 	depends on GLIBC
 	depends on GLIBC_NSL
 
-
 config GLIBC_RESOLV
 	bool
 	prompt "Install libresolv"
 	depends on GLIBC
 
-
 config GLIBC_NSL
 	bool
 	prompt "Install libnsl"
 	depends on GLIBC
+
+# -----
+
+config GLIBC_GCONV
+	bool
+	prompt "Install gconv libraries"
+	depends on GLIBC
+
+config GLIBC_GCONV_ISO8859_1
+	bool
+	prompt "  ISO8859-1"
+	depends on GLIBC_GCONV
+

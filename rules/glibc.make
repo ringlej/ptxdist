@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.22 2004/03/06 08:51:09 robert Exp $
+# $Id: glibc.make,v 1.23 2004/03/31 16:17:21 robert Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -359,6 +359,17 @@ ifdef PTXCONF_GLIBC_NSL
 	$(GLIBC_STRIP) $(ROOTDIR)/lib/libnsl[-.]*so*
 endif
 
+ifdef PTXCONF_GLIBC_GCONV
+	install -d $(ROOTDIR)/usr/lib/gconv
+	rm -f $(ROOTDIR)/usr/lib/gconv/gconv-modules
+
+ifdef PTXCONF_GLIBC_GCONV_ISO8859_1
+	cp $(GLIBC_BUILDDIR)/iconvdata/ISO8859-1.so $(ROOTDIR)/usr/lib/gconv/
+	echo "module INTERNAL ISO-8859-1// ISO8859-1 1" \
+		>> $(ROOTDIR)/usr/lib/gconv/gconv-modules
+endif
+	
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
