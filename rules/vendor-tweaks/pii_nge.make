@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pii_nge.make,v 1.4 2004/08/17 09:42:50 sha Exp $
+# $Id: pii_nge.make,v 1.5 2004/08/17 12:57:07 sha Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -55,6 +55,11 @@ $(STATEDIR)/pii_nge.targetinstall:
 	install -d $(ROOTDIR)/var/log
 	install -d $(ROOTDIR)/var/lock
 	
+#	create /etc/rc.d links
+	ln -sf ../init.d/banner $(ROOTDIR)/etc/rc.d/S00_banner
+	ln -sf ../init.d/networking $(ROOTDIR)/etc/rc.d/S01_networking
+	ln -sf ../init.d/utelnetd $(ROOTDIR)/etc/rc.d/S02_utelnetd
+
 	# we need to fix owner / permissions at first startup 
 	# FIXME: this will be done with fakeroot later...
 	install -m 755 -D $(MISCDIR)/ptx-init-permissions.sh $(ROOTDIR)/sbin/ptx-init-permissions.sh

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: flowscreen2.make,v 1.6 2004/08/17 10:30:15 sha Exp $
+# $Id: flowscreen2.make,v 1.7 2004/08/17 12:57:07 sha Exp $
 #
 # Copyright (C) 2004 by Pengutronix, Robert Schwebel
 #          
@@ -54,7 +54,10 @@ $(STATEDIR)/flowscreen2.targetinstall:
 	install -d $(ROOTDIR)/var/run
 	install -d $(ROOTDIR)/var/log
 	install -d $(ROOTDIR)/var/lock
-	
+
+#	create /etc/rc.d links
+	ln -sf ../init.d/banner $(ROOTDIR)/etc/rc.d/S00_banner
+
 	$(PTXCONF_PREFIX)/bin/mkfs.jffs2 -d root --eraseblock=131072 -o /tmp/root.jffs2 --pad=5242880
 	
 	touch $@
