@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: frako.make,v 1.6 2004/03/12 10:26:28 bbu Exp $
+# $Id: frako.make,v 1.7 2004/03/12 11:46:51 bbu Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -91,6 +91,9 @@ $(STATEDIR)/frako.targetinstall:
 	
 	# create some symlinks
 	ln -sf /home/system/localtime $(ROOTDIR)/etc/localtime
+
+	# we need to fix owner / permissions at first startup 
+        install -m 755 -D $(MISCDIR)/ptx-init-permissions.sh $(ROOTDIR)/sbin/ptx-init-permissions.sh
 	
 #	make lcd_modules
 	
