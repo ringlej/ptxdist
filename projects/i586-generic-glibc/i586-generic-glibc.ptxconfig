@@ -1107,6 +1107,11 @@ PTXCONF_UTELNETD=y
 # PTXCONF_XSERVER is not set
 
 #
+# realvnc               
+#
+# PTXCONF_REALVNC is not set
+
+#
 # X Applications
 #
 
@@ -1131,6 +1136,12 @@ PTXCONF_UTELNETD=y
 # Blackbox WM           
 #
 # PTXCONF_BLACKBOX is not set
+
+#
+# Framebuffer
+#
+# PTXCONF_FBTEST is not set
+# PTXCONF_FBUTILS is not set
 
 #
 # Scientific Apps             

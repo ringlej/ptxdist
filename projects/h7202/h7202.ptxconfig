@@ -1141,6 +1141,11 @@ PTXCONF_ZLIB=y
 # PTXCONF_XSERVER is not set
 
 #
+# realvnc               
+#
+# PTXCONF_REALVNC is not set
+
+#
 # X Applications
 #
 
