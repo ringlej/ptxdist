@@ -1,32 +1,41 @@
-config BUILD_XGDB
-	bool
-	prompt "Build Cross GDB"
+config XGDB
+	bool "Build Cross GDB"
 
-config BUILD_GDBSERVER
-	bool
-	prompt "Build gdbserver for target"
+config GDBSERVER
+	bool "Build gdbserver for target"
 	depends on !ARCH_SPARC
 
 comment "building gdbserver static, install libthreads_db on target (see C Library) to enable shared"
-	depends on BUILD_GDBSERVER
-	depends on !BUILD_GDBSERVER_SHARED
+	depends on GDBSERVER
+	depends on !GDBSERVER_SHARED && !(GLIBC_THREAD_DB || UCLIBC_PTHREAD)
 
-config BUILD_GDBSERVER_SHARED
+config GDBSERVER_SHARED
 	bool "Build shared"
 	default y
-	depends on BUILD_GDBSERVER
+	depends on GDBSERVER
 	depends on GLIBC_THREAD_DB || UCLIBC_PTHREAD
 
-config BUILD_GDB
-	bool
-	prompt "Build GDB for target"
+config GDB
+	bool "Build GDB for target"
 
 comment "building GDB static, install libm on target (see C Library) to enables shared"
-	depends on BUILD_GDB
-	depends on !BUILD_GDB_SHARED
+	depends on GDB
+	depends on !GDB_SHARED && ! (GLIBC_LIBM || UCLIBC_M)
 
-config BUILD_GDB_SHARED
+config GDB_SHARED
 	bool "Build shared"
 	default y
-	depends on BUILD_GDB
+	depends on GDB
 	depends on GLIBC_LIBM || UCLIBC_M
+
+choice
+	prompt "Select term library"
+	default GDB_TERMCAP
+	depends on GDB
+
+	config GDB_TERMCAP
+		bool "termcap"
+
+	config GDB_NCURSES
+		bool "ncurses
+endchoice
