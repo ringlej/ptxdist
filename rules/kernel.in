@@ -253,6 +253,8 @@ endchoice
 
 comment "---"
 
+source "rules/epoll.in"
+
 source "rules/rtai.in"
 	
 comment "---"
