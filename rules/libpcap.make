@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libpcap.make,v 1.1 2003/09/09 00:12:42 mkl Exp $
+# $Id: libpcap.make,v 1.2 2003/09/10 01:39:34 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde
 #          
@@ -120,7 +120,7 @@ $(STATEDIR)/libpcap.install: $(STATEDIR)/libpcap.compile
 
 libpcap_targetinstall: $(STATEDIR)/libpcap.targetinstall
 
-libpcap_targetinstall_deps	=
+libpcap_targetinstall_deps	=  $(STATEDIR)/libpcap.install
 
 $(STATEDIR)/libpcap.targetinstall: $(libpcap_targetinstall_deps)
 	@$(call targetinfo, libpcap.targetinstall)
