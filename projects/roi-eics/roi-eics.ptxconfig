@@ -1197,6 +1197,11 @@ PTXCONF_UTELNETD=y
 # PTXCONF_LIBXML2 is not set
 
 #
+# sqlite           
+#
+# PTXCONF_SQLITE is not set
+
+#
 # Graphics Libraries          
 #
 

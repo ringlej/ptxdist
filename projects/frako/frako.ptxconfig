@@ -1172,6 +1172,11 @@ PTXCONF_ZLIB=y
 PTXCONF_LIBXML2=y
 
 #
+# sqlite           
+#
+# PTXCONF_SQLITE is not set
+
+#
 # Graphics Libraries          
 #
 
