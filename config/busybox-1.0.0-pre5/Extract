@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+
+# find out which version of busybox we have; this is taken from the name
+# of this directory
+$bb_version = `basename \`pwd\``;
+chomp $bb_version;
+$bb_version =~ s/busybox-//;
+
+#
+# first extract all configuration files from the original source tree
+#
+
+@configfiles = `find ../../build/busybox* -name "Config.in"`;
+
+while($_ = shift @configfiles) {
+	chomp $_;
+	my $filename = $_;   $filename =~ s/(.*\/busybox.*?)\/(.*$)/$2/;
+	my $dir = $filename; $dir      =~ s/(.*\/)(.*$)/$1/;
+	system("mkdir -p $dir");
+	system("../../scripts/mkprefix -v -p BB_ < $_ > $filename");
+}
+
+
+#
+# fix some entries 
+# 
+
+print "---------------------------------------------------------------------\n";
+print "Fixing some stuff...\n";
+print "---------------------------------------------------------------------\n";
+
+@fixfiles = `find . -name "Config.in"`;
+
+while($file = shift @fixfiles) {
+
+	open (FILE, "$file");
+	@file = <FILE>;
+	close FILE;
+
+	for (@file) { $_ =~ s/^source (.*)/source config\/busybox-$bb_version\/$1/g; }
+	for (@file) { $_ =~ s/^mainmenu (.*$)/# mainmenu $1/g;           }
+	for (@file) { $_ =~ s/^(menu .*)$/$1\n	depends on BUSYBOX/g;    }
+
+	open (FILE, ">$file");
+	print FILE @file;
+	close FILE;
+
+}
