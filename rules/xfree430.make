@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.14 2004/02/25 11:00:48 bsp Exp $
+# $Id: xfree430.make,v 1.15 2004/02/25 22:39:04 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -137,8 +137,6 @@ $(STATEDIR)/xfree430.prepare: $(xfree430_prepare_deps)
 	cd $(XFREE430_DIR)/config/util && make -f Makefile.ini lndir
 	cd $(XFREE430_BUILDDIR) && $(XFREE430_DIR)/config/util/lndir $(XFREE430_DIR)
 	cp $(PTXCONF_XFREE430_CONFIG) $(XFREE430_BUILDDIR)/config/cf/host.def
-	echo "#define ProjectRoot $(CROSS_LIB_DIR)/X11R6" >> \
-		$(XFREE430_BUILDDIR)/config/cf/host.def
 	cd $(XFREE430_BUILDDIR) && mkdir cross_compiler
 	for i in $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin/*; do ln -s $$i $(XFREE430_BUILDDIR)/cross_compiler; done
 	ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-cpp $(XFREE430_BUILDDIR)/cross_compiler/cpp
@@ -161,8 +159,17 @@ xfree430_compile_deps =  $(STATEDIR)/xfree430.prepare
 $(STATEDIR)/xfree430.compile: $(xfree430_compile_deps)
 	@$(call targetinfo, $@)
 
+	#
+	# FIXME: tweak, tweak...
+	#
+	echo "UGGLY HACK WARNING: creating symlink to host xcursorgen (chicken&egg problem)"
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin
+	ln -sf `which xcursorgen` $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6/bin/xcursorgen
+	ln -sf `which mkfontdir` $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6/bin/mkfontdir
+
 	cd $(XFREE430_BUILDDIR) && \
-		$(XFREE430_ENV) make World prefix=$(CROSS_LIB_DIR) CROSSCOMPILEDIR=$(XFREE430_BUILDDIR)/cross_compiler
+		$(XFREE430_ENV) DESTDIR=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
+		make World CROSSCOMPILEDIR=$(XFREE430_BUILDDIR)/cross_compiler
 
 	touch $@
 
@@ -180,7 +187,8 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	# ln -sf $(XFREE430_BUILDDIR)/programs/Xserver/hw/xfree86/xf86Version.h $(XFREE430_BUILDDIR)/config/cf/version.def
 	
 	cd $(XFREE430_BUILDDIR) && \
-		$(XFREE430_ENV) make install
+		$(XFREE430_ENV) DESTDIR=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
+		make install
 	
 	touch $@
 
