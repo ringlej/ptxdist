@@ -102,6 +102,7 @@ menu "Communication Utilities     "
 
 source "rules/efax.in"
 source "rules/pop3spam.in"
+source "rules/smtpclient.in"
 
 endmenu
 
