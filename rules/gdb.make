@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gdb.make,v 1.1 2003/09/02 14:12:15 robert Exp $
+# $Id: gdb.make,v 1.2 2003/10/07 07:13:43 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -12,7 +12,10 @@
 #
 # We provide this package
 #
-ifeq (y,$(PTXCONF_BUILD_GDB))
+ifeq (y, $(PTXCONF_BUILD_GDB))
+PACKAGES += gdb
+endif
+ifeq (y, $(PTXCONF_BUILD_GDBSERVER))
 PACKAGES += gdb
 endif
 
@@ -62,9 +65,11 @@ GDB_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/gdb.prepare: $(STATEDIR)/gdb.extract
 	@$(call targetinfo, gdb.prepare)
-	
+
+ifeq (y,$(PTXCONF_BUILD_GDB))
 	cd $(GDB_DIR) && 						\
 		$(GDB_PATH) $(GDB_ENV) ./configure $(GDB_AUTOCONF)
+endif
 
 ifeq (y,$(PTXCONF_BUILD_GDBSERVER))
 	# configure is not executable, so run it with sh
@@ -81,9 +86,15 @@ gdb_compile: $(STATEDIR)/gdb.compile
 
 $(STATEDIR)/gdb.compile: $(STATEDIR)/gdb.prepare 
 	@$(call targetinfo, gdb.compile)
-	$(GDB_PATH) $(GDB_ENV) make -C $(GDB_DIR) 
+	
+ifeq (y,$(PTXCONF_BUILD_GDB))
+	cd $(GDB_DIR) && \
+		$(GDB_PATH) $(GDB_ENV) make 
+endif
+
 ifeq (y,$(PTXCONF_BUILD_GDBSERVER))
-	$(GDB_PATH) $(GDB_ENV) make -C $(GDB_DIR)/gdb/gdbserver
+	cd $(GDB_DIR)/gdb/gdbserver && \
+		$(GDB_PATH) $(GDB_ENV) make
 endif
 	touch $@
 
@@ -105,8 +116,12 @@ gdb_targetinstall: $(STATEDIR)/gdb.targetinstall
 
 $(STATEDIR)/gdb.targetinstall: $(STATEDIR)/gdb.install
 	@$(call targetinfo, gdb.targetinstall)
+	
+ifeq (y,$(PTXCONF_BUILD_GDB))
 	install $(GDB_DIR)/gdb/gdb $(ROOTDIR)/bin
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/bin/gdb
+endif
+
 ifeq (y,$(PTXCONF_BUILD_GDBSERVER))
 	install $(GDB_DIR)/gdb/gdbserver/gdbserver $(ROOTDIR)/bin
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/bin/gdbserver
