@@ -1,4 +1,8 @@
+# -----
+
 menu	"nfs-utils           "
+
+comment "compile options"
 
 config	NFSUTILS
 	bool
@@ -18,6 +22,16 @@ config	NFSUTILS_RQUOTAD
 	bool
 	prompt "Enable rquotad"
 	depends on NFSUTILS	
+
+config	NFSUTILS_WITH_TCPWRAPPERS
+	bool
+	prompt "Use TCP Wrappers"
+	depends on NFSUTILS
+	select TCPWRAPPER
+
+# -----
+
+comment "install options"
 
 config	NFSUTILS_INSTALL_CLIENTSCRIPT
 	bool
