@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glib22.make,v 1.1 2003/08/13 12:04:17 robert Exp $
+# $Id: glib22.make,v 1.2 2003/08/14 09:51:17 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -74,10 +74,14 @@ GLIB22_PATH	=  PATH=$(CROSS_PATH)
 GLIB22_ENV 	=  $(CROSS_ENV)
 
 # FIXME: correct? 
-GLIB22_ENV	+= glib_cv_use_pid_surrogate=unknown 
-GLIB22_ENV	+= ac_cv_func_posix_getpwuid_r=unknown 
-GLIB22_ENV	+= glib_cv_uscore=unknown 
-GLIB22_ENV	+= glib_cv_stack_grows=unknown
+GLIB22_ENV	+= glib_cv_use_pid_surrogate=no
+GLIB22_ENV	+= ac_cv_func_posix_getpwuid_r=yes 
+ifeq (y, $G(PTXCONF_GLIBC_DL))
+GLIB22_ENV	+= glib_cv_uscore=yes
+else
+GLIB22_ENV	+= glib_cv_uscore=no
+endif
+GLIB22_ENV	+= glib_cv_stack_grows=no
 
 #
 # autoconf
