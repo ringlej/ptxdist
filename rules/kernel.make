@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.11 2003/10/23 17:54:06 mkl Exp $
+# $Id: kernel.make,v 1.12 2003/10/26 06:24:32 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -25,7 +25,8 @@ KERNEL_SUFFIX		= tar.bz2
 KERNEL_URL		= ftp://ftp.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_SOURCE		= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DIR		= $(BUILDDIR)/$(KERNEL)
-KERNEL_PATCHES		+= $(call get_option_ext, s/^PTXCONF_KERNEL_[0-9]_[0-9]_[0-9]*_\(.*\)=y/\1/, sed -e 's/_/ /g' -e 's/[0-9]//g' )
+KERNEL_PATCHES		+= $(addprefix kernel-, \
+	$(call get_option_ext, s/^PTXCONF_KERNEL_[0-9]_[0-9]_[0-9]*_\(.*\)=y/\1/, sed -e 's/_/ /g' -e 's/[0-9]//g' ))
 
 ifdef PTXCONF_KERNEL_IMAGE_Z
 KERNEL_TARGET		= zImage
@@ -91,7 +92,7 @@ kernel_extract: $(STATEDIR)/kernel.extract
 
 kernel_extract_deps = \
 	$(STATEDIR)/kernel-base.extract	\
-	$(addprefix $(STATEDIR)/kernel-, $(addsuffix .install, $(KERNEL_PATCHES)))
+	$(addprefix $(STATEDIR)/, $(addsuffix .install, $(KERNEL_PATCHES)))
 
 $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
 	@$(call targetinfo, $@)
