@@ -28,13 +28,13 @@ config PROJECT
 menu "General Options             "
 ##############################################################################
 
+source "rules/ptxdistopts.in"
 source "rules/experimental.in"
 source "rules/target.in"
 source "rules/crosstool.in"
 source "rules/rootfs.in"
 source "rules/debug.in"
 source "rules/hosttools.in"
-source "rules/ptxdistopts.in"
 
 endmenu
 
