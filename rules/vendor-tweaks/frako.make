@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: frako.make,v 1.2 2004/02/16 10:15:14 bsp Exp $
+# $Id: frako.make,v 1.3 2004/02/19 16:48:04 bsp Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -59,10 +59,15 @@ $(STATEDIR)/frako.targetinstall:
 	# create some mountpoints
 	install -d $(ROOTDIR)/var/run
 	install -d $(ROOTDIR)/var/log
+	install -d $(ROOTDIR)/var/lock
 	
 	# create home directories
 	install -d $(ROOTDIR)/home/frako
 	install -d $(ROOTDIR)/home/system
+	
+	# create mgetty directories
+	install -d $(ROOTDIR)/var/spool/fax/incoming
+	install -d $(ROOTDIR)/var/spool/fax/outgoing
 	
 #	make lcd_modules
 	
