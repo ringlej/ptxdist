@@ -1,0 +1,6 @@
+menu	"Host Tools           "
+
+source "rules/genext2fs.in"
+source "rules/fakeroot.in"
+
+endmenu

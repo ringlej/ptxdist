@@ -1,0 +1,7 @@
+menu    "libxml2             "
+
+config LIBXML2
+        bool
+        prompt "Compile libxml2-2.6.2"
+
+endmenu

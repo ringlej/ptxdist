@@ -22,6 +22,7 @@ source "rules/target.in"
 source "rules/cross-toolchain.in"
 source "rules/rootfs.in"
 source "rules/debug.in"
+source "rules/hosttools.in"
 
 ##############################################################################
 comment "Core System ---    "
@@ -86,7 +87,6 @@ source "rules/e2fsprogs.in"
 source "rules/grub.in"
 source "rules/lilo.in"
 source "rules/cramfs.in"
-source "rules/genext2fs.in"
 
 endmenu
 
@@ -110,6 +110,7 @@ source "rules/ncurses.in"
 source "rules/termcap.in"
 source "rules/db41.in"
 source "rules/rn.in"
+source "rules/libxml2.in"
 
 endmenu
 
