@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.49 2003/11/09 21:49:46 mkl Exp $
+# $Id: Makefile,v 1.50 2003/11/13 04:23:14 mkl Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -87,6 +87,7 @@ help:
 	@echo
 	@echo "  make menuconfig       Configure the whole system"
 	@echo
+	@echo "  make get              Download (most) of the needed packets"
 	@echo "  make extract          Extract all needed archives"
 	@echo "  make prepare          Prepare the configured system for compilation"
 	@echo "  make compile          Compile the packages"
