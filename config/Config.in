@@ -805,6 +805,7 @@ source "rules/util-linux.in"
 
 source "rules/vhll.in"
 
+source "rules/pcmcia-cs.in"
 
 ##############################################################################
 comment "Network Tools"
