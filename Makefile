@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.62 2003/12/19 08:09:23 bsp Exp $
+# $Id: Makefile,v 1.63 2003/12/19 08:12:32 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -205,8 +205,13 @@ innokom_config:
 	@echo "copying innokom configuration"
 	@cp config/innokom.ptxconfig .config
 
-rayonic_config:
-	@echo "copying rayonic configuration"
+i586-rayonic_config:
+	@echo "copying 586 rayonic configuration"
+	@cp config/i586-rayonic.ptxconfig .config
+	@cp config/rtaiconfig-rayonic .rtaiconfig
+
+i386-rayonic_config:
+	@echo "copying 386 rayonic configuration"
 	@cp config/i386-rayonic.ptxconfig .config
 	@cp config/rtaiconfig-rayonic .rtaiconfig
 
