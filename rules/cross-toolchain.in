@@ -53,8 +53,9 @@ config GCC_3
 
 config GCC_SHARED
 	bool
-	prompt "build gcc shared"
+	prompt "  build gcc shared"
 	default y
+	depends on BUILD_CROSSCHAIN
 
 config XCHAIN-DISTCC
 	bool
