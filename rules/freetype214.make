@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: freetype214.make,v 1.6 2004/02/25 09:51:29 robert Exp $
+# $Id: freetype214.make,v 1.7 2004/02/25 22:31:09 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -130,9 +130,9 @@ $(STATEDIR)/freetype214.targetinstall: $(freetype214_targetinstall_deps)
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)
 	rm -f $(ROOTDIR)/lib/libfreetype.so*
-	install $(FREETYPE214_DIR)/objs/.libs/libfreetype.so.6.3.3 $(ROOTDIR)/lib/
-	ln -sf libfreetype.so.6.3.3 $(ROOTDIR)/lib/libfreetype.so.6
-	ln -sf libfreetype.so.6.3.3 $(ROOTDIR)/lib/libfreetype.so
+	install $(FREETYPE214_DIR)/objs/.libs/libfreetype.so.6.3.5 $(ROOTDIR)/lib/
+	ln -sf libfreetype.so.6.3.5 $(ROOTDIR)/lib/libfreetype.so.6
+	ln -sf libfreetype.so.6.3.5 $(ROOTDIR)/lib/libfreetype.so
 	touch $@
 
 # ----------------------------------------------------------------------------
