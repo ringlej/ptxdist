@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libnet.make,v 1.5 2003/09/10 01:40:31 mkl Exp $
+# $Id: libnet.make,v 1.6 2003/09/16 16:41:22 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde
 #          
@@ -36,6 +36,7 @@ libnet_get_deps	=  $(LIBNET_SOURCE)
 
 $(STATEDIR)/libnet.get: $(libnet_get_deps)
 	@$(call targetinfo, libnet.get)
+	@$(call get_patches, $(LIBNET))
 	touch $@
 
 $(LIBNET_SOURCE):
@@ -56,7 +57,7 @@ $(STATEDIR)/libnet.extract: $(libnet_extract_deps)
 	@$(call targetinfo, libnet.extract)
 	@$(call clean, $(LIBNET_DIR))
 	@$(call extract, $(LIBNET_SOURCE))
-	@$(call patchin, $(LIBNET_DIR), $(LIBNET))
+	@$(call patchin, $(LIBNET), $(LIBNET_DIR))
 	cd $(LIBNET_DIR) && \
 		$(PTXCONF_PREFIX)/$(AUTOMAKE15)/bin/aclocal && \
 		$(PTXCONF_PREFIX)/$(AUTOMAKE15)/bin/automake && \
