@@ -1,3 +1,8 @@
+2004-xx-xx
+	* Makefile: fix multiple inclusion of Rules.make & friends
+	* rules: fix CROSS_ENV_* variables for preprocessor and cc
+	* kconfig: added PTXCONF_PROJECT to have the name available
+
 2004-01-05 Robert Schwebel <r.schwebel@pengutronix.de>
 	* general: feature patch is merged
 	* general: lots of added packages all over the place
