@@ -6,6 +6,10 @@ Current TODO List
 High Priority
 -------------
 
+- RSC: invent magic to find out which tools are not installed on the 
+       user's machine (currently we know tic, bison, yacc...)
+- RSC: add some useful statistics at the end of build (root size, image
+       size etc.).
 - RSC: uClibc is removed at the moment: the "Extract" and regexp magic 
        doesn't seem to work properly. mkprefix makes wrong UCLIBC_ fixes 
        in Config.in and Config.in is not included at all. 
