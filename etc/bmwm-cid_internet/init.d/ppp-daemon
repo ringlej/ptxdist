@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# /etc/init.d/ppp-daemon
+#
+# Configuration for BMW
+#
+# 2004/02/27 Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+case $1 in
+
+	start)
+		if [ ! -f /etc/ppp/pap-secrets ]; then
+			echo "ppp not configured!"
+			exit -1
+		fi
+		echo "loading ppp daemon:"
+		/usr/sbin/pppd call gprs
+		sleep 1
+		ifconfig ppp0 down
+		echo "done."
+		;;
+	stop)
+		echo "stopping pppd daemon:"
+		/usr/bin/killall pppd
+		echo "done."
+		;;
+	*)
+		echo "usage: $0 [start|stop]"
+		;;
+esac
+

@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# /etc/init.d/ppp-update
+#
+# Configuration for BMW
+#
+# 2004/02/27 Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+user=$2
+pass=$3
+pin=$4
+
+case $1 in 
+
+	start)
+		logger -s "updating ppp configuration"
+		sed -e "s/@USER@/$user/g" -e "s/@PASS@/$pass/g" \
+			/etc/ppp/pap-secrets.in > 		\
+			/etc/ppp/pap-secrets
+		sed -e "s/@PIN@/$pin/g" \
+			/etc/ppp/peers/gprs-connect-chat.in > 	\
+			/etc/ppp/peers/gprs-connect-chat
+		chmod 775 /etc/ppp/peers/gprs-connect-chat
+		sed -e "s/@USER@/$user/g" \
+			/etc/ppp/peers/gprs.in > 		\
+			/etc/ppp/peers/gprs
+		;;
+
+	stop)
+		logger -s "removing ppp configuration"
+		rm -f /etc/ppp/pap-secrets
+		rm -f /etc/ppp/peers/gprs-connect-chat
+		rm -f /etc/ppp/peers/gprs
+		;;
+
+	*)
+		echo "usage: $0 [stop][start user pass pin]"
+		;;
+esac
+

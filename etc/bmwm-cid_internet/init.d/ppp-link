@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+# /etc/init.d/ppp-link
+#
+# Configuration for BMW
+#
+# 2004/02/27 Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+case $1 in
+
+	start)
+		echo "setting up ppp link:"
+		route del default
+		ifconfig ppp0 up
+		route add default ppp0
+		echo "done."
+		;;
+	stop)
+		echo "stopping ppp link:"
+		route del default
+		ifconfig ppp0 down
+		route add default eth0	
+		echo "done."
+		;;
+	*)
+		echo "usage: $0 [start|stop]"
+		;;
+esac
+
