@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: dropbear.make,v 1.1 2003/07/20 23:38:37 mkl Exp $
+# $Id: dropbear.make,v 1.2 2003/07/23 08:52:49 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             for Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -68,8 +68,11 @@ dropbear_prepare: $(STATEDIR)/dropbear.prepare
 #
 dropbear_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/zlib.install \
 	$(STATEDIR)/dropbear.extract
+
+ifndef PTXCONF_DROPBEAR_DIS_ZLIB
+dropbear_prepare_deps +=  $(STATEDIR)/zlib.install
+endif
 
 DROPBEAR_PATH	=  PATH=$(CROSS_PATH)
 DROPBEAR_ENV 	=  $(CROSS_ENV)
@@ -83,12 +86,130 @@ DROPBEAR_AUTOCONF	+= --build=$(GNU_HOST)
 DROPBEAR_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 DROPBEAR_AUTOCONF	+= --disable-nls
 
+ifdef PTXCONF_DROPBEAR_DIS_ZLIB
+DROPBEAR_AUTOCONF	+= --disable-zlib
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_LASTLOG
+DROPBEAR_AUTOCONF	+= --disable-lastlog
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_UTMP
+DROPBEAR_AUTOCONF	+= --disable-utmp
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_UTMPX
+DROPBEAR_AUTOCONF	+= --disable-utmpx
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_WTMP
+DROPBEAR_AUTOCONF	+= --disable-wtmp
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_WTMPX
+DROPBEAR_AUTOCONF	+= --disable-wtmpx
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_LIBUTIL
+DROPBEAR_AUTOCONF	+= --disable-libutil
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_PUTUTLINE
+DROPBEAR_AUTOCONF	+= --disable-pututline
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_PUTUTXLINE
+DROPBEAR_AUTOCONF	+= --disable-pututxline
+endif
+
 $(STATEDIR)/dropbear.prepare: $(dropbear_prepare_deps)
 	@$(call targetinfo, dropbear.prepare)
 	@$(call clean, $(DROPBEAR_BUILDDIR))
 	cd $(DROPBEAR_DIR) && \
 		$(DROPBEAR_PATH) $(DROPBEAR_ENV) \
 		$(DROPBEAR_DIR)/configure $(DROPBEAR_AUTOCONF)
+
+ifdef PTXCONF_DROPBEAR_DIS_X11
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DISABLE_X11FWD)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DISABLE_X11FWD)
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_TCP
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DISABLE_TCPFWD)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DISABLE_TCPFWD)
+endif
+
+ifdef PTXCONF_DROPBEAR_DIS_AGENT
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DISABLE_AGENTFWD)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DISABLE_AGENTFWD)
+endif
+
+
+ifdef PTXCONF_DROPBEAR_AES128
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_AES128_CBC)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_AES128_CBC)
+endif
+
+ifdef PTXCONF_DROPBEAR_BLOWFISH
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_BLOWFISH_CBC)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_BLOWFISH_CBC)
+endif
+
+ifdef PTXCONF_DROPBEAR_TWOFISH123
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH128_CBC)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH128_CBC)
+endif
+
+ifdef PTXCONF_DROPBEAR_3DES
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_3DES_CBC)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_3DES_CBC)
+endif
+
+
+ifdef PTXCONF_DROPBEAR_SHA1
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_SHA1_HMAC)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_SHA1_HMAC)
+endif
+
+ifdef PTXCONF_DROPBEAR_MD5
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_MD5_HMAC)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_MD5_HMAC)
+endif
+
+
+ifdef PTXCONF_DROPBEAR_RSA
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_RSA)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_RSA)
+endif
+
+ifdef PTXCONF_DROPBEAR_DSS
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_DSS)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_DSS)
+endif
+
+ifdef PTXCONF_DROPBEAR_PASSWD
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_PASSWORD_AUTH)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_PASSWORD_AUTH)
+endif
+
+ifdef PTXCONF_DROPBEAR_PUBKEY
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_PUBKEY_AUTH)
+else
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_PUBKEY_AUTH)
+endif
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -101,7 +222,13 @@ dropbear_compile_deps =  $(STATEDIR)/dropbear.prepare
 
 $(STATEDIR)/dropbear.compile: $(dropbear_compile_deps)
 	@$(call targetinfo, dropbear.compile)
-	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) $(DROPBEAR_MAKEVARS)
+	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) $(DROPBEAR_MAKEVARS) dropbear
+ifdef PTXCONF_DROPBEAR_DROPBEAR_KEY
+	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) $(DROPBEAR_MAKEVARS) dropbearkey
+endif
+ifdef PTXCONF_DROPBEAR_CONVERT
+	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) $(DROPBEAR_MAKEVARS) dropbearconvert
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -121,7 +248,9 @@ $(STATEDIR)/dropbear.install: $(STATEDIR)/dropbear.compile
 dropbear_targetinstall: $(STATEDIR)/dropbear.targetinstall
 
 dropbear_targetinstall_deps	=  $(STATEDIR)/dropbear.compile
+ifndef PTXCONF_DROPBEAR_DIS_ZLIB
 dropbear_targetinstall_deps	+= $(STATEDIR)/zlib.targetinstall
+endif
 
 $(STATEDIR)/dropbear.targetinstall: $(dropbear_targetinstall_deps)
 	@$(call targetinfo, dropbear.targetinstall)
@@ -144,7 +273,7 @@ endif
 ifdef PTXCONF_DROPBEAR_DROPBEAR_CONVERT
 	install $(DROPBEAR_DIR)/dropbearconvert \
 		$(ROOTDIR)/usr/sbin/dropbearconvert
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/dropbearconvert
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/dropbearconvert
 endif
 
 	touch $@

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssh.make,v 1.7 2003/07/16 04:23:28 mkl Exp $
+# $Id: openssh.make,v 1.8 2003/07/23 08:52:49 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -71,10 +71,14 @@ $(STATEDIR)/openssh.extract: $(openssh_extract_deps)
 	@$(call extract, $(OPENSSH_SOURCE))
 
 	cd $(OPENSSH_DIR) && patch -p1 < $(OPENSSH_PATCH_SOURCE)
-	OPENSSL_VERSION_NUMBER="`sed -n -e 's/.*OPENSSL_VERSION_NUMBER.*0x[0]*\([0-9a-f]*\)L/\1/p' $(CROSS_LIB_DIR)/include/openssl/opensslv.h`" \
-	OPENSSL_VERSION_TEXT="`sed -n -e 's/.*OPENSSL_VERSION_TEXT.*"\(.*\)"/\1/p' $(CROSS_LIB_DIR)/include/openssl/opensslv.h`" && \
-	perl -i -p -e "s/ssl_library_ver=\"VERSION\"/ssl_library_ver=\"$$OPENSSL_VERSION_NUMBER ($$OPENSSL_VERSION_TEXT)\"/g" $(OPENSSH_DIR)/configure.ac && \
-	perl -i -p -e "s/ssl_header_ver=\"VERSION\"/ssl_header_ver=\"$$OPENSSL_VERSION_NUMBER ($$OPENSSL_VERSION_TEXT)\"/g" $(OPENSSH_DIR)/configure.ac
+	OPENSSL_VERSION_NUMBER="`sed -n -e 's/.*OPENSSL_VERSION_NUMBER.*0x[0]*\([0-9a-f]*\)L/\1/p' \
+		$(CROSS_LIB_DIR)/include/openssl/opensslv.h`" \
+	OPENSSL_VERSION_TEXT="`sed -n -e 's/.*OPENSSL_VERSION_TEXT.*"\(.*\)"/\1/p' \
+		$(CROSS_LIB_DIR)/include/openssl/opensslv.h`" && \
+	perl -i -p -e "s/ssl_library_ver=\"VERSION\"/ssl_library_ver=\"$$OPENSSL_VERSION_NUMBER ($$OPENSSL_VERSION_TEXT)\"/g" \
+		$(OPENSSH_DIR)/configure.ac && \
+	perl -i -p -e "s/ssl_header_ver=\"VERSION\"/ssl_header_ver=\"$$OPENSSL_VERSION_NUMBER ($$OPENSSL_VERSION_TEXT)\"/g" \
+		$(OPENSSH_DIR)/configure.ac
 
 	cd $(OPENSSH_DIR) && PATH=$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin:$$PATH autoconf
 	touch $@
@@ -97,7 +101,13 @@ openssh_prepare_deps = \
 	$(STATEDIR)/openssh.extract
 
 OPENSSH_PATH	= PATH=$(CROSS_PATH)
-OPENSSH_ENV	= $(CROSS_ENV)
+#
+# FIXME:
+#
+# openssh is a little F*CKED up, is won't compile without ld=gcc in environment
+# perhaps someone should fix this....
+#
+OPENSSH_ENV	= $(CROSS_ENV_AR) $(CORSS_ENV_AS) $(CROSS_ENV_CXX) $(CROSS_ENV_CC) $(CROSS_ENV_NM) $(CROSS_ENV_OBJCOPY) $(CROSS_ENV_RANLIB) $(CROSS_ENV_STRIP) LD=$(PTXCONF_GNU_TARGET)-gcc
 
 $(STATEDIR)/openssh.prepare: $(openssh_prepare_deps)
 	@$(call targetinfo, openssh.prepare)

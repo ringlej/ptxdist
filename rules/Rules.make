@@ -70,11 +70,37 @@ latestconfig=`find $(TOPDIR)/config -name $(1)* -print | sort | tail -1`
 
 
 #
-# crossenvironment - glibc or uClibc depending on selected option
+# enables a define
+#
+# (often found in .c or .h files)
+#
+# $1 = file
+# $2 = parameter
+#
+enable_c =									\
+	perl -p -i -e								\
+		's,^\s*(\/\*)?\s*(\#\s*define\s+$(2))\s*(\*\/)?$$,$$2\n,'	\
+		$(1)
+
+#
+# disables a define
+#
+# (often found in .c or .h files)
+#
+# $1 = file
+# $2 = parameter
+#
+disable_c =										\
+	perl -p -i -e									\
+		's,^\s*(\/\*)?\s*(\#\s*define\s+$(2))\s*(\*\/)?$$,\/\*$$2\*\/\n,'	\
+		$(1)
+
+#
+# crossenvironment
 #
 CROSS_ENV_AR		= AR=$(PTXCONF_GNU_TARGET)-ar
 CROSS_ENV_AS		= AS=$(PTXCONF_GNU_TARGET)-as
-CROSS_ENV_LD		= LD=$(PTXCONF_GNU_TARGET)-gcc
+CROSS_ENV_LD		= LD=$(PTXCONF_GNU_TARGET)-ld
 CROSS_ENV_NM		= NM=$(PTXCONF_GNU_TARGET)-nm
 CROSS_ENV_CC		= CC=$(PTXCONF_GNU_TARGET)-gcc
 CROSS_ENV_CXX		= CXX=$(PTXCONF_GNU_TARGET)-c++
