@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: frako.make,v 1.4 2004/03/03 10:19:34 robert Exp $
+# $Id: frako.make,v 1.5 2004/03/11 16:48:41 bbu Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -48,14 +48,34 @@ $(STATEDIR)/frako.targetinstall:
 
 	# create menu.lst for grub
 	install -d $(ROOTDIR)/boot
-	echo "timeout 30" > $(ROOTDIR)/boot/grub/menu.lst
+	echo "# Konfiguartion grub" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "# 03.03.2004  Gert Fischer, FRAKO Kondensatoren und Anlagenbau GmbH " >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#             www.frako.de" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "timeout 3" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "default 0" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "title \"Compact Flash\"" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo 'title "Compact Flash"' >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "kernel /boot/bzImage ip=192.168.1.254:::255.255.0.0::eth0:off root=/dev/hdc1" >> $(ROOTDIR)/boot/grub/menu.lst
-#	echo "title \"NFS\"" >> $(ROOTDIR)/boot/grub/menu.lst
-#	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
-#	echo "kernel /boot/bzImage ip=dhcp root=/dev/nfs" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "kernel /boot/bzImage ip=10.192.255.200::10.192.240.254:255.255.240.0:emis:eth0:off root=/dev/hdc1" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo " " >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#Alternativ: Services für 2 NICs anmelden:" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#kernel /boot/bzImage ip=192.168.0.209::192.168.0.254:255.255.255.0::eth0:off,192.168.1.254:::255.255.255.0::eth1:off root=/dev/hdc1" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo " " >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "# Kernelparameter:" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "# Dokumentiert in Linux Kernel Decumentation" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#    Verzeichnis ..ptxdist-0.5.0/build/linux-2.4.22/Documentation/kernel-parameters.txt" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#    IP-Parameter: nfsroot.txt" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#  Bedeutung der IP-Parameter von links nach rechts:" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#    1. Client-IP" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#    2. Server-IP" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#    3. Gateway-IP" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#    4. Netmask" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#    5. Hostname" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#    6. Device (z.B. eth0)" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "#    7. Autoconf (on oder off)" >> $(ROOTDIR)/boot/grub/menu.lst
+	
 	# create some mountpoints
 	install -d $(ROOTDIR)/var/run
 	install -d $(ROOTDIR)/var/log
@@ -68,6 +88,9 @@ $(STATEDIR)/frako.targetinstall:
 	# create mgetty directories
 	install -d $(ROOTDIR)/var/spool/fax/incoming
 	install -d $(ROOTDIR)/var/spool/fax/outgoing
+	
+	# create some symlinks
+	ln -sf /home/system/localtime $(ROOTDIR)/etc/localtime
 	
 #	make lcd_modules
 	
@@ -82,6 +105,9 @@ $(STATEDIR)/frako.targetinstall:
 	$(LCD_PATH) $(LCD_ENV) make -C $(LCD_DIR)
 	install -d $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)/kernel/drivers/char/
 	install $(LCD_DIR)/lcd_module.o $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)/kernel/drivers/char/
+	
+	# FIXME: tweak, tweak
+	install $(TOPDIR)/libpthread.so.0 $(ROOTDIR)/lib
 	touch $@
 
 # vim: syntax=make
