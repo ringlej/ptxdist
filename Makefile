@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.25 2003/08/30 11:41:24 robert Exp $
+# $Id: Makefile,v 1.26 2003/09/09 21:57:27 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -160,9 +160,13 @@ roi-eics_config:
 	@cp $(call latestconfig, ptxconfig-roi-eics) .config
 	@cp $(call latestconfig, rtaiconfig-roi-eics) .rtaiconfig
 
-solidcard-bmw_config:
+scII-bmw_config:
 	@echo "copying solidcard-bmw config" $(call latestconfig, ptxconfig-solidcard-bmw)
 	@cp $(call latestconfig, ptxconfig-solidcard-bmw) .config
+
+scII-cameron_config:
+	@echo "copying scII-cameron config" $(call latestconfig, ptxconfig-cameron)
+	@cp $(call latestconfig, ptxconfig-cameron) .config
 
 # ----------------------------------------------------------------------------
 
