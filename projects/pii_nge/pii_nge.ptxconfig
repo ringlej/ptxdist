@@ -1099,7 +1099,7 @@ PTXCONF_FIGLET=y
 #
 # PTXCONF_NANO is not set
 # PTXCONF_JED is not set
-# PTXCONF_HEXEDIT is not set
+PTXCONF_HEXEDIT=y
 
 #
 # System Libraries    
@@ -1122,7 +1122,11 @@ PTXCONF_ZLIB=y
 #
 # ncurses          
 #
-# PTXCONF_NCURSES is not set
+PTXCONF_NCURSES=y
+PTXCONF_NCURSES_TERMCAP=y
+# PTXCONF_NCURSES_FORM is not set
+# PTXCONF_NCURSES_MENU is not set
+# PTXCONF_NCURSES_PANEL is not set
 
 #
 # termcap          
