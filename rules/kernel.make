@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.26 2004/03/31 20:50:45 mkl Exp $
+# $Id: kernel.make,v 1.27 2004/06/22 06:53:03 rsc Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -35,8 +35,10 @@ KERNEL_TARGET		= bzImage
 KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/bzImage
 endif
 ifdef PTXCONF_KERNEL_IMAGE_U
-KERNEL_TARGET		= uImage
-KERNEL_TARGET_PATH	= $(KERNEL_DIR)/uImage $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/vmlinux.UBoot
+KERNEL_TARGET		=  uImage
+KERNEL_TARGET_PATH	=  $(KERNEL_DIR)/uImage 
+KERNEL_TARGET_PATH	+= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/vmlinux.UBoot
+KERNEL_TARGET_PATH	+= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/uImage
 endif
 ifdef PTXCONF_KERNEL_IMAGE_VMLINUX
 KERNEL_TARGET		= vmlinux
