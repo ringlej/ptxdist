@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-modutils.make,v 1.1 2003/10/23 18:05:53 mkl Exp $
+# $Id: xchain-modutils.make,v 1.2 2003/11/02 14:24:08 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #          
@@ -32,7 +32,7 @@ XCHAIN_MODUTILS_DIR	= $(BUILDDIR)/$(XCHAIN_MODUTILS)
 
 xchain-modutils_get: $(STATEDIR)/xchain-modutils.get
 
-xchain-modutils_get_deps	=  $(XCHAIN_MODUTILS_SOURCE)
+xchain-modutils_get_deps = $(XCHAIN_MODUTILS_SOURCE)
 
 $(STATEDIR)/xchain-modutils.get: $(xchain-modutils_get_deps)
 	@$(call targetinfo, $@)
@@ -48,7 +48,7 @@ $(XCHAIN_MODUTILS_SOURCE):
 
 xchain-modutils_extract: $(STATEDIR)/xchain-modutils.extract
 
-xchain-modutils_extract_deps	=  $(STATEDIR)/xchain-modutils.get
+xchain-modutils_extract_deps = $(STATEDIR)/xchain-modutils.get
 
 $(STATEDIR)/xchain-modutils.extract: $(xchain-modutils_extract_deps)
 	@$(call targetinfo, $@)
@@ -66,8 +66,10 @@ xchain-modutils_prepare: $(STATEDIR)/xchain-modutils.prepare
 # dependencies
 #
 xchain-modutils_prepare_deps =  \
+	$(STATEDIR)/xchain-flex254.install \
 	$(STATEDIR)/xchain-modutils.extract
 
+XCHAIN_MODUTILS_PATH	=  PATH=$(PTXCONF_PREFIX)/$(XCHAIN_FLEX254)/bin:$$PATH
 XCHAIN_MODUTILS_ENV 	=  CC=$(HOSTCC)
 
 #
@@ -84,7 +86,7 @@ $(STATEDIR)/xchain-modutils.prepare: $(xchain-modutils_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN_MODUTILS_DIR)/config.cache)
 	cd $(XCHAIN_MODUTILS_DIR) && \
-		$(XCHAIN_MODUTILS_ENV) \
+		$(XCHAIN_MODUTILS_PATH) $(XCHAIN_MODUTILS_ENV) \
 		./configure $(XCHAIN_MODUTILS_AUTOCONF)
 	touch $@
 
@@ -98,7 +100,7 @@ xchain-modutils_compile_deps =  $(STATEDIR)/xchain-modutils.prepare
 
 $(STATEDIR)/xchain-modutils.compile: $(xchain-modutils_compile_deps)
 	@$(call targetinfo, $@)
-	make -C $(XCHAIN_MODUTILS_DIR)
+	$(XCHAIN_MODUTILS_PATH) make -C $(XCHAIN_MODUTILS_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -109,7 +111,6 @@ xchain-modutils_install: $(STATEDIR)/xchain-modutils.install
 
 $(STATEDIR)/xchain-modutils.install: $(STATEDIR)/xchain-modutils.compile
 	@$(call targetinfo, $@)
-# 	make -C $(XCHAIN_MODUTILS_DIR) install
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	install -m755 $(XCHAIN_MODUTILS_DIR)/insmod/insmod $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-insmod
 	install -m755 $(XCHAIN_MODUTILS_DIR)/insmod/modinfo $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-modinfo
