@@ -1,3 +1,9 @@
+2003-10-09 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* glibc: tweaked xchain to not install target binaries in crosschain
+	  bin directory (thanks to Kai-Uwe Bloem, Auerswald. 
+	* 0.3.25 released
+
 2003-10-07 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* etc: moved innokom directory to new scheme 
@@ -18,7 +24,6 @@
 	* general: lots of new handy macros (Marc Kleine-Budde)
 	* genext2fs: added, untested. (Milan Bobde, Ixia) 
 	* ltt: fixed cross compilation (Kai-Uwe Bloem, Auerswald)
-	* 0.3.25 released
 
 2003-09-19 Robert Schwebel <r.schwebel@pengutronix.de>
 
