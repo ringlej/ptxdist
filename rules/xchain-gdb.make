@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id: xchain-gdb.make,v 1.8 2003/10/28 01:50:31 mkl Exp $
+# $Id: xchain-gdb.make,v 1.9 2003/11/17 03:43:42 mkl Exp $
 #
-# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -13,7 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BUILD_XGDB
+ifdef PTXCONF_XGDB
 PACKAGES += xchain-gdb
 endif
 
