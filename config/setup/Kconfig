@@ -102,3 +102,26 @@ config SETUP_PROJECTDIR2
 	  files. 
 
 endmenu
+
+menu "Mirrors         "
+
+config SETUP_DEBMIRROR
+        string
+        default "http://ftp.de.debian.org/debian"
+        prompt "Debian Pool Mirror"
+        help
+          The Debian pool mirror to use for downloading various
+	  components of the target root filesystem.
+
+config SETUP_SFMIRROR
+        string
+        default "http://mesh.dl.sourceforge.net/sourceforge"
+        prompt "Sourceforge Mirror"
+
+config SETUP_GNUMIRROR
+        string
+        default "ftp://ftp.informatik.rwth-aachen.de/pub/gnu"
+        prompt "GNU.org Mirror"
+
+endmenu
+
