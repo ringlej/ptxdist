@@ -128,6 +128,7 @@ readline_targetinstall_deps = $(STATEDIR)/readline.compile
 $(STATEDIR)/readline.targetinstall: $(readline_targetinstall_deps)
 	@$(call targetinfo, $@)
 	$(call copy_root, 0, 0, 0644, $(READLINE_DIR)/shlib/libreadline.so.5.0, /lib/libreadline.so.5.0)
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/lib/libreadline.so.5.0
 	$(call link_root, libreadline.so.5.0, /lib/libreadline.so.5)
 	$(call link_root, libreadline.so.5.0, /lib/libreadline.so)
 	touch $@
