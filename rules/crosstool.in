@@ -84,7 +84,7 @@ config CROSSTOOL_KERNELCONFIG
 	default "i486.config"			if ARCH_X86 && OPT_I486
 	default "i586.config"			if ARCH_X86 && OPT_I586
 	default "i686.config"			if ARCH_X86 && OPT_I686
-#	default "alpha.config"
+	default "alpha.config"			if ARCH_ALPHA
 #	default "cris.config"
 #	default "ia64.config"
 #	default "mipsel.config"
@@ -147,6 +147,7 @@ config GNU_TARGET
 	prompt "GNU Target"
 	default "arm-softfloat-linux-gnu"       if ARM_ARCH_LE          && GLIBC
 	default "armb-unknown-linux-gnu"        if ARM_ARCH_BE          && GLIBC
+	default "alpha-unknown-linux-gnu"	if ARCH_ALPHA		&& GLIBC
 	default "arm-elf"                       if ARCH_ARM_NOMMU       && GLIBC
 	default "i386-unknown-linux-gnu"        if OPT_I386             && GLIBC
 	default "i486-unknown-linux-gnu"        if OPT_I486             && GLIBC
