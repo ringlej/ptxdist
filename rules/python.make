@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: python.make,v 1.2 2003/09/09 07:25:12 mkl Exp $
+# $Id: python.make,v 1.3 2003/09/09 08:43:02 mkl Exp $
 #
 # (c) 2003 by David R Bacon
 # See CREDITS for details about who has contributed to this project. 
@@ -128,12 +128,21 @@ python_targetinstall: $(STATEDIR)/python.targetinstall
 $(STATEDIR)/python.targetinstall: $(STATEDIR)/python.compile
 	@$(call targetinfo, python.targetinstall)
 
+	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
+		altbininstall DESTDIR=$(ROOTDIR)
+
 	umask 022 && \
 		$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
 		libinstall DESTDIR=$(ROOTDIR)
 
+# 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
+# 		libainstall DESTDIR=$(ROOTDIR)
+
+# 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
+# 		sharedinstall DESTDIR=$(ROOTDIR)
+
 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
-		bininstall DESTDIR=$(ROOTDIR)
+		oldsharedinstall DESTDIR=$(ROOTDIR)
 
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/python2.3
 
