@@ -16,3 +16,5 @@ fi
 PS1='\u@\h:\w\$ '
 PS2='> '
 PS4='+ '
+
+alias ll='ls -l'
