@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glib22.make,v 1.2 2003/08/14 09:51:17 robert Exp $
+# $Id: glib22.make,v 1.3 2003/08/15 00:33:35 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -72,8 +72,9 @@ glib22_prepare_deps =  \
 
 GLIB22_PATH	=  PATH=$(CROSS_PATH)
 GLIB22_ENV 	=  $(CROSS_ENV)
+GLIB22_ENV	+= PKG_CONFIG_PATH=$(GLIB22_DIR):$(PANGO12_DIR):$(ATK124_DIR):$(GTK22_DIR)
+GLIB22_ENV	+= PKG_CONFIG_TOP_BUILD_DIR=$(PTXCONF_PREFIX)
 
-# FIXME: correct? 
 GLIB22_ENV	+= glib_cv_use_pid_surrogate=no
 GLIB22_ENV	+= ac_cv_func_posix_getpwuid_r=yes 
 ifeq (y, $G(PTXCONF_GLIBC_DL))
