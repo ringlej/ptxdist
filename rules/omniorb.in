@@ -1,0 +1,20 @@
+config OMNIORB
+	bool
+	prompt "omniORB"
+	help
+	  omniORB is a CORBA implementation, written in C++. For details see
+	  the homepage of the project: 
+
+	    http://omniorb.sourceforge.net/
+
+config OMNIORB_SSL
+	bool
+	prompt "SSL support"
+	depends on OMNIORB
+	default n
+	help 
+	  Activate Secure Socket Layer support for omniORB. 
+
+	  
+	
+	
