@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.15 2003/10/28 00:37:20 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.16 2003/10/28 15:06:08 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -170,18 +170,30 @@ ifdef PTXCONF_BUILD_CROSSCHAIN
 xchain-gccstage2_targetinstall_deps = $(STATEDIR)/xchain-gccstage2.install
 endif
 
-$(STATEDIR)/xchain-gccstage2.targetinstall:
+$(STATEDIR)/xchain-gccstage2.targetinstall: $(xchain-gccstage2_targetinstall_deps)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_LIBSTDCXX_SHARED
+#
+# gcc-2.95.3 has weired permission on libstdc++
+# chmod 755 fixes that
+#
 	mkdir -p $(ROOTDIR)/usr/lib
-	cp -a $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libstdc++*so* \
+	cp -d $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libstdc++[-,.]*so* \
 		$(ROOTDIR)/usr/lib/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libstdc++*so*
+	chmod 755 $(ROOTDIR)/usr/lib/libstdc++[-,.]*so*
+	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libstdc++[-,.]*so*
 
-	mkdir -p $(ROOTDIR)/lib
-	cp -a $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libgcc_s*so* \
-		$(ROOTDIR)/lib/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libgcc_s*so*
+#
+# only gcc-3 has libgcc_s
+# and if we don't build a xchain, we don't know which version we have....
+#
+#
+	if [ -f $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libgcc_s[-,.]*so* ]; then	\
+		mkdir -p $(ROOTDIR)/lib;							\
+		cp -d $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libgcc_s[-,.]*so*	\
+			$(ROOTDIR)/lib/;							\
+		$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libgcc_s[-,.]*so*;		\
+	fi
 endif
 	touch $@
 
