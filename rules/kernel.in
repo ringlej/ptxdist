@@ -6,13 +6,20 @@ menu	"Kernel              "
 
 config KERNEL_CONFIG
 	string
-	prompt "Name of config in $PTXDIST/config/kernel to be used"
+	prompt "Path to kernel .config file"
 	default "kernel-2.4.18-" if KERNEL_2_4_18
 	default "kernel-2.4.19-" if KERNEL_2_4_19
 	default "kernel-2.4.20-" if KERNEL_2_4_20
 	default "kernel-2.4.21-" if KERNEL_2_4_21
 	default "kernel-2.4.22-" if KERNEL_2_4_22
 	default "kernel-2.4.23-" if KERNEL_2_4_23
+	help
+	  Usually config files for the kernel live in $(PROJECTDIR), so
+	  add something like
+
+		$(PROJECTDIR)/your-kernelconfig.kernelconfig 
+
+	  here. 
 
 choice 
 	prompt "Kernel Version"
