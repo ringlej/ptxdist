@@ -12,11 +12,13 @@ PROJECT		:= PTXdist
 VERSION		:= 0
 PATCHLEVEL	:= 7
 SUBLEVEL	:= 2
-EXTRAVERSION	:=-cvs
+EXTRAVERSION	:=-svn
 
 FULLVERSION	:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
 export PROJECT VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION FULLVERSION
+
+include rules/Definitions.make
 
 TOPDIR			:= $(shell pwd)
 BASENAME		:= $(shell basename $(TOPDIR))
@@ -24,24 +26,50 @@ BUILDDIR		:= $(TOPDIR)/build
 XCHAIN_BUILDDIR		:= $(BUILDDIR)/xchain
 HOSTTOOLS_BUILDDIR	:= $(BUILDDIR)/hosttools
 PATCHES_BUILDDIR	:= $(BUILDDIR)/patches
-SRCDIR			:= $(TOPDIR)/src
 PATCHDIR		:= $(TOPDIR)/patches
 STATEDIR		:= $(TOPDIR)/state
 IMAGEDIR		:= $(TOPDIR)/images
 MISCDIR			:= $(TOPDIR)/misc
-PROJECTDIR_PTXDIST	:= $(TOPDIR)/projects
-PROJECTDIR_CUSTOM	:= $(TOPDIR)/../ptxdist-projects/$(BASENAME) 
 
-PROJECTDIRS		=  $(PROJECTDIR_PTXDIST)
-ifeq ("exists", $(shell test -d $(PROJECTDIR_CUSTOM) && echo exists))
-PROJECTDIRS		+= $(PROJECTDIRS_CUSTOM)		
+ifeq (exists, $(shell test -e $(TOPDIR)/.setup && echo exists))
+include $(TOPDIR)/.setup
+else
+include $(TOPDIR)/config/setup/setup-default
+endif
+
+SRCDIR			:= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
+
+# ----------------------------------------------------------------------------
+# Setup a list of project directories
+# ----------------------------------------------------------------------------
+
+PROJECTDIRS		:= 
+ifeq (exists, $(shell test -e $(PTXCONF_SETUP_PROJECTDIR1) && echo exists))
+PROJECTDIRS		+= $(PTXCONF_SETUP_PROJECTDIR1)/
+endif
+ifeq (exists, $(shell test -e $(PTXCONF_SETUP_PROJECTDIR2) && echo exists))
+PROJECTDIRS		+= $(PTXCONF_SETUP_PROJECTDIR2)/
 endif
 
 PROJECTCONFFILE		=  $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
 PROJECTDIR		=  $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE))
 
-# Pengutronix Patch Repository
-PTXPATCH_URL		:= http://www.pengutronix.de/software/ptxdist/patches
+# ----------------------------------------------------------------------------
+# Find out which patch repository is to be used
+# ----------------------------------------------------------------------------
+
+# reverse order: patches which are being downloaded later superseed
+# earlier ones. 
+ifeq ($(EXTRAVERSION),-svn)
+PTXPATCH_URL_POSTFIX	= -cvs
+else
+PTXPATCH_URL_POSTFIX	= -$(FULLVERSION)
+endif
+
+ifeq (y,$(PTXCONF_SETUP_PATCH_REPOSITORY))
+PTXPATCH_URL		+= http://www.pengutronix.de/software/ptxdist/patches$(PTXPATCH_URL_POSTFIX)
+endif
+PTXPATCH_URL		+= $(PTXCONF_SETUP_LOCAL_PATCH_REPOSITORY)
 
 PACKAGES	=
 XCHAIN		=
@@ -54,8 +82,6 @@ export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR PACKAGES HOSTTOOLS 
 all: help
 
 -include .config 
-
-include rules/Definitions.make
 
 ROOTDIR=$(call remove_quotes,$(PTXCONF_ROOT))
 ifeq ("", $(PTXCONF_ROOT))
@@ -257,6 +283,17 @@ gconfig: scripts/kconfig/gconf
 oldconfig: scripts/kconfig/conf
 	scripts/kconfig/conf -o config/Kconfig
 
+setup: scripts/lxdialog/lxdialog scripts/kconfig/mconf
+	rm -f $(TOPDIR)/config/setup/.config
+	rm -f $(TOPDIR)/config/setup/scripts
+	ln -s $(TOPDIR)/scripts $(TOPDIR)/config/setup/scripts
+	if [ -f $(TOPDIR)/.setup ]; then cp $(TOPDIR)/.setup $(TOPDIR)/config/setup/.config; fi
+	(cd $(TOPDIR)/config/setup && $(TOPDIR)/scripts/kconfig/mconf Kconfig)
+	for i in .tmpconfig.h .config.old .config.cmd; do
+		rm -f $(TOPDIR)/config/setup/$i; 
+	done
+	if [ -f $(TOPDIR)/config/setup/.config ]; then cp $(TOPDIR)/config/setup/.config $(TOPDIR)/.setup; fi
+
 # Config Targets -------------------------------------------------------------
 
 %_config:
@@ -352,9 +389,6 @@ distclean: clean
 	@echo -n "cleaning patches dir............. "
 	@rm -rf $(TOPDIR)/patches/*
 	@echo "done."	
-	@echo -n "cleaning feature patches dir..... "
-	@rm -fr $(TOPDIR)/feature-patches/*
-	@echo "done."
 	@echo
 
 clean: rootclean imagesclean
@@ -365,9 +399,6 @@ clean: rootclean imagesclean
 		rm -rf $(BUILDDIR)/"$$i"; 				\
 		echo; echo -n "                                  ";	\
 	done
-	@echo "done."
-	@echo -n "cleaning feature-patch dir....... "
-	@for i in $$(ls -I CVS $(TOPDIR)/feature-patches/); do rm -rf $(TOPDIR)/feature-patches/"$$i"; done
 	@echo "done."
 	@echo -n "cleaning state dir............... "
 	@for i in $$(ls -I CVS $(STATEDIR)); do rm -rf $(STATEDIR)/"$$i"; done
@@ -436,21 +467,29 @@ archive-toolchain: virtual-xchain_install
 		$(shell basename $(PTXCONF_PREFIX))
 
 configs:
+	@for dir in $(call remove_quotes,$(PROJECTDIRS)); do 						\
+		(cd $$dir); 										\
+		if [ "$$?" != "0" ]; then								\
+			echo;										\
+			echo "Error: PTXCONF_SETUP_PROJECTDIR macros point to something which";		\
+			echo "       is no directory. Check your .setup file. ";			\
+			echo;										\
+			echo "Directory: $$dir";							\
+			echo;										\
+			exit 1;										\
+		fi											\
+	done
 	@echo
-	@echo "------------------ Available PTXdist vanilla configurations: ------------------"
+	@for i in $(call remove_quotes,$(PROJECTDIRS)); do 						\
+		echo "PROJECT_DIR=$$i";									\
+	done
 	@echo
-	@for i in `find projects -name "*.ptxconfig"`; do 				\
-		basename `echo $$i | perl -p -e "s/.ptxconfig/_config/g"`; 		\
+	@echo "---------------------- Available PTXdist configurations: ----------------------"
+	@echo
+	@for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 					\
+		basename `echo $$i | perl -p -e "s/.ptxconfig/_config/g"`; 				\
 	done | sort 
 	@echo
-	@if [ -d "$(TOPDIR)/../ptxdist-projects/$(BASENAME)" ]; then					\
-		echo "------------------- Available PTXdist local configurations: -------------------"; \
-		echo; 											\
-		for i in `find $(TOPDIR)/../ptxdist-projects/$(BASENAME) -name "*.ptxconfig"`; do	\
-			basename `echo $$i | perl -p -e "s/.ptxconfig/_config/g"`; 	\
-		done | sort;								\
-		echo; 									\
-	fi; 
 	@echo "-------------------------------------------------------------------------------"
 	@echo
 
