@@ -1,5 +1,7 @@
 2005-03-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* setup: we now use ~/.ptxdistrc
+
 	* 0.7.3 released
 
 2005-03-19 Robert Schwebel <r.schwebel@pengutronix.de>
