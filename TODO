@@ -1,6 +1,8 @@
 Current TODO List
 =================
 
+- RSC: LTT needs gtk-devel on host side; test if gtk-config is available
+       and print out nice warning if not. 
 - RSC: wget seems to always return 0 as it's retval when being called
        with -r. This is bad as it breaks the error detection mechanism. 
 - RSC: busybox is somehow rebuilt when you make rootclean & world
