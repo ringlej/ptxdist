@@ -1,4 +1,4 @@
-# $Id: utelnetd.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# $Id: utelnetd.make,v 1.3 2003/07/07 09:19:39 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -83,8 +83,6 @@ utelnetd_install: $(STATEDIR)/utelnetd.install
 
 $(STATEDIR)/utelnetd.install: $(STATEDIR)/utelnetd.compile
 	@$(call targetinfo, utelnetd.install)
-	install -d $(PTXCONF_PREFIX)/sbin/
-	install $(UTELNETD_DIR)/utelnetd $(PTXCONF_PREFIX)/sbin/
 	touch $@
 
 # ----------------------------------------------------------------------------
