@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.37 2003/09/19 08:20:28 robert Exp $
+# $Id: Makefile,v 1.38 2003/09/19 13:12:33 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -168,8 +168,8 @@ i386-generic-glibc_config:
 	@cp $(call latestconfig, ptxconfig-i386-generic-glibc) .config
 
 innokom_config:
-	@echo "copying innokom config:" $(call latestconfig, ptxconfig-auerswald)
-	@cp $(call latestconfig, ptxconfig-auerswald) .config
+	@echo "copying innokom configuration"
+	@cp config/innokom.ptxconfig .config
 
 rayonic_config:
 	@echo "copying rayonic config" $(call latestconfig, ptxconfig-rayonic)

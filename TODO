@@ -4,6 +4,8 @@ Current TODO List
 High Priority
 -------------
 
+- RSC: use new config/innokom.ptxconfig vs. config/kernel/... scheme
+       also for other platforms. 
 - RSC: audit configurations: we now have the rules/vendor-tweaks
        mechanism instead of /data stuff and /etc copying. Add 
        copy mechanism to config specific tree if necessary... 
