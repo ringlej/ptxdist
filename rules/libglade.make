@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libglade.make,v 1.2 2004/02/25 09:54:30 bsp Exp $
+# $Id: libglade.make,v 1.3 2004/02/25 22:33:33 robert Exp $
 #
 # Copyright (C) 2003 by BSP
 #          
@@ -67,6 +67,7 @@ libglade_prepare: $(STATEDIR)/libglade.prepare
 #
 libglade_prepare_deps = \
 	$(STATEDIR)/libglade.extract \
+	$(STATEDIR)/libxml2.install \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/gtk22.install	
 
