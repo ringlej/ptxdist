@@ -2,15 +2,16 @@
 # Automatically generated make config: don't edit
 #
 PTXCONF_PTXCONF=y
+PTXCONF_PROJECT="Cameron-EFCO"
+
+#
+# General Options ---    
+#
 
 #
 # Code maturity       
 #
 # PTXCONF_EXP is not set
-
-#
-# General Options ---    
-#
 
 #
 # Target Options      
@@ -41,12 +42,15 @@ PTXCONF_OPT_PPC405=y
 # PTXCONF_OPT_PARISC is not set
 # PTXCONF_OPT_SH3 is not set
 # PTXCONF_OPT_SH4 is not set
+PTXCONF_SOFTFLOAT=y
 
 #
 # ---
 #
+PTXCONF_TARGET_EXTRA_CPPFLAGS=""
 PTXCONF_TARGET_EXTRA_CFLAGS=""
 PTXCONF_TARGET_EXTRA_CXXFLAGS=""
+PTXCONF_TARGET_EXTRA_LDFLAGS=""
 PTXCONF_TARGET_CONFIG_FILE="powerpc-405.dat"
 
 #
@@ -62,12 +66,6 @@ PTXCONF_ROOT=""
 # Cross Toolchain     
 #
 # PTXCONF_BUILD_CROSSCHAIN is not set
-# PTXCONF_BINUTILS_2_13_2_1 is not set
-# PTXCONF_BINUTILS_2_14 is not set
-# PTXCONF_GCC_2_95_3 is not set
-# PTXCONF_GCC_3_2_3 is not set
-# PTXCONF_GCC_3_3_2 is not set
-# PTXCONF_GCC_SHARED is not set
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
@@ -90,6 +88,7 @@ PTXCONF_VENDORTWEAKS="cameron-efco.make"
 PTXCONF_GDBSERVER=y
 PTXCONF_GDBSERVER_SHARED=y
 # PTXCONF_GDB is not set
+# PTXCONF_GDB_WRAPPERS is not set
 # PTXCONF_KSYMOOPS is not set
 # PTXCONF_LTT is not set
 # PTXCONF_LIBBFD is not set
@@ -110,54 +109,33 @@ PTXCONF_STRACE_SHARED=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.4.21-cameron-20030825-1"
+PTXCONF_KERNEL_CONFIG="linux-2.4.23-cameron-efco.kernelconfig"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
-PTXCONF_KERNEL_2_4_21=y
+# PTXCONF_KERNEL_2_4_21 is not set
 # PTXCONF_KERNEL_2_4_22 is not set
-# PTXCONF_KERNEL_2_4_23 is not set
+PTXCONF_KERNEL_2_4_23=y
 # PTXCONF_KERNEL_2_6_0 is not set
+# PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_RMK is not set
 # PTXCONF_KERNEL_RMK_PXA is not set
 # PTXCONF_KERNEL_RMK_DS is not set
 # PTXCONF_KERNEL_RMK_PXA_PTX is not set
 # PTXCONF_KERNEL_RMK_PXA_PTX_LTT is not set
 # PTXCONF_KERNEL_UC is not set
-PTXCONF_KERNEL_BEN=y
-# PTXCONF_KERNEL_VANILLA is not set
-# PTXCONF_KERNEL_2_4_19_rmk7 is not set
-# PTXCONF_KERNEL_2_4_21_rmk1 is not set
-# PTXCONF_KERNEL_2_6_0_rmk1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_ds3 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_ds2 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_ds1 is not set
-# PTXCONF_KERNEL_2_4_21_rmk1_ds1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2 is not set
-# PTXCONF_KERNEL_2_4_21_rmk1_pxa1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6 is not set
-# PTXCONF_KERNEL_2_6_0_rmk1_ptx1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10_ltt1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7_ltt1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6_ltt1 is not set
-# PTXCONF_KERNEL_2_4_19_uc2 is not set
-# PTXCONF_KERNEL_2_4_19_uc1 is not set
-# PTXCONF_KERNEL_2_4_19_uc0 is not set
-# PTXCONF_KERNEL_2_4_20_uc1 is not set
-# PTXCONF_KERNEL_2_4_20_uc0 is not set
-# PTXCONF_KERNEL_2_4_21_uc0 is not set
-# PTXCONF_KERNEL_2_4_22_uc0 is not set
-# PTXCONF_KERNEL_2_4_20_ben10 is not set
-PTXCONF_KERNEL_2_4_21_ben3=y
-# PTXCONF_KERNEL_2_4_22_ben2 is not set
+# PTXCONF_KERNEL_BEN is not set
+PTXCONF_KERNEL_VANILLA=y
+PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/solidcard/linux-2.4.23-solidcard2/"
+PTXCONF_KERNEL_PATCH1_NAME="linux-2.4.23-solidcard2"
+PTXCONF_KERNEL_PATCH2_URL=""
+PTXCONF_KERNEL_PATCH2_NAME=""
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
-# PTXCONF_KERNEL_IMAGE_U is not set
-PTXCONF_KERNEL_IMAGE_VMLINUX=y
-# PTXCONF_KERNEL_INSTALL is not set
+PTXCONF_KERNEL_IMAGE_U=y
+# PTXCONF_KERNEL_IMAGE_VMLINUX is not set
+PTXCONF_KERNEL_INSTALL=y
 
 #
 # Extentions
@@ -166,7 +144,6 @@ PTXCONF_KERNEL_IMAGE_VMLINUX=y
 #
 # epoll               
 #
-# PTXCONF_KERNEL_SYS-EPOLL is not set
 
 #
 # RTAI                
