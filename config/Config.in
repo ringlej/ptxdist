@@ -76,6 +76,7 @@ source "rules/zebra.in"
 source "rules/libnet.in"
 source "rules/libpcap.in"
 source "rules/rsync.in"
+source "rules/thttpd.in"
 
 ############################################################################## 
 comment	"Disk and file ---   "

@@ -1,0 +1,7 @@
+menu	"thttpd              "
+
+config THTTPD
+	bool
+	prompt "Compile thttpd"
+
+endmenu
