@@ -1,3 +1,11 @@
+2003-09-19 Robert Schwebel <r.schwebel@pengutronix.de>
+	* Rules.make: fixed get_patches. 
+	  Kai-Uwe Bloem <linux-development@auerswald.de>
+	* rootdir: replaced platform dependend links in rootdir by new 
+	  mechanism: run a per-platform makefile (rules/vendor-tweaks/*)
+	  which is configurable. Idea by Kai-Uwe Bloem, Implementation
+	  Robert Schwebel
+
 2003-09-18 Robert Schwebel <r.schwebel@pengutronix.de>
 	* forgotten topics for 0.3.24 changelog (sorry 'bout that): 
 	* pdksh: added;  Kai-Uwe Bloem * <linux-development@auerswald.de>
