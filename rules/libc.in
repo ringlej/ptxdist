@@ -61,14 +61,14 @@ endchoice
 
 choice
 	prompt "uClibc Version"
-	default UCLIBC_0_9_26
+	default UCLIBC_0_9_27
 	depends on UCLIBC
 
-	config UCLIBC_0_9_26
+	config UCLIBC_0_9_27
 		bool
-		prompt "0.9.26"
+		prompt "0.9.27"
 		depends on UCLIBC
-		
+
 endchoice
 
 source "rules/glibc.in"
