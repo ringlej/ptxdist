@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.85 2004/03/31 20:50:42 mkl Exp $
+# $Id: Makefile,v 1.86 2004/04/02 13:03:41 bbu Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -191,6 +191,10 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 	scripts/kconfig/conf -o config/Config.in 
 
 # Config Targets -------------------------------------------------------------
+
+i386-ratio-uno-2053-1_config:
+	@echo "copying ratio UNO-2053-1 configuration"
+	@cp config/i386-ratio-uno-2053-1.ptxconfig .config
 
 i386-frako_config:
 	@echo "copying frako configuration"
