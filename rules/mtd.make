@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mtd.make,v 1.4 2003/08/29 19:05:15 mkl Exp $
+# $Id: mtd.make,v 1.5 2003/09/09 21:53:40 robert Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -118,6 +118,9 @@ MTD-UTIL_ENVIRONMENT	=
 MTD-UTIL_MAKEVARS	=
 MTD-UTIL_ENVIRONMENT	+= PATH=$(PTXCONF_PREFIX)/bin:$$PATH
 MTD-UTIL_MAKEVARS	+= CROSS=$(PTXCONF_GNU_TARGET)-
+ifndef PTXCONF_FPU
+MTD_MAKEVARS            += CFLAGS+=-msoft-float
+endif
 
 mtdutil_compile: $(STATEDIR)/mtdutil.compile
 
@@ -219,6 +222,14 @@ $(STATEDIR)/mtdutil.targetinstall: $(STATEDIR)/mtdutil.install
         ifeq (y, $(PTXCONF_MTD_UNLOCK))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/unlock $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/unlock
+        endif 
+        ifeq (y, $(PTXCONF_MTD_MKJFFS))
+	install $(BUILDDIR)/mtdutil/$(MTD)/util/mkfs.jffs $(ROOTDIR)/sbin
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/mkfs.jffs
+        endif 
+        ifeq (y, $(PTXCONF_MTD_MKJFFS2))
+	install $(BUILDDIR)/mtdutil/$(MTD)/util/mkfs.jffs2 $(ROOTDIR)/sbin
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/mkfs.jffs2
         endif 
 	touch $@
 
