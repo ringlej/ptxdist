@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: penguzilla.make,v 1.11 2004/03/31 16:18:58 robert Exp $
+# $Id: penguzilla.make,v 1.12 2004/04/06 10:12:16 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -133,15 +133,15 @@ penguzilla_targetinstall_deps =	\
 $(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-# pixmap directory
+# 	# pixmap directory
 	install -d $(ROOTDIR)/usr/share/penguzilla/pixmaps
 	cp -a $(PENGUZILLA_DIR)/pixmaps/* $(ROOTDIR)/usr/share/penguzilla/pixmaps
 
 	install -d $(ROOTDIR)/usr/bin
 	install $(PENGUZILLA_DIR)/src/penguzilla $(ROOTDIR)/usr/bin
 
-# Style
-	#install $(PENGUZILLA_DIR)/penguzilla.rc $(ROOTDIR)/usr/share/penguzilla
+# 	# Style
+	install $(PENGUZILLA_DIR)/penguzilla.rc $(ROOTDIR)/usr/share/penguzilla
 
 	touch $@
 
