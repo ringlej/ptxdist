@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.55 2003/11/17 07:29:17 robert Exp $
+# $Id: Makefile,v 1.56 2003/12/07 21:40:42 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -182,6 +182,10 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 	scripts/kconfig/conf -o config/Config.in 
 
 # Config Targets -------------------------------------------------------------
+
+frako_config:
+	@echo "copying frako configuration"
+	@cp config/i386-frako.ptxconfig .config
 
 i386-generic-glibc_config: 
 	@echo "copying i386-generic-glibc configuration"
