@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: shorewall.make,v 1.1 2003/09/26 12:16:07 mkl Exp $
+# $Id: shorewall.make,v 1.2 2003/09/27 02:07:25 mkl Exp $
 #
 # (c) 2003 by Dan Kegel, Ixia Communications (http://ixiacom.com)
 #
@@ -57,6 +57,26 @@ $(STATEDIR)/shorewall.extract: $(shorewall_extract_deps)
 	touch $@
 
 # ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+shorewall_prepare: $(STATEDIR)/shorewall.prepare
+
+$(STATEDIR)/shorewall.prepare:
+	@$(call targetinfo, $@)
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+shorewall_compile: $(STATEDIR)/shorewall.compile
+
+$(STATEDIR)/shorewall.compile
+	@$(call targetinfo, $@)
+	touch $@
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -64,8 +84,11 @@ shorewall_targetinstall: $(STATEDIR)/shorewall.targetinstall
 
 shorewall_targetinstall_deps	=  $(STATEDIR)/shorewall.extract
 
+
+#
 # create /etc/shorewall directory before installing to keep it from
 # using build system's chkconfig script to install itself!
+#
 $(STATEDIR)/shorewall.targetinstall: $(shorewall_targetinstall_deps)
 	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/etc/shorewall
