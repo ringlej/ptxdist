@@ -1,12 +1,12 @@
 #
 # /etc/fstab
 #
-# Configuration for Auerswald Innokom
+# Copyright (C) 2003 Auerswald GmbH & Co. KG
+# Author: Kai-Uwe Bloem, <linux-development@auerswald.de>
 #
-# 2002/10/03	Robert Schwebel <r.schwebel@pengutronix.de>
-#
+# based on the fstab file by  Robert Schwebel <r.schwebel@pengutronix.de>
 
 proc		/proc		proc	defaults	0	0
 devpts		/dev/pts	devpts	defaults	0	0
-/dev/mtdblock/3 /data		jffs2	defaults	0	0
+/dev/mtdblock/data /data	jffs2	defaults	0	0
 

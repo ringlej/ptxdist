@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/sh
 #
 # /etc/init.d/root-remount
 #
@@ -7,6 +7,6 @@
 # 2002/10/03    Robert Schwebel <r.schwebel@pengutronix.de>
 #
 
-echo "remounting root filesystem read/write..."
+echo -n "remounting root filesystem read/write... "
 mount -o remount,rw /dev/root /
 echo "done."
