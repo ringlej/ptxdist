@@ -5,7 +5,7 @@ PTXUSER		= $(shell echo $$USER)
 GNU_HOST	= $(shell $(TOPDIR)/scripts/config.guess)
 HOSTCC		= gcc
 HOSTCC_ENV	= CC=$(HOSTCC)
-CROSSSTRIP	= PATH=$(CROSS_PATH) (PTXCONF_GNU_TARGET)-strip
+CROSSSTRIP	= PATH=$(CROSS_PATH) $(PTXCONF_GNU_TARGET)-strip
 CROSS_STRIP	= $(CROSSSTRIP)
 DOT		= dot
 DEP_OUTPUT	= depend.out
@@ -164,17 +164,16 @@ disable_sh =						\
 #
 # go into a directory and apply all patches from there into a sourcetree
 #
-# $1 = $(PACKETNAME) -> identifier
+# $1 = $(PACKET_NAME) -> identifier
 # $2 = path to source tree 
 #      if this parameter is omitted, the path will be derived
 #      from the packet name
 #
 patchin =								\
-	set -e;								\
 	PACKET_NAME="$(strip $(1))";					\
 	PACKET_DIR="$(strip $(2))";					\
 	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};		\
-	for p in							\
+	for PATCH_NAME in						\
 	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.diff		\
 	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.patch		\
 	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.gz		\
@@ -184,25 +183,37 @@ patchin =								\
 	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz	\
 	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;	\
 	    do								\
-		if [ -f $$p ]; then					\
-			case "$$p" in					\
-			*.diff|*.patch)					\
-				CAT=cat					\
-				;;					\
-			*gz)						\
-				CAT=zcat				\
-				;;					\
-			*bz2)						\
-				CAT=bzcat				\
-				;;					\
-			*)						\
-				false					\
-				;;					\
-			esac;						\
-			echo "patchin' $$p ...";			\
-			$$CAT $$p | $(PATCH) -p1 -d $$PACKET_DIR;	\
-		fi;							\
+		$(call patch_apply, $$PATCH_NAME, $$PACKET_DIR)		\
 	done
+
+#
+# apply a patch
+#
+# $1 = the name of the patch to apply
+# #2 = apply patch to that directory
+#
+patch_apply =								\
+	PATCH_NAME="$(strip $(1))";					\
+	PACKET_DIR="$(strip $(2))";					\
+	if [ -f $$PATCH_NAME ]; then					\
+		case "$$PATCH_NAME" in					\
+		*.diff|*.patch)						\
+			CAT=cat						\
+			;;						\
+		*.gz)							\
+			CAT=zcat					\
+			;;						\
+		*.bz2)							\
+			CAT=bzcat					\
+			;;						\
+		*)							\
+			false						\
+			;;						\
+		esac;							\
+		echo "patchin' $$PATCH_NAME ...";			\
+		$$CAT $$PATCH_NAME | $(PATCH) -p1 -d $$PACKET_DIR;	\
+	fi;								\
+
 
 #
 # CFLAGS // CXXFLAGS
