@@ -18,7 +18,7 @@ config ROOTFS_ETC
 	default y
 	help
 	  When enabled, this option copies the files from 
-	  $(TOPDIR)/etc/generic/ to the target root filesystem. 
+	  $(TOPDIR)/projects/generic/etc to the target root filesystem. 
 	  The files contain useful defaults for most projects, so
 	  if you don't intend to use your completely self-made etc
 	  directory you should problably switch this on. 
