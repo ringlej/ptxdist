@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.38 2003/09/19 13:12:33 robert Exp $
+# $Id: Makefile,v 1.39 2003/09/20 10:27:39 mkl Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -115,11 +115,11 @@ dep_output_clean:
 	touch $(DEP_OUTPUT)
 
 dep_tree:
-ifneq ("", $(shell which dot))
-	@sort $(DEP_OUTPUT) | uniq | scripts/makedeptree | $(DOT) -Tps > $(DEP_TREE_PS)
-else
-	echo "Install 'dot' from graphviz packet if you want to have a nice dependency tree" > $(DEP_TREE_PS)
-endif	
+	@if dot -V 2> /dev/null; then \
+		sort $(DEP_OUTPUT) | uniq | scripts/makedeptree | $(DOT) -Tps > $(DEP_TREE_PS); \
+	else \
+		echo "Install 'dot' from graphviz packet if you want to have a nice dependency tree"; \
+	fi
 
 skip_vendortweaks:
 	@echo "Vendor-Tweaks file (PTXCONF_VENDORTWEAKS) does not exist, skipping."
