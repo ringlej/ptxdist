@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.24 2004/02/27 17:10:32 robert Exp $
+# $Id: kernel.make,v 1.25 2004/03/28 10:55:38 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -91,6 +91,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 ifdef PTXCONF_KERNEL_PATCH1_XCHAIN
 xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1_NAME_QUOTELESS).get
 endif
+
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1_NAME_QUOTELESS).get:
 	@$(call targetinfo, "Patch 1")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH1_URL), $(PTXCONF_KERNEL_PATCH1_NAME_QUOTELESS))
@@ -225,7 +226,9 @@ $(STATEDIR)/kernel-patchstack.get: $(kernel_patchstack_get_deps)
 
 kernel_get: $(STATEDIR)/kernel.get
 
-kernel_get_deps = $(KERNEL_SOURCE) $(STATEDIR)/kernel-patchstack.get
+kernel_get_deps = \
+	$(KERNEL_SOURCE) \
+	$(STATEDIR)/kernel-patchstack.get
 
 $(STATEDIR)/kernel.get: $(kernel_get_deps)
 	@$(call targetinfo, $@)
@@ -400,5 +403,5 @@ kernel_clean:
 	fi;
 	# remove kernel & dir
 	rm -rf $(STATEDIR)/kernel.* $(KERNEL_DIR)
-		
+
 # vim: syntax=make
