@@ -1705,6 +1705,11 @@ comment	"Linking options"
 endmenu
 ############################################################################## 
 
+menu "Web Applications    "
+
+source rules/mfirebird.in
+
+endmenu
 
 
 
