@@ -16,28 +16,28 @@ choice
 	
 	config BINUTILS_2_14
 		bool
-		prompt "2.14"
+		prompt "2.14    "
 		depends on ARCH_ARM 
 endchoice
 
 choice
-	prompt "GCC (GNU Compiler Collection) Version"
+	prompt "GCC      Version"
 		default GCC_3_2_3 if ARCH_X86
 		depends on BUILD_CROSSCHAIN
 
 	config GCC_2_95_3
 		bool
-		prompt "2.95.3"
+		prompt "2.95.3  "
 		depends on ARCH_X86 || ARCH_ARM || ARCH_ARM_NOMMU || ARCH_SPARC
 
 	config GCC_3_2_3
 		bool
-		prompt "3.2.3"
+		prompt "3.2.3   "
 		depends on ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
 
 	config GCC_3_3_2
 		bool
-		prompt "3.3.2"
+		prompt "3.3.2   "
 		depends on ARCH_X86 || ARCH_ARM
 	
 endchoice
