@@ -295,7 +295,6 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 #define FontServerAccess        NO
 #undef BuildXF86RushExt
 #define BuildXF86RushExt        NO
-#undef BuildRender
 #define BuildRender             YES
 #define UseRgbTxt               YES
 #define BuildFontServer         NO
