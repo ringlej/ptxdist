@@ -29,13 +29,13 @@ config BOOTDISK_SIZE_ADD
 	int
 	prompt "additional space for rootfs in blocks"
 	default "250"
-	depends on BOOTDISK_SIZE_AUTODETECT
+	depends on BOOTDISK && BOOTDISK_SIZE_AUTODETECT
 	
 config BOOTDISK_SIZE
 	int
 	prompt "root fs size in blocks"
 	default "20000"
-	depends on !BOOTDISK_SIZE_AUTODETECT 
+	depends on BOOTDISK && !BOOTDISK_SIZE_AUTODETECT 
 	
 config BOOTDISK_PART
 	string
