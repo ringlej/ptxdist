@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: innokom.make,v 1.9 2003/10/23 18:05:17 mkl Exp $
+# $Id: innokom.make,v 1.10 2004/06/23 15:38:27 rsc Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -47,6 +47,9 @@ endif
 
 #	make scripts executable
 	chmod 755 $(ROOTDIR)/etc/init.d/*
+
+#	create ppp link
+	ln -sf /data/ppp/chap-secrets $(ROOTDIR)/etc/ppp/chap-secrets
 
 #	generate version stamps
 	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
