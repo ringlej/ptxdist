@@ -124,7 +124,7 @@ PTXCONF_STRACE_SHARED=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/innokom/innokom-2.6.8.kernelconfig"
+PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/innokom/innokom-2.6.7.kernelconfig"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
