@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssl.make,v 1.11 2003/10/27 10:34:07 mkl Exp $
+# $Id: openssl.make,v 1.12 2003/10/28 00:30:07 mkl Exp $
 #
 # Copyright (C) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
 #               2003 by Pengutronix e.K., Hildesheim, Germany
@@ -69,7 +69,6 @@ $(STATEDIR)/openssl.extract: $(STATEDIR)/openssl.get
 	@$(call clean, $(OPENSSL_DIR))
 	@$(call extract, $(OPENSSL_SOURCE))
 	perl -p -i -e 's/-m486//' $(OPENSSL_DIR)/Configure
-# 	perl -p -i -e 's/-O3/$CFLAGS/' $(OPENSSL_DIR)/Configure
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -80,7 +79,6 @@ openssl_prepare: $(STATEDIR)/openssl.prepare
 
 openssl_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/zlib.install \
 	$(STATEDIR)/openssl.extract 
 
 OPENSSL_PATH	= PATH=$(CROSS_PATH)
@@ -115,6 +113,9 @@ openssl_compile: $(STATEDIR)/openssl.compile
 
 $(STATEDIR)/openssl.compile: $(STATEDIR)/openssl.prepare 
 	@$(call targetinfo, $@)
+#
+# generate openssl.pc with correct path inside
+#
 	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) INSTALLTOP=$(CROSS_LIB_DIR) openssl.pc
 	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) $(OPENSSL_MAKEVARS)
 	touch $@
@@ -127,12 +128,15 @@ openssl_install: $(STATEDIR)/openssl.install
 
 $(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
 	@$(call targetinfo, $@)
+#
+# broken Makfile, generates dir with wrong permissions...
+# chmod 755 fixed that
+#
 	mkdir -p $(CROSS_LIB_DIR)/lib/pkgconfig
 	chmod 755 $(CROSS_LIB_DIR)/lib/pkgconfig
 	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) install $(OPENSSL_MAKEVARS) \
 		INSTALL_PREFIX=$(CROSS_LIB_DIR) INSTALLTOP=''
 	chmod 755 $(CROSS_LIB_DIR)/lib/pkgconfig
-
 #
 # FIXME:
 # 	OPENSSL=${D}/usr/bin/openssl /usr/bin/perl tools/c_rehash ${D}/etc/ssl/certs
@@ -146,7 +150,6 @@ $(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
 openssl_targetinstall: $(STATEDIR)/openssl.targetinstall
 
 openssl_targetinstall_deps = \
-	$(STATEDIR)/zlib.targetinstall \
 	$(STATEDIR)/openssl.install
 
 $(STATEDIR)/openssl.targetinstall: $(openssl_targetinstall_deps)

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssh.make,v 1.11 2003/10/26 21:58:28 mkl Exp $
+# $Id: openssh.make,v 1.12 2003/10/28 00:30:07 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -92,6 +92,7 @@ openssh_prepare: $(STATEDIR)/openssh.prepare
 #
 openssh_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/zlib.install \
 	$(STATEDIR)/openssh.extract
 
 OPENSSH_PATH	= PATH=$(CROSS_PATH)
@@ -172,6 +173,7 @@ openssh_targetinstall: $(STATEDIR)/openssh.targetinstall
 
 openssh_targetinstall_deps = \
 	$(STATEDIR)/openssl.targetinstall \
+	$(STATEDIR)/zlib.targetinstall \
 	$(STATEDIR)/openssh.compile
 
 $(STATEDIR)/openssh.targetinstall: $(openssh_targetinstall_deps)
