@@ -10,7 +10,6 @@
 /etc/passwd root.root 0644
 /etc/profile root.root 0644
 /etc/proftpd.conf root.root 0644
-/etc/ptx_permissions.unconfigured
 /etc/resolv.conf root.root 0644
 /etc/shadow root.root 0640
 /etc/shadow- root.root 0640
