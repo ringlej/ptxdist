@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: termcap.make,v 1.2 2004/04/01 19:39:04 mkl Exp $
+# $Id: termcap.make,v 1.3 2004/04/01 19:40:32 mkl Exp $
 #
 # Copyright (C) 2003, 2004 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #          
@@ -134,7 +134,6 @@ ifdef PTXCONF_TERMCAP_TERMCAP
 	install -d $(ROOTDIR)/etc
 	install $(TERMCAP_DIR)/termcap.src $(ROOTDIR)/etc
 endif
-	install 
 	touch $@
 
 # ----------------------------------------------------------------------------
