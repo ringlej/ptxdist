@@ -1,0 +1,6 @@
+menu    "ethewake            "
+
+config ETHERWAKE
+        bool
+        prompt "Compile etherwake"
+endmenu

@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-DNSMASQ_VERSION		= 1.18
+DNSMASQ_VERSION		= 2.13
 DNSMASQ			= dnsmasq-$(DNSMASQ_VERSION)
 DNSMASQ_SUFFIX		= tar.gz
 DNSMASQ_URL		= http://www.thekelleys.org.uk/dnsmasq/$(DNSMASQ).$(DNSMASQ_SUFFIX)
@@ -113,7 +113,7 @@ dnsmasq_targetinstall_deps = $(STATEDIR)/dnsmasq.compile
 
 $(STATEDIR)/dnsmasq.targetinstall: $(dnsmasq_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -m 755 $(DNSMASQ_DIR)/dnsmasq $(ROOTDIR)/sbin/dnsmasq
+	install -m 755 $(DNSMASQ_DIR)/src/dnsmasq $(ROOTDIR)/sbin/dnsmasq
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/dnsmasq
 	touch $@
 

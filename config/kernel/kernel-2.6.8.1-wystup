@@ -553,9 +553,6 @@ CONFIG_XFRM_USER=m
 # QoS and/or fair queueing
 #
 # CONFIG_NET_SCHED is not set
-# CONFIG_NET_SCH_CLK_JIFFIES is not set
-# CONFIG_NET_SCH_CLK_GETTIMEOFDAY is not set
-# CONFIG_NET_SCH_CLK_CPU is not set
 CONFIG_NET_CLS_ROUTE=y
 
 #

@@ -46,6 +46,7 @@ $(STATEDIR)/flash.get: $(flash_get_deps)
 $(FLASH_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(FLASH_URL))
+	@$(call get_patches, $(FLASH))
 
 $(FLASH_PATCH_SOURCE):
 	@$(call targetinfo, $@)
@@ -62,6 +63,7 @@ $(STATEDIR)/flash.extract: $(STATEDIR)/flash.get
 	@$(call targetinfo, $@)
 	$(FLASH_EXTRACT) $(FLASH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	cd $(FLASH_DIR) && patch -p1 < $(FLASH_PATCH_SOURCE)
+	@$(call patchin, $(FLASH), $(FLASH_DIR))
 	touch $@
 
 
@@ -142,6 +144,13 @@ $(STATEDIR)/flash.targetinstall: $(flash_targetinstall_deps)
 	install -d $(ROOTDIR)/usr/bin
 	install $(FLASH_DIR)/flash $(ROOTDIR)/usr/bin
 	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/flash
+	install -d $(ROOTDIR)/usr/lib/flash/
+	install $(FLASH_DIR)/modules/alarms $(ROOTDIR)/usr/lib/flash/
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/lib/flash/alarms
+	install $(FLASH_DIR)/modules/background $(ROOTDIR)/usr/lib/flash/
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/lib/flash/background
+	install $(FLASH_DIR)/modules/countdown $(ROOTDIR)/usr/lib/flash/
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/lib/flash/countdown
 	touch $@
 # ----------------------------------------------------------------------------
 # Clean

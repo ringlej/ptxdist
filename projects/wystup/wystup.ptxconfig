@@ -59,24 +59,23 @@ PTXCONF_TARGET_CONFIG_FILE="i586.dat"
 #
 PTXCONF_ARCH="i386"
 PTXCONF_ARCH_USERSPACE="i386"
-PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
 PTXCONF_PREFIX="$(TOPDIR)/local"
 PTXCONF_ROOT=""
 
 #
-# Cross Toolchain     
+# Toolchain/Crosstool 
 #
-PTXCONF_BUILD_CROSSCHAIN=y
-# PTXCONF_BINUTILS_2_13_2_1 is not set
-# PTXCONF_BINUTILS_2_14 is not set
-PTXCONF_BINUTILS_2_15=y
-# PTXCONF_GCC_2_95_3 is not set
-# PTXCONF_GCC_3_2_3 is not set
-# PTXCONF_GCC_3_3_2 is not set
-PTXCONF_GCC_3_4_1=y
-PTXCONF_GCC_3=y
-PTXCONF_GCC_SHARED=y
-# PTXCONF_GCC_MULTILIB is not set
+# PTXCONF_CROSSTOOL is not set
+
+#
+# Generic Options
+#
+PTXCONF_CROSSCHAIN_CHECK="3.3.4"
+PTXCONF_GNU_TARGET="i386-linux"
+
+#
+# Non-Crosstool Tools
+#
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_NASM is not set
 # PTXCONF_XCHAIN-SCONS is not set
@@ -84,6 +83,7 @@ PTXCONF_GCC_SHARED=y
 #
 # Root Filesystem     
 #
+PTXCONF_ROOTFS=y
 PTXCONF_ROOTFS_DEV=y
 PTXCONF_ROOTFS_ETC=y
 PTXCONF_ROOTFS_FLOPPY=y
@@ -93,7 +93,13 @@ PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_VAR=y
-PTXCONF_VENDORTWEAKS="projects/wystup/wystup.vendortweaks"
+PTXCONF_VENDORTWEAKS="wystup.make"
+
+#
+# Image Creation
+#
+PTXCONF_IMAGE_TGZ=y
+# PTXCONF_IMAGE_JFFS2 is not set
 
 #
 # Debugging Tools     
@@ -123,7 +129,7 @@ PTXCONF_HOSTTOOLS_FAKEROOT=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.4.26-wystup"
+PTXCONF_KERNEL_CONFIG="kernel-2.6.8.1-wystup"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
@@ -131,12 +137,12 @@ PTXCONF_KERNEL_CONFIG="kernel-2.4.26-wystup"
 # PTXCONF_KERNEL_2_4_22 is not set
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_4_25 is not set
-PTXCONF_KERNEL_2_4_26=y
+# PTXCONF_KERNEL_2_4_26 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
 # PTXCONF_KERNEL_2_6_7 is not set
-# PTXCONF_KERNEL_2_6_8 is not set
+PTXCONF_KERNEL_2_6_8=y
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -147,8 +153,15 @@ PTXCONF_KERNEL_INSTALL=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH1_URL=""
-PTXCONF_KERNEL_PATCH1_NAME=""
+PTXCONF_KERNEL_PATCH1_URL="ftp://ftp.kernel.org/pub/linux/kernel/v2.6/patch-2.6.8.1.bz2"
+PTXCONF_KERNEL_PATCH1_NAME="2.6.8.1"
+# PTXCONF_KERNEL_PATCH1_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH2_URL=""
+PTXCONF_KERNEL_PATCH2_NAME=""
 
 #
 # Extentions
@@ -166,14 +179,14 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 #
 # C Library           
 #
+PTXCONF_LIBC=y
 PTXCONF_GLIBC=y
 # PTXCONF_UCLIBC is not set
 
 #
 # C Library options
 #
-PTXCONF_GLIBC_2_3_3=y
-# PTXCONF_GLIBC_2_3_2 is not set
+PTXCONF_GLIBC_2_3_2=y
 # PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
@@ -215,7 +228,6 @@ PTXCONF_UC_TARGET_i386=y
 # C++ Library         
 #
 PTXCONF_CXX=y
-PTXCONF_LIBSTDCXX=y
 PTXCONF_LIBSTDCXX_SHARED=y
 
 #
@@ -878,7 +890,7 @@ PTXCONF_DHCP=y
 #
 # dnsmasq             
 #
-# PTXCONF_DNSMASQ is not set
+PTXCONF_DNSMASQ=y
 
 #
 # ethereal            
@@ -1019,7 +1031,7 @@ PTXCONF_NTP_NTPDATE=y
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
-PTXCONF_OPENAFS_1_2_11=y
+# PTXCONF_OPENAFS_1_2_11 is not set
 
 #
 # Portmapper          
@@ -1141,7 +1153,7 @@ PTXCONF_GRUB_RTL8139=y
 #
 # Flash               
 #
-# PTXCONF_FLASH is not set
+PTXCONF_FLASH=y
 
 #
 # Kaffe               
@@ -1167,7 +1179,6 @@ PTXCONF_FIGLET=y
 # Editors             
 #
 # PTXCONF_NANO is not set
-PTXCONF_JED=y
 
 #
 # System Libraries    
@@ -1176,7 +1187,6 @@ PTXCONF_JED=y
 #
 # gettext          
 #
-# PTXCONF_GETTEXT is not set
 
 #
 # popt             

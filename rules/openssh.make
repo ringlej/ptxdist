@@ -150,7 +150,8 @@ OPENSSH_AUTOCONF = \
 	--disable-utmp \
 	--disable-utmpx \
 	--disable-wtmp \
-	--disable-wtmpx 
+	--disable-wtmpx \
+	--with-ssl-dir=$(CROSS_LIB_DIR)
 
 
 $(STATEDIR)/openssh.prepare: $(openssh_prepare_deps)

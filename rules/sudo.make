@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
+# $Id: template 1681 2004-09-01 18:12:49Z  $
 #
-# Copyright (C) 2003 by Benedikt Spranger
+# Copyright (C) 2004 by BSP
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -12,121 +12,128 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DHCP
-PACKAGES += dhcp
+ifdef PTXCONF_SUDO
+PACKAGES += sudo
 endif
 
 #
 # Paths and names
 #
-DHCP_VERSION	= 3.0.1
-DHCP		= dhcp-$(DHCP_VERSION)
-DHCP_SUFFIX	= tar.gz
-DHCP_URL	= ftp://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX)
-DHCP_SOURCE	= $(SRCDIR)/$(DHCP).$(DHCP_SUFFIX)
-DHCP_DIR	= $(BUILDDIR)/$(DHCP)
+SUDO_VERSION	= 1.6.8
+SUDO		= sudo-$(SUDO_VERSION)
+SUDO_SUFFIX	= tar.gz
+SUDO_URL	= http://www.courtesan.com/sudo/dist/$(SUDO).$(SUDO_SUFFIX)
+SUDO_SOURCE	= $(SRCDIR)/$(SUDO).$(SUDO_SUFFIX)
+SUDO_DIR	= $(BUILDDIR)/$(SUDO)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-dhcp_get: $(STATEDIR)/dhcp.get
+sudo_get: $(STATEDIR)/sudo.get
 
-dhcp_get_deps = $(DHCP_SOURCE)
+sudo_get_deps = $(SUDO_SOURCE)
 
-$(STATEDIR)/dhcp.get: $(dhcp_get_deps)
+$(STATEDIR)/sudo.get: $(sudo_get_deps)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(SUDO))
 	touch $@
 
-$(DHCP_SOURCE):
+$(SUDO_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(DHCP_URL))
+	@$(call get, $(SUDO_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-dhcp_extract: $(STATEDIR)/dhcp.extract
+sudo_extract: $(STATEDIR)/sudo.extract
 
-dhcp_extract_deps = $(STATEDIR)/dhcp.get
+sudo_extract_deps = $(STATEDIR)/sudo.get
 
-$(STATEDIR)/dhcp.extract: $(dhcp_extract_deps)
+$(STATEDIR)/sudo.extract: $(sudo_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(DHCP_DIR))
-	@$(call extract, $(DHCP_SOURCE))
+	@$(call clean, $(SUDO_DIR))
+	@$(call extract, $(SUDO_SOURCE))
+	@$(call patchin, $(SUDO))
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-dhcp_prepare: $(STATEDIR)/dhcp.prepare
+sudo_prepare: $(STATEDIR)/sudo.prepare
 
 #
 # dependencies
 #
-dhcp_prepare_deps = \
-	$(STATEDIR)/dhcp.extract \
+sudo_prepare_deps = \
+	$(STATEDIR)/sudo.extract \
 	$(STATEDIR)/virtual-xchain.install
 
-DHCP_PATH	=  PATH=$(CROSS_PATH)
-DHCP_ENV 	=  $(CROSS_ENV)
-#DHCP_ENV	+=
+SUDO_PATH	=  PATH=$(CROSS_PATH)
+SUDO_ENV 	=  $(CROSS_ENV)
+#SUDO_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+#SUDO_ENV	+=
 
-# linux-2.2 is the way to go ;-)
+#
+# autoconf
+#
+SUDO_AUTOCONF = \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--prefix=$(CROSS_LIB_DIR)
 
-$(STATEDIR)/dhcp.prepare: $(dhcp_prepare_deps)
+$(STATEDIR)/sudo.prepare: $(sudo_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(DHCP_DIR)/config.cache)
-	cd $(DHCP_DIR) && \
-		$(DHCP_PATH) $(DHCP_ENV) \
-		./configure "linux-2.2"
+	@$(call clean, $(SUDO_DIR)/config.cache)
+	cd $(SUDO_DIR) && \
+		$(SUDO_PATH) $(SUDO_ENV) \
+		./configure $(SUDO_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-dhcp_compile: $(STATEDIR)/dhcp.compile
+sudo_compile: $(STATEDIR)/sudo.compile
 
-dhcp_compile_deps = $(STATEDIR)/dhcp.prepare
+sudo_compile_deps = $(STATEDIR)/sudo.prepare
 
-$(STATEDIR)/dhcp.compile: $(dhcp_compile_deps)
+$(STATEDIR)/sudo.compile: $(sudo_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(DHCP_DIR) && $(DHCP_PATH) make
+	cd $(SUDO_DIR) && $(SUDO_ENV) $(SUDO_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-dhcp_install: $(STATEDIR)/dhcp.install
+sudo_install: $(STATEDIR)/sudo.install
 
-$(STATEDIR)/dhcp.install: $(STATEDIR)/dhcp.compile
+$(STATEDIR)/sudo.install: $(STATEDIR)/sudo.compile
 	@$(call targetinfo, $@)
-	$(DHCP_PATH) make -C $(DHCP_DIR) install
+	cd $(SUDO_DIR) && $(SUDO_ENV) $(SUDO_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-dhcp_targetinstall: $(STATEDIR)/dhcp.targetinstall
+sudo_targetinstall: $(STATEDIR)/sudo.targetinstall
 
-dhcp_targetinstall_deps = $(STATEDIR)/dhcp.compile
+sudo_targetinstall_deps = $(STATEDIR)/sudo.compile
 
-$(STATEDIR)/dhcp.targetinstall: $(dhcp_targetinstall_deps)
+$(STATEDIR)/sudo.targetinstall: $(sudo_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -c -m 755 $(DHCP_DIR)/work.linux-2.2/server/dhcpd $(ROOTDIR)/usr/sbin
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/sbin/dhcpd
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-dhcp_clean:
-	rm -rf $(STATEDIR)/dhcp.*
-	rm -rf $(DHCP_DIR)
+sudo_clean:
+	rm -rf $(STATEDIR)/sudo.*
+	rm -rf $(SUDO_DIR)
 
 # vim: syntax=make
