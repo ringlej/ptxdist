@@ -5,7 +5,7 @@ PTXUSER		= $(shell echo $$USER)
 GNU_HOST	= $(shell $(TOPDIR)/scripts/config.guess)
 HOSTCC		= gcc
 HOSTCC_ENV	= CC=$(HOSTCC)
-CROSSSTRIP	= $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-strip
+CROSSSTRIP	= PATH=$(CROSS_PATH) (PTXCONF_GNU_TARGET)-strip
 CROSS_STRIP	= $(CROSSSTRIP)
 DOT		= dot
 DEP_OUTPUT	= depend.out
@@ -235,7 +235,7 @@ CROSS_ENV_CXXFLAGS	= CXXFLAGS=$(TARGET_CXXFLAGS)
 
 
 CROSS_ENV		=  $(CROSS_ENV_AR)
-CROSS_ENV		+= $(CORSS_ENV_AS)
+CROSS_ENV		+= $(CROSS_ENV_AS)
 CROSS_ENV		+= $(CROSS_ENV_CXX)
 CROSS_ENV		+= $(CROSS_ENV_CC)
 CROSS_ENV		+= $(CROSS_ENV_LD)
@@ -248,7 +248,7 @@ CROSS_ENV		+= $(CROSS_ENV_CFLAGS)
 CROSS_ENV		+= $(CROSS_ENV_CXXFLAGS)
 
 #
-# CORSS_LIB_DIR	= into this dir, the libs for the target system, are installed
+# CROSS_LIB_DIR	= into this dir, the libs for the target system, are installed
 #
 CROSS_LIB_DIR		= $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 
