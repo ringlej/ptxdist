@@ -5,13 +5,15 @@
 	  mechanism: run a per-platform makefile (rules/vendor-tweaks/*)
 	  which is configurable. Idea by Kai-Uwe Bloem, Implementation
 	  Robert Schwebel
+	* ltt: changed visualizer to be compiled for host; fix by
+	  Kai-Uwe Bloem. 
 
 2003-09-18 Robert Schwebel <r.schwebel@pengutronix.de>
 	* forgotten topics for 0.3.24 changelog (sorry 'bout that): 
-	* pdksh: added;  Kai-Uwe Bloem * <linux-development@auerswald.de>
-	* ltt: added; Kai-Uwe Bloem * <linux-development@auerswald.de>
-	* gdb/gdbserver: Kai-Uwe Bloem * <linux-development@auerswald.de>
-	* strace: Kai-Uwe Bloem * <linux-development@auerswald.de>
+	* pdksh: added;  Kai-Uwe Bloem <linux-development@auerswald.de>
+	* ltt: added; Kai-Uwe Bloem
+	* gdb/gdbserver: Kai-Uwe Bloem
+	* strace: Kai-Uwe Bloem
 
 2003-09-17 Robert Schwebel <r.schwebel@pengutronix.de>
 	* patch system: added generic patch system which gets patches
@@ -54,6 +56,13 @@
 	  fixed; logfile removal fixed. 
 	* rules/bootdisk.make: fixed Rayonic bootdisk to work again. 
 	* rules/zebra.make; rules/wireless.make; rules/flash.make added
+
+2003-06-24 Kai-Uwe Bloem <linux-development@auerswald.de>
+	* innokom configs:  updated
+	* innokom /etc template: largely reworked
+	* added: pdksh
+	* added: strace
+	* added: gdb and gdbserver
 
 2003-04-28 Marc Kleine-Budde <kleine-budde@gmx.de>
 	* openssl.make: openssl.prepare: deps on gccstage2.install if
