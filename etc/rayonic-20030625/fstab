@@ -1,0 +1,11 @@
+#
+# /etc/fstab
+#
+# Configuration for Auerswald
+#
+# 2002/10/03	Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+proc	/proc		proc	defaults	0	0
+devpts	/dev/pts	devpts	defaults	0	0
+

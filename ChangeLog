@@ -1,0 +1,190 @@
+
+	* Rules.make: added GNU_HOST to get rid of hardcoded x86 compilers
+	* config system: ARM architecture dependency fixed
+	* glibc: libutil strip fixed
+	* general: 0.3.22 released
+
+2003-04-03 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* openssh/openssl: added configuration option
+	* x86: configuration re-tested; minor bugs fixed for portmap, 
+	  glibc, mtdtools etc., to make this configuration compile again. 
+	* general: 0.3.21 released
+
+2003-03-15 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* portmapper: added version 4
+	* tcpwrapper: added version 7.6
+	* autoconf257: added autoconf version 2.57, for nfs-utils
+	* nfs-utils: version 1.0.1 added
+	* general: several typos fixed
+	* bash: fixed ruleset for bash; tested config options
+	* general: 0.3.20 finalized
+
+2003-03-05  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* kernel: zImage was accidently always copied to the target
+	* rootfs: fixed directory creation bugs
+	* rootfs: fixes to make it work with several templates
+	* general: 0.3.19 finalized
+
+2003-03-04  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* rules: fix for .get dependencies, introduced get target 
+	* general: 0.3.18 finalized
+
+2003-03-04  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* kernel: workaround for xchain-kernel kernel sources
+	* zlib: dependency bug fixed; separated into zlib and xchain-zlib.
+	* general: 0.3.17 finalized
+
+2003-03-02  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* config system: updated to the linux-2.5.63 version of kconfig and
+	  lxdialog. Fixed missing 'make clean' for lxdialog. 
+	* kernel: new config options for choosing which kernel image format
+	  shall be used. The kernel can now optionally be installed on the 
+	  target system (e.g. for jffs partitions). 
+	* kernel: split kernel package into kernel and xchain-kernel. This
+	  avoids that the complete toolchain is recompiled when you change
+	  something for the kernel (like patching it with RTAI). 
+	* mtd: added package for MTD CVS snapshots, including the MTD user
+	  space utilities. 
+	* general: 0.3.16 finalized
+
+2003-02-17  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ncurses: made ncurses compile with i386 cross environment
+	* rtai: separated rtai-patches from other rtai stuff
+	* glibc: fixed gcc-2.95.3 bug for x86
+	* general: 0.3.15 finalized
+
+2003-01-28  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* openssl,openssh: added initial support (untested)
+	* busybox: fixed configuration for strange register dump problem. 
+	  XScale environment can be compiled now. 
+	* general: 0.3.14 finalized
+
+
+2003-01-14  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* busybox: kconfig transition finished. This should work now. 
+	
+	* general: 0.3.13 finalized
+
+2003-01-11  Robert Schwebel <r.schwebel@pengutronix.de>
+	
+	* busybox: busybox-0.61.pre-ptx3 added, based on CVS snapshot 
+	  from 2002/12/10. This version of busybox is based on kconfig, 
+	  so it is possible to integrate this into our config system again.  
+
+	* general: 0.3.12 finalized; this is an intermediate release; don't 
+	  use it for production systems. 
+
+2002-11-16  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* general: fixed everything to make it work with the new 
+	  configuration system
+
+	* config system: ported to use the latest version from linux-2.5.47. 
+	  I assume this will be the way to go in the future, as lkc doesn't
+	  seem to be supported as a separate package any more. 
+
+	* config system: fixed .config load bug
+
+	* general: 0.3.11 finalized
+
+2002-11-08  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* config system: added lkc support
+
+	* general: 0.3.10 finalized
+
+
+2002-10-27  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ptxflash: /tmp and /home directory added
+
+	* general: 0.3.9 finalized. 
+
+
+2002-10-13  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* glibc: now we install libnss_* to the target, which (surprise!) was
+	the reason why proftpd didn't want to let our users login until now. 
+
+	* general: 0.3.8 finalized. 
+
+2002-10-12  Robert Schwebel <r.schwebel@pengutronix.de>
+	
+	* proftpd: added to the distribution.
+
+	* glibc: support for glibc-2.2.3 added
+
+	* general: 0.3.7 finalized.
+
+2002-10-07  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* menuconfig: bug fixed: use correct config file as default
+
+	* lsh: key generation for target does work now. 
+
+	* glibc: option for libm installation added. 
+
+	* general: bugfixing; 0.3.6 finalized.
+
+2002-10-04  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ptxflash: Utility to make a self contained bootstrap; 
+	this is currently highly specific to the MOPSlcd4 board...
+
+	* grub: GNU GRUB can now be installed; you can choose to 
+	build a bootdisk for the target system in $PTXDIST/bootdisk.
+
+	* e2fsprog: integrated, so we have mke2fs now. Has to be 
+	better configurable.
+
+	* Makefile: rootclean target re-introduced.
+
+	* rtai: RTAI is now integrated. Needs more testing. 
+
+	* config system: version number fixed. The archive target gives a
+	warning now, we should change this to a permanent fix. 
+
+	* lsh: lsh added. This requires packets for zlib, libgmp, 
+	liboop and nettle which have been installed. 
+
+2002-09-30  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* busybox: works now for ARM. The route applet has a bug and 
+	cannot be compiled, but this is an upstream problem. 
+
+	* toolchain: first release with a working toolchain! gcc stage
+	two is now able to compile kernel 2.4.18, busybox 0.61-pre-ptx1
+	and glibc-2.2.5.
+
+	* general: 0.3.4 finalized.  
+
+2002-09-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* busybox: added a makefile for busybox, currently only for an 
+	unstable version from CVS. This will be changed to stable once
+	Erik Andersen has made a release. 
+
+	* x86 port: backported makefiles to support compilation for a x86 based
+	target system. 
+
+	* toolchain: the cross toolchain does still have major bugs 
+	concerning the compiled in paths. 
+
+
+2002-09-20  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* general: several bugs fixed which prevented the system from being 
+	compiled without having a toolchain right from the beginning. 
+
+	* general: 0.3.2 finalized. This is the first version which has all
+	the infrastructure for making a complete cross toolchain for ARM. 
+

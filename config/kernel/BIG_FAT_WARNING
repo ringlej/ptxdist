@@ -1,0 +1,10 @@
+BIG FAT WARNING
+===============
+
+The kernel configuration is not yet integrated into the ptxdist system.
+You'll have to generate your kernel configuration separately and put it
+in the toplevel directory as ".kernelconfig". 
+
+The files in this directory do not work yet. 
+
+Robert

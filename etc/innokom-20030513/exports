@@ -1,0 +1,9 @@
+#
+# /etc/exports
+#
+# Configuration for Auerswald Innokom
+#
+# 2002/10/03    Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+/ 192.168.21.0/24(sync,no_root_squash,rw)

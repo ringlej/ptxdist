@@ -1,0 +1,46 @@
+# 
+# /etc/inittab
+#
+# Configuration for Auerswald Innokom
+#
+# 2002/10/03 Robert Schwebel <r.schwebel@pengutronix.de>
+# 2003/03/03 Kai-Uwe Bloem <kai-uwe.bloem@auerswald.de>
+
+::sysinit:/sbin/unlock /dev/mtd/2
+::sysinit:/sbin/unlock /dev/mtd/3
+
+::sysinit:/bin/mount -n -a 
+#::sysinit:/usr/bin/yes | /sbin/e2fsck /dev/ide/host0/bus0/target0/lun0/part1
+::sysinit:/etc/init.d/root-remount
+::sysinit:/bin/hostname localhost
+##::sysinit:/sbin/cleanup-logs
+::sysinit:/sbin/klogd
+::sysinit:/bin/echo 0 >/proc/sys/kernel/printk
+::sysinit:/sbin/syslogd
+#::sysinit:/sbin/syslogd host:514 (for remote logging)
+##::sysinit:/sbin/ifconfig eth0 192.168.21.48 up
+::sysinit:/sbin/ifconfig lo 127.0.0.1 up
+::sysinit:/sbin/utelnetd -d
+
+##::sysinit:/sbin/nfs-server
+#::sysinit:/sbin/nfs-mount
+##::sysinit:/sbin/read-hwclock
+##::sysinit:/opt/auerswald/lk.sh
+#::sysinit:/opt/auerswald/start_db_und_web.sh
+::sysinit:/bin/rm -f /opt/auerswald/eeprom.dat
+
+# Start userland network services 
+#::respawn:/sbin/utelnetd
+#::respawn:/sbin/proftpd -n
+#::respawn:/opt/auerswald/ets
+
+# put a getty on a serial line (for a terminal)
+#::respawn:/sbin/getty -L ttyS0 9600 vt100
+
+# Start an "askfirst" shell on the console
+::askfirst:-/bin/sh
+
+# Stuff to do before rebooting
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
+

@@ -1,0 +1,12 @@
+#! /bin/sh
+#
+# /etc/init.d/nfs-server
+#
+# Kai-Uwe Bloem, <kai-uwe.bloem@auerswald.de>
+# Copyright (C) 2003 GDS
+
+/sbin/portmap
+/sbin/nfsd 2
+/sbin/mountd
+/sbin/exportfs -a
+

@@ -1,0 +1,154 @@
+# $Id: Makefile,v 1.1 2003/04/24 08:06:32 jst Exp $
+#
+# (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
+# (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
+#
+# For further information about the PTXDIST project see the README file.
+
+PROJECT = PTXdist
+VERSION = 0
+PATCHLEVEL = 3
+SUBLEVEL = 22
+EXTRAVERSION =
+
+export PROJECT VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION
+
+MAKE=make
+TAR=tar
+
+TOPDIR=$(shell /bin/pwd)
+BASENAME=$(shell /usr/bin/basename $(TOPDIR))
+BUILDDIR=$(TOPDIR)/build
+ROOTDIR=$(TOPDIR)/root
+SRCDIR=$(TOPDIR)/src
+PTXSRCDIR=$(TOPDIR)/src_ptx
+STATEDIR=$(TOPDIR)/state
+BOOTDISKDIR=$(TOPDIR)/bootdisk
+
+INSTALL_LOG=$(TOPDIR)/tools/install-log-1.9/install-log
+
+PACKAGES=
+
+export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR PACKAGES
+
+all: help
+
+-include .config 
+include $(wildcard rules/*.make)
+
+# install targets 
+PACKAGES_TARGETINSTALL 	= $(addsuffix _targetinstall,$(PACKAGES))
+PACKAGES_GET		= $(addsuffix _get,$(PACKAGES))
+PACKAGES_EXTRACT	= $(addsuffix _extract,$(PACKAGES))
+PACKAGES_PREPARE	= $(addsuffix _prepare,$(PACKAGES))
+PACKAGES_COMPILE	= $(addsuffix _compile,$(PACKAGES))
+
+help:
+# help message {{{
+	@echo 
+	@echo "PTXDIST - Pengutronix Distribution Build System"
+	@echo
+	@echo "Syntax:"
+	@echo 
+	@echo "  make menuconfig       Configure the whole system"
+	@echo 
+	@echo "  make extract          Extract all needed archives"
+	@echo "  make prepare          Prepare the configured system for compilation"
+	@echo "  make compile          Compile the packages"
+	@echo "  make install          Install to rootdirectory"
+	@echo "  make clean            Remove everything but local/"
+	@echo "  make rootclean        Remove root directory contents"
+	@echo 
+	@echo "  make world            Make-everything-and-be-happy"
+	@echo
+	@echo "Calling these targets affects the whole system. If you want to"
+	@echo "do something for a packet do 'make packet-<action>'."
+	@echo
+	@echo "Available packages and versions: "
+	@echo "$(PACKAGES)"
+	@echo 
+# }}}
+
+get:     $(PACKAGES_GET)
+extract: $(PACKAGES_EXTRACT)
+prepare: $(PACKAGES_PREPARE)
+compile: $(PACKAGES_COMPILE)
+install: $(PACKAGES_INSTALL)
+
+world: $(PACKAGES_TARGETINSTALL)
+
+# menuconfig:
+# 	CONFIGDIR=$(TOPDIR)/config make -C config/config_system menuconfig
+
+# Configuration system -------------------------------------------------------
+
+scripts/lxdialog/lxdialog:
+	make -C scripts/lxdialog lxdialog
+
+scripts/kconfig/libkconfig.so:
+	make -C scripts/kconfig libkconfig.so
+
+scripts/kconfig/conf: scripts/kconfig/libkconfig.so
+	make -C scripts/kconfig conf
+
+scripts/kconfig/mconf: scripts/kconfig/libkconfig.so
+	make -C scripts/kconfig mconf
+
+scripts/kconfig/qconf: scripts/kconfig/libkconfig.so
+	make -C scripts/kconfig qconf
+
+menuconfig: scripts/lxdialog/lxdialog scripts/kconfig/mconf
+	scripts/kconfig/mconf config/Config.in
+
+xconfig: scripts/kconfig/qconf
+	scripts/kconfig/qconf config/Config.in
+
+oldconfig: scripts/kconfig/conf
+	scripts/kconfig/conf -o config/Config.in 
+
+# ----------------------------------------------------------------------------
+
+clean: rootclean
+	@echo
+	@echo -n "cleaning build dir..............."
+	@rm -fr $(BUILDDIR)/*
+	@echo "done."
+	@echo -n "cleaning state dir..............."
+	@rm -fr $(STATEDIR)/*
+	@echo "done."
+	@echo -n "cleaning scripts dir............."
+	@make -s -C scripts/kconfig clean
+	@make -s -C scripts/lxdialog clean
+	@echo "done."
+	@echo -n "cleaning bootdisk dir............"
+	@rm -fr $(BOOTDISKDIR)/*
+	@echo "done."
+	@echo
+	
+rootclean:
+	@echo
+	@echo -n "cleaning root/ directory........."
+	@rm -fr $(ROOTDIR)/*
+	@echo "done."
+	@echo -n "cleaning state/*.targetinstall..."
+	@rm -f $(STATEDIR)/*.targetinstall
+	@echo "done."	
+	@echo
+
+archive:
+	# FIXME: this should be automated
+	$(TAR) -C $(TOPDIR)/.. -zcvf /tmp/$(BASENAME).tgz 	\
+		--exclude $(BASENAME)/arm-linux/* 		\
+		--exclude $(BASENAME)/build/* 			\
+		--exclude $(BASENAME)/state/* 			\
+		--exclude $(BASENAME)/src/* 			\
+		--exclude $(BASENAME)/root/*			\
+		--exclude $(BASENAME)/local/*			\
+		--exclude $(BASENAME)/src_ptx/busybox*		\
+		--exclude $(BASENAME)/bootdisk/*		\
+		$(BASENAME)
+
+$(INSTALL_LOG): 
+	make -C $(TOPDIR)/tools/install-log-1.9
+
+# vim600:set foldmethod=marker:

@@ -1,0 +1,16 @@
+CC=gcc
+CFLAGS= -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer -DLOCALE  -DCURSES_LOC="<ncurses.h>"
+
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
+
+all: lxdialog
+
+OBJS = checklist.o menubox.o textbox.o yesno.o inputbox.o util.o lxdialog.o msgbox.o
+
+lxdialog: $(OBJS)
+	$(CC) $(OBJS) -lncurses -o lxdialog
+
+clean:
+	rm -f $(OBJS) lxdialog
+

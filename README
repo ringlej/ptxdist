@@ -1,0 +1,71 @@
+PTXdist
+=======
+
+
+Intro
+-----
+
+First of all: we need a new name for this project. PTXdist is just a
+working title for our development baby. Please contact me if you have a
+good idea. 
+
+
+Idea
+----
+
+PTXdist is a tool which can be used to generate a root tree for all
+kinds of Linux systems. It was written with embedded systems in mind,
+but there is no reason why you can't use it to configure your firewall,
+router or whatever dedicated "device" comes to your mind. 
+
+The job works like this: you run 'make menuconfig' or 'make xconfig',
+configure what you need and get a .config file. Run 'make world' and
+you'll find a root tree in root/. Voila. 
+
+
+Directory layout
+----------------
+
+bootdisk/	skeleton for bootdisk (if you need one)	
+build/		Here all the packages are extracted and being built
+config/		Configuration system, ext. configuration scripts
+etc/		skeleton for /etc for the target system
+local/		tools which are installed locally go to this dir
+root/		root filesystem for the target
+rules/		Makefiles for all packages
+scripts/	several little helper scripts
+src/		original sources and patches 
+src_ptx/	local sources
+state/		state files (show in which state packages currently are
+		during the compilation)
+
+
+Installation Instructions
+-------------------------
+
+The installation takes it's configuration from two config files in the toplevel
+directory: .config (for userland) and .kernelconfig (for the kernel). You can
+either copy them to this location or, for the userland, enter "make menuconfig"
+or "make xconfig" to generate a configuration. The kernel configuration is
+currently not included in the global configuration system, so you have to
+provide a .kernelconfig file manually.
+
+When everything is configured just enter "make world" and wait... The resulting
+root filesystem will be in the root/ directory.  
+
+
+Bugs
+----
+
+- kernel: configuration is not yet included (kconfig vs. cml1 problem). 
+  As long as we don't have a solution the kernel configuration is
+  actually taken from .kernelconfig in the toplevel directory. 
+- busybox: patch compiler config variable in configuration
+- check if all tools use the correct compilers 
+- search for FIXMEs
+- before starting you should look at the .config file and fix PTXCONF_PREFIX 
+  to point to a directory where you want the local stuff to be builded (like 
+  cross compilers etc).
+
+Robert Schwebel <r.schwebel@pengutronix.de>
+

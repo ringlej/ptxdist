@@ -1,0 +1,12 @@
+#
+# /etc/fstab
+#
+# Configuration for Auerswald Innokom
+#
+# 2002/10/03	Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+proc		/proc		proc	defaults	0	0
+devpts		/dev/pts	devpts	defaults	0	0
+/dev/mtdblock/3 /data		jffs2	defaults	0	0
+

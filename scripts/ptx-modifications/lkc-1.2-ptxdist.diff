@@ -1,0 +1,93 @@
+lkc-1.2 patch for U-Boot
+------------------------
+
+This patch changes the official lkc (see http://www.xs4all.nl/~zippel/lc/ for
+details) to work with U-Boot. The sources included in this tree already have
+this patch applied. 
+
+[Robert Schwebel]
+
+------------------------------------------------------------------------------
+
+
+diff -urN lkc-1.2/Makefile lkc-1.2-u-boot/Makefile
+--- lkc-1.2/Makefile	Sun Oct 27 19:38:41 2002
++++ lkc-1.2-u-boot/Makefile	Wed Nov  6 09:50:01 2002
+@@ -111,7 +111,7 @@
+ 	@false
+ else
+ qconf: $(qconf_OBJ)
+-	$(CXX) $(LXXFLAGS) $^ -lqt -o $@
++	$(CXX) $(LXXFLAGS) $^ -lqt -ldl -o $@
+ endif
+ 
+ lkcc: $(lkcc_OBJ)
+diff -urN lkc-1.2/kconfig_load.c lkc-1.2-u-boot/kconfig_load.c
+--- lkc-1.2/kconfig_load.c	Sun Oct 27 21:22:00 2002
++++ lkc-1.2-u-boot/kconfig_load.c	Wed Nov  6 09:50:01 2002
+@@ -15,7 +15,7 @@
+ 
+ 	handle = dlopen("./libkconfig.so", RTLD_LAZY);
+ 	if (!handle) {
+-		handle = dlopen("./scripts/kconfig/libkconfig.so", RTLD_LAZY);
++		handle = dlopen("./tools/lkc-1.2/libkconfig.so", RTLD_LAZY);
+ 		if (!handle) {
+ 			fprintf(stderr, "%s\n", dlerror());
+ 			exit(1);
+diff -urN lkc-1.2/mconf.c lkc-1.2-u-boot/mconf.c
+--- lkc-1.2/mconf.c	Sun Oct 20 03:05:56 2002
++++ lkc-1.2-u-boot/mconf.c	Wed Nov  6 09:56:04 2002
+@@ -129,7 +129,7 @@
+ 	memset(args, 0, sizeof(args));
+ 	indent = 0;
+ 	child_count = 0;
+-	cprint("./scripts/lxdialog/lxdialog");
++	cprint("./tools/lxdialog/lxdialog");
+ 	cprint("--backtitle");
+ 	cprint(menu_backtitle);
+ }
+@@ -530,7 +530,7 @@
+ 	do {
+ 		cprint_init();
+ 		cprint("--textbox");
+-		cprint("scripts/README.Menuconfig");
++		cprint("tools/README.Menuconfig");
+ 		cprint("%d", rows);
+ 		cprint("%d", cols);
+ 	} while (exec_conf() == -1);
+@@ -685,7 +685,8 @@
+ 	conf_parse(av[1]);
+ 	conf_read(NULL);
+ 
+-	sprintf(menu_backtitle, "Linux Kernel v%s.%s.%s%s Configuration",
++	sprintf(menu_backtitle, "%s v%s.%s.%s%s Configuration",
++		getenv("PROJECT"), 
+ 		getenv("VERSION"), getenv("PATCHLEVEL"),
+ 		getenv("SUBLEVEL"), getenv("EXTRAVERSION"));
+ 
+@@ -695,7 +696,7 @@
+ 	do {
+ 		cprint_init();
+ 		cprint("--yesno");
+-		cprint("Do you wish to save your new kernel configuration?");
++		cprint("Do you wish to save your new %s configuration?", getenv("PROJECT"));
+ 		cprint("5");
+ 		cprint("60");
+ 		stat = exec_conf();
+@@ -704,11 +705,13 @@
+ 	if (stat == 0) {
+ 		conf_write(NULL);
+ 		printf("\n\n"
+-			"*** End of Linux kernel configuration.\n"
++			"*** End of %s configuration.\n"
+ 			"*** Check the top-level Makefile for additional configuration.\n"
+-			"*** Next, you may run 'make bzImage', 'make bzdisk', or 'make install'.\n\n");
++			"*** Next, you may run 'make bzImage', 'make bzdisk', or 'make install'.\n\n",
++			getenv("PROJECT")
++		);
+ 	} else
+-		printf("\n\nYour kernel configuration changes were NOT saved.\n\n");
++		printf("\n\nYour configuration changes were NOT saved.\n\n");
+ 
+ 	return 0;
+ }

@@ -1,0 +1,11 @@
+# 
+# /etc/mtab
+#
+# Configuration for Auerswald Innokom 
+#
+# 2002/10/03 Robert Schwebel <r.schwebel@pengutronix.de>
+#
+/dev/root / nfs rw,v2,rsize=4096,wsize=4096,hard,udp,nolock,addr=192.168.1.2 0 0
+none /dev devfs rw 0 0
+proc /proc proc rw 0 0
+devpts /dev/pts devpts rw 0 0

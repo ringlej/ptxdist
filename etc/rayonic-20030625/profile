@@ -1,0 +1,18 @@
+#
+# /etc/profile
+#
+# Configuration for Rayonic
+#
+# 2002/10/03    Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+export PATH="$PATH:/usr/bin:/bin:/sbin:."
+
+#umask 022
+
+#This fixes the backspace when telnetting in.
+#if [ "$TERM" != "linux" ]; then
+#        stty erase ^H
+#fi
+#PS1="# "
+

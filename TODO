@@ -1,0 +1,22 @@
+- RS: rename glibc to xchain-glibc
+- RS: audit for FOODIR vs. FOO_DIR
+- RS: add checksums for download 
+- RS: after breakdown due to out of diskspace error: all state files 
+  are there - why did the make system not stop?
+- RS: have a look at http://asic-linux.com.mx/~izto/checkinstall/ 
+- RS: make bootdisk contents part of the nfsroot directory, but 
+      let ptxflash not copy it to the target flash disk
+- RS: install e2fsck
+- RS: make etc target
+- RS: User anlegen
+- RS: IP-Adresse anlegen...?
+- JS: GPL version 2
+- RS: break if a get target doesn't work...
+- RS: busybox: extract does run even if .get crashed!
+- RS: update to new version of busybox
+- RS: remove old config files
+- RS: add a test: if #!/bin/sh scripts return 
+      "/bin/sh: bad interpreter: Permission denied"
+      tell the user to look if his filesystem was monted 
+      with the "exec" option
+- LG: recompile x86 compilers recursively

@@ -1,0 +1,157 @@
+# $Id: rtai.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+#
+# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# See CREDITS for details about who has contributed to this project. 
+#
+# For further information about the PTXDIST project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+ifeq (y,$(PTXCONF_RTAI))
+PACKAGES += rtai
+endif
+
+#
+# Paths and names 
+#
+ifeq (y, $(PTXCONF_RTAI_24_1_10))
+RTAI			= rtai-24.1.10
+endif
+ifeq (y, $(PTXCONF_RTAI_24_1_9))
+RTAI			= rtai-24.1.9
+endif
+RTAI_URL		= http://www.aero.polimi.it/RTAI/$(RTAI).tgz
+RTAI_SOURCE		= $(SRCDIR)/$(RTAI).tgz
+RTAI_DIR		= $(BUILDDIR)/$(RTAI)
+RTAI_EXTRACT 		= gzip -dc
+ifeq (y, $(PTXCONF_KERNEL_2_4_18))
+RTAI_MODULEDIR		= /lib/modules/2.4.18-rthal5/rtai
+endif
+ifeq (y, $(PTXCONF_KERNEL_2_4_19))
+RTAI_MODULEDIR		= /lib/modules/2.4.19-rthal5/rtai
+endif
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+rtai_get: $(STATEDIR)/rtai.get
+
+$(STATEDIR)/rtai.get: $(RTAI_SOURCE)
+	touch $@
+
+$(RTAI_SOURCE):
+	@echo
+	@echo ---------------- 
+	@echo target: rtai.get
+	@echo ----------------
+	@echo
+	wget -P $(SRCDIR) $(PASSIVEFTP) $(RTAI_URL)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+rtai_extract: $(STATEDIR)/rtai.extract
+
+$(STATEDIR)/rtai.extract: $(STATEDIR)/rtai.get
+	@echo
+	@echo -------------------- 
+	@echo target: rtai.extract
+	@echo --------------------
+	@echo
+	$(RTAI_EXTRACT) $(RTAI_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+rtai_prepare: $(STATEDIR)/rtai.prepare
+
+rtai_prepare_deps =  $(STATEDIR)/kernel.prepare
+rtai_prepare_deps += $(STATEDIR)/rtai.extract
+
+$(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
+	@echo
+	@echo -------------------- 
+	@echo target: rtai.prepare
+	@echo --------------------
+	@echo
+	install .rtaiconfig $(RTAI_DIR)
+	cd $(RTAI_DIR) && 						\
+		yes no | ./configure --non-interactive --linuxdir $(KERNEL_DIR) --reconf
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+rtai_compile: $(STATEDIR)/rtai.compile
+
+$(STATEDIR)/rtai.compile: $(STATEDIR)/rtai.prepare 
+	@echo
+	@echo -------------------- 
+	@echo target: rtai.compile
+	@echo --------------------
+	@echo
+	cd $(RTAI_DIR) && make
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+rtai_install: $(STATEDIR)/rtai.install
+
+$(STATEDIR)/rtai.install: $(STATEDIR)/rtai.compile
+	@echo
+	@echo -------------------- 
+	@echo target: rtai.install
+	@echo --------------------
+	@echo
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+rtai_targetinstall: $(STATEDIR)/rtai.targetinstall
+
+$(STATEDIR)/rtai.targetinstall: $(STATEDIR)/rtai.install
+	@echo
+	@echo -------------------------- 
+	@echo target: rtai.targetinstall
+	@echo --------------------------
+	@echo
+	mkdir -p $(ROOTDIR)/$(RTAI_MODULEDIR)
+	install $(RTAI_DIR)/rtaidir/rtai.o $(ROOTDIR)/$(RTAI_MODULEDIR)
+	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai.o
+	install $(RTAI_DIR)/upscheduler/rtai_sched_up.o $(ROOTDIR)/$(RTAI_MODULEDIR)
+	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_sched_up.o
+	ln -sf rtai_sched_up.o $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_sched.o
+        ifeq (y, $(PTXCONF_RTAI_24_1_9))
+	install $(RTAI_DIR)/lxrt/rtai_lxrt.o $(ROOTDIR)/$(RTAI_MODULEDIR)
+	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_lxrt.o
+        endif
+        ifeq (y, $(PTXCONF_RTAI_24_1_10))		
+	install $(RTAI_DIR)/lxrt/rtai_lxrt_old.o $(ROOTDIR)/$(RTAI_MODULEDIR)
+	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_lxrt_old.o
+	ln -sf rtai_lxrt_old.o $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_lxrt.o
+        endif
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+rtai_clean: 
+	rm -rf $(STATEDIR)/rtai.* $(RTAI_DIR)
+
+rtai_kernel_clean:
+	rm -fr $(STATEDIR)/rtai_kernel.* $(BUILDDIR)/rtai-patches/
+
+# vim: syntax=make

@@ -1,0 +1,1014 @@
+#
+# config/config.in: Main menu structure definition
+# (c) Robert Schwebel <r.schwebel@pengutronix.de> 2002 
+#
+
+mainmenu "Configuration"
+
+config PTXCONF
+	bool
+	default y
+	help
+	  This is the Pengutronix Distribution Build System. A better name 
+	  for the Projest still has to be found. 
+
+############################################################################## 
+comment	"General Options     "
+##############################################################################
+
+menu	"Target Options      " 
+
+choice
+	prompt "CPU Architecture "
+	default ARCH_ARM
+
+	config ARCH_ARM
+		bool "ARM"
+		help
+		  This is support for the ARM processor architecture. 
+
+	config ARCH_X86
+		bool "x86"
+		help
+		  This is support for the Intel x86 architecture. 
+endchoice
+
+config ARCH
+	string
+	default "arm"  if ARCH_ARM
+	default "i386" if ARCH_X86
+
+choice
+	prompt "Code Optimization"
+	default OPT_ARM4
+
+	config OPT_I386
+		bool "386"
+		depends on ARCH_X86
+
+	config OPT_I486
+		bool "486"
+		depends on ARCH_X86
+
+	config OPT_I686
+		bool "686"
+		depends on ARCH_X86
+
+	config OPT_ARM4
+		bool "arm4"
+		depends on ARCH_ARM
+endchoice
+
+config GNU_TARGET
+	string
+	default "i386-linux" if OPT_I386
+	default "i486-linux" if OPT_I486
+	default "i686-linux" if OPT_I686
+	default "arm-linux"  if OPT_ARM4
+
+choice 
+	prompt "ARM architecture"
+	depends on ARCH_ARM
+
+	config ARM_ARCH_PXA
+		bool "pxa"
+		depends on ARCH_ARM
+endchoice
+
+
+config PREFIX
+	prompt "Install PREFIX"
+	string
+	default "/foo/bar/baz"
+
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu 	"Cross Toolchain     "
+
+config BUILD_CROSSCHAIN
+	bool
+	prompt "Build Cross Toolchain"
+	default y if ARCH_ARM
+	default n if ARCH_X86
+
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu	"Root Filesystem     "
+
+config ROOTFS_PROC
+	bool
+	prompt "Create /proc"
+	default y 
+
+config ROOTFS_DEV
+	bool
+	prompt "Create /dev"
+	default y
+
+config ROOTFS_MNT
+	bool
+	prompt "Create /mnt"
+	default y
+
+config ROOTFS_FLOPPY
+	bool
+	prompt "Create /floppy"
+	default y
+
+config ROOTFS_TMP
+	bool
+	prompt "Create /tmp"
+	default y
+
+config ROOTFS_TMP_DATALINK
+	bool "Make /tmp a link to /data/tmp"
+	default y
+	depends on ROOTFS_TMP
+
+config ROOTFS_HOME
+	bool
+	prompt "Create /home"
+	default y
+
+config ROOTFS_DATA
+	bool
+	prompt "Create /data"
+	default y
+
+config ROOTFS_VAR
+	bool
+	prompt "Create /var"
+	default y
+
+config ROOTFS_VAR_LOG_DATALINK
+	bool
+	prompt "Make /var/log a link to /data/log"
+	default y
+	depends on ROOTFS_VAR
+
+config ROOTFS_ETC
+	bool
+	prompt "Create /etc from $PTXDIST/etc"
+	default y
+
+config ETC_NAME
+	prompt "Name of dir in ./etc/ to be used"
+	string
+	default "innokom"
+	depends on ROOTFS_ETC
+
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu	"Debugging Tools     "
+
+config KSYMOOPS
+	bool
+	prompt "ksymoops"
+	default n
+
+endmenu
+
+
+##############################################################################
+comment	"Core System         "
+##############################################################################
+
+menu	"Kernel              "
+#source "config/config-kernel.in"
+
+config DONT_COMPILE_KERNEL
+	bool
+	prompt "Don't compile kernel"
+	default n
+
+choice 
+	prompt "Kernel Version"
+	default KERNEL_2_4_19
+	
+	config KERNEL_2_4_18
+		bool
+		prompt "2.4.18"
+
+	config KERNEL_2_4_19
+		bool
+		prompt "2.4.19"
+	
+endchoice
+
+config KERNEL_XSCALE
+	bool
+	prompt "Use XScale patch (rmkX-pxaY)"
+	default n
+	depends on ARCH_ARM
+
+config KERNEL_XSCALE_PTX
+	bool
+	prompt "Use Pengutronix XScale patch (rmkX-pxaY-ptxZ)"
+	default n
+	depends on ARCH_ARM
+
+config KERNEL_MTD
+	bool
+	prompt "Use mtd-20030301-1 snapshot"
+	default n
+
+config KERNEL_INSTALL
+	bool
+	prompt "Install kernel into /boot on target"
+	default n
+
+choice
+	prompt "Kernel Image"
+	default KERNEL_IMAGE_BZ
+
+	config KERNEL_IMAGE_BZ
+		bool
+		prompt "bzImage"
+		
+	config KERNEL_IMAGE_Z
+		bool
+		prompt "zImage"
+
+	config KERNEL_IMAGE_U
+		bool
+		prompt "uImage"
+endchoice
+
+config RTAI
+	bool
+	prompt "Realtime Extension: RTAI"
+	default n
+
+choice
+	prompt "RTAI Version"
+	depends on RTAI
+	default RTAI_24_1_10
+
+	config RTAI_24_1_9
+		bool
+		prompt "24.1.9 "
+
+	config RTAI_24_1_10
+		bool
+		prompt "24.1.10"
+endchoice
+
+choice
+	prompt "RTAI Technology"
+	depends on RTAI
+	default RTAI_ALLSOFT
+
+	config RTAI_RTHAL
+		bool
+		prompt "rthal"
+
+	config RTAI_ALLSOFT
+		bool
+		prompt "allsoft"
+endchoice
+
+#
+# FIXME: add this if we have the 2.4 configuration in kconfig format
+# 
+#config KERNEL
+#	bool
+#	prompt "Compile Kernel"
+#
+#source "config/kernel/Config.in"
+	
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu	"C Library           "
+
+# menue to chose C library 
+
+choice
+	prompt "Which C library do you want to use?"
+	default GLIBC
+	
+	config GLIBC
+		bool
+		prompt "GLIBC"
+
+	config UCLIBC
+		bool
+		prompt "uClibc"
+endchoice
+
+choice
+	prompt "C-Lib Version"
+	
+	config GLIBC_2_2_5
+		bool
+		prompt "2.2.5"
+		depends on GLIBC
+
+	config GLIBC_2_2_4
+		bool
+		prompt "2.2.4"
+		depends on GLIBC
+		depends on ARCH_X86
+
+	config GLIBC_2_2_3
+		bool
+		prompt "2.2.3"
+		depends on GLIBC
+		depends on ARCH_X86
+
+	config UCLIBC_0_9_9
+		bool
+		prompt "0.9.9"
+		depends on UCLIBC
+endchoice
+
+
+config GLIBC_PTHREADS
+	bool
+	prompt "Compile glibc with pthreads"
+	depends on GLIBC
+
+config GLIBC_FLOATINGPOINT
+	bool
+	prompt "Enable glibc floating point support"
+	depends on GLIBC
+
+config GLIBC_LIBIO
+	bool
+	prompt "Build in GNU libio instead of GNU stdio"
+	depends on GLIBC
+
+config GLIBC_SHARED
+	bool
+	prompt "Build shared library"
+	depends on GLIBC
+
+config GLIBC_PROFILED
+	bool
+	prompt "Include profiling support"
+	depends on GLIBC
+
+config GLIBC_OMITFP
+	bool
+	prompt "Build undebuggable optimized library"
+	depends on GLIBC
+
+config GLIBC_BOUNDED
+	bool
+	prompt "Build with runtime bounds checking"
+	depends on GLIBC
+
+config GLIBC_CRYPT
+	bool
+	prompt "Install libcrypt on the target"
+	depends on GLIBC
+
+config GLIBC_UTIL
+	bool
+	prompt "Install libutil on the target"
+	depends on GLIBC
+
+config GLIBC_LIBM
+	bool
+	prompt "Install libm on the target"
+	depends on GLIBC
+
+config GLIBC_NSS_DNS
+	bool
+	prompt "Install libnss_dns"
+	depends on GLIBC
+
+config GLIBC_NSS_FILES
+	bool
+	prompt "Install libnss_files"
+	depends on GLIBC
+
+config GLIBC_NSS_HESIOD
+	bool
+	prompt "Install libnss_hesiod"
+	depends on GLIBC
+
+config GLIBC_NSS_NIS
+	bool
+	prompt "Install libnss_nis"
+	depends on GLIBC
+
+config GLIBC_NSS_NISPLUS
+	bool
+	prompt "Install libnss_nisplus"
+	depends on GLIBC
+
+config GLIBC_NSS_COMPAT
+	bool
+	prompt "Install libnss_compat"
+	depends on GLIBC
+
+config GLIBC_RESOLV
+	bool
+	prompt "Install libresolv"
+	depends on GLIBC
+
+config GLIBC_NSL
+	bool
+	prompt "Install libnsl"
+	depends on GLIBC
+
+config UCLIBC_DEBUG
+	bool
+	prompt "Enable debugging"
+	depends on UCLIBC
+	
+config UCLIBC_HAS_MMU
+ 	bool
+	prompt "Target has MMU"
+	depends on UCLIBC	
+
+config UCLIBC_SHADOWPASS
+	bool
+	prompt "Enable shadow passwords"
+	depends on UCLIBC
+
+config UCLIBC_REGEX
+	bool
+	prompt "Enable POSIX regular expressions"
+	depends on UCLIBC
+	
+config UCLIBC_RPC
+	bool
+	prompt "Enable RPC" 
+	depends on UCLIBC
+
+config UCLIBC_SHARED
+	bool
+	prompt "Make shared library"
+	depends on UCLIBC
+
+endmenu
+
+# ============================================================================
+comment "Core Tools"
+# ============================================================================
+
+menu	"Bash                "
+
+config BASH
+	bool
+	prompt "Bash"
+
+config BASH_SHLIKE
+	bool	
+	prompt "Enable minimal sh like configuration"
+	depends on BASH
+
+config BASH_ALIASES
+	bool
+	prompt "Enable aliases"
+	depends on BASH
+
+#config BASH_ARITHMETIC_FOR
+#	bool
+#	prompt "Enable arithmetic for command"
+#	depends on BASH
+#	help "This does currently (bash-2.05b) not work properly and is deactivated in bash.make!"
+        
+config BASH_ARRAY
+	bool
+	prompt "Include shell array variables"
+	depends on BASH
+
+config BASH_HISTORY
+        bool
+	prompt "Turn on csh-style history substitution"
+	depends on BASH
+
+config BASH_BRACE
+	bool
+	prompt "Include brace expansion"
+	depends on BASH
+
+#config BASH_CONDITIONAL
+#	bool
+#	prompt "Enable the conditional command"
+#	depends on BASH
+#	help "This does currently (bash-2.05b) not work properly and is deactivated in bash.make!"
+
+config BASH_DIRSTACK
+	bool
+	prompt "Enable builtins pushd/popd/dirs"
+	depends on BASH
+
+#config BASH_EXTPATTERN
+#	bool
+#	prompt "Include ksh-style extended pattern matching"
+#	depends on BASH
+#	help "This does currently (bash-2.05b) not work properly and is deactivated in bash.make!"
+
+config BASH_HELP
+	bool
+	prompt "Include the help builtin"
+	depends on BASH
+
+config BASH_CMDHISTORY
+	bool
+	prompt "Turn on command history"
+	depends on BASH
+
+config BASH_JOBS
+	bool
+	prompt "Enable job control features"
+	depends on BASH
+
+config BASH_LARGEFILES
+	bool
+	prompt "Enable support for large files"
+	depends on BASH
+
+config BASH_PROCSUBST
+        bool 
+	prompt "Enable process substitution"
+	depends on BASH
+
+config BASH_COMPLETION
+	bool 
+	prompt "Enable programmable completion"
+	depends on BASH
+
+config BASH_ESC
+	bool
+	prompt "Turn on escape character decoding in prompts"
+	depends on BASH
+
+config BASH_EDIT
+	bool
+	prompt "Turn on command line editing"
+	depends on BASH
+
+config BASH_RESTRICTED
+	bool
+	prompt "Enable a restricted shell"
+	depends on BASH
+
+config BASH_SELECT
+	bool
+	prompt "Include select command"
+	depends on BASH
+
+config BASH_GPROF
+	bool
+	prompt "Allow profiling with gprof"
+	depends on BASH
+
+config BASH_STATIC
+	bool
+	prompt "Link bash statically"
+	depends on BASH
+
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu	"BusyBox             "
+
+config BUSYBOX
+	bool
+	prompt "Compile Busybox"
+
+source "config/busybox/sysdeps/linux/Config.in"
+
+endmenu
+
+menu	"TinyLogin           "
+#source "foo/bar/baz"
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu	"MTD Tools           "
+
+config MTD_UTILS
+	bool
+	prompt "Compile MTD Utilities"
+
+config MTD_EINFO
+	bool
+	prompt "einfo"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_ERASE
+	bool
+	prompt "erase"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_ERASEALL
+	bool
+	prompt "eraseall"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_FCP
+	bool
+	prompt "fcp"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_FTL_CHECK
+	bool
+	prompt "ftl_check"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_FTL_FORMAT
+	bool
+	prompt "ftl_format"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_JFFS2READER
+	bool
+	prompt "jffs2reader"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_LOCK
+	bool
+	prompt "lock"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_MTDDEBUG
+	bool
+	prompt "mtd_debug"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_NANDDUMP
+	bool
+	prompt "nanddump"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_NANDTEST
+	bool
+	prompt "nandtest"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_NANDWRITE
+	bool
+	prompt "nandwrite"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_NFTL_FORMAT
+	bool
+	prompt "nftl_format"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_NFTLDUMP
+	bool
+	prompt "nftldump"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+config MTD_UNLOCK
+	bool
+	prompt "unlock"
+	depends on KERNEL_MTD
+	depends on MTD_UTILS
+
+endmenu
+
+##############################################################################
+comment "Network Tools"
+##############################################################################
+
+menu	"udhcp               "
+
+config UDHCP
+	bool
+	prompt "udhcp"
+
+config UDHCP_C
+	bool
+	prompt "Compile udhcp client (udhcpc)"
+	depends on UDHCP
+
+config UDHCP_D
+	bool
+        prompt "Compile udhcp daemon (udhcpd)"
+	depends on UDHCP
+
+config UDHCP_DUMPLEASES
+	bool
+	prompt "Compile dumpleases"
+	depends on UDHCP
+
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu	"utelnetd            "
+
+config UTELNETD
+	bool
+	prompt "Compile utelnetd"
+
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu 	"Network Security    "
+
+config LSH
+	bool
+	prompt "LSH"
+
+config LSH_EXECUV
+	bool
+	prompt "Install lsh-execuf"
+	depends on LSH
+
+config LSH_PROXY
+	bool
+	prompt "Install lsh_proxy"
+	depends on LSH
+
+config LSH_LSHD
+	bool
+	prompt "Install lshd"
+	depends on LSH
+
+config LSH_SFTPD
+	bool
+	prompt  "Install sftp-server"
+	depends on LSH
+
+config LSH_MAKESEED
+	bool
+	prompt "Install lsh-make-seed"
+	depends on LSH
+
+config LSH_KEYGEN 
+	bool
+	prompt "Install lsh-keygen"
+	depends on LSH
+
+config LSH_WRITEKEY
+        bool
+	prompt "Install lsh-writekey"
+	depends on LSH
+
+config ZLIB
+	bool
+	default y if OPENSSH
+	default n if !OPENSSH
+
+config OPENSSL
+	bool
+	depends on ZLIB
+	default y if OPENSSH
+	default n if !OPENSSH
+
+config OPENSSH
+	bool
+	prompt "OpenSSH"
+
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu	"proftpd             "
+
+config PROFTPD
+	bool
+	prompt "proftpd"
+
+config PROFTPD_PAM
+	bool
+	prompt "PAM support"
+	depends on PROFTPD
+
+config PROFTPD_SENDFILE
+	bool
+	prompt "sendfile support"
+	depends on PROFTPD
+	
+config PROFTPD_SHADOW
+	bool
+	prompt "shadow support"
+	depends on PROFTPD
+
+config PROFTPD_AUTOSHADOW
+	bool
+	prompt "autoshadow support"
+	depends on PROFTPD_SHADOW
+
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu	"nfs-utils           "
+
+config	NFSUTILS
+	bool
+	prompt "Compile nfs-utils"
+
+config	NFSUTILS_V3
+	bool
+	prompt "Enable support for NFSv3"
+	depends on NFSUTILS
+
+config	NFSUTILS_SECURE_STATD
+	bool
+	prompt "Only lockd can use statd (security)"
+	depends on NFSUTILS
+
+config	NFSUTILS_RQUOTAD
+	bool
+	prompt "Enable rquotad"
+	depends on NFSUTILS	
+
+config	NFSUTILS_INSTALL_CLIENTSCRIPT
+	bool
+	prompt "Install /etc/init.d/nfs-client"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_FUNCTIONSSCRIPT
+	bool
+	prompt "Install /etc/init.d/nfs-functions"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_SERVERSCRIPT
+	bool
+	prompt "Install /etc/init.d/nfs-server"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_EXPORTFS
+	bool
+	prompt "Install /sbin/exportfs"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_LOCKD
+	bool
+	prompt "Install /sbin/lockd"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_MOUNTD
+	bool
+	prompt "Install /sbin/mountd"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_NFSD
+	bool
+	prompt "Install /sbin/nfsd"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_NFSSTAT
+	bool
+	prompt "Install /sbin/nfsstat"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_NHFSGRAPH
+	bool
+	prompt "Install /sbin/nhfsgraph"
+	depends on NFSUTILS
+
+config  NFSUTILS_INSTALL_NHFSNUMS
+        bool
+        prompt "Install /sbin/nhfsnums"
+        depends on NFSUTILS
+
+config  NFSUTILS_INSTALL_NHFSRUN
+        bool
+        prompt "Install /sbin/nhfsrun"
+        depends on NFSUTILS
+
+config  NFSUTILS_INSTALL_NHFSSTONE
+        bool
+        prompt "Install /sbin/nhfsstone"
+        depends on NFSUTILS
+
+config  NFSUTILS_INSTALL_SHOWMOUNT
+        bool
+        prompt "Install /sbin/showmount"
+        depends on NFSUTILS
+
+config  NFSUTILS_INSTALL_STATD
+        bool
+        prompt "Install /sbin/showmount"
+        depends on NFSUTILS
+
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu	"Portmapper          "
+
+config	PORTMAP
+	bool
+	prompt "Compile Portmapper"
+	
+config	PORTMAP_INSTALL_PORTMAPPER
+	bool
+	prompt "Install /sbin/portmap"
+	depends on PORTMAP
+
+endmenu
+
+# ----------------------------------------------------------------------------
+menu	"tcpwrapper          "
+
+config	TCPWRAPPER
+	bool
+	prompt "Compile tcpwrapper"
+	
+config	TCPWRAPPER_INSTALL_TCPD
+	bool
+	prompt "Install /usr/sbin/tcpd"
+	depends on TCPWRAPPER
+
+endmenu
+
+# ----------------------------------------------------------------------------
+
+menu	"Disk and file utils "
+
+config E2FSPROGS
+	bool
+	prompt "e2fsprogs"
+	
+config E2FSPROGS_MKFS
+	bool
+	prompt "Install mke2fs"
+	depends on E2FSPROGS
+
+config E2FSPROGS_E2FSCK
+	bool
+	prompt "Install e2fsck"
+	depends on E2FSPROGS
+
+config GRUB
+	bool
+	prompt "GRUB"
+
+config GRUB_MD5
+	bool
+	prompt "md5 passwords"
+	depends on GRUB
+
+config GRUB_FFS
+	bool
+	prompt "ffs      filesystem"
+	depends on GRUB
+
+config GRUB_MINIXFS
+	bool
+	prompt "minix    filesystem"
+	depends on GRUB
+
+config GRUB_REISERFS
+	bool
+	prompt "reiser   filesystem"
+	depends on GRUB
+
+config GRUB_VSTAFS
+	bool
+	prompt "vstafs   filesystem"
+	depends on GRUB
+
+config GRUB_JFS
+	bool
+	prompt "jfs      filesystem"
+	depends on GRUB
+
+config GRUB_XFS
+	bool
+	prompt "xfs      filesystem"
+	depends on GRUB
+
+config GRUB_CS89X0
+	bool
+	prompt "cs89x0   network driver"
+	depends on GRUB
+
+config GRUB_BOOTDISK
+	bool 
+	prompt "make bootdisk in $PTXDIST/bootdisk"
+	depends on GRUB
+
+config PTXFLASH
+	bool
+	prompt "Install ptxflash utility"
+
+endmenu
+

@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+
+#
+# first extract all configuration files from the original source tree
+#
+
+@configfiles = `find ../../build/linux* -name "Config.in"`;
+
+while($_ = shift @configfiles) {
+	chomp $_;
+	my $filename = $_;   $filename =~ s/(.*\/linux.*?)\/(.*$)/$2/;
+	my $dir = $filename; $dir      =~ s/(.*\/)(.*$)/$1/;
+	system("mkdir -p $dir");
+	system("../../scripts/mkprefix -v -p LNX_ < $_ > $filename");
+}
+
+# FIXME: implement this in perl
+
+#
+# fix some entries 
+# 
+#
+# fix paths
+#system("find . -name \"Config.in\" | xargs perl -i -p -e 's/^source (.*)/source config\/busybox\/$1/g'"); 
+#
+# comment main menu line
+#system("find . -name \"Config.in\" | xargs perl -i -p -e 's/^mainmenu (.*$)/# mainmenu $1/g'");
+#
+# make menu entries dependend on PTXCONF_BUSYBOX
+#system("find . -name \"Config.in\" | xargs perl -i -p -e 's/^(menu .*)$/$1\n	depends on BUSYBOX/g'");
+ 

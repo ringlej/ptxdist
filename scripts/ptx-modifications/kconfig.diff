@@ -1,0 +1,149 @@
+kconfig patch
+-------------
+
+This patch changes the official kconfig (see $LINUXSRC/scripts/kconfig for  
+details) to work with ptxdist. The sources included in this tree already have
+this patch applied. 
+
+[Robert Schwebel]
+
+------------------------------------------------------------------------------
+
+
+diff -urN orig/mconf.c ptxdist/mconf.c
+--- orig/mconf.c	Sun Oct 20 03:05:56 2002
++++ ptxdist/mconf.c	Wed Nov  6 09:56:04 2002
+@@ -685,7 +685,8 @@
+ 	conf_parse(av[1]);
+ 	conf_read(NULL);
+ 
+-	sprintf(menu_backtitle, "Linux Kernel v%s.%s.%s%s Configuration",
++	sprintf(menu_backtitle, "%s v%s.%s.%s%s Configuration",
++		getenv("PROJECT"), 
+ 		getenv("VERSION"), getenv("PATCHLEVEL"),
+ 		getenv("SUBLEVEL"), getenv("EXTRAVERSION"));
+ 
+@@ -695,7 +696,7 @@
+ 	do {
+ 		cprint_init();
+ 		cprint("--yesno");
+-		cprint("Do you wish to save your new kernel configuration?");
++		cprint("Do you wish to save your new %s configuration?", getenv("PROJECT"));
+ 		cprint("5");
+ 		cprint("60");
+ 		stat = exec_conf();
+@@ -704,11 +705,13 @@
+ 	if (stat == 0) {
+ 		conf_write(NULL);
+ 		printf("\n\n"
+-			"*** End of Linux kernel configuration.\n"
++			"*** End of %s configuration.\n"
+ 			"*** Check the top-level Makefile for additional configuration.\n"
+-			"*** Next, you may run 'make bzImage', 'make bzdisk', or 'make install'.\n\n");
++			"*** Next, you may run 'make bzImage', 'make bzdisk', or 'make install'.\n\n",
++			getenv("PROJECT")
++		);
+ 	} else
+-		printf("\n\nYour kernel configuration changes were NOT saved.\n\n");
++		printf("\n\nYour configuration changes were NOT saved.\n\n");
+ 
+ 	return 0;
+ }
+--- orig/confdata.c	Mon Feb 24 20:06:01 2003
++++ ptxdist/confdata.c	Wed Nov 13 07:04:46 2002
+@@ -117,15 +105,15 @@
+ 		lineno++;
+ 		switch (line[0]) {
+ 		case '#':
+-			if (memcmp(line + 2, "CONFIG_", 7))
++			if (memcmp(line + 2, "PTXCONF_", 8))
+ 				continue;
+-			p = strchr(line + 9, ' ');
++			p = strchr(line + 10, ' ');
+ 			if (!p)
+ 				continue;
+ 			*p++ = 0;
+ 			if (strncmp(p, "is not set", 10))
+ 				continue;
+-			sym = sym_lookup(line + 9, 0);
++			sym = sym_lookup(line + 10, 0);
+ 			switch (sym->type) {
+ 			case S_BOOLEAN:
+ 			case S_TRISTATE:
+@@ -136,19 +124,19 @@
+ 				;
+ 			}
+ 			break;
+-		case 'C':
+-			if (memcmp(line, "CONFIG_", 7))
++		case 'P':
++			if (memcmp(line, "PTXCONF_", 8))
+ 				continue;
+-			p = strchr(line + 7, '=');
++			p = strchr(line + 8, '=');
+ 			if (!p)
+ 				continue;
+ 			*p++ = 0;
+ 			p2 = strchr(p, '\n');
+ 			if (p2)
+ 				*p2 = 0;
+-			sym = sym_find(line + 7);
++			sym = sym_find(line + 8);
+ 			if (!sym) {
+-				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + 7);
++				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + 8);
+ 				break;
+ 			}
+ 			switch (sym->type) {
+@@ -294,24 +282,24 @@
+ 			case S_TRISTATE:
+ 				switch (sym_get_tristate_value(sym)) {
+ 				case no:
+-					fprintf(out, "# CONFIG_%s is not set\n", sym->name);
+-					fprintf(out_h, "#undef CONFIG_%s\n", sym->name);
++					fprintf(out, "# PTXCONF_%s is not set\n", sym->name);
++					fprintf(out_h, "#undef PTXCONF_%s\n", sym->name);
+ 					break;
+ 				case mod:
+-					fprintf(out, "CONFIG_%s=m\n", sym->name);
+-					fprintf(out_h, "#define CONFIG_%s_MODULE 1\n", sym->name);
++					fprintf(out, "PTXCONF_%s=m\n", sym->name);
++					fprintf(out_h, "#define PTXCONF_%s_MODULE 1\n", sym->name);
+ 					break;
+ 				case yes:
+-					fprintf(out, "CONFIG_%s=y\n", sym->name);
+-					fprintf(out_h, "#define CONFIG_%s 1\n", sym->name);
++					fprintf(out, "PTXCONF_%s=y\n", sym->name);
++					fprintf(out_h, "#define PTXCONF_%s 1\n", sym->name);
+ 					break;
+ 				}
+ 				break;
+ 			case S_STRING:
+ 				// fix me
+ 				str = sym_get_string_value(sym);
+-				fprintf(out, "CONFIG_%s=\"", sym->name);
+-				fprintf(out_h, "#define CONFIG_%s \"", sym->name);
++				fprintf(out, "PTXCONF_%s=\"", sym->name);
++				fprintf(out_h, "#define PTXCONF_%s \"", sym->name);
+ 				do {
+ 					l = strcspn(str, "\"\\");
+ 					if (l) {
+@@ -331,14 +319,14 @@
+ 			case S_HEX:
+ 				str = sym_get_string_value(sym);
+ 				if (str[0] != '0' || (str[1] != 'x' && str[1] != 'X')) {
+-					fprintf(out, "CONFIG_%s=%s\n", sym->name, str);
+-					fprintf(out_h, "#define CONFIG_%s 0x%s\n", sym->name, str);
++					fprintf(out, "PTXCONF_%s=%s\n", sym->name, str);
++					fprintf(out_h, "#define PTXCONF_%s 0x%s\n", sym->name, str);
+ 					break;
+ 				}
+ 			case S_INT:
+ 				str = sym_get_string_value(sym);
+-				fprintf(out, "CONFIG_%s=%s\n", sym->name, str);
+-				fprintf(out_h, "#define CONFIG_%s %s\n", sym->name, str);
++				fprintf(out, "PTXCONF_%s=%s\n", sym->name, str);
++				fprintf(out_h, "#define PTXCONF_%s %s\n", sym->name, str);
+ 				break;
+ 			}
+ 		}
