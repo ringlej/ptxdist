@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-CROSSTOOL_VERSION	= 0.28-rc35
+CROSSTOOL_VERSION	= 0.28-rc37
 CROSSTOOL		= crosstool-$(CROSSTOOL_VERSION)
 CROSSTOOL_SUFFIX	= tar.gz
 CROSSTOOL_URL		= http://www.kegel.com/crosstool/$(CROSSTOOL).$(CROSSTOOL_SUFFIX)
