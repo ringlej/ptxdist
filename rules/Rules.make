@@ -19,13 +19,13 @@ DEP_TREE_PS	= deptree.ps
 ifneq (y, $(PTXCONF_BUILD_CROSSCHAIN))
 compilercheck =								\
 	echo -n "compiler check...";					\
-	if [ ! -x `which $(PTXCONF_GNU_TARGET)-gcc` ]; then		\
+	which $(PTXCONF_GNU_TARGET)-gcc > /dev/null 2>&1 || {		\
 		echo; echo;						\
 		echo "No compiler installed!";				\
 		echo "Specified: $(PTXCONF_GNU_TARGET)-gcc";		\
 		echo;							\
 		exit -1;						\
-	fi;								\
+	};								\
 	if [ "$(PTXCONF_CROSSCHAIN_CHECK)" != `$(PTXCONF_GNU_TARGET)-gcc -dumpversion` ]; then	\
 		echo; echo;						\
 		echo "Please use the specified compiler!";		\
