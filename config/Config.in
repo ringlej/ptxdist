@@ -115,6 +115,14 @@ source "rules/setmixer.in"
 
 ############################################################################## 
 
+menu "Tools               "
+
+source "rules/tools.in"
+
+endmenu
+
+############################################################################## 
+
 menu "System Libraries    "
 
 source "rules/gettext.in"
