@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: liboop.make,v 1.7 2003/10/26 13:28:09 mkl Exp $
+# $Id: liboop.make,v 1.8 2003/10/26 20:55:29 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -130,8 +130,8 @@ liboop_targetinstall_deps = $(STATEDIR)/liboop.compile
 $(STATEDIR)/liboop.targetinstall: $(liboop_targetinstall_deps)
 	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/lib
-	cp -a $(PTXCONF_PREFIX)/lib/liboop.so* $(ROOTDIR)/lib/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/liboop.so*
+	cp -a $(PTXCONF_PREFIX)/lib/liboop.so* $(ROOTDIR)/usr/lib/
+	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/liboop.so*
 	touch $@
 
 # ----------------------------------------------------------------------------
