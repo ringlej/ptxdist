@@ -12,7 +12,7 @@
 #::sysinit:/etc/init.d/cleanup-logs
 #::sysinit:/etc/init.d/read-hwclock
 
-::respawn:/sbin/getty -L /dev/tts/0 115200 vt100
+::respawn:/sbin/getty -L /dev/ttsmx/0 115200 vt100
 ::respawn:/sbin/getty -L /dev/tts/1 115200 vt100
 
 # Start an "askfirst" shell on the console
