@@ -848,10 +848,19 @@ PTXCONF_UTELNETD=y
 #
 # nfs-utils           
 #
+
+#
+# compile options
+#
 PTXCONF_NFSUTILS=y
 # PTXCONF_NFSUTILS_V3 is not set
 # PTXCONF_NFSUTILS_SECURE_STATD is not set
 # PTXCONF_NFSUTILS_RQUOTAD is not set
+# PTXCONF_NFSUTILS_WITH_TCPWRAPPERS is not set
+
+#
+# install options
+#
 # PTXCONF_NFSUTILS_INSTALL_CLIENTSCRIPT is not set
 # PTXCONF_NFSUTILS_INSTALL_FUNCTIONSSCRIPT is not set
 # PTXCONF_NFSUTILS_INSTALL_SERVERSCRIPT is not set
@@ -913,6 +922,10 @@ PTXCONF_TCPWRAPPER_INSTALL_TCPD=y
 # NTP                 
 #
 PTXCONF_NTP=y
+
+#
+# Compile Options
+#
 PTXCONF_NTP_CLOCKCTL=y
 # PTXCONF_NTP_DEBUGGING is not set
 PTXCONF_NTP_DST-MINUTES=60
@@ -931,6 +944,10 @@ PTXCONF_NTP_ACCURATE_ADJTIME=y
 # PTXCONF_NTP_KERNEL_FLL_BUG is not set
 # PTXCONF_NTP_IRIG_SAWTOOTH is not set
 # PTXCONF_NTP_NIST is not set
+
+#
+# crypto needs openssl
+#
 # PTXCONF_NTP_SNTP is not set
 # PTXCONF_NTP_ARLIB is not set
 
@@ -944,6 +961,11 @@ PTXCONF_NTP_ACCURATE_ADJTIME=y
 #
 # PTXCONF_NTP_ALL_CLOCKS is not set
 # PTXCONF_NTP_RIPENCC is not set
+
+#
+# Install Options
+#
+PTXCONF_NTP_NTPDATE=y
 
 #
 # Bind                
