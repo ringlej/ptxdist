@@ -61,6 +61,7 @@ source "rules/dropbear.in"
 
 endmenu
 
+menu   "Networking Apps     "
 source "rules/ppp.in"
 source "rules/nmap.in"
 source "rules/utelnetd.in"
@@ -77,6 +78,11 @@ source "rules/libnet.in"
 source "rules/libpcap.in"
 source "rules/rsync.in"
 source "rules/thttpd.in"
+source "rules/ntp.in"
+source "rules/bind.in"
+source "rules/dhcp.in"
+source "rules/dnsmasq.in"
+endmenu
 
 ############################################################################## 
 comment	"Disk and file ---   "
