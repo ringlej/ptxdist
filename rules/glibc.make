@@ -97,9 +97,13 @@ endif
 $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps)
 	@$(call targetinfo, $@)
 
+ifdef PTXCONF_GLIBC_INSTALL
 	@$(call copy_toolchain_dl_root, /lib, $(GLIBC_STRIP))
+endif
 
+ifdef PTXCONF_GLIBC_LIBC
 	@$(call copy_toolchain_lib_root, libc.so, /lib, $(GLIBC_STRIP))
+endif
 
 ifdef PTXCONF_GLIBC_PTHREAD
 	@$(call copy_toolchain_lib_root, libpthread.so, /lib, $(GLIBC_STRIP))

@@ -5,78 +5,106 @@ config GLIBC_DEBUG
 
 comment	"Install options"
 
+config GLIBC_INSTALL
+	bool
+	default y if !CROSSTOOL
+	default n if CROSSTOOL
+	prompt "Install glibc libraries on the target"
+
+config GLIBC_LIBC
+	bool
+	depends on GLIBC_INSTALL
+	default y
+	prompt "Install libc on the target"
+
 config GLIBC_PTHREAD
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libpthread on the target"
 
 config GLIBC_THREAD_DB
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libthread_db on the target"
 
 config GLIBC_LIBRT
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install librt on the target"
 	default n
 
 config GLIBC_DL
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libdl on the target"
 
 config GLIBC_CRYPT
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libcrypt on the target"
 
 config GLIBC_UTIL
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libutil on the target"
 
 config GLIBC_LIBM
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libm on the target"
 
 config GLIBC_NSS_DNS
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libnss_dns"
 	select GLIBC_RESOLV
 
 config GLIBC_NSS_FILES
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libnss_files"
 
 config GLIBC_NSS_HESIOD
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libnss_hesiod"
 	select GLIBC_RESOLV
 	select GLIBC_NSS_FILES
 
 config GLIBC_NSS_NIS
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libnss_nis"
 	select GLIBC_NSL
 	select GLIBC_NSS_FILES
 
 config GLIBC_NSS_NISPLUS
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libnss_nisplus"
 	select GLIBC_NSL
 
 config GLIBC_NSS_COMPAT
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libnss_compat"
 	select GLIBC_NSL
 
 config GLIBC_RESOLV
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libresolv"
 
 config GLIBC_NSL
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install libnsl"
 
 # -----
 
 config GLIBC_GCONV
 	bool
+	depends on GLIBC_INSTALL
 	prompt "Install gconv libraries"
 	depends on GLIBC 
 
@@ -88,12 +116,12 @@ config GLIBC_GCONV_ISO8859_1
 # -----
 
 comment "Timezone Files"
-	depends on GLIBC 
+	depends on GLIBC_INSTALL
 
 config GLIBC_ZONEINFO
 	bool
 	prompt "Install zoneinfo files"
-	depends on GLIBC 
+	depends on GLIBC_INSTALL
 	default N
 
 config GLIBC_ZONEINFO_AFRICA
