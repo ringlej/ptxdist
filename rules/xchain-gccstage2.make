@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.17 2003/10/29 16:39:15 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.18 2003/11/07 00:43:36 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -188,12 +188,11 @@ ifdef PTXCONF_LIBSTDCXX_SHARED
 # and if we don't build a xchain, we don't know which version we have....
 #
 #
-	if [ -f $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libgcc_s[-.]*so* ]; then	\
-		mkdir -p $(ROOTDIR)/lib;							\
-		cp -d $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libgcc_s[-.]*so*	\
-			$(ROOTDIR)/lib/;							\
-		$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libgcc_s[-.]*so*;		\
-	fi
+	mkdir -p $(ROOTDIR)/lib
+	for FILE in $(PTXCONF_PREFIX)/lib/gcc-lib/$(PTXCONF_GNU_TARGET)/*/libgcc_s[-.]*so*; do	\
+		cp -d $$FILE $(ROOTDIR)/lib/;							\
+		$(CROSSSTRIP) -S -R .note -R .comment $$FILE;					\
+	done
 endif
 	touch $@
 
