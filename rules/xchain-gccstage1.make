@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.15 2004/01/28 21:55:06 robert Exp $
+# $Id: xchain-gccstage1.make,v 1.16 2004/01/30 12:43:35 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -227,6 +227,7 @@ GCC_STAGE1_AUTOCONF = \
 	--disable-nls \
 	--disable-threads \
 	--disable-shared \
+	--disable-multilib \
 	--enable-languages=c \
 	--enable-symvers=gnu \
 	--enable-target-optspace \
@@ -234,6 +235,8 @@ GCC_STAGE1_AUTOCONF = \
 	--with-newlib \
         --without-headers \
 	--with-gnu-ld
+
+# RSC: Where does --with-newlib come from ???
 
 ifdef PTXCONF_GLIBC
 GCC_STAGE1_AUTOCONF	+= --enable-__cxa_atexit
@@ -243,16 +246,10 @@ ifdef PTXCONF_UCLIBC
 GCC_STAGE1_AUTOCONF	+= --disable-__cxa_atexit
 endif
 
-ifdef PTXCONF_GCC_MULTILIB
-GCC_STAGE1_AUTOCONF     += --enable-multilib
-else
-GCC_STAGE1_AUTOCONF     += --disable-multilib
-endif
-
 ifdef PTXCONF_SOFTFLOAT
-GCC_STAGE1_AUTOCONF	+= --without-float
+GCC_STAGE1_AUTOCONF	+= --enable-softfloat
 else
-GCC_STAGE1_AUTOCONF	+= --with-float
+GCC_STAGE1_AUTOCONF	+= --disable-softfloat
 endif
 
 #
