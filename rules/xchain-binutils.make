@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-binutils.make,v 1.9 2003/10/23 15:01:19 mkl Exp $
+# $Id: xchain-binutils.make,v 1.10 2003/10/24 01:11:43 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -81,7 +81,7 @@ $(STATEDIR)/xchain-binutils.extract: $(STATEDIR)/xchain-binutils.get
 
 xchain-binutils_prepare: $(STATEDIR)/xchain-binutils.prepare
 
-XCHAIN_XCHAIN_BINUTILS_AUTOCONF = \
+XCHAIN_BINUTILS_AUTOCONF = \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--host=$(GNU_HOST) \
 	--build=$(GNU_HOST) \
@@ -94,13 +94,13 @@ XCHAIN_XCHAIN_BINUTILS_AUTOCONF = \
 	--with-sysroot=$(CROSS_LIB_DIR) \
 	--with-lib-path="$(CROSS_LIB_DIR)/usr/lib:$(CROSS_LIB_DIR)/lib"
 
-XCHAIN_XCHAIN_BINUTILS_ENV	= $(HOSTCC_ENV)
+XCHAIN_BINUTILS_ENV	= $(HOSTCC_ENV)
 
 $(STATEDIR)/xchain-binutils.prepare: $(STATEDIR)/xchain-binutils.extract
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN_BINUTILS_DIR)/config.cache)
-	cd $(XCHAIN_BINUTILS_DIR) && $(XCHAIN_XCHAIN_BINUTILS_ENV) \
-		./configure $(XCHAIN_XCHAIN_BINUTILS_AUTOCONF)
+	cd $(XCHAIN_BINUTILS_DIR) && $(XCHAIN_BINUTILS_ENV) \
+		./configure $(XCHAIN_BINUTILS_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
