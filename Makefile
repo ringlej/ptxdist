@@ -346,7 +346,7 @@ configs:
 	@echo
 	@for i in `find projects -name "*.ptxconfig"`; do \
 		basename `echo $$i | perl -p -e "s/.ptxconfig/_config/g"`; \
-	done
+	done | sort 
 	@echo
 
 $(INSTALL_LOG): 
