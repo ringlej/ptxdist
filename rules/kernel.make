@@ -377,6 +377,7 @@ endif
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	@$(call targetinfo, $@)
 
+	mkdir -p $(PTXCONF_PREFIX)/bin
 	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	echo 'u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 
