@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: settoolchain.sh,v 1.5 2003/10/31 11:49:16 mkl Exp $
+# $Id: settoolchain.sh,v 1.6 2003/11/09 17:34:38 robert Exp $
 #
 # Copyright (C) 2003 Ixia Communications, by Dan Kegel
 #
@@ -9,8 +9,9 @@
 # see the README file.
 #
 # Script to set up ptxdist to use a crosstool-generated toolchain
+# Must be run from main ptxdist directory.
 #
-# Example: TARGET=powerpc-405-linux-gnu PREFIX=/opt/blartfast sh settoolchain.sh
+# Example: TARGET=powerpc-405-linux-gnu PREFIX=/opt/blartfast sh scripts/settoolchain.sh
 
 abort() {
 	echo $@
@@ -19,6 +20,7 @@ abort() {
 
 test -z "${TARGET}"           && abort "Please set TARGET to the Gnu target identifier (e.g. pentium-unknown-linux-gnu)"
 test -z "${PREFIX}"           && abort "Please set PREFIX to where you want the toolchain installed."
+test -f scripts/settoolchain.sh || abort "Please run from main ptxdist directory."
 
 # Grumble.  Convert TARGET to internal ptxdist booleans.
 # This is really fragile, and I probably missed a bunch of subarch flags. (dank)
@@ -71,7 +73,7 @@ echo "PTXCONF_EXP_M=y" >> .config.tmp
 
 egrep -v "PTXCONF_GNU_TARGET|PTXCONF_OPT_PPC|PTXCONF_ARCH_|PTXCONF_PREFIX|PTXCONF_ROOT" .config >> .config.tmp
 
-cp .config .config.bak
+test -f .config && cp .config .config.bak
 mv .config.tmp .config
 
-# Now do a 'make oldconfig', please...
+make oldconfig
