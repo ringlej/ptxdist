@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.1-cvs
-# Tue Mar  8 10:51:15 2005
+# PTXdist version: 0.7.2-cvs
+# Sun Mar 13 21:19:42 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -617,6 +617,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # PTXCONF_FIGLET is not set
 # PTXCONF_MEMEDIT is not set
+# PTXCONF_CANCONFIG is not set
 
 #
 # Editors                     
