@@ -89,20 +89,13 @@ choice
 	config MIPS_ARCH_LE
 		bool "mipsel (little endian)"
 endchoice
-=======
+
 config ARCH
 	string
 	default "arm"  if ARCH_ARM
 	default "i386" if ARCH_X86
->>>>>>> 1.1.1.1
-=======
+
 choice 
-=======
-choice
->>>>>>> 1.40.2.6
-=======
-choice 
->>>>>>> 1.41
 	prompt "ARM architecture"
 	depends on ARCH_ARM || ARCH_ARM_NOMMU
 
@@ -133,7 +126,6 @@ choice
 	config MIPS_ARCH_LE
 		bool "mipsel (little endian)"
 endchoice
->>>>>>> 1.41
 
 choice
 	prompt "Code Optimization"
