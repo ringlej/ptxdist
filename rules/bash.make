@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bash.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
+# $Id: bash.make,v 1.4 2003/07/09 14:49:52 bsp Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -212,7 +212,7 @@ bash_compile: $(STATEDIR)/bash.compile
 
 $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare 
 	@$(call targetinfo, bash.compile)
-	make -C $(BASH_DIR) $(MAKEPARMS)
+	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(BASH_DIR) $(MAKEPARMS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -223,7 +223,6 @@ bash_install: $(STATEDIR)/bash.install
 
 $(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
 	@$(call targetinfo, bash.install)
-	make -C $(BASH_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -234,7 +233,7 @@ bash_targetinstall: $(STATEDIR)/bash.targetinstall
 
 $(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.install
 	@$(call targetinfo, bash.targetinstall)
-	# don't forget to $(CROSSSTRIP) -S your source!
+	cd $(BASH_DIR) && install -m 0755 -s bash $(ROOTDIR)/bin/bash
 	touch $@
 
 # ----------------------------------------------------------------------------
