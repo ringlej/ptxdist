@@ -1,4 +1,4 @@
-# $Id: xchain-glibc.make,v 1.6 2003/06/25 13:29:34 robert Exp $
+# $Id: xchain-glibc.make,v 1.7 2003/06/26 15:05:58 bsp Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -47,7 +47,7 @@ GLIBC_THREADS_SOURCE	= $(SRCDIR)/$(GLIBC_THREADS).tar.gz
 GLIBC_THREADS_DIR	= $(GLIBC_DIR)
 GLIBC_THREADS_EXTRACT	= gzip -dc
 
-GLIBC_PTXPATCH		= glibc-$(GLIBC_VERSION)-ptx1.diff
+GLIBC_PTXPATCH		= glibc-$(GLIBC_VERSION)-ptx2.diff
 GLIBC_PTXPATCH_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(GLIBC_PTXPATCH)
 GLIBC_PTXPATCH_SOURCE	= $(SRCDIR)/$(GLIBC_PTXPATCH)
 GLIBC_PTXPATCH_DIR	= $(GLIBC_DIR)
@@ -254,6 +254,8 @@ $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 	@$(call targetinfo, glibc.install)
         ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN))
 	cd $(BUILDDIR)/$(GLIBC)-obj && $(GLIBC_ENVIRONMENT) make install
+	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include && ln -fs $(KERNEL_DIR)/include/linux
+	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include && ln -fs $(KERNEL_DIR)/include/asm
         endif
 	touch $@
 

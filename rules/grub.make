@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: grub.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
+# $Id: grub.make,v 1.4 2003/06/26 15:05:58 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -18,8 +18,8 @@ endif
 #
 # Paths and names 
 #
-GRUB			= grub-0.92
-GRUB_URL		= http://www.gnu.org/software/grub/$(GRUB).tar.gz
+GRUB			= grub-0.93
+GRUB_URL		= ftp://alpha.gnu.org/gnu/grub/$(GRUB).tar.gz
 GRUB_SOURCE		= $(SRCDIR)/$(GRUB).tar.gz
 GRUB_DIR		= $(BUILDDIR)/$(GRUB)
 GRUB_EXTRACT 		= gzip -dc
@@ -98,7 +98,7 @@ endif
 
 $(STATEDIR)/grub.prepare: $(STATEDIR)/grub.extract
 	@$(call targetinfo, grub.prepare)
-	cd $(GRUB_DIR) && ./configure $(GRUB_AUTOCONF)
+	cd $(GRUB_DIR) && CC=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc ./configure $(GRUB_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -107,7 +107,7 @@ $(STATEDIR)/grub.prepare: $(STATEDIR)/grub.extract
 
 grub_compile: $(STATEDIR)/grub.compile
 
-$(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare 
+$(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare $(STATEDIR)/xchain-gccstage2.install
 	@$(call targetinfo, grub.compile)
 	make -C $(GRUB_DIR)
 	touch $@

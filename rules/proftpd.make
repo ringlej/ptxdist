@@ -1,4 +1,4 @@
-# $Id: proftpd.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# $Id: proftpd.make,v 1.3 2003/06/26 15:05:58 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -17,7 +17,7 @@ endif
 #
 # Paths and names 
 #
-PROFTPD_VERSION 	= 1.2.6
+PROFTPD_VERSION 	= 1.2.8
 PROFTPD			= proftpd-$(PROFTPD_VERSION)
 PROFTPD_URL		= ftp://ftp.proftpd.org/distrib/source/$(PROFTPD).tar.gz
 PROFTPD_SOURCE		= $(SRCDIR)/$(PROFTPD).tar.gz

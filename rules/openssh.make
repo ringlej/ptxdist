@@ -1,4 +1,4 @@
-# $Id: openssh.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
+# $Id: openssh.make,v 1.4 2003/06/26 15:05:58 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -61,7 +61,8 @@ OPENSSH_AUTOCONF += --with-privsep-path=$(PTXCONF_PREFIX)/var/empty
 
 $(STATEDIR)/openssh.prepare: $(STATEDIR)/openssh.extract $(STATEDIR)/openssl.install
 	@$(call targetinfo, openssh.prepare)
-	cd $(OPENSSH_DIR) && LIBS=-lcrypt ./configure $(OPENSSH_AUTOCONF)
+	cd $(OPENSSH_DIR) && LIBS=-lcrypt \
+	CC=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc ./configure $(OPENSSH_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-# $Id: xchain-kernel.make,v 1.3 2003/06/25 12:19:05 robert Exp $
+# $Id: xchain-kernel.make,v 1.4 2003/06/26 15:05:58 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -71,19 +71,19 @@ KERNEL_SOURCE		= $(SRCDIR)/$(KERNEL).tar.bz2
 KERNEL_DIR		= $(BUILDDIR)/$(KERNEL)
 KERNEL_EXTRACT 		= bzip2 -dc
 
-KERNEL_RMKPATCH		= patch-2.4.19-rmk4
+KERNEL_RMKPATCH		= patch-2.4.19-rmk7
 KERNEL_RMKPATCH_URL	= ftp://ftp.arm.linux.org.uk/pub/armlinux/kernel/v2.4/$(KERNEL_RMKPATCH).bz2
 KERNEL_RMKPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_RMKPATCH).bz2
 KERNEL_RMKPATCH_DIR	= $(BUILDDIR)/$(KERNEL)
 KERNEL_RMKPATCH_EXTRACT	= bzip2 -dc
 
-KERNEL_PXAPATCH 	= diff-2.4.19-rmk4-pxa1
+KERNEL_PXAPATCH 	= diff-2.4.19-rmk7-pxa1
 KERNEL_PXAPATCH_URL 	= ftp://ftp.arm.linux.org.uk/pub/armlinux/people/nico/$(KERNEL_PXAPATCH).gz
 KERNEL_PXAPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_PXAPATCH).gz
 KERNEL_PXAPATCH_DIR	= $(BUILDDIR)/$(KERNEL)
 KERNEL_PXAPATCH_EXTRACT = gzip -dc
 
-KERNEL_PTXPATCH		= linux-2.4.19-rmk4-pxa1-ptx10.diff
+KERNEL_PTXPATCH		= linux-2.4.19-rmk7-pxa1-ptx4.diff
 KERNEL_PTXPATCH_SOURCE	= $(SRCDIR)/$(KERNEL_PTXPATCH)
 KERNEL_PTXPATCH_URL	= http://www.pengutronix.de/software/linux-arm/$(KERNEL_PTXPATCH)
 KERNEL_PTXPATCH_DIR	= $(BUILDDIR)/$(KERNEL)
@@ -100,11 +100,11 @@ endif
 
 ifeq (y, $(PTXCONF_KERNEL_IMAGE_Z))
 KERNEL_TARGET		= zImage
-KERNEL_TARGET_PATH	= $(KERNEL_DIR)/$(PTXCONF_ARCH)/boot/zImage
+KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/zImage
 endif
 ifeq (y, $(PTXCONF_KERNEL_IMAGE_BZ))
 KERNEL_TARGET		= bzImage
-KERNEL_TARGET_PATH	= $(KERNEL_DIR)/$(PTXCONF_ARCH)/boot/bzImage
+KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/bzImage
 endif
 ifeq (y, $(PTXCONF_KERNEL_IMAGE_U))
 KERNEL_TARGET		= uImage
@@ -313,10 +313,8 @@ ifeq (y,$(PTXCONF_RTAI))
 kernel_prepare_deps += $(STATEDIR)/rtai-patches.extract
 endif
 
-ifeq (y,$(PTXCONF_ARCH_ARM))
 KERNEL_ENVIRONMENT = PATH=$(PTXCONF_PREFIX)/bin:$$PATH
 kernel_prepare_deps += $(STATEDIR)/xchain-gccstage1.install
-endif
 
 $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, kernel.prepare)
@@ -328,8 +326,8 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 				-d $(PTXCONF_PREFIX)
         endif
 	install .kernelconfig $(KERNEL_DIR)/.config	
-	perl -p -i -e 's/^ARCH := .*/ARCH := $(PTXCONF_ARCH)/' $(KERNEL_DIR)/Makefile
-	perl -p -i -e 's/^CROSS_COMPILE .*/CROSS_COMPILE   = $(PTXCONF_GNU_TARGET)-/' $(KERNEL_DIR)/Makefile
+	perl -p -i -e 's/^ARCH := .*/ARCH := $(subst ",,$(PTXCONF_ARCH))/' $(KERNEL_DIR)/Makefile
+	perl -p -i -e 's@^CROSS_COMPILE .*@CROSS_COMPILE   = $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-@' $(KERNEL_DIR)/Makefile
 	cd $(KERNEL_DIR) && make oldconfig
 	cd $(KERNEL_DIR) && PATH=$(PTXCONF_PREFIX)/bin:$$PATH make dep
 	touch $@

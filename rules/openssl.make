@@ -1,4 +1,4 @@
-# $Id: openssl.make,v 1.4 2003/06/25 12:12:31 robert Exp $
+# $Id: openssl.make,v 1.5 2003/06/26 15:05:58 bsp Exp $
 #
 # (c) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -73,6 +73,9 @@ openssl_prepare_deps += $(STATEDIR)/glibc.install
 $(STATEDIR)/openssl.prepare: $(openssl_prepare_deps)
 	@$(call targetinfo, openssl.prepare)
 	cd $(OPENSSL_DIR) && ./Configure $(THUD) --prefix=$(PTXCONF_PREFIX) no-shared
+	perl -p -i -e 's@^CC= .*@CC = $(subst ",, $(PTXCONF_GNU_TARGET))-gcc@' $(OPENSSL_DIR)/Makefile
+	perl -p -i -e 's/-m486//' $(OPENSSL_DIR)/Makefile
+	perl -p -i -e 's@^CC= .*@CC = $(subst ",, $(PTXCONF_GNU_TARGET))-gcc@' $(OPENSSL_DIR)/crypto/Makefile
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -83,7 +86,8 @@ openssl_compile: $(STATEDIR)/openssl.compile
 
 $(STATEDIR)/openssl.compile: $(STATEDIR)/openssl.prepare 
 	@$(call targetinfo, openssl.compile)
-	cd $(OPENSSL_DIR) && PATH=$(PTXCONF_PREFIX)/bin:$$PATH make
+	cd $(OPENSSL_DIR) && PATH=$(PTXCONF_PREFIX)/bin:$$PATH \
+	make
 	touch $@
 
 # ----------------------------------------------------------------------------
