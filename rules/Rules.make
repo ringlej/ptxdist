@@ -95,6 +95,7 @@ CROSS_ENV_CC_PROG	= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)gcc)
 CROSS_ENV_CC		= CC=$(CROSS_ENV_CC_PROG)
 CROSS_ENV_CC_FOR_BUILD	= CC_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
 CROSS_ENV_CPP_FOR_BUILD	= CPP_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
+CROSS_ENV_LINK_FOR_BUILD= LINK_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
 CROSS_ENV_CXX		= CXX=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)g++)
 CROSS_ENV_OBJCOPY	= OBJCOPY=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)objcopy)
 CROSS_ENV_OBJDUMP	= OBJDUMP=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)objdump)
@@ -130,6 +131,7 @@ CROSS_ENV := \
 	$(CROSS_ENV_CC) \
 	$(CROSS_ENV_CC_FOR_BUILD) \
 	$(CROSS_ENV_CPP_FOR_BUILD) \
+	$(CROSS_ENV_LINK_FOR_BUILD) \
 	$(CROSS_ENV_LD) \
 	$(CROSS_ENV_NM) \
 	$(CROSS_ENV_OBJCOPY) \
@@ -843,13 +845,14 @@ copy_root = 									\
 	PER=`echo $(3) | sed -e 's/[[:space:]]//g'`;				\
 	SRC=`echo $(4) | sed -e 's/[[:space:]]//g'`;				\
 	DST=`echo $(5) | sed -e 's/[[:space:]]//g'`;				\
+	rm -fr $$DST; 								\
 	if [ -z "$(5)" ]; then									 \
 		echo "copy_root dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER"; 		 \
-		$(INSTALL) -d $(ROOTDIR)/$$SRC;							 \
+		$(INSTALL) -D $(ROOTDIR)/$$SRC;							 \
 		echo "$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
 	else											 \
 		echo "copy_root src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER";  \
-		$(INSTALL) $$SRC $(ROOTDIR)/$$DST;						 \
+		$(INSTALL) -D $$SRC $(ROOTDIR)/$$DST;						 \
 		echo "$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
 	fi;
 
@@ -865,6 +868,7 @@ copy_root = 									\
 link_root =									\
 	@SRC=`echo $(1) | sed -e 's/[[:space:]]//g'`;				\
 	DST=`echo $(2) | sed -e 's/[[:space:]]//g'`;				\
+	rm -fr $$DST;								\
 	echo "link_root src=$$SRC dst=$$DST "; 					\
 	$(LN) -sf $$SRC $(ROOTDIR)$$DST
 
