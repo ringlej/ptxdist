@@ -2,6 +2,7 @@
 	* Makefile: .rtaiconfig added, also to distclean; bootimage removal 
 	  fixed; logfile removal fixed. 
 	* rules/bootdisk.make: fixed Rayonic bootdisk to work again. 
+	* rules/zebra.make; rules/wireless.make; rules/flash.make added
 
 2003-04-28 Marc Kleine-Budde <kleine-budde@gmx.de>
 	* openssl.make: openssl.prepare: deps on gccstage2.install if
