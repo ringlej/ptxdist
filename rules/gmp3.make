@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: gmp3.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
+# $Id: gmp3.make,v 1.4 2003/10/26 06:22:12 mkl Exp $
 #
-# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,6 @@ GMP3_SUFFIX	= tar.gz
 GMP3_URL	= ftp://ftp.gnu.org/gnu/gmp/$(GMP3).$(GMP3_SUFFIX)
 GMP3_SOURCE	= $(SRCDIR)/$(GMP3).$(GMP3_SUFFIX)
 GMP3_DIR 	= $(BUILDDIR)/$(GMP3)
-GMP3_EXTRACT	= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -58,15 +57,16 @@ gmp3_prepare_deps = \
 GMP3_PATH	= PATH=$(CROSS_PATH)
 GMP3_ENV	= $(CROSS_ENV)
 
-GMP3_AUTOCONF	=
-GMP3_AUTOCONF	+= --build=$(GNU_HOST)
-GMP3_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-GMP3_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
+GMP3_AUTOCONF \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/gmp3.prepare: $(gmp3_prepare_deps)
 	@$(call targetinfo, $@)
 	cd $(GMP3_DIR) && \
-		$(GMP3_PATH) $(GMP3_ENV) ./configure $(GMP3_AUTOCONF)
+		$(GMP3_PATH) $(GMP3_ENV) \
+		./configure $(GMP3_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
