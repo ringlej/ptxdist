@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtai.make,v 1.9 2003/11/02 13:48:16 mkl Exp $
+# $Id: rtai.make,v 1.10 2003/11/02 23:48:19 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -34,23 +34,21 @@ RTAI_PATCH		= $(RTAI_DIR)/patches/patch-$(KERNEL_VERSION)-$(RTAI_TECH)
 #
 # FIXME: not tested
 #
-# rtai_menuconfig: $(STATEDIR)/rtai.prepare
-# 	@if [ -f $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG) ]; then \
-# 		install -m 644 $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG) \
-# 			$(RTAI_DIR)/.config; \
-# 	fi
+rtai_menuconfig: $(STATEDIR)/rtai.prepare
+	@if [ -f $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG) ]; then \
+		install -m 644 $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG) \
+			$(RTAI_DIR)/.config; \
+	fi
 
-# 	$(RTAI_PATH) make -C $(RTAI_DIR) $(RTAI_MAKEVARS) \
-# 		menuconfig
+	$(RTAI_PATH) $(RTAI_ENV) make -C $(RTAI_DIR) \
+		menuconfig
 
-# 	@if [ -f $(RTAI_DIR)/.config ]; then \
-# 		install -m 644 $(RTAI_DIR)/.config \
-# 			$(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG); \
-# 	fi
+	@if [ -f $(RTAI_DIR)/.config ]; then \
+		install -m 644 $(RTAI_DIR)/.config \
+			$(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG); \
+	fi
 
-# 	@if [ -f $(STATEDIR)/rtai.compile ]; then \
-# 		rm $(STATEDIR)/rtai.compile; \
-# 	fi
+	@$(call clean, $(STATEDIR)/rtai.compile)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -90,7 +88,7 @@ $(STATEDIR)/rtai.extract: $(STATEDIR)/rtai.get
 rtai_prepare: $(STATEDIR)/rtai.prepare
 
 RTAI_PATH	=  PATH=$(CROSS_PATH)
-RTAI_ENV	= \
+RTAI_ENV = \
 	ARCH=$(PTXCONF_ARCH) \
 	CROSS_COMPILE=$(PTXCONF_GNU_TARGET)- \
 	LINUXDIR=$(KERNEL_DIR) \
@@ -103,7 +101,6 @@ rtai_prepare_deps = \
 
 $(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
 	@$(call targetinfo, $@)
-
 	if [ -f $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG) ]; then		\
 		install -m 644 $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG)	\
 		$(RTAI_DIR)/.config;						\
