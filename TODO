@@ -1,41 +1,33 @@
 Current TODO List
 =================
 
-- RSC: wget returns 1.9.1-16.fc2 instead of 1.9.1 on fedora; 
-       fix check_prog_version to use regexps
-- RSC: add http://doolittle.faludi.com/ntpclient/
-- RSC: add http://www.openntpd.org/
-- RSC/NGE: is "select GLIBC_DEBUG" in gdb.in necessary??
+- RSC:	wget returns 1.9.1-16.fc2 instead of 1.9.1 on fedora; 
+	fix check_prog_version to use regexps
+- RSC:	add http://doolittle.faludi.com/ntpclient/
+- RSC:	add http://www.openntpd.org/
+- RSC:	is "select GLIBC_DEBUG" in gdb.in necessary??
 
-- RSC: add http://www.reportlab.com/ftp/
-- RSC: check bash (doesn't compile according to Lisa Hsu)
-- RSC: add http://rlib.sicompos.com/
+- RSC:	add http://www.reportlab.com/ftp/
+- RSC:	check bash (doesn't compile according to Lisa Hsu)
+- RSC:	add http://rlib.sicompos.com/
 - sandeep: add a script to setup a new project interactively
-- RSC: do module stuff in kernel only when modules are enabled
-       in kernel configuration
-- RSC: audit bash for configure/menu entry consistency
-- RSC: maybe add something like http://www.reportlab.org/rl_toolkit.html
-- RSC: bing outputs strange large numbers when being compiled for ARM :-) 
-- RSC: LTT needs gtk-devel on host side; test if gtk-config is available
-       and print out nice warning if not. 
-- RSC: wget seems to always return 0 as it's retval when being called
-       with -r. This is bad as it breaks the error detection mechanism. 
-- RSC: busybox is somehow rebuilt when you make rootclean & world
-- RSC:	This todo is not very current... add "update todo" to the todo file :-) 
-- RSC:	patches/$PACKET is not cleaned by make clean; this may be
-	irritating. On the other hand locally thrown-in patches should
-	_not_ be removed on clean. Find a solution. 
-- RSC: add libsysfs: http://linux-diag.sourceforge.net
-- RSC: add regression tests from crosstool
-- RSC: look at Herbert Poetzl's cross test stuff: 
-       20040224182505.GA25038@MAIL.13thfloor.at
-- RSC: look at Linux Kernel Headers project:
-       http://ep09.pld-linux.org/~mmazur/linux-libc-headers/
-- RSC: Mozilla has still problems with cross compilation. See the
-       following Bugzilla entries for possible solutions: 
-       http://bugzilla.mozilla.org/show_bug.cgi?id=104541
-       http://bugzilla.mozilla.org/show_bug.cgi?id=172651 
-- RSC: add  MatrixSSL
+- RSC: 	do module stuff in kernel only when modules are enabled
+       	in kernel configuration
+- RSC: 	audit bash for configure/menu entry consistency
+- RSC: 	bing outputs strange large numbers when being compiled for ARM :-) 
+- RSC: 	LTT needs gtk-devel on host side; test if gtk-config is available
+       	and print out nice warning if not. 
+- RSC: 	add libsysfs: http://linux-diag.sourceforge.net
+- RSC: 	add regression tests from crosstool
+- RSC: 	look at Herbert Poetzl's cross test stuff: 
+       	20040224182505.GA25038@MAIL.13thfloor.at
+- RSC: 	look at Linux Kernel Headers project:
+       	http://ep09.pld-linux.org/~mmazur/linux-libc-headers/
+- RSC: 	Mozilla has still problems with cross compilation. See the
+       	following Bugzilla entries for possible solutions: 
+       	http://bugzilla.mozilla.org/show_bug.cgi?id=104541
+       	http://bugzilla.mozilla.org/show_bug.cgi?id=172651 
+- RSC: 	add  MatrixSSL
 
 High Priority
 -------------
