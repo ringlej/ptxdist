@@ -6,7 +6,7 @@
 config UCLIBC_UCLIBC_HAS_MMU
 	bool "Target CPU has a memory management unit (MMU)"
 	default y
-	depends !ARCH_HAS_NO_MMU
+	depends !UCLIBC_ARCH_HAS_NO_MMU
 	help
 	  If your target CPU does not have a memory management unit (MMU), 
 	  then answer N here.  Normally, Linux runs on systems with an MMU.  

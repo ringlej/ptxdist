@@ -107,7 +107,7 @@ endchoice
 config UCLIBC_UCLIBC_HAS_MMU
 	bool "Target CPU has a memory management unit (MMU)"
 	default y
-	depends !ARCH_HAS_NO_MMU
+	depends !UCLIBC_ARCH_HAS_NO_MMU
 	help
 	  If your target CPU does not have a memory management unit (MMU), 
 	  then answer N here.  Normally, Linux runs on systems with an MMU.  
@@ -212,7 +212,7 @@ menu "General Library Settings"
 config UCLIBC_DOPIC
 	bool "Generate Position Independent Code (PIC)"
 	default y
-	depends !HAVE_NO_PIC
+	depends !UCLIBC_HAVE_NO_PIC
 	help
 	  If you wish to build uClibc with support for shared libraries then
 	  answer Y here.  If you only want to build uClibc as a static library,
@@ -677,7 +677,7 @@ config UCLIBC_SUPPORT_LD_DEBUG_EARLY
 
 config UCLIBC_UCLIBC_MALLOC_DEBUGGING
 	bool "Build malloc with debugging support"
-	depends MALLOC
+	depends UCLIBC_MALLOC
 	default n
 	help
 	  Answer Y here to compile extra debugging support code into malloc.
