@@ -392,9 +392,18 @@ CROSS_ENV := \
 CROSS_LIB_DIR		= $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 
 #
+# Use the masquerading method of invoking distcc if enabled
+#
+#
+ifdef PTXCONF_XCHAIN-DISTCC
+# FIXME: should also allow use of DISTCC for native stuff
+DISTCC_PATH_COLON     = $(PTXCONF_PREFIX)/lib/distcc/bin:
+endif
+    
+#
 # prepare the search path
 #
-CROSS_PATH		= $(PTXCONF_PREFIX)/bin:$$PATH
+CROSS_PATH		= $(DISTCC_PATH_COLON)$(PTXCONF_PREFIX)/bin:$$PATH
 
 #
 # same as PTXCONF_GNU_TARGET, but w/o -linux
