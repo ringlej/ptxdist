@@ -2,7 +2,7 @@
 # Automatically generated make config: don't edit
 #
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="Frako"
+PTXCONF_PROJECT="FRAKO"
 
 #
 # General Options ---    
@@ -59,7 +59,7 @@ PTXCONF_TARGET_CONFIG_FILE="ix86.dat"
 PTXCONF_ARCH="i386"
 PTXCONF_ARCH_USERSPACE="i386"
 PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
-PTXCONF_PREFIX="/tmp/ptxdist-local-frako"
+PTXCONF_PREFIX="/tmp/ptxdist-local-frako-bsp"
 PTXCONF_ROOT=""
 
 #
@@ -119,7 +119,7 @@ PTXCONF_UTLNX_SFDISK=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.4.22-frako-20031208-1"
+PTXCONF_KERNEL_CONFIG="kernel-2.4.22-frako"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
@@ -128,6 +128,16 @@ PTXCONF_KERNEL_2_4_22=y
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
+# PTXCONF_KERNEL_RMK is not set
+# PTXCONF_KERNEL_RMK_PXA is not set
+# PTXCONF_KERNEL_RMK_DS is not set
+# PTXCONF_KERNEL_RMK_PXA_PTX is not set
+# PTXCONF_KERNEL_RMK_PXA_PTX_LTT is not set
+# PTXCONF_KERNEL_UC is not set
+# PTXCONF_KERNEL_BEN is not set
+PTXCONF_KERNEL_VANILLA=y
+PTXCONF_KERNEL_PATCH1_URL=""
+PTXCONF_KERNEL_PATCH1_NAME=""
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -136,18 +146,17 @@ PTXCONF_KERNEL_IMAGE_BZ=y
 PTXCONF_KERNEL_INSTALL=y
 
 #
-# 
-#
-PTXCONF_KERNEL_PATCH1_URL=""
-PTXCONF_KERNEL_PATCH1_NAME=""
-
-#
 # Extentions
 #
 
 #
-# RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)
+# epoll               
 #
+
+#
+# RTAI                
+#
+# PTXCONF_RTAI is not set
 
 #
 # C Library           
@@ -340,7 +349,7 @@ PTXCONF_BB_CONFIG_MV=y
 # PTXCONF_BB_CONFIG_REALPATH is not set
 PTXCONF_BB_CONFIG_RM=y
 PTXCONF_BB_CONFIG_RMDIR=y
-PTXCONF_BB_CONFIG_SEQ=y
+# PTXCONF_BB_CONFIG_SEQ is not set
 PTXCONF_BB_CONFIG_SHA1SUM=y
 PTXCONF_BB_CONFIG_SLEEP=y
 PTXCONF_BB_CONFIG_FEATURE_FANCY_SLEEP=y
@@ -529,7 +538,7 @@ PTXCONF_BB_CONFIG_RMMOD=y
 # Networking Utilities
 #
 # PTXCONF_BB_CONFIG_FEATURE_IPV6 is not set
-# PTXCONF_BB_CONFIG_ARPING is not set
+PTXCONF_BB_CONFIG_ARPING=y
 # PTXCONF_BB_CONFIG_FTPGET is not set
 # PTXCONF_BB_CONFIG_FTPPUT is not set
 PTXCONF_BB_CONFIG_HOSTNAME=y
@@ -691,7 +700,7 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # mgetty & sendfax    
 #
 PTXCONF_MGETTY=y
-PTXCONF_MGETTY_CONFIG="build/mgetty-1.1.30/policy.h-dist"
+PTXCONF_MGETTY_CONFIG="config/mgetty/policy-frako.h"
 
 #
 # Gawk                
@@ -799,7 +808,7 @@ PTXCONF_PPP_MULTILINK=y
 #
 # utelnetd            
 #
-PTXCONF_UTELNETD=y
+# PTXCONF_UTELNETD is not set
 
 #
 # inetutils           
@@ -919,8 +928,8 @@ PTXCONF_GRUB_XFS=y
 # PTXCONF_GRUB_RTL8139 is not set
 PTXCONF_BOOTDISK=y
 # PTXCONF_BOOTDISK_DEV is not set
-PTXCONF_BOOTDISK_HEAD=63
-PTXCONF_BOOTDISK_SECT=255
+PTXCONF_BOOTDISK_HEAD=62
+PTXCONF_BOOTDISK_SECT=4
 PTXCONF_BOOTDISK_SIZE=20000
 PTXCONF_BOOTDISK_PART="frako"
 # PTXCONF_LILO is not set
@@ -993,6 +1002,11 @@ PTXCONF_BOOTDISK_PART="frako"
 # libxml2          
 #
 PTXCONF_LIBXML2=y
+
+#
+# slang            
+#
+PTXCONF_SLANG=y
 
 #
 # Graphics Libraries  
