@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel-ptx.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: kernel-ptx.make,v 1.3 2003/10/23 17:53:10 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          
@@ -20,7 +20,7 @@ endif
 # Paths and names
 #
 KERNEL_PTX_VERSION	= $(call get_option, \
-	s/^PTXCONF_KERNEL_\([0-9]\)_\([0-9]\)_\([0-9]*\)_\(rmk[0-9]\)_\(pxa[0-9]\)_\(mtd[0-9]*\)_\(ptx[0-9]\).*/\1.\2.\3-\4-\5-\7/, ptx)
+	s/^PTXCONF_KERNEL_\([0-9]\)_\([0-9]\)_\([0-9]*\)_\(rmk[0-9]\)_\(pxa[0-9]\)_\(mtd[0-9]*\)_\(ptx[0-9]*\).*/\1.\2.\3-\4-\5-\7/, ptx)
 KERNEL_PTX		= linux-$(KERNEL_PTX_VERSION)
 KERNEL_PTX_SUFFIX	= diff
 KERNEL_PTX_URL		= http://www.pengutronix.de/software/linux-arm/$(KERNEL_PTX).$(KERNEL_PTX_SUFFIX)

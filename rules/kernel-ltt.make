@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel-ltt.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: kernel-ltt.make,v 1.3 2003/10/23 17:52:57 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          
@@ -20,7 +20,7 @@ endif
 # Paths and names
 #
 KERNEL-LTT_VERSION	= $(call get_option, \
-	s/^PTXCONF_KERNEL_\([0-9]\)_\([0-9]\)_\([0-9]*\)_\(rmk[0-9]\)_\(pxa[0-9]\)_\(mtd[0-9]*\)_\(ptx[0-9]\)_\(ltt[0-9]\).*/\1.\2.\3-\4-\5-\7-\8/, ltt)
+	s/^PTXCONF_KERNEL_\([0-9]\)_\([0-9]\)_\([0-9]*\)_\(rmk[0-9]\)_\(pxa[0-9]\)_\(mtd[0-9]*\)_\(ptx[0-9]*\)_\(ltt[0-9]\).*/\1.\2.\3-\4-\5-\7-\8/, ltt)
 KERNEL-LTT		= linux-$(KERNEL-LTT_VERSION)
 KERNEL-LTT_SUFFIX	= diff
 KERNEL-LTT_URL		= http://www.pengutronix.de/software/ltt/$(KERNEL-LTT).$(KERNEL-LTT_SUFFIX)
