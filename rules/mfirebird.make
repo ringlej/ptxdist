@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.5 2003/08/27 18:53:42 robert Exp $
+# $Id: mfirebird.make,v 1.6 2003/09/16 16:41:58 mkl Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #             Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -38,6 +38,7 @@ mfirebird_get_deps		+= $(MFIREBIRD_PATCH_SOURCE)
 
 $(STATEDIR)/mfirebird.get: $(mfirebird_get_deps)
 	@$(call targetinfo, mfirebird.get)
+	@$(call get_patches, $(MFIREBIRD))
 	touch $@
 
 $(MFIREBIRD_SOURCE):
@@ -57,8 +58,7 @@ $(STATEDIR)/mfirebird.extract: $(mfirebird_extract_deps)
 	@$(call clean, $(MFIREBIRD_DIR))
 	@$(call extract, $(MFIREBIRD_SOURCE))
 	cd $(BUILDDIR) && mv mozilla $(MFIREBIRD)
-	@$(call patchin, $(MFIREBIRD_DIR), $(MFIREBIRD))
-	
+	@$(call patchin, $(MFIREBIRD))
 	touch $@
 
 # ----------------------------------------------------------------------------
