@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: popt.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
+# $Id: popt.make,v 1.4 2003/10/28 01:50:31 mkl Exp $
 #
 # Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #          
@@ -32,7 +32,7 @@ POPT_DIR	= $(BUILDDIR)/$(POPT)
 
 popt_get: $(STATEDIR)/popt.get
 
-popt_get_deps	=  $(POPT_SOURCE)
+popt_get_deps = $(POPT_SOURCE)
 
 $(STATEDIR)/popt.get: $(popt_get_deps)
 	@$(call targetinfo, $@)
@@ -48,7 +48,7 @@ $(POPT_SOURCE):
 
 popt_extract: $(STATEDIR)/popt.extract
 
-popt_extract_deps	=  $(STATEDIR)/popt.get
+popt_extract_deps = $(STATEDIR)/popt.get
 
 $(STATEDIR)/popt.extract: $(popt_extract_deps)
 	@$(call targetinfo, $@)
@@ -75,9 +75,10 @@ POPT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-POPT_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
-POPT_AUTOCONF	+= --build=$(GNU_HOST)
-POPT_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+POPT_AUTOCONF = \
+	--prefix=$(CROSS_LIB_DIR) \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/popt.prepare: $(popt_prepare_deps)
 	@$(call targetinfo, $@)
@@ -93,7 +94,7 @@ $(STATEDIR)/popt.prepare: $(popt_prepare_deps)
 
 popt_compile: $(STATEDIR)/popt.compile
 
-popt_compile_deps =  $(STATEDIR)/popt.prepare
+popt_compile_deps = $(STATEDIR)/popt.prepare
 
 $(STATEDIR)/popt.compile: $(popt_compile_deps)
 	@$(call targetinfo, $@)
@@ -117,7 +118,7 @@ $(STATEDIR)/popt.install: $(STATEDIR)/popt.compile
 
 popt_targetinstall: $(STATEDIR)/popt.targetinstall
 
-popt_targetinstall_deps	=  $(STATEDIR)/popt.compile
+popt_targetinstall_deps	= $(STATEDIR)/popt.compile
 
 $(STATEDIR)/popt.targetinstall: $(popt_targetinstall_deps)
 	@$(call targetinfo, $@)

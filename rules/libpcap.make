@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libpcap.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
+# $Id: libpcap.make,v 1.4 2003/10/28 01:50:31 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          
@@ -32,7 +32,7 @@ LIBPCAP_DIR	= $(BUILDDIR)/$(LIBPCAP)
 
 libpcap_get: $(STATEDIR)/libpcap.get
 
-libpcap_get_deps	=  $(LIBPCAP_SOURCE)
+libpcap_get_deps = $(LIBPCAP_SOURCE)
 
 $(STATEDIR)/libpcap.get: $(libpcap_get_deps)
 	@$(call targetinfo, $@)
@@ -48,7 +48,7 @@ $(LIBPCAP_SOURCE):
 
 libpcap_extract: $(STATEDIR)/libpcap.extract
 
-libpcap_extract_deps	=  $(STATEDIR)/libpcap.get
+libpcap_extract_deps = $(STATEDIR)/libpcap.get
 
 $(STATEDIR)/libpcap.extract: $(libpcap_extract_deps)
 	@$(call targetinfo, $@)
@@ -70,17 +70,19 @@ libpcap_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install
 
 LIBPCAP_PATH	=  PATH=$(CROSS_PATH)
-LIBPCAP_ENV 	=  $(CROSS_ENV)
-LIBPCAP_ENV	+= ac_cv_linux_vers=2
+LIBPCAP_ENV = \
+	$(CROSS_ENV) \
+	ac_cv_linux_vers=2
 
 
 #
 # autoconf
 #
-LIBPCAP_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-LIBPCAP_AUTOCONF	+= --build=$(GNU_HOST)
-LIBPCAP_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-LIBPCAP_AUTOCONF	+= --with-pcap=linux
+LIBPCAP_AUTOCONF = \
+	--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--with-pcap=linux
 
 $(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps)
 	@$(call targetinfo, $@)
@@ -96,7 +98,7 @@ $(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps)
 
 libpcap_compile: $(STATEDIR)/libpcap.compile
 
-libpcap_compile_deps =  $(STATEDIR)/libpcap.prepare
+libpcap_compile_deps = $(STATEDIR)/libpcap.prepare
 
 $(STATEDIR)/libpcap.compile: $(libpcap_compile_deps)
 	@$(call targetinfo, $@)
@@ -120,7 +122,7 @@ $(STATEDIR)/libpcap.install: $(STATEDIR)/libpcap.compile
 
 libpcap_targetinstall: $(STATEDIR)/libpcap.targetinstall
 
-libpcap_targetinstall_deps	=  $(STATEDIR)/libpcap.install
+libpcap_targetinstall_deps =  $(STATEDIR)/libpcap.install
 
 $(STATEDIR)/libpcap.targetinstall: $(libpcap_targetinstall_deps)
 	@$(call targetinfo, $@)

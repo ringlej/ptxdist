@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gdb.make,v 1.7 2003/10/23 17:54:36 mkl Exp $
+# $Id: xchain-gdb.make,v 1.8 2003/10/28 01:50:31 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -47,12 +47,13 @@ xchain-gdb_prepare: $(STATEDIR)/xchain-gdb.prepare
 #
 # autoconf
 #
-XCHAIN_GDB_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
-XCHAIN_GDB_AUTOCONF	+= --build=$(GNU_HOST)
-XCHAIN_GDB_AUTOCONF	+= --host=$(GNU_HOST)
-XCHAIN_GDB_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
+XCHAIN_GDB_AUTOCONF = \
+	--prefix=$(PTXCONF_PREFIX) \
+	--build=$(GNU_HOST) \
+	--host=$(GNU_HOST) \
+	--target=$(PTXCONF_GNU_TARGET)
 
-XCHAIN_GDB_ENV		=  $(HOSTCC_ENV)
+XCHAIN_GDB_ENV = $(HOSTCC_ENV)
 
 $(STATEDIR)/xchain-gdb.prepare: $(STATEDIR)/xchain-gdb.extract
 	@$(call targetinfo, $@)

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: libnet.make,v 1.7 2003/10/23 15:01:19 mkl Exp $
+# $Id: libnet.make,v 1.8 2003/10/28 01:50:31 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          
@@ -79,16 +79,18 @@ libnet_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install
 
 LIBNET_PATH	=  PATH=$(CROSS_PATH)
-LIBNET_ENV 	=  $(CROSS_ENV)
-LIBNET_ENV 	+= ac_libnet_have_packet_socket=yes
+LIBNET_ENV = \
+	$(CROSS_ENV) \
+	ac_libnet_have_packet_socket=yes
 
 #
 # autoconf
 #
-LIBNET_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-LIBNET_AUTOCONF	+= --build=$(GNU_HOST)
-LIBNET_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-LIBNET_AUTOCONF	+= --with-pf_packet=yes
+LIBNET_AUTOCONF	= \
+	--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--with-pf_packet=yes
 
 $(STATEDIR)/libnet.prepare: $(libnet_prepare_deps)
 	@$(call targetinfo, $@)
