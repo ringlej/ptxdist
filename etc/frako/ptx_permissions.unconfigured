@@ -1,0 +1,5 @@
+/etc/mgetty+sendfax/sendfax.config root.root 0600
+/etc/mgetty+sendfax/mgetty.config root.root 0600
+/etc/mgetty+sendfax/login.config root.root 0600
+/etc/mgetty+sendfax/faxrunq.config root.root 0600
+/etc/mgetty+sendfax/dialin.config root.root 0600
