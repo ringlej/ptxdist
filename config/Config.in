@@ -300,6 +300,17 @@ config KSYMOOPS
 	prompt "ksymoops"
 	default n
 
+config LIBBFD
+	bool
+	prompt "libbfd on target (needed for profiling)"
+	default n
+
+config OPROFILE
+	bool
+	prompt "oprofile"
+	default n
+	depends on POPT && LIBBFD
+
 # gdb
 source "rules/gdb.in"
 
@@ -1342,6 +1353,7 @@ endmenu
 menu "System Libraries    "
 
 source rules/gettext.in
+source rules/popt.in
 
 endmenu
 
