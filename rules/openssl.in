@@ -1,0 +1,11 @@
+menu   "OpenSSL             "
+
+config OPENSSL
+	bool "OpenSSL support in various tools"
+
+config OPENSSL_SHARED
+	bool "build shared lib"
+	default y
+	depends on OPENSSL
+
+endmenu

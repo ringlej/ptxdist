@@ -1,0 +1,7 @@
+menu    "nmap                "
+
+config NMAP
+        bool
+	prompt "Compile nmap"
+
+endmenu

@@ -1,0 +1,42 @@
+menu	"Pdksh               "
+
+config PDKSH
+	bool
+	prompt "Pdksh"
+
+config PDKSH_SHLIKE
+	bool	
+	prompt "Enable minimal sh like configuration"
+	depends on PDKSH
+
+config PDKSH_POSIX
+	bool	
+	prompt "Enable POSIX behaviour"
+	depends on PDKSH
+
+config PDKSH_EMACS
+	bool	
+	prompt "Enable emacs style line editing"
+	depends on PDKSH
+
+config PDKSH_VI
+	bool	
+	prompt "Enable vi style line editing"
+	depends on PDKSH
+
+config PDKSH_CMDHISTORY
+	bool
+	prompt "Turn on command history"
+	depends on PDKSH
+
+config PDKSH_JOBS
+	bool
+	prompt "Enable job control features"
+	depends on PDKSH
+
+config PDKSH_BRACE_EXPAND
+	bool
+	prompt "Enable ksh brace expansion"
+	depends on PDKSH
+
+endmenu

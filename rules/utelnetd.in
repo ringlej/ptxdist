@@ -1,0 +1,7 @@
+menu	"utelnetd            "
+
+config UTELNETD
+	bool
+	prompt "Compile utelnetd"
+
+endmenu

@@ -1,0 +1,7 @@
+menu	"Flash               "
+
+config FLASH
+	bool
+	prompt "flash"
+	
+endmenu

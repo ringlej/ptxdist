@@ -1,0 +1,3 @@
+config LILO
+	bool "LILO"
+	depends on ARCH_X86

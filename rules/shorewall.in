@@ -1,0 +1,7 @@
+menu 	"shorewall firewall  "
+
+config SHOREWALL
+	bool
+	prompt "shorewall firewall scripts"
+
+endmenu

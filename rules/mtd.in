@@ -1,0 +1,103 @@
+menu	"MTD Tools           "
+
+config MTD_XCHAIN
+	bool "Compile MTD Utilities (for host)"
+
+config MTD_XCHAIN_MKJFFS
+	bool "mkfs.jffs"
+	depends on MTD_XCHAIN
+
+config MTD_XCHAIN_MKJFFS2
+	bool "mkfs.jffs2"
+	depends on MTD_XCHAIN
+
+config MTD_UTILS
+	bool
+	prompt "Compile MTD Utilities (for target)"
+
+config MTD_EINFO
+	bool
+	prompt "einfo"
+	depends on MTD_UTILS
+
+config MTD_ERASE
+	bool
+	prompt "erase"
+	depends on MTD_UTILS
+
+config MTD_ERASEALL
+	bool
+	prompt "eraseall"
+	depends on MTD_UTILS
+
+config MTD_FCP
+	bool
+	prompt "fcp"
+	depends on MTD_UTILS
+
+config MTD_FTL_CHECK
+	bool
+	prompt "ftl_check"
+	depends on MTD_UTILS
+
+config MTD_FTL_FORMAT
+	bool
+	prompt "ftl_format"
+	depends on MTD_UTILS
+
+config MTD_JFFS2READER
+	bool
+	prompt "jffs2reader"
+	depends on MTD_UTILS
+
+config MTD_LOCK
+	bool
+	prompt "lock"
+	depends on MTD_UTILS
+
+config MTD_MTDDEBUG
+	bool
+	prompt "mtd_debug"
+	depends on MTD_UTILS
+
+config MTD_NANDDUMP
+	bool
+	prompt "nanddump"
+	depends on MTD_UTILS
+
+config MTD_NANDTEST
+	bool
+	prompt "nandtest"
+	depends on MTD_UTILS
+
+config MTD_NANDWRITE
+	bool
+	prompt "nandwrite"
+	depends on MTD_UTILS
+
+config MTD_NFTL_FORMAT
+	bool
+	prompt "nftl_format"
+	depends on MTD_UTILS
+
+config MTD_NFTLDUMP
+	bool
+	prompt "nftldump"
+	depends on MTD_UTILS
+
+config MTD_UNLOCK
+	bool
+	prompt "unlock"
+	depends on MTD_UTILS
+
+config MTD_MKJFFS
+	bool
+	prompt "mkfs.jffs"
+	depends on MTD_UTILS
+
+config MTD_MKJFFS2
+	bool
+	prompt "mkfs.jffs2"
+	depends on MTD_UTILS
+
+endmenu

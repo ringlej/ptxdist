@@ -1,0 +1,9 @@
+menu	"Code maturity       "
+
+	config EXP
+		bool "Support experimental Stuff"
+
+	config EXP_M
+		bool "Support even more experimental Suff"
+		depends on EXP
+endmenu

@@ -1,0 +1,35 @@
+menu	"Cross Toolchain     "
+
+config BUILD_CROSSCHAIN
+	bool
+	prompt "Build Cross Toolchain"
+	default y
+
+choice
+	prompt "GCC (GNU Compiler Collection) Version"
+		default GCC_3_2_3 if ARCH_X86
+		depends on BUILD_CROSSCHAIN
+
+	config GCC_2_95_3
+		bool
+		prompt "2.95.3"
+		depends on ARCH_X86 || ARCH_ARM || ARCH_ARM_NOMMU || ARCH_SPARC
+
+	config GCC_3_2_3
+		bool
+		prompt "3.2.3"
+		depends on ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
+endchoice
+
+config NASM
+	bool
+	prompt "x86 NASM"
+	depends on ARCH_X86
+
+config XCHAIN-SCONS
+	bool
+	prompt "Build scons (see help)"
+	help
+		Requires Python-1.6 or later and Python distutils on the Host,
+		these tools are not (yet) part of ptxdist
+endmenu

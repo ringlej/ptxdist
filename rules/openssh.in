@@ -1,0 +1,18 @@
+menu	"OpenSSH             "
+
+config OPENSSH
+	bool
+	prompt "OpenSSH"
+
+config OPENSSH_SSHD
+	bool "Install sshd (server)"
+	default y
+
+config OPENSSH_SSH
+	bool "Install ssh (client)"
+
+config OPENSSH_KEYGEN
+	bool "Install ssh-keygen"
+	default y
+
+endmenu

@@ -30,4 +30,3 @@ config BUILD_GDB_SHARED
 	default y
 	depends on BUILD_GDB
 	depends on GLIBC_LIBM || UCLIBC_M
-

@@ -1,0 +1,47 @@
+menu	"Root Filesystem     "
+
+config ROOTFS_PROC
+	bool
+	prompt "Create /proc"
+	default y 
+
+config ROOTFS_DEV
+	bool
+	prompt "Create /dev"
+	default y
+
+config ROOTFS_MNT
+	bool
+	prompt "Create /mnt"
+	default y
+
+config ROOTFS_FLOPPY
+	bool
+	prompt "Create /floppy"
+	default y
+
+config ROOTFS_TMP
+	bool
+	prompt "Create /tmp"
+	default y
+
+config ROOTFS_HOME
+	bool
+	prompt "Create /home"
+	default y
+
+config ROOTFS_VAR
+	bool
+	prompt "Create /var"
+	default y
+
+config VENDORTWEAKS
+	string
+	prompt "Run vendor Makefile at the end of build"
+	help
+	  At the end of the build the target vendor-tweaks.targetinstall
+	  is run from the Makefile you specify here. The name you give
+	  here is searched in rules/vendor-tweaks; this is normally a 
+	  *.make file.  
+
+endmenu

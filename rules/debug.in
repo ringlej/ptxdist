@@ -1,0 +1,35 @@
+menu	"Debugging Tools     "
+
+source "rules/gdb.in"
+
+config KSYMOOPS
+	bool
+	prompt "ksymoops"
+	default n
+
+config LTT
+	bool
+	prompt "Linux Trace Toolkit (LTT)"
+	default n
+
+config LIBBFD
+	bool
+	prompt "libbfd on target (needed for profiling)"
+	default n
+
+config OPROFILE
+	bool
+	prompt "oprofile"
+	default n
+
+config STRACE
+	bool
+	prompt "strace"
+	default n
+
+config STRACE_SHARED
+	bool "build shared"
+	default y
+	depends on STRACE
+
+endmenu

@@ -1,0 +1,32 @@
+menu	"ppp                 "
+
+config PPP
+	bool
+	prompt "Compile ppp"
+
+config PPP_MS_CHAP
+	bool
+	prompt "support Micro$oft's MS-CHAP authentication protocol"
+	depends on PPP
+
+config PPP_SHADOW
+	bool
+	prompt "ppp server: support for shadow passwords"
+	depends on PPP
+
+config PPP_PLUGINS
+	bool
+	prompt "support plugins"
+	depends on PPP
+
+config PPP_IPX
+	bool
+	prompt "support IPX protocol"
+	depends on PPP
+
+config PPP_MULTILINK
+	bool
+	prompt "support multilink"
+	depends on PPP
+
+endmenu

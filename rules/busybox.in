@@ -1,0 +1,9 @@
+menu	"BusyBox             "
+
+config BUSYBOX
+	bool
+	prompt "Compile Busybox"
+
+source "config/busybox-1.0.0-pre3/sysdeps/linux/Config.in"
+
+endmenu

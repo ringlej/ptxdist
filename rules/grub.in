@@ -1,0 +1,53 @@
+menu	"grub                "
+
+config GRUB
+	bool
+	prompt "GRUB"
+	depends on ARCH_X86
+
+config GRUB_MD5
+	bool
+	prompt "md5 passwords"
+	depends on GRUB
+
+config GRUB_FFS
+	bool
+	prompt "ffs      filesystem"
+	depends on GRUB
+
+config GRUB_MINIXFS
+	bool
+	prompt "minix    filesystem"
+	depends on GRUB
+
+config GRUB_REISERFS
+	bool
+	prompt "reiser   filesystem"
+	depends on GRUB
+
+config GRUB_VSTAFS
+	bool
+	prompt "vstafs   filesystem"
+	depends on GRUB
+
+config GRUB_JFS
+	bool
+	prompt "jfs      filesystem"
+	depends on GRUB
+
+config GRUB_XFS
+	bool
+	prompt "xfs      filesystem"
+	depends on GRUB
+
+config GRUB_CS89X0
+	bool
+	prompt "cs89x0   network driver"
+	depends on GRUB
+
+config GRUB_BOOTDISK
+	bool 
+	prompt "make bootdisk in $PTXDIST/bootdisk"
+	depends on GRUB
+
+endmenu

@@ -1,0 +1,42 @@
+menu "LSH                 "
+
+config LSH
+	bool
+	prompt "LSH"
+
+config LSH_EXECUV
+	bool
+	prompt "Install lsh-execuf"
+	depends on LSH
+
+config LSH_PROXY
+	bool
+	prompt "Install lsh_proxy"
+	depends on LSH
+
+config LSH_LSHD
+	bool
+	prompt "Install lshd"
+	depends on LSH
+
+config LSH_SFTPD
+	bool
+	prompt  "Install sftp-server"
+	depends on LSH
+
+config LSH_MAKESEED
+	bool
+	prompt "Install lsh-make-seed"
+	depends on LSH
+
+config LSH_KEYGEN 
+	bool
+	prompt "Install lsh-keygen"
+	depends on LSH
+
+config LSH_WRITEKEY
+        bool
+	prompt "Install lsh-writekey"
+	depends on LSH
+
+endmenu

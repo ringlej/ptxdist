@@ -1,0 +1,291 @@
+menu	"Target Options      "
+
+choice
+	prompt "CPU Architecture "
+
+	config ARCH_ARM
+		bool "ARM"
+		help
+		  This is support for the ARM processor architecture.
+
+	config ARCH_ARM_NOMMU
+		bool "ARM-nommu"
+		depends on EXP_M
+		help
+		  This is support for the ARM processor architecture w/o MMU.
+
+	config ARCH_X86
+		bool "X86"
+		help
+		  This is support for the Intel x86 architecture.
+
+	config ARCH_PPC
+		bool "PPC"
+
+	config ARCH_SPARC
+		bool "SPARC"
+		depends on EXP
+
+	config ARCH_MIPS
+		bool "MIPS"
+		depends on EXP
+
+	config ARCH_CRIS
+		depends on EXP_M
+		bool "CRIS"
+
+	config ARCH_PARISC
+		depends on EXP_M
+		bool "PARISC"
+
+	config ARCH_SH
+		depends on EXP_M
+		bool "SuperH"
+endchoice
+
+choice
+	prompt "ARM architecture"
+		depends on ARCH_ARM || ARCH_ARM_NOMMU
+
+	config ARM_ARCH_PXA
+		bool "pxa (little endian)"
+		depends on ARCH_ARM
+
+	config ARM_ARCH_EPXA
+		bool "Excalibur (little endian)"
+		depends on ARCH_ARM
+
+	config ARM_ARCH_SA1100
+		bool "sa1100 (little endian)"
+		depends on ARCH_ARM
+
+	config ARM_ARCH_IXP2000
+		bool "ixp2000 (big endian)"
+		depends on ARCH_ARM && EXP_M
+
+	config ARM_ARCH_NETARM
+		bool "net+arm (little endian)"
+		depends on ARCH_ARM_NOMMU
+		
+	config ARM_ARCH_ATMEL
+		bool "atmel (little endian)"
+		depends on ARCH_ARM_NOMMU
+		
+endchoice
+
+config ARM_ARCH
+	string
+	default "pxa"			if ARM_ARCH_PXA
+	default "sa1100"		if ARM_ARCH_SA1100
+	default "netarm"		if ARM_ARCH_NETARM
+	default "atmel"			if ARM_ARCH_ATMEL
+	default "ixp2000"		if ARM_ARCH_IXP2000
+	default "epxa"			if ARM_ARCH_EPXA
+
+config ARM_ARCH_BE
+	bool
+	default y if ARM_ARCH_IXP2000
+
+config ARM_ARCH_LE
+	bool
+	default y if ARM_ARCH_PXA || ARM_ARCH_SA1100 || ARM_ARCH_NETARM || ARM_ARCH_ATMEL
+
+choice 
+	prompt "MIPS architecture"
+	depends on ARCH_MIPS
+
+	config MIPS_ARCH_BE
+		bool "mips (big endian)"
+
+	config MIPS_ARCH_LE
+		bool "mipsel (little endian)"
+endchoice
+
+choice
+	prompt "SuperH architecture"
+	depends on ARCH_SH
+
+	config SH_ARCH_SH3
+		bool "SH3"
+
+	config SH_ARCH_SH4
+		bool "SH4"
+endchoice
+
+choice
+	prompt "Code Optimization"
+
+	config OPT_ARM
+		bool "generic arm"
+		depends on ARCH_ARM
+	config OPT_ARM_NOMMU
+		bool "generic arm (w/o MMU)"
+		depends on ARCH_ARM_NOMMU
+
+	config OPT_I386
+		bool "386"
+		depends on ARCH_X86
+	config OPT_I486
+		bool "486"
+		depends on ARCH_X86
+	config OPT_I586
+		bool "586"
+		depends on ARCH_X86
+	config OPT_I686
+		bool "686"
+		depends on ARCH_X86
+
+	config OPT_PPC
+		bool "generic PPC"
+		depends on ARCH_PPC
+	config OPT_PPC405
+		bool "PPC 405"
+		depends on ARCH_PPC
+	config OPT_PPC750
+		bool "PPC 750"
+		depends on ARCH_PPC
+	config OPT_PPC7450
+		bool "PPC 7450"
+		depends on ARCH_PPC
+
+	config OPT_SPARC
+		bool "generic sparc"
+		depends on ARCH_SPARC
+
+	config OPT_MIPS
+		bool "generic mips (big endian)"
+		depends on MIPS_ARCH_BE
+	config OPT_MIPSEL
+		bool "generic mipsel (little endian)"
+		depends on MIPS_ARCH_LE
+
+	config OPT_CRIS
+		bool "generic cris"
+		depends on ARCH_CRIS
+
+	config OPT_PARISC
+		bool "generic parisc"
+		depends on ARCH_PARISC
+
+	config OPT_SH3
+		bool "generic SH3"
+		depends on SH_ARCH_SH3
+
+	config OPT_SH4
+		bool "generic SH4"
+		depends on SH_ARCH_SH4
+endchoice
+
+comment "---"
+
+config TARGET_EXTRA_CFLAGS
+	string
+	prompt "Extra CFLAGS (c)"
+
+config TARGET_EXTRA_CXXFLAGS
+	string
+	prompt "Extra CXXFLAGS (c++)"
+
+config TARGET_CONFIG_FILE
+	string
+	prompt "Name of architecture config file in $PTXDIST/config/arch"
+	default "arm.dat"		if ARCH_ARM
+	default "ix86.dat"		if ARCH_X86
+	default "powerpc.dat"		if OPT_PPC
+	default "powerpc-405.dat"	if OPT_PPC405
+	default "powerpc-750.dat"	if OPT_PPC750
+	default "powerpc-7450.dat"	if OPT_PPC7450
+	default "sparc.dat"		if ARCH_SPARC
+	default "mips.dat"		if MIPS_ARCH_BE
+	default "mipsel.dat"		if MIPS_ARCH_LE
+	default "cris.dat"		if ARCH_CRIS
+	default "hppa.dat"		if ARCH_PARISC
+	default "sh3.dat"		if SH_ARCH_SH3
+	default "sh4.dat"		if SH_ARCH_SH4
+
+comment "---"
+
+config ARCH_NOMMU
+	bool
+	default y if ARCH_ARM_NOMMU
+
+config ARCH
+	string
+	default "arm"			if ARCH_ARM
+	default "armnommu"		if ARCH_ARM_NOMMU
+	default "i386"			if ARCH_X86
+	default "ppc"			if ARCH_PPC
+	default "sparc"			if ARCH_SPARC
+	default "mips"			if ARCH_MIPS
+	default "mips"			if ARCH_MIPSEL
+	default "cris"			if ARCH_CRIS
+	default "parisc"		if ARCH_PARISC
+	default "sh"			if ARCH_SH
+
+config ARCH_USERSPACE
+	string
+	default "arm"			if ARCH_ARM
+	default "arm"			if ARCH_ARM_NOMMU
+	default "i386"			if ARCH_X86
+	default "powerpc"		if ARCH_PPC
+	default "sparc"			if ARCH_SPARC
+	default "mips"			if ARCH_MIPS
+	default "mips"			if ARCH_MIPSEL
+	default "cris"			if ARCH_CRIS
+	default "hppa"			if ARCH_PARISC
+	default "sh"			if ARCH_SH
+
+config ARM_PROC
+	string
+	default "armv" if ARCH_ARM || ARCH_ARM_NOMMU
+
+config GNU_TARGET
+	string
+	default "arm-linux" 			if ARM_ARCH_LE		&& GLIBC
+	default "armb-unknown-linux-gnu" 	if ARM_ARCH_BE		&& GLIBC
+	default "arm-elf"			if ARCH_ARM_NOMMU	&& GLIBC
+	default "i386-linux"			if OPT_I386		&& GLIBC
+	default "i486-linux"			if OPT_I486		&& GLIBC
+	default "i586-linux"			if OPT_I586		&& GLIBC
+	default "i686-linux"			if OPT_I686		&& GLIBC
+	default "powerpc-linux"			if OPT_PPC		&& GLIBC
+	default "powerpc-405-linux-gnu"		if OPT_PPC405		&& GLIBC
+	default "powerpc-750-linux-gnu"		if OPT_PPC750		&& GLIBC
+	default "powerpc-7450-linux-gnu"	if OPT_PPC4750		&& GLIBC
+	default "sparc-linux"			if OPT_SPARC		&& GLIBC
+	default "mips-linux"			if MIPS_ARCH_BE		&& GLIBC
+	default "mipsel-linux"			if MIPS_ARCH_LE		&& GLIBC
+	default "cris-linux"			if ARCH_CRIS		&& GLIBC
+	default "hppa-linux"			if ARCH_PARISC		&& GLIBC
+	default "sh3-linux"			if SH_ARCH_SH3		&& GLIBC
+	default "sh4-linux"			if SH_ARCH_SH4		&& GLIBC
+
+	default "arm-uclibc-linux-gnu" 		if ARM_ARCH_LE		&& UCLIBC
+	default "armb-uclibc-linux-gnu"		if ARM_ARCH_BE		&& UCLIBC
+	default "arm-elf"			if ARCH_ARM_NOMMU	&& UCLIBC
+	default "i386-uclibc-linux-gnu"		if OPT_I386		&& UCLIBC
+	default "i486-uclibc-linux-gnu"		if OPT_I486		&& UCLIBC
+	default "i586-uclibc-linux-gnu"		if OPT_I586		&& UCLIBC
+	default "i686-uclibc-linux-gnu"		if OPT_I686		&& UCLIBC
+	default "powerpc-uclibc-linux-gnu"	if OPT_PPC		&& UCLIBC
+	default "powerpc-405_uclibc-linux-gnu"	if OPT_PPC405		&& UCLIBC
+	default "powerpc-750_uclibc-linux-gnu"	if OPT_PPC750		&& UCLIBC
+	default "powerpc-7450_uclibc-linux-gnu"	if OPT_PPC7450		&& UCLIBC
+	default "sparc-uclibc-linux-gnu"	if OPT_SPARC		&& UCLIBC
+	default "mips-uclibc-linux-gnu"		if MIPS_ARCH_BE		&& UCLIBC
+	default "mipsel-uclibc-linux-gnu"	if MIPS_ARCH_LE		&& UCLIBC
+	default "cris-uclibc-linux-gnu"		if ARCH_CRIS		&& UCLIBC
+	default "hppa-uclibc-linux-gnu"		if ARCH_PARISC		&& UCLIBC
+	default "sh3-uclibc-linux-gnu"		if SH_ARCH_SH3		&& UCLIBC
+	default "sh4-uclibc-linux-gnu"		if SH_ARCH_SH4		&& UCLIBC
+
+config PREFIX
+	prompt "Prefix for development environment"
+	string
+	default "/tmp/ptxdist-local"
+
+config ROOT
+	prompt "Prefix for root filesystem"
+	string
+
+endmenu

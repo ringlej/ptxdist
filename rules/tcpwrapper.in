@@ -1,0 +1,12 @@
+menu	"tcpwrapper          "
+
+config	TCPWRAPPER
+	bool
+	prompt "Compile tcpwrapper"
+	
+config	TCPWRAPPER_INSTALL_TCPD
+	bool
+	prompt "Install /usr/sbin/tcpd"
+	depends on TCPWRAPPER
+
+endmenu

@@ -1,0 +1,12 @@
+menu	"Portmapper          "
+
+config	PORTMAP
+	bool
+	prompt "Compile Portmapper"
+	
+config	PORTMAP_INSTALL_PORTMAPPER
+	bool
+	prompt "Install /sbin/portmap"
+	depends on PORTMAP
+
+endmenu

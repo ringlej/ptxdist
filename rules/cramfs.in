@@ -1,0 +1,3 @@
+config CRAMFS
+	bool
+	prompt "cramfs tools"

@@ -1,0 +1,7 @@
+menu    "netcat              "
+
+config NETCAT
+        bool
+        prompt "Compile netcat"
+
+endmenu

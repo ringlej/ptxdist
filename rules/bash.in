@@ -1,0 +1,115 @@
+menu	"Bash                "
+
+config BASH
+	bool
+	prompt "Bash"
+
+config BASH_SHLIKE
+	bool	
+	prompt "Enable minimal sh like configuration"
+	depends on BASH
+
+config BASH_ALIASES
+	bool
+	prompt "Enable aliases"
+	depends on BASH
+
+#config BASH_ARITHMETIC_FOR
+#	bool
+#	prompt "Enable arithmetic for command"
+#	depends on BASH
+#	help "This does currently (bash-2.05b) not work properly and is deactivated in bash.make!"
+        
+config BASH_ARRAY
+	bool
+	prompt "Include shell array variables"
+	depends on BASH
+
+config BASH_HISTORY
+        bool
+	prompt "Turn on csh-style history substitution"
+	depends on BASH
+
+config BASH_BRACE
+	bool
+	prompt "Include brace expansion"
+	depends on BASH
+
+#config BASH_CONDITIONAL
+#	bool
+#	prompt "Enable the conditional command"
+#	depends on BASH
+#	help "This does currently (bash-2.05b) not work properly and is deactivated in bash.make!"
+
+config BASH_DIRSTACK
+	bool
+	prompt "Enable builtins pushd/popd/dirs"
+	depends on BASH
+
+#config BASH_EXTPATTERN
+#	bool
+#	prompt "Include ksh-style extended pattern matching"
+#	depends on BASH
+#	help "This does currently (bash-2.05b) not work properly and is deactivated in bash.make!"
+
+config BASH_HELP
+	bool
+	prompt "Include the help builtin"
+	depends on BASH
+
+config BASH_CMDHISTORY
+	bool
+	prompt "Turn on command history"
+	depends on BASH
+
+config BASH_JOBS
+	bool
+	prompt "Enable job control features"
+	depends on BASH
+
+config BASH_LARGEFILES
+	bool
+	prompt "Enable support for large files"
+	depends on BASH
+
+config BASH_PROCSUBST
+        bool 
+	prompt "Enable process substitution"
+	depends on BASH
+
+config BASH_COMPLETION
+	bool 
+	prompt "Enable programmable completion"
+	depends on BASH
+
+config BASH_ESC
+	bool
+	prompt "Turn on escape character decoding in prompts"
+	depends on BASH
+
+config BASH_EDIT
+	bool
+	prompt "Turn on command line editing"
+	depends on BASH
+
+config BASH_RESTRICTED
+	bool
+	prompt "Enable a restricted shell"
+	depends on BASH
+
+config BASH_SELECT
+	bool
+	prompt "Include select command"
+	depends on BASH
+
+config BASH_GPROF
+	bool
+	prompt "Allow profiling with gprof"
+	depends on BASH
+
+config BASH_STATIC
+	bool
+	prompt "Link bash statically"
+	depends on BASH
+
+endmenu
