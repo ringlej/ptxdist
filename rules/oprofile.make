@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: oprofile.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: oprofile.make,v 1.3 2004/06/23 15:33:58 rsc Exp $
 #
 # Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #          
@@ -67,7 +67,6 @@ oprofile_prepare: $(STATEDIR)/oprofile.prepare
 #
 oprofile_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/binutils.install \
 	$(STATEDIR)/popt.install \
 	$(STATEDIR)/kernel.prepare \
 	$(STATEDIR)/oprofile.extract
