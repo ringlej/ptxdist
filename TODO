@@ -1,7 +1,6 @@
 Current TODO List
 =================
 
-- foobar
 - RSC: wget returns 1.9.1-16.fc2 instead of 1.9.1 on fedora; 
        fix check_prog_version to use regexps
 - RSC: add http://doolittle.faludi.com/ntpclient/
