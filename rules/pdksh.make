@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pdksh.make,v 1.1 2003/06/25 12:41:00 robert Exp $
+# $Id: pdksh.make,v 1.2 2003/06/27 12:32:45 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
@@ -35,11 +35,6 @@ $(STATEDIR)/pdksh.get: $(PDKSH_SOURCE)
 	touch $@
 
 $(PDKSH_SOURCE):
-	@echo
-	@echo ----------------- 
-	@echo target: pdksh.get
-	@echo -----------------
-	@echo
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(PDKSH_URL)
 
 # ----------------------------------------------------------------------------
@@ -49,11 +44,7 @@ $(PDKSH_SOURCE):
 pdksh_extract: $(STATEDIR)/pdksh.extract
 
 $(STATEDIR)/pdksh.extract: $(STATEDIR)/pdksh.get
-	@echo
-	@echo --------------------- 
-	@echo target: pdksh.extract
-	@echo ---------------------
-	@echo
+	@$(call targetinfo, pdksh.extract)
 	$(PDKSH_EXTRACT) $(PDKSH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -120,11 +111,7 @@ endif
 
 
 $(STATEDIR)/pdksh.prepare: $(pdksh_prepare_deps)
-	@echo
-	@echo --------------------- 
-	@echo target: pdksh.prepare
-	@echo ---------------------
-	@echo
+	@$(call targetinfo, pdksh.prepare)
 	mkdir -p $(BUILDDIR)/$(PDKSH)
 	cd $(BUILDDIR)/$(PDKSH) &&					\
 		$(PDKSH_ENVIRONMENT)					\
@@ -146,11 +133,7 @@ endif
 pdksh_compile: $(STATEDIR)/pdksh.compile
 
 $(STATEDIR)/pdksh.compile: $(STATEDIR)/pdksh.prepare 
-	@echo
-	@echo -------------------- 
-	@echo target: pdksh.compile
-	@echo --------------------
-	@echo
+	@$(call targetinfo, pdksh.compile)
 	make -C $(PDKSH_DIR) $(PDKSH_MAKEVARS) $(MAKEPARMS)
 	touch $@
 
@@ -161,11 +144,7 @@ $(STATEDIR)/pdksh.compile: $(STATEDIR)/pdksh.prepare
 pdksh_install: $(STATEDIR)/pdksh.install
 
 $(STATEDIR)/pdksh.install: $(STATEDIR)/pdksh.compile
-	@echo
-	@echo -------------------- 
-	@echo target: pdksh.install
-	@echo --------------------
-	@echo
+	@$(call targetinfo, pdksh.install)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -175,11 +154,7 @@ $(STATEDIR)/pdksh.install: $(STATEDIR)/pdksh.compile
 pdksh_targetinstall: $(STATEDIR)/pdksh.targetinstall
 
 $(STATEDIR)/pdksh.targetinstall: $(STATEDIR)/pdksh.install
-	@echo
-	@echo -------------------------- 
-	@echo target: pdksh.targetinstall
-	@echo --------------------------
-	@echo
+	@$(call targetinfo, pdksh.targetinstall)
 	$(CROSSSTRIP) -S $(PDKSH_DIR)/ksh
 	cp $(PDKSH_DIR)/ksh $(ROOTDIR)/bin
 	touch $@
