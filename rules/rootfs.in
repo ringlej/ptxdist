@@ -67,12 +67,19 @@ config ROOTFS_VAR
 
 config VENDORTWEAKS
 	string
-	prompt "Run vendor Makefile at the end of build"
+	prompt "Run vendortweaks Makefile at the end of build"
 	help
-	  At the end of the build the target vendor-tweaks.targetinstall
-	  is run from the Makefile you specify here. The name you give
-	  here is searched in rules/vendor-tweaks; this is normally a 
-	  *.make file.  
+	  Normally you want to do some project specific stuff at the 
+	  end of a target build; this may be copying of vendor files 
+	  into the root filesystem or other project specific stuff; 
+	  As the things to be done here are indeed project we use
+	  a normal makefile here which gives you the possibility to 
+	  use the usual dependency mechanism. 
+
+	  Normally vendortweaks files live in $(PROJECTDIR), which 
+	  is something like $(TOPDIR)/projects/your-project-name. 
+	  For example if you want to add a vendortweaks file for 
+	  project foobar, use "$(PROJECTDIR)/foobar.vendortweaks" here. 
 
 comment "Image Creation"
 
@@ -96,6 +103,10 @@ config IMAGE_HD_CONF
 	prompt "Geometry file for hd image"
 	depends on IMAGE_HD
 	help
+	  FIXME
+
+	  Usually your hd geometry file lives in $(PROJECTDIR), so enter
+	  something like "$(PROJECTDIR)/your-filename" here. 
 
 config IMAGE_JFFS2
 	bool
