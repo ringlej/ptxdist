@@ -1,11 +1,21 @@
 menu    "PTXdist Options     "
 
-config DEBPOOLM
+config DEBMIRROR
 	string
-	default "http://ftp.se.debian.org/debian/"
-	prompt "Debian Pool Mirror "
+	default "http://ftp.de.debian.org/debian"
+	prompt "Debian Pool Mirror"
 	help
 	  The Debian pool mirror to use for downloading various components of
 	  the target root filesystem.
+
+config SFMIRROR
+	string
+	default "http://mesh.dl.sourceforge.net/sourceforge"
+	prompt "Sourceforge Mirror"
+
+config GNUMIRROR
+	string
+	default "ftp://ftp.informatik.rwth-aachen.de/pub/gnu"
+	prompt "GNU.org Mirror"
 
 endmenu	 

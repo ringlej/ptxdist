@@ -21,7 +21,7 @@ endif
 #
 CRAMFS		= cramfs-1.1
 CRAMFS_SUFFIX	= tar.gz
-CRAMFS_URL	= http://umn.dl.sourceforge.net/sourceforge/cramfs/$(CRAMFS).$(CRAMFS_SUFFIX)
+CRAMFS_URL	= $(PTXCONF_SFMIRROR)/cramfs/$(CRAMFS).$(CRAMFS_SUFFIX)
 CRAMFS_SOURCE	= $(SRCDIR)/$(CRAMFS).$(CRAMFS_SUFFIX)
 CRAMFS_DIR	= $(BUILDDIR)/$(CRAMFS)
 

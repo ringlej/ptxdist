@@ -22,7 +22,7 @@ endif
 BLACKBOX_VERSION	= 0.65.0
 BLACKBOX		= blackbox-$(BLACKBOX_VERSION)
 BLACKBOX_SUFFIX		= tar.gz
-BLACKBOX_URL		= http://heanet.dl.sourceforge.net/sourceforge/blackboxwm/$(BLACKBOX).$(BLACKBOX_SUFFIX)
+BLACKBOX_URL		= $(PTXCONF_SFMIRROR)/blackboxwm/$(BLACKBOX).$(BLACKBOX_SUFFIX)
 BLACKBOX_SOURCE		= $(SRCDIR)/$(BLACKBOX).$(BLACKBOX_SUFFIX)
 BLACKBOX_DIR		= $(BUILDDIR)/$(BLACKBOX)
 
@@ -85,7 +85,7 @@ BLACKBOX_AUTOCONF	+= --x-libraries=/home/koan/ptxdist/ptxdist-testing/root/usr/X
 
 #BLACKBOX_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11 \
 #BLACKBOX_AUTOCONF	+= --x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
-	
+
 $(STATEDIR)/blackbox.prepare: $(blackbox_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BLACKBOX_DIR)/config.cache)

@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id: template 2078 2004-12-01 15:28:17Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
@@ -21,7 +22,7 @@ endif
 OMNIORB_VERSION		= 4.0.5
 OMNIORB			= omniORB-$(OMNIORB_VERSION)
 OMNIORB_SUFFIX		= tar.gz
-OMNIORB_URL		= http://mesh.dl.sourceforge.net/sourceforge/omniorb/$(OMNIORB).$(OMNIORB_SUFFIX)
+OMNIORB_URL		= $(PTXCONF_SFMIRROR)/omniorb/$(OMNIORB).$(OMNIORB_SUFFIX)
 OMNIORB_SOURCE		= $(SRCDIR)/$(OMNIORB).$(OMNIORB_SUFFIX)
 OMNIORB_DIR		= $(BUILDDIR)/$(OMNIORB)
 

@@ -1,4 +1,4 @@
-#
+# -*-makefile-*-
 # $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
@@ -22,7 +22,7 @@ endif
 POP3SPAM_VERSION	= 0.9
 POP3SPAM		= pop3spam-$(POP3SPAM_VERSION)
 POP3SPAM_SUFFIX		= tar.bz2
-POP3SPAM_URL		= http://pop3spam.sourceforge.net/files/$(POP3SPAM).$(POP3SPAM_SUFFIX)
+POP3SPAM_URL		= $(PTXCONF_SFMIRROR)/pop3spam/$(POP3SPAM).$(POP3SPAM_SUFFIX)
 POP3SPAM_SOURCE		= $(SRCDIR)/$(POP3SPAM).$(POP3SPAM_SUFFIX)
 POP3SPAM_DIR		= $(BUILDDIR)/$(POP3SPAM)
 

@@ -22,7 +22,7 @@ endif
 GAWK_VERSION		= 3.1.4
 GAWK			= gawk-$(GAWK_VERSION)
 GAWK_SUFFIX		= tar.gz
-GAWK_URL		= http://ftp.gnu.org/gnu/gawk/$(GAWK).$(GAWK_SUFFIX)
+GAWK_URL		= $(PTXCONF_GNUMIRROR)/gawk/$(GAWK).$(GAWK_SUFFIX)
 GAWK_SOURCE		= $(SRCDIR)/$(GAWK).$(GAWK_SUFFIX)
 GAWK_DIR		= $(BUILDDIR)/$(GAWK)
 

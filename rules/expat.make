@@ -23,7 +23,7 @@ endif
 EXPAT_VERSION		= 1.95.8
 EXPAT			= expat-$(EXPAT_VERSION)
 EXPAT_SUFFIX		= tar.gz
-EXPAT_URL		= http://mesh.dl.sourceforge.net/sourceforge/expat/$(EXPAT).$(EXPAT_SUFFIX)
+EXPAT_URL		= $(PTXCONF_SFMIRROR)/expat/$(EXPAT).$(EXPAT_SUFFIX)
 EXPAT_SOURCE		= $(SRCDIR)/$(EXPAT).$(EXPAT_SUFFIX)
 EXPAT_DIR		= $(BUILDDIR)/$(EXPAT)
 

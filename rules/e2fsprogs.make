@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003, 2004, 2005 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project. 
 #
@@ -22,7 +22,7 @@ endif
 E2FSPROGS_VERSION		= 1.35
 E2FSPROGS			= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX		= tar.gz
-E2FSPROGS_URL			= http://ovh.dl.sourceforge.net/sourceforge/e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
+E2FSPROGS_URL			= $(PTXCONF_SFMIRROR)/e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
 E2FSPROGS_SOURCE		= $(SRCDIR)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
 E2FSPROGS_DIR			= $(BUILDDIR)/$(E2FSPROGS)
 E2FSPROGS_BUILD_DIR		= $(BUILDDIR)/$(E2FSPROGS)-build

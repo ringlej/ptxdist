@@ -23,7 +23,7 @@ endif
 GDB_VERSION	= 6.3
 GDB		= gdb-$(GDB_VERSION)
 GDB_SUFFIX	= tar.bz2
-GDB_URL		= ftp://ftp.gnu.org/pub/gnu/gdb/$(GDB).$(GDB_SUFFIX)
+GDB_URL		= $(PTXCONF_GNUMIRROR)/gdb/$(GDB).$(GDB_SUFFIX)
 GDB_SOURCE	= $(SRCDIR)/$(GDB).$(GDB_SUFFIX)
 GDB_DIR		= $(BUILDDIR)/$(GDB)
 GDB_BUILDDIR	= $(BUILDDIR)/$(GDB)-build

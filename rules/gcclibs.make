@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2004 by Robert Schwebel
 #                       Marc Kleine-Budde <kleine-budde@gmx.de>
+#               2005 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,15 +18,14 @@ ifdef PTXCONF_GCCLIBS_GCC_S
 PACKAGES += gcclibs
 endif
 
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
 gcclibs_get: $(STATEDIR)/gcclibs.get
 
-gcclibs_get_deps = $(GCCLIBS_SOURCE)
-
-$(STATEDIR)/gcclibs.get: $(gcclibs_get_deps)
+$(STATEDIR)/gcclibs.get:
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -47,12 +47,7 @@ $(STATEDIR)/gcclibs.extract: $(gcclibs_extract_deps)
 
 gcclibs_prepare: $(STATEDIR)/gcclibs.prepare
 
-#
-# dependencies
-#
-gcclibs_prepare_deps =  $(STATEDIR)/gcclibs.extract
-gcclibs_prepare_deps += $(STATEDIR)/virtual-xchain.install
-
+gcclibs_prepare_deps = $(STATEDIR)/gcclibs.extract
 
 $(STATEDIR)/gcclibs.prepare: $(gcclibs_prepare_deps)
 	@$(call targetinfo, $@)
@@ -91,15 +86,15 @@ gcclibs_targetinstall_deps = $(STATEDIR)/gcclibs.compile
 $(STATEDIR)/gcclibs.targetinstall: $(gcclibs_targetinstall_deps)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_GCCLIBS_CXX
-	@$(call copy_lib_root, libstdc++.so, /usr/lib)
+	@$(call copy_toolchain_lib_root, libstdc++.so, /usr/lib)
 endif
 
 ifdef PTXCONF_GCCLIBS_GCC_S
-	@$(call copy_lib_root, libgcc_s.so, /lib)
+	@$(call copy_toolchain_lib_root, libgcc_s.so, /lib)
 endif
 
 ifdef PTXCONF_GCCLIBS_GCC_S_NOF
-	@$(call copy_lib_root, libgcc_s_nof.so, /lib)
+	@$(call copy_toolchain_lib_root, libgcc_s_nof.so, /lib)
 endif
 	touch $@
 
