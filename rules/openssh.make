@@ -1,4 +1,4 @@
-# $Id: openssh.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: openssh.make,v 1.2 2003/05/03 10:28:12 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -17,8 +17,8 @@ endif
 #
 # Paths and names 
 #
-OPENSSH			= openssh-3.5p1
-OPENSSH_URL 		= ftp://ftp.openssh.org/foo/bar/$(OPENSSH).tar.gz
+OPENSSH			= openssh-3.6.1p2
+OPENSSH_URL 		= ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).tar.gz
 OPENSSH_SOURCE		= $(SRCDIR)/$(OPENSSH).tar.gz
 OPENSSH_DIR 		= $(BUILDDIR)/$(OPENSSH)
 OPENSSH_EXTRACT		= gzip -dc
