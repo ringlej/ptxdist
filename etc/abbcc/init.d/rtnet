@@ -1,0 +1,38 @@
+#!/bin/sh
+
+RTNET_DRIVERS=/lib/modules/`uname -r`/kernel/drivers/rtnet
+
+case $1 in
+
+	start)
+		echo "loading RTnet modules..."
+		if [ -e $RTNET_DRIVERS/rtdm.o ]; then
+			insmod $RTNET_DRIVERS/rtdm.o
+		else
+			echo "could not load rtdm.o"
+			exit -1;
+		fi
+		if [ -e $RTNET_DRIVERS/rtnet.o ]; then
+			insmod $RTNET_DRIVERS/rtnet.o
+		else
+			echo "could not load rtnet.o"
+			rmmod rtdm.o
+			exit -1;
+		fi
+		echo "done"
+		exit 0;
+		;;		
+		
+	stop)
+		echo "unloading RTNet modules..."
+		rmmod rtnet.o
+		rmmod rtdm
+		echo "done"
+		exit 0;
+		;;
+	*)
+		echo "usage: $0 [start|stop]"
+		;;
+esac
+
+
