@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: liboop.make,v 1.6 2003/10/26 06:26:08 mkl Exp $
+# $Id: liboop.make,v 1.7 2003/10/26 13:28:09 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -70,8 +70,12 @@ liboop_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install
 
 LIBOOP_PATH	=  PATH=$(CROSS_PATH)
-LIBOOP_ENV 	=  $(CROSS_ENV)
-LIBOOP_ENV	+= --without-tcl
+#
+# override glibc-config to prevent from using the host system's
+#
+LIBOOP_ENV = \
+	$(CROSS_ENV) \
+	ac_cv_prog_PROG_GLIB_CONFIG=
 
 #
 # autoconf
@@ -79,7 +83,9 @@ LIBOOP_ENV	+= --without-tcl
 LIBOOP_AUTOCONF	= \
 	--prefix=$(CROSS_LIB_DIR) \
 	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET)
+	--host=$(PTXCONF_GNU_TARGET) \
+	--without-tcl \
+	--without-glib
 
 $(STATEDIR)/liboop.prepare: $(liboop_prepare_deps)
 	@$(call targetinfo, $@)
