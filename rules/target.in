@@ -83,6 +83,10 @@ choice
 	config ARM_ARCH_IMX
 		bool "i.MX (little endian)"
 		depends on ARCH_ARM
+
+	config ARM_ARCH_OMAP
+		bool "OMAP (little endian)"
+		depends on ARCH_ARM
 		
 endchoice
 
@@ -96,6 +100,7 @@ config ARM_ARCH
 	default "epxa"			if ARM_ARCH_EPXA
 	default "imx"			if ARM_ARCH_IMX
 	default "at91rm9200"		if ARM_ARCH_AT91RM9200
+	default "omap"			if ARM_ARCH_OMAP
 
 config ARM_ARCH_BE
 	bool
@@ -103,7 +108,7 @@ config ARM_ARCH_BE
 
 config ARM_ARCH_LE
 	bool
-	default y if ARM_ARCH_PXA || ARM_ARCH_SA1100 || ARM_ARCH_NETARM || ARM_ARCH_ATMEL || ARM_ARCH_IMX || ARM_ARCH_AT91RM9200
+	default y if ARM_ARCH_PXA || ARM_ARCH_SA1100 || ARM_ARCH_NETARM || ARM_ARCH_ATMEL || ARM_ARCH_IMX || ARM_ARCH_AT91RM9200 || ARM_ARCH_OMAP
 
 choice 
 	prompt "MIPS architecture"
