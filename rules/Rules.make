@@ -28,7 +28,7 @@ compilercheck =								\
 		exit -1;						\
 	fi;
 else
-compilercheck =
+compilercheck =								\
 	echo > /dev/null;
 endif
 
