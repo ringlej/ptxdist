@@ -1,0 +1,66 @@
+#!/bin/sh
+#
+# /etc/init.d/rcS
+#
+# Configuration for Frako
+#
+# 2003/11/20 Robert Schwebel <r.schwebel@pengutronix.de>
+#            Benedikt Spranger <b.spranger@pengutronix.de>
+# 16.02.2004 Gert Fischer, FRAKO Kondensatoren und Anlagenbau GmbH
+#            www.frako.de
+#
+
+echo -n "mounting filesystems..."
+mount -a 2>/dev/null
+echo "done."
+
+echo -n "creating links in /dev..."
+ln -s /dev/vc/0 /dev/tty0
+ln -s /dev/vc/1 /dev/tty1
+ln -s /dev/vc/2 /dev/tty2
+ln -s /dev/vc/3 /dev/tty3
+ln -s /dev/vc/4 /dev/tty4
+ln -s /dev/vc/5 /dev/tty5
+ln -s /dev/vc/6 /dev/tty6
+ln -s /dev/vc/7 /dev/tty7
+ln -s /dev/vc/8 /dev/tty8
+ln -s /dev/vc/9 /dev/tty9
+ln -s /dev/fb/0 /dev/fb0
+ln -s /dev/tts/0 /dev/ttyS0
+ln -s /dev/tts/1 /dev/ttyS1
+chmod 666 /dev/tts/0
+chmod 666 /dev/tts/1
+echo "done."
+
+#modprobe ppp_async
+
+loadkmap < /etc/boottime.kmap
+
+# set hostname 
+test -e /etc/hostname && hostname -F /etc/hostname
+
+echo -n "---creating Network-Device lo..."
+ifconfig lo up 127.0.0.1
+echo "done."
+
+echo -n "---creating RATIO directories and links..."
+
+chmod 755 /home
+chown root:users /home
+
+#mkdir /home/ratio
+#chmod 775 /home/ratio/
+#chown ratio:users /home/ratio
+#
+mkdir /home/system
+chmod 755 /home/system
+chown system:users /home/system
+
+echo "done."
+
+echo -n "---Bootzeitpunkt festhalten in /home/system/boottime.log..."
+date >> /home/system/boottime.log
+chown system:users /home/system/boottime.log
+sync
+echo "done."
+

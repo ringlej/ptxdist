@@ -1,0 +1,22 @@
+#
+# /etc/fstab
+#
+# Generic i386 configuration
+#
+# 2003/11/20    Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+proc    /proc           proc    defaults        0       0
+devpts  /dev/pts        devpts  defaults        0       0
+none    /tmp            ramfs   defaults        0       0
+
+none    /var/log        ramfs   defaults        0       0
+none    /var/run        ramfs   defaults        0       0
+none    /var/lock       ramfs   defaults        0       0
+
+/dev/ide/host0/bus0/target0/lun0/part1 /        ext2    ro      0       0
+/dev/ide/host0/bus0/target0/lun0/part2 /home    auto    rw      0       0
+
+# none    /home/ratio             tmpfs   size=35M,mode=775,uid=500,gid=100       0       0
+
+
