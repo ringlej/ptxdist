@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.59 2003/12/15 07:22:59 robert Exp $
+# $Id: Makefile,v 1.60 2003/12/15 21:49:16 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -214,7 +214,7 @@ scII-bmw_config:
 	@cp config/i386-scII-bmwm.ptxconfig .config
 
 scIII-cameron_config:
-	@echo "copying scII-cameron configuration"
+	@echo "copying scIII-cameron configuration"
 	@cp config/ppc405-cameron.ptxconfig .config
 
 # Toolchain Config Targets ---------------------------------------------------
