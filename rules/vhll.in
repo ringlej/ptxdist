@@ -1,0 +1,7 @@
+menu	"VHLL Support        "
+
+config VHLL_PYTHON23
+	bool
+	prompt "Python 2.3"
+
+endmenu
