@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: abbcc.make,v 1.4 2004/08/17 12:57:07 sha Exp $
+# $Id: abbcc.make,v 1.5 2004/08/17 13:10:54 sha Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -51,6 +51,7 @@ $(STATEDIR)/abbcc.targetinstall:
 	install -d $(ROOTDIR)/var/lock
 	
 #	create /etc/rc.d links
+	mkdir -p $(ROOTDIR)/etc/rc.d
 	ln -sf ../init.d/banner $(ROOTDIR)/etc/rc.d/S00_banner
 	ln -sf ../init.d/networking $(ROOTDIR)/etc/rc.d/S01_networking
 	ln -sf ../init.d/utelnetd $(ROOTDIR)/etc/rc.d/S02_utelnetd
