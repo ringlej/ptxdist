@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.23 2003/12/07 21:43:38 robert Exp $
+# $Id: xchain-gccstage2.make,v 1.24 2003/12/23 10:46:28 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -111,7 +111,7 @@ GCC_STAGE2_AUTOCONF = \
 	--enable-c99 \
 	--enable-long-long
 
-ifdef PTXCONF_LIBSTDCXX_SHARED
+ifdef PTXCONF_GCC_SHARED
 GCC_STAGE2_AUTOCONF	+= --enable-shared
 else
 GCC_STAGE2_AUTOCONF	+= --disable-shared

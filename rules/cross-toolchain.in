@@ -51,6 +51,11 @@ config GCC_3
 	default y if GCC_3_2_3
 	default y if GCC_3_3_2
 
+config GCC_SHARED
+	bool
+	prompt "build gcc shared"
+	default y
+
 config XCHAIN-DISTCC
 	bool
 	prompt "Build distcc"
