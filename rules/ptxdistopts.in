@@ -1,4 +1,4 @@
-menu    "Source Archive Opts "
+menu    "PTXdist Options     "
 
 config DEBPOOLM
 	string
