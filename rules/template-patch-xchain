@@ -1,0 +1,50 @@
+# -*-makefile-*-
+# $Id: template-patch-xchain,v 1.1 2003/10/31 22:50:37 mkl Exp $
+#
+# Copyright (C) 2003 by @AUTHOR@
+#          
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+ifdef PTXCONF_@PACKET_NAME@_@PATCH@
+@PACKET@_PATCHES += @packet@-@patch@
+endif
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+@packet@-@patch@_get: $(STATEDIR)/@packet@-@patch@.get
+
+@packet@-@patch@_get_deps = \
+	$(STATEDIR)/@packet_name@-@patch@.get
+
+$(STATEDIR)/@packet@-@patch@.get: $(@packet@-@patch@_get_deps)
+	@$(call targetinfo, $@)
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+@packet@-@patch@_install: $(STATEDIR)/@packet@-@patch@.install
+
+$(STATEDIR)/@packet@-@patch@.install: $(STATEDIR)/@packet@-@patch@.get
+	@$(call targetinfo, $@)
+	@$(call patch_apply, $(@PACKET_NAME@_@PATCH@_SOURCE), $(@PACKET@_BUILDDIR))
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+@packet@-@patch@_clean:
+	rm -rf $(STATEDIR)/@packet@*
+
+# vim: syntax=make
