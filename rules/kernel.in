@@ -12,7 +12,7 @@ config KERNEL_CONFIG
 
 choice 
 	prompt "Kernel Version"
-		default KERNEL_2_4_19
+		default KERNEL_2_4_23
 	
 	config KERNEL_2_4_18
 		bool
@@ -110,6 +110,13 @@ choice
 		depends on KERNEL_2_4_21
 		depends on KERNEL_RMK
 
+#--------------- 2.6.0
+
+	config KERNEL_2_6_0_rmk1
+		bool "2.6.0-rmk1"
+		depends on KERNEL_2_6_0
+		depends on KERNEL_RMK
+
 #---------------------------------------------------------------------
 #------------------------------- RMK-DS ------------------------------
 #---------------------------------------------------------------------
@@ -158,6 +165,8 @@ choice
 #------------------------------- RMK-PXA-PTX -------------------------
 #---------------------------------------------------------------------
 
+#--------------- 2.4.x
+
 	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10
 		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx10"
 		depends on KERNEL_2_4_19
@@ -171,6 +180,13 @@ choice
 	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6
 		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx6"
 		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_PXA_PTX
+
+#--------------- 2.6.x
+
+	config KERNEL_2_6_0_rmk1_ptx1
+		bool "2.6.0-rmk1-ptx1"
+		depends on KERNEL_2_6_0
 		depends on KERNEL_RMK_PXA_PTX
 
 #---------------------------------------------------------------------
