@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gtk22.make,v 1.8 2004/02/25 22:33:07 robert Exp $
+# $Id: gtk22.make,v 1.9 2004/02/26 14:42:59 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -98,6 +98,12 @@ $(STATEDIR)/gtk22.prepare: $(gtk22_prepare_deps)
 	cd $(GTK22_DIR) && \
 		$(GTK22_PATH) $(GTK22_ENV) \
 		./configure $(GTK22_AUTOCONF)
+
+	# Tweak alert! gdk-pixbuf-csource leaks in when being available 
+	# on the host... so don't compile demos at all. 
+	
+	perl -i -p -e 's/^SRC_SUBDIRS =(.*) demos (.*)$$/SRC_SUBDIRS = $$1 $$2/g' $(GTK22_DIR)/Makefile
+	 
 	touch $@
 
 # ----------------------------------------------------------------------------
