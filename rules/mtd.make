@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mtd.make,v 1.11 2004/02/04 22:48:52 robert Exp $
+# $Id: mtd.make,v 1.12 2004/03/28 10:56:33 robert Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -61,7 +61,7 @@ $(STATEDIR)/mtd.extract: $(mtd_extract_deps)
 # FIXME: patch sent to maintainer, remove this for fixed version
 #
 	perl -i -p -e 's/\(CFLAGS\) -o/\(LDFLAGS\) -o/g' $(MTD_DIR)/util/Makefile
-	perl -i -p -e 's/^CFLAGS \+\=/override CFLAGS +=/g' $(MTD_DIR)/util/Makefile
+#	perl -i -p -e 's/^CFLAGS \+\=/override CFLAGS +=/g' $(MTD_DIR)/util/Makefile
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -96,7 +96,59 @@ mtd_compile_deps = $(STATEDIR)/mtd.prepare
 
 $(STATEDIR)/mtd.compile: $(mtd_compile_deps)
 	@$(call targetinfo, $@)
-	$(MTD_ENV) $(MTD_PATH) make -C $(MTD_DIR)/util $(MTD_MAKEVARS)
+
+ifdef PTXCONF_MTD_EINFO
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make einfo $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_ERASE
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make erase $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_ERASEALL
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make eraseall $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_FCP
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make fcp $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_FTL_CHECK
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make ftl_check $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_FTL_FORMAT
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make ftl_format $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_JFFS2READER
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make jffs2reader $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_LOCK
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make lock $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_MTDDEBUG
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make mtddebug $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_NANDDUMP
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make nanddump $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_NANDTEST
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make nandtest $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_NANDWRITE
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make nandwrite $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_NFTL_FORMAT
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make nftl_format $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_NFTLDUMP
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make nftldump $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_UNLOCK
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make unlock $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_MKJFFS
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make mkjffs $(MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_MKJFFS2
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make mkjffs2 $(MTD_MAKEVARS)
+endif
+
 	touch $@
 
 # ----------------------------------------------------------------------------
