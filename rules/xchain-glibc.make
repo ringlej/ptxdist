@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-glibc.make,v 1.9 2003/07/16 04:23:28 mkl Exp $
+# $Id: xchain-glibc.make,v 1.10 2003/07/17 12:08:41 bsp Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -57,13 +57,6 @@ $(STATEDIR)/xchain-glibc.prepare: \
 		$(GLIBC_AUTOCONF)					\
 		--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)	\
 		--libexecdir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/bin
-	sync
-	sync
-	sync
-	sleep 5
-	sync
-	sync
-	sync
 	touch $@
 
 # ----------------------------------------------------------------------------
