@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.12 2003/09/16 16:34:10 mkl Exp $
+# $Id: busybox.make,v 1.13 2003/09/16 17:26:03 mkl Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -76,7 +76,7 @@ busybox_prepare_deps =  \
 
 BUSYBOX_PATH		=  PATH=$(CROSS_PATH)
 BUSYBOX_ENV 		=  $(CROSS_ENV)
-BUSYBOX_MAKEVARS	=  CROSS=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC)
+BUSYBOX_MAKEVARS	=  CROSS=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC) EXTRA_CFLAGS=$(TARGET_CFLAGS)
 
 #
 # dependencies
@@ -92,11 +92,6 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
 	grep -e PTXCONF_BB_ .config > $(BUSYBOX_DIR)/.config
 	perl -i -p -e 's/PTXCONF_BB_//g' $(BUSYBOX_DIR)/.config
-        ifdef PTXCONF_FPU
-	perl -i -p -e 's/EXTRA_CFLAGS_OPTIONS="/EXTRA_CFLAGS_OPTIONS="-mhard-float /g' $(BUSYBOX_DIR)/.config
-        else
-	perl -i -p -e 's/EXTRA_CFLAGS_OPTIONS="/EXTRA_CFLAGS_OPTIONS="-msoft-float /g' $(BUSYBOX_DIR)/.config
-        endif
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) dep $(BUSYBOX_MAKEVARS)
 
