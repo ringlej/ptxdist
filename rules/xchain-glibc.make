@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-glibc.make,v 1.20 2003/11/24 01:08:09 mkl Exp $
+# $Id: xchain-glibc.make,v 1.21 2004/01/31 15:06:39 robert Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -59,6 +59,8 @@ XCHAIN_GLIBC_AUTOCONF = \
 	--without-cvs \
 	--disable-sanity-checks \
 	--enable-hacker-mode
+
+XCHAIN_GLIBC_AUTOCONF	+= $(GLIBC_EXTRA_CONFIG)
 
 XCHAIN_GLIBC_ENV	=  CC=$(HOSTCC)
 

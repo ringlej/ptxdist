@@ -1,3 +1,4 @@
 KERNELCONFIG=$PWD/arm.config
 TARGET=arm-unknown-linux-gnu
 TARGET_CFLAGS="-O"
+GLIBC_EXTRA_CONFIG="--without-fp"
