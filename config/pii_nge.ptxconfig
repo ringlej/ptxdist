@@ -1,6 +1,7 @@
 #
 # Automatically generated make config: don't edit
 #
+PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 PTXCONF_PROJECT="pii_nge"
 
@@ -175,7 +176,7 @@ PTXCONF_KERNEL_PATCH3_NAME=""
 #
 
 #
-# RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)
+# epoll should be ported to patchstack mechanism, please send patch! :-)
 #
 
 #
@@ -266,6 +267,14 @@ PTXCONF_BB_CONFIG_FEATURE_SUID=y
 #
 # PTXCONF_BB_CONFIG_STATIC is not set
 # PTXCONF_BB_CONFIG_LFS is not set
+# PTXCONF_BB_USING_CROSS_COMPILER is not set
+PTXCONF_BB_EXTRA_CFLAGS_OPTIONS=""
+
+#
+# Installation Options
+#
+# PTXCONF_BB_CONFIG_INSTALL_NO_USR is not set
+PTXCONF_BB_PREFIX="./_install"
 
 #
 # Archival Utilities
@@ -514,7 +523,6 @@ PTXCONF_BB_CONFIG_TIME=y
 # Linux Module Utilities
 #
 PTXCONF_BB_CONFIG_INSMOD=y
-# PTXCONF_BB_CONFIG_FEATURE_2_2_MODULES is not set
 PTXCONF_BB_CONFIG_FEATURE_2_4_MODULES=y
 PTXCONF_BB_CONFIG_FEATURE_2_6_MODULES=y
 # PTXCONF_BB_CONFIG_FEATURE_INSMOD_VERSION_CHECKING is not set
@@ -523,7 +531,6 @@ PTXCONF_BB_CONFIG_FEATURE_INSMOD_KSYMOOPS_SYMBOLS=y
 PTXCONF_BB_CONFIG_FEATURE_INSMOD_LOAD_MAP=y
 PTXCONF_BB_CONFIG_FEATURE_INSMOD_LOAD_MAP_FULL=y
 PTXCONF_BB_CONFIG_LSMOD=y
-# PTXCONF_BB_CONFIG_FEATURE_QUERY_MODULE_INTERFACE is not set
 PTXCONF_BB_CONFIG_MODPROBE=y
 PTXCONF_BB_CONFIG_RMMOD=y
 # PTXCONF_BB_CONFIG_FEATURE_CHECK_TAINTED_MODULE is not set
@@ -607,10 +614,12 @@ PTXCONF_BB_CONFIG_ASH=y
 PTXCONF_BB_CONFIG_ASH_JOB_CONTROL=y
 PTXCONF_BB_CONFIG_ASH_ALIAS=y
 PTXCONF_BB_CONFIG_ASH_MATH_SUPPORT=y
+# PTXCONF_BB_CONFIG_ASH_MATH_SUPPORT_64 is not set
 PTXCONF_BB_CONFIG_ASH_GETOPTS=y
 PTXCONF_BB_CONFIG_ASH_CMDCMD=y
 # PTXCONF_BB_CONFIG_ASH_MAIL is not set
 PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
+# PTXCONF_BB_CONFIG_ASH_RANDOM_SUPPORT is not set
 # PTXCONF_BB_CONFIG_HUSH is not set
 # PTXCONF_BB_CONFIG_LASH is not set
 # PTXCONF_BB_CONFIG_MSH is not set
@@ -920,7 +929,11 @@ PTXCONF_OPENAFS_1_2_11=y
 #
 # proftpd             
 #
-# PTXCONF_PROFTPD is not set
+PTXCONF_PROFTPD=y
+# PTXCONF_PROFTPD_PAM is not set
+# PTXCONF_PROFTPD_SENDFILE is not set
+PTXCONF_PROFTPD_SHADOW=y
+PTXCONF_PROFTPD_AUTOSHADOW=y
 
 #
 # rsync               
@@ -959,6 +972,18 @@ PTXCONF_UTELNETD=y
 # PTXCONF_ZEBRA is not set
 
 #
+# Realtime Networking 
+#
+
+#
+# Optional Features
+#
+
+#
+# Network Card Support
+#
+
+#
 # Disk and file ---   
 #
 
@@ -976,7 +1001,20 @@ PTXCONF_E2FSPROGS_E2FSCK=y
 #
 # grub                
 #
+
+#
+# Config Options
+#
+
+#
+# File System Support
+#
+
+#
+# Network Card Support
+#
 # PTXCONF_CRAMFS is not set
+# PTXCONF_BONNIE is not set
 
 #
 # Applications ---    
