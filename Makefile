@@ -27,7 +27,6 @@ PATCHES_BUILDDIR	:= $(BUILDDIR)/patches
 SRCDIR			:= $(TOPDIR)/src
 PATCHDIR		:= $(TOPDIR)/patches
 STATEDIR		:= $(TOPDIR)/state
-BOOTDISKDIR		:= $(TOPDIR)/bootdisk
 IMAGEDIR		:= $(TOPDIR)/images
 MISCDIR			:= $(TOPDIR)/misc
 PROJECTDIR_PTXDIST	:= $(TOPDIR)/projects
@@ -377,9 +376,6 @@ clean: rootclean imagesclean
 	@make -s -C scripts/kconfig clean
 	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx -C scripts/lxdialog clean
 	@rm -f scripts/lxdialog/Makefile
-	@echo "done."
-	@echo -n "cleaning bootdisk image.......... "
-	@rm -f $(TOPDIR)/bootdisk/boot.*
 	@echo "done."
 	@echo -n "cleaning dependency tree ........ "
 	@rm -f $(DEP_OUTPUT) $(DEP_TREE_PS)

@@ -1,3 +1,7 @@
+2005-03-19 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* bootdisk: moved content of bootdisk/ into images/
+
 2005-03-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* dropbear: fixed make environment; thanks to 

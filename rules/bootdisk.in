@@ -1,6 +1,6 @@
 config BOOTDISK
         bool
-	prompt "make bootdisk in $PTXDIST/bootdisk"
+	prompt "make bootdisk in $PTXDIST/images"
 	depends on GRUB && GENEXT2FS 
 
 config BOOTDISK_DEV

@@ -19,8 +19,7 @@
 # Paths and names 
 #
 
-BOOTDISK_DIR = $(TOPDIR)/bootdisk
-BOOTDISK_IMG = $(BOOTDISK_DIR)/boot.img
+BOOTDISK_IMG = $(IMAGESDIR)/bootdisk.img
 
 ifdef PTXCONF_BOOTDISK_DEV
 BOOTDISK_DEV = `cat > $TMPDEVLIST << _EOF_ \

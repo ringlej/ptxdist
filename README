@@ -31,7 +31,6 @@ you'll find a root tree in root/. Voila.
 Directory layout
 ----------------
 
-bootdisk/	skeleton for bootdisk (if you need one)	
 build/		Here all the packages are extracted and being built
 config/		Configuration system, ext. configuration scripts
 		The actual config files live in rules/xxx.in
