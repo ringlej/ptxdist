@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.9 2003/07/17 08:54:42 robert Exp $
+# $Id: Makefile,v 1.10 2003/07/23 17:40:34 mkl Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -76,7 +76,7 @@ get:     $(PACKAGES_GET)
 extract: $(PACKAGES_EXTRACT)
 prepare: $(PACKAGES_PREPARE)
 compile: $(PACKAGES_COMPILE)
-install: $(PACKAGES_INSTALL)
+install: $(PACKAGES_TARGETINSTALL)
 
 dep_output_clean:
 #	if [ -e $(DEP_OUTPUT) ]; then rm -f $(DEP_OUTPUT); fi
