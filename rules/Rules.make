@@ -888,7 +888,8 @@ feature_patchin =								\
 # $2: GID
 # $3: permissions (octal)
 # $4: source (for files); directory (for directories)
-# $5: destination (for files); empty (for directories). Prefixed with $(ROOTDIR)
+# $5: destination (for files); empty (for directories). Prefixed with $(ROOTDIR), 
+#     so it needs to have a leading /
 #
 copy_root = 									\
 	@OWN=`echo $(1) | sed -e 's/[[:space:]]//g'`;				\
@@ -903,7 +904,7 @@ copy_root = 									\
 	else											 \
 		echo "copy_root src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER";  \
 		rm -fr $(ROOTDIR)$$DST; 							 \
-		$(INSTALL) -D $$SRC $(ROOTDIR)/$$DST;						 \
+		$(INSTALL) -D $$SRC $(ROOTDIR)$$DST;						 \
 		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
 	fi;
 
