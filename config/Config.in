@@ -341,16 +341,6 @@ choice
 		bool
 		prompt "3.2.3"
 		depends on ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
-
-	config GCC_3_3_1
-		bool
-		prompt "3.3.1"
-		depends on EXP
-
-	config GCC_3_3_2
-		bool
-		prompt "3.3.2"
-		depends on EXP
 endchoice
 
 config NASM
@@ -656,9 +646,20 @@ endmenu
 
 menu	"MTD Tools           "
 
+config MTD_XCHAIN
+	bool "Compile MTD Utilities (for host)"
+
+config MTD_XCHAIN_MKJFFS
+	bool "mkfs.jffs"
+	depends on MTD_XCHAIN
+
+config MTD_XCHAIN_MKJFFS2
+	bool "mkfs.jffs2"
+	depends on MTD_XCHAIN
+
 config MTD_UTILS
 	bool
-	prompt "Compile MTD Utilities"
+	prompt "Compile MTD Utilities (for target)"
 
 config MTD_EINFO
 	bool
@@ -738,12 +739,12 @@ config MTD_UNLOCK
 config MTD_MKJFFS
 	bool
 	prompt "mkfs.jffs"
-	depends on MTD_UTILS && ZLIB
+	depends on MTD_UTILS
 
 config MTD_MKJFFS2
 	bool
 	prompt "mkfs.jffs2"
-	depends on MTD_UTILS && ZLIB
+	depends on MTD_UTILS
 
 endmenu
 
