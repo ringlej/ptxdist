@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.88 2004/04/21 15:40:15 bsp Exp $
+# $Id: Makefile,v 1.89 2004/06/22 06:47:32 rsc Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -220,6 +220,10 @@ mx1fs2_config:
 	@echo "copying mx1fs2 configuration"
 	@cp config/mx1fs2.ptxconfig .config
 
+pii_nge_config:
+	@echo "copying pii_nge configuration"
+	@cp config/pii_nge.ptxconfig .config
+
 i586-rayonic_config:
 	@echo "copying 586 rayonic configuration"
 	@cp config/i586-rayonic.ptxconfig .config
@@ -299,9 +303,11 @@ clean: rootclean
 	@echo -n "cleaning logfile................. "
 	@rm -f logfile*
 	@echo "done."
-	@echo -n "cleaning manual.................. "
-	@make -s -C $(TOPDIR)/Documentation/manual clean
-	@echo "done."
+	@if [ -d $(TOPDIR)/Documentation/manual ]; then		\
+		echo -n "cleaning manual.................. ";	\
+		make -C $(TOPDIR)/Documentation/manual clean; 	\
+		echo "done.";					\
+	fi;
 	@echo
 
 rootclean:
