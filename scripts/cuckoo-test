@@ -40,14 +40,16 @@ awk -F, '{print substr($1, 1, index($1,":"))" wrong architecture! ("$2")"}'
 echo "---"
 
 echo "2 pass (fluff up test)"
-find . -type f -exec file {} \; | grep "not stripped" | 
+find . -type f -exec file {} \; | grep -v "\.ko" | grep "not stripped" | 
 awk -F: '{print $1" not stripped"}'
 echo "---"
 
 echo "3 pass (in laws test)"
+
 find . -type f -exec file {} \; | \
 awk -F: -vARCH=$3 '{if (index($2,"ELF")) print ARCH"readelf -d "$1}' | \
 sh | grep "(NEEDED)" | \
 awk '{gsub("\\[","");gsub("\\]","");print "if [ \"x$(find . -name "$5")\" = \"x\" ]; then echo "$5" not found ; fi"}' | \
 sort -u | sh
+
 echo "---"
