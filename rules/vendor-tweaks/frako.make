@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: frako.make,v 1.9 2004/03/12 15:00:15 bbu Exp $
+# $Id: frako.make,v 1.10 2004/03/15 11:41:20 bbu Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -88,7 +88,10 @@ $(STATEDIR)/frako.targetinstall:
 	# create mgetty directories
 	install -d $(ROOTDIR)/var/spool/fax/incoming
 	install -d $(ROOTDIR)/var/spool/fax/outgoing
-	
+
+	# create crond directories
+	install -d $(ROOTDIR)/var/spool/cron/crontabs
+
 	# create some symlinks
 	ln -sf /home/system/localtime $(ROOTDIR)/etc/localtime
 

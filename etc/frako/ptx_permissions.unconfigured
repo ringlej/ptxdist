@@ -25,4 +25,4 @@
 /etc/ppp/chap-secrets root.root 0600
 /etc/ppp/filters root.root 0644
 /etc/ppp/options root.root 0644
-/etc/ppp/pap-secrets 0600
+/etc/ppp/pap-secrets root.root 0600
