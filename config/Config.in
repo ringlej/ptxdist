@@ -1381,6 +1381,14 @@ comment	"Features"
 			Note:
 			This is not tested!
 			Use on your own risk!
+
+	config KAFFE_FEAT_CLDC_COMM
+		bool
+		default y
+		prompt "Enable javax.microedition.io.CommConnection (access to serial ports)"
+		depends on KAFFE_API_CLDC
+		depends on KAFFE
+
 ############################################################################## 
 comment	"Linking options"
 	depends on KAFFE
