@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ltt.make,v 1.1 2003/09/17 13:21:36 robert Exp $
+# $Id: ltt.make,v 1.2 2003/09/19 09:11:32 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
@@ -80,8 +80,11 @@ ltt_prepare_deps += $(STATEDIR)/virtual-xchain.install
 
 $(STATEDIR)/ltt.prepare: $(ltt_prepare_deps)
 	@$(call targetinfo, ltt.prepare)
+
+	# configure without $(LTT_ENV) now, add this later;
+	# visualizer has to be built for host...
 	cd $(LTT_DIR) &&					\
-		$(LTT_PATH) $(LTT_ENV)				\
+		$(LTT_PATH)					\
 		./configure $(LTT_AUTOCONF)
 	touch $@
 
@@ -95,11 +98,16 @@ ltt_compile_deps = $(STATEDIR)/ltt.prepare
 
 $(STATEDIR)/ltt.compile: $(STATEDIR)/ltt.prepare 
 	@$(call targetinfo, ltt.compile)
-	make -C $(LTT_DIR)/LibUserTrace $(MAKEPARMS) UserTrace.o
-	make -C $(LTT_DIR)/LibUserTrace $(MAKEPARMS) LDFLAGS="-static"
-	make -C $(LTT_DIR)/Daemon $(MAKEPARMS) LDFLAGS="-static"
+	
+	# build for target:
+	make -C $(LTT_DIR)/LibUserTrace $(LTT_ENV) UserTrace.o
+	make -C $(LTT_DIR)/LibUserTrace $(LTT_ENV) LDFLAGS="-static"
+	make -C $(LTT_DIR)/Daemon $(LTT_ENV) LDFLAGS="-static"
 	make -C $(LTT_DIR)/LibLTT
-#	make -C $(LTT_DIR)/Visualizer
+
+	# build for host:
+	make -C $(LTT_DIR)/Visualizer
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -111,7 +119,7 @@ ltt_install: $(STATEDIR)/ltt.install
 $(STATEDIR)/ltt.install: $(STATEDIR)/ltt.compile
 	@$(call targetinfo, ltt.install)
 	make -C $(LTT_DIR)/LibLTT install
-#	make -C $(LTT_DIR)/Visualizer install
+	make -C $(LTT_DIR)/Visualizer install
 	touch $@
 
 # ----------------------------------------------------------------------------
