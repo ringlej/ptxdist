@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: cramfs.make,v 1.4 2003/10/23 17:51:47 mkl Exp $
+# $Id: cramfs.make,v 1.5 2004/01/22 00:47:07 robert Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 #          
@@ -93,6 +93,7 @@ cramfs_install: $(STATEDIR)/cramfs.install
 
 $(STATEDIR)/cramfs.install: $(STATEDIR)/cramfs.compile
 	@$(call targetinfo, $@)
+	install -d $(PTXCONF_PREFIX)/bin
 	cp $(CRAMFS_DIR)/mkcramfs $(PTXCONF_PREFIX)/bin
 	cp $(CRAMFS_DIR)/cramfsck $(PTXCONF_PREFIX)/bin
 	touch $@
