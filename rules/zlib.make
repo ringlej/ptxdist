@@ -11,6 +11,9 @@
 #
 # We provide this package
 #
+ifeq (y, $(PTXCONF_ZLIB))
+PACKAGES += zlib
+endif
 
 #
 # Paths and names 
