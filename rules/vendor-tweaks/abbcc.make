@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: abbcc.make,v 1.2 2004/08/09 08:57:04 rsc Exp $
+# $Id: abbcc.make,v 1.3 2004/08/10 21:23:04 rsc Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -24,7 +24,11 @@ $(STATEDIR)/abbcc.targetinstall:
 	cp -a $(TOPDIR)/etc/generic/. $(ROOTDIR)/etc
 	perl -i -p -e "s,\@HOSTNAME@,cc1,g" $(ROOTDIR)/etc/hostname
 	cp -a $(TOPDIR)/etc/generic/inittab $(ROOTDIR)/etc/
-	perl -i -p -e "s,\@CONSOLE@,vc/0,g" $(ROOTDIR)/etc/inittab
+	perl -i -p -e "s,\@SPEED@,19200,g" $(ROOTDIR)/etc/inittab
+	perl -i -p -e "s,\@CONSOLE@,tts/0,g" $(ROOTDIR)/etc/inittab
+	perl -i -p -e "s,\@PS1@,\"\`hostname\`> \",g" $(ROOTDIR)/etc/profile
+	perl -i -p -e "s,\@PS2@,\"\",g" $(ROOTDIR)/etc/profile
+	perl -i -p -e "s,\@PS4@,\"\",g" $(ROOTDIR)/etc/profile
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
@@ -40,7 +44,7 @@ $(STATEDIR)/abbcc.targetinstall:
 	perl -i -p -e "s,\@PROJECT@,$(PROJECT),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@VENDOR@,ABBcc ,g" $(ROOTDIR)/etc/init.d/banner
+	perl -i -p -e "s,\@VENDOR@,ABB ,g" $(ROOTDIR)/etc/init.d/banner
 
 	install -d $(ROOTDIR)/var/run
 	install -d $(ROOTDIR)/var/log
