@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# /etc/init.d/syslog
+#
+# Configuration for fs2
+#
+# 2004/04/07 Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+case $1 in
+
+	start)
+		echo "starting syslogd:"
+		/sbin/syslogd
+		echo "done."
+		;;
+	stop)
+		echo "stopping syslogd:"
+		kill `/bin/pidof syslogd`
+		echo "done."
+		;;
+	*)
+		echo "usage: $0 [start|stop]"
+		;;
+esac
+
