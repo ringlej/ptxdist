@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.7 2003/09/19 14:43:27 robert Exp $
+# $Id: kernel.make,v 1.8 2003/09/25 06:14:13 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -470,7 +470,7 @@ $(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.install
         ifeq (y,$(PTXCONF_KERNEL_INSTALL))
 	mkdir -p $(ROOTDIR)/boot
 	install $(KERNEL_TARGET_PATH) $(ROOTDIR)/boot
-	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
+	-$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
 		modules_install INSTALL_MOD_PATH=$(ROOTDIR)
         endif # PTXCONF_KERNEL_INSTALL
 	touch $@
