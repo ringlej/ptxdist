@@ -1,3 +1,5 @@
+comment "Scripting Languages"
+
 comment "Python requires libdl on the target (see C Library)"
 	depends on !GLIBC_DL && !UCLIBC_DL
 
