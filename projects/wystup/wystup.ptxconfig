@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="WYSTUP"
+PTXCONF_PROJECT="wystup"
 
 #
 # General Options             
