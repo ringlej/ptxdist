@@ -91,16 +91,16 @@ endif
 kernel-patchstack_get: $(STATEDIR)/kernel-patchstack.get
 
 # Remove quotes from patch names
-PTXCONF_KERNEL_PATCH1_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH1_NAME))
-PTXCONF_KERNEL_PATCH2_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH2_NAME))
-PTXCONF_KERNEL_PATCH3_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH3_NAME))
-PTXCONF_KERNEL_PATCH4_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH4_NAME))
-PTXCONF_KERNEL_PATCH5_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH5_NAME))
-PTXCONF_KERNEL_PATCH6_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH6_NAME))
-PTXCONF_KERNEL_PATCH7_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH7_NAME))
-PTXCONF_KERNEL_PATCH8_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH8_NAME))
-PTXCONF_KERNEL_PATCH9_NAME  := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH9_NAME))
-PTXCONF_KERNEL_PATCH10_NAME := $(call remove_quotes, $(PTXCONF_KERNEL_PATCH10_NAME))
+PTXCONF_KERNEL_PATCH1_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH1_NAME))
+PTXCONF_KERNEL_PATCH2_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH2_NAME))
+PTXCONF_KERNEL_PATCH3_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH3_NAME))
+PTXCONF_KERNEL_PATCH4_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH4_NAME))
+PTXCONF_KERNEL_PATCH5_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH5_NAME))
+PTXCONF_KERNEL_PATCH6_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH6_NAME))
+PTXCONF_KERNEL_PATCH7_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH7_NAME))
+PTXCONF_KERNEL_PATCH8_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH8_NAME))
+PTXCONF_KERNEL_PATCH9_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH9_NAME))
+PTXCONF_KERNEL_PATCH10_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH10_NAME))
 
 # This is for kernel & xchain-kernel!
 
@@ -110,7 +110,6 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 ifdef PTXCONF_KERNEL_PATCH1_XCHAIN
 xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1_NAME).get
 endif
-
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1_NAME).get:
 	@$(call targetinfo, "Patch 1")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH1_URL), $(PTXCONF_KERNEL_PATCH1_NAME))
