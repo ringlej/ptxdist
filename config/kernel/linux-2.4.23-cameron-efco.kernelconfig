@@ -87,7 +87,65 @@ CONFIG_GEN_RTC=y
 #
 # Memory Technology Devices (MTD)
 #
-# CONFIG_MTD is not set
+CONFIG_MTD=y
+# CONFIG_MTD_DEBUG is not set
+CONFIG_MTD_PARTITIONS=y
+CONFIG_MTD_CONCAT=y
+# CONFIG_MTD_REDBOOT_PARTS is not set
+CONFIG_MTD_CMDLINE_PARTS=y
+CONFIG_MTD_CHAR=y
+CONFIG_MTD_BLOCK=y
+# CONFIG_FTL is not set
+# CONFIG_NFTL is not set
+# CONFIG_INFTL is not set
+
+#
+# RAM/ROM/Flash chip drivers
+#
+# CONFIG_MTD_CFI is not set
+# CONFIG_MTD_JEDECPROBE is not set
+# CONFIG_MTD_GEN_PROBE is not set
+# CONFIG_MTD_CFI_INTELEXT is not set
+# CONFIG_MTD_CFI_AMDSTD is not set
+# CONFIG_MTD_CFI_STAA is not set
+# CONFIG_MTD_CFI_UTIL is not set
+# CONFIG_MTD_RAM is not set
+# CONFIG_MTD_ROM is not set
+# CONFIG_MTD_ABSENT is not set
+# CONFIG_MTD_OBSOLETE_CHIPS is not set
+# CONFIG_MTD_AMDSTD is not set
+# CONFIG_MTD_SHARP is not set
+# CONFIG_MTD_JEDEC is not set
+
+#
+# Mapping drivers for chip access
+#
+# CONFIG_MTD_COMPLEX_MAPPINGS is not set
+# CONFIG_MTD_PHYSMAP is not set
+# CONFIG_MTD_BEECH is not set
+# CONFIG_MTD_ARCTIC is not set
+# CONFIG_MTD_PCI is not set
+# CONFIG_MTD_PCMCIA is not set
+
+#
+# Self-contained MTD device drivers
+#
+# CONFIG_MTD_PMC551 is not set
+# CONFIG_MTD_SLRAM is not set
+# CONFIG_MTD_MTDRAM is not set
+# CONFIG_MTD_BLKMTD is not set
+# CONFIG_MTD_DOC2000 is not set
+# CONFIG_MTD_DOC2001 is not set
+# CONFIG_MTD_DOC2001PLUS is not set
+# CONFIG_MTD_DOCPROBE is not set
+
+#
+# NAND Flash Device Drivers
+#
+CONFIG_MTD_NAND=y
+CONFIG_MTD_NAND_VERIFY_WRITE=y
+CONFIG_MTD_NAND_IDS=y
+CONFIG_MTD_NAND_SC3=y
 
 #
 # Plug and Play configuration
@@ -405,13 +463,12 @@ CONFIG_UNIX98_PTY_COUNT=256
 CONFIG_I2C=y
 # CONFIG_I2C_ALGOBIT is not set
 # CONFIG_I2C_ALGOPCF is not set
-CONFIG_I2C_PPC405_ALGO=y
 # CONFIG_I2C_PPC405_ADAP is not set
 CONFIG_I2C_CHARDEV=y
 CONFIG_I2C_PROC=y
 
 #
-# RTC for I2C
+# I2C slave devices
 #
 CONFIG_PPC_DS1339=y
 
@@ -487,8 +544,10 @@ CONFIG_PPC_DS1339=y
 # CONFIG_VFAT_FS is not set
 # CONFIG_EFS_FS is not set
 # CONFIG_JFFS_FS is not set
-# CONFIG_JFFS2_FS is not set
-# CONFIG_CRAMFS is not set
+CONFIG_JFFS2_FS=y
+CONFIG_JFFS2_FS_DEBUG=0
+CONFIG_JFFS2_FS_NAND=y
+CONFIG_CRAMFS=y
 CONFIG_TMPFS=y
 CONFIG_RAMFS=y
 # CONFIG_ISO9660_FS is not set
@@ -510,7 +569,7 @@ CONFIG_DEVPTS_FS=y
 # CONFIG_QNX4FS_FS is not set
 # CONFIG_QNX4FS_RW is not set
 # CONFIG_ROMFS_FS is not set
-CONFIG_EXT2_FS=y
+# CONFIG_EXT2_FS is not set
 # CONFIG_SYSV_FS is not set
 # CONFIG_UDF_FS is not set
 # CONFIG_UDF_RW is not set
