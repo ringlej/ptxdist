@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glib22.make,v 1.8 2004/02/24 09:09:34 robert Exp $
+# $Id: glib22.make,v 1.9 2004/02/25 22:32:28 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -138,20 +138,20 @@ $(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps)
 	rm -f $(ROOTDIR)/lib/libglib-2.0.so*
 
 	install $(GLIB22_DIR)/glib/.libs/libglib-2.0.so.0.302.0 $(ROOTDIR)/lib/
-	ln -s libglib-2.0.so.0.302.0 $(ROOTDIR)/lib/libglib-2.0.so.0
-	ln -s libglib-2.0.so.0.302.0 $(ROOTDIR)/lib/libglib-2.0.so
+	ln -sf libglib-2.0.so.0.302.0 $(ROOTDIR)/lib/libglib-2.0.so.0
+	ln -sf libglib-2.0.so.0.302.0 $(ROOTDIR)/lib/libglib-2.0.so
 
 	install $(GLIB22_DIR)/gobject/.libs/libgobject-2.0.so.0.302.0 $(ROOTDIR)/lib/
-	ln -s libgobject-2.0.so.0.302.0 $(ROOTDIR)/lib/libgobject-2.0.so.0
-	ln -s libgobject-2.0.so.0.302.0 $(ROOTDIR)/lib/libgobject-2.0.so
+	ln -sf libgobject-2.0.so.0.302.0 $(ROOTDIR)/lib/libgobject-2.0.so.0
+	ln -sf libgobject-2.0.so.0.302.0 $(ROOTDIR)/lib/libgobject-2.0.so
 
 	install $(GLIB22_DIR)/gmodule/.libs/libgmodule-2.0.so.0.302.0 $(ROOTDIR)/lib/
-	ln -s libgmodule-2.0.so.0.302.0 $(ROOTDIR)/lib/libgmodule-2.0.so.0
-	ln -s libgmodule-2.0.so.0.302.0 $(ROOTDIR)/lib/libgmodule-2.0.so
+	ln -sf libgmodule-2.0.so.0.302.0 $(ROOTDIR)/lib/libgmodule-2.0.so.0
+	ln -sf libgmodule-2.0.so.0.302.0 $(ROOTDIR)/lib/libgmodule-2.0.so
 
 	install $(GLIB22_DIR)/gthread/.libs/libgthread-2.0.so.0.302.0 $(ROOTDIR)/lib/
-	ln -s libgthread-2.0.so.0.302.0 $(ROOTDIR)/lib/libgthread-2.0.so.0
-	ln -s libgthread-2.0.so.0.302.0 $(ROOTDIR)/lib/libgthread-2.0.so
+	ln -sf libgthread-2.0.so.0.302.0 $(ROOTDIR)/lib/libgthread-2.0.so.0
+	ln -sf libgthread-2.0.so.0.302.0 $(ROOTDIR)/lib/libgthread-2.0.so
 
 	touch $@
 
