@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtai.make,v 1.11 2004/07/28 01:13:09 rsc Exp $
+# $Id: rtai.make,v 1.12 2004/08/09 08:56:20 rsc Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -85,7 +85,9 @@ RTAI_AUTOCONF  = \
 $(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
 	@$(call targetinfo, $@)
 	grep -e PTXCONF_RTAICFG_ .config > $(RTAI_DIR)/.config
-	perl -i -p -e 's/PTXCONF_RTAICFG_//g' $(RTAI_DIR)/.config
+	perl -i -p -e 's/PTXCONF_RTAICFG_/CONFIG_/g' $(RTAI_DIR)/.config
+	perl -i -p -e "s,\@BUILDDIR@,$(BUILDDIR),g" $(RTAI_DIR)/.config
+	perl -i -p -e "s,\@KERNEL_DIR@,$(KERNEL_DIR),g" $(RTAI_DIR)/.config
 	cd $(RTAI_DIR) && \
 		$(RTAI_PATH) $(RTAI_ENV) ./configure $(RTAI_AUTOCONF)
 	touch $@
