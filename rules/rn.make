@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rn.make,v 1.1 2003/11/05 00:56:58 mkl Exp $
+# $Id: rn.make,v 1.2 2003/11/13 04:29:04 mkl Exp $
 #
 # Copyright (C) 2003 Ixia Corporation, by Milan Bobde
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-RN_VERSION	= 0.2
+RN_VERSION	= 0.4
 RN		= rn-$(RN_VERSION)
 RN_SUFFIX	= tar.gz
 RN_URL		= www.kegel.com/rn/$(RN).$(RN_SUFFIX)
@@ -36,7 +36,6 @@ rn_get_deps = $(RN_SOURCE)
 
 $(STATEDIR)/rn.get: $(rn_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(RN))
 	touch $@
 
 $(RN_SOURCE):
@@ -55,7 +54,6 @@ $(STATEDIR)/rn.extract: $(rn_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RN_DIR))
 	@$(call extract, $(RN_SOURCE))
-	@$(call patchin, $(RN))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -71,9 +69,12 @@ rn_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/rn.extract
 
-ifdef  PTXCONF_SYS-EPOLL-LIB
-rn_prepare_deps += $(STATEDIR)/sys-epoll-lib.install
-endif
+#
+# Only needed if using old glibc (older than 2.3.2)
+#
+#ifdef  PTXCONF_SYS-EPOLL-LIB
+#rn_prepare_deps += $(STATEDIR)/sys-epoll-lib.install
+#endif
 
 RN_AUTOCONF  = \
 	--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
