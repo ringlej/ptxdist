@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.50 2003/11/13 04:23:14 mkl Exp $
+# $Id: Makefile,v 1.51 2003/11/13 18:32:25 mkl Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -31,9 +31,10 @@ MISCDIR			:= $(TOPDIR)/misc
 # Pengutronix Patch Repository
 PTXPATCH_URL		:= http://www.pengutronix.de/software/ptxdist/patches
 
-PACKAGES=
-XCHAIN=
-NATIVE=
+PACKAGES	=
+XCHAIN		=
+VIRTUAL		=
+NATIVE		=
 
 export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR PACKAGES
 
@@ -70,8 +71,8 @@ endif
 -include rules/vendor-tweaks/$(subst ",,$(PTXCONF_VENDORTWEAKS))
 
 # install targets 
-PACKAGES_TARGETINSTALL 		:= $(addsuffix _targetinstall,$(PACKAGES))
-PACKAGES_GET			:= $(addsuffix _get,$(PACKAGES))
+PACKAGES_TARGETINSTALL 		:= $(addsuffix _targetinstall,$(PACKAGES)) $(addsuffix _targetinstall,$(VIRTUAL))
+PACKAGES_GET			:= $(addsuffix _get,$(PACKAGES)) $(addsuffix _get,$(XCHAIN))
 PACKAGES_EXTRACT		:= $(addsuffix _extract,$(PACKAGES))
 PACKAGES_PREPARE		:= $(addsuffix _prepare,$(PACKAGES))
 PACKAGES_COMPILE		:= $(addsuffix _compile,$(PACKAGES))
@@ -106,6 +107,9 @@ help:
 	@echo
 	@echo "Available cross-chain packages:"
 	@echo " $(XCHAIN)"
+	@echo
+	@echo "Available virtual packages:"
+	@echo " $(VIRTUAL)"
 	@echo
 	@echo "Eventually needed native packes:"
 	@echo " $(NATIVE)"
