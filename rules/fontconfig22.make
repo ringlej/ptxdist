@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: fontconfig22.make,v 1.4 2004/02/23 16:15:18 bsp Exp $
+# $Id: fontconfig22.make,v 1.5 2004/02/24 09:08:53 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -39,6 +39,7 @@ fontconfig22_get_deps	=  $(FONTCONFIG22_SOURCE)
 
 $(STATEDIR)/fontconfig22.get: $(fontconfig22_get_deps)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(FONTCONFIG22))
 	touch $@
 
 $(FONTCONFIG22_SOURCE):
@@ -57,6 +58,12 @@ $(STATEDIR)/fontconfig22.extract: $(fontconfig22_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FONTCONFIG22_DIR))
 	@$(call extract, $(FONTCONFIG22_SOURCE))
+	@$(call patchin, $(FONTCONFIG22))
+
+	# man pages are missing, fake them
+	touch $(FONTCONFIG22_DIR)/fc-cache/fc-cache.1 
+	touch $(FONTCONFIG22_DIR)/fc-list/fc-list.1
+
 	touch $@
 
 # ----------------------------------------------------------------------------
