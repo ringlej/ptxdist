@@ -75,8 +75,7 @@ hexedit_prepare_deps = \
 
 HEXEDIT_PATH	=  PATH=$(CROSS_PATH)
 HEXEDIT_ENV 	=  $(CROSS_ENV)
-#HEXEDIT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#HEXEDIT_ENV	+=
+HEXEDIT_ENV	+= LDFLAGS='$(strip $(subst ",,$(TARGET_LDFLAGS))) -static'
 
 #
 # autoconf
