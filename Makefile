@@ -302,7 +302,12 @@ rootclean:
 	@echo
 	@echo -n "cleaning root dir................ "
 	@if [ -d $(ROOTDIR) ]; then \
-		for i in $$(ls -I CVS $(ROOTDIR)); do echo -n $$i' '; rm -rf $(ROOTDIR)/"$$i"; done; \
+		for i in $$(ls -I CVS $(ROOTDIR)); do 			\
+			echo -n $$i; 					\
+			rm -rf $(ROOTDIR)/"$$i"; 			\
+			echo; 						\
+			echo -n "                                  ";	\
+		done; 							\
 	fi
 	@echo "done."
 	@echo -n "cleaning state/*.targetinstall... "
