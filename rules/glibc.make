@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.14 2003/10/28 01:47:47 mkl Exp $
+# $Id: glibc.make,v 1.15 2003/10/28 20:31:26 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -228,10 +228,10 @@ $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 	for file in libc.so libpthread.so libgcc_s.so; do								\
 		if [ -f $(CROSS_LIB_DIR)/lib/$$file -a ! -h $(CROSS_LIB_DIR)/lib/$$file ]; then				\
 			echo $$file;											\
-			if [ ! -f $(CROSS_LIB_DIR)/lib/$$file-orig ]; then						\
-				mv $(CROSS_LIB_DIR)/lib/$$file $(CROSS_LIB_DIR)/lib/$$file-orig;			\
+			if [ ! -f $(CROSS_LIB_DIR)/lib/$${file}_orig ]; then						\
+				mv $(CROSS_LIB_DIR)/lib/$$file $(CROSS_LIB_DIR)/lib/$${file}_orig;			\
 			fi;												\
-			sed 's,/lib/,,g;/BUG in libc.scripts.output-format.sed/d' < $(CROSS_LIB_DIR)/lib/$$file-orig	\
+			sed 's,/lib/,,g;/BUG in libc.scripts.output-format.sed/d' < $(CROSS_LIB_DIR)/lib/$${file}_orig	\
 				> $(CROSS_LIB_DIR)/lib/$$file;								\
 		fi;													\
 	done
