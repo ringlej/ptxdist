@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: inetutils.make,v 1.1 2003/09/24 13:26:08 mkl Exp $
+# $Id: inetutils.make,v 1.2 2003/09/24 17:01:43 robert Exp $
 #
 # (c) 2003 by Milan Bobde
 #          
@@ -141,8 +141,8 @@ ifdef PTXCONF_INETUTILS_RCP
 endif
 
 ifdef PTXCONF_INETUTILS_RLOGIND
-	install -D $(INETUTILS_DIR)/rlogind/rlogind  $(ROOTDIR)/usr/bin/rlogind
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/rlogind
+	install -D $(INETUTILS_DIR)/rlogind/rlogind  $(ROOTDIR)/usr/sbin/rlogind
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/sbin/rlogind
 endif
 
 ifdef PTXCONF_INETUTILS_RSHD
