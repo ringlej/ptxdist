@@ -1,4 +1,7 @@
 2003-08-08 Robert Schwebel <r.schwebel@pengutronix.de>
+	* Config: i386-generic-glibc configuration added
+	* rayonic config: use GNU libio (workaround for _G_config.h not
+	  being found under uncontrolled conditions...)
 	* Makefile: .rtaiconfig added, also to distclean; bootimage removal 
 	  fixed; logfile removal fixed. 
 	* rules/bootdisk.make: fixed Rayonic bootdisk to work again. 
