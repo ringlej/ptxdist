@@ -110,7 +110,9 @@ $(STATEDIR)/frako.targetinstall:
 	install $(LCD_DIR)/lcd_module.o $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)/kernel/drivers/char/
 	
 	# FIXME: tweak, tweak
-	install $(TOPDIR)/libpthread.so.0 $(ROOTDIR)/lib
+	# Grrrrr... an old libpthread.so.0 from SuSE was installed # here...
+	# install $(TOPDIR)/libpthread.so.0 $(ROOTDIR)/lib
+
 	touch $@
 
 # vim: syntax=make

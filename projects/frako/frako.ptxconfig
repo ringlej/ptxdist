@@ -58,23 +58,23 @@ PTXCONF_TARGET_CONFIG_FILE="i386.dat"
 #
 PTXCONF_ARCH="i386"
 PTXCONF_ARCH_USERSPACE="i386"
-PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
 PTXCONF_PREFIX="$(TOPDIR)/local"
 PTXCONF_ROOT=""
 
 #
-# Cross Toolchain     
+# Toolchain/Crosstool 
 #
-PTXCONF_BUILD_CROSSCHAIN=y
-PTXCONF_BINUTILS_2_13_2_1=y
-# PTXCONF_BINUTILS_2_14 is not set
-# PTXCONF_BINUTILS_2_15 is not set
-# PTXCONF_GCC_2_95_3 is not set
-PTXCONF_GCC_3_2_3=y
-# PTXCONF_GCC_3_3_2 is not set
-PTXCONF_GCC_3=y
-PTXCONF_GCC_SHARED=y
-# PTXCONF_GCC_MULTILIB is not set
+# PTXCONF_CROSSTOOL is not set
+
+#
+# Generic Options
+#
+PTXCONF_CROSSCHAIN_CHECK="2.95.3"
+PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
+
+#
+# Non-Crosstool Tools
+#
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_NASM is not set
 # PTXCONF_XCHAIN-SCONS is not set
@@ -82,15 +82,23 @@ PTXCONF_GCC_SHARED=y
 #
 # Root Filesystem     
 #
-PTXCONF_ROOTFS_PROC=y
+PTXCONF_ROOTFS=y
 PTXCONF_ROOTFS_DEV=y
-PTXCONF_ROOTFS_MNT=y
+# PTXCONF_ROOTFS_ETC is not set
 PTXCONF_ROOTFS_FLOPPY=y
-PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_HOME=y
-PTXCONF_ROOTFS_VAR=y
+PTXCONF_ROOTFS_MNT=y
+PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
+PTXCONF_ROOTFS_TMP=y
+PTXCONF_ROOTFS_VAR=y
 PTXCONF_VENDORTWEAKS="projects/frako/frako.vendortweaks"
+
+#
+# Image Creation
+#
+PTXCONF_IMAGE_TGZ=y
+# PTXCONF_IMAGE_JFFS2 is not set
 
 #
 # Debugging Tools     
@@ -109,14 +117,14 @@ PTXCONF_VENDORTWEAKS="projects/frako/frako.vendortweaks"
 #
 # Host Tools          
 #
-PTXCONF_GENEXT2FS=y
-PTXCONF_HOSTTOOL_E2FSPROGS=y
-PTXCONF_HOSTTOOL_E2FSPROGS_TUNE2FS=y
-PTXCONF_HOSTTOOL_E2FSPROGS_RESIZE2FS=y
-PTXCONF_FAKEROOT=y
-# PTXCONF_UTLNX_FDISK is not set
-# PTXCONF_UTLNX_CFDISK is not set
-PTXCONF_UTLNX_SFDISK=y
+PTXCONF_HOSTTOOLS_GENEXT2FS=y
+PTXCONF_HOSTTOOLS_E2FSPROGS=y
+PTXCONF_HOSTTOOLS_E2FSPROGS_TUNE2FS=y
+PTXCONF_HOSTTOOLS_E2FSPROGS_RESIZE2FS=y
+PTXCONF_HOSTTOOLS_FAKEROOT=y
+PTXCONF_HOSTTOOLS_UTLNX_FDISK=y
+# PTXCONF_HOSTTOOLS_UTLNX_CFDISK is not set
+PTXCONF_HOSTTOOLS_UTLNX_SFDISK=y
 
 #
 # Core System ---    
@@ -175,6 +183,7 @@ PTXCONF_KERNEL_PATCH2_NAME=""
 #
 # C Library           
 #
+PTXCONF_LIBC=y
 PTXCONF_GLIBC=y
 # PTXCONF_UCLIBC is not set
 
@@ -212,6 +221,11 @@ PTXCONF_GLIBC_NSS_COMPAT=y
 PTXCONF_GLIBC_RESOLV=y
 PTXCONF_GLIBC_NSL=y
 # PTXCONF_GLIBC_GCONV is not set
+
+#
+# Timezone Files
+#
+# PTXCONF_GLIBC_ZONEINFO is not set
 PTXCONF_UC_TARGET_i386=y
 
 #
@@ -772,6 +786,7 @@ PTXCONF_PROCPS_TOP=y
 # util-linux          
 #
 PTXCONF_UTLNX=y
+# PTXCONF_UTLNX_FDISK is not set
 # PTXCONF_UTLNX_MKSWAP is not set
 # PTXCONF_UTLNX_SWAPON is not set
 # PTXCONF_UTLNX_IPCS is not set
@@ -792,9 +807,14 @@ PTXCONF_CLOCK=y
 #
 
 #
-# shorewall firewall  
+# Dropbear SSH-Server 
 #
-# PTXCONF_SHOREWALL is not set
+# PTXCONF_DROPBEAR is not set
+
+#
+# iptables            
+#
+# PTXCONF_IPTABLES is not set
 
 #
 # LSH                 
@@ -818,9 +838,9 @@ PTXCONF_OPENSSH_SFTP_SERVER=y
 PTXCONF_OPENSSH_KEYGEN=y
 
 #
-# Dropbear SSH-Server 
+# shorewall firewall  
 #
-# PTXCONF_DROPBEAR is not set
+# PTXCONF_SHOREWALL is not set
 
 #
 # Networking Apps     
@@ -915,7 +935,7 @@ PTXCONF_OPENSSH_KEYGEN=y
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
-PTXCONF_OPENAFS_1_2_11=y
+# PTXCONF_OPENAFS_1_2_11 is not set
 
 #
 # Portmapper          
@@ -1030,13 +1050,6 @@ PTXCONF_GRUB_XFS=y
 # PTXCONF_GRUB_CS89X0 is not set
 # PTXCONF_GRUB_EEPRO100 is not set
 # PTXCONF_GRUB_RTL8139 is not set
-PTXCONF_BOOTDISK=y
-# PTXCONF_BOOTDISK_DEV is not set
-PTXCONF_BOOTDISK_HEAD=62
-PTXCONF_BOOTDISK_SECT=4
-PTXCONF_BOOTDISK_SIZE_AUTODETECT=y
-PTXCONF_BOOTDISK_SIZE_ADD=250
-PTXCONF_BOOTDISK_PART="frako"
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
 # PTXCONF_BONNIE is not set
@@ -1071,13 +1084,17 @@ PTXCONF_BOOTDISK_PART="frako"
 # PTXCONF_FIGLET is not set
 
 #
+# Editors             
+#
+# PTXCONF_NANO is not set
+
+#
 # System Libraries    
 #
 
 #
 # gettext          
 #
-# PTXCONF_GETTEXT is not set
 
 #
 # popt             
@@ -1087,7 +1104,7 @@ PTXCONF_BOOTDISK_PART="frako"
 #
 # zlib             
 #
-# PTXCONF_ZLIB is not set
+PTXCONF_ZLIB=y
 
 #
 # ncurses          
