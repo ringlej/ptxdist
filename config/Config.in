@@ -256,7 +256,7 @@ choice
 	config GCC_3_2_3
 		bool
 		prompt "3.2.3"
-		depends on ARCH_X86 || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_PPC || !ARCH_ARM_NOMMU
+		depends on ARCH_X86 || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_PPC
 endchoice
 
 endmenu
