@@ -4,6 +4,10 @@ Current TODO List
 High Priority
 -------------
 
+- RSC: make MTDutils release and, by the way, fix build process. 
+       This "override" mechanism in the Makefile seems to be broken. 
+- BSP: make PTXCONF_FPU either configurable or fixed (for certain
+       cpu types); see Rules.make
 - RSC: you currently need libXcursor.so.* and xcursorgen on the
        development host
 - RSC: you currently need gdk-pixbuf-csourde on the host       
