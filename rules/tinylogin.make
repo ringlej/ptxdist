@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: tinylogin.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: tinylogin.make,v 1.3 2003/10/26 13:51:36 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
+#
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -22,7 +23,6 @@ TINYLOGIN		= tinylogin-1.4.tar.bz2
 TINYLOGIN_URL		= http://tinylogin.busybox.net/downloads/$(TINYLOGIN).tar.bz2
 TINYLOGIN_SOURCE	= $(SRCDIR)/$(TINYLOGIN).tar.bz2
 TINYLOGIN_DIR		= $(BUILDDIR)/$(TINYLOGIN)
-TINYLOGIN_EXTRACT 	= bzip2 -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -38,7 +38,7 @@ $(STATEDIR)/tinylogin.get: $(tinylogin_get_deps)
 
 $(TINYLOGIN_SOURCE):
 	@$(call targetinfo, $@)
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(TINYLOGIN_URL)
+	@$(call get, $(TINYLOGIN_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,8 @@ tinylogin_extract: $(STATEDIR)/tinylogin.extract
 
 $(STATEDIR)/tinylogin.extract: $(STATEDIR)/tinylogin.get
 	@$(call targetinfo, $@)
-	$(TINYLOGIN_EXTRACT) $(TINYLOGIN_SOURCE) | tar -C $(BUILDDIR) -xf -
+	@$(call clean, $(TINYLOGIN_DIR))
+	@$(call extract, $(TINYLOGIN_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -63,7 +64,9 @@ TINYLOGIN_MAKEVARS = CROSS=$(PTXCONF_GNU_TARGET)-
 #
 # dependencies
 #
-tinylogin_prepare_deps =  $(STATEDIR)/tinylogin.extract $(STATEDIR)/virtual-xchain.install
+tinylogin_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/tinylogin.extract
 
 $(STATEDIR)/tinylogin.prepare: $(tinylogin_prepare_deps)
 	@$(call targetinfo, $@)

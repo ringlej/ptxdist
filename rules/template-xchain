@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: template-xchain,v 1.1 2003/10/24 01:08:34 mkl Exp $
+# $Id: template-xchain,v 1.2 2003/10/26 13:52:53 mkl Exp $
 #
 # Copyright (C) 2003 by @AUTHOR@
 #          
@@ -75,11 +75,11 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 #
 # autoconf
 #
-@PACKET@_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
-@PACKET@_AUTOCONF	+= --build=$(GNU_HOST)
-# @PACKET@_AUTOCONF	+= --host=$(GNU_HOST)
-# @PACKET@_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
-# @PACKET@_AUTOCONF	+= 
+@PACKET@_AUTOCONF = \
+	--prefix=$(PTXCONF_PREFIX) \
+	--build=$(GNU_HOST)
+# 	--host=$(GNU_HOST)
+# 	--target=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
 	@$(call targetinfo, $@)

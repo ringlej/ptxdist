@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: utelnetd.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
+# $Id: utelnetd.make,v 1.7 2003/10/26 13:51:51 mkl Exp $
 #
-# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-ifeq (y,$(PTXCONF_UTELNETD))
+ifdef PTXCONF_UTELNETD
 PACKAGES += utelnetd
 endif
 
@@ -22,7 +22,6 @@ UTELNETD			= utelnetd-0.1.6
 UTELNETD_URL			= http://www.pengutronix.de/software/utelnetd/$(UTELNETD).tar.gz
 UTELNETD_SOURCE			= $(SRCDIR)/$(UTELNETD).tar.gz
 UTELNETD_DIR			= $(BUILDDIR)/$(UTELNETD)
-UTELNETD_EXTRACT 		= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -36,7 +35,7 @@ $(STATEDIR)/utelnetd.get: $(UTELNETD_SOURCE)
 
 $(UTELNETD_SOURCE):
 	@$(call targetinfo, $@)
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(UTELNETD_URL)
+	@$(call get, $(UTELNETD_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,7 +46,7 @@ utelnetd_extract: $(STATEDIR)/utelnetd.extract
 $(STATEDIR)/utelnetd.extract: $(STATEDIR)/utelnetd.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTELNETS_DIR))
-	$(UTELNETD_EXTRACT) $(UTELNETD_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	@$(call extract, $(UTELNETD_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -56,7 +55,11 @@ $(STATEDIR)/utelnetd.extract: $(STATEDIR)/utelnetd.get
 
 utelnetd_prepare: $(STATEDIR)/utelnetd.prepare
 
-$(STATEDIR)/utelnetd.prepare: $(STATEDIR)/virtual-xchain.install $(STATEDIR)/utelnetd.extract
+utelnetd_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/utelnetd.extract
+
+$(STATEDIR)/utelnetd.prepare: $(utelnetd_prepare_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -66,7 +69,7 @@ $(STATEDIR)/utelnetd.prepare: $(STATEDIR)/virtual-xchain.install $(STATEDIR)/ute
 
 utelnetd_compile: $(STATEDIR)/utelnetd.compile
 
-UTELNETD_ENVIRONMENT += PATH=$(PTXCONF_PREFIX)/bin:$$PATH
+UTELNETD_ENVIRONMENT += PATH=$(CROSS_PATH)
 UTELNETD_MAKEVARS    += CROSS=$(PTXCONF_GNU_TARGET)-
 
 $(STATEDIR)/utelnetd.compile: $(STATEDIR)/utelnetd.prepare 
