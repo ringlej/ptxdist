@@ -19,7 +19,11 @@ ifdef PTXCONF_BUILD_CROSSCHAIN
 XCHAIN += xchain-kernel
 endif
 
+ifdef PTXCONF_USE_EXTERNAL_KERNEL
+XCHAIN_KERNEL_BUILDDIR	= $(call remove_quotes,$(PTXCONF_KERNEL_DIR))
+else
 XCHAIN_KERNEL_BUILDDIR	= $(BUILDDIR)/xchain-$(KERNEL)
+endif
 
 # ----------------------------------------------------------------------------
 # Get patchstack-patches
@@ -37,9 +41,11 @@ $(STATEDIR)/xchain-kernel-patchstack.get: $(xchain_kernel_patchstack_get_deps)
 
 xchain-kernel_get: $(STATEDIR)/xchain-kernel.get
 
-xchain-kernel_get_deps = \
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
+xchain-kernel_get_deps  = \
 	$(KERNEL_SOURCE) \
 	$(STATEDIR)/xchain-kernel-patchstack.get
+endif
 
 $(STATEDIR)/xchain-kernel.get: $(xchain-kernel_get_deps)
 	@$(call targetinfo, $@)
@@ -56,6 +62,7 @@ xchain-kernel_extract_deps = \
 
 $(STATEDIR)/xchain-kernel.extract: $(xchain-kernel_extract_deps)
 	@$(call targetinfo, $@)
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
 	@$(call clean, $(XCHAIN_KERNEL_BUILDDIR))
 	@$(call extract, $(KERNEL_SOURCE), $(XCHAIN_KERNEL_BUILDDIR))
 
@@ -99,7 +106,7 @@ endif
 	mv $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/* $(XCHAIN_KERNEL_BUILDDIR)
 
 	rm -fr $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)
-
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -114,6 +121,7 @@ xchain-kernel_prepare_deps = \
 $(STATEDIR)/xchain-kernel.prepare: $(xchain-kernel_prepare_deps)
 	@$(call targetinfo, $@)
 
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
 	# fake headers
 	cd $(XCHAIN_KERNEL_BUILDDIR) && make include/linux/version.h
 	touch $(XCHAIN_KERNEL_BUILDDIR)/include/linux/autoconf.h
@@ -123,6 +131,7 @@ $(STATEDIR)/xchain-kernel.prepare: $(xchain-kernel_prepare_deps)
 ifdef PTXCONF_ARM_PROC
 	ln -s proc-$(PTXCONF_ARM_PROC) $(XCHAIN_KERNEL_BUILDDIR)/include/asm/proc
 	ln -s arch-$(PTXCONF_ARM_ARCH) $(XCHAIN_KERNEL_BUILDDIR)/include/asm/arch
+endif
 endif
 	touch $@
 
@@ -165,6 +174,7 @@ $(STATEDIR)/xchain-kernel.targetinstall:
 # ----------------------------------------------------------------------------
 
 xchain-kernel_clean: 
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
 	# remove feature patches, but only if kernel was cleaned before.  
 	if [ ! -f $(STATEDIR)/kernel.get ]; then                                                                 \
 		for i in `ls $(STATEDIR)/kernel-feature-*.* | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do        \
@@ -175,8 +185,8 @@ xchain-kernel_clean:
 			rm -f $(STATEDIR)/kernel-patchstack.get;							\
 		done;													\
 	fi;
-
-	rm -fr $(STATEDIR)/xchain-kernel.*
 	rm -fr $(XCHAIN_KERNEL_BUILDDIR)
+endif
+	rm -f $(STATEDIR)/xchain-kernel.*
 
 # vim: syntax=make

@@ -17,14 +17,28 @@ PACKAGES += kernel
 endif
 
 #
+# Use a PTXdist built kernel which is parametrized here or use one from 
+# an external directory
+#
+
+ifdef PTXCONF_USE_EXTERNAL_KERNEL
+KERNEL_DIR		= $(call remove_quotes,$(PTXCONF_KERNEL_DIR))
+else
+
 # version stuff in now in rules/Version.make
 # NB: make s*cks
-#
+
 KERNEL			= linux-$(KERNEL_VERSION)
 KERNEL_SUFFIX		= tar.bz2
 KERNEL_URL		= ftp://ftp.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_SOURCE		= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DIR		= $(BUILDDIR)/$(KERNEL)
+KERNEL_CONFIG		= $(PTXCONF_KERNEL_CONFIG)
+endif
+
+#
+# Some configuration stuff for the different kernel image formats
+#
 
 ifdef PTXCONF_KERNEL_IMAGE_Z
 KERNEL_TARGET		= zImage
@@ -50,16 +64,21 @@ endif
 # ----------------------------------------------------------------------------
 
 kernel_menuconfig: $(STATEDIR)/kernel.extract
-	@if [ -f $(PTXCONF_KERNEL_CONFIG) ]; then \
-		install -m 644 $(PTXCONF_KERNEL_CONFIG) $(KERNEL_DIR)/.config; \
+
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
+	@if [ -f $(KERNEL_CONFIG) ]; then \
+		install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config; \
 	fi
+endif
 
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
 		menuconfig
 
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
 	@if [ -f $(KERNEL_DIR)/.config ]; then \
-		install -m 644 $(KERNEL_DIR)/.config $(PTXCONF_KERNEL_CONFIG); \
+		install -m 644 $(KERNEL_DIR)/.config $(KERNEL_CONFIG); \
 	fi
+endif
 
 	@if [ -f $(STATEDIR)/kernel.compile ]; then \
 		rm $(STATEDIR)/kernel.compile; \
@@ -226,9 +245,11 @@ $(STATEDIR)/kernel-patchstack.get: $(kernel_patchstack_get_deps)
 
 kernel_get: $(STATEDIR)/kernel.get
 
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
 kernel_get_deps = \
 	$(KERNEL_SOURCE) \
 	$(STATEDIR)/kernel-patchstack.get
+endif
 
 $(STATEDIR)/kernel.get: $(kernel_get_deps)
 	@$(call targetinfo, $@)
@@ -244,9 +265,11 @@ $(KERNEL_SOURCE):
 
 kernel_extract: $(STATEDIR)/kernel.extract
 
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
 kernel_extract_deps = \
 	$(STATEDIR)/kernel-base.extract	\
 	$(addprefix $(STATEDIR)/, $(addsuffix .install, $(KERNEL_PATCHES)))
+endif
 
 $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
 	@$(call targetinfo, $@)
@@ -287,13 +310,16 @@ kernel_prepare: $(STATEDIR)/kernel.prepare
 
 kernel_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/xchain-modutils.install \
 	$(STATEDIR)/kernel.extract
+
+# FIXME: Ladis removed that, probably because 2.6 doesn't need it any
+# more. Check if the 2.4 targets do still work... [RSC]
+#kernel_prepare_deps += $(STATEDIR)/xchain-modutils.install
 
 KERNEL_PATH	= PATH=$(CROSS_PATH)
 KERNEL_MAKEVARS	= \
-	ARCH=$(PTXCONF_ARCH) \
-	CROSS_COMPILE=$(PTXCONF_COMPILER_PREFIX) \
+	ARCH=$(call remove_quotes,$(PTXCONF_ARCH)) \
+	CROSS_COMPILE=$(call remove_quotes,$(PTXCONF_COMPILER_PREFIX)) \
 	HOSTCC=$(HOSTCC) \
 	DEPMOD=true
 
@@ -302,15 +328,12 @@ KERNEL_MAKEVARS	= \
 
 KERNEL_ENV	= $(CROSS_ENV_CFLAGS)
 
-ifdef PTXCONF_KERNEL_IMAGE_U
-	KERNEL_MAKEVARS += MKIMAGE=u-boot-mkimage.sh
-endif
-
 $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
 
-	if [ -f $(PTXCONF_KERNEL_CONFIG) ]; then	                        \
-		install -m 644 $(PTXCONF_KERNEL_CONFIG) $(KERNEL_DIR)/.config;	\
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
+	@if [ -f $(KERNEL_CONFIG) ]; then	                        \
+		install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config;	\
 	fi
 
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) 		\
@@ -319,9 +342,7 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 		oldconfig
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) 		\
 		dep
-	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
-	echo 'u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
-
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -350,10 +371,15 @@ kernel_compile: $(STATEDIR)/kernel.compile
 kernel_compile_deps =  $(STATEDIR)/kernel.prepare
 ifdef PTXCONF_KERNEL_IMAGE_U
 kernel_compile_deps += $(STATEDIR)/xchain-umkimage.install
+	KERNEL_MAKEVARS += MKIMAGE=u-boot-mkimage.sh
 endif
 
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	@$(call targetinfo, $@)
+
+	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
+	echo 'u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
+
 	$(KERNEL_PATH) $(KERNEL_ENV) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
 		$(KERNEL_TARGET) modules
 	touch $@
@@ -393,8 +419,8 @@ endif
 # ----------------------------------------------------------------------------
 
 kernel_clean:
-	# remove feature patches, but only if xchain-kernel was cleaned
-	# before. 
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
+	# remove feature patches, but only if xchain-kernel was cleaned before.
 	if [ ! -f $(STATEDIR)/xchain-kernel.get ]; then 								\
 		for i in `ls $(STATEDIR)/kernel-feature-*.* | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do 	\
 			if [ $$? -eq 0 ]; then										\
@@ -404,7 +430,8 @@ kernel_clean:
 		done;													\
 		rm -f $(STATEDIR)/kernel-patchstack.get;								\
 	fi;
-	# remove kernel & dir
-	rm -rf $(STATEDIR)/kernel.* $(KERNEL_DIR)
+	rm -rf $(KERNEL_DIR)
+endif
+	rm -f $(STATEDIR)/kernel.*
 
 # vim: syntax=make
