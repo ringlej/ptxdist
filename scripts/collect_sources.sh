@@ -57,9 +57,13 @@ use
 
 to build a specific archive.
 
+(sleeping a few seconds ...)
+
 ---------------------------------------------
 
 _EOF_
+
+sleep 10;
 }
 fi; 
 
