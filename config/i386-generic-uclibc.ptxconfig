@@ -26,13 +26,6 @@ PTXCONF_ARCH_X86=y
 # PTXCONF_ARCH_CRIS is not set
 # PTXCONF_ARCH_PARISC is not set
 # PTXCONF_ARCH_SH is not set
-# PTXCONF_ARM_ARCH_PXA is not set
-# PTXCONF_ARM_ARCH_EPXA is not set
-# PTXCONF_ARM_ARCH_SA1100 is not set
-# PTXCONF_ARM_ARCH_IXP2000 is not set
-# PTXCONF_ARM_ARCH_NETARM is not set
-# PTXCONF_ARM_ARCH_ATMEL is not set
-# PTXCONF_ARM_ARCH_IMX is not set
 # PTXCONF_OPT_ARM is not set
 # PTXCONF_OPT_ARM_NOMMU is not set
 PTXCONF_OPT_I386=y
@@ -149,6 +142,11 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 #
 # RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)
 #
+
+#
+# RTAI                
+#
+# PTXCONF_RTAI is not set
 
 #
 # C Library           
