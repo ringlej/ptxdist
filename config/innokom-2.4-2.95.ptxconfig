@@ -70,7 +70,7 @@ PTXCONF_ARCH="arm"
 PTXCONF_ARCH_USERSPACE="arm"
 PTXCONF_ARM_PROC="armv"
 PTXCONF_GNU_TARGET="arm-unknown-linux-gnu"
-PTXCONF_PREFIX="/usr/local/spiegel/arm-linux"
+PTXCONF_PREFIX="/tmp/ptxdist-innokom"
 PTXCONF_ROOT=""
 
 #
@@ -122,14 +122,15 @@ PTXCONF_STRACE_SHARED=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.4.19-innokom"
+PTXCONF_KERNEL_CONFIG="kernel-2.4.26-innokom"
 # PTXCONF_KERNEL_2_4_18 is not set
-PTXCONF_KERNEL_2_4_19=y
+# PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
 # PTXCONF_KERNEL_2_4_21 is not set
 # PTXCONF_KERNEL_2_4_22 is not set
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_4_25 is not set
+PTXCONF_KERNEL_2_4_26=y
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
@@ -143,15 +144,42 @@ PTXCONF_KERNEL_INSTALL=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.19-rmk7-pxa2-ptx15/"
-PTXCONF_KERNEL_PATCH1_NAME="rmk-pxa-mtd-ptx"
-# PTXCONF_KERNEL_PATCH1_XCHAIN is not set
+PTXCONF_KERNEL_PATCH1_URL="ftp://ftp.arm.linux.org.uk/pub/linux/arm/kernel/v2.4/patch-2.4.26-vrs1.bz2"
+PTXCONF_KERNEL_PATCH1_NAME="2.4.26-vrs1"
+PTXCONF_KERNEL_PATCH1_XCHAIN=y
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH2_URL=""
-PTXCONF_KERNEL_PATCH2_NAME=""
+PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx2/linux-2.4.26-vrs1-pxa1.patch"
+PTXCONF_KERNEL_PATCH2_NAME="2.4.26-vrs1-pxa1"
+PTXCONF_KERNEL_PATCH2_XCHAIN=y
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH3_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx2/linux-2.4.26-vrs1-pxa1-mtd20040502.patch"
+PTXCONF_KERNEL_PATCH3_NAME="2.4.26-vrs1-pxa1-mtd20040502"
+PTXCONF_KERNEL_PATCH3_XCHAIN=y
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH4_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx2/linux-2.4.26-vrs1-pxa1-mtd20040502-usb20040610.patch"
+PTXCONF_KERNEL_PATCH4_NAME="2.4.26-vrs1-pxa1-mtd20040502-usb20040607"
+# PTXCONF_KERNEL_PATCH4_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH5_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx2/linux-2.4.26-vrs1-pxa1-mtd20040502-usb20040610-ptx2.patch"
+PTXCONF_KERNEL_PATCH5_NAME="2.4.26-vrs1-pxa1-mtd20040502-usb20040607-ptx2"
+# PTXCONF_KERNEL_PATCH5_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH6_URL=""
 
 #
 # Extentions
