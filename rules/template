@@ -1,8 +1,9 @@
 # -*-makefile-*-
-# $Id: template,v 1.3 2003/07/16 04:23:28 mkl Exp $
+# $Id: template,v 1.4 2003/08/21 09:30:23 robert Exp $
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# (c) 2003 by @AUTHOR@
+#          
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXDIST project and license conditions
 # see the README file.
@@ -11,93 +12,128 @@
 #
 # We provide this package
 #
-PACKAGES += foo
+ifdef PTXCONF_@PACKET@
+PACKAGES += @packet@
+endif
 
 #
-# Paths and names 
+# Paths and names
 #
-FOO			= foo-a.b.c
-FOO_URL			= ftp://foo.bar.baz/$(FOO).tar.gz
-FOO_SOURCE		= $(SRCDIR)/$(FOO).tar.gz
-FOO_DIR			= $(BUILDDIR)/$(FOO)
-FOO_EXTRACT 		= gzip -dc
+@PACKET@_VERSION	= @MAJOR@.@MINOR@.@MICRO@
+@PACKET@		= @packet@-$(@PACKET@_VERSION)
+@PACKET@_SUFFIX	= @SUFFIX@
+@PACKET@_URL		= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
+@PACKET@_SOURCE	= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
+@PACKET@_DIR		= $(BUILDDIR)/$(@PACKET@)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-foo_get: $(STATEDIR)/foo.get
+@packet@_get: $(STATEDIR)/@packet@.get
 
-$(STATEDIR)/foo.get: $(FOO_SOURCE)
+@packet@_get_deps	=  $(@PACKET@_SOURCE)
+
+$(STATEDIR)/@packet@.get: $(@packet@_get_deps)
+	@$(call targetinfo, @packet@.get)
 	touch $@
 
-$(FOO_SOURCE):
-	@$(call targetinfo, foo.get)
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(FOO_URL)
+$(@PACKET@_SOURCE):
+	@$(call targetinfo, $(@PACKET@_SOURCE))
+	@$(call get, $(@PACKET@_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-foo_extract: $(STATEDIR)/foo.extract
+@packet@_extract: $(STATEDIR)/@packet@.extract
 
-$(STATEDIR)/foo.extract: $(STATEDIR)/foo.get
-	@$(call targetinfo, foo.extract)
-	$(FOO_EXTRACT) $(FOO_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+@packet@_extract_deps	=  $(STATEDIR)/@packet@.get
+
+$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
+	@$(call targetinfo, @packet@.extract)
+	@$(call clean, $(@PACKET@_DIR))
+	@$(call extract, $(@PACKET@_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-foo_prepare: $(STATEDIR)/foo.prepare
+@packet@_prepare: $(STATEDIR)/@packet@.prepare
 
-$(STATEDIR)/foo.prepare: $(STATEDIR)/foo.extract
-	@$(call targetinfo, foo.prepare)
-	cd $(FOO_DIR) && 						\
-	CFLAGS=$(CFLAGS) ./configure 					\
-		--some-options
+#
+# dependencies
+#
+@packet@_prepare_deps =  \
+	$(STATEDIR)/@packet@.extract \
+	$(STATEDIR)/glib1210.install \
+#	$(STATEDIR)/virtual-xchain.install
+
+@PACKET@_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+@PACKET@_ENV 	=  $(CROSS_ENV)
+#@PACKET@_ENV	+=
+
+
+#
+# autoconf
+#
+@PACKET@_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+@PACKET@_AUTOCONF	+= --build=$(GNU_HOST)
+@PACKET@_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+
+#@PACKET@_AUTOCONF	+= 
+
+$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
+	@$(call targetinfo, @packet@.prepare)
+	@$(call clean, $(@PACKET@_BUILDDIR))
+	cd $(@PACKET@_DIR) && \
+		$(@PACKET@_PATH) $(@PACKET@_ENV) \
+		./configure $(@PACKET@_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-foo_compile: $(STATEDIR)/foo.compile
+@packet@_compile: $(STATEDIR)/@packet@.compile
 
-$(STATEDIR)/foo.compile: $(STATEDIR)/foo.prepare 
-	@$(call targetinfo, foo.compile)
-	make -C $(FOO_DIR) $(MAKEPARMS)
+@packet@_compile_deps =  $(STATEDIR)/@packet@.prepare
+
+$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
+	@$(call targetinfo, @packet@.compile)
+	$(@PACKET@_PATH) $(@PACKET@_ENV) make -C $(@PACKET@_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-foo_install: $(STATEDIR)/foo.install
+@packet@_install: $(STATEDIR)/@packet@.install
 
-$(STATEDIR)/foo.install: $(STATEDIR)/foo.compile
-	@$(call targetinfo, foo.install)
-	
-	make -C $(FOO_DIR) install
+$(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
+	@$(call targetinfo, @packet@.install)
+	$(@PACKET@_PATH) $(@PACKET@_ENV) make -C $(@PACKET@_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-foo_targetinstall: $(STATEDIR)/foo.targetinstall
+@packet@_targetinstall: $(STATEDIR)/@packet@.targetinstall
 
-$(STATEDIR)/foo.targetinstall: $(STATEDIR)/foo.install
-	@$(call targetinfo, foo.targetinstall)
-	# don't forget to $(CROSSSTRIP) -S your source!
+@packet@_targetinstall_deps	=  $(STATEDIR)/@packet@.compile
+
+$(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
+	@$(call targetinfo, @packet@.targetinstall)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-foo_clean: 
-	rm -rf $(STATEDIR)/foo.* $(FOO_DIR)
+@packet@_clean:
+	rm -rf $(STATEDIR)/@packet@.*
+	rm -rf $(@PACKET@_DIR)
 
 # vim: syntax=make
