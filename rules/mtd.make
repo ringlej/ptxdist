@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mtd.make,v 1.12 2004/03/28 10:56:33 robert Exp $
+# $Id: mtd.make,v 1.13 2004/04/22 13:35:56 robert Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -19,10 +19,10 @@ endif
 #
 # Paths and names
 #
-MTD_VERSION	= 20030301-1
+MTD_VERSION	= 20040422-1
 MTD		= mtd-$(MTD_VERSION)
 MTD_SUFFIX	= tar.gz
-MTD_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(MTD).$(MTD_SUFFIX)
+MTD_URL		= http://www.pengutronix.de/software/mtd-snapshots/$(MTD).$(MTD_SUFFIX)
 MTD_SOURCE	= $(SRCDIR)/$(MTD).$(MTD_SUFFIX)
 MTD_DIR		= $(BUILDDIR)/$(MTD)
 
