@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.34 2003/09/17 13:47:45 robert Exp $
+# $Id: Makefile,v 1.35 2003/09/17 16:47:27 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -229,14 +229,12 @@ archive:
 	# FIXME: this should be automated
 	$(TAR) -C $(TOPDIR)/.. -zcvf /tmp/$(BASENAME).tgz 	\
 		--exclude CVS					\
-		--exclude $(BASENAME)/arm-linux/* 		\
 		--exclude $(BASENAME)/build/* 			\
 		--exclude $(BASENAME)/state/* 			\
 		--exclude $(BASENAME)/src/* 			\
 		--exclude $(BASENAME)/src			\
 		--exclude $(BASENAME)/root/*			\
 		--exclude $(BASENAME)/local/*			\
-		--exclude $(BASENAME)/src_ptx/busybox*		\
 		--exclude $(BASENAME)/bootdisk/*		\
 		--exclude $(BASENAME)/PATCHES-INCOMING		\
 		--exclude $(BASENAME)/patches			\
