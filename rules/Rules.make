@@ -279,7 +279,12 @@ get_patches =											\
 	echo "checking for local or net patches...";						\
 	if [ -d $(PATCHDIR)-local ]; then							\
 		echo "Copying Local patches from patches-local/"$$PACKET_NAME;			\
-		cp -vr $(PATCHDIR)-local/$$PACKET_NAME $(PATCHDIR);				\
+		if [ -d "$(PATCHDIR)-local/$$PACKET_NAME" ]; then 				\
+			echo "patch found";							\
+			cp -vr $(PATCHDIR)-local/$$PACKET_NAME $(PATCHDIR);			\
+		else										\
+			echo "no patch available";						\
+		fi;										\
 	else											\
 		echo "copying network patches from Pengutronix server"; 				\
 		$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
