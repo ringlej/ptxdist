@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: portmap.make,v 1.7 2003/10/23 15:01:19 mkl Exp $
+# $Id: portmap.make,v 1.8 2004/06/23 15:34:20 rsc Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -31,6 +31,7 @@ portmap_get: $(STATEDIR)/portmap.get
 
 $(STATEDIR)/portmap.get: $(PORTMAP_SOURCE)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(PORTMAP))
 	touch $@
 
 $(PORTMAP_SOURCE):
@@ -47,6 +48,7 @@ $(STATEDIR)/portmap.extract: $(STATEDIR)/portmap.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(PORTMAP_DIR))
 	@$(call extract, $(PORTMAP_SOURCE))
+	@$(call patchin, $(PORTMAP))
 #	apply some fixes
 	@$(call disable_sh, $(PORTMAP_DIR)/Makefile, HOSTS_ACCESS)
 	@$(call disable_sh, $(PORTMAP_DIR)/Makefile, CHECK_PORT)
