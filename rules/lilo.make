@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: lilo.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: lilo.make,v 1.3 2003/10/26 13:28:29 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
+#
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -22,7 +23,6 @@ LILO		= lilo-22.5.4
 LILO_URL	= http://home.san.rr.com/johninsd/pub/linux/lilo/$(LILO).tar.gz
 LILO_SOURCE	= $(SRCDIR)/$(LILO).tar.gz
 LILO_DIR	= $(BUILDDIR)/$(LILO)
-LILO_EXTRACT 	= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -38,7 +38,7 @@ $(STATEDIR)/lilo.get: $(lilo_get_deps)
 
 $(LILO_SOURCE):
 	@$(call targetinfo, $@)
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(LILO_URL)
+	@$(call get, $(LILO_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,8 @@ lilo_extract: $(STATEDIR)/lilo.extract
 
 $(STATEDIR)/lilo.extract: $(STATEDIR)/lilo.get
 	@$(call targetinfo, $@)
-	$(LILO_EXTRACT) $(LILO_SOURCE) | tar -C $(BUILDDIR) -xf -
+	@$(call clean, $(LILO_DIR))
+	@$(call extract, $(LILO_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -63,7 +64,9 @@ LILO_MAKEVARS 	= CROSS=$(PTXCONF_GNU_TARGET)-
 #
 # dependencies
 #
-lilo_prepare_deps =  $(STATEDIR)/lilo.extract $(STATEDIR)/virtual-xchain.install
+lilo_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/lilo.extract
 
 $(STATEDIR)/lilo.prepare: $(lilo_prepare_deps)
 	@$(call targetinfo, $@)
