@@ -95,6 +95,9 @@ $(STATEDIR)/coreutils.compile: $(STATEDIR)/coreutils.prepare
 ifdef PTXCONF_COREUTILS_CP
 	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src cp
 endif
+ifdef PTXCONF_COREUTILS_DD
+	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src/dd
+endif
 ifdef PTXCONF_COREUTILS_MD5SUM
 	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src md5sum
 endif
@@ -123,15 +126,19 @@ $(STATEDIR)/coreutils.targetinstall: $(STATEDIR)/coreutils.compile
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/usr/bin
 ifdef PTXCONF_COREUTILS_CP
-	install $(COREUTILS_DIR)/src/cp $(ROOTDIR)/bin
+	$(call copy_root, 0, 0, 0755, $(COREUTILS_DIR)/src/cp, /bin)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/cp
 endif
+ifdef PTXCONF_COREUTILS_DD
+	$(call copy_root, 0, 0, 0755, $(COREUTILS_DIR)/src/dd, /bin)	
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/dd
+endif
 ifdef PTXCONF_COREUTILS_MD5SUM
-	install $(COREUTILS_DIR)/src/md5sum $(ROOTDIR)/bin
+	$(call copy_root, 0, 0, 0755, $(COREUTILS_DIR)/src/md5sum, /bin)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/md5sum
 endif
 ifdef PTXCONF_COREUTILS_SEQ
-	install $(COREUTILS_DIR)/src/seq $(ROOTDIR)/usr/bin
+	$(call copy_root, 0, 0, 0755, $(COREUTILS_DIR)/src/seq, /usr/bin)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/seq
 endif
 	touch $@
