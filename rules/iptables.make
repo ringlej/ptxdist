@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: iptables.make,v 1.1 2004/08/23 09:33:24 rsc Exp $
+# $Id: iptables.make,v 1.2 2004/08/26 12:46:49 bbu Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          
@@ -69,7 +69,8 @@ iptables_prepare: $(STATEDIR)/iptables.prepare
 #
 iptables_prepare_deps = \
 	$(STATEDIR)/iptables.extract \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/kernel.prepare
 
 IPTABLES_PATH	=  PATH=$(CROSS_PATH)
 IPTABLES_ENV 	=  $(CROSS_ENV)
