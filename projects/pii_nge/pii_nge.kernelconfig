@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.9-rc2-pxa5
-# Mon Jan 17 11:37:47 2005
+# Fri Jan 14 13:49:33 2005
 #
 CONFIG_ARM=y
 CONFIG_MMU=y
@@ -29,7 +29,8 @@ CONFIG_SYSCTL=y
 # CONFIG_AUDIT is not set
 CONFIG_LOG_BUF_SHIFT=14
 CONFIG_HOTPLUG=y
-# CONFIG_IKCONFIG is not set
+CONFIG_IKCONFIG=y
+CONFIG_IKCONFIG_PROC=y
 # CONFIG_EMBEDDED is not set
 CONFIG_KALLSYMS=y
 # CONFIG_KALLSYMS_ALL is not set
@@ -265,7 +266,9 @@ CONFIG_NET=y
 #
 CONFIG_PACKET=y
 CONFIG_PACKET_MMAP=y
-# CONFIG_CAN is not set
+CONFIG_CAN=m
+CONFIG_CAN_RAW=m
+CONFIG_CAN_VCAN=m
 # CONFIG_NETLINK_DEV is not set
 CONFIG_UNIX=y
 # CONFIG_NET_KEY is not set
@@ -505,8 +508,8 @@ CONFIG_I2C_CHARDEV=m
 #
 # I2C Algorithms
 #
-# CONFIG_I2C_ALGOBIT is not set
-# CONFIG_I2C_ALGOPCF is not set
+CONFIG_I2C_ALGOBIT=m
+CONFIG_I2C_ALGOPCF=m
 # CONFIG_I2C_ALGOPCA is not set
 
 #
@@ -548,7 +551,7 @@ CONFIG_I2C_SENSOR=m
 #
 # Other I2C Chip support
 #
-# CONFIG_SENSORS_EEPROM is not set
+CONFIG_SENSORS_EEPROM=m
 # CONFIG_SENSORS_PCF8574 is not set
 # CONFIG_SENSORS_PCF8591 is not set
 # CONFIG_SENSORS_RTC8564 is not set
