@@ -1,0 +1,11 @@
+#! /bin/sh
+#
+# /etc/init.d/banner
+#
+# Copyright (C) 2003 Pengutronix
+# Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+echo
+echo "@PROJECT@-@VERSION@.@PATCHLEVEL@.@SUBLEVEL@@EXTRAVERSION@ (@DATE@)"
+echo 
