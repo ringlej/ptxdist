@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pango12.make,v 1.11 2004/02/25 22:36:34 robert Exp $
+# $Id: pango12.make,v 1.12 2004/02/26 01:03:23 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -91,7 +91,7 @@ PANGO12_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 PANGO12_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 PANGO12_AUTOCONF	+= --build=$(GNU_HOST)
 PANGO12_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-PANGO12_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+PANGO12_AUTOCONF	+= --with-x=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6
 PANGO12_AUTOCONF	+= --enable-explicit-deps
 
 $(STATEDIR)/pango12.prepare: $(pango12_prepare_deps)
