@@ -9,9 +9,11 @@
 #
 
 ::sysinit:/etc/init.d/banner 
+::sysinit:/sbin/ptx-init-permissions.sh
 ::sysinit:/etc/init.d/rcS
 ::sysinit:/sbin/openssh-host-keygen.sh
-#::sysinit:/sbin/syslogd
+# busybox syslogd ignores /etc/syslogd.conf
+::sysinit:/sbin/syslogd -O /dev/tty8
 #::sysinit:/sbin/syslogd host:514 (for remote logging)
 
 # Start userland network services 
