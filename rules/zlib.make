@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: zlib.make,v 1.10 2003/11/17 03:45:23 mkl Exp $
+# $Id: zlib.make,v 1.11 2004/01/22 00:49:59 robert Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -80,7 +80,7 @@ zlib_compile: $(STATEDIR)/zlib.compile
 
 $(STATEDIR)/zlib.compile: $(STATEDIR)/zlib.prepare 
 	@$(call targetinfo, $@)
-	$(ZLIB_PATH) make -C $(ZLIB_DIR)
+	cd $(ZLIB_DIR) && $(ZLIB_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -91,7 +91,8 @@ zlib_install: $(STATEDIR)/zlib.install
 
 $(STATEDIR)/zlib.install: $(STATEDIR)/zlib.compile
 	@$(call targetinfo, $@)
-	$(ZLIB_PATH) make -C $(ZLIB_DIR) install
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+	cd $(ZLIB_DIR) && $(ZLIB_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
