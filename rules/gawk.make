@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gawk.make,v 1.1 2003/10/31 11:57:46 mkl Exp $
+# $Id: gawk.make,v 1.2 2004/08/30 10:33:22 bsp Exp $
 #
 # Copyright (C) 2003 by Ixia Corporation, By Milan Bobde
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-GAWK_VERSION	= 3.0.3
+GAWK_VERSION	= 3.1.4
 GAWK		= gawk-$(GAWK_VERSION)
 GAWK_SUFFIX		= tar.gz
 GAWK_URL		= http://ftp.gnu.org/gnu/gawk/$(GAWK).$(GAWK_SUFFIX)
