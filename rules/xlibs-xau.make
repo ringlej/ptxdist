@@ -125,10 +125,9 @@ xlibs-xau_targetinstall_deps = $(STATEDIR)/xlibs-xau.compile
 
 $(STATEDIR)/xlibs-xau.targetinstall: $(xlibs-xau_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0644, $(XLIBS-XAU_DIR)/.libs/libXau.0.0.0,  /usr/X11R6/lib/libXau.so.0.0.0)
+	$(call copy_root, 0, 0, 0644, $(XLIBS-XAU_DIR)/.libs/libXau.so.0.0.0,  /usr/X11R6/lib/libXau.so.0.0.0)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libXau.so.0.0.0
 	$(call link_root, /usr/X11R6/lib/libXau.so.0.0.0, /usr/X11R6/lib/libXau.so.0)
-	$(call link_root, /usr/X11R6/lib/libXau.so.0.0.0, /usr/X11R6/lib/libXau.0)
 	$(call link_root, /usr/X11R6/lib/libXau.so.0.0.0, /usr/X11R6/lib/libXau.so)
 	touch $@
 
