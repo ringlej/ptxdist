@@ -133,7 +133,7 @@ endif
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/mgetty
 ifdef PTXCONF_SENDFAX
 	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/sendfax, /usr/sbin/sendfax)
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/sendfax
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/sendfax
 	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/g3/pbm2g3, /usr/bin/pbm2g3)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/pbm2g3
 	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/g3/g3cat, /usr/bin/g3cat)
