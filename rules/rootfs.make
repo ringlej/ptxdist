@@ -152,6 +152,7 @@ ifdef PTXCONF_ROOTFS_ETC
 	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/hostname,     /etc/hostname)
 	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/hosts,        /etc/hosts)
 	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/inittab,      /etc/inittab)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/nsswitch.conf,/etc/nsswitch.conf)
 	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/passwd,       /etc/passwd)
 	$(call copy_root, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/profile,      /etc/profile)
 	$(call copy_root, 11, 101, 0644, $(TOPDIR)/projects/generic/etc/proftpd.conf, /etc/proftpd.conf)
