@@ -257,12 +257,12 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 
 config-test: 
 	@for i in `find projects -name *.ptxconfig`; do 		\
-		echo -n "Project: $$i [press enter]"; read;		\
+		OUT=`basename $$i`;					\
+		$(call targetinfo,$$OUT);				\
 		cp $$i .config;						\
 		make oldconfig;						\
 		cp .config $$i;						\
 	done
-
 
 default_crosstool=/opt/crosstool-0.28-rc37
 
