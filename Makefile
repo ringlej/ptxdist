@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.56 2003/12/07 21:40:42 robert Exp $
+# $Id: Makefile,v 1.57 2003/12/07 23:03:27 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -211,7 +211,7 @@ roi-eics_config:
 
 scII-bmw_config:
 	@echo "copying solidcard-bmw configuration"
-	@cp i386-scII-bmwm.ptxconfig .config
+	@cp config/i386-scII-bmwm.ptxconfig .config
 
 scII-cameron_config:
 	@echo "copying scII-cameron configuration"
