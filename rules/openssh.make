@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssh.make,v 1.13 2003/10/28 02:21:14 mkl Exp $
+# $Id: openssh.make,v 1.14 2003/11/17 03:35:10 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -14,6 +14,13 @@
 #
 ifdef PTXCONF_OPENSSH
 PACKAGES += openssh
+endif
+
+#
+# We depend on this package
+#
+ifdef PTXCONF_OPENSSH
+PACKAGES += openssl
 endif
 
 #
