@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-binutils.make,v 1.5 2003/07/16 04:23:28 mkl Exp $
+# $Id: xchain-binutils.make,v 1.6 2003/08/14 10:02:18 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -116,8 +116,9 @@ XCHAIN_BINUTILS_AUTOCONF = \
 	--prefix=$(PTXCONF_PREFIX) \
 	--disable-nls \
 	--disable-shared \
-	--enable-multilib \
 	$(XCHAIN_BINUTILS_AUTOCONF_TARGET)
+
+#	--enable-multilib \
 
 XCHAIN_BINUTILS_ENV	= $(HOSTCC_ENV)
 

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.6 2003/07/16 04:40:24 mkl Exp $
+# $Id: xchain-gccstage1.make,v 1.7 2003/08/14 10:02:18 mkl Exp $
 #
 # (c) 2002,2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -227,11 +227,12 @@ GCC_STAGE1_AUTOCONF = \
 	--prefix=$(PTXCONF_PREFIX) \
 	--disable-nls \
 	--disable-shared \
-	--enable-multilib \
 	--enable-target-optspace \
 	--disable-threads \
 	--with-gnu-ld \
 	--enable-languages=c
+
+#	--enable-multilib \
 
 $(STATEDIR)/xchain-gccstage1.prepare: $(xchain-gccstage1_prepare_deps)
 	@$(call targetinfo, xchain-gccstage1.prepare)
