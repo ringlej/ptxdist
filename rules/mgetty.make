@@ -131,6 +131,10 @@ ifdef PTXCONF_MGETTY_INSTALL_CONFIG
 endif
 	$(call copy_root, 0, 0, 0700, $(MGETTY_DIR)/mgetty, /usr/sbin/mgetty)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/mgetty
+ifdef PTXCONF_MGETTY_CALLBACK
+	$(call copy_root, 0, 0, 4755, $(MGETTY_DIR)/callback/callback, /usr/sbin/callback)
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/callback
+endif
 ifdef PTXCONF_SENDFAX
 	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/sendfax, /usr/sbin/sendfax)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/sendfax
