@@ -11,131 +11,131 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_FPGAEDIT
-PACKAGES += fpgaedit
+ifdef PTXCONF_MEMEDIT
+PACKAGES += memedit
 endif
 
 #
 # Paths and names
 #
-FPGAEDIT_VERSION	= 0.3
-FPGAEDIT		= fpgaedit-$(FPGAEDIT_VERSION)
-FPGAEDIT_SUFFIX		= tar.gz
-FPGAEDIT_URL		= http://www.pengutronix.de/software/fpgaedit/downloads/$(FPGAEDIT).$(FPGAEDIT_SUFFIX)
-FPGAEDIT_SOURCE		= $(SRCDIR)/$(FPGAEDIT).$(FPGAEDIT_SUFFIX)
-FPGAEDIT_DIR		= $(BUILDDIR)/$(FPGAEDIT)
+MEMEDIT_VERSION		= 0.4
+MEMEDIT			= memedit-$(MEMEDIT_VERSION)
+MEMEDIT_SUFFIX		= tar.gz
+MEMEDIT_URL		= http://www.pengutronix.de/software/memedit/downloads/$(MEMEDIT).$(MEMEDIT_SUFFIX)
+MEMEDIT_SOURCE		= $(SRCDIR)/$(MEMEDIT).$(MEMEDIT_SUFFIX)
+MEMEDIT_DIR		= $(BUILDDIR)/$(MEMEDIT)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-fpgaedit_get: $(STATEDIR)/fpgaedit.get
+memedit_get: $(STATEDIR)/memedit.get
 
-fpgaedit_get_deps = $(FPGAEDIT_SOURCE)
+memedit_get_deps = $(MEMEDIT_SOURCE)
 
-$(STATEDIR)/fpgaedit.get: $(fpgaedit_get_deps)
+$(STATEDIR)/memedit.get: $(memedit_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(FPGAEDIT))
+	@$(call get_patches, $(MEMEDIT))
 	touch $@
 
-$(FPGAEDIT_SOURCE):
+$(MEMEDIT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(FPGAEDIT_URL))
+	@$(call get, $(MEMEDIT_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-fpgaedit_extract: $(STATEDIR)/fpgaedit.extract
+memedit_extract: $(STATEDIR)/memedit.extract
 
-fpgaedit_extract_deps = $(STATEDIR)/fpgaedit.get
+memedit_extract_deps = $(STATEDIR)/memedit.get
 
-$(STATEDIR)/fpgaedit.extract: $(fpgaedit_extract_deps)
+$(STATEDIR)/memedit.extract: $(memedit_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(FPGAEDIT_DIR))
-	@$(call extract, $(FPGAEDIT_SOURCE))
-	@$(call patchin, $(FPGAEDIT))
+	@$(call clean, $(MEMEDIT_DIR))
+	@$(call extract, $(MEMEDIT_SOURCE))
+	@$(call patchin, $(MEMEDIT))
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-fpgaedit_prepare: $(STATEDIR)/fpgaedit.prepare
+memedit_prepare: $(STATEDIR)/memedit.prepare
 
 #
 # dependencies
 #
-fpgaedit_prepare_deps = \
-	$(STATEDIR)/fpgaedit.extract \
+memedit_prepare_deps = \
+	$(STATEDIR)/memedit.extract \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/readline.install	
 
-FPGAEDIT_PATH	=  PATH=$(CROSS_PATH)
-FPGAEDIT_ENV 	=  $(CROSS_ENV)
-#FPGAEDIT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#FPGAEDIT_ENV	+=
+MEMEDIT_PATH	=  PATH=$(CROSS_PATH)
+MEMEDIT_ENV 	=  $(CROSS_ENV)
+#MEMEDIT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+#MEMEDIT_ENV	+=
 
 #
 # autoconf
 #
-FPGAEDIT_AUTOCONF =  --build=$(GNU_HOST)
-FPGAEDIT_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
-FPGAEDIT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+MEMEDIT_AUTOCONF =  --build=$(GNU_HOST)
+MEMEDIT_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
+MEMEDIT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
-$(STATEDIR)/fpgaedit.prepare: $(fpgaedit_prepare_deps)
+$(STATEDIR)/memedit.prepare: $(memedit_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(FPGAEDIT_DIR)/config.cache)
-	cd $(FPGAEDIT_DIR) && \
-		$(FPGAEDIT_PATH) $(FPGAEDIT_ENV) \
-		./configure $(FPGAEDIT_AUTOCONF)
+	@$(call clean, $(MEMEDIT_DIR)/config.cache)
+	cd $(MEMEDIT_DIR) && \
+		$(MEMEDIT_PATH) $(MEMEDIT_ENV) \
+		./configure $(MEMEDIT_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-fpgaedit_compile: $(STATEDIR)/fpgaedit.compile
+memedit_compile: $(STATEDIR)/memedit.compile
 
-fpgaedit_compile_deps = $(STATEDIR)/fpgaedit.prepare
+memedit_compile_deps = $(STATEDIR)/memedit.prepare
 
-$(STATEDIR)/fpgaedit.compile: $(fpgaedit_compile_deps)
+$(STATEDIR)/memedit.compile: $(memedit_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(FPGAEDIT_DIR) && $(FPGAEDIT_ENV) $(FPGAEDIT_PATH) make
+	cd $(MEMEDIT_DIR) && $(MEMEDIT_ENV) $(MEMEDIT_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-fpgaedit_install: $(STATEDIR)/fpgaedit.install
+memedit_install: $(STATEDIR)/memedit.install
 
-$(STATEDIR)/fpgaedit.install: $(STATEDIR)/fpgaedit.compile
+$(STATEDIR)/memedit.install: $(STATEDIR)/memedit.compile
 	@$(call targetinfo, $@)
-	cd $(FPGAEDIT_DIR) && $(FPGAEDIT_ENV) $(FPGAEDIT_PATH) make install
+	cd $(MEMEDIT_DIR) && $(MEMEDIT_ENV) $(MEMEDIT_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-fpgaedit_targetinstall: $(STATEDIR)/fpgaedit.targetinstall
+memedit_targetinstall: $(STATEDIR)/memedit.targetinstall
 
-fpgaedit_targetinstall_deps = $(STATEDIR)/fpgaedit.compile \
+memedit_targetinstall_deps = $(STATEDIR)/memedit.compile \
 			      $(STATEDIR)/readline.targetinstall
 
-$(STATEDIR)/fpgaedit.targetinstall: $(fpgaedit_targetinstall_deps)
+$(STATEDIR)/memedit.targetinstall: $(memedit_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0755, $(FPGAEDIT_DIR)/fpgaedit, /bin/fpgaedit)
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/bin/fpgaedit
+	$(call copy_root, 0, 0, 0755, $(MEMEDIT_DIR)/memedit, /bin/memedit)
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/bin/memedit
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-fpgaedit_clean:
-	rm -rf $(STATEDIR)/fpgaedit.*
-	rm -rf $(FPGAEDIT_DIR)
+memedit_clean:
+	rm -rf $(STATEDIR)/memedit.*
+	rm -rf $(MEMEDIT_DIR)
 
 # vim: syntax=make
