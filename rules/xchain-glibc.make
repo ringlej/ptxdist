@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-glibc.make,v 1.19 2003/11/20 10:13:05 robert Exp $
+# $Id: xchain-glibc.make,v 1.20 2003/11/24 01:08:09 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -86,8 +86,8 @@ $(STATEDIR)/xchain-glibc.compile: $(STATEDIR)/xchain-glibc.prepare
 # errlist-compat.c, which fails without a real cross-compiler.
 # Fortunately, we don't need errlist-compat.c, since we just need .h
 # files, so work around this by creating a fake errlist-compat.c and
-# satisfying its dependencies.  Another workaround might be to tell
-# configure to not use any cross options to $(CC).  The real fix would
+# satisfying its dependencies. Another workaround might be to tell
+# configure to not use any cross options to $(CC). The real fix would
 # be to get install-headers to not generate errlist-compat.c.
 #
 # Robert Schwebel writes:
@@ -95,12 +95,14 @@ $(STATEDIR)/xchain-glibc.compile: $(STATEDIR)/xchain-glibc.prepare
 # Is this necessary? The lines below are commented out but it seems 
 # to compile anyway...
 #
-ifeq ($(GLIBC_VERSION_MAJOR).$(GLIBC_VERSION_MINOR),2.3)
-# 	cd $(XCHAIN_GLIBC_BUILDDIR) && \
-# 		make sysdeps/gnu/errlist.c && \
-# 		mkdir -p stdio-common && \
-# 		touch stdio-common/errlist-compat.c
-endif
+# Marc Kleine-Budde has also something to say:
+#
+# This is definitely needed by x86 -> ppc
+#
+	$(XCHAIN_GLIBC_PATH) make -C $(XCHAIN_GLIBC_BUILDDIR) sysdeps/gnu/errlist.c
+	mkdir -p $(XCHAIN_GLIBC_BUILDDIR)/stdio-common
+	touch $(XCHAIN_GLIBC_BUILDDIR)/stdio-common/errlist-compat.c
+	touch $@
 	touch $@
 
 # ----------------------------------------------------------------------------
