@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.51 2003/11/13 18:32:25 mkl Exp $
+# $Id: Makefile,v 1.52 2003/11/17 03:19:25 mkl Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -273,6 +273,10 @@ archive:
 		--exclude $(BASENAME)/PATCHES-INCOMING		\
 		--exclude $(BASENAME)/patches			\
 		$(BASENAME)
+
+archive-toolchain: virtual-xchain_install
+	$(TAR) -C $(PTXCONF_PREFIX)/.. -jcvf $(TOPDIR)/$(PTXCONF_GNU_TARGET).tar.bz2 \
+		$(shell basename $(PTXCONF_PREFIX))
 
 $(INSTALL_LOG): 
 	make -C $(TOPDIR)/tools/install-log-1.9
