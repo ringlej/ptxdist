@@ -39,9 +39,15 @@ CD		= cd
 MV		= mv
 CP		= cp
 LN		= ln
+AWK		= awk
 PERL		= perl
 GREP		= grep
 INSTALL		= install
+ifdef PTXCONF_HOSTTOOLS_FAKEROOT
+FAKEROOT	= $(PTXCONF_PREFIX)/bin/fakeroot
+else
+FAKEROOT	= fakeroot
+endif
 
 HOSTCC_ENV	= CC=$(HOSTCC)
 
@@ -236,7 +242,7 @@ check_prog_exists = 				\
 #
 check_prog_version = 				\
 	@if [ `$(1) -V | head -n 1 |		\
-	awk '{gsub ("[a-zA-Z]",""); if ($$1 != $(2)) print "false"; else print "true"}'` == "false" ]; then \
+	$(AWK) '{gsub ("[a-zA-Z]",""); if ($$1 != $(2)) print "false"; else print "true"}'` == "false" ]; then \
 		echo "need $(1) version $(2)";	\
 		echo "please install";		\
 		exit -1;			\
@@ -848,12 +854,12 @@ copy_root = 									\
 	if [ -z "$(5)" ]; then									 \
 		echo "copy_root dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER"; 		 \
 		$(INSTALL) -d $(ROOTDIR)/$$SRC;							 \
-		echo "$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
+		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
 	else											 \
 		echo "copy_root src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER";  \
 		rm -fr $(ROOTDIR)$$DST; 							 \
 		$(INSTALL) -D $$SRC $(ROOTDIR)/$$DST;						 \
-		echo "$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
+		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
 	fi;
 
 
@@ -872,5 +878,28 @@ link_root =									\
 	echo "link_root src=$$SRC dst=$$DST "; 					\
 	$(LN) -sf $$SRC $(ROOTDIR)$$DST
 
+#
+# node_root
+#
+# Creates device node in root directory
+#
+# $1: UID
+# $2: GID
+# $3: permissions (octal)
+# $4: type
+# $5: major
+# $6: minor
+# $7: device node name
+#
+node_root = 									\
+	@OWN=`echo $(1) | sed -e 's/[[:space:]]//g'`;				\
+	GRP=`echo $(2) | sed -e 's/[[:space:]]//g'`;				\
+	PER=`echo $(3) | sed -e 's/[[:space:]]//g'`;				\
+	TYP=`echo $(4) | sed -e 's/[[:space:]]//g'`;				\
+	MAJ=`echo $(5) | sed -e 's/[[:space:]]//g'`;				\
+	MIN=`echo $(6) | sed -e 's/[[:space:]]//g'`;				\
+	DEV=`echo $(7) | sed -e 's/[[:space:]]//g'`;				\
+	echo "node_root name=$$DEV owner=$$OWN group=$$GRP permissions=$$PER type=$$TYP major=$$MAJ minor=$$MIN";	\
+	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(TOPDIR)/permissions
 
 # vim: syntax=make
