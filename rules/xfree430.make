@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.1 2003/08/17 00:34:18 robert Exp $
+# $Id: xfree430.make,v 1.2 2003/08/19 12:00:58 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -118,18 +118,15 @@ xfree430_prepare: $(STATEDIR)/xfree430.prepare
 #
 xfree430_prepare_deps =  \
 	$(STATEDIR)/xfree430.extract \
+	$(STATEDIR)/zlib.install \
+	$(STATEDIR)/ncurses.install \
+	$(STATEDIR)/libpng125.install \
 	$(STATEDIR)/virtual-xchain.install
 
 XFREE430_PATH	=  PATH=$(CROSS_PATH)
 XFREE430_ENV 	=  $(CROSS_ENV)
 
-#
-# autoconf
-#
-#XFREE430_AUTOCONF	=  --prefix=/usr
-#XFREE430_AUTOCONF	+= --build=$(GNU_HOST)
-#XFREE430_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-
+# FIXME: any features we want to add here? 
 #ifdef PTXCONF_XFREE430_FOO
 #XFREE430_AUTOCONF	+= --enable-foo
 #endif
@@ -137,6 +134,7 @@ XFREE430_ENV 	=  $(CROSS_ENV)
 $(STATEDIR)/xfree430.prepare: $(xfree430_prepare_deps)
 	@$(call targetinfo, xfree430.prepare)
 	@$(call clean, $(XFREE430_BUILDDIR))
+	
 	install -d $(XFREE430_BUILDDIR)
 	cd $(XFREE430_DIR)/config/util && make -f Makefile.ini lndir
 	cd $(XFREE430_BUILDDIR) && $(XFREE430_DIR)/config/util/lndir $(XFREE430_DIR)
@@ -149,6 +147,7 @@ $(STATEDIR)/xfree430.prepare: $(xfree430_prepare_deps)
 	ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-g++ $(XFREE430_BUILDDIR)/cross_compiler/
 	ln -sf $(PTXCONF_GNU_TARGET)-g++ $(XFREE430_BUILDDIR)/cross_compiler/g++
 	ln -sf g++ $(XFREE430_BUILDDIR)/cross_compiler/c++
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -161,11 +160,9 @@ xfree430_compile_deps =  $(STATEDIR)/xfree430.prepare
 
 $(STATEDIR)/xfree430.compile: $(xfree430_compile_deps)
 	@$(call targetinfo, xfree430.compile)
+	
 	cd $(XFREE430_BUILDDIR) && make World CROSSCOMPILEDIR=$(XFREE430_BUILDDIR)/cross_compiler
-	# FIXME: uggly hack 
-	chmod a+x $(XFREE430_BUILDDIR)/lib/freetype2/freetype/config/freetype-config
-	perl -i -p -e "s,/usr/X11R6,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET),g" \
-		$(XFREE430_BUILDDIR)/lib/freetype2/freetype/config/freetype-config
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -178,7 +175,7 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	@$(call targetinfo, xfree430.install)
 	
 	# FIXME
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11
 	cp -f $(XFREE430_BUILDDIR)/lib/Xft/libXft.so.2.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libXft.so.2.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXft.so.2
 	ln -sf libXft.so.2.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXft.so
@@ -186,9 +183,9 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	
 	rm -fr $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11
 	cp -fa $(XFREE430_BUILDDIR)/lib/X11 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/
-	cp -fa $(XFREE430_BUILDDIR)/include/*.h $(PTXCONF_GNU_TARGET)/include/X11/
+	cp -fa $(XFREE430_BUILDDIR)/include/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xft
-	cp -fa $(XFREE430_BUILDDIR)/lib/Xft/*.h $(PTXCONF_GNU_TARGET)/include/X11/Xft/
+	cp -fa $(XFREE430_BUILDDIR)/lib/Xft/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/Xft/
 	
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/extensions
 	cp -fa $(XFREE430_BUILDDIR)/lib/Xrender/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/extensions/
@@ -202,11 +199,27 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	ln -sf libXext.so.6.4 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXext.so
 	cp -fa $(XFREE430_BUILDDIR)/include/extensions/Xext.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/extensions/
 	
-	cp -fa $(XFREE430_BUILDDIR)/lib/X11/libX11.so.6 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	ln -sf libX11.so.6 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libX11.so
-	
-	cp -fa $(XFREE430_BUILDDIR)/lib/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/
+	cp -fa $(XFREE430_BUILDDIR)/lib/SM/libSM.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	ln -sf libSM.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libSM.so.6
+	ln -sf libSM.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libSM.so
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/SM
+	cp -fa $(XFREE430_BUILDDIR)/lib/SM/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/SM
 
+	cp -fa $(XFREE430_BUILDDIR)/lib/ICE/libICE.so.6.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	ln -sf libICE.so.6.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libICE.so.6
+	ln -sf libICE.so.6.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libICE.so
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/ICE
+	cp -fa $(XFREE430_BUILDDIR)/lib/ICE/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/ICE
+
+	cp -fa $(XFREE430_BUILDDIR)/lib/Xt/libXt.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	ln -sf libXt.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXt.so.6
+	ln -sf libXt.so.6.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXt.so
+	cp -f $(XFREE430_BUILDDIR)/lib/Xt/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/
+	
+	cp -fa $(XFREE430_BUILDDIR)/lib/X11/libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	ln -sf libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libX11.so.6
+	ln -sf libX11.so.6.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libX11.so
+	
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -222,6 +235,7 @@ xfree430_targetinstall_deps += $(STATEDIR)/zlib.targetinstall
 
 $(STATEDIR)/xfree430.targetinstall: $(xfree430_targetinstall_deps)
 	@$(call targetinfo, xfree430.targetinstall)
+	
 	# FIXME: this is somehow not being built...
 	touch $(XFREE430_BUILDDIR)/fonts/encodings/encodings.dir
 	cd $(XFREE430_BUILDDIR) && make install DESTDIR=$(ROOTDIR)
@@ -229,6 +243,7 @@ $(STATEDIR)/xfree430.targetinstall: $(xfree430_targetinstall_deps)
 	cp -f $(XFREE430_BUILDDIR)/lib/freetype2/libfreetype.so.6.3.3 $(ROOTDIR)/lib
 	ln -sf libfreetype.so.6.3.3 $(ROOTDIR)/lib/libfreetype.so.6
 	ln -sf libfreetype.so.6.3.3 $(ROOTDIR)/lib/libfreetype.so
+
 	touch $@
 
 # ----------------------------------------------------------------------------
