@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.3 2003/08/14 08:01:57 robert Exp $
+# $Id: glibc.make,v 1.4 2003/08/17 08:13:32 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -350,7 +350,7 @@ endif # PTXCONF_GLIBC_2_2_5
 	# fix: sunrpc's makefile has the wrong magic to find cpp...
 	# FIXME: is this the right fix for other versions than 2.2.5? 
 	cd $(GLIBC_DIR)/sunrpc && mkdir cpp && \
-		ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-cpp cpp/
+		ln -sf $(PTXCONF_PREFIX)/bin/cpp cpp/
 
 	# this is magically recreated if missing (necessary because
 	# of patch against configure.in)
