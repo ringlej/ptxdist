@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.5 2003/08/20 17:11:57 robert Exp $
+# $Id: glibc.make,v 1.6 2003/08/29 17:49:01 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -47,7 +47,7 @@ GLIBC_THREADS_SOURCE	= $(SRCDIR)/$(GLIBC_THREADS).tar.gz
 GLIBC_THREADS_DIR	= $(GLIBC_DIR)
 GLIBC_THREADS_EXTRACT	= gzip -dc
 
-GLIBC_PTXPATCH		= glibc-$(GLIBC_VERSION)-ptx3.diff
+GLIBC_PTXPATCH		= glibc-$(GLIBC_VERSION)-ptx4.diff
 GLIBC_PTXPATCH_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(GLIBC_PTXPATCH)
 GLIBC_PTXPATCH_SOURCE	= $(SRCDIR)/$(GLIBC_PTXPATCH)
 GLIBC_PTXPATCH_DIR	= $(GLIBC_DIR)
@@ -352,14 +352,11 @@ endif # PTXCONF_GLIBC_2_2_5
 	cd $(GLIBC_DIR)/sunrpc && mkdir cpp && \
 		ln -sf $(PTXCONF_PREFIX)/bin/cpp cpp/
 
-	# this is magically recreated if missing (necessary because
-	# of patch against configure.in)
-	rm -f $(GLIBC_DIR)/sysdeps/unix/sysv/linux/configure
-	
-	# We have to rebuild the toplevel configure script. Nobody knows
-	# why...
-	rm -f $(GLIBC_DIR)/configure
-	cd $(GLIBC_DIR) && $(GLIBC_PATH) autoconf
+#	# The -ptx4 patch manipulates configure instead of configure.in
+#	# as this does not work in a reliable way... :( 
+# 	rm -f $(GLIBC_DIR)/sysdeps/unix/sysv/linux/configure
+# 	rm -f $(GLIBC_DIR)/configure
+# 	cd $(GLIBC_DIR) && $(GLIBC_PATH) autoconf
 	touch $@
 
 $(STATEDIR)/glibc-threads.extract: $(STATEDIR)/glibc.get
