@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: template,v 1.5 2003/08/21 09:32:48 robert Exp $
+# $Id: template,v 1.6 2003/09/24 14:45:16 mkl Exp $
 #
 # (c) 2003 by @AUTHOR@
 #          
@@ -35,11 +35,11 @@ endif
 @packet@_get_deps	=  $(@PACKET@_SOURCE)
 
 $(STATEDIR)/@packet@.get: $(@packet@_get_deps)
-	@$(call targetinfo, @packet@.get)
+	@$(call targetinfo, $@)
 	touch $@
 
 $(@PACKET@_SOURCE):
-	@$(call targetinfo, $(@PACKET@_SOURCE))
+	@$(call targetinfo, $@)
 	@$(call get, $(@PACKET@_URL))
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ $(@PACKET@_SOURCE):
 @packet@_extract_deps	=  $(STATEDIR)/@packet@.get
 
 $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
-	@$(call targetinfo, @packet@.extract)
+	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
 	@$(call extract, $(@PACKET@_SOURCE))
 	touch $@
@@ -67,7 +67,7 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 #
 @packet@_prepare_deps =  \
 	$(STATEDIR)/@packet@.extract \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 @PACKET@_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 @PACKET@_ENV 	=  $(CROSS_ENV)
@@ -77,14 +77,14 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 #
 # autoconf
 #
-@PACKET@_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+@PACKET@_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 @PACKET@_AUTOCONF	+= --build=$(GNU_HOST)
 @PACKET@_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
 #@PACKET@_AUTOCONF	+= 
 
 $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
-	@$(call targetinfo, @packet@.prepare)
+	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_BUILDDIR))
 	cd $(@PACKET@_DIR) && \
 		$(@PACKET@_PATH) $(@PACKET@_ENV) \
@@ -100,7 +100,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
 @packet@_compile_deps =  $(STATEDIR)/@packet@.prepare
 
 $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
-	@$(call targetinfo, @packet@.compile)
+	@$(call targetinfo, $@)
 	$(@PACKET@_PATH) $(@PACKET@_ENV) make -C $(@PACKET@_DIR)
 	touch $@
 
@@ -111,7 +111,7 @@ $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
 @packet@_install: $(STATEDIR)/@packet@.install
 
 $(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
-	@$(call targetinfo, @packet@.install)
+	@$(call targetinfo, $@)
 	$(@PACKET@_PATH) $(@PACKET@_ENV) make -C $(@PACKET@_DIR) install
 	touch $@
 
@@ -124,7 +124,7 @@ $(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
 @packet@_targetinstall_deps	=  $(STATEDIR)/@packet@.compile
 
 $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
-	@$(call targetinfo, @packet@.targetinstall)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
