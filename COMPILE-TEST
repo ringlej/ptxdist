@@ -1,74 +1,74 @@
 Automatic Compilation Test
 --------------------------
 
-start: Do Jan 20 20:07:20 CET 2005
+start: Mi Feb 9 19:59:20 CET 2005
 
 config...: abbcc-viac3
-date.....: Do Jan 20 20:07:23 CET 2005
+date.....: Mi Feb 9 19:59:24 CET 2005
 user.....: robert@himalia
-buildtime: 0h27m59s
+buildtime: 0h50m39s
 result...: 0
 
 config...: i586-generic-glibc
-date.....: Do Jan 20 20:35:47 CET 2005
+date.....: Mi Feb 9 20:50:35 CET 2005
 user.....: robert@himalia
-buildtime: 0h23m16s
+buildtime: 0h37m43s
 result...: 0
 
 config...: frako
-date.....: Do Jan 20 20:59:29 CET 2005
+date.....: Mi Feb 9 21:28:45 CET 2005
 user.....: robert@himalia
-buildtime: 0h26m34s
+buildtime: 1h29m3s
 result...: 0
 
 config...: visbox
-date.....: Do Jan 20 21:26:46 CET 2005
+date.....: Mi Feb 9 22:58:21 CET 2005
 user.....: robert@himalia
-buildtime: 0h29m42s
+buildtime: 0h46m39s
 result...: 0
 
 config...: rayonic-i586
-date.....: Do Jan 20 21:57:00 CET 2005
+date.....: Mi Feb 9 23:45:27 CET 2005
 user.....: robert@himalia
-buildtime: 0h33m46s
+buildtime: 0h50m45s
 result...: 0
 
 config...: innokom-2.4-2.95
-date.....: Do Jan 20 22:31:16 CET 2005
+date.....: Do Feb 10 00:36:41 CET 2005
 user.....: robert@himalia
-buildtime: 1h6m8s
+buildtime: 1h6m55s
 result...: 2
 
 config...: innokom-2.4-3.3.2
-date.....: Do Jan 20 23:37:29 CET 2005
+date.....: Do Feb 10 01:44:00 CET 2005
 user.....: robert@himalia
-buildtime: 1h6m6s
+buildtime: 1h6m54s
 result...: 2
 
 config...: mx1fs2
-date.....: Fr Jan 21 00:43:39 CET 2005
+date.....: Do Feb 10 02:51:14 CET 2005
 user.....: robert@himalia
-buildtime: 0h21m15s
+buildtime: 0h58m23s
 result...: 0
 
 config...: pii_nge
-date.....: Fr Jan 21 01:05:20 CET 2005
+date.....: Do Feb 10 03:50:03 CET 2005
 user.....: robert@himalia
-buildtime: 0h32m11s
-result...: 2
+buildtime: 1h31m16s
+result...: 0
 
 config...: eb8245
-date.....: Fr Jan 21 01:38:23 CET 2005
+date.....: Do Feb 10 05:22:02 CET 2005
 user.....: robert@himalia
-buildtime: 0h17m57s
+buildtime: 0h41m12s
 result...: 0
 
 config...: cameron-efco
-date.....: Fr Jan 21 01:56:45 CET 2005
+date.....: Do Feb 10 06:03:38 CET 2005
 user.....: robert@himalia
-buildtime: 0h27m9s
+buildtime: 1h35m1s
 result...: 0
 
 
-stop: Fr Jan 21 02:24:30 CET 2005
+stop: Do Feb 10 07:39:04 CET 2005
 
