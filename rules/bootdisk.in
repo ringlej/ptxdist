@@ -19,12 +19,23 @@ config BOOTDISK_SECT
 	prompt "disk geometry: sectors/tracks"
 	default "255"
 	depends on BOOTDISK
+
+config BOOTDISK_SIZE_AUTODETECT
+        bool
+	prompt "autodetect rootfs size"
+	depends on BOOTDISK
+
+config BOOTDISK_SIZE_ADD
+	int
+	prompt "additional space for rootfs in blocks"
+	default "250"
+	depends on BOOTDISK_SIZE_AUTODETECT
 	
 config BOOTDISK_SIZE
 	int
-	prompt "image size in bytes"
+	prompt "root fs size in blocks"
 	default "20000"
-	depends on BOOTDISK
+	depends on !BOOTDISK_SIZE_AUTODETECT 
 	
 config BOOTDISK_PART
 	string

@@ -1,5 +1,5 @@
 # -*-makefile-*- 
-# $Id: bootdisk.make,v 1.14 2004/01/05 11:45:14 robert Exp $
+# $Id: bootdisk.make,v 1.15 2004/03/22 09:02:43 bbu Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -40,6 +40,17 @@ else
 BOOTDISK_DEV =
 endif
 
+#
+# Definitions
+#
+
+# calculate rootfs image size incl. additional blocks
+
+ifdef PTXCONF_BOOTDISK_SIZE_AUTODETECT
+PTXCONF_BOOTDISK_SIZE = $$(du -s $(TOPDIR)/root | \
+       awk '{size = $$1 + $(PTXCONF_BOOTDISK_SIZE_ADD); print size}')
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -75,7 +86,7 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	/bin/ls -l $(BOOTDISK_IMG) | \
 	awk '{size = $$5} END{size = $(PTXCONF_BOOTDISK_HEAD)*$(PTXCONF_BOOTDISK_SECT)*512 - size;for (i = 0; i < size; i++) printf ("\xff")}' >> $(BOOTDISK_IMG)
 	
-	# create ext2 image 
+	# create ext2 image for root fs	
 	$(PTXCONF_PREFIX)/bin/genext2fs -r 0 -d $(TOPDIR)/root \
 		-b $(PTXCONF_BOOTDISK_SIZE) \
 		$(BOOTDISK_DEV) \
