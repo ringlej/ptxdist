@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssl.make,v 1.8 2003/10/23 15:01:19 mkl Exp $
+# $Id: openssl.make,v 1.9 2003/10/26 20:59:26 mkl Exp $
 #
 # Copyright (C) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
 #               2003 by Pengutronix e.K., Hildesheim, Germany
@@ -20,29 +20,30 @@ endif
 #
 # Paths and names 
 #
-OPENSSL			= openssl-0.9.7b
+OPENSSL			= openssl-0.9.7c
 OPENSSL_URL 		= http://www.openssl.org/source/$(OPENSSL).tar.gz
 OPENSSL_SOURCE		= $(SRCDIR)/$(OPENSSL).tar.gz
 OPENSSL_DIR 		= $(BUILDDIR)/$(OPENSSL)
 
-ifeq (y,$(PTXCONF_ARCH_ARM))
+ifdef PTXCONF_ARCH_ARM
     THUD = linux-elf-arm
 endif
-ifeq (y,$(PTXCONF_ARCH_X86))
+ifdef PTXCONF_ARCH_X86
     THUD = linux-elf
 endif
-ifeq (y,$(PTXCONF_OPT_i586))
+ifdef PTXCONF_OPT_i586
     THUD = linux-pentium
 endif
-ifeq (y,$(PTXCONF_OPT_I686))
+ifdef PTXCONF_OPT_I686
     THUD = linux-ppro
 endif
-ifeq (y,$(PTXCONF_ARCH_PPC))
+ifdef PTXCONF_ARCH_PPC
     THUD = linux-ppc
 endif
-ifeq (y,$(PTXCONF_ARCH_SPARC))
+ifdef PTXCONF_ARCH_SPARC
     THUD = linux-sparcv7
 endif
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -68,6 +69,7 @@ $(STATEDIR)/openssl.extract: $(STATEDIR)/openssl.get
 	@$(call clean, $(OPENSSL_DIR))
 	@$(call extract, $(OPENSSL_SOURCE))
 	perl -p -i -e 's/-m486//' $(OPENSSL_DIR)/Configure
+# 	perl -p -i -e 's/-O3/$CFLAGS/' $(OPENSSL_DIR)/Configure
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -120,7 +122,13 @@ openssl_install: $(STATEDIR)/openssl.install
 
 $(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
 	@$(call targetinfo, $@)
-	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) install $(OPENSSL_MAKEVARS) INSTALL_PREFIX=$(CROSS_LIB_DIR) INSTALLTOP=''
+	mkdir -p $(CROSS_LIB_DIR)/lib/pkgconfig
+	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) install $(OPENSSL_MAKEVARS) \
+		INSTALL_PREFIX=$(CROSS_LIB_DIR) INSTALLTOP=''
+#
+# FIXME:
+# 	OPENSSL=${D}/usr/bin/openssl /usr/bin/perl tools/c_rehash ${D}/etc/ssl/certs
+#
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -129,8 +137,21 @@ $(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
 
 openssl_targetinstall: $(STATEDIR)/openssl.targetinstall
 
-$(STATEDIR)/openssl.targetinstall: $(STATEDIR)/openssl.install
+openssl_targetinstall_deps = \
+	$(STATEDIR)/zlib.targetinstall \
+	$(STATEDIR)/openssl.install
+
+$(STATEDIR)/openssl.targetinstall: $(openssl_targetinstall_deps)
 	@$(call targetinfo, $@)
+ifdef PTXCONF_OPENSSL_SHARED
+	mkdir -p $(ROOTDIR)/usr/lib
+
+	cp -a $(OPENSSL_DIR)/libssl.so* $(ROOTDIR)/usr/lib/
+	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libssl.so*
+
+	cp -a $(OPENSSL_DIR)/libcrypto.so* $(ROOTDIR)/usr/lib/
+	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libcrypto.so*
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
