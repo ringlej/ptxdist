@@ -1,4 +1,4 @@
-# -*-makefile -*-
+# -*-makefile-*-
 # $Id$
 #
 # This file contains global macro and environment definitions. 

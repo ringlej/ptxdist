@@ -122,7 +122,7 @@ $(STATEDIR)/glibc-threads.get: $(glibc_threads_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GLIBC_THREADS))
 	touch $@
-	
+
 $(GLIBC_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(GLIBC_URL))
@@ -284,8 +284,8 @@ glibc_install: $(STATEDIR)/glibc.install
 
 $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 	@$(call targetinfo, $@)
-	
-	
+
+
 	# Install as usual
 	cd $(GLIBC_BUILDDIR) && $(GLIBC_PATH) make 		\
 		install_root=$(CROSS_LIB_DIR) 			\
@@ -456,7 +456,7 @@ ifdef PTXCONF_GLIBC_GCONV_ISO8859_1
 	echo "module INTERNAL ISO-8859-1// ISO8859-1 1" \
 		>> $(ROOTDIR)/usr/lib/gconv/gconv-modules
 endif
-	
+
 endif
 	# Zonefiles
 	$(call copy_root, 0, 0, 0755, /usr/share/zoneinfo)
