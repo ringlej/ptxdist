@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gail.make,v 1.2 2004/02/25 09:53:35 bsp Exp $
+# $Id: gail.make,v 1.3 2004/02/25 22:31:50 robert Exp $
 #
 # Copyright (C) 2003 by BSP
 #          
@@ -126,6 +126,16 @@ gail_targetinstall_deps = $(STATEDIR)/gail.compile
 
 $(STATEDIR)/gail.targetinstall: $(gail_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	install -d $(ROOTDIR)/usr/lib
+        
+	install $(GAIL_DIR)/gail/.libs/libgail.so $(ROOTDIR)/usr/lib
+
+	install $(GAIL_DIR)/libgail-util/.libs/libgailutil.so.17.0.0 $(ROOTDIR)/usr/lib
+	ln -sf libgailutil.so.17.0.0 $(ROOTDIR)/usr/lib/libgailutil.so.17.0
+	ln -sf libgailutil.so.17.0.0 $(ROOTDIR)/usr/lib/libgailutil.so.17
+	ln -sf libgailutil.so.17.0.0 $(ROOTDIR)/usr/lib/libgailutil.so
+
 	touch $@
 
 # ----------------------------------------------------------------------------
