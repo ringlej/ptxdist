@@ -79,12 +79,52 @@ get_patches =											\
 	else											\
 		PATCH_TREE=$(FULLVERSION);							\
 	fi;											\
-	[ -d $(PATCHDIR) ] || mkdir -p $(PATCHDIR);						\
+	if [ ! -d $(PATCHDIR) ]; then								\
+		mkdir -p $(PATCHDIR);								\
+	fi;											\
+	if [ -d $(PATCHDIR)/$$PACKET_NAME ]; then						\
+		rm -fr $(PATCHDIR)/$$PACKET_NAME;						\
+	fi;											\
 	wget -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/;		\
 	wget -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;	\
-	echo "return without error" > /dev/null;
+	true
+
+#
+# returns an options from the .config file
+#
+# $1 = regex, that's applied to the .config file
+#      format: 's/foo/bar/'
+#
+# $2 = default option, this value is returned if the regex outputs nothing
+#
+get_option =										\
+	$(shell										\
+		REGEX="$(strip $(1))";							\
+		DEFAULT="$(strip $(2))";						\
+		if [ -f $(TOPDIR)/.config ]; then					\
+			VALUE=`cat $(TOPDIR)/.config | sed -n -e "$${REGEX}p"`;		\
+		fi;									\
+		echo $${VALUE:-$$DEFAULT}						\
+	)
+
+#
+# returns an options from the .config file
+#
+# $1 = regex, that's applied to the .config file
+#      format: 's/foo/bar/'
+# $2 = command that get in STDIN the output from the regex magic
+#      should return something in STDOUT
+#
+get_option_ext =									\
+	$(shell										\
+		REGEX="$(strip $(1))";							\
+		if [ -f $(TOPDIR)/.config ]; then					\
+			cat $(TOPDIR)/.config | sed -n -e "$${REGEX}p" | $(2);		\
+		fi;									\
+	)
+
 
 #
 # cleanup the given directory
@@ -169,22 +209,39 @@ disable_sh =						\
 #      if this parameter is omitted, the path will be derived
 #      from the packet name
 #
-patchin =								\
-	PACKET_NAME="$(strip $(1))";					\
-	PACKET_DIR="$(strip $(2))";					\
-	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};		\
-	for PATCH_NAME in						\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.diff		\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.patch		\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.gz		\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.bz2		\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff	\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch	\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz	\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;	\
-	    do								\
-		$(call patch_apply, $$PATCH_NAME, $$PACKET_DIR)		\
-	done
+patchin =									\
+	PACKET_NAME="$(strip $(1))";						\
+	PACKET_DIR="$(strip $(2))";						\
+	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};			\
+	for PATCH_NAME in							\
+	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.diff			\
+	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.patch			\
+	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.gz			\
+	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.bz2			\
+	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff		\
+	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch		\
+	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz		\
+	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;		\
+	    do									\
+		if [ -f $$PATCH_NAME ]; then					\
+			case "$$PATCH_NAME" in					\
+			*.diff|*.patch)						\
+				CAT=cat						\
+				;;						\
+			*.gz)							\
+				CAT=zcat					\
+				;;						\
+			*.bz2)							\
+				CAT=bzcat					\
+				;;						\
+			*)							\
+				false						\
+				;;						\
+			esac;							\
+			echo "patchin' $$PATCH_NAME ...";			\
+			$$CAT $$PATCH_NAME | $(PATCH) -Np1 -d $$PACKET_DIR;	\
+		fi;								\
+	    done
 
 #
 # apply a patch
@@ -211,8 +268,9 @@ patch_apply =								\
 			;;						\
 		esac;							\
 		echo "patchin' $$PATCH_NAME ...";			\
-		$$CAT $$PATCH_NAME | $(PATCH) -p1 -d $$PACKET_DIR;	\
+		$$CAT $$PATCH_NAME | $(PATCH) -Np1 -d $$PACKET_DIR;	\
 	fi;								\
+	true;
 
 
 #
