@@ -58,6 +58,7 @@ case $TARGET in
 	*sh3*)         PTXARCH=SH ; PTXSUBARCH=SH_ARCH_SH3 ; PTXOPT=OPT_SH3 ;; 
 	*sh4*)         PTXARCH=SH ; PTXSUBARCH=SH_ARCH_SH4 ; PTXOPT=OPT_SH4 ;;
 	*sh*)          PTXARCH=SH ;;
+	*alpha*)       PTXARCH=ALPHA ;;
 	*)             abort "unrecognized target $TARGET"
 esac
 
