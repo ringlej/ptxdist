@@ -739,6 +739,16 @@ config MTD_UNLOCK
 	prompt "unlock"
 	depends on MTD_UTILS
 
+config MTD_MKJFFS
+	bool
+	prompt "mkfs.jffs"
+	depends on MTD_UTILS && ZLIB
+
+config MTD_MKJFFS2
+	bool
+	prompt "mkfs.jffs2"
+	depends on MTD_UTILS && ZLIB
+
 endmenu
 
 # ----------------------------------------------------------------------------
