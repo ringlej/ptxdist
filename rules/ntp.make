@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ntp.make,v 1.4 2004/06/23 15:33:28 rsc Exp $
+# $Id: ntp.make,v 1.5 2004/08/18 13:48:55 rsc Exp $
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          
@@ -302,6 +302,8 @@ NTP_AUTOCONF += --with-openssl-libdir=$(OPENSSL_DIR)
 NTP_AUTOCONF += --with-openssl-incdir=$(OPENSSL_DIR)
 else
 NTP_AUTOCONF += --disable-crypto
+NTP_AUTOCONF += --without-openssl-libdir
+NTP_AUTOCONF += --without-openssl-incdir
 endif
 ifdef PTXCONF_NTP_SNTP
 NTP_AUTOCONF += --enable-sntp
