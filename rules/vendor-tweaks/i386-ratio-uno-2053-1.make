@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: i386-ratio-uno-2053-1.make,v 1.2 2004/04/05 11:15:45 bbu Exp $
+# $Id: i386-ratio-uno-2053-1.make,v 1.3 2004/04/07 11:39:39 bbu Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -22,7 +22,7 @@ $(STATEDIR)/ratio-uno-2053-1.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	copy /etc template
-	cp -a $(TOPDIR)/etc/ratio-uno-2053-1/ $(ROOTDIR)/etc
+	cp -a $(TOPDIR)/etc/ratio-uno-2053-1/. $(ROOTDIR)/etc
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
@@ -47,11 +47,13 @@ $(STATEDIR)/ratio-uno-2053-1.targetinstall:
 	echo "#             www.ratiosystem.de" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "#" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "serial --unit=0 --speed=9600 --word=8 --parity=no --stop=1" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "terminal --timeout=10 serial console" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "timeout 3" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "default 0" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo 'title "Compact Flash"' >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "kernel /boot/bzImage ip=10.192.255.200::10.192.240.254:255.255.240.0:EMIS-IP:eth0:off root=/dev/hda1" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "kernel /boot/bzImage ip=:::::eth0:on root=/dev/hda1" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo " " >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "#Alternativ: Services für 2 NICs anmelden:" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "#kernel /boot/bzImage ip=192.168.0.209::192.168.0.254:255.255.255.0::eth0:off,192.168.1.254:::255.255.255.0::eth1:off root=/dev/hdc1" >> $(ROOTDIR)/boot/grub/menu.lst
