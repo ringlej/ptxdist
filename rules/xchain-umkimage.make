@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-umkimage.make,v 1.4 2003/10/24 01:10:56 mkl Exp $
+# $Id: xchain-umkimage.make,v 1.5 2004/06/22 06:53:53 rsc Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -97,6 +97,7 @@ xchain-umkimage_install: $(STATEDIR)/xchain-umkimage.install
 
 $(STATEDIR)/xchain-umkimage.install: $(STATEDIR)/xchain-umkimage.compile
 	@$(call targetinfo, $@)
+	mkdir -p $(PTXCONF_PREFIX)/bin
 	install $(XCHAIN_UMKIMAGE_DIR)/mkimage $(PTXCONF_PREFIX)/bin/u-boot-mkimage
 	touch $@
 
