@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: figlet.make,v 1.1 2004/06/22 06:46:56 rsc Exp $
+# $Id: figlet.make,v 1.2 2004/07/01 16:06:48 rsc Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          
@@ -36,7 +36,7 @@ figlet_get_deps = $(FIGLET_SOURCE)
 
 $(STATEDIR)/figlet.get: $(figlet_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, PTXCONF_FIGLET)
+	@$(call get_patches, $(FIGLET))
 	touch $@
 
 $(FIGLET_SOURCE):
@@ -55,7 +55,7 @@ $(STATEDIR)/figlet.extract: $(figlet_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FIGLET_DIR))
 	@$(call extract, $(FIGLET_SOURCE))
-	@$(call patchin, $(PTXCONF_FIGLET))
+	@$(call patchin, $(FIGLET))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -114,6 +114,7 @@ $(STATEDIR)/figlet.targetinstall: $(figlet_targetinstall_deps)
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/usr/sbin
 	install -d $(ROOTDIR)/usr/share/figlet
+	rm -f $(ROOTDIR)/usr/sbin/figlet $(ROOTDIR)/usr/share/figlet/*
 	cp $(FIGLET_DIR)/figlet $(ROOTDIR)/usr/sbin/
 	cp $(FIGLET_DIR)/fonts/standard.flf $(ROOTDIR)/usr/share/figlet/
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/figlet

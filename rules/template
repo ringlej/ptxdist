@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: template,v 1.13 2004/03/31 16:19:16 robert Exp $
+# $Id: template,v 1.14 2004/07/01 16:08:08 rsc Exp $
 #
 # Copyright (C) 2004 by @AUTHOR@
 #          
@@ -36,7 +36,7 @@ endif
 
 $(STATEDIR)/@packet@.get: $(@packet@_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, PTXCONF_@PACKET@)
+	@$(call get_patches, $(@PACKET@))
 	touch $@
 
 $(@PACKET@_SOURCE):
@@ -55,7 +55,7 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
 	@$(call extract, $(@PACKET@_SOURCE))
-	@$(call patchin, $(PTXCONF_@PACKET@))
+	@$(call patchin, $(@PACKET@))
 	touch $@
 
 # ----------------------------------------------------------------------------
