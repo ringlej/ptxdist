@@ -1223,7 +1223,7 @@ PTXCONF_FLASH=y
 # Tools                       
 #
 PTXCONF_FIGLET=y
-# PTXCONF_FPGAEDIT is not set
+# PTXCONF_MEMEDIT is not set
 
 #
 # Editors                     

@@ -905,7 +905,7 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 # Tools                       
 #
 # PTXCONF_FIGLET is not set
-# PTXCONF_FPGAEDIT is not set
+# PTXCONF_MEMEDIT is not set
 
 #
 # Editors                     
