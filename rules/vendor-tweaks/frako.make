@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: frako.make,v 1.1 2003/12/04 13:19:46 bsp Exp $
+# $Id: frako.make,v 1.2 2004/02/16 10:15:14 bsp Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -12,6 +12,13 @@
 
 VENDORTWEAKS = frako
 
+# ---------
+# LCD Modul
+# ---------
+LCD_SOURCE	= $(SRCDIR)/lcd_module-2.0.3.tar.gz
+LCD_DIR		= $(BUILDDIR)/lcd_module
+LCD_PATH	= PATH=$(CROSS_PATH) 
+LCD_ENV		= $(CROSS_ENV)
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -57,6 +64,18 @@ $(STATEDIR)/frako.targetinstall:
 	install -d $(ROOTDIR)/home/frako
 	install -d $(ROOTDIR)/home/system
 	
+#	make lcd_modules
+	
+	@$(call clean, $(LCD_DIR))
+	@$(call extract, $(LCD_SOURCE))
+	cd $(LCD_DIR) && \
+	$(LCD_PATH) $(LCD_ENV) autoconf
+	cd $(LCD_DIR) && \
+		$(LCD_PATH) $(LCD_ENV) \
+	./configure --build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) \
+	--with-linux=$(KERNEL_DIR)
+	$(LCD_PATH) $(LCD_ENV) make -C $(LCD_DIR)
+	install $(LCD_DIR)/lcd_module.o $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)/kernel/drivers/char/
 	touch $@
 
 # vim: syntax=make
