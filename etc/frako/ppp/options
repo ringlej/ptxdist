@@ -12,7 +12,7 @@
 name EMIS-IP 
 
 # The local IP (needed)
-192.168.168.1:
+169.254.254.254:
 
 # Enforce the use of the hostname as the name of the local system for
 # authentication purposes (overrides the name option).
