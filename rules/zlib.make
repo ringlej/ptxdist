@@ -18,7 +18,7 @@ endif
 #
 # Paths and names 
 #
-ZLIB			= zlib-1.1.4
+ZLIB			= zlib-1.2.1
 ZLIB_URL 		= http://www.gzip.org/zlib/$(ZLIB).tar.gz
 ZLIB_SOURCE		= $(SRCDIR)/$(ZLIB).tar.gz
 ZLIB_DIR		= $(BUILDDIR)/$(ZLIB)
@@ -60,16 +60,13 @@ zlib_prepare_deps = \
 	$(STATEDIR)/zlib.extract
 
 ZLIB_PATH	=  PATH=$(CROSS_PATH)
+ZLIB_ENV	=  $(CROSS_ENV)
 ZLIB_AUTOCONF 	=  --shared
 ZLIB_AUTOCONF 	+= --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps)
 	@$(call targetinfo, $@)
-	cd $(ZLIB_DIR) && \
-		$(ZLIB_PATH) \
-		./configure $(ZLIB_AUTOCONF)
-	perl -i -p -e 's/=gcc/=$(CROSS_ENV_CC_PROG)/g' $(ZLIB_DIR)/Makefile
-	perl -i -p -e 's/=ar/=$(CROSS_ENV_AR_PROG)/g' $(ZLIB_DIR)/Makefile
+	cd $(ZLIB_DIR) && $(ZLIB_ENV) $(ZLIB_PATH) ./configure $(ZLIB_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -80,7 +77,7 @@ zlib_compile: $(STATEDIR)/zlib.compile
 
 $(STATEDIR)/zlib.compile: $(STATEDIR)/zlib.prepare 
 	@$(call targetinfo, $@)
-	cd $(ZLIB_DIR) && $(ZLIB_PATH) make
+	$(ZLIB_ENV) $(ZLIB_PATH) cd $(ZLIB_DIR) && make
 	touch $@
 
 # ----------------------------------------------------------------------------
