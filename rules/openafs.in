@@ -1,4 +1,4 @@
-menu "OpenAFS  "
+menu    "OpenAFS             "
 config OPENAFS
 	bool
 	prompt "Compile OpenAFS"

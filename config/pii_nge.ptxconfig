@@ -69,15 +69,15 @@ PTXCONF_TARGET_CONFIG_FILE="arm.dat"
 PTXCONF_ARCH="arm"
 PTXCONF_ARCH_USERSPACE="arm"
 PTXCONF_ARM_PROC="armv"
-PTXCONF_GNU_TARGET="arm-unknown-linux-gnu"
-PTXCONF_PREFIX="/ptx/ptxdist-20040612-1-pii1/local/"
+PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
+PTXCONF_PREFIX="/ptx/ptxdist-20040628-1-pii1/local/"
 PTXCONF_ROOT=""
 
 #
 # Cross Toolchain     
 #
 # PTXCONF_BUILD_CROSSCHAIN is not set
-PTXCONF_CROSSCHAIN_CHECK="2.95.3"
+PTXCONF_CROSSCHAIN_CHECK="3.3.3"
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
@@ -91,6 +91,7 @@ PTXCONF_ROOTFS_MNT=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_HOME=y
 PTXCONF_ROOTFS_VAR=y
+PTXCONF_ROOTFS_SYS=y
 PTXCONF_VENDORTWEAKS="pii_nge.make"
 
 #
@@ -100,10 +101,7 @@ PTXCONF_XGDB=y
 PTXCONF_GDBSERVER=y
 PTXCONF_GDBSERVER_SHARED=y
 PTXCONF_GDB=y
-
-#
-# building GDB static, install libm on target (see C Library) to enables shared
-#
+PTXCONF_GDB_SHARED=y
 PTXCONF_GDB_TERMCAP=y
 # PTXCONF_GDB_NCURSES is not set
 # PTXCONF_GDB_WRAPPERS is not set
@@ -129,9 +127,9 @@ PTXCONF_STRACE_SHARED=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.4.19-pii_nge"
+PTXCONF_KERNEL_CONFIG="kernel-2.6.7-pii_nge"
 # PTXCONF_KERNEL_2_4_18 is not set
-PTXCONF_KERNEL_2_4_19=y
+# PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
 # PTXCONF_KERNEL_2_4_21 is not set
 # PTXCONF_KERNEL_2_4_22 is not set
@@ -141,6 +139,7 @@ PTXCONF_KERNEL_2_4_19=y
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
+PTXCONF_KERNEL_2_6_7=y
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -151,36 +150,22 @@ PTXCONF_KERNEL_INSTALL=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH1_URL="ftp://ftp.arm.linux.org.uk/pub/linux/arm/kernel/v2.4/patch-2.4.19-rmk7.bz2"
-PTXCONF_KERNEL_PATCH1_NAME="rmk7"
+PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.7-ptx4/linux-2.6.7-mtd20040622.diff"
+PTXCONF_KERNEL_PATCH1_NAME="mtd20040622"
 PTXCONF_KERNEL_PATCH1_XCHAIN=y
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH2_URL="ftp://ftp.arm.linux.org.uk/pub/armlinux/people/nico/diff-2.4.19-rmk7-pxa2.gz"
-PTXCONF_KERNEL_PATCH2_NAME="rmk7-pxa2"
+PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.7-ptx4/linux-2.6.7-mtd20040622-ptx4.diff"
+PTXCONF_KERNEL_PATCH2_NAME="mtd20040622-ptx4"
 PTXCONF_KERNEL_PATCH2_XCHAIN=y
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH3_URL="file:///ptx/pnp-patches/linux-2.4.19-rmk7-pxa2-ssv1.diff"
-PTXCONF_KERNEL_PATCH3_NAME="rmk7-pxa2-ssv1"
-# PTXCONF_KERNEL_PATCH3_XCHAIN is not set
-
-#
-# 
-#
-PTXCONF_KERNEL_PATCH4_URL="file:///ptx/pnp-patches/linux-2.4.19-rmk7-pxa2-ssv1-ptx1.patch"
-PTXCONF_KERNEL_PATCH4_NAME="rmk7-pxa2-ssv1-ptx1"
-# PTXCONF_KERNEL_PATCH4_XCHAIN is not set
-
-#
-# 
-#
-PTXCONF_KERNEL_PATCH5_URL=""
-PTXCONF_KERNEL_PATCH5_NAME=""
+PTXCONF_KERNEL_PATCH3_URL=""
+PTXCONF_KERNEL_PATCH3_NAME=""
 
 #
 # Extentions
@@ -204,8 +189,8 @@ PTXCONF_GLIBC=y
 #
 # C Library options
 #
-# PTXCONF_GLIBC_2_3_2 is not set
-PTXCONF_GLIBC_2_2_5=y
+PTXCONF_GLIBC_2_3_2=y
+# PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
 # PTXCONF_UCLIBC_0_9_26 is not set
@@ -225,7 +210,7 @@ PTXCONF_GLIBC_THREAD_DB=y
 PTXCONF_GLIBC_DL=y
 PTXCONF_GLIBC_CRYPT=y
 # PTXCONF_GLIBC_UTIL is not set
-# PTXCONF_GLIBC_LIBM is not set
+PTXCONF_GLIBC_LIBM=y
 PTXCONF_GLIBC_NSS_DNS=y
 PTXCONF_GLIBC_NSS_FILES=y
 # PTXCONF_GLIBC_NSS_HESIOD is not set
@@ -245,11 +230,6 @@ PTXCONF_UC_TARGET_arm=y
 #
 # Core Tools ---  
 #
-
-#
-# Pdksh               
-#
-# PTXCONF_PDKSH is not set
 
 #
 # Bash                
@@ -697,9 +677,9 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # PTXCONF_BB_CONFIG_DEBUG is not set
 
 #
-# mgetty & sendfax    
+# GNU coreutils       
 #
-# PTXCONF_MGETTY is not set
+# PTXCONF_COREUTILS is not set
 
 #
 # Gawk                
@@ -707,15 +687,55 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # PTXCONF_GAWK is not set
 
 #
+# mgetty & sendfax    
+#
+# PTXCONF_MGETTY is not set
+
+#
 # MTD Tools           
 #
 # PTXCONF_MTD_XCHAIN is not set
-# PTXCONF_MTD_UTILS is not set
+PTXCONF_MTD_UTILS=y
+PTXCONF_MTD_FLASH_ERASE=y
+PTXCONF_MTD_FLASH_ERASEALL=y
+PTXCONF_MTD_FLASH_INFO=y
+PTXCONF_MTD_FLASH_LOCK=y
+PTXCONF_MTD_FLASH_UNLOCK=y
+# PTXCONF_MTD_FLASHCP is not set
+# PTXCONF_MTD_FTL_CHECK is not set
+# PTXCONF_MTD_FTL_FORMAT is not set
+# PTXCONF_MTD_JFFS_DUMP is not set
+PTXCONF_MTD_JFFS2_DUMP=y
+# PTXCONF_MTD_JITTERTEST is not set
+# PTXCONF_MTD_MTDDEBUG is not set
+# PTXCONF_MTD_NANDDUMP is not set
+# PTXCONF_MTD_NANDWRITE is not set
+# PTXCONF_MTD_NFTL_FORMAT is not set
+# PTXCONF_MTD_NFTLDUMP is not set
+# PTXCONF_MTD_MKJFFS is not set
+# PTXCONF_MTD_MKJFFS2 is not set
 
 #
-# GNU coreutils       
+# PCMCIA Tools        
 #
-# PTXCONF_COREUTILS is not set
+# PTXCONF_PCMCIA_TOOLS is not set
+
+#
+# Pdksh               
+#
+# PTXCONF_PDKSH is not set
+
+#
+# procps              
+#
+# PTXCONF_PROCPS is not set
+
+#
+# sysutils            
+#
+PTXCONF_SYSUTILS=y
+PTXCONF_SYSUTILS_LSBUS=y
+PTXCONF_SYSUTILS_SYSTOOL=y
 
 #
 # util-linux          
@@ -724,19 +744,9 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # PTXCONF_CLOCK is not set
 
 #
-# procps              
-#
-# PTXCONF_PROCPS is not set
-
-#
 # VHLL Support        
 #
 # PTXCONF_VHLL_PYTHON23 is not set
-
-#
-# PCMCIA Tools        
-#
-# PTXCONF_PCMCIA_TOOLS is not set
 
 #
 # Network Tools --- 
@@ -776,99 +786,19 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 #
 
 #
-# bing                
-#
-# PTXCONF_BING is not set
-
-#
-# ppp                 
-#
-# PTXCONF_PPP is not set
-
-#
-# nmap                
-#
-# PTXCONF_NMAP is not set
-
-#
-# utelnetd            
-#
-PTXCONF_UTELNETD=y
-
-#
-# inetutils           
-#
-# PTXCONF_INETUTILS is not set
-
-#
-# netcat              
-#
-# PTXCONF_NETCAT is not set
-
-#
-# proftpd             
-#
-# PTXCONF_PROFTPD is not set
-
-#
 # betaftpd            
 #
 # PTXCONF_BETAFTPD is not set
 
 #
-# nfs-utils           
-#
-# PTXCONF_NFSUTILS is not set
-
-#
-# Portmapper          
-#
-# PTXCONF_PORTMAP is not set
-
-#
-# tcpwrapper          
-#
-# PTXCONF_TCPWRAPPER is not set
-
-#
-# Wireless Tools      
-#
-# PTXCONF_WIRELESS is not set
-
-#
-# GNU Zebra           
-#
-# PTXCONF_ZEBRA is not set
-
-#
-# libnet              
-#
-# PTXCONF_LIBNET is not set
-
-#
-# libpcap             
-#
-# PTXCONF_LIBPCAP is not set
-
-#
-# rsync               
-#
-# PTXCONF_RSYNC is not set
-
-#
-# thttpd              
-#
-# PTXCONF_THTTPD is not set
-
-#
-# NTP                 
-#
-# PTXCONF_NTP is not set
-
-#
 # Bind                
 #
 # PTXCONF_BIND is not set
+
+#
+# bing                
+#
+PTXCONF_BING=y
 
 #
 # dhcp                
@@ -881,15 +811,121 @@ PTXCONF_UTELNETD=y
 # PTXCONF_DNSMASQ is not set
 
 #
-# tcpdump             
+# ethereal            
 #
-# PTXCONF_TCPDUMP is not set
+# PTXCONF_ETHEREAL is not set
+
+#
+# inetutils           
+#
+# PTXCONF_INETUTILS is not set
+
+#
+# libnet              
+#
+# PTXCONF_LIBNET is not set
+
+#
+# libpcap             
+#
+PTXCONF_LIBPCAP=y
+
+#
+# netcat              
+#
+# PTXCONF_NETCAT is not set
+
+#
+# nfs-utils           
+#
+
+#
+# compile options
+#
+# PTXCONF_NFSUTILS is not set
+
+#
+# install options
+#
+
+#
+# nmap                
+#
+# PTXCONF_NMAP is not set
+
+#
+# NTP                 
+#
+# PTXCONF_NTP is not set
+
+#
+# Compile Options
+#
+
+#
+# crypto needs openssl
+#
+
+#
+# Install Options
+#
 
 #
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
 PTXCONF_OPENAFS_1_2_11=y
+
+#
+# Portmapper          
+#
+# PTXCONF_PORTMAP is not set
+
+#
+# ppp                 
+#
+# PTXCONF_PPP is not set
+
+#
+# proftpd             
+#
+# PTXCONF_PROFTPD is not set
+
+#
+# rsync               
+#
+# PTXCONF_RSYNC is not set
+
+#
+# tcpdump             
+#
+PTXCONF_TCPDUMP=y
+PTXCONF_TCPDUMP_DISABLE_CRYPTO=y
+
+#
+# tcpwrapper          
+#
+# PTXCONF_TCPWRAPPER is not set
+
+#
+# thttpd              
+#
+# PTXCONF_THTTPD is not set
+
+#
+# utelnetd            
+#
+PTXCONF_UTELNETD=y
+
+#
+# Wireless Tools      
+#
+# PTXCONF_WIRELESS is not set
+
+#
+# GNU Zebra           
+#
+# PTXCONF_ZEBRA is not set
 
 #
 # Disk and file ---   
