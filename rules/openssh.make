@@ -26,7 +26,7 @@ endif
 #
 # Paths and names 
 #
-OPENSSH			= openssh-3.7.1p2
+OPENSSH			= openssh-3.9p1
 OPENSSH_URL 		= ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).tar.gz
 OPENSSH_SOURCE		= $(SRCDIR)/$(OPENSSH).tar.gz
 OPENSSH_DIR 		= $(BUILDDIR)/$(OPENSSH)
@@ -37,21 +37,13 @@ OPENSSH_DIR 		= $(BUILDDIR)/$(OPENSSH)
 
 openssh_get: $(STATEDIR)/openssh.get
 
-openssh_get_deps = \
-	$(OPENSSH_SOURCE) \
-	$(STATEDIR)/openssh-patches.get
-
-$(STATEDIR)/openssh.get: $(openssh_get_deps)
-	@$(call targetinfo, openssh.get)
-	touch $@
-
-$(STATEDIR)/openssh-patches.get:
-	@$(call targetinfo, $@)
+$(STATEDIR)/openssh.get: $(OPENSSL_SOURCE)
+	@$(call targetinfo, @$)
 	@$(call get_patches, $(OPENSSH))
 	touch $@
 
 $(OPENSSH_SOURCE):
-	@$(call targetinfo, $(OPENSSH_SOURCE))
+	@$(call targetinfo, @$)
 	@$(call get, $(OPENSSH_URL))
 
 # ----------------------------------------------------------------------------
@@ -128,15 +120,13 @@ OPENSSH_ENV	= \
 	$(CROSS_ENV_OBJCOPY) \
 	$(CROSS_ENV_RANLIB) \
 	$(CROSS_ENV_STRIP) \
-	LD=$(PTXCONF_GNU_TARGET)-gcc
+	LD=$(COMPILER_PREFIX)gcc
 
 #
 # autoconf
 #
-OPENSSH_AUTOCONF =  $(CROSS_AUTOCONF)
-OPENSSH_AUTOCONF =  \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
+OPENSSH_AUTOCONF = \
+	$(CROSS_AUTOCONF) \
 	--prefix=/usr \
 	--libexecdir=/usr/sbin \
 	--libdir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
@@ -144,6 +134,7 @@ OPENSSH_AUTOCONF =  \
 	--with-cflags=-I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include \
 	--sysconfdir=/etc/ssh \
 	--with-privsep-path=/var/run/sshd \
+	--with-rand-helper=no \
 	--without-pam \
 	--with-ipv4-default \
 	--disable-etc-default-login \
@@ -152,6 +143,7 @@ OPENSSH_AUTOCONF =  \
 	--disable-utmpx \
 	--disable-wtmp \
 	--disable-wtmpx \
+	--with-zlib=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
 	--with-ssl-dir=$(CROSS_LIB_DIR)
 
 
