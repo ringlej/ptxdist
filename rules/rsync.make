@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rsync.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: rsync.make,v 1.3 2003/12/04 09:51:39 mkl Exp $
 #
 # Copyright (C) 2003 by wschmitt@envicomp.de
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-RSYNC_VERSION	= 2.5.6
+RSYNC_VERSION	= 2.5.7
 RSYNC		= rsync-$(RSYNC_VERSION)
 RSYNC_SUFFIX	= tar.gz
 RSYNC_URL	= http://samba.anu.edu.au/ftp/rsync/$(RSYNC).$(RSYNC_SUFFIX)
