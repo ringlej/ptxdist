@@ -18,7 +18,7 @@ endif
 #
 # Paths and names
 #
-FPGAEDIT_VERSION	= 0.2
+FPGAEDIT_VERSION	= 0.3
 FPGAEDIT		= fpgaedit-$(FPGAEDIT_VERSION)
 FPGAEDIT_SUFFIX		= tar.gz
 FPGAEDIT_URL		= http://www.pengutronix.de/software/fpgaedit/downloads/$(FPGAEDIT).$(FPGAEDIT_SUFFIX)
@@ -68,7 +68,8 @@ fpgaedit_prepare: $(STATEDIR)/fpgaedit.prepare
 #
 fpgaedit_prepare_deps = \
 	$(STATEDIR)/fpgaedit.extract \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/readline.install	
 
 FPGAEDIT_PATH	=  PATH=$(CROSS_PATH)
 FPGAEDIT_ENV 	=  $(CROSS_ENV)
@@ -78,7 +79,8 @@ FPGAEDIT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-FPGAEDIT_AUTOCONF =  $(CROSS_AUTOCONF)
+FPGAEDIT_AUTOCONF =  --build=$(GNU_HOST)
+FPGAEDIT_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 FPGAEDIT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/fpgaedit.prepare: $(fpgaedit_prepare_deps)
@@ -119,10 +121,13 @@ $(STATEDIR)/fpgaedit.install: $(STATEDIR)/fpgaedit.compile
 
 fpgaedit_targetinstall: $(STATEDIR)/fpgaedit.targetinstall
 
-fpgaedit_targetinstall_deps = $(STATEDIR)/fpgaedit.compile
+fpgaedit_targetinstall_deps = $(STATEDIR)/fpgaedit.compile \
+			      $(STATEDIR)/readline.targetinstall
 
 $(STATEDIR)/fpgaedit.targetinstall: $(fpgaedit_targetinstall_deps)
 	@$(call targetinfo, $@)
+	$(call copy_root, 0, 0, 0755, $(FPGAEDIT_DIR)/fpgaedit, /bin/fpgaedit)
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/bin/fpgaedit
 	touch $@
 
 # ----------------------------------------------------------------------------
