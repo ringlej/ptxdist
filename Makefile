@@ -173,10 +173,13 @@ ifdef PTXCONF_IMAGE_TGZ
 	$(PTXCONF_PREFIX)/bin/fakeroot -- 
 endif
 ifdef PTXCONF_IMAGE_JFFS2
-	$(PTXCONF_PREFIX)/bin/mkfs.jffs2 \
-		-d $(ROOTDIR) \
-		--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) \
-		-o $(TOPDIR)/images/root.jffs2
+	cd $(ROOTDIR); \
+	(awk -F: '{printf("chmod %s .%s; chown %s.%s .%s;\n", $$4, $$1, $$2, $$3, $$1);}' $(TOPDIR)/permissions && \
+	( \
+		echo -n "$(PTXCONF_PREFIX)/bin/mkfs.jffs2 -d $(ROOTDIR) "; \
+		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
+		echo "-o $(TOPDIR)/images/root.jffs2" ) \
+	) | $(PTXCONF_PREFIX)/bin/fakeroot -- 
 endif
 	touch $@
 
@@ -308,7 +311,7 @@ getclean:
 imageclean:
 	@echo -n "cleaning images dir.............. "
 	@for i in $$(ls -I CVS $(TOPDIR)/images); do echo -n $$i' '; rm -fr $(TOPDIR)/images/"$$i"; done
-	@rm -f $(STATEDIR)/*.image
+	@rm -f $(STATEDIR)/image
 	@echo "done."
 
 archive:  
