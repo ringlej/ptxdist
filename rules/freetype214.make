@@ -20,7 +20,7 @@ endif
 #
 # Paths and names
 #
-FREETYPE214_VERSION	= 2.1.7
+FREETYPE214_VERSION	= 2.1.9
 FREETYPE214		= freetype-$(FREETYPE214_VERSION)
 FREETYPE214_SUFFIX	= tar.gz
 FREETYPE214_URL		= ftp://gd.tuwien.ac.at/publishing/freetype/freetype2/$(FREETYPE214).$(FREETYPE214_SUFFIX)
