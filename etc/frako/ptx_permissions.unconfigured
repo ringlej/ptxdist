@@ -1,3 +1,4 @@
+/etc/ptx_permissions.unconfigured root.root 0644
 /etc/boottime.kmap root.root 0644
 /etc/fstab root.root 0644
 /etc/group root.root 0644
@@ -21,3 +22,7 @@
 /etc/mgetty+sendfax/faxrunq.config root.root 0600
 /etc/mgetty+sendfax/dialin.config root.root 0600
 /etc/ppp root.root 0600
+/etc/ppp/chap-secrets root.root 0600
+/etc/ppp/filters root.root 0644
+/etc/ppp/options root.root 0644
+/etc/ppp/pap-secrets 0600
