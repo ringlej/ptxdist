@@ -24,12 +24,6 @@ PTXCONF_ARCH_PPC=y
 # PTXCONF_ARCH_CRIS is not set
 # PTXCONF_ARCH_PARISC is not set
 # PTXCONF_ARCH_SH is not set
-# PTXCONF_ARM_ARCH_PXA is not set
-# PTXCONF_ARM_ARCH_EPXA is not set
-# PTXCONF_ARM_ARCH_SA1100 is not set
-# PTXCONF_ARM_ARCH_IXP2000 is not set
-# PTXCONF_ARM_ARCH_NETARM is not set
-# PTXCONF_ARM_ARCH_ATMEL is not set
 # PTXCONF_OPT_ARM is not set
 # PTXCONF_OPT_ARM_NOMMU is not set
 # PTXCONF_OPT_I386 is not set
@@ -74,6 +68,7 @@ PTXCONF_BINUTILS_2_13_2_1=y
 PTXCONF_GCC_3_2_3=y
 # PTXCONF_GCC_3_3_2 is not set
 PTXCONF_GCC_3=y
+PTXCONF_GCC_SHARED=y
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
@@ -121,6 +116,7 @@ PTXCONF_KERNEL_2_4_19=y
 # PTXCONF_KERNEL_2_4_21 is not set
 # PTXCONF_KERNEL_2_4_22 is not set
 # PTXCONF_KERNEL_2_4_23 is not set
+# PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_RMK is not set
 # PTXCONF_KERNEL_RMK_PXA is not set
 # PTXCONF_KERNEL_RMK_DS is not set
@@ -129,35 +125,7 @@ PTXCONF_KERNEL_2_4_19=y
 # PTXCONF_KERNEL_UC is not set
 # PTXCONF_KERNEL_BEN is not set
 PTXCONF_KERNEL_VANILLA=y
-# PTXCONF_KERNEL_2_4_19_rmk7 is not set
-# PTXCONF_KERNEL_2_4_21_rmk1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_ds3 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_ds2 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_ds1 is not set
-# PTXCONF_KERNEL_2_4_21_rmk1_ds1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2 is not set
-# PTXCONF_KERNEL_2_4_21_rmk1_pxa1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10_ltt1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7_ltt1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6_ltt1 is not set
-# PTXCONF_KERNEL_2_4_19_uc2 is not set
-# PTXCONF_KERNEL_2_4_19_uc1 is not set
-# PTXCONF_KERNEL_2_4_19_uc0 is not set
-# PTXCONF_KERNEL_2_4_20_uc1 is not set
-# PTXCONF_KERNEL_2_4_20_uc0 is not set
-# PTXCONF_KERNEL_2_4_21_uc0 is not set
-# PTXCONF_KERNEL_2_4_22_uc0 is not set
-# PTXCONF_KERNEL_2_4_20_ben10 is not set
-# PTXCONF_KERNEL_2_4_21_ben3 is not set
-# PTXCONF_KERNEL_2_4_22_ben2 is not set
 PTXCONF_DONT_COMPILE_KERNEL=y
-# PTXCONF_KERNEL_IMAGE_BZ is not set
-# PTXCONF_KERNEL_IMAGE_Z is not set
-# PTXCONF_KERNEL_IMAGE_U is not set
-# PTXCONF_KERNEL_IMAGE_VMLINUX is not set
 
 #
 # Extentions
@@ -176,7 +144,6 @@ PTXCONF_DONT_COMPILE_KERNEL=y
 # C Library           
 #
 PTXCONF_GLIBC=y
-# PTXCONF_UCLIBC is not set
 
 #
 # C Library options
@@ -185,9 +152,6 @@ PTXCONF_GLIBC=y
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
-# PTXCONF_UCLIBC_0_9_19 is not set
-# PTXCONF_UCLIBC_0_9_20 is not set
-# PTXCONF_UCLIBC_0_9_23 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -228,7 +192,6 @@ PTXCONF_GLIBC_OMITFP=y
 #
 # PTXCONF_GLIBC_RESOLV is not set
 # PTXCONF_GLIBC_NSL is not set
-PTXCONF_UCLIBC_HAVE_DOT_CONFIG=y
 
 #
 # C++ Library         
@@ -330,6 +293,10 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_DROPBEAR is not set
 
 #
+# Networking Apps     
+#
+
+#
 # ppp                 
 #
 # PTXCONF_PPP is not set
@@ -408,6 +375,26 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # thttpd              
 #
 # PTXCONF_THTTPD is not set
+
+#
+# NTP                 
+#
+# PTXCONF_NTP is not set
+
+#
+# Bind                
+#
+# PTXCONF_BIND is not set
+
+#
+# dhcp                
+#
+# PTXCONF_DHCP is not set
+
+#
+# dnsmasq             
+#
+# PTXCONF_DNSMASQ is not set
 
 #
 # Disk and file ---   
