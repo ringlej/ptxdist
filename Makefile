@@ -293,7 +293,9 @@ clean: rootclean imageclean
 rootclean:
 	@echo
 	@echo -n "cleaning root dir................ "
-	@for i in $$(ls -I CVS $(ROOTDIR)); do echo -n $$i' '; rm -rf $(ROOTDIR)/"$$i"; done
+	@if [ -d $(ROOTDIR) ]; then \
+		for i in $$(ls -I CVS $(ROOTDIR)); do echo -n $$i' '; rm -rf $(ROOTDIR)/"$$i"; done; \
+	fi
 	@echo "done."
 	@echo -n "cleaning state/*.targetinstall... "
 	@rm -f $(STATEDIR)/*.targetinstall
