@@ -81,8 +81,14 @@ get =								\
 	SRC="$(strip $(2))";					\
 	SRC=$${SRC:-$(SRCDIR)};					\
 	[ -d $$SRC ] || mkdir -p $$SRC;				\
-	$(WGET) -P $$SRC $(PASSIVEFTP) $$URL
-
+	$(WGET) -P $$SRC $(PASSIVEFTP) $$URL;			\
+	[ $? -eq 0 ] || {					\
+		echo;						\
+		echo "Could not get patch!";			\
+		echo "URL: $$URL";				\
+		echo;						\
+		exit -1;					\
+	};
 
 #
 # download the given URL
@@ -108,7 +114,14 @@ get_feature_patch =						\
 	fi;							\
 	FP_DIR="$(TOPDIR)/feature-patches/$$FP_NAME";		\
 	[ -d $$FP_DIR ] || mkdir -p $$FP_DIR;			\
-	$(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR $(PASSIVEFTP) $$FP_URL; 
+	$(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR $(PASSIVEFTP) $$FP_URL;	\
+	[ $? -eq 0 ] || {					\
+		echo;						\
+		echo "Could not get patch!";			\
+		echo "URL $$URL not reachable.";		\
+		echo;						\
+		exit -1;					\
+	};
 
 #
 # download patches from Pengutronix' patch repository
@@ -143,8 +156,22 @@ get_patches =											\
 	fi;											\
 	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/;		\
+	[ $? -eq 0 ] || {									\
+		echo;										\
+		echo "Could not get patch!";							\
+		echo "URL: $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/";		\
+		echo;										\
+		exit -1;									\
+	};											\
 	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;	\
+	[ $? -eq 0 ] || {									\
+		echo;										\
+		echo "Could not get patch!";							\
+		echo "URL: $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";	\
+		echo;										\
+		exit -1;									\
+	};											\
 	if [ -d $(PATCHDIR)-local/$$PACKET_NAME ]; then						\
 		echo "Copying Local patches from patches-local/"$$PACKET_NAME;			\
 		cp -vr $(PATCHDIR)-local/$$PACKET_NAME $(PATCHDIR);				\
