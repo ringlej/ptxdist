@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.1-cvs
-# Wed Feb  9 19:56:26 2005
+# Thu Feb 17 20:00:48 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -167,6 +167,7 @@ PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/i586-generic-glibc-2.6.8.kernelconfig"
 # PTXCONF_KERNEL_2_6_7 is not set
 # PTXCONF_KERNEL_2_6_8 is not set
 PTXCONF_KERNEL_2_6_9=y
+# PTXCONF_KERNEL_2_6_10 is not set
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
