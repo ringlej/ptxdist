@@ -106,8 +106,8 @@ endif
 ifdef PTXCONF_MTD_FLASH_UNLOCK
 	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make flash_unlock $(MTD_MAKEVARS)
 endif
-ifdef PTXCONF_MTD_FLASH_CP
-	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make flash_cp $(MTD_MAKEVARS)
+ifdef PTXCONF_MTD_FLASHCP
+	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make flashcp $(MTD_MAKEVARS)
 endif
 ifdef PTXCONF_MTD_FTL_CHECK
 	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make ftl_check $(MTD_MAKEVARS)
@@ -195,9 +195,9 @@ ifdef PTXCONF_MTD_FLASH_UNLOCK
 	install $(BUILDDIR)/$(MTD)/util/flash_unlock $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/flash_unlock
 endif
-ifdef PTXCONF_MTD_FLASH_CP
-	install $(BUILDDIR)/$(MTD)/util/flash_cp $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/flash_cp
+ifdef PTXCONF_MTD_FLASHCP
+	install $(BUILDDIR)/$(MTD)/util/flashcp $(ROOTDIR)/sbin
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/flashcp
 endif
 ifdef PTXCONF_MTD_FTL_CHECK
 	install $(BUILDDIR)/$(MTD)/util/ftl_check $(ROOTDIR)/sbin
