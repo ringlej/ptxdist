@@ -1,0 +1,195 @@
+diff -x CVS -urN kconfig-2.6.0-test3/confdata.c kconfig/confdata.c
+--- kconfig-2.6.0-test3/confdata.c	Sat Aug  9 06:42:15 2003
++++ kconfig/confdata.c	Sat Sep 13 10:54:00 2003
+@@ -118,15 +118,15 @@
+ 		sym = NULL;
+ 		switch (line[0]) {
+ 		case '#':
+-			if (memcmp(line + 2, "CONFIG_", 7))
++			if (memcmp(line + 2, "PTXCONF_", 8))
+ 				continue;
+-			p = strchr(line + 9, ' ');
++			p = strchr(line + 10, ' ');
+ 			if (!p)
+ 				continue;
+ 			*p++ = 0;
+ 			if (strncmp(p, "is not set", 10))
+ 				continue;
+-			sym = sym_find(line + 9);
++			sym = sym_find(line + 10);
+ 			if (!sym) {
+ 				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + 9);
+ 				break;
+@@ -141,19 +141,19 @@
+ 				;
+ 			}
+ 			break;
+-		case 'C':
+-			if (memcmp(line, "CONFIG_", 7))
++		case 'P':
++			if (memcmp(line, "PTXCONF_", 8))
+ 				continue;
+-			p = strchr(line + 7, '=');
++			p = strchr(line + 8, '=');
+ 			if (!p)
+ 				continue;
+ 			*p++ = 0;
+ 			p2 = strchr(p, '\n');
+ 			if (p2)
+ 				*p2 = 0;
+-			sym = sym_find(line + 7);
++			sym = sym_find(line + 8);
+ 			if (!sym) {
+-				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + 7);
++				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + 8);
+ 				break;
+ 			}
+ 			switch (sym->type) {
+@@ -337,28 +337,28 @@
+ 			case S_TRISTATE:
+ 				switch (sym_get_tristate_value(sym)) {
+ 				case no:
+-					fprintf(out, "# CONFIG_%s is not set\n", sym->name);
++					fprintf(out, "# PTXCONF_%s is not set\n", sym->name);
+ 					if (out_h)
+-						fprintf(out_h, "#undef CONFIG_%s\n", sym->name);
++						fprintf(out_h, "#undef PTXCONF_%s\n", sym->name);
+ 					break;
+ 				case mod:
+-					fprintf(out, "CONFIG_%s=m\n", sym->name);
++					fprintf(out, "PTXCONF_%s=m\n", sym->name);
+ 					if (out_h)
+-						fprintf(out_h, "#define CONFIG_%s_MODULE 1\n", sym->name);
++						fprintf(out_h, "#define PTXCONF_%s_MODULE 1\n", sym->name);
+ 					break;
+ 				case yes:
+-					fprintf(out, "CONFIG_%s=y\n", sym->name);
++					fprintf(out, "PTXCONF_%s=y\n", sym->name);
+ 					if (out_h)
+-						fprintf(out_h, "#define CONFIG_%s 1\n", sym->name);
++						fprintf(out_h, "#define PTXCONF_%s 1\n", sym->name);
+ 					break;
+ 				}
+ 				break;
+ 			case S_STRING:
+ 				// fix me
+ 				str = sym_get_string_value(sym);
+-				fprintf(out, "CONFIG_%s=\"", sym->name);
++				fprintf(out, "PTXCONF_%s=\"", sym->name);
+ 				if (out_h)
+-					fprintf(out_h, "#define CONFIG_%s \"", sym->name);
++					fprintf(out_h, "#define PTXCONF_%s \"", sym->name);
+ 				do {
+ 					l = strcspn(str, "\"\\");
+ 					if (l) {
+@@ -381,16 +381,16 @@
+ 			case S_HEX:
+ 				str = sym_get_string_value(sym);
+ 				if (str[0] != '0' || (str[1] != 'x' && str[1] != 'X')) {
+-					fprintf(out, "CONFIG_%s=%s\n", sym->name, str);
++					fprintf(out, "PTXCONF_%s=%s\n", sym->name, str);
+ 					if (out_h)
+-						fprintf(out_h, "#define CONFIG_%s 0x%s\n", sym->name, str);
++						fprintf(out_h, "#define PTXCONF_%s 0x%s\n", sym->name, str);
+ 					break;
+ 				}
+ 			case S_INT:
+ 				str = sym_get_string_value(sym);
+-				fprintf(out, "CONFIG_%s=%s\n", sym->name, str);
++				fprintf(out, "PTXCONF_%s=%s\n", sym->name, str);
+ 				if (out_h)
+-					fprintf(out_h, "#define CONFIG_%s %s\n", sym->name, str);
++					fprintf(out_h, "#define PTXCONF_%s %s\n", sym->name, str);
+ 				break;
+ 			}
+ 		}
+diff -x CVS -urN kconfig-2.6.0-test3/lkc_defs.h kconfig/lkc_defs.h
+--- kconfig-2.6.0-test3/lkc_defs.h	Thu Jan  1 01:00:00 1970
++++ kconfig/lkc_defs.h	Sat Sep 13 10:55:25 2003
+@@ -0,0 +1,39 @@
++
++/* confdata.c */
++#define conf_parse (*conf_parse_p)
++#define conf_read (*conf_read_p)
++#define conf_write (*conf_write_p)
++
++/* menu.c */
++#define rootmenu (*rootmenu_p)
++
++#define menu_is_visible (*menu_is_visible_p)
++#define menu_get_prompt (*menu_get_prompt_p)
++#define menu_get_root_menu (*menu_get_root_menu_p)
++#define menu_get_parent_menu (*menu_get_parent_menu_p)
++
++/* symbol.c */
++#define symbol_hash (*symbol_hash_p)
++#define sym_change_count (*sym_change_count_p)
++
++#define sym_lookup (*sym_lookup_p)
++#define sym_find (*sym_find_p)
++#define sym_type_name (*sym_type_name_p)
++#define sym_calc_value (*sym_calc_value_p)
++#define sym_get_type (*sym_get_type_p)
++#define sym_tristate_within_range (*sym_tristate_within_range_p)
++#define sym_set_tristate_value (*sym_set_tristate_value_p)
++#define sym_toggle_tristate_value (*sym_toggle_tristate_value_p)
++#define sym_string_valid (*sym_string_valid_p)
++#define sym_string_within_range (*sym_string_within_range_p)
++#define sym_set_string_value (*sym_set_string_value_p)
++#define sym_is_changable (*sym_is_changable_p)
++#define sym_get_choice_prop (*sym_get_choice_prop_p)
++#define sym_get_default_prop (*sym_get_default_prop_p)
++#define sym_get_string_value (*sym_get_string_value_p)
++
++#define prop_get_type_name (*prop_get_type_name_p)
++
++/* expr.c */
++#define expr_compare_type (*expr_compare_type_p)
++#define expr_print (*expr_print_p)
+diff -x CVS -urN kconfig-2.6.0-test3/mconf.c kconfig/mconf.c
+--- kconfig-2.6.0-test3/mconf.c	Sat Aug  9 06:33:56 2003
++++ kconfig/mconf.c	Sat Sep 13 11:18:41 2003
+@@ -761,8 +761,13 @@
+ 
+ 	sym = sym_lookup("KERNELRELEASE", 0);
+ 	sym_calc_value(sym);
+-	sprintf(menu_backtitle, "Linux Kernel v%s Configuration",
+-		sym_get_string_value(sym));
++	sprintf(menu_backtitle, "%s v%s.%s.%s%s Configuration",
++		getenv("PROJECT"), 
++		getenv("VERSION"), 
++		getenv("PATCHLEVEL"),
++		getenv("SUBLEVEL"), 
++		getenv("EXTRAVERSION")
++	);
+ 
+ 	mode = getenv("MENUCONFIG_MODE");
+ 	if (mode) {
+@@ -778,7 +783,7 @@
+ 	do {
+ 		cprint_init();
+ 		cprint("--yesno");
+-		cprint("Do you wish to save your new kernel configuration?");
++		cprint("Do you wish to save your new %s configuration?", getenv("PROJECT"));
+ 		cprint("5");
+ 		cprint("60");
+ 		stat = exec_conf();
+@@ -787,12 +792,14 @@
+ 	if (stat == 0) {
+ 		conf_write(NULL);
+ 		printf("\n\n"
+-			"*** End of Linux kernel configuration.\n"
+-			"*** Execute 'make' to build the kernel or try 'make help'."
+-			"\n\n");
++			"*** End of %s configuration.\n"
++			"*** Execute 'make' to see possible build options."
++			"\n\n",
++			getenv("PROJECT")
++		);
+ 	} else
+ 		printf("\n\n"
+-			"Your kernel configuration changes were NOT saved."
++			"Your configuration changes were NOT saved."
+ 			"\n\n");
+ 
+ 	return 0;
