@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gtk22.make,v 1.5 2004/02/23 16:15:18 bsp Exp $
+# $Id: gtk22.make,v 1.6 2004/02/24 09:10:12 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -120,7 +120,7 @@ gtk22_install: $(STATEDIR)/gtk22.install
 
 $(STATEDIR)/gtk22.install: $(STATEDIR)/gtk22.compile
 	@$(call targetinfo, $@)
-	$(GTK22_PATH) $(GTK22_ENV) make -C $(GTK22_DIR) install
+	cd $(GTK22_DIR) && $(GTK22_PATH) $(GTK22_ENV) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -133,6 +133,22 @@ gtk22_targetinstall_deps	=  $(STATEDIR)/gtk22.compile
 
 $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps)
 	@$(call targetinfo, $@)
+	
+	install -d $(ROOTDIR)/usr/lib
+	
+	install $(GTK22_DIR)/gtk/.libs/libgtk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib
+	ln -sf libgtk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgtk-x11-2.0.so.0
+	ln -sf libgtk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgtk-x11-2.0.so
+	
+	install $(GTK22_DIR)/gdk/.libs/libgdk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib
+	ln -sf libgdk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk-x11-2.0.so.0
+	ln -sf libgdk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk-x11-2.0.so
+
+	install $(GTK22_DIR)/gdk-pixbuf/.libs/*.so $(ROOTDIR)/usr/lib
+	ln -sf libgdk_pixbuf-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk_pixbuf-2.0.so.0
+	ln -sf libgdk_pixbuf-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk_pixbuf-2.0.so
+	
+	install $(GTK22_DIR)/gdk-pixbuf/.libs/gdk-pixbuf-query-loaders $(ROOTDIR)/usr/bin
 	touch $@
 
 # ----------------------------------------------------------------------------
