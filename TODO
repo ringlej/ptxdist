@@ -1,6 +1,8 @@
 Current TODO List
 =================
 
+- RSC/NGE: is "select GLIBC_DEBUG" in gdb.in necessary??
+
 - RSC: add http://www.reportlab.com/ftp/
 - RSC: check bash (doesn't compile according to Lisa Hsu)
 - RSC: add http://rlib.sicompos.com/
