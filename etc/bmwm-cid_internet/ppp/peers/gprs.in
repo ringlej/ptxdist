@@ -23,7 +23,7 @@ crtscts  # serial cable
 #nodetach
 
 # Connect script
-connect /etc/ppp/peers/gprs-connect-chat
+connect '/usr/sbin/chat -v -f /etc/ppp/peers/gprs-connect-chat'
 
 # IP addresses:
 # - accept peers idea of our local address and set address peer as 10.0.0.1 

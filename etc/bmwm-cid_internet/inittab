@@ -10,7 +10,6 @@
 ::sysinit:/etc/init.d/rcS
 #::sysinit:/sbin/syslogd
 #::sysinit:/sbin/syslogd host:514 (for remote logging)
-#::sysinit:/sbin/sshd -f /etc/sshd_config
 
 # Start userland network services 
 ::respawn:/sbin/utelnetd
@@ -20,10 +19,6 @@
 
 # Start an "askfirst" shell on the console
 ::askfirst:-/bin/sh
-
-# Start X11R6 TinyX server
-#::respawn:/usr/X11R6/bin/xinit /usr/bin/penguzilla -- /usr/X11R6/bin/Xfbdev -br -once -screen 640x240 -mouse /dev/misc/psaux 2>/dev/null
-#::respawn:/usr/bin/start_m
 
 # Stuff to do before rebooting
 ::ctrlaltdel:/sbin/reboot

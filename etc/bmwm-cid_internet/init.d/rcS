@@ -7,11 +7,8 @@
 # 2004/02/27 Robert Schwebel <r.schwebel@pengutronix.de>
 #
 
-echo
-echo "PTXDIST - prerelease 2004/02/27"
-echo "Please report problems with this software"
-echo "to Robert Schwebel <r.schwebel@pengutronix.de>"
-echo 
+# announce that we are there
+/etc/init.d/banner
 
 echo -n "mounting filesystems..."
 mount -a 
@@ -55,4 +52,8 @@ if [ ! -f /etc/pango/pango.modules ]; then
 fi;
 
 # /usr/X11R6/bin/xmodmap /etc/xmodmap
+
+# start penguzilla
+/etc/init.d/xfree86    start
+/etc/init.d/penguzilla start
 
