@@ -335,7 +335,24 @@ PTXCONF_GLIBC_ZONEINFO_EUROPE=y
 # PTXCONF_GLIBC_ZONEINFO_NZ-CHAT is not set
 # PTXCONF_GLIBC_ZONEINFO_SYSTEMV is not set
 # PTXCONF_GLIBC_ZONEINFO_UNIVERSAL is not set
+# PTXCONF_UC_TARGET_alpha is not set
 PTXCONF_UC_TARGET_arm=y
+# PTXCONF_UC_TARGET_bfin is not set
+# PTXCONF_UC_TARGET_cris is not set
+# PTXCONF_UC_TARGET_e1 is not set
+# PTXCONF_UC_TARGET_frv is not set
+# PTXCONF_UC_TARGET_h8300 is not set
+# PTXCONF_UC_TARGET_i386 is not set
+# PTXCONF_UC_TARGET_i960 is not set
+# PTXCONF_UC_TARGET_m68k is not set
+# PTXCONF_UC_TARGET_microblaze is not set
+# PTXCONF_UC_TARGET_mips is not set
+# PTXCONF_UC_TARGET_nios is not set
+# PTXCONF_UC_TARGET_nios2 is not set
+# PTXCONF_UC_TARGET_powerpc is not set
+# PTXCONF_UC_TARGET_sh is not set
+# PTXCONF_UC_TARGET_sparc is not set
+# PTXCONF_UC_TARGET_v850 is not set
 
 #
 # GCC Libraries       
@@ -1250,6 +1267,11 @@ PTXCONF_CRAMFS=y
 #
 # gettext          
 #
+
+#
+# glib-2.6         
+#
+# PTXCONF_GLIB26 is not set
 
 #
 # pcre             
