@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-scons.make,v 1.1 2003/10/24 07:45:05 robert Exp $
+# $Id: xchain-scons.make,v 1.2 2003/10/24 13:28:33 mkl Exp $
 #
 # Copyright (C) 2003 by Dan Kegel
 #          
@@ -66,8 +66,7 @@ xchain-scons_prepare: $(STATEDIR)/xchain-scons.prepare
 # dependencies
 #
 xchain-scons_prepare_deps =  \
-	$(STATEDIR)/xchain-scons.extract \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/xchain-scons.extract
 
 $(STATEDIR)/xchain-scons.prepare: $(xchain-scons_prepare_deps)
 	@$(call targetinfo, $@)
@@ -93,7 +92,8 @@ xchain-scons_install: $(STATEDIR)/xchain-scons.install
 
 $(STATEDIR)/xchain-scons.install: $(STATEDIR)/xchain-scons.compile
 	@$(call targetinfo, $@)
-	cd $(XCHAIN-SCONS_DIR); python setup.py install --prefix=$(PTXCONF_PREFIX)
+	cd $(XCHAIN-SCONS_DIR) &&
+		python setup.py install --prefix=$(PTXCONF_PREFIX)
 	touch $@
 
 # ----------------------------------------------------------------------------
