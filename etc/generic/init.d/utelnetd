@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# /etc/init.d/utelnetd
+#
+# $Id: utelnetd,v 1.1 2004/08/23 17:19:09 rsc Exp $
+#
+
+echo Starting utelnetd...
+/sbin/utelnetd -d
+
