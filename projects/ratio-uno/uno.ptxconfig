@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="RATIO-UNO-2053-1"
+PTXCONF_PROJECT="uno"
 
 #
 # General Options             
@@ -93,7 +93,7 @@ PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_VAR=y
-PTXCONF_VENDORTWEAKS="projects/ratio-uno/i386-ratio-uno-2053-1.vendortweaks"
+PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/uno.vendortweaks"
 
 #
 # Image Creation
@@ -133,7 +133,7 @@ PTXCONF_HOSTTOOLS_FAKEROOT=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.4.25-ratio"
+PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/uno.kernelconfig"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
