@@ -169,6 +169,55 @@ ifdef PTXCONF_ROOTFS_ETC
 	$(call copy_root, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/utelnetd,   /etc/init.d/utelnetd)
 	$(call copy_root, 0, 0, 0755, /etc/rc.d)
 
+	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME))"; \
+	if [ -n "$$x" ]; then \
+		echo $$x; \
+		perl -i -p -e "s,\@HOSTNAME@,$$x,g" $(ROOTDIR)/etc/hostname; \
+	fi
+
+	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE))"; \
+	if [ -n "$$x" ]; then \
+		echo $$x; \
+		perl -i -p -e "s,\@CONSOLE@,$$x,g" $(ROOTDIR)/etc/inittab; \
+	fi
+
+	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE_SPEED))"; \
+	if [ -n "$$x" ]; then \
+		echo $$x; \
+		perl -i -p -e "s,\@SPEED@,$$x,g" $(ROOTDIR)/etc/inittab; \
+	fi
+
+	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_PS1))"; \
+	if [ -n "$$x" ]; then \
+		echo $$x; \
+		perl -i -p -e "s,\@PS1@,$$x,g" $(ROOTDIR)/etc/profile; \
+	fi
+
+	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_PS2))"; \
+	if [ -n "$$x" ]; then \
+		echo $$x; \
+		perl -i -p -e "s,\@PS2@,$$x,g" $(ROOTDIR)/etc/profile; \
+	fi
+
+	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_PS4))"; \
+	if [ -n "$$x" ]; then \
+		echo $$x; \
+		perl -i -p -e "s,\@PS4@,$$x,g" $(ROOTDIR)/etc/profile; \
+	fi
+
+	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_VENDOR))"; \
+	if [ -n "$$x" ]; then \
+		echo $$x; \
+		perl -i -p -e "s,\@VENDOR@,$$x,g" $(ROOTDIR)/etc/init.d/banner; \
+	fi
+
+	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
+	perl -i -p -e "s,\@PATCHLEVEL@,$(PATCHLEVEL),g" $(ROOTDIR)/etc/init.d/banner
+	perl -i -p -e "s,\@SUBLEVEL@,$(SUBLEVEL),g" $(ROOTDIR)/etc/init.d/banner
+	perl -i -p -e "s,\@PROJECT@,$(PROJECT),g" $(ROOTDIR)/etc/init.d/banner
+	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(ROOTDIR)/etc/init.d/banner
+	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
+
 endif
 	touch $@
 

@@ -23,6 +23,47 @@ config ROOTFS_ETC
 	  if you don't intend to use your completely self-made etc
 	  directory you should problably switch this on. 
 
+config ROOTFS_ETC_CONSOLE
+	depends on ROOTFS_ETC
+	string
+	default "/dev/tts/0"
+	prompt "start getty on this console"
+
+config ROOTFS_ETC_CONSOLE_SPEED
+	depends on ROOTFS_ETC
+	string
+	default "115200"
+	prompt "getty baudrate"
+
+config ROOTFS_ETC_PS1
+	depends on ROOTFS_ETC
+	string
+	default "\\u@\\h:\\w"
+	prompt "set PS1 in /etc/profile"
+
+config ROOTFS_ETC_PS2
+	depends on ROOTFS_ETC
+	string
+	default ""
+	prompt "set PS2 in /etc/profile"
+
+config ROOTFS_ETC_PS4
+	depends on ROOTFS_ETC
+	string
+	default ""
+	prompt "set PS4 in /etc/profile"
+
+config ROOTFS_ETC_HOSTNAME
+	depends on ROOTFS_ETC
+	string
+	default ptx
+	prompt "set hostname in /etc/hostname"
+
+config ROOTFS_ETC_VENDOR
+	depends on ROOTFS_ETC
+	string
+	prompt "set vendorname in /etc/init.d/banner"
+
 config ROOTFS_FLOPPY
 	depends on ROOTFS
 	bool
