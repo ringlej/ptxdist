@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $id$
 #
-# (C) 2003 by Milan Bobde
+# (C) 2003 by Ixia Corporation (www.ixiacom.com)
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXDIST project and license conditions
@@ -20,10 +20,10 @@ endif
 #
 GENEXT2FS_VERSION		= 1.3.orig
 GENEXT2FS			= genext2fs-$(GENEXT2FS_VERSION)
-GENEXT2FS_EXT			= genext2fs_$(GENEXT2FS_VERSION)
+GENEXT2FS_TARBALL		= genext2fs_$(GENEXT2FS_VERSION).$(GENEXT2FS_SUFFIX)
 GENEXT2FS_SUFFIX		= tar.gz
-GENEXT2FS_URL			= http://ftp.debian.org/debian/pool/main/g/genext2fs/$(GENEXT2FS_EXT).$(GENEXT2FS_SUFFIX)
-GENEXT2FS_SOURCE		= $(SRCDIR)/$(GENEXT2FS_EXT).$(GENEXT2FS_SUFFIX)
+GENEXT2FS_URL			= http://ftp.debian.org/debian/pool/main/g/genext2fs/$(GENEXT2FS_TARBALL)
+GENEXT2FS_SOURCE		= $(SRCDIR)/$(GENEXT2FS_TARBALL)
 GENEXT2FS_DIR			= $(BUILDDIR)/$(GENEXT2FS)
 
 # ----------------------------------------------------------------------------
@@ -62,11 +62,9 @@ $(STATEDIR)/genext2fs.extract: $(STATEDIR)/genext2fs.get
 
 genext2fs_prepare: $(STATEDIR)/genext2fs.prepare
 
-GENEXT2FS_PATH		=  PATH=$(CROSS_PATH)
-GENEXT2FS_ENV		=  $(CROSS_ENV)
+GENEXT2FS_ENV		=  $(HOSTCC_ENV)
 
 genext2fs_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/genext2fs.extract
 
 $(STATEDIR)/genext2fs.prepare: $(genext2fs_prepare_deps)
@@ -83,7 +81,7 @@ genext2fs_compile_deps = $(STATEDIR)/genext2fs.prepare
 
 $(STATEDIR)/genext2fs.compile: $(genext2fs_compile_deps)
 	@$(call targetinfo, $@)
-	$(GENEXT2FS_PATH) make -C $(GENEXT2FS_DIR) $(GENEXT2FS_ENV)
+	make -C $(GENEXT2FS_DIR) $(GENEXT2FS_ENV)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -92,8 +90,11 @@ $(STATEDIR)/genext2fs.compile: $(genext2fs_compile_deps)
 
 genext2fs_install: $(STATEDIR)/genext2fs.install
 
-$(STATEDIR)/genext2fs.install:
+genext2fs_install_deps = $(STATEDIR)/genext2fs.compile
+
+$(STATEDIR)/genext2fs.install:$(genext2fs_install_deps)
 	@$(call targetinfo, genext2fs.install)
+	make -C $(GENEXT2FS_DIR) install DESTDIR=$(PTXCONF_PREFIX)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -102,9 +103,8 @@ $(STATEDIR)/genext2fs.install:
 
 genext2fs_targetinstall: $(STATEDIR)/genext2fs.targetinstall
 
-$(STATEDIR)/genext2fs.targetinstall: $(STATEDIR)/genext2fs.compile
+$(STATEDIR)/genext2fs.targetinstall: $(STATEDIR)/genext2fs.install
 	@$(call targetinfo, genext2fs.targetinstall)
-	make -C $(GENEXT2FS_DIR) install DESTDIR=$(ROOTDIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
