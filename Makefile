@@ -1,6 +1,6 @@
 # $Id$
 #
-# Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2002-2004 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #
@@ -8,9 +8,9 @@
 #
 PROJECT		:= PTXdist
 VERSION		:= 0
-PATCHLEVEL	:= 5
-SUBLEVEL	:= 2
-EXTRAVERSION	:= -cvs
+PATCHLEVEL	:= 6
+SUBLEVEL	:= 0
+EXTRAVERSION	:=
 
 FULLVERSION	:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
