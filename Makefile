@@ -194,13 +194,10 @@ endif
 ptx_lxdialog:
 	cd scripts/lxdialog && ln -s -f ../ptx-modifications/Makefile.lxdialog.ptx Makefile
 
-ptx_kconfig:
-	cd scripts/kconfig && ln -s -f ../ptx-modifications/Makefile.kconfig.ptx Makefile
-
 scripts/lxdialog/lxdialog: ptx_lxdialog
 	make -C scripts/lxdialog lxdialog
 
-scripts/kconfig/libkconfig.so: ptx_kconfig
+scripts/kconfig/libkconfig.so:
 	make -C scripts/kconfig libkconfig.so
 
 scripts/kconfig/conf: scripts/kconfig/libkconfig.so
@@ -212,6 +209,9 @@ scripts/kconfig/mconf: scripts/kconfig/libkconfig.so
 scripts/kconfig/qconf: scripts/kconfig/libkconfig.so
 	make -C scripts/kconfig qconf
 
+scripts/kconfig/gconf: scripts/kconfig/libkconfig.so
+	make -C scripts/kconfig gconf
+
 menuconfig: scripts/lxdialog/lxdialog scripts/kconfig/mconf
 	scripts/kconfig/mconf config/Kconfig
 
@@ -221,7 +221,7 @@ xconfig: scripts/kconfig/qconf
 gconfig: scripts/kconfig/gconf
 	LD_LIBRARY_PATH=./scripts/kconfig ./scripts/kconfig/gconf config/Kconfig
 
-oldconfig: ptx_kconfig scripts/kconfig/conf
+oldconfig: scripts/kconfig/conf
 	scripts/kconfig/conf -o config/Kconfig
 
 # Config Targets -------------------------------------------------------------
@@ -316,9 +316,8 @@ clean: rootclean imagesclean
 	@for i in $$(ls -I CVS $(STATEDIR)); do rm -rf $(STATEDIR)/"$$i"; done
 	@echo "done."
 	@echo -n "cleaning scripts dir............. "
-	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.kconfig.ptx  -C scripts/kconfig clean
+	@make -s -C scripts/kconfig clean
 	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx -C scripts/lxdialog clean
-	@rm -f scripts/kconfig/Makefile
 	@rm -f scripts/lxdialog/Makefile
 	@echo "done."
 	@echo -n "cleaning bootdisk image.......... "
