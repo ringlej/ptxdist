@@ -136,6 +136,10 @@ get_feature_patch =						\
 	FP_PARENT="$(strip $(1))";				\
 	FP_URL="$(strip $(2))";					\
 	FP_NAME="$(strip $(3))";				\
+	if [ -f $(TOPDIR)/feature-patches/$$FP_NAME/$$FP_FILE ]; then	\
+		echo "patch already downloaded, skipping...";	\
+		exit 0;						\
+	fi;							\
 	if [ "$$FP_URL" == "" ] && [ "$$FP_NAME" == "" ]; then	\
 		echo "patch not set, silently dropping";	\
 		exit 0;						\
@@ -424,36 +428,67 @@ patch_apply =								\
 # patches listed there into a sourcetree, or, if no 'series' file
 # exists, apply the patches as they come
 #
-# $1 = $(PACKET_NAME) -> identifier for packet to apply patch to
-# $2 = name of the directory in $(TOPDIR)/feature-patches/ to look for
-#      patches & 'series' file
+# $1 = $(FP_TARGET): path to source tree where the feature patch is
+#      to be applied  
+#
+# $2 = $(FP_NAME): name of the patch to be applied; patches usually live 
+#      in $(TOPDIR)/feature-patches/$(FP_NAME)
 #
 feature_patchin =								\
-	PACKET_NAME="$(strip $(1))";						\
-	if [ "$$PACKET_NAME" = "" ]; then					\
+	FP_TARGET="$(strip $(1))";						\
+	if [ "x$$FP_TARGET" = "x" ]; then					\
 		echo;								\
-		echo Error: empty parameter to \"patchin\(\)\";			\
+		echo "Error: you didn't specify a feature patch target dir!";	\
+		echo "Error: feature_patchin needs this as parameter 2";	\
 		echo;								\
 		exit -1;							\
 	fi;									\
-	FP_DIR=$(TOPDIR)/feature-patches/"$(strip $(2))";			\
-	if [ ! "x$(strip $(2))" == "x" ]; then					\
-		if [ -f $$FP_DIR/series ]; then					\
-			for PATCH_NAME in `cat $$FP_DIR/series`; do		\
-				echo "patchin' $$PATCH_NAME ...";		\
-				cat $$FP_DIR/$$PATCH_NAME.patch | 		\
-				     $(PATCH) -Np1 -d $$PACKET_NAME || exit -1; \
-			done;							\
-		else								\
-			for PATCH_NAME in $$(find $$FP_DIR -name "*.patch")	\
-			                  $$(find $$FP_DIR -name "*.diff") ; do	\
-				echo "patchin' $$PATCH_NAME ...";		\
-				if [ ! -e $$PATCH_NAME ]; then exit -1; fi; 	\
-				cat $$PATCH_NAME | 				\
-				     $(PATCH) -Np1 -d $$PACKET_NAME || exit -1; \
-			done;							\
-		fi;								\
-	fi;
+	FP_NAME="$(strip $(2))";						\
+	if [ "x$$FP_NAME" = "x" ]; then						\
+		echo;								\
+		echo "Error: you didn't specify a feature patch name";		\
+		echo "Error: feature_patchin needs this as parameter 1";	\
+		echo;								\
+		exit -1;							\
+	fi;									\
+	FP_DIR=$(TOPDIR)/feature-patches/$(FP_NAME);				\
+	if [ -f $$FP_DIR/series ]; then						\
+		for PATCH_NAME in `cat $$FP_DIR/series`; do			\
+			echo "patchin' $$PATCH_NAME ...";			\
+			cat $$FP_DIR/$$PATCH_NAME.patch | 			\
+			     $(PATCH) -Np1 -d $$FP_TARGET || exit -1; 		\
+		done;								\
+	else									\
+		for PATCH_NAME in $$(find $$FP_DIR -name "*patch*")		\
+				  $$(find $$FP_DIR -name "*diff*"); do		\
+			PATCH_NAME_BASE=`basename $$PATCH_NAME`;		\
+			echo "basename=$$PATCH_NAME_BASE";			\
+			case $$PATCH_NAME_BASE in				\
+			*.gz)							\
+				echo "patch is gzip compressed";		\
+				CAT=$(ZCAT);					\
+				;;						\
+			*.bz2)							\
+				echo "patch is bzip2 compressed";		\
+				CAT=$(BZCAT);					\
+				;;						\
+			*)							\
+				echo "patch is uncompressed";			\
+				CAT=$(CAT)					\
+				;;						\
+			esac;							\
+			echo "patchin' $$PATCH_NAME ...";			\
+			if [ ! -e $$PATCH_NAME ]; then 				\
+				echo "Error: patch $$PATCH_NAME doesn't exist!";\
+				exit -1; 					\
+			fi; 							\
+			$$CAT $$PATCH_NAME | $(PATCH) -Np1 -d $$FP_TARGET;	\
+			if [ $? -ne 0 ]; then					\
+				echo "Error: feature_patchin failed!";		\
+				exit -1;					\
+			fi;							\
+		done;								\
+	fi;									\
 
 #
 # CFLAGS // CXXFLAGS
