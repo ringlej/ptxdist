@@ -26,12 +26,12 @@ case $1 in
 			insmod /lib/modules/2.6.1/kernel/drivers/input/evdev.ko
 		echo "loading mouse driver..."
 		if [ "$USE_IDRIVE" = "1" ]; then
-			[ `grep pcan_drvd /proc/modules` ] ||
-				insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/pcan_drvd.ko;
-		#	[ `grep pcan_drv /proc/modules` ] ||
-		#		insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/pcan_drv.ko;
-		#	[ `grep idrive /proc/modules` ] ||
-		#		insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/idrive.ko;
+		#	[ `grep pcan_drvd /proc/modules` ] ||
+		#		insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/pcan_drvd.ko;
+			[ `grep pcan_drv /proc/modules` ] ||
+				insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/pcan_drv.ko;
+			[ `grep idrive /proc/modules` ] ||
+				insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/idrive.ko;
 				/usr/local/bin/userIDrive /dev/input/event1 & 
 		else
 			[ `grep psmouse.ko /proc/modules` ] ||
