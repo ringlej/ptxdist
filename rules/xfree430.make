@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.16 2004/02/25 22:54:47 robert Exp $
+# $Id: xfree430.make,v 1.17 2004/02/26 01:04:22 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -163,7 +163,7 @@ $(STATEDIR)/xfree430.compile: $(xfree430_compile_deps)
 	# FIXME: tweak, tweak...
 	#
 	echo "UGGLY HACK WARNING: creating symlink to host xcursorgen (chicken&egg problem)"
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6/bin
 	ln -sf `which xcursorgen` $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6/bin/xcursorgen
 	ln -sf `which mkfontdir` $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6/bin/mkfontdir
 
@@ -193,10 +193,13 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	# 'make install' copies the pkg-config '.pc' files to the 
 	# wrong location: we usually search them here...
 	 
+	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/fontconfig.pc
 	cp $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6/lib/pkgconfig/fontconfig.pc \
 	   $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/
+	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/xcursor.pc
 	cp $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6/lib/pkgconfig/xcursor.pc \
 	   $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/
+	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/xft.pc
 	cp $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6/lib/pkgconfig/xft.pc \
 	   $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/
 
@@ -206,6 +209,10 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	perl -i -p -e "s,/usr/X11R6,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6,g" \
 		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/xcursor.pc
 	perl -i -p -e "s,/usr/X11R6,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6,g" \
+		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/xft.pc
+
+	# libXft does also need libXrender:
+	perl -i -p -e "s,-lXft,-lXext -lXft,g" \
 		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/xft.pc
 
 	touch $@
