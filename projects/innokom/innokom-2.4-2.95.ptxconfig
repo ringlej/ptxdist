@@ -1126,6 +1126,11 @@ PTXCONF_TCPWRAPPER=y
 PTXCONF_TCPWRAPPER_INSTALL_TCPD=y
 
 #
+# Troll FTPD          
+#
+# PTXCONF_TROLL-FTPD is not set
+
+#
 # thttpd              
 #
 # PTXCONF_THTTPD is not set

@@ -807,6 +807,11 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 # PTXCONF_TCPWRAPPER is not set
 
 #
+# Troll FTPD          
+#
+# PTXCONF_TROLL-FTPD is not set
+
+#
 # thttpd              
 #
 # PTXCONF_THTTPD is not set

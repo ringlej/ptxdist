@@ -476,6 +476,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_TCPWRAPPER is not set
 
 #
+# Troll FTPD          
+#
+# PTXCONF_TROLL-FTPD is not set
+
+#
 # thttpd              
 #
 # PTXCONF_THTTPD is not set

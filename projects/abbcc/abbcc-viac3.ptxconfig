@@ -1067,6 +1067,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_TCPWRAPPER is not set
 
 #
+# Troll FTPD          
+#
+# PTXCONF_TROLL-FTPD is not set
+
+#
 # thttpd              
 #
 # PTXCONF_THTTPD is not set

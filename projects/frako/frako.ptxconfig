@@ -762,6 +762,10 @@ PTXCONF_GAWK=y
 #
 PTXCONF_MGETTY=y
 PTXCONF_MGETTY_CONFIG="config/mgetty/policy-frako.h"
+PTXCONF_MGETTY_INSTALL_CONFIG=y
+PTXCONF_SENDFAX=y
+PTXCONF_SENDFAX_SPOOL=y
+# PTXCONF_MGETTY_CALLBACK is not set
 
 #
 # MTD Tools           
@@ -1008,6 +1012,11 @@ PTXCONF_PROFTPD_AUTOSHADOW=y
 # tcpwrapper          
 #
 # PTXCONF_TCPWRAPPER is not set
+
+#
+# Troll FTPD          
+#
+# PTXCONF_TROLL-FTPD is not set
 
 #
 # thttpd              
