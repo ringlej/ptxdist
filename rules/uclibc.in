@@ -1,4 +1,5 @@
-source "config/uClibc-0.9.26/extra/Configs/Config.in"
+
+source "config/uClibc-0.9.27/extra/Configs/Config.in"
 
 comment "Install options"
 	depends on UCLIBC
