@@ -1,0 +1,23 @@
+PTXdist Documentation Fragments
+-------------------------------
+
+This file is meant as an intermediate place where we can collect
+documentation sniplets; later this will be combined into a "real"
+manual. 
+
+Configuring the Kernel
+----------------------
+
+It is currently not possible to configure a 2.4 kernel with the config
+system, because 2.4 is still based on the old CML language, not on
+KConfig like 2.6 and PTXdist. There is a workaround: First you have to
+set a path to a kernel configuration file (in: Kernel->Name of config in
+$(PTXDIST)/config/kernel) to be used) to a config file; the kernel
+config file doesn't need to exist. Choose the desired kernelversion,
+then exit the menuconfig with save and 'make kernel_menuconfig' then the
+kernel is downloaded, extracted patched and the normal menuconfig from
+the kernel is started. PTXdist takes care of changes in the kernels
+.config files, it's is copied from and to the specified config file.
+
+
+
