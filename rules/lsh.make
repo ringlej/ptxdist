@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: lsh.make,v 1.6 2003/10/26 06:27:07 mkl Exp $
+# $Id: lsh.make,v 1.7 2003/10/26 13:29:46 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -139,7 +139,7 @@ lsh_targetinstall: $(STATEDIR)/lsh.targetinstall
 
 lsh_targetinstall_deps = \
 	$(STATEDIR)/lsh.compile \
-	$(STATEDIR)/gmp.targetinstall \
+	$(STATEDIR)/gmp3.targetinstall \
 	$(STATEDIR)/liboop.targetinstall \
 	$(STATEDIR)/zlib.targetinstall
 
