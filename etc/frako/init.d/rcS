@@ -26,6 +26,28 @@ ln -s /dev/vc/9 /dev/tty9
 ln -s /dev/fb/0 /dev/fb0
 echo "done."
 
+#ln -s /home/system/conf /home/frako
+
 modprobe ppp_async
+modprobe relais
 
 loadkmap < /etc/boottime.kmap
+
+echo -n "creating FRAKO directories and links..."
+mkdir /home/frako/up
+chmod 774 /home/frako/up
+chown frako:users /home/frako/up
+mkdir /home/frako/conf
+chown frako:users /home/frako/conf
+
+cd /home/frako
+mount /home/system/conf conf -o bind
+cd /
+echo "done."
+
+echo -n "Bootzeitpunkt festhalten..."
+date >> /home/system/boottime.log
+chown system:users /home/system/boottime.log
+sync
+echo "done."
+
