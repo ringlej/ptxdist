@@ -130,39 +130,15 @@ PTXCONF_KERNEL_2_4_19=y
 # PTXCONF_KERNEL_RMK is not set
 # PTXCONF_KERNEL_RMK_PXA is not set
 # PTXCONF_KERNEL_RMK_DS is not set
-PTXCONF_KERNEL_RMK_PXA_PTX=y
+# PTXCONF_KERNEL_RMK_PXA_PTX is not set
 # PTXCONF_KERNEL_RMK_PXA_PTX_LTT is not set
 # PTXCONF_KERNEL_UC is not set
 # PTXCONF_KERNEL_BEN is not set
-# PTXCONF_KERNEL_VANILLA is not set
-# PTXCONF_KERNEL_2_4_19_rmk7 is not set
-# PTXCONF_KERNEL_2_4_21_rmk1 is not set
-# PTXCONF_KERNEL_2_6_0_rmk1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_ds3 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_ds2 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_ds1 is not set
-# PTXCONF_KERNEL_2_4_21_rmk1_ds1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2 is not set
-# PTXCONF_KERNEL_2_4_21_rmk1_pxa1 is not set
-PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10=y
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6 is not set
-# PTXCONF_KERNEL_2_6_0_rmk1_ptx1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10_ltt1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7_ltt1 is not set
-# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6_ltt1 is not set
-# PTXCONF_KERNEL_2_4_19_uc2 is not set
-# PTXCONF_KERNEL_2_4_19_uc1 is not set
-# PTXCONF_KERNEL_2_4_19_uc0 is not set
-# PTXCONF_KERNEL_2_4_20_uc1 is not set
-# PTXCONF_KERNEL_2_4_20_uc0 is not set
-# PTXCONF_KERNEL_2_4_21_uc0 is not set
-# PTXCONF_KERNEL_2_4_22_uc0 is not set
-# PTXCONF_KERNEL_2_4_20_ben10 is not set
-# PTXCONF_KERNEL_2_4_21_ben3 is not set
-# PTXCONF_KERNEL_2_4_22_ben2 is not set
-PTXCONF_KERNEL_PATCH1_URL=""
-PTXCONF_KERNEL_PATCH1_NAME=""
+PTXCONF_KERNEL_VANILLA=y
+PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.19-rmk7-pxa2-ptx13/"
+PTXCONF_KERNEL_PATCH1_NAME="rmk-pxa-mtd-ptx"
+PTXCONF_KERNEL_PATCH2_URL=""
+PTXCONF_KERNEL_PATCH2_NAME=""
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -208,7 +184,7 @@ PTXCONF_GLIBC_PROFILED=y
 # Install options
 #
 PTXCONF_GLIBC_THREAD_DB=y
-# PTXCONF_GLIBC_DL is not set
+PTXCONF_GLIBC_DL=y
 PTXCONF_GLIBC_CRYPT=y
 PTXCONF_GLIBC_UTIL=y
 # PTXCONF_GLIBC_LIBM is not set
@@ -736,10 +712,7 @@ PTXCONF_MTD_UNLOCK=y
 #
 # VHLL Support        
 #
-
-#
-# Python requires libdl on the target (see C Library)
-#
+# PTXCONF_VHLL_PYTHON23 is not set
 
 #
 # PCMCIA Tools        
@@ -786,7 +759,12 @@ PTXCONF_MTD_UNLOCK=y
 #
 # ppp                 
 #
-# PTXCONF_PPP is not set
+PTXCONF_PPP=y
+PTXCONF_PPP_MS_CHAP=y
+# PTXCONF_PPP_SHADOW is not set
+PTXCONF_PPP_PLUGINS=y
+# PTXCONF_PPP_IPX is not set
+# PTXCONF_PPP_MULTILINK is not set
 
 #
 # nmap                
