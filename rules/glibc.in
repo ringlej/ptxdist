@@ -4,6 +4,17 @@ config GLIBC_PTHREADS
 	default y
 	depends on GLIBC && LIBC
 
+config GLIBC_NPTL
+	bool
+	prompt "Compile glibc with NPTL"
+	depends on GLIBC && LIBC && !GLIBC_PTHREADS
+
+config GLIBC_TLS
+        bool
+	prompt "Compile glibc with TLS"
+	default n
+	depends on GLIBC_NPTL && LIBC
+
 config GLIBC_LIBIO
 	bool
 	prompt "Build in GNU libio instead of GNU stdio"

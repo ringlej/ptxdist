@@ -172,7 +172,6 @@ glibc_prepare_deps += $(STATEDIR)/xchain-kernel.install
 GLIBC_AUTOCONF =  $(CROSS_AUTOCONF)
 GLIBC_AUTOCONF += --with-headers=$(CROSS_LIB_DIR)/include
 GLIBC_AUTOCONF += --enable-clocale=gnu
-GLIBC_AUTOCONF += --without-tls
 GLIBC_AUTOCONF += --without-cvs
 GLIBC_AUTOCONF += --without-gd
 GLIBC_AUTOCONF += --prefix=/usr
@@ -216,6 +215,16 @@ endif
 
 ifdef PTXCONF_GLIBC_PTHREADS
 GLIBC_AUTOCONF	+= --enable-add-ons=linuxthreads
+endif
+
+ifdef PTXCONF_GLIBC_NPTL
+GLIBC_AUTOCONF  += --enable-add-ons=nptl
+endif
+
+ifdef PTXCONF_GLIBC_TLS
+GLIBC_AUTOCONF += --with-tls
+else
+GLIBC_AUTOCONF += --without-tls
 endif
 
 # from config/arch/*.dat: 
