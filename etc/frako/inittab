@@ -25,7 +25,7 @@
 ::respawn:/usr/sbin/mgetty -D -s 38400 /dev/ttyS0
 
 # serial console getty (serial port #2)
-::respawn:/sbin/getty -L ttyS1 115200 vt100 
+#::respawn:/sbin/getty -L ttyS1 115200 vt100 
 
 #::respawn:/usr/sbin/mgetty -s 115200 /dev/ttyS0
 
