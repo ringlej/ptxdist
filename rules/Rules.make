@@ -83,7 +83,8 @@ get_patches =											\
 	wget -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
 		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/;		\
 	wget -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
-		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;
+		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;	\
+	echo "return without error" > /dev/null;
 
 #
 # cleanup the given directory
