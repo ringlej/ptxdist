@@ -78,7 +78,7 @@ PTXCONF_VENDORTWEAKS ?= none
 ifeq ("", $(PTXCONF_VENDORTWEAKS))
 PTXCONF_VENDORTWEAKS =  none
 endif
--include $(subst $(quote),,$(PTXCONF_VENDORTWEAKS))
+-include $(call remove_quotes,$(PTXCONF_VENDORTWEAKS))
 
 # install targets 
 PACKAGES_TARGETINSTALL 		:= $(addsuffix _targetinstall,$(PACKAGES)) $(addsuffix _targetinstall,$(VIRTUAL))
