@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-glibc.make,v 1.13 2003/09/15 14:19:22 robert Exp $
+# $Id: xchain-glibc.make,v 1.14 2003/09/16 16:56:02 mkl Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -44,19 +44,20 @@ $(STATEDIR)/xchain-glibc.extract: $(glibc_extract_deps)
 
 xchain-glibc_prepare:	$(STATEDIR)/xchain-glibc.prepare
 
-xchain_glibc_prepare_deps =  $(STATEDIR)/autoconf213.install
-xchain_glibc_prepare_deps += $(STATEDIR)/xchain-gccstage1.install
-xchain_glibc_prepare_deps += $(STATEDIR)/xchain-glibc.extract
+xchain_glibc_prepare_deps = \
+	$(STATEDIR)/autoconf213.install	\
+	$(STATEDIR)/xchain-gccstage1.install \
+	$(STATEDIR)/xchain-glibc.extract
 
 $(STATEDIR)/xchain-glibc.prepare: $(xchain_glibc_prepare_deps)
 	@$(call targetinfo, xchain-glibc.prepare)
 	@$(call clean, $(XCHAIN_GLIBC_BUILDDIR))
 	mkdir -p $(XCHAIN_GLIBC_BUILDDIR)
-	cd $(XCHAIN_GLIBC_BUILDDIR) &&					\
-	        $(GLIBC_PATH) $(GLIBC_ENV)				\
-		$(GLIBC_DIR)/configure $(PTXCONF_GNU_TARGET) 		\
-		$(GLIBC_AUTOCONF)					\
-		--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)	\
+	cd $(XCHAIN_GLIBC_BUILDDIR) &&						\
+	        $(GLIBC_PATH) $(GLIBC_ENV)					\
+		$(GLIBC_DIR)/configure $(PTXCONF_GNU_TARGET) 			\
+		$(GLIBC_AUTOCONF)						\
+		--prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)		\
 		--libexecdir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/bin
 	touch $@
 
