@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: penguzilla.make,v 1.12 2004/04/06 10:12:16 robert Exp $
+# $Id: penguzilla.make,v 1.13 2004/06/10 12:29:50 rsc Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-PENGUZILLA_VERSION	= 0.4.0pre
+PENGUZILLA_VERSION	= 0.4.0
 PENGUZILLA		= penguzilla-$(PENGUZILLA_VERSION)
 PENGUZILLA_SUFFIX	= tar.gz
 PENGUZILLA_URL		= http://metis/$(PENGUZILLA).$(PENGUZILLA_SUFFIX)
