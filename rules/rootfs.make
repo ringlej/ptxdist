@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rootfs.make,v 1.8 2004/07/01 16:07:33 rsc Exp $
+# $Id: rootfs.make,v 1.9 2004/08/24 13:07:38 rsc Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -101,15 +101,10 @@ ifdef PTXCONF_ROOTFS_FLOPPY
 	mkdir -p $(ROOTDIR)/floppy
 endif
 
-ifdef PTXCONF_ROOTFS_ETC
-	@$(call clean, $(ROOTDIR)/etc)
-	mkdir -p $(ROOTDIR)/etc
-	cp -a $(TOPDIR)/etc/`ls -1 etc | grep $(PTXCONF_ETC_NAME) | sort | tail -1`/* $(ROOTDIR)/etc/
-
-  ifdef PTXCONF_OPENSSH
-	cd $(OPENSSH_DIR) && install -m 644 sshd_config.out $(ROOTDIR)/etc/ssh/sshd_config
-  endif
-endif
+#	# FIXME: code rot...
+#ifdef PTXCONF_OPENSSH
+#	cd $(OPENSSH_DIR) && install -m 644 sshd_config.out $(ROOTDIR)/etc/ssh/sshd_config
+#endif
 
 ifdef PTXCONF_ROOTFS_TMP
 	@$(call clean, $(ROOTDIR)/tmp)
@@ -143,6 +138,34 @@ ifdef PTXCONF_ROOTFS_HOME
 	mkdir -p $(ROOTDIR)/home
 endif
 
+ifdef PTXCONF_ROOTFS_ETC
+
+	# Copy generic etc
+	# FIXME: some parts of this have to be put into the packet make files!
+
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/fstab,        /etc/fstab)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/group,        /etc/group)
+	$(call copy_root, 0, 0, 0640, $(TOPDIR)/etc/generic/gshadow,      /etc/gshadow)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/hostname,     /etc/hostname)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/hosts,        /etc/hosts)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/inittab,      /etc/inittab)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/passwd,       /etc/passwd)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/profile,      /etc/profile)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/proftpd.conf, /etc/proftpd.conf)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/protocols,    /etc/protocols)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/resolv.conf,  /etc/resolv.conf)
+	$(call copy_root, 0, 0, 0640, $(TOPDIR)/etc/generic/shadow,       /etc/shadow)
+	$(call copy_root, 0, 0, 0600, $(TOPDIR)/etc/generic/shadow-,      /etc/shadow-)
+	$(call copy_root, 0, 0, 0644, $(TOPDIR)/etc/generic/udhcpc.script,/etc/udhcpc.script)
+	$(call copy_root, 0, 0, 0755, /etc/init.d)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/etc/generic/init.d/banner,     /etc/init.d/banner)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/etc/generic/init.d/networking, /etc/init.d/banner)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/etc/generic/init.d/rcS,        /etc/init.d/banner)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/etc/generic/init.d/utelnetd,   /etc/init.d/banner)
+	$(call copy_root, 0, 0, 0755, $(TOPDIR)/etc/generic/init.d/banner,     /etc/init.d/banner)
+	$(call copy_root, 0, 0, 0755, /etc/rc.d)
+
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------

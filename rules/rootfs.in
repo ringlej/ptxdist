@@ -1,28 +1,24 @@
 menu	"Root Filesystem     "
 
-config ROOTFS_PROC
-	bool
-	prompt "Create /proc"
-	default y 
-
 config ROOTFS_DEV
 	bool
 	prompt "Create /dev"
 	default y
 
-config ROOTFS_MNT
+config ROOTFS_ETC
 	bool
-	prompt "Create /mnt"
+	prompt "Use generic template for /etc"
 	default y
+	help
+	  When enabled, this option copies the files from 
+	  $(TOPDIR)/etc/generic/ to the target root filesystem. 
+	  The files contain useful defaults for most projects, so
+	  if you don't intend to use your completely self-made etc
+	  directory you should problably switch this on. 
 
 config ROOTFS_FLOPPY
 	bool
 	prompt "Create /floppy"
-	default y
-
-config ROOTFS_TMP
-	bool
-	prompt "Create /tmp"
 	default y
 
 config ROOTFS_HOME
@@ -30,14 +26,29 @@ config ROOTFS_HOME
 	prompt "Create /home"
 	default y
 
-config ROOTFS_VAR
+config ROOTFS_MNT
 	bool
-	prompt "Create /var"
+	prompt "Create /mnt"
 	default y
+
+config ROOTFS_PROC
+	bool
+	prompt "Create /proc"
+	default y 
 
 config ROOTFS_SYS
 	bool
 	prompt "Create /sys"
+	default y
+
+config ROOTFS_TMP
+	bool
+	prompt "Create /tmp"
+	default y
+
+config ROOTFS_VAR
+	bool
+	prompt "Create /var"
 	default y
 
 config VENDORTWEAKS
