@@ -1,9 +1,10 @@
 # -*-makefile-*-
-# $Id: xchain-gdb.make,v 1.6 2003/10/23 15:01:19 mkl Exp $
+# $Id: xchain-gdb.make,v 1.7 2003/10/23 17:54:36 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+#
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
