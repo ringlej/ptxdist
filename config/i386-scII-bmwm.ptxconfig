@@ -59,7 +59,7 @@ PTXCONF_TARGET_CONFIG_FILE="ix86.dat"
 PTXCONF_ARCH="i386"
 PTXCONF_ARCH_USERSPACE="i386"
 PTXCONF_GNU_TARGET="i386-unknown-linux-gnu"
-PTXCONF_PREFIX="/tmp/ptxdist-bmwm1"
+PTXCONF_PREFIX="/tmp/ptxdist-bmwm-new"
 PTXCONF_ROOT="$(TOPDIR)/root"
 
 #
@@ -143,28 +143,28 @@ PTXCONF_KERNEL_INSTALL=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH1_URL="http://metis/bmwm-patches/fb.h.diff"
+PTXCONF_KERNEL_PATCH1_URL="file:///ptx/home/Projects/BMW/Projekt-Autosalon2004/patches/fb.h.diff"
 PTXCONF_KERNEL_PATCH1_NAME="fb"
 PTXCONF_KERNEL_PATCH1_XCHAIN=y
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH2_URL="http://metis/bmwm-patches/ipconfig.c.diff"
+PTXCONF_KERNEL_PATCH2_URL="file:///ptx/home/Projects/BMW/Projekt-Autosalon2004/patches/ipconfig.c.diff"
 PTXCONF_KERNEL_PATCH2_NAME="ipconfig"
 # PTXCONF_KERNEL_PATCH2_XCHAIN is not set
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH3_URL="http://metis/bmwm-patches/vesafb.c.diff"
+PTXCONF_KERNEL_PATCH3_URL="file:///ptx/home/Projects/BMW/Projekt-Autosalon2004/patches/vesafb.c.diff"
 PTXCONF_KERNEL_PATCH3_NAME="vesafb"
 # PTXCONF_KERNEL_PATCH3_XCHAIN is not set
 
 #
 # 
 #
-PTXCONF_KERNEL_PATCH4_URL="http://metis/bmwm-patches/linux-2.6.1_idrive-1.8a.diff"
+PTXCONF_KERNEL_PATCH4_URL="file:///ptx/home/Projects/BMW/Projekt-Autosalon2004/patches/linux-2.6.1-idrive-1.10.diff"
 PTXCONF_KERNEL_PATCH4_NAME="idrive"
 # PTXCONF_KERNEL_PATCH4_XCHAIN is not set
 
