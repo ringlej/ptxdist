@@ -70,6 +70,8 @@ $(STATEDIR)/wireless.prepare: $(wireless_prepare_deps)
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
+WIRELESS_PATH	=  PATH=$(CROSS_PATH)
+WIRELESS_ENV 	=  $(CROSS_ENV)
 
 wireless_compile: $(STATEDIR)/wireless.compile
 
@@ -77,7 +79,7 @@ wireless_compile_deps	= $(STATEDIR)/wireless.prepare
 
 $(STATEDIR)/wireless.compile: $(wireless_compile_deps) 
 	@$(call targetinfo, $@)
-	make -C $(WIRELESS_DIR) 
+	cd $(WIRELESS_DIR) && $(WIRELESS_PATH) $(WIRELESS_ENV) make CC=${CROSS_CC}
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -100,7 +102,19 @@ wireless_targetinstall: $(STATEDIR)/wireless.targetinstall
 
 $(STATEDIR)/wireless.targetinstall: $(STATEDIR)/wireless.install
 	@$(call targetinfo, $@)
-# TODO
+	install -d $(ROOTDIR)/usr/sbin 
+	install $(WIRELESS_DIR)/iwconfig $(ROOTDIR)/usr/sbin
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwconfig
+	install $(WIRELESS_DIR)/iwlist   $(ROOTDIR)/usr/sbin
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwlist
+	install $(WIRELESS_DIR)/iwpriv   $(ROOTDIR)/usr/sbin
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwpriv
+	install $(WIRELESS_DIR)/iwspy    $(ROOTDIR)/usr/sbin
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwspy
+	install $(WIRELESS_DIR)/iwgetid  $(ROOTDIR)/usr/sbin
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwgetid
+	install $(WIRELESS_DIR)/iwevent  $(ROOTDIR)/usr/sbin
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwevent
 	touch $@
 # ----------------------------------------------------------------------------
 # Clean

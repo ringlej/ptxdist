@@ -1,3 +1,7 @@
+2005-03-28  Gary Thomas  <gary@mlbassoc.com>
+
+	* rules/wireless.make: Build tools to run on target system.
+
 2005-03-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* shorewall: update to 2.2; patch by Rex Tsai
