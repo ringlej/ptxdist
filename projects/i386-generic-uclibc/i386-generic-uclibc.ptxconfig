@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="i386-generic-uclibc_config"
+PTXCONF_PROJECT="i386-generic-uclibc"
 
 #
 # General Options             
