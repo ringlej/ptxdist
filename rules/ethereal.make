@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ethereal.make,v 1.1 2004/07/01 16:06:10 rsc Exp $
+# $Id: ethereal.make,v 1.2 2004/08/27 14:50:40 bsp Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-ETHEREAL_VERSION	= 0.10.4
+ETHEREAL_VERSION	= 0.10.6
 ETHEREAL		= ethereal-$(ETHEREAL_VERSION)
 ETHEREAL_SUFFIX		= tar.bz2
 ETHEREAL_URL		= http://netmirror.org/mirror/ftp.ethereal.com/$(ETHEREAL).$(ETHEREAL_SUFFIX)

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: grub.make,v 1.11 2004/08/10 21:21:13 rsc Exp $
+# $Id: grub.make,v 1.12 2004/08/27 14:50:40 bsp Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -18,7 +18,7 @@ endif
 #
 # Paths and names 
 #
-GRUB			= grub-0.93
+GRUB			= grub-0.95
 GRUB_URL		= ftp://alpha.gnu.org/gnu/grub/$(GRUB).tar.gz
 GRUB_SOURCE		= $(SRCDIR)/$(GRUB).tar.gz
 GRUB_DIR		= $(BUILDDIR)/$(GRUB)

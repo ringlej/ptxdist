@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssl.make,v 1.13 2003/10/28 02:21:54 mkl Exp $
+# $Id: openssl.make,v 1.14 2004/08/27 14:50:40 bsp Exp $
 #
 # Copyright (C) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
 #               2003 by Pengutronix e.K., Hildesheim, Germany
@@ -20,7 +20,7 @@ endif
 #
 # Paths and names 
 #
-OPENSSL			= openssl-0.9.7c
+OPENSSL			= openssl-0.9.7d
 OPENSSL_URL 		= http://www.openssl.org/source/$(OPENSSL).tar.gz
 OPENSSL_SOURCE		= $(SRCDIR)/$(OPENSSL).tar.gz
 OPENSSL_DIR 		= $(BUILDDIR)/$(OPENSSL)

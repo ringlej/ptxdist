@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: dhcp.make,v 1.3 2004/02/09 16:12:11 robert Exp $
+# $Id: dhcp.make,v 1.4 2004/08/27 14:50:40 bsp Exp $
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-DHCP_VERSION	= 3.0.1rc12
+DHCP_VERSION	= 3.0.1
 DHCP		= dhcp-$(DHCP_VERSION)
 DHCP_SUFFIX	= tar.gz
 DHCP_URL	= ftp://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX)

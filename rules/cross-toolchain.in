@@ -54,7 +54,12 @@ choice
 		bool
 		prompt "3.3.2   "
 		depends on ARCH_X86 || ARCH_ARM
-	
+
+	config GCC_3_4_1
+		bool
+		prompt "3.4.1   "
+		depends on ARCH_X86 || ARCH_ARM
+
 endchoice
 
 config GCC_2
@@ -65,6 +70,7 @@ config GCC_3
 	bool
 	default y if GCC_3_2_3
 	default y if GCC_3_3_2
+	default y if GCC_3_4_1
 
 config GCC_SHARED
 	bool
