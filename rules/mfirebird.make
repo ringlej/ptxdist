@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.14 2004/02/24 09:11:08 robert Exp $
+# $Id: mfirebird.make,v 1.15 2004/02/25 22:35:40 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -94,14 +94,17 @@ MFIREBIRD_ENV	=  $(CROSS_ENV)
 MFIREBIRD_ENV	+= MOZILLA_OFFICIAL=1
 MFIREBIRD_ENV	+= BUILD_OFFICIAL=1
 MFIREBIRD_ENV	+= MOZ_PHOENIX=1
-MFIREBIRD_ENV	+= ac_cv_have_x='have_x=yes ac_x_includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include ac_x_libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib'
 MFIREBIRD_ENV   += PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
+
 #
 # autoconf
 #
+
 MFIREBIRD_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 MFIREBIRD_AUTOCONF	+= --build=$(GNU_HOST)
 MFIREBIRD_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+
+MFIREBIRD_AUTOCONF	+= --with-x=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6
 
 MFIREBIRD_AUTOCONF	+= --enable-default-toolkit=gtk2
 
@@ -133,7 +136,7 @@ MFIREBIRD_AUTOCONF	+= --disable-activex
 MFIREBIRD_AUTOCONF	+= --enable-extensions
 MFIREBIRD_AUTOCONF	+= --without-system-nspr
 MFIREBIRD_AUTOCONF	+= --enable-necko-disk-cache
-MFIREBIRD_AUTOCONF`	+= --enable-xft
+MFIREBIRD_AUTOCONF	+= --enable-xft
 
 
 
@@ -474,7 +477,8 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 	install $(MFIREBIRD_DIR)/dist/lib/libplds4.so $(ROOTDIR)/usr/lib
 	install $(MFIREBIRD_DIR)/dist/lib/libplc4.so $(ROOTDIR)/usr/lib
 	install $(MFIREBIRD_DIR)/dist/lib/libnspr4.so $(ROOTDIR)/usr/lib
-
+	install -d $(ROOTDIR)/usr/lib/mozilla-1.6
+	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/components $(ROOTDIR)/usr/lib/mozilla-1.6
 	touch $@
 
 # ----------------------------------------------------------------------------
