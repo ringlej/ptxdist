@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ncurses.make,v 1.12 2003/10/23 15:01:19 mkl Exp $
+# $Id: ncurses.make,v 1.13 2003/10/26 23:10:14 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -67,8 +67,9 @@ ncurses_prepare_deps =  \
 	$(STATEDIR)/ncurses.extract
 
 NCURSES_PATH	=  PATH=$(CROSS_PATH)
-NCURSES_ENV	=  $(CROSS_ENV)
-NCURSES_ENV	+= BUILD_CC=$(HOSTCC) 
+NCURSES_ENV = \
+	$(CROSS_ENV) \
+	BUILD_CC=$(HOSTCC) 
 
 NCURSES_AUTOCONF =\
 	--build=$(GNU_HOST) \
@@ -86,11 +87,8 @@ NCURSES_AUTOCONF =\
 	--with-terminfo-dirs=/usr/share/terminfo \
 	--with-default-terminfo-dir=/usr/share/terminfo
 
-ifdef PTXCONF_UCLIBC
-ifdef PTXCONF_GCC_2_95_3
-# FIXME: there's got to be a better way to detect whether we disabled libstdc++ in xchain-gccstage1.make 
+ifndef PTXCONF_CXX
 NCURSES_AUTOCONF += --without-cxx-binding
-endif
 endif
 
 $(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps)
