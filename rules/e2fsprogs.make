@@ -1,6 +1,7 @@
-# $Id: e2fsprogs.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# -*-makefile-*-
+# $id$
 #
-# (c) 2002 by Pengutronix e.K., Hildesheim, Germany
+# (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXDIST project and license conditions
@@ -64,7 +65,7 @@ e2fsprogs_prepare: $(STATEDIR)/e2fsprogs.prepare
 
 E2FSPROGS_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
 E2FSPROGS_AUTOCONF	+= --enable-fsck
-E2FSPROGS_AUTOCONF	+= --build=i686-linux
+E2FSPROGS_AUTOCONF	+= --build=$(GNU_HOST)
 E2FSPROGS_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 E2FSPROGS_ENVIRONMENT	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(PTXCONF_PREFIX)/bin:$$PATH
 E2FSPROGS_MAKEVARS	=  AR=$(PTXCONF_GNU_TARGET)-ar
@@ -147,6 +148,6 @@ $(STATEDIR)/e2fsprogs.targetinstall: $(STATEDIR)/e2fsprogs.install
 # ----------------------------------------------------------------------------
 
 e2fsprogs_clean: 
-	rm -rf $(STATEDIR)/e2fsprogs.* $(e2fsprogs_DIR)
+	rm -rf $(STATEDIR)/e2fsprogs.* $(E2FSPROGS_DIR)
 
 # vim: syntax=make
