@@ -18,7 +18,7 @@ endif
 #
 # Paths and names 
 #
-BASH			= bash-2.05b
+BASH			= bash-3.0
 BASH_URL		= ftp://ftp.gnu.org/pub/gnu/bash/$(BASH).tar.gz 
 BASH_SOURCE		= $(SRCDIR)/$(BASH).tar.gz
 BASH_DIR		= $(BUILDDIR)/$(BASH)
