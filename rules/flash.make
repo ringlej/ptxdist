@@ -83,7 +83,7 @@ flash_prepare: $(STATEDIR)/flash.prepare
 #
 flash_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/ncurses.compile \
+	$(STATEDIR)/ncurses.install \
 	$(STATEDIR)/autoconf257.install \
         $(STATEDIR)/flash.extract
 

@@ -1,0 +1,4 @@
+config HEXEDIT
+        bool
+	select NCURSES
+        prompt "hexedit"

@@ -148,7 +148,7 @@ endmenu
 
 menu "Editors             "
 
-source "rules/nano.in"
+source "rules/editors.in"
 
 endmenu
 

@@ -1,2 +1,3 @@
 source "rules/nano.in"
 source "rules/jed.in"
+source "rules/hexedit.in"
