@@ -2,6 +2,10 @@
 
 	* dropbear: fixed make environment; thanks to 
 	  Manfred Gruber for showing up the problem. 
+	* mtd-utils: fixed missing CPPFLAGS
+	* Makefile: fixed bogus error messages
+	* crosstool: added support for gcc-3.4.3 and 
+	  glibc-2.3.4 into crosstool patches
 
 2005-03-01 Robert Schwebel <r.schwebel@pengutronix.de>
 
