@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template,v 1.11 2004/02/25 06:20:08 bsp Exp $
+# $Id: at-spi.make,v 1.1 2004/02/25 06:20:08 bsp Exp $
 #
-# Copyright (C) 2003 by @AUTHOR@
+# Copyright (C) 2003 by BSP
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -12,117 +12,118 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_@PACKET@
-PACKAGES += @packet@
+ifdef PTXCONF_AT-SPI
+PACKAGES += at-spi
 endif
 
 #
 # Paths and names
 #
-@PACKET@_VERSION	= @MAJOR@.@MINOR@.@MICRO@
-@PACKET@		= @packet@-$(@PACKET@_VERSION)
-@PACKET@_SUFFIX		= @SUFFIX@
-@PACKET@_URL		= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_SOURCE		= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_DIR		= $(BUILDDIR)/$(@PACKET@)
+AT-SPI_VERSION	= 1.3.13
+AT-SPI		= at-spi-$(AT-SPI_VERSION)
+AT-SPI_SUFFIX	= tar.bz2
+AT-SPI_URL	= ftp://ftp.gnome.org/pub/GNOME/sources/at-spi/1.3/$(AT-SPI).$(AT-SPI_SUFFIX)
+AT-SPI_SOURCE	= $(SRCDIR)/$(AT-SPI).$(AT-SPI_SUFFIX)
+AT-SPI_DIR	= $(BUILDDIR)/$(AT-SPI)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-@packet@_get: $(STATEDIR)/@packet@.get
+at-spi_get: $(STATEDIR)/at-spi.get
 
-@packet@_get_deps = $(@PACKET@_SOURCE)
+at-spi_get_deps = $(AT-SPI_SOURCE)
 
-$(STATEDIR)/@packet@.get: $(@packet@_get_deps)
+$(STATEDIR)/at-spi.get: $(at-spi_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
-$(@PACKET@_SOURCE):
+$(AT-SPI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(@PACKET@_URL))
+	@$(call get, $(AT-SPI_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-@packet@_extract: $(STATEDIR)/@packet@.extract
+at-spi_extract: $(STATEDIR)/at-spi.extract
 
-@packet@_extract_deps = $(STATEDIR)/@packet@.get
+at-spi_extract_deps = $(STATEDIR)/at-spi.get
 
-$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
+$(STATEDIR)/at-spi.extract: $(at-spi_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(@PACKET@_DIR))
-	@$(call extract, $(@PACKET@_SOURCE))
+	@$(call clean, $(AT-SPI_DIR))
+	@$(call extract, $(AT-SPI_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-@packet@_prepare: $(STATEDIR)/@packet@.prepare
+at-spi_prepare: $(STATEDIR)/at-spi.prepare
 
 #
 # dependencies
 #
-@packet@_prepare_deps = \
-	$(STATEDIR)/@packet@.extract \
+at-spi_prepare_deps = \
+	$(STATEDIR)/at-spi.extract \
 	$(STATEDIR)/virtual-xchain.install
 
-@PACKET@_PATH	=  PATH=$(CROSS_PATH)
-@PACKET@_ENV 	=  $(CROSS_ENV)
-#@PACKET@_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#@PACKET@_ENV	+=
+AT-SPI_PATH	=  PATH=$(CROSS_PATH)
+AT-SPI_ENV 	=  $(CROSS_ENV)
+#AT-SPI_ENV	+=
 
 #
 # autoconf
 #
-@PACKET@_AUTOCONF = \
+AT-SPI_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--prefix=$(CROSS_LIB_DIR)
 
-$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
+$(STATEDIR)/at-spi.prepare: $(at-spi_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(@PACKET@_DIR)/config.cache)
-	cd $(@PACKET@_DIR) && \
-		$(@PACKET@_PATH) $(@PACKET@_ENV) \
-		./configure $(@PACKET@_AUTOCONF)
+	@$(call clean, $(AT-SPI_DIR)/config.cache)
+	cd $(AT-SPI_DIR) && \
+		$(AT-SPI_PATH) $(AT-SPI_ENV) \
+		./configure $(AT-SPI_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-@packet@_compile: $(STATEDIR)/@packet@.compile
+at-spi_compile: $(STATEDIR)/at-spi.compile
 
-@packet@_compile_deps = $(STATEDIR)/@packet@.prepare
+at-spi_compile_deps = $(STATEDIR)/at-spi.prepare
 
-$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
+$(STATEDIR)/at-spi.compile: $(at-spi_compile_deps)
 	@$(call targetinfo, $@)
-	$(@PACKET@_PATH) make -C $(@PACKET@_DIR)
+	cd $(AT-SPI_DIR) && \
+	   $(AT-SPI_PATH) make 
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-@packet@_install: $(STATEDIR)/@packet@.install
+at-spi_install: $(STATEDIR)/at-spi.install
 
-$(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
+$(STATEDIR)/at-spi.install: $(STATEDIR)/at-spi.compile
 	@$(call targetinfo, $@)
-	$(@PACKET@_PATH) make -C $(@PACKET@_DIR) install
+	cd $(AT-SPI_DIR) && \       
+	   $(AT-SPI_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-@packet@_targetinstall: $(STATEDIR)/@packet@.targetinstall
+at-spi_targetinstall: $(STATEDIR)/at-spi.targetinstall
 
-@packet@_targetinstall_deps = $(STATEDIR)/@packet@.compile
+at-spi_targetinstall_deps = $(STATEDIR)/at-spi.compile
 
-$(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
+$(STATEDIR)/at-spi.targetinstall: $(at-spi_targetinstall_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -130,8 +131,8 @@ $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
 # Clean
 # ----------------------------------------------------------------------------
 
-@packet@_clean:
-	rm -rf $(STATEDIR)/@packet@.*
-	rm -rf $(@PACKET@_DIR)
+at-spi_clean:
+	rm -rf $(STATEDIR)/at-spi.*
+	rm -rf $(AT-SPI_DIR)
 
 # vim: syntax=make

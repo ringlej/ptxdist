@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template,v 1.11 2004/02/25 06:20:08 bsp Exp $
+# $Id: gail.make,v 1.1 2004/02/25 06:20:08 bsp Exp $
 #
-# Copyright (C) 2003 by @AUTHOR@
+# Copyright (C) 2003 by BSP
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -12,117 +12,118 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_@PACKET@
-PACKAGES += @packet@
+ifdef PTXCONF_GAIL
+PACKAGES += gail
 endif
 
 #
 # Paths and names
 #
-@PACKET@_VERSION	= @MAJOR@.@MINOR@.@MICRO@
-@PACKET@		= @packet@-$(@PACKET@_VERSION)
-@PACKET@_SUFFIX		= @SUFFIX@
-@PACKET@_URL		= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_SOURCE		= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_DIR		= $(BUILDDIR)/$(@PACKET@)
+GAIL_VERSION	= 1.5.5
+GAIL		= gail-$(GAIL_VERSION)
+GAIL_SUFFIX	= tar.bz2
+GAIL_URL	= ftp://ftp.gnome.org/pub/GNOME/sources/gail/1.5/$(GAIL).$(GAIL_SUFFIX)
+GAIL_SOURCE	= $(SRCDIR)/$(GAIL).$(GAIL_SUFFIX)
+GAIL_DIR	= $(BUILDDIR)/$(GAIL)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-@packet@_get: $(STATEDIR)/@packet@.get
+gail_get: $(STATEDIR)/gail.get
 
-@packet@_get_deps = $(@PACKET@_SOURCE)
+gail_get_deps = $(GAIL_SOURCE)
 
-$(STATEDIR)/@packet@.get: $(@packet@_get_deps)
+$(STATEDIR)/gail.get: $(gail_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
-$(@PACKET@_SOURCE):
+$(GAIL_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(@PACKET@_URL))
+	@$(call get, $(GAIL_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-@packet@_extract: $(STATEDIR)/@packet@.extract
+gail_extract: $(STATEDIR)/gail.extract
 
-@packet@_extract_deps = $(STATEDIR)/@packet@.get
+gail_extract_deps = $(STATEDIR)/gail.get
 
-$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
+$(STATEDIR)/gail.extract: $(gail_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(@PACKET@_DIR))
-	@$(call extract, $(@PACKET@_SOURCE))
+	@$(call clean, $(GAIL_DIR))
+	@$(call extract, $(GAIL_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-@packet@_prepare: $(STATEDIR)/@packet@.prepare
+gail_prepare: $(STATEDIR)/gail.prepare
 
 #
 # dependencies
 #
-@packet@_prepare_deps = \
-	$(STATEDIR)/@packet@.extract \
+gail_prepare_deps = \
+	$(STATEDIR)/gail.extract \
 	$(STATEDIR)/virtual-xchain.install
 
-@PACKET@_PATH	=  PATH=$(CROSS_PATH)
-@PACKET@_ENV 	=  $(CROSS_ENV)
-#@PACKET@_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#@PACKET@_ENV	+=
+GAIL_PATH	=  PATH=$(CROSS_PATH)
+GAIL_ENV 	=  $(CROSS_ENV)
+GAIL_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
 #
-@PACKET@_AUTOCONF = \
+GAIL_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--prefix=$(CROSS_LIB_DIR)
 
-$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
+$(STATEDIR)/gail.prepare: $(gail_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(@PACKET@_DIR)/config.cache)
-	cd $(@PACKET@_DIR) && \
-		$(@PACKET@_PATH) $(@PACKET@_ENV) \
-		./configure $(@PACKET@_AUTOCONF)
+	@$(call clean, $(GAIL_DIR)/config.cache)
+	cd $(GAIL_DIR) && \
+		$(GAIL_PATH) $(GAIL_ENV) \
+		./configure $(GAIL_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-@packet@_compile: $(STATEDIR)/@packet@.compile
+gail_compile: $(STATEDIR)/gail.compile
 
-@packet@_compile_deps = $(STATEDIR)/@packet@.prepare
+gail_compile_deps = $(STATEDIR)/gail.prepare
 
-$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
+$(STATEDIR)/gail.compile: $(gail_compile_deps)
 	@$(call targetinfo, $@)
-	$(@PACKET@_PATH) make -C $(@PACKET@_DIR)
+	cd $(GAIL_DIR) && \
+	$(GAIL_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-@packet@_install: $(STATEDIR)/@packet@.install
+gail_install: $(STATEDIR)/gail.install
 
-$(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
+$(STATEDIR)/gail.install: $(STATEDIR)/gail.compile
 	@$(call targetinfo, $@)
-	$(@PACKET@_PATH) make -C $(@PACKET@_DIR) install
+	cd $(GAIL_DIR) && \
+	   $(GAIL_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-@packet@_targetinstall: $(STATEDIR)/@packet@.targetinstall
+gail_targetinstall: $(STATEDIR)/gail.targetinstall
 
-@packet@_targetinstall_deps = $(STATEDIR)/@packet@.compile
+gail_targetinstall_deps = $(STATEDIR)/gail.compile
 
-$(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
+$(STATEDIR)/gail.targetinstall: $(gail_targetinstall_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -130,8 +131,8 @@ $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
 # Clean
 # ----------------------------------------------------------------------------
 
-@packet@_clean:
-	rm -rf $(STATEDIR)/@packet@.*
-	rm -rf $(@PACKET@_DIR)
+gail_clean:
+	rm -rf $(STATEDIR)/gail.*
+	rm -rf $(GAIL_DIR)
 
 # vim: syntax=make
