@@ -1,0 +1,146 @@
+#
+# $Id$
+#
+# Copyright (C) 2004 by Robert Schwebel
+#          
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+ifdef PTXCONF_XLIBS-X11
+PACKAGES += xlibs-x11
+endif
+
+#
+# Paths and names
+#
+XLIBS-X11_VERSION	= 20041103-1
+XLIBS-X11		= libX11-$(XLIBS-X11_VERSION)
+XLIBS-X11_SUFFIX	= tar.bz2
+XLIBS-X11_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-X11).$(XLIBS-X11_SUFFIX)
+XLIBS-X11_SOURCE	= $(SRCDIR)/$(XLIBS-X11).$(XLIBS-X11_SUFFIX)
+XLIBS-X11_DIR		= $(BUILDDIR)/$(XLIBS-X11)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+xlibs-x11_get: $(STATEDIR)/xlibs-x11.get
+
+xlibs-x11_get_deps = $(XLIBS-X11_SOURCE)
+
+$(STATEDIR)/xlibs-x11.get: $(xlibs-x11_get_deps)
+	@$(call targetinfo, $@)
+	@$(call get_patches, $(XLIBS-X11))
+	touch $@
+
+$(XLIBS-X11_SOURCE):
+	@$(call targetinfo, $@)
+	@$(call get, $(XLIBS-X11_URL))
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+xlibs-x11_extract: $(STATEDIR)/xlibs-x11.extract
+
+xlibs-x11_extract_deps = $(STATEDIR)/xlibs-x11.get
+
+$(STATEDIR)/xlibs-x11.extract: $(xlibs-x11_extract_deps)
+	@$(call targetinfo, $@)
+	@$(call clean, $(XLIBS-X11_DIR))
+	@$(call extract, $(XLIBS-X11_SOURCE))
+	@$(call patchin, $(XLIBS-X11))
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+xlibs-x11_prepare: $(STATEDIR)/xlibs-x11.prepare
+
+#
+# dependencies
+#
+xlibs-x11_prepare_deps =  $(STATEDIR)/xlibs-x11.extract
+xlibs-x11_prepare_deps += $(STATEDIR)/virtual-xchain.install
+xlibs-x11_prepare_deps += $(STATEDIR)/xlibs-xextensions.install
+xlibs-x11_prepare_deps += $(STATEDIR)/xlibs-xtrans.install
+xlibs-x11_prepare_deps += $(STATEDIR)/xlibs-xau.install
+
+XLIBS-X11_PATH	=  PATH=$(CROSS_PATH)
+XLIBS-X11_ENV 	=  $(CROSS_ENV)
+XLIBS-X11_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+
+#
+# autoconf
+#
+XLIBS-X11_AUTOCONF = \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--prefix=$(CROSS_LIB_DIR)
+
+$(STATEDIR)/xlibs-x11.prepare: $(xlibs-x11_prepare_deps)
+	@$(call targetinfo, $@)
+	@$(call clean, $(XLIBS-X11_DIR)/config.cache)
+	chmod a+x $(XLIBS-X11_DIR)/configure
+	cd $(XLIBS-X11_DIR) && \
+		$(XLIBS-X11_PATH) $(XLIBS-X11_ENV) \
+		./configure $(XLIBS-X11_AUTOCONF)
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+xlibs-x11_compile: $(STATEDIR)/xlibs-x11.compile
+
+xlibs-x11_compile_deps = $(STATEDIR)/xlibs-x11.prepare
+
+$(STATEDIR)/xlibs-x11.compile: $(xlibs-x11_compile_deps)
+	@$(call targetinfo, $@)
+	cd $(XLIBS-X11_DIR) && $(XLIBS-X11_ENV) $(XLIBS-X11_PATH) make
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+xlibs-x11_install: $(STATEDIR)/xlibs-x11.install
+
+$(STATEDIR)/xlibs-x11.install: $(STATEDIR)/xlibs-x11.compile
+	@$(call targetinfo, $@)
+	cd $(XLIBS-X11_DIR) && $(XLIBS-X11_ENV) $(XLIBS-X11_PATH) make install
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+xlibs-x11_targetinstall: $(STATEDIR)/xlibs-x11.targetinstall
+
+xlibs-x11_targetinstall_deps = $(STATEDIR)/xlibs-x11.compile
+
+$(STATEDIR)/xlibs-x11.targetinstall: $(xlibs-x11_targetinstall_deps)
+	@$(call targetinfo, $@)
+	$(call copy_root, 0, 0, 0644, $(XLIBS-X11_DIR)/src/.libs/libX11.0.0.0,	/usr/X11R6/lib/libX11.so.0.0.0)
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libX11.so.0.0.0
+	$(call link_root, /usr/X11R6/lib/libX11.so.0.0.0, /usr/X11R6/lib/libX11.0)
+	$(call link_root, /usr/X11R6/lib/libX11.so.0.0.0, /usr/X11R6/lib/libX11.so.0)
+	$(call link_root, /usr/X11R6/lib/libX11.so.0.0.0, /usr/X11R6/lib/libX11.so)
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+xlibs-x11_clean:
+	rm -rf $(STATEDIR)/xlibs-x11.*
+	rm -rf $(XLIBS-X11_DIR)
+
+# vim: syntax=make
