@@ -879,6 +879,17 @@ endmenu
 
 # ----------------------------------------------------------------------------
 
+menu	"inetutils           "
+
+config INETUTILS
+	bool
+	prompt "Compile inetutils"
+
+source rules/inetutils.in
+endmenu
+
+# ----------------------------------------------------------------------------
+
 menu 	"Network Security    "
 
 config LSH
@@ -1181,6 +1192,8 @@ config LILO
 config PTXFLASH
 	bool
 	prompt "Install ptxflash utility"
+
+source rules/genext2fs.in
 endmenu
 
 
