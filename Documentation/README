@@ -17,7 +17,7 @@ config file doesn't need to exist. Choose the desired kernelversion,
 then exit the menuconfig with save and 'make kernel_menuconfig' then the
 kernel is downloaded, extracted patched and the normal menuconfig from
 the kernel is started. PTXdist takes care of changes in the kernels
-.config files, it's is copied from and to the specified config file.
+.config files, it is copied from and to the specified config file.
 
 
 
