@@ -1,5 +1,5 @@
 # -*-makefile-*- 
-# $Id: bootdisk.make,v 1.8 2003/08/08 16:27:46 robert Exp $
+# $Id: bootdisk.make,v 1.9 2003/08/08 17:17:20 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -112,7 +112,7 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	rm -fr $(BUILDDIR)/tmpboot && install -d $(BUILDDIR)/tmpboot
 	cd $(BUILDDIR)/tmpboot && tar cf bootdisk.tar $(BOOTDISK_DIR)
 	$(SUDO) sh -c \
-		"GRUBPATH=$(BOOTDISK_DIR)/bin/; $(BUILDDIR)/mkbimage -d $(BUILDDIR)/tmpboot -f $(BUILDDIR)/tmpboot/bootdisk.tar -s ext2 -t 1.44"
+		"GRUBPATH=$(BOOTDISK_DIR)/bin/; $(BOOTDISK_DIR)/sbin/mkbimage -d $(BUILDDIR)/tmpboot -f $(BUILDDIR)/tmpboot/bootdisk.tar -s ext2 -t 1.44"
 	mv $(BUILDDIR)/tmpboot/1.44.image $(TOPDIR)/boot.image
 	rm -rf $(BUILDDIR)/tmpboot
 	touch $@
