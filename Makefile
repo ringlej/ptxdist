@@ -409,5 +409,9 @@ $(INSTALL_LOG):
 print-%:
 	@echo "$* is \"$($*)\""
 
+%_recompile:
+	@rm -f $(STATEDIR)/$*.compile
+	@make -C $(TOPDIR) $*_compile
+
 .PHONY: dep_output_clean dep_tree dep_world skip_vendortweaks
 # vim600:set foldmethod=marker:
