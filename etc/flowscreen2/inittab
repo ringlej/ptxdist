@@ -3,7 +3,8 @@
 #
 
 ::sysinit:/etc/init.d/banner
-#::sysinit:/etc/init.d/mount-proc
+::sysinit:/etc/init.d/mount-proc
+::sysinit:/etc/init.d/mount-tmp
 #::sysinit:/etc/init.d/unlock-flash
 #::sysinit:/etc/init.d/mount-local
 #::sysinit:/etc/init.d/root-remount
@@ -11,8 +12,11 @@
 #::sysinit:/etc/init.d/cleanup-logs
 #::sysinit:/etc/init.d/read-hwclock
 
+::respawn:/sbin/getty -L /dev/tts/0 115200 vt100
+::respawn:/sbin/getty -L /dev/tts/1 115200 vt100
+
 # Start an "askfirst" shell on the console
-::askfirst:/bin/sh
+#::askfirst:/bin/sh
 
 # Stuff to do before rebooting
 ::ctrlaltdel:/sbin/reboot
