@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ncurses.make,v 1.7 2003/08/27 18:54:31 robert Exp $
+# $Id: ncurses.make,v 1.8 2003/08/29 23:27:56 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -26,28 +26,19 @@ NCURSES_URL			= ftp://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES).$(NCURSES_SUFFIX)
 NCURSES_SOURCE			= $(SRCDIR)/$(NCURSES).$(NCURSES_SUFFIX)
 NCURSES_DIR			= $(BUILDDIR)/$(NCURSES)
 
-# Arrgh.  Huge patch.  Required to cross-compile.
-NCURSES_PATCH			= ncurses-5.3-20030719-patch.sh.bz2
-NCURSES_PATCH_URL		= ftp://invisible-island.net/ncurses/5.3/$(NCURSES_PATCH)
-NCURSES_PATCH_SOURCE		= $(SRCDIR)/$(NCURSES_PATCH)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
 ncurses_get: $(STATEDIR)/ncurses.get
 
-$(STATEDIR)/ncurses.get: $(NCURSES_SOURCE) $(NCURSES_PATCH_SOURCE)
+$(STATEDIR)/ncurses.get: $(NCURSES_SOURCE)
 	@$(call targetinfo, ncurses.get)
 	touch $@
 
 $(NCURSES_SOURCE):
 	@$(call targetinfo, $(NCURSES_SOURCE))
 	@$(call get, $(NCURSES_URL))
-
-$(NCURSES_PATCH_SOURCE):
-	@$(call targetinfo, $(NCURSES_PATCH))
-	@$(call get, $(NCURSES_PATCH_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -76,16 +67,12 @@ ncurses_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install
 
 NCURSES_PATH		=  PATH=$(CROSS_PATH)
-NCURSES_ENV 		=  $(CROSS_ENV)
-NCURSES_MAKEVARS	=  HOSTCC=$(HOSTCC)
+NCURSES_MAKEVARS	=  BUILD_CC=$(HOSTCC)
 
-NCURSES_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
+NCURSES_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 NCURSES_AUTOCONF	+= --build=$(GNU_HOST)
 NCURSES_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 NCURSES_AUTOCONF	+= --with-shared
-ifdef PTXCONF_GCC_3_2_3
-NCURSES_AUTOCONF	+= --without-cxx
-endif
 
 $(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps)
 	@$(call targetinfo, ncurses.prepare)
@@ -113,7 +100,7 @@ ncurses_install: $(STATEDIR)/ncurses.install
 
 $(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
 	@$(call targetinfo, ncurses.install)
-# 	$(NCURSES_PATH) make -C $(NCURSES_DIR) install
+#	$(NCURSES_PATH) make -C $(NCURSES_DIR) install
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	install $(NCURSES_DIR)/lib/libncurses.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libncurses.so.5.3 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so.5
