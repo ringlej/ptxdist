@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.2 2003/08/19 12:03:13 robert Exp $
+# $Id: mfirebird.make,v 1.3 2003/08/22 15:32:11 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #             Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -445,6 +445,7 @@ $(STATEDIR)/mfirebird.install: $(STATEDIR)/mfirebird.compile
 mfirebird_targetinstall: $(STATEDIR)/mfirebird.targetinstall
 
 mfirebird_targetinstall_deps	=  $(STATEDIR)/mfirebird.compile
+mfirebird_targetinstall_deps	+= $(STATEDIR)/gtk1210.targetinstall
 
 $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 	@$(call targetinfo, mfirebird.targetinstall)
