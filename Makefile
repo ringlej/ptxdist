@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.26 2003/09/09 21:57:27 robert Exp $
+# $Id: Makefile,v 1.27 2003/09/16 08:10:55 mkl Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -201,7 +201,7 @@ clean: rootclean
 
 rootclean:
 	@echo
-	@echo -n "cleaning root/ directory......... "
+	@echo -n "cleaning root dir................ "
 	@for i in $$(ls -I CVS $(ROOTDIR)); do echo -n $$i' '; rm -rf $(ROOTDIR)/"$$i"; done
 	@echo "done."
 	@echo -n "cleaning state/*.targetinstall... "
