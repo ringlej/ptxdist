@@ -1,4 +1,5 @@
-# $Id: grub.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# -*-makefile-*-
+# $Id: grub.make,v 1.2 2003/05/13 11:19:44 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -100,7 +101,7 @@ endif
 ifeq (y, $(PTXCONF_GRUB_CS89X0))
 GRUB_AUTOCONF += --enable-cs89x0
 else
-GRUB_AUTOCONF += --disable-enable-cs89x0
+GRUB_AUTOCONF += --disable-cs89x0
 endif
 
 $(STATEDIR)/grub.prepare: $(STATEDIR)/grub.extract
