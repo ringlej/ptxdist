@@ -74,4 +74,29 @@ config VENDORTWEAKS
 	  here is searched in rules/vendor-tweaks; this is normally a 
 	  *.make file.  
 
+comment "Image Creation"
+
+config IMAGE_TGZ
+	bool
+	default n
+	prompt "Generate images/root.tgz"
+	help
+	  Build a tar.gz archive of the root filesystem, containing the
+	  right owner/group and access permissions. 
+
+config IMAGE_JFFS2
+	bool
+	default n
+	select MTD_XCHAIN_MKJFFS2
+	select MTD_XCHAIN
+	prompt "Generate images/root.jffs2"
+	help
+	  Build a jffs2 image of the root filesystem
+
+config IMAGE_JFFS2_BLOCKSIZE
+	int
+	default -1
+	prompt "Erase Block Size"
+	depends on IMAGE_JFFS2
+
 endmenu

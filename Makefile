@@ -166,10 +166,18 @@ world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree
 image: $(STATEDIR)/image
 
 $(STATEDIR)/image:
+ifdef PTXCONF_IMAGE_TGZ
 	cd $(ROOTDIR); \
 	(awk -F: '{printf("chmod %s .%s; chown %s.%s .%s;\n", $$4, $$1, $$2, $$3, $$1);}' $(TOPDIR)/permissions && \
 	echo "tar -zcvf $(TOPDIR)/images/root.tgz . ") | \
 	$(PTXCONF_PREFIX)/bin/fakeroot -- 
+endif
+ifdef PTXCONF_IMAGE_JFFS2
+	$(PTXCONF_PREFIX)/bin/mkfs.jffs2 \
+		-d $(ROOTDIR) \
+		--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) \
+		-o $(TOPDIR)/images/root.jffs2
+endif
 	touch $@
 
 # Configuration system -------------------------------------------------------
