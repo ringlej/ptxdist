@@ -1,3 +1,4 @@
-config BONNIE++
+config BONNIEXX
 	bool
 	prompt "bonnie++"
+	select GCCLIBS_CXX

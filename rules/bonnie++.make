@@ -12,126 +12,127 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BONNIE++
-PACKAGES += bonnie++
+ifdef PTXCONF_BONNIEXX
+PACKAGES += bonniexx
 endif
 
 #
 # Paths and names
 #
-BONNIE++_VERSION	= 1.03a
-BONNIE++		= bonnie++-$(BONNIE++_VERSION)
-BONNIE++_SUFFIX		= tgz
-BONNIE++_URL		= http://www.coker.com.au/bonnie++/$(BONNIE++).$(BONNIE++_SUFFIX)
-BONNIE++_SOURCE		= $(SRCDIR)/$(BONNIE++).$(BONNIE++_SUFFIX)
-BONNIE++_DIR		= $(BUILDDIR)/$(BONNIE++)
+BONNIEXX_VERSION	= 1.03a
+BONNIEXX		= bonniexx-$(BONNIEXX_VERSION)
+BONNIEXX_SUFFIX		= tgz
+BONNIEXX_URL		= http://www.coker.com.au/bonniexx/$(BONNIEXX).$(BONNIEXX_SUFFIX)
+BONNIEXX_SOURCE		= $(SRCDIR)/$(BONNIEXX).$(BONNIEXX_SUFFIX)
+BONNIEXX_DIR		= $(BUILDDIR)/$(BONNIEXX)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-bonnie++_get: $(STATEDIR)/bonnie++.get
+bonniexx_get: $(STATEDIR)/bonniexx.get
 
-bonnie++_get_deps = $(BONNIE++_SOURCE)
+bonniexx_get_deps = $(BONNIEXX_SOURCE)
 
-$(STATEDIR)/bonnie++.get: $(bonnie++_get_deps)
+$(STATEDIR)/bonniexx.get: $(bonniexx_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(BONNIE++))
+	@$(call get_patches, $(BONNIEXX))
 	touch $@
 
-$(BONNIE++_SOURCE):
+$(BONNIEXX_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BONNIE++_URL))
+	@$(call get, $(BONNIEXX_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-bonnie++_extract: $(STATEDIR)/bonnie++.extract
+bonniexx_extract: $(STATEDIR)/bonniexx.extract
 
-bonnie++_extract_deps = $(STATEDIR)/bonnie++.get
+bonniexx_extract_deps = $(STATEDIR)/bonniexx.get
 
-$(STATEDIR)/bonnie++.extract: $(bonnie++_extract_deps)
+$(STATEDIR)/bonniexx.extract: $(bonniexx_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(BONNIE++_DIR))
-	@$(call extract, $(BONNIE++_SOURCE))
-	@$(call patchin, $(BONNIE++))
+	@$(call clean, $(BONNIEXX_DIR))
+	@$(call extract, $(BONNIEXX_SOURCE))
+	@$(call patchin, $(BONNIEXX))
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-bonnie++_prepare: $(STATEDIR)/bonnie++.prepare
+bonniexx_prepare: $(STATEDIR)/bonniexx.prepare
 
 #
 # dependencies
 #
-bonnie++_prepare_deps = \
-	$(STATEDIR)/bonnie++.extract \
+bonniexx_prepare_deps = \
+	$(STATEDIR)/bonniexx.extract \
 	$(STATEDIR)/virtual-xchain.install
 
-BONNIE++_PATH	=  PATH=$(CROSS_PATH)
-BONNIE++_ENV 	=  $(CROSS_ENV)
-#BONNIE++_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#BONNIE++_ENV	+=
+BONNIEXX_PATH	=  PATH=$(CROSS_PATH)
+BONNIEXX_ENV 	=  $(CROSS_ENV)
+#BONNIEXX_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+#BONNIEXX_ENV	+=
 
 #
 # autoconf
 #
-BONNIE++_AUTOCONF =  $(CROSS_AUTOCONF)
-BONNIE++_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+BONNIEXX_AUTOCONF =  $(CROSS_AUTOCONF)
+BONNIEXX_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
-$(STATEDIR)/bonnie++.prepare: $(bonnie++_prepare_deps)
+$(STATEDIR)/bonniexx.prepare: $(bonniexx_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(BONNIE++_DIR)/config.cache)
-	cd $(BONNIE++_DIR) && \
-		$(BONNIE++_PATH) $(BONNIE++_ENV) \
-		./configure $(BONNIE++_AUTOCONF)
+	@$(call clean, $(BONNIEXX_DIR)/config.cache)
+	cd $(BONNIEXX_DIR) && \
+		$(BONNIEXX_PATH) $(BONNIEXX_ENV) \
+		./configure $(BONNIEXX_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-bonnie++_compile: $(STATEDIR)/bonnie++.compile
+bonniexx_compile: $(STATEDIR)/bonniexx.compile
 
-bonnie++_compile_deps = $(STATEDIR)/bonnie++.prepare
+bonniexx_compile_deps = $(STATEDIR)/bonniexx.prepare
 
-$(STATEDIR)/bonnie++.compile: $(bonnie++_compile_deps)
+$(STATEDIR)/bonniexx.compile: $(bonniexx_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(BONNIE++_DIR) && $(BONNIE++_ENV) $(BONNIE++_PATH) make
+	cd $(BONNIEXX_DIR) && $(BONNIEXX_ENV) $(BONNIEXX_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-bonnie++_install: $(STATEDIR)/bonnie++.install
+bonniexx_install: $(STATEDIR)/bonniexx.install
 
-$(STATEDIR)/bonnie++.install: $(STATEDIR)/bonnie++.compile
+$(STATEDIR)/bonniexx.install: $(STATEDIR)/bonniexx.compile
 	@$(call targetinfo, $@)
-	cd $(BONNIE++_DIR) && $(BONNIE++_ENV) $(BONNIE++_PATH) make install
+	cd $(BONNIEXX_DIR) && $(BONNIEXX_ENV) $(BONNIEXX_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-bonnie++_targetinstall: $(STATEDIR)/bonnie++.targetinstall
+bonniexx_targetinstall: $(STATEDIR)/bonniexx.targetinstall
 
-bonnie++_targetinstall_deps = $(STATEDIR)/bonnie++.compile
+bonniexx_targetinstall_deps = $(STATEDIR)/bonniexx.compile
 
-$(STATEDIR)/bonnie++.targetinstall: $(bonnie++_targetinstall_deps)
+$(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps)
 	@$(call targetinfo, $@)
+	$(call copy_root, 0, 0, 0644, $(BONNIEXX_DIR)/bonniexx,/usr/bin/bonniexx)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-bonnie++_clean:
-	rm -rf $(STATEDIR)/bonnie++.*
-	rm -rf $(BONNIE++_DIR)
+bonniexx_clean:
+	rm -rf $(STATEDIR)/bonniexx.*
+	rm -rf $(BONNIEXX_DIR)
 
 # vim: syntax=make
