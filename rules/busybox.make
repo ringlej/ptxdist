@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.13 2003/09/16 17:26:03 mkl Exp $
+# $Id: busybox.make,v 1.14 2003/09/17 22:41:31 mkl Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -36,6 +36,7 @@ busybox_get_deps	=  $(BUSYBOX_SOURCE)
 
 $(STATEDIR)/busybox.get: $(busybox_get_deps)
 	@$(call targetinfo, busybox.get)
+	@$(call get_patches, $(BUSYBOX))
 	touch $@
 
 $(BUSYBOX_SOURCE):
