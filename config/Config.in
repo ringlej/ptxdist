@@ -126,8 +126,4 @@ menu "Web Applications    "
 source "rules/mfirebird.in"
 source "rules/penguzilla.in"
 
-config XCHAIN-DISTCC
-	bool
-	prompt "Build distcc"
-	default n
 endmenu

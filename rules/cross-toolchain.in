@@ -30,6 +30,11 @@ config GCC_3
 	default y if GCC_3_2_3
 	default y if GCC_3_3_2
 
+config XCHAIN-DISTCC
+	bool
+	prompt "Build distcc"
+	default n
+
 config NASM
 	bool
 	prompt "x86 NASM"
