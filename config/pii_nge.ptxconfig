@@ -1129,6 +1129,15 @@ PTXCONF_TERMCAP=y
 # PTXCONF_BLACKBOX is not set
 
 #
+# Scientific Apps     
+#
+
+#
+# gnuplot          
+#
+# PTXCONF_GNUPLOT is not set
+
+#
 # Web Applications    
 #
 

@@ -1,6 +1,7 @@
 #
 # Automatically generated make config: don't edit
 #
+PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 PTXCONF_PROJECT="Hynix H7202 Evalboard"
 
@@ -78,12 +79,6 @@ PTXCONF_ROOT=""
 #
 # PTXCONF_BUILD_CROSSCHAIN is not set
 PTXCONF_CROSSCHAIN_CHECK="3.4.0"
-# PTXCONF_BINUTILS_2_13_2_1 is not set
-# PTXCONF_BINUTILS_2_14 is not set
-# PTXCONF_BINUTILS_2_15 is not set
-# PTXCONF_GCC_2_95_3 is not set
-# PTXCONF_GCC_3_2_3 is not set
-# PTXCONF_GCC_3_3_2 is not set
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
@@ -142,6 +137,7 @@ PTXCONF_KERNEL_CONFIG="kernel-2.4.21-h7202"
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
 PTXCONF_KERNEL_2_6_7=y
+# PTXCONF_KERNEL_2_6_8 is not set
 PTXCONF_DONT_COMPILE_KERNEL=y
 
 #
@@ -155,7 +151,7 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 #
 
 #
-# RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)
+# epoll should be ported to patchstack mechanism, please send patch! :-)
 #
 
 #
@@ -246,6 +242,14 @@ PTXCONF_BB_CONFIG_FEATURE_SUID=y
 #
 # PTXCONF_BB_CONFIG_STATIC is not set
 # PTXCONF_BB_CONFIG_LFS is not set
+# PTXCONF_BB_USING_CROSS_COMPILER is not set
+PTXCONF_BB_EXTRA_CFLAGS_OPTIONS=""
+
+#
+# Installation Options
+#
+# PTXCONF_BB_CONFIG_INSTALL_NO_USR is not set
+PTXCONF_BB_PREFIX="./_install"
 
 #
 # Archival Utilities
@@ -494,7 +498,6 @@ PTXCONF_BB_CONFIG_TIME=y
 # Linux Module Utilities
 #
 PTXCONF_BB_CONFIG_INSMOD=y
-# PTXCONF_BB_CONFIG_FEATURE_2_2_MODULES is not set
 PTXCONF_BB_CONFIG_FEATURE_2_4_MODULES=y
 # PTXCONF_BB_CONFIG_FEATURE_2_6_MODULES is not set
 # PTXCONF_BB_CONFIG_FEATURE_INSMOD_VERSION_CHECKING is not set
@@ -588,10 +591,12 @@ PTXCONF_BB_CONFIG_ASH=y
 PTXCONF_BB_CONFIG_ASH_JOB_CONTROL=y
 PTXCONF_BB_CONFIG_ASH_ALIAS=y
 PTXCONF_BB_CONFIG_ASH_MATH_SUPPORT=y
+# PTXCONF_BB_CONFIG_ASH_MATH_SUPPORT_64 is not set
 PTXCONF_BB_CONFIG_ASH_GETOPTS=y
 PTXCONF_BB_CONFIG_ASH_CMDCMD=y
 # PTXCONF_BB_CONFIG_ASH_MAIL is not set
 PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
+# PTXCONF_BB_CONFIG_ASH_RANDOM_SUPPORT is not set
 # PTXCONF_BB_CONFIG_HUSH is not set
 # PTXCONF_BB_CONFIG_LASH is not set
 # PTXCONF_BB_CONFIG_MSH is not set
@@ -668,6 +673,15 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # Gawk                
 #
 # PTXCONF_GAWK is not set
+
+#
+# Hotplug             
+#
+# PTXCONF_HOTPLUG is not set
+
+#
+# hotplug scripts
+#
 
 #
 # mgetty & sendfax    
@@ -911,6 +925,18 @@ PTXCONF_UTELNETD=y
 # PTXCONF_ZEBRA is not set
 
 #
+# Realtime Networking 
+#
+
+#
+# Optional Features
+#
+
+#
+# Network Card Support
+#
+
+#
 # Disk and file ---   
 #
 
@@ -926,7 +952,20 @@ PTXCONF_UTELNETD=y
 #
 # grub                
 #
+
+#
+# Config Options
+#
+
+#
+# File System Support
+#
+
+#
+# Network Card Support
+#
 # PTXCONF_CRAMFS is not set
+# PTXCONF_BONNIE is not set
 
 #
 # Applications ---    
@@ -1032,6 +1071,15 @@ PTXCONF_ZLIB=y
 # Blackbox WM         
 #
 # PTXCONF_BLACKBOX is not set
+
+#
+# Scientific Apps     
+#
+
+#
+# gnuplot          
+#
+# PTXCONF_GNUPLOT is not set
 
 #
 # Web Applications    

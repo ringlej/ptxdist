@@ -1,6 +1,7 @@
 #
 # Automatically generated make config: don't edit
 #
+PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 PTXCONF_PROJECT="generic"
 
@@ -132,6 +133,7 @@ PTXCONF_KERNEL_CONFIG="kernel-2.4.19-i386-generic-20030808-1"
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
 PTXCONF_KERNEL_2_6_7=y
+# PTXCONF_KERNEL_2_6_8 is not set
 PTXCONF_DONT_COMPILE_KERNEL=y
 
 #
@@ -145,7 +147,7 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 #
 
 #
-# RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)
+# epoll should be ported to patchstack mechanism, please send patch! :-)
 #
 
 #
@@ -889,6 +891,18 @@ PTXCONF_UTELNETD=y
 # PTXCONF_ZEBRA is not set
 
 #
+# Realtime Networking 
+#
+
+#
+# Optional Features
+#
+
+#
+# Network Card Support
+#
+
+#
 # Disk and file ---   
 #
 
@@ -905,8 +919,21 @@ PTXCONF_UTELNETD=y
 # grub                
 #
 # PTXCONF_GRUB is not set
+
+#
+# Config Options
+#
+
+#
+# File System Support
+#
+
+#
+# Network Card Support
+#
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
+# PTXCONF_BONNIE is not set
 
 #
 # Applications ---    
@@ -1011,6 +1038,15 @@ PTXCONF_UTELNETD=y
 # Blackbox WM         
 #
 # PTXCONF_BLACKBOX is not set
+
+#
+# Scientific Apps     
+#
+
+#
+# gnuplot          
+#
+# PTXCONF_GNUPLOT is not set
 
 #
 # Web Applications    

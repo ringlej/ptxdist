@@ -137,6 +137,7 @@ PTXCONF_KERNEL_2_4_26=y
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
 # PTXCONF_KERNEL_2_6_7 is not set
+# PTXCONF_KERNEL_2_6_8 is not set
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -1179,6 +1180,15 @@ PTXCONF_ZLIB=y
 # Blackbox WM         
 #
 # PTXCONF_BLACKBOX is not set
+
+#
+# Scientific Apps     
+#
+
+#
+# gnuplot          
+#
+# PTXCONF_GNUPLOT is not set
 
 #
 # Web Applications    

@@ -1,6 +1,7 @@
 #
 # Automatically generated make config: don't edit
 #
+PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 PTXCONF_PROJECT=""
 
@@ -68,6 +69,7 @@ PTXCONF_ROOT=""
 PTXCONF_BUILD_CROSSCHAIN=y
 # PTXCONF_BINUTILS_2_13_2_1 is not set
 PTXCONF_BINUTILS_2_14=y
+# PTXCONF_BINUTILS_2_15 is not set
 # PTXCONF_GCC_2_95_3 is not set
 # PTXCONF_GCC_3_2_3 is not set
 PTXCONF_GCC_3_3_2=y
@@ -88,6 +90,7 @@ PTXCONF_ROOTFS_FLOPPY=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_HOME=y
 PTXCONF_ROOTFS_VAR=y
+PTXCONF_ROOTFS_SYS=y
 PTXCONF_VENDORTWEAKS=""
 
 #
@@ -100,6 +103,7 @@ PTXCONF_VENDORTWEAKS=""
 # PTXCONF_KSYMOOPS is not set
 # PTXCONF_LTT is not set
 # PTXCONF_LIBBFD is not set
+# PTXCONF_MEMTEST is not set
 # PTXCONF_OPROFILE is not set
 # PTXCONF_STRACE is not set
 
@@ -125,8 +129,12 @@ PTXCONF_KERNEL_CONFIG="kernel-2.4.19-i386-generic-20030808-1"
 # PTXCONF_KERNEL_2_4_22 is not set
 # PTXCONF_KERNEL_2_4_23 is not set
 PTXCONF_KERNEL_2_4_25=y
+# PTXCONF_KERNEL_2_4_26 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
+# PTXCONF_KERNEL_2_6_6 is not set
+# PTXCONF_KERNEL_2_6_7 is not set
+# PTXCONF_KERNEL_2_6_8 is not set
 PTXCONF_DONT_COMPILE_KERNEL=y
 
 #
@@ -140,7 +148,7 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 #
 
 #
-# RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)
+# epoll should be ported to patchstack mechanism, please send patch! :-)
 #
 
 #
@@ -297,11 +305,6 @@ PTXCONF_LIBSTDCXX_SHARED=y
 #
 
 #
-# Pdksh               
-#
-# PTXCONF_PDKSH is not set
-
-#
 # Bash                
 #
 # PTXCONF_BASH is not set
@@ -334,6 +337,14 @@ PTXCONF_BB_CONFIG_FEATURE_SUID_CONFIG=y
 #
 # PTXCONF_BB_CONFIG_STATIC is not set
 # PTXCONF_BB_CONFIG_LFS is not set
+# PTXCONF_BB_USING_CROSS_COMPILER is not set
+PTXCONF_BB_EXTRA_CFLAGS_OPTIONS=""
+
+#
+# Installation Options
+#
+# PTXCONF_BB_CONFIG_INSTALL_NO_USR is not set
+PTXCONF_BB_PREFIX="./_install"
 
 #
 # Archival Utilities
@@ -568,7 +579,6 @@ PTXCONF_BB_CONFIG_WATCHDOG=y
 # Linux Module Utilities
 #
 PTXCONF_BB_CONFIG_INSMOD=y
-# PTXCONF_BB_CONFIG_FEATURE_2_2_MODULES is not set
 PTXCONF_BB_CONFIG_FEATURE_2_4_MODULES=y
 # PTXCONF_BB_CONFIG_FEATURE_2_6_MODULES is not set
 # PTXCONF_BB_CONFIG_FEATURE_INSMOD_VERSION_CHECKING is not set
@@ -661,6 +671,7 @@ PTXCONF_BB_CONFIG_ASH_GETOPTS=y
 # PTXCONF_BB_CONFIG_ASH_CMDCMD is not set
 # PTXCONF_BB_CONFIG_ASH_MAIL is not set
 PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
+# PTXCONF_BB_CONFIG_ASH_RANDOM_SUPPORT is not set
 # PTXCONF_BB_CONFIG_HUSH is not set
 # PTXCONF_BB_CONFIG_LASH is not set
 # PTXCONF_BB_CONFIG_MSH is not set
@@ -738,14 +749,28 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_BB_CONFIG_DEBUG is not set
 
 #
-# mgetty & sendfax    
+# GNU coreutils       
 #
-# PTXCONF_MGETTY is not set
+# PTXCONF_COREUTILS is not set
 
 #
 # Gawk                
 #
 # PTXCONF_GAWK is not set
+
+#
+# Hotplug             
+#
+# PTXCONF_HOTPLUG is not set
+
+#
+# hotplug scripts
+#
+
+#
+# mgetty & sendfax    
+#
+# PTXCONF_MGETTY is not set
 
 #
 # MTD Tools           
@@ -754,9 +779,24 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_MTD_UTILS is not set
 
 #
-# GNU coreutils       
+# PCMCIA Tools        
 #
-# PTXCONF_COREUTILS is not set
+# PTXCONF_PCMCIA_TOOLS is not set
+
+#
+# Pdksh               
+#
+# PTXCONF_PDKSH is not set
+
+#
+# procps              
+#
+# PTXCONF_PROCPS is not set
+
+#
+# sysutils            
+#
+# PTXCONF_SYSUTILS is not set
 
 #
 # util-linux          
@@ -765,19 +805,9 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_CLOCK is not set
 
 #
-# procps              
-#
-# PTXCONF_PROCPS is not set
-
-#
 # VHLL Support        
 #
 # PTXCONF_VHLL_PYTHON23 is not set
-
-#
-# PCMCIA Tools        
-#
-# PTXCONF_PCMCIA_TOOLS is not set
 
 #
 # Network Tools --- 
@@ -817,99 +847,19 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 #
 
 #
-# bing                
-#
-# PTXCONF_BING is not set
-
-#
-# ppp                 
-#
-# PTXCONF_PPP is not set
-
-#
-# nmap                
-#
-# PTXCONF_NMAP is not set
-
-#
-# utelnetd            
-#
-PTXCONF_UTELNETD=y
-
-#
-# inetutils           
-#
-# PTXCONF_INETUTILS is not set
-
-#
-# netcat              
-#
-# PTXCONF_NETCAT is not set
-
-#
-# proftpd             
-#
-# PTXCONF_PROFTPD is not set
-
-#
 # betaftpd            
 #
 # PTXCONF_BETAFTPD is not set
 
 #
-# nfs-utils           
-#
-# PTXCONF_NFSUTILS is not set
-
-#
-# Portmapper          
-#
-# PTXCONF_PORTMAP is not set
-
-#
-# tcpwrapper          
-#
-# PTXCONF_TCPWRAPPER is not set
-
-#
-# Wireless Tools      
-#
-# PTXCONF_WIRELESS is not set
-
-#
-# GNU Zebra           
-#
-# PTXCONF_ZEBRA is not set
-
-#
-# libnet              
-#
-# PTXCONF_LIBNET is not set
-
-#
-# libpcap             
-#
-# PTXCONF_LIBPCAP is not set
-
-#
-# rsync               
-#
-# PTXCONF_RSYNC is not set
-
-#
-# thttpd              
-#
-# PTXCONF_THTTPD is not set
-
-#
-# NTP                 
-#
-# PTXCONF_NTP is not set
-
-#
 # Bind                
 #
 # PTXCONF_BIND is not set
+
+#
+# bing                
+#
+# PTXCONF_BING is not set
 
 #
 # dhcp                
@@ -922,9 +872,132 @@ PTXCONF_UTELNETD=y
 # PTXCONF_DNSMASQ is not set
 
 #
+# ethereal            
+#
+# PTXCONF_ETHEREAL is not set
+
+#
+# inetutils           
+#
+# PTXCONF_INETUTILS is not set
+
+#
+# libnet              
+#
+# PTXCONF_LIBNET is not set
+
+#
+# libpcap             
+#
+# PTXCONF_LIBPCAP is not set
+
+#
+# netcat              
+#
+# PTXCONF_NETCAT is not set
+
+#
+# nfs-utils           
+#
+
+#
+# compile options
+#
+# PTXCONF_NFSUTILS is not set
+
+#
+# install options
+#
+
+#
+# nmap                
+#
+# PTXCONF_NMAP is not set
+
+#
+# NTP                 
+#
+# PTXCONF_NTP is not set
+
+#
+# Compile Options
+#
+
+#
+# crypto needs openssl
+#
+
+#
+# Install Options
+#
+
+#
+# OpenAFS             
+#
+# PTXCONF_OPENAFS is not set
+PTXCONF_OPENAFS_1_2_11=y
+
+#
+# Portmapper          
+#
+# PTXCONF_PORTMAP is not set
+
+#
+# ppp                 
+#
+# PTXCONF_PPP is not set
+
+#
+# proftpd             
+#
+# PTXCONF_PROFTPD is not set
+
+#
+# rsync               
+#
+# PTXCONF_RSYNC is not set
+
+#
 # tcpdump             
 #
 # PTXCONF_TCPDUMP is not set
+
+#
+# tcpwrapper          
+#
+# PTXCONF_TCPWRAPPER is not set
+
+#
+# thttpd              
+#
+# PTXCONF_THTTPD is not set
+
+#
+# utelnetd            
+#
+PTXCONF_UTELNETD=y
+
+#
+# Wireless Tools      
+#
+# PTXCONF_WIRELESS is not set
+
+#
+# GNU Zebra           
+#
+# PTXCONF_ZEBRA is not set
+
+#
+# Realtime Networking 
+#
+
+#
+# Optional Features
+#
+
+#
+# Network Card Support
+#
 
 #
 # Disk and file ---   
@@ -943,8 +1016,21 @@ PTXCONF_UTELNETD=y
 # grub                
 #
 # PTXCONF_GRUB is not set
+
+#
+# Config Options
+#
+
+#
+# File System Support
+#
+
+#
+# Network Card Support
+#
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
+# PTXCONF_BONNIE is not set
 
 #
 # Applications ---    
@@ -969,6 +1055,11 @@ PTXCONF_UTELNETD=y
 # setmixer            
 #
 # PTXCONF_SETMIXER is not set
+
+#
+# Tools               
+#
+# PTXCONF_FIGLET is not set
 
 #
 # System Libraries    
@@ -1041,6 +1132,20 @@ PTXCONF_UTELNETD=y
 # Qt embedded GUI       
 #
 # PTXCONF_QTE is not set
+
+#
+# Blackbox WM         
+#
+# PTXCONF_BLACKBOX is not set
+
+#
+# Scientific Apps     
+#
+
+#
+# gnuplot          
+#
+# PTXCONF_GNUPLOT is not set
 
 #
 # Web Applications    

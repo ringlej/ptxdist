@@ -1,6 +1,7 @@
 #
 # Automatically generated make config: don't edit
 #
+PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 PTXCONF_PROJECT="FRAKO"
 
@@ -42,7 +43,6 @@ PTXCONF_OPT_I586=y
 # PTXCONF_OPT_PARISC is not set
 # PTXCONF_OPT_SH3 is not set
 # PTXCONF_OPT_SH4 is not set
-# PTXCONF_SOFTFLOAT is not set
 
 #
 # ---
@@ -68,6 +68,7 @@ PTXCONF_ROOT=""
 PTXCONF_BUILD_CROSSCHAIN=y
 PTXCONF_BINUTILS_2_13_2_1=y
 # PTXCONF_BINUTILS_2_14 is not set
+# PTXCONF_BINUTILS_2_15 is not set
 # PTXCONF_GCC_2_95_3 is not set
 PTXCONF_GCC_3_2_3=y
 # PTXCONF_GCC_3_3_2 is not set
@@ -88,6 +89,7 @@ PTXCONF_ROOTFS_FLOPPY=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_HOME=y
 PTXCONF_ROOTFS_VAR=y
+PTXCONF_ROOTFS_SYS=y
 PTXCONF_VENDORTWEAKS="frako.make"
 
 #
@@ -100,6 +102,7 @@ PTXCONF_VENDORTWEAKS="frako.make"
 # PTXCONF_KSYMOOPS is not set
 # PTXCONF_LTT is not set
 # PTXCONF_LIBBFD is not set
+# PTXCONF_MEMTEST is not set
 # PTXCONF_OPROFILE is not set
 # PTXCONF_STRACE is not set
 
@@ -129,8 +132,13 @@ PTXCONF_KERNEL_CONFIG="kernel-2.4.22-frako"
 # PTXCONF_KERNEL_2_4_21 is not set
 PTXCONF_KERNEL_2_4_22=y
 # PTXCONF_KERNEL_2_4_23 is not set
+# PTXCONF_KERNEL_2_4_25 is not set
+# PTXCONF_KERNEL_2_4_26 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
+# PTXCONF_KERNEL_2_6_6 is not set
+# PTXCONF_KERNEL_2_6_7 is not set
+# PTXCONF_KERNEL_2_6_8 is not set
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -141,7 +149,6 @@ PTXCONF_KERNEL_INSTALL=y
 #
 # 
 #
-#PTXCONF_KERNEL_PATCH1_URL="http://metis/frako.diff"
 PTXCONF_KERNEL_PATCH1_URL="file://tmp/frako_src/frako.diff"
 PTXCONF_KERNEL_PATCH1_NAME="frako_relais"
 # PTXCONF_KERNEL_PATCH1_XCHAIN is not set
@@ -157,13 +164,19 @@ PTXCONF_KERNEL_PATCH2_NAME=""
 #
 
 #
-# RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)
+# epoll should be ported to patchstack mechanism, please send patch! :-)
 #
+
+#
+# RTAI                
+#
+# PTXCONF_RTAI is not set
 
 #
 # C Library           
 #
 PTXCONF_GLIBC=y
+# PTXCONF_UCLIBC is not set
 
 #
 # C Library options
@@ -172,6 +185,7 @@ PTXCONF_GLIBC=y
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
+# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -197,6 +211,8 @@ PTXCONF_GLIBC_NSS_NISPLUS=y
 PTXCONF_GLIBC_NSS_COMPAT=y
 PTXCONF_GLIBC_RESOLV=y
 PTXCONF_GLIBC_NSL=y
+# PTXCONF_GLIBC_GCONV is not set
+PTXCONF_UC_TARGET_i386=y
 
 #
 # C++ Library         
@@ -206,11 +222,6 @@ PTXCONF_GLIBC_NSL=y
 #
 # Core Tools ---  
 #
-
-#
-# Pdksh               
-#
-# PTXCONF_PDKSH is not set
 
 #
 # Bash                
@@ -524,7 +535,6 @@ PTXCONF_BB_CONFIG_TIME=y
 # Linux Module Utilities
 #
 PTXCONF_BB_CONFIG_INSMOD=y
-# PTXCONF_BB_CONFIG_FEATURE_2_2_MODULES is not set
 PTXCONF_BB_CONFIG_FEATURE_2_4_MODULES=y
 # PTXCONF_BB_CONFIG_FEATURE_2_6_MODULES is not set
 # PTXCONF_BB_CONFIG_FEATURE_INSMOD_VERSION_CHECKING is not set
@@ -629,10 +639,12 @@ PTXCONF_BB_CONFIG_ASH=y
 PTXCONF_BB_CONFIG_ASH_JOB_CONTROL=y
 PTXCONF_BB_CONFIG_ASH_ALIAS=y
 PTXCONF_BB_CONFIG_ASH_MATH_SUPPORT=y
+# PTXCONF_BB_CONFIG_ASH_MATH_SUPPORT_64 is not set
 PTXCONF_BB_CONFIG_ASH_GETOPTS=y
 # PTXCONF_BB_CONFIG_ASH_CMDCMD is not set
 PTXCONF_BB_CONFIG_ASH_MAIL=y
 PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
+# PTXCONF_BB_CONFIG_ASH_RANDOM_SUPPORT is not set
 # PTXCONF_BB_CONFIG_HUSH is not set
 # PTXCONF_BB_CONFIG_LASH is not set
 PTXCONF_BB_CONFIG_MSH=y
@@ -700,15 +712,32 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # PTXCONF_BB_CONFIG_DEBUG is not set
 
 #
-# mgetty & sendfax    
+# GNU coreutils       
 #
-PTXCONF_MGETTY=y
-PTXCONF_MGETTY_CONFIG="config/mgetty/policy-frako.h"
+PTXCONF_COREUTILS=y
+# PTXCONF_COREUTILS_CP is not set
+# PTXCONF_COREUTILS_MD5SUM is not set
+# PTXCONF_COREUTILS_SEQ is not set
 
 #
 # Gawk                
 #
 PTXCONF_GAWK=y
+
+#
+# Hotplug             
+#
+# PTXCONF_HOTPLUG is not set
+
+#
+# hotplug scripts
+#
+
+#
+# mgetty & sendfax    
+#
+PTXCONF_MGETTY=y
+PTXCONF_MGETTY_CONFIG="config/mgetty/policy-frako.h"
 
 #
 # MTD Tools           
@@ -717,10 +746,27 @@ PTXCONF_GAWK=y
 # PTXCONF_MTD_UTILS is not set
 
 #
-# GNU coreutils       
+# PCMCIA Tools        
 #
-PTXCONF_COREUTILS=y
-PTXCONF_COPREUTILS_SEQ=y
+# PTXCONF_PCMCIA_TOOLS is not set
+
+#
+# Pdksh               
+#
+# PTXCONF_PDKSH is not set
+
+#
+# procps              
+#
+PTXCONF_PROCPS=y
+PTXCONF_PROCPS_TOP=y
+# PTXCONF_PROCPS_SLABTOP is not set
+# PTXCONF_PROCPS_SYSCTL is not set
+
+#
+# sysutils            
+#
+# PTXCONF_SYSUTILS is not set
 
 #
 # util-linux          
@@ -733,22 +779,9 @@ PTXCONF_UTLNX=y
 PTXCONF_CLOCK=y
 
 #
-# procps              
-#
-PTXCONF_PROCPS=y
-PTXCONF_PROCPS_TOP=y
-# PTXCONF_PROCPS_SLABTOP is not set
-# PTXCONF_PROCPS_SYSCTL is not set
-
-#
 # VHLL Support        
 #
 # PTXCONF_VHLL_PYTHON23 is not set
-
-#
-# PCMCIA Tools        
-#
-# PTXCONF_PCMCIA_TOOLS is not set
 
 #
 # Network Tools --- 
@@ -794,73 +827,39 @@ PTXCONF_OPENSSH_KEYGEN=y
 #
 
 #
-# ppp                 
-#
-PTXCONF_PPP=y
-PTXCONF_PPP_MS_CHAP=y
-PTXCONF_PPP_SHADOW=y
-PTXCONF_PPP_PLUGINS=y
-# PTXCONF_PPP_IPX is not set
-PTXCONF_PPP_MULTILINK=y
-
-#
-# nmap                
-#
-# PTXCONF_NMAP is not set
-
-#
-# utelnetd            
-#
-# PTXCONF_UTELNETD is not set
-
-#
-# inetutils           
-#
-# PTXCONF_INETUTILS is not set
-
-#
-# netcat              
-#
-# PTXCONF_NETCAT is not set
-
-#
-# proftpd             
-#
-PTXCONF_PROFTPD=y
-# PTXCONF_PROFTPD_PAM is not set
-# PTXCONF_PROFTPD_SENDFILE is not set
-PTXCONF_PROFTPD_SHADOW=y
-PTXCONF_PROFTPD_AUTOSHADOW=y
-
-#
 # betaftpd            
 #
 # PTXCONF_BETAFTPD is not set
 
 #
-# nfs-utils           
+# Bind                
 #
-# PTXCONF_NFSUTILS is not set
+# PTXCONF_BIND is not set
 
 #
-# Portmapper          
+# bing                
 #
-# PTXCONF_PORTMAP is not set
+# PTXCONF_BING is not set
 
 #
-# tcpwrapper          
+# dhcp                
 #
-# PTXCONF_TCPWRAPPER is not set
+# PTXCONF_DHCP is not set
 
 #
-# Wireless Tools      
+# dnsmasq             
 #
-# PTXCONF_WIRELESS is not set
+# PTXCONF_DNSMASQ is not set
 
 #
-# GNU Zebra           
+# ethereal            
 #
-# PTXCONF_ZEBRA is not set
+# PTXCONF_ETHEREAL is not set
+
+#
+# inetutils           
+#
+# PTXCONF_INETUTILS is not set
 
 #
 # libnet              
@@ -873,14 +872,27 @@ PTXCONF_PROFTPD_AUTOSHADOW=y
 # PTXCONF_LIBPCAP is not set
 
 #
-# rsync               
+# netcat              
 #
-# PTXCONF_RSYNC is not set
+# PTXCONF_NETCAT is not set
 
 #
-# thttpd              
+# nfs-utils           
 #
-# PTXCONF_THTTPD is not set
+
+#
+# compile options
+#
+# PTXCONF_NFSUTILS is not set
+
+#
+# install options
+#
+
+#
+# nmap                
+#
+# PTXCONF_NMAP is not set
 
 #
 # NTP                 
@@ -888,19 +900,93 @@ PTXCONF_PROFTPD_AUTOSHADOW=y
 # PTXCONF_NTP is not set
 
 #
-# Bind                
+# Compile Options
 #
-# PTXCONF_BIND is not set
 
 #
-# dhcp                
+# crypto needs openssl
 #
-# PTXCONF_DHCP is not set
 
 #
-# dnsmasq             
+# Install Options
 #
-# PTXCONF_DNSMASQ is not set
+
+#
+# OpenAFS             
+#
+# PTXCONF_OPENAFS is not set
+PTXCONF_OPENAFS_1_2_11=y
+
+#
+# Portmapper          
+#
+# PTXCONF_PORTMAP is not set
+
+#
+# ppp                 
+#
+PTXCONF_PPP=y
+PTXCONF_PPP_MS_CHAP=y
+PTXCONF_PPP_SHADOW=y
+PTXCONF_PPP_PLUGINS=y
+# PTXCONF_PPP_IPX is not set
+PTXCONF_PPP_MULTILINK=y
+
+#
+# proftpd             
+#
+PTXCONF_PROFTPD=y
+# PTXCONF_PROFTPD_PAM is not set
+# PTXCONF_PROFTPD_SENDFILE is not set
+PTXCONF_PROFTPD_SHADOW=y
+PTXCONF_PROFTPD_AUTOSHADOW=y
+
+#
+# rsync               
+#
+# PTXCONF_RSYNC is not set
+
+#
+# tcpdump             
+#
+# PTXCONF_TCPDUMP is not set
+
+#
+# tcpwrapper          
+#
+# PTXCONF_TCPWRAPPER is not set
+
+#
+# thttpd              
+#
+# PTXCONF_THTTPD is not set
+
+#
+# utelnetd            
+#
+# PTXCONF_UTELNETD is not set
+
+#
+# Wireless Tools      
+#
+# PTXCONF_WIRELESS is not set
+
+#
+# GNU Zebra           
+#
+# PTXCONF_ZEBRA is not set
+
+#
+# Realtime Networking 
+#
+
+#
+# Optional Features
+#
+
+#
+# Network Card Support
+#
 
 #
 # Disk and file ---   
@@ -921,13 +1007,26 @@ PTXCONF_E2FSPROGS_E2FSCK=y
 # grub                
 #
 PTXCONF_GRUB=y
+
+#
+# Config Options
+#
 PTXCONF_GRUB_MD5=y
+PTXCONF_GRUB_PRESET_MENU=""
+
+#
+# File System Support
+#
 PTXCONF_GRUB_FFS=y
 PTXCONF_GRUB_MINIXFS=y
 PTXCONF_GRUB_REISERFS=y
 PTXCONF_GRUB_VSTAFS=y
 PTXCONF_GRUB_JFS=y
 PTXCONF_GRUB_XFS=y
+
+#
+# Network Card Support
+#
 # PTXCONF_GRUB_CS89X0 is not set
 # PTXCONF_GRUB_EEPRO100 is not set
 # PTXCONF_GRUB_RTL8139 is not set
@@ -940,6 +1039,7 @@ PTXCONF_BOOTDISK_SIZE_ADD=250
 PTXCONF_BOOTDISK_PART="frako"
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
+# PTXCONF_BONNIE is not set
 
 #
 # Applications ---    
@@ -964,6 +1064,11 @@ PTXCONF_BOOTDISK_PART="frako"
 # setmixer            
 #
 # PTXCONF_SETMIXER is not set
+
+#
+# Tools               
+#
+# PTXCONF_FIGLET is not set
 
 #
 # System Libraries    
@@ -1034,6 +1139,20 @@ PTXCONF_LIBXML2=y
 #
 # Qt embedded GUI       
 #
+
+#
+# Blackbox WM         
+#
+# PTXCONF_BLACKBOX is not set
+
+#
+# Scientific Apps     
+#
+
+#
+# gnuplot          
+#
+# PTXCONF_GNUPLOT is not set
 
 #
 # Web Applications    
