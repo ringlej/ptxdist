@@ -59,7 +59,7 @@ PTXCONF_TARGET_CONFIG_FILE="ix86.dat"
 PTXCONF_ARCH="i386"
 PTXCONF_ARCH_USERSPACE="i386"
 PTXCONF_GNU_TARGET="i386-unknown-linux-gnu"
-PTXCONF_PREFIX="/tmp/ptxdist-bmwm-bsp"
+PTXCONF_PREFIX="/tmp/ptxdist-bmwm1"
 PTXCONF_ROOT="$(TOPDIR)/root"
 
 #
@@ -131,24 +131,6 @@ PTXCONF_KERNEL_CONFIG="kernel-2.6.1-bmwm"
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 PTXCONF_KERNEL_2_6_1=y
-# PTXCONF_KERNEL_RMK is not set
-# PTXCONF_KERNEL_RMK_PXA is not set
-# PTXCONF_KERNEL_RMK_DS is not set
-# PTXCONF_KERNEL_RMK_PXA_PTX is not set
-# PTXCONF_KERNEL_RMK_PXA_PTX_LTT is not set
-# PTXCONF_KERNEL_UC is not set
-# PTXCONF_KERNEL_BEN is not set
-PTXCONF_KERNEL_VANILLA=y
-PTXCONF_KERNEL_PATCH1_URL="http://metis/bmwm-patches/fb.h.diff"
-PTXCONF_KERNEL_PATCH1_NAME="fb"
-PTXCONF_KERNEL_PATCH2_URL="http://metis/bmwm-patches/ipconfig.c.diff"
-PTXCONF_KERNEL_PATCH2_NAME="ipconfig"
-PTXCONF_KERNEL_PATCH3_URL="http://metis/bmwm-patches/vesafb.c.diff"
-PTXCONF_KERNEL_PATCH3_NAME="vesafb"
-PTXCONF_KERNEL_PATCH4_URL="http://metis/bmwm-patches/linux-2.6.1_idrive-1.5.diff"
-PTXCONF_KERNEL_PATCH4_NAME="idrive"
-PTXCONF_KERNEL_PATCH5_URL=""
-PTXCONF_KERNEL_PATCH5_NAME=""
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -157,17 +139,46 @@ PTXCONF_KERNEL_IMAGE_BZ=y
 PTXCONF_KERNEL_INSTALL=y
 
 #
+# 
+#
+PTXCONF_KERNEL_PATCH1_URL="http://metis/bmwm-patches/fb.h.diff"
+PTXCONF_KERNEL_PATCH1_NAME="fb"
+# PTXCONF_KERNEL_PATCH1_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH2_URL="http://metis/bmwm-patches/ipconfig.c.diff"
+PTXCONF_KERNEL_PATCH2_NAME="ipconfig"
+# PTXCONF_KERNEL_PATCH2_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH3_URL="http://metis/bmwm-patches/vesafb.c.diff"
+PTXCONF_KERNEL_PATCH3_NAME="vesafb"
+# PTXCONF_KERNEL_PATCH3_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH4_URL="http://metis/bmwm-patches/linux-2.6.1_idrive-1.8a.diff"
+PTXCONF_KERNEL_PATCH4_NAME="idrive"
+# PTXCONF_KERNEL_PATCH4_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH5_URL=""
+PTXCONF_KERNEL_PATCH5_NAME=""
+
+#
 # Extentions
 #
 
 #
-# epoll               
+# RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)
 #
-
-#
-# RTAI                
-#
-# PTXCONF_RTAI is not set
 
 #
 # C Library           

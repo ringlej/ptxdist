@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pango12.make,v 1.12 2004/02/26 01:03:23 robert Exp $
+# $Id: pango12.make,v 1.13 2004/02/27 17:10:32 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -165,6 +165,7 @@ $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps)
 	
 	install -d $(ROOTDIR)/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules
 	cp $(PANGO12_DIR)/modules/basic/.libs/*.so $(ROOTDIR)/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules
+
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.23 2004/02/26 18:45:33 robert Exp $
+# $Id: xchain-kernel.make,v 1.24 2004/02/27 17:10:32 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -22,57 +22,12 @@ endif
 XCHAIN_KERNEL_BUILDDIR	= $(BUILDDIR)/xchain-$(KERNEL)
 
 # ----------------------------------------------------------------------------
-# Patches
-# ----------------------------------------------------------------------------
-
-#
-# Robert says: Aber dokumentier' das entsprechend...
-#
-# Well, to build the glibc we need the kernel headers.
-# We want to use the kernel plus the selected patches (e.g.: rmk-pxa-ptx)
-# But without the ltt (linux trace toolkit) or rtai patches.
-#
-# The most important thing is, that the glibc and the kernel header
-# (against the glibc is built) always stay together, the kernel that
-# is running on the system does not matter...
-#
-# so we pull in the kernel's patches and drop ltt
-# (rtai isn't included in kernel flavour)
-#
-XCHAIN_KERNEL_PATCHES	+= $(addprefix xchain-kernel-, \
-	$(call get_option_ext, s/^PTXCONF_KERNEL_[0-9]_[0-9]_[0-9]*_\(.*\)=y/\1/, sed -e 's/_/ /g' -e 's/[0-9]//g' -e 's/ltt//g'))
-
-ifdef PTXCONF_KERNEL_DEV-EPOLL
-XCHAIN_KERNEL_PATCHES += xchain-kernel-dev-epoll
-endif
-
-ifdef PTXCONF_KERNEL_SYS-EPOLL
-XCHAIN_KERNEL_PATCHES += xchain-kernel-sys-epoll
-endif
-
-# ----------------------------------------------------------------------------
-# patch xchain-kernel with patchstack-patches
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xchain-kernel-patchstack.extract: \
-	$(STATEDIR)/xchain-kernel.extract
-	@$(call targetinfo, $@)
-	for i in $(subst ",,$(PTXCONF_KERNEL_PATCHSTACK)) ; do \
-	awk -v patch=$$i '{if (patch == $$1) print "$(CAT) patches/"$$2" | $(PATCH) -Np1 -d $(XCHAIN_KERNEL_BUILDDIR) || exit -1"}' \
-		patches/patches.lst | sh ; \
-	done
-	touch $@
-
-# ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
 xchain-kernel_get: $(STATEDIR)/xchain-kernel.get
 
-$(STATEDIR)/xchain-kernel.get: $(STATEDIR)/kernel-patchstack.get
-# FIXME: old variant... correct? Pulls in the whole tree when changing 
-# kernel...
-# $(STATEDIR)/xchain-kernel.get: $(kernel_get_deps)
+$(STATEDIR)/xchain-kernel.get: $(KERNEL_SOURCE)
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -84,7 +39,7 @@ xchain-kernel_extract: $(STATEDIR)/xchain-kernel.extract
 
 xchain-kernel_extract_deps = \
 	$(STATEDIR)/xchain-kernel-base.extract \
-	$(addprefix $(STATEDIR)/, $(addsuffix .install, $(XCHAIN_KERNEL_PATCHES)))
+	$(xchain_kernel_patchstack_get_deps)
 
 $(STATEDIR)/xchain-kernel.extract: $(xchain-kernel_extract_deps)
 	@$(call targetinfo, $@)
@@ -130,7 +85,7 @@ $(STATEDIR)/xchain-kernel-patchstack.extract
 $(STATEDIR)/xchain-kernel.prepare: $(STATEDIR)/xchain-kernel.extract
 	@$(call targetinfo, $@)
 
-# fake headers
+	# fake headers
 	cd $(XCHAIN_KERNEL_BUILDDIR) && make include/linux/version.h
 	touch $(XCHAIN_KERNEL_BUILDDIR)/include/linux/autoconf.h
 
@@ -188,6 +143,7 @@ xchain-kernel_clean:
 				rm -f $(STATEDIR)/kernel-feature-$$i*;                                                  \
 				rm -fr $(TOPDIR)/feature-patches/$$i;                                                   \
 			fi;                                                                                             \
+			rm -f $(STATEDIR)/kernel-patchstack.get;							\
 		done;													\
 	fi;
 

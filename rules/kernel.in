@@ -54,373 +54,6 @@ choice
 	
 endchoice
 
-
-choice
-	prompt "Select flavour"
-
-	config KERNEL_RMK
-		bool "-rmk"
-		depends on ARM_ARCH_LE && !ARM_ARCH_PXA && !ARCH_NOMMU
-
-	config KERNEL_RMK_PXA
-		bool "-rmk-pxa"
-		depends on ARM_ARCH_LE && !ARCH_NOMMU
-
-	config KERNEL_RMK_DS
-		bool "-rmk-ds"
-		depends on ARM_ARCH_BE && !ARCH_NOMMU
-
-	config KERNEL_RMK_PXA_PTX
-		bool "-rmk-pxa-ptx"
-		depends on ARM_ARCH_LE && !ARCH_NOMMU
-
-	config KERNEL_RMK_PXA_PTX_LTT
-		bool "-rmk-pxa-ptx-ltt"
-		depends on ARM_ARCH_LE && !ARCH_NOMMU
-
-	config KERNEL_UC
-		bool "-uc"
-		depends on ARCH_NOMMU
-
-	config KERNEL_BEN
-		bool "-ben"
-		depends on ARCH_PPC
-		depends on !KERNEL_2_4_18 && !KERNEL_2_4_19
-
-	config KERNEL_VANILLA
-		bool "vanilla"
-		depends on !ARCH_NOMMU
-endchoice
-
-
-
-choice
-	prompt "Select Patch version"
-	depends on !KERNEL_VANILLA
-
-#---------------------------------------------------------------------
-#------------------------------- RMK ---------------------------------
-#---------------------------------------------------------------------
-
-#--------------- 2.4.19
-
-	config KERNEL_2_4_19_rmk7
-		bool "2.4.19-rmk7"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK
-
-#--------------- 2.4.21
-
-	config KERNEL_2_4_21_rmk1
-		bool "2.4.21-rmk1"
-		depends on KERNEL_2_4_21
-		depends on KERNEL_RMK
-
-#--------------- 2.6.0
-
-	config KERNEL_2_6_0_rmk1
-		bool "2.6.0-rmk1"
-		depends on KERNEL_2_6_0
-		depends on KERNEL_RMK
-
-#---------------------------------------------------------------------
-#------------------------------- RMK-DS ------------------------------
-#---------------------------------------------------------------------
-
-#--------------- 2.4.19-rmk7
-
-	config KERNEL_2_4_19_rmk7_ds3
-		bool "2.4.19-rmk7-ds3"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_DS
-
-	config KERNEL_2_4_19_rmk7_ds2
-		bool "2.4.19-rmk7-ds2"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_DS
-
-	config KERNEL_2_4_19_rmk7_ds1
-		bool "2.4.19-rmk7-ds1"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_DS
-
-#--------------- 2.4.21-rmk1
-
-	config KERNEL_2_4_21_rmk1_ds1
-		bool "2.4.21-rmk1-ds1"
-		depends on KERNEL_2_4_21
-		depends on KERNEL_RMK_DS
-
-#---------------------------------------------------------------------
-#------------------------------- RMK-PXA -----------------------------
-#---------------------------------------------------------------------
-
-#--------------- 2.4.19-rmk7
-
-	config KERNEL_2_4_19_rmk7_pxa2
-		bool "2.4.19-rmk7-pxa2"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA
-
-	config KERNEL_2_4_21_rmk1_pxa1
-		bool "2.4.21-rmk1-pxa1"
-		depends on KERNEL_2_4_21
-		depends on KERNEL_RMK_PXA
-
-#---------------------------------------------------------------------
-#------------------------------- RMK-PXA-PTX -------------------------
-#---------------------------------------------------------------------
-
-#--------------- 2.4.x
-
-	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10
-		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx10"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA_PTX
-
-	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7
-		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx7"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA_PTX
-
-	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6
-		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx6"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA_PTX
-
-#--------------- 2.6.x
-
-	config KERNEL_2_6_0_rmk1_ptx1
-		bool "2.6.0-rmk1-ptx1"
-		depends on KERNEL_2_6_0
-		depends on KERNEL_RMK_PXA_PTX
-
-#---------------------------------------------------------------------
-#------------------------------- RMK-PXA-PTX-LTT ---------------------
-#---------------------------------------------------------------------
-
-	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10_ltt1
-		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx10-ltt1"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA_PTX_LTT
-
-	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7_ltt1
-		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx7-ltt1"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA_PTX_LTT
-
-	config KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6_ltt1
-		bool "2.4.19-rmk7-pxa2-mtd20030728-ptx6-ltt1"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA_PTX_LTT
-
-#---------------------------------------------------------------------
-#------------------------------- UC ----------------------------------
-#---------------------------------------------------------------------
-
-#--------------- 2.4.19
-
-	config KERNEL_2_4_19_uc2
-		bool "2.4.19-uc2"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_UC
-
-	config KERNEL_2_4_19_uc1
-		bool "2.4.19-uc1"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_UC
-
-	config KERNEL_2_4_19_uc0
-		bool "2.4.19-uc0"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_UC
-
-#--------------- 2.4.20
-
-	config KERNEL_2_4_20_uc1
-		bool "2.4.20-uc1"
-		depends on KERNEL_2_4_20
-		depends on KERNEL_UC
-
-	config KERNEL_2_4_20_uc0
-		bool "2.4.20-uc0"
-		depends on KERNEL_2_4_20
-		depends on KERNEL_UC
-
-#--------------- 2.4.21
-
-	config KERNEL_2_4_21_uc0
-		bool "2.4.21-uc0"
-		depends on KERNEL_2_4_21
-		depends on KERNEL_UC
-
-#--------------- 2.4.22
-
-	config KERNEL_2_4_22_uc0
-		bool "2.4.22-uc0"
-		depends on KERNEL_2_4_22
-		depends on KERNEL_UC
-
-#---------------------------------------------------------------------
-#------------------------------- BEN ---------------------------------
-#---------------------------------------------------------------------
-
-#--------------- 2.4.20
-
-	config KERNEL_2_4_20_ben10
-		bool "2.4.20-ben10"
-		depends on KERNEL_2_4_20
-		depends on KERNEL_BEN
-
-#--------------- 2.4.21
-
-	config KERNEL_2_4_21_ben3
-		bool "2.4.21-ben3"
-		depends on KERNEL_2_4_21
-		depends on KERNEL_BEN
-
-#--------------- 2.4.22
-
-	config KERNEL_2_4_22_ben2
-		bool "2.4.22-ben2"
-		depends on KERNEL_2_4_22
-		depends on KERNEL_BEN
-endchoice
-
-# ----------------------------------------------------------------------------
-# Generic Patch Stack
-# ----------------------------------------------------------------------------
-
-config KERNEL_PATCH1_URL
-	prompt "Patch 1 URL"
-	string
-	help
-	  Enter a URL to a diff/patch file or to a directory containing
-	  a patch tree for patcher here. 
-
-config KERNEL_PATCH1_NAME
-	prompt "Patch 1 Name"
-	string
-
-config KERNEL_PATCH2_URL
-	prompt "Patch 2 URL"
-	string
-	depends on KERNEL_PATCH1_URL!=""
-	help
-	  Enter a URL to a diff/patch file or to a directory containing
-	  a patch tree for patcher here. 
-
-config KERNEL_PATCH2_NAME
-	prompt "Patch 2 Name"
-	string
-	depends on KERNEL_PATCH1_URL!=""
-
-config KERNEL_PATCH3_URL
-	prompt "Patch 3 URL"
-	string
-	depends on KERNEL_PATCH2_URL!=""
-	help
-	  Enter a URL to a diff/patch file or to a directory containing
-	  a patch tree for patcher here. 
-
-config KERNEL_PATCH3_NAME
-	prompt "Patch 3 Name"
-	string
-	depends on KERNEL_PATCH2_URL!=""
-
-config KERNEL_PATCH4_URL
-	prompt "Patch 4 URL"
-	string
-	depends on KERNEL_PATCH3_URL!=""
-	help
-	  Enter a URL to a diff/patch file or to a directory containing
-	  a patch tree for patcher here. 
-
-config KERNEL_PATCH4_NAME
-	prompt "Patch 4 Name"
-	string
-	depends on KERNEL_PATCH3_URL!=""
-
-config KERNEL_PATCH5_URL
-	prompt "Patch 5 URL"
-	string
-	depends on KERNEL_PATCH4_URL!=""
-	help
-	  Enter a URL to a diff/patch file or to a directory containing
-	  a patch tree for patcher here. 
-
-config KERNEL_PATCH5_NAME
-	prompt "Patch 5 Name"
-	string
-	depends on KERNEL_PATCH4_URL!=""
-
-config KERNEL_PATCH6_URL
-	prompt "Patch 6 URL"
-	string
-	depends on KERNEL_PATCH5_URL!=""
-	help
-	  Enter a URL to a diff/patch file or to a directory containing
-	  a patch tree for patcher here. 
-
-config KERNEL_PATCH6_NAME
-	prompt "Patch 6 Name"
-	string
-	depends on KERNEL_PATCH6_URL!=""
-
-config KERNEL_PATCH7_URL
-	prompt "Patch 7 URL"
-	string
-	depends on KERNEL_PATCH6_URL!=""
-	help
-	  Enter a URL to a diff/patch file or to a directory containing
-	  a patch tree for patcher here. 
-
-config KERNEL_PATCH7_NAME
-	prompt "Patch 7 Name"
-	string
-	depends on KERNEL_PATCH6_URL!=""
-
-config KERNEL_PATCH8_URL
-	prompt "Patch 8 URL"
-	string
-	depends on KERNEL_PATCH7_URL!=""
-	help
-	  Enter a URL to a diff/patch file or to a directory containing
-	  a patch tree for patcher here. 
-
-config KERNEL_PATCH8_NAME
-	prompt "Patch 8 Name"
-	string
-	depends on KERNEL_PATCH8_URL!=""
-
-config KERNEL_PATCH9_URL
-	prompt "Patch 9 URL"
-	string
-	depends on KERNEL_PATCH8_URL!=""
-	help
-	  Enter a URL to a diff/patch file or to a directory containing
-	  a patch tree for patcher here. 
-
-config KERNEL_PATCH9_NAME
-	prompt "Patch 9 Name"
-	string
-	depends on KERNEL_PATCH8_URL!=""
-
-config KERNEL_PATCH10_URL
-	prompt "Patch 10 URL"
-	string
-	depends on KERNEL_PATCH9_URL!=""
-	help
-	  Enter a URL to a diff/patch file or to a directory containing
-	  a patch tree for patcher here. 
-
-config KERNEL_PATCH10_NAME
-	prompt "Patch 10 Name"
-	string
-	depends on KERNEL_PATCH9_URL!=""
-
-# -----
-
 config DONT_COMPILE_KERNEL
 	bool
 	prompt "Don't compile kernel"
@@ -451,17 +84,262 @@ choice
 		prompt "vmlinux"
 endchoice
 
-
 config KERNEL_INSTALL
 	bool
 	prompt "Install kernel into /boot on target"
 	default n
 	depends on !DONT_COMPILE_KERNEL
 
+# ----------------------------------------------------------------------------
+# Generic Patch Stack
+# ----------------------------------------------------------------------------
+
+comment ""
+
+config KERNEL_PATCH1_URL
+	prompt "Patch 1 URL"
+	string
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH1_NAME
+	prompt "Patch 1 Name"
+	string
+
+config KERNEL_PATCH1_XCHAIN
+	bool "Patch 1 is relevant for crosschain recompilation"
+	depends on KERNEL_PATCH1_URL!=""
+	help
+	  The cross toolchain plus glibc normally need the kernel
+	  headers. If this patch is relevant for toolchain recompilation
+	  activate this option. 
+
+comment ""
+	depends on KERNEL_PATCH1_URL!=""
+
+config KERNEL_PATCH2_URL
+	prompt "Patch 2 URL"
+	string
+	depends on KERNEL_PATCH1_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH2_NAME
+	prompt "Patch 2 Name"
+	string
+	depends on KERNEL_PATCH1_URL!=""
+
+config KERNEL_PATCH2_XCHAIN
+	bool "Patch 2 is relevant for crosschain recompilation"
+	depends on KERNEL_PATCH2_URL!=""
+	help
+	  The cross toolchain plus glibc normally need the kernel
+	  headers. If this patch is relevant for toolchain recompilation
+	  activate this option. 
+
+comment ""
+	depends on KERNEL_PATCH2_URL!=""
+
+config KERNEL_PATCH3_URL
+	prompt "Patch 3 URL"
+	string
+	depends on KERNEL_PATCH2_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH3_NAME
+	prompt "Patch 3 Name"
+	string
+	depends on KERNEL_PATCH2_URL!=""
+
+config KERNEL_PATCH3_XCHAIN
+	bool "Patch 3 is relevant for crosschain recompilation"
+	depends on KERNEL_PATCH3_URL!=""
+	help
+	  The cross toolchain plus glibc normally need the kernel
+	  headers. If this patch is relevant for toolchain recompilation
+	  activate this option. 
+
+comment ""
+	depends on KERNEL_PATCH3_URL!=""
+
+config KERNEL_PATCH4_URL
+	prompt "Patch 4 URL"
+	string
+	depends on KERNEL_PATCH3_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH4_NAME
+	prompt "Patch 4 Name"
+	string
+	depends on KERNEL_PATCH3_URL!=""
+
+config KERNEL_PATCH4_XCHAIN
+	bool "Patch 4 is relevant for crosschain recompilation"
+	depends on KERNEL_PATCH4_URL!=""
+	help
+	  The cross toolchain plus glibc normally need the kernel
+	  headers. If this patch is relevant for toolchain recompilation
+	  activate this option. 
+
+comment ""
+	depends on KERNEL_PATCH4_URL!=""
+
+config KERNEL_PATCH5_URL
+	prompt "Patch 5 URL"
+	string
+	depends on KERNEL_PATCH4_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH5_NAME
+	prompt "Patch 5 Name"
+	string
+	depends on KERNEL_PATCH4_URL!=""
+
+config KERNEL_PATCH5_XCHAIN
+	bool "Patch 5 is relevant for crosschain recompilation"
+	depends on KERNEL_PATCH5_URL!=""
+	help
+	  The cross toolchain plus glibc normally need the kernel
+	  headers. If this patch is relevant for toolchain recompilation
+	  activate this option. 
+
+comment ""
+	depends on KERNEL_PATCH5_URL!=""
+
+config KERNEL_PATCH6_URL
+	prompt "Patch 6 URL"
+	string
+	depends on KERNEL_PATCH5_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH6_NAME
+	prompt "Patch 6 Name"
+	string
+	depends on KERNEL_PATCH6_URL!=""
+
+config KERNEL_PATCH6_XCHAIN
+	bool "Patch 6 is relevant for crosschain recompilation"
+	depends on KERNEL_PATCH6_URL!=""
+	help
+	  The cross toolchain plus glibc normally need the kernel
+	  headers. If this patch is relevant for toolchain recompilation
+	  activate this option. 
+
+comment ""
+	depends on KERNEL_PATCH6_URL!=""
+
+config KERNEL_PATCH7_URL
+	prompt "Patch 7 URL"
+	string
+	depends on KERNEL_PATCH6_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH7_NAME
+	prompt "Patch 7 Name"
+	string
+	depends on KERNEL_PATCH6_URL!=""
+
+config KERNEL_PATCH7_XCHAIN
+	bool "Patch 7 is relevant for crosschain recompilation"
+	depends on KERNEL_PATCH7_URL!=""
+	help
+	  The cross toolchain plus glibc normally need the kernel
+	  headers. If this patch is relevant for toolchain recompilation
+	  activate this option. 
+
+comment ""
+	depends on KERNEL_PATCH7_URL!=""
+
+config KERNEL_PATCH8_URL
+	prompt "Patch 8 URL"
+	string
+	depends on KERNEL_PATCH7_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH8_NAME
+	prompt "Patch 8 Name"
+	string
+	depends on KERNEL_PATCH8_URL!=""
+
+config KERNEL_PATCH8_XCHAIN
+	bool "Patch 8 is relevant for crosschain recompilation"
+	depends on KERNEL_PATCH8_URL!=""
+	help
+	  The cross toolchain plus glibc normally need the kernel
+	  headers. If this patch is relevant for toolchain recompilation
+	  activate this option. 
+
+comment ""
+	depends on KERNEL_PATCH8_URL!=""
+
+config KERNEL_PATCH9_URL
+	prompt "Patch 9 URL"
+	string
+	depends on KERNEL_PATCH8_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH9_NAME
+	prompt "Patch 9 Name"
+	string
+	depends on KERNEL_PATCH8_URL!=""
+
+config KERNEL_PATCH9_XCHAIN
+	bool "Patch 9 is relevant for crosschain recompilation"
+	depends on KERNEL_PATCH9_URL!=""
+	help
+	  The cross toolchain plus glibc normally need the kernel
+	  headers. If this patch is relevant for toolchain recompilation
+	  activate this option. 
+
+comment ""
+	depends on KERNEL_PATCH9_URL!=""
+
+config KERNEL_PATCH10_URL
+	prompt "Patch 10 URL"
+	string
+	depends on KERNEL_PATCH9_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH10_NAME
+	prompt "Patch 10 Name"
+	string
+	depends on KERNEL_PATCH9_URL!=""
+
+config KERNEL_PATCH10_XCHAIN
+	bool "Patch 10 is relevant for crosschain recompilation"
+	depends on KERNEL_PATCH10_URL!=""
+	help
+	  The cross toolchain plus glibc normally need the kernel
+	  headers. If this patch is relevant for toolchain recompilation
+	  activate this option. 
+
+comment ""
+	depends on KERNEL_PATCH10_URL!=""
+
+# ----------
+
 comment "Extentions"
 
-source "rules/epoll.in"
-
-source "rules/rtai.in"
+comment "RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)"
+#source "rules/epoll.in"
+#source "rules/rtai.in"
 	
 endmenu
