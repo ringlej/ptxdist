@@ -30,7 +30,14 @@ STATEDIR		:= $(TOPDIR)/state
 BOOTDISKDIR		:= $(TOPDIR)/bootdisk
 IMAGEDIR		:= $(TOPDIR)/images
 MISCDIR			:= $(TOPDIR)/misc
-PROJECTDIRS		:= $(TOPDIR)/projects $(TOPDIR)/../ptxdist-projects/$(BASENAME)
+PROJECTDIR_PTXDIST	:= $(TOPDIR)/projects
+PROJECTDIR_CUSTOM	:= $(TOPDIR)/../ptxdist-projects/$(BASENAME) 
+
+PROJECTDIRS		=  $(PROJECTDIR_PTXDIST)
+ifeq ("exists", $(shell test -d $(PROJECTDIR_CUSTOM) && echo exists))
+PROJECTDIRS		+= $(PROJECTDIRS_CUSTOM)		
+endif
+
 PROJECTCONFFILE		=  $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
 PROJECTDIR		=  $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE))
 
