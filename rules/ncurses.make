@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ncurses.make,v 1.13 2003/10/26 23:10:14 mkl Exp $
+# $Id: ncurses.make,v 1.14 2003/10/28 02:20:05 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -18,12 +18,12 @@ endif
 #
 # Paths and names 
 #
-NCURSES_VERSION			= 5.3
-NCURSES				= ncurses-$(NCURSES_VERSION)
-NCURSES_SUFFIX			= tar.gz
-NCURSES_URL			= ftp://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES).$(NCURSES_SUFFIX)
-NCURSES_SOURCE			= $(SRCDIR)/$(NCURSES).$(NCURSES_SUFFIX)
-NCURSES_DIR			= $(BUILDDIR)/$(NCURSES)
+NCURSES_VERSION	= 5.3
+NCURSES		= ncurses-$(NCURSES_VERSION)
+NCURSES_SUFFIX	= tar.gz
+NCURSES_URL	= ftp://ftp.gnu.org/pub/gnu/ncurses/$(NCURSES).$(NCURSES_SUFFIX)
+NCURSES_SOURCE	= $(SRCDIR)/$(NCURSES).$(NCURSES_SUFFIX)
+NCURSES_DIR	= $(BUILDDIR)/$(NCURSES)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -140,35 +140,27 @@ $(STATEDIR)/ncurses.targetinstall: $(STATEDIR)/ncurses.install
 	install -d $(ROOTDIR)/lib
 	install -d $(ROOTDIR)/usr/lib
 
-	install $(NCURSES_DIR)/lib/libncurses.so.5.3 $(ROOTDIR)/lib
-	ln -sf libncurses.so.5.3 $(ROOTDIR)/lib/libncurses.so.5
-	ln -sf libncurses.so.5.3 $(ROOTDIR)/lib/libncurses.so
-	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/lib/libncurses.so.5.3
+	cp -d $(NCURSES_DIR)/lib/libncurses.so* $(ROOTDIR)/lib/
+	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/lib/libncurses.so*
 
 ifdef PTXCONF_NCURSES_FORM
-	install $(NCURSES_DIR)/lib/libform.so.5.3 $(ROOTDIR)/usr/lib
-	ln -sf libform.so.5.3 $(ROOTDIR)/usr/lib/libform.so.5
-	ln -sf libform.so.5.3 $(ROOTDIR)/usr/lib/libform.so
-	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libform.so.5.3
+	cp -d $(NCURSES_DIR)/lib/libform.so* $(ROOTDIR)/usr/lib/
+	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libform.so*
 endif
 
 ifdef PTXCONF_NCURSES_MENU
-	install $(NCURSES_DIR)/lib/libmenu.so.5.3 $(ROOTDIR)/usr/lib
-	ln -sf libmenu.so.5.3 $(ROOTDIR)/usr/lib/libmenu.so.5
-	ln -sf libmenu.so.5.3 $(ROOTDIR)/usr/lib/libmenu.so
-	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libmenu.so.5.3
+	cp -d $(NCURSES_DIR)/lib/libmenu.so* $(ROOTDIR)/usr/lib/
+	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libmenu.so*
 endif
 
 ifdef PTXCONF_NCURSES_PANEL
-	install $(NCURSES_DIR)/lib/libpanel.so.5.3 $(ROOTDIR)/usr/lib
-	ln -sf libpanel.so.5.3 $(ROOTDIR)/usr/lib/libpanel.so.5
-	ln -sf libpanel.so.5.3 $(ROOTDIR)/usr/lib/libpanel.so
-	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libpanel.so.5.3
+	cp -d $(NCURSES_DIR)/lib/libpanel.so* $(ROOTDIR)/usr/lib/
+	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libpanel.so*
 endif
 
 ifdef PTXCONF_NCURSES_TERMCAP
 	mkdir -p $(ROOTDIR)/usr/share/terminfo
-	for FILE in x/xterm x/xterm-color x/xterm-xfree86 v/vt100 v/vt200 a/ansi l/linux; do		\
+	for FILE in x/xterm x/xterm-color x/xterm-xfree86 v/vt100 v/vt200 a/ansi l/linux; do			\
 		install -D $(CROSS_LIB_DIR)/usr/share/terminfo/$$FILE $(ROOTDIR)/usr/share/terminfo/$$FILE;	\
 	done
 endif
