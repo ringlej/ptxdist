@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: qte.make,v 1.1 2003/11/05 13:28:53 mkl Exp $
+# $Id: qte.make,v 1.2 2003/11/13 04:28:40 mkl Exp $
 #
 # (c) 2003 by Marco Cavallini <m.cavallini@koansoftware.com>
 #          
@@ -91,7 +91,7 @@ QTE_AUTOCONF	+= -release
 QTE_AUTOCONF	+= -no-g++-exceptions 
 #QTE_AUTOCONF	+= -I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 #QTE_AUTOCONF	+= -R$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-QTE_AUTOCONF	+= -L/usr/X11R6/lib
+#QTE_AUTOCONF	+= -L/usr/X11R6/lib
 QTE_AUTOCONF	+= -depths 8,16
 # QTE_AUTOCONF	+= -qconfig local 
 QTE_AUTOCONF	+= -no-qvfb 
