@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.1-cvs
-# Thu Jan 20 20:03:41 2005
+# Mon Jan 31 21:31:27 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -812,6 +812,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # GNU coreutils       
 #
 # PTXCONF_COREUTILS is not set
+
+#
+# Module Init Tools   
+#
+# PTXCONF_MODULE_INIT_TOOLS is not set
 
 #
 # Gawk                

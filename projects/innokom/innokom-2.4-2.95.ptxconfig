@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.1-cvs
-# Thu Jan 20 20:04:25 2005
+# Mon Jan 31 21:31:40 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -241,12 +241,14 @@ PTXCONF_GLIBC=y
 #
 # C Library options
 #
+# PTXCONF_GLIBC_2_3_4 is not set
 # PTXCONF_GLIBC_2_3_3 is not set
 # PTXCONF_GLIBC_2_3_2 is not set
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
 PTXCONF_GLIBC_PTHREADS=y
+# PTXCONF_GLIBC_TLS is not set
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
 PTXCONF_GLIBC_PROFILED=y
@@ -823,6 +825,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # GNU coreutils       
 #
 # PTXCONF_COREUTILS is not set
+
+#
+# Module Init Tools   
+#
+# PTXCONF_MODULE_INIT_TOOLS is not set
 
 #
 # Gawk                
