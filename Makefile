@@ -197,7 +197,7 @@ DOPERMISSIONS = '{	\
 
 images: $(STATEDIR)/images
 
-$(STATEDIR)/images:
+$(STATEDIR)/images: world
 ifdef PTXCONF_IMAGE_TGZ
 	cd $(ROOTDIR); \
 	($(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions && \
