@@ -2,6 +2,14 @@ menu "termcap          "
 
 config TERMCAP
 	bool "Compile termcap"
+	depends on !GDB_TERMCAP
+
+config TERMCAP
+	default y
+	depends on GDB_TERMCAP
+	
+comment "termcap is always built because gdb is selected with termcap support"
+        depends on GDB_TERMCAP
 
 config TERMCAP_TERMCAP
 	bool "install termcap data file"
