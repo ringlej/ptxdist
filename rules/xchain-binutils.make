@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-binutils.make,v 1.10 2003/10/24 01:11:43 mkl Exp $
+# $Id: xchain-binutils.make,v 1.11 2003/11/13 04:31:51 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -130,16 +130,16 @@ $(STATEDIR)/xchain-binutils.install: $(STATEDIR)/xchain-binutils.compile
 	cd $(XCHAIN_BINUTILS_DIR)/libiberty && \
 		ld --whole-archive libiberty.a -r -o libiberty-$(XCHAIN_BINUTILS_VERSION).so
 
-	install -m 755 $(XCHAIN_BINUTILS_DIR)/libiberty/libiberty-$(XCHAIN_BINUTILS_VERSION).so \
-		$(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET)/lib
+	install -m 755 -D $(XCHAIN_BINUTILS_DIR)/libiberty/libiberty-$(XCHAIN_BINUTILS_VERSION).so \
+		$(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET)/lib/libiberty-$(XCHAIN_BINUTILS_VERSION).so
 	ln -sf libiberty-$(XCHAIN_BINUTILS_VERSION).so $(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET)/lib/libiberty.so
 
 #
 # ksymoops want's to have libiberty.a, we copy it into the dir where ksymoops
 # expects them
 #
-	install -m 644 $(XCHAIN_BINUTILS_DIR)/libiberty/libiberty.a \
-		$(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET)/lib
+	install -m 644 -D $(XCHAIN_BINUTILS_DIR)/libiberty/libiberty.a \
+		$(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET)/lib/libiberty.a
 
 	touch $@
 
