@@ -50,6 +50,7 @@ $(STATEDIR)/pii_nge.targetinstall:
 	$(call link_root, ../init.d/networking, /etc/rc.d/S01_networking)
 	$(call link_root, ../init.d/utelnetd,   /etc/rc.d/S02_utelnetd)
 	$(call link_root, ../init.d/proftpd,    /etc/rc.d/S02_proftpd)
+	$(call link_root, ../init.d/startup,    /etc/rc.d/S99_startup)
 
 	# donate /home to ftp.ftp so that we can download files 
 	$(call copy_root, 11, 101, 0755, /home)

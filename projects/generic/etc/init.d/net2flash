@@ -26,6 +26,9 @@ case $1 in
 			exit 1
 		fi
 		echo "done"
+		echo -n "save /home..."
+		cp -a /mnt/home /tmp
+		echo "done"
 		echo -n "cleaning old content..."
 		rm -fr /mnt/*
 		echo "done"
@@ -48,6 +51,9 @@ case $1 in
 			echo "all files consistent";
 		fi
 		rm /tmp/files.md5
+		echo -n "restore /home..."
+		cp -a /tmp/home /mnt/
+		echo "done"
 		echo -n "unmounting $ROOTFS..."
 		umount /mnt
 		sync
