@@ -1,0 +1,4 @@
+KERNELCONFIG=$PWD/arm.config
+TARGET=arm-9dtmi-linux-gnu
+GCC_EXTRA_CONFIG="--with-cpu=arm9tdmi --enable-cxx-flags=-mcpu=arm9tdmi"
+TARGET_CFLAGS="-O"

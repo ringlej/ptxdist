@@ -1,0 +1,4 @@
+KERNELCONFIG=$PWD/sh4.config
+TARGET=sh4-unknown-linux-gnu
+TARGET_CFLAGS="-O -ml -m4"
+GLIBC_CONFIGPARMS="no-z-defs=yes"
