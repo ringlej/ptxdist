@@ -1,0 +1,24 @@
+# 
+# /etc/inittab
+#
+# 2004-06-17 Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+::sysinit:/etc/init.d/banner 
+::sysinit:/etc/init.d/rcS
+#::sysinit:/sbin/ptx-init-permissions.sh
+#::sysinit:/sbin/openssh-host-keygen.sh
+# busybox syslogd ignores /etc/syslogd.conf
+#::sysinit:/sbin/syslogd -O /dev/tty8
+#::sysinit:/sbin/syslogd host:514 (for remote logging)
+#::sysinit:/usr/sbin/crond -L /var/log/cron
+#::sysinit:/usr/sbin/sshd -4 -f /etc/ssh/sshd_config
+::sysinit:/sbin/utelnetd -d
+::sysinit:/bin/echo
+
+tts/0::respawn:/sbin/getty -L tts/0 115200 vt100
+
+# Stuff to do before rebooting
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
+
