@@ -19,10 +19,10 @@ endif
 #
 # Paths and names
 #
-PROCPS_VERSION	= 2.0.16
+PROCPS_VERSION	= 3.2.4
 PROCPS		= procps-$(PROCPS_VERSION)
 PROCPS_SUFFIX	= tar.gz
-PROCPS_URL	= http://www.tech9.net/rml/procps/packages/2.0.16/$(PROCPS).$(PROCPS_SUFFIX)
+PROCPS_URL	= http://procps.sourceforge.net/$(PROCPS).$(PROCPS_SUFFIX)
 PROCPS_SOURCE	= $(SRCDIR)/$(PROCPS).$(PROCPS_SUFFIX)
 PROCPS_DIR	= $(BUILDDIR)/$(PROCPS)
 
