@@ -43,7 +43,7 @@ menu "Core System                 "
 
 source "rules/kernel.in"
 source "rules/libc.in"
-source "rules/libcxx.in"
+source "rules/gcclibs.in"
 
 endmenu
 
