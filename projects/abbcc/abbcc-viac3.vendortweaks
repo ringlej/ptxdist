@@ -21,14 +21,9 @@ $(STATEDIR)/abbcc.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	copy /etc template and do some changes
-	cp -a $(TOPDIR)/projects/generic/etc $(ROOTDIR)/etc
 	perl -i -p -e "s,\@HOSTNAME@,cc1,g" $(ROOTDIR)/etc/hostname
-	cp -a $(TOPDIR)/etc/generic/inittab $(ROOTDIR)/etc/
 	perl -i -p -e "s,\@SPEED@,19200,g" $(ROOTDIR)/etc/inittab
 	perl -i -p -e "s,\@CONSOLE@,tts/0,g" $(ROOTDIR)/etc/inittab
-	#perl -i -p -e "s,\@PS1@,\"\`hostname\`> \",g" $(ROOTDIR)/etc/profile
-	#perl -i -p -e "s,\@PS2@,\"\",g" $(ROOTDIR)/etc/profile
-	#perl -i -p -e "s,\@PS4@,\"\",g" $(ROOTDIR)/etc/profile
 	perl -i -p -e "s,\@PS1@,\'\\\u@\\\h:\\\w> \',g" $(ROOTDIR)/etc/profile
 	perl -i -p -e "s,\@PS2@,\'> \',g" $(ROOTDIR)/etc/profile
 	perl -i -p -e "s,\@PS4@,\'+ \',g" $(ROOTDIR)/etc/profile
@@ -36,9 +31,6 @@ $(STATEDIR)/abbcc.targetinstall:
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
 	rm -f $(ROOTDIR)/JUST_FOR_CVS
-
-#	make scripts executable
-	chmod 755 $(ROOTDIR)/etc/init.d/*
 
 #	generate version stamps
 	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
@@ -68,15 +60,15 @@ $(STATEDIR)/abbcc.targetinstall:
 	install -m 755 -D $(MISCDIR)/maintenance $(ROOTDIR)/sbin/maintenance
 
 	# grub configuration 
-	install -D $(TOPDIR)/etc/abbcc/menu.lst $(ROOTDIR)/boot/grub/menu.lst
+	install -D $(TOPDIR)/projects/abbcc/etc/menu.lst $(ROOTDIR)/boot/grub/menu.lst
 
 	# RTAI scripts
-	install -D $(TOPDIR)/etc/abbcc/init.d/rtai $(ROOTDIR)/etc/init.d/rtai
-	install -D $(TOPDIR)/etc/abbcc/init.d/latency $(ROOTDIR)/etc/init.d/latency
-	install -D $(TOPDIR)/etc/abbcc/init.d/rtnet $(ROOTDIR)/etc/init.d/rtnet
+	install -D $(TOPDIR)/projects/abbcc/etc/init.d/rtai $(ROOTDIR)/etc/init.d/rtai
+	install -D $(TOPDIR)/projects/abbcc/etc/init.d/latency $(ROOTDIR)/etc/init.d/latency
+	install -D $(TOPDIR)/projects/abbcc/etc/init.d/rtnet $(ROOTDIR)/etc/init.d/rtnet
 
 	# Flash 
-	install -D $(TOPDIR)/etc/abbcc/system.menu $(ROOTDIR)/usr/lib/flash/system.menu
+	install -D $(TOPDIR)/projects/abbcc/etc/system.menu $(ROOTDIR)/usr/lib/flash/system.menu
 
 	# RTnet test; this is indeed mega-tweaky; put test into RTnet sources
 	cd $(BUILDDIR) && tar -zxf /ptx/home/Projects/ABB-Schaltanlagen/RTAI-RTnet-Test/RTnet-Studie/round_trip-20040819-1.tar.gz
