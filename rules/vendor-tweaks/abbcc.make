@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: abbcc.make,v 1.6 2004/08/18 19:20:00 rsc Exp $
+# $Id: abbcc.make,v 1.7 2004/08/23 09:33:50 rsc Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -26,9 +26,12 @@ $(STATEDIR)/abbcc.targetinstall:
 	cp -a $(TOPDIR)/etc/generic/inittab $(ROOTDIR)/etc/
 	perl -i -p -e "s,\@SPEED@,19200,g" $(ROOTDIR)/etc/inittab
 	perl -i -p -e "s,\@CONSOLE@,tts/0,g" $(ROOTDIR)/etc/inittab
-	perl -i -p -e "s,\@PS1@,\"\`hostname\`> \",g" $(ROOTDIR)/etc/profile
-	perl -i -p -e "s,\@PS2@,\"\",g" $(ROOTDIR)/etc/profile
-	perl -i -p -e "s,\@PS4@,\"\",g" $(ROOTDIR)/etc/profile
+	#perl -i -p -e "s,\@PS1@,\"\`hostname\`> \",g" $(ROOTDIR)/etc/profile
+	#perl -i -p -e "s,\@PS2@,\"\",g" $(ROOTDIR)/etc/profile
+	#perl -i -p -e "s,\@PS4@,\"\",g" $(ROOTDIR)/etc/profile
+	perl -i -p -e "s,\@PS1@,\'\\\u@\\\h:\\\w> \',g" $(ROOTDIR)/etc/profile
+	perl -i -p -e "s,\@PS2@,\'> \',g" $(ROOTDIR)/etc/profile
+	perl -i -p -e "s,\@PS4@,\'+ \',g" $(ROOTDIR)/etc/profile
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
@@ -65,13 +68,28 @@ $(STATEDIR)/abbcc.targetinstall:
 	install -m 755 -D $(MISCDIR)/maintenance $(ROOTDIR)/sbin/maintenance
 
 	# grub configuration 
-	install -d $(ROOTDIR)/boot/grub/
-	cp $(TOPDIR)/etc/abbcc/menu.lst $(ROOTDIR)/boot/grub/menu.lst
+	install -D $(TOPDIR)/etc/abbcc/menu.lst $(ROOTDIR)/boot/grub/menu.lst
 
 	# RTAI scripts
-	install -d $(ROOTDIR)/etc/init.d
-	cp $(TOPDIR)/etc/abbcc/init.d/rtai $(ROOTDIR)/etc/init.d
-	cp $(TOPDIR)/etc/abbcc/init.d/latency $(ROOTDIR)/etc/init.d
+	install -D $(TOPDIR)/etc/abbcc/init.d/rtai $(ROOTDIR)/etc/init.d/rtai
+	install -D $(TOPDIR)/etc/abbcc/init.d/latency $(ROOTDIR)/etc/init.d/latency
+	install -D $(TOPDIR)/etc/abbcc/init.d/rtnet $(ROOTDIR)/etc/init.d/rtnet
+
+	# Flash 
+	install -D $(TOPDIR)/etc/abbcc/system.menu $(ROOTDIR)/usr/lib/flash/system.menu
+
+	# RTnet test; this is indeed mega-tweaky; put test into RTnet sources
+	cd $(BUILDDIR) && tar -zxf /ptx/home/Projects/ABB-Schaltanlagen/RTAI-RTnet-Test/RTnet-Studie/round_trip-20040819-1.tar.gz
+	cd $(BUILDDIR)/round_trip-20040819-1 && ( 						\
+		$(CROSS_ENV) PATH=$(CROSS_PATH) make rr_ip_display 				\
+			RTAI_DIR=$(RTAI_DIR) KERNEL_DIR=$(KERNEL_DIR) RTNET_DIR=$(RTNET_DIR);	\
+		$(CROSS_ENV) PATH=$(CROSS_PATH) make rr_ip.o 					\
+			RTAI_DIR=$(RTAI_DIR) KERNEL_DIR=$(KERNEL_DIR) RTNET_DIR=$(RTNET_DIR);	\
+	)
+	install -D $(BUILDDIR)/round_trip-20040819-1/rr_ip.o $(ROOTDIR)/home/rr_ip.o
+	install -D $(BUILDDIR)/round_trip-20040819-1/rr_ip_display $(ROOTDIR)/home/rr_ip_display
+	install -D $(BUILDDIR)/round_trip-20040819-1/master $(ROOTDIR)/home/master
+	install -D $(BUILDDIR)/round_trip-20040819-1/slave $(ROOTDIR)/home/slave
 
 	touch $@
 # vim: syntax=make
