@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-ksymoops.make,v 1.3 2003/10/23 20:42:01 mkl Exp $
+# $Id: xchain-ksymoops.make,v 1.4 2003/11/17 18:37:03 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -71,8 +71,11 @@ $(STATEDIR)/ksymoops.prepare:
 ksymoops_compile: $(STATEDIR)/ksymoops.compile
 
 ksymoops_compile_deps = \
-	$(STATEDIR)/xchain-binutils.install \
 	$(STATEDIR)/ksymoops.extract
+
+ifdef PTXCBUILD_CROSSCHAIN
+ksymoops_compile_deps += $(STATEDIR)/xchain-binutils.install
+endif
 
 $(STATEDIR)/ksymoops.compile: $(ksymoops_compile_deps)
 	@$(call targetinfo, $@)
@@ -88,6 +91,14 @@ ksymoops_install: $(STATEDIR)/ksymoops.install
 $(STATEDIR)/ksymoops.install: $(STATEDIR)/ksymoops.compile
 	@$(call targetinfo, $@)
 	make -C $(KSYMOOPS_DIR) $(KSYMOOPS_MAKEVARS) install
+#
+# make short-name links to long-name programms
+# e.g.: arm-linux-gcc -> arm-unknown-linux-gnu-gcc
+#
+	cd $(PTXCONF_PREFIX)/bin &&							\
+		for FILE in ksymoops; do						\
+		ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;	\
+	done
 	touch $@
 
 # ----------------------------------------------------------------------------

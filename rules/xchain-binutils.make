@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: xchain-binutils.make,v 1.11 2003/11/13 04:31:51 mkl Exp $
+# $Id: xchain-binutils.make,v 1.12 2003/11/17 18:36:29 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -124,6 +125,15 @@ $(STATEDIR)/xchain-binutils.install: $(STATEDIR)/xchain-binutils.compile
 	@$(call targetinfo, $@)
 	make install -C $(XCHAIN_BINUTILS_DIR)
 #
+# make short-name links to long-name programms
+# e.g.: arm-linux-gcc -> arm-unknown-linux-gnu-gcc
+#
+	cd $(PTXCONF_PREFIX)/bin &&										\
+		for FILE in addr2line ar as ld nm objcompy objdump ranlib readelf size strings strip; do	\
+		ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;				\
+	done
+
+#
 # here we convert the static libiberty.a into a
 # shared one (.so)
 #
@@ -136,7 +146,7 @@ $(STATEDIR)/xchain-binutils.install: $(STATEDIR)/xchain-binutils.compile
 
 #
 # ksymoops want's to have libiberty.a, we copy it into the dir where ksymoops
-# expects them
+# expects it
 #
 	install -m 644 -D $(XCHAIN_BINUTILS_DIR)/libiberty/libiberty.a \
 		$(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET)/lib/libiberty.a

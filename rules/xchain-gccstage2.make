@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.21 2003/11/17 03:43:08 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.22 2003/11/17 18:36:49 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -163,6 +163,21 @@ xchain-gccstage2_install: $(STATEDIR)/xchain-gccstage2.install
 $(STATEDIR)/xchain-gccstage2.install: $(STATEDIR)/xchain-gccstage2.compile
 	@$(call targetinfo, $@)
 	$(GCC_STAGE2_PATH) make -C $(GCC_STAGE2_DIR) install
+
+#
+# make short-name links to long-name programms
+# e.g.: arm-linux-gcc -> arm-unknown-linux-gnu-gcc
+#
+	cd $(PTXCONF_PREFIX)/bin &&							\
+		for FILE in gcc gccbug cpp gcov; do					\
+		ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;	\
+	done
+ifdef PTXCONF_CXX
+	cd $(PTXCONF_PREFIX)/bin &&							\
+		for FILE in c++ g++ c++flit; do						\
+		ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;	\
+	done
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
