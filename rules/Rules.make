@@ -342,7 +342,8 @@ patchstack =								\
 	PATCHSTACK_DIR="$(strip $(2))";					\
 	if [ "x" != "x$$PATCHSTACK_NAME" ]; then			\
 		mkdir -p $$PATCHSTACK_DIR/.patches; 			\
-		cp $(TOPDIR)/feature-patches/$$PATCHSTACK_NAME/* $$PATCHSTACK_DIR/.patches/; \
+		cp $(TOPDIR)/feature-patches/$$PATCHSTACK_NAME/*.patch $$PATCHSTACK_DIR/.patches/; \
+		cat $(TOPDIR)/feature-patches/$$PATCHSTACK_NAME/series >> $$PATCHSTACK_DIR/.patches/series; \
 		cd $$PATCHSTACK_DIR && patcher -A;			\
 	fi;								\
 	true;
