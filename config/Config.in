@@ -12,12 +12,15 @@ config PTXCONF
 	  This is the Pengutronix Distribution Build System. A better name
 	  for the Projest still has to be found.
 
-source "rules/experimental.in"
+config PROJECT
+	string
+	prompt "Project Name "
 
 ############################################################################## 
 comment	"General Options ---    "
 ##############################################################################
 
+source "rules/experimental.in"
 source "rules/target.in"
 source "rules/cross-toolchain.in"
 source "rules/rootfs.in"
