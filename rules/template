@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: template,v 1.4 2003/08/21 09:30:23 robert Exp $
+# $Id: template,v 1.5 2003/08/21 09:32:48 robert Exp $
 #
 # (c) 2003 by @AUTHOR@
 #          
@@ -67,7 +67,6 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 #
 @packet@_prepare_deps =  \
 	$(STATEDIR)/@packet@.extract \
-	$(STATEDIR)/glib1210.install \
 #	$(STATEDIR)/virtual-xchain.install
 
 @PACKET@_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
