@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.4 2003/08/26 13:01:51 robert Exp $
+# $Id: mfirebird.make,v 1.5 2003/08/27 18:53:42 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #             Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -27,10 +27,6 @@ MFIREBIRD_URL			= http://ftp.mozilla.org/pub/firebird/releases/0.6.1/$(MFIREBIRD
 MFIREBIRD_SOURCE		= $(SRCDIR)/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
 MFIREBIRD_DIR			= $(BUILDDIR)/$(MFIREBIRD)
 
-MFIREBIRD_PATCH			= MozillaFirebird-source-$(MFIREBIRD_VERSION)-ptx3.diff
-MFIREBIRD_PATCH_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(MFIREBIRD_PATCH)
-MFIREBIRD_PATCH_SOURCE		= $(SRCDIR)/$(MFIREBIRD_PATCH)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -48,10 +44,6 @@ $(MFIREBIRD_SOURCE):
 	@$(call targetinfo, $(MFIREBIRD_SOURCE))
 	@$(call get, $(MFIREBIRD_URL))
 
-$(MFIREBIRD_PATCH_SOURCE):
-	@$(call targetinfo, $(MFIREBIRD_PATCH_SOURCE))
-	@$(call get, $(MFIREBIRD_PATCH_URL))
-
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
@@ -64,8 +56,8 @@ $(STATEDIR)/mfirebird.extract: $(mfirebird_extract_deps)
 	@$(call targetinfo, mfirebird.extract)
 	@$(call clean, $(MFIREBIRD_DIR))
 	@$(call extract, $(MFIREBIRD_SOURCE))
-	
 	cd $(BUILDDIR) && mv mozilla $(MFIREBIRD)
+	@$(call patchin, $(MFIREBIRD_DIR), $(MFIREBIRD))
 	
 	touch $@
 
@@ -461,7 +453,7 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 # Clean
 # ----------------------------------------------------------------------------
 
-mfirebird_clean_dont_use:
+mfirebird_clean:
 	rm -rf $(STATEDIR)/mfirebird.*
 	rm -rf $(MFIREBIRD_DIR)
 
