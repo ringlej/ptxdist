@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mgetty.make,v 1.4 2004/03/12 14:57:40 bbu Exp $
+# $Id: mgetty.make,v 1.5 2004/03/25 15:53:07 bbu Exp $
 #
 # Copyright (C) 2003 by BSP
 #          
@@ -79,11 +79,11 @@ $(STATEDIR)/mgetty.prepare: $(mgetty_prepare_deps)
 	@$(call clean, $(MGETTY_DIR)/config.cache)
 	cp $(PTXCONF_MGETTY_CONFIG) $(MGETTY_DIR)/policy.h
 	find $(MGETTY_DIR) -name Makefile \
-		-exec sed -i -e 's/^CC.*=.*//' \
-			     -e 's/^CFLAGS.*=.*/CFLAGS+=-DAUTO_PPP/' \
-			     -e 's/^LDFLAGS.*=.*//' \
-			     -e 's/^LIBS.*=.*//' \
-			     -e 's/^prefix.*=.*/prefix=/' {} \;
+		-exec perl -i -p -e 's/^CFLAGS.*=.*/CFLAGS+=-DAUTO_PPP/ ;\
+			s/^CC.*=.*// ;\
+			s/^LDFLAGS.*=.*// ;\
+			s/^LIBS.*=.*// ;\
+			s/^prefix.*=.*/prefix=/' {} \;
 	touch $@
 
 # ----------------------------------------------------------------------------
