@@ -333,7 +333,11 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
 	@if [ -f $(KERNEL_CONFIG) ]; then	                        \
+		echo "Using kernel config file: $(KERNEL_CONFIG)"; 	\
 		install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config;	\
+	else								\
+		echo "ERROR: No kernel config file found.";		\
+		exit 1;							\
 	fi
 
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) 		\
@@ -381,7 +385,7 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	echo 'u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 
-	$(KERNEL_PATH) $(KERNEL_ENV) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) make $(KERNEL_MAKEVARS) \
 		$(KERNEL_TARGET) modules
 	touch $@
 
