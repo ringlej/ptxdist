@@ -6,7 +6,7 @@ PTXCONF_PTXCONF=y
 PTXCONF_PROJECT="flowscreen2"
 
 #
-# General Options ---    
+# General Options             
 #
 
 #
@@ -33,6 +33,7 @@ PTXCONF_ARCH_ARM=y
 # PTXCONF_ARM_ARCH_IXP2000 is not set
 # PTXCONF_ARM_ARCH_NETARM is not set
 # PTXCONF_ARM_ARCH_ATMEL is not set
+# PTXCONF_ARM_ARCH_AT91RM9200 is not set
 PTXCONF_ARM_ARCH_IMX=y
 PTXCONF_ARM_ARCH="imx"
 PTXCONF_ARM_ARCH_LE=y
@@ -70,30 +71,48 @@ PTXCONF_TARGET_CONFIG_FILE="arm.dat"
 PTXCONF_ARCH="arm"
 PTXCONF_ARCH_USERSPACE="arm"
 PTXCONF_ARM_PROC="armv"
-PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
 PTXCONF_PREFIX="$(TOPDIR)/local"
 PTXCONF_ROOT=""
 
 #
-# Cross Toolchain     
+# Toolchain/Crosstool 
 #
-# PTXCONF_BUILD_CROSSCHAIN is not set
+# PTXCONF_CROSSTOOL is not set
+
+#
+# Generic Options
+#
 PTXCONF_CROSSCHAIN_CHECK="3.3.3"
+PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
+PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
+
+#
+# Non-Crosstool Tools
+#
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
 #
 # Root Filesystem     
 #
-PTXCONF_ROOTFS_PROC=y
+PTXCONF_ROOTFS=y
 PTXCONF_ROOTFS_DEV=y
-PTXCONF_ROOTFS_MNT=y
+PTXCONF_ROOTFS_ETC=y
 PTXCONF_ROOTFS_FLOPPY=y
-PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_HOME=y
-PTXCONF_ROOTFS_VAR=y
+PTXCONF_ROOTFS_MNT=y
+PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
+PTXCONF_ROOTFS_TMP=y
+PTXCONF_ROOTFS_VAR=y
 PTXCONF_VENDORTWEAKS="projects/mx1fs2/mx1fs2."
+
+#
+# Image Creation
+#
+# PTXCONF_IMAGE_TGZ is not set
+# PTXCONF_IMAGE_HD is not set
+# PTXCONF_IMAGE_JFFS2 is not set
 
 #
 # Debugging Tools     
@@ -112,12 +131,12 @@ PTXCONF_VENDORTWEAKS="projects/mx1fs2/mx1fs2."
 #
 # Host Tools          
 #
-# PTXCONF_GENEXT2FS is not set
-# PTXCONF_HOSTTOOL_E2FSPROGS is not set
-# PTXCONF_FAKEROOT is not set
+# PTXCONF_HOSTTOOLS_GENEXT2FS is not set
+# PTXCONF_HOSTTOOLS_E2FSPROGS is not set
+PTXCONF_HOSTTOOLS_FAKEROOT=y
 
 #
-# Core System ---    
+# Core System                 
 #
 
 #
@@ -132,6 +151,7 @@ PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/mx1fs2/mx1fs2-2.6.8.kernelconfig"
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_4_25 is not set
 # PTXCONF_KERNEL_2_4_26 is not set
+# PTXCONF_KERNEL_2_4_27 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
@@ -173,17 +193,18 @@ PTXCONF_KERNEL_PATCH2_NAME=""
 #
 # C Library           
 #
+PTXCONF_LIBC=y
 PTXCONF_GLIBC=y
 # PTXCONF_UCLIBC is not set
 
 #
 # C Library options
 #
+# PTXCONF_GLIBC_2_3_3 is not set
 PTXCONF_GLIBC_2_3_2=y
 # PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
-# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -210,6 +231,11 @@ PTXCONF_GLIBC_NSS_FILES=y
 PTXCONF_GLIBC_RESOLV=y
 PTXCONF_GLIBC_NSL=y
 # PTXCONF_GLIBC_GCONV is not set
+
+#
+# Timezone Files
+#
+# PTXCONF_GLIBC_ZONEINFO is not set
 PTXCONF_UC_TARGET_arm=y
 
 #
@@ -218,7 +244,7 @@ PTXCONF_UC_TARGET_arm=y
 # PTXCONF_CXX is not set
 
 #
-# Core Tools ---  
+# Shell & Console Tools       
 #
 
 #
@@ -737,6 +763,11 @@ PTXCONF_MTD_FLASH_UNLOCK=y
 # PTXCONF_PROCPS is not set
 
 #
+# sysfsutils          
+#
+# PTXCONF_SYSFSUTILS is not set
+
+#
 # sysutils            
 #
 # PTXCONF_SYSUTILS is not set
@@ -748,9 +779,17 @@ PTXCONF_MTD_FLASH_UNLOCK=y
 # PTXCONF_CLOCK is not set
 
 #
-# VHLL Support        
+# Scripting Languages         
 #
-# PTXCONF_VHLL_PYTHON23 is not set
+
+#
+# Scripting Languages 
+#
+# PTXCONF_PYTHON23 is not set
+
+#
+# Networking Tools            
+#
 
 #
 # Network Tools --- 
@@ -761,9 +800,14 @@ PTXCONF_MTD_FLASH_UNLOCK=y
 #
 
 #
-# shorewall firewall  
+# Dropbear SSH-Server 
 #
-# PTXCONF_SHOREWALL is not set
+# PTXCONF_DROPBEAR is not set
+
+#
+# iptables            
+#
+# PTXCONF_IPTABLES is not set
 
 #
 # LSH                 
@@ -781,9 +825,9 @@ PTXCONF_MTD_FLASH_UNLOCK=y
 # PTXCONF_OPENSSH is not set
 
 #
-# Dropbear SSH-Server 
+# shorewall firewall  
 #
-# PTXCONF_DROPBEAR is not set
+# PTXCONF_SHOREWALL is not set
 
 #
 # Networking Apps     
@@ -820,6 +864,11 @@ PTXCONF_MTD_FLASH_UNLOCK=y
 # PTXCONF_ETHEREAL is not set
 
 #
+# ethewake            
+#
+# PTXCONF_ETHERWAKE is not set
+
+#
 # inetutils           
 #
 # PTXCONF_INETUTILS is not set
@@ -833,6 +882,11 @@ PTXCONF_MTD_FLASH_UNLOCK=y
 # libpcap             
 #
 # PTXCONF_LIBPCAP is not set
+
+#
+# mii-diag            
+#
+# PTXCONF_MII-DIAG is not set
 
 #
 # netcat              
@@ -878,7 +932,7 @@ PTXCONF_MTD_FLASH_UNLOCK=y
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
-PTXCONF_OPENAFS_1_2_11=y
+# PTXCONF_OPENAFS_1_2_11 is not set
 
 #
 # Portmapper          
@@ -943,11 +997,7 @@ PTXCONF_UTELNETD=y
 #
 
 #
-# Disk and file ---   
-#
-
-#
-# Disk and file utils 
+# Disk and File Utilities     
 #
 
 #
@@ -974,7 +1024,12 @@ PTXCONF_UTELNETD=y
 # PTXCONF_BONNIE is not set
 
 #
-# Applications ---    
+# Communication Utilities     
+#
+# PTXCONF_EFAX is not set
+
+#
+# Applications                
 #
 
 #
@@ -998,12 +1053,19 @@ PTXCONF_UTELNETD=y
 # PTXCONF_SETMIXER is not set
 
 #
-# Tools               
+# Tools                       
 #
 PTXCONF_FIGLET=y
 
 #
-# System Libraries    
+# Editors                     
+#
+# PTXCONF_NANO is not set
+# PTXCONF_JED is not set
+# PTXCONF_HEXEDIT is not set
+
+#
+# System Libraries            
 #
 
 #
@@ -1046,13 +1108,31 @@ PTXCONF_ZLIB=y
 # PTXCONF_LIBXML2 is not set
 
 #
-# Graphics Libraries  
+# Graphics Libraries          
+#
+
+#
+# X Infrastructure
 #
 
 #
 # XFree86-4.3.0         
 #
 # PTXCONF_XFREE430 is not set
+
+#
+# xlibs                 
+#
+# PTXCONF_XLIBS is not set
+
+#
+# xserver               
+#
+# PTXCONF_XSERVER is not set
+
+#
+# X Applications
+#
 
 #
 # Clementine WM         
@@ -1074,12 +1154,12 @@ PTXCONF_ZLIB=y
 # PTXCONF_QTE is not set
 
 #
-# Blackbox WM         
+# Blackbox WM           
 #
 # PTXCONF_BLACKBOX is not set
 
 #
-# Scientific Apps     
+# Scientific Apps             
 #
 
 #
@@ -1088,7 +1168,7 @@ PTXCONF_ZLIB=y
 # PTXCONF_GNUPLOT is not set
 
 #
-# Web Applications    
+# Web Applications            
 #
 
 #
