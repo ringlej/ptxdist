@@ -89,6 +89,7 @@ config CROSSTOOL_KERNELCONFIG
 	default "i586.config"			if ARCH_X86 && OPT_I586
 	default "i686.config"			if ARCH_X86 && OPT_I686
 	default "alpha.config"			if ARCH_ALPHA
+	default "m68k.config"			if ARCH_M68K
 #	default "cris.config"
 #	default "ia64.config"
 #	default "mipsel.config"
@@ -96,7 +97,6 @@ config CROSSTOOL_KERNELCONFIG
 #	default "sparc.config"
 #	default "x86_64.config"
 #	default "hppa.config"
-#	default "m68k.config"
 #	default "powerpc64.config"
 #	default "s390.config"
 #	default "sh4.config"

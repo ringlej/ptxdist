@@ -27,6 +27,11 @@ choice
 	config ARCH_PPC
 		bool "PPC"
 
+	config ARCH_M68K
+		bool "m68k"
+		help 
+		  This is support for the Motorola/Freescale M68k architecture. 
+
 	config ARCH_SPARC
 		bool "SPARC"
 		depends on EXP
@@ -230,6 +235,7 @@ config TARGET_CONFIG_FILE
 	string
 	prompt "Name of architecture config file in $PTXDIST/config/arch"
 	default "arm.dat"		if ARCH_ARM
+	default "m68k.dat"		if ARCH_M68K
 	default "ix86.dat"		if ARCH_X86
 	default "powerpc.dat"		if OPT_PPC
 	default "powerpc-405.dat"	if OPT_PPC405
@@ -257,6 +263,7 @@ config ARCH
 	default "armnommu"		if ARCH_ARM_NOMMU
 	default "alpha"			if ARCH_ALPHA
 	default "i386"			if ARCH_X86
+	default "m68k"			if ARCH_M68K
 	default "ppc"			if ARCH_PPC
 	default "sparc"			if ARCH_SPARC
 	default "mips"			if ARCH_MIPS
@@ -271,6 +278,7 @@ config ARCH_USERSPACE
 	default "arm"			if ARCH_ARM_NOMMU
 	default "alpha"			if ARCH_ALPHA
 	default "i386"			if ARCH_X86
+	default "m68k"			if ARCH_M68K
 	default "powerpc"		if ARCH_PPC
 	default "sparc"			if ARCH_SPARC
 	default "mips"			if ARCH_MIPS
