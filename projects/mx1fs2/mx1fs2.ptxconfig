@@ -123,7 +123,7 @@ PTXCONF_VENDORTWEAKS="projects/mx1fs2/mx1fs2."
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.6.8-mx1fs2"
+PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/mx1fs2/mx1fs2-2.6.8.kernelconfig"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
