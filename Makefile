@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.21 2003/08/25 23:45:21 mkl Exp $
+# $Id: Makefile,v 1.22 2003/08/26 12:57:06 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -90,7 +90,11 @@ dep_output_clean:
 	touch $(DEP_OUTPUT)
 
 dep_tree:
+ifneq ("", $(shell which dot))
 	@sort $(DEP_OUTPUT) | uniq | scripts/makedeptree | $(DOT) -Tps > $(DEP_TREE_PS)
+else
+	echo "Install 'dot' from graphviz packet if you want to have a nice dependency tree" > $(DEP_TREE_PS)
+endif	
 
 dep_world: $(PACKAGES_TARGETINSTALL)
 	@echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
