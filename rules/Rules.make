@@ -845,7 +845,7 @@ copy_root = 									\
 	PER=`echo $(3) | sed -e 's/[[:space:]]//g'`;				\
 	SRC=`echo $(4) | sed -e 's/[[:space:]]//g'`;				\
 	DST=`echo $(5) | sed -e 's/[[:space:]]//g'`;				\
-	rm -fr $$DST; 								\
+	rm -fr $(ROOTDIR)$$DST; 						\
 	if [ -z "$(5)" ]; then									 \
 		echo "copy_root dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER"; 		 \
 		$(INSTALL) -D $(ROOTDIR)/$$SRC;							 \
@@ -868,7 +868,7 @@ copy_root = 									\
 link_root =									\
 	@SRC=`echo $(1) | sed -e 's/[[:space:]]//g'`;				\
 	DST=`echo $(2) | sed -e 's/[[:space:]]//g'`;				\
-	rm -fr $$DST;								\
+	rm -fr $(ROOTDIR)$$DST;							\
 	echo "link_root src=$$SRC dst=$$DST "; 					\
 	$(LN) -sf $$SRC $(ROOTDIR)$$DST
 
