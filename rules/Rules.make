@@ -170,15 +170,49 @@ get_feature_patch =						\
 	fi;							\
 	FP_DIR="$(TOPDIR)/feature-patches/$$FP_NAME";		\
 	[ -d $$FP_DIR ] || mkdir -p $$FP_DIR;			\
-	$(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR $(PASSIVEFTP) $$FP_URL;	\
-	[ $$? -eq 0 ] || {					\
-		echo;						\
-		echo "Could not get patch!";			\
-		echo "URL $$URL not reachable.";		\
-		echo;						\
-		exit -1;					\
-	};
-
+	[ "$$(expr match $$FP_URL http://)" != "0" ] && FP_URLTYPE="http"; \
+        [ "$$(expr match $$FP_URL ftp://)" != "0" ] && FP_URLTYPE="ftp";   \
+        [ "$$(expr match $$FP_URL file://)" != "0" ] && FP_URLTYPE="file"; \
+	case $$FP_URLTYPE in                                    \
+        http)                                                   \
+                $(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR $(PASSIVEFTP) $$FP_URL; \
+		[ $$? -eq 0 ] || {                              \
+                        echo;                                   \
+                        echo "Could not get feature patch via http!";  \
+                        echo "URL: $$URL";                      \
+                        echo;                                   \
+                        exit -1;                                \
+                        };                                      \
+                ;;                                              \
+        ftp)                                                    \
+                $(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR $(PASSIVEFTP) $$FP_URL; \
+		[ $$? -eq 0 ] || {                              \
+                        echo;                                   \
+                        echo "Could not get feature patch via ftp!";   \
+                        echo "URL: $$URL";                      \
+                        echo;                                   \
+                        exit -1;                                \
+                        };                                      \
+                ;;                                              \
+        file)                                                   \
+                FP_FILE="$$(echo $$FP_URL | sed s-file://-/-g)";\
+                cp -av $$FP_FILE $$FP_DIR;                      \
+                [ $$? -eq 0 ] || {                              \
+                        echo;                                   \
+                        echo "Could not copy feature patch!";   \
+                        echo "File: $$FILE";                    \
+                        echo;                                   \
+                        exit -1;                                \
+                        };                                      \
+                ;;                                              \
+        *)                                                      \
+                echo;                                           \
+                echo "Unknown URL Type for feature patch!";     \
+                echo "URL: $$URL";                              \
+                echo;                                           \
+                exit -1;                                        \
+                ;;                                              \
+        esac;
 #
 # download patches from Pengutronix' patch repository
 # 
