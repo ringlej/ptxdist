@@ -115,9 +115,6 @@ hexedit_install: $(STATEDIR)/hexedit.install
 
 $(STATEDIR)/hexedit.install: $(STATEDIR)/hexedit.compile
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/usr/bin
-	install $(HEXEDIT_DIR)/hexedit $(ROOTDIR)/usr/bin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/hexedit
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -130,6 +127,9 @@ hexedit_targetinstall_deps = $(STATEDIR)/hexedit.compile
 
 $(STATEDIR)/hexedit.targetinstall: $(hexedit_targetinstall_deps)
 	@$(call targetinfo, $@)
+	install -d $(ROOTDIR)/usr/bin
+	install $(HEXEDIT_DIR)/hexedit $(ROOTDIR)/usr/bin
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/hexedit
 	touch $@
 
 # ----------------------------------------------------------------------------
