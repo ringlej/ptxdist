@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ncurses.make,v 1.9 2003/09/08 23:44:13 mkl Exp $
+# $Id: ncurses.make,v 1.10 2003/09/16 16:42:18 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -34,6 +34,7 @@ ncurses_get: $(STATEDIR)/ncurses.get
 
 $(STATEDIR)/ncurses.get: $(NCURSES_SOURCE)
 	@$(call targetinfo, ncurses.get)
+	@$(call get_patches, $(NCURSES))
 	touch $@
 
 $(NCURSES_SOURCE):
@@ -50,7 +51,7 @@ $(STATEDIR)/ncurses.extract: $(STATEDIR)/ncurses.get
 	@$(call targetinfo, ncurses.extract)
 	@$(call clean, $(NCURSES_DIR))
 	@$(call extract, $(NCURSES_SOURCE))
-	@$(call patchin, $(NCURSES_DIR), $(NCURSES)) 
+	$(call patchin, $(NCURSES))
 	touch $@
 
 # ----------------------------------------------------------------------------
