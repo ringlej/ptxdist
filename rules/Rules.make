@@ -162,17 +162,19 @@ get_option_ext =									\
 #
 # cleanup the given directory or file
 #
-clean =							\
-	DIR="$(strip $(1))";				\
-	if [ "$$DIR" = "" ]; then			\
-	echo;						\
-	echo Error: empty parameter to \"clean\(\)\";	\
-	echo;						\
-	exit -1;					\
-	fi;						\
-	if [ -e $$DIR ]; then				\
-		rm -rf $$DIR;				\
+clean =								\
+	DIR="$(strip $(1))";					\
+	if [ -e $$DIR ]; then					\
+		rm -rf $$DIR;					\
 	fi
+
+# 	if [ "$$DIR" = "" ]; then				\
+# 		echo;						\
+# 		echo Error: empty parameter to \"clean\(\)\";	\
+# 		echo;						\
+# 		exit -1;					\
+# 	fi;							\
+
 
 #
 # find latest config
@@ -251,10 +253,10 @@ disable_sh =						\
 patchin =									\
 	PACKET_NAME="$(strip $(1))";						\
 	if [ "$$PACKET_NAME" = "" ]; then					\
-	echo;									\
-	echo Error: empty parameter to \"patchin\(\)\";				\
-	echo;									\
-	exit -1;								\
+		echo;								\
+		echo Error: empty parameter to \"patchin\(\)\";			\
+		echo;								\
+		exit -1;							\
 	fi;									\
 	PACKET_DIR="$(strip $(2))";						\
 	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};			\
