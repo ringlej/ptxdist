@@ -65,27 +65,12 @@ PTXCONF_ROOT=""
 #
 # Toolchain/Crosstool 
 #
-
-#
-# Crosstool Options
-#
-PTXCONF_CROSSTOOL=y
-# PTXCONF_GCC_2_95_3 is not set
-# PTXCONF_GCC_3_2_3 is not set
-# PTXCONF_GCC_3_3_2 is not set
-# PTXCONF_GCC_3_4_0 is not set
-PTXCONF_GCC_3_4_1=y
-PTXCONF_GCC_VERSION="3.4.1"
-PTXCONF_CROSSTOOL_GCCLANG_CC=y
-# PTXCONF_BINUTILS_2_14 is not set
-PTXCONF_BINUTILS_2_15=y
-PTXCONF_CROSSTOOL_KERNELCONFIG="i586.config"
-PTXCONF_BINUTILS_VERSION="2.15"
+# PTXCONF_CROSSTOOL is not set
 
 #
 # Generic Options
 #
-# PTXCONF_GCC_MULTILIB is not set
+PTXCONF_CROSSCHAIN_CHECK="3.3.2"
 PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
 
 #
