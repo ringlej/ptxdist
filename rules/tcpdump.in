@@ -3,5 +3,11 @@ menu    "tcpdump             "
 config TCPDUMP
         bool
         prompt "Compile tcpdump"
+	select LIBPCAP
+
+config TCPDUMP_DISABLE_CRYPTO
+	bool
+	prompt "disable crypto support"
+	depends on TCPDUMP
 
 endmenu
