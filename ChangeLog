@@ -1,3 +1,8 @@
+2005-01-19 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* arm0815: added generic arm project (Benedikt Spranger)
+	* bash: update to 3.0 (Benedikt Spranger)
+
 2005-01-11 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* cuckoo-test: remove false positives for terminfo files
@@ -24,8 +29,6 @@
 	* readline: added
 	* coreutils: added dd
 	* dialog: added snapshot release
-
-	* 0.7.2 released (well, only prepared yet)
 
 2004-02-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
