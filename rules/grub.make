@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: grub.make,v 1.10 2004/01/27 18:34:53 robert Exp $
+# $Id: grub.make,v 1.11 2004/08/10 21:21:13 rsc Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -70,6 +70,12 @@ GRUB_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 GRUB_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
 
 GRUB_AUTOCONF +=  --prefix=$(PTXCONF_PREFIX)
+
+ifneq ("", "$(PTXCONF_GRUB_PRESET_MENU)")
+GRUB_AUTOCONF += --enable-preset-menu=$(PTXCONF_GRUB_PRESET_MENU)
+else
+GRUB_AUTOCONF += --disable-preset-menu
+endif
 ifeq (y, $(PTXCONF_GRUB_FFS))
 GRUB_AUTOCONF += --enable-ffs
 else

@@ -5,10 +5,22 @@ config GRUB
 	prompt "GRUB"
 	depends on ARCH_X86
 
+comment "Config Options"
+
 config GRUB_MD5
 	bool
 	prompt "md5 passwords"
 	depends on GRUB
+
+config GRUB_PRESET_MENU
+	string
+	prompt "Preset Menu File"
+	depends on GRUB
+	help
+	  Add a path to a file here which will be used as a 
+	  preset menu (for example for serial console support)
+
+comment "File System Support"
 
 config GRUB_FFS
 	bool
@@ -39,6 +51,8 @@ config GRUB_XFS
 	bool
 	prompt "xfs      filesystem"
 	depends on GRUB
+
+comment "Network Card Support"
 
 config GRUB_CS89X0
 	bool
