@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: inetutils.make,v 1.2 2003/09/24 17:01:43 robert Exp $
+# $Id: inetutils.make,v 1.3 2003/09/24 23:43:23 mkl Exp $
 #
-# (c) 2003 by Milan Bobde
+# (C) 2003 by Ixia Corporation (www.ixiacom.com)
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -84,6 +84,7 @@ INETUTILS_ENV		+=  ac_cv_func_setvbuf_reversed=no
 INETUTILS_AUTOCONF	=  --prefix=/usr
 INETUTILS_AUTOCONF	+= --build=$(GNU_HOST)
 INETUTILS_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+INETUTILS_AUTOCONF	+= --with-PATH-CP=/bin/cp
 
 $(STATEDIR)/inetutils.prepare: $(inetutils_prepare_deps)
 	@$(call targetinfo, $@)
@@ -135,6 +136,7 @@ inetutils_targetinstall_deps	=  $(STATEDIR)/inetutils.compile
 $(STATEDIR)/inetutils.targetinstall: $(inetutils_targetinstall_deps)
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/usr/bin
+	install -d $(ROOTDIR)/usr/sbin
 ifdef PTXCONF_INETUTILS_RCP
 	install -D $(INETUTILS_DIR)/rcp/rcp  $(ROOTDIR)/usr/bin/rcp
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/rcp
