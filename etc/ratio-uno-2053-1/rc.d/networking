@@ -1,0 +1,13 @@
+#!/bin/sh
+# example configuration for network interfaces:
+# ---------------------------------------------
+
+# eth0
+#ifconfig eth0 192.168.42.1 netmask 255.255.255.0 broadcast 192.168.42.255 up
+
+# eth1
+#ifconfig eth1 192.168.23.1 netmask 255.255.255.0 broadcast 192.168.23.255 up
+
+# default route
+# route add default eth0
+# route add default gw 192.168.42.254 
