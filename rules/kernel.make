@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.12 2003/10/26 06:24:32 mkl Exp $
+# $Id: kernel.make,v 1.13 2003/11/02 13:48:16 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -25,8 +25,6 @@ KERNEL_SUFFIX		= tar.bz2
 KERNEL_URL		= ftp://ftp.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_SOURCE		= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DIR		= $(BUILDDIR)/$(KERNEL)
-KERNEL_PATCHES		+= $(addprefix kernel-, \
-	$(call get_option_ext, s/^PTXCONF_KERNEL_[0-9]_[0-9]_[0-9]*_\(.*\)=y/\1/, sed -e 's/_/ /g' -e 's/[0-9]//g' ))
 
 ifdef PTXCONF_KERNEL_IMAGE_Z
 KERNEL_TARGET		= zImage
@@ -43,6 +41,17 @@ endif
 ifdef PTXCONF_KERNEL_IMAGE_VMLINUX
 KERNEL_TARGET		= vmlinux
 KERNEL_TARGET_PATH	= $(KERNEL_DIR)/vmlinux
+endif
+
+# ----------------------------------------------------------------------------
+# Patches
+# ----------------------------------------------------------------------------
+
+KERNEL_PATCHES =  $(addprefix kernel-, \
+	$(call get_option_ext, s/^PTXCONF_KERNEL_[0-9]_[0-9]_[0-9]*_\(.*\)=y/\1/, sed -e 's/_/ /g' -e 's/[0-9]//g' ))
+
+ifdef PTXCONF_RTAI
+KERNEL_PATCHES += kernel-rtai
 endif
 
 # ----------------------------------------------------------------------------
@@ -117,9 +126,9 @@ endif
 kernel_prepare: $(STATEDIR)/kernel.prepare
 
 kernel_prepare_deps = \
-	$(STATEDIR)/kernel.extract \
+	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/xchain-modutils.install \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/kernel.extract
 
 KERNEL_PATH	= PATH=$(CROSS_PATH)
 KERNEL_MAKEVARS	= \

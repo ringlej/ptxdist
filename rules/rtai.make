@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtai.make,v 1.8 2003/10/23 15:01:19 mkl Exp $
+# $Id: rtai.make,v 1.9 2003/11/02 13:48:16 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -76,6 +76,11 @@ $(STATEDIR)/rtai.extract: $(STATEDIR)/rtai.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTAI_DIR))
 	@$(call extract, $(RTAI_SOURCE))
+#
+# FIXME: Hopefully someone will fix this one:
+#
+	cp -f $(RTAI_DIR)/lxrt/Makefile $(RTAI_DIR)/lxrt/Makefile.orig
+	sed -e "s/pressa//g" $(RTAI_DIR)/lxrt/Makefile.orig >$(RTAI_DIR)/lxrt/Makefile
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -89,7 +94,7 @@ RTAI_ENV	= \
 	ARCH=$(PTXCONF_ARCH) \
 	CROSS_COMPILE=$(PTXCONF_GNU_TARGET)- \
 	LINUXDIR=$(KERNEL_DIR) \
-	MAKE='make CROSS_COMPILE=$(PTXCONF_GNU_TARGET)-'
+	MAKE='make $(KERNEL_MAKEVARS)'
 
 rtai_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
@@ -107,11 +112,7 @@ $(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
 	cd $(RTAI_DIR) && \
 		yes no | $(RTAI_PATH) $(RTAI_ENV) ./configure --reconf
 
-#
-# FIXME: Hopefully someone will fix this one:
-#
-	cp -f $(RTAI_DIR)/lxrt/Makefile $(RTAI_DIR)/lxrt/Makefile.orig
-	sed -e "s/pressa//g" $(RTAI_DIR)/lxrt/Makefile.orig >$(RTAI_DIR)/lxrt/Makefile
+	$(RTAI_PATH) TOPDIR=$(RTAI_DIR) make -C $(RTAI_DIR) dep
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -122,7 +123,7 @@ rtai_compile: $(STATEDIR)/rtai.compile
 
 $(STATEDIR)/rtai.compile: $(STATEDIR)/rtai.prepare 
 	@$(call targetinfo, $@)
-	$(RTAI_PATH) $(RTAI_ENV) TOPDIR=$(RTAI_DIR) make -C $(RTAI_DIR)
+	$(RTAI_PATH) TOPDIR=$(RTAI_DIR) make -C $(RTAI_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
