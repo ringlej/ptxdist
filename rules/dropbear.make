@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: dropbear.make,v 1.7 2004/02/28 14:27:20 robert Exp $
+# $Id: dropbear.make,v 1.8 2004/03/10 17:31:33 robert Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -236,6 +236,9 @@ endif
 ifdef PTXCONF_DROPBEAR_CONVERT
 	$(DROPBEAR_PATH) make -C $(DROPBEAR_DIR) dropbearconvert
 endif
+ifdef PTXCONF_DROPBEAR_SCP
+	cd $(DROPBEAR_DIR) && $(DROPBEAR_PATH) make scp
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -281,6 +284,12 @@ ifdef PTXCONF_DROPBEAR_DROPBEAR_CONVERT
 	install $(DROPBEAR_DIR)/dropbearconvert \
 		$(ROOTDIR)/usr/sbin/dropbearconvert
 	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/dropbearconvert
+endif
+
+ifdef PTXCONF_DROPBEAR_SCP
+	install $(DROPBEAR_DIR)/scp \
+		$(ROOTDIR)/usr/bin/scp
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/scp
 endif
 
 	touch $@

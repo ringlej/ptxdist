@@ -174,4 +174,12 @@ config DROPBEAR_DROPBEAR_CONVERT
 	help
 		With this utility you can convert ssh hostkeys from openssh to dropbear formt.
 		Select this, if you want this program on your target platform.
+
+config DROPBEAR_SCP
+	bool
+	prompt	"Install dropbear's scp"
+	depends on DROPBEAR
+	help
+		This is dropbear's implementation of the scp utility. 
+
 endmenu
