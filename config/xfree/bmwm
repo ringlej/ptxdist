@@ -163,17 +163,17 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 /*
  * To disable support for Speedo fonts, uncomment this.
  */
-#define BuildSpeedo		NO
+#define BuildSpeedo		YES
 
 /*
  * To disable support for Type1 fonts, uncomment this.
  */
-#define BuildType1		NO
+#define BuildType1		YES
 
 /*
  * To disable support for CID fonts, uncomment this.
  */
-#define BuildCID		NO
+#define BuildCID		YES
 
 /*
  * To disable support for TrueType fonts, uncomment these.
@@ -190,22 +190,22 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 /*
  * To not build/install the 100dpi fonts, uncomment the following
  */
-#define Build100DpiFonts	NO
+#define Build100DpiFonts	YES
 
 /*
  * To not build/install the Speedo fonts, uncomment the following
  */
-#define BuildSpeedoFonts	NO
+#define BuildSpeedoFonts	YES
 
 /*
  * To not build/install the Type1 fonts, uncomment the following
  */
-#define BuildType1Fonts		NO
+#define BuildType1Fonts		YES
 
 /*
  * To not build/install the CID fonts, uncomment the following
  */
-#define BuildCIDFonts		NO
+#define BuildCIDFonts		YES
 
 /*
  * To not build/install the True Type fonts, uncomment the following
