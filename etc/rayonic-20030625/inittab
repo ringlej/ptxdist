@@ -22,7 +22,8 @@
 ::askfirst:-/bin/sh
 
 # Start X11R6 TinyX server
-::respawn:/usr/X11R6/bin/xinit /start_m -- /usr/X11R6/bin/Xfbdev -br -once -screen 640x240 -mouse /dev/misc/psaux
+#::respawn:/usr/X11R6/bin/xinit /usr/bin/penguzilla -- /usr/X11R6/bin/Xfbdev -br -once -screen 640x240 -mouse /dev/misc/psaux 2>/dev/null
+::respawn:/usr/bin/start_m
 
 # Stuff to do before rebooting
 ::ctrlaltdel:/sbin/reboot
