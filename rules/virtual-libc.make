@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: virtual-libc.make,v 1.2 2003/11/17 03:53:42 mkl Exp $
+# $Id: virtual-libc.make,v 1.3 2004/08/09 08:56:51 rsc Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #
@@ -13,6 +13,23 @@
 # We provide this package
 #
 VIRTUAL += virtual-libc
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+virtual-libc_install: $(STATEDIR)/virtual-libc.install
+
+ifdef PTXCONF_GLIBC
+virtual-libc_install_deps = $(STATEDIR)/glibc.install
+endif 
+ifdef PTXCONF_UCLIBC
+virtual-libc_install_deps = $(STATEDIR)/uclibc.install
+endif 
+
+$(STATEDIR)/virtual-libc.install: $(virtual-libc_install_deps)
+	@$(call targetinfo, $@)
+	touch $@
 
 # ----------------------------------------------------------------------------
 # Target-Install
