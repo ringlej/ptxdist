@@ -256,7 +256,7 @@ config ROOTFS_TMP
 config ROOTFS_TMP_DATALINK
 	bool "Make /tmp a link to /data/tmp"
 	default y
-	depends on ROOTFS_TMP
+	depends on ROOTFS_TMP && ROOTFS_DATA
 
 config ROOTFS_HOME
 	bool
@@ -277,7 +277,7 @@ config ROOTFS_VAR_LOG_DATALINK
 	bool
 	prompt "Make /var/log a link to /data/log"
 	default y
-	depends on ROOTFS_VAR
+	depends on ROOTFS_VAR && ROOTFS_DATA
 
 config ROOTFS_ETC
 	bool
@@ -1029,6 +1029,164 @@ config LSH_WRITEKEY
 config OPENSSH
 	bool
 	prompt "OpenSSH"
+
+config DROPBEAR
+	bool
+	prompt "Dropbear SSH Server"
+
+config DROPBEAR_DIS_ZLIB
+	bool
+	prompt "disable zlib support"
+	depends on DROPBEAR
+
+config DROPBEAR_DIS_LASTLOG
+	bool
+	prompt "disable use of lastlog"
+	depends on DROPBEAR
+
+config DROPBEAR_DIS_UTMP
+	bool
+	prompt "disable use of utmp"
+	depends on DROPBEAR
+
+config DROPBEAR_DIS_UTMPX
+	bool
+	prompt "disable use of utmpx"
+	depends on DROPBEAR
+
+config DROPBEAR_DIS_WTMP
+	bool
+	prompt "disable use of wtmp"
+	depends on DROPBEAR
+
+config DROPBEAR_DIS_WTMPX
+	bool
+	prompt "disable use of wtmpx"
+	depends on DROPBEAR
+
+config DROPBEAR_DIS_LIBUTIL
+	bool
+	prompt "disable use of libutil"
+	depends on DROPBEAR
+
+config DROPBEAR_DIS_PUTUTLINE
+	bool
+	prompt "disable use of pututline"
+	depends on DROPBEAR
+
+config DROPBEAR_DIS_PUTUTXLINE
+	bool
+	prompt "disable use of pututxline"
+	depends on DROPBEAR
+
+
+comment features
+	depends on DROPBEAR
+
+config DROPBEAR_DIS_X11
+	bool
+	prompt "disable X11 Forwarding"
+	depends on DROPBEAR
+
+config DROPBEAR_DIS_TCP
+	bool
+	prompt "disable TCP Fowarding"
+	depends on DROPBEAR
+
+config DROPBEAR_DIS_AGENT
+	bool
+	prompt "disable Authentication Agent Forwarding"
+	depends on DROPBEAR
+
+
+comment "Encryption, at least one required --- RFC Draft requires 3DES"
+	depends on DROPBEAR
+
+config DROPBEAR_AES128
+	bool
+	prompt "AES 128"
+	depends on DROPBEAR
+
+config DROPBEAR_BLOWFISH
+	bool
+	prompt "Blowfish"
+	depends on DROPBEAR
+
+config DROPBEAR_TWOFISH128
+	bool
+	prompt "Twofish128"
+	depends on DROPBEAR
+
+config DROPBEAR_3DES
+	bool
+	prompt "3DES"
+	default y
+	depends on DROPBEAR
+
+
+comment "Integrity, at least one required --- RFC Draft requires sha1-hmac"
+	depends on DROPBEAR
+
+config DROPBEAR_SHA1
+	bool
+	prompt "sha1"
+	default y
+	depends on DROPBEAR
+
+config DROPBEAR_MD5
+	bool
+	prompt "md5"
+	depends on DROPBEAR
+
+
+comment "Hostkey/public key algorithms, at least one required --- SSH2 RFC Draft requires dss"
+	depends on DROPBEAR
+
+config DROPBEAR_RSA
+	bool
+	prompt "rsa"
+	depends on DROPBEAR
+
+config DROPBEAR_DSS
+	bool
+	prompt "dss"
+	default y
+	depends on DROPBEAR
+
+
+comment "Authentication types, at least one required --- RFC Draft requires pubkey auth"
+	depends on DROPBEAR
+
+config DROPBEAR_PASSWD
+	bool
+	prompt "password"
+	depends on DROPBEAR
+
+config DROPBEAR_PUBKEY
+	bool
+	prompt "pubkey"
+	default y
+	depends on DROPBEAR
+
+
+comment "installation options"
+	depends on DROPBEAR
+
+config DROPBEAR_DROPBEAR
+	bool
+	prompt "Install dropbear SSH server"
+	default y
+	depends on DROPBEAR
+
+config DROPBEAR_DROPBEAR_KEY
+	bool
+	prompt "Install dropbearkey"
+	depends on DROPBEAR
+
+config DROPBEAR_DROPBEAR_CONVERT
+	bool
+	prompt "Install dropbearconvert"
+	depends on DROPBEAR
 
 endmenu
 
