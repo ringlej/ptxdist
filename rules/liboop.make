@@ -1,9 +1,9 @@
 # -*-makefile-*-
-# $Id: liboop.make,v 1.5 2003/10/23 15:01:19 mkl Exp $
+# $Id: liboop.make,v 1.6 2003/10/26 06:26:08 mkl Exp $
 #
-# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
-#
-# See CREDITS for details about who has contributed to this project. 
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+#          
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -12,18 +12,19 @@
 #
 # We provide this package
 #
-ifeq (y,$(PTXCONF_LIBOOP))
+ifdef PTXCONF_LIBOOP
 PACKAGES += liboop
 endif
 
 #
-# Paths and names 
+# Paths and names
 #
-LIBOOP			= liboop-0.8
-LIBOOP_URL 		= http://download.ofb.net/liboop/$(LIBOOP).tar.gz
-LIBOOP_SOURCE		= $(SRCDIR)/$(LIBOOP).tar.gz
-LIBOOP_DIR 		= $(BUILDDIR)/$(LIBOOP)
-LIBOOP_EXTRACT		= gzip -dc
+LIBOOP_VERSION	= 0.9
+LIBOOP		= liboop-$(LIBOOP_VERSION)
+LIBOOP_SUFFIX	= tar.bz2
+LIBOOP_URL	= http://download.ofb.net/liboop/$(LIBOOP).$(LIBOOP_SUFFIX)
+LIBOOP_SOURCE	= $(SRCDIR)/$(LIBOOP).$(LIBOOP_SUFFIX)
+LIBOOP_DIR	= $(BUILDDIR)/$(LIBOOP)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,13 +32,15 @@ LIBOOP_EXTRACT		= gzip -dc
 
 liboop_get: $(STATEDIR)/liboop.get
 
-$(STATEDIR)/liboop.get: $(LIBOOP_SOURCE)
+liboop_get_deps = $(LIBOOP_SOURCE)
+
+$(STATEDIR)/liboop.get: $(liboop_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
 $(LIBOOP_SOURCE):
 	@$(call targetinfo, $@)
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(LIBOOP_URL)
+	@$(call get, $(LIBOOP_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -45,29 +48,12 @@ $(LIBOOP_SOURCE):
 
 liboop_extract: $(STATEDIR)/liboop.extract
 
-LIBOOP_USE_LIBTOOLIZE = libtoolize
-LIBOOP_USE_ACLOCAL    = aclocal
-LIBOOP_USE_AUTOCONF   = autoconf
-LIBOOP_USE_AUTOMAKE   = automake
+liboop_extract_deps = $(STATEDIR)/liboop.get
 
-$(STATEDIR)/liboop.extract: $(STATEDIR)/liboop.get
+$(STATEDIR)/liboop.extract: $(liboop_extract_deps)
 	@$(call targetinfo, $@)
-	$(LIBOOP_EXTRACT) $(LIBOOP_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
-	# 
-	# we have to add a switch to disable tcl
-	#
-	#
-	cd $(LIBOOP_DIR) && cat $(SRCDIR)/liboop-0.8-ptx1.diff | patch -p1
-	rm -f $(LIBOOP_DIR)/missing
-	rm -f $(LIBOOP_DIR)/libtool
-	rm -f $(LIBOOP_DIR)/ltconfig
-	rm -f $(LIBOOP_DIR)/ltmain.sh
-	#
-	cd $(LIBOOP_DIR) && $(LIBOOP_USE_LIBTOOLIZE) --force -c
-	cd $(LIBOOP_DIR) && $(LIBOOP_USE_ACLOCAL)
-	cd $(LIBOOP_DIR) && $(LIBOOP_USE_AUTOCONF)
-	cd $(LIBOOP_DIR) && $(LIBOOP_USE_AUTOMAKE) -a
-	#
+	@$(call clean, $(LIBOOP_DIR))
+	@$(call extract, $(LIBOOP_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -76,16 +62,31 @@ $(STATEDIR)/liboop.extract: $(STATEDIR)/liboop.get
 
 liboop_prepare: $(STATEDIR)/liboop.prepare
 
-LIBOOP_AUTOCONF =
-LIBOOP_AUTOCONF += --build=$(GNU_HOST)
-LIBOOP_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
-LIBOOP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)
-LIBOOP_AUTOCONF += --without-tcl
+#
+# dependencies
+#
+liboop_prepare_deps = \
+	$(STATEDIR)/liboop.extract \
+	$(STATEDIR)/virtual-xchain.install
 
-$(STATEDIR)/liboop.prepare: $(STATEDIR)/liboop.extract
+LIBOOP_PATH	=  PATH=$(CROSS_PATH)
+LIBOOP_ENV 	=  $(CROSS_ENV)
+LIBOOP_ENV	+= --without-tcl
+
+#
+# autoconf
+#
+LIBOOP_AUTOCONF	= \
+	--prefix=$(CROSS_LIB_DIR) \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET)
+
+$(STATEDIR)/liboop.prepare: $(liboop_prepare_deps)
 	@$(call targetinfo, $@)
-	cd $(LIBOOP_DIR) &&						\
-		PATH=$(PTXCONF_PREFIX)/bin:$$PATH ./configure $(LIBOOP_AUTOCONF)
+	@$(call clean, $(LIBOOP_DIR)/config.cache)
+	cd $(LIBOOP_DIR) && \
+		$(LIBOOP_PATH) $(LIBOOP_ENV) \
+		./configure $(LIBOOP_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -94,9 +95,11 @@ $(STATEDIR)/liboop.prepare: $(STATEDIR)/liboop.extract
 
 liboop_compile: $(STATEDIR)/liboop.compile
 
-$(STATEDIR)/liboop.compile: $(STATEDIR)/liboop.prepare 
+liboop_compile_deps = $(STATEDIR)/liboop.prepare
+
+$(STATEDIR)/liboop.compile: $(liboop_compile_deps)
 	@$(call targetinfo, $@)
-	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(LIBOOP_DIR)
+	$(LIBOOP_PATH) make -C $(LIBOOP_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -107,8 +110,7 @@ liboop_install: $(STATEDIR)/liboop.install
 
 $(STATEDIR)/liboop.install: $(STATEDIR)/liboop.compile
 	@$(call targetinfo, $@)
-	# FIXME: this doesn't work when using local bin dir
-	make -C $(LIBOOP_DIR) install
+	$(LIBOOP_PATH) make -C $(LIBOOP_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -117,19 +119,21 @@ $(STATEDIR)/liboop.install: $(STATEDIR)/liboop.compile
 
 liboop_targetinstall: $(STATEDIR)/liboop.targetinstall
 
-$(STATEDIR)/liboop.targetinstall: $(STATEDIR)/liboop.install
+liboop_targetinstall_deps = $(STATEDIR)/liboop.compile
+
+$(STATEDIR)/liboop.targetinstall: $(liboop_targetinstall_deps)
 	@$(call targetinfo, $@)
-	# FIXME: the other liboop libraries should optionally be installed 
-	# we want to preserve links, so we cannot use install
-	cp -d $(PTXCONF_PREFIX)/lib/liboop.so* $(ROOTDIR)/lib/
-	$(CROSSSTRIP) -S $(ROOTDIR)/lib/liboop.so*
+	mkdir -p $(ROOTDIR)/lib
+	cp -a $(PTXCONF_PREFIX)/lib/liboop.so* $(ROOTDIR)/lib/
+	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/liboop.so*
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-liboop_clean: 
-	rm -rf $(STATEDIR)/liboop.* $(LIBOOP_DIR)
+liboop_clean:
+	rm -rf $(STATEDIR)/liboop.*
+	rm -rf $(LIBOOP_DIR)
 
 # vim: syntax=make
