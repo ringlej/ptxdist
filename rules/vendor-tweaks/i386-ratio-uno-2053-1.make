@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: i386-ratio-uno-2053-1.make,v 1.3 2004/04/07 11:39:39 bbu Exp $
+# $Id: i386-ratio-uno-2053-1.make,v 1.4 2004/04/07 14:20:01 bbu Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -53,7 +53,7 @@ $(STATEDIR)/ratio-uno-2053-1.targetinstall:
 	echo "default 0" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo 'title "Compact Flash"' >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "kernel /boot/bzImage ip=:::::eth0:on root=/dev/hda1" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "kernel /boot/bzImage ip=:::::eth0:on root=/dev/hda1 ide=nodma" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo " " >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "#Alternativ: Services für 2 NICs anmelden:" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "#kernel /boot/bzImage ip=192.168.0.209::192.168.0.254:255.255.255.0::eth0:off,192.168.1.254:::255.255.255.0::eth1:off root=/dev/hdc1" >> $(ROOTDIR)/boot/grub/menu.lst
