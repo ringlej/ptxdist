@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.18 2004/02/03 11:46:38 robert Exp $
+# $Id: kernel.make,v 1.19 2004/02/04 08:46:42 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -105,7 +105,7 @@ ifneq ($(PTXCONF_KERNEL_PATCH1_URL),"")
 endif
 endif
 
-ifdef PTXCONF_KERNEL_PATCH2
+ifdef PTXCONF_KERNEL_PATCH2_URL
 ifneq ($(PTXCONF_KERNEL_PATCH2),"")
 	@$(call targetinfo, "Patch 2")
 	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH2_NAME) ]; then	\
@@ -116,7 +116,7 @@ ifneq ($(PTXCONF_KERNEL_PATCH2),"")
 endif
 endif
 
-ifdef PTXCONF_KERNEL_PATCH3
+ifdef PTXCONF_KERNEL_PATCH3_URL
 ifneq ($(PTXCONF_KERNEL_PATCH3),"")
 	@$(call targetinfo, "Patch 3")
 	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH3_NAME) ]; then	\
@@ -127,7 +127,7 @@ ifneq ($(PTXCONF_KERNEL_PATCH3),"")
 endif
 endif
 
-ifdef PTXCONF_KERNEL_PATCH4
+ifdef PTXCONF_KERNEL_PATCH4_URL
 ifneq ($(PTXCONF_KERNEL_PATCH4),"")
 	@$(call targetinfo, "Patch 4")
 	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH4_NAME) ]; then	\
@@ -138,7 +138,7 @@ ifneq ($(PTXCONF_KERNEL_PATCH4),"")
 endif
 endif
 
-ifdef PTXCONF_KERNEL_PATCH5
+ifdef PTXCONF_KERNEL_PATCH5_URL
 ifneq ($(PTXCONF_KERNEL_PATCH5),"")
 	@$(call targetinfo, "Patch 5")
 	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH5_NAME) ]; then	\
@@ -149,7 +149,7 @@ ifneq ($(PTXCONF_KERNEL_PATCH5),"")
 endif
 endif
 
-ifdef PTXCONF_KERNEL_PATCH6
+ifdef PTXCONF_KERNEL_PATCH6_URL
 ifneq ($(PTXCONF_KERNEL_PATCH6),"")
 	@$(call targetinfo, "Patch 6")
 	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH6_NAME) ]; then	\
@@ -160,7 +160,7 @@ ifneq ($(PTXCONF_KERNEL_PATCH6),"")
 endif
 endif
 
-ifdef PTXCONF_KERNEL_PATCH7
+ifdef PTXCONF_KERNEL_PATCH7_URL
 ifneq ($(PTXCONF_KERNEL_PATCH7),"")
 	@$(call targetinfo, "Patch 7")
 	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH7_NAME) ]; then	\
@@ -171,7 +171,7 @@ ifneq ($(PTXCONF_KERNEL_PATCH7),"")
 endif
 endif
 
-ifdef PTXCONF_KERNEL_PATCH8
+ifdef PTXCONF_KERNEL_PATCH8_URL
 ifneq ($(PTXCONF_KERNEL_PATCH8),"")
 	@$(call targetinfo, "Patch 8")
 	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH8_NAME) ]; then	\
@@ -182,7 +182,7 @@ ifneq ($(PTXCONF_KERNEL_PATCH8),"")
 endif
 endif
 
-ifdef PTXCONF_KERNEL_PATCH9
+ifdef PTXCONF_KERNEL_PATCH9_URL
 ifneq ($(PTXCONF_KERNEL_PATCH9),"")
 	@$(call targetinfo, "Patch 9")
 	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH9_NAME) ]; then	\
@@ -193,7 +193,7 @@ ifneq ($(PTXCONF_KERNEL_PATCH9),"")
 endif
 endif
 
-ifdef PTXCONF_KERNEL_PATCH10
+ifdef PTXCONF_KERNEL_PATCH10_URL
 ifneq ($(PTXCONF_KERNEL_PATCH10),"")
 	@$(call targetinfo, "Patch 10")
 	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH10_NAME) ]; then	\
@@ -258,7 +258,6 @@ $(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
 ifeq (2.4.18,$(KERNEL_VERSION))
 	mv $(BUILDDIR)/linux $(KERNEL_DIR)
 endif
-
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -280,6 +279,8 @@ KERNEL_MAKEVARS	= \
 	GENKSYMS=$(PTXCONF_GNU_TARGET)-genksyms \
 	DEPMOD=$(PTXCONF_GNU_TARGET)-depmod
 
+KERNEL_ENV	= $(CROSS_ENV_CFLAGS)
+
 ifdef PTXCONF_KERNEL_IMAGE_U
 	KERNEL_MAKEVARS += MKIMAGE=u-boot-mkimage
 endif
@@ -292,6 +293,8 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 		$(KERNEL_DIR)/.config;						\
 	fi
 
+	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
+		include/linux/version.h
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
 		oldconfig
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
@@ -329,7 +332,7 @@ endif
 
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	@$(call targetinfo, $@)
-	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
+	$(KERNEL_PATH) $(KERNEL_ENV) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
 		$(KERNEL_TARGET) modules
 	touch $@
 

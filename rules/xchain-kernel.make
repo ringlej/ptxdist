@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.18 2004/01/31 18:08:17 bsp Exp $
+# $Id: xchain-kernel.make,v 1.19 2004/02/04 08:46:42 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -91,13 +91,31 @@ $(STATEDIR)/xchain-kernel-base.extract: $(STATEDIR)/xchain-kernel.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN_KERNEL_BUILDDIR))
 	@$(call extract, $(KERNEL_SOURCE), $(XCHAIN_KERNEL_BUILDDIR))
-#
-# kernels before 2.4.19 extract to "linux" instead of "linux-version"
-#
+
+	#
+	# kernels before 2.4.19 extract to "linux" instead of "linux-version"
+	#
 ifeq (2.4.18,$(KERNEL_VERSION))
 	mv $(XCHAIN_KERNEL_BUILDDIR)/linux $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)
 endif
+
+	# Also add the "patchstack" like patches
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH1_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH2_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH3_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)) 
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH4_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH5_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH6_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH7_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH8_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH9_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH10_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
+
 	mv $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/* $(XCHAIN_KERNEL_BUILDDIR)
+
+	# 'patcher' directory is not copied by default...
+	mv $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/.patches* $(XCHAIN_KERNEL_BUILDDIR)
+
 	rmdir $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)
 
 	touch $@
