@@ -9,8 +9,8 @@
 #
 
 ::sysinit:/etc/init.d/banner 
-::sysinit:/sbin/ptx-init-permissions.sh
 ::sysinit:/etc/init.d/rcS
+::sysinit:/sbin/ptx-init-permissions.sh
 ::sysinit:/sbin/openssh-host-keygen.sh
 # busybox syslogd ignores /etc/syslogd.conf
 ::sysinit:/sbin/syslogd -O /dev/tty8
