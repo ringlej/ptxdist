@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: util-linux.make,v 1.7 2003/12/08 12:39:19 bsp Exp $
+# $Id: util-linux.make,v 1.8 2004/07/16 09:13:48 rsc Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -56,6 +56,8 @@ $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps)
 	@$(call clean, $(UTIL-LINUX_DIR))
 	@$(call extract, $(UTIL-LINUX_SOURCE))
 	@$(call patchin, $(UTIL-LINUX))
+
+	perl -i -p -e 's/^CPU=.*$$/CPU=$(PTXCONF_ARCH)/g' $(UTIL-LINUX_DIR)/MCONFIG
 	touch $@
 	
 # ----------------------------------------------------------------------------
@@ -104,6 +106,9 @@ endif
 ifdef PTXCONF_UTLNX_READPROFILE
 	$(UTIL-LINUX_PATH) make -C $(UTIL-LINUX_DIR)/sys-utils readprofile
 endif
+ifdef PTXCONF_UTLNX_FDISK
+	$(UTIL_LINUX_PATH) make -C $(UTIL-LINUX_DIR)/fdisk fdisk
+endif 
 #
 # FIXME: implement other utilities
 #
@@ -144,6 +149,10 @@ endif
 ifdef PTXCONF_UTLNX_READPROFILE
 	install -D $(UTIL-LINUX_DIR)/sys-utils/readprofile $(ROOTDIR)/usr/sbin/readprofile
 	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/usr/sbin/readprofile
+endif
+ifdef PTXCONF_UTLNX_FDISK
+	install -D $(UTIL-LINUX_DIR)/fdisk/fdisk $(ROOTDIR)/usr/sbin/fdisk
+	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/usr/sbin/fdisk
 endif
 	touch $@
 

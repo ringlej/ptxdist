@@ -4,6 +4,11 @@ config UTLNX
 	bool
 	prompt "Compile Util-Linux"
 
+config UTLNX_FDISK
+	bool
+	prompt "fdisk"
+	depends on UTLNX
+
 config UTLNX_MKSWAP
 	bool
         prompt "mkswap"
