@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.108 2004/08/24 12:52:00 rsc Exp $
+# $Id: Makefile,v 1.109 2004/08/26 06:20:38 rsc Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -20,12 +20,13 @@ TOPDIR			:= $(shell pwd)
 BASENAME		:= $(shell basename $(TOPDIR))
 BUILDDIR		:= $(TOPDIR)/build
 XCHAIN_BUILDDIR		:= $(BUILDDIR)/xchain
-NATIVE_BUILDDIR		:= $(BUILDDIR)/native
+HOSTTOOLS_BUILDDIR	:= $(BUILDDIR)/hosttools
 PATCHES_BUILDDIR	:= $(BUILDDIR)/patches
 SRCDIR			:= $(TOPDIR)/src
 PATCHDIR		:= $(TOPDIR)/patches
 STATEDIR		:= $(TOPDIR)/state
 BOOTDISKDIR		:= $(TOPDIR)/bootdisk
+IMAGEDIR		:= $(TOPDIR)/images
 MISCDIR			:= $(TOPDIR)/misc
 
 # Pengutronix Patch Repository
@@ -34,9 +35,9 @@ PTXPATCH_URL		:= http://www.pengutronix.de/software/ptxdist/patches
 PACKAGES	=
 XCHAIN		=
 VIRTUAL		=
-NATIVE		=
+HOSTTOOLS	=
 
-export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR PACKAGES
+export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR PACKAGES HOSTTOOLS
 
 all: help
 
@@ -76,6 +77,7 @@ PACKAGES_GET			:= $(addsuffix _get,$(PACKAGES)) $(addsuffix _get,$(XCHAIN))
 PACKAGES_EXTRACT		:= $(addsuffix _extract,$(PACKAGES))
 PACKAGES_PREPARE		:= $(addsuffix _prepare,$(PACKAGES))
 PACKAGES_COMPILE		:= $(addsuffix _compile,$(PACKAGES))
+HOSTTOOLS_INSTALL		:= $(addsuffix _install,$(HOSTTOOLS))
 
 VENDORTWEAKS_TARGETINSTALL	:= $(addsuffix _targetinstall,$(VENDORTWEAKS))
 
@@ -124,8 +126,8 @@ help:
 	@echo "Available virtual packages:"
 	@echo " $(VIRTUAL)"
 	@echo
-	@echo "Eventually needed native packes:"
-	@echo " $(NATIVE)"
+	@echo "Hosttools to be built:"
+	@echo " $(HOSTTOOLS)"
 	@echo
 	@echo "Available vendortweaks:"
 	@echo "  $(VENDORTWEAKS)"
@@ -152,10 +154,21 @@ dep_tree:
 skip_vendortweaks:
 	@echo "Vendor-Tweaks file $(PTXCONF_VENDORTWEAKS) does not exist, skipping."
 
-dep_world: $(PACKAGES_TARGETINSTALL) $(VENDORTWEAKS_TARGETINSTALL)
+dep_world: $(HOSTTOOLS_INSTALL) $(PACKAGES_TARGETINSTALL) $(VENDORTWEAKS_TARGETINSTALL)
 	@echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
 
 world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
+
+# Image ----------------------------------------------------------------------
+
+image: $(STATEDIR)/image
+
+$(STATEDIR)/image:
+	cd $(ROOTDIR); \
+	(awk -F: '{printf("chmod %s .%s; chown %s.%s .%s;\n", $$4, $$1, $$2, $$3, $$1);}' $(TOPDIR)/permissions && \
+	echo "tar -zcvf $(TOPDIR)/images/root.tgz . ") | \
+	$(PTXCONF_PREFIX)/bin/fakeroot -- 
+	touch $@
 
 # Configuration system -------------------------------------------------------
 
@@ -297,7 +310,7 @@ distclean: clean
 	@echo "done."
 	@echo
 
-clean: rootclean
+clean: rootclean imageclean
 	@echo
 	@echo -n "cleaning build dir............... "
 	@for i in $$(ls -I CVS $(BUILDDIR)); do 			\
@@ -354,6 +367,12 @@ getclean:
 	@rm -f $(STATEDIR)/*.get
 	@echo "done."
 	@echo
+
+imageclean:
+	@echo -n "cleaning images dir.............. "
+	@rm -f $(TOPDIR)/images/*
+	@rm -f $(STATEDIR)/*.image
+	@echo "done."
 
 archive:  
 	@echo
