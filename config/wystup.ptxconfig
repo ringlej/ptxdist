@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT=""
+PTXCONF_PROJECT="WYSTUP"
 
 #
 # General Options ---    
@@ -12,7 +12,8 @@ PTXCONF_PROJECT=""
 #
 # Code maturity       
 #
-# PTXCONF_EXP is not set
+PTXCONF_EXP=y
+PTXCONF_EXP_M=y
 
 #
 # Target Options      
@@ -51,7 +52,7 @@ PTXCONF_TARGET_EXTRA_CPPFLAGS=""
 PTXCONF_TARGET_EXTRA_CFLAGS=""
 PTXCONF_TARGET_EXTRA_CXXFLAGS=""
 PTXCONF_TARGET_EXTRA_LDFLAGS=""
-PTXCONF_TARGET_CONFIG_FILE="ix86.dat"
+PTXCONF_TARGET_CONFIG_FILE="i586.dat"
 
 #
 # ---
@@ -65,16 +66,8 @@ PTXCONF_ROOT=""
 #
 # Cross Toolchain     
 #
-PTXCONF_BUILD_CROSSCHAIN=y
-PTXCONF_BINUTILS_2_13_2_1=y
-# PTXCONF_BINUTILS_2_14 is not set
-# PTXCONF_BINUTILS_2_15 is not set
-# PTXCONF_GCC_2_95_3 is not set
-PTXCONF_GCC_3_2_3=y
-# PTXCONF_GCC_3_3_2 is not set
-PTXCONF_GCC_3=y
-PTXCONF_GCC_SHARED=y
-# PTXCONF_GCC_MULTILIB is not set
+# PTXCONF_BUILD_CROSSCHAIN is not set
+PTXCONF_CROSSCHAIN_CHECK="3.4.1"
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_NASM is not set
 # PTXCONF_XCHAIN-SCONS is not set
@@ -120,7 +113,7 @@ PTXCONF_FAKEROOT=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.6.0-wystup"
+PTXCONF_KERNEL_CONFIG="kernel-wystup"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
@@ -129,11 +122,11 @@ PTXCONF_KERNEL_CONFIG="kernel-2.6.0-wystup"
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_4_25 is not set
 # PTXCONF_KERNEL_2_4_26 is not set
-PTXCONF_KERNEL_2_6_0=y
+# PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
 # PTXCONF_KERNEL_2_6_7 is not set
-# PTXCONF_KERNEL_2_6_8 is not set
+PTXCONF_KERNEL_2_6_8=y
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -206,7 +199,6 @@ PTXCONF_UC_TARGET_i386=y
 # C++ Library         
 #
 PTXCONF_CXX=y
-PTXCONF_LIBSTDCXX=y
 PTXCONF_LIBSTDCXX_SHARED=y
 
 #
@@ -714,11 +706,21 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 #
 # Hotplug             
 #
-# PTXCONF_HOTPLUG is not set
+PTXCONF_HOTPLUG=y
 
 #
 # hotplug scripts
 #
+PTXCONF_HOTPLUG_BLACKLIST=y
+# PTXCONF_HOTPLUG_FIRMWARE is not set
+# PTXCONF_HOTPLUG_IEEE1394 is not set
+PTXCONF_HOTPLUG_NET=y
+PTXCONF_HOTPLUG_PCI=y
+# PTXCONF_HOTPLUG_SCSI is not set
+PTXCONF_HOTPLUG_USB=y
+PTXCONF_HOTPLUG_INPUT=y
+# PTXCONF_HOTPLUG_DASD is not set
+# PTXCONF_HOTPLUG_TAPE is not set
 
 #
 # mgetty & sendfax    
@@ -771,9 +773,18 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 #
 
 #
-# shorewall firewall  
+# Dropbear SSH-Server 
 #
-# PTXCONF_SHOREWALL is not set
+# PTXCONF_DROPBEAR is not set
+
+#
+# iptables            
+#
+PTXCONF_IPTABLES=y
+PTXCONF_IPTABLES_INSTALL_IP6TABLES=y
+PTXCONF_IPTABLES_INSTALL_IPTABLES=y
+# PTXCONF_IPTABLES_INSTALL_IPTABLES_RESTORE is not set
+# PTXCONF_IPTABLES_INSTALL_IPTABLES_SAVE is not set
 
 #
 # LSH                 
@@ -797,9 +808,9 @@ PTXCONF_OPENSSH_SFTP_SERVER=y
 PTXCONF_OPENSSH_KEYGEN=y
 
 #
-# Dropbear SSH-Server 
+# shorewall firewall  
 #
-# PTXCONF_DROPBEAR is not set
+# PTXCONF_SHOREWALL is not set
 
 #
 # Networking Apps     
@@ -813,7 +824,10 @@ PTXCONF_OPENSSH_KEYGEN=y
 #
 # Bind                
 #
-# PTXCONF_BIND is not set
+PTXCONF_BIND=y
+PTXCONF_BIND_THREADS=y
+PTXCONF_BIND_CRYPTO=y
+PTXCONF_BIND_IPV6=y
 
 #
 # bing                
@@ -833,12 +847,18 @@ PTXCONF_DHCP=y
 #
 # ethereal            
 #
-# PTXCONF_ETHEREAL is not set
+PTXCONF_ETHEREAL=y
+# PTXCONF_ETHEREAL_ETHEREAL is not set
+PTXCONF_ETHEREAL_TETHEREAL=y
 
 #
 # inetutils           
 #
-# PTXCONF_INETUTILS is not set
+PTXCONF_INETUTILS=y
+# PTXCONF_INETUTILS_RCP is not set
+# PTXCONF_INETUTILS_RLOGIND is not set
+# PTXCONF_INETUTILS_RSHD is not set
+PTXCONF_INETUTILS_PING=y
 
 #
 # libnet              
@@ -848,12 +868,12 @@ PTXCONF_DHCP=y
 #
 # libpcap             
 #
-# PTXCONF_LIBPCAP is not set
+PTXCONF_LIBPCAP=y
 
 #
 # netcat              
 #
-# PTXCONF_NETCAT is not set
+PTXCONF_NETCAT=y
 
 #
 # nfs-utils           
@@ -871,7 +891,8 @@ PTXCONF_DHCP=y
 #
 # nmap                
 #
-# PTXCONF_NMAP is not set
+PTXCONF_NMAP=y
+PTXCONF_NMAP_SERVICES=y
 
 #
 # NTP                 
@@ -956,7 +977,7 @@ PTXCONF_NTP_LOCAL_CLOCK=y
 #
 # Install Options
 #
-# PTXCONF_NTP_NTPDATE is not set
+PTXCONF_NTP_NTPDATE=y
 
 #
 # OpenAFS             
@@ -975,7 +996,7 @@ PTXCONF_OPENAFS_1_2_11=y
 PTXCONF_PPP=y
 PTXCONF_PPP_MS_CHAP=y
 PTXCONF_PPP_SHADOW=y
-# PTXCONF_PPP_PLUGINS is not set
+PTXCONF_PPP_PLUGINS=y
 # PTXCONF_PPP_IPX is not set
 PTXCONF_PPP_MULTILINK=y
 
@@ -1071,13 +1092,7 @@ PTXCONF_GRUB_PRESET_MENU=""
 # PTXCONF_GRUB_CS89X0 is not set
 # PTXCONF_GRUB_EEPRO100 is not set
 # PTXCONF_GRUB_RTL8139 is not set
-PTXCONF_BOOTDISK=y
-# PTXCONF_BOOTDISK_DEV is not set
-PTXCONF_BOOTDISK_HEAD=8
-PTXCONF_BOOTDISK_SECT=32
-# PTXCONF_BOOTDISK_SIZE_AUTODETECT is not set
-PTXCONF_BOOTDISK_SIZE=121203
-PTXCONF_BOOTDISK_PART="wystup"
+# PTXCONF_BOOTDISK is not set
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
 # PTXCONF_BONNIE is not set
@@ -1104,12 +1119,17 @@ PTXCONF_FLASH=y
 #
 # setmixer            
 #
-# PTXCONF_SETMIXER is not set
+PTXCONF_SETMIXER=y
 
 #
 # Tools               
 #
-# PTXCONF_FIGLET is not set
+PTXCONF_FIGLET=y
+
+#
+# Editors             
+#
+# PTXCONF_NANO is not set
 
 #
 # System Libraries    
@@ -1118,8 +1138,6 @@ PTXCONF_FLASH=y
 #
 # gettext          
 #
-PTXCONF_GETTEXT=y
-PTXCONF_GETTEXT_LIBINTL=y
 
 #
 # popt             
@@ -1181,10 +1199,12 @@ PTXCONF_NCURSES_PANEL=y
 #
 # wxWindows GUI [X11]   
 #
+# PTXCONF_WXWINDOWS_X11 is not set
 
 #
 # Qt embedded GUI       
 #
+# PTXCONF_QTE is not set
 
 #
 # Blackbox WM         

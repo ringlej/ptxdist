@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: wystup.make,v 1.2 2003/12/23 10:58:22 robert Exp $
+# $Id: wystup.make,v 1.3 2004/08/30 15:41:20 bsp Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -22,10 +22,10 @@ $(STATEDIR)/wystup.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	copy /etc template
-	cp -a $(TOPDIR)/etc/wystup/. $(ROOTDIR)/etc
+#	cp -a $(TOPDIR)/etc/wystup/. $(ROOTDIR)/etc
 
 #	remove CVS stuff
-	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
+	find $(ROOTDIR) -name "CVS" | xargs rm -fr
 	rm -f $(ROOTDIR)/JUST_FOR_CVS
 
 #	make scripts executable
@@ -38,14 +38,18 @@ $(STATEDIR)/wystup.targetinstall:
 	perl -i -p -e "s,\@PROJECT@,$(PROJECT),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
-
+	
+	# configure console
+	perl -i -p -e "s,\@CONSOLE@,vc/1,g" $(ROOTDIR)/etc/inittab
+	perl -i -p -e "s,\@SPEED@,38400,g" $(ROOTDIR)/etc/inittab
+	
 	# create menu.lst for grub
 	install -d $(ROOTDIR)/boot
 	echo "timeout 30" > $(ROOTDIR)/boot/grub/menu.lst
 	echo "default 0" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "title \"Compact Flash\"" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "kernel /boot/bzImage ip=192.168.1.254:::255.255.0.0::eth0:off root=/dev/hdc1" >> $(ROOTDIR)/boot/grub/menu.lst
+	echo "kernel /boot/bzImage rw ide=nodma root=/dev/hdc1 ip=dhcp" >> $(ROOTDIR)/boot/grub/menu.lst
 #	echo "title \"NFS\"" >> $(ROOTDIR)/boot/grub/menu.lst
 #	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
 #	echo "kernel /boot/bzImage ip=dhcp root=/dev/nfs" >> $(ROOTDIR)/boot/grub/menu.lst
