@@ -1,0 +1,108 @@
+% ----------------------------------------------------------------------------
+\chapter{Maintaining Userlands} 		\label{chap:userlands}
+% ----------------------------------------------------------------------------
+
+\begin{flushright}
+\emph{
+Use the source, Luke!\\
+}
+\textsc{\small Obi-Wan Kenobi}
+\end{flushright}
+
+The idea for PTXdist came up when the people at Pengutronix had to
+compile the userlands for customer projects over and over again. Nearly
+no customer had the same requirements: one needed network tools like
+\texttt{ifconfig}, servers like \texttt{thttpd} or \texttt{dhcpd},
+others needed tools for accessing displays, embedded web browsers or
+other Human Machine Interface stuff. 
+
+The systems most time were so different that the way of stripping down a
+mainstream distribution did not work well: you simply cannot strip down
+a Debian system small enough to fit into a 2~MB RAM and 2~MB Flash
+system without destroying the whole idea behind the distribution. The
+other way is to build a Userland from scratch: Linux distributions like
+LFS follow this path, but users have to do every configuration and
+compilation step one after the other, which is a time consuming and
+errorprone way. 
+
+What we basically needed when we started PTXdist was: 
+\begin{itemize}
+\item A configuration frontend which lets the embedded developer just
+      select which components he wants to have in his Userland. The
+      configuration should be totally independend from the rest of the
+      system. 
+\item The system should be small at this time: no need to download
+      several tens of megabytes from the net, even before selecting what
+      would go into the image.
+\item A set of rules, easily readable by every reasonably silled Unix
+      develper, which reads the configuration and defines how to 
+      build a certain software packet, taking into account what the 
+      user has selected during configuration. 
+\item A framework which makes it easy for a developer to add new packets
+      to the system when he needs something which is not yet integrated. 
+\item The whole thing should be Open Source like the Linux kernel and
+      the Userland software itself, as our customers wanted a completely
+      transparent, modificable and debuggable software framework, be it 
+      the bootloader, the kernel or, finally, the Userland tools. 
+\item Last but not least, the whole system should be platform
+      independend, to build userland for whatever architecture the 
+      user works with. 
+\end{itemize}
+
+When we looked around for existing solutions there was none that
+fulfilled all these requirements: some where large beasts (like the
+uClinux distribution), some had an interesting approach (like the
+emDebian Project) but used the wrong tools (CML2 for configuration,
+which is basically a dead project today), others had a great
+infrastructure for the rules (like buildroot, part of the uClibc
+project) but no configuration frontend usable by normal end users. So we
+finally had a look at all the available projects, collected the best
+ideas and started a new Open Source project: PTXdist. 
+
+Over the last two years, PTXdist grew with the projects which have been
+developed for Pengutronix' customers. PTXdist is still no distribution:
+distributions are meant to just-work-out-of-the-box, which is simply not
+possible for the multifaceted situations we have in embedded projects.
+The idea behind PTXdist is more something like: 
+
+\begin{important}
+{\bf PTXdist is "`Executable Documentation"'. Write down what you 
+did once to make something work, in a well defined manner, and
+implicitly don't forget it until you need it the next time.}
+\end{important}
+
+When a Userland for a certain customer board is developed, the PTXdist
+framework is used to document all the necessary steps to build the
+binaries from the original sources. PTXdist defines which configuration
+switches have to be selected, which tweaks have to be applied to buggy
+upstream source trees and which are the commands which have to be
+started in which order to build a working tree. 
+
+At the end of a development project, the customer normally has a
+standard configuration integrated in PTXdist which lets him build his
+own Userland with \texttt{make~world}, he is able to work with the
+framework and switch on and off things he wants to change himself. Some
+customers have enough skills to send patches in case some randomly
+switched on config button doesn't show the expected results, others use
+Pengutronix' support services to integrate new packets into PTXdist or
+fix problems which come up with configuration constellations which have
+beed never tested before (with over 600 config entries there are $2^600$
+possible combinations -- it would take some time to test them all). 
+
+And, of course, we managed to build a community around PTXdist, which
+consists mainly of a mailing list on the PTXdist server. People outside
+Pengutronix started to work with the system for their own project, which
+is very important to make PTXdist more robust and test it in
+constellations which have not yet been realized here.  
+
+So when you start your next Embedded Linux project with PTXdist don't
+expect it to be something "`finished"' -- it is as finished or
+unfinished as the Linux kernel itself, which is just a collection of
+software which has proven to be great in one or the other situation, and
+which has been looked over by several people. The more people use
+PTXdist for their projects, the more robust and the more feature rich it
+becomes -- just like with the kernel. The power of Linux and PTXdist
+come from it's Open Source nature and from people working together to
+form an industry quality software framework -- you just have to join the
+team!
+

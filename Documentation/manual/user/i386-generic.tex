@@ -1,0 +1,115 @@
+% ----------------------------------------------------------------------------
+\chapter{The i386-generic-glibc Target}		\label{chap:i386-generic}
+% ----------------------------------------------------------------------------
+
+Now, we have enough theoretical background to try out a first example.
+The PTXdist developers have prepared a generic configuration which can
+be run on every Intel 386 compatible PC that might happen to go to seed
+in a dark corner of your lab. Consisting of "normal", non-embedded,
+hardware, it can be used as an ideal starting point for your first
+PTXdist experiments. Contrary to a real target, a normal PC has the
+advantage of having standard interfaces, such as a keyboard or a video
+card with a monitor, which makes it easier to find out why something
+goes wrong in case of a problem. 
+
+Select the generic target by entering at your bash command line
+
+\begin{code}
+robert@himalia:~/ptxdist> make i386-generic-glibc_config
+copying i386-generic-glibc configuration
+robert@himalia:~/ptxdist>
+\end{code}
+
+\begin{important}
+If you have played around with the PTXdist tree you are working in
+before, don't forget to run \texttt{make distclean} before this command.
+Whenever you have the impression that something is strange with
+your tree, distclean it and start from a well-known starting
+point. 
+\end{important}
+
+PTXdist needs a directory where it can install it's host tools. By
+default, this directory is set to \texttt{/tmp/ptxdist-local-generic},
+which should not collide with any other program. Please check if this
+directory is empty or non-existent on your host, to avoid conficts with
+old stuff. When there is old stuff laying around in this directory,
+either delete it (\texttt{rm -fr /tmp/ptxdist-local-generic}) after
+carefully checking if you \emph{really} delete it, or chose another
+directory for your host tools (see chapter~\ref{} to find out how to do
+this). We refer to the directory containing the host tools as the
+\texttt{PTXCONF\_PREFIX} directory from now on, as this is the name the
+PTXdist build system uses internally. 
+
+We assume everything is configured correctly now and run \texttt{make
+oldconfig} to evaluate and process the new configuration now. You should
+see some compiler output messages now, a bunch of questions are printed
+out, including their respective answers, and the system should come back
+to the shell command line prompt without stopping.
+
+\begin{important}
+If PTXdist stops while running \texttt{make oldconfig} and asks stupid
+questions, the config file you are using doen't fit the currently used
+PTXdist version. This probably means that it was not updated correctly
+by the maintainer when he made the last release; write a mail with a bug
+report to the PTXdist mailing list. 
+\end{important}
+
+Now, you need two things: first of all, either a CD with all sources
+being necessary for your target, or an internet connection which lets
+your development host get all the source packages from the net. As we
+already discussed, PTXdist decides during runtime which packages are
+needed to compile your root filesystem: the decision is based on what
+the currently used configuration has selected and on implicit
+dependencies which are resolved automatically. 
+
+In case you choose the internet connection variant you don't have to do
+anything and can start building, as described below. When you want to
+avoid the source packet downloads, copy all the source archives from
+your CD to the \texttt{src/} directory of the PTXdist tree. While
+running PTXdist the system tries to extract packages when they are about
+to being processed; when they are not available they are transferred via
+HTTP or FTP connection, so when you copy everything to the \texttt{src/}
+directory no archives are transferred. If you forgot one or the other
+packet it is no problem, it just is pulled from the net in that case.
+Take this into account when you have a low-bandwith or pay-per-volume
+line for your internet traffic. 
+
+We now start the main compiler run:
+
+\begin{code}
+robert@himalia:~/ptxdist> make world
+\end{code}
+
+This triggers the whole mechanism and if nothing goes wrong you get a
+ready-to-use root filesystem for the embedded system after a while. If
+you want to have more information about what happens during the build,
+if you want to have a logfile for the case when something goes wrong and
+if you want to find out how long the build-run took to complete use the
+following line: 
+
+\begin{code}
+robert@himalia:~/ptxdist> time make world 2>&1 | tee logfile
+\end{code}
+
+The \texttt{time} command prints out the time the whole thing took,
+until control comes back to the command line. With \texttt{2>\&1} you
+redirect all the stderr-output to stdout, which is afterwards fed to the
+\texttt{tee} command, so all the output messages are not only printed to
+the terminal but also logged in \texttt{logfile}. In case of an error
+\texttt{logfile} may contain useful information about what went wrong. 
+
+If everything has completed \texttt{root/} does contain the target's
+root filesystem. As the \emph{i386-generic-glibc} target was developed
+for the normal Intel architecture it can now be directly tested: 
+
+\begin{code}
+root@himalia:/home/robert/ptxdist> chroot root/ /bin/sh
+\end{code}
+
+Note that the \texttt{chroot} command can only be executed when being
+the root user. It locally changes the root path to the \texttt{root/}
+directory for the target and executes, already from this new point of
+view, the given binary (\texttt{/bin/sh} in this case). If you see a
+prompt after that everything is ok: you just changed root into your new
+self made "embedded system emulator".   
+
