@@ -2,10 +2,17 @@
 # Automatically generated make config: don't edit
 #
 PTXCONF_PTXCONF=y
+PTXCONF_PROJECT="innokom"
 
 #
-# General Options     
+# General Options ---    
 #
+
+#
+# Code maturity       
+#
+PTXCONF_EXP=y
+PTXCONF_EXP_M=y
 
 #
 # Target Options      
@@ -18,10 +25,15 @@ PTXCONF_ARCH_ARM=y
 # PTXCONF_ARCH_MIPS is not set
 # PTXCONF_ARCH_CRIS is not set
 # PTXCONF_ARCH_PARISC is not set
+# PTXCONF_ARCH_SH is not set
 PTXCONF_ARM_ARCH_PXA=y
+# PTXCONF_ARM_ARCH_EPXA is not set
+# PTXCONF_ARM_ARCH_SA1100 is not set
 # PTXCONF_ARM_ARCH_IXP2000 is not set
 # PTXCONF_ARM_ARCH_NETARM is not set
 # PTXCONF_ARM_ARCH_ATMEL is not set
+PTXCONF_ARM_ARCH="pxa"
+PTXCONF_ARM_ARCH_LE=y
 PTXCONF_OPT_ARM=y
 # PTXCONF_OPT_ARM_NOMMU is not set
 # PTXCONF_OPT_I386 is not set
@@ -37,12 +49,16 @@ PTXCONF_OPT_ARM=y
 # PTXCONF_OPT_MIPSEL is not set
 # PTXCONF_OPT_CRIS is not set
 # PTXCONF_OPT_PARISC is not set
+# PTXCONF_OPT_SH3 is not set
+# PTXCONF_OPT_SH4 is not set
 
 #
 # ---
 #
+PTXCONF_TARGET_EXTRA_CPPFLAGS=""
 PTXCONF_TARGET_EXTRA_CFLAGS=""
 PTXCONF_TARGET_EXTRA_CXXFLAGS=""
+PTXCONF_TARGET_EXTRA_LDFLAGS=""
 PTXCONF_TARGET_CONFIG_FILE="arm.dat"
 
 #
@@ -51,17 +67,16 @@ PTXCONF_TARGET_CONFIG_FILE="arm.dat"
 PTXCONF_ARCH="arm"
 PTXCONF_ARCH_USERSPACE="arm"
 PTXCONF_ARM_PROC="armv"
-PTXCONF_ARM_ARCH="pxa"
-PTXCONF_GNU_TARGET="arm-linux"
+PTXCONF_GNU_TARGET="arm-unknown-linux-gnu"
 PTXCONF_PREFIX="/usr/local/spiegel/arm-linux"
 PTXCONF_ROOT=""
 
 #
 # Cross Toolchain     
 #
-PTXCONF_BUILD_CROSSCHAIN=y
-PTXCONF_GCC_2_95_3=y
-# PTXCONF_GCC_3_2_3 is not set
+# PTXCONF_BUILD_CROSSCHAIN is not set
+# PTXCONF_XCHAIN-DISTCC is not set
+# PTXCONF_XCHAIN-SCONS is not set
 
 #
 # Root Filesystem     
@@ -78,63 +93,112 @@ PTXCONF_VENDORTWEAKS="innokom.make"
 #
 # Debugging Tools     
 #
-PTXCONF_BUILD_XGDB=y
-
-#
-# gdbserver needs libthreads_db on target
-#
-# PTXCONF_BUILD_GDB is not set
-PTXCONF_BUILD_GDBSERVER=y
+# PTXCONF_XGDB is not set
+# PTXCONF_GDBSERVER is not set
+# PTXCONF_GDB is not set
+# PTXCONF_GDB_WRAPPERS is not set
 # PTXCONF_KSYMOOPS is not set
-# PTXCONF_LIBBFD is not set
 PTXCONF_LTT=y
+# PTXCONF_LIBBFD is not set
+# PTXCONF_OPROFILE is not set
 PTXCONF_STRACE=y
+PTXCONF_STRACE_SHARED=y
 
 #
-# Core System         
+# Host Tools          
+#
+# PTXCONF_GENEXT2FS is not set
+# PTXCONF_FAKEROOT is not set
+
+#
+# Core System ---    
 #
 
 #
 # Kernel              
 #
-# PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_CONFIG="kernel-2.4.19-innokom"
 # PTXCONF_KERNEL_2_4_18 is not set
 PTXCONF_KERNEL_2_4_19=y
 # PTXCONF_KERNEL_2_4_20 is not set
 # PTXCONF_KERNEL_2_4_21 is not set
 # PTXCONF_KERNEL_2_4_22 is not set
-PTXCONF_KERNEL_XSCALE=y
-PTXCONF_KERNEL_XSCALE_PTX=y
-PTXCONF_KERNEL_MTD=y
-PTXCONF_KERNEL_INSTALL=y
+# PTXCONF_KERNEL_2_4_23 is not set
+# PTXCONF_KERNEL_2_6_0 is not set
+# PTXCONF_KERNEL_RMK is not set
+# PTXCONF_KERNEL_RMK_PXA is not set
+# PTXCONF_KERNEL_RMK_DS is not set
+PTXCONF_KERNEL_RMK_PXA_PTX=y
+# PTXCONF_KERNEL_RMK_PXA_PTX_LTT is not set
+# PTXCONF_KERNEL_UC is not set
+# PTXCONF_KERNEL_BEN is not set
+# PTXCONF_KERNEL_VANILLA is not set
+# PTXCONF_KERNEL_2_4_19_rmk7 is not set
+# PTXCONF_KERNEL_2_4_21_rmk1 is not set
+# PTXCONF_KERNEL_2_6_0_rmk1 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_ds3 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_ds2 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_ds1 is not set
+# PTXCONF_KERNEL_2_4_21_rmk1_ds1 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2 is not set
+# PTXCONF_KERNEL_2_4_21_rmk1_pxa1 is not set
+PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10=y
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6 is not set
+# PTXCONF_KERNEL_2_6_0_rmk1_ptx1 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx10_ltt1 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx7_ltt1 is not set
+# PTXCONF_KERNEL_2_4_19_rmk7_pxa2_mtd20030728_ptx6_ltt1 is not set
+# PTXCONF_KERNEL_2_4_19_uc2 is not set
+# PTXCONF_KERNEL_2_4_19_uc1 is not set
+# PTXCONF_KERNEL_2_4_19_uc0 is not set
+# PTXCONF_KERNEL_2_4_20_uc1 is not set
+# PTXCONF_KERNEL_2_4_20_uc0 is not set
+# PTXCONF_KERNEL_2_4_21_uc0 is not set
+# PTXCONF_KERNEL_2_4_22_uc0 is not set
+# PTXCONF_KERNEL_2_4_20_ben10 is not set
+# PTXCONF_KERNEL_2_4_21_ben3 is not set
+# PTXCONF_KERNEL_2_4_22_ben2 is not set
+# PTXCONF_DONT_COMPILE_KERNEL is not set
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
 PTXCONF_KERNEL_IMAGE_U=y
 # PTXCONF_KERNEL_IMAGE_VMLINUX is not set
+PTXCONF_KERNEL_INSTALL=y
+
+#
+# Extentions
+#
+
+#
+# epoll               
+#
+
+#
+# RTAI                
+#
 # PTXCONF_RTAI is not set
 
 #
 # C Library           
 #
 PTXCONF_GLIBC=y
-# PTXCONF_UCLIBC is not set
 
 #
 # C Library options
 #
+# PTXCONF_GLIBC_2_3_2 is not set
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
-# PTXCONF_UCLIBC_0_9_19 is not set
-# PTXCONF_UCLIBC_0_9_20 is not set
 PTXCONF_GLIBC_PTHREADS=y
-# PTXCONF_GLIBC_FLOATINGPOINT is not set
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
 PTXCONF_GLIBC_PROFILED=y
 # PTXCONF_GLIBC_OMITFP is not set
 # PTXCONF_GLIBC_BOUNDED is not set
+# PTXCONF_GLIBC_OPTKERNEL is not set
+# PTXCONF_GLIBC_DEBUG is not set
 
 #
 # Install options
@@ -152,10 +216,14 @@ PTXCONF_GLIBC_NSS_FILES=y
 # PTXCONF_GLIBC_NSS_COMPAT is not set
 PTXCONF_GLIBC_RESOLV=y
 PTXCONF_GLIBC_NSL=y
-PTXCONF_UCLIBC_HAVE_DOT_CONFIG=y
 
 #
-# Core Tools
+# C++ Library         
+#
+# PTXCONF_CXX is not set
+
+#
+# Core Tools ---  
 #
 
 #
@@ -230,11 +298,16 @@ PTXCONF_BB_CONFIG_FEATURE_TAR_CREATE=y
 # PTXCONF_BB_CONFIG_FEATURE_TAR_BZIP2 is not set
 # PTXCONF_BB_CONFIG_FEATURE_TAR_EXCLUDE is not set
 PTXCONF_BB_CONFIG_FEATURE_TAR_GZIP=y
+# PTXCONF_BB_CONFIG_FEATURE_TAR_COMPRESS is not set
 # PTXCONF_BB_CONFIG_FEATURE_TAR_OLDGNU_COMPATABILITY is not set
 PTXCONF_BB_CONFIG_FEATURE_TAR_GNU_EXTENSIONS=y
-# PTXCONF_BB_CONFIG_FEATURE_UNARCHIVE_TAPE is not set
 # PTXCONF_BB_CONFIG_UNCOMPRESS is not set
 # PTXCONF_BB_CONFIG_UNZIP is not set
+
+#
+# Common options for cpio and tar
+#
+# PTXCONF_BB_CONFIG_FEATURE_UNARCHIVE_TAPE is not set
 
 #
 # Coreutils
@@ -267,6 +340,7 @@ PTXCONF_BB_CONFIG_HEAD=y
 # PTXCONF_BB_CONFIG_FEATURE_FANCY_HEAD is not set
 # PTXCONF_BB_CONFIG_HOSTID is not set
 # PTXCONF_BB_CONFIG_ID is not set
+# PTXCONF_BB_CONFIG_INSTALL is not set
 # PTXCONF_BB_CONFIG_LENGTH is not set
 PTXCONF_BB_CONFIG_LN=y
 # PTXCONF_BB_CONFIG_LOGNAME is not set
@@ -293,8 +367,6 @@ PTXCONF_BB_CONFIG_RMDIR=y
 PTXCONF_BB_CONFIG_SLEEP=y
 # PTXCONF_BB_CONFIG_FEATURE_FANCY_SLEEP is not set
 PTXCONF_BB_CONFIG_SORT=y
-PTXCONF_BB_CONFIG_FEATURE_SORT_REVERSE=y
-PTXCONF_BB_CONFIG_FEATURE_SORT_UNIQUE=y
 PTXCONF_BB_CONFIG_STTY=y
 PTXCONF_BB_CONFIG_SYNC=y
 PTXCONF_BB_CONFIG_TAIL=y
@@ -343,7 +415,6 @@ PTXCONF_BB_CONFIG_FEATURE_HUMAN_READABLE=y
 PTXCONF_BB_CONFIG_CLEAR=y
 # PTXCONF_BB_CONFIG_DEALLOCVT is not set
 # PTXCONF_BB_CONFIG_DUMPKMAP is not set
-# PTXCONF_BB_CONFIG_LOADACM is not set
 # PTXCONF_BB_CONFIG_LOADFONT is not set
 # PTXCONF_BB_CONFIG_LOADKMAP is not set
 # PTXCONF_BB_CONFIG_OPENVT is not set
@@ -354,6 +425,7 @@ PTXCONF_BB_CONFIG_CLEAR=y
 # Debian Utilities
 #
 # PTXCONF_BB_CONFIG_MKTEMP is not set
+# PTXCONF_BB_CONFIG_PIPE_PROGRESS is not set
 # PTXCONF_BB_CONFIG_READLINK is not set
 # PTXCONF_BB_CONFIG_RUN_PARTS is not set
 # PTXCONF_BB_CONFIG_START_STOP_DAEMON is not set
@@ -366,7 +438,6 @@ PTXCONF_BB_CONFIG_AWK=y
 # PTXCONF_BB_CONFIG_FEATURE_AWK_MATH is not set
 # PTXCONF_BB_CONFIG_PATCH is not set
 PTXCONF_BB_CONFIG_SED=y
-# PTXCONF_BB_CONFIG_FEATURE_SED_EMBEDED_NEWLINE is not set
 PTXCONF_BB_CONFIG_VI=y
 PTXCONF_BB_CONFIG_FEATURE_VI_COLON=y
 PTXCONF_BB_CONFIG_FEATURE_VI_YANKMARK=y
@@ -394,6 +465,10 @@ PTXCONF_BB_CONFIG_FEATURE_GREP_EGREP_ALIAS=y
 PTXCONF_BB_CONFIG_FEATURE_GREP_FGREP_ALIAS=y
 PTXCONF_BB_CONFIG_FEATURE_GREP_CONTEXT=y
 PTXCONF_BB_CONFIG_XARGS=y
+# PTXCONF_BB_CONFIG_FEATURE_XARGS_SUPPORT_CONFIRMATION is not set
+# PTXCONF_BB_CONFIG_FEATURE_XARGS_SUPPORT_QUOTES is not set
+# PTXCONF_BB_CONFIG_FEATURE_XARGS_SUPPORT_TERMOPT is not set
+# PTXCONF_BB_CONFIG_FEATURE_XARGS_SUPPORT_ZERO_TERM is not set
 
 #
 # Init Utilities
@@ -432,14 +507,16 @@ PTXCONF_BB_CONFIG_FEATURE_SHADOWPASSWDS=y
 #
 # Miscellaneous Utilities
 #
-# PTXCONF_BB_CONFIG_ADJTIMEX is not set
+PTXCONF_BB_CONFIG_ADJTIMEX=y
 # PTXCONF_BB_CONFIG_CROND is not set
 # PTXCONF_BB_CONFIG_CRONTAB is not set
 # PTXCONF_BB_CONFIG_DC is not set
+# PTXCONF_BB_CONFIG_DEVFSD is not set
 # PTXCONF_BB_CONFIG_LAST is not set
 # PTXCONF_BB_CONFIG_HDPARM is not set
 # PTXCONF_BB_CONFIG_MAKEDEVS is not set
 # PTXCONF_BB_CONFIG_MT is not set
+# PTXCONF_BB_CONFIG_RX is not set
 PTXCONF_BB_CONFIG_STRINGS=y
 PTXCONF_BB_CONFIG_TIME=y
 # PTXCONF_BB_CONFIG_WATCHDOG is not set
@@ -448,12 +525,9 @@ PTXCONF_BB_CONFIG_TIME=y
 # Linux Module Utilities
 #
 PTXCONF_BB_CONFIG_INSMOD=y
-# PTXCONF_BB_CONFIG_FEATURE_OLD_MODULE_INTERFACE is not set
-PTXCONF_BB_CONFIG_FEATURE_NEW_MODULE_INTERFACE=y
-
-#
-#   Support new (post 2.1) Linux kernels (Forced enabled)
-#
+# PTXCONF_BB_CONFIG_FEATURE_2_2_MODULES is not set
+PTXCONF_BB_CONFIG_FEATURE_2_4_MODULES=y
+# PTXCONF_BB_CONFIG_FEATURE_2_6_MODULES is not set
 # PTXCONF_BB_CONFIG_FEATURE_INSMOD_VERSION_CHECKING is not set
 PTXCONF_BB_CONFIG_FEATURE_INSMOD_KSYMOOPS_SYMBOLS=y
 # PTXCONF_BB_CONFIG_FEATURE_INSMOD_LOADINKMEM is not set
@@ -565,10 +639,14 @@ PTXCONF_BB_CONFIG_FEATURE_SH_EXTRA_QUIET=y
 # System Logging Utilities
 #
 PTXCONF_BB_CONFIG_SYSLOGD=y
+PTXCONF_BB_CONFIG_FEATURE_ROTATE_LOGFILE=y
 PTXCONF_BB_CONFIG_FEATURE_REMOTE_LOG=y
-# PTXCONF_BB_CONFIG_FEATURE_IPC_SYSLOG is not set
+PTXCONF_BB_CONFIG_FEATURE_IPC_SYSLOG=y
+PTXCONF_BB_CONFIG_FEATURE_IPC_SYSLOG_BUFFER_SIZE=256
+PTXCONF_BB_CONFIG_LOGREAD=y
+PTXCONF_BB_CONFIG_FEATURE_LOGREAD_REDUCED_LOCKING=y
 PTXCONF_BB_CONFIG_KLOGD=y
-# PTXCONF_BB_CONFIG_LOGGER is not set
+PTXCONF_BB_CONFIG_LOGGER=y
 
 #
 # Linux System Utilities
@@ -609,8 +687,14 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # PTXCONF_BB_CONFIG_DEBUG is not set
 
 #
+# Gawk                
+#
+# PTXCONF_GAWK is not set
+
+#
 # MTD Tools           
 #
+# PTXCONF_MTD_XCHAIN is not set
 PTXCONF_MTD_UTILS=y
 # PTXCONF_MTD_EINFO is not set
 PTXCONF_MTD_ERASE=y
@@ -641,9 +725,17 @@ PTXCONF_MTD_UNLOCK=y
 # PTXCONF_UTLNX is not set
 
 #
+# procps              
+#
+# PTXCONF_PROCPS is not set
+
+#
 # VHLL Support        
 #
-# PTXCONF_VHLL_PYTHON23 is not set
+
+#
+# Python requires libdl on the target (see C Library)
+#
 
 #
 # PCMCIA Tools        
@@ -651,7 +743,40 @@ PTXCONF_MTD_UNLOCK=y
 # PTXCONF_PCMCIA_TOOLS is not set
 
 #
-# Network Tools
+# Network Tools --- 
+#
+
+#
+# Network Security    
+#
+
+#
+# shorewall firewall  
+#
+# PTXCONF_SHOREWALL is not set
+
+#
+# LSH                 
+#
+# PTXCONF_LSH is not set
+
+#
+# OpenSSL             
+#
+# PTXCONF_OPENSSL is not set
+
+#
+# OpenSSH             
+#
+# PTXCONF_OPENSSH is not set
+
+#
+# Dropbear SSH-Server 
+#
+# PTXCONF_DROPBEAR is not set
+
+#
+# Networking Apps     
 #
 
 #
@@ -660,9 +785,9 @@ PTXCONF_MTD_UNLOCK=y
 # PTXCONF_PPP is not set
 
 #
-# udhcp               
+# nmap                
 #
-# PTXCONF_UDHCP is not set
+# PTXCONF_NMAP is not set
 
 #
 # utelnetd            
@@ -675,21 +800,19 @@ PTXCONF_UTELNETD=y
 # PTXCONF_INETUTILS is not set
 
 #
-# Network Security    
+# netcat              
 #
-# PTXCONF_SHOREWALL is not set
-# PTXCONF_LSH is not set
-# PTXCONF_OPENSSH is not set
-
-#
-# Dropbear SSH-Server
-#
-# PTXCONF_DROPBEAR is not set
+# PTXCONF_NETCAT is not set
 
 #
 # proftpd             
 #
 # PTXCONF_PROFTPD is not set
+
+#
+# betaftpd            
+#
+# PTXCONF_BETAFTPD is not set
 
 #
 # nfs-utils           
@@ -746,19 +869,86 @@ PTXCONF_TCPWRAPPER_INSTALL_TCPD=y
 # PTXCONF_LIBPCAP is not set
 
 #
-# Disk and file       
+# rsync               
+#
+# PTXCONF_RSYNC is not set
+
+#
+# thttpd              
+#
+# PTXCONF_THTTPD is not set
+
+#
+# NTP                 
+#
+PTXCONF_NTP=y
+PTXCONF_NTP_CLOCKCTL=y
+# PTXCONF_NTP_DEBUGGING is not set
+PTXCONF_NTP_DST-MINUTES=60
+# PTXCONF_NTP_BANCOMM is not set
+# PTXCONF_NTP_GPSVME is not set
+# PTXCONF_NTP_KMEM is not set
+PTXCONF_NTP_ACCURATE_ADJTIME=y
+# PTXCONF_NTP_TICK_FORCE is not set
+# PTXCONF_NTP_TICKADJ_FORCE is not set
+# PTXCONF_NTP_SIMULATOR is not set
+# PTXCONF_NTP_UDP_WILDCARD is not set
+# PTXCONF_NTP_SLEW_ALWAYS is not set
+# PTXCONF_NTP_STEP_SLEW is not set
+# PTXCONF_NTP_NTPDATE_STEP is not set
+# PTXCONF_NTP_HOURLY_TODR_SYNC is not set
+# PTXCONF_NTP_KERNEL_FLL_BUG is not set
+# PTXCONF_NTP_IRIG_SAWTOOTH is not set
+# PTXCONF_NTP_NIST is not set
+# PTXCONF_NTP_SNTP is not set
+# PTXCONF_NTP_ARLIB is not set
+
+#
+# PARSE clocks    
+#
+# PTXCONF_NTP_PARSE_CLOCKS is not set
+
+#
+# non-PARSE clocks
+#
+# PTXCONF_NTP_ALL_CLOCKS is not set
+# PTXCONF_NTP_RIPENCC is not set
+
+#
+# Bind                
+#
+# PTXCONF_BIND is not set
+
+#
+# dhcp                
+#
+# PTXCONF_DHCP is not set
+
+#
+# dnsmasq             
+#
+# PTXCONF_DNSMASQ is not set
+
+#
+# Disk and file ---   
 #
 
 #
 # Disk and file utils 
 #
-# PTXCONF_E2FSPROGS is not set
-PTXCONF_CRAMFS=y
-# PTXCONF_PTXFLASH is not set
-# PTXCONF_GENEXT2FS is not set
 
 #
-# Applications        
+# e2fsprogs           
+#
+# PTXCONF_E2FSPROGS is not set
+
+#
+# grub                
+#
+PTXCONF_CRAMFS=y
+
+#
+# Applications ---    
 #
 
 #
@@ -772,13 +962,22 @@ PTXCONF_CRAMFS=y
 # PTXCONF_KAFFE is not set
 
 #
+# mad                 
+#
+# PTXCONF_MAD is not set
+
+#
+# setmixer            
+#
+# PTXCONF_SETMIXER is not set
+
+#
 # System Libraries    
 #
 
 #
 # gettext          
 #
-# PTXCONF_GETTEXT is not set
 
 #
 # popt             
@@ -791,18 +990,57 @@ PTXCONF_CRAMFS=y
 PTXCONF_ZLIB=y
 
 #
+# ncurses          
+#
+# PTXCONF_NCURSES is not set
+
+#
+# termcap          
+#
+# PTXCONF_TERMCAP is not set
+
+#
+# Berkeley db 4    
+#
+# PTXCONF_DB is not set
+
+#
+# rn                  
+#
+# PTXCONF_RN is not set
+
+#
+# libxml2             
+#
+# PTXCONF_LIBXML2 is not set
+
+#
 # Graphics Libraries  
 #
 
 #
-# XFree86-4.3.0    
+# XFree86-4.3.0         
 #
 # PTXCONF_XFREE430 is not set
 
 #
-# Clementine WM    
+# Clementine WM         
 #
 # PTXCONF_CLEMENTINE is not set
+
+#
+# FLTK GUI Toolkit      
+#
+
+#
+# wxWindows GUI [X11]   
+#
+# PTXCONF_WXWINDOWS_X11 is not set
+
+#
+# Qt embedded GUI       
+#
+# PTXCONF_QTE is not set
 
 #
 # Web Applications    
