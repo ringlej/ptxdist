@@ -137,6 +137,7 @@ source "rules/clementine.in"
 source "rules/fltk.in"
 source "rules/wxWindows.in"
 source "rules/qte.in"
+source "rules/blackbox.in"
 
 endmenu
 
