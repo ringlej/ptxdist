@@ -17,6 +17,7 @@ High Priority
        effect is observed only on certain systems (all Debian unstable,
        but downgrading does not help). Has to be evaluated!!!
 - RSC: add #ifdef __cplusplus ... #else ... #endif to bits/in.h
+- RSC: add .in file for xvkbd; integrate fixes for Makefile...
 
 Low Priority
 ------------
