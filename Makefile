@@ -268,6 +268,8 @@ clean: rootclean imageclean
 	@echo -n "cleaning scripts dir............. "
 	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.kconfig.ptx  -C scripts/kconfig clean
 	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx -C scripts/lxdialog clean
+	@rm -f scripts/kconfig/Makefile
+	@rm -f scripts/lxdialog/Makefile
 	@echo "done."
 	@echo -n "cleaning bootdisk image.......... "
 	@rm -f $(TOPDIR)/bootdisk/boot.*
