@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.16 2003/10/28 00:10:09 mkl Exp $
+# $Id: busybox.make,v 1.17 2003/11/13 04:27:37 mkl Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -77,7 +77,7 @@ busybox_prepare_deps =  \
 
 BUSYBOX_PATH		=  PATH=$(CROSS_PATH)
 BUSYBOX_ENV 		=  $(CROSS_ENV)
-BUSYBOX_MAKEVARS	=  CROSS=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC) EXTRA_CFLAGS="$(TARGET_CFLAGS)"
+BUSYBOX_MAKEVARS	=  CROSS=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC) EXTRA_CFLAGS='$(strip $(subst ",,$(TARGET_CFLAGS)))'
 
 #
 # dependencies
@@ -87,7 +87,7 @@ busybox_prepare_deps	=  $(STATEDIR)/virtual-xchain.install $(STATEDIR)/busybox.e
 $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	@$(call targetinfo, $@)
 
-	# FIXME: is this necessary?
+#	FIXME: is this necessary?
 	touch $(BUSYBOX_DIR)/busybox.links
 
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
