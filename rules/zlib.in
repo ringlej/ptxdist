@@ -1,0 +1,7 @@
+menu "zlib             "
+
+config ZLIB
+	bool
+	prompt "Compile zlib"
+
+endmenu

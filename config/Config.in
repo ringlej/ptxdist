@@ -1354,6 +1354,7 @@ menu "System Libraries    "
 
 source rules/gettext.in
 source rules/popt.in
+source rules/zlib.in
 
 endmenu
 
