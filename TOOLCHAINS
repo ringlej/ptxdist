@@ -1,8 +1,62 @@
 Automatic Toolchain Compilation
 --------------------------
 
-start: Fr Mär 4 20:49:08 CET 2005
+start: So Mär 6 21:00:27 CET 2005
+
+config...: toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5
+date.....: So Mär 6 21:00:27 CET 2005
+user.....: robert@himalia
+buildtime: 0h15m35s
+result...: 0
+
+config...: toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2
+date.....: So Mär 6 21:16:06 CET 2005
+user.....: robert@himalia
+buildtime: 0h33m22s
+result...: 0
+
+config...: toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27
+date.....: So Mär 6 21:49:35 CET 2005
+user.....: robert@himalia
+buildtime: 0h13m17s
+result...: 0
+
+config...: toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5
+date.....: So Mär 6 22:02:57 CET 2005
+user.....: robert@himalia
+buildtime: 0h15m30s
+result...: 0
+
+config...: toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3
+date.....: So Mär 6 22:18:32 CET 2005
+user.....: robert@himalia
+buildtime: 0h32m45s
+result...: 0
+
+config...: toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
+date.....: So Mär 6 22:51:32 CET 2005
+user.....: robert@himalia
+buildtime: 0h14m11s
+result...: 0
+
+config...: toolchain_m68k-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
+date.....: So Mär 6 23:05:49 CET 2005
+user.....: robert@himalia
+buildtime: 0h10m1s
+result...: 0
+
+config...: toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5
+date.....: So Mär 6 23:16:00 CET 2005
+user.....: robert@himalia
+buildtime: 0h26m52s
+result...: 0
+
+config...: toolchain_powerpc-604-linux-gnu-3.4.1_glibc-2.3.3
+date.....: So Mär 6 23:42:58 CET 2005
+user.....: robert@himalia
+buildtime: 0h39m4s
+result...: 0
 
 
-stop: Fr Mär 4 21:57:37 CET 2005
+stop: Mo Mär 7 00:22:19 CET 2005
 
