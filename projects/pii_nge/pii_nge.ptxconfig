@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.1-cvs
-# Thu Jan 20 20:04:43 2005
+# Mon Jan 24 09:56:55 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -206,7 +206,7 @@ PTXCONF_KERNEL_PATCH1_XCHAIN=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.9-rc2-pxa3/linux-2.6.9-rc2-pxa3.diff"
+PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.6.9-rc2-pxa5/linux-2.6.9-rc2-pxa5.diff"
 PTXCONF_KERNEL_PATCH2_NAME="2.6.9-rc2-pxa1"
 # PTXCONF_KERNEL_PATCH2_XCHAIN is not set
 
