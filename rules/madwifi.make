@@ -36,10 +36,6 @@ MADWIFI_URL		= file://tmp/$(MADWIFI).$(MADWIFI_SUFFIX)
 MADWIFI_SOURCE		= $(SRCDIR)/$(MADWIFI).$(MADWIFI_SUFFIX)
 MADWIFI_DIR		= $(BUILDDIR)/$(MADWIFI)
 
-KERNEL                  = linux-$(KERNEL_VERSION)
-KERNEL_DIR              = $(BUILDDIR)/$(KERNEL)
-
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
