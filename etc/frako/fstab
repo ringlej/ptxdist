@@ -3,18 +3,23 @@
 #
 # Generic i386 configuration
 #
-# 2003/11/20	Robert Schwebel <r.schwebel@pengutronix.de>
+# 2003/11/20    Robert Schwebel <r.schwebel@pengutronix.de>
+# 2004/01/30    Gert Fischer, FRAKO Kondesatoren und Anlagenbau GmbH
+#               www.frako.de
 #
 
-proc	/proc		proc	defaults	0	0
-devpts	/dev/pts	devpts	defaults	0	0
-none	/tmp		ramfs	defaults	0	0
-none	/var/log	ramfs	defaults	0	0
-none	/var/run	ramfs	defaults	0	0
-none	/var/lock	ramfs	defaults	0	0
-/dev/ide/host1/bus0/target0/lun0/part1 /	ext2	ro	0	0
-/dev/ide/host1/bus0/target0/lun0/part2 /home	ext2	rw	0	0
+proc    /proc           proc    defaults        0       0
+devpts  /dev/pts        devpts  defaults        0       0
+none    /tmp            ramfs   defaults        0       0
+none    /var/log        ramfs   defaults        0       0
+none    /var/run        ramfs   defaults        0       0
+none    /var/lock       ramfs   defaults        0       0
+/dev/ide/host0/bus1/target0/lun0/part1 /        ext2    ro      0       0
+/dev/ide/host0/bus1/target0/lun0/part2 /home    ext2    rw      0       0
+/dev/ide/host1/bus1/target0/lun0/part1 /        ext2    ro      0       0
+/dev/ide/host1/bus1/target0/lun0/part2 /home    ext2    rw      0       0
 # tmpfs size = 5M bytes, umask = 0700 
-none	/home/system/temp	tmpfs	size=5M,mode=775,uid=501,gid=100	0	0
-none	/home/frako		tmpfs	size=35M,mode=775,uid=500,gid=100	0	0
+none    /home/system/temp       tmpfs   size=5M,mode=775,uid=501,gid=100        0       0
+none    /home/frako             tmpfs   size=35M,mode=775,uid=500,gid=100       0       0
+
 
