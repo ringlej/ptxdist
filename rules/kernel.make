@@ -319,8 +319,7 @@ KERNEL_PATH	= PATH=$(CROSS_PATH)
 KERNEL_MAKEVARS	= \
 	ARCH=$(call remove_quotes,$(PTXCONF_ARCH)) \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
-	HOSTCC=$(HOSTCC) \
-	DEPMOD=true
+	HOSTCC=$(HOSTCC)
 
 	# This was defined before; we leave it here for reference. [RSC]
 	# GENKSYMS=$(COMPILER_PREFIX)genksyms
