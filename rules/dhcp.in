@@ -1,0 +1,7 @@
+menu    "dhcp                "
+
+config DHCP
+        bool
+        prompt "Compile DHCP"
+
+endmenu
