@@ -73,11 +73,9 @@ procps_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install
 
 PROCPS_PATH	=  PATH=$(CROSS_PATH)
-#
-# we must override INCDIR because in the orig Makefile they contain a
-# path to the host include path
-#
-PROCPS_MAKEVERS	=  $(CROSS_ENV) INCDIRS=''
+PROCPS_MAKEVARS	=  $(CROSS_ENV)
+PROCPS_MAKEVARS += CFLAGS="-I$(subst $(quote),,$(PTXCONF_PREFIX))/$(subst $(quote),,$(PTXCONF_GNU_TARGET))/include -I$(subst $(quote),,$(PROCPS_DIR))"
+PROCPS_MAKEVARS += LDFLAGS=-L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 
 #
 # autoconf
@@ -103,13 +101,13 @@ $(STATEDIR)/procps.compile: $(procps_compile_deps)
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_PROCPS_TOP
-	$(PROCPS_PATH) make -C $(PROCPS_DIR) $(PROCPS_MAKEVERS) top 
+	cd $(PROCPS_DIR) && $(PROCPS_PATH) make $(PROCPS_MAKEVARS) top 
 endif
 ifdef PTXCONF_PROCPS_SLABTOP
-	$(PROCPS_PATH) make -C $(PROCPS_DIR) $(PROCPS_MAKEVERS) slabtop 
+	cd $(PROCPS_DIR) && $(PROCPS_PATH) make $(PROCPS_MAKEVARS) slabtop 
 endif
 ifdef PTXCONF_PROCPS_SYSCTL
-	$(PROCPS_PATH) make -C $(PROCPS_DIR) $(PROCPS_MAKEVERS) sysctl 
+	cd $(PROCPS_DIR) && $(PROCPS_PATH) make $(PROCPS_MAKEVARS) sysctl 
 endif
 	touch $@
 
