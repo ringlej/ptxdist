@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.7 2003/10/23 15:01:19 mkl Exp $
+# $Id: mfirebird.make,v 1.8 2003/12/15 07:17:16 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -20,10 +20,10 @@ endif
 #
 # Paths and names
 #
-MFIREBIRD_VERSION		= 0.6.1
+MFIREBIRD_VERSION		= 0.7
 MFIREBIRD			= MozillaFirebird-source-$(MFIREBIRD_VERSION)
-MFIREBIRD_SUFFIX		= tar.bz2
-MFIREBIRD_URL			= http://ftp.mozilla.org/pub/firebird/releases/0.6.1/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
+MFIREBIRD_SUFFIX		= tar.gz
+MFIREBIRD_URL			= http://ftp.mozilla.org/pub/firebird/releases/0.7/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
 MFIREBIRD_SOURCE		= $(SRCDIR)/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
 MFIREBIRD_DIR			= $(BUILDDIR)/$(MFIREBIRD)
 
@@ -109,7 +109,7 @@ MFIREBIRD_AUTOCONF	+= --disable-ldap
 MFIREBIRD_AUTOCONF	+= --disable-freetypetest
 #MFIREBIRD_AUTOCONF	+= --disable-postscript
 MFIREBIRD_AUTOCONF	+= --disable-xprint
-#MFIREBIRD_AUTOCONF	+= --disable-crypto
+MFIREBIRD_AUTOCONF	+= --enable-crypto
 #MFIREBIRD_AUTOCONF	+= --disable-accessability
 #MFIREBIRD_AUTOCONF	+= --enable-xfpe-components
 ##MFIREBIRD_AUTOCONF	+= --enable-single-profile
