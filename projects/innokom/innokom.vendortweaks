@@ -40,7 +40,7 @@ endif
 
 #	copy /etc template
 	install -d $(ROOTDIR)/etc
-	cp -a $(TOPDIR)/projects/innokom/etc/* $(ROOTDIR)/etc/
+	cp -a $(PROJECTDIR)/etc/* $(ROOTDIR)/etc/
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 

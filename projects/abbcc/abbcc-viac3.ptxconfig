@@ -101,7 +101,7 @@ PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/abbcc-viac3.vendortweaks"
 #
 PTXCONF_IMAGE_TGZ=y
 PTXCONF_IMAGE_HD=y
-PTXCONF_IMAGE_HD_CONF="projects/abbcc/cf128MB.geometry"
+PTXCONF_IMAGE_HD_CONF="$(PROJECTDIR)/cf128MB.geometry"
 # PTXCONF_IMAGE_JFFS2 is not set
 
 #
@@ -132,7 +132,7 @@ PTXCONF_HOSTTOOLS_FAKEROOT=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/abbcc/abbcc-viac3.kernelconfig"
+PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/abbcc-viac3.kernelconfig"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
@@ -1120,7 +1120,7 @@ PTXCONF_GRUB=y
 # Config Options
 #
 # PTXCONF_GRUB_MD5 is not set
-PTXCONF_GRUB_PRESET_MENU="$(TOPDIR)/projects/abbcc/etc/menu.lst"
+PTXCONF_GRUB_PRESET_MENU="$(PROJECTDIR)/etc/menu.lst"
 
 #
 # File System Support

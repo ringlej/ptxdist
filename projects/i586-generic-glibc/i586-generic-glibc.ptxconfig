@@ -132,7 +132,7 @@ PTXCONF_HOSTTOOLS_FAKEROOT=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/i386-generic-glibc/i386-generic-glibc-2.4.26.kernelconfig"
+PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/i386-generic-glibc-2.4.26.kernelconfig"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set

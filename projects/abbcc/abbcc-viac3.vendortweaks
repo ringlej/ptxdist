@@ -60,15 +60,15 @@ $(STATEDIR)/abbcc.targetinstall:
 	install -m 755 -D $(MISCDIR)/maintenance $(ROOTDIR)/sbin/maintenance
 
 	# grub configuration 
-	install -D $(TOPDIR)/projects/abbcc/etc/menu.lst $(ROOTDIR)/boot/grub/menu.lst
+	install -D $(PROJECTDIR)/etc/menu.lst $(ROOTDIR)/boot/grub/menu.lst
 
 	# RTAI scripts
-	install -D $(TOPDIR)/projects/abbcc/etc/init.d/rtai $(ROOTDIR)/etc/init.d/rtai
-	install -D $(TOPDIR)/projects/abbcc/etc/init.d/latency $(ROOTDIR)/etc/init.d/latency
-	install -D $(TOPDIR)/projects/abbcc/etc/init.d/rtnet $(ROOTDIR)/etc/init.d/rtnet
+	install -D $(PROJECTDIR)/etc/init.d/rtai $(ROOTDIR)/etc/init.d/rtai
+	install -D $(PROJECTDIR)/etc/init.d/latency $(ROOTDIR)/etc/init.d/latency
+	install -D $(PROJECTDIR)/etc/init.d/rtnet $(ROOTDIR)/etc/init.d/rtnet
 
 	# Flash 
-	install -D $(TOPDIR)/projects/abbcc/etc/system.menu $(ROOTDIR)/usr/lib/flash/system.menu
+	install -D $(PROJECTDIR)/etc/system.menu $(ROOTDIR)/usr/lib/flash/system.menu
 
 	# RTnet test; this is indeed mega-tweaky; put test into RTnet sources
 	cd $(BUILDDIR) && tar -zxf /ptx/home/Projects/ABB-Schaltanlagen/RTAI-RTnet-Test/RTnet-Studie/round_trip-20040920-1.tar.gz

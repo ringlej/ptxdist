@@ -29,7 +29,7 @@ $(STATEDIR)/frako.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	copy /etc template
-	cp -a $(TOPDIR)/projects/frako/etc/. $(ROOTDIR)/etc
+	cp -a $(PROJECTDIR)/etc/. $(ROOTDIR)/etc
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 

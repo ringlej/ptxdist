@@ -19,9 +19,6 @@ pii_nge_targetinstall: $(STATEDIR)/pii_nge.targetinstall
 $(STATEDIR)/pii_nge.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
-	# copy template
-	cp -a $(TOPDIR)/projects/generic/etc/* $(ROOTDIR)/etc/
-
 	#  generate version stamps
 	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@PATCHLEVEL@,$(PATCHLEVEL),g" $(ROOTDIR)/etc/init.d/banner
