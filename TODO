@@ -114,6 +114,9 @@ Low Priority
 - LGR: Binary packets: system V package tools (cpio/pre/post)
 - LGR: key infrastructure: integrate signing, activate this only 
        when running the release cycle. 
+- BBU: Implement scheme for alternative download-URLs as 
+       fallback (e.g. mirrors)
+
 
 Nice-to-Have Packets
 --------------------
