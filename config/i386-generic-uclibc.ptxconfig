@@ -11,63 +11,45 @@ PTXCONF_PROJECT=""
 #
 # Code maturity       
 #
-# PTXCONF_EXTENDED is not set
 PTXCONF_EXP=y
 PTXCONF_EXP_M=y
 
 #
-# Target Architecture 
+# Target Options      
 #
-# PTXCONF_TARGET_alpha is not set
-# PTXCONF_TARGET_arm is not set
-# PTXCONF_TARGET_cris is not set
-# PTXCONF_TARGET_e1 is not set
-# PTXCONF_TARGET_frv is not set
-# PTXCONF_TARGET_h8300 is not set
-PTXCONF_TARGET_i386=y
-# PTXCONF_TARGET_i960 is not set
-# PTXCONF_TARGET_m68k is not set
-# PTXCONF_TARGET_microblaze is not set
-# PTXCONF_TARGET_mips is not set
-# PTXCONF_TARGET_powerpc is not set
-# PTXCONF_TARGET_sh is not set
-# PTXCONF_TARGET_sparc is not set
-# PTXCONF_TARGET_v850 is not set
-PTXCONF_HAVE_ELF=y
-PTXCONF_ARCH_SUPPORTS_LITTLE_ENDIAN=y
-PTXCONF_TARGET_ARCH="i386"
-PTXCONF_TARGET="i386-uclibc-linux-gnu"
-PTXCONF_TARGET_ARCH_USERSPACE="i386"
-PTXCONF_CONFIG_GENERIC_386=y
-# PTXCONF_CONFIG_386 is not set
-# PTXCONF_CONFIG_486 is not set
-# PTXCONF_CONFIG_586 is not set
-# PTXCONF_CONFIG_586TSC is not set
-# PTXCONF_CONFIG_586MMX is not set
-# PTXCONF_CONFIG_686 is not set
-# PTXCONF_CONFIG_PENTIUMII is not set
-# PTXCONF_CONFIG_PENTIUMIII is not set
-# PTXCONF_CONFIG_PENTIUM4 is not set
-# PTXCONF_CONFIG_K6 is not set
-# PTXCONF_CONFIG_K7 is not set
-# PTXCONF_CONFIG_K8 is not set
-# PTXCONF_CONFIG_ELAN is not set
-# PTXCONF_CONFIG_CRUSOE is not set
-# PTXCONF_CONFIG_WINCHIPC6 is not set
-# PTXCONF_CONFIG_WINCHIP2 is not set
-# PTXCONF_CONFIG_WINCHIP3D is not set
-# PTXCONF_CONFIG_CYRIXIII is not set
-# PTXCONF_CONFIG_VIAC3_2 is not set
-PTXCONF_ARCH_LITTLE_ENDIAN=y
-# PTXCONF_ARCH_BIG_ENDIAN is not set
-# PTXCONF_ARCH_HAS_NO_MMU is not set
-PTXCONF_ARCH_HAS_MMU=y
-PTXCONF_ARCH_HAS_FPU=y
-
-#
-# ---
-#
-# PTXCONF_SOFTFLOAT is not set
+# PTXCONF_ARCH_ARM is not set
+# PTXCONF_ARCH_ARM_NOMMU is not set
+PTXCONF_ARCH_X86=y
+# PTXCONF_ARCH_PPC is not set
+# PTXCONF_ARCH_SPARC is not set
+# PTXCONF_ARCH_MIPS is not set
+# PTXCONF_ARCH_CRIS is not set
+# PTXCONF_ARCH_PARISC is not set
+# PTXCONF_ARCH_SH is not set
+# PTXCONF_ARM_ARCH_PXA is not set
+# PTXCONF_ARM_ARCH_EPXA is not set
+# PTXCONF_ARM_ARCH_SA1100 is not set
+# PTXCONF_ARM_ARCH_IXP2000 is not set
+# PTXCONF_ARM_ARCH_NETARM is not set
+# PTXCONF_ARM_ARCH_ATMEL is not set
+# PTXCONF_ARM_ARCH_IMX is not set
+# PTXCONF_OPT_ARM is not set
+# PTXCONF_OPT_ARM_NOMMU is not set
+PTXCONF_OPT_I386=y
+# PTXCONF_OPT_I486 is not set
+# PTXCONF_OPT_I586 is not set
+# PTXCONF_OPT_I686 is not set
+# PTXCONF_OPT_PPC is not set
+# PTXCONF_OPT_PPC405 is not set
+# PTXCONF_OPT_PPC750 is not set
+# PTXCONF_OPT_PPC7450 is not set
+# PTXCONF_OPT_SPARC is not set
+# PTXCONF_OPT_MIPS is not set
+# PTXCONF_OPT_MIPSEL is not set
+# PTXCONF_OPT_CRIS is not set
+# PTXCONF_OPT_PARISC is not set
+# PTXCONF_OPT_SH3 is not set
+# PTXCONF_OPT_SH4 is not set
 
 #
 # ---
@@ -76,10 +58,15 @@ PTXCONF_TARGET_EXTRA_CPPFLAGS=""
 PTXCONF_TARGET_EXTRA_CFLAGS=""
 PTXCONF_TARGET_EXTRA_CXXFLAGS=""
 PTXCONF_TARGET_EXTRA_LDFLAGS=""
+PTXCONF_TARGET_CONFIG_FILE="ix86.dat"
 
 #
 # ---
 #
+PTXCONF_ARCH="i386"
+PTXCONF_ARCH_USERSPACE="i386"
+PTXCONF_GNU_TARGET="i386-uclibc-linux-gnu"
+PTXCONF_PREFIX="/tmp/ptxdist-i386-generic-uClibc"
 PTXCONF_ROOT=""
 
 #
@@ -91,19 +78,9 @@ PTXCONF_BINUTILS_2_14=y
 # PTXCONF_GCC_2_95_3 is not set
 # PTXCONF_GCC_3_2_3 is not set
 PTXCONF_GCC_3_3_2=y
-# PTXCONF_GCC_2 is not set
 PTXCONF_GCC_3=y
 PTXCONF_GCC_SHARED=y
 # PTXCONF_GCC_MULTILIB is not set
-
-#
-# ---
-#
-PTXCONF_PREFIX="/tmp/ptxdist-i386-generic-uClibc"
-
-#
-# ---
-#
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_NASM is not set
 # PTXCONF_XCHAIN-SCONS is not set
@@ -137,6 +114,7 @@ PTXCONF_VENDORTWEAKS=""
 # Host Tools          
 #
 # PTXCONF_GENEXT2FS is not set
+# PTXCONF_HOSTTOOL_E2FSPROGS is not set
 # PTXCONF_FAKEROOT is not set
 
 #
@@ -153,12 +131,9 @@ PTXCONF_KERNEL_CONFIG="kernel-2.4.19-i386-generic-20030808-1"
 # PTXCONF_KERNEL_2_4_21 is not set
 # PTXCONF_KERNEL_2_4_22 is not set
 # PTXCONF_KERNEL_2_4_23 is not set
-# PTXCONF_KERNEL_2_4_24 is not set
 PTXCONF_KERNEL_2_4_25=y
 # PTXCONF_KERNEL_2_6_0 is not set
-# PTXCONF_KERNEL_2_6_2 is not set
-# PTXCONF_KERNEL_2_6_3 is not set
-# PTXCONF_KERNEL_2_6_4 is not set
+# PTXCONF_KERNEL_2_6_1 is not set
 PTXCONF_DONT_COMPILE_KERNEL=y
 
 #
@@ -198,9 +173,10 @@ PTXCONF_UC_HAVE_ELF=y
 PTXCONF_UC_TARGET_ARCH="i386"
 PTXCONF_UC_CONFIG_GENERIC_386=y
 PTXCONF_UC_ARCH_LITTLE_ENDIAN=y
+# PTXCONF_UC_ARCH_HAS_NO_MMU is not set
 PTXCONF_UC_UCLIBC_HAS_MMU=y
 PTXCONF_UC_UCLIBC_HAS_FLOATS=y
-PTXCONF_UC_HAS_FPU=y
+PTXCONF_UC_UCLIBC_HAS_SOFT_FLOAT=y
 # PTXCONF_UC_DO_C99_MATH is not set
 PTXCONF_UC_WARNINGS="-Wall"
 PTXCONF_UC_C_SYMBOL_PREFIX=""
@@ -360,15 +336,6 @@ PTXCONF_BB_CONFIG_FEATURE_SUID_CONFIG=y
 #
 # PTXCONF_BB_CONFIG_STATIC is not set
 # PTXCONF_BB_CONFIG_LFS is not set
-PTXCONF_BB_USING_CROSS_COMPILER=y
-PTXCONF_BB_CROSS_COMPILER_PREFIX="i386-linux-"
-PTXCONF_BB_EXTRA_CFLAGS_OPTIONS=""
-
-#
-# Installation Options
-#
-# PTXCONF_BB_CONFIG_INSTALL_NO_USR is not set
-PTXCONF_BB_PREFIX="./_install"
 
 #
 # Archival Utilities
@@ -852,6 +819,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 #
 
 #
+# bing                
+#
+# PTXCONF_BING is not set
+
+#
 # ppp                 
 #
 # PTXCONF_PPP is not set
@@ -952,6 +924,11 @@ PTXCONF_UTELNETD=y
 # PTXCONF_DNSMASQ is not set
 
 #
+# tcpdump             
+#
+# PTXCONF_TCPDUMP is not set
+
+#
 # Disk and file ---   
 #
 
@@ -967,6 +944,8 @@ PTXCONF_UTELNETD=y
 #
 # grub                
 #
+# PTXCONF_GRUB is not set
+# PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
 
 #
