@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: shorewall.make,v 1.2 2003/09/27 02:07:25 mkl Exp $
+# $Id: shorewall.make,v 1.3 2003/09/27 16:34:16 mkl Exp $
 #
 # (c) 2003 by Dan Kegel, Ixia Communications (http://ixiacom.com)
 #
@@ -72,7 +72,7 @@ $(STATEDIR)/shorewall.prepare:
 
 shorewall_compile: $(STATEDIR)/shorewall.compile
 
-$(STATEDIR)/shorewall.compile
+$(STATEDIR)/shorewall.compile:
 	@$(call targetinfo, $@)
 	touch $@
 
