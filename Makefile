@@ -30,6 +30,7 @@ STATEDIR		:= $(TOPDIR)/state
 BOOTDISKDIR		:= $(TOPDIR)/bootdisk
 IMAGEDIR		:= $(TOPDIR)/images
 MISCDIR			:= $(TOPDIR)/misc
+PROJECTDIR		=  $(shell dirname `find $(TOPDIR) -name $(PTXCONF_PROJECT).ptxconfig`) 
 
 # Pengutronix Patch Repository
 PTXPATCH_URL		:= http://www.pengutronix.de/software/ptxdist/patches
@@ -236,14 +237,19 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 
 %_config:
 	@echo; \
-	echo "[Searching for Config File:]"; \
-	CFG=`find projects -name $(subst _config,.ptxconfig,$@)`; \
-	if [ -n "$$CFG" ]; then \
-		echo "using config file \"$$CFG\""; \
-		cp $$CFG $(TOPDIR)/.config; \
-	else \
-		echo "could not find config file \"$$CFG\""; \
-	fi; \
+	echo "[Searching for Config File:]"; 				\
+	CFG=`find projects -name $(subst _config,.ptxconfig,$@)`; 	\
+	if [ `echo $$CFG | wc -w` -gt 1 ]; then				\
+		echo "ERROR: more than one config file found:"; 	\
+		echo $$CFG; echo; 					\
+		exit 1;							\
+	fi;								\
+	if [ -n "$$CFG" ]; then 					\
+		echo "using config file \"$$CFG\""; 			\
+		cp $$CFG $(TOPDIR)/.config; 				\
+	else 								\
+		echo "could not find config file \"$$CFG\""; 		\
+	fi; 								\
 	echo
 
 # Test -----------------------------------------------------------------------
