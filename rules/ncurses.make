@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ncurses.make,v 1.14 2003/10/28 02:20:05 mkl Exp $
+# $Id: ncurses.make,v 1.15 2004/01/20 10:54:50 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -68,8 +68,12 @@ ncurses_prepare_deps =  \
 
 NCURSES_PATH	=  PATH=$(CROSS_PATH)
 NCURSES_ENV = \
-	$(CROSS_ENV) \
-	BUILD_CC=$(HOSTCC) 
+	$(CROSS_ENV)
+
+#
+# RSC: --with-build-cflags: ncurses seems to forget to include it's own
+# include directory...
+#
 
 NCURSES_AUTOCONF =\
 	--build=$(GNU_HOST) \
@@ -85,7 +89,12 @@ NCURSES_AUTOCONF =\
 	--enable-const \
 	--enable-overwrite \
 	--with-terminfo-dirs=/usr/share/terminfo \
-	--with-default-terminfo-dir=/usr/share/terminfo
+	--with-default-terminfo-dir=/usr/share/terminfo \
+	--with-build-cc=$(HOSTCC) \
+	--with-build-cflags=-I../include \
+	--with-build-ldflags= \
+	--with-build-cppflags= \
+	--with-build-libs= 
 
 ifndef PTXCONF_CXX
 NCURSES_AUTOCONF += --without-cxx-binding
