@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: e2fsprogs.make,v 1.10 2003/12/19 08:09:23 bsp Exp $
+# $Id: e2fsprogs.make,v 1.11 2003/12/23 10:50:30 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -35,6 +35,7 @@ e2fsprogs_get: $(STATEDIR)/e2fsprogs.get
 
 $(STATEDIR)/e2fsprogs.get: $(E2FSPROGS_SOURCE)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(E2FSPROGS))
 	touch $@
 
 $(E2FSPROGS_SOURCE):
@@ -51,6 +52,7 @@ $(STATEDIR)/e2fsprogs.extract: $(STATEDIR)/e2fsprogs.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(E2FSPROGS_DIR))
 	@$(call extract, $(E2FSPROGS_SOURCE))
+	@$(call patchin, $(E2FSPROGS))
 	chmod +w $(E2FSPROGS_DIR)/po/*.po
 	touch $@
 
