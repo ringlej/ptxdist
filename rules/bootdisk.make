@@ -1,5 +1,5 @@
 # -*-makefile-*- 
-# $Id: bootdisk.make,v 1.6 2003/07/15 11:48:34 robert Exp $
+# $Id: bootdisk.make,v 1.7 2003/08/08 14:28:46 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -44,7 +44,7 @@ bootdisk_extract: $(STATEDIR)/bootdisk.extract
 
 $(STATEDIR)/bootdisk.extract: $(STATEDIR)/bootdisk.get
 	@$(call targetinfo, bootdisk.extract)
-	cd $(SRCDIR) && tar xzf $(BOOTDISK_SOURCE)
+	cd $(BUILDDIR) && tar xzf $(BOOTDISK_SOURCE)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -104,8 +104,8 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	install $(GRUB_DIR)/grub/grub $(BOOTDISK_DIR)/bin/
 	strip $(BOOTDISK_DIR)/bin/grub
 	# FIXME: make this a config option
-	install $(SRCDIR)/grub-menu-flash-ptx1.lst $(BOOTDISK_DIR)/boot/grub/menu-flash.lst
-	install $(SRCDIR)/grub-menu-disk-ptx1.lst  $(BOOTDISK_DIR)/boot/grub/menu-disk.lst
+	install $(BUILDDIR)/grub-menu-flash-ptx1.lst $(BOOTDISK_DIR)/boot/grub/menu-flash.lst
+	install $(BUILDDIR)/grub-menu-disk-ptx1.lst  $(BOOTDISK_DIR)/boot/grub/menu-disk.lst
 	ln -sf menu-disk.lst $(BOOTDISK_DIR)/boot/grub/menu.lst
 	ln -sf menu.lst $(BOOTDISK_DIR)/boot/grub/grub.conf
 	install $(E2FSPROGS_DIR)/misc/mke2fs $(BOOTDISK_DIR)/bin/
@@ -122,7 +122,7 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	rm -rf $(BUILDDIR)/tmpboot/*bin
 	cd $(BUILDDIR)/tmpboot && tar cf $(BUILDDIR)/bootdisk.tar *
 	rm -rf $(BUILDDIR)/tmpboot
-	$(SUDO) $(SRCDIR)/mkbimage -d $(BUILDDIR) -f $(BUILDDIR)/bootdisk.tar -s ext2 -t 1.44
+	$(SUDO) GRUBPATH=$(BOOTDISK_DIR)/bin/grub $(BUILDDIR)/mkbimage -d $(BUILDDIR) -f $(BUILDDIR)/bootdisk.tar -s ext2 -t 1.44
 	mv $(BUILDDIR)/1.44.image $(BOOTDISK_DIR)/boot.image
 	rm -rf $(BUILDDIR)/1.44.image*
 	touch $@
