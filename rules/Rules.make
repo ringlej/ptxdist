@@ -41,6 +41,21 @@ compilercheck =								\
 	echo > /dev/null;
 endif
 
+check_prog_exists = 				\
+	@if [ ! -x `which $(1)` ]; then		\
+		echo "$(1) not found";		\
+		echo "please install $(1)"; 	\
+		exit -1;			\
+	fi;
+
+check_prog_version = 				\
+	@if [ `$(1) -V | head -n 1 |		\
+	awk '{gsub ("[a-zA-Z]",""); if ($$1 != $(2)) print "false"; else print "true"}'` == "false" ]; then \
+		echo "need $(1) version $(2)";	\
+		echo "please install";		\
+		exit -1;			\
+	fi;
+
 #
 # print out header information and check if we have the right compiler
 #

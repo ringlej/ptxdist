@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.87 2004/04/07 10:17:47 robert Exp $
+# $Id: Makefile,v 1.88 2004/04/21 15:40:15 bsp Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -130,11 +130,11 @@ help:
 	@echo
 # }}}
 
-get:     getclean $(PACKAGES_GET)
-extract: $(PACKAGES_EXTRACT)
-prepare: $(PACKAGES_PREPARE)
-compile: $(PACKAGES_COMPILE)
-install: $(PACKAGES_TARGETINSTALL)
+get:     check_tools getclean $(PACKAGES_GET)
+extract: check_tools $(PACKAGES_EXTRACT)
+prepare: check_tools $(PACKAGES_PREPARE)
+compile: check_tools $(PACKAGES_COMPILE)
+install: check_tools $(PACKAGES_TARGETINSTALL)
 
 dep_output_clean:
 #	if [ -e $(DEP_OUTPUT) ]; then rm -f $(DEP_OUTPUT); fi
@@ -153,7 +153,7 @@ skip_vendortweaks:
 dep_world: $(PACKAGES_TARGETINSTALL) $(VENDORTWEAKS_TARGETINSTALL)
 	@echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
 
-world: dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
+world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
 
 # Configuration system -------------------------------------------------------
 
