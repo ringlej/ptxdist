@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: popt.make,v 1.1 2003/08/26 13:03:52 bsp Exp $
+# $Id: popt.make,v 1.2 2003/08/28 14:27:29 mkl Exp $
 #
 # (c) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #          
@@ -22,9 +22,9 @@ endif
 POPT_VERSION	= 1.7
 POPT		= popt-$(POPT_VERSION)
 POPT_SUFFIX	= tar.gz
-POPT_URL		= ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.1.x//$(POPT).$(POPT_SUFFIX)
+POPT_URL	= ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.1.x/$(POPT).$(POPT_SUFFIX)
 POPT_SOURCE	= $(SRCDIR)/$(POPT).$(POPT_SUFFIX)
-POPT_DIR		= $(BUILDDIR)/$(POPT)
+POPT_DIR	= $(BUILDDIR)/$(POPT)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -77,11 +77,9 @@ POPT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-POPT_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+POPT_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 POPT_AUTOCONF	+= --build=$(GNU_HOST)
 POPT_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-
-POPT_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/popt.prepare: $(popt_prepare_deps)
 	@$(call targetinfo, popt.prepare)

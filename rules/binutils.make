@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: binutils.make,v 1.1 2003/08/26 13:03:52 bsp Exp $
+# $Id: binutils.make,v 1.2 2003/08/28 14:27:29 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -83,7 +83,7 @@ ifdef PTXCONF_ARCH_MIPS
 BINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET),mips64-linux
 endif
 ifdef PTXCONF_OPT_PA8X00
-BINUTILS_AUTOCONF_TARGET = --enable-targets=$(PTXCONF_GNU_TARGET),hppa64-linux
+BINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET),hppa64-linux
 endif
 
 BINUTILS_AUTOCONF = \
