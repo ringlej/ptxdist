@@ -1115,6 +1115,7 @@ PTXCONF_GRUB_PRESET_MENU=""
 # Tools                       
 #
 # PTXCONF_FIGLET is not set
+# PTXCONF_FPGAEDIT is not set
 
 #
 # Editors                     

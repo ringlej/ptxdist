@@ -1049,6 +1049,7 @@ PTXCONF_UTELNETD=y
 # Tools                       
 #
 PTXCONF_FIGLET=y
+# PTXCONF_FPGAEDIT is not set
 
 #
 # Editors                     

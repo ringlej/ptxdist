@@ -1162,6 +1162,7 @@ PTXCONF_CRAMFS=y
 # Tools                       
 #
 # PTXCONF_FIGLET is not set
+# PTXCONF_FPGAEDIT is not set
 
 #
 # Editors                     
