@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.17 2004/01/30 17:58:55 bsp Exp $
+# $Id: kernel.make,v 1.18 2004/02/03 11:46:38 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -36,7 +36,7 @@ KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/bzImage
 endif
 ifdef PTXCONF_KERNEL_IMAGE_U
 KERNEL_TARGET		= uImage
-KERNEL_TARGET_PATH	= $(KERNEL_DIR)/uImage
+KERNEL_TARGET_PATH	= $(KERNEL_DIR)/uImage $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/vmlinux.UBoot
 endif
 ifdef PTXCONF_KERNEL_IMAGE_VMLINUX
 KERNEL_TARGET		= vmlinux
@@ -61,6 +61,7 @@ endif
 ifdef PTXCONF_KERNEL_DEV-EPOLL
 KERNEL_PATCHES	+= kernel-dev-epoll
 endif
+
 
 # ----------------------------------------------------------------------------
 # Menuconfig
@@ -88,25 +89,120 @@ kernel_menuconfig: $(STATEDIR)/kernel.extract
 # Get patchstack-patches
 # ----------------------------------------------------------------------------
 
+kernel-patchstack_get: $(STATEDIR)/kernel-patchstack.get
+
 $(STATEDIR)/kernel-patchstack.get:
 	@$(call targetinfo, $@)
-	for i in $(subst ",,$(PTXCONF_KERNEL_PATCHSTACK)) ; do \
-		$$(awk -v patch=$$i '{if (patch == $$1) print "$(WGET) -P patches $(PASSIVEFTP) "$$3"/"$$2}' \
-		patches/patches.lst) ; \
-	done
-	touch $@
 
-# ----------------------------------------------------------------------------
-# patch kernel with patchstack-patches
-# ----------------------------------------------------------------------------
+ifdef PTXCONF_KERNEL_PATCH1_URL
+ifneq ($(PTXCONF_KERNEL_PATCH1_URL),"")
+	@$(call targetinfo, "Patch 1")
+	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH1_NAME) ]; then	\
+		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH1_NAME) && 	\
+		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH1_NAME) && 		\
+		wget -r -l1 -nd $(PTXCONF_KERNEL_PATCH1_URL);				\
+	fi
+endif
+endif
 
-$(STATEDIR)/kernel-patchstack.extract: \
-	$(STATEDIR)/kernel.extract
-	@$(call targetinfo, $@)
-	for i in $(subst ",,$(PTXCONF_KERNEL_PATCHSTACK)) ; do \
-		awk -v patch=$$i '{if (patch == $$1) print "$(CAT) patches/"$$2" | $(PATCH) -Np1 -d $(KERNEL_DIR) || exit -1"}' \
-		patches/patches.lst | sh ; \
-	done
+ifdef PTXCONF_KERNEL_PATCH2
+ifneq ($(PTXCONF_KERNEL_PATCH2),"")
+	@$(call targetinfo, "Patch 2")
+	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH2_NAME) ]; then	\
+		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH2_NAME) &&	\
+		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH2_NAME) && 		\
+		wget -r -l1 -nd $(PTXCONF_KERNEL_PATCH2_URL);				\
+	fi
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH3
+ifneq ($(PTXCONF_KERNEL_PATCH3),"")
+	@$(call targetinfo, "Patch 3")
+	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH3_NAME) ]; then	\
+		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH3_NAME) && 	\
+		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH3_NAME) && 		\
+		wget -r -l1 -nd $(PTXCONF_KERNEL_PATCH3_URL);				\
+	fi
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH4
+ifneq ($(PTXCONF_KERNEL_PATCH4),"")
+	@$(call targetinfo, "Patch 4")
+	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH4_NAME) ]; then	\
+		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH4_NAME) && 	\
+		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH4_NAME) && 		\
+		wget -r -l1 $(PTXCONF_KERNEL_PATCH4_URL);				\
+	fi
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH5
+ifneq ($(PTXCONF_KERNEL_PATCH5),"")
+	@$(call targetinfo, "Patch 5")
+	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH5_NAME) ]; then	\
+		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH5_NAME) && 	\
+		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH5_NAME) && 		\
+		wget -r -l1 $(PTXCONF_KERNEL_PATCH5_URL);				\
+	fi
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH6
+ifneq ($(PTXCONF_KERNEL_PATCH6),"")
+	@$(call targetinfo, "Patch 6")
+	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH6_NAME) ]; then	\
+		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH6_NAME) && 	\
+		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH6_NAME) && 		\
+		wget -r -l1 $(PTXCONF_KERNEL_PATCH6_URL);				\
+	fi
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH7
+ifneq ($(PTXCONF_KERNEL_PATCH7),"")
+	@$(call targetinfo, "Patch 7")
+	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH7_NAME) ]; then	\
+		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH7_NAME) && 	\
+		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH7_NAME) && 		\
+		wget -r -l1 $(PTXCONF_KERNEL_PATCH7_URL);				\
+	fi
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH8
+ifneq ($(PTXCONF_KERNEL_PATCH8),"")
+	@$(call targetinfo, "Patch 8")
+	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH8_NAME) ]; then	\
+		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH8_NAME) && 	\
+		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH8_NAME) && 		\
+		wget -r -l1 $(PTXCONF_KERNEL_PATCH8_URL);				\
+	fi
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH9
+ifneq ($(PTXCONF_KERNEL_PATCH9),"")
+	@$(call targetinfo, "Patch 9")
+	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH9_NAME) ]; then	\
+		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH9_NAME) && 	\
+		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH9_NAME) && 		\
+		wget -r -l1 $(PTXCONF_KERNEL_PATCH9_URL);				\
+	fi
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH10
+ifneq ($(PTXCONF_KERNEL_PATCH10),"")
+	@$(call targetinfo, "Patch 10")
+	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH10_NAME) ]; then	\
+		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH10_NAME) && 	\
+		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH10_NAME) && 		\
+		wget -r -l1 $(PTXCONF_KERNEL_PATCH10_URL);				\
+	fi
+endif
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -115,8 +211,7 @@ $(STATEDIR)/kernel-patchstack.extract: \
 
 kernel_get: $(STATEDIR)/kernel.get
 
-kernel_get_deps = \
-	$(KERNEL_SOURCE)
+kernel_get_deps = $(KERNEL_SOURCE) $(STATEDIR)/kernel-patchstack.get
 
 $(STATEDIR)/kernel.get: $(kernel_get_deps)
 	@$(call targetinfo, $@)
@@ -138,6 +233,19 @@ kernel_extract_deps = \
 
 $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
 	@$(call targetinfo, $@)
+
+	# Also add the "patchstack" like patches
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH1_NAME), $(KERNEL_DIR))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH2_NAME), $(KERNEL_DIR))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH3_NAME), $(KERNEL_DIR))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH4_NAME), $(KERNEL_DIR))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH5_NAME), $(KERNEL_DIR))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH6_NAME), $(KERNEL_DIR))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH7_NAME), $(KERNEL_DIR))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH8_NAME), $(KERNEL_DIR))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH9_NAME), $(KERNEL_DIR))
+	@$(call patchstack, $(PTXCONF_KERNEL_PATCH10_NAME), $(KERNEL_DIR))
+	
 	touch $@
 
 $(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
@@ -150,6 +258,7 @@ $(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
 ifeq (2.4.18,$(KERNEL_VERSION))
 	mv $(BUILDDIR)/linux $(KERNEL_DIR)
 endif
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -161,8 +270,7 @@ kernel_prepare: $(STATEDIR)/kernel.prepare
 kernel_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/xchain-modutils.install \
-	$(STATEDIR)/kernel.extract \
-	$(STATEDIR)/kernel-patchstack.extract
+	$(STATEDIR)/kernel.extract
 
 KERNEL_PATH	= PATH=$(CROSS_PATH)
 KERNEL_MAKEVARS	= \
@@ -171,6 +279,10 @@ KERNEL_MAKEVARS	= \
 	HOSTCC=$(HOSTCC) \
 	GENKSYMS=$(PTXCONF_GNU_TARGET)-genksyms \
 	DEPMOD=$(PTXCONF_GNU_TARGET)-depmod
+
+ifdef PTXCONF_KERNEL_IMAGE_U
+	KERNEL_MAKEVARS += MKIMAGE=u-boot-mkimage
+endif
 
 $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
@@ -240,8 +352,12 @@ kernel_targetinstall: $(STATEDIR)/kernel.targetinstall
 $(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.compile
 	@$(call targetinfo, $@)
 ifdef PTXCONF_KERNEL_INSTALL
-	mkdir -p $(ROOTDIR)/boot
-	install $(KERNEL_TARGET_PATH) $(ROOTDIR)/boot
+	mkdir -p $(ROOTDIR)/boot;				\
+	for i in $(KERNEL_TARGET_PATH); do 			\
+		if [ -f $$i ]; then				\
+			install $$i $(ROOTDIR)/boot/uImage;	\
+		fi;						\
+	done;							\
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
 		modules_install INSTALL_MOD_PATH=$(ROOTDIR)
 endif
@@ -253,6 +369,6 @@ endif
 
 kernel_clean:
 	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-* $(KERNEL_DIR) \
-$(STATEDIR)/kernel-patchstack.get
+	       $(STATEDIR)/kernel-patchstack.get
 
 # vim: syntax=make

@@ -297,7 +297,7 @@ patchin =									\
 # apply a patch
 #
 # $1 = the name of the patch to apply
-# #2 = apply patch to that directory
+# $2 = apply patch to that directory
 #
 patch_apply =								\
 	PATCH_NAME="$(strip $(1))";					\
@@ -331,7 +331,21 @@ patch_apply =								\
 	fi;								\
 	true;
 
-
+#
+# apply a patch stack
+#
+# $1 = the name of the patch in $(TOPDIR)/feature-patches
+# $2 = apply the patches to that directory
+#
+patchstack =								\
+	PATCHSTACK_NAME="$(strip $(1))";				\
+	PATCHSTACK_DIR="$(strip $(2))";					\
+	if [ "x" != "x$$PATCHSTACK_NAME" ]; then			\
+		mkdir -p $$PATCHSTACK_DIR/.patches; 			\
+		cp $(TOPDIR)/feature-patches/$$PATCHSTACK_NAME/* $$PATCHSTACK_DIR/.patches/; \
+		cd $$PATCHSTACK_DIR && patcher -A;			\
+	fi;								\
+	true;
 #
 # CFLAGS // CXXFLAGS
 #
