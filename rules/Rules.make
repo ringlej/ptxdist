@@ -268,35 +268,40 @@ get_patches =											\
 	else											\
 		PATCH_TREE=$(FULLVERSION);							\
 	fi;											\
+	echo "checking if $(PATCHDIR) exists..."; 						\
 	if [ ! -d $(PATCHDIR) ]; then								\
 		mkdir -p $(PATCHDIR);								\
 	fi;											\
+	echo "removing old patches..."; 							\
 	if [ -d $(PATCHDIR)/$$PACKET_NAME ]; then						\
 		rm -fr $(PATCHDIR)/$$PACKET_NAME;						\
 	fi;											\
-	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/;		\
-	[ $$? -eq 0 ] || {									\
-		echo;										\
-		echo "Could not get patch!";							\
-		echo "URL: $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/";		\
-		echo;										\
-		exit -1;									\
-	};											\
-	$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;	\
-	[ $$? -eq 0 ] || {									\
-		echo;										\
-		echo "Could not get patch!";							\
-		echo "URL: $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";	\
-		echo;										\
-		exit -1;									\
-	};											\
-	if [ -d $(PATCHDIR)-local/$$PACKET_NAME ]; then						\
+	echo "checking for local or net patches...";						\
+	if [ -d $(PATCHDIR)-local ]; then							\
 		echo "Copying Local patches from patches-local/"$$PACKET_NAME;			\
 		cp -vr $(PATCHDIR)-local/$$PACKET_NAME $(PATCHDIR);				\
-	fi;											\
-	true
+	else											\
+		echo "copying network patches from Pengutronix server"; 				\
+		$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
+			$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/;		\
+		[ $$? -eq 0 ] || {									\
+			echo;										\
+			echo "Could not get patch!";							\
+			echo "URL: $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic/";		\
+			echo;										\
+			exit -1;									\
+		};											\
+		$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
+			$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/;	\
+		[ $$? -eq 0 ] || {									\
+			echo;										\
+			echo "Could not get patch!";							\
+			echo "URL: $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";	\
+			echo;										\
+			exit -1;									\
+		};											\
+		true;											\
+	fi;
 
 #
 # returns an options from the .config file
@@ -587,15 +592,14 @@ copy_root = 									\
 	PER=`echo $(3) | sed -e 's/[[:space:]]//g'`;				\
 	SRC=`echo $(4) | sed -e 's/[[:space:]]//g'`;				\
 	DST=`echo $(5) | sed -e 's/[[:space:]]//g'`;				\
-	[ -e $(TOPDIR)/permissions ] || touch $(TOPDIR)/permissions; 		\
-	if [ -z "$(5)" ]; then									\
-		echo "copy_root dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER"; 		\
-		fakeroot -s $(TOPDIR)/permissions -i $(TOPDIR)/permissions 			\
-			install -o $$OWN -g $$GRP -m $$PER -d $(ROOTDIR)$$SRC;			\
-	else											\
-		echo "copy_root src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER"; \
-		fakeroot -s $(TOPDIR)/permissions -i $(TOPDIR)/permissions			\
-			install -o $$OWN -g $$GRP -m $$PER $$SRC $(ROOTDIR)$$DST;		\
+	if [ -z "$(5)" ]; then									 \
+		echo "copy_root dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER"; 		 \
+		install -d $(ROOTDIR)/$$SRC;							 \
+		echo "$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
+	else											 \
+		echo "copy_root src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER";  \
+		install $$SRC $(ROOTDIR)/$$DST;							 \
+		echo "$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			 \
 	fi;
 
 #
