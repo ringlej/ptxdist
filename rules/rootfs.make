@@ -210,6 +210,8 @@ ifdef PTXCONF_ROOTFS_ETC
 	if [ -n "$$x" ]; then \
 		echo $$x; \
 		perl -i -p -e "s,\@VENDOR@,$$x,g" $(ROOTDIR)/etc/init.d/banner; \
+	else \
+		perl -i -p -e "s,\@VENDOR@,,g" $(ROOTDIR)/etc/init.d/banner; \
 	fi
 
 	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
