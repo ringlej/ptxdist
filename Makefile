@@ -356,9 +356,6 @@ compile-test:
 	echo stop: `date` >> COMPILE-TEST;				\
 	echo >> COMPILE-TEST;
 
-#	# FIXME: doesn't work right now...
-#	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin innokom-2.6-3.3.3;		\
-
 cuckoo-test: world
 	@scripts/cuckoo-test $(PTXCONF_ARCH) root $(PTXCONF_COMPILER_PREFIX)
 
@@ -394,7 +391,8 @@ maintainer-clean: distclean
 
 distclean: clean
 	@echo -n "cleaning .config, .kernelconfig.. "
-	@rm -f .config* .kernelconfig .tmp* .rtaiconfig
+	@rm -f .config* .kernelconfig .tmp* .rtaiconfig 
+	@rm -f config/setup/scripts config/setup/.config scripts/scripts
 	@echo "done."
 	@echo -n "cleaning patches dir............. "
 	@rm -rf $(TOPDIR)/patches/*

@@ -18,6 +18,30 @@ config SETUP_PTXCONF
 
 comment "PTXDIST Setup Menu"
 
+menu "Proxies         "
+
+config SETUP_FTP_PROXY
+	prompt "FTP Proxy"
+	string
+	default ""
+	help
+	  If you have to use a proxy for FTP transfers, please add the 
+	  proxy URL here. Example:
+
+	              http://your.proxy.org:80
+
+config SETUP_HTTP_PROXY
+	prompt "HTTP Proxy"
+	string
+	default ""
+	help
+	  If you have to use a proxy for HTTP transfers, please add the 
+	  proxy URL here. Example:
+
+	              http://your.proxy.org:80
+		      
+endmenu
+
 menu "Sources         "
 
 config SETUP_SRCDIR

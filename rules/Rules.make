@@ -22,7 +22,7 @@ SUDO		= sudo
 HOSTCC		= gcc
 DOT		= dot
 SH		= /bin/sh
-WGET		= wget
+WGET		= http_proxy=$(PTXCONF_SETUP_HTTP_PROXY) ftp_proxy=$(PTXCONF_SETUP_FTP_PROXY) wget
 MAKE		= make
 PATCH		= patch
 TAR		= tar
