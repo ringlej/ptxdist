@@ -1,6 +1,7 @@
 config RTNET
 	bool "Real-Time Networking for RTAI"
 	depends on RTAI
+	depends on EXP
 
 config RTNET_3C59X
 	bool "build 3Com 59x driver"
