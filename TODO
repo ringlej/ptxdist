@@ -5,9 +5,11 @@ High Priority
 -------------
 
 - RSC: test flash
-- RSC: integrate iwconfig, zebra
+- RSC: finish integration of iwconfig, zebra
 - RSC: glibc does somehow not install _G_config.h when libio is not
-       used, which breaks gcc-stage2. At least sometimes :-(
+       used, which breaks gcc-stage2. At least sometimes :-( This 
+       effect is observed only on certain systems (all Debian unstable,
+       but downgrading does not help). Has to be evaluated!!!
 
 Low Priority
 ------------
