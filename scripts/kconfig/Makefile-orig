@@ -1,6 +1,61 @@
-#################
-#
-# Shared Makefile for the various lkc executables:
+# ===========================================================================
+# Kernel configuration targets
+# These targets are used from top-level makefile
+
+.PHONY: oldconfig xconfig gconfig menuconfig config silentoldconfig
+
+xconfig: $(obj)/qconf
+	$< arch/$(ARCH)/Kconfig
+
+gconfig: $(obj)/gconf
+	./$<  arch/$(ARCH)/Kconfig
+
+menuconfig: $(obj)/mconf
+	$(Q)$(MAKE) $(build)=scripts/lxdialog
+	$< arch/$(ARCH)/Kconfig
+
+config: $(obj)/conf
+	$< arch/$(ARCH)/Kconfig
+
+oldconfig: $(obj)/conf
+	$< -o arch/$(ARCH)/Kconfig
+
+silentoldconfig: $(obj)/conf
+	$< -s arch/$(ARCH)/Kconfig
+
+.PHONY: randconfig allyesconfig allnoconfig allmodconfig defconfig
+
+randconfig: $(obj)/conf
+	$< -r arch/$(ARCH)/Kconfig
+
+allyesconfig: $(obj)/conf
+	$< -y arch/$(ARCH)/Kconfig
+
+allnoconfig: $(obj)/conf
+	$< -n arch/$(ARCH)/Kconfig
+
+allmodconfig: $(obj)/conf
+	$< -m arch/$(ARCH)/Kconfig
+
+defconfig: $(obj)/conf
+	$< -d arch/$(ARCH)/Kconfig
+
+%_defconfig: $(obj)/conf
+	$(Q)$< -D arch/$(ARCH)/configs/$@ arch/$(ARCH)/Kconfig
+
+# Help text used by make help
+help:
+	@echo  '  oldconfig	  - Update current config utilising a line-oriented program'
+	@echo  '  menuconfig	  - Update current config utilising a menu based program'
+	@echo  '  xconfig	  - Update current config utilising a QT based front-end'
+	@echo  '  gconfig	  - Update current config utilising a GTK based front-end'
+	@echo  '  defconfig	  - New config with default answer to all options'
+	@echo  '  allmodconfig	  - New config selecting modules when possible'
+	@echo  '  allyesconfig	  - New config where all options are accepted with yes'
+	@echo  '  allnoconfig	  - New minimal config'
+
+# ===========================================================================
+# Shared Makefile for the various kconfig executables:
 # conf:	  Used for defconfig, oldconfig and related targets
 # mconf:  Used for the mconfig target.
 #         Utilizes the lxdialog package
@@ -8,22 +63,28 @@
 #         Based on QT which needs to be installed to compile it
 # gconf:  Used for the gconfig target
 #         Based on GTK which needs to be installed to compile it
-#
-#################
+# object files used by all kconfig flavours
 
-# object files used by all lkc flavours
 libkconfig-objs := zconf.tab.o
 
 host-progs	:= conf mconf qconf gconf
 conf-objs	:= conf.o  libkconfig.so
 mconf-objs	:= mconf.o libkconfig.so
 
-ifeq ($(MAKECMDGOALS),$(obj)/qconf)
+ifeq ($(MAKECMDGOALS),xconfig)
+	qconf-target := 1
+endif
+ifeq ($(MAKECMDGOALS),gconfig)
+	gconf-target := 1
+endif
+
+
+ifeq ($(qconf-target),1)
 qconf-cxxobjs	:= qconf.o
 qconf-objs	:= kconfig_load.o
 endif
 
-ifeq ($(MAKECMDGOALS),$(obj)/gconf)
+ifeq ($(gconf-target),1)
 gconf-objs	:= gconf.o kconfig_load.o
 endif
 
@@ -44,7 +105,7 @@ $(obj)/conf.o $(obj)/mconf.o $(obj)/qconf.o $(obj)/gconf.o: $(obj)/zconf.tab.h
 
 $(obj)/qconf.o: $(obj)/.tmp_qtcheck
 
-ifeq ($(MAKECMDGOALS),$(obj)/qconf)
+ifeq ($(qconf-target),1)
 MOC = $(QTDIR)/bin/moc
 -include $(obj)/.tmp_qtcheck
 
@@ -74,7 +135,7 @@ endif
 
 $(obj)/gconf.o: $(obj)/.tmp_gtkcheck
 
-ifeq ($(MAKECMDGOALS),$(obj)/gconf)
+ifeq ($(gconf-target),1)
 -include $(obj)/.tmp_gtkcheck
 
 # GTK needs some extra effort, too...
