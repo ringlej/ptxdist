@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.10 2004/02/17 16:02:56 bsp Exp $
+# $Id: xfree430.make,v 1.11 2004/02/24 09:12:46 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -194,8 +194,8 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	cp -fa $(XFREE430_BUILDDIR)/lib/Xrender/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/extensions/
 	cp -fa $(XFREE430_BUILDDIR)/include/extensions/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11/extensions/
 
-	cp -fa $(XFREE430_BUILDDIR)/lib/Xrender/libXrender.so.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	ln -sf libXrender.so.1 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXrender.so
+	cp -fa $(XFREE430_BUILDDIR)/lib/Xrender/libXrender.so.1.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	ln -sf libXrender.so.1.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXrender.so
 
 	cp -fa $(XFREE430_BUILDDIR)/lib/Xext/libXext.so.6.4 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	ln -sf libXext.so.6.4 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libXext.so.6
