@@ -34,12 +34,15 @@ config RTNET_TULIP
 config RTNET_FCC_ENET
 	bool "build fcc net driver"
 	depends on RTNET
+	depends on ARCH_PPC
 
 config RTNET_SCC_ENET
 	bool "build scc enet driver"
 	depends on RTNET
+	depends on ARCH_PPC
 
 config RTNET_FEC_ENET
 	bool "build fec enet driver"
 	depends on RTNET
+	depends on ARCH_PPC
 
