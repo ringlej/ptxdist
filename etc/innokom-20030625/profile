@@ -6,14 +6,17 @@
 # 2002/10/03    Robert Schwebel <r.schwebel@pengutronix.de>
 #
 
-export PATH="$PATH:/usr/bin:/bin:/sbin:."
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/lib:/usr/lib:."
+export PATH="$PATH:/usr/bin:/bin:/sbin"
+
+# FIXME: is this intended?? [RS]
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/lib:/usr/lib"
 
 #umask 022
 
-#This fixes the backspace when telnetting in.
-#if [ "$TERM" != "linux" ]; then
-#        stty erase ^H
-#fi
+# This fixes the backspace when telnetting in and for pdksh.
+if [ "$TERM" != "linux" ]; then
+        stty erase ^H
+fi
+
 #PS1="# "
 
