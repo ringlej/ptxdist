@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: binutils.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
+# $Id: binutils.make,v 1.5 2003/10/28 01:57:15 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -106,13 +106,17 @@ $(STATEDIR)/binutils.compile: $(STATEDIR)/binutils.prepare
 #
 	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR) CFLAGS='' CXXFLAGS='' configure-build-libiberty
 
-	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR)
-
 #
 # the chew tool is needed later during installation, compile it now
 # else it will fail cause it gets target CFLAGS
 #
 	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR)/bfd/doc CFLAGS='' CXXFLAGS='' chew
+
+#
+# now do the _real_ compiling :-)
+#
+	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
