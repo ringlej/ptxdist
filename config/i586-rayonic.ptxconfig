@@ -125,16 +125,6 @@ PTXCONF_KERNEL_2_4_18=y
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
-# PTXCONF_KERNEL_RMK is not set
-# PTXCONF_KERNEL_RMK_PXA is not set
-# PTXCONF_KERNEL_RMK_DS is not set
-# PTXCONF_KERNEL_RMK_PXA_PTX is not set
-# PTXCONF_KERNEL_RMK_PXA_PTX_LTT is not set
-# PTXCONF_KERNEL_UC is not set
-# PTXCONF_KERNEL_BEN is not set
-PTXCONF_KERNEL_VANILLA=y
-PTXCONF_KERNEL_PATCH1_URL=""
-PTXCONF_KERNEL_PATCH1_NAME=""
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -143,25 +133,37 @@ PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_INSTALL is not set
 
 #
+# 
+#
+PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/ptxdist/feature-patches-cvs/linux-2.4.18/linux-2.4.18-rthal5g.patch"
+PTXCONF_KERNEL_PATCH1_NAME="rtai"
+PTXCONF_KERNEL_PATCH1_XCHAIN=y
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH2_URL=""
+PTXCONF_KERNEL_PATCH2_NAME=""
+
+#
 # Extentions
 #
 
 #
-# epoll               
+# RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)
 #
-# PTXCONF_KERNEL_DEV-EPOLL is not set
 
 #
 # RTAI                
 #
 PTXCONF_RTAI=y
-PTXCONF_RTAI_CONFIG="rtai-24.1.10-"
-# PTXCONF_RTAI_24_1_9 is not set
-PTXCONF_RTAI_24_1_10=y
+PTXCONF_RTAI_CONFIG="rtaiconfig-rayonic-20030215-1"
+PTXCONF_RTAI_24_1_9=y
+# PTXCONF_RTAI_24_1_10 is not set
 # PTXCONF_RTAI_24_1_11 is not set
 # PTXCONF_RTAI_24_1_12 is not set
-# PTXCONF_RTAI_24_1_9_2_4_18_rthal5g is not set
-PTXCONF_RTAI_24_1_10_2_4_18_rthal5g=y
+PTXCONF_RTAI_24_1_9_2_4_18_rthal5g=y
+# PTXCONF_RTAI_24_1_10_2_4_18_rthal5g is not set
 # PTXCONF_RTAI_24_1_10_2_4_18_allsoft is not set
 # PTXCONF_RTAI_24_1_10_2_4_19_rthal5g is not set
 # PTXCONF_RTAI_24_1_10_2_4_19_allsoft is not set
@@ -213,8 +215,8 @@ PTXCONF_GLIBC=y
 # C Library options
 #
 # PTXCONF_GLIBC_2_3_2 is not set
-# PTXCONF_GLIBC_2_2_5 is not set
-PTXCONF_GLIBC_2_2_4=y
+PTXCONF_GLIBC_2_2_5=y
+# PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
@@ -717,7 +719,7 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_BB_CONFIG_DEBUG is not set
 
 #
-# mgetty & sendfax      
+# mgetty & sendfax    
 #
 # PTXCONF_MGETTY is not set
 
@@ -998,12 +1000,12 @@ PTXCONF_GRUB_CS89X0=y
 # PTXCONF_DB is not set
 
 #
-# rn                  
+# rn               
 #
 # PTXCONF_RN is not set
 
 #
-# libxml2             
+# libxml2          
 #
 # PTXCONF_LIBXML2 is not set
 
