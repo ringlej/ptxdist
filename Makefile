@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.24 2003/08/26 13:54:20 robert Exp $
+# $Id: Makefile,v 1.25 2003/08/30 11:41:24 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -22,8 +22,12 @@ BUILDDIR=$(TOPDIR)/build
 XCHAIN_BUILDDIR=$(BUILDDIR)/xchain
 SRCDIR=$(TOPDIR)/src
 PTXSRCDIR=$(TOPDIR)/src_ptx
+PATCHDIR=$(TOPDIR)/patches
 STATEDIR=$(TOPDIR)/state
 BOOTDISKDIR=$(TOPDIR)/bootdisk
+
+# Pengutronix Patch Repository
+PTXPATCH_URL=http://www.pengutronix.de/software/ptxdist/patches
 
 INSTALL_LOG=$(TOPDIR)/tools/install-log-1.9/install-log
 
