@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="generic"
+PTXCONF_PROJECT="i586-generic-glibc"
 
 #
 # General Options             
