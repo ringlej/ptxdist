@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-XCHAIN_MODUTILS_VERSION	= 2.4.25
+XCHAIN_MODUTILS_VERSION	= 2.4.27
 XCHAIN_MODUTILS		= modutils-$(XCHAIN_MODUTILS_VERSION)
 XCHAIN_MODUTILS_SUFFIX	= tar.bz2
 XCHAIN_MODUTILS_URL	= ftp://ftp.kernel.org/pub/linux/utils/kernel/modutils/v2.4/$(XCHAIN_MODUTILS).$(XCHAIN_MODUTILS_SUFFIX)
