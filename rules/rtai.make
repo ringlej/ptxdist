@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtai.make,v 1.12 2004/08/09 08:56:20 rsc Exp $
+# $Id: rtai.make,v 1.13 2004/08/10 21:21:57 rsc Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -29,7 +29,8 @@ RTAI_SUFFIX		= tar.bz2
 RTAI_URL		= http://www.aero.polimi.it/RTAI/$(RTAI).$(RTAI_SUFFIX)
 RTAI_SOURCE		= $(SRCDIR)/$(RTAI).$(RTAI_SUFFIX)
 RTAI_DIR		= $(BUILDDIR)/$(RTAI)
-RTAI_MODULEDIR		= /lib/modules/$(KERNEL_VERSION)-$(RTAI_TECH_SHORT)/rtai
+RTAI_BUILDDIR		= $(BUILDDIR)/$(RTAI)-build
+RTAI_MODULEDIR		= $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)-adeos/kernel/drivers
 RTAI_PATCH		= $(RTAI_DIR)/patches/patch-$(KERNEL_VERSION)-$(RTAI_TECH)
 
 # ----------------------------------------------------------------------------
@@ -111,6 +112,9 @@ rtai_install: $(STATEDIR)/rtai.install
 
 $(STATEDIR)/rtai.install: $(STATEDIR)/rtai.compile
 	@$(call targetinfo, $@)
+	# RTAI tries to install all kinds of useless crap which we don't
+	# want to have on the target, so install into a build dir here
+	cd $(RTAI_DIR) && $(RTAI_PATH) make install DESTDIR=$(RTAI_BUILDDIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -122,17 +126,20 @@ rtai_targetinstall: $(STATEDIR)/rtai.targetinstall
 $(STATEDIR)/rtai.targetinstall: $(STATEDIR)/rtai.install
 	@$(call targetinfo, $@)
 
-	# Now let install RTAI all the useless crap
-	cd $(RTAI_DIR) && $(RTAI_PATH) make install DESTDIR=$(ROOTDIR)
+	install -d $(RTAI_MODULEDIR)/rtai
+	install \
+		$(RTAI_BUILDDIR)/usr/realtime/modules/rtai_hal.* \
+		$(RTAI_MODULEDIR)/rtai/
+	install \
+		$(RTAI_BUILDDIR)/usr/realtime/modules/rtai_up.* \
+		$(RTAI_MODULEDIR)/rtai/
 
-	# Ok it is installed now, so let's remove it
-	rm -fr $(ROOTDIR)/usr/realtime/include
-	rm -fr $(ROOTDIR)/usr/realtime/share
-
-ifdef PTXCONF_RTAI_LATENCY_CALIBRATE
-	$(CROSSSTRIP) -S $(ROOTDIR)/usr/realtime/calibration/calibrate
-else
-	rm -fr $(ROOTDIR)/usr/realtime/calibration
+ifdef PTXCONF_RTAI_TESTSUITE
+	install -d $(ROOTDIR)/usr/realtime
+	cp -a \
+		$(RTAI_BUILDDIR)/usr/realtime/testsuite \
+		$(ROOTDIR)/usr/realtime
+	$(CROSSSTRIP) -S $(ROOTDIR)/usr/realtime/testsuite/kern/latency/display
 endif
 	touch $@
 
@@ -141,6 +148,6 @@ endif
 # ----------------------------------------------------------------------------
 
 rtai_clean: 
-	rm -rf $(STATEDIR)/rtai.* $(RTAI_DIR)
+	rm -rf $(STATEDIR)/rtai.* $(RTAI_DIR) $(RTAI_BUILDDIR)
 
 # vim: syntax=make
