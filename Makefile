@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.20 2003/08/25 05:53:25 robert Exp $
+# $Id: Makefile,v 1.21 2003/08/25 23:45:21 mkl Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -35,9 +35,11 @@ all: help
 
 -include .config 
 
-ifneq ("", $(PTXCONF_ROOT))
 ROOTDIR=$(shell echo $(PTXCONF_ROOT) | sed -e s/\"//g)
-else
+ifeq ("", $(PTXCONF_ROOT))
+ROOTDIR=$(TOPDIR)/root
+endif
+ifndef PTXCONF_ROOT
 ROOTDIR=$(TOPDIR)/root
 endif
 

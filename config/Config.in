@@ -184,7 +184,6 @@ config PREFIX
 config ROOT
 	prompt "Prefix for root filesystem"
 	string
-	default "root"
 
 endmenu
 
