@@ -21,7 +21,7 @@ endif
 #
 SETMIXER		= setmixer_27DEC94.orig
 SETMIXER_SUFFIX		= tar.gz
-SETMIXER_URL		= http://http.us.debian.org/debian/pool/main/s/setmixer/$(SETMIXER).$(SETMIXER_SUFFIX)
+SETMIXER_URL		= $(DEBPOOL_MIRROR)/pool/main/s/setmixer/$(SETMIXER).$(SETMIXER_SUFFIX)
 SETMIXER_SOURCE		= $(SRCDIR)/$(SETMIXER).$(SETMIXER_SUFFIX)
 SETMIXER_DIR		= $(BUILDDIR)/setmixer-27DEC94.orig
 
