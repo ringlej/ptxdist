@@ -1,3 +1,7 @@
+2005-03-20 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* 0.7.3 released
+
 2005-03-19 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* offline building: we have a new mechanism for offline 
@@ -17,6 +21,10 @@
 	* Makefile: fixed bogus error messages
 	* crosstool: added support for gcc-3.4.3 and 
 	  glibc-2.3.4 into crosstool patches
+
+2005-03-11 Sascha Hauer <s.hauer@pengutronix.de>
+
+	* 0.7.2 released
 
 2005-03-01 Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -96,6 +104,14 @@
 	* readline: added
 	* coreutils: added dd
 	* dialog: added snapshot release
+
+2004-11-16 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* 0.7.1 released
+
+2004-09-27 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* 0.7.1 released
 
 2004-02-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
