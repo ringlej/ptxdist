@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.14 2003/11/17 03:41:56 mkl Exp $
+# $Id: xchain-gccstage1.make,v 1.15 2004/01/28 21:55:06 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -225,7 +225,6 @@ GCC_STAGE1_AUTOCONF = \
 	--with-local-prefix=$(CROSS_LIB_DIR) \
 	$(GCC_EXTRA_CONFIG) \
 	--disable-nls \
-	--disable-multilib \
 	--disable-threads \
 	--disable-shared \
 	--enable-languages=c \
@@ -242,6 +241,18 @@ endif
 
 ifdef PTXCONF_UCLIBC
 GCC_STAGE1_AUTOCONF	+= --disable-__cxa_atexit
+endif
+
+ifdef PTXCONF_GCC_MULTILIB
+GCC_STAGE1_AUTOCONF     += --enable-multilib
+else
+GCC_STAGE1_AUTOCONF     += --disable-multilib
+endif
+
+ifdef PTXCONF_SOFTFLOAT
+GCC_STAGE1_AUTOCONF	+= --without-float
+else
+GCC_STAGE1_AUTOCONF	+= --with-float
 endif
 
 #

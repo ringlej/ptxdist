@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.24 2003/12/23 10:46:28 robert Exp $
+# $Id: xchain-gccstage2.make,v 1.25 2004/01/28 21:55:06 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -105,7 +105,6 @@ GCC_STAGE2_AUTOCONF = \
 	$(GCC_STAGE2_AUTOCONF_THREADS) \
 	--with-headers=$(CROSS_LIB_DIR)/include \
 	--disable-nls \
-	--disable-multilib \
 	--enable-symvers=gnu \
 	--enable-target-optspace \
 	--enable-c99 \
@@ -115,6 +114,18 @@ ifdef PTXCONF_GCC_SHARED
 GCC_STAGE2_AUTOCONF	+= --enable-shared
 else
 GCC_STAGE2_AUTOCONF	+= --disable-shared
+endif
+
+ifdef PTXCONF_GCC_MULTILIB
+GCC_STAGE2_AUTOCONF	+= --enable-multilib
+else
+GCC_STAGE2_AUTOCONF	+= --disable-multilib
+endif
+
+ifdef PTXCONF_SOFTFLOAT
+GCC_STAGE2_AUTOCONF	+= --without-float
+else
+GCC_STAGE2_AUTOCONF	+= --with-float
 endif
 
 #
