@@ -3,6 +3,7 @@ menu	"Host Tools          "
 source "rules/hosttool-genext2fs.in"
 source "rules/hosttool-e2fsprogs.in"
 source "rules/hosttool-fakeroot.in"
+source "rules/hosttool-module-init-tools.in"
 source "rules/hosttool-util-linux.in"
 
 config XCHAIN_UMKIMAGE

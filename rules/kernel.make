@@ -71,8 +71,7 @@ ifndef PTXCONF_USE_EXTERNAL_KERNEL
 	fi
 endif
 
-	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
-		menuconfig
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make menuconfig $(KERNEL_MAKEVARS)
 
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
 	@if [ -f $(KERNEL_DIR)/.config ]; then \
@@ -299,6 +298,13 @@ endif
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH9_NAME)) 
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH10_NAME)) 
 
+	#
+	# We cannot rely on depmod working correctly for cross modules,
+	# so we use our own depmod. 
+	# 
+	perl -i -p -e "s,^.*DEPMOD.*=.*,DEPMOD=$(PTXCONF_PREFIX)/sbin/depmod,g" \
+		$(KERNEL_DIR)/Makefile
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -321,6 +327,10 @@ KERNEL_MAKEVARS	= \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	HOSTCC=$(HOSTCC)
 
+ifdef PTXCONF_KERNEL_IMAGE_U
+KERNEL_MAKEVARS += MKIMAGE=u-boot-mkimage.sh
+endif
+
 	# This was defined before; we leave it here for reference. [RSC]
 	# GENKSYMS=$(COMPILER_PREFIX)genksyms
 
@@ -336,12 +346,9 @@ ifndef PTXCONF_USE_EXTERNAL_KERNEL
 		exit 1;							\
 	fi
 
-	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) 		\
-		include/linux/version.h
-	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) 		\
-		oldconfig
-	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) 		\
-		dep
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make include/linux/version.h $(KERNEL_MAKEVARS)
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make oldconfig $(KERNEL_MAKEVARS)
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make dep $(KERNEL_MAKEVARS)
 endif
 	touch $@
 
@@ -358,8 +365,9 @@ endif
 $(STATEDIR)/kernel-modversions.prepare: $(STATEDIR)/kernel.prepare
 	@$(call targetinfo, $@)
 
-	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
-		$(KERNEL_DIR)/include/linux/modversions.h
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make 			\
+		$(KERNEL_DIR)/include/linux/modversions.h		\
+		$(KERNEL_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -371,7 +379,6 @@ kernel_compile: $(STATEDIR)/kernel.compile
 kernel_compile_deps =  $(STATEDIR)/kernel.prepare
 ifdef PTXCONF_KERNEL_IMAGE_U
 kernel_compile_deps += $(STATEDIR)/xchain-umkimage.install
-	KERNEL_MAKEVARS += MKIMAGE=u-boot-mkimage.sh
 endif
 
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
@@ -382,8 +389,8 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	echo 'u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	chmod +x $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) make $(KERNEL_MAKEVARS) \
-		$(KERNEL_TARGET) modules
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make $(KERNEL_TARGET) modules $(KERNEL_MAKEVARS)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -402,7 +409,10 @@ $(STATEDIR)/kernel.install:
 
 kernel_targetinstall: $(STATEDIR)/kernel.targetinstall
 
-$(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.compile
+kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
+kernel_targetinstall_deps += $(STATEDIR)/hosttool-module-init-tools.install
+
+$(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_KERNEL_INSTALL
 	mkdir -p $(ROOTDIR)/boot;				\
@@ -411,8 +421,8 @@ ifdef PTXCONF_KERNEL_INSTALL
 			install $$i $(ROOTDIR)/boot/ ;		\
 		fi;						\
 	done;							\
-	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
-		modules_install INSTALL_MOD_PATH=$(ROOTDIR)
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make 		\
+		modules_install $(KERNEL_MAKEVARS) INSTALL_MOD_PATH=$(ROOTDIR)
 endif
 	touch $@
 
