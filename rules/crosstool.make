@@ -159,7 +159,7 @@ $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 		echo "done" \
 		exit 1;	\
 	)
-
+	touch $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/gcc-$(GCC_VERSION)-glibc-$(GLIBC_VERSION)/$(PTXCONF_GNU_TARGET)/include/linux/autoconf.h
 	touch $@
 
 # ----------------------------------------------------------------------------
