@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.32 2003/09/17 13:27:09 robert Exp $
+# $Id: Makefile,v 1.33 2003/09/17 13:30:43 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -238,6 +238,7 @@ archive:
 		--exclude $(BASENAME)/src_ptx/busybox*		\
 		--exclude $(BASENAME)/bootdisk/*		\
 		--exclude $(BASENAME)/PATCHES-INCOMING		\
+		--exclude $(BASENAME)/patches			\
 		$(BASENAME)
 
 $(INSTALL_LOG): 
