@@ -104,6 +104,8 @@ netcat_targetinstall: $(STATEDIR)/netcat.targetinstall
 
 $(STATEDIR)/netcat.targetinstall: $(STATEDIR)/netcat.install
 	@$(call targetinfo, $@)
+	$(call copy_root, 0, 0, 0755, $(NETCAT_DIR)/nc, /bin/nc)
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/bin/nc
 	touch $@
 
 # ----------------------------------------------------------------------------
