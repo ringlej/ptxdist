@@ -22,7 +22,7 @@ endif
 MII-DIAG_VERSION	= 2.09
 MII-DIAG		= mii-diag-$(MII-DIAG_VERSION).orig
 MII-DIAG_SUFFIX		= tar.gz
-MII-DIAG_URL		= http://ftp.debian.org/debian/pool/main/m/mii-diag/mii-diag_$(MII-DIAG_VERSION).orig.$(MII-DIAG_SUFFIX)
+MII-DIAG_URL		= $(DEBPOOL_MIRROR)/pool/main/m/mii-diag/mii-diag_$(MII-DIAG_VERSION).orig.$(MII-DIAG_SUFFIX)
 MII-DIAG_SOURCE		= $(SRCDIR)/mii-diag_$(MII-DIAG_VERSION).orig.$(MII-DIAG_SUFFIX)
 MII-DIAG_DIR		= $(BUILDDIR)/$(MII-DIAG)
 
