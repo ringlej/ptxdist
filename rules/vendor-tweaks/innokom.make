@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: innokom.make,v 1.6 2003/10/07 10:56:05 robert Exp $
+# $Id: innokom.make,v 1.7 2003/10/09 07:43:00 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -21,7 +21,10 @@ vendor-tweaks_targetinstall: $(STATEDIR)/vendor-tweaks.targetinstall
 
 $(STATEDIR)/vendor-tweaks.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
-	
+
+	# the application resides in /opt
+	install -d $(ROOTDIR)/opt
+
 	# writable directories must be on /data (ramdisk)
 	install -d $(ROOTDIR)/data
 
@@ -54,19 +57,6 @@ endif
 	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
 
-	# generate boot script
-#	( 	echo 'setenv bootargsbasic console=ttyS0,19200 mem=64m';	\
-#		echo 'mtdparts=phys:256k,768k,8m,-';				\
-#		echo 'setenv bootargsnfs root=/dev/nfs ip=192.168.21.48';	\
-#		echo 'nfsroot=192.168.21.148:/home/kub/rootfs-ik';		\
-#		echo 'setenv bootargsmtd root=/dev/mtdblock$(partition) ro';	\
-#		echo 'setenv bootargs $(bootargsbasic) $(bootargsmtd)';		\
-#		echo 'fsload boot/fpga.bin';					\
-#		echo 'fpga load 0 0xa3000000 $(filesize)';			\
-#		echo 'fsload boot/uImage';					\
-#		echo 'bootm';							\
-#	) > $(ROOTDIR)/boot/bootscript
-	
 	touch $@
 
 # vim: syntax=make
