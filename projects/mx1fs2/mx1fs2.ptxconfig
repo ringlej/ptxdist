@@ -105,7 +105,7 @@ PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_VAR=y
-PTXCONF_VENDORTWEAKS="projects/mx1fs2/mx1fs2."
+PTXCONF_VENDORTWEAKS="projects/mx1fs2/mx1fs2.vendortweaks"
 
 #
 # Image Creation
@@ -142,7 +142,7 @@ PTXCONF_HOSTTOOLS_FAKEROOT=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/mx1fs2/mx1fs2-2.6.8.kernelconfig"
+PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/mx1fs2/mx1fs2.kernelconfig"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
