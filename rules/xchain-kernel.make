@@ -1,4 +1,4 @@
-# $Id: xchain-kernel.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# $Id: xchain-kernel.make,v 1.3 2003/06/25 12:19:05 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -296,14 +296,7 @@ $(STATEDIR)/xchain-kernel.extract: $(STATEDIR)/xchain-kernel.get $(STATEDIR)/mtd
 		patch -p1
         endif
 	# fake headers
-	# FIXME: use correct version!
-	touch   $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL)/include/linux/autoconf.h
-	echo "#define UTS_RELEASE \"2.4.18\"" >				\
-		$(BUILDDIR)/xchain-kernel/tmp/$(KERNEL)/include/linux/version.h;
-	echo "#define LINUX_VERSION_CODE 132114" >>                     \
-		$(BUILDDIR)/xchain-kernel/tmp/$(KERNEL)/include/linux/version.h;
-	echo "#define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + (c))" >> \
-	        $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL)/include/linux/version.h;
+	make -C $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL) include/linux/version.h
 	# we are only interested in include/ here 
 	cp -a $(BUILDDIR)/xchain-kernel/tmp/$(KERNEL)/include $(BUILDDIR)/xchain-kernel/
 	rm -fr $(BUILDDIR)/xchain-kernel/tmp
@@ -335,10 +328,8 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 				-d $(PTXCONF_PREFIX)
         endif
 	install .kernelconfig $(KERNEL_DIR)/.config	
-        ifeq (y,$(PTXCONF_ARCH_ARM))
-	perl -p -i -e 's/^ARCH := .*/ARCH := arm/' $(KERNEL_DIR)/Makefile
-	perl -p -i -e 's/^CROSS_COMPILE .*/CROSS_COMPILE   = arm-linux-/' $(KERNEL_DIR)/Makefile
-        endif
+	perl -p -i -e 's/^ARCH := .*/ARCH := $(PTXCONF_ARCH)/' $(KERNEL_DIR)/Makefile
+	perl -p -i -e 's/^CROSS_COMPILE .*/CROSS_COMPILE   = $(PTXCONF_GNU_TARGET)-/' $(KERNEL_DIR)/Makefile
 	cd $(KERNEL_DIR) && make oldconfig
 	cd $(KERNEL_DIR) && PATH=$(PTXCONF_PREFIX)/bin:$$PATH make dep
 	touch $@
@@ -358,8 +349,6 @@ $(STATEDIR)/xchain-kernel.prepare: $(STATEDIR)/xchain-kernel.extract
 	cd $(BUILDDIR)/xchain-kernel/include/asm && ln -s arch-pxa arch 
         endif
         endif
-	# fake autoconf.h
-	touch $(BUILDDIR)/xchain-kernel/include/linux/autoconf.h
 	touch $@
 
 
@@ -414,19 +403,10 @@ $(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.install
 	@$(call targetinfo, kernel.targetinstall)
         ifneq (y, $(PTXCONF_DONT_COMPILE_KERNEL))
 	mkdir -p $(ROOTDIR)/boot
-#	#
-#	# FIXME: we need to change the name to reflect the kernel version
-#	# FIXME: change this to be architecture independend
         ifeq (y,$(PTXCONF_KERNEL_INSTALL))
-        ifeq (y,$(PTXCONF_ARCH_X86))
-	install $(KERNEL_DIR)/arch/i386/boot/bzImage $(ROOTDIR)/boot
-        endif
-        ifeq (y,$(PTXCONF_ARCH_ARM))
 	mkdir -p $(ROOTDIR)/boot
 	install $(KERNEL_TARGET_PATH) $(ROOTDIR)/boot
-        endif
 	$(KERNEL_ENVIRONMENT) make -C $(KERNEL_DIR) modules_install INSTALL_MOD_PATH=$(ROOTDIR)
-#	#
         endif # PTXCONF_KERNEL_INSTALL
         endif # PTXCONF_DONT_COMPILE_KERNEL
 	touch $@
