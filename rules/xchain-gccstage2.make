@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage2.make,v 1.6 2003/07/16 04:23:28 mkl Exp $
+# $Id: xchain-gccstage2.make,v 1.7 2003/08/11 21:25:44 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -68,7 +68,6 @@ GCC_STAGE2_AUTOCONF = \
 	--disable-shared \
 	--enable-multilib \
 	--enable-target-optspace \
-	--disable-threads \
 	--with-gnu-ld \
 	--enable-languages="c,c++" \
 	--with-headers=$(CROSS_LIB_DIR)/include \
