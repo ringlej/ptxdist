@@ -92,12 +92,12 @@ use
 
 to build a specific archive.
 
-(sleeping a few seconds ...)
+(press key to continue)
 
 ---------------------------------------------
 
 _EOF_
-sleep 10;
+read
 }
 elif [ "$RELEASE" != "" ]; then {
 cat << _EOF_
@@ -110,12 +110,14 @@ with a specific RELEASE TAG.
 
 TAG: $RELEASE
 
-Hit Strg+C to abort... sleeping a few seconds
+Hit Strg+C to abort...
+
+(press key to continue)
 
 ---------------------------------------------
 
 _EOF_
-sleep 10;
+read
 
 echo $ARCH_BASENAME > ../release.lck
 cd $TOPDIR/..
@@ -192,18 +194,19 @@ echo "constructing ptxdist archive"
 # echo "WHRERE AM I ? $(pwd)"
 echo "$ARCH_BASENAME"
 
-$TAR -C $TOPDIR/.. -zcvf $PTXDIST_TAR 	\
+$TAR -C $TOPDIR/.. -zcvf $PTXDIST_TAR 			\
 	--exclude CVS					\
-	--exclude $ARCH_BASENAME/build/*		      \
-	--exclude $ARCH_BASENAME/state/*		      \
-	--exclude $ARCH_BASENAME/src/*		      \
-	--exclude $ARCH_BASENAME/src 		      \
-	--exclude $ARCH_BASENAME/root/*		      \
-	--exclude $ARCH_BASENAME/local/*		      \
-	--exclude $ARCH_BASENAME/bootdisk/*  	      \
-	--exclude $ARCH_BASENAME/PATCHES-INCOMING	      \
-	--exclude $ARCH_BASENAME/patches		      \
-	--exclude $ARCH_BASENAME/Documentation/manual      \
+	--exclude $ARCH_BASENAME/build/*		\
+	--exclude $ARCH_BASENAME/state/*		\
+	--exclude $ARCH_BASENAME/src/*			\
+	--exclude $ARCH_BASENAME/src 			\
+	--exclude $ARCH_BASENAME/root/*			\
+	--exclude $ARCH_BASENAME/local/*		\
+	--exclude $ARCH_BASENAME/bootdisk/*		\
+	--exclude $ARCH_BASENAME/PATCHES-INCOMING	\
+	--exclude $ARCH_BASENAME/patches		\
+	--exclude $ARCH_BASENAME/Documentation/manual	\
+	--exclude "\.#*"				\
 	$ARCH_BASENAME
 
 # -------------------------------------------
