@@ -91,7 +91,7 @@ source "rules/e2fsprogs.in"
 source "rules/grub.in"
 source "rules/lilo.in"
 source "rules/cramfs.in"
-source "rules/bonnie++.in"
+source "rules/bonniexx.in"
 
 endmenu
 
