@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.15 2003/11/05 00:58:41 mkl Exp $
+# $Id: xchain-kernel.make,v 1.16 2003/11/17 03:45:05 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -129,6 +129,7 @@ xchain-kernel_install: $(STATEDIR)/xchain-kernel.install
 
 $(STATEDIR)/xchain-kernel.install: $(STATEDIR)/xchain-kernel.prepare
 	@$(call targetinfo, $@)
+	@$(call clean, $(CROSS_LIB_DIR)/include/asm)
 	install -d $(CROSS_LIB_DIR)
 	cp -dr $(XCHAIN_KERNEL_BUILDDIR)/include $(CROSS_LIB_DIR)
 	touch $@
