@@ -1,3 +1,12 @@
+2003-08-14 Robert Schwebel <r.schwebel@pengutronix.de>
+	* Preparation for release
+	* glibc: some fixes to find out where the _G_config.h problem comes
+	  from. This is still not resolved but I release anyway to test it
+	  on other systems; currently the generic configuration is reported
+	  to work on Debian stable and testing systems but fails on unstable
+	  here. More research has to be done...
+	* 0.3.23 released
+
 2003-08-08 Robert Schwebel <r.schwebel@pengutronix.de>
 	* Config: i386-generic-glibc configuration added
 	* rayonic config: use GNU libio (workaround for _G_config.h not
