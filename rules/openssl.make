@@ -1,4 +1,4 @@
-# $Id: openssl.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: openssl.make,v 1.2 2003/05/04 18:15:39 robert Exp $
 #
 # (c) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -17,8 +17,8 @@ endif
 #
 # Paths and names 
 #
-OPENSSL			= openssl-0.9.7
-OPENSSL_URL 		= http://www.openssl.org/foo/bar/$(OPENSSL).tar.gz
+OPENSSL			= openssl-0.9.7b
+OPENSSL_URL 		= http://www.openssl.org/source/$(OPENSSL).tar.gz
 OPENSSL_SOURCE		= $(SRCDIR)/$(OPENSSL).tar.gz
 OPENSSL_DIR 		= $(BUILDDIR)/$(OPENSSL)
 OPENSSL_EXTRACT		= gzip -dc
