@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: oprofile.make,v 1.3 2004/06/23 15:33:58 rsc Exp $
+# $Id: oprofile.make,v 1.4 2004/06/23 22:53:05 rsc Exp $
 #
 # Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-OPROFILE_VERSION	= 0.6
+OPROFILE_VERSION	= 0.8
 OPROFILE		= oprofile-$(OPROFILE_VERSION)
 OPROFILE_SUFFIX		= tar.gz
 OPROFILE_URL		= ftp://ftp.sourceforge.net/pub/sourceforge/oprofile/$(OPROFILE).$(OPROFILE_SUFFIX)
@@ -68,7 +68,6 @@ oprofile_prepare: $(STATEDIR)/oprofile.prepare
 oprofile_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/popt.install \
-	$(STATEDIR)/kernel.prepare \
 	$(STATEDIR)/oprofile.extract
 
 OPROFILE_PATH	=  PATH=$(CROSS_PATH)
@@ -81,7 +80,7 @@ OPROFILE_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 OPROFILE_AUTOCONF	+= --build=$(GNU_HOST)
 OPROFILE_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
-OPROFILE_AUTOCONF	+= --with-linux=$(KERNEL_DIR)
+OPROFILE_AUTOCONF	+= --with-kernel-support
 #
 # note: we must use here the kernel's makevars (ARCH=fo CROSS_COMPILE=bar)
 #       (see kernel.make) because oprofile includes the kernel's makefile
