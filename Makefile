@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.3 2003/04/24 11:46:24 jst Exp $
+# $Id: Makefile,v 1.4 2003/05/13 11:40:10 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -116,27 +116,27 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 
 clean: rootclean
 	@echo
-	@echo -n "cleaning build dir..............."
-	@for i in $$(ls -I CVS $(BUILDDIR)); do rm -rf "$$i"; done
+	@echo -n "cleaning build dir............... "
+	@for i in $$(ls -I CVS $(BUILDDIR)); do echo -n $$i' '; rm -rf $(BUILDDIR)/"$$i"; done
 	@echo "done."
-	@echo -n "cleaning state dir..............."
-	@for i in $$(ls -I CVS $(STATEDIR)); do rm -rf "$$i"; done
+	@echo -n "cleaning state dir............... "
+	@for i in $$(ls -I CVS $(STATEDIR)); do rm -rf $(STATEDIR)/"$$i"; done
 	@echo "done."
-	@echo -n "cleaning scripts dir............."
+	@echo -n "cleaning scripts dir............. "
 	@make -s -C scripts/kconfig clean
 	@make -s -C scripts/lxdialog clean
 	@echo "done."
-	@echo -n "cleaning bootdisk dir............"
-	@for i in $$(ls -I CVS $(BOOTDISKDIR)); do rm -rf "$$i"; done
+	@echo -n "cleaning bootdisk dir............ "
+	@for i in $$(ls -I CVS $(BOOTDISKDIR)); do echo -n $$i' '; rm -rf $(BOOTDISKDIR)/"$$i"; done
 	@echo "done."
 	@echo
-	
+
 rootclean:
 	@echo
-	@echo -n "cleaning root/ directory........."
-	@for i in $$(ls -I CVS $(ROOTDIR)); do rm -rf "$$i"; done
+	@echo -n "cleaning root/ directory......... "
+	@for i in $$(ls -I CVS $(ROOTDIR)); do echo -n $$i' '; rm -rf $(ROOTDIR)/"$$i"; done
 	@echo "done."
-	@echo -n "cleaning state/*.targetinstall..."
+	@echo -n "cleaning state/*.targetinstall... "
 	@rm -f $(STATEDIR)/*.targetinstall
 	@echo "done."	
 	@echo
