@@ -38,15 +38,20 @@ flash_get: $(STATEDIR)/flash.get
 
 flash_get_deps	=  $(FLASH_SOURCE)
 flash_get_deps	+= $(FLASH_PATCH_SOURCE)
+flash_get_deps	+= $(STATEDIR)/flash-patches.get
 
 $(STATEDIR)/flash.get: $(flash_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
+$(STATEDIR)/flash-patches.get:
+	@$(call targetinfo, $@)
+	@$(call get_patches, $(FLASH))
+	touch $@
+
 $(FLASH_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(FLASH_URL))
-	@$(call get_patches, $(FLASH))
 
 $(FLASH_PATCH_SOURCE):
 	@$(call targetinfo, $@)
@@ -117,7 +122,7 @@ flash_compile: $(STATEDIR)/flash.compile
 
 $(STATEDIR)/flash.compile: $(STATEDIR)/flash.prepare 
 	@$(call targetinfo, $@)
-	$(FLASH_PATH) make -C $(FLASH_DIR)
+	$(FLASH_PATH) $(FLASH_ENV) make -C $(FLASH_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
