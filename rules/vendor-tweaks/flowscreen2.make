@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: flowscreen2.make,v 1.2 2004/06/07 18:16:27 rsc Exp $
+# $Id: flowscreen2.make,v 1.3 2004/06/21 16:23:32 sha Exp $
 #
 # Copyright (C) 2004 by Pengutronix, Robert Schwebel
 #          
@@ -39,7 +39,9 @@ $(STATEDIR)/flowscreen2.targetinstall:
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
 
 	mkdir -p $(ROOTDIR)/data
-
+	
+	mkfs.jffs2 -d root --eraseblock=131072 -o root.jffs2 --pad=5242880
+	
 	touch $@
 
 # vim: syntax=make
