@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.11 2003/08/06 21:21:13 robert Exp $
+# $Id: Makefile,v 1.12 2003/08/08 16:26:19 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -134,12 +134,13 @@ innokom_config:
 rayonic_config:
 	@echo "copying rayonic config" $(call latestconfig, ptxconfig-rayonic)
 	@cp $(call latestconfig, ptxconfig-rayonic) .config
+	@cp $(call latestconfig, rtaiconfig-rayonic) .rtaiconfig
 
 # ----------------------------------------------------------------------------
 
 distclean: clean
 	@echo -n "cleaning .config, .kernelconfig.. "
-	@rm -f .config* .kernelconfig .tmp*
+	@rm -f .config* .kernelconfig .tmp* .rtaiconfig
 	@echo "done."
 	@echo
 
@@ -155,14 +156,14 @@ clean: rootclean
 	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.kconfig.ptx  -C scripts/kconfig clean
 	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx -C scripts/lxdialog clean
 	@echo "done."
-	@echo -n "cleaning bootdisk dir............ "
-	@for i in $$(ls -I CVS $(BOOTDISKDIR)); do echo -n $$i' '; rm -rf $(BOOTDISKDIR)/"$$i"; done
+	@echo -n "cleaning bootdisk image.......... "
+	@rm -f $(TOPDIR)/boot.image
 	@echo "done."
 	@echo -n "cleaning dependency tree ........ "
 	@rm -f $(DEP_OUTPUT) $(DEP_TREE_PS)
 	@echo "done."
 	@echo -n "cleaning logfile................. "
-	@rm -f logfile
+	@rm -f logfile*
 	@echo "done."
 	@echo
 
