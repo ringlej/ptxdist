@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gccstage1.make,v 1.17 2004/03/31 20:50:45 mkl Exp $
+# $Id: xchain-gccstage1.make,v 1.18 2004/07/08 16:48:17 bsp Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -20,7 +20,7 @@ endif
 # NB: make s*cks
 #
 GCC			=  gcc-$(GCC_VERSION)
-GCC_URL			=  ftp://ftp.gnu.org/pub/gnu/gcc/$(GCC).tar.gz
+GCC_URL			=  ftp://ftp.gnu.org/pub/gnu/gcc/gcc-$(GCC_VERSION)/$(GCC).tar.gz
 GCC_SOURCE		=  $(SRCDIR)/$(GCC).tar.gz
 GCC_DIR			=  $(BUILDDIR)/$(GCC)
 GCC_STAGE1_DIR		=  $(BUILDDIR)/$(GCC)-$(PTXCONF_GNU_TARGET)-stage1
