@@ -16,6 +16,8 @@ config ROOTFS_ETC
 	bool
 	prompt "Use generic template for /etc"
 	default y
+        select BB_CONFIG_GETTY          if BUSYBOX
+        select BB_CONFIG_RUN_PARTS      if BUSYBOX
 	help
 	  When enabled, this option copies the files from 
 	  $(TOPDIR)/projects/generic/etc to the target root filesystem. 
