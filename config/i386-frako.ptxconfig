@@ -54,7 +54,7 @@ PTXCONF_TARGET_CONFIG_FILE="ix86.dat"
 #
 PTXCONF_ARCH="i386"
 PTXCONF_ARCH_USERSPACE="i386"
-PTXCONF_GNU_TARGET="i586-linux"
+PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
 PTXCONF_PREFIX="/tmp/ptxdist-local-frako"
 PTXCONF_ROOT=""
 
@@ -62,8 +62,11 @@ PTXCONF_ROOT=""
 # Cross Toolchain     
 #
 PTXCONF_BUILD_CROSSCHAIN=y
+PTXCONF_BINUTILS_2_13_2_1=y
+# PTXCONF_BINUTILS_2_14 is not set
 # PTXCONF_GCC_2_95_3 is not set
 PTXCONF_GCC_3_2_3=y
+# PTXCONF_GCC_3_3_2 is not set
 PTXCONF_GCC_3=y
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_NASM is not set
@@ -84,9 +87,9 @@ PTXCONF_VENDORTWEAKS=""
 #
 # Debugging Tools     
 #
-# PTXCONF_BUILD_XGDB is not set
-# PTXCONF_BUILD_GDBSERVER is not set
-# PTXCONF_BUILD_GDB is not set
+# PTXCONF_XGDB is not set
+# PTXCONF_GDBSERVER is not set
+# PTXCONF_GDB is not set
 # PTXCONF_KSYMOOPS is not set
 # PTXCONF_LTT is not set
 # PTXCONF_LIBBFD is not set
@@ -94,8 +97,9 @@ PTXCONF_VENDORTWEAKS=""
 # PTXCONF_STRACE is not set
 
 #
-# Host Tools           
+# Host Tools          
 #
+PTXCONF_GENEXT2FS=y
 # PTXCONF_FAKEROOT is not set
 
 #
@@ -111,6 +115,7 @@ PTXCONF_KERNEL_CONFIG="kernel-2.4.22-frako"
 # PTXCONF_KERNEL_2_4_20 is not set
 # PTXCONF_KERNEL_2_4_21 is not set
 PTXCONF_KERNEL_2_4_22=y
+# PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_RMK is not set
 # PTXCONF_KERNEL_RMK_PXA is not set
 # PTXCONF_KERNEL_RMK_DS is not set
@@ -148,11 +153,13 @@ PTXCONF_GLIBC=y
 #
 # C Library options
 #
+# PTXCONF_GLIBC_2_3_2 is not set
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
 # PTXCONF_UCLIBC_0_9_19 is not set
 # PTXCONF_UCLIBC_0_9_20 is not set
+# PTXCONF_UCLIBC_0_9_23 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -840,7 +847,6 @@ PTXCONF_GRUB_MD5=y
 # PTXCONF_GRUB_BOOTDISK is not set
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
-PTXCONF_GENEXT2FS=y
 
 #
 # Applications ---    
@@ -889,6 +895,11 @@ PTXCONF_GENEXT2FS=y
 # ncurses          
 #
 # PTXCONF_NCURSES is not set
+
+#
+# termcap          
+#
+# PTXCONF_TERMCAP is not set
 
 #
 # Berkeley db 4    
