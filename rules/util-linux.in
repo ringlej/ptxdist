@@ -9,4 +9,9 @@ config UTLNX_MKSWAP
         prompt "mkswap"
 	depends on UTLNX
 
+config UTLNX_SWAPON
+	bool
+	prompt "swapon"
+	depends on UTLNX
+
 endmenu
