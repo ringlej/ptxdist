@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gdb.make,v 1.4 2003/11/17 03:24:42 mkl Exp $
+# $Id: gdb.make,v 1.5 2003/12/18 17:01:57 bsp Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
@@ -31,7 +31,7 @@ endif
 #
 # Paths and names 
 #
-GDB_VERSION	= 5.3
+GDB_VERSION	= 6.0
 GDB		= gdb-$(GDB_VERSION)
 GDB_SUFFIX	= tar.gz
 GDB_URL		= ftp://ftp.gnu.org/pub/gnu/gdb/$(GDB).$(GDB_SUFFIX)
