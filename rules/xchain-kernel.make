@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.25 2004/03/02 15:42:50 robert Exp $
+# $Id: xchain-kernel.make,v 1.26 2004/03/28 10:58:18 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -27,7 +27,11 @@ XCHAIN_KERNEL_BUILDDIR	= $(BUILDDIR)/xchain-$(KERNEL)
 
 xchain-kernel_get: $(STATEDIR)/xchain-kernel.get
 
-$(STATEDIR)/xchain-kernel.get: $(KERNEL_SOURCE)
+xchain-kernel_get_deps = \
+	$(KERNEL_SOURCE) \
+	$(STATEDIR)/kernel-patchstack.get
+
+$(STATEDIR)/xchain-kernel.get: $(xchain-kernel_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -37,11 +41,7 @@ $(STATEDIR)/xchain-kernel.get: $(KERNEL_SOURCE)
 
 xchain-kernel_extract: $(STATEDIR)/xchain-kernel.extract
 
-xchain-kernel_extract_deps = \
-	$(STATEDIR)/xchain-kernel-base.extract \
-	$(xchain_kernel_patchstack_get_deps)
-
-$(STATEDIR)/xchain-kernel.extract: $(xchain-kernel_extract_deps)
+$(STATEDIR)/xchain-kernel.extract: $(STATEDIR)/xchain-kernel-base.extract
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -99,8 +99,11 @@ endif
 # Prepare
 # ----------------------------------------------------------------------------
 
-xchain-kernel_prepare: $(STATEDIR)/xchain-kernel.prepare \
-$(STATEDIR)/xchain-kernel-patchstack.extract
+xchain-kernel_prepare_deps = \
+	$(STATEDIR)/xchain-kernel.prepare \
+	$(STATEDIR)/xchain-kernel-patchstack.extract
+
+xchain-kernel_prepare: $(xchain-kernel_prepare_deps)
 
 $(STATEDIR)/xchain-kernel.prepare: $(STATEDIR)/xchain-kernel.extract
 	@$(call targetinfo, $@)
