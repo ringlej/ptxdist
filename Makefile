@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.52 2003/11/17 03:19:25 mkl Exp $
+# $Id: Makefile,v 1.53 2003/11/17 06:30:20 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -86,18 +86,23 @@ help:
 	@echo
 	@echo "Syntax:"
 	@echo
-	@echo "  make menuconfig       Configure the whole system"
+	@echo "  make menuconfig              Configure the whole system"
 	@echo
-	@echo "  make get              Download (most) of the needed packets"
-	@echo "  make extract          Extract all needed archives"
-	@echo "  make prepare          Prepare the configured system for compilation"
-	@echo "  make compile          Compile the packages"
-	@echo "  make install          Install to rootdirectory"
-	@echo "  make clean            Remove everything but local/"
-	@echo "  make rootclean        Remove root directory contents"
-	@echo "  make distclean        Clean everything"
+	@echo "  make get                     Download (most) of the needed packets"
+	@echo "  make extract                 Extract all needed archives"
+	@echo "  make prepare                 Prepare the configured system for compilation"
+	@echo "  make compile                 Compile the packages"
+	@echo "  make install                 Install to rootdirectory"
+	@echo "  make clean                   Remove everything but local/"
+	@echo "  make rootclean               Remove root directory contents"
+	@echo "  make distclean               Clean everything"
 	@echo
-	@echo "  make world            Make-everything-and-be-happy"
+	@echo "  make world                   Make-everything-and-be-happy"
+	@echo
+	@echo "Some 'helpful' targets:"
+	@echo
+	@echo "  make virtual-xchain_install  build the toolchain only"
+	@echo "  make archive-toolchain       dito, but do also create a tarball"
 	@echo
 	@echo "Calling these targets affects the whole system. If you want to"
 	@echo "do something for a packet do 'make packet_<action>'."
