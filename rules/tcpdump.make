@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: tcpdump.make,v 1.2 2004/03/31 16:27:52 mkl Exp $
+# $Id: tcpdump.make,v 1.3 2004/06/23 15:37:49 rsc Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-TCPDUMP_VERSION		= 3.8.1
+TCPDUMP_VERSION		= 3.8.3
 TCPDUMP			= tcpdump-$(TCPDUMP_VERSION)
 TCPDUMP_SUFFIX		= tar.gz
 TCPDUMP_URL		= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX)
@@ -83,6 +83,13 @@ TCPDUMP_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--prefix=$(CROSS_LIB_DIR)
+
+# while cross compiling configure cannot determine kernel version
+TCPDUMP_AUTOCONF += ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR)
+
+ifdef PTXCONF_TCPDUMP_DISABLE_CRYPTO
+TCPDUMP_AUTOCONF += --without-crypto
+endif
 
 $(STATEDIR)/tcpdump.prepare: $(tcpdump_prepare_deps)
 	@$(call targetinfo, $@)
