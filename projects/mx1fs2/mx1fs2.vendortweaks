@@ -20,17 +20,11 @@ flowscreen2_targetinstall: $(STATEDIR)/flowscreen2.targetinstall
 $(STATEDIR)/flowscreen2.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
-#	copy /etc template
-	cp -a $(PROJECTDIR)/etc $(ROOTDIR)/etc
-
-#	remove CVS stuff
+	# remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
 	rm -f $(ROOTDIR)/JUST_FOR_CVS
 
-#	make scripts executable
-	chmod 755 $(ROOTDIR)/etc/init.d/*
-
-#	other config data
+	# other config data
 	rm -rf $(ROOTDIR)/etc/proftpd.conf
 	rm -f $(ROOTDIR)/etc/rc.d/networking
 
@@ -39,11 +33,8 @@ $(STATEDIR)/flowscreen2.targetinstall:
 	install -d $(ROOTDIR)/var/log
 	install -d $(ROOTDIR)/var/lock
 
-#	create /etc/rc.d links
-	mkdir -p $(ROOTDIR)/etc/rc.d
-	ln -sf ../init.d/banner $(ROOTDIR)/etc/rc.d/S00_banner
-
-	$(PTXCONF_PREFIX)/bin/mkfs.jffs2 -d root --eraseblock=131072 -o root.jffs2 --pad=5242880
+	# create image 
+	$(PTXCONF_PREFIX)/bin/mkfs.jffs2 -d root --eraseblock=131072 -o $(TOPDIR)/images/root.jffs2 --pad=5242880
 	
 	touch $@
 
