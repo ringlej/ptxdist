@@ -8,6 +8,7 @@ config FIGLET
 
 config FPGAEDIT
 	bool
+	select READLINE
 	prompt "Compile fpgaedit"
 	help
 	  fpgaedit is a command line tool which is able to open
