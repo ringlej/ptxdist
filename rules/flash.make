@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: flash.make,v 1.4 2003/12/23 10:51:35 robert Exp $
+# $Id: flash.make,v 1.5 2004/08/23 09:33:02 rsc Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -134,7 +134,10 @@ $(STATEDIR)/flash.install: $(STATEDIR)/flash.compile
 
 flash_targetinstall: $(STATEDIR)/flash.targetinstall
 
-$(STATEDIR)/flash.targetinstall: $(STATEDIR)/flash.install
+flash_targetinstall_deps =  $(STATEDIR)/flash.install
+flash_targetinstall_deps += $(STATEDIR)/ncurses.targetinstall
+
+$(STATEDIR)/flash.targetinstall: $(flash_targetinstall_deps)
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/usr/bin
 	install $(FLASH_DIR)/flash $(ROOTDIR)/usr/bin

@@ -2,6 +2,7 @@ menu	"Flash               "
 
 config FLASH
 	bool
+	select NCURSES
 	prompt "flash"
 	
 endmenu
