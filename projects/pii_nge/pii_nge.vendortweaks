@@ -23,6 +23,9 @@ $(STATEDIR)/pii_nge.targetinstall:
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
 	rm -f $(ROOTDIR)/JUST_FOR_CVS
 
+	# copy template
+	cp -a $(TOPDIR)/projects/generic/etc/* $(ROOTDIR)/etc/
+
 	#  generate version stamps
 	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@PATCHLEVEL@,$(PATCHLEVEL),g" $(ROOTDIR)/etc/init.d/banner
