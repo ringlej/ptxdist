@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.13 2003/11/02 13:48:16 mkl Exp $
+# $Id: kernel.make,v 1.14 2003/11/02 23:46:23 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -151,6 +151,23 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
 		dep
 
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Modversions-Prepare
+# ----------------------------------------------------------------------------
+
+#
+# Some packages (like rtnet.) need modversions.h
+#
+# we build it only when needed cause it can be build only if kernel modules
+# are selected
+#
+$(STATEDIR)/kernel-modversions.prepare: $(STATEDIR)/kernel.prepare
+	@$(call targetinfo, $@)
+
+	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
+		$(KERNEL_DIR)/include/linux/modversions.h
 	touch $@
 
 # ----------------------------------------------------------------------------
