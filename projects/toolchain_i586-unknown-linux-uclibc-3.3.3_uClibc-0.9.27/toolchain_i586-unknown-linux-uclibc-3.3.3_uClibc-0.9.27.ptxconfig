@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.1-cvs
-# Sat Mar  5 12:34:39 2005
+# Mon Mar  7 21:35:41 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -66,8 +66,8 @@ PTXCONF_TARGET_CONFIG_FILE="i586.dat"
 #
 # ---
 #
-PTXCONF_ARCH="i586"
-PTXCONF_ARCH_USERSPACE="i586"
+PTXCONF_ARCH="i386"
+PTXCONF_ARCH_USERSPACE="i386"
 PTXCONF_PREFIX="/opt/crosstool-0.28-rc37"
 PTXCONF_ROOT=""
 
