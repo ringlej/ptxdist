@@ -4,8 +4,14 @@ config RTNET
 	depends on EXP
 
 config RTNET_3C59X
-	bool "build 3Com 59x driver"
+	bool "build 3Com 59x driver (see help)"
 	depends on RTNET
+	help
+		This driver is probably not real-time safe! Under certain conditions
+		it can cause interrupt locks of up to 1 second (issue_and_wait). We
+		need a rewrite of critical parts, but we are lacking the knowledge
+		about the hardware details (e.g. how long does a normal delay take =>
+		apply this value and throw an error message on timeouts).
 
 config RTNET_8139
 	bool "build Realtek 8139 driver"
@@ -23,7 +29,7 @@ config RTNET_VIA_RHINE
 	bool "build VIA Rhine driver"
 	depends on RTNET
 
-config RTNET_loopback
+config RTNET_LOOPBACK
 	bool "build loopback driver"
 	depends on RTNET
 
