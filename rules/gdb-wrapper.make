@@ -68,13 +68,13 @@ gdb-wrapper_install: $(STATEDIR)/gdb-wrapper.install
 $(STATEDIR)/gdb-wrapper.install:
 	@$(call targetinfo, $@)
 
-# let gdb find the target libraries for remote cross debugging
+	# let gdb find the target libraries for remote cross debugging
 	install -d $(PTXCONF_PREFIX)/etc
 	rm -f $(PTXCONF_PREFIX)/etc/gdbrc
 	echo "set solib-search-path $(ROOTDIR)/lib:$(ROOTDIR)/usr/lib" >> $(PTXCONF_PREFIX)/etc/gdbrc
 	echo "set solib-absolute-prefix $(ROOTDIR)" >> $(PTXCONF_PREFIX)/etc/gdbrc
 
-# make gdb wrapper
+	# make gdb wrapper
 	install -d $(PTXCONF_PREFIX)/bin
 	rm -f $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossgdb
 	echo "#!/bin/sh" >> \
@@ -83,7 +83,7 @@ $(STATEDIR)/gdb-wrapper.install:
 		$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossgdb
 	chmod 755 $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossgdb
 
-# make ddd wrapper
+	# make ddd wrapper
 	rm -f $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossddd
 	echo "#!/bin/sh" >> \
 		$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossddd
