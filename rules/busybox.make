@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.23 2004/03/31 20:50:45 mkl Exp $
+# $Id: busybox.make,v 1.24 2004/04/15 14:34:21 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-BUSYBOX_VERSION		= 1.00-pre8
+BUSYBOX_VERSION		= 1.00-pre10
 BUSYBOX			= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX		= tar.bz2
 BUSYBOX_URL		= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
