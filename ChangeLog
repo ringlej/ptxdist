@@ -1,3 +1,9 @@
+2003-10-23 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* 0.4.0 released: this is the same as 0.3.25, but starts 
+	  a new stable series. Next step is that we merge the 
+	  feature-branch into cvs head and open up a new series. 
+
 2003-10-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* glibc: tweaked xchain to not install target binaries in crosschain
