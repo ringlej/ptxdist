@@ -80,7 +80,10 @@ CROSSTOOL_ENV 	=  $(CROSS_ENV)
 
 # FIXME: where do we get this from? 
 CROSSTOOL_TARGET_CFLAGS		=  -O
+# BSP: I like --with-cpu=strongarm on my x86...
+ifdef PTXCONF_ARCH_ARM
 CROSSTOOL_GCC_EXTRA_CONFIG	=  "--with-float=soft --with-cpu=strongarm"
+endif
 
 CROSSTOOL_GCCLANG		=  c
 ifdef PTXCONF_CROSSTOOL_GCCLANG_CC
