@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ncurses.make,v 1.15 2004/01/20 10:54:50 robert Exp $
+# $Id: ncurses.make,v 1.16 2004/08/19 13:01:24 rsc Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -122,8 +122,8 @@ $(STATEDIR)/ncurses.compile: $(STATEDIR)/ncurses.prepare
 # it's not good to pass target CFLAGS to the host compiler :)
 # so override these
 #
-	$(NCURSES_PATH) make -C $(NCURSES_DIR)/ncurses CFLAGS='' CXXFLAGS='' make_hash make_keys
-	$(NCURSES_PATH) make -C $(NCURSES_DIR)
+	cd $(NCURSES_DIR)/ncurses && $(NCURSES_PATH) make CFLAGS='' CXXFLAGS='' make_hash make_keys
+	cd $(NCURSES_DIR) && $(NCURSES_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
