@@ -1,0 +1,18 @@
+menu    "ethereal            "
+
+config ETHEREAL
+        bool
+        prompt "Compile ethereal"
+	select LIBPCAP
+
+config ETHEREAL_ETHEREAL
+	bool 
+	prompt "Gtk based ethereal"
+	depends on ETHEREAL
+
+config ETHEREAL_TETHEREAL
+	bool
+	prompt "Text based tethereal"
+	depends on ETHEREAL
+
+endmenu

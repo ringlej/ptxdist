@@ -1,0 +1,17 @@
+menu    "sysutils            "
+
+config SYSUTILS
+        bool
+        prompt "Compile sysutils" 
+
+config SYSUTILS_LSBUS
+	bool
+	prompt "  install lsbus"
+	depends on SYSUTILS
+
+config SYSUTILS_SYSTOOL
+	bool
+	prompt "  install systool"
+	depends on SYSUTILS
+
+endmenu
