@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.19 2004/02/04 08:46:42 robert Exp $
+# $Id: kernel.make,v 1.20 2004/02/04 22:27:44 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -373,5 +373,18 @@ endif
 kernel_clean:
 	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-* $(KERNEL_DIR) \
 	       $(STATEDIR)/kernel-patchstack.get
+
+	cd $(TOPDIR)/feature-patches && (				\
+		rm -f $(PTXCONF_KERNEL_PATCH1_NAME);			\
+		rm -f $(PTXCONF_KERNEL_PATCH2_NAME);			\
+		rm -f $(PTXCONF_KERNEL_PATCH3_NAME);			\
+		rm -f $(PTXCONF_KERNEL_PATCH4_NAME);			\
+		rm -f $(PTXCONF_KERNEL_PATCH5_NAME);			\
+		rm -f $(PTXCONF_KERNEL_PATCH6_NAME);			\
+		rm -f $(PTXCONF_KERNEL_PATCH7_NAME);			\
+		rm -f $(PTXCONF_KERNEL_PATCH8_NAME);			\
+		rm -f $(PTXCONF_KERNEL_PATCH9_NAME);			\
+		rm -f $(PTXCONF_KERNEL_PATCH10_NAME);			\
+	)
 
 # vim: syntax=make
