@@ -72,6 +72,11 @@ choice
 	config ARM_ARCH_ATMEL
 		bool "atmel (little endian)"
 		depends on ARCH_ARM_NOMMU
+
+	config ARM_ARCH_EPXA
+		bool "Excalibur (little endian)"
+		depends on ARCH_ARM
+		
 endchoice
 
 choice 
@@ -84,6 +89,51 @@ choice
 	config MIPS_ARCH_LE
 		bool "mipsel (little endian)"
 endchoice
+=======
+config ARCH
+	string
+	default "arm"  if ARCH_ARM
+	default "i386" if ARCH_X86
+>>>>>>> 1.1.1.1
+=======
+choice 
+=======
+choice
+>>>>>>> 1.40.2.6
+=======
+choice 
+>>>>>>> 1.41
+	prompt "ARM architecture"
+	depends on ARCH_ARM || ARCH_ARM_NOMMU
+
+	config ARM_ARCH_PXA
+		bool "pxa (little endian)"
+		depends on ARCH_ARM
+
+	config ARM_ARCH_IXP2000
+		bool "ixp2000 (big endian)"
+		depends on ARCH_ARM
+
+	config ARM_ARCH_NETARM
+		bool "net+arm (little endian)"
+		depends on ARCH_ARM_NOMMU
+		
+	config ARM_ARCH_ATMEL
+		bool "atmel (little endian)"
+		depends on ARCH_ARM_NOMMU
+endchoice
+
+choice 
+	prompt "MIPS architecture"
+	depends on ARCH_MIPS
+
+	config MIPS_ARCH_BE
+		bool "mips (big endian)"
+
+	config MIPS_ARCH_LE
+		bool "mipsel (little endian)"
+endchoice
+>>>>>>> 1.41
 
 choice
 	prompt "Code Optimization"
@@ -1145,6 +1195,10 @@ config E2FSPROGS_E2FSCK
 	bool
 	prompt "Install e2fsck"
 	depends on E2FSPROGS
+
+config CRAMFS
+	bool
+	prompt "cramfs tools"
 
 config GRUB
 	bool
