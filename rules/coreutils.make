@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: coreutils.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: coreutils.make,v 1.3 2003/10/23 20:40:00 mkl Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -77,10 +77,9 @@ coreutils_prepare_deps = \
 
 $(STATEDIR)/coreutils.prepare: $(coreutils_prepare_deps)
 	@$(call targetinfo, $@)
-	mkdir -p $(BUILDDIR)/$(COREUTILS)
 	cd $(COREUTILS_DIR) && \
 		$(COREUTILS_PATH) $(COREUTILS_ENV) \
-		$(COREUTILS_DIR)/configure $(COREUTILS_AUTOCONF)
+		./configure $(COREUTILS_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
