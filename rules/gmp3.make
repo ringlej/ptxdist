@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gmp3.make,v 1.1 2003/07/16 04:23:28 mkl Exp $
+# $Id: gmp3.make,v 1.2 2003/07/22 13:39:15 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -41,6 +41,7 @@ gmp3_extract: $(STATEDIR)/gmp3.extract
 
 $(STATEDIR)/gmp3.extract: $(STATEDIR)/gmp3.get
 	@$(call targetinfo, gmp3.extract)
+	@$(call clean, $(GMP3_DIR))
 	@$(call extract, $(GMP3_SOURCE))
 	touch $@
 
