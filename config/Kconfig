@@ -58,7 +58,6 @@ source "rules/coreutils.in"
 source "rules/module-init-tools.in"
 source "rules/gawk.in"
 source "rules/hotplug.in"
-source "rules/mgetty.in"
 source "rules/mtd.in"
 source "rules/pcmcia-cs.in"
 source "rules/pdksh.in"
@@ -101,6 +100,7 @@ menu "Communication Utilities     "
 ############################################################################## 
 
 source "rules/efax.in"
+source "rules/mgetty.in"
 source "rules/pop3spam.in"
 source "rules/smtpclient.in"
 
