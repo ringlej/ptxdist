@@ -1,0 +1,11 @@
+#/bin/sh
+
+# fake some dirs
+mkdir /tmp/ptxdist-bmwm-rsc
+mkdir /tmp/ptxdist-bmwm-rsc/i386-unknown-linux-gnu
+ln -s /etc /tmp/ptxdist-bmwm-rsc/i386-unknown-linux-gnu/etc
+
+insmod /lib/modules/2.6.1/kernel/drivers/input/evdev.ko
+insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/pcan_drvd.ko
+
+/usr/X11R6/bin/X -mouse /dev/input/event0
