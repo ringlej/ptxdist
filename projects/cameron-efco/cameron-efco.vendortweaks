@@ -19,20 +19,23 @@ cameron-efco_targetinstall: $(STATEDIR)/cameron-efco.targetinstall
 
 $(STATEDIR)/cameron-efco.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
-
+	
+	echo "efco::500:100:Custom User:/home:/bin/sh" >> $(ROOTDIR)/etc/passwd
+	echo "efco::12215:0:99999:7:::" >> $(ROOTDIR)/etc/shadow
+	echo "none	/home	tmpfs	size=5M,mode=775,uid=501,gid=100	0	0" >> $(ROOTDIR)/etc/fstab
+	
+	# create /etc/rc.d links
+	mkdir -p $(ROOTDIR)/etc/rc.d
+	ln -sf ../init.d/banner $(ROOTDIR)/etc/rc.d/S00_banner
+	ln -sf ../init.d/networking $(ROOTDIR)/etc/rc.d/S01_networking
+	ln -sf ../init.d/utelnetd $(ROOTDIR)/etc/rc.d/S02_utelnetd
+	
 	# copy /etc template
-	cp -a $(PROJECTDIR)/etc/. $(ROOTDIR)/etc
-
-	# remove CVS stuff
-	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
-	rm -f $(ROOTDIR)/JUST_FOR_CVS
-
-	# make scripts executable
-	chmod 755 $(ROOTDIR)/etc/init.d/*
-
+	# cp -a $(PROJECTDIR)/etc/. $(ROOTDIR)/etc
+	
 	# create some directories
-	mkdir $(ROOTDIR)/var/run
-	mkdir $(ROOTDIR)/var/lock
+	install -d $(ROOTDIR)/var/run
+	install -d $(ROOTDIR)/var/lock
 
 	touch $@
 
