@@ -50,17 +50,15 @@ endif
 # ----------------------------------------------------------------------------
 
 kernel_menuconfig: $(STATEDIR)/kernel.extract
-	@if [ -f $(TOPDIR)/config/kernel/$(PTXCONF_KERNEL_CONFIG) ]; then \
-		install -m 644 $(TOPDIR)/config/kernel/$(PTXCONF_KERNEL_CONFIG) \
-			$(KERNEL_DIR)/.config; \
+	@if [ -f $(PTXCONF_KERNEL_CONFIG) ]; then \
+		install -m 644 $(PTXCONF_KERNEL_CONFIG) $(KERNEL_DIR)/.config; \
 	fi
 
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) \
 		menuconfig
 
 	@if [ -f $(KERNEL_DIR)/.config ]; then \
-		install -m 644 $(KERNEL_DIR)/.config \
-			$(TOPDIR)/config/kernel/$(PTXCONF_KERNEL_CONFIG); \
+		install -m 644 $(KERNEL_DIR)/.config $(PTXCONF_KERNEL_CONFIG); \
 	fi
 
 	@if [ -f $(STATEDIR)/kernel.compile ]; then \
@@ -309,9 +307,8 @@ endif
 $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
 
-	if [ -f $(TOPDIR)/config/kernel/$(PTXCONF_KERNEL_CONFIG) ]; then	\
-		install -m 644 $(TOPDIR)/config/kernel/$(PTXCONF_KERNEL_CONFIG) \
-		$(KERNEL_DIR)/.config;						\
+	if [ -f $(PTXCONF_KERNEL_CONFIG) ]; then	                        \
+		install -m 644 $(PTXCONF_KERNEL_CONFIG) $(KERNEL_DIR)/.config;	\
 	fi
 
 	$(KERNEL_PATH) make -C $(KERNEL_DIR) $(KERNEL_MAKEVARS) 		\
