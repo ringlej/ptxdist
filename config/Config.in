@@ -1,5 +1,5 @@
 #
-# config/config.in: Main menu structure definition
+# config/Config.in: Main menu structure definition
 # (c) Robert Schwebel <r.schwebel@pengutronix.de> 2002 
 #
 
@@ -50,6 +50,10 @@ choice
 		bool "486"
 		depends on ARCH_X86
 
+	config OPT_I586
+		bool "586"
+		depends on ARCH_X86
+
 	config OPT_I686
 		bool "686"
 		depends on ARCH_X86
@@ -63,12 +67,13 @@ config GNU_TARGET
 	string
 	default "i386-linux" if OPT_I386
 	default "i486-linux" if OPT_I486
+	default "i586-linux" if OPT_I586
 	default "i686-linux" if OPT_I686
 	default "arm-linux"  if OPT_ARM4
 
 choice 
 	prompt "ARM architecture"
-	depends on ARCH_ARM
+		depends on ARCH_ARM
 
 	config ARM_ARCH_PXA
 		bool "pxa"
@@ -238,6 +243,11 @@ choice
 	config KERNEL_IMAGE_U
 		bool
 		prompt "uImage"
+
+	config KERNEL_IMAGE_VMLINUX
+		bool
+		prompt "vmlinux"
+
 endchoice
 
 config RTAI
@@ -960,6 +970,7 @@ config E2FSPROGS_E2FSCK
 config GRUB
 	bool
 	prompt "GRUB"
+	depends on ARCH_X86
 
 config GRUB_MD5
 	bool
