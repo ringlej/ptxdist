@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.54 2003/11/17 07:20:58 robert Exp $
+# $Id: Makefile,v 1.55 2003/11/17 07:29:17 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -196,22 +196,22 @@ innokom_config:
 	@cp config/innokom.ptxconfig .config
 
 rayonic_config:
-	@echo "copying rayonic config" $(call latestconfig, ptxconfig-rayonic)
-	@cp $(call latestconfig, ptxconfig-rayonic) .config
+	@echo "copying rayonic configuration"
+	@cp config/i386-rayonic.ptxconfig .config
 	@cp $(call latestconfig, rtaiconfig-rayonic) .rtaiconfig
 
 roi-eics_config:
-	@echo "copying ROI EICS config" $(call latestconfig, roi-eics)
-	@cp $(call latestconfig, ptxconfig-roi-eics) .config
+	@echo "copying ROI EICS configuration"
+	@cp config/geode-roi_eics.ptxconfig .config
 	@cp $(call latestconfig, rtaiconfig-roi-eics) .rtaiconfig
 
 scII-bmw_config:
-	@echo "copying solidcard-bmw config" $(call latestconfig, ptxconfig-solidcard-bmw)
-	@cp $(call latestconfig, ptxconfig-solidcard-bmw) .config
+	@echo "copying solidcard-bmw configuration"
+	@cp i386-scII-bmwm.ptxconfig .config
 
 scII-cameron_config:
-	@echo "copying scII-cameron config" $(call latestconfig, ptxconfig-cameron)
-	@cp $(call latestconfig, ptxconfig-cameron) .config
+	@echo "copying scII-cameron configuration"
+	@cp config/ppc405-cameron.ptxconfig .config
 
 # ----------------------------------------------------------------------------
 
