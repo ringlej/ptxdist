@@ -1,0 +1,4 @@
+config CLOCK
+	bool
+	prompt "Compile clock command"
+
