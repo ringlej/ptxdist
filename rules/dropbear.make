@@ -20,10 +20,10 @@ endif
 #
 # Paths and names
 #
-DROPBEAR_VERSION		= 0.41
+DROPBEAR_VERSION		= 0.43
 DROPBEAR			= dropbear-$(DROPBEAR_VERSION)
 DROPBEAR_SUFFIX			= tar.bz2
-DROPBEAR_URL			= http://matt.ucc.asn.au/dropbear/$(DROPBEAR).$(DROPBEAR_SUFFIX)
+DROPBEAR_URL			= http://matt.ucc.asn.au/dropbear/releases/$(DROPBEAR).$(DROPBEAR_SUFFIX)
 DROPBEAR_SOURCE			= $(SRCDIR)/$(DROPBEAR).$(DROPBEAR_SUFFIX)
 DROPBEAR_DIR			= $(BUILDDIR)/$(DROPBEAR)
 
