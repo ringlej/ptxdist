@@ -79,7 +79,8 @@ LIBXML2_ENV 	=  $(CROSS_ENV)
 #
 LIBXML2_AUTOCONF =  $(CROSS_AUTOCONF)
 LIBXML2_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
-
+LIBXML2_AUTOCONF += --without-python
+ 
 $(STATEDIR)/libxml2.prepare: $(libxml2_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXML2_DIR)/config.cache)
