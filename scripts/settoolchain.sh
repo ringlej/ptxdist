@@ -1,35 +1,42 @@
 #!/bin/sh
-# $Id: settoolchain.sh,v 1.1 2003/10/26 06:32:50 mkl Exp $
+# $Id: settoolchain.sh,v 1.2 2003/10/28 11:00:25 robert Exp $
 #
-# Copyright (C) 2003 by Dan Kegel
+# Copyright (C) 2003 Ixia Communications, by Dan Kegel
 #
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
-
-#
 # Script to set up ptxdist to use a crosstool-generated toolchain
-# You have to set TARGET and either PREFIX or both RESULT and TOOLCOMBO
-# This should be part of crosstool...
 #
+# Example: TARGET=powerpc-405-linux-gnu PREFIX=/opt/blartfast sh settoolchain.sh
 
-# GNU target tuple
-TARGET=mipsel-unknown-linux-gnu
+abort() {
+	echo $@
+	exec /bin/false
+}
 
-# Directory stuff
-RESULT=/opt/crosstool
-TOOLCOMBO=gcc-3.2.3-glibc-2.2.3
-PREFIX=$RESULT/$TARGET/$TOOLCOMBO
+test -z "${TARGET}"           && abort "Please set TARGET to the Gnu target identifier (e.g. pentium-linux)"
+test -z "${PREFIX}"           && abort "Please set PREFIX to where you want the toolchain installed."
 
 # Grumble.  Convert TARGET to internal ptxdist booleans.
+# This is really fragile, and I probably missed a bunch of subarch flags.
+
+case $TARGET in
+        *-*-*-*) ;;
+	*)       abort "Please use a canonical target name.  These always contain three dashes, e.g. mipsle-unknown-linux-gnu." ;;
+esac
 
 case $TARGET in
 	*arm*uclinux*) PTXARCH=ARM_NOMMU ;;
 	*arm*)         PTXARCH=ARM ;;
 	*i*86*)        PTXARCH=X86 ;;
 	*pentium*)     PTXARCH=X86 ;;
+	*ppc*)         abort "Please use a target of powerpc-*-*-* rather than ppc-*" ;;
+	*powerpc-405-*)  PTXARCH=PPC; PTXSUBARCH=OPT_PPC405;;
+	*powerpc-750-*)  PTXARCH=PPC; PTXSUBARCH=OPT_PPC750;;
+	*powerpc-7450-*) PTXARCH=PPC; PTXSUBARCH=OPT_PPC7450;;
 	*powerpc*)     PTXARCH=PPC ;;
 	*sparc*)       PTXARCH=SPARC ;;
 	*mipsbe*)      PTXARCH=MIPS ; PTXSUBARCH=MIPS_ARCH_BE ;;
@@ -37,7 +44,7 @@ case $TARGET in
 	*cris*)        PTXARCH=CRIS ;;
 	*parisc*)      PTXARCH=PARISC ;;
 	*sh*)          PTXARCH=SH ;;
-	*) echo bad target $TARGET; exit 1 ;;
+	*)             abort "unrecognized target $TARGET"
 esac
 
 echo PTXCONF_GNU_TARGET=\"$TARGET\" > .config.tmp
@@ -51,10 +58,9 @@ echo '# PTXCONF_BUILD_CROSSCHAIN is not set' >> .config.tmp
 echo "PTXCONF_EXP=y" >> .config.tmp
 echo "PTXCONF_EXP_M=y" >> .config.tmp
 
-
-egrep -v "PTXCONF_GNU_TARGET|PTXCONF_ARCH_|PTXCONF_PREFIX|PTXCONF_ROOT" .config >> .config.tmp
+egrep -v "PTXCONF_GNU_TARGET|PTXCONF_OPT_PPC|PTXCONF_ARCH_|PTXCONF_PREFIX|PTXCONF_ROOT" .config >> .config.tmp
 
 cp .config .config.bak
 mv .config.tmp .config
 
-# Now do a 'make oldconfig'
+# Now do a 'make oldconfig', please...
