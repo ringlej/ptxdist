@@ -730,6 +730,11 @@ CONFIG_PARTITION_ADVANCED=y
 # CONFIG_USB is not set
 
 #
+# Support for USB gadgets
+#
+# CONFIG_USB_GADGET is not set
+
+#
 # Bluetooth support
 #
 # CONFIG_BLUEZ is not set
