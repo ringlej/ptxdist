@@ -153,6 +153,7 @@ ifdef PTXCONF_SENDFAX_SPOOL
 	mkdir -p $(ROOTDIR)/usr/lib/mgetty+sendfax
 	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/fax/faxq-helper, /usr/lib/mgetty+sendfax)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/lib/mgetty+sendfax/faxq-helper
+endif
 ifdef PTXCONF_MGETTY_INSTALL_CONFIG
 	$(call copy_root, 0, 0, 0644, $(MGETTY_DIR)/faxrunq.config, /etc/mgetty+sendfax)
 	$(INSTALL) -m 644 $(MGETTY_DIR)/faxrunq.config $(ROOTDIR)/etc/mgetty+sendfax
