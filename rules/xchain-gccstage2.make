@@ -1,4 +1,4 @@
-# $Id: xchain-gccstage2.make,v 1.3 2003/06/25 12:12:31 robert Exp $
+# $Id: xchain-gccstage2.make,v 1.4 2003/06/26 15:34:58 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -86,10 +86,8 @@ $(STATEDIR)/xchain-gccstage2.prepare: $(xchain-gccstage2_prepare_deps)
 	mkdir -p $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include
 	#
 	# permanent asm-arm directory (temporarily created in stage 1)
-	# FIXME: this is currently processor dependend
 	#
 	rm -fr  $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm-$(PTXCONF_ARCH)
-	# FIXME: replace by install? 
 	cp -a   $(BUILDDIR)/xchain-kernel/include/asm-$(PTXCONF_ARCH)		 	\
 		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm-$(PTXCONF_ARCH)
 	rm -f	$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sys-include/asm
