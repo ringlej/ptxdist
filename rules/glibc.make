@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.20 2003/12/09 11:09:32 bsp Exp $
+# $Id: glibc.make,v 1.21 2004/01/02 17:50:26 robert Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -113,8 +113,15 @@ glibc_prepare:		$(STATEDIR)/glibc.prepare
 #
 glibc_prepare_deps = \
 	$(STATEDIR)/autoconf213.install \
-	$(STATEDIR)/xchain-gccstage1.install \
 	$(STATEDIR)/glibc.extract
+
+ifdef PTXCONF_BUILD_CROSSCHAIN
+glibc_prepare_deps += \
+	$(STATEDIR)/xchain-gccstage1.install
+endif
+
+glibc_prepare_deps += \
+	$(STATEDIR)/xchain-kernel.install
 
 # 
 # arcitecture dependend configuration
@@ -245,9 +252,11 @@ $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 
 glibc_targetinstall:		$(STATEDIR)/glibc.targetinstall
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
+# FIXME: RSC: commented out, we need to compile and install glibc also if 
+# we don't have installed a toolchain...
+#ifdef PTXCONF_BUILD_CROSSCHAIN
 glibc_targetinstall_deps = $(STATEDIR)/glibc.install
-endif
+#endif
 
 ifdef PTXCONF_GLIBC_DEBUG
 GLIBC_STRIP	= true
