@@ -94,7 +94,7 @@ PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_VAR=y
-PTXCONF_VENDORTWEAKS="pii_nge.make"
+PTXCONF_VENDORTWEAKS="projects/pii_nge/pii_nge.vendortweaks"
 
 #
 # Debugging Tools     

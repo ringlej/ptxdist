@@ -43,7 +43,9 @@ all: help
 
 -include .config 
 
-ROOTDIR=$(subst ",,$(PTXCONF_ROOT))
+include rules/Definitions.make
+
+ROOTDIR=$(subst $(quote),,$(PTXCONF_ROOT))
 ifeq ("", $(PTXCONF_ROOT))
 ROOTDIR=$(TOPDIR)/root
 endif
@@ -55,11 +57,11 @@ PTXCONF_TARGET_CONFIG_FILE ?= none
 ifeq ("", $(PTXCONF_TARGET_CONFIG_FILE))
 PTXCONF_TARGET_CONFIG_FILE =  none
 endif
--include config/arch/$(subst ",,$(PTXCONF_TARGET_CONFIG_FILE))
+-include config/arch/$(subst $(quote),,$(PTXCONF_TARGET_CONFIG_FILE))
 
 include rules/Rules.make
 include rules/Version.make
-include $(filter-out rules/Virtual.make rules/Rules.make rules/Version.make,$(wildcard rules/*.make))
+include $(filter-out rules/Virtual.make rules/Rules.make rules/Version.make rules/Definitions.make,$(wildcard rules/*.make))
 include rules/Virtual.make
 
 # if specified, include vendor tweak makefile (run at the end of build)
@@ -69,7 +71,7 @@ PTXCONF_VENDORTWEAKS ?= none
 ifeq ("", $(PTXCONF_VENDORTWEAKS))
 PTXCONF_VENDORTWEAKS =  none
 endif
--include rules/vendor-tweaks/$(subst ",,$(PTXCONF_VENDORTWEAKS))
+-include $(subst $(quote),,$(PTXCONF_VENDORTWEAKS))
 
 # install targets 
 PACKAGES_TARGETINSTALL 		:= $(addsuffix _targetinstall,$(PACKAGES)) $(addsuffix _targetinstall,$(VIRTUAL))

@@ -314,9 +314,9 @@ $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 	# 
 ifdef PTXCONF_GLIBC_ZONEINFO
 	cd $(GLIBC_ZONEDIR) && CC=$(HOSTCC) make zic
-	cd $(GLIBC_ZONEDIR) && ( 							\
+	( cd $(GLIBC_ZONEDIR) &&  							\
 		for file in `find . -name "z.*" | sed -e "s,.*z.\(.*\),\1,g"`; do	\
-			./zic -d zoneinfo $$file || exit -1;				\
+			./zic -d zoneinfo $$file || echo "failed [$$FILE]";		\
 		done									\
 	)
 endif

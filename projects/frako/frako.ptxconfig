@@ -90,7 +90,7 @@ PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_HOME=y
 PTXCONF_ROOTFS_VAR=y
 PTXCONF_ROOTFS_SYS=y
-PTXCONF_VENDORTWEAKS="frako.make"
+PTXCONF_VENDORTWEAKS="projects/frako/frako.vendortweaks"
 
 #
 # Debugging Tools     

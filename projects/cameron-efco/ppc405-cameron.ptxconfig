@@ -82,7 +82,7 @@ PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_HOME=y
 PTXCONF_ROOTFS_VAR=y
 PTXCONF_ROOTFS_SYS=y
-PTXCONF_VENDORTWEAKS="cameron-efco.make"
+PTXCONF_VENDORTWEAKS="projects/cameron-efco/ppc405-cameron.vendortweaks"
 
 #
 # Debugging Tools     
