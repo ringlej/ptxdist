@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: e2fsprogs.make,v 1.8 2003/10/26 21:59:07 mkl Exp $
+# $Id: e2fsprogs.make,v 1.9 2003/12/04 13:19:46 bsp Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -26,6 +26,8 @@ E2FSPROGS_URL			= http://cesnet.dl.sourceforge.net/sourceforge/e2fsprogs/$(E2FSP
 E2FSPROGS_SOURCE		= $(SRCDIR)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
 E2FSPROGS_DIR			= $(BUILDDIR)/$(E2FSPROGS)
 E2FSPROGS_BUILD_DIR		= $(BUILDDIR)/$(E2FSPROGS)-build
+
+HOSTTOOL_E2FSPROGS_DIR		= $(BUILDDIR)/hosttool/$(E2FSPROGS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -75,6 +77,30 @@ e2fsprogs_prepare_deps = \
 $(STATEDIR)/e2fsprogs.prepare: $(e2fsprogs_prepare_deps)
 	@$(call targetinfo, $@)
 	mkdir -p $(E2FSPROGS_BUILD_DIR) && \
+	cd $(E2FSPROGS_BUILD_DIR) && \
+		$(E2FSPROGS_PATH) $(E2FSPROGS_ENV) \
+		$(E2FSPROGS_DIR)/configure $(E2FSPROGS_AUTOCONF)
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Hosttool Prepare
+# ----------------------------------------------------------------------------
+
+hosttool-e2fsprogs_prepare: $(STATEDIR)/hosttool-e2fsprogs.prepare
+
+E2FSPROGS_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)
+E2FSPROGS_AUTOCONF	+= --enable-fsck
+E2FSPROGS_AUTOCONF	+= --build=$(GNU_HOST)
+E2FSPROGS_AUTOCONF	+= --host=$(GNU_HOST)
+E2FSPROGS_PATH		=  
+E2FSPROGS_ENV		=  $(HOSTCC_ENV) 
+
+hosttool-e2fsprogs_prepare_deps = \
+	$(STATEDIR)/e2fsprogs.extract
+
+$(STATEDIR)/hosttool-e2fsprogs.prepare: $(hosttool-e2fsprogs_prepare_deps)
+	@$(call targetinfo, $@)
+	mkdir -p $(HOSTTOOL_E2FSPROGS_BUILD_DIR) && \
 	cd $(E2FSPROGS_BUILD_DIR) && \
 		$(E2FSPROGS_PATH) $(E2FSPROGS_ENV) \
 		$(E2FSPROGS_DIR)/configure $(E2FSPROGS_AUTOCONF)
@@ -136,5 +162,12 @@ endif
 
 e2fsprogs_clean: 
 	rm -rf $(STATEDIR)/e2fsprogs.* $(E2FSPROGS_DIR)
+
+# ----------------------------------------------------------------------------
+# Hosttool Clean
+# ----------------------------------------------------------------------------
+
+hosttool-e2fsprogs_clean:
+	rm -rf $(STATEDIR)/hosttool-e2fsprogs.* $(HOSTTOOL_E2FSPROGS_DIR)
 
 # vim: syntax=make

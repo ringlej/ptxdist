@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: openssh.make,v 1.14 2003/11/17 03:35:10 mkl Exp $
+# $Id: openssh.make,v 1.15 2003/12/04 13:19:46 bsp Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -193,11 +193,10 @@ ifdef PTXCONF_OPENSSH_SSH
 endif
 
 ifdef PTXCONF_OPENSSH_SSHD
-	touch $(ROOTDIR)/SSH_hostkeys_needed
-	mkdir -p $(ROOTDIR)/var/run/sshd
-	chmod 700 $(ROOTDIR)/var/run/sshd
 	install -m 644 -D $(OPENSSH_DIR)/moduli.out $(ROOTDIR)/etc/ssh/moduli
 	install -m 644 -D $(OPENSSH_DIR)/sshd_config.out $(ROOTDIR)/etc/ssh/sshd_config
+	perl -p -i -e "s/#PermitRootLogin yes/PermitRootLogin yes/" \
+	$(ROOTDIR)/etc/ssh/sshd_config
 	install -m 755 -D $(OPENSSH_DIR)/sshd $(ROOTDIR)/usr/sbin/sshd
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/sbin/sshd
 endif
@@ -213,7 +212,9 @@ ifdef PTXCONF_OPENSSH_SFTP_SERVER
 endif
 
 ifdef PTXCONF_OPENSSH_KEYGEN
-	install -m 755 -D $(MISCDIR)/openssh-host-keygen.sh $(ROOTDIR)/openssh-host-keygen.sh
+	# FIXME: if this is the only file in this directory move it
+	# to somewhere else (patch, echo << EOF?) [RSC]
+	install -m 755 -D $(MISCDIR)/openssh-host-keygen.sh $(ROOTDIR)/sbin/openssh-host-keygen.sh
 	install -m 755 -D $(OPENSSH_DIR)/ssh-keygen $(ROOTDIR)/usr/bin/ssh-keygen
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/ssh-keygen
 endif

@@ -1,0 +1,14 @@
+config UTLNX_FDISK
+	bool
+	prompt "fdisk"
+	depends on UTLNX
+
+config UTLNX_CFDISK
+	bool
+	prompt "cfdisk"
+	depends on UTLNX
+
+config UTLNX_SFDISK
+	bool
+	prompt "sfdisk"
+	depends on UTLNX

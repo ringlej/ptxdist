@@ -1,5 +1,6 @@
 #!/bin/sh
 
+mount -o remount,rw / 
 if [ -f /etc/ssh/ssh_host_key ]; then
     echo "/etc/ssh/ssh_host_key already exists, skipping."
 else
@@ -19,8 +20,9 @@ if [ -f /etc/ssh/ssh_host_rsa_key ]; then
 else
     /usr/bin/ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ""
 fi
-
+mount -o remount,ro /
 
 mkdir -p /var/run/sshd
 chown root.root /var/run/sshd
 chmod 700 /var/run/sshd
+

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: grub.make,v 1.7 2003/10/23 15:01:19 mkl Exp $
+# $Id: grub.make,v 1.8 2003/12/04 13:19:46 bsp Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -146,6 +146,7 @@ $(STATEDIR)/grub.targetinstall: $(STATEDIR)/grub.install
 	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/boot/grub
 	install $(GRUB_DIR)/stage1/stage1 $(ROOTDIR)/boot/grub/
+	install $(GRUB_DIR)/stage2/stage2 $(ROOTDIR)/boot/grub/
 	touch $@
 
 # ----------------------------------------------------------------------------
