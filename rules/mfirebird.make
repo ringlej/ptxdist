@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.15 2004/02/25 22:35:40 robert Exp $
+# $Id: mfirebird.make,v 1.16 2004/02/26 08:37:33 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -451,7 +451,7 @@ mfirebird_install: $(STATEDIR)/mfirebird.install
 
 $(STATEDIR)/mfirebird.install: $(STATEDIR)/mfirebird.compile
 	@$(call targetinfo, $@)
-	$(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make -C $(MFIREBIRD_DIR) install
+	cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -460,7 +460,7 @@ $(STATEDIR)/mfirebird.install: $(STATEDIR)/mfirebird.compile
 
 mfirebird_targetinstall: $(STATEDIR)/mfirebird.targetinstall
 
-mfirebird_targetinstall_deps	=  $(STATEDIR)/mfirebird.compile
+mfirebird_targetinstall_deps	=  $(STATEDIR)/mfirebird.install
 mfirebird_targetinstall_deps	+= $(STATEDIR)/gtk22.targetinstall
 mfirebird_targetinstall_deps	+= $(STATEDIR)/atk.targetinstall
 mfirebird_targetinstall_deps	+= $(STATEDIR)/pango12.targetinstall
