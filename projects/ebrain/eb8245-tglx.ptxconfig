@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.1-cvs
-# Thu Feb 17 20:00:50 2005
+# Thu Mar  3 20:04:06 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -117,6 +117,8 @@ PTXCONF_VENDORTWEAKS=""
 # PTXCONF_IMAGE_TGZ is not set
 # PTXCONF_IMAGE_HD is not set
 # PTXCONF_IMAGE_JFFS2 is not set
+# PTXCONF_IMAGE_UIMAGE is not set
+# PTXCONF_IMAGE_EXT2 is not set
 
 #
 # Debugging Tools     
@@ -141,6 +143,7 @@ PTXCONF_VENDORTWEAKS=""
 # PTXCONF_HOSTTOOLS_GENEXT2FS is not set
 # PTXCONF_HOSTTOOLS_E2FSPROGS is not set
 PTXCONF_HOSTTOOLS_FAKEROOT=y
+# PTXCONF_XCHAIN_UMKIMAGE is not set
 
 #
 # Core System                 
@@ -687,11 +690,6 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 #
 
 #
-# mgetty & sendfax    
-#
-# PTXCONF_MGETTY is not set
-
-#
 # MTD Tools           
 #
 PTXCONF_MTD_XCHAIN=y
@@ -1012,6 +1010,11 @@ PTXCONF_OPENSSH_KEYGEN=y
 # Communication Utilities     
 #
 # PTXCONF_EFAX is not set
+
+#
+# mgetty & sendfax    
+#
+# PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
 
