@@ -703,7 +703,7 @@ TARGET_CXXFLAGS		+= -nostdinc -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/i
 TARGET_CXXFLAGS		+= -isystem $(shell GCC=$(PTXCONF_GNU_TARGET)-g++ $(TOPDIR)/scripts/sysinclude_test)
 TARGET_CPPFLAGS		+= -nostdinc -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 TARGET_CPPFLAGS		+= -isystem $(shell GCC=$(PTXCONF_GNU_TARGET)-gcc $(TOPDIR)/scripts/sysinclude_test)
-TARGET_LDFLAGS		+= -nostdlib -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib 
 endif
 
 
