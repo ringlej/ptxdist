@@ -2,7 +2,7 @@
 # Automatically generated make config: don't edit
 #
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="innokom"
+PTXCONF_PROJECT="innokom-2.4-3.3.2"
 
 #
 # General Options ---    
@@ -32,6 +32,7 @@ PTXCONF_ARM_ARCH_PXA=y
 # PTXCONF_ARM_ARCH_IXP2000 is not set
 # PTXCONF_ARM_ARCH_NETARM is not set
 # PTXCONF_ARM_ARCH_ATMEL is not set
+# PTXCONF_ARM_ARCH_IMX is not set
 PTXCONF_ARM_ARCH="pxa"
 PTXCONF_ARM_ARCH_LE=y
 PTXCONF_OPT_ARM=y
@@ -69,18 +70,14 @@ PTXCONF_ARCH="arm"
 PTXCONF_ARCH_USERSPACE="arm"
 PTXCONF_ARM_PROC="armv"
 PTXCONF_GNU_TARGET="arm-unknown-linux-gnu"
-PTXCONF_PREFIX="/tmp/ptxdist-local-innokom"
+PTXCONF_PREFIX="/tmp/ptxdist-innokom"
 PTXCONF_ROOT=""
 
 #
 # Cross Toolchain     
 #
 # PTXCONF_BUILD_CROSSCHAIN is not set
-# PTXCONF_BINUTILS_2_13_2_1 is not set
-# PTXCONF_BINUTILS_2_14 is not set
-# PTXCONF_GCC_2_95_3 is not set
-# PTXCONF_GCC_3_2_3 is not set
-# PTXCONF_GCC_3_3_2 is not set
+PTXCONF_CROSSCHAIN_CHECK="3.3.2"
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
@@ -99,17 +96,14 @@ PTXCONF_VENDORTWEAKS="innokom.make"
 #
 # Debugging Tools     
 #
-PTXCONF_XGDB=y
-PTXCONF_GDBSERVER=y
-PTXCONF_GDBSERVER_SHARED=y
-PTXCONF_GDB=y
-PTXCONF_GDB_SHARED=y
-PTXCONF_GDB_TERMCAP=y
-# PTXCONF_GDB_NCURSES is not set
-PTXCONF_GDB_WRAPPERS=y
+# PTXCONF_XGDB is not set
+# PTXCONF_GDBSERVER is not set
+# PTXCONF_GDB is not set
+# PTXCONF_GDB_WRAPPERS is not set
 # PTXCONF_KSYMOOPS is not set
 PTXCONF_LTT=y
 # PTXCONF_LIBBFD is not set
+# PTXCONF_MEMTEST is not set
 # PTXCONF_OPROFILE is not set
 PTXCONF_STRACE=y
 PTXCONF_STRACE_SHARED=y
@@ -118,6 +112,7 @@ PTXCONF_STRACE_SHARED=y
 # Host Tools          
 #
 # PTXCONF_GENEXT2FS is not set
+# PTXCONF_HOSTTOOL_E2FSPROGS is not set
 # PTXCONF_FAKEROOT is not set
 
 #
@@ -127,29 +122,19 @@ PTXCONF_STRACE_SHARED=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.4.19-innokom"
+PTXCONF_KERNEL_CONFIG="kernel-2.4.26-innokom"
 # PTXCONF_KERNEL_2_4_18 is not set
-PTXCONF_KERNEL_2_4_19=y
+# PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
 # PTXCONF_KERNEL_2_4_21 is not set
 # PTXCONF_KERNEL_2_4_22 is not set
 # PTXCONF_KERNEL_2_4_23 is not set
+# PTXCONF_KERNEL_2_4_25 is not set
+PTXCONF_KERNEL_2_4_26=y
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
-# PTXCONF_KERNEL_RMK is not set
-# PTXCONF_KERNEL_RMK_PXA is not set
-# PTXCONF_KERNEL_RMK_DS is not set
-# PTXCONF_KERNEL_RMK_PXA_PTX is not set
-# PTXCONF_KERNEL_RMK_PXA_PTX_LTT is not set
-# PTXCONF_KERNEL_UC is not set
-# PTXCONF_KERNEL_BEN is not set
-PTXCONF_KERNEL_VANILLA=y
-PTXCONF_KERNEL_PATCH1_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.19-rmk7-pxa2-ptx13/"
-PTXCONF_KERNEL_PATCH1_NAME="rmk7-pxa2-mtd-ptx13"
-PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-gcc-3.3.2/"
-PTXCONF_KERNEL_PATCH2_NAME="linux-gcc-3.3.2"
-PTXCONF_KERNEL_PATCH3_URL=""
-PTXCONF_KERNEL_PATCH3_NAME=""
+# PTXCONF_KERNEL_2_6_6 is not set
+# PTXCONF_KERNEL_2_6_7 is not set
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -158,11 +143,59 @@ PTXCONF_KERNEL_IMAGE_U=y
 PTXCONF_KERNEL_INSTALL=y
 
 #
+# 
+#
+PTXCONF_KERNEL_PATCH1_URL="ftp://ftp.arm.linux.org.uk/pub/linux/arm/kernel/v2.4/patch-2.4.26-vrs1.bz2"
+PTXCONF_KERNEL_PATCH1_NAME="2.4.26-vrs1"
+PTXCONF_KERNEL_PATCH1_XCHAIN=y
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx3/linux-2.4.26-vrs1-pxa1.patch"
+PTXCONF_KERNEL_PATCH2_NAME="2.4.26-vrs1-pxa1"
+PTXCONF_KERNEL_PATCH2_XCHAIN=y
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH3_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx3/linux-2.4.26-vrs1-pxa1-mtd20040502.patch"
+PTXCONF_KERNEL_PATCH3_NAME="2.4.26-vrs1-pxa1-mtd20040502"
+PTXCONF_KERNEL_PATCH3_XCHAIN=y
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH4_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx3/linux-2.4.26-vrs1-pxa1-mtd20040502-usb20040610.patch"
+PTXCONF_KERNEL_PATCH4_NAME="2.4.26-vrs1-pxa1-mtd20040502-usb20040607"
+# PTXCONF_KERNEL_PATCH4_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH5_URL="http://www.pengutronix.de/software/linux-arm/linux-2.4.26-vrs1-pxa1-ptx3/linux-2.4.26-vrs1-pxa1-mtd20040502-usb20040610-ptx3.patch"
+PTXCONF_KERNEL_PATCH5_NAME="2.4.26-vrs1-pxa1-mtd20040502-usb20040607-ptx3"
+# PTXCONF_KERNEL_PATCH5_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH6_URL="http://www.pengutronix.de/software/linux-arm/linux-gcc-3.3.2/linux-gcc-3.3.2.patch"
+PTXCONF_KERNEL_PATCH6_NAME="linux-gcc-3"
+# PTXCONF_KERNEL_PATCH6_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH7_URL=""
+PTXCONF_KERNEL_PATCH7_NAME=""
+
+#
 # Extentions
 #
 
 #
-# epoll               
+# RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)
 #
 
 #
@@ -174,6 +207,7 @@ PTXCONF_KERNEL_INSTALL=y
 # C Library           
 #
 PTXCONF_GLIBC=y
+# PTXCONF_UCLIBC is not set
 
 #
 # C Library options
@@ -182,6 +216,7 @@ PTXCONF_GLIBC_2_3_2=y
 # PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
+# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -195,10 +230,10 @@ PTXCONF_GLIBC_PROFILED=y
 # Install options
 #
 PTXCONF_GLIBC_THREAD_DB=y
-# PTXCONF_GLIBC_DL is not set
+PTXCONF_GLIBC_DL=y
 PTXCONF_GLIBC_CRYPT=y
 PTXCONF_GLIBC_UTIL=y
-PTXCONF_GLIBC_LIBM=y
+# PTXCONF_GLIBC_LIBM is not set
 PTXCONF_GLIBC_NSS_DNS=y
 PTXCONF_GLIBC_NSS_FILES=y
 # PTXCONF_GLIBC_NSS_HESIOD is not set
@@ -207,6 +242,8 @@ PTXCONF_GLIBC_NSS_FILES=y
 # PTXCONF_GLIBC_NSS_COMPAT is not set
 PTXCONF_GLIBC_RESOLV=y
 PTXCONF_GLIBC_NSL=y
+# PTXCONF_GLIBC_GCONV is not set
+PTXCONF_UC_TARGET_arm=y
 
 #
 # C++ Library         
@@ -261,15 +298,6 @@ PTXCONF_BB_CONFIG_FEATURE_SUID=y
 #
 # PTXCONF_BB_CONFIG_STATIC is not set
 # PTXCONF_BB_CONFIG_LFS is not set
-PTXCONF_BB_USING_CROSS_COMPILER=y
-PTXCONF_BB_CROSS_COMPILER_PREFIX="arm-linux-"
-PTXCONF_BB_EXTRA_CFLAGS_OPTIONS=""
-
-#
-# Installation Options
-#
-# PTXCONF_BB_CONFIG_INSTALL_NO_USR is not set
-PTXCONF_BB_PREFIX="./_install"
 
 #
 # Archival Utilities
@@ -517,10 +545,20 @@ PTXCONF_BB_CONFIG_TIME=y
 #
 # Linux Module Utilities
 #
-# PTXCONF_BB_CONFIG_INSMOD is not set
-# PTXCONF_BB_CONFIG_LSMOD is not set
+PTXCONF_BB_CONFIG_INSMOD=y
+# PTXCONF_BB_CONFIG_FEATURE_2_2_MODULES is not set
+PTXCONF_BB_CONFIG_FEATURE_2_4_MODULES=y
+# PTXCONF_BB_CONFIG_FEATURE_2_6_MODULES is not set
+# PTXCONF_BB_CONFIG_FEATURE_INSMOD_VERSION_CHECKING is not set
+PTXCONF_BB_CONFIG_FEATURE_INSMOD_KSYMOOPS_SYMBOLS=y
+# PTXCONF_BB_CONFIG_FEATURE_INSMOD_LOADINKMEM is not set
+PTXCONF_BB_CONFIG_FEATURE_INSMOD_LOAD_MAP=y
+PTXCONF_BB_CONFIG_FEATURE_INSMOD_LOAD_MAP_FULL=y
+PTXCONF_BB_CONFIG_LSMOD=y
+PTXCONF_BB_CONFIG_FEATURE_QUERY_MODULE_INTERFACE=y
 # PTXCONF_BB_CONFIG_MODPROBE is not set
-# PTXCONF_BB_CONFIG_RMMOD is not set
+PTXCONF_BB_CONFIG_RMMOD=y
+# PTXCONF_BB_CONFIG_FEATURE_CHECK_TAINTED_MODULE is not set
 
 #
 # Networking Utilities
@@ -566,8 +604,11 @@ PTXCONF_BB_CONFIG_FEATURE_WGET_IP6_LITERAL=y
 #
 # udhcp Server/Client
 #
-# PTXCONF_BB_CONFIG_UDHCPD is not set
+PTXCONF_BB_CONFIG_UDHCPD=y
 # PTXCONF_BB_CONFIG_UDHCPC is not set
+PTXCONF_BB_CONFIG_DUMPLEASES=y
+PTXCONF_BB_CONFIG_FEATURE_UDHCP_SYSLOG=y
+# PTXCONF_BB_CONFIG_FEATURE_UDHCP_DEBUG is not set
 
 #
 # Process Utilities
@@ -684,7 +725,25 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # MTD Tools           
 #
 # PTXCONF_MTD_XCHAIN is not set
-# PTXCONF_MTD_UTILS is not set
+PTXCONF_MTD_UTILS=y
+PTXCONF_MTD_FLASH_ERASE=y
+PTXCONF_MTD_FLASH_ERASEALL=y
+PTXCONF_MTD_FLASH_INFO=y
+PTXCONF_MTD_FLASH_LOCK=y
+PTXCONF_MTD_FLASH_UNLOCK=y
+# PTXCONF_MTD_FLASHCP is not set
+# PTXCONF_MTD_FTL_CHECK is not set
+# PTXCONF_MTD_FTL_FORMAT is not set
+# PTXCONF_MTD_JFFS_DUMP is not set
+# PTXCONF_MTD_JFFS2_DUMP is not set
+# PTXCONF_MTD_JITTERTEST is not set
+# PTXCONF_MTD_MTDDEBUG is not set
+# PTXCONF_MTD_NANDDUMP is not set
+# PTXCONF_MTD_NANDWRITE is not set
+# PTXCONF_MTD_NFTL_FORMAT is not set
+# PTXCONF_MTD_NFTLDUMP is not set
+# PTXCONF_MTD_MKJFFS is not set
+# PTXCONF_MTD_MKJFFS2 is not set
 
 #
 # GNU coreutils       
@@ -705,10 +764,7 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 #
 # VHLL Support        
 #
-
-#
-# Python requires libdl on the target (see C Library)
-#
+# PTXCONF_VHLL_PYTHON23 is not set
 
 #
 # PCMCIA Tools        
@@ -753,9 +809,19 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 #
 
 #
+# bing                
+#
+# PTXCONF_BING is not set
+
+#
 # ppp                 
 #
-# PTXCONF_PPP is not set
+PTXCONF_PPP=y
+PTXCONF_PPP_MS_CHAP=y
+# PTXCONF_PPP_SHADOW is not set
+PTXCONF_PPP_PLUGINS=y
+# PTXCONF_PPP_IPX is not set
+# PTXCONF_PPP_MULTILINK is not set
 
 #
 # nmap                
@@ -790,12 +856,39 @@ PTXCONF_UTELNETD=y
 #
 # nfs-utils           
 #
-# PTXCONF_NFSUTILS is not set
+
+#
+# compile options
+#
+PTXCONF_NFSUTILS=y
+# PTXCONF_NFSUTILS_V3 is not set
+# PTXCONF_NFSUTILS_SECURE_STATD is not set
+# PTXCONF_NFSUTILS_RQUOTAD is not set
+# PTXCONF_NFSUTILS_WITH_TCPWRAPPERS is not set
+
+#
+# install options
+#
+# PTXCONF_NFSUTILS_INSTALL_CLIENTSCRIPT is not set
+# PTXCONF_NFSUTILS_INSTALL_FUNCTIONSSCRIPT is not set
+# PTXCONF_NFSUTILS_INSTALL_SERVERSCRIPT is not set
+PTXCONF_NFSUTILS_INSTALL_EXPORTFS=y
+# PTXCONF_NFSUTILS_INSTALL_LOCKD is not set
+PTXCONF_NFSUTILS_INSTALL_MOUNTD=y
+PTXCONF_NFSUTILS_INSTALL_NFSD=y
+PTXCONF_NFSUTILS_INSTALL_NFSSTAT=y
+# PTXCONF_NFSUTILS_INSTALL_NHFSGRAPH is not set
+# PTXCONF_NFSUTILS_INSTALL_NHFSNUMS is not set
+# PTXCONF_NFSUTILS_INSTALL_NHFSRUN is not set
+# PTXCONF_NFSUTILS_INSTALL_NHFSSTONE is not set
+# PTXCONF_NFSUTILS_INSTALL_SHOWMOUNT is not set
+# PTXCONF_NFSUTILS_INSTALL_STATD is not set
 
 #
 # Portmapper          
 #
-# PTXCONF_PORTMAP is not set
+PTXCONF_PORTMAP=y
+PTXCONF_PORTMAP_INSTALL_PORTMAPPER=y
 
 #
 # tcpwrapper          
@@ -821,7 +914,7 @@ PTXCONF_TCPWRAPPER_INSTALL_TCPD=y
 #
 # libpcap             
 #
-# PTXCONF_LIBPCAP is not set
+PTXCONF_LIBPCAP=y
 
 #
 # rsync               
@@ -837,6 +930,10 @@ PTXCONF_TCPWRAPPER_INSTALL_TCPD=y
 # NTP                 
 #
 PTXCONF_NTP=y
+
+#
+# Compile Options
+#
 PTXCONF_NTP_CLOCKCTL=y
 # PTXCONF_NTP_DEBUGGING is not set
 PTXCONF_NTP_DST-MINUTES=60
@@ -855,6 +952,10 @@ PTXCONF_NTP_ACCURATE_ADJTIME=y
 # PTXCONF_NTP_KERNEL_FLL_BUG is not set
 # PTXCONF_NTP_IRIG_SAWTOOTH is not set
 # PTXCONF_NTP_NIST is not set
+
+#
+# crypto needs openssl
+#
 # PTXCONF_NTP_SNTP is not set
 # PTXCONF_NTP_ARLIB is not set
 
@@ -870,6 +971,11 @@ PTXCONF_NTP_ACCURATE_ADJTIME=y
 # PTXCONF_NTP_RIPENCC is not set
 
 #
+# Install Options
+#
+PTXCONF_NTP_NTPDATE=y
+
+#
 # Bind                
 #
 # PTXCONF_BIND is not set
@@ -883,6 +989,18 @@ PTXCONF_NTP_ACCURATE_ADJTIME=y
 # dnsmasq             
 #
 # PTXCONF_DNSMASQ is not set
+
+#
+# tcpdump             
+#
+PTXCONF_TCPDUMP=y
+PTXCONF_TCPDUMP_DISABLE_CRYPTO=y
+
+#
+# OpenAFS  
+#
+# PTXCONF_OPENAFS is not set
+PTXCONF_OPENAFS_1_2_11=y
 
 #
 # Disk and file ---   
@@ -927,6 +1045,11 @@ PTXCONF_CRAMFS=y
 # PTXCONF_SETMIXER is not set
 
 #
+# Tools               
+#
+# PTXCONF_FIGLET is not set
+
+#
 # System Libraries    
 #
 
@@ -952,12 +1075,7 @@ PTXCONF_ZLIB=y
 #
 # termcap          
 #
-PTXCONF_TERMCAP=y
-
-#
-# termcap is always built because gdb is selected with termcap support
-#
-PTXCONF_TERMCAP_TERMCAP=y
+# PTXCONF_TERMCAP is not set
 
 #
 # Berkeley db 4    
@@ -1001,6 +1119,11 @@ PTXCONF_TERMCAP_TERMCAP=y
 # Qt embedded GUI       
 #
 # PTXCONF_QTE is not set
+
+#
+# Blackbox WM         
+#
+# PTXCONF_BLACKBOX is not set
 
 #
 # Web Applications    
