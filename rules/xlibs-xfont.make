@@ -20,6 +20,7 @@ endif
 # Paths and names
 #
 XLIBS-XFONT_VERSION	= 20041103-1
+XLIBS-XFONT_REAL_VERSION= 1.4.1
 XLIBS-XFONT		= Xfont-$(XLIBS-XFONT_VERSION)
 XLIBS-XFONT_SUFFIX	= tar.bz2
 XLIBS-XFONT_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-XFONT).$(XLIBS-XFONT_SUFFIX)
@@ -126,16 +127,14 @@ xlibs-xfont_targetinstall_deps = $(STATEDIR)/xlibs-xfont.compile
 
 $(STATEDIR)/xlibs-xfont.targetinstall: $(xlibs-xfont_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0644, $(XLIBS-XFONT_DIR)/.libs/libXfont.0.0.0,  /usr/X11R6/lib/libXfont.so.0.0.0)
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libXfont.so.0.0.0
-	$(call link_root, /usr/X11R6/lib/libXfont.so.0.0.0, /usr/X11R6/lib/libXfont.so.0)
-	$(call link_root, /usr/X11R6/lib/libXfont.so.0.0.0, /usr/X11R6/lib/libXfont.0)
-	$(call link_root, /usr/X11R6/lib/libXfont.so.0.0.0, /usr/X11R6/lib/libXfont.so)
-	$(call copy_root, 0, 0, 0644, $(XLIBS-XFONT_DIR)/fontcache/.libs/libfontcache.0.0.0,  /usr/X11R6/lib/libfontcache.so.0.0.0)
+	$(call copy_root, 0, 0, 0644, $(XLIBS-XFONT_DIR)/.libs/libXfont.so.$(XLIBS-XFONT_REAL_VERSION),  /usr/X11R6/lib/libXfont.so.$(XLIBS-XFONT_REAL_VERSION))
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libXfont.so.$(XLIBS-XFONT_REAL_VERSION)
+	$(call link_root, /usr/X11R6/lib/libXfont.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libXfont.so.0)
+	$(call link_root, /usr/X11R6/lib/libXfont.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libXfont.so)
+	$(call copy_root, 0, 0, 0644, $(XLIBS-XFONT_DIR)/fontcache/.libs/libfontcache.so.0.0.0,  /usr/X11R6/lib/libfontcache.so.0.0.0)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libfontcache.so.0.0.0
-	$(call link_root, /usr/X11R6/lib/libfontcache.so.0.0.0, /usr/X11R6/lib/libfontcache.so.0)
-	$(call link_root, /usr/X11R6/lib/libfontcache.so.0.0.0, /usr/X11R6/lib/libfontcache.0)
-	$(call link_root, /usr/X11R6/lib/libfontcache.so.0.0.0, /usr/X11R6/lib/libfontcache.so)
+	$(call link_root, /usr/X11R6/lib/libfontcache.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libfontcache.so.0)
+	$(call link_root, /usr/X11R6/lib/libfontcache.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libfontcache.so)
 	touch $@
 
 # ----------------------------------------------------------------------------
