@@ -156,6 +156,9 @@ choice
 	config OPT_PPC405
 		bool "PPC 405"
 		depends on ARCH_PPC
+	config OPT_PPC604
+		bool "PPC 604"
+		depends on ARCH_PPC
 	config OPT_PPC750
 		bool "PPC 750"
 		depends on ARCH_PPC
@@ -225,6 +228,7 @@ config TARGET_CONFIG_FILE
 	default "ix86.dat"		if ARCH_X86
 	default "powerpc.dat"		if OPT_PPC
 	default "powerpc-405.dat"	if OPT_PPC405
+	default "powerpc-604.dat"	if OPT_PPC604
 	default "powerpc-750.dat"	if OPT_PPC750
 	default "powerpc-7450.dat"	if OPT_PPC7450
 	default "sparc.dat"		if ARCH_SPARC

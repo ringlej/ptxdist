@@ -155,6 +155,7 @@ config GNU_TARGET
 	default "i686-unknown-linux-gnu"        if OPT_I686             && GLIBC
 	default "powerpc-unknown-linux-gnu"     if OPT_PPC              && GLIBC
 	default "powerpc-405-linux-gnu"         if OPT_PPC405           && GLIBC
+	default "powerpc-604-linux-gnu"         if OPT_PPC604           && GLIBC
 	default "powerpc-750-linux-gnu"         if OPT_PPC750           && GLIBC
 	default "powerpc-7450-linux-gnu"        if OPT_PPC7450          && GLIBC
 	default "sparc-unknown-linux-gnu"       if OPT_SPARC            && GLIBC

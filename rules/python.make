@@ -84,6 +84,7 @@ PYTHON_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
 PYTHON_MAKEVARS	=  HOSTPYTHON=$(XCHAIN_PYTHON_BUILDDIR)/python
 PYTHON_MAKEVARS	+= HOSTPGEN=$(XCHAIN_PYTHON_BUILDDIR)/Parser/pgen
 PYTHON_MAKEVARS	+= CROSS_COMPILE=yes
+PYTHON_MAKEVARS	+= DESTDIR=$(ROOTDIR)
 
 $(STATEDIR)/python.prepare: $(python_prepare_deps)
 	@$(call targetinfo, $@)
@@ -131,18 +132,18 @@ $(STATEDIR)/python.targetinstall: $(STATEDIR)/python.compile
 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
 		altbininstall DESTDIR=$(ROOTDIR)
 
-	umask 022 && \
-		$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
-		libinstall DESTDIR=$(ROOTDIR)
+#	umask 022 && \
+#		$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
+#		libinstall DESTDIR=$(ROOTDIR)
 
-# 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
-# 		libainstall DESTDIR=$(ROOTDIR)
+## 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
+## 		libainstall DESTDIR=$(ROOTDIR)
 
-# 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
-# 		sharedinstall DESTDIR=$(ROOTDIR)
+## 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
+## 		sharedinstall DESTDIR=$(ROOTDIR)
 
-	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
-		oldsharedinstall DESTDIR=$(ROOTDIR)
+#	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
+#		oldsharedinstall DESTDIR=$(ROOTDIR)
 
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/python2.3
 

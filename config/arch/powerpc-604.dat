@@ -1,0 +1,4 @@
+TARGET=powerpc-604-linux-gnu
+TARGET_CFLAGS="-O -mcpu=604"
+TARGET_CXXFLAGS="-O -mcpu=604"
+GCC_EXTRA_CONFIG="--with-cpu=604 --enable-cxx-flags=-mcpu=604"
