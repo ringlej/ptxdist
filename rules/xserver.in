@@ -1,0 +1,157 @@
+menu "xserver               "
+
+config XSERVER
+	bool
+	prompt "X.org xserver"
+
+config XSERVER_SHAPE
+	bool
+	depends on XSERVER
+	prompt "Shape"
+	default y
+
+config XSERVER_XV
+	bool
+	depends on XSERVER
+	prompt "xv"
+	default y
+	
+config XSERVER_COMPOSITE
+	bool
+	depends on XSERVER
+	prompt "Composite"
+	default y
+	
+config XSERVER_SHM
+	bool
+	depends on XSERVER
+	prompt "shm"
+	default y
+
+config XSERVER_XRES
+	bool
+	depends on XSERVER
+	prompt "xres"
+	default y
+
+config XSERVER_XRECORD
+	bool
+	depends on XSERVER
+	prompt "xrecord"
+	default y
+
+config XSERVER_KDRIVE
+	bool
+	depends on XSERVER
+	prompt "kdrive server"
+	default y
+
+config XSERVER_XNEST
+	bool
+	depends on XSERVER
+	prompt "xnest server"
+	default n
+
+config XSERVER_XWIN
+	bool
+	depends on XSERVER
+	prompt "xwin server"
+	default n
+
+config XSERVER_XSDL
+	bool
+	depends on XSERVER
+	prompt "xsdl server"
+	default n
+
+config XSERVER_XGL
+	bool
+	depends on XSERVER
+	prompt "xgl server"
+	default n
+
+config XSERVER_XTRAP
+	bool
+	depends on XSERVER
+	prompt "xtrap"
+	default n
+
+config XSERVER_BUILTIN_RGB
+	bool
+	depends on XSERVER
+	prompt "Builtin RGB"
+	default y
+
+config XSERVER_SCREENSAVER
+	bool
+	depends on XSERVER
+	prompt "Screensaver"
+	default y
+
+config XSERVER_XDMCP
+	bool
+	depends on XSERVER
+	prompt "XDMCP"
+	default y
+
+config XSERVER_XDM_AUTH
+	bool
+	depends on XSERVER
+	prompt "xdm-auth"
+	default y
+
+config XSERVER_GLX
+	bool
+	depends on XSERVER
+	prompt "GLX"
+	default n
+
+config XSERVER_DRI
+	bool
+	depends on XSERVER
+	prompt "DRI"
+	default n
+
+config XSERVER_XINPUT
+	bool
+	depends on XSERVER
+	prompt "xinput"
+	default n
+
+config XSERVER_XKB
+	bool
+	depends on XSERVER
+	prompt "xkb"
+	default n
+
+config XSERVER_XLOADABLE
+	bool
+	depends on XSERVER
+	prompt "xloadable"
+	default n
+
+config XSERVER_XINERAMA
+	bool
+	depends on XSERVER
+	prompt "xinerama"
+	default n
+
+config XSERVER_UNIX_TRANSPORT
+	bool
+	depends on XSERVER
+	prompt "Unix Transport"
+	default y
+
+config XSERVER_TCP_TRANSPORT
+	bool
+	depends on XSERVER
+	prompt "TCP Transport"
+	default y
+
+config XSERVER_IPV6_TRANSPORT
+	bool
+	depends on XSERVER
+	prompt "IPv6 Transport"
+	default y
+
+endmenu
