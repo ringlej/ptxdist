@@ -262,10 +262,7 @@ config ARCH
 	default "arm"			if ARCH_ARM
 	default "armnommu"		if ARCH_ARM_NOMMU
 	default "alpha"			if ARCH_ALPHA
-	default "i386"			if ARCH_X86 && OPT_I386
-	default "i486"			if ARCH_X86 && OPT_I486
-	default "i586"			if ARCH_X86 && OPT_I586
-	default "i686"			if ARCH_X86 && OPT_I686
+	default "i386"			if ARCH_X86
 	default "m68k"			if ARCH_M68K
 	default "ppc"			if ARCH_PPC
 	default "sparc"			if ARCH_SPARC
@@ -280,10 +277,7 @@ config ARCH_USERSPACE
 	default "arm"			if ARCH_ARM
 	default "arm"			if ARCH_ARM_NOMMU
 	default "alpha"			if ARCH_ALPHA
-	default "i386"			if ARCH_X86 && OPT_I386
-	default "i486"			if ARCH_X86 && OPT_I486
-	default "i586"			if ARCH_X86 && OPT_I586
-	default "i686"			if ARCH_X86 && OPT_I686
+	default "i386"			if ARCH_X86
 	default "m68k"			if ARCH_M68K
 	default "powerpc"		if ARCH_PPC
 	default "sparc"			if ARCH_SPARC
