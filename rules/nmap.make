@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: nmap.make,v 1.5 2003/10/28 02:20:33 mkl Exp $
+# $Id: nmap.make,v 1.6 2003/11/17 03:34:45 mkl Exp $
 #
 # Copyright (C) 2003 Ixia Corporation (www.ixiacom.com), by Milan Bobde
 #
@@ -14,6 +14,13 @@
 #
 ifdef PTXCONF_NMAP
 PACKAGES += nmap
+endif
+
+#
+# We depend on this package
+#
+ifdef PTXCONF_NMAP
+PACKAGES += libpcap
 endif
 
 #
