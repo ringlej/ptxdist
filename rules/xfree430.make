@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xfree430.make,v 1.3 2003/08/26 13:02:59 robert Exp $
+# $Id: xfree430.make,v 1.4 2003/08/27 18:50:52 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -98,6 +98,7 @@ $(STATEDIR)/xfree430.extract: $(xfree430_extract_deps)
 	@$(call targetinfo, xfree430.extract)
 	@$(call clean, $(XFREE430_DIR))
 	@$(call extract, $(XFREE430_SOURCE))
+	@$(call patchin, $(XFREE430_DIR), $(XFREE430))
 
 # FIXME: for a release use split sources
 #	@$(call extract, $(XFREE430_1_SOURCE))
@@ -126,16 +127,11 @@ xfree430_prepare_deps =  \
 XFREE430_PATH	=  PATH=$(CROSS_PATH)
 XFREE430_ENV	=  XCURSORGEN=xcursorgen
 
-# FIXME: any features we want to add here? 
-#ifdef PTXCONF_XFREE430_FOO
-#XFREE430_AUTOCONF	+= --enable-foo
-#endif
-
 $(STATEDIR)/xfree430.prepare: $(xfree430_prepare_deps)
 	@$(call targetinfo, xfree430.prepare)
 	@$(call clean, $(XFREE430_BUILDDIR))
 	
-	# Build dir
+	# Out-of-Tree build preparation
 	install -d $(XFREE430_BUILDDIR)
 	cd $(XFREE430_DIR)/config/util && make -f Makefile.ini lndir
 	cd $(XFREE430_BUILDDIR) && $(XFREE430_DIR)/config/util/lndir $(XFREE430_DIR)
