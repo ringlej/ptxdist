@@ -1,5 +1,8 @@
-2005-01-19 Robert Schwebel <r.schwebel@pengutronix.de>
+2005-01-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* kconfig/lxdialog: updated to version from 2.6.10;
+	  kconfig has a unified prefix (PTXCONF_) macro now.
+	  Patch by Thibaut Varene. 
 	* arm0815: added generic arm project (Benedikt Spranger)
 	* bash: update to 3.0 (Benedikt Spranger)
 	* glibc: support for NPTL and TLS (Benedikt Spranger)
