@@ -69,8 +69,8 @@ PTXCONF_ROOT=""
 #
 # Generic Options
 #
-PTXCONF_CROSSCHAIN_CHECK="2.95.3"
-PTXCONF_GNU_TARGET="i386-unknown-linux-gnu"
+PTXCONF_CROSSCHAIN_CHECK="3.3.4"
+PTXCONF_GNU_TARGET="i386-linux"
 
 #
 # Non-Crosstool Tools
@@ -98,6 +98,8 @@ PTXCONF_VENDORTWEAKS=""
 # Image Creation
 #
 PTXCONF_IMAGE_TGZ=y
+# PTXCONF_IMAGE_HD is not set
+PTXCONF_IMAGE_HD_CONF="n"
 # PTXCONF_IMAGE_JFFS2 is not set
 
 #
@@ -139,6 +141,7 @@ PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/i386-generic-glibc/i386-generic-glibc-
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_4_25 is not set
 # PTXCONF_KERNEL_2_4_26 is not set
+# PTXCONF_KERNEL_2_4_27 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
@@ -179,7 +182,6 @@ PTXCONF_GLIBC=y
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
-# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_GLIBC_PTHREADS=y
 # PTXCONF_GLIBC_LIBIO is not set
 PTXCONF_GLIBC_SHARED=y
@@ -713,6 +715,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_PROCPS is not set
 
 #
+# sysfsutils          
+#
+# PTXCONF_SYSFSUTILS is not set
+
+#
 # sysutils            
 #
 # PTXCONF_SYSUTILS is not set
@@ -819,6 +826,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # libpcap             
 #
 # PTXCONF_LIBPCAP is not set
+
+#
+# mii-diag            
+#
+# PTXCONF_MII-DIAG is not set
 
 #
 # netcat              
@@ -1004,6 +1016,7 @@ PTXCONF_UTELNETD=y
 #
 # PTXCONF_NANO is not set
 # PTXCONF_JED is not set
+# PTXCONF_HEXEDIT is not set
 
 #
 # System Libraries    
