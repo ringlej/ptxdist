@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gettext.make,v 1.5 2003/10/28 01:57:38 mkl Exp $
+# $Id: gettext.make,v 1.6 2003/12/15 07:15:35 bsp Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -20,7 +20,7 @@ endif
 #
 # Paths and names
 #
-GETTEXT_VERSION		= 0.12.1
+GETTEXT_VERSION		= 0.13
 GETTEXT			= gettext-$(GETTEXT_VERSION)
 GETTEXT_SUFFIX		= tar.gz
 GETTEXT_URL		= ftp://ftp.gnu.org/pub/gnu/gettext/$(GETTEXT).$(GETTEXT_SUFFIX)
