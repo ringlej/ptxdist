@@ -1,0 +1,778 @@
+diff -x CVS -urN kconfig-2.6.0/confdata.c kconfig/confdata.c
+--- kconfig-2.6.0/confdata.c	2003-12-18 03:59:53.000000000 +0100
++++ kconfig/confdata.c	2003-12-18 18:16:21.000000000 +0100
+@@ -118,15 +118,15 @@
+ 		sym = NULL;
+ 		switch (line[0]) {
+ 		case '#':
+-			if (memcmp(line + 2, "CONFIG_", 7))
++			if (memcmp(line + 2, "PTXCONF_", 8))
+ 				continue;
+-			p = strchr(line + 9, ' ');
++			p = strchr(line + 10, ' ');
+ 			if (!p)
+ 				continue;
+ 			*p++ = 0;
+ 			if (strncmp(p, "is not set", 10))
+ 				continue;
+-			sym = sym_find(line + 9);
++			sym = sym_find(line + 10);
+ 			if (!sym) {
+ 				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + 9);
+ 				break;
+@@ -141,19 +141,19 @@
+ 				;
+ 			}
+ 			break;
+-		case 'C':
+-			if (memcmp(line, "CONFIG_", 7))
++		case 'P':
++			if (memcmp(line, "PTXCONF_", 8))
+ 				continue;
+-			p = strchr(line + 7, '=');
++			p = strchr(line + 8, '=');
+ 			if (!p)
+ 				continue;
+ 			*p++ = 0;
+ 			p2 = strchr(p, '\n');
+ 			if (p2)
+ 				*p2 = 0;
+-			sym = sym_find(line + 7);
++			sym = sym_find(line + 8);
+ 			if (!sym) {
+-				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + 7);
++				fprintf(stderr, "%s:%d: trying to assign nonexistent symbol %s\n", name, lineno, line + 8);
+ 				break;
+ 			}
+ 			switch (sym->type) {
+@@ -337,28 +337,28 @@
+ 			case S_TRISTATE:
+ 				switch (sym_get_tristate_value(sym)) {
+ 				case no:
+-					fprintf(out, "# CONFIG_%s is not set\n", sym->name);
++					fprintf(out, "# PTXCONF_%s is not set\n", sym->name);
+ 					if (out_h)
+-						fprintf(out_h, "#undef CONFIG_%s\n", sym->name);
++						fprintf(out_h, "#undef PTXCONF_%s\n", sym->name);
+ 					break;
+ 				case mod:
+-					fprintf(out, "CONFIG_%s=m\n", sym->name);
++					fprintf(out, "PTXCONF_%s=m\n", sym->name);
+ 					if (out_h)
+-						fprintf(out_h, "#define CONFIG_%s_MODULE 1\n", sym->name);
++						fprintf(out_h, "#define PTXCONF_%s_MODULE 1\n", sym->name);
+ 					break;
+ 				case yes:
+-					fprintf(out, "CONFIG_%s=y\n", sym->name);
++					fprintf(out, "PTXCONF_%s=y\n", sym->name);
+ 					if (out_h)
+-						fprintf(out_h, "#define CONFIG_%s 1\n", sym->name);
++						fprintf(out_h, "#define PTXCONF_%s 1\n", sym->name);
+ 					break;
+ 				}
+ 				break;
+ 			case S_STRING:
+ 				// fix me
+ 				str = sym_get_string_value(sym);
+-				fprintf(out, "CONFIG_%s=\"", sym->name);
++				fprintf(out, "PTXCONF_%s=\"", sym->name);
+ 				if (out_h)
+-					fprintf(out_h, "#define CONFIG_%s \"", sym->name);
++					fprintf(out_h, "#define PTXCONF_%s \"", sym->name);
+ 				do {
+ 					l = strcspn(str, "\"\\");
+ 					if (l) {
+@@ -381,16 +381,16 @@
+ 			case S_HEX:
+ 				str = sym_get_string_value(sym);
+ 				if (str[0] != '0' || (str[1] != 'x' && str[1] != 'X')) {
+-					fprintf(out, "CONFIG_%s=%s\n", sym->name, str);
++					fprintf(out, "PTXCONF_%s=%s\n", sym->name, str);
+ 					if (out_h)
+-						fprintf(out_h, "#define CONFIG_%s 0x%s\n", sym->name, str);
++						fprintf(out_h, "#define PTXCONF_%s 0x%s\n", sym->name, str);
+ 					break;
+ 				}
+ 			case S_INT:
+ 				str = sym_get_string_value(sym);
+-				fprintf(out, "CONFIG_%s=%s\n", sym->name, str);
++				fprintf(out, "PTXCONF_%s=%s\n", sym->name, str);
+ 				if (out_h)
+-					fprintf(out_h, "#define CONFIG_%s %s\n", sym->name, str);
++					fprintf(out_h, "#define PTXCONF_%s %s\n", sym->name, str);
+ 				break;
+ 			}
+ 		}
+diff -x CVS -urN kconfig-2.6.0/lkc_defs.h kconfig/lkc_defs.h
+--- kconfig-2.6.0/lkc_defs.h	1970-01-01 01:00:00.000000000 +0100
++++ kconfig/lkc_defs.h	2003-12-18 18:16:21.000000000 +0100
+@@ -0,0 +1,39 @@
++
++/* confdata.c */
++#define conf_parse (*conf_parse_p)
++#define conf_read (*conf_read_p)
++#define conf_write (*conf_write_p)
++
++/* menu.c */
++#define rootmenu (*rootmenu_p)
++
++#define menu_is_visible (*menu_is_visible_p)
++#define menu_get_prompt (*menu_get_prompt_p)
++#define menu_get_root_menu (*menu_get_root_menu_p)
++#define menu_get_parent_menu (*menu_get_parent_menu_p)
++
++/* symbol.c */
++#define symbol_hash (*symbol_hash_p)
++#define sym_change_count (*sym_change_count_p)
++
++#define sym_lookup (*sym_lookup_p)
++#define sym_find (*sym_find_p)
++#define sym_type_name (*sym_type_name_p)
++#define sym_calc_value (*sym_calc_value_p)
++#define sym_get_type (*sym_get_type_p)
++#define sym_tristate_within_range (*sym_tristate_within_range_p)
++#define sym_set_tristate_value (*sym_set_tristate_value_p)
++#define sym_toggle_tristate_value (*sym_toggle_tristate_value_p)
++#define sym_string_valid (*sym_string_valid_p)
++#define sym_string_within_range (*sym_string_within_range_p)
++#define sym_set_string_value (*sym_set_string_value_p)
++#define sym_is_changable (*sym_is_changable_p)
++#define sym_get_choice_prop (*sym_get_choice_prop_p)
++#define sym_get_default_prop (*sym_get_default_prop_p)
++#define sym_get_string_value (*sym_get_string_value_p)
++
++#define prop_get_type_name (*prop_get_type_name_p)
++
++/* expr.c */
++#define expr_compare_type (*expr_compare_type_p)
++#define expr_print (*expr_print_p)
+diff -x CVS -urN kconfig-2.6.0/Makefile kconfig/Makefile
+--- kconfig-2.6.0/Makefile	2003-12-18 03:59:57.000000000 +0100
++++ kconfig/Makefile	2003-12-18 18:17:51.000000000 +0100
+@@ -1,194 +1,189 @@
+-# ===========================================================================
+-# Kernel configuration targets
+-# These targets are used from top-level makefile
+-
+-.PHONY: oldconfig xconfig gconfig menuconfig config silentoldconfig
+-
+-xconfig: $(obj)/qconf
+-	$< arch/$(ARCH)/Kconfig
+-
+-gconfig: $(obj)/gconf
+-	./$<  arch/$(ARCH)/Kconfig
+-
+-menuconfig: $(obj)/mconf
+-	$(Q)$(MAKE) $(build)=scripts/lxdialog
+-	$< arch/$(ARCH)/Kconfig
+-
+-config: $(obj)/conf
+-	$< arch/$(ARCH)/Kconfig
+-
+-oldconfig: $(obj)/conf
+-	$< -o arch/$(ARCH)/Kconfig
+-
+-silentoldconfig: $(obj)/conf
+-	$< -s arch/$(ARCH)/Kconfig
+-
+-.PHONY: randconfig allyesconfig allnoconfig allmodconfig defconfig
+-
+-randconfig: $(obj)/conf
+-	$< -r arch/$(ARCH)/Kconfig
+-
+-allyesconfig: $(obj)/conf
+-	$< -y arch/$(ARCH)/Kconfig
+-
+-allnoconfig: $(obj)/conf
+-	$< -n arch/$(ARCH)/Kconfig
+-
+-allmodconfig: $(obj)/conf
+-	$< -m arch/$(ARCH)/Kconfig
+-
+-defconfig: $(obj)/conf
+-	$< -d arch/$(ARCH)/Kconfig
+-
+-%_defconfig: $(obj)/conf
+-	$(Q)$< -D arch/$(ARCH)/configs/$@ arch/$(ARCH)/Kconfig
+-
+-# Help text used by make help
+-help:
+-	@echo  '  oldconfig	  - Update current config utilising a line-oriented program'
+-	@echo  '  menuconfig	  - Update current config utilising a menu based program'
+-	@echo  '  xconfig	  - Update current config utilising a QT based front-end'
+-	@echo  '  gconfig	  - Update current config utilising a GTK based front-end'
+-	@echo  '  defconfig	  - New config with default answer to all options'
+-	@echo  '  allmodconfig	  - New config selecting modules when possible'
+-	@echo  '  allyesconfig	  - New config where all options are accepted with yes'
+-	@echo  '  allnoconfig	  - New minimal config'
+-
+-# ===========================================================================
+-# Shared Makefile for the various kconfig executables:
+-# conf:	  Used for defconfig, oldconfig and related targets
+-# mconf:  Used for the mconfig target.
+-#         Utilizes the lxdialog package
+-# qconf:  Used for the xconfig target
+-#         Based on QT which needs to be installed to compile it
+-# gconf:  Used for the gconfig target
+-#         Based on GTK which needs to be installed to compile it
+-# object files used by all kconfig flavours
+-
+-libkconfig-objs := zconf.tab.o
+-
+-host-progs	:= conf mconf qconf gconf
+-conf-objs	:= conf.o  libkconfig.so
+-mconf-objs	:= mconf.o libkconfig.so
+-
+-ifeq ($(MAKECMDGOALS),xconfig)
+-	qconf-target := 1
+-endif
+-ifeq ($(MAKECMDGOALS),gconfig)
+-	gconf-target := 1
++VERSION=1.2
++CC=gcc
++CXX=g++
++CFLAGS=-O2 -Wall -g -fPIC
++CXXFLAGS=$(CFLAGS) -I$(QTDIR)/include
++LDFLAGS=
++LXXFLAGS=$(LDFLAGS) -L$(QTDIR)/lib -Wl,-rpath,$(QTDIR)/lib
++LEX=flex
++YACC=bison
++YFLAGS=-d -t -v
++ifndef QTDIR
++QTDIR=/usr/share/qt
++endif
++MOC=$(wildcard $(QTDIR)/bin/moc)
++
++parse_SRC=zconf.y
++conf_SRC=conf.c $(parse_SRC)
++mconf_SRC=mconf.c $(parse_SRC)
++qconf_SRC=qconf.cc
++lkcc_SRC=cml1.y cml1.l help.l cml1.h expr1.c
++HDR=expr.h lkc.h lkc_proto.h qconf.h
++OTHER=README lkc_spec lkc_overview Makefile.kernel convert-all prepare-all.diff fixup-all.diff \
++	kconfig.i extconf.rb example
++INST=zconf.y zconf.l confdata.c expr.c symbol.c menu.c conf.c mconf.c qconf.cc kconfig_load.c images.c $(parse_SRC) $(HDR)
++INSTGEN=lex.zconf.c zconf.tab.c zconf.tab.h
++
++#DEBUG=1
++ifdef DEBUG
++CFLAGS+=-DLKC_DIRECT_LINK
++qconf_SRC+=$(parse_SRC)
++else
++qconf_SRC+=kconfig_load.c
++endif
++
++SRC=$(conf_SRC) $(mconf_SRC) $(qconf_SRC) $(lkcc_SRC)
++CSRC=$(filter %.c, $(SRC))
++YSRC=$(filter %.y, $(SRC))
++LSRC=$(filter %.l, $(SRC))
++
++parse_OBJ=$(filter %.o, \
++		$(patsubst %.c,%.o, \
++		$(patsubst %.y,%.tab.o, \
++		$(patsubst %.l,lex.%.o, \
++			$(parse_SRC)))))
++conf_OBJ=$(filter %.o, \
++		$(patsubst %.c,%.o, \
++		$(patsubst %.y,%.tab.o, \
++		$(patsubst %.l,lex.%.o, \
++			$(conf_SRC)))))
++mconf_OBJ=$(filter %.o, \
++		$(patsubst %.c,%.o, \
++		$(patsubst %.y,%.tab.o, \
++		$(patsubst %.l,lex.%.o, \
++			$(mconf_SRC)))))
++qconf_OBJ=$(filter %.o, \
++		$(patsubst %.c,%.o, \
++		$(patsubst %.cc,%.o, \
++		$(patsubst %.y,%.tab.o, \
++		$(patsubst %.l,lex.%.o, \
++			$(qconf_SRC))))))
++lkcc_OBJ=$(filter %.o, \
++		$(patsubst %.c,%.o, \
++		$(patsubst %.y,%.tab.o, \
++		$(patsubst %.l,lex.%.o, \
++			$(lkcc_SRC)))))
++OBJ=$(conf_OBJ) $(mconf_OBJ) $(qconf_OBJ) $(lkcc_OBJ)
++
++ifeq ($(MOC),)
++all: lkcc conf mconf
++else
++all: lkcc conf mconf qconf libkconfig.so
++endif
++
++lex.help.c: help.l
++lex.help.o: lex.help.c cml1.h expr.h
++lex.cml1.c: cml1.l
++lex.cml1.o: lex.cml1.c cml1.tab.h cml1.h expr.h
++cml1.tab.c: cml1.y
++cml1.tab.h: cml1.y
++cml1.tab.o: cml1.tab.c cml1.h expr.h
++expr1.o: expr1.c expr.h
++
++lkc_deps := lkc.h lkc_proto.h lkc_defs.h expr.h
++
++zconf.tab.c: zconf.y
++zconf.tab.h: zconf.y
++lex.zconf.c: zconf.l
++zconf.tab.o: zconf.tab.c lex.zconf.c confdata.c expr.c symbol.c menu.c $(lkc_deps)
++#lex.zconf.o: lex.zconf.c zconf.tab.h $(lkc_deps)
++#confdata.o: confdata.c $(lkc_deps)
++#expr.o: expr.c $(lkc_deps)
++#symbol.o: symbol.c $(lkc_deps)
++#menu.o: menu.c $(lkc_deps)
++kconfig_load.o: kconfig_load.c $(lkc_deps)
++conf.o: conf.c $(lkc_deps)
++mconf.o: mconf.c $(lkc_deps)
++qconf.moc: qconf.h
++qconf.o: qconf.cc qconf.moc images.c $(lkc_deps)
++
++mconf: $(mconf_OBJ)
++	$(CC) $(LDFLAGS) $^ -o $@
++
++conf: $(conf_OBJ)
++	$(CC) $(LDFLAGS) $^ -o $@
++
++ifeq ($(MOC),)
++qconf:
++	@echo Unable to find the QT installation. Please make sure that the
++	@echo QT development package is correctly installed and the QTDIR
++	@echo environment variable is set to the correct location.
++	@false
++else
++qconf: $(qconf_OBJ)
++	$(CXX) $(LXXFLAGS) $^ -lqt -ldl -o $@
+ endif
+ 
++lkcc: $(lkcc_OBJ)
++	$(CC) $(LDFLAGS) $^ -o $@
+ 
+-ifeq ($(qconf-target),1)
+-qconf-cxxobjs	:= qconf.o
+-qconf-objs	:= kconfig_load.o
+-endif
+-
+-ifeq ($(gconf-target),1)
+-gconf-objs	:= gconf.o kconfig_load.o
+-endif
+-
+-clean-files	:= libkconfig.so lkc_defs.h qconf.moc .tmp_qtcheck \
+-		   .tmp_gtkcheck zconf.tab.c zconf.tab.h lex.zconf.c
++libkconfig.so: $(parse_OBJ)
++	$(CC) -shared $^ -o $@
+ 
+-# generated files seem to need this to find local include files
+-HOSTCFLAGS_lex.zconf.o	:= -I$(src)
+-HOSTCFLAGS_zconf.tab.o	:= -I$(src)
+-
+-HOSTLOADLIBES_qconf	= -L$(QTDIR)/lib -Wl,-rpath,$(QTDIR)/lib -l$(QTLIB) -ldl
+-HOSTCXXFLAGS_qconf.o	= -I$(QTDIR)/include 
+-
+-HOSTLOADLIBES_gconf	= `pkg-config gtk+-2.0 gmodule-2.0 libglade-2.0 --libs`
+-HOSTCFLAGS_gconf.o	= `pkg-config gtk+-2.0 gmodule-2.0 libglade-2.0 --cflags`
+-
+-$(obj)/conf.o $(obj)/mconf.o $(obj)/qconf.o $(obj)/gconf.o: $(obj)/zconf.tab.h
+-
+-$(obj)/qconf.o: $(obj)/.tmp_qtcheck
+-
+-ifeq ($(qconf-target),1)
+-MOC = $(QTDIR)/bin/moc
+--include $(obj)/.tmp_qtcheck
+-
+-# QT needs some extra effort...
+-$(obj)/.tmp_qtcheck:
+-	@set -e; for d in $$QTDIR /usr/share/qt* /usr/lib/qt*; do \
+-	  if [ -f $$d/include/qconfig.h ]; then DIR=$$d; break; fi; \
+-	done; \
+-	if [ -z "$$DIR" ]; then \
+-	  echo "*"; \
+-	  echo "* Unable to find the QT installation. Please make sure that the"; \
+-	  echo "* QT development package is correctly installed and the QTDIR"; \
+-	  echo "* environment variable is set to the correct location."; \
+-	  echo "*"; \
+-	  false; \
+-	fi; \
+-	LIB=qt; \
+-	if [ -f $$DIR/lib/libqt-mt.so ]; then LIB=qt-mt; fi; \
+-	echo "QTDIR=$$DIR" > $@; echo "QTLIB=$$LIB" >> $@; \
+-	if [ ! -x $$DIR/bin/moc -a -x /usr/bin/moc ]; then \
+-	  echo "*"; \
+-	  echo "* Unable to find $$DIR/bin/moc, using /usr/bin/moc instead."; \
+-	  echo "*"; \
+-	  echo "MOC=/usr/bin/moc" >> $@; \
+-	fi
+-endif
++lkc_defs.h: lkc_proto.h
++	sed < $< > $@ 's/P(\([^,]*\),.*/#define \1 (\*\1_p)/'
+ 
+-$(obj)/gconf.o: $(obj)/.tmp_gtkcheck
++clean:
++	rm -f $(OBJ) lkcc conf qconf mconf *.moc lex.* *.tab.? *.output libkconfig.so
+ 
+-ifeq ($(gconf-target),1)
+--include $(obj)/.tmp_gtkcheck
++tgz:
++	mkdir tmp
++	mkdir tmp/lkc-$(VERSION)
++	cp -ra Makefile $(sort $(SRC) $(HDR) $(OTHER) $(INST)) tmp/lkc-$(VERSION)
++	tar -cpvz -C tmp -f lkc-$(VERSION).tar.gz lkc-$(VERSION)
++	rm -rf tmp
+ 
+-# GTK needs some extra effort, too...
+-$(obj)/.tmp_gtkcheck:
+-	@if `pkg-config gtk+-2.0 gmodule-2.0 libglade-2.0 --exists`; then		\
+-		if `pkg-config gtk+-2.0 --atleast-version=2.0.0`; then			\
+-			touch $@;								\
+-		else									\
+-			echo "*"; 							\
+-			echo "* GTK+ is present but version >= 2.0.0 is required.";	\
+-			echo "*";							\
+-			false;								\
+-		fi									\
+-	else										\
+-		echo "*"; 								\
+-		echo "* Unable to find the GTK+ installation. Please make sure that"; 	\
+-		echo "* the GTK+ 2.0 development package is correctly installed..."; 	\
+-		echo "* You need gtk+-2.0, glib-2.0 and libglade-2.0."; 		\
+-		echo "*"; 								\
+-		false;									\
+-	fi
+-endif
++%.tab.c %.tab.h: %.y
++	$(YACC) $(YFLAGS) -b $* -p $* $<
+ 
+-$(obj)/zconf.tab.o: $(obj)/lex.zconf.c
++lex.%.c: %.l
++	$(LEX) $(LFLAGS) -P$* $<
+ 
+-$(obj)/kconfig_load.o: $(obj)/lkc_defs.h
++%.moc: %.h
++	$(QTDIR)/bin/moc -i $< -o $@
+ 
+-$(obj)/qconf.o: $(obj)/qconf.moc $(obj)/lkc_defs.h
++%.o: %.c
++	$(CC) $(CFLAGS) -c $< -o $@
+ 
+-$(obj)/gconf.o: $(obj)/lkc_defs.h
++%.o: %.cc
++	$(CXX) $(CXXFLAGS) -c $< -o $@
+ 
+-$(obj)/%.moc: $(src)/%.h
+-	$(MOC) -i $< -o $@
++ifdef KERNELSRC
++install: lkcc $(INSTGEN)
++	set -x; mkdir $(KERNELSRC)/scripts/kconfig; \
++	cp $(sort $(INST)) $(KERNELSRC)/scripts/kconfig; \
++	for f in $(INSTGEN); do cp $$f $(KERNELSRC)/scripts/kconfig/$${f}_shipped; done; \
++	cp Makefile.kernel $(KERNELSRC)/scripts/kconfig/Makefile; \
++	LKCSRC=$$PWD; export LKCSRC; \
++	cd $(KERNELSRC); \
++	patch -p0 -N < $$LKCSRC/prepare-all.diff; \
++	sh $$LKCSRC/convert-all; \
++	patch -p0 -N < $$LKCSRC/fixup-all.diff
+ 
+-$(obj)/lkc_defs.h: $(src)/lkc_proto.h
+-	sed < $< > $@ 's/P(\([^,]*\),.*/#define \1 (\*\1_p)/'
++#	cp Makefile $(KERNELSRC)/scripts/kconfig/Makefile; \
+ 
++uninstall:
++	patch -p0 -N -R -d $(KERNELSRC) < prepare-all.diff; \
++	cd $(KERNELSRC); \
++	find -name "Kconfig*" | xargs rm; \
++	rm -rf scripts/kconfig log.*
++else
++install:
++	@echo "Please use KERNELSRC=<path/to/linux-kernel> to install"
++endif
+ 
+-###
+-# The following requires flex/bison
+-# By default we use the _shipped versions, uncomment the following line if
+-# you are modifying the flex/bison src.
+-# LKC_GENPARSER := 1
++ruby: .ruby libkconfig.so .ruby/kconfig.so
+ 
+-ifdef LKC_GENPARSER
++.ruby:
++	mkdir .ruby
+ 
+-$(obj)/zconf.tab.c: $(obj)/zconf.y 
+-$(obj)/zconf.tab.h: $(obj)/zconf.tab.c
++.ruby/kconfig_wrap.c: kconfig.i kconfig_load.c expr.h lkc_proto.h
++	swig -ruby -o $@ $<
+ 
+-%.tab.c: %.y
+-	bison -t -d -v -b $* -p $(notdir $*) $<
++.ruby/Makefile: extconf.rb
++	cd .ruby; ruby ../extconf.rb
+ 
+-lex.%.c: %.l
+-	flex -P$(notdir $*) -o$@ $<
++.ruby/kconfig.so: .ruby/kconfig_wrap.c .ruby/Makefile
++	make -C .ruby
+ 
+-endif
++.PHONY: all tgz clean ruby
+diff -x CVS -urN kconfig-2.6.0/Makefile-orig kconfig/Makefile-orig
+--- kconfig-2.6.0/Makefile-orig	1970-01-01 01:00:00.000000000 +0100
++++ kconfig/Makefile-orig	2003-12-18 18:18:55.000000000 +0100
+@@ -0,0 +1,194 @@
++# ===========================================================================
++# Kernel configuration targets
++# These targets are used from top-level makefile
++
++.PHONY: oldconfig xconfig gconfig menuconfig config silentoldconfig
++
++xconfig: $(obj)/qconf
++	$< arch/$(ARCH)/Kconfig
++
++gconfig: $(obj)/gconf
++	./$<  arch/$(ARCH)/Kconfig
++
++menuconfig: $(obj)/mconf
++	$(Q)$(MAKE) $(build)=scripts/lxdialog
++	$< arch/$(ARCH)/Kconfig
++
++config: $(obj)/conf
++	$< arch/$(ARCH)/Kconfig
++
++oldconfig: $(obj)/conf
++	$< -o arch/$(ARCH)/Kconfig
++
++silentoldconfig: $(obj)/conf
++	$< -s arch/$(ARCH)/Kconfig
++
++.PHONY: randconfig allyesconfig allnoconfig allmodconfig defconfig
++
++randconfig: $(obj)/conf
++	$< -r arch/$(ARCH)/Kconfig
++
++allyesconfig: $(obj)/conf
++	$< -y arch/$(ARCH)/Kconfig
++
++allnoconfig: $(obj)/conf
++	$< -n arch/$(ARCH)/Kconfig
++
++allmodconfig: $(obj)/conf
++	$< -m arch/$(ARCH)/Kconfig
++
++defconfig: $(obj)/conf
++	$< -d arch/$(ARCH)/Kconfig
++
++%_defconfig: $(obj)/conf
++	$(Q)$< -D arch/$(ARCH)/configs/$@ arch/$(ARCH)/Kconfig
++
++# Help text used by make help
++help:
++	@echo  '  oldconfig	  - Update current config utilising a line-oriented program'
++	@echo  '  menuconfig	  - Update current config utilising a menu based program'
++	@echo  '  xconfig	  - Update current config utilising a QT based front-end'
++	@echo  '  gconfig	  - Update current config utilising a GTK based front-end'
++	@echo  '  defconfig	  - New config with default answer to all options'
++	@echo  '  allmodconfig	  - New config selecting modules when possible'
++	@echo  '  allyesconfig	  - New config where all options are accepted with yes'
++	@echo  '  allnoconfig	  - New minimal config'
++
++# ===========================================================================
++# Shared Makefile for the various kconfig executables:
++# conf:	  Used for defconfig, oldconfig and related targets
++# mconf:  Used for the mconfig target.
++#         Utilizes the lxdialog package
++# qconf:  Used for the xconfig target
++#         Based on QT which needs to be installed to compile it
++# gconf:  Used for the gconfig target
++#         Based on GTK which needs to be installed to compile it
++# object files used by all kconfig flavours
++
++libkconfig-objs := zconf.tab.o
++
++host-progs	:= conf mconf qconf gconf
++conf-objs	:= conf.o  libkconfig.so
++mconf-objs	:= mconf.o libkconfig.so
++
++ifeq ($(MAKECMDGOALS),xconfig)
++	qconf-target := 1
++endif
++ifeq ($(MAKECMDGOALS),gconfig)
++	gconf-target := 1
++endif
++
++
++ifeq ($(qconf-target),1)
++qconf-cxxobjs	:= qconf.o
++qconf-objs	:= kconfig_load.o
++endif
++
++ifeq ($(gconf-target),1)
++gconf-objs	:= gconf.o kconfig_load.o
++endif
++
++clean-files	:= libkconfig.so lkc_defs.h qconf.moc .tmp_qtcheck \
++		   .tmp_gtkcheck zconf.tab.c zconf.tab.h lex.zconf.c
++
++# generated files seem to need this to find local include files
++HOSTCFLAGS_lex.zconf.o	:= -I$(src)
++HOSTCFLAGS_zconf.tab.o	:= -I$(src)
++
++HOSTLOADLIBES_qconf	= -L$(QTDIR)/lib -Wl,-rpath,$(QTDIR)/lib -l$(QTLIB) -ldl
++HOSTCXXFLAGS_qconf.o	= -I$(QTDIR)/include 
++
++HOSTLOADLIBES_gconf	= `pkg-config gtk+-2.0 gmodule-2.0 libglade-2.0 --libs`
++HOSTCFLAGS_gconf.o	= `pkg-config gtk+-2.0 gmodule-2.0 libglade-2.0 --cflags`
++
++$(obj)/conf.o $(obj)/mconf.o $(obj)/qconf.o $(obj)/gconf.o: $(obj)/zconf.tab.h
++
++$(obj)/qconf.o: $(obj)/.tmp_qtcheck
++
++ifeq ($(qconf-target),1)
++MOC = $(QTDIR)/bin/moc
++-include $(obj)/.tmp_qtcheck
++
++# QT needs some extra effort...
++$(obj)/.tmp_qtcheck:
++	@set -e; for d in $$QTDIR /usr/share/qt* /usr/lib/qt*; do \
++	  if [ -f $$d/include/qconfig.h ]; then DIR=$$d; break; fi; \
++	done; \
++	if [ -z "$$DIR" ]; then \
++	  echo "*"; \
++	  echo "* Unable to find the QT installation. Please make sure that the"; \
++	  echo "* QT development package is correctly installed and the QTDIR"; \
++	  echo "* environment variable is set to the correct location."; \
++	  echo "*"; \
++	  false; \
++	fi; \
++	LIB=qt; \
++	if [ -f $$DIR/lib/libqt-mt.so ]; then LIB=qt-mt; fi; \
++	echo "QTDIR=$$DIR" > $@; echo "QTLIB=$$LIB" >> $@; \
++	if [ ! -x $$DIR/bin/moc -a -x /usr/bin/moc ]; then \
++	  echo "*"; \
++	  echo "* Unable to find $$DIR/bin/moc, using /usr/bin/moc instead."; \
++	  echo "*"; \
++	  echo "MOC=/usr/bin/moc" >> $@; \
++	fi
++endif
++
++$(obj)/gconf.o: $(obj)/.tmp_gtkcheck
++
++ifeq ($(gconf-target),1)
++-include $(obj)/.tmp_gtkcheck
++
++# GTK needs some extra effort, too...
++$(obj)/.tmp_gtkcheck:
++	@if `pkg-config gtk+-2.0 gmodule-2.0 libglade-2.0 --exists`; then		\
++		if `pkg-config gtk+-2.0 --atleast-version=2.0.0`; then			\
++			touch $@;								\
++		else									\
++			echo "*"; 							\
++			echo "* GTK+ is present but version >= 2.0.0 is required.";	\
++			echo "*";							\
++			false;								\
++		fi									\
++	else										\
++		echo "*"; 								\
++		echo "* Unable to find the GTK+ installation. Please make sure that"; 	\
++		echo "* the GTK+ 2.0 development package is correctly installed..."; 	\
++		echo "* You need gtk+-2.0, glib-2.0 and libglade-2.0."; 		\
++		echo "*"; 								\
++		false;									\
++	fi
++endif
++
++$(obj)/zconf.tab.o: $(obj)/lex.zconf.c
++
++$(obj)/kconfig_load.o: $(obj)/lkc_defs.h
++
++$(obj)/qconf.o: $(obj)/qconf.moc $(obj)/lkc_defs.h
++
++$(obj)/gconf.o: $(obj)/lkc_defs.h
++
++$(obj)/%.moc: $(src)/%.h
++	$(MOC) -i $< -o $@
++
++$(obj)/lkc_defs.h: $(src)/lkc_proto.h
++	sed < $< > $@ 's/P(\([^,]*\),.*/#define \1 (\*\1_p)/'
++
++
++###
++# The following requires flex/bison
++# By default we use the _shipped versions, uncomment the following line if
++# you are modifying the flex/bison src.
++# LKC_GENPARSER := 1
++
++ifdef LKC_GENPARSER
++
++$(obj)/zconf.tab.c: $(obj)/zconf.y 
++$(obj)/zconf.tab.h: $(obj)/zconf.tab.c
++
++%.tab.c: %.y
++	bison -t -d -v -b $* -p $(notdir $*) $<
++
++lex.%.c: %.l
++	flex -P$(notdir $*) -o$@ $<
++
++endif
+diff -x CVS -urN kconfig-2.6.0/mconf.c kconfig/mconf.c
+--- kconfig-2.6.0/mconf.c	2003-12-18 03:58:28.000000000 +0100
++++ kconfig/mconf.c	2003-12-18 18:16:21.000000000 +0100
+@@ -761,8 +761,13 @@
+ 
+ 	sym = sym_lookup("KERNELRELEASE", 0);
+ 	sym_calc_value(sym);
+-	sprintf(menu_backtitle, "Linux Kernel v%s Configuration",
+-		sym_get_string_value(sym));
++	sprintf(menu_backtitle, "%s v%s.%s.%s%s Configuration",
++		getenv("PROJECT"), 
++		getenv("VERSION"), 
++		getenv("PATCHLEVEL"),
++		getenv("SUBLEVEL"), 
++		getenv("EXTRAVERSION")
++	);
+ 
+ 	mode = getenv("MENUCONFIG_MODE");
+ 	if (mode) {
+@@ -778,7 +783,7 @@
+ 	do {
+ 		cprint_init();
+ 		cprint("--yesno");
+-		cprint("Do you wish to save your new kernel configuration?");
++		cprint("Do you wish to save your new %s configuration?", getenv("PROJECT"));
+ 		cprint("5");
+ 		cprint("60");
+ 		stat = exec_conf();
+@@ -787,12 +792,14 @@
+ 	if (stat == 0) {
+ 		conf_write(NULL);
+ 		printf("\n\n"
+-			"*** End of Linux kernel configuration.\n"
+-			"*** Execute 'make' to build the kernel or try 'make help'."
+-			"\n\n");
++			"*** End of %s configuration.\n"
++			"*** Execute 'make' to see possible build options."
++			"\n\n",
++			getenv("PROJECT")
++		);
+ 	} else
+ 		printf("\n\n"
+-			"Your kernel configuration changes were NOT saved."
++			"Your configuration changes were NOT saved."
+ 			"\n\n");
+ 
+ 	return 0;
+diff -x CVS -urN kconfig-2.6.0/README.PTX kconfig/README.PTX
+--- kconfig-2.6.0/README.PTX	1970-01-01 01:00:00.000000000 +0100
++++ kconfig/README.PTX	2003-12-18 18:18:33.000000000 +0100
+@@ -0,0 +1,14 @@
++README.PTX
++==========
++
++This is a copy of the linux-2.5.63 scripts/kconfig directory. The only
++modification is the Makefile, which comes from an old version of kconfig
++(standalone version 1.2, before it was merged with Linux) 
++and the kconfig.diff patch. 
++
++To update to a new kconfig version copy the kconfig directory from the kernel
++and replace Makefile with that one to be found in ../ptx-modifications and 
++apply the patch. 
++
++Robert Schwebel <r.schwebel@pengutronix.de>
++
