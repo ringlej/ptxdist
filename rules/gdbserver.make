@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gdbserver.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: gdbserver.make,v 1.3 2003/10/23 17:52:22 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -35,6 +35,7 @@ $(STATEDIR)/gdbserver.get: $(gdb_get_deps)
 gdbserver_extract: $(STATEDIR)/gdbserver.extract
 
 $(STATEDIR)/gdbserver.extract: $(STATEDIR)/gdb.extract
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
