@@ -145,7 +145,7 @@ PTXCONF_KERNEL_INSTALL=y
 #
 # 
 #
-PTXCONF_KERNEL_PATCH1_URL="http://cvs.gna.org/viewcvs/*checkout*/rtai/vesuvio/rtai-core/arch/i386/patches/hal13c2-2.4.26.patch?rev=1.1.1.1"
+PTXCONF_KERNEL_PATCH1_URL="file:///ptx/home/Projects/ABB-Schaltanlagen/RTAI-RTnet-Test/patches/hal13c2-2.4.26.patch"
 PTXCONF_KERNEL_PATCH1_NAME="rtai-3.1-test4"
 PTXCONF_KERNEL_PATCH1_XCHAIN=y
 
@@ -1133,7 +1133,7 @@ PTXCONF_FIGLET=y
 #
 # zlib             
 #
-# PTXCONF_ZLIB is not set
+PTXCONF_ZLIB=y
 
 #
 # ncurses          
@@ -1189,9 +1189,30 @@ PTXCONF_FIGLET=y
 # PTXCONF_QTE is not set
 
 #
-# Blackbox WM         
+# Blackbox WM           
 #
 # PTXCONF_BLACKBOX is not set
+
+#
+# Scientific Apps     
+#
+
+#
+# plplot           
+#
+# PTXCONF_PLPLOT is not set
+
+#
+# gnuplot          
+#
+PTXCONF_GNUPLOT=y
+# PTXCONF_GNUPLOT_FITERRVARS is not set
+# PTXCONF_GNUPLOT_WITH_X is not set
+# PTXCONF_GNUPLOT_PLOT is not set
+PTXCONF_GNUPLOT_PNG=y
+# PTXCONF_GNUPLOT_GD is not set
+# PTXCONF_GNUPLOT_GIF is not set
+# PTXCONF_GNUPLOT_PDF is not set
 
 #
 # Web Applications    
