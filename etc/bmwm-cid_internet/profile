@@ -16,5 +16,8 @@ if [ "$TERM" != "linux" ]; then
         stty erase ^H
 fi
 
+# Convenience aliases
+alias ll='ls -l'
+
 # PS1="# "
 
