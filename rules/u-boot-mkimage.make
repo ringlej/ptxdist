@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: u-boot-mkimage.make,v 1.5 2003/07/16 04:23:28 mkl Exp $
+# $Id: u-boot-mkimage.make,v 1.6 2003/08/29 01:42:32 mkl Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -53,7 +53,11 @@ $(STATEDIR)/umkimage.extract: $(STATEDIR)/umkimage.get
 
 umkimage_prepare: $(STATEDIR)/umkimage.prepare
 
-$(STATEDIR)/umkimage.prepare: $(STATEDIR)/umkimage.extract
+umkimage_prepare_deps = \
+	$(STATEDIR)/umkimage.extract \
+	$(STATEDIR)/xchain-zlib.install
+
+$(STATEDIR)/umkimage.prepare: $(umkimage_prepare_deps)
 	@$(call targetinfo, umkimage.prepare)
 	touch $@
 
