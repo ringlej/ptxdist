@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mtd.make,v 1.9 2003/10/24 01:27:16 mkl Exp $
+# $Id: mtd.make,v 1.10 2004/01/22 00:48:34 robert Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -78,6 +78,7 @@ mtd_prepare_deps = \
 
 MTD_PATH	= PATH=$(CROSS_PATH)
 MTD_MAKEVARS	= CROSS=$(PTXCONF_GNU_TARGET)-
+MTD_ENV		= $(CROSS_ENV)
 
 $(STATEDIR)/mtd.prepare: $(mtd_prepare_deps)
 	@$(call targetinfo, $@)
@@ -93,7 +94,7 @@ mtd_compile_deps = $(STATEDIR)/mtd.prepare
 
 $(STATEDIR)/mtd.compile: $(mtd_compile_deps)
 	@$(call targetinfo, $@)
-	$(MTD_PATH) make -C $(MTD_DIR)/util $(MTD_MAKEVARS)
+	$(MTD_ENV) $(MTD_PATH) make -C $(MTD_DIR)/util $(MTD_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -125,71 +126,71 @@ $(STATEDIR)/mtd.targetinstall: $(mtd_targetinstall_deps)
 	install -d $(ROOTDIR)/sbin
 
 ifdef PTXCONF_MTD_EINFO
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/einfo $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/einfo $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/einfo
 endif
 ifdef PTXCONF_MTD_ERASE
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/erase $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/erase $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/erase
 endif
 ifdef PTXCONF_MTD_ERASEALL
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/eraseall $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/eraseall $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/eraseall
 endif
 ifdef PTXCONF_MTD_FCP
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/fcp $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/fcp $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/fcp
 endif
 ifdef PTXCONF_MTD_FTL_CHECK
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/ftl_check $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/ftl_check $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/check
 endif
 ifdef PTXCONF_MTD_FTL_FORMAT
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/ftl_format $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/ftl_format $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/ftl_format
 endif
 ifdef PTXCONF_MTD_JFFS2READER
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/jffs2reader $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/jffs2reader $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/jffs2reader
 endif
 ifdef PTXCONF_MTD_LOCK
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/lock $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/lock $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/lock
 endif
 ifdef PTXCONF_MTD_MTDDEBUG
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/mtd_debug $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/mtd_debug $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mtd_debug
 endif
 ifdef PTXCONF_MTD_NANDDUMP
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/nanddump $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/nanddump $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nanddump
 endif
 ifdef PTXCONF_MTD_NANDTEST
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/nandtest $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/nandtest $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nandtest
 endif
 ifdef PTXCONF_MTD_NANDWRITE
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/nandwrite $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/nandwrite $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nandwrite
 endif
 ifdef PTXCONF_MTD_NFTL_FORMAT
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/nftl_format $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/nftl_format $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nftl_format
 endif
 ifdef PTXCONF_MTD_NFTLDUMP
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/nftldump $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/nftldump $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nftldump
 endif
 ifdef PTXCONF_MTD_UNLOCK
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/unlock $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/unlock $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/unlock
 endif
 ifdef PTXCONF_MTD_MKJFFS
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/mkfs.jffs $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/mkfs.jffs $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mkfs.jffs
 endif
 ifdef PTXCONF_MTD_MKJFFS2
-	install $(BUILDDIR)/mtdutil/$(MTD)/util/mkfs.jffs2 $(ROOTDIR)/sbin
+	install $(BUILDDIR)/$(MTD)/util/mkfs.jffs2 $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mkfs.jffs2
 endif
 	touch $@
