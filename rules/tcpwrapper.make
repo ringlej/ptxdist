@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: tcpwrapper.make,v 1.7 2003/09/17 22:52:35 mkl Exp $
+# $Id: tcpwrapper.make,v 1.8 2003/09/17 23:43:59 mkl Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -91,6 +91,8 @@ tcpwrapper_install: $(STATEDIR)/tcpwrapper.install
 
 $(STATEDIR)/tcpwrapper.install: $(STATEDIR)/tcpwrapper.compile
 	@$(call targetinfo, tcpwrapper.install)
+	install -d $(CROSS_LIB_DIR)/lib
+	install $(TCPWRAPPER_DIR)/libwrap.a $(CROSS_LIB_DIR)/lib
 	touch $@
 
 # ----------------------------------------------------------------------------

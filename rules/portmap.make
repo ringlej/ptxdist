@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: portmap.make,v 1.5 2003/09/17 13:22:39 robert Exp $
+# $Id: portmap.make,v 1.6 2003/09/17 23:43:59 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_PORTMAP))
+ifdef PTXCONF_PORTMAP
 PACKAGES += portmap
 endif
 
@@ -22,7 +22,6 @@ PORTMAP			= portmap_4
 PORTMAP_URL		= ftp://ftp.porcupine.org/pub/security/$(PORTMAP).tar.gz
 PORTMAP_SOURCE		= $(SRCDIR)/$(PORTMAP).tar.gz
 PORTMAP_DIR		= $(BUILDDIR)/$(PORTMAP)
-PORTMAP_EXTRACT 	= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -36,7 +35,7 @@ $(STATEDIR)/portmap.get: $(PORTMAP_SOURCE)
 
 $(PORTMAP_SOURCE):
 	@$(call targetinfo, $(PORTMAP_SOURCE))
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(PORTMAP_URL)
+	@$(call get, $(PORTMAP_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,13 +46,12 @@ portmap_extract: $(STATEDIR)/portmap.extract
 $(STATEDIR)/portmap.extract: $(STATEDIR)/portmap.get
 	@$(call targetinfo, portmap.extract)
 	@$(call clean, $(PORTMAP_DIR))
-	$(PORTMAP_EXTRACT) $(PORTMAP_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
-	# apply some fixes
-	perl -i -p -e 's/^HOSTS_ACCESS/#HOSTS_ACCESS/g' $(PORTMAP_DIR)/Makefile
-	perl -i -p -e 's/^CHECK_PORT/#CHECK_PORT/g' $(PORTMAP_DIR)/Makefile
-	perl -i -p -e "s|^WRAP_DIR=(.*)$$|WRAP_DIR = $(TCPWRAPPER_DIR)|g" $(PORTMAP_DIR)/Makefile
-	perl -i -p -e 's/^AUX/#AUX/g' $(PORTMAP_DIR)/Makefile
-	# FIXME: uggly, make patch
+	@$(call extract, $(PORTMAP_SOURCE))
+#	apply some fixes
+	@$(call disable_sh, $(PORTMAP_DIR)/Makefile, HOSTS_ACCESS)
+	@$(call disable_sh, $(PORTMAP_DIR)/Makefile, CHECK_PORT)
+	@$(call disable_sh, $(PORTMAP_DIR)/Makefile, AUX)
+#	FIXME: uggly, make patch
 	perl -i -p -e "s/const/__const/g" $(PORTMAP_DIR)/portmap.c
 	touch $@
 
@@ -65,7 +63,7 @@ portmap_prepare: $(STATEDIR)/portmap.prepare
 
 portmap_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/tcpwrapper.compile \
+	$(STATEDIR)/tcpwrapper.install \
 	$(STATEDIR)/portmap.extract
 
 $(STATEDIR)/portmap.prepare: $(portmap_prepare_deps)
@@ -78,11 +76,14 @@ $(STATEDIR)/portmap.prepare: $(portmap_prepare_deps)
 
 portmap_compile: $(STATEDIR)/portmap.compile
 
-PORTMAP_ENVIRONMENT	= $(CROSS_ENV)
+PORTMAP_ENV		= $(CROSS_ENV)
+PORTMAP_PATH		= PATH=$(CROSS_PATH)
+PORTMAP_MAKEVARS	= WRAP_DIR=$(CROSS_LIB_DIR)/lib
 
 $(STATEDIR)/portmap.compile: $(STATEDIR)/portmap.prepare
 	@$(call targetinfo, portmap.compile)
-	$(PORTMAP_ENVIRONMENT) make -C $(PORTMAP_DIR)
+	$(PORTMAP_ENV) $(PORTMAP_PATH) \
+		make -C $(PORTMAP_DIR) $(PORTMAP_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -103,11 +104,11 @@ portmap_targetinstall: $(STATEDIR)/portmap.targetinstall
 
 $(STATEDIR)/portmap.targetinstall: $(STATEDIR)/portmap.install
 	@$(call targetinfo, portmap.targetinstall)
-        ifeq (y, $(PTXCONF_PORTMAP_INSTALL_PORTMAPPER))
+ifdef PTXCONF_PORTMAP_INSTALL_PORTMAPPER
 	mkdir -p $(ROOTDIR)/sbin
 	install $(PORTMAP_DIR)/portmap $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/portmap
-        endif
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
