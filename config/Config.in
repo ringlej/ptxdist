@@ -337,10 +337,8 @@ endmenu
 
 menu	"Debugging Tools     "
 
-config STRACE
-	bool
-	prompt "strace"
-	default n
+# gdb
+source "rules/gdb.in"
 
 config KSYMOOPS
 	bool
@@ -352,14 +350,21 @@ config LIBBFD
 	prompt "libbfd on target (needed for profiling)"
 	default n
 
+config LTT
+	bool
+	prompt "Linux Trace Toolkit (LTT)"
+	default n
+
 config OPROFILE
 	bool
 	prompt "oprofile"
 	default n
 	depends on POPT && LIBBFD
 
-# gdb
-source "rules/gdb.in"
+config STRACE
+	bool
+	prompt "strace"
+	default n
 
 endmenu
 
