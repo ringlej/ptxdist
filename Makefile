@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.8 2003/07/16 04:23:28 mkl Exp $
+# $Id: Makefile,v 1.9 2003/07/17 08:54:42 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -60,6 +60,7 @@ help:
 	@echo "  make install          Install to rootdirectory"
 	@echo "  make clean            Remove everything but local/"
 	@echo "  make rootclean        Remove root directory contents"
+	@echo "  make distclean        Clean everything"
 	@echo 
 	@echo "  make world            Make-everything-and-be-happy"
 	@echo
@@ -127,16 +128,21 @@ oldconfig: ptx_kconfig scripts/kconfig/conf
 # Config Targets -------------------------------------------------------------
 
 innokom_config:
-	@echo "copying innokom config"
+	@echo "copying innokom config:" $(call latestconfig, ptxconfig-auerswald)
 	@cp $(call latestconfig, ptxconfig-auerswald) .config
-	@cp $(call latestconfig, kernel*auerswald) .kernelconfig
 
 rayonic_config:
-	@echo "copying rayonic config"
+	@echo "copying rayonic config" $(call latestconfig, ptxconfig-rayonic)
 	@cp $(call latestconfig, ptxconfig-rayonic) .config
-	@cp $(call latestconfig, kernel*rayonic) .kernelconfig
 
 # ----------------------------------------------------------------------------
+
+distclean: clean
+	@echo -n "cleaning .config, .kernelconfig.. "
+	@rm -f .config .kernelconfig
+	@echo "done."
+	@echo
+
 clean: rootclean
 	@echo
 	@echo -n "cleaning build dir............... "
@@ -154,6 +160,9 @@ clean: rootclean
 	@echo "done."
 	@echo -n "cleaning dependency tree ........ "
 	@rm -f $(DEP_OUTPUT) $(DEP_TREE_PS)
+	@echo "done."
+	@echo -n "cleaning logfile................. "
+	@rm -f logfile
 	@echo "done."
 	@echo
 
