@@ -10,4 +10,32 @@ config MGETTY_CONFIG
 	default "build/mgetty-1.1.30/policy.h-dist"
 	depends on MGETTY
 
+config MGETTY_INSTALL_CONFIG
+	prompt "Install default config files to $(ROOTDIR)/etc/mgetty+sendfax"
+	bool
+	default y
+	depends on MGETTY
+	help
+	  Enabling this option installs mgetty's default config files onto your target.
+	  Say N here if you want to use your own files and make sure they're installed
+	  by your vendortweaks.
+
+config SENDFAX
+	prompt "Install sendfax and G3 helper tools"
+	bool
+	default y
+	depends on MGETTY
+
+config SENDFAX_SPOOL
+	bool
+	default y
+	prompt "Install faxspooling programs"
+	depends on MGETTY
+
+config MGETTY_CALLBACK
+	prompt "Install callback program"
+	bool
+	default n
+	depends on MGETTY
+
 endmenu

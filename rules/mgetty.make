@@ -1,4 +1,3 @@
-# -*-makefile-*-
 # $Id$
 #
 # Copyright (C) 2003 by BSP
@@ -96,7 +95,8 @@ mgetty_compile_deps = $(STATEDIR)/mgetty.prepare
 
 $(STATEDIR)/mgetty.compile: $(mgetty_compile_deps)
 	@$(call targetinfo, $@)
-	$(MGETTY_PATH) $(MGETTY_ENV) make -C $(MGETTY_DIR) \
+	cd $(MGETTY_DIR) && make mksed
+	cd $(MGETTY_DIR) && $(MGETTY_PATH) $(MGETTY_ENV) make \
 		bin-all mgetty.config login.config sendfax.config
 	touch $@
 
@@ -123,31 +123,41 @@ $(STATEDIR)/mgetty.targetinstall: $(mgetty_targetinstall_deps)
 	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/usr/bin
 	mkdir -p $(ROOTDIR)/usr/sbin
-	mkdir -p $(ROOTDIR)/usr/lib/mgetty+sendfax
+ifdef PTXCONF_MGETTY_INSTALL_CONFIG
 	mkdir -p $(ROOTDIR)/etc/mgetty+sendfax
-	
-	$(INSTALL) -m 600 $(MGETTY_DIR)/login.config $(ROOTDIR)/etc/mgetty+sendfax
-	$(INSTALL) -m 600 $(MGETTY_DIR)/mgetty.config $(ROOTDIR)/etc/mgetty+sendfax
-	$(INSTALL) -m 600 $(MGETTY_DIR)/dialin.config $(ROOTDIR)/etc/mgetty+sendfax
-	$(INSTALL) -m 644 $(MGETTY_DIR)/sendfax.config $(ROOTDIR)/etc/mgetty+sendfax
-	$(INSTALL) -m 644 $(MGETTY_DIR)/faxrunq.config $(ROOTDIR)/etc/mgetty+sendfax
-	$(INSTALL) -s -m 700 $(MGETTY_DIR)/mgetty $(ROOTDIR)/usr/sbin
+	$(call copy_root, 0, 0, 0600, $(MGETTY_DIR)/login.config, /etc/mgetty+sendfax)
+	$(call copy_root, 0, 0, 0600, $(MGETTY_DIR)/mgetty.config, /etc/mgetty+sendfax)
+	$(call copy_root, 0, 0, 0600, $(MGETTY_DIR)/dialin.config, /etc/mgetty+sendfax)
+endif
+	$(call copy_root, 0, 0, 0700, $(MGETTY_DIR)/mgetty, /usr/sbin)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/mgetty
-	$(INSTALL) -s -m 755 $(MGETTY_DIR)/sendfax $(ROOTDIR)/usr/bin
+ifdef PTXCONF_SENDFAX
+	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/sendfax, /usr/sbin)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/sendfax
-	$(INSTALL) -s -m 755 $(MGETTY_DIR)/g3/pbm2g3 $(ROOTDIR)/usr/bin
+	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/g3/pbm2g3, /usr/bin)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/pbm2g3
-	$(INSTALL) -s -m 755 $(MGETTY_DIR)/g3/g3cat $(ROOTDIR)/usr/bin
+	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/g3/g3cat, /usr/bin)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/g3cat
-	$(INSTALL) -s -m 755 $(MGETTY_DIR)/g3/g32pbm $(ROOTDIR)/usr/bin
+	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/g3/g32pbm, /usr/bin)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/g32pbm
-	$(INSTALL) -m 755 $(MGETTY_DIR)/fax/faxspool $(ROOTDIR)/usr/bin
-	$(INSTALL) -m 755 $(MGETTY_DIR)/fax/faxrunq $(ROOTDIR)/usr/bin
-	$(INSTALL) -m 755 $(MGETTY_DIR)/fax/faxq $(ROOTDIR)/usr/bin
-	$(INSTALL) -m 755 $(MGETTY_DIR)/fax/faxrm $(ROOTDIR)/usr/bin
-	$(INSTALL) -m 755 $(MGETTY_DIR)/fax/faxrunqd $(ROOTDIR)/usr/bin
-	$(INSTALL) -s -m 755 $(MGETTY_DIR)/fax/faxq-helper $(ROOTDIR)/usr/lib/mgetty+sendfax
+ifdef PTXCONF_MGETTY_INSTALL_CONFIG
+	$(call copy_root, 0, 0, 0644, $(MGETTY_DIR)/sendfax.config, /etc/mgetty+sendfax)
+	$(INSTALL) -m 644 $(MGETTY_DIR)/sendfax.config $(ROOTDIR)/etc/mgetty+sendfax
+endif	
+ifdef PTXCONF_SENDFAX_SPOOL
+	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/fax/faxspool, /usr/bin)
+	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/fax/faxrunq, /usr/bin)
+	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/fax/faxq, /usr/bin)
+	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/fax/faxrm, /usr/bin)
+	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/fax/faxrunqd, /usr/bin)
+	mkdir -p $(ROOTDIR)/usr/lib/mgetty+sendfax
+	$(call copy_root, 0, 0, 0755, $(MGETTY_DIR)/fax/faxq-helper, /usr/lib/mgetty+sendfax)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/lib/mgetty+sendfax/faxq-helper
+ifdef PTXCONF_MGETTY_INSTALL_CONFIG
+	$(call copy_root, 0, 0, 0644, $(MGETTY_DIR)/faxrunq.config, /etc/mgetty+sendfax)
+	$(INSTALL) -m 644 $(MGETTY_DIR)/faxrunq.config $(ROOTDIR)/etc/mgetty+sendfax
+endif
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
