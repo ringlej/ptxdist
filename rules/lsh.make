@@ -1,4 +1,5 @@
-# $Id: lsh.make,v 1.3 2003/06/25 12:12:31 robert Exp $
+# -*-makefile-*-
+# $Id: lsh.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -30,10 +31,11 @@ LSH_EXTRACT 		= gzip -dc
 lsh_get: $(STATEDIR)/lsh.get
 
 $(STATEDIR)/lsh.get: $(LSH_SOURCE)
+	@$(call targetinfo, lsh.get)
 	touch $@
 
 $(LSH_SOURCE):
-	@$(call targetinfo, lsh.get)
+	@$(call targetinfo, $(LSH_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(LSH_URL)
 
 # ----------------------------------------------------------------------------

@@ -1,4 +1,5 @@
-# $Id: proftpd.make,v 1.3 2003/06/26 15:05:58 bsp Exp $
+# -*-makefile-*-
+# $Id: proftpd.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -31,10 +32,11 @@ PROFTPD_EXTRACT 	= gzip -dc
 proftpd_get: $(STATEDIR)/proftpd.get
 
 $(STATEDIR)/proftpd.get: $(PROFTPD_SOURCE)
+	@$(call targetinfo, proftpd.get)
 	touch $@
 
 $(PROFTPD_SOURCE):
-	@$(call targetinfo, proftpd.get)
+	@$(call targetinfo, $(PROFTPD_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(PROFTPD_URL)
 
 # ----------------------------------------------------------------------------

@@ -25,61 +25,156 @@ choice
 	config ARCH_ARM
 		bool "ARM"
 		help
-		  This is support for the ARM processor architecture. 
+		  This is support for the ARM processor architecture.
+
+	config ARCH_ARM_NOMMU
+		bool "ARM-nommu"
+		help
+		  This is support for the ARM processor architecture w/o MMU.
 
 	config ARCH_X86
-		bool "x86"
+		bool "X86"
 		help
-		  This is support for the Intel x86 architecture. 
+		  This is support for the Intel x86 architecture.
+
+	config ARCH_PPC
+		bool "PPC"
+
+	config ARCH_SPARC
+		bool "SPARC"
+
+	config ARCH_MIPS
+		bool "MIPS"
+
+	config ARCH_CRIS
+		bool "CRIS"
+
+	config ARCH_PARISC
+		bool "PARISC"
 endchoice
-
-config ARCH
-	string
-	default "arm"  if ARCH_ARM
-	default "i386" if ARCH_X86
-
-choice
-	prompt "Code Optimization"
-	default OPT_ARM4
-
-	config OPT_I386
-		bool "386"
-		depends on ARCH_X86
-
-	config OPT_I486
-		bool "486"
-		depends on ARCH_X86
-
-	config OPT_I586
-		bool "586"
-		depends on ARCH_X86
-
-	config OPT_I686
-		bool "686"
-		depends on ARCH_X86
-
-	config OPT_ARM4
-		bool "arm4"
-		depends on ARCH_ARM
-endchoice
-
-config GNU_TARGET
-	string
-	default "i386-linux" if OPT_I386
-	default "i486-linux" if OPT_I486
-	default "i586-linux" if OPT_I586
-	default "i686-linux" if OPT_I686
-	default "arm-linux"  if OPT_ARM4
 
 choice 
 	prompt "ARM architecture"
-		depends on ARCH_ARM
+	depends on ARCH_ARM || ARCH_ARM_NOMMU
 
 	config ARM_ARCH_PXA
 		bool "pxa"
 		depends on ARCH_ARM
+
+	config ARM_ARCH_NETARM
+		bool "net+arm"
+		depends on ARCH_ARM_NOMMU
+		
+	config ARM_ARCH_ATMEL
+		bool "atmel"
+		depends on ARCH_ARM_NOMMU
 endchoice
 
+
+choice
+	prompt "Code Optimization"
+	default OPT_ARM4 if ARCH_ARM
+	default OPT_PPC if ARCH_PPC
+
+	config OPT_ARM4
+		bool "arm4"
+		depends on ARCH_ARM
+	config OPT_ARM_NOMMU
+		bool "arm7tdmi"
+		depends on ARCH_ARM_NOMMU
+	config OPT_I386
+		bool "386"
+		depends on ARCH_X86
+	config OPT_I486
+		bool "486"
+		depends on ARCH_X86
+	config OPT_I586
+		bool "586"
+		depends on ARCH_X86
+	config OPT_I686
+		bool "686"
+		depends on ARCH_X86
+	config OPT_PPC
+		bool "generic PPC"
+		depends on ARCH_PPC
+	config OPT_PPC405
+		bool "PPC 405"
+		depends on ARCH_PPC
+	config OPT_SPARC
+		bool "sparc"
+		depends on ARCH_SPARC
+	config OPT_MIPS
+		bool "mips"
+		depends on ARCH_MIPS
+	config OPT_CRIS
+		bool "cris"
+		depends on ARCH_CRIS
+	config OPT_PA8X00
+		bool "PA8x00"
+		depends on ARCH_PARISC
+endchoice
+
+config ARCH_NOMMU
+	bool
+	default y if ARCH_ARM_NOMMU
+
+config ARCH
+	string
+	default "arm"  if ARCH_ARM
+	default "armnommu" if ARCH_ARM_NOMMU
+	default "i386" if ARCH_X86
+	default "ppc" if ARCH_PPC
+	default "sparc" if ARCH_SPARC
+	default "mips" if ARCH_MIPS
+	default "cris" if ARCH_CRIS
+	default "parisc" if ARCH_PARISC
+
+config ARCH_USERSPACE
+	string
+	default "arm"  if ARCH_ARM
+	default "arm" if ARCH_ARM_NOMMU
+	default "i386" if ARCH_X86
+	default "powerpc" if ARCH_PPC
+	default "sparc" if ARCH_SPARC
+	default "mips" if ARCH_MIPS
+	default "cris" if ARCH_CRIS
+	default "parisc" if ARCH_PARISC
+
+config ARM_PROC
+	string
+	default "armv" if ARCH_ARM || ARCH_ARM_NOMMU
+
+config ARM_ARCH
+	string
+	default "pxa" if ARM_ARCH_PXA
+	default "netarm" if ARM_ARCH_NETARM
+	default "atmel" if ARM_ARCH_ATMEL
+
+config GNU_TARGET
+	string
+	default "arm-linux" 		if ARCH_ARM		&& GLIBC
+	default "arm-elf"		if ARCH_ARM_NOMMU	&& GLIBC
+	default "i386-linux"		if OPT_I386		&& GLIBC
+	default "i486-linux"		if OPT_I486		&& GLIBC
+	default "i586-linux"		if OPT_I586		&& GLIBC
+	default "i686-linux"		if OPT_I686		&& GLIBC
+	default "powerpc-linux"		if ARCH_PPC		&& GLIBC
+	default "sparc-linux"		if OPT_SPARC		&& GLIBC
+	default "mips-linux"		if ARCH_MIPS		&& GLIBC
+	default "cris-linux"		if ARCH_CRIS		&& GLIBC
+	default "hppa-linux"		if ARCH_PARISC		&& GLIBC
+
+	default "arm-uclibc-linux" 	if ARCH_ARM		&& UCLIBC
+	default "arm-elf"		if ARCH_ARM_NOMMU	&& UCLIBC
+	default "i386-uclibc-linux"	if OPT_I386		&& UCLIBC
+	default "i486-uclibc-linux"	if OPT_I486		&& UCLIBC
+	default "i586-uclibc-linux"	if OPT_I586		&& UCLIBC
+	default "i686-uclibc-linux"	if OPT_I686		&& UCLIBC
+	default "powerpc-uclibc-linux"	if ARCH_PPC		&& UCLIBC
+	default "sparc-uclibc-linux"	if OPT_SPARC		&& UCLIBC
+	default "mips-uclibc-linux"	if ARCH_MIPS		&& UCLIBC
+	default "cris-uclibc-linux"	if ARCH_CRIS		&& UCLIBC
+	default "hppa-uclibc-linux"	if ARCH_PARISC		&& UCLIBC
 
 config PREFIX
 	prompt "Install PREFIX"
@@ -97,6 +192,25 @@ config BUILD_CROSSCHAIN
 	prompt "Build Cross Toolchain"
 	default y if ARCH_ARM
 	default n if ARCH_X86
+	default y if ARCH_SPARC
+	default y if ARCH_MIPS
+	default y if ARCH_CRIS
+	default y if ARCH_PARISC
+choice
+	prompt "GCC (GNU Compiler Collection) Version"
+		default GCC_3_2_3 if ARCH_X86 || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC
+		depends on BUILD_CROSSCHAIN
+
+	config GCC_2_95_3
+		bool
+		prompt "2.95.3"
+		depends on ARCH_X86 || ARCH_ARM || ARCH_SPARC || ARCH_PPC || ARCH_ARM_NOMMU
+
+	config GCC_3_2_3
+		bool
+		prompt "3.2.3"
+		depends on ARCH_X86 || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_PPC || !ARCH_ARM_NOMMU
+endchoice
 
 config BUILD_CROSSCHAIN_GDB
 	bool
@@ -171,7 +285,7 @@ config ROOTFS_ETC
 	default y
 
 config ETC_NAME
-	prompt "Name of dir in ./etc/ to be used"
+	prompt "Name of dir in $PTXDIST/etc to be used"
 	string
 	default "innokom"
 	depends on ROOTFS_ETC
@@ -200,25 +314,41 @@ comment	"Core System         "
 ##############################################################################
 
 menu	"Kernel              "
-#source "config/config-kernel.in"
 
 config DONT_COMPILE_KERNEL
 	bool
 	prompt "Don't compile kernel"
 	default n
 
+config KERNEL_CONFIG
+	string
+	default "kernel-2.4."
+	prompt "Name of config in $PTXDIST/config/kernel to be used"
+
 choice 
 	prompt "Kernel Version"
-	default KERNEL_2_4_19
+		default KERNEL_2_4_19
 	
 	config KERNEL_2_4_18
 		bool
 		prompt "2.4.18"
+		depends on !ARCH_ARM_NOMMU
 
 	config KERNEL_2_4_19
 		bool
 		prompt "2.4.19"
-	
+		depends on !ARCH_ARM_NOMMU
+
+	config KERNEL_2_4_20
+		bool
+		prompt "2.4.20"
+		depends on ARCH_SPARC || ARCH_X86 || ARCH_MIPS || ARCH_CRIS || ARCH_PPC
+		depends on !ARCH_ARM_NOMMU
+
+	config KERNEL_2_4_21
+		bool
+		prompt "2.4.21"
+		depends on ARCH_SPARC || ARCH_X86 || ARCH_MIPS || ARCH_CRIS || ARCH_PPC || ARCH_ARM_NOMMU
 endchoice
 
 config KERNEL_XSCALE
@@ -242,32 +372,37 @@ config KERNEL_INSTALL
 	bool
 	prompt "Install kernel into /boot on target"
 	default n
+	depends on !DONT_COMPILE_KERNEL
 
 choice
 	prompt "Kernel Image"
 	default KERNEL_IMAGE_BZ
+	depends on !DONT_COMPILE_KERNEL
 
 	config KERNEL_IMAGE_BZ
 		bool
 		prompt "bzImage"
+		depends on ARCH_X86
 		
 	config KERNEL_IMAGE_Z
 		bool
 		prompt "zImage"
+		depends on ARCH_X86
 
 	config KERNEL_IMAGE_U
 		bool
 		prompt "uImage"
+		depends on ARCH_ARM
 
 	config KERNEL_IMAGE_VMLINUX
 		bool
 		prompt "vmlinux"
-
 endchoice
 
 config RTAI
 	bool
 	prompt "Realtime Extension: RTAI"
+	depends on KERNEL_2_4_20 || KERNEL_2_4_19 || KERNEL_2_4_18
 	default n
 
 choice
@@ -322,14 +457,18 @@ choice
 	config GLIBC
 		bool
 		prompt "GLIBC"
+		depends on !ARCH_NOMMU
 
 	config UCLIBC
 		bool
 		prompt "uClibc"
 endchoice
 
+comment	"C Library options"
+
 choice
 	prompt "C-Lib Version"
+		default GLIBC_2_2_5
 	
 	config GLIBC_2_2_5
 		bool
@@ -348,41 +487,51 @@ choice
 		depends on GLIBC
 		depends on ARCH_X86
 
-	config UCLIBC_0_9_9
+	config UCLIBC_0_9_19
 		bool
-		prompt "0.9.9"
+		prompt "0.9.19"
+		depends on UCLIBC
+
+	config UCLIBC_0_9_20
+		bool
+		prompt "0.9.20"
 		depends on UCLIBC
 endchoice
-
 
 config GLIBC_PTHREADS
 	bool
 	prompt "Compile glibc with pthreads"
+	default y
 	depends on GLIBC
 
 config GLIBC_FLOATINGPOINT
 	bool
 	prompt "Enable glibc floating point support"
+	default y
 	depends on GLIBC
 
 config GLIBC_LIBIO
 	bool
 	prompt "Build in GNU libio instead of GNU stdio"
+	default n
 	depends on GLIBC
 
 config GLIBC_SHARED
 	bool
 	prompt "Build shared library"
+	default y
 	depends on GLIBC
 
 config GLIBC_PROFILED
 	bool
 	prompt "Include profiling support"
+	default n
 	depends on GLIBC
 
 config GLIBC_OMITFP
 	bool
 	prompt "Build undebuggable optimized library"
+	default n
 	depends on GLIBC
 
 config GLIBC_BOUNDED
@@ -390,9 +539,18 @@ config GLIBC_BOUNDED
 	prompt "Build with runtime bounds checking"
 	depends on GLIBC
 
+comment	"Install options"
+	depends on GLIBC
+
 config GLIBC_THREAD_DB
 	bool
 	prompt "Install libthread_db on the target"
+	depends on GLIBC
+
+config GLIBC_DL
+	bool
+	prompt "Install libdl on the target"
+	default y if BASH
 	depends on GLIBC
 
 config GLIBC_CRYPT
@@ -450,36 +608,57 @@ config GLIBC_NSL
 	prompt "Install libnsl"
 	depends on GLIBC
 
-config UCLIBC_DEBUG
-	bool
-	prompt "Enable debugging"
-	depends on UCLIBC
-	
-config UCLIBC_HAS_MMU
- 	bool
-	prompt "Target has MMU"
-	depends on UCLIBC	
+source "config/uClibc/extra/Configs/Config.alpha"
+source "config/uClibc/extra/Configs/Config.arm"
+source "config/uClibc/extra/Configs/Config.cris"
+source "config/uClibc/extra/Configs/Config.h8300"
+source "config/uClibc/extra/Configs/Config.i386"
+source "config/uClibc/extra/Configs/Config.i960"
+source "config/uClibc/extra/Configs/Config.m68k"
+source "config/uClibc/extra/Configs/Config.mips"
+source "config/uClibc/extra/Configs/Config.mipsel"
+source "config/uClibc/extra/Configs/Config.powerpc"
+source "config/uClibc/extra/Configs/Config.sh"
+source "config/uClibc/extra/Configs/Config.sparc"
+source "config/uClibc/extra/Configs/Config.v850"
 
-config UCLIBC_SHADOWPASS
-	bool
-	prompt "Enable shadow passwords"
-	depends on UCLIBC
-
-config UCLIBC_REGEX
-	bool
-	prompt "Enable POSIX regular expressions"
-	depends on UCLIBC
-	
-config UCLIBC_RPC
-	bool
-	prompt "Enable RPC" 
+comment	"Install options"
 	depends on UCLIBC
 
-config UCLIBC_SHARED
+config UCLIBC_CRYPT
 	bool
-	prompt "Make shared library"
+	prompt "Install libcrypt on the target"
 	depends on UCLIBC
 
+config UCLIBC_DL
+	bool
+	prompt "Install libdl on the target"
+	depends on UCLIBC
+
+config UCLIBC_M
+	bool
+	prompt "Install libm on the target"
+	depends on UCLIBC
+
+config UCLIBC_NSL
+	bool
+	prompt "Install libnsl on the target"
+	depends on UCLIBC
+
+config UCLIBC_PTHREAD
+	bool
+	prompt "Install libpthread on the target"
+	depends on UCLIBC
+
+config UCLIBC_RESOLV
+	bool
+	prompt "Install libresolv on the target"
+	depends on UCLIBC
+
+config UCLIBC_UTIL
+	bool
+	prompt "Install libutil on the target"
+	depends on UCLIBC
 endmenu
 
 # ============================================================================
@@ -657,9 +836,14 @@ source "config/busybox/sysdeps/linux/Config.in"
 
 endmenu
 
-menu	"TinyLogin           "
-#source "foo/bar/baz"
-endmenu
+# ----------------------------------------------------------------------------
+
+#menu	"TinyLogin           "
+
+#config TINYLOGIN
+#	bool
+#	prompt "Compile Tinylogin"
+#endmenu
 
 # ----------------------------------------------------------------------------
 
@@ -672,91 +856,76 @@ config MTD_UTILS
 config MTD_EINFO
 	bool
 	prompt "einfo"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_ERASE
 	bool
 	prompt "erase"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_ERASEALL
 	bool
 	prompt "eraseall"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_FCP
 	bool
 	prompt "fcp"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_FTL_CHECK
 	bool
 	prompt "ftl_check"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_FTL_FORMAT
 	bool
 	prompt "ftl_format"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_JFFS2READER
 	bool
 	prompt "jffs2reader"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_LOCK
 	bool
 	prompt "lock"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_MTDDEBUG
 	bool
 	prompt "mtd_debug"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_NANDDUMP
 	bool
 	prompt "nanddump"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_NANDTEST
 	bool
 	prompt "nandtest"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_NANDWRITE
 	bool
 	prompt "nandwrite"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_NFTL_FORMAT
 	bool
 	prompt "nftl_format"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_NFTLDUMP
 	bool
 	prompt "nftldump"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 config MTD_UNLOCK
 	bool
 	prompt "unlock"
-	depends on KERNEL_MTD
 	depends on MTD_UTILS
 
 endmenu
@@ -764,6 +933,22 @@ endmenu
 ##############################################################################
 comment "Network Tools"
 ##############################################################################
+
+menu	"ppp                 "
+
+config PPP
+	bool
+	prompt "Compile ppp"
+#
+# FIXME: enable/disable
+#
+# plugins
+# ms-chap
+# crypt
+#
+endmenu
+
+# ----------------------------------------------------------------------------
 
 menu	"udhcp               "
 
@@ -841,20 +1026,8 @@ config LSH_WRITEKEY
 	prompt "Install lsh-writekey"
 	depends on LSH
 
-config ZLIB
-	bool
-	default y if OPENSSH
-	default n if !OPENSSH
-
-config OPENSSL
-	bool
-	depends on ZLIB
-	default y if OPENSSH
-	default n if !OPENSSH
-
 config OPENSSH
 	bool
-	depends on GLIBC_NSL
 	prompt "OpenSSH"
 
 endmenu
@@ -1015,6 +1188,10 @@ endmenu
 
 # ----------------------------------------------------------------------------
 
+############################################################################## 
+comment	"Disk and file       "
+##############################################################################
+
 menu	"Disk and file utils "
 
 config E2FSPROGS
@@ -1081,9 +1258,241 @@ config GRUB_BOOTDISK
 	prompt "make bootdisk in $PTXDIST/bootdisk"
 	depends on GRUB
 
+config LILO
+	bool "LILO"
+	depends on ARCH_X86
+
 config PTXFLASH
 	bool
 	prompt "Install ptxflash utility"
-
 endmenu
+
+
+
+############################################################################## 
+comment	"Applications        "
+##############################################################################
+menu	"Kaffe               "
+
+config KAFFE
+	bool
+	prompt "Compile Kaffe"
+
+comment	"Target Options"
+	depends on KAFFE
+
+	choice
+		prompt "Engine"
+		default KAFFE_ENG_JIT3
+		depends on KAFFE
+
+		config KAFFE_ENG_INTRP
+			bool Interpreter
+
+		config KAFFE_ENG_JIT
+			bool JIT
+			depends on ARCH_ARM || ARCH_X86 || ARCH_SPARC || ARCH_ARM || ARCH_ALPHA || ARCH_MIPS
+
+		config KAFFE_ENG_JIT3
+			bool JITv3
+			depends on ARCH_ARM || ARCH_X86 || ARCH_SPARC || ARCH_ARM || ARCH_ALPHA || ARCH_MIPS
+	endchoice
+
+	choice
+		prompt "Threading System"
+		default	KAFFE_THREAD_J
+		depends on KAFFE
+
+		config KAFFE_THREAD_P
+			bool unix-pthreads
+
+		config KAFFE_THREAD_J
+			bool unix-jthreads
+	endchoice
+	
+	choice
+		prompt "API"
+		default KAFFE_API_SE
+		depends on KAFFE
+
+		config KAFFE_API_CLDC
+			bool CLDC
+
+		config KAFFE_API_SE
+			bool J2SE
+	endchoice
+
+	config KAFFE_ENABLE_JIKES
+		bool
+		default n
+		prompt "Use Jikes or other Java compiler"
+		depends on KAFFE_API_SE
+		depends on KAFFE
+
+	config KAFFE_JIKES
+		string
+		default "jikes" if KAFFE_API_SE
+		default "javac" if KAFFE_API_CLDC
+		prompt "java compiler (see help)"
+		depends on KAFFE_API_SE && KAFFE_ENABLE_JIKES || KAFFE_API_CLDC
+		depends on KAFFE
+		help
+			The compiler must be in the $PATH or an absoloute path to the compiler must be supplied.
+			If compiling the CLDC API jikes is not working, please use Sun's javac.
+
+	config KAFFE_JIKES_WO_DEBUG
+		bool
+		default n
+		prompt "Compile Java Class Libs without debugging symbols (see help)"
+		depends on KAFFE_API_SE && KAFFE_ENABLE_JIKES || KAFFE_API_CLDC
+		depends on KAFFE
+		help
+			Works only with Sun's javac.
+############################################################################# 
+comment	"Debugging Options"
+	depends on KAFFE
+
+	config KAFFE_DEB_DEB
+		bool
+		default n
+		prompt "Enable run-time debugging machinery"
+		depends on KAFFE
+
+	config KAFFE_DEB_X
+		bool
+		default n
+		prompt "Enable debugging symbol generation for jitted code (xdebugging)"
+		depends on KAFFE
+
+	config KAFFE_DEB_PROFILING
+		bool
+		default n
+		prompt "Compile with gprof(1) profiling support"
+		depends on KAFFE
+
+	config KAFFE_DEB_XPROFILING
+		bool
+		default n
+		prompt "Enable profiling for C and jitted code (xprofiling)"
+		depends on KAFFE
+
+	config KAFFE_DEB_STATS
+		bool
+		default n
+		prompt "Gather statistics on vm execution"
+		depends on KAFFE
+############################################################################## 
+comment	"Features"
+	depends on KAFFE
+
+	config KAFFE_FEAT_GCJ
+		bool
+		default n
+		prompt "Enable GCJ support"
+		depends on KAFFE
+
+	choice
+		prompt "AWT Engine"
+		default KAFFE_AWT_X
+		depends on KAFFE_API_SE
+		depends on KAFFE
+
+		config KAFFE_AWT_NO
+			bool none
+
+		config KAFFE_AWT_X
+			bool XFree
+
+		config KAFFE_AWT_QT
+			bool QT
+	endchoice
+
+	config KAFFE_FEAT_FEEDBACK
+		bool
+		default n
+		prompt "Enable generation of feedback data"
+		depends on KAFFE
+
+	config KAFFE_FEAT_JAVAMATH
+		bool
+		default n
+		prompt "Enable pure java java.math.* package"
+		depends on KAFFE_API_SE
+		depends on KAFFE
+
+	config KAFFE_FEAT_DISABLE_SOUND
+		bool
+		default n
+		prompt "Disable javax.sound support"
+		depends on KAFFE_API_SE
+		depends on KAFFE
+
+	config KAFFE_FEAT_DISABLE_ALSA
+		bool
+		default n
+		prompt "Don't use ALSA for sound"
+		depends on KAFFE_API_SE && !KAFFE_FEAT_DISABLE_SOUND
+		depends on KAFFE
+
+	config KAFFE_FEAT_DISABLE_ESD
+		bool
+		default n
+		prompt  "Don't use esd for sound"
+		depends on KAFFE_API_SE && !KAFFE_FEAT_DISABLE_SOUND
+		depends on KAFFE
+
+	config KAFFE_FEAT_DISABLE_SUNCOMPAT
+		bool
+		default n
+		prompt "Don't include Sun compatibility scripts"
+		depends on KAFFE
+
+	config KAFFE_FEAT_CLDC_GMP
+		bool
+		default n
+		prompt "Enable native java/math/BigInteger in CLDC (see help)"
+		depends on KAFFE_API_CLDC
+		depends on KAFFE
+		help
+			Note:
+			This is not tested!
+			Use on your own risk!
+############################################################################## 
+comment	"Linking options"
+	depends on KAFFE
+
+	config KAFFE_LINK_VM
+		bool
+		prompt "Force the creation of a static virtual machine (staticvm)"
+		depends on !KAFFE_LINK_LIB && !KAFFE_LINK_BIN
+		depends on KAFFE
+
+	config KAFFE_LINK_LIB
+		bool
+		prompt "Force the use of static libraries rather than shared (staticlib)"
+		depends on !KAFFE_LINK_BIN
+		depends on KAFFE
+
+	config KAFFE_LINK_GMP
+		bool
+		prompt "Link libgmp static into kaffe-bin"
+		depends on KAFFE_FEAT_CLDC_GMP
+		depends on KAFFE
+
+	config KAFFE_LINK_BIN
+		bool
+		prompt "Force the creation of a static virtual machine binary (staticbin)"
+		depends on KAFFE
+
+
+	config KAFFE_TARGETINSTALL_GMP
+		bool
+		default y if KAFFE_API_SE && !KAFFE_FEAT_JAVAMATH || \
+			KAFFE_FEAT_CLDC_GMP && !(KAFFE_LINK_GMP || KAFFE_LINK_BIN)
+		depends on KAFFE
+endmenu
+############################################################################## 
+
+
+
 

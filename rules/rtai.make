@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtai.make,v 1.4 2003/06/16 12:05:16 bsp Exp $
+# $Id: rtai.make,v 1.5 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -34,6 +34,9 @@ endif
 ifeq (y, $(PTXCONF_KERNEL_2_4_19))
 RTAI_MODULEDIR		= /lib/modules/2.4.19-rthal5/rtai
 endif
+ifeq (y, $(PTXCONF_KERNEL_2_4_20))
+RTAI_MODULEDIR		= /lib/modules/2.4.20-rthal5/rtai
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -42,10 +45,11 @@ endif
 rtai_get: $(STATEDIR)/rtai.get
 
 $(STATEDIR)/rtai.get: $(RTAI_SOURCE)
+	@$(call targetinfo, rtai.get)
 	touch $@
 
 $(RTAI_SOURCE):
-	@$(call targetinfo, rtai.get)
+	@$(call targetinfo, $(RTAI_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(RTAI_URL)
 
 # ----------------------------------------------------------------------------

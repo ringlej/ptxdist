@@ -1,4 +1,5 @@
-# $Id: mtd.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# -*-makefile-*-
+# $Id: mtd.make,v 1.3 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -35,12 +36,13 @@ MTD_EXTRACT 		= gzip -dc
 mtd_get: $(STATEDIR)/mtd.get
 
 $(STATEDIR)/mtd.get: $(MTD_SOURCE)
+	@$(call targetinfo, mtdutil.get)
 	touch $@
 
 mtdutil_get: $(STATEDIR)/mtdutil.get
 
 $(STATEDIR)/mtdutil.get: $(MTD_SOURCE)
-	@$(call targetinfo, mtdutil.get)
+	@$(call targetinfo, $(MTD_SOURCE))
 	touch $@
 
 $(MTD_SOURCE):
@@ -116,8 +118,6 @@ MTD-UTIL_ENVIRONMENT	=
 MTD-UTIL_MAKEVARS	=
 MTD-UTIL_ENVIRONMENT	+= PATH=$(PTXCONF_PREFIX)/bin:$$PATH
 MTD-UTIL_MAKEVARS	+= CROSS=$(PTXCONF_GNU_TARGET)-
-MTD-UTIL_MAKEVARS	+= CFLAGS=-I$(PTXCONF_PREFIX)/include
-MTD-UTIL_MAKEVARS 	+= LDFLAGS=-L$(ZLIB_DIR)
 
 mtdutil_compile: $(STATEDIR)/mtdutil.compile
 
@@ -160,63 +160,63 @@ $(STATEDIR)/mtdutil.targetinstall: $(STATEDIR)/mtdutil.install
 	@$(call targetinfo, mtdutil.targetinstall)
         ifeq (y, $(PTXCONF_MTD_EINFO))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/einfo $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/einfo
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/einfo
         endif
         ifeq (y, $(PTXCONF_MTD_ERASE))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/erase $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/erase
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/erase
         endif
         ifeq (y, $(PTXCONF_MTD_ERASEALL))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/eraseall $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/eraseall
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/eraseall
         endif
         ifeq (y, $(PTXCONF_MTD_FCP))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/fcp $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/fcp
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/fcp
         endif 
         ifeq (y, $(PTXCONF_MTD_FTL_CHECK))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/ftl_check $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/check
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/check
         endif 
         ifeq (y, $(PTXCONF_MTD_FTL_FORMAT))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/ftl_format $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/ftl_format
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/ftl_format
         endif 
         ifeq (y, $(PTXCONF_MTD_JFFS2READER))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/jffs2reader $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/jffs2reader
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/jffs2reader
         endif 
         ifeq (y, $(PTXCONF_MTD_LOCK))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/lock $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/lock
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/lock
         endif 
         ifeq (y, $(PTXCONF_MTD_MTDDEBUG))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/mtd_debug $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/mtd_debug
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/mtd_debug
         endif 
         ifeq (y, $(PTXCONF_MTD_NANDDUMP))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/nanddump $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/nanddump
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/nanddump
         endif 
         ifeq (y, $(PTXCONF_MTD_NANDTEST))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/nandtest $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/nandtest
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/nandtest
         endif 
         ifeq (y, $(PTXCONF_MTD_NANDWRITE))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/nandwrite $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/nandwrite
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/nandwrite
         endif 
         ifeq (y, $(PTXCONF_MTD_NFTL_FORMAT))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/nftl_format $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/nftl_format
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/nftl_format
         endif 
         ifeq (y, $(PTXCONF_MTD_NFTLDUMP))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/nftldump $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/nftldump
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/nftldump
         endif 
         ifeq (y, $(PTXCONF_MTD_UNLOCK))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/unlock $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/unlock
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/unlock
         endif 
 	touch $@
 

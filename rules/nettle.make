@@ -1,4 +1,5 @@
-# $Id: nettle.make,v 1.3 2003/06/25 12:12:31 robert Exp $
+# -*-makefile-*-
+# $Id: nettle.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -30,10 +31,11 @@ NETTLE_EXTRACT 		= gzip -dc
 nettle_get: $(STATEDIR)/nettle.get
 
 $(STATEDIR)/nettle.get: $(NETTLE_SOURCE)
+	@$(call targetinfo, nettle.get)
 	touch $@
 
 $(NETTLE_SOURCE):
-	@$(call targetinfo, nettle.get)
+	@$(call targetinfo, $(NETTLE_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(NETTLE_URL)
 
 # ----------------------------------------------------------------------------

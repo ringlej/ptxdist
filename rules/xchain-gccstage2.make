@@ -1,4 +1,5 @@
-# $Id: xchain-gccstage2.make,v 1.5 2003/06/29 13:27:36 robert Exp $
+# -*-makefile-*-
+# $Id: xchain-gccstage2.make,v 1.6 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -6,13 +7,6 @@
 # For further information about the PTXDIST project and license conditions
 # see the README file.
 #
-
-#
-# We provide this package
-#
-ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN))
-PACKAGES += xchain-gccstage2
-endif
 
 #
 # Paths and names 
@@ -24,10 +18,9 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-# FIXME: ??? xchain-gccstage2_get: $(STATEDIR)/glibc.install
 xchain-gccstage2_get: $(STATEDIR)/xchain-gccstage2.get
 
-$(STATEDIR)/xchain-gccstage2.get: $(STATEDIR)/xchain-gccstage1.get
+$(STATEDIR)/xchain-gccstage2.get: $(xchain-gccstate1_get_deps)
 	@$(call targetinfo, xchain-gccstage2.get)
 	touch $@
 
@@ -37,21 +30,8 @@ $(STATEDIR)/xchain-gccstage2.get: $(STATEDIR)/xchain-gccstage1.get
 
 xchain-gccstage2_extract: $(STATEDIR)/xchain-gccstage2.extract
 
-$(STATEDIR)/xchain-gccstage2.extract: 					\
-	$(STATEDIR)/xchain-gccstage2.get				\
-	$(STATEDIR)/glibc.install
+$(STATEDIR)/xchain-gccstage2.extract: $(xchain-gccstage1_extract_deps)
 	@$(call targetinfo, xchain-gccstage2.extract)
-	# remove glibc header hack
-        ifeq (y, $(PTXCONF_ARCH_ARM))	
-	perl -p -i -e 									\
-		's/^(TARGET_LIBGCC2_CFLAGS = -fomit-frame-pointer -fPIC).*/$$1/' 	\
-		$(GCC_DIR)/gcc/config/arm/t-linux
-        endif
-        ifeq (y, $(PTXCONF_ARCH_X86))	
-	perl -p -i -e 									\
-		's/^(TARGET_LIBGCC2_CFLAGS = -fPIC).*/$$1/' 	\
-		$(GCC_DIR)/gcc/config/t-linux
-        endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -60,34 +40,47 @@ $(STATEDIR)/xchain-gccstage2.extract: 					\
 
 xchain-gccstage2_prepare: $(STATEDIR)/xchain-gccstage2.prepare
 
-GCC_STAGE2_AUTOCONF	=  --target=$(PTXCONF_GNU_TARGET)
-GCC_STAGE2_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)
-GCC_STAGE2_AUTOCONF	+= --enable-target-optspace
-GCC_STAGE2_AUTOCONF	+= --disable-nls
-GCC_STAGE2_AUTOCONF	+= --with-gnu-ld
-GCC_STAGE2_AUTOCONF	+= --disable-shared
-GCC_STAGE2_AUTOCONF	+= --enable-languages="c,c++"
-GCC_STAGE2_AUTOCONF	+= --with-headers=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-ifeq (y, $(PTXCONF_GLIBC_PTHREADS))
-GCC_STAGE2_AUTOCONF	+= --enable-threads=posix
-else
-GCC_STAGE2_AUTOCONF	+= --disable-threads
+xchain-gccstage2_prepare_deps =  $(STATEDIR)/xchain-gccstage2.extract
+ifdef PTXCONF_GLIBC
+xchain-gccstage2_prepare_deps += $(STATEDIR)/xchain-glibc.install
+endif
+ifdef PTXCONF_UCLIBC
+xchain-gccstage2_prepare_deps += $(STATEDIR)/xchain-uclibc.install
 endif
 
-xchain-gccstage2_prepare_deps =  $(STATEDIR)/xchain-gccstage2.extract
-xchain-gccstage2_prepare_deps += $(STATEDIR)/xchain-kernel.prepare
+GCC_STAGE2_PATH	= PATH=$(CROSS_PATH)
+GCC_STAGE2_ENV	= $(HOSTCC_ENV)
+
+GCC_STAGE2_AUTOCONF_THREADS = --disable-threads
+ifdef PTXCONF_GLIBC_PTHREADS
+GCC_STAGE2_AUTOCONF_THREADS = --enable-threads=posix
+endif
+ifdef PTXCONF_UCLIBC_UCLIBC_HAS_THREADS
+GCC_STAGE2_AUTOCONF_THREADS = --enable-threads=posix
+endif
+
+GCC_STAGE2_AUTOCONF = \
+	--target=$(PTXCONF_GNU_TARGET) \
+	--host=$(GNU_HOST) \
+	--build=$(GNU_HOST) \
+	--prefix=$(PTXCONF_PREFIX) \
+	--disable-nls \
+	--disable-shared \
+	--enable-multilib \
+	--enable-target-optspace \
+	--disable-threads \
+	--with-gnu-ld \
+	--enable-languages="c,c++" \
+	--with-headers=$(CROSS_LIB_DIR)/include \
+	$(GCC_STAGE2_AUTOCONF_THREADS)
 
 $(STATEDIR)/xchain-gccstage2.prepare: $(xchain-gccstage2_prepare_deps)
 	@$(call targetinfo, xchain-gccstage2.prepare)
-	[ -d $(GCC_STAGE2_DIR) ] || mkdir $(GCC_STAGE2_DIR)
-#	#
-#	# configure
-#	# 
-	cd $(GCC_STAGE2_DIR) && 						\
-		PATH=$(PTXCONF_PREFIX)/bin:$$PATH				\
-	  	AR=$(PTXCONF_GNU_TARGET)-ar					\
-		RANLIB=$(PTXCONF_GNU_TARGET)-ranlib				\
-	     	CC=$(HOSTCC)							\
+	@$(call clean, $(GCC_STAGE2_DIR))
+	[ -d $(GCC_STAGE2_DIR) ] || mkdir -p $(GCC_STAGE2_DIR)
+
+	cd $(GCC_STAGE2_DIR) &&						\
+	     	$(GCC_STAGE2_PATH) $(GCC_STAGE2_ENV)			\
 		$(GCC_DIR)/configure $(GCC_STAGE2_AUTOCONF)
 	touch $@
 
@@ -100,10 +93,11 @@ xchain-gccstage2_compile: $(STATEDIR)/xchain-gccstage2.compile
 $(STATEDIR)/xchain-gccstage2.compile: 					\
 	$(STATEDIR)/xchain-gccstage2.prepare
 	@$(call targetinfo, xchain-gccstage2.compile)
-	# FIXME: why do we have to define _GNU_SOURCE here? Otherwhise 
-	# the c++ compiler cannot be compiled. 
+#	# FIXME: why do we have to define _GNU_SOURCE here? Otherwhise 
+#	# the c++ compiler cannot be compiled. 
 	cd $(GCC_STAGE2_DIR) && 					\
-		PATH=$(PATH):$(PTXCONF_PREFIX)/bin make CXXFLAGS_FOR_TARGET="-D_GNU_SOURCE"
+		$(GCC_STAGE2_PATH) $(GCC_STAGE2_ENV)			\
+		make CXXFLAGS_FOR_TARGET="-D_GNU_SOURCE"
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -115,7 +109,8 @@ xchain-gccstage2_install: $(STATEDIR)/xchain-gccstage2.install
 $(STATEDIR)/xchain-gccstage2.install: $(STATEDIR)/xchain-gccstage2.compile
 	@$(call targetinfo, xchain-gccstage2.install)
 	cd $(GCC_STAGE2_DIR) && 					\
-		PATH=$(PATH):$(PTXCONF_PREFIX)/bin make install
+		$(GCC_STAGE2_PATH) $(GCC_STAGE2_ENV)			\
+		make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -124,7 +119,7 @@ $(STATEDIR)/xchain-gccstage2.install: $(STATEDIR)/xchain-gccstage2.compile
 
 xchain-gccstage2_targetinstall: $(STATEDIR)/xchain-gccstage2.targetinstall
 
-$(STATEDIR)/xchain-gccstage2.targetinstall: $(STATEDIR)/xchain-gccstage2.install
+$(STATEDIR)/xchain-gccstage2.targetinstall:
 	@$(call targetinfo, xchain-gccstage2.targetinstall)
 	touch $@
 

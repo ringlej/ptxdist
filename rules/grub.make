@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: grub.make,v 1.5 2003/07/04 13:58:13 bsp Exp $
+# $Id: grub.make,v 1.6 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -22,7 +22,6 @@ GRUB			= grub-0.93
 GRUB_URL		= ftp://alpha.gnu.org/gnu/grub/$(GRUB).tar.gz
 GRUB_SOURCE		= $(SRCDIR)/$(GRUB).tar.gz
 GRUB_DIR		= $(BUILDDIR)/$(GRUB)
-GRUB_EXTRACT 		= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,11 +30,12 @@ GRUB_EXTRACT 		= gzip -dc
 grub_get: $(STATEDIR)/grub.get
 
 $(STATEDIR)/grub.get: $(GRUB_SOURCE)
+	@$(call targetinfo, grub.get)
 	touch $@
 
 $(GRUB_SOURCE):
-	@$(call targetinfo, grub.get)
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(GRUB_URL)
+	@$(call targetinfo, $(GRUB_SOURCE))
+	@$(call get, $(GRUB_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -45,7 +45,8 @@ grub_extract: $(STATEDIR)/grub.extract
 
 $(STATEDIR)/grub.extract: $(STATEDIR)/grub.get
 	@$(call targetinfo, grub.extract)
-	$(GRUB_EXTRACT) $(GRUB_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	@$(call clean, $(GRUB_DIR))
+	@$(call extract, $(GRUB_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -54,7 +55,14 @@ $(STATEDIR)/grub.extract: $(STATEDIR)/grub.get
 
 grub_prepare: $(STATEDIR)/grub.prepare
 
-GRUB_AUTOCONF =  --prefix=$(PTXCONF_PREFIX)
+GRUB_PATH	= PATH=$(CROSS_PATH)
+GRUB_ENV	= $(CROSS_ENV)
+
+GRUB_AUTOCONF =  --build=$(GNU_HOST)
+GRUB_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
+GRUB_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
+
+GRUB_AUTOCONF +=  --prefix=$(PTXCONF_PREFIX)
 ifeq (y, $(PTXCONF_GRUB_FFS))
 GRUB_AUTOCONF += --enable-ffs
 else
@@ -95,11 +103,15 @@ GRUB_AUTOCONF += --enable-cs89x0
 else
 GRUB_AUTOCONF += --disable-cs89x0
 endif
-GRUB_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/grub.prepare: $(STATEDIR)/grub.extract $(STATEDIR)/glibc.install
+grub_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/grub.extract
+
+$(STATEDIR)/grub.prepare: $(grub_prepare_deps)
 	@$(call targetinfo, grub.prepare)
-	cd $(GRUB_DIR) && CC=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc ./configure $(GRUB_AUTOCONF)
+	cd $(GRUB_DIR) && \
+		$(GRUB_PATH) $(GRUB_ENV) ./configure $(GRUB_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -108,9 +120,9 @@ $(STATEDIR)/grub.prepare: $(STATEDIR)/grub.extract $(STATEDIR)/glibc.install
 
 grub_compile: $(STATEDIR)/grub.compile
 
-$(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare $(STATEDIR)/xchain-gccstage2.install
+$(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare 
 	@$(call targetinfo, grub.compile)
-	make -C $(GRUB_DIR)
+	$(GRUB_PATH) make -C $(GRUB_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------

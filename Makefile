@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.7 2003/06/26 16:10:36 robert Exp $
+# $Id: Makefile,v 1.8 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -19,6 +19,7 @@ TAR=tar
 TOPDIR=$(shell /bin/pwd)
 BASENAME=$(shell /usr/bin/basename $(TOPDIR))
 BUILDDIR=$(TOPDIR)/build
+XCHAIN_BUILDDIR=$(BUILDDIR)/xchain
 ROOTDIR=$(TOPDIR)/root
 SRCDIR=$(TOPDIR)/src
 PTXSRCDIR=$(TOPDIR)/src_ptx
@@ -63,7 +64,7 @@ help:
 	@echo "  make world            Make-everything-and-be-happy"
 	@echo
 	@echo "Calling these targets affects the whole system. If you want to"
-	@echo "do something for a packet do 'make packet-<action>'."
+	@echo "do something for a packet do 'make packet_<action>'."
 	@echo
 	@echo "Available packages and versions: "
 	@echo "$(PACKAGES)"
@@ -77,15 +78,15 @@ compile: $(PACKAGES_COMPILE)
 install: $(PACKAGES_INSTALL)
 
 dep_output_clean:
-	if [ -e $(DEP_OUTPUT) ]; then rm -f $(DEP_OUTPUT); fi
+#	if [ -e $(DEP_OUTPUT) ]; then rm -f $(DEP_OUTPUT); fi
 	touch $(DEP_OUTPUT)
 
 dep_tree:
-	scripts/makedeptree $(DEP_OUTPUT) | $(DOT) -Tps > $(DEP_TREE_PS)
+	@sort $(DEP_OUTPUT) | uniq | scripts/makedeptree | $(DOT) -Tps > $(DEP_TREE_PS)
 
 dep_world: $(PACKAGES_TARGETINSTALL)
-	echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
-	
+	@echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
+
 world: dep_output_clean dep_world dep_tree
 
 # menuconfig:
@@ -136,7 +137,7 @@ rayonic_config:
 	@cp $(call latestconfig, kernel*rayonic) .kernelconfig
 
 # ----------------------------------------------------------------------------
-clean: rootclean 
+clean: rootclean
 	@echo
 	@echo -n "cleaning build dir............... "
 	@for i in $$(ls -I CVS $(BUILDDIR)); do echo -n $$i' '; rm -rf $(BUILDDIR)/"$$i"; done

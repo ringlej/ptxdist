@@ -1,4 +1,5 @@
-# $Id: autoconf-2.13.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# -*-makefile-*-
+# $Id: autoconf-2.13.make,v 1.3 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -10,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES += autoconf213
+#PACKAGES += autoconf213
 
 #
 # Paths and names 
@@ -19,7 +20,6 @@ AUTOCONF213			= autoconf-2.13
 AUTOCONF213_URL			= ftp://ftp.gnu.org/pub/gnu/autoconf/$(AUTOCONF213).tar.gz
 AUTOCONF213_SOURCE		= $(SRCDIR)/$(AUTOCONF213).tar.gz
 AUTOCONF213_DIR			= $(BUILDDIR)/$(AUTOCONF213)
-AUTOCONF213_EXTRACT 		= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -32,7 +32,8 @@ $(STATEDIR)/autoconf213.get: $(AUTOCONF213_SOURCE)
 	touch $@
 
 $(AUTOCONF213_SOURCE):
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(AUTOCONF213_URL)
+	@$(call targetinfo, $(AUTOCONF213_SOURCE))
+	@$(call get, $(AUTOCONF213_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -42,7 +43,8 @@ autoconf213_extract: $(STATEDIR)/autoconf213.extract
 
 $(STATEDIR)/autoconf213.extract: $(STATEDIR)/autoconf213.get
 	@$(call targetinfo, autoconf213.extract)
-	$(AUTOCONF213_EXTRACT) $(AUTOCONF213_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	@$(call clean, $(AUTOCONF213_DIR))
+	@$(call extract, $(AUTOCONF213_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -51,10 +53,13 @@ $(STATEDIR)/autoconf213.extract: $(STATEDIR)/autoconf213.get
 
 autoconf213_prepare: $(STATEDIR)/autoconf213.prepare
 
+AUTOCONF213_ENV = $(HOSTCC_ENV)
+
 $(STATEDIR)/autoconf213.prepare: $(STATEDIR)/autoconf213.extract
 	@$(call targetinfo, autoconf213.prepare)
-	cd $(AUTOCONF213_DIR) && 					\
-	CFLAGS=$(CFLAGS) ./configure --prefix=$(PTXCONF_PREFIX)/$(AUTOCONF213)
+	cd $(AUTOCONF213_DIR) && \
+		$(AUTOCONF213_ENV) \
+		./configure --prefix=$(PTXCONF_PREFIX)/$(AUTOCONF213)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -65,7 +70,7 @@ autoconf213_compile: $(STATEDIR)/autoconf213.compile
 
 $(STATEDIR)/autoconf213.compile: $(STATEDIR)/autoconf213.prepare 
 	@$(call targetinfo, autoconf213.compile)
-	make -C $(AUTOCONF213_DIR) $(MAKEPARMS)
+	make -C $(AUTOCONF213_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------

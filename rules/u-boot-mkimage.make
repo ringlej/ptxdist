@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: u-boot-mkimage.make,v 1.4 2003/06/16 12:05:16 bsp Exp $
+# $Id: u-boot-mkimage.make,v 1.5 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES += umkimage
+# PACKAGES += umkimage
 
 #
 # Paths and names 
@@ -29,10 +29,11 @@ UMKIMAGE_EXTRACT 		= gzip -dc
 umkimage_get: $(STATEDIR)/umkimage.get
 
 $(STATEDIR)/umkimage.get: $(UMKIMAGE_SOURCE)
+	@$(call targetinfo, umkimage.get)
 	touch $@
 
 $(UMKIMAGE_SOURCE):
-	@$(call targetinfo, umkimage.get)
+	@$(call targetinfo, $(UMKIMAGE_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(UMKIMAGE_URL)
 
 # ----------------------------------------------------------------------------

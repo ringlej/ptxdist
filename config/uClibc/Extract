@@ -1,0 +1,80 @@
+#!/usr/bin/perl
+
+#
+# first extract all configuration files from the original source tree
+#
+
+@configfiles = `find ../../build/uClibc* -name "Config.*" | grep -v default`;
+
+while($_ = shift @configfiles) {
+	chomp $_;
+	my $filename = $_;   $filename =~ s/(.*\/uClibc.*?)\/(.*$)/$2/;
+	my $dir = $filename; $dir      =~ s/(.*\/)(.*$)/$1/;
+	system("mkdir -p $dir");
+	system("../../scripts/mkprefix -v -p UCLIBC_ < $_ > $filename");
+}
+
+
+#
+# fix some entries 
+# 
+
+print "---------------------------------------------------------------------\n";
+print "Fixing some stuff...\n";
+print "---------------------------------------------------------------------\n";
+
+%depends = ("alpha","ARCH_ALPHA",
+	    "arm", "(ARCH_ARM || ARCH_ARM_NOMMU)",
+	    "cris", "ARCH_CRIS",
+	    "h8300", "ARCH_H8300",
+	    "i386", "ARCH_X86",
+	    "i960", "ARCH_I960",
+	    "m68k", "ARCH_M68K",
+	    "mips", "ARCH_MIPS",
+	    "mipsel", "ARCH_MIPSEL",
+	    "powerpc", "ARCH_PPC",
+	    "sh", "ARCH_SH",
+	    "sparc", "ARCH_SPARC",
+	    "v850", "ARCH_V850");
+
+@fixfiles = `find . -name "Config.*"|grep -v .in`;
+
+
+while($file = shift @fixfiles) {
+
+    open (FILE, "$file");
+    @file = <FILE>;
+    close FILE;
+
+    for (@file) {
+
+	if (/^\s*source\s+\"(.*)\"/) {
+
+	    open(TEMP, "$1");
+	    @contens = <TEMP>;
+	    close TEMP;
+	    
+	    $_ = join('',(@contens));
+	}
+    }
+
+    my $arch = $file; $arch =~ s/.*Config\.(.*)$/$1/g;
+    chomp ($arch);
+    
+    for (@file) { $_ =~ s/^\s*mainmenu (.*$)/\# mainmenu $1/g;}
+
+    open (FILE, ">$file");
+    print FILE @file;
+    close FILE;
+
+
+    open (FILE, "$file");
+    @file = <FILE>;
+    close FILE;
+
+    for (@file) { $_ =~ s/^(\s*menu\s+.*)$/$1\n\tdepends on UCLIBC && $depends{$arch}/g;}
+
+    open (FILE, ">$file");
+    print FILE @file;
+    close FILE;
+}

@@ -1,4 +1,5 @@
-# $Id: gmp.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
+# -*-makefile-*-
+# $Id: gmp.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -33,10 +34,11 @@ GMP_EXTRACT		= gzip -dc
 gmp_get: $(STATEDIR)/gmp.get
 
 $(STATEDIR)/gmp.get: $(GMP_SOURCE)
+	@$(call targetinfo, gmp.get)
 	touch $@
 
 $(GMP_SOURCE):
-	@$(call targetinfo, gmp.get)
+	@$(call targetinfo, $(GMP_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(GMP_URL)
 
 # ----------------------------------------------------------------------------
@@ -47,7 +49,7 @@ gmp_extract: $(STATEDIR)/gmp.extract
 
 $(STATEDIR)/gmp.extract: $(STATEDIR)/gmp.get
 	@$(call targetinfo, gmp.extract)
-	$(GMP_EXTRACT)    $(GMP_SOURCE)    | $(TAR) -C $(BUILDDIR) -xf -
+	$(GMP_EXTRACT) $(GMP_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
 # ----------------------------------------------------------------------------

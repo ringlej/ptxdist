@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-binutils.make,v 1.4 2003/06/16 12:05:16 bsp Exp $
+# $Id: xchain-binutils.make,v 1.5 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -9,20 +9,28 @@
 #
 
 #
-# We provide this package
-#
-ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN))
-PACKAGES += xchain-binutils
-endif
-
-#
 # Paths and names 
 #
-BINUTILS		= binutils-2.11.2
+BINUTILS		= binutils-2.13.2.1
 BINUTILS_URL		= ftp://ftp.gnu.org/pub/gnu/binutils/$(BINUTILS).tar.gz
 BINUTILS_SOURCE		= $(SRCDIR)/$(BINUTILS).tar.gz
 BINUTILS_DIR		= $(BUILDDIR)/$(BINUTILS)
-BINUTILS_EXTRACT 	= gzip -dc
+ifdef PTXCONF_ARCH_NOMMU
+BINUTILS		= binutils-2.10
+BINUTILS_URL		= ftp://ftp.gnu.org/pub/gnu/binutils/$(BINUTILS).tar.gz
+endif
+ifdef PTXCONF_ARCH_MIPS
+BINUTILS		= binutils-2.14.90.0.4
+BINUTILS_URL		= ftp://ftp.de.kernel.org/pub/linux/devel/binutils/$(BINUTILS).tar.gz
+endif
+ifdef PTXCONF_ARCH_PARISC
+BINUTILS		= binutils-2.14.90.0.4
+BINUTILS_URL		= ftp://ftp.de.kernel.org/pub/linux/devel/binutils/$(BINUTILS).tar.gz
+endif
+
+BINUTILS_NOMMU_PATCH		= binutils-2.10-full.patch
+BINUTILS_NOMMU_PATCH_URL	= http://www.uclinux.org/pub/uClinux/m68k-elf-tools/tools-20030314/$(BINUTILS_NOMMU_PATCH)
+BINUTILS_NOMMU_PATCH_SOURCE	= $(SRCDIR)/$(BINUTILS_NOMMU_PATCH)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -30,12 +38,22 @@ BINUTILS_EXTRACT 	= gzip -dc
 
 xchain-binutils_get: $(STATEDIR)/xchain-binutils.get
 
-$(STATEDIR)/xchain-binutils.get: $(BINUTILS_SOURCE)
+binutils_get_deps =  $(BINUTILS_SOURCE)
+ifdef PTXCONF_ARCH_ARM_NOMMU
+binutils_get_deps += $(BINUTILS_NOMMU_PATCH_SOURCE)
+endif
+
+$(STATEDIR)/xchain-binutils.get: $(binutils_get_deps)
+	@$(call targetinfo, xchain-binutils.get)
 	touch $@
 
 $(BINUTILS_SOURCE):
-	@$(call targetinfo, xchain-binutils.get)
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(BINUTILS_URL)
+	@$(call targetinfo, $(BINUTILS_SOURCE))
+	@$(call get, $(BINUTILS_URL))
+
+$(BINUTILS_NOMMU_PATCH_SOURCE):
+	@$(call targetinfo, $(BINUTILS_NOMMU_PATCH_SOURCE))
+	@$(call get, $(BINUTILS_NOMMU_PATCH_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -45,7 +63,36 @@ xchain-binutils_extract: $(STATEDIR)/xchain-binutils.extract
 
 $(STATEDIR)/xchain-binutils.extract: $(STATEDIR)/xchain-binutils.get
 	@$(call targetinfo, xchain-binutils.extract)
-	$(BINUTILS_EXTRACT) $(BINUTILS_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	@$(call clean, $(BINUTILS_DIR))
+	@$(call extract, $(BINUTILS_SOURCE))
+
+#
+# sto^H^H^Hinspired by Erik Andersen's buildroot
+#
+
+#
+# Enable combreloc, since it is such a nice thing to have...
+#
+	perl -i -p -e "s,link_info.combreloc = false,link_info.combreloc = true,g;" $(BINUTILS_DIR)/ld/ldmain.c
+
+#
+# Hack binutils to use the correct shared lib loader
+#
+	cd $(BINUTILS_DIR) && \
+		perl -i -p -e "s,#.*define.*ELF_DYNAMIC_INTERPRETER.*\".*\",#define ELF_DYNAMIC_INTERPRETER \"$(DYNAMIC_LINKER)\",;" \
+		`grep -lr "#define ELF_DYNAMIC_INTERPRETER" $(BINUTILS_DIR)`
+
+#
+# Hack binutils to prevent it from searching the host system
+# for libraries.  We only want libraries for the target system.
+#
+	cd $(BINUTILS_DIR) && \
+		perl -i -p -e "s,^NATIVE_LIB_DIRS.*,NATIVE_LIB_DIRS='$(CROSS_LIB_DIR)/usr/lib $(CROSS_LIB_DIR)/lib',;" \
+		$(BINUTILS_DIR)/ld/configure.host
+
+ifdef PTXCONF_ARCH_ARM_NOMMU
+	cd $(BINUTILS_DIR) && patch -p1 < $(BINUTILS_NOMMU_PATCH_SOURCE)
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -54,14 +101,30 @@ $(STATEDIR)/xchain-binutils.extract: $(STATEDIR)/xchain-binutils.get
 
 xchain-binutils_prepare: $(STATEDIR)/xchain-binutils.prepare
 
+XCHAIN_BINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET)
+ifdef PTXCONF_ARCH_MIPS
+XCHAIN_BINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET),mips64-linux
+endif
+ifdef PTXCONF_OPT_PA8X00
+XCHAIN_BINUTILS_AUTOCONF_TARGET = --enable-targets=$(PTXCONF_GNU_TARGET),hppa64-linux
+endif
+
+XCHAIN_BINUTILS_AUTOCONF = \
+	--target=$(PTXCONF_GNU_TARGET) \
+	--host=$(GNU_HOST) \
+	--build=$(GNU_HOST) \
+	--prefix=$(PTXCONF_PREFIX) \
+	--disable-nls \
+	--disable-shared \
+	--enable-multilib \
+	$(XCHAIN_BINUTILS_AUTOCONF_TARGET)
+
+XCHAIN_BINUTILS_ENV	= $(HOSTCC_ENV)
+
 $(STATEDIR)/xchain-binutils.prepare: $(STATEDIR)/xchain-binutils.extract
 	@$(call targetinfo, xchain-binutils.prepare)
-	cd $(BINUTILS_DIR) && 						\
-	./configure 							\
-		--disable-shared					\
-		--target=$(PTXCONF_GNU_TARGET)				\
-		--prefix=$(PTXCONF_PREFIX) 			\
-		--enable-targets=$(PTXCONF_GNU_TARGET)	
+	cd $(BINUTILS_DIR) && $(XCHAIN_BINUTILS_ENV) \
+		./configure $(XCHAIN_BINUTILS_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -72,7 +135,7 @@ xchain-binutils_compile: $(STATEDIR)/xchain-binutils.compile
 
 $(STATEDIR)/xchain-binutils.compile: $(STATEDIR)/xchain-binutils.prepare 
 	@$(call targetinfo, xchain-binutils.compile)
-	cd $(BINUTILS_DIR) && make 
+	make -C $(BINUTILS_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -83,11 +146,7 @@ xchain-binutils_install: $(STATEDIR)/xchain-binutils.install
 
 $(STATEDIR)/xchain-binutils.install: $(STATEDIR)/xchain-binutils.compile
 	@$(call targetinfo, xchain-binutils.install)
-#	[ -d $(PTXCONF_PREFIX) ] || 					\
-#		$(SUDO) install -g users -m 0755 			\
-#				-o $(PTXUSER) 				\
-#				-d $(PTXCONF_PREFIX)
-	cd $(BINUTILS_DIR) && make install
+	make install -C $(BINUTILS_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------

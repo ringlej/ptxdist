@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-gdb.make,v 1.3 2003/06/30 15:43:26 bsp Exp $
+# $Id: xchain-gdb.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -21,7 +21,7 @@ endif
 #
 GDB		= gdb-5.3
 GDB_URL		= ftp://ftp.gnu.org/pub/gnu/gdb/$(GDB).tar.gz
-GDB_SOURCE		= $(SRCDIR)/$(GDB).tar.gz
+GDB_SOURCE	= $(SRCDIR)/$(GDB).tar.gz
 GDB_DIR		= $(BUILDDIR)/$(GDB)
 GDB_EXTRACT 	= gzip -dc
 
@@ -32,10 +32,11 @@ GDB_EXTRACT 	= gzip -dc
 xchain-gdb_get: $(STATEDIR)/xchain-gdb.get
 
 $(STATEDIR)/xchain-gdb.get: $(GDB_SOURCE)
+	@$(call targetinfo, xchain-gdb.get)
 	touch $@
 
 $(GDB_SOURCE):
-	@$(call targetinfo, xchain-gdb.get)
+	@$(call targetinfo, $(GDB_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(GDB_URL)
 
 # ----------------------------------------------------------------------------
@@ -46,6 +47,7 @@ xchain-gdb_extract: $(STATEDIR)/xchain-gdb.extract
 
 $(STATEDIR)/xchain-gdb.extract: $(STATEDIR)/xchain-gdb.get
 	@$(call targetinfo, xchain-gdb.extract)
+	@$(call clean, $(GDB_DIR))
 	$(GDB_EXTRACT) $(GDB_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -93,10 +95,6 @@ xchain-gdb_install: $(STATEDIR)/xchain-gdb.install
 
 $(STATEDIR)/xchain-gdb.install: $(STATEDIR)/xchain-gdb.compile
 	@$(call targetinfo, xchain-gdb.install)
-#	[ -d $(PTXCONF_PREFIX) ] || 					\
-#		$(SUDO) install -g users -m 0755 			\
-#				-o $(PTXUSER) 				\
-#				-d $(PTXCONF_PREFIX)
 	cd $(GDB_DIR) && make install
 	touch $@
 
@@ -109,8 +107,8 @@ xchain-gdb_targetinstall: $(STATEDIR)/xchain-gdb.targetinstall
 $(STATEDIR)/xchain-gdb.targetinstall: $(STATEDIR)/xchain-gdb.install
 	@$(call targetinfo, xchain-gdb.targetinstall)
 ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN_GDBSERVER))
-	$(CROSSSTRIP) -S $(GDB_DIR)/gdb/gdbserver/gdbserver
 	cp $(GDB_DIR)/gdb/gdbserver/gdbserver $(ROOTDIR)/bin
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/bin/gdbserver
 endif
 	touch $@
 

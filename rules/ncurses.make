@@ -1,4 +1,5 @@
-# $Id: ncurses.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
+# -*-makefile-*-
+# $Id: ncurses.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -31,10 +32,11 @@ NCURSES_EXTRACT 		= gzip -dc
 ncurses_get: $(STATEDIR)/ncurses.get
 
 $(STATEDIR)/ncurses.get: $(NCURSES_SOURCE)
+	@$(call targetinfo, ncurses.get)
 	touch $@
 
 $(NCURSES_SOURCE):
-	@$(call targetinfo, ncurses.get)
+	@$(call targetinfo, $(NCURSES_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(NCURSES_URL)
 
 # ----------------------------------------------------------------------------

@@ -1,4 +1,5 @@
-# $Id: liboop.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
+# -*-makefile-*-
+# $Id: liboop.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -30,10 +31,11 @@ LIBOOP_EXTRACT		= gzip -dc
 liboop_get: $(STATEDIR)/liboop.get
 
 $(STATEDIR)/liboop.get: $(LIBOOP_SOURCE)
+	@$(call targetinfo, liboop.get)
 	touch $@
 
 $(LIBOOP_SOURCE):
-	@$(call targetinfo, liboop.get)
+	@$(call targetinfo, $(LIBOOP_SOURCES))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(LIBOOP_URL)
 
 # ----------------------------------------------------------------------------

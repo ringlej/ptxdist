@@ -1,4 +1,5 @@
-# $Id: rootfs.make,v 1.3 2003/07/04 13:58:13 bsp Exp $
+# -*-makefile-*-
+# $Id: rootfs.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -28,10 +29,11 @@ ROOTFS_EXTRACT 		= gzip -dc
 rootfs_get: $(STATEDIR)/rootfs.get
 
 $(STATEDIR)/rootfs.get: $(ROOTFS_SOURCE)
+	@$(call targetinfo, rootfs.get)
 	touch $@
 
 $(ROOTFS_SOURCE):
-	@$(call targetinfo, rootfs.get)
+	@$(call targetinfo, $(ROOTFS_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(ROOTFS_URL)
 
 # ----------------------------------------------------------------------------

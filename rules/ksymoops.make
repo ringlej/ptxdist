@@ -1,4 +1,5 @@
-# $Id: ksymoops.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
+# -*-makefile-*-
+# $Id: ksymoops.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -30,10 +31,11 @@ KSYMOOPS_EXTRACT 		= bzip2 -dc
 ksymoops_get: $(STATEDIR)/ksymoops.get
 
 $(STATEDIR)/ksymoops.get: $(KSYMOOPS_SOURCE)
+	@$(call targetinfo, ksymoops.get)
 	touch $@
 
 $(KSYMOOPS_SOURCE):
-	@$(call targetinfo, ksymoops.get)
+	@$(call targetinfo, $(KSYMOOPS_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(KSYMOOPS_URL)
 
 # ----------------------------------------------------------------------------

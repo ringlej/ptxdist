@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bash.make,v 1.4 2003/07/09 14:49:52 bsp Exp $
+# $Id: bash.make,v 1.5 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -22,7 +22,6 @@ BASH			= bash-2.05b
 BASH_URL		= ftp://ftp.gnu.org/pub/gnu/bash/$(BASH).tar.gz 
 BASH_SOURCE		= $(SRCDIR)/$(BASH).tar.gz
 BASH_DIR		= $(BUILDDIR)/$(BASH)
-BASH_EXTRACT 		= gzip -dc
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,11 +30,12 @@ BASH_EXTRACT 		= gzip -dc
 bash_get: $(STATEDIR)/bash.get
 
 $(STATEDIR)/bash.get: $(BASH_SOURCE)
+	@$(call targetinfo, bash.get)
 	touch $@
 
 $(BASH_SOURCE):
-	@$(call targetinfo, bash.get)
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(BASH_URL)
+	@$(call targetinfo, $(BASH_SOURCE))
+	@$(call get, $(BASH_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -45,7 +45,8 @@ bash_extract: $(STATEDIR)/bash.extract
 
 $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
 	@$(call targetinfo, bash.extract)
-	$(BASH_EXTRACT) $(BASH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
+	@$(call clean $(BASH_DIR))
+	@$(call extract, $(BASH_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -58,12 +59,10 @@ BASH_AUTOCONF	=  --build=$(GNU_HOST)
 BASH_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 BASH_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 BASH_AUTOCONF	+= --disable-sanity-checks
-BASH_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)
-BASH_ENVIRONMENT=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(PTXCONF_PREFIX)/bin:$$PATH
-BASH_ENVIRONMENT+= ac_cv_func_setvbuf_reversed=no bash_cv_have_mbstate_t=yes
-BASH_MAKEVARS	=  AR=$(PTXCONF_GNU_TARGET)-ar
-BASH_MAKEVARS	+= RANLIB=$(PTXCONF_GNU_TARGET)-ranlib
-BASH_MAKEVARS	+= CC=$(PTXCONF_GNU_TARGET)-gcc
+BASH_AUTOCONF	+= --prefix=/usr --bindir=/bin
+BASH_PATH	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(CROSS_PATH)
+BASH_ENV	=  ac_cv_func_setvbuf_reversed=no bash_cv_have_mbstate_t=yes
+BASH_ENV	+= $(CROSS_ENV)
 
 # FIXME: "disable" does not compile with bash-2.05b (at least not on ARM)
 BASH_AUTOCONF	+= --enable-dparen-arithmetic
@@ -190,18 +189,15 @@ endif
 #
 # dependencies
 #
-bash_prepare_deps =  $(STATEDIR)/bash.extract 
-ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN))
-bash_prepare_deps += $(STATEDIR)/xchain-gccstage2.install
-endif
-
+bash_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/bash.extract
 
 $(STATEDIR)/bash.prepare: $(bash_prepare_deps)
 	@$(call targetinfo, bash.prepare)
-	mkdir -p $(BUILDDIR)/$(BASH)
-	cd $(BUILDDIR)/$(BASH) &&					\
-		$(BASH_ENVIRONMENT)					\
-		$(BASH_DIR)/configure $(BASH_AUTOCONF)
+	cd $(BASH_DIR) && \
+		$(BASH_PATH) $(BASH_ENV) \
+		./configure $(BASH_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -212,7 +208,7 @@ bash_compile: $(STATEDIR)/bash.compile
 
 $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare 
 	@$(call targetinfo, bash.compile)
-	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(BASH_DIR) $(MAKEPARMS)
+	$(BASH_PATH) make -C $(BASH_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -231,9 +227,12 @@ $(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
 
 bash_targetinstall: $(STATEDIR)/bash.targetinstall
 
-$(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.install
+$(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.compile
 	@$(call targetinfo, bash.targetinstall)
-	cd $(BASH_DIR) && install -m 0755 -s bash $(ROOTDIR)/bin/bash
+	mkdir -p $(ROOTDIR)/bin
+	install $(BASH_DIR)/bash $(ROOTDIR)/bin/bash
+	ln -sf bash $(ROOTDIR)/bin/sh
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/bin/bash
 	touch $@
 
 # ----------------------------------------------------------------------------

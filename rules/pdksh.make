@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pdksh.make,v 1.6 2003/07/15 13:59:34 robert Exp $
+# $Id: pdksh.make,v 1.7 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
@@ -32,9 +32,11 @@ PDKSH_EXTRACT 		= gzip -dc
 pdksh_get: $(STATEDIR)/pdksh.get
 
 $(STATEDIR)/pdksh.get: $(PDKSH_SOURCE)
+	@$(call targetinfo, pdksh.get)
 	touch $@
 
 $(PDKSH_SOURCE):
+	@$(call targetinfo, $(PDKSH_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(PDKSH_URL)
 
 # ----------------------------------------------------------------------------
@@ -45,6 +47,7 @@ pdksh_extract: $(STATEDIR)/pdksh.extract
 
 $(STATEDIR)/pdksh.extract: $(STATEDIR)/pdksh.get
 	@$(call targetinfo, pdksh.extract)
+	@$(call clean, $(PDKSH_DIR))
 	$(PDKSH_EXTRACT) $(PDKSH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -58,13 +61,16 @@ PDKSH_AUTOCONF	=  --build=$(GNU_HOST)
 PDKSH_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 PDKSH_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 PDKSH_AUTOCONF	+= --disable-sanity-checks
-PDKSH_AUTOCONF	+= --prefix=$(ROOTDIR)
-PDKSH_ENVIRONMENT=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(PTXCONF_PREFIX)/bin:$$PATH
-PDKSH_ENVIRONMENT+= ac_cv_func_setvbuf_reversed=no pdksh_cv_have_mbstate_t=yes
-PDKSH_MAKEVARS	=  AR=$(PTXCONF_GNU_TARGET)-ar
-PDKSH_MAKEVARS	+= RANLIB=$(PTXCONF_GNU_TARGET)-ranlib
-PDKSH_MAKEVARS	+= CC=$(PTXCONF_GNU_TARGET)-gcc
-PDKSH_MAKEVARS	+= "CFLAGS=-Os -fomit-frame-pointer"
+PDKSH_AUTOCONF	+= --prefix=/usr
+
+PDKSH_PATH	=  PATH=$(CROSS_PATH)
+PDKSH_ENV	=  ac_cv_sizeof_long=4 ac_cv_sizeof_int=4 ac_cv_func_mmap=yes
+PDKSH_ENV	+= ksh_cv_func_memmove=yes
+PDKSH_ENV	+= ksh_cv_func_times_ok=yes ksh_cv_pgrp_check=posix
+PDKSH_ENV	+= ksh_cv_dup2_clexec_ok=yes
+PDKSH_ENV	+= ksh_cv_dev_fd=yes ksh_cv_need_pgrp_sync=no ksh_cv_opendir_ok=yes
+
+PDKSH_ENV	+= $(CROSS_ENV)
 
 ifeq (y, $(PTXCONF_PDKSH_SHLIKE))
 PDKSH_AUTOCONF	+= --enable-shell=sh
@@ -106,16 +112,13 @@ endif
 # dependencies
 #
 pdksh_prepare_deps =  $(STATEDIR)/pdksh.extract 
-ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN))
-pdksh_prepare_deps += $(STATEDIR)/xchain-gccstage2.install
-endif
-
+pdksh_prepare_deps += $(STATEDIR)/virtual-xchain.install
 
 $(STATEDIR)/pdksh.prepare: $(pdksh_prepare_deps)
 	@$(call targetinfo, pdksh.prepare)
 	mkdir -p $(BUILDDIR)/$(PDKSH)
-	cd $(BUILDDIR)/$(PDKSH) &&					\
-		$(PDKSH_ENVIRONMENT)					\
+	cd $(PDKSH_DIR) && \
+		$(PDKSH_PATH) $(PDKSH_ENV) \
 		$(PDKSH_DIR)/configure $(PDKSH_AUTOCONF)
 	touch $@
 
@@ -124,18 +127,12 @@ $(STATEDIR)/pdksh.prepare: $(pdksh_prepare_deps)
 # ----------------------------------------------------------------------------
 
 pdksh_compile_deps = $(STATEDIR)/pdksh.prepare
-ifeq (y, $(PTXCONF_GLIBC))
-pdksh_compile_deps += $(STATEDIR)/glibc.install
-endif
-ifeq (y, $(PTXCONF_UCLIBC))
-pdksh_compile_deps += $(STATEDIR)/uclibc.install
-endif
 
 pdksh_compile: $(STATEDIR)/pdksh.compile
 
 $(STATEDIR)/pdksh.compile: $(STATEDIR)/pdksh.prepare 
 	@$(call targetinfo, pdksh.compile)
-	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(PDKSH_DIR) $(PDKSH_MAKEVARS) $(MAKEPARMS)
+	$(PDKSH_PATH) make -C $(PDKSH_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -156,8 +153,8 @@ pdksh_targetinstall: $(STATEDIR)/pdksh.targetinstall
 
 $(STATEDIR)/pdksh.targetinstall: $(STATEDIR)/pdksh.install
 	@$(call targetinfo, pdksh.targetinstall)
-	$(CROSSSTRIP) $(PDKSH_DIR)/ksh
-	cp $(PDKSH_DIR)/ksh $(ROOTDIR)/bin
+	install $(PDKSH_DIR)/ksh $(ROOTDIR)/bin
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/bin/ksh
 	touch $@
 
 # ----------------------------------------------------------------------------

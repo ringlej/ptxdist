@@ -1,4 +1,5 @@
-# $Id: utelnetd.make,v 1.4 2003/07/08 08:10:04 robert Exp $
+# -*-makefile-*-
+# $Id: utelnetd.make,v 1.5 2003/07/16 04:23:28 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -30,10 +31,11 @@ UTELNETD_EXTRACT 		= gzip -dc
 utelnetd_get: $(STATEDIR)/utelnetd.get
 
 $(STATEDIR)/utelnetd.get: $(UTELNETD_SOURCE)
+	@$(call targetinfo, utelnetd.get)
 	touch $@
 
 $(UTELNETD_SOURCE):
-	@$(call targetinfo, utelnetd.get)
+	@$(call targetinfo, $(UTELNETD_SOURCE))
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(UTELNETD_URL)
 
 # ----------------------------------------------------------------------------
@@ -44,6 +46,7 @@ utelnetd_extract: $(STATEDIR)/utelnetd.extract
 
 $(STATEDIR)/utelnetd.extract: $(STATEDIR)/utelnetd.get
 	@$(call targetinfo, utelnetd.extract)
+	@$(call clean, $(UTELNETS_DIR))
 	$(UTELNETD_EXTRACT) $(UTELNETD_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -53,7 +56,7 @@ $(STATEDIR)/utelnetd.extract: $(STATEDIR)/utelnetd.get
 
 utelnetd_prepare: $(STATEDIR)/utelnetd.prepare
 
-$(STATEDIR)/utelnetd.prepare: $(STATEDIR)/utelnetd.extract
+$(STATEDIR)/utelnetd.prepare: $(STATEDIR)/virtual-xchain.install $(STATEDIR)/utelnetd.extract
 	@$(call targetinfo, utelnetd.prepare)
 	touch $@
 
@@ -63,12 +66,8 @@ $(STATEDIR)/utelnetd.prepare: $(STATEDIR)/utelnetd.extract
 
 utelnetd_compile: $(STATEDIR)/utelnetd.compile
 
-UTELNETD_ENVIRONMENT = 
-UTELNETD_MAKEVARS    =
-ifeq (y,$(PTXCONF_ARCH_ARM))
 UTELNETD_ENVIRONMENT += PATH=$(PTXCONF_PREFIX)/bin:$$PATH
 UTELNETD_MAKEVARS    += CROSS=$(PTXCONF_GNU_TARGET)-
-endif
 
 $(STATEDIR)/utelnetd.compile: $(STATEDIR)/utelnetd.prepare 
 	@$(call targetinfo, utelnetd.compile)
@@ -95,7 +94,7 @@ $(STATEDIR)/utelnetd.targetinstall: $(STATEDIR)/utelnetd.install
 	@$(call targetinfo, utelnetd.targetinstall)
 	install -d $(ROOTDIR)/sbin/
 	install $(UTELNETD_DIR)/utelnetd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/utelnetd
+	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/sbin/utelnetd
 	touch $@
 
 # ----------------------------------------------------------------------------
