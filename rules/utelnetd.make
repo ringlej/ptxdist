@@ -1,4 +1,4 @@
-# $Id: utelnetd.make,v 1.3 2003/07/07 09:19:39 robert Exp $
+# $Id: utelnetd.make,v 1.4 2003/07/08 08:10:04 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -67,7 +67,7 @@ UTELNETD_ENVIRONMENT =
 UTELNETD_MAKEVARS    =
 ifeq (y,$(PTXCONF_ARCH_ARM))
 UTELNETD_ENVIRONMENT += PATH=$(PTXCONF_PREFIX)/bin:$$PATH
-UTELNETD_MAKEVARS    += CROSS=arm-linux-
+UTELNETD_MAKEVARS    += CROSS=$(PTXCONF_GNU_TARGET)-
 endif
 
 $(STATEDIR)/utelnetd.compile: $(STATEDIR)/utelnetd.prepare 
