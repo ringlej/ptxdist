@@ -1055,6 +1055,15 @@ PTXCONF_GRUB_XFS=y
 # PTXCONF_BONNIE is not set
 
 #
+# Communication ---   
+#
+
+#
+# Communication utils 
+#
+PTXCONF_EFAX=y
+
+#
 # Applications ---    
 #
 
