@@ -20,10 +20,10 @@ endif
 #
 # Paths and names
 #
-EXPAT_VERSION		= 1.95.6
+EXPAT_VERSION		= 1.95.8
 EXPAT			= expat-$(EXPAT_VERSION)
 EXPAT_SUFFIX		= tar.gz
-EXPAT_URL		= http://twtelecom.dl.sourceforge.net/sourceforge/expat/$(EXPAT).$(EXPAT_SUFFIX)
+EXPAT_URL		= http://mesh.dl.sourceforge.net/sourceforge/expat/$(EXPAT).$(EXPAT_SUFFIX)
 EXPAT_SOURCE		= $(SRCDIR)/$(EXPAT).$(EXPAT_SUFFIX)
 EXPAT_DIR		= $(BUILDDIR)/$(EXPAT)
 
@@ -49,7 +49,7 @@ $(EXPAT_SOURCE):
 
 expat_extract: $(STATEDIR)/expat.extract
 
-expat_extract_deps	=  $(STATEDIR)/expat.get
+expat_extract_deps = $(STATEDIR)/expat.get
 
 $(STATEDIR)/expat.extract: $(expat_extract_deps)
 	@$(call targetinfo, $@)
@@ -66,9 +66,8 @@ expat_prepare: $(STATEDIR)/expat.prepare
 #
 # dependencies
 #
-expat_prepare_deps =  \
-	$(STATEDIR)/expat.extract \
-	$(STATEDIR)/virtual-xchain.install
+expat_prepare_deps =  $(STATEDIR)/expat.extract
+expat_prepare_deps += $(STATEDIR)/virtual-xchain.install
 
 EXPAT_PATH	=  PATH=$(CROSS_PATH)
 EXPAT_ENV 	=  $(CROSS_ENV)
@@ -78,7 +77,7 @@ EXPAT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 # autoconf
 #
 EXPAT_AUTOCONF  =  $(CROSS_AUTOCONF)
-EXPAT_AUTOCONF	+= --prefix=/usr
+EXPAT_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/expat.prepare: $(expat_prepare_deps)
 	@$(call targetinfo, $@)
@@ -98,7 +97,8 @@ expat_compile_deps =  $(STATEDIR)/expat.prepare
 
 $(STATEDIR)/expat.compile: $(expat_compile_deps)
 	@$(call targetinfo, $@)
-	$(EXPAT_PATH) $(EXPAT_ENV) make -C $(EXPAT_DIR)
+	cd $(EXPAT_DIR) && \
+	$(EXPAT_PATH) $(EXPAT_ENV) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -109,13 +109,8 @@ expat_install: $(STATEDIR)/expat.install
 
 $(STATEDIR)/expat.install: $(STATEDIR)/expat.compile
 	@$(call targetinfo, $@)
-	install -d $(PTXCONF_PREFIX)/lib
-	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libexpat.so*
-	install $(EXPAT_DIR)/.libs/libexpat.so.0.4.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/
-	ln -sf libexpat.so.0.4.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libexpat.so.0
-	ln -sf libexpat.so.0.4.0 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libexpat.so
-	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/expat.h
-	install $(EXPAT_DIR)/lib/expat.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+	cd $(EXPAT_DIR) && \
+	$(EXPAT_PATH) $(EXPAT_ENV) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -128,11 +123,10 @@ expat_targetinstall_deps	=  $(STATEDIR)/expat.compile
 
 $(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/lib
 
-	install $(EXPAT_DIR)/.libs/libexpat.so.0.4.0 $(ROOTDIR)/lib/
-	ln -s libexpat.so.0.4.0 $(ROOTDIR)/lib/libexpat.so.0
-	ln -s libexpat.so.0.4.0 $(ROOTDIR)/lib/libexpat.so
+	$(call copy_root, 0, 0, 0644, $(EXPAT_DIR)/.libs/libexpat.so.0.5.0, /lib/libexpat.so.0.5.0)
+	$(call link_root, /lib/libexpat.so.0.5.0, /lib/libexpat.so.0)
+	$(call link_root, /lib/libexpat.so.0.5.0, /lib/libexpat.so)
 
 	touch $@
 
