@@ -16,7 +16,7 @@ config BOOTDISK_HEAD
 	
 config BOOTDISK_SECT
 	int
-	prompt "disk geometry: heads"
+	prompt "disk geometry: sectors/tracks"
 	default "255"
 	depends on BOOTDISK
 	
