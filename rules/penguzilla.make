@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: penguzilla.make,v 1.7 2004/02/23 16:15:18 bsp Exp $
+# $Id: penguzilla.make,v 1.8 2004/02/24 09:12:23 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -72,7 +72,7 @@ penguzilla_prepare_deps =  \
 
 PENGUZILLA_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 PENGUZILLA_ENV 	=  $(CROSS_ENV)
-#PENGUZILLA_ENV	+=
+PENGUZILLA_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 
 #
@@ -132,11 +132,10 @@ $(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps)
 	install $(PENGUZILLA_DIR)/pixmaps/* $(ROOTDIR)/usr/share/penguzilla/pixmaps
 
 	install -d $(ROOTDIR)/usr/bin
-	install $(PENGUZILLA_DIR)/src/penguzilla $(ROOTDIR)/usr/bin/
-	install $(PENGUZILLA_DIR)/src/penguzilla_bin $(ROOTDIR)/usr/lib/mozilla-1.6/
+	install $(PENGUZILLA_DIR)/src/penguzilla $(ROOTDIR)/usr/bin
 
 # Style
-	install $(PENGUZILLA_DIR)/gtkrc $(ROOTDIR)/.gtkrc
+	#install $(PENGUZILLA_DIR)/gtkrc $(ROOTDIR)/.gtkrc
 
 	touch $@
 
