@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pii_nge.make,v 1.1 2004/06/22 06:54:07 rsc Exp $
+# $Id: pii_nge.make,v 1.2 2004/07/01 16:08:56 rsc Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -46,7 +46,10 @@ $(STATEDIR)/pii_nge.targetinstall:
 	install -d $(ROOTDIR)/var/lock
 	
 	# we need to fix owner / permissions at first startup 
+	# FIXME: this will be done with fakeroot later...
 	install -m 755 -D $(MISCDIR)/ptx-init-permissions.sh $(ROOTDIR)/sbin/ptx-init-permissions.sh
+	chmod a+x $(ROOTDIR)/etc/init.d/*
+	chmod a+x $(ROOTDIR)/etc/rc.d/*
 
 	# maintenance mode helper script
 	install -m 755 -D $(MISCDIR)/maintenance $(ROOTDIR)/sbin/maintenance
