@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.17 2003/08/24 12:13:36 robert Exp $
+# $Id: Makefile,v 1.18 2003/08/25 04:49:27 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -20,7 +20,6 @@ TOPDIR=$(shell /bin/pwd)
 BASENAME=$(shell /usr/bin/basename $(TOPDIR))
 BUILDDIR=$(TOPDIR)/build
 XCHAIN_BUILDDIR=$(BUILDDIR)/xchain
-ROOTDIR=$(TOPDIR)/root
 SRCDIR=$(TOPDIR)/src
 PTXSRCDIR=$(TOPDIR)/src_ptx
 STATEDIR=$(TOPDIR)/state
@@ -35,6 +34,8 @@ export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR PACKAGES
 all: help
 
 -include .config 
+
+ROOTDIR=${$(PTXCONF_ROOT)-$(TOPDIR)/root}
 
 include $(wildcard rules/*.make)
 
