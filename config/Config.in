@@ -415,7 +415,7 @@ endchoice
 config RTAI
 	bool
 	prompt "Realtime Extension: RTAI"
-	depends on KERNEL_2_4_20 || KERNEL_2_4_19 || KERNEL_2_4_18
+	depends on KERNEL_2_4_21 || KERNEL_2_4_20 || KERNEL_2_4_19 || KERNEL_2_4_18
 	default n
 
 choice
