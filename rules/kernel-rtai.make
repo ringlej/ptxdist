@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel-rtai.make,v 1.5 2003/11/02 13:48:47 mkl Exp $
+# $Id: kernel-rtai.make,v 1.6 2003/12/02 14:09:03 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          
@@ -19,9 +19,11 @@
 #
 # Paths and names
 #
+KERNEL_RTAI_VERSION	= $(RTAI_VERSION_RELEASE)
+KERNEL_RTAI_SUFFIX	= tgz
 KERNEL_RTAI_PATCH	= $(KERNEL_RTAI_DIR)/patches/patch-$(KERNEL_VERSION)-$(RTAI_TECH)
-KERNEL_RTAI_SOURCE	= $(RTAI_SOURCE)
-KERNEL_RTAI		= $(RTAI)
+KERNEL_RTAI_SOURCE	= $(SRCDIR)/$(KERNEL_RTAI).$(KERNEL_RTAI_SUFFIX)
+KERNEL_RTAI		= rtai-$(KERNEL_RTAI_VERSION)
 KERNEL_RTAI_DIR		= $(PATCHES_BUILDDIR)/$(KERNEL_RTAI)
 
 # ----------------------------------------------------------------------------
