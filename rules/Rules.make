@@ -414,6 +414,7 @@ feature_patchin =								\
 			for PATCH_NAME in $$(find $$FP_DIR -name "*.patch")	\
 			                  $$(find $$FP_DIR -name "*.diff") ; do	\
 				echo "patchin' $$PATCH_NAME ...";		\
+				if [ ! -e $$PATCH_NAME ]; then exit -1; fi; 	\
 				cat $$PATCH_NAME | 				\
 				     $(PATCH) -Np1 -d $$PACKET_NAME || exit -1; \
 			done;							\
