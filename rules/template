@@ -1,4 +1,3 @@
-# -*-makefile-*-
 # $Id$
 #
 # Copyright (C) 2004 by @AUTHOR@
@@ -79,10 +78,8 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 #
 # autoconf
 #
-@PACKET@_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+@PACKET@_AUTOCONF =  $(CROSS_AUTOCONF)
+@PACKET@_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
 	@$(call targetinfo, $@)
