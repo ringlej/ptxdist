@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gdb.make,v 1.6 2004/01/07 14:11:07 robert Exp $
+# $Id: gdb.make,v 1.7 2004/02/26 13:26:42 robert Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
@@ -137,7 +137,22 @@ $(STATEDIR)/gdb.prepare: $(gdb_prepare_deps)
 	cd $(GDB_BUILDDIR)/gdb && \
 		$(GDB_PATH) $(GDB_ENV) \
 		$(GDB_DIR)/gdb/configure $(GDB_AUTOCONF)
-		
+
+	#
+	# RSC: we seem to need a tweek here: normally
+	# $(INTERNAL_LDFLAGS) is used for linking gdb; it contains
+	# $(LDFLAGS) with the correct -L path. But somehow $(LDFLAGS)
+	# got lost when it is used, the variable is just empty. 
+	# No idea why this happens...
+	#
+	
+	if [ -z `grep "# PTXdist: tweaked!" $(GDB_BUILDDIR)/gdb/Makefile` ]; then				\
+		perl -i -p -e 's/^LDFLAGS(.*)$$/LDFLAGS$$1\nMY_LDFLAGS$$1/g' $(GDB_BUILDDIR)/gdb/Makefile;	\
+		perl -i -p -e 's/^INTERNAL_LDFLAGS(.*)\(LDFLAGS\)(.*)$$/INTERNAL_LDFLAGS$$1\(MY_LDFLAGS\)$$2/g' \
+			$(GDB_BUILDDIR)/gdb/Makefile; 								\
+		echo "# PTXdist: tweaked!" >> $(GDB_BUILDDIR)/gdb/Makefile;					\
+	fi;
+	
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -155,7 +170,7 @@ $(STATEDIR)/gdb.compile: $(STATEDIR)/gdb.prepare
 ##
 #	$(GDB_PATH) make -C $(GDB_BUILDDIR) $(GDB_MAKEVARS) CFLAGS='' CXXFLAGS='' configure-build-libiberty
 #	$(GDB_PATH) make -C $(GDB_BUILDDIR) $(GDB_MAKEVARS) 
-	$(GDB_PATH) $(GDB_ENV) make -C $(GDB_BUILDDIR)
+	cd $(GDB_BUILDDIR) && $(GDB_PATH) $(GDB_ENV) make
 
 	touch $@
 
