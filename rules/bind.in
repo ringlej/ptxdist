@@ -1,0 +1,24 @@
+# bind 9 configuration
+
+menu "Bind                "
+
+config BIND
+	bool
+	prompt "Compile Bind 9"
+
+config BIND_THREADS
+	bool
+	prompt "enable threads"
+	depends BIND && GLIBC_PTHREADS
+
+config BIND_CRYPTO
+	bool
+	prompt "enable DNSSEC"
+	depends BIND && OPENSSL
+
+config BIND_IPV6
+	bool
+	prompt "enable IPv6"
+	depends BIND
+
+endmenu
