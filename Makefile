@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.96 2004/07/04 16:32:15 rsc Exp $
+# $Id: Makefile,v 1.97 2004/07/16 17:23:37 bbu Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -354,6 +354,11 @@ archive:
 		--exclude $(BASENAME)/patches			\
 		--exclude $(BASENAME)/Documentation/manual	\
 		$(BASENAME)
+
+source_archive:
+	@echo
+	@echo -n "packaging additional sources ...... "
+	scripts/collect_sources.sh $(TOPDIR)/..
 
 archive-toolchain: virtual-xchain_install
 	$(TAR) -C $(PTXCONF_PREFIX)/.. -jcvf $(TOPDIR)/$(PTXCONF_GNU_TARGET).tar.bz2 \
