@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.94 2004/06/23 22:50:58 rsc Exp $
+# $Id: Makefile,v 1.95 2004/07/02 10:57:41 bsp Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -255,6 +255,10 @@ wystup_config:
 	@echo "copying wystup configuration"
 	@cp config/wystup.ptxconfig .config
 
+h7202_config:
+	@echo "copying HMS7202 Evalboard configuration"
+	@cp config/h7202.ptxconfig .config
+
 # Toolchain Config Targets ---------------------------------------------------
 
 toolchain-powerpc-405-linux_config:
@@ -277,8 +281,7 @@ distclean: clean
 	@echo "done."
 	@echo -n "cleaning patches dir............. "
 	@rm -rf $(TOPDIR)/patches/*
-	@echo "done."
-	@echo -n "cleaning feature patches dir..... "
+	@echo "done."	@echo -n "cleaning feature patches dir..... "
 	@rm -fr $(TOPDIR)/feature-patches/*
 	@echo "done."
 	@echo
