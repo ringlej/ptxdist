@@ -22,6 +22,7 @@ include rules/Definitions.make
 
 TOPDIR			:= $(shell pwd)
 BASENAME		:= $(shell basename $(TOPDIR))
+HOME			:= $(shell echo $$HOME)
 BUILDDIR		:= $(TOPDIR)/build
 XCHAIN_BUILDDIR		:= $(BUILDDIR)/xchain
 HOSTTOOLS_BUILDDIR	:= $(BUILDDIR)/hosttools
@@ -31,10 +32,10 @@ STATEDIR		:= $(TOPDIR)/state
 IMAGEDIR		:= $(TOPDIR)/images
 MISCDIR			:= $(TOPDIR)/misc
 
-ifeq (exists, $(shell test -e $(TOPDIR)/.setup && echo exists))
-include $(TOPDIR)/.setup
+ifeq (exists, $(shell test -e $(HOME)/.ptxdistrc && echo exists))
+include $(HOME)/.ptxdistrc
 else
-include $(TOPDIR)/config/setup/setup-default
+include $(TOPDIR)/config/setup/ptxdistrc.default
 endif
 
 SRCDIR			:= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
@@ -133,7 +134,8 @@ help:
 	@echo
 	@echo "Syntax:"
 	@echo
-	@echo "  make menuconfig              Configure the whole system"
+	@echo "  make menuconfig              Configure the Root Filesystem"
+	@echo "  make setup                   Setup PTXdist Preferences"
 	@echo
 	@echo "  make get                     Download (most) of the needed packets"
 	@echo "  make extract                 Extract all needed archives"
@@ -148,8 +150,6 @@ help:
 	@echo
 	@echo "Some 'helpful' targets:"
 	@echo
-	@echo "  make virtual-xchain_install  build the toolchain only"
-	@echo "  make archive-toolchain       dito, but do also create a tarball"
 	@echo "  make configs                 show predefined configs"
 	@echo
 	@echo "Targets for testing:"
@@ -157,6 +157,7 @@ help:
 	@echo "  make cuckoo-test             search for cuckoo-eggs in root system"
 	@echo "  make compile-test            compile all supported targets, with report"
 	@echo "  make config-test             run oldconfig on all ptxconfig files"
+	@echo "  make toolchains              build all supported toolchains"
 	@echo
 
 # FIXME: this is not fully working yet, do to dependencies being defined
@@ -284,15 +285,19 @@ oldconfig: scripts/kconfig/conf
 	scripts/kconfig/conf -o config/Kconfig
 
 setup: scripts/lxdialog/lxdialog scripts/kconfig/mconf
-	rm -f $(TOPDIR)/config/setup/.config
-	rm -f $(TOPDIR)/config/setup/scripts
-	ln -s $(TOPDIR)/scripts $(TOPDIR)/config/setup/scripts
-	if [ -f $(TOPDIR)/.setup ]; then cp $(TOPDIR)/.setup $(TOPDIR)/config/setup/.config; fi
-	(cd $(TOPDIR)/config/setup && $(TOPDIR)/scripts/kconfig/mconf Kconfig)
-	for i in .tmpconfig.h .config.old .config.cmd; do
-		rm -f $(TOPDIR)/config/setup/$i; 
+	@rm -f $(TOPDIR)/config/setup/.config
+	@ln -sf $(TOPDIR)/scripts $(TOPDIR)/config/setup/scripts
+	@if [ -f $(HOME)/.ptxdistrc ]; then cp $(HOME)/.ptxdistrc $(TOPDIR)/config/setup/.config; fi
+	@(cd $(TOPDIR)/config/setup && $(TOPDIR)/scripts/kconfig/mconf Kconfig)
+	@echo "cleaning up after setup..."
+	@for i in .tmpconfig.h .config.old .config.cmd; do			\
+		rm -f $(TOPDIR)/config/setup/$$i; 				\
 	done
-	if [ -f $(TOPDIR)/config/setup/.config ]; then cp $(TOPDIR)/config/setup/.config $(TOPDIR)/.setup; fi
+	@if [ -f $(TOPDIR)/config/setup/.config ]; then 			\
+		echo "copying new .ptxdistrc to $(HOME)...";			\
+		cp $(TOPDIR)/config/setup/.config $(HOME)/.ptxdistrc; 		\
+		echo "done.";							\
+	fi
 
 # Config Targets -------------------------------------------------------------
 
@@ -381,6 +386,11 @@ toolchains:
 	echo >> TOOLCHAINS;
 
 # ----------------------------------------------------------------------------
+
+maintainer-clean: distclean
+	@echo -n "cleaning logs.................... "
+	@rm -f logs/*
+	@echo "done."
 
 distclean: clean
 	@echo -n "cleaning .config, .kernelconfig.. "
@@ -472,7 +482,7 @@ configs:
 		if [ "$$?" != "0" ]; then								\
 			echo;										\
 			echo "Error: PTXCONF_SETUP_PROJECTDIR macros point to something which";		\
-			echo "       is no directory. Check your .setup file. ";			\
+			echo "       is no directory. Check your .ptxdistrc file. ";			\
 			echo;										\
 			echo "Directory: $$dir";							\
 			echo;										\
