@@ -129,7 +129,7 @@ PTXCONF_HOSTTOOLS_FAKEROOT=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/abbcc-viac3.kernelconfig"
+PTXCONF_KERNEL_CONFIG="$(TOPDIR)/projects/abbcc/abbcc-viac3.kernelconfig"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
@@ -847,6 +847,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_PROCPS is not set
 
 #
+# sysfsutils          
+#
+# PTXCONF_SYSFSUTILS is not set
+
+#
 # sysutils            
 #
 # PTXCONF_SYSUTILS is not set
@@ -953,6 +958,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # libpcap             
 #
 # PTXCONF_LIBPCAP is not set
+
+#
+# mii-diag            
+#
+# PTXCONF_MII-DIAG is not set
 
 #
 # netcat              
@@ -1166,6 +1176,8 @@ PTXCONF_FIGLET=y
 # Editors             
 #
 # PTXCONF_NANO is not set
+# PTXCONF_JED is not set
+# PTXCONF_HEXEDIT is not set
 
 #
 # System Libraries    
