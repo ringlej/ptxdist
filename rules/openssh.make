@@ -138,6 +138,9 @@ OPENSSH_AUTOCONF = \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--prefix=/usr \
 	--libexecdir=/usr/sbin \
+	--libdir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
+	--with-ldflags=-L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
+	--with-cflags=-I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include \
 	--sysconfdir=/etc/ssh \
 	--with-privsep-path=/var/run/sshd \
 	--without-pam \
