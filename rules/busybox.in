@@ -4,6 +4,6 @@ config BUSYBOX
 	bool
 	prompt "Compile Busybox"
 
-source "config/busybox-1.0.0-pre4/sysdeps/linux/Config.in"
+source "config/busybox-1.0.0-pre5/sysdeps/linux/Config.in"
 
 endmenu
