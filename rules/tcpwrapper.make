@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: tcpwrapper.make,v 1.6 2003/09/17 22:47:50 mkl Exp $
+# $Id: tcpwrapper.make,v 1.7 2003/09/17 22:52:35 mkl Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -74,11 +74,13 @@ $(STATEDIR)/tcpwrapper.prepare: $(STATEDIR)/virtual-xchain.install $(STATEDIR)/t
 
 tcpwrapper_compile: $(STATEDIR)/tcpwrapper.compile
 
-TCPWRAPPER_ENV	= $(CROSS_ENV) $(CROSS_PATCH)
+TCPWRAPPER_ENV	= $(CROSS_ENV)
+TCPWRAPPER_PATH	= PATH=$(CROSS_PATH)
 
 $(STATEDIR)/tcpwrapper.compile: $(STATEDIR)/tcpwrapper.prepare
 	@$(call targetinfo, tcpwrapper.compile)
-	$(TCPWRAPPER_ENV) make -C $(TCPWRAPPER_DIR) linux 
+	$(TCPWRAPPER_PATH) $(TCPWRAPPER_ENV) \
+		make -C $(TCPWRAPPER_DIR) linux 
 	touch $@
 
 # ----------------------------------------------------------------------------
