@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="BMWM"
+PTXCONF_PROJECT="scII-bmwm"
 
 #
 # General Options             
@@ -136,7 +136,7 @@ PTXCONF_HOSTTOOLS_FAKEROOT=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.6.1-bmwm"
+PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/scII-bmwm-2.6.1.kernelconfig"
 # PTXCONF_KERNEL_2_4_18 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
