@@ -207,16 +207,16 @@ scripts/kconfig/qconf: scripts/kconfig/libkconfig.so
 	make -C scripts/kconfig qconf
 
 menuconfig: scripts/lxdialog/lxdialog scripts/kconfig/mconf
-	scripts/kconfig/mconf config/Config.in
+	scripts/kconfig/mconf config/Kconfig
 
 xconfig: scripts/kconfig/qconf
-	scripts/kconfig/qconf config/Config.in
+	scripts/kconfig/qconf config/Kconfig
 
 gconfig: scripts/kconfig/gconf
-	LD_LIBRARY_PATH=./scripts/kconfig ./scripts/kconfig/gconf config/Config.in
+	LD_LIBRARY_PATH=./scripts/kconfig ./scripts/kconfig/gconf config/Kconfig
 
 oldconfig: ptx_kconfig scripts/kconfig/conf
-	scripts/kconfig/conf -o config/Config.in 
+	scripts/kconfig/conf -o config/Kconfig
 
 # Config Targets -------------------------------------------------------------
 
