@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id: xchain-kernel-ptx.make,v 1.3 2003/10/23 18:03:19 mkl Exp $
+# $Id: xchain-kernel-ptx.make,v 1.4 2003/10/28 11:12:24 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions

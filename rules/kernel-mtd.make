@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel-mtd.make,v 1.2 2003/10/23 15:01:19 mkl Exp $
+# $Id: kernel-mtd.make,v 1.3 2003/10/28 11:12:24 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          
@@ -12,19 +12,19 @@
 #
 # We provide this package
 #
-ifdef MTDCONF_KERNEL_MTD
-PATCHES			+= kernel-mtd
-endif
+# ifdef PTXCONF_KERNEL_MTD
+# KERNEL_PATCHES += kernel-mtd
+# endif
 
 #
 # Paths and names
 #
-KERNEL-MTD_VERSION	= $(call get_option, \
+KERNEL_MTD_VERSION	= $(call get_option, \
 	s/^PTXCONF_KERNEL_\([0-9]\)_\([0-9]\)_\([0-9]*\)_\(rmk[0-9]\)_\(pxa[0-9]\)_\(mtd[0-9]*\).*/\1.\2.\3-\4-\5-\6/, mtd)
-KERNEL-MTD		= linux-$(KERNEL-MTD_VERSION)
-KERNEL-MTD_SUFFIX	= diff.bz2
-KERNEL-MTD_URL		= http://www.pengutronix.de/software/linux-arm/$(KERNEL-MTD).$(KERNEL-MTD_SUFFIX)
-KERNEL-MTD_SOURCE	= $(SRCDIR)/linux-$(KERNEL-MTD_VERSION).$(KERNEL-MTD_SUFFIX)
+KERNEL_MTD		= linux-$(KERNEL_MTD_VERSION)
+KERNEL_MTD_SUFFIX	= diff.bz2
+KERNEL_MTD_URL		= http://www.pengutronix.de/software/linux-arm/$(KERNEL_MTD).$(KERNEL_MTD_SUFFIX)
+KERNEL_MTD_SOURCE	= $(SRCDIR)/linux-$(KERNEL_MTD_VERSION).$(KERNEL_MTD_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -33,15 +33,15 @@ KERNEL-MTD_SOURCE	= $(SRCDIR)/linux-$(KERNEL-MTD_VERSION).$(KERNEL-MTD_SUFFIX)
 kernel-mtd_get: $(STATEDIR)/kernel-mtd.get
 
 kernel-mtd_get_deps = \
-	$(KERNEL-MTD_SOURCE)
+	$(KERNEL_MTD_SOURCE)
 
 $(STATEDIR)/kernel-mtd.get: $(kernel-mtd_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
-$(KERNEL-MTD_SOURCE):
+$(KERNEL_MTD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(KERNEL-MTD_URL))
+	@$(call get, $(KERNEL_MTD_URL))
 
 # ----------------------------------------------------------------------------
 # Install
@@ -51,7 +51,7 @@ kernel-mtd_install: $(STATEDIR)/kernel-mtd.install
 
 $(STATEDIR)/kernel-mtd.install: $(STATEDIR)/kernel-mtd.get
 	@$(call targetinfo, $@)
-	@$(call patch_apply, $(KERNEL-MTD_SOURCE), $(KERNEL_DIR))
+	@$(call patch_apply, $(KERNEL_MTD_SOURCE), $(KERNEL_DIR))
 	touch $@
 
 # ----------------------------------------------------------------------------

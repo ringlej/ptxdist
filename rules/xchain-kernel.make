@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.11 2003/10/23 15:01:19 mkl Exp $
+# $Id: xchain-kernel.make,v 1.12 2003/10/28 11:12:24 mkl Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -20,8 +20,6 @@ XCHAIN += xchain-kernel
 endif
 
 XCHAIN_KERNEL_BUILDDIR	= $(BUILDDIR)/xchain-$(KERNEL)
-# XCHAIN_KERNEL_PATCHES	= $(subst kernel-,xchain-kernel-,$(KERNEL_PATCHES))
-
 #
 # Robert says: Aber dokumentier' das entsprechend...
 #
@@ -33,12 +31,12 @@ XCHAIN_KERNEL_BUILDDIR	= $(BUILDDIR)/xchain-$(KERNEL)
 # (against the glibc is built) always stay together, the kernel that
 # is running on the system does not matter...
 #
-# so we pull in the kernel's patches and drop ltt and rtai
+# so we pull in the kernel's patches and drop ltt
+# (rtai isn't included in kernel flavour)
 #
-XCHAIN_KERNEL_PATCHES	= $(addprefix $(STATEDIR)/xchain-kernel-, $(addsuffix .install,	\
-	$(call get_option_ext, s/^PTXCONF_KERNEL_[0-9]_[0-9]_[0-9]*_\(.*\)=y/\1/, 	\
-		sed -e 's/_/ /g' -e 's/[0-9]//g' -e 's/ltt//g' )			\
-	) )
+XCHAIN_KERNEL_PATCHES	= $(addprefix xchain-kernel-, \
+	$(call get_option_ext, s/^PTXCONF_KERNEL_[0-9]_[0-9]_[0-9]*_\(.*\)=y/\1/, sed -e 's/_/ /g' -e 's/[0-9]//g' -e 's/ltt//g'))
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -57,7 +55,7 @@ xchain-kernel_extract: $(STATEDIR)/xchain-kernel.extract
 
 xchain-kernel_extract_deps = \
 	$(STATEDIR)/xchain-kernel-base.extract \
-	$(XCHAIN_KERNEL_PATCHES)
+	$(addprefix $(STATEDIR)/, $(addsuffix .install, $(XCHAIN_KERNEL_PATCHES)))
 
 $(STATEDIR)/xchain-kernel.extract: $(xchain-kernel_extract_deps)
 	@$(call targetinfo, $@)
@@ -120,7 +118,7 @@ xchain-kernel_install: $(STATEDIR)/xchain-kernel.install
 $(STATEDIR)/xchain-kernel.install: $(STATEDIR)/xchain-kernel.prepare
 	@$(call targetinfo, $@)
 	install -d $(CROSS_LIB_DIR)
-	cp -a $(XCHAIN_KERNEL_BUILDDIR)/include $(CROSS_LIB_DIR)
+	cp -dr $(XCHAIN_KERNEL_BUILDDIR)/include $(CROSS_LIB_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel-ltt.make,v 1.3 2003/10/23 17:52:57 mkl Exp $
+# $Id: kernel-ltt.make,v 1.4 2003/10/28 11:12:24 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          
@@ -12,19 +12,19 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_KERNEL_LTT
-PATCHES			+= kernel-ltt
-endif
+# ifdef PTXCONF_KERNEL_LTT
+# KERNEL_PATCHES += kernel-ltt
+# endif
 
 #
 # Paths and names
 #
-KERNEL-LTT_VERSION	= $(call get_option, \
+KERNEL_LTT_VERSION	= $(call get_option, \
 	s/^PTXCONF_KERNEL_\([0-9]\)_\([0-9]\)_\([0-9]*\)_\(rmk[0-9]\)_\(pxa[0-9]\)_\(mtd[0-9]*\)_\(ptx[0-9]*\)_\(ltt[0-9]\).*/\1.\2.\3-\4-\5-\7-\8/, ltt)
-KERNEL-LTT		= linux-$(KERNEL-LTT_VERSION)
-KERNEL-LTT_SUFFIX	= diff
-KERNEL-LTT_URL		= http://www.pengutronix.de/software/ltt/$(KERNEL-LTT).$(KERNEL-LTT_SUFFIX)
-KERNEL-LTT_SOURCE	= $(SRCDIR)/$(KERNEL-LTT).$(KERNEL-LTT_SUFFIX)
+KERNEL_LTT		= linux-$(KERNEL_LTT_VERSION)
+KERNEL_LTT_SUFFIX	= diff
+KERNEL_LTT_URL		= http://www.pengutronix.de/software/ltt/$(KERNEL_LTT).$(KERNEL_LTT_SUFFIX)
+KERNEL_LTT_SOURCE	= $(SRCDIR)/$(KERNEL_LTT).$(KERNEL_LTT_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -33,15 +33,15 @@ KERNEL-LTT_SOURCE	= $(SRCDIR)/$(KERNEL-LTT).$(KERNEL-LTT_SUFFIX)
 kernel-ltt_get: $(STATEDIR)/kernel-ltt.get
 
 kernel-ltt_get_deps = \
-	$(KERNEL-LTT_SOURCE)
+	$(KERNEL_LTT_SOURCE)
 
 $(STATEDIR)/kernel-ltt.get: $(kernel-ltt_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
-$(KERNEL-LTT_SOURCE):
+$(KERNEL_LTT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(KERNEL-LTT_URL))
+	@$(call get, $(KERNEL_LTT_URL))
 
 # ----------------------------------------------------------------------------
 # Install
@@ -51,7 +51,7 @@ kernel-ltt_install: $(STATEDIR)/kernel-ltt.install
 
 $(STATEDIR)/kernel-ltt.install: $(STATEDIR)/kernel-ltt.get
 	@$(call targetinfo, $@)
-	@$(call patch_apply, $(KERNEL-LTT_SOURCE), $(KERNEL_DIR))
+	@$(call patch_apply, $(KERNEL_LTT_SOURCE), $(KERNEL_DIR))
 	touch $@
 
 # ----------------------------------------------------------------------------

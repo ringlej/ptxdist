@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel-rtai.make,v 1.3 2003/10/26 06:23:11 mkl Exp $
+# $Id: kernel-rtai.make,v 1.4 2003/10/28 11:12:24 mkl Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
 #          
@@ -13,7 +13,7 @@
 # We provide this package
 #
 ifdef PTXCONF_RTAI
-KERNEL_PATCHES		+= kernel-rtai
+KERNEL_PATCHES += kernel-rtai
 endif
 
 #
