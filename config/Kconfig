@@ -134,6 +134,7 @@ menu "System Libraries            "
 ############################################################################## 
 
 source "rules/gettext.in"
+source "rules/pcre.in"
 source "rules/popt.in"
 source "rules/zlib.in"
 source "rules/ncurses.in"
