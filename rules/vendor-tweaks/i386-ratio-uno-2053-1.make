@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: i386-ratio-uno-2053-1.make,v 1.1 2004/04/02 13:28:22 bbu Exp $
+# $Id: i386-ratio-uno-2053-1.make,v 1.2 2004/04/05 11:15:45 bbu Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG <linux-development@auerswald.de>
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
@@ -22,7 +22,7 @@ $(STATEDIR)/ratio-uno-2053-1.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
 #	copy /etc template
-	cp -a $(TOPDIR)/etc/ratio-uno-2053-1/. $(ROOTDIR)/etc
+	cp -a $(TOPDIR)/etc/ratio-uno-2053-1/ $(ROOTDIR)/etc
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
