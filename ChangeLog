@@ -1,4 +1,5 @@
-2004-01-31 Robert Schwebel <r.schwebel@pengutronix.de>
+2004-02-05 Robert Schwebel <r.schwebel@pengutronix.de>
+	* xchain: lots of tweaks to make innokom work again
 	* glibc: compile with softfloat when target does not have floating
 	  point support
 	* penguzilla: some bug fixes (BSP)
