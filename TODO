@@ -40,11 +40,17 @@ High Priority
 - RSC: - patches/ 
        - src/*.diff, *.patch
        - etc/solidcard-bmwm-20030821-1/xmodmap
-- MKL: include with wildcard ifeq style?
+- MKL: produce TARGET_CFLAGS somewhere with quotes, so that it's save to use
+       them w/o extra quoting....
+- MKL: check openssl works with arm big endian (-DL_ENDIAN doesn't look good)
+- MKL: gmp3 cannot produce shared libc for ppc target (host i686-linux)
 
 Low Priority
 ------------
 
+- MKL: integrate ldd (./build/glibc-2.2.5/elf/ldd.bash.in)
+- MKL: fix targetinstall *so* -> [-.]*so*
+- MKL: include with wildcard ifeq style?
 - MKL: tweak wireless to xcompile
 - MKL: lilo, tinylogin targetinstall
 - RSC: finish integration of zebra
