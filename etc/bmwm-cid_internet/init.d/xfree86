@@ -7,7 +7,8 @@
 # 2004/03/28 Robert Schwebel <r.schwebel@pengutronix.de>
 #
 
-USE_IDRIVE=0;		# 1=iDrive, 0= PS2 mouse
+USE_IDRIVE=1;		# 1=iDrive, 0= PS2 mouse
+export IDRIVE_NAMED_PIPE=/tmp/idrive.fifo
 
 case $1 in
 
@@ -27,6 +28,11 @@ case $1 in
 		if [ "$USE_IDRIVE" = "1" ]; then
 			[ `grep pcan_drvd /proc/modules` ] ||
 				insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/pcan_drvd.ko;
+		#	[ `grep pcan_drv /proc/modules` ] ||
+		#		insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/pcan_drv.ko;
+		#	[ `grep idrive /proc/modules` ] ||
+		#		insmod /lib/modules/2.6.1/kernel/drivers/input/idrive/idrive.ko;
+				/usr/local/bin/userIDrive /dev/input/event1 & 
 		else
 			[ `grep psmouse.ko /proc/modules` ] ||
 				insmod /lib/modules/2.6.1/kernel/drivers/input/mouse/psmouse.ko;
