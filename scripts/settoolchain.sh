@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: settoolchain.sh,v 1.7 2003/11/11 01:33:52 mkl Exp $
+# $Id: settoolchain.sh,v 1.8 2003/11/17 03:47:04 mkl Exp $
 #
 # Copyright (C) 2003 Ixia Communications, by Dan Kegel
 #
@@ -14,7 +14,7 @@
 # Example: TARGET=powerpc-405-linux-gnu PREFIX=/opt/blartfast sh scripts/settoolchain.sh
 
 abort() {
-	echo $@
+	echo "$@"
 	exec /bin/false
 }
 
@@ -55,26 +55,16 @@ case $TARGET in
 	*mips*)        PTXARCH=MIPS ; PTXSUBARCH=MIPS_ARCH_BE ;;
 	*cris*)        PTXARCH=CRIS ;;
 	*parisc*)      PTXARCH=PARISC ;;
+	*sh3*)         PTXARCH=SH ; PTXSUBARCH=SH_ARCH_SH3 ; PTXOPT=OPT_SH3 ;; 
+	*sh4*)         PTXARCH=SH ; PTXSUBARCH=SH_ARCH_SH4 ; PTXOPT=OPT_SH4 ;;
 	*sh*)          PTXARCH=SH ;;
 	*)             abort "unrecognized target $TARGET"
 esac
 
-# Translate to names used by, um, userspace and the kernel
-# Not sure why we need so many identifiers for arch
-# I'm only doing the ones I'm somewhat familiar with, others will have to be filled in later
-case $PTXARCH in
-	ARM)	PTXCONF_ARCH_USERSPACE=arm     ; PTXCONF_ARCH=arm ;;
-	X86)	PTXCONF_ARCH_USERSPACE=i386    ; PTXCONF_ARCH=i386 ;;
-	PPC)	PTXCONF_ARCH_USERSPACE=powerpc ; PTXCONF_ARCH=ppc ;;
-	SPARC)	PTXCONF_ARCH_USERSPACE=sparc   ; PTXCONF_ARCH=sparc ;;
-	*)	abort "unrecognized target $TARGET, please fix settoolchain.sh" ;;
-esac
-
 echo PTXCONF_GNU_TARGET=\"$TARGET\" > .config.tmp
-echo "PTXCONF_ARCH=\"$PTXCONF_ARCH\"" >> .config.tmp
-echo "PTXCONF_ARCH_USERSPACE=\"$PTXCONF_ARCH_USERSPACE\"" >> .config.tmp
 echo "PTXCONF_ARCH_$PTXARCH=y" >> .config.tmp
 test x$PTXSUBARCH != x && echo "PTXCONF_$PTXSUBARCH=y" >> .config.tmp
+test x$PTXOPT != x && echo "PTXCONF_$PTXOPT=y" >> .config.tmp
 echo PTXCONF_PREFIX=\"$PREFIX\" >> .config.tmp
 echo PTXCONF_ROOT=\"$PREFIX/target\" >> .config.tmp
 echo '# PTXCONF_BUILD_CROSSCHAIN is not set' >> .config.tmp
@@ -83,9 +73,16 @@ echo '# PTXCONF_BUILD_CROSSCHAIN is not set' >> .config.tmp
 echo "PTXCONF_EXP=y" >> .config.tmp
 echo "PTXCONF_EXP_M=y" >> .config.tmp
 
-egrep -v "PTXCONF_ARCH=|PTXCONF_ARCH_|PTXCONF_ARM|PTXCONF_GNU_TARGET|PTXCONF_OPT_|PTXCONF_PREFIX|PTXCONF_ROOT" .config >> .config.tmp
+egrep -v "PTXCONF_ARCH=|PTXCONF_ARCH_|PTXCONF_ARM|PTXCONF_GNU_TARGET|PTXCONF_OPT_|PTXCONF_PREFIX|PTXCONF_ROOT=|PTXCONF_SH_ARCH_|PTXCONF_TARGET_CONFIG_FILE" .config >> .config.tmp
 
 test -f .config && cp .config .config.bak
 mv .config.tmp .config
 
-make oldconfig
+# Use 'make oldconfig' to propagate settings into variables we don't know about here
+yes '' | make oldconfig
+
+# sanity check: make sure gnu target was not changed (it gets set by target.in)
+NEW_GNU_TARGET=`cat .config | grep PTXCONF_GNU_TARGET | sed 's/.*="//;s/".*//'`
+test x$TARGET = x$NEW_GNU_TARGET || abort "make oldconfig mangled the target $TARGET into $NEW_GNU_TARGET; you may need to use a canonical target, or fix config/target.in"
+
+
