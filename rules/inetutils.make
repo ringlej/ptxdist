@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: inetutils.make,v 1.4 2003/10/23 15:01:19 mkl Exp $
+# $Id: inetutils.make,v 1.5 2004/07/22 18:21:05 rsc Exp $
 #
 # Copyright (C) 2003 by Ixia Corporation (www.ixiacom.com)
 #          
@@ -103,14 +103,24 @@ inetutils_compile_deps =  $(STATEDIR)/inetutils.prepare
 $(STATEDIR)/inetutils.compile: $(inetutils_compile_deps)
 	@$(call targetinfo, $@)
 	$(INETUTILS_PATH) make -C $(INETUTILS_DIR)/libinetutils
+
+# First the libraries: 
+ifdef PTXCONF_INETUTILS_PING
+	cd $(INETUTILS_DIR)/libicmp && $(INETUTILS_PATH) make
+endif
+
+# Now the tools: 
 ifdef PTXCONF_INETUTILS_RCP
-	$(INETUTILS_PATH) make -C $(INETUTILS_DIR)/rcp  
+	cd $(INETUTILS_DIR)/rcp && $(INETUTILS_PATH) make
 endif
 ifdef PTXCONF_INETUTILS_RLOGIND
-	$(INETUTILS_PATH) make -C $(INETUTILS_DIR)/rlogind  
+	cd $(INETUTILS_DIR)/rlogind && $(INETUTILS_PATH) make
 endif
 ifdef PTXCONF_INETUTILS_RSHD
-	$(INETUTILS_PATH) make -C $(INETUTILS_DIR)/rshd
+	cd $(INETUTILS_DIR)/rshd && $(INETUTILS_PATH) make
+endif
+ifdef PTXCONF_INETUTILS_PING
+	cd $(INETUTILS_DIR)/ping && $(INETUTILS_PATH) make
 endif
 	touch $@
 
@@ -149,6 +159,11 @@ endif
 ifdef PTXCONF_INETUTILS_RSHD
 	install -D $(INETUTILS_DIR)/rshd/rshd $(ROOTDIR)/usr/bin/rshd
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/rshd
+endif
+
+ifdef PTXCONF_INETUTILS_PING
+	install -D $(INETUTILS_DIR)/ping/ping $(ROOTDIR)/bin/ping
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/ping
 endif
 	touch $@
 

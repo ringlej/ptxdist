@@ -22,4 +22,10 @@ config INETUTILS_RSHD
 	default y
 	depends on INETUTILS
 
+config INETUTILS_PING
+	bool
+	prompt "ping"
+	default n
+	depends on INETUTILS
+
 endmenu
