@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-glibc.make,v 1.10 2003/07/17 12:08:41 bsp Exp $
+# $Id: xchain-glibc.make,v 1.11 2003/08/13 14:55:39 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -44,10 +44,11 @@ $(STATEDIR)/xchain-glibc.extract: $(glibc_extract_deps)
 
 xchain-glibc_prepare:	$(STATEDIR)/xchain-glibc.prepare
 
-$(STATEDIR)/xchain-glibc.prepare: \
-		$(STATEDIR)/autoconf213.install \
-		$(STATEDIR)/xchain-gccstage1.install \
-		$(STATEDIR)/xchain-glibc.extract
+xchain_glibc_prepare_deps =  $(STATEDIR)/autoconf213.install
+xchain_glibc_prepare_deps += $(STATEDIR)/xchain-gccstage1.install
+xchain_glibc_prepare_deps += $(STATEDIR)/xchain-glibc.extract
+
+$(STATEDIR)/xchain-glibc.prepare: $(xchain_glibc_prepare_deps)
 	@$(call targetinfo, xchain-glibc.prepare)
 	@$(call clean, $(XCHAIN_GLIBC_BUILDDIR))
 	mkdir -p $(XCHAIN_GLIBC_BUILDDIR)
