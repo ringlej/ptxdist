@@ -25,6 +25,7 @@
 #define sym_set_tristate_value (*sym_set_tristate_value_p)
 #define sym_toggle_tristate_value (*sym_toggle_tristate_value_p)
 #define sym_string_valid (*sym_string_valid_p)
+#define sym_string_within_range (*sym_string_within_range_p)
 #define sym_set_string_value (*sym_set_string_value_p)
 #define sym_is_changable (*sym_is_changable_p)
 #define sym_get_choice_prop (*sym_get_choice_prop_p)

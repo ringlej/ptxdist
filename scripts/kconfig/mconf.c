@@ -85,7 +85,7 @@ static char buf[4096], *bufptr = buf;
 static char input_buf[4096];
 static char filename[PATH_MAX+1] = ".config";
 static char *args[1024], **argptr = args;
-static int indent = 0;
+static int indent;
 static struct termios ios_org;
 static int rows, cols;
 static struct menu *current_menu;
@@ -302,11 +302,8 @@ static void build_conf(struct menu *menu)
 					cprint1("%s%*c%s",
 						menu->data ? "-->" : "++>",
 						indent + 1, ' ', prompt);
-				} else {
-					if (menu->parent != &rootmenu)
-						cprint1("   %*c", indent + 1, ' ');
-					cprint1("%s  --->", prompt);
-				}
+				} else
+					cprint1("   %*c%s  --->", indent + 1, ' ', prompt);
 
 				cprint_done();
 				if (single_menu_mode && menu->data)
@@ -373,6 +370,11 @@ static void build_conf(struct menu *menu)
 		}
 		cprint_done();
 	} else {
+		if (menu == current_menu) {
+			cprint(":%p", menu);
+			cprint("---%*c%s", indent + 1, ' ', menu_get_prompt(menu));
+			goto conf_childs;
+		}
 		child_count++;
 		val = sym_get_tristate_value(sym);
 		if (sym_is_choice_value(sym) && val == yes) {
@@ -382,7 +384,10 @@ static void build_conf(struct menu *menu)
 			switch (type) {
 			case S_BOOLEAN:
 				cprint("t%p", menu);
-				cprint1("[%c]", val == no ? ' ' : '*');
+				if (sym_is_changable(sym))
+					cprint1("[%c]", val == no ? ' ' : '*');
+				else
+					cprint1("---");
 				break;
 			case S_TRISTATE:
 				cprint("t%p", menu);
@@ -391,7 +396,10 @@ static void build_conf(struct menu *menu)
 				case mod: ch = 'M'; break;
 				default:  ch = ' '; break;
 				}
-				cprint1("<%c>", ch);
+				if (sym_is_changable(sym))
+					cprint1("<%c>", ch);
+				else
+					cprint1("---");
 				break;
 			default:
 				cprint("s%p", menu);
@@ -400,13 +408,20 @@ static void build_conf(struct menu *menu)
 				if (tmp < 0)
 					tmp = 0;
 				cprint1("%*c%s%s", tmp, ' ', menu_get_prompt(menu),
-					sym_has_value(sym) ? "" : " (NEW)");
+					(sym_has_value(sym) || !sym_is_changable(sym)) ?
+					"" : " (NEW)");
 				cprint_done();
 				goto conf_childs;
 			}
 		}
 		cprint1("%*c%s%s", indent + 1, ' ', menu_get_prompt(menu),
-			sym_has_value(sym) ? "" : " (NEW)");
+			(sym_has_value(sym) || !sym_is_changable(sym)) ?
+			"" : " (NEW)");
+		if (menu->prompt->type == P_MENU) {
+			cprint1("  --->");
+			cprint_done();
+			return;
+		}
 		cprint_done();
 	}
 
@@ -445,9 +460,9 @@ static void conf(struct menu *menu)
 			cprint(":");
 			cprint("--- ");
 			cprint("L");
-			cprint("Load an Alternate Configuration File");
+			cprint("    Load an Alternate Configuration File");
 			cprint("S");
-			cprint("Save Configuration to an Alternate File");
+			cprint("    Save Configuration to an Alternate File");
 		}
 		stat = exec_conf();
 		if (stat < 0)
@@ -477,13 +492,15 @@ static void conf(struct menu *menu)
 			switch (type) {
 			case 'm':
 				if (single_menu_mode)
-					submenu->data = (void *) !submenu->data;
+					submenu->data = (void *) (long) !submenu->data;
 				else
 					conf(submenu);
 				break;
 			case 't':
 				if (sym_is_choice(sym) && sym_get_tristate_value(sym) == yes)
 					conf_choice(submenu);
+				else if (submenu->prompt->type == P_MENU)
+					conf(submenu);
 				break;
 			case 's':
 				conf_string(submenu);
@@ -746,8 +763,11 @@ int main(int ac, char **av)
 	sym_calc_value(sym);
 	sprintf(menu_backtitle, "%s v%s.%s.%s%s Configuration",
 		getenv("PROJECT"), 
-		getenv("VERSION"), getenv("PATCHLEVEL"),
-		getenv("SUBLEVEL"), getenv("EXTRAVERSION"));
+		getenv("VERSION"), 
+		getenv("PATCHLEVEL"),
+		getenv("SUBLEVEL"), 
+		getenv("EXTRAVERSION")
+	);
 
 	mode = getenv("MENUCONFIG_MODE");
 	if (mode) {
@@ -763,7 +783,7 @@ int main(int ac, char **av)
 	do {
 		cprint_init();
 		cprint("--yesno");
-		cprint("Do you wish to save your new configuration?");
+		cprint("Do you wish to save your new %s configuration?", getenv("PROJECT"));
 		cprint("5");
 		cprint("60");
 		stat = exec_conf();
@@ -772,11 +792,15 @@ int main(int ac, char **av)
 	if (stat == 0) {
 		conf_write(NULL);
 		printf("\n\n"
-			"*** End of configuration.\n"
-			"*** Check the top-level Makefile for additional configuration.\n"
-			"*** Next, you may run 'make'.\n\n");
+			"*** End of %s configuration.\n"
+			"*** Execute 'make' to see possible build options."
+			"\n\n",
+			getenv("PROJECT")
+		);
 	} else
-		printf("\n\nYour configuration changes were NOT saved.\n\n");
+		printf("\n\n"
+			"Your configuration changes were NOT saved."
+			"\n\n");
 
 	return 0;
 }
