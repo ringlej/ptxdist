@@ -14,14 +14,14 @@ type=`/bin/cat /proc/mounts | grep "^/dev/root " | cut "-d " -f3`
 
 if [ "_$type" = "_jffs2" ]; then
 	if [ "_$root" = "_/dev/mtdblock2" ]; then
-		/sbin/unlock /dev/mtd/2
+		/sbin/flash_unlock /dev/mtd/2
 	elif [ "_$root" = "_/dev/mtdblock1" ]; then
-		/sbin/unlock /dev/mtd/1
+		/sbin/flash_unlock /dev/mtd/1
 	fi
 fi
 
 if [ -c /dev/mtd/3 ]; then
-	/sbin/unlock /dev/mtd/3
+	/sbin/flash_unlock /dev/mtd/3
 	/bin/cp -a /dev/mtdblock/3 /dev/mtdblock/data
 else
 	echo "couldn't find /dev/mtd/3"
