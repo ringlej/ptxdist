@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.72 2004/01/27 13:58:19 robert Exp $
+# $Id: Makefile,v 1.73 2004/01/31 15:26:23 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -241,7 +241,7 @@ toolchain-powerpc-405-linux_config:
 	@echo "copying toolchain-powerpc-405-linux configuration"
 	@cp config/toolchain-powerpc-405-linux .config
 
-toolchain-arm-linux_config:
+toolchain-arm-linux-3.3.2_config:
 	@echo "copying toolchain-arm-linux configuration"
 	@cp config/toolchain-arm-linux .config
 
