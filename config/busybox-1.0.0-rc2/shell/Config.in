@@ -14,19 +14,19 @@ choice
 	  and full featured one.
 
 config BB_CONFIG_FEATURE_SH_IS_ASH
-	select CONFIG_ASH
+	select BB_CONFIG_ASH
 	bool "ash"
 
 config BB_CONFIG_FEATURE_SH_IS_HUSH
-	select CONFIG_HUSH
+	select BB_CONFIG_HUSH
 	bool "hush"
 
 config BB_CONFIG_FEATURE_SH_IS_LASH
-	select CONFIG_LASH
+	select BB_CONFIG_LASH
 	bool "lash"
 
 config BB_CONFIG_FEATURE_SH_IS_MSH
-	select CONFIG_MSH
+	select BB_CONFIG_MSH
 	bool "msh"
 
 config BB_CONFIG_FEATURE_SH_IS_NONE

@@ -197,10 +197,10 @@ config BB_CONFIG_FEATURE_IFUPDOWN_IP_BUILTIN
 	bool "  Use busybox ip applet"
 	default y
 	depends on BB_CONFIG_FEATURE_IFUPDOWN_IP
-	select CONFIG_IP
-	select CONFIG_FEATURE_IP_ADDRESS
-	select CONFIG_FEATURE_IP_LINK
-	select CONFIG_FEATURE_IP_ROUTE
+	select BB_CONFIG_IP
+	select BB_CONFIG_FEATURE_IP_ADDRESS
+	select BB_CONFIG_FEATURE_IP_LINK
+	select BB_CONFIG_FEATURE_IP_ROUTE
 	help
 	  Use the busybox iproute "ip" applet to implement "ifupdown".
 
@@ -211,8 +211,8 @@ config BB_CONFIG_FEATURE_IFUPDOWN_IP_BUILTIN
 	bool "  Use busybox ifconfig and route applets"
 	default y
 	depends on BB_CONFIG_IFUPDOWN && !BB_CONFIG_FEATURE_IFUPDOWN_IP
-	select CONFIG_IFCONFIG
-	select CONFIG_ROUTE
+	select BB_CONFIG_IFCONFIG
+	select BB_CONFIG_ROUTE
 	help
 	  Use the busybox iproute "ifconfig" and "route" applets to
 	  implement the "ifup" and "ifdown" utilities.

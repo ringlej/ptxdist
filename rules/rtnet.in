@@ -1,5 +1,5 @@
 config RTNET
-	bool "Real-Time Networking for RTAI"
+	bool "RTnet"
 	depends on RTAI
 
 config RTNET_3C59X

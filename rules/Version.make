@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: Version.make,v 1.6 2003/11/20 18:54:49 mkl Exp $
+# $Id: Version.make,v 1.7 2004/07/28 01:13:09 rsc Exp $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 # See CREDITS for details about who has contributed to this project. 
@@ -22,11 +22,6 @@ GLIBC_VERSION_MAJOR	:= $(call get_option, s/^PTXCONF_GLIBC_\([0-9]*\)_\([0-9]*\)
 GLIBC_VERSION_MINOR	:= $(call get_option, s/^PTXCONF_GLIBC_\([0-9]*\)_\([0-9]*\)_\([0-9]*\).*/\2/)
 GLIBC_VERSION_MICRO	:= $(call get_option, s/^PTXCONF_GLIBC_\([0-9]*\)_\([0-9]*\)_\([0-9]*\).*/\3/)
 GLIBC_VERSION		:= $(GLIBC_VERSION_MAJOR).$(GLIBC_VERSION_MINOR).$(GLIBC_VERSION_MICRO)
-
-RTAI_VERSION_RELEASE	:= $(call get_option, s/^PTXCONF_RTAI_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\1.\2.\3/, rtai)
-RTAI_VERSION_CVS	:= $(call get_option, s/^PTXCONF_RTAI_CVS_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\1.\2.\3/, cvs)
-RTAI_TECH		:= $(call get_option, s/^PTXCONF_RTAI_[0-9]*_[0-9]*_[0-9]*_[0-9]*_[0-9]*_[0-9]*_\([a-z0-9-]*\)=y/\1/)
-RTAI_TECH_SHORT		:= $(shell echo $(RTAI_TECH) | sed -e 's/adeos.*/adeos/' -e 's/\(rthal[0-9]\).*/\1/' -e 's/allsoft.*/allsoft1a/')
 
 UCLIBC_VERSION_MAJOR	:= $(call get_option, s/^PTXCONF_UCLIBC_\([0-9]*\)_\([0-9]*\)_\([0-9]*\).*/\1/)
 UCLIBC_VERSION_MINOR	:= $(call get_option, s/^PTXCONF_UCLIBC_\([0-9]*\)_\([0-9]*\)_\([0-9]*\).*/\2/)

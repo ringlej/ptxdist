@@ -1,0 +1,15 @@
+#
+# Sample boot menu configuration file
+#
+
+# Boot automatically after 30 secs.
+timeout 15
+
+# By default, boot the first entry (there is only one)
+default 0
+
+# for booting default
+title Default
+root (hd0,0)
+kernel /boot/bzImage root=/dev/hdc1
+

@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtai.make,v 1.10 2003/11/02 23:48:19 mkl Exp $
+# $Id: rtai.make,v 1.11 2004/07/28 01:13:09 rsc Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -19,36 +19,18 @@ endif
 #
 # Paths and names 
 #
-RTAI_VERSION		= $(RTAI_VERSION_RELEASE)
+ifdef PTXCONF_RTAI_3_1_TEST4
+RTAI_VERSION		= 3.1-test4
+else
+RTAI_VERSION		= please_port_me
+endif
 RTAI			= rtai-$(RTAI_VERSION)
-RTAI_SUFFIX		= tgz
+RTAI_SUFFIX		= tar.bz2
 RTAI_URL		= http://www.aero.polimi.it/RTAI/$(RTAI).$(RTAI_SUFFIX)
 RTAI_SOURCE		= $(SRCDIR)/$(RTAI).$(RTAI_SUFFIX)
 RTAI_DIR		= $(BUILDDIR)/$(RTAI)
 RTAI_MODULEDIR		= /lib/modules/$(KERNEL_VERSION)-$(RTAI_TECH_SHORT)/rtai
 RTAI_PATCH		= $(RTAI_DIR)/patches/patch-$(KERNEL_VERSION)-$(RTAI_TECH)
-
-# ----------------------------------------------------------------------------
-# Menuconfig
-# ----------------------------------------------------------------------------
-#
-# FIXME: not tested
-#
-rtai_menuconfig: $(STATEDIR)/rtai.prepare
-	@if [ -f $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG) ]; then \
-		install -m 644 $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG) \
-			$(RTAI_DIR)/.config; \
-	fi
-
-	$(RTAI_PATH) $(RTAI_ENV) make -C $(RTAI_DIR) \
-		menuconfig
-
-	@if [ -f $(RTAI_DIR)/.config ]; then \
-		install -m 644 $(RTAI_DIR)/.config \
-			$(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG); \
-	fi
-
-	@$(call clean, $(STATEDIR)/rtai.compile)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -74,11 +56,6 @@ $(STATEDIR)/rtai.extract: $(STATEDIR)/rtai.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTAI_DIR))
 	@$(call extract, $(RTAI_SOURCE))
-#
-# FIXME: Hopefully someone will fix this one:
-#
-	cp -f $(RTAI_DIR)/lxrt/Makefile $(RTAI_DIR)/lxrt/Makefile.orig
-	sed -e "s/pressa//g" $(RTAI_DIR)/lxrt/Makefile.orig >$(RTAI_DIR)/lxrt/Makefile
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -99,17 +76,18 @@ rtai_prepare_deps = \
 	$(STATEDIR)/kernel.prepare \
 	$(STATEDIR)/rtai.extract
 
+RTAI_AUTOCONF  = \
+	--build=$(GNU_HOST) \
+	--host=$(PTXCONF_GNU_TARGET) \
+	--with-kconfig-file=$(RTAI_DIR)/.config \
+	--with-linux-dir=$(KERNEL_DIR)
+
 $(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
 	@$(call targetinfo, $@)
-	if [ -f $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG) ]; then		\
-		install -m 644 $(TOPDIR)/config/rtai/$(PTXCONF_RTAI_CONFIG)	\
-		$(RTAI_DIR)/.config;						\
-	fi
-
+	grep -e PTXCONF_RTAICFG_ .config > $(RTAI_DIR)/.config
+	perl -i -p -e 's/PTXCONF_RTAICFG_//g' $(RTAI_DIR)/.config
 	cd $(RTAI_DIR) && \
-		yes no | $(RTAI_PATH) $(RTAI_ENV) ./configure --reconf
-
-	$(RTAI_PATH) TOPDIR=$(RTAI_DIR) make -C $(RTAI_DIR) dep
+		$(RTAI_PATH) $(RTAI_ENV) ./configure $(RTAI_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -120,7 +98,7 @@ rtai_compile: $(STATEDIR)/rtai.compile
 
 $(STATEDIR)/rtai.compile: $(STATEDIR)/rtai.prepare 
 	@$(call targetinfo, $@)
-	$(RTAI_PATH) TOPDIR=$(RTAI_DIR) make -C $(RTAI_DIR)
+	cd $(RTAI_DIR) && $(RTAI_PATH) TOPDIR=$(RTAI_DIR) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -141,22 +119,18 @@ rtai_targetinstall: $(STATEDIR)/rtai.targetinstall
 
 $(STATEDIR)/rtai.targetinstall: $(STATEDIR)/rtai.install
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/$(RTAI_MODULEDIR)
 
-	install $(RTAI_DIR)/rtaidir/rtai.o $(ROOTDIR)/$(RTAI_MODULEDIR)
-	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai.o
+	# Now let install RTAI all the useless crap
+	cd $(RTAI_DIR) && $(RTAI_PATH) make install DESTDIR=$(ROOTDIR)
 
-	install $(RTAI_DIR)/upscheduler/rtai_sched_up.o $(ROOTDIR)/$(RTAI_MODULEDIR)
-	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_sched_up.o
-	ln -sf rtai_sched_up.o $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_sched.o
+	# Ok it is installed now, so let's remove it
+	rm -fr $(ROOTDIR)/usr/realtime/include
+	rm -fr $(ROOTDIR)/usr/realtime/share
 
-ifeq ($(RTAI_VERSION_RELEASE),24.1.9)
-	install $(RTAI_DIR)/lxrt/rtai_lxrt.o $(ROOTDIR)/$(RTAI_MODULEDIR)
-	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_lxrt.o
+ifdef PTXCONF_RTAI_LATENCY_CALIBRATE
+	$(CROSSSTRIP) -S $(ROOTDIR)/usr/realtime/calibration/calibrate
 else
-	install $(RTAI_DIR)/lxrt/rtai_lxrt_old.o $(ROOTDIR)/$(RTAI_MODULEDIR)
-	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_lxrt_old.o
-	ln -sf rtai_lxrt_old.o $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai_lxrt.o
+	rm -fr $(ROOTDIR)/usr/realtime/calibration
 endif
 	touch $@
 

@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: settoolchain.sh,v 1.8 2003/11/17 03:47:04 mkl Exp $
+# $Id: settoolchain.sh,v 1.9 2004/07/28 01:13:09 rsc Exp $
 #
 # Copyright (C) 2003 Ixia Communications, by Dan Kegel
 #
@@ -84,5 +84,4 @@ yes '' | make oldconfig
 # sanity check: make sure gnu target was not changed (it gets set by target.in)
 NEW_GNU_TARGET=`cat .config | grep PTXCONF_GNU_TARGET | sed 's/.*="//;s/".*//'`
 test x$TARGET = x$NEW_GNU_TARGET || abort "make oldconfig mangled the target $TARGET into $NEW_GNU_TARGET; you may need to use a canonical target, or fix config/target.in"
-
 
