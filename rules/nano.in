@@ -1,0 +1,4 @@
+config NANO
+	bool
+	prompt "nano"
+	default n
