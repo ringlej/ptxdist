@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.2-cvs
-# Sun Mar 13 21:19:39 2005
+# PTXdist version: 0.7.2-svn
+# Sat Mar 19 21:38:30 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -10,11 +10,6 @@ PTXCONF_PROJECT="visbox"
 #
 # General Options             
 #
-
-#
-# PTXdist Options     
-#
-PTXCONF_DEBPOOLM="http://ftp.se.debian.org/debian/"
 
 #
 # Code maturity       
@@ -202,7 +197,6 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 #
 # C Library           
 #
-PTXCONF_LIBC=y
 PTXCONF_GLIBC=y
 # PTXCONF_UCLIBC is not set
 
@@ -215,19 +209,12 @@ PTXCONF_GLIBC_2_3_3=y
 # PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
-PTXCONF_GLIBC_PTHREADS=y
-# PTXCONF_GLIBC_TLS is not set
-# PTXCONF_GLIBC_LIBIO is not set
-PTXCONF_GLIBC_SHARED=y
-# PTXCONF_GLIBC_PROFILED is not set
-# PTXCONF_GLIBC_OMITFP is not set
-# PTXCONF_GLIBC_BOUNDED is not set
-# PTXCONF_GLIBC_OPTKERNEL is not set
 # PTXCONF_GLIBC_DEBUG is not set
 
 #
 # Install options
 #
+# PTXCONF_GLIBC_PTHREAD is not set
 PTXCONF_GLIBC_THREAD_DB=y
 # PTXCONF_GLIBC_LIBRT is not set
 PTXCONF_GLIBC_DL=y
@@ -248,24 +235,6 @@ PTXCONF_GLIBC_NSL=y
 # Timezone Files
 #
 # PTXCONF_GLIBC_ZONEINFO is not set
-# PTXCONF_UC_TARGET_alpha is not set
-# PTXCONF_UC_TARGET_arm is not set
-# PTXCONF_UC_TARGET_bfin is not set
-# PTXCONF_UC_TARGET_cris is not set
-# PTXCONF_UC_TARGET_e1 is not set
-# PTXCONF_UC_TARGET_frv is not set
-# PTXCONF_UC_TARGET_h8300 is not set
-PTXCONF_UC_TARGET_i386=y
-# PTXCONF_UC_TARGET_i960 is not set
-# PTXCONF_UC_TARGET_m68k is not set
-# PTXCONF_UC_TARGET_microblaze is not set
-# PTXCONF_UC_TARGET_mips is not set
-# PTXCONF_UC_TARGET_nios is not set
-# PTXCONF_UC_TARGET_nios2 is not set
-# PTXCONF_UC_TARGET_powerpc is not set
-# PTXCONF_UC_TARGET_sh is not set
-# PTXCONF_UC_TARGET_sparc is not set
-# PTXCONF_UC_TARGET_v850 is not set
 
 #
 # GCC Libraries       
@@ -1035,7 +1004,7 @@ PTXCONF_UTELNETD=y
 #
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
-# PTXCONF_BONNIE is not set
+# PTXCONF_BONNIEXX is not set
 
 #
 # Communication Utilities     
@@ -1095,6 +1064,11 @@ PTXCONF_UTELNETD=y
 # Berkeley db 4    
 #
 # PTXCONF_DB is not set
+
+#
+# expat            
+#
+# PTXCONF_EXPAT is not set
 
 #
 # gettext          

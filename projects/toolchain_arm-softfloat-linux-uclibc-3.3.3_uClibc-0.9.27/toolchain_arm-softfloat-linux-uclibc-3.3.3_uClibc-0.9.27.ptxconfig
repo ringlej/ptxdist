@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.2-cvs
-# Sun Mar 13 21:19:28 2005
+# PTXdist version: 0.7.2-svn
+# Sat Mar 19 21:38:19 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -10,11 +10,6 @@ PTXCONF_PROJECT="toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27"
 #
 # General Options             
 #
-
-#
-# PTXdist Options     
-#
-PTXCONF_DEBPOOLM="http://ftp.se.debian.org/debian/"
 
 #
 # Code maturity       
@@ -208,7 +203,6 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 #
 # C Library           
 #
-# PTXCONF_LIBC is not set
 # PTXCONF_GLIBC is not set
 PTXCONF_UCLIBC=y
 
@@ -717,7 +711,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # Network Card Support
 #
 # PTXCONF_CRAMFS is not set
-# PTXCONF_BONNIE is not set
+# PTXCONF_BONNIEXX is not set
 
 #
 # Communication Utilities     
@@ -777,6 +771,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # Berkeley db 4    
 #
 # PTXCONF_DB is not set
+
+#
+# expat            
+#
+# PTXCONF_EXPAT is not set
 
 #
 # gettext          

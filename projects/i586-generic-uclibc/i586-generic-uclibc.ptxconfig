@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.2-cvs
-# Sun Mar 13 21:19:35 2005
+# PTXdist version: 0.7.2-svn
+# Sat Mar 19 21:38:23 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -10,11 +10,6 @@ PTXCONF_PROJECT="i586-generic-uclibc"
 #
 # General Options             
 #
-
-#
-# PTXdist Options     
-#
-PTXCONF_DEBPOOLM="http://ftp.se.debian.org/debian/"
 
 #
 # Code maturity       
@@ -195,7 +190,6 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 #
 # C Library           
 #
-PTXCONF_LIBC=y
 # PTXCONF_GLIBC is not set
 PTXCONF_UCLIBC=y
 
@@ -1124,7 +1118,7 @@ PTXCONF_UTELNETD=y
 #
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
-# PTXCONF_BONNIE is not set
+# PTXCONF_BONNIEXX is not set
 
 #
 # Communication Utilities     
@@ -1184,6 +1178,11 @@ PTXCONF_FIGLET=y
 # Berkeley db 4    
 #
 # PTXCONF_DB is not set
+
+#
+# expat            
+#
+# PTXCONF_EXPAT is not set
 
 #
 # gettext          
