@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.63 2003/12/19 08:12:32 robert Exp $
+# $Id: Makefile,v 1.64 2003/12/22 09:01:47 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -233,6 +233,10 @@ scIII-cameron_config:
 toolchain-powerpc-405-linux_config:
 	@echo "copying toolchain-powerpc-405-linux configuration"
 	@cp config/toolchain-powerpc-405-linux .config
+
+toolchain-arm-linux_config:
+	@echo "copying toolchain-arm-linux configuration"
+	@cp config/toolchain-arm-linux .config
 
 # ----------------------------------------------------------------------------
 
