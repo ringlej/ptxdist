@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.65 2003/12/23 10:36:23 robert Exp $
+# $Id: Makefile,v 1.66 2003/12/23 12:18:30 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -197,13 +197,13 @@ i386-generic-glibc_config:
 	@echo "copying i386-generic-glibc configuration"
 	@cp config/i386-generic-glibc.ptxconfig .config
 
-i386-generic-uclibc_config: 
-	@echo "copying i386-generic-uclibc configuration"
-	@cp config/i386-generic-uclibc.ptxconfig .config
+#i386-generic-uclibc_config: 
+#	@echo "copying i386-generic-uclibc configuration"
+#	@cp config/i386-generic-uclibc.ptxconfig .config
 
-innokom_config:
-	@echo "copying innokom configuration"
-	@cp config/innokom.ptxconfig .config
+#innokom_config:
+#	@echo "copying innokom configuration"
+#	@cp config/innokom.ptxconfig .config
 
 i586-rayonic_config:
 	@echo "copying 586 rayonic configuration"
@@ -316,7 +316,7 @@ configs:
 	@echo
 	@echo "Available configs: "
 	@echo
-	@grep -e ".*_config:" Makefile | grep -v grep
+	@grep -e ".*_config:" Makefile | grep -v grep | grep -v "^#"
 	@echo
 
 $(INSTALL_LOG): 
