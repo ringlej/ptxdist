@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kaffe.make,v 1.3 2003/07/23 17:34:39 mkl Exp $
+# $Id: kaffe.make,v 1.4 2003/07/23 18:50:21 mkl Exp $
 #
 # (c) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
@@ -257,7 +257,7 @@ ifdef PTXCONF_KAFFE_LINK_GMP
 # what we here do is:
 # - in the .la file is a list of libs this lib depends on
 # - during linking this lib against the kaffe-bin, it is passed to the linker
-# - we replace the shared library (-lgmp) with the static one (/path/to/libgmp.a)
+# - we replace the shared library (-lgmp or libgmp.la) with the static one (/path/to/libgmp.a)
 #
 	perl -i -p -e 's,((\s-lgmp)|(\s.*libgmp.la)), $(CROSS_LIB_DIR)/lib/libgmp.a,' \
 		$(KAFFE_BUILDDIR)/libraries/clib-cldc/native/libnative.la
