@@ -7,6 +7,6 @@
 
 proc		/proc		proc	defaults	0	0
 devpts		/dev/pts	devpts	defaults	0	0
-ramfs		/data/tmp	ramfs	defaults	0	0
+ramfs		/data/tmp	ramfs	size=10m	0	0
 /dev/mtdblock/data /data	jffs2	defaults	0	0
 
