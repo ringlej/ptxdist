@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gmp.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
+# $Id: gmp.make,v 1.5 2003/07/17 09:37:24 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -88,8 +88,6 @@ gmp_install: $(STATEDIR)/gmp.install
 
 $(STATEDIR)/gmp.install: $(STATEDIR)/gmp.compile
 	@$(call targetinfo, gmp.install)
-	# FIXME: doesn't work when using local bin dir
-	make -C $(GMP_DIR) install 
 	touch $@
 
 # ----------------------------------------------------------------------------

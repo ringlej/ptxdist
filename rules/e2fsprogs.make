@@ -92,7 +92,6 @@ e2fsprogs_install: $(STATEDIR)/e2fsprogs.install
 
 $(STATEDIR)/e2fsprogs.install: $(STATEDIR)/e2fsprogs.compile
 	@$(call targetinfo, e2fsprogs.install)
-	$(E2FSPROGS_PATH) make -C $(E2FSPROGS_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------
