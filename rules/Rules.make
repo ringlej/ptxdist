@@ -335,13 +335,13 @@ patch_apply =								\
 #
 # CFLAGS // CXXFLAGS
 #
-# the target_cflags and target_cxxflags are included from the architecture
-# depended config file the is specified in .config
+# the TARGET_CFLAGS and TARGET_CXXFLAGS are included from the architecture
+# depended config file that is specified in .config
 #
 # the option in the .config is called 'TARGET_CONFIG_FILE'
 #
 #
-TARGET_CFLAGS		+= $(PTXCONF_TARGET_EXTRA_CFAGS)
+TARGET_CFLAGS		+= $(PTXCONF_TARGET_EXTRA_CFLAGS)
 TARGET_CXXFLAGS		+= $(PTXCONF_TARGET_EXTRA_CXXFLAGS)
 
 
