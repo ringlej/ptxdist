@@ -2,6 +2,10 @@ Current TODO List
 =================
 
 - RSC:	This todo is not very current... add "update todo" to the todo file :-) 
+- RSC:	patches/$PACKET is not cleaned by make clean; this may be
+	irritating. On the other hand locally thrown-in patches should
+	_not_ be removed on clean. Find a solution. 
+
 
 High Priority
 -------------
