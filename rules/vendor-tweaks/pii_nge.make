@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: pii_nge.make,v 1.6 2004/08/17 13:10:54 sha Exp $
+# $Id: pii_nge.make,v 1.7 2004/08/18 13:46:48 rsc Exp $
 #
 # Copyright (C) 2004 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -22,7 +22,8 @@ $(STATEDIR)/pii_nge.targetinstall:
 
 #	copy /etc template
 	cp -a $(TOPDIR)/etc/generic/. $(ROOTDIR)/etc
-	cp $(TOPDIR)/etc/pii_nge/init.d/* $(ROOTDIR)/etc/init.d/
+#	FIXME: something left from here...? 
+#	cp $(TOPDIR)/etc/pii_nge/init.d/* $(ROOTDIR)/etc/init.d/
 
 #	remove CVS stuff
 	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
@@ -65,7 +66,6 @@ $(STATEDIR)/pii_nge.targetinstall:
 	# FIXME: this will be done with fakeroot later...
 	install -m 755 -D $(MISCDIR)/ptx-init-permissions.sh $(ROOTDIR)/sbin/ptx-init-permissions.sh
 	chmod a+x $(ROOTDIR)/etc/init.d/*
-	chmod a+x $(ROOTDIR)/etc/rc.d/*
 
 	# maintenance mode helper script
 	install -m 755 -D $(MISCDIR)/maintenance $(ROOTDIR)/sbin/maintenance
