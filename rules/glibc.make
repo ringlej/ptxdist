@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.2 2003/08/13 14:54:36 robert Exp $
+# $Id: glibc.make,v 1.3 2003/08/14 08:01:57 robert Exp $
 #
 # (c) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -382,6 +382,9 @@ GLIBC_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 GLIBC_AUTOCONF	+= --disable-sanity-checks
 GLIBC_PATH	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(CROSS_PATH)
 GLIBC_ENV	=  $(CROSS_ENV)
+
+# glibc sometimes doesn't find out that it is cross compiled
+GLIBC_ENV	+= ac_cv_prog_cc_cross=yes
 
 #
 # features
