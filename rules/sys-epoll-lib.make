@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: sys-epoll-lib.make,v 1.1 2003/10/31 22:48:51 mkl Exp $
+# $Id: sys-epoll-lib.make,v 1.2 2003/11/05 00:59:23 mkl Exp $
 #
 # Copyright (C) 2003 by Ixia Corporation, by Milan Bobde
 #          
@@ -73,11 +73,10 @@ sys-epoll-lib_prepare_deps =  \
 	$(STATEDIR)/sys-epoll-lib.extract
 
 SYS-EPOLL-LIB_PATH	=  PATH=$(CROSS_PATH)
-SYS-EPOLL-LIB_MAKEARGS = \
+SYS-EPOLL-LIB_MAKEVARS = \
 	$(CROSS_ENV) \
 	KERNELDIR=$(KERNEL_DIR) \
 	PREFIX=$(CROSS_LIB_DIR) \
-	XCFLAGS='$(strip $(subst ",,$(TARGET_CFLAGS)))'
 
 $(STATEDIR)/sys-epoll-lib.prepare: $(sys-epoll-lib_prepare_deps)
 	@$(call targetinfo, $@)
@@ -93,9 +92,7 @@ sys-epoll-lib_compile_deps = $(STATEDIR)/sys-epoll-lib.prepare
 
 $(STATEDIR)/sys-epoll-lib.compile: $(sys-epoll-lib_compile_deps)
 	@$(call targetinfo, $@)
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/man/man2
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/man/man4
-	$(SYS-EPOLL-LIB_PATH) make $(SYS-EPOLL-LIB_MAKEARGS) -C $(SYS-EPOLL-LIB_DIR)
+	$(SYS-EPOLL-LIB_PATH) make $(SYS-EPOLL-LIB_MAKEVARS) -C $(SYS-EPOLL-LIB_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -106,7 +103,9 @@ sys-epoll-lib_install: $(STATEDIR)/sys-epoll-lib.install
 
 $(STATEDIR)/sys-epoll-lib.install: $(STATEDIR)/sys-epoll-lib.compile
 	@$(call targetinfo, $@)
-	$(SYS-EPOLL-LIB_PATH) make $(SYS-EPOLL-LIB_MAKEARGS) -C $(SYS-EPOLL-LIB_DIR) install
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/man/man2
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/man/man4
+	$(SYS-EPOLL-LIB_PATH) make $(SYS-EPOLL-LIB_MAKEVARS) -C $(SYS-EPOLL-LIB_DIR) install
 	touch $@
 
 # ----------------------------------------------------------------------------
