@@ -7,14 +7,14 @@ config GLIBC_PTHREADS
 config GLIBC_NPTL
 	bool
 	prompt "Compile glibc with NPTL"
-	depends on GLIBC && LIBC && !GLIBC_PTHREADS
+	depends on GLIBC_TLS && LIBC && !GLIBC_PTHREADS
 
 config GLIBC_TLS
         bool
 	prompt "Compile glibc with TLS"
 	default n
-	depends on GLIBC_NPTL && LIBC
-
+	depends on GLIBC && LIBC
+	
 config GLIBC_LIBIO
 	bool
 	prompt "Build in GNU libio instead of GNU stdio"
