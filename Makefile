@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.76 2004/02/05 00:55:26 robert Exp $
+# $Id: Makefile,v 1.77 2004/02/06 12:35:09 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -260,7 +260,10 @@ distclean: clean
 	@rm -f .config* .kernelconfig .tmp* .rtaiconfig
 	@echo "done."
 	@echo -n "cleaning patches dir............. "
-	@rm -rf $(TOPDIR)/patches
+	@rm -rf $(TOPDIR)/patches/*
+	@echo "done."
+	@echo -n "cleaning feature patches dir..... "
+	@rm -fr $(TOPDIR)/feature-patches/*
 	@echo "done."
 	@echo
 

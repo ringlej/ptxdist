@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-kernel.make,v 1.20 2004/02/04 22:57:16 robert Exp $
+# $Id: xchain-kernel.make,v 1.21 2004/02/06 12:35:09 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -100,23 +100,18 @@ ifeq (2.4.18,$(KERNEL_VERSION))
 endif
 
 	# Also add the "patchstack" like patches
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH1_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH2_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH3_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)) 
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH4_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH5_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH6_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH7_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH8_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH9_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH10_NAME), $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL))
+	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH1_NAME)) 
+	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH2_NAME)) 
+	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH3_NAME)) 
+	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH4_NAME)) 
+	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH5_NAME)) 
+	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH6_NAME)) 
+	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH7_NAME)) 
+	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH8_NAME)) 
+	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH9_NAME)) 
+	@$(call feature_patchin, $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL), $(PTXCONF_KERNEL_PATCH10_NAME)) 
 
 	mv $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/* $(XCHAIN_KERNEL_BUILDDIR)
-
-	# 'patcher' directory is not copied by default...
-	if [ -d $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/.patches ]; then \
-		mv $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)/.patches $(XCHAIN_KERNEL_BUILDDIR); \
-	fi; 
 
 	rmdir $(XCHAIN_KERNEL_BUILDDIR)/$(KERNEL)
 

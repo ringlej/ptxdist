@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: kernel.make,v 1.20 2004/02/04 22:27:44 robert Exp $
+# $Id: kernel.make,v 1.21 2004/02/06 12:35:09 robert Exp $
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -91,118 +91,119 @@ kernel_menuconfig: $(STATEDIR)/kernel.extract
 
 kernel-patchstack_get: $(STATEDIR)/kernel-patchstack.get
 
-$(STATEDIR)/kernel-patchstack.get:
-	@$(call targetinfo, $@)
+PTXCONF_KERNEL_PATCH1_NAME_QUOTELESS = $(subst ",,$(PTXCONF_KERNEL_PATCH1_NAME))
+PTXCONF_KERNEL_PATCH2_NAME_QUOTELESS = $(subst ",,$(PTXCONF_KERNEL_PATCH2_NAME))
+PTXCONF_KERNEL_PATCH3_NAME_QUOTELESS = $(subst ",,$(PTXCONF_KERNEL_PATCH3_NAME))
+PTXCONF_KERNEL_PATCH4_NAME_QUOTELESS = $(subst ",,$(PTXCONF_KERNEL_PATCH4_NAME))
+PTXCONF_KERNEL_PATCH5_NAME_QUOTELESS = $(subst ",,$(PTXCONF_KERNEL_PATCH5_NAME))
+PTXCONF_KERNEL_PATCH6_NAME_QUOTELESS = $(subst ",,$(PTXCONF_KERNEL_PATCH6_NAME))
+PTXCONF_KERNEL_PATCH7_NAME_QUOTELESS = $(subst ",,$(PTXCONF_KERNEL_PATCH7_NAME))
+PTXCONF_KERNEL_PATCH8_NAME_QUOTELESS = $(subst ",,$(PTXCONF_KERNEL_PATCH8_NAME))
+PTXCONF_KERNEL_PATCH9_NAME_QUOTELESS = $(subst ",,$(PTXCONF_KERNEL_PATCH9_NAME))
+PTXCONF_KERNEL_PATCH10_NAME_QUOTELESS = $(subst ",,$(PTXCONF_KERNEL_PATCH10_NAME))
 
 ifdef PTXCONF_KERNEL_PATCH1_URL
 ifneq ($(PTXCONF_KERNEL_PATCH1_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1_NAME_QUOTELESS).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1_NAME_QUOTELESS).get:
 	@$(call targetinfo, "Patch 1")
-	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH1_NAME) ]; then	\
-		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH1_NAME) && 	\
-		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH1_NAME) && 		\
-		wget -r -l1 -nd $(PTXCONF_KERNEL_PATCH1_URL);				\
-	fi
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH1_URL), $(PTXCONF_KERNEL_PATCH1_NAME_QUOTELESS))
+	touch $@
 endif
 endif
 
 ifdef PTXCONF_KERNEL_PATCH2_URL
-ifneq ($(PTXCONF_KERNEL_PATCH2),"")
+ifneq ($(PTXCONF_KERNEL_PATCH2_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH2_NAME_QUOTELESS).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH2_NAME_QUOTELESS).get:
 	@$(call targetinfo, "Patch 2")
-	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH2_NAME) ]; then	\
-		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH2_NAME) &&	\
-		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH2_NAME) && 		\
-		wget -r -l1 -nd $(PTXCONF_KERNEL_PATCH2_URL);				\
-	fi
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH2_URL), $(PTXCONF_KERNEL_PATCH2_NAME_QUOTELESS))
+	touch $@
 endif
 endif
 
 ifdef PTXCONF_KERNEL_PATCH3_URL
-ifneq ($(PTXCONF_KERNEL_PATCH3),"")
+ifneq ($(PTXCONF_KERNEL_PATCH3_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH3_NAME_QUOTELESS).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH3_NAME_QUOTELESS).get:
 	@$(call targetinfo, "Patch 3")
-	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH3_NAME) ]; then	\
-		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH3_NAME) && 	\
-		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH3_NAME) && 		\
-		wget -r -l1 -nd $(PTXCONF_KERNEL_PATCH3_URL);				\
-	fi
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH3_URL), $(PTXCONF_KERNEL_PATCH3_NAME_QUOTELESS))
+	touch $@
 endif
 endif
 
 ifdef PTXCONF_KERNEL_PATCH4_URL
-ifneq ($(PTXCONF_KERNEL_PATCH4),"")
+ifneq ($(PTXCONF_KERNEL_PATCH4_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH4_NAME_QUOTELESS).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH4_NAME_QUOTELESS).get:
 	@$(call targetinfo, "Patch 4")
-	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH4_NAME) ]; then	\
-		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH4_NAME) && 	\
-		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH4_NAME) && 		\
-		wget -r -l1 $(PTXCONF_KERNEL_PATCH4_URL);				\
-	fi
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH4_URL), $(PTXCONF_KERNEL_PATCH4_NAME_QUOTELESS))
+	touch $@
 endif
 endif
 
 ifdef PTXCONF_KERNEL_PATCH5_URL
-ifneq ($(PTXCONF_KERNEL_PATCH5),"")
+ifneq ($(PTXCONF_KERNEL_PATCH5_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH5_NAME_QUOTELESS).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH5_NAME_QUOTELESS).get:
 	@$(call targetinfo, "Patch 5")
-	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH5_NAME) ]; then	\
-		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH5_NAME) && 	\
-		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH5_NAME) && 		\
-		wget -r -l1 $(PTXCONF_KERNEL_PATCH5_URL);				\
-	fi
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH5_URL), $(PTXCONF_KERNEL_PATCH5_NAME_QUOTELESS))
+	touch $@
 endif
 endif
 
 ifdef PTXCONF_KERNEL_PATCH6_URL
-ifneq ($(PTXCONF_KERNEL_PATCH6),"")
+ifneq ($(PTXCONF_KERNEL_PATCH6_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH6_NAME_QUOTELESS).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH6_NAME_QUOTELESS).get:
 	@$(call targetinfo, "Patch 6")
-	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH6_NAME) ]; then	\
-		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH6_NAME) && 	\
-		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH6_NAME) && 		\
-		wget -r -l1 $(PTXCONF_KERNEL_PATCH6_URL);				\
-	fi
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH6_URL), $(PTXCONF_KERNEL_PATCH6_NAME_QUOTELESS))
+	touch $@
 endif
 endif
 
 ifdef PTXCONF_KERNEL_PATCH7_URL
-ifneq ($(PTXCONF_KERNEL_PATCH7),"")
+ifneq ($(PTXCONF_KERNEL_PATCH7_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH7_NAME_QUOTELESS).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH7_NAME_QUOTELESS).get:
 	@$(call targetinfo, "Patch 7")
-	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH7_NAME) ]; then	\
-		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH7_NAME) && 	\
-		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH7_NAME) && 		\
-		wget -r -l1 $(PTXCONF_KERNEL_PATCH7_URL);				\
-	fi
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH7_URL), $(PTXCONF_KERNEL_PATCH7_NAME_QUOTELESS))
+	touch $@
 endif
 endif
 
 ifdef PTXCONF_KERNEL_PATCH8_URL
-ifneq ($(PTXCONF_KERNEL_PATCH8),"")
+ifneq ($(PTXCONF_KERNEL_PATCH8_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH8_NAME_QUOTELESS).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH8_NAME_QUOTELESS).get:
 	@$(call targetinfo, "Patch 8")
-	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH8_NAME) ]; then	\
-		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH8_NAME) && 	\
-		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH8_NAME) && 		\
-		wget -r -l1 $(PTXCONF_KERNEL_PATCH8_URL);				\
-	fi
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH8_URL), $(PTXCONF_KERNEL_PATCH8_NAME_QUOTELESS))
+	touch $@
 endif
 endif
 
 ifdef PTXCONF_KERNEL_PATCH9_URL
-ifneq ($(PTXCONF_KERNEL_PATCH9),"")
+ifneq ($(PTXCONF_KERNEL_PATCH9_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH9_NAME_QUOTELESS).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH9_NAME_QUOTELESS).get:
 	@$(call targetinfo, "Patch 9")
-	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH9_NAME) ]; then	\
-		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH9_NAME) && 	\
-		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH9_NAME) && 		\
-		wget -r -l1 $(PTXCONF_KERNEL_PATCH9_URL);				\
-	fi
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH9_URL), $(PTXCONF_KERNEL_PATCH9_NAME_QUOTELESS))
+	touch $@
 endif
 endif
 
 ifdef PTXCONF_KERNEL_PATCH10_URL
-ifneq ($(PTXCONF_KERNEL_PATCH10),"")
+ifneq ($(PTXCONF_KERNEL_PATCH10_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH10_NAME_QUOTELESS).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH10_NAME_QUOTELESS).get:
 	@$(call targetinfo, "Patch 10")
-	if [ ! -d $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH10_NAME) ]; then	\
-		mkdir -p $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH10_NAME) && 	\
-		cd $(TOPDIR)/feature-patches/$(PTXCONF_KERNEL_PATCH10_NAME) && 		\
-		wget -r -l1 $(PTXCONF_KERNEL_PATCH10_URL);				\
-	fi
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH10_URL), $(PTXCONF_KERNEL_PATCH10_NAME_QUOTELESS))
+	touch $@
 endif
 endif
+
+$(STATEDIR)/kernel-patchstack.get: $(kernel_patchstack_get_deps)
+	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -233,19 +234,6 @@ kernel_extract_deps = \
 
 $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
 	@$(call targetinfo, $@)
-
-	# Also add the "patchstack" like patches
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH1_NAME), $(KERNEL_DIR))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH2_NAME), $(KERNEL_DIR))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH3_NAME), $(KERNEL_DIR))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH4_NAME), $(KERNEL_DIR))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH5_NAME), $(KERNEL_DIR))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH6_NAME), $(KERNEL_DIR))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH7_NAME), $(KERNEL_DIR))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH8_NAME), $(KERNEL_DIR))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH9_NAME), $(KERNEL_DIR))
-	@$(call patchstack, $(PTXCONF_KERNEL_PATCH10_NAME), $(KERNEL_DIR))
-	
 	touch $@
 
 $(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
@@ -258,6 +246,19 @@ $(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
 ifeq (2.4.18,$(KERNEL_VERSION))
 	mv $(BUILDDIR)/linux $(KERNEL_DIR)
 endif
+
+	# Also add the "patchstack" like patches
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH1_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH2_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH3_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH4_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH5_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH6_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH7_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH8_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH9_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH10_NAME)) 
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -371,20 +372,14 @@ endif
 # ----------------------------------------------------------------------------
 
 kernel_clean:
-	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-* $(KERNEL_DIR) \
-	       $(STATEDIR)/kernel-patchstack.get
-
-	cd $(TOPDIR)/feature-patches && (				\
-		rm -f $(PTXCONF_KERNEL_PATCH1_NAME);			\
-		rm -f $(PTXCONF_KERNEL_PATCH2_NAME);			\
-		rm -f $(PTXCONF_KERNEL_PATCH3_NAME);			\
-		rm -f $(PTXCONF_KERNEL_PATCH4_NAME);			\
-		rm -f $(PTXCONF_KERNEL_PATCH5_NAME);			\
-		rm -f $(PTXCONF_KERNEL_PATCH6_NAME);			\
-		rm -f $(PTXCONF_KERNEL_PATCH7_NAME);			\
-		rm -f $(PTXCONF_KERNEL_PATCH8_NAME);			\
-		rm -f $(PTXCONF_KERNEL_PATCH9_NAME);			\
-		rm -f $(PTXCONF_KERNEL_PATCH10_NAME);			\
-	)
-
+	# remove feature patches
+	for i in `ls $(STATEDIR)/kernel-feature-*.* | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do 	\
+		if [ $$? -eq 0 ]; then				\
+			rm -f $(STATEDIR)/kernel-feature-$$i*;	\
+			rm -fr $(TOPDIR)/feature-patches/$$i;	\
+		fi						\
+	done;
+	# remove kernel & dir
+	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-patchstack.* $(KERNEL_DIR)
+		
 # vim: syntax=make

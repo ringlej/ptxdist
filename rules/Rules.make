@@ -84,6 +84,32 @@ get =								\
 	$(WGET) -P $$SRC $(PASSIVEFTP) $$URL
 
 #
+# download the given URL
+#
+# $1 = name of the package the patch has to be applied to 
+# $2 = URL of the patch; this may either point to a single unified diff
+#      or to a directory containing a 'patcher' like patch series
+# $3 = patch name; the patch is stored in $(TOPDIR)/feature-patches/$3
+# 
+get_feature_patch =						\
+	FP_PARENT="$(strip $(1))";				\
+	FP_URL="$(strip $(2))";					\
+	FP_NAME="$(strip $(3))";				\
+	if [ "$$FP_URL" == "" ] && [ "$$FP_NAME" == "" ]; then	\
+		echo "patch not set, silently dropping";	\
+		exit 0;						\
+	fi;							\
+	if [ "$$FP_URL" == "" ] || [ "$$FP_NAME" == "" ]; then	\
+		echo;						\
+		echo "Error: empty feature patch name or URL";	\
+		echo;						\
+		exit -1;					\
+	fi;							\
+	FP_DIR="$(TOPDIR)/feature-patches/$$FP_NAME";		\
+	[ -d $$FP_DIR ] || mkdir -p $$FP_DIR;			\
+	$(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR $(PASSIVEFTP) $$FP_URL;
+
+#
 # download patches from Pengutronix' patch repository
 # 
 # $1 = packet name = identifier for patch subdir
@@ -332,21 +358,37 @@ patch_apply =								\
 	true;
 
 #
-# apply a patch stack
+# go into a directory, look for either a 'series' file and apply all 
+# patches listed there into a sourcetree, or, if no 'series' file
+# exists, apply the patches as they come
 #
-# $1 = the name of the patch in $(TOPDIR)/feature-patches
-# $2 = apply the patches to that directory
+# $1 = $(PACKET_NAME) -> identifier for packet to apply patch to
+# $2 = name of the directory in $(TOPDIR)/feature-patches/ to look for
+#      patches & 'series' file
 #
-patchstack =								\
-	PATCHSTACK_NAME="$(strip $(1))";				\
-	PATCHSTACK_DIR="$(strip $(2))";					\
-	if [ "x" != "x$$PATCHSTACK_NAME" ]; then			\
-		mkdir -p $$PATCHSTACK_DIR/.patches; 			\
-		cp $(TOPDIR)/feature-patches/$$PATCHSTACK_NAME/*.patch $$PATCHSTACK_DIR/.patches/; \
-		cat $(TOPDIR)/feature-patches/$$PATCHSTACK_NAME/series >> $$PATCHSTACK_DIR/.patches/series; \
-		cd $$PATCHSTACK_DIR && patcher -A;			\
-	fi;								\
-	true;
+feature_patchin =								\
+	PACKET_NAME="$(strip $(1))";						\
+	if [ "$$PACKET_NAME" = "" ]; then					\
+		echo;								\
+		echo Error: empty parameter to \"patchin\(\)\";			\
+		echo;								\
+		exit -1;							\
+	fi;									\
+	FP_DIR=$(TOPDIR)/feature-patches/"$(strip $(2))";			\
+	if [ ! "x$(strip $(2))" == "x" ]; then						\
+		if [ -f $$FP_DIR/series ]; then					\
+			for PATCH_NAME in `cat $$FP_DIR/series`; do		\
+				echo "patchin' $$PATCH_NAME ...";		\
+				cat $$FP_DIR/$$PATCH_NAME.patch | $(PATCH) -Np1 -d $$PACKET_NAME || exit -1; \
+			done;							\
+		else								\
+			for PATCH_NAME in `ls $$FP_DIR/*.diff $$FP_DIR/*.patch`; do	\
+				echo "patchin' $$PATCH_NAME ...";		\
+				cat $$FP_DIR/$$PATCH_NAME.patch | $(PATCH) -Np1 -d $$PACKET_NAME || exit -1; \
+			done;							\
+		fi;								\
+	fi;
+
 #
 # CFLAGS // CXXFLAGS
 #
