@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: nfs-utils.make,v 1.10 2004/06/25 13:18:51 rsc Exp $
+# $Id: nfs-utils.make,v 1.11 2004/08/24 10:12:22 bsp Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -139,7 +139,8 @@ nfsutils_targetinstall: $(STATEDIR)/nfsutils.targetinstall
 $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 	@$(call targetinfo, $@)
 
-	mkdir -p $(ROOTDIR)/etc/init.d
+	install -d $(ROOTDIR)/etc/init.d
+	install -d $(ROOTDIR)/usr/lib/
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_CLIENTSCRIPT))
 	install $(NFSUTILS_DIR)/etc/nodist/nfs-client $(ROOTDIR)/etc/init.d/
         endif
@@ -195,8 +196,17 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 	install $(NFSUTILS_DIR)/utils/statd/.libs/statd $(ROOTDIR)/sbin/
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/statd
         endif
+	# copy nessesary libs
+	install $(NFSUTILS_DIR)/support/export/.libs/libexport.so.0.0.0 $(ROOTDIR)/usr/lib/
+	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libexport.so.0.0.0
+	install $(NFSUTILS_DIR)/support/nfs/.libs/libnfs.so.0.0.0 $(ROOTDIR)/usr/lib/
+	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libnfs.so.0.0.0
+	install $(NFSUTILS_DIR)/support/misc/.libs/libmisc.so.0.0.0 $(ROOTDIR)/usr/lib/
+	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libmisc.so.0.0.0
+
 	# create stuff necessary for nfs
-	mkdir -p $(ROOTDIR)/var/lib/nfs
+	rm -rf $(ROOTDIR)/var/lib/nfs 
+	install -d $(ROOTDIR)/var/lib/nfs
 	touch $(ROOTDIR)/var/lib/nfs/etab
 	touch $(ROOTDIR)/var/lib/nfs/rmtab
 	touch $(ROOTDIR)/var/lib/nfs/xtab

@@ -190,8 +190,14 @@ PTXCONF_KERNEL_PATCH6_NAME="linux-gcc-3"
 #
 # 
 #
-PTXCONF_KERNEL_PATCH7_URL=""
-PTXCONF_KERNEL_PATCH7_NAME=""
+PTXCONF_KERNEL_PATCH7_URL="http://www.pengutronix.de/software/ltt/linux-2.4.26-vrs1-pxa1-mtd20040502-usb20040607-ptx3-ltt.diff"
+PTXCONF_KERNEL_PATCH7_NAME="LTT"
+# PTXCONF_KERNEL_PATCH7_XCHAIN is not set
+
+#
+# 
+#
+PTXCONF_KERNEL_PATCH8_URL=""
 
 #
 # Extentions
@@ -806,9 +812,14 @@ PTXCONF_PDKSH_BRACE_EXPAND=y
 #
 
 #
-# shorewall firewall  
+# Dropbear SSH-Server 
 #
-# PTXCONF_SHOREWALL is not set
+# PTXCONF_DROPBEAR is not set
+
+#
+# iptables            
+#
+# PTXCONF_IPTABLES is not set
 
 #
 # LSH                 
@@ -826,9 +837,9 @@ PTXCONF_PDKSH_BRACE_EXPAND=y
 # PTXCONF_OPENSSH is not set
 
 #
-# Dropbear SSH-Server 
+# shorewall firewall  
 #
-# PTXCONF_DROPBEAR is not set
+# PTXCONF_SHOREWALL is not set
 
 #
 # Networking Apps     
@@ -1104,6 +1115,11 @@ PTXCONF_CRAMFS=y
 # Tools               
 #
 # PTXCONF_FIGLET is not set
+
+#
+# Editors             
+#
+# PTXCONF_NANO is not set
 
 #
 # System Libraries    
