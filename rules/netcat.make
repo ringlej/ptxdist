@@ -21,7 +21,7 @@ endif
 #
 NETCAT			= netcat-1.10
 NETCAT_FILE		= nc110
-NETCAT_URL		= http://www.atstake.com/research/tools/network_utilities/nc110.tgz
+NETCAT_URL		= http://www.securityfocus.com/data/tools/nc110.tgz
 NETCAT_SOURCE		= $(SRCDIR)/$(NETCAT_FILE).tgz
 NETCAT_DIR		= $(BUILDDIR)/$(NETCAT)
 
