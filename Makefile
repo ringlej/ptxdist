@@ -119,25 +119,11 @@ help:
 	@echo "  make archive-toolchain       dito, but do also create a tarball"
 	@echo "  make configs                 show predefined configs"
 	@echo
+	@echo "Targets for testing:"
+	@echo
 	@echo "  make cuckoo-test             search for cuckoo-eggs in root system"
-	@echo
-	@echo "Calling these targets affects the whole system. If you want to"
-	@echo "do something for a packet do 'make packet_<action>'."
-	@echo
-	@echo "Available packages and versions:"
-	@echo " $(PACKAGES)"
-	@echo
-	@echo "Available cross-chain packages:"
-	@echo " $(XCHAIN)"
-	@echo
-	@echo "Available virtual packages:"
-	@echo " $(VIRTUAL)"
-	@echo
-	@echo "Hosttools to be built:"
-	@echo " $(HOSTTOOLS)"
-	@echo
-	@echo "Available vendortweaks:"
-	@echo " $(VENDORTWEAKS)"
+	@echo "  make compile-test            compile all supported targets, with report"
+	@echo "  make config-test             run oldconfig on all ptxconfig files"
 	@echo
 
 # FIXME: this is not fully working yet, do to dependencies being defined
