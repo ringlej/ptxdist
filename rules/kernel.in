@@ -89,7 +89,7 @@ choice
 
 	config KERNEL_VANILLA
 		bool "vanilla"
-		depends on !ARCH_ARM && !ARCH_NOMMU
+		depends on !ARCH_NOMMU
 endchoice
 
 
