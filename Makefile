@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.6 2003/06/25 10:31:20 robert Exp $
+# $Id: Makefile,v 1.7 2003/06/26 16:10:36 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -136,7 +136,7 @@ rayonic_config:
 	@cp $(call latestconfig, kernel*rayonic) .kernelconfig
 
 # ----------------------------------------------------------------------------
-clean: rootclean
+clean: rootclean 
 	@echo
 	@echo -n "cleaning build dir............... "
 	@for i in $$(ls -I CVS $(BUILDDIR)); do echo -n $$i' '; rm -rf $(BUILDDIR)/"$$i"; done
@@ -145,8 +145,8 @@ clean: rootclean
 	@for i in $$(ls -I CVS $(STATEDIR)); do rm -rf $(STATEDIR)/"$$i"; done
 	@echo "done."
 	@echo -n "cleaning scripts dir............. "
-	@make -s -C scripts/kconfig clean
-	@make -s -C scripts/lxdialog clean
+	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.kconfig.ptx  -C scripts/kconfig clean
+	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx -C scripts/lxdialog clean
 	@echo "done."
 	@echo -n "cleaning bootdisk dir............ "
 	@for i in $$(ls -I CVS $(BOOTDISKDIR)); do echo -n $$i' '; rm -rf $(BOOTDISKDIR)/"$$i"; done
