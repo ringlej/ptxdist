@@ -3,7 +3,7 @@
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_PROJECT="toolchain-i586-unknown-linux-gnu"
+PTXCONF_PROJECT="toolchain_i586_gcc-3.4.2_glibc-2.3.3"
 
 #
 # General Options ---    
@@ -56,9 +56,9 @@ PTXCONF_TARGET_CONFIG_FILE="i586.dat"
 #
 # ---
 #
-PTXCONF_ARCH="i386"
-PTXCONF_ARCH_USERSPACE="i386"
-PTXCONF_PREFIX="/opt/ptxdist"
+PTXCONF_ARCH="i586"
+PTXCONF_ARCH_USERSPACE="i586"
+PTXCONF_PREFIX="/opt/crosstool-0.28-rc37"
 PTXCONF_ROOT=""
 
 #
@@ -69,17 +69,18 @@ PTXCONF_ROOT=""
 # Crosstool Options
 #
 PTXCONF_CROSSTOOL=y
-PTXCONF_GCC_2_95_3=y
+# PTXCONF_GCC_2_95_3 is not set
 # PTXCONF_GCC_3_2_3 is not set
 # PTXCONF_GCC_3_3_2 is not set
 # PTXCONF_GCC_3_4_0 is not set
 # PTXCONF_GCC_3_4_1 is not set
-PTXCONF_GCC_VERSION="2.95.3"
+PTXCONF_GCC_3_4_2=y
+PTXCONF_GCC_VERSION="3.4.2"
 PTXCONF_CROSSTOOL_GCCLANG_CC=y
-PTXCONF_BINUTILS_2_14=y
-# PTXCONF_BINUTILS_2_15 is not set
+# PTXCONF_BINUTILS_2_14 is not set
+PTXCONF_BINUTILS_2_15=y
 PTXCONF_CROSSTOOL_KERNELCONFIG="i586.config"
-PTXCONF_BINUTILS_VERSION="2.14"
+PTXCONF_BINUTILS_VERSION="2.15"
 
 #
 # Generic Options
@@ -104,6 +105,8 @@ PTXCONF_VENDORTWEAKS=""
 # Image Creation
 #
 # PTXCONF_IMAGE_TGZ is not set
+# PTXCONF_IMAGE_HD is not set
+PTXCONF_IMAGE_HD_CONF="n"
 # PTXCONF_IMAGE_JFFS2 is not set
 
 #
@@ -143,6 +146,7 @@ PTXCONF_KERNEL_CONFIG="kernel-2.6.8"
 # PTXCONF_KERNEL_2_4_23 is not set
 # PTXCONF_KERNEL_2_4_25 is not set
 # PTXCONF_KERNEL_2_4_26 is not set
+# PTXCONF_KERNEL_2_4_27 is not set
 # PTXCONF_KERNEL_2_6_0 is not set
 # PTXCONF_KERNEL_2_6_1 is not set
 # PTXCONF_KERNEL_2_6_6 is not set
@@ -179,11 +183,11 @@ PTXCONF_GLIBC=y
 #
 # C Library options
 #
+PTXCONF_GLIBC_2_3_3=y
 # PTXCONF_GLIBC_2_3_2 is not set
-PTXCONF_GLIBC_2_2_5=y
+# PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
-# PTXCONF_UCLIBC_0_9_26 is not set
 PTXCONF_UC_TARGET_i386=y
 
 #
@@ -250,6 +254,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # procps              
 #
 # PTXCONF_PROCPS is not set
+
+#
+# sysfsutils          
+#
+# PTXCONF_SYSFSUTILS is not set
 
 #
 # sysutils            
@@ -343,6 +352,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_ETHEREAL is not set
 
 #
+# ethewake            
+#
+# PTXCONF_ETHERWAKE is not set
+
+#
 # inetutils           
 #
 # PTXCONF_INETUTILS is not set
@@ -356,6 +370,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # libpcap             
 #
 # PTXCONF_LIBPCAP is not set
+
+#
+# mii-diag            
+#
+# PTXCONF_MII-DIAG is not set
 
 #
 # netcat              
@@ -499,6 +518,15 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_BONNIE is not set
 
 #
+# Communication ---   
+#
+
+#
+# Communication utils 
+#
+# PTXCONF_EFAX is not set
+
+#
 # Applications ---    
 #
 
@@ -531,6 +559,8 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # Editors             
 #
 # PTXCONF_NANO is not set
+# PTXCONF_JED is not set
+# PTXCONF_HEXEDIT is not set
 
 #
 # System Libraries    
