@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bmwm.make,v 1.5 2004/02/27 17:10:32 robert Exp $
+# $Id: bmwm.make,v 1.6 2004/02/28 14:54:11 robert Exp $
 
 VENDORTWEAKS = bmwm
 
@@ -39,3 +39,7 @@ $(STATEDIR)/bmwm.targetinstall:
 	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
 	echo "kernel /boot/bzImage root=/dev/nfs ip=dhcp vga=768" >> \
 		$(ROOTDIR)/boot/grub/menu.lst
+
+	# remove stuff from build proces
+	find $(ROOTDIR) -name "JUST_FOR_CVS" | xargs rm -f
+	find $(ROOTDIR) -name "CVS" | xargs rm -fr
