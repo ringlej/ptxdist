@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: sys-epoll-lib.make,v 1.2 2003/11/05 00:59:23 mkl Exp $
+# $Id: sys-epoll-lib.make,v 1.3 2003/11/05 01:01:08 mkl Exp $
 #
 # Copyright (C) 2003 by Ixia Corporation, by Milan Bobde
 #          
@@ -77,6 +77,7 @@ SYS-EPOLL-LIB_MAKEVARS = \
 	$(CROSS_ENV) \
 	KERNELDIR=$(KERNEL_DIR) \
 	PREFIX=$(CROSS_LIB_DIR) \
+	XCFLAGS='$(strip $(subst ",,$(TARGET_CFLAGS)))'
 
 $(STATEDIR)/sys-epoll-lib.prepare: $(sys-epoll-lib_prepare_deps)
 	@$(call targetinfo, $@)
