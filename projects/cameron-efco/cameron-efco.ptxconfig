@@ -117,8 +117,11 @@ PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/cameron-efco.vendortweaks"
 # PTXCONF_XGDB is not set
 PTXCONF_GDBSERVER=y
 PTXCONF_GDBSERVER_SHARED=y
-# PTXCONF_GDB is not set
-# PTXCONF_GDB_WRAPPERS is not set
+PTXCONF_GDB=y
+PTXCONF_GDB_SHARED=y
+PTXCONF_GDB_TERMCAP=y
+# PTXCONF_GDB_NCURSES is not set
+PTXCONF_GDB_WRAPPERS=y
 # PTXCONF_KSYMOOPS is not set
 # PTXCONF_LTT is not set
 # PTXCONF_LIBBFD is not set
@@ -1080,7 +1083,12 @@ PTXCONF_FIGLET=y
 #
 # termcap          
 #
-# PTXCONF_TERMCAP is not set
+PTXCONF_TERMCAP=y
+
+#
+# termcap is always built because gdb is selected with termcap support
+#
+# PTXCONF_TERMCAP_TERMCAP is not set
 
 #
 # Berkeley db 4    
