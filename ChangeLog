@@ -1,6 +1,8 @@
 2005-02-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* efax: path fix; patch by Steven Scholz
+	* mgetty+sendfax: moved to communication utilities; patch
+	  by Steven Scholz. 
 
 2005-02-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
