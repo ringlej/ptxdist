@@ -70,21 +70,30 @@ PTXCONF_TARGET_CONFIG_FILE="arm.dat"
 PTXCONF_ARCH="arm"
 PTXCONF_ARCH_USERSPACE="arm"
 PTXCONF_ARM_PROC="armv"
-PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
 PTXCONF_PREFIX="$(TOPDIR)/local"
 PTXCONF_ROOT=""
 
 #
-# Cross Toolchain     
+# Toolchain/Crosstool 
 #
-# PTXCONF_BUILD_CROSSCHAIN is not set
+# PTXCONF_CROSSTOOL is not set
+
+#
+# Generic Options
+#
 PTXCONF_CROSSCHAIN_CHECK="3.3.3"
+PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
+
+#
+# Non-Crosstool Tools
+#
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
 #
 # Root Filesystem     
 #
+PTXCONF_ROOTFS=y
 PTXCONF_ROOTFS_DEV=y
 PTXCONF_ROOTFS_ETC=y
 # PTXCONF_ROOTFS_FLOPPY is not set
@@ -97,6 +106,12 @@ PTXCONF_ROOTFS_VAR=y
 PTXCONF_VENDORTWEAKS="projects/pii_nge/pii_nge.vendortweaks"
 
 #
+# Image Creation
+#
+# PTXCONF_IMAGE_TGZ is not set
+# PTXCONF_IMAGE_JFFS2 is not set
+
+#
 # Debugging Tools     
 #
 PTXCONF_XGDB=y
@@ -107,7 +122,7 @@ PTXCONF_GDB_SHARED=y
 PTXCONF_GDB_TERMCAP=y
 # PTXCONF_GDB_NCURSES is not set
 # PTXCONF_GDB_WRAPPERS is not set
-PTXCONF_KSYMOOPS=y
+# PTXCONF_KSYMOOPS is not set
 # PTXCONF_LTT is not set
 # PTXCONF_LIBBFD is not set
 # PTXCONF_MEMTEST is not set
@@ -189,6 +204,7 @@ PTXCONF_KERNEL_PATCH3_NAME=""
 #
 # C Library           
 #
+PTXCONF_LIBC=y
 PTXCONF_GLIBC=y
 # PTXCONF_UCLIBC is not set
 
@@ -871,6 +887,11 @@ PTXCONF_BING=y
 # PTXCONF_ETHEREAL is not set
 
 #
+# ethewake            
+#
+# PTXCONF_ETHERWAKE is not set
+
+#
 # inetutils           
 #
 PTXCONF_INETUTILS=y
@@ -933,7 +954,7 @@ PTXCONF_LIBPCAP=y
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
-PTXCONF_OPENAFS_1_2_11=y
+# PTXCONF_OPENAFS_1_2_11 is not set
 
 #
 # Portmapper          
@@ -1036,6 +1057,15 @@ PTXCONF_E2FSPROGS_E2FSCK=y
 # PTXCONF_BONNIE is not set
 
 #
+# Communication ---   
+#
+
+#
+# Communication utils 
+#
+# PTXCONF_EFAX is not set
+
+#
 # Applications ---    
 #
 
@@ -1068,6 +1098,7 @@ PTXCONF_FIGLET=y
 # Editors             
 #
 # PTXCONF_NANO is not set
+# PTXCONF_JED is not set
 
 #
 # System Libraries    
