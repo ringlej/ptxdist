@@ -70,7 +70,7 @@ PTXCONF_ARCH="arm"
 PTXCONF_ARCH_USERSPACE="arm"
 PTXCONF_ARM_PROC="armv"
 PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
-PTXCONF_PREFIX="/home/robert/work/ptxdist-pii/local/"
+PTXCONF_PREFIX="$(TOPDIR)/local"
 PTXCONF_ROOT=""
 
 #

@@ -59,7 +59,7 @@ PTXCONF_TARGET_CONFIG_FILE="powerpc-405.dat"
 PTXCONF_ARCH="ppc"
 PTXCONF_ARCH_USERSPACE="powerpc"
 PTXCONF_GNU_TARGET="powerpc-405-linux-gnu"
-PTXCONF_PREFIX="/tmp/ptxdist-local-cameron"
+PTXCONF_PREFIX="$(TOPDIR)/local"
 PTXCONF_ROOT=""
 
 #
