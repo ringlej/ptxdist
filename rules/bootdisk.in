@@ -1,0 +1,33 @@
+config BOOTDISK
+        bool
+	prompt "make bootdisk in $PTXDIST/bootdisk"
+	depends on GRUB && GENEXT2FS 
+
+config BOOTDISK_DEV
+	bool
+	prompt "create /dev (not needed with devfs)"
+	depends on BOOTDISK
+
+config BOOTDISK_HEAD
+	int
+	prompt "disk geometry: heads"
+	default "63"
+	depends on BOOTDISK
+	
+config BOOTDISK_SECT
+	int
+	prompt "disk geometry: heads"
+	default "255"
+	depends on BOOTDISK
+	
+config BOOTDISK_SIZE
+	int
+	prompt "image size in bytes"
+	default "20000"
+	depends on BOOTDISK
+	
+config BOOTDISK_PART
+	string
+	prompt "config file for sfdisk in $PTXDIST/config/bootdisk"
+	default ""
+	depends on BOOTDISK
