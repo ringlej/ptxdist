@@ -87,9 +87,6 @@ EFAX_AUTOCONF = \
 $(STATEDIR)/efax.prepare: $(efax_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EFAX_DIR)/config.cache)
-	cd $(EFAX_DIR) && \
-		$(EFAX_PATH) $(EFAX_ENV) \
-		./configure $(EFAX_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
