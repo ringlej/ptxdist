@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.93 2004/06/23 15:27:51 rsc Exp $
+# $Id: Makefile,v 1.94 2004/06/23 22:50:58 rsc Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -216,9 +216,9 @@ innokom-2.4-3.3.2_config:
 	@echo "copying innokom-2.4-3.3.2 configuration"
 	@cp config/innokom-2.4-3.3.2.ptxconfig .config
 
-innokom-2.6_config:
-	@echo "copying innokom-2.6 configuration"
-	@cp config/innokom-2.6.ptxconfig .config
+innokom-2.6-3.3.2_config:
+	@echo "copying innokom-2.6-3.3.2 configuration"
+	@cp config/innokom-2.6-3.3.2.ptxconfig .config
 
 mx1fs2_config:
 	@echo "copying mx1fs2 configuration"
