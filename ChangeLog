@@ -1,8 +1,11 @@
-2004-12-23 Robert Schwebel <r.schwebel@pengutronix.de>
+2005-01-11 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* cuckoo-test: remove false positives for terminfo files
+	* make xconfig: fixed and works now. 
+	* fakeroot: update to 1.2.2
+	* memedit: renamed fpgaedit to memedit
 	* Decided that we need a ChangeLog again :-) 
 	* scripts/collect-sources.sh: fixes to make this script work (MKL)
-	* make xconfig: fixed and works now. 
 	* CVS directory magic: not needed any more on SVN
 	* fs2: image creation done by default mechanism
 	* efco: use standard mechanisms for etc copying
@@ -11,9 +14,9 @@
 	* innokom: activated getty, run-parts
 	* nge: use coreutils dd instead of busybox; added fpgaedit
 	* troll-ftpd: added
-	* dropbear: update
+	* dropbear: update to 0.43
 	* nc: make installable
-	* gdb: update to 6.3
+	* gdb: update to 6.3 and fixed cross compilation (MKL)
 	* openssl: fixed crosscomp stuff
 	* mgetty: added sendfax support
 	* fpgaedit: added
@@ -21,6 +24,8 @@
 	* readline: added
 	* coreutils: added dd
 	* dialog: added snapshot release
+
+	* 0.7.2 released (well, only prepared yet)
 
 2004-02-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
