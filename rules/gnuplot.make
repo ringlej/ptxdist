@@ -115,27 +115,27 @@ GNUPLOT_AUTOCONF += --without-ggi
 GNUPLOT_AUTOCONF += --without-xmi
 GNUPLOT_AUTOCONF += --with-readline
 ifdef PTXCONF_GNUPLOT_PLOT
-GNUPLOT_AUTOCONF += --with-plot=FIXME
+GNUPLOT_AUTOCONF += --with-plot
 else
 GNUPLOT_AUTOCONF += --without-plot
 endif
 ifdef PTXCONF_GNUPLOT_PNG
-GNUPLOT_AUTOCONF += --with-png=$(LIBPNG125_DIR)
+GNUPLOT_AUTOCONF += --with-png
 else
 GNUPLOT_AUTOCONF += --without-png
 endif
 ifdef GNUPLOT_GD
-GNUPLOT_AUTOCONF += --with-gd=FIXME
+GNUPLOT_AUTOCONF += --with-gd
 else
 GNUPLOT_AUTOCONF += --without-gd
 endif
 ifdef PTXCONF_GNUPLOT_GIF
-GNUPLOT_AUTOCONF += --with-gif=FIXME
+GNUPLOT_AUTOCONF += --with-gif
 else
 GNUPLOT_AUTOCONF += --without-gif
 endif
 ifdef PTXCONF_GNUPLOT_PDF
-GNUPLOT_AUTOCONF += --with-pdf=FIXME
+GNUPLOT_AUTOCONF += --with-pdf
 else
 GNUPLOT_AUTOCONF += --without-pdf
 endif
