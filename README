@@ -6,9 +6,9 @@ Intro
 -----
 
 For the impatient: try out to compile your own Linux system for generic
-i386 machines with 
+i586 and above machines with 
 
-	make i386-generic-glibc_config
+	make i586-generic-glibc_config
 	make world
 	chroot root/ /bin/sh
 
@@ -34,13 +34,19 @@ Directory layout
 bootdisk/	skeleton for bootdisk (if you need one)	
 build/		Here all the packages are extracted and being built
 config/		Configuration system, ext. configuration scripts
-etc/		skeleton for /etc for the target system
+		The actual config files live in rules/xxx.in
+images/		'make images' creates tarballs and filesystem images
+		in this directory. 
 local/		tools which are installed locally go to this dir
+projects/	Each project has a project directory here. Note that
+		there needs to be a corresponding .ptxconfig file in
+		this directory. 
 root/		root filesystem for the target
-rules/		Makefiles for all packages
+rules/		Makefiles and Kconfig files for all packages
 scripts/	several little helper scripts
-src/		original sources and patches 
-src_ptx/	local sources
+src/		original sources and patches; normally you want to 
+		delete this directory and make it a symlink to your
+		real source directory. 
 state/		state files (show in which state packages currently are
 		during the compilation)
 
@@ -63,15 +69,8 @@ your target) or copy it to your embedded system.
 Bugs
 ----
 
-- busybox: patch compiler config variable in configuration
-
-- check if all tools use the correct compilers 
-
 - search for FIXMEs
-
-- before starting you should look at the .config file and fix PTXCONF_PREFIX 
-  to point to a directory where you want the local stuff to be builded (like 
-  cross compilers etc).
+- see TODO, which is out of date :-) 
   
-Robert Schwebel <r.schwebel@pengutronix.de>
+Robert Schwebel <r.schwebel@pengutronix.de>, 2005-01-17
 
