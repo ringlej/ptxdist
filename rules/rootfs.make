@@ -1,4 +1,4 @@
-# $Id: rootfs.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
+# $Id: rootfs.make,v 1.3 2003/07/04 13:58:13 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -98,12 +98,16 @@ $(STATEDIR)/rootfs.targetinstall: $(STATEDIR)/rootfs.install
         ifeq (y, $(PTXCONF_ROOTFS_ETC))
 	rm -fr $(ROOTDIR)/etc
 	mkdir -p $(ROOTDIR)/etc
-	cp -a $(TOPDIR)/etc/$(PTXCONF_ETC_NAME)/* $(ROOTDIR)/etc/
+	cp -a $(TOPDIR)/etc/`ls -1 etc | grep $(PTXCONF_ETC_NAME) | \
+	sort | tail -1`/* $(ROOTDIR)/etc/
+        ifeq (y,$(PTXCONF_OPENSSH))
+	cd $(OPENSSH_DIR) && install -m 644 sshd_config.out $(ROOTDIR)/etc/sshd_config
+        endif
         endif
         ifeq (y, $(PTXCONF_ROOTFS_TMP))
+	rm -fr $(ROOTDIR)/tmp || true
         ifeq (y, $(PTXCONF_ROOTFS_TMP_DATALINK))
 #	# FIXME: can we do this with 'test'?
-	rm -fr $(ROOTDIR)/tmp
 	ln -s /data/tmp $(ROOTDIR)/tmp
         else
 	mkdir -p $(ROOTDIR)/tmp

@@ -1,4 +1,4 @@
-# $Id: openssh.make,v 1.4 2003/06/26 15:05:58 bsp Exp $
+# $Id: openssh.make,v 1.5 2003/07/04 13:58:13 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -57,7 +57,7 @@ OPENSSH_AUTOCONF =  --prefix=$(PTXCONF_PREFIX) --with-ipv4-default
 OPENSSH_AUTOCONF += --without-pam --without-shadow --without-md5-passwords 
 OPENSSH_AUTOCONF += --with-zlib=$(PTXCONF_PREFIX)
 # TODO dont know if this finds its way hardcoded into some binary:
-OPENSSH_AUTOCONF += --with-privsep-path=$(PTXCONF_PREFIX)/var/empty
+OPENSSH_AUTOCONF += --with-privsep-path=$(PTXCONF_PREFIX)/var/run/sshd
 
 $(STATEDIR)/openssh.prepare: $(STATEDIR)/openssh.extract $(STATEDIR)/openssl.install
 	@$(call targetinfo, openssh.prepare)
@@ -95,9 +95,10 @@ openssh_targetinstall: $(STATEDIR)/openssh.targetinstall
 
 $(STATEDIR)/openssh.targetinstall: $(STATEDIR)/openssh.install
 	@$(call targetinfo, openssh.targetinstall)
-	echo 'TODO: install openssh files (dont forget privsep)'
+	touch $(ROOTDIR)/SSH_hostkeys_needed
+	cd $(OPENSSH_DIR) && install -m 0755 -s ssh-keygen $(ROOTDIR)/sbin/ssh-keygen
+	cd $(OPENSSH_DIR) && install -m 0755 -s sshd $(ROOTDIR)/sbin/sshd
 	touch $@
-
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 # -*-makefile-*- 
-# $Id: bootdisk.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
+# $Id: bootdisk.make,v 1.4 2003/07/04 13:58:13 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -18,9 +18,10 @@ endif
 #
 # Paths and names 
 #
-BOOTDISK			=
-BOOTDISK_URL			=
-BOOTDISK_SOURCE			=
+
+BOOTDISK			= rayonic-bootdisk
+BOOTDISK_SOURCE			= $(SRCDIR)/$(BOOTDISK).tar.gz
+BOOTDISK_URL			= http://www.pengutronix.de/software/ptxdist/temporary-src/$(BOOTDISK).tar.gz
 BOOTDISK_DIR			= $(TOPDIR)/bootdisk
 BOOTDISK_EXTRACT		=
 
@@ -31,6 +32,8 @@ BOOTDISK_EXTRACT		=
 bootdisk_get: $(STATEDIR)/bootdisk.get
 
 $(STATEDIR)/bootdisk.get:
+	@$(call targetinfo, bootdisk.get)
+	wget -P $(SRCDIR) $(PASSIVEFTP) $(BOOTDISK_URL)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -41,6 +44,7 @@ bootdisk_extract: $(STATEDIR)/bootdisk.extract
 
 $(STATEDIR)/bootdisk.extract: $(STATEDIR)/bootdisk.get
 	@$(call targetinfo, bootdisk.extract)
+	cd $(SRCDIR) && tar xzf $(BOOTDISK_SOURCE)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -92,8 +96,8 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	mkdir -p $(BOOTDISK_DIR)/boot
 	mkdir -p $(BOOTDISK_DIR)/boot/grub
 	mkdir -p $(BOOTDISK_DIR)/bin
+	mkdir -p $(BOOTDISK_DIR)/sbin
 	mkdir -p $(BOOTDISK_DIR)/lib
-
 	install $(KERNEL_TARGET_PATH) $(BOOTDISK_DIR)/boot/
 	install $(GRUB_DIR)/stage1/stage1 $(BOOTDISK_DIR)/boot/grub/
 	install $(GRUB_DIR)/stage2/stage2 $(BOOTDISK_DIR)/boot/grub/
@@ -111,8 +115,14 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	# FIXME: is this the correct file for this rule? 
         ifeq (y, $(PTXCONF_PTXFLASH))
 	mkdir -p $(ROOTDIR)/sbin
-	install $(SRCDIR)/ptxflash $(ROOTDIR)/sbin/
+	install $(SRCDIR)/ptxflash $(BOOTDISK_DIR)/sbin/
         endif
+	mkdir $(BUILDDIR)/tmpboot
+	cp -a $(BOOTDISK_DIR)/* $(BUILDDIR)/tmpboot
+	rm -rf $(BUILDDIR)/tmpboot/*bin
+	cd $(BUILDDIR)/tmpboot && tar cf $(BUILDDIR)/bootdisk.tar *
+	rm -rf $(BUILDDIR)/tmpboot
+	sudo $(SRCDIR)/mkbimage -d $(BUILDDIR) -f $(BUILDDIR)/bootdisk.tar -s ext2 -t 1.44
 	touch $@
 
 # ----------------------------------------------------------------------------

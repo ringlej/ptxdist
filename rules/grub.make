@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: grub.make,v 1.4 2003/06/26 15:05:58 bsp Exp $
+# $Id: grub.make,v 1.5 2003/07/04 13:58:13 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -95,8 +95,9 @@ GRUB_AUTOCONF += --enable-cs89x0
 else
 GRUB_AUTOCONF += --disable-cs89x0
 endif
+GRUB_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/grub.prepare: $(STATEDIR)/grub.extract
+$(STATEDIR)/grub.prepare: $(STATEDIR)/grub.extract $(STATEDIR)/glibc.install
 	@$(call targetinfo, grub.prepare)
 	cd $(GRUB_DIR) && CC=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc ./configure $(GRUB_AUTOCONF)
 	touch $@

@@ -849,6 +849,7 @@ config OPENSSL
 
 config OPENSSH
 	bool
+	depends on GLIBC_NSL
 	prompt "OpenSSH"
 
 endmenu
