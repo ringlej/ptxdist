@@ -1,4 +1,6 @@
+
 config FAKEROOT
 	bool
 	prompt "fakeroot"
 	default n
+
