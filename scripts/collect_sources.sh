@@ -210,7 +210,7 @@ $TAR -C $TOPDIR/.. -zcvf $PTXDIST_TAR 	\
 # Cleanup
 # -------------------------------------------
 
-if [ -e $TOPDIR/.. ]; then {
+if [ -e $TOPDIR/../release.lck ]; then {
 
 ARCH_BASENAME=$(cat ../release.lck)
 echo "archive release cycle for >>$RELEASE<< has ended,"
