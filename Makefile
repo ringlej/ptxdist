@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.79 2004/02/13 11:23:56 robert Exp $
+# $Id: Makefile,v 1.80 2004/02/22 21:23:57 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -320,6 +320,7 @@ archive:
 		--exclude $(BASENAME)/bootdisk/*		\
 		--exclude $(BASENAME)/PATCHES-INCOMING		\
 		--exclude $(BASENAME)/patches			\
+		--exclude $(BASENAME)/Documentation/manual	\
 		$(BASENAME)
 
 archive-toolchain: virtual-xchain_install
