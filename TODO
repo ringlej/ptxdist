@@ -4,6 +4,9 @@ Current TODO List
 High Priority
 -------------
 
+- RSC: audit configurations: we now have the rules/vendor-tweaks
+       mechanism instead of /data stuff and /etc copying. Add 
+       copy mechanism to config specific tree if necessary... 
 - RSC: fix busybox extract script to support "select CONFIG_foo"
 - RSC: make MTDutils release and, by the way, fix build process. 
        This "override" mechanism in the Makefile seems to be broken. 
