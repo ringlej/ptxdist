@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: python.make,v 1.1 2003/09/08 23:43:19 mkl Exp $
+# $Id: python.make,v 1.2 2003/09/09 07:25:12 mkl Exp $
 #
 # (c) 2003 by David R Bacon
 # See CREDITS for details about who has contributed to this project. 
@@ -42,7 +42,7 @@ $(STATEDIR)/python.get: $(python_get_deps)
 
 $(PYTHON_SOURCE):
 	@$(call targetinfo, $(PYTHON_SOURCE))
-	@$(call get,$(PYTHON_URL))
+	@$(call get, $(PYTHON_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -55,7 +55,7 @@ python_extract_deps = \
 
 $(STATEDIR)/python.extract: $(python_extract_deps)
 	@$(call targetinfo, python.extract)
-	@$(call call, $(PYTHON_DIR))
+	@$(call clean, $(PYTHON_DIR))
 	@$(call extract, $(PYTHON_SOURCE))
 	@$(call patchin, $(PYTHON_DIR), $(PYTHON))
 	touch $@
