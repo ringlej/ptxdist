@@ -122,6 +122,17 @@ disable_sh =					\
 		$(1)
 
 #
+# go into a directory and apply all patches from there into a sourcetree
+#
+# $1 = path to source tree 
+# $2 = $(PACKETNAME) -> identifier
+#
+patchin =					\
+	set -e; 				\
+	cd $(1);	 			\
+	for p in $(TOPDIR)/patches/$(2)/*.patch; do $(PATCH) -p1 < $$p; done
+
+#
 # crossenvironment
 #
 CROSS_ENV_AR		= AR=$(PTXCONF_GNU_TARGET)-ar
