@@ -1,9 +1,9 @@
 # -*-makefile-*-
-# $Id: mtd.make,v 1.7 2003/10/23 15:01:19 mkl Exp $
+# $Id: mtd.make,v 1.8 2003/10/24 01:10:01 mkl Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
-#
-# See CREDITS for details about who has contributed to this project. 
+#          
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -12,23 +12,19 @@
 #
 # We provide this package
 #
-
-ifdef PTXCONF_KERNEL_MTD
+ifdef PTXCONF_MTD_UTILS
 PACKAGES += mtd
 endif
 
-ifdef PTXCONF_MTD_UTILS
-PACKAGES += mtdutil
-endif
-
 #
-# Paths and names 
+# Paths and names
 #
-MTD			= mtd-20030301-1
-MTD_URL			= http://www.pengutronix.de/software/ptxdist/temporary-src/$(MTD).tar.gz
-MTD_SOURCE		= $(SRCDIR)/$(MTD).tar.gz
-MTD_DIR			= $(BUILDDIR)/$(MTD)
-MTD_EXTRACT 		= gzip -dc
+MTD_VERSION	= 20030301-1
+MTD		= mtd-$(MTD_VERSION)
+MTD_SUFFIX	= tar.gz
+MTD_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(MTD).$(MTD_SUFFIX)
+MTD_SOURCE	= $(SRCDIR)/$(MTD).$(MTD_SUFFIX)
+MTD_DIR		= $(BUILDDIR)/$(MTD)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -36,19 +32,15 @@ MTD_EXTRACT 		= gzip -dc
 
 mtd_get: $(STATEDIR)/mtd.get
 
-$(STATEDIR)/mtd.get: $(MTD_SOURCE)
-	@$(call targetinfo, $@)
-	touch $@
+mtd_get_deps = $(MTD_SOURCE)
 
-mtdutil_get: $(STATEDIR)/mtdutil.get
-
-$(STATEDIR)/mtdutil.get: $(MTD_SOURCE)
+$(STATEDIR)/mtd.get: $(mtd_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
 $(MTD_SOURCE):
 	@$(call targetinfo, $@)
-	wget -P $(SRCDIR) $(PASSIVEFTP) $(MTD_URL)
+	@$(call get, $(MTD_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -56,20 +48,18 @@ $(MTD_SOURCE):
 
 mtd_extract: $(STATEDIR)/mtd.extract
 
-$(STATEDIR)/mtd.extract: $(STATEDIR)/mtd.get
-	@$(call targetinfo, $@)
-	$(MTD_EXTRACT) $(MTD_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
-	touch $@
+mtd_extract_deps = $(STATEDIR)/mtd.get
 
-mtdutil_extract: $(STATEDIR)/mtdutil.extract
-
-$(STATEDIR)/mtdutil.extract: $(STATEDIR)/mtdutil.get
+$(STATEDIR)/mtd.extract: $(mtd_extract_deps)
 	@$(call targetinfo, $@)
-	rm -fr $(BUILDDIR)/mtdutil
-	mkdir -p $(BUILDDIR)/mtdutil
-	$(MTD_EXTRACT) $(MTD_SOURCE) | $(TAR) -C $(BUILDDIR)/mtdutil -xf - $(MTD)/util
-	$(MTD_EXTRACT) $(MTD_SOURCE) | $(TAR) -C $(BUILDDIR)/mtdutil -xf - $(MTD)/fs
-	$(MTD_EXTRACT) $(MTD_SOURCE) | $(TAR) -C $(BUILDDIR)/mtdutil -xf - $(MTD)/include
+	@$(call clean, $(MTD_DIR))
+	@$(call extract, $(MTD_SOURCE))
+#
+# Makefile is currently fucked up... @#*$
+# FIXME: patch sent to maintainer, remove this for fixed version
+#
+	perl -i -p -e 's/\(CFLAGS\) -o/\(LDFLAGS\) -o/g' $(MTD_DIR)/util/Makefile
+	perl -i -p -e 's/^CFLAGS \+\=/override CFLAGS +=/g' $(MTD_DIR)/util/Makefile
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -78,22 +68,19 @@ $(STATEDIR)/mtdutil.extract: $(STATEDIR)/mtdutil.get
 
 mtd_prepare: $(STATEDIR)/mtd.prepare
 
-$(STATEDIR)/mtd.prepare: $(STATEDIR)/mtd.extract
-	@$(call targetinfo, $@)
-	# Makefile is currently fucked up... @#*$
-	# FIXME: patch sent to maintainer, remove this for fixed version 
-	perl -i -p -e 's/\(CFLAGS\) -o/\(LDFLAGS\) -o/g'  $(MTD_DIR)/util/Makefile
-	perl -i -p -e 's/^CFLAGS \+\=/override CFLAGS +=/g' $(MTD_DIR)/util/Makefile
-	touch $@
+#
+# dependencies
+#
+mtd_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/zlib.install \
+	$(STATEDIR)/mtd.extract
 
-mtdutil_prepare: $(STATEDIR)/mtdutil.prepare
+MTD_PATH	= PATH=$(CROSS_PATH)
+MTD_MAKEVARS	= CROSS=$(PTXCONF_GNU_TARGET)-
 
-$(STATEDIR)/mtdutil.prepare: $(STATEDIR)/mtdutil.extract
+$(STATEDIR)/mtd.prepare: $(mtd_prepare_deps)
 	@$(call targetinfo, $@)
-	# Makefile is currently fucked up... @#*$
-	# FIXME: patch sent to maintainer, remove this for fixed version 
-	perl -i -p -e 's/\(CFLAGS\) -o/\(LDFLAGS\) -o/g'  $(BUILDDIR)/mtdutil/$(MTD)/util/Makefile
-	perl -i -p -e 's/^CFLAGS \+\=/override CFLAGS +=/g' $(BUILDDIR)/mtdutil/$(MTD)/util/Makefile
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -102,31 +89,11 @@ $(STATEDIR)/mtdutil.prepare: $(STATEDIR)/mtdutil.extract
 
 mtd_compile: $(STATEDIR)/mtd.compile
 
-MTD_ENVIRONMENT		=
-MTD_MAKEVARS		=  CFLAGS=-I$(PTXCONF_PREFIX)/include
-MTD_MAKEVARS		+= LDFLAGS=-L$(PTXCONF_PREFIX)/lib
+mtd_compile_deps = $(STATEDIR)/mtd.prepare
 
-$(STATEDIR)/mtd.compile: $(STATEDIR)/mtd.prepare $(STATEDIR)/xchain-zlib.install
+$(STATEDIR)/mtd.compile: $(mtd_compile_deps)
 	@$(call targetinfo, $@)
-	$(MTD_ENVIRONMENT) make -C $(MTD_DIR)/util mkfs.jffs mkfs.jffs2 $(MTD_MAKEVARS) 
-	touch $@
-
-
-mtdutil_compile_deps =  $(STATEDIR)/mtdutil.prepare 
-mtdutil_compile_deps += $(STATEDIR)/zlib.install
-
-MTD-UTIL_ENVIRONMENT	= 
-MTD-UTIL_MAKEVARS	=
-MTD-UTIL_ENVIRONMENT	+= PATH=$(PTXCONF_PREFIX)/bin:$$PATH
-MTD-UTIL_MAKEVARS	+= CROSS=$(PTXCONF_GNU_TARGET)-
-
-MTD_MAKEVARS            += CFLAGS=$(TARGET_CFLAGS)
-
-mtdutil_compile: $(STATEDIR)/mtdutil.compile
-
-$(STATEDIR)/mtdutil.compile: $(mtdutil_compile_deps) 
-	@$(call targetinfo, $@)
-	$(MTD-UTIL_ENVIRONMENT) make -C $(BUILDDIR)/mtdutil/$(MTD)/util $(MTD-UTIL_MAKEVARS)
+	$(MTD_PATH) make -C $(MTD_DIR)/util $(MTD_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -137,15 +104,6 @@ mtd_install: $(STATEDIR)/mtd.install
 
 $(STATEDIR)/mtd.install: $(STATEDIR)/mtd.compile
 	@$(call targetinfo, $@)
-	install -d $(PTXCONF_PREFIX)/bin
-	install $(MTD_DIR)/util/mkfs.jffs $(PTXCONF_PREFIX)/bin
-	install $(MTD_DIR)/util/mkfs.jffs2 $(PTXCONF_PREFIX)/bin
-	touch $@
-
-mtdutil_install: $(STATEDIR)/mtdutil.install
-
-$(STATEDIR)/mtdutil.install: $(STATEDIR)/mtdutil.compile
-	@$(call targetinfo, $@)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -154,93 +112,88 @@ $(STATEDIR)/mtdutil.install: $(STATEDIR)/mtdutil.compile
 
 mtd_targetinstall: $(STATEDIR)/mtd.targetinstall
 
-$(STATEDIR)/mtd.targetinstall: $(STATEDIR)/mtd.install
-	@$(call targetinfo, $@)
-	touch $@
+mtd_targetinstall_deps = $(STATEDIR)/mtd.compile
 
-mtdutil_targetinstall: $(STATEDIR)/mtdutil.targetinstall
-
-$(STATEDIR)/mtdutil.targetinstall: $(STATEDIR)/mtdutil.install
+$(STATEDIR)/mtd.targetinstall: $(mtd_targetinstall_deps)
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/sbin
-        ifeq (y, $(PTXCONF_MTD_EINFO))
+
+ifdef PTXCONF_MTD_EINFO
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/einfo $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/einfo
-        endif
-        ifeq (y, $(PTXCONF_MTD_ERASE))
+endif
+ifdef PTXCONF_MTD_ERASE
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/erase $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/erase
-        endif
-        ifeq (y, $(PTXCONF_MTD_ERASEALL))
+endif
+ifdef PTXCONF_MTD_ERASEALL
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/eraseall $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/eraseall
-        endif
-        ifeq (y, $(PTXCONF_MTD_FCP))
+endif
+ifdef PTXCONF_MTD_FCP
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/fcp $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/fcp
-        endif 
-        ifeq (y, $(PTXCONF_MTD_FTL_CHECK))
+endif
+ifdef PTXCONF_MTD_FTL_CHECK
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/ftl_check $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/check
-        endif 
-        ifeq (y, $(PTXCONF_MTD_FTL_FORMAT))
+endif
+ifdef PTXCONF_MTD_FTL_FORMAT
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/ftl_format $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/ftl_format
-        endif 
-        ifeq (y, $(PTXCONF_MTD_JFFS2READER))
+endif
+ifdef PTXCONF_MTD_JFFS2READER
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/jffs2reader $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/jffs2reader
-        endif 
-        ifeq (y, $(PTXCONF_MTD_LOCK))
+endif
+ifdef PTXCONF_MTD_LOCK
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/lock $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/lock
-        endif 
-        ifeq (y, $(PTXCONF_MTD_MTDDEBUG))
+endif
+ifdef PTXCONF_MTD_MTDDEBUG
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/mtd_debug $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mtd_debug
-        endif 
-        ifeq (y, $(PTXCONF_MTD_NANDDUMP))
+endif
+ifdef PTXCONF_MTD_NANDDUMP
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/nanddump $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nanddump
-        endif 
-        ifeq (y, $(PTXCONF_MTD_NANDTEST))
+endif
+ifdef PTXCONF_MTD_NANDTEST
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/nandtest $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nandtest
-        endif 
-        ifeq (y, $(PTXCONF_MTD_NANDWRITE))
+endif
+ifdef PTXCONF_MTD_NANDWRITE
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/nandwrite $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nandwrite
-        endif 
-        ifeq (y, $(PTXCONF_MTD_NFTL_FORMAT))
+endif
+ifdef PTXCONF_MTD_NFTL_FORMAT
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/nftl_format $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nftl_format
-        endif 
-        ifeq (y, $(PTXCONF_MTD_NFTLDUMP))
+endif
+ifdef PTXCONF_MTD_NFTLDUMP
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/nftldump $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nftldump
-        endif 
-        ifeq (y, $(PTXCONF_MTD_UNLOCK))
+endif
+ifdef PTXCONF_MTD_UNLOCK
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/unlock $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/unlock
-        endif 
-        ifeq (y, $(PTXCONF_MTD_MKJFFS))
+endif
+ifdef PTXCONF_MTD_MKJFFS
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/mkfs.jffs $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mkfs.jffs
-        endif 
-        ifeq (y, $(PTXCONF_MTD_MKJFFS2))
+endif
+ifdef PTXCONF_MTD_MKJFFS2
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/mkfs.jffs2 $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mkfs.jffs2
-        endif 
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-mtd_clean: 
-	rm -rf $(STATEDIR)/mtd.* $(MTD_DIR)
-
-mtdutil_clean:
-	rm -fr $(STATEDIR)/mtdutil.* $(BUILDDIR)/mtdutil
+mtd_clean:
+	rm -rf $(STATEDIR)/mtd.*
+	rm -rf $(MTD_DIR)
 
 # vim: syntax=make
