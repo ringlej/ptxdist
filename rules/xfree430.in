@@ -1,4 +1,4 @@
-menu "XFree86-4.3.0    "
+menu "XFree86-4.3.0         "
 
 config XFREE430
 	bool

@@ -1,4 +1,4 @@
-menu "Clementine WM    "
+menu "Clementine WM         "
 
 config CLEMENTINE
         bool

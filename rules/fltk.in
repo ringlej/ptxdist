@@ -1,4 +1,4 @@
-menu	"FLTK GUI Toolkit "
+menu "FLTK GUI Toolkit      "
 
 config FLTK
 	bool

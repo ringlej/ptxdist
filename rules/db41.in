@@ -1,4 +1,4 @@
-menu "Berkeley db 4 "
+menu "Berkeley db 4    "
 
 config DB   
 	bool
