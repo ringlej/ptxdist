@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ntp.make,v 1.2 2003/12/23 10:57:26 robert Exp $
+# $Id: ntp.make,v 1.3 2004/01/22 00:49:19 robert Exp $
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          
@@ -328,7 +328,14 @@ ntp_compile_deps = $(STATEDIR)/ntp.prepare
 
 $(STATEDIR)/ntp.compile: $(ntp_compile_deps)
 	@$(call targetinfo, $@)
-	$(NTP_PATH) make -C $(NTP_DIR)
+	
+	# ntp-4.2.0 tries to build ntpdc/ntpdc-layout for the target but
+	# trys to run it on the build machine - this is wrong... 
+	perl -i -p -e "s/^CC =/CC ?=/g" $(NTP_DIR)/ntpdc/Makefile
+	cd $(NTP_DIR)/ntpdc && CC=$(HOSTCC) make ntpdc-layout 
+
+	# now build the rest
+	cd $(NTP_DIR) && $(NTP_ENV) $(NTP_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -339,7 +346,7 @@ ntp_install: $(STATEDIR)/ntp.install
 
 $(STATEDIR)/ntp.install: $(STATEDIR)/ntp.compile
 	@$(call targetinfo, $@)
-	$(NTP_PATH) make -C $(NTP_DIR) install
+	cd $(NTP_DIR) && $(NTP_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
