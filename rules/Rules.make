@@ -343,7 +343,18 @@ patch_apply =								\
 #
 TARGET_CFLAGS		+= $(PTXCONF_TARGET_EXTRA_CFLAGS)
 TARGET_CXXFLAGS		+= $(PTXCONF_TARGET_EXTRA_CXXFLAGS)
+TARGET_CPPFLAGS		+= $(PTXCONF_TARGET_EXTRA_CPPFLAGS)
+TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
 
+#
+# if we use an external crosschain set include and lib dirs correctly
+#
+ifndef $(PTXCONF_BUILD_CROSSCHAIN)
+TARGET_CFLAGS		+= -I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+TARGET_CXXFLAGS		+= -I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+TARGET_CPPFLAGS		+= -I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+endif
 
 #
 # crossenvironment
@@ -364,6 +375,12 @@ endif
 ifneq ('','$(strip $(subst ",,$(TARGET_CXXFLAGS)))')
 CROSS_ENV_CXXFLAGS	= CXXFLAGS='$(strip $(subst ",,$(TARGET_CXXFLAGS)))'
 endif
+ifneq ('','$(strip $(subst ",,$(TARGET_CPPFLAGS)))')
+CROSS_ENV_CPPFLAGS	= CPPFLAGS='$(strip $(subst ",,$(TARGET_CPPFLAGS)))'
+endif
+ifneq ('','$(strip $(subst ",,$(TARGET_LDFLAGS)))')
+CROSS_ENV_LDFLAGS	= LDFLAGS='$(strip $(subst ",,$(TARGET_LDFLAGS)))'
+endif
 
 CROSS_ENV := \
 	$(CROSS_ENV_AR) \
@@ -377,6 +394,8 @@ CROSS_ENV := \
 	$(CROSS_ENV_RANLIB) \
 	$(CROSS_ENV_STRIP) \
 	$(CROSS_ENV_CFLAGS) \
+	$(CROSS_ENV_CPPFLAGS) \
+	$(CROSS_ENV_LDFLAGS) \
 	$(CROSS_ENV_CXXFLAGS) \
 	ac_cv_func_getpgrp_void=yes \
 	ac_cv_func_setpgrp_void=yes \

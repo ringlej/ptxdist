@@ -178,6 +178,10 @@ endchoice
 
 comment "---"
 
+config TARGET_EXTRA_CPPFLAGS
+	string
+	prompt "Extra CPPFLAGS (pp)"
+
 config TARGET_EXTRA_CFLAGS
 	string
 	prompt "Extra CFLAGS (c)"
@@ -185,6 +189,10 @@ config TARGET_EXTRA_CFLAGS
 config TARGET_EXTRA_CXXFLAGS
 	string
 	prompt "Extra CXXFLAGS (c++)"
+
+config TARGET_EXTRA_LDFLAGS
+	string
+	prompt "Extra LDFLAGS (ld)"
 
 config TARGET_CONFIG_FILE
 	string
