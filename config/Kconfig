@@ -34,7 +34,7 @@ source "rules/crosstool.in"
 source "rules/rootfs.in"
 source "rules/debug.in"
 source "rules/hosttools.in"
-source "rules/sourceopts.in"
+source "rules/ptxdistopts.in"
 
 endmenu
 
