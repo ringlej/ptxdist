@@ -153,6 +153,11 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 #
 
 #
+# RTAI                
+#
+# PTXCONF_RTAI is not set
+
+#
 # C Library           
 #
 PTXCONF_GLIBC=y
@@ -762,64 +767,17 @@ PTXCONF_UTLNX=y
 #
 # OpenSSH             
 #
-# PTXCONF_OPENSSH is not set
+PTXCONF_OPENSSH=y
+# PTXCONF_OPENSSH_SSH is not set
+PTXCONF_OPENSSH_SSHD=y
+PTXCONF_OPENSSH_SCP=y
+PTXCONF_OPENSSH_SFTP_SERVER=y
+PTXCONF_OPENSSH_KEYGEN=y
 
 #
 # Dropbear SSH-Server 
 #
-PTXCONF_DROPBEAR=y
-# PTXCONF_DROPBEAR_DIS_ZLIB is not set
-# PTXCONF_DROPBEAR_DIS_OPENPTY is not set
-# PTXCONF_DROPBEAR_DIS_SYSLOG is not set
-# PTXCONF_DROPBEAR_DIS_LASTLOG is not set
-# PTXCONF_DROPBEAR_DIS_UTMP is not set
-# PTXCONF_DROPBEAR_DIS_UTMPX is not set
-# PTXCONF_DROPBEAR_DIS_WTMP is not set
-# PTXCONF_DROPBEAR_DIS_WTMPX is not set
-# PTXCONF_DROPBEAR_DIS_LIBUTIL is not set
-# PTXCONF_DROPBEAR_DIS_PUTUTLINE is not set
-# PTXCONF_DROPBEAR_DIS_PUTUTXLINE is not set
-
-#
-# features
-#
-PTXCONF_DROPBEAR_DIS_X11=y
-PTXCONF_DROPBEAR_DIS_TCP=y
-PTXCONF_DROPBEAR_DIS_AGENT=y
-
-#
-# Encryption, at least one required --- RFC Draft requires 3DES
-#
-PTXCONF_DROPBEAR_AES128=y
-# PTXCONF_DROPBEAR_BLOWFISH is not set
-# PTXCONF_DROPBEAR_TWOFISH128 is not set
-PTXCONF_DROPBEAR_3DES=y
-
-#
-# Integrity, at least one required --- RFC Draft requires sha1-hmac
-#
-PTXCONF_DROPBEAR_SHA1=y
-PTXCONF_DROPBEAR_MD5=y
-
-#
-# Hostkey/public key algorithms, at least one required --- SSH2 RFC Draft requires dss
-#
-# PTXCONF_DROPBEAR_RSA is not set
-PTXCONF_DROPBEAR_DSS=y
-
-#
-# Authentication types, at least one required --- RFC Draft requires pubkey auth
-#
-PTXCONF_DROPBEAR_PASSWD=y
-PTXCONF_DROPBEAR_PUBKEY=y
-
-#
-# installation options
-#
-PTXCONF_DROPBEAR_DROPBEAR=y
-# PTXCONF_DROPBEAR_DROPBEAR_KEY is not set
-# PTXCONF_DROPBEAR_DROPBEAR_CONVERT is not set
-PTXCONF_DROPBEAR_SCP=y
+# PTXCONF_DROPBEAR is not set
 
 #
 # Networking Apps     
