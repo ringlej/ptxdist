@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.10 2003/07/23 17:40:34 mkl Exp $
+# $Id: Makefile,v 1.11 2003/08/06 21:21:13 robert Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -139,7 +139,7 @@ rayonic_config:
 
 distclean: clean
 	@echo -n "cleaning .config, .kernelconfig.. "
-	@rm -f .config .kernelconfig
+	@rm -f .config* .kernelconfig .tmp*
 	@echo "done."
 	@echo
 
