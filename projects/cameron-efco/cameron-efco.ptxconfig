@@ -505,7 +505,8 @@ PTXCONF_BB_CONFIG_PASSWD=y
 #
 # Common options for adduser, deluser, login, su
 #
-# PTXCONF_BB_CONFIG_FEATURE_SHADOWPASSWDS is not set
+PTXCONF_BB_CONFIG_FEATURE_SHADOWPASSWDS=y
+# PTXCONF_BB_CONFIG_USE_BB_SHADOW is not set
 
 #
 # Miscellaneous Utilities
