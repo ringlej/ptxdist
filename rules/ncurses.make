@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ncurses.make,v 1.10 2003/09/16 16:42:18 mkl Exp $
+# $Id: ncurses.make,v 1.11 2003/09/30 13:54:16 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -74,6 +74,7 @@ NCURSES_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
 NCURSES_AUTOCONF	+= --build=$(GNU_HOST)
 NCURSES_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 NCURSES_AUTOCONF	+= --with-shared
+NCURSES_AUTOCONF	+= --without-ada
 
 $(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps)
 	@$(call targetinfo, ncurses.prepare)
