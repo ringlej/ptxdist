@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: binutils.make,v 1.2 2003/08/28 14:27:29 mkl Exp $
+# $Id: binutils.make,v 1.3 2003/09/16 08:12:55 mkl Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -78,6 +78,10 @@ endif
 
 binutils_prepare: $(STATEDIR)/binutils.prepare
 
+binutils_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/binutils.extract
+
 BINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET)
 ifdef PTXCONF_ARCH_MIPS
 BINUTILS_AUTOCONF_TARGET	= --enable-targets=$(PTXCONF_GNU_TARGET),mips64-linux
@@ -99,7 +103,7 @@ BINUTILS_AUTOCONF = \
 
 BINUTILS_ENV	= $(CROSS_ENV) PATH=$(CROSS_PATH)
 
-$(STATEDIR)/binutils.prepare: $(STATEDIR)/binutils.extract
+$(STATEDIR)/binutils.prepare: $(binutils_prepare_deps)
 	@$(call targetinfo, binutils.prepare)
 	cd $(BINUTILS_DIR) && $(BINUTILS_ENV) \
 		./configure $(BINUTILS_AUTOCONF)
