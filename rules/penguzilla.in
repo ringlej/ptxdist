@@ -1,0 +1,7 @@
+menu "Penguzilla       "
+
+config PENGUZILLA
+	bool
+	prompt "Install Penguzilla"
+
+endmenu

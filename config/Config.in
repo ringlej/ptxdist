@@ -1372,6 +1372,7 @@ endmenu
 menu "Web Applications    "
 
 source rules/mfirebird.in
+source rules/penguzilla.in
 
 endmenu
 
