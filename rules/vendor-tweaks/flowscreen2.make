@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: flowscreen2.make,v 1.1 2004/03/28 10:53:27 robert Exp $
+# $Id: flowscreen2.make,v 1.2 2004/06/07 18:16:27 rsc Exp $
 #
 # Copyright (C) 2004 by Pengutronix, Robert Schwebel
 #          
@@ -37,6 +37,8 @@ $(STATEDIR)/flowscreen2.targetinstall:
 	perl -i -p -e "s,\@PROJECT@,$(PROJECT),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
+
+	mkdir -p $(ROOTDIR)/data
 
 	touch $@
 
