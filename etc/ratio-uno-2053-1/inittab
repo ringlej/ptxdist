@@ -16,8 +16,13 @@
 ::sysinit:/usr/sbin/crond -L /var/log/cron
 
 # Start userland network services 
+# -------------------------------------------------
+# ssh & scp daemon
 ::sysinit:/usr/sbin/sshd -4 -f /etc/ssh/sshd_config
+# FTP Daemon
 ::sysinit:/usr/sbin/proftpd
+# Telnet Daemon
+::sysinit:/sbin/utelnetd -d
 
 # modem getty (serial port #1)
 #::once:/bin/mkdir /var/log/mgetty
