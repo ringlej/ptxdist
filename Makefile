@@ -1,40 +1,35 @@
-# $Id: Makefile,v 1.47 2003/10/24 01:58:42 mkl Exp $
+# $Id: Makefile,v 1.48 2003/10/26 20:43:50 mkl Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #
 # For further information about the PTXdist project see the README file.
+#
+PROJECT		:= PTXdist
+VERSION		:= 0
+PATCHLEVEL	:= 5
+SUBLEVEL	:= 0
+EXTRAVERSION	:= -cvs
 
-PROJECT		= PTXdist
-VERSION		= 0
-PATCHLEVEL	= 5
-SUBLEVEL	= 0
-EXTRAVERSION	= -cvs
-
-FULLVERSION	= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
+FULLVERSION	:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
 export PROJECT VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION FULLVERSION
 
-MAKE=make
-TAR=tar
-
-TOPDIR=$(shell /bin/pwd)
-BASENAME=$(shell /usr/bin/basename $(TOPDIR))
-BUILDDIR=$(TOPDIR)/build
-XCHAIN_BUILDDIR=$(BUILDDIR)/xchain
-NATIVE_BUILDDIR=$(BUILDDIR)/native
-PATCHES_BUILDDIR=$(BUILDDIR)/patches
-SRCDIR=$(TOPDIR)/src
-PTXSRCDIR=$(TOPDIR)/src_ptx
-PATCHDIR=$(TOPDIR)/patches
-STATEDIR=$(TOPDIR)/state
-BOOTDISKDIR=$(TOPDIR)/bootdisk
+TOPDIR			:= $(shell /bin/pwd)
+BASENAME		:= $(shell /usr/bin/basename $(TOPDIR))
+BUILDDIR		:= $(TOPDIR)/build
+XCHAIN_BUILDDIR		:= $(BUILDDIR)/xchain
+NATIVE_BUILDDIR		:= $(BUILDDIR)/native
+PATCHES_BUILDDIR	:= $(BUILDDIR)/patches
+SRCDIR			:= $(TOPDIR)/src
+PATCHDIR		:= $(TOPDIR)/patches
+STATEDIR		:= $(TOPDIR)/state
+BOOTDISKDIR		:= $(TOPDIR)/bootdisk
+MISCDIR			:= $(TOPDIR)/misc
 
 # Pengutronix Patch Repository
-PTXPATCH_URL=http://www.pengutronix.de/software/ptxdist/patches
-
-INSTALL_LOG=$(TOPDIR)/tools/install-log-1.9/install-log
+PTXPATCH_URL		:= http://www.pengutronix.de/software/ptxdist/patches
 
 PACKAGES=
 XCHAIN=
@@ -75,13 +70,13 @@ endif
 -include rules/vendor-tweaks/$(subst ",,$(PTXCONF_VENDORTWEAKS))
 
 # install targets 
-PACKAGES_TARGETINSTALL 	= $(addsuffix _targetinstall,$(PACKAGES))
-PACKAGES_GET		= $(addsuffix _get,$(PACKAGES))
-PACKAGES_EXTRACT	= $(addsuffix _extract,$(PACKAGES))
-PACKAGES_PREPARE	= $(addsuffix _prepare,$(PACKAGES))
-PACKAGES_COMPILE	= $(addsuffix _compile,$(PACKAGES))
+PACKAGES_TARGETINSTALL 		:= $(addsuffix _targetinstall,$(PACKAGES))
+PACKAGES_GET			:= $(addsuffix _get,$(PACKAGES))
+PACKAGES_EXTRACT		:= $(addsuffix _extract,$(PACKAGES))
+PACKAGES_PREPARE		:= $(addsuffix _prepare,$(PACKAGES))
+PACKAGES_COMPILE		:= $(addsuffix _compile,$(PACKAGES))
 
-VENDORTWEAKS_TARGETINSTALL	= $(addsuffix _targetinstall,$(VENDORTWEAKS))
+VENDORTWEAKS_TARGETINSTALL	:= $(addsuffix _targetinstall,$(VENDORTWEAKS))
 
 help:
 # help message {{{
@@ -260,7 +255,7 @@ getclean:
 	@echo
 
 archive:
-	# FIXME: this should be automated
+# FIXME: this should be automated
 	$(TAR) -C $(TOPDIR)/.. -zcvf /tmp/$(BASENAME).tgz 	\
 		--exclude CVS					\
 		--exclude $(BASENAME)/build/* 			\
@@ -279,5 +274,6 @@ $(INSTALL_LOG):
 
 print-%:
 	@echo $* is $($*)
+
 .PHONY: dep_output_clean dep_tree dep_world skip_vendortweaks
 # vim600:set foldmethod=marker:
