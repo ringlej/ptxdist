@@ -101,9 +101,8 @@ UCLIBC_MAKEVARS	= CROSS=$(PTXCONF_GNU_TARGET)- HOSTCC=$(HOSTCC)
 #
 # dependencies
 #
-uclibc_prepare_deps = \
-	$(STATEDIR)/xchain-gccstage1.install \
-	$(STATEDIR)/uclibc.extract
+uclibc_prepare_deps =  $(STATEDIR)/uclibc.extract
+uclibc_prepare_deps += $(STATEDIR)/xchain-kernel.install
 
 $(STATEDIR)/uclibc.prepare: $(uclibc_prepare_deps)
 	@$(call targetinfo, $@)
