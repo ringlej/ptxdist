@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glibc.make,v 1.17 2003/11/13 04:28:13 mkl Exp $
+# $Id: glibc.make,v 1.18 2003/11/13 19:26:17 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -14,7 +14,9 @@
 # We provide this package
 #
 ifdef PTXCONF_GLIBC
+ifdef PTXCONF_BUILD_CROSSCHAIN
 PACKAGES	+= glibc
+endif
 DYNAMIC_LINKER	=  /lib/ld-linux.so.2
 endif
 
@@ -38,11 +40,7 @@ GLIBC_BUILDDIR		= $(BUILDDIR)/$(GLIBC)-build
 # Get
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
 glibc_get:		$(STATEDIR)/glibc.get
-else
-glibc_get:
-endif
 
 glibc_get_deps = \
 	$(GLIBC_SOURCE) \
@@ -80,11 +78,7 @@ $(GLIBC_THREADS_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
 glibc_extract: $(STATEDIR)/glibc.extract
-else
-glibc_extract: 
-endif
 
 glibc_extract_deps =  $(STATEDIR)/glibc-base.extract
 ifdef PTXCONF_GLIBC_PTHREADS
@@ -112,11 +106,7 @@ $(STATEDIR)/glibc-threads.extract: $(STATEDIR)/glibc.get
 # Prepare
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
 glibc_prepare:		$(STATEDIR)/glibc.prepare
-else
-glibc_prepare:
-endif
 
 # 
 # arcitecture dependend configuration
@@ -200,11 +190,7 @@ $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
 # Compile
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
 glibc_compile:		$(STATEDIR)/glibc.compile
-else
-glibc_compile:
-endif
 
 $(STATEDIR)/glibc.compile: $(STATEDIR)/glibc.prepare 
 	@$(call targetinfo, $@)
@@ -221,11 +207,7 @@ $(STATEDIR)/glibc.compile: $(STATEDIR)/glibc.prepare
 # Install
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_BUILD_CROSSCHAIN
 glibc_install:		$(STATEDIR)/glibc.install
-else
-glibc_install:
-endif
 
 $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 	@$(call targetinfo, $@)
@@ -286,15 +268,21 @@ $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps)
 	cd $(CROSS_LIB_DIR)/lib && \
 		ln -sf ld-*.so $(ROOTDIR)$(DYNAMIC_LINKER)
 #
-# we don't wanna copy libc.so, cause this is ld linker script, no shared lib
+# we don't wanna copy libc.so, cause this is a ld linker script, no shared lib
 #
 	cp -d $(CROSS_LIB_DIR)/lib/libc-*so* $(ROOTDIR)/lib/
 	cp -d $(CROSS_LIB_DIR)/lib/libc.so.* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libc-*so*
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libc[-.]*so*
 
+#
+# we don't wanna copy libpthread.so, cause this may be a ld linker script, no shared lib
+#
 ifdef PTXCONF_GLIBC_PTHREADS
-	cp -d $(CROSS_LIB_DIR)/lib/libpthread[-.]*so* $(ROOTDIR)/lib/
-	$(GLIBC_STRIP) $(ROOTDIR)/lib/libpthread-*so*
+	cp -d $(CROSS_LIB_DIR)/lib/libpthread-*so* $(ROOTDIR)/lib/
+	cp -d $(CROSS_LIB_DIR)/lib/libpthread.so.* $(ROOTDIR)/lib/
+	$(GLIBC_STRIP) $(ROOTDIR)/lib/libpthread[-.]*so*
+	cd $(CROSS_LIB_DIR)/lib && \
+		ln -sf libpthread.so.* $(ROOTDIR)/lib/libpthread.so
 endif
 
 ifdef PTXCONF_GLIBC_THREAD_DB
