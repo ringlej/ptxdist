@@ -51,6 +51,11 @@ if [ ! -f /etc/pango/pango.modules ]; then
 		/etc/pango/pango.modules
 fi;
 
+# create I-Drive communication fifo
+rm -f /tmp/idrive.fifo
+mkfifo /tmp/idrive.fifo
+export IDRIVE_NAMED_PIPE=/tmp/idrive.fifo
+
 # /usr/X11R6/bin/xmodmap /etc/xmodmap
 
 # start penguzilla

@@ -17,7 +17,7 @@ case $1 in
 		export GTK_ACCESSIBILITY=1
 		export MOZILLA_FIVE_HOME=/usr/lib/mozilla-1.6
 		export LD_LIBRARY_PATH=/usr/lib/mozilla-1.6
-		export PENGUDRIVE=/dev/input/event1
+		export IDRIVE_NAMED_PIPE=/tmp/idrive.fifo
 		export PENGUDRIVE_WIDTH=15
 		export GDK_USE_XFT=1
 		echo "starting penguzilla..."
