@@ -11,6 +11,13 @@ echo date.....: `date` >> $3
 echo user.....: $USER@$HOSTNAME >> $3
 
 make $2_config
+
+if [ $? != "0" ]; then 
+	echo "result...: no config file '$2'" >> $3
+	echo >> $3
+	exit 1
+fi
+
 make oldconfig
 
 #
