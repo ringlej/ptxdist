@@ -1,5 +1,7 @@
 #
 # Automatically generated make config: don't edit
+# PTXdist version: 0.7.1-cvs
+# Thu Jan 20 10:35:11 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -146,6 +148,11 @@ PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/mx1fs2.vendortweaks"
 # PTXCONF_HOSTTOOLS_GENEXT2FS is not set
 # PTXCONF_HOSTTOOLS_E2FSPROGS is not set
 PTXCONF_HOSTTOOLS_FAKEROOT=y
+
+#
+# Source Archive Opts 
+#
+PTXCONF_DEBPOOLM="http://ftp.se.debian.org/debian/"
 
 #
 # Core System                 
@@ -1110,6 +1117,11 @@ PTXCONF_FIGLET=y
 #
 
 #
+# Berkeley db 4    
+#
+# PTXCONF_DB is not set
+
+#
 # gettext          
 #
 
@@ -1117,6 +1129,16 @@ PTXCONF_FIGLET=y
 # glib-2.6         
 #
 # PTXCONF_GLIB26 is not set
+
+#
+# libxml2          
+#
+# PTXCONF_LIBXML2 is not set
+
+#
+# ncurses          
+#
+# PTXCONF_NCURSES is not set
 
 #
 # pcre             
@@ -1129,24 +1151,9 @@ PTXCONF_FIGLET=y
 # PTXCONF_POPT is not set
 
 #
-# zlib             
+# readline         
 #
-PTXCONF_ZLIB=y
-
-#
-# ncurses          
-#
-# PTXCONF_NCURSES is not set
-
-#
-# termcap          
-#
-# PTXCONF_TERMCAP is not set
-
-#
-# Berkeley db 4    
-#
-# PTXCONF_DB is not set
+# PTXCONF_READLINE is not set
 
 #
 # rn               
@@ -1154,14 +1161,19 @@ PTXCONF_ZLIB=y
 # PTXCONF_RN is not set
 
 #
-# libxml2          
-#
-# PTXCONF_LIBXML2 is not set
-
-#
 # sqlite           
 #
 # PTXCONF_SQLITE is not set
+
+#
+# termcap          
+#
+# PTXCONF_TERMCAP is not set
+
+#
+# zlib             
+#
+PTXCONF_ZLIB=y
 
 #
 # Graphics Libraries          

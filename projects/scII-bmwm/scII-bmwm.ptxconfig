@@ -1,5 +1,7 @@
 #
 # Automatically generated make config: don't edit
+# PTXdist version: 0.7.1-cvs
+# Thu Jan 20 10:35:16 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -141,6 +143,11 @@ PTXCONF_HOSTTOOLS_FAKEROOT=y
 # PTXCONF_HOSTTOOLS_UTLNX_FDISK is not set
 # PTXCONF_HOSTTOOLS_UTLNX_CFDISK is not set
 # PTXCONF_HOSTTOOLS_UTLNX_SFDISK is not set
+
+#
+# Source Archive Opts 
+#
+PTXCONF_DEBPOOLM="http://ftp.se.debian.org/debian/"
 
 #
 # Core System                 
@@ -1193,6 +1200,11 @@ PTXCONF_CRAMFS=y
 #
 
 #
+# Berkeley db 4    
+#
+# PTXCONF_DB is not set
+
+#
 # gettext          
 #
 
@@ -1200,6 +1212,20 @@ PTXCONF_CRAMFS=y
 # glib-2.6         
 #
 # PTXCONF_GLIB26 is not set
+
+#
+# libxml2          
+#
+# PTXCONF_LIBXML2 is not set
+
+#
+# ncurses          
+#
+PTXCONF_NCURSES=y
+PTXCONF_NCURSES_TERMCAP=y
+# PTXCONF_NCURSES_FORM is not set
+# PTXCONF_NCURSES_MENU is not set
+# PTXCONF_NCURSES_PANEL is not set
 
 #
 # pcre             
@@ -1212,28 +1238,9 @@ PTXCONF_CRAMFS=y
 # PTXCONF_POPT is not set
 
 #
-# zlib             
+# readline         
 #
-# PTXCONF_ZLIB is not set
-
-#
-# ncurses          
-#
-PTXCONF_NCURSES=y
-PTXCONF_NCURSES_TERMCAP=y
-# PTXCONF_NCURSES_FORM is not set
-# PTXCONF_NCURSES_MENU is not set
-# PTXCONF_NCURSES_PANEL is not set
-
-#
-# termcap          
-#
-# PTXCONF_TERMCAP is not set
-
-#
-# Berkeley db 4    
-#
-# PTXCONF_DB is not set
+# PTXCONF_READLINE is not set
 
 #
 # rn               
@@ -1241,14 +1248,19 @@ PTXCONF_NCURSES_TERMCAP=y
 # PTXCONF_RN is not set
 
 #
-# libxml2          
-#
-# PTXCONF_LIBXML2 is not set
-
-#
 # sqlite           
 #
 # PTXCONF_SQLITE is not set
+
+#
+# termcap          
+#
+# PTXCONF_TERMCAP is not set
+
+#
+# zlib             
+#
+# PTXCONF_ZLIB is not set
 
 #
 # Graphics Libraries          
