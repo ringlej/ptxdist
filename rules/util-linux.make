@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: util-linux.make,v 1.2 2003/09/02 04:55:16 robert Exp $
+# $Id: util-linux.make,v 1.3 2003/09/16 16:52:14 mkl Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
@@ -36,6 +36,7 @@ util-linux_get_deps	=  $(UTIL-LINUX_SOURCE)
 
 $(STATEDIR)/util-linux.get: $(util-linux_get_deps)
 	@$(call targetinfo, util-linux.get)
+	@$(call get_patches, $(UTIL_LINUX))
 	touch $@
 
 $(UTIL-LINUX_SOURCE):
@@ -54,7 +55,7 @@ $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps)
 	@$(call targetinfo, util-linux.extract)
 	@$(call clean, $(UTIL-LINUX_DIR))
 	@$(call extract, $(UTIL-LINUX_SOURCE))
-	@$(call patchin, $(UTIL-LINUX_DIR), $(UTIL-LINUX))
+	@$(call patchin, $(UTIL-LINUX))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -77,8 +78,7 @@ UTIL-LINUX_ENV 	=  $(CROSS_ENV)
 $(STATEDIR)/util-linux.prepare: $(util-linux_prepare_deps)
 	@$(call targetinfo, util-linux.prepare)
 	@$(call clean, $(UTIL-LINUX_BUILDDIR))
-	
-	# FIXME: strange configure script, not cross enabled...
+#	# FIXME: strange configure script, not cross enabled...
 	cd $(UTIL-LINUX_DIR) && \
 		$(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) \
 		./configure
@@ -94,7 +94,7 @@ util-linux_compile_deps =  $(STATEDIR)/util-linux.prepare
 
 $(STATEDIR)/util-linux.compile: $(util-linux_compile_deps)
 	@$(call targetinfo, util-linux.compile)
-	
+
 ifeq (y, $(PTXCONF_UTLNX_MKSWAP))
 	cd $(UTIL-LINUX_DIR)/disk-utils && $(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) make mkswap
 endif
@@ -108,7 +108,7 @@ ifeq (y, $(PTXCONF_UTLNX_READPROFILE))
 	cd $(UTIL-LINUX_DIR)/sys-utils && $(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) make readprofile
 endif
 
-	# FIXME: implement other utilities
+# FIXME: implement other utilities
 
 	touch $@
 
@@ -132,7 +132,7 @@ util-linux_targetinstall_deps	=  $(STATEDIR)/util-linux.compile
 
 $(STATEDIR)/util-linux.targetinstall: $(util-linux_targetinstall_deps)
 	@$(call targetinfo, util-linux.targetinstall)
-	
+
 ifeq (y, $(PTXCONF_UTLNX_MKSWAP))
 	install $(UTIL-LINUX_DIR)/disk-utils/mkswap $(ROOTDIR)/sbin/
 	$(CROSSSTRIP) $(ROOTDIR)/sbin/mkswap
