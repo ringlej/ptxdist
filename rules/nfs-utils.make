@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: nfs-utils.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
+# $Id: nfs-utils.make,v 1.5 2003/07/23 14:55:40 mkl Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -44,7 +44,7 @@ $(NFSUTILS_SOURCE):
 
 nfsutils_extract: $(STATEDIR)/nfsutils.extract
 
-$(STATEDIR)/nfsutils.extract: $(STATEDIR)/nfsutils.get $(STATEDIR)/autoconf257.targetinstall
+$(STATEDIR)/nfsutils.extract: $(STATEDIR)/nfsutils.get $(STATEDIR)/autoconf257.install
 	@$(call targetinfo, nfsutils.extract)
 	@$(call clean, $(NFSUTILS_DIR))
 	@$(call extract, $(NFSUTILS_SOURCE))
