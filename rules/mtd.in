@@ -1,3 +1,5 @@
+# ----------
+
 menu	"MTD Tools           "
 
 config MTD_XCHAIN
@@ -11,32 +13,50 @@ config MTD_XCHAIN_MKJFFS2
 	bool "mkfs.jffs2"
 	depends on MTD_XCHAIN
 
-config MTD_XCHAIN_JFFS2DUMP
-	bool "jffs2dump"
+config MTD_XCHAIN_JFFS_DUMP
+	bool
+	prompt "jffs_dump"
 	depends on MTD_XCHAIN
+
+config MTD_XCHAIN_JFFS2_DUMP
+	bool
+	prompt "jffs2_dump"
+	depends on MTD_XCHAIN
+
+# ----------
 
 config MTD_UTILS
 	bool
 	prompt "Compile MTD Utilities (for target)"
 
-config MTD_EINFO
+config MTD_FLASH_ERASE
 	bool
-	prompt "einfo"
+	prompt "flash_erase"
 	depends on MTD_UTILS
 
-config MTD_ERASE
+config MTD_FLASH_ERASEALL
 	bool
-	prompt "erase"
+	prompt "flash_eraseall"
 	depends on MTD_UTILS
 
-config MTD_ERASEALL
+config MTD_FLASH_INFO
 	bool
-	prompt "eraseall"
+	prompt "flash_info"
 	depends on MTD_UTILS
 
-config MTD_FCP
+config MTD_FLASH_LOCK
 	bool
-	prompt "fcp"
+	prompt "flash_lock"
+	depends on MTD_UTILS
+
+config MTD_FLASH_UNLOCK
+	bool
+	prompt "flash_unlock"
+	depends on MTD_UTILS
+
+config MTD_FLASHCP
+	bool
+	prompt "flashcp"
 	depends on MTD_UTILS
 
 config MTD_FTL_CHECK
@@ -49,14 +69,25 @@ config MTD_FTL_FORMAT
 	prompt "ftl_format"
 	depends on MTD_UTILS
 
-config MTD_JFFS2READER
+config MTD_JFFS_DUMP
 	bool
-	prompt "jffs2reader"
+	prompt "jffs_dump"
 	depends on MTD_UTILS
 
-config MTD_LOCK
+config MTD_JFFS2_DUMP
 	bool
-	prompt "lock"
+	prompt "jffs2_dump"
+	depends on MTD_UTILS
+
+# currently broken as of 2004-06-21
+#config MTD_JFFS2READER
+#	bool
+#	prompt "jffs2reader"
+#	depends on MTD_UTILS
+
+config MTD_JITTERTEST
+	bool
+	prompt "jittertest"
 	depends on MTD_UTILS
 
 config MTD_MTDDEBUG
@@ -67,11 +98,6 @@ config MTD_MTDDEBUG
 config MTD_NANDDUMP
 	bool
 	prompt "nanddump"
-	depends on MTD_UTILS
-
-config MTD_NANDTEST
-	bool
-	prompt "nandtest"
 	depends on MTD_UTILS
 
 config MTD_NANDWRITE
@@ -87,11 +113,6 @@ config MTD_NFTL_FORMAT
 config MTD_NFTLDUMP
 	bool
 	prompt "nftldump"
-	depends on MTD_UTILS
-
-config MTD_UNLOCK
-	bool
-	prompt "unlock"
 	depends on MTD_UTILS
 
 config MTD_MKJFFS

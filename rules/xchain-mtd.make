@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-mtd.make,v 1.3 2004/04/22 13:36:13 robert Exp $
+# $Id: xchain-mtd.make,v 1.4 2004/06/22 17:10:41 rsc Exp $
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #          
@@ -49,12 +49,6 @@ $(STATEDIR)/xchain-mtd.extract: $(xchain-mtd_extract_deps)
 	@$(call clean, $(XCHAIN_MTD_DIR))
 	@$(call extract, $(XCHAIN_MTD_SOURCE), $(XCHAIN_BUILDDIR))
 	@$(call patchin, $(XCHAIN_MTD), $(XCHAIN_MTD_DIR))
-#
-# Makefile is currently fucked up... @#*$
-# FIXME: patch sent to maintainer, remove this for fixed version
-#
-	perl -i -p -e 's/\(CFLAGS\) -o/\(LDFLAGS\) -o/g' $(XCHAIN_MTD_DIR)/util/Makefile
-	perl -i -p -e 's/^CFLAGS \+\=/override CFLAGS +=/g' $(XCHAIN_MTD_DIR)/util/Makefile
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -72,7 +66,7 @@ xchain-mtd_prepare_deps = \
 
 XCHAIN_MTD_MAKEVARS = \
 	$(HOSTCC_ENV) \
-	CFLAGS=-I$(PTXCONF_PREFIX)/include \
+	CFLAGS="-I$(PTXCONF_PREFIX)/include -I$(XCHAIN_MTD_DIR)/include" \
 	LDFLAGS=-L$(PTXCONF_PREFIX)/lib
 
 $(STATEDIR)/xchain-mtd.prepare: $(xchain-mtd_prepare_deps)
@@ -89,7 +83,19 @@ xchain-mtd_compile_deps = $(STATEDIR)/xchain-mtd.prepare
 
 $(STATEDIR)/xchain-mtd.compile: $(xchain-mtd_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(XCHAIN_MTD_DIR)/util && make $(XCHAIN_MTD_MAKEVARS)
+ifdef PTXCONF_MTD_XCHAIN_MKJFFS
+	cd $(XCHAIN_MTD_DIR)/util && make mkfs.jffs $(XCHAIN_MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_XCHAIN_MKJFFS2
+	cd $(XCHAIN_MTD_DIR)/util && make mkfs.jffs2 $(XCHAIN_MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_XCHAIN_JFFS_DUMP
+	cd $(XCHAIN_MTD_DIR)/util && make jffs_dump $(XCHAIN_MTD_MAKEVARS)
+endif
+ifdef PTXCONF_MTD_XCHAIN_JFFS2_DUMP
+	cd $(XCHAIN_MTD_DIR)/util && make jffs2_dump $(XCHAIN_MTD_MAKEVARS)
+endif
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -108,8 +114,11 @@ endif
 ifdef PTXCONF_MTD_XCHAIN_MKJFFS2
 	install $(XCHAIN_MTD_DIR)/util/mkfs.jffs2 $(PTXCONF_PREFIX)/bin
 endif
-ifdef PTXCONF_MTD_XCHAIN_JFFS2DUMP
-	install $(XCHAIN_MTD_DIR)/util/jffs2dump $(PTXCONF_PREFIX)/bin
+ifdef PTXCONF_MTD_XCHAIN_JFFS_DUMP
+	install $(XCHAIN_MTD_DIR)/util/jffs_dump $(PTXCONF_PREFIX)/bin
+endif
+ifdef PTXCONF_MTD_XCHAIN_JFFS2_DUMP
+	install $(XCHAIN_MTD_DIR)/util/jffs2_dump $(PTXCONF_PREFIX)/bin
 endif
 	touch $@
 
