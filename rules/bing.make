@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bing.make,v 1.2 2004/03/31 16:27:52 mkl Exp $
+# $Id: bing.make,v 1.3 2004/06/22 06:52:13 rsc Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel
 #          
@@ -69,7 +69,8 @@ bing_prepare: $(STATEDIR)/bing.prepare
 #
 bing_prepare_deps = \
 	$(STATEDIR)/bing.extract \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/virtual-libc.targetinstall
 
 BING_PATH	=  PATH=$(CROSS_PATH)
 BING_ENV 	=  $(CROSS_ENV)
