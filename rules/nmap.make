@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: nmap.make,v 1.4 2003/10/26 23:10:54 mkl Exp $
+# $Id: nmap.make,v 1.5 2003/10/28 02:20:33 mkl Exp $
 #
 # Copyright (C) 2003 Ixia Corporation (www.ixiacom.com), by Milan Bobde
 #
@@ -142,6 +142,7 @@ endif
 $(STATEDIR)/nmap.targetinstall: $(nmap_targetinstall_deps)
 	@$(call targetinfo, $@)
 	install -D $(NMAP_DIR)/nmap $(ROOTDIR)/usr/bin/nmap
+	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/nmap
 
 ifdef PTXCONF_NMAP_SERVICES
 	mkdir -p $(ROOTDIR)/usr/share/nmap
