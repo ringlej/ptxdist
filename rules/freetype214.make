@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: freetype214.make,v 1.4 2004/02/23 16:15:18 bsp Exp $
+# $Id: freetype214.make,v 1.5 2004/02/25 09:46:19 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -70,7 +70,7 @@ freetype214_prepare_deps =  \
 	$(STATEDIR)/freetype214.extract \
 	$(STATEDIR)/glib22.install \
 	$(STATEDIR)/expat.install \
-#	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install
 
 FREETYPE214_PATH	=  PATH=$(CROSS_PATH)
 FREETYPE214_ENV 	=  $(CROSS_ENV)
@@ -102,7 +102,7 @@ freetype214_compile_deps =  $(STATEDIR)/freetype214.prepare
 
 $(STATEDIR)/freetype214.compile: $(freetype214_compile_deps)
 	@$(call targetinfo, $@)
-	$(FREETYPE214_PATH) make -C $(FREETYPE214_DIR)
+	cd $(FREETYPE214_DIR) $(FREETYPE214_PATH) make
 	chmod a+x $(FREETYPE214_DIR)/builds/unix/freetype-config
 	touch $@
 
@@ -114,7 +114,7 @@ freetype214_install: $(STATEDIR)/freetype214.install
 
 $(STATEDIR)/freetype214.install: $(STATEDIR)/freetype214.compile
 	@$(call targetinfo, $@)
-	$(FREETYPE214_PATH) make -C $(FREETYPE214_DIR) install
+	cd $(FREETYPE214_DIR) && $(FREETYPE214_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -124,6 +124,8 @@ $(STATEDIR)/freetype214.install: $(STATEDIR)/freetype214.compile
 freetype214_targetinstall: $(STATEDIR)/freetype214.targetinstall
 
 freetype214_targetinstall_deps	=  $(STATEDIR)/freetype214.compile
+freetype214_targetinstall_deps	+= $(STATEDIR)/glib22.targetinstall
+freetype214_targetinstall_deps	+= $(STATEDIR)/expat.targetinstall
 
 $(STATEDIR)/freetype214.targetinstall: $(freetype214_targetinstall_deps)
 	@$(call targetinfo, $@)
