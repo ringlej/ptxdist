@@ -1716,6 +1716,7 @@ endmenu
 menu "Graphics Libraries  "
 
 source rules/glib22.in
+source rules/xfree430.in
 
 endmenu
 

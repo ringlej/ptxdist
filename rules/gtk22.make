@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: gtk22.make,v 1.1 2003/08/13 12:04:17 robert Exp $
+# $Id: gtk22.make,v 1.2 2003/08/17 00:32:04 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -68,10 +68,17 @@ gtk22_prepare: $(STATEDIR)/gtk22.prepare
 #
 gtk22_prepare_deps =  \
 	$(STATEDIR)/gtk22.extract \
+	$(STATEDIR)/atk124.install \
+#	$(STATEDIR)/fontconfig22.install \
 #	$(STATEDIR)/virtual-xchain.install
 
 GTK22_PATH	=  PATH=$(CROSS_PATH)
 GTK22_ENV 	=  $(CROSS_ENV)
+GTK22_ENV	+= PKG_CONFIG_PATH=../$(GLIB22):../$(PANGO12):../$(ATK124):../$(GTK22):../$(FREETYPE214):../$(FONTCONFIG22)
+#GTK22_ENV	+= CFLAGS=-I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+
+# FIXME: gtk+ doesn't use pkg-config yet, so we have to do this. 
+GTK22_ENV	+= ac_cv_path_FREETYPE_CONFIG=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin/freetype-config
 
 #
 # autoconf
@@ -79,6 +86,11 @@ GTK22_ENV 	=  $(CROSS_ENV)
 GTK22_AUTOCONF	=  --prefix=/usr
 GTK22_AUTOCONF	+= --build=$(GNU_HOST)
 GTK22_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
+GTK22_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+
+# FIXME
+GTK22_AUTOCONF	+= --without-libtiff
+GTK22_AUTOCONF	+= --without-libjpeg
 
 ifdef PTXCONF_GTK22_FOO
 GTK22_AUTOCONF	+= --enable-foo
@@ -89,7 +101,7 @@ $(STATEDIR)/gtk22.prepare: $(gtk22_prepare_deps)
 	@$(call clean, $(GTK22_BUILDDIR))
 	cd $(GTK22_DIR) && \
 		$(GTK22_PATH) $(GTK22_ENV) \
-		$(GTK22_DIR)/configure $(GTK22_AUTOCONF)
+		./configure $(GTK22_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -102,7 +114,7 @@ gtk22_compile_deps =  $(STATEDIR)/gtk22.prepare
 
 $(STATEDIR)/gtk22.compile: $(gtk22_compile_deps)
 	@$(call targetinfo, gtk22.compile)
-	$(GTK22_PATH) make -C $(GTK22_DIR) gtk22
+	$(GTK22_PATH) $(GTK22_ENV) make -C $(GTK22_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------

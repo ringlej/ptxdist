@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glib22.make,v 1.3 2003/08/15 00:33:35 robert Exp $
+# $Id: glib22.make,v 1.4 2003/08/17 00:32:04 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -72,8 +72,7 @@ glib22_prepare_deps =  \
 
 GLIB22_PATH	=  PATH=$(CROSS_PATH)
 GLIB22_ENV 	=  $(CROSS_ENV)
-GLIB22_ENV	+= PKG_CONFIG_PATH=$(GLIB22_DIR):$(PANGO12_DIR):$(ATK124_DIR):$(GTK22_DIR)
-GLIB22_ENV	+= PKG_CONFIG_TOP_BUILD_DIR=$(PTXCONF_PREFIX)
+GLIB22_ENV	+= PKG_CONFIG_PATH=../$(GLIB22):../$(ATK124):../$(PANGO12):../$(GTK22)
 
 GLIB22_ENV	+= glib_cv_use_pid_surrogate=no
 GLIB22_ENV	+= ac_cv_func_posix_getpwuid_r=yes 
@@ -98,7 +97,7 @@ $(STATEDIR)/glib22.prepare: $(glib22_prepare_deps)
 	@$(call clean, $(GLIB22_BUILDDIR))
 	cd $(GLIB22_DIR) && \
 		$(GLIB22_PATH) $(GLIB22_ENV) \
-		$(GLIB22_DIR)/configure $(GLIB22_AUTOCONF)
+		./configure $(GLIB22_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -111,7 +110,7 @@ glib22_compile_deps =  $(STATEDIR)/glib22.prepare
 
 $(STATEDIR)/glib22.compile: $(glib22_compile_deps)
 	@$(call targetinfo, glib22.compile)
-	$(GLIB22_PATH) make -C $(GLIB22_DIR)
+	$(GLIB22_PATH) $(GLIB22_ENV) make -C $(GLIB22_DIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -122,13 +121,19 @@ glib22_install: $(STATEDIR)/glib22.install
 
 $(STATEDIR)/glib22.install: $(STATEDIR)/glib22.compile
 	@$(call targetinfo, glib22.install)
-	install -d $(PTXCONF_PREFIX)
-	rm -f $(PTXCONF_PREFIX)/lib/libglib-2.0.so*
-	install $(ATK124_DIR)/atk/.libs/libglib-2.0.so.0.200.2 $(PTXCONF_PREFIX)/lib/
-	ln -s libglib-2.0.so.0.200.2 $(PTXCONF_PREFIX)/lib/libglib-2.0.so.0
-	ln -s libglib-2.0.so.0.200.2 $(PTXCONF_PREFIX)/lib/libglib-2.0.so
-	rm -f $(PTXCONF_PREFIX)/include/gtk*.h
-	install $(ATK124_DIR)/atk/gtk*.h $(PTXCONF_PREFIX)/include
+	
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libglib-2.0.so*
+	install $(GLIB22_DIR)/glib/.libs/libglib-2.0.so.0.200.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/
+	ln -s libglib-2.0.so.0.200.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libglib-2.0.so.0
+	ln -s libglib-2.0.so.0.200.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libglib-2.0.so
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/glib
+	cp -a $(GLIB22_DIR)/glib/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/glib/
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/gobject
+	cp -a $(GLIB22_DIR)/gobject/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/gobject/
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/gmodule
+	cp -a $(GLIB22_DIR)/gmodule/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -141,6 +146,11 @@ glib22_targetinstall_deps	=  $(STATEDIR)/glib22.compile
 
 $(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps)
 	@$(call targetinfo, glib22.targetinstall)
+	install -d $(ROOTDIR)
+	rm -f $(ROOTDIR)/lib/libglib-2.0.so*
+	install $(GLIB22_DIR)/glib/.libs/libglib-2.0.so.0.200.2 $(ROOTDIR)/lib/
+	ln -s libglib-2.0.so.0.200.2 $(ROOTDIR)/lib/libglib-2.0.so.0
+	ln -s libglib-2.0.so.0.200.2 $(ROOTDIR)/lib/libglib-2.0.so
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -150,5 +160,9 @@ $(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps)
 glib22_clean:
 	rm -rf $(STATEDIR)/glib22.*
 	rm -rf $(GLIB22_DIR)
+	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/glib-2.0*.pc
+	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/gmodule-2.0*.pc
+	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/gobject-2.0*.pc
+	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/gthread-2.0*.pc
 
 # vim: syntax=make

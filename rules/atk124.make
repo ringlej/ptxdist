@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: atk124.make,v 1.1 2003/08/13 12:04:17 robert Exp $
+# $Id: atk124.make,v 1.2 2003/08/17 00:32:04 robert Exp $
 #
 # (c) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #             Pengutronix <info@pengutronix.de>, Germany
@@ -68,10 +68,12 @@ atk124_prepare: $(STATEDIR)/atk124.prepare
 #
 atk124_prepare_deps =  \
 	$(STATEDIR)/atk124.extract \
+	$(STATEDIR)/pango12.install \
 #	$(STATEDIR)/virtual-xchain.install
 
 ATK124_PATH	=  PATH=$(CROSS_PATH)
 ATK124_ENV 	=  $(CROSS_ENV)
+ATK124_ENV	+= PKG_CONFIG_PATH=../$(GLIB22):../$(ATK124):../$(PANGO12):../$(GTK22)
 
 #
 # autoconf
@@ -89,7 +91,7 @@ $(STATEDIR)/atk124.prepare: $(atk124_prepare_deps)
 	@$(call clean, $(ATK124_BUILDDIR))
 	cd $(ATK124_DIR) && \
 		$(ATK124_PATH) $(ATK124_ENV) \
-		$(ATK124_DIR)/configure $(ATK124_AUTOCONF)
+		./configure $(ATK124_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -103,6 +105,10 @@ atk124_compile_deps =  $(STATEDIR)/atk124.prepare
 $(STATEDIR)/atk124.compile: $(atk124_compile_deps)
 	@$(call targetinfo, atk124.compile)
 	$(ATK124_PATH) make -C $(ATK124_DIR) 
+	
+	# FIXME: this is somehow not done by the packet; file bug report
+	ln -sf libatk-1.0.la $(ATK124_DIR)/atk/libatk.la
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -113,13 +119,16 @@ atk124_install: $(STATEDIR)/atk124.install
 
 $(STATEDIR)/atk124.install: $(STATEDIR)/atk124.compile
 	@$(call targetinfo, atk124.install)
+	
 	install -d $(PTXCONF_PREFIX)
 	rm -f $(PTXCONF_PREFIX)/lib/libatk-1.0.so*
 	install $(ATK124_DIR)/atk/.libs/libatk-1.0.so.0.200.4 $(PTXCONF_PREFIX)/lib/
 	ln -s libatk-1.0.so.0.200.4 $(PTXCONF_PREFIX)/lib/libatk-1.0.so.0
 	ln -s libatk-1.0.so.0.200.4 $(PTXCONF_PREFIX)/lib/libatk-1.0.so
+	
 	rm -f $(PTXCONF_PREFIX)/include/atk*.h
 	install $(ATK124_DIR)/atk/atk*.h $(PTXCONF_PREFIX)/include
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -132,11 +141,13 @@ atk124_targetinstall_deps	=  $(STATEDIR)/atk124.compile
 
 $(STATEDIR)/atk124.targetinstall: $(atk124_targetinstall_deps)
 	@$(call targetinfo, atk124.targetinstall)
+	
 	install -d $(ROOTDIR)
 	rm -f $(ROOTDIR)/lib/libatk-1.0.so*
 	install $(ATK124_DIR)/atk/.libs/libatk-1.0.so.0.200.4 $(ROOTDIR)/lib/
 	ln -s libatk-1.0.so.0.200.4 $(ROOTDIR)/lib/libatk-1.0.so.0
 	ln -s libatk-1.0.so.0.200.4 $(ROOTDIR)/lib/libatk-1.0.so
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -146,5 +157,6 @@ $(STATEDIR)/atk124.targetinstall: $(atk124_targetinstall_deps)
 atk124_clean:
 	rm -rf $(STATEDIR)/atk124.*
 	rm -rf $(ATK124_DIR)
+	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/atk*.pc
 
 # vim: syntax=make

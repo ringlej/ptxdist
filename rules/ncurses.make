@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: ncurses.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
+# $Id: ncurses.make,v 1.5 2003/08/17 00:32:04 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -93,6 +93,22 @@ ncurses_install: $(STATEDIR)/ncurses.install
 
 $(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
 	@$(call targetinfo, ncurses.install)
+	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	install $(NCURSES_DIR)/lib/libncurses.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	ln -sf libncurses.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so.5
+	ln -sf libncurses.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so
+	install $(NCURSES_DIR)/lib/libform.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	ln -sf libform.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libform.so.5
+	ln -sf libform.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libform.so
+	install $(NCURSES_DIR)/lib/libmenu.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	ln -sf libmenu.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libmenu.so.5
+	ln -sf libmenu.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libmenu.so
+	install $(NCURSES_DIR)/lib/libpanel.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	ln -sf libpanel.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpanel.so.5
+	ln -sf libpanel.so.5.2 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libpanel.so
+	install $(NCURSES_DIR)/include/curses.h $(PTXCONF_PREFIX)/include/
+	ln -sf curses.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/ncurses.h
+	install $(NCURSES_DIR)/include/*.h $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -103,6 +119,20 @@ ncurses_targetinstall: $(STATEDIR)/ncurses.targetinstall
 
 $(STATEDIR)/ncurses.targetinstall: $(STATEDIR)/ncurses.install
 	@$(call targetinfo, ncurses.targetinstall)
+	# FIXME: make configurable which libraries are installed!
+	install -d $(ROOTDIR)/lib
+	install $(NCURSES_DIR)/lib/libncurses.so.5.2 $(ROOTDIR)/lib
+	ln -sf libncurses.so.5.2 $(ROOTDIR)/lib/libncurses.so.5
+	ln -sf libncurses.so.5.2 $(ROOTDIR)/lib/libncurses.so
+	install $(NCURSES_DIR)/lib/libform.so.5.2 $(ROOTDIR)/lib
+	ln -sf libform.so.5.2 $(ROOTDIR)/lib/libform.so.5
+	ln -sf libform.so.5.2 $(ROOTDIR)/lib/libform.so
+	install $(NCURSES_DIR)/lib/libmenu.so.5.2 $(ROOTDIR)/lib
+	ln -sf libmenu.so.5.2 $(ROOTDIR)/lib/libmenu.so.5
+	ln -sf libmenu.so.5.2 $(ROOTDIR)/lib/libmenu.so
+	install $(NCURSES_DIR)/lib/libpanel.so.5.2 $(ROOTDIR)/lib
+	ln -sf libpanel.so.5.2 $(ROOTDIR)/lib/libpanel.so.5
+	ln -sf libpanel.so.5.2 $(ROOTDIR)/lib/libpanel.so
 	touch $@
 
 # ----------------------------------------------------------------------------

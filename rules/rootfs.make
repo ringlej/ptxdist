@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rootfs.make,v 1.4 2003/07/16 04:23:28 mkl Exp $
+# $Id: rootfs.make,v 1.5 2003/08/17 00:32:04 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -117,6 +117,7 @@ $(STATEDIR)/rootfs.targetinstall: $(STATEDIR)/rootfs.install
         endif
         ifeq (y, $(PTXCONF_ROOTFS_VAR))
 	mkdir -p $(ROOTDIR)/var
+	mkdir -p $(ROOTDIR)/var/log
         endif
         ifeq (y, $(PTXCONF_ROOTFS_VAR_LOG_DATALINK))
 	mkdir -p $(ROOTDIR)/var

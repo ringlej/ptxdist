@@ -4,6 +4,12 @@ Current TODO List
 High Priority
 -------------
 
+- RSC: you currently need libXcursor.so.* and xcursorgen on the
+       development host
+- RSC: you currently need gdk-pixbuf-csourde on the host       
+- RSC: pango has a patch which has to be verified (GLIB_CFLAGS)
+- RSC: audit all configure calls to be relative; configure scripts
+       seem to have major problems when being called with absulute path
 - RSC: test flash
 - RSC: finish integration of iwconfig, zebra
 - RSC: glibc does somehow not install _G_config.h when libio is not
