@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.1-cvs
-# Thu Jan 20 10:35:46 2005
+# Thu Jan 20 20:05:26 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -1210,6 +1210,11 @@ PTXCONF_GRUB_PRESET_MENU=""
 # zlib             
 #
 PTXCONF_ZLIB=y
+
+#
+# Middleware                  
+#
+# PTXCONF_OMNIORB is not set
 
 #
 # Graphics Libraries          

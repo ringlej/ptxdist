@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.1-cvs
-# Thu Jan 20 10:35:19 2005
+# Thu Jan 20 20:03:27 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -1149,6 +1149,11 @@ PTXCONF_TERMCAP=y
 # zlib             
 #
 # PTXCONF_ZLIB is not set
+
+#
+# Middleware                  
+#
+# PTXCONF_OMNIORB is not set
 
 #
 # Graphics Libraries          
