@@ -31,7 +31,7 @@ choice
 	config KERNEL_2_4_21
 		bool
 		prompt "2.4.21"
-		depends on !ARM_ARCH_BE && !ARM_ARCH_PXA
+		depends on !ARM_ARCH_PXA
 
 	config KERNEL_2_4_22
 		bool
@@ -120,6 +120,13 @@ choice
 	config KERNEL_2_4_19_rmk7_ds1
 		bool "2.4.19-rmk7-ds1"
 		depends on KERNEL_2_4_19
+		depends on KERNEL_RMK_DS
+
+#--------------- 2.4.21-rmk1
+
+	config KERNEL_2_4_21_rmk1_ds1
+		bool "2.4.21-rmk1-ds1"
+		depends on KERNEL_2_4_21
 		depends on KERNEL_RMK_DS
 
 #---------------------------------------------------------------------
