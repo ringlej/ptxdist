@@ -2,6 +2,8 @@
 
 	* arm0815: added generic arm project (Benedikt Spranger)
 	* bash: update to 3.0 (Benedikt Spranger)
+	* glibc: support for NPTL and TLS (Benedikt Spranger)
+	* procps: added support for more tools (Benedikt Spranger)
 
 2005-01-11 Robert Schwebel <r.schwebel@pengutronix.de>
 
