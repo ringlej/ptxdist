@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: thttpd.make,v 1.1 2003/12/09 12:17:30 bsp Exp $
+# $Id: thttpd.make,v 1.2 2004/02/12 09:44:52 bsp Exp $
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #          
@@ -21,10 +21,10 @@ endif
 #
 THTTPD_VERSION	= 2.24
 THTTPD		= thttpd-$(THTTPD_VERSION)
-THTTPD_SUFFIX		= tar.gz
-THTTPD_URL		= http://www.acme.com/software/thttpd/$(THTTPD).$(THTTPD_SUFFIX)
-THTTPD_SOURCE		= $(SRCDIR)/$(THTTPD).$(THTTPD_SUFFIX)
-THTTPD_DIR		= $(BUILDDIR)/$(THTTPD)
+THTTPD_SUFFIX	= tar.gz
+THTTPD_URL	= http://www.acme.com/software/thttpd/$(THTTPD).$(THTTPD_SUFFIX)
+THTTPD_SOURCE	= $(SRCDIR)/$(THTTPD).$(THTTPD_SUFFIX)
+THTTPD_DIR	= $(BUILDDIR)/$(THTTPD)
 
 # ----------------------------------------------------------------------------
 # Get
