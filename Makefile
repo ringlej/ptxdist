@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.70 2004/01/20 17:29:41 bsp Exp $
+# $Id: Makefile,v 1.71 2004/01/22 00:45:52 robert Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -201,9 +201,9 @@ i386-generic-glibc_config:
 #	@echo "copying i386-generic-uclibc configuration"
 #	@cp config/i386-generic-uclibc.ptxconfig .config
 
-#innokom_config:
-#	@echo "copying innokom configuration"
-#	@cp config/innokom.ptxconfig .config
+innokom_config:
+	@echo "copying innokom configuration"
+	@cp config/innokom.ptxconfig .config
 
 i586-rayonic_config:
 	@echo "copying 586 rayonic configuration"
