@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-glibc.make,v 1.17 2003/10/23 15:06:00 mkl Exp $
+# $Id: xchain-glibc.make,v 1.18 2003/11/13 19:30:42 mkl Exp $
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
@@ -13,9 +13,9 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GLIBC
-XCHAIN += xchain-glibc
-endif
+# ifdef PTXCONF_GLIBC
+# XCHAIN += xchain-glibc
+# endif
 
 XCHAIN_GLIBC_BUILDDIR	= $(BUILDDIR)/xchain-$(GLIBC)-build
 
