@@ -59,7 +59,7 @@ PTXCONF_TARGET_CONFIG_FILE="ix86.dat"
 PTXCONF_ARCH="i386"
 PTXCONF_ARCH_USERSPACE="i386"
 PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
-PTXCONF_PREFIX="/tmp/ptxdist-local"
+PTXCONF_PREFIX="/tmp/ptxdist-rayonic-bbu"
 PTXCONF_ROOT=""
 
 #
@@ -116,7 +116,7 @@ PTXCONF_KSYMOOPS=y
 #
 # Kernel              
 #
-PTXCONF_KERNEL_CONFIG="kernel-2.4.18-rayonic-20030424-0"
+PTXCONF_KERNEL_CONFIG="kernel-2.4.18-rayonic-i586"
 PTXCONF_KERNEL_2_4_18=y
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
@@ -130,7 +130,7 @@ PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
 # PTXCONF_KERNEL_IMAGE_U is not set
 # PTXCONF_KERNEL_IMAGE_VMLINUX is not set
-# PTXCONF_KERNEL_INSTALL is not set
+PTXCONF_KERNEL_INSTALL=y
 
 #
 # 
@@ -152,59 +152,6 @@ PTXCONF_KERNEL_PATCH2_NAME=""
 #
 # RTAI/epoll should be ported to patchstack mechanism, please send patch! :-)
 #
-
-#
-# RTAI                
-#
-PTXCONF_RTAI=y
-PTXCONF_RTAI_CONFIG="rtaiconfig-rayonic-20030215-1"
-PTXCONF_RTAI_24_1_9=y
-# PTXCONF_RTAI_24_1_10 is not set
-# PTXCONF_RTAI_24_1_11 is not set
-# PTXCONF_RTAI_24_1_12 is not set
-PTXCONF_RTAI_24_1_9_2_4_18_rthal5g=y
-# PTXCONF_RTAI_24_1_10_2_4_18_rthal5g is not set
-# PTXCONF_RTAI_24_1_10_2_4_18_allsoft is not set
-# PTXCONF_RTAI_24_1_10_2_4_19_rthal5g is not set
-# PTXCONF_RTAI_24_1_10_2_4_19_allsoft is not set
-# PTXCONF_RTAI_24_1_11_2_4_18_rthal5g is not set
-# PTXCONF_RTAI_24_1_11_2_4_18_allsoft is not set
-# PTXCONF_RTAI_24_1_11_2_4_19_rthal5g is not set
-# PTXCONF_RTAI_24_1_11_2_4_19_adeos-r6 is not set
-# PTXCONF_RTAI_24_1_11_2_4_19_allsoft is not set
-# PTXCONF_RTAI_24_1_11_2_4_20_rthal5g is not set
-# PTXCONF_RTAI_24_1_11_2_4_20_adeos-r6 is not set
-# PTXCONF_RTAI_24_1_12_2_4_18_rthal5g is not set
-# PTXCONF_RTAI_24_1_12_2_4_18_allsoft is not set
-# PTXCONF_RTAI_24_1_12_2_4_19_rthal5g is not set
-# PTXCONF_RTAI_24_1_12_2_4_19_adeos-r8 is not set
-# PTXCONF_RTAI_24_1_12_2_4_19_allsoft is not set
-# PTXCONF_RTAI_24_1_12_2_4_20_rthal5g is not set
-# PTXCONF_RTAI_24_1_12_2_4_20_adeos-r8 is not set
-# PTXCONF_RTAI_24_1_12_2_4_21_rthal5g is not set
-# PTXCONF_RTAI_24_1_12_2_4_21_adeos-r8 is not set
-# PTXCONF_RTAI_24_1_12_2_4_22_rthal5g is not set
-# PTXCONF_RTAI_24_1_12_2_4_22_adeos-r8 is not set
-# PTXCONF_RTAI_CVS_stable_2_4_18_rthal5g is not set
-# PTXCONF_RTAI_CVS_stable_2_4_18_allsoft is not set
-# PTXCONF_RTAI_CVS_stable_2_4_19_rthal5g is not set
-# PTXCONF_RTAI_CVS_stable_2_4_19_adeos-r8 is not set
-# PTXCONF_RTAI_CVS_stable_2_4_19_allsoft is not set
-# PTXCONF_RTAI_CVS_stable_2_4_20_rthal5g is not set
-# PTXCONF_RTAI_CVS_stable_2_4_20_adeos-r8 is not set
-# PTXCONF_RTAI_CVS_stable_2_4_21_adeos-r8 is not set
-# PTXCONF_RTAI_CVS_testing_2_4_18_rthal5g is not set
-# PTXCONF_RTAI_CVS_testing_2_4_18_allsoft is not set
-# PTXCONF_RTAI_CVS_testing_2_4_19_rthal5g is not set
-# PTXCONF_RTAI_CVS_testing_2_4_19_adeos-r8 is not set
-# PTXCONF_RTAI_CVS_testing_2_4_19_allsoft is not set
-# PTXCONF_RTAI_CVS_testing_2_4_20_rthal5g is not set
-# PTXCONF_RTAI_CVS_testing_2_4_20_adeos-r8 is not set
-# PTXCONF_RTAI_CVS_testing_2_4_21_rthal5g is not set
-# PTXCONF_RTAI_CVS_testing_2_4_21_adeos-r8 is not set
-# PTXCONF_RTAI_CVS_testing_2_4_22_rthal5g is not set
-# PTXCONF_RTAI_CVS_testing_2_4_21_adeos-r9c2 is not set
-# PTXCONF_RTNET is not set
 
 #
 # C Library           
