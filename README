@@ -8,7 +8,7 @@ Intro
 For the impatient: try out to compile your own Linux system for generic
 i386 machines with 
 
-	make i386-generic-glibc
+	make i386-generic-glibc_config
 	make world
 	chroot root/ /bin/sh
 
@@ -66,12 +66,16 @@ Bugs
 - kernel: configuration is not yet included (kconfig vs. cml1 problem). 
   As long as we don't have a solution the kernel configuration is
   actually taken from the path configured in .config.  
+  
 - busybox: patch compiler config variable in configuration
+
 - check if all tools use the correct compilers 
+
 - search for FIXMEs
+
 - before starting you should look at the .config file and fix PTXCONF_PREFIX 
   to point to a directory where you want the local stuff to be builded (like 
   cross compilers etc).
-
+  
 Robert Schwebel <r.schwebel@pengutronix.de>
 
