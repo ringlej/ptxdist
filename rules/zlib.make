@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: zlib.make,v 1.11 2004/01/22 00:49:59 robert Exp $
+# $Id: zlib.make,v 1.12 2004/05/04 10:57:24 mkl Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -19,7 +19,7 @@ endif
 # Paths and names 
 #
 ZLIB			= zlib-1.1.4
-ZLIB_URL 		= ftp://ftp.info-zip.org/pub/infozip/zlib/$(ZLIB).tar.gz
+ZLIB_URL 		= http://www.gzip.org/zlib/$(ZLIB).tar.gz
 ZLIB_SOURCE		= $(SRCDIR)/$(ZLIB).tar.gz
 ZLIB_DIR		= $(BUILDDIR)/$(ZLIB)
 
