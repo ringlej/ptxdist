@@ -6,19 +6,24 @@ config OPENSSH
 
 config OPENSSH_SSH
 	bool "Install ssh (client)"
+	depends on OPENSSH
 
 config OPENSSH_SSHD
 	bool "Install sshd (server)"
 	default y
+	depends on OPENSSH
 
 config OPENSSH_SCP
 	bool "Install scp"
+	depends on OPENSSH
 
 config OPENSSH_SFTP_SERVER
 	bool "Install sftp-server"
+	depends on OPENSSH
 
 config OPENSSH_KEYGEN
 	bool "Install ssh-keygen"
 	default y
+	depends on OPENSSH
 
 endmenu
