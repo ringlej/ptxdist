@@ -35,6 +35,7 @@ PTXCONF_ARCH_ALPHA=y
 # PTXCONF_OPT_I686 is not set
 # PTXCONF_OPT_PPC is not set
 # PTXCONF_OPT_PPC405 is not set
+# PTXCONF_OPT_PPC604 is not set
 # PTXCONF_OPT_PPC750 is not set
 # PTXCONF_OPT_PPC7450 is not set
 # PTXCONF_OPT_SPARC is not set
@@ -197,9 +198,9 @@ PTXCONF_GLIBC_2_3_3=y
 # PTXCONF_GLIBC_2_2_3 is not set
 
 #
-# C++ Library         
+# GCC Libraries       
 #
-# PTXCONF_CXX is not set
+# PTXCONF_GCCLIBS is not set
 
 #
 # Shell & Console Tools       
