@@ -1,4 +1,5 @@
-# $Id: bootdisk.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# -*-makefile-*- 
+# $Id: bootdisk.make,v 1.2 2003/05/13 11:47:55 robert Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -112,8 +113,8 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	mkdir -p $(BOOTDISK_DIR)/boot/grub
 	mkdir -p $(BOOTDISK_DIR)/bin
 	mkdir -p $(BOOTDISK_DIR)/lib
-	# FIXME: make this architecture independend
-	install $(KERNEL_DIR)/arch/i386/boot/bzImage $(BOOTDISK_DIR)/boot/
+
+	install $(KERNEL_TARGET_PATH) $(BOOTDISK_DIR)/boot/
 	install $(GRUB_DIR)/stage1/stage1 $(BOOTDISK_DIR)/boot/grub/
 	install $(GRUB_DIR)/stage2/stage2 $(BOOTDISK_DIR)/boot/grub/
 	install $(GRUB_DIR)/grub/grub $(BOOTDISK_DIR)/bin/
@@ -122,6 +123,7 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	install $(SRCDIR)/grub-menu-flash-ptx1.lst $(BOOTDISK_DIR)/boot/grub/menu-flash.lst
 	install $(SRCDIR)/grub-menu-disk-ptx1.lst  $(BOOTDISK_DIR)/boot/grub/menu-disk.lst
 	ln -sf menu-disk.lst $(BOOTDISK_DIR)/boot/grub/menu.lst
+	ln -sf menu.lst $(BOOTDISK_DIR)/boot/grub/grub.conf
 	install $(E2FSPROGS_DIR)/misc/mke2fs $(BOOTDISK_DIR)/bin/
 	install $(NCURSES_DIR)/lib/libncurses.so.5.2 $(BOOTDISK_DIR)/lib/
 	strip $(BOOTDISK_DIR)/lib/libncurses.so.5.2
