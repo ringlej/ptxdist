@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bmwm.make,v 1.8 2004/04/06 10:12:48 robert Exp $
+# $Id: bmwm.make,v 1.9 2004/06/10 11:18:43 rsc Exp $
 
 VENDORTWEAKS = bmwm
 
@@ -70,5 +70,9 @@ $(STATEDIR)/bmwm.targetinstall:
 		$(VENDORTWEAKS_BMWM_IDRIVE_DIR)/idrive -f userMake
 	install -d $(ROOTDIR)/usr/local/bin
 	cp $(VENDORTWEAKS_BMWM_IDRIVE_DIR)/idrive/userIDrive $(ROOTDIR)/usr/local/bin/
+
+	# FIXME: link Xchips to X; this is somehow not done automatically
+	rm -f $(ROOTDIR)/usr/X11R6/bin/X
+	ln -s Xchips $(ROOTDIR)/usr/X11R6/bin/X
 
 
