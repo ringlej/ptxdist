@@ -267,6 +267,7 @@ oldconfig: scripts/kconfig/conf
 		cp $$CFG $(TOPDIR)/.config; 					\
 	else 									\
 		echo "could not find config file \"$@\""; 			\
+		exit 1;								\
 	fi; 									\
 	echo
 
