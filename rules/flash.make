@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: flash.make,v 1.3 2003/10/23 15:01:19 mkl Exp $
+# $Id: flash.make,v 1.4 2003/12/23 10:51:35 robert Exp $
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -89,7 +89,7 @@ FLASH_ENV	= $(CROSS_ENV)
 FLASH_AUTOCONF	=  --prefix=/usr
 FLASH_AUTOCONF	+= --build=$(GNU_HOST)
 FLASH_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
-FLASH_AUTOCONF	+= --with-ncurses-path=$(BUILDDIR)/ncurses-5.2
+FLASH_AUTOCONF	+= --with-ncurses-path=$(NCURSES_DIR)
 
 $(STATEDIR)/flash.prepare: $(flash_prepare_deps)
 	@$(call targetinfo, $@)
