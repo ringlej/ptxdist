@@ -1,4 +1,4 @@
-menu "Blackbox WM         "
+menu "Blackbox WM           "
 
 config BLACKBOX
         bool
