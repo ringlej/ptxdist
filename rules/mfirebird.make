@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: mfirebird.make,v 1.13 2004/02/23 16:15:18 bsp Exp $
+# $Id: mfirebird.make,v 1.14 2004/02/24 09:11:08 robert Exp $
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -123,16 +123,19 @@ MFIREBIRD_AUTOCONF	+= --disable-freetypetest
 MFIREBIRD_AUTOCONF	+= --disable-xprint
 MFIREBIRD_AUTOCONF	+= --enable-crypto
 MFIREBIRD_AUTOCONF	+= --enable-accessability
-#MFIREBIRD_AUTOCONF	+= --enable-xfpe-components
+MFIREBIRD_AUTOCONF	+= --enable-xfpe-components
 ##MFIREBIRD_AUTOCONF	+= --enable-single-profile
 MFIREBIRD_AUTOCONF	+= --disable-composer
-MFIREBIRD_AUTOCONF	+= --disable-mathml
+MFIREBIRD_AUTOCONF	+= --enable-mathml
 MFIREBIRD_AUTOCONF	+= --disable-svg
 #MFIREBIRD_AUTOCONF	+= --disable-installer
 MFIREBIRD_AUTOCONF	+= --disable-activex
 MFIREBIRD_AUTOCONF	+= --enable-extensions
 MFIREBIRD_AUTOCONF	+= --without-system-nspr
-MFIREBIRD_AUTOCONF	+= --disable-necko-disk-cache
+MFIREBIRD_AUTOCONF	+= --enable-necko-disk-cache
+MFIREBIRD_AUTOCONF`	+= --enable-xft
+
+
 
 # g++ currently seems to have a bug with -pedantic (at least the
 # configure script claims so)
@@ -455,12 +458,22 @@ $(STATEDIR)/mfirebird.install: $(STATEDIR)/mfirebird.compile
 mfirebird_targetinstall: $(STATEDIR)/mfirebird.targetinstall
 
 mfirebird_targetinstall_deps	=  $(STATEDIR)/mfirebird.compile
-mfirebird_targetinstall_deps	+= $(STATEDIR)/gtk1210.targetinstall
+mfirebird_targetinstall_deps	+= $(STATEDIR)/gtk22.targetinstall
+mfirebird_targetinstall_deps	+= $(STATEDIR)/atk.targetinstall
+mfirebird_targetinstall_deps	+= $(STATEDIR)/pango12.targetinstall
+mfirebird_targetinstall_deps	+= $(STATEDIR)/glib22.targetinstall
 
 $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make install DESTDIR=$(ROOTDIR)
+	# cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make install DESTDIR=$(ROOTDIR)
+	install -d $(ROOTDIR)/usr/lib
+	
+	install $(MFIREBIRD_DIR)/dist/lib/libgtkembedmoz.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libxpcom.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libplds4.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libplc4.so $(ROOTDIR)/usr/lib
+	install $(MFIREBIRD_DIR)/dist/lib/libnspr4.so $(ROOTDIR)/usr/lib
 
 	touch $@
 
