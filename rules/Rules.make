@@ -18,14 +18,14 @@ DEP_TREE_PS	= deptree.ps
 #
 # print out header information
 #
-targetinfo=echo ; \
-TG=`echo $(1) | sed -e "s,/.*/,,g"` ; 		\
-LINE=`echo target: $$TG |sed -e "s/./-/g"` ;	\
-echo $$LINE ;					\
-echo target: $$TG ;				\
-echo $$LINE ;					\
-echo ;						\
-echo $@ : $^ | sed -e "s@$(TOPDIR)@@g" -e "s@/src/@@g" -e "s@/state/@@g" >> $(DEP_OUTPUT)
+targetinfo=echo;					\
+	TG=`echo $(1) | sed -e "s,/.*/,,g"`; 		\
+	LINE=`echo target: $$TG |sed -e "s/./-/g"`;	\
+	echo $$LINE;					\
+	echo target: $$TG;				\
+	echo $$LINE;					\
+	echo;						\
+	echo $@ : $^ | sed -e "s@$(TOPDIR)@@g" -e "s@/src/@@g" -e "s@/state/@@g" >> $(DEP_OUTPUT)
 
 
 #
@@ -64,15 +64,26 @@ get =							\
 # download patches from Pengutronix' patch repository
 # 
 # $1 = packet name = identifier for patch subdir
-# $2 = architecture
-# $3 = patch dir
 # 
-get_patches =
-	PATCH_SRC="$(3)";							\
-	PATCH_SRC=$${PATCH_SRC:-$(PATCHDIR)};					\
-	[ -d $$PATCH_SRC ] || mkdir -p $$PATCH_SRC;				\
-	wget -r -P $$PATCH_SRC $(PASSIVEFTP) $(PTXPATCH_URL)/$(1)/$(2);		\
-	wget -r -P $$PATCH_SRC $(PASSIVEFTP) $(PTXPATCH_URL)/$(1)/generic;
+# the wget options:
+# ----------------
+# -r -l1		recursive 1 level
+# -nH --cutdirs=3	remove hostname and next 3 dirs from URL, when saving
+#			so "http://www.pengutronix.de/software/ptxdist-cvs/patches/glibc-2.2.5/*"
+#			becomes "glibc-2.2.5/*"
+#
+get_patches =											\
+	PACKET_NAME=$(patsubst ' %',,$(1));							\
+	if [ "$(EXTRAVERSION)" = "-cvs" ]; then							\
+		PATCH_TREE=cvs;									\
+	else											\
+		PATCH_TREE=$(FULLVERSION);							\
+	fi;											\
+	[ -d $(PATCHDIR) ] || mkdir -p $(PATCHDIR);						\
+	wget -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
+		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/generic;		\
+	wget -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -P $(PATCHDIR)		\
+		$(PASSIVEFTP) $(PTXPATCH_URL)-$$PATCH_TREE/$$PACKET_NAME/$(PTXCONF_ARCH);
 
 #
 # cleanup the given directory
@@ -141,18 +152,60 @@ disable_sh =					\
 #
 # go into a directory and apply all patches from there into a sourcetree
 #
-# $1 = path to source tree 
-# $2 = $(PACKETNAME) -> identifier
+# $1 = $(PACKETNAME) -> identifier
+# $2 = path to source tree 
+#      if this parameter is omitted, the path will be derived
+#      from the packet name
 #
-patchin =						\
-	set -e &&  					\
-	cd $(1) && 	 				\
-	for p in $(TOPDIR)/patches/`echo -n $(2)`/*.diff; do	\
-		if [ -f $$p ]; then 			\
-			echo "patchin' $$p ...";	\
-			$(PATCH) -p1 < $$p; 		\
-		fi;					\
+patchin =								\
+	set -e &&							\
+	PACKET_NAME=$(patsubst ' %',,$(1));				\
+	PACKET_DIR="$(patsubst ' %',,$(2))";				\
+	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};		\
+	for p in							\
+	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.diff		\
+	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.patch		\
+	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.gz		\
+	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.bz2		\
+	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff	\
+	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch	\
+	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz	\
+	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;	\
+	    do								\
+		if [ -f $$p ]; then					\
+			case "$$p" in					\
+			*.diff|*.patch)					\
+				CAT=cat					\
+				;;					\
+			*gz)						\
+				CAT=zcat				\
+				;;					\
+			*bz2)						\
+				CAT=bzcat				\
+				;;					\
+			*)						\
+				false					\
+				;;					\
+			esac;						\
+			echo "patchin' $$p ...";			\
+			$$CAT $$p | $(PATCH) -p1 -d $$PACKET_DIR;	\
+		fi;							\
 	done
+
+
+
+#
+# CFLAGS // CXXFLAGS
+#
+# the target_cflags and target_cxxflags are included from the architecture
+# depended config file the is specified in .config
+#
+# the option in the .config is called 'TARGET_CONFIG_FILE'
+#
+#
+TARGET_CFLAGS		+= $(PTXCONF_TARGET_EXTRA_CFAGS)
+TARGET_CXXFLAGS		+= $(PTXCONF_TARGET_EXTRA_CXXFLAGS)
+
 
 #
 # crossenvironment
@@ -161,17 +214,15 @@ CROSS_ENV_AR		= AR=$(PTXCONF_GNU_TARGET)-ar
 CROSS_ENV_AS		= AS=$(PTXCONF_GNU_TARGET)-as
 CROSS_ENV_LD		= LD=$(PTXCONF_GNU_TARGET)-ld
 CROSS_ENV_NM		= NM=$(PTXCONF_GNU_TARGET)-nm
-ifdef PTXCONF_FPU
 CROSS_ENV_CC		= CC=$(PTXCONF_GNU_TARGET)-gcc
 CROSS_ENV_CXX		= CXX=$(PTXCONF_GNU_TARGET)-g++
-else
-CROSS_ENV_CC            = CC="$(PTXCONF_GNU_TARGET)-gcc -msoft-float"
-CROSS_ENV_CXX           = CXX="$(PTXCONF_GNU_TARGET)-g++ -msoft-float"
-endif
 CROSS_ENV_OBJCOPY	= OBJCOPY=$(PTXCONF_GNU_TARGET)-objcopy
 CROSS_ENV_OBJDUMP	= OBJDUMP=$(PTXCONF_GNU_TARGET)-objdump
 CROSS_ENV_RANLIB	= RANLIB=$(PTXCONF_GNU_TARGET)-ranlib
 CROSS_ENV_STRIP		= STRIP=$(PTXCONF_GNU_TARGET)-strip
+CROSS_ENV_CFLAGS	= CFLAGS=$(TARGET_CFLAGS)
+CROSS_ENV_CXXFLAGS	= CXXFLAGS=$(TARGET_CXXFLAGS)
+
 
 CROSS_ENV		=  $(CROSS_ENV_AR)
 CROSS_ENV		+= $(CORSS_ENV_AS)
@@ -183,6 +234,8 @@ CROSS_ENV		+= $(CROSS_ENV_OBJCOPY)
 CROSS_ENV		+= $(CROSS_ENV_OBJDUMP)
 CROSS_ENV		+= $(CROSS_ENV_RANLIB)
 CROSS_ENV		+= $(CROSS_ENV_STRIP)
+CROSS_ENV		+= $(CROSS_ENV_CFLAGS)
+CROSS_ENV		+= $(CROSS_ENV_CXXFLAGS)
 
 #
 # CORSS_LIB_DIR	= into this dir, the libs for the target system, are installed
