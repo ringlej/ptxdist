@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.30 2003/09/16 17:46:33 bsp Exp $
+# $Id: Makefile,v 1.31 2003/09/16 22:14:58 mkl Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -34,6 +34,7 @@ PTXPATCH_URL=http://www.pengutronix.de/software/ptxdist/patches
 INSTALL_LOG=$(TOPDIR)/tools/install-log-1.9/install-log
 
 PACKAGES=
+XCHAIN=
 
 export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR PACKAGES
 
@@ -83,8 +84,11 @@ help:
 	@echo "Calling these targets affects the whole system. If you want to"
 	@echo "do something for a packet do 'make packet_<action>'."
 	@echo
-	@echo "Available packages and versions: "
+	@echo "Available packages and versions:"
 	@echo "$(PACKAGES)"
+	@echo
+	@echo "Available cross-chain packages:"
+	@echo "$(XCHAIN)"
 	@echo 
 # }}}
 
