@@ -15,7 +15,7 @@ choice
 	config KERNEL_2_4_18
 		bool
 		prompt "2.4.18"
-		depends on !ARCH_ARM_NOMMU
+		depends on !ARCH_ARM_NOMMU && !ARCH_ARM
 
 	config KERNEL_2_4_19
 		bool
@@ -85,81 +85,12 @@ choice
 #------------------------------- RMK ---------------------------------
 #---------------------------------------------------------------------
 
-#--------------- 2.4.18
-
-	config KERNEL_2_4_18_rmk7
-		bool "2.4.18-rmk7"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK
-
-	config KERNEL_2_4_18_rmk6
-		bool "2.4.18-rmk6"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK
-
-	config KERNEL_2_4_18_rmk5
-		bool "2.4.18-rmk5"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK
-
-	config KERNEL_2_4_18_rmk4
-		bool "2.4.18-rmk4"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK
-
-	config KERNEL_2_4_18_rmk3
-		bool "2.4.18-rmk3"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK
-
-	config KERNEL_2_4_18_rmk2
-		bool "2.4.18-rmk2"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK
-
-	config KERNEL_2_4_18_rmk1
-		bool "2.4.18-rmk1"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK
-
-
 #--------------- 2.4.19
 
 	config KERNEL_2_4_19_rmk7
 		bool "2.4.19-rmk7"
 		depends on KERNEL_2_4_19
 		depends on KERNEL_RMK
-
-	config KERNEL_2_4_19_rmk6
-		bool "2.4.19-rmk6"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK
-
-	config KERNEL_2_4_19_rmk5
-		bool "2.4.19-rmk5"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK
-
-	config KERNEL_2_4_19_rmk4
-		bool "2.4.19-rmk4"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK
-
-	config KERNEL_2_4_19_rmk3
-		bool "2.4.19-rmk3"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK
-
-	config KERNEL_2_4_19_rmk2
-		bool "2.4.19-rmk2"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK
-
-	config KERNEL_2_4_19_rmk1
-		bool "2.4.19-rmk1"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK
-
 
 #--------------- 2.4.21
 
@@ -171,39 +102,6 @@ choice
 #---------------------------------------------------------------------
 #------------------------------- RMK-DS ------------------------------
 #---------------------------------------------------------------------
-
-#--------------- 2.4.18-rmk7
-
-	config KERNEL_2_4_18_rmk7_ds3
-		bool "2.4.18-rmk7-ds3"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_DS
-
-	config KERNEL_2_4_18_rmk7_ds2
-		bool "2.4.18-rmk7-ds2"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_DS
-
-	config KERNEL_2_4_18_rmk7_ds1
-		bool "2.4.18-rmk7-ds1"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_DS
-
-#--------------- 2.4.18-rmk6
-
-	config KERNEL_2_4_18_rmk6_ds1
-		bool "2.4.18-rmk6-ds1"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_DS
-
-#--------------- 2.4.18-rmk5
-
-	config KERNEL_2_4_18_rmk5_ds1
-		bool "2.4.18-rmk5-ds1"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_DS
-
-
 
 #--------------- 2.4.19-rmk7
 
@@ -222,131 +120,14 @@ choice
 		depends on KERNEL_2_4_19
 		depends on KERNEL_RMK_DS
 
-#--------------- 2.4.19-rmk6
-
-	config KERNEL_2_4_19_rmk6_ds2
-		bool "2.4.19-rmk6-ds2"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_DS
-
-	config KERNEL_2_4_19_rmk6_ds1
-		bool "2.4.19-rmk6-ds1"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_DS
-
-#--------------- 2.4.19-rmk4
-
-	config KERNEL_2_4_19_rmk4_ds2
-		bool "2.4.19-rmk4-ds2"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_DS
-
-	config KERNEL_2_4_19_rmk4_ds1
-		bool "2.4.19-rmk4-ds1"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_DS
-
 #---------------------------------------------------------------------
 #------------------------------- RMK-PXA -----------------------------
 #---------------------------------------------------------------------
-
-#--------------- 2.4.18-rmk7
-
-	config KERNEL_2_4_18_rmk7_pxa3
-		bool "2.4.18-rmk7-pxa3"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_PXA
-
-	config KERNEL_2_4_18_rmk7_pxa2
-		bool "2.4.18-rmk7-pxa2"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_PXA
-
-	config KERNEL_2_4_18_rmk7_pxa1
-		bool "2.4.18-rmk7-pxa1"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_PXA
-
-#--------------- 2.4.18-rmk6
-
-	config KERNEL_2_4_18_rmk6_pxa2
-		bool "2.4.18-rmk6-pxa2"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_PXA
-
-	config KERNEL_2_4_18_rmk6_pxa1
-		bool "2.4.18-rmk6-pxa1"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_PXA
-
-#--------------- 2.4.18-rmk5
-
-	config KERNEL_2_4_18_rmk5_pxa1
-		bool "2.4.18-rmk5-pxa1"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_PXA
-
-#--------------- 2.4.18-rmk3
-
-	config KERNEL_2_4_18_rmk3_pxa2
-		bool "2.4.18-rmk3-pxa2"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_PXA
-
-	config KERNEL_2_4_18_rmk3_pxa1
-		bool "2.4.18-rmk3-pxa1"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_PXA
-
-#--------------- 2.4.18-rmk2
-
-	config KERNEL_2_4_18_rmk2_pxa1
-		bool "2.4.18-rmk2-pxa1"
-		depends on KERNEL_2_4_18
-		depends on KERNEL_RMK_PXA
-
-
 
 #--------------- 2.4.19-rmk7
 
 	config KERNEL_2_4_19_rmk7_pxa2
 		bool "2.4.19-rmk7-pxa2"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA
-
-	config KERNEL_2_4_19_rmk7_pxa1
-		bool "2.4.19-rmk7-pxa1"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA
-
-#--------------- 2.4.19-rmk6
-
-	config KERNEL_2_4_19_rmk6_pxa1
-		bool "2.4.19-rmk6-pxa1"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA
-
-#--------------- 2.4.19-rmk4
-
-	config KERNEL_2_4_19_rmk4_pxa1
-		bool "2.4.19-rmk4-pxa1"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA
-
-	config KERNEL_2_4_19_rmk4_pxa2
-		bool "2.4.19-rmk4-pxa2"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA
-
-#--------------- 2.4.19-rmk2
-
-	config KERNEL_2_4_19_rmk2_pxa2
-		bool "2.4.19-rmk2-pxa2"
-		depends on KERNEL_2_4_19
-		depends on KERNEL_RMK_PXA
-
-	config KERNEL_2_4_19_rmk2_pxa1
-		bool "2.4.19-rmk2-pxa1"
 		depends on KERNEL_2_4_19
 		depends on KERNEL_RMK_PXA
 
@@ -446,41 +227,6 @@ choice
 		depends on KERNEL_2_4_20
 		depends on KERNEL_BEN
 
-	config KERNEL_2_4_20_ben9
-		bool "2.4.20-ben9"
-		depends on KERNEL_2_4_20
-		depends on KERNEL_BEN
-
-	config KERNEL_2_4_20_ben8
-		bool "2.4.20-ben8"
-		depends on KERNEL_2_4_20
-		depends on KERNEL_BEN
-
-	config KERNEL_2_4_20_ben7
-		bool "2.4.20-ben7"
-		depends on KERNEL_2_4_20
-		depends on KERNEL_BEN
-
-	config KERNEL_2_4_20_ben6
-		bool "2.4.20-ben6"
-		depends on KERNEL_2_4_20
-		depends on KERNEL_BEN
-
-	config KERNEL_2_4_20_ben5
-		bool "2.4.20-ben5"
-		depends on KERNEL_2_4_20
-		depends on KERNEL_BEN
-
-	config KERNEL_2_4_20_ben4
-		bool "2.4.20-ben4"
-		depends on KERNEL_2_4_20
-		depends on KERNEL_BEN
-
-	config KERNEL_2_4_20_ben3
-		bool "2.4.20-ben3"
-		depends on KERNEL_2_4_20
-		depends on KERNEL_BEN
-
 #--------------- 2.4.21
 
 	config KERNEL_2_4_21_ben3
@@ -488,20 +234,10 @@ choice
 		depends on KERNEL_2_4_21
 		depends on KERNEL_BEN
 
-	config KERNEL_2_4_21_ben2
-		bool "2.4.21-ben2"
-		depends on KERNEL_2_4_21
-		depends on KERNEL_BEN
-
 #--------------- 2.4.22
 
 	config KERNEL_2_4_22_ben2
 		bool "2.4.22-ben2"
-		depends on KERNEL_2_4_22
-		depends on KERNEL_BEN
-
-	config KERNEL_2_4_22_ben1
-		bool "2.4.22-ben1"
 		depends on KERNEL_2_4_22
 		depends on KERNEL_BEN
 endchoice
