@@ -1,4 +1,4 @@
-# $Id: portmap.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: portmap.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -33,11 +33,7 @@ $(STATEDIR)/portmap.get: $(PORTMAP_SOURCE)
 	touch $@
 
 $(PORTMAP_SOURCE):
-	@echo
-	@echo ------------------- 
-	@echo target: portmap.get
-	@echo -------------------
-	@echo
+	@$(call targetinfo, portmap.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(PORTMAP_URL)
 
 # ----------------------------------------------------------------------------
@@ -47,11 +43,7 @@ $(PORTMAP_SOURCE):
 portmap_extract: $(STATEDIR)/portmap.extract
 
 $(STATEDIR)/portmap.extract: $(STATEDIR)/portmap.get
-	@echo
-	@echo ----------------------- 
-	@echo target: portmap.extract
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, portmap.extract)
 	$(PORTMAP_EXTRACT) $(PORTMAP_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	# apply some fixes
 	perl -i -p -e 's/^HOSTS_ACCESS/#HOSTS_ACCESS/g' $(PORTMAP_DIR)/Makefile
@@ -69,11 +61,7 @@ $(STATEDIR)/portmap.extract: $(STATEDIR)/portmap.get
 portmap_prepare: $(STATEDIR)/portmap.prepare
 
 $(STATEDIR)/portmap.prepare: $(STATEDIR)/portmap.extract
-	@echo
-	@echo ----------------------- 
-	@echo target: portmap.prepare
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, portmap.prepare)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -88,11 +76,7 @@ portmap_compile_deps = $(STATEDIR)/portmap.prepare
 portmap_compile_deps += $(STATEDIR)/tcpwrapper.compile
 
 $(STATEDIR)/portmap.compile: $(portmap_compile_deps)
-	@echo
-	@echo ----------------------- 
-	@echo target: portmap.compile
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, portmap.compile)
 	$(PORTMAP_ENVIRONMENT) make -C $(PORTMAP_DIR) $(PORTMAP_MAKEVARS)
 	touch $@
 
@@ -103,11 +87,7 @@ $(STATEDIR)/portmap.compile: $(portmap_compile_deps)
 portmap_install: $(STATEDIR)/portmap.install
 
 $(STATEDIR)/portmap.install: $(STATEDIR)/portmap.compile
-	@echo
-	@echo ----------------------- 
-	@echo target: portmap.install
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, portmap.install)
 	#make -C $(PORTMAP_DIR) install
 	touch $@
 
@@ -118,11 +98,7 @@ $(STATEDIR)/portmap.install: $(STATEDIR)/portmap.compile
 portmap_targetinstall: $(STATEDIR)/portmap.targetinstall
 
 $(STATEDIR)/portmap.targetinstall: $(STATEDIR)/portmap.install
-	@echo
-	@echo -----------------------------
-	@echo target: portmap.targetinstall
-	@echo -----------------------------
-	@echo
+	@$(call targetinfo, portmap.targetinstall)
         ifeq (y, $(PTXCONF_PORTMAP_INSTALL_PORTMAPPER))
 	mkdir -p $(ROOTDIR)/sbin
 	install $(PORTMAP_DIR)/portmap $(ROOTDIR)/sbin

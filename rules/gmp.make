@@ -1,4 +1,4 @@
-# $Id: gmp.make,v 1.2 2003/05/13 11:17:58 robert Exp $
+# $Id: gmp.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -36,11 +36,7 @@ $(STATEDIR)/gmp.get: $(GMP_SOURCE)
 	touch $@
 
 $(GMP_SOURCE):
-	@echo
-	@echo -------
-	@echo target: gmp.get
-	@echo -------
-	@echo
+	@$(call targetinfo, gmp.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(GMP_URL)
 
 # ----------------------------------------------------------------------------
@@ -50,11 +46,7 @@ $(GMP_SOURCE):
 gmp_extract: $(STATEDIR)/gmp.extract
 
 $(STATEDIR)/gmp.extract: $(STATEDIR)/gmp.get
-	@echo
-	@echo -----------
-	@echo target: gmp.extract
-	@echo -----------
-	@echo
+	@$(call targetinfo, gmp.extract)
 	$(GMP_EXTRACT)    $(GMP_SOURCE)    | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -70,11 +62,7 @@ GMP_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 GMP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)
 
 $(STATEDIR)/gmp.prepare: $(STATEDIR)/gmp.extract
-	@echo
-	@echo ----------- 
-	@echo target: gmp.prepare
-	@echo -----------
-	@echo
+	@$(call targetinfo, gmp.prepare)
 	cd $(GMP_DIR) && 						\
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH ./configure $(GMP_AUTOCONF)
 	touch $@
@@ -86,11 +74,7 @@ $(STATEDIR)/gmp.prepare: $(STATEDIR)/gmp.extract
 gmp_compile: $(STATEDIR)/gmp.compile
 
 $(STATEDIR)/gmp.compile: $(STATEDIR)/gmp.prepare 
-	@echo
-	@echo ----------- 
-	@echo target: gmp.compile
-	@echo -----------
-	@echo
+	@$(call targetinfo, gmp.compile)
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(GMP_DIR)
 	touch $@
 
@@ -101,11 +85,7 @@ $(STATEDIR)/gmp.compile: $(STATEDIR)/gmp.prepare
 gmp_install: $(STATEDIR)/gmp.install
 
 $(STATEDIR)/gmp.install: $(STATEDIR)/gmp.compile
-	@echo
-	@echo ----------- 
-	@echo target: gmp.install
-	@echo -----------
-	@echo
+	@$(call targetinfo, gmp.install)
 	# FIXME: doesn't work when using local bin dir
 	make -C $(GMP_DIR) install 
 	touch $@
@@ -117,11 +97,7 @@ $(STATEDIR)/gmp.install: $(STATEDIR)/gmp.compile
 gmp_targetinstall: $(STATEDIR)/gmp.targetinstall
 
 $(STATEDIR)/gmp.targetinstall: $(STATEDIR)/gmp.install
-	@echo
-	@echo ----------------- 
-	@echo target: gmp.targetinstall
-	@echo -----------------
-	@echo
+	@$(call targetinfo, gmp.targetinstall)
 	mkdir -p $(ROOTDIR)/lib
 	# preserve links -> we cannot use install
 	cp -d $(PTXCONF_PREFIX)/lib/libgmp.so* $(ROOTDIR)/lib

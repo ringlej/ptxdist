@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: grub.make,v 1.2 2003/05/13 11:19:44 robert Exp $
+# $Id: grub.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -34,11 +34,7 @@ $(STATEDIR)/grub.get: $(GRUB_SOURCE)
 	touch $@
 
 $(GRUB_SOURCE):
-	@echo
-	@echo ---------------- 
-	@echo target: grub.get
-	@echo ----------------
-	@echo
+	@$(call targetinfo, grub.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(GRUB_URL)
 
 # ----------------------------------------------------------------------------
@@ -48,11 +44,7 @@ $(GRUB_SOURCE):
 grub_extract: $(STATEDIR)/grub.extract
 
 $(STATEDIR)/grub.extract: $(STATEDIR)/grub.get
-	@echo
-	@echo --------------------
-	@echo target: grub.extract
-	@echo --------------------
-	@echo
+	@$(call targetinfo, grub.extract)
 	$(GRUB_EXTRACT) $(GRUB_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -105,11 +97,7 @@ GRUB_AUTOCONF += --disable-cs89x0
 endif
 
 $(STATEDIR)/grub.prepare: $(STATEDIR)/grub.extract
-	@echo
-	@echo --------------------
-	@echo target: grub.prepare
-	@echo --------------------
-	@echo
+	@$(call targetinfo, grub.prepare)
 	cd $(GRUB_DIR) && ./configure $(GRUB_AUTOCONF)
 	touch $@
 
@@ -120,11 +108,7 @@ $(STATEDIR)/grub.prepare: $(STATEDIR)/grub.extract
 grub_compile: $(STATEDIR)/grub.compile
 
 $(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare 
-	@echo
-	@echo --------------------
-	@echo target: grub.compile
-	@echo --------------------
-	@echo
+	@$(call targetinfo, grub.compile)
 	make -C $(GRUB_DIR)
 	touch $@
 
@@ -135,11 +119,7 @@ $(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare
 grub_install: $(STATEDIR)/grub.install
 
 $(STATEDIR)/grub.install: $(STATEDIR)/grub.compile
-	@echo
-	@echo --------------------
-	@echo target: grub.install
-	@echo --------------------
-	@echo
+	@$(call targetinfo, grub.install)
 #	make -C $(GRUB_DIR) install
 	touch $@
 
@@ -150,11 +130,7 @@ $(STATEDIR)/grub.install: $(STATEDIR)/grub.compile
 grub_targetinstall: $(STATEDIR)/grub.targetinstall
 
 $(STATEDIR)/grub.targetinstall: $(STATEDIR)/grub.install
-	@echo
-	@echo --------------------------
-	@echo target: grub.targetinstall
-	@echo --------------------------
-	@echo
+	@$(call targetinfo, grub.targetinstall)
 	mkdir -p $(ROOTDIR)/boot/grub
 	install $(GRUB_DIR)/stage1/stage1 $(ROOTDIR)/boot/grub/
 	touch $@

@@ -1,4 +1,4 @@
-# $Id: mtd.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: mtd.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -40,19 +40,11 @@ $(STATEDIR)/mtd.get: $(MTD_SOURCE)
 mtdutil_get: $(STATEDIR)/mtdutil.get
 
 $(STATEDIR)/mtdutil.get: $(MTD_SOURCE)
-	@echo
-	@echo ------------------- 
-	@echo target: mtdutil.get
-	@echo -------------------
-	@echo
+	@$(call targetinfo, mtdutil.get)
 	touch $@
 
 $(MTD_SOURCE):
-	@echo
-	@echo --------------- 
-	@echo target: mtd.get
-	@echo ---------------
-	@echo
+	@$(call targetinfo, mtd.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(MTD_URL)
 
 # ----------------------------------------------------------------------------
@@ -62,22 +54,14 @@ $(MTD_SOURCE):
 mtd_extract: $(STATEDIR)/mtd.extract
 
 $(STATEDIR)/mtd.extract: $(STATEDIR)/mtd.get
-	@echo
-	@echo ------------------- 
-	@echo target: mtd.extract
-	@echo -------------------
-	@echo
+	@$(call targetinfo, mtd.extract)
 	$(MTD_EXTRACT) $(MTD_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
 mtdutil_extract: $(STATEDIR)/mtdutil.extract
 
 $(STATEDIR)/mtdutil.extract: $(STATEDIR)/mtdutil.get
-	@echo
-	@echo ----------------------- 
-	@echo target: mtdutil.extract
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, mtdutil.extract)
 	rm -fr $(BUILDDIR)/mtdutil
 	mkdir -p $(BUILDDIR)/mtdutil
 	$(MTD_EXTRACT) $(MTD_SOURCE) | $(TAR) -C $(BUILDDIR)/mtdutil -xf - $(MTD)/util
@@ -92,11 +76,7 @@ $(STATEDIR)/mtdutil.extract: $(STATEDIR)/mtdutil.get
 mtd_prepare: $(STATEDIR)/mtd.prepare
 
 $(STATEDIR)/mtd.prepare: $(STATEDIR)/mtd.extract
-	@echo
-	@echo ------------------- 
-	@echo target: mtd.prepare
-	@echo -------------------
-	@echo
+	@$(call targetinfo, mtd.prepare)
 	# Makefile is currently fucked up... @#*$
 	# FIXME: patch sent to maintainer, remove this for fixed version 
 	perl -i -p -e 's/\(CFLAGS\) -o/\(LDFLAGS\) -o/g'  $(MTD_DIR)/util/Makefile
@@ -106,11 +86,7 @@ $(STATEDIR)/mtd.prepare: $(STATEDIR)/mtd.extract
 mtdutil_prepare: $(STATEDIR)/mtdutil.prepare
 
 $(STATEDIR)/mtdutil.prepare: $(STATEDIR)/mtdutil.extract
-	@echo
-	@echo ----------------------- 
-	@echo target: mtdutil.prepare
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, mtdutil.prepare)
 	# Makefile is currently fucked up... @#*$
 	# FIXME: patch sent to maintainer, remove this for fixed version 
 	perl -i -p -e 's/\(CFLAGS\) -o/\(LDFLAGS\) -o/g'  $(BUILDDIR)/mtdutil/$(MTD)/util/Makefile
@@ -128,11 +104,7 @@ MTD_MAKEVARS		=  CFLAGS=-I$(PTXCONF_PREFIX)/include
 MTD_MAKEVARS		+= LDFLAGS=-L$(PTXCONF_PREFIX)/lib
 
 $(STATEDIR)/mtd.compile: $(STATEDIR)/mtd.prepare $(STATEDIR)/xchain-zlib.install
-	@echo
-	@echo ------------------- 
-	@echo target: mtd.compile
-	@echo -------------------
-	@echo
+	@$(call targetinfo, mtd.compile)
 	$(MTD_ENVIRONMENT) make -C $(MTD_DIR)/util mkfs.jffs mkfs.jffs2 $(MTD_MAKEVARS) 
 	touch $@
 
@@ -150,11 +122,7 @@ MTD-UTIL_MAKEVARS 	+= LDFLAGS=-L$(ZLIB_DIR)
 mtdutil_compile: $(STATEDIR)/mtdutil.compile
 
 $(STATEDIR)/mtdutil.compile: $(mtdutil_compile_deps) 
-	@echo
-	@echo ----------------------- 
-	@echo target: mtdutil.compile
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, mtdutil.compile)
 	$(MTD-UTIL_ENVIRONMENT) make -C $(BUILDDIR)/mtdutil/$(MTD)/util $(MTD-UTIL_MAKEVARS)
 	touch $@
 
@@ -165,11 +133,7 @@ $(STATEDIR)/mtdutil.compile: $(mtdutil_compile_deps)
 mtd_install: $(STATEDIR)/mtd.install
 
 $(STATEDIR)/mtd.install: $(STATEDIR)/mtd.compile
-	@echo
-	@echo ------------------- 
-	@echo target: mtd.install
-	@echo -------------------
-	@echo
+	@$(call targetinfo, mtd.install)
 	install $(MTD_DIR)/util/mkfs.jffs $(PTXCONF_PREFIX)/bin
 	install $(MTD_DIR)/util/mkfs.jffs2 $(PTXCONF_PREFIX)/bin
 	touch $@
@@ -177,11 +141,7 @@ $(STATEDIR)/mtd.install: $(STATEDIR)/mtd.compile
 mtdutil_install: $(STATEDIR)/mtdutil.install
 
 $(STATEDIR)/mtdutil.install: $(STATEDIR)/mtdutil.compile
-	@echo
-	@echo ----------------------- 
-	@echo target: mtdutil.install
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, mtdutil.install)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -191,21 +151,13 @@ $(STATEDIR)/mtdutil.install: $(STATEDIR)/mtdutil.compile
 mtd_targetinstall: $(STATEDIR)/mtd.targetinstall
 
 $(STATEDIR)/mtd.targetinstall: $(STATEDIR)/mtd.install
-	@echo
-	@echo ------------------------- 
-	@echo target: mtd.targetinstall
-	@echo -------------------------
-	@echo
+	@$(call targetinfo, mtd.targetinstall)
 	touch $@
 
 mtdutil_targetinstall: $(STATEDIR)/mtdutil.targetinstall
 
 $(STATEDIR)/mtdutil.targetinstall: $(STATEDIR)/mtdutil.install
-	@echo
-	@echo ----------------------------- 
-	@echo target: mtdutil.targetinstall
-	@echo -----------------------------
-	@echo
+	@$(call targetinfo, mtdutil.targetinstall)
         ifeq (y, $(PTXCONF_MTD_EINFO))
 	install $(BUILDDIR)/mtdutil/$(MTD)/util/einfo $(ROOTDIR)/sbin
 	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/einfo

@@ -1,4 +1,4 @@
-# $Id: autoconf-2.13.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: autoconf-2.13.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -28,14 +28,10 @@ AUTOCONF213_EXTRACT 		= gzip -dc
 autoconf213_get: $(STATEDIR)/autoconf213.get
 
 $(STATEDIR)/autoconf213.get: $(AUTOCONF213_SOURCE)
+	@$(call targetinfo, autoconf213.get)
 	touch $@
 
 $(AUTOCONF213_SOURCE):
-	@echo
-	@echo ----------------------- 
-	@echo target: autoconf213.get
-	@echo -----------------------
-	@echo
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(AUTOCONF213_URL)
 
 # ----------------------------------------------------------------------------
@@ -45,11 +41,7 @@ $(AUTOCONF213_SOURCE):
 autoconf213_extract: $(STATEDIR)/autoconf213.extract
 
 $(STATEDIR)/autoconf213.extract: $(STATEDIR)/autoconf213.get
-	@echo
-	@echo --------------------------- 
-	@echo target: autoconf213.extract
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, autoconf213.extract)
 	$(AUTOCONF213_EXTRACT) $(AUTOCONF213_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -60,11 +52,7 @@ $(STATEDIR)/autoconf213.extract: $(STATEDIR)/autoconf213.get
 autoconf213_prepare: $(STATEDIR)/autoconf213.prepare
 
 $(STATEDIR)/autoconf213.prepare: $(STATEDIR)/autoconf213.extract
-	@echo
-	@echo --------------------------- 
-	@echo target: autoconf213.prepare
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, autoconf213.prepare)
 	cd $(AUTOCONF213_DIR) && 					\
 	CFLAGS=$(CFLAGS) ./configure --prefix=$(PTXCONF_PREFIX)/$(AUTOCONF213)
 	touch $@
@@ -76,11 +64,7 @@ $(STATEDIR)/autoconf213.prepare: $(STATEDIR)/autoconf213.extract
 autoconf213_compile: $(STATEDIR)/autoconf213.compile
 
 $(STATEDIR)/autoconf213.compile: $(STATEDIR)/autoconf213.prepare 
-	@echo
-	@echo ------------------- 
-	@echo target: autoconf213.compile
-	@echo -------------------
-	@echo
+	@$(call targetinfo, autoconf213.compile)
 	make -C $(AUTOCONF213_DIR) $(MAKEPARMS)
 	touch $@
 
@@ -91,11 +75,7 @@ $(STATEDIR)/autoconf213.compile: $(STATEDIR)/autoconf213.prepare
 autoconf213_install: $(STATEDIR)/autoconf213.install
 
 $(STATEDIR)/autoconf213.install: $(STATEDIR)/autoconf213.compile
-	@echo
-	@echo ------------------- 
-	@echo target: autoconf213.install
-	@echo -------------------
-	@echo
+	@$(call targetinfo, autoconf213.install)
 	make -C $(AUTOCONF213_DIR) install
 	touch $@
 
@@ -106,11 +86,7 @@ $(STATEDIR)/autoconf213.install: $(STATEDIR)/autoconf213.compile
 autoconf213_targetinstall: $(STATEDIR)/autoconf213.targetinstall
 
 $(STATEDIR)/autoconf213.targetinstall: $(STATEDIR)/autoconf213.install
-	@echo
-	@echo ------------------------- 
-	@echo target: autoconf213.targetinstall
-	@echo -------------------------
-	@echo
+	@$(call targetinfo, autoconf213.targetinstall)
 	touch $@
 
 # ----------------------------------------------------------------------------

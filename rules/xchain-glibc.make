@@ -1,4 +1,4 @@
-# $Id: xchain-glibc.make,v 1.3 2003/04/30 14:14:16 robert Exp $
+# $Id: xchain-glibc.make,v 1.4 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -78,27 +78,15 @@ $(STATEDIR)/glibc-ptxpatch.get: $(GLIBC_PTXPATCH_SOURCE)
 	touch $@
 
 $(GLIBC_SOURCE):
-	@echo
-	@echo ---------------------- 
-	@echo target: glibc-base.get
-	@echo ----------------------
-	@echo
+	@$(call targetinfo, glibc-base.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(GLIBC_URL)
 
 $(GLIBC_THREADS_SOURCE):
-	@echo
-	@echo ------------------------- 
-	@echo target: glibc-threads.get
-	@echo -------------------------
-	@echo
+	@$(call targetinfo, glibc-threads.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(GLIBC_THREADS_URL)
 
 $(GLIBC_PTXPATCH_SOURCE):
-	@echo
-	@echo --------------------------
-	@echo target: glibc-ptxpatch.get
-	@echo --------------------------
-	@echo
+	@$(call targetinfo, glibc-ptxpatch.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(GLIBC_PTXPATCH_URL)
 
 # ----------------------------------------------------------------------------
@@ -118,14 +106,10 @@ $(STATEDIR)/glibc.extract: $(glibc_extract_deps)
 	touch $@
 
 $(STATEDIR)/glibc-base.extract: $(STATEDIR)/glibc-base.get $(STATEDIR)/glibc-ptxpatch.get
-	@echo
-	@echo -------------------------- 
-	@echo target: glibc-base.extract
-	@echo --------------------------
-	@echo
+	@$(call targetinfo, glibc-base.extract)
 	$(GLIBC_EXTRACT) $(GLIBC_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	# fix some bugs...
-	cd $(GLIBC_DIR) && patch -p0 < $(GLIBC_PTXPATCH_SOURCE)
+	cd $(GLIBC_DIR) && patch -p1 < $(GLIBC_PTXPATCH_SOURCE)
 	# fix: sunrpc's makefile has the wrong magic to find cpp...
 	# FIXME: is this the right fix for other versions than 2.2.5? 
 	cd $(GLIBC_DIR)/sunrpc && mkdir cpp && ln -s $(PTXCONF_PREFIX)/bin/cpp cpp/
@@ -135,11 +119,7 @@ $(STATEDIR)/glibc-base.extract: $(STATEDIR)/glibc-base.get $(STATEDIR)/glibc-ptx
 	touch $@
 
 $(STATEDIR)/glibc-threads.extract: $(STATEDIR)/glibc-threads.get
-	@echo
-	@echo ----------------------------- 
-	@echo target: glibc-threads.extract
-	@echo -----------------------------
-	@echo
+	@$(call targetinfo, glibc-threads.extract)
 	$(GLIBC_THREADS_EXTRACT) $(GLIBC_THREADS_SOURCE) | $(TAR) -C $(GLIBC_DIR) -xf -
 	touch $@
 
@@ -224,11 +204,7 @@ glibc_prepare_deps += $(STATEDIR)/xchain-gccstage1.install
 endif
 
 $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
-	@echo
-	@echo --------------------- 
-	@echo target: glibc.prepare
-	@echo ---------------------
-	@echo
+	@$(call targetinfo, glibc.prepare)
         ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN))
 	mkdir -p $(BUILDDIR)/$(GLIBC)-obj 
 	cd $(BUILDDIR)/$(GLIBC)-obj &&					\
@@ -256,21 +232,11 @@ $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
 glibc_compile: $(STATEDIR)/glibc.compile
 
 $(STATEDIR)/glibc.compile: $(STATEDIR)/glibc.prepare 
-	@echo
-	@echo --------------------------- 
-	@echo "target: glibc.compile (obj)"
-	@echo ---------------------------
-	@echo
         ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN))
 	# let makefile find autoconf-2.13 as default
 	cd $(BUILDDIR)/$(GLIBC)-obj && $(GLIBC_ENVIRONMENT) make $(MAKEVARS) 
         endif
 # FIXME: We need 2 separate targets *here*
-	@echo
-	@echo -----------------------------
-	@echo "target: glibc.compile (ld-so)"
-	@echo -----------------------------
-	@echo
 	# FIXME: is there another possibility to create an ld.so which has 
 	# correct search paths compiled in for /lib? 
 	cd $(BUILDDIR)/$(GLIBC)-ldso && $(GLIBC_ENVIRONMENT) make $(MAKEVARS)
@@ -283,11 +249,7 @@ $(STATEDIR)/glibc.compile: $(STATEDIR)/glibc.prepare
 glibc_install: $(STATEDIR)/glibc.install
 
 $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
-	@echo
-	@echo --------------------- 
-	@echo target: glibc.install
-	@echo ---------------------
-	@echo
+	@$(call targetinfo, glibc.install)
         ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN))
 	cd $(BUILDDIR)/$(GLIBC)-obj && $(GLIBC_ENVIRONMENT) make install
         endif
@@ -300,11 +262,7 @@ $(STATEDIR)/glibc.install: $(STATEDIR)/glibc.compile
 glibc_targetinstall: $(STATEDIR)/glibc.targetinstall
 
 $(STATEDIR)/glibc.targetinstall: $(STATEDIR)/glibc.install
-	@echo
-	@echo --------------------------- 
-	@echo target: glibc.targetinstall
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, glibc.targetinstall)
 	# CAREFUL: don't never ever make install in ldso tree!!!
 	mkdir -p $(ROOTDIR)/lib
 	install $(BUILDDIR)/$(GLIBC)-ldso/elf/ld.so 	$(ROOTDIR)/lib/ld-$(GLIBC_VERSION).so

@@ -1,4 +1,4 @@
-# $Id: xchain-gccstage2.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: xchain-gccstage2.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -28,11 +28,7 @@ endif
 xchain-gccstage2_get: $(STATEDIR)/xchain-gccstage2.get
 
 $(STATEDIR)/xchain-gccstage2.get: $(STATEDIR)/xchain-gccstage1.get
-	@echo
-	@echo ----------------------------
-	@echo target: xchain-gccstage2.get 
-	@echo ----------------------------
-	@echo
+	@$(call targetinfo, xchain-gccstage2.get)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -44,11 +40,7 @@ xchain-gccstage2_extract: $(STATEDIR)/xchain-gccstage2.extract
 $(STATEDIR)/xchain-gccstage2.extract: 					\
 	$(STATEDIR)/xchain-gccstage2.get				\
 	$(STATEDIR)/glibc.install
-	@echo
-	@echo --------------------------------
-	@echo target: xchain-gccstage2.extract 
-	@echo --------------------------------
-	@echo
+	@$(call targetinfo, xchain-gccstage2.extract)
 	# remove glibc header hack
         ifeq (y, $(PTXCONF_ARCH_ARM))	
 	perl -p -i -e 									\
@@ -72,11 +64,7 @@ xchain-gccstage2_prepare_deps =  $(STATEDIR)/xchain-gccstage2.extract
 xchain-gccstage2_prepare_deps += $(STATEDIR)/xchain-kernel.prepare
 
 $(STATEDIR)/xchain-gccstage2.prepare: $(xchain-gccstage2_prepare_deps)
-	@echo
-	@echo --------------------------------
-	@echo target: xchain-gccstage2.prepare 
-	@echo --------------------------------
-	@echo
+	@$(call targetinfo, xchain-gccstage2.prepare)
 	[ -d $(GCC_STAGE2_DIR) ] || mkdir $(GCC_STAGE2_DIR)
 	#
 	# copy some header files
@@ -124,11 +112,7 @@ xchain-gccstage2_compile: $(STATEDIR)/xchain-gccstage2.compile
 
 $(STATEDIR)/xchain-gccstage2.compile: 					\
 	$(STATEDIR)/xchain-gccstage2.prepare
-	@echo
-	@echo --------------------------------
-	@echo target: xchain-gccstage2.compile 
-	@echo --------------------------------
-	@echo
+	@$(call targetinfo, xchain-gccstage2.compile)
 	# FIXME: why do we have to define _GNU_SOURCE here? Otherwhise 
 	# the c++ compiler cannot be compiled. 
 	cd $(GCC_STAGE2_DIR) && 					\
@@ -142,11 +126,7 @@ $(STATEDIR)/xchain-gccstage2.compile: 					\
 xchain-gccstage2_install: $(STATEDIR)/xchain-gccstage2.install
 
 $(STATEDIR)/xchain-gccstage2.install: $(STATEDIR)/xchain-gccstage2.compile
-	@echo
-	@echo --------------------------------
-	@echo target: xchain-gccstage2.install 
-	@echo --------------------------------
-	@echo
+	@$(call targetinfo, xchain-gccstage2.install)
 	cd $(GCC_STAGE2_DIR) && 					\
 		PATH=$(PATH):$(PTXCONF_PREFIX)/bin make install
 	touch $@
@@ -158,11 +138,7 @@ $(STATEDIR)/xchain-gccstage2.install: $(STATEDIR)/xchain-gccstage2.compile
 xchain-gccstage2_targetinstall: $(STATEDIR)/xchain-gccstage2.targetinstall
 
 $(STATEDIR)/xchain-gccstage2.targetinstall: $(STATEDIR)/xchain-gccstage2.install
-	@echo
-	@echo --------------------------------------
-	@echo target: xchain-gccstage2.targetinstall 
-	@echo --------------------------------------
-	@echo
+	@$(call targetinfo, xchain-gccstage2.targetinstall)
 	touch $@
 
 # ----------------------------------------------------------------------------

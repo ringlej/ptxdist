@@ -1,4 +1,4 @@
-# $Id: proftpd.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: proftpd.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -34,11 +34,7 @@ $(STATEDIR)/proftpd.get: $(PROFTPD_SOURCE)
 	touch $@
 
 $(PROFTPD_SOURCE):
-	@echo
-	@echo ------------------- 
-	@echo target: proftpd.get
-	@echo -------------------
-	@echo
+	@$(call targetinfo, proftpd.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(PROFTPD_URL)
 
 # ----------------------------------------------------------------------------
@@ -48,11 +44,7 @@ $(PROFTPD_SOURCE):
 proftpd_extract: $(STATEDIR)/proftpd.extract
 
 $(STATEDIR)/proftpd.extract: $(STATEDIR)/proftpd.get
-	@echo
-	@echo ----------------------- 
-	@echo target: proftpd.extract
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, proftpd.extract)
 	$(PROFTPD_EXTRACT) $(PROFTPD_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -87,11 +79,7 @@ PROFTPD_AUTOCONF += --disable-autoshadow
 endif
 
 $(STATEDIR)/proftpd.prepare: $(STATEDIR)/proftpd.extract
-	@echo
-	@echo ----------------------- 
-	@echo target: proftpd.prepare
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, proftpd.prepare)
 	cd $(PROFTPD_DIR) && 						\
 	$(PROFTPD_ENVIRONMENT) ./configure $(PROFTPD_AUTOCONF) 
 	touch $@
@@ -103,11 +91,7 @@ $(STATEDIR)/proftpd.prepare: $(STATEDIR)/proftpd.extract
 proftpd_compile: $(STATEDIR)/proftpd.compile
 
 $(STATEDIR)/proftpd.compile: $(STATEDIR)/proftpd.prepare 
-	@echo
-	@echo ----------------------- 
-	@echo target: proftpd.compile
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, proftpd.compile)
 	make -C $(PROFTPD_DIR) $(MAKEPARMS)
 	touch $@
 
@@ -118,11 +102,7 @@ $(STATEDIR)/proftpd.compile: $(STATEDIR)/proftpd.prepare
 proftpd_install: $(STATEDIR)/proftpd.install
 
 $(STATEDIR)/proftpd.install: $(STATEDIR)/proftpd.compile
-	@echo
-	@echo ----------------------- 
-	@echo target: proftpd.install
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, proftpd.install)
 	# don't make install - would install files on development host...
 	touch $@
 
@@ -133,11 +113,7 @@ $(STATEDIR)/proftpd.install: $(STATEDIR)/proftpd.compile
 proftpd_targetinstall: $(STATEDIR)/proftpd.targetinstall
 
 $(STATEDIR)/proftpd.targetinstall: $(STATEDIR)/proftpd.install
-	@echo
-	@echo ----------------------- 
-	@echo target: proftpd.targetinstall
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, proftpd.targetinstall)
 	install $(PROFTPD_DIR)/proftpd $(ROOTDIR)/sbin/proftpd
 	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/proftpd
 	touch $@

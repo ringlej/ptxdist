@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: busybox.make,v 1.2 2003/05/13 11:37:14 robert Exp $
+# $Id: busybox.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -36,11 +36,7 @@ $(STATEDIR)/busybox.get: $(busybox_get_deps)
 	touch $@
 
 $(BUSYBOX_SOURCE):
-	@echo
-	@echo ------------------- 
-	@echo target: busybox.get
-	@echo -------------------
-	@echo
+	@$(call targetinfo, busybox.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(BUSYBOX_URL)
 	@exit
 
@@ -51,11 +47,7 @@ $(BUSYBOX_SOURCE):
 busybox_extract: $(STATEDIR)/busybox.extract
 
 $(STATEDIR)/busybox.extract: $(STATEDIR)/busybox.get
-	@echo
-	@echo ----------------------- 
-	@echo target: busybox.extract
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, busybox.extract)
 	$(BUSYBOX_EXTRACT) $(BUSYBOX_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 #	#
 #	# fix: turn off debugging in init.c
@@ -84,11 +76,7 @@ busybox_prepare_deps += $(STATEDIR)/xchain-gccstage2.install
 endif
 
 $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
-	@echo
-	@echo ----------------------- 
-	@echo target: busybox.prepare
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, busybox.prepare)
 	# FIXME: is this necessary?
 	touch $(BUSYBOX_DIR)/busybox.links
 	$(BUSYBOX_ENVIRONMENT) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
@@ -113,11 +101,7 @@ endif
 busybox_compile: $(STATEDIR)/busybox.compile
 
 $(STATEDIR)/busybox.compile: $(busybox_compile_deps) 
-	@echo
-	@echo ----------------------- 
-	@echo target: busybox.compile
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, busybox.compile)
 	$(BUSYBOX_ENVIRONMENT) make -C $(BUSYBOX_DIR) $(BUSYBOX_MAKEVARS)
 	touch $@
 
@@ -128,11 +112,7 @@ $(STATEDIR)/busybox.compile: $(busybox_compile_deps)
 busybox_install: $(STATEDIR)/busybox.install
 
 $(STATEDIR)/busybox.install: $(STATEDIR)/busybox.compile
-	@echo
-	@echo ----------------------- 
-	@echo target: busybox.install
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, busybox.install)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -142,11 +122,7 @@ $(STATEDIR)/busybox.install: $(STATEDIR)/busybox.compile
 busybox_targetinstall: $(STATEDIR)/busybox.targetinstall
 
 $(STATEDIR)/busybox.targetinstall: $(STATEDIR)/busybox.install
-	@echo
-	@echo ----------------------------- 
-	@echo target: busybox.targetinstall
-	@echo -----------------------------
-	@echo
+	@$(call targetinfo, busybox.targetinstall)
 	rm -f $(BUSYBOX_DIR)/busybox.links
 	$(BUSYBOX_ENVIRONMENT) make -C $(BUSYBOX_DIR) install 		\
 		PREFIX=$(ROOTDIR) $(BUSYBOX_MAKEVARS)

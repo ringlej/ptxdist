@@ -1,4 +1,4 @@
-# $Id: zlib.make,v 1.2 2003/04/24 16:07:09 jst Exp $
+# $Id: zlib.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -39,11 +39,7 @@ $(STATEDIR)/xchain-zlib.get: $(ZLIB_SOURCE)
 	touch $@
 
 $(ZLIB_SOURCE):
-	@echo
-	@echo ----------------
-	@echo target: zlib.get
-	@echo ----------------
-	@echo
+	@$(call targetinfo, zlib.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(ZLIB_URL)
 
 # ----------------------------------------------------------------------------
@@ -53,22 +49,14 @@ $(ZLIB_SOURCE):
 zlib_extract: $(STATEDIR)/zlib.extract
 
 $(STATEDIR)/zlib.extract: $(STATEDIR)/zlib.get
-	@echo
-	@echo --------------------
-	@echo target: zlib.extract
-	@echo --------------------
-	@echo
+	@$(call targetinfo, zlib.extract)
 	$(ZLIB_EXTRACT) $(ZLIB_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
 xchain-zlib_extract: $(STATEDIR)/xchain-zlib.extract
 
 $(STATEDIR)/xchain-zlib.extract: $(STATEDIR)/xchain-zlib.get
-	@echo
-	@echo ---------------------------
-	@echo target: xchain-zlib.extract
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, xchain-zlib.extract)
 	rm -fr $(BUILDDIR)/xchain-zlib
 	mkdir -p $(BUILDDIR)/xchain-zlib
 	$(ZLIB_EXTRACT) $(ZLIB_SOURCE) | $(TAR) -C $(BUILDDIR)/xchain-zlib -xf -
@@ -85,11 +73,7 @@ ZLIB_AUTOCONF += --shared
 ZLIB_AUTOCONF += --prefix=$(PTXCONF_PREFIX)
 
 $(STATEDIR)/zlib.prepare: $(STATEDIR)/zlib.extract
-	@echo
-	@echo --------------------
-	@echo target: zlib.prepare
-	@echo --------------------
-	@echo
+	@$(call targetinfo, zlib.prepare)
 	# FIXME: this does currently not work with the local toolchain
 	cd $(ZLIB_DIR) && 						\
 	./configure $(ZLIB_AUTOCONF)
@@ -103,11 +87,7 @@ XCHAIN_ZLIB_AUTOCONF += --shared
 XCHAIN_ZLIB_AUTOCONF += --prefix=$(PTXCONF_PREFIX)
 
 $(STATEDIR)/xchain-zlib.prepare: $(STATEDIR)/xchain-zlib.extract
-	@echo
-	@echo ---------------------------
-	@echo target: xchain-zlib.prepare
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, xchain-zlib.prepare)
 	cd $(BUILDDIR)/xchain-zlib/$(ZLIB) && 						\
 	./configure $(XCHAIN_ZLIB_AUTOCONF)
 	touch $@
@@ -119,22 +99,14 @@ $(STATEDIR)/xchain-zlib.prepare: $(STATEDIR)/xchain-zlib.extract
 zlib_compile: $(STATEDIR)/zlib.compile
 
 $(STATEDIR)/zlib.compile: $(STATEDIR)/zlib.prepare 
-	@echo
-	@echo -------------------- 
-	@echo target: zlib.compile
-	@echo --------------------
-	@echo
+	@$(call targetinfo, zlib.compile)
 	cd $(ZLIB_DIR) && PATH=$(PTXCONF_PREFIX)/bin:$$PATH make CC=$(PTXCONF_GNU_TARGET)-gcc
 	touch $@
 
 xchain-zlib_compile: $(STATEDIR)/xchain-zlib.compile
 
 $(STATEDIR)/xchain-zlib.compile: $(STATEDIR)/xchain-zlib.prepare 
-	@echo
-	@echo --------------------------- 
-	@echo target: xchain-zlib.compile
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, xchain-zlib.compile)
 	cd $(BUILDDIR)/xchain-zlib/$(ZLIB) && make CC=$(HOSTCC)
 	touch $@
 	
@@ -145,22 +117,14 @@ $(STATEDIR)/xchain-zlib.compile: $(STATEDIR)/xchain-zlib.prepare
 zlib_install: $(STATEDIR)/zlib.install
 
 $(STATEDIR)/zlib.install: $(STATEDIR)/zlib.compile
-	@echo
-	@echo -------------------- 
-	@echo target: zlib.install
-	@echo --------------------
-	@echo
+	@$(call targetinfo, zlib.install)
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(BUILDDIR)/$(ZLIB) install PREFIX=$(PTXCONF_PREFIX)
 	touch $@
 
 xchain-zlib_install: $(STATEDIR)/xchain-zlib.install
 
 $(STATEDIR)/xchain-zlib.install: $(STATEDIR)/xchain-zlib.compile
-	@echo
-	@echo --------------------------- 
-	@echo target: xchain-zlib.install
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, xchain-zlib.install)
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(BUILDDIR)/xchain-zlib/$(ZLIB) install PREFIX=$(PTXCONF_PREFIX)
 	touch $@
 # ----------------------------------------------------------------------------
@@ -170,11 +134,7 @@ $(STATEDIR)/xchain-zlib.install: $(STATEDIR)/xchain-zlib.compile
 zlib_targetinstall: $(STATEDIR)/zlib.targetinstall
 
 $(STATEDIR)/zlib.targetinstall: $(STATEDIR)/zlib.install
-	@echo
-	@echo -------------------------- 
-	@echo target: zlib.targetinstall
-	@echo --------------------------
-	@echo
+	@$(call targetinfo, zlib.targetinstall)
 	mkdir -p $(ROOTDIR)/lib
 	cp -d $(ZLIB_DIR)/libz.so* $(ROOTDIR)/lib
 	$(CROSSSTRIP) -S $(ROOTDIR)/lib/libz.so*
@@ -183,11 +143,7 @@ $(STATEDIR)/zlib.targetinstall: $(STATEDIR)/zlib.install
 xchain-zlib_targetinstall: $(STATEDIR)/xchain-zlib.targetinstall
 
 $(STATEDIR)/xchain-zlib.targetinstall: $(STATEDIR)/xchain-zlib.install
-	@echo
-	@echo --------------------------------- 
-	@echo target: xchain-zlib.targetinstall
-	@echo ---------------------------------
-	@echo
+	@$(call targetinfo, xchain-zlib.targetinstall)
 	touch $@
 
 # ----------------------------------------------------------------------------

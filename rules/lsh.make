@@ -1,4 +1,4 @@
-# $Id: lsh.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: lsh.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -33,11 +33,7 @@ $(STATEDIR)/lsh.get: $(LSH_SOURCE)
 	touch $@
 
 $(LSH_SOURCE):
-	@echo
-	@echo -------
-	@echo target: lsh.get
-	@echo -------
-	@echo
+	@$(call targetinfo, lsh.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(LSH_URL)
 
 # ----------------------------------------------------------------------------
@@ -47,11 +43,7 @@ $(LSH_SOURCE):
 lsh_extract: $(STATEDIR)/lsh.extract
 
 $(STATEDIR)/lsh.extract: $(STATEDIR)/lsh.get
-	@echo
-	@echo -----------
-	@echo target: lsh.extract
-	@echo -----------
-	@echo
+	@$(call targetinfo, lsh.extract)
 	$(LSH_EXTRACT) $(LSH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	cd $(LSH_DIR) && patch -p0 < $(SRCDIR)/lsh-1.5-ptx1.diff
 	touch $@
@@ -84,11 +76,7 @@ LSH_AUTOCONF += --with-lib-path=$(PTXCONF_PREFIX)/lib
 LSH_AUTOCONF += --with-include-path=$(PTXCONF_PREFIX)/include
 
 $(STATEDIR)/lsh.prepare: $(lsh_prepare_deps)
-	@echo
-	@echo -----------
-	@echo target: lsh.prepare
-	@echo -----------
-	@echo
+	@$(call targetinfo, lsh.prepare)
 	cd $(LSH_DIR) && ./configure $(LSH_AUTOCONF)
 	touch $@
 
@@ -99,11 +87,7 @@ $(STATEDIR)/lsh.prepare: $(lsh_prepare_deps)
 lsh_compile: $(STATEDIR)/lsh.compile
 
 $(STATEDIR)/lsh.compile: $(STATEDIR)/lsh.prepare 
-	@echo
-	@echo -----------
-	@echo target: lsh.compile
-	@echo -----------
-	@echo
+	@$(call targetinfo, lsh.compile)
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(LSH_DIR)
 	touch $@
 
@@ -114,11 +98,7 @@ $(STATEDIR)/lsh.compile: $(STATEDIR)/lsh.prepare
 lsh_install: $(STATEDIR)/lsh.install
 
 $(STATEDIR)/lsh.install: $(STATEDIR)/lsh.compile
-	@echo
-	@echo -----------
-	@echo target: lsh.install
-	@echo -----------
-	@echo
+	@$(call targetinfo, lsh.install)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -133,11 +113,7 @@ lsh_targetinstall_deps += $(STATEDIR)/liboop.targetinstall
 lsh_targetinstall_deps += $(STATEDIR)/zlib.targetinstall
 
 $(STATEDIR)/lsh.targetinstall: $(lsh_targetinstall_deps)
-	@echo
-	@echo -----------------
-	@echo target: lsh.targetinstall
-	@echo -----------------
-	@echo
+	@$(call targetinfo, lsh.targetinstall)
         ifeq (y, $(PTXCONF_LSH_EXECUV))
 	mkdir -p $(ROOTDIR)/sbin
 	install $(PTXCONF_PREFIX)/sbin/lsh-execuv $(ROOTDIR)/sbin/

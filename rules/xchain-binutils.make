@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: xchain-binutils.make,v 1.3 2003/05/13 11:37:14 robert Exp $
+# $Id: xchain-binutils.make,v 1.4 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -34,11 +34,7 @@ $(STATEDIR)/xchain-binutils.get: $(BINUTILS_SOURCE)
 	touch $@
 
 $(BINUTILS_SOURCE):
-	@echo
-	@echo ------------------- 
-	@echo target: xchain-binutils.get
-	@echo -------------------
-	@echo
+	@$(call targetinfo, xchain-binutils.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(BINUTILS_URL)
 
 # ----------------------------------------------------------------------------
@@ -48,11 +44,7 @@ $(BINUTILS_SOURCE):
 xchain-binutils_extract: $(STATEDIR)/xchain-binutils.extract
 
 $(STATEDIR)/xchain-binutils.extract: $(STATEDIR)/xchain-binutils.get
-	@echo
-	@echo ----------------------- 
-	@echo target: xchain-binutils.extract
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, xchain-binutils.extract)
 	$(BINUTILS_EXTRACT) $(BINUTILS_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -63,11 +55,7 @@ $(STATEDIR)/xchain-binutils.extract: $(STATEDIR)/xchain-binutils.get
 xchain-binutils_prepare: $(STATEDIR)/xchain-binutils.prepare
 
 $(STATEDIR)/xchain-binutils.prepare: $(STATEDIR)/xchain-binutils.extract
-	@echo
-	@echo ----------------------- 
-	@echo target: xchain-binutils.prepare
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, xchain-binutils.prepare)
 	cd $(BINUTILS_DIR) && 						\
 	./configure 							\
 		--disable-shared					\
@@ -83,11 +71,7 @@ $(STATEDIR)/xchain-binutils.prepare: $(STATEDIR)/xchain-binutils.extract
 xchain-binutils_compile: $(STATEDIR)/xchain-binutils.compile
 
 $(STATEDIR)/xchain-binutils.compile: $(STATEDIR)/xchain-binutils.prepare 
-	@echo
-	@echo ----------------------- 
-	@echo target: xchain-binutils.compile
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, xchain-binutils.compile)
 	cd $(BINUTILS_DIR) && make 
 	touch $@
 
@@ -98,11 +82,7 @@ $(STATEDIR)/xchain-binutils.compile: $(STATEDIR)/xchain-binutils.prepare
 xchain-binutils_install: $(STATEDIR)/xchain-binutils.install
 
 $(STATEDIR)/xchain-binutils.install: $(STATEDIR)/xchain-binutils.compile
-	@echo
-	@echo ----------------------- 
-	@echo target: xchain-binutils.install
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, xchain-binutils.install)
 #	[ -d $(PTXCONF_PREFIX) ] || 					\
 #		$(SUDO) install -g users -m 0755 			\
 #				-o $(PTXUSER) 				\
@@ -117,11 +97,7 @@ $(STATEDIR)/xchain-binutils.install: $(STATEDIR)/xchain-binutils.compile
 xchain-binutils_targetinstall: $(STATEDIR)/xchain-binutils.targetinstall
 
 $(STATEDIR)/xchain-binutils.targetinstall: $(STATEDIR)/xchain-binutils.install
-	@echo
-	@echo ----------------------------- 
-	@echo target: xchain-binutils.targetinstall
-	@echo -----------------------------
-	@echo
+	@$(call targetinfo, xchain-binutils.targetinstall)
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-# $Id: rootfs.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: rootfs.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -31,11 +31,7 @@ $(STATEDIR)/rootfs.get: $(ROOTFS_SOURCE)
 	touch $@
 
 $(ROOTFS_SOURCE):
-	@echo
-	@echo ------------------
-	@echo target: rootfs.get
-	@echo ------------------
-	@echo
+	@$(call targetinfo, rootfs.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(ROOTFS_URL)
 
 # ----------------------------------------------------------------------------
@@ -45,11 +41,7 @@ $(ROOTFS_SOURCE):
 rootfs_extract: $(STATEDIR)/rootfs.extract
 
 $(STATEDIR)/rootfs.extract: $(STATEDIR)/rootfs.get
-	@echo
-	@echo ----------------------
-	@echo target: rootfs.extract
-	@echo ----------------------
-	@echo
+	@$(call targetinfo, rootfs.extract)
 	$(ROOTFS_EXTRACT) $(ROOTFS_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -60,11 +52,7 @@ $(STATEDIR)/rootfs.extract: $(STATEDIR)/rootfs.get
 rootfs_prepare: $(STATEDIR)/rootfs.prepare
 
 $(STATEDIR)/rootfs.prepare: $(STATEDIR)/rootfs.extract
-	@echo
-	@echo ----------------------
-	@echo target: rootfs.prepare
-	@echo ----------------------
-	@echo
+	@$(call targetinfo, rootfs.prepare)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -74,11 +62,7 @@ $(STATEDIR)/rootfs.prepare: $(STATEDIR)/rootfs.extract
 rootfs_compile: $(STATEDIR)/rootfs.compile
 
 $(STATEDIR)/rootfs.compile: $(STATEDIR)/rootfs.prepare 
-	@echo
-	@echo ----------------------
-	@echo target: rootfs.compile
-	@echo ----------------------
-	@echo
+	@$(call targetinfo, rootfs.compile)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -88,11 +72,7 @@ $(STATEDIR)/rootfs.compile: $(STATEDIR)/rootfs.prepare
 rootfs_install: $(STATEDIR)/rootfs.install
 
 $(STATEDIR)/rootfs.install: $(STATEDIR)/rootfs.compile
-	@echo
-	@echo ----------------------
-	@echo target: rootfs.install
-	@echo ----------------------
-	@echo
+	@$(call targetinfo, rootfs.install)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -102,11 +82,7 @@ $(STATEDIR)/rootfs.install: $(STATEDIR)/rootfs.compile
 rootfs_targetinstall: $(STATEDIR)/rootfs.targetinstall
 
 $(STATEDIR)/rootfs.targetinstall: $(STATEDIR)/rootfs.install
-	@echo
-	@echo ----------------------------
-	@echo target: rootfs.targetinstall
-	@echo ----------------------------
-	@echo
+	@$(call targetinfo, rootfs.targetinstall)
         ifeq (y, $(PTXCONF_ROOTFS_PROC))
 	mkdir -p $(ROOTDIR)/proc
         endif

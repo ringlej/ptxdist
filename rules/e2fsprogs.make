@@ -34,11 +34,7 @@ $(STATEDIR)/e2fsprogs.get: $(E2FSPROGS_SOURCE)
 	touch $@
 
 $(E2FSPROGS_SOURCE):
-	@echo
-	@echo --------------------- 
-	@echo target: e2fsprogs.get
-	@echo ---------------------
-	@echo
+	@$(call targetinfo, e2fsprogs.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(E2FSPROGS_URL)
 
 # ----------------------------------------------------------------------------
@@ -48,11 +44,7 @@ $(E2FSPROGS_SOURCE):
 e2fsprogs_extract: $(STATEDIR)/e2fsprogs.extract
 
 $(STATEDIR)/e2fsprogs.extract: $(STATEDIR)/e2fsprogs.get
-	@echo
-	@echo ------------------------- 
-	@echo target: e2fsprogs.extract
-	@echo -------------------------
-	@echo
+	@$(call targetinfo, e2fsprogs.extract)
 	$(E2FSPROGS_EXTRACT) $(E2FSPROGS_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -73,11 +65,7 @@ E2FSPROGS_MAKEVARS	+= RANLIB=$(PTXCONF_GNU_TARGET)-ranlib
 E2FSPROGS_MAKEVARS	+= CC=$(PTXCONF_GNU_TARGET)-gcc
 
 $(STATEDIR)/e2fsprogs.prepare: $(STATEDIR)/e2fsprogs.extract
-	@echo
-	@echo ------------------------- 
-	@echo target: e2fsprogs.prepare
-	@echo -------------------------
-	@echo
+	@$(call targetinfo, e2fsprogs.prepare)
 	cd $(E2FSPROGS_DIR) &&						\
 		./configure $(E2FSPROGS_AUTOCONF)
 	touch $@
@@ -97,11 +85,7 @@ e2fsprogs_compile_deps += $(STATEDIR)/uclibc.install
 endif
 
 $(STATEDIR)/e2fsprogs.compile: $(e2fsprogs_compile_deps) 
-	@echo
-	@echo ------------------------- 
-	@echo target: e2fsprogs.compile
-	@echo -------------------------
-	@echo
+	@$(call targetinfo, e2fsprogs.compile)
 	# FIXME: not tested on non-x86
 	$(E2FSPROGS_ENVIRONMENT) make -C $(E2FSPROGS_DIR) $(E2FSPROGS_MAKEVARS)
 	touch $@
@@ -113,11 +97,7 @@ $(STATEDIR)/e2fsprogs.compile: $(e2fsprogs_compile_deps)
 e2fsprogs_install: $(STATEDIR)/e2fsprogs.install
 
 $(STATEDIR)/e2fsprogs.install: $(STATEDIR)/e2fsprogs.compile
-	@echo
-	@echo ------------------------- 
-	@echo target: e2fsprogs.install
-	@echo -------------------------
-	@echo
+	@$(call targetinfo, e2fsprogs.install)
 	make -C $(E2FSPROGS_DIR) install
 	touch $@
 
@@ -128,11 +108,7 @@ $(STATEDIR)/e2fsprogs.install: $(STATEDIR)/e2fsprogs.compile
 e2fsprogs_targetinstall: $(STATEDIR)/e2fsprogs.targetinstall
 
 $(STATEDIR)/e2fsprogs.targetinstall: $(STATEDIR)/e2fsprogs.install
-	@echo
-	@echo ------------------------------- 
-	@echo target: e2fsprogs.targetinstall
-	@echo -------------------------------
-	@echo
+	@$(call targetinfo, e2fsprogs.targetinstall)
         ifeq (y, $(PTXCONF_E2FSPROGS_MKFS))
 	install $(E2FSPROGS_DIR)/misc/mke2fs $(ROOTDIR)/sbin/
 	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/mke2fs

@@ -1,4 +1,4 @@
-# $Id: xchain-gccstage1.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: xchain-gccstage1.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002,2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -52,19 +52,9 @@ $(STATEDIR)/xchain-gccstage1.get: $(xchain-gccstage1_get_deps)
 	touch $@
 
 $(GCC_SOURCE): 
-	@echo
-	@echo -----------------------------------------
-	@echo "target: xchain-gccstage1.get (gcc source)"
-	@echo -----------------------------------------
-	@echo
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(GCC_URL)
 
 $(GCC_ARMPATCH_SOURCE): 
-	@echo
-	@echo ----------------------------------------
-	@echo "target: xchain-gccstage1.get (ARM patch)"
-	@echo ----------------------------------------
-	@echo
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(GCC_ARMPATCH_URL)
 
 # ----------------------------------------------------------------------------
@@ -74,11 +64,7 @@ $(GCC_ARMPATCH_SOURCE):
 xchain-gccstage1_extract: $(STATEDIR)/xchain-gccstage1.extract
 
 $(STATEDIR)/xchain-gccstage1.extract: $(STATEDIR)/xchain-gccstage1.get
-	@echo
-	@echo --------------------------------
-	@echo target: xchain-gccstage1.extract 
-	@echo --------------------------------
-	@echo
+	@$(call targetinfo, xchain-gccstage1.extract)
 	$(GCC_EXTRACT) $(GCC_SOURCE) | tar -C $(BUILDDIR) -xf -
 	#
         ifeq (y, $(PTXCONF_ARCH_ARM))	
@@ -113,11 +99,7 @@ xchain-gccstage1_prepare_deps += $(STATEDIR)/xchain-gccstage1.extract
 xchain-gccstage1_prepare_deps += $(STATEDIR)/xchain-kernel.prepare
 
 $(STATEDIR)/xchain-gccstage1.prepare: $(xchain-gccstage1_prepare_deps)
-	@echo
-	@echo --------------------------------
-	@echo target: xchain-gccstage1.prepare 
-	@echo --------------------------------
-	@echo
+	@$(call targetinfo, xchain-gccstage1.prepare)
 	mkdir -p $(GCC_STAGE1_DIR)
 	#
 	# copy some header files
@@ -188,11 +170,7 @@ xchain-gccstage1_compile: $(STATEDIR)/xchain-gccstage1.compile
 
 $(STATEDIR)/xchain-gccstage1.compile: 					\
 	$(STATEDIR)/xchain-gccstage1.prepare
-	@echo
-	@echo --------------------------------
-	@echo target: xchain-gccstage1.compile 
-	@echo --------------------------------
-	@echo
+	@$(call targetinfo, xchain-gccstage1.compile)
 	cd $(GCC_STAGE1_DIR) &&						\
 		PATH=$(PATH):$(PTXCONF_PREFIX)/bin make
 	touch $@
@@ -204,11 +182,7 @@ $(STATEDIR)/xchain-gccstage1.compile: 					\
 xchain-gccstage1_install: $(STATEDIR)/xchain-gccstage1.install
 
 $(STATEDIR)/xchain-gccstage1.install: $(STATEDIR)/xchain-gccstage1.compile
-	@echo
-	@echo --------------------------------
-	@echo target: xchain-gccstage1.install 
-	@echo --------------------------------
-	@echo
+	@$(call targetinfo, xchain-gccstage1.install)
 	cd $(GCC_STAGE1_DIR) &&						\
 		PATH=$(PATH):$(PTXCONF_PREFIX)/bin make install
 	touch $@
@@ -220,11 +194,7 @@ $(STATEDIR)/xchain-gccstage1.install: $(STATEDIR)/xchain-gccstage1.compile
 xchain-gccstage1_targetinstall: $(STATEDIR)/xchain-gccstage1.targetinstall
 
 $(STATEDIR)/xchain-gccstage1.targetinstall: $(STATEDIR)/xchain-gccstage1.install
-	@echo
-	@echo --------------------------------------
-	@echo target: xchain-gccstage1.targetinstall 
-	@echo --------------------------------------
-	@echo
+	@$(call targetinfo, xchain-gccstage1.targetinstall)
 	touch $@
 
 # ----------------------------------------------------------------------------

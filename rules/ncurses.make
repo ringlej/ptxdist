@@ -1,4 +1,4 @@
-# $Id: ncurses.make,v 1.2 2003/04/24 16:07:09 jst Exp $
+# $Id: ncurses.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -34,11 +34,7 @@ $(STATEDIR)/ncurses.get: $(NCURSES_SOURCE)
 	touch $@
 
 $(NCURSES_SOURCE):
-	@echo
-	@echo ----------- 
-	@echo target: ncurses.get
-	@echo -----------
-	@echo
+	@$(call targetinfo, ncurses.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(NCURSES_URL)
 
 # ----------------------------------------------------------------------------
@@ -48,11 +44,7 @@ $(NCURSES_SOURCE):
 ncurses_extract: $(STATEDIR)/ncurses.extract
 
 $(STATEDIR)/ncurses.extract: $(STATEDIR)/ncurses.get
-	@echo
-	@echo --------------- 
-	@echo target: ncurses.extract
-	@echo ---------------
-	@echo
+	@$(call targetinfo, ncurses.extract)
 	$(NCURSES_EXTRACT) $(NCURSES_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -76,11 +68,7 @@ NCURSES_MAKEVARS	+= CXX=$(PTXCONF_GNU_TARGET)-g++
 
 # FIXME: gcc stage2 is just a workaround here:
 $(STATEDIR)/ncurses.prepare: $(STATEDIR)/xchain-gccstage2.install $(STATEDIR)/ncurses.extract
-	@echo
-	@echo --------------- 
-	@echo target: ncurses.prepare
-	@echo ---------------
-	@echo
+	@$(call targetinfo, ncurses.prepare)
 	cd $(NCURSES_DIR) && ./configure $(NCURSES_AUTOCONF)
 	touch $@
 
@@ -91,11 +79,7 @@ $(STATEDIR)/ncurses.prepare: $(STATEDIR)/xchain-gccstage2.install $(STATEDIR)/nc
 ncurses_compile: $(STATEDIR)/ncurses.compile
 
 $(STATEDIR)/ncurses.compile: $(STATEDIR)/ncurses.prepare 
-	@echo
-	@echo --------------- 
-	@echo target: ncurses.compile
-	@echo ---------------
-	@echo
+	@$(call targetinfo, ncurses.compile)
 	cd $(NCURSES_DIR) && $(NCURSES_ENVIRONMENT) make $(NCURSES_MAKEVARS)
 	touch $@
 
@@ -106,11 +90,7 @@ $(STATEDIR)/ncurses.compile: $(STATEDIR)/ncurses.prepare
 ncurses_install: $(STATEDIR)/ncurses.install
 
 $(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
-	@echo
-	@echo --------------- 
-	@echo target: ncurses.install
-	@echo ---------------
-	@echo
+	@$(call targetinfo, ncurses.install)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -120,11 +100,7 @@ $(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
 ncurses_targetinstall: $(STATEDIR)/ncurses.targetinstall
 
 $(STATEDIR)/ncurses.targetinstall: $(STATEDIR)/ncurses.install
-	@echo
-	@echo --------------------- 
-	@echo target: ncurses.targetinstall
-	@echo ---------------------
-	@echo
+	@$(call targetinfo, ncurses.targetinstall)
 	touch $@
 
 # ----------------------------------------------------------------------------

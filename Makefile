@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.4 2003/05/13 11:40:10 robert Exp $
+# $Id: Makefile,v 1.5 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # (c) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -34,6 +34,7 @@ export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR PACKAGES
 all: help
 
 -include .config 
+
 include $(wildcard rules/*.make)
 
 # install targets 
@@ -75,7 +76,17 @@ prepare: $(PACKAGES_PREPARE)
 compile: $(PACKAGES_COMPILE)
 install: $(PACKAGES_INSTALL)
 
-world: $(PACKAGES_TARGETINSTALL)
+dep_output_clean:
+	if [ -e $(DEP_OUTPUT) ]; then rm -f $(DEP_OUTPUT); fi
+	touch $(DEP_OUTPUT)
+
+dep_tree:
+	scripts/makedeptree $(DEP_OUTPUT) | $(DOT) -Tps > $(DEP_TREE_PS)
+
+dep_world: $(PACKAGES_TARGETINSTALL)
+	echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
+	
+world: dep_output_clean dep_world dep_tree
 
 # menuconfig:
 # 	CONFIGDIR=$(TOPDIR)/config make -C config/config_system menuconfig
@@ -129,6 +140,9 @@ clean: rootclean
 	@echo -n "cleaning bootdisk dir............ "
 	@for i in $$(ls -I CVS $(BOOTDISKDIR)); do echo -n $$i' '; rm -rf $(BOOTDISKDIR)/"$$i"; done
 	@echo "done."
+	@echo -n "cleaning dependency tree ........ "
+	@rm -f $(DEP_OUTPUT) $(DEP_TREE_PS)
+	@echo "done."
 	@echo
 
 rootclean:
@@ -157,4 +171,5 @@ archive:
 $(INSTALL_LOG): 
 	make -C $(TOPDIR)/tools/install-log-1.9
 
+.PHONY: dep_output_clean dep_tree dep_world
 # vim600:set foldmethod=marker:

@@ -1,4 +1,4 @@
-# $Id: ksymoops.make,v 1.2 2003/04/24 16:07:09 jst Exp $
+# $Id: ksymoops.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -33,11 +33,7 @@ $(STATEDIR)/ksymoops.get: $(KSYMOOPS_SOURCE)
 	touch $@
 
 $(KSYMOOPS_SOURCE):
-	@echo
-	@echo --------------------
-	@echo target: ksymoops.get
-	@echo --------------------
-	@echo
+	@$(call targetinfo, ksymoops.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(KSYMOOPS_URL)
 
 # ----------------------------------------------------------------------------
@@ -47,11 +43,7 @@ $(KSYMOOPS_SOURCE):
 ksymoops_extract: $(STATEDIR)/ksymoops.extract
 
 $(STATEDIR)/ksymoops.extract: $(STATEDIR)/ksymoops.get
-	@echo
-	@echo ------------------------
-	@echo target: ksymoops.extract
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, ksymoops.extract)
 	$(KSYMOOPS_EXTRACT) $(KSYMOOPS_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -62,11 +54,7 @@ $(STATEDIR)/ksymoops.extract: $(STATEDIR)/ksymoops.get
 ksymoops_prepare: $(STATEDIR)/ksymoops.prepare
 
 $(STATEDIR)/ksymoops.prepare: $(STATEDIR)/ksymoops.extract
-	@echo
-	@echo ------------------------
-	@echo target: ksymoops.prepare
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, ksymoops.prepare)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -76,11 +64,7 @@ $(STATEDIR)/ksymoops.prepare: $(STATEDIR)/ksymoops.extract
 ksymoops_compile: $(STATEDIR)/ksymoops.compile
 
 $(STATEDIR)/ksymoops.compile: $(STATEDIR)/ksymoops.prepare 
-	@echo
-	@echo ------------------------
-	@echo target: ksymoops.compile
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, ksymoops.compile)
 	CFLAGS="-I$(PTXCONF_PREFIX)/include" make -C $(KSYMOOPS_DIR)
 	touch $@
 
@@ -91,11 +75,7 @@ $(STATEDIR)/ksymoops.compile: $(STATEDIR)/ksymoops.prepare
 ksymoops_install: $(STATEDIR)/ksymoops.install
 
 $(STATEDIR)/ksymoops.install: $(STATEDIR)/ksymoops.compile
-	@echo
-	@echo ------------------------
-	@echo target: ksymoops.install
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, ksymoops.install)
 	make -C $(KSYMOOPS_DIR) install INSTALL_PREFIX=$(PTXCONF_PREFIX)
 	touch $@
 
@@ -106,11 +86,7 @@ $(STATEDIR)/ksymoops.install: $(STATEDIR)/ksymoops.compile
 ksymoops_targetinstall: $(STATEDIR)/ksymoops.targetinstall
 
 $(STATEDIR)/ksymoops.targetinstall: $(STATEDIR)/ksymoops.install
-	@echo
-	@echo ------------------------------ 
-	@echo target: ksymoops.targetinstall
-	@echo ------------------------------
-	@echo
+	@$(call targetinfo, ksymoops.targetinstall)
 	touch $@
 
 # ----------------------------------------------------------------------------

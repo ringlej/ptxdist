@@ -1,4 +1,4 @@
-# $Id: xchain-kernel.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: xchain-kernel.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -136,35 +136,19 @@ $(STATEDIR)/kernel.get: $(kernel_get_deps)
 $(STATEDIR)/xchain-kernel.get: $(kernel_get_deps)
 
 $(KERNEL_SOURCE):
-	@echo
-	@echo ------------------ 
-	@echo target: kernel.get
-	@echo ------------------
-	@echo
+	@$(call targetinfo, kernel.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(KERNEL_URL)
 
 $(KERNEL_RMKPATCH_SOURCE):
-	@echo
-	@echo --------------------------- 
-	@echo target: kernel-armpatch.get
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, kernel-armpatch.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(KERNEL_RMKPATCH_URL)
 
 $(KERNEL_PXAPATCH_SOURCE):
-	@echo
-	@echo --------------------------- 
-	@echo target: kernel-pxapatch.get
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, kernel-pxapatch.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(KERNEL_PXAPATCH_URL)
 
 $(KERNEL_PTXPATCH_SOURCE):
-	@echo
-	@echo --------------------------- 
-	@echo target: kernel-ptxpatch.get
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, kernel-ptxpatch.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(KERNEL_PTXPATCH_URL)
 
 #
@@ -179,11 +163,7 @@ $(STATEDIR)/rtai-patches.get: $(RTAI_SOURCE)
 # xchain
 #
 $(STATEDIR)/xchain-kernel.get: $(kernel_get_deps)
-	@echo
-	@echo ------------------------- 
-	@echo target: xchain-kernel.get
-	@echo -------------------------
-	@echo
+	@$(call targetinfo, xchain-kernel.get)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -201,11 +181,7 @@ kernel_extract_deps += $(STATEDIR)/mtd.extract
 endif
 
 $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
-	@echo
-	@echo ---------------------- 
-	@echo target: kernel.extract
-	@echo ----------------------
-	@echo
+	@$(call targetinfo, kernel.extract)
 #	# remove old kernel directories before we extract
 	rm -fr $(KERNEL_DIR)
 	$(KERNEL_EXTRACT) $(KERNEL_SOURCE) | tar -C $(BUILDDIR) -xf -
@@ -261,11 +237,7 @@ $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
 rtai-patches_extract: $(STATEDIR)/rtai-patches.extract
 
 $(STATEDIR)/rtai-patches.extract: $(STATEDIR)/rtai-patches.get
-	@echo
-	@echo ----------------------------
-	@echo target: rtai-patches.extract
-	@echo ----------------------------
-	@echo
+	@$(call targetinfo, rtai-patches.extract)
 #	# remove old rtaipatch directory
 	rm -fr $(KERNEL_RTAIPATCH_DIR)
 	install -d $(KERNEL_RTAIPATCH_DIR)
@@ -281,11 +253,7 @@ $(STATEDIR)/rtai-patches.extract: $(STATEDIR)/rtai-patches.get
 xchain-kernel_extract: $(STATEDIR)/xchain-kernel.extract
 
 $(STATEDIR)/xchain-kernel.extract: $(STATEDIR)/xchain-kernel.get $(STATEDIR)/mtd.extract
-	@echo
-	@echo -----------------------------
-	@echo target: xchain-kernel.extract
-	@echo -----------------------------
-	@echo
+	@$(call targetinfo, xchain-kernel.extract)
 #	#
 	rm -fr $(BUILDDIR)/xchain-kernel
 	mkdir -p $(BUILDDIR)/xchain-kernel/tmp
@@ -358,11 +326,7 @@ kernel_prepare_deps += $(STATEDIR)/xchain-gccstage1.install
 endif
 
 $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
-	@echo
-	@echo ---------------------- 
-	@echo target: kernel.prepare
-	@echo ----------------------
-	@echo
+	@$(call targetinfo, kernel.prepare)
         ifeq (y,$(PTXCONF_BUILD_CROSSCHAIN))
 	echo -n 'Please supply root password for sudo: '
 	# FIXME: wheel is not the correct group
@@ -386,11 +350,7 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 xchain-kernel_prepare: $(STATEDIR)/xchain-kernel.prepare
 
 $(STATEDIR)/xchain-kernel.prepare: $(STATEDIR)/xchain-kernel.extract
-	@echo
-	@echo ----------------------------- 
-	@echo target: xchain-kernel.prepare
-	@echo -----------------------------
-	@echo
+	@$(call targetinfo, xchain-kernel.prepare)
 	cd $(BUILDDIR)/xchain-kernel/include && ln -s asm-$(PTXCONF_ARCH) asm
         ifeq (y, $(PTXCONF_ARCH_ARM))
 	cd $(BUILDDIR)/xchain-kernel/include/asm && ln -s proc-armv proc
@@ -413,11 +373,7 @@ kernel_compile_deps = $(STATEDIR)/kernel.prepare
 kernel_compile_deps = $(STATEDIR)/umkimage.install
 
 $(STATEDIR)/kernel.compile: $(STATEDIR)/kernel.prepare 
-	@echo
-	@echo ---------------------- 
-	@echo target: kernel.compile
-	@echo ----------------------
-	@echo
+	@$(call targetinfo, kernel.compile)
         ifneq (y, $(PTXCONF_DONT_COMPILE_KERNEL))
 	$(KERNEL_ENVIRONMENT) make -C $(KERNEL_DIR) oldconfig dep clean $(KERNEL_TARGET) modules
         endif
@@ -435,11 +391,7 @@ $(STATEDIR)/xchain-kernel.compile:
 kernel_install: $(STATEDIR)/kernel.install
 
 $(STATEDIR)/kernel.install: $(STATEDIR)/kernel.compile
-	@echo
-	@echo ---------------------- 
-	@echo target: kernel.install
-	@echo ----------------------
-	@echo
+	@$(call targetinfo, kernel.install)
         ifeq (y, $(PTXCONF_KERNEL_INSTALL))
 	mkdir -p $(ROOTDIR)/boot
 	cp $(KERNEL_TARGET_PATH) $(ROOTDIR)/boot/
@@ -459,11 +411,7 @@ $(STATEDIR)/xchain-kernel.install:
 kernel_targetinstall: $(STATEDIR)/kernel.targetinstall
 
 $(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.install
-	@echo
-	@echo ---------------------------- 
-	@echo target: kernel.targetinstall
-	@echo ----------------------------
-	@echo
+	@$(call targetinfo, kernel.targetinstall)
         ifneq (y, $(PTXCONF_DONT_COMPILE_KERNEL))
 	mkdir -p $(ROOTDIR)/boot
 #	#

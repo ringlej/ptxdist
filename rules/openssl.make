@@ -1,4 +1,4 @@
-# $Id: openssl.make,v 1.2 2003/05/04 18:15:39 robert Exp $
+# $Id: openssl.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -43,11 +43,7 @@ $(STATEDIR)/openssl.get: $(OPENSSL_SOURCE)
 	touch $@
 
 $(OPENSSL_SOURCE):
-	@echo
-	@echo -------------------
-	@echo target: openssl.get
-	@echo -------------------
-	@echo
+	@$(call targetinfo, openssl.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(OPENSSL_URL)
 
 # ----------------------------------------------------------------------------
@@ -57,11 +53,7 @@ $(OPENSSL_SOURCE):
 openssl_extract: $(STATEDIR)/openssl.extract
 
 $(STATEDIR)/openssl.extract: $(STATEDIR)/openssl.get
-	@echo
-	@echo -----------------------
-	@echo target: openssl.extract
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, openssl.extract)
 	$(OPENSSL_EXTRACT) $(OPENSSL_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -76,11 +68,7 @@ openssl_prepare_deps += $(STATEDIR)/zlib.install
 openssl_prepare_deps += $(STATEDIR)/glibc.install
 
 $(STATEDIR)/openssl.prepare: $(openssl_prepare_deps)
-	@echo
-	@echo -----------------------
-	@echo target: openssl.prepare
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, openssl.prepare)
 	cd $(OPENSSL_DIR) && ./Configure $(THUD) --prefix=$(PTXCONF_PREFIX) no-shared
 	touch $@
 
@@ -91,11 +79,7 @@ $(STATEDIR)/openssl.prepare: $(openssl_prepare_deps)
 openssl_compile: $(STATEDIR)/openssl.compile
 
 $(STATEDIR)/openssl.compile: $(STATEDIR)/openssl.prepare 
-	@echo
-	@echo ----------------------- 
-	@echo target: openssl.compile
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, openssl.compile)
 	cd $(OPENSSL_DIR) && PATH=$(PTXCONF_PREFIX)/bin:$$PATH make
 	touch $@
 
@@ -106,11 +90,7 @@ $(STATEDIR)/openssl.compile: $(STATEDIR)/openssl.prepare
 openssl_install: $(STATEDIR)/openssl.install
 
 $(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
-	@echo
-	@echo ----------------------- 
-	@echo target: openssl.install
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, openssl.install)
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(OPENSSL_DIR) install
 	touch $@
 
@@ -121,11 +101,7 @@ $(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
 openssl_targetinstall: $(STATEDIR)/openssl.targetinstall
 
 $(STATEDIR)/openssl.targetinstall: $(STATEDIR)/openssl.install
-	@echo
-	@echo ----------------------------- 
-	@echo target: openssl.targetinstall
-	@echo -----------------------------
-	@echo
+	@$(call targetinfo, openssl.targetinstall)
 	echo NO TARGET INSTALL FOR STATIC LIBS
 	touch $@
 

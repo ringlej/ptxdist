@@ -1,4 +1,4 @@
-# $Id: utelnetd.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: utelnetd.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -33,11 +33,7 @@ $(STATEDIR)/utelnetd.get: $(UTELNETD_SOURCE)
 	touch $@
 
 $(UTELNETD_SOURCE):
-	@echo
-	@echo ------------
-	@echo target: utelnetd.get
-	@echo ------------
-	@echo
+	@$(call targetinfo, utelnetd.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(UTELNETD_URL)
 
 # ----------------------------------------------------------------------------
@@ -47,11 +43,7 @@ $(UTELNETD_SOURCE):
 utelnetd_extract: $(STATEDIR)/utelnetd.extract
 
 $(STATEDIR)/utelnetd.extract: $(STATEDIR)/utelnetd.get
-	@echo
-	@echo ----------------
-	@echo target: utelnetd.extract
-	@echo ----------------
-	@echo
+	@$(call targetinfo, utelnetd.extract)
 	$(UTELNETD_EXTRACT) $(UTELNETD_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -62,11 +54,7 @@ $(STATEDIR)/utelnetd.extract: $(STATEDIR)/utelnetd.get
 utelnetd_prepare: $(STATEDIR)/utelnetd.prepare
 
 $(STATEDIR)/utelnetd.prepare: $(STATEDIR)/utelnetd.extract
-	@echo
-	@echo ----------------
-	@echo target: utelnetd.prepare
-	@echo ----------------
-	@echo
+	@$(call targetinfo, utelnetd.prepare)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -83,11 +71,7 @@ UTELNETD_MAKEVARS    += CROSS=arm-linux-
 endif
 
 $(STATEDIR)/utelnetd.compile: $(STATEDIR)/utelnetd.prepare 
-	@echo
-	@echo ----------------
-	@echo target: utelnetd.compile
-	@echo ----------------
-	@echo
+	@$(call targetinfo, utelnetd.compile)
 	$(UTELNETD_ENVIRONMENT) make -C $(UTELNETD_DIR) $(UTELNETD_MAKEVARS)
 	touch $@
 
@@ -98,11 +82,7 @@ $(STATEDIR)/utelnetd.compile: $(STATEDIR)/utelnetd.prepare
 utelnetd_install: $(STATEDIR)/utelnetd.install
 
 $(STATEDIR)/utelnetd.install: $(STATEDIR)/utelnetd.compile
-	@echo
-	@echo ----------------
-	@echo target: utelnetd.install
-	@echo ----------------
-	@echo
+	@$(call targetinfo, utelnetd.install)
 	install -d $(PTXCONF_PREFIX)/sbin/
 	install $(UTELNETD_DIR)/utelnetd $(PTXCONF_PREFIX)/sbin/
 	touch $@
@@ -114,11 +94,7 @@ $(STATEDIR)/utelnetd.install: $(STATEDIR)/utelnetd.compile
 utelnetd_targetinstall: $(STATEDIR)/utelnetd.targetinstall
 
 $(STATEDIR)/utelnetd.targetinstall: $(STATEDIR)/utelnetd.install
-	@echo
-	@echo ---------------------- 
-	@echo target: utelnetd.targetinstall
-	@echo ----------------------
-	@echo
+	@$(call targetinfo, utelnetd.targetinstall)
 	install -d $(ROOTDIR)/sbin/
 	install $(UTELNETD_DIR)/utelnetd $(ROOTDIR)/sbin/
 	$(CROSSSTRIP) -S $(ROOTDIR)/sbin/utelnetd

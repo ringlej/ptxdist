@@ -1,5 +1,5 @@
 # -*-makefile-*- 
-# $Id: bootdisk.make,v 1.2 2003/05/13 11:47:55 robert Exp $
+# $Id: bootdisk.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -40,11 +40,7 @@ $(STATEDIR)/bootdisk.get:
 bootdisk_extract: $(STATEDIR)/bootdisk.extract
 
 $(STATEDIR)/bootdisk.extract: $(STATEDIR)/bootdisk.get
-	@echo
-	@echo ------------------------
-	@echo target: bootdisk.extract
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, bootdisk.extract)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -54,11 +50,7 @@ $(STATEDIR)/bootdisk.extract: $(STATEDIR)/bootdisk.get
 bootdisk_prepare: $(STATEDIR)/bootdisk.prepare
 
 $(STATEDIR)/bootdisk.prepare: $(STATEDIR)/bootdisk.extract
-	@echo
-	@echo ------------------------
-	@echo target: bootdisk.prepare
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, bootdisk.prepare)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -68,11 +60,7 @@ $(STATEDIR)/bootdisk.prepare: $(STATEDIR)/bootdisk.extract
 bootdisk_compile: $(STATEDIR)/bootdisk.compile
 
 $(STATEDIR)/bootdisk.compile: $(STATEDIR)/bootdisk.prepare 
-	@echo
-	@echo ------------------------
-	@echo target: bootdisk.compile
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, bootdisk.compile)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -82,11 +70,7 @@ $(STATEDIR)/bootdisk.compile: $(STATEDIR)/bootdisk.prepare
 bootdisk_install: $(STATEDIR)/bootdisk.install
 
 $(STATEDIR)/bootdisk.install: $(STATEDIR)/bootdisk.compile
-	@echo
-	@echo ------------------------
-	@echo target: bootdisk.install
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, bootdisk.install)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -102,11 +86,7 @@ bootdisk_targetinstall_deps += $(STATEDIR)/e2fsprogs.compile
 bootdisk_targetinstall_deps += $(STATEDIR)/ncurses.compile
 
 $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
-	@echo
-	@echo ------------------------------
-	@echo target: bootdisk.targetinstall
-	@echo ------------------------------
-	@echo
+	@$(call targetinfo, bootdisk.targetinstall)
         ifeq (y, $(PTXCONF_GRUB_BOOTDISK))
 	mkdir -p $(BOOTDISK_DIR)
 	mkdir -p $(BOOTDISK_DIR)/boot

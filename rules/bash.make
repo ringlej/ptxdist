@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: bash.make,v 1.2 2003/05/13 11:46:42 robert Exp $
+# $Id: bash.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -34,11 +34,7 @@ $(STATEDIR)/bash.get: $(BASH_SOURCE)
 	touch $@
 
 $(BASH_SOURCE):
-	@echo
-	@echo ---------------- 
-	@echo target: bash.get
-	@echo ----------------
-	@echo
+	@$(call targetinfo, bash.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(BASH_URL)
 
 # ----------------------------------------------------------------------------
@@ -48,11 +44,7 @@ $(BASH_SOURCE):
 bash_extract: $(STATEDIR)/bash.extract
 
 $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
-	@echo
-	@echo -------------------- 
-	@echo target: bash.extract
-	@echo --------------------
-	@echo
+	@$(call targetinfo, bash.extract)
 	$(BASH_EXTRACT) $(BASH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -205,11 +197,7 @@ endif
 
 
 $(STATEDIR)/bash.prepare: $(bash_prepare_deps)
-	@echo
-	@echo -------------------- 
-	@echo target: bash.prepare
-	@echo --------------------
-	@echo
+	@$(call targetinfo, bash.prepare)
 	mkdir -p $(BUILDDIR)/$(BASH)
 	cd $(BUILDDIR)/$(BASH) &&					\
 		$(BASH_ENVIRONMENT)					\
@@ -223,11 +211,7 @@ $(STATEDIR)/bash.prepare: $(bash_prepare_deps)
 bash_compile: $(STATEDIR)/bash.compile
 
 $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare 
-	@echo
-	@echo -------------------- 
-	@echo target: bash.compile
-	@echo --------------------
-	@echo
+	@$(call targetinfo, bash.compile)
 	make -C $(BASH_DIR) $(MAKEPARMS)
 	touch $@
 
@@ -238,11 +222,7 @@ $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare
 bash_install: $(STATEDIR)/bash.install
 
 $(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
-	@echo
-	@echo -------------------- 
-	@echo target: bash.install
-	@echo --------------------
-	@echo
+	@$(call targetinfo, bash.install)
 	make -C $(BASH_DIR) install
 	touch $@
 
@@ -253,11 +233,7 @@ $(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
 bash_targetinstall: $(STATEDIR)/bash.targetinstall
 
 $(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.install
-	@echo
-	@echo -------------------------- 
-	@echo target: bash.targetinstall
-	@echo --------------------------
-	@echo
+	@$(call targetinfo, bash.targetinstall)
 	# don't forget to $(CROSSSTRIP) -S your source!
 	touch $@
 

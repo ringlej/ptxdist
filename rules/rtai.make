@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: rtai.make,v 1.3 2003/05/13 11:25:11 robert Exp $
+# $Id: rtai.make,v 1.4 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -45,11 +45,7 @@ $(STATEDIR)/rtai.get: $(RTAI_SOURCE)
 	touch $@
 
 $(RTAI_SOURCE):
-	@echo
-	@echo ---------------- 
-	@echo target: rtai.get
-	@echo ----------------
-	@echo
+	@$(call targetinfo, rtai.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(RTAI_URL)
 
 # ----------------------------------------------------------------------------
@@ -59,11 +55,7 @@ $(RTAI_SOURCE):
 rtai_extract: $(STATEDIR)/rtai.extract
 
 $(STATEDIR)/rtai.extract: $(STATEDIR)/rtai.get
-	@echo
-	@echo -------------------- 
-	@echo target: rtai.extract
-	@echo --------------------
-	@echo
+	@$(call targetinfo, rtai.extract)
 	$(RTAI_EXTRACT) $(RTAI_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -77,11 +69,7 @@ rtai_prepare_deps =  $(STATEDIR)/kernel.prepare
 rtai_prepare_deps += $(STATEDIR)/rtai.extract
 
 $(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
-	@echo
-	@echo -------------------- 
-	@echo target: rtai.prepare
-	@echo --------------------
-	@echo
+	@$(call targetinfo, rtai.prepare)
 	install .rtaiconfig $(RTAI_DIR)
 	cd $(RTAI_DIR) && 						\
 		yes no | ./configure --non-interactive --linuxdir $(KERNEL_DIR) --reconf
@@ -104,11 +92,7 @@ $(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
 rtai_compile: $(STATEDIR)/rtai.compile
 
 $(STATEDIR)/rtai.compile: $(STATEDIR)/rtai.prepare 
-	@echo
-	@echo -------------------- 
-	@echo target: rtai.compile
-	@echo --------------------
-	@echo
+	@$(call targetinfo, rtai.compile)
 	cd $(RTAI_DIR) && TOPDIR=$(RTAI_DIR) PATH=$(PTXCONF_PREFIX)/bin:$$PATH make 
 	touch $@
 
@@ -119,11 +103,7 @@ $(STATEDIR)/rtai.compile: $(STATEDIR)/rtai.prepare
 rtai_install: $(STATEDIR)/rtai.install
 
 $(STATEDIR)/rtai.install: $(STATEDIR)/rtai.compile
-	@echo
-	@echo -------------------- 
-	@echo target: rtai.install
-	@echo --------------------
-	@echo
+	@$(call targetinfo, rtai.install)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -133,11 +113,7 @@ $(STATEDIR)/rtai.install: $(STATEDIR)/rtai.compile
 rtai_targetinstall: $(STATEDIR)/rtai.targetinstall
 
 $(STATEDIR)/rtai.targetinstall: $(STATEDIR)/rtai.install
-	@echo
-	@echo -------------------------- 
-	@echo target: rtai.targetinstall
-	@echo --------------------------
-	@echo
+	@$(call targetinfo, rtai.targetinstall)
 	mkdir -p $(ROOTDIR)/$(RTAI_MODULEDIR)
 	install $(RTAI_DIR)/rtaidir/rtai.o $(ROOTDIR)/$(RTAI_MODULEDIR)
 	$(CROSSSTRIP) -S $(ROOTDIR)/$(RTAI_MODULEDIR)/rtai.o

@@ -1,4 +1,4 @@
-# $Id: autoconf-2.57.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: autoconf-2.57.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -31,11 +31,7 @@ $(STATEDIR)/autoconf257.get: $(AUTOCONF257_SOURCE)
 	touch $@
 
 $(AUTOCONF257_SOURCE):
-	@echo
-	@echo ----------------------- 
-	@echo target: autoconf257.get
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, autoconf257.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(AUTOCONF257_URL)
 
 # ----------------------------------------------------------------------------
@@ -45,11 +41,7 @@ $(AUTOCONF257_SOURCE):
 autoconf257_extract: $(STATEDIR)/autoconf257.extract
 
 $(STATEDIR)/autoconf257.extract: $(STATEDIR)/autoconf257.get
-	@echo
-	@echo --------------------------- 
-	@echo target: autoconf257.extract
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, autoconf257.extract)
 	$(AUTOCONF257_EXTRACT) $(AUTOCONF257_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -60,11 +52,7 @@ $(STATEDIR)/autoconf257.extract: $(STATEDIR)/autoconf257.get
 autoconf257_prepare: $(STATEDIR)/autoconf257.prepare
 
 $(STATEDIR)/autoconf257.prepare: $(STATEDIR)/autoconf257.extract
-	@echo
-	@echo --------------------------- 
-	@echo target: autoconf257.prepare
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, autoconf257.prepare)
 	cd $(AUTOCONF257_DIR) && 					\
 	CFLAGS=$(CFLAGS) ./configure --prefix=$(PTXCONF_PREFIX)/$(AUTOCONF257)
 	touch $@
@@ -76,11 +64,7 @@ $(STATEDIR)/autoconf257.prepare: $(STATEDIR)/autoconf257.extract
 autoconf257_compile: $(STATEDIR)/autoconf257.compile
 
 $(STATEDIR)/autoconf257.compile: $(STATEDIR)/autoconf257.prepare 
-	@echo
-	@echo ---------------------------
-	@echo target: autoconf257.compile
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, autoconf257.compile)
 	make -C $(AUTOCONF257_DIR) $(MAKEPARMS)
 	touch $@
 
@@ -91,11 +75,7 @@ $(STATEDIR)/autoconf257.compile: $(STATEDIR)/autoconf257.prepare
 autoconf257_install: $(STATEDIR)/autoconf257.install
 
 $(STATEDIR)/autoconf257.install: $(STATEDIR)/autoconf257.compile
-	@echo
-	@echo ---------------------------
-	@echo target: autoconf257.install
-	@echo ---------------------------
-	@echo
+	@$(call targetinfo, autoconf257.install)
 	make -C $(AUTOCONF257_DIR) install
 	touch $@
 
@@ -106,11 +86,7 @@ $(STATEDIR)/autoconf257.install: $(STATEDIR)/autoconf257.compile
 autoconf257_targetinstall: $(STATEDIR)/autoconf257.targetinstall
 
 $(STATEDIR)/autoconf257.targetinstall: $(STATEDIR)/autoconf257.install
-	@echo
-	@echo ---------------------------------
-	@echo target: autoconf257.targetinstall
-	@echo ---------------------------------
-	@echo
+	@$(call targetinfo, autoconf257.targetinstall)
 	touch $@
 
 # ----------------------------------------------------------------------------

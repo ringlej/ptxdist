@@ -1,4 +1,4 @@
-# $Id: nfs-utils.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: nfs-utils.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -33,11 +33,7 @@ $(STATEDIR)/nfsutils.get: $(NFSUTILS_SOURCE)
 	touch $@
 
 $(NFSUTILS_SOURCE):
-	@echo
-	@echo -------------------- 
-	@echo target: nfsutils.get
-	@echo --------------------
-	@echo
+	@$(call targetinfo, nfsutils.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(NFSUTILS_URL)
 
 # ----------------------------------------------------------------------------
@@ -47,11 +43,7 @@ $(NFSUTILS_SOURCE):
 nfsutils_extract: $(STATEDIR)/nfsutils.extract
 
 $(STATEDIR)/nfsutils.extract: $(STATEDIR)/nfsutils.get $(STATEDIR)/autoconf257.targetinstall
-	@echo
-	@echo ------------------------ 
-	@echo target: nfsutils.extract
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, nfsutils.extract)
 	$(NFSUTILS_EXTRACT) $(NFSUTILS_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	#
 	# regenerate configure script with new autoconf, to make cross compiling work
@@ -94,11 +86,7 @@ NFSUTILS_AUTOCONF += --disable-rquotad
 endif
  
 $(STATEDIR)/nfsutils.prepare: $(STATEDIR)/nfsutils.extract
-	@echo
-	@echo ------------------------ 
-	@echo target: nfsutils.prepare
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, nfsutils.prepare)
 	cd $(NFSUTILS_DIR) &&						\
 		$(NFSUTILS_ENVIRONMENT)					\
 		$(NFSUTILS_DIR)/configure 				\
@@ -112,11 +100,7 @@ $(STATEDIR)/nfsutils.prepare: $(STATEDIR)/nfsutils.extract
 nfsutils_compile: $(STATEDIR)/nfsutils.compile
 
 $(STATEDIR)/nfsutils.compile: $(STATEDIR)/nfsutils.prepare 
-	@echo
-	@echo ------------------------ 
-	@echo target: nfsutils.compile
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, nfsutils.compile)
 	$(NFSUTILS_ENVIRONMENT) make -C $(NFSUTILS_DIR) $(NFSUTILS_MAKEVARS)
 	touch $@
 
@@ -127,11 +111,7 @@ $(STATEDIR)/nfsutils.compile: $(STATEDIR)/nfsutils.prepare
 nfsutils_install: $(STATEDIR)/nfsutils.install
 
 $(STATEDIR)/nfsutils.install: $(STATEDIR)/nfsutils.compile
-	@echo
-	@echo ------------------------ 
-	@echo target: nfsutils.install
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, nfsutils.install)
 	# make -C $(NFSUTILS_DIR) install
 	touch $@
 
@@ -142,11 +122,7 @@ $(STATEDIR)/nfsutils.install: $(STATEDIR)/nfsutils.compile
 nfsutils_targetinstall: $(STATEDIR)/nfsutils.targetinstall
 
 $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
-	@echo
-	@echo ------------------------------ 
-	@echo target: nfsutils.targetinstall
-	@echo ------------------------------
-	@echo
+	@$(call targetinfo, nfsutils.targetinstall)
 	# don't forget to $(CROSSSTRIP) -S your source!
 	mkdir -p $(ROOTDIR)/etc/init.d
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_CLIENTSCRIPT))

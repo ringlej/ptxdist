@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: u-boot-mkimage.make,v 1.3 2003/05/13 11:37:14 robert Exp $
+# $Id: u-boot-mkimage.make,v 1.4 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2003 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -32,11 +32,7 @@ $(STATEDIR)/umkimage.get: $(UMKIMAGE_SOURCE)
 	touch $@
 
 $(UMKIMAGE_SOURCE):
-	@echo
-	@echo -------------------- 
-	@echo target: umkimage.get
-	@echo --------------------
-	@echo
+	@$(call targetinfo, umkimage.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(UMKIMAGE_URL)
 
 # ----------------------------------------------------------------------------
@@ -46,11 +42,7 @@ $(UMKIMAGE_SOURCE):
 umkimage_extract: $(STATEDIR)/umkimage.extract
 
 $(STATEDIR)/umkimage.extract: $(STATEDIR)/umkimage.get
-	@echo
-	@echo ------------------------ 
-	@echo target: umkimage.extract
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, umkimage.extract)
 	$(UMKIMAGE_EXTRACT) $(UMKIMAGE_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -61,11 +53,7 @@ $(STATEDIR)/umkimage.extract: $(STATEDIR)/umkimage.get
 umkimage_prepare: $(STATEDIR)/umkimage.prepare
 
 $(STATEDIR)/umkimage.prepare: $(STATEDIR)/umkimage.extract
-	@echo
-	@echo ------------------------ 
-	@echo target: umkimage.prepare
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, umkimage.prepare)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -75,13 +63,9 @@ $(STATEDIR)/umkimage.prepare: $(STATEDIR)/umkimage.extract
 umkimage_compile: $(STATEDIR)/umkimage.compile
 
 $(STATEDIR)/umkimage.compile: $(STATEDIR)/umkimage.prepare 
-	@echo
-	@echo ------------------------ 
-	@echo target: umkimage.compile
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, umkimage.compile)
 	# FIXME: no spaces in pathnames:
-	CC=$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcc CFLAGS=-I$(PTXCONF_PREFIX)/include LIBS=-L$(PTXCONF_PREFIX)/lib make -C $(UMKIMAGE_DIR) 
+	CC=$(HOSTCC) CFLAGS=-I$(PTXCONF_PREFIX)/include LIBS=-L$(PTXCONF_PREFIX)/lib make -C $(UMKIMAGE_DIR) 
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -91,11 +75,7 @@ $(STATEDIR)/umkimage.compile: $(STATEDIR)/umkimage.prepare
 umkimage_install: $(STATEDIR)/umkimage.install
 
 $(STATEDIR)/umkimage.install: $(STATEDIR)/umkimage.compile
-	@echo
-	@echo ------------------------ 
-	@echo target: umkimage.install
-	@echo ------------------------
-	@echo
+	@$(call targetinfo, umkimage.install)
 	install $(UMKIMAGE_DIR)/mkimage $(PTXCONF_PREFIX)/bin/u-boot-mkimage
 	touch $@
 
@@ -106,11 +86,7 @@ $(STATEDIR)/umkimage.install: $(STATEDIR)/umkimage.compile
 umkimage_targetinstall: $(STATEDIR)/umkimage.targetinstall
 
 $(STATEDIR)/umkimage.targetinstall: $(STATEDIR)/umkimage.install
-	@echo
-	@echo ----------------------- 
-	@echo target: umkimage.targetinstall
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, umkimage.targetinstall)
 	touch $@
 
 # ----------------------------------------------------------------------------

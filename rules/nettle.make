@@ -1,4 +1,4 @@
-# $Id: nettle.make,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: nettle.make,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -33,11 +33,7 @@ $(STATEDIR)/nettle.get: $(NETTLE_SOURCE)
 	touch $@
 
 $(NETTLE_SOURCE):
-	@echo
-	@echo ----------
-	@echo target: nettle.get
-	@echo ----------
-	@echo
+	@$(call targetinfo, nettle.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(NETTLE_URL)
 
 # ----------------------------------------------------------------------------
@@ -47,11 +43,7 @@ $(NETTLE_SOURCE):
 nettle_extract: $(STATEDIR)/nettle.extract
 
 $(STATEDIR)/nettle.extract: $(STATEDIR)/nettle.get
-	@echo
-	@echo --------------
-	@echo target: nettle.extract
-	@echo --------------
-	@echo
+	@$(call targetinfo, nettle.extract)
 	$(NETTLE_EXTRACT) $(NETTLE_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -67,11 +59,7 @@ NETTLE_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 NETTLE_AUTOCONF += --prefix=$(PTXCONF_PREFIX)
 
 $(STATEDIR)/nettle.prepare: $(STATEDIR)/nettle.extract
-	@echo
-	@echo -------------- 
-	@echo target: nettle.prepare
-	@echo --------------
-	@echo
+	@$(call targetinfo, nettle.prepare)
 	cd $(NETTLE_DIR) &&						\
 		PATH=$(PTXCONF_PREFIX)/bin:$$PATH ./configure $(NETTLE_AUTOCONF)
 	touch $@
@@ -83,11 +71,7 @@ $(STATEDIR)/nettle.prepare: $(STATEDIR)/nettle.extract
 nettle_compile: $(STATEDIR)/nettle.compile
 
 $(STATEDIR)/nettle.compile: $(STATEDIR)/nettle.prepare 
-	@echo
-	@echo -------------- 
-	@echo target: nettle.compile
-	@echo --------------
-	@echo
+	@$(call targetinfo, nettle.compile)
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(NETTLE_DIR)
 	touch $@
 
@@ -98,11 +82,7 @@ $(STATEDIR)/nettle.compile: $(STATEDIR)/nettle.prepare
 nettle_install: $(STATEDIR)/nettle.install
 
 $(STATEDIR)/nettle.install: $(STATEDIR)/nettle.compile
-	@echo
-	@echo -------------- 
-	@echo target: nettle.install
-	@echo --------------
-	@echo
+	@$(call targetinfo, nettle.install)
 	# FIXME: this doesn't work when using local bin directory...?
 	make -C $(NETTLE_DIR) install
 	touch $@
@@ -114,11 +94,7 @@ $(STATEDIR)/nettle.install: $(STATEDIR)/nettle.compile
 nettle_targetinstall: $(STATEDIR)/nettle.targetinstall
 
 $(STATEDIR)/nettle.targetinstall: $(STATEDIR)/nettle.install
-	@echo
-	@echo -------------------- 
-	@echo target: nettle.targetinstall
-	@echo --------------------
-	@echo
+	@$(call targetinfo, nettle.targetinstall)
 	# nettle is only static at the moment
 	touch $@
 

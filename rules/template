@@ -1,4 +1,4 @@
-# $Id: template,v 1.1 2003/04/24 08:06:33 jst Exp $
+# $Id: template,v 1.2 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -31,11 +31,7 @@ $(STATEDIR)/foo.get: $(FOO_SOURCE)
 	touch $@
 
 $(FOO_SOURCE):
-	@echo
-	@echo ------------------- 
-	@echo target: foo.get
-	@echo -------------------
-	@echo
+	@$(call targetinfo, foo.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(FOO_URL)
 
 # ----------------------------------------------------------------------------
@@ -45,11 +41,7 @@ $(FOO_SOURCE):
 foo_extract: $(STATEDIR)/foo.extract
 
 $(STATEDIR)/foo.extract: $(STATEDIR)/foo.get
-	@echo
-	@echo ----------------------- 
-	@echo target: foo.extract
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, foo.extract)
 	$(FOO_EXTRACT) $(FOO_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -60,11 +52,7 @@ $(STATEDIR)/foo.extract: $(STATEDIR)/foo.get
 foo_prepare: $(STATEDIR)/foo.prepare
 
 $(STATEDIR)/foo.prepare: $(STATEDIR)/foo.extract
-	@echo
-	@echo ----------------------- 
-	@echo target: foo.prepare
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, foo.prepare)
 	cd $(FOO_DIR) && 						\
 	CFLAGS=$(CFLAGS) ./configure 					\
 		--some-options
@@ -77,11 +65,7 @@ $(STATEDIR)/foo.prepare: $(STATEDIR)/foo.extract
 foo_compile: $(STATEDIR)/foo.compile
 
 $(STATEDIR)/foo.compile: $(STATEDIR)/foo.prepare 
-	@echo
-	@echo ----------------------- 
-	@echo target: foo.compile
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, foo.compile)
 	make -C $(FOO_DIR) $(MAKEPARMS)
 	touch $@
 
@@ -92,11 +76,7 @@ $(STATEDIR)/foo.compile: $(STATEDIR)/foo.prepare
 foo_install: $(STATEDIR)/foo.install
 
 $(STATEDIR)/foo.install: $(STATEDIR)/foo.compile
-	@echo
-	@echo ----------------------- 
-	@echo target: foo.install
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, foo.install)
 	
 	make -C $(FOO_DIR) install
 	touch $@
@@ -108,11 +88,7 @@ $(STATEDIR)/foo.install: $(STATEDIR)/foo.compile
 foo_targetinstall: $(STATEDIR)/foo.targetinstall
 
 $(STATEDIR)/foo.targetinstall: $(STATEDIR)/foo.install
-	@echo
-	@echo ----------------------- 
-	@echo target: foo.targetinstall
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, foo.targetinstall)
 	# don't forget to $(CROSSSTRIP) -S your source!
 	touch $@
 

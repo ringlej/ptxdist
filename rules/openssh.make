@@ -1,4 +1,4 @@
-# $Id: openssh.make,v 1.2 2003/05/03 10:28:12 robert Exp $
+# $Id: openssh.make,v 1.3 2003/06/16 12:05:16 bsp Exp $
 #
 # (c) 2002 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
@@ -33,11 +33,7 @@ $(STATEDIR)/openssh.get: $(OPENSSH_SOURCE)
 	touch $@
 
 $(OPENSSH_SOURCE):
-	@echo
-	@echo -------------------
-	@echo target: openssh.get
-	@echo -------------------
-	@echo
+	@$(call targetinfo, openssh.get)
 	wget -P $(SRCDIR) $(PASSIVEFTP) $(OPENSSH_URL)
 
 # ----------------------------------------------------------------------------
@@ -47,11 +43,7 @@ $(OPENSSH_SOURCE):
 openssh_extract: $(STATEDIR)/openssh.extract
 
 $(STATEDIR)/openssh.extract: $(STATEDIR)/openssh.get
-	@echo
-	@echo -----------------------
-	@echo target: openssh.extract
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, openssh.extract)
 	$(OPENSSH_EXTRACT) $(OPENSSH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	touch $@
 
@@ -68,11 +60,7 @@ OPENSSH_AUTOCONF += --with-zlib=$(PTXCONF_PREFIX)
 OPENSSH_AUTOCONF += --with-privsep-path=$(PTXCONF_PREFIX)/var/empty
 
 $(STATEDIR)/openssh.prepare: $(STATEDIR)/openssh.extract $(STATEDIR)/openssl.install
-	@echo
-	@echo -----------------------
-	@echo target: openssh.prepare
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, openssh.prepare)
 	cd $(OPENSSH_DIR) && LIBS=-lcrypt ./configure $(OPENSSH_AUTOCONF)
 	touch $@
 
@@ -83,11 +71,7 @@ $(STATEDIR)/openssh.prepare: $(STATEDIR)/openssh.extract $(STATEDIR)/openssl.ins
 openssh_compile: $(STATEDIR)/openssh.compile
 
 $(STATEDIR)/openssh.compile: $(STATEDIR)/openssh.prepare 
-	@echo
-	@echo ----------------------- 
-	@echo target: openssh.compile
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, openssh.compile)
 	cd $(OPENSSH_DIR) && PATH=$(PTXCONF_PREFIX)/bin:$$PATH make
 	touch $@
 
@@ -98,11 +82,7 @@ $(STATEDIR)/openssh.compile: $(STATEDIR)/openssh.prepare
 openssh_install: $(STATEDIR)/openssh.install
 
 $(STATEDIR)/openssh.install: $(STATEDIR)/openssh.compile
-	@echo
-	@echo ----------------------- 
-	@echo target: openssh.install
-	@echo -----------------------
-	@echo
+	@$(call targetinfo, openssh.install)
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH make -C $(OPENSSH_DIR) install PREFIX=$(PTXCONF_PREFIX)
 	touch $@
 
@@ -113,11 +93,7 @@ $(STATEDIR)/openssh.install: $(STATEDIR)/openssh.compile
 openssh_targetinstall: $(STATEDIR)/openssh.targetinstall
 
 $(STATEDIR)/openssh.targetinstall: $(STATEDIR)/openssh.install
-	@echo
-	@echo ----------------------------- 
-	@echo target: openssh.targetinstall
-	@echo -----------------------------
-	@echo
+	@$(call targetinfo, openssh.targetinstall)
 	echo 'TODO: install openssh files (dont forget privsep)'
 	touch $@
 
