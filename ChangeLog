@@ -7,6 +7,7 @@
 	* libxml2: build without python support by default; patch 
 	  by Benedikt Spranger
 	* netcat: new URL; patch by Benedikt Spranger
+	* module-init-tools: added; patch by Ladislav Michl
 
 2005-01-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
