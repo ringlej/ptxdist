@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.91 2004/06/22 17:48:18 rsc Exp $
+# $Id: Makefile,v 1.92 2004/06/22 18:17:30 rsc Exp $
 #
 # Copyright (C) 2002 by Robert Schwebel <r.schwebel@pengutronix.de>
 # Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
@@ -208,13 +208,17 @@ i386-generic-uclibc_config:
 	@echo "copying i386-generic-uclibc configuration"
 	@cp config/i386-generic-uclibc.ptxconfig .config
 
-innokom_config:
-	@echo "copying innokom configuration"
-	@cp config/innokom.ptxconfig .config
+innokom-2.4-2.95_config:
+	@echo "copying innokom-2.4-2.95 configuration"
+	@cp config/innokom-2.4-2.95.ptxconfig .config
 
-innokom-3.3.2_config:
-	@echo "copying innokom-3.3.2 configuration (WORK IN PROGRESS!)"
-	@cp config/innokom-3.3.2-tmp.ptxconfig .config
+innokom-2.4-3.3.2_config:
+	@echo "copying innokom-2.4-3.3.2 configuration (WORK IN PROGRESS!)"
+	@cp config/innokom-2.4-3.3.2.ptxconfig .config
+
+innokom-2.6_config:
+	@echo "copying innokom-2.6 configuration (WORK IN PROGRESS!)"
+	@cp config/innokom-2.6.ptxconfig .config
 
 mx1fs2_config:
 	@echo "copying mx1fs2 configuration"
