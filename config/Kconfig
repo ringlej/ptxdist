@@ -1,0 +1,27 @@
+#
+# config/Kconfig: Main menu structure definition
+# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2002, 2003, 2004
+#
+
+mainmenu "Configuration"
+
+# We need this: otherwhise kconfig doesn't handle tristate entries!!
+config MODULES
+        bool
+        default y
+
+config PTXCONF
+	bool
+	default y
+	help
+	  This is the Pengutronix Distribution Build System.
+
+config PROJECT
+	string
+	prompt "Project Name "
+	help
+	  Name of this project; the name you enter here has to be
+	  identical to the name of the default config file in
+	  $(PROJECTDIR). 
+
+source "rules/Kconfig"
