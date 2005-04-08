@@ -1,3 +1,14 @@
+2005-04-08  Gary Thomas  <gary@mlbassoc.com>
+
+	* rules/bridge-utils.in: 
+	* rules/bridge-utils.make: 
+	* rules/networking.in: Add bridge-utils package.
+	* rules/rsync.make: Upgrade to latest [available] package.
+	* rules/util-linux.in: 
+	* rules/util-linux.make:
+	* local_patches/util-linux+cfdisk.patch:          
+	  Support building sfdisk, cfdisk for target.
+
 2005-04-08 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ipkg: added initial support for ipkg packets
