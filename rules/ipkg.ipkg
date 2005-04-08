@@ -1,0 +1,10 @@
+Package:	ipkg
+Priority:	optional
+Version:	@VERSION@
+Section:  	base
+Architecture:	@ARCH@
+Maintainer:	Robert Schwebel <r.schwebel@pengutronix.de>
+Depends:	libc6
+Source: 	http://www.pengutronix.de/software/ptxdist_de.html
+Description:	no description yet
+

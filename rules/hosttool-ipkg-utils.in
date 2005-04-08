@@ -1,0 +1,8 @@
+
+config HOSTTOOLS_IPKG_UTILS
+	bool
+	prompt "ipkg-utils"
+	default y
+	help
+	  ipkg-utils let you build packages in the ipkg format. 
+

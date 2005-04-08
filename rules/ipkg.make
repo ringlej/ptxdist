@@ -1,0 +1,157 @@
+# $Id: template 2224 2005-01-20 15:19:18Z rsc $
+#
+# Copyright (C) 2005 by Robert Schwebel
+#          
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+ifdef PTXCONF_IPKG
+PACKAGES += ipkg
+endif
+
+#
+# Paths and names
+#
+IPKG_VERSION		= 0.99.144
+IPKG			= ipkg-$(IPKG_VERSION)
+IPKG_SUFFIX		= tar.gz
+IPKG_URL		= http://FIXME/$(IPKG).$(IPKG_SUFFIX)
+IPKG_SOURCE		= $(SRCDIR)/$(IPKG).$(IPKG_SUFFIX)
+IPKG_DIR		= $(BUILDDIR)/$(IPKG)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+ipkg_get: $(STATEDIR)/ipkg.get
+
+ipkg_get_deps = $(IPKG_SOURCE)
+
+$(STATEDIR)/ipkg.get: $(ipkg_get_deps)
+	@$(call targetinfo, $@)
+	@$(call get_patches, $(IPKG))
+	touch $@
+
+$(IPKG_SOURCE):
+	@$(call targetinfo, $@)
+	@$(call get, $(IPKG_URL))
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+ipkg_extract: $(STATEDIR)/ipkg.extract
+
+ipkg_extract_deps = $(STATEDIR)/ipkg.get
+
+$(STATEDIR)/ipkg.extract: $(ipkg_extract_deps)
+	@$(call targetinfo, $@)
+	@$(call clean, $(IPKG_DIR))
+	@$(call extract, $(IPKG_SOURCE))
+	@$(call patchin, $(IPKG))
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+ipkg_prepare: $(STATEDIR)/ipkg.prepare
+
+#
+# dependencies
+#
+ipkg_prepare_deps = \
+	$(STATEDIR)/ipkg.extract \
+	$(STATEDIR)/virtual-xchain.install
+
+IPKG_PATH	=  PATH=$(CROSS_PATH)
+IPKG_ENV 	=  $(CROSS_ENV)
+#IPKG_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+#IPKG_ENV	+=
+
+#
+# autoconf
+#
+IPKG_AUTOCONF =  $(CROSS_AUTOCONF)
+IPKG_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+
+$(STATEDIR)/ipkg.prepare: $(ipkg_prepare_deps)
+	@$(call targetinfo, $@)
+	@$(call clean, $(IPKG_DIR)/config.cache)
+	cd $(IPKG_DIR) && \
+		$(IPKG_PATH) $(IPKG_ENV) \
+		./configure $(IPKG_AUTOCONF)
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+ipkg_compile: $(STATEDIR)/ipkg.compile
+
+ipkg_compile_deps = $(STATEDIR)/ipkg.prepare
+
+$(STATEDIR)/ipkg.compile: $(ipkg_compile_deps)
+	@$(call targetinfo, $@)
+	cd $(IPKG_DIR) && $(IPKG_ENV) $(IPKG_PATH) make
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+ipkg_install: $(STATEDIR)/ipkg.install
+
+$(STATEDIR)/ipkg.install: $(STATEDIR)/ipkg.compile
+	@$(call targetinfo, $@)
+	cd $(IPKG_DIR) && $(IPKG_ENV) $(IPKG_PATH) make install
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+ipkg_targetinstall: $(STATEDIR)/ipkg.targetinstall
+
+ipkg_targetinstall_deps = $(STATEDIR)/ipkg.compile
+
+$(STATEDIR)/ipkg.targetinstall: $(ipkg_targetinstall_deps)
+	@$(call targetinfo, $@)
+
+	install -d $(ROOTDIR)/usr/bin
+
+	$(call ipkg_init,ipkg)
+	$(call ipkg_fixup,VERSION,$(IPKG_VERSION))
+
+	$(call ipkg_copy, 0, 0, 0644, $(IPKG_DIR)/.libs/libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0.0)
+	$(call ipkg_link, libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0)
+	$(call ipkg_link, libipkg.so.0.0.0, /usr/lib/libipkg.so.0)
+
+	$(call ipkg_copy, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg)
+
+ifdef PTXCONF_IPKG_EXTRACT_TEST
+	$(call ipkg_copy, 0, 0, 0755, $(IPKG_DIR)/ipkg_extract_test, /usr/bin/ipkg_extract_test)
+endif
+ifdef PTXCONF_IPKG_HASH_TEST
+	$(call ipkg_copy, 0, 0, 0755, $(IPKG_DIR)/ipkg_hash_test, /usr/bin/ipkg_hash_test)
+endif
+
+	$(call ipkg_finish)
+
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+ipkg_clean:
+	rm -rf $(STATEDIR)/ipkg.*
+	rm -rf $(IPKG_DIR)
+
+# vim: syntax=make

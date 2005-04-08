@@ -18,7 +18,8 @@ endif
 #
 # Paths and names 
 #
-COREUTILS		= coreutils-5.0
+COREUTILS_VERSION	= 5.0
+COREUTILS		= coreutils-$(COREUTILS_VERSION)
 COREUTILS_URL		= $(PTXCONF_SETUP_GNUMIRROR)/coreutils/$(COREUTILS).tar.bz2 
 COREUTILS_SOURCE	= $(SRCDIR)/$(COREUTILS).tar.bz2
 COREUTILS_DIR		= $(BUILDDIR)/$(COREUTILS)
@@ -126,22 +127,29 @@ $(STATEDIR)/coreutils.targetinstall: $(STATEDIR)/coreutils.compile
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/usr/bin
 	install -d $(ROOTDIR)/bin
+
+	$(call ipkg_init,coreutils)
+	$(call ipkg_fixup,VERSION,$(COREUTILS_VERSION)) 
+	
 ifdef PTXCONF_COREUTILS_CP
-	$(call copy_root, 0, 0, 0755, $(COREUTILS_DIR)/src/cp, /bin/cp)
+	$(call ipkg_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/cp, /bin/cp)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/cp
 endif
 ifdef PTXCONF_COREUTILS_DD
-	$(call copy_root, 0, 0, 0755, $(COREUTILS_DIR)/src/dd, /bin/dd)	
+	$(call ipkg_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/dd, /bin/dd)	
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/dd
 endif
 ifdef PTXCONF_COREUTILS_MD5SUM
-	$(call copy_root, 0, 0, 0755, $(COREUTILS_DIR)/src/md5sum, /bin/md5sum)
+	$(call ipkg_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/md5sum, /bin/md5sum)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/md5sum
 endif
 ifdef PTXCONF_COREUTILS_SEQ
-	$(call copy_root, 0, 0, 0755, $(COREUTILS_DIR)/src/seq, /usr/bin/seq)
+	$(call ipkg_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/seq, /usr/bin/seq)
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/seq
 endif
+
+	$(call ipkg_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -150,5 +158,6 @@ endif
 
 coreutils_clean: 
 	rm -rf $(STATEDIR)/coreutils.* $(COREUTILS_DIR)
+	rm -fr $(IMAGEDIR)/coreutils_*
 
 # vim: syntax=make

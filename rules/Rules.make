@@ -388,10 +388,12 @@ get =								\
 	SRC="$(strip $(2))";					\
 	SRC=$${SRC:-$(SRCDIR)};					\
 	[ -d $$SRC ] || $(MKDIR) -p $$SRC;			\
-	case $$URLTYPE in 					\
-	http)							\
-		$(WGET) -P $$SRC --passive-ftp $$URL;		\
-		[ $$? -eq 0 ] || {				\
+	[ "$(PTXCONF_SETUP_FTP_PROXY)" != "" ] && FTPPROXY="-Yon";	\
+	[ "$(PTXCONF_SETUP_HTTP_PROXY)" != "" ] && HTTPPROXY="-Yon";	\
+	case $$URLTYPE in 						\
+	http)								\
+		$(WGET) -P $$SRC --passive-ftp $$HTTPPROXY $$URL;	\
+		[ $$? -eq 0 ] || {					\
 			echo;					\
 			echo "Could not get packet via http!";	\
 			echo "URL: $$URL";			\
@@ -399,9 +401,9 @@ get =								\
 			exit -1;				\
 			};					\
 		;;						\
-	ftp)							\
-		$(WGET) -P $$SRC --passive-ftp $$URL;		\
-		[ $$? -eq 0 ] || {				\
+	ftp)								\
+		$(WGET) -P $$SRC --passive-ftp $$FTPPROXY $$URL;	\
+		[ $$? -eq 0 ] || {					\
 			echo;					\
 			echo "Could not get packet via ftp!";	\
 			echo "URL: $$URL";			\
@@ -462,48 +464,48 @@ get_feature_patch =						\
 	FP_DIR="$(PTXCONF_SETUP_LOCAL_FEATUREPATCH_REPOSITORY)/$$FP_NAME/";			\
 	[ -d $$FP_DIR ] || $(MKDIR) -p $$FP_DIR;						\
 	[ "$$(expr match $$FP_URL http://)" != "0" ] && FP_URLTYPE="http"; 			\
-        [ "$$(expr match $$FP_URL ftp://)" != "0" ]  && FP_URLTYPE="ftp";  			\
-        [ "$$(expr match $$FP_URL file://)" != "0" ] && FP_URLTYPE="file"; 			\
+	[ "$$(expr match $$FP_URL ftp://)" != "0" ]  && FP_URLTYPE="ftp";  			\
+	[ "$$(expr match $$FP_URL file://)" != "0" ] && FP_URLTYPE="file"; 			\
 	case $$FP_URLTYPE in                                    \
-        http)                                                   \
-                $(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR --passive-ftp $$FP_URL; \
+	http)                                                   \
+		$(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR --passive-ftp $$FP_URL; \
 		[ $$? -eq 0 ] || {                              \
-                        echo;                                   \
-                        echo "Could not get feature patch via http!";  \
-                        echo "URL: $$URL";                      \
-                        echo;                                   \
-                        exit -1;                                \
-                        };                                      \
-                ;;                                              \
-        ftp)                                                    \
-                $(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR --passive-ftp $$FP_URL; \
+			echo;                                   \
+			echo "Could not get feature patch via http!";  \
+			echo "URL: $$URL";                      \
+			echo;                                   \
+			exit -1;                                \
+			};                                      \
+		;;                                              \
+	ftp)                                                    \
+		$(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR --passive-ftp $$FP_URL; \
 		[ $$? -eq 0 ] || {                              \
-                        echo;                                   \
-                        echo "Could not get feature patch via ftp!";   \
-                        echo "URL: $$URL";                      \
-                        echo;                                   \
-                        exit -1;                                \
-                        };                                      \
-                ;;                                              \
-        file)                                                   \
-                FP_FILE="$$(echo $$FP_URL | sed s-file://-/-g)";\
-                $(CP) -av $$FP_FILE $$FP_DIR;			\
-                [ $$? -eq 0 ] || {                              \
-                        echo;                                   \
-                        echo "Could not copy feature patch!";   \
-                        echo "File: $$FILE";                    \
-                        echo;                                   \
-                        exit -1;                                \
-                        };                                      \
-                ;;                                              \
-        *)                                                      \
-                echo;                                           \
-                echo "Unknown URL Type for feature patch!";     \
-                echo "URL: $$URL";                              \
-                echo;                                           \
-                exit -1;                                        \
-                ;;                                              \
-        esac;
+			echo;                                   \
+			echo "Could not get feature patch via ftp!";   \
+			echo "URL: $$URL";                      \
+			echo;                                   \
+			exit -1;                                \
+			};                                      \
+		;;                                              \
+	file)                                                   \
+		FP_FILE="$$(echo $$FP_URL | sed s-file://-/-g)";\
+		$(CP) -av $$FP_FILE $$FP_DIR;			\
+		[ $$? -eq 0 ] || {                              \
+			echo;                                   \
+			echo "Could not copy feature patch!";   \
+			echo "File: $$FILE";                    \
+			echo;                                   \
+			exit -1;                                \
+			};                                      \
+		;;                                              \
+	*)                                                      \
+		echo;                                           \
+		echo "Unknown URL Type for feature patch!";     \
+		echo "URL: $$URL";                              \
+		echo;                                           \
+		exit -1;                                        \
+		;;                                              \
+	esac;
 
 #
 # get_patches
@@ -888,6 +890,128 @@ feature_patchin =								\
 		done;								\
 	fi;									\
 
+#
+# ipkg_copy
+# 
+# Installs a file with user/group ownership and permissions via
+# fakeroot. 
+#
+# $1: UID
+# $2: GID
+# $3: permissions (octal)
+# $4: source (for files); directory (for directories)
+# $5: destination (for files); empty (for directories). Prefixed with $(ROOTDIR), 
+#     so it needs to have a leading /
+# $6: strip (for files; y|n); default is to strip
+#
+ipkg_copy = 											\
+	@OWN=`echo $(1) | sed -e 's/[[:space:]]//g'`;						\
+	GRP=`echo $(2) | sed -e 's/[[:space:]]//g'`;						\
+	PER=`echo $(3) | sed -e 's/[[:space:]]//g'`;						\
+	SRC=`echo $(4) | sed -e 's/[[:space:]]//g'`;						\
+	DST=`echo $(5) | sed -e 's/[[:space:]]//g'`;						\
+	STRIP="$(strip $(6))";									\
+	if [ -z "$(5)" ]; then									\
+		echo "ipkg_copy: dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER";		\
+		$(INSTALL) -d $(IMAGEDIR)/ipkg/$$SRC;						\
+		if [ $$? -ne 0 ]; then								\
+			echo "Error: ipkg_copy failed!";					\
+			exit -1;								\
+		fi;										\
+		$(INSTALL) -d $(ROOTDIR)/$$SRC;							\
+		if [ $$? -ne 0 ]; then								\
+			echo "Error: ipkg_copy failed!";					\
+			exit -1;								\
+		fi;										\
+		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			\
+	else											\
+		echo "ipkg_copy src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER"; \
+		rm -fr $(IMAGEDIR)/ipkg/$$DST; 							\
+		$(INSTALL) -D $$SRC $(IMAGEDIR)/ipkg/$$DST;					\
+		if [ $$? -ne 0 ]; then								\
+			echo "Error: ipkg_copy failed!";					\
+			exit -1;								\
+		fi;										\
+		$(INSTALL) -D $$SRC $(ROOTDIR)$$DST;						\
+		if [ $$? -ne 0 ]; then								\
+			echo "Error: ipkg_copy failed!";					\
+			exit -1;								\
+		fi;										\
+		case "$$STRIP" in								\
+		(0 | n | no)									\
+			;;									\
+		(*)										\
+			$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/ipkg/$$DST;		\
+			$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
+			;;									\
+		esac;										\
+		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			\
+	fi;
+
+#
+# ipkg_link
+# 
+# Installs a soft link in root directory in an ipkg packet. 
+# 
+# $1: source
+# $2: destination
+#
+ipkg_link =									\
+	@SRC=$(strip $(1));							\
+	DST=$(strip $(2));							\
+	rm -fr $(ROOTDIR)$$DST;							\
+	echo "ipkg_link: src=$$SRC dst=$$DST "; 				\
+	$(LN) -sf $$SRC $(ROOTDIR)$$DST;					\
+	$(LN) -sf $$SRC $(IMAGEDIR)/ipkg/$$DST;
+
+#
+# ipkg_fixup
+#
+# Replaces @...@ sequences in rules/*.ipkg files
+#
+# $1: sequence to be replaced
+# $2: replacement
+#
+ipkg_fixup = 											\
+	@REPLACE_FROM=$(strip $(1));								\
+	REPLACE_TO=$(strip $(2));								\
+	echo -n "ipkg_fixup:  @$$REPLACE_FROM@ -> $$REPLACE_TO ... "; 				\
+	perl -i -p -e "s,\@$$REPLACE_FROM@,$$REPLACE_TO,g" $(IMAGEDIR)/ipkg/CONTROL/control;	\
+	echo "done."
+
+#
+# ipkg_init
+#
+# Deletes $(IMAGEDIR)/ipkg and prepares for new ipkg package creation
+#
+# $1: packet name (rules/$1.ipkg)
+#
+ipkg_init =											\
+	@PACKET=$(strip $(1));									\
+	echo -n "ipkg_init: preparing for image creation...";					\
+	rm -fr $(IMAGEDIR)/ipkg;								\
+	mkdir -p $(IMAGEDIR)/ipkg/CONTROL; 							\
+	if [ ! -f $(TOPDIR)/rules/$$PACKET.ipkg ]; then						\
+		echo; echo; 									\
+		echo "Error: could not find ipkg file $(TOPDIR)/rules/$$PACKET.ipkg";		\
+		echo;										\
+		exit 1;										\
+	fi; 											\
+	cp -f $(TOPDIR)/rules/$$PACKET.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;			\
+	perl -i -p -e "s,\@ARCH@,$(PTXCONF_ARCH),g" $(IMAGEDIR)/ipkg/CONTROL/control;		\
+	echo "done"
+
+#
+# ipkg_finish
+#
+# Finishes ipkg packet creation
+#
+ipkg_finish = 											\
+	@echo -n "ipkg_finish: writing packet ... ";						\
+	(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions; echo "popd;"; \
+	echo "$(PTXCONF_PREFIX)/bin/ipkg-build $(IMAGEDIR)/ipkg $(IMAGEDIR)") | $(FAKEROOT) -- 2>&1 | grep -v "cannot access";\
+	rm -fr $(IMAGEDIR)/ipkg;								\
+	echo "done."
 
 #
 # copy_root

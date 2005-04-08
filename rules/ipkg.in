@@ -1,0 +1,24 @@
+menu	"ipkg                "
+
+config IPKG
+	bool
+	prompt "ipkg"
+	default N
+
+config IPKG_EXTRACT_TEST
+	bool
+	prompt "ipkg_extract_test"
+	depends on IPKG
+	default N
+	help
+	  Unfortunately, nobody knows what this program is being used for. 
+
+config IPKG_HASH_TEST
+	bool
+	prompt "ipkg_hash_test"
+	depends on IPKG
+	default N
+	help
+	  Unfortunately, nobody knows what this program is being used for. 
+
+endmenu
