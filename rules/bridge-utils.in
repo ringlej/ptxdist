@@ -1,0 +1,9 @@
+# Bridge Utils configuration
+
+menu "Bridge Utils        "
+
+config BRIDGE_UTILS
+	bool
+	prompt "Compile Bridge Utils"
+
+endmenu
