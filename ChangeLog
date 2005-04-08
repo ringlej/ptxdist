@@ -1,4 +1,13 @@
-2005-03-28  Gary Thomas  <gary@mlbassoc.com>
+2005-04-08 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ipkg: added initial support for ipkg packets
+	* menus: added support for custom menues
+
+2005-04-06 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* setup: add proxy support to 'make setup'. 
+
+2005-03-28 Gary Thomas  <gary@mlbassoc.com>
 
 	* rules/wireless.make: Build tools to run on target system.
 

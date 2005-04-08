@@ -53,7 +53,15 @@ PROJECTDIRS		+= $(PTXCONF_SETUP_PROJECTDIR2)/
 endif
 
 PROJECTCONFFILE		=  $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
-PROJECTDIR		=  $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE))
+PROJECTDIR		=  $(strip $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE)))
+
+MENU			=  $(shell 						\
+				if [ -e $(PROJECTDIR)/Kconfig ]; then		\
+					echo $(PROJECTDIR)/Kconfig; 		\
+				else 						\
+					echo $(TOPDIR)/config/Kconfig; 		\
+				fi						\
+			   )
 
 # ----------------------------------------------------------------------------
 # Find out which patch repository is to be used
@@ -273,7 +281,7 @@ scripts/kconfig/gconf: scripts/kconfig/libkconfig.so
 	make -C scripts/kconfig gconf
 
 menuconfig: scripts/lxdialog/lxdialog scripts/kconfig/mconf
-	scripts/kconfig/mconf config/Kconfig
+	scripts/kconfig/mconf $(MENU)
 
 xconfig: scripts/kconfig/qconf
 	scripts/kconfig/qconf config/Kconfig
