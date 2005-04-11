@@ -128,8 +128,14 @@ $(STATEDIR)/coreutils.targetinstall: $(STATEDIR)/coreutils.compile
 	install -d $(ROOTDIR)/usr/bin
 	install -d $(ROOTDIR)/bin
 
-	$(call ipkg_init,coreutils)
-	$(call ipkg_fixup,VERSION,$(COREUTILS_VERSION)) 
+	$(call ipkg_init,default)
+	$(call ipkg_fixup,PACKAGE,coreutils)
+	$(call ipkg_fixup,PRIORITY,optional)
+	$(call ipkg_fixup,VERSION,$(COREUTILS_VERSION))
+	$(call ipkg_fixup,SECTION,base)
+	$(call ipkg_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call ipkg_fixup,DEPENDS,libc)
+	$(call ipkg_fixup,DESCRIPTION,missing)
 	
 ifdef PTXCONF_COREUTILS_CP
 	$(call ipkg_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/cp, /bin/cp)
