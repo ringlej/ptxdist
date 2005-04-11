@@ -984,20 +984,12 @@ ipkg_fixup = 											\
 #
 # Deletes $(IMAGEDIR)/ipkg and prepares for new ipkg package creation
 #
-# $1: packet name (rules/$1.ipkg)
-#
 ipkg_init =											\
 	@PACKET=$(strip $(1));									\
 	echo -n "ipkg_init: preparing for image creation...";					\
 	rm -fr $(IMAGEDIR)/ipkg;								\
 	mkdir -p $(IMAGEDIR)/ipkg/CONTROL; 							\
-	if [ ! -f $(TOPDIR)/rules/$$PACKET.ipkg ]; then						\
-		echo; echo; 									\
-		echo "Error: could not find ipkg file $(TOPDIR)/rules/$$PACKET.ipkg";		\
-		echo;										\
-		exit 1;										\
-	fi; 											\
-	cp -f $(TOPDIR)/rules/$$PACKET.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;			\
+	cp -f $(TOPDIR)/rules/default.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;			\
 	perl -i -p -e "s,\@ARCH@,$(PTXCONF_ARCH),g" $(IMAGEDIR)/ipkg/CONTROL/control;		\
 	echo "done"
 
