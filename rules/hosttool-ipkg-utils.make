@@ -102,6 +102,7 @@ hosttool-ipkg-utils_install: $(STATEDIR)/hosttool-ipkg-utils.install
 
 $(STATEDIR)/hosttool-ipkg-utils.install: $(STATEDIR)/hosttool-ipkg-utils.compile
 	@$(call targetinfo, $@)
+	mkdir -p $(PTXCONF_PREFIX)/bin
 	cd $(HOSTTOOL-IPKG-UTILS_DIR) && $(HOSTTOOL-IPKG-UTILS_ENV) $(HOSTTOOL-IPKG-UTILS_PATH) make install
 	touch $@
 
