@@ -30,6 +30,11 @@ config UTLNX_SWAPON
 	prompt "swapon"
 	depends on UTLNX
 
+config UTLNX_MOUNT
+	bool
+	prompt "mount"
+	depends on UTLNX
+
 config UTLNX_IPCS
 	bool
 	prompt "ipcs"

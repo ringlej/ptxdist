@@ -94,12 +94,16 @@ util-linux_compile_deps =  $(STATEDIR)/util-linux.prepare
 $(STATEDIR)/util-linux.compile: $(util-linux_compile_deps)
 	@$(call targetinfo, $@)
 
+	cd $(UTIL-LINUX_DIR)/lib && $(UTIL-LINUX_PATH) make all
 ifdef PTXCONF_UTLNX_MKSWAP
 	cd $(UTIL-LINUX_DIR)/disk-utils && $(UTIL-LINUX_PATH) make mkswap
 endif
 ifdef PTXCONF_UTLNX_SWAPON
 	cd $(UTIL-LINUX_DIR)/mount && $(UTIL-LINUX_PATH) make swapon
-endif	
+endif
+ifdef PTXCONF_UTLNX_MOUNT
+	cd $(UTIL-LINUX_DIR)/mount && $(UTIL-LINUX_PATH) make mount
+endif
 ifdef PTXCONF_UTLNX_IPCS
 	cd $(UTIL-LINUX_DIR)/sys-utils && $(UTIL-LINUX_PATH) make ipcs
 endif
@@ -108,13 +112,13 @@ ifdef PTXCONF_UTLNX_READPROFILE
 endif
 ifdef PTXCONF_UTLNX_FDISK
 	cd $(UTIL-LINUX_DIR)/fdisk && $(UTIL_LINUX_PATH) make fdisk
-endif 
+endif
 ifdef PTXCONF_UTLNX_SFDISK
 	cd $(UTIL-LINUX_DIR)/fdisk && $(UTIL_LINUX_PATH) make sfdisk
-endif 
+endif
 ifdef PTXCONF_UTLNX_CFDISK
 	cd $(UTIL-LINUX_DIR)/fdisk && $(UTIL_LINUX_PATH) make cfdisk
-endif 
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
