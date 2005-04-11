@@ -9,6 +9,17 @@ config UTLNX_FDISK
 	prompt "fdisk"
 	depends on UTLNX
 
+config UTLNX_SFDISK
+	bool
+	prompt "sfdisk"
+	depends on UTLNX
+
+config UTLNX_CFDISK
+	bool
+	prompt "cfdisk"
+	depends on UTLNX
+	depends on NCURSES
+
 config UTLNX_MKSWAP
 	bool
         prompt "mkswap"
