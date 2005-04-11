@@ -1,0 +1,10 @@
+Package:	@PACKAGE@
+Priority:	@PRIORITY@
+Version:	@VERSION@
+Section:  	@SECTION@
+Architecture:	@ARCH@
+Maintainer:	@AUTHOR@
+Depends:	@DEPENDS@
+Source: 	http://www.pengutronix.de/software/ptxdist_de.html
+Description:	@DESCRIPTION@
+
