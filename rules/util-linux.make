@@ -95,23 +95,26 @@ $(STATEDIR)/util-linux.compile: $(util-linux_compile_deps)
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_UTLNX_MKSWAP
-	$(UTIL-LINUX_PATH) make -C $(UTIL-LINUX_DIR)/disk-utils mkswap
+	cd $(UTIL-LINUX_DIR)/disk-utils && $(UTIL-LINUX_PATH) make mkswap
 endif
 ifdef PTXCONF_UTLNX_SWAPON
-	$(UTIL-LINUX_PATH) make -C $(UTIL-LINUX_DIR)/mount swapon
+	cd $(UTIL-LINUX_DIR)/mount && $(UTIL-LINUX_PATH) make swapon
 endif	
 ifdef PTXCONF_UTLNX_IPCS
-	$(UTIL-LINUX_PATH) make -C $(UTIL-LINUX_DIR)/sys-utils ipcs
+	cd $(UTIL-LINUX_DIR)/sys-utils && $(UTIL-LINUX_PATH) make ipcs
 endif
 ifdef PTXCONF_UTLNX_READPROFILE
-	$(UTIL-LINUX_PATH) make -C $(UTIL-LINUX_DIR)/sys-utils readprofile
+	cd $(UTIL-LINUX_DIR)/sys-utils && $(UTIL-LINUX_PATH) make readprofile
 endif
 ifdef PTXCONF_UTLNX_FDISK
-	$(UTIL_LINUX_PATH) make -C $(UTIL-LINUX_DIR)/fdisk fdisk
+	cd $(UTIL-LINUX_DIR)/fdisk && $(UTIL_LINUX_PATH) make fdisk
 endif 
-#
-# FIXME: implement other utilities
-#
+ifdef PTXCONF_UTLNX_SFDISK
+	cd $(UTIL-LINUX_DIR)/fdisk && $(UTIL_LINUX_PATH) make sfdisk
+endif 
+ifdef PTXCONF_UTLNX_CFDISK
+	cd $(UTIL-LINUX_DIR)/fdisk && $(UTIL_LINUX_PATH) make cfdisk
+endif 
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -131,29 +134,43 @@ $(STATEDIR)/util-linux.install: $(STATEDIR)/util-linux.compile
 util-linux_targetinstall: $(STATEDIR)/util-linux.targetinstall
 
 util-linux_targetinstall_deps	=  $(STATEDIR)/util-linux.compile
+util-linux_targetinstall_deps	+= $(STATEDIR)/hosttool-ipkg-utils.install
+util-linux_targetinstall_deps	+= $(STATEDIR)/hosttool-fakeroot.install
 
 $(STATEDIR)/util-linux.targetinstall: $(util-linux_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	$(call ipkg_init,default)
+	$(call ipkg_fixup,PACKAGE,util-linux)
+	$(call ipkg_fixup,PRIORITY,optional)
+	$(call ipkg_fixup,VERSION,$(UTIL-LINUX_VERSION))
+	$(call ipkg_fixup,SECTION,base)
+	$(call ipkg_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call ipkg_fixup,DEPENDS,libc)
+	$(call ipkg_fixup,DESCRIPTION,missing)
+
 ifdef PTXCONF_UTLNX_MKSWAP
-	install -D $(UTIL-LINUX_DIR)/disk-utils/mkswap $(ROOTDIR)/sbin/mkswap
-	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/sbin/mkswap
+	$(call ipkg_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/disk-utils/mkswap, /sbin/mkswap)
 endif
 ifdef PTXCONF_UTLNX_SWAPON
-	install -D $(UTIL-LINUX_DIR)/mount/swapon $(ROOTDIR)/sbin/swapon
-	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/sbin/swapon
+	$(call ipkg_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/swapon, /sbin/swapon)
 endif
 ifdef PTXCONF_UTLNX_IPCS
-	install -D $(UTIL-LINUX_DIR)/sys-utils/ipcs $(ROOTDIR)/usr/bin/ipcs
-	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/usr/bin/ipcs
+	$(call ipkg_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/sys-utils/ipcs, /usr/bin/ipcs)
 endif
 ifdef PTXCONF_UTLNX_READPROFILE
-	install -D $(UTIL-LINUX_DIR)/sys-utils/readprofile $(ROOTDIR)/usr/sbin/readprofile
-	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/usr/sbin/readprofile
+	$(call ipkg_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/sys-utils/readprofile, /usr/sbin/readprofile)
 endif
 ifdef PTXCONF_UTLNX_FDISK
-	install -D $(UTIL-LINUX_DIR)/fdisk/fdisk $(ROOTDIR)/usr/sbin/fdisk
-	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/usr/sbin/fdisk
+	$(call ipkg_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/fdisk, /usr/sbin/fdisk)
 endif
+ifdef PTXCONF_UTLNX_SFDISK
+	$(call ipkg_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/sfdisk, /usr/sbin/sfdisk)
+endif
+ifdef PTXCONF_UTLNX_CFDISK
+	$(call ipkg_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/cfdisk, /usr/sbin/cfdisk)
+endif
+	$(call ipkg_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -162,6 +179,7 @@ endif
 
 util-linux_clean:
 	rm -rf $(STATEDIR)/util-linux.*
+	rm -rf $(IMAGEDIR)/util-linux_*
 	rm -rf $(UTIL-LINUX_DIR)
 
 # vim: syntax=make
