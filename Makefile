@@ -284,13 +284,13 @@ menuconfig: scripts/lxdialog/lxdialog scripts/kconfig/mconf
 	scripts/kconfig/mconf $(MENU)
 
 xconfig: scripts/kconfig/qconf
-	scripts/kconfig/qconf config/Kconfig
+	scripts/kconfig/qconf $(MENU)
 
 gconfig: scripts/kconfig/gconf
-	LD_LIBRARY_PATH=./scripts/kconfig ./scripts/kconfig/gconf config/Kconfig
+	LD_LIBRARY_PATH=./scripts/kconfig ./scripts/kconfig/gconf $(MENU)
 
 oldconfig: scripts/kconfig/conf
-	scripts/kconfig/conf -o config/Kconfig
+	scripts/kconfig/conf -o $(MENU)
 
 setup: scripts/lxdialog/lxdialog scripts/kconfig/mconf
 	@rm -f $(TOPDIR)/config/setup/.config
