@@ -79,7 +79,7 @@ netcat_compile: $(STATEDIR)/netcat.compile
 netcat_compile_deps = $(STATEDIR)/netcat.prepare
 
 NETCAT_PATH	= PATH=$(CROSS_PATH)
-NETCAT_MAKEVARS	= CC="$(PTXCONF_GNU_TARGET)-gcc -DLINUX -lresolv"
+NETCAT_MAKEVARS	= CC="$(PTXCONF_COMPILER_PREFIX)gcc -DLINUX -lresolv"
 
 $(STATEDIR)/netcat.compile: $(netcat_compile_deps) 
 	@$(call targetinfo, $@)

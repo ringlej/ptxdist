@@ -139,11 +139,11 @@ $(STATEDIR)/xfree430.prepare: $(xfree430_prepare_deps)
 	cp $(PTXCONF_XFREE430_CONFIG) $(XFREE430_BUILDDIR)/config/cf/host.def
 	cd $(XFREE430_BUILDDIR) && mkdir cross_compiler
 	for i in $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin/*; do ln -s $$i $(XFREE430_BUILDDIR)/cross_compiler; done
-	ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-cpp $(XFREE430_BUILDDIR)/cross_compiler/cpp
-	ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-gcov $(XFREE430_BUILDDIR)/cross_compiler/gcov
+	ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_COMPILER_PREFIX)cpp $(XFREE430_BUILDDIR)/cross_compiler/cpp
+	ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_COMPILER_PREFIX)gcov $(XFREE430_BUILDDIR)/cross_compiler/gcov
 	ln -sf gcc $(XFREE430_BUILDDIR)/cross_compiler/cc
-	ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-g++ $(XFREE430_BUILDDIR)/cross_compiler/
-	ln -sf $(PTXCONF_GNU_TARGET)-g++ $(XFREE430_BUILDDIR)/cross_compiler/g++
+	ln -sf $(PTXCONF_PREFIX)/bin/$(PTXCONF_COMPILER_PREFIX)g++ $(XFREE430_BUILDDIR)/cross_compiler/
+	ln -sf $(PTXCONF_COMPILER_PREFIX)g++ $(XFREE430_BUILDDIR)/cross_compiler/g++
 	ln -sf g++ $(XFREE430_BUILDDIR)/cross_compiler/c++
 
 	touch $@
@@ -185,7 +185,7 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	# These links are set incorrectly :-(
 	# ln -sf $(XFREE430_BUILDDIR)/programs/Xserver/hw/xfree86/xf86Date.h $(XFREE430_BUILDDIR)/config/cf/date.def
 	# ln -sf $(XFREE430_BUILDDIR)/programs/Xserver/hw/xfree86/xf86Version.h $(XFREE430_BUILDDIR)/config/cf/version.def
-	
+
 	cd $(XFREE430_BUILDDIR) && \
 		$(XFREE430_ENV) DESTDIR=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
 		make install

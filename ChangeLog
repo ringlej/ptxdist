@@ -1,3 +1,10 @@
+2005-04-12 Gary Thomas <gary@mlbassoc.com>
+
+	* rules/[mtd,lilo,xfree430,netcat,hosttool-e2fsprogs,e2fsprogs].make: 
+	  Clear up distinction between toolchain triplet (PTXCONF_GNU_TARGET) 
+	  and compiler prefix (PTXCONF_COMPILER_PREFIX) as they are not 
+	  always related 1-1.
+
 2005-04-11 Ladislav Michl <ladis@linux-mips.org>>
 
 	* util-linux: added mount
