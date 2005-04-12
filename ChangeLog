@@ -1,6 +1,7 @@
 2005-04-12 Ladislav Michl <ladis@linux-mips.org> 
 
-	* flex: added for host; patch by Ladislav Michl
+	* flex: added for host
+	* makefile: fix missing bits of support for custom menues
 
 2005-04-12 Gary Thomas <gary@mlbassoc.com>
 
