@@ -280,12 +280,11 @@ check_prog_exists = 				\
 #
 check_prog_version = 				\
 	@if [ `$(1) -V | head -n 1 |		\
-	$(AWK) '{gsub ("[a-zA-Z]",""); if ($$1 != $(2)) print "false"; else print "true"}'` == "false" ]; then \
+	$(AWK) '{gsub ("[a-zA-Z]",""); split($$1,P,"-"); if (P[1] != $(2)) print "false"; else print "true"}'` == "false" ]; then \
 		echo "need $(1) version $(2)";	\
 		echo "please install";		\
 		exit -1;			\
 	fi;
-
 
 #
 # check_file_exists
