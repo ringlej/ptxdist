@@ -1,3 +1,7 @@
+2005-04-12 Ladislav Michl <ladis@linux-mips.org> 
+
+	* flex: added for host; patch by Ladislav Michl
+
 2005-04-12 Gary Thomas <gary@mlbassoc.com>
 
 	* rules/[mtd,lilo,xfree430,netcat,hosttool-e2fsprogs,e2fsprogs].make: 
