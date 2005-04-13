@@ -142,27 +142,34 @@ inetutils_targetinstall_deps	=  $(STATEDIR)/inetutils.compile
 
 $(STATEDIR)/inetutils.targetinstall: $(inetutils_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/usr/bin
-	install -d $(ROOTDIR)/usr/sbin
+
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,inetutils)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(INETUTILS_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+
 ifdef PTXCONF_INETUTILS_RCP
-	install -D $(INETUTILS_DIR)/rcp/rcp  $(ROOTDIR)/usr/bin/rcp
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/rcp
+	$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rcp/rcp, /usr/bin/rcp)
 endif
 
 ifdef PTXCONF_INETUTILS_RLOGIND
-	install -D $(INETUTILS_DIR)/rlogind/rlogind  $(ROOTDIR)/usr/sbin/rlogind
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/rlogind
+	$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rlogind/rlogind, /usr/sbin/rlogind)
 endif
 
 ifdef PTXCONF_INETUTILS_RSHD
-	install -D $(INETUTILS_DIR)/rshd/rshd $(ROOTDIR)/usr/bin/rshd
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/rshd
+	$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rshd/rshd, /usr/bin/rshd)
 endif
 
 ifdef PTXCONF_INETUTILS_PING
-	install -D $(INETUTILS_DIR)/ping/ping $(ROOTDIR)/bin/ping
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/ping
+	$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/ping/ping, /bin/ping)
 endif
+
+	$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
