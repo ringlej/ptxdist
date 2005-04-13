@@ -139,19 +139,15 @@ $(STATEDIR)/coreutils.targetinstall: $(STATEDIR)/coreutils.compile
 	
 ifdef PTXCONF_COREUTILS_CP
 	$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/cp, /bin/cp)
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/cp
 endif
 ifdef PTXCONF_COREUTILS_DD
 	$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/dd, /bin/dd)	
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/dd
 endif
 ifdef PTXCONF_COREUTILS_MD5SUM
 	$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/md5sum, /bin/md5sum)
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/md5sum
 endif
 ifdef PTXCONF_COREUTILS_SEQ
 	$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/seq, /usr/bin/seq)
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/seq
 endif
 
 	$(call install_finish)
