@@ -889,7 +889,7 @@ feature_patchin =								\
 	fi;									\
 
 #
-# ipkg_copy
+# install_copy
 # 
 # Installs a file with user/group ownership and permissions via
 # fakeroot. 
@@ -902,7 +902,7 @@ feature_patchin =								\
 #     so it needs to have a leading /
 # $6: strip (for files; y|n); default is to strip
 #
-ipkg_copy = 											\
+install_copy = 											\
 	@OWN=`echo $(1) | sed -e 's/[[:space:]]//g'`;						\
 	GRP=`echo $(2) | sed -e 's/[[:space:]]//g'`;						\
 	PER=`echo $(3) | sed -e 's/[[:space:]]//g'`;						\
@@ -910,36 +910,42 @@ ipkg_copy = 											\
 	DST=`echo $(5) | sed -e 's/[[:space:]]//g'`;						\
 	STRIP="$(strip $(6))";									\
 	if [ -z "$(5)" ]; then									\
-		echo "ipkg_copy: dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER";		\
-		$(INSTALL) -d $(IMAGEDIR)/ipkg/$$SRC;						\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: ipkg_copy failed!";					\
-			exit -1;								\
+		echo "install_copy: dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER";	\
+		if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then					\
+			$(INSTALL) -d $(IMAGEDIR)/ipkg/$$SRC;					\
+			if [ $$? -ne 0 ]; then							\
+				echo "Error: install_copy failed!";				\
+				exit -1;							\
+			fi;									\
 		fi;										\
 		$(INSTALL) -d $(ROOTDIR)/$$SRC;							\
 		if [ $$? -ne 0 ]; then								\
-			echo "Error: ipkg_copy failed!";					\
+			echo "Error: install_copy failed!";					\
 			exit -1;								\
 		fi;										\
 		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			\
 	else											\
-		echo "ipkg_copy src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER"; \
-		rm -fr $(IMAGEDIR)/ipkg/$$DST; 							\
-		$(INSTALL) -D $$SRC $(IMAGEDIR)/ipkg/$$DST;					\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: ipkg_copy failed!";					\
-			exit -1;								\
-		fi;										\
+		echo "install_copy src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER"; \
+		if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then					\
+			rm -fr $(IMAGEDIR)/ipkg/$$DST; 						\
+			$(INSTALL) -D $$SRC $(IMAGEDIR)/ipkg/$$DST;				\
+			if [ $$? -ne 0 ]; then							\
+				echo "Error: install_copy failed!";				\
+				exit -1;							\
+			fi;									\
+		fi; 										\
 		$(INSTALL) -D $$SRC $(ROOTDIR)$$DST;						\
 		if [ $$? -ne 0 ]; then								\
-			echo "Error: ipkg_copy failed!";					\
+			echo "Error: install_copy failed!";					\
 			exit -1;								\
 		fi;										\
 		case "$$STRIP" in								\
 		(0 | n | no)									\
 			;;									\
 		(*)										\
-			$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/ipkg/$$DST;		\
+			if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
+				$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/ipkg/$$DST;	\
+			fi;									\
 			$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
 			;;									\
 		esac;										\
@@ -947,61 +953,70 @@ ipkg_copy = 											\
 	fi;
 
 #
-# ipkg_link
+# install_link
 # 
 # Installs a soft link in root directory in an ipkg packet. 
 # 
 # $1: source
 # $2: destination
 #
-ipkg_link =									\
+install_link =									\
 	@SRC=$(strip $(1));							\
 	DST=$(strip $(2));							\
 	rm -fr $(ROOTDIR)$$DST;							\
-	echo "ipkg_link: src=$$SRC dst=$$DST "; 				\
+	echo "install_link: src=$$SRC dst=$$DST "; 				\
 	$(LN) -sf $$SRC $(ROOTDIR)$$DST;					\
-	$(LN) -sf $$SRC $(IMAGEDIR)/ipkg/$$DST;
+	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
+		$(LN) -sf $$SRC $(IMAGEDIR)/ipkg/$$DST;				\
+	fi;
 
 #
-# ipkg_fixup
+# install_fixup
 #
 # Replaces @...@ sequences in rules/*.ipkg files
 #
 # $1: sequence to be replaced
 # $2: replacement
 #
-ipkg_fixup = 											\
-	@REPLACE_FROM=$(strip $(1));								\
-	REPLACE_TO=$(strip $(2));								\
-	echo -n "ipkg_fixup:  @$$REPLACE_FROM@ -> $$REPLACE_TO ... "; 				\
-	perl -i -p -e "s,\@$$REPLACE_FROM@,$$REPLACE_TO,g" $(IMAGEDIR)/ipkg/CONTROL/control;	\
-	echo "done."
+install_fixup = 											\
+	@if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then							\
+		REPLACE_FROM=$(strip $(1));								\
+		REPLACE_TO=$(strip $(2));								\
+		echo -n "install_fixup:  @$$REPLACE_FROM@ -> $$REPLACE_TO ... "; 			\
+		perl -i -p -e "s,\@$$REPLACE_FROM@,$$REPLACE_TO,g" $(IMAGEDIR)/ipkg/CONTROL/control;	\
+		echo "done.";										\
+	fi
 
 #
-# ipkg_init
+# install_init
 #
 # Deletes $(IMAGEDIR)/ipkg and prepares for new ipkg package creation
 #
-ipkg_init =											\
-	@PACKET=$(strip $(1));									\
-	echo -n "ipkg_init: preparing for image creation...";					\
-	rm -fr $(IMAGEDIR)/ipkg;								\
-	mkdir -p $(IMAGEDIR)/ipkg/CONTROL; 							\
-	cp -f $(TOPDIR)/rules/default.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;			\
-	perl -i -p -e "s,\@ARCH@,$(PTXCONF_ARCH),g" $(IMAGEDIR)/ipkg/CONTROL/control;		\
-	echo "done"
+install_init =												\
+	@if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then							\
+		PACKET=$(strip $(1));									\
+		echo -n "install_init: preparing for image creation...";				\
+		rm -fr $(IMAGEDIR)/ipkg;								\
+		mkdir -p $(IMAGEDIR)/ipkg/CONTROL; 							\
+		cp -f $(TOPDIR)/rules/default.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;			\
+		perl -i -p -e "s,\@ARCH@,$(PTXCONF_ARCH),g" $(IMAGEDIR)/ipkg/CONTROL/control;		\
+		echo "done";										\
+	fi
 
 #
-# ipkg_finish
+# install_finish
 #
 # Finishes ipkg packet creation
 #
-ipkg_finish = 											\
-	@echo -n "ipkg_finish: writing packet ... ";						\
-	(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions; echo "popd;"; \
-	echo "$(PTXCONF_PREFIX)/bin/ipkg-build $(IMAGEDIR)/ipkg $(IMAGEDIR)") | $(FAKEROOT) -- 2>&1 | grep -v "cannot access";\
-	rm -fr $(IMAGEDIR)/ipkg;								\
-	echo "done."
+install_finish = 													\
+	@if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then									\
+		echo -n "install_finish: writing ipkg packet ... ";							\
+		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions; echo "popd;"; 	\
+		echo "$(PTXCONF_PREFIX)/bin/ipkg-build $(IMAGEDIR)/ipkg $(IMAGEDIR)") | 				\
+			$(FAKEROOT) -- 2>&1 | grep -v "cannot access" | grep -v "No such file or directory";		\
+		rm -fr $(IMAGEDIR)/ipkg;										\
+		echo "done."; 												\
+	fi
 
 #
 # copy_root
