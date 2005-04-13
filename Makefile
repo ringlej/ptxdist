@@ -54,6 +54,7 @@ endif
 
 PROJECTCONFFILE		=  $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
 PROJECTDIR		=  $(strip $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE)))
+PROJECTRULES		=  $(wildcard $(PROJECTDIR)/rules/*.make)
 
 MENU			=  $(shell 						\
 				if [ -e $(PROJECTDIR)/Kconfig ]; then		\
@@ -109,7 +110,13 @@ endif
 include rules/Rules.make
 include rules/Version.make
 
-include $(filter-out rules/Virtual.make rules/Rules.make rules/Version.make rules/Definitions.make,$(wildcard rules/*.make))
+include $(filter-out 				\
+		rules/Virtual.make 		\
+		rules/Rules.make 		\
+		rules/Version.make 		\
+		rules/Definitions.make,		\
+		$(wildcard rules/*.make)	\
+	) $(PROJECT_RULES)
 include rules/Virtual.make
 
 # if specified, include vendor tweak makefile (run at the end of build)
