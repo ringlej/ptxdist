@@ -124,10 +124,20 @@ expat_targetinstall_deps	=  $(STATEDIR)/expat.compile
 $(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	$(call copy_root, 0, 0, 0644, $(EXPAT_DIR)/.libs/libexpat.so.0.5.0, /lib/libexpat.so.0.5.0)
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/lib/libexpat.so.0.5.0
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,expat)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(EXPAT_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+
+	$(call install_copy, 0, 0, 0644, $(EXPAT_DIR)/.libs/libexpat.so.0.5.0, /lib/libexpat.so.0.5.0)
 	$(call link_root, /lib/libexpat.so.0.5.0, /lib/libexpat.so.0)
 	$(call link_root, /lib/libexpat.so.0.5.0, /lib/libexpat.so)
+
+	$(call install_finish)
 
 	touch $@
 
