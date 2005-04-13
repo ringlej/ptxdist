@@ -100,7 +100,7 @@ libpcap_compile_deps = $(STATEDIR)/libpcap.prepare
 
 $(STATEDIR)/libpcap.compile: $(libpcap_compile_deps)
 	@$(call targetinfo, $@)
-	$(LIBPCAP_PATH) make -C $(LIBPCAP_DIR)
+	cd $(LIBPCAP_DIR) && $(LIBPCAP_PATH) make 
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -111,7 +111,7 @@ libpcap_install: $(STATEDIR)/libpcap.install
 
 $(STATEDIR)/libpcap.install: $(STATEDIR)/libpcap.compile
 	@$(call targetinfo, $@)
-	$(LIBPCAP_PATH) make -C $(LIBPCAP_DIR) install
+	cd $(LIBPCAP_DIR) && $(LIBPCAP_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
