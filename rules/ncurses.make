@@ -144,33 +144,51 @@ ncurses_targetinstall: $(STATEDIR)/ncurses.targetinstall
 $(STATEDIR)/ncurses.targetinstall: $(STATEDIR)/ncurses.install
 	@$(call targetinfo, $@)
 
-	install -d $(ROOTDIR)/lib
-	install -d $(ROOTDIR)/usr/lib
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,ncurses)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(NCURSES_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
 
-	cp -d $(NCURSES_DIR)/lib/libncurses.so* $(ROOTDIR)/lib/
-	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/lib/libncurses.so*
+	$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.3, /lib/libncurses.so.5.3)
+	$(call install_link, libncurses.so.5.3, /lib/libncurses.so.5)
+	$(call install_link, libncurses.so.5.3, /lib/libncurses.so)
 
 ifdef PTXCONF_NCURSES_FORM
-	cp -d $(NCURSES_DIR)/lib/libform.so* $(ROOTDIR)/usr/lib/
-	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libform.so*
+	$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.3, /lib/libncurses.so.5.3)
+	$(call install_link, libncurses.so.5.3, /lib/libncurses.so.5)
+	$(call install_link, libncurses.so.5.3, /lib/libncurses.so)
 endif
 
 ifdef PTXCONF_NCURSES_MENU
-	cp -d $(NCURSES_DIR)/lib/libmenu.so* $(ROOTDIR)/usr/lib/
-	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libmenu.so*
+	$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libmenu.so.5.3, /lib/libmenu.so.5.3)
+	$(call install_link, libmenu.so.5.3, /lib/libmenu.so.5)
+	$(call install_link, libmenu.so.5.3, /lib/libmenu.so)
 endif
 
 ifdef PTXCONF_NCURSES_PANEL
-	cp -d $(NCURSES_DIR)/lib/libpanel.so* $(ROOTDIR)/usr/lib/
-	$(CROSS_STRIP) --strip-unneeded -R .comment -R .note $(ROOTDIR)/usr/lib/libpanel.so*
+	$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libpanel.so.5.3, /lib/libpanel.so.5.3)
+	$(call install_link, libpanel.so.5.3, /lib/libpanel.so.5)
+	$(call install_link, libpanel.so.5.3, /lib/libpanel.so)
 endif
 
 ifdef PTXCONF_NCURSES_TERMCAP
 	mkdir -p $(ROOTDIR)/usr/share/terminfo
-	for FILE in x/xterm x/xterm-color x/xterm-xfree86 v/vt100 v/vt102 v/vt200 a/ansi l/linux; do		\
-		install -D $(CROSS_LIB_DIR)/usr/share/terminfo/$$FILE $(ROOTDIR)/usr/share/terminfo/$$FILE;	\
-	done
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm, $(ROOTDIR)/usr/share/terminfo/x/xterm, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-color, $(ROOTDIR)/usr/share/terminfo/x/xterm-color, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-xfree86, $(ROOTDIR)/usr/share/terminfo/x/xterm-xfree86, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt100, $(ROOTDIR)/usr/share/terminfo/v/vt100, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt102, $(ROOTDIR)/usr/share/terminfo/v/vt102, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt200, $(ROOTDIR)/usr/share/terminfo/v/vt200, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/a/ansi, $(ROOTDIR)/usr/share/terminfo/a/ansi, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/l/linux, $(ROOTDIR)/usr/share/terminfo/l/linux, n);
 endif
+
+	$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
