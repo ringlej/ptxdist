@@ -125,9 +125,22 @@ hexedit_targetinstall_deps = $(STATEDIR)/hexedit.compile
 
 $(STATEDIR)/hexedit.targetinstall: $(hexedit_targetinstall_deps)
 	@$(call targetinfo, $@)
+
 	install -d $(ROOTDIR)/usr/bin
-	install $(HEXEDIT_DIR)/hexedit $(ROOTDIR)/usr/bin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/hexedit
+
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,hexedit)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(HEXEDIT_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+
+	$(call install_copy, 0, 0, 0755, $(HEXEDIT_DIR)/hexedit, /usr/bin/hexedit)	
+
+	$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
