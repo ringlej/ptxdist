@@ -131,8 +131,20 @@ proftpd_targetinstall: $(STATEDIR)/proftpd.targetinstall
 
 $(STATEDIR)/proftpd.targetinstall: $(STATEDIR)/proftpd.install
 	@$(call targetinfo, $@)
-	install $(PROFTPD_DIR)/proftpd $(ROOTDIR)/usr/sbin/proftpd
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/proftpd
+
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,proftpd)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(PROFTPD_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+
+	$(call install_copy, 0, 0, 0755, $(PROFTPD_DIR)/proftpd, /usr/sbin/proftpd)
+
+	$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
