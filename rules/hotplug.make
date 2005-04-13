@@ -106,53 +106,63 @@ hotplug_targetinstall_deps = $(STATEDIR)/hotplug.compile
 
 $(STATEDIR)/hotplug.targetinstall: $(hotplug_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/sbin
-	install -d $(ROOTDIR)/etc/hotplug
-	install $(HOTPLUG_DIR)/sbin/hotplug $(ROOTDIR)/sbin/hotplug
-	install $(HOTPLUG_DIR)/etc/hotplug/hotplug.functions $(ROOTDIR)/etc/hotplug/hotplug.functions
-	install -d $(ROOTDIR)/etc/hotplug.d/default
-	install $(HOTPLUG_DIR)/etc/hotplug.d/default/default.hotplug $(ROOTDIR)/etc/hotplug.d/default/default.hotplug
+
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,hotplug)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(HOTPLUG_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+
+	$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/sbin/hotplug, /sbin/hotplug, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/hotplug.functions, /etc/hotplug/hotplug.functions, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug.d/default/default.hotplug, /etc/hotplug.d/default/default.hotplug, n)
+	
 ifdef PTXCONF_HOTPLUG_BLACKLIST
-	install $(HOTPLUG_DIR)/etc/hotplug/blacklist $(ROOTDIR)/etc/hotplug/blacklist
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/blacklist, /etc/hotplug/blacklist, n)
 endif
 ifdef PTXCONF_HOTPLUG_FIRMWARE
-	install $(HOTPLUG_DIR)/etc/hotplug/firmware.agent $(ROOTDIR)/etc/hotplug/firmware.agent
-	install -d $(ROOTDIR)/usr/lib/hotplug/firmware
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/firmware.agent, /etc/hotplug/firmware.agent, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/usr/lib/hotplug/firmware)
 endif
 ifdef PTXCONF_HOTPLUG_IEEE1394
-	install $(HOTPLUG_DIR)/etc/hotplug/ieee1394.agent $(ROOTDIR)/etc/hotplug/ieee1394.agent
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/ieee1394.agent, /etc/hotplug/ieee1394.agent, n)
 endif
 ifdef PTXCONF_HOTPLUG_NET
-	install $(HOTPLUG_DIR)/etc/hotplug/net.agent $(ROOTDIR)/etc/hotplug/net.agent
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/net.agent, /etc/hotplug/net.agent, n)
 endif
 ifdef PTXCONF_HOTPLUG_PCI
-	install $(HOTPLUG_DIR)/etc/hotplug/pci.agent $(ROOTDIR)/etc/hotplug/pci.agent
-	install $(HOTPLUG_DIR)/etc/hotplug/pci.rc $(ROOTDIR)/etc/hotplug/pci.rc
-	install -d $(ROOTDIR)/etc/hotplug/pci
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/pci.agent, /etc/hotplug/pci.agent, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/pci.rc, /etc/hotplug/pci.rc, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/pci)
 endif
 ifdef PTXCONF_HOTPLUG_SCSI
-	install $(HOTPLUG_DIR)/etc/hotplug/scsi.agent $(ROOTDIR)/etc/hotplug/scsi.agent
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/scsi.agent, /etc/hotplug/scsi.agent, n)
 endif
 ifdef PTXCONF_HOTPLUG_USB
-	install $(HOTPLUG_DIR)/etc/hotplug/usb.agent $(ROOTDIR)/etc/hotplug/usb.agent
-	install $(HOTPLUG_DIR)/etc/hotplug/usb.distmap $(ROOTDIR)/etc/hotplug/usb.distmap
-	install $(HOTPLUG_DIR)/etc/hotplug/usb.handmap $(ROOTDIR)/etc/hotplug/usb.handmap
-	install $(HOTPLUG_DIR)/etc/hotplug/usb.usermap $(ROOTDIR)/etc/hotplug/usb.usermap
-	install $(HOTPLUG_DIR)/etc/hotplug/usb.rc $(ROOTDIR)/etc/hotplug/usb.rc
-	install -d $(ROOTDIR)/etc/hotplug/usb.d
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.agent, /etc/hotplug/usb.agent, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.distmap, /etc/hotplug/usb.distmap, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.handmap, /etc/hotplug/usb.handmap, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.usermap, /etc/hotplug/usb.usermap, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.rc, /etc/hotplug/usb.rc, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.d)
 endif
 ifdef PTXCONF_HOTPLUG_INPUT
-	install $(HOTPLUG_DIR)/etc/hotplug/input.agent $(ROOTDIR)/etc/hotplug/input.agent
-	install $(HOTPLUG_DIR)/etc/hotplug/input.rc $(ROOTDIR)/etc/hotplug/input.rc
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/input.agent, /etc/hotplug/input.agent, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/input.rc, /etc/hotplug/input.rc, n)
 endif
 ifdef PTXCONF_HOTPLUG_DASD
-	install $(HOTPLUG_DIR)/etc/hotplug/dasd.agent $(ROOTDIR)/etc/hotplug/dasd.agent
-	install $(HOTPLUG_DIR)/etc/hotplug/dasd.permissions $(ROOTDIR)/etc/hotplug/dasd.permissions
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/dasd.agent, /etc/hotplug/dasd.agent, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/dasd.permissions, /etc/hotplug/dasd.permissions, n)
 endif
 ifdef PTXCONF_HOTPLUG_TAPE
-	install $(HOTPLUG_DIR)/etc/hotplug/tape.agent $(ROOTDIR)/etc/hotplug/tape.agent
-	install $(HOTPLUG_DIR)/etc/hotplug/tape.permissions $(ROOTDIR)/etc/hotplug/tape.permissions
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/tape.agent, /etc/hotplug/tape.agent, n)
+	$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/tape.permissions, /etc/hotplug/tape.permissions, n)
 endif
+
+	$(call install_finish)
 
 	touch $@
 
