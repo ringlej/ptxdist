@@ -4,6 +4,7 @@
 	  - update to version 1.1.6                                                                                                    
 	  - add configuration options                                                                                                  
 	  - allow cross compile                                                                                                        
+	  - replaced = by += for autotools options
 
 2005-04-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
