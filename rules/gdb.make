@@ -148,8 +148,22 @@ gdb_targetinstall_deps = \
 
 $(STATEDIR)/gdb.targetinstall: $(gdb_targetinstall_deps)
 	@$(call targetinfo, $@)
+
 	mkdir -p $(ROOTDIR)/usr/bin
-	install $(GDB_BUILDDIR)/gdb/gdb $(ROOTDIR)/usr/bin
+
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,gdb)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(GDB_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+
+	$(call install_copy, 0, 0, 0755, $(GDB_BUILDDIR)/gdb/gdb, /usr/bin/gdb)
+
+	$(call install_finish)
+
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/gdb
 	touch $@
 
