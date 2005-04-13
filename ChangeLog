@@ -1,3 +1,7 @@
+2005-04-13 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* makefile: added support for local rules 
+
 2005-04-13 Gary Thomas <gary@mlbassoc.com>
 
 	* check_version: fixed macro to work even for fedora and other
