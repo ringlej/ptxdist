@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.2-svn
-# Sun Mar 20 13:21:53 2005
+# PTXdist version: 0.7.3-svn
+# Wed Apr 13 20:58:38 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -112,6 +112,7 @@ PTXCONF_VENDORTWEAKS=""
 #
 PTXCONF_IMAGE_TGZ=y
 # PTXCONF_IMAGE_HD is not set
+# PTXCONF_IMAGE_IPKG is not set
 # PTXCONF_IMAGE_JFFS2 is not set
 # PTXCONF_IMAGE_UIMAGE is not set
 # PTXCONF_IMAGE_EXT2 is not set
@@ -141,6 +142,7 @@ PTXCONF_HOSTTOOLS_E2FSPROGS=y
 PTXCONF_HOSTTOOLS_E2FSPROGS_TUNE2FS=y
 PTXCONF_HOSTTOOLS_E2FSPROGS_RESIZE2FS=y
 PTXCONF_HOSTTOOLS_FAKEROOT=y
+PTXCONF_HOSTTOOLS_IPKG_UTILS=y
 
 #
 # Module Init Tools   
@@ -508,7 +510,8 @@ PTXCONF_BB_CONFIG_PASSWD=y
 #
 # Common options for adduser, deluser, login, su
 #
-# PTXCONF_BB_CONFIG_FEATURE_SHADOWPASSWDS is not set
+PTXCONF_BB_CONFIG_FEATURE_SHADOWPASSWDS=y
+# PTXCONF_BB_CONFIG_USE_BB_SHADOW is not set
 
 #
 # Miscellaneous Utilities
@@ -832,6 +835,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_BING is not set
 
 #
+# Bridge Utils        
+#
+# PTXCONF_BRIDGE_UTILS is not set
+
+#
 # dhcp                
 #
 # PTXCONF_DHCP is not set
@@ -1009,6 +1017,11 @@ PTXCONF_UTELNETD=y
 #
 # Network Card Support
 #
+
+#
+# ipkg                
+#
+# PTXCONF_IPKG is not set
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
 # PTXCONF_BONNIEXX is not set

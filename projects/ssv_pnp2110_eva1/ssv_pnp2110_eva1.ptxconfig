@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.2-svn
-# Sun Mar 20 13:22:09 2005
+# PTXdist version: 0.7.3-svn
+# Wed Apr 13 20:59:06 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -125,6 +125,7 @@ PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/ssv_pnp2110_eva1.vendortweaks"
 #
 PTXCONF_IMAGE_TGZ=y
 # PTXCONF_IMAGE_HD is not set
+# PTXCONF_IMAGE_IPKG is not set
 PTXCONF_IMAGE_JFFS2=y
 PTXCONF_IMAGE_JFFS2_BLOCKSIZE=131072
 PTXCONF_IMAGE_JFFS2_EXTRA_ARGS=""
@@ -161,6 +162,7 @@ PTXCONF_STRACE_SHARED=y
 # PTXCONF_HOSTTOOLS_GENEXT2FS is not set
 # PTXCONF_HOSTTOOLS_E2FSPROGS is not set
 PTXCONF_HOSTTOOLS_FAKEROOT=y
+PTXCONF_HOSTTOOLS_IPKG_UTILS=y
 
 #
 # Module Init Tools   
@@ -849,8 +851,11 @@ PTXCONF_SYSUTILS_LSBUS=y
 #
 PTXCONF_UTLNX=y
 PTXCONF_UTLNX_FDISK=y
+# PTXCONF_UTLNX_SFDISK is not set
+# PTXCONF_UTLNX_CFDISK is not set
 # PTXCONF_UTLNX_MKSWAP is not set
 # PTXCONF_UTLNX_SWAPON is not set
+# PTXCONF_UTLNX_MOUNT is not set
 # PTXCONF_UTLNX_IPCS is not set
 # PTXCONF_UTLNX_READPROFILE is not set
 # PTXCONF_CLOCK is not set
@@ -924,6 +929,11 @@ PTXCONF_UTLNX_FDISK=y
 # bing                
 #
 PTXCONF_BING=y
+
+#
+# Bridge Utils        
+#
+# PTXCONF_BRIDGE_UTILS is not set
 
 #
 # dhcp                
@@ -1113,6 +1123,11 @@ PTXCONF_E2FSPROGS_E2FSCK=y
 #
 # Network Card Support
 #
+
+#
+# ipkg                
+#
+# PTXCONF_IPKG is not set
 # PTXCONF_CRAMFS is not set
 # PTXCONF_BONNIEXX is not set
 

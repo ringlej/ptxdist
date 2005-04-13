@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.2-svn
-# Sun Mar 20 13:22:12 2005
+# PTXdist version: 0.7.3-svn
+# Wed Apr 13 20:59:12 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -113,6 +113,7 @@ PTXCONF_VENDORTWEAKS=""
 #
 # PTXCONF_IMAGE_TGZ is not set
 # PTXCONF_IMAGE_HD is not set
+# PTXCONF_IMAGE_IPKG is not set
 # PTXCONF_IMAGE_JFFS2 is not set
 # PTXCONF_IMAGE_UIMAGE is not set
 # PTXCONF_IMAGE_EXT2 is not set
@@ -140,6 +141,7 @@ PTXCONF_VENDORTWEAKS=""
 # PTXCONF_HOSTTOOLS_GENEXT2FS is not set
 # PTXCONF_HOSTTOOLS_E2FSPROGS is not set
 # PTXCONF_HOSTTOOLS_FAKEROOT is not set
+PTXCONF_HOSTTOOLS_IPKG_UTILS=y
 
 #
 # Module Init Tools   
@@ -372,6 +374,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_BING is not set
 
 #
+# Bridge Utils        
+#
+# PTXCONF_BRIDGE_UTILS is not set
+
+#
 # dhcp                
 #
 # PTXCONF_DHCP is not set
@@ -548,6 +555,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # Network Card Support
 #
+
+#
+# ipkg                
+#
+# PTXCONF_IPKG is not set
 # PTXCONF_CRAMFS is not set
 # PTXCONF_BONNIEXX is not set
 
