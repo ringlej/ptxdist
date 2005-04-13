@@ -1,3 +1,10 @@
+2005-04-13 Steven Scholz <steven.scholz@imc-berlin.de>
+
+	* fltk:
+	  - update to version 1.1.6                                                                                                    
+	  - add configuration options                                                                                                  
+	  - allow cross compile                                                                                                        
+
 2005-04-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* makefile: added support for local rules 

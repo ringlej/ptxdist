@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-FLTK_VERSION	= 1.1.4
+FLTK_VERSION	= 1.1.6
 FLTK		= fltk-$(FLTK_VERSION)
 FLTK_SUFFIX	= source.tar.gz
 FLTK_URL	= ftp://ftp.easysw.com/pub/fltk/$(FLTK_VERSION)/$(FLTK)-$(FLTK_SUFFIX)
@@ -78,10 +78,31 @@ FLTK_ENV 	=  $(CROSS_ENV)
 #
 FLTK_AUTOCONF	=  $(CROSS_AUTOCONF)
 FLTK_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-FLTK_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11
+FLTK_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 FLTK_AUTOCONF	+= --x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 FLTK_AUTOCONF	+= --enable-shared 
-#FLTK_AUTOCONF	+= --enable-threads
+
+ifdef PTXCONF_FLTK_THREADS
+FLTK_AUTOCONF  += --enable-threads
+endif
+
+ifdef PTXCONF_FLTK_OPENGL
+FLTK_AUTOCONF  += --enable-gl
+else
+FLTK_AUTOCONF  += --disable-gl
+endif
+
+FLTK_AUTOCONF  += --enable-localjpeg
+FLTK_AUTOCONF  += --enable-localzlib
+FLTK_AUTOCONF  += --enable-localpng
+
+ifdef PTXCONF_FLTK_XFT
+FLTK_AUTOCONF  += --enable-xft
+endif
+
+ifdef PTXCONF_FLTK_XDBE
+FLTK_AUTOCONF  += --enable-xdbe
+endif
 
 $(STATEDIR)/fltk.prepare: $(fltk_prepare_deps)
 	@$(call targetinfo, $@)
