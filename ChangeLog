@@ -1,3 +1,8 @@
+2005-04-13 Gary Thomas <gary@mlbassoc.com>
+
+	* check_version: fixed macro to work even for fedora and other
+	  uggly distributions.  
+
 2005-04-12 Ladislav Michl <ladis@linux-mips.org> 
 
 	* flex: added for host

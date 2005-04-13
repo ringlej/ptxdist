@@ -279,9 +279,8 @@ check_prog_exists = 				\
 #     the result is compared to the first argument. 
 #
 check_prog_version = 				\
-	@if [ `$(1) -V | head -n 1 |		\
-	$(AWK) '{gsub ("[a-zA-Z]",""); split($$1,P,"-"); if (P[1] != $(2)) print "false"; else print "true"}'` == "false" ]; then \
-		echo "need $(1) version $(2)";	\
+	@if [ "`$(1) $(2) | $(AWK) 'BEGIN {count = 0;} {count += match($$0,"$(3)");} END {print $$count;}'`" == "0" ]; then \
+		echo "need $(1) version $(3)";	\
 		echo "please install";		\
 		exit -1;			\
 	fi;

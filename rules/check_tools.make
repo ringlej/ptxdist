@@ -6,7 +6,7 @@ check_tools:
 	$(call check_prog_exists, wget)
 	
 	# check if some programs are installed in the right version
-	$(call check_prog_version, wget, "1.9.1")
+	$(call check_prog_version, wget, -V, 1\\\\.(9|1.?)\\\\.|1\\\\.9\\\\+cvs)
 
 	# check if we have a toplevel .config file
 	$(call check_file_exists, $(TOPDIR)/.config)
