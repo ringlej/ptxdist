@@ -122,15 +122,27 @@ e2fsprogs_targetinstall: $(STATEDIR)/e2fsprogs.targetinstall
 
 $(STATEDIR)/e2fsprogs.targetinstall: $(STATEDIR)/e2fsprogs.compile
 	@$(call targetinfo, $@)
+
 	mkdir -p $(ROOTDIR)/sbin
+
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,e2fsprogs)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(E2FSPROGS_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+
 ifdef PTXCONF_E2FSPROGS_MKFS
-	install $(E2FSPROGS_BUILD_DIR)/misc/mke2fs $(ROOTDIR)/sbin/mke2fs
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mke2fs
+	$(call install_copy, 0, 0, 0755, $(E2FSPROGS_BUILD_DIR)/misc/mke2fs, /sbin/mke2fs)
 endif
 ifdef PTXCONF_E2FSPROGS_E2FSCK
-	install $(E2FSPROGS_BUILD_DIR)/e2fsck/e2fsck.shared $(ROOTDIR)/sbin/e2fsck
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/e2fsck
+	$(call install_copy, 0, 0, 0755, $(E2FSPROGS_BUILD_DIR)/e2fsck/e2fsck.shared, /sbin/e2fsck)
 endif
+
+	$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------

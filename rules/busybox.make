@@ -132,8 +132,10 @@ busybox_targetinstall_deps	+= $(STATEDIR)/virtual-libc.targetinstall
 
 $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)
+
 	rm -f $(BUSYBOX_DIR)/busybox.links
+	install -d $(ROOTDIR)
+
 	cd $(BUSYBOX_DIR) &&					\
 		$(BUSYBOX_PATH) $(MAKE) install 		\
 		PREFIX=$(ROOTDIR) $(BUSYBOX_MAKEVARS)
