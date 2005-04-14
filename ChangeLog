@@ -1,8 +1,5 @@
 2005-04-14 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* hosttool-genext2fs: fixed strange problem: Makefile seems to
-	  be missing in this packet. How has this ever compiled?
-
 2005-04-13 Steven Scholz <steven.scholz@imc-berlin.de>
 
 	* fltk:
