@@ -54,7 +54,7 @@ $(STATEDIR)/hosttool-genext2fs.extract: $(STATEDIR)/hosttool-genext2fs.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOLS_GENEXT2FS_DIR))
 	@$(call extract, $(HOSTTOOLS_GENEXT2FS_SOURCE),$(HOSTTOOLS_BUILDDIR))
-	@$(call patchin, $(HOSTTOOLS_GENEXT2FS))
+	@$(call patchin, $(HOSTTOOLS_GENEXT2FS),$(HOSTTOOLS_GENEXT2FS_DIR))
 	touch $@
 
 # ----------------------------------------------------------------------------
