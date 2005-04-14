@@ -82,8 +82,7 @@ hosttool-genext2fs_compile_deps = $(STATEDIR)/hosttool-genext2fs.prepare
 
 $(STATEDIR)/hosttool-genext2fs.compile: $(hosttool-genext2fs_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOLS_GENEXT2FS_DIR) && \
-		$(HOSTCC) genext2fs.c -o genext2fs
+	make -C $(HOSTTOOLS_GENEXT2FS_DIR) $(HOSTTOOLS_GENEXT2FS_ENV)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -100,6 +99,7 @@ $(STATEDIR)/hosttool-genext2fs.install: $(hosttool-genext2fs_install_deps)
 	install -d $(PTXCONF_PREFIX)/man/man8/
 
 	install -m 755 $(HOSTTOOLS_GENEXT2FS_DIR)/genext2fs $(PTXCONF_PREFIX)/bin/
+	install -m 644 $(HOSTTOOLS_GENEXT2FS_DIR)/genext2fs.8 $(PTXCONF_PREFIX)/man/man8/
 	touch $@
 
 # ----------------------------------------------------------------------------
