@@ -21,7 +21,7 @@ endif
 IPKG_VERSION		= 0.99.144
 IPKG			= ipkg-$(IPKG_VERSION)
 IPKG_SUFFIX		= tar.gz
-IPKG_URL		= http://FIXME/$(IPKG).$(IPKG_SUFFIX)
+IPKG_URL		= http://www.handhelds.org/download/packages/ipkg/$(IPKG).$(IPKG_SUFFIX)
 IPKG_SOURCE		= $(SRCDIR)/$(IPKG).$(IPKG_SUFFIX)
 IPKG_DIR		= $(BUILDDIR)/$(IPKG)
 
