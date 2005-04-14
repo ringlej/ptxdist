@@ -950,7 +950,7 @@ install_copy = 											\
 			;;									\
 		esac;										\
 		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			\
-	fi;
+	fi
 
 #
 # install_link
@@ -968,7 +968,7 @@ install_link =									\
 	$(LN) -sf $$SRC $(ROOTDIR)$$DST;					\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
 		$(LN) -sf $$SRC $(IMAGEDIR)/ipkg/$$DST;				\
-	fi;
+	fi
 
 #
 # install_fixup
