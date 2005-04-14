@@ -173,80 +173,73 @@ endif
 
 $(STATEDIR)/mtd.targetinstall: $(mtd_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/sbin
+
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,mtd)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(MTD_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
 
 ifdef PTXCONF_MTD_FLASH_ERASE
-	install $(BUILDDIR)/$(MTD)/util/flash_erase $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/flash_erase
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flash_erase, /sbin/flash_erase)
 endif
 ifdef PTXCONF_MTD_FLASH_ERASEALL
-	install $(BUILDDIR)/$(MTD)/util/flash_eraseall $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/flash_eraseall
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flash_eraseall, /sbin/flash_eraseall)
 endif
 ifdef PTXCONF_MTD_FLASH_INFO
-	install $(BUILDDIR)/$(MTD)/util/flash_info $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/flash_info
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flash_info, /sbin/flash_info)
 endif
 ifdef PTXCONF_MTD_FLASH_LOCK
-	install $(BUILDDIR)/$(MTD)/util/flash_lock $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/flash_lock
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flash_lock, /sbin/flash_lock)
 endif
 ifdef PTXCONF_MTD_FLASH_UNLOCK
-	install $(BUILDDIR)/$(MTD)/util/flash_unlock $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/flash_unlock
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flash_unlock, /sbin/flash_unlock)
 endif
 ifdef PTXCONF_MTD_FLASHCP
-	install $(BUILDDIR)/$(MTD)/util/flashcp $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/flashcp
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flashcp, /sbin/flashcp)
 endif
 ifdef PTXCONF_MTD_FTL_CHECK
-	install $(BUILDDIR)/$(MTD)/util/ftl_check $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/ftl_check
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/ftl_check, /sbin/ftl_check)
 endif
 ifdef PTXCONF_MTD_FTL_FORMAT
-	install $(BUILDDIR)/$(MTD)/util/ftl_format $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/ftl_format
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/ftl_format, /sbin/ftl_format)
 endif
 ifdef PTXCONF_MTD_JFFS_DUMP
-	install $(BUILDDIR)/$(MTD)/util/jffs-dump $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/jffs-dump
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/jffs-dump, /sbin/jffs-dump)
 endif
 ifdef PTXCONF_MTD_JFFS2_DUMP
-	install $(BUILDDIR)/$(MTD)/util/jffs2dump $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/jffs2dump
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/jffs2dump, /sbin/jffs2dump)
 endif
 ifdef PTXCONF_MTD_JFFS2READER
-	install $(BUILDDIR)/$(MTD)/util/jffs2reader $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/jffs2reader
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/jffs2reader, /sbin/jffs2reader)
 endif
 ifdef PTXCONF_MTD_MTDDEBUG
-	install $(BUILDDIR)/$(MTD)/util/mtd_debug $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mtd_debug
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/mtd_debug, /sbin/mtd_debug)
 endif
 ifdef PTXCONF_MTD_NANDDUMP
-	install $(BUILDDIR)/$(MTD)/util/nanddump $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nanddump
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/nanddump, /sbin/nanddump)
 endif
 ifdef PTXCONF_MTD_NANDWRITE
-	install $(BUILDDIR)/$(MTD)/util/nandwrite $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nandwrite
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/nandwrite, /sbin/nandwrite)
 endif
 ifdef PTXCONF_MTD_NFTL_FORMAT
-	install $(BUILDDIR)/$(MTD)/util/nftl_format $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nftl_format
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/nftl_format, /sbin/nftl_format)
 endif
 ifdef PTXCONF_MTD_NFTLDUMP
-	install $(BUILDDIR)/$(MTD)/util/nftldump $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nftldump
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/nftldump, /sbin/nftldump)
 endif
 ifdef PTXCONF_MTD_MKJFFS
-	install $(BUILDDIR)/$(MTD)/util/mkfs.jffs $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mkfs.jffs
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/mkfs.jffs, /sbin/mkfs.jffs)
 endif
 ifdef PTXCONF_MTD_MKJFFS2
-	install $(BUILDDIR)/$(MTD)/util/mkfs.jffs2 $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mkfs.jffs2
+	$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/mkfs.jffs2, /sbin/mkfs.jffs2)
 endif
+
+	$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
