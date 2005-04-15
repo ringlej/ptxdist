@@ -177,14 +177,14 @@ endif
 
 ifdef PTXCONF_NCURSES_TERMCAP
 	mkdir -p $(ROOTDIR)/usr/share/terminfo
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm, $(ROOTDIR)/usr/share/terminfo/x/xterm, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-color, $(ROOTDIR)/usr/share/terminfo/x/xterm-color, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-xfree86, $(ROOTDIR)/usr/share/terminfo/x/xterm-xfree86, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt100, $(ROOTDIR)/usr/share/terminfo/v/vt100, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt102, $(ROOTDIR)/usr/share/terminfo/v/vt102, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt200, $(ROOTDIR)/usr/share/terminfo/v/vt200, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/a/ansi, $(ROOTDIR)/usr/share/terminfo/a/ansi, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/l/linux, $(ROOTDIR)/usr/share/terminfo/l/linux, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm, /usr/share/terminfo/x/xterm, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-color, /usr/share/terminfo/x/xterm-color, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-xfree86, /usr/share/terminfo/x/xterm-xfree86, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt100, /usr/share/terminfo/v/vt100, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt102, /usr/share/terminfo/v/vt102, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt200, /usr/share/terminfo/v/vt200, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/a/ansi, /usr/share/terminfo/a/ansi, n);
+	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/l/linux, /usr/share/terminfo/l/linux, n);
 endif
 
 	$(call install_finish)
