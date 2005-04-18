@@ -29,5 +29,19 @@ config FLTK_XDBE
        default n
        depends on FLTK
 
+config FLTK_FLUID
+	bool
+	prompt "Build FLUID and demos"
+	default n
+	depends on FLTK
+	help
+	  fluid is an interactive GUI designer for FLTK and is needed to build
+	  some of the demos.
+
+	  When cross compiling FLTK fluid is built for the target platform.
+	  Thus it will most probably not run on your host and compiling the 
+	  demo programs will fail.
+
+	  So you're better off leaving this disabled.
 
 endmenu

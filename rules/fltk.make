@@ -107,6 +107,9 @@ endif
 $(STATEDIR)/fltk.prepare: $(fltk_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLTK_BUILDDIR))
+ifndef PTXCONF_FLTK_FLUID
+	perl -p -i -e 's/src fluid test documentation/src/'  $(FLTK_DIR)/Makefile
+endif
 	cd $(FLTK_DIR) && \
 		$(FLTK_PATH) $(FLTK_ENV) \
 		./configure $(FLTK_AUTOCONF)

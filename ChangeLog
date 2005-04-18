@@ -1,5 +1,7 @@
 2005-04-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* fltk: config option for fluid cross compilation; patch by
+	  Steven Scholz. 
 	* Rules.make: whitespace cleanup; patch by Ladislav Michl
 	* freetype: removed unnecessary dependencies; patch
 	  by Steven Scholz
