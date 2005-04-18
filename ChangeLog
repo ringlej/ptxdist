@@ -1,5 +1,6 @@
 2005-04-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* Rules.make: whitespace cleanup; patch by Ladislav Michl
 	* freetype: removed unnecessary dependencies; patch
 	  by Steven Scholz
 
