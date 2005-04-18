@@ -68,9 +68,12 @@ freetype214_prepare: $(STATEDIR)/freetype214.prepare
 #
 freetype214_prepare_deps =  \
 	$(STATEDIR)/freetype214.extract \
-	$(STATEDIR)/glib22.install \
-	$(STATEDIR)/expat.install \
 	$(STATEDIR)/virtual-xchain.install
+
+	# FIXME: these dependencies have been there for penguzilla;
+	# check if they are still needed [RSC]	
+	# $(STATEDIR)/glib22.install \
+	# $(STATEDIR)/expat.install \
 
 FREETYPE214_PATH	=  PATH=$(CROSS_PATH)
 FREETYPE214_ENV 	=  $(CROSS_ENV)
