@@ -562,28 +562,28 @@ get_patches =											\
 			fi;									\
 			;;									\
 		http)										\
-			echo "copying network patches from Pengutronix server"; 				\
+			echo "copying network patches from Pengutronix server"; 		\
 			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-				--passive-ftp $$URL/$$PACKET_NAME/generic/;					\
-			[ $$? -eq 0 ] || {									\
-				echo;										\
-				echo "Could not get patch!";							\
-				echo "URL: $$URL/$$PACKET_NAME/generic/";					\
-				echo;										\
-				exit -1;									\
-			};											\
+				--passive-ftp $$URL/$$PACKET_NAME/generic/;			\
+			[ $$? -eq 0 ] || {							\
+				echo;								\
+				echo "Could not get patch!";					\
+				echo "URL: $$URL/$$PACKET_NAME/generic/";			\
+				echo;								\
+				exit -1;							\
+			};									\
 			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-				--passive-ftp $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/;				\
-			[ $$? -eq 0 ] || {									\
-				echo;										\
-				echo "Could not get patch!";							\
-				echo "URL: $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";				\
-				echo;										\
-				exit -1;									\
-			};											\
-			true;											\
-			;;											\
-		esac; 												\
+				--passive-ftp $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/;		\
+			[ $$? -eq 0 ] || {							\
+				echo;								\
+				echo "Could not get patch!";					\
+				echo "URL: $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";		\
+				echo;								\
+				exit -1;							\
+			};									\
+			true;									\
+			;;									\
+		esac; 										\
 	done
 
 #
@@ -621,7 +621,7 @@ get_option_ext =									\
 	$(shell										\
 		REGEX="$(strip $(1))";							\
 		if [ -f $(TOPDIR)/.config ]; then					\
-			$(CAT) $(TOPDIR)/.config | sed -n -e "$${REGEX}p" | $(2);		\
+			$(CAT) $(TOPDIR)/.config | sed -n -e "$${REGEX}p" | $(2);	\
 		fi;									\
 	)
 
@@ -978,13 +978,13 @@ install_link =									\
 # $1: sequence to be replaced
 # $2: replacement
 #
-install_fixup = 											\
-	@if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then							\
-		REPLACE_FROM=$(strip $(1));								\
-		REPLACE_TO=$(strip $(2));								\
-		echo -n "install_fixup:  @$$REPLACE_FROM@ -> $$REPLACE_TO ... "; 			\
+install_fixup = 									\
+	@if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then					\
+		REPLACE_FROM=$(strip $(1));						\
+		REPLACE_TO=$(strip $(2));						\
+		echo -n "install_fixup:  @$$REPLACE_FROM@ -> $$REPLACE_TO ... "; 	\
 		perl -i -p -e "s,\@$$REPLACE_FROM@,$$REPLACE_TO,g" $(IMAGEDIR)/ipkg/CONTROL/control;	\
-		echo "done.";										\
+		echo "done.";								\
 	fi
 
 #
@@ -992,15 +992,15 @@ install_fixup = 											\
 #
 # Deletes $(IMAGEDIR)/ipkg and prepares for new ipkg package creation
 #
-install_init =												\
-	@if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then							\
-		PACKET=$(strip $(1));									\
-		echo -n "install_init: preparing for image creation...";				\
-		rm -fr $(IMAGEDIR)/ipkg;								\
-		mkdir -p $(IMAGEDIR)/ipkg/CONTROL; 							\
-		cp -f $(TOPDIR)/rules/default.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;			\
-		perl -i -p -e "s,\@ARCH@,$(PTXCONF_ARCH),g" $(IMAGEDIR)/ipkg/CONTROL/control;		\
-		echo "done";										\
+install_init =											\
+	@if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then						\
+		PACKET=$(strip $(1));								\
+		echo -n "install_init: preparing for image creation...";			\
+		rm -fr $(IMAGEDIR)/ipkg;							\
+		mkdir -p $(IMAGEDIR)/ipkg/CONTROL; 						\
+		cp -f $(TOPDIR)/rules/default.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;		\
+		perl -i -p -e "s,\@ARCH@,$(PTXCONF_ARCH),g" $(IMAGEDIR)/ipkg/CONTROL/control;	\
+		echo "done";									\
 	fi
 
 #
