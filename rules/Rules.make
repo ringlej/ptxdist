@@ -1012,7 +1012,7 @@ install_finish = 													\
 	@if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then									\
 		echo -n "install_finish: writing ipkg packet ... ";							\
 		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions; echo "popd;"; 	\
-		echo "$(PTXCONF_PREFIX)/bin/ipkg-build $(IMAGEDIR)/ipkg $(IMAGEDIR)") | 				\
+		echo "$(PTXCONF_PREFIX)/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\
 			$(FAKEROOT) -- 2>&1 | grep -v "cannot access" | grep -v "No such file or directory";		\
 		rm -fr $(IMAGEDIR)/ipkg;										\
 		echo "done."; 												\

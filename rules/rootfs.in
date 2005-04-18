@@ -160,6 +160,15 @@ config IMAGE_IPKG
 	  When this option is selected, the install_* macros build 
 	  ipkg packets in $(TOPDIR)/images/ for each software component. 
 
+config IMAGE_IPKG_EXTRA_ARGS
+	string
+	default ""
+	prompt "extra arguments passed to ipkg-build"
+	depends on IMAGE_IPKG
+	help
+	  If needed you can add extra arguments for ipkg-build here
+	  (e.g. -c if you want ipkg-build to use tar instead of ar.)
+
 config IMAGE_JFFS2
 	bool
 	default n

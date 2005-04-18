@@ -1,5 +1,8 @@
 2005-04-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* ipkt: adding PTXCONF_IMAGE_IPKG_EXTRA_ARGS; Now one can tell
+	  ipkg-build to use tar instead of ar and more. Patch by Steven
+	  Scholz
 	* sqlite: ipkgized; patch by Ladislav Michl
 	* Makefile: changed PROJECT_RULES into PROJECTRULES (typo); 
 	  patch by Ladislav Michl
