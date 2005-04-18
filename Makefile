@@ -116,7 +116,7 @@ include $(filter-out 				\
 		rules/Version.make 		\
 		rules/Definitions.make,		\
 		$(wildcard rules/*.make)	\
-	) $(PROJECT_RULES)
+	) $(PROJECTRULES)
 include rules/Virtual.make
 
 # if specified, include vendor tweak makefile (run at the end of build)

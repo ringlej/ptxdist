@@ -1,5 +1,7 @@
 2005-04-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* Makefile: changed PROJECT_RULES into PROJECTRULES (typo); 
+	  patch by Ladislav Michl
 	* fltk: config option for fluid cross compilation; patch by
 	  Steven Scholz. 
 	* Rules.make: whitespace cleanup; patch by Ladislav Michl
