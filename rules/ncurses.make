@@ -149,7 +149,7 @@ $(STATEDIR)/ncurses.targetinstall: $(STATEDIR)/ncurses.install
 	$(call install_fixup,PRIORITY,optional)
 	$(call install_fixup,VERSION,$(NCURSES_VERSION))
 	$(call install_fixup,SECTION,base)
-	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	$(call install_fixup,DEPENDS,libc)
 	$(call install_fixup,DESCRIPTION,missing)
 
