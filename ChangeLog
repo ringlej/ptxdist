@@ -1,3 +1,8 @@
+2005-04-18 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* freetype: removed unnecessary dependencies; patch
+	  by Steven Scholz
+
 2005-04-14 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ipkg: fixed ipkg path; patch by Steven Scholz
