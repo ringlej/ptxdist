@@ -41,6 +41,11 @@ AWK		= awk
 PERL		= perl
 GREP		= grep
 INSTALL		= install
+PARALLELMFLAGS  = -j(shell if [ -r /proc/cpuinfo ];			\
+	then echo `cat /proc/cpuinfo | grep 'processor' | wc -l`;	\
+		else echo 1;						\
+	fi)
+
 ifdef PTXCONF_HOSTTOOLS_FAKEROOT
 FAKEROOT	= $(PTXCONF_PREFIX)/bin/fakeroot
 else
@@ -359,7 +364,14 @@ extract =							\
 	esac;							\
 	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
 	echo $$(basename $$PACKET) >> state/packetlist; 	\
-	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -	;	
+	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
+	[ $$? -eq 0 ] || {					\
+		echo;						\
+		echo "Could not extract packet!";		\
+		echo "File: $$PACKET";				\
+		echo;						\
+		exit -1;					\
+	};
 
 
 #
@@ -1110,15 +1122,15 @@ copy_toolchain_lib_root =									\
 												\
 	LIB_DIR=`$(CROSS_CC) -print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
 												\
-	if test -z "$${LIB_DIR}"; then								\
+	if test \! -d "$${LIB_DIR}"; then								\
 		echo "copy_toolchain_lib_root: lib=$${LIB} not found";				\
 		exit -1;									\
 	fi;											\
 												\
 	LIB="$(strip $1)";									\
-	for FILE in `find $${LIB_DIR} -type l -name "$${LIB}*" -maxdepth 1`; do			\
+	for FILE in `find $${LIB_DIR} -maxdepth 1 -type l -name "$${LIB}*"`; do			\
 		LIB=`basename $${FILE}`;							\
-		while test \! -z "$${LIB}"; do							\
+		while test -n "$${LIB}"; do							\
 			echo "copy_toolchain_lib_root lib=$${LIB} dst=$${DST}";			\
 			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
 			mkdir -p $(ROOTDIR)$${DST};						\
@@ -1127,9 +1139,9 @@ copy_toolchain_lib_root =									\
 			elif test -f $${LIB_DIR}/$${LIB}; then					\
 				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/$${LIB};	\
 				case "$${STRIP}" in						\
-				(0 | n | no)							\
+				0 | n | no)							\
 					;;							\
-				(*)								\
+				*)								\
 					$(CROSS_STRIP) $(ROOTDIR)$${DST}/$${LIB};		\
 					;;							\
 				esac;								\
@@ -1163,15 +1175,15 @@ copy_toolchain_dl_root =									\
 												\
 	LIB_DIR=`$(CROSS_CC) -print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
 												\
-	if test -z "$${LIB_DIR}"; then								\
-		echo "copy_toolchain_lib_root: lib=$${LIB} not found";				\
+	if test \! -d "$${LIB_DIR}"; then								\
+		echo "copy_toolchain_ld_root: lib=$${LIB} not found";				\
 		exit -1;									\
 	fi;											\
 												\
-	for FILE in `find $${LIB_DIR} -type l -name "$${LIB}*" -maxdepth 1`; do			\
+	for FILE in `find $${LIB_DIR} -maxdepth 1 -name "$${LIB}*" -type l`; do			\
 		LIB=`basename $${FILE}`;							\
-		while test \! -z "$${LIB}"; do							\
-			echo "copy_toolchain_lib_root lib=$${LIB} dst=$${DST}";			\
+		while test -n "$${LIB}"; do							\
+			echo "copy_toolchain_ld_root lib=$${LIB} dst=$${DST}";			\
 			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
 			mkdir -p $(ROOTDIR)$${DST};						\
 			if test -h $${LIB_DIR}/$${LIB}; then					\
@@ -1179,9 +1191,9 @@ copy_toolchain_dl_root =									\
 			elif test -f $${LIB_DIR}/$${LIB}; then					\
 				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/$${LIB};	\
 				case "$${STRIP}" in						\
-				(0 | n | no)							\
+				0 | n | no)							\
 					;;							\
-				(*)								\
+				*)								\
 					$(CROSS_STRIP) $(ROOTDIR)$${DST}/$${LIB};		\
 					;;							\
 				esac;								\
