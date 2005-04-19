@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # Copyright (C) 2005 Ladislav Michl <ladis@linux-mips.org>
 #          
 # See CREDITS for details about who has contributed to this project.
