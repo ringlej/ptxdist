@@ -62,6 +62,7 @@ HOSTTOOLS_MODULE_INIT_TOOLS_AUTOCONF 	= \
 	--prefix=$(PTXCONF_PREFIX) \
 	--build=$(GNU_HOST) \
 	--host=$(GNU_HOST) \
+	--target=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/hosttool-module-init-tools.prepare: $(hosttool-module-init-tools_prepare_deps)
 	@$(call targetinfo, $@)
