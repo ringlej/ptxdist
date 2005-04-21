@@ -1122,7 +1122,7 @@ copy_toolchain_lib_root =									\
 												\
 	LIB_DIR=`$(CROSS_CC) -print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
 												\
-	if test \! -d "$${LIB_DIR}"; then								\
+	if test \! -d "$${LIB_DIR}"; then							\
 		echo "copy_toolchain_lib_root: lib=$${LIB} not found";				\
 		exit -1;									\
 	fi;											\
@@ -1175,12 +1175,12 @@ copy_toolchain_dl_root =									\
 												\
 	LIB_DIR=`$(CROSS_CC) -print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
 												\
-	if test \! -d "$${LIB_DIR}"; then								\
+	if test \! -d "$${LIB_DIR}"; then							\
 		echo "copy_toolchain_ld_root: lib=$${LIB} not found";				\
 		exit -1;									\
 	fi;											\
 												\
-	for FILE in `find $${LIB_DIR} -maxdepth 1 -name "$${LIB}*" -type l`; do			\
+	for FILE in `find $${LIB_DIR} -maxdepth 1 -type l -name "$${LIB}*"`; do			\
 		LIB=`basename $${FILE}`;							\
 		while test -n "$${LIB}"; do							\
 			echo "copy_toolchain_ld_root lib=$${LIB} dst=$${DST}";			\

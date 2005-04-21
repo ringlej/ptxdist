@@ -1,4 +1,5 @@
 # -*-makefile-*-
+# $Id: kernel.make 2486 2005-04-19 12:18:08Z mkl $
 # Copyright (C) 2005 Ladislav Michl <ladis@linux-mips.org>
 #          
 # See CREDITS for details about who has contributed to this project.
@@ -68,9 +69,9 @@ module-init-tools_prepare_deps = $(STATEDIR)/module-init-tools.extract
 MODULE_INIT_TOOLS_PATH	= PATH=$(CROSS_PATH) 
 MODULE_INIT_TOOLS_ENV 	= $(CROSS_ENV)
 MODULE_INIT_TOOLS_AUTOCONF = \
-	--prefix=$(PTXCONF_PREFIX) \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
+	--prefix=/usr \
+	--target=$(PTXCONF_GNU_TARGET) \
+	$(CROSS_AUTOCONF)
 
 $(STATEDIR)/module-init-tools.prepare: $(module-init-tools_prepare_deps)
 	@$(call targetinfo, $@)

@@ -1,3 +1,5 @@
+# -*-makefile-*-
+# $Id: kernel.make 2486 2005-04-19 12:18:08Z mkl $
 #
 # Copyright (C) 2005 Ladislav Michl <ladis@linux-mips.org>
 #          
@@ -93,9 +95,9 @@ hosttool-module-init-tools_install: $(STATEDIR)/hosttool-module-init-tools.insta
 $(STATEDIR)/hosttool-module-init-tools.install: $(STATEDIR)/hosttool-module-init-tools.compile
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOLS_MODULE_INIT_TOOLS_DIR) && $(HOSTTOOLS_MODULE_INIT_TOOLS_PATH) make install
-	# the kernel calls this for old kernels, but new depmods seem to
-	# do it the right way...
-	ln -s $(PTXCONF_PREFIX)/sbin/depmod $(PTXCONF_PREFIX)/sbin/depmod.old
+# the kernel calls this for old kernels, but new depmods seem to
+# do it the right way...
+	ln -s $(PTXCONF_PREFIX)/sbin/depmod $(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod.old
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003, 2004, 2005 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -100,8 +100,6 @@ PTXCONF_KERNEL_PATCH7_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH7_NAME
 PTXCONF_KERNEL_PATCH8_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH8_NAME))
 PTXCONF_KERNEL_PATCH9_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH9_NAME))
 PTXCONF_KERNEL_PATCH10_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH10_NAME))
-
-# This is for kernel & xchain-kernel!
 
 ifdef PTXCONF_KERNEL_PATCH1_URL
 ifneq ($(PTXCONF_KERNEL_PATCH1_URL),"")
@@ -264,9 +262,7 @@ $(KERNEL_SOURCE):
 kernel_extract: $(STATEDIR)/kernel.extract
 
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
-kernel_extract_deps = \
-	$(STATEDIR)/kernel-base.extract	\
-	$(addprefix $(STATEDIR)/, $(addsuffix .install, $(KERNEL_PATCHES)))
+kernel_extract_deps = $(STATEDIR)/kernel-base.extract
 endif
 
 $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
@@ -278,15 +274,15 @@ $(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
 	@$(call clean, $(KERNEL_DIR))
 	@$(call extract, $(KERNEL_SOURCE))
 
-	#
-	# kernels before 2.4.19 extract to "linux" instead of "linux-<version>"
-	#
+#
+# kernels before 2.4.19 extract to "linux" instead of "linux-<version>"
+#
 
 ifeq (2.4.18,$(KERNEL_VERSION))
 	mv $(BUILDDIR)/linux $(KERNEL_DIR)
 endif
 
-	# Also add the "patchstack" like patches
+# Also add the "patchstack" like patches
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH1_NAME)) 
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH2_NAME)) 
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH3_NAME)) 
@@ -297,13 +293,6 @@ endif
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH8_NAME)) 
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH9_NAME)) 
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH10_NAME)) 
-
-	#
-	# We cannot rely on depmod working correctly for cross modules,
-	# so we use our own depmod. 
-	# 
-	perl -i -p -e "s,^.*DEPMOD.*=.*,DEPMOD=$(PTXCONF_PREFIX)/sbin/depmod,g" \
-		$(KERNEL_DIR)/Makefile
 
 	touch $@
 
@@ -325,14 +314,15 @@ KERNEL_PATH	= PATH=$(CROSS_PATH)
 KERNEL_MAKEVARS	= \
 	ARCH=$(call remove_quotes,$(PTXCONF_ARCH)) \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
-	HOSTCC=$(HOSTCC)
+	HOSTCC=$(HOSTCC) \
+	DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod)
 
 ifdef PTXCONF_KERNEL_IMAGE_U
 KERNEL_MAKEVARS += MKIMAGE=u-boot-mkimage.sh
 endif
 
-	# This was defined before; we leave it here for reference. [RSC]
-	# GENKSYMS=$(COMPILER_PREFIX)genksyms
+# This was defined before; we leave it here for reference. [RSC]
+# GENKSYMS=$(COMPILER_PREFIX)genksyms
 
 $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
@@ -432,7 +422,7 @@ endif
 
 kernel_clean:
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
-	# remove feature patches, but only if xchain-kernel was cleaned before.
+# remove feature patches, but only if xchain-kernel was cleaned before.
 	if [ ! -f $(STATEDIR)/xchain-kernel.get ]; then 								\
 		for i in `ls $(STATEDIR)/kernel-feature-*.* | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do 	\
 			if [ $$? -eq 0 ]; then										\
