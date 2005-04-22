@@ -20,9 +20,9 @@ endif
 #
 CANCONFIG_VERSION	= 0.0.1
 CANCONFIG		= canconfig-$(CANCONFIG_VERSION)
-CANCONFIG_SUFFIX		= tar.gz
+CANCONFIG_SUFFIX	= tar.gz
 CANCONFIG_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(CANCONFIG).$(CANCONFIG_SUFFIX)
-CANCONFIG_SOURCE		= $(SRCDIR)/$(CANCONFIG).$(CANCONFIG_SUFFIX)
+CANCONFIG_SOURCE	= $(SRCDIR)/$(CANCONFIG).$(CANCONFIG_SUFFIX)
 CANCONFIG_DIR		= $(BUILDDIR)/$(CANCONFIG)
 
 # ----------------------------------------------------------------------------
@@ -113,7 +113,20 @@ canconfig_targetinstall_deps = $(STATEDIR)/canconfig.compile
 
 $(STATEDIR)/canconfig.targetinstall: $(canconfig_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0755, $(CANCONFIG_DIR)/canconfig, /usr/sbin/canconfig)
+	
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,canconfig)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(CANCONFIG_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+
+	$(call install_copy, 0, 0, 0755, $(CANCONFIG_DIR)/canconfig, /usr/sbin/canconfig)
+
+	$(call install_finish)
+	
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -122,6 +135,7 @@ $(STATEDIR)/canconfig.targetinstall: $(canconfig_targetinstall_deps)
 
 canconfig_clean:
 	rm -rf $(STATEDIR)/canconfig.*
+	rm -rf $(IMAGEDIR)/canconfig_*
 	rm -rf $(CANCONFIG_DIR)
 
 # vim: syntax=make

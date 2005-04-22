@@ -151,6 +151,7 @@ $(STATEDIR)/readline.targetinstall: $(readline_targetinstall_deps)
 
 readline_clean:
 	rm -rf $(STATEDIR)/readline.*
+	rm -rf $(IMAGEDIR)/readline_*
 	rm -rf $(READLINE_DIR)
 
 # vim: syntax=make

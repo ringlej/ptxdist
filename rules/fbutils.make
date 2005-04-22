@@ -115,26 +115,31 @@ fbutils_targetinstall_deps = $(STATEDIR)/fbutils.compile
 $(STATEDIR)/fbutils.targetinstall: $(fbutils_targetinstall_deps)
 	@$(call targetinfo, $@)
 
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,fbutils)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(FBUTILS_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+
 ifdef PTXCONF_FBUTILS_FBSET
-	$(call copy_root, 0, 0, 0755, $(FBUTILS_DIR)/fbset/fbset, /sbin/fbset)
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/sbin/fbset
+	$(call install_copy, 0, 0, 0755, $(FBUTILS_DIR)/fbset/fbset, /sbin/fbset)
 endif
 ifdef PTXCONF_FBUTILS_FBCMAP
-	$(call copy_root, 0, 0, 0755, $(FBUTILS_DIR)/fbcmap/fbcmap, /sbin/fbcmap)
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/sbin/fbcmap
+	$(call install_copy, 0, 0, 0755, $(FBUTILS_DIR)/fbcmap/fbcmap, /sbin/fbcmap)
 endif
 ifdef PTXCONF_FBUTILS_FBCONVERT
-	$(call copy_root, 0, 0, 0755, $(FBUTILS_DIR)/fbconvert/fbconvert, /sbin/fbconvert)
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/sbin/fbconvert
+	$(call install_copy, 0, 0, 0755, $(FBUTILS_DIR)/fbconvert/fbconvert, /sbin/fbconvert)
 endif
 ifdef PTXCONF_FBUTILS_FBCONVERT
-	$(call copy_root, 0, 0, 0755, $(FBUTILS_DIR)/fbconvert/fbconvert, /sbin/fbconvert)
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/sbin/fbconvert
+	$(call install_copy, 0, 0, 0755, $(FBUTILS_DIR)/fbconvert/fbconvert, /sbin/fbconvert)
 endif
 ifdef PTXCONF_FBUTILS_CON2FBMAP
-	$(call copy_root, 0, 0, 0755, $(FBUTILS_DIR)/con2fbmap/con2fbmap, /sbin/con2fbmap)
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/sbin/con2fbmap
+	$(call install_copy, 0, 0, 0755, $(FBUTILS_DIR)/con2fbmap/con2fbmap, /sbin/con2fbmap)
 endif
+	$(call install_finish)
 
 	touch $@
 
@@ -144,6 +149,7 @@ endif
 
 fbutils_clean:
 	rm -rf $(STATEDIR)/fbutils.*
+	rm -rf $(IMAGEDIR)/fbutils_*
 	rm -rf $(FBUTILS_DIR)
 
 # vim: syntax=make

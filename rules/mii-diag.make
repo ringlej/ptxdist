@@ -133,6 +133,7 @@ $(STATEDIR)/mii-diag.targetinstall: $(mii-diag_targetinstall_deps)
 
 mii-diag_clean:
 	rm -rf $(STATEDIR)/mii-diag.*
+	rm -rf $(IMAGEDIR)/mii-diag_*
 	rm -rf $(MII-DIAG_DIR)
 
 # vim: syntax=make

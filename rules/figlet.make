@@ -141,6 +141,7 @@ $(STATEDIR)/figlet.targetinstall: $(figlet_targetinstall_deps)
 
 figlet_clean:
 	rm -rf $(STATEDIR)/figlet.*
+	rm -rf $(IMAGEDIR)/figlet_*
 	rm -rf $(FIGLET_DIR)
 
 # vim: syntax=make

@@ -129,10 +129,25 @@ xlibs-x11_targetinstall_deps = $(STATEDIR)/xlibs-x11.compile
 
 $(STATEDIR)/xlibs-x11.targetinstall: $(xlibs-x11_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0644, $(XLIBS-X11_DIR)/src/.libs/libX11.so.$(XLIBS-X11_REAL_VERSION), /usr/X11R6/lib/libX11.so.$(XLIBS-X11_REAL_VERSION))
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libX11.so.$(XLIBS-X11_REAL_VERSION)
-	$(call link_root, /usr/X11R6/lib/libX11.so.$(XLIBS-X11_REAL_VERSION), /usr/X11R6/lib/libX11.so.6)
-	$(call link_root, /usr/X11R6/lib/libX11.so.$(XLIBS-X11_REAL_VERSION), /usr/X11R6/lib/libX11.so)
+
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,xlibs-x11)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(XLIBS-X11_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+
+	$(call install_copy, 0, 0, 0644, 					\
+		$(XLIBS-X11_DIR)/src/.libs/libX11.so.$(XLIBS-X11_REAL_VERSION), \
+		/usr/X11R6/lib/libX11.so.$(XLIBS-X11_REAL_VERSION)		\
+	)
+	$(call install_link, /usr/X11R6/lib/libX11.so.$(XLIBS-X11_REAL_VERSION), /usr/X11R6/lib/libX11.so.6)
+	$(call install_link, /usr/X11R6/lib/libX11.so.$(XLIBS-X11_REAL_VERSION), /usr/X11R6/lib/libX11.so)
+
+	$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -141,6 +156,7 @@ $(STATEDIR)/xlibs-x11.targetinstall: $(xlibs-x11_targetinstall_deps)
 
 xlibs-x11_clean:
 	rm -rf $(STATEDIR)/xlibs-x11.*
+	rm -rf $(IMAGEDIR)/xlibs-x11_*
 	rm -rf $(XLIBS-X11_DIR)
 
 # vim: syntax=make

@@ -113,8 +113,20 @@ fbtest_targetinstall_deps = $(STATEDIR)/fbtest.compile
 
 $(STATEDIR)/fbtest.targetinstall: $(fbtest_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0755, $(FBTEST_DIR)/$(PTXCONF_COMPILER_PREFIX)fbtest, /sbin/fbtest)
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/sbin/fbtest
+
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,fbtest)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(FBTEST_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+	
+	$(call install_copy, 0, 0, 0755, $(FBTEST_DIR)/$(PTXCONF_COMPILER_PREFIX)fbtest, /sbin/fbtest)
+
+	$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -123,6 +135,7 @@ $(STATEDIR)/fbtest.targetinstall: $(fbtest_targetinstall_deps)
 
 fbtest_clean:
 	rm -rf $(STATEDIR)/fbtest.*
+	rm -rf $(IMAGEDIR)/fbtest_*
 	rm -rf $(FBTEST_DIR)
 
 # vim: syntax=make

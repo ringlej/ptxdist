@@ -153,5 +153,6 @@ $(STATEDIR)/proftpd.targetinstall: $(STATEDIR)/proftpd.install
 
 proftpd_clean: 
 	rm -rf $(STATEDIR)/proftpd.* $(PROFTPD_DIR)
+	rm -rf $(IMAGEDIR)/proftpd_*
 
 # vim: syntax=make

@@ -125,5 +125,6 @@ $(STATEDIR)/gdbserver.targetinstall: $(STATEDIR)/gdbserver.compile
 
 gdbserver_clean: 
 	rm -rf $(STATEDIR)/gdbserver.* $(GDBSERVER_BUILDDIR)
+	rm -rf $(IMAGEDIR)/gdbserver_*
 
 # vim: syntax=make

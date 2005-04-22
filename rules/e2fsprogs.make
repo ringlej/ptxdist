@@ -151,5 +151,6 @@ endif
 
 e2fsprogs_clean: 
 	rm -rf $(STATEDIR)/e2fsprogs.* $(E2FSPROGS_DIR) $(E2FSPROGS_BUILD_DIR)
+	rm -rf $(IMAGEDIR)/e2fsprogs_*
 
 # vim: syntax=make

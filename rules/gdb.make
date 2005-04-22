@@ -173,5 +173,6 @@ $(STATEDIR)/gdb.targetinstall: $(gdb_targetinstall_deps)
 
 gdb_clean: 
 	rm -rf $(STATEDIR)/gdb.* $(GDB_DIR)
+	rm -rf $(IMAGEDIR)/gdb_*
 
 # vim: syntax=make

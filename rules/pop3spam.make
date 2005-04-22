@@ -127,7 +127,19 @@ pop3spam_targetinstall_deps += $(STATEDIR)/pcre.targetinstall
 
 $(STATEDIR)/pop3spam.targetinstall: $(pop3spam_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0555, $(POP3SPAM_DIR)/src/pop3spam, /usr/bin/pop3spam)
+	
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,pop3spam)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(POP3SPAM_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+	
+	$(call install_copy, 0, 0, 0555, $(POP3SPAM_DIR)/src/pop3spam, /usr/bin/pop3spam)
+
+	$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -136,6 +148,7 @@ $(STATEDIR)/pop3spam.targetinstall: $(pop3spam_targetinstall_deps)
 
 pop3spam_clean:
 	rm -rf $(STATEDIR)/pop3spam.*
+	rm -rf $(IMAGEDIR)/pop3spam_*
 	rm -rf $(POP3SPAM_DIR)
 
 # vim: syntax=make

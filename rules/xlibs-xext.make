@@ -128,10 +128,23 @@ xlibs-xext_targetinstall_deps = $(STATEDIR)/xlibs-xext.compile
 
 $(STATEDIR)/xlibs-xext.targetinstall: $(xlibs-xext_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0644, $(XLIBS-XEXT_DIR)/.libs/libXext.so.$(XLIBS-XEXT_REAL_VERSION),  /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION))
+
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,coreutils)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(COREUTILS_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+	
+	$(call install_root, 0, 0, 0644, $(XLIBS-XEXT_DIR)/.libs/libXext.so.$(XLIBS-XEXT_REAL_VERSION),  /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION))
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION)
-	$(call link_root, /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION), /usr/X11R6/lib/libXext.so.6)
-	$(call link_root, /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION), /usr/X11R6/lib/libXext.so)
+	$(call install_link, /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION), /usr/X11R6/lib/libXext.so.6)
+	$(call install_link, /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION), /usr/X11R6/lib/libXext.so)
+
+	$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -140,6 +153,7 @@ $(STATEDIR)/xlibs-xext.targetinstall: $(xlibs-xext_targetinstall_deps)
 
 xlibs-xext_clean:
 	rm -rf $(STATEDIR)/xlibs-xext.*
+	rm -rf $(IMAGEDIR)/xlibs-xext_*
 	rm -rf $(XLIBS-XEXT_DIR)
 
 # vim: syntax=make

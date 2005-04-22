@@ -124,7 +124,20 @@ bonniexx_targetinstall_deps = $(STATEDIR)/bonniexx.compile
 
 $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0644, $(BONNIEXX_DIR)/bonnie++,/usr/bin/bonnie++)
+	
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,bonniexx)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(COREUTILS_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+	
+	$(call install_copy, 0, 0, 0644, $(BONNIEXX_DIR)/bonnie++, /usr/bin/bonnie++)
+
+	$(call install_finish)
+	
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -133,6 +146,7 @@ $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps)
 
 bonniexx_clean:
 	rm -rf $(STATEDIR)/bonniexx.*
+	rm -rf $(IMAGEDIR)/bonniexx_*
 	rm -rf $(BONNIEXX_DIR)
 
 # vim: syntax=make

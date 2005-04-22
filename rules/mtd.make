@@ -248,6 +248,7 @@ endif
 
 mtd_clean:
 	rm -rf $(STATEDIR)/mtd.*
+	rm -rf $(IMAGEDIR)/mtd_*
 	rm -rf $(MTD_DIR)
 
 # vim: syntax=make

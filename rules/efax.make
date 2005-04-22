@@ -120,8 +120,21 @@ efax_targetinstall_deps = $(STATEDIR)/efax.compile
 
 $(STATEDIR)/efax.targetinstall: $(efax_targetinstall_deps)
 	@$(call targetinfo, $@)
-	@$(call copy_root, 0, 0, 0755, $(EFAX_DIR)/efax, /usr/bin/efax)
-	@$(call copy_root, 0, 0, 0755, $(EFAX_DIR)/efix, /usr/bin/efix)
+
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,efax)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(EFAX_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+	
+	$(call install_copy, 0, 0, 0755, $(EFAX_DIR)/efax, /usr/bin/efax)
+	$(call install_copy, 0, 0, 0755, $(EFAX_DIR)/efix, /usr/bin/efix)
+
+	$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -130,6 +143,7 @@ $(STATEDIR)/efax.targetinstall: $(efax_targetinstall_deps)
 
 efax_clean:
 	rm -rf $(STATEDIR)/efax.*
+	rm -rf $(IMAGEDIR)/efax_*
 	rm -rf $(EFAX_DIR)
 
 # vim: syntax=make

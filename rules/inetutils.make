@@ -178,6 +178,7 @@ endif
 
 inetutils_clean:
 	rm -rf $(STATEDIR)/inetutils.*
+	rm -rf $(IMAGEDIR)/inetutils_*
 	rm -rf $(INETUTILS_DIR)
 
 # vim: syntax=make

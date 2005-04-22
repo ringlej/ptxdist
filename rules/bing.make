@@ -136,6 +136,7 @@ $(STATEDIR)/bing.targetinstall: $(bing_targetinstall_deps)
 
 bing_clean:
 	rm -rf $(STATEDIR)/bing.*
+	rm -rf $(IMAGEDIR)/bing_*
 	rm -rf $(BING_DIR)
 
 # vim: syntax=make

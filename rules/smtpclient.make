@@ -123,8 +123,20 @@ smtpclient_targetinstall_deps = $(STATEDIR)/smtpclient.compile
 
 $(STATEDIR)/smtpclient.targetinstall: $(smtpclient_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call copy_root, 0, 0, 0644, $(SMTPCLIENT_DIR)/smtpclient, /usr/bin/smtpclient)
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/smtpclient
+	
+	$(call install_init,default)
+	$(call install_fixup,PACKAGE,smtpclient)
+	$(call install_fixup,PRIORITY,optional)
+	$(call install_fixup,VERSION,$(SMTPCLIENT_VERSION))
+	$(call install_fixup,SECTION,base)
+	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	$(call install_fixup,DEPENDS,libc)
+	$(call install_fixup,DESCRIPTION,missing)
+
+	$(call install_copy, 0, 0, 0644, $(SMTPCLIENT_DIR)/smtpclient, /usr/bin/smtpclient)
+
+	$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -133,6 +145,7 @@ $(STATEDIR)/smtpclient.targetinstall: $(smtpclient_targetinstall_deps)
 
 smtpclient_clean:
 	rm -rf $(STATEDIR)/smtpclient.*
+	rm -rf $(IMAGEDIR)/smtpclient_*
 	rm -rf $(SMTPCLIENT_DIR)
 
 # vim: syntax=make
