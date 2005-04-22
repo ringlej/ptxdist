@@ -111,23 +111,24 @@ hosttool-modutils_install: $(STATEDIR)/hosttool-modutils.install
 
 $(STATEDIR)/hosttool-modutils.install: $(STATEDIR)/hosttool-modutils.compile
 	@$(call targetinfo, $@)
+
 	mkdir -p $(PTXCONF_PREFIX)/bin
-	install -m755 $(HOSTTOOL_MODUTILS_DIR)/insmod/insmod \
+	install -D -m755 $(HOSTTOOL_MODUTILS_DIR)/insmod/insmod \
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-insmod.old
-	install -m755 $(HOSTTOOL_MODUTILS_DIR)/insmod/modinfo \
+	install -D -m755 $(HOSTTOOL_MODUTILS_DIR)/insmod/modinfo \
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-modinfo.old
-	install -m755 $(HOSTTOOL_MODUTILS_DIR)/insmod/insmod_ksymoops_clean \
+	install -D -m755 $(HOSTTOOL_MODUTILS_DIR)/insmod/insmod_ksymoops_clean \
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-insmod_ksymoops_clean.old
-	install -m755 $(HOSTTOOL_MODUTILS_DIR)/insmod/kernelversion \
+	install -D -m755 $(HOSTTOOL_MODUTILS_DIR)/insmod/kernelversion \
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-kernelversion.old
 	for FILE in ksyms kallsyms; do				\
 		ln -sf $(PTXCONF_GNU_TARGET)-insmod.old \
 			$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-$$FILE.old; \
 	done;
 
-	install -m755 $(HOSTTOOL_MODUTILS_DIR)/genksyms/genksyms \
+	install -D -m755 $(HOSTTOOL_MODUTILS_DIR)/genksyms/genksyms \
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-genksyms.old
-	install -m755 $(HOSTTOOL_MODUTILS_DIR)/depmod/depmod \
+	install -D -m755 $(HOSTTOOL_MODUTILS_DIR)/depmod/depmod \
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod.old
 	touch $@
 
