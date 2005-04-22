@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.3-svn
-# Wed Apr 13 20:58:45 2005
+# Fri Apr 22 12:00:41 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -143,9 +143,15 @@ PTXCONF_VENDORTWEAKS=""
 PTXCONF_HOSTTOOLS_IPKG_UTILS=y
 
 #
-# Module Init Tools   
+# Module Init Tools/Modutils
 #
 # PTXCONF_HOSTTOOLS_MODULE_INIT_TOOLS is not set
+PTXCONF_HOSTTOOLS_MODUTILS=y
+
+#
+# Flex
+#
+PTXCONF_HOSTTOOLS_FLEX254=y
 # PTXCONF_XCHAIN_UMKIMAGE is not set
 
 #
@@ -157,6 +163,7 @@ PTXCONF_HOSTTOOLS_IPKG_UTILS=y
 #
 # PTXCONF_USE_EXTERNAL_KERNEL is not set
 PTXCONF_KERNEL_CONFIG="kernel-2.4.21"
+PTXCONF_KERNEL_2_4=y
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
 PTXCONF_KERNEL_2_4_21=y
