@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id: flex.make,v 1.1 2005/04/06 14:58:00 nesladek Exp $
 #
 # Copyright (C) 2005 by Jiri Nesladek
