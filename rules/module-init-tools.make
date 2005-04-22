@@ -1,5 +1,6 @@
 # -*-makefile-*-
 # $Id: kernel.make 2486 2005-04-19 12:18:08Z mkl $
+#
 # Copyright (C) 2005 Ladislav Michl <ladis@linux-mips.org>
 #          
 # See CREDITS for details about who has contributed to this project.
@@ -35,6 +36,7 @@ module-init-tools_get_deps = $(MODULE_INIT_TOOLS_SOURCE)
 
 $(STATEDIR)/module-init-tools.get: $(module-init-tools_get_deps)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(MODULE_INIT_TOOLS))
 	touch $@
 
 $(MODULE_INIT_TOOLS_SOURCE):
@@ -53,6 +55,7 @@ $(STATEDIR)/module-init-tools.extract: $(module-init-tools_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MODULE_INIT_TOOLS_DIR))
 	@$(call extract, $(MODULE_INIT_TOOLS_SOURCE))
+	@$(call patchin, $(MODULE_INIT_TOOLS), $(MODULE_INIT_TOOLS_DIR))
 	touch $@
 
 # ----------------------------------------------------------------------------
