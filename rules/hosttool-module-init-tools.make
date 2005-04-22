@@ -45,6 +45,7 @@ $(STATEDIR)/hosttool-module-init-tools.extract: $(hosttool-module-init-tools_ext
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOLS_MODULE_INIT_TOOLS_DIR))
 	@$(call extract, $(MODULE_INIT_TOOLS_SOURCE), $(HOSTTOOLS_BUILDDIR))
+	@$(call patchin, $(MODULE_INIT_TOOLS), $(HOSTTOOLS_MODULE_INIT_TOOLS_DIR))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -52,7 +53,6 @@ $(STATEDIR)/hosttool-module-init-tools.extract: $(hosttool-module-init-tools_ext
 # ----------------------------------------------------------------------------
 
 hosttool-module-init-tools_prepare: $(STATEDIR)/hosttool-module-init-tools.prepare
-
 #
 # dependencies
 #
@@ -92,12 +92,14 @@ $(STATEDIR)/hosttool-module-init-tools.compile: $(hosttool-module-init-tools_com
 
 hosttool-module-init-tools_install: $(STATEDIR)/hosttool-module-init-tools.install
 
-$(STATEDIR)/hosttool-module-init-tools.install: $(STATEDIR)/hosttool-module-init-tools.compile
+hosttool-module-init-tools_install_deps = $(STATEDIR)/hosttool-module-init-tools.compile
+ifdef PTXCONF_KERNEL_2_4
+hosttool-module-init-tools_install_deps += $(STATEDIR)/hosttool-modutils.install
+endif
+
+$(STATEDIR)/hosttool-module-init-tools.install: $(hosttool-module-init-tools_install_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOLS_MODULE_INIT_TOOLS_DIR) && $(HOSTTOOLS_MODULE_INIT_TOOLS_PATH) make install
-# the kernel calls this for old kernels, but new depmods seem to
-# do it the right way...
-	ln -s $(PTXCONF_PREFIX)/sbin/depmod $(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod.old
 	touch $@
 
 # ----------------------------------------------------------------------------
