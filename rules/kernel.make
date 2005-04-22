@@ -304,11 +304,8 @@ kernel_prepare: $(STATEDIR)/kernel.prepare
 
 kernel_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/kernel.extract
-
-# FIXME: Ladis removed that, probably because 2.6 doesn't need it any
-# more. Check if the 2.4 targets do still work... [RSC]
-#kernel_prepare_deps += $(STATEDIR)/xchain-modutils.install
+	$(STATEDIR)/kernel.extract \
+	$(STATEDIR)/hosttool-module-init-tools.install
 
 KERNEL_PATH	= PATH=$(CROSS_PATH)
 KERNEL_MAKEVARS	= \
@@ -400,7 +397,6 @@ $(STATEDIR)/kernel.install:
 kernel_targetinstall: $(STATEDIR)/kernel.targetinstall
 
 kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
-kernel_targetinstall_deps += $(STATEDIR)/hosttool-module-init-tools.install
 
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)

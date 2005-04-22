@@ -34,6 +34,15 @@ config KERNEL_CONFIG
 
 	  here. 
 
+config KERNEL_2_4
+	bool
+	select HOSTTOOLS_MODUTILS	
+
+config KERNEL_2_6
+	bool
+	select HOSTTOOLS_MODULE_INIT_TOOLS
+
+
 choice 
 	prompt "Kernel Version"
 		default KERNEL_2_6_10
@@ -42,80 +51,96 @@ choice
 	config KERNEL_2_4_19
 		bool
 		prompt "2.4.19"
+		select KERNEL_2_4
  
 	config KERNEL_2_4_20
 		bool
 		prompt "2.4.20"
 		depends on ARCH_ARM_NOMMU || ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
+		select KERNEL_2_4
 
 	config KERNEL_2_4_21
 		bool
 		prompt "2.4.21"
+		select KERNEL_2_4
 
 	config KERNEL_2_4_22
 		bool
 		prompt "2.4.22"
 		depends on ARCH_ARM_NOMMU || ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
+		select KERNEL_2_4
 
 	config KERNEL_2_4_23
 		bool
 		prompt "2.4.23"
 		depends on ARCH_X86 || ARCH_PPC || ARCH_SPARC || ARCH_MIPS || ARCH_CRIS || ARCH_PARISC || ARCH_SH
+		select KERNEL_2_4
 
 	config KERNEL_2_4_25
 		bool
 		prompt "2.4.25"
 		depends on ARCH_X86 || ARCH_ARM
+		select KERNEL_2_4
 
 	config KERNEL_2_4_26
 		bool
 		prompt "2.4.26"
 		depends on ARCH_X86 || ARCH_ARM || ARCH_ALPHA
+		select KERNEL_2_4
 
 	config KERNEL_2_4_27
 		bool
 		prompt "2.4.27"
 		depends on ARCH_X86 || ARCH_ARM || ARCH_ARM_NOMMU
+		select KERNEL_2_4
 
 	config KERNEL_2_6_0
 		bool
 		prompt "2.6.0"
 		depends on ARCH_X86 || ARCH_ARM
+		select KERNEL_2_6
 	
 	config KERNEL_2_6_1
 		bool
 		prompt "2.6.1"
 		depends on ARCH_X86 || ARCH_ARM || ARCH_ALPHA
+		select KERNEL_2_6
 
 	config KERNEL_2_6_6
 		bool
 		prompt "2.6.6"
 		depends on ARCH_X86 || ARCH_ARM || ARCH_ALPHA
+		select KERNEL_2_6
 	
 	config KERNEL_2_6_7
 		bool
 		prompt "2.6.7"
 		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC || ARCH_ALPHA
+		select KERNEL_2_6
 
 	config KERNEL_2_6_8
 		bool
 		prompt "2.6.8"
 		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC || ARCH_ALPHA
+		select KERNEL_2_6
 
 	config KERNEL_2_6_9
 		bool
 		prompt "2.6.9"
 		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC || ARCH_ALPHA
+		select KERNEL_2_6
 
 	config KERNEL_2_6_10
 		bool
 		prompt "2.6.10"
 		depends on ARCH_X86 || ARCH_ARM 
+		select KERNEL_2_6
 
 	config KERNEL_2_6_11
 		bool
 		prompt "2.6.11"
 		depends on ARCH_X86 || ARCH_ARM 
+		select KERNEL_2_6
 
 endchoice
 
