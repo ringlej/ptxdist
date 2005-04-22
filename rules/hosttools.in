@@ -6,6 +6,7 @@ source "rules/hosttool-fakeroot.in"
 source "rules/hosttool-ipkg-utils.in"
 source "rules/hosttool-module-init-tools.in"
 source "rules/hosttool-util-linux.in"
+source "rules/hosttool-flex.in"
 
 config XCHAIN_UMKIMAGE
 	bool
