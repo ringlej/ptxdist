@@ -143,32 +143,32 @@ inetutils_targetinstall_deps	=  $(STATEDIR)/inetutils.compile
 $(STATEDIR)/inetutils.targetinstall: $(inetutils_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	$(call install_init,default)
-	$(call install_fixup,PACKAGE,inetutils)
-	$(call install_fixup,PRIORITY,optional)
-	$(call install_fixup,VERSION,$(INETUTILS_VERSION))
-	$(call install_fixup,SECTION,base)
-	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	$(call install_fixup,DEPENDS,libc)
-	$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,inetutils)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(INETUTILS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
 ifdef PTXCONF_INETUTILS_RCP
-	$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rcp/rcp, /usr/bin/rcp)
+	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rcp/rcp, /usr/bin/rcp)
 endif
 
 ifdef PTXCONF_INETUTILS_RLOGIND
-	$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rlogind/rlogind, /usr/sbin/rlogind)
+	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rlogind/rlogind, /usr/sbin/rlogind)
 endif
 
 ifdef PTXCONF_INETUTILS_RSHD
-	$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rshd/rshd, /usr/bin/rshd)
+	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rshd/rshd, /usr/bin/rshd)
 endif
 
 ifdef PTXCONF_INETUTILS_PING
-	$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/ping/ping, /bin/ping)
+	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/ping/ping, /bin/ping)
 endif
 
-	$(call install_finish)
+	@$(call install_finish)
 
 	touch $@
 

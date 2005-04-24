@@ -114,18 +114,18 @@ canconfig_targetinstall_deps = $(STATEDIR)/canconfig.compile
 $(STATEDIR)/canconfig.targetinstall: $(canconfig_targetinstall_deps)
 	@$(call targetinfo, $@)
 	
-	$(call install_init,default)
-	$(call install_fixup,PACKAGE,canconfig)
-	$(call install_fixup,PRIORITY,optional)
-	$(call install_fixup,VERSION,$(CANCONFIG_VERSION))
-	$(call install_fixup,SECTION,base)
-	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	$(call install_fixup,DEPENDS,libc)
-	$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,canconfig)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(CANCONFIG_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-	$(call install_copy, 0, 0, 0755, $(CANCONFIG_DIR)/canconfig, /usr/sbin/canconfig)
+	@$(call install_copy, 0, 0, 0755, $(CANCONFIG_DIR)/canconfig, /usr/sbin/canconfig)
 
-	$(call install_finish)
+	@$(call install_finish)
 	
 	touch $@
 

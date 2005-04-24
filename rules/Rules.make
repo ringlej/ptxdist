@@ -915,14 +915,18 @@ feature_patchin =								\
 # $6: strip (for files; y|n); default is to strip
 #
 install_copy = 											\
-	@OWN=`echo $(1) | sed -e 's/[[:space:]]//g'`;						\
+	OWN=`echo $(1) | sed -e 's/[[:space:]]//g'`;						\
 	GRP=`echo $(2) | sed -e 's/[[:space:]]//g'`;						\
 	PER=`echo $(3) | sed -e 's/[[:space:]]//g'`;						\
 	SRC=`echo $(4) | sed -e 's/[[:space:]]//g'`;						\
 	DST=`echo $(5) | sed -e 's/[[:space:]]//g'`;						\
 	STRIP="$(strip $(6))";									\
 	if [ -z "$(5)" ]; then									\
-		echo "install_copy: dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER";	\
+		echo "install_copy:";								\
+		echo "  dir=$$SRC";								\
+		echo "  owner=$$OWN";								\
+		echo "  group=$$GRP";								\
+		echo "  permissions=$$PER";							\
 		if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then					\
 			$(INSTALL) -d $(IMAGEDIR)/ipkg/$$SRC;					\
 			if [ $$? -ne 0 ]; then							\
@@ -937,7 +941,12 @@ install_copy = 											\
 		fi;										\
 		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			\
 	else											\
-		echo "install_copy src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER"; \
+		echo "install_copy:";								\
+		echo "  src=$$SRC";								\
+		echo "  dst=$$DST";								\
+		echo "  owner=$$OWN";								\
+		echo "  group=$$GRP";								\
+		echo "  permissions=$$PER"; 							\
 		if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then					\
 			rm -fr $(IMAGEDIR)/ipkg/$$DST; 						\
 			$(INSTALL) -D $$SRC $(IMAGEDIR)/ipkg/$$DST;				\
@@ -965,6 +974,129 @@ install_copy = 											\
 	fi
 
 #
+# install_copy_toolchain_lib
+#
+# $1: source
+# $2: destination
+# $2: strip (y|n)	default is to strip
+#
+install_copy_toolchain_lib =									\
+	LIB="$(strip $1)";									\
+	DST="$(strip $2)";									\
+	STRIP="$(strip $3)";									\
+												\
+	LIB_DIR=`$(CROSS_CC) -print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
+												\
+	if test \! -d "$${LIB_DIR}"; then							\
+		echo "copy_toolchain_lib_root: lib=$${LIB} not found";				\
+		exit -1;									\
+	fi;											\
+												\
+	LIB="$(strip $1)";									\
+	for FILE in `find $${LIB_DIR} -maxdepth 1 -type l -name "$${LIB}*"`; do			\
+		LIB=`basename $${FILE}`;							\
+		while test -n "$${LIB}"; do							\
+			echo "copy_toolchain_lib_root lib=$${LIB} dst=$${DST}";			\
+			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
+			mkdir -p $(ROOTDIR)$${DST};						\
+			if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
+				mkdir -p $(IMAGEDIR)/ipkg/$${DST};				\
+			fi;									\
+			if test -h $${LIB_DIR}/$${LIB}; then					\
+				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/;			\
+				if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then			\
+					cp -d $${LIB_DIR}/$${LIB} $(IMAGEDIR)/ipkg/$${DST}/;	\
+				fi;								\
+			elif test -f $${LIB_DIR}/$${LIB}; then					\
+				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/$${LIB};	\
+				if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then			\
+					$(INSTALL) -D $${LIB_DIR}/$${LIB} $(IMAGEDIR)/ipkg/$${DST}/$${LIB};\
+				fi; 								\
+				case "$${STRIP}" in						\
+				0 | n | no)							\
+					;;							\
+				*)								\
+					$(CROSS_STRIP) $(ROOTDIR)$${DST}/$${LIB};		\
+					if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then		\
+						$(CROSS_STRIP) $(IMAGEDIR)/ipkg/$${DST}/$${LIB};\
+					fi;							\
+					;;							\
+				esac;								\
+				echo "f:$${DST}/$${LIB}:0:0:755" >> $(TOPDIR)/permissions;	\
+			else									\
+				exit -1;							\
+			fi;									\
+			LIB="`readlink $${LIB_DIR}/$${LIB}`";					\
+		done;										\
+	done;											\
+												\
+	echo -n
+
+#
+# install_copy_toolchain_dl
+#
+# $1: destination
+# $2: strip (y|n)	default is to strip
+#
+install_copy_toolchain_dl =									\
+	DST="$(strip $1)";									\
+	STRIP="$(strip $2)";									\
+												\
+	LIB="`echo 'int main(void){return 0;}' | 						\
+		$(CROSS_CC) -x c -o /dev/null -v - 2>&1 | 					\
+		grep dynamic-linker | 								\
+		perl -n -p -e 's/.* -dynamic-linker ([^ ]*).*/\1/'`";				\
+												\
+	LIB="`basename $${LIB}`";								\
+												\
+	LIB_DIR=`$(CROSS_CC) -print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
+												\
+	if test \! -d "$${LIB_DIR}"; then							\
+		echo "copy_toolchain_ld_root: lib=$${LIB} not found";				\
+		exit -1;									\
+	fi;											\
+												\
+	for FILE in `find $${LIB_DIR} -maxdepth 1 -type l -name "$${LIB}*"`; do			\
+		LIB=`basename $${FILE}`;							\
+		while test -n "$${LIB}"; do							\
+			echo "copy_toolchain_ld_root lib=$${LIB} dst=$${DST}";			\
+			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
+			mkdir -p $(ROOTDIR)$${DST};						\
+			if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
+				rm -fr $(IMAGEDIR)/ipkg/$${DST}/$${LIB};			\
+				mkdir -p $(IMAGEDIR)/ipkg/$${DST};				\
+			fi;									\
+			if test -h $${LIB_DIR}/$${LIB}; then					\
+				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/;			\
+				if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then			\
+					cp -d $${LIB_DIR}/$${LIB} $(IMAGEDIR)/ipkg/$${DST}/;	\
+				fi;								\
+			elif test -f $${LIB_DIR}/$${LIB}; then					\
+				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/$${LIB};	\
+				if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then			\
+					$(INSTALL) -D $${LIB_DIR}/$${LIB} $(IMAGEDIR)/ipkg/$${DST}/$${LIB};\
+				fi;								\
+				case "$${STRIP}" in						\
+				0 | n | no)							\
+					;;							\
+				*)								\
+					$(CROSS_STRIP) $(ROOTDIR)$${DST}/$${LIB};		\
+					if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then		\
+						$(CROSS_STRIP) $(ROOTDIR)$${DST}/$${LIB};	\
+					fi;							\
+					;;							\
+				esac;								\
+				echo "f:$${DST}/$${LIB}:0:0:755" >> $(TOPDIR)/permissions;	\
+			else									\
+				exit -1;							\
+			fi;									\
+			LIB="`readlink $${LIB_DIR}/$${LIB}`";					\
+		done;										\
+	done;											\
+												\
+	echo -n
+
+#
 # install_link
 # 
 # Installs a soft link in root directory in an ipkg packet. 
@@ -973,12 +1105,14 @@ install_copy = 											\
 # $2: destination
 #
 install_link =									\
-	@SRC=$(strip $(1));							\
+	SRC=$(strip $(1));							\
 	DST=$(strip $(2));							\
 	rm -fr $(ROOTDIR)$$DST;							\
 	echo "install_link: src=$$SRC dst=$$DST "; 				\
-	$(LN) -sf $$SRC $(ROOTDIR)$$DST;					\
+	mkdir -p `dirname $(ROOTDIR)$$DST`;					\
+	$(LN) -sf $$SRC $(ROOTDIR)$$DST; 					\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
+		mkdir -p `dirname $(IMAGEDIR)/ipkg$$DST`;			\
 		$(LN) -sf $$SRC $(IMAGEDIR)/ipkg/$$DST;				\
 	fi
 
@@ -991,7 +1125,7 @@ install_link =									\
 # $2: replacement
 #
 install_fixup = 									\
-	@if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then					\
+	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then					\
 		REPLACE_FROM=$(strip $(1));						\
 		REPLACE_TO=$(strip $(2));						\
 		echo -n "install_fixup:  @$$REPLACE_FROM@ -> $$REPLACE_TO ... "; 	\
@@ -1005,7 +1139,7 @@ install_fixup = 									\
 # Deletes $(IMAGEDIR)/ipkg and prepares for new ipkg package creation
 #
 install_init =											\
-	@if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then						\
+	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then						\
 		PACKET=$(strip $(1));								\
 		echo -n "install_init: preparing for image creation...";			\
 		rm -fr $(IMAGEDIR)/ipkg;							\
@@ -1021,7 +1155,7 @@ install_init =											\
 # Finishes ipkg packet creation
 #
 install_finish = 													\
-	@if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then									\
+	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then									\
 		echo -n "install_finish: writing ipkg packet ... ";							\
 		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions; echo "popd;"; 	\
 		echo "$(PTXCONF_PREFIX)/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\

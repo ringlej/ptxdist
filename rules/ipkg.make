@@ -124,25 +124,23 @@ ipkg_targetinstall_deps = $(STATEDIR)/ipkg.compile
 $(STATEDIR)/ipkg.targetinstall: $(ipkg_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	install -d $(ROOTDIR)/usr/bin
+	@$(call install_init,ipkg)
+	@$(call install_fixup,VERSION,$(IPKG_VERSION))
 
-	$(call install_init,ipkg)
-	$(call install_fixup,VERSION,$(IPKG_VERSION))
+	@$(call install_copy, 0, 0, 0644, $(IPKG_DIR)/.libs/libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0.0)
+	@$(call install_link, libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0)
+	@$(call install_link, libipkg.so.0.0.0, /usr/lib/libipkg.so.0)
 
-	$(call install_copy, 0, 0, 0644, $(IPKG_DIR)/.libs/libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0.0)
-	$(call install_link, libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0)
-	$(call install_link, libipkg.so.0.0.0, /usr/lib/libipkg.so.0)
-
-	$(call install_copy, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg)
+	@$(call install_copy, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg)
 
 ifdef PTXCONF_IPKG_EXTRACT_TEST
-	$(call install_copy, 0, 0, 0755, $(IPKG_DIR)/install_extract_test, /usr/bin/install_extract_test)
+	@$(call install_copy, 0, 0, 0755, $(IPKG_DIR)/install_extract_test, /usr/bin/install_extract_test)
 endif
 ifdef PTXCONF_IPKG_HASH_TEST
-	$(call install_copy, 0, 0, 0755, $(IPKG_DIR)/install_hash_test, /usr/bin/install_hash_test)
+	@$(call install_copy, 0, 0, 0755, $(IPKG_DIR)/install_hash_test, /usr/bin/install_hash_test)
 endif
 
-	$(call install_finish)
+	@$(call install_finish)
 
 	touch $@
 

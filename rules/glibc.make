@@ -97,90 +97,105 @@ endif
 $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps)
 	@$(call targetinfo, $@)
 
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,glibc)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(GLIBC_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
 ifdef PTXCONF_GLIBC_INSTALL
-	@$(call copy_toolchain_dl_root, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_dl, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_LIBC
-	@$(call copy_toolchain_lib_root, libc.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libc.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_PTHREAD
-	@$(call copy_toolchain_lib_root, libpthread.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libpthread.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_THREAD_DB
-	@$(call copy_toolchain_lib_root, libthread_db.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libthread_db.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_LIBRT
-	@$(call copy_toolchain_lib_root, librt.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, librt.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_DL
-	@$(call copy_toolchain_lib_root, libdl.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libdl.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_CRYPT
-	@$(call copy_toolchain_lib_root, libcrypt.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libcrypt.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_UTIL
-	@$(call copy_toolchain_lib_root, libutil.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libutil.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_LIBM
-	@$(call copy_toolchain_lib_root, libm.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libm.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_NSS_DNS
-	@$(call copy_toolchain_lib_root, libnss_dns.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libnss_dns.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_NSS_FILES
-	@$(call copy_toolchain_lib_root, libnss_files.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libnss_files.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_NSS_HESIOD
-	@$(call copy_toolchain_lib_root, libnss_hesiod.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libnss_hesiod.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_NSS_NIS
-	@$(call copy_toolchain_lib_root, libnss_nis.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libnss_nis.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_NSS_NISPLUS
-	@$(call copy_toolchain_lib_root, libnss_nisplus.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libnss_nisplus.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_NSS_COMPAT
-	@$(call copy_toolchain_lib_root, libnss_compat.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libnss_compat.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_RESOLV
-	@$(call copy_toolchain_lib_root, libresolv.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libresolv.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_NSL
-	@$(call copy_toolchain_lib_root, libnsl.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libnsl.so, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_GCONV
-	install -d $(ROOTDIR)/usr/lib/gconv
+	@$(call install_copy, 0, 0, 0755, /usr/lib/gconf)
 	rm -f $(ROOTDIR)/usr/lib/gconv/gconv-modules
 endif
 
 ifdef PTXCONF_GLIBC_GCONV_ISO8859_1
-	@$(call copy_toolchain_lib_root, gconv/ISO8859-1.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, gconv/ISO8859-1.so, /lib, $(GLIBC_STRIP))
 	echo "module INTERNAL ISO-8859-1// ISO8859-1 1" \
 		>> $(ROOTDIR)/usr/lib/gconv/gconv-modules
+	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then			\
+		echo "module INTERNAL ISO-8859-1// ISO8859-1 1" 	\
+			>> $(ROOTDIR)/usr/lib/gconv/gconv-modules;	\
+	fi
 endif
 
 # Zonefiles
-	$(call copy_root, 0, 0, 0755, /usr/share/zoneinfo)
-	for target in $(GLIBC_ZONEFILES-y); do 							\
-		cp -a $(GLIBC_ZONEDIR)/zoneinfo/$$target $(ROOTDIR)/usr/share/zoneinfo/;	\
+	@$(call install_copy, 0, 0, 0755, /usr/share/zoneinfo)
+	for target in $(GLIBC_ZONEFILES-y); do 				\
+		$(call install_copy, 0, 0, 0644, $(GLIBC_ZONEDIR)/zoneinfo/$$target, /usr/share/zoneinfo/$$target)	\
 	done;
+
+	@$(call install_finish)
 
 	touch $@
 

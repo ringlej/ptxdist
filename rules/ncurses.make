@@ -144,50 +144,50 @@ ncurses_targetinstall: $(STATEDIR)/ncurses.targetinstall
 $(STATEDIR)/ncurses.targetinstall: $(STATEDIR)/ncurses.install
 	@$(call targetinfo, $@)
 
-	$(call install_init,default)
-	$(call install_fixup,PACKAGE,ncurses)
-	$(call install_fixup,PRIORITY,optional)
-	$(call install_fixup,VERSION,$(NCURSES_VERSION))
-	$(call install_fixup,SECTION,base)
-	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	$(call install_fixup,DEPENDS,libc)
-	$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,ncurses)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(NCURSES_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-	$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.3, /lib/libncurses.so.5.3)
-	$(call install_link, libncurses.so.5.3, /lib/libncurses.so.5)
-	$(call install_link, libncurses.so.5.3, /lib/libncurses.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.3, /lib/libncurses.so.5.3)
+	@$(call install_link, libncurses.so.5.3, /lib/libncurses.so.5)
+	@$(call install_link, libncurses.so.5.3, /lib/libncurses.so)
 
 ifdef PTXCONF_NCURSES_FORM
-	$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.3, /lib/libncurses.so.5.3)
-	$(call install_link, libncurses.so.5.3, /lib/libncurses.so.5)
-	$(call install_link, libncurses.so.5.3, /lib/libncurses.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.3, /lib/libncurses.so.5.3)
+	@$(call install_link, libncurses.so.5.3, /lib/libncurses.so.5)
+	@$(call install_link, libncurses.so.5.3, /lib/libncurses.so)
 endif
 
 ifdef PTXCONF_NCURSES_MENU
-	$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libmenu.so.5.3, /lib/libmenu.so.5.3)
-	$(call install_link, libmenu.so.5.3, /lib/libmenu.so.5)
-	$(call install_link, libmenu.so.5.3, /lib/libmenu.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libmenu.so.5.3, /lib/libmenu.so.5.3)
+	@$(call install_link, libmenu.so.5.3, /lib/libmenu.so.5)
+	@$(call install_link, libmenu.so.5.3, /lib/libmenu.so)
 endif
 
 ifdef PTXCONF_NCURSES_PANEL
-	$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libpanel.so.5.3, /lib/libpanel.so.5.3)
-	$(call install_link, libpanel.so.5.3, /lib/libpanel.so.5)
-	$(call install_link, libpanel.so.5.3, /lib/libpanel.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libpanel.so.5.3, /lib/libpanel.so.5.3)
+	@$(call install_link, libpanel.so.5.3, /lib/libpanel.so.5)
+	@$(call install_link, libpanel.so.5.3, /lib/libpanel.so)
 endif
 
 ifdef PTXCONF_NCURSES_TERMCAP
 	mkdir -p $(ROOTDIR)/usr/share/terminfo
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm, /usr/share/terminfo/x/xterm, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-color, /usr/share/terminfo/x/xterm-color, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-xfree86, /usr/share/terminfo/x/xterm-xfree86, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt100, /usr/share/terminfo/v/vt100, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt102, /usr/share/terminfo/v/vt102, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt200, /usr/share/terminfo/v/vt200, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/a/ansi, /usr/share/terminfo/a/ansi, n);
-	$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/l/linux, /usr/share/terminfo/l/linux, n);
+	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm, /usr/share/terminfo/x/xterm, n);
+	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-color, /usr/share/terminfo/x/xterm-color, n);
+	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-xfree86, /usr/share/terminfo/x/xterm-xfree86, n);
+	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt100, /usr/share/terminfo/v/vt100, n);
+	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt102, /usr/share/terminfo/v/vt102, n);
+	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt200, /usr/share/terminfo/v/vt200, n);
+	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/a/ansi, /usr/share/terminfo/a/ansi, n);
+	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/l/linux, /usr/share/terminfo/l/linux, n);
 endif
 
-	$(call install_finish)
+	@$(call install_finish)
 
 	touch $@
 

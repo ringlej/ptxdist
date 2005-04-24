@@ -125,18 +125,18 @@ bonniexx_targetinstall_deps = $(STATEDIR)/bonniexx.compile
 $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps)
 	@$(call targetinfo, $@)
 	
-	$(call install_init,default)
-	$(call install_fixup,PACKAGE,bonniexx)
-	$(call install_fixup,PRIORITY,optional)
-	$(call install_fixup,VERSION,$(COREUTILS_VERSION))
-	$(call install_fixup,SECTION,base)
-	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	$(call install_fixup,DEPENDS,libc)
-	$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,bonniexx)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(COREUTILS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 	
-	$(call install_copy, 0, 0, 0644, $(BONNIEXX_DIR)/bonnie++, /usr/bin/bonnie++)
+	@$(call install_copy, 0, 0, 0644, $(BONNIEXX_DIR)/bonnie++, /usr/bin/bonnie++)
 
-	$(call install_finish)
+	@$(call install_finish)
 	
 	touch $@
 

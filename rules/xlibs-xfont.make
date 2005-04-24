@@ -128,29 +128,29 @@ xlibs-xfont_targetinstall_deps = $(STATEDIR)/xlibs-xfont.compile
 $(STATEDIR)/xlibs-xfont.targetinstall: $(xlibs-xfont_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	$(call install_init,default)
-	$(call install_fixup,PACKAGE,xlibs-xfont)
-	$(call install_fixup,PRIORITY,optional)
-	$(call install_fixup,VERSION,$(XLIBS-XFONT_VERSION))
-	$(call install_fixup,SECTION,base)
-	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	$(call install_fixup,DEPENDS,libc)
-	$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,xlibs-xfont)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(XLIBS-XFONT_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 	
-	$(call install_copy, 0, 0, 0644, 						\
+	@$(call install_copy, 0, 0, 0644, 						\
 		$(XLIBS-XFONT_DIR)/.libs/libXfont.so.$(XLIBS-XFONT_REAL_VERSION),  	\
 		/usr/X11R6/lib/libXfont.so.$(XLIBS-XFONT_REAL_VERSION)			\
 	)
-	$(call install_link, 								\
+	@$(call install_link, 								\
 		/usr/X11R6/lib/libXfont.so.$(XLIBS-XFONT_REAL_VERSION), 		\
 		/usr/X11R6/lib/libXfont.so.0						\
 	)
-	$(call install_link, /usr/X11R6/lib/libXfont.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libXfont.so)
-	$(call install_copy, 0, 0, 0644, $(XLIBS-XFONT_DIR)/fontcache/.libs/libfontcache.so.0.0.0,  /usr/X11R6/lib/libfontcache.so.0.0.0)
-	$(call install_link, /usr/X11R6/lib/libfontcache.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libfontcache.so.0)
-	$(call install_link, /usr/X11R6/lib/libfontcache.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libfontcache.so)
+	@$(call install_link, /usr/X11R6/lib/libXfont.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libXfont.so)
+	@$(call install_copy, 0, 0, 0644, $(XLIBS-XFONT_DIR)/fontcache/.libs/libfontcache.so.0.0.0,  /usr/X11R6/lib/libfontcache.so.0.0.0)
+	@$(call install_link, /usr/X11R6/lib/libfontcache.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libfontcache.so.0)
+	@$(call install_link, /usr/X11R6/lib/libfontcache.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libfontcache.so)
 
-	$(call install_finish)
+	@$(call install_finish)
 
 	touch $@
 

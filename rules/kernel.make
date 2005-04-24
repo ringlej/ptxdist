@@ -36,6 +36,8 @@ KERNEL_DIR	= $(BUILDDIR)/$(KERNEL)
 KERNEL_CONFIG	= $(PTXCONF_KERNEL_CONFIG)
 endif
 
+KERNEL_INST_DIR	= $(BUILDDIR)/$(KERNEL)-install
+
 #
 # Some configuration stuff for the different kernel image formats
 #
@@ -400,15 +402,35 @@ kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
 
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	rm -fr $(KERNEL_INST_DIR)
+	
 ifdef PTXCONF_KERNEL_INSTALL
-	mkdir -p $(ROOTDIR)/boot;				\
-	for i in $(KERNEL_TARGET_PATH); do 			\
-		if [ -f $$i ]; then				\
-			install $$i $(ROOTDIR)/boot/ ;		\
-		fi;						\
-	done;							\
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) make 		\
-		modules_install $(KERNEL_MAKEVARS) INSTALL_MOD_PATH=$(ROOTDIR)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,kernel)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(KERNEL_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+								
+	for i in $(KERNEL_TARGET_PATH); do 				\
+		if [ -f $$i ]; then					\
+			$(call install_copy, 0, 0, 0644, $$i, /boot/$(KERNEL_TARGET), n)\
+		fi;							\
+	done
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make 			\
+		modules_install $(KERNEL_MAKEVARS) INSTALL_MOD_PATH=$(KERNEL_INST_DIR)
+
+	cd $(KERNEL_INST_DIR) &&					\
+		for file in `find . -type f | sed -e "s/\.\//\//g"`; do	\
+			$(call install_copy, 0, 0, 0664, $(KERNEL_INST_DIR)/$$file, $$file, n) \
+		done
+
+	rm -fr $(KERNEL_INST_DIR)		
+
+	@$(call install_finish)		
 endif
 	touch $@
 

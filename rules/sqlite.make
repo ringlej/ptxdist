@@ -157,18 +157,18 @@ $(STATEDIR)/sqlite.targetinstall: $(STATEDIR)/sqlite.install
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/usr/lib
 
-	$(call install_init,default)
-	$(call install_fixup,PACKAGE,sqlite)
-	$(call install_fixup,PRIORITY,optional)
-	$(call install_fixup,VERSION,$(SQLITE_VERSION))
-	$(call install_fixup,SECTION,base)
-	$(call install_fixup,AUTHOR,"Ladislav Michl <ladis\@linux-mips.org>")
-	$(call install_fixup,DEPENDS,libc)
-	$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,sqlite)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(SQLITE_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Ladislav Michl <ladis\@linux-mips.org>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-	$(call install_copy, 0, 0, 0755, $(SQLITE_DIR)/libsqlite3.so, /usr/lib/libsqlite3.so)
+	@$(call install_copy, 0, 0, 0755, $(SQLITE_DIR)/libsqlite3.so, /usr/lib/libsqlite3.so)
 
-	$(call install_finish)
+	@$(call install_finish)
 
 	touch $@
 

@@ -128,20 +128,20 @@ readline_targetinstall_deps = $(STATEDIR)/readline.compile
 $(STATEDIR)/readline.targetinstall: $(readline_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	$(call install_init,default)
-	$(call install_fixup,PACKAGE,readline)
-	$(call install_fixup,PRIORITY,optional)
-	$(call install_fixup,VERSION,$(READLINE_VERSION))
-	$(call install_fixup,SECTION,base)
-	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	$(call install_fixup,DEPENDS,libc)
-	$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,readline)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(READLINE_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-	$(call install_copy, 0, 0, 0644, $(READLINE_DIR)/shlib/libreadline.so.5.0, /lib/libreadline.so.5.0)
-	$(call install_link, libreadline.so.5.0, /lib/libreadline.so.5)
-	$(call install_link, libreadline.so.5.0, /lib/libreadline.so)
+	@$(call install_copy, 0, 0, 0644, $(READLINE_DIR)/shlib/libreadline.so.5.0, /lib/libreadline.so.5.0)
+	@$(call install_link, libreadline.so.5.0, /lib/libreadline.so.5)
+	@$(call install_link, libreadline.so.5.0, /lib/libreadline.so)
 
-	$(call install_finish)
+	@$(call install_finish)
 
 	touch $@
 

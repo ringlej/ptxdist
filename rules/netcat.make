@@ -105,18 +105,18 @@ netcat_targetinstall: $(STATEDIR)/netcat.targetinstall
 $(STATEDIR)/netcat.targetinstall: $(STATEDIR)/netcat.install
 	@$(call targetinfo, $@)
 
-	$(call install_init,default)
-	$(call install_fixup,PACKAGE,netcat)
-	$(call install_fixup,PRIORITY,optional)
-	$(call install_fixup,VERSION,$(NETCAT_VERSION))
-	$(call install_fixup,SECTION,base)
-	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	$(call install_fixup,DEPENDS,libc)
-	$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,netcat)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(NETCAT_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-	$(call install_copy, 0, 0, 0755, $(NETCAT_DIR)/nc, /bin/nc)
+	@$(call install_copy, 0, 0, 0755, $(NETCAT_DIR)/nc, /bin/nc)
 
-	$(call install_finish)
+	@$(call install_finish)
 
 	touch $@
 

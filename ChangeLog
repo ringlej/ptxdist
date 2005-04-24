@@ -1,6 +1,13 @@
+2005-04-24 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ipkg: converted rest of the packets which already used
+	  copy_root & friends. 
+	* glibc: ipkgized; converted macros for toolchain copy
+	* proftpd: moved config from rootfs to proftpd packet
+
 2005-04-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* ipkt: adding PTXCONF_IMAGE_IPKG_EXTRA_ARGS; Now one can tell
+	* ipkg: adding PTXCONF_IMAGE_IPKG_EXTRA_ARGS; Now one can tell
 	  ipkg-build to use tar instead of ar and more. Patch by Steven
 	  Scholz
 	* sqlite: ipkgized; patch by Ladislav Michl

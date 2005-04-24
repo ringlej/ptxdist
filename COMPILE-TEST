@@ -1,80 +1,20 @@
 Automatic Compilation Test
 --------------------------
 
-start: So Mär 20 17:49:15 CET 2005
+start: Fr Apr 22 12:09:21 CEST 2005
 
 config...: abbcc-viac3
-date.....: So Mär 20 17:49:15 CET 2005
-user.....: robert@himalia
-buildtime: 0h10m28s
-result...: 0
+date.....: Fr Apr 22 12:09:21 CEST 2005
+user.....: rsc@europa
+buildtime: 0h0m2s
+result...: 2
 
 config...: i586-generic-glibc
-date.....: So Mär 20 17:59:49 CET 2005
-user.....: robert@himalia
-buildtime: 0h6m27s
-result...: 0
+date.....: Fr Apr 22 12:09:30 CEST 2005
+user.....: rsc@europa
+buildtime: 0h0m2s
+result...: 2
 
 config...: frako
-date.....: So Mär 20 18:06:21 CET 2005
-user.....: robert@himalia
-buildtime: 0h12m38s
-result...: 0
-
-config...: visbox
-date.....: So Mär 20 18:19:05 CET 2005
-user.....: robert@himalia
-buildtime: 0h14m37s
-result...: 0
-
-config...: rayonic-i586
-date.....: So Mär 20 18:33:47 CET 2005
-user.....: robert@himalia
-buildtime: 0h11m3s
-result...: 0
-
-config...: innokom-2.4-2.95
-date.....: So Mär 20 18:44:55 CET 2005
-user.....: robert@himalia
-buildtime: 0h6m2s
-result...: 0
-
-config...: innokom-2.4-3.3.3
-date.....: So Mär 20 18:51:02 CET 2005
-user.....: robert@himalia
-buildtime: 0h7m17s
-result...: 0
-
-config...: mx1fs2
-date.....: So Mär 20 18:58:24 CET 2005
-user.....: robert@himalia
-buildtime: 0h5m2s
-result...: 0
-
-config...: pii_nge
-date.....: So Mär 20 19:03:31 CET 2005
-user.....: robert@himalia
-buildtime: 0h19m19s
-result...: 0
-
-config...: ssv_pnp2110_eva1
-date.....: So Mär 20 19:23:04 CET 2005
-user.....: robert@himalia
-buildtime: 0h19m17s
-result...: 0
-
-config...: eb8245
-date.....: So Mär 20 19:42:35 CET 2005
-user.....: robert@himalia
-buildtime: 0h1m52s
-result...: 0
-
-config...: cameron-efco
-date.....: So Mär 20 19:44:30 CET 2005
-user.....: robert@himalia
-buildtime: 0h14m21s
-result...: 0
-
-
-stop: So Mär 20 19:58:56 CET 2005
-
+date.....: Fr Apr 22 12:09:39 CEST 2005
+user.....: rsc@europa

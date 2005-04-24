@@ -123,24 +123,24 @@ sysfsutils_targetinstall_deps = $(STATEDIR)/sysfsutils.compile
 $(STATEDIR)/sysfsutils.targetinstall: $(sysfsutils_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	$(call install_init,default)
-	$(call install_fixup,PACKAGE,sysfsutils)
-	$(call install_fixup,PRIORITY,optional)
-	$(call install_fixup,VERSION,$(SYSFSUTILS_VERSION))
-	$(call install_fixup,SECTION,base)
-	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	$(call install_fixup,DEPENDS,libc)
-	$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,sysfsutils)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(SYSFSUTILS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 	
 ifdef PTXCONF_SYSFSUTILS_LIB
-	$(call install_copy, 0, 0, 0644, $(SYSFSUTILS_DIR)/lib/.libs/libsysfs.so.1.0.2, /lib/libsysfs.so.1.0.2)
-	$(call install_link, libsysfs.so.1.0.2, /lib/libsysfs.so.1)
-	$(call install_link, libsysfs.so.1.0.2, /lib/libsysfs.so)
+	@$(call install_copy, 0, 0, 0644, $(SYSFSUTILS_DIR)/lib/.libs/libsysfs.so.1.0.2, /lib/libsysfs.so.1.0.2)
+	@$(call install_link, libsysfs.so.1.0.2, /lib/libsysfs.so.1)
+	@$(call install_link, libsysfs.so.1.0.2, /lib/libsysfs.so)
 endif
 ifdef PTXCONF_SYSFSUTILS_SYSTOOL
-	$(call install_copy, 0, 0, 0775, $(SYSFSUTILS_DIR)/cmd/systool, /bin/systool)
+	@$(call install_copy, 0, 0, 0775, $(SYSFSUTILS_DIR)/cmd/systool, /bin/systool, n)
 endif
-	$(call install_finish)
+	@$(call install_finish)
 
 	touch $@
 

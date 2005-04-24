@@ -79,8 +79,8 @@ BUSYBOX_MAKEVARS	+= LDFLAGS='$(call remove_quotes,$(TARGET_LDFLAGS))'
 # dependencies
 #
 busybox_prepare_deps	=  $(STATEDIR)/virtual-xchain.install
-busybox_prepare_deps	+= $(STATEDIR)/busybox.extract
 busybox_prepare_deps	+= $(STATEDIR)/virtual-libc.install
+busybox_prepare_deps	+= $(STATEDIR)/busybox.extract
 
 $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	@$(call targetinfo, $@)
@@ -133,13 +133,27 @@ busybox_targetinstall_deps	+= $(STATEDIR)/virtual-libc.targetinstall
 $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 	@$(call targetinfo, $@)
 
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,busybox)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(BUSYBOX_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
 	rm -f $(BUSYBOX_DIR)/busybox.links
-	install -d $(ROOTDIR)
+	cd $(BUSYBOX_DIR) && $(MAKE) busybox.links
 
-	cd $(BUSYBOX_DIR) &&					\
-		$(BUSYBOX_PATH) $(MAKE) install 		\
-		PREFIX=$(ROOTDIR) $(BUSYBOX_MAKEVARS)
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/busybox
+	@$(call install_copy, 0, 0, 1555, $(BUSYBOX_DIR)/busybox, /bin/busybox)
+	for file in `cat $(BUSYBOX_DIR)/busybox.links`; do	\
+		$(call install_link, /bin/busybox, $$file);	\
+	done
+
+	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/udhcpc.script,/etc/udhcpc.script, n)
+	
+	@$(call install_finish)
+	
 	touch $@
 
 # ----------------------------------------------------------------------------

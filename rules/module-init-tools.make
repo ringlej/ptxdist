@@ -117,41 +117,41 @@ module-init-tools_targetinstall_deps = $(STATEDIR)/module-init-tools.compile
 $(STATEDIR)/module-init-tools.targetinstall: $(module-init-tools_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	$(call install_init,default)
-	$(call install_fixup,PACKAGE,module-init-tools)
-	$(call install_fixup,PRIORITY,optional)
-	$(call install_fixup,VERSION,$(MODULE_INIT_TOOLS_VERSION))
-	$(call install_fixup,SECTION,base)
-	$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	$(call install_fixup,DEPENDS,libc)
-	$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,module-init-tools)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(MODULE_INIT_TOOLS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
 ifdef PTXCONF_MODULE_INIT_TOOLS_INSMOD
 	$(CROSSSTRIP) -R .notes -R .comment $(MODULE_INIT_TOOLS_DIR)/insmod
-	$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/insmod, /sbin/insmod) 
+	@$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/insmod, /sbin/insmod) 
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_RMMOD
 	$(CROSSSTRIP) -R .notes -R .comment $(MODULE_INIT_TOOLS_DIR)/rmmod
-	$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/rmmod, /sbin/rmmod)
+	@$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/rmmod, /sbin/rmmod)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_LSMOD
 	$(CROSSSTRIP) -R .notes -R .comment $(MODULE_INIT_TOOLS_DIR)/lsmod
-	$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/lsmod, /bin/lsmod)
+	@$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/lsmod, /bin/lsmod)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_MODINFO
 	$(CROSSSTRIP) -R .notes -R .comment $(MODULE_INIT_TOOLS_DIR)/modinfo
-	$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/modinfo, /sbin/modinfo)
+	@$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/modinfo, /sbin/modinfo)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_MODPROBE
 	$(CROSSSTRIP) -R .notes -R .comment $(MODULE_INIT_TOOLS_DIR)/modprobe
-	$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/modprobe, /sbin/modprobe)
+	@$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/modprobe, /sbin/modprobe)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_DEPMOD
 	$(CROSSSTRIP) -R .notes -R .comment $(MODULE_INIT_TOOLS_DIR)/depmod
-	$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/depmod, /sbin/depmod)
+	@$(call install_copy, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/depmod, /sbin/depmod)
 endif
 
-	$(call install_finish)
+	@$(call install_finish)
 
 	touch $@
 
