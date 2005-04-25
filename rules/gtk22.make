@@ -71,7 +71,7 @@ gtk22_prepare_deps =  \
 	$(STATEDIR)/glib22.install \
 	$(STATEDIR)/atk.install \
 	$(STATEDIR)/pango12.install \
-	$(STATEDIR)/freetype214.install \
+	$(STATEDIR)/freetype.install \
 	$(STATEDIR)/virtual-xchain.install \
 
 GTK22_PATH	=  PATH=$(CROSS_PATH)
@@ -139,7 +139,7 @@ gtk22_targetinstall: $(STATEDIR)/gtk22.targetinstall
 
 gtk22_targetinstall_deps	=  $(STATEDIR)/gtk22.install
 gtk22_targetinstall_deps	+= $(STATEDIR)/fontconfig22.targetinstall
-gtk22_targetinstall_deps	+= $(STATEDIR)/freetype214.targetinstall
+gtk22_targetinstall_deps	+= $(STATEDIR)/freetype.targetinstall
 gtk22_targetinstall_deps	+= $(STATEDIR)/libidl-2.targetinstall
 gtk22_targetinstall_deps	+= $(STATEDIR)/pango12.targetinstall
 
