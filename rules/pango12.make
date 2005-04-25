@@ -77,7 +77,7 @@ pango12_prepare_deps =  \
 	$(STATEDIR)/glib22.install \
 	$(STATEDIR)/xfree430.install \
 	$(STATEDIR)/fontconfig22.install \
-	$(STATEDIR)/freetype214.install \
+	$(STATEDIR)/freetype.install \
 	$(STATEDIR)/virtual-xchain.install
 
 
@@ -135,7 +135,7 @@ pango12_targetinstall_deps	=  $(STATEDIR)/pango12.install
 pango12_targetinstall_deps	+= $(STATEDIR)/glib22.targetinstall
 pango12_targetinstall_deps	+= $(STATEDIR)/xfree430.targetinstall
 pango12_targetinstall_deps	+= $(STATEDIR)/fontconfig22.targetinstall
-pango12_targetinstall_deps	+= $(STATEDIR)/freetype214.targetinstall
+pango12_targetinstall_deps	+= $(STATEDIR)/freetype.targetinstall
 
 $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps)
 	@$(call targetinfo, $@)
