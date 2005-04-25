@@ -74,7 +74,7 @@ mfirebird_prepare: $(STATEDIR)/mfirebird.prepare
 #	$(STATEDIR)/mfirebird.extract \
 #	$(STATEDIR)/gtk1210.install \
 #	$(STATEDIR)/libidl068.install \
-#	$(STATEDIR)/freetype214.install \
+#	$(STATEDIR)/freetype.install \
 #	$(STATEDIR)/virtual-xchain.install \
 
 #
