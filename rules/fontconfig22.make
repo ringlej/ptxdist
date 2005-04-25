@@ -79,7 +79,7 @@ fontconfig22_prepare_deps =  \
 	$(STATEDIR)/fontconfig22.extract \
 	$(STATEDIR)/glib22.install \
 	$(STATEDIR)/expat.install \
-	$(STATEDIR)/freetype214.install \
+	$(STATEDIR)/freetype.install \
 	$(STATEDIR)/virtual-xchain.install
 
 FONTCONFIG22_PATH	=  PATH=$(CROSS_PATH)
@@ -140,7 +140,7 @@ fontconfig22_targetinstall: $(STATEDIR)/fontconfig22.targetinstall
 fontconfig22_targetinstall_deps	=	$(STATEDIR)/fontconfig22.compile
 fontconfig22_targetinstall_deps +=	$(STATEDIR)/glib22.targetinstall
 fontconfig22_targetinstall_deps +=	$(STATEDIR)/expat.targetinstall
-fontconfig22_targetinstall_deps +=	$(STATEDIR)/freetype214.targetinstall
+fontconfig22_targetinstall_deps +=	$(STATEDIR)/freetype.targetinstall
 
 $(STATEDIR)/fontconfig22.targetinstall: $(fontconfig22_targetinstall_deps)
 	@$(call targetinfo, $@)
