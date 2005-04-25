@@ -40,8 +40,8 @@ echo buildtime: ${PTX_BUILDTIME_H}h${PTX_BUILDTIME_M}m${PTX_BUILDTIME_S}s >> $3
 echo result...: $PTX_RESULT >> $3
 echo >> $3
 
-# save logfile in case of an error
-[ "$PTX_RESULT" != "0" ] && cp logfile logs/$2.log
+# save logfile
+logfile logs/$2.log
 
 # save root filesystem 
 # FIXME: use image mechanism...
