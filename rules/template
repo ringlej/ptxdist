@@ -123,6 +123,7 @@ $(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
 
 $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
 	@$(call targetinfo, $@)
+	# use $(call install_*) macros here
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -131,6 +132,7 @@ $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
 
 @packet@_clean:
 	rm -rf $(STATEDIR)/@packet@.*
+	rm -rf $(IMAGEDIR)/@packet@_*
 	rm -rf $(@PACKET@_DIR)
 
 # vim: syntax=make
