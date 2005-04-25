@@ -1,3 +1,7 @@
+2005-04-25 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* freetype: freetype214 is now freetype (patch by Steven Scholz)
+
 2005-04-24 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ipkg: converted rest of the packets which already used
