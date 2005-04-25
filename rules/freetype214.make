@@ -13,61 +13,61 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_FREETYPE214
-PACKAGES += freetype214
+ifdef PTXCONF_FREETYPE
+PACKAGES += freetype
 endif
 
 #
 # Paths and names
 #
-FREETYPE214_VERSION	= 2.1.9
-FREETYPE214		= freetype-$(FREETYPE214_VERSION)
-FREETYPE214_SUFFIX	= tar.gz
-FREETYPE214_URL		= ftp://gd.tuwien.ac.at/publishing/freetype/freetype2/$(FREETYPE214).$(FREETYPE214_SUFFIX)
-FREETYPE214_SOURCE	= $(SRCDIR)/$(FREETYPE214).$(FREETYPE214_SUFFIX)
-FREETYPE214_DIR		= $(BUILDDIR)/$(FREETYPE214)
+FREETYPE_VERSION	= 2.1.9
+FREETYPE		= freetype-$(FREETYPE_VERSION)
+FREETYPE_SUFFIX		= tar.gz
+FREETYPE_URL		= ftp://gd.tuwien.ac.at/publishing/freetype/freetype2/$(FREETYPE).$(FREETYPE_SUFFIX)
+FREETYPE_SOURCE		= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
+FREETYPE_DIR		= $(BUILDDIR)/$(FREETYPE)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-freetype214_get: $(STATEDIR)/freetype214.get
+freetype_get: $(STATEDIR)/freetype.get
 
-freetype214_get_deps	=  $(FREETYPE214_SOURCE)
+freetype_get_deps	=  $(FREETYPE_SOURCE)
 
-$(STATEDIR)/freetype214.get: $(freetype214_get_deps)
+$(STATEDIR)/freetype.get: $(freetype_get_deps)
 	@$(call targetinfo, $@)
 	touch $@
 
-$(FREETYPE214_SOURCE):
+$(FREETYPE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(FREETYPE214_URL))
+	@$(call get, $(FREETYPE_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-freetype214_extract: $(STATEDIR)/freetype214.extract
+freetype_extract: $(STATEDIR)/freetype.extract
 
-freetype214_extract_deps	=  $(STATEDIR)/freetype214.get
+freetype_extract_deps	=  $(STATEDIR)/freetype.get
 
-$(STATEDIR)/freetype214.extract: $(freetype214_extract_deps)
+$(STATEDIR)/freetype.extract: $(freetype_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(FREETYPE214_DIR))
-	@$(call extract, $(FREETYPE214_SOURCE))
+	@$(call clean, $(FREETYPE_DIR))
+	@$(call extract, $(FREETYPE_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-freetype214_prepare: $(STATEDIR)/freetype214.prepare
+freetype_prepare: $(STATEDIR)/freetype.prepare
 
 #
 # dependencies
 #
-freetype214_prepare_deps =  \
-	$(STATEDIR)/freetype214.extract \
+freetype_prepare_deps =  \
+	$(STATEDIR)/freetype.extract \
 	$(STATEDIR)/virtual-xchain.install
 
 	# FIXME: these dependencies have been there for penguzilla;
@@ -75,64 +75,64 @@ freetype214_prepare_deps =  \
 	# $(STATEDIR)/glib22.install \
 	# $(STATEDIR)/expat.install \
 
-FREETYPE214_PATH	=  PATH=$(CROSS_PATH)
-FREETYPE214_ENV 	=  $(CROSS_ENV)
-FREETYPE214_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
+FREETYPE_PATH	=  PATH=$(CROSS_PATH)
+FREETYPE_ENV 	=  $(CROSS_ENV)
+FREETYPE_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 #
 # autoconf
 #
-FREETYPE214_AUTOCONF	=  $(CROSS_AUTOCONF)
-FREETYPE214_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
+FREETYPE_AUTOCONF	=  $(CROSS_AUTOCONF)
+FREETYPE_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
 
-$(STATEDIR)/freetype214.prepare: $(freetype214_prepare_deps)
+$(STATEDIR)/freetype.prepare: $(freetype_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(FREETYPE214_BUILDDIR))
-	cd $(FREETYPE214_DIR) && \
-		$(FREETYPE214_PATH) $(FREETYPE214_ENV) \
-		./configure $(FREETYPE214_AUTOCONF)
+	@$(call clean, $(FREETYPE_BUILDDIR))
+	cd $(FREETYPE_DIR) && \
+		$(FREETYPE_PATH) $(FREETYPE_ENV) \
+		./configure $(FREETYPE_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-freetype214_compile: $(STATEDIR)/freetype214.compile
+freetype_compile: $(STATEDIR)/freetype.compile
 
-freetype214_compile_deps =  $(STATEDIR)/freetype214.prepare
+freetype_compile_deps =  $(STATEDIR)/freetype.prepare
 
-$(STATEDIR)/freetype214.compile: $(freetype214_compile_deps)
+$(STATEDIR)/freetype.compile: $(freetype_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(FREETYPE214_DIR) $(FREETYPE214_PATH) make
-	chmod a+x $(FREETYPE214_DIR)/builds/unix/freetype-config
+	cd $(FREETYPE_DIR) $(FREETYPE_PATH) make
+	chmod a+x $(FREETYPE_DIR)/builds/unix/freetype-config
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-freetype214_install: $(STATEDIR)/freetype214.install
+freetype_install: $(STATEDIR)/freetype.install
 
-$(STATEDIR)/freetype214.install: $(STATEDIR)/freetype214.compile
+$(STATEDIR)/freetype.install: $(STATEDIR)/freetype.compile
 	@$(call targetinfo, $@)
-	cd $(FREETYPE214_DIR) && $(FREETYPE214_PATH) make install
+	cd $(FREETYPE_DIR) && $(FREETYPE_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-freetype214_targetinstall: $(STATEDIR)/freetype214.targetinstall
+freetype_targetinstall: $(STATEDIR)/freetype.targetinstall
 
-freetype214_targetinstall_deps	=  $(STATEDIR)/freetype214.compile
-freetype214_targetinstall_deps	+= $(STATEDIR)/glib22.targetinstall
-freetype214_targetinstall_deps	+= $(STATEDIR)/expat.targetinstall
+freetype_targetinstall_deps	=  $(STATEDIR)/freetype.compile
+freetype_targetinstall_deps	+= $(STATEDIR)/glib22.targetinstall
+freetype_targetinstall_deps	+= $(STATEDIR)/expat.targetinstall
 
-$(STATEDIR)/freetype214.targetinstall: $(freetype214_targetinstall_deps)
+$(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps)
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)
 	rm -f $(ROOTDIR)/lib/libfreetype.so*
-	install $(FREETYPE214_DIR)/objs/.libs/libfreetype.so.6.3.5 $(ROOTDIR)/lib/
+	install $(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.5 $(ROOTDIR)/lib/
 	ln -sf libfreetype.so.6.3.5 $(ROOTDIR)/lib/libfreetype.so.6
 	ln -sf libfreetype.so.6.3.5 $(ROOTDIR)/lib/libfreetype.so
 	touch $@
@@ -141,8 +141,8 @@ $(STATEDIR)/freetype214.targetinstall: $(freetype214_targetinstall_deps)
 # Clean
 # ----------------------------------------------------------------------------
 
-freetype214_clean:
-	rm -rf $(STATEDIR)/freetype214.*
-	rm -rf $(FREETYPE214_DIR)
+freetype_clean:
+	rm -rf $(STATEDIR)/freetype.*
+	rm -rf $(FREETYPE_DIR)
 
 # vim: syntax=make
