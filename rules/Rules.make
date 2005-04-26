@@ -988,7 +988,7 @@ install_copy_toolchain_lib =									\
 	LIB_DIR=`$(CROSS_CC) -print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
 												\
 	if test \! -d "$${LIB_DIR}"; then							\
-		echo "copy_toolchain_lib_root: lib=$${LIB} not found";				\
+		echo "install_toolchain_lib_root: lib=$${LIB} not found";				\
 		exit -1;									\
 	fi;											\
 												\
@@ -996,7 +996,7 @@ install_copy_toolchain_lib =									\
 	for FILE in `find $${LIB_DIR} -maxdepth 1 -type l -name "$${LIB}*"`; do			\
 		LIB=`basename $${FILE}`;							\
 		while test -n "$${LIB}"; do							\
-			echo "copy_toolchain_lib_root lib=$${LIB} dst=$${DST}";			\
+			echo "install_toolchain_lib_root lib=$${LIB} dst=$${DST}";			\
 			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
 			mkdir -p $(ROOTDIR)$${DST};						\
 			if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
