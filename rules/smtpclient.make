@@ -133,7 +133,7 @@ $(STATEDIR)/smtpclient.targetinstall: $(smtpclient_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,libc)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(SMTPCLIENT_DIR)/smtpclient, /usr/bin/smtpclient)
+	@$(call install_copy, 0, 0, 0755, $(SMTPCLIENT_DIR)/smtpclient, /usr/bin/smtpclient)
 
 	@$(call install_finish)
 
