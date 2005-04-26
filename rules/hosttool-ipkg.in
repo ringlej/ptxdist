@@ -1,0 +1,20 @@
+config HOSTTOOL_IPKG
+	bool
+	prompt "ipkg"
+	default N
+
+config HOSTTOOL_IPKG_EXTRACT_TEST
+	bool
+	prompt "ipkg_extract_test"
+	depends on HOSTTOOL_IPKG
+	default N
+	help
+	  Unfortunately, nobody knows what this program is being used for. 
+
+config HOSTTOOL_IPKG_HASH_TEST
+	bool
+	prompt "ipkg_hash_test"
+	depends on HOSTTOOL_IPKG
+	default N
+	help
+	  Unfortunately, nobody knows what this program is being used for. 
