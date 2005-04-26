@@ -32,16 +32,15 @@ config KERNEL_CONFIG
 
 		$(PROJECTDIR)/your-kernelconfig.kernelconfig 
 
-	  here. 
+	  here.
 
 config KERNEL_2_4
 	bool
-	select HOSTTOOLS_MODUTILS	
+	select HOSTTOOLS_MODUTILS
 
 config KERNEL_2_6
 	bool
 	select HOSTTOOLS_MODULE_INIT_TOOLS
-
 
 choice 
 	prompt "Kernel Version"
@@ -133,13 +132,13 @@ choice
 	config KERNEL_2_6_10
 		bool
 		prompt "2.6.10"
-		depends on ARCH_X86 || ARCH_ARM 
+		depends on ARCH_X86 || ARCH_ARM
 		select KERNEL_2_6
 
 	config KERNEL_2_6_11
 		bool
 		prompt "2.6.11"
-		depends on ARCH_X86 || ARCH_ARM 
+		depends on ARCH_X86 || ARCH_ARM
 		select KERNEL_2_6
 
 endchoice
@@ -199,14 +198,6 @@ config KERNEL_PATCH1_NAME
 	depends on !USE_EXTERNAL_KERNEL
 	string
 
-config KERNEL_PATCH1_XCHAIN
-	bool "Patch 1 is relevant for crosschain recompilation"
-	depends on KERNEL_PATCH1_URL!=""
-	help
-	  The cross toolchain plus glibc normally need the kernel
-	  headers. If this patch is relevant for toolchain recompilation
-	  activate this option. 
-
 comment ""
 	depends on KERNEL_PATCH1_URL!=""
 
@@ -222,14 +213,6 @@ config KERNEL_PATCH2_NAME
 	prompt "Patch 2 Name"
 	string
 	depends on KERNEL_PATCH1_URL!=""
-
-config KERNEL_PATCH2_XCHAIN
-	bool "Patch 2 is relevant for crosschain recompilation"
-	depends on KERNEL_PATCH2_URL!=""
-	help
-	  The cross toolchain plus glibc normally need the kernel
-	  headers. If this patch is relevant for toolchain recompilation
-	  activate this option. 
 
 comment ""
 	depends on KERNEL_PATCH2_URL!=""
@@ -247,14 +230,6 @@ config KERNEL_PATCH3_NAME
 	string
 	depends on KERNEL_PATCH2_URL!=""
 
-config KERNEL_PATCH3_XCHAIN
-	bool "Patch 3 is relevant for crosschain recompilation"
-	depends on KERNEL_PATCH3_URL!=""
-	help
-	  The cross toolchain plus glibc normally need the kernel
-	  headers. If this patch is relevant for toolchain recompilation
-	  activate this option. 
-
 comment ""
 	depends on KERNEL_PATCH3_URL!=""
 
@@ -270,14 +245,6 @@ config KERNEL_PATCH4_NAME
 	prompt "Patch 4 Name"
 	string
 	depends on KERNEL_PATCH3_URL!=""
-
-config KERNEL_PATCH4_XCHAIN
-	bool "Patch 4 is relevant for crosschain recompilation"
-	depends on KERNEL_PATCH4_URL!=""
-	help
-	  The cross toolchain plus glibc normally need the kernel
-	  headers. If this patch is relevant for toolchain recompilation
-	  activate this option. 
 
 comment ""
 	depends on KERNEL_PATCH4_URL!=""
@@ -295,14 +262,6 @@ config KERNEL_PATCH5_NAME
 	string
 	depends on KERNEL_PATCH4_URL!=""
 
-config KERNEL_PATCH5_XCHAIN
-	bool "Patch 5 is relevant for crosschain recompilation"
-	depends on KERNEL_PATCH5_URL!=""
-	help
-	  The cross toolchain plus glibc normally need the kernel
-	  headers. If this patch is relevant for toolchain recompilation
-	  activate this option. 
-
 comment ""
 	depends on KERNEL_PATCH5_URL!=""
 
@@ -318,14 +277,6 @@ config KERNEL_PATCH6_NAME
 	prompt "Patch 6 Name"
 	string
 	depends on KERNEL_PATCH6_URL!=""
-
-config KERNEL_PATCH6_XCHAIN
-	bool "Patch 6 is relevant for crosschain recompilation"
-	depends on KERNEL_PATCH6_URL!=""
-	help
-	  The cross toolchain plus glibc normally need the kernel
-	  headers. If this patch is relevant for toolchain recompilation
-	  activate this option. 
 
 comment ""
 	depends on KERNEL_PATCH6_URL!=""
@@ -343,14 +294,6 @@ config KERNEL_PATCH7_NAME
 	string
 	depends on KERNEL_PATCH6_URL!=""
 
-config KERNEL_PATCH7_XCHAIN
-	bool "Patch 7 is relevant for crosschain recompilation"
-	depends on KERNEL_PATCH7_URL!=""
-	help
-	  The cross toolchain plus glibc normally need the kernel
-	  headers. If this patch is relevant for toolchain recompilation
-	  activate this option. 
-
 comment ""
 	depends on KERNEL_PATCH7_URL!=""
 
@@ -366,14 +309,6 @@ config KERNEL_PATCH8_NAME
 	prompt "Patch 8 Name"
 	string
 	depends on KERNEL_PATCH8_URL!=""
-
-config KERNEL_PATCH8_XCHAIN
-	bool "Patch 8 is relevant for crosschain recompilation"
-	depends on KERNEL_PATCH8_URL!=""
-	help
-	  The cross toolchain plus glibc normally need the kernel
-	  headers. If this patch is relevant for toolchain recompilation
-	  activate this option. 
 
 comment ""
 	depends on KERNEL_PATCH8_URL!=""
@@ -391,14 +326,6 @@ config KERNEL_PATCH9_NAME
 	string
 	depends on KERNEL_PATCH8_URL!=""
 
-config KERNEL_PATCH9_XCHAIN
-	bool "Patch 9 is relevant for crosschain recompilation"
-	depends on KERNEL_PATCH9_URL!=""
-	help
-	  The cross toolchain plus glibc normally need the kernel
-	  headers. If this patch is relevant for toolchain recompilation
-	  activate this option. 
-
 comment ""
 	depends on KERNEL_PATCH9_URL!=""
 
@@ -414,14 +341,6 @@ config KERNEL_PATCH10_NAME
 	prompt "Patch 10 Name"
 	string
 	depends on KERNEL_PATCH9_URL!=""
-
-config KERNEL_PATCH10_XCHAIN
-	bool "Patch 10 is relevant for crosschain recompilation"
-	depends on KERNEL_PATCH10_URL!=""
-	help
-	  The cross toolchain plus glibc normally need the kernel
-	  headers. If this patch is relevant for toolchain recompilation
-	  activate this option. 
 
 comment ""
 	depends on KERNEL_PATCH10_URL!=""

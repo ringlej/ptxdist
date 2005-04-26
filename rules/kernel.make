@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002, 2003, 2004, 2005 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -22,7 +22,7 @@ endif
 #
 
 ifdef PTXCONF_USE_EXTERNAL_KERNEL
-KERNEL_DIR		= $(call remove_quotes,$(PTXCONF_KERNEL_DIR))
+KERNEL_DIR	= $(call remove_quotes,$(PTXCONF_KERNEL_DIR))
 else
 
 # version stuff in now in rules/Version.make
@@ -106,9 +106,6 @@ PTXCONF_KERNEL_PATCH10_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH10_NAM
 ifdef PTXCONF_KERNEL_PATCH1_URL
 ifneq ($(PTXCONF_KERNEL_PATCH1_URL),"")
 kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1_NAME).get
-ifdef PTXCONF_KERNEL_PATCH1_XCHAIN
-xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1_NAME).get
-endif
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1_NAME).get:
 	@$(call targetinfo, "Patch 1")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH1_URL), $(PTXCONF_KERNEL_PATCH1_NAME))
@@ -119,9 +116,6 @@ endif
 ifdef PTXCONF_KERNEL_PATCH2_URL
 ifneq ($(PTXCONF_KERNEL_PATCH2_URL),"")
 kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH2_NAME).get
-ifdef PTXCONF_KERNEL_PATCH2_XCHAIN
-xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH2_NAME).get
-endif
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH2_NAME).get:
 	@$(call targetinfo, "Patch 2")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH2_URL), $(PTXCONF_KERNEL_PATCH2_NAME))
@@ -132,9 +126,6 @@ endif
 ifdef PTXCONF_KERNEL_PATCH3_URL
 ifneq ($(PTXCONF_KERNEL_PATCH3_URL),"")
 kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH3_NAME).get
-ifdef PTXCONF_KERNEL_PATCH3_XCHAIN
-xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH3_NAME).get
-endif
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH3_NAME).get:
 	@$(call targetinfo, "Patch 3")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH3_URL), $(PTXCONF_KERNEL_PATCH3_NAME))
@@ -145,9 +136,6 @@ endif
 ifdef PTXCONF_KERNEL_PATCH4_URL
 ifneq ($(PTXCONF_KERNEL_PATCH4_URL),"")
 kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH4_NAME).get
-ifdef PTXCONF_KERNEL_PATCH4_XCHAIN
-xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH4_NAME).get
-endif
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH4_NAME).get:
 	@$(call targetinfo, "Patch 4")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH4_URL), $(PTXCONF_KERNEL_PATCH4_NAME))
@@ -158,9 +146,6 @@ endif
 ifdef PTXCONF_KERNEL_PATCH5_URL
 ifneq ($(PTXCONF_KERNEL_PATCH5_URL),"")
 kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH5_NAME).get
-ifdef PTXCONF_KERNEL_PATCH5_XCHAIN
-xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH5_NAME).get
-endif
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH5_NAME).get:
 	@$(call targetinfo, "Patch 5")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH5_URL), $(PTXCONF_KERNEL_PATCH5_NAME))
@@ -171,9 +156,6 @@ endif
 ifdef PTXCONF_KERNEL_PATCH6_URL
 ifneq ($(PTXCONF_KERNEL_PATCH6_URL),"")
 kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH6_NAME).get
-ifdef PTXCONF_KERNEL_PATCH6_XCHAIN
-xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH6_NAME).get
-endif
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH6_NAME).get:
 	@$(call targetinfo, "Patch 6")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH6_URL), $(PTXCONF_KERNEL_PATCH6_NAME))
@@ -184,9 +166,6 @@ endif
 ifdef PTXCONF_KERNEL_PATCH7_URL
 ifneq ($(PTXCONF_KERNEL_PATCH7_URL),"")
 kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH7_NAME).get
-ifdef PTXCONF_KERNEL_PATCH7_XCHAIN
-xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH7_NAME).get
-endif
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH7_NAME).get:
 	@$(call targetinfo, "Patch 7")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH7_URL), $(PTXCONF_KERNEL_PATCH7_NAME))
@@ -197,9 +176,6 @@ endif
 ifdef PTXCONF_KERNEL_PATCH8_URL
 ifneq ($(PTXCONF_KERNEL_PATCH8_URL),"")
 kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH8_NAME).get
-ifdef PTXCONF_KERNEL_PATCH8_XCHAIN
-xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH8_NAME).get
-endif
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH8_NAME).get:
 	@$(call targetinfo, "Patch 8")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH8_URL), $(PTXCONF_KERNEL_PATCH8_NAME))
@@ -210,9 +186,6 @@ endif
 ifdef PTXCONF_KERNEL_PATCH9_URL
 ifneq ($(PTXCONF_KERNEL_PATCH9_URL),"")
 kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH9_NAME).get
-ifdef PTXCONF_KERNEL_PATCH9_XCHAIN
-xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH9_NAME).get
-endif
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH9_NAME).get:
 	@$(call targetinfo, "Patch 9")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH9_URL), $(PTXCONF_KERNEL_PATCH9_NAME))
@@ -223,9 +196,6 @@ endif
 ifdef PTXCONF_KERNEL_PATCH10_URL
 ifneq ($(PTXCONF_KERNEL_PATCH10_URL),"")
 kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH10_NAME).get
-ifdef PTXCONF_KERNEL_PATCH10_XCHAIN
-xchain_kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH10_NAME).get
-endif
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH10_NAME).get:
 	@$(call targetinfo, "Patch 10")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH10_URL), $(PTXCONF_KERNEL_PATCH10_NAME))
@@ -279,7 +249,6 @@ $(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
 #
 # kernels before 2.4.19 extract to "linux" instead of "linux-<version>"
 #
-
 ifeq (2.4.18,$(KERNEL_VERSION))
 	mv $(BUILDDIR)/linux $(KERNEL_DIR)
 endif
@@ -327,6 +296,15 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
 
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
+# create symlinks in case we are here only to provide headers
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make include/linux/version.h $(KERNEL_MAKEVARS)
+	touch $(KERNEL_DIR)/include/linux/autoconf.h
+	ln -sf asm-$(PTXCONF_ARCH) $(KERNEL_DIR)/include/asm
+ifdef PTXCONF_ARM_PROC
+	ln -sf proc-$(PTXCONF_ARM_PROC) $(KERNEL_DIR)/include/asm/proc
+	ln -sf arch-$(PTXCONF_ARM_ARCH) $(KERNEL_DIR)/include/asm/arch
+endif
+ifndef PTXCONF_DONT_COMPILE_KERNEL
 	@if [ -f $(KERNEL_CONFIG) ]; then	                        \
 		echo "Using kernel config file: $(KERNEL_CONFIG)"; 	\
 		install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config;	\
@@ -334,10 +312,9 @@ ifndef PTXCONF_USE_EXTERNAL_KERNEL
 		echo "ERROR: No kernel config file found.";		\
 		exit 1;							\
 	fi
-
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) make include/linux/version.h $(KERNEL_MAKEVARS)
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make oldconfig $(KERNEL_MAKEVARS)
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make dep $(KERNEL_MAKEVARS)
+endif
 endif
 	touch $@
 
@@ -354,7 +331,7 @@ endif
 $(STATEDIR)/kernel-modversions.prepare: $(STATEDIR)/kernel.prepare
 	@$(call targetinfo, $@)
 
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) make 			\
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make				\
 		$(KERNEL_DIR)/include/linux/modversions.h		\
 		$(KERNEL_MAKEVARS)
 	touch $@
@@ -378,8 +355,8 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	echo 'u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	chmod +x $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) make $(KERNEL_TARGET) modules $(KERNEL_MAKEVARS)
-
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make \
+		$(KERNEL_TARGET) modules $(KERNEL_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -404,7 +381,7 @@ $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
 	rm -fr $(KERNEL_INST_DIR)
-	
+
 ifdef PTXCONF_KERNEL_INSTALL
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,kernel)
@@ -414,7 +391,7 @@ ifdef PTXCONF_KERNEL_INSTALL
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,libc)
 	@$(call install_fixup,DESCRIPTION,missing)
-								
+
 	for i in $(KERNEL_TARGET_PATH); do 				\
 		if [ -f $$i ]; then					\
 			$(call install_copy, 0, 0, 0644, $$i, /boot/$(KERNEL_TARGET), n)\
@@ -428,9 +405,9 @@ ifdef PTXCONF_KERNEL_INSTALL
 			$(call install_copy, 0, 0, 0664, $(KERNEL_INST_DIR)/$$file, $$file, n) \
 		done
 
-	rm -fr $(KERNEL_INST_DIR)		
+	rm -fr $(KERNEL_INST_DIR)
 
-	@$(call install_finish)		
+	@$(call install_finish)
 endif
 	touch $@
 
@@ -440,16 +417,13 @@ endif
 
 kernel_clean:
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
-# remove feature patches, but only if xchain-kernel was cleaned before.
-	if [ ! -f $(STATEDIR)/xchain-kernel.get ]; then 								\
-		for i in `ls $(STATEDIR)/kernel-feature-*.* | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do 	\
-			if [ $$? -eq 0 ]; then										\
-				rm -f $(STATEDIR)/kernel-feature-$$i*;							\
-				rm -fr $(TOPDIR)/feature-patches/$$i;							\
-			fi;												\
-		done;													\
-		rm -f $(STATEDIR)/kernel-patchstack.get;								\
-	fi;
+	for i in `ls $(STATEDIR)/kernel-feature-*.* | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do 	\
+		if [ $$? -eq 0 ]; then										\
+			rm -f $(STATEDIR)/kernel-feature-$$i*;							\
+			rm -fr $(TOPDIR)/feature-patches/$$i;							\
+		fi;												\
+	done;													\
+	rm -f $(STATEDIR)/kernel-patchstack.get;								\
 	rm -rf $(KERNEL_DIR)
 endif
 	rm -f $(STATEDIR)/kernel.*
