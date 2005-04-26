@@ -2,6 +2,12 @@ config HOSTTOOL_IPKG
 	bool
 	prompt "ipkg"
 	default N
+	help
+	  ipkg is used on the development host to install packets into 
+	  some directory. Example: 
+
+		ipkg-cl -o . --force-depends -f ../projects/generic/etc/ipkg.conf install foo.ipk
+
 
 config HOSTTOOL_IPKG_EXTRACT_TEST
 	bool
