@@ -90,6 +90,7 @@ menu "Applications                "
 ##############################################################################
 
 source "rules/flash.in"
+source "rules/gnupg.in"
 source "rules/kaffe.in"
 source "rules/mad.in"
 source "rules/setmixer.in"
