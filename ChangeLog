@@ -1,6 +1,7 @@
 2005-04-26 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* smtpclient: fixed permissions; patch by Ladislav Michl
+	* hotplug: fixed permissions for directories
 	
 2005-04-25 Robert Schwebel <r.schwebel@pengutronix.de>
 
