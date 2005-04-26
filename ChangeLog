@@ -1,5 +1,9 @@
 2005-04-26 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* ipkgized: gcclibs, strace, utelnetd, zlib, 
+	  tcpdump, sysutils
+	* xchain: removed obsolete kernel xchain stuff; 
+	  patch by Ladislav Michl
 	* smtpclient: fixed permissions; patch by Ladislav Michl
 	* hotplug: fixed permissions for directories
 	* gnupg: added; patch by Jiri Nesladek
