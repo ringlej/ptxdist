@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.3-svn
-# Sun Apr 24 17:04:18 2005
+# Tue Apr 26 20:21:36 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -163,6 +163,7 @@ PTXCONF_STRACE_SHARED=y
 # PTXCONF_HOSTTOOLS_GENEXT2FS is not set
 # PTXCONF_HOSTTOOLS_E2FSPROGS is not set
 PTXCONF_HOSTTOOLS_FAKEROOT=y
+# PTXCONF_HOSTTOOL_IPKG is not set
 PTXCONF_HOSTTOOLS_IPKG_UTILS=y
 
 #
@@ -218,14 +219,12 @@ PTXCONF_KERNEL_INSTALL=y
 #
 PTXCONF_KERNEL_PATCH1_URL="http://www.kernel.org/pub/linux/kernel/v2.6/testing/patch-2.6.11-rc4.bz2"
 PTXCONF_KERNEL_PATCH1_NAME="2.6.11-rc4"
-PTXCONF_KERNEL_PATCH1_XCHAIN=y
 
 #
 # 
 #
 PTXCONF_KERNEL_PATCH2_URL="http://www.pengutronix.de/software/linux-pxa/download/v2.6/linux-2.6.11-rc4-pxa3.diff"
 PTXCONF_KERNEL_PATCH2_NAME="2.6.11-rc4-pxa3"
-# PTXCONF_KERNEL_PATCH2_XCHAIN is not set
 
 #
 # 
@@ -1160,6 +1159,11 @@ PTXCONF_IPKG=y
 # Flash               
 #
 # PTXCONF_FLASH is not set
+
+#
+# GnuPG               
+#
+# PTXCONF_GNUPG is not set
 
 #
 # Kaffe               

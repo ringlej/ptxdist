@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.3-svn
-# Fri Apr 22 12:00:26 2005
+# Tue Apr 26 20:21:39 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -142,6 +142,7 @@ PTXCONF_HOSTTOOLS_E2FSPROGS=y
 PTXCONF_HOSTTOOLS_E2FSPROGS_TUNE2FS=y
 PTXCONF_HOSTTOOLS_E2FSPROGS_RESIZE2FS=y
 PTXCONF_HOSTTOOLS_FAKEROOT=y
+# PTXCONF_HOSTTOOL_IPKG is not set
 PTXCONF_HOSTTOOLS_IPKG_UTILS=y
 
 #
@@ -1053,6 +1054,11 @@ PTXCONF_UTELNETD=y
 # Flash               
 #
 # PTXCONF_FLASH is not set
+
+#
+# GnuPG               
+#
+# PTXCONF_GNUPG is not set
 
 #
 # Kaffe               
