@@ -18,7 +18,8 @@ endif
 #
 # Paths and names 
 #
-ZLIB			= zlib-1.2.1
+ZLIB_VERSION		= 1.2.1
+ZLIB			= zlib-$(ZLIB_VERSION)
 ZLIB_URL 		= http://www.gzip.org/zlib/$(ZLIB).tar.gz
 ZLIB_SOURCE		= $(SRCDIR)/$(ZLIB).tar.gz
 ZLIB_DIR		= $(BUILDDIR)/$(ZLIB)
@@ -100,9 +101,22 @@ zlib_targetinstall: $(STATEDIR)/zlib.targetinstall
 
 $(STATEDIR)/zlib.targetinstall: $(STATEDIR)/zlib.install
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/usr/lib
-	cp -d $(ZLIB_DIR)/libz.so* $(ROOTDIR)/usr/lib/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/lib/libz.so*
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,zlib)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(ZLIB_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0644, $(ZLIB_DIR)/libz.so.1.2.1, /usr/lib/libz.so.1.2.1)
+	@$(call install_link, libz.so.1.2.1, /usr/lib/libz.so.1)
+	@$(call install_link, libz.so.1.2.1, /usr/lib/libz.so)
+	
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------

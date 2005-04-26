@@ -131,9 +131,20 @@ tcpdump_targetinstall_deps = $(STATEDIR)/tcpdump.compile
 
 $(STATEDIR)/tcpdump.targetinstall: $(tcpdump_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/usr/sbin
-	cp $(TCPDUMP_DIR)/tcpdump $(ROOTDIR)/usr/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/tcpdump
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,tcpdump)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(TCPDUMP_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(TCPDUMP_DIR)/tcpdump, /usr/sbin/tcpdump)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -18,7 +18,8 @@ endif
 #
 # Paths and names 
 #
-UTELNETD			= utelnetd-0.1.6
+UTELNETD_VERSION		= 0.1.6
+UTELNETD			= utelnetd-$(UTELNETD_VERSION)
 UTELNETD_URL			= http://www.pengutronix.de/software/utelnetd/$(UTELNETD).tar.gz
 UTELNETD_SOURCE			= $(SRCDIR)/$(UTELNETD).tar.gz
 UTELNETD_DIR			= $(BUILDDIR)/$(UTELNETD)
@@ -95,8 +96,20 @@ utelnetd_targetinstall: $(STATEDIR)/utelnetd.targetinstall
 
 $(STATEDIR)/utelnetd.targetinstall: $(STATEDIR)/utelnetd.install
 	@$(call targetinfo, $@)
-	install -D $(UTELNETD_DIR)/utelnetd $(ROOTDIR)/sbin/utelnetd
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/utelnetd
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,utelnetd)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(UTELNETD_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(UTELNETD_DIR)/utelnetd, /sbin/utelnetd)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------

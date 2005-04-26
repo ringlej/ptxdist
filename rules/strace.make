@@ -19,7 +19,8 @@ endif
 #
 # Paths and names 
 #
-STRACE			= strace-4.5.7
+STRACE_VERSION		= 4.5.7
+STRACE			= strace-$(STRACE_VERSION)
 STRACE_URL		= $(PTXCONF_SETUP_SFMIRROR)/strace/$(STRACE).tar.bz2
 STRACE_SOURCE		= $(SRCDIR)/$(STRACE).tar.bz2
 STRACE_DIR		= $(BUILDDIR)/$(STRACE)
@@ -114,8 +115,20 @@ strace_targetinstall: $(STATEDIR)/strace.targetinstall
 
 $(STATEDIR)/strace.targetinstall: $(STATEDIR)/strace.compile
 	@$(call targetinfo, $@)
-	install -D $(STRACE_DIR)/strace $(ROOTDIR)/usr/bin/strace
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/strace
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,strace)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(STRACE_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(STRACE_DIR)/strace, /usr/bin/strace)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------

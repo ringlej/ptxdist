@@ -111,14 +111,24 @@ sysutils_targetinstall_deps = $(STATEDIR)/sysutils.compile
 
 $(STATEDIR)/sysutils.targetinstall: $(sysutils_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,sysutils)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(SYSUTILS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
 ifdef PTXCONF_SYSUTILS_LSBUS
-	cp $(SYSUTILS_DIR)/cmd/lsbus $(ROOTDIR)/usr/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/lsbus
+	@$(call install_copy, 0, 0, 0755, $(SYSUTILS_DIR)/cmd/lsbus, /usr/sbin/lsbus)
 endif
 ifdef PTXCONF_SYSUTILS_SYSTOOL
-	cp $(SYSUTILS_DIR)/cmd/systool $(ROOTDIR)/usr/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/systool
+	@$(call install_copy, 0, 0, 0755, $(SYSUTILS_DIR)/cmd/systool, /usr/sbin/systool)
 endif
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------

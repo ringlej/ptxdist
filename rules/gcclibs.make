@@ -85,17 +85,30 @@ gcclibs_targetinstall_deps = $(STATEDIR)/gcclibs.compile
 
 $(STATEDIR)/gcclibs.targetinstall: $(gcclibs_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,gcclibs)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(shell $(CROSS_CC) -dumpversion))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
 ifdef PTXCONF_GCCLIBS_CXX
-	@$(call copy_toolchain_lib_root, libstdc++.so, /usr/lib)
+	@$(call install_copy_toolchain_lib, libstdc++.so, /usr/lib)
 endif
 
 ifdef PTXCONF_GCCLIBS_GCC_S
-	@$(call copy_toolchain_lib_root, libgcc_s.so, /lib)
+	@$(call install_copy_toolchain_lib, libgcc_s.so, /lib)
 endif
 
 ifdef PTXCONF_GCCLIBS_GCC_S_NOF
-	@$(call copy_toolchain_lib_root, libgcc_s_nof.so, /lib)
+	@$(call install_copy_toolchain_lib, libgcc_s_nof.so, /lib)
 endif
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
