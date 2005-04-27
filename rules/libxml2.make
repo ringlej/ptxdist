@@ -135,10 +135,11 @@ $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,libc)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
-	# FIXME: wildcard copy? 
 	@$(call install_copy, 0, 0, 0644, \
-		$(LIBXML2_DIR)/.libs/libxml2.so*, \
-		/usr/lib/)
+		$(LIBXML2_DIR)/.libs/libxml2.so.2.6.2, \
+		/usr/lib/libxml2.so.2.6.2)
+	@$(call install_link, libxml2.so.2.6.2, /usr/lib/libxml2.so.2)
+	@$(call install_link, libxml2.so.2.6.2, /usr/lib/libxml2.so)
 	
 	@$(call install_finish)
 	

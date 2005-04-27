@@ -151,9 +151,7 @@ $(STATEDIR)/procps.targetinstall: $(procps_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,libc)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	for file in $(PROCPS_DIR)/proc/libproc*so*; do			\
-		$(call install_copy, 0, 0, 0644, $$file, /lib/)		\
-	done
+	@$(call install_copy, 0, 0, 0644, $(PROCPS_DIR)/proc/libproc-3.2.4.so, /usr/lib/libproc-3.2.4.so)
 
 ifdef PTXCONF_PROCPS_TOP
 	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/top, /usr/bin/top)
