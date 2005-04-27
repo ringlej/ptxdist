@@ -172,6 +172,7 @@ help:
 	@echo "  make cuckoo-test             search for cuckoo-eggs in root system"
 	@echo "  make compile-test            compile all supported targets, with report"
 	@echo "  make config-test             run oldconfig on all ptxconfig files"
+	@echo "  make ipkg-test               check if ipkg packets are consistent with ROOTDIR"
 	@echo "  make toolchains              build all supported toolchains"
 	@echo
 
@@ -373,6 +374,9 @@ compile-test:
 
 cuckoo-test: world
 	@scripts/cuckoo-test $(PTXCONF_ARCH) root $(PTXCONF_COMPILER_PREFIX)
+
+ipkg-test: world
+	@IMAGES=$(IMAGEDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl  scripts/ipkg-test
 
 # ----------------------------------------------------------------------------
 
