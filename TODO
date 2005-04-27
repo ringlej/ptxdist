@@ -1,92 +1,63 @@
-Current TODO List
-=================
+Packets which could be added (volunteers needed)
+================================================
 
-- RSC:	add ethtool: 
-	http://sourceforge.net/project/showfiles.php?group_id=3242&package_id=19201 
+- RSC:	ethtool: http://sourceforge.net/project/showfiles.php?group_id=3242&package_id=19201 
+- RSC:	ntpclient: http://doolittle.faludi.com/ntpclient/
+- RSC:	openntpd: http://www.openntpd.org/
+- RSC:	http://www.reportlab.com/ftp/
+- RSC:	http://rlib.sicompos.com/
+- RSC: 	libsysfs: http://linux-diag.sourceforge.net
+- RSC: 	MatrixSSL
+- MKL: lilo, tinylogin targetinstall
+- RSC: finish integration of zebra
+- RSC: install e2fsck
+
+Test suite components to be added
+=================================
+
 - RSC:	Add more test suite stuff: 
 	- http://gcc.gnu.org/install/test.html
 	- http://www.plumhall.com/stec.html
-- RSC:	wget returns 1.9.1-16.fc2 instead of 1.9.1 on fedora; 
-	fix check_prog_version to use regexps
-- RSC:	add http://doolittle.faludi.com/ntpclient/
-- RSC:	add http://www.openntpd.org/
-- RSC:	is "select GLIBC_DEBUG" in gdb.in necessary??
-
-- RSC:	add http://www.reportlab.com/ftp/
-- RSC:	check bash (doesn't compile according to Lisa Hsu)
-- RSC:	add http://rlib.sicompos.com/
-- sandeep: add a script to setup a new project interactively
-- RSC: 	do module stuff in kernel only when modules are enabled
-       	in kernel configuration
-- RSC: 	audit bash for configure/menu entry consistency
-- RSC: 	bing outputs strange large numbers when being compiled for ARM :-) 
-- RSC: 	LTT needs gtk-devel on host side; test if gtk-config is available
-       	and print out nice warning if not. 
-- RSC: 	add libsysfs: http://linux-diag.sourceforge.net
 - RSC: 	add regression tests from crosstool
 - RSC: 	look at Herbert Poetzl's cross test stuff: 
        	20040224182505.GA25038@MAIL.13thfloor.at
 - RSC: 	look at Linux Kernel Headers project:
        	http://ep09.pld-linux.org/~mmazur/linux-libc-headers/
+- RSC: audit for LSB compatiblity
+- RSC: have a look at http://asic-linux.com.mx/~izto/checkinstall/ 
+
+Current TODO List
+=================
+
+- RSC:	is "select GLIBC_DEBUG" in gdb.in necessary??
+- RSC:	check bash (doesn't compile according to Lisa Hsu)
+- sandeep: add a script to setup a new project interactively
+- RSC: 	do module stuff in kernel only when modules are enabled
+       	in kernel configuration
+- RSC: 	audit bash for configure/menu entry consistency
+- RSC: 	bing outputs strange large numbers when being compiled for ARM :-) 
+	Add test suite for floating point. 
+- RSC: 	LTT needs gtk-devel on host side; test if gtk-config is available
+       	and print out nice warning if not. 
 - RSC: 	Mozilla has still problems with cross compilation. See the
        	following Bugzilla entries for possible solutions: 
        	http://bugzilla.mozilla.org/show_bug.cgi?id=104541
        	http://bugzilla.mozilla.org/show_bug.cgi?id=172651 
-- RSC: 	add  MatrixSSL
-
-High Priority
--------------
-
-- RSC: invent magic to find out which tools are not installed on the 
-       user's machine (currently we know tic, bison, yacc...)
 - RSC: add some useful statistics at the end of build (root size, image
        size etc.).
-- RSC: uClibc is removed at the moment: the "Extract" and regexp magic 
-       doesn't seem to work properly. mkprefix makes wrong UCLIBC_ fixes 
-       in Config.in and Config.in is not included at all. 
-- RSC: use new config/innokom.ptxconfig vs. config/kernel/... scheme
-       also for other platforms. 
-- RSC: audit configurations: we now have the rules/vendor-tweaks
-       mechanism instead of /data stuff and /etc copying. Add 
-       copy mechanism to config specific tree if necessary... 
 - RSC: fix busybox extract script to support "select CONFIG_foo"
 - RSC: make MTDutils release and, by the way, fix build process. 
        This "override" mechanism in the Makefile seems to be broken.
-       - MKL: mtdutils buildprocess fixed, splitted into 2 seperate file
-              mtd.make and xchain-mtd.make
-              'override' seems to be working
+  MKL: mtdutils buildprocess fixed, splitted into 2 seperate file
+       mtd.make and xchain-mtd.make 'override' seems to be working
 - RSC: audit all configure calls to be relative; configure scripts
        seem to have major problems when being called with absulute path
 - RSC: test flash
 - RSC: finish integration of iwconfig
-- RSC: glibc does somehow not install _G_config.h when libio is not
-       used, which breaks gcc-stage2. At least sometimes :-( This 
-       effect is observed only on certain systems (all Debian unstable,
-       but downgrading does not help). Has to be evaluated!!!
-       - MKL: this _may_ be fixed by the new xchain building process in 
-              the HEAD
 - RSC: add #ifdef __cplusplus ... #else ... #endif to bits/in.h
 - RSC: add .in file for xvkbd; integrate fixes for Makefile...
-- RSC: busybox 1.00-pre2 has lots of problems (broken job control/
-       controlling ttys, strange terminal effects etc.). This makes it 
-       worse than the old 0.6x versions. We probably should make the 
-       version configurable, but this needs the kconfig extraction 
-       mechanism to be run at runtime. I don't have a good idea how 
-       to do this yet.
-- RSC: For the patches I would like to have a selection mechanism 
-       in kconfig.
-       - MKL: are you happy with _this_? :)
-- RSC: Before release test: innokom, cameron and i386-generic-glibc 
-- RSC: - patches/ 
-       - src/*.diff, *.patch
-       - etc/solidcard-bmwm-20030821-1/xmodmap
-- MKL: produce TARGET_CFLAGS somewhere with quotes, so that it's save to use
-       them w/o extra quoting....
 - MKL: check openssl works with arm big endian (-DL_ENDIAN doesn't look good)
 - MKL: gmp3 cannot produce shared libc for ppc target (host i686-linux)
-
-Low Priority
-------------
 - MKL: uclinux, patch breaks due to unclean produced patch at uclinux
 - MKL: test betaftp, old breaks due to a patch from DKE
 - MKL: test qte, wxwindows
@@ -94,51 +65,29 @@ Low Priority
 - MKL: autotoolize rn
 - MKL: gawk fix prefix, due to hard coded path
 - MKL: integrate ldd (./build/glibc-2.2.5/elf/ldd.bash.in)
-- MKL: fix targetinstall *so* -> [-.]*so*
-- MKL: include with wildcard ifeq style?
 - MKL: tweak wireless to xcompile
-- MKL: lilo, tinylogin targetinstall
-- RSC: finish integration of zebra
 - RSC: you currently need gdk-pixbuf-csource on the host       
 - RSC: pango has a patch which has to be verified (GLIB_CFLAGS)
 - RSC: you currently need libXcursor.so.* and xcursorgen on the
        development host
 - RSC: replace bootdisk build mechanism by genext2fs; mke2fs is able 
        to reserve N blocks at the beginning of the image!
-- RSC: audit configurations for local directory
 - KUB: busybox/ash job control is broken
-- RSC: audit for LSB compatiblity
-- RSC: audit for FOODIR vs. FOO_DIR
 - RSC: add checksums for download 
-- RSC: have a look at http://asic-linux.com.mx/~izto/checkinstall/ 
-- RSC: install e2fsck
 - RSC: create users 
 - RSC: restructure config file layout
 - RSC: add a test: if #!/bin/sh scripts return 
        "/bin/sh: bad interpreter: Permission denied"
        tell the user to look if his filesystem was monted 
        with the "exec" option
-- JST: GPL version 2
-- LGR: recompile x86 compilers recursively
-- RSC: integrate big endian toolchain for ARM: 
-- RSC: make bootdisk contents part of the nfsroot directory, but 
-       let ptxflash not copy it to the target flash disk
-- RSC: check if Dan Kegel's scripts can be integrated:
-	- regression tests
-       MKL: /me is working on this
 - RSC: check for uImage targets: have to depend on vmlinux, not on
        zImage. 
 - LGR: concept for debug levels: strip, -g, -S 
-- LGR: Binary packets: system V package tools (cpio/pre/post)
 - LGR: key infrastructure: integrate signing, activate this only 
        when running the release cycle. 
 - BBU: Implement scheme for alternative download-URLs as 
        fallback (e.g. mirrors)
 - BBU: rsync URLs
-
-Nice-to-Have Packets
---------------------
-
 - RSC: structure for menues: 
 	"Network Services"	zebra, nfsd, ntp
 	"Network Tools"		ip, tcpdump, ciscoshell, hping2, libnet
@@ -146,3 +95,4 @@ Nice-to-Have Packets
 	"User Interfaces"	flash, Shell Menues (Robin), JVisu
 	"Init"			lmainit
 	"Languages"		perl, miniperl
+
