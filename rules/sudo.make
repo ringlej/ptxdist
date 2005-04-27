@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: ipkgize
+
 #
 # We provide this package
 #

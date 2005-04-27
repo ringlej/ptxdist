@@ -10,6 +10,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: is this a hosttool? 
+
 #
 # We provide this package
 #
@@ -55,6 +57,7 @@ $(STATEDIR)/libidl068.extract: $(libidl068_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBIDL068_DIR))
 	@$(call extract, $(LIBIDL068_SOURCE))
+	@$(call patchin, $(LIBIDL068))
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: does nothing on targetinstall? 
+
 #
 # We provide this package
 #

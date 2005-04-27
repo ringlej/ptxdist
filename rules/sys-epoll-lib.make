@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: ipkgize
+
 #
 # We provide this package
 #
@@ -77,7 +79,7 @@ SYS-EPOLL-LIB_MAKEVARS = \
 	$(CROSS_ENV) \
 	KERNELDIR=$(KERNEL_DIR) \
 	PREFIX=$(CROSS_LIB_DIR) \
-	XCFLAGS='$(strip $(subst ",,$(TARGET_CFLAGS)))'
+	XCFLAGS=$(call remove_quotes,$(TARGET_CFLAGS))
 
 $(STATEDIR)/sys-epoll-lib.prepare: $(sys-epoll-lib_prepare_deps)
 	@$(call targetinfo, $@)
@@ -127,6 +129,7 @@ $(STATEDIR)/sys-epoll-lib.targetinstall: $(sys-epoll-lib_targetinstall_deps)
 
 sys-epoll-lib_clean:
 	rm -rf $(STATEDIR)/sys-epoll-lib.*
+	rm -rf $(IMAGEDIR)/sys-epoll-lib_*
 	rm -rf $(SYS-EPOLL-LIB_DIR)
 
 # vim: syntax=make

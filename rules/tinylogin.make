@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: do someting on targetinstall 
+
 #
 # We provide this package
 #
@@ -19,7 +21,8 @@ endif
 #
 # Paths and names 
 #
-TINYLOGIN		= tinylogin-1.4.tar.bz2
+TINYLOGIN_VERSION	= 1.4
+TINYLOGIN		= tinylogin-$(TINYLOGIN_VERSION).tar.bz2
 TINYLOGIN_URL		= http://tinylogin.busybox.net/downloads/$(TINYLOGIN).tar.bz2
 TINYLOGIN_SOURCE	= $(SRCDIR)/$(TINYLOGIN).tar.bz2
 TINYLOGIN_DIR		= $(BUILDDIR)/$(TINYLOGIN)
@@ -50,6 +53,7 @@ $(STATEDIR)/tinylogin.extract: $(STATEDIR)/tinylogin.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(TINYLOGIN_DIR))
 	@$(call extract, $(TINYLOGIN_SOURCE))
+	@$(call patchin, $(TINYLOGIN))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -82,7 +86,7 @@ tinylogin_compile_deps =  $(STATEDIR)/tinylogin.prepare
 
 $(STATEDIR)/tinylogin.compile: $(tinylogin_compile_deps) 
 	@$(call targetinfo, $@)
-	$(TINYLOGIN_PATH) make -C $(TINYLOGIN_DIR) $(TINYLOGIN_MAKEVARS)
+	cd $(TINYLOGIN_DIR) && $(TINYLOGIN_PATH) make $(TINYLOGIN_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -110,7 +114,8 @@ $(STATEDIR)/tinylogin.targetinstall: $(STATEDIR)/tinylogin.install
 # ----------------------------------------------------------------------------
 
 tinylogin_clean:
-	-rm -rf $(STATEDIR)/tinylogin*
-	-rm -rf $(TINYLOGIN_DIR)
+	rm -rf $(STATEDIR)/tinylogin.*
+	rm -rf $(IMAGEDIR)/tinylogin_*
+	rm -rf $(TINYLOGIN_DIR)
 
 # vim: syntax=make

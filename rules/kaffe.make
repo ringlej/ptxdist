@@ -28,6 +28,8 @@ KAFFE_SOURCE		= $(SRCDIR)/$(KAFFE).$(KAFFE_SUFFIX)
 KAFFE_DIR		= $(BUILDDIR)/$(KAFFE)
 KAFFE_BUILDDIR		= $(BUILDDIR)/$(KAFFE)-build
 
+# FIXME: RSC: this is probably obsolete, fix
+
 KAFFE_KANGAROO_VERSION	= 0.0.3-user
 KAFFE_KANGAROO		= kangaroo-$(KAFFE_KANGAROO_VERSION)
 KAFFE_KANGAROO_SUFFIX	= tar.gz
@@ -294,18 +296,29 @@ endif
 $(STATEDIR)/kaffe.targetinstall: $(kaffe_targetinstall_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KAFFE_BUILDDIR)-tmp)
-	mkdir -p $(ROOTDIR)/usr/jre/bin
-	mkdir -p $(ROOTDIR)/usr/jre/lib/$(PTXCONF_ARCH_USERSPACE)
 
-	$(KAFFE_PATH) make -C $(KAFFE_BUILDDIR) $(KAFFE_MAKEVARS) \
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,kaffe)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(KAFFE_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, /usr/jre/bin)
+	@$(call install_copy, 0, 0, 0755, /usr/jre/lib/$(PTXCONF_ARCH_USERSPACE))
+
+	cd $(KAFFE_BUILDDIR) && $(KAFFE_PATH) make $(KAFFE_MAKEVARS) \
 		install DESTDIR=$(KAFFE_BUILDDIR)-tmp
 
-	install $(KAFFE_BUILDDIR)-tmp/usr/jre/bin/kaffe-bin \
-		$(ROOTDIR)/usr/jre/bin/kaffe-bin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/jre/bin/kaffe-bin
+	@$(call install_copy, 0, 0, 0755, \
+		$(KAFFE_BUILDDIR)-tmp/usr/jre/bin/kaffe-bin \
+		/usr/jre/bin/kaffe-bin)
 
-	install $(KAFFE_BUILDDIR)-tmp/usr/jre/bin/kaffe \
-		$(ROOTDIR)/usr/jre/bin/kaffe
+	@$(call install_copy, 0, 0, 0755, \
+		$(KAFFE_BUILDDIR)-tmp/usr/jre/bin/kaffe \
+		/usr/jre/bin/kaffe)
 
 	rm -rf $(KAFFE_BUILDDIR)-tmp/usr/jre/lib/$(PTXCONF_ARCH_USERSPACE)/libkaffevm.la
 	rm -rf $(KAFFE_BUILDDIR)-tmp/usr/jre/lib/$(PTXCONF_ARCH_USERSPACE)/*.a
@@ -322,11 +335,15 @@ ifdef PTXCONF_KAFFE_LINK_BIN
 	rm -rf $(KAFFE_BUILDDIR)-tmp/usr/jre/lib/$(PTXCONF_ARCH_USERSPACE)/libkaffevm*
 endif
 
+	# FIXME: ipkgize!
 	cp -av $(KAFFE_BUILDDIR)-tmp/usr/jre/lib/* $(ROOTDIR)/usr/jre/lib/
 	$(CROSS_STRIP) -R .note -R .comment \
 		$(ROOTDIR)/usr/jre/lib/$(PTXCONF_ARCH_USERSPACE)/*.so || true
 
 	rm -rf $(KAFFE_BUILDDIR)-tmp
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -334,7 +351,8 @@ endif
 # ----------------------------------------------------------------------------
 
 kaffe_clean:
-	rm -rf $(STATEDIR)/kaffe*
+	rm -rf $(STATEDIR)/kaffe.*
+	rm -rf $(IMAGEDIR)/kaffe_*
 	rm -rf $(KAFFE_DIR)
 	rm -rf $(KAFFE_BUILDDIR)
 	rm -rf $(KAFFE_KANGAROO_DIR)

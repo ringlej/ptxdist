@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: nothing to do? 
+
 #
 # We provide this package
 #
@@ -19,7 +21,8 @@ endif
 #
 # Paths and names 
 #
-LILO		= lilo-22.5.9
+LILO_VERSION	= 22.5.9
+LILO		= lilo-$(LILO_VERSION)
 LILO_URL	= http://home.san.rr.com/johninsd/pub/linux/lilo/$(LILO).tar.gz
 LILO_SOURCE	= $(SRCDIR)/$(LILO).tar.gz
 LILO_DIR	= $(BUILDDIR)/$(LILO)
@@ -50,6 +53,7 @@ $(STATEDIR)/lilo.extract: $(STATEDIR)/lilo.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(LILO_DIR))
 	@$(call extract, $(LILO_SOURCE))
+	@$(call patchin, $(LILO))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -82,7 +86,7 @@ lilo_compile_deps =  $(STATEDIR)/lilo.prepare
 
 $(STATEDIR)/lilo.compile: $(lilo_compile_deps) 
 	@$(call targetinfo, $@)
-	$(LILO_PATH) make -C $(LILO_DIR) $(LILO_MAKEVARS)
+	cd $(LILO_DIR) && $(LILO_PATH) make $(LILO_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -110,7 +114,8 @@ $(STATEDIR)/lilo.targetinstall: $(STATEDIR)/lilo.install
 # ----------------------------------------------------------------------------
 
 lilo_clean:
-	-rm -rf $(STATEDIR)/lilo*
-	-rm -rf $(LILO_DIR)
+	rm -rf $(STATEDIR)/lilo.*
+	rm -rf $(IMAGEDIR)/lilo_*
+	rm -rf $(LILO_DIR)
 
 # vim: syntax=make

@@ -8,6 +8,8 @@
 # see the README file.
 #
 
+# RSC: FIXME: make this a hosttool 
+
 #
 # We provide this package
 #

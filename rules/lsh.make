@@ -145,38 +145,38 @@ lsh_targetinstall_deps = \
 $(STATEDIR)/lsh.targetinstall: $(lsh_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	mkdir -p $(ROOTDIR)/sbin
-	mkdir -p $(ROOTDIR)/bin
-	mkdir -p $(ROOTDIR)/var/spool/lsh
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,lsh)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(LSH_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
+	# FIXME: use build paths
 ifdef PTXCONF_LSH_EXECUV
-	install $(PTXCONF_PREFIX)/sbin/lsh-execuv $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/lsh-execuv 
+	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/sbin/lsh-execuv, /sbin/lsh-execuv)
 endif
 ifdef PTXCONF_LSH_PROXY
-	install $(PTXCONF_PREFIX)/sbin/lsh_proxy $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/lsh_proxy 
+	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/sbin/lsh_proxy, /sbin/lsh_proxy)
 endif
 ifdef PTXCONF_LSH_LSHD
-	install $(LSH_DIR)/src/lshd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/lshd 
+	@$(call install_copy, 0, 0, 0755, $(LSH_DIR)/src/lshd, /sbin/lshd)
 endif
 ifdef PTXCONF_LSH_SFTPD
-	install $(PTXCONF_PREFIX)/sbin/sftp-server $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/sftp-server
+	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/sbin/sftp-server, /sbin/sftp-server)
 endif
 ifdef PTXCONF_LSH_MAKESEED
-	install $(LSH_DIR)/src/lsh-make-seed $(ROOTDIR)/bin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/lsh-make-seed
+	@$(call install_copy, 0, 0, 0755, $(LSH_DIR)/src/lsh-make-seed, /bin/lsh-make-seed)
 endif
 ifdef PTXCONF_LSH_WRITEKEY
-	install $(LSH_DIR)/src/lsh-writekey $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/lsh-writekey
+	@$(call install_copy, 0, 0, 0755, $(LSH_DIR)/src/lsh-writekey, /sbin/lsh-writekey)
 endif
 ifdef PTXCONF_LSH_KEYGEN
-	install $(LSH_DIR)/src/lsh-keygen $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/lsh-keygen
+	@$(call install_copy, 0, 0, 0755, $(LSH_DIR)/src/lsh-keygen, /sbin/lsh-keygen)
 endif
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -185,6 +185,7 @@ endif
 
 lsh_clean:
 	rm -rf $(STATEDIR)/lsh.*
+	rm -rf $(IMAGEDIR)/lsh_*
 	rm -rf $(LSH_DIR)
 
 # vim: syntax=make

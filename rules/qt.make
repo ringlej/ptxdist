@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: do something on targetinstall
+
 #
 # We provide this package
 #
@@ -54,6 +56,7 @@ $(STATEDIR)/qt.extract: $(qt_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(QT_DIR))
 	@$(call extract, $(QT_SOURCE))
+	@$(call patchin, $(QT_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -146,6 +149,7 @@ $(STATEDIR)/qt.targetinstall: $(qt_targetinstall_deps)
 
 qt_clean:
 	rm -rf $(STATEDIR)/qt.*
+	rm -rf $(IMAGEDIR)/qt.*
 	rm -rf $(QT_DIR)
 
 # vim: syntax=make

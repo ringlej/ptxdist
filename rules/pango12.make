@@ -61,6 +61,7 @@ $(STATEDIR)/pango12.extract: $(pango12_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PANGO12_DIR))
 	@$(call extract, $(PANGO12_SOURCE))
+	@$(call patchin, $(PANGO12))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -139,31 +140,60 @@ pango12_targetinstall_deps	+= $(STATEDIR)/freetype.targetinstall
 
 $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/lib
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,pango12)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(PANGO12_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
 	rm -f $(ROOTDIR)/lib/libpango-1.0.so*
 
-	install $(PANGO12_DIR)/pango/.libs/libpango-1.0.so.0.300.2 $(ROOTDIR)/lib/
-	ln -sf libpango-1.0.so.0.300.2 $(ROOTDIR)/lib/libpango-1.0.so.0
-	ln -sf libpango-1.0.so.0.300.2 $(ROOTDIR)/lib/libpango-1.0.so
+	@$(call install_copy, 0, 0, 0644, \
+		$(PANGO12_DIR)/pango/.libs/libpango-1.0.so.0.300.2, \
+		/usr/lib/libpango-1.0.so.0.300.2)
+	@$(call install_link, libpango-1.0.so.0.300.2, /usr/lib/libpango-1.0.so.0)
+	@$(call install_link, libpango-1.0.so.0.300.2, /usr/lib/libpango-1.0.so)
 
-	install $(PANGO12_DIR)/pango/.libs/libpangox-1.0.so.0.300.2 $(ROOTDIR)/lib/
-	ln -sf libpangox-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangox-1.0.so.0
-	ln -sf  libpangox-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangox-1.0.so
+	@$(call install_copy, 0, 0, 0644, \
+		$(PANGO12_DIR)/pango/.libs/libpangox-1.0.so.0.300.2, \
+		/usr/lib/libpangox-1.0.so.0.300.2)
+	@$(call install_link, libpangox-1.0.so.0.300.2, /lib/libpangox-1.0.so.0)
+	@$(call install_link, libpangox-1.0.so.0.300.2, /lib/libpangox-1.0.so)
 
-	install $(PANGO12_DIR)/pango/.libs/libpangoxft-1.0.so.0.300.2 $(ROOTDIR)/lib/
-	ln -sf libpangoxft-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangoxft-1.0.so.0
-	ln -sf  libpangoxft-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangoxft-1.0.so
+	@$(call install_copy, 0, 0, 0644, \
+		$(PANGO12_DIR)/pango/.libs/libpangoxft-1.0.so.0.300.2, \
+		/usr/lib/libpangoxft-1.0.so.0.300.2)
+	@$(call install_link, libpangoxft-1.0.so.0.300.2, /usr/lib/libpangoxft-1.0.so.0)
+	@$(call install_link, libpangoxft-1.0.so.0.300.2, /usr/lib/libpangoxft-1.0.so)
 
-	install $(PANGO12_DIR)/pango/.libs/libpangoft2-1.0.so.0.300.2 $(ROOTDIR)/lib/
-	ln -sf libpangoft2-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangoft2-1.0.so.0
-	ln -sf  libpangoft2-1.0.so.0.300.2 $(ROOTDIR)/lib/libpangoft2-1.0.so
+	@$(call install_copy, 0, 0, 0644, \
+		$(PANGO12_DIR)/pango/.libs/libpangoft2-1.0.so.0.300.2, \
+		/usr/lib/libpangoft2-1.0.so.0.300.2)
+	@$(call install_link, libpangoft2-1.0.so.0.300.2, /lib/libpangoft2-1.0.so.0)
+	@$(call install_link, libpangoft2-1.0.so.0.300.2, /lib/libpangoft2-1.0.so)
 	
-	install $(PANGO12_DIR)/pango/.libs/pango-querymodules $(ROOTDIR)/usr/bin
+	@$(call install_copy, 0, 0, 0644, \
+		$(PANGO12_DIR)/pango/.libs/pango-querymodules, \
+		/usr/bin/pango-querymodules)
+		
+	# FIXME: ipkgize
 	cp -a $(CROSS_LIB_DIR)/lib/pango $(ROOTDIR)/usr/lib
+
+	# FIXME: broken path; compare with ptxdist before 0.7.4
+	@$(call install_copy, 0, 0, 0644, \
+		$(ROOTDIR)/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules, 
+		/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules)
+	@$(call install_copy, 0, 0, 0644, \
+		$(PANGO12_DIR)/modules/basic/.libs/*.so, \
+		/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules)
+	@$(call install_finish)
+	
 	touch $@
 	
-	install -d $(ROOTDIR)/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules
-	cp $(PANGO12_DIR)/modules/basic/.libs/*.so $(ROOTDIR)/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules
 
 # ----------------------------------------------------------------------------
 # Clean
@@ -171,6 +201,7 @@ $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps)
 
 pango12_clean:
 	rm -rf $(STATEDIR)/pango12.*
+	rm -rf $(IMAGEDIR)/pango12_*
 	rm -rf $(PANGO12_DIR)
 	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/pango*
 

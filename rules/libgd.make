@@ -22,9 +22,9 @@ endif
 LIBGD_VERSION	= 2.0.15
 LIBGD		= gd-$(LIBGD_VERSION)
 LIBGD_SUFFIX	= tar.gz
-LIBGD_URL		= http://www.boutell.com/gd/http/$(LIBGD).$(LIBGD_SUFFIX)
+LIBGD_URL	= http://www.boutell.com/gd/http/$(LIBGD).$(LIBGD_SUFFIX)
 LIBGD_SOURCE	= $(SRCDIR)/$(LIBGD).$(LIBGD_SUFFIX)
-LIBGD_DIR		= $(BUILDDIR)/$(LIBGD)
+LIBGD_DIR	= $(BUILDDIR)/$(LIBGD)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -54,6 +54,7 @@ $(STATEDIR)/libgd.extract: $(libgd_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGD_DIR))
 	@$(call extract, $(LIBGD_SOURCE))
+	@$(call patchin, $(LIBGD))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -111,6 +112,7 @@ libgd_install: $(STATEDIR)/libgd.install
 
 $(STATEDIR)/libgd.install: $(STATEDIR)/libgd.compile
 	@$(call targetinfo, $@)
+	# FIXME: is this a hosttool? 
 	$(LIBGD_PATH) $(LIBGD_ENV) make -C $(LIBGD_DIR) install
 	touch $@
 

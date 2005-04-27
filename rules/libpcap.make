@@ -54,6 +54,7 @@ $(STATEDIR)/libpcap.extract: $(libpcap_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPCAP_DIR))
 	@$(call extract, $(LIBPCAP_SOURCE))
+	@$(call patchin, $(LIBPCAP_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -73,7 +74,6 @@ LIBPCAP_PATH	=  PATH=$(CROSS_PATH)
 LIBPCAP_ENV = \
 	$(CROSS_ENV) \
 	ac_cv_linux_vers=2
-
 
 #
 # autoconf
@@ -111,6 +111,7 @@ libpcap_install: $(STATEDIR)/libpcap.install
 
 $(STATEDIR)/libpcap.install: $(STATEDIR)/libpcap.compile
 	@$(call targetinfo, $@)
+	# FIXME: shoudldn' that run on targetinstall? 
 	cd $(LIBPCAP_DIR) && $(LIBPCAP_PATH) make install
 	touch $@
 

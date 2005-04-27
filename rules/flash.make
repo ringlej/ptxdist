@@ -18,17 +18,19 @@ endif
 #
 # Paths and names 
 #
-FLASH			= flash-0.9.5
+FLASH_VERSION		= 0.9.5
+FLASH			= flash-$(FLASH_VERSION)
 FLASH_URL 		= http://www.netsoc.ucd.ie/flash/$(FLASH).tar.gz
 FLASH_SOURCE		= $(SRCDIR)/$(FLASH).tar.gz
 FLASH_DIR 		= $(BUILDDIR)/$(FLASH)
 FLASH_EXTRACT		= gzip -dc
 
-FLASH_PATCH		= flash-0.9.5-ptx2.diff
+# FIXME: RSC: convert this to use the patch repository; this is a bugfix patch!
+
+FLASH_PATCH		= flash-$(FLASH_VERSION)-ptx2.diff
 FLASH_PATCH_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FLASH_PATCH)
 FLASH_PATCH_SOURCE	= $(SRCDIR)/$(FLASH_PATCH)
 FLASH_PATCH_EXTRACT	= cat
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -145,22 +147,33 @@ flash_targetinstall_deps += $(STATEDIR)/ncurses.targetinstall
 
 $(STATEDIR)/flash.targetinstall: $(flash_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/usr/bin
-	install $(FLASH_DIR)/flash $(ROOTDIR)/usr/bin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/flash
-	install -d $(ROOTDIR)/usr/lib/flash/
-	install $(FLASH_DIR)/modules/alarms $(ROOTDIR)/usr/lib/flash/
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/lib/flash/alarms
-	install $(FLASH_DIR)/modules/background $(ROOTDIR)/usr/lib/flash/
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/lib/flash/background
-	install $(FLASH_DIR)/modules/countdown $(ROOTDIR)/usr/lib/flash/
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/lib/flash/countdown
+	
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,flash)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(FLASH_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(FLASH_DIR)/flash, /usr/bin/flash)
+
+	# FIMXE: RSC: permissions? 
+	@$(call install_copy, 0, 0, 0755, $(FLASH_DIR)/modules/alarms, /usr/lib/flash/alarms)
+	@$(call install_copy, 0, 0, 0755, $(FLASH_DIR)/modules/background, /usr/lib/flash/background)
+	@$(call install_copy, 0, 0, 0755, $(FLASH_DIR)/modules/countdown, /usr/lib/flash/countdown)
+
+	@$(call install_finish)
+
 	touch $@
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
 flash_clean: 
-	rm -rf $(STATEDIR)/flash.* $(FLASH_DIR)
+	rm -fr $(STATEDIR)/flash.* 
+	rm -fr $(IMAGEDIR)/flash_* 
+	rm -fr $(FLASH_DIR)
 
 # vim: syntax=make

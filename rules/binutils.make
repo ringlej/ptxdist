@@ -8,6 +8,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: this packet installs only libbfd; check what else we would need
+
 ifdef PTXCONF_LIBBFD
 PACKAGES += binutils
 endif
@@ -125,7 +127,8 @@ binutils_install: $(STATEDIR)/binutils.install
 
 $(STATEDIR)/binutils.install: $(STATEDIR)/binutils.compile
 	@$(call targetinfo, $@)
-	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR)/bfd DESTDIR=$(CROSS_LIB_DIR) prefix='' install 
+	cd $(BINUTILS_BUILDDIR)/bfd && \
+		$(BINUTILS_PATH) make DESTDIR=$(CROSS_LIB_DIR) prefix='' install 
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -136,8 +139,21 @@ binutils_targetinstall: $(STATEDIR)/binutils.targetinstall
 
 $(STATEDIR)/binutils.targetinstall: $(STATEDIR)/binutils.install
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/usr/lib
-	cp -d $(BINUTILS_BUILDDIR)/bfd/.libs/libbfd*.so $(ROOTDIR)/usr/lib
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,binutils)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(PTXCONF_BINUTILS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	# FIXME: this will probably not work with the wildcard; fix when it breaks :-) 
+	@$(call install_copy, 0, 0, 0644, $(BINUTILS_BUILDDIR)/bfd/.libs/libbfd*.so, /usr/lib)
+
+	@$(call install_finish)
+	
 	touch $@
 
 # ----------------------------------------------------------------------------

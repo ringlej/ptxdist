@@ -133,24 +133,41 @@ glib22_targetinstall_deps	=  $(STATEDIR)/glib22.compile
 
 $(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)
-	rm -f $(ROOTDIR)/lib/libglib-2.0.so*
 
-	install $(GLIB22_DIR)/glib/.libs/libglib-2.0.so.0.302.0 $(ROOTDIR)/lib/
-	ln -sf libglib-2.0.so.0.302.0 $(ROOTDIR)/lib/libglib-2.0.so.0
-	ln -sf libglib-2.0.so.0.302.0 $(ROOTDIR)/lib/libglib-2.0.so
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,glib22)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(GLIB22_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-	install $(GLIB22_DIR)/gobject/.libs/libgobject-2.0.so.0.302.0 $(ROOTDIR)/lib/
-	ln -sf libgobject-2.0.so.0.302.0 $(ROOTDIR)/lib/libgobject-2.0.so.0
-	ln -sf libgobject-2.0.so.0.302.0 $(ROOTDIR)/lib/libgobject-2.0.so
+	@$(call install_copy, 0, 0, 0644, \
+		$(GLIB22_DIR)/glib/.libs/libglib-2.0.so.0.302.0, \
+		/usr/lib/libglib-2.0.so.0.302.0)
+	@$(call install_link, libglib-2.0.so.0.302.0, /usr/lib/libglib-2.0.so.0)
+	@$(call install_link, libglib-2.0.so.0.302.0, /usr/lib/libglib-2.0.so)
 
-	install $(GLIB22_DIR)/gmodule/.libs/libgmodule-2.0.so.0.302.0 $(ROOTDIR)/lib/
-	ln -sf libgmodule-2.0.so.0.302.0 $(ROOTDIR)/lib/libgmodule-2.0.so.0
-	ln -sf libgmodule-2.0.so.0.302.0 $(ROOTDIR)/lib/libgmodule-2.0.so
+	@$(call install_copy, 0, 0, 0644, \
+		$(GLIB22_DIR)/gobject/.libs/libgobject-2.0.so.0.302.0, \
+		/usr/lib/libgobject-2.0.so.0.302.0)
+	@$(call install_link, libgobject-2.0.so.0.302.0, /usr/lib/libgobject-2.0.so.0)
+	@$(call install_link, libgobject-2.0.so.0.302.0, /usr/lib/libgobject-2.0.so)
 
-	install $(GLIB22_DIR)/gthread/.libs/libgthread-2.0.so.0.302.0 $(ROOTDIR)/lib/
-	ln -sf libgthread-2.0.so.0.302.0 $(ROOTDIR)/lib/libgthread-2.0.so.0
-	ln -sf libgthread-2.0.so.0.302.0 $(ROOTDIR)/lib/libgthread-2.0.so
+	@$(call install_copy, 0, 0, 0644, \
+		$(GLIB22_DIR)/gmodule/.libs/libgmodule-2.0.so.0.302.0, \
+		/usr/lib/libgmodule-2.0.so.0.302.0)
+	@$(call install_link, libgmodule-2.0.so.0.302.0, /usr/lib/libgmodule-2.0.so.0)
+	@$(call install_link, libgmodule-2.0.so.0.302.0, /usr/lib/libgmodule-2.0.so)
+
+	@$(call install_copy, 0, 0, 0644, \
+		$(GLIB22_DIR)/gthread/.libs/libgthread-2.0.so.0.302.0, \
+		/usr/lib/libgthread-2.0.so.0.302.0)
+	@$(call install_link, libgthread-2.0.so.0.302.0, /usr/lib/libgthread-2.0.so.0)
+	@$(call install_link, libgthread-2.0.so.0.302.0, /usr/lib/libgthread-2.0.so)
+
+	@$(call install_finish)
 
 	touch $@
 
@@ -160,6 +177,7 @@ $(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps)
 
 glib22_clean:
 	rm -rf $(STATEDIR)/glib22.*
+	rm -rf $(IMAGEDIR)/glib22_*
 	rm -rf $(GLIB22_DIR)
 	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/glib-2.0*.pc
 	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/gmodule-2.0*.pc

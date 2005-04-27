@@ -10,6 +10,8 @@
 # see the README file.
 #
 
+# FIXME: replace by xlibs/xserver (or ipkgize it)
+
 #
 # We provide this package
 #

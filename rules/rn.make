@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: do something on targetinstall
+
 #
 # We provide this package
 #
@@ -54,6 +56,7 @@ $(STATEDIR)/rn.extract: $(rn_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RN_DIR))
 	@$(call extract, $(RN_SOURCE))
+	@$(call patchin, $(RN))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -104,7 +107,7 @@ rn_compile_deps = $(STATEDIR)/rn.prepare
 
 $(STATEDIR)/rn.compile: $(rn_compile_deps)
 	@$(call targetinfo, $@)
-	$(RN_PATH) make -C $(RN_DIR) $(RN_MAKEVARS)
+	cd $(RN_DIR) && $(RN_PATH) make $(RN_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -115,7 +118,7 @@ rn_install: $(STATEDIR)/rn.install
 
 $(STATEDIR)/rn.install: $(STATEDIR)/rn.compile
 	@$(call targetinfo, $@)
-	$(RN_PATH) make -C $(RN_DIR)  $(RN_MAKEVARS) install
+	cd $(RN_DIR) && $(RN_PATH) make $(RN_MAKEVARS) install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -136,6 +139,7 @@ $(STATEDIR)/rn.targetinstall: $(rn_targetinstall_deps)
 
 rn_clean:
 	rm -rf $(STATEDIR)/rn.*
+	rm -rf $(IMAGEDIR)/rn_*
 	rm -rf $(RN_DIR)
 
 # vim: syntax=make

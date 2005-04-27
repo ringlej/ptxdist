@@ -10,6 +10,8 @@
 # see the README file.
 #
 
+# FIXME: ipkgize
+
 #
 # We provide this package
 #
@@ -55,6 +57,7 @@ $(STATEDIR)/zebra.extract: $(zebra_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ZEBRA_DIR))
 	@$(call extract, $(ZEBRA_SOURCE))
+	@$(call patchin, $(ZEBRA))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -129,6 +132,8 @@ $(STATEDIR)/zebra.targetinstall: $(STATEDIR)/zebra.install
 # ----------------------------------------------------------------------------
 
 zebra_clean: 
-	rm -rf $(STATEDIR)/zebra.* $(ZEBRA_DIR)
+	rm -rf $(STATEDIR)/zebra.* 
+	rm -rf $(IMAGEDIR)/zebra_* 
+	rm -rf $(ZEBRA_DIR)
 
 # vim: syntax=make

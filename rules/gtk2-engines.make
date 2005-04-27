@@ -122,13 +122,28 @@ gtk2-engines_targetinstall_deps = $(STATEDIR)/gtk2-engines.compile
 
 $(STATEDIR)/gtk2-engines.targetinstall: $(gtk2-engines_targetinstall_deps)
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/usr/lib/engines
-	cp -d $(GTK2-ENGINES_DIR)/metal/.libs/libmetal.so $(ROOTDIR)/usr/lib/engines/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/engines/libmetal.so
-	cp -d $(GTK2-ENGINES_DIR)/redmond95/.libs/libredmond95.so $(ROOTDIR)/usr/lib/engines/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/engines/libredmond95.so
-	cp -d $(GTK2-ENGINES_DIR)/pixbuf/.libs/libpixmap.so $(ROOTDIR)/usr/lib/engines/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/engines/libpixmap.so
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,gtk2-engines)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(GTK2-ENGINES_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0644, \
+		$(GTK2-ENGINES_DIR)/metal/.libs/libmetal.so, \
+		/usr/lib/engines/libmetal.so)
+	@$(call install_copy, 0, 0, 0644, \
+		$(GTK2-ENGINES_DIR)/redmond95/.libs/libredmond95.so, \
+		/usr/lib/engines/libredmond95.so)
+	@$(call install_copy, 0, 0, 0644, \
+		$(GTK2-ENGINES_DIR)/pixbuf/.libs/libpixmap.so, \
+		/usr/lib/engines/libpixmap.so)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -137,6 +152,7 @@ $(STATEDIR)/gtk2-engines.targetinstall: $(gtk2-engines_targetinstall_deps)
 
 gtk2-engines_clean:
 	rm -rf $(STATEDIR)/gtk2-engines.*
+	rm -rf $(IMAGEDIR)/gtk2-engines_*
 	rm -rf $(GTK2-ENGINES_DIR)
 
 # vim: syntax=make

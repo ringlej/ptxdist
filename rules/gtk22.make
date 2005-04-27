@@ -55,6 +55,7 @@ $(STATEDIR)/gtk22.extract: $(gtk22_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK22_DIR))
 	@$(call extract, $(GTK22_SOURCE))
+	@$(call patchin, $(GTK22))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -145,24 +146,43 @@ gtk22_targetinstall_deps	+= $(STATEDIR)/pango12.targetinstall
 
 $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps)
 	@$(call targetinfo, $@)
-	
-	install -d $(ROOTDIR)/usr/lib
-	
-	install $(GTK22_DIR)/gtk/.libs/libgtk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib
-	ln -sf libgtk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgtk-x11-2.0.so.0
-	ln -sf libgtk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgtk-x11-2.0.so
-	
-	install $(GTK22_DIR)/gdk/.libs/libgdk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib
-	ln -sf libgdk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk-x11-2.0.so.0
-	ln -sf libgdk-x11-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk-x11-2.0.so
 
-	install $(GTK22_DIR)/gdk-pixbuf/.libs/libgdk_pixbuf-2.0.so.0.302.0 $(ROOTDIR)/usr/lib
-	ln -sf libgdk_pixbuf-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk_pixbuf-2.0.so.0
-	ln -sf libgdk_pixbuf-2.0.so.0.302.0 $(ROOTDIR)/usr/lib/libgdk_pixbuf-2.0.so
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,gtk22)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(GTK22_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0644, \
+		$(GTK22_DIR)/gtk/.libs/libgtk-x11-2.0.so.0.302.0, \
+		/usr/lib/libgtk-x11-2.0.so.0.302.0)
+	@$(call install_link, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so.0)
+	@$(call install_link, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so)
 	
-	install $(GTK22_DIR)/gdk-pixbuf/.libs/gdk-pixbuf-query-loaders $(ROOTDIR)/usr/bin
-	install -d  $(ROOTDIR)/usr/lib/gdk-pixbuf-loaders
-	cp -a  $(GTK22_DIR)/gdk-pixbuf/.libs/libpixbufloader*so $(ROOTDIR)/usr/lib/gdk-pixbuf-loaders
+	@$(call install_copy, 0, 0, 0644, \
+		$(GTK22_DIR)/gdk/.libs/libgdk-x11-2.0.so.0.302.0, \
+		/usr/lib/libgdk-x11-2.0.so.0.302.0)
+	@$(call install_link, libgdk-x11-2.0.so.0.302.0, /usr/lib/libgdk-x11-2.0.so.0)
+	@$(call install_link, libgdk-x11-2.0.so.0.302.0, /usr/lib/libgdk-x11-2.0.so)
+
+	@$(call install_copy, 0, 0, 0644, \
+		$(GTK22_DIR)/gdk-pixbuf/.libs/libgdk_pixbuf-2.0.so.0.302.0, \
+		/usr/lib/libgdk_pixbuf-2.0.so.0.302.0)
+	@$(call install_link, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so.0)
+	@$(call install_link, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so)
+	
+	@$(call install_copy, 0, 0, 0644, \
+		$(GTK22_DIR)/gdk-pixbuf/.libs/gdk-pixbuf-query-loaders, \
+		/usr/bin/gdk-pixbuf-query-loaders)
+	@$(call install_copy, 0, 0, 0644, \
+		$(GTK22_DIR)/gdk-pixbuf/.libs/libpixbufloader*so, \
+		/usr/lib/gdk-pixbuf-loaders/)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -171,6 +191,7 @@ $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps)
 
 gtk22_clean:
 	rm -rf $(STATEDIR)/gtk22.*
+	rm -rf $(IMAGEDIR)/gtk22_*
 	rm -rf $(GTK22_DIR)
 
 # vim: syntax=make

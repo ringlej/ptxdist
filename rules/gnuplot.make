@@ -194,8 +194,20 @@ endif
 
 $(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps)
 	@$(call targetinfo, $@)
-	cp -a $(GNUPLOT_DIR)/src/gnuplot $(ROOTDIR)/usr/bin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/busybox
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,gnuplot)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(GNUPLOT_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0755, $(GNUPLOT_DIR)/src/gnuplot, /usr/bin/gnuplot)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -204,6 +216,7 @@ $(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps)
 
 gnuplot_clean:
 	rm -rf $(STATEDIR)/gnuplot.*
+	rm -rf $(IMAGEDIR)/gnuplot_*
 	rm -rf $(GNUPLOT_DIR)
 
 # vim: syntax=make

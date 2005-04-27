@@ -126,14 +126,22 @@ gail_targetinstall_deps = $(STATEDIR)/libgnomecanvas.targetinstall
 $(STATEDIR)/gail.targetinstall: $(gail_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	install -d $(ROOTDIR)/usr/lib
-        
-	install $(GAIL_DIR)/gail/.libs/libgail.so $(ROOTDIR)/usr/lib
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,gail)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(GAIL_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-	install $(GAIL_DIR)/libgail-util/.libs/libgailutil.so.17.0.0 $(ROOTDIR)/usr/lib
-	ln -sf libgailutil.so.17.0.0 $(ROOTDIR)/usr/lib/libgailutil.so.17.0
-	ln -sf libgailutil.so.17.0.0 $(ROOTDIR)/usr/lib/libgailutil.so.17
-	ln -sf libgailutil.so.17.0.0 $(ROOTDIR)/usr/lib/libgailutil.so
+	@$(call install_copy, 0, 0, 0644, $(GAIL_DIR)/gail/.libs/libgail.so, /usr/lib/libgail.so)
+	@$(call install_copy, 0, 0, 0644, $(GAIL_DIR)/libgail-util/.libs/libgailutil.so.17.0.0, /usr/lib/libgailutil.so.17.0.0)
+	@$(call install_link, libgailutil.so.17.0.0, /usr/lib/libgailutil.so.17.0)
+	@$(call install_link, libgailutil.so.17.0.0, /usr/lib/libgailutil.so.17)
+	@$(call install_link, libgailutil.so.17.0.0, /usr/lib/libgailutil.so)
+
+	@$(call install_finish)
 
 	touch $@
 
@@ -143,6 +151,7 @@ $(STATEDIR)/gail.targetinstall: $(gail_targetinstall_deps)
 
 gail_clean:
 	rm -rf $(STATEDIR)/gail.*
+	rm -rf $(IMAGEDIR)/gail_*
 	rm -rf $(GAIL_DIR)
 
 # vim: syntax=make

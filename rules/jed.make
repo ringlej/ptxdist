@@ -112,6 +112,7 @@ jed_install: $(STATEDIR)/jed.install
 
 $(STATEDIR)/jed.install: $(STATEDIR)/jed.compile
 	@$(call targetinfo, $@)
+	# FIXME: RSC: is it right that this is done on install? 
 	cd $(JED_DIR) && $(JED_ENV) $(JED_PATH) make install
 	touch $@
 

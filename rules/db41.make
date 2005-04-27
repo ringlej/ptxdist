@@ -120,13 +120,23 @@ db41_targetinstall_deps: $(STATEDIR)/db41.targetinstall
 
 $(STATEDIR)/db41.targetinstall: $(db41_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/usr/bin 
-	install $(CROSS_LIB_DIR)/bin/db_* $(ROOTDIR)/usr/bin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/db_* 
 
-	install -d $(ROOTDIR)/usr/lib 
-	cp -pd $(CROSS_LIB_DIR)/lib/libdb*.so* $(ROOTDIR)/usr/lib
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/lib/libdb*.so* 
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,db41)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(DB41_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	# FIXME: RSC: the wildcard will probably break; fix when needed :-) 
+	# FIXME: RSC: use correct paths from the build directories
+	@$(call install_copy, 0, 0, 0755, $(CROSS_LIB_DIR)/bin/db_*, /usr/bin/)
+	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/lib/libdb*.so*, /usr/lib/)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -135,6 +145,7 @@ $(STATEDIR)/db41.targetinstall: $(db41_targetinstall_deps)
 
 db41_clean:
 	rm -rf $(STATEDIR)/db41.*
+	rm -rf $(IMAGEDIR)/db41_*
 	rm -rf $(DB41_DIR)
 
 # vim: syntax=make

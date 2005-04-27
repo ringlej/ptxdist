@@ -10,6 +10,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: what's the purpose of that? 
+
 #
 # We provide this package
 #

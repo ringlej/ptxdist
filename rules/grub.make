@@ -18,7 +18,8 @@ endif
 #
 # Paths and names 
 #
-GRUB			= grub-0.95
+GRUB_VERSION		= 0.95
+GRUB			= grub-$(GRUB_VERSION)
 GRUB_URL		= ftp://alpha.gnu.org/gnu/grub/$(GRUB).tar.gz
 GRUB_SOURCE		= $(SRCDIR)/$(GRUB).tar.gz
 GRUB_DIR		= $(BUILDDIR)/$(GRUB)
@@ -166,9 +167,22 @@ grub_targetinstall: $(STATEDIR)/grub.targetinstall
 
 $(STATEDIR)/grub.targetinstall: $(STATEDIR)/grub.install
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/boot/grub
-	install $(GRUB_DIR)/stage1/stage1 $(ROOTDIR)/boot/grub/
-	install $(GRUB_DIR)/stage2/stage2 $(ROOTDIR)/boot/grub/
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,grub)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(GRUB_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	# FIXME: this looks like something is missing
+	@$(call install_copy, 0, 0, 0644, $(GRUB_DIR)/stage1/stage1, /boot/grub/stage1)
+	@$(call install_copy, 0, 0, 0644, $(GRUB_DIR)/stage2/stage2, /boot/grub/stage2)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -176,6 +190,8 @@ $(STATEDIR)/grub.targetinstall: $(STATEDIR)/grub.install
 # ----------------------------------------------------------------------------
 
 grub_clean: 
-	rm -rf $(STATEDIR)/grub.* $(GRUB_DIR)
+	rm -rf $(STATEDIR)/grub.* 
+	rm -rf $(IMAGEDIR)/grub_* 
+	rm -rf $(GRUB_DIR)
 
 # vim: syntax=make

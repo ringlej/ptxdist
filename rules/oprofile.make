@@ -54,6 +54,7 @@ $(STATEDIR)/oprofile.extract: $(oprofile_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPROFILE_DIR))
 	@$(call extract, $(OPROFILE_SOURCE))
+	@$(call patchin, $(OPROFILE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -129,6 +130,7 @@ oprofile_targetinstall_deps	=  $(STATEDIR)/oprofile.compile
 
 $(STATEDIR)/oprofile.targetinstall: $(oprofile_targetinstall_deps)
 	@$(call targetinfo, $@)
+	# FIXME: nothing to do on targetinstall? 
 	touch $@
 
 # ----------------------------------------------------------------------------

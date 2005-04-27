@@ -21,9 +21,9 @@ endif
 #
 NTP_VERSION	= 4.2.0
 NTP		= ntp-$(NTP_VERSION)
-NTP_SUFFIX		= tar.gz
+NTP_SUFFIX	= tar.gz
 NTP_URL		= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4//$(NTP).$(NTP_SUFFIX)
-NTP_SOURCE		= $(SRCDIR)/$(NTP).$(NTP_SUFFIX)
+NTP_SOURCE	= $(SRCDIR)/$(NTP).$(NTP_SUFFIX)
 NTP_DIR		= $(BUILDDIR)/$(NTP)
 
 # ----------------------------------------------------------------------------
@@ -54,6 +54,7 @@ $(STATEDIR)/ntp.extract: $(ntp_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NTP_DIR))
 	@$(call extract, $(NTP_SOURCE))
+	@$(call patchin, $(NTP))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -362,10 +363,20 @@ ntp_targetinstall_deps = $(STATEDIR)/ntp.compile
 
 $(STATEDIR)/ntp.targetinstall: $(ntp_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,ntp)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(NTP_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
 ifdef PTXCONF_NTP_NTPDATE
-	cp $(NTP_DIR)/ntpdate/ntpdate $(ROOTDIR)/usr/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/ntpdate
+	@$(call install_copy, 0, 0, 0755, $(NTP_DIR)/ntpdate/ntpdate, /usr/sbin/ntpdate)
 endif
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -374,6 +385,7 @@ endif
 
 ntp_clean:
 	rm -rf $(STATEDIR)/ntp.*
+	rm -rf $(IMAGEDIR)/ntp_*
 	rm -rf $(NTP_DIR)
 
 # vim: syntax=make

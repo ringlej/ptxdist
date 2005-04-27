@@ -8,6 +8,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: this should probably be heavily rewritten
+
 #
 # We provide this package
 #

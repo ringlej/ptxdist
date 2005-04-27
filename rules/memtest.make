@@ -118,7 +118,20 @@ memtest_targetinstall_deps = $(STATEDIR)/memtest.compile
 
 $(STATEDIR)/memtest.targetinstall: $(memtest_targetinstall_deps)
 	@$(call targetinfo, $@)
-	cp $(MEMTEST_DIR)/mtest $(ROOTDIR)/usr/bin
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,memtest)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(MEMTEST_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(MEMTEST_DIR)/mtest, /usr/sbin/memtest)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -127,6 +140,7 @@ $(STATEDIR)/memtest.targetinstall: $(memtest_targetinstall_deps)
 
 memtest_clean:
 	rm -rf $(STATEDIR)/memtest.*
+	rm -rf $(IMAGEDIR)/memtest_*
 	rm -rf $(MEMTEST_DIR)
 
 # vim: syntax=make

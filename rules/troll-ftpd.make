@@ -115,9 +115,20 @@ troll-ftpd_targetinstall_deps = $(STATEDIR)/troll-ftpd.compile
 
 $(STATEDIR)/troll-ftpd.targetinstall: $(troll-ftpd_targetinstall_deps)
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/sbin
-	cp $(TROLL-FTPD_DIR)/ftpd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/ftpd
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,trollftpd)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(TROLLFTPD_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0755, (TROLL-FTPD_DIR)/ftpd, /sbin/ftpd)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -126,6 +137,7 @@ $(STATEDIR)/troll-ftpd.targetinstall: $(troll-ftpd_targetinstall_deps)
 
 troll-ftpd_clean:
 	rm -rf $(STATEDIR)/troll-ftpd.*
+	rm -rf $(IMAGEDIR)/troll-ftpd_*
 	rm -rf $(TROLL-FTPD_DIR)
 
 # vim: syntax=make

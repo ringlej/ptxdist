@@ -10,6 +10,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: is this a hosttool? 
+
 #
 # We provide this package
 #
@@ -55,6 +57,7 @@ $(STATEDIR)/libidl-2.extract: $(libidl-2_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBIDL-2_DIR))
 	@$(call extract, $(LIBIDL-2_SOURCE))
+	@$(call patchin, $(LIBIDL-2))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -131,6 +134,7 @@ libidl-2_targetinstall_deps	=  $(STATEDIR)/libidl-2.compile
 
 $(STATEDIR)/libidl-2.targetinstall: $(libidl-2_targetinstall_deps)
 	@$(call targetinfo, $@)
+	# FIXME: nothing to do? 
 	touch $@
 
 # ----------------------------------------------------------------------------

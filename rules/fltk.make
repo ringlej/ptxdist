@@ -152,9 +152,21 @@ fltk_targetinstall_deps	=  $(STATEDIR)/fltk.compile \
 
 $(STATEDIR)/fltk.targetinstall: $(fltk_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/lib
-	cp -pd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk*.so* $(ROOTDIR)/lib
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/lib/libfltk*
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,fltk)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(FLTK_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	# FIXME: use correct path to build dir here!
+	@$(call install_copy, 0, 0, 0644, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk*.so*, /lib)
+	
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -163,6 +175,7 @@ $(STATEDIR)/fltk.targetinstall: $(fltk_targetinstall_deps)
 
 fltk_clean:
 	rm -rf $(STATEDIR)/fltk.*
+	rm -rf $(BUILDDIR)/fltk_*
 	rm -rf $(FLTK_DIR)
 
 # vim: syntax=make

@@ -54,6 +54,7 @@ $(STATEDIR)/libart.extract: $(libart_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBART_DIR))
 	@$(call extract, $(LIBART_SOURCE))
+	@$(call patchin, $(LIBART))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -123,12 +124,23 @@ libart_targetinstall_deps = $(STATEDIR)/libart.compile
 $(STATEDIR)/libart.targetinstall: $(libart_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	install -d $(ROOTDIR)/usr/lib
-        
-	install $(LIBART_DIR)/.libs/libart_lgpl_2.so.2.3.16 $(ROOTDIR)/usr/lib
-	ln -sf libart_lgpl_2.so.2.3.16 $(ROOTDIR)/usr/lib/libart_lgpl_2.so.2.3
-	ln -sf libart_lgpl_2.so.2.3.16 $(ROOTDIR)/usr/lib/libart_lgpl_2.so.2
-	ln -sf libart_lgpl_2.so.2.3.16 $(ROOTDIR)/usr/lib/libart_lgpl_2.so
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,libart)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(LIBART_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0644, \
+		$(LIBART_DIR)/.libs/libart_lgpl_2.so.2.3.16, \
+		/usr/lib/libart_lgpl_2.so.2.3.16)
+	@$(call install_link, libart_lgpl_2.so.2.3.16, /usr/lib/libart_lgpl_2.so.2.3)
+	@$(call install_link, libart_lgpl_2.so.2.3.16, /usr/lib/libart_lgpl_2.so.2)
+	@$(call install_link, libart_lgpl_2.so.2.3.16, /usr/lib/libart_lgpl_2.so)
+
+	@$(call install_finish)
 
 	touch $@
 
@@ -138,6 +150,7 @@ $(STATEDIR)/libart.targetinstall: $(libart_targetinstall_deps)
 
 libart_clean:
 	rm -rf $(STATEDIR)/libart.*
+	rm -rf $(IMAGEDIR)/libart_*
 	rm -rf $(LIBART_DIR)
 
 # vim: syntax=make

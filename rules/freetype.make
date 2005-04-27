@@ -130,11 +130,24 @@ freetype_targetinstall_deps	+= $(STATEDIR)/expat.targetinstall
 
 $(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)
-	rm -f $(ROOTDIR)/lib/libfreetype.so*
-	install $(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.5 $(ROOTDIR)/lib/
-	ln -sf libfreetype.so.6.3.5 $(ROOTDIR)/lib/libfreetype.so.6
-	ln -sf libfreetype.so.6.3.5 $(ROOTDIR)/lib/libfreetype.so
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,freetype)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(FREETYPE_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0644, \
+		$(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.5, \
+		/usr/lib/libfreetype.so.6.3.5)
+	@$(call install_link, libfreetype.so.6.3.5, /usr/lib/libfreetype.so.6)		
+	@$(call install_link, libfreetype.so.6.3.5, /usr/lib/libfreetype.so)		
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -143,6 +156,7 @@ $(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps)
 
 freetype_clean:
 	rm -rf $(STATEDIR)/freetype.*
+	rm -rf $(IMAGEDIR)/freetype_*
 	rm -rf $(FREETYPE_DIR)
 
 # vim: syntax=make

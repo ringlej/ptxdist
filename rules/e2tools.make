@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: make this a hosttool? 
+
 #
 # We provide this package
 #
@@ -21,9 +23,9 @@ endif
 #
 HOSTTOOLS_E2TOOLS_VERSION	= 0.0.15
 HOSTTOOLS_E2TOOLS		= e2tools-$(HOSTTOOLS_E2TOOLS_VERSION)
-HOSTTOOLS_E2TOOLS_SUFFIX		= tar.gz
+HOSTTOOLS_E2TOOLS_SUFFIX	= tar.gz
 HOSTTOOLS_E2TOOLS_URL		= http://home.earthlink.net/~k_sheff/sw/e2tools/$(E2TOOLS).$(HOSTTOOLS_E2TOOLS_SUFFIX)
-HOSTTOOLS_E2TOOLS_SOURCE		= $(SRCDIR)/$(E2TOOLS).$(HOSTTOOLS_E2TOOLS_SUFFIX)
+HOSTTOOLS_E2TOOLS_SOURCE	= $(SRCDIR)/$(E2TOOLS).$(HOSTTOOLS_E2TOOLS_SUFFIX)
 HOSTTOOLS_E2TOOLS_DIR		= $(BUILDDIR)/$(E2TOOLS)
 
 # ----------------------------------------------------------------------------

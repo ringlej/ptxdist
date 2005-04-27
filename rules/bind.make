@@ -21,10 +21,10 @@ endif
 #
 BIND_VERSION	= 9.3.0rc3
 BIND		= bind-$(BIND_VERSION)
-BIND_SUFFIX		= tar.gz
-BIND_URL		= ftp://ftp.isc.org/isc/bind9/$(BIND_VERSION)/$(BIND).$(BIND_SUFFIX)
-BIND_SOURCE		= $(SRCDIR)/$(BIND).$(BIND_SUFFIX)
-BIND_DIR		= $(BUILDDIR)/$(BIND)
+BIND_SUFFIX	= tar.gz
+BIND_URL	= ftp://ftp.isc.org/isc/bind9/$(BIND_VERSION)/$(BIND).$(BIND_SUFFIX)
+BIND_SOURCE	= $(SRCDIR)/$(BIND).$(BIND_SUFFIX)
+BIND_DIR	= $(BUILDDIR)/$(BIND)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -124,7 +124,8 @@ bind_install: $(STATEDIR)/bind.install
 
 $(STATEDIR)/bind.install: $(STATEDIR)/bind.compile
 	@$(call targetinfo, $@)
-	$(BIND_PATH) make -C $(BIND_DIR) install
+	# FIXME: RSC: is it right that we only install and do not targetinstall? 
+	cd $(BIND_DIR) && $(BIND_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------

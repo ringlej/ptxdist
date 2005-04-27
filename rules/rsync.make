@@ -54,6 +54,7 @@ $(STATEDIR)/rsync.extract: $(rsync_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RSYNC_DIR))
 	@$(call extract, $(RSYNC_SOURCE))
+	@$(call patchin, $(RSYNC))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -122,9 +123,19 @@ rsync_targetinstall_deps	=  $(STATEDIR)/rsync.compile
 
 $(STATEDIR)/rsync.targetinstall: $(rsync_targetinstall_deps)
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/usr/bin
-	install $(RSYNC_DIR)/rsync $(ROOTDIR)/usr/bin/rsync
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/rsync
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,rsync)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(RSYNC_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0755, $(RSYNC_DIR)/rsync, /usr/bin/rsync)
+	
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -133,6 +144,7 @@ $(STATEDIR)/rsync.targetinstall: $(rsync_targetinstall_deps)
 
 rsync_clean:
 	rm -rf $(STATEDIR)/rsync.*
+	rm -rf $(IMAGEDIR)/rsync_*
 	rm -rf $(RSYNC_DIR)
 
 # vim: syntax=make

@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: does nothing on targetinstall? 
+
 #
 # We provide this package
 #
@@ -54,6 +56,7 @@ $(STATEDIR)/popt.extract: $(popt_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(POPT_DIR))
 	@$(call extract, $(POPT_SOURCE))
+	@$(call patchin, $(POPT))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -98,7 +101,7 @@ popt_compile_deps = $(STATEDIR)/popt.prepare
 
 $(STATEDIR)/popt.compile: $(popt_compile_deps)
 	@$(call targetinfo, $@)
-	$(POPT_PATH) make -C $(POPT_DIR)
+	cd $(POPT_DIR) && $(POPT_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -109,7 +112,7 @@ popt_install: $(STATEDIR)/popt.install
 
 $(STATEDIR)/popt.install: $(STATEDIR)/popt.compile
 	@$(call targetinfo, $@)
-	$(POPT_PATH) make -C $(POPT_DIR) install
+	cd $(POPT_DIR) && $(POPT_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -130,6 +133,7 @@ $(STATEDIR)/popt.targetinstall: $(popt_targetinstall_deps)
 
 popt_clean:
 	rm -rf $(STATEDIR)/popt.*
+	rm -rf $(IMAGEDIR)/popt_*
 	rm -rf $(POPT_DIR)
 
 # vim: syntax=make

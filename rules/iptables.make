@@ -117,22 +117,29 @@ iptables_targetinstall_deps = $(STATEDIR)/iptables.compile
 
 $(STATEDIR)/iptables.targetinstall: $(iptables_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,iptables)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(IPTABLES_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
 ifdef $(IPTABLES_INSTALL_IP6TABLES)
-	install -D $(IPTABLES_DIR)/ip6tables $(ROOTDIR)/sbin/ip6tables
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/sbin/ip6tables
+	@$(call install_copy, 0, 0, 0755, (IPTABLES_DIR)/ip6tables, /sbin/ip6tables)
 endif
 ifdef $(IPTABLES_INSTALL_IPTABLES)
-	install -D $(IPTABLES_DIR)/iptables $(ROOTDIR)/sbin/iptables
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/sbin/iptables
+	@$(call install_copy, 0, 0, 0755, (IPTABLES_DIR)/iptables, /sbin/iptables)
 endif
 ifdef $(IPTABLES_INSTALL_IPTABLES_RESTORE)
-	install -D $(IPTABLES_DIR)/iptables-restore $(ROOTDIR)/sbin/iptables-restore
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/sbin/iptables-restore
+	@$(call install_copy, 0, 0, 0755, (IPTABLES_DIR)/iptables-restore, /sbin/iptables-restore)
 endif
 ifdef $(IPTABLES_INSTALL_IPTABLES_SAVE)
-	install -D $(IPTABLES_DIR)/iptables $(ROOTDIR)/sbin/iptables-save
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/sbin/iptables
+	@$(call install_copy, 0, 0, 0755, (IPTABLES_DIR)/iptables-save, /sbin/iptables-save)
 endif
+	@$(call install_finish)	
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -141,6 +148,7 @@ endif
 
 iptables_clean:
 	rm -rf $(STATEDIR)/iptables.*
+	rm -rf $(IMAGEDIR)/iptables_*
 	rm -rf $(IPTABLES_DIR)
 
 # vim: syntax=make

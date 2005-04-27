@@ -141,37 +141,40 @@ procps_targetinstall_deps = \
 
 $(STATEDIR)/procps.targetinstall: $(procps_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/usr/bin
-	install -d $(ROOTDIR)/sbin
 
-	install -d $(ROOTDIR)/lib
-	cp -d $(PROCPS_DIR)/proc/libproc*so* $(ROOTDIR)/lib
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,procps)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(PROCPS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	for file in $(PROCPS_DIR)/proc/libproc*so*; do			\
+		$(call install_copy, 0, 0, 0644, $$file, /lib/)		\
+	done
 
 ifdef PTXCONF_PROCPS_TOP
-	install -D $(PROCPS_DIR)/top  $(ROOTDIR)/usr/bin/top
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/top
+	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/top, /usr/bin/top)
 endif
 
 ifdef PTXCONF_PROCPS_SLABTOP
-	install -D $(PROCPS_DIR)/slabtop  $(ROOTDIR)/usr/bin/slabtop
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/slabtop
+	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/slabtop, /usr/bin/slabtop)
 endif
 ifdef PTXCONF_PROCPS_SYSCTL
-	install -D $(PROCPS_DIR)/sysctl  $(ROOTDIR)/sbin/sysctl
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/sysctl
+	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/sysctl, /sbin/sysctl)
 endif
 ifdef PTXCONF_PROCPS_PS
-	install -D $(PROCPS_DIR)/ps/ps  $(ROOTDIR)/sbin/ps
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/ps
+	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/ps/ps, /sbin/ps)
 endif
 ifdef PTXCONF_PROCPS_W
-	install -D $(PROCPS_DIR)/w  $(ROOTDIR)/sbin/w
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/w
+	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/w, /sbin/w)
 endif
 ifdef PTXCONF_PROCPS_PGREP
-	install -D $(PROCPS_DIR)/pgrep  $(ROOTDIR)/sbin/pgrep
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/pgrep
+	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/pgrep, $(ROOTDIR)/sbin/pgrep)
 endif
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -180,6 +183,7 @@ endif
 
 procps_clean:
 	rm -rf $(STATEDIR)/procps.*
+	rm -rf $(IMAGEDIR)/procps_*
 	rm -rf $(PROCPS_DIR)
 
 # vim: syntax=make

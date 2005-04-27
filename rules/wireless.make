@@ -53,6 +53,7 @@ $(STATEDIR)/wireless.extract: $(wireless_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WIRELESS_DIR))
 	@$(call extract, $(WIRELESS_SOURCE))
+	@$(call patchin, $(WIRELESS))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -102,25 +103,33 @@ wireless_targetinstall: $(STATEDIR)/wireless.targetinstall
 
 $(STATEDIR)/wireless.targetinstall: $(STATEDIR)/wireless.install
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/usr/sbin 
-	install $(WIRELESS_DIR)/iwconfig $(ROOTDIR)/usr/sbin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwconfig
-	install $(WIRELESS_DIR)/iwlist   $(ROOTDIR)/usr/sbin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwlist
-	install $(WIRELESS_DIR)/iwpriv   $(ROOTDIR)/usr/sbin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwpriv
-	install $(WIRELESS_DIR)/iwspy    $(ROOTDIR)/usr/sbin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwspy
-	install $(WIRELESS_DIR)/iwgetid  $(ROOTDIR)/usr/sbin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwgetid
-	install $(WIRELESS_DIR)/iwevent  $(ROOTDIR)/usr/sbin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/iwevent
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,wireless)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(WIRELESS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwconfig, /usr/sbin/iwconfig)
+	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwlist, /usr/sbin/iwlist)
+	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwpriv, /usr/sbin/iwpriv)
+	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwspy, /usr/sbin/iwspy)
+	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwgetid, /usr/sbin/iwgetid)
+	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwevent, /usr/sbin/iwevent)
+
+	@$(call install_finish)
+	
 	touch $@
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
 wireless_clean: 
-	rm -rf $(STATEDIR)/wireless.* $(WIRELESS_DIR)
+	rm -rf $(STATEDIR)/wireless.* 
+	rm -rf $(IMAGEDIR)/wireless_* 
+	rm -rf $(WIRELESS_DIR)
 
 # vim: syntax=make

@@ -54,6 +54,7 @@ $(STATEDIR)/penguzilla.extract: $(penguzilla_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PENGUZILLA_DIR))
 	@$(call extract, $(PENGUZILLA_SOURCE))
+	@$(call patchin, $(PENGUZILLA))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -132,15 +133,26 @@ penguzilla_targetinstall_deps =	\
 $(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-# 	# pixmap directory
-	install -d $(ROOTDIR)/usr/share/penguzilla/pixmaps
-	cp -a $(PENGUZILLA_DIR)/pixmaps/* $(ROOTDIR)/usr/share/penguzilla/pixmaps
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,penguzilla)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(PENGUZILLA_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-	install -d $(ROOTDIR)/usr/bin
-	install $(PENGUZILLA_DIR)/src/penguzilla $(ROOTDIR)/usr/bin
+# 	# pixmap directory
+	for file in $(PENGUZILLA_DIR)/pixmaps/*; do 						\
+		$(call install_copy, 0, 0, 0644, $$file, /usr/share/penguzilla/pixmaps/)	\
+	done
+
+	@$(call install_copy, 0, 0, 0755, $(PENGUZILLA_DIR)/src/penguzilla, /usr/bin/penguzilla)
 
 # 	# Style
-	install $(PENGUZILLA_DIR)/penguzilla.rc $(ROOTDIR)/usr/share/penguzilla
+	@$(call install_copy, 0, 0, 0644, $(PENGUZILLA_DIR)/penguzilla.rc, /usr/share/penguzilla/penguzillarc, n)
+
+	@$(call install_finish)
 
 	touch $@
 
@@ -150,6 +162,7 @@ $(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps)
 
 penguzilla_clean:
 	rm -rf $(STATEDIR)/penguzilla.*
+	rm -rf $(IMAGEDIR)/penguzilla_*
 	rm -rf $(PENGUZILLA_DIR)
 
 # vim: syntax=make

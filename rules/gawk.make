@@ -54,6 +54,7 @@ $(STATEDIR)/gawk.extract: $(gawk_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GAWK_DIR))
 	@$(call extract, $(GAWK_SOURCE))
+	@$(call patchin, $(GAWK))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -120,6 +121,7 @@ gawk_targetinstall_deps = $(STATEDIR)/gawk.compile
 
 $(STATEDIR)/gawk.targetinstall: $(gawk_targetinstall_deps)
 	@$(call targetinfo, $@)
+	# FIXME: RSC: ipkgize
 	$(GAWK_PATH) make -C $(GAWK_DIR) install
 	touch $@
 

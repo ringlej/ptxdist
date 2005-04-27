@@ -59,6 +59,7 @@ $(STATEDIR)/libnet.extract: $(libnet_extract_deps)
 	@$(call clean, $(LIBNET_DIR))
 	@$(call extract, $(LIBNET_SOURCE))
 	@$(call patchin, $(LIBNET), $(LIBNET_DIR))
+	# FIXME: run this with well defined version!
 	cd $(LIBNET_DIR) && \
 		$(PTXCONF_PREFIX)/$(AUTOMAKE15)/bin/aclocal && \
 		$(PTXCONF_PREFIX)/$(AUTOMAKE15)/bin/automake && \
@@ -108,7 +109,7 @@ libnet_compile_deps =  $(STATEDIR)/libnet.prepare
 
 $(STATEDIR)/libnet.compile: $(libnet_compile_deps)
 	@$(call targetinfo, $@)
-	$(LIBNET_PATH) $(LIBNET_ENV) make -C $(LIBNET_DIR)
+	cd $(LIBNET_DIR) && $(LIBNET_PATH) $(LIBNET_ENV) make -C
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -119,7 +120,7 @@ libnet_install: $(STATEDIR)/libnet.install
 
 $(STATEDIR)/libnet.install: $(STATEDIR)/libnet.compile
 	@$(call targetinfo, $@)
-	$(LIBNET_PATH) $(LIBNET_ENV) make -C $(LIBNET_DIR) install
+	cd $(LIBNET_DIR) && $(LIBNET_PATH) $(LIBNET_ENV) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -132,6 +133,7 @@ libnet_targetinstall_deps	=  $(STATEDIR)/libnet.install
 
 $(STATEDIR)/libnet.targetinstall: $(libnet_targetinstall_deps)
 	@$(call targetinfo, $@)
+	# FIXME: nothing to do? 
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -140,6 +142,7 @@ $(STATEDIR)/libnet.targetinstall: $(libnet_targetinstall_deps)
 
 libnet_clean:
 	rm -rf $(STATEDIR)/libnet.*
+	rm -rf $(IMAGEDIR)/libnet_*
 	rm -rf $(LIBNET_DIR)
 
 # vim: syntax=make

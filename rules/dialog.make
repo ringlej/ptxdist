@@ -123,6 +123,7 @@ dialog_targetinstall_deps = $(STATEDIR)/dialog.compile
 
 $(STATEDIR)/dialog.targetinstall: $(dialog_targetinstall_deps)
 	@$(call targetinfo, $@)
+	# FIXME: RSC: nothing to do on targetinstall? 
 	touch $@
 
 # ----------------------------------------------------------------------------

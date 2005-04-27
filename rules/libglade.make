@@ -54,6 +54,7 @@ $(STATEDIR)/libglade.extract: $(libglade_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGLADE_DIR))
 	@$(call extract, $(LIBGLADE_SOURCE))
+	@$(call patchin, $(LIBGLADE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -99,7 +100,7 @@ libglade_compile_deps = $(STATEDIR)/libglade.prepare
 
 $(STATEDIR)/libglade.compile: $(libglade_compile_deps)
 	@$(call targetinfo, $@)
-	$(LIBGLADE_PATH) make -C $(LIBGLADE_DIR)
+	cd $(LIBGLADE_DIR) && $(LIBGLADE_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -110,7 +111,8 @@ libglade_install: $(STATEDIR)/libglade.install
 
 $(STATEDIR)/libglade.install: $(STATEDIR)/libglade.compile
 	@$(call targetinfo, $@)
-	$(LIBGLADE_PATH) make -C $(LIBGLADE_DIR) install
+	# FIXME: this is not a hosttool -> targetinstall? 
+	cd $(LIBGLADE_DIR) && $(LIBGLADE_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -131,6 +133,7 @@ $(STATEDIR)/libglade.targetinstall: $(libglade_targetinstall_deps)
 
 libglade_clean:
 	rm -rf $(STATEDIR)/libglade.*
+	rm -rf $(IMAGEDIR)/libglade_*
 	rm -rf $(LIBGLADE_DIR)
 
 # vim: syntax=make

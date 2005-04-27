@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: does nothing on targetinstall
+
 #
 # We provide this package
 #
@@ -54,6 +56,7 @@ $(STATEDIR)/pcmcia-cs.extract: $(pcmcia-cs_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCMCIA-CS_DIR))
 	@$(call extract, $(PCMCIA-CS_SOURCE))
+	@$(call patchin, $(PCMCIA-CS))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -122,6 +125,7 @@ $(STATEDIR)/pcmcia-cs.targetinstall: $(pcmcia-cs_targetinstall_deps)
 
 pcmcia-cs_clean:
 	rm -rf $(STATEDIR)/pcmcia-cs.*
+	rm -rf $(IMAGEDIR)/pcmcia-cs_*
 	rm -rf $(PCMCIA-CS_DIR)
 
 # vim: syntax=make

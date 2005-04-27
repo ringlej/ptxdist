@@ -64,6 +64,7 @@ $(STATEDIR)/madwifi.extract: $(madwifi_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MADWIFI_DIR))
 	@$(call extract, $(MADWIFI_SOURCE))
+	@$(call patchin, $(MADWIFI))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -137,15 +138,28 @@ madwifi_targetinstall_deps = $(STATEDIR)/madwifi.compile
 # requires uudecode, which is part of sharutils
 $(STATEDIR)/madwifi.targetinstall: $(madwifi_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,madwifi)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(MADWIFI_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	# FIXME: ipkgize
 ifdef PTXCONF_KERNEL_INSTALL
 	cd $(MADWIFI_DIR) && $(MADWIFI_ENV) $(MADWIFI_PATH) $(MAKE) install
 endif
 ifdef PTXCONF_MADWIFI_TOOLS_ATHEROS_STATS
-	install -m555  $(MADWIFI_DIR)/tools/athstats $(ROOTDIR)/usr/bin/
+	@$(call install_copy, 0, 0, 0555, $(MADWIFI_DIR)/tools/athstats, /usr/bin/athstats)
 endif
 ifdef PTXCONF_MADWIFI_TOOLS_80211_STATS
-	install -m555  $(MADWIFI_DIR)/tools/80211stats $(ROOTDIR)/usr/bin/
+	@$(call install_copy, 0, 0, 0555, $(MADWIFI_DIR)/tools/80211stats, /usr/bin/80211stats)
 endif
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -154,6 +168,7 @@ endif
 
 madwifi_clean:
 	rm -rf $(STATEDIR)/madwifi.*
+	rm -rf $(IMAGEDIR)/madwifi_*
 	rm -rf $(MADWIFI_DIR)
 
 # vim: syntax=make

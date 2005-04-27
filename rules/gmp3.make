@@ -99,9 +99,20 @@ gmp3_targetinstall: $(STATEDIR)/gmp3.targetinstall
 
 $(STATEDIR)/gmp3.targetinstall: $(STATEDIR)/gmp3.install
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/lib
-	cp -d $(CROSS_LIB_DIR)/lib/libgmp.so* $(ROOTDIR)/lib
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/lib/libgmp.so*
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,gmp3)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(GMP3_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	# FIXME: RSC: check if wildcard copy works
+	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/lib/libgmp.so*, /usr/lib/)
+
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -110,6 +121,7 @@ $(STATEDIR)/gmp3.targetinstall: $(STATEDIR)/gmp3.install
 
 gmp3_clean: 
 	rm -rf $(STATEDIR)/gmp3.* 
+	rm -rf $(IMAGEDIR)/gmp3_* 
 	rm -rf $(GMP3_DIR)
 
 # vim: syntax=make

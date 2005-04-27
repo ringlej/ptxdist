@@ -90,7 +90,7 @@ xvkbd_compile_deps =  $(STATEDIR)/xvkbd.prepare
 
 $(STATEDIR)/xvkbd.compile: $(xvkbd_compile_deps)
 	@$(call targetinfo, $@)
-	$(XVKBD_PATH) $(XVKBD_ENV) make -C $(XVKBD_DIR)
+	cd $(XVKBD_DIR) && $(XVKBD_PATH) $(XVKBD_ENV) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -101,7 +101,7 @@ xvkbd_install: $(STATEDIR)/xvkbd.install
 
 $(STATEDIR)/xvkbd.install: $(STATEDIR)/xvkbd.compile
 	@$(call targetinfo, $@)
-	$(XVKBD_PATH) $(XVKBD_ENV) make -C $(XVKBD_DIR) install
+	cd $(XVKBD_DIR) && $(XVKBD_PATH) $(XVKBD_ENV) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -114,10 +114,25 @@ xvkbd_targetinstall_deps	=  $(STATEDIR)/xvkbd.compile
 
 $(STATEDIR)/xvkbd.targetinstall: $(xvkbd_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install $(XVKBD_DIR)/xvkbd $(ROOTDIR)/usr/X11R6/bin/
-	install $(XVKBD_DIR)/XVkbd-common.ad $(ROOTDIR)/etc/X11/app-defaults/XVkbd-common
-	install $(XVKBD_DIR)/XVkbd-german.ad $(ROOTDIR)/etc/X11/app-defaults/XVkbd-german
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,xvkbd)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(COREUTILS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(XVKBD_DIR)/xvkbd, /usr/X11R6/bin/xvkbd)
+	@$(call install_copy, 0, 0, 0755, $(XVKBD_DIR)/XVkbd-common.ad, /etc/X11/app-defaults/XVkbd-common)
+	@$(call install_copy, 0, 0, 0755, $(XVKBD_DIR)/XVkbd-german.ad, /etc/X11/app-defaults/XVkbd-german)
 	echo '#include "XVkbd-german"' > $(ROOTDIR)/etc/X11/app-defaults/XVkbd
+	# FIXME: fix permissions
+	echo '#include "XVkbd-german"' > $(IMAGEIR)/ipkg/etc/X11/app-defaults/XVkbd
+
+	@$(call install_finish)
+	
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -126,6 +141,7 @@ $(STATEDIR)/xvkbd.targetinstall: $(xvkbd_targetinstall_deps)
 
 xvkbd_clean:
 	rm -rf $(STATEDIR)/xvkbd.*
+	rm -rf $(IMAGEDIR)/xvkbd_*
 	rm -rf $(XVKBD_DIR)
 
 # vim: syntax=make

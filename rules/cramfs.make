@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: make this a hosttool
+
 #
 # We provide this package
 #
@@ -19,7 +21,8 @@ endif
 #
 # Paths and names
 #
-CRAMFS		= cramfs-1.1
+CRAMFS_VERSION	= 1.1
+CRAMFS		= cramfs-$(CRAMFS_VERSION)
 CRAMFS_SUFFIX	= tar.gz
 CRAMFS_URL	= $(PTXCONF_SETUP_SFMIRROR)/cramfs/$(CRAMFS).$(CRAMFS_SUFFIX)
 CRAMFS_SOURCE	= $(SRCDIR)/$(CRAMFS).$(CRAMFS_SUFFIX)

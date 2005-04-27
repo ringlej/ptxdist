@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: this needs maintainance. Really. Not only ipkgisation. 
+
 #
 # We provide this package
 #

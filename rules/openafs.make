@@ -54,6 +54,7 @@ $(STATEDIR)/openafs.extract: $(openafs_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENAFS_DIR))
 	@$(call extract, $(OPENAFS_SOURCE))
+	@$(call patchin, $(OPENAFS))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -128,8 +129,20 @@ openafs_targetinstall_deps = $(STATEDIR)/openafs.compile
 
 $(STATEDIR)/openafs.targetinstall: $(openafs_targetinstall_deps)
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/usr
-	cp -a $(OPENAFS_DIR)/$(OPENAFS_SYS)/dest/root.client/usr/vice $(ROOTDIR)/usr
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,openafs)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(OPENAFS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0744, $(OPENAFS_DIR)/$(OPENAFS_SYS)/dest/root.client/usr/vice, /usr/bin/vice)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -138,6 +151,7 @@ $(STATEDIR)/openafs.targetinstall: $(openafs_targetinstall_deps)
 
 openafs_clean:
 	rm -rf $(STATEDIR)/openafs.*
+	rm -rf $(IMAGEDIR)/openafs_*
 	rm -rf $(OPENAFS_DIR)
 
 # vim: syntax=make

@@ -111,6 +111,7 @@ nano_install: $(STATEDIR)/nano.install
 
 $(STATEDIR)/nano.install: $(STATEDIR)/nano.compile
 	@$(call targetinfo, $@)
+	# FIXME: put this into targetinstall? 
 	cd $(NANO_DIR) && $(NANO_ENV) $(NANO_PATH) make install
 	touch $@
 

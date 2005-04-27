@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: ipkgize
+
 #
 # We provide this package
 #
@@ -55,6 +57,7 @@ $(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WXWINDOWS_DIR))
 	@$(call extract, $(WXWINDOWS_SOURCE))
+	@$(call patchin, $(WXWINDOWS))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -111,7 +114,7 @@ wxWindows_compile_deps =  $(STATEDIR)/wxWindows.prepare
 
 $(STATEDIR)/wxWindows.compile: $(wxWindows_compile_deps)
 	@$(call targetinfo, $@)
-	$(WXWINDOWS_PATH) $(WXWINDOWS_ENV) make -C $(WXWINDOWS_DIR)
+	cd $(WXWINDOWS_DIR) && $(WXWINDOWS_PATH) $(WXWINDOWS_ENV) make
 	touch $@
 
 
@@ -143,6 +146,7 @@ $(STATEDIR)/wxWindows.targetinstall: $(wxWindows_targetinstall_deps)
 
 wxWindows_clean:
 	rm -rf $(STATEDIR)/wxWindows.*
+	rm -rf $(IMAGEDIR)/wxWindows_*
 	rm -rf $(WXWINDOWS_DIR)
 
 # vim: syntax=make

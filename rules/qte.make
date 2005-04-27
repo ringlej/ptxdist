@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: do something on targetinstall
+
 #
 # We provide this package
 #
@@ -55,6 +57,7 @@ $(STATEDIR)/qte.extract: $(qte_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(QTE_DIR))
 	@$(call extract, $(QTE_SOURCE))
+	@$(call patchin, $(QTE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -153,6 +156,7 @@ $(STATEDIR)/qte.targetinstall: $(qte_targetinstall_deps)
 
 qte_clean:
 	rm -rf $(STATEDIR)/qte.*
+	rm -rf $(IMAGEDIR)/qte_*
 	rm -rf $(QTE_DIR)
 
 # vim: syntax=make

@@ -54,6 +54,7 @@ $(STATEDIR)/slang.extract: $(slang_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SLANG_DIR))
 	@$(call extract, $(SLANG_SOURCE))
+	@$(call patchin, $(SLANG))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -97,7 +98,7 @@ slang_compile_deps = $(STATEDIR)/slang.prepare
 
 $(STATEDIR)/slang.compile: $(slang_compile_deps)
 	@$(call targetinfo, $@)
-	$(SLANG_PATH) make -C $(SLANG_DIR) elf
+	cd $(SLANG_DIR) && $(SLANG_PATH) make elf
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -108,7 +109,7 @@ slang_install: $(STATEDIR)/slang.install
 
 $(STATEDIR)/slang.install: $(STATEDIR)/slang.compile
 	@$(call targetinfo, $@)
-	$(SLANG_PATH) make -C $(SLANG_DIR) install-elf
+	cd $(SLANG_DIR) && $(SLANG_PATH) make install-elf
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -121,14 +122,24 @@ slang_targetinstall_deps = $(STATEDIR)/slang.compile
 
 $(STATEDIR)/slang.targetinstall: $(slang_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install $(SLANG_DIR)/src/elfobjs/libslang.so.$(SLANG_VERSION) \
-		$(ROOTDIR)/usr/lib/
-	cd $(ROOTDIR)/usr/lib/ && \
-		ln -s libslang.so.$(SLANG_VERSION) libslang.so.1
-	cd $(ROOTDIR)/usr/lib/ && \
-		ln -s libslang.so.$(SLANG_VERSION) libslang.so
-	$(CROSSSTRIP) -S -R .note -R .comment \
-		$(ROOTDIR)/usr/lib/libslang.so.$(SLANG_VERSION)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,slang)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(SLANG_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0644, \
+		$(SLANG_DIR)/src/elfobjs/libslang.so.$(SLANG_VERSION), \
+		/usr/lib/libslang.so.$(SLANG_VERSION))
+	@$(call install_link, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so.1)
+	@$(call install_link, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -137,6 +148,7 @@ $(STATEDIR)/slang.targetinstall: $(slang_targetinstall_deps)
 
 slang_clean:
 	rm -rf $(STATEDIR)/slang.*
+	rm -rf $(IMAGEDIR)/slang_*
 	rm -rf $(SLANG_DIR)
 
 # vim: syntax=make

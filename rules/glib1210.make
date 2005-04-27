@@ -140,20 +140,31 @@ glib1210_targetinstall_deps	=  $(STATEDIR)/glib1210.compile
 $(STATEDIR)/glib1210.targetinstall: $(glib1210_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-# glib
-	install $(GLIB1210_DIR)/.libs/libglib-1.2.so.0.0.10 $(ROOTDIR)/lib/
-	ln -sf libglib-1.2.so.0.0.10 $(ROOTDIR)/lib/libglib-1.2.so.0
-	ln -sf libglib-1.2.so.0.0.10 $(ROOTDIR)/lib/libglib-1.2.so
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,glib1210)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(GLIB1210_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-# gmodule
-	install $(GLIB1210_DIR)/gmodule/.libs/libgmodule-1.2.so.0.0.10 $(ROOTDIR)/lib/
-	ln -sf libgmodule-1.2.so.0.0.10 $(ROOTDIR)/lib/libgmodule-1.2.so.0
-	ln -sf libgmodule-1.2.so.0.0.10 $(ROOTDIR)/lib/libgmodule-1.2.so
+	# glib
+	@$(call install_copy, 0, 0, 0644, $(GLIB1210_DIR)/.libs/libglib-1.2.so.0.0.10, /usr/lib/libglib-1.2.so.0.0.10)
+	@$(call install_link, libglib-1.2.so.0.0.10, /usr/lib/libglib-1.2.so.0)
+	@$(call install_link, libglib-1.2.so.0.0.10, /usr/lib/libglib-1.2.so)
 
-# gthread
-	install $(GLIB1210_DIR)/gthread/.libs/libgthread-1.2.so.0.0.10 $(ROOTDIR)/lib/
-	ln -sf libgthread-1.2.so.0.0.10 $(ROOTDIR)/lib/libgthread-1.2.so.0
-	ln -sf libgthread-1.2.so.0.0.10 $(ROOTDIR)/lib/libgthread-1.2.so
+	# gmodule
+	@$(call install_copy, 0, 0, 0644, $(GLIB1210_DIR)/gmodule/.libs/libgmodule-1.2.so.0.0.10, /usr/lib/libgmodule-1.2.so.0.0.10)
+	@$(call install_link, libgmodule-1.2.so.0.0.10, /usr/lib/libgmodule-1.2.so.0)
+	@$(call install_link, libgmodule-1.2.so.0.0.10, /usr/lib/libgmodule-1.2.so)
+
+	# gthread
+	@$(call install_copy, 0, 0, 0644, $(GLIB1210_DIR)/gthread/.libs/libgthread-1.2.so.0.0.10, /usr/lib/libgthread-1.2.so.0.0.10)
+	@$(call install_link, libgthread-1.2.so.0.0.10 /usr/lib/libgthread-1.2.so.0)
+	@$(call install_link, libgthread-1.2.so.0.0.10 /usr/lib/libgthread-1.2.so)
+
+	@$(call install_finish)
 
 	touch $@
 
@@ -163,6 +174,7 @@ $(STATEDIR)/glib1210.targetinstall: $(glib1210_targetinstall_deps)
 
 glib1210_clean:
 	rm -rf $(STATEDIR)/glib1210.*
+	rm -rf $(IMAGEDIR)/glib1210_*
 	rm -rf $(GLIB1210_DIR)
 
 # vim: syntax=make

@@ -104,7 +104,7 @@ termcap_compile_deps = $(STATEDIR)/termcap.prepare
 
 $(STATEDIR)/termcap.compile: $(termcap_compile_deps)
 	@$(call targetinfo, $@)
-	$(TERMCAP_PATH) make -C $(TERMCAP_DIR)
+	cd $(TERMCAP_DIR) && $(TERMCAP_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -115,7 +115,7 @@ termcap_install: $(STATEDIR)/termcap.install
 
 $(STATEDIR)/termcap.install: $(STATEDIR)/termcap.compile
 	@$(call targetinfo, $@)
-	$(TERMCAP_PATH) make -C $(TERMCAP_DIR) install
+	cd $(TERMCAP_DIR) && $(TERMCAP_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -128,9 +128,18 @@ termcap_targetinstall_deps = $(STATEDIR)/termcap.install
 
 $(STATEDIR)/termcap.targetinstall: $(termcap_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,termcap)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(TERMCAP_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
 ifdef PTXCONF_TERMCAP_TERMCAP
-	install -d $(ROOTDIR)/etc
-	install $(TERMCAP_DIR)/termcap.src $(ROOTDIR)/etc
+	@$(call install_copy, 0, 0, 0755, $(TERMCAP_DIR)/termcap.src, /etc/termcap.src,n)
 endif
 	touch $@
 
@@ -140,6 +149,7 @@ endif
 
 termcap_clean:
 	rm -rf $(STATEDIR)/termcap.*
+	rm -rf $(IMAGEDIR)/termcap_*
 	rm -rf $(TERMCAP_DIR)
 
 # vim: syntax=make

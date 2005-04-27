@@ -54,6 +54,7 @@ $(STATEDIR)/libgnomecanvas.extract: $(libgnomecanvas_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGNOMECANVAS_DIR))
 	@$(call extract, $(LIBGNOMECANVAS_SOURCE))
+	@$(call patchin, $(LIBGNOMECANVAS))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -127,11 +128,22 @@ libgnomecanvas_targetinstall_deps = $(STATEDIR)/libart.targetinstall
 $(STATEDIR)/libgnomecanvas.targetinstall: $(libgnomecanvas_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	install -d $(ROOTDIR)/usr/lib
-        
-	install $(LIBGNOMECANVAS_DIR)/libgnomecanvas/.libs/libgnomecanvas-2.so.0.590.0 $(ROOTDIR)/usr/lib
-	ln -sf libgnomecanvas-2.so.0.590.0 $(ROOTDIR)/usr/lib/libgnomecanvas-2.so.0
-	ln -sf libgnomecanvas-2.so.0.590.0 $(ROOTDIR)/usr/lib/libgnomecanvas-2.so
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,libgnomecanvas)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(LIBGNOMECANVAS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+       
+	@$(call install_copy, 0, 0, 0644, \
+		$(LIBGNOMECANVAS_DIR)/libgnomecanvas/.libs/libgnomecanvas-2.so.0.590.0, \
+		/usr/lib/libgnomecanvas-2.so.0.590.0)
+	@$(call install_link, libgnomecanvas-2.so.0.590.0, /usr/lib/libgnomecanvas-2.so.0)
+	@$(call install_link, libgnomecanvas-2.so.0.590.0, /usr/lib/libgnomecanvas-2.so)
+	
+	@$(call install_finish)
 
 	touch $@
 
@@ -141,6 +153,7 @@ $(STATEDIR)/libgnomecanvas.targetinstall: $(libgnomecanvas_targetinstall_deps)
 
 libgnomecanvas_clean:
 	rm -rf $(STATEDIR)/libgnomecanvas.*
+	rm -rf $(IMAGEDIR)/libgnomecanvas_*
 	rm -rf $(LIBGNOMECANVAS_DIR)
 
 # vim: syntax=make

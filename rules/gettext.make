@@ -55,6 +55,7 @@ $(STATEDIR)/gettext.extract: $(gettext_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GETTEXT_DIR))
 	@$(call extract, $(GETTEXT_SOURCE))
+	@$(call patchin, $(GETTEXT))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -130,11 +131,23 @@ gettext_targetinstall_deps = $(STATEDIR)/gettext.compile
 
 $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/lib
-	rm -f $(ROOTDIR)/lib/libgnuintl.so*
-	install $(GETTEXT_DIR)/gettext-runtime/intl/.libs/libgnuintl.so.* $(ROOTDIR)/lib/
-#	ln -s $(ROOTDIR)/lib/libgnuintl.so.* $(ROOTDIR)/lib/libgnuintl.so.2
-#	ln -s $(ROOTDIR)/lib/libgnuintl.so.2 $(ROOTDIR)/lib/libgnuintl.so
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,gettext)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(GETTEXT_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	# FIXME: RSC: do wildcards work? 
+	@$(call install_copy, 0, 0, 0644, $(GETTEXT_DIR)/gettext-runtime/intl/.libs/libgnuintl.so.*, /usr/lib/)
+	@$(call install_link, libgnuintl.so.*, /lib/libgnuintl.so.2)
+	@$(call install_link, libgnuintl.so.*, /lib/libgnuintl.so)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -143,6 +156,7 @@ $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps)
 
 gettext_clean:
 	rm -rf $(STATEDIR)/gettext.*
+	rm -rf $(IMAGEDIR)/gettext_*
 	rm -rf $(GETTEXT_DIR)
 
 # vim: syntax=make

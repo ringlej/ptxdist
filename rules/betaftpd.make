@@ -110,7 +110,8 @@ betaftpd_install: $(STATEDIR)/betaftpd.install
 
 $(STATEDIR)/betaftpd.install: $(STATEDIR)/betaftpd.compile
 	@$(call targetinfo, $@)
-	$(BETAFTPD_PATH) make -C $(BETAFTPD_DIR) install
+	# RSC: FIXME: is it correct that we only install and do not targetinstall? 
+	cd $(BETAFTPD_DIR) && $(BETAFTPD_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------

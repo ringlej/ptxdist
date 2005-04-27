@@ -109,8 +109,20 @@ clock_targetinstall_deps = $(STATEDIR)/clock.compile
 
 $(STATEDIR)/clock.targetinstall: $(clock_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -D $(CLOCK_DIR)/clock $(ROOTDIR)/sbin/clock
-	$(CROSSSTRIP) -R .note -R comment $(ROOTDIR)/sbin/clock
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,clock)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(CLOCK_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(CLOCK_DIR)/clock, /sbin/clock)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -119,6 +131,7 @@ $(STATEDIR)/clock.targetinstall: $(clock_targetinstall_deps)
 
 clock_clean:
 	rm -rf $(STATEDIR)/clock.*
+	rm -rf $(IMAGEDIR)/clock_*
 	rm -rf $(CLOCK_DIR)
 
 # vim: syntax=make

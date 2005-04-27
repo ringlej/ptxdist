@@ -19,12 +19,13 @@ endif
 #
 # Paths and names 
 #
-TCPWRAPPER			= tcp_wrappers_7.6
+TCPWRAPPER_VERSION		= 7.6
+TCPWRAPPER			= tcp_wrappers_$(TCPWRAPPER_VERSION)
 TCPWRAPPER_URL			= ftp://ftp.porcupine.org/pub/security/$(TCPWRAPPER).tar.gz
 TCPWRAPPER_SOURCE		= $(SRCDIR)/$(TCPWRAPPER).tar.gz
 TCPWRAPPER_DIR			= $(BUILDDIR)/$(TCPWRAPPER)
 
-TCPWRAPPER_PTXPATCH		= tcp_wrappers_7.6-ptx1
+TCPWRAPPER_PTXPATCH		= tcp_wrappers_$(TCPWRAPPER_VERSION)-ptx1
 TCPWRAPPER_PTXPATCH_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(TCPWRAPPER_PTXPATCH).diff
 TCPWRAPPER_PTXPATCH_SOURCE	= $(SRCDIR)/$(TCPWRAPPER_PTXPATCH).diff
 
@@ -56,6 +57,7 @@ $(STATEDIR)/tcpwrapper.extract: $(STATEDIR)/tcpwrapper.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(TCPWRAPPER_DIR))
 	@$(call extract, $(TCPWRAPPER_SOURCE))
+	# FIXME: patch repository!
 	cd $(TCPWRAPPER_DIR) && patch -p1 < $(TCPWRAPPER_PTXPATCH_SOURCE)
 	touch $@
 
@@ -104,11 +106,20 @@ tcpwrapper_targetinstall: $(STATEDIR)/tcpwrapper.targetinstall
 
 $(STATEDIR)/tcpwrapper.targetinstall: $(STATEDIR)/tcpwrapper.install
 	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,tcpwrapper)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(TCPWRAPPER_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
 ifdef PTXCONF_TCPWRAPPER_INSTALL_TCPD
-	mkdir -p $(ROOTDIR)/usr/sbin
-	install $(TCPWRAPPER_DIR)/tcpd $(ROOTDIR)/usr/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/tcpd
+	@$(call install_copy, 0, 0, 0755, $(TCPWRAPPER_DIR)/tcpd, /usr/sbin/tcpd)
 endif
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -116,6 +127,8 @@ endif
 # ----------------------------------------------------------------------------
 
 tcpwrapper_clean: 
-	rm -rf $(STATEDIR)/tcpwrapper.* $(TCPWRAPPER_DIR)
+	rm -rf $(STATEDIR)/tcpwrapper.* 
+	rm -rf $(IMAGEDIR)/tcpwrapper_* 
+	rm -rf $(TCPWRAPPER_DIR)
 
 # vim: syntax=make

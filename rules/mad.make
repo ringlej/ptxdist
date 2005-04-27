@@ -54,6 +54,7 @@ $(STATEDIR)/mad.extract: $(mad_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MAD_DIR))
 	@$(call extract, $(MAD_SOURCE))
+	@$(call patchin, $(MAD_SOURCE))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -96,7 +97,7 @@ mad_compile_deps = $(STATEDIR)/mad.prepare
 
 $(STATEDIR)/mad.compile: $(mad_compile_deps)
 	@$(call targetinfo, $@)
-	$(MAD_PATH) make -C $(MAD_DIR)
+	cd $(MAD_DIR) && $(MAD_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -119,8 +120,19 @@ mad_targetinstall_deps = $(STATEDIR)/mad.compile
 
 $(STATEDIR)/mad.targetinstall: $(mad_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install $(MAD_DIR)/madplay $(ROOTDIR)/usr/bin
-	$(CROSSSTRIP) $(ROOTDIR)/usr/bin/madplay
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,mad)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(MAD_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(MAD_DIR)/madplay, /usr/bin/madplay)
+
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -129,6 +141,7 @@ $(STATEDIR)/mad.targetinstall: $(mad_targetinstall_deps)
 
 mad_clean:
 	rm -rf $(STATEDIR)/mad.*
+	rm -rf $(IMAGEDIR)/mad_*
 	rm -rf $(MAD_DIR)
 
 # vim: syntax=make

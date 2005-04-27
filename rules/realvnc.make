@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: do something on targetinstall
+
 #
 # We provide this package
 #
@@ -139,6 +141,7 @@ $(STATEDIR)/realvnc.targetinstall: $(realvnc_targetinstall_deps)
 
 realvnc_clean:
 	rm -rf $(STATEDIR)/realvnc.*
+	rm -rf $(IMAGeDIR)/realvnc_*
 	rm -rf $(REALVNC_DIR)
 
 # vim: syntax=make

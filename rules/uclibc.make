@@ -157,8 +157,17 @@ uclibc_targetinstall_deps = $(STATEDIR)/uclibc.install
 
 $(STATEDIR)/uclibc.targetinstall: $(uclibc_targetinstall_deps)
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/lib
 
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,uclibc)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(UCLIBC_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	# FIXME: ipkgize	
 	cp -d $(CROSS_LIB_DIR)/lib/ld-uClibc[-.]*so* $(ROOTDIR)/lib/
 
 	cp -d $(CROSS_LIB_DIR)/lib/libuClibc[-.]*so* $(ROOTDIR)/lib/
@@ -194,6 +203,8 @@ endif
 ifdef PTXCONF_UCLIBC_UTIL
 	cp -d $(CROSS_LIB_DIR)/lib/libutil[-.]*so* $(ROOTDIR)/lib/
 endif
+	@$(call install_finish)
+	
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -201,7 +212,8 @@ endif
 # ----------------------------------------------------------------------------
 
 uclibc_clean: 
-	-rm -rf $(STATEDIR)/uclibc*
-	-rm -rf $(UCLIBC_DIR)
+	rm -rf $(STATEDIR)/uclibc.*
+	rm -rf $(IMAGEDIR)/uclibc_*
+	rm -rf $(UCLIBC_DIR)
 
 # vim: syntax=make

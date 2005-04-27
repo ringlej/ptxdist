@@ -113,8 +113,20 @@ dnsmasq_targetinstall_deps = $(STATEDIR)/dnsmasq.compile
 
 $(STATEDIR)/dnsmasq.targetinstall: $(dnsmasq_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -m 755 $(DNSMASQ_DIR)/src/dnsmasq $(ROOTDIR)/sbin/dnsmasq
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/dnsmasq
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,dnsmasq)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(DNSMASQ_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0755, $(DNSMASQ_DIR)/src/dnsmasq, /sbin/dnsmasq)
+
+	@$(call install_finish)
+	
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -123,6 +135,7 @@ $(STATEDIR)/dnsmasq.targetinstall: $(dnsmasq_targetinstall_deps)
 
 dnsmasq_clean:
 	rm -rf $(STATEDIR)/dnsmasq.*
+	rm -rf $(IMAGEDIR)/dnsmasq_*
 	rm -rf $(DNSMASQ_DIR)
 
 # vim: syntax=make

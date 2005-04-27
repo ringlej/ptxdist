@@ -8,6 +8,8 @@
 # see the README file.
 #
 
+# FIXME: RSC: ipkgize
+
 #
 # We provide this package
 #
@@ -20,10 +22,10 @@ endif
 #
 BRIDGE_UTILS_VERSION	= 1.0.4
 BRIDGE_UTILS		= bridge-utils-$(BRIDGE_UTILS_VERSION)
-BRIDGE_UTILS_SUFFIX		= tar.gz
-BRIDGE_UTILS_URL		= http://unc.dl.sourceforge.net/sourceforge/bridge/$(BRIDGE_UTILS).$(BRIDGE_UTILS_SUFFIX)
-BRIDGE_UTILS_SOURCE		= $(SRCDIR)/$(BRIDGE_UTILS).$(BRIDGE_UTILS_SUFFIX)
-BRIDGE_UTILS_DIR		= $(BUILDDIR)/$(BRIDGE_UTILS)
+BRIDGE_UTILS_SUFFIX	= tar.gz
+BRIDGE_UTILS_URL	= http://unc.dl.sourceforge.net/sourceforge/bridge/$(BRIDGE_UTILS).$(BRIDGE_UTILS_SUFFIX)
+BRIDGE_UTILS_SOURCE	= $(SRCDIR)/$(BRIDGE_UTILS).$(BRIDGE_UTILS_SUFFIX)
+BRIDGE_UTILS_DIR	= $(BUILDDIR)/$(BRIDGE_UTILS)
 
 # ----------------------------------------------------------------------------
 # Get

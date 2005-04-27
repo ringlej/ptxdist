@@ -129,13 +129,30 @@ ltt_targetinstall: $(STATEDIR)/ltt.targetinstall
 
 $(STATEDIR)/ltt.targetinstall: $(STATEDIR)/ltt.install
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/usr/sbin
 
-	install $(LTT_BUILDDIR)/Daemon/tracedaemon $(ROOTDIR)/usr/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/tracedaemon
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,ltt)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(LTT_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-	install $(LTT_DIR)/createdev.sh $(ROOTDIR)/usr/sbin/tracecreatedev
-	cp $(LTT_DIR)/Daemon/Scripts/trace* $(ROOTDIR)/usr/sbin
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTT_BUILDDIR)/Daemon/tracedaemon, \
+		/usr/sbin/tracedaemon)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTT_DIR)/createdev.sh, \
+		/usr/sbin/tracecreatedev, n)
+
+	# FIXME: wildcard copy
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTT_DIR)/Daemon/Scripts/trace*, \
+		/usr/sbin)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -143,6 +160,8 @@ $(STATEDIR)/ltt.targetinstall: $(STATEDIR)/ltt.install
 # ----------------------------------------------------------------------------
 
 ltt_clean: 
-	rm -rf $(STATEDIR)/ltt.* $(LTT_DIR)
+	rm -rf $(STATEDIR)/ltt.* 
+	rm -rf $(IMAGEDIR)/ltt_* 
+	rm -rf $(LTT_DIR)
 
 # vim: syntax=make

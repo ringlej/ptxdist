@@ -59,6 +59,7 @@ $(STATEDIR)/nmap.extract: $(STATEDIR)/nmap.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(NMAP_DIR))
 	@$(call extract, $(NMAP_SOURCE))
+	@$(call patchin, $(NMAP))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -145,17 +146,26 @@ endif
 
 $(STATEDIR)/nmap.targetinstall: $(nmap_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -D $(NMAP_DIR)/nmap $(ROOTDIR)/usr/bin/nmap
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/nmap
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,nmap)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(NMAP_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(NMAP_DIR)/nmap, /usr/bin/nmap)
 
 ifdef PTXCONF_NMAP_SERVICES
-	mkdir -p $(ROOTDIR)/usr/share/nmap
-	install -m 644 $(NMAP_DIR)/nmap-os-fingerprints $(ROOTDIR)/usr/share/nmap/nmap-os-fingerprints
-	install -m 644 $(NMAP_DIR)/nmap-service-probes $(ROOTDIR)/usr/share/nmap/nmap-service-probes
-	install -m 644 $(NMAP_DIR)/nmap-services $(ROOTDIR)/usr/share/nmap/nmap-services
-	install -m 644 $(NMAP_DIR)/nmap-protocols $(ROOTDIR)/usr/share/nmap/nmap-protocols
-	install -m 644 $(NMAP_DIR)/nmap-rpc $(ROOTDIR)/usr/share/nmap/nmap-rpc
+	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-os-fingerprints, /usr/share/nmap/nmap-os-fingerprints, n)
+	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-service-probes, /usr/share/nmap/nmap-service-probes, n)
+	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-services, /usr/share/nmap/nmap-services, n)
+	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-protocols, /usr/share/nmap/nmap-protocols, n)
+	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-rpc, /usr/share/nmap/nmap-rpc, n)
 endif
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -163,6 +173,8 @@ endif
 # ----------------------------------------------------------------------------
 
 nmap_clean: 
-	rm -rf $(STATEDIR)/nmap.* $(NMAP_DIR)
+	rm -rf $(STATEDIR)/nmap.* 
+	rm -rf $(IMAGEDIR)/nmap_* 
+	rm -rf $(NMAP_DIR)
 
 # vim: syntax=make

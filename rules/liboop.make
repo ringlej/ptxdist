@@ -54,6 +54,7 @@ $(STATEDIR)/liboop.extract: $(liboop_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBOOP_DIR))
 	@$(call extract, $(LIBOOP_SOURCE))
+	@$(call patchin, $(LIBOOP))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -103,7 +104,7 @@ liboop_compile_deps = $(STATEDIR)/liboop.prepare
 
 $(STATEDIR)/liboop.compile: $(liboop_compile_deps)
 	@$(call targetinfo, $@)
-	$(LIBOOP_PATH) make -C $(LIBOOP_DIR)
+	cd $(LIBOOP_DIR) && $(LIBOOP_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -114,7 +115,7 @@ liboop_install: $(STATEDIR)/liboop.install
 
 $(STATEDIR)/liboop.install: $(STATEDIR)/liboop.compile
 	@$(call targetinfo, $@)
-	$(LIBOOP_PATH) make -C $(LIBOOP_DIR) install
+	cd $(LIBOOP_DIR) && $(LIBOOP_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -127,9 +128,21 @@ liboop_targetinstall_deps = $(STATEDIR)/liboop.compile
 
 $(STATEDIR)/liboop.targetinstall: $(liboop_targetinstall_deps)
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/lib
-	cp -a $(PTXCONF_PREFIX)/lib/liboop.so* $(ROOTDIR)/usr/lib/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/liboop.so*
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,liboop)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(LIBOOP_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	# FIXME: wildcard copy
+	@$(call install_copy, 0, 0, 0644, $(PTXCONF_PREFIX)/lib/liboop.so*, /usr/lib/)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -138,6 +151,7 @@ $(STATEDIR)/liboop.targetinstall: $(liboop_targetinstall_deps)
 
 liboop_clean:
 	rm -rf $(STATEDIR)/liboop.*
+	rm -rf $(IMAGEDIR)/liboop_*
 	rm -rf $(LIBOOP_DIR)
 
 # vim: syntax=make

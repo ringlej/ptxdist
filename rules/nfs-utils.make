@@ -18,7 +18,8 @@ endif
 #
 # Paths and names 
 #
-NFSUTILS		= nfs-utils-1.0.6-ptx4
+NFSUTILS_VERSION	= 1.0.6-ptx4
+NFSUTILS		= nfs-utils-$(NFSUTILS_VERSION)
 NFSUTILS_URL		= http://www.pengutronix.de/software/nfs-utils/$(NFSUTILS).tar.gz
 NFSUTILS_SOURCE		= $(SRCDIR)/$(NFSUTILS).tar.gz
 NFSUTILS_DIR		= $(BUILDDIR)/$(NFSUTILS)
@@ -138,77 +139,83 @@ nfsutils_targetinstall: $(STATEDIR)/nfsutils.targetinstall
 $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 	@$(call targetinfo, $@)
 
-	install -d $(ROOTDIR)/etc/init.d
-	install -d $(ROOTDIR)/usr/lib/
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,nfsutils)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(NFSUTILS_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_CLIENTSCRIPT))
-	install $(NFSUTILS_DIR)/etc/nodist/nfs-client $(ROOTDIR)/etc/init.d/
+	@$(call install_copy, 0, 0, 0644, $(NFSUTILS_DIR)/etc/nodist/nfs-client, /etc/init.d/nfs-client, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_FUNCTIONSSCRIPT))
-	install $(NFSUTILS_DIR)/etc/nodist/nfs-functions $(ROOTDIR)/etc/init.d/
+	@$(call install_copy, 0, 0, 0644, $(NFSUTILS_DIR)/etc/nodist/nfs-functions, /etc/init.d/nfs-functions, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_SERVERSCRIPT))
-	install $(NFSUTILS_DIR)/etc/nodist/nfs-server $(ROOTDIR)/etc/init.d/
+	@$(call install_copy, 0, 0, 0644, $(NFSUTILS_DIR)/etc/nodist/nfs-server, /etc/init.d/nfs-server, n)
         endif
 
-	mkdir -p $(ROOTDIR)/sbin
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_EXPORTFS))
-	install $(NFSUTILS_DIR)/utils/exportfs/.libs/exportfs $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/exportfs
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/exportfs/.libs/exportfs, /sbin/exportfs)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_LOCKD))
-	install $(NFSUTILS_DIR)/utils/lockd/.libs/lockd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/lockd
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/lockd/.libs/lockd, /sbin/lockd)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_MOUNTD))
-	install $(NFSUTILS_DIR)/utils/mountd/.libs/mountd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/mountd
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/mountd/.libs/mountd, /sbin/mountd)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NFSD))
-	install $(NFSUTILS_DIR)/utils/nfsd/.libs/nfsd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nfsd
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nfsd/.libs/nfsd, /sbin/nfsd)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NFSSTAT))
-	install $(NFSUTILS_DIR)/utils/nfsstat/.libs/nfsstat $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nfsstat
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nfsstat/.libs/nfsstat, /sbin/nfsstat)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSGRAPH))
 	# don't strip, this is a shell script
-	install $(NFSUTILS_DIR)/utils/nhfsstone/nhfsgraph $(ROOTDIR)/sbin/
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsgraph, /sbin/nhfsgraph, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSNUMS))
-	install $(NFSUTILS_DIR)/utils/nhfsstone/nhfsnums $(ROOTDIR)/sbin/
 	# don't strip, this is a shell script
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsnums, /sbin/nhfsnums, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSRUN))
-	install $(NFSUTILS_DIR)/utils/nhfsstone/nhfsrun $(ROOTDIR)/sbin/
 	# don't strip, this is a shell script
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsrun, /sbin/nhfsrun, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSSTONE))
-	install $(NFSUTILS_DIR)/utils/nhfsstone/.libs/nhfsstone $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/nhfsstone
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/.libs/nhfsstone, /sbin/nhfsstone)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_SHOWMOUNT))
-	install $(NFSUTILS_DIR)/utils/showmount/.libs/showmount $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/showmount
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/showmount/.libs/showmount, /sbin/showmount)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_STATD))
-	install $(NFSUTILS_DIR)/utils/statd/.libs/statd $(ROOTDIR)/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/statd
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/statd/.libs/statd, /sbin/statd)
         endif
 	# copy nessesary libs
-	install $(NFSUTILS_DIR)/support/export/.libs/libexport.so.0.0.0 $(ROOTDIR)/usr/lib/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libexport.so.0.0.0
-	install $(NFSUTILS_DIR)/support/nfs/.libs/libnfs.so.0.0.0 $(ROOTDIR)/usr/lib/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libnfs.so.0.0.0
-	install $(NFSUTILS_DIR)/support/misc/.libs/libmisc.so.0.0.0 $(ROOTDIR)/usr/lib/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libmisc.so.0.0.0
+	@$(call install_copy, 0, 0, 0644, \
+		$(NFSUTILS_DIR)/support/export/.libs/libexport.so.0.0.0, \
+		/usr/lib/libexport.so.0.0.0)
+	@$(call install_copy, 0, 0, 0644, \
+		$(NFSUTILS_DIR)/support/nfs/.libs/libnfs.so.0.0.0, \
+		/usr/lib/libnfs.so.0.0.0)
+	@$(call install_copy, 0, 0, 0644, \
+		$(NFSUTILS_DIR)/support/misc/.libs/libmisc.so.0.0.0, \
+		/usr/lib/libmisc.so.0.0.0)
 
 	# create stuff necessary for nfs
 	rm -rf $(ROOTDIR)/var/lib/nfs 
-	install -d $(ROOTDIR)/var/lib/nfs
+	$(call install_copy, 0, 0, 0755, /var/lib/nfs)
+
+	# FIXME: ipkgize
 	touch $(ROOTDIR)/var/lib/nfs/etab
 	touch $(ROOTDIR)/var/lib/nfs/rmtab
 	touch $(ROOTDIR)/var/lib/nfs/xtab
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -216,6 +223,8 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 # ----------------------------------------------------------------------------
 
 nfsutils_clean: 
-	rm -rf $(STATEDIR)/nfsutils.* $(NFSUTILS_DIR)
+	rm -rf $(STATEDIR)/nfsutils.* 
+	rm -rf $(IMAGEDIR)/nfsutils_* 
+	rm -rf $(NFSUTILS_DIR)
 
 # vim: syntax=make

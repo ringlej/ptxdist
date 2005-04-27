@@ -20,7 +20,8 @@ endif
 #
 # Paths and names 
 #
-PDKSH			= pdksh-5.2.14
+PDKSK_VERSION		= 5.2.14
+PDKSH			= pdksh-$(PDKSK_VERSION)
 PDKSH_URL		= ftp://ftp.cs.mun.ca/pub/pdksh/$(PDKSH).tar.gz 
 PDKSH_SOURCE		= $(SRCDIR)/$(PDKSH).tar.gz
 PDKSH_DIR		= $(BUILDDIR)/$(PDKSH)
@@ -49,6 +50,7 @@ $(STATEDIR)/pdksh.extract: $(STATEDIR)/pdksh.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(PDKSH_DIR))
 	@$(call extract, $(PDKSH_SOURCE))
+	@$(call patchin, $(PDKSH))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -144,7 +146,7 @@ pdksh_compile: $(STATEDIR)/pdksh.compile
 
 $(STATEDIR)/pdksh.compile: $(STATEDIR)/pdksh.prepare 
 	@$(call targetinfo, $@)
-	$(PDKSH_PATH) make -C $(PDKSH_DIR)
+	cd $(PDKSH_DIR) && $(PDKSH_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -165,9 +167,19 @@ pdksh_targetinstall: $(STATEDIR)/pdksh.targetinstall
 
 $(STATEDIR)/pdksh.targetinstall: $(STATEDIR)/pdksh.install
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/bin
-	install $(PDKSH_DIR)/ksh $(ROOTDIR)/bin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/bin/ksh
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,pdksh)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(PDKSH_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0755, $(PDKSH_DIR)/ksh, /bin/ksh)
+	
+	@$(call install_finish
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -175,6 +187,8 @@ $(STATEDIR)/pdksh.targetinstall: $(STATEDIR)/pdksh.install
 # ----------------------------------------------------------------------------
 
 pdksh_clean: 
-	rm -rf $(STATEDIR)/pdksh.* $(PDKSH_DIR)
+	rm -rf $(STATEDIR)/pdksh.* 
+	rm -rf $(IMAGEDIR)/pdksh_* 
+	rm -rf $(PDKSH_DIR)
 
 # vim: syntax=make

@@ -18,7 +18,8 @@ endif
 #
 # Paths and names 
 #
-BASH			= bash-3.0
+BASH_VERSION		= 3.0
+BASH			= bash-$(BASH_VERSION)
 BASH_URL		= $(PTXCONF_SETUP_GNUMIRROR)/bash/$(BASH).tar.gz 
 BASH_SOURCE		= $(SRCDIR)/$(BASH).tar.gz
 BASH_DIR		= $(BUILDDIR)/$(BASH)
@@ -237,10 +238,21 @@ bash_targetinstall: $(STATEDIR)/bash.targetinstall
 
 $(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.compile
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/bin
-	install $(BASH_DIR)/bash $(ROOTDIR)/bin/bash
-	ln -sf bash $(ROOTDIR)/bin/sh
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/bin/bash
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,BASH)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(BASH_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0755, $(BASH_DIR)/bash, /bin/bash)
+	@$(call install_link, bash, /bin/sh)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -248,6 +260,9 @@ $(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.compile
 # ----------------------------------------------------------------------------
 
 bash_clean: 
-	rm -rf $(STATEDIR)/bash.* $(STATEDIR)/bash-patches.get $(BASH_DIR)
+	rm -rf $(STATEDIR)/bash.* 
+	rm -rf $(IMAGEDIR)/bash_* 
+	rm -fr $(STATEDIR)/bash-patches.get 
+	rm -fr $(BASH_DIR)
 
 # vim: syntax=make

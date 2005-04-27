@@ -114,9 +114,20 @@ etherwake_targetinstall_deps = $(STATEDIR)/etherwake.compile
 
 $(STATEDIR)/etherwake.targetinstall: $(etherwake_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/usr/sbin
-	install  $(ETHERWAKE_DIR)/etherwake $(ROOTDIR)/usr/sbin
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/etherwake
+	
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,etherwake)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(ETHERWAKE_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0755, $(ETHERWAKE_DIR)/etherwake, /usr/sbin)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -125,6 +136,7 @@ $(STATEDIR)/etherwake.targetinstall: $(etherwake_targetinstall_deps)
 
 etherwake_clean:
 	rm -rf $(STATEDIR)/etherwake.*
+	rm -rf $(IMAGEDIR)/etherwake_*
 	rm -rf $(ETHERWAKE_DIR)
 
 # vim: syntax=make

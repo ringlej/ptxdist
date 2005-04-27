@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# RSC: FIXME: make this a hosttool
+
 #
 # Paths and names
 #

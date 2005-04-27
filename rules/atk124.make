@@ -56,6 +56,7 @@ $(STATEDIR)/atk.extract: $(atk_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ATK_DIR))
 	@$(call extract, $(ATK_SOURCE))
+	@$(call patchin, $(ATK))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -125,11 +126,22 @@ atk_targetinstall_deps	=  $(STATEDIR)/atk.compile
 $(STATEDIR)/atk.targetinstall: $(atk_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	install -d $(ROOTDIR)
-	rm -f $(ROOTDIR)/lib/libatk-1.0.so*
-	install $(ATK_DIR)/atk/.libs/libatk-1.0.so.0.$(ATK_LIB_VERSION) $(ROOTDIR)/lib/
-	ln -s libatk-1.0.so.0.$(ATK_LIB_VERSION) $(ROOTDIR)/lib/libatk-1.0.so.0
-	ln -s libatk-1.0.so.0.$(ATK_LIB_VERSION) $(ROOTDIR)/lib/libatk-1.0.so
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,atk)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(ATK_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0644, \
+		$(ATK_DIR)/atk/.libs/libatk-1.0.so.0.$(ATK_LIB_VERSION), \
+		/usr/lib/libatk-1.0.so.o.$(ATK_LIB_VERSION))
+	@$(call install_link, libatk-1.0.so.0.$(ATK_LIB_VERSION), /usr/lib/libatk-1.0.so.0)
+	@$(call install_link, libatk-1.0.so.0.$(ATK_LIB_VERSION), /usr/lib/libatk-1.0.so)
+
+	@$(call install_finish)
 
 	touch $@
 
@@ -139,6 +151,7 @@ $(STATEDIR)/atk.targetinstall: $(atk_targetinstall_deps)
 
 atk_clean:
 	rm -rf $(STATEDIR)/atk.*
+	rm -rf $(IMAGEDIR)/atk_*
 	rm -rf $(ATK_DIR)
 	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/atk*.pc
 

@@ -21,10 +21,10 @@ endif
 #
 LIBXML2_VERSION	= 2.6.2
 LIBXML2		= libxml2-$(LIBXML2_VERSION)
-LIBXML2_SUFFIX		= tar.bz2
-LIBXML2_URL		= ftp://ftp.gnome.org/pub/GNOME/sources/libxml2/2.6//$(LIBXML2).$(LIBXML2_SUFFIX)
-LIBXML2_SOURCE		= $(SRCDIR)/$(LIBXML2).$(LIBXML2_SUFFIX)
-LIBXML2_DIR		= $(BUILDDIR)/$(LIBXML2)
+LIBXML2_SUFFIX	= tar.bz2
+LIBXML2_URL	= ftp://ftp.gnome.org/pub/GNOME/sources/libxml2/2.6//$(LIBXML2).$(LIBXML2_SUFFIX)
+LIBXML2_SOURCE	= $(SRCDIR)/$(LIBXML2).$(LIBXML2_SUFFIX)
+LIBXML2_DIR	= $(BUILDDIR)/$(LIBXML2)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -54,6 +54,7 @@ $(STATEDIR)/libxml2.extract: $(libxml2_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXML2_DIR))
 	@$(call extract, $(LIBXML2_SOURCE))
+	@$(call patchin, $(LIBXML2))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -99,7 +100,7 @@ libxml2_compile_deps = $(STATEDIR)/libxml2.prepare
 
 $(STATEDIR)/libxml2.compile: $(libxml2_compile_deps)
 	@$(call targetinfo, $@)
-	$(LIBXML2_PATH) make -C $(LIBXML2_DIR)
+	cd $(LIBXML2_DIR) && $(LIBXML2_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -110,7 +111,7 @@ libxml2_install: $(STATEDIR)/libxml2.install
 
 $(STATEDIR)/libxml2.install: $(STATEDIR)/libxml2.compile
 	@$(call targetinfo, $@)
-	$(LIBXML2_PATH) make -C $(LIBXML2_DIR) install
+	cd $(LIBXML2_DIR) && $(LIBXML2_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -124,9 +125,23 @@ libxml2_targetinstall_deps = $(STATEDIR)/libxml2.compile \
 
 $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps)
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/usr/lib
-	cp -d $(LIBXML2_DIR)/.libs/libxml2.so* $(ROOTDIR)/usr/lib/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libxml2.so*
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,libxml2)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(LIBXML2_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	# FIXME: wildcard copy? 
+	@$(call install_copy, 0, 0, 0644, \
+		$(LIBXML2_DIR)/.libs/libxml2.so*, \
+		/usr/lib/)
+	
+	@$(call install_finish)
+	
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -135,6 +150,7 @@ $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps)
 
 libxml2_clean:
 	rm -rf $(STATEDIR)/libxml2.*
+	rm -rf $(IMAGEDIR)/libxml2_*
 	rm -rf $(LIBXML2_DIR)
 
 # vim: syntax=make

@@ -9,6 +9,8 @@
 # see the README file.
 #
 
+# FIXME: ipkgize
+
 #
 # We provide this package
 #
@@ -55,6 +57,7 @@ $(STATEDIR)/rtnet.extract: $(rtnet_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTNET_DIR))
 	@$(call extract, $(RTNET_SOURCE))
+	@$(call patchin, $(RTNET))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -303,6 +306,7 @@ endif
 
 rtnet_clean:
 	rm -rf $(STATEDIR)/rtnet.*
+	rm -rf $(IMAGEDIR)/rtnet_*
 	rm -rf $(RTNET_DIR)
 
 # vim: syntax=make

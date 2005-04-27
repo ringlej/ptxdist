@@ -54,6 +54,7 @@ $(STATEDIR)/sysvinit.extract: $(sysvinit_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSVINIT_DIR))
 	@$(call extract, $(SYSVINIT_SOURCE))
+	@$(call patchin, $(SYSVINIT))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -90,7 +91,7 @@ sysvinit_compile_deps = $(STATEDIR)/sysvinit.prepare
 
 $(STATEDIR)/sysvinit.compile: $(sysvinit_compile_deps)
 	@$(call targetinfo, $@)
-	$(SYSVINIT_PATH) $(SYSVINIT_ENV) make -C $(SYSVINIT_DIR)
+	cd $(SYSVINIT_DIR) && $(SYSVINIT_PATH) $(SYSVINIT_ENV) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -114,7 +115,22 @@ sysvinit_targetinstall_deps = $(STATEDIR)/sysvinit.compile
 
 $(STATEDIR)/sysvinit.targetinstall: $(sysvinit_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,sysvinit)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(SYSVINIT_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	# FIXME: this should be fixed
 	$(SYSVINIT_PATH) ROOT=$(ROOTDIR) make -C $(SYSVINIT_DIR) install
+	$(SYSVINIT_PATH) ROOT=$(IMAGEIR)/ipkg make -C $(SYSVINIT_DIR) install
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -123,6 +139,7 @@ $(STATEDIR)/sysvinit.targetinstall: $(sysvinit_targetinstall_deps)
 
 sysvinit_clean:
 	rm -rf $(STATEDIR)/sysvinit.*
+	rm -rf $(IMAGEDIR)/sysvinit_*
 	rm -rf $(SYSVINIT_DIR)
 
 # vim: syntax=make

@@ -111,8 +111,20 @@ clementine_targetinstall_deps	=  $(STATEDIR)/clementine.compile
 
 $(STATEDIR)/clementine.targetinstall: $(clementine_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/usr/X11R6/bin
-	install $(CLEMENTINE_DIR)/clementine $(ROOTDIR)/usr/X11R6/bin/
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,clementine)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(CLEMENTINE_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0755, $(CLEMENTINE_DIR)/clementine, /usr/X11R6/bin/clementine)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -121,6 +133,7 @@ $(STATEDIR)/clementine.targetinstall: $(clementine_targetinstall_deps)
 
 clementine_clean:
 	rm -rf $(STATEDIR)/clementine.*
+	rm -rf $(IMAGEDIR)/clementine_*
 	rm -rf $(CLEMENTINE_DIR)
 
 # vim: syntax=make

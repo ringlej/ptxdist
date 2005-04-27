@@ -267,32 +267,32 @@ endif
 $(STATEDIR)/dropbear.targetinstall: $(dropbear_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	install -d $(ROOTDIR)/usr/bin
-	install -d $(ROOTDIR)/usr/sbin
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,dropbear)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(DROPBEAR_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
 ifdef PTXCONF_DROPBEAR_DROPBEAR
-	install $(DROPBEAR_DIR)/dropbear \
-		$(ROOTDIR)/usr/sbin/dropbear
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/dropbear
+	@$(call install_copy, 0, 0, 0755, $(DROPBEAR_DIR)/dropbear, /usr/sbin/dropbear)
 endif
 
 ifdef PTXCONF_DROPBEAR_DROPBEAR_KEY
-	install $(DROPBEAR_DIR)/dropbearkey \
-		$(ROOTDIR)/usr/bin/dropbearkey
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/dropbearkey
+	@$(call install_copy, 0, 0, 0755, $(DROPBEAR_DIR)/dropbearkey, /usr/sbin/dropbearkey)
 endif
 
 ifdef PTXCONF_DROPBEAR_DROPBEAR_CONVERT
-	install $(DROPBEAR_DIR)/dropbearconvert \
-		$(ROOTDIR)/usr/sbin/dropbearconvert
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/dropbearconvert
+	@$(call install_copy, 0, 0, 0755, $(DROPBEAR_DIR)/dropbearconvert, /usr/sbin/dropbearconvert)
 endif
 
 ifdef PTXCONF_DROPBEAR_SCP
-	install $(DROPBEAR_DIR)/scp \
-		$(ROOTDIR)/usr/bin/scp
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/scp
+	@$(call install_copy, 0, 0, 0755, $(DROPBEAR_DIR)/scp, /usr/bin/scp)
 endif
+
+	@$(call install_finish)
 
 	touch $@
 
@@ -302,6 +302,7 @@ endif
 
 dropbear_clean:
 	rm -rf $(STATEDIR)/dropbear.*
+	rm -rf $(IMAGEDIR)/dropbear_*
 	rm -rf $(DROPBEAR_DIR)
 
 # vim: syntax=make

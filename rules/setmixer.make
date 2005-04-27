@@ -19,7 +19,8 @@ endif
 #
 # Paths and names
 #
-SETMIXER		= setmixer_27DEC94.orig
+SETMIXER_VERSION	= 27DEC94
+SETMIXER		= setmixer_$(SETMIXER_VERSION).orig
 SETMIXER_SUFFIX		= tar.gz
 SETMIXER_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/setmixer/$(SETMIXER).$(SETMIXER_SUFFIX)
 SETMIXER_SOURCE		= $(SRCDIR)/$(SETMIXER).$(SETMIXER_SUFFIX)
@@ -53,6 +54,7 @@ $(STATEDIR)/setmixer.extract: $(setmixer_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SETMIXER_DIR))
 	@$(call extract, $(SETMIXER_SOURCE))
+	@$(call patchin, $(SETMIXER))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -110,8 +112,20 @@ setmixer_targetinstall_deps = $(STATEDIR)/setmixer.compile
 
 $(STATEDIR)/setmixer.targetinstall: $(setmixer_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install $(SETMIXER_DIR)/setmixer $(ROOTDIR)/usr/bin
-	$(CROSSSTRIP) $(ROOTDIR)/usr/bin/setmixer
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,setmixer)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(SETMIXER_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0755, $(SETMIXER_DIR)/setmixer, /usr/bin/setmixer)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -120,6 +134,7 @@ $(STATEDIR)/setmixer.targetinstall: $(setmixer_targetinstall_deps)
 
 setmixer_clean:
 	rm -rf $(STATEDIR)/setmixer.*
+	rm -rf $(IMAGEDIR)/setmixer_*
 	rm -rf $(SETMIXER_DIR)
 
 # vim: syntax=make

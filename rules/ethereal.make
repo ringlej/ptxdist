@@ -136,6 +136,7 @@ ethereal_install: $(STATEDIR)/ethereal.install
 
 $(STATEDIR)/ethereal.install: $(STATEDIR)/ethereal.compile
 	@$(call targetinfo, $@)
+	# FIXME: RSC: why do we do that on install, not on targetinstall? 
 	cd $(ETHEREAL_DIR) && $(ETHEREAL_ENV) $(ETHEREAL_PATH) make install
 	touch $@
 

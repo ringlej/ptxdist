@@ -54,6 +54,7 @@ $(STATEDIR)/konq-e.extract: $(konq-e_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KONQ-E_DIR))
 	@$(call extract, $(KONQ-E_SOURCE))
+	@$(call patchin, $(KONQ-E))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -98,7 +99,7 @@ konq-e_compile_deps =  $(STATEDIR)/konq-e.prepare
 
 $(STATEDIR)/konq-e.compile: $(konq-e_compile_deps)
 	@$(call targetinfo, $@)
-	$(KONQ-E_PATH) $(KONQ-E_ENV) make -C $(KONQ-E_DIR)
+	cd $(KONQ-E_DIR) && $(KONQ-E_PATH) $(KONQ-E_ENV) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -109,7 +110,8 @@ konq-e_install: $(STATEDIR)/konq-e.install
 
 $(STATEDIR)/konq-e.install: $(STATEDIR)/konq-e.compile
 	@$(call targetinfo, $@)
-	$(KONQ-E_PATH) $(KONQ-E_ENV) make -C $(KONQ-E_DIR) install
+	# FIXME: RSC: shouldn't this be target-install? 
+	cd $(KONQ-E_DIR) && $(KONQ-E_PATH) $(KONQ-E_ENV) make install
 	touch $@
 
 # ----------------------------------------------------------------------------

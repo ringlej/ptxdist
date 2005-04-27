@@ -129,8 +129,21 @@ python_targetinstall: $(STATEDIR)/python.targetinstall
 $(STATEDIR)/python.targetinstall: $(STATEDIR)/python.compile
 	@$(call targetinfo, $@)
 
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,python)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(PYTHON_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	# FIXME: RSC: ipkgize in a cleaner way
+
 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
 		altbininstall DESTDIR=$(ROOTDIR)
+	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
+		altbininstall DESTDIR=$(IMAGEDIR)/ipkg
 
 #	umask 022 && \
 #		$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
@@ -146,7 +159,9 @@ $(STATEDIR)/python.targetinstall: $(STATEDIR)/python.compile
 #		oldsharedinstall DESTDIR=$(ROOTDIR)
 
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/python2.3
+	$(CROSSSTRIP) -R .note -R .comment $(IMAGEDIR)/ipkg/usr/bin/python2.3
 
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -155,6 +170,7 @@ $(STATEDIR)/python.targetinstall: $(STATEDIR)/python.compile
 
 python_clean: 
 	rm -rf $(STATEDIR)/python.*
+	rm -rf $(IMAGEDIR)/python_*
 	rm -fr $(PYTHON_DIR)
 	rm -fr $(PYTHON_BUILDDIR)
 

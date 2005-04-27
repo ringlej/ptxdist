@@ -54,6 +54,7 @@ $(STATEDIR)/xalf.extract: $(xalf_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XALF_DIR))
 	@$(call extract, $(XALF_SOURCE))
+	@$(call patchin, $(XALF))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -124,8 +125,20 @@ xalf_targetinstall_deps	=  $(STATEDIR)/xalf.compile
 
 $(STATEDIR)/xalf.targetinstall: $(xalf_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install $(XALF_DIR)/src/xalf $(ROOTDIR)/usr/bin
-	$(CROSSSTRIP) $(ROOTDIR)/usr/bin/xalf
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,xalf)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(XALF_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(XALF_DIR)/src/xalf, /usr/bin/xalf)
+	
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -134,6 +147,7 @@ $(STATEDIR)/xalf.targetinstall: $(xalf_targetinstall_deps)
 
 xalf_clean:
 	rm -rf $(STATEDIR)/xalf.*
+	rm -rf $(IMAGEDIR)/xalf_*
 	rm -rf $(XALF_DIR)
 
 # vim: syntax=make

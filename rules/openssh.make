@@ -26,7 +26,8 @@ endif
 #
 # Paths and names 
 #
-OPENSSH			= openssh-3.9p1
+OPENSSH_VERSION		= 3.9p1
+OPENSSH			= openssh-$(OPENSSH_VERSION)
 OPENSSH_URL 		= ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).tar.gz
 OPENSSH_SOURCE		= $(SRCDIR)/$(OPENSSH).tar.gz
 OPENSSH_DIR 		= $(BUILDDIR)/$(OPENSSH)
@@ -162,7 +163,7 @@ openssh_compile: $(STATEDIR)/openssh.compile
 
 $(STATEDIR)/openssh.compile: $(STATEDIR)/openssh.prepare 
 	@$(call targetinfo, $@)
-	$(OPENSSH_PATH) make -C $(OPENSSH_DIR)
+	cd $(OPENSSH_DIR) && $(OPENSSH_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -189,38 +190,45 @@ openssh_targetinstall_deps = \
 $(STATEDIR)/openssh.targetinstall: $(openssh_targetinstall_deps)
 	@$(call targetinfo, $@)
 
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,openssh)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(OPENSSH_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
 ifdef PTXCONF_OPENSSH_SSH
-	install -m 644 -D $(OPENSSH_DIR)/ssh_config.out $(ROOTDIR)/etc/ssh/ssh_config
-	install -m 755 -D $(OPENSSH_DIR)/ssh $(ROOTDIR)/usr/bin/ssh
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/ssh
+	@$(call install_copy, 0, 0, 0644, $(OPENSSH_DIR)/ssh_config.out, /etc/ssh/ssh_config, n)
+	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/ssh, /usr/bin/ssh)
 endif
 
 ifdef PTXCONF_OPENSSH_SSHD
-	install -m 644 -D $(OPENSSH_DIR)/moduli.out $(ROOTDIR)/etc/ssh/moduli
-	install -m 644 -D $(OPENSSH_DIR)/sshd_config.out $(ROOTDIR)/etc/ssh/sshd_config
+	@$(call install_copy, 0, 0, 0644, $(OPENSSH_DIR)/moduli.out, /etc/ssh/moduli, n)
+	@$(call install_copy, 0, 0, 0644, $(OPENSSH_DIR)/sshd_config.out, /etc/ssh/sshd_config, n)
 	perl -p -i -e "s/#PermitRootLogin yes/PermitRootLogin yes/" \
-	$(ROOTDIR)/etc/ssh/sshd_config
-	install -m 755 -D $(OPENSSH_DIR)/sshd $(ROOTDIR)/usr/sbin/sshd
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/sbin/sshd
+		$(ROOTDIR)/etc/ssh/sshd_config
+	perl -p -i -e "s/#PermitRootLogin yes/PermitRootLogin yes/" \
+		$(IMAGEDIR)/ipkg/etc/ssh/sshd_config
+	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/sshd, /usr/sbin/sshd)
 endif
 
 ifdef PTXCONF_OPENSSH_SCP
-	install -m 755 -D $(OPENSSH_DIR)/scp $(ROOTDIR)/usr/bin/scp
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/scp
+	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/scp, /usr/bin/scp)
 endif
 
 ifdef PTXCONF_OPENSSH_SFTP_SERVER
-	install -m 755 -D $(OPENSSH_DIR)/sftp-server $(ROOTDIR)/usr/sbin/sftp-server
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/sbin/sftp-server
+	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/sftp-server, /usr/sbin/sftp-server)
 endif
 
 ifdef PTXCONF_OPENSSH_KEYGEN
 	# FIXME: if this is the only file in this directory move it
 	# to somewhere else (patch, echo << EOF?) [RSC]
-	install -m 755 -D $(MISCDIR)/openssh-host-keygen.sh $(ROOTDIR)/sbin/openssh-host-keygen.sh
-	install -m 755 -D $(OPENSSH_DIR)/ssh-keygen $(ROOTDIR)/usr/bin/ssh-keygen
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/bin/ssh-keygen
+	@$(call install_copy, 0, 0, 0755, $(MISCDIR)/openssh-host-keygen.sh, /sbin/openssh-host-keygen.sh, n)
+	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/ssh-keygen, /usr/bin/ssh-keygen)
 endif
+	@$(call install_finish)
 
 	touch $@
 
@@ -229,6 +237,8 @@ endif
 # ----------------------------------------------------------------------------
 
 openssh_clean: 
-	rm -rf $(STATEDIR)/openssh* $(OPENSSH_DIR)
+	rm -rf $(STATEDIR)/openssh.* 
+	rm -rf $(IMAGEDIR)/openssh_* 
+	rm -rf $(OPENSSH_DIR)
 
 # vim: syntax=make

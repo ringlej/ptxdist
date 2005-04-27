@@ -117,8 +117,20 @@ dhcp_targetinstall_deps = $(STATEDIR)/dhcp.compile
 
 $(STATEDIR)/dhcp.targetinstall: $(dhcp_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -c -m 755 $(DHCP_DIR)/work.linux-2.2/server/dhcpd $(ROOTDIR)/usr/sbin
-	$(CROSSSTRIP) -R .notes -R .comment $(ROOTDIR)/usr/sbin/dhcpd
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,dhcp)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(DHCP_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0755, $(DHCP_DIR)/work.linux-2.2/server/dhcpd, /usr/sbin/dhcpd)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -127,6 +139,7 @@ $(STATEDIR)/dhcp.targetinstall: $(dhcp_targetinstall_deps)
 
 dhcp_clean:
 	rm -rf $(STATEDIR)/dhcp.*
+	rm -rf $(IMAGEDIR)/dhcp_*
 	rm -rf $(DHCP_DIR)
 
 # vim: syntax=make

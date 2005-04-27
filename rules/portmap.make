@@ -84,8 +84,8 @@ PORTMAP_MAKEVARS	= WRAP_DIR=$(CROSS_LIB_DIR)/lib
 
 $(STATEDIR)/portmap.compile: $(STATEDIR)/portmap.prepare
 	@$(call targetinfo, $@)
-	$(PORTMAP_ENV) $(PORTMAP_PATH) \
-		make -C $(PORTMAP_DIR) $(PORTMAP_MAKEVARS)
+	cd $(PORTMAP_DIR) && 						\
+		$(PORTMAP_ENV) $(PORTMAP_PATH) make $(PORTMAP_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -106,11 +106,21 @@ portmap_targetinstall: $(STATEDIR)/portmap.targetinstall
 
 $(STATEDIR)/portmap.targetinstall: $(STATEDIR)/portmap.install
 	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,portmap)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(PORTMAP_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
 ifdef PTXCONF_PORTMAP_INSTALL_PORTMAPPER
-	mkdir -p $(ROOTDIR)/sbin
-	install $(PORTMAP_DIR)/portmap $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/portmap
+
+	@$(call install_copy, 0, 0, 0755, $(PORTMAP_DIR)/portmap, /sbin/portmap)
 endif
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -118,6 +128,8 @@ endif
 # ----------------------------------------------------------------------------
 
 portmap_clean: 
-	rm -rf $(STATEDIR)/portmap.* $(PORTMAP_DIR)
+	rm -rf $(STATEDIR)/portmap.* 
+	rm -rf $(IMAGEDIR)/portmap_* 
+	rm -rf $(PORTMAP_DIR)
 
 # vim: syntax=make

@@ -19,7 +19,8 @@ endif
 #
 # Paths and names 
 #
-PPP		= ppp-2.4.1
+PPP_VERSION	= 2.4.1
+PPP		= ppp-$(PPP_VERSION)
 PPP_URL		= ftp://ftp.samba.org/pub/ppp/$(PPP).tar.gz
 PPP_SOURCE	= $(SRCDIR)/$(PPP).tar.gz
 PPP_DIR		= $(BUILDDIR)/$(PPP)
@@ -133,13 +134,20 @@ ppp_targetinstall: $(STATEDIR)/ppp.targetinstall
 
 $(STATEDIR)/ppp.targetinstall: $(STATEDIR)/ppp.compile
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/usr/sbin
-	install $(PPP_DIR)/pppd/pppd $(ROOTDIR)/usr/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/pppd
 
-	install $(PPP_DIR)/chat/chat $(ROOTDIR)/usr/sbin/
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/sbin/chat
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,ppp)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(PPP_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0755, $(PPP_DIR)/pppd/pppd, /usr/sbin/pppd)
+	@$(call install_copy, 0, 0, 0755, $(PPP_DIR)/chat/chat, /usr/sbin/chat)
 
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -147,7 +155,8 @@ $(STATEDIR)/ppp.targetinstall: $(STATEDIR)/ppp.compile
 # ----------------------------------------------------------------------------
 
 ppp_clean: 
-	-rm -rf $(STATEDIR)/ppp* 
+	-rm -rf $(STATEDIR)/ppp.* 
+	-rm -rf $(IMAGEDIR)/ppp_* 
 	-rm -rf $(PPP_DIR) 
 
 # vim: syntax=make

@@ -55,6 +55,7 @@ $(STATEDIR)/gtk1210.extract: $(gtk1210_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK1210_DIR))
 	@$(call extract, $(GTK1210_SOURCE))
+	@$(call patchin, $(GTK1210))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -129,15 +130,30 @@ gtk1210_targetinstall_deps	+= $(STATEDIR)/glib1210.targetinstall
 $(STATEDIR)/gtk1210.targetinstall: $(gtk1210_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-# glib 
-	install $(GTK1210_DIR)/gdk/.libs/libgdk-1.2.so.0.9.1 $(ROOTDIR)/lib
-	ln -sf libgdk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgdk-1.2.so.0
-	ln -sf libgdk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgdk-1.2.so
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,gtk1210)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(GTK1210_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-# gtk
-	install $(GTK1210_DIR)/gtk/.libs/libgtk-1.2.so.0.9.1 $(ROOTDIR)/lib
-	ln -sf libgtk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgtk-1.2.so.0
-	ln -sf libgtk-1.2.so.0.9.1 $(ROOTDIR)/lib/libgtk-1.2.so
+	# gdk
+	@$(call install_copy, 0, 0, 0644, \
+		$(GTK1210_DIR)/gdk/.libs/libgdk-1.2.so.0.9.1, \
+		/usr/lib/libgdk-1.2.so.0.9.1)
+	@$(call install_link, libgdk-1.2.so.0.9.1, /usr/lib/libgdk-1.2.so.0)
+	@$(call install_link, libgdk-1.2.so.0.9.1, /usr/lib/libgdk-1.2.so)
+
+	# gtk
+	@$(call install_copy, 0, 0, 0644, \
+		$(GTK1210_DIR)/gtk/.libs/libgtk-1.2.so.0.9.1, \
+		/usr/lib/libgtk-1.2.so.0.9.1)
+	@$(call install_link, libgtk-1.2.so.0.9.1, /usr/lib/libgtk-1.2.so.0)
+	@$(call install_link, libgtk-1.2.so.0.9.1, /usr/lib/libgtk-1.2.so)
+
+	@$(call install_finish)
 
 	touch $@
 
@@ -147,6 +163,7 @@ $(STATEDIR)/gtk1210.targetinstall: $(gtk1210_targetinstall_deps)
 
 gtk1210_clean:
 	rm -rf $(STATEDIR)/gtk1210.*
+	rm -rf $(IMAGEDIR)/gtk1210_*
 	rm -rf $(GTK1210_DIR)
 
 # vim: syntax=make

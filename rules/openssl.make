@@ -20,7 +20,8 @@ endif
 #
 # Paths and names 
 #
-OPENSSL			= openssl-0.9.7d
+OPENSSL_VERSION		= 0.9.7d
+OPENSSL			= openssl-$(OPENSSL_VERSION)
 OPENSSL_URL 		= http://www.openssl.org/source/$(OPENSSL).tar.gz
 OPENSSL_SOURCE		= $(SRCDIR)/$(OPENSSL).tar.gz
 OPENSSL_DIR 		= $(BUILDDIR)/$(OPENSSL)
@@ -126,8 +127,8 @@ $(STATEDIR)/openssl.compile: $(STATEDIR)/openssl.prepare
 #
 # generate openssl.pc with correct path inside
 #
-	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) INSTALLTOP=$(CROSS_LIB_DIR) openssl.pc
-	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) $(OPENSSL_MAKEVARS)
+	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) make INSTALLTOP=$(CROSS_LIB_DIR) openssl.pc
+	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) make $(OPENSSL_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -164,15 +165,29 @@ openssl_targetinstall_deps = \
 
 $(STATEDIR)/openssl.targetinstall: $(openssl_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,openssl)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(OPENSSL_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
 ifdef PTXCONF_OPENSSL_SHARED
 	mkdir -p $(ROOTDIR)/usr/lib
 
-	cp -d $(OPENSSL_DIR)/libssl.so* $(ROOTDIR)/usr/lib/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libssl.so*
+	# FIXME: wildcard copy
+	@$(call install_copy, 0, 0, 0644, \
+		$(OPENSSL_DIR)/libssl.so*, \
+		/usr/lib/)
 
-	cp -d $(OPENSSL_DIR)/libcrypto.so* $(ROOTDIR)/usr/lib/
-	$(CROSSSTRIP) -S -R .note -R .comment $(ROOTDIR)/usr/lib/libcrypto.so*
+	@$(call install_copy, 0, 0, 0644, \
+		$(OPENSSL_DIR)/libcrypto.so*, \
+		/usr/lib/)
 endif
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -180,6 +195,8 @@ endif
 # ----------------------------------------------------------------------------
 
 openssl_clean: 
-	rm -rf $(STATEDIR)/openssl.* $(OPENSSL_DIR)
+	rm -rf $(STATEDIR)/openssl.* 
+	rm -rf $(IMAGEDIR)/openssl_* 
+	rm -rf $(OPENSSL_DIR)
 
 # vim: syntax=make

@@ -54,6 +54,7 @@ $(STATEDIR)/thttpd.extract: $(thttpd_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(THTTPD_DIR))
 	@$(call extract, $(THTTPD_SOURCE))
+	@$(call patchin, $(THTTPD))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -121,10 +122,19 @@ thttpd_targetinstall_deps = $(STATEDIR)/thttpd.compile
 
 $(STATEDIR)/thttpd.targetinstall: $(thttpd_targetinstall_deps)
 	@$(call targetinfo, $@)
-	mkdir -p $(ROOTDIR)/sbin
-	cd $(THTTPD_DIR) && \
-	$(INSTALL) -m 555 thttpd $(ROOTDIR)/sbin
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/sbin/thttpd
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,thttpd)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(THTTPD_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0555, (THTTPD_DIR)/thttpd, /sbin/thttpd)
+
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -133,6 +143,7 @@ $(STATEDIR)/thttpd.targetinstall: $(thttpd_targetinstall_deps)
 
 thttpd_clean:
 	rm -rf $(STATEDIR)/thttpd.*
+	rm -rf $(IMAGEDIR)/thttpd_*
 	rm -rf $(THTTPD_DIR)
 
 # vim: syntax=make

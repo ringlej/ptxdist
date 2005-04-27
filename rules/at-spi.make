@@ -54,6 +54,7 @@ $(STATEDIR)/at-spi.extract: $(at-spi_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(AT-SPI_DIR))
 	@$(call extract, $(AT-SPI_SOURCE))
+	@$(call patchin, $(AT-SPI))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -97,8 +98,7 @@ at-spi_compile_deps = $(STATEDIR)/at-spi.prepare
 
 $(STATEDIR)/at-spi.compile: $(at-spi_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(AT-SPI_DIR) && \
-	   $(AT-SPI_PATH) make 
+	cd $(AT-SPI_DIR) && $(AT-SPI_PATH) make 
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -109,8 +109,7 @@ at-spi_install: $(STATEDIR)/at-spi.install
 
 $(STATEDIR)/at-spi.install: $(STATEDIR)/at-spi.compile
 	@$(call targetinfo, $@)
-	cd $(AT-SPI_DIR) && \       
-	   $(AT-SPI_PATH) make install
+	cd $(AT-SPI_DIR) && $(AT-SPI_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -123,6 +122,7 @@ at-spi_targetinstall_deps = $(STATEDIR)/at-spi.compile
 
 $(STATEDIR)/at-spi.targetinstall: $(at-spi_targetinstall_deps)
 	@$(call targetinfo, $@)
+	# FIXME: something to add to the target for at-spi? 
 	touch $@
 
 # ----------------------------------------------------------------------------

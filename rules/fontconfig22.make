@@ -144,11 +144,24 @@ fontconfig22_targetinstall_deps +=	$(STATEDIR)/freetype.targetinstall
 
 $(STATEDIR)/fontconfig22.targetinstall: $(fontconfig22_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)
-	rm -f $(ROOTDIR)/lib/libfontconfig.so*
-	install $(FONTCONFIG22_DIR)/src/.libs/libfontconfig.so.1.0.4 $(ROOTDIR)/lib/
-	ln -sf libfontconfig.so.1.0.4 $(ROOTDIR)/lib/libfontconfig.so.1
-	ln -sf libfontconfig.so.1.0.4 $(ROOTDIR)/lib/libfontconfig.so
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,fontconfig22)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(FONTCONFIG22_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0644, \
+		$(FONTCONFIG22_DIR)/src/.libs/libfontconfig.so.1.0.4, \
+		/usr/lib/libfontconfig.so.1.0.4)
+	@$(call install_link, libfontconfig.so.1.0.4, /usr/lib/libfontconfig.so.1)
+	@$(call install_link, libfontconfig.so.1.0.4, /usr/lib/libfontconfig.so)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -157,6 +170,7 @@ $(STATEDIR)/fontconfig22.targetinstall: $(fontconfig22_targetinstall_deps)
 
 fontconfig22_clean:
 	rm -rf $(STATEDIR)/fontconfig22.*
+	rm -rf $(IMAGEDIR)/fontconfig22_*
 	rm -rf $(FONTCONFIG22_DIR)
 
 # vim: syntax=make

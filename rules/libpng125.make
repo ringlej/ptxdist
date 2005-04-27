@@ -129,10 +129,24 @@ libpng125_targetinstall_deps	=  $(STATEDIR)/libpng125.compile
 
 $(STATEDIR)/libpng125.targetinstall: $(libpng125_targetinstall_deps)
 	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/lib
-	install $(LIBPNG125_DIR)/libpng12.so.0.1.2.5 $(ROOTDIR)/lib
-	ln -sf libpng12.so.0.1.2.5 $(ROOTDIR)/lib/libpng12.so.0
-	ln -sf libpng12.so.0.1.2.5 $(ROOTDIR)/lib/libpng12.so
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,libpng125)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(LIBPNG125_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+	
+	@$(call install_copy, 0, 0, 0644, \
+		$(LIBPNG125_DIR)/libpng12.so.0.1.2.5, \
+		/usr/lib/libpng12.so.0.1.2.5)
+	@$(call install_link, libpng12.so.0.1.2.5, /usr/lib/libpng12.so.0)
+	@$(call install_link, libpng12.so.0.1.2.5, /usr/lib/libpng12.so)
+	
+	@$(call install_finish)
+	
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -141,6 +155,7 @@ $(STATEDIR)/libpng125.targetinstall: $(libpng125_targetinstall_deps)
 
 libpng125_clean:
 	rm -rf $(STATEDIR)/libpng125.*
+	rm -rf $(IMAGEDIR)/libpng125_*
 	rm -rf $(LIBPNG125_DIR)
 
 # vim: syntax=make

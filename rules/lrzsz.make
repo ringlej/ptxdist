@@ -10,6 +10,8 @@
 # see the README file.
 #
 
+# FIXME: this packet does nothing. 
+
 #
 # We provide this package
 #
@@ -55,6 +57,7 @@ $(STATEDIR)/lrzsz.extract: $(lrzsz_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LSZRZ_DIR))
 	@$(call extract, $(LSZRZ_SOURCE))
+	@$(call patchin, $(LSZRZ))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -97,7 +100,7 @@ lrzsz_compile_deps =  $(STATEDIR)/lrzsz.prepare
 
 $(STATEDIR)/lrzsz.compile: $(lrzsz_compile_deps)
 	@$(call targetinfo, $@)
-	$(LSZRZ_PATH) make -C $(LSZRZ_DIR)
+	cd $(LSZRZ_DIR) && $(LSZRZ_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -128,6 +131,7 @@ $(STATEDIR)/lrzsz.targetinstall: $(lrzsz_targetinstall_deps)
 
 lrzsz_clean:
 	rm -rf $(STATEDIR)/lrzsz.*
+	rm -rf $(IMAGEDIR)/lrzsz_*
 	rm -rf $(LSZRZ_DIR)
 
 # vim: syntax=make

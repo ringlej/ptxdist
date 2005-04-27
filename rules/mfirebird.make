@@ -467,32 +467,41 @@ mfirebird_targetinstall_deps	+= $(STATEDIR)/glib22.targetinstall
 $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	# cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make install DESTDIR=$(ROOTDIR)
-	install -d $(ROOTDIR)/usr/lib
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,mfirebird)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(MFIREBIRD_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
-	install $(MFIREBIRD_DIR)/dist/lib/libgkgfx.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libgtkembedmoz.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libgtkxtbin.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libjsj.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libmozjs.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libmozz.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libnspr4.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libnss3.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libplds4.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libplc4.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libsmime3.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libsoftokn3.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libssl3.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libxpcom.so $(ROOTDIR)/usr/lib
-	install $(MFIREBIRD_DIR)/dist/lib/libxpcom_compat.so $(ROOTDIR)/usr/lib
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libgkgfx.so, /usr/lib/libgkgfx.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libgtkembedmoz.so, /usr/lib/libgtkembedmoz.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libgtkxtbin.so, /usr/lib/libgtkxtbin.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libjsj.so, /usr/lib/libjsj.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libmozjs.so, /usr/lib/libmozjs.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libmozz.so, /usr/lib/libmozz.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libnspr4.so, /usr/lib/libnspr4.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libnss3.so, /usr/lib/libnss3.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libplds4.so, /usr/lib/libplds4.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libplc4.so, /usr/lib/libplc4.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libsmime3.so, /usr/lib/libsmime3.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libsoftokn3.so, /usr/lib/libsoftokn3.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libssl3.so, /usr/lib/libssl3.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libxpcom.so, /usr/lib/libxpcom.so)
+	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libxpcom_compat.so, /usr/lib/libxpcom_compat.so)
 
-	install -d $(ROOTDIR)/usr/lib/mozilla-1.6
 #	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/components $(ROOTDIR)/usr/lib/mozilla-1.6
 #	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/chrome $(ROOTDIR)/usr/lib/mozilla-1.6
 #	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/res $(ROOTDIR)/usr/lib/mozilla-1.6
 
 # BSP: Quick and ... 
-	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6 $(ROOTDIR)/usr/lib/
+	for file in $(CROSS_LIB_DIR)/lib/mozilla-1.6/*; do 			\
+		$(call install_copy, 0, 0, 0755, $$file, /usr/lib/)		\
+	done
+
+	@$(call install_finish)
 
 	touch $@
 
@@ -502,6 +511,7 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 
 mfirebird_clean:
 	rm -rf $(STATEDIR)/mfirebird.*
+	rm -rf $(IMAGEDIR)/mfirebird_*
 	rm -rf $(MFIREBIRD_DIR)
 
 # vim: syntax=make
