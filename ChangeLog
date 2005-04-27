@@ -1,5 +1,6 @@
 2005-04-27 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* memstat: added
 	* TODO: updated
 	* ipkg: several packets ipkgized
 	* Makefile: added ipkg consistency test
