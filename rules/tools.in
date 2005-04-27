@@ -8,6 +8,7 @@ config FIGLET
 
 config MEMEDIT
 	bool
+	default N
 	select READLINE
 	prompt "Compile memedit"
 	help
@@ -15,6 +16,14 @@ config MEMEDIT
 	  a file or pseudo file representing a memory device 
 	  (for example memory mapped I/O or FPGA memory) and
 	  let's you edit it's contents from a command line.
+
+config MEMSTAT
+	bool
+	default N
+	prompt "Compile memstat"
+	help
+	  memstat is a memory diagnose tool which lets you find
+ 	  out which process uses how much virtual memory. 
 
 config CANCONFIG
 	bool
