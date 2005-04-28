@@ -146,10 +146,10 @@ $(STATEDIR)/ltt.targetinstall: $(STATEDIR)/ltt.install
 		$(LTT_DIR)/createdev.sh, \
 		/usr/sbin/tracecreatedev, n)
 
-	# FIXME: wildcard copy
-	@$(call install_copy, 0, 0, 0755, \
-		$(LTT_DIR)/Daemon/Scripts/trace*, \
-		/usr/sbin)
+	@$(call install_copy, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/trace, /usr/sbin/trace, n)
+	@$(call install_copy, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/tracecore, /usr/sbin/tracecore, n)
+	@$(call install_copy, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/tracecpuid, /usr/sbin/tracecpuid, n)
+	@$(call install_copy, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/traceu, /usr/sbin/traceu, n)
 
 	@$(call install_finish)
 
