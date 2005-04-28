@@ -179,7 +179,7 @@ $(STATEDIR)/pdksh.targetinstall: $(STATEDIR)/pdksh.install
 	
 	@$(call install_copy, 0, 0, 0755, $(PDKSH_DIR)/ksh, /bin/ksh)
 	
-	@$(call install_finish
+	@$(call install_finish)
 	touch $@
 
 # ----------------------------------------------------------------------------
