@@ -22,7 +22,7 @@ endif
 LIBNET_VERSION	= 1.1.0
 LIBNET		= libnet-$(LIBNET_VERSION)
 LIBNET_SUFFIX	= tar.gz
-LIBNET_URL	= http://www.packetfactory.net/libnet/dist/$(LIBNET).$(LIBNET_SUFFIX)
+LIBNET_URL	= http://www.packetfactory.net/libnet/dist/old/$(LIBNET).$(LIBNET_SUFFIX)
 LIBNET_SOURCE	= $(SRCDIR)/$(LIBNET).$(LIBNET_SUFFIX)
 LIBNET_DIR	= $(BUILDDIR)/Libnet-latest
 
