@@ -1,3 +1,8 @@
+2005-04-28 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libnet: fixed download path
+	* util-linux: patch to compile cfdisk, by Garry Thomas
+
 2005-04-27 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* memstat: added
