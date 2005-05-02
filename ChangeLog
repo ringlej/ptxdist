@@ -1,5 +1,7 @@
 2005-05-02 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* apache, php: added support for apache and PHP; patch by 
+	  Jiri Nesladek
 	* fltk: fixed wildcard install; patch by Steven Scholz
 	* troll-ftpd: fixed typo; patch by Pauli Anttila 
 	  and Ladislav Michl
