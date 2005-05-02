@@ -157,6 +157,7 @@ help:
 	@echo "  make prepare                 Prepare the configured system for compilation"
 	@echo "  make compile                 Compile the packages"
 	@echo "  make install                 Install to rootdirectory"
+	@echo "  make images                  Build root filesystem images"
 	@echo "  make clean                   Remove everything but local/"
 	@echo "  make rootclean               Remove root directory contents"
 	@echo "  make distclean               Clean everything"
