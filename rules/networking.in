@@ -12,6 +12,7 @@ source "rules/shorewall.in"
 endmenu
 
 menu   "Networking Apps     "
+source "rules/apache.in"
 source "rules/betaftpd.in"
 source "rules/bind.in"
 source "rules/bing.in"

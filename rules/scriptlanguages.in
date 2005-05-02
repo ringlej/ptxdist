@@ -1,5 +1,24 @@
 comment "Scripting Languages"
 
+config PHP
+	bool
+	prompt "PHP4"
+
+config PHP_CLI
+	bool
+	prompt "Build CLI version of PHP"
+	depends on PHP
+
+config PHP_APACHE
+	bool
+	prompt "Build shared Apache 1.x module"
+	depends on PHP && APACHE
+
+config PHP_APC
+	bool
+	prompt "Build Alternative PHP-cache"
+	depends PHP
+
 comment "Python requires libdl on the target (see C Library)"
 	depends on !GLIBC_DL && !UCLIBC_DL
 
@@ -9,3 +28,4 @@ config PYTHON23
 	depends on GLIBC_DL || UCLIBC_DL
 	select GLIBC_UTIL if GLIBC
 	select GCCLIBS_CXX
+

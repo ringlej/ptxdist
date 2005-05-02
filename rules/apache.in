@@ -1,0 +1,8 @@
+menu	"Apache HTTP server "
+
+config APACHE
+	bool
+	prompt "Compile Apache HTTP server"
+	select EXPAT
+
+endmenu
