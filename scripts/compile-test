@@ -41,7 +41,7 @@ echo result...: $PTX_RESULT >> $3
 echo >> $3
 
 # save logfile
-logfile logs/$2.log
+mv logfile logs/$2.log
 
 # save root filesystem 
 # FIXME: use image mechanism...
