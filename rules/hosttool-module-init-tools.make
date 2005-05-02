@@ -60,6 +60,7 @@ hosttool-module-init-tools_prepare_deps = $(STATEDIR)/hosttool-module-init-tools
 
 HOSTTOOLS_MODULE_INIT_TOOLS_PATH	= PATH=$(CROSS_PATH) 
 HOSTTOOLS_MODULE_INIT_TOOLS_ENV 	= $(HOSTCC_ENV)
+HOSTTOOLS_MODULE_INIT_TOOLS_MAKEVARS	= MANS=''
 HOSTTOOLS_MODULE_INIT_TOOLS_AUTOCONF 	= \
 	--prefix=$(PTXCONF_PREFIX) \
 	--build=$(GNU_HOST) \
@@ -83,7 +84,9 @@ hosttool-module-init-tools_compile_deps = $(STATEDIR)/hosttool-module-init-tools
 
 $(STATEDIR)/hosttool-module-init-tools.compile: $(hosttool-module-init-tools_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOLS_MODULE_INIT_TOOLS_DIR) && $(HOSTTOOLS_MODULE_INIT_TOOLS_PATH) make
+	cd $(HOSTTOOLS_MODULE_INIT_TOOLS_DIR) && \
+		$(HOSTTOOLS_MODULE_INIT_TOOLS_PATH) make \
+			$(HOSTTOOLS_MODULE_INIT_TOOLS_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -99,7 +102,9 @@ endif
 
 $(STATEDIR)/hosttool-module-init-tools.install: $(hosttool-module-init-tools_install_deps)
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOLS_MODULE_INIT_TOOLS_DIR) && $(HOSTTOOLS_MODULE_INIT_TOOLS_PATH) make install
+	cd $(HOSTTOOLS_MODULE_INIT_TOOLS_DIR) && \
+		$(HOSTTOOLS_MODULE_INIT_TOOLS_PATH) make install \
+			$(HOSTTOOLS_MODULE_INIT_TOOLS_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
