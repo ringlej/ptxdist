@@ -1141,11 +1141,18 @@ install_fixup = 									\
 install_init =											\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then						\
 		PACKET=$(strip $(1));								\
-		echo -n "install_init: preparing for image creation...";			\
+		echo "install_init: preparing for image creation...";				\
 		rm -fr $(IMAGEDIR)/ipkg;							\
 		mkdir -p $(IMAGEDIR)/ipkg/CONTROL; 						\
 		cp -f $(TOPDIR)/rules/default.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;		\
-		perl -i -p -e "s,\@ARCH@,$(PTXCONF_ARCH),g" $(IMAGEDIR)/ipkg/CONTROL/control;	\
+		if [ -z $(PTXCONF_IMAGE_IPKG_ARCH) ]; then					\
+			echo "Error: please specify an architecure name for ipkg!";		\
+			exit -1;								\
+		fi;										\
+		REPLACE_FROM="ARCH";								\
+		REPLACE_TO=$(PTXCONF_IMAGE_IPKG_ARCH);						\
+		echo -n "install_init:   @$$REPLACE_FROM@ -> $$REPLACE_TO ... ";	 	\
+		perl -i -p -e "s,\@$$REPLACE_FROM@,$$REPLACE_TO,g" $(IMAGEDIR)/ipkg/CONTROL/control;	\
 		echo "done";									\
 	fi
 
