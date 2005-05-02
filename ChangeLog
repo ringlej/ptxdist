@@ -1,3 +1,7 @@
+2005-05-02 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* fltk: fixed wildcard install; patch by Steven Scholz
+
 2005-04-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* libnet: fixed download path

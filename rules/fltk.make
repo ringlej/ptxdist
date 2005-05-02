@@ -162,8 +162,18 @@ $(STATEDIR)/fltk.targetinstall: $(fltk_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,libc)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	# FIXME: use correct path to build dir here!
-	@$(call install_copy, 0, 0, 0644, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk*.so*, /lib)
+	@$(call install_copy, 0, 0, 0644, \
+		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk.so.1.1, \
+		/usr/lib/libfltk.so.1.1)
+	@$(call install_copy, 0, 0, 0644, \
+		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk_forms.so.1.1, \
+		/usr/lib/libfltk_forms.so.1.1)
+	@$(call install_copy, 0, 0, 0644, \
+		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk_images.so.1.1, \
+		/usr/lib/libfltk_images.so.1.1)
+	@$(call install_link, libfltk.so.1.1, /usr/lib/libfltk.so)
+	@$(call install_link, libfltk_forms.so.1.1, /usr/lib/libfltk_forms.so)
+	@$(call install_link, libfltk_images.so.1.1, /usr/lib/libfltk_images.so)
 	
 	@$(call install_finish)
 
