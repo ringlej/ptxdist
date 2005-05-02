@@ -4,6 +4,7 @@
 	* troll-ftpd: fixed typo; patch by Pauli Anttila 
 	  and Ladislav Michl
 	* mgetty: fixed path; patch by Pauli Anttila and Ladislav Michl
+	* modutils: fixed URL; patch by Pauli Anttila and Ladislav Michl
 
 2005-04-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
