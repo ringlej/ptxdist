@@ -1,5 +1,6 @@
 2005-05-02 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* coreutils: added patchin; patch by Benedikt Spranger
 	* hosttool-ipkg: typo; patch by Steven Scholz
 	* bonnie++: path fix; patch by Steven Scholz
 	* rootfs: added configurable arch for ipkgs; patch 
