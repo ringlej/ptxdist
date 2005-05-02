@@ -14,7 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PCMCIA-CS
+ifdef PTXCONF_PCMCIA_TOOLS
 PACKAGES += pcmcia-cs
 endif
 
