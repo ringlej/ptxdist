@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.3-svn
-# Wed Apr 27 19:47:31 2005
+# Tue May  3 11:52:56 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -166,6 +166,7 @@ PTXCONF_HOSTTOOLS_MODULE_INIT_TOOLS=y
 # PTXCONF_USE_EXTERNAL_KERNEL is not set
 PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/wystup-2.6.8.1.kernelconfig"
 PTXCONF_KERNEL_2_6=y
+PTXCONF_KERNEL_2_6_COMPILE=y
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
 # PTXCONF_KERNEL_2_4_21 is not set
@@ -858,6 +859,7 @@ PTXCONF_HOTPLUG_INPUT=y
 #
 # Scripting Languages
 #
+# PTXCONF_PHP is not set
 # PTXCONF_PYTHON23 is not set
 
 #
@@ -915,6 +917,11 @@ PTXCONF_OPENSSH_KEYGEN=y
 #
 # Networking Apps     
 #
+
+#
+# Apache HTTP server 
+#
+# PTXCONF_APACHE is not set
 
 #
 # betaftpd            

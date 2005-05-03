@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.3-svn
-# Wed Apr 27 19:47:24 2005
+# Tue May  3 11:52:41 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -891,6 +891,7 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 #
 # Scripting Languages
 #
+# PTXCONF_PHP is not set
 # PTXCONF_PYTHON23 is not set
 
 #
@@ -938,6 +939,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 #
 # Networking Apps     
 #
+
+#
+# Apache HTTP server 
+#
+# PTXCONF_APACHE is not set
 
 #
 # betaftpd            

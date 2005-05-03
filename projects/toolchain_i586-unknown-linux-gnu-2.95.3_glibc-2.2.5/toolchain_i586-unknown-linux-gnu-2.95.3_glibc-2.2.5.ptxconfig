@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.3-svn
-# Wed Apr 27 19:47:28 2005
+# Tue May  3 11:52:54 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -315,6 +315,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # Scripting Languages
 #
+# PTXCONF_PHP is not set
 
 #
 # Python requires libdl on the target (see C Library)
@@ -365,6 +366,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # Networking Apps     
 #
+
+#
+# Apache HTTP server 
+#
+# PTXCONF_APACHE is not set
 
 #
 # betaftpd            
