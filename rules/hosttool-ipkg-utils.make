@@ -113,7 +113,7 @@ $(STATEDIR)/hosttool-ipkg-utils.install: $(STATEDIR)/hosttool-ipkg-utils.compile
 
 hosttool-ipkg-utils_targetinstall: $(STATEDIR)/hosttool-ipkg-utils.targetinstall
 
-hosttool-ipkg-utils_targetinstall_deps = $(STATEDIR)/hosttool-ipkg-utils.compile
+hosttool-ipkg-utils_targetinstall_deps = $(STATEDIR)/hosttool-ipkg-utils.install
 
 $(STATEDIR)/hosttool-ipkg-utils.targetinstall: $(hosttool-ipkg-utils_targetinstall_deps)
 	@$(call targetinfo, $@)
