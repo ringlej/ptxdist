@@ -20,7 +20,7 @@ endif
 #
 # Paths and names 
 #
-OPENSSL_VERSION		= 0.9.7d
+OPENSSL_VERSION		= 0.9.7g
 OPENSSL			= openssl-$(OPENSSL_VERSION)
 OPENSSL_URL 		= http://www.openssl.org/source/$(OPENSSL).tar.gz
 OPENSSL_SOURCE		= $(SRCDIR)/$(OPENSSL).tar.gz
@@ -45,7 +45,7 @@ ifdef PTXCONF_OPT_i586
 	THUD = linux-i386-i586
 endif
 ifdef PTXCONF_OPT_I686
-	THUD = linux-i386-i686
+	THUD = linux-i386-i686/cmov
 endif
 ifdef PTXCONF_ARCH_PPC
 	THUD = linux-ppc
