@@ -8,10 +8,18 @@
 # see the README file.
 #
 
+ifdef PTXCONF_USE_EXTERNAL_KERNEL
+KERNEL_VERSION_MAJOR	:= $(shell sed -ne "s/^VERSION[ ]=[ ]//gp"      $(PTXCONF_KERNEL_DIR)/Makefile)
+KERNEL_VERSION_MINOR	:= $(shell sed -ne "s/^PATCHLEVEL[ ]=[ ]//gp"   $(PTXCONF_KERNEL_DIR)/Makefile)
+KERNEL_VERSION_MICRO	:= $(shell sed -ne "s/^SUBLEVEL[ ]=[ ]//gp"     $(PTXCONF_KERNEL_DIR)/Makefile)
+KERNEL_VERSION_EXTRA	:= $(shell sed -ne "s/^EXTRAVERSION[ ]=//gp"    $(PTXCONF_KERNEL_DIR)/Makefile)
+else
 KERNEL_VERSION_MAJOR	:= $(call get_option, s/^PTXCONF_KERNEL_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\1/)
 KERNEL_VERSION_MINOR	:= $(call get_option, s/^PTXCONF_KERNEL_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\2/)
 KERNEL_VERSION_MICRO	:= $(call get_option, s/^PTXCONF_KERNEL_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\3/)
-KERNEL_VERSION		:= $(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR).$(KERNEL_VERSION_MICRO)
+endif
+
+KERNEL_VERSION		:= $(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR).$(KERNEL_VERSION_MICRO)$(KERNEL_VERSION_EXTRA)
 
 GCC_VERSION_MAJOR	:= $(call get_option, s/^PTXCONF_GCC_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\1/)
 GCC_VERSION_MINOR	:= $(call get_option, s/^PTXCONF_GCC_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\2/)
