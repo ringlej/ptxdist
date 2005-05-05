@@ -1,5 +1,6 @@
 2005-05-05 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* ssmtp: added packet; patch by Steven Scholz
 	* Makefiles: sets the KERNEL_VERSION_xxx variables even 
 	  when anexternal kernel is used; patch by Steven Scholz
 	* openssl: update to 0.9.7g (RSC); fixed configure

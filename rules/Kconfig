@@ -82,6 +82,7 @@ source "rules/efax.in"
 source "rules/mgetty.in"
 source "rules/pop3spam.in"
 source "rules/smtpclient.in"
+source "rules/ssmtp.in"
 
 endmenu
 
