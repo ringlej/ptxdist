@@ -33,6 +33,7 @@ BZCAT		= bzcat
 CAT		= cat
 RM		= rm
 MKDIR		= mkdir
+MKTEMP		= mktemp
 CD		= cd
 MV		= mv
 CP		= cp
