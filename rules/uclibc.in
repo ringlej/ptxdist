@@ -2,30 +2,43 @@ source "config/uClibc-0.9.27/extra/Configs/Config.in"
 
 comment "Install options"
 
+config UCLIBC_INSTALL
+	bool
+	default y if !CROSSTOOL
+	default n if CROSSTOOL
+	prompt "Install uClibc libraries on the target"
+
 config UCLIBC_CRYPT
 	bool
+	depends on UCLIBC_INSTALL
 	prompt "Install libcrypt on the target"
 
 config UCLIBC_DL
 	bool
+	depends on UCLIBC_INSTALL
 	prompt "Install libdl on the target"
 
 config UCLIBC_M
 	bool
+	depends on UCLIBC_INSTALL
 	prompt "Install libm on the target"
 
 config UCLIBC_NSL
 	bool
+	depends on UCLIBC_INSTALL
 	prompt "Install libnsl on the target"
 
 config UCLIBC_PTHREAD
 	bool
+	depends on UCLIBC_INSTALL
 	prompt "Install libpthread on the target"
 
 config UCLIBC_RESOLV
 	bool
+	depends on UCLIBC_INSTALL
 	prompt "Install libresolv on the target"
 
 config UCLIBC_UTIL
 	bool
+	depends on UCLIBC_INSTALL
 	prompt "Install libutil on the target"
