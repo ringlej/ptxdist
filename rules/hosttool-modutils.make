@@ -36,6 +36,7 @@ hosttool-modutils_get_deps = $(HOSTTOOL_MODUTILS_SOURCE)
 
 $(STATEDIR)/hosttool-modutils.get: $(hosttool-modutils_get_deps)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(HOSTTOOL_MODUTILS))
 	touch $@
 
 $(HOSTTOOL_MODUTILS_SOURCE):
@@ -54,6 +55,7 @@ $(STATEDIR)/hosttool-modutils.extract: $(hosttool-modutils_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_MODUTILS_DIR))
 	@$(call extract, $(HOSTTOOL_MODUTILS_SOURCE), $(HOSTTOOLS_BUILDDIR))
+	@$(call patchin, $(HOSTTOOL_MODUTILS), $(HOSTTOOL_MODUTILS_DIR))
 	touch $@
 
 # ----------------------------------------------------------------------------
