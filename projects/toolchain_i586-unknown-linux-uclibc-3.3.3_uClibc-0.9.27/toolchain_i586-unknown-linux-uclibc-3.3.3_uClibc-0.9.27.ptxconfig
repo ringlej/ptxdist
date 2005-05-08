@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.3-svn
-# Tue May  3 11:52:37 2005
+# Sun May  8 15:07:10 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -63,7 +63,7 @@ PTXCONF_TARGET_CONFIG_FILE="i586.dat"
 #
 PTXCONF_ARCH="i386"
 PTXCONF_ARCH_USERSPACE="i386"
-PTXCONF_PREFIX="/opt/crosstool-0.28-rc37"
+PTXCONF_PREFIX="/opt/crosstool-0.32"
 PTXCONF_ROOT=""
 
 #
@@ -142,13 +142,13 @@ PTXCONF_VENDORTWEAKS=""
 # PTXCONF_HOSTTOOLS_E2FSPROGS is not set
 # PTXCONF_HOSTTOOLS_FAKEROOT is not set
 # PTXCONF_HOSTTOOL_IPKG is not set
-PTXCONF_HOSTTOOLS_IPKG_UTILS=y
+# PTXCONF_HOSTTOOL_IPKG_UTILS is not set
 
 #
 # Module Init Tools/Modutils
 #
 # PTXCONF_HOSTTOOLS_MODULE_INIT_TOOLS is not set
-PTXCONF_HOSTTOOLS_MODUTILS=y
+# PTXCONF_HOSTTOOLS_MODUTILS is not set
 
 #
 # Flex
@@ -373,13 +373,7 @@ PTXCONF_UC_DEVEL_PREFIX="/usr/$(TARGET_ARCH)-linux-uclibc/usr/"
 #
 # Install options
 #
-# PTXCONF_UCLIBC_CRYPT is not set
-# PTXCONF_UCLIBC_DL is not set
-# PTXCONF_UCLIBC_M is not set
-# PTXCONF_UCLIBC_NSL is not set
-# PTXCONF_UCLIBC_PTHREAD is not set
-# PTXCONF_UCLIBC_RESOLV is not set
-# PTXCONF_UCLIBC_UTIL is not set
+# PTXCONF_UCLIBC_INSTALL is not set
 
 #
 # GCC Libraries       
@@ -745,6 +739,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
+
+#
+# ssmtp               
+#
+# PTXCONF_SSMTP is not set
 
 #
 # Applications                

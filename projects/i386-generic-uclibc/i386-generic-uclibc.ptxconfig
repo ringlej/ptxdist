@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.3-svn
-# Tue May  3 11:52:38 2005
+# Sun May  8 15:07:27 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -142,7 +142,7 @@ PTXCONF_IMAGE_TGZ=y
 # PTXCONF_HOSTTOOLS_E2FSPROGS is not set
 PTXCONF_HOSTTOOLS_FAKEROOT=y
 # PTXCONF_HOSTTOOL_IPKG is not set
-PTXCONF_HOSTTOOLS_IPKG_UTILS=y
+PTXCONF_HOSTTOOL_IPKG_UTILS=y
 
 #
 # Module Init Tools/Modutils
@@ -359,6 +359,7 @@ PTXCONF_UC_DEVEL_PREFIX="/usr/$(TARGET_ARCH)-linux-uclibc/usr/"
 #
 # Install options
 #
+PTXCONF_UCLIBC_INSTALL=y
 PTXCONF_UCLIBC_CRYPT=y
 PTXCONF_UCLIBC_DL=y
 PTXCONF_UCLIBC_M=y
@@ -1164,6 +1165,11 @@ PTXCONF_UTELNETD=y
 # PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
+
+#
+# ssmtp               
+#
+# PTXCONF_SSMTP is not set
 
 #
 # Applications                

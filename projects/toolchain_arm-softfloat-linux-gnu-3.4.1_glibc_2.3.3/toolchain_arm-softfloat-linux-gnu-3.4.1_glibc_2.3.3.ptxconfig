@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.3-svn
-# Tue May  3 11:52:27 2005
+# Sun May  8 15:07:06 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -155,12 +155,12 @@ PTXCONF_VENDORTWEAKS=""
 # PTXCONF_HOSTTOOLS_E2FSPROGS is not set
 # PTXCONF_HOSTTOOLS_FAKEROOT is not set
 # PTXCONF_HOSTTOOL_IPKG is not set
-PTXCONF_HOSTTOOLS_IPKG_UTILS=y
+# PTXCONF_HOSTTOOL_IPKG_UTILS is not set
 
 #
 # Module Init Tools/Modutils
 #
-PTXCONF_HOSTTOOLS_MODULE_INIT_TOOLS=y
+# PTXCONF_HOSTTOOLS_MODULE_INIT_TOOLS is not set
 # PTXCONF_HOSTTOOLS_MODUTILS is not set
 
 #
@@ -600,6 +600,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
+
+#
+# ssmtp               
+#
+# PTXCONF_SSMTP is not set
 
 #
 # Applications                
