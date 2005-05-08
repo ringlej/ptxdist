@@ -222,14 +222,19 @@ ifdef PTXCONF_IMAGE_TGZ
 	echo "tar -zcvf $(TOPDIR)/images/root.tgz . ") | $(FAKEROOT) --
 endif
 ifdef PTXCONF_IMAGE_JFFS2
-	cd $(ROOTDIR); \
-	($(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions && \
-	( \
-		echo -n "$(PTXCONF_PREFIX)/bin/mkfs.jffs2 -d $(ROOTDIR) "; \
-		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
-		echo -n "$(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS) "; \
-		echo "-o $(TOPDIR)/images/root.jffs2" ) \
-	) | $(FAKEROOT) --
+ifdef PTXCONF_IMAGE_IPKG
+	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(TOPDIR)/scripts/make_image_root.sh	\
+		-i $(IMAGEDIR)							\
+		-p $(TOPDIR)/permissions					\
+		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)				\
+		-o $(TOPDIR)/images/root.jffs2
+else
+	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(TOPDIR)/scripts/make_image_root.sh	\
+		-r $(ROOTDIR)							\
+		-p $(TOPDIR)/permissions					\
+		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)				\
+		-o $(TOPDIR)/images/root.jffs2
+endif
 endif
 ifdef PTXCONF_IMAGE_HD
 	$(TOPDIR)/scripts/genhdimg \
