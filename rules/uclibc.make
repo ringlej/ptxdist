@@ -13,49 +13,11 @@
 # We provide this package
 #
 ifdef PTXCONF_UCLIBC
-ifdef PTXCONF_LIBC
 PACKAGES	+= uclibc
-endif
 DYNAMIC_LINKER	=  /lib/ld-uClibc.so.0
 endif
 
-#
-# Paths and names
-#
-UCLIBC_SUFFIX			= tar.bz2
-UCLIBC				= uClibc-$(UCLIBC_VERSION)
-UCLIBC_URL			= http://www.uclibc.org/downloads/$(UCLIBC).$(UCLIBC_SUFFIX)
-UCLIBC_SOURCE			= $(SRCDIR)/$(UCLIBC).$(UCLIBC_SUFFIX)
-UCLIBC_DIR			= $(BUILDDIR)/$(UCLIBC)
-
-#
-# uClibc config file fixup
-#
-# for uClibc that gets installed on target
-#
-uclibc_fix_config =					\
-	@$(call uclibc_fix_config_general, $(1))
-
-#
-#
-# uClibc config file fixup
-#
-# for uClibc that is used for the xchain
-#
-xchain-uclibc_fix_config =				\
-	@$(call uclibc_fix_config_general, $(1))
-
-#
-#
-#
-uclibc_fix_config_general =							\
-	echo 'KERNEL_SOURCE="$(XCHAIN_KERNEL_BUILDDIR)"'	>> $(1);	\
-	echo 'SHARED_LIB_LOADER_PREFIX="/lib"'			>> $(1);	\
-	echo 'RUNTIME_PREFIX="/"'				>> $(1);	\
-	echo 'DEVEL_PREFIX="$(CROSS_LIB_DIR)"'			>> $(1);	\
-	perl -i -p -e 's/^(.*=)"(.*?)"(.*)"(.*)"/$$1"$$2$$3$$4"/'  $(1);	\
-	perl -i -p -e 's/^(.*=)"(.*?)"(.*)/$$1"$$2$$3"/'           $(1)
-
+UCLIBC = uClibc-$(UCLIBC_VERSION)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -63,16 +25,9 @@ uclibc_fix_config_general =							\
 
 uclibc_get: $(STATEDIR)/uclibc.get
 
-uclibc_get_deps = $(UCLIBC_SOURCE)
-
-$(STATEDIR)/uclibc.get: $(uclibc_get_deps)
+$(STATEDIR)/uclibc.get:
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(UCLIBC))
 	touch $@
-
-$(UCLIBC_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, $(UCLIBC_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -84,9 +39,6 @@ uclibc_extract_deps = $(STATEDIR)/uclibc.get
 
 $(STATEDIR)/uclibc.extract: $(uclibc_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(UCLIBC_DIR))
-	@$(call extract, $(UCLIBC_SOURCE))
-	@$(call patchin, $(UCLIBC))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -95,25 +47,10 @@ $(STATEDIR)/uclibc.extract: $(uclibc_extract_deps)
 
 uclibc_prepare: $(STATEDIR)/uclibc.prepare
 
-UCLIBC_PATH	= PATH=$(CROSS_PATH)
-UCLIBC_MAKEVARS	= CROSS=$(COMPILER_PREFIX) HOSTCC=$(HOSTCC)
-
-#
-# dependencies
-#
 uclibc_prepare_deps =  $(STATEDIR)/uclibc.extract
-uclibc_prepare_deps += $(STATEDIR)/xchain-kernel.install
 
 $(STATEDIR)/uclibc.prepare: $(uclibc_prepare_deps)
 	@$(call targetinfo, $@)
-
-	grep -e PTXCONF_UC_ .config > $(UCLIBC_DIR)/.config
-	perl -i -p -e 's/PTXCONF_UC_//g' $(UCLIBC_DIR)/.config
-	@$(call uclibc_fix_config, $(UCLIBC_DIR)/.config)
-
-	yes "" | $(UCLIBC_PATH) $(MAKE) -C $(UCLIBC_DIR) \
-		$(UCLIBC_MAKEVARS) \
-		oldconfig
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -126,8 +63,6 @@ uclibc_compile_deps = $(STATEDIR)/uclibc.prepare
 
 $(STATEDIR)/uclibc.compile: $(uclibc_compile_deps)
 	@$(call targetinfo, $@)
-#	uClibc does not work with PARALLELMFLAGS
-	$(UCLIBC_PATH) $(MAKE) -C $(UCLIBC_DIR) $(UCLIBC_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -138,13 +73,6 @@ uclibc_install: $(STATEDIR)/uclibc.install
 
 $(STATEDIR)/uclibc.install: $(STATEDIR)/uclibc.compile
 	@$(call targetinfo, $@)
-	$(UCLIBC_PATH) $(MAKE) -C  $(UCLIBC_DIR) \
-		$(UCLIBC_MAKEVARS) \
-		install_dev
-
-	$(UCLIBC_PATH) $(MAKE) -C  $(UCLIBC_DIR) \
-		$(UCLIBC_MAKEVARS) PREFIX=$(CROSS_LIB_DIR) \
-		install_runtime
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -166,42 +94,40 @@ $(STATEDIR)/uclibc.targetinstall: $(uclibc_targetinstall_deps)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,libc)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
-	# FIXME: ipkgize	
-	cp -d $(CROSS_LIB_DIR)/lib/ld-uClibc[-.]*so* $(ROOTDIR)/lib/
 
-	cp -d $(CROSS_LIB_DIR)/lib/libuClibc[-.]*so* $(ROOTDIR)/lib/
-	cd $(CROSS_LIB_DIR)/lib && \
-		ln -sf libuClibc-*.so $(ROOTDIR)/lib/libc.so
-	cd $(CROSS_LIB_DIR)/lib && \
-		ln -sf libuClibc-*.so $(ROOTDIR)/lib/libc.so.0
+ifdef PTXCONF_UCLIBC_INSTALL
+	@$(call install_copy_toolchain_dl, /lib)
+	@$(call install_copy_toolchain_lib, libc.so, /lib)
+	# FIXME: add links	
 
 ifdef PTXCONF_UCLIBC_CRYPT
-	cp -d $(CROSS_LIB_DIR)/lib/libcrypt[-.]*so* $(ROOTDIR)/lib/
+	@$(call install_copy_toolchain_lib, libcrypt.so, /lib)
 endif
 
 ifdef PTXCONF_UCLIBC_DL
-	cp -d $(CROSS_LIB_DIR)/lib/libdl[-.]*so* $(ROOTDIR)/lib/
+	@$(call install_copy_toolchain_lib, libdl.so, /lib)
 endif
 
 ifdef PTXCONF_UCLIBC_M
-	cp -d $(CROSS_LIB_DIR)/lib/libm[-.]*so* $(ROOTDIR)/lib/
+	@$(call install_copy_toolchain_lib, libm.so, /lib)
 endif
 
 ifdef PTXCONF_UCLIBC_NSL
-	cp -d $(CROSS_LIB_DIR)/lib/libnsl[-.]*so* $(ROOTDIR)/lib/
+	@$(call install_copy_toolchain_lib, libnsl.so, /lib)
 endif
 
 ifdef PTXCONF_UCLIBC_PTHREAD
-	cp -d $(CROSS_LIB_DIR)/lib/libpthread[-.]*so* $(ROOTDIR)/lib/
+	@$(call install_copy_toolchain_lib, libpthread.so, /lib)
 endif
 
 ifdef PTXCONF_UCLIBC_RESOLV
-	cp -d $(CROSS_LIB_DIR)/lib/libresolv[-.]*so* $(ROOTDIR)/lib/
+	@$(call install_copy_toolchain_lib, libresolv.so, /lib)
 endif
 
 ifdef PTXCONF_UCLIBC_UTIL
-	cp -d $(CROSS_LIB_DIR)/lib/libutil[-.]*so* $(ROOTDIR)/lib/
+	@$(call install_copy_toolchain_lib, libutil.so, /lib)
+endif
+
 endif
 	@$(call install_finish)
 	
