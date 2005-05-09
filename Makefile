@@ -227,12 +227,14 @@ ifdef PTXCONF_IMAGE_IPKG
 		-i $(IMAGEDIR)							\
 		-p $(TOPDIR)/permissions					\
 		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)				\
+		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)				\
 		-o $(TOPDIR)/images/root.jffs2
 else
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(TOPDIR)/scripts/make_image_root.sh	\
 		-r $(ROOTDIR)							\
 		-p $(TOPDIR)/permissions					\
 		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)				\
+		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)				\
 		-o $(TOPDIR)/images/root.jffs2
 endif
 endif
