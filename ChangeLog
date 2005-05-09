@@ -2,6 +2,8 @@
 
 	* Makefile: added missing jffs2 extra args; patch 
 	  by Steven Scholz
+	* Makefile: fixed output on images clean
+	* Rules.make: sanity check for local patch URLs
 
 2005-05-08 Robert Schwebel <r.schwebel@pengutronix.de>
 
