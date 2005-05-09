@@ -1,3 +1,8 @@
+2005-05-09 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* Makefile: added missing jffs2 extra args; patch 
+	  by Steven Scholz
+
 2005-05-08 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* uclibc, crosstool: ported to crosstool 0.32 and fixed
