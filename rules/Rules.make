@@ -596,6 +596,13 @@ get_patches =											\
 			};									\
 			true;									\
 			;;									\
+		*)										\
+			echo;									\
+			echo "Unknown URL Type for patch!";					\
+			echo "URL: $$URL";							\
+			echo;									\
+			exit -1;								\
+			;;									\
 		esac; 										\
 	done
 
