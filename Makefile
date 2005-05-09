@@ -488,7 +488,11 @@ getclean:
 
 imagesclean:
 	@echo -n "cleaning images dir.............. "
-	@for i in $$(ls -I CVS $(TOPDIR)/images); do echo -n $$i' '; rm -fr $(TOPDIR)/images/"$$i"; done
+	@for i in $$(ls -I CVS $(TOPDIR)/images); do 			\
+		echo -n $$i; 						\
+		rm -rf $(TOPDIR)/images/"$$i"; 				\
+		echo; echo -n "                                  ";	\
+	done
 	@rm -f $(STATEDIR)/images
 	@echo "done."
 
