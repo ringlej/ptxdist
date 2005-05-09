@@ -1,3 +1,10 @@
+2005-05-08 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* uclibc, crosstool: ported to crosstool 0.32 and fixed
+	  the remaining problems. uClibc does now also use the
+	  mechanism from glibc which directly copies the C library
+	  from the toolchain to the target. 
+
 2005-05-05 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ssmtp: added packet; patch by Steven Scholz
