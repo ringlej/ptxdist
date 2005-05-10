@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.3-svn
-# Sun May  8 15:07:28 2005
+# Tue May 10 22:35:13 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -1019,6 +1019,11 @@ PTXCONF_TCPDUMP_DISABLE_CRYPTO=y
 # utelnetd            
 #
 PTXCONF_UTELNETD=y
+
+#
+# wget                
+#
+# PTXCONF_WGET is not set
 
 #
 # Wireless Tools      
