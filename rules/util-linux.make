@@ -138,8 +138,6 @@ $(STATEDIR)/util-linux.install: $(STATEDIR)/util-linux.compile
 util-linux_targetinstall: $(STATEDIR)/util-linux.targetinstall
 
 util-linux_targetinstall_deps	=  $(STATEDIR)/util-linux.compile
-util-linux_targetinstall_deps	+= $(STATEDIR)/hosttool-ipkg-utils.install
-util-linux_targetinstall_deps	+= $(STATEDIR)/hosttool-fakeroot.install
 
 $(STATEDIR)/util-linux.targetinstall: $(util-linux_targetinstall_deps)
 	@$(call targetinfo, $@)
