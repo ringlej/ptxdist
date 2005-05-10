@@ -63,6 +63,8 @@ IPKGCONF=`abspath $IPKGCONF`
 [ -z "$OUTFILE" ]                      && usage "error: specify an output file with -o"
 [ ! -f "$IPKGCONF" ]                   && usage "error: $IPKGCONF does not exist"
 
+echo
+
 #
 # If we use ipkg, prepare a directory for that. For using a plain root
 # directory we just select this. 
@@ -75,14 +77,20 @@ else
 	WORKDIR=$ROOTDIR
 fi
 
+echo
+
 echo "ROOTDIR=$ROOTDIR"
 echo "IPKGDIR=$IPKGDIR"
 echo "PERMISSIONS=$PERMISSIONS"
 echo "ERASEBLOCKSIZE=$ERASEBLOCKSIZE"
 echo "JFFS2EXTRA=$JFFS2EXTRA"
 echo "OUTFILE=$OUTFILE"
+echo "WORKDIR=$WORKDIR"
+
+echo
 
 cd $WORKDIR
+
 if [ -n "$IPKGDIR" ]; then
 	for archive in $IPKGDIR/*.ipk; do
 		ipkg-cl -f $IPKGCONF -force-depends -o . install $archive 1> /dev/null
