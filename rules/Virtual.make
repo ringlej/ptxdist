@@ -18,6 +18,10 @@ ifdef PTXCONF_CROSSTOOL
 virtual-xchain_install_deps	= $(STATEDIR)/crosstool.install
 endif 
 
+ifdef PTXCONF_IMAGE_IPKG
+virtual-xchain_install_deps	= $(STATEDIR)/hosttool-ipkg-utils.install
+endif
+
 $(STATEDIR)/virtual-xchain.install: $(virtual-xchain_install_deps)
 	@$(call targetinfo, $@)
 	touch $@
