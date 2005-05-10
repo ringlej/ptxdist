@@ -123,7 +123,20 @@ $(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
 
 $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
 	@$(call targetinfo, $@)
-	# use $(call install_*) macros here
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,@packet@)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(@PACKET@_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/foobar, /dev/null)
+
+	@$(call install_finish)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
