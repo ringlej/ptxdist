@@ -126,8 +126,14 @@ ipkg_targetinstall_deps = $(STATEDIR)/ipkg.compile
 $(STATEDIR)/ipkg.targetinstall: $(ipkg_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,ipkg)
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,ipkg)
+	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(IPKG_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0644, $(IPKG_DIR)/.libs/libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0.0)
 	@$(call install_link, libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0)
