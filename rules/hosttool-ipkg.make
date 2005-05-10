@@ -69,8 +69,7 @@ hosttool-ipkg_prepare: $(STATEDIR)/hosttool-ipkg.prepare
 # dependencies
 #
 hosttool-ipkg_prepare_deps = \
-	$(STATEDIR)/hosttool-ipkg.extract \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/hosttool-ipkg.extract
 
 HOSTTOOL_IPKG_PATH	=  PATH=$(CROSS_PATH)
 HOSTTOOL_IPKG_ENV 	=  $(HOSTCC_ENV)
