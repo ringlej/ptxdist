@@ -1,3 +1,7 @@
+2005-05-10 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* wget: added
+
 2005-05-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* Makefile: added missing jffs2 extra args; patch 

@@ -39,6 +39,7 @@ source "rules/tcpwrapper.in"
 source "rules/troll-ftpd.in"
 source "rules/thttpd.in"
 source "rules/utelnetd.in"
+source "rules/wget.in"
 source "rules/wireless.in"
 source "rules/zebra.in"
 endmenu
