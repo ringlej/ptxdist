@@ -138,7 +138,10 @@ $(STATEDIR)/xlibs-xext.targetinstall: $(xlibs-xext_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,libc)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
-	@$(call install_root, 0, 0, 0644, $(XLIBS-XEXT_DIR)/.libs/libXext.so.$(XLIBS-XEXT_REAL_VERSION),  /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION))
+	@$(call install_root, 0, 0, 0644, \
+		$(XLIBS-XEXT_DIR)/.libs/libXext.so.$(XLIBS-XEXT_REAL_VERSION),  \
+		/usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION))
+		
 	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION)
 	@$(call install_link, /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION), /usr/X11R6/lib/libXext.so.6)
 	@$(call install_link, /usr/X11R6/lib/libXext.so.$(XLIBS-XEXT_REAL_VERSION), /usr/X11R6/lib/libXext.so)
