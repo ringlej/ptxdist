@@ -276,6 +276,15 @@ endif
 # Configuration system -------------------------------------------------------
 
 ptx_lxdialog:
+	@echo -e "#include \"ncurses.h\"\nint main(void){}" | gcc -E - > /dev/null; 	\
+	if [ "$$?" = "1" ]; then							\
+		echo;									\
+		echo "Error: you don't seem to have ncurses.h; this probably means"; 	\
+		echo "       that you'll have to install some ncurses-devel packet";	\
+		echo "       from your distribution.";					\
+		echo;									\
+		exit 1;									\
+	fi
 	cd scripts/lxdialog && ln -s -f ../ptx-modifications/Makefile.lxdialog.ptx Makefile
 
 scripts/lxdialog/lxdialog: ptx_lxdialog

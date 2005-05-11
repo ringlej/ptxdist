@@ -1,6 +1,7 @@
 2005-05-11 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* expat: fixed links; patch by Ladislav Michl
+	* Makefile: added check for ncurses.h
 
 2005-05-10 Robert Schwebel <r.schwebel@pengutronix.de>
 
