@@ -86,6 +86,30 @@ endif
 	fi
 
 # ----------------------------------------------------------------------------
+# Oldconfig
+# ----------------------------------------------------------------------------
+
+kernel_oldconfig: $(STATEDIR)/kernel.extract
+
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
+	@if [ -f $(KERNEL_CONFIG) ]; then \
+		install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config; \
+	fi
+endif
+
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make oldconfig $(KERNEL_MAKEVARS)
+
+ifndef PTXCONF_USE_EXTERNAL_KERNEL
+	@if [ -f $(KERNEL_DIR)/.config ]; then \
+		install -m 644 $(KERNEL_DIR)/.config $(KERNEL_CONFIG); \
+	fi
+endif
+
+	@if [ -f $(STATEDIR)/kernel.compile ]; then \
+		rm $(STATEDIR)/kernel.compile; \
+	fi
+
+# ----------------------------------------------------------------------------
 # Get patchstack-patches
 # ----------------------------------------------------------------------------
 
