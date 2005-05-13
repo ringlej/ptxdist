@@ -27,7 +27,7 @@ WGET		= \
 	export ptx_ftp_proxy=$(PTXCONF_SETUP_FTP_PROXY); \
 	eval \
 	$${ptx_http_proxy:+http_proxy=$${ptx_http_proxy}} \
-	$${ptx_ftp_proxy:+ftp_proxy=$${ftp_proxy}} \
+	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
 	wget
 MAKE		= make
 PATCH		= patch
