@@ -1170,6 +1170,7 @@ install_init =											\
 # Finishes ipkg packet creation
 #
 install_finish = 													\
+	export LANG=C; 													\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then									\
 		echo -n "install_finish: writing ipkg packet ... ";							\
 		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions; echo "popd;"; 	\
