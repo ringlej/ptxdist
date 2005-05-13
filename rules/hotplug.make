@@ -124,25 +124,25 @@ ifdef PTXCONF_HOTPLUG_BLACKLIST
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/blacklist, /etc/hotplug/blacklist, n)
 endif
 ifdef PTXCONF_HOTPLUG_FIRMWARE
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/firmware.agent, /etc/hotplug/firmware.agent, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/firmware.agent, /etc/hotplug/firmware.agent, n)
 	@$(call install_copy, 0, 0, 0755, /usr/lib/hotplug/firmware)
 endif
 ifdef PTXCONF_HOTPLUG_IEEE1394
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/ieee1394.agent, /etc/hotplug/ieee1394.agent, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/ieee1394.agent, /etc/hotplug/ieee1394.agent, n)
 endif
 ifdef PTXCONF_HOTPLUG_NET
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/net.agent, /etc/hotplug/net.agent, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/net.agent, /etc/hotplug/net.agent, n)
 endif
 ifdef PTXCONF_HOTPLUG_PCI
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/pci.agent, /etc/hotplug/pci.agent, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/pci.agent, /etc/hotplug/pci.agent, n)
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/pci.rc, /etc/hotplug/pci.rc, n)
 	@$(call install_copy, 0, 0, 0755, /etc/hotplug/pci)
 endif
 ifdef PTXCONF_HOTPLUG_SCSI
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/scsi.agent, /etc/hotplug/scsi.agent, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/scsi.agent, /etc/hotplug/scsi.agent, n)
 endif
 ifdef PTXCONF_HOTPLUG_USB
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.agent, /etc/hotplug/usb.agent, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/usb.agent, /etc/hotplug/usb.agent, n)
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.distmap, /etc/hotplug/usb.distmap, n)
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.handmap, /etc/hotplug/usb.handmap, n)
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.usermap, /etc/hotplug/usb.usermap, n)
@@ -150,15 +150,15 @@ ifdef PTXCONF_HOTPLUG_USB
 	@$(call install_copy, 0, 0, 0755, /etc/hotplug/usb.d)
 endif
 ifdef PTXCONF_HOTPLUG_INPUT
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/input.agent, /etc/hotplug/input.agent, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/input.agent, /etc/hotplug/input.agent, n)
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/input.rc, /etc/hotplug/input.rc, n)
 endif
 ifdef PTXCONF_HOTPLUG_DASD
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/dasd.agent, /etc/hotplug/dasd.agent, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/dasd.agent, /etc/hotplug/dasd.agent, n)
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/dasd.permissions, /etc/hotplug/dasd.permissions, n)
 endif
 ifdef PTXCONF_HOTPLUG_TAPE
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/tape.agent, /etc/hotplug/tape.agent, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/tape.agent, /etc/hotplug/tape.agent, n)
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/tape.permissions, /etc/hotplug/tape.permissions, n)
 endif
 
