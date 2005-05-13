@@ -1,3 +1,8 @@
+2005-05-13 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* hotplug: fixed permissions for agents
+	* release: released 0.7.4
+
 2005-05-11 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* expat: fixed links; patch by Ladislav Michl
