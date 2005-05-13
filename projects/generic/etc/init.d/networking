@@ -2,10 +2,15 @@
 
 # some interesting variables
 eth0_current_mac=`ifconfig eth0 | sed -n 's/^.*HWaddr \([0-9A-Za-z:]*\).*/\1/p'`
-eth0_ip=`cat /proc/cmdline | sed -n 's/.*ip=\([^:]*\):.*/\1/gp'`
+eth0_cmdline=`sed -e 's/^.*ip=\([^[:space:]]*\).*$/\1/g' /proc/cmdline`
+eth0_ip=`echo $eth0_cmdline | awk -F':' '{print $1}'`
+eth0_hostname=`echo $eth0_cmdline | awk -F':' '{print $5}'`
+etc_hostname=`cat /etc/hostname`
 
+#
 # check if eth0 is uninitialized and needs to be set up with 
 # MAC address
+#
 
 echo -n "eth0: mac address state: "; 
 
@@ -18,15 +23,36 @@ else
 	echo "initialized [$eth0_mac]"
 fi
 
-# check if we are already listed in /etc/hosts
-# FIXME: put this into deployment script
+#
+# check if hostname is consistent with bootloader
+#
 
-hostname=`hostname`
-if [ -z "`grep $hostname /etc/hosts`" ]; then
-	echo "adding $hostname to /etc/hosts"
+if [ "$etc_hostname" != "$eth0_hostname" ]; then
+	echo -n "setting /etc/hostname to $eth0_hostname..."
 	mount_state=`mount | grep root | sed -n 's/^.*(\(r.\),.*$/\1/p'`
+	echo -n "mounting rw..."
 	mount /dev/root / -o remount,rw
-	echo `ifconfig eth0 | sed -n '/addr:/s/ [^r]*..//gp'` `hostname` >> /etc/hosts
+	echo -n "writing..."
+	echo "$eth0_hostname" > /etc/hostname
+	echo -n "mounting ro..."
 	mount /dev/root / -o remount,$mount_state
+	echo "done."
+fi
+hostname -F /etc/hostname
+
+#
+# check if we are already listed in /etc/hosts
+#
+
+if [ -z "`grep $eth0_hostname /etc/hosts`" ]; then
+	echo -n "adding $eth0_hostname to /etc/hosts..."
+	mount_state=`mount | grep root | sed -n 's/^.*(\(r.\),.*$/\1/p'`
+	echo -n "mounting rw..."
+	mount /dev/root / -o remount,rw
+	echo -n "writing..."
+	echo `ifconfig eth0 | sed -n '/addr:/s/ [^r]*..//gp'` `hostname` >> /etc/hosts
+	echo -n "mounting ro..."
+	mount /dev/root / -o remount,$mount_state
+	echo "done"
 fi
 
