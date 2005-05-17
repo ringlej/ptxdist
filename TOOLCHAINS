@@ -1,62 +1,62 @@
 Automatic Toolchain Compilation
 --------------------------
 
-start: So Mai 8 15:22:24 CEST 2005
+start: Do Mai 12 09:51:32 CEST 2005
 
 config...: toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5
-date.....: So Mai 8 15:22:24 CEST 2005
+date.....: Do Mai 12 09:51:32 CEST 2005
 user.....: robert@himalia
-buildtime: 0h19m27s
+buildtime: 0h20m11s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2
-date.....: So Mai 8 15:42:03 CEST 2005
+date.....: Do Mai 12 10:12:05 CEST 2005
 user.....: robert@himalia
-buildtime: 0h37m37s
+buildtime: 0h38m4s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: So Mai 8 16:20:18 CEST 2005
+date.....: Do Mai 12 10:50:47 CEST 2005
 user.....: robert@himalia
-buildtime: 0h16m46s
+buildtime: 0h16m28s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5
-date.....: So Mai 8 16:37:28 CEST 2005
+date.....: Do Mai 12 11:07:30 CEST 2005
 user.....: robert@himalia
-buildtime: 0h19m41s
+buildtime: 0h18m53s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3
-date.....: So Mai 8 16:57:29 CEST 2005
+date.....: Do Mai 12 11:26:41 CEST 2005
 user.....: robert@himalia
-buildtime: 0h40m4s
+buildtime: 0h40m28s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: So Mai 8 17:38:18 CEST 2005
+date.....: Do Mai 12 12:08:06 CEST 2005
 user.....: robert@himalia
-buildtime: 0h17m28s
+buildtime: 0h17m49s
 result...: 0
 
 config...: toolchain_m68k-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: So Mai 8 17:56:06 CEST 2005
+date.....: Do Mai 12 12:26:17 CEST 2005
 user.....: robert@himalia
-buildtime: 0h13m32s
+buildtime: 0h12m41s
 result...: 0
 
 config...: toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5
-date.....: So Mai 8 18:10:00 CEST 2005
+date.....: Do Mai 12 12:39:16 CEST 2005
 user.....: robert@himalia
-buildtime: 0h32m2s
+buildtime: 0h32m1s
 result...: 0
 
 config...: toolchain_powerpc-604-linux-gnu-3.4.1_glibc-2.3.3
-date.....: So Mai 8 18:42:42 CEST 2005
+date.....: Do Mai 12 13:12:02 CEST 2005
 user.....: robert@himalia
-buildtime: 0h46m22s
+buildtime: 0h46m54s
 result...: 0
 
 
-stop: So Mai 8 19:29:46 CEST 2005
+stop: Do Mai 12 13:59:44 CEST 2005
 
