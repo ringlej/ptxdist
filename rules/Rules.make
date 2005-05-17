@@ -550,7 +550,7 @@ get_patches =											\
 		echo;										\
 		exit -1;									\
 	fi;											\
-	if [ "$(EXTRAVERSION)" = "-cvs" ]; then							\
+	if [ "$(EXTRAVERSION)" = "-cvs" -o "$(EXTRAVERSION)" = "-svn" ]; then			\
 		PATCH_TREE=cvs;									\
 	else											\
 		PATCH_TREE=$(FULLVERSION);							\
