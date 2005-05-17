@@ -1,3 +1,7 @@
+2005-05-17 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* busybox: fix static building; patch by Gary Thomas
+
 2005-05-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* hotplug: fixed permissions for agents

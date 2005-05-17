@@ -70,10 +70,16 @@ busybox_prepare: $(STATEDIR)/busybox.prepare
 
 BUSYBOX_PATH		=  PATH=$(CROSS_PATH)
 BUSYBOX_ENV 		=  $(CROSS_ENV)
+
+BUSYBOX_TARGET_LDFLAGS	=  $(call remove_quotes,$(TARGET_LDFLAGS))
+ifdef PTXCONF_BB_CONFIG_STATIC                                                                                                        
+BUSYBOX_TARGET_LDFLAGS	+= -static
+endif                                                                                                                                 
+
 BUSYBOX_MAKEVARS	=  CROSS=$(COMPILER_PREFIX)
 BUSYBOX_MAKEVARS	+= HOSTCC=$(HOSTCC) 
 BUSYBOX_MAKEVARS	+= EXTRA_CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))'
-BUSYBOX_MAKEVARS	+= LDFLAGS='$(call remove_quotes,$(TARGET_LDFLAGS))'
+BUSYBOX_MAKEVARS	+= LDFLAGS='$(BUSYBOX_TARGET_LDFLAGS)'
 
 #
 # dependencies
