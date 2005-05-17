@@ -1,80 +1,68 @@
 Automatic Compilation Test
 --------------------------
 
-start: So Mai 8 19:33:24 CEST 2005
+start: Di Mai 10 23:54:42 CEST 2005
 
 config...: abbcc-viac3
-date.....: So Mai 8 19:33:24 CEST 2005
+date.....: Di Mai 10 23:54:42 CEST 2005
 user.....: robert@himalia
-buildtime: 0h13m35s
+buildtime: 0h13m18s
 result...: 0
 
 config...: i586-generic-glibc
-date.....: So Mai 8 19:47:11 CEST 2005
+date.....: Mi Mai 11 00:08:12 CEST 2005
 user.....: robert@himalia
-buildtime: 0h7m58s
+buildtime: 0h8m4s
 result...: 0
 
 config...: frako
-date.....: So Mai 8 19:55:20 CEST 2005
+date.....: Mi Mai 11 00:16:27 CEST 2005
 user.....: robert@himalia
-buildtime: 0h17m2s
+buildtime: 0h16m48s
 result...: 0
 
 config...: visbox
-date.....: So Mai 8 20:12:37 CEST 2005
+date.....: Mi Mai 11 00:33:32 CEST 2005
 user.....: robert@himalia
-buildtime: 0h16m52s
+buildtime: 0h16m18s
 result...: 0
 
 config...: rayonic-i586
-date.....: So Mai 8 20:29:49 CEST 2005
+date.....: Mi Mai 11 00:50:08 CEST 2005
 user.....: robert@himalia
-buildtime: 0h13m33s
+buildtime: 0h13m42s
 result...: 0
 
 config...: innokom-2.4-2.95
-date.....: So Mai 8 20:43:34 CEST 2005
+date.....: Mi Mai 11 01:04:11 CEST 2005
 user.....: robert@himalia
-buildtime: 0h8m27s
+buildtime: 0h8m41s
 result...: 0
 
 config...: innokom-2.4-3.3.3
-date.....: So Mai 8 20:52:13 CEST 2005
+date.....: Mi Mai 11 01:13:03 CEST 2005
 user.....: robert@himalia
-buildtime: 0h9m19s
+buildtime: 0h9m20s
 result...: 0
 
 config...: mx1fs2
-date.....: So Mai 8 21:01:46 CEST 2005
+date.....: Mi Mai 11 01:22:33 CEST 2005
 user.....: robert@himalia
-buildtime: 0h6m40s
+buildtime: 0h6m35s
 result...: 0
 
 config...: pii_nge
-date.....: So Mai 8 21:08:37 CEST 2005
+date.....: Mi Mai 11 01:29:29 CEST 2005
 user.....: robert@himalia
-buildtime: 0h26m2s
-result...: 0
+buildtime: 152h50m48s
+result...:
 
 config...: ssv_pnp2110_eva1
-date.....: So Mai 8 21:35:04 CEST 2005
+date.....: Di Mai 17 10:20:26 CEST 2005
 user.....: robert@himalia
-buildtime: 0h26m28s
-result...: 0
+buildtime: 0h0m30s
+result...:
 
 config...: eb8245
-date.....: So Mai 8 22:01:53 CEST 2005
+date.....: Di Mai 17 10:21:02 CEST 2005
 user.....: robert@himalia
-buildtime: 0h2m22s
-result...: 0
-
-config...: cameron-efco
-date.....: So Mai 8 22:04:25 CEST 2005
-user.....: robert@himalia
-buildtime: 0h16m52s
-result...: 0
-
-
-stop: So Mai 8 22:21:44 CEST 2005
-
