@@ -1,5 +1,6 @@
 2005-05-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* rootfs.in: typo fixed; patch by Steven Scholz
 	* wireless: update to version 27, config option
 	  to build shared version; patch by Steven Scholz
 
