@@ -18,7 +18,7 @@ endif
 #
 # Paths and names 
 #
-WIRELESS_VERSION	= 26
+WIRELESS_VERSION	= 27
 WIRELESS		= wireless_tools.$(WIRELESS_VERSION)
 WIRELESS_SUFFIX		= tar.gz
 WIRELESS_URL		= http://pcmcia-cs.sourceforge.net/ftp/contrib/$(WIRELESS).$(WIRELESS_SUFFIX)
@@ -66,6 +66,11 @@ wireless_prepare_deps	= $(STATEDIR)/wireless.extract
 
 $(STATEDIR)/wireless.prepare: $(wireless_prepare_deps)
 	@$(call targetinfo, $@)
+ifdef PTXCONF_WIRELESS_SHARED
+	@$(call disable_sh,$(WIRELESS_DIR)/Makefile,BUILD_STATIC)
+else
+	@$(call enable_sh, $(WIRELESS_DIR)/Makefile,BUILD_STATIC)
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -119,6 +124,11 @@ $(STATEDIR)/wireless.targetinstall: $(STATEDIR)/wireless.install
 	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwspy, /usr/sbin/iwspy)
 	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwgetid, /usr/sbin/iwgetid)
 	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwevent, /usr/sbin/iwevent)
+
+ifdef PTXCONF_WIRELESS_SHARED
+	@$(call install_copy, 0, 0, 0644, $(WIRELESS_DIR)/libiw.so.$(WIRELESS_VERSION), \
+		/usr/lib/libiw.so.$(WIRELESS_VERSION))
+endif
 
 	@$(call install_finish)
 	

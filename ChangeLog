@@ -1,3 +1,8 @@
+2005-05-18 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* wireless: update to version 27, config option
+	  to build shared version; patch by Steven Scholz
+
 2005-05-17 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* busybox: fix static building; patch by Gary Thomas

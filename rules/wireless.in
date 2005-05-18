@@ -4,5 +4,13 @@ config WIRELESS
         bool
         prompt "Compile Wireless Tools"
 
+config WIRELESS_SHARED
+	bool "Build shared"
+	default n
+	depends on WIRELESS
+	help
+	  Building shared version of wireless tools and
+	  installing a shared library libiw.so onto target.
+	  
 source "rules/madwifi.in"
 endmenu
