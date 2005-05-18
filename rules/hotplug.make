@@ -118,7 +118,7 @@ $(STATEDIR)/hotplug.targetinstall: $(hotplug_targetinstall_deps)
 
 	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/sbin/hotplug, /sbin/hotplug, n)
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/hotplug.functions, /etc/hotplug/hotplug.functions, n)
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug.d/default/default.hotplug, /etc/hotplug.d/default/default.hotplug, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug.d/default/default.hotplug, /etc/hotplug.d/default/default.hotplug, n)
 
 ifdef PTXCONF_HOTPLUG_BLACKLIST
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/blacklist, /etc/hotplug/blacklist, n)
