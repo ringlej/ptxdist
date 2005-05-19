@@ -177,9 +177,9 @@ $(STATEDIR)/grub.targetinstall: $(STATEDIR)/grub.install
 	@$(call install_fixup,DEPENDS,libc)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	# FIXME: this looks like something is missing
 	@$(call install_copy, 0, 0, 0644, $(GRUB_DIR)/stage1/stage1, /boot/grub/stage1)
 	@$(call install_copy, 0, 0, 0644, $(GRUB_DIR)/stage2/stage2, /boot/grub/stage2)
+	@$(call install_copy, 0, 0, 0755, $(GRUB_DIR)/grub/grub, /usr/sbin/grub)
 
 	@$(call install_finish)
 

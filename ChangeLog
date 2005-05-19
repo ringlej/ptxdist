@@ -1,3 +1,8 @@
+2005-05-19 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* grub: fixed installation of grub binary; 
+	  patch by Shahar Livne
+
 2005-05-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* rootfs.in: typo fixed; patch by Steven Scholz
