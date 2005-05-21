@@ -38,3 +38,5 @@ UCLIBC_VERSION		:= $(UCLIBC_VERSION_MAJOR).$(UCLIBC_VERSION_MINOR).$(UCLIBC_VERS
 
 BINUTILS_VERSION	:= $(call get_option_ext, s/^PTXCONF_BINUTILS_\([0-9]*\)_\([0-9]*\)\(_\([0-9]*\)_\([0-9]*\)\)*=y/\1.\2.\4.\5/, sed -e 's/\([0-9][.0-9]*[0-9]\)\.*/\1/')
 
+PTXDIST_FULLVERSION	:= $(call remove_quotes,ptxdist-$(FULLVERSION)$(PTXCONF_PROJECT_VERSION))
+
