@@ -16,6 +16,14 @@ E: bobde@usc.edu
 D: Developer
 S: Ixia Corp. 
 
+N: Bjoern Buerger
+E: b.buerger@pengutronix.de
+D: Developer
+S: Pengutronix
+S: Hannoversche Strasse 2
+S: 31134 Hildesheim
+S: Germany
+
 N: Marco Cavallini
 E: m.cavallini@koansoftware.com
 W: http://www.koansoftware.com
@@ -30,7 +38,7 @@ E: s.hauer@pengutronix.de
 W: http://www.pengutronix.de
 D: Developer
 S: Pengutronix
-S: Hannoversche Straﬂe 2
+S: Hannoversche Strasse 2
 S: 31134 Hildesheim
 S: Germany
 
@@ -38,7 +46,7 @@ N: Marc Kleine-Budde
 E: m.kleine-budde@pengutronix.de
 D: Maintainer
 S: Pengutronix
-S: Hannoversche Straﬂe 2
+S: Hannoversche Strasse 2
 S: 31134 Hildesheim
 S: Germany
 
@@ -62,12 +70,16 @@ N: Werner Schmitt
 E: mail2ws@gmx.de
 D: Developer
 
+N: Britta Schwebel
+E: b.schwebel@pengutronix.de
+D: Debugger, Head of Unlogical Code Department
+
 N: Robert Schwebel
 E: r.schwebel@pengutronix.de
 W: http://www.pengutronix.de
 D: Maintainer, Release Manager 
 S: Pengutronix
-S: Hannoversche Straﬂe 2
+S: Hannoversche Strasse 2
 S: 31134 Hildesheim
 S: Germany
 
