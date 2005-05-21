@@ -38,3 +38,8 @@ PTXCONF_SETUP_PROJECTDIR2="$(TOPDIR)/local_projects"
 PTXCONF_SETUP_DEBMIRROR="http://ftp.de.debian.org/debian"
 PTXCONF_SETUP_SFMIRROR="http://mesh.dl.sourceforge.net/sourceforge"
 PTXCONF_SETUP_GNUMIRROR="ftp://ftp.informatik.rwth-aachen.de/pub/gnu"
+
+#
+# IPKG Repository 
+#
+PTXCONF_SETUP_IPKG_REPOSITORY="/var/www/ipkg/ptxdist-$(FULLVERSION)"
