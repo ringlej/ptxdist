@@ -149,3 +149,20 @@ config SETUP_GNUMIRROR
 
 endmenu
 
+menu "IPKG Repository "
+
+config SETUP_IPKG_REPOSITORY
+	string
+	default "/var/www/ipkg/ptxdist-$(FULLVERSION)"
+	prompt "Path to IPKG Repository"
+	help
+	  PTXdist can be used to update an IPKG server which is
+	  accessable via a mounted path. Run 'make ipkg-push'
+	  to push the packets from $IMAGEDIR to the server dir
+	  which is specified here. 
+
+	  FIXME: add mechanism to use other transports than cp. 
+
+endmenu
+
+
