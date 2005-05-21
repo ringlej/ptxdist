@@ -181,3 +181,11 @@ source "rules/mfirebird.in"
 source "rules/penguzilla.in"
 
 endmenu
+
+############################################################################## 
+menu "Test Suites                 "
+############################################################################## 
+
+source "rules/tests.in"
+
+endmenu
