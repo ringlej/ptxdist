@@ -163,4 +163,28 @@ config NTP_NTPDATE
 	default n
 	depends on NTP
 
+config NTP_NTPD
+	bool
+	prompt "install ntpd"
+	default n
+	depends on NTP
+
+config NTP_NTPDC
+	bool
+	prompt "install ntpdc"
+	default n
+	depends on NTP
+
+config NTP_NTPDC
+	bool
+	prompt "install ntpdc"
+	default n
+	depends on NTP
+
+config NTP_NTPQ
+	bool
+	prompt "install ntpq"
+	default n
+	depends on NTP
+
 endmenu
