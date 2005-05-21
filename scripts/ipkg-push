@@ -1,0 +1,113 @@
+#!/bin/sh
+#
+
+. `dirname $0`/libptxdist.sh
+
+usage() {
+	echo 
+	[ -n "$1" ] && echo -e "error: $1\n"
+	echo "usage: $0"
+	echo "          -i <ipkgdir>"
+	echo "          -d <destinationdir>"
+	echo "          -f"
+	echo
+	echo "  -d <destdir>          destination dir, for example on a server"
+	echo "  -i <ipkgdir>          use this directory as a ipkg packet source"
+	echo "  -f                    force overwrite of packets on server," 
+	echo "                        even if they already exist"
+	echo
+	exit 0
+}
+
+#nflag=0
+#vlevel=0
+IPKGDIR=
+DESTDIR=
+FORCE=
+
+#
+# Option parser
+#
+while [ $# -gt 0 ]; do
+	case "$1" in 
+		--help) usage ;;
+		-i) IPKGDIR=`abspath $2`;     shift 2 ;;
+		-d) DESTDIR=`abspath $2`;     shift 2 ;;
+		-f) FORCE=1;                  shift 1 ;; 
+		*)  usage "unknown option" ;;
+  	esac
+done
+
+IPKGCONF=`dirname $0`/../projects/generic/etc/ipkg.conf
+IPKGCONF=`abspath $IPKGCONF`
+
+#
+# Sanity checks
+#
+[ -z "$IPKGDIR" ] 			&& usage "error: specify ipkg packet dir with -i"
+[ -z "$DESTDIR" ] 			&& usage "error: specify destination packet dir with -d"
+[ ! -f "$IPKGCONF" ]			&& usage "error: $IPKGCONF does not exist"
+
+#
+# Compare packets
+#
+
+echo
+echo "comparing packets between"
+echo "  ipkg dir:   $IPKGDIR"
+echo "  server dir: $DESTDIR"
+echo
+for file in $IPKGDIR/*.ipk; do 
+
+	file=`basename $file`
+	local_md5=`[ -e $IPKGDIR/$file ] && md5sum $IPKGDIR/$file  | awk -F' ' '{print $1}'`
+	server_md5=`[ -e $DESTDIR/$file ] && md5sum $DESTDIR/$file | awk -F' ' '{print $1}'`
+	if [ -e "$DESTDIR/$file" ] && [ "$local_md5" != "$server_md5" ]; then
+		if [ -n "$FORCE" ]; then
+			echo -n "warning: "
+		else
+			echo -n "error: "
+		fi
+		echo "packet $file exists on server but has different content"
+		if [ -z "$FORCE" ]; then
+			echo
+			exit 1
+		fi
+	fi
+
+	if [ "$local_md5" = "$server_md5" ]; then
+		echo "skipping $file"
+		continue
+	fi
+
+	echo "copying  $file"
+	install -D $IPKGDIR/$file $DESTDIR/$file
+
+done
+
+echo
+echo "sanity check"
+echo
+for file in $DESTDIR/*.ipk; do 
+	file=`basename $file`
+	packetname=`echo $file | sed -e 's/^\([^_]*\)_.*$/\1/g'`
+	allpackets=`find $DESTDIR -name "$packetname\_*" | sort -u -r`
+	if [ "`echo $allpackets | wc -w`" != "1" ]; then
+		echo "warning: more than one $packetname found, removing old ones"
+		first=1
+		for delfile in $allpackets; do 
+			if [ "$first" = "1" ]; then 
+				first=0
+			else
+				rm -i $delfile
+			fi
+		done
+	fi
+
+done
+
+echo
+echo "done"
+echo
+
+
