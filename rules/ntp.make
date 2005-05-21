@@ -370,11 +370,20 @@ $(STATEDIR)/ntp.targetinstall: $(ntp_targetinstall_deps)
 	@$(call install_fixup,VERSION,$(NTP_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
 ifdef PTXCONF_NTP_NTPDATE
 	@$(call install_copy, 0, 0, 0755, $(NTP_DIR)/ntpdate/ntpdate, /usr/sbin/ntpdate)
+endif
+ifdef PTXCONF_NTP_NTPD
+	@$(call install_copy, 0, 0, 0755, $(NTP_DIR)/ntpd/ntpd, /usr/sbin/ntpd)
+endif
+ifdef PTXCONF_NTP_NTPDC
+	@$(call install_copy, 0, 0, 0755, $(NTP_DIR)/ntpdc/ntpdc, /usr/sbin/ntpdc)
+endif
+ifdef PTXCONF_NTP_NTPDC
+	@$(call install_copy, 0, 0, 0755, $(NTP_DIR)/ntpq/ntpq, /usr/sbin/ntpq)
 endif
 	@$(call install_finish)
 	touch $@
