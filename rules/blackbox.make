@@ -135,7 +135,7 @@ $(STATEDIR)/blackbox.targetinstall: $(blackbox_targetinstall_deps)
 	@$(call install_fixup,VERSION,$(BLACKBOX_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0755, $(BLACKBOX_DIR)/src/blackbox, /usr/X11R6/bin/blackbox)

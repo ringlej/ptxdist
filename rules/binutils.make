@@ -146,7 +146,7 @@ $(STATEDIR)/binutils.targetinstall: $(STATEDIR)/binutils.install
 	@$(call install_fixup,VERSION,$(PTXCONF_BINUTILS_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	# FIXME: this will probably not work with the wildcard; fix when it breaks :-) 

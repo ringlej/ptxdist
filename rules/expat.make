@@ -130,7 +130,7 @@ $(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps)
 	@$(call install_fixup,VERSION,$(EXPAT_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0644, $(EXPAT_DIR)/.libs/libexpat.so.0.5.0, /lib/libexpat.so.0.5.0)

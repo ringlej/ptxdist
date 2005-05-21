@@ -108,7 +108,7 @@ $(STATEDIR)/gdbserver.targetinstall: $(STATEDIR)/gdbserver.compile
 	@$(call install_fixup,VERSION,$(GDB_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0755, $(GDBSERVER_BUILDDIR)/gdbserver, /usr/bin/gdbserver)

@@ -146,7 +146,7 @@ $(STATEDIR)/glib1210.targetinstall: $(glib1210_targetinstall_deps)
 	@$(call install_fixup,VERSION,$(GLIB1210_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	# glib

@@ -129,7 +129,7 @@ $(STATEDIR)/e2fsprogs.targetinstall: $(STATEDIR)/e2fsprogs.compile
 	@$(call install_fixup,VERSION,$(E2FSPROGS_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 ifdef PTXCONF_E2FSPROGS_MKFS

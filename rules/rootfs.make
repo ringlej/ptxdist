@@ -94,7 +94,7 @@ $(STATEDIR)/rootfs.targetinstall: $(STATEDIR)/rootfs.install
 	@$(call install_fixup,VERSION,$(ROOTFS_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 ifdef PTXCONF_ROOTFS_PROC

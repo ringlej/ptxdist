@@ -118,7 +118,7 @@ $(STATEDIR)/mii-diag.targetinstall: $(mii-diag_targetinstall_deps)
 	@$(call install_fixup,VERSION,$(MII-DIAG_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0755, $(MII-DIAG_DIR)/mii-diag, /usr/sbin/mii-diag)

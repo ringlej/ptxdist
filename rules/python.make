@@ -135,7 +135,7 @@ $(STATEDIR)/python.targetinstall: $(STATEDIR)/python.compile
 	@$(call install_fixup,VERSION,$(PYTHON_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	# FIXME: RSC: ipkgize in a cleaner way

@@ -413,7 +413,7 @@ ifdef PTXCONF_KERNEL_INSTALL
 	@$(call install_fixup,VERSION,$(KERNEL_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	for i in $(KERNEL_TARGET_PATH); do 				\

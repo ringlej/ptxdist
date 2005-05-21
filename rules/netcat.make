@@ -111,7 +111,7 @@ $(STATEDIR)/netcat.targetinstall: $(STATEDIR)/netcat.install
 	@$(call install_fixup,VERSION,$(NETCAT_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0755, $(NETCAT_DIR)/nc, /bin/nc)

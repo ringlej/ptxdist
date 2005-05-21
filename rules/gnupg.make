@@ -152,7 +152,7 @@ $(STATEDIR)/gnupg.targetinstall: $(gnupg_targetinstall_deps)
 	@$(call install_fixup,VERSION,$(GNUPG_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Jiri Nesladek <nesladek\@2n.cz>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0755, $(GNUPG_DIR)/g10/gpg, /usr/bin/gpg)

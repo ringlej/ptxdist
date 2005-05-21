@@ -140,7 +140,7 @@ $(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps)
 	@$(call install_fixup,VERSION,$(GLIB22_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0644, \

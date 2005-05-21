@@ -134,7 +134,7 @@ $(STATEDIR)/pop3spam.targetinstall: $(pop3spam_targetinstall_deps)
 	@$(call install_fixup,VERSION,$(POP3SPAM_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
 	@$(call install_copy, 0, 0, 0555, $(POP3SPAM_DIR)/src/pop3spam, /usr/bin/pop3spam)

@@ -132,7 +132,7 @@ $(STATEDIR)/xlibs-xau.targetinstall: $(xlibs-xau_targetinstall_deps)
 	@$(call install_fixup,VERSION,$(XLIBS_XAU_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
 	@$(call install_copy, 0, 0, 0644, $(XLIBS-XAU_DIR)/.libs/libXau.so.0.0.0,  /usr/X11R6/lib/libXau.so.0.0.0)

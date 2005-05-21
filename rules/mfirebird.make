@@ -473,7 +473,7 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 	@$(call install_fixup,VERSION,$(MFIREBIRD_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libgkgfx.so, /usr/lib/libgkgfx.so)
