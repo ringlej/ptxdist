@@ -50,4 +50,20 @@ config LTP_MISC_MATH_ABS
 	help
 	  Absolute integer value test 
 
+config LTP_MISC_MATH_ATOF
+	bool
+	prompt "atof"
+	depends on LTP_MISC_MATH
+	default N
+	help
+	  ASCII to float conversion
+
+config LTP_MISC_MATH_FLOAT
+	bool
+	prompt "float"
+	depends on LTP_MISC_MATH
+	default N
+	help
+	  Floating point tests
+
 endmenu
