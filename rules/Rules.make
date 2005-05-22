@@ -98,7 +98,9 @@ endif
 #
 # FIXME: Consolidate a bit more
 #
+ifndef NATIVE
 COMPILER_PREFIX		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX))
+endif
 CROSS_AR		= $(COMPILER_PREFIX)ar
 CROSS_AS		= $(COMPILER_PREFIX)as
 CROSS_LD		= $(COMPILER_PREFIX)ld
@@ -198,12 +200,14 @@ CROSS_ENV_AC := \
 	ac_cv_func_dcgettext=yes \
 	gt_cv_func_gettext_libintl=yes
 
+ifndef NATIVE
 CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
 	$(CROSS_ENV_FLAGS) \
 	$(CROSS_ENV_AC)
 
 CROSS_AUTOCONF = $(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
+endif
 
 #
 # CROSS_LIB_DIR	= the libs for the target system are installed into this dir
@@ -243,7 +247,7 @@ SHORT_TARGET		:= `echo $(PTXCONF_GNU_TARGET) |  $(PERL) -i -p -e 's/(.*?)-.*/$$1
 # PTXCONF_CROSSCHAIN_CHECK. This lets you test if an external compiler
 # fulfills the requirements for a configuration. 
 #
-ifneq (y, $(PTXCONF_CROSSTOOL))
+ifndef NATIVE
 compilercheck =								\
 	echo -n "compiler check...";					\
 	which $(CROSS_CC) > /dev/null 2>&1 || {				\
@@ -1001,7 +1005,7 @@ install_copy_toolchain_lib =									\
 	LIB_DIR=`$(CROSS_CC) -print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
 												\
 	if test \! -d "$${LIB_DIR}"; then							\
-		echo "install_toolchain_lib_root: $${LIB_DIR} not found";			\
+		echo "install_copy_toolchain_lib: $${LIB_DIR} not found";			\
 		exit -1;									\
 	fi;											\
 												\
@@ -1009,7 +1013,7 @@ install_copy_toolchain_lib =									\
 	for FILE in `find $${LIB_DIR} -maxdepth 1 -type l -name "$${LIB}*"`; do			\
 		LIB=`basename $${FILE}`;							\
 		while test -n "$${LIB}"; do							\
-			echo "install_toolchain_lib_root lib=$${LIB} dst=$${DST}";		\
+			echo "install_copy_toolchain_lib lib=$${LIB} dst=$${DST}";		\
 			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
 			mkdir -p $(ROOTDIR)$${DST};						\
 			if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
@@ -1037,9 +1041,15 @@ install_copy_toolchain_lib =									\
 				esac;								\
 				echo "f:$${DST}/$${LIB}:0:0:755" >> $(TOPDIR)/permissions;	\
 			else									\
+				echo "error: found $${LIB}, but no file or link";		\
+				echo;								\
 				exit -1;							\
 			fi;									\
 			LIB="`readlink $${LIB_DIR}/$${LIB}`";					\
+			if [ "`dirname $$LIB`" != "." ]; then					\
+				LIB_DIR=`dirname $$LIB`;					\
+			fi;									\
+			LIB=`basename $$LIB`;							\
 		done;										\
 	done;											\
 												\
