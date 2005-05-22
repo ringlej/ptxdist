@@ -79,9 +79,7 @@ MEMEDIT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-MEMEDIT_AUTOCONF =  --build=$(GNU_HOST)
-MEMEDIT_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
-MEMEDIT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+MEMEDIT_AUTOCONF =  $(CROSS_AUTOCONF)
 
 $(STATEDIR)/memedit.prepare: $(memedit_prepare_deps)
 	@$(call targetinfo, $@)
