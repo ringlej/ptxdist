@@ -215,6 +215,22 @@ DOPERMISSIONS = '{	\
 
 images: $(STATEDIR)/images
 
+ipkg-push: images
+	scripts/ipkg-push -i $(IMAGEDIR) -d $(PTXCONF_SETUP_IPKG_REPOSITORY)
+	rm -f $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages
+	PYTHONPATH=$(PTXCONF_PREFIX)/lib/python2.3/site-packages 		\
+		$(PTXCONF_PREFIX)/bin/ipkg-make-index 				\
+			-p $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages 		\
+			$(PTXCONF_SETUP_IPKG_REPOSITORY)
+
+ipkg-push-force: images
+	scripts/ipkg-push -i $(IMAGEDIR) -d $(PTXCONF_SETUP_IPKG_REPOSITORY) -f 
+	rm -f $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages
+	PYTHONPATH=$(PTXCONF_PREFIX)/lib/python2.3/site-packages 		\
+		$(PTXCONF_PREFIX)/bin/ipkg-make-index 				\
+			-p $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages 		\
+			$(PTXCONF_SETUP_IPKG_REPOSITORY)
+
 $(STATEDIR)/images: world
 ifdef PTXCONF_IMAGE_TGZ
 	cd $(ROOTDIR); \
@@ -468,7 +484,7 @@ clean: rootclean imagesclean
 	fi;
 	@echo
 
-rootclean:
+rootclean: imagesclean
 	@echo
 	@echo -n "cleaning root dir................ "
 	@if [ -d $(ROOTDIR) ]; then \
