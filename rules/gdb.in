@@ -16,7 +16,7 @@ config GDBSERVER_SHARED
 	bool "Build shared"
 	default y
 	depends on GDBSERVER
-        select GLIBC_THREAD_DB if GLIBC
+        select GLIBC_THREAD_DB if GLIBC && GLIBC_INSTALL
 
 
 config GDB
@@ -26,7 +26,7 @@ config GDB_SHARED
 	bool "Build shared"
 	default y
 	depends on GDB
-        select GLIBC_LIBM if GLIBC
+        select GLIBC_LIBM if GLIBC && GLIBC_INSTALL
 
 choice
 	prompt "Select term library"
