@@ -175,12 +175,6 @@ config NTP_NTPDC
 	default n
 	depends on NTP
 
-config NTP_NTPDC
-	bool
-	prompt "install ntpdc"
-	default n
-	depends on NTP
-
 config NTP_NTPQ
 	bool
 	prompt "install ntpq"
