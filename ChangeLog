@@ -1,5 +1,6 @@
 2005-05-22 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* ltp: initial LTP support
 	* glibc: install libc.so.6 instead of libc.so; this does
 	  also work with the NATIVE method. 
 	* ntp: remove duplicate ntpdc
