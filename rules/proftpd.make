@@ -19,8 +19,7 @@ endif
 #
 # Paths and names 
 #
-PROFTPD_VERSION		= 1.2.10rc3
-# PROFTPD_VERSION         = 1.2.8
+PROFTPD_VERSION		= 1.3.0rc1
 PROFTPD			= proftpd-$(PROFTPD_VERSION)
 PROFTPD_TARBALL		= proftpd-$(PROFTPD_VERSION).$(PROFTPD_SUFFIX)
 PROFTPD_SUFFIX		= tar.gz
@@ -68,7 +67,9 @@ PROFTPD_AUTOCONF	+= --sysconfdir=/etc
 
 PROFTPD_PATH		=  PATH=$(CROSS_PATH)
 PROFTPD_ENV		=  $(CROSS_ENV) ac_cv_func_setgrent_void=yes
+ifndef NATIVE
 PROFTPD_MAKEVARS	=  $(CROSS_ENV_CC)
+endif
 
 ifdef PTXCONF_PROFTPD_PAM
 PROFTPD_AUTOCONF += --enable-pam
