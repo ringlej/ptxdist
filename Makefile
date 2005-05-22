@@ -205,6 +205,9 @@ dep_world: $(HOSTTOOLS_INSTALL) $(PACKAGES_TARGETINSTALL) $(VENDORTWEAKS_TARGETI
 
 world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
 
+# Robert-is-faster-typing-than-thinking shortcut
+owrld: world
+
 # Images ----------------------------------------------------------------------
 
 DOPERMISSIONS = '{	\
