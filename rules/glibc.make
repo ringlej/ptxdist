@@ -111,7 +111,7 @@ ifdef PTXCONF_GLIBC_INSTALL
 endif
 
 ifdef PTXCONF_GLIBC_LIBC
-	@$(call install_copy_toolchain_lib, libc.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, libc.so.6, /lib, $(GLIBC_STRIP))
 endif
 
 ifdef PTXCONF_GLIBC_PTHREAD
