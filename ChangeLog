@@ -1,5 +1,8 @@
 2005-05-22 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* glibc: install libc.so.6 instead of libc.so; this does
+	  also work with the NATIVE method. 
+	* ntp: remove duplicate ntpdc
 	* proftpd: update to 1.3.0rc1; patch didn't work
 	  with new NATIVE mechanism; fixed. 
 	* gdb: select glibc libs only if GLIBC_INSTALL
