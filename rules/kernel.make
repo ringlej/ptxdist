@@ -399,13 +399,16 @@ $(STATEDIR)/kernel.install:
 
 kernel_targetinstall: $(STATEDIR)/kernel.targetinstall
 
+ifndef NATIVE
 kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
+endif
 
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
 	rm -fr $(KERNEL_INST_DIR)
 
+ifndef NATIVE
 ifdef PTXCONF_KERNEL_INSTALL
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,kernel)
@@ -432,6 +435,7 @@ ifdef PTXCONF_KERNEL_INSTALL
 	rm -fr $(KERNEL_INST_DIR)
 
 	@$(call install_finish)
+endif
 endif
 	touch $@
 
