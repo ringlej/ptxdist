@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-UTIL-LINUX_VERSION	= 2.12
+UTIL-LINUX_VERSION	= 2.12j
 UTIL-LINUX		= util-linux-$(UTIL-LINUX_VERSION)
 UTIL-LINUX_SUFFIX	= tar.gz
 UTIL-LINUX_URL		= http://ftp.cwi.nl/aeb/util-linux/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
