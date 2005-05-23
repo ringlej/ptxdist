@@ -247,31 +247,34 @@ SHORT_TARGET		:= `echo $(PTXCONF_GNU_TARGET) |  $(PERL) -i -p -e 's/(.*?)-.*/$$1
 # PTXCONF_CROSSCHAIN_CHECK. This lets you test if an external compiler
 # fulfills the requirements for a configuration. 
 #
-ifndef NATIVE
-compilercheck =								\
-	echo -n "compiler check...";					\
-	which $(CROSS_CC) > /dev/null 2>&1 || {				\
-		echo; echo;						\
-		echo "No compiler installed!";				\
-		echo "Specified: $(CROSS_CC)";				\
-		echo;							\
-		exit -1;						\
-	};								\
-	if [ "$(PTXCONF_CROSSCHAIN_CHECK)" != `$(CROSS_CC) -dumpversion` ]; then \
-		echo; echo;						\
-		echo "Please use the specified compiler!";		\
-		echo;							\
-		echo "Specified: $(PTXCONF_CROSSCHAIN_CHECK)";		\
-		echo "Found:     "`$(CROSS_CC) -dumpversion`;		\
-		echo;							\
-		exit -1;						\
-	fi;								\
-	echo "ok";
-else
-compilercheck =								\
-	echo > /dev/null;
-endif
-
+compilercheck =											\
+	CROSSTOOL="$(strip $(call remove_quotes, $(PTXCONF_CROSSTOOL)))";			\
+	NATIVE="$(strip $(call remove_quotes, $(NATIVE)))";					\
+												\
+	if test "$${CROSSTOOL}" = "y" -o "$${NATIVE}" = "1" -o "$${NATIVE}" = "y"; then		\
+		echo > /dev/null;								\
+	else											\
+		echo -n "compiler check...";							\
+		if test \! -x "`which $(CROSS_CC)`"; then					\
+			echo;									\
+			echo;									\
+			echo "No compiler installed!";						\
+			echo "Specified: $(CROSS_CC)";						\
+			echo;									\
+			exit -1;								\
+		fi;										\
+		if test "$(PTXCONF_CROSSCHAIN_CHECK)" != `$(CROSS_CC) -dumpversion`; then	\
+			echo;									\
+			echo;									\
+			echo "Please use the specified compiler!";				\
+			echo;									\
+			echo "Specified: $(PTXCONF_CROSSCHAIN_CHECK)";				\
+			echo "Found:     "`$(CROSS_CC) -dumpversion`;				\
+			echo;									\
+			exit -1;								\
+		fi;										\
+		echo "ok";									\
+	fi;
 
 #
 # check_prog_exists
