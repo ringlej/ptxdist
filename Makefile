@@ -452,6 +452,9 @@ distclean: clean
 	@echo -n "cleaning patches dir............. "
 	@rm -rf $(TOPDIR)/patches/*
 	@echo "done."	
+	@echo -n "cleaning logs.................... "
+	@rm -fr $(TOPDIR)/logs/root-orig.txt $(TOPDIR)/logs/root-ipkg.txt $(TOPDIR)/logs/root.diff
+	@echo "done."
 	@echo
 
 clean: rootclean imagesclean
