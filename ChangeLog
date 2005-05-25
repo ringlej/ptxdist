@@ -1,3 +1,8 @@
+2005-05-25 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* fakeroot: update to 1.3.0; patch by Oscar Peredo P.
+	* lilo: update to 22.5.9; patch by Oscar Peredo P.
+
 2005-05-22 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ltp: initial LTP support
