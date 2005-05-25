@@ -1,7 +1,6 @@
 Packets which could be added (volunteers needed)
 ================================================
 
-- RSC:	lmbench
 - RSC:	ethtool: http://sourceforge.net/project/showfiles.php?group_id=3242&package_id=19201 
 - RSC:	ntpclient: http://doolittle.faludi.com/ntpclient/
 - RSC:	openntpd: http://www.openntpd.org/
@@ -19,6 +18,7 @@ Test suite components to be added
 - RSC:	Add more test suite stuff: 
 	- http://gcc.gnu.org/install/test.html
 	- http://www.plumhall.com/stec.html
+- RSC:	lmbench
 - RSC: 	add regression tests from crosstool
 - RSC: 	look at Herbert Poetzl's cross test stuff: 
        	20040224182505.GA25038@MAIL.13thfloor.at
