@@ -6,3 +6,5 @@ config TESTSUITE_DIR
 	  This directory is the toplevel directory to install 
 	  test suites. 
 
+source "rules/ltp.in"
+
