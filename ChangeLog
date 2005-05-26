@@ -1,3 +1,6 @@
+2005-05-26 Bjoern Buerger <b.buerger@pengutronix.de>
+	* netcat: changed from hobbit netcat to gnu netcat 0.7.1
+
 2005-05-25 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* fakeroot: update to 1.3.0; patch by Oscar Peredo P.
