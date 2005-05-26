@@ -151,11 +151,11 @@ $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 		export TARBALLS_DIR RESULT_TOP;	\
 		export GCC_LANGUAGES="$(CROSSTOOL_GCCLANG)"; \
 		\
-		mkdir -p $(subst $(quote),,$(PTXCONF_PREFIX)); \
+		mkdir -p $(call remove_quotes,$(PTXCONF_PREFIX)); \
 		\
-		export KERNELCONFIG=$(subst $(quote),,$(CROSSTOOL_DIR)/$(PTXCONF_CROSSTOOL_KERNELCONFIG)); \
+		export KERNELCONFIG=$(call remove_quotes,$(CROSSTOOL_DIR)/$(PTXCONF_CROSSTOOL_KERNELCONFIG)); \
 		\
-		TARGET=$(subst $(quote),,$(PTXCONF_GNU_TARGET)) \
+		TARGET=$(call remove_quotes,$(PTXCONF_GNU_TARGET)) \
 		TARGET_CFLAGS="$(call remove_quotes,$(CROSSTOOL_TARGET_CFLAGS))" \
 		GCC_EXTRA_CONFIG=$(CROSSTOOL_GCC_EXTRA_CONFIG) \
 		GLIBC_EXTRA_CONFIG=$(CROSSTOOL_GLIBC_EXTRA_CONFIG) \
@@ -170,7 +170,7 @@ $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 		echo "done" \
 		exit 1;	\
 	)
-	touch $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/gcc-$(GCC_VERSION)-$(CROSSTOOL_LIBC_DIR)/$(PTXCONF_GNU_TARGET)/include/linux/autoconf.h
+	touch $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/gcc-$(GCC_VERSION)-$(CROSSTOOL_LIBC_DIR)/$(PTXCONF_GNU_TARGET)/include/linux/autoconf.h)
 	touch $@
 
 # ----------------------------------------------------------------------------
