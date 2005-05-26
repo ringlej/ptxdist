@@ -1,0 +1,165 @@
+# $Id: template 2606 2005-05-10 21:49:41Z rsc $
+#
+# Copyright (C) 2005 by Bjoern Buerger <b.buerger@pengutronix.de>
+#          
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+ifdef PTXCONF_NETCAT
+PACKAGES += netcat
+endif
+
+#
+# Paths and names
+#
+NETCAT_VERSION		= 0.7.1
+NETCAT			= netcat-$(NETCAT_VERSION)
+NETCAT_SUFFIX		= tar.gz
+NETCAT_URL		= $(PTXCONF_SETUP_SFMIRROR)/netcat/$(NETCAT).$(NETCAT_SUFFIX)
+NETCAT_SOURCE		= $(SRCDIR)/$(NETCAT).$(NETCAT_SUFFIX)
+NETCAT_DIR		= $(BUILDDIR)/$(NETCAT)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+netcat_get: $(STATEDIR)/netcat.get
+
+netcat_get_deps = $(NETCAT_SOURCE)
+
+$(STATEDIR)/netcat.get: $(netcat_get_deps)
+	@$(call targetinfo, $@)
+	@$(call get_patches, $(NETCAT))
+	touch $@
+
+$(NETCAT_SOURCE):
+	@$(call targetinfo, $@)
+	@$(call get, $(NETCAT_URL))
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+netcat_extract: $(STATEDIR)/netcat.extract
+
+netcat_extract_deps = $(STATEDIR)/netcat.get
+
+$(STATEDIR)/netcat.extract: $(netcat_extract_deps)
+	@$(call targetinfo, $@)
+	@$(call clean, $(NETCAT_DIR))
+	@$(call extract, $(NETCAT_SOURCE))
+	@$(call patchin, $(NETCAT))
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+netcat_prepare: $(STATEDIR)/netcat.prepare
+
+#
+# dependencies
+#
+netcat_prepare_deps = \
+	$(STATEDIR)/netcat.extract \
+	$(STATEDIR)/virtual-xchain.install
+
+NETCAT_PATH	=  PATH=$(CROSS_PATH)
+NETCAT_ENV 	=  $(CROSS_ENV)
+#NETCAT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+#NETCAT_ENV	+=
+
+#
+# autoconf
+#
+NETCAT_AUTOCONF =  $(CROSS_AUTOCONF)
+NETCAT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+
+ifdef PTXCONF_NETCAT_OLD_HEXDUMP
+NETCAT_AUTOCONF += --enable-oldhexdump
+else
+NETCAT_AUTOCONF += --disable-oldhexdump
+endif
+
+ifdef PTXCONF_NETCAT_OLD_TELNET
+NETCAT_AUTOCONF += --enable-oldtelnet
+else
+NETCAT_AUTOCONF += --disable-oldtelnet
+endif
+
+
+$(STATEDIR)/netcat.prepare: $(netcat_prepare_deps)
+	@$(call targetinfo, $@)
+	@$(call clean, $(NETCAT_DIR)/config.cache)
+	cd $(NETCAT_DIR) && \
+		$(NETCAT_PATH) $(NETCAT_ENV) \
+		./configure $(NETCAT_AUTOCONF)
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+netcat_compile: $(STATEDIR)/netcat.compile
+
+netcat_compile_deps = $(STATEDIR)/netcat.prepare
+
+$(STATEDIR)/netcat.compile: $(netcat_compile_deps)
+	@$(call targetinfo, $@)
+	cd $(NETCAT_DIR) && $(NETCAT_ENV) $(NETCAT_PATH) make
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+netcat_install: $(STATEDIR)/netcat.install
+
+$(STATEDIR)/netcat.install: $(STATEDIR)/netcat.compile
+	@$(call targetinfo, $@)
+	cd $(NETCAT_DIR) && $(NETCAT_ENV) $(NETCAT_PATH) make install
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+netcat_targetinstall: $(STATEDIR)/netcat.targetinstall
+
+netcat_targetinstall_deps = $(STATEDIR)/netcat.compile
+
+$(STATEDIR)/netcat.targetinstall: $(netcat_targetinstall_deps)
+	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,netcat)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(NETCAT_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Bjoern Buerger <b.buerger\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(NETCAT_DIR)/src/netcat, /bin/netcat)
+	@$(call install_link, netcat, /bin/nc)
+
+	@$(call install_finish)
+
+	touch $@
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+netcat_clean:
+	rm -rf $(STATEDIR)/netcat.*
+	rm -rf $(IMAGEDIR)/netcat_*
+	rm -rf $(NETCAT_DIR)
+
+# vim: syntax=make
