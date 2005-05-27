@@ -5,6 +5,8 @@ config LTP
         prompt "LTP"
 	default N
 
+# Toplevel testcases/ --------------------------------------------------------
+
 #config LTP_BALLISTA
 #	bool
 #	prompt "Ballista"
@@ -35,6 +37,8 @@ config LTP_MISC
 	prompt "misc"
 	depends on LTP
 	default N
+
+# Math -----------------------------------------------------------------------
 
 config LTP_MISC_MATH
 	bool

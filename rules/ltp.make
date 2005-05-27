@@ -88,22 +88,12 @@ ltp_compile_deps = $(STATEDIR)/ltp.prepare
 $(STATEDIR)/ltp.compile: $(ltp_compile_deps)
 	@$(call targetinfo, $@)
 
+	# We need the toplevel lib dir for all LTP tests. 
 	cd $(LTP_DIR)/lib && $(LTP_ENV) $(LTP_PATH) make
 
-ifdef PTXCONF_LTP_MISC_MATH_ABS
-	cd $(LTP_DIR)/testcases/misc/math/abs && $(LTP_ENV) $(LTP_PATH) make
+ifdef PTXCONF_LTP_MISC_MATH
+	cd $(LTP_DIR)/testcases/misc/math && $(LTP_ENV) $(LTP_PATH) make
 endif
-ifdef PTXCONF_LTP_MISC_MATH_ATOF
-	cd $(LTP_DIR)/testcases/misc/math/atof && $(LTP_ENV) $(LTP_PATH) make
-endif
-ifdef PTXCONF_LTP_MISC_MATH_FLOAT
-	# FIXME: Generate data on host - right?
-	(cd $(LTP_DIR)/testcases/misc/math/float/trigo;		\
-		make CC=$(HOST_CC); 				\
-		./gentrigo;					\
-	)
-endif
-
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -114,7 +104,7 @@ ltp_install: $(STATEDIR)/ltp.install
 
 $(STATEDIR)/ltp.install: $(STATEDIR)/ltp.compile
 	@$(call targetinfo, $@)
-	cd $(LTP_DIR) && $(LTP_ENV) $(LTP_PATH) make install
+	install -D $(LTP_DIR)/lib/libltp.a $(CROSS_LIB_DIR)/lib/libltp.a
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -134,10 +124,144 @@ $(STATEDIR)/ltp.targetinstall: $(ltp_targetinstall_deps)
 	@$(call install_fixup,VERSION,$(LTP_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
+	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/foobar, /dev/null)
+ifdef PTXCONF_LTP_MISC_MATH_ABS
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/abs/abs01, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/abs/abs01)
+endif
+ifdef PTXCONF_LTP_MISC_MATH_ATOF
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/atof/atof01, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/atof/atof01)
+endif
+ifdef PTXCONF_LTP_MISC_MATH_FLOAT
+	# Bessel
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/float_bessel, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/bessel/float_bessel)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/bessel/genbessel, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/bessel/genbessel)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/bessel/genlgamma, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/bessel/genlgamma)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/bessel/genj0, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/bessel/genj0)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/bessel/genj1, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/bessel/genj1)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/bessel/geny0, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/bessel/geny0)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/bessel/geny1, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/bessel/geny1)
+
+	# exp_log
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/float_exp_log, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/exp_log/float_exp_log)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/exp_log/genexp, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/exp_log/gen_exp)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/exp_log/genexp_log, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/exp_log/genexp_log)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/exp_log/genfrexp, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/exp_log/genfrexp)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/exp_log/genhypot, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/exp_log/genhypot)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/exp_log/genldexp, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/exp_log/genldexp)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/exp_log/genlog, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/exp_log/genlog)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/exp_log/genlog10, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/exp_log/genlog10)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/exp_log/genmodf, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/exp_log/genmodf)
+
+	# iperb
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/float_iperb, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/iperb/float_iperb)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/iperb/gencosh, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/iperb/gencosh)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/iperb/geniperb, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/iperb/geniperb)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/iperb/gensinh, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/iperb/gensinh)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/iperb/gentanh, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/iperb/gentanh)
+
+	# power
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/float_power, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/power/float_power)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/power/genceil, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/power/genceil)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/power/genfabs, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/power/genfabs)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/power/genfloor, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/power/genfloor)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/power/genfmod, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/power/genfmod)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/power/genpow, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/power/genpow)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/power/genpower, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/power/genpower)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/power/gensqrt, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/power/gensqrt)
+
+	# trigo
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/float_trigo, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/trigo/float_trigo)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/trigo/genacos, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/trigo/genacos)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/trigo/genasin, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/trigo/genasin)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/trigo/genatan, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/trigo/genatan)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/trigo/genatan2, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/trigo/genatan2)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/trigo/gencos, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/trigo/gencos)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/trigo/gensin, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/trigo/gensin)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/trigo/gentan, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/trigo/gentan)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LTP_DIR)/testcases/misc/math/float/trigo/gentrigo, \
+		$(PTXCONF_TESTSUITE_DIR)/$(LTP)/misc/math/float/trigo/gentrigo)
+endif
 
 	@$(call install_finish)
 
