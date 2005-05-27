@@ -5,7 +5,7 @@
 # Wed May 25 14:36:31 CEST 2005
 
 PATH=/sbin:/bin:/usr/bin
-BINARY=/usr/local/bin/ntpd
+BINARY=/usr/sbin/ntpd
 PIDFILE="/var/run/ntpd.pid"
 
 case "`basename $0`" in 
