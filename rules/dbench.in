@@ -1,0 +1,30 @@
+menu "dbench              "
+
+config DBENCH
+	bool
+	prompt "dbench"
+	default N
+	help
+	  dbench is a filesystem throughput test. 
+
+comment "Installation Options"
+
+config DBENCH_DBENCH
+	bool
+	prompt "install dbench"
+	depends on DBENCH
+	default N
+
+config DBENCH_TBENCH
+	bool
+	prompt "install tbench"
+	depends on DBENCH
+	default N
+
+config DBENCH_TBENCH_SERVER
+	bool
+	prompt "install tbench server"
+	depends on DBENCH
+	default N
+
+endmenu	
