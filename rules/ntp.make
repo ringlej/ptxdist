@@ -385,6 +385,10 @@ endif
 ifdef PTXCONF_NTP_NTPDC
 	@$(call install_copy, 0, 0, 0755, $(NTP_DIR)/ntpq/ntpq, /usr/sbin/ntpq)
 endif
+
+	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/ntp, /etc/init.d/ntp-server, n)
+	@$(call install_link, /etc/init.d/ntp-server, /etc/init.d/ntp-client, n)
+
 	@$(call install_finish)
 	touch $@
 
