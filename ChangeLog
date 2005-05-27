@@ -1,4 +1,9 @@
+2005-05-27 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* dbench: added
+
 2005-05-26 Bjoern Buerger <b.buerger@pengutronix.de>
+
 	* netcat: changed from hobbit netcat to gnu netcat 0.7.1
 
 2005-05-25 Robert Schwebel <r.schwebel@pengutronix.de>
