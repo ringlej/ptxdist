@@ -1,0 +1,7 @@
+menuconfig LTP_COMMANDS
+	bool
+	prompt "Commands            "
+	depends on LTP
+	default N
+	help
+	  Test user land commands. 

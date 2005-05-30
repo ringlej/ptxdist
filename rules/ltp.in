@@ -5,69 +5,9 @@ config LTP
         prompt "LTP"
 	default N
 
-# Toplevel testcases/ --------------------------------------------------------
-
-#config LTP_BALLISTA
-#	bool
-#	prompt "Ballista"
-#	depends on LTP
-#	default N
-#	help 
-#	  The ballista test suite is designed to provide numerous
-#	  combinations of erroneous input parameters to system calls.
-
-#config LTP_COMMANDS
-#	bool
-#	prompt "commands"
-#	depends on LTP
-#	default N
-#	help
-#	  Test user land commands. 
-
-#config LTP_KERNEL
-#	bool
-#	prompt "kernel"
-#	depends on LTP
-#	default N
-#	help
-#	  Kernel based tests. 
- 
-config LTP_MISC
-	bool
-	prompt "misc"
-	depends on LTP
-	default N
-
-# Math -----------------------------------------------------------------------
-
-config LTP_MISC_MATH
-	bool
-	prompt "math"
-	depends on LTP_MISC
-	default N
-
-config LTP_MISC_MATH_ABS
-	bool
-	prompt "abs"
-	depends on LTP_MISC_MATH
-	default N
-	help
-	  Absolute integer value test 
-
-config LTP_MISC_MATH_ATOF
-	bool
-	prompt "atof"
-	depends on LTP_MISC_MATH
-	default N
-	help
-	  ASCII to float conversion
-
-config LTP_MISC_MATH_FLOAT
-	bool
-	prompt "float"
-	depends on LTP_MISC_MATH
-	default N
-	help
-	  Floating point tests
+source "rules/ltp-ballista.in"
+source "rules/ltp-commands.in"
+source "rules/ltp-kernel.in"
+source "rules/ltp-misc.in"
 
 endmenu
