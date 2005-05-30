@@ -1,3 +1,8 @@
+2005-05-30 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* memedit: update to 0.6
+	* ltp: added more test menus
+
 2005-05-27 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* dbench: added
