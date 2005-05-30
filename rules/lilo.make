@@ -23,7 +23,7 @@ endif
 #
 LILO_VERSION	= 22.5.9
 LILO		= lilo-$(LILO_VERSION)
-LILO_URL	= http://home.san.rr.com/johninsd/pub/linux/lilo/lilo-22.5.9.tar.gz
+LILO_URL	= http://home.san.rr.com/johninsd/pub/linux/lilo/$(LILO).tar.gz
 LILO_SOURCE	= $(SRCDIR)/$(LILO).tar.gz
 LILO_DIR	= $(BUILDDIR)/$(LILO)
 
