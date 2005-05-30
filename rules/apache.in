@@ -1,4 +1,4 @@
-menu	"Apache HTTP server "
+menu	"Apache HTTP server  "
 
 config APACHE
 	bool
