@@ -18,7 +18,7 @@ endif
 #
 # Paths and names
 #
-MEMEDIT_VERSION		= 0.5
+MEMEDIT_VERSION		= 0.6
 MEMEDIT			= memedit-$(MEMEDIT_VERSION)
 MEMEDIT_SUFFIX		= tar.gz
 MEMEDIT_URL		= http://www.pengutronix.de/software/memedit/downloads/$(MEMEDIT).$(MEMEDIT_SUFFIX)
