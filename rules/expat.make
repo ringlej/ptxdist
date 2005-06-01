@@ -119,7 +119,7 @@ $(STATEDIR)/expat.install: $(STATEDIR)/expat.compile
 
 expat_targetinstall: $(STATEDIR)/expat.targetinstall
 
-expat_targetinstall_deps	=  $(STATEDIR)/expat.compile
+expat_targetinstall_deps	=  $(STATEDIR)/expat.install
 
 $(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps)
 	@$(call targetinfo, $@)
