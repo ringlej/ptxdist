@@ -1,5 +1,6 @@
 2005-06-01 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* dosfstools: added; patch by Steven Scholz
 	* NATIVE: use COMPILER_PREFIX instead of 
 	  PTXCONF_COMPILER_PREFIX
 
