@@ -6,6 +6,8 @@
 
 2005-05-30 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* overall: replaced all HOSTTOOLS by HOSTTOOL; 
+	  patch by Steven Scholz
 	* memedit: update to 0.6
 	* ltp: added more test menus
 

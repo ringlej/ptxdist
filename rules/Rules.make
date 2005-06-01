@@ -53,7 +53,7 @@ PARALLELMFLAGS  = -j$(shell if [ -r /proc/cpuinfo ];			\
 		else echo 1;						\
 	fi)
 
-ifdef PTXCONF_HOSTTOOLS_FAKEROOT
+ifdef PTXCONF_HOSTTOOL_FAKEROOT
 FAKEROOT	= $(PTXCONF_PREFIX)/bin/fakeroot
 else
 FAKEROOT	= fakeroot

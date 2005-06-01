@@ -1,6 +1,6 @@
 menu "Module Init Tools/Modutils"
 
-config HOSTTOOLS_MODULE_INIT_TOOLS
+config HOSTTOOL_MODULE_INIT_TOOLS
 	bool
 	default N
 	prompt "Module Init Tools"
@@ -9,10 +9,10 @@ config HOSTTOOLS_MODULE_INIT_TOOLS
 	  and removing kernel modules for Linux (versions 2.5.48 and
 	  above).
 
-config HOSTTOOLS_MODUTILS
+config HOSTTOOL_MODUTILS
 	bool
 	default N
 	prompt "Modutils"
-	select HOSTTOOLS_FLEX254
+	select HOSTTOOL_FLEX254
 
 endmenu

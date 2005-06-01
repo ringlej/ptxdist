@@ -12,20 +12,20 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOLS_GENEXT2FS
+ifdef PTXCONF_HOSTTOOL_GENEXT2FS
 HOSTTOOLS += hosttool-genext2fs
 endif
 
 #
 # Paths and names 
 #
-HOSTTOOLS_GENEXT2FS_VERSION	= 1.3.orig
-HOSTTOOLS_GENEXT2FS		= genext2fs-$(HOSTTOOLS_GENEXT2FS_VERSION)
-HOSTTOOLS_GENEXT2FS_TARBALL	= genext2fs_$(HOSTTOOLS_GENEXT2FS_VERSION).$(HOSTTOOLS_GENEXT2FS_SUFFIX)
-HOSTTOOLS_GENEXT2FS_SUFFIX	= tar.gz
-HOSTTOOLS_GENEXT2FS_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/g/genext2fs/$(HOSTTOOLS_GENEXT2FS_TARBALL)
-HOSTTOOLS_GENEXT2FS_SOURCE	= $(SRCDIR)/$(HOSTTOOLS_GENEXT2FS_TARBALL)
-HOSTTOOLS_GENEXT2FS_DIR		= $(HOSTTOOLS_BUILDDIR)/$(HOSTTOOLS_GENEXT2FS)
+HOSTTOOL_GENEXT2FS_VERSION	= 1.3.orig
+HOSTTOOL_GENEXT2FS		= genext2fs-$(HOSTTOOL_GENEXT2FS_VERSION)
+HOSTTOOL_GENEXT2FS_TARBALL	= genext2fs_$(HOSTTOOL_GENEXT2FS_VERSION).$(HOSTTOOL_GENEXT2FS_SUFFIX)
+HOSTTOOL_GENEXT2FS_SUFFIX	= tar.gz
+HOSTTOOL_GENEXT2FS_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/g/genext2fs/$(HOSTTOOL_GENEXT2FS_TARBALL)
+HOSTTOOL_GENEXT2FS_SOURCE	= $(SRCDIR)/$(HOSTTOOL_GENEXT2FS_TARBALL)
+HOSTTOOL_GENEXT2FS_DIR		= $(HOSTTOOL_BUILDDIR)/$(HOSTTOOL_GENEXT2FS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -33,16 +33,16 @@ HOSTTOOLS_GENEXT2FS_DIR		= $(HOSTTOOLS_BUILDDIR)/$(HOSTTOOLS_GENEXT2FS)
 
 hosttool-genext2fs_get: $(STATEDIR)/hosttool-genext2fs.get
 
-hosttool-genext2fs_get_deps  =  $(HOSTTOOLS_GENEXT2FS_SOURCE)
+hosttool-genext2fs_get_deps  =  $(HOSTTOOL_GENEXT2FS_SOURCE)
 
 $(STATEDIR)/hosttool-genext2fs.get: $(hosttool-genext2fs_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOSTTOOLS_GENEXT2FS))
+	@$(call get_patches, $(HOSTTOOL_GENEXT2FS))
 	touch $@
 
-$(HOSTTOOLS_GENEXT2FS_SOURCE):
+$(HOSTTOOL_GENEXT2FS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOSTTOOLS_GENEXT2FS_URL))
+	@$(call get, $(HOSTTOOL_GENEXT2FS_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -52,9 +52,9 @@ hosttool-genext2fs_extract: $(STATEDIR)/hosttool-genext2fs.extract
 
 $(STATEDIR)/hosttool-genext2fs.extract: $(STATEDIR)/hosttool-genext2fs.get
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOLS_GENEXT2FS_DIR))
-	@$(call extract, $(HOSTTOOLS_GENEXT2FS_SOURCE),$(HOSTTOOLS_BUILDDIR))
-	@$(call patchin, $(HOSTTOOLS_GENEXT2FS),$(HOSTTOOLS_GENEXT2FS_DIR))
+	@$(call clean, $(HOSTTOOL_GENEXT2FS_DIR))
+	@$(call extract, $(HOSTTOOL_GENEXT2FS_SOURCE),$(HOSTTOOL_BUILDDIR))
+	@$(call patchin, $(HOSTTOOL_GENEXT2FS),$(HOSTTOOL_GENEXT2FS_DIR))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -63,7 +63,7 @@ $(STATEDIR)/hosttool-genext2fs.extract: $(STATEDIR)/hosttool-genext2fs.get
 
 hosttool-genext2fs_prepare: $(STATEDIR)/hosttool-genext2fs.prepare
 
-HOSTTOOLS_GENEXT2FS_ENV		=  $(HOSTCC_ENV)
+HOSTTOOL_GENEXT2FS_ENV		=  $(HOSTCC_ENV)
 
 hosttool-genext2fs_prepare_deps = \
 	$(STATEDIR)/hosttool-genext2fs.extract
@@ -82,7 +82,7 @@ hosttool-genext2fs_compile_deps = $(STATEDIR)/hosttool-genext2fs.prepare
 
 $(STATEDIR)/hosttool-genext2fs.compile: $(hosttool-genext2fs_compile_deps)
 	@$(call targetinfo, $@)
-	make -C $(HOSTTOOLS_GENEXT2FS_DIR) $(HOSTTOOLS_GENEXT2FS_ENV)
+	make -C $(HOSTTOOL_GENEXT2FS_DIR) $(HOSTTOOL_GENEXT2FS_ENV)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -98,8 +98,8 @@ $(STATEDIR)/hosttool-genext2fs.install: $(hosttool-genext2fs_install_deps)
 	install -d $(PTXCONF_PREFIX)/bin/
 	install -d $(PTXCONF_PREFIX)/man/man8/
 
-	install -m 755 $(HOSTTOOLS_GENEXT2FS_DIR)/genext2fs $(PTXCONF_PREFIX)/bin/
-	install -m 644 $(HOSTTOOLS_GENEXT2FS_DIR)/genext2fs.8 $(PTXCONF_PREFIX)/man/man8/
+	install -m 755 $(HOSTTOOL_GENEXT2FS_DIR)/genext2fs $(PTXCONF_PREFIX)/bin/
+	install -m 644 $(HOSTTOOL_GENEXT2FS_DIR)/genext2fs.8 $(PTXCONF_PREFIX)/man/man8/
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -117,6 +117,6 @@ $(STATEDIR)/hosttool-genext2fs.targetinstall: $(STATEDIR)/hosttool-genext2fs.ins
 # ----------------------------------------------------------------------------
 
 hosttool-genext2fs_clean: 
-	rm -rf $(STATEDIR)/hosttool-genext2fs.* $(HOSTTOOLS_GENEXT2FS_DIR)
+	rm -rf $(STATEDIR)/hosttool-genext2fs.* $(HOSTTOOL_GENEXT2FS_DIR)
 
 # vim: syntax=make

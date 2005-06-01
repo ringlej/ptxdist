@@ -25,7 +25,7 @@ BASENAME		:= $(shell basename $(TOPDIR))
 HOME			:= $(shell echo $$HOME)
 BUILDDIR		:= $(TOPDIR)/build
 XCHAIN_BUILDDIR		:= $(BUILDDIR)/xchain
-HOSTTOOLS_BUILDDIR	:= $(BUILDDIR)/hosttools
+HOSTTOOL_BUILDDIR	:= $(BUILDDIR)/hosttools
 PATCHES_BUILDDIR	:= $(BUILDDIR)/patches
 PATCHDIR		:= $(TOPDIR)/patches
 STATEDIR		:= $(TOPDIR)/state
@@ -134,7 +134,7 @@ PACKAGES_GET			:= $(addsuffix _get,$(PACKAGES)) $(addsuffix _get,$(XCHAIN))
 PACKAGES_EXTRACT		:= $(addsuffix _extract,$(PACKAGES))
 PACKAGES_PREPARE		:= $(addsuffix _prepare,$(PACKAGES))
 PACKAGES_COMPILE		:= $(addsuffix _compile,$(PACKAGES))
-HOSTTOOLS_INSTALL		:= $(addsuffix _install,$(HOSTTOOLS))
+HOSTTOOL_INSTALL		:= $(addsuffix _install,$(HOSTTOOLS))
 
 VENDORTWEAKS_TARGETINSTALL	:= $(addsuffix _targetinstall,$(VENDORTWEAKS))
 
@@ -200,7 +200,7 @@ dep_tree:
 skip_vendortweaks:
 	@echo "Vendor-Tweaks file $(PTXCONF_VENDORTWEAKS) does not exist, skipping."
 
-dep_world: $(HOSTTOOLS_INSTALL) $(PACKAGES_TARGETINSTALL) $(VENDORTWEAKS_TARGETINSTALL)
+dep_world: $(HOSTTOOL_INSTALL) $(PACKAGES_TARGETINSTALL) $(VENDORTWEAKS_TARGETINSTALL)
 	@echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
 
 world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 

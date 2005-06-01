@@ -42,7 +42,7 @@ config KERNEL_2_4_COMPILE
 	bool
 	depends on !DONT_COMPILE_KERNEL
 	default y if KERNEL_2_4
-	select HOSTTOOLS_MODUTILS
+	select HOSTTOOL_MODUTILS
 
 
 config KERNEL_2_6
@@ -52,7 +52,7 @@ config KERNEL_2_6_COMPILE
 	bool
 	depends on !DONT_COMPILE_KERNEL
 	default y if KERNEL_2_6
-	select HOSTTOOLS_MODULE_INIT_TOOLS
+	select HOSTTOOL_MODULE_INIT_TOOLS
 
 
 choice 

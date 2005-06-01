@@ -232,7 +232,7 @@ config IMAGE_UIMAGE_EXTRA_ARGS
 config IMAGE_EXT2
 	bool
 	default n
-	select HOSTTOOLS_GENEXT2FS
+	select HOSTTOOL_GENEXT2FS
 	prompt "Generate images/root.ext2 (initrd)"
 	help
 	  Build an ext2 image of the root filesystem that can be used as an initrd

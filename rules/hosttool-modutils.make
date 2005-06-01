@@ -24,7 +24,7 @@ HOSTTOOL_MODUTILS		= modutils-$(HOSTTOOL_MODUTILS_VERSION)
 HOSTTOOL_MODUTILS_SUFFIX	= tar.bz2
 HOSTTOOL_MODUTILS_URL		= http://www.kernel.org/pub/linux/utils/kernel/modutils/v2.4/$(HOSTTOOL_MODUTILS).$(HOSTTOOL_MODUTILS_SUFFIX)
 HOSTTOOL_MODUTILS_SOURCE	= $(SRCDIR)/$(HOSTTOOL_MODUTILS).$(HOSTTOOL_MODUTILS_SUFFIX)
-HOSTTOOL_MODUTILS_DIR		= $(HOSTTOOLS_BUILDDIR)/$(HOSTTOOL_MODUTILS)
+HOSTTOOL_MODUTILS_DIR		= $(HOSTTOOL_BUILDDIR)/$(HOSTTOOL_MODUTILS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -54,7 +54,7 @@ hosttool-modutils_extract_deps = $(STATEDIR)/hosttool-modutils.get
 $(STATEDIR)/hosttool-modutils.extract: $(hosttool-modutils_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_MODUTILS_DIR))
-	@$(call extract, $(HOSTTOOL_MODUTILS_SOURCE), $(HOSTTOOLS_BUILDDIR))
+	@$(call extract, $(HOSTTOOL_MODUTILS_SOURCE), $(HOSTTOOL_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL_MODUTILS), $(HOSTTOOL_MODUTILS_DIR))
 	touch $@
 
