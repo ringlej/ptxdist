@@ -246,6 +246,7 @@ CROSS_PATH = $(call remove_quotes,$(DISTCC_PATH_COLON))$(call remove_quotes,$(PT
 # e.g. i486 instead of i486-linux
 #
 SHORT_TARGET		:= `echo $(PTXCONF_GNU_TARGET) |  $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
+SHORT_HOST		:= `echo $(GNU_HOST) |  $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
 
 
 # ----------------------------------------------------------------------------
