@@ -65,6 +65,7 @@ endmenu
 menu "Disk and File Utilities     "
 ##############################################################################
 
+source "rules/dosfstools.in"
 source "rules/e2fsprogs.in"
 source "rules/grub.in"
 source "rules/ipkg.in"
