@@ -90,7 +90,7 @@ fbtest_compile_deps = $(STATEDIR)/fbtest.prepare
 $(STATEDIR)/fbtest.compile: $(fbtest_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(FBTEST_DIR) && $(FBTEST_ENV) $(FBTEST_PATH) \
-		CROSS_COMPILE=$(PTXCONF_COMPILER_PREFIX) make
+		CROSS_COMPILE=$(COMPILER_PREFIX) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -123,7 +123,7 @@ $(STATEDIR)/fbtest.targetinstall: $(fbtest_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0755, $(FBTEST_DIR)/$(PTXCONF_COMPILER_PREFIX)fbtest, /sbin/fbtest)
+	@$(call install_copy, 0, 0, 0755, $(FBTEST_DIR)/$(COMPILER_PREFIX)fbtest, /sbin/fbtest)
 
 	@$(call install_finish)
 

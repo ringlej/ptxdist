@@ -63,7 +63,7 @@ $(STATEDIR)/lilo.extract: $(STATEDIR)/lilo.get
 lilo_prepare: $(STATEDIR)/lilo.prepare
 
 LILO_PATH	= PATH=$(CROSS_PATH)
-LILO_MAKEVARS 	= CROSS=$(PTXCONF_COMPILER_PREFIX)
+LILO_MAKEVARS 	= CROSS=$(COMPILER_PREFIX)
 
 #
 # dependencies

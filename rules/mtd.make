@@ -73,7 +73,7 @@ mtd_prepare_deps = \
 	$(STATEDIR)/mtd.extract
 
 MTD_PATH	= PATH=$(CROSS_PATH)
-MTD_MAKEVARS	= CROSS=$(PTXCONF_COMPILER_PREFIX)
+MTD_MAKEVARS	= CROSS=$(COMPILER_PREFIX)
 MTD_ENV		= $(CROSS_ENV)
 
 $(STATEDIR)/mtd.prepare: $(mtd_prepare_deps)
