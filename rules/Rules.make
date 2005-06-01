@@ -76,6 +76,16 @@ HOSTCC_ENV	= CC=$(HOSTCC)
 # The option in the .config is called 'TARGET_CONFIG_FILE'
 #
 #
+
+# FIXME: this is not really consistent any more; we want the arch specific 
+#        stuff separate from other options, so we can do NATIVE builds. 
+
+ifdef NATIVE
+TARGET_CFLAGS		=
+TARGET_CXXFLAGS		=
+TARGET_CPPFLAGS		=
+TARGET_LDFLAGS		=
+endif
 TARGET_CFLAGS		+= $(PTXCONF_TARGET_EXTRA_CFLAGS)
 TARGET_CXXFLAGS		+= $(PTXCONF_TARGET_EXTRA_CXXFLAGS)
 TARGET_CPPFLAGS		+= $(PTXCONF_TARGET_EXTRA_CPPFLAGS)
@@ -207,6 +217,9 @@ CROSS_ENV := \
 	$(CROSS_ENV_AC)
 
 CROSS_AUTOCONF = $(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
+else
+CROSS_ENV := \
+	$(CROSS_ENV_FLAGS)
 endif
 
 #
