@@ -4,6 +4,6 @@ menu	"Code maturity       "
 		bool "Support experimental Stuff"
 
 	config EXP_M
-		bool "Support even more experimental Suff"
+		bool "Support even more experimental Stuff"
 		depends on EXP
 endmenu
