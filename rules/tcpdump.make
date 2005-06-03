@@ -22,8 +22,8 @@ endif
 TCPDUMP_VERSION		= 3.9.1
 TCPDUMP			= tcpdump-$(TCPDUMP_VERSION)
 TCPDUMP_SUFFIX		= tar.gz
-TCPDUMP_URL		= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX)
-TCPDUMP_SOURCE		= $(SRCDIR)/$(TCPDUMP).$(TCPDUMP_SUFFIX)
+TCPDUMP_URL		= ftp://ftp.gwdg.de/pub/misc/tcpdump/beta/$(TCPDUMP)-096.$(TCPDUMP_SUFFIX)
+TCPDUMP_SOURCE		= $(SRCDIR)/$(TCPDUMP)-096.$(TCPDUMP_SUFFIX)
 TCPDUMP_DIR		= $(BUILDDIR)/$(TCPDUMP)
 
 # ----------------------------------------------------------------------------
@@ -36,7 +36,7 @@ tcpdump_get_deps = $(TCPDUMP_SOURCE)
 
 $(STATEDIR)/tcpdump.get: $(tcpdump_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, PTXCONF_TCPDUMP)
+	@$(call get_patches, $(TCPDUMP))
 	touch $@
 
 $(TCPDUMP_SOURCE):
@@ -54,8 +54,8 @@ tcpdump_extract_deps = $(STATEDIR)/tcpdump.get
 $(STATEDIR)/tcpdump.extract: $(tcpdump_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TCPDUMP_DIR))
-	@$(call extract, $(TCPDUMP_SOURCE))
-	@$(call patchin, $(PTXCONF_TCPDUMP))
+	@$(call extract, $(TCPDUMP_SOURCE), $(BUILDDIR))
+	@$(call patchin, $(TCPDUMP))
 	touch $@
 
 # ----------------------------------------------------------------------------
