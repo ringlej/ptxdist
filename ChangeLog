@@ -1,3 +1,7 @@
+2005-06-03 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* tcpdump: update to 3.9.1
+
 2005-06-01 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* dosfstools: added; patch by Steven Scholz
