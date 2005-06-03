@@ -36,6 +36,7 @@ libpcap_get_deps = $(LIBPCAP_SOURCE)
 
 $(STATEDIR)/libpcap.get: $(libpcap_get_deps)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(LIBPCAP))
 	touch $@
 
 $(LIBPCAP_SOURCE):
@@ -54,7 +55,7 @@ $(STATEDIR)/libpcap.extract: $(libpcap_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPCAP_DIR))
 	@$(call extract, $(LIBPCAP_SOURCE))
-	@$(call patchin, $(LIBPCAP_SOURCE))
+	@$(call patchin, $(LIBPCAP))
 	touch $@
 
 # ----------------------------------------------------------------------------
