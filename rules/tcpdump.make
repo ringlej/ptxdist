@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-TCPDUMP_VERSION		= 3.8.3
+TCPDUMP_VERSION		= 3.9.1
 TCPDUMP			= tcpdump-$(TCPDUMP_VERSION)
 TCPDUMP_SUFFIX		= tar.gz
 TCPDUMP_URL		= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX)
