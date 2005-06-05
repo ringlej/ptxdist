@@ -1,3 +1,8 @@
+2005-06-05 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* e2fsprogs: fix hosttools vs. hosttool; patch by Christian
+	  Gagneraud
+
 2005-06-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* tcpdump: update to 3.9.1
