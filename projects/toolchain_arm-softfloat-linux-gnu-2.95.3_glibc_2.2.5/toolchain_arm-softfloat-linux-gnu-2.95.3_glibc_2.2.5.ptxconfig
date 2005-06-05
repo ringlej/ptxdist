@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.3-svn
-# Tue May 10 22:35:03 2005
+# PTXdist version: 0.7.4-svn
+# Sun Jun  5 16:35:19 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -380,7 +380,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 
 #
-# Apache HTTP server 
+# Apache HTTP server  
 #
 # PTXCONF_APACHE is not set
 
@@ -565,6 +565,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # Disk and File Utilities     
 #
+
+#
+# dosfstools          
+#
+# PTXCONF_DOSFSTOOLS is not set
 
 #
 # e2fsprogs           
@@ -810,3 +815,22 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # Penguzilla       
 #
 # PTXCONF_PENGUZILLA is not set
+
+#
+# Test Suites                 
+#
+PTXCONF_TESTSUITE_DIR="/usr/lib/testsuites"
+
+#
+# dbench              
+#
+# PTXCONF_DBENCH is not set
+
+#
+# Installation Options
+#
+
+#
+# Linux Test Project  
+#
+# PTXCONF_LTP is not set
