@@ -108,6 +108,9 @@ ifdef PTXCONF_INETUTILS_PING
 endif
 
 # Now the tools: 
+ifdef PTXCONF_INETUTILS_PING
+	cd $(INETUTILS_DIR)/ping && $(INETUTILS_PATH) make
+endif
 ifdef PTXCONF_INETUTILS_RCP
 	cd $(INETUTILS_DIR)/rcp && $(INETUTILS_PATH) make
 endif
@@ -117,8 +120,8 @@ endif
 ifdef PTXCONF_INETUTILS_RSHD
 	cd $(INETUTILS_DIR)/rshd && $(INETUTILS_PATH) make
 endif
-ifdef PTXCONF_INETUTILS_PING
-	cd $(INETUTILS_DIR)/ping && $(INETUTILS_PATH) make
+ifdef PTXCONF_INETUTILS_SYSLOGD
+	cd $(INETUTILS_DIR)/syslogd && $(INETUTILS_PATH) make
 endif
 	touch $@
 
