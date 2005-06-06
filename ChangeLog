@@ -1,6 +1,7 @@
 2005-06-06 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* inetutils: added "real" syslogd
+	* release: released 0.7.5
 	
 2005-06-05 Robert Schwebel <r.schwebel@pengutronix.de>
 
