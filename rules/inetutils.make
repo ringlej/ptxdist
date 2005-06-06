@@ -155,22 +155,21 @@ $(STATEDIR)/inetutils.targetinstall: $(inetutils_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-ifdef PTXCONF_INETUTILS_RCP
-	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rcp/rcp, /usr/bin/rcp)
-endif
-
-ifdef PTXCONF_INETUTILS_RLOGIND
-	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rlogind/rlogind, /usr/sbin/rlogind)
-endif
-
-ifdef PTXCONF_INETUTILS_RSHD
-	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rshd/rshd, /usr/bin/rshd)
-endif
-
 ifdef PTXCONF_INETUTILS_PING
 	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/ping/ping, /bin/ping)
 endif
-
+ifdef PTXCONF_INETUTILS_RCP
+	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rcp/rcp, /usr/bin/rcp)
+endif
+ifdef PTXCONF_INETUTILS_RLOGIND
+	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rlogind/rlogind, /usr/sbin/rlogind)
+endif
+ifdef PTXCONF_INETUTILS_RSHD
+	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rshd/rshd, /usr/bin/rshd)
+endif
+ifdef PTXCONF_INETUTILS_SYSLOGD
+	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/syslogd/syslogd, /sbin/syslogd)
+endif
 	@$(call install_finish)
 
 	touch $@
