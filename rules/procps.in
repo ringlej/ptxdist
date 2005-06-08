@@ -3,6 +3,7 @@ menu "procps              "
 config PROCPS
 	bool
 	prompt "Compile procps"
+	select NCURSES
 
 config PROCPS_TOP
 	bool
