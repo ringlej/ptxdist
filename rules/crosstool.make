@@ -141,6 +141,11 @@ crosstool_install_deps = $(STATEDIR)/crosstool.compile
 
 $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 	@$(call targetinfo, $@)
+ifdef PTXCONF_UCLIBC
+	grep -e PTXCONF_UC_ .config > $(CROSSTOOL_DIR)/uclibc_config
+	perl -i -p -e 's/PTXCONF_UC_//g' $(CROSSTOOL_DIR)/uclibc_config
+endif
+
 #
 # We set all the stuff crosstool expects in it's environment
 #
@@ -163,6 +168,7 @@ $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 		GCC_DIR=gcc-$(GCC_VERSION) \
 		LIBC_DIR=$(CROSSTOOL_LIBC_DIR) \
 		C_LIBRARY=$(CROSSTOOL_LIBC) \
+		UCLIBCCONFIG=$(CROSSTOOL_DIR)/uclibc_config \
 		LINUX_DIR=linux-$(KERNEL_VERSION) \
 		GLIBCTHREADS_FILENAME=glibc-linuxthreads-$(GLIBC_VERSION) \
 		sh $(CROSSTOOL_DIR)/all.sh --notest; \
