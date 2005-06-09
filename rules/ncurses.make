@@ -18,7 +18,7 @@ endif
 #
 # Paths and names 
 #
-NCURSES_VERSION	= 5.3
+NCURSES_VERSION	= 5.4
 NCURSES		= ncurses-$(NCURSES_VERSION)
 NCURSES_SUFFIX	= tar.gz
 NCURSES_URL	= $(PTXCONF_SETUP_GNUMIRROR)/ncurses/$(NCURSES).$(NCURSES_SUFFIX)
@@ -153,26 +153,26 @@ $(STATEDIR)/ncurses.targetinstall: $(STATEDIR)/ncurses.install
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.3, /lib/libncurses.so.5.3)
-	@$(call install_link, libncurses.so.5.3, /lib/libncurses.so.5)
-	@$(call install_link, libncurses.so.5.3, /lib/libncurses.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.4, /lib/libncurses.so.5.4)
+	@$(call install_link, libncurses.so.5.4, /lib/libncurses.so.5)
+	@$(call install_link, libncurses.so.5.4, /lib/libncurses.so)
 
 ifdef PTXCONF_NCURSES_FORM
-	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.3, /lib/libncurses.so.5.3)
-	@$(call install_link, libncurses.so.5.3, /lib/libncurses.so.5)
-	@$(call install_link, libncurses.so.5.3, /lib/libncurses.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.4, /lib/libncurses.so.5.4)
+	@$(call install_link, libncurses.so.5.4, /lib/libncurses.so.5)
+	@$(call install_link, libncurses.so.5.4, /lib/libncurses.so)
 endif
 
 ifdef PTXCONF_NCURSES_MENU
-	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libmenu.so.5.3, /lib/libmenu.so.5.3)
-	@$(call install_link, libmenu.so.5.3, /lib/libmenu.so.5)
-	@$(call install_link, libmenu.so.5.3, /lib/libmenu.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libmenu.so.5.4, /lib/libmenu.so.5.4)
+	@$(call install_link, libmenu.so.5.4, /lib/libmenu.so.5)
+	@$(call install_link, libmenu.so.5.4, /lib/libmenu.so)
 endif
 
 ifdef PTXCONF_NCURSES_PANEL
-	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libpanel.so.5.3, /lib/libpanel.so.5.3)
-	@$(call install_link, libpanel.so.5.3, /lib/libpanel.so.5)
-	@$(call install_link, libpanel.so.5.3, /lib/libpanel.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libpanel.so.5.4, /lib/libpanel.so.5.4)
+	@$(call install_link, libpanel.so.5.4, /lib/libpanel.so.5)
+	@$(call install_link, libpanel.so.5.4, /lib/libpanel.so)
 endif
 
 ifdef PTXCONF_NCURSES_TERMCAP
