@@ -1,5 +1,7 @@
 menu	"Debugging Tools     "
 
+source "rules/cppunit.in"
+
 source "rules/gdb.in"
 
 config KSYMOOPS

@@ -1,0 +1,11 @@
+menu "CppUnit        "
+
+config CPPUNIT
+	bool
+	prompt "Compile CppUnit"
+	help
+	  cppunit is a C++ port of JUnit. It is a testing framework.
+	  For more info, check:
+	  http://sourceforge.net/projects/cppunit
+	  http://cppunit.sourceforge.net/doc/1.9.11
+endmenu

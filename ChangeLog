@@ -1,6 +1,7 @@
 2005-06-10 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* valgrind: added; patch by Shahar Livne
+	* cppunit: added; patch by Shahar Livne
 
 2005-06-06 Robert Schwebel <r.schwebel@pengutronix.de>
 
