@@ -59,6 +59,7 @@ coreutils_prepare: $(STATEDIR)/coreutils.prepare
 
 COREUTILS_AUTOCONF	=  $(CROSS_AUTOCONF)
 COREUTILS_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
+COREUTILS_AUTOCONF	+= --disable-nls
 
 COREUTILS_PATH		=  PATH=$(CROSS_PATH)
 COREUTILS_ENV		=  $(CROSS_ENV)
@@ -78,9 +79,13 @@ coreutils_prepare_deps = \
 
 $(STATEDIR)/coreutils.prepare: $(coreutils_prepare_deps)
 	@$(call targetinfo, $@)
+
 	cd $(COREUTILS_DIR) && \
 		$(COREUTILS_PATH) $(COREUTILS_ENV) \
 		./configure $(COREUTILS_AUTOCONF)
+
+	cd $(COREUTILS_DIR)/src && make localedir.h
+
 	touch $@
 
 # ----------------------------------------------------------------------------
