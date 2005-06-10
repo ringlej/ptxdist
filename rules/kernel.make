@@ -338,6 +338,7 @@ ifndef PTXCONF_DONT_COMPILE_KERNEL
 	fi
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make oldconfig $(KERNEL_MAKEVARS)
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make dep $(KERNEL_MAKEVARS)
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
 endif
 endif
 	touch $@
