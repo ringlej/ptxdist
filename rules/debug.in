@@ -37,4 +37,6 @@ config STRACE_SHARED
 	default y
 	depends on STRACE
 
+source "rules/valgrind.in"
+
 endmenu
