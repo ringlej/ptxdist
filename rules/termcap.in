@@ -1,9 +1,5 @@
-menu "termcap          "
-
-config TERMCAP
-	bool "Compile termcap"
-
-config TERMCAP
+menuconfig TERMCAP
+	bool "termcap"
 	default y
 	depends on GDB_TERMCAP
 	
@@ -14,4 +10,4 @@ config TERMCAP_TERMCAP
 	bool "install termcap data file"
 	default n
 	depends on TERMCAP
-endmenu
+
