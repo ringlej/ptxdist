@@ -1,26 +1,17 @@
-config XGDB
-	bool "Build Cross GDB"
-
-config GDB_WRAPPERS
-	bool "Build cross-GDB wrapper"
-        depends on XGDB
-	help
-	  Creates wrapper scripts in $PTXCONF_PREFIX/bin which preset
-	  all necessary preferences to use the cross debugger. 
-
+#
 
 config GDBSERVER
-	bool "Build gdbserver for target"
+	bool "gdbserver"
 
 config GDBSERVER_SHARED
-	bool "Build shared"
+	bool "shared gdbserver"
 	default y
 	depends on GDBSERVER
         select GLIBC_THREAD_DB if GLIBC && GLIBC_INSTALL
 
 
 config GDB
-	bool "Build GDB for target"
+	bool "gdb (the real one)"
 
 config GDB_SHARED
 	bool "Build shared"
@@ -47,5 +38,3 @@ config GDB_THREAD_DEBUG
         depends on GDB || GDBSERVER
         default y
         select GLIBC_DEBUG if GLIBC
-
-comment "---"
