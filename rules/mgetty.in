@@ -1,8 +1,5 @@
-menu "mgetty & sendfax    "
-
-config MGETTY
-	bool
-	prompt "Compile mgetty"
+menuconfig MGETTY
+	bool "mgetty & sendfax    "
 
 config MGETTY_CONFIG
         prompt "Name of policy.h file to be used"
@@ -38,4 +35,3 @@ config MGETTY_CALLBACK
 	default n
 	depends on MGETTY
 
-endmenu
