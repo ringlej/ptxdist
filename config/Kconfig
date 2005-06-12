@@ -16,12 +16,23 @@ config PTXCONF
 	help
 	  This is the Pengutronix Distribution Build System.
 
+comment "----------------------------"
+
 config PROJECT
 	string
 	prompt "Project Name "
 	help
-	  Name of this project; the name you enter here has to be
-	  identical to the name of the default config file in
-	  $(PROJECTDIR). 
+	  Name of this project; each PTXdist "Project" specifies a unique 
+	  configuration for an embedded Linux project. A project constists
+	  of one directory in $(PROJECTDIR), which is usually to be found
+	  in $(TOPDIR)/projects when being delivered with the PTXdist base
+	  package. 
+
+	  You can specifiy an additional directory which is being searched
+	  for "local" projects with "make setup". The predefined path
+	  for local projects is $(TOPDIR)/local_projects. 
+
+	  To find out which projects are available in the current tree, 
+	  type "make configs". 
 
 source "rules/Kconfig"
