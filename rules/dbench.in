@@ -1,6 +1,4 @@
-menu "dbench              "
-
-config DBENCH
+menuconfig DBENCH
 	bool
 	prompt "dbench"
 	default N
@@ -8,6 +6,7 @@ config DBENCH
 	  dbench is a filesystem throughput test. 
 
 comment "Installation Options"
+	depends on DBENCH
 
 config DBENCH_DBENCH
 	bool
@@ -27,4 +26,3 @@ config DBENCH_TBENCH_SERVER
 	depends on DBENCH
 	default N
 
-endmenu	
