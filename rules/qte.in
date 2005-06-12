@@ -2,12 +2,8 @@
 # Copyright (C) 03/11/2003 by Marco Cavallini <m.cavallini@koansoftware.com>
 #
 
-menu	"Qt embedded GUI       "
-
 config QTE
 	bool
 	prompt "Compile qt/e"
 	depends on EXP
 
-
-endmenu
