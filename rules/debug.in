@@ -1,7 +1,6 @@
-menu	"Debugging Tools     "
+#
 
 source "rules/cppunit.in"
-
 source "rules/gdb.in"
 
 config KSYMOOPS
@@ -11,12 +10,12 @@ config KSYMOOPS
 
 config LTT
 	bool
-	prompt "Linux Trace Toolkit (LTT)"
+	prompt "ltt: Linux Trace Toolkit"
 	default n
 
 config LIBBFD
 	bool
-	prompt "libbfd on target (needed for profiling)"
+	prompt "libbfd (needed for profiling)"
 	default n
 
 config MEMTEST
@@ -35,10 +34,9 @@ config STRACE
 	default n
 
 config STRACE_SHARED
-	bool "build shared"
+	bool "shared strace"
 	default y
 	depends on STRACE
 
 source "rules/valgrind.in"
 
-endmenu
