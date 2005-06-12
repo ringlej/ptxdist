@@ -1,11 +1,5 @@
-# ----------
-
-menu	"Hotplug             "
-
-config HOTPLUG
-	bool "Linux Hotplug Framework"
-
-comment "hotplug scripts"
+menuconfig HOTPLUG
+	bool "Hotplug             "
 
 config HOTPLUG_BLACKLIST
 	bool "blacklist"
@@ -50,4 +44,3 @@ config HOTPLUG_TAPE
 	bool "tape agent"
 	depends on HOTPLUG
 
-endmenu
