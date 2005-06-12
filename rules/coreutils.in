@@ -1,8 +1,5 @@
-menu    "GNU coreutils       "
-
-config COREUTILS
-        bool
-        prompt "Compile GNU coreutils"
+menuconfig COREUTILS
+	bool "GNU coreutils       "
 
 config COREUTILS_CP
 	bool
@@ -24,4 +21,3 @@ config COREUTILS_SEQ
         prompt "seq"
         depends on COREUTILS
 
-endmenu
