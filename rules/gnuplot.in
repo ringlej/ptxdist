@@ -1,8 +1,6 @@
-menu "gnuplot          "
-
-config GNUPLOT
+menuconfig GNUPLOT
 	bool
-	prompt "Gnuplot"
+	prompt "gnuplot"
 	select ZLIB
 
 config GNUPLOT_FITERRVARS
@@ -40,4 +38,3 @@ config GNUPLOT_PDF
 	prompt "PDF support"
 	depends on GNUPLOT
 
-endmenu
