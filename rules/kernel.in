@@ -2,7 +2,9 @@
 # rules/kernel.in
 #
 
-menu	"Kernel              "
+##############################################################################
+menu "Kernel              "
+##############################################################################
 
 config USE_EXTERNAL_KERNEL
 	bool
@@ -366,5 +368,6 @@ comment "epoll should be ported to patchstack mechanism, please send patch! :-)"
 #source "rules/epoll.in"
 
 source "rules/rtai.in"
-	
+
 endmenu
+
