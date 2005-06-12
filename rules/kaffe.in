@@ -1,8 +1,5 @@
-menu	"Kaffe               "
-
-config KAFFE
-	bool
-	prompt "Compile Kaffe"
+menuconfig KAFFE
+	bool "Kaffe"
 
 comment	"Target Options"
 	depends on KAFFE
@@ -225,4 +222,4 @@ comment	"Linking options"
 		default y if KAFFE_API_SE && !KAFFE_FEAT_JAVAMATH || \
 			KAFFE_FEAT_CLDC_GMP && !(KAFFE_LINK_GMP || KAFFE_LINK_BIN)
 		depends on KAFFE
-endmenu
+
