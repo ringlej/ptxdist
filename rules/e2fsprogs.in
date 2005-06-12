@@ -1,9 +1,6 @@
-menu	"e2fsprogs           "
+menuconfig E2FSPROGS
+	bool "e2fsprogs           "
 
-config E2FSPROGS
-	bool
-	prompt "e2fsprogs"
-	
 config E2FSPROGS_MKFS
 	bool
 	prompt "Install mke2fs"
@@ -14,4 +11,3 @@ config E2FSPROGS_E2FSCK
 	prompt "Install e2fsck"
 	depends on E2FSPROGS
 
-endmenu
