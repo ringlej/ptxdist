@@ -1,9 +1,18 @@
-menu	"Code maturity       "
+comment "Code maturity       "
 
-	config EXP
-		bool "Support experimental Stuff"
+config EXP
+	bool "Support experimental Stuff"
+	help
+	  Some options in PTXdist are considered to be experimental. 
+	  Well, if I tell you the truth, *all* options are experimental, 
+	  but the ones marked with PTXCONF_EXP are *officially* being
+	  marked as experimental. 
 
-	config EXP_M
-		bool "Support even more experimental Stuff"
-		depends on EXP
-endmenu
+config EXP_M
+	bool "Support even more experimental Stuff"
+	depends on EXP
+	help
+	  If you thought that PTXCONF_EXP was stuff you shouldn't try,
+	  packets being marked with PTXCONF_EXP_M is definitely not for
+	  people who do not want to live on the bleeding edge. 
+
