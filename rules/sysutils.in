@@ -1,8 +1,5 @@
-menu    "sysutils            "
-
-config SYSUTILS
-        bool
-        prompt "Compile sysutils" 
+menuconfig SYSUTILS
+	bool "sysutils            "
 
 config SYSUTILS_LSBUS
 	bool
@@ -14,4 +11,3 @@ config SYSUTILS_SYSTOOL
 	prompt "  install systool"
 	depends on SYSUTILS
 
-endmenu
