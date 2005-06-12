@@ -1,8 +1,5 @@
-menu "xlibs                 "
-
-config XLIBS
-	bool
-	prompt "X.org xlibs"
+menuconfig XLIBS
+	bool "xlibs                 "
 	help
 	  These are the X libraries from the X.org xlibs project. 
 
@@ -320,4 +317,3 @@ config XLIBS_XEXT
 # 	depends on XLIBS
 # 	prompt "XvMC"
 
-endmenu
