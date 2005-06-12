@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jun 12 21:50:05 2005
+# Sun Jun 12 22:32:05 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -138,7 +138,7 @@ PTXCONF_BINUTILS_VERSION="2.15"
 #
 # PTXCONF_HOSTTOOL_GENEXT2FS is not set
 # PTXCONF_HOSTTOOL_E2FSPROGS is not set
-# PTXCONF_MTD_XCHAIN is not set
+# PTXCONF_HOSTTOOL_MTD is not set
 
 #
 # Packaging Tools
