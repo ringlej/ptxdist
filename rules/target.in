@@ -1,7 +1,9 @@
-menu	"Target Options      "
+comment "Target Architecture Options"
 
 choice
 	prompt "CPU Architecture "
+	help
+	  Specify which processor architecture you want to compile for. 
 
 	config ARCH_ALPHA
 		bool "ALPHA"
@@ -54,8 +56,11 @@ choice
 endchoice
 
 choice
-	prompt "ARM architecture"
+	prompt "ARM Family Variant"
 		depends on ARCH_ARM || ARCH_ARM_NOMMU
+		help
+		  The ARM processor architecture has a variety of flavours. 
+		  Please chose one. 
 
 	config ARM_ARCH_PXA
 		bool "pxa (little endian)"
@@ -206,30 +211,38 @@ endchoice
 
 config SOFTFLOAT
 	bool
-	prompt "Use Softfloat"
+	prompt "Use Software Floatingpoint"
 	default n
 	depends on ARCH_ARM || ARCH_PPC
 	help
 	  Set this option if you want to let the toolchain replace the
 	  floating point instructions by emulation code. 
 
-comment "---"
+comment "Extra Toolchain Options"
 
 config TARGET_EXTRA_CPPFLAGS
 	string
-	prompt "Extra CPPFLAGS (pp)"
+	prompt "Extra CPPFLAGS (cpp)"
+	help
+	  Extra options for the C preprocessor. 
 
 config TARGET_EXTRA_CFLAGS
 	string
 	prompt "Extra CFLAGS (c)"
+	help
+	  Extra options for the C compiler. 
 
 config TARGET_EXTRA_CXXFLAGS
 	string
 	prompt "Extra CXXFLAGS (c++)"
+	help
+	  Extra options for the C++ compiler. 
 
 config TARGET_EXTRA_LDFLAGS
 	string
 	prompt "Extra LDFLAGS (ld)"
+	help
+	  Extra options for the linker. 
 
 config TARGET_CONFIG_FILE
 	string
@@ -250,8 +263,6 @@ config TARGET_CONFIG_FILE
 	default "sh3.dat"		if SH_ARCH_SH3
 	default "sh4.dat"		if SH_ARCH_SH4
 	default "alpha.dat"		if ARCH_ALPHA
-
-comment "---"
 
 config ARCH_NOMMU
 	bool
@@ -291,13 +302,91 @@ config ARM_PROC
 	string
 	default "armv" if ARCH_ARM || ARCH_ARM_NOMMU
 
+comment "Paths & Directories"
+
 config PREFIX
-	prompt "Prefix for development environment"
+	prompt "Prefix for \"install\" stage"
 	string
 	default "$(TOPDIR)/local"
+	help
+	  This directory is being used to install things during the "install" 
+	  stage of PTXdist. It usually contains host tools and libraries which 
+	  are needed to link programs. 
+
+	  A sane default for this is $(TOPDIR)/local. Use this one unless you 
+	  do exactly know what you are doing. 
 
 config ROOT
-	prompt "Prefix for root filesystem"
+	prompt "Prefix for \"targetinstall\" stage"
 	string
+	default "$(TOPDIR)/root"
+	help
+	  This directory is being used to install things during the "targetinstall"
+	  stage of PTXdist. It usually contains the root filesystem for the 
+	  embedded system.
+	  
+	  A sane default for this is $(TOPDIR)/root. Use this one unless you 
+	  do exactly know what you are doing. 
 
-endmenu
+comment "GNU Toolchain Identification String"
+
+config CROSSCHAIN_CHECK
+	string
+	prompt "Check for specific gcc version"
+	default "2.95.3"
+	help
+	  PTXdist calls your cross compiler with -dumpversion and
+	  compares the output with this string. This should help
+	  to avoid compilation with the wrong compiler version 
+	  when you use your own external toolchain. 
+
+config GNU_TARGET
+	string
+	prompt "GNU Target"
+	default "arm-softfloat-linux-gnu"       if ARM_ARCH_LE          && GLIBC
+	default "armb-unknown-linux-gnu"        if ARM_ARCH_BE          && GLIBC
+	default "alpha-unknown-linux-gnu"	if ARCH_ALPHA		&& GLIBC
+	default "arm-elf"                       if ARCH_ARM_NOMMU       && GLIBC
+	default "i386-unknown-linux-gnu"        if OPT_I386             && GLIBC
+	default "i486-unknown-linux-gnu"        if OPT_I486             && GLIBC
+	default "i586-unknown-linux-gnu"        if OPT_I586             && GLIBC
+	default "i686-unknown-linux-gnu"        if OPT_I686             && GLIBC
+	default "powerpc-unknown-linux-gnu"     if OPT_PPC              && GLIBC
+	default "powerpc-405-linux-gnu"         if OPT_PPC405           && GLIBC
+	default "powerpc-604-linux-gnu"         if OPT_PPC604           && GLIBC
+	default "powerpc-750-linux-gnu"         if OPT_PPC750           && GLIBC
+	default "powerpc-7450-linux-gnu"        if OPT_PPC7450          && GLIBC
+	default "sparc-unknown-linux-gnu"       if OPT_SPARC            && GLIBC
+	default "mips-unknown-linux-gnu"        if MIPS_ARCH_BE         && GLIBC
+	default "mipsel-unknown-linux-gnu"      if MIPS_ARCH_LE         && GLIBC
+	default "cris-unknown-linux-gnu"        if ARCH_CRIS            && GLIBC
+	default "hppa-unknown-linux-gnu"        if ARCH_PARISC          && GLIBC
+	default "sh3-unknown-linux-gnu"         if SH_ARCH_SH3          && GLIBC
+	default "sh4-unknown-linux-gnu"         if SH_ARCH_SH4          && GLIBC
+
+	default "arm-uclibc-linux-gnu"          if ARM_ARCH_LE          && UCLIBC
+	default "armb-uclibc-linux-gnu"         if ARM_ARCH_BE          && UCLIBC
+	default "arm-elf"                       if ARCH_ARM_NOMMU       && UCLIBC
+	default "i386-uclibc-linux-gnu"         if OPT_I386             && UCLIBC
+	default "i486-uclibc-linux-gnu"         if OPT_I486             && UCLIBC
+	default "i586-uclibc-linux-gnu"         if OPT_I586             && UCLIBC
+	default "i686-uclibc-linux-gnu"         if OPT_I686             && UCLIBC
+	default "powerpc-uclibc-linux-gnu"      if OPT_PPC              && UCLIBC
+	default "powerpc-405_uclibc-linux-gnu"  if OPT_PPC405           && UCLIBC
+	default "powerpc-750_uclibc-linux-gnu"  if OPT_PPC750           && UCLIBC
+	default "powerpc-7450_uclibc-linux-gnu" if OPT_PPC7450          && UCLIBC
+	default "sparc-uclibc-linux-gnu"        if OPT_SPARC            && UCLIBC
+	default "mips-uclibc-linux-gnu"         if MIPS_ARCH_BE         && UCLIBC
+	default "mipsel-uclibc-linux-gnu"       if MIPS_ARCH_LE         && UCLIBC
+	default "cris-uclibc-linux-gnu"         if ARCH_CRIS            && UCLIBC
+	default "hppa-uclibc-linux-gnu"         if ARCH_PARISC          && UCLIBC
+	default "sh3-uclibc-linux-gnu"          if SH_ARCH_SH3          && UCLIBC
+	default "sh4-uclibc-linux-gnu"          if SH_ARCH_SH4          && UCLIBC
+
+config COMPILER_PREFIX
+	string
+	prompt "Compiler Prefix"
+	default "$(PTXCONF_GNU_TARGET)-"
+
+
+
