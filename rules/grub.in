@@ -1,11 +1,13 @@
-menu	"grub                "
 
-config GRUB
-	bool
-	prompt "GRUB"
+menuconfig GRUB
+	bool "grub                "
 	depends on ARCH_X86
 
+comment "grub is only available on x86"
+	depends on !ARCH_X86
+
 comment "Config Options"
+	depends on GRUB
 
 config GRUB_MD5
 	bool
@@ -21,6 +23,7 @@ config GRUB_PRESET_MENU
 	  preset menu (for example for serial console support)
 
 comment "File System Support"
+	depends on GRUB
 
 config GRUB_FFS
 	bool
@@ -53,6 +56,7 @@ config GRUB_XFS
 	depends on GRUB
 
 comment "Network Card Support"
+	depends on GRUB
 
 config GRUB_CS89X0
 	bool
@@ -70,5 +74,3 @@ config GRUB_RTL8139
 	depends on GRUB
 
 source "rules/bootdisk.in"
-
-endmenu
