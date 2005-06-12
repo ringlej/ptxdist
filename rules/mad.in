@@ -1,6 +1,4 @@
-menu	"mad                 "
-
 config MAD
 	bool
 	prompt "Compile mad"
-endmenu
+
