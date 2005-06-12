@@ -1,6 +1,4 @@
-menu "ncurses          "
-
-config NCURSES
+menuconfig NCURSES
 	bool "Compile ncurses"
 
 #config NCURSES_NCURSES
@@ -34,4 +32,3 @@ config NCURSES_PANEL
 	bool "Install libpanel on the target"
 	depends on NCURSES
 
-endmenu
