@@ -1,8 +1,5 @@
-menu "xserver               "
-
-config XSERVER
-	bool
-	prompt "X.org xserver"
+menuconfig XSERVER
+	bool "xserver               "
 
 config XSERVER_SHAPE
 	bool
@@ -154,4 +151,3 @@ config XSERVER_IPV6_TRANSPORT
 	prompt "IPv6 Transport"
 	default y
 
-endmenu
