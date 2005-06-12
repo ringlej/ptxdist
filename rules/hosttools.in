@@ -1,17 +1,34 @@
-menu	"Host Tools          "
+##############################################################################
+comment "Filesystem Manipulation Tools"
+##############################################################################
 
 source "rules/hosttool-genext2fs.in"
 source "rules/hosttool-e2fsprogs.in"
+source "rules/hosttool-mtd.in"
+
+##############################################################################
+comment "Packaging Tools"
+##############################################################################
+
 source "rules/hosttool-fakeroot.in"
 source "rules/hosttool-ipkg.in"
 source "rules/hosttool-ipkg-utils.in"
+
+##############################################################################
+comment "Kernel Tools"
+##############################################################################
+
 source "rules/hosttool-module-init-tools.in"
 source "rules/hosttool-util-linux.in"
-source "rules/hosttool-flex.in"
 
 config XCHAIN_UMKIMAGE
 	bool
 	default n
-	prompt "Build umkimage to create images used by the bootloader U-Boot"
+	prompt "mkimage: U-Boot kernel image creation"
 
-endmenu
+##############################################################################
+comment "Other Host Tools"
+##############################################################################
+
+source "rules/hosttool-flex.in"
+
