@@ -1,8 +1,5 @@
-menu	"ipkg                "
-
-config IPKG
-	bool
-	prompt "ipkg"
+menuconfig IPKG
+	bool "ipkg                "
 	default N
 
 config IPKG_EXTRACT_TEST
@@ -21,4 +18,3 @@ config IPKG_HASH_TEST
 	help
 	  Unfortunately, nobody knows what this program is being used for. 
 
-endmenu
