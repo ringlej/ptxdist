@@ -1,33 +1,5 @@
-# ----------
-
-menu	"MTD Tools           "
-
-config MTD_XCHAIN
-	bool "Compile MTD Utilities (for host)"
-
-config MTD_XCHAIN_MKJFFS
-	bool "mkfs.jffs"
-	depends on MTD_XCHAIN
-
-config MTD_XCHAIN_MKJFFS2
-	bool "mkfs.jffs2"
-	depends on MTD_XCHAIN
-
-config MTD_XCHAIN_JFFS_DUMP
-	bool
-	prompt "jffs_dump"
-	depends on MTD_XCHAIN
-
-config MTD_XCHAIN_JFFS2_DUMP
-	bool
-	prompt "jffs2_dump"
-	depends on MTD_XCHAIN
-
-# ----------
-
-config MTD_UTILS
-	bool
-	prompt "Compile MTD Utilities (for target)"
+menuconfig MTD_UTILS
+	bool "MTD Tools           "
 
 config MTD_FLASH_ERASE
 	bool
@@ -124,5 +96,3 @@ config MTD_MKJFFS2
 	bool
 	prompt "mkfs.jffs2"
 	depends on MTD_UTILS
-
-endmenu
