@@ -1,8 +1,6 @@
-menu    "Linux Test Project  "
-
-config LTP
+menuconfig LTP
         bool
-        prompt "LTP"
+        prompt "Linux Test Project"
 	default N
 
 source "rules/ltp-ballista.in"
@@ -10,4 +8,3 @@ source "rules/ltp-commands.in"
 source "rules/ltp-kernel.in"
 source "rules/ltp-misc.in"
 
-endmenu
