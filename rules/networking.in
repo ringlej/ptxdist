@@ -2,16 +2,21 @@
 comment "Network Tools --- "
 ##############################################################################
 
-menu    "Network Security    "
+##############################################################################
+comment "Network Security    "
+##############################################################################
+
 source "rules/dropbear.in"
 source "rules/iptables.in"
 source "rules/lsh.in"
 source "rules/openssl.in"
 source "rules/openssh.in"
 source "rules/shorewall.in"
-endmenu
 
-menu   "Networking Apps     "
+##############################################################################
+comment "Networking Apps"
+##############################################################################
+
 source "rules/apache.in"
 source "rules/betaftpd.in"
 source "rules/bind.in"
@@ -42,8 +47,10 @@ source "rules/utelnetd.in"
 source "rules/wget.in"
 source "rules/wireless.in"
 source "rules/zebra.in"
-endmenu
 
-menu   "Realtime Networking "
+##############################################################################
+comment "Realtime Networking "
+##############################################################################
+
 source "rules/rtnet.in"
-endmenu
+
