@@ -1,7 +1,4 @@
-menu "Flex"
-
 config HOSTTOOL_FLEX254
 	bool
 	prompt "flex 2.5.4"
 
-endmenu
