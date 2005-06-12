@@ -1,4 +1,4 @@
-config FBUTILS
+menuconfig FBUTILS
 	bool
 	prompt "Compile fbutils"
 
