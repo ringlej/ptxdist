@@ -1,7 +1,4 @@
-menu	"GnuPG               "
-
 config GNUPG
 	bool
 	prompt "Compile GnuPG"
 
-endmenu
