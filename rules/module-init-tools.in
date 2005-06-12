@@ -1,8 +1,5 @@
-menu "Module Init Tools   "
-
-config MODULE_INIT_TOOLS
-	bool
-	prompt "Compile Module Init Tools"
+menuconfig MODULE_INIT_TOOLS
+	bool "Module Init Tools   "
 	help
 	  This package contains a set of programs for loading, inserting
 	  and removing kernel modules for Linux (versions 2.5.48 and
@@ -38,4 +35,3 @@ config MODULE_INIT_TOOLS_DEPMOD
 	prompt "Install depmod on target"
 	depends on MODULE_INIT_TOOLS
 
-endmenu
