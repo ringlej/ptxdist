@@ -1,7 +1,5 @@
-menu	"rn               "
-
 config RN
-        bool
-        prompt "Add rn scalable networking readiness notification library (see http://www.kegel.com/rn)"
+        bool "rn"
+	help
+	  Add rn scalable networking readiness notification library (see http://www.kegel.com/rn)
 
-endmenu
