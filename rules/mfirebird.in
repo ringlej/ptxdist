@@ -1,8 +1,6 @@
-menu "Mozilla Firebird "
-
-config MFIREBIRD
+menuconfig MFIREBIRD
 	bool
-	prompt "Compile Mozilla Firebird"
+	prompt "Mozilla Firefox"
 
 config MFIREBIRD_CALENDAR
 	bool
@@ -256,4 +254,3 @@ config MFIREBIRD_OPTIMIZE
 #	prompt "Minimize size of necko's I/O buffers"
 #	depends on MFIREBIRD
 	
-endmenu
