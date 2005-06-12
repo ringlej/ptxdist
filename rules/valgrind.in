@@ -1,9 +1,7 @@
-menu "Valgrind       "
-
 config VALGRIND
 	bool
 	depends on ARCH_X86
-	prompt "Compile Valgrind"
+	prompt "valgrind"
 	help
 	  Valgrind is a GPL'd system for debugging and profiling x86-Linux 
 	  programs. With Valgrind's tool suite you can automatically detect 
@@ -12,4 +10,4 @@ config VALGRIND
 	  also perform detailed profiling to help speed up your programs.
 	  For more info, check:
 	  http://valgrind.org/
-endmenu
+
