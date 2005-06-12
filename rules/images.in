@@ -58,8 +58,8 @@ config IMAGE_IPKG_ARCH
 config IMAGE_JFFS2
 	bool
 	default n
-	select MTD_XCHAIN_MKJFFS2
-	select MTD_XCHAIN
+	select HOSTTOOL_MTD_MKJFFS2
+	select HOSTTOOL_MTD
 	prompt "Generate images/root.jffs2"
 	help
 	  Build a jffs2 image of the root filesystem
