@@ -2,7 +2,7 @@
 # rules/libc.in
 #
 
-menu	"C Library           "
+menu "C Library           "
 
 choice
         prompt "Which C library do you want to use?"
@@ -78,4 +78,5 @@ endif
 if UCLIBC
 source "rules/uclibc.in"
 endif
+
 endmenu
