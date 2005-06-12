@@ -1,8 +1,5 @@
-menu "FLTK GUI Toolkit      "
-
-config FLTK
-	bool
-	prompt "FLTK-GUI Toolkit"
+menuconfig FLTK
+	bool "FLTK GUI Toolkit      "
 	depends on XFREE430
 
 config FLTK_OPENGL
@@ -44,4 +41,3 @@ config FLTK_FLUID
 
 	  So you're better off leaving this disabled.
 
-endmenu
