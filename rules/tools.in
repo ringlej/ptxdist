@@ -1,6 +1,6 @@
 config FIGLET
 	bool
-	prompt "Compile figlet"
+	prompt "figlet"
 	help
 	  Figlet is a tool to create bit ASCII text. 
 
@@ -10,7 +10,7 @@ config MEMEDIT
 	bool
 	default N
 	select READLINE
-	prompt "Compile memedit"
+	prompt "memedit"
 	help
 	  memedit is a command line tool which is able to open
 	  a file or pseudo file representing a memory device 
@@ -20,12 +20,12 @@ config MEMEDIT
 config MEMSTAT
 	bool
 	default N
-	prompt "Compile memstat"
+	prompt "memstat"
 	help
 	  memstat is a memory diagnose tool which lets you find
  	  out which process uses how much virtual memory. 
 
 config CANCONFIG
 	bool
-	prompt "Compile canconfig"
+	prompt "canconfig"
 
