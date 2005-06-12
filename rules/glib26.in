@@ -1,7 +1,3 @@
-menu "glib-2.6         "
-
 config GLIB26
 	bool
-	prompt "Compile glib-2.6"
-
-endmenu
+	prompt "glib-2.6"
