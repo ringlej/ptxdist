@@ -1,6 +1,5 @@
-menu "sqlite           "
 
-config SQLITE
+menuconfig SQLITE
 	bool
 	prompt "Compile sqlite"
 
@@ -28,4 +27,3 @@ config SQLITE_THREADSAFE
 	prompt "Safe for use within a multi-threaded program"
 	depends on SQLITE
 
-endmenu
