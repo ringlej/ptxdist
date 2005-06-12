@@ -1,5 +1,3 @@
-menu "Module Init Tools/Modutils"
-
 config HOSTTOOL_MODULE_INIT_TOOLS
 	bool
 	default N
@@ -14,5 +12,6 @@ config HOSTTOOL_MODUTILS
 	default N
 	prompt "Modutils"
 	select HOSTTOOL_FLEX254
+	help
+	  Modutils is the old set of programs for handling kernel modules. 
 
-endmenu
