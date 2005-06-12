@@ -1,8 +1,5 @@
-menu "pcre             "
-
 config PCRE
 	bool "PCRE"
 	help
 	  Perl Compatible Regluar Expressions Library
 
-endmenu
