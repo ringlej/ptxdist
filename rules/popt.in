@@ -1,7 +1,4 @@
-menu "popt             "
-
 config POPT
 	bool
 	prompt "popt"
 
-endmenu
