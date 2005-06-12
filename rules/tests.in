@@ -1,3 +1,4 @@
+
 config TESTSUITE_DIR
 	string
 	prompt "Directory for Test Suites"
@@ -5,6 +6,7 @@ config TESTSUITE_DIR
 	help
 	  This directory is the toplevel directory to install 
 	  test suites. 
+
 
 source "rules/dbench.in"
 source "rules/ltp.in"
