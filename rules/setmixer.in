@@ -1,6 +1,4 @@
-menu	"setmixer            "
-
 config SETMIXER
 	bool
 	prompt "Compile setmixer"
-endmenu
+
