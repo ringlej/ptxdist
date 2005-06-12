@@ -1,9 +1,5 @@
-menu	"readline         "
-
 config READLINE
         bool
 	select NCURSES
 	select GCCLIBS_GCC_S
-        prompt "compile readline"
-
-endmenu
+        prompt "readline"
