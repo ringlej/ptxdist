@@ -1,14 +1,22 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Thu Jun  9 13:15:59 2005
+# Sun Jun 12 21:50:10 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
+
+#
+# ----------------------------
+#
 PTXCONF_PROJECT="toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27"
 
 #
-# General Options             
+# ----------------------------
+#
+
+#
+# PTXdist Config, Architecture
 #
 
 #
@@ -17,7 +25,7 @@ PTXCONF_PROJECT="toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27"
 # PTXCONF_EXP is not set
 
 #
-# Target Options      
+# Target Architecture Options
 #
 # PTXCONF_ARCH_ALPHA is not set
 PTXCONF_ARCH_ARM=y
@@ -62,29 +70,36 @@ PTXCONF_OPT_ARM=y
 PTXCONF_SOFTFLOAT=y
 
 #
-# ---
+# Extra Toolchain Options
 #
 PTXCONF_TARGET_EXTRA_CPPFLAGS=""
 PTXCONF_TARGET_EXTRA_CFLAGS=""
 PTXCONF_TARGET_EXTRA_CXXFLAGS=""
 PTXCONF_TARGET_EXTRA_LDFLAGS=""
 PTXCONF_TARGET_CONFIG_FILE="arm.dat"
-
-#
-# ---
-#
 PTXCONF_ARCH="arm"
 PTXCONF_ARCH_USERSPACE="arm"
 PTXCONF_ARM_PROC="armv"
+
+#
+# Paths & Directories
+#
 PTXCONF_PREFIX="/opt/crosstool-0.32"
 PTXCONF_ROOT=""
 
 #
-# Toolchain/Crosstool 
+# GNU Toolchain Identification String
+#
+PTXCONF_CROSSCHAIN_CHECK="2.95.3"
+PTXCONF_GNU_TARGET="arm-softfloat-linux-uclibc"
+PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
+
+#
+# Cross Compilation Tools     
 #
 
 #
-# Crosstool Options
+# Crosstool
 #
 PTXCONF_CROSSTOOL=y
 # PTXCONF_GCC_2_95_3 is not set
@@ -95,6 +110,7 @@ PTXCONF_GCC_3_3_3=y
 # PTXCONF_GCC_3_4_1 is not set
 # PTXCONF_GCC_3_4_2 is not set
 PTXCONF_CROSSTOOL_GCCLANG_CC=y
+# PTXCONF_GCC_MULTILIB is not set
 # PTXCONF_BINUTILS_2_15 is not set
 PTXCONF_BINUTILS_2_14_90_0_5=y
 # PTXCONF_BINUTILS_2_14 is not set
@@ -102,23 +118,66 @@ PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
 PTXCONF_BINUTILS_VERSION="2.14.90.0.5"
 
 #
-# Generic Options
+# Cross Debugging Tools
 #
-# PTXCONF_GCC_MULTILIB is not set
-PTXCONF_GNU_TARGET="arm-softfloat-linux-uclibc"
-PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
+# PTXCONF_XGDB is not set
 
 #
-# Non-Crosstool Tools
+# Other Tools
 #
 # PTXCONF_XCHAIN-DISTCC is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
 #
-# Root Filesystem     
+# Host Side Tools             
 #
-# PTXCONF_ROOTFS is not set
-PTXCONF_VENDORTWEAKS=""
+
+#
+# Filesystem Manipulation Tools
+#
+# PTXCONF_HOSTTOOL_GENEXT2FS is not set
+# PTXCONF_HOSTTOOL_E2FSPROGS is not set
+# PTXCONF_MTD_XCHAIN is not set
+
+#
+# Packaging Tools
+#
+# PTXCONF_HOSTTOOL_FAKEROOT is not set
+# PTXCONF_HOSTTOOL_IPKG is not set
+# PTXCONF_HOSTTOOL_IPKG_UTILS is not set
+
+#
+# Kernel Tools
+#
+# PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS is not set
+# PTXCONF_HOSTTOOL_MODUTILS is not set
+# PTXCONF_XCHAIN_UMKIMAGE is not set
+
+#
+# Other Host Tools
+#
+PTXCONF_HOSTTOOL_FLEX254=y
+
+#
+# Debugging Tools             
+#
+# PTXCONF_CPPUNIT is not set
+# PTXCONF_GDBSERVER is not set
+# PTXCONF_GDB is not set
+# PTXCONF_KSYMOOPS is not set
+# PTXCONF_LTT is not set
+# PTXCONF_LIBBFD is not set
+# PTXCONF_MEMTEST is not set
+# PTXCONF_OPROFILE is not set
+# PTXCONF_STRACE is not set
+
+#
+# ----------------------------
+#
+
+#
+# Image Creation Options      
+#
 
 #
 # Image Creation
@@ -131,45 +190,21 @@ PTXCONF_VENDORTWEAKS=""
 # PTXCONF_IMAGE_EXT2 is not set
 
 #
-# Debugging Tools     
+# Root Filesystem             
 #
-# PTXCONF_XGDB is not set
-# PTXCONF_GDBSERVER is not set
-# PTXCONF_GDB is not set
 
 #
-# ---
+# Populate Rootfs
 #
-# PTXCONF_KSYMOOPS is not set
-# PTXCONF_LTT is not set
-# PTXCONF_LIBBFD is not set
-# PTXCONF_MEMTEST is not set
-# PTXCONF_OPROFILE is not set
-# PTXCONF_STRACE is not set
+# PTXCONF_ROOTFS is not set
 
 #
-# Host Tools          
+# Populate & Configure /etc
 #
-# PTXCONF_HOSTTOOL_GENEXT2FS is not set
-# PTXCONF_HOSTTOOL_E2FSPROGS is not set
-# PTXCONF_HOSTTOOL_FAKEROOT is not set
-# PTXCONF_HOSTTOOL_IPKG is not set
-# PTXCONF_HOSTTOOL_IPKG_UTILS is not set
+PTXCONF_VENDORTWEAKS=""
 
 #
-# Module Init Tools/Modutils
-#
-# PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS is not set
-# PTXCONF_HOSTTOOL_MODUTILS is not set
-
-#
-# Flex
-#
-PTXCONF_HOSTTOOL_FLEX254=y
-# PTXCONF_XCHAIN_UMKIMAGE is not set
-
-#
-# Core System                 
+# Core (Kernel, C-Library)    
 #
 
 #
@@ -208,10 +243,6 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 
 #
 # epoll should be ported to patchstack mechanism, please send patch! :-)
-#
-
-#
-# RTAI                
 #
 # PTXCONF_RTAI is not set
 
@@ -395,11 +426,11 @@ PTXCONF_UC_DEVEL_PREFIX="/usr/$(TARGET_ARCH)-linux-uclibc/usr/"
 # PTXCONF_GCCLIBS_GCC_S is not set
 
 #
-# Shell & Console Tools       
+# ----------------------------
 #
 
 #
-# Bash                
+# Shell & Console Tools       
 #
 # PTXCONF_BASH is not set
 
@@ -408,65 +439,16 @@ PTXCONF_UC_DEVEL_PREFIX="/usr/$(TARGET_ARCH)-linux-uclibc/usr/"
 #
 # PTXCONF_BUSYBOX is not set
 PTXCONF_BB_HAVE_DOT_CONFIG=y
-
-#
-# GNU coreutils       
-#
 # PTXCONF_COREUTILS is not set
-
-#
-# Module Init Tools   
-#
 # PTXCONF_MODULE_INIT_TOOLS is not set
-
-#
-# Gawk                
-#
 # PTXCONF_GAWK is not set
-
-#
-# Hotplug             
-#
 # PTXCONF_HOTPLUG is not set
-
-#
-# hotplug scripts
-#
-
-#
-# MTD Tools           
-#
-# PTXCONF_MTD_XCHAIN is not set
 # PTXCONF_MTD_UTILS is not set
-
-#
-# PCMCIA Tools        
-#
 # PTXCONF_PCMCIA_TOOLS is not set
-
-#
-# Pdksh               
-#
 # PTXCONF_PDKSH is not set
-
-#
-# procps              
-#
 # PTXCONF_PROCPS is not set
-
-#
-# sysfsutils          
-#
 # PTXCONF_SYSFSUTILS is not set
-
-#
-# sysutils            
-#
 # PTXCONF_SYSUTILS is not set
-
-#
-# util-linux          
-#
 # PTXCONF_UTLNX is not set
 # PTXCONF_CLOCK is not set
 
@@ -526,7 +508,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_SHOREWALL is not set
 
 #
-# Networking Apps     
+# Networking Apps
 #
 
 #
@@ -715,35 +697,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # Disk and File Utilities     
 #
-
-#
-# dosfstools          
-#
 # PTXCONF_DOSFSTOOLS is not set
-
-#
-# e2fsprogs           
-#
 # PTXCONF_E2FSPROGS is not set
 
 #
-# grub                
-#
-
-#
-# Config Options
-#
-
-#
-# File System Support
-#
-
-#
-# Network Card Support
-#
-
-#
-# ipkg                
+# grub is only available on x86
 #
 # PTXCONF_IPKG is not set
 # PTXCONF_CRAMFS is not set
@@ -753,46 +711,18 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # Communication Utilities     
 #
 # PTXCONF_EFAX is not set
-
-#
-# mgetty & sendfax    
-#
 # PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
-
-#
-# ssmtp               
-#
 # PTXCONF_SSMTP is not set
 
 #
 # Applications                
 #
-
-#
-# Flash               
-#
 # PTXCONF_FLASH is not set
-
-#
-# GnuPG               
-#
 # PTXCONF_GNUPG is not set
-
-#
-# Kaffe               
-#
 # PTXCONF_KAFFE is not set
-
-#
-# mad                 
-#
 # PTXCONF_MAD is not set
-
-#
-# setmixer            
-#
 # PTXCONF_SETMIXER is not set
 
 #
@@ -813,69 +743,16 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # System Libraries            
 #
-
-#
-# Berkeley db 4    
-#
 # PTXCONF_DB is not set
-
-#
-# expat            
-#
 # PTXCONF_EXPAT is not set
-
-#
-# gettext          
-#
-
-#
-# glib-2.6         
-#
 # PTXCONF_GLIB26 is not set
-
-#
-# libxml2          
-#
 # PTXCONF_LIBXML2 is not set
-
-#
-# ncurses          
-#
 # PTXCONF_NCURSES is not set
-
-#
-# pcre             
-#
 # PTXCONF_PCRE is not set
-
-#
-# popt             
-#
 # PTXCONF_POPT is not set
-
-#
-# readline         
-#
 # PTXCONF_READLINE is not set
-
-#
-# rn               
-#
 # PTXCONF_RN is not set
-
-#
-# sqlite           
-#
 # PTXCONF_SQLITE is not set
-
-#
-# termcap          
-#
-# PTXCONF_TERMCAP is not set
-
-#
-# zlib             
-#
 # PTXCONF_ZLIB is not set
 
 #
@@ -890,51 +767,16 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # X Infrastructure
 #
-
-#
-# XFree86-4.3.0         
-#
 # PTXCONF_XFREE430 is not set
-
-#
-# xlibs                 
-#
 # PTXCONF_XLIBS is not set
-
-#
-# xserver               
-#
 # PTXCONF_XSERVER is not set
-
-#
-# realvnc               
-#
 # PTXCONF_REALVNC is not set
 
 #
 # X Applications
 #
-
-#
-# Clementine WM         
-#
 # PTXCONF_CLEMENTINE is not set
-
-#
-# FLTK GUI Toolkit      
-#
-
-#
-# wxWindows GUI [X11]   
-#
-
-#
-# Qt embedded GUI       
-#
-
-#
-# Blackbox WM           
-#
+# PTXCONF_WXWINDOWS is not set
 # PTXCONF_BLACKBOX is not set
 
 #
@@ -946,41 +788,17 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # Scientific Apps             
 #
-
-#
-# gnuplot          
-#
 # PTXCONF_GNUPLOT is not set
 
 #
 # Web Applications            
 #
-
-#
-# Mozilla Firebird 
-#
 # PTXCONF_MFIREBIRD is not set
-
-#
-# Penguzilla       
-#
 # PTXCONF_PENGUZILLA is not set
 
 #
 # Test Suites                 
 #
 PTXCONF_TESTSUITE_DIR="/usr/lib/testsuites"
-
-#
-# dbench              
-#
 # PTXCONF_DBENCH is not set
-
-#
-# Installation Options
-#
-
-#
-# Linux Test Project  
-#
 # PTXCONF_LTP is not set
