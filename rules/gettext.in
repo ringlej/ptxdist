@@ -1,13 +1,9 @@
-menu "gettext          "
-
-config GETTEXT
-	bool
+menuconfig GETTEXT
+	bool "gettext (GNU)"
 	depends on GCC_SHARED
-	prompt "Compile GNU gettext"
 
 config GETTEXT_LIBINTL
 	bool
 	depends on GETTEXT
 	prompt "Install GNU libintl"
 
-endmenu
