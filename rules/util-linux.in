@@ -1,8 +1,5 @@
-menu "util-linux          "
-
-config UTLNX
-	bool
-	prompt "Compile Util-Linux"
+menuconfig UTLNX
+	bool "util-linux          "
 
 config UTLNX_FDISK
 	bool
@@ -46,4 +43,4 @@ config UTLNX_READPROFILE
 	depends on UTLNX
 
 source "rules/clock.in"
-endmenu
+
