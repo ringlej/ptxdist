@@ -1,7 +1,4 @@
-menu "Blackbox WM           "
-
 config BLACKBOX
         bool
-        prompt "Compile Blackbox Window-Manager"
+        prompt "Blackbox Window-Manager"
 
-endmenu
