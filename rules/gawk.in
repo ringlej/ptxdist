@@ -1,7 +1,3 @@
-menu	"Gawk                "
+menuconfig GAWK
+	bool "Gawk                "
 
-config GAWK
-        bool
-        prompt "Compile GNU awk (gawk)"
-
-endmenu
