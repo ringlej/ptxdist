@@ -1,8 +1,5 @@
-menu "procps              "
-
-config PROCPS
-	bool
-	prompt "Compile procps"
+menuconfig PROCPS
+	bool "procps              "
 	select NCURSES
 
 config PROCPS_TOP
@@ -34,4 +31,3 @@ config PROCPS_PGREP
 	bool
 	prompt "pgrep"
 	depends on PROCPS
-endmenu
