@@ -1,8 +1,5 @@
-menu	"Pdksh               "
-
-config PDKSH
-	bool
-	prompt "Pdksh"
+menuconfig PDKSH
+	bool "Pdksh               "
 
 config PDKSH_SHLIKE
 	bool	
@@ -39,4 +36,3 @@ config PDKSH_BRACE_EXPAND
 	prompt "Enable ksh brace expansion"
 	depends on PDKSH
 
-endmenu
