@@ -2,15 +2,20 @@
 # rules/crosstool.in
 #
 
-menu	"Toolchain/Crosstool "
-
-comment "Crosstool Options"
-	depends on CROSSTOOL
+comment "Crosstool"
 
 config CROSSTOOL
 	bool
-	prompt "Build Cross Toolchain with Crosstool"
+	prompt "crosstool: Cross Toolchain Build Suite"
 	default n
+	help
+	  Crosstool is a canned build script which is being used to build
+	  the cross compiler and GNU binutils. Historically PTXdist had 
+	  it's own variant of building cross tools, but as Crosstool is 
+	  the most whidespread community project we use it now. 
+
+	  The following menu entries are being used to select the details
+	  of the crosstool configuration. 
 
 choice
 	prompt "GCC Version"
@@ -59,8 +64,16 @@ config GCC_VERSION
 config CROSSTOOL_GCCLANG_CC
 	depends on CROSSTOOL
 	bool
-	prompt "C++ language support"
+	prompt "C++ language support for gcc"
 	default y
+
+config GCC_MULTILIB
+	bool
+	prompt "build gcc with multilib support"
+	default n
+	depends on CROSSTOOL
+	help
+	  FIXME: is this working and being used? [RSC]
 
 choice
 	prompt "binutils"
@@ -108,19 +121,6 @@ config BINUTILS_VERSION
 	default "2.14"		if BINUTILS_2_14
 	default "2.14.90.0.5"	if BINUTILS_2_14_90_0_5
 
-comment "Generic Options"
-
-config CROSSCHAIN_CHECK
-	string
-	prompt "Check for specific gcc version"
-	default "2.95.3"
-	depends on !CROSSTOOL
-	help
-	  PTXdist calls your cross compiler with -dumpversion and
-	  compares the output with this string. This should help
-	  to avoid compilation with the wrong compiler version 
-	  when you use your own external toolchain. 
-
 #config GCC_2
 #	bool
 #	default y if GCC_2_95_3
@@ -139,67 +139,27 @@ config CROSSCHAIN_CHECK
 #	help
 #	  FIXME: is this working and being used? [RSC]
 
-config GCC_MULTILIB
-	bool
-	prompt "build gcc with multilib support"
-	default n
-	depends on CROSSTOOL
+##############################################################################
+comment "Cross Debugging Tools"
+##############################################################################
+
+config XGDB
+	bool "cross gdb"
+
+config GDB_WRAPPERS
+	bool "cross gdb wrapper"
+        depends on XGDB
 	help
-	  FIXME: is this working and being used? [RSC]
+	  Creates wrapper scripts in $PTXCONF_PREFIX/bin which preset
+	  all necessary preferences to use the cross debugger. 
 
-config GNU_TARGET
-	string
-	prompt "GNU Target"
-	default "arm-softfloat-linux-gnu"       if ARM_ARCH_LE          && GLIBC
-	default "armb-unknown-linux-gnu"        if ARM_ARCH_BE          && GLIBC
-	default "alpha-unknown-linux-gnu"	if ARCH_ALPHA		&& GLIBC
-	default "arm-elf"                       if ARCH_ARM_NOMMU       && GLIBC
-	default "i386-unknown-linux-gnu"        if OPT_I386             && GLIBC
-	default "i486-unknown-linux-gnu"        if OPT_I486             && GLIBC
-	default "i586-unknown-linux-gnu"        if OPT_I586             && GLIBC
-	default "i686-unknown-linux-gnu"        if OPT_I686             && GLIBC
-	default "powerpc-unknown-linux-gnu"     if OPT_PPC              && GLIBC
-	default "powerpc-405-linux-gnu"         if OPT_PPC405           && GLIBC
-	default "powerpc-604-linux-gnu"         if OPT_PPC604           && GLIBC
-	default "powerpc-750-linux-gnu"         if OPT_PPC750           && GLIBC
-	default "powerpc-7450-linux-gnu"        if OPT_PPC7450          && GLIBC
-	default "sparc-unknown-linux-gnu"       if OPT_SPARC            && GLIBC
-	default "mips-unknown-linux-gnu"        if MIPS_ARCH_BE         && GLIBC
-	default "mipsel-unknown-linux-gnu"      if MIPS_ARCH_LE         && GLIBC
-	default "cris-unknown-linux-gnu"        if ARCH_CRIS            && GLIBC
-	default "hppa-unknown-linux-gnu"        if ARCH_PARISC          && GLIBC
-	default "sh3-unknown-linux-gnu"         if SH_ARCH_SH3          && GLIBC
-	default "sh4-unknown-linux-gnu"         if SH_ARCH_SH4          && GLIBC
-
-	default "arm-uclibc-linux-gnu"          if ARM_ARCH_LE          && UCLIBC
-	default "armb-uclibc-linux-gnu"         if ARM_ARCH_BE          && UCLIBC
-	default "arm-elf"                       if ARCH_ARM_NOMMU       && UCLIBC
-	default "i386-uclibc-linux-gnu"         if OPT_I386             && UCLIBC
-	default "i486-uclibc-linux-gnu"         if OPT_I486             && UCLIBC
-	default "i586-uclibc-linux-gnu"         if OPT_I586             && UCLIBC
-	default "i686-uclibc-linux-gnu"         if OPT_I686             && UCLIBC
-	default "powerpc-uclibc-linux-gnu"      if OPT_PPC              && UCLIBC
-	default "powerpc-405_uclibc-linux-gnu"  if OPT_PPC405           && UCLIBC
-	default "powerpc-750_uclibc-linux-gnu"  if OPT_PPC750           && UCLIBC
-	default "powerpc-7450_uclibc-linux-gnu" if OPT_PPC7450          && UCLIBC
-	default "sparc-uclibc-linux-gnu"        if OPT_SPARC            && UCLIBC
-	default "mips-uclibc-linux-gnu"         if MIPS_ARCH_BE         && UCLIBC
-	default "mipsel-uclibc-linux-gnu"       if MIPS_ARCH_LE         && UCLIBC
-	default "cris-uclibc-linux-gnu"         if ARCH_CRIS            && UCLIBC
-	default "hppa-uclibc-linux-gnu"         if ARCH_PARISC          && UCLIBC
-	default "sh3-uclibc-linux-gnu"          if SH_ARCH_SH3          && UCLIBC
-	default "sh4-uclibc-linux-gnu"          if SH_ARCH_SH4          && UCLIBC
-
-config COMPILER_PREFIX
-	string
-	prompt "Compiler Prefix"
-	default "$(PTXCONF_GNU_TARGET)-"
-
-comment "Non-Crosstool Tools"
+##############################################################################
+comment "Other Tools"
+##############################################################################
 
 config XCHAIN-DISTCC
 	bool
-	prompt "Build distcc"
+	prompt "distcc"
 	default n
 
 config NASM
@@ -209,8 +169,8 @@ config NASM
 
 config XCHAIN-SCONS
 	bool
-	prompt "Build scons (see help)"
+	prompt "scons"
 	help
-		Requires Python-1.6 or later and Python distutils on the Host,
-		these tools are not (yet) part of ptxdist
-endmenu
+	  Requires Python-1.6 or later and Python distutils on the Host,
+	  these tools are not (yet) part of ptxdist
+
