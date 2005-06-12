@@ -1,8 +1,5 @@
-menu "realvnc               "
-
-config REALVNC
-	bool
-	prompt "realvnc"
+menuconfig REALVNC
+	bool "realvnc               "
 
 config REALVNC_SERVER
 	bool
@@ -18,5 +15,4 @@ config REALVNC_CLIENT
 	help
 	  Install realvnc client
 
-endmenu
 	
