@@ -1,9 +1,6 @@
-menu	"dosfstools          "
+menuconfig DOSFSTOOLS
+	bool "dosfstools          "
 
-config DOSFSTOOLS
-	bool
-	prompt "dosfstools"
-	
 config DOSFSTOOLS_MKDOSFS
 	bool
 	prompt "Install mke2fs"
@@ -14,4 +11,3 @@ config DOSFSTOOLS_DOSFSCK
 	prompt "Install dosfsck"
 	depends on DOSFSTOOLS
 
-endmenu
