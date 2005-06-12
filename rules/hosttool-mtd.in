@@ -1,0 +1,21 @@
+
+config MTD_XCHAIN
+	bool "MTD Utilities"
+
+config MTD_XCHAIN_MKJFFS
+	bool "mkfs.jffs"
+	depends on MTD_XCHAIN
+
+config MTD_XCHAIN_MKJFFS2
+	bool "mkfs.jffs2"
+	depends on MTD_XCHAIN
+
+config MTD_XCHAIN_JFFS_DUMP
+	bool
+	prompt "jffs_dump"
+	depends on MTD_XCHAIN
+
+config MTD_XCHAIN_JFFS2_DUMP
+	bool
+	prompt "jffs2_dump"
+	depends on MTD_XCHAIN
