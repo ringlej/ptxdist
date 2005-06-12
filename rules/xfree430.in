@@ -1,8 +1,5 @@
-menu "XFree86-4.3.0         "
-
-config XFREE430
-	bool
-	prompt "Compile XFree86-4.3.0"
+menuconfig XFREE430
+	bool "XFree86-4.3.0         "
 
 config XFREE430_CONFIG
         prompt "Name of host.def file to be used"
@@ -10,4 +7,3 @@ config XFREE430_CONFIG
 	default "build/xc-build/config/cf/xf86site.def"
 	depends on XFREE430
 
-endmenu
