@@ -65,9 +65,8 @@ xchain-umkimage_prepare: $(STATEDIR)/xchain-umkimage.prepare
 #
 # dependencies
 #
-xchain-umkimage_prepare_deps = \
-	$(STATEDIR)/xchain-umkimage.extract \
-	$(STATEDIR)/xchain-zlib.install
+xchain-umkimage_prepare_deps =  $(STATEDIR)/xchain-umkimage.extract
+xchain-umkimage_prepare_deps += $(STATEDIR)/hosttool-zlib.install
 
 XCHAIN_UMKIMAGE_MAKEVARS	= CC=$(HOSTCC)
 XCHAIN_UMKIMAGE_ENV		= CFLAGS=-I$(PTXCONF_PREFIX)/include
