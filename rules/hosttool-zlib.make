@@ -11,15 +11,15 @@
 #
 # Paths and names 
 #
-XCHAIN_ZLIB_BUILDDIR	= $(BUILDDIR)/xchain/$(ZLIB)
+HOSTTOOL_ZLIB_BUILDDIR	= $(HOSTTOOL_BUILDDIR)/$(ZLIB)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-xchain-zlib_get: $(STATEDIR)/xchain-zlib.get
+hosttool-zlib_get: $(STATEDIR)/hosttool-zlib.get
 
-$(STATEDIR)/xchain-zlib.get: $(STATEDIR)/zlib.get
+$(STATEDIR)/hosttool-zlib.get: $(STATEDIR)/zlib.get
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -27,58 +27,58 @@ $(STATEDIR)/xchain-zlib.get: $(STATEDIR)/zlib.get
 # Extract
 # ----------------------------------------------------------------------------
 
-xchain-zlib_extract: $(STATEDIR)/xchain-zlib.extract
+hosttool-zlib_extract: $(STATEDIR)/hosttool-zlib.extract
 
-$(STATEDIR)/xchain-zlib.extract: $(STATEDIR)/xchain-zlib.get
+$(STATEDIR)/hosttool-zlib.extract: $(STATEDIR)/hosttool-zlib.get
 	@$(call targetinfo, $@)
-	@$(call clean, $(XCHAIN_ZLIB_BUILDDIR))
-	@$(call extract, $(ZLIB_SOURCE), $(XCHAIN_BUILDDIR))
+	@$(call clean, $(HOSTTOOL_ZLIB_BUILDDIR))
+	@$(call extract, $(ZLIB_SOURCE), $(HOSTTOOL_BUILDDIR))
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-xchain-zlib_prepare: $(STATEDIR)/xchain-zlib.prepare
+hosttool-zlib_prepare: $(STATEDIR)/hosttool-zlib.prepare
 
-XCHAIN_ZLIB_AUTOCONF	=  --shared
-XCHAIN_ZLIB_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)
-XCHAIN_ZLIB_MAKEVARS	=  $(HOSTCC_ENV)
+HOSTTOOL_ZLIB_AUTOCONF	=  --shared
+HOSTTOOL_ZLIB_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)
+HOSTTOOL_ZLIB_MAKEVARS	=  $(HOSTCC_ENV)
 
-$(STATEDIR)/xchain-zlib.prepare: $(STATEDIR)/xchain-zlib.extract
+$(STATEDIR)/hosttool-zlib.prepare: $(STATEDIR)/hosttool-zlib.extract
 	@$(call targetinfo, $@)
-	cd $(XCHAIN_ZLIB_BUILDDIR) && \
-		./configure $(XCHAIN_ZLIB_AUTOCONF)
+	cd $(HOSTTOOL_ZLIB_BUILDDIR) && \
+		./configure $(HOSTTOOL_ZLIB_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-xchain-zlib_compile: $(STATEDIR)/xchain-zlib.compile
+hosttool-zlib_compile: $(STATEDIR)/hosttool-zlib.compile
 
-$(STATEDIR)/xchain-zlib.compile: $(STATEDIR)/xchain-zlib.prepare 
+$(STATEDIR)/hosttool-zlib.compile: $(STATEDIR)/hosttool-zlib.prepare 
 	@$(call targetinfo, $@)
-	cd $(XCHAIN_ZLIB_BUILDDIR) && make $(XCHAIN_ZLIB_MAKEVARS)
+	cd $(HOSTTOOL_ZLIB_BUILDDIR) && make $(HOSTTOOL_ZLIB_MAKEVARS)
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-xchain-zlib_install: $(STATEDIR)/xchain-zlib.install
+hosttool-zlib_install: $(STATEDIR)/hosttool-zlib.install
 
-$(STATEDIR)/xchain-zlib.install: $(STATEDIR)/xchain-zlib.compile
+$(STATEDIR)/hosttool-zlib.install: $(STATEDIR)/hosttool-zlib.compile
 	@$(call targetinfo, $@)
-	cd $(XCHAIN_ZLIB_BUILDDIR) && make $(XCHAIN_ZLIB_MAKEVARS) install
+	cd $(HOSTTOOL_ZLIB_BUILDDIR) && make $(HOSTTOOL_ZLIB_MAKEVARS) install
 	touch $@
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xchain-zlib_targetinstall: $(STATEDIR)/xchain-zlib.targetinstall
+hosttool-zlib_targetinstall: $(STATEDIR)/hosttool-zlib.targetinstall
 
-$(STATEDIR)/xchain-zlib.targetinstall: $(STATEDIR)/xchain-zlib.install
+$(STATEDIR)/hosttool-zlib.targetinstall: $(STATEDIR)/hosttool-zlib.install
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -86,8 +86,8 @@ $(STATEDIR)/xchain-zlib.targetinstall: $(STATEDIR)/xchain-zlib.install
 # Clean
 # ----------------------------------------------------------------------------
 
-xchain-zlib_clean:
-	rm -rf $(STATEDIR)/xchain-zlib.*
-	rm -rf $(XCHAIN_ZLIB_BUILDDIR)
+hosttool-zlib_clean:
+	rm -rf $(STATEDIR)/hosttool-zlib.*
+	rm -rf $(HOSTTOOL_ZLIB_BUILDDIR)
 
 # vim: syntax=make
