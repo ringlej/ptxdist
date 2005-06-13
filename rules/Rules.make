@@ -22,13 +22,15 @@ SUDO		= sudo
 HOSTCC		= gcc
 DOT		= dot
 SH		= /bin/sh
+# FIXME: disabled cashing in wget. Make sure that all patches on the webserver
+#        have a version number and reenable caching
 WGET		= \
 	export ptx_http_proxy=$(PTXCONF_SETUP_HTTP_PROXY); \
 	export ptx_ftp_proxy=$(PTXCONF_SETUP_FTP_PROXY); \
 	eval \
 	$${ptx_http_proxy:+http_proxy=$${ptx_http_proxy}} \
 	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
-	wget
+	wget --cache=off
 MAKE		= make
 PATCH		= patch
 TAR		= tar
