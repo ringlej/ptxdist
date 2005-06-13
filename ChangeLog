@@ -1,5 +1,7 @@
 2005-06-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* pcmcia-cs: update and fix of targetinstall rules; patch 
+	  by Steven Scholz
 	* makefile: added svn-stat and svn-up targets
 	* Kconfig: restructured menues 
 
