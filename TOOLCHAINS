@@ -1,62 +1,62 @@
 Automatic Toolchain Compilation
 --------------------------
 
-start: Do Mai 12 09:51:32 CEST 2005
+start: So Jun 12 23:09:26 CEST 2005
 
 config...: toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5
-date.....: Do Mai 12 09:51:32 CEST 2005
-user.....: robert@himalia
-buildtime: 0h20m11s
+date.....: So Jun 12 23:09:26 CEST 2005
+user.....: rsc@himalia
+buildtime: 0h16m22s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2
-date.....: Do Mai 12 10:12:05 CEST 2005
-user.....: robert@himalia
-buildtime: 0h38m4s
+date.....: So Jun 12 23:25:53 CEST 2005
+user.....: rsc@himalia
+buildtime: 0h33m16s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Do Mai 12 10:50:47 CEST 2005
-user.....: robert@himalia
-buildtime: 0h16m28s
-result...: 0
+date.....: So Jun 12 23:59:23 CEST 2005
+user.....: rsc@himalia
+buildtime: 0h7m48s
+result...: 2
 
 config...: toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5
-date.....: Do Mai 12 11:07:30 CEST 2005
-user.....: robert@himalia
-buildtime: 0h18m53s
+date.....: Mo Jun 13 00:07:17 CEST 2005
+user.....: rsc@himalia
+buildtime: 0h16m33s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3
-date.....: Do Mai 12 11:26:41 CEST 2005
-user.....: robert@himalia
-buildtime: 0h40m28s
+date.....: Mo Jun 13 00:23:53 CEST 2005
+user.....: rsc@himalia
+buildtime: 0h35m25s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Do Mai 12 12:08:06 CEST 2005
-user.....: robert@himalia
-buildtime: 0h17m49s
-result...: 0
+date.....: Mo Jun 13 00:59:34 CEST 2005
+user.....: rsc@himalia
+buildtime: 0h7m12s
+result...: 2
 
 config...: toolchain_m68k-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Do Mai 12 12:26:17 CEST 2005
-user.....: robert@himalia
-buildtime: 0h12m41s
-result...: 0
+date.....: Mo Jun 13 01:06:50 CEST 2005
+user.....: rsc@himalia
+buildtime: 0h6m23s
+result...: 2
 
 config...: toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5
-date.....: Do Mai 12 12:39:16 CEST 2005
-user.....: robert@himalia
-buildtime: 0h32m1s
+date.....: Mo Jun 13 01:13:18 CEST 2005
+user.....: rsc@himalia
+buildtime: 0h27m55s
 result...: 0
 
 config...: toolchain_powerpc-604-linux-gnu-3.4.1_glibc-2.3.3
-date.....: Do Mai 12 13:12:02 CEST 2005
-user.....: robert@himalia
-buildtime: 0h46m54s
+date.....: Mo Jun 13 01:41:24 CEST 2005
+user.....: rsc@himalia
+buildtime: 0h42m17s
 result...: 0
 
 
-stop: Do Mai 12 13:59:44 CEST 2005
+stop: Mo Jun 13 02:23:57 CEST 2005
 
