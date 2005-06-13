@@ -1,3 +1,8 @@
+2005-06-13 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* makefile: added svn-stat and svn-up targets
+	* Kconfig: restructured menues 
+
 2005-06-10 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* valgrind: added; patch by Shahar Livne
