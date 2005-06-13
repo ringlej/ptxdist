@@ -70,9 +70,6 @@ crosstool_prepare: $(STATEDIR)/crosstool.prepare
 crosstool_prepare_deps = $(STATEDIR)/crosstool.extract
 
 CROSSTOOL_PATH	=  PATH=$(CROSS_PATH)
-CROSSTOOL_ENV 	=  $(CROSS_ENV)
-#CROSSTOOL_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#CROSSTOOL_ENV	+=
 
 #
 # Configuration
@@ -112,6 +109,27 @@ CROSSTOOL_LIBC			= uclibc
 endif
 endif
 
+#
+# Environment 
+#
+CROSSTOOL_ENV 	=  TARBALLS_DIR=$(SRCDIR)
+CROSSTOOL_ENV	+= RESULT_TOP=$(call remove_quotes,$(PTXCONF_PREFIX))
+CROSSTOOL_ENV	+= GCC_LANGUAGES="$(CROSSTOOL_GCCLANG)"
+CROSSTOOL_ENV	+= KERNELCONFIG=$(call remove_quotes,$(CROSSTOOL_DIR)/$(PTXCONF_CROSSTOOL_KERNELCONFIG))
+CROSSTOOL_ENV	+= TARGET=$(call remove_quotes,$(PTXCONF_GNU_TARGET))
+CROSSTOOL_ENV	+= TARGET_CFLAGS="$(call remove_quotes,$(CROSSTOOL_TARGET_CFLAGS))"
+CROSSTOOL_ENV	+= GCC_EXTRA_CONFIG=$(CROSSTOOL_GCC_EXTRA_CONFIG)
+CROSSTOOL_ENV	+= GLIBC_EXTRA_CONFIG=$(CROSSTOOL_GLIBC_EXTRA_CONFIG)
+CROSSTOOL_ENV	+= BINUTILS_DIR=binutils-$(PTXCONF_BINUTILS_VERSION)
+CROSSTOOL_ENV	+= GCC_DIR=gcc-$(GCC_VERSION)
+CROSSTOOL_ENV	+= LIBC_DIR=$(CROSSTOOL_LIBC_DIR)
+CROSSTOOL_ENV	+= C_LIBRARY=$(CROSSTOOL_LIBC)
+ifdef PTXCONF_UCLIBC
+CROSSTOOL_ENV	+= UCLIBCCONFIG=$(CROSSTOOL_DIR)/uclibc_config
+endif
+CROSSTOOL_ENV	+= LINUX_DIR=linux-$(KERNEL_VERSION)
+CROSSTOOL_ENV	+= GLIBCTHREADS_FILENAME=glibc-linuxthreads-$(GLIBC_VERSION)
+
 $(STATEDIR)/crosstool.prepare: $(crosstool_prepare_deps)
 	@$(call targetinfo, $@)
 	touch $@
@@ -149,32 +167,12 @@ endif
 #
 # We set all the stuff crosstool expects in it's environment
 #
-	(	cd $(CROSSTOOL_DIR); \
-		set -ex; \
-		TARBALLS_DIR=$(SRCDIR); \
-		RESULT_TOP=$(subst $(quote),,$(PTXCONF_PREFIX)); \
-		export TARBALLS_DIR RESULT_TOP;	\
-		export GCC_LANGUAGES="$(CROSSTOOL_GCCLANG)"; \
-		\
-		mkdir -p $(call remove_quotes,$(PTXCONF_PREFIX)); \
-		\
-		export KERNELCONFIG=$(call remove_quotes,$(CROSSTOOL_DIR)/$(PTXCONF_CROSSTOOL_KERNELCONFIG)); \
-		\
-		TARGET=$(call remove_quotes,$(PTXCONF_GNU_TARGET)) \
-		TARGET_CFLAGS="$(call remove_quotes,$(CROSSTOOL_TARGET_CFLAGS))" \
-		GCC_EXTRA_CONFIG=$(CROSSTOOL_GCC_EXTRA_CONFIG) \
-		GLIBC_EXTRA_CONFIG=$(CROSSTOOL_GLIBC_EXTRA_CONFIG) \
-		BINUTILS_DIR=binutils-$(PTXCONF_BINUTILS_VERSION) \
-		GCC_DIR=gcc-$(GCC_VERSION) \
-		LIBC_DIR=$(CROSSTOOL_LIBC_DIR) \
-		C_LIBRARY=$(CROSSTOOL_LIBC) \
-		UCLIBCCONFIG=$(CROSSTOOL_DIR)/uclibc_config \
-		LINUX_DIR=linux-$(KERNEL_VERSION) \
-		GLIBCTHREADS_FILENAME=glibc-linuxthreads-$(GLIBC_VERSION) \
-		sh $(CROSSTOOL_DIR)/all.sh --notest; \
-		\
-		echo "done" \
-		exit 1;	\
+	(	cd $(CROSSTOOL_DIR); 					\
+		set -ex; 						\
+		mkdir -p $(call remove_quotes,$(PTXCONF_PREFIX)); 	\
+		$(CROSSTOOL_ENV) sh $(CROSSTOOL_DIR)/all.sh --notest; 	\
+		echo "done" 						\
+		exit 1;							\
 	)
 	touch $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/gcc-$(GCC_VERSION)-$(CROSSTOOL_LIBC_DIR)/$(PTXCONF_GNU_TARGET)/include/linux/autoconf.h)
 	touch $@
