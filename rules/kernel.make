@@ -341,7 +341,7 @@ ifndef PTXCONF_DONT_COMPILE_KERNEL
 	@echo "*** make dep:"
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make dep $(KERNEL_MAKEVARS)
 	@echo "*** make modules_prepare:"
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
+	-cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
 endif
 endif
 	touch $@
