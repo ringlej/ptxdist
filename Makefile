@@ -161,6 +161,8 @@ help:
 	@echo "  make clean                   Remove everything but local/"
 	@echo "  make rootclean               Remove root directory contents"
 	@echo "  make distclean               Clean everything"
+	@echo "  make svn-up                  Run "svn update" in topdir and project dirs"
+	@echo "  make svn-stat                Run "svn stat" in topdir and project dirs"
 	@echo
 	@echo "  make world                   Make-everything-and-be-happy"
 	@echo
@@ -525,6 +527,24 @@ imagesclean:
 		echo; echo -n "                                  ";	\
 	done
 	@rm -f $(STATEDIR)/images
+	@echo "done."
+
+svn-up:
+	@echo "updating in toplevel................ "
+	@cd $(TOPDIR) && svn update
+	@echo "updating in projectdir1............. "
+	@cd $(PTXCONF_SETUP_PROJECTDIR1) && svn update
+	@echo "updating in projectdir2............. "
+	@cd $(PTXCONF_SETUP_PROJECTDIR2) && svn update
+	@echo "done."
+
+svn-stat:
+	@echo "svn stat in toplevel................ "
+	@cd $(TOPDIR) && svn stat
+	@echo "svn stat in projectdir1............. "
+	@cd $(PTXCONF_SETUP_PROJECTDIR1) && svn stat
+	@echo "svn stat in projectdir2............. "
+	@cd $(PTXCONF_SETUP_PROJECTDIR2) && svn stat
 	@echo "done."
 
 archive:  
