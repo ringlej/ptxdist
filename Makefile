@@ -533,18 +533,18 @@ svn-up:
 	@echo "updating in toplevel................ "
 	@cd $(TOPDIR) && svn update
 	@echo "updating in projectdir1............. "
-	@cd $(PTXCONF_SETUP_PROJECTDIR1) && svn update
+	@cd $(PTXCONF_SETUP_PROJECTDIR1) && [ -d .svn ] && svn update
 	@echo "updating in projectdir2............. "
-	@cd $(PTXCONF_SETUP_PROJECTDIR2) && svn update
+	@cd $(PTXCONF_SETUP_PROJECTDIR2) && [ -d .svn ] && svn update
 	@echo "done."
 
 svn-stat:
 	@echo "svn stat in toplevel................ "
 	@cd $(TOPDIR) && svn stat
 	@echo "svn stat in projectdir1............. "
-	@cd $(PTXCONF_SETUP_PROJECTDIR1) && svn stat
+	@cd $(PTXCONF_SETUP_PROJECTDIR1) && [ -d .svn ] && svn stat
 	@echo "svn stat in projectdir2............. "
-	@cd $(PTXCONF_SETUP_PROJECTDIR2) && svn stat
+	@cd $(PTXCONF_SETUP_PROJECTDIR2) && [ -d .svn ] && svn stat
 	@echo "done."
 
 archive:  
