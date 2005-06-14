@@ -354,7 +354,8 @@ targetinfo = 						\
 	if [ `echo $$TG | $(GREP) "\.prepare"` ]; then	\
 		$(call compilercheck)			\
 	fi;						\
-	echo $@ : $^ | sed -e "s@$(TOPDIR)@@g" -e "s@/src/@@g" -e "s@/state/@@g" >> $(DEP_OUTPUT)
+	echo $@ : $^ | sed -e "s@$(TOPDIR)@@g" -e "s@$(PTXCONF_SETUP_SRCDIR)@@g" -e "s@/state/@@g" -e "s@/@@g" >> $(DEP_OUTPUT)
+#	echo $@ : $^ | sed -e "s@$(TOPDIR)@@g" -e "s@/src/@@g" -e "s@/state/@@g" >> $(DEP_OUTPUT)
 
 
 #
@@ -507,23 +508,23 @@ get_feature_patch =						\
 	[ "$$(expr match $$FP_URL file://)" != "0" ] && FP_URLTYPE="file"; 			\
 	case $$FP_URLTYPE in                                    \
 	http)                                                   \
-		$(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR --passive-ftp $$FP_URL; \
+		$(WGET) -np -nd -nH --cut-dirs=0 -P $$FP_DIR --passive-ftp $$FP_URL; \
 		[ $$? -eq 0 ] || {                              \
 			echo;                                   \
 			echo "Could not get feature patch via http!";  \
-			echo "URL: $$URL";                      \
+			echo "URL: $$FP_URL";                   \
 			echo;                                   \
-			exit -1;                                \
+			exit 1;                                 \
 			};                                      \
 		;;                                              \
 	ftp)                                                    \
-		$(WGET) -r -np -nd -nH --cut-dirs=0 -P $$FP_DIR --passive-ftp $$FP_URL; \
+		$(WGET) -np -nd -nH --cut-dirs=0 -P $$FP_DIR --passive-ftp $$FP_URL; \
 		[ $$? -eq 0 ] || {                              \
 			echo;                                   \
 			echo "Could not get feature patch via ftp!";   \
-			echo "URL: $$URL";                      \
+			echo "URL: $$FP_URL";                   \
 			echo;                                   \
-			exit -1;                                \
+			exit 1;                                 \
 			};                                      \
 		;;                                              \
 	file)                                                   \
@@ -534,7 +535,7 @@ get_feature_patch =						\
 			echo "Could not copy feature patch!";   \
 			echo "File: $$FILE";                    \
 			echo;                                   \
-			exit -1;                                \
+			exit 1;                                 \
 			};                                      \
 		;;                                              \
 	*)                                                      \
