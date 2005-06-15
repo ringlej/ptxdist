@@ -195,6 +195,7 @@ dep_output_clean:
 dep_tree:
 	@if dot -V 2> /dev/null; then \
 		sort $(DEP_OUTPUT) | uniq | scripts/makedeptree | $(DOT) -Tps > $(DEP_TREE_PS); \
+		[ -x "`which poster`" ] && poster -v -c0% -ma4 $(DEP_TREE_PS) -o $(DEP_TREE_A4); \
 	else \
 		echo "Install 'dot' from graphviz packet if you want to have a nice dependency tree"; \
 	fi
