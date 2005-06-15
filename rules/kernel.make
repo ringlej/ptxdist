@@ -336,12 +336,20 @@ ifndef PTXCONF_DONT_COMPILE_KERNEL
 		echo "ERROR: No kernel config file found.";		\
 		exit 1;							\
 	fi
-	@echo "*** make oldconfig:"
+	@echo 
+	@echo "------------- make oldconfig -------------"
+	@echo
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make oldconfig $(KERNEL_MAKEVARS)
-	@echo "*** make dep:"
+	@echo 
+	@echo "---------------- make dep ----------------"
+	@echo 
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make dep $(KERNEL_MAKEVARS)
-	@echo "*** make modules_prepare:"
+ifndef NATIVE	
+	@echo 
+	@echo "---------- make modules_prepare ----------"
+	@echo 
 	-cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
+endif
 endif
 endif
 	touch $@
