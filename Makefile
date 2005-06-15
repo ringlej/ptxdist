@@ -194,8 +194,12 @@ dep_output_clean:
 
 dep_tree:
 	@if dot -V 2> /dev/null; then \
+		echo "creating dependency graph..."; \
 		sort $(DEP_OUTPUT) | uniq | scripts/makedeptree | $(DOT) -Tps > $(DEP_TREE_PS); \
-		[ -x "`which poster`" ] && poster -v -c0% -ma4 $(DEP_TREE_PS) -o $(DEP_TREE_A4); \
+		if [ -x "`which poster`" ]; then \
+			echo "creating A4 version..."; \
+			poster -v -c0\% -mA4 -o$(DEP_TREE_A4_PS) $(DEP_TREE_PS); \
+		fi;\
 	else \
 		echo "Install 'dot' from graphviz packet if you want to have a nice dependency tree"; \
 	fi
@@ -478,7 +482,7 @@ clean: rootclean imagesclean
 	@rm -f scripts/lxdialog/Makefile
 	@echo "done."
 	@echo -n "cleaning dependency tree ........ "
-	@rm -f $(DEP_OUTPUT) $(DEP_TREE_PS)
+	@rm -f $(DEP_OUTPUT) $(DEP_TREE_PS) $(DEP_TREE_A4_PS)
 	@echo "done."
 	@echo -n "cleaning logfile................. "
 	@rm -f logfile* 
