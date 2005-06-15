@@ -17,6 +17,7 @@ GNU_BUILD	= $(shell $(TOPDIR)/scripts/config.guess)
 GNU_HOST	= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 DEP_OUTPUT	= depend.out
 DEP_TREE_PS	= deptree.ps
+DEP_TREE_A4_PS	= deptree-a4.ps
 
 SUDO		= sudo
 HOSTCC		= gcc
