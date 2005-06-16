@@ -22,3 +22,11 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias md='mkdir'
 alias rd='rmdir'
+
+# Exec local profile
+
+if [ -e "/etc/profile.local" ]; then
+	echo "running /etc/profile.local"
+	. /etc/profile.local
+fi
+
