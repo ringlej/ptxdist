@@ -302,12 +302,13 @@ kernel_prepare_deps = \
 	$(STATEDIR)/kernel.extract \
 	$(STATEDIR)/hosttool-module-init-tools.install
 
-KERNEL_PATH	= PATH=$(CROSS_PATH)
-KERNEL_MAKEVARS	= \
-	ARCH=$(call remove_quotes,$(PTXCONF_ARCH)) \
-	CROSS_COMPILE=$(COMPILER_PREFIX) \
-	HOSTCC=$(HOSTCC) \
-	DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod)
+KERNEL_PATH	=  PATH=$(CROSS_PATH)
+KERNEL_MAKEVARS =  HOSTCC=$(HOSTCC)
+KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod)
+ifndef NATIVE
+KERNEL_MAKEVARS	+= ARCH=$(call remove_quotes,$(PTXCONF_ARCH))
+KERNEL_MAKEVARS += CROSS_COMPILE=$(COMPILER_PREFIX)
+endif
 
 ifdef PTXCONF_KERNEL_IMAGE_U
 KERNEL_MAKEVARS += MKIMAGE=u-boot-mkimage.sh
