@@ -31,6 +31,7 @@ Test suite components to be added
 Current TODO List
 =================
 
+- RSC:	Invent a project_clean mechanism
 - RSC:	is "select GLIBC_DEBUG" in gdb.in necessary??
 - RSC:	check bash (doesn't compile according to Lisa Hsu)
 - sandeep: add a script to setup a new project interactively
