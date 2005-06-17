@@ -1,0 +1,8 @@
+menu "OpenNTPD            "
+
+config OPENNTPD
+bool             
+prompt "OpenNTPD"             
+default n
+
+endmenu
