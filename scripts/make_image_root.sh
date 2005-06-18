@@ -59,6 +59,7 @@ IPKGCONF=`abspath $IPKGCONF`
 [ -z "$ERASEBLOCKSIZE" ]               && usage "error: erase block size not specified"
 [ ! -x "`which mkfs.jffs2`" ]          && usage "error: you need mkfs.jffs2 in your path"
 [ ! -x "`which fakeroot`" ]            && usage "error: you need fakeroot in your path"
+[ -n "$IPKGDIR" ] && \
 [ ! -x "`which ipkg-cl`" ]             && usage "error: you need ipkg-cl in your path"
 [ -z "$OUTFILE" ]                      && usage "error: specify an output file with -o"
 [ ! -f "$IPKGCONF" ]                   && usage "error: $IPKGCONF does not exist"
