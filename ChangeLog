@@ -1,3 +1,7 @@
+2005-06-18 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* jffs2: fixed macro names; patch by Steven Scholz 
+
 2005-06-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* pcmcia-cs: update and fix of targetinstall rules; patch 

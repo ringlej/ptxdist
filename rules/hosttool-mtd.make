@@ -83,16 +83,16 @@ hosttool-mtd_compile_deps = $(STATEDIR)/hosttool-mtd.prepare
 
 $(STATEDIR)/hosttool-mtd.compile: $(hosttool-mtd_compile_deps)
 	@$(call targetinfo, $@)
-ifdef PTXCONF_MTD_HOSTTOOL_MKJFFS
+ifdef PTXCONF_HOSTTOOL_MTD_MKJFFS
 	cd $(HOSTTOOL_MTD_DIR)/util && make mkfs.jffs $(HOSTTOOL_MTD_MAKEVARS)
 endif
-ifdef PTXCONF_MTD_HOSTTOOL_MKJFFS2
+ifdef PTXCONF_HOSTTOOL_MTD_MKJFFS2
 	cd $(HOSTTOOL_MTD_DIR)/util && make mkfs.jffs2 $(HOSTTOOL_MTD_MAKEVARS)
 endif
-ifdef PTXCONF_MTD_HOSTTOOL_JFFS_DUMP
+ifdef PTXCONF_HOSTTOOL_MTD_JFFS_DUMP
 	cd $(HOSTTOOL_MTD_DIR)/util && make jffs_dump $(HOSTTOOL_MTD_MAKEVARS)
 endif
-ifdef PTXCONF_MTD_HOSTTOOL_JFFS2_DUMP
+ifdef PTXCONF_HOSTTOOL_MTD_JFFS2_DUMP
 	cd $(HOSTTOOL_MTD_DIR)/util && make jffs2_dump $(HOSTTOOL_MTD_MAKEVARS)
 endif
 	touch $@
@@ -107,16 +107,16 @@ $(STATEDIR)/hosttool-mtd.install: $(STATEDIR)/hosttool-mtd.compile
 	@$(call targetinfo, $@)
 	mkdir -p $(PTXCONF_PREFIX)/bin
 
-ifdef PTXCONF_MTD_HOSTTOOL_MKJFFS
+ifdef PTXCONF_HOSTTOOL_MTD_MKJFFS
 	install $(HOSTTOOL_MTD_DIR)/util/mkfs.jffs $(PTXCONF_PREFIX)/bin
 endif
-ifdef PTXCONF_MTD_HOSTTOOL_MKJFFS2
+ifdef PTXCONF_HOSTTOOL_MTD_MKJFFS2
 	install $(HOSTTOOL_MTD_DIR)/util/mkfs.jffs2 $(PTXCONF_PREFIX)/bin
 endif
-ifdef PTXCONF_MTD_HOSTTOOL_JFFS_DUMP
+ifdef PTXCONF_HOSTTOOL_MTD_JFFS_DUMP
 	install $(HOSTTOOL_MTD_DIR)/util/jffs_dump $(PTXCONF_PREFIX)/bin
 endif
-ifdef PTXCONF_MTD_HOSTTOOL_JFFS2_DUMP
+ifdef PTXCONF_HOSTTOOL_MTD_JFFS2_DUMP
 	install $(HOSTTOOL_MTD_DIR)/util/jffs2_dump $(PTXCONF_PREFIX)/bin
 endif
 	touch $@
