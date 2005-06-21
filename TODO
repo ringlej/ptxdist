@@ -8,9 +8,9 @@ Packets which could be added (volunteers needed)
 - RSC:	http://rlib.sicompos.com/
 - RSC: 	libsysfs: http://linux-diag.sourceforge.net
 - RSC: 	MatrixSSL
-- MKL: lilo, tinylogin targetinstall
-- RSC: finish integration of zebra
-- RSC: install e2fsck
+- MKL:  lilo, tinylogin targetinstall
+- RSC:  finish integration of zebra
+- RSC:  install e2fsck
 
 Test suite components to be added
 =================================
@@ -25,12 +25,14 @@ Test suite components to be added
        	20040224182505.GA25038@MAIL.13thfloor.at
 - RSC: 	look at Linux Kernel Headers project:
        	http://ep09.pld-linux.org/~mmazur/linux-libc-headers/
-- RSC: audit for LSB compatiblity
-- RSC: have a look at http://asic-linux.com.mx/~izto/checkinstall/ 
+- RSC:  audit for LSB compatiblity
+- RSC:  have a look at http://asic-linux.com.mx/~izto/checkinstall/ 
 
 Current TODO List
 =================
 
+- RSC:	sed: replace all "sed" occurences by $(SED) and maybe switch to 
+	a newer GNU sed, which has to be packaged as a hosttool then. 
 - RSC:	Invent a project_clean mechanism
 - RSC:	is "select GLIBC_DEBUG" in gdb.in necessary??
 - RSC:	check bash (doesn't compile according to Lisa Hsu)
