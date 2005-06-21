@@ -22,6 +22,8 @@
 	  for the target HOSTTOOL_IPKG must be selected when IMAGE_IPKG is
 	  selected. Patch by Steven Scholz
 
+	* Rules.make: remove old _root macros; patch by Ladislav Michl. 
+
 2005-06-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* jffs2: fixed macro names; patch by Steven Scholz 
