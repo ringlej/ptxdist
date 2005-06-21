@@ -18,6 +18,10 @@
 
 	* *.make: added Emacs syntax hints; patch by Christian Gagneraud
 
+	* ipkg: since "you need ipkg-cl in your path" when creating ipgk files
+	  for the target HOSTTOOL_IPKG must be selected when IMAGE_IPKG is
+	  selected. Patch by Steven Scholz
+
 2005-06-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* jffs2: fixed macro names; patch by Steven Scholz 

@@ -31,6 +31,7 @@ config IMAGE_IPKG
 	bool
 	prompt "Create ipkg packets"
 	select HOSTTOOL_IPKG_UTILS
+	select HOSTTOOL_IPKG
 	help
 	  When this option is selected, the install_* macros build 
 	  ipkg packets in $(TOPDIR)/images/ for each software component. 
