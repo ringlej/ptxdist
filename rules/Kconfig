@@ -5,62 +5,42 @@
 
 comment "----------------------------"
 
-############################################################################## 
 menu "PTXdist Config, Architecture"
-############################################################################## 
-
 source "rules/experimental.in"
 source "rules/target.in"
 endmenu
 
-############################################################################## 
 menu "Cross Compilation Tools     "
-############################################################################## 
 source "rules/crosstool.in"
 endmenu
 
-############################################################################## 
 menu "Host Side Tools             "
-############################################################################## 
 source "rules/hosttools.in"
 endmenu
 
-############################################################################## 
 menu "Debugging Tools             "
-############################################################################## 
 source "rules/debug.in"
 endmenu
 
 comment "----------------------------"
 
-##############################################################################
 menu "Image Creation Options      "
-##############################################################################
 source "rules/images.in"
 endmenu
 
-##############################################################################
 menu "Root Filesystem             "
-##############################################################################
 source "rules/rootfs.in"
 endmenu
 
-##############################################################################
 menu "Core (Kernel, C-Library)    "
-##############################################################################
-
 source "rules/kernel.in"
 source "rules/libc.in"
 source "rules/gcclibs.in"
-
 endmenu
 
 comment "----------------------------"
 
-##############################################################################
 menu "Shell & Console Tools       "
-##############################################################################
-
 source "rules/bash.in"
 source "rules/busybox.in"
 source "rules/coreutils.in"
@@ -74,28 +54,17 @@ source "rules/procps.in"
 source "rules/sysfsutils.in"
 source "rules/sysutils.in"
 source "rules/util-linux.in"
-
 endmenu
 
-##############################################################################
 menu "Scripting Languages         "
-##############################################################################
-
 source "rules/scriptlanguages.in"
-
 endmenu
 
-##############################################################################
 menu "Networking Tools            "
-##############################################################################
 source "rules/networking.in"
-
 endmenu
 
-############################################################################## 
 menu "Disk and File Utilities     "
-##############################################################################
-
 source "rules/dosfstools.in"
 source "rules/e2fsprogs.in"
 source "rules/grub.in"
@@ -103,53 +72,33 @@ source "rules/ipkg.in"
 source "rules/lilo.in"
 source "rules/cramfs.in"
 source "rules/bonniexx.in"
-
 endmenu
 
-############################################################################## 
 menu "Communication Utilities     "
-############################################################################## 
-
 source "rules/efax.in"
 source "rules/mgetty.in"
 source "rules/pop3spam.in"
 source "rules/smtpclient.in"
 source "rules/ssmtp.in"
-
 endmenu
 
-############################################################################## 
 menu "Applications                "
-##############################################################################
-
 source "rules/flash.in"
 source "rules/gnupg.in"
 source "rules/kaffe.in"
 source "rules/mad.in"
 source "rules/setmixer.in"
-
 endmenu
 
-############################################################################## 
 menu "Tools                       "
-############################################################################## 
-
 source "rules/tools.in"
-
 endmenu
 
-############################################################################## 
 menu "Editors                     "
-############################################################################## 
-
 source "rules/editors.in"
-
 endmenu
 
-############################################################################## 
 menu "System Libraries            "
-############################################################################## 
-
 source "rules/db41.in"
 source "rules/expat.in"
 source "rules/gettext.in"
@@ -163,27 +112,18 @@ source "rules/rn.in"
 source "rules/sqlite.in"
 source "rules/termcap.in"
 source "rules/zlib.in"
-
 endmenu
 
-############################################################################## 
 menu "Middleware                  "
-############################################################################## 
-
 source "rules/omniorb.in"
-
 endmenu
 
-############################################################################## 
 menu "Graphics Libraries          "
-############################################################################## 
-
 comment "X Infrastructure"
 source "rules/xfree430.in"
 source "rules/xlibs.in"
 source "rules/xserver.in"
 source "rules/realvnc.in"
-
 comment "X Applications"
 #source "rules/gtk22.in"
 source "rules/clementine.in"
@@ -191,33 +131,21 @@ source "rules/fltk.in"
 source "rules/wxWindows.in"
 source "rules/qte.in"
 source "rules/blackbox.in"
-
 comment "Framebuffer"
 source "rules/fbtest.in"
 source "rules/fbutils.in"
 endmenu
 
-############################################################################## 
 menu "Scientific Apps             "
-############################################################################## 
-
 source "rules/gnuplot.in"
-
 endmenu
 
-############################################################################## 
 menu "Web Applications            "
-############################################################################## 
-
 source "rules/mfirebird.in"
 source "rules/penguzilla.in"
-
 endmenu
 
-############################################################################## 
 menu "Test Suites                 "
-############################################################################## 
-
 source "rules/tests.in"
-
 endmenu
+
