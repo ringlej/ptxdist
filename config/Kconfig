@@ -16,7 +16,7 @@ config PTXCONF
 	help
 	  This is the Pengutronix Distribution Build System.
 
-comment "----------------------------"
+comment "----------------------------------"
 
 config PROJECT
 	string

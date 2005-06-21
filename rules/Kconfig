@@ -3,7 +3,7 @@
 # Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2002, 2003, 2004
 #
 
-comment "----------------------------"
+comment "----------------------------------"
 
 menu "PTXdist Config, Architecture"
 source "rules/experimental.in"
@@ -22,7 +22,7 @@ menu "Debugging Tools             "
 source "rules/debug.in"
 endmenu
 
-comment "----------------------------"
+comment "----------------------------------"
 
 menu "Image Creation Options      "
 source "rules/images.in"
@@ -38,7 +38,7 @@ source "rules/libc.in"
 source "rules/gcclibs.in"
 endmenu
 
-comment "----------------------------"
+comment "----------------------------------"
 
 menu "Shell & Console Tools       "
 source "rules/bash.in"
@@ -54,6 +54,7 @@ source "rules/procps.in"
 source "rules/sysfsutils.in"
 source "rules/sysutils.in"
 source "rules/util-linux.in"
+source "rules/udev.in"
 endmenu
 
 menu "Scripting Languages         "
