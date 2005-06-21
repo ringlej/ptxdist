@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id: template 2516 2005-04-25 10:29:55Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel

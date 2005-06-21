@@ -16,6 +16,8 @@
 	  + LIB_DIR=`dirname $${LIB_DIR}/$$LIB`;
 	  Patch by Oscar Peredo P. and David Updegraff
 
+	* *.make: added Emacs syntax hints; patch by Christian Gagneraud
+
 2005-06-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* jffs2: fixed macro names; patch by Steven Scholz 

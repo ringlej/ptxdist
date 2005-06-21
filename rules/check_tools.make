@@ -1,3 +1,4 @@
+# -*-makefile-*-
 check_tools:
 	# check if some programs are available
 	$(call check_prog_exists, sed)

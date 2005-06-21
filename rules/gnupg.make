@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id: gnupg.make,v 1.4 2005/04/26 12:16:24 michl Exp $
 #
 # Copyright (C) 2005 by Jiri Nesladek

@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id: template 2224 2005-01-20 15:19:18Z rsc $
 #
 # Copyright (C) 2005 by Gary Thomas <gary@mlbassoc.com>

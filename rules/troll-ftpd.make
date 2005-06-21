@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id$
 #
 # Copyright (C) 2004 by Steven Scholz <steven.scholz@imc-berlin.de>

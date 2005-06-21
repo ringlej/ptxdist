@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id$
 #
 # Copyright (C) 2003 by BSP

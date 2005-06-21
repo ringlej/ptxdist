@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id: apache.make,v 1.5 2005/04/29 09:54:22 michl Exp $
 #
 # Copyright (C) 2005 by Jiri Nesladek

@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id: php-apc.make,v 1.5 2005/04/29 08:40:27 michl Exp $
 #
 # Copyright (C) 2005 by Jiri Nesladek
