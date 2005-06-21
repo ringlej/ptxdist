@@ -10,6 +10,12 @@
 
 	* joe: added; patch by Oscar Peredo P.
 
+	* Rules.make: if you have relative, cross-directory symlinks in                                                                  
+	  your target library area, 'make install' will fail: 
+	  - LIB_DIR=`dirname $$LIB`;
+	  + LIB_DIR=`dirname $${LIB_DIR}/$$LIB`;
+	  Patch by Oscar Peredo P. and David Updegraff
+
 2005-06-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* jffs2: fixed macro names; patch by Steven Scholz 
