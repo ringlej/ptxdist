@@ -1,0 +1,28 @@
+config UDEV
+	bool "udev"
+	depends on HOTPLUG
+
+config UDEV_UDEV
+	bool "udev"
+	depends on UDEV
+
+config UDEV_UDEVD
+	bool "udevd"
+	depends on UDEV
+
+config UDEV_INFO
+	bool "udevinfo"
+	depends on UDEV
+
+config UDEV_SEND
+	bool "udevsend"
+	depends on UDEV
+
+config UDEV_START
+	bool "udevstart"
+	depends on UDEV
+
+config UDEV_TEST
+	bool "udevtest"
+	depends on UDEV
+
