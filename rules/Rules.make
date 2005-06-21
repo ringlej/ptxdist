@@ -1163,6 +1163,37 @@ install_link =									\
 	fi
 
 #
+# install_node
+#
+# Installs a device node in root directory in an ipkg packet.
+#
+# $1: UID
+# $2: GID
+# $3: permissions (octal)
+# $4: type
+# $5: major
+# $6: minor
+# $7: device node name
+#
+install_node =				\
+	OWN=$(strip $(1));		\
+	GRP=$(strip $(2));		\
+	PER=$(strip $(3));		\
+	TYP=$(strip $(4));		\
+	MAJ=$(strip $(5));		\
+	MIN=$(strip $(6));		\
+	DEV=$(strip $(7));		\
+	echo "install_node:";		\
+	echo "  owner=$$OWN";		\
+	echo "  group=$$GRP";		\
+	echo "  permissions=$$PER";	\
+	echo "  type=$$TYP";		\
+	echo "  major=$$MAJ";		\
+	echo "  minor=$$MIN";		\
+	echo "  name=$$DEV";		\
+	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(TOPDIR)/permissions
+
+#
 # install_fixup
 #
 # Replaces @...@ sequences in rules/*.ipkg files
@@ -1218,185 +1249,6 @@ install_finish = 													\
 		rm -fr $(IMAGEDIR)/ipkg;										\
 		echo "done."; 												\
 	fi
-
-#
-# copy_root
-# 
-# Installs a file with user/group ownership and permissions via
-# fakeroot. 
-#
-# $1: UID
-# $2: GID
-# $3: permissions (octal)
-# $4: source (for files); directory (for directories)
-# $5: destination (for files); empty (for directories). Prefixed with $(ROOTDIR), 
-#     so it needs to have a leading /
-#
-copy_root = 											\
-	@OWN=`echo $(1) | sed -e 's/[[:space:]]//g'`;						\
-	GRP=`echo $(2) | sed -e 's/[[:space:]]//g'`;						\
-	PER=`echo $(3) | sed -e 's/[[:space:]]//g'`;						\
-	SRC=`echo $(4) | sed -e 's/[[:space:]]//g'`;						\
-	DST=`echo $(5) | sed -e 's/[[:space:]]//g'`;						\
-	if [ -z "$(5)" ]; then									\
-		echo "copy_root dir=$$SRC owner=$$OWN group=$$GRP permissions=$$PER";		\
-		$(INSTALL) -d $(ROOTDIR)/$$SRC;							\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: copy_root failed!";					\
-			exit -1;								\
-		fi;										\
-		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			\
-	else											\
-		echo "copy_root src=$$SRC dst=$$DST owner=$$OWN group=$$GRP permissions=$$PER"; \
-		rm -fr $(ROOTDIR)$$DST; 							\
-		$(INSTALL) -D $$SRC $(ROOTDIR)$$DST;						\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: copy_root failed!";					\
-			exit -1;								\
-		fi;										\
-		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			\
-	fi;
-
-
-#
-# link_root
-# 
-# Installs a soft link in root directory. 
-# 
-# $1: source
-# $2: destination
-#
-link_root =									\
-	@SRC=`echo $(1) | sed -e 's/[[:space:]]//g'`;				\
-	DST=`echo $(2) | sed -e 's/[[:space:]]//g'`;				\
-	rm -fr $(ROOTDIR)$$DST;							\
-	echo "link_root src=$$SRC dst=$$DST "; 					\
-	$(LN) -sf $$SRC $(ROOTDIR)$$DST
-
-#
-# node_root
-#
-# Creates device node in root directory
-#
-# $1: UID
-# $2: GID
-# $3: permissions (octal)
-# $4: type
-# $5: major
-# $6: minor
-# $7: device node name
-#
-node_root = 									\
-	@OWN=`echo $(1) | sed -e 's/[[:space:]]//g'`;				\
-	GRP=`echo $(2) | sed -e 's/[[:space:]]//g'`;				\
-	PER=`echo $(3) | sed -e 's/[[:space:]]//g'`;				\
-	TYP=`echo $(4) | sed -e 's/[[:space:]]//g'`;				\
-	MAJ=`echo $(5) | sed -e 's/[[:space:]]//g'`;				\
-	MIN=`echo $(6) | sed -e 's/[[:space:]]//g'`;				\
-	DEV=`echo $(7) | sed -e 's/[[:space:]]//g'`;				\
-	echo "node_root name=$$DEV owner=$$OWN group=$$GRP permissions=$$PER type=$$TYP major=$$MAJ minor=$$MIN";	\
-	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(TOPDIR)/permissions
-
-#
-# copy_toolchain_lib_root
-#
-# $1: source
-# $2: destination
-# $2: strip (y|n)	default is to strip
-#
-copy_toolchain_lib_root =									\
-	LIB="$(strip $1)";									\
-	DST="$(strip $2)";									\
-	STRIP="$(strip $3)";									\
-												\
-	LIB_DIR=`$(CROSS_CC) --print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
-												\
-	if test \! -d "$${LIB_DIR}"; then							\
-		echo "copy_toolchain_lib_root: lib=$${LIB} not found";				\
-		exit -1;									\
-	fi;											\
-												\
-	LIB="$(strip $1)";									\
-	for FILE in `find $${LIB_DIR} -maxdepth 1 -type l -name "$${LIB}*"`; do			\
-		LIB=`basename $${FILE}`;							\
-		while test -n "$${LIB}"; do							\
-			echo "copy_toolchain_lib_root lib=$${LIB} dst=$${DST}";			\
-			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
-			mkdir -p $(ROOTDIR)$${DST};						\
-			if test -h $${LIB_DIR}/$${LIB}; then					\
-				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/;			\
-			elif test -f $${LIB_DIR}/$${LIB}; then					\
-				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/$${LIB};	\
-				case "$${STRIP}" in						\
-				0 | n | no)							\
-					;;							\
-				*)								\
-					$(CROSS_STRIP) $(ROOTDIR)$${DST}/$${LIB};		\
-					;;							\
-				esac;								\
-				echo "f:$${DST}/$${LIB}:0:0:755" >> $(TOPDIR)/permissions;	\
-			else									\
-				exit -1;							\
-			fi;									\
-			LIB="`readlink $${LIB_DIR}/$${LIB}`";					\
-		done;										\
-	done;											\
-												\
-	echo -n
-
-
-#
-# copy_dl_root
-#
-# $1: destination
-# $2: strip (y|n)	default is to strip
-#
-copy_toolchain_dl_root =									\
-	DST="$(strip $1)";									\
-	STRIP="$(strip $2)";									\
-												\
-	LIB="`echo 'int main(void){return 0;}' | 						\
-		$(CROSS_CC) -x c -o /dev/null -v - 2>&1 | 					\
-		grep dynamic-linker | 								\
-		perl -n -p -e 's/.* -dynamic-linker ([^ ]*).*/\1/'`";				\
-												\
-	LIB="`basename $${LIB}`";								\
-												\
-	LIB_DIR=`$(CROSS_CC) --print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
-												\
-	if test \! -d "$${LIB_DIR}"; then							\
-		echo "copy_toolchain_ld_root: lib=$${LIB} not found";				\
-		exit -1;									\
-	fi;											\
-												\
-	for FILE in `find $${LIB_DIR} -maxdepth 1 -type l -name "$${LIB}*"`; do			\
-		LIB=`basename $${FILE}`;							\
-		while test -n "$${LIB}"; do							\
-			echo "copy_toolchain_ld_root lib=$${LIB} dst=$${DST}";			\
-			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
-			mkdir -p $(ROOTDIR)$${DST};						\
-			if test -h $${LIB_DIR}/$${LIB}; then					\
-				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/;			\
-			elif test -f $${LIB_DIR}/$${LIB}; then					\
-				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/$${LIB};	\
-				case "$${STRIP}" in						\
-				0 | n | no)							\
-					;;							\
-				*)								\
-					$(CROSS_STRIP) $(ROOTDIR)$${DST}/$${LIB};		\
-					;;							\
-				esac;								\
-				echo "f:$${DST}/$${LIB}:0:0:755" >> $(TOPDIR)/permissions;	\
-			else									\
-				exit -1;							\
-			fi;									\
-			LIB="`readlink $${LIB_DIR}/$${LIB}`";					\
-		done;										\
-	done;											\
-												\
-	echo -n
-
-
 
 
 # vim: syntax=make
