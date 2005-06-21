@@ -1,3 +1,10 @@
+2005-06-21 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* kernel: split kernel and modules into two ipkgs, make 
+	  external kernel installable remove unnecessary compile 
+	  step when DONT_COMPILE_KERNEL is selected; patch by
+	  Steven Scholz
+
 2005-06-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* jffs2: fixed macro names; patch by Steven Scholz 

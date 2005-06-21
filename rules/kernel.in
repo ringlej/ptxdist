@@ -166,7 +166,7 @@ config DONT_COMPILE_KERNEL
 choice
 	prompt "Kernel Image"
 	default KERNEL_IMAGE_BZ
-	depends on !DONT_COMPILE_KERNEL
+	depends on !DONT_COMPILE_KERNEL || KERNEL_INSTALL
 
 	config KERNEL_IMAGE_BZ
 		bool
@@ -192,7 +192,12 @@ config KERNEL_INSTALL
 	bool
 	prompt "Install kernel into /boot on target"
 	default n
-	depends on !DONT_COMPILE_KERNEL
+	select KERNEL_INSTALL_MODULES if !DONT_COMPILE_KERNEL
+
+config KERNEL_INSTALL_MODULES
+	bool
+	prompt "Install modules into /lib/modules on target"
+	default n 
 
 # ----------------------------------------------------------------------------
 # Generic Patch Stack

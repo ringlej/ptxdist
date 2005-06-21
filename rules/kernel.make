@@ -12,9 +12,17 @@
 #
 # We provide this package
 #
-ifndef PTXCONF_DONT_COMPILE_KERNEL
+ifdef PTXCONF_KERNEL_2_4
 PACKAGES += kernel
 endif
+ifdef PTXCONF_KERNEL_2_6
+PACKAGES += kernel
+endif
+ifdef PTXCONF_USE_KERNEL_EXTERNAL_KERNEL
+PACKAGES += kernel
+endif
+
+
 
 #
 # Use a PTXdist built kernel which is parametrized here or use one from 
@@ -387,6 +395,7 @@ endif
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	@$(call targetinfo, $@)
 
+ifndef PTXCONF_DONT_COMPILE_KERNEL
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	echo 'u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
@@ -394,6 +403,7 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make \
 		$(KERNEL_TARGET) modules $(KERNEL_MAKEVARS)
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -419,8 +429,6 @@ endif
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-	rm -fr $(KERNEL_INST_DIR)
-
 ifndef NATIVE
 ifdef PTXCONF_KERNEL_INSTALL
 	@$(call install_init,default)
@@ -437,6 +445,20 @@ ifdef PTXCONF_KERNEL_INSTALL
 			$(call install_copy, 0, 0, 0644, $$i, /boot/$(KERNEL_TARGET), n)\
 		fi;							\
 	done
+	@$(call install_finish)
+endif
+ifdef PTXCONF_KERNEL_INSTALL_MODULES
+	rm -fr $(KERNEL_INST_DIR)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,kernel-modules)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(KERNEL_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,)
+	@$(call install_fixup,DESCRIPTION,missing)
+
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make 			\
 		modules_install $(KERNEL_MAKEVARS) INSTALL_MOD_PATH=$(KERNEL_INST_DIR)
 
