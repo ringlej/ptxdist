@@ -8,6 +8,8 @@
 	* scripts: use old style syntax for mktemp; patch by 
 	  Steven Scholz, modified by Robert Schwebel
 
+	* joe: added; patch by Oscar Peredo P.
+
 2005-06-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* jffs2: fixed macro names; patch by Steven Scholz 

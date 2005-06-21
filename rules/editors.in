@@ -1,3 +1,4 @@
-source "rules/nano.in"
-source "rules/jed.in"
 source "rules/hexedit.in"
+source "rules/jed.in"
+source "rules/joe.in"
+source "rules/nano.in"
