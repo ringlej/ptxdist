@@ -3,7 +3,7 @@
 # usage: IMAGES=/image/dir IPKG=/path/to/ipkg-cl ipkg-test 
 
 TOPDIR=`pwd`
-DIR=`mktemp -p /tmp -d`
+DIR=`mktemp -d /tmp/ptxdist.XXXXXX`
 
 if [ -z "$IMAGES/*.ipk" ]; then
 	echo -e "\nError: please set \$IMAGES to a directory with ipkg packets"

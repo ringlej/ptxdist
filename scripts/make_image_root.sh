@@ -72,7 +72,7 @@ echo
 #
 if [ -n "$IPKGDIR" ]; then 
 	echo "-i specified, extracting ipkg packets"
-	WORKDIR=`mktemp -p /tmp -d`
+	WORKDIR=`mktemp -d /tmp/ptxdist.XXXXXX`
 else
 	echo "-r specified, using files from plain root directory"
 	WORKDIR=$ROOTDIR

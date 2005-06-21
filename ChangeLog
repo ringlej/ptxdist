@@ -5,6 +5,9 @@
 	  step when DONT_COMPILE_KERNEL is selected; patch by
 	  Steven Scholz
 
+	* scripts: use old style syntax for mktemp; patch by 
+	  Steven Scholz, modified by Robert Schwebel
+
 2005-06-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* jffs2: fixed macro names; patch by Steven Scholz 
