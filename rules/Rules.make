@@ -1069,7 +1069,7 @@ install_copy_toolchain_lib =									\
 			LIB="`readlink $${LIB_DIR}/$${LIB}`";					\
 			if [ -n "$$LIB" ]; then							\
 				if [ "`dirname $$LIB`" != "." ]; then				\
-					LIB_DIR=`dirname $${LIB_DIR}/$$LIB`;			\
+					LIB_DIR=`dirname $$LIB`;				\
 				fi;								\
 				LIB=`basename $$LIB`;						\
 			fi;									\
