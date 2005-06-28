@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jun 12 22:32:57 2005
+# Tue Jun 28 15:07:01 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -825,10 +825,9 @@ PTXCONF_BB_CONFIG_KILLALL=y
 PTXCONF_BB_CONFIG_PIDOF=y
 PTXCONF_BB_CONFIG_PS=y
 PTXCONF_BB_CONFIG_RENICE=y
-PTXCONF_BB_CONFIG_TOP=y
-PTXCONF_BB_FEATURE_CPU_USAGE_PERCENTAGE=y
+# PTXCONF_BB_CONFIG_TOP is not set
 PTXCONF_BB_CONFIG_UPTIME=y
-PTXCONF_BB_CONFIG_SYSCTL=y
+# PTXCONF_BB_CONFIG_SYSCTL is not set
 
 #
 # Another Bourne-like Shell
@@ -965,9 +964,7 @@ PTXCONF_PROCPS_SYSCTL=y
 PTXCONF_PROCPS_PS=y
 PTXCONF_PROCPS_W=y
 PTXCONF_PROCPS_PGREP=y
-PTXCONF_SYSFSUTILS=y
-PTXCONF_SYSFSUTILS_LIB=y
-PTXCONF_SYSFSUTILS_SYSTOOL=y
+# PTXCONF_SYSFSUTILS is not set
 # PTXCONF_SYSUTILS is not set
 # PTXCONF_UTLNX is not set
 # PTXCONF_CLOCK is not set
@@ -1096,9 +1093,7 @@ PTXCONF_MII-DIAG=y
 #
 # netcat              
 #
-PTXCONF_NETCAT=y
-# PTXCONF_NETCAT_OLD_HEXDUMP is not set
-# PTXCONF_NETCAT_OLD_TELNET is not set
+# PTXCONF_NETCAT is not set
 
 #
 # nfs-utils           
@@ -1116,8 +1111,7 @@ PTXCONF_NETCAT=y
 #
 # nmap                
 #
-PTXCONF_NMAP=y
-PTXCONF_NMAP_SERVICES=y
+# PTXCONF_NMAP is not set
 
 #
 # NTP                 
@@ -1141,6 +1135,11 @@ PTXCONF_NMAP_SERVICES=y
 #
 # PTXCONF_OPENAFS is not set
 # PTXCONF_OPENAFS_1_2_11 is not set
+
+#
+# OpenNTPD            
+#
+# PTXCONF_OPENNTPD is not set
 
 #
 # Portmapper          
