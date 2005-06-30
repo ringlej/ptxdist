@@ -1,3 +1,7 @@
+2005-06-30 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* thttpd: update to 2.25b; fixed install path
+
 2005-06-21 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* kernel: split kernel and modules into two ipkgs, make 
