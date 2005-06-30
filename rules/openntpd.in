@@ -1,9 +1,25 @@
 menu "OpenNTPD            "
 
 config OPENNTPD
-bool             
-prompt "OpenNTPD"             
-default n
+	bool             
+	prompt "OpenNTPD (Network Time Synchronisation Daemon)"             
+	default n
+	depends on !NTP
+	help
+	  This will install the BSD Open NTPD Daemon
+	  OpenNTPD is a FREE, easy to use implementation of the 
+	  Network Time Protocol. It provides the ability to sync 
+	  the local clock to remote NTP servers and can act as NTP 
+	  server itself, redistributing the local clock.
+	  See http://www.openntpd.org/ for details
+
+# ----- Compile Options
+
+comment "Conflicts with NTP"
+	depends on NTP
+
+comment "Compile Options"
+	depends on OPENNTPD
 
 config  OPENNTPD_ARC4RANDOM
         bool

@@ -87,6 +87,9 @@ else
 OPENNTPD_AUTOCONF += --without-builtin-arc4random
 endif
 
+OPENNTPD_AUTOCONF += --with-privsep-user=ntp
+OPENNTPD_AUTOCONF += --with-privsep-path=/var/run/ntp
+
 $(STATEDIR)/openntpd.prepare: $(openntpd_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENNTPD_DIR)/config.cache)
@@ -135,11 +138,11 @@ $(STATEDIR)/openntpd.targetinstall: $(openntpd_targetinstall_deps)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(OPENNTPD_VERSION))
 	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,AUTHOR,"Bjoern Buerger <b.buerger\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/foobar, /dev/null)
+	@$(call install_copy, 0, 0, 0755, $(OPENNTPD_DIR)/ntpd, /usr/sbin/ntpd)
 
 	@$(call install_finish)
 
