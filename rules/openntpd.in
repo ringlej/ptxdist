@@ -5,4 +5,14 @@ bool
 prompt "OpenNTPD"             
 default n
 
+config  OPENNTPD_ARC4RANDOM
+        bool
+        prompt "Use builtin arc4random rather than OpenSSL's"
+        default y
+        depends on OPENNTPD
+        help
+          Enabled by default - if unshure, say YES
+	  Say NO and install OpenSSL as alternative.
+
+
 endmenu
