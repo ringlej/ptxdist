@@ -81,6 +81,12 @@ OPENNTPD_ENV 	=  $(CROSS_ENV)
 OPENNTPD_AUTOCONF =  $(CROSS_AUTOCONF)
 OPENNTPD_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
+ifdef PTXCONF_OPENNTPD_ARC4RANDOM
+OPENNTPD_AUTOCONF += --with-builtin-arc4random
+else
+OPENNTPD_AUTOCONF += --without-builtin-arc4random
+endif
+
 $(STATEDIR)/openntpd.prepare: $(openntpd_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENNTPD_DIR)/config.cache)
