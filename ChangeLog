@@ -1,3 +1,11 @@
+2005-06-30 Bjoern Buerger <b.buerger@pengutronix.de>
+
+	* ntpd: fixed dependencies
+
+	* openntpd: fixed install paths, dependencies
+
+	* chrony: added version 1.20
+
 2005-06-30 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* thttpd: update to 2.25b; fixed install path
