@@ -1,0 +1,20 @@
+menu "Chrony            "
+
+config CHRONY
+	bool             
+	prompt "Chrony (Alternative NTP Synchronisation Daemon)"             
+	default n
+	help
+	  This will install the Chrony NTPD Daemon (chronyd)
+	  Chrony is a pair of programs which are used to maintain 
+	  the accuracy of the system clock on a computer. The two 
+	  programs are called  chronyd  and  chronyc .
+
+	  Chronyd is a background (daemon) program, which can be 
+	  started at boot time, Chronyc provides a user interface 
+	  to chronyd for monitoring its performance and configuring 
+	  various settings. 
+
+	  See http://chrony.sunsite.dk/ for details
+
+endmenu
