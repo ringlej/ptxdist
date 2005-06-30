@@ -1,4 +1,4 @@
-menu "Chrony            "
+menu "Chrony              "
 
 config CHRONY
 	bool             
