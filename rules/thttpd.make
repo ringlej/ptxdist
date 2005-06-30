@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-THTTPD_VERSION	= 2.24
+THTTPD_VERSION	= 2.25b
 THTTPD		= thttpd-$(THTTPD_VERSION)
 THTTPD_SUFFIX	= tar.gz
 THTTPD_URL	= http://www.acme.com/software/thttpd/$(THTTPD).$(THTTPD_SUFFIX)
@@ -132,7 +132,7 @@ $(STATEDIR)/thttpd.targetinstall: $(thttpd_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0555, (THTTPD_DIR)/thttpd, /sbin/thttpd)
+	@$(call install_copy, 0, 0, 0555, $(THTTPD_DIR)/thttpd, /usr/sbin/thttpd)
 
 	@$(call install_finish)
 	touch $@
