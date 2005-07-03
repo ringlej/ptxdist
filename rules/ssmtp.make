@@ -20,15 +20,17 @@ endif
 # Paths and names
 #
 SSMTP_VERSION		= 2.61
-SSMTP			= ssmtp_$(SSMTP_VERSION)
+SSMTP			= ssmtp-$(SSMTP_VERSION)
 SSMTP_SUFFIX		= tar.gz
-SSMTP_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP).orig.$(SSMTP_SUFFIX)
-SSMTP_SOURCE		= $(SRCDIR)/$(SSMTP).orig.$(SSMTP_SUFFIX)
+SSMTP_SRC		= ssmtp_$(SSMTP_VERSION).orig.$(SSMTP_SUFFIX) 
+SSMTP_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP_SRC)
+SSMTP_SOURCE		= $(SRCDIR)/$(SSMTP_SRC)
 SSMTP_DIR		= $(BUILDDIR)/ssmtp-$(SSMTP_VERSION)
 
-SSMTP_PATCH		= 2
-SSMTP_PATCH_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP)-$(SSMTP_PATCH).diff.gz
-SSMTP_PATCH_SOURCE	= $(SRCDIR)/$(SSMTP)-$(SSMTP_PATCH).diff.gz
+SSMTP_PATCH		= 3
+SSMTP_PATCH_SRC		= ssmtp_$(SSMTP_VERSION)-$(SSMTP_PATCH).diff.gz
+SSMTP_PATCH_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP_PATCH_SRC)
+SSMTP_PATCH_SOURCE	= $(SRCDIR)/$(SSMTP_PATCH_SRC)
 
 
 # ----------------------------------------------------------------------------
