@@ -316,6 +316,16 @@ config PREFIX
 	  A sane default for this is $(TOPDIR)/local. Use this one unless you 
 	  do exactly know what you are doing. 
 
+config HOST_PREFIX
+	prompt "Prefix for host tools development environment"
+	string
+	default "$(PTXCONF_PREFIX)"
+
+config CROSS_PREFIX
+	prompt "Prefix for cross tools development environment"
+	string
+	default "$(PTXCONF_PREFIX)"
+
 config ROOT
 	prompt "Prefix for \"targetinstall\" stage"
 	string

@@ -24,8 +24,8 @@ TOPDIR			:= $(shell pwd)
 BASENAME		:= $(shell basename $(TOPDIR))
 HOME			:= $(shell echo $$HOME)
 BUILDDIR		:= $(TOPDIR)/build
-XCHAIN_BUILDDIR		:= $(BUILDDIR)/xchain
-HOSTTOOL_BUILDDIR	:= $(BUILDDIR)/hosttools
+CROSS_BUILDDIR		:= $(BUILDDIR)/crosstools
+HOST_BUILDDIR		:= $(BUILDDIR)/hosttools
 PATCHES_BUILDDIR	:= $(BUILDDIR)/patches
 PATCHDIR		:= $(TOPDIR)/patches
 STATEDIR		:= $(TOPDIR)/state
@@ -81,13 +81,13 @@ PTXPATCH_URL		+= http://www.pengutronix.de/software/ptxdist/patches$(PTXPATCH_UR
 endif
 PTXPATCH_URL		+= $(PTXCONF_SETUP_LOCAL_PATCH_REPOSITORY)
 
-PACKAGES	=
-XCHAIN		=
-VIRTUAL		=
-HOSTTOOLS	=
-VENDORTWEAKS	=
+PACKAGES           =
+CROSS_PACKAGES     =
+HOST_PACKAGES      =
+VIRTUAL            =
+VENDORTWEAKS       =
 
-export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR PACKAGES HOSTTOOLS VENDORTWEAKS
+export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR HOST_PACKAGES CROSS_PACKAGES PACKAGES VENDORTWEAKS
 
 all: help
 
@@ -129,12 +129,22 @@ endif
 -include $(call remove_quotes,$(PTXCONF_VENDORTWEAKS))
 
 # install targets 
-PACKAGES_TARGETINSTALL 		:= $(addsuffix _targetinstall,$(PACKAGES)) $(addsuffix _targetinstall,$(VIRTUAL))
-PACKAGES_GET			:= $(addsuffix _get,$(PACKAGES)) $(addsuffix _get,$(XCHAIN))
-PACKAGES_EXTRACT		:= $(addsuffix _extract,$(PACKAGES))
-PACKAGES_PREPARE		:= $(addsuffix _prepare,$(PACKAGES))
-PACKAGES_COMPILE		:= $(addsuffix _compile,$(PACKAGES))
-HOSTTOOL_INSTALL		:= $(addsuffix _install,$(HOSTTOOLS))
+PACKAGES_TARGETINSTALL 	:= $(addsuffix _targetinstall,$(PACKAGES)) $(addsuffix _targetinstall,$(VIRTUAL))
+PACKAGES_GET		:= $(addsuffix _get,$(PACKAGES))
+PACKAGES_EXTRACT	:= $(addsuffix _extract,$(PACKAGES))
+PACKAGES_PREPARE	:= $(addsuffix _prepare,$(PACKAGES))
+PACKAGES_COMPILE	:= $(addsuffix _compile,$(PACKAGES))
+HOST_PACKAGES_INSTALL	:= $(addsuffix _install,$(HOST_PACKAGES))
+HOST_PACKAGES_GET	:= $(addsuffix _get,$(HOST_PACKAGES))
+HOST_PACKAGES_EXTRACT	:= $(addsuffix _extract,$(HOST_PACKAGES))
+HOST_PACKAGES_PREPARE	:= $(addsuffix _prepare,$(HOST_PACKAGES))
+HOST_PACKAGES_COMPILE	:= $(addsuffix _compile,$(HOST_PACKAGES))
+CROSS_PACKAGES_INSTALL	:= $(addsuffix _install,$(CROSS_PACKAGES))
+CROSS_PACKAGES_GET	:= $(addsuffix _get,$(CROSS_PACKAGES))
+CROSS_PACKAGES_EXTRACT	:= $(addsuffix _extract,$(CROSS_PACKAGES))
+CROSS_PACKAGES_PREPARE	:= $(addsuffix _prepare,$(CROSS_PACKAGES))
+CROSS_PACKAGES_COMPILE	:= $(addsuffix _compile,$(CROSS_PACKAGES))
+# $(addsuffix _get,$(XCHAIN))
 
 VENDORTWEAKS_TARGETINSTALL	:= $(addsuffix _targetinstall,$(VENDORTWEAKS))
 
@@ -207,10 +217,27 @@ dep_tree:
 skip_vendortweaks:
 	@echo "Vendor-Tweaks file $(PTXCONF_VENDORTWEAKS) does not exist, skipping."
 
-dep_world: $(HOSTTOOL_INSTALL) $(PACKAGES_TARGETINSTALL) $(VENDORTWEAKS_TARGETINSTALL)
+dep_world: $(HOST_PACKAGES_INSTALL) \
+	   $(CROSS_PACKAGES_INSTALL) \
+	   $(PACKAGES_TARGETINSTALL) \
+	   $(VENDORTWEAKS_TARGETINSTALL)
 	@echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
 
 world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
+
+host-tools: check_tools dep_output_clean $(HOST_PACKAGES_INSTALL)  dep_tree
+host-get:     check_tools getclean $(HOST_PACKAGES_GET) 
+host-extract: check_tools $(HOST_PACKAGES_EXTRACT)
+host-prepare: check_tools $(HOST_PACKAGES_PREPARE)
+host-compile: check_tools $(HOST_PACKAGES_COMPILE)
+host-install: check_tools $(HOST_PACKAGES_INSTALL)
+
+cross-tools: check_tools dep_output_clean $(CROSS_PACKAGES_INSTALL)  dep_tree
+cross-get:     check_tools getclean $(CROSS_PACKAGES_GET) 
+cross-extract: check_tools $(CROSS_PACKAGES_EXTRACT)
+cross-prepare: check_tools $(CROSS_PACKAGES_PREPARE)
+cross-compile: check_tools $(CROSS_PACKAGES_COMPILE)
+cross-install: check_tools $(CROSS_PACKAGES_INSTALL)
 
 # Robert-is-faster-typing-than-thinking shortcut
 owrld: world

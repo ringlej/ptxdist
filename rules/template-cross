@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003 by @AUTHOR@
+# Copyright (C) @YEAR@ by @AUTHOR@
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -13,7 +13,7 @@
 # We provide this package
 #
 ifdef PTXCONF_@PACKET@
-PACKAGES += @packet@
+CROSS_PACKAGES += @packet@
 endif
 
 #
@@ -24,7 +24,7 @@ endif
 @PACKET@_SUFFIX		= @SUFFIX@
 @PACKET@_URL		= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
 @PACKET@_SOURCE		= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_DIR		= $(XCHAIN_BUILDDIR)/$(@PACKET@)
+@PACKET@_DIR		= $(CROSS_BUILDDIR)/$(@PACKET@)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -36,6 +36,7 @@ endif
 
 $(STATEDIR)/@packet@.get: $(@packet@_get_deps)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(@PACKET@))
 	touch $@
 
 $(@PACKET@_SOURCE):
@@ -53,7 +54,8 @@ $(@PACKET@_SOURCE):
 $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
-	@$(call extract, $(@PACKET@_SOURCE), $(XCHAIN_BUILDDIR))
+	@$(call extract, $(@PACKET@_SOURCE), $(CROSS_BUILDDIR))
+	@$(call patchin, $(@PACKET@), $(@PACKET@_DIR))
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -70,16 +72,14 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 
 @PACKET@_PATH	=  PATH=$(CROSS_PATH)
 @PACKET@_ENV 	=  $(HOSTCC_ENV)
-#@PACKET@_ENV	+=
 
 #
 # autoconf
 #
-@PACKET@_AUTOCONF = \
-	--prefix=$(PTXCONF_PREFIX) \
-	--build=$(GNU_HOST)
-# 	--host=$(GNU_HOST)
-# 	--target=$(PTXCONF_GNU_TARGET)
+@PACKET@_AUTOCONF =  --prefix=$(PTXCONF_PREFIX)
+@PACKET@_AUTOCONF += --build=$(GNU_HOST)
+@PACKET@_AUTOCONF += --host=$(GNU_HOST)
+@PACKET@_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
 	@$(call targetinfo, $@)
@@ -99,7 +99,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
 
 $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
 	@$(call targetinfo, $@)
-	$(@PACKET@_PATH) make -C $(@PACKET@_DIR)
+	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -108,21 +108,11 @@ $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
 
 @packet@_install: $(STATEDIR)/@packet@.install
 
-$(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
+@packet@_install_deps = $(STATEDIR)/@packet@.compile
+
+$(STATEDIR)/@packet@.install: $(@packet@_install_deps)
 	@$(call targetinfo, $@)
-	$(@PACKET@_PATH) make -C $(@PACKET@_DIR) install
-	touch $@
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-@packet@_targetinstall: $(STATEDIR)/@packet@.targetinstall
-
-@packet@_targetinstall_deps = $(STATEDIR)/@packet@.compile
-
-$(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
-	@$(call targetinfo, $@)
+	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------

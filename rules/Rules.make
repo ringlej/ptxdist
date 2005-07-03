@@ -57,7 +57,7 @@ PARALLELMFLAGS  = -j$(shell if [ -r /proc/cpuinfo ];			\
 	fi)
 
 ifdef PTXCONF_HOSTTOOL_FAKEROOT
-FAKEROOT	= $(PTXCONF_PREFIX)/bin/fakeroot
+FAKEROOT	= $(PTXCONF_HOST_PREFIX)/bin/fakeroot
 else
 FAKEROOT	= fakeroot
 endif
@@ -242,7 +242,8 @@ endif
 #
 # prepare the search path
 #
-CROSS_PATH = $(call remove_quotes,$(DISTCC_PATH_COLON))$(call remove_quotes,$(PTXCONF_PREFIX))/bin:$$PATH
+CROSS_PATH = $(call remove_quotes,$(DISTCC_PATH_COLON))$(call remove_quotes,$(PTXCONF_CROSS_PREFIX))/bin:$$PATH
+HOST_PATH = $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:$$PATH
 
 #
 # same as PTXCONF_GNU_TARGET, but w/o -linux
@@ -1244,7 +1245,7 @@ install_finish = 													\
 		echo -n "install_finish: writing ipkg packet ... ";							\
 		sed -i -e 's/^\(Version:\t*\)\(.*\)$$/\1$(PTXDIST_FULLVERSION)-\2/g' $(IMAGEDIR)/ipkg/CONTROL/control;	\
 		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions; echo "popd;"; 	\
-		echo "$(PTXCONF_PREFIX)/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\
+		echo "$(PTXCONF_HOST_PREFIX)/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\
 			$(FAKEROOT) -- 2>&1 | grep -v "cannot access" | grep -v "No such file or directory";		\
 		rm -fr $(IMAGEDIR)/ipkg;										\
 		echo "done."; 												\

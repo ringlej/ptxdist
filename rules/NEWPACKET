@@ -1,35 +1,251 @@
 #!/usr/bin/perl -w 
+#
+#   Copyright (c) 
+#
+#   This program is free software;  you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or (at
+#   your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful, but
+#   WITHOUT ANY WARRANTY;  without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   General Public License for more details.                 
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program;  if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+#
+# NEWPACKET
+#
+#   This is a ...
+#
+#
+# History:
+#   XXXX-XX-XX created by
+#   2005-06-04 / Christian Gagneraud: add support for host and cross tools
+#
 
-print "\nCreate new rules file from template:\n";
-print "------------------------------------\n\n";
 
-print "Name of new packet..........: "; $packet = <STDIN>;
-print "Major version number........: "; $major = <STDIN>;
-print "Minor version number........: "; $minor = <STDIN>;
-print "Micro version number........: "; $micro = <STDIN>;
-print "Archive file suffix.........: "; $suffix = <STDIN>;
-print "URL of download directory...: "; $url = <STDIN>;
-print "PTXdist Packet Author.......: "; $author = <STDIN>;
+use strict;
+use File::Basename; 
+use Getopt::Long;
+use Time::localtime;
 
-chop ($packet, $major, $minor, $micro, $url, $author, $suffix);
+#
+# Global constants
+#
+
+our $tool_version = "1.0-pre1";
+
+our $hosttool_prefix = "host-";
+our $hosttool_template = "template-host";
+our $crosstool_prefix = "cross-";
+our $crosstool_template = "template-cross";
+our $targetstuff_prefix = "";
+our $targetstuff_template = "template";
+
+#
+# Prototypes
+#
+
+sub ask_for_input();
+sub print_usage(*);
+sub info(@);
+
+#
+# Global variables & initialization
+#
+
+# if set, generate hosttool rules
+our $hosttool;
+# if set, generate crosstool rules
+our $crosstool;
+# if set, generate target stuff rules
+our $targetstuff;
+# if set, suppress information messages
+our $quiet;
+# Help option flag
+our $version;
+# Version option flag
+our $help;
+
+# The name of the packet
+our $packet_name = "";
+# idem + prefix
+our $packet = "";
+# idem in uppercase, with _
+our $PACKET = "";
+# Major number of the packet
+our $major = "";
+# Minor number of the packet
+our $minor = "";
+# Micro number of the packet
+our $micro = "";
+# Suffix of the packet archive 
+our $suffix = "";
+# Url for downloading the packet
+our $url = "";
+# Packager
+our $author = "";
+# Year, the author package this packet
+our $year = "";
+
+our $prefix = "";
+our $template = "";
+our $rules = "";
+our $tm;
+
+#
+# Code entry point
+#
+
+if (!GetOptions("hosttool|host" => \$hosttool,
+		"crosstool|cross" => \$crosstool,
+		"target" => \$targetstuff,
+		"quiet" => \$quiet,
+		"help" => \$help,
+		"version" => \$version
+                ))
+{
+	print_usage(*STDERR);
+	exit(1);
+}
+
+# Check for help option
+if ($help)
+{
+	print_usage(*STDOUT);
+	exit(0);
+}
+
+# Check for version option
+if ($version)
+{
+	print("$tool_version\n");
+	exit(0);
+}
+
+# Check for type of packet
+if ($hosttool)
+{
+    $prefix = $hosttool_prefix;
+    $template = $hosttool_template;
+}
+elsif ($crosstool)
+{
+    $prefix = $crosstool_prefix;
+    $template = $crosstool_template;
+}
+elsif ($targetstuff)
+{
+    $prefix = $targetstuff_prefix;
+    $template = $targetstuff_template;
+}
+else
+{
+    print_usage(*STDOUT);
+    exit(0);
+}
+
+# ask the necessary packet informations
+ask_for_input();
+
+# Some adjustments
+$packet = $prefix.$packet_name;
+$rules = $packet."\.make";
 $PACKET = uc($packet);
+$PACKET =~ s/-/_/g;
 
-open(INFILE,  "template") || die "Can't open template";
-open(OUTFILE, ">$packet\.make") || die "Can't open new file";
+# get this year
+$tm = localtime;
+$year = $tm->year + 1900;
 
+# open template file and rules file
+open(INFILE,  $template) || die "Can't open template";
+open(OUTFILE, ">".$rules) || die "Can't open new file";
+
+# Make the substitutions 
+info("Writing ".$rules.'...');
 while (<INFILE>) {
 	s,\@PACKET@,$PACKET,g;
 	s,\@packet@,$packet,g;
+	s,\@packet_name@,$packet_name,g;
 	s,\@MAJOR@,$major,g;
 	s,\@MINOR@,$minor,g;
 	s,\@MICRO@,$micro,g;
 	s,\@URL@,$url,g;
+	s,\@YEAR@,$year,g;
 	s,\@AUTHOR@,$author,g;
 	s,\@SUFFIX@,$suffix,g;
 	print OUTFILE $_;
 }
 
+# close files
 close(OUTFILE);
 close(INFILE);
 
-print "\n";
+# That's all folks!
+info("Done.\n");
+exit(0);
+
+
+#
+# ask_for_input()
+#
+# Ask user the necessary inforation for the packet
+#
+sub ask_for_input()
+{
+    print "\n";
+    print "Create new rules file from template:\n";
+    print "------------------------------------\n";
+    print "Name of new packet..........: "; $packet_name = <STDIN>;
+    print "Major version number........: "; $major = <STDIN>;
+    print "Minor version number........: "; $minor = <STDIN>;
+    print "Micro version number........: "; $micro = <STDIN>;
+    print "Archive file suffix.........: "; $suffix = <STDIN>;
+    print "URL of download directory...: "; $url = <STDIN>;
+    print "PTXdist Packet Author.......: "; $author = <STDIN>;
+    print "\n";
+
+    chop ($packet_name, $major, $minor, $micro, $url, $author, $suffix);
+}
+
+#
+# print_usage(handle)
+#
+# Print usage information.
+#
+sub print_usage(*)
+{
+	local *HANDLE = $_[0];
+	my $tool_name = basename($0);
+
+	print(HANDLE <<END_OF_USAGE);
+Usage: $tool_name [OPTIONS]
+  -h, --help                    Print this help, then exit
+  -v, --version                 Print version number, then exit
+  -q, --quiet                   Do not print progress messages
+      --host                    Generate rules for a host tool   
+      --cross                   Generate rules for a cross tool
+      --target                  Generate rules for a target package  
+END_OF_USAGE
+	;
+}
+
+#
+# info(printf_parameter)
+#
+# Use printf to write PRINTF_PARAMETER to stdout only when the $quiet flag
+# is not set.
+#
+
+sub info(@)
+{
+    if (!$quiet)
+    {
+        print(@_);
+    }
+}
