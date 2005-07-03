@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-SYSFSUTILS_VERSION	= 1.2.0
+SYSFSUTILS_VERSION	= 1.3.0
 SYSFSUTILS		= sysfsutils-$(SYSFSUTILS_VERSION)
 SYSFSUTILS_SUFFIX	= tar.gz
 SYSFSUTILS_URL		= $(PTXCONF_SETUP_SFMIRROR)/linux-diag/$(SYSFSUTILS).$(SYSFSUTILS_SUFFIX)
@@ -133,9 +133,9 @@ $(STATEDIR)/sysfsutils.targetinstall: $(sysfsutils_targetinstall_deps)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
 ifdef PTXCONF_SYSFSUTILS_LIB
-	@$(call install_copy, 0, 0, 0644, $(SYSFSUTILS_DIR)/lib/.libs/libsysfs.so.1.0.2, /lib/libsysfs.so.1.0.2)
-	@$(call install_link, libsysfs.so.1.0.2, /lib/libsysfs.so.1)
-	@$(call install_link, libsysfs.so.1.0.2, /lib/libsysfs.so)
+	@$(call install_copy, 0, 0, 0644, $(SYSFSUTILS_DIR)/lib/.libs/libsysfs.so.1.0.3, /lib/libsysfs.so.1.0.3)
+	@$(call install_link, libsysfs.so.1.0.3, /lib/libsysfs.so.1)
+	@$(call install_link, libsysfs.so.1.0.3, /lib/libsysfs.so)
 endif
 ifdef PTXCONF_SYSFSUTILS_SYSTOOL
 	@$(call install_copy, 0, 0, 0775, $(SYSFSUTILS_DIR)/cmd/systool, /bin/systool, n)
