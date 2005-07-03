@@ -103,7 +103,12 @@ hosttool-ipkg-utils_install: $(STATEDIR)/hosttool-ipkg-utils.install
 $(STATEDIR)/hosttool-ipkg-utils.install: $(STATEDIR)/hosttool-ipkg-utils.compile
 	@$(call targetinfo, $@)
 	mkdir -p $(PTXCONF_PREFIX)/bin
-	cd $(HOSTTOOL-IPKG-UTILS_DIR) && $(HOSTTOOL-IPKG-UTILS_ENV) $(HOSTTOOL-IPKG-UTILS_PATH) make install
+	# ipkg.py is forgotten by make install, so we copy it manually
+	# FIXME: this should probably be fixed upstream
+	cd $(HOSTTOOL-IPKG-UTILS_DIR) && (\
+		$(HOSTTOOL-IPKG-UTILS_ENV) $(HOSTTOOL-IPKG-UTILS_PATH) make install;\
+		cp -f ipkg.py $(PTXCONF_PREFIX)/bin/;\
+	)
 	touch $@
 
 # ----------------------------------------------------------------------------
