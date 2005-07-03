@@ -1,18 +1,18 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jun 12 22:32:05 2005
+# Sun Jul  3 18:04:49 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 PTXCONF_PROJECT="toolchain_arm-softfloat-linux-gnu-3.4.1_glibc_2.3.3"
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -152,7 +152,7 @@ PTXCONF_BINUTILS_VERSION="2.15"
 #
 # PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS is not set
 # PTXCONF_HOSTTOOL_MODUTILS is not set
-# PTXCONF_XCHAIN_UMKIMAGE is not set
+# PTXCONF_HOSTTOOL_UMKIMAGE is not set
 
 #
 # Other Host Tools
@@ -173,7 +173,7 @@ PTXCONF_BINUTILS_VERSION="2.15"
 # PTXCONF_STRACE is not set
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -230,7 +230,10 @@ PTXCONF_KERNEL_2_6=y
 # PTXCONF_KERNEL_2_6_9 is not set
 # PTXCONF_KERNEL_2_6_10 is not set
 PTXCONF_KERNEL_2_6_11=y
+# PTXCONF_KERNEL_2_6_12 is not set
 PTXCONF_DONT_COMPILE_KERNEL=y
+# PTXCONF_KERNEL_INSTALL is not set
+# PTXCONF_KERNEL_INSTALL_MODULES is not set
 
 #
 # 
@@ -276,7 +279,7 @@ PTXCONF_GLIBC_2_3_3=y
 # PTXCONF_GCCLIBS_GCC_S is not set
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -387,6 +390,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_BRIDGE_UTILS is not set
 
 #
+# Chrony              
+#
+# PTXCONF_CHRONY is not set
+
+#
 # dhcp                
 #
 # PTXCONF_DHCP is not set
@@ -455,22 +463,15 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_NTP is not set
 
 #
-# Compile Options
-#
-
-#
-# crypto needs openssl
-#
-
-#
-# Install Options
-#
-
-#
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
 # PTXCONF_OPENAFS_1_2_11 is not set
+
+#
+# OpenNTPD            
+#
+# PTXCONF_OPENNTPD is not set
 
 #
 # Portmapper          
@@ -586,9 +587,10 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # Editors                     
 #
-# PTXCONF_NANO is not set
-# PTXCONF_JED is not set
 # PTXCONF_HEXEDIT is not set
+# PTXCONF_JED is not set
+# PTXCONF_JOE is not set
+# PTXCONF_NANO is not set
 
 #
 # System Libraries            

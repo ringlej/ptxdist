@@ -1,18 +1,18 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Tue Jun 28 15:07:01 2005
+# Sun Jul  3 18:08:22 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 PTXCONF_PROJECT="arm0815"
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -138,7 +138,7 @@ PTXCONF_HOSTTOOL_IPKG_UTILS=y
 #
 PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # PTXCONF_HOSTTOOL_MODUTILS is not set
-# PTXCONF_XCHAIN_UMKIMAGE is not set
+# PTXCONF_HOSTTOOL_UMKIMAGE is not set
 
 #
 # Other Host Tools
@@ -162,7 +162,7 @@ PTXCONF_STRACE=y
 PTXCONF_STRACE_SHARED=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -219,6 +219,8 @@ PTXCONF_VENDORTWEAKS=""
 PTXCONF_USE_EXTERNAL_KERNEL=y
 PTXCONF_KERNEL_DIR="/tmp/linux-2.6.10"
 PTXCONF_DONT_COMPILE_KERNEL=y
+# PTXCONF_KERNEL_INSTALL is not set
+# PTXCONF_KERNEL_INSTALL_MODULES is not set
 
 #
 # 
@@ -421,7 +423,7 @@ PTXCONF_GCCLIBS_CXX=y
 PTXCONF_GCCLIBS_GCC_S=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -968,6 +970,7 @@ PTXCONF_PROCPS_PGREP=y
 # PTXCONF_SYSUTILS is not set
 # PTXCONF_UTLNX is not set
 # PTXCONF_CLOCK is not set
+# PTXCONF_UDEV is not set
 
 #
 # Scripting Languages         
@@ -1051,6 +1054,11 @@ PTXCONF_BING=y
 # PTXCONF_BRIDGE_UTILS is not set
 
 #
+# Chrony              
+#
+# PTXCONF_CHRONY is not set
+
+#
 # dhcp                
 #
 # PTXCONF_DHCP is not set
@@ -1117,18 +1125,6 @@ PTXCONF_MII-DIAG=y
 # NTP                 
 #
 # PTXCONF_NTP is not set
-
-#
-# Compile Options
-#
-
-#
-# crypto needs openssl
-#
-
-#
-# Install Options
-#
 
 #
 # OpenAFS             
@@ -1255,9 +1251,10 @@ PTXCONF_FIGLET=y
 #
 # Editors                     
 #
-# PTXCONF_NANO is not set
-# PTXCONF_JED is not set
 # PTXCONF_HEXEDIT is not set
+# PTXCONF_JED is not set
+# PTXCONF_JOE is not set
+# PTXCONF_NANO is not set
 
 #
 # System Libraries            

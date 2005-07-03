@@ -1,18 +1,18 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jun 12 22:32:37 2005
+# Sun Jul  3 18:07:34 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 PTXCONF_PROJECT="ssv_pnp2110_eva1"
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -135,7 +135,9 @@ PTXCONF_HOSTTOOL_MTD_MKJFFS2=y
 # Packaging Tools
 #
 PTXCONF_HOSTTOOL_FAKEROOT=y
-# PTXCONF_HOSTTOOL_IPKG is not set
+PTXCONF_HOSTTOOL_IPKG=y
+# PTXCONF_HOSTTOOL_IPKG_EXTRACT_TEST is not set
+# PTXCONF_HOSTTOOL_IPKG_HASH_TEST is not set
 PTXCONF_HOSTTOOL_IPKG_UTILS=y
 
 #
@@ -146,7 +148,7 @@ PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # PTXCONF_HOSTTOOL_UTLNX_FDISK is not set
 # PTXCONF_HOSTTOOL_UTLNX_CFDISK is not set
 # PTXCONF_HOSTTOOL_UTLNX_SFDISK is not set
-# PTXCONF_XCHAIN_UMKIMAGE is not set
+# PTXCONF_HOSTTOOL_UMKIMAGE is not set
 
 #
 # Other Host Tools
@@ -173,7 +175,7 @@ PTXCONF_STRACE=y
 PTXCONF_STRACE_SHARED=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -251,12 +253,14 @@ PTXCONF_KERNEL_2_6_COMPILE=y
 # PTXCONF_KERNEL_2_6_9 is not set
 PTXCONF_KERNEL_2_6_10=y
 # PTXCONF_KERNEL_2_6_11 is not set
+# PTXCONF_KERNEL_2_6_12 is not set
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
 PTXCONF_KERNEL_IMAGE_U=y
 # PTXCONF_KERNEL_IMAGE_VMLINUX is not set
 PTXCONF_KERNEL_INSTALL=y
+PTXCONF_KERNEL_INSTALL_MODULES=y
 
 #
 # 
@@ -336,7 +340,7 @@ PTXCONF_GLIBC_NSL=y
 PTXCONF_GCCLIBS_GCC_S=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -852,6 +856,7 @@ PTXCONF_UTLNX_FDISK=y
 # PTXCONF_UTLNX_IPCS is not set
 # PTXCONF_UTLNX_READPROFILE is not set
 # PTXCONF_CLOCK is not set
+# PTXCONF_UDEV is not set
 
 #
 # Scripting Languages         
@@ -935,6 +940,11 @@ PTXCONF_BING=y
 # PTXCONF_BRIDGE_UTILS is not set
 
 #
+# Chrony              
+#
+# PTXCONF_CHRONY is not set
+
+#
 # dhcp                
 #
 # PTXCONF_DHCP is not set
@@ -1008,22 +1018,15 @@ PTXCONF_LIBPCAP=y
 # PTXCONF_NTP is not set
 
 #
-# Compile Options
-#
-
-#
-# crypto needs openssl
-#
-
-#
-# Install Options
-#
-
-#
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
 # PTXCONF_OPENAFS_1_2_11 is not set
+
+#
+# OpenNTPD            
+#
+# PTXCONF_OPENNTPD is not set
 
 #
 # Portmapper          
@@ -1148,9 +1151,10 @@ PTXCONF_MEMEDIT=y
 #
 # Editors                     
 #
-# PTXCONF_NANO is not set
-# PTXCONF_JED is not set
 PTXCONF_HEXEDIT=y
+# PTXCONF_JED is not set
+# PTXCONF_JOE is not set
+# PTXCONF_NANO is not set
 
 #
 # System Libraries            

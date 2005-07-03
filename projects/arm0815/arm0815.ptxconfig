@@ -1,18 +1,18 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jun 12 22:32:11 2005
+# Sun Jul  3 18:06:14 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 PTXCONF_PROJECT="arm0815"
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -138,7 +138,7 @@ PTXCONF_HOSTTOOL_IPKG_UTILS=y
 #
 PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # PTXCONF_HOSTTOOL_MODUTILS is not set
-# PTXCONF_XCHAIN_UMKIMAGE is not set
+# PTXCONF_HOSTTOOL_UMKIMAGE is not set
 
 #
 # Other Host Tools
@@ -162,7 +162,7 @@ PTXCONF_STRACE=y
 PTXCONF_STRACE_SHARED=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -235,7 +235,10 @@ PTXCONF_KERNEL_2_6=y
 # PTXCONF_KERNEL_2_6_9 is not set
 # PTXCONF_KERNEL_2_6_10 is not set
 PTXCONF_KERNEL_2_6_11=y
+# PTXCONF_KERNEL_2_6_12 is not set
 PTXCONF_DONT_COMPILE_KERNEL=y
+# PTXCONF_KERNEL_INSTALL is not set
+# PTXCONF_KERNEL_INSTALL_MODULES is not set
 
 #
 # 
@@ -360,7 +363,7 @@ PTXCONF_GCCLIBS_CXX=y
 PTXCONF_GCCLIBS_GCC_S=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -910,6 +913,7 @@ PTXCONF_SYSFSUTILS_SYSTOOL=y
 # PTXCONF_SYSUTILS is not set
 # PTXCONF_UTLNX is not set
 # PTXCONF_CLOCK is not set
+# PTXCONF_UDEV is not set
 
 #
 # Scripting Languages         
@@ -993,6 +997,11 @@ PTXCONF_BING=y
 # PTXCONF_BRIDGE_UTILS is not set
 
 #
+# Chrony              
+#
+# PTXCONF_CHRONY is not set
+
+#
 # dhcp                
 #
 # PTXCONF_DHCP is not set
@@ -1064,22 +1073,15 @@ PTXCONF_NMAP_SERVICES=y
 # PTXCONF_NTP is not set
 
 #
-# Compile Options
-#
-
-#
-# crypto needs openssl
-#
-
-#
-# Install Options
-#
-
-#
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
 # PTXCONF_OPENAFS_1_2_11 is not set
+
+#
+# OpenNTPD            
+#
+# PTXCONF_OPENNTPD is not set
 
 #
 # Portmapper          
@@ -1195,9 +1197,10 @@ PTXCONF_FIGLET=y
 #
 # Editors                     
 #
-# PTXCONF_NANO is not set
-# PTXCONF_JED is not set
 # PTXCONF_HEXEDIT is not set
+# PTXCONF_JED is not set
+# PTXCONF_JOE is not set
+# PTXCONF_NANO is not set
 
 #
 # System Libraries            

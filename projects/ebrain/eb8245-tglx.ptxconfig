@@ -1,18 +1,18 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jun 12 22:32:22 2005
+# Sun Jul  3 18:06:29 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 PTXCONF_PROJECT="eb8245"
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -129,7 +129,7 @@ PTXCONF_HOSTTOOL_IPKG_UTILS=y
 #
 PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # PTXCONF_HOSTTOOL_MODUTILS is not set
-# PTXCONF_XCHAIN_UMKIMAGE is not set
+# PTXCONF_HOSTTOOL_UMKIMAGE is not set
 
 #
 # Other Host Tools
@@ -150,7 +150,7 @@ PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # PTXCONF_STRACE is not set
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -207,6 +207,8 @@ PTXCONF_VENDORTWEAKS=""
 PTXCONF_USE_EXTERNAL_KERNEL=y
 PTXCONF_KERNEL_DIR="/work/thomas/Linux/build-ebrain/"
 PTXCONF_DONT_COMPILE_KERNEL=y
+# PTXCONF_KERNEL_INSTALL is not set
+# PTXCONF_KERNEL_INSTALL_MODULES is not set
 
 #
 # 
@@ -273,7 +275,7 @@ PTXCONF_GLIBC_LIBC=y
 # PTXCONF_GCCLIBS_GCC_S_NOF is not set
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -843,6 +845,11 @@ PTXCONF_OPENSSH_KEYGEN=y
 # PTXCONF_BRIDGE_UTILS is not set
 
 #
+# Chrony              
+#
+# PTXCONF_CHRONY is not set
+
+#
 # dhcp                
 #
 # PTXCONF_DHCP is not set
@@ -911,22 +918,15 @@ PTXCONF_OPENSSH_KEYGEN=y
 # PTXCONF_NTP is not set
 
 #
-# Compile Options
-#
-
-#
-# crypto needs openssl
-#
-
-#
-# Install Options
-#
-
-#
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
 # PTXCONF_OPENAFS_1_2_11 is not set
+
+#
+# OpenNTPD            
+#
+# PTXCONF_OPENNTPD is not set
 
 #
 # Portmapper          
@@ -1042,9 +1042,10 @@ PTXCONF_OPENSSH_KEYGEN=y
 #
 # Editors                     
 #
-# PTXCONF_NANO is not set
-# PTXCONF_JED is not set
 # PTXCONF_HEXEDIT is not set
+# PTXCONF_JED is not set
+# PTXCONF_JOE is not set
+# PTXCONF_NANO is not set
 
 #
 # System Libraries            

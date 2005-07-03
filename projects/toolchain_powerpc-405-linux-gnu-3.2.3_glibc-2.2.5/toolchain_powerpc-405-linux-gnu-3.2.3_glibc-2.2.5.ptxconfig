@@ -1,18 +1,18 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jun 12 22:32:47 2005
+# Sun Jul  3 18:08:16 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 PTXCONF_PROJECT="toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5"
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -139,7 +139,7 @@ PTXCONF_BINUTILS_VERSION="2.15"
 #
 # PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS is not set
 # PTXCONF_HOSTTOOL_MODUTILS is not set
-# PTXCONF_XCHAIN_UMKIMAGE is not set
+# PTXCONF_HOSTTOOL_UMKIMAGE is not set
 
 #
 # Other Host Tools
@@ -160,7 +160,7 @@ PTXCONF_HOSTTOOL_FLEX254=y
 # PTXCONF_STRACE is not set
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -217,7 +217,10 @@ PTXCONF_KERNEL_2_4_23=y
 # PTXCONF_KERNEL_2_6_9 is not set
 # PTXCONF_KERNEL_2_6_10 is not set
 # PTXCONF_KERNEL_2_6_11 is not set
+# PTXCONF_KERNEL_2_6_12 is not set
 PTXCONF_DONT_COMPILE_KERNEL=y
+# PTXCONF_KERNEL_INSTALL is not set
+# PTXCONF_KERNEL_INSTALL_MODULES is not set
 
 #
 # 
@@ -264,7 +267,7 @@ PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GCCLIBS_GCC_S_NOF is not set
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -375,6 +378,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_BRIDGE_UTILS is not set
 
 #
+# Chrony              
+#
+# PTXCONF_CHRONY is not set
+
+#
 # dhcp                
 #
 # PTXCONF_DHCP is not set
@@ -443,22 +451,15 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_NTP is not set
 
 #
-# Compile Options
-#
-
-#
-# crypto needs openssl
-#
-
-#
-# Install Options
-#
-
-#
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
 # PTXCONF_OPENAFS_1_2_11 is not set
+
+#
+# OpenNTPD            
+#
+# PTXCONF_OPENNTPD is not set
 
 #
 # Portmapper          
@@ -574,9 +575,10 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # Editors                     
 #
-# PTXCONF_NANO is not set
-# PTXCONF_JED is not set
 # PTXCONF_HEXEDIT is not set
+# PTXCONF_JED is not set
+# PTXCONF_JOE is not set
+# PTXCONF_NANO is not set
 
 #
 # System Libraries            

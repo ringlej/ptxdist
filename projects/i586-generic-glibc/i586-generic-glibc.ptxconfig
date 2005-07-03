@@ -1,18 +1,18 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jun 12 22:32:04 2005
+# Sun Jul  3 18:04:32 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 
 #
-# ----------------------------
+# ----------------------------------
 #
 PTXCONF_PROJECT="i586-generic-glibc"
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -127,7 +127,7 @@ PTXCONF_HOSTTOOL_IPKG_UTILS=y
 #
 PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # PTXCONF_HOSTTOOL_MODUTILS is not set
-# PTXCONF_XCHAIN_UMKIMAGE is not set
+# PTXCONF_HOSTTOOL_UMKIMAGE is not set
 
 #
 # Other Host Tools
@@ -149,7 +149,7 @@ PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # PTXCONF_VALGRIND is not set
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -223,12 +223,14 @@ PTXCONF_KERNEL_2_6_COMPILE=y
 PTXCONF_KERNEL_2_6_9=y
 # PTXCONF_KERNEL_2_6_10 is not set
 # PTXCONF_KERNEL_2_6_11 is not set
+# PTXCONF_KERNEL_2_6_12 is not set
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
 # PTXCONF_KERNEL_IMAGE_U is not set
 # PTXCONF_KERNEL_IMAGE_VMLINUX is not set
 PTXCONF_KERNEL_INSTALL=y
+PTXCONF_KERNEL_INSTALL_MODULES=y
 
 #
 # 
@@ -296,7 +298,7 @@ PTXCONF_GLIBC_NSL=y
 # PTXCONF_GCCLIBS_GCC_S is not set
 
 #
-# ----------------------------
+# ----------------------------------
 #
 
 #
@@ -841,6 +843,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_BRIDGE_UTILS is not set
 
 #
+# Chrony              
+#
+# PTXCONF_CHRONY is not set
+
+#
 # dhcp                
 #
 # PTXCONF_DHCP is not set
@@ -909,22 +916,15 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_NTP is not set
 
 #
-# Compile Options
-#
-
-#
-# crypto needs openssl
-#
-
-#
-# Install Options
-#
-
-#
 # OpenAFS             
 #
 # PTXCONF_OPENAFS is not set
 # PTXCONF_OPENAFS_1_2_11 is not set
+
+#
+# OpenNTPD            
+#
+# PTXCONF_OPENNTPD is not set
 
 #
 # Portmapper          
@@ -1038,9 +1038,10 @@ PTXCONF_UTELNETD=y
 #
 # Editors                     
 #
-# PTXCONF_NANO is not set
-# PTXCONF_JED is not set
 # PTXCONF_HEXEDIT is not set
+# PTXCONF_JED is not set
+# PTXCONF_JOE is not set
+# PTXCONF_NANO is not set
 
 #
 # System Libraries            
