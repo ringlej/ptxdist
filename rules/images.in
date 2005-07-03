@@ -84,7 +84,7 @@ config IMAGE_UIMAGE
 	bool
 	default n
 	prompt "Generate images/uRamdisk"
-	select XCHAIN_UMKIMAGE
+	select HOSTTOOL_UMKIMAGE
 	select IMAGE_EXT2
 	select IMAGE_EXT2_GZIP
 	help

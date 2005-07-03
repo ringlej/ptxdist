@@ -389,7 +389,7 @@ kernel_compile: $(STATEDIR)/kernel.compile
 
 kernel_compile_deps =  $(STATEDIR)/kernel.prepare
 ifdef PTXCONF_KERNEL_IMAGE_U
-kernel_compile_deps += $(STATEDIR)/xchain-umkimage.install
+kernel_compile_deps += $(STATEDIR)/hosttool-umkimage.install
 endif
 
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps)

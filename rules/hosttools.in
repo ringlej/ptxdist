@@ -21,7 +21,7 @@ comment "Kernel Tools"
 source "rules/hosttool-module-init-tools.in"
 source "rules/hosttool-util-linux.in"
 
-config XCHAIN_UMKIMAGE
+config HOSTTOOL_UMKIMAGE
 	bool
 	default n
 	prompt "mkimage: U-Boot kernel image creation"
