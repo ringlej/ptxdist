@@ -1,5 +1,7 @@
 2005-07-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* Makefiles: first bunch of Christian Gagneraud's host/cross
+	  consolidation patches
 	* libcgicc: added; Patch by Alessio Igor Bogani
 	* kernel: build umkimage only if needed; patch by Steven Scholz
 	* kernel: fixed typo; patch by Steven Scholz
