@@ -20,11 +20,7 @@ endif
 # Paths and names
 #
 
-# FIXME: versions > 0.99.135 have the replace/Makefile.in problem; 
-#        0.99.148 (latest as of today) has it fixed, but installs into
-#        wrong paths. 
-
-HOSTTOOL_IPKG_VERSION	= 0.99.135
+HOSTTOOL_IPKG_VERSION	= 0.99.151
 HOSTTOOL_IPKG		= ipkg-$(HOSTTOOL_IPKG_VERSION)
 HOSTTOOL_IPKG_SUFFIX	= tar.gz
 HOSTTOOL_IPKG_URL	= http://www.handhelds.org/download/packages/ipkg/$(HOSTTOOL_IPKG).$(HOSTTOOL_IPKG_SUFFIX)
@@ -82,6 +78,7 @@ HOSTTOOL_IPKG_AUTOCONF =  --prefix=$(PTXCONF_PREFIX)
 HOSTTOOL_IPKG_AUTOCONF += --build=$(GNU_HOST)
 HOSTTOOL_IPKG_AUTOCONF += --host=$(GNU_HOST)
 HOSTTOOL_IPKG_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
+HOSTTOOL_IPKG_AUTOCONF += --with-ipkglibdir=$(PTXCONF_PREFIX)/lib
 
 $(STATEDIR)/hosttool-ipkg.prepare: $(hosttool-ipkg_prepare_deps)
 	@$(call targetinfo, $@)
