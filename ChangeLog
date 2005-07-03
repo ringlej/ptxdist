@@ -1,5 +1,11 @@
 2005-07-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* libcgicc: added; Patch by Alessio Igor Bogani
+	* kernel: build umkimage only if needed; patch by Steven Scholz
+	* kernel: fixed typo; patch by Steven Scholz
+	* config: change PTXCONF_EXP to PTXCONF_EXPERIMENTAL and
+	  PTXCONF_EXP_M to PTXCONF_EXPERIMENTAL_MORE. Patch by
+	  Steven Scholz.
 	* kernel: added 2.6.12; patch by Ladislav Michl
 	* umkimage: convert XCHAIN_UMKIMAGE to HOSTTOOL_UMKIMAGE and upgrade
 	  mkimage to version 1.1.2; patch by Ladislav Michl.
