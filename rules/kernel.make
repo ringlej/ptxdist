@@ -18,7 +18,7 @@ endif
 ifdef PTXCONF_KERNEL_2_6
 PACKAGES += kernel
 endif
-ifdef PTXCONF_USE_KERNEL_EXTERNAL_KERNEL
+ifdef PTXCONF_USE_EXTERNAL_KERNEL
 PACKAGES += kernel
 endif
 
