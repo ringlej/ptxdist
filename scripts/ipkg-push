@@ -92,8 +92,9 @@ for file in $DESTDIR/*.ipk; do
 	file=`basename $file`
 	packetname=`echo $file | sed -e 's/^\([^_]*\)_.*$/\1/g'`
 	allpackets=`find $DESTDIR -name "$packetname\_*" | sort -u -r`
-	if [ "`echo $allpackets | wc -w`" != "1" ]; then
-		echo "warning: more than one $packetname found, removing old ones"
+	let count="`echo $allpackets | wc -w`"
+	if [ $count -gt 1 ]; then
+		echo "warning: more than one packet '$packetname' found, removing old ones"
 		first=1
 		for delfile in $allpackets; do 
 			if [ "$first" = "1" ]; then 
