@@ -24,7 +24,7 @@ HOSTTOOL_FAKEROOT		= fakeroot-$(HOSTTOOL_FAKEROOT_VERSION)
 HOSTTOOL_FAKEROOT_SUFFIX	= tar.gz
 HOSTTOOL_FAKEROOT_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/f/fakeroot/fakeroot_$(HOSTTOOL_FAKEROOT_VERSION).$(HOSTTOOL_FAKEROOT_SUFFIX)
 HOSTTOOL_FAKEROOT_SOURCE	= $(SRCDIR)/fakeroot_$(HOSTTOOL_FAKEROOT_VERSION).$(HOSTTOOL_FAKEROOT_SUFFIX)
-HOSTTOOL_FAKEROOT_DIR		= $(HOSTTOOL_BUILDDIR)/$(HOSTTOOL_FAKEROOT)
+HOSTTOOL_FAKEROOT_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL_FAKEROOT)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -53,7 +53,7 @@ hosttool-fakeroot_extract_deps = $(STATEDIR)/hosttool-fakeroot.get
 $(STATEDIR)/hosttool-fakeroot.extract: $(hosttool-fakeroot_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_FAKEROOT_DIR))
-	@$(call extract, $(HOSTTOOL_FAKEROOT_SOURCE), $(HOSTTOOL_BUILDDIR))
+	@$(call extract, $(HOSTTOOL_FAKEROOT_SOURCE), $(HOST_BUILDDIR))
 	touch $@
 
 # ----------------------------------------------------------------------------

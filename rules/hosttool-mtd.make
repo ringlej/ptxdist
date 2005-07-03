@@ -21,7 +21,7 @@ endif
 #
 HOSTTOOL_MTD		= $(MTD)
 HOSTTOOL_MTD_SOURCE	= $(MTD_SOURCE)
-HOSTTOOL_MTD_DIR	= $(HOSTTOOL_BUILDDIR)/$(HOSTTOOL_MTD)
+HOSTTOOL_MTD_DIR	= $(HOST_BUILDDIR)/$(HOSTTOOL_MTD)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -47,7 +47,7 @@ hosttool-mtd_extract_deps = $(STATEDIR)/hosttool-mtd.get
 $(STATEDIR)/hosttool-mtd.extract: $(hosttool-mtd_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_MTD_DIR))
-	@$(call extract, $(HOSTTOOL_MTD_SOURCE), $(HOSTTOOL_BUILDDIR))
+	@$(call extract, $(HOSTTOOL_MTD_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL_MTD), $(HOSTTOOL_MTD_DIR))
 	touch $@
 

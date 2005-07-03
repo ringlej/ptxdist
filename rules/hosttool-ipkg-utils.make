@@ -24,7 +24,7 @@ HOSTTOOL-IPKG-UTILS		= ipkg-utils-$(HOSTTOOL-IPKG-UTILS_VERSION)
 HOSTTOOL-IPKG-UTILS_SUFFIX	= tar.gz
 HOSTTOOL-IPKG-UTILS_URL		= ftp://ftp.handhelds.org/packages/ipkg-utils/$(HOSTTOOL-IPKG-UTILS).$(HOSTTOOL-IPKG-UTILS_SUFFIX)
 HOSTTOOL-IPKG-UTILS_SOURCE	= $(SRCDIR)/$(HOSTTOOL-IPKG-UTILS).$(HOSTTOOL-IPKG-UTILS_SUFFIX)
-HOSTTOOL-IPKG-UTILS_DIR		= $(HOSTTOOL_BUILDDIR)/$(HOSTTOOL-IPKG-UTILS)
+HOSTTOOL-IPKG-UTILS_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL-IPKG-UTILS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -54,7 +54,7 @@ hosttool-ipkg-utils_extract_deps = $(STATEDIR)/hosttool-ipkg-utils.get
 $(STATEDIR)/hosttool-ipkg-utils.extract: $(hosttool-ipkg-utils_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL-IPKG-UTILS_DIR))
-	@$(call extract, $(HOSTTOOL-IPKG-UTILS_SOURCE), $(HOSTTOOL_BUILDDIR))
+	@$(call extract, $(HOSTTOOL-IPKG-UTILS_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL-IPKG-UTILS))
 	perl -i -p -e "s,^PREFIX=(.*),PREFIX=$(PTXCONF_PREFIX),g" \
 		$(HOSTTOOL-IPKG-UTILS_DIR)/Makefile

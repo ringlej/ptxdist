@@ -25,7 +25,7 @@ HOSTTOOL_IPKG		= ipkg-$(HOSTTOOL_IPKG_VERSION)
 HOSTTOOL_IPKG_SUFFIX	= tar.gz
 HOSTTOOL_IPKG_URL	= http://www.handhelds.org/download/packages/ipkg/$(HOSTTOOL_IPKG).$(HOSTTOOL_IPKG_SUFFIX)
 HOSTTOOL_IPKG_SOURCE	= $(SRCDIR)/$(HOSTTOOL_IPKG).$(HOSTTOOL_IPKG_SUFFIX)
-HOSTTOOL_IPKG_DIR	= $(HOSTTOOL_BUILDDIR)/$(HOSTTOOL_IPKG)
+HOSTTOOL_IPKG_DIR	= $(HOST_BUILDDIR)/$(HOSTTOOL_IPKG)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -51,7 +51,7 @@ hosttool-ipkg_extract_deps = $(STATEDIR)/hosttool-ipkg.get
 $(STATEDIR)/hosttool-ipkg.extract: $(hosttool-ipkg_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_IPKG_DIR))
-	@$(call extract, $(HOSTTOOL_IPKG_SOURCE), $(HOSTTOOL_BUILDDIR))
+	@$(call extract, $(HOSTTOOL_IPKG_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL_IPKG), $(HOSTTOOL_IPKG_DIR))
 
 	touch $@

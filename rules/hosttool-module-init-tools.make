@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-HOSTTOOL_MODULE_INIT_TOOLS_DIR		= $(HOSTTOOL_BUILDDIR)/$(MODULE_INIT_TOOLS)
+HOSTTOOL_MODULE_INIT_TOOLS_DIR		= $(HOST_BUILDDIR)/$(MODULE_INIT_TOOLS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -44,7 +44,7 @@ hosttool-module-init-tools_extract_deps = $(STATEDIR)/hosttool-module-init-tools
 $(STATEDIR)/hosttool-module-init-tools.extract: $(hosttool-module-init-tools_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_MODULE_INIT_TOOLS_DIR))
-	@$(call extract, $(MODULE_INIT_TOOLS_SOURCE), $(HOSTTOOL_BUILDDIR))
+	@$(call extract, $(MODULE_INIT_TOOLS_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(MODULE_INIT_TOOLS), $(HOSTTOOL_MODULE_INIT_TOOLS_DIR))
 	touch $@
 

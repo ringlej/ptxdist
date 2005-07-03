@@ -11,7 +11,7 @@
 #
 # Paths and names 
 #
-HOSTTOOL_ZLIB_BUILDDIR	= $(HOSTTOOL_BUILDDIR)/$(ZLIB)
+HOSTTOOL_ZLIB_BUILDDIR	= $(HOST_BUILDDIR)/$(ZLIB)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -32,7 +32,7 @@ hosttool-zlib_extract: $(STATEDIR)/hosttool-zlib.extract
 $(STATEDIR)/hosttool-zlib.extract: $(STATEDIR)/hosttool-zlib.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_ZLIB_BUILDDIR))
-	@$(call extract, $(ZLIB_SOURCE), $(HOSTTOOL_BUILDDIR))
+	@$(call extract, $(ZLIB_SOURCE), $(HOST_BUILDDIR))
 	touch $@
 
 # ----------------------------------------------------------------------------

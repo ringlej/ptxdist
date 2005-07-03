@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-HOSTTOOL_FLEX254_DIR	= $(HOSTTOOL_BUILDDIR)/$(FLEX)
+HOSTTOOL_FLEX254_DIR	= $(HOST_BUILDDIR)/$(FLEX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -44,7 +44,7 @@ hosttool-flex254_extract_deps = $(STATEDIR)/hosttool-flex254.get
 $(STATEDIR)/hosttool-flex254.extract: $(hosttool-flex254_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_FLEX254_DIR))
-	@$(call extract, $(FLEX_SOURCE), $(HOSTTOOL_BUILDDIR))
+	@$(call extract, $(FLEX_SOURCE), $(HOST_BUILDDIR))
 	touch $@
 
 # ----------------------------------------------------------------------------

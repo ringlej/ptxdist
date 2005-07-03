@@ -25,7 +25,7 @@ HOSTTOOL_GENEXT2FS_TARBALL	= genext2fs_$(HOSTTOOL_GENEXT2FS_VERSION).$(HOSTTOOL_
 HOSTTOOL_GENEXT2FS_SUFFIX	= tar.gz
 HOSTTOOL_GENEXT2FS_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/g/genext2fs/$(HOSTTOOL_GENEXT2FS_TARBALL)
 HOSTTOOL_GENEXT2FS_SOURCE	= $(SRCDIR)/$(HOSTTOOL_GENEXT2FS_TARBALL)
-HOSTTOOL_GENEXT2FS_DIR		= $(HOSTTOOL_BUILDDIR)/$(HOSTTOOL_GENEXT2FS)
+HOSTTOOL_GENEXT2FS_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL_GENEXT2FS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -53,7 +53,7 @@ hosttool-genext2fs_extract: $(STATEDIR)/hosttool-genext2fs.extract
 $(STATEDIR)/hosttool-genext2fs.extract: $(STATEDIR)/hosttool-genext2fs.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_GENEXT2FS_DIR))
-	@$(call extract, $(HOSTTOOL_GENEXT2FS_SOURCE),$(HOSTTOOL_BUILDDIR))
+	@$(call extract, $(HOSTTOOL_GENEXT2FS_SOURCE),$(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL_GENEXT2FS),$(HOSTTOOL_GENEXT2FS_DIR))
 	touch $@
 
