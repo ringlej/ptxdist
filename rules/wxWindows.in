@@ -8,7 +8,7 @@ menuconfig WXWINDOWS
 config WXWINDOWS_X11
 	bool
 	prompt "Compile wxWindows / X11"
-	depends on EXP
+	depends on EXPERIMENTAL
 	depends on WXWINDOWS
 
 config WXWINDOWS_X11_CONFIG

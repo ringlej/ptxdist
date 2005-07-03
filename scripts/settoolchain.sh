@@ -71,8 +71,8 @@ echo PTXCONF_ROOT=\"$PREFIX/target\" >> .config.tmp
 echo '# PTXCONF_BUILD_CROSSCHAIN is not set' >> .config.tmp
 
 # need to set experimental to get some arches
-echo "PTXCONF_EXP=y" >> .config.tmp
-echo "PTXCONF_EXP_M=y" >> .config.tmp
+echo "PTXCONF_EXPERIMENTAL=y" >> .config.tmp
+echo "PTXCONF_EXPERIMENTAL_MORE=y" >> .config.tmp
 
 egrep -v "PTXCONF_ARCH=|PTXCONF_ARCH_|PTXCONF_ARM|PTXCONF_GNU_TARGET|PTXCONF_OPT_|PTXCONF_PREFIX|PTXCONF_ROOT=|PTXCONF_SH_ARCH_|PTXCONF_TARGET_CONFIG_FILE" .config >> .config.tmp
 

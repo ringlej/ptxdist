@@ -22,8 +22,8 @@ PTXCONF_PROJECT="ssv_pnp2110_eva1"
 #
 # Code maturity       
 #
-PTXCONF_EXP=y
-PTXCONF_EXP_M=y
+PTXCONF_EXPERIMENTAL=y
+PTXCONF_EXPERIMENTAL_MORE=y
 
 #
 # Target Architecture Options

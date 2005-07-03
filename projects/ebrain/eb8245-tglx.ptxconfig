@@ -22,7 +22,7 @@ PTXCONF_PROJECT="eb8245"
 #
 # Code maturity       
 #
-# PTXCONF_EXP is not set
+# PTXCONF_EXPERIMENTAL is not set
 
 #
 # Target Architecture Options

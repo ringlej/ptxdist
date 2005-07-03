@@ -5,5 +5,5 @@
 config QTE
 	bool
 	prompt "Compile qt/e"
-	depends on EXP
+	depends on EXPERIMENTAL
 

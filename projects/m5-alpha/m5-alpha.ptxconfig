@@ -22,7 +22,7 @@ PTXCONF_PROJECT="M5-alpha"
 #
 # Code maturity       
 #
-# PTXCONF_EXP is not set
+# PTXCONF_EXPERIMENTAL is not set
 
 #
 # Target Architecture Options

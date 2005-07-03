@@ -22,7 +22,7 @@ PTXCONF_PROJECT="toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3"
 #
 # Code maturity       
 #
-# PTXCONF_EXP is not set
+# PTXCONF_EXPERIMENTAL is not set
 
 #
 # Target Architecture Options

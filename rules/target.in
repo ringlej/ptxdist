@@ -17,7 +17,7 @@ choice
 
 	config ARCH_ARM_NOMMU
 		bool "ARM-nommu"
-		depends on EXP_M
+		depends on EXPERIMENTAL_MORE
 		help
 		  This is support for the ARM processor architecture w/o MMU.
 
@@ -36,22 +36,22 @@ choice
 
 	config ARCH_SPARC
 		bool "SPARC"
-		depends on EXP
+		depends on EXPERIMENTAL
 
 	config ARCH_MIPS
 		bool "MIPS"
-		depends on EXP
+		depends on EXPERIMENTAL
 
 	config ARCH_CRIS
-		depends on EXP_M
+		depends on EXPERIMENTAL_MORE
 		bool "CRIS"
 
 	config ARCH_PARISC
-		depends on EXP_M
+		depends on EXPERIMENTAL_MORE
 		bool "PARISC"
 
 	config ARCH_SH
-		depends on EXP_M
+		depends on EXPERIMENTAL_MORE
 		bool "SuperH"
 endchoice
 
@@ -76,7 +76,7 @@ choice
 
 	config ARM_ARCH_IXP2000
 		bool "ixp2000 (big endian)"
-		depends on ARCH_ARM && EXP_M
+		depends on ARCH_ARM && EXPERIMENTAL_MORE
 
 	config ARM_ARCH_NETARM
 		bool "net+arm (little endian)"
