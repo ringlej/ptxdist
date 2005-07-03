@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jul  3 18:06:29 2005
+# Sun Jul  3 20:32:17 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -73,6 +73,8 @@ PTXCONF_ARCH_USERSPACE="powerpc"
 # Paths & Directories
 #
 PTXCONF_PREFIX="/opt/crosstool/powerpc-604-linux-gnu/gcc-3.4.1-glibc-2.3.3/bin/"
+PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
+PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_ROOT=""
 
 #
@@ -873,6 +875,7 @@ PTXCONF_OPENSSH_KEYGEN=y
 # inetutils           
 #
 # PTXCONF_INETUTILS is not set
+# PTXCONF_CGICC is not set
 
 #
 # libnet              

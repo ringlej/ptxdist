@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jul  3 18:06:57 2005
+# Sun Jul  3 20:32:25 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -73,6 +73,8 @@ PTXCONF_ARCH_USERSPACE="i386"
 # Paths & Directories
 #
 PTXCONF_PREFIX="$(TOPDIR)/local"
+PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
+PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_ROOT=""
 
 #
@@ -985,6 +987,7 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # inetutils           
 #
 # PTXCONF_INETUTILS is not set
+# PTXCONF_CGICC is not set
 
 #
 # libnet              

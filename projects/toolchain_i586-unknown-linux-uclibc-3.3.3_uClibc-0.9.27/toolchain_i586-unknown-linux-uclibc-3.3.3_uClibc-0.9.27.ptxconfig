@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jul  3 18:06:48 2005
+# Sun Jul  3 20:32:23 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -72,6 +72,8 @@ PTXCONF_ARCH_USERSPACE="i386"
 # Paths & Directories
 #
 PTXCONF_PREFIX="/opt/crosstool-0.32"
+PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
+PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_ROOT=""
 
 #
@@ -556,6 +558,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # inetutils           
 #
 # PTXCONF_INETUTILS is not set
+# PTXCONF_CGICC is not set
 
 #
 # libnet              

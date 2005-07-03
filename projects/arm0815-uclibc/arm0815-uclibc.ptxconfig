@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jul  3 18:08:22 2005
+# Sun Jul  3 20:36:10 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -86,6 +86,8 @@ PTXCONF_ARM_PROC="armv"
 # Paths & Directories
 #
 PTXCONF_PREFIX="$(TOPDIR)/local"
+PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
+PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_ROOT=""
 
 #
@@ -1082,6 +1084,7 @@ PTXCONF_BING=y
 # inetutils           
 #
 # PTXCONF_INETUTILS is not set
+# PTXCONF_CGICC is not set
 
 #
 # libnet              

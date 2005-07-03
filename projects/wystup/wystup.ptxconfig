@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jul  3 18:07:57 2005
+# Sun Jul  3 20:36:04 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -73,6 +73,8 @@ PTXCONF_ARCH_USERSPACE="i386"
 # Paths & Directories
 #
 PTXCONF_PREFIX="$(TOPDIR)/local"
+PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
+PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_ROOT=""
 
 #
@@ -968,6 +970,7 @@ PTXCONF_INETUTILS_PING=y
 # PTXCONF_INETUTILS_RLOGIND is not set
 # PTXCONF_INETUTILS_RSHD is not set
 # PTXCONF_INETUTILS_SYSLOGD is not set
+# PTXCONF_CGICC is not set
 
 #
 # libnet              
@@ -1107,7 +1110,6 @@ PTXCONF_NTP_NTPDATE=y
 #
 # OpenNTPD            
 #
-# PTXCONF_OPENNTPD is not set
 
 #
 # Conflicts with NTP
