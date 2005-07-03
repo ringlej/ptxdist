@@ -305,14 +305,21 @@ endif
 
 kernel_prepare: $(STATEDIR)/kernel.prepare
 
-kernel_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/kernel.extract \
-	$(STATEDIR)/hosttool-module-init-tools.install
+kernel_prepare_deps =  $(STATEDIR)/virtual-xchain.install
+kernel_prepare_deps += $(STATEDIR)/kernel.extract
+ifdef PTXCONF_KERNEL_2_4
+kernel_prepare_deps += $(STATEDIR)/hosttool-modutils.install
+else
+kernel_prepare_deps += $(STATEDIR)/hosttool-module-init-tools.install
+endif
 
 KERNEL_PATH	=  PATH=$(CROSS_PATH)
 KERNEL_MAKEVARS =  HOSTCC=$(HOSTCC)
+ifdef PTXCONF_KERNEL_2_4
+KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod.old)
+else
 KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod)
+endif
 ifndef NATIVE
 KERNEL_MAKEVARS	+= ARCH=$(call remove_quotes,$(PTXCONF_ARCH))
 KERNEL_MAKEVARS += CROSS_COMPILE=$(COMPILER_PREFIX)
