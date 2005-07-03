@@ -1,5 +1,6 @@
 2005-07-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* kernel: use modutils for 2.4, module-init-tools for 2.6
 	* Makefiles: first bunch of Christian Gagneraud's host/cross
 	  consolidation patches
 	* libcgicc: added; Patch by Alessio Igor Bogani
@@ -13,7 +14,9 @@
 	  mkimage to version 1.1.2; patch by Ladislav Michl.
 	* ipkg: update to 0.99.151; this fixed the problems which
 	  previously have been marked by some FIXMEs. Patch by Steven
-	  Scholz.
+	  Scholz. UPDATE: patch reverted (rsc); this new version tries
+	  to install .list and .control files on host side paths inside
+	  the root directory. 
 	* ipkg-push: install ipkg.py which was missing; patch by Steven
 	  Scholz.
 	* ipkg-push: "wc -w" will never return "1" but "      1".
