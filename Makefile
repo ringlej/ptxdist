@@ -537,15 +537,21 @@ imagesclean:
 svn-up:
 	@echo "updating in toplevel................ "
 	@cd $(TOPDIR) && svn update
-	@echo "updating in projectdir.............. "
-	@cd $(PROJECTDIR) && [ -d .svn ] && svn update
+	@if [ -d "$(PROJECTDIR)" ]; then				\
+		@echo "updating in projectdir.............. ";		\
+		cd $(PROJECTDIR);					\
+		[ -d .svn ] && svn update; 				\
+	fi;
 	@echo "done."
 
 svn-stat:
 	@echo "svn stat in toplevel................ "
 	@cd $(TOPDIR) && svn stat
-	@echo "svn stat in projectdir.............. "
-	@cd $(PROJECTDIR) && [ -d .svn ] && svn stat
+	@if [ -d "$(PROJECTDIR)" ]; then				\
+		@echo "svn stat in projectdir.............. ";		\
+		cd $(PROJECTDIR);					\
+		[ -d .svn ] && svn stat; 				\
+	fi;
 	@echo "done."
 
 archive:  
