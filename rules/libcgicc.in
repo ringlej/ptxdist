@@ -1,0 +1,5 @@
+menuconfig CGICC
+	bool "libcgicc            "
+	select GCCLIBS_CXX
+	default n
+
