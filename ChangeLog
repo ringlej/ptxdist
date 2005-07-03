@@ -1,3 +1,22 @@
+2005-07-03 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* kernel: added 2.6.12; patch by Ladislav Michl
+	* umkimage: convert XCHAIN_UMKIMAGE to HOSTTOOL_UMKIMAGE and upgrade
+	  mkimage to version 1.1.2; patch by Ladislav Michl.
+	* ipkg: update to 0.99.151; this fixed the problems which
+	  previously have been marked by some FIXMEs. Patch by Steven
+	  Scholz.
+	* ipkg-push: install ipkg.py which was missing; patch by Steven
+	  Scholz.
+	* ipkg-push: "wc -w" will never return "1" but "      1".
+	  patch by Steven Scholz
+	* sysfsutils: update to 1.3.0; patch by Steven Scholz
+	* Makefile: fixed svn-up and svn-stat targets
+	* ssmtp: update to 2.61-3, clean up URLs; patch by
+	  Steven Scholz
+	* module-init-tools: update to 3.2-pre7; patch
+	  by Steven Scholz
+
 2005-06-30 Bjoern Buerger <b.buerger@pengutronix.de>
 
 	* ntpd: fixed dependencies
