@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sun Jul  3 20:36:04 2005
+# Mon Jul  4 07:12:25 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -1110,6 +1110,7 @@ PTXCONF_NTP_NTPDATE=y
 #
 # OpenNTPD            
 #
+# PTXCONF_OPENNTPD is not set
 
 #
 # Conflicts with NTP
