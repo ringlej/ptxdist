@@ -1,3 +1,8 @@
+2005-07-04 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ipkg-test: use PTXCONF_ROOT instead of $TOPDIR/root; patch
+	  by Steven Scholz
+
 2005-07-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* kernel: use modutils for 2.4, module-init-tools for 2.6
