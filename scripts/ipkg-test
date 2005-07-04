@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# usage: IMAGES=/image/dir IPKG=/path/to/ipkg-cl ipkg-test 
+# usage: IMAGES=/image/dir ROOT=/root/dir IPKG=/path/to/ipkg-cl ipkg-test 
 
 TOPDIR=`pwd`
 DIR=`mktemp -d /tmp/ptxdist.XXXXXX`
@@ -30,7 +30,7 @@ cd $DIR
 find . | grep -v "./usr/lib/ipkg" | sort -u > $TOPDIR/logs/root-ipkg.txt
 
 echo "checking files in original tree..."
-cd $TOPDIR/root
+cd $ROOT
 find . | sort -u > $TOPDIR/logs/root-orig.txt
 
 echo
