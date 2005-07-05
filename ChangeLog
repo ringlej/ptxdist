@@ -1,3 +1,7 @@
+2005-07-05 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* thttpd: fixed installation
+
 2005-07-04 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ipkg-test: use PTXCONF_ROOT instead of $TOPDIR/root; patch
