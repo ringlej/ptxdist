@@ -16,7 +16,7 @@ case $1 in
 
 	start)
 		echo "${PREFIX} starting"
-		$thttpd -d $DOCUMENTROOT -nor -nos -p 80 -c '**.cgi' -i /var/run/thttpd.pid -l /var/logs/thttpd.log
+		$thttpd -d $DOCUMENTROOT -u www -nor -nos -p 80 -c '**.cgi' -i /var/run/thttpd.pid -l /var/logs/thttpd.log
 		echo "{PREFIX} done"
 		;;
 
