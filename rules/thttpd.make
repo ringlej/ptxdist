@@ -133,6 +133,7 @@ $(STATEDIR)/thttpd.targetinstall: $(thttpd_targetinstall_deps)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0555, $(THTTPD_DIR)/thttpd, /usr/sbin/thttpd)
+	@$(call install_copy, 0, 0, 0555, $(TOPDIR)/projects/generic/etc/init.d/thttpd, /etc/init.d/thttpd, n)
 
 	@$(call install_finish)
 	touch $@
