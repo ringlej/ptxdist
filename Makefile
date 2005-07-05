@@ -562,20 +562,21 @@ imagesclean:
 	@echo "done."
 
 svn-up:
-	@echo "updating in toplevel................ "
+	@$(call targetinfo, Updating in Toplevel)
 	@cd $(TOPDIR) && svn update
 	@if [ -d "$(PROJECTDIR)" ]; then				\
-		echo "updating in projectdir.............. ";		\
+		$(call targetinfo, Updating in PROJECTDIR);		\
 		cd $(PROJECTDIR);					\
 		[ -d .svn ] && svn update; 				\
 	fi;
 	@echo "done."
 
 svn-stat:
+	@$(call targetinfo, svn stat in Toplevel)
 	@echo "svn stat in toplevel................ "
 	@cd $(TOPDIR) && svn stat
 	@if [ -d "$(PROJECTDIR)" ]; then				\
-		echo "svn stat in projectdir.............. ";		\
+		$(call targetinfo, svn stat in PROJECTDIR);		\
 		cd $(PROJECTDIR);					\
 		[ -d .svn ] && svn stat; 				\
 	fi;
