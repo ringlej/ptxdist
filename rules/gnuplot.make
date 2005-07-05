@@ -165,9 +165,12 @@ $(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps)
 
 	# This has to be built with host compiler!!
 	# FIXME: uggly workaround for now...
-	cd $(GNUPLOT_DIR)/src && make bf_test CC=$(HOSTCC) CFLAGS='-O2' LDFLAGS=''
+	#cd $(GNUPLOT_DIR)/src && make bf_test CC=$(HOSTCC) CFLAGS='-O2' LDFLAGS=''
+	#rm -f $(GNUPLOT_DIR)/src/*.o
 
-	cd $(GNUPLOT_DIR) && $(GNUPLOT_ENV) $(GNUPLOT_PATH) make
+	# We only make the binary, as IT tries to start target stuff on the host
+	# otherwhise
+	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_ENV) $(GNUPLOT_PATH) make gnuplot
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -178,7 +181,6 @@ gnuplot_install: $(STATEDIR)/gnuplot.install
 
 $(STATEDIR)/gnuplot.install: $(STATEDIR)/gnuplot.compile
 	@$(call targetinfo, $@)
-	cd $(GNUPLOT_DIR) && $(GNUPLOT_ENV) $(GNUPLOT_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------
