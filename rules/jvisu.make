@@ -72,21 +72,10 @@ jvisu_prepare_deps = \
 
 JVISU_PATH	=  PATH=$(CROSS_PATH)
 JVISU_ENV 	=  $(CROSS_ENV)
-#JVISU_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#JVISU_ENV	+=
-
-#
-# autoconf
-#
-JVISU_AUTOCONF =  $(CROSS_AUTOCONF)
-JVISU_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/jvisu.prepare: $(jvisu_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JVISU_DIR)/config.cache)
-	cd $(JVISU_DIR) && \
-		$(JVISU_PATH) $(JVISU_ENV) \
-		./configure $(JVISU_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -99,7 +88,10 @@ jvisu_compile_deps = $(STATEDIR)/jvisu.prepare
 
 $(STATEDIR)/jvisu.compile: $(jvisu_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(JVISU_DIR) && $(JVISU_ENV) $(JVISU_PATH) make
+
+	# FIXME: we need ant to do this; should we make it a host tool? 
+	cd $(JVISU_DIR) && $(JVISU_ENV) $(JVISU_PATH) ./build.sh jar
+
 	touch $@
 
 # ----------------------------------------------------------------------------
