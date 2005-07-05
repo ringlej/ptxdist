@@ -573,7 +573,6 @@ svn-up:
 
 svn-stat:
 	@$(call targetinfo, svn stat in Toplevel)
-	@echo "svn stat in toplevel................ "
 	@cd $(TOPDIR) && svn stat
 	@if [ -d "$(PROJECTDIR)" ]; then				\
 		$(call targetinfo, svn stat in PROJECTDIR);		\
