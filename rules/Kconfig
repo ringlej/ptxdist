@@ -144,6 +144,7 @@ endmenu
 menu "Web Applications            "
 source "rules/mfirebird.in"
 source "rules/penguzilla.in"
+source "rules/jvisu.in"
 endmenu
 
 menu "Test Suites                 "

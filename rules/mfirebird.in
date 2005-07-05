@@ -1,6 +1,6 @@
 menuconfig MFIREBIRD
 	bool
-	prompt "Mozilla Firefox"
+	prompt "Mozilla Firefox             "
 
 config MFIREBIRD_CALENDAR
 	bool
