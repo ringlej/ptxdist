@@ -144,6 +144,7 @@ $(STATEDIR)/libpng125.targetinstall: $(libpng125_targetinstall_deps)
 		/usr/lib/libpng12.so.0.1.2.5)
 	@$(call install_link, libpng12.so.0.1.2.5, /usr/lib/libpng12.so.0)
 	@$(call install_link, libpng12.so.0.1.2.5, /usr/lib/libpng12.so)
+	@$(call install_link, libpng12.so.0.1.2.5, /usr/lib/libpng.so.3)
 	
 	@$(call install_finish)
 	
