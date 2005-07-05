@@ -120,6 +120,7 @@ endif
 ifdef PTXCONF_ROOTFS_VAR
 	@$(call install_copy, 0, 0, 0755, /var)
 	@$(call install_copy, 0, 0, 0755, /var/log)
+	@$(call install_copy, 0, 0, 0755, /var/www)
 endif
 
 ifdef PTXCONF_ROOTFS_SYS
