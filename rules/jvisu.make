@@ -55,6 +55,11 @@ $(STATEDIR)/jvisu.extract: $(jvisu_extract_deps)
 	@$(call clean, $(JVISU_DIR))
 	@$(call extract, $(JVISU_SOURCE))
 	@$(call patchin, $(JVISU))
+
+	# FIXME: we cannot currently overwrite the JAVAPATH on the command line, 
+	# so we tweak it here in a way that it works at least with Debian
+	perl -i -p -e "s,^JAVAPATH=.*,JAVAPATH=/usr,g" $(JVISU_DIR)/build.properties
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -125,7 +130,10 @@ $(STATEDIR)/jvisu.targetinstall: $(jvisu_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/foobar, /dev/null)
+ifdef PTXCONF_JVISU_APPLET
+	# User: www; Group: www
+	@$(call install_copy, 12, 102, 0644, $(JVISU_DIR)/jar/jvisu.jar, $(PTXCONF_JVISU_APPLET_PATH)/jvisu.jar, n)
+endif
 
 	@$(call install_finish)
 

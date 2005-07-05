@@ -2,3 +2,22 @@ menuconfig JVISU
 	bool
 	prompt "JVisu                       "
 
+config JVISU_APPLET
+	bool
+	depends on JVISU
+	default Y if JVISU
+	prompt "Install JVisu Applet"
+	help
+	  The JVisu applet is a generic visualisation tool for process visualisation. 
+	  See http://www.jvisu.com for more details. 
+
+config JVISU_APPLET_PATH
+	string
+	prompt "JVisu Applet Path"
+	default "/var/www/jvisu/"
+	depends on JVISU_APPLET
+	help
+	  The JVisu applet jvisu.jar is installed in this path on the target machine. 
+	  Default is "/var/www/jvisu/", so the applet is /var/www/jvisu/jvisu.jar. 
+	  
+	
