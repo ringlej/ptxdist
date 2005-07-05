@@ -20,7 +20,7 @@ endif
 #
 JVISU_VERSION	= 1.0.0
 JVISU		= JVisu-$(JVISU_VERSION)
-JVISU_SUFFIX	= tar.gz
+JVISU_SUFFIX	= tgz
 JVISU_URL	= http://www.jvisu.com/download/archive/$(JVISU).$(JVISU_SUFFIX)
 JVISU_SOURCE	= $(SRCDIR)/$(JVISU).$(JVISU_SUFFIX)
 JVISU_DIR	= $(BUILDDIR)/$(JVISU)
