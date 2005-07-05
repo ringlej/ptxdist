@@ -7,6 +7,8 @@ PREFIX="thttpd: "
 THISFILE=$0
 DOCUMENTROOT="/var/www"
 thttpd="/usr/sbin/thttpd"
+PIDFILE="/var/run/thttpd.pid"
+LOGFILE="/var/log/thttpd.log"
 		
 usage() {
 	echo "${PREFIX}usage: $THISFILE [start|stop]"
@@ -16,14 +18,25 @@ case $1 in
 
 	start)
 		echo "${PREFIX} starting"
-		$thttpd -d $DOCUMENTROOT -u www -nor -nos -p 80 -c '**.cgi' -i /var/run/thttpd.pid -l /var/logs/thttpd.log
-		echo "{PREFIX} done"
+		if [ -e "$PIDFILE" ]; then 
+			echo "${PREFIX} warning: another thttpd seems to be running, trying to kill it"
+			kill -9 `cat $PIDFILE`
+			rm -f $PIDFILE
+		fi
+		$thttpd -d $DOCUMENTROOT -u www -nor -nos -p 80 -c '**.cgi' -i $PIDFILE -l $LOGFILE
+		if [ "$?" != "0" ]; then 
+			echo "${PREFIX} error, could not start server"
+			rm -f /var/run/thttpd.pid
+		else 
+			echo "${PREFIX} done"
+		fi
 		;;
 
 	stop)
 		echo "${PREFIX} stopping"
-		kill -USR1 `cat /var/run/thttpd.pid`
+		kill -USR1 `cat $PIDFILE`
 		rm -f /var/run/thttpd.pid
+		echo "${PREFIX} done"
 		;;
 
 	*)
