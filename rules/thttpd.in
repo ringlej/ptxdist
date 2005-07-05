@@ -1,7 +1,4 @@
-menu	"thttpd              "
+menuconfig THTTPD
+	bool 
+	prompt "thttpd              "
 
-config THTTPD
-	bool
-	prompt "Compile thttpd"
-
-endmenu

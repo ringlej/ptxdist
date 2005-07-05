@@ -4,7 +4,6 @@ config OPENNTPD
 	bool             
 	prompt "OpenNTPD (Network Time Synchronisation Daemon)"             
 	default n
-	depends on !NTP
 	help
 	  This will install the BSD Open NTPD Daemon
 	  OpenNTPD is a FREE, easy to use implementation of the 
