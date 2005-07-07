@@ -446,7 +446,7 @@ cuckoo-test: world
 	@scripts/cuckoo-test $(PTXCONF_ARCH) root $(PTXCONF_COMPILER_PREFIX)
 
 ipkg-test: world
-	@IMAGES=$(IMAGEDIR) ROOT=$(PTXCONF_ROOT) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl  scripts/ipkg-test
+	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl  scripts/ipkg-test
 
 # ----------------------------------------------------------------------------
 
