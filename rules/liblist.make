@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-LIBLIST_VERSION		= 1.0.0
+LIBLIST_VERSION		= 1.0.1
 LIBLIST			= liblist-$(LIBLIST_VERSION)
 LIBLIST_SUFFIX		= tar.gz
 LIBLIST_URL		= http://www.pengutronix.de/software/liblist/download/$(LIBLIST).$(LIBLIST_SUFFIX)
