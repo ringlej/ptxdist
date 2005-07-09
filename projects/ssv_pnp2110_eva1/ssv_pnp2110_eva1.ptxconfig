@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Mon Jul  4 07:12:14 2005
+# Sat Jul  9 14:01:20 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -1070,10 +1070,6 @@ PTXCONF_TCPDUMP_DISABLE_CRYPTO=y
 # Troll FTPD          
 #
 # PTXCONF_TROLL-FTPD is not set
-
-#
-# thttpd              
-#
 # PTXCONF_THTTPD is not set
 
 #
@@ -1165,6 +1161,7 @@ PTXCONF_HEXEDIT=y
 # PTXCONF_DB is not set
 # PTXCONF_EXPAT is not set
 # PTXCONF_GLIB26 is not set
+# PTXCONF_LIBLIST is not set
 # PTXCONF_LIBXML2 is not set
 PTXCONF_NCURSES=y
 PTXCONF_NCURSES_TERMCAP=y
@@ -1225,6 +1222,7 @@ PTXCONF_ZLIB=y
 #
 # PTXCONF_MFIREBIRD is not set
 # PTXCONF_PENGUZILLA is not set
+# PTXCONF_JVISU is not set
 
 #
 # Test Suites                 
