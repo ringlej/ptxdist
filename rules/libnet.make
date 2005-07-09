@@ -109,7 +109,7 @@ libnet_compile_deps =  $(STATEDIR)/libnet.prepare
 
 $(STATEDIR)/libnet.compile: $(libnet_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(LIBNET_DIR) && $(LIBNET_PATH) $(LIBNET_ENV) make -C
+	cd $(LIBNET_DIR) && $(LIBNET_PATH) $(LIBNET_ENV) make
 	touch $@
 
 # ----------------------------------------------------------------------------
