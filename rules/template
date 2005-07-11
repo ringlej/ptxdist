@@ -134,7 +134,7 @@ $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/foobar, /dev/null)
+	@$(call install_copy, 0, 0, 0755, $(@PACKET@_DIR)/foobar, /dev/null)
 
 	@$(call install_finish)
 
