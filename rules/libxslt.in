@@ -1,0 +1,15 @@
+#
+# LibXSLT - Options updated as of 1.1.14
+#
+
+menuconfig LIBXSLT
+        bool
+        prompt "libxslt"
+	default N
+	select LIBXML2
+	help
+	  LibXSLT is a generic XSLT implementation. For details see the
+	  project homepage: 
+
+		http://xmlsoft.org/XSLT/
+
