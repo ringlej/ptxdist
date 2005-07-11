@@ -140,7 +140,11 @@ $(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LIBXSLT_DIR)/foobar, /dev/null)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LIBXSLT_DIR)/libxslt/.libs/libxslt.so.1.1.14, \
+		/usr/lib/libxslt.so.1.1.14)
+	@$(call install_link, libxslt.so.1.1.14, /usr/lib/libxslt.so.1)
+	@$(call install_link, libxslt.so.1.1.14, /usr/lib/libxslt.so)
 
 	@$(call install_finish)
 

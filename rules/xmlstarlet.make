@@ -139,7 +139,7 @@ $(STATEDIR)/xmlstarlet.targetinstall: $(xmlstarlet_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(XMLSTARLET_DIR)/foobar, /dev/null)
+	@$(call install_copy, 0, 0, 0755, $(XMLSTARLET_DIR)/src/xml, /usr/bin/xml)
 
 	@$(call install_finish)
 
