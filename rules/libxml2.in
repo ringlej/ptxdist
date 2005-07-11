@@ -1,3 +1,282 @@
-config LIBXML2
+#
+# LibXML2 - Options updated as of 2.6.19
+#
+
+menuconfig LIBXML2
         bool
-        prompt "libxml2-2.6.2"
+        prompt "libxml2"
+
+config LIBXML2_C14N
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "C14N Support"
+	help
+	  Activate the W3C XML Canonicalisation (C14N) to serialize 
+	  the result of parsing to stdout. It keeps comments in the 
+	  result. 
+
+config LIBXML2_CATALOG
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "Catalog support"
+	help
+	  FIXME: Add the Catalog support
+
+config LIBXML2_DEBUG
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "Debugging"
+	help
+	  Enable debugging support. 
+
+config LIBXML2_DOCBOOK
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "Docbook support"
+	help
+	  Enable Docbook SGML support
+
+config LIBXML2_FEXCEPTION
+	bool
+	default N
+	depends on LIBXML2
+	prompt "C++ Exception Support"
+	help
+	  Add GCC flag -fexceptions for C++ exceptions. 
+
+config LIBXML2_FTP
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "FTP Support"
+	help
+	  Add FTP support.
+
+config LIBXML2_HISTORY
+	bool
+	default N
+	depends on LIBXML2
+	prompt "History support for xmlling shell"
+	help
+	  This feature adds history support to the xmllint shell. 
+
+config LIBXML2_HTML
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "HTML support"
+	help
+	  Add HTML support. 
+
+config LIBXML2_HTML_DIR
+	bool
+	
+	depends on LIBXML2_HTML
+	prompt "HTML directory"
+	help
+	  Path to HTML base directory. 
+
+config LIBXML2_HTML_SUBDIR
+	bool
+	depends on LIBXML2_HTML
+	prompt "HTML sub directory"
+	help
+	  Directory used under HTML-dir. 
+
+config LIBXML2_HTTP
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "HTTP support"
+	help
+	  Add HTTP support. 
+
+config LIBXML2_ICONV
+	bool
+	default Y
+	depends on LIBXML2  
+	prompt "ICONV support"
+	help
+	  Add ICONV support. 
+
+config LIBXML2_ISO8859X
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "ISO8859x support if no ICONV"
+	help
+	  Add ISO8859X support if no iconv. 
+
+config LIBXML2_LEGACY
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "Support for deprecated APIs"
+	help
+	  Add support for deprecated APIs (compatiblity)
+
+config LIBXML2_MEM_DEBUG
+	bool
+	default N
+	depends on LIBXML2
+	prompt "Memory Debugging Module"
+	help
+	  Add the memory debugging support. 
+
+config LIBXML2_MINIMUM
+	bool
+	default N
+	depends on LIBXML2
+	prompt "Optimize for size"
+	help
+	  Build a minimally sized library
+
+config LIBXML2_OUTPUT
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "Output Serialization"
+	help
+	  Add the serialization support. 
+
+config LIBXML2_PATTERN
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "XML Pattern Selection Interface"
+	help
+	  Add XML Pattern selection interface
+
+config LIBXML2_PUSH
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "PUSH Parser"
+	help
+	  Add the PUSH parser interface. 
+
+config LIBXML2_PYTHON
+	bool
+	depends on LIBXML2
+	prompt "Python bindings"
+	help
+	  Build Python bindings if found. 
+
+config LIBXML2_READER
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "xmlReader Parsing Interface"
+	help
+	  Add the xmlReader parsing interface. 
+
+config LIBXML2_REGEXPS
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "Regular Expressions support"
+	help
+	  Add support for Regular Expressions. 
+	  
+#  --with-readline=DIR     use readline in DIR
+
+config LIBXML2_RUN_DEBUG
+	bool
+	default N
+	depends on LIBXML2
+	prompt "Enable Runtime Debugging"
+	help
+	  Enable runtime debugging module. 
+
+config LIBXML2_SAX1
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "SAX1 API"
+	help
+	  Enable the SAX1 API
+
+config LIBXML2_SCHEMAS
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "Relax-NG/Schema Support"
+	help
+	  Add Relay-NG and experimental Schemas support
+
+config LIBXML2_THREADS
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "Thread support"
+	help
+	  Add multithreaded support
+
+config LIBXML2_THREADS_ALLOC
+	bool
+	default N
+	depends on LIBXML2
+	prompt "Per-Thread memory"
+	help
+	  Add per-thread memory. 
+	  
+config LIBXML2_DOM
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "DOM API"
+	help
+	  Add the DOM tree manipulation API. 
+	  
+config LIBXML2_DTD
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "DTD Validation support"
+	help
+	  Add the DTD validation support
+
+config LIBXML2_WRITER
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "xmlWriter support"
+	help
+	  Add XML Writer support. 
+	  
+config LIBXML2_XINCLUDE
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "XInclude"
+	help
+	  XInclude support. 
+	  
+config LIBXML2_XPATH
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "XPATH support"
+	help
+	  XPATH support
+	  
+config LIBXML2_XPRT
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "XPTR"
+	help
+	  XPTR support
+
+config LIBXML2_MODULES
+	bool
+	default Y
+	depends on LIBXML2
+	prompt "Dynamic Modules"
+	help
+	  Dynamic Modules support. 
+
