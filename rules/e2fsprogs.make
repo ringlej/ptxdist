@@ -19,7 +19,7 @@ endif
 #
 # Paths and names 
 #
-E2FSPROGS_VERSION		= 1.35
+E2FSPROGS_VERSION		= 1.38
 E2FSPROGS			= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX		= tar.gz
 E2FSPROGS_URL			= $(PTXCONF_SETUP_SFMIRROR)/e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
@@ -139,6 +139,11 @@ ifdef PTXCONF_E2FSPROGS_MKFS
 endif
 ifdef PTXCONF_E2FSPROGS_E2FSCK
 	@$(call install_copy, 0, 0, 0755, $(E2FSPROGS_BUILD_DIR)/e2fsck/e2fsck.shared, /sbin/e2fsck)
+endif
+ifdef PTXCONF_E2FSPROGS_TUNE2FS
+	@$(call install_copy, 0, 0, 0755, $(E2FSPROGS_BUILD_DIR)/misc/tune2fs, /sbin/tune2fs)
+	@$(call install_link, /sbin/tune2fs, /sbin/findfs)
+	@$(call install_link, /sbin/tune2fs, /sbin/e2label)
 endif
 
 	@$(call install_finish)
