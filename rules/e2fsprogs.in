@@ -25,7 +25,7 @@ config E2FSPROGS_E2FSCK
 
 config PTXCONF_E2FSPROGS_TUNE2FS
 	bool
-	prompt "Install e2fsck"
+	prompt "Install tune2fs, findfs, e2label"
 	default y
 	depends on E2FSPROGS
 	help	
