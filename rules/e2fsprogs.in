@@ -23,7 +23,7 @@ config E2FSPROGS_E2FSCK
 	 This will install /sbin/e2fsck, the filesystem 
 	 checking and recovery tool for ext2 and ext3.
 
-config PTXCONF_E2FSPROGS_TUNE2FS
+config E2FSPROGS_TUNE2FS
 	bool
 	prompt "Install tune2fs, findfs, e2label"
 	default y
