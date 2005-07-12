@@ -1,6 +1,7 @@
 2005-07-12 Bjoern Buerger <b.buerger@pengutronix.de>
 	
-	* e2fsprogs:	help, tune2fs, findfs, e2label added.
+	* e2fsprogs: update to 1.38, documentaion fixup
+	  tune2fs, findfs, e2label added to install stage.
 	
 2005-07-11 Robert Schwebel <r.schwebel@pengutronix.de>
 
