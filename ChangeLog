@@ -1,3 +1,7 @@
+2005-07-13 Bjoern Buerger <b.buerger@pengutronix.de>
+	
+	* libxslt: added missing configure options
+
 2005-07-12 Bjoern Buerger <b.buerger@pengutronix.de>
 	
 	* e2fsprogs: update to 1.38, documentaion fixup
