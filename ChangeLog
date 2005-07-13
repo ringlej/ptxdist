@@ -3,6 +3,9 @@
 	* libxslt: added missing configure options
 	  fixed libxml2-prefix
 
+	* host-tools: switched HOSTTOOLS to HOST_PACKAGES; 
+	  patch by Ladislav Michl <ladis@linux-mips.org>
+
 2005-07-12 Bjoern Buerger <b.buerger@pengutronix.de>
 	
 	* e2fsprogs: update to 1.38, documentaion fixup
