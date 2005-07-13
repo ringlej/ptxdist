@@ -12,7 +12,7 @@
 # We provide this package
 #
 ifdef PTXCONF_HOSTTOOL_UMKIMAGE
-PACKAGES += hosttool-umkimage
+HOST_PACKAGES += hosttool-umkimage
 endif
 
 #

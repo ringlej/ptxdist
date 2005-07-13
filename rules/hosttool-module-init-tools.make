@@ -13,7 +13,7 @@
 # We provide this package
 #
 ifdef PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS
-PACKAGES += hosttool-module-init-tools
+HOST_PACKAGES += hosttool-module-init-tools
 endif
 
 #

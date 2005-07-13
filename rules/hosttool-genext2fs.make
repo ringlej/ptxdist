@@ -13,7 +13,7 @@
 # We provide this package
 #
 ifdef PTXCONF_HOSTTOOL_GENEXT2FS
-HOSTTOOLS += hosttool-genext2fs
+HOST_PACKAGES += hosttool-genext2fs
 endif
 
 #

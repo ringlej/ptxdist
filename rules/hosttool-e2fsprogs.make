@@ -13,7 +13,7 @@
 # We provide this package
 #
 ifdef PTXCONF_HOSTTOOL_E2FSPROGS
-HOSTTOOLS += hosttool-e2fsprogs
+HOST_PACKAGES += hosttool-e2fsprogs
 endif
 
 #

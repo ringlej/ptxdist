@@ -13,7 +13,7 @@
 # We provide this package
 #
 ifdef PTXCONF_HOSTTOOL_FAKEROOT
-HOSTTOOLS += hosttool-fakeroot
+HOST_PACKAGES += hosttool-fakeroot
 endif
 
 #

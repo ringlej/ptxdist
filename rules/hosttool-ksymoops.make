@@ -12,7 +12,7 @@
 # We provide this package
 #
 ifdef PTXCONF_KSYMOOPS
-PACKAGES += ksymoops
+HOST_PACKAGES += hosttool-ksymoops
 endif
 
 #

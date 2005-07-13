@@ -13,7 +13,7 @@
 # We provide this package
 #
 ifdef PTXCONF_HOSTTOOL_IPKG
-PACKAGES += hosttool-ipkg
+HOST_PACKAGES += hosttool-ipkg
 endif
 
 #

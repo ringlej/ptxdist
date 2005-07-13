@@ -13,7 +13,7 @@
 # We provide this package
 #
 ifdef PTXCONF_HOSTTOOL_FLEX254
-PACKAGES += hosttool-flex254
+HOST_PACKAGES += hosttool-flex254
 endif
 
 #
