@@ -82,6 +82,30 @@ LIBXSLT_ENV 	=  $(CROSS_ENV)
 LIBXSLT_AUTOCONF =  $(CROSS_AUTOCONF)
 LIBXSLT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
+
+ifdef PTXCONF_LIBXSLT_CRYPTO
+	LIBXSLT_AUTOCONF += --with-crypto
+else
+	LIBXSLT_AUTOCONF += --without-crypto
+endif
+
+
+ifdef PTXCONF_LIBXSLT_PLUGINS
+	LIBXSLT_AUTOCONF += --with-plugins
+else	
+	LIBXSLT_AUTOCONF += --without-plugins
+endif
+
+
+ifdef PTXCONF_LIBXSLT_DEBUG
+	LIBXSLT_AUTOCONF += --with-debug
+	LIBXSLT_AUTOCONF += --with-debugger
+else	
+	LIBXSLT_AUTOCONF += --without-debug
+	LIBXSLT_AUTOCONF += --without-debugger
+endif
+
+
 $(STATEDIR)/libxslt.prepare: $(libxslt_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXSLT_DIR)/config.cache)

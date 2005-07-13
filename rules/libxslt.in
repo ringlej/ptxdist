@@ -13,3 +13,27 @@ menuconfig LIBXSLT
 
 		http://xmlsoft.org/XSLT/
 
+		
+# ----- Compile Options 
+
+comment "Compile Options"
+	depends on LIBXSLT
+
+config LIBXSLT_CRYPTO
+	bool
+	prompt "Add crypto support to exslt"
+	default n
+	depends on LIBXSLT
+
+config LIBXSLT_PLUGINS
+	bool
+	prompt "Add plugin extension support "
+	default y
+	depends on LIBXSLT
+
+config LIBXSLT_DEBUG
+	bool
+	prompt "Add the debugging support"
+	default n
+	depends on LIBXSLT
+
