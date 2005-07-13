@@ -69,7 +69,8 @@ libxslt_prepare: $(STATEDIR)/libxslt.prepare
 #
 libxslt_prepare_deps = \
 	$(STATEDIR)/libxslt.extract \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/libxml2.install
 
 LIBXSLT_PATH	=  PATH=$(CROSS_PATH)
 LIBXSLT_ENV 	=  $(CROSS_ENV)
