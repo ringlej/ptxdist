@@ -1,3 +1,7 @@
+2005-07-14 Bjoern Buerger <b.buerger@pengutronix.de>
+
+	* nfs-utils: bugfix, ipkgized some config files.
+
 2005-07-14 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* chrony: autotoolized and added workaround for broken kernel headers
