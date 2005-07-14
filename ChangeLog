@@ -4,7 +4,7 @@
 	  fixed libxml2-prefix
 
 	* host-tools: switched HOSTTOOLS to HOST_PACKAGES; 
-	  patch by Ladislav Michl <ladis@linux-mips.org>
+	  patch by Ladislav Michl 
 
 2005-07-12 Bjoern Buerger <b.buerger@pengutronix.de>
 	
