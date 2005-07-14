@@ -1,3 +1,8 @@
+2005-07-14 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* chrony: autotoolized and added workaround for broken kernel headers
+	* patches: moved primary patch repository into $(TOPDIR)/local_patches
+
 2005-07-13 Bjoern Buerger <b.buerger@pengutronix.de>
 	
 	* libxslt: added missing configure options
