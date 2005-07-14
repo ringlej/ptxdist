@@ -66,9 +66,9 @@ chrony_prepare: $(STATEDIR)/chrony.prepare
 #
 # dependencies
 #
-chrony_prepare_deps = \
-	$(STATEDIR)/chrony.extract \
-	$(STATEDIR)/virtual-xchain.install
+chrony_prepare_deps =  $(STATEDIR)/chrony.extract
+chrony_prepare_deps += $(STATEDIR)/virtual-xchain.install
+chrony_prepare_deps += $(STATEDIR)/readline.install
 
 CHRONY_PATH	=  PATH=$(CROSS_PATH)
 CHRONY_ENV 	=  $(CROSS_ENV)
@@ -87,7 +87,7 @@ $(STATEDIR)/chrony.prepare: $(chrony_prepare_deps)
 	@$(call clean, $(CHRONY_DIR)/config.cache)
 	cd $(CHRONY_DIR) && \
 		$(CHRONY_PATH) $(CHRONY_ENV) \
-		./configure $(CHRONY_AUTOCONF)
+		sh configure $(CHRONY_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -120,7 +120,8 @@ $(STATEDIR)/chrony.install: $(STATEDIR)/chrony.compile
 
 chrony_targetinstall: $(STATEDIR)/chrony.targetinstall
 
-chrony_targetinstall_deps = $(STATEDIR)/chrony.compile
+chrony_targetinstall_deps =  $(STATEDIR)/chrony.compile
+chrony_targetinstall_deps += $(STATEDIR)/readline.targetinstall
 
 $(STATEDIR)/chrony.targetinstall: $(chrony_targetinstall_deps)
 	@$(call targetinfo, $@)
