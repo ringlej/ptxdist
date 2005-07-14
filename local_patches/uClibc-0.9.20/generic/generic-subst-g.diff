@@ -1,0 +1,73 @@
+#
+# Mike Frysinger writes:
+#
+# in some Makefiles you can find this code:
+# SAFEFLAGS := $(subst -g,,$(CFLAGS))
+# which is all fine and dandy except for when CFLAGS contains a string that has
+# '-g' in it ... specifically, i hit a case where gcc stores it's include files
+# in /usr/lib/gcc-lib/i686-pc-linux-gnu/3.2.3/include/ ... when uclibc went to
+# compile, gcc received '-I/usr/lib/gcc-lib/i686-pc-linuxnu/3.2.3/include'
+# causing it to fail (because it couldnt locate stddef.h in this case).
+#
+# http://www.uclibc.org/lists/uclibc/2003-July/006552.html
+#
+diff -ruN uClibc-0.9.20-orig/libc/sysdeps/linux/arm/Makefile uClibc-0.9.20/libc/sysdeps/linux/arm/Makefile
+--- uClibc-0.9.20-orig/libc/sysdeps/linux/arm/Makefile	Fri Jun 27 10:37:55 2003
++++ uClibc-0.9.20/libc/sysdeps/linux/arm/Makefile	Tue Sep 30 15:20:22 2003
+@@ -55,7 +55,7 @@
+ 	$(STRIPTOOL) -x -R .note -R .comment $*.o
+ 
+ ifeq ($(strip $(UCLIBC_PROFILING)),y)
+-SAFECFLAGS := $(subst -g,,$(CFLAGS))
++SAFECFLAGS := $(filter-out -g,$(CFLAGS))
+ gmon-start.S: ../common/gmon-start.c
+ 	$(CC) $(SAFECFLAGS) -c $< -S -o $*.S
+ gcrt1.o: $(CRT0_DEPS)
+diff -ruN uClibc-0.9.20-orig/libc/sysdeps/linux/common/Makefile uClibc-0.9.20/libc/sysdeps/linux/common/Makefile
+--- uClibc-0.9.20-orig/libc/sysdeps/linux/common/Makefile	Wed Mar  5 11:28:53 2003
++++ uClibc-0.9.20/libc/sysdeps/linux/common/Makefile	Tue Sep 30 15:20:55 2003
+@@ -43,7 +43,7 @@
+ # on SH4 addition of -g kills the initfini stuff, removed here for all
+ # platforms as I suspect no one want initfini compiled -g :-) - davidm
+ #
+-SAFECFLAGS := $(subst -g,,$(SAFECFLAGS))
++SAFECFLAGS := $(filter-out -g,$(CFLAGS))
+ ifeq ($(strip $(DOPIC)),y)
+ SAFECFLAGS+=-fPIC
+ endif
+diff -ruN uClibc-0.9.20-orig/libc/sysdeps/linux/i386/Makefile uClibc-0.9.20/libc/sysdeps/linux/i386/Makefile
+--- uClibc-0.9.20-orig/libc/sysdeps/linux/i386/Makefile	Fri Jun 27 10:23:23 2003
++++ uClibc-0.9.20/libc/sysdeps/linux/i386/Makefile	Tue Sep 30 15:21:11 2003
+@@ -58,7 +58,7 @@
+ 	$(STRIPTOOL) -x -R .note -R .comment $*.o
+ 
+ ifeq ($(strip $(UCLIBC_PROFILING)),y)
+-SAFECFLAGS := $(subst -g,,$(CFLAGS))
++SAFECFLAGS := $(filter-out -g,$(CFLAGS))
+ gmon-start.S: ../common/gmon-start.c
+ 	$(CC) $(SAFECFLAGS) -c $< -S -o $*.S
+ gcrt1.o: $(CRT0_DEPS)
+diff -ruN uClibc-0.9.20-orig/libc/sysdeps/linux/powerpc/Makefile uClibc-0.9.20/libc/sysdeps/linux/powerpc/Makefile
+--- uClibc-0.9.20-orig/libc/sysdeps/linux/powerpc/Makefile	Sun Jun 15 03:08:44 2003
++++ uClibc-0.9.20/libc/sysdeps/linux/powerpc/Makefile	Tue Sep 30 15:21:23 2003
+@@ -58,7 +58,7 @@
+ 	$(STRIPTOOL) -x -R .note -R .comment $*.o
+ 
+ ifeq ($(strip $(UCLIBC_PROFILING)),y)
+-SAFECFLAGS := $(subst -g,,$(CFLAGS))
++SAFECFLAGS := $(filter-out -g,$(CFLAGS))
+ gmon-start.S: ../common/gmon-start.c
+ 	$(CC) $(SAFECFLAGS) -c $< -S -o $*.S
+ gcrt1.o: $(CRT0_DEPS)
+diff -ruN uClibc-0.9.20-orig/libc/sysdeps/linux/sh/Makefile uClibc-0.9.20/libc/sysdeps/linux/sh/Makefile
+--- uClibc-0.9.20-orig/libc/sysdeps/linux/sh/Makefile	Thu Mar  6 14:57:30 2003
++++ uClibc-0.9.20/libc/sysdeps/linux/sh/Makefile	Tue Sep 30 15:21:38 2003
+@@ -57,7 +57,7 @@
+ 	$(STRIPTOOL) -x -R .note -R .comment $*.o
+ 
+ ifeq ($(strip $(UCLIBC_PROFILING)),y)
+-SAFECFLAGS := $(subst -g,,$(CFLAGS))
++SAFECFLAGS := $(filter-out -g,$(CFLAGS))
+ gmon-start.S: ../common/gmon-start.c
+ 	$(CC) $(SAFECFLAGS) -c $< -S -o $*.S
+ gcrt1.o: $(CRT0_DEPS)

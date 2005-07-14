@@ -1,0 +1,56 @@
+# 
+# Submitted-By: Benedikt Spranger, 2005-01-31
+# Committed-By: Robert Schwebel, 2005-01-31
+#
+# Error: 
+# http://sources.redhat.com/ml/libc-alpha/2004-02/msg00133.html
+#
+# gcc-3.4 does not allow inlining of functions which call setjmp. This 
+# causes a build problem for powerpc|powerpc64 when 
+# powerpc/elf/libc-start.c attempts to inline generic_libc_start_main from 
+# generic/libc-start.c.
+#
+# I added #ifdef LIBC_START_DISABLE_INLINE to generic/libc-start.c to not 
+# define STATIC as "static inline __attribute__ ((always_inline))" and 
+# define as "static" instead. Now powerpc/elf/libc-start.c can define 
+# LIBC_START_DISABLE_INLINE to avoid this compile error.
+# 2004-02-19  Steven Munroe  <sjmunroe@us.ibm.com>
+#
+#	* sysdeps/generic/libc-start.c [LIBC_START_DISABLE_INLINE]: 
+#	Define STATIC as static.
+#	* sysdeps/powerpc/elf/libc-start.c: Define LIBC_START_DISABLE_INLINE
+#	because gcc does not allow inline of functions that call setjmp.
+#
+# State: upstream fixed in newer version
+# 
+# http://sources.redhat.com/ml/libc-alpha/2004-02/msg00142.html
+# Not pretty, but in line with the rest of the code. Applied.
+# Ulrich Drepper
+#
+diff -urN libc23-cvstip-20040218/sysdeps/generic/libc-start.c libc23/sysdeps/generic/libc-start.c
+--- libc23-cvstip-20040218/sysdeps/generic/libc-start.c	2004-01-16 02:07:01.000000000 -0600
++++ libc23/sysdeps/generic/libc-start.c	2004-02-19 13:36:53.000000000 -0600
+@@ -44,7 +44,11 @@
+ 
+ 
+ #ifdef LIBC_START_MAIN
+-# define STATIC static inline __attribute__ ((always_inline))
++# ifdef LIBC_START_DISABLE_INLINE
++#  define STATIC static
++# else
++#  define STATIC static inline __attribute__ ((always_inline))
++# endif
+ #else
+ # define STATIC
+ # define LIBC_START_MAIN BP_SYM (__libc_start_main)
+diff -urN libc23-cvstip-20040218/sysdeps/powerpc/elf/libc-start.c libc23/sysdeps/powerpc/elf/libc-start.c
+--- libc23-cvstip-20040218/sysdeps/powerpc/elf/libc-start.c	2003-03-15 17:09:18.000000000 -0600
++++ libc23/sysdeps/powerpc/elf/libc-start.c	2004-02-19 13:34:10.000000000 -0600
+@@ -49,6 +49,7 @@
+ 
+ /* The main work is done in the generic function.  */
+ #define LIBC_START_MAIN generic_start_main
++#define LIBC_START_DISABLE_INLINE
+ #define LIBC_START_MAIN_AUXVEC_ARG
+ #define MAIN_AUXVEC_ARG
+ #define INIT_MAIN_ARGS

@@ -1,0 +1,37 @@
+--- mtd-20030301-1/util/Makefile.orig	2004-02-04 21:32:15.000000000 +0100
++++ mtd-20030301-1/util/Makefile	2004-02-04 21:33:22.000000000 +0100
+@@ -7,8 +7,8 @@
+ CC := $(CROSS)gcc
+ override CFLAGS += -I../include -O2 -Wall -Wstrict-prototypes -Wshadow
+ 
+-TARGETS = ftl_format erase eraseall nftldump nanddump doc_loadbios \
+-nftl_format mkfs.jffs ftl_check mkfs.jffs2 lock unlock \
++TARGETS = ftl_format erase eraseall nanddump doc_loadbios \
++mkfs.jffs ftl_check mkfs.jffs2 lock unlock \
+ einfo mtd_debug fcp nandwrite #jffs2reader
+ 
+ SYMLINKS = crc32.h crc32.c compr_rtime.c
+diff -urN mtd-20030301-1/fs/jffs2/compr_rtime.c mtd-20030301-1-ptx/fs/jffs2/compr_rtime.c
+--- mtd-20030301-1/fs/jffs2/compr_rtime.c	2002-06-13 18:46:44.000000000 +0200
++++ mtd-20030301-1-ptx/fs/jffs2/compr_rtime.c	2004-03-18 18:38:21.000000000 +0100
+@@ -22,7 +22,7 @@
+  */
+ 
+ #include <linux/kernel.h>
+-#include <linux/types.h>
++#include <inttypes.h>
+ #include <linux/errno.h>
+ #include <linux/string.h> 
+ 
+diff -urN mtd-20030301-1/fs/jffs2/crc32.h mtd-20030301-1-ptx/fs/jffs2/crc32.h
+--- mtd-20030301-1/fs/jffs2/crc32.h	2002-01-03 16:20:44.000000000 +0100
++++ mtd-20030301-1-ptx/fs/jffs2/crc32.h	2004-03-18 18:37:14.000000000 +0100
+@@ -3,7 +3,7 @@
+ 
+ /* $Id: crc32.h,v 1.4 2002/01/03 15:20:44 dwmw2 Exp $ */
+ 
+-#include <linux/types.h>
++#include <inttypes.h>
+ 
+ extern const uint32_t crc32_table[256];
+ 

@@ -1,0 +1,12 @@
+diff -urN fbtest-20041102-1/pnmtohex/Makefile fbtest-20041102-1-ptx/pnmtohex/Makefile
+--- fbtest-20041102-1/pnmtohex/Makefile	2004-11-02 09:43:02.000000000 +0100
++++ fbtest-20041102-1-ptx/pnmtohex/Makefile	2004-11-02 10:01:58.000000000 +0100
+@@ -3,7 +3,7 @@
+ 
+ HOST_TARGET = pnmtohex
+ 
+-LIBS += -lnetpnm -lnetpbm -lnetpgm -lnetppm
++LIBS += -lpnm -lpbm -lpgm -lppm
+ 
+ include $(TOPDIR)/Rules.make
+ 

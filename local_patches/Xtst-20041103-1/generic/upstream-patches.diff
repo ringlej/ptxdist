@@ -1,0 +1,32 @@
+diff -urN Xtst-20041103-1/autogen-rs.sh Xtst-ptx/autogen-rs.sh
+--- Xtst-20041103-1/autogen-rs.sh	1970-01-01 01:00:00.000000000 +0100
++++ Xtst-ptx/autogen-rs.sh	2004-11-03 17:47:41.000000000 +0100
+@@ -0,0 +1,8 @@
++#!/bin/sh
++
++aclocal-1.7 -I /usr/share/aclocal/
++libtoolize -c --force
++autoheader
++autoconf
++automake-1.7 --add-missing --copy
++
+diff -urN Xtst-20041103-1/configure.ac Xtst-ptx/configure.ac
+--- Xtst-20041103-1/configure.ac	2004-11-03 17:49:33.000000000 +0100
++++ Xtst-ptx/configure.ac	2004-11-03 08:17:12.000000000 +0100
+@@ -1,6 +1,6 @@
+ AC_PREREQ([2.57])
+ AC_INIT(libXfixes, 6.2.2, [mallum@handhelds.org], libXtst)
+-AM_INIT_AUTOMAKE([dist-bzip2])
++AM_INIT_AUTOMAKE(libXfixes, 20041103-1, [dist-bzip2])
+ AM_MAINTAINER_MODE
+ 
+ AM_CONFIG_HEADER(config.h)
+diff -urN Xtst-20041103-1/Makefile.am Xtst-ptx/Makefile.am
+--- Xtst-20041103-1/Makefile.am	2004-11-03 17:49:33.000000000 +0100
++++ Xtst-ptx/Makefile.am	2004-11-03 07:46:07.000000000 +0100
+@@ -22,4 +22,4 @@
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = xtst.pc
+ 
+-EXTRA_DIST = xtst.pc.in autogen.sh
++EXTRA_DIST = xtst.pc.in autogen.sh autogen-rs.sh

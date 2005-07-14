@@ -1,0 +1,12 @@
+diff -urN memtest-0.0.4/Makefile memtest-0.0.4-ptx1/Makefile
+--- memtest-0.0.4/Makefile	2000-05-12 04:06:48.000000000 +0200
++++ memtest-0.0.4-ptx1/Makefile	2004-04-22 17:28:39.000000000 +0200
+@@ -27,7 +27,7 @@
+ #CFLAGS   	+= -Wconversion 
+ CFLAGS   	+= -ggdb3
+ CFLAGS   	+= -O2
+-CC        = gcc
++#CC		:= gcc
+ 
+ CC_OPTS = $(CFLAGS) $($*_CC_OPTS)
+ CXX_OPTS = $(CFLAGS) -frepo $($*_CC_OPTS)

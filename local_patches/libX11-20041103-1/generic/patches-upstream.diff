@@ -1,0 +1,71 @@
+diff -urN libX11-20041103-1/autogen-rs.sh libX11-20041103-1-ptx/autogen-rs.sh
+--- libX11-20041103-1/autogen-rs.sh	1970-01-01 01:00:00.000000000 +0100
++++ libX11-20041103-1-ptx/autogen-rs.sh	2004-11-12 11:48:35.000000000 +0100
+@@ -0,0 +1,8 @@
++#!/bin/sh
++
++aclocal-1.7 -I /usr/share/aclocal/
++libtoolize -c --force
++autoheader
++autoconf
++automake-1.7 --add-missing --copy
++
+diff -urN libX11-20041103-1/configure.ac libX11-20041103-1-ptx/configure.ac
+--- libX11-20041103-1/configure.ac	2004-11-03 10:47:01.000000000 +0100
++++ libX11-20041103-1-ptx/configure.ac	2004-11-12 11:48:35.000000000 +0100
+@@ -7,11 +7,11 @@
+         [xlibs@freedesktop.org],
+         libX11)
+ AC_CONFIG_SRCDIR([Makefile.am])
+-AM_INIT_AUTOMAKE([dist-bzip2])
++AM_INIT_AUTOMAKE(libX11, 20041103-1, [dist-bzip2])
+ 
+ AM_MAINTAINER_MODE
+ 
+-AM_CONFIG_HEADER([src/config.h])
++AM_CONFIG_HEADER(src/config.h)
+ AC_CONFIG_AUX_DIR(.)
+ 
+ # Checks for programs.
+diff -urN libX11-20041103-1/include/Makefile.am libX11-20041103-1-ptx/include/Makefile.am
+--- libX11-20041103-1/include/Makefile.am	2004-04-16 01:36:05.000000000 +0200
++++ libX11-20041103-1-ptx/include/Makefile.am	2004-11-12 11:48:35.000000000 +0100
+@@ -8,8 +8,12 @@
+ 	X11/Xresource.h \
+ 	X11/Xutil.h \
+ 	X11/cursorfont.h \
+-	X11/region.h
++	X11/region.h \
++	$(xcb_include)
+ 
+ if XCB
+-x11include_HEADERS += X11/xcl.h
++xcb_include = X11/xcl.h
++else
++xcb_include = 
+ endif
++
+diff -urN libX11-20041103-1/Makefile.am libX11-20041103-1-ptx/Makefile.am
+--- libX11-20041103-1/Makefile.am	2004-11-03 10:47:01.000000000 +0100
++++ libX11-20041103-1-ptx/Makefile.am	2004-11-12 11:48:35.000000000 +0100
+@@ -3,4 +3,5 @@
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = x11.pc
+ 
+-EXTRA_DIST=x11.pc.in
++EXTRA_DIST= x11.pc.in autogen-rs.sh
++
+diff -urN libX11-20041103-1/src/util/Makefile.am libX11-20041103-1-ptx/src/util/Makefile.am
+--- libX11-20041103-1/src/util/Makefile.am	2003-10-03 20:20:57.000000000 +0200
++++ libX11-20041103-1-ptx/src/util/Makefile.am	2004-11-12 11:47:43.000000000 +0100
+@@ -1,6 +1,7 @@
+ noinst_PROGRAMS=makekeys
+ 
+-makekeys_CFLAGS=$(X11_CFLAGS) $(XPROTO_CFLAGS)
++CC=$(CC_FOR_BUILD)
++CFLAGS=$(CFLAGS_FOR_BUILD)
++LDFLAGS=$(LDFLAGS_FOR_BUILD)
++LIBTOOL = @LIBTOOL@ --tag=CC
+ 
+-override CC = gcc
+-LINK = gcc $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@

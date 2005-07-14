@@ -1,0 +1,41 @@
+#
+# Submitted:
+#
+# Marc Kleine-Budde <kleine-budde@gmx.de>, 2003-28-11
+#
+# Error:
+#
+# make[1]: Entering directory
+# `/home/frogger/projects/ptxdist/ptxdist-i686/build/busybox-1.00-pre3'
+# i686-unknown-linux-gnu-gcc -I./include -Wall -Wstrict-prototypes
+# -Wshadow -g -D_GNU_SOURCE -c -o util-linux/fdisk.o
+# util-linux/fdisk.c
+# util-linux/fdisk.c: In function `get_geometry':
+# util-linux/fdisk.c:4060: error: subscripted value is neither array nor pointer
+# make[1]: *** [util-linux/fdisk.o] Error 1
+#
+# Avoid conflicts with the 2.6 kernel headers, which define
+# _IOR rather differently, thereby breaking the BLKGETSIZE64
+# ioctl.
+# -Erik
+#
+# State:
+#
+# fixed in CVS
+# http://www.busybox.net/cgi-bin/cvsweb/busybox/util-linux/fdisk.c?r1=1.10&r2=1.11
+#
+diff -ru busybox-1.00-pre3-orig/util-linux/fdisk.c busybox-1.00-pre3/util-linux/fdisk.c
+--- busybox-1.00-pre3-orig/util-linux/fdisk.c	Fri Aug  8 22:04:56 2003
++++ busybox-1.00-pre3/util-linux/fdisk.c	Sat Nov 29 02:37:16 2003
+@@ -55,6 +55,11 @@
+ #define BLKGETSIZE _IO(0x12,96)    /* return device size */
+ #define BLKFLSBUF  _IO(0x12,97)    /* flush buffer cache */
+ #define BLKSSZGET  _IO(0x12,104)   /* get block device sector size */
++
++/* Avoid conflicts with the 2.6 kernel headers, which define
++ * _IOR rather differently */ 
++#undef _IOR
++#define _IOR(type,nr,size)      _IOC(_IOC_READ,(type),(nr),sizeof(size))
+ #define BLKGETSIZE64 _IOR(0x12,114,8)  /* 8 = sizeof(u64) */
+ 
+ /*

@@ -1,0 +1,17 @@
+diff -ruN e2fsprogs-1.34.orig/misc/util.c e2fsprogs-1.34/misc/util.c
+--- e2fsprogs-1.34.orig/misc/util.c	2003-05-04 00:46:47.000000000 +0200
++++ e2fsprogs-1.34/misc/util.c	2003-12-21 09:13:36.000000000 +0100
+@@ -109,7 +109,12 @@
+ #define MINOR(dev)	((dev) & 0xff)
+ #endif
+ #ifndef SCSI_BLK_MAJOR
+-#define SCSI_BLK_MAJOR(M)  ((M) == SCSI_DISK_MAJOR || (M) == SCSI_CDROM_MAJOR)
++#define SCSI_DISK_MAJOR(M) ((M) == SCSI_DISK0_MAJOR || \
++  ((M) >= SCSI_DISK1_MAJOR && (M) <= SCSI_DISK7_MAJOR))
++	
++#define SCSI_BLK_MAJOR(M) \
++	 (SCSI_DISK_MAJOR(M)   \
++	  || (M) == SCSI_CDROM_MAJOR)
+ #endif
+ 	if (((MAJOR(s.st_rdev) == HD_MAJOR &&
+ 	      MINOR(s.st_rdev)%64 == 0) ||

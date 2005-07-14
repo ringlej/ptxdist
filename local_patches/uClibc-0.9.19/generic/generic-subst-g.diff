@@ -1,0 +1,25 @@
+#
+# Mike Frysinger writes:
+#
+# in some Makefiles you can find this code:
+# SAFEFLAGS := $(subst -g,,$(CFLAGS))
+# which is all fine and dandy except for when CFLAGS contains a string that has
+# '-g' in it ... specifically, i hit a case where gcc stores it's include files
+# in /usr/lib/gcc-lib/i686-pc-linux-gnu/3.2.3/include/ ... when uclibc went to
+# compile, gcc received '-I/usr/lib/gcc-lib/i686-pc-linuxnu/3.2.3/include'
+# causing it to fail (because it couldnt locate stddef.h in this case).
+#
+# http://www.uclibc.org/lists/uclibc/2003-July/006552.html
+#
+diff -ruN uClibc-0.9.19-orig/libc/sysdeps/linux/common/Makefile uClibc-0.9.19/libc/sysdeps/linux/common/Makefile
+--- uClibc-0.9.19-orig/libc/sysdeps/linux/common/Makefile	Tue Feb 18 06:48:08 2003
++++ uClibc-0.9.19/libc/sysdeps/linux/common/Makefile	Tue Sep 30 15:27:12 2003
+@@ -40,7 +40,7 @@
+ # on SH4 addition of -g kills the initfini stuff, removed here for all
+ # platforms as I suspect no one want initfini compiled -g :-) - davidm
+ #
+-SAFECFLAGS := $(subst -g,,$(SAFECFLAGS))
++SAFECFLAGS := $(filter-out -g,$(CFLAGS))
+ ifeq ($(strip $(DOPIC)),y)
+ SAFECFLAGS+=-fPIC
+ endif

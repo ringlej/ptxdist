@@ -1,0 +1,177 @@
+#
+# glibc-2.2.5 "errlist" fix
+# (Category - Essential build fix)
+# (Source - glibc cvs glibc-2-2-branch)
+#
+# glibc-2.2.5 fails to build with gcc-3.2 unless this patch is applied.
+#
+# http://sources.redhat.com/ml/libc-hacker/2002-05/msg00024.html
+# http://www.zipworld.com.au/%7Egschafer/patches/glibc-2.2.5.errlist.patch.gz
+#
+# plus some more fixes...taken from glibc-2.2.5-ptx4 patch
+#
+diff -ruN glibc-2.2.5-orig/ChangeLog glibc-2.2.5/ChangeLog
+--- glibc-2.2.5-orig/ChangeLog	2002-01-21 04:20:18.000000000 +0100
++++ glibc-2.2.5/ChangeLog	2003-09-13 13:49:08.000000000 +0200
+@@ -1,3 +1,19 @@
++2002-07-31  Jeff Bailey  <jbailey@gnu.org>
++ 
++         * libio/stdio.h (sys_errlist, sys_nerr, _sys_errlist, _sys_nerr):
++         Declarations moved to &lt;bits/sys_errlist.h&gt;.  Include that file.
++         * libio/Makefile (headers): Add bits/sys_errlist.h to the list.
++         * sysdeps/generic/bits/sys_errlist.h: New file.  This does *not*
++         declare sys_errlist and sys_nerr.
++         * sysdeps/unix/sysv/linux/bits/sys_errlist.h: New file.  Does
++         provide declarations.
++ 
++2002-05-19  Ulrich Drepper  <drepper@redhat.com>
++ 
++         * sysdeps/unix/sysv/linux/errlist.c: Remove extra weak alias
++         definiton of _old_sys_nerr.  Define _old_sys_errlist as strong
++         alias.
++
+ 2002-01-18  Andreas Schwab  <schwab@suse.de>
+ 
+ 	* sysdeps/unix/sysv/linux/configure.in
+diff -ruN glibc-2.2.5-orig/libio/Makefile glibc-2.2.5/libio/Makefile
+--- glibc-2.2.5-orig/libio/Makefile	2001-08-22 20:39:25.000000000 +0200
++++ glibc-2.2.5/libio/Makefile	2003-09-13 13:49:08.000000000 +0200
+@@ -1,4 +1,4 @@
+-# Copyright (C) 1995,96,97,98,99,2000, 2001 Free Software Foundation, Inc.
++# Copyright (C) 1995,96,97,98,99,2000,01,02 Free Software Foundation, Inc.
+ # This file is part of the GNU C Library.
+ 
+ # The GNU C Library is free software; you can redistribute it and/or
+@@ -21,7 +21,8 @@
+ #
+ subdir	:= libio
+ 
+-headers	:= stdio.h libio.h _G_config.h bits/stdio.h bits/stdio-lock.h
++headers	:= stdio.h libio.h _G_config.h bits/stdio.h bits/stdio-lock.h \
++	   bits/sys_errlist.h
+ 
+ routines	:=							      \
+ 	filedoalloc iofclose iofdopen iofflush iofgetpos iofgets iofopen      \
+diff -ruN glibc-2.2.5-orig/libio/stdio.h glibc-2.2.5/libio/stdio.h
+--- glibc-2.2.5-orig/libio/stdio.h	2001-07-06 06:55:31.000000000 +0200
++++ glibc-2.2.5/libio/stdio.h	2003-09-13 13:49:08.000000000 +0200
+@@ -1,5 +1,5 @@
+ /* Define ISO C stdio on top of C++ iostreams.
+-   Copyright (C) 1991, 1994-1999, 2000, 2001 Free Software Foundation, Inc.
++   Copyright (C) 1991,1994-1999,2000,01,02 Free Software Foundation, Inc.
+    This file is part of the GNU C Library.
+ 
+    The GNU C Library is free software; you can redistribute it and/or
+@@ -545,16 +545,11 @@
+ /* Print a message describing the meaning of the value of errno.  */
+ extern void perror (__const char *__s) __THROW;
+ 
+-/* These variables normally should not be used directly.  The `strerror'
+-   function provides all the needed functionality.  */
+-#ifdef	__USE_BSD
+-extern int sys_nerr;
+-extern __const char *__const sys_errlist[];
+-#endif
+-#ifdef	__USE_GNU
+-extern int _sys_nerr;
+-extern __const char *__const _sys_errlist[];
+-#endif
++/* Provide the declarations for `sys_errlist' and `sys_nerr' if they
++   are available on this system.  Even if available, these variables
++   should not be used directly.  The `strerror' function provides
++   all the necessary functionality.  */
++#include <bits/sys_errlist.h>
+ 
+ 
+ #ifdef	__USE_POSIX
+diff -ruN glibc-2.2.5-orig/sysdeps/generic/bits/sys_errlist.h glibc-2.2.5/sysdeps/generic/bits/sys_errlist.h
+--- glibc-2.2.5-orig/sysdeps/generic/bits/sys_errlist.h	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.2.5/sysdeps/generic/bits/sys_errlist.h	2003-09-13 13:49:08.000000000 +0200
+@@ -0,0 +1,24 @@
++/* Declare sys_errlist and sys_nerr, or don't.  Don't version.
++   Copyright (C) 2002 Free Software Foundation, Inc.
++   This file is part of the GNU C Library.
++
++   The GNU C Library is free software; you can redistribute it and/or
++   modify it under the terms of the GNU Lesser General Public
++   License as published by the Free Software Foundation; either
++   version 2.1 of the License, or (at your option) any later version.
++
++   The GNU C Library is distributed in the hope that it will be useful,
++   but WITHOUT ANY WARRANTY; without even the implied warranty of
++   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++   Lesser General Public License for more details.
++
++   You should have received a copy of the GNU Lesser General Public
++   License along with the GNU C Library; if not, write to the Free
++   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
++   02111-1307 USA.  */
++
++#ifndef _STDIO_H
++# error "Never include <bits/sys_errlist.h> directly; use <stdio.h> instead."
++#endif
++
++/* sys_errlist and sys_nerr are deprecated.  Use strerror instead.  */
+diff -ruN glibc-2.2.5-orig/sysdeps/generic/_strerror.c glibc-2.2.5/sysdeps/generic/_strerror.c
+--- glibc-2.2.5-orig/sysdeps/generic/_strerror.c	2001-07-06 06:55:48.000000000 +0200
++++ glibc-2.2.5/sysdeps/generic/_strerror.c	2003-09-13 13:49:08.000000000 +0200
+@@ -21,6 +21,7 @@
+ #include <string.h>
+ #include <sys/param.h>
+ #include <stdio-common/_itoa.h>
++#include <bits/sys_errlist.h>
+ 
+ #ifndef HAVE_GNU_LD
+ # define _sys_errlist sys_errlist
+diff -ruN glibc-2.2.5-orig/sysdeps/unix/sysv/linux/bits/sys_errlist.h glibc-2.2.5/sysdeps/unix/sysv/linux/bits/sys_errlist.h
+--- glibc-2.2.5-orig/sysdeps/unix/sysv/linux/bits/sys_errlist.h	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.2.5/sysdeps/unix/sysv/linux/bits/sys_errlist.h	2003-09-13 13:49:08.000000000 +0200
+@@ -0,0 +1,33 @@
++/* Declare sys_errlist and sys_nerr, or don't.  Compatibility (do) version.
++   Copyright (C) 2002 Free Software Foundation, Inc.
++   This file is part of the GNU C Library.
++
++   The GNU C Library is free software; you can redistribute it and/or
++   modify it under the terms of the GNU Lesser General Public
++   License as published by the Free Software Foundation; either
++   version 2.1 of the License, or (at your option) any later version.
++
++   The GNU C Library is distributed in the hope that it will be useful,
++   but WITHOUT ANY WARRANTY; without even the implied warranty of
++   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++   Lesser General Public License for more details.
++
++   You should have received a copy of the GNU Lesser General Public
++   License along with the GNU C Library; if not, write to the Free
++   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
++   02111-1307 USA.  */
++
++#ifndef _STDIO_H
++# error "Never include <bits/sys_errlist.h> directly; use <stdio.h> instead."
++#endif
++
++/* sys_errlist and sys_nerr are deprecated.  Use strerror instead.  */
++
++#ifdef  __USE_BSD
++extern int sys_nerr;
++extern __const char *__const sys_errlist[];
++#endif
++#ifdef  __USE_GNU
++extern int _sys_nerr;
++extern __const char *__const _sys_errlist[];
++#endif
+diff -ruN glibc-2.2.5-orig/sysdeps/unix/sysv/linux/errlist.c glibc-2.2.5/sysdeps/unix/sysv/linux/errlist.c
+--- glibc-2.2.5-orig/sysdeps/unix/sysv/linux/errlist.c	2001-07-06 06:56:12.000000000 +0200
++++ glibc-2.2.5/sysdeps/unix/sysv/linux/errlist.c	2003-09-13 13:48:53.000000000 +0200
+@@ -38,10 +38,9 @@
+ const int __old_sys_nerr = OLD_ERRLIST_SIZE;
+ 
+ strong_alias (__old_sys_nerr, _old_sys_nerr);
+-weak_alias (__old_sys_nerr, _old_sys_nerr)
+ compat_symbol (libc, __old_sys_nerr, _sys_nerr, GLIBC_2_0);
+ compat_symbol (libc, _old_sys_nerr, sys_nerr, GLIBC_2_0);
+-weak_alias (__old_sys_errlist, _old_sys_errlist);
++strong_alias (__old_sys_errlist, _old_sys_errlist);
+ compat_symbol (libc, __old_sys_errlist, _sys_errlist, GLIBC_2_0);
+ compat_symbol (libc, _old_sys_errlist, sys_errlist, GLIBC_2_0);
+ #endif

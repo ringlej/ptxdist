@@ -1,0 +1,22 @@
+#
+# 	Fix build on Sparc.
+#
+# source:
+# http://ftp.debian.org/debian/pool/main/g/gdb/gdb_5.3-2.diff.gz
+#
+--- gdb-5.3/gdb/sparc-nat.c.orig	2003-01-04 00:11:28.000000000 -0500
++++ gdb-5.3/gdb/sparc-nat.c	2003-01-04 00:12:42.000000000 -0500
+@@ -33,6 +33,13 @@
+ #include <sys/ptrace.h>
+ #include <sys/wait.h>
+ #ifdef __linux__
++/* Sadly, <sys/ucontext.h> conflicts with <asm/reg.h> on Linux.  And
++   -D_GNU_SOURCE brings in <sys/ucontext.h> implicitly with <signal.h>.
++   Hack around this.  */
++#undef FPU_REGS_TYPE
++#define fpu asm_reg_fpu
++#define fq asm_reg_fq
++#define fpq asm_reg_fpq
+ #include <asm/reg.h>
+ #else
+ #include <machine/reg.h>

@@ -1,0 +1,43 @@
+diff -urN Xfont-20041103-1/autogen-rs.sh Xfont-ptx/autogen-rs.sh
+--- Xfont-20041103-1/autogen-rs.sh	1970-01-01 01:00:00.000000000 +0100
++++ Xfont-ptx/autogen-rs.sh	2004-11-03 07:39:41.000000000 +0100
+@@ -0,0 +1,8 @@
++#!/bin/sh
++
++aclocal-1.7 -I /usr/share/aclocal/
++libtoolize -c --force
++autoheader
++autoconf
++automake-1.7 --add-missing --copy
++
+diff -urN Xfont-20041103-1/bitmap/Makefile.am Xfont-ptx/bitmap/Makefile.am
+--- Xfont-20041103-1/bitmap/Makefile.am	2003-10-03 16:40:44.000000000 +0200
++++ Xfont-ptx/bitmap/Makefile.am	2004-11-03 08:29:21.000000000 +0100
+@@ -16,5 +16,4 @@
+ 	pcf.h			\
+ 	pcfread.c		\
+ 	pcfwrite.c		\
+-	snfread.c		\
+-	snfstr.h
++	snfread.c
+diff -urN Xfont-20041103-1/configure.ac Xfont-ptx/configure.ac
+--- Xfont-20041103-1/configure.ac	2004-11-03 16:48:47.000000000 +0100
++++ Xfont-ptx/configure.ac	2004-11-03 09:04:38.000000000 +0100
+@@ -35,7 +35,7 @@
+ dnl Yes, it is a pain to synchronize version numbers.  Unfortunately, it's
+ dnl not possible to extract the version number here from Xfont.h
+ dnl
+-AM_INIT_AUTOMAKE([dist-bzip2])
++AM_INIT_AUTOMAKE(libXfont, 20041103-1, [dist-bzip2])
+ AM_CONFIG_HEADER(config.h)
+ AC_CONFIG_AUX_DIR(.)
+ AC_CONFIG_HEADERS([include/X11/fonts/fontconf.h])
+diff -urN Xfont-20041103-1/Makefile.am Xfont-ptx/Makefile.am
+--- Xfont-20041103-1/Makefile.am	2004-11-03 16:48:47.000000000 +0100
++++ Xfont-ptx/Makefile.am	2004-11-03 07:44:54.000000000 +0100
+@@ -100,4 +100,4 @@
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = xfont.pc
+ 
+-EXTRA_DIST = xfont.pc.in autogen.sh include/X11/fonts/fontconf.h.in
++EXTRA_DIST = xfont.pc.in autogen.sh autogen-rs.sh include/X11/fonts/fontconf.h.in

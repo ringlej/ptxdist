@@ -1,0 +1,32 @@
+#
+# Submitted:
+# 
+# Robert Schwebel, 2003-11-18
+#  
+# Error:
+# 
+# sscanf.c: In function `sscanf':
+# sscanf.c:37: error: `va_start' used in function with fixed args
+# 
+# Description: 
+#
+# http://www.x86-64.org/lists/discuss/msg03844.html
+#
+# State:
+# 
+# should be solved in glibc CVS
+#
+
+--- glibc-2.3.2-orig/stdio-common/sscanf.c	2003-11-18 08:16:00.000000000 +0100
++++ glibc-2.3.2-diff/stdio-common/sscanf.c	2003-11-18 08:17:53.000000000 +0100
+@@ -27,9 +27,7 @@
+ /* Read formatted input from S, according to the format string FORMAT.  */
+ /* VARARGS2 */
+ int
+-sscanf (s, format)
+-     const char *s;
+-     const char *format;
++sscanf (const char *s, const char *format, ...)
+ {
+   va_list arg;
+   int done;

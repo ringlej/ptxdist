@@ -1,0 +1,81 @@
+#
+# glibc-2.2.5 "calloc" fix
+# (Category - Essential security fix)
+# (Source - glibc cvs glibc-2-2-branch)
+#
+# Integer overflow can occur during the computation of the memory
+# region size by calloc and similar functions. As a result, the
+# function returns a buffer which is too small, possibly resulting in
+# a subsequent buffer overflow.
+#
+# http://cert.uni-stuttgart.de/advisories/calloc.php
+# http://www.zipworld.com.au/%7Egschafer/patches/glibc-2.2.5.calloc.patch.gz
+#
+# glibc-2.2.5 "posix_memalign" fix
+# 
+# http://sources.redhat.com/cgi-bin/cvsweb.cgi/libc/malloc/malloc.c.diff?r1=1.87&r2=1.87.2.1&cvsroot=glibc&only_with_tag=glibc-2-2-branch
+# http://mail.gnu.org/archive/html/bug-glibc/2002-06/msg00204.html 
+#
+--- glibc-2.2.5.orig/malloc/malloc.c    Wed Sep 19 05:23:27 2001
++++ glibc-2.2.5/malloc/malloc.c Tue Aug 13 11:16:26 2002
+@@ -3795,14 +3795,26 @@
+ {
+   arena *ar_ptr;
+   mchunkptr p, oldtop;
+-  INTERNAL_SIZE_T sz, csz, oldtopsize;
++  INTERNAL_SIZE_T bytes, sz, csz, oldtopsize;
+   Void_t* mem;
+
+ #if defined _LIBC || defined MALLOC_HOOKS
+   __malloc_ptr_t (*hook) __MALLOC_PMT ((size_t, __const __malloc_ptr_t)) =
+     __malloc_hook;
++
++  /* size_t is unsigned so the behavior on overflow is defined.  */
++    bytes = n * elem_size;
++#define HALF_INTERNAL_SIZE_T \
++  (((INTERNAL_SIZE_T) 1) << (8 * sizeof (INTERNAL_SIZE_T) / 2))
++  if (__builtin_expect ((n | elem_size) >= HALF_INTERNAL_SIZE_T, 0)) {
++    if (elem_size != 0 && bytes / elem_size != n) {
++      __set_errno (ENOMEM);
++      return 0;
++    }
++  }
++
+   if (hook != NULL) {
+-    sz = n * elem_size;
++    sz = bytes;
+ #if defined __GNUC__ && __GNUC__ >= 2
+     mem = (*hook)(sz, RETURN_ADDRESS (0));
+ #else
+@@ -3819,7 +3831,7 @@
+   }
+ #endif
+
+-  if(request2size(n * elem_size, sz))
++  if(request2size(bytes, sz))
+     return 0;
+   arena_get(ar_ptr, sz);
+   if(!ar_ptr)
+@@ -3862,7 +3874,7 @@
+     }
+     if (p == 0) return 0;
+   }
+-  mem = BOUNDED_N(chunk2mem(p), n * elem_size);
++  mem = BOUNDED_N(chunk2mem(p), bytes);
+
+   /* Two optional cases in which clearing not necessary */
+
+@@ -4899,9 +4911,9 @@
+ {
+   void *mem;
+
+-  /* Test whether the SIZE argument is valid.  It must be a power of
+-     two multiple of sizeof (void *).  */
+-  if (size % sizeof (void *) != 0 || (size & (size - 1)) != 0)
++  /* Test whether the ALIGNMENT argument is valid.  It must be a power
++     of two multiple of sizeof (void *).  */
++  if (alignment % sizeof (void *) != 0 || (alignment & (alignment - 1)) != 0)
+     return EINVAL;
+
+   mem = __libc_memalign (alignment, size);
+diff -urN glibc-2.2.5.orig/sunrpc/xdr_array.c glibc-2.2.5/sunrpc/xdr_array.c

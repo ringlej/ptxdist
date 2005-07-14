@@ -1,0 +1,23 @@
+#
+# This patch fixes the absence of sqrtl on PPC
+# http://sources.redhat.com/ml/libc-hacker/2002-05/msg00012.html
+#
+diff -ur glibc-2.2.5-orig/sysdeps/powerpc/fpu/w_sqrt.c glibc-2.2.5/sysdeps/powerpc/fpu/w_sqrt.c
+--- glibc-2.2.5-orig/sysdeps/powerpc/fpu/w_sqrt.c	2001-07-06 06:56:02.000000000 +0200
++++ glibc-2.2.5/sysdeps/powerpc/fpu/w_sqrt.c	2003-09-12 22:02:00.000000000 +0200
+@@ -1,5 +1,5 @@
+ /* Single-precision floating point square root.
+-   Copyright (C) 1997 Free Software Foundation, Inc.
++   Copyright (C) 1997, 2002 Free Software Foundation, Inc.
+    This file is part of the GNU C Library.
+ 
+    The GNU C Library is free software; you can redistribute it and/or
+@@ -139,3 +139,8 @@
+ /* Strictly, this is wrong, but the only places where _ieee754_sqrt is
+    used will not pass in a negative result.  */
+ strong_alias(__sqrt,__ieee754_sqrt)
++
++#ifdef NO_LONG_DOUBLE
++weak_alias (__sqrt, __sqrtl)
++weak_alias (__sqrt, sqrtl)
++#endif

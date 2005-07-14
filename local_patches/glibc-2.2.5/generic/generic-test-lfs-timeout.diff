@@ -1,0 +1,15 @@
+#
+# This next patch fixes a test that will timeout due to ReiserFS' slow handling of sparse files
+#
+diff -ur glibc-2.2.5-orig/io/test-lfs.c glibc-2.2.5/io/test-lfs.c
+--- glibc-2.2.5-orig/io/test-lfs.c	2001-07-06 06:54:53.000000000 +0200
++++ glibc-2.2.5/io/test-lfs.c	2003-09-12 21:55:38.000000000 +0200
+@@ -35,7 +35,7 @@
+ #define PREPARE do_prepare
+ 
+ /* We might need a bit longer timeout.  */
+-#define TIMEOUT 20 /* sec */
++#define TIMEOUT 120 /* sec */
+ 
+ /* This defines the `main' function and some more.  */
+ #include <test-skeleton.c>

@@ -1,0 +1,17 @@
+#
+# http://sources.redhat.com/ml/crossgcc/2004-03/msg00094.html
+#
+# http://sources.redhat.com/ml/binutils/2003-06/txt00018.txt
+#
+diff -ru binutils-2.14.orig/gas/testsuite/gas/arm/arm.exp binutils-2.14/gas/testsuite/gas/arm/arm.exp
+--- binutils-2.14.orig/gas/testsuite/gas/arm/arm.exp	2003-04-03 02:25:02.000000000 +0200
++++ binutils-2.14/gas/testsuite/gas/arm/arm.exp	2004-03-29 03:02:33.000000000 +0200
+@@ -44,7 +44,7 @@
+ 
+     gas_test "immed.s" "" $stdoptlist "immediate expressions"
+ 
+-    gas_test "float.s" "-mcpu=arm7tdmi" $stdoptlist "Core floating point instructions"
++    gas_test "float.s" "-mcpu=arm7tdmi -mfpu=fpa" $stdoptlist "Core floating point instructions"
+ 
+     run_dump_test "fpa-monadic"
+ 

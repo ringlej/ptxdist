@@ -1,0 +1,44 @@
+#
+# Submitted:
+#
+# Marc Kleine-Budde <kleine-budde@gmx.de>, 2004-12-01
+#
+# Error:
+#
+# checking for library containing waddstr... no
+# checking for library containing tgetent... no
+# configure: error: no termcap library found
+# make[1]: *** [configure-gdb] Error 1
+# make[1]: Leaving directory `/ptx/work/mkl/build/cameron/ptxdist/build/gdb-6.3-build'
+# make: *** [/ptx/work/mkl/build/cameron/ptxdist/state/gdb.compile] Error 2
+#
+# Description:
+#
+# LDFLAGS and LDFLAGS_FOR_TARGET are overwritten by toplevel Makefile
+# instead preserving the ones from the configure-run
+#
+# State:
+# 
+# going-to-be-transmitted-to-gdb-mailinglist-real-soon
+#
+diff -ruN gdb-6.3-orig/Makefile.in gdb-6.3/Makefile.in
+--- gdb-6.3-orig/Makefile.in	2004-11-08 17:21:22.000000000 +0100
++++ gdb-6.3/Makefile.in	2004-12-01 20:52:05.000000000 +0100
+@@ -336,7 +336,7 @@
+ NM = @NM@
+ 
+ LD = @LD@
+-LDFLAGS = 
++LDFLAGS = @LDFLAGS@
+ 
+ RANLIB = @RANLIB@
+ 
+@@ -434,7 +434,7 @@
+     fi; \
+   fi`
+ 
+-LDFLAGS_FOR_TARGET = 
++LDFLAGS_FOR_TARGET = @LDFLAGS_FOR_TARGET@
+ 
+ NM_FOR_TARGET=@NM_FOR_TARGET@
+ CONFIGURED_NM_FOR_TARGET=@CONFIGURED_NM_FOR_TARGET@

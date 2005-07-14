@@ -1,0 +1,495 @@
+#
+# patch suggested by the linuxfromscratch guys to gcc-2.95.3
+#
+diff -ruN gcc-2.95.3-orig/gcc/c-common.c gcc-2.95.3/gcc/c-common.c
+--- gcc-2.95.3-orig/gcc/c-common.c	1999-09-07 10:11:16.000000000 +0200
++++ gcc-2.95.3/gcc/c-common.c	2003-09-16 12:00:15.000000000 +0200
+@@ -697,7 +697,23 @@
+ 	    if (exact_log2 (align) == -1)
+ 	      error ("requested alignment is not a power of 2");
+ 	    else if (is_type)
+-	      TYPE_ALIGN (type) = align;
++	      {
++		/* If we have a TYPE_DECL, then copy the type, so that we
++		   don't accidentally modify a builtin type.  See pushdecl.  */
++		if (decl && TREE_TYPE (decl) != error_mark_node
++		    && DECL_ORIGINAL_TYPE (decl) == NULL_TREE)
++		  {
++		    tree tt = TREE_TYPE (decl);
++		    DECL_ORIGINAL_TYPE (decl) = tt;
++		    tt = build_type_copy (tt);
++		    TYPE_NAME (tt) = decl;
++		    TREE_USED (tt) = TREE_USED (decl);
++		    TREE_TYPE (decl) = tt;
++		    type = tt;
++		  }
++
++		TYPE_ALIGN (type) = align;
++	      }
+ 	    else if (TREE_CODE (decl) != VAR_DECL
+ 		     && TREE_CODE (decl) != FIELD_DECL)
+ 	      error_with_decl (decl,
+diff -ruN gcc-2.95.3-orig/gcc/config/alpha/crtbegin.asm gcc-2.95.3/gcc/config/alpha/crtbegin.asm
+--- gcc-2.95.3-orig/gcc/config/alpha/crtbegin.asm	1998-12-16 22:00:53.000000000 +0100
++++ gcc-2.95.3/gcc/config/alpha/crtbegin.asm	2003-09-16 12:00:15.000000000 +0200
+@@ -97,6 +97,31 @@
+  # Support recursive calls to exit.
+ $ptr:	.quad	__DTOR_LIST__
+ 
++/* A globally unique widget for c++ local destructors to hang off.
++
++   This has a unique value in every dso; in the main program its
++   value is zero.  The object should be protected.  This means the
++   instance in any dso or the main program is not used in any other
++   dso.  The dynamic linker takes care of this.  */
++
++	.global __dso_handle
++	.type __dso_handle,@object
++	.size __dso_handle,8
++#ifdef SHARED
++.section .data
++	.align 3
++__dso_handle:
++	.quad	__dso_handle
++#else
++.section .bss
++	.align 3
++__dso_handle:
++	.zero 8
++#endif
++#ifdef HAVE_GAS_HIDDEN
++	.hidden __dso_handle
++#endif
++
+ .text
+ 
+ 	.align 3
+diff -ruN gcc-2.95.3-orig/gcc/config/i386/i386.c gcc-2.95.3/gcc/config/i386/i386.c
+--- gcc-2.95.3-orig/gcc/config/i386/i386.c	1999-09-07 09:38:56.000000000 +0200
++++ gcc-2.95.3/gcc/config/i386/i386.c	2003-09-16 12:00:15.000000000 +0200
+@@ -291,7 +291,7 @@
+ 
+   if (ix86_arch_string == 0)
+     {
+-      ix86_arch_string = PROCESSOR_PENTIUM_STRING;
++      ix86_arch_string = PROCESSOR_DEFAULT_STRING;
+       if (ix86_cpu_string == 0)
+ 	ix86_cpu_string = PROCESSOR_DEFAULT_STRING;
+     }
+@@ -308,7 +308,7 @@
+   if (i == ptt_size)
+     {
+       error ("bad value (%s) for -march= switch", ix86_arch_string);
+-      ix86_arch_string = PROCESSOR_PENTIUM_STRING;
++      ix86_arch_string = PROCESSOR_DEFAULT_STRING;
+       ix86_arch = PROCESSOR_DEFAULT;
+     }
+ 
+diff -ruN gcc-2.95.3-orig/gcc/config/i386/linux.h gcc-2.95.3/gcc/config/i386/linux.h
+--- gcc-2.95.3-orig/gcc/config/i386/linux.h	1999-04-08 02:32:13.000000000 +0200
++++ gcc-2.95.3/gcc/config/i386/linux.h	2003-09-16 12:00:15.000000000 +0200
+@@ -234,3 +234,21 @@
+     }									\
+   } while (0)
+ #endif
++
++#if defined(__PIC__) && defined (USE_GNULIBC_1)
++/* This is a kludge. The i386 GNU/Linux dynamic linker needs ___brk_addr,
++   __environ and atexit (). We have to make sure they are in the .dynsym
++   section. We accomplish it by making a dummy call here. This
++   code is never reached.  */
++         
++#define CRT_END_INIT_DUMMY		\
++  do					\
++    {					\
++      extern void *___brk_addr;		\
++      extern char **__environ;		\
++					\
++      ___brk_addr = __environ;		\
++      atexit (0);			\
++    }					\
++  while (0)
++#endif
+diff -ruN gcc-2.95.3-orig/gcc/config/rs6000/rs6000.md gcc-2.95.3/gcc/config/rs6000/rs6000.md
+--- gcc-2.95.3-orig/gcc/config/rs6000/rs6000.md	2001-01-25 15:03:35.000000000 +0100
++++ gcc-2.95.3/gcc/config/rs6000/rs6000.md	2003-09-16 12:00:15.000000000 +0200
+@@ -6184,7 +6184,9 @@
+      reg.  So expand it.  */
+   if (GET_CODE (operands[0]) == SUBREG
+       && GET_CODE (SUBREG_REG (operands[0])) == REG
+-      && REGNO (SUBREG_REG (operands[0])) < FIRST_PSEUDO_REGISTER)
++      && REGNO (SUBREG_REG (operands[0])) < FIRST_PSEUDO_REGISTER
++      && (! REG_FUNCTION_VALUE_P (SUBREG_REG (operands[0]))
++	  || ! rtx_equal_function_value_matters))
+     operands[0] = alter_subreg (operands[0]);
+   if (GET_CODE (operands[1]) == SUBREG
+       && GET_CODE (SUBREG_REG (operands[1])) == REG
+diff -ruN gcc-2.95.3-orig/gcc/config.in gcc-2.95.3/gcc/config.in
+--- gcc-2.95.3-orig/gcc/config.in	2001-03-16 15:13:48.000000000 +0100
++++ gcc-2.95.3/gcc/config.in	2003-09-16 12:00:15.000000000 +0200
+@@ -34,6 +34,9 @@
+    emitting at the beginning of your section */
+ #undef HAVE_GAS_SUBSECTION_ORDERING
+ 
++/* Define if your assembler supports .hidden.  */
++#undef HAVE_GAS_HIDDEN
++
+ /* Define if your assembler uses the old HImode fild and fist notation.  */
+ #undef HAVE_GAS_FILDS_FISTS
+ 
+diff -ruN gcc-2.95.3-orig/gcc/configure gcc-2.95.3/gcc/configure
+--- gcc-2.95.3-orig/gcc/configure	2001-03-16 15:13:48.000000000 +0100
++++ gcc-2.95.3/gcc/configure	2003-09-16 12:00:15.000000000 +0200
+@@ -1311,7 +1311,7 @@
+ fi
+ 
+ # Find some useful tools
+-for ac_prog in gawk mawk nawk awk
++for ac_prog in mawk gawk nawk awk
+ do
+ # Extract the first word of "$ac_prog", so it can be a program name with args.
+ set dummy $ac_prog; ac_word=$2
+@@ -8229,8 +8229,26 @@
+ fi
+ echo "$ac_t""$gcc_cv_as_subsections" 1>&6
+ 
++echo $ac_n "checking assembler hidden support""... $ac_c" 1>&6
++echo "configure:8234: checking assembler hidden support" >&5
++gcc_cv_as_hidden=
++if test x$gcc_cv_as != x; then
++	# Check if we have .hidden
++	echo "  .hidden foobar" > conftest.s
++	echo "foobar:" >> conftest.s
++	if $gcc_cv_as -o conftest.o conftest.s > /dev/null 2>&1; then
++		cat >> confdefs.h <<\EOF
++#define HAVE_GAS_HIDDEN 1
++EOF
++
++		gcc_cv_as_hidden="yes"
++	fi
++	rm -f conftest.s conftest.o conftest.nm1 conftest.nm2
++fi
++echo "$ac_t""$gcc_cv_as_hidden" 1>&6
++
+ echo $ac_n "checking assembler instructions""... $ac_c" 1>&6
+-echo "configure:8234: checking assembler instructions" >&5
++echo "configure:8252: checking assembler instructions" >&5
+ gcc_cv_as_instructions=
+ if test x$gcc_cv_as != x; then
+ 	set "filds fists" "filds mem; fists mem"
+diff -ruN gcc-2.95.3-orig/gcc/configure.in gcc-2.95.3/gcc/configure.in
+--- gcc-2.95.3-orig/gcc/configure.in	2001-01-25 15:03:02.000000000 +0100
++++ gcc-2.95.3/gcc/configure.in	2003-09-16 12:00:15.000000000 +0200
+@@ -4066,6 +4066,21 @@
+ fi
+ AC_MSG_RESULT($gcc_cv_as_subsections)
+ 
++AC_MSG_CHECKING(assembler hidden support)
++gcc_cv_as_hidden=
++if test x$gcc_cv_as != x; then
++	# Check if we have .hidden
++	echo "  .hidden foobar" > conftest.s
++	echo "foobar:" >> conftest.s
++	if $gcc_cv_as -o conftest.o conftest.s > /dev/null 2>&1; then
++		AC_DEFINE(HAVE_GAS_HIDDEN, 1,
++			[Define if your assembler supports .hidden.])
++		gcc_cv_as_hidden="yes"
++	fi
++	rm -f conftest.s conftest.o conftest.nm1 conftest.nm2
++fi
++AC_MSG_RESULT($gcc_cv_as_hidden)
++
+ AC_MSG_CHECKING(assembler instructions)
+ gcc_cv_as_instructions=
+ if test x$gcc_cv_as != x; then
+diff -ruN gcc-2.95.3-orig/gcc/crtstuff.c gcc-2.95.3/gcc/crtstuff.c
+--- gcc-2.95.3-orig/gcc/crtstuff.c	1999-03-23 01:43:51.000000000 +0100
++++ gcc-2.95.3/gcc/crtstuff.c	2003-09-16 12:00:15.000000000 +0200
+@@ -55,6 +55,7 @@
+ #include "defaults.h"
+ #include <stddef.h>
+ #include "frame.h"
++#include "auto-host.h"
+ 
+ /* We do not want to add the weak attribute to the declarations of these
+    routines in frame.h because that will cause the definition of these
+@@ -134,6 +135,28 @@
+ #ifdef INIT_SECTION_ASM_OP
+ 
+ #ifdef OBJECT_FORMAT_ELF
++/* Declare the __dso_handle variable.  It should have a unique value
++   in every shared-object; in a main program its value is zero.  The
++   object should in any case be protected.  This means the instance
++   in one DSO or the main program is not used in another object.  The
++   dynamic linker takes care of this.  */
++
++/* XXX Ideally the following should be implemented using
++   __attribute__ ((__visibility__ ("hidden")))
++   but the __attribute__ support is not yet there.  */
++#ifdef HAVE_GAS_HIDDEN
++asm (".hidden\t__dso_handle");
++#endif
++
++#ifdef CRTSTUFFS_O
++void *__dso_handle = &__dso_handle;
++#else
++void *__dso_handle = 0;
++#endif
++
++/* The __cxa_finalize function may not be available so we use only a
++   weak declaration.  */
++extern void __cxa_finalize (void *) TARGET_ATTRIBUTE_WEAK;
+ 
+ /* Run all the global destructors on exit from the program.  */
+  
+@@ -165,6 +188,11 @@
+   if (completed)
+     return;
+ 
++#ifdef CRTSTUFFS_O
++  if (__cxa_finalize)
++    __cxa_finalize (__dso_handle);
++#endif
++
+   while (*p)
+     {
+       p++;
+@@ -380,19 +408,8 @@
+ #endif
+   asm (TEXT_SECTION_ASM_OP);
+ 
+-/* This is a kludge. The i386 GNU/Linux dynamic linker needs ___brk_addr,
+-   __environ and atexit (). We have to make sure they are in the .dynsym
+-   section. We accomplish it by making a dummy call here. This
+-   code is never reached.  */
+- 
+-#if defined(__linux__) && defined(__PIC__) && defined(__i386__)
+-  {
+-    extern void *___brk_addr;
+-    extern char **__environ;
+-
+-    ___brk_addr = __environ;
+-    atexit ();
+-  }
++#ifdef CRT_END_INIT_DUMMY
++  CRT_END_INIT_DUMMY;
+ #endif
+ }
+ 
+diff -ruN gcc-2.95.3-orig/gcc/cse.c gcc-2.95.3/gcc/cse.c
+--- gcc-2.95.3-orig/gcc/cse.c	2001-01-25 15:03:03.000000000 +0100
++++ gcc-2.95.3/gcc/cse.c	2003-09-16 12:00:15.000000000 +0200
+@@ -695,8 +695,6 @@
+ static struct cse_reg_info* get_cse_reg_info PROTO((int));
+ static void free_cse_reg_info   PROTO((splay_tree_value));
+ static void flush_hash_table	PROTO((void));
+-
+-extern int rtx_equal_function_value_matters;
+ 
+ /* Dump the expressions in the equivalence class indicated by CLASSP.
+    This function is used only for debugging.  */
+diff -ruN gcc-2.95.3-orig/gcc/cstamp-h.in gcc-2.95.3/gcc/cstamp-h.in
+--- gcc-2.95.3-orig/gcc/cstamp-h.in	2001-03-16 15:13:48.000000000 +0100
++++ gcc-2.95.3/gcc/cstamp-h.in	2003-09-16 12:00:15.000000000 +0200
+@@ -1 +1 @@
+-timestamp
++timestamp-fudged
+diff -ruN gcc-2.95.3-orig/gcc/function.c gcc-2.95.3/gcc/function.c
+--- gcc-2.95.3-orig/gcc/function.c	2001-01-25 15:03:15.000000000 +0100
++++ gcc-2.95.3/gcc/function.c	2003-09-16 12:00:15.000000000 +0200
+@@ -5292,7 +5292,18 @@
+ 				- offset_ptr->constant); 
+     }
+ #else /* !ARGS_GROW_DOWNWARD */
+-  pad_to_arg_alignment (initial_offset_ptr, boundary);
++  if (!in_regs 
++#ifdef REG_PARM_STACK_SPACE
++      || REG_PARM_STACK_SPACE (fndecl) > 0
++#else
++      /* For the gcc-2_95-branch we want to make sure not to break something
++         on platforms which pass argument in registers but don't define
++         REG_PARM_STACK_SPACE. So we force the original behaviour here.  */
++      || 1
++#endif
++      )
++    pad_to_arg_alignment (initial_offset_ptr, boundary);
++
+   *offset_ptr = *initial_offset_ptr;
+ 
+ #ifdef PUSH_ROUNDING
+diff -ruN gcc-2.95.3-orig/gcc/rtlanal.c gcc-2.95.3/gcc/rtlanal.c
+--- gcc-2.95.3-orig/gcc/rtlanal.c	2001-01-25 15:03:22.000000000 +0100
++++ gcc-2.95.3/gcc/rtlanal.c	2003-09-16 12:00:15.000000000 +0200
+@@ -136,11 +136,9 @@
+   switch (code)
+     {
+     case SYMBOL_REF:
++      return SYMBOL_REF_WEAK (x);
++
+     case LABEL_REF:
+-      /* SYMBOL_REF is problematic due to the possible presence of
+-	 a #pragma weak, but to say that loads from symbols can trap is
+-	 *very* costly.  It's not at all clear what's best here.  For
+-	 now, we ignore the impact of #pragma weak.  */
+       return 0;
+ 
+     case REG:
+diff -ruN gcc-2.95.3-orig/gcc/rtl.h gcc-2.95.3/gcc/rtl.h
+--- gcc-2.95.3-orig/gcc/rtl.h	2001-01-25 15:03:22.000000000 +0100
++++ gcc-2.95.3/gcc/rtl.h	2003-09-16 12:00:15.000000000 +0200
+@@ -168,7 +168,8 @@
+      either changing how we compute the frame address or saving and
+      restoring registers in the prologue and epilogue.  
+      1 in a MEM if the MEM refers to a scalar, rather than a member of
+-     an aggregate.  */
++     an aggregate.
++     1 in a SYMBOL_REF if the symbol is weak.  */
+   unsigned frame_related : 1;
+   /* The first element of the operands of this rtx.
+      The number of operands and their types are controlled
+@@ -661,6 +662,9 @@
+ /* 1 means a SYMBOL_REF has been the library function in emit_library_call.  */
+ #define SYMBOL_REF_USED(RTX) ((RTX)->used)
+ 
++/* 1 means a SYMBOL_REF is weak.  */
++#define SYMBOL_REF_WEAK(RTX) ((RTX)->frame_related)
++
+ /* For an INLINE_HEADER rtx, FIRST_FUNCTION_INSN is the first insn
+    of the function that is not involved in copying parameters to
+    pseudo-registers.  FIRST_PARM_INSN is the very first insn of
+@@ -888,6 +892,12 @@
+ /* For a NOTE_INSN_LIVE note, the original basic block number.  */
+ #define RANGE_LIVE_ORIG_BLOCK(INSN) (XINT (INSN, 1))
+ 
++/* Nonzero if we need to distinguish between the return value of this function
++   and the return value of a function called by this function.  This helps
++   integrate.c.
++   This is 1 until after the rtl generation pass.  */
++extern int rtx_equal_function_value_matters;
++
+ /* Generally useful functions.  */
+ 
+ /* The following functions accept a wide integer argument.  Rather than
+diff -ruN gcc-2.95.3-orig/gcc/stor-layout.c gcc-2.95.3/gcc/stor-layout.c
+--- gcc-2.95.3-orig/gcc/stor-layout.c	1999-03-11 14:56:20.000000000 +0100
++++ gcc-2.95.3/gcc/stor-layout.c	2003-09-16 12:00:15.000000000 +0200
+@@ -264,8 +264,8 @@
+       if (spec_size == 0 && DECL_NAME (decl) != 0)
+ 	abort ();
+ 
+-      /* Size is specified number of bits.  */
+-      DECL_SIZE (decl) = size_int (spec_size);
++      /* Size is specified in number of bits.  */
++      DECL_SIZE (decl) = bitsize_int (spec_size, 0);
+     }
+   /* Force alignment required for the data type.
+      But if the decl itself wants greater alignment, don't override that.
+@@ -301,7 +301,7 @@
+ 	  DECL_ALIGN (decl) = MAX ((unsigned) GET_MODE_ALIGNMENT (xmode),
+ 				   DECL_ALIGN (decl));
+ 	  DECL_MODE (decl) = xmode;
+-	  DECL_SIZE (decl) = size_int (GET_MODE_BITSIZE (xmode));
++	  DECL_SIZE (decl) = bitsize_int (GET_MODE_BITSIZE (xmode), 0);
+ 	  /* This no longer needs to be accessed as a bit field.  */
+ 	  DECL_BIT_FIELD (decl) = 0;
+ 	}
+@@ -520,7 +520,7 @@
+ 	DECL_FIELD_BITPOS (field) = var_size;
+       else
+ 	{
+-	  DECL_FIELD_BITPOS (field) = size_int (const_size);
++	  DECL_FIELD_BITPOS (field) = bitsize_int (const_size, 0L);
+ 
+ 	  /* If this field ended up more aligned than we thought it
+ 	     would be (we approximate this by seeing if its position
+@@ -562,7 +562,7 @@
+ 
+   if (var_size == 0)
+     {
+-      TYPE_SIZE (rec) = size_int (const_size);
++      TYPE_SIZE (rec) = bitsize_int (const_size, 0L);
+     }
+   else
+     {
+@@ -610,7 +610,7 @@
+   /* The size of the union, based on the fields scanned so far,
+      is max (CONST_SIZE, VAR_SIZE).
+      VAR_SIZE may be null; then CONST_SIZE by itself is the size.  */
+-  register int const_size = 0;
++  register HOST_WIDE_INT const_size = 0;
+   register tree var_size = 0;
+ 
+ #ifdef STRUCTURE_SIZE_BOUNDARY
+@@ -627,6 +627,8 @@
+ 
+   for (field = TYPE_FIELDS (rec); field; field = TREE_CHAIN (field))
+     {
++      tree dsize;
++      
+       /* Enums which are local to this class need not be laid out.  */
+       if (TREE_CODE (field) == CONST_DECL || TREE_CODE (field) == TYPE_DECL)
+ 	continue;
+@@ -645,19 +647,22 @@
+ 	union_align = MAX (union_align, TYPE_ALIGN (TREE_TYPE (field)));
+ #endif
+ 
++      dsize = DECL_SIZE (field);
+       if (TREE_CODE (rec) == UNION_TYPE)
+ 	{
+ 	  /* Set union_size to max (decl_size, union_size).
+ 	     There are more and less general ways to do this.
+ 	     Use only CONST_SIZE unless forced to use VAR_SIZE.  */
+ 
+-	  if (TREE_CODE (DECL_SIZE (field)) == INTEGER_CST)
++	  if (TREE_CODE (dsize) == INTEGER_CST
++              && ! TREE_CONSTANT_OVERFLOW (dsize)
++              && TREE_INT_CST_HIGH (dsize) == 0)
+ 	    const_size
+-	      = MAX (const_size, TREE_INT_CST_LOW (DECL_SIZE (field)));
++	      = MAX (const_size, TREE_INT_CST_LOW (dsize));
+ 	  else if (var_size == 0)
+-	    var_size = DECL_SIZE (field);
++	    var_size = dsize;
+ 	  else
+-	    var_size = size_binop (MAX_EXPR, var_size, DECL_SIZE (field));
++	    var_size = size_binop (MAX_EXPR, var_size, dsize);
+ 	}
+       else if (TREE_CODE (rec) == QUAL_UNION_TYPE)
+ 	var_size = fold (build (COND_EXPR, sizetype, DECL_QUALIFIER (field),
+diff -ruN gcc-2.95.3-orig/gcc/toplev.c gcc-2.95.3/gcc/toplev.c
+--- gcc-2.95.3-orig/gcc/toplev.c	2001-01-25 15:03:23.000000000 +0100
++++ gcc-2.95.3/gcc/toplev.c	2003-09-16 12:00:15.000000000 +0200
+@@ -137,8 +137,6 @@
+ #define DIR_SEPARATOR '/'
+ #endif
+ 
+-extern int rtx_equal_function_value_matters;
+-
+ #if ! (defined (VMS) || defined (OS2))
+ extern char **environ;
+ #endif
+diff -ruN gcc-2.95.3-orig/gcc/varasm.c gcc-2.95.3/gcc/varasm.c
+--- gcc-2.95.3-orig/gcc/varasm.c	2001-02-19 15:02:02.000000000 +0100
++++ gcc-2.95.3/gcc/varasm.c	2003-09-16 12:00:15.000000000 +0200
+@@ -723,6 +723,8 @@
+ 	 Also handle vars declared register invalidly.  */
+       if (DECL_RTL (decl) == 0)
+ 	{
++	  rtx x;
++
+ 	  /* Can't use just the variable's own name for a variable
+ 	     whose scope is less than the whole file.
+ 	     Concatenate a distinguishing number.  */
+@@ -752,8 +754,10 @@
+ 	      			   new_name, strlen (new_name));
+ 	    }
+ 
+-	  DECL_RTL (decl) = gen_rtx_MEM (DECL_MODE (decl),
+-					 gen_rtx_SYMBOL_REF (Pmode, name));
++	  x = gen_rtx_SYMBOL_REF (Pmode, name);
++	  SYMBOL_REF_WEAK (x) = DECL_WEAK (decl);
++	  DECL_RTL (decl) = gen_rtx_MEM (DECL_MODE (decl), x);
++
+ 	  MEM_ALIAS_SET (DECL_RTL (decl)) = get_alias_set (decl);
+ 	    
+ 	  /* If this variable is to be treated as volatile, show its

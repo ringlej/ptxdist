@@ -1,0 +1,27 @@
+--- kdrive_alt/Kdrive.tmpl	2004-02-16 14:30:31.000000000 +0100
++++ xc/programs/Xserver/hw/kdrive/Kdrive.tmpl	2004-02-16 14:31:44.000000000 +0100
+@@ -10,8 +10,12 @@
+ RANDRINCS=-I$(KDRIVE)/../../randr
+ #endif
+ 
++#if BuildForBMWM
++BUILDBMWM=-DBUILD_FOR_BMW
++#endif
++
+ KDINCS = -I$(KDRIVE) -I$(XBUILDINCDIR) -I$(FONTINCSRC) \
+ 	 -I$(KDRIVE)/../../fb -I$(KDRIVE)/../../mi -I$(KDRIVE)/../../Xext \
+ 	 -I$(KDRIVE)/../../miext/shadow -I$(KDRIVE)/../../miext/layer \
+-	 -I$(KDRIVE)/../../include -I$(KDRIVE)/../../os \
++	 -I$(KDRIVE)/../../include -I$(KDRIVE)/../../os $(BUILDBMWM) \
+          -I$(EXTINCSRC) -I$(XINCLUDESRC) $(RENDERINCS) $(RANDRINCS)
+--- xc/config/cf/kdrive.cf	2001-06-23 19:00:03.000000000 +0200
++++ config/cf/kdrive-ptx.cf	2004-02-25 14:48:44.000000000 +0100
+@@ -201,7 +201,7 @@
+ #undef ServerOSDefines
+ #define ServerOSDefines -DDDXOSINIT
+ 
+-#ifndef Other IConfigFiles
++#ifndef OtherIConfigFiles
+ #define OtherIConfigFile $(IRULESRC)/kdrive.cf
+ #endif
+ 

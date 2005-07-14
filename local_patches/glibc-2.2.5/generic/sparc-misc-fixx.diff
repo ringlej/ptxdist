@@ -1,0 +1,307 @@
+# 2002-05-16  David S. Miller  <davem@redhat.com>
+#
+#	* sysdeps/sparc/sparc32/dl-machine.h (LOAD_PIC_REG): Define.
+#	(elf_machine_dynamic): Use it to force PIC register to be loaded.
+#	(elf_machine_load_address): Likewise.
+#	* sysdeps/sparc/sparc64/dl-machine.h: Mirror sparc32 changes.
+#
+#	* sysdeps/sparc/sparc64/strncmp.S: When second argument pointer
+#	is unaligned, do not forget to fully initialize %g1 magic value.
+#
+#	* sysdeps/unix/sysv/linux/sparc/sys/procfs.h: Fix 64-bit elf
+#	register definitions and provide 32-bit variants of structures
+#	during 64-bit builds.
+#
+#	* soft-fp/op-1.h (_FP_FRAC_CLEAR_OVERP_1): Define.
+#	* soft-fp/op-2.h (_FP_FRAC_CLEAR_OVERP_2): Define.
+#	* soft-fp/op-4.h (_FP_FRAC_CLEAR_OVERP_4): Define.
+#	* soft-fp/op-common.h (_FP_PACK_CANONICAL): After rounding, if
+#	_FP_FRAC_OVERP_X is set, use _FP_FRAC_CLEAR_OVERP_X to clear it.
+#	(_FP_FROM_INT): Perform right shifts on unsigned integer type.
+#	Do not clear implicit one bit here, it must be done post-rounding.
+#	Only pad to the left using left shift if value uses less than the
+#	available fractional bits.
+#
+diff -ruN glibc-2.2.5-orig/soft-fp/op-1.h glibc-2.2.5/soft-fp/op-1.h
+--- glibc-2.2.5-orig/soft-fp/op-1.h	Fri Jul  6 06:55:40 2001
++++ glibc-2.2.5/soft-fp/op-1.h	Wed Oct  1 23:28:53 2003
+@@ -55,6 +55,7 @@
+ #define _FP_FRAC_NEGP_1(X)	((_FP_WS_TYPE)X##_f < 0)
+ #define _FP_FRAC_ZEROP_1(X)	(X##_f == 0)
+ #define _FP_FRAC_OVERP_1(fs,X)	(X##_f & _FP_OVERFLOW_##fs)
++#define _FP_FRAC_CLEAR_OVERP_1(fs,X)	(X##_f &= ~_FP_OVERFLOW_##fs)
+ #define _FP_FRAC_EQ_1(X, Y)	(X##_f == Y##_f)
+ #define _FP_FRAC_GE_1(X, Y)	(X##_f >= Y##_f)
+ #define _FP_FRAC_GT_1(X, Y)	(X##_f > Y##_f)
+diff -ruN glibc-2.2.5-orig/soft-fp/op-2.h glibc-2.2.5/soft-fp/op-2.h
+--- glibc-2.2.5-orig/soft-fp/op-2.h	Fri Jul  6 06:55:40 2001
++++ glibc-2.2.5/soft-fp/op-2.h	Wed Oct  1 23:28:53 2003
+@@ -112,6 +112,7 @@
+ #define _FP_FRAC_NEGP_2(X)	((_FP_WS_TYPE)X##_f1 < 0)
+ #define _FP_FRAC_ZEROP_2(X)	((X##_f1 | X##_f0) == 0)
+ #define _FP_FRAC_OVERP_2(fs,X)	(_FP_FRAC_HIGH_##fs(X) & _FP_OVERFLOW_##fs)
++#define _FP_FRAC_CLEAR_OVERP_2(fs,X)	(_FP_FRAC_HIGH_##fs(X) &= ~_FP_OVERFLOW_##fs)
+ #define _FP_FRAC_EQ_2(X, Y)	(X##_f1 == Y##_f1 && X##_f0 == Y##_f0)
+ #define _FP_FRAC_GT_2(X, Y)	\
+   (X##_f1 > Y##_f1 || X##_f1 == Y##_f1 && X##_f0 > Y##_f0)
+diff -ruN glibc-2.2.5-orig/soft-fp/op-4.h glibc-2.2.5/soft-fp/op-4.h
+--- glibc-2.2.5-orig/soft-fp/op-4.h	Fri Jul  6 06:55:40 2001
++++ glibc-2.2.5/soft-fp/op-4.h	Wed Oct  1 23:28:53 2003
+@@ -129,6 +129,7 @@
+ #define _FP_FRAC_ZEROP_4(X)     ((X##_f[0] | X##_f[1] | X##_f[2] | X##_f[3]) == 0)
+ #define _FP_FRAC_NEGP_4(X)      ((_FP_WS_TYPE)X##_f[3] < 0)
+ #define _FP_FRAC_OVERP_4(fs,X)  (_FP_FRAC_HIGH_##fs(X) & _FP_OVERFLOW_##fs)
++#define _FP_FRAC_CLEAR_OVERP_4(fs,X)  (_FP_FRAC_HIGH_##fs(X) &= ~_FP_OVERFLOW_##fs)
+ 
+ #define _FP_FRAC_EQ_4(X,Y)				\
+  (X##_f[0] == Y##_f[0] && X##_f[1] == Y##_f[1]		\
+diff -ruN glibc-2.2.5-orig/soft-fp/op-common.h glibc-2.2.5/soft-fp/op-common.h
+--- glibc-2.2.5-orig/soft-fp/op-common.h	Fri Jul  6 06:55:40 2001
++++ glibc-2.2.5/soft-fp/op-common.h	Wed Oct  1 23:28:53 2003
+@@ -89,11 +89,10 @@
+ 	_FP_ROUND(wc, X);					\
+ 	if (_FP_FRAC_OVERP_##wc(fs, X))				\
+ 	  {							\
+-	    _FP_FRAC_SRL_##wc(X, (_FP_WORKBITS+1));		\
++	    _FP_FRAC_CLEAR_OVERP_##wc(fs, X);			\
+ 	    X##_e++;						\
+ 	  }							\
+-	else							\
+-	  _FP_FRAC_SRL_##wc(X, _FP_WORKBITS);			\
++	_FP_FRAC_SRL_##wc(X, _FP_WORKBITS);			\
+ 	if (X##_e >= _FP_EXPMAX_##fs)				\
+ 	  {							\
+ 	    /* overflow */					\
+@@ -682,25 +681,27 @@
+   do {									\
+     if (r)								\
+       {									\
++        unsigned rtype ur_;						\
+ 	X##_c = FP_CLS_NORMAL;						\
+ 									\
+ 	if ((X##_s = (r < 0)))						\
+ 	  r = -r;							\
+ 									\
++	ur_ = (unsigned rtype) r;					\
+ 	if (rsize <= _FP_W_TYPE_SIZE)					\
+-	  __FP_CLZ(X##_e, r);						\
++	  __FP_CLZ(X##_e, ur_);						\
+ 	else								\
+-	  __FP_CLZ_2(X##_e, (_FP_W_TYPE)(r >> _FP_W_TYPE_SIZE), 	\
+-		     (_FP_W_TYPE)r);					\
++	  __FP_CLZ_2(X##_e, (_FP_W_TYPE)(ur_ >> _FP_W_TYPE_SIZE), 	\
++		     (_FP_W_TYPE)ur_);					\
+ 	if (rsize < _FP_W_TYPE_SIZE)					\
+ 		X##_e -= (_FP_W_TYPE_SIZE - rsize);			\
+ 	X##_e = rsize - X##_e - 1;					\
+ 									\
+ 	if (_FP_FRACBITS_##fs < rsize && _FP_WFRACBITS_##fs < X##_e)	\
+-	  __FP_FRAC_SRS_1(r, (X##_e - _FP_WFRACBITS_##fs), rsize);	\
+-	r &= ~((rtype)1 << X##_e);					\
+-	_FP_FRAC_DISASSEMBLE_##wc(X, ((unsigned rtype)r), rsize);	\
+-	_FP_FRAC_SLL_##wc(X, (_FP_WFRACBITS_##fs - X##_e - 1));		\
++	  __FP_FRAC_SRS_1(ur_, (X##_e - _FP_WFRACBITS_##fs + 1), rsize);\
++	_FP_FRAC_DISASSEMBLE_##wc(X, ur_, rsize);			\
++	if ((_FP_WFRACBITS_##fs - X##_e - 1) > 0)			\
++	  _FP_FRAC_SLL_##wc(X, (_FP_WFRACBITS_##fs - X##_e - 1));	\
+       }									\
+     else								\
+       {									\
+diff -ruN glibc-2.2.5-orig/sysdeps/sparc/sparc32/dl-machine.h glibc-2.2.5/sysdeps/sparc/sparc32/dl-machine.h
+--- glibc-2.2.5-orig/sysdeps/sparc/sparc32/dl-machine.h	Sat Sep  8 19:13:35 2001
++++ glibc-2.2.5/sysdeps/sparc/sparc32/dl-machine.h	Wed Oct  1 23:28:53 2003
+@@ -42,7 +42,6 @@
+ #define LD_SO_PRELOAD ((_dl_hwcap & HWCAP_SPARC_V9) ? "/etc/ld.so.preload32" \
+ 		       : "/etc/ld.so.preload")
+ 
+-
+ /* Return nonzero iff ELF header is compatible with the running host.  */
+ static inline int
+ elf_machine_matches_host (const Elf32_Ehdr *ehdr)
+@@ -64,6 +63,17 @@
+     return 0;
+ }
+ 
++/* We have to do this because elf_machine_{dynamic,load_address} can be
++   invoked from functions that have no GOT references, and thus the compiler
++   has no obligation to load the PIC register.  */
++#define LOAD_PIC_REG(PIC_REG)	\
++do {	register Elf32_Addr pc __asm("o7"); \
++	__asm("sethi %%hi(_GLOBAL_OFFSET_TABLE_-4), %1\n\t" \
++	      "call 1f\n\t" \
++	      "add %1, %%lo(_GLOBAL_OFFSET_TABLE_+4), %1\n" \
++	      "1:\tadd %1, %0, %1" \
++	      : "=r" (pc), "=r" (PIC_REG)); \
++} while (0)
+ 
+ /* Return the link-time address of _DYNAMIC.  Conveniently, this is the
+    first element of the GOT.  This must be inlined in a function which
+@@ -72,6 +82,9 @@
+ elf_machine_dynamic (void)
+ {
+   register Elf32_Addr *got asm ("%l7");
++
++  LOAD_PIC_REG (got);
++
+   return *got;
+ }
+ 
+@@ -80,6 +93,8 @@
+ elf_machine_load_address (void)
+ {
+   register Elf32_Addr pc __asm("%o7"), pic __asm("%l7"), got;
++
++  LOAD_PIC_REG (pic);
+ 
+   /* Utilize the fact that a local .got entry will be partially
+      initialized at startup awaiting its RELATIVE fixup.  */
+diff -ruN glibc-2.2.5-orig/sysdeps/sparc/sparc64/dl-machine.h glibc-2.2.5/sysdeps/sparc/sparc64/dl-machine.h
+--- glibc-2.2.5-orig/sysdeps/sparc/sparc64/dl-machine.h	Mon Oct  1 00:44:56 2001
++++ glibc-2.2.5/sysdeps/sparc/sparc64/dl-machine.h	Wed Oct  1 23:28:53 2003
+@@ -34,6 +34,18 @@
+   return ehdr->e_machine == EM_SPARCV9;
+ }
+ 
++/* We have to do this because elf_machine_{dynamic,load_address} can be
++   invoked from functions that have no GOT references, and thus the compiler
++   has no obligation to load the PIC register.  */
++#define LOAD_PIC_REG(PIC_REG)	\
++do {	Elf64_Addr tmp;		\
++	__asm("sethi %%hi(_GLOBAL_OFFSET_TABLE_-4), %1\n\t" \
++	      "rd %%pc, %0\n\t" \
++	      "add %1, %%lo(_GLOBAL_OFFSET_TABLE_+4), %1\n\t" \
++	      "add %0, %1, %0" \
++	      : "=r" (PIC_REG), "=r" (tmp)); \
++} while (0)
++
+ /* Return the link-time address of _DYNAMIC.  Conveniently, this is the
+    first element of the GOT.  This must be inlined in a function which
+    uses global data.  */
+@@ -42,6 +54,8 @@
+ {
+   register Elf64_Addr *elf_pic_register __asm__("%l7");
+ 
++  LOAD_PIC_REG (elf_pic_register);
++
+   return *elf_pic_register;
+ }
+ 
+@@ -50,6 +64,8 @@
+ elf_machine_load_address (void)
+ {
+   register Elf64_Addr *elf_pic_register __asm__("%l7");
++
++  LOAD_PIC_REG (elf_pic_register);
+ 
+   /* We used to utilize the fact that a local .got entry will
+      be partially initialized at startup awaiting its RELATIVE
+diff -ruN glibc-2.2.5-orig/sysdeps/sparc/sparc64/strncmp.S glibc-2.2.5/sysdeps/sparc/sparc64/strncmp.S
+--- glibc-2.2.5-orig/sysdeps/sparc/sparc64/strncmp.S	Fri Jul  6 06:56:05 2001
++++ glibc-2.2.5/sysdeps/sparc/sparc64/strncmp.S	Wed Oct  1 23:28:53 2003
+@@ -290,14 +290,15 @@
+ 	 ldxa		[%o0] ASI_PNF, %g4		/* Load				*/
+ 11:	sllx		%g3, 3, %g5			/* IEU0		Group		*/
+ 	mov		64, %g7				/* IEU1				*/
+-	sub		%o1, %g3, %o1			/* IEU0		Group		*/
++	or		%g1, %g2, %g1			/* IEU0		Group		*/
++	sub		%o1, %g3, %o1			/* IEU1				*/
+ 
+-	sub		%g7, %g5, %g7			/* IEU1				*/
++	sub		%g7, %g5, %g7			/* IEU0		Group		*/
+ 	ldxa		[%o1] ASI_PNF, %o4		/* Load				*/
+-	sllx		%g1, 7, %g2			/* IEU0		Group		*/
+-	add		%o1, 8, %o1			/* IEU1				*/
++	sllx		%g1, 7, %g2			/* IEU1				*/
++	add		%o1, 8, %o1			/* IEU0		Group		*/
+ 							/* %g1 = 0101010101010101
+-							   %g2 = 8080808080800880
++							   %g2 = 8080808080808080
+ 							   %g3 = %o1 alignment
+ 							   %g5 = number of bits to shift left
+ 							   %g7 = number of bits to shift right */
+diff -ruN glibc-2.2.5-orig/sysdeps/unix/sysv/linux/sparc/sys/procfs.h glibc-2.2.5/sysdeps/unix/sysv/linux/sparc/sys/procfs.h
+--- glibc-2.2.5-orig/sysdeps/unix/sysv/linux/sparc/sys/procfs.h	Fri Jul  6 06:56:21 2001
++++ glibc-2.2.5/sysdeps/unix/sysv/linux/sparc/sys/procfs.h	Wed Oct  1 23:28:53 2003
+@@ -35,7 +35,7 @@
+ 
+ #if __WORDSIZE == 64
+ 
+-#define ELF_NGREG		20
++#define ELF_NGREG		36
+ 
+ typedef struct
+   {
+@@ -138,6 +138,73 @@
+ 
+ typedef struct elf_prstatus prstatus_t;
+ typedef struct elf_prpsinfo prpsinfo_t;
++
++#if __WORDSIZE == 64
++
++/* Provide 32-bit variants so that BFD can read 32-bit
++   core files.  */
++#define ELF_NGREG32		38
++typedef struct
++  {
++    union
++      {
++	unsigned int	pr_regs[32];
++	double		pr_dregs[16];
++      }			pr_fr;
++    unsigned int	__unused;
++    unsigned int	pr_fsr;
++    unsigned char	pr_qcnt;
++    unsigned char	pr_q_entrysize;
++    unsigned char	pr_en;
++    unsigned int	pr_q[64];
++  } elf_fpregset_t32;
++
++typedef unsigned int elf_greg_t32;
++typedef elf_greg_t32 elf_gregset_t32[ELF_NGREG32];
++
++struct elf_prstatus32
++  {
++    struct elf_siginfo pr_info;		/* Info associated with signal.  */
++    short int pr_cursig;		/* Current signal.  */
++    unsigned int pr_sigpend;	/* Set of pending signals.  */
++    unsigned int pr_sighold;	/* Set of held signals.  */
++    __pid_t pr_pid;
++    __pid_t pr_ppid;
++    __pid_t pr_pgrp;
++    __pid_t pr_sid;
++    struct
++      {
++	int tv_sec, tv_usec;
++      } pr_utime,			/* User time.  */
++        pr_stime,			/* System time.  */
++        pr_cutime,			/* Cumulative user time.  */
++        pr_cstime;			/* Cumulative system time.  */
++    elf_gregset_t32 pr_reg;		/* GP registers.  */
++    int pr_fpvalid;			/* True if math copro being used.  */
++  };
++
++struct elf_prpsinfo32
++  {
++    char pr_state;			/* Numeric process state.  */
++    char pr_sname;			/* Char for pr_state.  */
++    char pr_zomb;			/* Zombie.  */
++    char pr_nice;			/* Nice val.  */
++    unsigned int pr_flag;		/* Flags.  */
++    unsigned short int pr_uid;
++    unsigned short int pr_gid;
++    int pr_pid, pr_ppid, pr_pgrp, pr_sid;
++    /* Lots missing */
++    char pr_fname[16];			/* Filename of executable.  */
++    char pr_psargs[ELF_PRARGSZ];	/* Initial part of arg list.  */
++  };
++
++typedef elf_gregset_t32 prgregset32_t;
++typedef elf_fpregset_t32 prfpregset32_t;
++
++typedef struct elf_prstatus32 prstatus32_t;
++typedef struct elf_prpsinfo32 prpsinfo32_t;
++
++#endif  /* sparc64 */
+ 
+ __END_DECLS
+ 

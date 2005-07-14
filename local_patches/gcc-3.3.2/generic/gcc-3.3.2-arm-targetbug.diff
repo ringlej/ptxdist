@@ -1,0 +1,68 @@
+#
+# Submitted:
+#
+# Robert Schwebel <r.schwebel@pengutronix.de>, 2004-02-02
+#
+# Error:
+#
+# stage1/xgcc -Bstage1/ -B/usr/lib/gcc-snapshot/arm-linux/bin/   -O2  -DIN_GCC  
+# -W -Wall -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -pedantic
+# -Wno-long-long  -fno-common   -DHAVE_CONFIG_H -DGENERATOR_FILE  -o genconstants \
+#  genconstants.o gensupport.o dummy-conditions.o rtl.o read-rtl.o bitmap.o
+# ggc-none.o \
+#     errors.o ../libiberty/libiberty.a
+# ./genconstants ../../src/gcc/config/arm/arm.md > tmp-constants.h
+# make[4]: *** [s-constants] Error 132
+#
+# Description:
+#
+# When no -with-cpu=... parameter is supplied gcc defaults to a wrong target.  
+# See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=12527
+#
+# State:
+#
+# According to the Bugzilla report it should be solved in CVS. The
+# original patches didn't apply cleanly, so I rediffed it for gcc-3.3.2.  
+# 
+
+diff -urN gcc-3.3.2/gcc/config/arm/arm.h gcc-3.3.2-ptx/gcc/config/arm/arm.h
+--- gcc-3.3.2/gcc/config/arm/arm.h	2002-11-15 12:21:36.000000000 +0100
++++ gcc-3.3.2-ptx/gcc/config/arm/arm.h	2004-02-02 08:33:08.000000000 +0100
+@@ -1770,13 +1770,19 @@
+ /* Emit RTL insns to initialize the variable parts of a trampoline.
+    FNADDR is an RTX for the address of the function's pure code.
+    CXT is an RTX for the static chain value for the function.  */
+-#define INITIALIZE_TRAMPOLINE(TRAMP, FNADDR, CXT)  					\
+-{											\
+-  emit_move_insn									\
+-    (gen_rtx_MEM (SImode, plus_constant (TRAMP, TARGET_ARM ? 8 : 16)), CXT);		\
+-  emit_move_insn									\
+-    (gen_rtx_MEM (SImode, plus_constant (TRAMP, TARGET_ARM ? 12 : 20)),	FNADDR);	\
++#ifndef INITIALIZE_TRAMPOLINE
++#define INITIALIZE_TRAMPOLINE(TRAMP, FNADDR, CXT)                      \
++{                                                                      \
++  emit_move_insn (gen_rtx_MEM (SImode,                                 \
++                              plus_constant (TRAMP,                    \
++                                             TARGET_ARM ? 8 : 16)),    \
++                 CXT);                                                 \
++  emit_move_insn (gen_rtx_MEM (SImode,                                 \
++                              plus_constant (TRAMP,                    \
++                                             TARGET_ARM ? 12 : 20)),   \
++                 FNADDR);                                              \
+ }
++#endif
+ 
+ 
+ /* Addressing modes, and classification of registers for them.  */
+diff -urN gcc-3.3.2/gcc/config.gcc gcc-3.3.2-ptx/gcc/config.gcc
+--- gcc-3.3.2/gcc/config.gcc	2003-10-01 21:07:01.000000000 +0200
++++ gcc-3.3.2-ptx/gcc/config.gcc	2004-02-02 08:30:45.000000000 +0100
+@@ -698,7 +698,7 @@
+ 	use_collect2=yes
+ 	;;
+ arm*-*-linux*)			# ARM GNU/Linux with ELF
+-	tm_file="dbxelf.h elfos.h arm/unknown-elf.h arm/elf.h arm/aout.h arm/arm.h arm/linux-gas.h arm/linux-elf.h"
++	tm_file="dbxelf.h elfos.h linux.h arm/elf.h arm/linux-gas.h arm/linux-elf.h arm/aout.h arm/arm.h"
+ 	tmake_file="t-slibgcc-elf-ver t-linux arm/t-linux"
+ 	extra_parts="crtbegin.o crtbeginS.o crtend.o crtendS.o"
+ 	gnu_ld=yes

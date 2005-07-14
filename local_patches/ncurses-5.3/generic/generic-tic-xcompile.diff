@@ -1,0 +1,25 @@
+#
+# this patch tweaks ncurses not to use the compiled version of tic,
+# but a version found on the host system
+#
+# very helpfull if we are crosscompiling
+#
+# source: a perl one-liner in eric andersen's buildroot
+#         ncurses.make by Ken Restivo
+#
+# http://www.uclibc.org/cgi-bin/cvsweb/*checkout*/buildroot/make/ncurses.mk?rev=1.27
+#
+# converted to a patch
+#
+diff -ruN ncurses-5.3-orig/misc/run_tic.in ncurses-5.3/misc/run_tic.in
+--- ncurses-5.3-orig/misc/run_tic.in	Fri Sep 26 00:27:10 2003
++++ ncurses-5.3/misc/run_tic.in	Fri Sep 26 00:28:57 2003
+@@ -111,7 +111,7 @@
+ 	problems for older ncurses applications.
+ 
+ EOF
+-if ( $srcdir/shlib tic$suffix -s -o $TERMINFO $source )
++if ( /usr/bin/tic -s -o $TERMINFO $source )
+ then
+ 	echo '** built new '$TERMINFO
+ else

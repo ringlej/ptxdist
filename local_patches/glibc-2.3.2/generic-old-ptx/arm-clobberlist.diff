@@ -1,0 +1,36 @@
+# 
+# Submitted:
+#
+# Robert Schwebel, 2003-11-18
+#
+# Error: 
+# 
+# arm-unknown-linux-gnu-gcc ../linuxthreads/sysdeps/pthread/sigaction.c [...]
+# In file included from ../linuxthreads/sysdeps/pthread/sigaction.c:53,
+#                  from ../linuxthreads/sysdeps/pthread/sigaction.c:53,
+#                  from ../linuxthreads/sysdeps/pthread/sigaction.c:29: 
+# ../sysdeps/unix/sysv/linux/arm/sigaction.c: In function `__libc_sigaction':
+# ../sysdeps/unix/sysv/linux/arm/sigaction.c:98: error: asm-specifier for variable `_a1' conflicts with asm clobber list
+# ../sysdeps/unix/sysv/linux/arm/sigaction.c:137: error: asm-specifier for variable `_a1' conflicts with asm clobber list
+#
+# Description: 
+#
+# http://gcc.gnu.org/bugzilla/show_bug.cgi?id=11103
+# http://www.spinics.net/lists/arm/msg05875.html
+#
+# State:
+# 
+# should be solved in glibc CVS
+#
+
+--- glibc-2.3.2-orig/sysdeps/unix/sysv/linux/arm/sysdep.h	2003-11-18 07:35:07.000000000 +0100
++++ glibc-2.3.2-patched/sysdeps/unix/sysv/linux/arm/sysdep.h	2003-11-18 07:36:31.000000000 +0100
+@@ -158,7 +158,7 @@
+        asm volatile ("swi	%1	@ syscall " #name	\
+ 		     : "=r" (_a1)				\
+ 		     : "i" (SYS_ify(name)) ASM_ARGS_##nr	\
+-		     : "a1", "memory");				\
++		     : "memory");				\
+        _sys_result = _a1;					\
+      }								\
+      (int) _sys_result; })

@@ -1,0 +1,28 @@
+#
+# glibc-2.2.5 "dns resolver" fix
+# (Category - Essential security fix)
+# (Source - glibc cvs glibc-2-2-branch)
+#
+# Buffer overflow vulnerabilities exist in multiple implementations of
+# DNS resolver libraries. Operating systems and applications that
+# utilize vulnerable DNS resolver libraries may be affected. A remote
+# attacker who is able to send malicious DNS responses could
+# potentially exploit these vulnerabilities to execute arbitrary code
+# or cause a denial of service on a vulnerable system.
+#
+# http://www.cert.org/advisories/CA-2002-19.html
+# http://www.zipworld.com.au/%7Egschafer/patches/glibc-2.2.5.dns-resolver.patch.gz
+#
+--- libc/resolv/nss_dns/dns-network.c	Fri Jul 12 10:18:13 2002
++++ libc/resolv/nss_dns/dns-network.c	Fri Jul 12 10:20:10 2002
+@@ -328,7 +328,9 @@
+ 	    }
+ 	  cp += n;
+ 	  *alias_pointer++ = bp;
+-	  bp += strlen (bp) + 1;
++	  n = strlen (bp) + 1;
++	  bp += n;
++	  linebuflen -= n;
+ 	  result->n_addrtype = class == C_IN ? AF_INET : AF_UNSPEC;
+ 	  ++have_answer;
+ 	}

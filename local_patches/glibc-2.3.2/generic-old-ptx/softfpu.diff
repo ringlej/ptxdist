@@ -1,0 +1,48 @@
+diff -ruN glibc-2.3.2.orig/sysdeps/arm/bits/endian.h glibc-2.3.2/sysdeps/arm/bits/endian.h
+--- glibc-2.3.2.orig/sysdeps/arm/bits/endian.h	1999-04-12 17:59:13.000000000 +0200
++++ glibc-2.3.2/sysdeps/arm/bits/endian.h	1970-01-01 01:00:00.000000000 +0100
+@@ -1,12 +0,0 @@
+-/* ARM is (usually) little-endian but with a big-endian FPU.  */
+-
+-#ifndef _ENDIAN_H
+-# error "Never use <bits/endian.h> directly; include <endian.h> instead."
+-#endif
+-
+-#ifdef __ARMEB__
+-#define __BYTE_ORDER __BIG_ENDIAN
+-#else
+-#define __BYTE_ORDER __LITTLE_ENDIAN
+-#endif
+-#define __FLOAT_WORD_ORDER __BIG_ENDIAN
+diff -ruN glibc-2.3.2.orig/sysdeps/arm/fpu/bits/endian.h glibc-2.3.2/sysdeps/arm/fpu/bits/endian.h
+--- glibc-2.3.2.orig/sysdeps/arm/fpu/bits/endian.h	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.3.2/sysdeps/arm/fpu/bits/endian.h	1999-04-12 17:59:13.000000000 +0200
+@@ -0,0 +1,12 @@
++/* ARM is (usually) little-endian but with a big-endian FPU.  */
++
++#ifndef _ENDIAN_H
++# error "Never use <bits/endian.h> directly; include <endian.h> instead."
++#endif
++
++#ifdef __ARMEB__
++#define __BYTE_ORDER __BIG_ENDIAN
++#else
++#define __BYTE_ORDER __LITTLE_ENDIAN
++#endif
++#define __FLOAT_WORD_ORDER __BIG_ENDIAN
+diff -ruN glibc-2.3.2.orig/sysdeps/arm/nofpu/bits/endian.h glibc-2.3.2/sysdeps/arm/nofpu/bits/endian.h
+--- glibc-2.3.2.orig/sysdeps/arm/nofpu/bits/endian.h	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.3.2/sysdeps/arm/nofpu/bits/endian.h	2004-02-10 11:10:31.000000000 +0100
+@@ -0,0 +1,12 @@
++/* ARM is (usually) little-endian, with machine byte order Soft-FPU */
++
++#ifndef _ENDIAN_H
++# error "Never use <bits/endian.h> directly; include <endian.h> instead."
++#endif
++
++#ifdef __ARMEB__
++#define __BYTE_ORDER __BIG_ENDIAN
++#else
++#define __BYTE_ORDER __LITTLE_ENDIAN
++#endif
++#define __FLOAT_WORD_ORDER __BYTE_ORDER

@@ -1,0 +1,54 @@
+#
+# enables the use of DESTDIR in etc subdir
+# source binutils CVS
+#
+# passes DESTDIR to subdirs
+#
+===================================================================
+RCS file: /cvs/src/src/etc/Makefile.in,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -r1.2 -r1.3
+--- src/etc/Makefile.in	2002/01/26 21:35:45	1.2
++++ src/etc/Makefile.in	2003/01/02 20:51:02	1.3
+@@ -2,6 +2,8 @@
+ # Makefile.in for etc
+ #
+ 
++DESTDIR		=
++
+ prefix 		= @prefix@
+ exec_prefix 	= @exec_prefix@
+ 
+@@ -68,17 +70,17 @@
+ 	done
+ 
+ install-info: info
+-	$(SHELL) $(srcdir)/../mkinstalldirs $(infodir)
++	$(SHELL) $(srcdir)/../mkinstalldirs $(DESTDIR)$(infodir)
+ 	if test ! -f standards.info; then cd $(srcdir); fi; \
+ 	if test -f standards.info; then \
+ 	  for i in standards.info*; do \
+-	    $(INSTALL_DATA) $$i $(infodir)/$$i; \
++	    $(INSTALL_DATA) $$i $(DESTDIR)$(infodir)/$$i; \
+ 	  done; \
+ 	fi
+ 	if test ! -f configure.info; then cd $(srcdir); fi; \
+ 	if test -f configure.info; then \
+ 	  for i in configure.info*; do \
+-	    $(INSTALL_DATA) $$i $(infodir)/$$i; \
++	    $(INSTALL_DATA) $$i $(DESTDIR)$(infodir)/$$i; \
+ 	  done; \
+ 	fi
+ 
+diff -ruN binutils-2.13.2.1-orig/Makefile.in binutils-2.13.2.1/Makefile.in
+--- binutils-2.13.2.1-orig/Makefile.in	Thu Jan  2 02:24:13 2003
++++ binutils-2.13.2.1/Makefile.in	Sun Sep 28 23:08:44 2003
+@@ -371,6 +371,7 @@
+ 	"CXXFLAGS=$(CXXFLAGS)" \
+ 	"CXXFLAGS_FOR_TARGET=$(CXXFLAGS_FOR_TARGET)" \
+ 	"CXX_FOR_TARGET=$(CXX_FOR_TARGET)" \
++	"DESTDIR=$(DESTDIR)" \
+ 	"DLLTOOL_FOR_TARGET=$(DLLTOOL_FOR_TARGET)" \
+ 	"INSTALL=$(INSTALL)" \
+ 	"INSTALL_DATA=$(INSTALL_DATA)" \

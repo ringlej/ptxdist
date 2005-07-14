@@ -1,0 +1,40 @@
+#
+# this patch fixes compiler warnings on gcc >= 3.1
+#
+# In file included from ../include/regex.h:2,
+#                 from rpmatch.c:23:
+# ../posix/regex.h:535:1: warning: "__restrict_arr" redefined
+# In file included from ../include/sys/cdefs.h:1,
+#                 from ../include/features.h:283,
+#                 from ../catgets/nl_types.h:22,
+#                 from ../include/nl_types.h:1,
+#                 from ../locale/langinfo.h:24,
+#                 from ../include/langinfo.h:1,
+#                 from rpmatch.c:21:
+# ../misc/sys/cdefs.h:212:1: warning: this is the location of the previous definition
+#
+# http://archives.linuxfromscratch.org/mail-archives/lfs-dev/2002-August/027429.html
+# http://www.zipworld.com.au/%7Egschafer/patches/glibc-2.2.5.restrict_arr.patch.gz
+#
+diff -uNr glibc-2.2.5.orig/posix/regex.h glibc-2.2.5/posix/regex.h
+--- glibc-2.2.5.orig/posix/regex.h	2001-07-06 14:55:38.000000000 +1000
++++ glibc-2.2.5/posix/regex.h	2002-08-09 20:06:19.000000000 +1000
+@@ -529,10 +529,14 @@
+ #  endif
+ # endif
+ #endif
+-/* For now unconditionally define __restrict_arr to expand to nothing.
+-   Ideally we would have a test for the compiler which allows defining
+-   it to restrict.  */
+-#define __restrict_arr
++/* gcc 3.1 and up support the [restrict] syntax.  */
++#ifndef __restrict_arr
++# if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)
++#  define __restrict_arr __restrict
++# else
++#  define __restrict_arr
++# endif
++#endif
+ 
+ /* POSIX compatibility.  */
+ extern int regcomp _RE_ARGS ((regex_t *__restrict __preg,

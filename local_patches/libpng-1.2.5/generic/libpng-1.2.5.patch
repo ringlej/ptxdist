@@ -1,0 +1,52 @@
+diff -ruN libpng-1.2.5.orig/png.h libpng-1.2.5/png.h
+--- libpng-1.2.5.orig/png.h	2002-10-03 13:32:26.000000000 +0200
++++ libpng-1.2.5/png.h	2004-09-08 19:37:00.000000000 +0200
+@@ -326,7 +326,7 @@
+ #ifndef PNG_VERSION_INFO_ONLY
+ 
+ /* include the compression library's header */
+-#include "zlib.h"
++#include <zlib.h>
+ 
+ /* include all user configurable info, including optional assembler routines */
+ #include "pngconf.h"
+diff -ruN libpng-1.2.5.orig/scripts/makefile.linux libpng-1.2.5/scripts/makefile.linux
+--- libpng-1.2.5.orig/scripts/makefile.linux	2002-10-03 13:32:34.000000000 +0200
++++ libpng-1.2.5/scripts/makefile.linux	2004-09-08 19:38:15.000000000 +0200
+@@ -8,22 +8,22 @@
+ PNGMIN = 1.2.5
+ PNGVER = $(PNGMAJ).$(PNGMIN)
+ 
+-CC=gcc
++CC?=gcc
+ 
+ # where "make install" puts libpng12.a, libpng12.so*,
+ # libpng12/png.h and libpng12/pngconf.h
+ # Prefix must be a full pathname.
+-prefix=/usr/local
++# prefix=/usr
+ 
+ # Where the zlib library and include files are located.
+ #ZLIBLIB=/usr/local/lib
+ #ZLIBINC=/usr/local/include
+-ZLIBLIB=../zlib
+-ZLIBINC=../zlib
++ZLIBLIB?=../zlib
++ZLIBINC?=../zlib
+ 
+ ALIGN=
+ # for i386:
+-#ALIGN=-malign-loops=2 -malign-functions=2
++# ALIGN=-malign-loops=2 -malign-functions=2
+ 
+ WARNMORE=-Wwrite-strings -Wpointer-arith -Wshadow \
+ 	-Wmissing-declarations -Wtraditional -Wcast-align \
+@@ -53,7 +53,7 @@
+ # If you're going to install into a temporary location
+ # via DESTDIR, $(DESTDIR)$(prefix) must already exist before
+ # you execute make install.
+-DESTDIR=
++# DESTDIR=
+ 
+ DB=$(DESTDIR)$(BINPATH)
+ DI=$(DESTDIR)$(INCPATH)

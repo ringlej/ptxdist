@@ -1,0 +1,37 @@
+diff -ru gdb-6.3/Makefile.in build/gdb-6.3/Makefile.in
+--- gdb-6.3/Makefile.in	2005-01-06 13:19:03.000000000 +0100
++++ build/gdb-6.3/Makefile.in	2005-01-06 13:20:48.000000000 +0100
+@@ -156,6 +156,7 @@
+ 	CC="$(CC)"; export CC; \
+ 	CFLAGS="$(CFLAGS)"; export CFLAGS; \
+ 	CONFIG_SHELL="$(SHELL)"; export CONFIG_SHELL; \
++	CPPFLAGS="$(CPPFLAGS)"; export CPPFLAGS; \
+ 	CXX="$(CXX)"; export CXX; \
+ 	CXXFLAGS="$(CXXFLAGS)"; export CXXFLAGS; \
+ 	AR="$(AR)"; export AR; \
+@@ -198,7 +199,7 @@
+ 	CC="$(CC_FOR_TARGET)"; export CC; \
+ 	CFLAGS="$(CFLAGS_FOR_TARGET)"; export CFLAGS; \
+ 	CONFIG_SHELL="$(SHELL)"; export CONFIG_SHELL; \
+-	CPPFLAGS="$(CFLAGS_FOR_TARGET)"; export CPPFLAGS; \
++	CPPFLAGS="$(CPPFLAGS_FOR_TARGET)"; export CPPFLAGS; \
+ 	CXXFLAGS="$(CXXFLAGS_FOR_TARGET)"; export CXXFLAGS; \
+ 	GCJ="$(GCJ_FOR_TARGET)"; export GCJ; \
+ 	GFORTRAN="$(GFORTRAN_FOR_TARGET)"; export GFORTRAN; \
+@@ -326,6 +327,7 @@
+ CC = @CC@
+ CFLAGS = @CFLAGS@
+ LIBCFLAGS = $(CFLAGS)
++CPPFLAGS = @CPPFLAGS@
+ 
+ CXX = @CXX@
+ CXXFLAGS = @CXXFLAGS@
+@@ -388,6 +390,7 @@
+ # (which we know are built with gcc) are built with optimizations so
+ # prepend -O2 when setting CFLAGS_FOR_TARGET.
+ CFLAGS_FOR_TARGET = -O2 $(CFLAGS)
++CPPFLAGS_FOR_TARGET = @CPPFLAGS_FOR_TARGET@
+ # If GCC_FOR_TARGET is not overriden on the command line, then this
+ # variable is passed down to the gcc Makefile, where it is used to
+ # build libgcc2.a.  We define it here so that it can itself be
+Only in build/gdb-6.3: Makefile.in~

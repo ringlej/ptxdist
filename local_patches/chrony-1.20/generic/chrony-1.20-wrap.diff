@@ -1,0 +1,14 @@
+diff -urN chrony-1.20/wrap_adjtimex.c chrony-1.20-wrap/wrap_adjtimex.c
+--- chrony-1.20/wrap_adjtimex.c	2005-07-14 08:35:44.000000000 +0200
++++ chrony-1.20-wrap/wrap_adjtimex.c	2005-07-14 08:36:28.000000000 +0200
+@@ -38,10 +38,7 @@
+ 
+ #define _LOOSE_KERNEL_NAMES
+ 
+-/* Use sys/time.h directly to remove a warning */
+-#include <sys/time.h>
+ #include <linux/timex.h>
+-#include <asm/param.h>
+ 
+ #include "wrap_adjtimex.h"
+ 

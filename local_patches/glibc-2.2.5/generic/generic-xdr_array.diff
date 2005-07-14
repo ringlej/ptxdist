@@ -1,0 +1,40 @@
+#
+# glibc-2.2.5 "xdr_array" fix
+# (Category - Essential security fix)
+# (Source - glibc cvs glibc-2-2-branch)
+#
+# There is an integer overflow present in the xdr_array() function
+# distributed as part of the Sun Microsystems XDR library. This
+# overflow has been shown to lead to remotely exploitable buffer
+# overflows in multiple applications, leading to the execution of
+# arbitrary code. Although the library was originally distributed by
+# Sun Microsystems, multiple vendors have included the vulnerable code
+# in their own implementations.
+#
+# http://www.cert.org/advisories/CA-2002-25.html
+# http://www.zipworld.com.au/%7Egschafer/patches/glibc-2.2.5.xdr_array.patch.gz
+#
+diff -uNr glibc-2.2.5.orig/sunrpc/xdr_array.c glibc-2.2.5/sunrpc/xdr_array.c
+--- glibc-2.2.5.orig/sunrpc/xdr_array.c	2001-08-17 14:48:31.000000000 +1000
++++ glibc-2.2.5/sunrpc/xdr_array.c	2002-08-06 14:14:59.000000000 +1000
+@@ -45,6 +45,7 @@
+ #include <rpc/types.h>
+ #include <rpc/xdr.h>
+ #include <libintl.h>
++#include <limits.h>
+ 
+ #ifdef USE_IN_LIBIO
+ # include <wchar.h>
+@@ -81,7 +82,11 @@
+       return FALSE;
+     }
+   c = *sizep;
+-  if ((c > maxsize) && (xdrs->x_op != XDR_FREE))
++  /*
++   * XXX: Let the overflow possibly happen with XDR_FREE because mem_free()
++   * doesn't actually use its second argument anyway.
++   */
++  if ((c > maxsize || c > UINT_MAX / elsize) && (xdrs->x_op != XDR_FREE))
+     {
+       return FALSE;
+     }

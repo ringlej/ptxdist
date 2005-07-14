@@ -1,0 +1,46 @@
+diff -urN xc/programs/Xserver/hw/kdrive/vesa/vesa.c xc-ptx/programs/Xserver/hw/kdrive/vesa/vesa.c
+--- xc/programs/Xserver/hw/kdrive/vesa/vesa.c	2003-11-02 05:44:22.000000000 +0100
++++ xc-ptx/programs/Xserver/hw/kdrive/vesa/vesa.c	2004-02-24 00:40:05.000000000 +0100
+@@ -837,6 +837,10 @@
+ 	ErrorF ("Mode selected %dx%dx%d\n",
+ 		pScreen->width, pScreen->height, screen->fb[0].depth);
+ 
++#ifdef BUILD_FOR_BMW
++	pScreen->height=240;	/* limit this screen to 240 lines! */
++#endif
++
+     return LayerCreate (pScreen, kind, screen->fb[0].depth, 
+ 			pPixmap, update, window, pscr->randr, 0);
+ }
+@@ -1434,15 +1438,7 @@
+ }
+ 
+ #ifndef TOSHIBA_SMM
+-
+-# ifdef linux
+-#  define TOSHIBA_SMM 1
+-# endif
+-
+-# ifndef TOSHIBA_SMM
+ #  define TOSHIBA_SMM 0
+-# endif
+-
+ #endif
+ 
+ #if TOSHIBA_SMM
+@@ -1472,6 +1468,7 @@
+ Bool
+ toshibaDPMS (ScreenPtr pScreen, int mode)
+ {
++#ifndef BUILD_FOR_BMW
+     SMMRegisters    regs;
+     static int	    fd;
+ 
+@@ -1484,6 +1481,7 @@
+     regs.ecx = mode ? HCI_DISABLE : HCI_ENABLE;
+     if (ioctl (fd, TOSH_SMM, &regs) < 0)
+ 	return FALSE;
++#endif
+     return TRUE;
+ }
+ #endif /* TOSHIBA_SMM */

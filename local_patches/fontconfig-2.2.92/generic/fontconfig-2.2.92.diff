@@ -1,0 +1,49 @@
+# 
+# Submitted:
+#
+# Robert Schwebel, 2004-02-23 (patch by BSP)
+#
+# Error: 
+# 
+# In file included from ../fontconfig/fcfreetype.h:27,
+#                  from ../src/fcint.h:39,
+#                  from fc-lang.c:25:
+# [...]/freetype2/freetype/freetype.h:20:2: #error "`ft2build.h' hasn't been included yet!"
+# [...]/freetype2/freetype/freetype.h:21:2: #error "Please always use macros to include FreeType header files."
+# [...]/freetype2/freetype/freetype.h:22:2: #error "Example:"
+# [...]/freetype2/freetype/freetype.h:23:2: #error "  #include <ft2build.h>"
+# [...]/freetype2/freetype/freetype.h:24:2: #error "  #include FT_FREETYPE_H"
+# make[3]: *** [fc-lang.o] Error 1
+#
+# Description: 
+#
+# fontconfig uses wrong freetype header files here files here.  
+# 
+# State:
+# 
+# Unknown. 
+#
+
+diff -ruN fontconfig-2.2.92.old/fontconfig/fcfreetype.h fontconfig-2.2.92/fontconfig/fcfreetype.h
+--- fontconfig-2.2.92.old/fontconfig/fcfreetype.h	2003-07-20 19:14:47.000000000 +0200
++++ fontconfig-2.2.92/fontconfig/fcfreetype.h	2004-02-22 19:03:13.000000000 +0100
+@@ -24,6 +24,7 @@
+ 
+ #ifndef _FCFREETYPE_H_
+ #define _FCFREETYPE_H_
++#include <ft2build.h>
+ #include <freetype/freetype.h>
+ 
+ _FCFUNCPROTOBEGIN
+diff -ruN fontconfig-2.2.92.old/src/fcfreetype.c fontconfig-2.2.92/src/fcfreetype.c
+--- fontconfig-2.2.92.old/src/fcfreetype.c	2003-09-06 21:40:41.000000000 +0200
++++ fontconfig-2.2.92/src/fcfreetype.c	2004-02-22 19:09:23.000000000 +0100
+@@ -57,7 +57,7 @@
+ 
+ #if HAVE_FT_GET_BDF_PROPERTY
+ #include <freetype/ftbdf.h>
+-#include <freetype/ftmodule.h>
++#include FT_MODULE_H
+ #define HAS_BDF_PROPERTY(f) ((f) && (f)->driver && \
+ 			     (f)->driver->root.clazz->get_interface)
+ #define MY_Get_BDF_Property(f,n,p) (HAS_BDF_PROPERTY(f) ? \

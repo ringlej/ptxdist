@@ -1,0 +1,68 @@
+#
+# Submitted:
+#
+# Marc Kleine-Budde <kleine-budde@gmx.de>, 2004/04/05
+#
+# Error:
+#
+# glibc < 2.3.x with gcc > 3.x
+#
+# i386-unknown-linux-gnu-gcc ../sysdeps/unix/sysv/linux/sigsuspend.c
+# -c -Os -Wall -Winline -Wstrict-prototypes -Wwrite-strings
+# -I../include
+# -I. -I/tmp/mkl/ptxdist-i386-generic-glibc/build/glibc-2.2.5-build/signal
+# -I.. -I../libio
+# -I/tmp/mkl/ptxdist-i386-generic-glibc/build/glibc-2.2.5-build
+# -I../sysdeps/i386/elf -I../linuxthreads/sysdeps/unix/sysv/linux/i386
+# -I../linuxthreads/sysdeps/unix/sysv/linux
+# -I../linuxthreads/sysdeps/pthread -I../sysdeps/pthread
+# -I../linuxthreads/sysdeps/unix/sysv -I../linuxthreads/sysdeps/unix
+# -I../linuxthreads/sysdeps/i386 -I../sysdeps/unix/sysv/linux/i386
+# -I../sysdeps/unix/sysv/linux -I../sysdeps/gnu
+# -I../sysdeps/unix/common -I../sysdeps/unix/mman
+# -I../sysdeps/unix/inet -I../sysdeps/unix/sysv/i386
+# -I../sysdeps/unix/sysv -I../sysdeps/unix/i386 -I../sysdeps/unix
+# -I../sysdeps/posix -I../sysdeps/i386/fpu -I../sysdeps/i386
+# -I../sysdeps/wordsize-32 -I../sysdeps/ieee754/ldbl-96
+# -I../sysdeps/ieee754/dbl-64 -I../sysdeps/ieee754/flt-32
+# -I../sysdeps/ieee754 -I../sysdeps/generic/elf -I../sysdeps/generic
+# -nostdinc -isystem
+# /tmp/mkl/xchain/i386-generic-glibc/lib/gcc-lib/i386-unknown-linux-gnu/3.3.3/include
+# -isystem
+# /tmp/mkl/xchain/i386-generic-glibc/i386-unknown-linux-gnu/include
+# -D_LIBC_REENTRANT -include ../include/libc-symbols.h -o
+# /tmp/mkl/ptxdist-i386-generic-glibc/build/glibc-2.2.5-build/signal/sigsuspend.o
+# /tmp/ccAPJDck.s: Assembler messages: /tmp/ccAPJDck.s:79: Error:
+# non-constant expression in ".if" statement /tmp/ccAPJDck.s:80:
+# Error: non-constant expression in ".if" statement
+# /tmp/ccAPJDck.s:83: Error: non-constant expression in ".if"
+# statement
+#
+# State:
+#
+# Fixed in CVS of glibc, see:
+#
+# http://sources.redhat.com/cgi-bin/cvsweb.cgi/libc/sysdeps/unix/sysv/linux/i386/sysdep.h.diff?r1=1.40&r2=1.41&cvsroot=glibc
+#
+# See also http://gcc.gnu.org/PR12928, comment 6
+# (which says this is a glibc bug, not a gcc bug)
+#
+===================================================================
+RCS file: /cvs/glibc/libc/sysdeps/unix/sysv/linux/i386/sysdep.h,v
+retrieving revision 1.40
+retrieving revision 1.41
+diff -u -r1.40 -r1.41
+--- libc/sysdeps/unix/sysv/linux/i386/sysdep.h	2002/10/16 08:57:25	1.40
++++ libc/sysdeps/unix/sysv/linux/i386/sysdep.h	2002/11/28 05:21:48	1.41
+@@ -347,9 +347,9 @@
+ #define ASMFMT_1(arg1) \
+ 	, "acdSD" (arg1)
+ #define ASMFMT_2(arg1, arg2) \
+-	, "adCD" (arg1), "c" (arg2)
++	, "adSD" (arg1), "c" (arg2)
+ #define ASMFMT_3(arg1, arg2, arg3) \
+-	, "aCD" (arg1), "c" (arg2), "d" (arg3)
++	, "aSD" (arg1), "c" (arg2), "d" (arg3)
+ #define ASMFMT_4(arg1, arg2, arg3, arg4) \
+ 	, "aD" (arg1), "c" (arg2), "d" (arg3), "S" (arg4)
+ #define ASMFMT_5(arg1, arg2, arg3, arg4, arg5) \

@@ -1,0 +1,29 @@
+# 
+# Submitted-By: Garry Thomas, 2005-04-28
+# Committed-By: Robert Schwebel
+#
+# Error: 
+#
+# cfdisk doesn't compile 
+#
+# Description: 
+#
+# It allows the util-linux package to build 'cfdisk' which in turn requires
+# 'ncurses'.  Without the patch, the configure script can't find the install
+# components to build ncurses programs.
+#
+# State:
+# 
+# unknown
+#
+
+--- util-linux-2.12/configure   2003-07-05 14:06:55.000000000 -0600
++++ util-linux-2.12.new/configure       2005-04-08 06:21:19.000000000 -0600
+@@ -55,6 +55,7 @@
+ 
+ CC=${CC-cc}
+ CFLAGS=${CFLAGS-"-O2"}
++CFLAGS="${CFLAGS} ${CPPFLAGS}"
+ LDFLAGS=${LDFLAGS-"-s"}
+ echo CC=$CC >> make_include
+ echo CFLAGS=$CFLAGS >> make_include
