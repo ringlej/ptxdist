@@ -483,9 +483,6 @@ distclean: clean
 	@rm -f .config* .kernelconfig .tmp* .rtaiconfig 
 	@rm -f config/setup/scripts config/setup/.config scripts/scripts
 	@echo "done."
-	@echo -n "cleaning patches dir............. "
-	@rm -rf $(TOPDIR)/patches/*
-	@echo "done."	
 	@echo -n "cleaning logs.................... "
 	@rm -fr $(TOPDIR)/logs/root-orig.txt $(TOPDIR)/logs/root-ipkg.txt $(TOPDIR)/logs/root.diff
 	@echo "done."
@@ -517,6 +514,9 @@ clean: rootclean imagesclean
 	@echo -n "cleaning local dir............... "
 	@rm -fr local
 	@echo "done."
+	@echo -n "cleaning patches dir............. "
+	@rm -rf $(TOPDIR)/patches/*
+	@echo "done."	
 	@if [ -d $(TOPDIR)/Documentation/manual ]; then		\
 		echo -n "cleaning manual.................. ";	\
 		make -C $(TOPDIR)/Documentation/manual clean > /dev/null;	\
