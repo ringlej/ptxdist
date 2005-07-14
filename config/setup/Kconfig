@@ -57,16 +57,8 @@ endmenu
 
 menu "Patches         "
 
-config SETUP_PATCH_REPOSITORY
-	prompt "Use PTXdist Online Patch Repository"
-	bool
-	default y
-	help
-	  If this option is active, PTXdist directly downloads patches
-	  from the PTXdist Patch Repository. 
-
 config SETUP_LOCAL_PATCH_REPOSITORY
-	prompt "Local Patch Repository (URL)"
+	prompt "1st patch source: URL Patch Repository"
 	string
 	default "file://$(TOPDIR)/local_patches"
 	help
@@ -78,7 +70,15 @@ config SETUP_LOCAL_PATCH_REPOSITORY
 	  The string entered here has to be URL style; for local 
 	  patch repositories it can also contain file://
 
-	  Local patches superseed PTXdist repository patches. 
+	  PTXdist uses this URL as the primary source for patches. 
+
+config SETUP_PATCH_REPOSITORY
+	prompt "2nd patch source: Online Patch Repository"
+	bool
+	default y
+	help
+	  If this option is active, PTXdist directly downloads patches
+	  from the PTXdist Patch Repository. 
 
 endmenu
 
