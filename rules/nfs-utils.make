@@ -206,13 +206,26 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 		/usr/lib/libmisc.so.0.0.0)
 
 	# create stuff necessary for nfs
+	# bbu: What the heck is this for ?
 	rm -rf $(ROOTDIR)/var/lib/nfs 
 	$(call install_copy, 0, 0, 0755, /var/lib/nfs)
+	
+	
+	mkdir $(NFSUTILS_DIR)/ptxdist_install_tmp
+	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/etab
+	@$(call install_copy, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/ptxdist_install_tmp/etab, \
+		/var/lib/nfs/etab)
 
-	# FIXME: ipkgize
-	touch $(ROOTDIR)/var/lib/nfs/etab
-	touch $(ROOTDIR)/var/lib/nfs/rmtab
-	touch $(ROOTDIR)/var/lib/nfs/xtab
+	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/rmtab
+	@$(call install_copy, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/ptxdist_install_tmp/rmtab, \
+		/var/lib/nfs/rmtab)
+	
+	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/xtab
+	@$(call install_copy, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/ptxdist_install_tmp/xtab, \
+		/var/lib/nfs/xtab)
 
 	@$(call install_finish)
 
