@@ -32,6 +32,9 @@ Test suite components to be added
 Current TODO List
 =================
 
+- RSC:	Finish autotoolisation of chrony. The old features from the 
+	handwritten configure script have to be added; readline dependency
+	is now temporarily fixed, it should be made optional again. 
 - RSC:	sed: replace all "sed" occurences by $(SED) and maybe switch to 
 	a newer GNU sed, which has to be packaged as a hosttool then. 
 - RSC:	Invent a project_clean mechanism
