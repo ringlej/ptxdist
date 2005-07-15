@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-FIGLET_VERSION		= 221
+FIGLET_VERSION		= 222
 FIGLET			= figlet$(FIGLET_VERSION)
 FIGLET_SUFFIX		= tar.gz
 FIGLET_URL		= ftp://ftp.figlet.org/pub/figlet/program/unix/$(FIGLET).$(FIGLET_SUFFIX)
