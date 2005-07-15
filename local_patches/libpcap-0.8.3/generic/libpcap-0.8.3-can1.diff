@@ -1,0 +1,115 @@
+Index: savefile.c
+===================================================================
+--- a/savefile.c	(.../vanilla/libpcap-0.8.3)	(revision 14)
++++ b/savefile.c	(.../releases/libpcap-0.8.3-can1)	(revision 14)
+@@ -325,6 +325,8 @@
+  */
+ #define LINKTYPE_JUNIPER_MONITOR 164
+ 
++#define LINKTYPE_LINUX_CAN	175
++
+ static struct linktype_map {
+ 	int	dlt;
+ 	int	linktype;
+@@ -486,6 +488,8 @@
+         /* Juniper-internal chassis encapsulation */
+         { DLT_JUNIPER_MONITOR,     LINKTYPE_JUNIPER_MONITOR },
+ 
++	{ DLT_LINUX_CAN,	LINKTYPE_LINUX_CAN },
++
+ 	{ -1,			-1 }
+ };
+ 
+Index: pcap-linux.c
+===================================================================
+--- a/pcap-linux.c	(.../vanilla/libpcap-0.8.3)	(revision 14)
++++ b/pcap-linux.c	(.../releases/libpcap-0.8.3-can1)	(revision 14)
+@@ -1171,6 +1171,13 @@
+ 		//handle->md.cooked = 1;
+ 		break;
+ 
++#ifndef ARPHRD_CAN
++#define ARPHRD_CAN 803
++#endif
++	case ARPHRD_CAN:
++		handle->linktype = DLT_LINUX_CAN;
++		break;
++
+ 	default:
+ 		handle->linktype = -1;
+ 		break;
+@@ -1252,6 +1259,7 @@
+ 			if (handle->linktype == -1 ||
+ 			    handle->linktype == DLT_LINUX_SLL ||
+ 			    handle->linktype == DLT_LINUX_IRDA ||
++			    handle->linktype == DLT_LINUX_CAN ||
+ 			    (handle->linktype == DLT_EN10MB &&
+ 			     (strncmp("isdn", device, 4) == 0 ||
+ 			      strncmp("isdY", device, 4) == 0))) {
+@@ -1294,7 +1302,7 @@
+ 				}
+ 				/* IrDA capture is not a real "cooked" capture,
+ 				 * it's IrLAP frames, not IP packets. */
+-				if(handle->linktype != DLT_LINUX_IRDA)
++				if(handle->linktype != DLT_LINUX_IRDA && handle->linktype != DLT_LINUX_CAN)
+ 					handle->linktype = DLT_LINUX_SLL;
+ 			}
+ 
+Index: gencode.c
+===================================================================
+--- a/gencode.c	(.../vanilla/libpcap-0.8.3)	(revision 14)
++++ b/gencode.c	(.../releases/libpcap-0.8.3-can1)	(revision 14)
+@@ -993,6 +993,15 @@
+ 		off_nl_nosnap = -1;
+ 		return;
+ 
++	case DLT_LINUX_CAN:
++		/*
++		 * Currently, only raw "link[N:M]" filtering is supported.
++		 */
++		off_linktype = -1;
++		off_nl = -1;
++		off_nl_nosnap = -1;
++		return;
++
+ 	case DLT_PFLOG:
+ 		off_linktype = 0;
+ 		/* XXX read from header? */
+@@ -1770,6 +1779,12 @@
+ 
+ 	case DLT_LINUX_IRDA:
+ 	        bpf_error("IrDA link-layer type filtering not implemented");
++		break;
++
++	case DLT_LINUX_CAN:
++	        bpf_error("CAN link-layer type filtering not implemented");
++		break;
++
+ 	}
+ 
+ 	/*
+Index: pcap.c
+===================================================================
+--- a/pcap.c	(.../vanilla/libpcap-0.8.3)	(revision 14)
++++ b/pcap.c	(.../releases/libpcap-0.8.3-can1)	(revision 14)
+@@ -334,6 +334,7 @@
+ 	DLT_CHOICE(DLT_ARCNET_LINUX, "Linux ARCNET"),
+ 	DLT_CHOICE(DLT_LINUX_IRDA, "Linux IrDA"),
+ 	DLT_CHOICE(DLT_IEEE802_11_RADIO_AVS, "802.11 plus AVS radio information header"),
++	DLT_CHOICE(DLT_LINUX_CAN, "Linux CAN"),
+ 	DLT_CHOICE_SENTINEL
+ };
+ 
+Index: pcap-bpf.h
+===================================================================
+--- a/pcap-bpf.h	(.../vanilla/libpcap-0.8.3)	(revision 14)
++++ b/pcap-bpf.h	(.../releases/libpcap-0.8.3-can1)	(revision 14)
+@@ -504,6 +504,8 @@
+  */
+ #define DLT_JUNIPER_MONITOR     164
+ 
++#define DLT_LINUX_CAN		175
++
+ /*
+  * The instruction encodings.
+  */

@@ -1,0 +1,379 @@
+Index: ipproto.h
+===================================================================
+--- a/ipproto.h	(.../vanilla/tcpdump-3.9.1)	(revision 15)
++++ b/ipproto.h	(.../releases/tcpdump-3.9.1-can1)	(revision 15)
+@@ -37,6 +37,8 @@
+  * $FreeBSD: src/sys/netinet/in.h,v 1.38.2.3 1999/08/29 16:29:34 peter Exp $
+  */
+ 
++#include "netdissect.h"
++
+ extern struct tok ipproto_values[];
+ 
+ #ifndef IPPROTO_IP
+Index: Makefile.in
+===================================================================
+--- a/Makefile.in	(.../vanilla/tcpdump-3.9.1)	(revision 15)
++++ b/Makefile.in	(.../releases/tcpdump-3.9.1-can1)	(revision 15)
+@@ -87,7 +87,7 @@
+ 	print-snmp.c print-stp.c print-sunatm.c print-sunrpc.c \
+ 	print-symantec.c print-syslog.c print-tcp.c print-telnet.c print-tftp.c \
+ 	print-timed.c print-token.c print-udp.c print-vjc.c print-vrrp.c \
+-	print-wb.c print-zephyr.c setsignal.c tcpdump.c util.c
++	print-wb.c print-zephyr.c setsignal.c tcpdump.c util.c print-can.c
+ 
+ LOCALSRC = @LOCALSRC@
+ GENSRC = version.c
+Index: interface.h
+===================================================================
+--- a/interface.h	(.../vanilla/tcpdump-3.9.1)	(revision 15)
++++ b/interface.h	(.../releases/tcpdump-3.9.1-can1)	(revision 15)
+@@ -192,6 +192,8 @@
+ extern u_int arcnet_linux_if_print(const struct pcap_pkthdr *, const u_char *);
+ extern void ether_print(const u_char *, u_int, u_int);
+ extern u_int ether_if_print(const struct pcap_pkthdr *, const u_char *);
++extern void can_print(const u_char *, u_int, u_int);
++extern u_int can_if_print(const struct pcap_pkthdr *, const u_char *);
+ extern u_int token_print(const u_char *, u_int, u_int);
+ extern u_int token_if_print(const struct pcap_pkthdr *, const u_char *);
+ extern void fddi_print(const u_char *, u_int, u_int);
+Index: tcpdump.c
+===================================================================
+--- a/tcpdump.c	(.../vanilla/tcpdump-3.9.1)	(revision 15)
++++ b/tcpdump.c	(.../releases/tcpdump-3.9.1-can1)	(revision 15)
+@@ -79,6 +79,8 @@
+ #include "gmt2local.h"
+ #include "pcap-missing.h"
+ 
++#include "sll.h"
++
+ netdissect_options Gndo;
+ netdissect_options *gndo = &Gndo;
+ 
+@@ -113,6 +115,11 @@
+ static void ndo_error(netdissect_options *ndo, const char *fmt, ...);
+ static void ndo_warning(netdissect_options *ndo, const char *fmt, ...);
+ 
++/* filter CAN  messages, return 1 when the packet should be filtered out (ignored) */
++extern int filter_can(const struct pcap_pkthdr *, const u_char *);
++/* setup table */
++extern int init_can_filter(const char* filter);
++
+ #ifdef SIGINFO
+ RETSIGTYPE requestinfo(int);
+ #endif
+@@ -232,6 +239,9 @@
+ #ifdef DLT_JUNIPER_MLPPP
+ 	{ juniper_mlppp_print,	DLT_JUNIPER_MLPPP },
+ #endif
++#ifdef DLT_LINUX_CAN
++	{ can_if_print,		DLT_LINUX_CAN },
++#endif
+ 	{ NULL,			0 },
+ };
+ 
+@@ -463,7 +473,7 @@
+ 
+ 	opterr = 0;
+ 	while (
+-	    (op = getopt(argc, argv, "aA" B_FLAG "c:C:d" D_FLAG "eE:fF:i:lLm:M:nNOpqr:Rs:StT:u" U_FLAG "vw:W:xXy:YZ:")) != -1)
++	    (op = getopt(argc, argv, "aA" B_FLAG "c:C:d" D_FLAG "eE:fF:g:i:lLm:M:nNOpqr:Rs:StT:u" U_FLAG "vw:W:xXy:YZ:")) != -1)
+ 		switch (op) {
+ 
+ 		case 'a':
+@@ -539,6 +549,13 @@
+ 			infile = optarg;
+ 			break;
+ 
++		case 'g':
++			if (init_can_filter(optarg) < 0)
++				error("Could not initialize CAN filters");
++
++			break;
++
++
+ 		case 'i':
+ 			if (optarg[0] == '0' && optarg[1] == 0)
+ 				error("Invalid adapter index");
+@@ -1119,6 +1136,10 @@
+ 	struct dump_info *dump_info;
+ 	char *name;
+ 
++	/* filter CAN messages */
++	if (filter_can(h, sp)) 
++		return;
++
+ 	++packets_captured;
+ 
+ 	++infodelay;
+@@ -1167,6 +1188,10 @@
+ static void
+ dump_packet(u_char *user, const struct pcap_pkthdr *h, const u_char *sp)
+ {
++	/* filter CAN messages */
++	if (filter_can(h, sp)) 
++		return;
++
+ 	++packets_captured;
+ 
+ 	++infodelay;
+@@ -1188,6 +1213,10 @@
+ 	struct print_info *print_info;
+ 	u_int hdrlen;
+ 
++	/* filter CAN messages */
++	if (filter_can(h, sp)) 
++		return;
++
+ 	++packets_captured;
+ 
+ 	++infodelay;
+Index: print-can.c
+===================================================================
+--- a/print-can.c	(.../vanilla/tcpdump-3.9.1)	(revision 0)
++++ b/print-can.c	(.../releases/tcpdump-3.9.1-can1)	(revision 15)
+@@ -0,0 +1,244 @@
++/*
++ * Copyright (c) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 2000
++ *	The Regents of the University of California.  All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that: (1) source code distributions
++ * retain the above copyright notice and this paragraph in its entirety, (2)
++ * distributions including binary code include the above copyright notice and
++ * this paragraph in its entirety in the documentation or other materials
++ * provided with the distribution, and (3) all advertising materials mentioning
++ * features or use of this software display the following acknowledgement:
++ * ``This product includes software developed by the University of California,
++ * Lawrence Berkeley Laboratory and its contributors.'' Neither the name of
++ * the University nor the names of its contributors may be used to endorse
++ * or promote products derived from this software without specific prior
++ * written permission.
++ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR IMPLIED
++ * WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
++ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
++ */
++#ifndef lint
++static const char rcsid[] _U_ =
++    "@(#) $Header: /tcpdump/master/tcpdump/print-ether.c,v 1.95 2005/04/06 21:32:39 mcr Exp $ (LBL)";
++#endif
++
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
++#include <tcpdump-stdinc.h>
++
++#include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
++#include <pcap.h>
++
++#include "interface.h"
++#include "addrtoname.h"
++#include "ethertype.h"
++
++#include "ether.h"
++#include "sll.h"
++#include "extract.h"
++
++void
++can_print(const u_char *p, u_int length, u_int caplen)
++{
++	int payloadlen;
++	int n;
++
++	/* 32 bit ID, this can be an 29 bit extended address, or a 9 bit address */
++	printf("ID:%08x ", *((u_int*)p));
++	p += 4; 
++	
++	/* 32bit ??? payload len */
++	payloadlen = *((u_int*)p);
++	printf("PL_LEN:%d ", payloadlen);
++	p += 4; 
++
++	if (payloadlen > 8)
++		payloadlen = 8;
++
++	printf("PAYLOAD: ");
++	/* payload */
++	for (n=0;n < payloadlen; n++) {
++		printf("0x%02x ", *p);
++		p++;
++	}
++}
++
++static const struct tok sll_pkttype_values[] = {
++    { LINUX_SLL_HOST, "In" },
++    { LINUX_SLL_BROADCAST, "B" },
++    { LINUX_SLL_MULTICAST, "M" },
++    { LINUX_SLL_OTHERHOST, "P" },
++    { LINUX_SLL_OUTGOING, "Out" },
++    { 0, NULL}
++};
++
++/*
++ * This is the top level routine of the printer.  'p' points
++ * to the ether header of the packet, 'h->ts' is the timestamp,
++ * 'h->len' is the length of the packet off the wire, and 'h->caplen'
++ * is the number of bytes actually captured.
++ */
++u_int
++can_if_print(const struct pcap_pkthdr *h, const u_char *p)
++{
++	u_int len, caplen;
++
++/*
++        u_int16_t       sll_pkttype;    / * packet type * /
++        u_int16_t       sll_hatype;     / * link-layer address type * /
++        u_int16_t       sll_halen;      / * link-layer address length * /
++        u_int8_t        sll_addr[SLL_ADDRLEN];  / * link-layer address * /
++        u_int16_t       sll_protocol;   / * protocol * /
++*/
++
++
++	printf("CAN %3s ",tok2str(sll_pkttype_values,"?",EXTRACT_16BITS(p)));
++	p += 16;
++	len = h->len - 16;
++	caplen = h->len - 16;
++
++	can_print(p, h->len, h->caplen);
++
++	return 0;
++}
++
++struct can_filter_entry {
++	u_int id;
++	u_int payload_len;
++	u_char payload[8];
++};
++
++struct can_filter_entry* can_filter_table = NULL;
++size_t can_filter_table_size = 0;
++
++static int can_entry_compare(const void* p1, const void* p2)
++{
++	const struct can_filter_entry* e1 = (const struct can_filter_entry*)p1;
++	const struct can_filter_entry* e2 = (const struct can_filter_entry*)p2;
++
++	if (e1->id < e2->id)
++		return -1;
++	
++	if (e1->id > e2->id)
++		return 1;
++	
++	return 0;
++}
++
++/* filter should be in the format x:x:x:x:x  */
++int
++init_can_filter(const char* filter)
++{
++	u_int i, id;
++	char* tmp = (char*)filter;
++
++	if (can_filter_table_size != 0)
++		return -1;
++
++	can_filter_table_size = 1;
++	/* count the number of ID's */
++	for (i=0;i < strlen(filter);i++)
++		if (filter[i] == ':')
++			can_filter_table_size++;
++
++
++	can_filter_table = (struct can_filter_entry*)
++		malloc(can_filter_table_size * sizeof(struct can_filter_entry));
++
++	if (can_filter_table == NULL)
++		return -1;
++
++	for (i=0; i < can_filter_table_size; i++) {
++		id = strtol(tmp, &tmp, 0);
++		tmp++;	/* skip ':' */
++	
++		can_filter_table[i].id = id;
++		/* set the payload len to something that will certainly not happen,
++		 * that way the first packet will be seen as non-repeat */
++		can_filter_table[i].payload_len = 0xFFFFFFFF;
++	}
++
++	/* now sort the lookup table */
++
++	qsort(can_filter_table, can_filter_table_size, sizeof(struct can_filter_entry), can_entry_compare );
++
++	return 0;
++}
++
++static struct can_filter_entry*
++find_entry(u_int id)
++{
++	struct can_filter_entry* res;
++	struct can_filter_entry key;
++
++	/* set search key */
++	key.id = id;
++
++	res = (struct can_filter_entry*)bsearch(&key, can_filter_table, 
++			can_filter_table_size, sizeof(struct can_filter_entry), can_entry_compare );
++
++	return res;
++}
++
++/* filter CAN  messages, return 1 when the packet should be filtered out (ignored) */
++int 
++filter_can(const struct pcap_pkthdr *h, const u_char *p)
++{
++	struct can_filter_entry* e;
++	u_int id;
++	u_int payload_len;
++
++	/* if no filter table, don'T filter anything */
++	if (can_filter_table_size == 0)
++		return 0;
++
++	/* skip the header */
++	p += 16;
++	/* get ID */
++	id = *((u_int*)p);
++	p += 4;
++
++	/* see if we should filter or not */
++	e  = find_entry(id);
++	if (e == NULL) 
++		return 0;	/* no filter for thie id */
++
++
++	payload_len = *((u_int*)p);
++	p += 4; 
++	
++	if (payload_len > 8)
++		payload_len = 8;
++
++	/* compare payload len */
++	if (payload_len != e->payload_len) {
++		e->payload_len = payload_len;
++		memcpy(e->payload, p, payload_len);
++		/* packets not the same, so do not filter */
++		return 0;
++	}
++
++	/* len is the same, check payload */
++	if (memcmp(e->payload, p, payload_len) != 0) {
++		memcpy(e->payload, p, payload_len);
++		/* packets not the same, so do not filter */
++		return 0;
++	}
++
++	/* packets are the same, so filter it */
++	return 1;
++}
++
++
++/*
++ * Local Variables:
++ * c-style: whitesmith
++ * c-basic-offset: 8
++ * End:
++ */
++
