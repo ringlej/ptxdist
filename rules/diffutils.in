@@ -1,0 +1,22 @@
+menuconfig DIFFUTILS
+	bool "GNU diffutils       "
+
+config DIFFUTILS_DIFF
+	bool
+	prompt "diff"
+	depends on DIFFUTILS
+
+config DIFFUTILS_DIFF3
+	bool
+	prompt "diff3"
+	depends on DIFFUTILS
+
+config DIFFUTILS_SDIFF
+	bool
+	prompt "sdiff"
+	depends on DIFFUTILS
+
+config DIFFUTILS_CMP
+	bool
+	prompt "cmp"
+	depends on DIFFUTILS
