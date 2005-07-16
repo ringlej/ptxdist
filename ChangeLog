@@ -2,6 +2,12 @@
 
 	* ncurese: fixed install names for forms; patch by
 	  Steven Scholz. 
+	* tcpwrapper: There is a needless builtin dependency 
+	  in Portmap_4 for tcpwrapper. Which at the very 
+	  least causes excess downloads&compiles. This 
+	  patch by David Updegraff detects whether 
+	  tcpwrapper was infact explicitly selected or not
+	  and deals with it.
 
 2005-07-14 Bjoern Buerger <b.buerger@pengutronix.de>
 
