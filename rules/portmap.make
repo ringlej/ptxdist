@@ -55,6 +55,10 @@ $(STATEDIR)/portmap.extract: $(STATEDIR)/portmap.get
 	@$(call disable_sh, $(PORTMAP_DIR)/Makefile, AUX)
 #	FIXME: uggly, make patch
 	perl -i -p -e "s/const/__const/g" $(PORTMAP_DIR)/portmap.c
+#	remove TCP_WRAP assuption if no TCP_WRAP
+ifndef PTXCONF_TCPWRAPPER
+	sed -ie 's/$$(WRAP_DIR)\/libwrap.a//' $(PORTMAP_DIR)/Makefile
+endif
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -64,9 +68,11 @@ $(STATEDIR)/portmap.extract: $(STATEDIR)/portmap.get
 portmap_prepare: $(STATEDIR)/portmap.prepare
 
 portmap_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/tcpwrapper.install \
-	$(STATEDIR)/portmap.extract
+	$(STATEDIR)/virtual-xchain.install 
+ifdef PTXCONF_TCPWRAPPER
+portmap_prepare_deps += $(STATEDIR)/tcpwrapper.install
+endif
+portmap_prepare_deps += $(STATEDIR)/portmap.extract
 
 $(STATEDIR)/portmap.prepare: $(portmap_prepare_deps)
 	@$(call targetinfo, $@)
@@ -80,7 +86,10 @@ portmap_compile: $(STATEDIR)/portmap.compile
 
 PORTMAP_ENV		= $(CROSS_ENV)
 PORTMAP_PATH		= PATH=$(CROSS_PATH)
+
+ifdef PTXCONF_TCPWRAPPER
 PORTMAP_MAKEVARS	= WRAP_DIR=$(CROSS_LIB_DIR)/lib
+endif
 
 $(STATEDIR)/portmap.compile: $(STATEDIR)/portmap.prepare
 	@$(call targetinfo, $@)
