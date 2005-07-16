@@ -158,9 +158,9 @@ $(STATEDIR)/ncurses.targetinstall: $(STATEDIR)/ncurses.install
 	@$(call install_link, libncurses.so.5.4, /lib/libncurses.so)
 
 ifdef PTXCONF_NCURSES_FORM
-	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.4, /lib/libncurses.so.5.4)
-	@$(call install_link, libncurses.so.5.4, /lib/libncurses.so.5)
-	@$(call install_link, libncurses.so.5.4, /lib/libncurses.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libform.so.5.4, /lib/libform.so.5.4)
+	@$(call install_link, libform.so.5.4, /lib/libform.so.5)
+	@$(call install_link, libform.so.5.4, /lib/libform.so)
 endif
 
 ifdef PTXCONF_NCURSES_MENU
