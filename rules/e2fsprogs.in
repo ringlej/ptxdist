@@ -26,7 +26,7 @@ config E2FSPROGS_E2FSCK
 config E2FSPROGS_TUNE2FS
 	bool
 	prompt "Install tune2fs, findfs, e2label"
-	default y
+	default n
 	depends on E2FSPROGS
 	help	
 	 This will install /sbin/tune2fs, /sbin/findfs, /sbin/e2label
