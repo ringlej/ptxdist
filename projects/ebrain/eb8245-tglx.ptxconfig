@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sat Jul  9 14:01:07 2005
+# Sat Jul 16 18:22:47 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -148,6 +148,7 @@ PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # PTXCONF_LTT is not set
 # PTXCONF_LIBBFD is not set
 # PTXCONF_MEMTEST is not set
+# PTXCONF_MEMTESTER is not set
 # PTXCONF_OPROFILE is not set
 # PTXCONF_STRACE is not set
 
@@ -727,6 +728,7 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 #
 # PTXCONF_BB_CONFIG_DEBUG is not set
 # PTXCONF_COREUTILS is not set
+# PTXCONF_DIFFUTILS is not set
 # PTXCONF_MODULE_INIT_TOOLS is not set
 # PTXCONF_GAWK is not set
 # PTXCONF_HOTPLUG is not set
@@ -756,6 +758,7 @@ PTXCONF_MTD_FLASH_ERASEALL=y
 # PTXCONF_SYSUTILS is not set
 # PTXCONF_UTLNX is not set
 # PTXCONF_CLOCK is not set
+# PTXCONF_XMLSTARLET is not set
 
 #
 # Scripting Languages         
@@ -1054,6 +1057,7 @@ PTXCONF_OPENSSH_KEYGEN=y
 # PTXCONF_GLIB26 is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBXML2 is not set
+# PTXCONF_LIBXSLT is not set
 # PTXCONF_NCURSES is not set
 # PTXCONF_PCRE is not set
 # PTXCONF_POPT is not set
