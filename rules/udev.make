@@ -124,22 +124,22 @@ $(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps)
 
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/extras/start_udev, /etc/init.d/udev, n)
 
-ifdef UDEV_UDEV
+ifdef PTXCONF_UDEV_UDEV
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udev, /sbin/udev)
 endif
-ifdef UDEV_UDEVD
+ifdef PTXCONF_UDEV_UDEVD
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevd, /sbin/udevd)
 endif
-ifdef UDEV_INFO
+ifdef PTXCONF_UDEV_INFO
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevinfo, /sbin/udevinfo)
 endif
-ifdef UDEV_SEND
+ifdef PTXCONF_UDEV_SEND
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevsend, /sbin/udevsend)
 endif
-ifdef UDEV_START
+ifdef PTXCONF_UDEV_START
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevstart, /sbin/udevstart)
 endif
-ifdef UDEV_TEST
+ifdef PTXCONF_UDEV_TEST
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevtest, /sbin/udevtest)
 endif
 

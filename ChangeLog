@@ -8,6 +8,7 @@
 	  patch by David Updegraff detects whether 
 	  tcpwrapper was infact explicitly selected or not
 	  and deals with it.
+	* udev: fixed PTXCONF_ macros. Patch by David Updegraff. 
 
 2005-07-14 Bjoern Buerger <b.buerger@pengutronix.de>
 
