@@ -12,6 +12,8 @@
 	* host/cross: fix host paths; patch by Ladislav Michl
 	* kernel: use find instead of ls to find files; patch 
 	  by Ladislav Michl
+	* Virtual.make: add hosttool-mtd if we want to build a 
+	  jffs2 root image; patch by Steven Scholz
 
 2005-07-14 Bjoern Buerger <b.buerger@pengutronix.de>
 

@@ -23,6 +23,10 @@ virtual-xchain_install_deps	=  $(STATEDIR)/hosttool-ipkg-utils.install
 virtual-xchain_install_deps	+= $(STATEDIR)/hosttool-fakeroot.install
 endif
 
+ifdef PTXCONF_IMAGE_JFFS2                                                                                                                 
+virtual-xchain_install_deps	+=  $(STATEDIR)/hosttool-mtd.install
+endif
+
 $(STATEDIR)/virtual-xchain.install: $(virtual-xchain_install_deps)
 	@$(call targetinfo, $@)
 	touch $@
