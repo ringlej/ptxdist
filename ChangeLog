@@ -10,6 +10,8 @@
 	  and deals with it.
 	* udev: fixed PTXCONF_ macros. Patch by David Updegraff. 
 	* host/cross: fix host paths; patch by Ladislav Michl
+	* kernel: use find instead of ls to find files; patch 
+	  by Ladislav Michl
 
 2005-07-14 Bjoern Buerger <b.buerger@pengutronix.de>
 

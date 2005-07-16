@@ -489,7 +489,7 @@ endif
 
 kernel_clean:
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
-	for i in `ls $(STATEDIR)/kernel-feature-*.* | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do 	\
+	for i in `find $(STATEDIR) -name "kernel-feature-*.*" | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do \
 		if [ $$? -eq 0 ]; then										\
 			rm -f $(STATEDIR)/kernel-feature-$$i*;							\
 			rm -fr $(TOPDIR)/feature-patches/$$i;							\
