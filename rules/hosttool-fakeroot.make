@@ -99,7 +99,7 @@ hosttool-fakeroot_compile_deps = $(STATEDIR)/hosttool-fakeroot.prepare
 
 $(STATEDIR)/hosttool-fakeroot.compile: $(hosttool-fakeroot_compile_deps)
 	@$(call targetinfo, $@)
-	$(HOSTTOOL_FAKEROOT_PATH) make -C $(HOSTTOOL_FAKEROOT_DIR)
+	cd $(HOSTTOOL_FAKEROOT_DIR) && $(HOSTTOOL_FAKEROOT_PATH) make
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -110,7 +110,7 @@ hosttool-fakeroot_install: $(STATEDIR)/hosttool-fakeroot.install
 
 $(STATEDIR)/hosttool-fakeroot.install: $(STATEDIR)/hosttool-fakeroot.compile
 	@$(call targetinfo, $@)
-	$(HOSTTOOL_FAKEROOT_PATH) make -C $(HOSTTOOL_FAKEROOT_DIR) install
+	cd $(HOSTTOOL_FAKEROOT_DIR) && $(HOSTTOOL_FAKEROOT_PATH) make install
 	touch $@
 
 # ----------------------------------------------------------------------------

@@ -305,7 +305,7 @@ ifdef PTXCONF_IMAGE_EXT2
 	cd $(ROOTDIR); \
 	($(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions && \
 	( \
-		echo -n "$(PTXCONF_PREFIX)/bin/genext2fs "; \
+		echo -n "$(PTXCONF_HOST_PREFIX)/bin/genext2fs "; \
 		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) "; \
 		echo -n "$(PTXCONF_IMAGE_EXT2_EXTRA_ARGS) "; \
 		echo -n "-d $(ROOTDIR) "; \
