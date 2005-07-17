@@ -27,9 +27,9 @@ KSYMOOPS_DIR			= $(BUILDDIR)/$(KSYMOOPS)
 # Get
 # ----------------------------------------------------------------------------
 
-ksymoops_get: $(STATEDIR)/ksymoops.get
+hosttool-ksymoops_get: $(STATEDIR)/hosttool-ksymoops.get
 
-$(STATEDIR)/ksymoops.get: $(KSYMOOPS_SOURCE)
+$(STATEDIR)/hosttool-ksymoops.get: $(KSYMOOPS_SOURCE)
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -41,9 +41,9 @@ $(KSYMOOPS_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-ksymoops_extract: $(STATEDIR)/ksymoops.extract
+hosttool-ksymoops_extract: $(STATEDIR)/hosttool-ksymoops.extract
 
-$(STATEDIR)/ksymoops.extract: $(STATEDIR)/ksymoops.get
+$(STATEDIR)/hosttool-ksymoops.extract: $(STATEDIR)/hosttool-ksymoops.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(KSYMOOPS_DIR))
 	@$(call extract, $(KSYMOOPS_SOURCE))
@@ -53,27 +53,27 @@ $(STATEDIR)/ksymoops.extract: $(STATEDIR)/ksymoops.get
 # Prepare
 # ----------------------------------------------------------------------------
 
-ksymoops_prepare: $(STATEDIR)/ksymoops.prepare
+hosttool-ksymoops_prepare: $(STATEDIR)/hosttool-ksymoops.prepare
 
 KSYMOOPS_MAKEVARS = \
 	CROSS=$(PTXCONF_GNU_TARGET)- \
 	INSTALL_PREFIX=$(PTXCONF_PREFIX) \
 	BFD_PREFIX=$(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET) \
-	DEF_TARGET='\"elf32-$(subst ",,$(PTXCONF_ARCH))\"'
+	DEF_TARGET='\"elf32-$(call remove_quotes,$(PTXCONF_ARCH))\"'
 
-$(STATEDIR)/ksymoops.prepare:
+$(STATEDIR)/hosttool-ksymoops.prepare:
 	touch $@
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-ksymoops_compile: $(STATEDIR)/ksymoops.compile
+hosttool-ksymoops_compile: $(STATEDIR)/hosttool-ksymoops.compile
 
-ksymoops_compile_deps = \
-	$(STATEDIR)/ksymoops.extract
+hosttool-ksymoops_compile_deps = \
+	$(STATEDIR)/hosttool-ksymoops.extract
 
-$(STATEDIR)/ksymoops.compile: $(ksymoops_compile_deps)
+$(STATEDIR)/hosttool-ksymoops.compile: $(hosttool-ksymoops_compile_deps)
 	@$(call targetinfo, $@)
 	make -C $(KSYMOOPS_DIR) $(KSYMOOPS_MAKEVARS)
 	touch $@
@@ -82,9 +82,9 @@ $(STATEDIR)/ksymoops.compile: $(ksymoops_compile_deps)
 # Install
 # ----------------------------------------------------------------------------
 
-ksymoops_install: $(STATEDIR)/ksymoops.install
+hosttool-ksymoops_install: $(STATEDIR)/hosttool-ksymoops.install
 
-$(STATEDIR)/ksymoops.install: $(STATEDIR)/ksymoops.compile
+$(STATEDIR)/hosttool-ksymoops.install: $(STATEDIR)/hosttool-ksymoops.compile
 	@$(call targetinfo, $@)
 	make -C $(KSYMOOPS_DIR) $(KSYMOOPS_MAKEVARS) install
 #
@@ -92,7 +92,7 @@ $(STATEDIR)/ksymoops.install: $(STATEDIR)/ksymoops.compile
 # e.g.: arm-linux-gcc -> arm-unknown-linux-gnu-gcc
 #
 	cd $(PTXCONF_PREFIX)/bin &&							\
-		for FILE in ksymoops; do						\
+		for FILE in hosttool-ksymoops; do						\
 		ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;	\
 	done
 	touch $@
@@ -101,9 +101,9 @@ $(STATEDIR)/ksymoops.install: $(STATEDIR)/ksymoops.compile
 # Target-Install
 # ----------------------------------------------------------------------------
 
-ksymoops_targetinstall: $(STATEDIR)/ksymoops.targetinstall
+hosttool-ksymoops_targetinstall: $(STATEDIR)/hosttool-ksymoops.targetinstall
 
-$(STATEDIR)/ksymoops.targetinstall: $(STATEDIR)/ksymoops.install
+$(STATEDIR)/hosttool-ksymoops.targetinstall: $(STATEDIR)/hosttool-ksymoops.install
 	@$(call targetinfo, $@)
 	touch $@
 
@@ -111,7 +111,7 @@ $(STATEDIR)/ksymoops.targetinstall: $(STATEDIR)/ksymoops.install
 # Clean
 # ----------------------------------------------------------------------------
 
-ksymoops_clean: 
-	rm -rf $(STATEDIR)/ksymoops.* $(KSYMOOPS_DIR)
+hosttool-ksymoops_clean: 
+	rm -rf $(STATEDIR)/hosttool-ksymoops.* $(KSYMOOPS_DIR)
 
 # vim: syntax=make
