@@ -1,3 +1,6 @@
+2005-07-19 Bjoern Buerger <b.buerger@pengutronix.de>
+	* pcmciautils: added initial version; patch by Steven Scholz
+
 2005-07-16 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ncurese: fixed install names for forms; patch by
