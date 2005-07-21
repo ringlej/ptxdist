@@ -407,7 +407,7 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 ifndef PTXCONF_DONT_COMPILE_KERNEL
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
-	echo 'u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
+	echo '$(PTXCONF_PREFIX)/bin/u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	chmod +x $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make \
