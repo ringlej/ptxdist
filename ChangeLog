@@ -1,4 +1,9 @@
+2005-07-21 Bjoern Buerger <b.buerger@pengutronix.de>
+
+	* busybox: (udhcpc) install fix; patch by  Brian Murphy 
+
 2005-07-19 Bjoern Buerger <b.buerger@pengutronix.de>
+
 	* pcmciautils: added initial version; patch by Steven Scholz
 
 2005-07-16 Robert Schwebel <r.schwebel@pengutronix.de>

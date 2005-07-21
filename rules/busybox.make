@@ -156,7 +156,7 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 		$(call install_link, /bin/busybox, $$file);	\
 	done
 
-	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/udhcpc.script,/etc/udhcpc.script, n)
+	@$(call install_copy, 0, 0, 0744, $(TOPDIR)/projects/generic/etc/udhcpc.script,/etc/udhcpc.script, n)
 	
 	@$(call install_finish)
 	
