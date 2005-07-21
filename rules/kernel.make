@@ -326,7 +326,7 @@ KERNEL_MAKEVARS += CROSS_COMPILE=$(COMPILER_PREFIX)
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_U
-KERNEL_MAKEVARS += MKIMAGE=u-boot-mkimage.sh
+KERNEL_MAKEVARS += MKIMAGE=$(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 endif
 
 # This was defined before; we leave it here for reference. [RSC]
