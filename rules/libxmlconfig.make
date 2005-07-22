@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-LIBXMLCONFIG_VERSION	= 1.0.0
+LIBXMLCONFIG_VERSION	= 1.0.1
 LIBXMLCONFIG		= libxmlconfig-$(LIBXMLCONFIG_VERSION)
 LIBXMLCONFIG_SUFFIX	= tar.bz2
 LIBXMLCONFIG_URL	= http://www.pengutronix.de/software/libxmlconfig/download/$(LIBXMLCONFIG).$(LIBXMLCONFIG_SUFFIX)
@@ -67,9 +67,9 @@ libxmlconfig_prepare: $(STATEDIR)/libxmlconfig.prepare
 #
 # dependencies
 #
-libxmlconfig_prepare_deps = \
-	$(STATEDIR)/libxmlconfig.extract \
-	$(STATEDIR)/virtual-xchain.install
+libxmlconfig_prepare_deps =  $(STATEDIR)/libxmlconfig.extract
+libxmlconfig_prepare_deps += $(STATEDIR)/virtual-xchain.install
+libxmlconfig_prepare_deps += $(STATEDIR)/libxml2.install
 
 LIBXMLCONFIG_PATH	=  PATH=$(CROSS_PATH)
 LIBXMLCONFIG_ENV 	=  $(CROSS_ENV)
@@ -79,6 +79,7 @@ LIBXMLCONFIG_ENV 	=  $(CROSS_ENV)
 #
 LIBXMLCONFIG_AUTOCONF =  $(CROSS_AUTOCONF)
 LIBXMLCONFIG_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBXMLCONFIG_AUTOCONF += --with-libxml2=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/libxmlconfig.prepare: $(libxmlconfig_prepare_deps)
 	@$(call targetinfo, $@)
