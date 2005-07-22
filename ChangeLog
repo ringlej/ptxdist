@@ -1,3 +1,10 @@
+2005-07-22 Bjoern Buerger <b.buerger@pengutronix.de>
+
+        * busybox: (udhcpc) make busybox udhcpc.script optional;
+		   patch by Steven Scholz + some helptext
+		   
+	* minor documentation fixes
+
 2005-07-22 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* libxmlconfig: added
