@@ -1,3 +1,7 @@
+2005-07-22 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libxmlconfig: added
+
 2005-07-21 Bjoern Buerger <b.buerger@pengutronix.de>
 
 	* busybox: (udhcpc) install fix; patch by  Brian Murphy 
