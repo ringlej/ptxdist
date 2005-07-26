@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Tue Jul 26 15:24:14 2005
+# Tue Jul 26 21:08:04 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -795,6 +795,11 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 # NTP                 
 #
 # PTXCONF_NTP is not set
+
+#
+# ntpclient           
+#
+# PTXCONF_NTPCLIENT is not set
 
 #
 # OpenAFS             

@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Tue Jul 26 15:24:19 2005
+# Tue Jul 26 21:07:44 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -1132,6 +1132,11 @@ PTXCONF_MII-DIAG=y
 # NTP                 
 #
 # PTXCONF_NTP is not set
+
+#
+# ntpclient           
+#
+# PTXCONF_NTPCLIENT is not set
 
 #
 # OpenAFS             
