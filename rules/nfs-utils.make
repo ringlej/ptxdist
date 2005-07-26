@@ -194,7 +194,7 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_STATD))
 	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/statd/.libs/statd, /sbin/statd)
         endif
-	# copy nessesary libs
+	# copy necessary libs
 	@$(call install_copy, 0, 0, 0644, \
 		$(NFSUTILS_DIR)/support/export/.libs/libexport.so.0.0.0, \
 		/usr/lib/libexport.so.0.0.0)
@@ -204,14 +204,8 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 	@$(call install_copy, 0, 0, 0644, \
 		$(NFSUTILS_DIR)/support/misc/.libs/libmisc.so.0.0.0, \
 		/usr/lib/libmisc.so.0.0.0)
-
-	# create stuff necessary for nfs
-	# bbu: What the heck is this for ?
-	rm -rf $(ROOTDIR)/var/lib/nfs 
-	$(call install_copy, 0, 0, 0755, /var/lib/nfs)
 	
-	
-	mkdir $(NFSUTILS_DIR)/ptxdist_install_tmp
+	mkdir -p $(NFSUTILS_DIR)/ptxdist_install_tmp
 	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/etab
 	@$(call install_copy, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/ptxdist_install_tmp/etab, \
