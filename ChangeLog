@@ -1,6 +1,10 @@
+2005-07-26 Bjoern Buerger <b.buerger@pengutronix.de>
+	
+	* ntpclient: added; patch by David Updegraff
+
 2005-07-22 Bjoern Buerger <b.buerger@pengutronix.de>
 
-        * busybox: (udhcpc) make busybox udhcpc.script optional;
+	* busybox: (udhcpc) make busybox udhcpc.script optional;
 		   patch by Steven Scholz + some helptext
 		   
 	* minor documentation fixes
