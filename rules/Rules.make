@@ -575,11 +575,6 @@ get_patches =											\
 		echo;										\
 		exit -1;									\
 	fi;											\
-	if [ "$(EXTRAVERSION)" = "-cvs" -o "$(EXTRAVERSION)" = "-svn" ]; then			\
-		PATCH_TREE=cvs;									\
-	else											\
-		PATCH_TREE=$(FULLVERSION);							\
-	fi;											\
 	echo "checking if patch dir ($(PATCHDIR)) exists..."; 					\
 	if [ ! -d $(PATCHDIR) ]; then								\
 		$(MKDIR) -p $(PATCHDIR);							\
@@ -606,6 +601,9 @@ get_patches =											\
 			fi;									\
 			;;									\
 		http)										\
+			if [ "$(EXTRAVERSION)" = "-svn" ]; then					\
+				continue;							\
+			fi;									\
 			echo "copying network patches from Pengutronix server"; 		\
 			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
 				--passive-ftp $$URL/$$PACKET_NAME/generic/;			\
