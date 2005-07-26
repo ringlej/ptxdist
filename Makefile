@@ -71,11 +71,7 @@ MENU			=  $(shell 						\
 # reverse order: patches which are being downloaded later superseed
 # earlier ones. 
 
-ifeq ($(EXTRAVERSION),-svn)
-PTXPATCH_URL_POSTFIX	= -cvs
-else
 PTXPATCH_URL_POSTFIX	= -$(FULLVERSION)
-endif
 
 ifeq (y,$(PTXCONF_SETUP_PATCH_REPOSITORY))
 PTXPATCH_URL		+= http://www.pengutronix.de/software/ptxdist/patches$(PTXPATCH_URL_POSTFIX)
