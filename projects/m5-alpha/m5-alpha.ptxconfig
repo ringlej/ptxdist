@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sat Jul 16 18:22:50 2005
+# Tue Jul 26 15:24:14 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -930,6 +930,7 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 # PTXCONF_GLIB26 is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBXML2 is not set
+# PTXCONF_LIBXMLCONFIG is not set
 # PTXCONF_LIBXSLT is not set
 # PTXCONF_NCURSES is not set
 # PTXCONF_PCRE is not set

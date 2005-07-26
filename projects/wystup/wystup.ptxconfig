@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.5-svn
-# Sat Jul 16 18:22:53 2005
+# Tue Jul 26 15:24:17 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -837,6 +837,7 @@ PTXCONF_HOTPLUG_INPUT=y
 # PTXCONF_HOTPLUG_TAPE is not set
 # PTXCONF_MTD_UTILS is not set
 # PTXCONF_PCMCIA_TOOLS is not set
+# PTXCONF_PCMCIAUTILS is not set
 # PTXCONF_PDKSH is not set
 # PTXCONF_PROCPS is not set
 # PTXCONF_SYSFSUTILS is not set
@@ -1271,6 +1272,7 @@ PTXCONF_FIGLET=y
 # PTXCONF_GLIB26 is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBXML2 is not set
+# PTXCONF_LIBXMLCONFIG is not set
 # PTXCONF_LIBXSLT is not set
 PTXCONF_NCURSES=y
 PTXCONF_NCURSES_TERMCAP=y
