@@ -1,3 +1,7 @@
+2005-07-27 Bjoern Buerger <b.buerger@pengutronix.de>
+
+        * busybox: (udhcpc) reordered config; patch by Steven Scholz
+
 2005-07-26 Bjoern Buerger <b.buerger@pengutronix.de>
 	
 	* ntpclient: added; patch by David Updegraff

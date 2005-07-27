@@ -156,10 +156,6 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 		$(call install_link, /bin/busybox, $$file);	\
 	done
 
-ifdef PTXCONF_ROOTFS_ETC_UDHCPC
-	@$(call install_copy, 0, 0, 0744, $(TOPDIR)/projects/generic/etc/udhcpc.script,/etc/udhcpc.script, n)
-endif
-	
 	@$(call install_finish)
 	
 	touch $@

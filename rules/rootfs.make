@@ -216,6 +216,10 @@ ifdef PTXCONF_ROOTFS_ETC
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
 
+ifdef PTXCONF_ROOTFS_ETC_UDHCPC
+	@$(call install_copy, 0, 0, 0744, $(TOPDIR)/projects/generic/etc/udhcpc.script,/etc/udhcpc.script, n)
+endif
+
 endif
 	@$(call install_finish)
 
