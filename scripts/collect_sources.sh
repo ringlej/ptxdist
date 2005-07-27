@@ -201,8 +201,12 @@ $TAR -C $TOPDIR/.. -cf -                                \
 	--exclude .svn					\
 	--exclude $ARCH_BASENAME/build/*		\
 	--exclude $ARCH_BASENAME/state/*		\
-	--exclude $ARCH_BASENAME/src/*			\
-	--exclude $ARCH_BASENAME/src 			\
+	--exclude $ARCH_BASENAME/local_src/*		\
+	--exclude $ARCH_BASENAME/local_src		\
+	--exclude $ARCH_BASENAME/local_patches/*	\
+	--exclude $ARCH_BASENAME/local_patches		\
+	--exclude $ARCH_BASENAME/local_featurepatches/*	\
+	--exclude $ARCH_BASENAME/local_featurepatches	\
 	--exclude $ARCH_BASENAME/root/*			\
 	--exclude $ARCH_BASENAME/local/*		\
 	--exclude $ARCH_BASENAME/bootdisk/*		\
