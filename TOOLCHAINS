@@ -1,62 +1,62 @@
 Automatic Toolchain Compilation
 --------------------------
 
-start: Sat Jul 9 14:02:53 CEST 2005
+start: Tue Jul 26 21:09:49 CEST 2005
 
 config...: toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5
-date.....: Sat Jul 9 14:02:53 CEST 2005
+date.....: Tue Jul 26 21:09:49 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h16m25s
+buildtime: 0h16m28s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2
-date.....: Sat Jul 9 14:19:22 CEST 2005
+date.....: Tue Jul 26 21:26:25 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h32m54s
+buildtime: 0h33m3s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Sat Jul 9 14:52:29 CEST 2005
+date.....: Tue Jul 26 21:59:41 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h14m53s
+buildtime: 0h14m44s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5
-date.....: Sat Jul 9 15:07:26 CEST 2005
+date.....: Tue Jul 26 22:14:30 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h16m20s
+buildtime: 0h16m19s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3
-date.....: Sat Jul 9 15:23:52 CEST 2005
+date.....: Tue Jul 26 22:30:55 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h35m21s
+buildtime: 0h35m19s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Sat Jul 9 15:59:30 CEST 2005
+date.....: Tue Jul 26 23:06:26 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h7m4s
-result...: 2
+buildtime: 0h15m33s
+result...: 0
 
 config...: toolchain_m68k-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Sat Jul 9 16:06:39 CEST 2005
+date.....: Tue Jul 26 23:22:05 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h6m19s
-result...: 2
+buildtime: 0h11m9s
+result...: 0
 
 config...: toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5
-date.....: Sat Jul 9 16:13:02 CEST 2005
+date.....: Tue Jul 26 23:33:18 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h27m27s
+buildtime: 0h27m26s
 result...: 0
 
 config...: toolchain_powerpc-604-linux-gnu-3.4.1_glibc-2.3.3
-date.....: Sat Jul 9 16:40:43 CEST 2005
+date.....: Wed Jul 27 00:00:55 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h42m1s
+buildtime: 0h42m11s
 result...: 0
 
 
-stop: Sat Jul 9 17:23:02 CEST 2005
+stop: Wed Jul 27 00:43:21 CEST 2005
 
