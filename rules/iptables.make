@@ -127,17 +127,17 @@ $(STATEDIR)/iptables.targetinstall: $(iptables_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-ifdef $(IPTABLES_INSTALL_IP6TABLES)
-	@$(call install_copy, 0, 0, 0755, (IPTABLES_DIR)/ip6tables, /sbin/ip6tables)
+ifdef PTXCONF_IPTABLES_INSTALL_IP6TABLES
+	@$(call install_copy, 0, 0, 0755, $(IPTABLES_DIR)/ip6tables, /sbin/ip6tables)
 endif
-ifdef $(IPTABLES_INSTALL_IPTABLES)
-	@$(call install_copy, 0, 0, 0755, (IPTABLES_DIR)/iptables, /sbin/iptables)
+ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES
+	@$(call install_copy, 0, 0, 0755, $(IPTABLES_DIR)/iptables, /sbin/iptables)
 endif
-ifdef $(IPTABLES_INSTALL_IPTABLES_RESTORE)
-	@$(call install_copy, 0, 0, 0755, (IPTABLES_DIR)/iptables-restore, /sbin/iptables-restore)
+ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_RESTORE
+	@$(call install_copy, 0, 0, 0755, $(IPTABLES_DIR)/iptables-restore, /sbin/iptables-restore)
 endif
-ifdef $(IPTABLES_INSTALL_IPTABLES_SAVE)
-	@$(call install_copy, 0, 0, 0755, (IPTABLES_DIR)/iptables-save, /sbin/iptables-save)
+ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_SAVE
+	@$(call install_copy, 0, 0, 0755, $(IPTABLES_DIR)/iptables-save, /sbin/iptables-save)
 endif
 	@$(call install_finish)	
 	touch $@
