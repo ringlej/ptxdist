@@ -1,7 +1,8 @@
 2005-07-28 Bjoern Buerger <b.buerger@pengutronix.de>
 
 	* iptables: fixed install stage; patch by Alexandre Bastos
-	* netkit-ftp: added; pacth by Gilad Ben-Yossef
+	* netkit-ftp: added; patch by Gilad Ben-Yossef
+	* cfgsh: added; patch by Gilad Ben-Yossef
 	
 2005-07-27 Robert Schwebel <r.schwebel@pengutronix.de>
 
