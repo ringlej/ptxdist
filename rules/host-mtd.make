@@ -29,7 +29,7 @@ HOSTTOOL_MTD_DIR	= $(HOST_BUILDDIR)/$(HOSTTOOL_MTD)
 
 hosttool-mtd_get: $(STATEDIR)/hosttool-mtd.get
 
-hosttool-mtd_get_deps = $(HOSTTOOL_MTD_SOURCE)
+hosttool-mtd_get_deps = $(STATEDIR)/mtd.get
 
 $(STATEDIR)/hosttool-mtd.get: $(hosttool-mtd_get_deps)
 	@$(call targetinfo, $@)
