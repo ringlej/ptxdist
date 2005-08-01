@@ -75,8 +75,8 @@ endif
 
 GNUPLOT_PATH	=  PATH=$(CROSS_PATH)
 GNUPLOT_ENV 	=  $(CROSS_ENV)
-#GNUPLOT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#GNUPLOT_ENV	+=
+GNUPLOT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+GNUPLOT_ENV	+= LIBPNG_CONFIG=$(CROSS_LIB_DIR)/bin/libpng-config
 
 #
 # autoconf
@@ -142,8 +142,6 @@ GNUPLOT_AUTOCONF += --without-lisp-files
 GNUPLOT_AUTOCONF += --without-row-help
 GNUPLOT_AUTOCONF += --without-tutorial
 
-GNUPLOT_ENV      += ac_cv_path_LIBPNG_CONFIG=$(LIBPNG125_DIR)/libpng-config
-
 $(STATEDIR)/gnuplot.prepare: $(gnuplot_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GNUPLOT_DIR)/config.cache)
@@ -205,7 +203,7 @@ $(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, 0, 0, 0755, $(GNUPLOT_DIR)/src/gnuplot, /usr/bin/gnuplot)
 
 	@$(call install_finish)

@@ -11,16 +11,16 @@
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_ZLIB))
+ifdef PTXCONF_ZLIB
 PACKAGES += zlib
 endif
 
 #
 # Paths and names 
 #
-ZLIB_VERSION		= 1.2.1
+ZLIB_VERSION		= 1.2.3
 ZLIB			= zlib-$(ZLIB_VERSION)
-ZLIB_URL 		= http://www.gzip.org/zlib/$(ZLIB).tar.gz
+ZLIB_URL 		= http://www.zlib.net/$(ZLIB).tar.gz
 ZLIB_SOURCE		= $(SRCDIR)/$(ZLIB).tar.gz
 ZLIB_DIR		= $(BUILDDIR)/$(ZLIB)
 
@@ -60,10 +60,9 @@ zlib_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/zlib.extract
 
-ZLIB_PATH	=  PATH=$(CROSS_PATH)
-ZLIB_ENV	=  $(CROSS_ENV)
-ZLIB_AUTOCONF 	=  --shared
-ZLIB_AUTOCONF 	+= --prefix=$(CROSS_LIB_DIR)
+ZLIB_PATH	= PATH=$(CROSS_PATH)
+ZLIB_ENV	= $(CROSS_ENV)
+ZLIB_AUTOCONF 	= --shared --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps)
 	@$(call targetinfo, $@)
@@ -111,10 +110,10 @@ $(STATEDIR)/zlib.targetinstall: $(STATEDIR)/zlib.install
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(ZLIB_DIR)/libz.so.1.2.1, /usr/lib/libz.so.1.2.1)
-	@$(call install_link, libz.so.1.2.1, /usr/lib/libz.so.1)
-	@$(call install_link, libz.so.1.2.1, /usr/lib/libz.so)
-	
+	@$(call install_copy, 0, 0, 0644, $(ZLIB_DIR)/libz.so.1.2.1, /usr/lib/libz.so.1.2.3)
+	@$(call install_link, libz.so.1.2.3, /usr/lib/libz.so.1)
+	@$(call install_link, libz.so.1.2.3, /usr/lib/libz.so)
+
 	@$(call install_finish)
 
 	touch $@
