@@ -174,15 +174,15 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nfsstat/.libs/nfsstat, /sbin/nfsstat)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSGRAPH))
-	# don't strip, this is a shell script
+# don't strip, this is a shell script
 	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsgraph, /sbin/nhfsgraph, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSNUMS))
-	# don't strip, this is a shell script
+# don't strip, this is a shell script
 	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsnums, /sbin/nhfsnums, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSRUN))
-	# don't strip, this is a shell script
+# don't strip, this is a shell script
 	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsrun, /sbin/nhfsrun, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSSTONE))
@@ -194,17 +194,25 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_STATD))
 	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/statd/.libs/statd, /sbin/statd)
         endif
-	# copy necessary libs
+# copy necessary libs
 	@$(call install_copy, 0, 0, 0644, \
 		$(NFSUTILS_DIR)/support/export/.libs/libexport.so.0.0.0, \
 		/usr/lib/libexport.so.0.0.0)
+	@$(call install_link, libexport.so.0.0.0, /usr/lib/libexport.so.0.0)
+	@$(call install_link, libexport.so.0.0.0, /usr/lib/libexport.so.0)
+
 	@$(call install_copy, 0, 0, 0644, \
 		$(NFSUTILS_DIR)/support/nfs/.libs/libnfs.so.0.0.0, \
 		/usr/lib/libnfs.so.0.0.0)
+	@$(call install_link, libnfs.so.0.0.0, /usr/lib/libnfs.so.0.0)
+	@$(call install_link, libnfs.so.0.0.0, /usr/lib/libnfs.so.0)
+
 	@$(call install_copy, 0, 0, 0644, \
 		$(NFSUTILS_DIR)/support/misc/.libs/libmisc.so.0.0.0, \
 		/usr/lib/libmisc.so.0.0.0)
-	
+	@$(call install_link, libmisc.so.0.0.0, /usr/lib/libmisc.so.0.0)
+	@$(call install_link, libmisc.so.0.0.0, /usr/lib/libmisc.so.0)
+
 	mkdir -p $(NFSUTILS_DIR)/ptxdist_install_tmp
 	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/etab
 	@$(call install_copy, 0, 0, 0755, \
@@ -215,7 +223,7 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 	@$(call install_copy, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/ptxdist_install_tmp/rmtab, \
 		/var/lib/nfs/rmtab)
-	
+
 	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/xtab
 	@$(call install_copy, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/ptxdist_install_tmp/xtab, \
