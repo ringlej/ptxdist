@@ -115,10 +115,10 @@ $(STATEDIR)/libpng125.install: $(STATEDIR)/libpng125.compile
 	@$(call targetinfo, $@)
 	cd $(LIBPNG125_DIR) && $(LIBPNG125_PATH) $(LIBPNG125_ENV) make install
 # and now the ugly part
-	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/libpng12 && \
-		ln -s ../zlib.h .
-	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/libpng12 && \
-		ln -s ../zconf.h .
+#	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/libpng12 && \
+#		ln -s ../zlib.h .
+#	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/libpng12 && \
+#		ln -s ../zconf.h .
 	touch $@
 
 # ----------------------------------------------------------------------------
