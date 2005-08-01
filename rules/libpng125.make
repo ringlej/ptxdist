@@ -20,8 +20,8 @@ endif
 #
 # Paths and names
 #
-LIBPNG125_VERSION	= 1.2.5
-LIBPNG125		= libpng-$(LIBPNG125_VERSION)
+LIBPNG125_VERSION	= 1.2.8
+LIBPNG125		= libpng-$(LIBPNG125_VERSION)-config
 LIBPNG125_SUFFIX	= tar.gz
 LIBPNG125_URL		= $(PTXCONF_SETUP_SFMIRROR)/libpng/$(LIBPNG125).$(LIBPNG125_SUFFIX)
 LIBPNG125_SOURCE	= $(SRCDIR)/$(LIBPNG125).$(LIBPNG125_SUFFIX)
@@ -75,18 +75,20 @@ libpng125_prepare: $(STATEDIR)/libpng125.prepare
 #
 libpng125_prepare_deps =  \
 	$(STATEDIR)/libpng125.extract \
+	$(STATEDIR)/zlib.install \
 	$(STATEDIR)/virtual-xchain.install
 
-LIBPNG125_PATH	=  PATH=$(CROSS_PATH)
-LIBPNG125_ENV 	=  $(CROSS_ENV)
-LIBPNG125_ENV   += prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-LIBPNG125_ENV	+= ZLIBLIB=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-LIBPNG125_ENV	+= ZLIBINC=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+LIBPNG125_PATH	   = PATH=$(CROSS_PATH)
+LIBPNG125_ENV      = $(CROSS_ENV)
+LIBPNG125_AUTOCONF = $(CROSS_AUTOCONF) --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/libpng125.prepare: $(libpng125_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPNG125_BUILDDIR))
-	cp $(LIBPNG125_DIR)/scripts/makefile.linux $(LIBPNG125_DIR)/Makefile
+	cd $(LIBPNG125_DIR) && \
+		$(LIBPNG125_PATH) $(LIBPNG125_ENV) \
+		./configure $(LIBPNG125_AUTOCONF)
+
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -112,7 +114,7 @@ libpng125_install: $(STATEDIR)/libpng125.install
 $(STATEDIR)/libpng125.install: $(STATEDIR)/libpng125.compile
 	@$(call targetinfo, $@)
 	cd $(LIBPNG125_DIR) && $(LIBPNG125_PATH) $(LIBPNG125_ENV) make install
-	# and now the ugly part
+# and now the ugly part
 	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/libpng12 && \
 		ln -s ../zlib.h .
 	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/libpng12 && \
@@ -138,16 +140,21 @@ $(STATEDIR)/libpng125.targetinstall: $(libpng125_targetinstall_deps)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, 0, 0, 0644, \
-		$(LIBPNG125_DIR)/libpng12.so.0.1.2.5, \
-		/usr/lib/libpng12.so.0.1.2.5)
-	@$(call install_link, libpng12.so.0.1.2.5, /usr/lib/libpng12.so.0)
-	@$(call install_link, libpng12.so.0.1.2.5, /usr/lib/libpng12.so)
-	@$(call install_link, libpng12.so.0.1.2.5, /usr/lib/libpng.so.3)
-	
+		$(LIBPNG125_DIR)/.libs/libpng12.so.0.0.0, \
+		/usr/lib/libpng12.so.0.0.0)
+	@$(call install_link, libpng12.so.0.0.0, /usr/lib/libpng12.so.0.0)
+	@$(call install_link, libpng12.so.0.0.0, /usr/lib/libpng12.so.0)
+
+	@$(call install_copy, 0, 0, 0644, \
+		$(LIBPNG125_DIR)/.libs/libpng.so.3.0.0, \
+		/usr/lib/libpng.so.3.0.0)
+	@$(call install_link, libpng.so.3.0.0, /usr/lib/libpng.so.0.0)
+	@$(call install_link, libpng.so.3.0.0, /usr/lib/libpng.so.0)
+
 	@$(call install_finish)
-	
+
 	touch $@
 
 # ----------------------------------------------------------------------------
