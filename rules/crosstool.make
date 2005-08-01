@@ -112,7 +112,12 @@ endif
 #
 # Environment 
 #
-CROSSTOOL_ENV 	=  TARBALLS_DIR=$(SRCDIR)
+CROSSTOOL_ENV	=  export ptx_http_proxy=$(PTXCONF_SETUP_HTTP_PROXY); \
+	export ptx_ftp_proxy=$(PTXCONF_SETUP_FTP_PROXY); \
+	eval export \
+	$${ptx_http_proxy:+http_proxy=$${ptx_http_proxy}} \
+	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}};
+CROSSTOOL_ENV 	+= TARBALLS_DIR=$(SRCDIR)
 CROSSTOOL_ENV	+= RESULT_TOP=$(call remove_quotes,$(PTXCONF_PREFIX))
 CROSSTOOL_ENV	+= GCC_LANGUAGES="$(CROSSTOOL_GCCLANG)"
 CROSSTOOL_ENV	+= KERNELCONFIG=$(call remove_quotes,$(CROSSTOOL_DIR)/$(PTXCONF_CROSSTOOL_KERNELCONFIG))
