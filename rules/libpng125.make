@@ -150,8 +150,8 @@ $(STATEDIR)/libpng125.targetinstall: $(libpng125_targetinstall_deps)
 	@$(call install_copy, 0, 0, 0644, \
 		$(LIBPNG125_DIR)/.libs/libpng.so.3.0.0, \
 		/usr/lib/libpng.so.3.0.0)
-	@$(call install_link, libpng.so.3.0.0, /usr/lib/libpng.so.0.0)
-	@$(call install_link, libpng.so.3.0.0, /usr/lib/libpng.so.0)
+	@$(call install_link, libpng.so.3.0.0, /usr/lib/libpng.so.3.0)
+	@$(call install_link, libpng.so.3.0.0, /usr/lib/libpng.so.3)
 
 	@$(call install_finish)
 

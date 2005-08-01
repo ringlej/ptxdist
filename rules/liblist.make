@@ -135,8 +135,8 @@ $(STATEDIR)/liblist.targetinstall: $(liblist_targetinstall_deps)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0755, $(LIBLIST_DIR)/.libs/libptxlist.so.0.0.0, /usr/lib/libptxlist.so.0.0.0)
-	@$(call install_link, libptxlist.so.1.0.0, /usr/lib/libptxlist.so.0)
-	@$(call install_link, libptxlist.so.1.0.0, /usr/lib/libptxlist.so)
+	@$(call install_link, libptxlist.so.0.0.0, /usr/lib/libptxlist.so.0)
+	@$(call install_link, libptxlist.so.0.0.0, /usr/lib/libptxlist.so)
 
 	@$(call install_finish)
 
