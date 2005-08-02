@@ -168,7 +168,7 @@ menu "Java SDK        "
 
 config SETUP_JAVA_SDK
 	string
-	default "/opt/jdk1.5.0_02"
+	default "/usr"
 	prompt "Java SDK"
 	help
 	  Specify the path to your Java SDK; this is needed if Java
