@@ -58,7 +58,7 @@ $(STATEDIR)/jvisu.extract: $(jvisu_extract_deps)
 
 	# FIXME: we cannot currently overwrite the JAVAPATH on the command line, 
 	# so we tweak it here in a way that it works at least with Debian
-	perl -i -p -e "s,^JAVAPATH=.*,JAVAPATH=/usr,g" $(JVISU_DIR)/build.properties
+	perl -i -p -e "s,^JAVAPATH=.*,JAVAPATH=$(PTXCONF_SETUP_JAVA_SDK),g" $(JVISU_DIR)/build.properties
 
 	touch $@
 
@@ -75,8 +75,9 @@ jvisu_prepare_deps = \
 	$(STATEDIR)/jvisu.extract \
 	$(STATEDIR)/virtual-xchain.install
 
-JVISU_PATH	=  PATH=$(CROSS_PATH)
+JVISU_PATH	=  PATH=$(PTXCONF_SETUP_JAVA_SDK)/bin:$(CROSS_PATH)
 JVISU_ENV 	=  $(CROSS_ENV)
+JVISU_ENV	+= JAVA_HOME=$(PTXCONF_SETUP_JAVA_SDK)
 
 $(STATEDIR)/jvisu.prepare: $(jvisu_prepare_deps)
 	@$(call targetinfo, $@)

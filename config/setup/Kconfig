@@ -162,6 +162,18 @@ config SETUP_IPKG_REPOSITORY
 	  which is specified here. 
 
 	  FIXME: add mechanism to use other transports than cp. 
+endmenu
+
+menu "Java SDK        "
+
+config SETUP_JAVA_SDK
+	string
+	default "/opt/jdk1.5.0_02"
+	prompt "Java SDK"
+	help
+	  Specify the path to your Java SDK; this is needed if Java
+	  programs are being compiled by PTXdist, for example
+	  if you have selected JVisu. 
 
 endmenu
 
