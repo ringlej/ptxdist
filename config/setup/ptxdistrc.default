@@ -47,5 +47,5 @@ PTXCONF_SETUP_IPKG_REPOSITORY="/var/www/ipkg/ptxdist-$(FULLVERSION)"
 #
 # Java SDK        
 #
-PTXCONF_SETUP_JAVA_SDK="/opt/jdk1.5.0_02"
+PTXCONF_SETUP_JAVA_SDK="/usr"
 
