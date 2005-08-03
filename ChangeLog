@@ -1,3 +1,7 @@
+2005-08-03 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* rootfs: add mechanism for /media mountpoints
+
 2005-07-28 Bjoern Buerger <b.buerger@pengutronix.de>
 
 	* iptables: fixed install stage; patch by Alexandre Bastos
