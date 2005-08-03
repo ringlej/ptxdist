@@ -109,6 +109,37 @@ ifdef PTXCONF_ROOTFS_MNT
 	@$(call install_copy, 0, 0, 0755, /mnt)
 endif
 
+ifneq ($(PTXCONF_ROOTFS_MEDIA1),"")
+	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA1))
+endif
+ifneq ($(PTXCONF_ROOTFS_MEDIA2),"")
+	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA2))
+endif
+ifneq ($(PTXCONF_ROOTFS_MEDIA3),"")
+	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA3))
+endif
+ifneq ($(PTXCONF_ROOTFS_MEDIA4),"")
+	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA4))
+endif
+ifneq ($(PTXCONF_ROOTFS_MEDIA5),"")
+	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA5))
+endif
+ifneq ($(PTXCONF_ROOTFS_MEDIA6),"")
+	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA6))
+endif
+ifneq ($(PTXCONF_ROOTFS_MEDIA7),"")
+	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA7))
+endif
+ifneq ($(PTXCONF_ROOTFS_MEDIA8),"")
+	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA8))
+endif
+ifneq ($(PTXCONF_ROOTFS_MEDIA9),"")
+	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA9))
+endif
+ifneq ($(PTXCONF_ROOTFS_MEDIA10),"")
+	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA10))
+endif
+
 ifdef PTXCONF_ROOTFS_FLOPPY
 	@$(call install_copy, 0, 0, 0755, /floppy)
 endif

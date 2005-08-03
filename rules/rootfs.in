@@ -26,6 +26,86 @@ config ROOTFS_HOME
 	prompt "Create /home"
 	default y
 
+# Media Mountpoints
+
+menuconfig ROOTFS_MEDIA
+	depends on ROOTFS
+	bool
+	prompt "Create /Media"
+	default n
+
+config ROOTFS_MEDIA1
+        prompt "Mountpoint 1"
+        string
+	depends on ROOTFS_MEDIA
+        help
+	  This string defines a mountpoint directory in /media
+
+config ROOTFS_MEDIA2
+        prompt "Mountpoint 2"
+        string
+	depends on ROOTFS_MEDIA && ROOTFS_MEDIA1!=""
+        help
+	  This string defines a mountpoint directory in /media
+
+config ROOTFS_MEDIA3
+        prompt "Mountpoint 3"
+        string
+	depends on ROOTFS_MEDIA && ROOTFS_MEDIA2!=""
+        help
+	  This string defines a mountpoint directory in /media
+
+config ROOTFS_MEDIA4
+        prompt "Mountpoint 4"
+        string
+	depends on ROOTFS_MEDIA && ROOTFS_MEDIA3!=""
+        help
+	  This string defines a mountpoint directory in /media
+
+config ROOTFS_MEDIA5
+        prompt "Mountpoint 5"
+        string
+	depends on ROOTFS_MEDIA && ROOTFS_MEDIA4!=""
+        help
+	  This string defines a mountpoint directory in /media
+
+config ROOTFS_MEDIA6
+        prompt "Mountpoint 6"
+        string
+	depends on ROOTFS_MEDIA && ROOTFS_MEDIA5!=""
+        help
+	  This string defines a mountpoint directory in /media
+
+config ROOTFS_MEDIA7
+        prompt "Mountpoint 7"
+        string
+	depends on ROOTFS_MEDIA && ROOTFS_MEDIA6!=""
+        help
+	  This string defines a mountpoint directory in /media
+
+config ROOTFS_MEDIA8
+        prompt "Mountpoint 8"
+        string
+	depends on ROOTFS_MEDIA && ROOTFS_MEDIA7!=""
+        help
+	  This string defines a mountpoint directory in /media
+
+config ROOTFS_MEDIA9
+        prompt "Mountpoint 9"
+        string
+	depends on ROOTFS_MEDIA && ROOTFS_MEDIA8!=""
+        help
+	  This string defines a mountpoint directory in /media
+
+config ROOTFS_MEDIA10
+        prompt "Mountpoint 10"
+        string
+	depends on ROOTFS_MEDIA && ROOTFS_MEDIA9!=""
+        help
+	  This string defines a mountpoint directory in /media
+
+# ok, that's all for /media. 
+
 config ROOTFS_MNT
 	depends on ROOTFS
 	bool
