@@ -1,0 +1,44 @@
+# 
+# Submitted-By: Steven Scholz, Date: Fri, 29 Jul 2005 09:36:10 +0200 
+# Committed-By: Bjoern Buerger
+#
+# Description: 
+#
+# according to the thread "[BusyBox] Compilation Speed" from 2005-07-28 on
+# busybox@mail.busybox.net the attached patch reduces the compile time of
+# busybox. 
+#
+# State:
+# 
+# unknown
+#
+
++ diff -u busybox-1.00/Rules.mak.compilespeed busybox-1.00/Rules.mak
+--- busybox-1.00/Rules.mak.compilespeed	2005-07-29 09:00:59.000000000 +0200
++++ busybox-1.00/Rules.mak	2005-07-29 09:23:49.000000000 +0200
+@@ -86,7 +86,7 @@
+ #--------------------------------------------------------
+ export VERSION BUILDTIME TOPDIR HOSTCC HOSTCFLAGS CROSS CC AR AS LD NM STRIP CPP
+ ifeq ($(strip $(TARGET_ARCH)),)
+-TARGET_ARCH=$(shell $(CC) -dumpmachine | sed -e s'/-.*//' \
++TARGET_ARCH:=$(shell $(CC) -dumpmachine | sed -e s'/-.*//' \
+ 		-e 's/i.86/i386/' \
+ 		-e 's/sparc.*/sparc/' \
+ 		-e 's/arm.*/arm/g' \
+@@ -116,7 +116,7 @@
+ 
+ # use '-Os' optimization if available, else use -O2
+ OPTIMIZATION=
+-OPTIMIZATION=${call check_gcc,-Os,-O2}
++OPTIMIZATION:=${call check_gcc,-Os,-O2}
+ 
+ # Some nice architecture specific optimizations
+ ifeq ($(strip $(TARGET_ARCH)),arm)
+@@ -129,6 +129,7 @@
+ 		-malign-functions=0 -malign-jumps=0 -malign-loops=0)
+ endif
+ OPTIMIZATIONS=$(OPTIMIZATION) -fomit-frame-pointer
++check_gcc=$(if $1,$(error too late for check_gcc))
+ 
+ #
+ #--------------------------------------------------------
