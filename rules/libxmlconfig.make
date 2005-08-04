@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-LIBXMLCONFIG_VERSION	= 1.0.1
+LIBXMLCONFIG_VERSION	= 1.0.2
 LIBXMLCONFIG		= libxmlconfig-$(LIBXMLCONFIG_VERSION)
 LIBXMLCONFIG_SUFFIX	= tar.bz2
 LIBXMLCONFIG_URL	= http://www.pengutronix.de/software/libxmlconfig/download/$(LIBXMLCONFIG).$(LIBXMLCONFIG_SUFFIX)
@@ -73,13 +73,13 @@ libxmlconfig_prepare_deps += $(STATEDIR)/libxml2.install
 
 LIBXMLCONFIG_PATH	=  PATH=$(CROSS_PATH)
 LIBXMLCONFIG_ENV 	=  $(CROSS_ENV)
+LIBXMLCONFIG_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
 #
 LIBXMLCONFIG_AUTOCONF =  $(CROSS_AUTOCONF)
 LIBXMLCONFIG_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
-LIBXMLCONFIG_AUTOCONF += --with-libxml2=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/libxmlconfig.prepare: $(libxmlconfig_prepare_deps)
 	@$(call targetinfo, $@)
