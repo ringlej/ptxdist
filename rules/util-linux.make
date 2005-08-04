@@ -104,6 +104,9 @@ endif
 ifdef PTXCONF_UTLNX_MOUNT
 	cd $(UTIL-LINUX_DIR)/mount && $(UTIL-LINUX_PATH) make mount
 endif
+ifdef PTXCONF_UTLNX_UMOUNT
+	cd $(UTIL-LINUX_DIR)/mount && $(UTIL-LINUX_PATH) make umount
+endif
 ifdef PTXCONF_UTLNX_IPCS
 	cd $(UTIL-LINUX_DIR)/sys-utils && $(UTIL-LINUX_PATH) make ipcs
 endif
@@ -156,6 +159,12 @@ ifdef PTXCONF_UTLNX_MKSWAP
 endif
 ifdef PTXCONF_UTLNX_SWAPON
 	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/swapon, /sbin/swapon)
+endif
+ifdef PTXCONF_UTLNX_MOUNT
+	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/mount, /sbin/mount)
+endif
+ifdef PTXCONF_UTLNX_UMOUNT
+	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/umount, /sbin/umount)
 endif
 ifdef PTXCONF_UTLNX_IPCS
 	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/sys-utils/ipcs, /usr/bin/ipcs)

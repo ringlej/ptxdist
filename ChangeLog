@@ -2,7 +2,10 @@
 
 	* busybox: added patch to reduce compile time 
 	   	   patch submitted by Steven Scholz
-
+	
+	* util-linux: fix install of mount, add option for umount
+		      patch by Steven Scholz
+	
 2005-08-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* rootfs: add mechanism for /media mountpoints

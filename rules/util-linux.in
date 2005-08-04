@@ -32,6 +32,11 @@ config UTLNX_MOUNT
 	prompt "mount"
 	depends on UTLNX
 
+config UTLNX_UMOUNT
+	bool
+	prompt "umount"
+	depends on UTLNX
+
 config UTLNX_IPCS
 	bool
 	prompt "ipcs"
