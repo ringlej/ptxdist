@@ -5,7 +5,9 @@
 	
 	* util-linux: fix install of mount, add option for umount
 		      patch by Steven Scholz
-	
+
+	* host-mtd: fixed build of jffs2dump util; patch by Gary Thomas
+
 2005-08-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* rootfs: add mechanism for /media mountpoints
