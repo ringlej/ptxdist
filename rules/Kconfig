@@ -93,6 +93,7 @@ source "rules/gnupg.in"
 source "rules/kaffe.in"
 source "rules/mad.in"
 source "rules/setmixer.in"
+source "rules/rawrec.in"
 endmenu
 
 menu "Tools                       "
