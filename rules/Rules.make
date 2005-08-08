@@ -356,8 +356,14 @@ targetinfo = 						\
 	if [ `echo $$TG | $(GREP) "\.prepare"` ]; then	\
 		$(call compilercheck)			\
 	fi;						\
-	echo $@ : $^ | sed -e "s@$(TOPDIR)@@g" -e "s@$(PTXCONF_SETUP_SRCDIR)@@g" -e "s@/state/@@g" -e "s@/@@g" >> $(DEP_OUTPUT)
-#	echo $@ : $^ | sed -e "s@$(TOPDIR)@@g" -e "s@/src/@@g" -e "s@/state/@@g" >> $(DEP_OUTPUT)
+	echo $@ : $^ | sed 				\
+		-e "s@$(PTXCONF_SETUP_SRCDIR)@@g"	\
+		-e "s@$(STATEDIR)@@g"			\
+		-e "s@$(RULESDIR)@@g"			\
+		-e "s@$(PROJECTRULESDIR)@@g"		\
+		-e "s@$(PROJECTDIR)@@g"			\
+		-e "s@$(TOPDIR)@@g" 			\
+		-e "s@/@@g" >> $(DEP_OUTPUT)
 
 
 #
