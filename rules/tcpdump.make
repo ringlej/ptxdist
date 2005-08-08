@@ -69,6 +69,7 @@ tcpdump_prepare: $(STATEDIR)/tcpdump.prepare
 #
 tcpdump_prepare_deps = \
 	$(STATEDIR)/tcpdump.extract \
+	$(STATEDIR)/libpcap.install \
 	$(STATEDIR)/virtual-xchain.install
 
 TCPDUMP_PATH	=  PATH=$(CROSS_PATH)
@@ -127,7 +128,8 @@ $(STATEDIR)/tcpdump.install: $(STATEDIR)/tcpdump.compile
 
 tcpdump_targetinstall: $(STATEDIR)/tcpdump.targetinstall
 
-tcpdump_targetinstall_deps = $(STATEDIR)/tcpdump.compile
+tcpdump_targetinstall_deps = $(STATEDIR)/tcpdump.compile \
+			     $(STATEDIR)/libpcap.install
 
 $(STATEDIR)/tcpdump.targetinstall: $(tcpdump_targetinstall_deps)
 	@$(call targetinfo, $@)
