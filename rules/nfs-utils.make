@@ -149,13 +149,13 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 	@$(call install_fixup,DESCRIPTION,missing)
 
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_CLIENTSCRIPT))
-	@$(call install_copy, 0, 0, 0644, $(NFSUTILS_DIR)/etc/nodist/nfs-client, /etc/init.d/nfs-client, n)
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/etc/nodist/nfs-client, /etc/init.d/nfs-client, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_FUNCTIONSSCRIPT))
 	@$(call install_copy, 0, 0, 0644, $(NFSUTILS_DIR)/etc/nodist/nfs-functions, /etc/init.d/nfs-functions, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_SERVERSCRIPT))
-	@$(call install_copy, 0, 0, 0644, $(NFSUTILS_DIR)/etc/nodist/nfs-server, /etc/init.d/nfs-server, n)
+	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/etc/nodist/nfs-server, /etc/init.d/nfs-server, n)
         endif
 
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_EXPORTFS))
