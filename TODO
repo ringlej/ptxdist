@@ -7,7 +7,6 @@ Packets which could be added (volunteers needed)
 - RSC:	openntpd: http://www.openntpd.org/
 - RSC:	http://www.reportlab.com/ftp/
 - RSC:	http://rlib.sicompos.com/
-- RSC: 	libsysfs: http://linux-diag.sourceforge.net
 - RSC: 	MatrixSSL
 - MKL:  lilo, tinylogin targetinstall
 - RSC:  finish integration of zebra
