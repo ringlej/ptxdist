@@ -971,7 +971,7 @@ install_copy = 											\
 				exit -1;							\
 			fi;									\
 		fi;										\
-		$(INSTALL) -d $(ROOTDIR)/$$SRC;							\
+		$(INSTALL) -m $$PER -d $(ROOTDIR)/$$SRC;					\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit -1;								\
@@ -992,7 +992,7 @@ install_copy = 											\
 				exit -1;							\
 			fi;									\
 		fi; 										\
-		$(INSTALL) -D $$SRC $(ROOTDIR)$$DST;						\
+		$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR)$$DST;					\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit -1;								\
