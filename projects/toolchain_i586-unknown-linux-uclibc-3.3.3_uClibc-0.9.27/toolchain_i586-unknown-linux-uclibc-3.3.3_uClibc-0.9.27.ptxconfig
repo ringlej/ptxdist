@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.5-svn
-# Tue Jul 26 21:08:00 2005
+# PTXdist version: 0.7.6-svn
+# Mon Aug  8 19:05:33 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -419,6 +419,11 @@ PTXCONF_UC_DEVEL_PREFIX="/usr/$(TARGET_ARCH)-linux-uclibc/usr/"
 #
 # PTXCONF_BUSYBOX is not set
 PTXCONF_BB_HAVE_DOT_CONFIG=y
+
+#
+# Config Shell        
+#
+# PTXCONF_CFGSH is not set
 # PTXCONF_COREUTILS is not set
 # PTXCONF_DIFFUTILS is not set
 # PTXCONF_MODULE_INIT_TOOLS is not set
@@ -624,6 +629,11 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_PROFTPD is not set
 
 #
+# netkit-ftp          
+#
+# PTXCONF_NETKIT-FTP is not set
+
+#
 # rsync               
 #
 # PTXCONF_RSYNC is not set
@@ -704,6 +714,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_KAFFE is not set
 # PTXCONF_MAD is not set
 # PTXCONF_SETMIXER is not set
+# PTXCONF_RAWREC is not set
 
 #
 # Tools                       

@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.5-svn
-# Tue Jul 26 21:08:07 2005
+# PTXdist version: 0.7.6-svn
+# Mon Aug  8 19:05:39 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -210,6 +210,7 @@ PTXCONF_ROOTFS=y
 PTXCONF_ROOTFS_DEV=y
 # PTXCONF_ROOTFS_FLOPPY is not set
 PTXCONF_ROOTFS_HOME=y
+# PTXCONF_ROOTFS_MEDIA is not set
 PTXCONF_ROOTFS_MNT=y
 PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
@@ -803,6 +804,11 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # Debugging Options
 #
 # PTXCONF_BB_CONFIG_DEBUG is not set
+
+#
+# Config Shell        
+#
+# PTXCONF_CFGSH is not set
 PTXCONF_COREUTILS=y
 PTXCONF_COREUTILS_CP=y
 PTXCONF_COREUTILS_DD=y
@@ -858,6 +864,7 @@ PTXCONF_UTLNX_FDISK=y
 # PTXCONF_UTLNX_MKSWAP is not set
 # PTXCONF_UTLNX_SWAPON is not set
 # PTXCONF_UTLNX_MOUNT is not set
+# PTXCONF_UTLNX_UMOUNT is not set
 # PTXCONF_UTLNX_IPCS is not set
 # PTXCONF_UTLNX_READPROFILE is not set
 # PTXCONF_CLOCK is not set
@@ -1060,6 +1067,11 @@ PTXCONF_PROFTPD_SHADOW=y
 PTXCONF_PROFTPD_AUTOSHADOW=y
 
 #
+# netkit-ftp          
+#
+# PTXCONF_NETKIT-FTP is not set
+
+#
 # rsync               
 #
 # PTXCONF_RSYNC is not set
@@ -1148,6 +1160,7 @@ PTXCONF_IPKG=y
 # PTXCONF_KAFFE is not set
 # PTXCONF_MAD is not set
 # PTXCONF_SETMIXER is not set
+# PTXCONF_RAWREC is not set
 
 #
 # Tools                       
