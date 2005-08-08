@@ -221,7 +221,7 @@ dep_world: $(HOST_PACKAGES_INSTALL) \
 	   $(CROSS_PACKAGES_INSTALL) \
 	   $(PACKAGES_TARGETINSTALL) \
 	   $(VENDORTWEAKS_TARGETINSTALL)
-	@echo $@ : $^ | sed -e "s/_/./g" >> $(DEP_OUTPUT)
+	@echo $@ : $^ | sed  -e 's/\([^ ]*\)_\([^_]*\)/\1.\2/g' >> $(DEP_OUTPUT)
 
 world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
 
