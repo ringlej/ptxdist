@@ -31,6 +31,7 @@ PATCHDIR		:= $(TOPDIR)/patches
 STATEDIR		:= $(TOPDIR)/state
 IMAGEDIR		:= $(TOPDIR)/images
 MISCDIR			:= $(TOPDIR)/misc
+RULESDIR		:= $(TOPDIR)/rules
 
 ifeq (exists, $(shell test -e $(HOME)/.ptxdistrc && echo exists))
 include $(HOME)/.ptxdistrc
@@ -55,6 +56,7 @@ endif
 PROJECTCONFFILE		=  $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
 PROJECTDIR		=  $(strip $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE)))
 PROJECTRULES		=  $(wildcard $(PROJECTDIR)/rules/*.make)
+PROJECTRULESDIR		=  $(PROJECTDIR)/rules
 
 MENU			=  $(shell 						\
 				if [ -e $(PROJECTDIR)/Kconfig ]; then		\
