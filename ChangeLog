@@ -1,3 +1,8 @@
+2005-08-08 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* rootfs: Without the patch I get an empty /media dir although
+	  PTXCONF_ROOTFS_MEDIA is not set. Patch by Steven Scholz.
+
 2005-08-04 Bjoern Buerger <b.buerger@pengutronix.de>
 
 	* busybox: added patch to reduce compile time 
