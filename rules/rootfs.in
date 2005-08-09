@@ -31,7 +31,7 @@ config ROOTFS_HOME
 menuconfig ROOTFS_MEDIA
 	depends on ROOTFS
 	bool
-	prompt "Create /Media"
+	prompt "Create /media"
 	default n
 
 config ROOTFS_MEDIA1
@@ -205,7 +205,6 @@ config ROOTFS_ETC_VENDOR
 	  page with the hostname and other stuff at 
 	  startup. 
 	                                   
-
 config ROOTFS_ETC_UDHCPC
 	depends on ROOTFS_ETC
 	depends on BB_CONFIG_UDHCPC
@@ -215,7 +214,6 @@ config ROOTFS_ETC_UDHCPC
 	help 
 	  udhcpc (busybox) accepts the -s file or --script=file option. 
 	  The /etc/udhcpc.script will be run at dhcp events.
-
 
 config VENDORTWEAKS
 	string

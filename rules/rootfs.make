@@ -109,6 +109,7 @@ ifdef PTXCONF_ROOTFS_MNT
 	@$(call install_copy, 0, 0, 0755, /mnt)
 endif
 
+ifdef PTXCONF_ROOTFS_MEDIA
 ifneq ($(PTXCONF_ROOTFS_MEDIA1),"")
 	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA1))
 endif
@@ -138,6 +139,7 @@ ifneq ($(PTXCONF_ROOTFS_MEDIA9),"")
 endif
 ifneq ($(PTXCONF_ROOTFS_MEDIA10),"")
 	@$(call install_copy, 0, 0, 0755, /media/$(PTXCONF_ROOTFS_MEDIA10))
+endif
 endif
 
 ifdef PTXCONF_ROOTFS_FLOPPY
