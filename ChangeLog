@@ -1,3 +1,8 @@
+2005-08-09 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libpv: added
+	* liblist: version update
+
 2005-08-08 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* rootfs: Without the patch I get an empty /media dir although
