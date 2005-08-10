@@ -147,6 +147,7 @@ endmenu
 
 menu "Scientific Apps             "
 source "rules/gnuplot.in"
+source "rules/libpv.in"
 endmenu
 
 menu "Web Applications            "

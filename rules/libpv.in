@@ -1,0 +1,12 @@
+config LIBPV
+	bool
+	prompt "libpv"
+	select LIBLIST
+	help
+	  libpv.so is a library that implements a user space shared memory for 
+	  automation applications. The shared memory is being described by an
+	  XML file, the backing store can live on any mmapable file, for example
+	  on a persistent storage or on a RAM disc. 
+
+	  The library has also an integrated JVisu socket server. 
+
