@@ -69,7 +69,8 @@ libpv_prepare: $(STATEDIR)/libpv.prepare
 #
 libpv_prepare_deps = \
 	$(STATEDIR)/libpv.extract \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/liblist.install
 
 LIBPV_PATH	=  PATH=$(CROSS_PATH)
 LIBPV_ENV 	=  $(CROSS_ENV)
