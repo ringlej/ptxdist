@@ -86,13 +86,9 @@
 # fixed upstream. this is a cvs diff from:
 # http://sources.redhat.com/cgi-bin/cvsweb.cgi/src/sim/arm/iwmmxt.c.diff?r1=1.1&r2=1.2&cvsroot=src
 #
-===================================================================
-RCS file: /cvs/src/src/sim/arm/iwmmxt.c,v
-retrieving revision 1.1
-retrieving revision 1.2
-diff -u -r1.1 -r1.2
---- src/sim/arm/iwmmxt.c	2003/03/27 17:13:33	1.1
-+++ src/sim/arm/iwmmxt.c	2005/04/18 12:17:51	1.2
+diff -ruN gdb-6.3-orig/sim/arm/iwmmxt.c gdb-6.3/sim/arm/iwmmxt.c
+--- gdb-6.3-orig/sim/arm/iwmmxt.c	2003-03-27 18:13:33.000000000 +0100
++++ gdb-6.3/sim/arm/iwmmxt.c	2005-08-16 19:53:37.853029968 +0200
 @@ -2114,7 +2114,7 @@
  
  	  s = (signed long) a * (signed long) b;
