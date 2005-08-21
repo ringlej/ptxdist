@@ -158,8 +158,8 @@ $(STATEDIR)/python.targetinstall: $(STATEDIR)/python.compile
 #	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS) \
 #		oldsharedinstall DESTDIR=$(ROOTDIR)
 
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/python2.3
-	$(CROSSSTRIP) -R .note -R .comment $(IMAGEDIR)/ipkg/usr/bin/python2.3
+	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/python2.3
+	$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/ipkg/usr/bin/python2.3
 
 	@$(call install_finish)
 	touch $@

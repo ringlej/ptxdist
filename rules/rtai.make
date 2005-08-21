@@ -140,7 +140,7 @@ ifdef PTXCONF_RTAI_TESTSUITE
 	cp -a \
 		$(RTAI_BUILDDIR)/usr/realtime/testsuite \
 		$(ROOTDIR)/usr/realtime
-	$(CROSSSTRIP) -S $(ROOTDIR)/usr/realtime/testsuite/kern/latency/display
+	$(CROSS_STRIP) -S $(ROOTDIR)/usr/realtime/testsuite/kern/latency/display
 endif
 	touch $@
 
