@@ -163,8 +163,6 @@ $(STATEDIR)/gdb.targetinstall: $(gdb_targetinstall_deps)
 	@$(call install_copy, 0, 0, 0755, $(GDB_BUILDDIR)/gdb/gdb, /usr/bin/gdb)
 
 	@$(call install_finish)
-
-	$(CROSSSTRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/gdb
 	touch $@
 
 # ----------------------------------------------------------------------------
