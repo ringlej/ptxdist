@@ -36,6 +36,7 @@ ntp_get_deps = $(NTP_SOURCE)
 
 $(STATEDIR)/ntp.get: $(ntp_get_deps)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(NTP))
 	touch $@
 
 $(NTP_SOURCE):
@@ -331,7 +332,7 @@ ntp_compile_deps = $(STATEDIR)/ntp.prepare
 
 $(STATEDIR)/ntp.compile: $(ntp_compile_deps)
 	@$(call targetinfo, $@)
-	
+
 	# ntp-4.2.0 tries to build ntpdc/ntpdc-layout for the target but
 	# trys to run it on the build machine - this is wrong... 
 	perl -i -p -e "s/^CC =/CC ?=/g" $(NTP_DIR)/ntpdc/Makefile
@@ -372,7 +373,7 @@ $(STATEDIR)/ntp.targetinstall: $(ntp_targetinstall_deps)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 ifdef PTXCONF_NTP_NTPDATE
 	@$(call install_copy, 0, 0, 0755, $(NTP_DIR)/ntpdate/ntpdate, /usr/sbin/ntpdate)
 endif
