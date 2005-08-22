@@ -66,6 +66,38 @@ HOSTCC_ENV	= CC=$(HOSTCC)
 
 
 # ----------------------------------------------------------------------------
+# Paths and other stuff
+# ----------------------------------------------------------------------------
+
+#
+# CROSS_LIB_DIR	= the libs for the target system are installed into this dir
+#
+CROSS_LIB_DIR := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
+
+#
+# Use the masquerading method of invoking distcc if enabled
+#
+#
+ifdef PTXCONF_XCHAIN-DISTCC
+# FIXME: should also allow use of DISTCC for native stuff
+DISTCC_PATH_COLON := $(PTXCONF_PREFIX)/lib/distcc/bin:
+endif
+
+#
+# prepare the search path
+#
+CROSS_PATH := $(call remove_quotes,$(DISTCC_PATH_COLON)$(PTXCONF_CROSS_PREFIX))/bin:$$PATH
+HOST_PATH := $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:$$PATH
+
+#
+# same as PTXCONF_GNU_TARGET, but w/o -linux
+# e.g. i486 instead of i486-linux
+#
+SHORT_TARGET		:= `echo $(PTXCONF_GNU_TARGET) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
+SHORT_HOST		:= `echo $(GNU_HOST) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
+
+
+# ----------------------------------------------------------------------------
 # Environment
 # ----------------------------------------------------------------------------
 
@@ -112,33 +144,32 @@ endif
 # FIXME: Consolidate a bit more
 #
 ifndef NATIVE
-COMPILER_PREFIX		= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX))
+COMPILER_PREFIX		:= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX))
 endif
-CROSS_AR		= $(COMPILER_PREFIX)ar
-CROSS_AS		= $(COMPILER_PREFIX)as
-CROSS_LD		= $(COMPILER_PREFIX)ld
-CROSS_NM		= $(COMPILER_PREFIX)nm
-CROSS_CC		= $(COMPILER_PREFIX)gcc
-CROSS_CXX		= $(COMPILER_PREFIX)g++
-CROSS_RANLIB		= $(COMPILER_PREFIX)ranlib
-CROSS_OBJCOPY		= $(COMPILER_PREFIX)objcopy
-CROSS_OBJDUMP		= $(COMPILER_PREFIX)objdump
-CROSS_STRIP		= $(COMPILER_PREFIX)strip
-CROSSSTRIP		= $(CROSS_STRIP)
+CROSS_AR		:= $(COMPILER_PREFIX)ar
+CROSS_AS		:= $(COMPILER_PREFIX)as
+CROSS_LD		:= $(COMPILER_PREFIX)ld
+CROSS_NM		:= $(COMPILER_PREFIX)nm
+CROSS_CC		:= $(COMPILER_PREFIX)gcc
+CROSS_CXX		:= $(COMPILER_PREFIX)g++
+CROSS_RANLIB		:= $(COMPILER_PREFIX)ranlib
+CROSS_OBJCOPY		:= $(COMPILER_PREFIX)objcopy
+CROSS_OBJDUMP		:= $(COMPILER_PREFIX)objdump
+CROSS_STRIP		:= $(COMPILER_PREFIX)strip
 
-CROSS_ENV_AR		= AR=$(CROSS_AR)
-CROSS_ENV_AS		= AS=$(CROSS_AS)
-CROSS_ENV_LD		= LD=$(CROSS_LD)
-CROSS_ENV_NM		= NM=$(CROSS_NM)
-CROSS_ENV_CC		= CC=$(CROSS_CC)
-CROSS_ENV_CXX		= CXX=$(CROSS_CXX)
-CROSS_ENV_RANLIB	= RANLIB=$(CROSS_RANLIB)
-CROSS_ENV_OBJCOPY	= OBJCOPY=$(CROSS_OBJCOPY)
-CROSS_ENV_OBJDUMP	= OBJDUMP=$(CROSS_OBJDUMP)
-CROSS_ENV_STRIP		= STRIP=$(CROSS_STRIP)
-CROSS_ENV_CC_FOR_BUILD	= CC_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
-CROSS_ENV_CPP_FOR_BUILD	= CPP_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
-CROSS_ENV_LINK_FOR_BUILD= LINK_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
+CROSS_ENV_AR		:= AR=$(CROSS_AR)
+CROSS_ENV_AS		:= AS=$(CROSS_AS)
+CROSS_ENV_LD		:= LD=$(CROSS_LD)
+CROSS_ENV_NM		:= NM=$(CROSS_NM)
+CROSS_ENV_CC		:= CC=$(CROSS_CC)
+CROSS_ENV_CXX		:= CXX=$(CROSS_CXX)
+CROSS_ENV_RANLIB	:= RANLIB=$(CROSS_RANLIB)
+CROSS_ENV_OBJCOPY	:= OBJCOPY=$(CROSS_OBJCOPY)
+CROSS_ENV_OBJDUMP	:= OBJDUMP=$(CROSS_OBJDUMP)
+CROSS_ENV_STRIP		:= STRIP=$(CROSS_STRIP)
+CROSS_ENV_CC_FOR_BUILD	:= CC_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
+CROSS_ENV_CPP_FOR_BUILD	:= CPP_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
+CROSS_ENV_LINK_FOR_BUILD:= LINK_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
 
 # FIXME: check if we have to add quotes for grouping here
 
@@ -189,6 +220,9 @@ CROSS_ENV_PROGS := \
 	$(CROSS_ENV_RANLIB) \
 	$(CROSS_ENV_STRIP)
 
+CROSS_ENV_PKG_CONFIG := \
+	PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+
 CROSS_ENV_FLAGS := \
 	$(CROSS_ENV_CFLAGS) \
 	$(CROSS_ENV_CPPFLAGS) \
@@ -219,38 +253,11 @@ CROSS_ENV := \
 	$(CROSS_ENV_FLAGS) \
 	$(CROSS_ENV_AC)
 
-CROSS_AUTOCONF = $(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
+CROSS_AUTOCONF := $(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
 else
 CROSS_ENV := \
 	$(CROSS_ENV_FLAGS)
 endif
-
-#
-# CROSS_LIB_DIR	= the libs for the target system are installed into this dir
-#
-CROSS_LIB_DIR = $(call remove_quotes,$(PTXCONF_PREFIX))/$(call remove_quotes,$(PTXCONF_GNU_TARGET))
-
-#
-# Use the masquerading method of invoking distcc if enabled
-#
-#
-ifdef PTXCONF_XCHAIN-DISTCC
-# FIXME: should also allow use of DISTCC for native stuff
-DISTCC_PATH_COLON     = $(PTXCONF_PREFIX)/lib/distcc/bin:
-endif
-
-#
-# prepare the search path
-#
-CROSS_PATH = $(call remove_quotes,$(DISTCC_PATH_COLON))$(call remove_quotes,$(PTXCONF_CROSS_PREFIX))/bin:$$PATH
-HOST_PATH = $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:$$PATH
-
-#
-# same as PTXCONF_GNU_TARGET, but w/o -linux
-# e.g. i486 instead of i486-linux
-#
-SHORT_TARGET		:= `echo $(PTXCONF_GNU_TARGET) |  $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
-SHORT_HOST		:= `echo $(GNU_HOST) |  $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
 
 
 # ----------------------------------------------------------------------------
