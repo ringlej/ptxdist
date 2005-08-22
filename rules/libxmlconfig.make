@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-LIBXMLCONFIG_VERSION	= 1.0.2
+LIBXMLCONFIG_VERSION	= 1.0.3
 LIBXMLCONFIG		= libxmlconfig-$(LIBXMLCONFIG_VERSION)
 LIBXMLCONFIG_SUFFIX	= tar.bz2
 LIBXMLCONFIG_URL	= http://www.pengutronix.de/software/libxmlconfig/download/$(LIBXMLCONFIG).$(LIBXMLCONFIG_SUFFIX)
