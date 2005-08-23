@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-LIBPV_VERSION	= 1.0.1
+LIBPV_VERSION	= 1.0.2
 LIBPV		= libpv-$(LIBPV_VERSION)
 LIBPV_SUFFIX	= tar.bz2
 LIBPV_URL	= http://www.pengutronix.de/software/libpv/download/$(LIBPV).$(LIBPV_SUFFIX)
