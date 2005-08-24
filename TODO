@@ -31,6 +31,8 @@ Test suite components to be added
 Current TODO List
 =================
 
+- RSC:	port XOrg 7.0
+- MKL:	let get stages depend on the actual makefile
 - RSC:	Finish autotoolisation of chrony. The old features from the 
 	handwritten configure script have to be added; readline dependency
 	is now temporarily fixed, it should be made optional again. 
@@ -70,7 +72,6 @@ Current TODO List
 - MKL: test betaftp, old breaks due to a patch from DKE
 - MKL: test qte, wxwindows
 - MKL: teach qte to crosscompile
-- MKL: autotoolize rn
 - MKL: gawk fix prefix, due to hard coded path
 - MKL: integrate ldd (./build/glibc-2.2.5/elf/ldd.bash.in)
 - MKL: tweak wireless to xcompile
@@ -82,7 +83,6 @@ Current TODO List
        to reserve N blocks at the beginning of the image!
 - KUB: busybox/ash job control is broken
 - RSC: add checksums for download 
-- RSC: create users 
 - RSC: restructure config file layout
 - RSC: add a test: if #!/bin/sh scripts return 
        "/bin/sh: bad interpreter: Permission denied"
@@ -96,11 +96,4 @@ Current TODO List
 - BBU: Implement scheme for alternative download-URLs as 
        fallback (e.g. mirrors)
 - BBU: rsync URLs
-- RSC: structure for menues: 
-	"Network Services"	zebra, nfsd, ntp
-	"Network Tools"		ip, tcpdump, ciscoshell, hping2, libnet
-	"Audit Tools"		dsnif, shadow code
-	"User Interfaces"	flash, Shell Menues (Robin), JVisu
-	"Init"			lmainit
-	"Languages"		perl, miniperl
 
