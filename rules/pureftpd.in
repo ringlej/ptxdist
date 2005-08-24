@@ -1,0 +1,26 @@
+menuconfig "pureftpd            "
+	bool PUREFTPD
+	prompt "pureftpd"
+
+config PUREFTPD_UPLOADSCRIPT
+	bool
+	prompt "support upload scripts"
+	depends on PUREFTPD
+	help 
+	  Allow running an external script after an upload
+
+config PUREFTPD_VIRTUALHOSTS
+	bool
+	prompt "virtual hosts"
+	depends on PUREFTPD
+	help 
+	  Handle virtual servers on different IP addresses
+
+config PUREFTPD_DIRALIASES
+	bool
+	prompt "directory aliases"
+	depends on PUREFTPD
+	help 
+	  Enable directory aliases
+
+endmenu
