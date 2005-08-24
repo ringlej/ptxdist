@@ -8,30 +8,39 @@
 # For further information about the PTXdist project see the README file.
 #
 
-PROJECT		:= PTXdist
-VERSION		:= 0
-PATCHLEVEL	:= 7
-SUBLEVEL	:= 7
-EXTRAVERSION	:=-rc3
+PROJECT			:= PTXdist
+VERSION			:= 0
+PATCHLEVEL		:= 9
+SUBLEVEL		:= 0
+EXTRAVERSION		:=
 
-FULLVERSION	:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
+FULLVERSION		:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
 export PROJECT VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION FULLVERSION
 
-include rules/Definitions.make
-
+ifdef PTXDISTDIR
+TOPDIR			:= $(PTXDISTDIR)
+else
 TOPDIR			:= $(shell pwd)
-BASENAME		:= $(shell basename $(TOPDIR))
+endif
+
+ifndef PTXDISTWORKSPACE
+PTXDISTWORKSPACE	:= $(TOPDIR)
+endif
+
+BUILDDIR		:= $(PTXDISTWORKSPACE)/build
 HOME			:= $(shell echo $$HOME)
-BUILDDIR		:= $(TOPDIR)/build
-CROSS_BUILDDIR		:= $(BUILDDIR)/crosstools
-HOST_BUILDDIR		:= $(BUILDDIR)/hosttools
-PATCHES_BUILDDIR	:= $(BUILDDIR)/patches
 PATCHDIR		:= $(TOPDIR)/patches
-STATEDIR		:= $(TOPDIR)/state
-IMAGEDIR		:= $(TOPDIR)/images
 MISCDIR			:= $(TOPDIR)/misc
 RULESDIR		:= $(TOPDIR)/rules
+
+CROSS_BUILDDIR		:= $(BUILDDIR)/crosstools
+HOST_BUILDDIR		:= $(BUILDDIR)/hosttools
+STATEDIR		:= $(BUILDDIR)/state
+IMAGEDIR		:= $(BUILDDIR)/images
+ROOTDIR			:= $(BUILDDIR)/root
+
+include $(TOPDIR)/rules/Definitions.make
 
 ifeq (exists, $(shell test -e $(HOME)/.ptxdistrc && echo exists))
 include $(HOME)/.ptxdistrc
@@ -52,6 +61,8 @@ endif
 ifeq (exists, $(shell test -e $(PTXCONF_SETUP_PROJECTDIR2) && echo exists))
 PROJECTDIRS		+= $(PTXCONF_SETUP_PROJECTDIR2)/
 endif
+PROJECTDIRS		+= $(wildcard $(PTXDISTWORKSPACE)/project-*)
+
 
 PROJECTCONFFILE		=  $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
 PROJECTDIR		=  $(strip $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE)))
@@ -66,6 +77,7 @@ MENU			=  $(shell 						\
 				fi						\
 			   )
 
+# FIXME: remove
 # ----------------------------------------------------------------------------
 # Find out which patch repository is to be used
 # ----------------------------------------------------------------------------
@@ -80,53 +92,39 @@ PTXPATCH_URL		+= http://www.pengutronix.de/software/ptxdist/patches$(PTXPATCH_UR
 endif
 
 PTXPATCH_URL		+= $(PTXCONF_SETUP_LOCAL_PATCH_REPOSITORY)
+# /FIXME
+
 
 PACKAGES           =
 CROSS_PACKAGES     =
 HOST_PACKAGES      =
 VIRTUAL            =
-VENDORTWEAKS       =
 
-export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR HOST_PACKAGES CROSS_PACKAGES PACKAGES VENDORTWEAKS
+export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR HOST_PACKAGES CROSS_PACKAGES PACKAGES
 
 all: help
 
--include .config 
+-include $(PTXDISTWORKSPACE)/.config 
 
-ROOTDIR=$(call remove_quotes,$(PTXCONF_ROOT))
-ifeq ("", $(PTXCONF_ROOT))
-ROOTDIR=$(TOPDIR)/root
-endif
-ifndef PTXCONF_ROOT
-ROOTDIR=$(TOPDIR)/root
-endif
-
+# FIXME: this should be removed some day...
 PTXCONF_TARGET_CONFIG_FILE ?= none
 ifeq ("", $(PTXCONF_TARGET_CONFIG_FILE))
 PTXCONF_TARGET_CONFIG_FILE = none
 endif
 -include config/arch/$(call remove_quotes,$(PTXCONF_TARGET_CONFIG_FILE))
+# /FIXME
 
-include rules/Rules.make
-include rules/Version.make
+include $(TOPDIR)/rules/Rules.make
+include $(TOPDIR)/rules/Version.make
 
-include $(filter-out 				\
-		rules/Virtual.make 		\
-		rules/Rules.make 		\
-		rules/Version.make 		\
-		rules/Definitions.make,		\
-		$(wildcard rules/*.make)	\
+include $(filter-out 					\
+		$(TOPDIR)/rules/Virtual.make 		\
+		$(TOPDIR)/rules/Rules.make 		\
+		$(TOPDIR)/rules/Version.make 		\
+		$(TOPDIR)/rules/Definitions.make,	\
+		$(wildcard $(TOPDIR)/rules/*.make)	\
 	) $(PROJECTRULES)
-include rules/Virtual.make
-
-# if specified, include vendor tweak makefile (run at the end of build)
-# rewrite variable to make the magic in 'world' target work
-
-PTXCONF_VENDORTWEAKS ?= none
-ifeq ("", $(PTXCONF_VENDORTWEAKS))
-PTXCONF_VENDORTWEAKS =  none
-endif
--include $(call remove_quotes,$(PTXCONF_VENDORTWEAKS))
+include $(TOPDIR)/rules/Virtual.make
 
 # install targets 
 PACKAGES_TARGETINSTALL 	:= $(addsuffix _targetinstall,$(PACKAGES)) $(addsuffix _targetinstall,$(VIRTUAL))
@@ -144,15 +142,8 @@ CROSS_PACKAGES_GET	:= $(addsuffix _get,$(CROSS_PACKAGES))
 CROSS_PACKAGES_EXTRACT	:= $(addsuffix _extract,$(CROSS_PACKAGES))
 CROSS_PACKAGES_PREPARE	:= $(addsuffix _prepare,$(CROSS_PACKAGES))
 CROSS_PACKAGES_COMPILE	:= $(addsuffix _compile,$(CROSS_PACKAGES))
-# $(addsuffix _get,$(XCHAIN))
 
-VENDORTWEAKS_TARGETINSTALL	:= $(addsuffix _targetinstall,$(VENDORTWEAKS))
-
-BOOTDISK_TARGETINSTALL = 
-ifeq (y, $(PTXCONF_BOOTDISK))
-BOOTDISK_TARGETINSTALL += $(STATEDIR)/bootdisk.targetinstall
-endif
-
+# FIXME: this has to be reworked when the final usage was fixed
 help:
 	@echo
 	@echo "PTXdist - Build System for Embedded Linux Systems"
@@ -214,13 +205,9 @@ dep_tree:
 		echo "Install 'dot' from graphviz packet if you want to have a nice dependency tree"; \
 	fi
 
-skip_vendortweaks:
-	@echo "Vendor-Tweaks file $(PTXCONF_VENDORTWEAKS) does not exist, skipping."
-
 dep_world: $(HOST_PACKAGES_INSTALL) \
 	   $(CROSS_PACKAGES_INSTALL) \
-	   $(PACKAGES_TARGETINSTALL) \
-	   $(VENDORTWEAKS_TARGETINSTALL)
+	   $(PACKAGES_TARGETINSTALL)
 	@echo $@ : $^ | sed  -e 's/\([^ ]*\)_\([^_]*\)/\1.\2/g' >> $(DEP_OUTPUT)
 
 world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
@@ -338,43 +325,63 @@ ptx_lxdialog:
 		echo;									\
 		exit 1;									\
 	fi
-	cd scripts/lxdialog && ln -s -f ../ptx-modifications/Makefile.lxdialog.ptx Makefile
+	cd $(TOPDIR)/scripts/lxdialog && ln -s -f ../ptx-modifications/Makefile.lxdialog.ptx Makefile
+
+findout_config =								\
+	if [ "$(PTXDISTWORKSPACE)" != "$(TOPDIR)" ]; then			\
+		if [ -f "$(TOPDIR)/.config" ]; then				\
+			echo;							\
+			echo "Strange - you seem to build PTXdist from a ";	\
+			echo "workspace, but you have a .config file in the";	\
+			echo "PTXdist toplevel directory. Please fix that.";	\
+			echo;							\
+			exit 1;							\
+		else 								\
+			rm -f $(TOPDIR)/.config;				\
+			cp $(PTXDISTWORKSPACE)/.config $(TOPDIR)/.config;	\
+		fi;								\
+	fi
 
 scripts/lxdialog/lxdialog: ptx_lxdialog
-	make -C scripts/lxdialog lxdialog
+	make -C $(TOPDIR)/scripts/lxdialog lxdialog
 
 scripts/kconfig/libkconfig.so:
-	make -C scripts/kconfig libkconfig.so
+	make -C $(TOPDIR)/scripts/kconfig libkconfig.so
 
 scripts/kconfig/conf: scripts/kconfig/libkconfig.so
-	make -C scripts/kconfig conf
+	make -C $(TOPDIR)/scripts/kconfig conf
 
 scripts/kconfig/mconf: scripts/kconfig/libkconfig.so
-	make -C scripts/kconfig mconf
+	make -C $(TOPDIR)/scripts/kconfig mconf
 
 scripts/kconfig/qconf: scripts/kconfig/libkconfig.so
-	make -C scripts/kconfig qconf
+	make -C $(TOPDIR)/scripts/kconfig qconf
 
 scripts/kconfig/gconf: scripts/kconfig/libkconfig.so
-	make -C scripts/kconfig gconf
+	make -C $(TOPDIR)/scripts/kconfig gconf
 
 menuconfig: scripts/lxdialog/lxdialog scripts/kconfig/mconf
-	scripts/kconfig/mconf $(MENU)
+	$(call findout_config)
+	cd $(TOPDIR) && scripts/kconfig/mconf $(MENU)
+	cp $(TOPDIR)/.config $(PTXDISTWORKSPACE)/.config
 
 xconfig: scripts/kconfig/qconf
-	scripts/kconfig/qconf $(MENU)
+	$(call findout_config)
+	cd $(TOPDIR) && scripts/kconfig/qconf $(MENU)
 
 gconfig: scripts/kconfig/gconf
-	LD_LIBRARY_PATH=./scripts/kconfig ./scripts/kconfig/gconf $(MENU)
+	$(call findout_config)
+	LD_LIBRARY_PATH=$(TOPDIR)/scripts/kconfig cd $(TOPDIR) && scripts/kconfig/gconf $(MENU)
 
 oldconfig: scripts/kconfig/conf
-	scripts/kconfig/conf -o $(MENU)
+	$(call findout_config)
+	cd $(TOPDIR) && scripts/kconfig/conf -o $(MENU)
 
 setup: scripts/lxdialog/lxdialog scripts/kconfig/mconf
 	@rm -f $(TOPDIR)/config/setup/.config
-	@ln -sf $(TOPDIR)/scripts $(TOPDIR)/config/setup/scripts
+	@ln -sf $(TOPDIR)/scripts $(PTXDISTDIR)/config/setup/scripts
 	@if [ -f $(HOME)/.ptxdistrc ]; then cp $(HOME)/.ptxdistrc $(TOPDIR)/config/setup/.config; fi
-	@(cd $(TOPDIR)/config/setup && $(TOPDIR)/scripts/kconfig/mconf Kconfig)
+	@(cd $(TOPDIR)/config/setup && $(PTXDISTDIR)/scripts/kconfig/mconf Kconfig)
 	@echo "cleaning up after setup..."
 	@for i in .tmpconfig.h .config.old .config.cmd; do			\
 		rm -f $(TOPDIR)/config/setup/$$i; 				\
@@ -398,7 +405,7 @@ setup: scripts/lxdialog/lxdialog scripts/kconfig/mconf
 	fi;									\
 	if [ -n "$$CFG" ]; then 						\
 		echo "using config file \"$$CFG\""; 				\
-		cp $$CFG $(TOPDIR)/.config; 					\
+		cp $$CFG $(PTXDISTWORKSPACE)/.config; 				\
 	else 									\
 		echo "could not find config file \"$@\""; 			\
 		exit 1;								\
@@ -484,25 +491,25 @@ distclean: clean
 	@rm -f config/setup/scripts config/setup/.config scripts/scripts
 	@echo "done."
 	@echo -n "cleaning logs.................... "
-	@rm -fr $(TOPDIR)/logs/root-orig.txt $(TOPDIR)/logs/root-ipkg.txt $(TOPDIR)/logs/root.diff
+	@rm -fr $(TOPDIR)/logs/root-orig.txt $(PTXDISTDIR)/logs/root-ipkg.txt $(PTXDISTDIR)/logs/root.diff
 	@echo "done."
 	@echo
 
 clean: rootclean imagesclean
 	@echo
+	@echo -n "cleaning state dir............... "
+	@for i in $(wildcard $(STATEDIR)/*); do rm -rf $$i; done
+	@echo "done."
 	@echo -n "cleaning build dir............... "
-	@for i in $$(ls -I CVS $(BUILDDIR)); do 			\
+	@for i in $(wildcard $(BUILDDIR)/*); do 			\
 		echo -n $$i; 						\
-		rm -rf $(BUILDDIR)/"$$i"; 				\
+		rm -rf $$i; 						\
 		echo; echo -n "                                  ";	\
 	done
 	@echo "done."
-	@echo -n "cleaning state dir............... "
-	@for i in $$(ls -I CVS $(STATEDIR)); do rm -rf $(STATEDIR)/"$$i"; done
-	@echo "done."
 	@echo -n "cleaning scripts dir............. "
-	@make -s -C scripts/kconfig clean
-	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx -C scripts/lxdialog clean
+	@make -s -C $(TOPDIR)/scripts/kconfig clean
+	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx -C $(TOPDIR)/scripts/lxdialog clean
 	@rm -f scripts/lxdialog/Makefile
 	@echo "done."
 	@echo -n "cleaning dependency tree ........ "
@@ -528,9 +535,9 @@ rootclean: imagesclean
 	@echo
 	@echo -n "cleaning root dir................ "
 	@if [ -d $(ROOTDIR) ]; then \
-		for i in $$(ls -I CVS $(ROOTDIR)); do 			\
+		for i in $(wildcard $(ROOTDIR)/*); do 			\
 			echo -n $$i; 					\
-			rm -rf $(ROOTDIR)/"$$i"; 			\
+			rm -rf $$i; 					\
 			echo; 						\
 			echo -n "                                  ";	\
 		done; 							\
@@ -584,13 +591,14 @@ svn-stat:
 archive:  
 	@echo
 	@echo -n "packaging additional sources ...... "
-	scripts/collect_sources.sh $(TOPDIR) $(BASENAME)
+	scripts/collect_sources.sh $(TOPDIR) $(shell basename $(PTXDISTDIR))
 
 archive-toolchain: virtual-xchain_install
 	$(TAR) -C $(PTXCONF_PREFIX)/.. -jcvf $(TOPDIR)/$(PTXCONF_GNU_TARGET).tar.bz2 \
 		$(shell basename $(PTXCONF_PREFIX))
 
-configs:
+.PHONY: projects
+projects:
 	@for dir in $(call remove_quotes,$(PROJECTDIRS)); do 						\
 		(cd $$dir); 										\
 		if [ "$$?" != "0" ]; then								\
@@ -604,17 +612,18 @@ configs:
 		fi											\
 	done
 	@echo
-	@for i in $(call remove_quotes,$(PROJECTDIRS)); do 						\
-		echo "PROJECT_DIR=$$i";									\
-	done
-	@echo
-	@echo "---------------------- Available PTXdist configurations: ----------------------"
+	@echo "---------------------- Available PTXdist Projects: ----------------------------"
 	@echo
 	@for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 					\
 		basename `echo $$i | perl -p -e "s/.ptxconfig/_config/g"`; 				\
 	done | sort 
 	@echo
 	@echo "-------------------------------------------------------------------------------"
+	@echo
+
+configs:
+	@echo
+	@echo "Please use 'make projects' instead of 'make configs'. Thanks."
 	@echo
 
 $(INSTALL_LOG): 
