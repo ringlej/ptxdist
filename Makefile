@@ -104,7 +104,7 @@ export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR HOST_PACKAGES CROSS
 
 all: help
 
--include $(PTXDISTWORKSPACE)/.config 
+-include $(TOPDIR)/.config 
 
 # FIXME: this should be removed some day...
 PTXCONF_TARGET_CONFIG_FILE ?= none
@@ -327,21 +327,6 @@ ptx_lxdialog:
 	fi
 	cd $(TOPDIR)/scripts/lxdialog && ln -s -f ../ptx-modifications/Makefile.lxdialog.ptx Makefile
 
-findout_config =								\
-	if [ "$(PTXDISTWORKSPACE)" != "$(TOPDIR)" ]; then			\
-		if [ -f "$(TOPDIR)/.config" ]; then				\
-			echo;							\
-			echo "Strange - you seem to build PTXdist from a ";	\
-			echo "workspace, but you have a .config file in the";	\
-			echo "PTXdist toplevel directory. Please fix that.";	\
-			echo;							\
-			exit 1;							\
-		else 								\
-			rm -f $(TOPDIR)/.config;				\
-			cp $(PTXDISTWORKSPACE)/.config $(TOPDIR)/.config;	\
-		fi;								\
-	fi
-
 scripts/lxdialog/lxdialog: ptx_lxdialog
 	make -C $(TOPDIR)/scripts/lxdialog lxdialog
 
@@ -363,7 +348,6 @@ scripts/kconfig/gconf: scripts/kconfig/libkconfig.so
 menuconfig: scripts/lxdialog/lxdialog scripts/kconfig/mconf
 	$(call findout_config)
 	cd $(TOPDIR) && scripts/kconfig/mconf $(MENU)
-	cp $(TOPDIR)/.config $(PTXDISTWORKSPACE)/.config
 
 xconfig: scripts/kconfig/qconf
 	$(call findout_config)
@@ -405,7 +389,7 @@ setup: scripts/lxdialog/lxdialog scripts/kconfig/mconf
 	fi;									\
 	if [ -n "$$CFG" ]; then 						\
 		echo "using config file \"$$CFG\""; 				\
-		cp $$CFG $(PTXDISTWORKSPACE)/.config; 				\
+		cp $$CFG $(TOPDIR)/.config; 					\
 	else 									\
 		echo "could not find config file \"$@\""; 			\
 		exit 1;								\
