@@ -51,9 +51,12 @@ AWK		= awk
 PERL		= perl
 GREP		= grep
 INSTALL		= install
-PARALLELMFLAGS  = -j$(shell if [ -r /proc/cpuinfo ];			\
-	then echo `cat /proc/cpuinfo | grep 'processor' | wc -l`;	\
-		else echo 1;						\
+PARALLELMFLAGS  = -j$(shell							\
+	if [ -r /proc/cpuinfo ];						\
+	then									\
+		echo $$((`cat /proc/cpuinfo | grep 'processor' | wc -l` * 2));	\
+	else									\
+		echo 1;								\
 	fi)
 
 ifdef PTXCONF_HOSTTOOL_FAKEROOT
