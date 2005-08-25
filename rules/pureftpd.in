@@ -1,6 +1,6 @@
-menuconfig "pureftpd            "
-	bool PUREFTPD
-	prompt "pureftpd"
+menuconfig PUREFTPD
+	bool
+	prompt "pureftpd            "
 
 config PUREFTPD_UPLOADSCRIPT
 	bool
@@ -22,5 +22,3 @@ config PUREFTPD_DIRALIASES
 	depends on PUREFTPD
 	help 
 	  Enable directory aliases
-
-endmenu
