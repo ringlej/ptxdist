@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.6-svn
-# Mon Aug  8 19:05:36 2005
+# PTXdist version: 0.7.7-rc3
+# Sun Aug 28 14:41:42 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -831,6 +831,7 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 # proftpd             
 #
 # PTXCONF_PROFTPD is not set
+# PTXCONF_PUREFTPD is not set
 
 #
 # netkit-ftp          
@@ -990,6 +991,7 @@ PTXCONF_BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE=y
 # Scientific Apps             
 #
 # PTXCONF_GNUPLOT is not set
+# PTXCONF_LIBPV is not set
 
 #
 # Web Applications            
