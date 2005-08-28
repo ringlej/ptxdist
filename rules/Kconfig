@@ -143,6 +143,8 @@ source "rules/blackbox.in"
 comment "Framebuffer"
 source "rules/fbtest.in"
 source "rules/fbutils.in"
+comment "Other Stuff"
+source "rules/fontconfig22.in"
 endmenu
 
 menu "Scientific Apps             "

@@ -36,11 +36,11 @@ bash_get_deps = \
 
 $(STATEDIR)/bash.get: $(bash_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(STATEDIR)/bash-patches.get:
 	@$(call get_patches, $(BASH))
-	touch $@
+	$(call touch, $@)
 
 $(BASH_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
 	@$(call clean $(BASH_DIR))
 	@$(call extract, $(BASH_SOURCE))
 	@$(call patchin, $(BASH))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -207,7 +207,7 @@ $(STATEDIR)/bash.prepare: $(bash_prepare_deps)
 	cd $(BASH_DIR) && \
 		$(BASH_PATH) $(BASH_ENV) \
 		./configure $(BASH_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -218,7 +218,7 @@ bash_compile: $(STATEDIR)/bash.compile
 $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare 
 	@$(call targetinfo, $@)
 	cd $(BASH_DIR) && $(BASH_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -228,7 +228,7 @@ bash_install: $(STATEDIR)/bash.install
 
 $(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -253,7 +253,7 @@ $(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.compile
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

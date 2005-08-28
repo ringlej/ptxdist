@@ -37,7 +37,7 @@ tinylogin_get_deps =  $(TINYLOGIN_SOURCE)
 
 $(STATEDIR)/tinylogin.get: $(tinylogin_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(TINYLOGIN_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/tinylogin.extract: $(STATEDIR)/tinylogin.get
 	@$(call clean, $(TINYLOGIN_DIR))
 	@$(call extract, $(TINYLOGIN_SOURCE))
 	@$(call patchin, $(TINYLOGIN))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -74,7 +74,7 @@ tinylogin_prepare_deps = \
 
 $(STATEDIR)/tinylogin.prepare: $(tinylogin_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -87,7 +87,7 @@ tinylogin_compile_deps =  $(STATEDIR)/tinylogin.prepare
 $(STATEDIR)/tinylogin.compile: $(tinylogin_compile_deps) 
 	@$(call targetinfo, $@)
 	cd $(TINYLOGIN_DIR) && $(TINYLOGIN_PATH) make $(TINYLOGIN_MAKEVARS)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -97,7 +97,7 @@ tinylogin_install: $(STATEDIR)/tinylogin.install
 
 $(STATEDIR)/tinylogin.install: $(STATEDIR)/tinylogin.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -107,7 +107,7 @@ tinylogin_targetinstall: $(STATEDIR)/tinylogin.targetinstall
 
 $(STATEDIR)/tinylogin.targetinstall: $(STATEDIR)/tinylogin.install
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

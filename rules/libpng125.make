@@ -38,12 +38,12 @@ libpng125_get_deps	=  $(LIBPNG125_SOURCE)
 
 $(STATEDIR)/libpng125.get: $(libpng125_get_deps) $(STATEDIR)/libpng125-patches.get
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(STATEDIR)/libpng125-patches.get:
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBPNG125))
-	touch $@
+	$(call touch, $@)
 
 $(LIBPNG125_SOURCE):
 	@$(call targetinfo, $@)
@@ -62,7 +62,7 @@ $(STATEDIR)/libpng125.extract: $(libpng125_extract_deps)
 	@$(call clean, $(LIBPNG125_DIR))
 	@$(call extract, $(LIBPNG125_SOURCE))
 	@$(call patchin, $(LIBPNG125))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -89,7 +89,7 @@ $(STATEDIR)/libpng125.prepare: $(libpng125_prepare_deps)
 		$(LIBPNG125_PATH) $(LIBPNG125_ENV) \
 		./configure $(LIBPNG125_AUTOCONF)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ libpng125_compile_deps += $(STATEDIR)/zlib.install
 $(STATEDIR)/libpng125.compile: $(libpng125_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBPNG125_DIR) && $(LIBPNG125_PATH) $(LIBPNG125_ENV) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -119,7 +119,7 @@ $(STATEDIR)/libpng125.install: $(STATEDIR)/libpng125.compile
 #		ln -s ../zlib.h .
 #	cd $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/libpng12 && \
 #		ln -s ../zconf.h .
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -155,7 +155,7 @@ $(STATEDIR)/libpng125.targetinstall: $(libpng125_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

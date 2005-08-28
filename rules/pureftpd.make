@@ -37,7 +37,7 @@ pureftpd_get_deps = $(PUREFTPD_SOURCE)
 $(STATEDIR)/pureftpd.get: $(pureftpd_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PUREFTPD))
-	touch $@
+	$(call touch, $@)
 
 $(PUREFTPD_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/pureftpd.extract: $(pureftpd_extract_deps)
 	@$(call clean, $(PUREFTPD_DIR))
 	@$(call extract, $(PUREFTPD_SOURCE))
 	@$(call patchin, $(PUREFTPD))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -128,7 +128,7 @@ $(STATEDIR)/pureftpd.prepare: $(pureftpd_prepare_deps)
 	cd $(PUREFTPD_DIR) && \
 		$(PUREFTPD_PATH) $(PUREFTPD_ENV) \
 		./configure $(PUREFTPD_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -141,7 +141,7 @@ pureftpd_compile_deps = $(STATEDIR)/pureftpd.prepare
 $(STATEDIR)/pureftpd.compile: $(pureftpd_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PUREFTPD_DIR) && $(PUREFTPD_ENV) $(PUREFTPD_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -152,7 +152,7 @@ pureftpd_install: $(STATEDIR)/pureftpd.install
 $(STATEDIR)/pureftpd.install: $(STATEDIR)/pureftpd.compile
 	@$(call targetinfo, $@)
 	cd $(PUREFTPD_DIR) && $(PUREFTPD_ENV) $(PUREFTPD_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -178,7 +178,7 @@ $(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

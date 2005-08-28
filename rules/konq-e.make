@@ -36,7 +36,7 @@ konq-e_get_deps	=  $(KONQ-E_SOURCE)
 
 $(STATEDIR)/konq-e.get: $(konq-e_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(KONQ-E_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/konq-e.extract: $(konq-e_extract_deps)
 	@$(call clean, $(KONQ-E_DIR))
 	@$(call extract, $(KONQ-E_SOURCE))
 	@$(call patchin, $(KONQ-E))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +87,7 @@ $(STATEDIR)/konq-e.prepare: $(konq-e_prepare_deps)
 	cd $(KONQ-E_DIR) && \
 		$(KONQ-E_PATH) $(KONQ-E_ENV) \
 		./configure $(KONQ-E_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +100,7 @@ konq-e_compile_deps =  $(STATEDIR)/konq-e.prepare
 $(STATEDIR)/konq-e.compile: $(konq-e_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(KONQ-E_DIR) && $(KONQ-E_PATH) $(KONQ-E_ENV) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,7 +112,7 @@ $(STATEDIR)/konq-e.install: $(STATEDIR)/konq-e.compile
 	@$(call targetinfo, $@)
 	# FIXME: RSC: shouldn't this be target-install? 
 	cd $(KONQ-E_DIR) && $(KONQ-E_PATH) $(KONQ-E_ENV) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -124,7 +124,7 @@ konq-e_targetinstall_deps	=  $(STATEDIR)/konq-e.compile
 
 $(STATEDIR)/konq-e.targetinstall: $(konq-e_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

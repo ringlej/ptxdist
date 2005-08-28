@@ -37,7 +37,7 @@ memstat_get_deps = $(MEMSTAT_SOURCE)
 $(STATEDIR)/memstat.get: $(memstat_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMSTAT))
-	touch $@
+	$(call touch, $@)
 
 $(MEMSTAT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/memstat.extract: $(memstat_extract_deps)
 	@$(call clean, $(MEMSTAT_DIR))
 	@$(call extract, $(MEMSTAT_SOURCE))
 	@$(call patchin, $(MEMSTAT))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -84,7 +84,7 @@ MEMSTAT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/memstat.prepare: $(memstat_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +97,7 @@ memstat_compile_deps = $(STATEDIR)/memstat.prepare
 $(STATEDIR)/memstat.compile: $(memstat_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(MEMSTAT_DIR) && $(MEMSTAT_ENV) $(MEMSTAT_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -108,7 +108,7 @@ memstat_install: $(STATEDIR)/memstat.install
 $(STATEDIR)/memstat.install: $(STATEDIR)/memstat.compile
 	@$(call targetinfo, $@)
 	cd $(MEMSTAT_DIR) && $(MEMSTAT_ENV) $(MEMSTAT_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -134,7 +134,7 @@ $(STATEDIR)/memstat.targetinstall: $(memstat_targetinstall_deps)
 	
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

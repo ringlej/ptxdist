@@ -29,7 +29,7 @@ xchain-ltt_get_deps = \
 
 $(STATEDIR)/xchain-ltt.get: $(xchain-ltt_get_geps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -41,7 +41,7 @@ xchain-ltt_extract_deps = $(STATEDIR)/ltt.extract
 
 $(STATEDIR)/xchain-ltt.extract: $(xchain-ltt_extract_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,7 +79,7 @@ $(STATEDIR)/xchain-ltt.prepare: $(xchain-ltt_prepare_deps)
 	cd $(XCHAIN_LTT_BUILDDIR) && \
 		$(XCHAIN_LTT_ENV) \
 		$(LTT_DIR)/configure $(XCHAIN_LTT_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -93,7 +93,7 @@ xchain-ltt_compile_deps = \
 $(STATEDIR)/xchain-ltt.compile: $(STATEDIR)/xchain-ltt.prepare 
 	@$(call targetinfo, $@)
 	make -C $(XCHAIN_LTT_BUILDDIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -105,7 +105,7 @@ $(STATEDIR)/xchain-ltt.install: $(STATEDIR)/xchain-ltt.compile
 	@$(call targetinfo, $@)
 	make -C $(XCHAIN_LTT_BUILDDIR)/LibLTT install
 	make -C $(XCHAIN_LTT_BUILDDIR)/Visualizer install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -115,7 +115,7 @@ xchain-ltt_targetinstall: $(STATEDIR)/xchain-ltt.targetinstall
 
 $(STATEDIR)/xchain-ltt.targetinstall:
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

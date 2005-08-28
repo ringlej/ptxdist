@@ -37,7 +37,7 @@ util-linux_get_deps	=  $(UTIL-LINUX_SOURCE)
 $(STATEDIR)/util-linux.get: $(util-linux_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(UTIL-LINUX))
-	touch $@
+	$(call touch, $@)
 
 $(UTIL-LINUX_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +58,7 @@ $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps)
 	@$(call patchin, $(UTIL-LINUX))
 
 	perl -i -p -e 's/^CPU=.*$$/CPU=$(PTXCONF_ARCH)/g' $(UTIL-LINUX_DIR)/MCONFIG
-	touch $@
+	$(call touch, $@)
 	
 # ----------------------------------------------------------------------------
 # Prepare
@@ -81,7 +81,7 @@ $(STATEDIR)/util-linux.prepare: $(util-linux_prepare_deps)
 	cd $(UTIL-LINUX_DIR) && \
 		$(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) \
 		./configure
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -122,7 +122,7 @@ endif
 ifdef PTXCONF_UTLNX_CFDISK
 	cd $(UTIL-LINUX_DIR)/fdisk && $(UTIL_LINUX_PATH) make cfdisk
 endif
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -132,7 +132,7 @@ util-linux_install: $(STATEDIR)/util-linux.install
 
 $(STATEDIR)/util-linux.install: $(STATEDIR)/util-linux.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -182,7 +182,7 @@ ifdef PTXCONF_UTLNX_CFDISK
 	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/cfdisk, /usr/sbin/cfdisk)
 endif
 	@$(call install_finish)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

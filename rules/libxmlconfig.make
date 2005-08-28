@@ -37,7 +37,7 @@ libxmlconfig_get_deps = $(LIBXMLCONFIG_SOURCE)
 $(STATEDIR)/libxmlconfig.get: $(libxmlconfig_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBXMLCONFIG))
-	touch $@
+	$(call touch, $@)
 
 $(LIBXMLCONFIG_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/libxmlconfig.extract: $(libxmlconfig_extract_deps)
 	@$(call clean, $(LIBXMLCONFIG_DIR))
 	@$(call extract, $(LIBXMLCONFIG_SOURCE))
 	@$(call patchin, $(LIBXMLCONFIG))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +87,7 @@ $(STATEDIR)/libxmlconfig.prepare: $(libxmlconfig_prepare_deps)
 	cd $(LIBXMLCONFIG_DIR) && \
 		$(LIBXMLCONFIG_PATH) $(LIBXMLCONFIG_ENV) \
 		./configure $(LIBXMLCONFIG_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +100,7 @@ libxmlconfig_compile_deps = $(STATEDIR)/libxmlconfig.prepare
 $(STATEDIR)/libxmlconfig.compile: $(libxmlconfig_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBXMLCONFIG_DIR) && $(LIBXMLCONFIG_ENV) $(LIBXMLCONFIG_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,7 +111,7 @@ libxmlconfig_install: $(STATEDIR)/libxmlconfig.install
 $(STATEDIR)/libxmlconfig.install: $(STATEDIR)/libxmlconfig.compile
 	@$(call targetinfo, $@)
 	cd $(LIBXMLCONFIG_DIR) && $(LIBXMLCONFIG_ENV) $(LIBXMLCONFIG_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -139,7 +139,7 @@ $(STATEDIR)/libxmlconfig.targetinstall: $(libxmlconfig_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

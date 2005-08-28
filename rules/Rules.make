@@ -372,6 +372,15 @@ targetinfo = 						\
 		-e "s@$(TOPDIR)@@g" 			\
 		-e "s@/@@g" >> $(DEP_OUTPUT)
 
+#
+# touch with prefix-creation
+#
+# $1: name of the target to be touched
+# 
+touch =								\
+	@mkdir -p $(shell dirname $1);				\
+	touch $1;						\
+	echo "Finished target $(shell basename $1)";
 
 #
 # extract 
@@ -408,7 +417,8 @@ extract =							\
 		;;						\
 	esac;							\
 	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
-	echo $$(basename $$PACKET) >> state/packetlist; 	\
+	mkdir -p $(STATEDIR);					\
+	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
 	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
 	[ $$? -eq 0 ] || {					\
 		echo;						\

@@ -36,7 +36,7 @@ udev_get_deps = $(UDEV_SOURCE)
 $(STATEDIR)/udev.get: $(udev_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(UDEV))
-	touch $@
+	$(call touch, $@)
 
 $(UDEV_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/udev.extract: $(udev_extract_deps)
 	@$(call clean, $(UDEV_DIR))
 	@$(call extract, $(UDEV_SOURCE))
 	@$(call patchin, $(UDEV))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -77,7 +77,7 @@ UDEV_MAKEVARS	=  CROSS=$(COMPILER_PREFIX)
 $(STATEDIR)/udev.prepare: $(udev_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UDEV_DIR)/config.cache)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -90,7 +90,7 @@ udev_compile_deps = $(STATEDIR)/udev.prepare
 $(STATEDIR)/udev.compile: $(udev_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(UDEV_DIR) && $(UDEV_ENV) $(UDEV_PATH) make $(UDEV_MAKEVARS)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -100,7 +100,7 @@ udev_install: $(STATEDIR)/udev.install
 
 $(STATEDIR)/udev.install: $(STATEDIR)/udev.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -145,7 +145,7 @@ endif
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

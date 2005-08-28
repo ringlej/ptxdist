@@ -37,7 +37,7 @@ libxslt_get_deps = $(LIBXSLT_SOURCE)
 $(STATEDIR)/libxslt.get: $(libxslt_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBXSLT))
-	touch $@
+	$(call touch, $@)
 
 $(LIBXSLT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/libxslt.extract: $(libxslt_extract_deps)
 	@$(call clean, $(LIBXSLT_DIR))
 	@$(call extract, $(LIBXSLT_SOURCE))
 	@$(call patchin, $(LIBXSLT))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -113,7 +113,7 @@ $(STATEDIR)/libxslt.prepare: $(libxslt_prepare_deps)
 	cd $(LIBXSLT_DIR) && \
 		$(LIBXSLT_PATH) $(LIBXSLT_ENV) \
 		./configure $(LIBXSLT_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -126,7 +126,7 @@ libxslt_compile_deps = $(STATEDIR)/libxslt.prepare
 $(STATEDIR)/libxslt.compile: $(libxslt_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBXSLT_DIR) && $(LIBXSLT_ENV) $(LIBXSLT_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -143,7 +143,7 @@ $(STATEDIR)/libxslt.install: $(STATEDIR)/libxslt.compile
 	# libxslt installs xslt-config to wrong path. 
 	install $(LIBXSLT_DIR)/xslt-config $(PTXCONF_PREFIX)/bin/
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -173,7 +173,7 @@ $(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

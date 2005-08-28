@@ -36,7 +36,7 @@ gail_get_deps = $(GAIL_SOURCE)
 
 $(STATEDIR)/gail.get: $(gail_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(GAIL_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/gail.extract: $(gail_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GAIL_DIR))
 	@$(call extract, $(GAIL_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/gail.prepare: $(gail_prepare_deps)
 	cd $(GAIL_DIR) && \
 		$(GAIL_PATH) $(GAIL_ENV) \
 		./configure $(GAIL_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +100,7 @@ $(STATEDIR)/gail.compile: $(gail_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(GAIL_DIR) && \
 	$(GAIL_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,7 +112,7 @@ $(STATEDIR)/gail.install: $(STATEDIR)/gail.compile
 	@$(call targetinfo, $@)
 	cd $(GAIL_DIR) && \
 	   $(GAIL_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -143,7 +143,7 @@ $(STATEDIR)/gail.targetinstall: $(gail_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

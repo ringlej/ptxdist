@@ -36,7 +36,7 @@ gtk2-engines_get_deps = $(GTK2-ENGINES_SOURCE)
 
 $(STATEDIR)/gtk2-engines.get: $(gtk2-engines_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(GTK2-ENGINES_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/gtk2-engines.extract: $(gtk2-engines_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK2-ENGINES_DIR))
 	@$(call extract, $(GTK2-ENGINES_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/gtk2-engines.prepare: $(gtk2-engines_prepare_deps)
 	cd $(GTK2-ENGINES_DIR) && \
 		$(GTK2-ENGINES_PATH) $(GTK2-ENGINES_ENV) \
 		./configure $(GTK2-ENGINES_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +99,7 @@ gtk2-engines_compile_deps = $(STATEDIR)/gtk2-engines.prepare
 $(STATEDIR)/gtk2-engines.compile: $(gtk2-engines_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(GTK2-ENGINES_DIR) && $(GTK2-ENGINES_ENV) $(GTK2-ENGINES_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,7 +110,7 @@ gtk2-engines_install: $(STATEDIR)/gtk2-engines.install
 $(STATEDIR)/gtk2-engines.install: $(STATEDIR)/gtk2-engines.compile
 	@$(call targetinfo, $@)
 	cd $(GTK2-ENGINES_DIR) && $(GTK2-ENGINES_ENV) $(GTK2-ENGINES_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -144,7 +144,7 @@ $(STATEDIR)/gtk2-engines.targetinstall: $(gtk2-engines_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

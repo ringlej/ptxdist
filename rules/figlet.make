@@ -37,7 +37,7 @@ figlet_get_deps = $(FIGLET_SOURCE)
 $(STATEDIR)/figlet.get: $(figlet_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FIGLET))
-	touch $@
+	$(call touch, $@)
 
 $(FIGLET_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/figlet.extract: $(figlet_extract_deps)
 	@$(call clean, $(FIGLET_DIR))
 	@$(call extract, $(FIGLET_SOURCE))
 	@$(call patchin, $(FIGLET))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -78,7 +78,7 @@ FIGLET_ENV	+= LDFLAGS='$(call remove_quotes,$(TARGET_LDFLAGS))'
 
 $(STATEDIR)/figlet.prepare: $(figlet_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -91,7 +91,7 @@ figlet_compile_deps = $(STATEDIR)/figlet.prepare
 $(STATEDIR)/figlet.compile: $(figlet_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(FIGLET_DIR) && $(FIGLET_ENV) $(FIGLET_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -102,7 +102,7 @@ figlet_install: $(STATEDIR)/figlet.install
 $(STATEDIR)/figlet.install: $(STATEDIR)/figlet.compile
 	@$(call targetinfo, $@)
 	cd $(FIGLET_DIR) && $(FIGLET_ENV) $(FIGLET_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -131,7 +131,7 @@ $(STATEDIR)/figlet.targetinstall: $(figlet_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

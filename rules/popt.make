@@ -38,7 +38,7 @@ popt_get_deps = $(POPT_SOURCE)
 
 $(STATEDIR)/popt.get: $(popt_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(POPT_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/popt.extract: $(popt_extract_deps)
 	@$(call clean, $(POPT_DIR))
 	@$(call extract, $(POPT_SOURCE))
 	@$(call patchin, $(POPT))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -89,7 +89,7 @@ $(STATEDIR)/popt.prepare: $(popt_prepare_deps)
 	cd $(POPT_DIR) && \
 		$(POPT_PATH) $(POPT_ENV) \
 		./configure $(POPT_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +102,7 @@ popt_compile_deps = $(STATEDIR)/popt.prepare
 $(STATEDIR)/popt.compile: $(popt_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(POPT_DIR) && $(POPT_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,7 +113,7 @@ popt_install: $(STATEDIR)/popt.install
 $(STATEDIR)/popt.install: $(STATEDIR)/popt.compile
 	@$(call targetinfo, $@)
 	cd $(POPT_DIR) && $(POPT_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -125,7 +125,7 @@ popt_targetinstall_deps	= $(STATEDIR)/popt.compile
 
 $(STATEDIR)/popt.targetinstall: $(popt_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

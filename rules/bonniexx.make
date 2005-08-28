@@ -37,7 +37,7 @@ bonniexx_get_deps = $(BONNIEXX_SOURCE)
 $(STATEDIR)/bonniexx.get: $(bonniexx_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BONNIEXX))
-	touch $@
+	$(call touch, $@)
 
 $(BONNIEXX_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/bonniexx.extract: $(bonniexx_extract_deps)
 	@$(call clean, $(BONNIEXX_DIR))
 	@$(call extract, $(BONNIEXX_SOURCE))
 	@$(call patchin, $(BONNIEXX))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -88,7 +88,7 @@ $(STATEDIR)/bonniexx.prepare: $(bonniexx_prepare_deps)
 	cd $(BONNIEXX_DIR) && \
 		$(BONNIEXX_PATH) $(BONNIEXX_ENV) \
 		./configure $(BONNIEXX_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ bonniexx_compile_deps = $(STATEDIR)/bonniexx.prepare
 $(STATEDIR)/bonniexx.compile: $(bonniexx_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(BONNIEXX_DIR) && $(BONNIEXX_ENV) $(BONNIEXX_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,7 +112,7 @@ bonniexx_install: $(STATEDIR)/bonniexx.install
 $(STATEDIR)/bonniexx.install: $(STATEDIR)/bonniexx.compile
 	@$(call targetinfo, $@)
 	cd $(BONNIEXX_DIR) && $(BONNIEXX_ENV) $(BONNIEXX_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -138,7 +138,7 @@ $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps)
 
 	@$(call install_finish)
 	
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

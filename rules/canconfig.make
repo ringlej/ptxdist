@@ -37,7 +37,7 @@ canconfig_get_deps = $(CANCONFIG_SOURCE)
 $(STATEDIR)/canconfig.get: $(canconfig_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CANCONFIG))
-	touch $@
+	$(call touch, $@)
 
 $(CANCONFIG_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/canconfig.extract: $(canconfig_extract_deps)
 	@$(call clean, $(CANCONFIG_DIR))
 	@$(call extract, $(CANCONFIG_SOURCE))
 	@$(call patchin, $(CANCONFIG))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,7 +79,7 @@ CANCONFIG_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/canconfig.prepare: $(canconfig_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -92,7 +92,7 @@ canconfig_compile_deps = $(STATEDIR)/canconfig.prepare
 $(STATEDIR)/canconfig.compile: $(canconfig_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(CANCONFIG_DIR) && $(CANCONFIG_ENV) $(CANCONFIG_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -102,7 +102,7 @@ canconfig_install: $(STATEDIR)/canconfig.install
 
 $(STATEDIR)/canconfig.install: $(STATEDIR)/canconfig.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -128,7 +128,7 @@ $(STATEDIR)/canconfig.targetinstall: $(canconfig_targetinstall_deps)
 
 	@$(call install_finish)
 	
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

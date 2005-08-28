@@ -37,7 +37,7 @@ dialog_get_deps = $(DIALOG_SOURCE)
 $(STATEDIR)/dialog.get: $(dialog_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DIALOG))
-	touch $@
+	$(call touch, $@)
 
 $(DIALOG_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/dialog.extract: $(dialog_extract_deps)
 	@$(call clean, $(DIALOG_DIR))
 	@$(call extract, $(DIALOG_SOURCE))
 	@$(call patchin, $(DIALOG))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -88,7 +88,7 @@ $(STATEDIR)/dialog.prepare: $(dialog_prepare_deps)
 	cd $(DIALOG_DIR) && \
 		$(DIALOG_PATH) $(DIALOG_ENV) \
 		./configure $(DIALOG_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ dialog_compile_deps = $(STATEDIR)/dialog.prepare
 $(STATEDIR)/dialog.compile: $(dialog_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(DIALOG_DIR) && $(DIALOG_ENV) $(DIALOG_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,7 +112,7 @@ dialog_install: $(STATEDIR)/dialog.install
 $(STATEDIR)/dialog.install: $(STATEDIR)/dialog.compile
 	@$(call targetinfo, $@)
 	cd $(DIALOG_DIR) && $(DIALOG_ENV) $(DIALOG_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -125,7 +125,7 @@ dialog_targetinstall_deps = $(STATEDIR)/dialog.compile
 $(STATEDIR)/dialog.targetinstall: $(dialog_targetinstall_deps)
 	@$(call targetinfo, $@)
 	# FIXME: RSC: nothing to do on targetinstall? 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

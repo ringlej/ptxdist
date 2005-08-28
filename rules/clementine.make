@@ -36,7 +36,7 @@ clementine_get_deps	=  $(CLEMENTINE_SOURCE)
 
 $(STATEDIR)/clementine.get: $(clementine_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(CLEMENTINE_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/clementine.extract: $(clementine_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CLEMENTINE_DIR))
 	@$(call extract, $(CLEMENTINE_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -76,7 +76,7 @@ CLEMENTINE_ENV 	=  $(CROSS_ENV)
 $(STATEDIR)/clementine.prepare: $(clementine_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CLEMENTINE_BUILDDIR))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -89,7 +89,7 @@ clementine_compile_deps =  $(STATEDIR)/clementine.prepare
 $(STATEDIR)/clementine.compile: $(clementine_compile_deps)
 	@$(call targetinfo, $@)
 	$(CLEMENTINE_PATH) $(CLEMENTINE_ENV) make -C $(CLEMENTINE_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -99,7 +99,7 @@ clementine_install: $(STATEDIR)/clementine.install
 
 $(STATEDIR)/clementine.install: $(STATEDIR)/clementine.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -125,7 +125,7 @@ $(STATEDIR)/clementine.targetinstall: $(clementine_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

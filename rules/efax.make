@@ -37,7 +37,7 @@ efax_get_deps = $(EFAX_SOURCE)
 $(STATEDIR)/efax.get: $(efax_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(EFAX))
-	touch $@
+	$(call touch, $@)
 
 $(EFAX_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/efax.extract: $(efax_extract_deps)
 	@$(call clean, $(EFAX_DIR))
 	@$(call extract, $(EFAX_SOURCE))
 	@$(call patchin, $(EFAX))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -85,7 +85,7 @@ EFAX_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 $(STATEDIR)/efax.prepare: $(efax_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EFAX_DIR)/config.cache)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -98,7 +98,7 @@ efax_compile_deps = $(STATEDIR)/efax.prepare
 $(STATEDIR)/efax.compile: $(efax_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(EFAX_DIR) && $(EFAX_ENV) $(EFAX_PATH) make all
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -108,7 +108,7 @@ efax_install: $(STATEDIR)/efax.install
 
 $(STATEDIR)/efax.install: $(STATEDIR)/efax.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -135,7 +135,7 @@ $(STATEDIR)/efax.targetinstall: $(efax_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

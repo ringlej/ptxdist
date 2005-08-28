@@ -40,7 +40,7 @@ dosfstools_get_deps = $(DOSFSTOOLS_SOURCE)
 $(STATEDIR)/dosfstools.get: $(dosfstools_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DOSFSTOOLS))
-	touch $@
+	$(call touch, $@)
 
 $(DOSFSTOOLS_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +59,7 @@ $(STATEDIR)/dosfstools.extract: $(dosfstools_extract_deps)
 	@$(call clean, $(DOSFSTOOLS_DIR))
 	@$(call extract, $(DOSFSTOOLS_SOURCE))
 	@$(call patchin, $(DOSFSTOOLS))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,7 +79,7 @@ DOSFSTOOLS_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/dosfstools.prepare: $(dosfstools_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -93,7 +93,7 @@ $(STATEDIR)/dosfstools.compile: $(dosfstools_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(DOSFSTOOLS_DIR) && $(DOSFSTOOLS_ENV) $(DOSFSTOOLS_PATH) \
 		make CC=$(COMPILER_PREFIX)gcc
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -104,7 +104,7 @@ dosfstools_install: $(STATEDIR)/dosfstools.install
 $(STATEDIR)/dosfstools.install: $(STATEDIR)/dosfstools.compile
 	@$(call targetinfo, $@)
 	#cd $(DOSFSTOOLS_DIR) && $(DOSFSTOOLS_ENV) $(DOSFSTOOLS_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -135,7 +135,7 @@ endif
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

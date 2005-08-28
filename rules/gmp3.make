@@ -26,7 +26,7 @@ gmp3_get: $(STATEDIR)/gmp3.get
 
 $(STATEDIR)/gmp3.get: $(GMP3_SOURCE)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(GMP3_SOURCE):
 	@$(call targetinfo, $@)
@@ -42,7 +42,7 @@ $(STATEDIR)/gmp3.extract: $(STATEDIR)/gmp3.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(GMP3_DIR))
 	@$(call extract, $(GMP3_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -67,7 +67,7 @@ $(STATEDIR)/gmp3.prepare: $(gmp3_prepare_deps)
 	cd $(GMP3_DIR) && \
 		$(GMP3_PATH) $(GMP3_ENV) \
 		./configure $(GMP3_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -78,7 +78,7 @@ gmp3_compile: $(STATEDIR)/gmp3.compile
 $(STATEDIR)/gmp3.compile: $(STATEDIR)/gmp3.prepare 
 	@$(call targetinfo, $@)
 	$(GMP3_PATH) make -C $(GMP3_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -89,7 +89,7 @@ gmp3_install: $(STATEDIR)/gmp3.install
 $(STATEDIR)/gmp3.install: $(STATEDIR)/gmp3.compile
 	@$(call targetinfo, $@)
 	$(GMP3_PATH) make -C $(GMP3_DIR) install 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -113,7 +113,7 @@ $(STATEDIR)/gmp3.targetinstall: $(STATEDIR)/gmp3.install
 	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/lib/libgmp.so*, /usr/lib/)
 
 	@$(call install_finish)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

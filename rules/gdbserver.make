@@ -27,7 +27,7 @@ gdbserver_get: $(STATEDIR)/gdbserver.get
 
 $(STATEDIR)/gdbserver.get: $(gdb_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -37,7 +37,7 @@ gdbserver_extract: $(STATEDIR)/gdbserver.extract
 
 $(STATEDIR)/gdbserver.extract: $(STATEDIR)/gdb.extract
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -70,7 +70,7 @@ $(STATEDIR)/gdbserver.prepare: $(gdbserver_prepare_deps)
 #
 	cd $(GDBSERVER_BUILDDIR) && $(GDBSERVER_PATH) $(GDBSERVER_ENV) \
 		sh $(GDB_DIR)/gdb/gdbserver/configure $(GDBSERVER_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -81,7 +81,7 @@ gdbserver_compile: $(STATEDIR)/gdbserver.compile
 $(STATEDIR)/gdbserver.compile: $(STATEDIR)/gdbserver.prepare 
 	@$(call targetinfo, $@)
 	$(GDBSERVER_PATH) make -C $(GDBSERVER_BUILDDIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -91,7 +91,7 @@ gdbserver_install: $(STATEDIR)/gdbserver.install
 
 $(STATEDIR)/gdbserver.install:
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -115,7 +115,7 @@ $(STATEDIR)/gdbserver.targetinstall: $(STATEDIR)/gdbserver.compile
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

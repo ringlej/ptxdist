@@ -34,7 +34,7 @@ ncurses_get: $(STATEDIR)/ncurses.get
 $(STATEDIR)/ncurses.get: $(NCURSES_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NCURSES))
-	touch $@
+	$(call touch, $@)
 
 $(NCURSES_SOURCE):
 	@$(call targetinfo, $@)
@@ -51,7 +51,7 @@ $(STATEDIR)/ncurses.extract: $(STATEDIR)/ncurses.get
 	@$(call clean, $(NCURSES_DIR))
 	@$(call extract, $(NCURSES_SOURCE))
 	@$(call patchin, $(NCURSES))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -103,7 +103,7 @@ $(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps)
 	cd $(NCURSES_DIR) && \
 		$(NCURSES_PATH) $(NCURSES_ENV) \
 		./configure $(NCURSES_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -122,7 +122,7 @@ $(STATEDIR)/ncurses.compile: $(STATEDIR)/ncurses.prepare
 #
 	cd $(NCURSES_DIR)/ncurses && $(NCURSES_PATH) make CFLAGS='' CXXFLAGS='' make_hash make_keys
 	cd $(NCURSES_DIR) && $(NCURSES_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -133,7 +133,7 @@ ncurses_install: $(STATEDIR)/ncurses.install
 $(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
 	@$(call targetinfo, $@)
 	$(NCURSES_PATH) make -C $(NCURSES_DIR) DESTDIR=$(CROSS_LIB_DIR) prefix='' exec_prefix='' install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -189,7 +189,7 @@ endif
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

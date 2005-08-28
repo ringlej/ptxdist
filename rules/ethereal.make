@@ -37,7 +37,7 @@ ethereal_get_deps = $(ETHEREAL_SOURCE)
 $(STATEDIR)/ethereal.get: $(ethereal_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(ETHEREAL))
-	touch $@
+	$(call touch, $@)
 
 $(ETHEREAL_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/ethereal.extract: $(ethereal_extract_deps)
 	@$(call clean, $(ETHEREAL_DIR))
 	@$(call extract, $(ETHEREAL_SOURCE))
 	@$(call patchin, $(ETHEREAL))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -113,7 +113,7 @@ $(STATEDIR)/ethereal.prepare: $(ethereal_prepare_deps)
 	cd $(ETHEREAL_DIR) && \
 		$(ETHEREAL_PATH) $(ETHEREAL_ENV) \
 		./configure $(ETHEREAL_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -126,7 +126,7 @@ ethereal_compile_deps = $(STATEDIR)/ethereal.prepare
 $(STATEDIR)/ethereal.compile: $(ethereal_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(ETHEREAL_DIR) && $(ETHEREAL_ENV) $(ETHEREAL_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -138,7 +138,7 @@ $(STATEDIR)/ethereal.install: $(STATEDIR)/ethereal.compile
 	@$(call targetinfo, $@)
 	# FIXME: RSC: why do we do that on install, not on targetinstall? 
 	cd $(ETHEREAL_DIR) && $(ETHEREAL_ENV) $(ETHEREAL_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -151,7 +151,7 @@ ethereal_targetinstall_deps += $(STATEDIR)/libpcap.targetinstall
 
 $(STATEDIR)/ethereal.targetinstall: $(ethereal_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

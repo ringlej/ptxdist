@@ -36,7 +36,7 @@ chrony_get_deps = $(CHRONY_SOURCE)
 $(STATEDIR)/chrony.get: $(chrony_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CHRONY))
-	touch $@
+	$(call touch, $@)
 
 $(CHRONY_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/chrony.extract: $(chrony_extract_deps)
 	@$(call clean, $(CHRONY_DIR))
 	@$(call extract, $(CHRONY_SOURCE))
 	@$(call patchin, $(CHRONY))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -88,7 +88,7 @@ $(STATEDIR)/chrony.prepare: $(chrony_prepare_deps)
 	cd $(CHRONY_DIR) && \
 		$(CHRONY_PATH) $(CHRONY_ENV) \
 		sh configure $(CHRONY_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ chrony_compile_deps = $(STATEDIR)/chrony.prepare
 $(STATEDIR)/chrony.compile: $(chrony_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(CHRONY_DIR) && $(CHRONY_ENV) $(CHRONY_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,7 +112,7 @@ chrony_install: $(STATEDIR)/chrony.install
 $(STATEDIR)/chrony.install: $(STATEDIR)/chrony.compile
 	@$(call targetinfo, $@)
 	cd $(CHRONY_DIR) && $(CHRONY_ENV) $(CHRONY_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +140,7 @@ $(STATEDIR)/chrony.targetinstall: $(chrony_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

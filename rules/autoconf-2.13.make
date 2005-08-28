@@ -31,7 +31,7 @@ autoconf213_get: $(STATEDIR)/autoconf213.get
 
 $(STATEDIR)/autoconf213.get: $(AUTOCONF213_SOURCE)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(AUTOCONF213_SOURCE):
 	@$(call targetinfo, $@)
@@ -47,7 +47,7 @@ $(STATEDIR)/autoconf213.extract: $(STATEDIR)/autoconf213.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(AUTOCONF213_DIR))
 	@$(call extract, $(AUTOCONF213_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -62,7 +62,7 @@ $(STATEDIR)/autoconf213.prepare: $(STATEDIR)/autoconf213.extract
 	cd $(AUTOCONF213_DIR) && \
 		$(AUTOCONF213_ENV) \
 		./configure --prefix=$(PTXCONF_PREFIX)/$(AUTOCONF213)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -73,7 +73,7 @@ autoconf213_compile: $(STATEDIR)/autoconf213.compile
 $(STATEDIR)/autoconf213.compile: $(STATEDIR)/autoconf213.prepare 
 	@$(call targetinfo, $@)
 	make -C $(AUTOCONF213_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -84,7 +84,7 @@ autoconf213_install: $(STATEDIR)/autoconf213.install
 $(STATEDIR)/autoconf213.install: $(STATEDIR)/autoconf213.compile
 	@$(call targetinfo, $@)
 	make -C $(AUTOCONF213_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -94,7 +94,7 @@ autoconf213_targetinstall: $(STATEDIR)/autoconf213.targetinstall
 
 $(STATEDIR)/autoconf213.targetinstall: $(STATEDIR)/autoconf213.install
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

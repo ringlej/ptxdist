@@ -32,7 +32,7 @@ zlib_get: $(STATEDIR)/zlib.get
 
 $(STATEDIR)/zlib.get: $(ZLIB_SOURCE)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(ZLIB_SOURCE):
 	@$(call targetinfo, $@)
@@ -48,7 +48,7 @@ $(STATEDIR)/zlib.extract: $(STATEDIR)/zlib.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(ZLIB_DIR))
 	@$(call extract, $(ZLIB_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -67,7 +67,7 @@ ZLIB_AUTOCONF 	= --shared --prefix=$(CROSS_LIB_DIR)
 $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps)
 	@$(call targetinfo, $@)
 	cd $(ZLIB_DIR) && $(ZLIB_ENV) $(ZLIB_PATH) ./configure $(ZLIB_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -78,7 +78,7 @@ zlib_compile: $(STATEDIR)/zlib.compile
 $(STATEDIR)/zlib.compile: $(STATEDIR)/zlib.prepare 
 	@$(call targetinfo, $@)
 	$(ZLIB_ENV) $(ZLIB_PATH) cd $(ZLIB_DIR) && make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -90,7 +90,7 @@ $(STATEDIR)/zlib.install: $(STATEDIR)/zlib.compile
 	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 	cd $(ZLIB_DIR) && $(ZLIB_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -116,7 +116,7 @@ $(STATEDIR)/zlib.targetinstall: $(STATEDIR)/zlib.install
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

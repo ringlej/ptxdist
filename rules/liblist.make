@@ -37,7 +37,7 @@ liblist_get_deps = $(LIBLIST_SOURCE)
 $(STATEDIR)/liblist.get: $(liblist_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBLIST))
-	touch $@
+	$(call touch, $@)
 
 $(LIBLIST_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/liblist.extract: $(liblist_extract_deps)
 	@$(call clean, $(LIBLIST_DIR))
 	@$(call extract, $(LIBLIST_SOURCE))
 	@$(call patchin, $(LIBLIST))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -88,7 +88,7 @@ $(STATEDIR)/liblist.prepare: $(liblist_prepare_deps)
 	cd $(LIBLIST_DIR) && \
 		$(LIBLIST_PATH) $(LIBLIST_ENV) \
 		./configure $(LIBLIST_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ liblist_compile_deps = $(STATEDIR)/liblist.prepare
 $(STATEDIR)/liblist.compile: $(liblist_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBLIST_DIR) && $(LIBLIST_ENV) $(LIBLIST_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,7 +112,7 @@ liblist_install: $(STATEDIR)/liblist.install
 $(STATEDIR)/liblist.install: $(STATEDIR)/liblist.compile
 	@$(call targetinfo, $@)
 	cd $(LIBLIST_DIR) && $(LIBLIST_ENV) $(LIBLIST_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +140,7 @@ $(STATEDIR)/liblist.targetinstall: $(liblist_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

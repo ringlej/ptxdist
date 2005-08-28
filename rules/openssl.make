@@ -63,7 +63,7 @@ openssl_get: $(STATEDIR)/openssl.get
 $(STATEDIR)/openssl.get: $(OPENSSL_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OPENSSL))
-	touch $@
+	$(call touch, $@)
 
 $(OPENSSL_SOURCE):
 	@$(call targetinfo, $@)
@@ -80,7 +80,7 @@ $(STATEDIR)/openssl.extract: $(STATEDIR)/openssl.get
 	@$(call clean, $(OPENSSL_DIR))
 	@$(call extract, $(OPENSSL_SOURCE))
 	@$(call patchin, $(OPENSSL))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -114,7 +114,7 @@ $(STATEDIR)/openssl.prepare: $(openssl_prepare_deps)
 	cd $(OPENSSL_DIR) && \
 		$(OPENSSL_PATH) \
 		./Configure $(THUD) $(OPENSSL_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -129,7 +129,7 @@ $(STATEDIR)/openssl.compile: $(STATEDIR)/openssl.prepare
 #
 	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) make INSTALLTOP=$(CROSS_LIB_DIR) openssl.pc
 	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) make $(OPENSSL_MAKEVARS)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -152,7 +152,7 @@ $(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
 # FIXME:
 # 	OPENSSL=${D}/usr/bin/openssl /usr/bin/perl tools/c_rehash ${D}/etc/ssl/certs
 #
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -185,7 +185,7 @@ ifdef PTXCONF_OPENSSL_SHARED
 	@$(call install_link, libcrypto.so.0.9.7, /usr/lib/libcrypto.so)
 endif
 	@$(call install_finish)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

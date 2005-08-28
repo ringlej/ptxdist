@@ -38,7 +38,7 @@ pcre_get_deps = $(PCRE_SOURCE)
 $(STATEDIR)/pcre.get: $(pcre_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PCRE))
-	touch $@
+	$(call touch, $@)
 
 $(PCRE_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/pcre.extract: $(pcre_extract_deps)
 	@$(call clean, $(PCRE_DIR))
 	@$(call extract, $(PCRE_SOURCE))
 	@$(call patchin, $(PCRE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -95,7 +95,7 @@ $(STATEDIR)/pcre.prepare: $(pcre_prepare_deps)
 	# Hack: libtool wants --tag=C when linking host side tools
 	perl -i -p -e 's/LINK_FOR_BUILD = \$$\(LIBTOOL\)/LINK_FOR_BUILD = \$$\(LIBTOOL\) --tag=C/g' $(PCRE_DIR)/Makefile	
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -108,7 +108,7 @@ pcre_compile_deps = $(STATEDIR)/pcre.prepare
 $(STATEDIR)/pcre.compile: $(pcre_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PCRE_DIR) && $(PCRE_ENV) $(PCRE_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -119,7 +119,7 @@ pcre_install: $(STATEDIR)/pcre.install
 $(STATEDIR)/pcre.install: $(STATEDIR)/pcre.compile
 	@$(call targetinfo, $@)
 	cd $(PCRE_DIR) && $(PCRE_ENV) $(PCRE_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -150,7 +150,7 @@ $(STATEDIR)/pcre.targetinstall: $(pcre_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

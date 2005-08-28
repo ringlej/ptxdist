@@ -37,7 +37,7 @@ glib26_get_deps	=  $(GLIB26_SOURCE)
 
 $(STATEDIR)/glib26.get: $(glib26_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(GLIB26_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/glib26.extract: $(glib26_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB26_DIR))
 	@$(call extract, $(GLIB26_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -97,7 +97,7 @@ $(STATEDIR)/glib26.prepare: $(glib26_prepare_deps)
 	cd $(GLIB26_DIR) && \
 		$(GLIB26_PATH) $(GLIB26_ENV) \
 		./configure $(GLIB26_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -110,7 +110,7 @@ glib26_compile_deps =  $(STATEDIR)/glib26.prepare
 $(STATEDIR)/glib26.compile: $(glib26_compile_deps)
 	@$(call targetinfo, $@)
 	$(GLIB26_PATH) $(GLIB26_ENV) make -C $(GLIB26_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -121,7 +121,7 @@ glib26_install: $(STATEDIR)/glib26.install
 $(STATEDIR)/glib26.install: $(STATEDIR)/glib26.compile
 	@$(call targetinfo, $@)
 	$(GLIB26_PATH) $(GLIB26_ENV) make -C $(GLIB26_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -161,7 +161,7 @@ $(STATEDIR)/glib26.targetinstall: $(glib26_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

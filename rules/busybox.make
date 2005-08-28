@@ -37,7 +37,7 @@ busybox_get_deps	=  $(BUSYBOX_SOURCE)
 $(STATEDIR)/busybox.get: $(busybox_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BUSYBOX))
-	touch $@
+	$(call touch, $@)
 
 $(BUSYBOX_SOURCE):
 	@$(call targetinfo, $@)
@@ -60,7 +60,7 @@ $(STATEDIR)/busybox.extract: $(busybox_extract_deps)
 #	# fix: turn off debugging in init.c
 	perl -i -p -e 's/^#define DEBUG_INIT/#undef DEBUG_INIT/g' $(BUSYBOX_DIR)/init/init.c
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -102,7 +102,7 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	yes "" | $(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) dep $(BUSYBOX_MAKEVARS)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -115,7 +115,7 @@ busybox_compile_deps =  $(STATEDIR)/busybox.prepare
 $(STATEDIR)/busybox.compile: $(busybox_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) make $(BUSYBOX_MAKEVARS)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -125,7 +125,7 @@ busybox_install: $(STATEDIR)/busybox.install
 
 $(STATEDIR)/busybox.install: $(STATEDIR)/busybox.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -158,7 +158,7 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 
 	@$(call install_finish)
 	
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -32,7 +32,7 @@ coreutils_get: $(STATEDIR)/coreutils.get
 
 $(STATEDIR)/coreutils.get: $(COREUTILS_SOURCE)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(COREUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -49,7 +49,7 @@ $(STATEDIR)/coreutils.extract: $(STATEDIR)/coreutils.get
 	@$(call clean, $(COREUTILS_DIR))
 	@$(call extract, $(COREUTILS_SOURCE))
 	@$(call patchin, $(COREUTILS))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/coreutils.prepare: $(coreutils_prepare_deps)
 
 	cd $(COREUTILS_DIR)/src && make localedir.h
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -111,7 +111,7 @@ endif
 ifdef PTXCONF_COREUTILS_SEQ
 	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src seq
 endif
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -121,7 +121,7 @@ coreutils_install: $(STATEDIR)/coreutils.install
 
 $(STATEDIR)/coreutils.install:
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -156,7 +156,7 @@ endif
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

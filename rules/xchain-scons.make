@@ -36,7 +36,7 @@ xchain-scons_get_deps = $(XCHAIN-SCONS_SOURCE)
 
 $(STATEDIR)/xchain-scons.get: $(xchain-scons_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(XCHAIN-SCONS_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/xchain-scons.extract: $(xchain-scons_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN-SCONS_DIR))
 	@$(call extract, $(XCHAIN-SCONS_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -70,7 +70,7 @@ xchain-scons_prepare_deps =  \
 
 $(STATEDIR)/xchain-scons.prepare: $(xchain-scons_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -82,7 +82,7 @@ xchain-scons_compile_deps = $(STATEDIR)/xchain-scons.prepare
 
 $(STATEDIR)/xchain-scons.compile: $(xchain-scons_compile_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -94,7 +94,7 @@ $(STATEDIR)/xchain-scons.install: $(STATEDIR)/xchain-scons.compile
 	@$(call targetinfo, $@)
 	cd $(XCHAIN-SCONS_DIR) && \
 		python setup.py install --prefix=$(PTXCONF_PREFIX)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -106,7 +106,7 @@ xchain-scons_targetinstall_deps	= $(STATEDIR)/xchain-scons.install
 
 $(STATEDIR)/xchain-scons.targetinstall: $(xchain-scons_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

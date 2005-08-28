@@ -37,7 +37,7 @@ libpcap_get_deps = $(LIBPCAP_SOURCE)
 $(STATEDIR)/libpcap.get: $(libpcap_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBPCAP))
-	touch $@
+	$(call touch, $@)
 
 $(LIBPCAP_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/libpcap.extract: $(libpcap_extract_deps)
 	@$(call clean, $(LIBPCAP_DIR))
 	@$(call extract, $(LIBPCAP_SOURCE))
 	@$(call patchin, $(LIBPCAP))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -89,7 +89,7 @@ $(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps)
 	cd $(LIBPCAP_DIR) && \
 		$(LIBPCAP_PATH) $(LIBPCAP_ENV) \
 		./configure $(LIBPCAP_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +102,7 @@ libpcap_compile_deps = $(STATEDIR)/libpcap.prepare
 $(STATEDIR)/libpcap.compile: $(libpcap_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBPCAP_DIR) && $(LIBPCAP_PATH) make 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,7 +114,7 @@ $(STATEDIR)/libpcap.install: $(STATEDIR)/libpcap.compile
 	@$(call targetinfo, $@)
 	# FIXME: shoudldn' that run on targetinstall? 
 	cd $(LIBPCAP_DIR) && $(LIBPCAP_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -126,7 +126,7 @@ libpcap_targetinstall_deps =  $(STATEDIR)/libpcap.install
 
 $(STATEDIR)/libpcap.targetinstall: $(libpcap_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

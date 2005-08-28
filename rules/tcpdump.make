@@ -37,7 +37,7 @@ tcpdump_get_deps = $(TCPDUMP_SOURCE)
 $(STATEDIR)/tcpdump.get: $(tcpdump_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TCPDUMP))
-	touch $@
+	$(call touch, $@)
 
 $(TCPDUMP_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/tcpdump.extract: $(tcpdump_extract_deps)
 	@$(call clean, $(TCPDUMP_DIR))
 	@$(call extract, $(TCPDUMP_SOURCE), $(BUILDDIR))
 	@$(call patchin, $(TCPDUMP))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -96,7 +96,7 @@ $(STATEDIR)/tcpdump.prepare: $(tcpdump_prepare_deps)
 	cd $(TCPDUMP_DIR) && \
 		$(TCPDUMP_PATH) $(TCPDUMP_ENV) \
 		./configure $(TCPDUMP_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -109,7 +109,7 @@ tcpdump_compile_deps = $(STATEDIR)/tcpdump.prepare
 $(STATEDIR)/tcpdump.compile: $(tcpdump_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(TCPDUMP_DIR) && $(TCPDUMP_ENV) $(TCPDUMP_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -120,7 +120,7 @@ tcpdump_install: $(STATEDIR)/tcpdump.install
 $(STATEDIR)/tcpdump.install: $(STATEDIR)/tcpdump.compile
 	@$(call targetinfo, $@)
 	cd $(TCPDUMP_DIR) && $(TCPDUMP_ENV) $(TCPDUMP_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -147,7 +147,7 @@ $(STATEDIR)/tcpdump.targetinstall: $(tcpdump_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

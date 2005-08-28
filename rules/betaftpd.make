@@ -37,7 +37,7 @@ betaftpd_get_deps = $(BETAFTPD_SOURCE)
 $(STATEDIR)/betaftpd.get: $(betaftpd_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BETAFTPD))
-	touch $@
+	$(call touch, $@)
 
 $(BETAFTPD_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/betaftpd.extract: $(betaftpd_extract_deps)
 	@$(call clean, $(BETAFTPD_DIR))
 	@$(call extract, $(BETAFTPD_SOURCE))
 	@$(call patchin, $(BETAFTPD))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +87,7 @@ $(STATEDIR)/betaftpd.prepare: $(betaftpd_prepare_deps)
 	cd $(BETAFTPD_DIR) && \
 		$(BETAFTPD_PATH) $(BETAFTPD_ENV) \
 		./configure $(BETAFTPD_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +100,7 @@ betaftpd_compile_deps = $(STATEDIR)/betaftpd.prepare
 $(STATEDIR)/betaftpd.compile: $(betaftpd_compile_deps)
 	@$(call targetinfo, $@)
 	$(BETAFTPD_PATH) make -C $(BETAFTPD_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,7 +112,7 @@ $(STATEDIR)/betaftpd.install: $(STATEDIR)/betaftpd.compile
 	@$(call targetinfo, $@)
 	# RSC: FIXME: is it correct that we only install and do not targetinstall? 
 	cd $(BETAFTPD_DIR) && $(BETAFTPD_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -124,7 +124,7 @@ betaftpd_targetinstall_deps = $(STATEDIR)/betaftpd.install
 
 $(STATEDIR)/betaftpd.targetinstall: $(betaftpd_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

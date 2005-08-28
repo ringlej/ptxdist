@@ -37,7 +37,7 @@ hosttool-e2fsprogs_get: $(STATEDIR)/hosttool-e2fsprogs.get
 $(STATEDIR)/hosttool-e2fsprogs.get: $(HOSTTOOL_E2FSPROGS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL_E2FSPROGS))
-	touch $@
+	$(call touch, $@)
 
 $(HOSTTOOL_E2FSPROGS_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/hosttool-e2fsprogs.extract: $(STATEDIR)/hosttool-e2fsprogs.get
 	@$(call extract, $(HOSTTOOL_E2FSPROGS_SOURCE) , $(BUILDDIR)/hosttool/ )
 	@$(call patchin, $(HOSTTOOL_E2FSPROGS), $(HOSTTOOL_E2FSPROGS_DIR) )
 	chmod +w $(HOSTTOOL_E2FSPROGS_DIR)/po/*.po
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -83,7 +83,7 @@ $(STATEDIR)/hosttool-e2fsprogs.prepare: $(hosttool-e2fsprogs_prepare_deps)
 	cd $(HOSTTOOL_E2FSPROGS_BUILD_DIR) && \
 		$(HOSTTOOL_E2FSPROGS_PATH) $(HOSTTOOL_E2FSPROGS_ENV) \
 		$(HOSTTOOL_E2FSPROGS_DIR)/configure $(HOSTTOOL_E2FSPROGS_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -104,7 +104,7 @@ $(STATEDIR)/hosttool-e2fsprogs.compile: $(hosttool-e2fsprogs_compile_deps)
 #
 	$(HOSTTOOL_E2FSPROGS_PATH) make -C $(HOSTTOOL_E2FSPROGS_BUILD_DIR)/util
 	$(HOSTTOOL_E2FSPROGS_PATH) make -C $(HOSTTOOL_E2FSPROGS_BUILD_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,7 +114,7 @@ hosttool-e2fsprogs_install: $(STATEDIR)/hosttool-e2fsprogs.install
 
 $(STATEDIR)/hosttool-e2fsprogs.install:
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Hosttool Install
@@ -131,7 +131,7 @@ endif
 ifdef PTXCONF_HOSTTOOL_E2FSPROGS_RESIZE2FS
 	install -D $(HOSTTOOL_E2FSPROGS_BUILD_DIR)/resize/resize2fs $(PTXCONF_PREFIX)/sbin/resize2fs
 endif
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

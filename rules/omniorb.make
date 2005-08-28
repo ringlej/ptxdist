@@ -39,7 +39,7 @@ omniorb_get_deps = $(OMNIORB_SOURCE)
 $(STATEDIR)/omniorb.get: $(omniorb_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OMNIORB))
-	touch $@
+	$(call touch, $@)
 
 $(OMNIORB_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +58,7 @@ $(STATEDIR)/omniorb.extract: $(omniorb_extract_deps)
 	@$(call clean, $(OMNIORB_DIR))
 	@$(call extract, $(OMNIORB_SOURCE))
 	@$(call patchin, $(OMNIORB))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -91,7 +91,7 @@ $(STATEDIR)/omniorb.prepare: $(omniorb_prepare_deps)
 	cd $(OMNIORB_DIR) && \
 		$(OMNIORB_PATH) $(OMNIORB_ENV) \
 		./configure $(OMNIORB_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -104,7 +104,7 @@ omniorb_compile_deps = $(STATEDIR)/omniorb.prepare
 $(STATEDIR)/omniorb.compile: $(omniorb_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(OMNIORB_DIR) && $(OMNIORB_ENV) $(OMNIORB_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,7 +115,7 @@ omniorb_install: $(STATEDIR)/omniorb.install
 $(STATEDIR)/omniorb.install: $(STATEDIR)/omniorb.compile
 	@$(call targetinfo, $@)
 	cd $(OMNIORB_DIR) && $(OMNIORB_ENV) $(OMNIORB_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -127,7 +127,7 @@ omniorb_targetinstall_deps = $(STATEDIR)/omniorb.compile
 
 $(STATEDIR)/omniorb.targetinstall: $(omniorb_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -37,7 +37,7 @@ cppunit_get_deps = $(CPPUNIT_SOURCE)
 $(STATEDIR)/cppunit.get: $(cppunit_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CPPUNIT))
-	touch $@
+	$(call touch, $@)
 
 $(CPPUNIT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/cppunit.extract: $(cppunit_extract_deps)
 	@$(call clean, $(CPPUNIT_DIR))
 	@$(call extract, $(CPPUNIT_SOURCE))
 	@$(call patchin, $(CPPUNIT))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/cppunit.prepare: $(cppunit_prepare_deps)
 	cd $(CPPUNIT_DIR) && \
 		$(CPPUNIT_PATH) $(CPPUNIT_ENV) \
 		./configure $(CPPUNIT_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +99,7 @@ cppunit_compile_deps = $(STATEDIR)/cppunit.prepare
 $(STATEDIR)/cppunit.compile: $(cppunit_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(CPPUNIT_DIR) && $(CPPUNIT_ENV) $(CPPUNIT_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,7 +110,7 @@ cppunit_install: $(STATEDIR)/cppunit.install
 $(STATEDIR)/cppunit.install: $(STATEDIR)/cppunit.compile
 	@$(call targetinfo, $@)
 	cd $(CPPUNIT_DIR) && $(CPPUNIT_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,7 +141,7 @@ $(STATEDIR)/cppunit.targetinstall: $(cppunit_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

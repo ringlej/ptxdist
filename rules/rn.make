@@ -38,7 +38,7 @@ rn_get_deps = $(RN_SOURCE)
 
 $(STATEDIR)/rn.get: $(rn_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(RN_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/rn.extract: $(rn_extract_deps)
 	@$(call clean, $(RN_DIR))
 	@$(call extract, $(RN_SOURCE))
 	@$(call patchin, $(RN))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -95,7 +95,7 @@ $(STATEDIR)/rn.prepare: $(rn_prepare_deps)
 	cd $(RN_DIR) && \
 		$(RN_PATH) $(RN_ENV) \
 		sh configure $(RN_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -108,7 +108,7 @@ rn_compile_deps = $(STATEDIR)/rn.prepare
 $(STATEDIR)/rn.compile: $(rn_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(RN_DIR) && $(RN_PATH) make $(RN_MAKEVARS)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -119,7 +119,7 @@ rn_install: $(STATEDIR)/rn.install
 $(STATEDIR)/rn.install: $(STATEDIR)/rn.compile
 	@$(call targetinfo, $@)
 	cd $(RN_DIR) && $(RN_PATH) make $(RN_MAKEVARS) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -131,7 +131,7 @@ rn_targetinstall_deps = $(STATEDIR)/rn.install
 
 $(STATEDIR)/rn.targetinstall: $(rn_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

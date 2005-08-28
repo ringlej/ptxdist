@@ -37,7 +37,7 @@ wget_get_deps = $(WGET_SOURCE)
 $(STATEDIR)/wget.get: $(wget_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(WGET_PACKET))
-	touch $@
+	$(call touch, $@)
 
 $(WGET_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/wget.extract: $(wget_extract_deps)
 	@$(call clean, $(WGET_DIR))
 	@$(call extract, $(WGET_SOURCE))
 	@$(call patchin, $(WGET_PACKET))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/wget.prepare: $(wget_prepare_deps)
 	cd $(WGET_DIR) && \
 		$(WGET_PATH) $(WGET_ENV) \
 		./configure $(WGET_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ wget_compile_deps = $(STATEDIR)/wget.prepare
 $(STATEDIR)/wget.compile: $(wget_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(WGET_DIR) && $(WGET_ENV) $(WGET_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,7 +114,7 @@ wget_install: $(STATEDIR)/wget.install
 $(STATEDIR)/wget.install: $(STATEDIR)/wget.compile
 	@$(call targetinfo, $@)
 	cd $(WGET_DIR) && $(WGET_ENV) $(WGET_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +140,7 @@ $(STATEDIR)/wget.targetinstall: $(wget_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

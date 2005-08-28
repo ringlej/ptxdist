@@ -36,7 +36,7 @@ e2fsprogs_get: $(STATEDIR)/e2fsprogs.get
 $(STATEDIR)/e2fsprogs.get: $(E2FSPROGS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(E2FSPROGS))
-	touch $@
+	$(call touch, $@)
 
 $(E2FSPROGS_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/e2fsprogs.extract: $(STATEDIR)/e2fsprogs.get
 	@$(call extract, $(E2FSPROGS_SOURCE))
 	@$(call patchin, $(E2FSPROGS))
 	chmod +w $(E2FSPROGS_DIR)/po/*.po
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -83,7 +83,7 @@ $(STATEDIR)/e2fsprogs.prepare: $(e2fsprogs_prepare_deps)
 	cd $(E2FSPROGS_BUILD_DIR) && \
 		$(E2FSPROGS_PATH) $(E2FSPROGS_ENV) \
 		$(E2FSPROGS_DIR)/configure $(E2FSPROGS_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -104,7 +104,7 @@ $(STATEDIR)/e2fsprogs.compile: $(e2fsprogs_compile_deps)
 #
 	$(E2FSPROGS_PATH) make -C $(E2FSPROGS_BUILD_DIR)/util
 	$(E2FSPROGS_PATH) make -C $(E2FSPROGS_BUILD_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,7 +114,7 @@ e2fsprogs_install: $(STATEDIR)/e2fsprogs.install
 
 $(STATEDIR)/e2fsprogs.install:
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -148,7 +148,7 @@ endif
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

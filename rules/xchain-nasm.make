@@ -36,7 +36,7 @@ xchain-nasm_get_deps	=  $(XCHAIN_NASM_SOURCE)
 
 $(STATEDIR)/xchain-nasm.get: $(xchain-nasm_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(XCHAIN_NASM_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/xchain-nasm.extract: $(xchain-nasm_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN_NASM_DIR))
 	@$(call extract, $(XCHAIN_NASM_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +87,7 @@ $(STATEDIR)/xchain-nasm.prepare: $(xchain-nasm_prepare_deps)
 	cd $(XCHAIN_NASM_DIR) && \
 		$(XCHAIN_NASM_PATH) $(XCHAIN_NASM_ENV) \
 		./configure $(XCHAIN_NASM_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +100,7 @@ xchain-nasm_compile_deps =  $(STATEDIR)/xchain-nasm.prepare
 $(STATEDIR)/xchain-nasm.compile: $(xchain-nasm_compile_deps)
 	@$(call targetinfo, $@)
 	$(XCHAIN_NASM_PATH) make -C $(XCHAIN_NASM_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,7 +113,7 @@ $(STATEDIR)/xchain-nasm.install: $(STATEDIR)/xchain-nasm.compile
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	mkdir -p $(PTXCONF_PREFIX)/man/man1
 	$(XCHAIN_NASM_PATH) make -C $(XCHAIN_NASM_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -125,7 +125,7 @@ xchain-nasm_targetinstall_deps	=  $(STATEDIR)/xchain-nasm.install
 
 $(STATEDIR)/xchain-nasm.targetinstall: $(xchain-nasm_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -37,7 +37,7 @@ dbench_get_deps = $(DBENCH_SOURCE)
 $(STATEDIR)/dbench.get: $(dbench_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DBENCH))
-	touch $@
+	$(call touch, $@)
 
 $(DBENCH_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/dbench.extract: $(dbench_extract_deps)
 	@$(call clean, $(DBENCH_DIR))
 	@$(call extract, $(DBENCH_SOURCE))
 	@$(call patchin, $(DBENCH))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -88,7 +88,7 @@ $(STATEDIR)/dbench.prepare: $(dbench_prepare_deps)
 	cd $(DBENCH_DIR) && \
 		$(DBENCH_PATH) $(DBENCH_ENV) \
 		./configure $(DBENCH_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ dbench_compile_deps = $(STATEDIR)/dbench.prepare
 $(STATEDIR)/dbench.compile: $(dbench_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(DBENCH_DIR) && $(DBENCH_ENV) $(DBENCH_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,7 +112,7 @@ dbench_install: $(STATEDIR)/dbench.install
 $(STATEDIR)/dbench.install: $(STATEDIR)/dbench.compile
 	@$(call targetinfo, $@)
 	cd $(DBENCH_DIR) && $(DBENCH_ENV) $(DBENCH_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -152,7 +152,7 @@ endif
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

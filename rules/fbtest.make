@@ -37,7 +37,7 @@ fbtest_get_deps = $(FBTEST_SOURCE)
 $(STATEDIR)/fbtest.get: $(fbtest_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FBTEST))
-	touch $@
+	$(call touch, $@)
 
 $(FBTEST_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/fbtest.extract: $(fbtest_extract_deps)
 	@$(call clean, $(FBTEST_DIR))
 	@$(call extract, $(FBTEST_SOURCE))
 	@$(call patchin, $(FBTEST))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -77,7 +77,7 @@ FBTEST_ENV 	=  $(CROSS_ENV)
 #FBTEST_ENV	+=
 
 $(STATEDIR)/fbtest.prepare: $(fbtest_prepare_deps)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -91,7 +91,7 @@ $(STATEDIR)/fbtest.compile: $(fbtest_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(FBTEST_DIR) && $(FBTEST_ENV) $(FBTEST_PATH) \
 		CROSS_COMPILE=$(COMPILER_PREFIX) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -101,7 +101,7 @@ fbtest_install: $(STATEDIR)/fbtest.install
 
 $(STATEDIR)/fbtest.install: $(STATEDIR)/fbtest.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -127,7 +127,7 @@ $(STATEDIR)/fbtest.targetinstall: $(fbtest_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

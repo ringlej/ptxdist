@@ -37,7 +37,7 @@ valgrind_get_deps = $(VALGRIND_SOURCE)
 $(STATEDIR)/valgrind.get: $(valgrind_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(VALGRIND))
-	touch $@
+	$(call touch, $@)
 
 $(VALGRIND_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/valgrind.extract: $(valgrind_extract_deps)
 	@$(call clean, $(VALGRIND_DIR))
 	@$(call extract, $(VALGRIND_SOURCE))
 	@$(call patchin, $(VALGRIND))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -92,7 +92,7 @@ $(STATEDIR)/valgrind.prepare: $(valgrind_prepare_deps)
 	cd $(VALGRIND_DIR) && \
 		$(VALGRIND_PATH) $(VALGRIND_ENV) \
 		./configure $(VALGRIND_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +105,7 @@ valgrind_compile_deps = $(STATEDIR)/valgrind.prepare
 $(STATEDIR)/valgrind.compile: $(valgrind_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(VALGRIND_DIR) && $(VALGRIND_ENV) $(VALGRIND_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -120,7 +120,7 @@ $(STATEDIR)/valgrind.install: $(STATEDIR)/valgrind.compile
 	#             development host? 
 	# cd $(VALGRIND_DIR) && $(VALGRIND_PATH) make install
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -164,7 +164,7 @@ $(STATEDIR)/valgrind.targetinstall: $(valgrind_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
