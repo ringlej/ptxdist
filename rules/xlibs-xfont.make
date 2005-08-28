@@ -13,18 +13,18 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-XFONT
+ifdef PTXCONF_XLIBS_XFONT
 PACKAGES += xlibs-xfont
 endif
 
 #
 # Paths and names
 #
-XLIBS-XFONT_VERSION	= 20041103-1
+XLIBS-XFONT_VERSION	= 0.99.0
 XLIBS-XFONT_REAL_VERSION= 1.4.1
-XLIBS-XFONT		= Xfont-$(XLIBS-XFONT_VERSION)
+XLIBS-XFONT		= libXfont-$(XLIBS-XFONT_VERSION)
 XLIBS-XFONT_SUFFIX	= tar.bz2
-XLIBS-XFONT_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-XFONT).$(XLIBS-XFONT_SUFFIX)
+XLIBS-XFONT_URL		= http://xorg.freedesktop.org/X11R7.0-RC0/lib/$(XLIBS-XFONT).$(XLIBS-XFONT_SUFFIX)
 XLIBS-XFONT_SOURCE	= $(SRCDIR)/$(XLIBS-XFONT).$(XLIBS-XFONT_SUFFIX)
 XLIBS-XFONT_DIR		= $(BUILDDIR)/$(XLIBS-XFONT)
 
@@ -39,7 +39,7 @@ xlibs-xfont_get_deps = $(XLIBS-XFONT_SOURCE)
 $(STATEDIR)/xlibs-xfont.get: $(xlibs-xfont_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XFONT))
-	touch $@
+	$(call touch, $@)
 
 $(XLIBS-XFONT_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +58,7 @@ $(STATEDIR)/xlibs-xfont.extract: $(xlibs-xfont_extract_deps)
 	@$(call clean, $(XLIBS-XFONT_DIR))
 	@$(call extract, $(XLIBS-XFONT_SOURCE))
 	@$(call patchin, $(XLIBS-XFONT))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -72,6 +72,10 @@ xlibs-xfont_prepare: $(STATEDIR)/xlibs-xfont.prepare
 xlibs-xfont_prepare_deps =  $(STATEDIR)/xlibs-xfont.extract
 xlibs-xfont_prepare_deps += $(STATEDIR)/virtual-xchain.install
 xlibs-xfont_prepare_deps += $(STATEDIR)/zlib.install
+xlibs-xfont_prepare_deps += $(STATEDIR)/xlibs-fontcache.install
+xlibs-xfont_prepare_deps += $(STATEDIR)/xlibs-fontsproto.install
+xlibs-xfont_prepare_deps += $(STATEDIR)/xlibs-fontenc.install
+xlibs-xfont_prepare_deps += $(STATEDIR)/freetype.install
 
 XLIBS-XFONT_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-XFONT_ENV 	=  $(CROSS_ENV)
@@ -92,7 +96,7 @@ $(STATEDIR)/xlibs-xfont.prepare: $(xlibs-xfont_prepare_deps)
 	cd $(XLIBS-XFONT_DIR) && \
 		$(XLIBS-XFONT_PATH) $(XLIBS-XFONT_ENV) \
 		./configure $(XLIBS-XFONT_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +109,7 @@ xlibs-xfont_compile_deps = $(STATEDIR)/xlibs-xfont.prepare
 $(STATEDIR)/xlibs-xfont.compile: $(xlibs-xfont_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XFONT_DIR) && $(XLIBS-XFONT_ENV) $(XLIBS-XFONT_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -116,7 +120,7 @@ xlibs-xfont_install: $(STATEDIR)/xlibs-xfont.install
 $(STATEDIR)/xlibs-xfont.install: $(STATEDIR)/xlibs-xfont.compile
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XFONT_DIR) && $(XLIBS-XFONT_ENV) $(XLIBS-XFONT_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -125,6 +129,10 @@ $(STATEDIR)/xlibs-xfont.install: $(STATEDIR)/xlibs-xfont.compile
 xlibs-xfont_targetinstall: $(STATEDIR)/xlibs-xfont.targetinstall
 
 xlibs-xfont_targetinstall_deps = $(STATEDIR)/xlibs-xfont.compile
+xlibs-xfont_prepare_deps += $(STATEDIR)/xlibs-fontcache.targetinstall
+xlibs-xfont_prepare_deps += $(STATEDIR)/xlibs-fontsproto.targetinstall
+xlibs-xfont_prepare_deps += $(STATEDIR)/xlibs-fontenc.targetinstall
+xlibs-xfont_prepare_deps += $(STATEDIR)/freetype.targetinstall
 
 $(STATEDIR)/xlibs-xfont.targetinstall: $(xlibs-xfont_targetinstall_deps)
 	@$(call targetinfo, $@)
@@ -139,7 +147,7 @@ $(STATEDIR)/xlibs-xfont.targetinstall: $(xlibs-xfont_targetinstall_deps)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
 	@$(call install_copy, 0, 0, 0644, 						\
-		$(XLIBS-XFONT_DIR)/.libs/libXfont.so.$(XLIBS-XFONT_REAL_VERSION),  	\
+		$(XLIBS-XFONT_DIR)/src/.libs/libXfont.so.$(XLIBS-XFONT_REAL_VERSION),  	\
 		/usr/X11R6/lib/libXfont.so.$(XLIBS-XFONT_REAL_VERSION)			\
 	)
 	@$(call install_link, 								\
@@ -147,13 +155,13 @@ $(STATEDIR)/xlibs-xfont.targetinstall: $(xlibs-xfont_targetinstall_deps)
 		/usr/X11R6/lib/libXfont.so.0						\
 	)
 	@$(call install_link, /usr/X11R6/lib/libXfont.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libXfont.so)
-	@$(call install_copy, 0, 0, 0644, $(XLIBS-XFONT_DIR)/fontcache/.libs/libfontcache.so.0.0.0,  /usr/X11R6/lib/libfontcache.so.0.0.0)
+	@$(call install_copy, 0, 0, 0644, $(XLIBS-XFONT_DIR)/src/fontcache/.libs/libfontcache.so.0.0.0,  /usr/X11R6/lib/libfontcache.so.0.0.0)
 	@$(call install_link, /usr/X11R6/lib/libfontcache.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libfontcache.so.0)
 	@$(call install_link, /usr/X11R6/lib/libfontcache.so.$(XLIBS-XFONT_REAL_VERSION), /usr/X11R6/lib/libfontcache.so)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

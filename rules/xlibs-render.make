@@ -22,10 +22,10 @@ endif
 #
 # Paths and names
 #
-XLIBS-RENDER_VERSION	= 20041103-1
-XLIBS-RENDER		= Render-$(XLIBS-RENDER_VERSION)
+XLIBS-RENDER_VERSION	= 0.9.0
+XLIBS-RENDER		= libXrender-$(XLIBS-RENDER_VERSION)
 XLIBS-RENDER_SUFFIX	= tar.bz2
-XLIBS-RENDER_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-RENDER).$(XLIBS-RENDER_SUFFIX)
+XLIBS-RENDER_URL	= http://xorg.freedesktop.org/X11R7.0-RC0/$(XLIBS-RENDER).$(XLIBS-RENDER_SUFFIX)
 XLIBS-RENDER_SOURCE	= $(SRCDIR)/$(XLIBS-RENDER).$(XLIBS-RENDER_SUFFIX)
 XLIBS-RENDER_DIR	= $(BUILDDIR)/$(XLIBS-RENDER)
 
@@ -40,7 +40,7 @@ xlibs-render_get_deps = $(XLIBS-RENDER_SOURCE)
 $(STATEDIR)/xlibs-render.get: $(xlibs-render_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-RENDER))
-	touch $@
+	$(call touch, $@)
 
 $(XLIBS-RENDER_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +59,7 @@ $(STATEDIR)/xlibs-render.extract: $(xlibs-render_extract_deps)
 	@$(call clean, $(XLIBS-RENDER_DIR))
 	@$(call extract, $(XLIBS-RENDER_SOURCE))
 	@$(call patchin, $(XLIBS-RENDER))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -93,7 +93,7 @@ $(STATEDIR)/xlibs-render.prepare: $(xlibs-render_prepare_deps)
 	cd $(XLIBS-RENDER_DIR) && \
 		$(XLIBS-RENDER_PATH) $(XLIBS-RENDER_ENV) \
 		./configure $(XLIBS-RENDER_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -106,7 +106,7 @@ xlibs-render_compile_deps = $(STATEDIR)/xlibs-render.prepare
 $(STATEDIR)/xlibs-render.compile: $(xlibs-render_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-RENDER_DIR) && $(XLIBS-RENDER_ENV) $(XLIBS-RENDER_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -117,7 +117,7 @@ xlibs-render_install: $(STATEDIR)/xlibs-render.install
 $(STATEDIR)/xlibs-render.install: $(STATEDIR)/xlibs-render.compile
 	@$(call targetinfo, $@)
 	cd $(XLIBS-RENDER_DIR) && $(XLIBS-RENDER_ENV) $(XLIBS-RENDER_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -129,7 +129,7 @@ xlibs-render_targetinstall_deps = $(STATEDIR)/xlibs-render.compile
 
 $(STATEDIR)/xlibs-render.targetinstall: $(xlibs-render_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

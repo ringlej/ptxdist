@@ -20,10 +20,10 @@ endif
 #
 # Paths and names
 #
-XLIBS-XAU_VERSION	= 20041103-1
-XLIBS-XAU		= Xau-$(XLIBS-XAU_VERSION)
+XLIBS-XAU_VERSION	= 0.99.0
+XLIBS-XAU		= libXau-$(XLIBS-XAU_VERSION)
 XLIBS-XAU_SUFFIX	= tar.bz2
-XLIBS-XAU_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-XAU).$(XLIBS-XAU_SUFFIX)
+XLIBS-XAU_URL		= http://xorg.freedesktop.org/X11R7.0-RC0/lib/$(XLIBS-XAU).$(XLIBS-XAU_SUFFIX)
 XLIBS-XAU_SOURCE	= $(SRCDIR)/$(XLIBS-XAU).$(XLIBS-XAU_SUFFIX)
 XLIBS-XAU_DIR		= $(BUILDDIR)/$(XLIBS-XAU)
 
@@ -38,7 +38,7 @@ xlibs-xau_get_deps = $(XLIBS-XAU_SOURCE)
 $(STATEDIR)/xlibs-xau.get: $(xlibs-xau_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XAU))
-	touch $@
+	$(call touch, $@)
 
 $(XLIBS-XAU_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/xlibs-xau.extract: $(xlibs-xau_extract_deps)
 	@$(call clean, $(XLIBS-XAU_DIR))
 	@$(call extract, $(XLIBS-XAU_SOURCE))
 	@$(call patchin, $(XLIBS-XAU))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/xlibs-xau.prepare: $(xlibs-xau_prepare_deps)
 	cd $(XLIBS-XAU_DIR) && \
 		$(XLIBS-XAU_PATH) $(XLIBS-XAU_ENV) \
 		./configure $(XLIBS-XAU_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ xlibs-xau_compile_deps = $(STATEDIR)/xlibs-xau.prepare
 $(STATEDIR)/xlibs-xau.compile: $(xlibs-xau_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XAU_DIR) && $(XLIBS-XAU_ENV) $(XLIBS-XAU_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,7 +114,7 @@ xlibs-xau_install: $(STATEDIR)/xlibs-xau.install
 $(STATEDIR)/xlibs-xau.install: $(STATEDIR)/xlibs-xau.compile
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XAU_DIR) && $(XLIBS-XAU_ENV) $(XLIBS-XAU_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -136,13 +136,13 @@ $(STATEDIR)/xlibs-xau.targetinstall: $(xlibs-xau_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0644, $(XLIBS-XAU_DIR)/.libs/libXau.so.0.0.0,  /usr/X11R6/lib/libXau.so.0.0.0)
-	@$(call install_link, /usr/X11R6/lib/libXau.so.0.0.0, /usr/X11R6/lib/libXau.so.0)
-	@$(call install_link, /usr/X11R6/lib/libXau.so.0.0.0, /usr/X11R6/lib/libXau.so)
+	@$(call install_copy, 0, 0, 0644, $(XLIBS-XAU_DIR)/.libs/libXau.so.6.0.0,  /usr/X11R6/lib/libXau.so.6.0.0)
+	@$(call install_link, /usr/X11R6/lib/libXau.so.6.0.0, /usr/X11R6/lib/libXau.so.6)
+	@$(call install_link, /usr/X11R6/lib/libXau.so.6.0.0, /usr/X11R6/lib/libXau.so)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
