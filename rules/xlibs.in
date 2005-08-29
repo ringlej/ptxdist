@@ -1,12 +1,36 @@
+# X11R7.0
+#
+
 menuconfig XLIBS
 	bool "xlibs                 "
 	help
 	  These are the X libraries from the X.org xlibs project. 
+	  See http://xorg.freedesktop.org/X11R7.0-RC0 for the current
+	  release of the project. 
 
-comment "Base Libraries"
+# ----------------------------------------------------------------------------
+menu "Base Libraries"
 	depends on XLIBS
+	help
+	  This is the set of base libraries you definitely need to build
+	  an X system. 
+# ----------------------------------------------------------------------------
 
-config XLIBS_X11
+config XLIBS_FONTCACHE
+	bool
+	depends on XLIBS
+	prompt "fontcache"
+	select XLIBS_LIBX11
+	select XLIBS_XEXT
+	select XLIBS_PROTO_FONTCACHEPROTO
+	select XLIBS_PROTO_FONTSPROTO
+
+config XLIBS_FONTENC
+	bool
+	depends on XLIBS
+	prompt "fontenc"
+
+config XLIBS_LIBX11
 	bool
 	depends on XLIBS
 	prompt "libX11"
@@ -38,29 +62,53 @@ config XLIBS_XFONT
 	select XLIBS_FONTENC
 	select FONTCONFIG22
 
-config XLIBS_FONTCACHE
-	bool
-	depends on XLIBS
-	prompt "fontcache"
-	select XLIBS_X11
-	select XLIBS_XEXT
-	select XLIBS_PROTO_FONTCACHEPROTO
-	select XLIBS_PROTO_FONTSPROTO
-
-config XLIBS_FONTENC
-	bool
-	depends on XLIBS
-	prompt "fontenc"
-
 config XLIBS_XTRANS
  	bool
  	depends on XLIBS
  	prompt "xtrans"
- 
-# ##############################################################################
 
-comment "Proto"
+endmenu
+
+# ----------------------------------------------------------------------------
+menu "Additional Libraries"
 	depends on XLIBS
+# ----------------------------------------------------------------------------
+
+config XLIBS_LIBFS
+	bool
+	depends on XLIBS
+	prompt "libFS"
+	select XLIBS_PROTO_XPROTO
+	select XLIBS_PROTO_FONTSPROTO
+	select XLIBS_XTRANS
+	help
+	  FIXME: the packet contains no documentation.
+
+config XLIBS_LIBICE
+	bool
+	depends on XLIBS
+	prompt "libICE"
+	select XLIBS_PROTO_XPROTO
+	select XLIBS_XTRANS
+	help
+	  FIXME: the packet contains no documentation.
+
+config XLIBS_LIBSM
+	bool
+	depends on XLIBS
+	prompt "libSM"
+	select XLIBS_PROTO_XPROTO
+	# FIXME: correct? configure.ac says "ice"
+	select XLIBS_LIBICE
+	help
+	  FIXME: the packet contains no documentation.
+
+endmenu
+ 
+# ----------------------------------------------------------------------------
+menu "Proto"
+	depends on XLIBS
+# ----------------------------------------------------------------------------
 
 config XLIBS_PROTO_BIGREQSPROTO
 	bool
@@ -156,6 +204,10 @@ config XLIBS_PROTO_RECORDPROTO
 	bool
 	depends on XLIBS
 	prompt "recordproto"
+
+endmenu
+
+# ----------------------------------------------------------------------------
  
 config XLIBS_XDMCP
 	bool

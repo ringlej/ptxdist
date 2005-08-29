@@ -31,7 +31,14 @@ Test suite components to be added
 Current TODO List
 =================
 
+- RSC: 	add dependency: world depends on all .make and .in files; use $? 
+	to clean packages which have been changed; find out which files
+	have been installed in root (can be determined from ipkg
+	packet), remove them, remove the ipkg packet and build/... dir. 
+	extract (?) stage has to remember the build directory.
 - RSC:	port XOrg 7.0
+	- audit base libs (done until libICE)
+	- audit additional libs
 - MKL:	let get stages depend on the actual makefile
 - RSC:	Finish autotoolisation of chrony. The old features from the 
 	handwritten configure script have to be added; readline dependency
