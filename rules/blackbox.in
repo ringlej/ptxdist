@@ -1,4 +1,4 @@
 config BLACKBOX
         bool
-        prompt "Blackbox Window-Manager"
+	prompt "blackbox              "
 
