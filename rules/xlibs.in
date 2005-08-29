@@ -11,9 +11,9 @@ menuconfig XLIBS
 # ----------------------------------------------------------------------------
 menu "Base Libraries"
 	depends on XLIBS
-	help
-	  This is the set of base libraries you definitely need to build
-	  an X system. 
+#	help
+#	  This is the set of base libraries you definitely need to build
+#	  an X system. 
 # ----------------------------------------------------------------------------
 
 config XLIBS_FONTCACHE
