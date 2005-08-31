@@ -176,6 +176,10 @@ $(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps)
 
 	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-ftpd, /usr/sbin/pure-ftpd)
 
+ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
+	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-uploadscript, /usr/sbin/pure-uploadscript)
+endif
+
 	@$(call install_finish)
 
 	touch $@
