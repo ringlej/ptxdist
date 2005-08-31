@@ -104,7 +104,7 @@ PUREFTPD_AUTOCONF = \
 	--without-mysql \
 	--without-pgsql \
 	--without-privsep \
-	--without-tls
+	--without-tls \
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 PUREFTPD_AUTOCONF += --with-uploadscript
@@ -174,7 +174,7 @@ $(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/foobar, /dev/null)
+	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-ftpd, /usr/sbin/pure-ftpd)
 
 	@$(call install_finish)
 
