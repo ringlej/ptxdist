@@ -73,8 +73,7 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 
 @PACKET@_PATH	=  PATH=$(CROSS_PATH)
 @PACKET@_ENV 	=  $(CROSS_ENV)
-#@PACKET@_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#@PACKET@_ENV	+=
+@PACKET@_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
