@@ -44,7 +44,7 @@ start_helper(){
 }
 
 stop_helper(){
-	killall "$HELPER"
+	killall -9 "$HELPER"
 }
 
 start_daemon(){
