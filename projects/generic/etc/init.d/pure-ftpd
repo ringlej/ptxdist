@@ -29,6 +29,10 @@ trap "" 15
 which $DAEMON || { echo "${PREFIX}$DAEMON not found"; exit; }
 
 
+if [ ! -z $HELPER_START_SCRIPT ] ; then
+ DAEMON_OPTIONS="$DAEMON_OPTIONS -o"
+fi 
+
 start_helper(){
 	if [ ! -z $HELPER_START_SCRIPT ]; then
 		which $HELPER || { echo "${PREFIX}$HELPER not found"; exit; }
@@ -67,18 +71,26 @@ else
 fi
 }
 
+start(){
+	start_daemon                                                     
+	start_helper                                                     
+}
+
+stop(){
+	stop_daemon
+	stop_helper
+}
+	
 case "$1" in
     start)
 	    echo -n "${PREFIX}Starting $NAME: "
-	    start_daemon
-	    start_helper 
+	    start
 	    echo "Done"
 	;;
 
     stop)
 	    echo -n "${PREFIX}Stopping $NAME: "
-	    stop_daemon
-	    stop_helper
+	    stop
 	    echo "Done"
 	;;
 
