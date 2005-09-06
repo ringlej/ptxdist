@@ -5,13 +5,13 @@
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 
 # Defaults
-DAEMON="/usr/sbin/pure-ftpd"
+DAEMON="pure-ftpd"
 NAME="pure-ftpd"
 PREFIX="PURE-FTPD: "
 DAEMON_OPTIONS=""
 DAEMON_PIDFILE=/var/run/pure-ftpd.pid
 
-HELPER="/usr/sbin/pure-uploadscript"
+HELPER="pure-uploadscript"
 HELPER_START_SCRIPT=""
 HELPER_OPTIONS="-B -u 0 -g 0"
 
@@ -26,12 +26,12 @@ fi
 trap "" 1
 trap "" 15
 
-[ -x $DAEMON ] || { echo "${PREFIX}$DAEMON not found"; exit; }
+which $DAEMON || { echo "${PREFIX}$DAEMON not found"; exit; }
 
 
 start_helper(){
-	if [ ! -z $HELPER_UPLOAD_SCRIPT ]; then
-		[ -x $HELPER ] || { echo "${PREFIX}$HELPER not found"; exit; }
+	if [ ! -z $HELPER_START_SCRIPT ]; then
+		which $HELPER || { echo "${PREFIX}$HELPER not found"; exit; }
 		echo "${PREFIX}starting upload helper daemon..." 
 		$HELPER $HELPER_OPTIONS -r $HELPER_START_SCRIPT
 	else
@@ -45,7 +45,7 @@ stop_helper(){
 
 start_daemon(){
 	which $DAEMON
-  	$DAEMON $DAEMON_OPTIONS
+  	$DAEMON -g $DAEMON_PIDFILE $DAEMON_OPTIONS &
 }
 
 stop_daemon(){
