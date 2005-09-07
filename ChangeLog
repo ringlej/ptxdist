@@ -1,3 +1,7 @@
+2005-09-07 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libxslt: added xsltproc
+
 2005-09-02 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* added apache2
