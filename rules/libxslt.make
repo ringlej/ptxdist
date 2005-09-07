@@ -151,7 +151,9 @@ $(STATEDIR)/libxslt.install: $(STATEDIR)/libxslt.compile
 
 libxslt_targetinstall: $(STATEDIR)/libxslt.targetinstall
 
-libxslt_targetinstall_deps = $(STATEDIR)/libxslt.compile
+libxslt_targetinstall_deps = \
+	$(STATEDIR)/libxslt.compile \
+	$(STATEDIR)/libxml2.targetinstall
 
 $(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps)
 	@$(call targetinfo, $@)
@@ -165,11 +167,27 @@ $(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
+ifdef PTXCONF_LIBXSLT_LIBXSLT
 	@$(call install_copy, 0, 0, 0755, \
 		$(LIBXSLT_DIR)/libxslt/.libs/libxslt.so.1.1.14, \
 		/usr/lib/libxslt.so.1.1.14)
 	@$(call install_link, libxslt.so.1.1.14, /usr/lib/libxslt.so.1)
 	@$(call install_link, libxslt.so.1.1.14, /usr/lib/libxslt.so)
+endif
+
+ifdef PTXCONF_LIBXSLT_LIBEXSLT
+	@$(call install_copy, 0, 0, 0755, \
+		$(LIBXSLT_DIR)/libexslt/.libs/libexslt.so.0.8.12, \
+		/usr/lib/libexslt.so.0.8.12)
+	@$(call install_link, libexslt.so.0.8.12, /usr/lib/libexslt.so.0)
+	@$(call install_link, libexslt.so.0.8.12, /usr/lib/libexslt.so)
+endif
+
+ifdef PTXCONF_LIBXSLT_XSLTPROC
+	@$(call install_copy, 0, 0, 0755, \
+		$(LIBXSLT_DIR)/xsltproc/.libs/xsltproc, \
+		/usr/bin/xsltproc)
+endif
 
 	@$(call install_finish)
 
