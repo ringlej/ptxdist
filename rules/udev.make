@@ -122,7 +122,9 @@ $(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/extras/start_udev, /etc/init.d/udev, n)
+	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/udev/udev.conf, /etc/udev/udev.conf, n)
+	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/udev, /etc/init.d/udev, n)
+	@$(call install_link, ../init.d/udev, /etc/rc.d/S00_udev)
 
 ifdef PTXCONF_UDEV_UDEV
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udev, /sbin/udev)
