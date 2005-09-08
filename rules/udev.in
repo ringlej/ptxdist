@@ -1,6 +1,5 @@
 config UDEV
 	bool "udev"
-	depends on HOTPLUG
 
 config UDEV_UDEV
 	bool "udev"
