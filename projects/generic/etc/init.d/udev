@@ -100,5 +100,8 @@ make_extra_nodes
 
 echo /sbin/udevsend > /proc/sys/kernel/hotplug
 
+# We can only mount /dev/pts after initialising udev
+mount /dev/pts
+
 echo "udev startup is finished!"
 exit 0
