@@ -18,7 +18,7 @@ endif
 #
 # Paths and names
 #
-UDEV_VERSION	= 058
+UDEV_VERSION	= 068
 UDEV		= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	= tar.gz
 UDEV_URL	= http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
@@ -144,6 +144,8 @@ endif
 ifdef PTXCONF_UDEV_TEST
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevtest, /sbin/udevtest)
 endif
+
+	@$(call install_node, 0, 0, 0644, c, 5, 1, /dev/console)
 
 	@$(call install_finish)
 
