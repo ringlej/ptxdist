@@ -22,7 +22,7 @@ endif
 LIBGSLOOP_VERSION	= 0.0.3
 LIBGSLOOP		= libgsloop-$(LIBGSLOOP_VERSION)
 LIBGSLOOP_SUFFIX	= tar.bz2
-LIBGSLOOP_URL		= http://www.pengutronix.de/software/libgsloop/downlaod/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
+LIBGSLOOP_URL		= http://www.pengutronix.de/software/libgsloop/download/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
 LIBGSLOOP_SOURCE	= $(SRCDIR)/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
 LIBGSLOOP_DIR		= $(BUILDDIR)/$(LIBGSLOOP)
 
