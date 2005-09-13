@@ -23,7 +23,7 @@ endif
 LIBRN_VERSION	= 0.4.4
 LIBRN		= librn-$(LIBRN_VERSION)
 LIBRN_SUFFIX	= tar.bz2
-LIBRN_URL	= http://www.pengutronix.de/software/librn/$(LIBRN).$(LIBRN_SUFFIX)
+LIBRN_URL	= http://www.pengutronix.de/software/librn/downlaod/$(LIBRN).$(LIBRN_SUFFIX)
 LIBRN_SOURCE	= $(SRCDIR)/$(LIBRN).$(LIBRN_SUFFIX)
 LIBRN_DIR	= $(BUILDDIR)/$(LIBRN)
 
