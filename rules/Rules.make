@@ -254,12 +254,14 @@ ifndef NATIVE
 CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
 	$(CROSS_ENV_FLAGS) \
-	$(CROSS_ENV_AC)
+	$(CROSS_ENV_AC) \
+	$(CROSS_ENV_PKG_CONFIG)
 
 CROSS_AUTOCONF := $(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
 else
 CROSS_ENV := \
-	$(CROSS_ENV_FLAGS)
+	$(CROSS_ENV_FLAGS) \
+	$(CROSS_ENV_PKG_CONFIG)
 endif
 
 
