@@ -135,7 +135,7 @@ $(STATEDIR)/libgsloop.targetinstall: $(libgsloop_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LIBGSLOOP_DIR)/src/.libs/libgsloop.so.0.0.0, /usr/lib/libgsloop.so.0.0.0)
+	@$(call install_copy, 0, 0, 0644, $(LIBGSLOOP_DIR)/src/.libs/libgsloop.so.0.0.0, /usr/lib/libgsloop.so.0.0.0)
 	@$(call install_link, libgsloop.so.0.0.0, /usr/lib/libgsloop.so.0)
 	@$(call install_link, libgsloop.so.0.0.0, /usr/lib/libgsloop.so)
 

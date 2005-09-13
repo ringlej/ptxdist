@@ -133,7 +133,7 @@ $(STATEDIR)/libxmlconfig.targetinstall: $(libxmlconfig_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LIBXMLCONFIG_DIR)/.libs/libxmlconfig.so.0.0.0, /usr/lib/libxmlconfig.so.0.0.0)
+	@$(call install_copy, 0, 0, 0644, $(LIBXMLCONFIG_DIR)/.libs/libxmlconfig.so.0.0.0, /usr/lib/libxmlconfig.so.0.0.0)
 	@$(call install_link, libxmlconfig.so.0.0.0, /usr/lib/libxmlconfig.so.0)
 	@$(call install_link, libxmlconfig.so.0.0.0, /usr/lib/libxmlconfig.so)
 

@@ -142,7 +142,7 @@ $(STATEDIR)/librn.targetinstall: $(librn_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LIBRN_DIR)/src/.libs/librn.so.0.0.0, /usr/lib/librn.so.0.0.0)
+	@$(call install_copy, 0, 0, 0644, $(LIBRN_DIR)/src/.libs/librn.so.0.0.0, /usr/lib/librn.so.0.0.0)
 	@$(call install_link, librn.so.0.0.0, /usr/lib/librn.so.0)
 	@$(call install_link, librn.so.0.0.0, /usr/lib/librn.so)
 
