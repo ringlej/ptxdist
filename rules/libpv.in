@@ -2,6 +2,7 @@ config LIBPV
 	bool
 	prompt "libpv"
 	select LIBLIST
+	select GLIBC_LIBRT
 	help
 	  libpv.so is a library that implements a user space shared memory for 
 	  automation applications. The shared memory is being described by an
@@ -9,4 +10,5 @@ config LIBPV
 	  on a persistent storage or on a RAM disc. 
 
 	  The library has also an integrated JVisu socket server. 
+
 
