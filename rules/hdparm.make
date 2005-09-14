@@ -84,9 +84,6 @@ HDPARM_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 $(STATEDIR)/hdparm.prepare: $(hdparm_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HDPARM_DIR)/config.cache)
-	cd $(HDPARM_DIR) && \
-		$(HDPARM_PATH) $(HDPARM_ENV) \
-		./configure $(HDPARM_AUTOCONF)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -133,7 +130,7 @@ $(STATEDIR)/hdparm.targetinstall: $(hdparm_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(HDPARM_DIR)/foobar, /dev/null)
+	@$(call install_copy, 0, 0, 0755, $(HDPARM_DIR)/hdparm, /usr/bin/hdparm)
 
 	@$(call install_finish)
 
