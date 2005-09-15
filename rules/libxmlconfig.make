@@ -70,6 +70,7 @@ libxmlconfig_prepare: $(STATEDIR)/libxmlconfig.prepare
 libxmlconfig_prepare_deps =  $(STATEDIR)/libxmlconfig.extract
 libxmlconfig_prepare_deps += $(STATEDIR)/virtual-xchain.install
 libxmlconfig_prepare_deps += $(STATEDIR)/libxml2.install
+libxmlconfig_prepare_deps += $(STATEDIR)/liblist.install
 
 LIBXMLCONFIG_PATH	=  PATH=$(CROSS_PATH)
 LIBXMLCONFIG_ENV 	=  $(CROSS_ENV)
@@ -119,7 +120,9 @@ $(STATEDIR)/libxmlconfig.install: $(STATEDIR)/libxmlconfig.compile
 
 libxmlconfig_targetinstall: $(STATEDIR)/libxmlconfig.targetinstall
 
-libxmlconfig_targetinstall_deps = $(STATEDIR)/libxmlconfig.compile
+libxmlconfig_targetinstall_deps =  $(STATEDIR)/libxmlconfig.compile
+libxmlconfig_targetinstall_deps += $(STATEDIR)/libxml2.targetinstall
+libxmlconfig_targetinstall_deps += $(STATEDIR)/liblist.targetinstall
 
 $(STATEDIR)/libxmlconfig.targetinstall: $(libxmlconfig_targetinstall_deps)
 	@$(call targetinfo, $@)
