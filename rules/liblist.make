@@ -73,8 +73,7 @@ liblist_prepare_deps = \
 
 LIBLIST_PATH	=  PATH=$(CROSS_PATH)
 LIBLIST_ENV 	=  $(CROSS_ENV)
-#LIBLIST_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#LIBLIST_ENV	+=
+LIBLIST_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
