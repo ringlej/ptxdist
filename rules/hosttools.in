@@ -31,4 +31,4 @@ comment "Other Host Tools"
 ##############################################################################
 
 source "rules/host-flex.in"
-
+source "rules/host-qte.in"
