@@ -175,7 +175,7 @@ $(STATEDIR)/qte.prepare: $(qte_prepare_deps)
 	@echo 'QMAKE_LIBS_THREAD          = -lpthread'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 
 	@echo 'QMAKE_MOC                  = $(QTDIR)/bin/moc'		>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
-	@echo 'QMAKE_UIC                  = $(QTDIR)/bin/uic'		>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
+	@echo 'QMAKE_UIC                  = $(PTXCONF_PREFIX)/bin/uic'	>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 
 	@echo 'QMAKE_AR                   = ar cqs'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_RANLIB               ='				>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
@@ -189,8 +189,6 @@ $(STATEDIR)/qte.prepare: $(qte_prepare_deps)
 	@echo 'QMAKE_DEL_DIR              = rmdir'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_CHK_DIR_EXISTS       = test -d'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_MKDIR                = mkdir -p'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
-
-	cp -f $(PTXCONF_PREFIX)/bin/uic $(QTE_DIR)/bin
 
 	cd $(QTE_DIR) && \
 		echo yes | $(QTE_PATH) $(QTE_ENV) \
@@ -388,10 +386,12 @@ ifdef PTXCONF_QTE_INSTALL_UNIFONT
 	@$(call install_copy, 0, 0, 0755, $(QTE_DIR)/lib/fonts/unifont_160_50_t5.qpf, /usr/qt/lib/fonts/unifont_160_50_t5.qpf, 0)
 endif
 	@$(call install_copy, 0, 0, 0755, $(QTE_DIR)/lib/fonts/fontdir, /usr/qt/lib/fonts/fontdir, 0)
+ifdef PTXCONF_QTE_SHARED
 	@$(call install_copy, 0, 0, 0755, $(QTE_DIR)/lib/libqte.so.$(QTE_VERSION), /lib/libqte.so.$(QTE_VERSION))
 	@$(call install_link, libqte.so.$(QTE_VERSION), /lib/libqte.so)
 	@$(call install_link, libqte.so.$(QTE_VERSION), /lib/libqte.so.$(QTE_MAJOR))
 	@$(call install_link, libqte.so.$(QTE_VERSION), /lib/libqte.so.$(QTE_MAJOR).$(QTE_MINOR))
+endif
 
 	@$(call install_finish)
 	touch $@
