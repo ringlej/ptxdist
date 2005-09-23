@@ -1,9 +1,10 @@
-#
-# Copyright (C) 03/11/2003 by Marco Cavallini <m.cavallini@koansoftware.com>
-#
-
-config QTE
+menuconfig QTE
 	bool
-	prompt "Compile qt/e"
-	depends on EXPERIMENTAL
+	prompt "QT Embedded"
+	select HOSTTOOL_QTE
 
+
+config QTE_SHARED
+	bool
+	prompt "Build shared QT/E library"
+	depends on QTE
