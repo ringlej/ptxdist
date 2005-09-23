@@ -1,0 +1,39 @@
+# -*-makefile-*-
+#  
+# $Id:$
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+VENDORTWEAKS = kurzfu
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+kurzfu_targetinstall: $(STATEDIR)/kurzfu.targetinstall
+
+$(STATEDIR)/kurzfu.targetinstall:
+	@$(call targetinfo, vendor-tweaks.targetinstall)
+
+	@echo "Creating initial device nodes..."
+	@echo "Warning: if you intend to use the rootfs directly over nfs, you need to"
+	@echo "         install the device nodes manually using mknod (as root)"
+	@echo "         > mknod dev/console c 5 1"
+	@echo "         > mknod dev/null c 1 3"
+	@echo "         > mknod dev/mtdblock0 c 31 0"
+	@echo "         > mknod dev/mtdblock1 c 31 1"
+	@echo "         > mknod dev/mtdblock2 c 31 2"
+	@echo "         > mknod dev/mtdblock3 c 31 3"
+	
+	@$(call install_node, 0, 0, 0644, c, 5, 1, /dev/console)
+	@$(call install_node, 0, 0, 0644, c, 1, 3, /dev/null)
+	@$(call install_node, 0, 0, 0644, b, 31, 0, /dev/mtdblock0)
+	@$(call install_node, 0, 0, 0644, b, 31, 1, /dev/mtdblock1)
+	@$(call install_node, 0, 0, 0644, b, 31, 2, /dev/mtdblock2)
+	@$(call install_node, 0, 0, 0644, b, 31, 3, /dev/mtdblock3)
+
+# vim: syntax=make
