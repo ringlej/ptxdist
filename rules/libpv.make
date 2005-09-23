@@ -138,9 +138,9 @@ $(STATEDIR)/libpv.targetinstall: $(libpv_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(LIBPV_DIR)/src/.libs/libpv.so.0.1.1, /usr/lib/libpv.so.0.1.1)
-	@$(call install_link, libpv.so.0.1.1, /usr/lib/libpv.so.0)
-	@$(call install_link, libpv.so.0.1.1, /usr/lib/libpv.so)
+	@$(call install_copy, 0, 0, 0644, $(LIBPV_DIR)/src/.libs/libpv.so.3.0.0, /usr/lib/libpv.so.3.0.0)
+	@$(call install_link, libpv.so.3.0.0, /usr/lib/libpv.so.3)
+	@$(call install_link, libpv.so.3.0.0, /usr/lib/libpv.so)
 
 	@$(call install_finish)
 
