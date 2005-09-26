@@ -22,7 +22,7 @@
 #
 # State:
 # 
-# unknown
+# fixed upstream in 0.97
 #
 
 diff -urN grub-0.93/stage2/fsys_reiserfs.c grub-0.93-ptx1/stage2/fsys_reiserfs.c
