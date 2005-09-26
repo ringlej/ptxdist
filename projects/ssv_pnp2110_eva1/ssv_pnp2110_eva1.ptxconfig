@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.7-rc3
-# Sun Aug 28 14:41:45 2005
+# Mon Sep 26 09:07:48 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -156,6 +156,7 @@ PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # Other Host Tools
 #
 # PTXCONF_HOSTTOOL_FLEX254 is not set
+# PTXCONF_HOSTTOOL_QTE is not set
 
 #
 # Debugging Tools             
@@ -258,6 +259,7 @@ PTXCONF_KERNEL_2_6_COMPILE=y
 PTXCONF_KERNEL_2_6_10=y
 # PTXCONF_KERNEL_2_6_11 is not set
 # PTXCONF_KERNEL_2_6_12 is not set
+# PTXCONF_KERNEL_2_6_13 is not set
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -1056,15 +1058,12 @@ PTXCONF_LIBPCAP=y
 # ppp                 
 #
 # PTXCONF_PPP is not set
-
-#
-# proftpd             
-#
 PTXCONF_PROFTPD=y
 # PTXCONF_PROFTPD_PAM is not set
 # PTXCONF_PROFTPD_SENDFILE is not set
 PTXCONF_PROFTPD_SHADOW=y
 PTXCONF_PROFTPD_AUTOSHADOW=y
+# PTXCONF_PROFTPD_DEFAULTCONFIG is not set
 # PTXCONF_PUREFTPD is not set
 
 #
@@ -1138,6 +1137,7 @@ PTXCONF_E2FSPROGS_TUNE2FS=y
 #
 # grub is only available on x86
 #
+# PTXCONF_HDPARM is not set
 PTXCONF_IPKG=y
 # PTXCONF_IPKG_EXTRACT_TEST is not set
 # PTXCONF_IPKG_HASH_TEST is not set
@@ -1197,7 +1197,8 @@ PTXCONF_NCURSES_TERMCAP=y
 # PTXCONF_PCRE is not set
 # PTXCONF_POPT is not set
 PTXCONF_READLINE=y
-# PTXCONF_RN is not set
+# PTXCONF_LIBRN is not set
+# PTXCONF_LIBGSLOOP is not set
 # PTXCONF_SQLITE is not set
 PTXCONF_TERMCAP=y
 
@@ -1210,6 +1211,7 @@ PTXCONF_ZLIB=y
 #
 # Middleware                  
 #
+# PTXCONF_DOTGNU is not set
 # PTXCONF_OMNIORB is not set
 
 #

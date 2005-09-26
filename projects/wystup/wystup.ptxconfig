@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.7-rc3
-# Sun Aug 28 14:41:53 2005
+# Mon Sep 26 09:07:50 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -134,6 +134,7 @@ PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # Other Host Tools
 #
 # PTXCONF_HOSTTOOL_FLEX254 is not set
+# PTXCONF_HOSTTOOL_QTE is not set
 
 #
 # Debugging Tools             
@@ -227,6 +228,7 @@ PTXCONF_KERNEL_2_6_8=y
 # PTXCONF_KERNEL_2_6_10 is not set
 # PTXCONF_KERNEL_2_6_11 is not set
 # PTXCONF_KERNEL_2_6_12 is not set
+# PTXCONF_KERNEL_2_6_13 is not set
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -1145,10 +1147,6 @@ PTXCONF_PPP_SHADOW=y
 PTXCONF_PPP_PLUGINS=y
 # PTXCONF_PPP_IPX is not set
 PTXCONF_PPP_MULTILINK=y
-
-#
-# proftpd             
-#
 # PTXCONF_PROFTPD is not set
 # PTXCONF_PUREFTPD is not set
 
@@ -1242,6 +1240,7 @@ PTXCONF_GRUB_PRESET_MENU=""
 # PTXCONF_GRUB_CS89X0 is not set
 # PTXCONF_GRUB_EEPRO100 is not set
 PTXCONF_GRUB_RTL8139=y
+# PTXCONF_HDPARM is not set
 # PTXCONF_IPKG is not set
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
@@ -1300,13 +1299,15 @@ PTXCONF_NCURSES_PANEL=y
 # PTXCONF_PCRE is not set
 # PTXCONF_POPT is not set
 # PTXCONF_READLINE is not set
-# PTXCONF_RN is not set
+# PTXCONF_LIBRN is not set
+# PTXCONF_LIBGSLOOP is not set
 # PTXCONF_SQLITE is not set
 PTXCONF_ZLIB=y
 
 #
 # Middleware                  
 #
+# PTXCONF_DOTGNU is not set
 # PTXCONF_OMNIORB is not set
 
 #
