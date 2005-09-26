@@ -126,6 +126,7 @@ source "rules/zlib.in"
 endmenu
 
 menu "Middleware                  "
+source "rules/dotgnu.in"
 source "rules/omniorb.in"
 endmenu
 

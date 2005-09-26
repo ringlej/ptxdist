@@ -1,3 +1,7 @@
+2005-09-26 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* dotgnu: added initial support; patch by Benedikt Spranger
+
 2005-09-22 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* libxmlconfig: version update

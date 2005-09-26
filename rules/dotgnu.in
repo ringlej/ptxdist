@@ -1,0 +1,19 @@
+menuconfig DOTGNU
+	bool "DotGNU              "
+		
+config TRECC
+	bool
+	prompt "Compile treecc"
+	depends on DOTGNU
+
+config PNET
+	bool
+	prompt "Compile pnet"
+	select TRECC
+	depends on DOTGNU
+	
+config PNETLIB
+	bool
+	prompt "Compile pnetlib"
+	select PNET
+	depends on DOTGNU
