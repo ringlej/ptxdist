@@ -248,7 +248,8 @@ CROSS_ENV_AC := \
 	ac_cv_func_getrlimit=yes \
 	ac_cv_type_uintptr_t=yes \
 	ac_cv_func_dcgettext=yes \
-	gt_cv_func_gettext_libintl=yes
+	gt_cv_func_gettext_libintl=yes \
+	ac_cv_sysv_ipc=yes
 
 ifndef NATIVE
 CROSS_ENV := \
@@ -1083,7 +1084,7 @@ install_copy_toolchain_lib =									\
 				echo;								\
 				exit -1;							\
 			fi;									\
-			LIB="`readlink $${LIB_DIR}/$${LIB}`";					\
+			LIB="`readlink $${LIB_DIR}/$${LIB} | sed s,^\\\\.,$${LIB_DIR}/\.,`";\
 			if [ -n "$$LIB" ]; then							\
 				if [ "`dirname $$LIB`" != "." ]; then				\
 					LIB_DIR=`dirname $$LIB`;				\

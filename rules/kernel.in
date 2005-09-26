@@ -165,7 +165,7 @@ choice
 	config KERNEL_2_6_13
 		bool
 		prompt "2.6.13"
-		depends on ARCH_X86 || ARCH_ARM
+		depends on ARCH_X86 || ARCH_ARM || ARCH_PPC
 		select KERNEL_2_6
 
 endchoice

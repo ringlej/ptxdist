@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-RSYNC_VERSION	= 2.6.3
+RSYNC_VERSION	= 2.6.6
 RSYNC		= rsync-$(RSYNC_VERSION)
 RSYNC_SUFFIX	= tar.gz
 RSYNC_URL	= http://samba.anu.edu.au/ftp/rsync/$(RSYNC).$(RSYNC_SUFFIX)

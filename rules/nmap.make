@@ -26,7 +26,7 @@ endif
 #
 # Paths and names 
 #
-NMAP_VERSION		= 3.48
+NMAP_VERSION		= 3.93
 NMAP			= nmap-$(NMAP_VERSION)
 NMAP_SUFFIX		= tgz
 NMAP_URL		= http://download.insecure.org/nmap/dist/$(NMAP).$(NMAP_SUFFIX)

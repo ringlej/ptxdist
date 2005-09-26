@@ -1,6 +1,17 @@
 2005-09-26 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* dotgnu: added initial support; patch by Benedikt Spranger
+	* busybox: added patch to make gcc 4.x happy; patch by 
+	  Benedikt Spranger
+	* coreutils: added get_patches; patch by Benedikt Spranger
+	* grub: update from 0.95 to 0.97; patch by Benedikt Spranger
+	* kernel: 2.6.13 is also available on PPC; patch by Benedikt
+	  Spanger
+	* nmap: update from 3.48 to 3.93; patch by Benedikt Spranger
+	* openssl: use cross-ar; patch by Benedikt Spranger
+	* rsync: update from 2.6.3 to 2.6.6. Patch by Benedikt Spranger
+	* Rules.make: fix LIB for relative paths; patch by Benedikt
+	  Spranger
 
 2005-09-22 Robert Schwebel <r.schwebel@pengutronix.de>
 

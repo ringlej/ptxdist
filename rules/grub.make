@@ -18,7 +18,7 @@ endif
 #
 # Paths and names 
 #
-GRUB_VERSION		= 0.95
+GRUB_VERSION		= 0.97
 GRUB			= grub-$(GRUB_VERSION)
 GRUB_URL		= ftp://alpha.gnu.org/gnu/grub/$(GRUB).tar.gz
 GRUB_SOURCE		= $(SRCDIR)/$(GRUB).tar.gz
