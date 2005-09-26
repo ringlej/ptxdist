@@ -12,6 +12,8 @@
 	* rsync: update from 2.6.3 to 2.6.6. Patch by Benedikt Spranger
 	* Rules.make: fix LIB for relative paths; patch by Benedikt
 	  Spranger
+	* Version.make: fix extraversion whitespace handling; patch by
+	  Mike Wakerly
 
 2005-09-22 Robert Schwebel <r.schwebel@pengutronix.de>
 
