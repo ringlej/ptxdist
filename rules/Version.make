@@ -12,7 +12,7 @@ ifdef PTXCONF_USE_EXTERNAL_KERNEL
 KERNEL_VERSION_MAJOR	:= $(shell sed -ne "s/^VERSION[ ]=[ ]//gp"      $(PTXCONF_KERNEL_DIR)/Makefile)
 KERNEL_VERSION_MINOR	:= $(shell sed -ne "s/^PATCHLEVEL[ ]=[ ]//gp"   $(PTXCONF_KERNEL_DIR)/Makefile)
 KERNEL_VERSION_MICRO	:= $(shell sed -ne "s/^SUBLEVEL[ ]=[ ]//gp"     $(PTXCONF_KERNEL_DIR)/Makefile)
-KERNEL_VERSION_EXTRA	:= $(shell sed -ne "s/^EXTRAVERSION[ ]=//gp"    $(PTXCONF_KERNEL_DIR)/Makefile)
+KERNEL_VERSION_EXTRA	:= $(shell sed -ne "s/^EXTRAVERSION[ ]=[ ]//gp" $(PTXCONF_KERNEL_DIR)/Makefile)
 else
 KERNEL_VERSION_MAJOR	:= $(call get_option, s/^PTXCONF_KERNEL_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\1/)
 KERNEL_VERSION_MINOR	:= $(call get_option, s/^PTXCONF_KERNEL_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\2/)
