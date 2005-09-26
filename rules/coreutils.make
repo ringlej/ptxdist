@@ -32,6 +32,7 @@ coreutils_get: $(STATEDIR)/coreutils.get
 
 $(STATEDIR)/coreutils.get: $(COREUTILS_SOURCE)
 	@$(call targetinfo, $@)
+	@$(call get_patches, $(COREUTILS))
 	touch $@
 
 $(COREUTILS_SOURCE):
