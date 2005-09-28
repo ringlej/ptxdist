@@ -1,0 +1,6 @@
+menuconfig FONTCONFIG22
+	bool "Fontconfig 2.2        "
+	help
+	  FIXME
+
+
