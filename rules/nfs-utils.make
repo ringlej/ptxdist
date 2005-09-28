@@ -33,7 +33,7 @@ nfsutils_get: $(STATEDIR)/nfsutils.get
 $(STATEDIR)/nfsutils.get: $(NFSUTILS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NFSUTILS))
-	touch $@
+	$(call touch, $@)
 
 $(NFSUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/nfsutils.extract: $(STATEDIR)/nfsutils.get $(STATEDIR)/autoconf257.i
 # regenerate configure script with new autoconf, to make cross compiling work
 #
 	cd $(NFSUTILS_DIR) && PATH=$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin:$$PATH autoconf
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -107,7 +107,7 @@ $(STATEDIR)/nfsutils.prepare: $(nfsutils_prepare_deps)
 	cd $(NFSUTILS_DIR) &&						\
 		$(NFSUTILS_PATH) $(NFSUTILS_ENV)			\
 		$(NFSUTILS_DIR)/configure $(NFSUTILS_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -118,7 +118,7 @@ nfsutils_compile: $(STATEDIR)/nfsutils.compile
 $(STATEDIR)/nfsutils.compile: $(STATEDIR)/nfsutils.prepare 
 	@$(call targetinfo, $@)
 	cd $(NFSUTILS_DIR) && $(NFSUTILS_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -128,7 +128,7 @@ nfsutils_install: $(STATEDIR)/nfsutils.install
 
 $(STATEDIR)/nfsutils.install: $(STATEDIR)/nfsutils.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -231,7 +231,7 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

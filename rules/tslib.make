@@ -37,7 +37,7 @@ tslib_get_deps = $(TSLIB_SOURCE)
 $(STATEDIR)/tslib.get: $(tslib_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TSLIB))
-	touch $@
+	$(call touch, $@)
 
 $(TSLIB_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/tslib.extract: $(tslib_extract_deps)
 	@$(call clean, $(TSLIB_DIR))
 	@$(call extract, $(TSLIB_SOURCE))
 	@$(call patchin, $(TSLIB))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -89,7 +89,7 @@ $(STATEDIR)/tslib.prepare: $(tslib_prepare_deps)
 	cd $(TSLIB_DIR) && \
 		$(TSLIB_PATH) $(TSLIB_ENV) \
 		./configure $(TSLIB_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +102,7 @@ tslib_compile_deps = $(STATEDIR)/tslib.prepare
 $(STATEDIR)/tslib.compile: $(tslib_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(TSLIB_DIR) && $(TSLIB_ENV) $(TSLIB_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,7 +113,7 @@ tslib_install: $(STATEDIR)/tslib.install
 $(STATEDIR)/tslib.install: $(STATEDIR)/tslib.compile
 	@$(call targetinfo, $@)
 	cd $(TSLIB_DIR) && $(TSLIB_ENV) $(TSLIB_PATH) make install DESTDIR=$(CROSS_LIB_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -154,7 +154,7 @@ endif
 	
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -36,7 +36,7 @@ fltk_get_deps	=  $(FLTK_SOURCE)
 
 $(STATEDIR)/fltk.get: $(fltk_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(FLTK_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/fltk.extract: $(fltk_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLTK_DIR))
 	@$(call extract, $(FLTK_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -113,7 +113,7 @@ endif
 	cd $(FLTK_DIR) && \
 		$(FLTK_PATH) $(FLTK_ENV) \
 		./configure $(FLTK_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -126,7 +126,7 @@ fltk_compile_deps =  $(STATEDIR)/fltk.prepare
 $(STATEDIR)/fltk.compile: $(fltk_compile_deps)
 	@$(call targetinfo, $@)
 	$(FLTK_PATH) $(FLTK_ENV) make -C $(FLTK_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -137,7 +137,7 @@ fltk_install: $(STATEDIR)/fltk.install
 $(STATEDIR)/fltk.install: $(STATEDIR)/fltk.compile
 	@$(call targetinfo, $@)
 	$(FLTK_PATH) $(FLTK_ENV) make -C $(FLTK_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -177,7 +177,7 @@ $(STATEDIR)/fltk.targetinstall: $(fltk_targetinstall_deps)
 	
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

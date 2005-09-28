@@ -27,7 +27,7 @@ xchain-gdb_get: $(STATEDIR)/xchain-gdb.get
 
 $(STATEDIR)/xchain-gdb.get: $(gdb_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -36,7 +36,7 @@ $(STATEDIR)/xchain-gdb.get: $(gdb_get_deps)
 xchain-gdb_extract: $(STATEDIR)/xchain-gdb.extract
 
 $(STATEDIR)/xchain-gdb.extract: $(STATEDIR)/gdb.extract
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -61,7 +61,7 @@ $(STATEDIR)/xchain-gdb.prepare: $(STATEDIR)/xchain-gdb.extract
 	mkdir -p $(XCHAIN_GDB_BUILDDIR)
 	cd $(XCHAIN_GDB_BUILDDIR) && $(XCHAIN_GDB_ENV) \
 		$(GDB_DIR)/configure $(XCHAIN_GDB_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -72,7 +72,7 @@ xchain-gdb_compile: $(STATEDIR)/xchain-gdb.compile
 $(STATEDIR)/xchain-gdb.compile: $(STATEDIR)/xchain-gdb.prepare 
 	@$(call targetinfo, $@)
 	make -C $(XCHAIN_GDB_BUILDDIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -83,7 +83,7 @@ xchain-gdb_install: $(STATEDIR)/xchain-gdb.install
 $(STATEDIR)/xchain-gdb.install: $(STATEDIR)/xchain-gdb.compile
 	@$(call targetinfo, $@)
 	make -C $(XCHAIN_GDB_BUILDDIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -93,7 +93,7 @@ xchain-gdb_targetinstall: $(STATEDIR)/xchain-gdb.targetinstall
 
 $(STATEDIR)/xchain-gdb.targetinstall: $(STATEDIR)/xchain-gdb.install
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

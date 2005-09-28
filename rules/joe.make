@@ -36,7 +36,7 @@ joe_get_deps = $(JOE_SOURCE)
 $(STATEDIR)/joe.get: $(joe_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JOE))
-	touch $@
+	$(call touch, $@)
 
 $(JOE_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/joe.extract: $(joe_extract_deps)
 	@$(call clean, $(JOE_DIR))
 	@$(call extract, $(JOE_SOURCE))
 	@$(call patchin, $(JOE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -84,7 +84,7 @@ $(STATEDIR)/joe.prepare: $(joe_prepare_deps)
 	cd $(JOE_DIR) && \
 		$(JOE_PATH) $(JOE_ENV) \
 		./configure $(JOE_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +97,7 @@ joe_compile_deps = $(STATEDIR)/joe.prepare
 $(STATEDIR)/joe.compile: $(joe_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(JOE_DIR) && $(JOE_ENV) $(JOE_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -108,7 +108,7 @@ joe_install: $(STATEDIR)/joe.install
 $(STATEDIR)/joe.install: $(STATEDIR)/joe.compile
 	@$(call targetinfo, $@)
 	# cd $(JOE_DIR) && $(JOE_ENV) $(JOE_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +140,7 @@ $(STATEDIR)/joe.targetinstall: $(joe_targetinstall_deps)
 	cp -r $(JOE_DIR)/syntax/*.jsf  $(ROOTDIR)/etc/joe/syntax/
 
 	@$(call install_finish)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -38,7 +38,7 @@ hosttool-e2tools_get_deps = $(HOSTTOOL_E2TOOLS_SOURCE)
 
 $(STATEDIR)/hosttool-e2tools.get: $(hosttool-e2tools_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(HOSTTOOL_E2TOOLS_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/hosttool-e2tools.extract: $(hosttool-e2tools_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_E2TOOLS_DIR))
 	@$(call extract, $(HOSTTOOL_E2TOOLS_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/hosttool-e2tools.prepare: $(hosttool-e2tools_prepare_deps)
 	cd $(HOSTTOOL_E2TOOLS_DIR) && \
 		$(HOSTTOOL_E2TOOLS_PATH) $(HOSTTOOL_E2TOOLS_ENV) \
 		./configure $(HOSTTOOL_E2TOOLS_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ hosttool-e2tools_compile_deps = $(STATEDIR)/hosttool-e2tools.prepare
 $(STATEDIR)/hosttool-e2tools.compile: $(hosttool-e2tools_compile_deps)
 	@$(call targetinfo, $@)
 	$(HOSTTOOL_E2TOOLS_PATH) make -C $(HOSTTOOL_E2TOOLS_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,7 +114,7 @@ hosttool-e2tools_install: $(STATEDIR)/hosttool-e2tools.install
 $(STATEDIR)/hosttool-e2tools.install: $(STATEDIR)/hosttool-e2tools.compile
 	@$(call targetinfo, $@)
 	$(HOSTTOOL_E2TOOLS_PATH) make -C $(HOSTTOOL_E2TOOLS_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -126,7 +126,7 @@ hosttool-e2tools_targetinstall_deps = $(STATEDIR)/hosttool-e2tools.compile
 
 $(STATEDIR)/hosttool-e2tools.targetinstall: $(hosttool-e2tools_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

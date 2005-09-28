@@ -36,7 +36,7 @@ netkit-ftp_get_deps = $(NETKIT-FTP_SOURCE)
 $(STATEDIR)/netkit-ftp.get: $(netkit-ftp_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NETKIT-FTP))
-	touch $@
+	$(call touch, $@)
 
 $(NETKIT-FTP_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/netkit-ftp.extract: $(netkit-ftp_extract_deps)
 	@$(call clean, $(NETKIT-FTP_DIR))
 	@$(call extract, $(NETKIT-FTP_SOURCE))
 	@$(call patchin, $(NETKIT-FTP))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -99,7 +99,7 @@ $(STATEDIR)/netkit-ftp.prepare: $(netkit-ftp_prepare_deps)
 	echo "LIBTERMCAP=-lncurses" >> $(NETKIT-FTP_DIR)/MCONFIG \
 	echo "USE_GLIBC=1" >> $(NETKIT-FTP_DIR)/MCONFIG \
 	echo "USE_READLINE=0" >> $(NETKIT-FTP_DIR)/MCONFIG 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -112,7 +112,7 @@ netkit-ftp_compile_deps = $(STATEDIR)/netkit-ftp.prepare
 $(STATEDIR)/netkit-ftp.compile: $(netkit-ftp_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(NETKIT-FTP_DIR) && $(NETKIT-FTP_ENV) $(NETKIT-FTP_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -123,7 +123,7 @@ netkit-ftp_install: $(STATEDIR)/netkit-ftp.install
 $(STATEDIR)/netkit-ftp.install: $(STATEDIR)/netkit-ftp.compile
 	@$(call targetinfo, $@)
 #	cd $(NETKIT-FTP_DIR) && $(NETKIT-FTP_ENV) $(NETKIT-FTP_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -149,7 +149,7 @@ $(STATEDIR)/netkit-ftp.targetinstall: $(netkit-ftp_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

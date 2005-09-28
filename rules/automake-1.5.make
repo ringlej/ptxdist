@@ -31,7 +31,7 @@ automake15_get_deps	=  $(AUTOMAKE15_SOURCE)
 
 $(STATEDIR)/automake15.get: $(automake15_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(AUTOMAKE15_SOURCE):
 	@$(call targetinfo, $@)
@@ -49,7 +49,7 @@ $(STATEDIR)/automake15.extract: $(automake15_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(AUTOMAKE15_DIR))
 	@$(call extract, $(AUTOMAKE15_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -77,7 +77,7 @@ $(STATEDIR)/automake15.prepare: $(automake15_prepare_deps)
 	cd $(AUTOMAKE15_DIR) && \
 		$(AUTOMAKE15_PATH) \
 		./configure $(AUTOMAKE15_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -90,7 +90,7 @@ automake15_compile_deps =  $(STATEDIR)/automake15.prepare
 $(STATEDIR)/automake15.compile: $(automake15_compile_deps)
 	@$(call targetinfo, $@)
 	$(AUTOMAKE15_PATH) make -C $(AUTOMAKE15_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -101,7 +101,7 @@ automake15_install: $(STATEDIR)/automake15.install
 $(STATEDIR)/automake15.install: $(STATEDIR)/automake15.compile
 	@$(call targetinfo, $@)
 	$(AUTOMAKE15_PATH) make -C $(AUTOMAKE15_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -113,7 +113,7 @@ automake15_targetinstall_deps	=
 
 $(STATEDIR)/automake15.targetinstall: $(automake15_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

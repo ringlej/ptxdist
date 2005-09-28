@@ -44,7 +44,7 @@ ssmtp_get_deps = $(SSMTP_SOURCE) $(SSMTP_PATCH_SOURCE)
 $(STATEDIR)/ssmtp.get: $(ssmtp_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SSMTP))
-	touch $@
+	$(call touch, $@)
 
 $(SSMTP_SOURCE):
 	@$(call targetinfo, $@)
@@ -68,7 +68,7 @@ $(STATEDIR)/ssmtp.extract: $(ssmtp_extract_deps)
 	@$(call extract, $(SSMTP_SOURCE))
 	cd $(SSMTP_DIR) && zcat $(SSMTP_PATCH_SOURCE) | patch -p1
 	@$(call patchin, $(SSMTP))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -114,7 +114,7 @@ $(STATEDIR)/ssmtp.prepare: $(ssmtp_prepare_deps)
 	cd $(SSMTP_DIR) && \
 		$(SSMTP_PATH) $(SSMTP_ENV) \
 		./configure $(SSMTP_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -127,7 +127,7 @@ ssmtp_compile_deps = $(STATEDIR)/ssmtp.prepare
 $(STATEDIR)/ssmtp.compile: $(ssmtp_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(SSMTP_DIR) && $(SSMTP_ENV) $(SSMTP_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -138,7 +138,7 @@ ssmtp_install: $(STATEDIR)/ssmtp.install
 $(STATEDIR)/ssmtp.install: $(STATEDIR)/ssmtp.compile
 	@$(call targetinfo, $@)
 #	cd $(SSMTP_DIR) && $(SSMTP_ENV) $(SSMTP_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -164,7 +164,7 @@ $(STATEDIR)/ssmtp.targetinstall: $(ssmtp_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

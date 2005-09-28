@@ -36,7 +36,7 @@ oprofile_get_deps	=  $(OPROFILE_SOURCE)
 
 $(STATEDIR)/oprofile.get: $(oprofile_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(OPROFILE_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/oprofile.extract: $(oprofile_extract_deps)
 	@$(call clean, $(OPROFILE_DIR))
 	@$(call extract, $(OPROFILE_SOURCE))
 	@$(call patchin, $(OPROFILE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -94,7 +94,7 @@ $(STATEDIR)/oprofile.prepare: $(oprofile_prepare_deps)
 	cd $(OPROFILE_DIR) && \
 		$(OPROFILE_PATH) $(OPROFILE_ENV) \
 		./configure $(OPROFILE_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -107,7 +107,7 @@ oprofile_compile_deps =  $(STATEDIR)/oprofile.prepare
 $(STATEDIR)/oprofile.compile: $(oprofile_compile_deps)
 	@$(call targetinfo, $@)
 	$(OPROFILE_PATH) make -C $(OPROFILE_DIR) $(OPROFILE_MAKEVARS)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -118,7 +118,7 @@ oprofile_install: $(STATEDIR)/oprofile.install
 $(STATEDIR)/oprofile.install: $(STATEDIR)/oprofile.compile
 	@$(call targetinfo, $@)
 	$(OPROFILE_PATH) make -C $(OPROFILE_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -131,7 +131,7 @@ oprofile_targetinstall_deps	=  $(STATEDIR)/oprofile.compile
 $(STATEDIR)/oprofile.targetinstall: $(oprofile_targetinstall_deps)
 	@$(call targetinfo, $@)
 	# FIXME: nothing to do on targetinstall? 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

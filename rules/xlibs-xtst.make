@@ -37,7 +37,7 @@ xlibs-xtst_get_deps = $(XLIBS-XTST_SOURCE)
 $(STATEDIR)/xlibs-xtst.get: $(xlibs-xtst_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XTST))
-	touch $@
+	$(call touch, $@)
 
 $(XLIBS-XTST_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/xlibs-xtst.extract: $(xlibs-xtst_extract_deps)
 	@$(call clean, $(XLIBS-XTST_DIR))
 	@$(call extract, $(XLIBS-XTST_SOURCE))
 	@$(call patchin, $(XLIBS-XTST))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/xlibs-xtst.prepare: $(xlibs-xtst_prepare_deps)
 	cd $(XLIBS-XTST_DIR) && \
 		$(XLIBS-XTST_PATH) $(XLIBS-XTST_ENV) \
 		./configure $(XLIBS-XTST_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ xlibs-xtst_compile_deps = $(STATEDIR)/xlibs-xtst.prepare
 $(STATEDIR)/xlibs-xtst.compile: $(xlibs-xtst_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XTST_DIR) && $(XLIBS-XTST_ENV) $(XLIBS-XTST_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,7 +114,7 @@ xlibs-xtst_install: $(STATEDIR)/xlibs-xtst.install
 $(STATEDIR)/xlibs-xtst.install: $(STATEDIR)/xlibs-xtst.compile
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XTST_DIR) && $(XLIBS-XTST_ENV) $(XLIBS-XTST_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -144,7 +144,7 @@ $(STATEDIR)/xlibs-xtst.targetinstall: $(xlibs-xtst_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

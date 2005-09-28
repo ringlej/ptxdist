@@ -36,7 +36,7 @@ liboop_get_deps = $(LIBOOP_SOURCE)
 
 $(STATEDIR)/liboop.get: $(liboop_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(LIBOOP_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/liboop.extract: $(liboop_extract_deps)
 	@$(call clean, $(LIBOOP_DIR))
 	@$(call extract, $(LIBOOP_SOURCE))
 	@$(call patchin, $(LIBOOP))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -92,7 +92,7 @@ $(STATEDIR)/liboop.prepare: $(liboop_prepare_deps)
 	cd $(LIBOOP_DIR) && \
 		$(LIBOOP_PATH) $(LIBOOP_ENV) \
 		./configure $(LIBOOP_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +105,7 @@ liboop_compile_deps = $(STATEDIR)/liboop.prepare
 $(STATEDIR)/liboop.compile: $(liboop_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBOOP_DIR) && $(LIBOOP_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -116,7 +116,7 @@ liboop_install: $(STATEDIR)/liboop.install
 $(STATEDIR)/liboop.install: $(STATEDIR)/liboop.compile
 	@$(call targetinfo, $@)
 	cd $(LIBOOP_DIR) && $(LIBOOP_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -143,7 +143,7 @@ $(STATEDIR)/liboop.targetinstall: $(liboop_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

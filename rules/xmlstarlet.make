@@ -37,7 +37,7 @@ xmlstarlet_get_deps = $(XMLSTARLET_SOURCE)
 $(STATEDIR)/xmlstarlet.get: $(xmlstarlet_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XMLSTARLET))
-	touch $@
+	$(call touch, $@)
 
 $(XMLSTARLET_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/xmlstarlet.extract: $(xmlstarlet_extract_deps)
 	@$(call clean, $(XMLSTARLET_DIR))
 	@$(call extract, $(XMLSTARLET_SOURCE))
 	@$(call patchin, $(XMLSTARLET))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -91,7 +91,7 @@ $(STATEDIR)/xmlstarlet.prepare: $(xmlstarlet_prepare_deps)
 	cd $(XMLSTARLET_DIR) && \
 		$(XMLSTARLET_PATH) $(XMLSTARLET_ENV) \
 		./configure $(XMLSTARLET_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -104,7 +104,7 @@ xmlstarlet_compile_deps = $(STATEDIR)/xmlstarlet.prepare
 $(STATEDIR)/xmlstarlet.compile: $(xmlstarlet_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XMLSTARLET_DIR) && $(XMLSTARLET_ENV) $(XMLSTARLET_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,7 +115,7 @@ xmlstarlet_install: $(STATEDIR)/xmlstarlet.install
 $(STATEDIR)/xmlstarlet.install: $(STATEDIR)/xmlstarlet.compile
 	@$(call targetinfo, $@)
 	cd $(XMLSTARLET_DIR) && $(XMLSTARLET_ENV) $(XMLSTARLET_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -143,7 +143,7 @@ $(STATEDIR)/xmlstarlet.targetinstall: $(xmlstarlet_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

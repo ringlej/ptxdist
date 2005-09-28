@@ -38,7 +38,7 @@ cramfs_get_deps	=  $(CRAMFS_SOURCE)
 
 $(STATEDIR)/cramfs.get: $(cramfs_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(CRAMFS_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/cramfs.extract: $(cramfs_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CRAMFS_DIR))
 	@$(call extract, $(CRAMFS_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -72,7 +72,7 @@ cramfs_prepare_deps =  \
 
 $(STATEDIR)/cramfs.prepare: $(cramfs_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -86,7 +86,7 @@ $(STATEDIR)/cramfs.compile: $(cramfs_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(CRAMFS_DIR) && \
 		make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -99,7 +99,7 @@ $(STATEDIR)/cramfs.install: $(STATEDIR)/cramfs.compile
 	install -d $(PTXCONF_PREFIX)/bin
 	cp $(CRAMFS_DIR)/mkcramfs $(PTXCONF_PREFIX)/bin
 	cp $(CRAMFS_DIR)/cramfsck $(PTXCONF_PREFIX)/bin
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -111,7 +111,7 @@ cramfs_targetinstall_deps	=  $(STATEDIR)/cramfs.install
 
 $(STATEDIR)/cramfs.targetinstall: $(cramfs_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

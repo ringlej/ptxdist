@@ -36,7 +36,7 @@ penguzilla_get_deps	=  $(PENGUZILLA_SOURCE)
 
 $(STATEDIR)/penguzilla.get: $(penguzilla_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(PENGUZILLA_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/penguzilla.extract: $(penguzilla_extract_deps)
 	@$(call clean, $(PENGUZILLA_DIR))
 	@$(call extract, $(PENGUZILLA_SOURCE))
 	@$(call patchin, $(PENGUZILLA))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -93,7 +93,7 @@ $(STATEDIR)/penguzilla.prepare: $(penguzilla_prepare_deps)
 	cd $(PENGUZILLA_DIR) && \
 		$(PENGUZILLA_PATH) $(PENGUZILLA_ENV) \
 		./configure $(PENGUZILLA_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -106,7 +106,7 @@ penguzilla_compile_deps =  $(STATEDIR)/penguzilla.prepare
 $(STATEDIR)/penguzilla.compile: $(penguzilla_compile_deps)
 	@$(call targetinfo, $@)
 	$(PENGUZILLA_PATH) $(PENGUZILLA_ENV) make -C $(PENGUZILLA_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -116,7 +116,7 @@ penguzilla_install: $(STATEDIR)/penguzilla.install
 
 $(STATEDIR)/penguzilla.install: $(STATEDIR)/penguzilla.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -154,7 +154,7 @@ $(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

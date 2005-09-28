@@ -40,7 +40,7 @@ fontconfig22_get_deps	=  $(FONTCONFIG22_SOURCE)
 $(STATEDIR)/fontconfig22.get: $(fontconfig22_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FONTCONFIG22))
-	touch $@
+	$(call touch, $@)
 
 $(FONTCONFIG22_SOURCE):
 	@$(call targetinfo, $@)
@@ -64,7 +64,7 @@ $(STATEDIR)/fontconfig22.extract: $(fontconfig22_extract_deps)
 	touch $(FONTCONFIG22_DIR)/fc-cache/fc-cache.1 
 	touch $(FONTCONFIG22_DIR)/fc-list/fc-list.1
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -103,7 +103,7 @@ $(STATEDIR)/fontconfig22.prepare: $(fontconfig22_prepare_deps)
 	cd $(FONTCONFIG22_DIR) && \
 		$(FONTCONFIG22_PATH) $(FONTCONFIG22_ENV) \
 		./configure $(FONTCONFIG22_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -117,7 +117,7 @@ $(STATEDIR)/fontconfig22.compile: $(fontconfig22_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(FONTCONFIG22_DIR) && \
 	   $(FONTCONFIG22_PATH) make 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -129,7 +129,7 @@ $(STATEDIR)/fontconfig22.install: $(STATEDIR)/fontconfig22.compile
 	@$(call targetinfo, $@)
 	cd $(FONTCONFIG22_DIR) && \
 	   $(FONTCONFIG22_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -162,7 +162,7 @@ $(STATEDIR)/fontconfig22.targetinstall: $(fontconfig22_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

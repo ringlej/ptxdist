@@ -36,7 +36,7 @@ xvkbd_get_deps	=  $(XVKBD_SOURCE)
 
 $(STATEDIR)/xvkbd.get: $(xvkbd_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(XVKBD_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/xvkbd.extract: $(xvkbd_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XVKBD_DIR))
 	@$(call extract, $(XVKBD_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -78,7 +78,7 @@ $(STATEDIR)/xvkbd.prepare: $(xvkbd_prepare_deps)
 	cd $(XVKBD_DIR) && \
 		$(XVKBD_PATH) $(XVKBD_ENV) \
 		xmkmf
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -91,7 +91,7 @@ xvkbd_compile_deps =  $(STATEDIR)/xvkbd.prepare
 $(STATEDIR)/xvkbd.compile: $(xvkbd_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XVKBD_DIR) && $(XVKBD_PATH) $(XVKBD_ENV) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -102,7 +102,7 @@ xvkbd_install: $(STATEDIR)/xvkbd.install
 $(STATEDIR)/xvkbd.install: $(STATEDIR)/xvkbd.compile
 	@$(call targetinfo, $@)
 	cd $(XVKBD_DIR) && $(XVKBD_PATH) $(XVKBD_ENV) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -133,7 +133,7 @@ $(STATEDIR)/xvkbd.targetinstall: $(xvkbd_targetinstall_deps)
 
 	@$(call install_finish)
 	
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -31,7 +31,7 @@ hosttool-flex254_get_deps = $(STATEDIR)/flex.get
 
 $(STATEDIR)/hosttool-flex254.get: $(hosttool-flex254_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -45,7 +45,7 @@ $(STATEDIR)/hosttool-flex254.extract: $(hosttool-flex254_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_FLEX254_DIR))
 	@$(call extract, $(FLEX_SOURCE), $(HOST_BUILDDIR))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -75,7 +75,7 @@ $(STATEDIR)/hosttool-flex254.prepare: $(hosttool-flex254_prepare_deps)
 	cd $(HOSTTOOL_FLEX254_DIR) && \
 		$(HOSTTOOL_FLEX254_PATH) $(HOSTTOOL_FLEX254_ENV) \
 		./configure $(HOSTTOOL_FLEX254_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -88,7 +88,7 @@ hosttool-flex254_compile_deps = $(STATEDIR)/hosttool-flex254.prepare
 $(STATEDIR)/hosttool-flex254.compile: $(hosttool-flex254_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_FLEX254_DIR) && $(HOSTTOOL_FLEX254_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -99,7 +99,7 @@ hosttool-flex254_install: $(STATEDIR)/hosttool-flex254.install
 $(STATEDIR)/hosttool-flex254.install: $(STATEDIR)/hosttool-flex254.compile
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_FLEX254_DIR) && $(HOSTTOOL_FLEX254_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -111,7 +111,7 @@ hosttool-flex254_targetinstall_deps = $(STATEDIR)/hosttool-flex254.compile
 
 $(STATEDIR)/hosttool-flex254.targetinstall: $(hosttool-flex254_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

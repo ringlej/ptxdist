@@ -37,7 +37,7 @@ gnuplot_get_deps = $(GNUPLOT_SOURCE)
 $(STATEDIR)/gnuplot.get: $(gnuplot_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GNUPLOT))
-	touch $@
+	$(call touch, $@)
 
 $(GNUPLOT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/gnuplot.extract: $(gnuplot_extract_deps)
 	@$(call clean, $(GNUPLOT_DIR))
 	@$(call extract, $(GNUPLOT_SOURCE))
 	@$(call patchin, $(GNUPLOT))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -148,7 +148,7 @@ $(STATEDIR)/gnuplot.prepare: $(gnuplot_prepare_deps)
 	cd $(GNUPLOT_DIR) && \
 		$(GNUPLOT_PATH) $(GNUPLOT_ENV) \
 		./configure $(GNUPLOT_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -169,7 +169,7 @@ $(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps)
 	# We only make the binary, as IT tries to start target stuff on the host
 	# otherwhise
 	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_ENV) $(GNUPLOT_PATH) make gnuplot
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -179,7 +179,7 @@ gnuplot_install: $(STATEDIR)/gnuplot.install
 
 $(STATEDIR)/gnuplot.install: $(STATEDIR)/gnuplot.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -208,7 +208,7 @@ $(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

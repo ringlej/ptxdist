@@ -34,7 +34,7 @@ pdksh_get: $(STATEDIR)/pdksh.get
 
 $(STATEDIR)/pdksh.get: $(PDKSH_SOURCE)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(PDKSH_SOURCE):
 	@$(call targetinfo, $@)
@@ -51,7 +51,7 @@ $(STATEDIR)/pdksh.extract: $(STATEDIR)/pdksh.get
 	@$(call clean, $(PDKSH_DIR))
 	@$(call extract, $(PDKSH_SOURCE))
 	@$(call patchin, $(PDKSH))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -134,7 +134,7 @@ $(STATEDIR)/pdksh.prepare: $(pdksh_prepare_deps)
 	cd $(PDKSH_DIR) && \
 		$(PDKSH_PATH) $(PDKSH_ENV) \
 		$(PDKSH_DIR)/configure $(PDKSH_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -147,7 +147,7 @@ pdksh_compile: $(STATEDIR)/pdksh.compile
 $(STATEDIR)/pdksh.compile: $(STATEDIR)/pdksh.prepare 
 	@$(call targetinfo, $@)
 	cd $(PDKSH_DIR) && $(PDKSH_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -157,7 +157,7 @@ pdksh_install: $(STATEDIR)/pdksh.install
 
 $(STATEDIR)/pdksh.install: $(STATEDIR)/pdksh.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -180,7 +180,7 @@ $(STATEDIR)/pdksh.targetinstall: $(STATEDIR)/pdksh.install
 	@$(call install_copy, 0, 0, 0755, $(PDKSH_DIR)/ksh, /bin/ksh)
 	
 	@$(call install_finish)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

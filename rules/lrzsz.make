@@ -39,7 +39,7 @@ lrzsz_get_deps	=  $(LSZRZ_SOURCE)
 
 $(STATEDIR)/lrzsz.get: $(lrzsz_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(LSZRZ_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +58,7 @@ $(STATEDIR)/lrzsz.extract: $(lrzsz_extract_deps)
 	@$(call clean, $(LSZRZ_DIR))
 	@$(call extract, $(LSZRZ_SOURCE))
 	@$(call patchin, $(LSZRZ))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -88,7 +88,7 @@ $(STATEDIR)/lrzsz.prepare: $(lrzsz_prepare_deps)
 	cd $(LSZRZ_DIR) && \
 		$(LSZRZ_PATH) $(LSZRZ_ENV) \
 		./configure $(LSZRZ_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ lrzsz_compile_deps =  $(STATEDIR)/lrzsz.prepare
 $(STATEDIR)/lrzsz.compile: $(lrzsz_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LSZRZ_DIR) && $(LSZRZ_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,7 +111,7 @@ lrzsz_install: $(STATEDIR)/lrzsz.install
 
 $(STATEDIR)/lrzsz.install: $(STATEDIR)/lrzsz.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -123,7 +123,7 @@ lrzsz_targetinstall_deps	=  $(STATEDIR)/lrzsz.compile
 
 $(STATEDIR)/lrzsz.targetinstall: $(lrzsz_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

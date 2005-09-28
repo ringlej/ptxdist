@@ -32,7 +32,7 @@ utelnetd_get: $(STATEDIR)/utelnetd.get
 
 $(STATEDIR)/utelnetd.get: $(UTELNETD_SOURCE)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(UTELNETD_SOURCE):
 	@$(call targetinfo, $@)
@@ -48,7 +48,7 @@ $(STATEDIR)/utelnetd.extract: $(STATEDIR)/utelnetd.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTELNETS_DIR))
 	@$(call extract, $(UTELNETD_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -62,7 +62,7 @@ utelnetd_prepare_deps = \
 
 $(STATEDIR)/utelnetd.prepare: $(utelnetd_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -76,7 +76,7 @@ UTELNETD_MAKEVARS    += CROSS=$(COMPILER_PREFIX)
 $(STATEDIR)/utelnetd.compile: $(STATEDIR)/utelnetd.prepare 
 	@$(call targetinfo, $@)
 	$(UTELNETD_ENVIRONMENT) make -C $(UTELNETD_DIR) $(UTELNETD_MAKEVARS)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -86,7 +86,7 @@ utelnetd_install: $(STATEDIR)/utelnetd.install
 
 $(STATEDIR)/utelnetd.install: $(STATEDIR)/utelnetd.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -110,7 +110,7 @@ $(STATEDIR)/utelnetd.targetinstall: $(STATEDIR)/utelnetd.install
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

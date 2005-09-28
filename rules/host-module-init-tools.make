@@ -31,7 +31,7 @@ hosttool-module-init-tools_get_deps = $(STATEDIR)/module-init-tools.get
 
 $(STATEDIR)/hosttool-module-init-tools.get: $(hosttool-module-init-tools_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -46,7 +46,7 @@ $(STATEDIR)/hosttool-module-init-tools.extract: $(hosttool-module-init-tools_ext
 	@$(call clean, $(HOSTTOOL_MODULE_INIT_TOOLS_DIR))
 	@$(call extract, $(MODULE_INIT_TOOLS_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(MODULE_INIT_TOOLS), $(HOSTTOOL_MODULE_INIT_TOOLS_DIR))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -72,7 +72,7 @@ $(STATEDIR)/hosttool-module-init-tools.prepare: $(hosttool-module-init-tools_pre
 	cd $(HOSTTOOL_MODULE_INIT_TOOLS_DIR) && \
 		$(HOSTTOOL_MODULE_INIT_TOOLS_PATH) $(HOSTTOOL_MODULE_INIT_TOOLS_ENV) \
 		./configure $(HOSTTOOL_MODULE_INIT_TOOLS_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -87,7 +87,7 @@ $(STATEDIR)/hosttool-module-init-tools.compile: $(hosttool-module-init-tools_com
 	cd $(HOSTTOOL_MODULE_INIT_TOOLS_DIR) && \
 		$(HOSTTOOL_MODULE_INIT_TOOLS_PATH) make \
 			$(HOSTTOOL_MODULE_INIT_TOOLS_MAKEVARS)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -105,7 +105,7 @@ $(STATEDIR)/hosttool-module-init-tools.install: $(hosttool-module-init-tools_ins
 	cd $(HOSTTOOL_MODULE_INIT_TOOLS_DIR) && \
 		$(HOSTTOOL_MODULE_INIT_TOOLS_PATH) make install \
 			$(HOSTTOOL_MODULE_INIT_TOOLS_MAKEVARS)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -117,7 +117,7 @@ hosttool-module-init-tools_targetinstall_deps = $(STATEDIR)/hosttool-module-init
 
 $(STATEDIR)/hosttool-module-init-tools.targetinstall: $(hosttool-module-init-tools_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

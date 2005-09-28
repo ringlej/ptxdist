@@ -37,7 +37,7 @@ shorewall_get_deps	=  $(SHOREWALL_SOURCE)
 
 $(STATEDIR)/shorewall.get: $(shorewall_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(SHOREWALL_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/shorewall.extract: $(shorewall_extract_deps)
 	@$(call clean, $(SHOREWALL_DIR))
 	@$(call extract, $(SHOREWALL_SOURCE))
 	@$(call patchin, $(SHOREWALL))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -66,7 +66,7 @@ shorewall_prepare: $(STATEDIR)/shorewall.prepare
 
 $(STATEDIR)/shorewall.prepare:
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -76,7 +76,7 @@ shorewall_compile: $(STATEDIR)/shorewall.compile
 
 $(STATEDIR)/shorewall.compile:
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -109,7 +109,7 @@ $(STATEDIR)/shorewall.targetinstall: $(shorewall_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

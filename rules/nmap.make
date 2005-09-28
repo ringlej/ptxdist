@@ -43,7 +43,7 @@ nmap_get_deps  =  $(NMAP_SOURCE)
 
 $(STATEDIR)/nmap.get: $(nmap_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(NMAP_SOURCE):
 	@$(call targetinfo, $@)
@@ -60,7 +60,7 @@ $(STATEDIR)/nmap.extract: $(STATEDIR)/nmap.get
 	@$(call clean, $(NMAP_DIR))
 	@$(call extract, $(NMAP_SOURCE))
 	@$(call patchin, $(NMAP))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -104,7 +104,7 @@ $(STATEDIR)/nmap.prepare: $(nmap_prepare_deps)
 	cd $(NMAP_DIR) && \
 		$(NMAP_PATH) $(NMAP_ENV) \
 		./configure $(NMAP_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -121,7 +121,7 @@ $(STATEDIR)/nmap.compile: $(nmap_compile_deps)
 #
 	$(NMAP_PATH) make -C $(NMAP_DIR)/libpcre $(HOSTCC_ENV) CFLAGS='' CXXFLAGS='' dftables
 	$(NMAP_PATH) make -C $(NMAP_DIR) nmap
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -131,7 +131,7 @@ nmap_install: $(STATEDIR)/nmap.install
 
 $(STATEDIR)/nmap.install: $(STATEDIR)/nmap.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -166,7 +166,7 @@ ifdef PTXCONF_NMAP_SERVICES
 	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-rpc, /usr/share/nmap/nmap-rpc, n)
 endif
 	@$(call install_finish)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

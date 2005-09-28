@@ -29,7 +29,7 @@ gdb-wrapper_get_deps =
 
 $(STATEDIR)/gdb-wrapper.get: $(gdb-wrapper_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -39,7 +39,7 @@ gdb-wrapper_extract: $(STATEDIR)/gdb-wrapper.extract
 
 $(STATEDIR)/gdb-wrapper.extract: $(STATEDIR)/gdb-wrapper.get
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -49,7 +49,7 @@ gdb-wrapper_prepare: $(STATEDIR)/gdb-wrapper.prepare
 
 $(STATEDIR)/gdb-wrapper.prepare: $(STATEDIR)/gdb-wrapper.extract
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -59,7 +59,7 @@ gdb-wrapper_compile: $(STATEDIR)/gdb-wrapper.compile
 
 $(STATEDIR)/gdb-wrapper.compile: $(STATEDIR)/gdb-wrapper.prepare 
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -93,7 +93,7 @@ $(STATEDIR)/gdb-wrapper.install:
 		$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossddd
 	chmod 755 $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossddd
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -103,7 +103,7 @@ gdb-wrapper_targetinstall: $(STATEDIR)/gdb-wrapper.targetinstall
 
 $(STATEDIR)/gdb-wrapper.targetinstall: $(STATEDIR)/gdb-wrapper.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

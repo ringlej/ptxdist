@@ -37,7 +37,7 @@ hdparm_get_deps = $(HDPARM_SOURCE)
 $(STATEDIR)/hdparm.get: $(hdparm_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HDPARM))
-	touch $@
+	$(call touch, $@)
 
 $(HDPARM_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/hdparm.extract: $(hdparm_extract_deps)
 	@$(call clean, $(HDPARM_DIR))
 	@$(call extract, $(HDPARM_SOURCE))
 	@$(call patchin, $(HDPARM))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -84,7 +84,7 @@ HDPARM_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 $(STATEDIR)/hdparm.prepare: $(hdparm_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HDPARM_DIR)/config.cache)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +97,7 @@ hdparm_compile_deps = $(STATEDIR)/hdparm.prepare
 $(STATEDIR)/hdparm.compile: $(hdparm_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HDPARM_DIR) && $(HDPARM_ENV) $(HDPARM_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -108,7 +108,7 @@ hdparm_install: $(STATEDIR)/hdparm.install
 $(STATEDIR)/hdparm.install: $(STATEDIR)/hdparm.compile
 	@$(call targetinfo, $@)
 	cd $(HDPARM_DIR) && $(HDPARM_ENV) $(HDPARM_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -134,7 +134,7 @@ $(STATEDIR)/hdparm.targetinstall: $(hdparm_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

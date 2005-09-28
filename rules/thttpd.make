@@ -36,7 +36,7 @@ thttpd_get_deps = $(THTTPD_SOURCE)
 
 $(STATEDIR)/thttpd.get: $(thttpd_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(THTTPD_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/thttpd.extract: $(thttpd_extract_deps)
 	@$(call clean, $(THTTPD_DIR))
 	@$(call extract, $(THTTPD_SOURCE))
 	@$(call patchin, $(THTTPD))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/thttpd.prepare: $(thttpd_prepare_deps)
 	cd $(THTTPD_DIR) && \
 		$(THTTPD_PATH) $(THTTPD_ENV) \
 		./configure $(THTTPD_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +99,7 @@ thttpd_compile_deps = $(STATEDIR)/thttpd.prepare
 $(STATEDIR)/thttpd.compile: $(thttpd_compile_deps)
 	@$(call targetinfo, $@)
 	$(THTTPD_PATH) make -C $(THTTPD_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,7 +110,7 @@ thttpd_install: $(STATEDIR)/thttpd.install
 $(STATEDIR)/thttpd.install: $(STATEDIR)/thttpd.compile
 	@$(call targetinfo, $@)
 	$(THTTPD_PATH) make -C $(THTTPD_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -136,7 +136,7 @@ $(STATEDIR)/thttpd.targetinstall: $(thttpd_targetinstall_deps)
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/thttpd, /etc/init.d/thttpd, n)
 
 	@$(call install_finish)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

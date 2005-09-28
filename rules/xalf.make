@@ -36,7 +36,7 @@ xalf_get_deps	=  $(XALF_SOURCE)
 
 $(STATEDIR)/xalf.get: $(xalf_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(XALF_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/xalf.extract: $(xalf_extract_deps)
 	@$(call clean, $(XALF_DIR))
 	@$(call extract, $(XALF_SOURCE))
 	@$(call patchin, $(XALF))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -89,7 +89,7 @@ $(STATEDIR)/xalf.prepare: $(xalf_prepare_deps)
 	cd $(XALF_DIR) && \
 		$(XALF_PATH) $(XALF_ENV) \
 		./configure $(XALF_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +102,7 @@ xalf_compile_deps =  $(STATEDIR)/xalf.prepare
 $(STATEDIR)/xalf.compile: $(xalf_compile_deps)
 	@$(call targetinfo, $@)
 	$(XALF_PATH) $(XALF_ENV) make -C $(XALF_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,7 +113,7 @@ xalf_install: $(STATEDIR)/xalf.install
 $(STATEDIR)/xalf.install: $(STATEDIR)/xalf.compile
 	@$(call targetinfo, $@)
 	$(XALF_PATH) $(XALF_ENV) make -C $(XALF_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -139,7 +139,7 @@ $(STATEDIR)/xalf.targetinstall: $(xalf_targetinstall_deps)
 	
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

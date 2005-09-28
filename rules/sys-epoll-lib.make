@@ -39,7 +39,7 @@ sys-epoll-lib_get_deps = $(SYS-EPOLL-LIB_SOURCE)
 $(STATEDIR)/sys-epoll-lib.get: $(sys-epoll-lib_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SYS-EPOLL-LIB))
-	touch $@
+	$(call touch, $@)
 
 $(SYS-EPOLL-LIB_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +58,7 @@ $(STATEDIR)/sys-epoll-lib.extract: $(sys-epoll-lib_extract_deps)
 	@$(call clean, $(SYS-EPOLL-LIB_DIR))
 	@$(call extract, $(SYS-EPOLL-LIB_SOURCE))
 	@$(call patchin, $(SYS-EPOLL-LIB))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -83,7 +83,7 @@ SYS-EPOLL-LIB_MAKEVARS = \
 
 $(STATEDIR)/sys-epoll-lib.prepare: $(sys-epoll-lib_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -96,7 +96,7 @@ sys-epoll-lib_compile_deps = $(STATEDIR)/sys-epoll-lib.prepare
 $(STATEDIR)/sys-epoll-lib.compile: $(sys-epoll-lib_compile_deps)
 	@$(call targetinfo, $@)
 	$(SYS-EPOLL-LIB_PATH) make $(SYS-EPOLL-LIB_MAKEVARS) -C $(SYS-EPOLL-LIB_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,7 +109,7 @@ $(STATEDIR)/sys-epoll-lib.install: $(STATEDIR)/sys-epoll-lib.compile
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/man/man2
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/man/man4
 	$(SYS-EPOLL-LIB_PATH) make $(SYS-EPOLL-LIB_MAKEVARS) -C $(SYS-EPOLL-LIB_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -121,7 +121,7 @@ sys-epoll-lib_targetinstall_deps = $(STATEDIR)/sys-epoll-lib.install
 
 $(STATEDIR)/sys-epoll-lib.targetinstall: $(sys-epoll-lib_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

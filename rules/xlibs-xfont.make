@@ -39,7 +39,7 @@ xlibs-xfont_get_deps = $(XLIBS-XFONT_SOURCE)
 $(STATEDIR)/xlibs-xfont.get: $(xlibs-xfont_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XFONT))
-	touch $@
+	$(call touch, $@)
 
 $(XLIBS-XFONT_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +58,7 @@ $(STATEDIR)/xlibs-xfont.extract: $(xlibs-xfont_extract_deps)
 	@$(call clean, $(XLIBS-XFONT_DIR))
 	@$(call extract, $(XLIBS-XFONT_SOURCE))
 	@$(call patchin, $(XLIBS-XFONT))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -92,7 +92,7 @@ $(STATEDIR)/xlibs-xfont.prepare: $(xlibs-xfont_prepare_deps)
 	cd $(XLIBS-XFONT_DIR) && \
 		$(XLIBS-XFONT_PATH) $(XLIBS-XFONT_ENV) \
 		./configure $(XLIBS-XFONT_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +105,7 @@ xlibs-xfont_compile_deps = $(STATEDIR)/xlibs-xfont.prepare
 $(STATEDIR)/xlibs-xfont.compile: $(xlibs-xfont_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XFONT_DIR) && $(XLIBS-XFONT_ENV) $(XLIBS-XFONT_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -116,7 +116,7 @@ xlibs-xfont_install: $(STATEDIR)/xlibs-xfont.install
 $(STATEDIR)/xlibs-xfont.install: $(STATEDIR)/xlibs-xfont.compile
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XFONT_DIR) && $(XLIBS-XFONT_ENV) $(XLIBS-XFONT_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -153,7 +153,7 @@ $(STATEDIR)/xlibs-xfont.targetinstall: $(xlibs-xfont_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

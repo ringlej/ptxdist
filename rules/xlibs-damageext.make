@@ -40,7 +40,7 @@ xlibs-damageext_get_deps = $(XLIBS-DAMAGEEXT_SOURCE)
 $(STATEDIR)/xlibs-damageext.get: $(xlibs-damageext_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-DAMAGEEXT))
-	touch $@
+	$(call touch, $@)
 
 $(XLIBS-DAMAGEEXT_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +59,7 @@ $(STATEDIR)/xlibs-damageext.extract: $(xlibs-damageext_extract_deps)
 	@$(call clean, $(XLIBS-DAMAGEEXT_DIR))
 	@$(call extract, $(XLIBS-DAMAGEEXT_SOURCE))
 	@$(call patchin, $(XLIBS-DAMAGEEXT))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -91,7 +91,7 @@ $(STATEDIR)/xlibs-damageext.prepare: $(xlibs-damageext_prepare_deps)
 	cd $(XLIBS-DAMAGEEXT_DIR) && \
 		$(XLIBS-DAMAGEEXT_PATH) $(XLIBS-DAMAGEEXT_ENV) \
 		./configure $(XLIBS-DAMAGEEXT_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -104,7 +104,7 @@ xlibs-damageext_compile_deps = $(STATEDIR)/xlibs-damageext.prepare
 $(STATEDIR)/xlibs-damageext.compile: $(xlibs-damageext_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-DAMAGEEXT_DIR) && $(XLIBS-DAMAGEEXT_ENV) $(XLIBS-DAMAGEEXT_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,7 +115,7 @@ xlibs-damageext_install: $(STATEDIR)/xlibs-damageext.install
 $(STATEDIR)/xlibs-damageext.install: $(STATEDIR)/xlibs-damageext.compile
 	@$(call targetinfo, $@)
 	cd $(XLIBS-DAMAGEEXT_DIR) && $(XLIBS-DAMAGEEXT_ENV) $(XLIBS-DAMAGEEXT_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -127,7 +127,7 @@ xlibs-damageext_targetinstall_deps = $(STATEDIR)/xlibs-damageext.compile
 
 $(STATEDIR)/xlibs-damageext.targetinstall: $(xlibs-damageext_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

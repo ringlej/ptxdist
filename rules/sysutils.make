@@ -37,7 +37,7 @@ sysutils_get_deps = $(SYSUTILS_SOURCE)
 $(STATEDIR)/sysutils.get: $(sysutils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SYSUTILS))
-	touch $@
+	$(call touch, $@)
 
 $(SYSUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/sysutils.extract: $(sysutils_extract_deps)
 	@$(call clean, $(SYSUTILS_DIR))
 	@$(call extract, $(SYSUTILS_SOURCE))
 	@$(call patchin, $(SYSUTILS))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -76,7 +76,7 @@ SYSUTILS_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/sysutils.prepare: $(sysutils_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -89,7 +89,7 @@ sysutils_compile_deps = $(STATEDIR)/sysutils.prepare
 $(STATEDIR)/sysutils.compile: $(sysutils_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(SYSUTILS_DIR) && $(SYSUTILS_ENV) $(SYSUTILS_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -99,7 +99,7 @@ sysutils_install: $(STATEDIR)/sysutils.install
 
 $(STATEDIR)/sysutils.install: $(STATEDIR)/sysutils.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -129,7 +129,7 @@ ifdef PTXCONF_SYSUTILS_SYSTOOL
 endif
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

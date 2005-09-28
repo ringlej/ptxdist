@@ -62,7 +62,7 @@ xfree430_get_deps	= $(XFREE430_SOURCE)
 $(STATEDIR)/xfree430.get: $(xfree430_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XFREE430))
-	touch $@
+	$(call touch, $@)
 
 $(XFREE430_SOURCE):
 	@$(call targetinfo, $@)
@@ -109,7 +109,7 @@ $(STATEDIR)/xfree430.extract: $(xfree430_extract_deps)
 #	@$(call extract, $(XFREE430_3_SOURCE))
 #	@$(call extract, $(XFREE430_4_SOURCE))
 #	@$(call extract, $(XFREE430_5_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -148,7 +148,7 @@ $(STATEDIR)/xfree430.prepare: $(xfree430_prepare_deps)
 	ln -sf $(COMPILER_PREFIX)g++ $(XFREE430_BUILDDIR)/cross_compiler/g++
 	ln -sf g++ $(XFREE430_BUILDDIR)/cross_compiler/c++
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -173,7 +173,7 @@ $(STATEDIR)/xfree430.compile: $(xfree430_compile_deps)
 		$(XFREE430_ENV) DESTDIR=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
 		make World CROSSCOMPILEDIR=$(XFREE430_BUILDDIR)/cross_compiler
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -217,7 +217,7 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	perl -i -p -e "s,-lXft,-lXext -lXft,g" \
 		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/xft.pc
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -246,7 +246,7 @@ $(STATEDIR)/xfree430.targetinstall: $(xfree430_targetinstall_deps)
 	ln -sf libfreetype.so.6.3.3 $(ROOTDIR)/lib/libfreetype.so.6
 	ln -sf libfreetype.so.6.3.3 $(ROOTDIR)/lib/libfreetype.so
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

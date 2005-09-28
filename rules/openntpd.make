@@ -36,7 +36,7 @@ openntpd_get_deps = $(OPENNTPD_SOURCE)
 $(STATEDIR)/openntpd.get: $(openntpd_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OPENNTPD))
-	touch $@
+	$(call touch, $@)
 
 $(OPENNTPD_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/openntpd.extract: $(openntpd_extract_deps)
 	@$(call clean, $(OPENNTPD_DIR))
 	@$(call extract, $(OPENNTPD_SOURCE))
 	@$(call patchin, $(OPENNTPD))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -96,7 +96,7 @@ $(STATEDIR)/openntpd.prepare: $(openntpd_prepare_deps)
 	cd $(OPENNTPD_DIR) && \
 		$(OPENNTPD_PATH) $(OPENNTPD_ENV) \
 		./configure $(OPENNTPD_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -109,7 +109,7 @@ openntpd_compile_deps = $(STATEDIR)/openntpd.prepare
 $(STATEDIR)/openntpd.compile: $(openntpd_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(OPENNTPD_DIR) && $(OPENNTPD_ENV) $(OPENNTPD_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -120,7 +120,7 @@ openntpd_install: $(STATEDIR)/openntpd.install
 $(STATEDIR)/openntpd.install: $(STATEDIR)/openntpd.compile
 	@$(call targetinfo, $@)
 	cd $(OPENNTPD_DIR) && $(OPENNTPD_ENV) $(OPENNTPD_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -146,7 +146,7 @@ $(STATEDIR)/openntpd.targetinstall: $(openntpd_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

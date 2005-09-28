@@ -40,7 +40,7 @@ xlibs-xtrans_get_deps = $(XLIBS-XTRANS_SOURCE)
 $(STATEDIR)/xlibs-xtrans.get: $(xlibs-xtrans_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XTRANS))
-	touch $@
+	$(call touch, $@)
 
 $(XLIBS-XTRANS_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +59,7 @@ $(STATEDIR)/xlibs-xtrans.extract: $(xlibs-xtrans_extract_deps)
 	@$(call clean, $(XLIBS-XTRANS_DIR))
 	@$(call extract, $(XLIBS-XTRANS_SOURCE))
 	@$(call patchin, $(XLIBS-XTRANS))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -93,7 +93,7 @@ $(STATEDIR)/xlibs-xtrans.prepare: $(xlibs-xtrans_prepare_deps)
 	cd $(XLIBS-XTRANS_DIR) && \
 		$(XLIBS-XTRANS_PATH) $(XLIBS-XTRANS_ENV) \
 		./configure $(XLIBS-XTRANS_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -106,7 +106,7 @@ xlibs-xtrans_compile_deps = $(STATEDIR)/xlibs-xtrans.prepare
 $(STATEDIR)/xlibs-xtrans.compile: $(xlibs-xtrans_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XTRANS_DIR) && $(XLIBS-XTRANS_ENV) $(XLIBS-XTRANS_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -117,7 +117,7 @@ xlibs-xtrans_install: $(STATEDIR)/xlibs-xtrans.install
 $(STATEDIR)/xlibs-xtrans.install: $(STATEDIR)/xlibs-xtrans.compile
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XTRANS_DIR) && $(XLIBS-XTRANS_ENV) $(XLIBS-XTRANS_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -129,7 +129,7 @@ xlibs-xtrans_targetinstall_deps = $(STATEDIR)/xlibs-xtrans.compile
 
 $(STATEDIR)/xlibs-xtrans.targetinstall: $(xlibs-xtrans_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

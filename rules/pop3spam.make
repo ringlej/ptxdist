@@ -37,7 +37,7 @@ pop3spam_get_deps = $(POP3SPAM_SOURCE)
 $(STATEDIR)/pop3spam.get: $(pop3spam_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(POP3SPAM))
-	touch $@
+	$(call touch, $@)
 
 $(POP3SPAM_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/pop3spam.extract: $(pop3spam_extract_deps)
 	@$(call clean, $(POP3SPAM_DIR))
 	@$(call extract, $(POP3SPAM_SOURCE))
 	@$(call patchin, $(POP3SPAM))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/pop3spam.prepare: $(pop3spam_prepare_deps)
 	cd $(POP3SPAM_DIR) && \
 		$(POP3SPAM_PATH) $(POP3SPAM_ENV) \
 		./configure $(POP3SPAM_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ pop3spam_compile_deps = $(STATEDIR)/pop3spam.prepare
 $(STATEDIR)/pop3spam.compile: $(pop3spam_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(POP3SPAM_DIR) && $(POP3SPAM_ENV) $(POP3SPAM_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,7 +114,7 @@ pop3spam_install: $(STATEDIR)/pop3spam.install
 $(STATEDIR)/pop3spam.install: $(STATEDIR)/pop3spam.compile
 	@$(call targetinfo, $@)
 	cd $(POP3SPAM_DIR) && $(POP3SPAM_ENV) $(POP3SPAM_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +140,7 @@ $(STATEDIR)/pop3spam.targetinstall: $(pop3spam_targetinstall_deps)
 	@$(call install_copy, 0, 0, 0555, $(POP3SPAM_DIR)/src/pop3spam, /usr/bin/pop3spam)
 
 	@$(call install_finish)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

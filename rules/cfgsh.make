@@ -36,7 +36,7 @@ cfgsh_get_deps = $(CFGSH_SOURCE)
 
 $(STATEDIR)/cfgsh.get: $(cfgsh_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(CFGSH_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/cfgsh.extract: $(cfgsh_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CFGSH_DIR))
 	@$(call extract, $(CFGSH_SOURCE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/cfgsh.prepare: $(cfgsh_prepare_deps)
 #	cd $(CFGSH_DIR) && \
 #		$(CFGSH_PATH) $(CFGSH_ENV) \
 #		./configure $(CFGSH_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ cfgsh_compile_deps = $(STATEDIR)/cfgsh.prepare
 $(STATEDIR)/cfgsh.compile: $(cfgsh_compile_deps)
 	@$(call targetinfo, $@)
 	$(CFGSH_ENV) $(CFGSH_PATH) make -C $(CFGSH_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,7 +114,7 @@ cfgsh_install: $(STATEDIR)/cfgsh.install
 $(STATEDIR)/cfgsh.install: $(STATEDIR)/cfgsh.compile
 	@$(call targetinfo, $@)
 #	$(CFGSH_PATH) make -C $(CFGSH_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -137,7 +137,7 @@ $(STATEDIR)/cfgsh.targetinstall: $(cfgsh_targetinstall_deps)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0644, $(CFGSH_DIR)/cfgsh, /bin/cfgsh)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

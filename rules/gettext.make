@@ -37,7 +37,7 @@ gettext_get_deps = $(GETTEXT_SOURCE)
 
 $(STATEDIR)/gettext.get: $(gettext_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(GETTEXT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/gettext.extract: $(gettext_extract_deps)
 	@$(call clean, $(GETTEXT_DIR))
 	@$(call extract, $(GETTEXT_SOURCE))
 	@$(call patchin, $(GETTEXT))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -89,7 +89,7 @@ $(STATEDIR)/gettext.prepare: $(gettext_prepare_deps)
 	cd $(GETTEXT_DIR) && \
 		$(GETTEXT_PATH) $(GETTEXT_ENV) \
 		./configure $(GETTEXT_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +102,7 @@ gettext_compile_deps = $(STATEDIR)/gettext.prepare
 $(STATEDIR)/gettext.compile: $(gettext_compile_deps)
 	@$(call targetinfo, $@)
 	$(GETTEXT_PATH) make -C $(GETTEXT_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -119,7 +119,7 @@ $(STATEDIR)/gettext.install: $(STATEDIR)/gettext.compile
 #	ln -s $(PTXCONF_PREFIX)/lib/libgnuintl.so.2 $(PTXCONF_PREFIX)/lib/libgnuintl.so 
 	install $(GETTEXT_DIR)/gettext-runtime/intl/libgnuintl.h $(PTXCONF_PREFIX)/include
 	install $(GETTEXT_DIR)/gettext-tools/src/msgfmt $(PTXCONF_PREFIX)/bin
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -148,7 +148,7 @@ $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

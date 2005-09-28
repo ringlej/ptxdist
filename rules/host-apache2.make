@@ -37,7 +37,7 @@ host-apache2_get_deps = $(HOST_APACHE2_SOURCE)
 $(STATEDIR)/host-apache2.get: $(host-apache2_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_APACHE2))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -52,7 +52,7 @@ $(STATEDIR)/host-apache2.extract: $(host-apache2_extract_deps)
 	@$(call clean, $(HOST_APACHE2_DIR))
 	@$(call extract, $(HOST_APACHE2_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOST_APACHE2), $(HOST_APACHE2_DIR))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -82,7 +82,7 @@ $(STATEDIR)/host-apache2.prepare: $(host-apache2_prepare_deps)
 	cd $(HOST_APACHE2_DIR) && \
 		$(HOST_APACHE2_PATH) $(HOST_APACHE2_ENV) \
 		./configure $(HOST_APACHE2_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +97,7 @@ $(STATEDIR)/host-apache2.compile: $(host-apache2_compile_deps)
 	cd $(HOST_APACHE2_DIR)/srclib/apr-util/uri && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) make
 	cd $(HOST_APACHE2_DIR)/srclib/pcre && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) make dftables
 	cd $(HOST_APACHE2_DIR)/server && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) make gen_test_char
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,7 +110,7 @@ host-apache2_install_deps = $(STATEDIR)/host-apache2.compile
 $(STATEDIR)/host-apache2.install: $(host-apache2_install_deps)
 	@$(call targetinfo, $@)
 #	cd $(HOST_APACHE2_DIR) && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

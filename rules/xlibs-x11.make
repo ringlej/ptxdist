@@ -39,7 +39,7 @@ xlibs-x11_get_deps = $(XLIBS-X11_SOURCE)
 $(STATEDIR)/xlibs-x11.get: $(xlibs-x11_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-X11))
-	touch $@
+	$(call touch, $@)
 
 $(XLIBS-X11_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +58,7 @@ $(STATEDIR)/xlibs-x11.extract: $(xlibs-x11_extract_deps)
 	@$(call clean, $(XLIBS-X11_DIR))
 	@$(call extract, $(XLIBS-X11_SOURCE))
 	@$(call patchin, $(XLIBS-X11))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -94,7 +94,7 @@ $(STATEDIR)/xlibs-x11.prepare: $(xlibs-x11_prepare_deps)
 	cd $(XLIBS-X11_DIR) && \
 		$(XLIBS-X11_PATH) $(XLIBS-X11_ENV) \
 		./configure $(XLIBS-X11_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -107,7 +107,7 @@ xlibs-x11_compile_deps = $(STATEDIR)/xlibs-x11.prepare
 $(STATEDIR)/xlibs-x11.compile: $(xlibs-x11_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-X11_DIR) && $(XLIBS-X11_ENV) $(XLIBS-X11_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -118,7 +118,7 @@ xlibs-x11_install: $(STATEDIR)/xlibs-x11.install
 $(STATEDIR)/xlibs-x11.install: $(STATEDIR)/xlibs-x11.compile
 	@$(call targetinfo, $@)
 	cd $(XLIBS-X11_DIR) && $(XLIBS-X11_ENV) $(XLIBS-X11_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -149,7 +149,7 @@ $(STATEDIR)/xlibs-x11.targetinstall: $(xlibs-x11_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

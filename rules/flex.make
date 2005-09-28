@@ -37,7 +37,7 @@ flex_get_deps = $(FLEX_SOURCE)
 $(STATEDIR)/flex.get: $(flex_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FLEX))
-	touch $@
+	$(call touch, $@)
 
 $(FLEX_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/flex.extract: $(flex_extract_deps)
 	@$(call clean, $(FLEX_DIR))
 	@$(call extract, $(FLEX_SOURCE))
 	@$(call patchin, $(FLEX))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/flex.prepare: $(flex_prepare_deps)
 	cd $(FLEX_DIR) && \
 		$(FLEX_PATH) $(FLEX_ENV) \
 		./configure $(FLEX_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +99,7 @@ flex_compile_deps = $(STATEDIR)/flex.prepare
 $(STATEDIR)/flex.compile: $(flex_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(FLEX_DIR) && $(FLEX_ENV) $(FLEX_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,7 +110,7 @@ flex_install: $(STATEDIR)/flex.install
 $(STATEDIR)/flex.install: $(STATEDIR)/flex.compile
 	@$(call targetinfo, $@)
 	cd $(FLEX_DIR) && $(FLEX_ENV) $(FLEX_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -122,7 +122,7 @@ flex_targetinstall_deps = $(STATEDIR)/flex.compile
 
 $(STATEDIR)/flex.targetinstall: $(flex_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

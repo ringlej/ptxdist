@@ -37,7 +37,7 @@ paranoia_get_deps = $(PARANOIA_SOURCE)
 $(STATEDIR)/paranoia.get: $(paranoia_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PARANOIA))
-	touch $@
+	$(call touch, $@)
 
 $(PARANOIA_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/paranoia.extract: $(paranoia_extract_deps)
 	mkdir $(PARANOIA_DIR)
 	cp $(PARANOIA_SRC) $(PARANOIA_DIR)
 	@$(call patchin, $(PARANOIA))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -76,7 +76,7 @@ PARANOIA_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/paranoia.prepare: $(paranoia_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -90,7 +90,7 @@ $(STATEDIR)/paranoia.compile: $(paranoia_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PARANOIA_DIR) && \
 		$(PARANOIA_ENV) $(PARANOIA_PATH) $(CROSS_GCC) paranoia.c -o paranoia
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -100,7 +100,7 @@ paranoia_install: $(STATEDIR)/paranoia.install
 
 $(STATEDIR)/paranoia.install: $(STATEDIR)/paranoia.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -112,7 +112,7 @@ paranoia_targetinstall_deps = $(STATEDIR)/paranoia.compile
 
 $(STATEDIR)/paranoia.targetinstall: $(paranoia_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

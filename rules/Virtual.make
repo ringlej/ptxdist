@@ -29,4 +29,4 @@ endif
 
 $(STATEDIR)/virtual-xchain.install: $(virtual-xchain_install_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)

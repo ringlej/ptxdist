@@ -42,7 +42,7 @@ qte_get_deps = $(QTE_SOURCE)
 
 $(STATEDIR)/qte.get: $(qte_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(QTE_SOURCE):
 	@$(call targetinfo, $@)
@@ -61,7 +61,7 @@ $(STATEDIR)/qte.extract: $(qte_extract_deps)
 	@$(call clean, $(QTE_DIR))
 	@$(call extract, $(QTE_SOURCE))
 	@$(call patchin, $(QTE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -193,7 +193,7 @@ $(STATEDIR)/qte.prepare: $(qte_prepare_deps)
 	cd $(QTE_DIR) && \
 		echo yes | $(QTE_PATH) $(QTE_ENV) \
 		./configure $(QTE_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -206,7 +206,7 @@ qte_compile_deps = $(STATEDIR)/qte.prepare
 $(STATEDIR)/qte.compile: $(qte_compile_deps)
 	@$(call targetinfo, $@)
 	$(QTE_PATH) $(QTE_ENV) make -C $(QTE_DIR) $(QTE_ENV)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -217,7 +217,7 @@ qte_install: $(STATEDIR)/qte.install
 $(STATEDIR)/qte.install: $(STATEDIR)/qte.compile
 	@$(call targetinfo, $@)
 	$(QTE_PATH) $(QTE_ENV) make -C $(QTE_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -394,7 +394,7 @@ ifdef PTXCONF_QTE_SHARED
 endif
 
 	@$(call install_finish)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

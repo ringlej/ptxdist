@@ -37,7 +37,7 @@ readline_get_deps = $(READLINE_SOURCE)
 $(STATEDIR)/readline.get: $(readline_get_deps)
 	@$(call targetinfo, $@)
 #	@$(call get_patches, $(READLINE))
-	touch $@
+	$(call touch, $@)
 
 $(READLINE_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/readline.extract: $(readline_extract_deps)
 	@$(call clean, $(READLINE_DIR))
 	@$(call extract, $(READLINE_SOURCE))
 	@$(call patchin, $(READLINE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -89,7 +89,7 @@ $(STATEDIR)/readline.prepare: $(readline_prepare_deps)
 	cd $(READLINE_DIR) && \
 		$(READLINE_PATH) $(READLINE_ENV) \
 		./configure $(READLINE_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +102,7 @@ readline_compile_deps = $(STATEDIR)/readline.prepare
 $(STATEDIR)/readline.compile: $(readline_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(READLINE_DIR) && $(READLINE_ENV) $(READLINE_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,7 +113,7 @@ readline_install: $(STATEDIR)/readline.install
 $(STATEDIR)/readline.install: $(STATEDIR)/readline.compile
 	@$(call targetinfo, $@)
 	cd $(READLINE_DIR) && $(READLINE_ENV) $(READLINE_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,7 +141,7 @@ $(STATEDIR)/readline.targetinstall: $(readline_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

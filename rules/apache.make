@@ -38,7 +38,7 @@ apache_get_deps = $(APACHE_SOURCE)
 $(STATEDIR)/apache.get: $(apache_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(APACHE))
-	touch $@
+	$(call touch, $@)
 
 $(APACHE_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/apache.extract: $(apache_extract_deps)
 	@$(call clean, $(APACHE_DIR))
 	@$(call extract, $(APACHE_SOURCE))
 	@$(call patchin, $(APACHE))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -104,7 +104,7 @@ $(STATEDIR)/apache.prepare: $(apache_prepare_deps)
 	cd $(APACHE_DIR) && \
 		$(APACHE_PATH) $(APACHE_ENV) \
 		./configure $(APACHE_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -118,7 +118,7 @@ apache_compile_deps = $(STATEDIR)/apache.prepare \
 $(STATEDIR)/apache.compile: $(apache_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(APACHE_DIR) && $(APACHE_ENV) $(APACHE_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -129,7 +129,7 @@ apache_install: $(STATEDIR)/apache.install
 $(STATEDIR)/apache.install: $(STATEDIR)/apache.compile
 	@$(call targetinfo, $@)
 	cd $(APACHE_DIR) && $(APACHE_ENV) $(APACHE_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -156,7 +156,7 @@ $(STATEDIR)/apache.targetinstall: $(apache_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

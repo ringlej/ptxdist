@@ -39,7 +39,7 @@ libidl068_get_deps	=  $(LIBIDL068_SOURCE)
 
 $(STATEDIR)/libidl068.get: $(libidl068_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(LIBIDL068_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +58,7 @@ $(STATEDIR)/libidl068.extract: $(libidl068_extract_deps)
 	@$(call clean, $(LIBIDL068_DIR))
 	@$(call extract, $(LIBIDL068_SOURCE))
 	@$(call patchin, $(LIBIDL068))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -94,7 +94,7 @@ $(STATEDIR)/libidl068.prepare: $(libidl068_prepare_deps)
 	cd $(LIBIDL068_DIR) && \
 		$(LIBIDL068_PATH) $(LIBIDL068_ENV) \
 		./configure $(LIBIDL068_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -109,7 +109,7 @@ $(STATEDIR)/libidl068.compile: $(libidl068_compile_deps)
 
 	$(LIBIDL068_PATH) $(LIBIDL068_ENV) make -C $(LIBIDL068_DIR)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -122,7 +122,7 @@ $(STATEDIR)/libidl068.install: $(STATEDIR)/libidl068.compile
 
 	$(LIBIDL068_PATH) $(LIBIDL068_ENV) make -C $(LIBIDL068_DIR) install
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -134,7 +134,7 @@ libidl068_targetinstall_deps	=  $(STATEDIR)/libidl068.compile
 
 $(STATEDIR)/libidl068.targetinstall: $(libidl068_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

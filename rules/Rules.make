@@ -51,12 +51,9 @@ AWK		= awk
 PERL		= perl
 GREP		= grep
 INSTALL		= install
-PARALLELMFLAGS  = -j$(shell							\
-	if [ -r /proc/cpuinfo ];						\
-	then									\
-		echo $$((`cat /proc/cpuinfo | grep 'processor' | wc -l` * 2));	\
-	else									\
-		echo 1;								\
+PARALLELMFLAGS  = -j$(shell if [ -r /proc/cpuinfo ];			\
+	then echo `cat /proc/cpuinfo | grep 'processor' | wc -l`;	\
+		else echo 1;						\
 	fi)
 
 ifdef PTXCONF_HOSTTOOL_FAKEROOT
@@ -255,8 +252,8 @@ ifndef NATIVE
 CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
 	$(CROSS_ENV_FLAGS) \
-	$(CROSS_ENV_AC) \
-	$(CROSS_ENV_PKG_CONFIG)
+	$(CROSS_ENV_PKG_CONFIG) \
+	$(CROSS_ENV_AC)
 
 CROSS_AUTOCONF := $(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
 else
@@ -378,6 +375,15 @@ targetinfo = 						\
 		-e "s@$(TOPDIR)@@g" 			\
 		-e "s@/@@g" >> $(DEP_OUTPUT)
 
+#
+# touch with prefix-creation
+#
+# $1: name of the target to be touched
+# 
+touch =								\
+	@mkdir -p $(shell dirname $1);				\
+	touch $1;						\
+	echo "Finished target $(shell basename $1)";
 
 #
 # extract 
@@ -414,7 +420,8 @@ extract =							\
 		;;						\
 	esac;							\
 	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
-	echo $$(basename $$PACKET) >> state/packetlist; 	\
+	mkdir -p $(STATEDIR);					\
+	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
 	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
 	[ $$? -eq 0 ] || {					\
 		echo;						\
@@ -586,73 +593,79 @@ get_feature_patch =						\
 #			so "http://www.pengutronix.de/software/ptxdist-cvs/patches/glibc-2.2.5/*"
 #			becomes "glibc-2.2.5/*"
 #
+
+# FIXME: remove this if patch mechanism works
+
 get_patches =											\
-	PACKET_NAME="$(strip $(1))";								\
-	if [ "$$PACKET_NAME" = "" ]; then							\
-		echo;										\
-		echo Error: empty parameter to \"get_pachtes\(\)\";				\
-		echo;										\
-		exit -1;									\
-	fi;											\
-	echo "checking if patch dir ($(PATCHDIR)) exists..."; 					\
-	if [ ! -d $(PATCHDIR) ]; then								\
-		$(MKDIR) -p $(PATCHDIR);							\
-	fi;											\
-	echo "removing old patches from $(PATCHDIR)..."; 					\
-	if [ -d $(PATCHDIR)/$$PACKET_NAME ]; then						\
-		$(RM) -fr $(PATCHDIR)/$$PACKET_NAME;						\
-	fi;											\
-	echo "checking for patches...";								\
-	for URL in $(PTXPATCH_URL); do 								\
-		echo "checking in $$URL";							\
-		[ "$$(expr match $$URL http://)" != "0" ] && URLTYPE="http"; 			\
-		[ "$$(expr match $$URL ftp://)" != "0" ]  && URLTYPE="ftp";			\
-		[ "$$(expr match $$URL file://)" != "0" ] && URLTYPE="file";			\
-		case $$URLTYPE in 								\
-		file)										\
-			echo "copying local patches"; 						\
-			URL_PATH="$$(echo $$URL | sed s-file://--g)";				\
-			if [ -d "$$URL_PATH/$$PACKET_NAME" ]; then 				\
-				echo "patch found";						\
-				$(CP) -vr $$URL_PATH/$$PACKET_NAME $(PATCHDIR);			\
-			else									\
-				echo "no patch available";					\
-			fi;									\
-			;;									\
-		http)										\
-			if [ "$(EXTRAVERSION)" = "-svn" ]; then					\
-				continue;							\
-			fi;									\
-			echo "copying network patches from Pengutronix server"; 		\
-			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-				--passive-ftp $$URL/$$PACKET_NAME/generic/;			\
-			[ $$? -eq 0 ] || {							\
-				echo;								\
-				echo "Could not get patch!";					\
-				echo "URL: $$URL/$$PACKET_NAME/generic/";			\
-				echo;								\
-				exit -1;							\
-			};									\
-			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-				--passive-ftp $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/;		\
-			[ $$? -eq 0 ] || {							\
-				echo;								\
-				echo "Could not get patch!";					\
-				echo "URL: $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";		\
-				echo;								\
-				exit -1;							\
-			};									\
-			true;									\
-			;;									\
-		*)										\
-			echo;									\
-			echo "Unknown URL Type for patch!";					\
-			echo "URL: $$URL";							\
-			echo;									\
-			exit -1;								\
-			;;									\
-		esac; 										\
-	done
+		echo "get_patches is obsolete now"
+
+# get_patches =											\
+# 	PACKET_NAME="$(strip $(1))";								\
+# 	if [ "$$PACKET_NAME" = "" ]; then							\
+# 		echo;										\
+# 		echo Error: empty parameter to \"get_pachtes\(\)\";				\
+# 		echo;										\
+# 		exit -1;									\
+# 	fi;											\
+# 	echo "checking if patch dir ($(PATCHDIR)) exists..."; 					\
+# 	if [ ! -d $(PATCHDIR) ]; then								\
+# 		$(MKDIR) -p $(PATCHDIR);							\
+# 	fi;											\
+# 	echo "removing old patches from $(PATCHDIR)..."; 					\
+# 	if [ -d $(PATCHDIR)/$$PACKET_NAME ]; then						\
+# 		$(RM) -fr $(PATCHDIR)/$$PACKET_NAME;						\
+# 	fi;											\
+# 	echo "checking for patches...";								\
+# 	for URL in $(PTXPATCH_URL); do 								\
+# 		echo "checking in $$URL";							\
+# 		[ "$$(expr match $$URL http://)" != "0" ] && URLTYPE="http"; 			\
+# 		[ "$$(expr match $$URL ftp://)" != "0" ]  && URLTYPE="ftp";			\
+# 		[ "$$(expr match $$URL file://)" != "0" ] && URLTYPE="file";			\
+# 		case $$URLTYPE in 								\
+# 		file)										\
+# 			echo "copying local patches"; 						\
+# 			URL_PATH="$$(echo $$URL | sed s-file://--g)";				\
+# 			if [ -d "$$URL_PATH/$$PACKET_NAME" ]; then 				\
+# 				echo "patch found";						\
+# 				$(CP) -vr $$URL_PATH/$$PACKET_NAME $(PATCHDIR);			\
+# 			else									\
+# 				echo "no patch available";					\
+# 			fi;									\
+# 			;;									\
+# 		http)										\
+# 			if [ "$(EXTRAVERSION)" = "-svn" ]; then					\
+# 				continue;							\
+# 			fi;									\
+# 			echo "copying network patches from Pengutronix server"; 		\
+# 			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
+# 				--passive-ftp $$URL/$$PACKET_NAME/generic/;			\
+# 			[ $$? -eq 0 ] || {							\
+# 				echo;								\
+# 				echo "Could not get patch!";					\
+# 				echo "URL: $$URL/$$PACKET_NAME/generic/";			\
+# 				echo;								\
+# 				exit -1;							\
+# 			};									\
+# 			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
+# 				--passive-ftp $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/;		\
+# 			[ $$? -eq 0 ] || {							\
+# 				echo;								\
+# 				echo "Could not get patch!";					\
+# 				echo "URL: $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";		\
+# 				echo;								\
+# 				exit -1;							\
+# 			};									\
+# 			true;									\
+# 			;;									\
+# 		*)										\
+# 			echo;									\
+# 			echo "Unknown URL Type for patch!";					\
+# 			echo "URL: $$URL";							\
+# 			echo;									\
+# 			exit -1;								\
+# 			;;									\
+# 		esac; 										\
+# 	done
 
 #
 # get_options
@@ -806,22 +819,22 @@ patchin =									\
 	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};			\
 	echo "patchin: dir=$$PACKET_DIR";					\
 	for PATCH_NAME in							\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.diff			\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.patch			\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.gz			\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.bz2			\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff		\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch		\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz		\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2		\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.diff			\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.patch			\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.gz			\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.bz2			\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff		\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch		\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz		\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;		\
+	    $(PATCHDIR)/$$PACKET_NAME/generic/*.diff				\
+	    $(PATCHDIR)/$$PACKET_NAME/generic/*.patch				\
+	    $(PATCHDIR)/$$PACKET_NAME/generic/*.gz				\
+	    $(PATCHDIR)/$$PACKET_NAME/generic/*.bz2				\
+	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff			\
+	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch			\
+	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz			\
+	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2			\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.diff			\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.patch			\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.gz			\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.bz2			\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff		\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch		\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz		\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;		\
 	    do									\
 		if [ -f $$PATCH_NAME ]; then					\
 			case `basename $$PATCH_NAME` in				\
@@ -1084,7 +1097,7 @@ install_copy_toolchain_lib =									\
 				echo;								\
 				exit -1;							\
 			fi;									\
-			LIB="`readlink $${LIB_DIR}/$${LIB} | sed s,^\\\\.,$${LIB_DIR}/\.,`";\
+			LIB="`readlink $${LIB_DIR}/$${LIB} | sed s,^\\\\.,$${LIB_DIR}/\.,`";	\
 			if [ -n "$$LIB" ]; then							\
 				if [ "`dirname $$LIB`" != "." ]; then				\
 					LIB_DIR=`dirname $$LIB`;				\

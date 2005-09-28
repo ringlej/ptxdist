@@ -37,7 +37,7 @@ gnupg_get_deps = $(GNUPG_SOURCE)
 $(STATEDIR)/gnupg.get: $(gnupg_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GNUPG))
-	touch $@
+	$(call touch, $@)
 
 $(GNUPG_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/gnupg.extract: $(gnupg_extract_deps)
 	@$(call clean, $(GNUPG_DIR))
 	@$(call extract, $(GNUPG_SOURCE))
 	@$(call patchin, $(GNUPG))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -110,7 +110,7 @@ $(STATEDIR)/gnupg.prepare: $(gnupg_prepare_deps)
 	cd $(GNUPG_DIR) && \
 		$(GNUPG_PATH) $(GNUPG_ENV) \
 		./configure $(GNUPG_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -123,7 +123,7 @@ gnupg_compile_deps = $(STATEDIR)/gnupg.prepare
 $(STATEDIR)/gnupg.compile: $(gnupg_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(GNUPG_DIR) && $(GNUPG_ENV) $(GNUPG_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -134,7 +134,7 @@ gnupg_install: $(STATEDIR)/gnupg.install
 $(STATEDIR)/gnupg.install: $(STATEDIR)/gnupg.compile
 	@$(call targetinfo, $@)
 	cd $(GNUPG_DIR) && $(GNUPG_ENV) $(GNUPG_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -160,7 +160,7 @@ $(STATEDIR)/gnupg.targetinstall: $(gnupg_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

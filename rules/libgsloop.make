@@ -37,7 +37,7 @@ libgsloop_get_deps = $(LIBGSLOOP_SOURCE)
 $(STATEDIR)/libgsloop.get: $(libgsloop_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBGSLOOP))
-	touch $@
+	$(call touch, $@)
 
 $(LIBGSLOOP_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/libgsloop.extract: $(libgsloop_extract_deps)
 	@$(call clean, $(LIBGSLOOP_DIR))
 	@$(call extract, $(LIBGSLOOP_SOURCE))
 	@$(call patchin, $(LIBGSLOOP))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +87,7 @@ $(STATEDIR)/libgsloop.prepare: $(libgsloop_prepare_deps)
 	cd $(LIBGSLOOP_DIR) && \
 		$(LIBGSLOOP_PATH) $(LIBGSLOOP_ENV) \
 		./configure $(LIBGSLOOP_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +100,7 @@ libgsloop_compile_deps = $(STATEDIR)/libgsloop.prepare
 $(STATEDIR)/libgsloop.compile: $(libgsloop_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBGSLOOP_DIR) && $(LIBGSLOOP_ENV) $(LIBGSLOOP_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,7 +111,7 @@ libgsloop_install: $(STATEDIR)/libgsloop.install
 $(STATEDIR)/libgsloop.install: $(STATEDIR)/libgsloop.compile
 	@$(call targetinfo, $@)
 	cd $(LIBGSLOOP_DIR) && $(LIBGSLOOP_ENV) $(LIBGSLOOP_PATH) make install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,7 +141,7 @@ $(STATEDIR)/libgsloop.targetinstall: $(libgsloop_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

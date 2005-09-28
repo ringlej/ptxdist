@@ -29,7 +29,7 @@ glibc_get: $(STATEDIR)/glibc.get
 
 $(STATEDIR)/glibc.get:
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 
 # ----------------------------------------------------------------------------
@@ -42,7 +42,7 @@ glibc_extract_deps =  $(STATEDIR)/glibc.get
 
 $(STATEDIR)/glibc.extract: $(glibc_extract_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -54,7 +54,7 @@ glibc_prepare_deps = $(STATEDIR)/glibc.extract
 
 $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -66,7 +66,7 @@ glibc_compile_deps = $(STATEDIR)/glibc.prepare
 
 $(STATEDIR)/glibc.compile: $(glibc_compile_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -78,7 +78,7 @@ glibc_install_deps = $(STATEDIR)/glibc.compile
 
 $(STATEDIR)/glibc.install: $(glibc_install_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -197,7 +197,7 @@ endif
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

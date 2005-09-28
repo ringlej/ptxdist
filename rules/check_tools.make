@@ -1,5 +1,11 @@
 # -*-makefile-*-
 check_tools:
+	
+	# create some directories
+	mkdir -p $(BUILDDIR)
+	mkdir -p $(STATEDIR)
+	mkdir -p $(ROOTDIR)
+
 	# check if some programs are available
 	$(call check_prog_exists, sed)
 	$(call check_prog_exists, awk)
@@ -10,7 +16,7 @@ check_tools:
 	$(call check_prog_version, wget, -V, 1\\\\.(9|1.?)\\\\.|1\\\\.9\\\\+cvs)
 
 	# check if we have a toplevel .config file
-	$(call check_file_exists, $(TOPDIR)/.config)
+	$(call check_file_exists, $(PTXDISTWORKSPACE)/.config)
 
 	# check if we have a project dir
 	@if [ -z "$(PROJECTDIR)" ]; then									\

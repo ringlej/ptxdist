@@ -41,7 +41,7 @@ openssh_get: $(STATEDIR)/openssh.get
 $(STATEDIR)/openssh.get: $(OPENSSH_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OPENSSH))
-	touch $@
+	$(call touch, $@)
 
 $(OPENSSH_SOURCE):
 	@$(call targetinfo, $@)
@@ -79,7 +79,7 @@ $(STATEDIR)/openssh.extract: $(openssh_extract_deps)
 		$(OPENSSH_DIR)/configure.ac
 
 	cd $(OPENSSH_DIR) && PATH=$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin:$$PATH autoconf
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -153,7 +153,7 @@ $(STATEDIR)/openssh.prepare: $(openssh_prepare_deps)
 	cd $(OPENSSH_DIR) && \
 		$(OPENSSH_PATH) $(OPENSSH_ENV) \
 		./configure $(OPENSSH_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -164,7 +164,7 @@ openssh_compile: $(STATEDIR)/openssh.compile
 $(STATEDIR)/openssh.compile: $(STATEDIR)/openssh.prepare 
 	@$(call targetinfo, $@)
 	cd $(OPENSSH_DIR) && $(OPENSSH_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -174,7 +174,7 @@ openssh_install: $(STATEDIR)/openssh.install
 
 $(STATEDIR)/openssh.install: $(STATEDIR)/openssh.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -230,7 +230,7 @@ ifdef PTXCONF_OPENSSH_KEYGEN
 endif
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -39,7 +39,7 @@ zebra_get_deps	= $(ZEBRA_SOURCE)
 
 $(STATEDIR)/zebra.get: $(zebra_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(ZEBRA_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +58,7 @@ $(STATEDIR)/zebra.extract: $(zebra_extract_deps)
 	@$(call clean, $(ZEBRA_DIR))
 	@$(call extract, $(ZEBRA_SOURCE))
 	@$(call patchin, $(ZEBRA))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -94,7 +94,7 @@ $(STATEDIR)/zebra.prepare: $(zebra_prepare_deps)
 	cd $(ZEBRA_DIR) && \
 		$(ZEBRA_PATH) $(ZEBRA_ENV) \
 		./configure $(ZEBRA_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +105,7 @@ zebra_compile: $(STATEDIR)/zebra.compile
 $(STATEDIR)/zebra.compile: $(STATEDIR)/zebra.prepare 
 	@$(call targetinfo, $@)
 	$(ZEBRA_PATH) make -C $(ZEBRA_DIR)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,7 +115,7 @@ zebra_install: $(STATEDIR)/zebra.install
 
 $(STATEDIR)/zebra.install: $(STATEDIR)/zebra.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -126,7 +126,7 @@ zebra_targetinstall: $(STATEDIR)/zebra.targetinstall
 $(STATEDIR)/zebra.targetinstall: $(STATEDIR)/zebra.install
 	@$(call targetinfo, $@)
 	$(ZEBRA_PATH) make -C $(ZEBRA_DIR) DESTDIR=$(ROOTDIR)
-	touch $@
+	$(call touch, $@)
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------

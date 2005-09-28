@@ -38,7 +38,7 @@ atk_get_deps	=  $(ATK_SOURCE)
 
 $(STATEDIR)/atk.get: $(atk_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(ATK_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/atk.extract: $(atk_extract_deps)
 	@$(call clean, $(ATK_DIR))
 	@$(call extract, $(ATK_SOURCE))
 	@$(call patchin, $(ATK))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -89,7 +89,7 @@ $(STATEDIR)/atk.prepare: $(atk_prepare_deps)
 	cd $(ATK_DIR) && \
 		$(ATK_PATH) $(ATK_ENV) \
 		./configure $(ATK_AUTOCONF)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +102,7 @@ atk_compile_deps =  $(STATEDIR)/atk.prepare
 $(STATEDIR)/atk.compile: $(atk_compile_deps)
 	@$(call targetinfo, $@)
 	$(ATK_PATH) make -C $(ATK_DIR) 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,7 +113,7 @@ atk_install: $(STATEDIR)/atk.install
 $(STATEDIR)/atk.install: $(STATEDIR)/atk.compile
 	@$(call targetinfo, $@)
 	$(ATK_PATH) make -C $(ATK_DIR) install
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -143,7 +143,7 @@ $(STATEDIR)/atk.targetinstall: $(atk_targetinstall_deps)
 
 	@$(call install_finish)
 
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

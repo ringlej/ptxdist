@@ -37,7 +37,7 @@ hosttool-ipkg-utils_get_deps = $(HOSTTOOL-IPKG-UTILS_SOURCE)
 $(STATEDIR)/hosttool-ipkg-utils.get: $(hosttool-ipkg-utils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL-IPKG-UTILS))
-	touch $@
+	$(call touch, $@)
 
 $(HOSTTOOL-IPKG-UTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -60,7 +60,7 @@ $(STATEDIR)/hosttool-ipkg-utils.extract: $(hosttool-ipkg-utils_extract_deps)
 		$(HOSTTOOL-IPKG-UTILS_DIR)/Makefile
 	perl -i -p -e "s,^	python setup.py install,	python setup.py install --prefix=$(PTXCONF_PREFIX),g" \
 		$(HOSTTOOL-IPKG-UTILS_DIR)/Makefile
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,7 +79,7 @@ HOSTTOOL-IPKG-UTILS_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/hosttool-ipkg-utils.prepare: $(hosttool-ipkg-utils_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -92,7 +92,7 @@ hosttool-ipkg-utils_compile_deps = $(STATEDIR)/hosttool-ipkg-utils.prepare
 $(STATEDIR)/hosttool-ipkg-utils.compile: $(hosttool-ipkg-utils_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL-IPKG-UTILS_DIR) && $(HOSTTOOL-IPKG-UTILS_ENV) $(HOSTTOOL-IPKG-UTILS_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,7 +109,7 @@ $(STATEDIR)/hosttool-ipkg-utils.install: $(STATEDIR)/hosttool-ipkg-utils.compile
 		$(HOSTTOOL-IPKG-UTILS_ENV) $(HOSTTOOL-IPKG-UTILS_PATH) make install;\
 		cp -f ipkg.py $(PTXCONF_PREFIX)/bin/;\
 	)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -121,7 +121,7 @@ hosttool-ipkg-utils_targetinstall_deps = $(STATEDIR)/hosttool-ipkg-utils.install
 
 $(STATEDIR)/hosttool-ipkg-utils.targetinstall: $(hosttool-ipkg-utils_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

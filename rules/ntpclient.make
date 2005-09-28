@@ -28,7 +28,7 @@ ntpclient_get_deps = $(NTPCLIENT_SOURCE)
 
 $(STATEDIR)/ntpclient.get: $(ntpclient_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 $(NTPCLIENT_SOURCE):
 	@$(call targetinfo, $@)
@@ -47,7 +47,7 @@ $(STATEDIR)/ntpclient.extract: $(ntpclient_extract_deps)
 	@$(call clean, $(NTPCLIENT_DIR))
 	@$(call extract, $(NTPCLIENT_SOURCE))
 	@$(call patchin, $(NTPCLIENT))
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -67,7 +67,7 @@ NTPCLIENT_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/ntpclient.prepare: $(ntpclient_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -80,7 +80,7 @@ ntpclient_compile_deps = $(STATEDIR)/ntpclient.prepare
 $(STATEDIR)/ntpclient.compile: $(ntpclient_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(NTPCLIENT_DIR) && $(NTPCLIENT_ENV) $(NTPCLIENT_PATH) make
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -90,7 +90,7 @@ ntpclient_install: $(STATEDIR)/ntpclient.install
 
 $(STATEDIR)/ntpclient.install: $(STATEDIR)/ntpclient.compile
 	@$(call targetinfo, $@)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -104,7 +104,7 @@ $(STATEDIR)/ntpclient.targetinstall: $(ntpclient_targetinstall_deps)
 	@$(call targetinfo, $@)
 	@$(call install_copy, 0, 0, 0755, $(NTPCLIENT_DIR)/ntpclient, /usr/sbin/ntpclient)
 	@$(call install_finish)
-	touch $@
+	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
