@@ -1,6 +1,6 @@
 menuconfig QTE
 	bool
-	prompt "QT Embedded"
+	prompt "QT Embedded           "
 	select HOSTTOOL_QTE
 
 
