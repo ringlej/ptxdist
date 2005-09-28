@@ -32,18 +32,17 @@ ifndef PTXDISTWORKSPACE
 PTXDISTWORKSPACE	:= $(TOPDIR)
 endif
 
-BUILDDIR		:= $(PTXDISTWORKSPACE)/build
-
 HOME			:= $(shell echo $$HOME)
 PATCHDIR		:= $(TOPDIR)/patches
 MISCDIR			:= $(TOPDIR)/misc
 RULESDIR		:= $(TOPDIR)/rules
 
-CROSS_BUILDDIR		:= $(BUILDDIR)/crosstools
-HOST_BUILDDIR		:= $(BUILDDIR)/hosttools
-STATEDIR		:= $(BUILDDIR)/state
-IMAGEDIR		:= $(BUILDDIR)/images
-ROOTDIR			:= $(BUILDDIR)/root
+BUILDDIR		:= $(PTXDISTWORKSPACE)/build-target
+CROSS_BUILDDIR		:= $(PTXDISTWORKSPACE)/build-cross
+HOST_BUILDDIR		:= $(PTXDISTWORKSPACE)/build-host
+STATEDIR		:= $(PTXDISTWORKSPACE)/state
+IMAGEDIR		:= $(PTXDISTWORKSPACE)/images
+ROOTDIR			:= $(PTXDISTWORKSPACE)/root
 
 include $(TOPDIR)/rules/Definitions.make
 
