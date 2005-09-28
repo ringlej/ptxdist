@@ -1,4 +1,4 @@
-config LIBXMLCONFIG
+menuconfig LIBXMLCONFIG
 	bool
 	default N
 	prompt "libxmlconfig"
