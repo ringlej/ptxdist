@@ -3,7 +3,7 @@
 #
 
 menuconfig WXWINDOWS
-	bool "wxWidgets           "
+	bool "wxWidgets             "
 
 config WXWINDOWS_X11
 	bool
