@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-LIBPV_VERSION	= 1.1.0
+LIBPV_VERSION	= 1.1.1
 LIBPV		= libpv-$(LIBPV_VERSION)
 LIBPV_SUFFIX	= tar.bz2
 LIBPV_URL	= http://www.pengutronix.de/software/libpv/download/$(LIBPV).$(LIBPV_SUFFIX)
@@ -32,7 +32,9 @@ LIBPV_DIR	= $(BUILDDIR)/$(LIBPV)
 
 libpv_get: $(STATEDIR)/libpv.get
 
-libpv_get_deps = $(LIBPV_SOURCE)
+libpv_get_deps = \
+	$(LIBPV_SOURCE) \
+	$(RULESDIR)/libpv.make
 
 $(STATEDIR)/libpv.get: $(libpv_get_deps)
 	@$(call targetinfo, $@)
@@ -138,9 +140,9 @@ $(STATEDIR)/libpv.targetinstall: $(libpv_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(LIBPV_DIR)/src/.libs/libpv.so.3.0.0, /usr/lib/libpv.so.3.0.0)
-	@$(call install_link, libpv.so.3.0.0, /usr/lib/libpv.so.3)
-	@$(call install_link, libpv.so.3.0.0, /usr/lib/libpv.so)
+	@$(call install_copy, 0, 0, 0644, $(LIBPV_DIR)/src/.libs/libpv.so.3.0.0, /usr/lib/libpv.so.3.0.1)
+	@$(call install_link, libpv.so.3.0.1, /usr/lib/libpv.so.3)
+	@$(call install_link, libpv.so.3.0.1, /usr/lib/libpv.so)
 
 	@$(call install_finish)
 
