@@ -1,4 +1,4 @@
 config CLEMENTINE
         bool
-        prompt "Compile Clementine Window-Manager"
+	prompt "clementine            "
 
