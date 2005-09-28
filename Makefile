@@ -24,15 +24,15 @@ else
 TOPDIR			:= $(shell pwd)
 endif
 
+#
+# We build on a workspace, for example one for native, one for cross
+#
+
 ifndef PTXDISTWORKSPACE
 PTXDISTWORKSPACE	:= $(TOPDIR)
 endif
 
-ifeq (1,$(NATIVE))
-BUILDDIR		:= $(PTXDISTWORKSPACE)/build-native
-else
 BUILDDIR		:= $(PTXDISTWORKSPACE)/build
-endif
 
 HOME			:= $(shell echo $$HOME)
 PATCHDIR		:= $(TOPDIR)/patches
