@@ -217,17 +217,17 @@ $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/etab
 	@$(call install_copy, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/ptxdist_install_tmp/etab, \
-		/var/lib/nfs/etab)
+		/var/lib/nfs/etab, n)
 
 	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/rmtab
 	@$(call install_copy, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/ptxdist_install_tmp/rmtab, \
-		/var/lib/nfs/rmtab)
+		/var/lib/nfs/rmtab, n)
 
 	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/xtab
 	@$(call install_copy, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/ptxdist_install_tmp/xtab, \
-		/var/lib/nfs/xtab)
+		/var/lib/nfs/xtab, n)
 
 	@$(call install_finish)
 

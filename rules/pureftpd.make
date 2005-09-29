@@ -175,10 +175,10 @@ $(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-ftpd, /usr/sbin/pure-ftpd)
-	@$(call install_copy, 0, 0, 0775, $(TOPDIR)/projects/generic/etc/init.d/pure-ftpd, /etc/init.d/pure-ftpd)
+	@$(call install_copy, 0, 0, 0775, $(TOPDIR)/projects/generic/etc/init.d/pure-ftpd, /etc/init.d/pure-ftpd, n)
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
-	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-uploadscript, /usr/sbin/pure-uploadscript)
+	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-uploadscript, /usr/sbin/pure-uploadscript, n)
 endif
 
 	@$(call install_finish)
