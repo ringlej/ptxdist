@@ -42,7 +42,13 @@ $(STATEDIR)/xchain-gdb.extract: $(STATEDIR)/gdb.extract
 # Prepare
 # ----------------------------------------------------------------------------
 
-xchain-gdb_prepare: $(STATEDIR)/xchain-gdb.prepare
+xchain-gdb_prepare_deps = $(STATEDIR)/xchain-gdb.prepare
+ifdef PTXCONF_GDB_TERMCAP
+xchain-gdb_prepare_deps +=$(STATEDIR)/host-termcap.install
+endif
+
+xchain-gdb_prepare: $(xchain-gdb_prepare_deps)
+
 
 #
 # autoconf

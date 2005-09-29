@@ -307,6 +307,7 @@ $(STATEDIR)/libxml2.install: $(STATEDIR)/libxml2.compile
 	cd $(LIBXML2_DIR) && $(LIBXML2_PATH) make install
 	# FIXME: this probably has to be fixed upstream!
 	# libxml2 installs xml2-config to wrong path. 
+	mkdir -p $(PTXCONF_PREFIX)/bin
 	install $(LIBXML2_DIR)/xml2-config $(PTXCONF_PREFIX)/bin/
 	$(call touch, $@)
 

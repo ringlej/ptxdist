@@ -1,3 +1,21 @@
+2005-09-28 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* Makefile: more makefile cleanups. New policy: everything is
+	  now built in a "workspace"; usually nothing changes, but if 
+	  you set PTXDISTWORKSPACE we build there. 
+	* paths: moved local_patches to patches; as the patch repository
+	  is now in the SVN repository there's no need to copy patches
+	  around. Policy: look for patches in $(TOPDIR)/patches and in
+	  $(PROJECTDIR)/patches. 
+	* toolchains: added gcc 3.3.3 glibc 2.3.2 toolchain
+	  for x86, corresponding to arm. Debian is broken at the moment.
+	  
+
+2005-09-28 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* misc: removed ptx-init-permissions.sh; this is obsolete now that
+	  we have the fakeroot based permission mechanism.
+
 2005-09-26 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* dotgnu: added initial support; patch by Benedikt Spranger
@@ -6,7 +24,7 @@
 	* coreutils: added get_patches; patch by Benedikt Spranger
 	* grub: update from 0.95 to 0.97; patch by Benedikt Spranger
 	* kernel: 2.6.13 is also available on PPC; patch by Benedikt
-	  Spanger
+	  Spranger
 	* nmap: update from 3.48 to 3.93; patch by Benedikt Spranger
 	* openssl: use cross-ar; patch by Benedikt Spranger
 	* rsync: update from 2.6.3 to 2.6.6. Patch by Benedikt Spranger

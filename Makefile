@@ -91,7 +91,7 @@ export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR HOST_PACKAGES CROSS
 
 all: help
 
--include $(TOPDIR)/.config 
+-include $(PTXDISTWORKSPACE)/.config 
 
 # FIXME: this should be removed some day...
 PTXCONF_TARGET_CONFIG_FILE ?= none
@@ -318,41 +318,46 @@ ptx_lxdialog:
 	fi
 	cd $(TOPDIR)/scripts/lxdialog && ln -s -f ../ptx-modifications/Makefile.lxdialog.ptx Makefile
 
-scripts/lxdialog/lxdialog: ptx_lxdialog
+$(TOPDIR)/scripts/lxdialog/lxdialog: ptx_lxdialog
 	make -C $(TOPDIR)/scripts/lxdialog lxdialog
 
-scripts/kconfig/libkconfig.so:
+$(TOPDIR)/scripts/kconfig/libkconfig.so:
 	make -C $(TOPDIR)/scripts/kconfig libkconfig.so
 
-scripts/kconfig/conf: scripts/kconfig/libkconfig.so
+$(TOPDIR)/scripts/kconfig/conf: $(TOPDIR)/scripts/kconfig/libkconfig.so
 	make -C $(TOPDIR)/scripts/kconfig conf
 
-scripts/kconfig/mconf: scripts/kconfig/libkconfig.so
+$(TOPDIR)/scripts/kconfig/mconf: $(TOPDIR)/scripts/kconfig/libkconfig.so
 	make -C $(TOPDIR)/scripts/kconfig mconf
 
-scripts/kconfig/qconf: scripts/kconfig/libkconfig.so
+$(TOPDIR)/scripts/kconfig/qconf: $(TOPDIR)/scripts/kconfig/libkconfig.so
 	make -C $(TOPDIR)/scripts/kconfig qconf
 
-scripts/kconfig/gconf: scripts/kconfig/libkconfig.so
+$(TOPDIR)/scripts/kconfig/gconf: $(TOPDIR)/scripts/kconfig/libkconfig.so
 	make -C $(TOPDIR)/scripts/kconfig gconf
 
-menuconfig: scripts/lxdialog/lxdialog scripts/kconfig/mconf
-	$(call findout_config)
-	cd $(TOPDIR) && scripts/kconfig/mconf $(MENU)
+before_config:
+	[ -e "$(PTXDISTWORKSPACE)/config" ]  || ln -sf $(TOPDIR)/config  $(PTXDISTWORKSPACE)/config
+	[ -e "$(PTXDISTWORKSPACE)/rules" ]   || ln -sf $(TOPDIR)/rules   $(PTXDISTWORKSPACE)/rules
+	[ -e "$(PTXDISTWORKSPACE)/scripts" ] || ln -sf $(TOPDIR)/scripts $(PTXDISTWORKSPACE)/scripts
 
-xconfig: scripts/kconfig/qconf
+menuconfig: before_config $(TOPDIR)/scripts/lxdialog/lxdialog $(TOPDIR)/scripts/kconfig/mconf
 	$(call findout_config)
-	cd $(TOPDIR) && scripts/kconfig/qconf $(MENU)
+	cd $(PTXDISTWORKSPACE) && $(TOPDIR)/scripts/kconfig/mconf $(MENU)
 
-gconfig: scripts/kconfig/gconf
+xconfig: before_config $(TOPDIR)/scripts/kconfig/qconf
 	$(call findout_config)
-	LD_LIBRARY_PATH=$(TOPDIR)/scripts/kconfig cd $(TOPDIR) && scripts/kconfig/gconf $(MENU)
+	cd $(PTXDISTWORKSPACE) && $(TOPDIR)/scripts/kconfig/qconf $(MENU)
 
-oldconfig: scripts/kconfig/conf
+gconfig: before_config $(TOPDIR)/scripts/kconfig/gconf
 	$(call findout_config)
-	cd $(TOPDIR) && scripts/kconfig/conf -o $(MENU)
+	LD_LIBRARY_PATH=$(TOPDIR)/scripts/kconfig cd $(PTXDISTWORKSPACE) && $(TOPDIR)/scripts/kconfig/gconf $(MENU)
 
-setup: scripts/lxdialog/lxdialog scripts/kconfig/mconf
+oldconfig: before_config $(TOPDIR)/scripts/kconfig/conf
+	$(call findout_config)
+	cd $(PTXDISTWORKSPACE) && $(TOPDIR)/scripts/kconfig/conf -o $(MENU)
+
+setup: $(TOPDIR)/scripts/lxdialog/lxdialog $(TOPDIR)/scripts/kconfig/mconf
 	@rm -f $(TOPDIR)/config/setup/.config
 	@ln -sf $(TOPDIR)/scripts $(TOPDIR)/config/setup/scripts
 	@if [ -f $(HOME)/.ptxdistrc ]; then cp $(HOME)/.ptxdistrc $(TOPDIR)/config/setup/.config; fi
@@ -379,8 +384,9 @@ setup: scripts/lxdialog/lxdialog scripts/kconfig/mconf
 		exit 1;								\
 	fi;									\
 	if [ -n "$$CFG" ]; then 						\
-		echo "using config file \"$$CFG\""; 				\
-		cp $$CFG $(TOPDIR)/.config; 					\
+		echo "config file: \"$$CFG\""; 					\
+		cp $$CFG $(PTXDISTWORKSPACE)/.config; 				\
+		echo "workspace:   \"$(PTXDISTWORKSPACE)\"";			\
 	else 									\
 		echo "could not find config file \"$@\""; 			\
 		exit 1;								\
@@ -462,8 +468,8 @@ maintainer-clean: distclean
 
 distclean: clean
 	@echo -n "cleaning .config, .kernelconfig.. "
-	@rm -f .config* .kernelconfig .tmp* .rtaiconfig 
-	@rm -f config/setup/scripts config/setup/.config scripts/scripts
+	@cd $(PTXDISTWORKSPACE) && rm -f .config* .kernelconfig .tmp* .rtaiconfig 
+	@cd $(TOPDIR) && rm -f config/setup/scripts config/setup/.config scripts/scripts
 	@echo "done."
 	@echo -n "cleaning logs.................... "
 	@rm -fr $(TOPDIR)/logs/root-orig.txt $(TOPDIR)/logs/root-ipkg.txt $(TOPDIR)/logs/root.diff
@@ -477,6 +483,18 @@ clean: rootclean imagesclean
 	@echo "done."
 	@echo -n "cleaning build dir............... "
 	@for i in $(wildcard $(BUILDDIR)/*); do 			\
+		echo -n $$i; 						\
+		rm -rf $$i; 						\
+		echo; echo -n "                                  ";	\
+	done
+	@echo "done."
+	@for i in $(wildcard $(HOST_BUILDDIR)/*); do 			\
+		echo -n $$i; 						\
+		rm -rf $$i; 						\
+		echo; echo -n "                                  ";	\
+	done
+	@echo "done."
+	@for i in $(wildcard $(CROSS_BUILDDIR)/*); do 			\
 		echo -n $$i; 						\
 		rm -rf $$i; 						\
 		echo; echo -n "                                  ";	\

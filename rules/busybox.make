@@ -95,7 +95,7 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	touch $(BUSYBOX_DIR)/busybox.links
 
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
-	grep -e PTXCONF_BB_ .config > $(BUSYBOX_DIR)/.config
+	grep -e PTXCONF_BB_ $(PTXDISTWORKSPACE)/.config > $(BUSYBOX_DIR)/.config
 	perl -i -p -e 's/PTXCONF_BB_//g' $(BUSYBOX_DIR)/.config
 	echo GCC_PREFIX=$(COMPILER_PREFIX)
 	perl -i -p -e 's/^CROSS_COMPILER_PREFIX=.*$$/CROSS_COMPILER_PREFIX=\"$(COMPILER_PREFIX)\"/g' $(BUSYBOX_DIR)/.config

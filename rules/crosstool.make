@@ -165,7 +165,7 @@ crosstool_install_deps = $(STATEDIR)/crosstool.compile
 $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_UCLIBC
-	grep -e PTXCONF_UC_ .config > $(CROSSTOOL_DIR)/uclibc_config
+	grep -e PTXCONF_UC_ $(PTXDISTWORKSPACE)/.config > $(CROSSTOOL_DIR)/uclibc_config
 	perl -i -p -e 's/PTXCONF_UC_//g' $(CROSSTOOL_DIR)/uclibc_config
 endif
 

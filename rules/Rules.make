@@ -258,6 +258,7 @@ CROSS_ENV := \
 CROSS_AUTOCONF := $(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
 else
 CROSS_ENV := \
+	$(CROSS_ENV_PROGS) \
 	$(CROSS_ENV_FLAGS) \
 	$(CROSS_ENV_PKG_CONFIG)
 endif
@@ -681,8 +682,8 @@ get_option =										\
 	$(shell										\
 		REGEX="$(strip $(1))";							\
 		DEFAULT="$(strip $(2))";						\
-		if [ -f $(TOPDIR)/.config ]; then					\
-			VALUE=`$(CAT) $(TOPDIR)/.config | sed -n -e "$${REGEX}p"`;	\
+		if [ -f $(PTXDISTWORKSPACE)/.config ]; then				\
+			VALUE=`$(CAT) $(PTXDISTWORKSPACE)/.config | sed -n -e "$${REGEX}p"`;	\
 		fi;									\
 		echo $${VALUE:-$$DEFAULT}						\
 	)
@@ -701,8 +702,8 @@ get_option =										\
 get_option_ext =									\
 	$(shell										\
 		REGEX="$(strip $(1))";							\
-		if [ -f $(TOPDIR)/.config ]; then					\
-			$(CAT) $(TOPDIR)/.config | sed -n -e "$${REGEX}p" | $(2);	\
+		if [ -f $(PTXDISTWORKSPACE)/.config ]; then					\
+			$(CAT) $(PTXDISTWORKSPACE)/.config | sed -n -e "$${REGEX}p" | $(2);	\
 		fi;									\
 	)
 
