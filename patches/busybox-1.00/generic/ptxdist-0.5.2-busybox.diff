@@ -1,0 +1,29 @@
+# 
+# Submitted:
+#
+# Kai-Uwe Bloem, 2004-04-05
+#
+# Error: 
+#
+# off-by-one error
+#
+# Description: 
+#
+# <pointer to discussions on the net>
+#
+# State:
+# 
+# <upstream state of this problem>
+#
+
+--- busybox-1.00-pre10/networking/udhcp/dhcpd.c	Sat Jan 31 00:45:12 2004
++++ busybox-1.00-pre10-ptx/networking/udhcp/dhcpd.c	Mon Apr  5 11:36:21 2004
+@@ -84,7 +84,7 @@
+ 	else server_config.lease = LEASE_TIME;
+ 
+ 	/* Sanity check */
+-	num_ips = ntohl(server_config.end) - ntohl(server_config.start);
++	num_ips = ntohl(server_config.end) - ntohl(server_config.start) + 1;
+ 	if (server_config.max_leases > num_ips) {
+ 		LOG(LOG_ERR, "max_leases value (%lu) not sane, "
+ 			"setting to %lu instead",

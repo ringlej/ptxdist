@@ -1,0 +1,66 @@
+menuconfig SYSVINIT
+	bool "SysVInit            "
+
+config SYSVINIT_INIT  
+	bool
+	prompt "init"
+	depends on SYSVINIT
+	help
+	  Install the init program, this init support runlevel
+
+config SYSVINIT_HALT
+	bool
+	prompt "halt"
+	depends on SYSVINIT
+	help
+	  The 'halt' tool brings the machine down.
+
+config SYSVINIT_SHUTDOWN
+	bool
+	prompt "shutdown"
+	depends on SYSVINIT
+
+config SYSVINIT_RUNLEVEL
+	bool
+	prompt "runlevel"
+	depends on SYSVINIT
+
+config SYSVINIT_KILLALL5
+	bool
+	prompt "killall5"
+	depends on SYSVINIT
+
+config SYSVINIT_SULOGIN
+	bool
+	prompt "sulogin"
+	depends on SYSVINIT
+
+config SYSVINIT_BOOTLOGD
+	bool
+	prompt "bootlogd"
+	depends on SYSVINIT
+
+config SYSVINIT_WALL
+	bool
+	prompt "wall"
+	depends on SYSVINIT
+
+config SYSVINIT_LAST
+	bool
+	prompt "last"
+	depends on SYSVINIT
+
+config SYSVINIT_MESG
+	bool
+	prompt "mesg"
+	depends on SYSVINIT
+
+config SYSVINIT_BSDINIT
+	bool
+	prompt "BSD Styles Init"
+	depends on SYSVINIT && SYSVINIT_INIT
+	help
+	  It installs different script to configuration of runlevel supported in init.
+	  These script use BSD style init, described in
+	  http://www.linuxfromscratch.org/hints/downloads/files/bsd-init.txt 
+
