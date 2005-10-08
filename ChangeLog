@@ -7,6 +7,7 @@
 	* lrzsz: fixed, builds now. Patch by Ladislav Michl, modified
 	  to actually build something on targetinstall.
 	* dhcp: update from 3.0.1 to 3.0.3; patch by Ulf Samuelsson
+	* sysvinit: patch by Oscar Peredo added.
 
 2005-09-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
