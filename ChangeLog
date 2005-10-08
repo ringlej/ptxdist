@@ -4,6 +4,8 @@
 	* rtai: removed rtai in kernel config, could now be done with
 	  the patch stack mechanism (in case anybody would be
 	  interested)
+	* lrzsz: fixed, builds now. Patch by Ladislav Michl, modified
+	  to actually build something on targetinstall.
 
 2005-09-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
