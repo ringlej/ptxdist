@@ -72,13 +72,6 @@ librn_prepare_deps = \
 	$(STATEDIR)/librn.extract \
 	$(STATEDIR)/virtual-xchain.install
 
-#
-# Only needed if using old glibc (older than 2.3.2)
-#
-#ifdef  PTXCONF_SYS-EPOLL-LIB
-#rn_prepare_deps += $(STATEDIR)/sys-epoll-lib.install
-#endif
-
 LIBRN_PATH	=  PATH=$(CROSS_PATH)
 LIBRN_ENV 	=  $(CROSS_ENV)
 
