@@ -1,3 +1,10 @@
+2005-10-08 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* epoll: removed rules/epoll.in, seems to be obsolete.
+	* rtai: removed rtai in kernel config, could now be done with
+	  the patch stack mechanism (in case anybody would be
+	  interested)
+
 2005-09-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* Makefile: more makefile cleanups. New policy: everything is
