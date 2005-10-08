@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.7-rc3
-# Mon Sep 26 09:07:39 2005
+# PTXdist version: 0.7.7-rc4
+# Sat Oct  8 14:29:16 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -246,15 +246,6 @@ PTXCONF_KERNEL_PATCH1_URL=""
 PTXCONF_KERNEL_PATCH1_NAME=""
 
 #
-# Extentions
-#
-
-#
-# epoll should be ported to patchstack mechanism, please send patch! :-)
-#
-# PTXCONF_RTAI is not set
-
-#
 # C Library           
 #
 # PTXCONF_GLIBC is not set
@@ -454,6 +445,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_CFGSH is not set
 # PTXCONF_COREUTILS is not set
 # PTXCONF_DIFFUTILS is not set
+# PTXCONF_SYSVINIT is not set
 # PTXCONF_MODULE_INIT_TOOLS is not set
 # PTXCONF_GAWK is not set
 # PTXCONF_HOTPLUG is not set
@@ -730,6 +722,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # Communication Utilities     
 #
 # PTXCONF_EFAX is not set
+# PTXCONF_LRZSZ is not set
 # PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
@@ -751,7 +744,6 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_FIGLET is not set
 # PTXCONF_MEMEDIT is not set
 # PTXCONF_MEMSTAT is not set
-# PTXCONF_CANCONFIG is not set
 
 #
 # Editors                     
@@ -766,6 +758,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # PTXCONF_DB is not set
 # PTXCONF_EXPAT is not set
+# PTXCONF_GETTEXT is not set
 # PTXCONF_GLIB26 is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBXML2 is not set
@@ -793,24 +786,34 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # X Infrastructure
 #
+# PTXCONF_REALVNC is not set
 # PTXCONF_XFREE430 is not set
 # PTXCONF_XLIBS is not set
 # PTXCONF_XSERVER is not set
-# PTXCONF_REALVNC is not set
 
 #
 # X Applications
 #
-# PTXCONF_CLEMENTINE is not set
-# PTXCONF_WXWINDOWS is not set
 # PTXCONF_QTE is not set
+# PTXCONF_WXWINDOWS is not set
+
+#
+# X Window Managers
+#
 # PTXCONF_BLACKBOX is not set
+# PTXCONF_CLEMENTINE is not set
 
 #
 # Framebuffer
 #
 # PTXCONF_FBTEST is not set
 # PTXCONF_FBUTILS is not set
+
+#
+# Other Stuff
+#
+# PTXCONF_FONTCONFIG22 is not set
+# PTXCONF_TSLIB is not set
 
 #
 # Scientific Apps             
