@@ -8,6 +8,7 @@
 	  to actually build something on targetinstall.
 	* dhcp: update from 3.0.1 to 3.0.3; patch by Ulf Samuelsson
 	* sysvinit: patch by Oscar Peredo added.
+	* zlib: build also static zlib; patch by Kai-Uwe Bloem
 
 2005-09-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
