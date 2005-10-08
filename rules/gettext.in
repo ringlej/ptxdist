@@ -1,6 +1,5 @@
 menuconfig GETTEXT
-	bool "gettext (GNU)"
-	depends on GCC_SHARED
+	bool "gettext (GNU)        "
 
 config GETTEXT_LIBINTL
 	bool

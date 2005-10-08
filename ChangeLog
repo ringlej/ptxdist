@@ -11,6 +11,8 @@
 	* zlib: build also static zlib; patch by Kai-Uwe Bloem
 	* uclibc: install libthread_db if gdbserver is used; patch by
 	  Kai-Uwe Bloem.
+	* gettext: fixed stuff all over the place; make ipkg install
+	  work. Patch by Kai-Uwe Bloem
 
 2005-09-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
