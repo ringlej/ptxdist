@@ -134,6 +134,16 @@ PTXCONF_KERNEL_PATCH7_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH7_NAME
 PTXCONF_KERNEL_PATCH8_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH8_NAME))
 PTXCONF_KERNEL_PATCH9_NAME  := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH9_NAME))
 PTXCONF_KERNEL_PATCH10_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH10_NAME))
+PTXCONF_KERNEL_PATCH11_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH11_NAME))
+PTXCONF_KERNEL_PATCH12_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH12_NAME))
+PTXCONF_KERNEL_PATCH13_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH13_NAME))
+PTXCONF_KERNEL_PATCH14_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH14_NAME))
+PTXCONF_KERNEL_PATCH15_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH15_NAME))
+PTXCONF_KERNEL_PATCH16_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH16_NAME))
+PTXCONF_KERNEL_PATCH17_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH17_NAME))
+PTXCONF_KERNEL_PATCH18_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH18_NAME))
+PTXCONF_KERNEL_PATCH19_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH19_NAME))
+PTXCONF_KERNEL_PATCH20_NAME := $(call remove_quotes,$(PTXCONF_KERNEL_PATCH20_NAME))
 
 ifdef PTXCONF_KERNEL_PATCH1_URL
 ifneq ($(PTXCONF_KERNEL_PATCH1_URL),"")
@@ -235,6 +245,106 @@ $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH10_NAME).get:
 endif
 endif
 
+ifdef PTXCONF_KERNEL_PATCH11_URL
+ifneq ($(PTXCONF_KERNEL_PATCH11_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH11_NAME).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH11_NAME).get:
+	@$(call targetinfo, "Patch 11")
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH11_URL), $(PTXCONF_KERNEL_PATCH11_NAME))
+	touch $@
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH12_URL
+ifneq ($(PTXCONF_KERNEL_PATCH12_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH12_NAME).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH12_NAME).get:
+	@$(call targetinfo, "Patch 12")
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH12_URL), $(PTXCONF_KERNEL_PATCH12_NAME))
+	touch $@
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH13_URL
+ifneq ($(PTXCONF_KERNEL_PATCH13_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH13_NAME).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH13_NAME).get:
+	@$(call targetinfo, "Patch 13")
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH13_URL), $(PTXCONF_KERNEL_PATCH13_NAME))
+	touch $@
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH14_URL
+ifneq ($(PTXCONF_KERNEL_PATCH14_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH14_NAME).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH14_NAME).get:
+	@$(call targetinfo, "Patch 14")
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH14_URL), $(PTXCONF_KERNEL_PATCH14_NAME))
+	touch $@
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH15_URL
+ifneq ($(PTXCONF_KERNEL_PATCH15_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH15_NAME).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH15_NAME).get:
+	@$(call targetinfo, "Patch 15")
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH15_URL), $(PTXCONF_KERNEL_PATCH15_NAME))
+	touch $@
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH16_URL
+ifneq ($(PTXCONF_KERNEL_PATCH16_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH16_NAME).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH16_NAME).get:
+	@$(call targetinfo, "Patch 16")
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH16_URL), $(PTXCONF_KERNEL_PATCH16_NAME))
+	touch $@
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH17_URL
+ifneq ($(PTXCONF_KERNEL_PATCH17_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH17_NAME).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH17_NAME).get:
+	@$(call targetinfo, "Patch 17")
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH17_URL), $(PTXCONF_KERNEL_PATCH17_NAME))
+	touch $@
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH18_URL
+ifneq ($(PTXCONF_KERNEL_PATCH18_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH18_NAME).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH18_NAME).get:
+	@$(call targetinfo, "Patch 18")
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH18_URL), $(PTXCONF_KERNEL_PATCH18_NAME))
+	touch $@
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH19_URL
+ifneq ($(PTXCONF_KERNEL_PATCH19_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH19_NAME).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH19_NAME).get:
+	@$(call targetinfo, "Patch 19")
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH19_URL), $(PTXCONF_KERNEL_PATCH19_NAME))
+	touch $@
+endif
+endif
+
+ifdef PTXCONF_KERNEL_PATCH20_URL
+ifneq ($(PTXCONF_KERNEL_PATCH20_URL),"")
+kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH20_NAME).get
+$(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH20_NAME).get:
+	@$(call targetinfo, "Patch 20")
+	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH20_URL), $(PTXCONF_KERNEL_PATCH20_NAME))
+	touch $@
+endif
+endif
+
 $(STATEDIR)/kernel-patchstack.get: $(kernel_patchstack_get_deps)
 	@$(call targetinfo, $@)
 	$(call touch, $@)
@@ -296,6 +406,16 @@ endif
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH8_NAME)) 
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH9_NAME)) 
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH10_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH11_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH12_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH13_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH14_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH15_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH16_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH17_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH18_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH19_NAME)) 
+	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH20_NAME)) 
 
 	$(call touch, $@)
 

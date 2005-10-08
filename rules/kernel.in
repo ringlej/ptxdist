@@ -233,6 +233,7 @@ config KERNEL_PATCH1_NAME
 comment ""
 	depends on KERNEL_PATCH1_URL!=""
 
+
 config KERNEL_PATCH2_URL
 	prompt "Patch 2 URL"
 	string
@@ -248,6 +249,7 @@ config KERNEL_PATCH2_NAME
 
 comment ""
 	depends on KERNEL_PATCH2_URL!=""
+
 
 config KERNEL_PATCH3_URL
 	prompt "Patch 3 URL"
@@ -265,6 +267,7 @@ config KERNEL_PATCH3_NAME
 comment ""
 	depends on KERNEL_PATCH3_URL!=""
 
+
 config KERNEL_PATCH4_URL
 	prompt "Patch 4 URL"
 	string
@@ -280,6 +283,7 @@ config KERNEL_PATCH4_NAME
 
 comment ""
 	depends on KERNEL_PATCH4_URL!=""
+
 
 config KERNEL_PATCH5_URL
 	prompt "Patch 5 URL"
@@ -297,6 +301,7 @@ config KERNEL_PATCH5_NAME
 comment ""
 	depends on KERNEL_PATCH5_URL!=""
 
+
 config KERNEL_PATCH6_URL
 	prompt "Patch 6 URL"
 	string
@@ -312,6 +317,7 @@ config KERNEL_PATCH6_NAME
 
 comment ""
 	depends on KERNEL_PATCH6_URL!=""
+
 
 config KERNEL_PATCH7_URL
 	prompt "Patch 7 URL"
@@ -329,6 +335,7 @@ config KERNEL_PATCH7_NAME
 comment ""
 	depends on KERNEL_PATCH7_URL!=""
 
+
 config KERNEL_PATCH8_URL
 	prompt "Patch 8 URL"
 	string
@@ -344,6 +351,7 @@ config KERNEL_PATCH8_NAME
 
 comment ""
 	depends on KERNEL_PATCH8_URL!=""
+
 
 config KERNEL_PATCH9_URL
 	prompt "Patch 9 URL"
@@ -361,6 +369,7 @@ config KERNEL_PATCH9_NAME
 comment ""
 	depends on KERNEL_PATCH9_URL!=""
 
+
 config KERNEL_PATCH10_URL
 	prompt "Patch 10 URL"
 	string
@@ -377,14 +386,175 @@ config KERNEL_PATCH10_NAME
 comment ""
 	depends on KERNEL_PATCH10_URL!=""
 
-# ----------
 
-comment "Extentions"
+config KERNEL_PATCH11_URL
+	prompt "Patch 11 URL"
+	string
+	depends on KERNEL_PATCH10_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
 
-comment "epoll should be ported to patchstack mechanism, please send patch! :-)"
-#source "rules/epoll.in"
+config KERNEL_PATCH11_NAME
+	prompt "Patch 11 Name"
+	string
+	depends on KERNEL_PATCH10_URL!=""
 
-source "rules/rtai.in"
+comment ""
+	depends on KERNEL_PATCH11_URL!=""
+
+
+config KERNEL_PATCH12_URL
+	prompt "Patch 12 URL"
+	string
+	depends on KERNEL_PATCH11_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH12_NAME
+	prompt "Patch 12 Name"
+	string
+	depends on KERNEL_PATCH11_URL!=""
+
+comment ""
+	depends on KERNEL_PATCH12_URL!=""
+
+
+config KERNEL_PATCH13_URL
+	prompt "Patch 13 URL"
+	string
+	depends on KERNEL_PATCH12_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH13_NAME
+	prompt "Patch 13 Name"
+	string
+	depends on KERNEL_PATCH12_URL!=""
+
+comment ""
+	depends on KERNEL_PATCH13_URL!=""
+
+
+config KERNEL_PATCH14_URL
+	prompt "Patch 14 URL"
+	string
+	depends on KERNEL_PATCH13_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH14_NAME
+	prompt "Patch 14 Name"
+	string
+	depends on KERNEL_PATCH13_URL!=""
+
+comment ""
+	depends on KERNEL_PATCH14_URL!=""
+
+
+config KERNEL_PATCH15_URL
+	prompt "Patch 15 URL"
+	string
+	depends on KERNEL_PATCH14_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH15_NAME
+	prompt "Patch 15 Name"
+	string
+	depends on KERNEL_PATCH14_URL!=""
+
+comment ""
+	depends on KERNEL_PATCH15_URL!=""
+
+
+config KERNEL_PATCH16_URL
+	prompt "Patch 16 URL"
+	string
+	depends on KERNEL_PATCH15_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH16_NAME
+	prompt "Patch 16 Name"
+	string
+	depends on KERNEL_PATCH15_URL!=""
+
+comment ""
+	depends on KERNEL_PATCH16_URL!=""
+
+
+config KERNEL_PATCH17_URL
+	prompt "Patch 17 URL"
+	string
+	depends on KERNEL_PATCH16_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH17_NAME
+	prompt "Patch 17 Name"
+	string
+	depends on KERNEL_PATCH16_URL!=""
+
+comment ""
+	depends on KERNEL_PATCH17_URL!=""
+
+
+config KERNEL_PATCH18_URL
+	prompt "Patch 18 URL"
+	string
+	depends on KERNEL_PATCH17_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH18_NAME
+	prompt "Patch 18 Name"
+	string
+	depends on KERNEL_PATCH17_URL!=""
+
+comment ""
+	depends on KERNEL_PATCH18_URL!=""
+
+
+config KERNEL_PATCH19_URL
+	prompt "Patch 19 URL"
+	string
+	depends on KERNEL_PATCH18_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH19_NAME
+	prompt "Patch 19 Name"
+	string
+	depends on KERNEL_PATCH18_URL!=""
+
+comment ""
+	depends on KERNEL_PATCH19_URL!=""
+
+
+config KERNEL_PATCH20_URL
+	prompt "Patch 20 URL"
+	string
+	depends on KERNEL_PATCH19_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_PATCH20_NAME
+	prompt "Patch 20 Name"
+	string
+	depends on KERNEL_PATCH19_URL!=""
+
+comment ""
+	depends on KERNEL_PATCH20_URL!=""
 
 endmenu
 
