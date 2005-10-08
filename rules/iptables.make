@@ -140,6 +140,14 @@ ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_SAVE
 	@$(call install_copy, 0, 0, 0755, $(IPTABLES_DIR)/iptables-save, /sbin/iptables-save)
 endif
 	@$(call install_finish)	
+
+#	KUB had this in his patch: find out what it does before applying
+#
+#	cd $(IPTABLES_DIR)/extensions && \
+#		for file in `find . -name '*.so*' | sed -e "s/\.\//\//g"`; do \
+#			$(call install_copy, 0, 0, 0664, $(IPTABLES_DIR)/extensions/$$$$file, /usr/lib/iptables/$$$$file, n) \
+#		done
+
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
