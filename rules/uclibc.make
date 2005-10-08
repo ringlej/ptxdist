@@ -118,6 +118,9 @@ endif
 
 ifdef PTXCONF_UCLIBC_PTHREAD
 	@$(call install_copy_toolchain_lib, libpthread.so, /lib)
+ifdef PTXCONF_GDBSERVER
+	@$(call install_copy_toolchain_lib, libthread_db.so, /lib)
+endif
 endif
 
 ifdef PTXCONF_UCLIBC_RESOLV
