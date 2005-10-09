@@ -183,8 +183,10 @@ dep_output_clean:
 dep_tree:
 	@echo "Launching cuckoo-test"
 	@scripts/cuckoo-test $(PTXCONF_ARCH) $(ROOTDIR) $(PTXCONF_COMPILER_PREFIX)
+ifdef PTXCONF_IMAGE_IPKG
 	@echo "Launching ipkg-test"
 	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl  scripts/ipkg-test
+endif
 	@if dot -V 2> /dev/null; then \
 		echo "creating dependency graph..."; \
 		sort $(DEP_OUTPUT) | uniq | scripts/makedeptree | $(DOT) -Tps > $(DEP_TREE_PS); \
