@@ -1,80 +1,79 @@
 Automatic Compilation Test
 --------------------------
 
-start: Mo Sep 26 09:26:44 CEST 2005
+start: Sa Okt 8 20:34:53 CEST 2005
 
 config...: abbcc-viac3
-date.....: Mo Sep 26 09:26:44 CEST 2005
+date.....: Sa Okt 8 20:34:53 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h8m38s
+buildtime: 0h7m37s
 result...: 0
 
 config...: i586-generic-glibc
-date.....: Mo Sep 26 09:35:27 CEST 2005
+date.....: Sa Okt 8 20:42:37 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h3m33s
+buildtime: 0h3m37s
 result...: 0
 
 config...: frako
-date.....: Mo Sep 26 09:39:04 CEST 2005
+date.....: Sa Okt 8 20:46:19 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h13m52s
+buildtime: 0h14m11s
 result...: 0
 
 config...: visbox
-date.....: Mo Sep 26 09:53:04 CEST 2005
+date.....: Sa Okt 8 21:00:38 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h11m3s
+buildtime: 0h12m34s
 result...: 0
 
 config...: rayonic-i586
-date.....: Mo Sep 26 10:04:14 CEST 2005
+date.....: Sa Okt 8 21:13:18 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h9m19s
+buildtime: 0h10m47s
 result...: 0
 
 config...: innokom-2.4-2.95
-date.....: Mo Sep 26 10:13:38 CEST 2005
+date.....: Sa Okt 8 21:24:12 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h6m32s
+buildtime: 0h6m4s
 result...: 0
 
 config...: innokom-2.4-3.3.3
-date.....: Mo Sep 26 10:20:16 CEST 2005
+date.....: Sa Okt 8 21:30:21 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h6m47s
-result...: 0
+result...: no config file 'innokom-2.4-3.3.3'
 
 config...: mx1fs2
-date.....: Mo Sep 26 10:27:08 CEST 2005
+date.....: Sa Okt 8 21:30:22 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h3m42s
+buildtime: 0h5m2s
 result...: 0
 
 config...: pii_nge
-date.....: Mo Sep 26 10:30:55 CEST 2005
+date.....: Sa Okt 8 21:35:29 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h31m9s
-result...: 0
+buildtime: 0h32m26s
+result...: 2
 
 config...: ssv_pnp2110_eva1
-date.....: Mo Sep 26 11:02:38 CEST 2005
+date.....: Sa Okt 8 22:08:27 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h23m41s
+buildtime: 0h23m26s
 result...: 0
 
 config...: eb8245
-date.....: Mo Sep 26 11:26:30 CEST 2005
+date.....: Sa Okt 8 22:32:04 CEST 2005
 user.....: rsc@himalia
-buildtime: 0h2m19s
+buildtime: 0h2m20s
 result...: 0
 
 config...: cameron-efco
-date.....: Mo Sep 26 11:28:55 CEST 2005
+date.....: Sa Okt 8 22:34:30 CEST 2005
 user.....: rsc@himalia
-buildtime: 1h7m36s
+buildtime: 0h13m35s
 result...: 0
 
 
-stop: Mo Sep 26 12:36:38 CEST 2005
+stop: Sa Okt 8 22:48:14 CEST 2005
 
