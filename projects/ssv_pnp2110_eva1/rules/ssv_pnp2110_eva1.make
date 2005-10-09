@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-VENDORTWEAKS = ssv_pnp2110_eva1
+PACKAGES += ssv_pnp2110_eva1
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -18,6 +18,15 @@ ssv_pnp2110_eva1_targetinstall: $(STATEDIR)/ssv_pnp2110_eva1.targetinstall
 
 $(STATEDIR)/ssv_pnp2110_eva1.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,ssv-pnp2110-eva1)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,1.0.0)
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,)
+	@$(call install_fixup,DESCRIPTION,missing)
 
 	# create some mountpoints	
 	$(call copy_root, 0, 0, 0755, /var/run)
@@ -35,15 +44,8 @@ $(STATEDIR)/ssv_pnp2110_eva1.targetinstall:
 	# donate /home to ftp.ftp so that we can download files 
 	$(call copy_root, 11, 101, 0755, /home)
 
-	# remove CVS and SVN stuff
-	find $(ROOTDIR) -name "CVS" | xargs rm -fr 
-	rm -f $(ROOTDIR)/JUST_FOR_CVS
-	find $(ROOTDIR) -name ".svn" | xargs rm -fr
+	$(call install_finish)
 
-	# launch cuckoo-test
-	@$(call targetinfo, cuckoo-test)
-	cd $(TOPDIR) && scripts/cuckoo-test $(PTXCONF_ARCH) root $(PTXCONF_COMPILER_PREFIX)
-
-	touch $@
+	$(call touch, $@)
 
 # vim: syntax=make
