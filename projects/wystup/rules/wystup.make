@@ -10,7 +10,7 @@
 # see the README file.
 #
 
-VENDORTWEAKS = wystup
+PACKAGES += wystup
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -21,12 +21,10 @@ wystup_targetinstall: $(STATEDIR)/wystup.targetinstall
 $(STATEDIR)/wystup.targetinstall:
 	@$(call targetinfo, vendor-tweaks.targetinstall)
 
+	# FIXME: use normal ipkg mechanism
+
 #	copy /etc template
 #	cp -a $(PROJECTDIR)/etc/. $(ROOTDIR)/etc
-
-#	remove CVS stuff
-	find $(ROOTDIR) -name "CVS" | xargs rm -fr
-	rm -f $(ROOTDIR)/JUST_FOR_CVS
 
 #	make scripts executable
 	chmod 755 $(ROOTDIR)/etc/init.d/*
