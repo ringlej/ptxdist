@@ -100,6 +100,7 @@ QTE_AUTOCONF	+= -embedded $(PTXCONF_ARCH)
 QTE_AUTOCONF	+= -disable-opengl
 QTE_AUTOCONF	+= -disable-sql
 QTE_AUTOCONF	+= -disable-workspace
+QTE_AUTOCONF	+= -qt-mouse-tslib
 
 ifdef PTXCONF_QTE_SHARED
 QTE_AUTOCONF	+= -shared
@@ -142,8 +143,8 @@ $(STATEDIR)/qte.prepare: $(qte_prepare_deps)
 	@echo 'QMAKE_CXXFLAGS_YACC        = $$$$QMAKE_CFLAGS_YACC'	>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_CXXFLAGS_THREAD      = $$$$QMAKE_CFLAGS_THREAD'	>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 
-	@echo 'QMAKE_INCDIR               ='				>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
-	@echo 'QMAKE_LIBDIR               ='				>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
+	@echo 'QMAKE_INCDIR               ='$(CROSS_LIB_DIR)/include    >> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
+	@echo 'QMAKE_LIBDIR               ='$(CROSS_LIB_DIR)/lib	>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_INCDIR_X11           ='				>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_LIBDIR_X11           ='				>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_INCDIR_QT            = $(QTDIR)/include'		>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
@@ -180,8 +181,8 @@ $(STATEDIR)/qte.prepare: $(qte_prepare_deps)
 	@echo 'QMAKE_AR                   = ar cqs'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_RANLIB               ='				>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 
-	echo 'QMAKE_TAR                  = tar -cf'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
-	echo 'QMAKE_GZIP                 = gzip -9f'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
+	@echo 'QMAKE_TAR                  = tar -cf'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
+	@echo 'QMAKE_GZIP                 = gzip -9f'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 
 	@echo 'QMAKE_COPY                 = cp -f'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_MOVE                 = mv -f'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
