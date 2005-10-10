@@ -1,4 +1,4 @@
-config LIBPV
+menuconfig LIBPV
 	bool
 	prompt "libpv"
 	select LIBLIST
@@ -10,4 +10,7 @@ config LIBPV
 
 	  The library has also an integrated JVisu socket server. 
 
-
+config LIBPV_PVTOOL
+	bool
+	prompt "install pvtool"
+	depends on LIBPV

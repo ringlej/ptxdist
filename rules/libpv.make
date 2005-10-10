@@ -140,6 +140,10 @@ $(STATEDIR)/libpv.targetinstall: $(libpv_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
+ifdef PTXCONF_LIBPV_PVTOOL
+	@$(call install_copy, 0, 0, 0755, $(LIBPV_DIR)/src/.libs/pvtool, /usr/bin/pvtool)
+endif
+
 	@$(call install_copy, 0, 0, 0644, $(LIBPV_DIR)/src/.libs/libpv.so.5.0.0, /usr/lib/libpv.so.5.0.0)
 	@$(call install_link, libpv.so.5.0.0, /usr/lib/libpv.so.5)
 	@$(call install_link, libpv.so.5.0.0, /usr/lib/libpv.so)
