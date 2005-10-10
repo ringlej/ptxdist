@@ -42,7 +42,9 @@ find . -type f -exec file {} \; | grep -v "usr/share/terminfo" | sed -e "s/ASCII
 -e "s/Compiled terminfo entry.*/+++OK+++/" \
 -e "s/python.*byte-compiled.*/+++OK+++/" \
 -e "s/data/+++OK+++/" \
--e "s/MPEG.*/+++OK+++/" | \
+-e "s/MPEG.*/+++OK+++/" \
+-e "s/XML.*/+++OK+++/" \
+    | \
 grep -v "+++OK+++" | \
 awk -F, '{print substr($1, 1, index($1,":"))" wrong architecture! ("$2")"}'
 echo "---"
