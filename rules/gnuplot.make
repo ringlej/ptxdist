@@ -122,7 +122,7 @@ GNUPLOT_AUTOCONF += --with-png
 else
 GNUPLOT_AUTOCONF += --without-png
 endif
-ifdef GNUPLOT_GD
+ifdef PTXCONF_GNUPLOT_GD
 GNUPLOT_AUTOCONF += --with-gd
 else
 GNUPLOT_AUTOCONF += --without-gd
@@ -161,13 +161,6 @@ gnuplot_compile_deps = $(STATEDIR)/gnuplot.prepare
 $(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps)
 	@$(call targetinfo, $@)
 
-	# This has to be built with host compiler!!
-	# FIXME: uggly workaround for now...
-	#cd $(GNUPLOT_DIR)/src && make bf_test CC=$(HOSTCC) CFLAGS='-O2' LDFLAGS=''
-	#rm -f $(GNUPLOT_DIR)/src/*.o
-
-	# We only make the binary, as IT tries to start target stuff on the host
-	# otherwhise
 	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_ENV) $(GNUPLOT_PATH) make gnuplot
 	$(call touch, $@)
 

@@ -248,7 +248,7 @@ kaffe_compile: $(STATEDIR)/kaffe.compile
 
 kaffe_compile_deps =  $(STATEDIR)/kaffe.prepare
 
-ifdef KAFFE_JIKES_WO_DEBUG
+ifdef PTXCONF_KAFFE_JIKES_WO_DEBUG
 KAFFE_MAKEVARS	= JAVAC_FLAGS="-g:none -verbose"
 else
 KAFFE_MAKEVARS	= JAVAC_FLAGS="-verbose"

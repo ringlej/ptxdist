@@ -92,7 +92,7 @@ else
 NFSUTILS_AUTOCONF += --disable-rquotad
 endif
 
-ifdef NFSUTILS_WITH_TCPWRAPPERS
+ifdef PTXCONF_NFSUTILS_WITH_TCPWRAPPERS
 NFSUTILS_AUTOCONF += --with-tcpwrappers=$(PTXCONF_PREFIX)
 else
 NFSUTILS_AUTOCONF += --without-tcpwrappers

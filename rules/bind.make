@@ -80,16 +80,16 @@ BIND_AUTOCONF =  $(CROSS_AUTOCONF)
 BIND_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 BIND_AUTOCONF += --with-randomdev=/dev/random
 
-ifdef BIND_THREADS
+ifdef PTXCONF_BIND_THREADS
 BIND_AUTOCONF += --enable-threads
 endif
 
-ifdef BIND_CRYPTO
+ifdef PTXCONF_BIND_CRYPTO
 BIND_AUTOCONF += --with-openssl=$(OPENSSL_DIR)
 bind_prepare_deps += $(STATEDIR)/openssl.install
 endif
 
-ifdef BIND_IPV6
+ifdef PTXCONF_BIND_IPV6
 BIND_AUTOCONF += --enable-ipv6
 else
 BIND_AUTOCONF += --disable-ipv6
