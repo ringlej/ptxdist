@@ -206,6 +206,7 @@ qte_compile_deps = $(STATEDIR)/qte.prepare
 
 $(STATEDIR)/qte.compile: $(qte_compile_deps)
 	@$(call targetinfo, $@)
+	cp -f $(PTXCONF_PREFIX)/bin/uic $(QTE_DIR)/bin/uic
 	$(QTE_PATH) $(QTE_ENV) make -C $(QTE_DIR) $(QTE_ENV)
 	$(call touch, $@)
 
