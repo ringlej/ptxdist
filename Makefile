@@ -469,13 +469,14 @@ toolchains:
 # ----------------------------------------------------------------------------
 
 qa:
-	cd $(TOPDIR);							\
+	@cd $(TOPDIR);							\
 	rm -f QA.log;							\
 	echo "Automatic Internal QA Check" >> QA.log;			\
 	echo start: `date` >> QA.log;                    		\
 	scripts/qa/master >> QA.log 2>&1;				\
 	echo stop: `date` >> QA.log;                                    \
 	echo >> QA.log;
+	@cat QA.log;
 
 maintainer-clean: distclean
 	@echo -n "cleaning logs.................... "
