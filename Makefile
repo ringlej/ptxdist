@@ -166,6 +166,11 @@ help:
 	@echo "  make ipkg-test               check if ipkg packets are consistent with ROOTDIR"
 	@echo "  make toolchains              build all supported toolchains"
 	@echo
+	@echo "Targets for internal Quality Assurance:"
+	@echo 
+	@echo " make qa			      run qa checks from scripts/qa"
+	@echo 
+
 
 # FIXME: this is not fully working yet, do to dependencies being defined
 # in make files and Kconfig files in a non-consistent way. 
@@ -462,6 +467,15 @@ toolchains:
 	echo >> TOOLCHAINS;
 
 # ----------------------------------------------------------------------------
+
+qa:
+	cd $(TOPDIR);							\
+	rm -f QA.log;							\
+	echo "Automatic Internal QA Check" >> QA.log;			\
+	echo start: `date` >> QA.log;                    		\
+	scripts/qa/master >> QA.log 2>&1;				\
+	echo stop: `date` >> QA.log;                                    \
+	echo >> QA.log;
 
 maintainer-clean: distclean
 	@echo -n "cleaning logs.................... "
