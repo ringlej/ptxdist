@@ -34,7 +34,7 @@ canutils_get: $(STATEDIR)/canutils.get
 
 canutils_get_deps = \
 	$(CANUTILS_SOURCE) \
-	$(PROJECTRULESDIR)/canutils.make
+	$(RULESDIR)/canutils.make
 
 $(STATEDIR)/canutils.get: $(canutils_get_deps)
 	@$(call targetinfo, $@)
