@@ -1,0 +1,32 @@
+menu	"canutils            "
+
+config CANUTILS
+	bool
+	default N
+	prompt "canutils"
+
+config CANUTILS_CANCONFIG
+	bool
+	depends on CANUTILS
+	default N
+	prompt "canconfig"
+
+config CANUTILS_CANDUMP
+	bool
+	depends on CANUTILS
+	default N
+	prompt "candump"
+
+config CANUTILS_CANECHO
+	bool
+	depends on CANUTILS
+	default N
+	prompt "canecho"
+
+config CANUTILS_CANSEND
+	bool
+	depends on CANUTILS
+	default N
+	prompt "cansend"
+
+endmenu
