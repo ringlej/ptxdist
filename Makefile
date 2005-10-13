@@ -104,13 +104,18 @@ endif
 include $(TOPDIR)/rules/Rules.make
 include $(TOPDIR)/rules/Version.make
 
-include $(filter-out 					\
+TMP_PROJECTRULES_IN = $(filter-out 					\
 		$(TOPDIR)/rules/Virtual.make 		\
 		$(TOPDIR)/rules/Rules.make 		\
 		$(TOPDIR)/rules/Version.make 		\
 		$(TOPDIR)/rules/Definitions.make,	\
 		$(wildcard $(TOPDIR)/rules/*.make)	\
 	) $(PROJECTRULES)
+
+TMP_PROJECTRULES_FINAL = $(shell $(TOPDIR)/scripts/select_projectrules "$(TOPDIR)/rules" "$(PROJECTDIR)/rules" "$(TMP_PROJECTRULES_IN)")
+
+include $(TMP_PROJECTRULES_FINAL)
+
 include $(TOPDIR)/rules/Virtual.make
 
 # install targets 
