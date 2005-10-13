@@ -215,19 +215,3 @@ config ROOTFS_ETC_UDHCPC
 	  udhcpc (busybox) accepts the -s file or --script=file option. 
 	  The /etc/udhcpc.script will be run at dhcp events.
 
-config VENDORTWEAKS
-	string
-	prompt "Run vendortweaks Makefile at the end of build"
-	help
-	  Normally you want to do some project specific stuff at the 
-	  end of a target build; this may be copying of vendor files 
-	  into the root filesystem or other project specific stuff; 
-	  As the things to be done here are indeed project we use
-	  a normal makefile here which gives you the possibility to 
-	  use the usual dependency mechanism. 
-
-	  Normally vendortweaks files live in $(PROJECTDIR), which 
-	  is something like $(TOPDIR)/projects/your-project-name. 
-	  For example if you want to add a vendortweaks file for 
-	  project foobar, use "$(PROJECTDIR)/foobar.vendortweaks" here. 
-
