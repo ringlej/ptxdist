@@ -1,8 +1,8 @@
 #!/bin/bash
 # give project Rulefiles priority and check for existance
 
-PROJECTRULES="$1"
-PTXDISTRULES="$2"
+PTXDISTRULES="$1"
+PROJECTRULES="$2"
 FILES="$3"
 OUTPUT=""
 
