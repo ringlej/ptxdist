@@ -100,7 +100,10 @@ QTE_AUTOCONF	+= -embedded $(PTXCONF_ARCH)
 QTE_AUTOCONF	+= -disable-opengl
 QTE_AUTOCONF	+= -disable-sql
 QTE_AUTOCONF	+= -disable-workspace
+ifdef PTXCONF_QTE_TSLIB
 QTE_AUTOCONF	+= -qt-mouse-tslib
+qte_prepare_deps += $(STATEDIR)/tslib.install
+endif
 
 ifdef PTXCONF_QTE_SHARED
 QTE_AUTOCONF	+= -shared

@@ -8,3 +8,9 @@ config QTE_SHARED
 	bool
 	prompt "Build shared QT/E library"
 	depends on QTE
+
+config QTE_TSLIB
+	bool
+	prompt "Build QT/E library with tslib support"
+	depends on QTE
+	select TSLIB

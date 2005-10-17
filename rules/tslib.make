@@ -134,7 +134,7 @@ $(STATEDIR)/tslib.targetinstall: $(tslib_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(TSLIB_DIR)/src/.libs/libts-0.0.so.0.1.1, /usr/libts-0.0.so.0.1.1)
+	@$(call install_copy, 0, 0, 0755, $(TSLIB_DIR)/src/.libs/libts-0.0.so.0.1.1, /lib/libts-0.0.so.0.1.1)
 	@$(call install_link, libts-0.0.so.0.1.1, /lib/libts.so)
 	@$(call install_link, libts-0.0.so.0.1.1, /lib/libts-0.0.so.0)
 
