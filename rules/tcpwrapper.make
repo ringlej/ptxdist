@@ -25,27 +25,19 @@ TCPWRAPPER_URL			= ftp://ftp.porcupine.org/pub/security/$(TCPWRAPPER).tar.gz
 TCPWRAPPER_SOURCE		= $(SRCDIR)/$(TCPWRAPPER).tar.gz
 TCPWRAPPER_DIR			= $(BUILDDIR)/$(TCPWRAPPER)
 
-TCPWRAPPER_PTXPATCH		= tcp_wrappers_$(TCPWRAPPER_VERSION)-ptx1
-TCPWRAPPER_PTXPATCH_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(TCPWRAPPER_PTXPATCH).diff
-TCPWRAPPER_PTXPATCH_SOURCE	= $(SRCDIR)/$(TCPWRAPPER_PTXPATCH).diff
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
 tcpwrapper_get: $(STATEDIR)/tcpwrapper.get
 
-$(STATEDIR)/tcpwrapper.get: $(TCPWRAPPER_SOURCE) $(TCPWRAPPER_PTXPATCH_SOURCE)
+$(STATEDIR)/tcpwrapper.get: $(TCPWRAPPER_SOURCE)
 	@$(call targetinfo, $@)
 	$(call touch, $@)
 
 $(TCPWRAPPER_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(TCPWRAPPER_URL))
-
-$(TCPWRAPPER_PTXPATCH_SOURCE): 
-	@$(call targetinfo, $@)
-	@$(call get, $(TCPWRAPPER_PTXPATCH_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -57,8 +49,7 @@ $(STATEDIR)/tcpwrapper.extract: $(STATEDIR)/tcpwrapper.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(TCPWRAPPER_DIR))
 	@$(call extract, $(TCPWRAPPER_SOURCE))
-	# FIXME: patch repository!
-	cd $(TCPWRAPPER_DIR) && patch -p1 < $(TCPWRAPPER_PTXPATCH_SOURCE)
+	@$(call patchin, $(TCPWRAPPER))
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
