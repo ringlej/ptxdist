@@ -72,7 +72,7 @@ PROJECTCONFFILE		=  $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconf
 PROJECTDIR		=  $(strip $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE)))
 PROJECTRULES		=  $(wildcard $(PROJECTDIR)/rules/*.make)
 PROJECTRULESDIR		=  $(PROJECTDIR)/rules
-PROJECTPATCHDIR		:= $(PROJECTDIR)/patches
+PROJECTPATCHDIR		=  $(PROJECTDIR)/patches
 
 MENU			=  $(shell 						\
 				if [ -e $(PROJECTDIR)/Kconfig ]; then		\
