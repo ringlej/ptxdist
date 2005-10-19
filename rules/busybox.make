@@ -32,11 +32,12 @@ BUSYBOX_DIR		= $(BUILDDIR)/$(BUSYBOX)
 
 busybox_get: $(STATEDIR)/busybox.get
 
-busybox_get_deps	=  $(BUSYBOX_SOURCE)
+busybox_get_deps = \
+	$(BUSYBOX_SOURCE) \
+	$(RULESDIR)/busybox.make
 
 $(STATEDIR)/busybox.get: $(busybox_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(BUSYBOX))
 	$(call touch, $@)
 
 $(BUSYBOX_SOURCE):
@@ -147,7 +148,7 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	rm -f $(BUSYBOX_DIR)/busybox.links
 	cd $(BUSYBOX_DIR) && $(MAKE) busybox.links
 
@@ -157,7 +158,7 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 	done
 
 	@$(call install_finish)
-	
+
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
