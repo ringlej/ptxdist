@@ -135,6 +135,25 @@ CROSS_PACKAGES_EXTRACT	:= $(addsuffix _extract,$(CROSS_PACKAGES))
 CROSS_PACKAGES_PREPARE	:= $(addsuffix _prepare,$(CROSS_PACKAGES))
 CROSS_PACKAGES_COMPILE	:= $(addsuffix _compile,$(CROSS_PACKAGES))
 
+# FIXME: should probably go somewhere else (separate images.make?)
+ifdef PTXCONF_MKNBI_NBI
+MKNBI_EXT = "nbi"
+else
+MKNBI_EXT = "elf"
+endif
+
+ifdef PTXCONF_USE_EXTERNAL_KERNEL
+MKNBI_KERNEL = $(PTXCONF_IMAGE_MKNBI_EXT_KERNEL)
+else
+MKNBI_KERNEL = $(KERNEL_TARGET_PATH)
+endif
+
+MKNBI_ROOTFS = $(IMAGEDIR)/root.ext2
+ifdef PTXCONF_IMAGE_EXT2_GZIP
+MKNBI_ROOTFS = $(IMAGEDIR)/root.ext2.gz
+endif
+
+
 # FIXME: this has to be reworked when the final usage was fixed
 help:
 	@echo
@@ -313,6 +332,16 @@ ifdef PTXCONF_IMAGE_UIMAGE
 		-n $(PTXCONF_IMAGE_UIMAGE_NAME) \
 		-d  $(IMAGEDIR)/root.ext2.gz \
 		$(IMAGEDIR)/uRamdisk
+endif
+ifdef PTXCONF_IMAGE_MKNBI
+	PERL5LIB=$(PTXCONF_PREFIX)/usr/local/lib/mknbi \
+		 $(PTXCONF_PREFIX)/usr/local/lib/mknbi/mknbi \
+		--format=$(MKNBI_EXT) \
+		--target=linux \
+		--output=$(TOPDIR)/images/$(PTXCONF_PROJECT).$(MKNBI_EXT) \
+		-a $(PTXCONF_IMAGE_MKNBI_APPEND) \
+		$(MKNBI_KERNEL) \
+		$(MKNBI_ROOTFS)
 endif
 	touch $@
 
