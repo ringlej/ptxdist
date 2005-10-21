@@ -1,3 +1,7 @@
+2005-10-21 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* mknbi: added mknbi support; patch by Mike Wakerly. 
+	
 2005-10-08 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* epoll: removed rules/epoll.in, seems to be obsolete.
