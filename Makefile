@@ -93,6 +93,11 @@ all: help
 
 -include $(PTXDISTWORKSPACE)/.config 
 
+# use command line prefix if specified
+ifdef PREFIX
+PTXCONF_PREFIX=$(PREFIX)
+endif
+
 # FIXME: this should be removed some day...
 PTXCONF_TARGET_CONFIG_FILE ?= none
 ifeq ("", $(PTXCONF_TARGET_CONFIG_FILE))
