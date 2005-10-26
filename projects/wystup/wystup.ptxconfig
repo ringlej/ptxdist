@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.7-rc4
-# Sat Oct  8 14:29:59 2005
+# PTXdist version: 0.7.7-rc5
+# Tue Oct 25 09:36:07 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -129,6 +129,7 @@ PTXCONF_HOSTTOOL_IPKG_UTILS=y
 PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # PTXCONF_HOSTTOOL_MODUTILS is not set
 # PTXCONF_HOSTTOOL_UMKIMAGE is not set
+# PTXCONF_HOSTTOOL_MKNBI is not set
 
 #
 # Other Host Tools
@@ -198,7 +199,6 @@ PTXCONF_ROOTFS_ETC_PS2="> "
 PTXCONF_ROOTFS_ETC_PS4="+ "
 PTXCONF_ROOTFS_ETC_HOSTNAME="ptx"
 PTXCONF_ROOTFS_ETC_VENDOR=""
-PTXCONF_VENDORTWEAKS="$(PROJECTDIR)/wystup.vendortweaks"
 
 #
 # Core (Kernel, C-Library)    
@@ -885,6 +885,90 @@ PTXCONF_IPTABLES_INSTALL_IPTABLES=y
 # PTXCONF_IPTABLES_INSTALL_IPTABLES_SAVE is not set
 
 #
+# ----------------------------------
+#
+# PTXCONF_IPTABLES_INSTALL_libipt_addrtype is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_ah is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_CLASSIFY is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_CLUSTERIP is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_connlimit is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_connmark is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_CONNMARK is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_conntrack is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_DNAT is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_dscp is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_DSCP is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_ecn is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_ECN is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_esp is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_helper is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_icmp is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_iprange is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_length is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_limit is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_LOG is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_mac is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_mark is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_MARK is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_MASQUERADE is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_MIRROR is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_multiport is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_NETMAP is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_NOTRACK is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_owner is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_physdev is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_pkttype is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_realm is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_recent is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_REDIRECT is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_REJECT is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_rpc is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_SAME is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_sctp is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_SNAT is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_standard is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_state is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_TARPIT is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_tcpmss is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_TCPMSS is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_tcp is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_tos is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_TOS is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_TRACE is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_ttl is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_TTL is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_udp is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_ULOG is not set
+# PTXCONF_IPTABLES_INSTALL_libipt_unclean is not set
+
+#
+# ----------------------------------
+#
+# PTXCONF_IPTABLES_INSTALL_libip6t_ah is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_dst is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_esp is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_eui64 is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_frag is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_hbh is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_hl is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_HL is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_icmpv6 is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_ipv6header is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_length is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_limit is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_LOG is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_mac is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_mark is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_MARK is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_multiport is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_owner is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_rt is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_standard is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_tcp is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_TRACE is not set
+# PTXCONF_IPTABLES_INSTALL_libip6t_udp is not set
+
+#
 # LSH                 
 #
 # PTXCONF_LSH is not set
@@ -1248,6 +1332,11 @@ PTXCONF_GRUB_RTL8139=y
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
 # PTXCONF_SSMTP is not set
+
+#
+# canutils            
+#
+# PTXCONF_CANUTILS is not set
 
 #
 # Applications                

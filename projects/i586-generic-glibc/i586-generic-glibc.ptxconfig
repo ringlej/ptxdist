@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.7-rc4
-# Sat Oct  8 14:29:11 2005
+# PTXdist version: 0.7.7-rc5
+# Tue Oct 25 09:34:50 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -130,6 +130,7 @@ PTXCONF_HOSTTOOL_IPKG_UTILS=y
 PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # PTXCONF_HOSTTOOL_MODUTILS is not set
 # PTXCONF_HOSTTOOL_UMKIMAGE is not set
+# PTXCONF_HOSTTOOL_MKNBI is not set
 
 #
 # Other Host Tools
@@ -199,7 +200,6 @@ PTXCONF_ROOTFS_ETC_PS2="> "
 PTXCONF_ROOTFS_ETC_PS4="+ "
 PTXCONF_ROOTFS_ETC_HOSTNAME="ptx"
 PTXCONF_ROOTFS_ETC_VENDOR=""
-PTXCONF_VENDORTWEAKS=""
 
 #
 # Core (Kernel, C-Library)    
@@ -801,6 +801,14 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_IPTABLES is not set
 
 #
+# ----------------------------------
+#
+
+#
+# ----------------------------------
+#
+
+#
 # LSH                 
 #
 # PTXCONF_LSH is not set
@@ -1030,6 +1038,11 @@ PTXCONF_UTELNETD=y
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
 # PTXCONF_SSMTP is not set
+
+#
+# canutils            
+#
+# PTXCONF_CANUTILS is not set
 
 #
 # Applications                
