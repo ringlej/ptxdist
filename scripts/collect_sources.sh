@@ -179,7 +179,7 @@ cp -a patches feature-patches $SRC_TMP/
 
 echo "constructing tar archives from $SRC_TMP"
 $TAR -C $SRC_TMP -cvf $SRC_TAR src
-$TAR -C $SRC_TMP -cvf $PATCH_TAR patches feature-patches
+$TAR -C $SRC_TMP -cvf $PATCH_TAR --exclude .svn patches feature-patches
 
 #echo "compressing patch archive"
 #$ZIP $PATCH_TAR
