@@ -12,6 +12,9 @@
 #
 # We provide this package
 #
+
+ifndef NATIVE
+
 ifdef PTXCONF_KERNEL_2_4
 PACKAGES += kernel
 endif
@@ -21,7 +24,6 @@ endif
 ifdef PTXCONF_USE_EXTERNAL_KERNEL
 PACKAGES += kernel
 endif
-
 
 
 #
@@ -441,10 +443,8 @@ KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_
 else
 KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod)
 endif
-ifndef NATIVE
 KERNEL_MAKEVARS	+= ARCH=$(call remove_quotes,$(PTXCONF_ARCH))
 KERNEL_MAKEVARS += CROSS_COMPILE=$(COMPILER_PREFIX)
-endif
 
 ifdef PTXCONF_KERNEL_IMAGE_U
 KERNEL_MAKEVARS += MKIMAGE=$(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
@@ -481,12 +481,10 @@ ifndef PTXCONF_DONT_COMPILE_KERNEL
 	@echo "---------------- make dep ----------------"
 	@echo 
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make dep $(KERNEL_MAKEVARS)
-ifndef NATIVE	
 	@echo 
 	@echo "---------- make modules_prepare ----------"
 	@echo 
 	-cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
-endif
 endif
 endif
 	$(call touch, $@)
@@ -552,14 +550,11 @@ $(STATEDIR)/kernel.install:
 
 kernel_targetinstall: $(STATEDIR)/kernel.targetinstall
 
-ifndef NATIVE
 kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
-endif
 
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-ifndef NATIVE
 ifdef PTXCONF_KERNEL_INSTALL
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,kernel)
@@ -601,7 +596,6 @@ ifdef PTXCONF_KERNEL_INSTALL_MODULES
 
 	@$(call install_finish)
 endif
-endif
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -620,5 +614,7 @@ ifndef PTXCONF_USE_EXTERNAL_KERNEL
 	rm -rf $(KERNEL_DIR)
 endif
 	rm -f $(STATEDIR)/kernel.*
+
+endif # NATIVE
 
 # vim: syntax=make

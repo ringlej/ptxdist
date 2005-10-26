@@ -21,6 +21,12 @@ endif
 
 KERNEL_VERSION		:= $(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR).$(KERNEL_VERSION_MICRO)$(KERNEL_VERSION_EXTRA)
 
+KERNEL_HOST_VERSION_MAJOR	:= $(call get_option, s/^PTXCONF_KERNEL_HOST_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\1/)
+KERNEL_HOST_VERSION_MINOR	:= $(call get_option, s/^PTXCONF_KERNEL_HOST_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\2/)
+KERNEL_HOST_VERSION_MICRO	:= $(call get_option, s/^PTXCONF_KERNEL_HOST_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\3/)
+
+KERNEL_HOST_VERSION		:= $(KERNEL_HOST_VERSION_MAJOR).$(KERNEL_HOST_VERSION_MINOR).$(KERNEL_HOST_VERSION_MICRO)$(KERNEL_HOST_VERSION_EXTRA)
+
 GCC_VERSION_MAJOR	:= $(call get_option, s/^PTXCONF_GCC_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\1/)
 GCC_VERSION_MINOR	:= $(call get_option, s/^PTXCONF_GCC_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\2/)
 GCC_VERSION_MICRO	:= $(call get_option, s/^PTXCONF_GCC_\([0-9]*\)_\([0-9]*\)_\([0-9]*\)=y/\3/)

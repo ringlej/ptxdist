@@ -6,6 +6,10 @@
 menu "Kernel              "
 ##############################################################################
 
+comment "----------------------------------"
+comment "Target Kernel"
+comment "----------------------------------"
+
 config USE_EXTERNAL_KERNEL
 	bool
 	prompt "Use external kernel"
@@ -555,6 +559,395 @@ config KERNEL_PATCH20_NAME
 
 comment ""
 	depends on KERNEL_PATCH20_URL!=""
+
+# ----------------------------------------------------------------------------
+
+comment "----------------------------------"
+comment "Host Kernel (for simulation)"
+comment "----------------------------------"
+
+config KERNEL_HOST
+	bool
+	default N
+	prompt "build UML kernel for simulation"
+	help
+	  When compiling with NATIVE=1 it is possible that you build an
+	  UML kernel which runs on the host as a virtual machine. 
+
+config KERNEL_HOST_CONFIG
+	string
+	prompt "Path to kernel .config file"
+	depends on KERNEL_HOST
+	help
+	  Usually config files for the kernel live in $(PROJECTDIR), so
+	  add something like
+
+		$(PROJECTDIR)/your-hostkernelconfig.kernelconfig 
+
+	  here.
+
+choice 
+	prompt "Kernel Version"
+		default KERNEL_HOST_2_6_13
+		depends on KERNEL_HOST
+
+	config KERNEL_HOST_2_6_13
+		bool
+		prompt "2.6.13"
+		depends on KERNEL_HOST
+
+endchoice
+
+#config KERNEL_INSTALL_MODULES
+#	bool
+#	prompt "Install modules into /lib/modules on target"
+#	default n 
+
+# ----------------------------------------------------------------------------
+# Generic Patch Stack
+# ----------------------------------------------------------------------------
+
+comment ""
+
+config KERNEL_HOST_PATCH1_URL
+	prompt "Patch 1 URL"
+	string
+	depends on KERNEL_HOST
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH1_NAME
+	prompt "Patch 1 Name"
+	depends on KERNEL_HOST
+	string
+
+comment ""
+	depends on KERNEL_HOST_PATCH1_URL!=""
+
+
+config KERNEL_HOST_PATCH2_URL
+	prompt "Patch 2 URL"
+	string
+	depends on KERNEL_HOST_PATCH1_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH2_NAME
+	prompt "Patch 2 Name"
+	string
+	depends on KERNEL_HOST_PATCH1_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH2_URL!=""
+
+
+config KERNEL_HOST_PATCH3_URL
+	prompt "Patch 3 URL"
+	string
+	depends on KERNEL_HOST_PATCH2_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH3_NAME
+	prompt "Patch 3 Name"
+	string
+	depends on KERNEL_HOST_PATCH2_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH3_URL!=""
+
+
+config KERNEL_HOST_PATCH4_URL
+	prompt "Patch 4 URL"
+	string
+	depends on KERNEL_HOST_PATCH3_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH4_NAME
+	prompt "Patch 4 Name"
+	string
+	depends on KERNEL_HOST_PATCH3_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH4_URL!=""
+
+
+config KERNEL_HOST_PATCH5_URL
+	prompt "Patch 5 URL"
+	string
+	depends on KERNEL_HOST_PATCH4_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH5_NAME
+	prompt "Patch 5 Name"
+	string
+	depends on KERNEL_HOST_PATCH4_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH5_URL!=""
+
+
+config KERNEL_HOST_PATCH6_URL
+	prompt "Patch 6 URL"
+	string
+	depends on KERNEL_HOST_PATCH5_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH6_NAME
+	prompt "Patch 6 Name"
+	string
+	depends on KERNEL_HOST_PATCH6_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH6_URL!=""
+
+
+config KERNEL_HOST_PATCH7_URL
+	prompt "Patch 7 URL"
+	string
+	depends on KERNEL_HOST_PATCH6_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH7_NAME
+	prompt "Patch 7 Name"
+	string
+	depends on KERNEL_HOST_PATCH6_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH7_URL!=""
+
+
+config KERNEL_HOST_PATCH8_URL
+	prompt "Patch 8 URL"
+	string
+	depends on KERNEL_HOST_PATCH7_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH8_NAME
+	prompt "Patch 8 Name"
+	string
+	depends on KERNEL_HOST_PATCH8_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH8_URL!=""
+
+
+config KERNEL_HOST_PATCH9_URL
+	prompt "Patch 9 URL"
+	string
+	depends on KERNEL_HOST_PATCH8_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH9_NAME
+	prompt "Patch 9 Name"
+	string
+	depends on KERNEL_HOST_PATCH8_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH9_URL!=""
+
+
+config KERNEL_HOST_PATCH10_URL
+	prompt "Patch 10 URL"
+	string
+	depends on KERNEL_HOST_PATCH9_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH10_NAME
+	prompt "Patch 10 Name"
+	string
+	depends on KERNEL_HOST_PATCH9_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH10_URL!=""
+
+
+config KERNEL_HOST_PATCH11_URL
+	prompt "Patch 11 URL"
+	string
+	depends on KERNEL_HOST_PATCH10_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH11_NAME
+	prompt "Patch 11 Name"
+	string
+	depends on KERNEL_HOST_PATCH10_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH11_URL!=""
+
+
+config KERNEL_HOST_PATCH12_URL
+	prompt "Patch 12 URL"
+	string
+	depends on KERNEL_HOST_PATCH11_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH12_NAME
+	prompt "Patch 12 Name"
+	string
+	depends on KERNEL_HOST_PATCH11_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH12_URL!=""
+
+
+config KERNEL_HOST_PATCH13_URL
+	prompt "Patch 13 URL"
+	string
+	depends on KERNEL_HOST_PATCH12_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH13_NAME
+	prompt "Patch 13 Name"
+	string
+	depends on KERNEL_HOST_PATCH12_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH13_URL!=""
+
+
+config KERNEL_HOST_PATCH14_URL
+	prompt "Patch 14 URL"
+	string
+	depends on KERNEL_HOST_PATCH13_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH14_NAME
+	prompt "Patch 14 Name"
+	string
+	depends on KERNEL_HOST_PATCH13_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH14_URL!=""
+
+
+config KERNEL_HOST_PATCH15_URL
+	prompt "Patch 15 URL"
+	string
+	depends on KERNEL_HOST_PATCH14_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH15_NAME
+	prompt "Patch 15 Name"
+	string
+	depends on KERNEL_HOST_PATCH14_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH15_URL!=""
+
+
+config KERNEL_HOST_PATCH16_URL
+	prompt "Patch 16 URL"
+	string
+	depends on KERNEL_HOST_PATCH15_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH16_NAME
+	prompt "Patch 16 Name"
+	string
+	depends on KERNEL_HOST_PATCH15_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH16_URL!=""
+
+
+config KERNEL_HOST_PATCH17_URL
+	prompt "Patch 17 URL"
+	string
+	depends on KERNEL_HOST_PATCH16_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH17_NAME
+	prompt "Patch 17 Name"
+	string
+	depends on KERNEL_HOST_PATCH16_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH17_URL!=""
+
+
+config KERNEL_HOST_PATCH18_URL
+	prompt "Patch 18 URL"
+	string
+	depends on KERNEL_HOST_PATCH17_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH18_NAME
+	prompt "Patch 18 Name"
+	string
+	depends on KERNEL_HOST_PATCH17_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH18_URL!=""
+
+
+config KERNEL_HOST_PATCH19_URL
+	prompt "Patch 19 URL"
+	string
+	depends on KERNEL_HOST_PATCH18_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH19_NAME
+	prompt "Patch 19 Name"
+	string
+	depends on KERNEL_HOST_PATCH18_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH19_URL!=""
+
+
+config KERNEL_HOST_PATCH20_URL
+	prompt "Patch 20 URL"
+	string
+	depends on KERNEL_HOST_PATCH19_URL!=""
+	help
+	  Enter a URL to a diff/patch file or to a directory containing
+	  a patch tree for patcher here. 
+
+config KERNEL_HOST_PATCH20_NAME
+	prompt "Patch 20 Name"
+	string
+	depends on KERNEL_HOST_PATCH19_URL!=""
+
+comment ""
+	depends on KERNEL_HOST_PATCH20_URL!=""
+
 
 endmenu
 
