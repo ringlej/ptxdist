@@ -96,6 +96,7 @@ all: help
 # use command line prefix if specified
 ifdef PREFIX
 PTXCONF_PREFIX=$(PREFIX)
+PREFIX=
 endif
 
 # FIXME: this should be removed some day...
@@ -183,6 +184,8 @@ help:
 	@echo
 	@echo "  make world                   Make-everything-and-be-happy"
 	@echo
+	@echo "  make run                     run simulation (only works in NATIVE=1 mode)"
+	@echo
 	@echo "Some 'helpful' targets:"
 	@echo
 	@echo "  make configs                 show predefined configs"
@@ -214,12 +217,16 @@ dep_output_clean:
 #	if [ -e $(DEP_OUTPUT) ]; then rm -f $(DEP_OUTPUT); fi
 	touch $(DEP_OUTPUT)
 
-dep_tree:
+dep_tree: $(STATEDIR)/dep_tree
+
+$(STATEDIR)/dep_tree:
+ifndef NATIVE
 	@echo "Launching cuckoo-test"
 	@scripts/cuckoo-test $(PTXCONF_ARCH) $(ROOTDIR) $(PTXCONF_COMPILER_PREFIX)
 ifdef PTXCONF_IMAGE_IPKG
 	@echo "Launching ipkg-test"
 	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl  scripts/ipkg-test
+endif
 endif
 	@if dot -V 2> /dev/null; then \
 		echo "creating dependency graph..."; \
@@ -231,6 +238,7 @@ endif
 	else \
 		echo "Install 'dot' from graphviz packet if you want to have a nice dependency tree"; \
 	fi
+	$(call touch, $@)
 
 dep_world: $(HOST_PACKAGES_INSTALL) \
 	   $(CROSS_PACKAGES_INSTALL) \
@@ -349,6 +357,24 @@ ifdef PTXCONF_IMAGE_MKNBI
 		$(MKNBI_ROOTFS)
 endif
 	touch $@
+
+# Simulation -----------------------------------------------------------------
+
+run: world
+	@$(call targetinfo, "Run Simulation")
+ifdef NATIVE
+	@echo "starting Linux..."
+	@echo
+	@$(ROOTDIR)/boot/linux \
+		root=/dev/root \
+		rootflags=$(ROOTDIR) \
+		rootfstype=hostfs
+else
+	@echo
+	@echo "cannot run simulation if not in NATIVE=1 mode"
+	@echo
+	@exit 1
+endif
 
 # Configuration system -------------------------------------------------------
 
