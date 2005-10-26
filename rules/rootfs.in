@@ -4,26 +4,26 @@ comment "Populate Rootfs"
 
 config ROOTFS
 	bool
-	prompt "create toplevel directories"
+	prompt "Create Directories"
 	default y
         select BB_CONFIG_FEATURE_SHADOWPASSWDS  if BUSYBOX
 
 config ROOTFS_DEV
 	depends on ROOTFS
 	bool
-	prompt "Create /dev"
+	prompt "/dev"
 	default y
 
-config ROOTFS_FLOPPY
-	depends on ROOTFS
+config ROOTFS_DEV_PTS
+	depends on ROOTFS_DEV
 	bool
-	prompt "Create /floppy"
+	prompt "/dev/pts"
 	default y
 
 config ROOTFS_HOME
 	depends on ROOTFS
 	bool
-	prompt "Create /home"
+	prompt "/home"
 	default y
 
 # Media Mountpoints
@@ -31,7 +31,7 @@ config ROOTFS_HOME
 menuconfig ROOTFS_MEDIA
 	depends on ROOTFS
 	bool
-	prompt "Create /media"
+	prompt "/media"
 	default n
 
 config ROOTFS_MEDIA1
@@ -109,89 +109,207 @@ config ROOTFS_MEDIA10
 config ROOTFS_MNT
 	depends on ROOTFS
 	bool
-	prompt "Create /mnt"
+	prompt "/mnt"
 	default y
 
 config ROOTFS_PROC
 	depends on ROOTFS
 	bool
-	prompt "Create /proc"
+	prompt "/proc"
 	default y 
 
 config ROOTFS_SYS
 	depends on ROOTFS
 	bool
-	prompt "Create /sys"
+	prompt "/sys"
 	default y
 
 config ROOTFS_TMP
 	depends on ROOTFS
 	bool
-	prompt "Create /tmp"
+	prompt "/tmp"
 	default y
 
 config ROOTFS_VAR
 	depends on ROOTFS
 	bool
-	prompt "Create /var"
+	prompt "/var"
+	default y
+
+config ROOTFS_VAR_RUN
+	depends on ROOTFS_VAR
+	bool
+	prompt "/var/run"
+	default y
+
+config ROOTFS_VAR_LOG
+	depends on ROOTFS_VAR
+	bool
+	prompt "/var/log"
 	default y
 
 ##############################################################################
-comment "Populate & Configure /etc"
+comment "Generic /etc Files"
 ##############################################################################
 
-config ROOTFS_ETC
+config ROOTFS_GENERIC_FSTAB
 	depends on ROOTFS
 	bool
-	prompt "Use generic template for /etc"
+	prompt "/etc/fstab"
 	default y
-        select BB_CONFIG_GETTY          if BUSYBOX
-        select BB_CONFIG_RUN_PARTS      if BUSYBOX
 	help
-	  When enabled, this option copies the files from 
-	  $(TOPDIR)/projects/generic/etc to the target root filesystem. 
-	  The files contain useful defaults for most projects, so
-	  if you don't intend to use your completely self-made etc
-	  directory you should problably switch this on. 
+	  Installs a generic /etc/fstab file.
+
+
+config ROOTFS_GENERIC_GROUP
+	depends on ROOTFS
+	bool
+	prompt "/etc/group, /etc/gshadow"
+	default y
+	help
+	  Installs a generic /etc/group and /etc/gshadow file.
+
+config ROOTFS_GENERIC_HOSTNAME
+	depends on ROOTFS
+	bool
+	prompt "/etc/hostname"
+	default y
+	help
+	  Installs a generic /etc/hostname file.
+
+config ROOTFS_ETC_HOSTNAME
+	depends on ROOTFS_GENERIC_HOSTNAME
+	string
+	default ptx
+	prompt "set hostname in /etc/hostname"
+
+config ROOTFS_GENERIC_HOSTS
+	depends on ROOTFS
+	bool
+	prompt "/etc/hosts"
+	default y
+	help
+	  Installs a generic /etc/hosts file.
+
+config ROOTFS_GENERIC_INITTAB
+	depends on ROOTFS
+	bool
+        select BB_CONFIG_GETTY if BUSYBOX
+	prompt "/etc/inittab"
+	default y
+	help
+	  Installs a generic /etc/inittab file.
 
 config ROOTFS_ETC_CONSOLE
-	depends on ROOTFS_ETC
+	depends on ROOTFS_GENERIC_INITTAB
 	string
 	default "/dev/tts/0"
 	prompt "start getty on this console"
 
 config ROOTFS_ETC_CONSOLE_SPEED
-	depends on ROOTFS_ETC
+	depends on ROOTFS_GENERIC_INITTAB
 	string
 	default "115200"
 	prompt "getty baudrate"
 
+config ROOTFS_GENERIC_NSSWITCH
+	depends on ROOTFS
+	bool
+	prompt "/etc/nsswitch.conf"
+	default y
+	help
+	  Installs a generic /etc/nsswitch.conf file.
+
+config ROOTFS_GENERIC_PASSWD
+	depends on ROOTFS
+	bool
+	prompt "/etc/passwd"
+	default y
+	help
+	  Installs a generic /etc/passwd file. This file does not offer
+	  any security, the root login is without a password. So don't
+	  use it in a network environment which is available to the 
+	  outside. 
+
+config ROOTFS_GENERIC_PROFILE
+	depends on ROOTFS
+	bool
+	prompt "/etc/profile"
+	default y
+	help
+	  Installs a generic /etc/profile file.
+
 config ROOTFS_ETC_PS1
-	depends on ROOTFS_ETC
+	depends on ROOTFS_GENERIC_PROFILE
 	string
 	default "\\u@\\h:\\w"
 	prompt "set PS1 in /etc/profile"
 
 config ROOTFS_ETC_PS2
-	depends on ROOTFS_ETC
+	depends on ROOTFS_GENERIC_PROFILE
 	string
 	default ""
 	prompt "set PS2 in /etc/profile"
 
 config ROOTFS_ETC_PS4
-	depends on ROOTFS_ETC
+	depends on ROOTFS_GENERIC_PROFILE
 	string
 	default ""
 	prompt "set PS4 in /etc/profile"
 
-config ROOTFS_ETC_HOSTNAME
-	depends on ROOTFS_ETC
-	string
-	default ptx
-	prompt "set hostname in /etc/hostname"
+config ROOTFS_GENERIC_PROTOCOLS
+	depends on ROOTFS
+	bool
+	prompt "/etc/protocols"
+	default y
+	help
+	  Install a generic /etc/protocols file.
+
+config ROOTFS_GENERIC_RESOLV
+	depends on ROOTFS
+	bool
+	prompt "/etc/resolv.conf"
+	default y
+	help
+	  Install a generic /etc/resolv.conf file.
+
+config ROOTFS_GENERIC_SHADOW
+	depends on ROOTFS
+	bool
+	prompt "/etc/shadow, /etc/shadow-"
+	default y
+	help
+	  Install a generic /etc/shadow and /etc/gshadow file.
+
+config ROOTFS_GENERIC_UDHCPC
+	depends on ROOTFS
+	depends on BB_CONFIG_UDHCPC
+	bool
+	default y
+	prompt "/etc/udhcpc.script (busybox udhcpc)"
+	help 
+	  udhcpc (busybox) accepts the -s file or --script=file option. 
+	  The /etc/udhcpc.script will be run at dhcp events.
+
+##############################################################################
+comment "Start Scripts in /etc/init.d"
+##############################################################################
+
+config ROOTFS_ETC_INITD
+	depends on ROOTFS
+	bool
+	prompt "Use generic scripts for /etc/init.d"
+	default y
+        select BB_CONFIG_RUN_PARTS      if BUSYBOX
+	help
+	  When enabled, this option copies the files from 
+	  $(TOPDIR)/projects/generic/etc/init.d to the target root 
+	  filesystem. The files contain useful defaults for most projects, 
+	  so if you don't intend to use your completely self-made etc
+	  directory you should problably switch this on. 
 
 config ROOTFS_ETC_VENDOR
-	depends on ROOTFS_ETC
+	depends on ROOTFS_ETC_INITD
 	string
 	prompt "set vendorname in /etc/init.d/banner"
 	help
@@ -205,13 +323,3 @@ config ROOTFS_ETC_VENDOR
 	  page with the hostname and other stuff at 
 	  startup. 
 	                                   
-config ROOTFS_ETC_UDHCPC
-	depends on ROOTFS_ETC
-	depends on BB_CONFIG_UDHCPC
-	bool
-	default y
-	prompt "install /etc/udhcpc.script (busybox udhcpc)"
-	help 
-	  udhcpc (busybox) accepts the -s file or --script=file option. 
-	  The /etc/udhcpc.script will be run at dhcp events.
-
