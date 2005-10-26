@@ -116,8 +116,6 @@ $(STATEDIR)/qte.prepare: $(qte_prepare_deps)
 	mkdir -p $(QTE_DIR)/mkspecs/linux-ptxdist
 	ln -sf ../linux-g++/qplatformdefs.h $(QTE_DIR)/mkspecs/linux-ptxdist
 
-	cp $(TOPDIR)/qmake.conf $(QTE_DIR)/mkspecs/linux-ptxdist
-
 	@echo 'MAKEFILE_GENERATOR         = UNIX'			> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'TEMPLATE                   = app'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'CONFIG                     += qt link_prl'		>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
