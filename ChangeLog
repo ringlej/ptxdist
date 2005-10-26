@@ -1,5 +1,10 @@
 2005-10-26 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* rootfs: new fully configurable rootfs/etc templates
+	  to avoid duplicate files in ipkg packets.
+
+2005-10-26 Robert Schwebel <r.schwebel@pengutronix.de>
+
 	* release: released PTXdist 0.7.7
 
 2005-10-21 Robert Schwebel <r.schwebel@pengutronix.de>
