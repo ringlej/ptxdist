@@ -14,3 +14,18 @@ config QTE_TSLIB
 	prompt "Build QT/E library with tslib support"
 	depends on QTE
 	select TSLIB
+
+config QTE_THREAD
+	bool
+	prompt "Build QT/E library with threading support"
+	depends on QTE
+
+config QTE_STL
+	bool
+	prompt "Build QT/E library with STL support"
+	depends on QTE
+
+config QTE_QVFB
+	bool
+	prompt "Build QT/E library with Q Virtual Framebuffer support"
+	depends on QTE

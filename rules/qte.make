@@ -88,9 +88,25 @@ QTE_AUTOCONF	=  -prefix $(CROSS_LIB_DIR)
 
 QTE_AUTOCONF	+= -no-gif
 QTE_AUTOCONF	+= -qt-libpng
-QTE_AUTOCONF	+= -no-thread 
-QTE_AUTOCONF	+= -no-cups 
-QTE_AUTOCONF	+= -no-stl 
+
+ifdef PTXCONF_QTE_THREAD
+QTE_AUTOCONF	+= -thread 
+else
+QTE_AUTOCONF	+= -no-thread
+endif
+
+QTE_AUTOCONF	+= -no-cups
+
+ifdef PTXCONF_QTE_STL
+QTE_AUTOCONF	+= -stl
+else
+QTE_AUTOCONF	+= -no-stl
+endif
+
+ifdef PTXCONF_QTE_QVFB
+QTE_AUTOCONF	+= -qvfb
+endif
+
 QTE_AUTOCONF	+= -release
 QTE_AUTOCONF	+= -no-g++-exceptions 
 QTE_AUTOCONF	+= -depths 8,16
@@ -390,10 +406,17 @@ ifdef PTXCONF_QTE_INSTALL_UNIFONT
 endif
 	@$(call install_copy, 0, 0, 0755, $(QTE_DIR)/lib/fonts/fontdir, /usr/qt/lib/fonts/fontdir, 0)
 ifdef PTXCONF_QTE_SHARED
+ifdef PTXCONF_QTE_THREAD
+	@$(call install_copy, 0, 0, 0755, $(QTE_DIR)/lib/libqte-mt.so.$(QTE_VERSION), /lib/libqte-mt.so.$(QTE_VERSION))
+	@$(call install_link, libqte-mt.so.$(QTE_VERSION), /lib/libqte-mt.so)
+	@$(call install_link, libqte-mt.so.$(QTE_VERSION), /lib/libqte-mt.so.$(QTE_MAJOR))
+	@$(call install_link, libqte-mt.so.$(QTE_VERSION), /lib/libqte-mt.so.$(QTE_MAJOR).$(QTE_MINOR))
+else
 	@$(call install_copy, 0, 0, 0755, $(QTE_DIR)/lib/libqte.so.$(QTE_VERSION), /lib/libqte.so.$(QTE_VERSION))
 	@$(call install_link, libqte.so.$(QTE_VERSION), /lib/libqte.so)
 	@$(call install_link, libqte.so.$(QTE_VERSION), /lib/libqte.so.$(QTE_MAJOR))
 	@$(call install_link, libqte.so.$(QTE_VERSION), /lib/libqte.so.$(QTE_MAJOR).$(QTE_MINOR))
+endif
 endif
 
 	@$(call install_finish)
