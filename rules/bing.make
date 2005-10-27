@@ -22,7 +22,7 @@ endif
 BING_VERSION		= 1.0.5
 BING			= bing-$(BING_VERSION)
 BING_SUFFIX		= tar.gz
-BING_URL		= http://www.freenix.org/reseau/$(BING).$(BING_SUFFIX)
+BING_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(BING).$(BING_SUFFIX)
 BING_SOURCE		= $(SRCDIR)/$(BING).$(BING_SUFFIX)
 BING_DIR		= $(BUILDDIR)/$(BING)
 
@@ -69,8 +69,7 @@ bing_prepare: $(STATEDIR)/bing.prepare
 #
 bing_prepare_deps = \
 	$(STATEDIR)/bing.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/virtual-libc.targetinstall
+	$(STATEDIR)/virtual-xchain.install
 
 BING_PATH	=  PATH=$(CROSS_PATH)
 BING_ENV 	=  $(CROSS_ENV)
