@@ -304,7 +304,7 @@ $(STATEDIR)/kernel-patchstack.get: $(kernel_patchstack_get_deps)
 kernel_get: $(STATEDIR)/kernel.get
 
 kernel_get_deps = \
-	$(KERNEL_SOURCE) \
+	$(KERNEL_HOST_SOURCE) \
 	$(STATEDIR)/kernel-patchstack.get
 
 $(STATEDIR)/kernel.get: $(kernel_get_deps)
