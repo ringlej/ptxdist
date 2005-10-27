@@ -73,8 +73,6 @@ ethereal_prepare_deps += $(STATEDIR)/libpcap.install
 
 ETHEREAL_PATH	=  PATH=$(CROSS_PATH)
 ETHEREAL_ENV 	=  $(CROSS_ENV)
-#ETHEREAL_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#ETHEREAL_ENV	+=
 
 #
 # autoconf

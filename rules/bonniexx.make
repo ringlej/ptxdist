@@ -73,8 +73,6 @@ bonniexx_prepare_deps = \
 
 BONNIEXX_PATH	=  PATH=$(CROSS_PATH)
 BONNIEXX_ENV 	=  $(CROSS_ENV)
-#BONNIEXX_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#BONNIEXX_ENV	+=
 
 #
 # autoconf
@@ -124,7 +122,7 @@ bonniexx_targetinstall_deps = $(STATEDIR)/bonniexx.compile
 
 $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps)
 	@$(call targetinfo, $@)
-	
+
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,bonniexx)
 	@$(call install_fixup,PRIORITY,optional)
@@ -133,11 +131,11 @@ $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, 0, 0, 0755, $(BONNIEXX_DIR)/bonnie++, /usr/bin/bonnie++)
 
 	@$(call install_finish)
-	
+
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------

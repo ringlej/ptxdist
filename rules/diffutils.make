@@ -21,9 +21,9 @@ endif
 #
 DIFFUTILS_VERSION	= 2.8.1
 DIFFUTILS		= diffutils-$(DIFFUTILS_VERSION)
-DIFFUTILS_SUFFIX		= tar.gz
+DIFFUTILS_SUFFIX	= tar.gz
 DIFFUTILS_URL		= http://ftp.gnu.org/pub/gnu/diffutils/$(DIFFUTILS).$(DIFFUTILS_SUFFIX)
-DIFFUTILS_SOURCE		= $(SRCDIR)/$(DIFFUTILS).$(DIFFUTILS_SUFFIX)
+DIFFUTILS_SOURCE	= $(SRCDIR)/$(DIFFUTILS).$(DIFFUTILS_SUFFIX)
 DIFFUTILS_DIR		= $(BUILDDIR)/$(DIFFUTILS)
 
 # ----------------------------------------------------------------------------
@@ -73,8 +73,6 @@ diffutils_prepare_deps = \
 
 DIFFUTILS_PATH	=  PATH=$(CROSS_PATH)
 DIFFUTILS_ENV 	=  $(CROSS_ENV)
-#DIFFUTILS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#DIFFUTILS_ENV	+=
 
 #
 # autoconf

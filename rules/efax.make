@@ -73,8 +73,6 @@ efax_prepare_deps = \
 
 EFAX_PATH	=  PATH=$(CROSS_PATH)
 EFAX_ENV 	=  $(CROSS_ENV)
-#EFAX_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#EFAX_ENV	+=
 
 #
 # autoconf
@@ -129,7 +127,7 @@ $(STATEDIR)/efax.targetinstall: $(efax_targetinstall_deps)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, 0, 0, 0755, $(EFAX_DIR)/efax, /usr/bin/efax)
 	@$(call install_copy, 0, 0, 0755, $(EFAX_DIR)/efix, /usr/bin/efix)
 

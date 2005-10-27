@@ -75,8 +75,6 @@ bridge-utils_prepare_deps = \
 
 BRIDGE_UTILS_PATH	=  PATH=$(CROSS_PATH)
 BRIDGE_UTILS_ENV 	=  $(CROSS_ENV)
-#BRIDGE_UTILS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#BRIDGE_UTILS_ENV	+=
 
 #
 # autoconf

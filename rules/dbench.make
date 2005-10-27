@@ -73,8 +73,6 @@ dbench_prepare_deps = \
 
 DBENCH_PATH	=  PATH=$(CROSS_PATH)
 DBENCH_ENV 	=  $(CROSS_ENV)
-#DBENCH_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#DBENCH_ENV	+=
 
 #
 # autoconf

@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_BASH))
+ifdef PTXCONF_BASH
 PACKAGES += bash
 endif
 
@@ -69,7 +69,7 @@ BASH_AUTOCONF	= $(CROSS_AUTOCONF)
 BASH_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 BASH_AUTOCONF	+= --disable-sanity-checks
 BASH_AUTOCONF	+= --prefix=/usr --bindir=/bin
-BASH_PATH	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(CROSS_PATH)
+BASH_PATH	=  $(CROSS_PATH)
 BASH_ENV	=  ac_cv_func_setvbuf_reversed=no bash_cv_have_mbstate_t=yes
 BASH_ENV	+= $(CROSS_ENV)
 
@@ -247,7 +247,7 @@ $(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.compile
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, 0, 0, 0755, $(BASH_DIR)/bash, /bin/bash)
 	@$(call install_link, bash, /bin/sh)
 

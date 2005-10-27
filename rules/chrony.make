@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id: template 2680 2005-05-27 10:29:43Z rsc $
 #
 # Copyright (C) 2005 by Bjoern Buerger <b.buerger@pengutronix.de>
@@ -20,10 +21,10 @@ endif
 #
 CHRONY_VERSION	= 1.20
 CHRONY		= chrony-$(CHRONY_VERSION)
-CHRONY_SUFFIX		= tar.gz
-CHRONY_URL		= http://chrony.sunsite.dk/download//$(CHRONY).$(CHRONY_SUFFIX)
-CHRONY_SOURCE		= $(SRCDIR)/$(CHRONY).$(CHRONY_SUFFIX)
-CHRONY_DIR		= $(BUILDDIR)/$(CHRONY)
+CHRONY_SUFFIX	= tar.gz
+CHRONY_URL	= http://chrony.sunsite.dk/download//$(CHRONY).$(CHRONY_SUFFIX)
+CHRONY_SOURCE	= $(SRCDIR)/$(CHRONY).$(CHRONY_SUFFIX)
+CHRONY_DIR	= $(BUILDDIR)/$(CHRONY)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -72,8 +73,6 @@ chrony_prepare_deps += $(STATEDIR)/readline.install
 
 CHRONY_PATH	=  PATH=$(CROSS_PATH)
 CHRONY_ENV 	=  $(CROSS_ENV)
-#CHRONY_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#CHRONY_ENV	+=
 
 #
 # autoconf

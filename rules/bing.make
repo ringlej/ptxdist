@@ -73,8 +73,6 @@ bing_prepare_deps = \
 
 BING_PATH	=  PATH=$(CROSS_PATH)
 BING_ENV 	=  $(CROSS_ENV)
-#BING_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#BING_ENV	+=
 
 $(STATEDIR)/bing.prepare: $(bing_prepare_deps)
 	@$(call targetinfo, $@)

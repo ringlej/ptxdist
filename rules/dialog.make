@@ -73,8 +73,6 @@ dialog_prepare_deps = \
 
 DIALOG_PATH	=  PATH=$(CROSS_PATH)
 DIALOG_ENV 	=  $(CROSS_ENV)
-#DIALOG_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#DIALOG_ENV	+=
 
 #
 # autoconf
