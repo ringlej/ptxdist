@@ -1,3 +1,8 @@
+2005-10-27 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* dropbear: fix DROPBEAR_CONVERT typo; patch by
+	  Mike Wakerly
+
 2005-10-26 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* rootfs: new fully configurable rootfs/etc templates
