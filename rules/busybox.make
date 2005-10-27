@@ -135,7 +135,6 @@ $(STATEDIR)/busybox.install: $(STATEDIR)/busybox.compile
 busybox_targetinstall: $(STATEDIR)/busybox.targetinstall
 
 busybox_targetinstall_deps	=  $(STATEDIR)/busybox.compile
-busybox_targetinstall_deps	+= $(STATEDIR)/virtual-libc.targetinstall
 
 $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 	@$(call targetinfo, $@)
