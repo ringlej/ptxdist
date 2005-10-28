@@ -303,9 +303,11 @@ $(STATEDIR)/kernel-patchstack.get: $(kernel_patchstack_get_deps)
 
 kernel_get: $(STATEDIR)/kernel.get
 
+ifdef PTXCONF_KERNEL_HOST
 kernel_get_deps = \
 	$(KERNEL_HOST_SOURCE) \
 	$(STATEDIR)/kernel-patchstack.get
+endif
 
 $(STATEDIR)/kernel.get: $(kernel_get_deps)
 	@$(call targetinfo, $@)
@@ -314,6 +316,7 @@ $(STATEDIR)/kernel.get: $(kernel_get_deps)
 $(KERNEL_HOST_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(KERNEL_HOST_URL))
+
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -329,6 +332,9 @@ $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
 
 $(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
 	@$(call targetinfo, $@)
+
+ifdef PTXCONF_KERNEL_HOST
+
 	@$(call clean, $(KERNEL_HOST_DIR))
 	@$(call extract, $(KERNEL_HOST_SOURCE), $(BUILDDIR)-$(KERNEL_HOST_DIR)-tmp)
 	mv $(BUILDDIR)-$(KERNEL_HOST_DIR)-tmp/linux* $(KERNEL_HOST_DIR)
@@ -356,6 +362,7 @@ $(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
 	@$(call feature_patchin, $(KERNEL_HOST_DIR), $(PTXCONF_KERNEL_HOST_PATCH19_NAME)) 
 	@$(call feature_patchin, $(KERNEL_HOST_DIR), $(PTXCONF_KERNEL_HOST_PATCH20_NAME)) 
 
+endif
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -379,6 +386,8 @@ KERNEL_HOST_MAKEVARS 	+= CROSS_COMPILE=$(COMPILER_PREFIX)
 $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
 
+ifdef PTXCONF_KERNEL_HOST
+
 	@if [ -f $(KERNEL_HOST_CONFIG) ]; then	                        \
 		echo "Using kernel config file: $(KERNEL_HOST_CONFIG)"; 	\
 		install -m 644 $(KERNEL_HOST_CONFIG) $(KERNEL_HOST_DIR)/.config;	\
@@ -399,6 +408,8 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@echo 
 	-cd $(KERNEL_HOST_DIR) && $(KERNEL_HOST_PATH) make modules_prepare $(KERNEL_HOST_MAKEVARS)
 
+endif
+
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -414,9 +425,12 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 $(STATEDIR)/kernel-modversions.prepare: $(STATEDIR)/kernel.prepare
 	@$(call targetinfo, $@)
 
+ifdef PTXCONF_KERNEL_HOST
+
 	cd $(KERNEL_HOST_DIR) && $(KERNEL_HOST_PATH) make				\
 		$(KERNEL_HOST_DIR)/include/linux/modversions.h		\
 		$(KERNEL_HOST_MAKEVARS)
+endif
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -430,9 +444,11 @@ kernel_compile_deps =  $(STATEDIR)/kernel.prepare
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	@$(call targetinfo, $@)
 
+ifdef PTXCONF_KERNEL_HOST
+
 	cd $(KERNEL_HOST_DIR) && $(KERNEL_HOST_PATH) make \
 		$(KERNEL_HOST_TARGET) modules $(KERNEL_HOST_MAKEVARS)
-
+endif
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -455,6 +471,8 @@ kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
 
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
+
+ifdef PTXCONF_KERNEL_HOST
 
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,kernel)
@@ -488,6 +506,8 @@ $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 		done
 
 	rm -fr $(KERNEL_HOST_INST_DIR)
+
+endif
 
 	@$(call install_finish)
 
