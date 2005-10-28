@@ -308,10 +308,51 @@ config ROOTFS_ETC_INITD
 	  so if you don't intend to use your completely self-made etc
 	  directory you should problably switch this on. 
 
-config ROOTFS_ETC_VENDOR
-	depends on ROOTFS_ETC_INITD
-	string
-	prompt "set vendorname in /etc/init.d/banner"
+config ROOTFS_ETC_INITD_RCS
+	bool
+	prompt "Install startup script"
+	default y
+	help
+	  This script is started by init in /etc/inittab. Its main
+	  purpose is to run the other init scripts by calling
+	  run-parts
+
+config ROOTFS_ETC_INITD_NETWORKING
+	depends on ROOTFS
+	bool
+	default y
+	prompt "Install generic /etc/init.d/networking"
+	select BB_CONFIG_FEATURE_IFUPDOWN_IP if BUSYBOX
+	help
+	  When enabled, This option installs the generic
+	  /etc/init.d/networking file. This script starts
+	  your network interfaces by calling ifup -a
+
+config ROOTFS_ETC_INITD_TELNETD
+	depends on ROOTFS
+	bool
+	default y
+	prompt "Install telnet startup script"
+	default y
+	help
+	  The /etc/init.d/telnetd script starts up your telnet
+	  demon. Depending on your configuration utelnetd or telnetd
+	  is started.
+
+config ROOTFS_ETC_INITD_STARTUP
+	depends on ROOTFS
+	bool
+	default n
+	prompt "Install user startup script"
+	help
+	  This script runs /home/startup if it exists and is
+	  executable
+
+config ROOTFS_ETC_INITD_BANNER
+	depends on ROOTFS
+	bool
+	default y
+	prompt "Install /etc/init.d/banner"
 	help
 	  This Option adds a specific vendor string to 
 	  the script which displays a nifty ptxdist
@@ -322,4 +363,10 @@ config ROOTFS_ETC_VENDOR
 	  |_.__/ \__,_|_| |_|_| |_|\___|_|   
 	  page with the hostname and other stuff at 
 	  startup. 
+	  
+config ROOTFS_ETC_VENDOR
+	depends on ROOTFS_ETC_INITD_BANNER
+	string
+	prompt "set vendorname in /etc/init.d/banner"
+	help
 	                                   

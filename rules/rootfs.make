@@ -237,23 +237,34 @@ ifdef PTXCONF_ROOTFS_ETC_INITD
 
 	# Copy generic etc/init.d
 	@$(call install_copy, 0, 0, 0755, /etc/init.d)
-	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/banner,     /etc/init.d/banner, n)
-	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/networking, /etc/init.d/networking, n)
-	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/net2flash,  /etc/init.d/net2flash, n)
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_RCS
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/rcS,        /etc/init.d/rcS, n)
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_NETWORKING
+	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/networking, /etc/init.d/networking, n)
+	@$(call install_copy, 0, 0, 0755, /etc/network/if-down.d)
+	@$(call install_copy, 0, 0, 0755, /etc/network/if-up.d)
+	@$(call install_copy, 0, 0, 0755, /etc/network/if-post-down.d)
+	@$(call install_copy, 0, 0, 0755, /etc/network/if-pre-up.d)
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/telnetd,    /etc/init.d/telnetd, n)
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_STARTUP
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/startup,    /etc/init.d/startup, n)
+endif
+
 	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
 
+ifdef PTXCONF_ROOTFS_ETC_INITD_BANNER
+	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/banner,     /etc/init.d/banner, n)
 	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_VENDOR))"; \
-	if [ -n "$$x" ]; then \
-		echo $$x; \
-		perl -i -p -e "s,\@VENDOR@,$$x,g" $(ROOTDIR)/etc/init.d/banner; \
-		perl -i -p -e "s,\@VENDOR@,$$x,g" $(IMAGEDIR)/ipkg/etc/init.d/banner; \
-	else \
-		perl -i -p -e "s,\@VENDOR@,,g" $(ROOTDIR)/etc/init.d/banner; \
-		perl -i -p -e "s,\@VENDOR@,,g" $(IMAGEDIR)/ipkg/etc/init.d/banner; \
-	fi
+	perl -i -p -e "s,\@VENDOR@,$$x,g" $(ROOTDIR)/etc/init.d/banner; \
+	perl -i -p -e "s,\@VENDOR@,$$x,g" $(IMAGEDIR)/ipkg/etc/init.d/banner; \
 
 	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
@@ -267,6 +278,8 @@ ifdef PTXCONF_ROOTFS_ETC_INITD
 	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
+endif
+
 endif
 
 	@$(call install_finish)
