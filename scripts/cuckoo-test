@@ -44,13 +44,14 @@ find . -type f -exec file {} \; | grep -v "usr/share/terminfo" | sed -e "s/ASCII
 -e "s/data/+++OK+++/" \
 -e "s/MPEG.*/+++OK+++/" \
 -e "s/XML.*/+++OK+++/" \
+-e "s/.*\.qpf/+++OK+++/" \
     | \
 grep -v "+++OK+++" | \
 awk -F, '{print substr($1, 1, index($1,":"))" wrong architecture! ("$2")"}'
 echo "---"
 
 echo "2 pass (fluff up test)"
-find . -type f -exec file {} \; | grep -v "\.ko" | grep "not stripped" | 
+find . -type f -exec file {} \; | grep -v "\.ko" | grep -v ".*\.qpf" | grep "not stripped" | 
 awk -F: '{print $1" not stripped"}'
 echo "---"
 
