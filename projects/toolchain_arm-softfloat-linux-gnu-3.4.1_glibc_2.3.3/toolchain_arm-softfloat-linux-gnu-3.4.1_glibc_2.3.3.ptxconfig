@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.7-rc5
-# Tue Oct 25 09:34:53 2005
+# PTXdist version: 0.7.8-rc1
+# Fri Oct 28 10:21:21 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -205,8 +205,13 @@ PTXCONF_BINUTILS_VERSION="2.15"
 # PTXCONF_ROOTFS is not set
 
 #
-# Populate & Configure /etc
+# Generic /etc Files
 #
+
+#
+# Start Scripts in /etc/init.d
+#
+# PTXCONF_ROOTFS_ETC_INITD_RCS is not set
 
 #
 # Core (Kernel, C-Library)    
@@ -214,6 +219,18 @@ PTXCONF_BINUTILS_VERSION="2.15"
 
 #
 # Kernel              
+#
+
+#
+# ----------------------------------
+#
+
+#
+# Target Kernel
+#
+
+#
+# ----------------------------------
 #
 # PTXCONF_USE_EXTERNAL_KERNEL is not set
 PTXCONF_KERNEL_CONFIG=""
@@ -245,6 +262,23 @@ PTXCONF_DONT_COMPILE_KERNEL=y
 #
 PTXCONF_KERNEL_PATCH1_URL=""
 PTXCONF_KERNEL_PATCH1_NAME=""
+
+#
+# ----------------------------------
+#
+
+#
+# Host Kernel (for simulation)
+#
+
+#
+# ----------------------------------
+#
+# PTXCONF_KERNEL_HOST is not set
+
+#
+# 
+#
 
 #
 # C Library           
