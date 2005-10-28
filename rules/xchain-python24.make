@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-XCHAIN_PYTHON24_BUILDDIR	= $(HOST_BUILDDIR)
+XCHAIN_PYTHON24_BUILDDIR	= $(HOST_BUILDDIR)/xchain-$(PYTHON24)-build
 
 # ----------------------------------------------------------------------------
 # Get

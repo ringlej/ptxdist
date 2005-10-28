@@ -1,3 +1,7 @@
+2005-10-28 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* python24: fixed build dir; patch by Mike Wakerly
+
 2005-10-27 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* dropbear: fix DROPBEAR_CONVERT typo; patch by
