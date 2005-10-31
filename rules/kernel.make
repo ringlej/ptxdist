@@ -555,7 +555,7 @@ kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-ifdef PTXCONF_DONT_COMPILE_KERNEL
+ifndef PTXCONF_DONT_COMPILE_KERNEL
 ifdef PTXCONF_KERNEL_INSTALL
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,kernel)
