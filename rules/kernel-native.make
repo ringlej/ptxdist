@@ -30,7 +30,7 @@ KERNEL_HOST		= linux-$(KERNEL_HOST_VERSION)
 KERNEL_HOST_SUFFIX	= tar.bz2
 KERNEL_HOST_URL		= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_HOST_VERSION_MAJOR).$(KERNEL_HOST_VERSION_MINOR)/$(KERNEL_HOST).$(KERNEL_HOST_SUFFIX)
 KERNEL_HOST_SOURCE	= $(SRCDIR)/$(KERNEL_HOST).$(KERNEL_HOST_SUFFIX)
-KERNEL_HOST_DIR		= $(BUILDDIR)/$(KERNEL_HOST)-host
+KERNEL_HOST_DIR		= $(BUILDDIR)/$(KERNEL_HOST)
 KERNEL_HOST_CONFIG	= $(PTXCONF_KERNEL_HOST_CONFIG)
 
 KERNEL_HOST_INST_DIR	= $(KERNEL_HOST_DIR)-install
@@ -334,11 +334,8 @@ $(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_KERNEL_HOST
-
 	@$(call clean, $(KERNEL_HOST_DIR))
-	@$(call extract, $(KERNEL_HOST_SOURCE), $(BUILDDIR)-$(KERNEL_HOST_DIR)-tmp)
-	mv $(BUILDDIR)-$(KERNEL_HOST_DIR)-tmp/linux* $(KERNEL_HOST_DIR)
-	rm -fr $(BUILDDIR)-$(KERNEL_HOST_DIR)-tmp
+	@$(call extract, $(KERNEL_HOST_SOURCE))
 
 	# Also add the "patchstack" like patches
 	@$(call feature_patchin, $(KERNEL_HOST_DIR), $(PTXCONF_KERNEL_HOST_PATCH1_NAME)) 
