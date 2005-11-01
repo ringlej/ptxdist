@@ -609,6 +609,36 @@ choice
 
 endchoice
 
+choice
+	prompt "Root filesystem method for host"
+		
+
+	config KERNEL_HOST_ROOT_HOSTFS
+		bool
+		prompt "hostfs"
+		depends on KERNEL_HOST
+		help
+		  Using the hostfs method, $(ROOTDIR) is shared between
+		  the host and the user mode linux machine.
+
+endchoice
+
+config KERNEL_HOST_CONSOLE_STDSERIAL
+	bool
+	prompt "map uml's /dev/ttyS0 to host's stdio"
+	depends on KERNEL_HOST
+	help
+	  This switch adds "ssl0=fd:0,fd:1" to the kernel command line,
+	  which forwards /dev/ttyS0 of the user mode linux vm to the
+	  host's stdin/stdout. 
+
+config KERNEL_HOST_CMDLINE
+	string
+	prompt "kernel command line for host kernel"
+	help
+	  Add your custom kernel commandline for the user mode linux 
+	  kernel here. 
+
 #config KERNEL_INSTALL_MODULES
 #	bool
 #	prompt "Install modules into /lib/modules on target"
