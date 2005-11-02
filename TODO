@@ -33,6 +33,7 @@ Test suite components to be added
 Current TODO List
 =================
 
+- RSC:	Do ipkg stuff during make images
 - RSC:	in NATIVE=1 mode libpthread.so.0 is not copied; find out why
 - RSC:	write back .config after make menuconfig (with oldconfig applied)
 - RSC:	port XOrg 7.0
