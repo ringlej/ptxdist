@@ -293,21 +293,21 @@ ipkg-push-force: images
 $(STATEDIR)/images: world
 ifdef PTXCONF_IMAGE_TGZ
 	cd $(ROOTDIR); \
-	($(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions && \
+	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions && \
 	echo "tar -zcvf $(IMAGEDIR)/root.tgz . ") | $(FAKEROOT) --
 endif
 ifdef PTXCONF_IMAGE_JFFS2
 ifdef PTXCONF_IMAGE_IPKG
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(TOPDIR)/scripts/make_image_root.sh	\
 		-i $(IMAGEDIR)							\
-		-p $(TOPDIR)/permissions					\
+		-p $(IMAGEDIR)/permissions					\
 		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)				\
 		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)				\
 		-o $(IMAGEDIR)/root.jffs2
 else
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(TOPDIR)/scripts/make_image_root.sh	\
 		-r $(ROOTDIR)							\
-		-p $(TOPDIR)/permissions					\
+		-p $(IMAGEDIR)/permissions					\
 		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)				\
 		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)				\
 		-o $(IMAGEDIR)/root.jffs2
@@ -323,7 +323,7 @@ ifdef PTXCONF_IMAGE_HD
 endif
 ifdef PTXCONF_IMAGE_EXT2
 	cd $(ROOTDIR); \
-	($(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions && \
+	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions && \
 	( \
 		echo -n "$(PTXCONF_HOST_PREFIX)/bin/genext2fs "; \
 		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) "; \
@@ -626,7 +626,7 @@ rootclean: imagesclean
 	@rm -f $(STATEDIR)/*.targetinstall
 	@echo "done."	
 	@echo -n "cleaning permissions...           "
-	@rm -f $(TOPDIR)/permissions
+	@rm -f $(IMAGEDIR)/permissions
 	@echo "done."
 	@echo
 
