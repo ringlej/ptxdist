@@ -367,6 +367,7 @@ endif
 ifdef PTXCONF_KERNEL_HOST_CONSOLE_STDSERIAL
 uml_cmdline += ssl0=fd:0,fd:1
 endif
+#uml_cmdline += eth0=slirp
 uml_cmdline += $(PTXCONF_KERNEL_HOST_CMDLINE)
 
 run: world
@@ -422,14 +423,20 @@ before_config:
 menuconfig: before_config $(TOPDIR)/scripts/lxdialog/lxdialog $(TOPDIR)/scripts/kconfig/mconf
 	$(call findout_config)
 	cd $(PTXDISTWORKSPACE) && $(TOPDIR)/scripts/kconfig/mconf $(MENU)
+	# automatic oldconfig for consistent .config files 
+	cd $(PTXDISTWORKSPACE) && make oldconfig
 
 xconfig: before_config $(TOPDIR)/scripts/kconfig/qconf
 	$(call findout_config)
 	cd $(PTXDISTWORKSPACE) && $(TOPDIR)/scripts/kconfig/qconf $(MENU)
+	# automatic oldconfig for consistent .config files 
+	cd $(PTXDISTWORKSPACE) && make oldconfig
 
 gconfig: before_config $(TOPDIR)/scripts/kconfig/gconf
 	$(call findout_config)
 	LD_LIBRARY_PATH=$(TOPDIR)/scripts/kconfig cd $(PTXDISTWORKSPACE) && $(TOPDIR)/scripts/kconfig/gconf $(MENU)
+	# automatic oldconfig for consistent .config files 
+	cd $(PTXDISTWORKSPACE) && make oldconfig
 
 oldconfig: before_config $(TOPDIR)/scripts/kconfig/conf
 	$(call findout_config)
