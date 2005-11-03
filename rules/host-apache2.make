@@ -19,7 +19,7 @@ endif
 #
 # Paths and names
 #
-HOST_APACHE2_VERSION	= 2.0.54
+HOST_APACHE2_VERSION	= 2.0.55
 HOST_APACHE2		= httpd-$(HOST_APACHE2_VERSION)
 HOST_APACHE2_SUFFIX	= tar.bz2
 HOST_APACHE2_URL	= http://ftp.plusline.de/ftp.apache.org/httpd/$(HOST_APACHE2).$(HOST_APACHE2_SUFFIX)
