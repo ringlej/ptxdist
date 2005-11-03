@@ -36,7 +36,6 @@ host-apache2_get_deps = $(HOST_APACHE2_SOURCE)
 
 $(STATEDIR)/host-apache2.get: $(host-apache2_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOST_APACHE2))
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
