@@ -1,0 +1,8 @@
+menu	"Apache 2 HTTP Server"
+
+config APACHE2
+	bool
+	prompt "Apache 2 HTTP server"
+	select EXPAT
+
+endmenu
