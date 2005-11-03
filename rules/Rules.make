@@ -1009,7 +1009,7 @@ install_copy = 											\
 			echo "Error: install_copy failed!";					\
 			exit -1;								\
 		fi;										\
-		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			\
+		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(IMAGEDIR)/permissions;			\
 	else											\
 		echo "install_copy:";								\
 		echo "  src=$$SRC";								\
@@ -1040,7 +1040,7 @@ install_copy = 											\
 			$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
 			;;									\
 		esac;										\
-		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			\
+		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(IMAGEDIR)/permissions;			\
 	fi
 
 #
@@ -1092,7 +1092,7 @@ install_copy_toolchain_lib =									\
 					fi;							\
 					;;							\
 				esac;								\
-				echo "f:$${DST}/$${LIB}:0:0:755" >> $(TOPDIR)/permissions;	\
+				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				echo "error: found $${LIB}, but no file or link";		\
 				echo;								\
@@ -1164,7 +1164,7 @@ install_copy_toolchain_dl =									\
 					fi;							\
 					;;							\
 				esac;								\
-				echo "f:$${DST}/$${LIB}:0:0:755" >> $(TOPDIR)/permissions;	\
+				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				exit -1;							\
 			fi;									\
@@ -1223,7 +1223,7 @@ install_node =				\
 	echo "  major=$$MAJ";		\
 	echo "  minor=$$MIN";		\
 	echo "  name=$$DEV";		\
-	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(TOPDIR)/permissions
+	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(IMAGEDIR)/permissions
 
 #
 # install_fixup
@@ -1275,7 +1275,7 @@ install_finish = 													\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then									\
 		echo -n "install_finish: writing ipkg packet ... ";							\
 		sed -i -e 's/^\(Version:\t*\)\(.*\)$$/\1$(PTXDIST_FULLVERSION)-\2/g' $(IMAGEDIR)/ipkg/CONTROL/control;	\
-		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions; echo "popd;"; 	\
+		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions; echo "popd;"; 	\
 		echo "$(PTXCONF_HOST_PREFIX)/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\
 			$(FAKEROOT) -- 2>&1 | grep -v "cannot access" | grep -v "No such file or directory";		\
 		rm -fr $(IMAGEDIR)/ipkg;										\
