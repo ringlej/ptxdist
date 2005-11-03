@@ -36,7 +36,6 @@ apache2_get_deps = $(APACHE2_SOURCE)
 
 $(STATEDIR)/apache2.get: $(apache2_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(APACHE2))
 	$(call touch, $@)
 
 $(APACHE2_SOURCE):
