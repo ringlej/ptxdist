@@ -492,3 +492,24 @@ config ROOTFS_ETC_INITD_HTTPD_LINK
 	  start apache while system boot.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+config UDEV_ETC_INITD_LINK
+        depends on UDEV
+        string
+        prompt "link name in /etc/rc.d"
+        default "S00_udev"
+        help
+          Set a link to with this name in /etc/rc.d which points to
+          /etc/init.d/udev.
+
