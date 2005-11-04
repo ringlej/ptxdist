@@ -424,7 +424,7 @@ menuconfig: before_config $(TOPDIR)/scripts/lxdialog/lxdialog $(TOPDIR)/scripts/
 	$(call findout_config)
 	cd $(PTXDISTWORKSPACE) && $(TOPDIR)/scripts/kconfig/mconf $(MENU)
 	# automatic oldconfig for consistent .config files 
-	cd $(PTXDISTWORKSPACE) && make oldconfig
+	@if [ -f $(TOPDIR)/.config ]; then cd $(PTXDISTWORKSPACE) && make oldconfig; fi
 
 xconfig: before_config $(TOPDIR)/scripts/kconfig/qconf
 	$(call findout_config)
