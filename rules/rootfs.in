@@ -502,7 +502,7 @@ config ROOTFS_ETC_INITD_UDEV
 	default yes
 	prompt "udev startup script"
 	help
-	  The /etc/init.d/udevd script lets you control the udevd daemon.
+	  The /etc/init.d/udev script lets you control the udevd daemon.
 
 choice
 	prompt "Kind of startup scrict"
@@ -513,23 +513,23 @@ choice
 		bool
 		prompt "Use default udevd"
 		help
-		  A file from projects/generic/etc/init.d/udevd will be used
+		  A file from projects/generic/etc/init.d/udev will be used
 
 	config ROOTFS_ETC_INITD_UDEV_USER
 		bool
 		prompt "Use your own udevd file"
 		help
 		  Select this, then you can enter a path and filename to your
-		  own udevd startup script
+		  own udev startup script
 endchoice
 
 config ROOTFS_ETC_INITD_UDEV_USER_FILE
 	depends on ROOTFS_ETC_INITD_UDEV_USER
-	prompt "Path and name of your own httpd to be used"
+	prompt "Path and name of your own udev to be used"
 	string
 	default ""
 	help
-	  Enter a path and filename to be used as udevd script on your target
+	  Enter a path and filename to be used as udev script on your target
 
 config ROOTFS_ETC_INITD_UDEV_LINK
         depends on UDEV
