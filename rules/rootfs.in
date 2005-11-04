@@ -310,49 +310,76 @@ config ROOTFS_ETC_INITD
 
 config ROOTFS_ETC_INITD_RCS
 	bool
-	prompt "Install startup script"
+	prompt "rc file starter (/etc/init.d/rcS)"
+	depends on ROOTFS_ETC_INITD
 	default y
 	help
-	  This script is started by init in /etc/inittab. Its main
-	  purpose is to run the other init scripts by calling
-	  run-parts
+	  The /etc/init.d/rcS script is started by init in /etc/inittab. 
+	  Its main purpose is to run the other init scripts by calling
+	  run-parts. 
 
 config ROOTFS_ETC_INITD_NETWORKING
-	depends on ROOTFS
+	depends on ROOTFS_ETC_INITD
 	bool
 	default y
-	prompt "Install generic /etc/init.d/networking"
+	prompt "generic /etc/init.d/networking"
 	select BB_CONFIG_FEATURE_IFUPDOWN_IP if BUSYBOX
 	help
-	  When enabled, This option installs the generic
+	  When enabled, this option installs the generic
 	  /etc/init.d/networking file. This script starts
 	  your network interfaces by calling ifup -a
 
+config ROOTFS_ETC_INITD_NETWORKING_LINK
+	depends on ROOTFS_ETC_INITD_NETWORKING
+	string
+	prompt "link name in /etc/rcS"
+	default "S01_networking"
+	help
+	  Set a link to with this name in /etc/rc.d which points to 
+	  /etc/init.d/networking. 
+
+config ROOTFS_ETC_INITD_NETWORKING_INTERFACES
+	depends on ROOTFS_ETC_INITD_NETWORKING
+	string
+	prompt "/etc/network/interfaces file"
+	default "$(PROJECTDIR)/etc/network/interfaces"
+	help
+	  Copy this file to /etc/network/interfaces. 
+
 config ROOTFS_ETC_INITD_TELNETD
-	depends on ROOTFS
+	depends on ROOTFS_ETC_INITD
 	bool
 	default y
-	prompt "Install telnet startup script"
-	default y
+	prompt "telnet startup script"
 	help
 	  The /etc/init.d/telnetd script starts up your telnet
 	  demon. Depending on your configuration utelnetd or telnetd
 	  is started.
 
+config ROOTFS_ETC_INITD_TELNETD_LINK
+	depends on ROOTFS_ETC_INITD_TELNETD
+	string
+	prompt "link name in /etc/rcS"
+	default "S07_telnetd"
+	help
+	  Set a link to with this name in /etc/rc.d which points to 
+	  /etc/init.d/telnetd. 
+
+
 config ROOTFS_ETC_INITD_STARTUP
-	depends on ROOTFS
+	depends on ROOTFS_ETC_INITD
 	bool
 	default n
-	prompt "Install user startup script"
+	prompt "user startup script (/home/startup)"
 	help
 	  This script runs /home/startup if it exists and is
 	  executable
 
 config ROOTFS_ETC_INITD_BANNER
-	depends on ROOTFS
+	depends on ROOTFS_ETC_INITD
 	bool
 	default y
-	prompt "Install /etc/init.d/banner"
+	prompt "generic boot banner (/etc/init.d/banner)"
 	help
 	  This Option adds a specific vendor string to 
 	  the script which displays a nifty ptxdist
@@ -363,10 +390,40 @@ config ROOTFS_ETC_INITD_BANNER
 	  |_.__/ \__,_|_| |_|_| |_|\___|_|   
 	  page with the hostname and other stuff at 
 	  startup. 
+
+config ROOTFS_ETC_INITD_BANNER_LINK
+	depends on ROOTFS_ETC_INITD_BANNER
+	string
+	prompt "link name in /etc/rcS"
+	default "S02_banner"
+	help
+	  Set a link to with this name in /etc/rc.d which points to 
+	  /etc/init.d/banner. 
+
 	  
 config ROOTFS_ETC_VENDOR
 	depends on ROOTFS_ETC_INITD_BANNER
 	string
-	prompt "set vendorname in /etc/init.d/banner"
+	prompt "vendorname in /etc/init.d/banner"
 	help
-	                                   
+
+config ROOTFS_ETC_INITD_HTTPD
+	depends on ROOTFS_ETC_INITD && APACHE2
+	bool
+	default yes
+	prompt "apache startup script"
+	help
+	 The /etc/init.d/httpd script lets you control the apache daemon.
+
+comment "apache startup script needs apache"
+	depends on !APACHE2
+
+config ROOTFS_ETC_INITD_HTTPD_LINK
+	depends on ROOTFS_ETC_INITD_HTTPD
+	string
+	prompt "link name in /etc/rc.d"
+	default "S08_httpd"
+	help
+          Set a link into /etc/rc.d which points to /etc/init.d/httpd to
+	  start apache while system boot.
+
