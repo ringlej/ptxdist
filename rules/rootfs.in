@@ -346,8 +346,13 @@ config ROOTFS_ETC_INITD_NETWORKING_INTERFACES
 	help
 	  Copy this file to /etc/network/interfaces. 
 
+########################## Telnetd ##########################################
+
+comment "telnetd startup script needs telnet"
+	depends on !UTELNETD
+
 config ROOTFS_ETC_INITD_TELNETD
-	depends on ROOTFS_ETC_INITD
+	depends on ROOTFS_ETC_INITD && UTELNETD
 	bool
 	default y
 	prompt "telnet startup script"
@@ -355,6 +360,33 @@ config ROOTFS_ETC_INITD_TELNETD
 	  The /etc/init.d/telnetd script starts up your telnet
 	  demon. Depending on your configuration utelnetd or telnetd
 	  is started.
+
+choice
+	prompt "Kind of startup scrict"
+	default ROOTFS_ETC_INITD_TELNETD_DEFAULT
+	depends on ROOTFS_ETC_INITD_TELNETD
+
+	config ROOTFS_ETC_INITD_TELNETD_DEFAULT
+		bool
+		prompt "Use default telnetd"
+		help
+		  A file from projects/generic/etc/init.d/telnetd will be used
+
+	config ROOTFS_ETC_INITD_TELNETD_USER
+		bool
+		prompt "Use your own telnetd script"
+		help
+		  Select this, then you can enter a path and filename to your
+		  own httpd startup script
+endchoice
+
+config ROOTFS_ETC_INITD_TELNETD_USER_FILE
+	depends on ROOTFS_ETC_INITD_TELNETD_USER
+	prompt "Path and name of your own telnetd to be used"
+	string
+	default ""
+	help
+	  Enter a path and filename to be used as telnetd script on your target
 
 config ROOTFS_ETC_INITD_TELNETD_LINK
 	depends on ROOTFS_ETC_INITD_TELNETD
@@ -365,6 +397,7 @@ config ROOTFS_ETC_INITD_TELNETD_LINK
 	  Set a link to with this name in /etc/rc.d which points to 
 	  /etc/init.d/telnetd. 
 
+########################## Banner ##########################################
 
 config ROOTFS_ETC_INITD_STARTUP
 	depends on ROOTFS_ETC_INITD
@@ -374,6 +407,8 @@ config ROOTFS_ETC_INITD_STARTUP
 	help
 	  This script runs /home/startup if it exists and is
 	  executable
+
+########################## Banner ##########################################
 
 config ROOTFS_ETC_INITD_BANNER
 	depends on ROOTFS_ETC_INITD
@@ -407,16 +442,45 @@ config ROOTFS_ETC_VENDOR
 	prompt "vendorname in /etc/init.d/banner"
 	help
 
+########################## Apache 2 ##########################################
+
+comment "apache startup script needs apache"
+	depends on !APACHE2
+
 config ROOTFS_ETC_INITD_HTTPD
 	depends on ROOTFS_ETC_INITD && APACHE2
 	bool
 	default yes
-	prompt "apache startup script"
+	prompt "Apache startup script"
 	help
-	 The /etc/init.d/httpd script lets you control the apache daemon.
+	  The /etc/init.d/httpd script lets you control the apache daemon.
 
-comment "apache startup script needs apache"
-	depends on !APACHE2
+choice
+	prompt "Kind of startup scrict"
+	default ROOTFS_ETC_INITD_HTTPD_DEFAULT
+	depends on ROOTFS_ETC_INITD_HTTPD
+
+	config ROOTFS_ETC_INITD_HTTPD_DEFAULT
+		bool
+		prompt "Use default httpd"
+		help
+		  A file from projects/generic/etc/init.d/httpd will be used
+
+	config ROOTFS_ETC_INITD_HTTPD_USER
+		bool
+		prompt "Use your own httpd file"
+		help
+		  Select this, then you can enter a path and filename to your
+		  own httpd startup script
+endchoice
+
+config ROOTFS_ETC_INITD_HTTPD_USER_FILE
+	depends on ROOTFS_ETC_INITD_HTTPD_USER
+	prompt "Path and name of your own httpd to be used"
+	string
+	default ""
+	help
+	  Enter a path and filename to be used as httpd script on your target
 
 config ROOTFS_ETC_INITD_HTTPD_LINK
 	depends on ROOTFS_ETC_INITD_HTTPD
@@ -426,4 +490,5 @@ config ROOTFS_ETC_INITD_HTTPD_LINK
 	help
           Set a link into /etc/rc.d which points to /etc/init.d/httpd to
 	  start apache while system boot.
+
 
