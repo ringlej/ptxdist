@@ -237,10 +237,7 @@ ifdef PTXCONF_ROOTFS_ETC_INITD
 
 	# Copy generic etc/init.d
 	@$(call install_copy, 0, 0, 0755, /etc/init.d)
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_RCS
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/rcS,        /etc/init.d/rcS, n)
-endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_NETWORKING
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/networking, /etc/init.d/networking, n)
@@ -248,10 +245,31 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_NETWORKING
 	@$(call install_copy, 0, 0, 0755, /etc/network/if-up.d)
 	@$(call install_copy, 0, 0, 0755, /etc/network/if-post-down.d)
 	@$(call install_copy, 0, 0, 0755, /etc/network/if-pre-up.d)
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK),"")
+	@$(call install_link, /etc/init.d/networking, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK))
+endif
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES),"")
+	$(call install_copy, 0, 0, 0644, $(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES), /etc/network/interfaces, n)
+endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/telnetd,    /etc/init.d/telnetd, n)
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
+	@$(call install_link, /etc/init.d/telnetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
+endif
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
+	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/httpd,    /etc/init.d/httpd, n)
+	x="$(call remove_quotes,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT))"; \
+	echo $$x; \
+	perl -i -p -e "s,\@SERVERROOTPATH@,$$x,g" $(ROOTDIR)/etc/init.d/httpd; \
+	perl -i -p -e "s,\@SERVERROOTPATH@,$$x,g" $(IMAGEDIR)/ipkg/etc/init.d/httpd;
+
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
+	@$(call install_link, /etc/init.d/httpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
+endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_STARTUP
@@ -278,6 +296,9 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_BANNER
 	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK),"")
+	@$(call install_link, /etc/init.d/banner, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK))
+endif
 endif
 
 endif
