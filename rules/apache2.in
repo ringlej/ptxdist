@@ -2,6 +2,7 @@ menuconfig APACHE2
 	bool "Apache 2 HTTP Server"
 	prompt "Apache 2 HTTP server"
 	select EXPAT
+	select GLIBC_LIBRT
 
 config APACHE2_DEFAULTCONFIG
 	prompt "install default config file"
@@ -11,6 +12,32 @@ config APACHE2_DEFAULTCONFIG
 	help
 	  This uses a generic configuration file for your apache. There is
 	  nothing special in it, so you should check it before using.
+
+config APACHE2_LISTEN
+	depends on APACHE2_DEFAULTCONFIG
+	string
+	default "0.0.0.0:80"
+	prompt "LISTEN"
+	help
+	  LISTEN entry in httpd.conf; this entry must contain a server
+	  name or IP and a port, for example "0.0.0.0:80" to listen
+	  on all interfaces.  
+
+config APACHE2_SERVERNAME
+	depends on APACHE2_DEFAULTCONFIG
+	string
+	default "localhost"
+	prompt "SERVERNAME"
+	help
+	  SERVERNAME entry in httpd.conf
+
+config APACHE2_SERVERADMIN
+	depends on APACHE2_DEFAULTCONFIG
+	string
+	default "foo\@bar"
+	prompt "SERVERADMIN"
+	help
+	  SERVERADMIN entry in httpd.conf
 
 config APACHE2_USER_CONFIG
 	depends on APACHE2 && !APACHE2_DEFAULTCONFIG
