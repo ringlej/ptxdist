@@ -362,7 +362,7 @@ config ROOTFS_ETC_INITD_TELNETD
 	  is started.
 
 choice
-	prompt "Kind of startup scrict"
+	prompt "Kind of startup script"
 	default ROOTFS_ETC_INITD_TELNETD_DEFAULT
 	depends on ROOTFS_ETC_INITD_TELNETD
 
