@@ -397,7 +397,7 @@ config ROOTFS_ETC_INITD_TELNETD_LINK
 	  Set a link to with this name in /etc/rc.d which points to 
 	  /etc/init.d/telnetd. 
 
-########################## Banner ##########################################
+########################## User startup script ##############################
 
 config ROOTFS_ETC_INITD_STARTUP
 	depends on ROOTFS_ETC_INITD
@@ -491,20 +491,47 @@ config ROOTFS_ETC_INITD_HTTPD_LINK
           Set a link into /etc/rc.d which points to /etc/init.d/httpd to
 	  start apache while system boot.
 
+########################## UDEV support  ##########################################
 
+comment "udev startup script needs udev"
+	depends on !UDEV
 
+config ROOTFS_ETC_INITD_UDEV
+	depends on ROOTFS_ETC_INITD && UDEV
+	bool
+	default yes
+	prompt "udev startup script"
+	help
+	  The /etc/init.d/udevd script lets you control the udevd daemon.
 
+choice
+	prompt "Kind of startup scrict"
+	default ROOTFS_ETC_INITD_UDEV_DEFAULT
+	depends on ROOTFS_ETC_INITD_UDEV
 
+	config ROOTFS_ETC_INITD_UDEV_DEFAULT
+		bool
+		prompt "Use default udevd"
+		help
+		  A file from projects/generic/etc/init.d/udevd will be used
 
+	config ROOTFS_ETC_INITD_UDEV_USER
+		bool
+		prompt "Use your own udevd file"
+		help
+		  Select this, then you can enter a path and filename to your
+		  own udevd startup script
+endchoice
 
+config ROOTFS_ETC_INITD_UDEV_USER_FILE
+	depends on ROOTFS_ETC_INITD_UDEV_USER
+	prompt "Path and name of your own httpd to be used"
+	string
+	default ""
+	help
+	  Enter a path and filename to be used as udevd script on your target
 
-
-
-
-
-
-
-config UDEV_ETC_INITD_LINK
+config ROOTFS_ETC_INITD_UDEV_LINK
         depends on UDEV
         string
         prompt "link name in /etc/rc.d"
@@ -512,4 +539,6 @@ config UDEV_ETC_INITD_LINK
         help
           Set a link to with this name in /etc/rc.d which points to
           /etc/init.d/udev.
+
+########################## ? ##########################################
 
