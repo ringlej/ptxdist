@@ -32,11 +32,13 @@ XMLSTARLET_DIR		= $(BUILDDIR)/$(XMLSTARLET)
 
 xmlstarlet_get: $(STATEDIR)/xmlstarlet.get
 
-xmlstarlet_get_deps = $(XMLSTARLET_SOURCE)
+xmlstarlet_get_deps = \
+	$(XMLSTARLET_SOURCE) \
+	$(RULESDIR)/xmlstarlet.make
+
 
 $(STATEDIR)/xmlstarlet.get: $(xmlstarlet_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XMLSTARLET))
 	$(call touch, $@)
 
 $(XMLSTARLET_SOURCE):
@@ -74,16 +76,16 @@ xmlstarlet_prepare_deps += $(STATEDIR)/libxslt.install
 
 XMLSTARLET_PATH	=  PATH=$(CROSS_PATH)
 XMLSTARLET_ENV 	=  $(CROSS_ENV)
-#XMLSTARLET_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#XMLSTARLET_ENV	+=
 
 #
 # autoconf
 #
-XMLSTARLET_AUTOCONF =  $(CROSS_AUTOCONF)
-XMLSTARLET_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
-XMLSTARLET_AUTOCONF += --with-libxml-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-XMLSTARLET_AUTOCONF += --with-libxslt-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+XMLSTARLET_AUTOCONF = \
+	$(CROSS_AUTOCONF) \
+	--prefix=$(CROSS_LIB_DIR) \
+	--with-libxml-prefix=$(CROSS_LIB_DIR) \
+	--with-libxslt-prefix=$(CROSS_LIB_DIR) \
+	--with-libiconv-prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/xmlstarlet.prepare: $(xmlstarlet_prepare_deps)
 	@$(call targetinfo, $@)
@@ -139,7 +141,7 @@ $(STATEDIR)/xmlstarlet.targetinstall: $(xmlstarlet_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(XMLSTARLET_DIR)/src/xml, /usr/bin/xml)
+	@$(call install_copy, 0, 0, 0755, $(XMLSTARLET_DIR)/src/xml, /usr/bin/xmlstarlet)
 
 	@$(call install_finish)
 
