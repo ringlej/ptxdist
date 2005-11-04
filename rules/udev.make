@@ -123,7 +123,7 @@ $(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/udev/udev.conf, /etc/udev/udev.conf, n)
-ifdef ROOTFS_ETC_INITD_UDEV_DEFAULT
+ifdef PTXCONF_ROOTFS_ETC_INITD_UDEV_DEFAULT
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/udev, /etc/init.d/udev, n)
 else
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE),"")
