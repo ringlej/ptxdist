@@ -10,19 +10,19 @@ NAME=apache2
 case "$1" in
     start)
             echo -n "${PREFIX}Starting $NAME: "
-	    /usr/sbin/apache2 -d @SERVERROOTPATH@ -k start
+	    /usr/sbin/apache2 -f @APACHECONFIG@ -k start
             echo "Done"
         ;;
 
     stop)
             echo -n "${PREFIX}Stopping $NAME: "
-	    /usr/sbin/apache2 -d @SERVERROOTPATH@ -k stop
+	    /usr/sbin/apache2 -f @APACHECONFIG@ -k stop
             echo "Done"
         ;;
 
     reload)
             echo -n "${PREFIX}Restarting $NAME: "
-	    /usr/sbin/apache2 -d @SERVERROOTPATH@ -k restart
+	    /usr/sbin/apache2 -f @APACHECONFIG@ -k restart
             echo "Done"
         ;;
 
