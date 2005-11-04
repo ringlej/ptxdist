@@ -124,7 +124,11 @@ $(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps)
 
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/udev/udev.conf, /etc/udev/udev.conf, n)
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/udev, /etc/init.d/udev, n)
-	@$(call install_link, ../init.d/udev, /etc/rc.d/S00_udev)
+
+ifneq ($(PTXCONF_UDEV_ETC_INITD_LINK),"")
+	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, ../init.d/udev, /etc/rc.d/$(PTXCONF_UDEV_ETC_INITD_LINK))
+endif
 
 ifdef PTXCONF_UDEV_UDEV
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udev, /sbin/udev)
