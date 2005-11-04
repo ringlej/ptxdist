@@ -171,75 +171,105 @@ $(STATEDIR)/apache2.targetinstall: $(apache2_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(APACHE2_DIR)/.libs/httpd, /usr/bin/httpd)
-#
-# and some needed shared libraries
-#
-	@$(call install_copy, 0, 0, 0644, $(APACHE2_DIR)/srclib/apr-util/.libs/libaprutil-0.so.0.9.7, /usr/lib/libaprutil-0.so.0.9.7)
+	# the server binary
+	@$(call install_copy, 0, 0, 0755, $(APACHE2_DIR)/.libs/httpd, /usr/sbin/apache2)
+
+	# and some needed shared libraries
+	@$(call install_copy, 0, 0, 0644, \
+		$(APACHE2_DIR)/srclib/apr-util/.libs/libaprutil-0.so.0.9.7, \
+		/usr/lib/libaprutil-0.so.0.9.7)
 	@$(call install_link, libaprutil-0.so.0.9.7, /usr/lib/libaprutil-0.so.0.9)
 	@$(call install_link, libaprutil-0.so.0.9.7, /usr/lib/libaprutil-0.so.0)
 
-	@$(call install_copy, 0, 0, 0644, $(APACHE2_DIR)/srclib/apr/.libs/libapr-0.so.0.9.7, /usr/lib/libapr-0.so.0.9.7)
+	@$(call install_copy, 0, 0, 0644, \
+		$(APACHE2_DIR)/srclib/apr/.libs/libapr-0.so.0.9.7, \
+		/usr/lib/libapr-0.so.0.9.7)
 	@$(call install_link, libapr-0.so.0.9.7, /usr/lib/libapr-0.so.0.9)
 	@$(call install_link, libapr-0.so.0.9.7, /usr/lib/libapr-0.so.0)
-	@$(call install_finish)
-#
-# create apache's default serverroot
-#
-ifneq ($(PTXCONF_ROOTFS_HTTPD_SERVERROOT),"")
-#
-# install the main components apache needs to do his job
-# TODO: Is everything really needed?
-#
-	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT))
-	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/conf)
-	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot)
-ifdef ROOTFS_HTTPD_USER_DOC
-	@cd $(PTXCONF_ROOTFS_HTTPD_USER_DOC_PATH); \
-	for i in *.html *.gif *.png; do \
-		$(call install_copy, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/$$i,n); \
-	done
-else
-	$(call install_copy, 12,102,0644,$(TOPDIR)/projetcs/generic/index.html,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/index.html,n)
-endif
-	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin)
-	@$(call install_copy, 12,102,0644,$(APACHE2_DIR)/doc/cgi-examples/test-cgi,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin,n)
-	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/log)
-#
-# TODO: are the icons needed? (or are all icons required?)
-#
-	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/icons)
+
+ifneq ($(PTXCONF_APACHE2_SERVERROOT),"")
+	@$(call install_copy, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT))
+
+	# TODO: are the icons needed? (or are all icons required?)
+
+	@$(call install_copy, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons)
 	@cd $(APACHE2_DIR)/docs/icons; \
 	for i in *.gif *.png; do \
-		$(call install_copy, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/icons/$$i,n); \
+		$(call install_copy, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/$$i,n); \
 	done
-	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/icons/small)
+	@$(call install_copy, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons/small)
 	@cd $(APACHE2_DIR)/docs/icons/small; \
 	for i in *.gif *.png; do \
-		$(call install_copy, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/icons/small/$$i,n); \
+		$(call install_copy, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i,n); \
 	done
-#
-ifdef PTXCONF_ROOTFS_HTTPD_CONFIG
-	@$(call install_copy, 12, 102, 0644, $(APACHE2_DIR)/docs/conf/mime.types, $(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/conf/mime.types,n)
-	@$(call install_copy, 12, 102, 0644, $(APACHE2_DIR)/docs/conf/magic, $(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/conf/magic,n)
-	@$(call install_copy, 12, 102, 0644, $(APACHE2_DIR)/docs/conf/httpd-std.conf.in, $(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/conf/httpd.conf,n)
-	x="$(call remove_quotes,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT))"; \
-	echo $$x; \
-	perl -i -p -e "s,\@@ServerRoot@@,$$x,g" $(ROOTDIR)/$$x/conf/httpd.conf; \
-	perl -i -p -e "s,\@@LoadModule@@,#@@LoadModule@@,g" $(ROOTDIR)/$$x/conf/httpd.conf; \
-	perl -i -p -e "s,User nobody,User www,g" $(ROOTDIR)/$$x/conf/httpd.conf; \
-	perl -i -p -e "s,Group #-1,Group www,g" $(ROOTDIR)/$$x/conf/httpd.conf; \
-	perl -i -p -e "s,\@exp_htdocsdir@,$$x/docroot,g" $(ROOTDIR)/$$x/conf/httpd.conf; \
-	perl -i -p -e "s,\@exp_iconsdir@,icons,g" $(ROOTDIR)/$$x/conf/httpd.conf; \
-	perl -i -p -e "s,\@exp_manualdir@,manual,g" $(ROOTDIR)/$$x/conf/httpd.conf; \
-	perl -i -p -e "s,\@exp_cgidir@,bin_cgi,g" $(ROOTDIR)/$$x/conf/httpd.conf; 
-#
+	@$(call install_copy, 12, 102, 0644, \
+		$(APACHE2_DIR)/docs/conf/mime.types, \
+		$(PTXCONF_APACHE2_SERVERROOT)/conf/mime.types,n)
 endif
 
-ifneq ($(PTXCONF_ROOTFS_HTTPD_USER_CONFIG),"")
-	@$(call install_copy, 12,102,0644,$(PTXCONF_ROOTFS_HTTPD_USER_CONFIG),$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/conf/httpd.conf,n)
+ifneq ($(PTXCONF_APACHE2_DOCUMENTROOT),"")
+	@$(call install_copy, 12, 102, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
+ifdef PTXCONF_APACHE2_DEFAULT_INDEX
+	@$(call install_copy, 12, 102, 0644, \
+		$(TOPDIR)/project/generic/index.html \
+		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html,n)
 endif
 endif
+
+ifneq ($(PTXCONF_APACHE2_CONFIGDIR),"")
+	@$(call install_copy, 12, 102, 0755, $(PTXCONF_APACHE2_CONFIGDIR))
+
+	@$(call install_copy, 12, 102, 0644, \
+		$(APACHE2_DIR)/docs/conf/magic, \
+		$(PTXCONF_APACHE2_CONFIGDIR)/magic,n)
+
+ifdef PTXCONF_APACHE2_DEFAULTCONFIG
+	cp $(TOPDIR)/projects/generic/httpd.conf $(APACHE2_DIR)/httpd.conf
+
+	# now replace our own options
+	perl -i -p -e "s,\@SERVERROOT@,\"$(PTXCONF_APACHE2_SERVERROOT)\",g" $(APACHE2_DIR)/httpd.conf
+	perl -i -p -e "s,\@DOCUMENTROOT@,\"$(PTXCONF_APACHE2_DOCUMENTROOT)\",g" $(APACHE2_DIR)/httpd.conf
+	perl -i -p -e "s,\@CONFIGDIR@,\"$(PTXCONF_APACHE2_CONFIGDIR)\",g" $(APACHE2_DIR)/httpd.conf
+	perl -i -p -e "s,\@LOGPATH@,$(PTXCONF_APACHE2_LOGDIR),g" $(APACHE2_DIR)/httpd.conf
+	perl -i -p -e "s,\@PIDFILE@,/var/run/apache2.pid,g" $(APACHE2_DIR)/httpd.conf
+	perl -i -p -e "s,\@LISTEN@,$(PTXCONF_APACHE2_LISTEN),g" $(APACHE2_DIR)/httpd.conf
+	perl -i -p -e "s,\@SERVERADMIN@,$(PTXCONF_APACHE2_SERVERADMIN),g" $(APACHE2_DIR)/httpd.conf
+	perl -i -p -e "s,\@SERVERNAME@,$(PTXCONF_APACHE2_SERVERNAME),g" $(APACHE2_DIR)/httpd.conf
+
+	@$(call install_copy, 12, 102, 0644, \
+		$(APACHE2_DIR)/httpd.conf, \
+		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,n)
+else
+ifneq ($(PTXCONF_APACHE2_USERCONFIG), "")
+	@$(call install_copy, 12, 102, 0644, \
+		$(PTXCONF_APACHE2_USERCONFIG), \
+		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,n)
+endif
+endif
+endif
+
+ifneq ($(PTXCONF_APACHE2_LOGDIR),"")
+	@$(call install_copy, 12, 102, 0755, $(PTXCONF_APACHE2_LOGDIR))
+endif
+
+# #
+# # create apache's default serverroot
+# #
+# ifneq ($(PTXCONF_ROOTFS_HTTPD_SERVERROOT),"")
+# ifdef ROOTFS_HTTPD_USER_DOC
+# 	@cd $(PTXCONF_ROOTFS_HTTPD_USER_DOC_PATH); \
+# 	for i in *.html *.gif *.png; do \
+# 		$(call install_copy, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/$$i,n); \
+# 	done
+# else
+# 	$(call install_copy, 12,102,0644,$(TOPDIR)/projetcs/generic/index.html,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/index.html,n)
+# endif
+# 	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin)
+# 	@$(call install_copy, 12,102,0644,$(APACHE2_DIR)/doc/cgi-examples/test-cgi,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin,n)
+# 	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/log)
+
+	@$(call install_finish)
+
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
