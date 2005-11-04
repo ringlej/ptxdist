@@ -262,10 +262,10 @@ endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
 	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/httpd,    /etc/init.d/httpd, n)
-	x="$(call remove_quotes,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT))"; \
+	x="$(call remove_quotes,$(PTXCONF_APACHE2_CONFIGDIR))/httpd.conf"; \
 	echo $$x; \
-	perl -i -p -e "s,\@SERVERROOTPATH@,$$x,g" $(ROOTDIR)/etc/init.d/httpd; \
-	perl -i -p -e "s,\@SERVERROOTPATH@,$$x,g" $(IMAGEDIR)/ipkg/etc/init.d/httpd;
+	perl -i -p -e "s,\@APACHECONFIG@,$$x,g" $(ROOTDIR)/etc/init.d/httpd; \
+	perl -i -p -e "s,\@APACHECONFIG@,$$x,g" $(IMAGEDIR)/ipkg/etc/init.d/httpd;
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
 	@$(call install_link, /etc/init.d/httpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
