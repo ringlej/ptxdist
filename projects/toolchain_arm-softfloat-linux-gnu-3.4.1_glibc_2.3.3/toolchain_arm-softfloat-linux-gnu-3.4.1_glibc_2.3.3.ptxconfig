@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Fri Oct 28 10:21:21 2005
+# Sun Nov  6 22:51:48 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -162,6 +162,7 @@ PTXCONF_BINUTILS_VERSION="2.15"
 #
 # PTXCONF_HOSTTOOL_FLEX254 is not set
 # PTXCONF_HOSTTOOL_QTE is not set
+# PTXCONF_HOSTTOOL_SLIRP is not set
 
 #
 # Debugging Tools             
@@ -211,7 +212,18 @@ PTXCONF_BINUTILS_VERSION="2.15"
 #
 # Start Scripts in /etc/init.d
 #
-# PTXCONF_ROOTFS_ETC_INITD_RCS is not set
+
+#
+# telnetd startup script needs telnet
+#
+
+#
+# apache startup script needs apache
+#
+
+#
+# udev startup script needs udev
+#
 
 #
 # Core (Kernel, C-Library)    
@@ -253,6 +265,7 @@ PTXCONF_KERNEL_2_6=y
 PTXCONF_KERNEL_2_6_11=y
 # PTXCONF_KERNEL_2_6_12 is not set
 # PTXCONF_KERNEL_2_6_13 is not set
+# PTXCONF_KERNEL_2_6_14 is not set
 PTXCONF_DONT_COMPILE_KERNEL=y
 # PTXCONF_KERNEL_INSTALL is not set
 # PTXCONF_KERNEL_INSTALL_MODULES is not set
@@ -275,6 +288,8 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 # ----------------------------------
 #
 # PTXCONF_KERNEL_HOST is not set
+# PTXCONF_KERNEL_HOST_ROOT_HOSTFS is not set
+PTXCONF_KERNEL_HOST_CMDLINE=""
 
 #
 # 
@@ -412,9 +427,10 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 
 #
-# Apache HTTP server  
+# Apache 1 HTTP Server
 #
 # PTXCONF_APACHE is not set
+# PTXCONF_APACHE2 is not set
 
 #
 # betaftpd            
