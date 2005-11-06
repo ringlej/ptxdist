@@ -33,6 +33,14 @@ Test suite components to be added
 Current TODO List
 =================
 
+- RSC:	Test on SuSE 10.0: the following packets have to be installed: 
+	- ncurses-dev
+	- bison
+	- ipkg for the host needs python distutils
+- RSC:	crosstool installs in build-target, not in build-cross
+- RSC:	crosstool doesn't build with gcc-4.0.2
+- RSC:	make projects doesn't find local_projects/something, if
+	something is a softlink and not a directory. 
 - RSC:	replace perl by (modern) sed -i (hosttool)
 - RSC:	Do ipkg stuff during make images
 - RSC:	in NATIVE=1 mode libpthread.so.0 is not copied; find out why
