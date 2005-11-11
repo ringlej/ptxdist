@@ -421,7 +421,6 @@ extract =							\
 		;;						\
 	esac;							\
 	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
-	mkdir -p $(STATEDIR);					\
 	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
 	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
 	[ $$? -eq 0 ] || {					\

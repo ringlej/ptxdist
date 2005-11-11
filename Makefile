@@ -343,7 +343,7 @@ ifdef PTXCONF_IMAGE_UIMAGE
 		-T ramdisk \
 		-C gzip \
 		-n $(PTXCONF_IMAGE_UIMAGE_NAME) \
-		-d  $(IMAGEDIR)/root.ext2.gz \
+		-d $(IMAGEDIR)/root.ext2.gz \
 		$(IMAGEDIR)/uRamdisk
 endif
 ifdef PTXCONF_IMAGE_MKNBI
@@ -351,7 +351,7 @@ ifdef PTXCONF_IMAGE_MKNBI
 		 $(PTXCONF_PREFIX)/usr/local/lib/mknbi/mknbi \
 		--format=$(MKNBI_EXT) \
 		--target=linux \
-		--output=$(TOPDIR)/images/$(PTXCONF_PROJECT).$(MKNBI_EXT) \
+		--output=$(IMAGEDIR)/$(PTXCONF_PROJECT).$(MKNBI_EXT) \
 		-a $(PTXCONF_IMAGE_MKNBI_APPEND) \
 		$(MKNBI_KERNEL) \
 		$(MKNBI_ROOTFS)
@@ -620,7 +620,6 @@ rootclean: imagesclean
 	@echo
 	@echo -n "cleaning root dir................ "
 	@rm -fr $(ROOTDIR)
-	@mkdir $(ROOTDIR)
 	@echo "done."
 	@echo -n "cleaning state/*.targetinstall... "
 	@rm -f $(STATEDIR)/*.targetinstall
@@ -640,7 +639,6 @@ getclean:
 imagesclean:
 	@echo -n "cleaning images dir.............. "
 	@rm -fr $(IMAGEDIR)
-	@mkdir $(IMAGEDIR)
 	@rm -f $(STATEDIR)/images
 	@echo "done."
 

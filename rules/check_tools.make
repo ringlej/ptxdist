@@ -3,8 +3,11 @@ check_tools:
 	
 	# create some directories
 	mkdir -p $(BUILDDIR)
-	mkdir -p $(STATEDIR)
+	mkdir -p $(CROSS_BUILDDIR)
+	mkdir -p $(HOST_BUILDDIR)
+	mkdir -p $(IMAGEDIR)
 	mkdir -p $(ROOTDIR)
+	mkdir -p $(STATEDIR)
 
 	# check if some programs are available
 	$(call check_prog_exists, sed)
