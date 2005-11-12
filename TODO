@@ -33,6 +33,10 @@ Test suite components to be added
 Current TODO List
 =================
 
+- JBE:	fix Kconfig files in a way that only working combinations
+	can be selected if experimental is not checked
+- JBE:	separate between toolchains and project
+- JBE:	more help texts
 - RSC:	Test on SuSE 10.0: the following packets have to be installed: 
 	- ncurses-dev
 	- bison
