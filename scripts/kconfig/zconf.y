@@ -125,6 +125,7 @@ config_entry_start: T_CONFIG T_WORD T_EOL
 	sym->flags |= SYMBOL_OPTIONAL;
 	menu_add_entry(sym);
 	printd(DEBUG_PARSE, "%s:%d:config %s\n", zconf_curname(), zconf_lineno(), $2);
+	printf("\nDEP:%s", sym->name);
 };
 
 config_stmt: config_entry_start config_option_list
@@ -139,6 +140,7 @@ menuconfig_entry_start: T_MENUCONFIG T_WORD T_EOL
 	sym->flags |= SYMBOL_OPTIONAL;
 	menu_add_entry(sym);
 	printd(DEBUG_PARSE, "%s:%d:menuconfig %s\n", zconf_curname(), zconf_lineno(), $2);
+	printf("\nDEP:%s", sym->name);
 };
 
 menuconfig_stmt: menuconfig_entry_start config_option_list
@@ -217,8 +219,10 @@ config_option: T_DEFAULT expr if_expr T_EOL
 
 config_option: T_SELECT T_WORD if_expr T_EOL
 {
-	menu_add_symbol(P_SELECT, sym_lookup($2, 0), $3);
+	struct symbol *sym = sym_lookup($2, 0);
+	menu_add_symbol(P_SELECT, sym, $3);
 	printd(DEBUG_PARSE, "%s:%d:select\n", zconf_curname(), zconf_lineno());
+	printf(":%s", sym->name);
 };
 
 config_option: T_RANGE symbol symbol if_expr T_EOL
