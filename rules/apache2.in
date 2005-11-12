@@ -1,6 +1,5 @@
 menuconfig APACHE2
 	bool "Apache 2 HTTP Server"
-	prompt "Apache 2 HTTP server"
 	select EXPAT
 	select GLIBC_LIBRT
 
