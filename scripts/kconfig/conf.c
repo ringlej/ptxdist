@@ -13,6 +13,8 @@
 #define LKC_DIRECT_LINK
 #include "lkc.h"
 
+extern int dep_output;
+
 static void conf(struct menu *menu);
 static void check_conf(struct menu *menu);
 
@@ -492,6 +494,10 @@ int main(int ac, char **av)
 		switch (av[i++][1]) {
 		case 'o':
 			input_mode = ask_new;
+			break;
+		case 'O':
+			input_mode = ask_new;
+			dep_output = 1;
 			break;
 		case 's':
 			input_mode = ask_silent;
