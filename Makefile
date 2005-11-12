@@ -442,6 +442,16 @@ oldconfig: before_config $(TOPDIR)/scripts/kconfig/conf
 	$(call findout_config)
 	cd $(PTXDISTWORKSPACE) && $(TOPDIR)/scripts/kconfig/conf -o $(MENU)
 
+configdeps: before_config $(TOPDIR)/scripts/kconfig/conf
+	@$(call findout_config)
+	@echo
+	@echo "generating dependencies from kconfig..."
+	@cd $(PTXDISTWORKSPACE) && \
+		$(TOPDIR)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
+			2> /dev/null > $(IMAGEDIR)/configdeps
+	@echo "$(IMAGEDIR)/configdeps"
+	@echo
+
 setup: $(TOPDIR)/scripts/lxdialog/lxdialog $(TOPDIR)/scripts/kconfig/mconf
 	@rm -f $(TOPDIR)/config/setup/.config
 	@ln -sf $(TOPDIR)/scripts $(TOPDIR)/config/setup/scripts
