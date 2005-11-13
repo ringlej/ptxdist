@@ -1,28 +1,22 @@
 # -*-makefile-*-
-check_tools:
-	
-	# create some directories
-	mkdir -p $(BUILDDIR)
-	mkdir -p $(CROSS_BUILDDIR)
-	mkdir -p $(HOST_BUILDDIR)
-	mkdir -p $(IMAGEDIR)
-	mkdir -p $(ROOTDIR)
-	mkdir -p $(STATEDIR)
+check_tools: check_dirs
 
-	# check if some programs are available
+	@echo "running check_tools..."
+	
+#	# check if some programs are available
 	$(call check_prog_exists, sed)
 	$(call check_prog_exists, awk)
 	$(call check_prog_exists, perl)
 	$(call check_prog_exists, wget)
 	
-	# check if some programs are installed in the right version
+#	# check if some programs are installed in the right version
 	$(call check_prog_version, wget, -V, 1\\\\.(9|1.?)\\\\.|1\\\\.9\\\\+cvs)
 
-	# check if we have a toplevel .config file
+#	# check if we have a toplevel .config file
 	$(call check_file_exists, $(PTXDISTWORKSPACE)/.config)
 
-	# check if we have a project dir
-	@if [ -z "$(PROJECTDIR)" ]; then									\
+#	# check if we have a project dir
+	@if [ -z "$(PROJECTDIR)" ]; then								\
 		echo; 											\
 		echo "PROJECTDIR is empty. This usually means that you have"; 				\
 		echo "set PTXCONF_PROJECT, but there is no .ptxconfig file "; 				\
@@ -33,3 +27,16 @@ check_tools:
 		echo; 											\
 		exit 1; 										\
 	fi
+
+#	# check if we have a project rules dir
+	@if ! [ -d "$(PROJECTRULESDIR)" ]; then								\
+		echo; 											\
+		echo "You need a rules/ directory in your PROJECTDIR. If your PTXdist project ";	\
+		echo "is called 'foo' your projectdir is usually local_projects/foo, and I ";		\
+		echo "expect your PROJECTRULESDIR to be local_projects/foo/rules."; 			\
+		echo "check if this project does exist.";						\
+		echo;											\
+		exit 1; 										\
+	fi
+
+	
