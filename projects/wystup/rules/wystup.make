@@ -10,7 +10,7 @@
 # see the README file.
 #
 
-PACKAGES += wystup
+PACKAGES-y += wystup
 
 # ----------------------------------------------------------------------------
 # Target-Install

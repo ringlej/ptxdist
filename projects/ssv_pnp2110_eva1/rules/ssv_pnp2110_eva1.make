@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-PACKAGES += ssv_pnp2110_eva1
+PACKAGES-y += ssv_pnp2110_eva1
 
 # ----------------------------------------------------------------------------
 # Target-Install
