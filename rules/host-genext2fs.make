@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_GENEXT2FS
-HOST_PACKAGES += hosttool-genext2fs
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_GENEXT2FS) += hosttool-genext2fs
 
 #
 # Paths and names 

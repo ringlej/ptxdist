@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BONNIEXX
-PACKAGES += bonniexx
-endif
+PACKAGES-$(PTXCONF_BONNIEXX) += bonniexx
 
 #
 # Paths and names

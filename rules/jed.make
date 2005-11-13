@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_JED
-PACKAGES += jed
-endif
+PACKAGES-$(PTXCONF_JED) += jed
 
 #
 # Paths and names

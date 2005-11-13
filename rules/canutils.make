@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CANUTILS
-PACKAGES += canutils
-endif
+PACKAGES-$(PTXCONF_CANUTILS) += canutils
 
 #
 # Paths and names

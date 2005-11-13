@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_STRACE
-PACKAGES += strace
-endif
+PACKAGES-$(PTXCONF_STRACE) += strace
 
 #
 # Paths and names 

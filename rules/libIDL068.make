@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBIDL068
-PACKAGES += libidl068
-endif
+PACKAGES-$(PTXCONF_LIBIDL068) += libidl068
 
 #
 # Paths and names

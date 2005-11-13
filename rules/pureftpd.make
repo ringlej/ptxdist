@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PUREFTPD
-PACKAGES += pureftpd
-endif
+PACKAGES-$(PTXCONF_PUREFTPD) += pureftpd
 
 #
 # Paths and names

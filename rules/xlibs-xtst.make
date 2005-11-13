@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-XTST
-PACKAGES += xlibs-xtst
-endif
+PACKAGES-$(PTXCONF_XLIBS-XTST) += xlibs-xtst
 
 #
 # Paths and names

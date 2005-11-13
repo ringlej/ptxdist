@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_GRUB))
-PACKAGES += grub
-endif
+PACKAGES-$(PTXCONF_GRUB) += grub
 
 #
 # Paths and names 

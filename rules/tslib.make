@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_TSLIB
-PACKAGES += tslib
-endif
+PACKAGES-$(PTXCONF_TSLIB) += tslib
 
 #
 # Paths and names

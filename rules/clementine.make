@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CLEMENTINE
-PACKAGES += clementine
-endif
+PACKAGES-$(PTXCONF_CLEMENTINE) += clementine
 
 #
 # Paths and names

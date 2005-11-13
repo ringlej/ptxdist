@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MEMEDIT
-PACKAGES += memedit
-endif
+PACKAGES-$(PTXCONF_MEMEDIT) += memedit
 
 #
 # Paths and names

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GAWK
-PACKAGES += gawk
-endif
+PACKAGES-$(PTXCONF_GAWK) += gawk
 
 #
 # Paths and names

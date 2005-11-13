@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_FLEX
-PACKAGES += flex
-endif
+PACKAGES-$(PTXCONF_FLEX) += flex
 
 #
 # Paths and names

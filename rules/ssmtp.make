@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_SSMTP
-PACKAGES += ssmtp
-endif
+PACKAGES-$(PTXCONF_SSMTP) += ssmtp
 
 #
 # Paths and names

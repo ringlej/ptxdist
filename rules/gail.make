@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GAIL
-PACKAGES += gail
-endif
+PACKAGES-$(PTXCONF_GAIL) += gail
 
 #
 # Paths and names

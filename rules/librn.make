@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBRN
-PACKAGES += librn
-endif
+PACKAGES-$(PTXCONF_LIBRN) += librn
 
 #
 # Paths and names

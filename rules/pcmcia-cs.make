@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PCMCIA_TOOLS
-PACKAGES += pcmcia-cs
-endif
+PACKAGES-$(PTXCONF_PCMCIA_TOOLS) += pcmcia-cs
 
 #
 # Paths and names

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_ETHEREAL
-PACKAGES += ethereal
-endif
+PACKAGES-$(PTXCONF_ETHEREAL) += ethereal
 
 #
 # Paths and names

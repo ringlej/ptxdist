@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BRIDGE_UTILS
-PACKAGES += bridge-utils
-endif
+PACKAGES-$(PTXCONF_BRIDGE_UTILS) += bridge-utils
 
 #
 # Paths and names

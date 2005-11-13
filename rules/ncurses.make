@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NCURSES
-PACKAGES += ncurses
-endif
+PACKAGES-$(PTXCONF_NCURSES) += ncurses
 
 #
 # Paths and names 

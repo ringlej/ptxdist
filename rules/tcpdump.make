@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_TCPDUMP
-PACKAGES += tcpdump
-endif
+PACKAGES-$(PTXCONF_TCPDUMP) += tcpdump
 
 #
 # Paths and names

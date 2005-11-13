@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOST_TERMCAP
-HOST_PACKAGES += host-termcap
-endif
+HOST_PACKAGES-$(PTXCONF_HOST_TERMCAP) += host-termcap
 
 #
 # Paths and names

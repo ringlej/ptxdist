@@ -9,6 +9,11 @@
 #
 
 #
+# We provide this packet
+#
+PACKAGES-$(PTXCONF_GMP3) += gmp3
+
+#
 # Paths and names 
 #
 GMP3_VERSION	= 3.1.1

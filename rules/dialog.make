@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DIALOG
-PACKAGES += dialog
-endif
+PACKAGES-$(PTXCONF_DIALOG) += dialog
 
 #
 # Paths and names

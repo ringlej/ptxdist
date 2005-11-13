@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-RECORDEXT
-PACKAGES += xlibs-recordext
-endif
+PACKAGES-$(PTXCONF_XLIBS-RECORDEXT) += xlibs-recordext
 
 #
 # Paths and names

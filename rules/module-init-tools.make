@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MODULE_INIT_TOOLS
-PACKAGES += module-init-tools
-endif
+PACKAGES-$(PTXCONF_MODULE_INIT_TOOLS) += module-init-tools
 
 #
 # Paths and names

@@ -10,12 +10,12 @@
 # see the README file.
 #
 
+# FIXME: rsc: make a host tool
+
 #
 # We provide this package
 #
-ifdef PTXCONF_XGDB
-PACKAGES += xchain-gdb
-endif
+PACKAGES-$(PTXCONF_XGDB) += xchain-gdb
 
 XCHAIN_GDB_BUILDDIR	= $(BUILDDIR)/xchain-$(GDB)-build
 

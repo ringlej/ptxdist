@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GLIB26
-PACKAGES += glib26
-endif
+PACKAGES-$(PTXCONF_GLIB26) += glib26
 
 #
 # Paths and names

@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GETTEXT
-PACKAGES += gettext
-endif
+PACKAGES-$(PTXCONF_GETTEXT) += gettext
 
 #
 # Paths and names

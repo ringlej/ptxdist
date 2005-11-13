@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_UDEV
-PACKAGES += udev
-endif
+PACKAGES-$(PTXCONF_UDEV) += udev
 
 #
 # Paths and names

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_UTLNX
-PACKAGES += util-linux
-endif
+PACKAGES-$(PTXCONF_UTLNX) += util-linux
 
 #
 # Paths and names

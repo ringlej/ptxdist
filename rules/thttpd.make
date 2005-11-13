@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_THTTPD
-PACKAGES += thttpd
-endif
+PACKAGES-$(PTXCONF_THTTPD) += thttpd
 
 #
 # Paths and names

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XALF
-PACKAGES += xalf
-endif
+PACKAGES-$(PTXCONF_XALF) += xalf
 
 #
 # Paths and names

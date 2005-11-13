@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOST_SLIRP
-HOST_PACKAGES += host-slirp
-endif
+HOST_PACKAGES-$(PTXCONF_HOST_SLIRP) += host-slirp
 
 #
 # Paths and names

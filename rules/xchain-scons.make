@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XCHAIN-SCONS
-PACKAGES += xchain-scons
-endif
+PACKAGES-$(PTXCONF_XCHAIN-SCONS) += xchain-scons
 
 #
 # Paths and names

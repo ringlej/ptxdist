@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-X11
-PACKAGES += xlibs-x11
-endif
+PACKAGES-$(PTXCONF_XLIBS-X11) += xlibs-x11
 
 #
 # Paths and names

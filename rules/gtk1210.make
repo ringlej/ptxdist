@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GTK1210
-PACKAGES += gtk1210
-endif
+PACKAGES-$(PTXCONF_GTK1210) += gtk1210
 
 #
 # Paths and names

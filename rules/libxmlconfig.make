@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBXMLCONFIG
-PACKAGES += libxmlconfig
-endif
+PACKAGES-$(PTXCONF_LIBXMLCONFIG) += libxmlconfig
 
 #
 # Paths and names

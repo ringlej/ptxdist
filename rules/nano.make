@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NANO
-PACKAGES += nano
-endif
+PACKAGES-$(PTXCONF_NANO) += nano
 
 #
 # Paths and names

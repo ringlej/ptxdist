@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LRZSZ
-PACKAGES += lrzsz
-endif
+PACKAGES-$(PTXCONF_LRZSZ) += lrzsz
 
 #
 # Paths and names

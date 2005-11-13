@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DROPBEAR
-PACKAGES += dropbear
-endif
+PACKAGES-$(PTXCONF_DROPBEAR) += dropbear
 
 #
 # Paths and names

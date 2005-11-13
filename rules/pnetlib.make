@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PNETLIB
-PACKAGES += pnetlib
-endif
+PACKAGES-$(PTXCONF_PNETLIB) += pnetlib
 
 #
 # Paths and names

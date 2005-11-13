@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_FIGLET
-PACKAGES += figlet
-endif
+PACKAGES-$(PTXCONF_FIGLET) += figlet
 
 #
 # Paths and names

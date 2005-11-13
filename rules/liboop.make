@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBOOP
-PACKAGES += liboop
-endif
+PACKAGES-$(PTXCONF_LIBOOP) += liboop
 
 #
 # Paths and names

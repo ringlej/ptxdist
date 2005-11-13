@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBART
-PACKAGES += libart
-endif
+PACKAGES-$(PTXCONF_LIBART) += libart
 
 #
 # Paths and names

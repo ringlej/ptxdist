@@ -16,13 +16,13 @@
 ifndef NATIVE
 
 ifdef PTXCONF_KERNEL_2_4
-PACKAGES += kernel
+PACKAGES-$(PTXCONF_KERNEL_2_4) += kernel
 endif
 ifdef PTXCONF_KERNEL_2_6
-PACKAGES += kernel
+PACKAGES-$(PTXCONF_KERNEL_2_6) += kernel
 endif
 ifdef PTXCONF_USE_EXTERNAL_KERNEL
-PACKAGES += kernel
+PACKAGES-$(PTXCONF_USE_EXTERNAL_KERNEL) += kernel
 endif
 
 
@@ -555,7 +555,6 @@ kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-ifndef PTXCONF_DONT_COMPILE_KERNEL
 ifdef PTXCONF_KERNEL_INSTALL
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,kernel)
@@ -596,7 +595,6 @@ ifdef PTXCONF_KERNEL_INSTALL_MODULES
 	rm -fr $(KERNEL_INST_DIR)
 
 	@$(call install_finish)
-endif
 endif
 	$(call touch, $@)
 

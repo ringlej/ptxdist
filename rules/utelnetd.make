@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_UTELNETD
-PACKAGES += utelnetd
-endif
+PACKAGES-$(PTXCONF_UTELNETD) += utelnetd
 
 #
 # Paths and names 

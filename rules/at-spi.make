@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_AT-SPI
-PACKAGES += at-spi
-endif
+PACKAGES-$(PTXCONF_AT-SPI) += at-spi
 
 #
 # Paths and names

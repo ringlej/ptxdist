@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PYTHON24
-XCHAIN += xchain-python24
-endif
+XCHAIN-$(PTXCONF_PYTHON24) += xchain-python24
 
 #
 # Paths and names

@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_OMNIORB
-PACKAGES += omniorb
-endif
+PACKAGES-$(PTXCONF_OMNIORB) += omniorb
 
 #
 # Paths and names

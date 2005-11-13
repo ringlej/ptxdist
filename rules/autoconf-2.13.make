@@ -13,7 +13,7 @@
 #
 # We provide this package
 #
-#PACKAGES += autoconf213
+#PACKAGES-$() += autoconf213
 
 #
 # Paths and names 

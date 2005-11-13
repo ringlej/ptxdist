@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_APACHE2
-PACKAGES += apache2
-endif
+PACKAGES-$(PTXCONF_APACHE2) += apache2
 
 #
 # Paths and names

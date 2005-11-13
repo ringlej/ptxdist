@@ -14,9 +14,7 @@
 #
 ifdef NATIVE
 
-ifdef PTXCONF_KERNEL_HOST
-PACKAGES += kernel
-endif
+PACKAGES-$(PTXCONF_KERNEL_HOST) += kernel
 
 #
 # Use a PTXdist built kernel which is parametrized here or use one from 

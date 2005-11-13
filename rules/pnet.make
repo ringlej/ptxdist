@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PNET
-PACKAGES += pnet
-endif
+PACKAGES-$(PTXCONF_PNET) += pnet
 
 #
 # Paths and names

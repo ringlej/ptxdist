@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_INETUTILS
-PACKAGES += inetutils
-endif
+PACKAGES-$(PTXCONF_INETUTILS) += inetutils
 
 #
 # Paths and names

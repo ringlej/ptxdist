@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_EFAX
-PACKAGES += efax
-endif
+PACKAGES-$(PTXCONF_EFAX) += efax
 
 #
 # Paths and names

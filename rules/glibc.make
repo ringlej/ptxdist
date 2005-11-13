@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GLIBC
-PACKAGES	+= glibc
-endif
+PACKAGES-$(PTXCONF_GLIBC) += glibc
 
 GLIBC			= glibc-$(GLIBC_VERSION)
 

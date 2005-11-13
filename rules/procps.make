@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PROCPS
-PACKAGES += procps
-endif
+PACKAGES-$(PTXCONF_PROCPS) += procps
 
 #
 # Paths and names

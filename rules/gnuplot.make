@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GNUPLOT
-PACKAGES += gnuplot
-endif
+PACKAGES-$(PTXCONF_GNUPLOT) += gnuplot
 
 #
 # Paths and names

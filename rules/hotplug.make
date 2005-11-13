@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOTPLUG
-PACKAGES += hotplug
-endif
+PACKAGES-$(PTXCONF_HOTPLUG) += hotplug
 
 #
 # Paths and names

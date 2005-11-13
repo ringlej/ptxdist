@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-RANDR
-PACKAGES += xlibs-randr
-endif
+PACKAGES-$(PTXCONF_XLIBS-RANDR) += xlibs-randr
 
 #
 # Paths and names

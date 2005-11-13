@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CFGSH
-PACKAGES += cfgsh
-endif
+PACKAGES-$(PTXCONF_CFGSH) += cfgsh
 
 #
 # Paths and names

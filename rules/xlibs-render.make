@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-RENDER
-PACKAGES += xlibs-render
-endif
+PACKAGES-$(PTXCONF_XLIBS-RENDER) += xlibs-render
 
 #
 # Paths and names

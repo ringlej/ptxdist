@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MTD_UTILS
-PACKAGES += mtd
-endif
+PACKAGES-$(PTXCONF_MTD_UTILS) += mtd
 
 #
 # Paths and names

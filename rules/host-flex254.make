@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_FLEX254
-HOST_PACKAGES += hosttool-flex254
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_FLEX254) += hosttool-flex254
 
 #
 # Paths and names

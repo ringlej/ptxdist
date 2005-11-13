@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DHCP
-PACKAGES += dhcp
-endif
+PACKAGES-$(PTXCONF_DHCP) += dhcp
 
 #
 # Paths and names

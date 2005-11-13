@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_WXWINDOWS_X11
-PACKAGES += wxWindows
-endif
+PACKAGES-$(PTXCONF_WXWINDOWS_X11) += wxWindows
 
 #
 # Paths and names

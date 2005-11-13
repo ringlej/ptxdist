@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_WIRELESS
-PACKAGES += wireless
-endif
+PACKAGES-$(PTXCONF_WIRELESS) += wireless
 
 #
 # Paths and names 

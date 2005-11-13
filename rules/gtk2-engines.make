@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GTK2-ENGINES
-PACKAGES += gtk2-engines
-endif
+PACKAGES-$(PTXCONF_GTK2) += gtk2-engines
 
 #
 # Paths and names

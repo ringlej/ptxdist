@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_KAFFE
-XCHAIN += xchain-python
-endif
+XCHAIN-$(PTXCONF_KAFFE) += xchain-python
 
 #
 # Paths and names

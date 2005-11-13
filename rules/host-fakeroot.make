@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_FAKEROOT
-HOST_PACKAGES += hosttool-fakeroot
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_FAKEROOT) += hosttool-fakeroot
 
 #
 # Paths and names

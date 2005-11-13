@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_TINYLOGIN
-PACKAGES += tinylogin
-endif
+PACKAGES-$(PTXCONF_TINYLOGIN) += tinylogin
 
 #
 # Paths and names 

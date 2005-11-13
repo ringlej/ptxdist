@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PCMCIAUTILS
-PACKAGES += pcmciautils
-endif
+PACKAGES-$(PTXCONF_PCMCIAUTILS) += pcmciautils
 
 #
 # Paths and names

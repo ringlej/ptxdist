@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_JOE
-PACKAGES += joe
-endif
+PACKAGES-$(PTXCONF_JOE) += joe
 
 #
 # Paths and names

@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PORTMAP
-PACKAGES += portmap
-endif
+PACKAGES-$(PTXCONF_PORTMAP) += portmap
 
 #
 # Paths and names 

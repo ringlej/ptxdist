@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_RAWREC
-PACKAGES += rawrec
-endif
+PACKAGES-$(PTXCONF_RAWREC) += rawrec
 
 #
 # Paths and names

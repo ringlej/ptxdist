@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_KONQ-E
-PACKAGES += konq-e
-endif
+PACKAGES-$(PTXCONF_KONQ-E) += konq-e
 
 #
 # Paths and names

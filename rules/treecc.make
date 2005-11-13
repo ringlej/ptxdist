@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_TREECC
-PACKAGES += treecc
-endif
+PACKAGES-$(PTXCONF_TREECC) += treecc
 
 #
 # Paths and names

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_IPKG
-HOST_PACKAGES += hosttool-ipkg
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_IPKG) += hosttool-ipkg
 
 #
 # Paths and names

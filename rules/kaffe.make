@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_KAFFE
-PACKAGES += kaffe
-endif
+PACKAGES-$(PTXCONF_KAFFE) += kaffe
 
 #
 # Paths and names

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MEMTESTER
-PACKAGES += memtester
-endif
+PACKAGES-$(PTXCONF_MEMTESTER) += memtester
 
 #
 # Paths and names

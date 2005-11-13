@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_SETMIXER
-PACKAGES += setmixer
-endif
+PACKAGES-$(PTXCONF_SETMIXER) += setmixer
 
 #
 # Paths and names

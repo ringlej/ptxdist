@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DOSFSTOOLS
-PACKAGES += dosfstools
-endif
+PACKAGES-$(PTXCONF_DOSFSTOOLS) += dosfstools
 
 #
 # Paths and names

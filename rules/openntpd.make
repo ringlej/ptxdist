@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_OPENNTPD
-PACKAGES += openntpd
-endif
+PACKAGES-$(PTXCONF_OPENNTPD) += openntpd
 
 #
 # Paths and names

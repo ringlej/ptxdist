@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PYTHON24
-PACKAGES += python24
-endif
+PACKAGES-$(PTXCONF_PYTHON24) += python24
 
 #
 # Paths and names 

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBXML2
-PACKAGES += libxml2
-endif
+PACKAGES-$(PTXCONF_LIBXML2) += libxml2
 
 #
 # Paths and names

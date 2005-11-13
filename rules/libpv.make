@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBPV
-PACKAGES += libpv
-endif
+PACKAGES-$(PTXCONF_LIBPV) += libpv
 
 #
 # Paths and names

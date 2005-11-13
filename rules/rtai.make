@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_RTAI
-PACKAGES += rtai
-endif
+PACKAGES-$(PTXCONF_RTAI) += rtai
 
 #
 # Paths and names 

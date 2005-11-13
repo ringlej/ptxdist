@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-XEXTENSIONS
-PACKAGES += xlibs-xextensions
-endif
+PACKAGES-$(PTXCONF_XLIBS-XEXTENSIONS) += xlibs-xextensions
 
 #
 # Paths and names

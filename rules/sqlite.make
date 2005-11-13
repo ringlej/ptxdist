@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_SQLITE
-PACKAGES += sqlite
-endif
+PACKAGES-$(PTXCONF_SQLITE) += sqlite
 
 #
 # Paths and names

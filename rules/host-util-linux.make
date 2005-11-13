@@ -13,6 +13,9 @@
 # Paths and names
 #
 
+# FIXME: RSC: check if this is correct
+HOSTPACKAGES-$(HOSTTOOL_UTIL-LINUX) += hosttool-util-linux
+
 HOSTTOOL_UTIL-LINUX_DIR	= $(BUILDDIR)/hosttool/$(UTIL-LINUX)
 
 # ----------------------------------------------------------------------------

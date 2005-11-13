@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_E2FSPROGS
-HOST_PACKAGES += hosttool-e2fsprogs
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_E2FSPROGS) += hosttool-e2fsprogs
 
 #
 # Paths and names 

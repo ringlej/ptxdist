@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NETKIT-FTP
-PACKAGES += netkit-ftp
-endif
+PACKAGES-$(PTXCONF_NETKIT-FTP) += netkit-ftp
 
 #
 # Paths and names

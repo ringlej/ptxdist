@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_QT
-PACKAGES += qt
-endif
+PACKAGES-$(PTXCONF_QT) += qt
 
 #
 # Paths and names

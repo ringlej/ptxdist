@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CRAMFS
-PACKAGES += cramfs
-endif
+PACKAGES-$(PTXCONF_CRAMFS) += cramfs
 
 #
 # Paths and names

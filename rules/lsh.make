@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LSH
-PACKAGES += lsh
-endif
+PACKAGES-$(PTXCONF_LSH) += lsh
 
 #
 # Paths and names

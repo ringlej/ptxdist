@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GDB_WRAPPER
-PACKAGES += gdb-wrapper
-endif
+PACKAGES-$(PTXCONF_GDB_WRAPPER) += gdb-wrapper
 
 # ----------------------------------------------------------------------------
 # Get

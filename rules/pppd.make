@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PPP
-PACKAGES += ppp
-endif
+PACKAGES-$(PTXCONF_PPP) += ppp
 
 #
 # Paths and names 

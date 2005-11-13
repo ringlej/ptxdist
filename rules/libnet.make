@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBNET
-PACKAGES += libnet
-endif
+PACKAGES-$(PTXCONF_LIBNET) += libnet
 
 #
 # Paths and names

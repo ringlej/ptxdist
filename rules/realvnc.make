@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_REALVNC
-PACKAGES += realvnc
-endif
+PACKAGES-$(PTXCONF_REALVNC) += realvnc
 
 #
 # Paths and names

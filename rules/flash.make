@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifeq (y,$(PTXCONF_FLASH))
-PACKAGES += flash
-endif
+PACKAGES-$(PTXCONF_FLASH) += flash
 
 #
 # Paths and names 

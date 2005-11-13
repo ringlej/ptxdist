@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_E2TOOLS
-PACKAGES += hosttool-e2tools
-endif
+PACKAGES-$(PTXCONF_E2TOOLS) += hosttool-e2tools
 
 #
 # Paths and names

@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_SYSVINIT
-PACKAGES += sysvinit
-endif
+PACKAGES-$(PTXCONF_SYSVINIT) += sysvinit
 
 #
 # Paths and names

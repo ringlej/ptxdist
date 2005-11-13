@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_MKNBI
-HOST_PACKAGES += hosttool-mknbi
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_MKNBI) += hosttool-mknbi
 
 #
 # Paths and names

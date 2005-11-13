@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOST_APACHE2
-HOST_PACKAGES += host-apache2
-endif
+HOST_PACKAGES-$(PTXCONF_HOST_APACHE2) += host-apache2
 
 #
 # Paths and names

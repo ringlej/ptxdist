@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BUSYBOX
-PACKAGES += busybox
-endif
+PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 
 #
 # Paths and names

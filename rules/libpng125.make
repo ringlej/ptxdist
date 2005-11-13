@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBPNG125
-PACKAGES += libpng125
-endif
+PACKAGES-$(PTXCONF_LIBPNG125) += libpng125
 
 #
 # Paths and names

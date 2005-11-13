@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PARANOIA
-PACKAGES += paranoia
-endif
+PACKAGES-$(PTXCONF_PARANOIA) += paranoia
 
 #
 # Paths and names

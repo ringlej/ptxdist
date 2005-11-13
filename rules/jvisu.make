@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_JVISU
-PACKAGES += jvisu
-endif
+PACKAGES-$(PTXCONF_JVISU) += jvisu
 
 #
 # Paths and names

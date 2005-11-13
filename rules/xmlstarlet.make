@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XMLSTARLET
-PACKAGES += xmlstarlet
-endif
+PACKAGES-$(PTXCONF_XMLSTARLET) += xmlstarlet
 
 #
 # Paths and names

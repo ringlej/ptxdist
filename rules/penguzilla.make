@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PENGUZILLA
-PACKAGES += penguzilla
-endif
+PACKAGES-$(PTXCONF_PENGUZILLA) += penguzilla
 
 #
 # Paths and names

@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CGICC
-PACKAGES += cgicc
-endif
+PACKAGES-$(PTXCONF_CGICC) += cgicc
 
 #
 # Paths and names

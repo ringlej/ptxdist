@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HDPARM
-PACKAGES += hdparm
-endif
+PACKAGES-$(PTXCONF_HDPARM) += hdparm
 
 #
 # Paths and names

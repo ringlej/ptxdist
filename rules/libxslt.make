@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBXSLT
-PACKAGES += libxslt
-endif
+PACKAGES-$(PTXCONF_LIBXSLT) += libxslt
 
 #
 # Paths and names

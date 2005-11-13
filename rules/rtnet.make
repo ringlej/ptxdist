@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_RTNET
-PACKAGES += rtnet
-endif
+PACKAGES-$(PTXCONF_RTNET) += rtnet
 
 #
 # Paths and names

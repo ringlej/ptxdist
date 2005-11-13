@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_IPKG
-PACKAGES += ipkg
-endif
+PACKAGES-$(PTXCONF_IPKG) += ipkg
 
 #
 # Paths and names

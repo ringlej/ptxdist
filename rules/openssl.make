@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_OPENSSL
-PACKAGES += openssl
-endif
+PACKAGES-$(PTXCONF_OPENSSL) += openssl
 
 #
 # Paths and names 

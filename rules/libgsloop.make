@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBGSLOOP
-PACKAGES += libgsloop
-endif
+PACKAGES-$(PTXCONF_LIBGSLOOP) += libgsloop
 
 #
 # Paths and names

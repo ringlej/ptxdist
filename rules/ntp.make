@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NTP
-PACKAGES += ntp
-endif
+PACKAGES-$(PTXCONF_NTP) += ntp
 
 #
 # Paths and names

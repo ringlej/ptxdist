@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XFREE430
-PACKAGES += xfree430
-endif
+PACKAGES-$(PTXCONF_XFREE430) += xfree430
 
 #
 # Paths and names

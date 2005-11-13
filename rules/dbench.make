@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DBENCH
-PACKAGES += dbench
-endif
+PACKAGES-$(PTXCONF_DBENCH) += dbench
 
 #
 # Paths and names

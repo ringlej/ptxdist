@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PROFTPD
-PACKAGES += proftpd
-endif
+PACKAGES-$(PTXCONF_PROFTPD) += proftpd
 
 #
 # Paths and names 

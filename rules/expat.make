@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_EXPAT
-PACKAGES += expat
-endif
+PACKAGES-$(PTXCONF_EXPAT) += expat
 
 #
 # Paths and names

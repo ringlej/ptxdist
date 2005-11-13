@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BIND
-PACKAGES += bind
-endif
+PACKAGES-$(PTXCONF_BIND) += bind
 
 #
 # Paths and names

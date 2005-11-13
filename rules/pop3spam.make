@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_POP3SPAM
-PACKAGES += pop3spam
-endif
+PACKAGES-$(PTXCONF_POP3SPAM) += pop3spam
 
 #
 # Paths and names

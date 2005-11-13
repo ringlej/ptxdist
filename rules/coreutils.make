@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_COREUTILS
-PACKAGES += coreutils
-endif
+PACKAGES-$(PTXCONF_COREUTILS) += coreutils
 
 #
 # Paths and names 

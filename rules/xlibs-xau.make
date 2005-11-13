@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-XAU
-PACKAGES += xlibs-xau
-endif
+PACKAGES-$(PTXCONF_XLIBS-XAU) += xlibs-xau
 
 #
 # Paths and names

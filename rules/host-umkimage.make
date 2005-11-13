@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_UMKIMAGE
-HOST_PACKAGES += hosttool-umkimage
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_UMKIMAGE) += hosttool-umkimage
 
 #
 # Paths and names

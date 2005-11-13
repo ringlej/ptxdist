@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CHRONY
-PACKAGES += chrony
-endif
+PACKAGES-$(PTXCONF_CHRONY) += chrony
 
 #
 # Paths and names

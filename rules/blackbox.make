@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BLACKBOX
-PACKAGES += blackbox
-endif
+PACKAGES-$(PTXCONF_BLACKBOX) += blackbox
 
 #
 # Paths and names

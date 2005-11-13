@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-XFONT
-PACKAGES += xlibs-xfont
-endif
+PACKAGES-$(PTXCONF_XLIBS-XFONT) += xlibs-xfont
 
 #
 # Paths and names

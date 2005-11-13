@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PHP_APC
-PACKAGES += php-apc
-endif
+PACKAGES-$(PTXCONF_PHP_APC) += php-apc
 
 #
 # Paths and names

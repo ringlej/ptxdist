@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_KSYMOOPS
-HOST_PACKAGES += hosttool-ksymoops
-endif
+HOST_PACKAGES-$(PTXCONF_KSYMOOPS) += hosttool-ksymoops
 
 #
 # Paths and names 

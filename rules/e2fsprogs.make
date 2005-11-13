@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_E2FSPROGS
-PACKAGES += e2fsprogs
-endif
+PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 
 #
 # Paths and names 

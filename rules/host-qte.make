@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOST_QTE
-HOST_PACKAGES += host-qte
-endif
+HOST_PACKAGES-$(PTXCONF_HOST_QTE) += host-qte
 
 #
 # Paths and names

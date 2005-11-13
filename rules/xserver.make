@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XSERVER
-PACKAGES += xserver
-endif
+PACKAGES-$(PTXCONF_XSERVER) += xserver
 
 #
 # Paths and names

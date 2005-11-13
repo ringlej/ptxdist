@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS
-HOST_PACKAGES += hosttool-module-init-tools
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS) += hosttool-module-init-tools
 
 #
 # Paths and names

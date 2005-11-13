@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-FIXESEXT
-PACKAGES += xlibs-fixesext
-endif
+PACKAGES-$(PTXCONF_XLIBS-FIXESEXT) += xlibs-fixesext
 
 #
 # Paths and names

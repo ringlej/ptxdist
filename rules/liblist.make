@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBLIST
-PACKAGES += liblist
-endif
+PACKAGES-$(PTXCONF_LIBLIST) += liblist
 
 #
 # Paths and names

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MII-DIAG
-PACKAGES += mii-diag
-endif
+PACKAGES-$(PTXCONF_MII-DIAG) += mii-diag
 
 #
 # Paths and names

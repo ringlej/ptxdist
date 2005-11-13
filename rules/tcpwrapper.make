@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_TCPWRAPPER
-PACKAGES += tcpwrapper
-endif
+PACKAGES-$(PTXCONF_TCPWRAPPER) += tcpwrapper
 
 #
 # Paths and names 

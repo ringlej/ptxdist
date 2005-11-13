@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_ROOTFS
-PACKAGES += rootfs
-endif
+PACKAGES-$(PTXCONF_ROOTFS) += rootfs
 
 # ----------------------------------------------------------------------------
 # Get

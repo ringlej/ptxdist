@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_VALGRIND
-PACKAGES += valgrind
-endif
+PACKAGES-$(PTXCONF_VALGRIND) += valgrind
 
 #
 # Paths and names

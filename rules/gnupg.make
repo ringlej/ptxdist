@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GNUPG
-PACKAGES += gnupg
-endif
+PACKAGES-$(PTXCONF_GNUPG) += gnupg
 
 #
 # Paths and names

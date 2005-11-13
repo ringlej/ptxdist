@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NMAP
-PACKAGES += nmap
-endif
+PACKAGES-$(PTXCONF_NMAP) += nmap
 
 #
 # We depend on this package

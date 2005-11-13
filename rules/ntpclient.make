@@ -4,9 +4,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NTPCLIENT
-PACKAGES += ntpclient
-endif
+PACKAGES-$(PTXCONF_NTPCLIENT) += ntpclient
 
 #
 # Paths and names

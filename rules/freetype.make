@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_FREETYPE
-PACKAGES += freetype
-endif
+PACKAGES-$(PTXCONF_FREETYPE) += freetype
 
 #
 # Paths and names

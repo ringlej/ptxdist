@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DIFFUTILS
-PACKAGES += diffutils
-endif
+PACKAGES-$(PTXCONF_DIFFUTILS) += diffutils
 
 #
 # Paths and names

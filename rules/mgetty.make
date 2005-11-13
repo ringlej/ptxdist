@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MGETTY
-PACKAGES += mgetty
-endif
+PACKAGES-$(PTXCONF_MGETTY) += mgetty
 
 #
 # Paths and names

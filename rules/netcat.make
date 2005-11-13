@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NETCAT
-PACKAGES += netcat
-endif
+PACKAGES-$(PTXCONF_NETCAT) += netcat
 
 #
 # Paths and names

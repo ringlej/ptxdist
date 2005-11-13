@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_FLTK
-PACKAGES += fltk
-endif
+PACKAGES-$(PTXCONF_FLTK) += fltk
 
 #
 # Paths and names

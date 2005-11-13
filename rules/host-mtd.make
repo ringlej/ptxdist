@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_MTD
-HOST_PACKAGES += hosttool-mtd
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_MTD) += hosttool-mtd
 
 #
 # Paths and names

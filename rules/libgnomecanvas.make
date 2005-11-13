@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBGNOMECANVAS
-PACKAGES += libgnomecanvas
-endif
+PACKAGES-$(PTXCONF_LIBGNOMECANVAS) += libgnomecanvas
 
 #
 # Paths and names

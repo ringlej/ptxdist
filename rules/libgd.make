@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBGD
-PACKAGES += libgd
-endif
+PACKAGES-$(PTXCONF_LIBGD) += libgd
 
 #
 # Paths and names

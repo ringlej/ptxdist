@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HEXEDIT
-PACKAGES += hexedit
-endif
+PACKAGES-$(PTXCONF_HEXEDIT) += hexedit
 
 #
 # Paths and names

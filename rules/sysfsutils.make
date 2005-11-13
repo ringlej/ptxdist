@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_SYSFSUTILS
-PACKAGES += sysfsutils
-endif
+PACKAGES-$(PTXCONF_SYSFSUTILS) += sysfsutils
 
 #
 # Paths and names

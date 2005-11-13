@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XVKBD
-PACKAGES += xvkbd
-endif
+PACKAGES-$(PTXCONF_XVKBD) += xvkbd
 
 #
 # Paths and names

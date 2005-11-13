@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_TERMCAP
-PACKAGES += termcap
-endif
+PACKAGES-$(PTXCONF_TERMCAP) += termcap
 
 #
 # Paths and names

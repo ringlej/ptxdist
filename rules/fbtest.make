@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_FBTEST
-PACKAGES += fbtest
-endif
+PACKAGES-$(PTXCONF_FBTEST) += fbtest
 
 #
 # Paths and names

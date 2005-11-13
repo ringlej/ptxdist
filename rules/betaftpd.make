@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BETAFTPD
-PACKAGES += betaftpd
-endif
+PACKAGES-$(PTXCONF_BETAFTPD) += betaftpd
 
 #
 # Paths and names

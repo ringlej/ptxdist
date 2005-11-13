@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PYTHON23
-PACKAGES += python
-endif
+PACKAGES-$(PTXCONF_PYTHON23) += python
 
 #
 # Paths and names 

@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-XEXT
-PACKAGES += xlibs-xext
-endif
+PACKAGES-$(PTXCONF_XLIBS-XEXT) += xlibs-xext
 
 #
 # Paths and names

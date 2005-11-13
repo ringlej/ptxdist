@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_FBUTILS
-PACKAGES += fbutils
-endif
+PACKAGES-$(PTXCONF_FBUTILS) += fbutils
 
 #
 # Paths and names

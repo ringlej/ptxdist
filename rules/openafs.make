@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_OPENAFS
-PACKAGES += openafs
-endif
+PACKAGES-$(PTXCONF_OPENAFS) += openafs
 
 #
 # Paths and names

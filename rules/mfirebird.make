@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MFIREBIRD
-PACKAGES += mfirebird
-endif
+PACKAGES-$(PTXCONF_MFIREBIRD) += mfirebird
 
 #
 # Paths and names

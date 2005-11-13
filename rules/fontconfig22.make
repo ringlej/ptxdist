@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_FONTCONFIG22
-PACKAGES += fontconfig22
-endif
+PACKAGES-$(PTXCONF_FONTCONFIG22) += fontconfig22
 
 
 # http://pdx.freedesktop.org/~fontconfig/release/fontconfig-2.2.92.tar.gz

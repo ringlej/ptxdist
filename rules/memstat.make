@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MEMSTAT
-PACKAGES += memstat
-endif
+PACKAGES-$(PTXCONF_MEMSTAT) += memstat
 
 #
 # Paths and names

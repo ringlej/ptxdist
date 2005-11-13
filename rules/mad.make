@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MAD
-PACKAGES += mad
-endif
+PACKAGES-$(PTXCONF_MAD) += mad
 
 #
 # Paths and names

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DNSMASQ
-PACKAGES += dnsmasq
-endif
+PACKAGES-$(PTXCONF_DNSMASQ) += dnsmasq
 
 #
 # Paths and names

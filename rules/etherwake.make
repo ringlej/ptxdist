@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_ETHERWAKE
-PACKAGES += etherwake
-endif
+PACKAGES-$(PTXCONF_ETHERWAKE) += etherwake
 
 #
 # Paths and names

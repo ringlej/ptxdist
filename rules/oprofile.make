@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_OPROFILE
-PACKAGES += oprofile
-endif
+PACKAGES-$(PTXCONF_OPROFILE) += oprofile
 
 #
 # Paths and names

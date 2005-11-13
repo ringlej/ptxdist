@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_READLINE
-PACKAGES += readline
-endif
+PACKAGES-$(PTXCONF_READLINE) += readline
 
 #
 # Paths and names

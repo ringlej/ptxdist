@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_TROLL-FTPD
-PACKAGES += troll-ftpd
-endif
+PACKAGES-$(PTXCONF_TROLL-FTPD) += troll-ftpd
 
 #
 # Paths and names

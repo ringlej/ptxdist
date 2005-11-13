@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-XTRANS
-PACKAGES += xlibs-xtrans
-endif
+PACKAGES-$(PTXCONF_XLIBS-XTRANS) += xlibs-xtrans
 
 #
 # Paths and names

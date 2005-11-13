@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_ZEBRA
-PACKAGES += zebra
-endif
+PACKAGES-$(PTXCONF_ZEBRA) += zebra
 
 #
 # Paths and names 

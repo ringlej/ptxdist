@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_POPT
-PACKAGES += popt
-endif
+PACKAGES-$(PTXCONF_POPT) += popt
 
 #
 # Paths and names

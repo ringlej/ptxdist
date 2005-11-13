@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CROSSTOOL
-PACKAGES += crosstool
-endif
+PACKAGES-$(PTXCONF_CROSSTOOL) += crosstool
 
 #
 # Paths and names

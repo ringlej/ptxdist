@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_IPTABLES
-PACKAGES += iptables
-endif
+PACKAGES-$(PTXCONF_IPTABLES) += iptables
 
 #
 # Paths and names

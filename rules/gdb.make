@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GDB
-PACKAGES += gdb
-endif
+PACKAGES-$(PTXCONF_GDB) += gdb
 
 #
 # Paths and names 

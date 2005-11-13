@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NASM
-PACKAGES += xchain-nasm
-endif
+PACKAGES-$(PTXCONF_NASM) += xchain-nasm
 
 #
 # Paths and names

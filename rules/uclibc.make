@@ -12,8 +12,8 @@
 #
 # We provide this package
 #
+PACKAGES-$(PTXCONF_UCLIBC) += uclibc
 ifdef PTXCONF_UCLIBC
-PACKAGES	+= uclibc
 DYNAMIC_LINKER	=  /lib/ld-uClibc.so.0
 endif
 

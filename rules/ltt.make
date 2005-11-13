@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LTT
-PACKAGES += ltt
-endif
+PACKAGES-$(PTXCONF_LTT) += ltt
 
 #
 # Paths and names 

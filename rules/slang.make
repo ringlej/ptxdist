@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_SLANG
-PACKAGES += slang
-endif
+PACKAGES-$(PTXCONF_SLANG) += slang
 
 #
 # Paths and names

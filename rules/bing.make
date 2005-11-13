@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BING
-PACKAGES += bing
-endif
+PACKAGES-$(PTXCONF_BING) += bing
 
 #
 # Paths and names

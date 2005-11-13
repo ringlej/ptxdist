@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GTK22
-PACKAGES += gtk22
-endif
+PACKAGES-$(PTXCONF_GTK22) += gtk22
 
 #
 # Paths and names

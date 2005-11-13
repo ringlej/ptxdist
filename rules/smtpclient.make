@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_SMTPCLIENT
-PACKAGES += smtpclient
-endif
+PACKAGES-$(PTXCONF_SMTPCLIENT) += smtpclient
 
 #
 # Paths and names

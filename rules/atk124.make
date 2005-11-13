@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_ATK
-PACKAGES += atk
-endif
+PACKAGES-$(PTXCONF_ATK) += atk
 
 #
 # Paths and names

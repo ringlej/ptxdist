@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_SHOREWALL
-PACKAGES += shorewall
-endif
+PACKAGES-$(PTXCONF_SHOREWALL) += shorewall
 
 #
 # Paths and names

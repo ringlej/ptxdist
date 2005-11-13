@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GLIB22
-PACKAGES += glib22
-endif
+PACKAGES-$(PTXCONF_GLIB22) += glib22
 
 #
 # Paths and names

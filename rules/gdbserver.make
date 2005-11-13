@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GDBSERVER
-PACKAGES += gdbserver
-endif
+PACKAGES-$(PTXCONF_GDBSERVER) += gdbserver
 
 GDBSERVER_BUILDDIR	= $(BUILDDIR)/$(GDB)-server-build
 

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_MODUTILS
-HOST_PACKAGES += hosttool-modutils
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_MODUTILS) += hosttool-modutils
 
 #
 # Paths and names

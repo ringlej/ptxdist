@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PDKSH
-PACKAGES += pdksh
-endif
+PACKAGES-$(PTXCONF_PDKSH) += pdksh
 
 #
 # Paths and names 

@@ -10,9 +10,7 @@
 
 # FIXME: RSC: this packet installs only libbfd; check what else we would need
 
-ifdef PTXCONF_LIBBFD
-PACKAGES += binutils
-endif
+PACKAGES-$(PTXCONF_LIBBFD) += binutils
 
 #
 # Paths and names 

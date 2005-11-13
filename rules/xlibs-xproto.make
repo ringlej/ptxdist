@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-XPROTO
-PACKAGES += xlibs-xproto
-endif
+PACKAGES-$(PTXCONF_XLIBS-XPROTO) += xlibs-xproto
 
 #
 # Paths and names

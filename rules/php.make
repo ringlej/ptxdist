@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PHP
-PACKAGES += php
-endif
+PACKAGES-$(PTXCONF_PHP) += php
 
 #
 # Paths and names

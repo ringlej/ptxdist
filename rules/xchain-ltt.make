@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LTT
-XCHAIN += xchain-ltt
-endif
+XCHAIN-$(PTXCONF_LTT) += xchain-ltt
 
 XCHAIN_LTT_BUILDDIR	= $(BUILDDIR)/xchain-$(LTT)-build
 

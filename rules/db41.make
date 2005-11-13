@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DB41
-PACKAGES += db41
-endif
+PACKAGES-$(PTXCONF_DB41) += db41
 
 #
 # Paths and names

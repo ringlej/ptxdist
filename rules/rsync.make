@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_RSYNC
-PACKAGES += rsync
-endif
+PACKAGES-$(PTXCONF_RSYNC) += rsync
 
 #
 # Paths and names

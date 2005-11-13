@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NFSUTILS
-PACKAGES += nfsutils
-endif
+PACKAGES-$(PTXCONF_NFSUTILS) += nfsutils
 
 #
 # Paths and names 

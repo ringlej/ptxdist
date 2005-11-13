@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBPCAP
-PACKAGES += libpcap
-endif
+PACKAGES-$(PTXCONF_LIBPCAP) += libpcap
 
 #
 # Paths and names

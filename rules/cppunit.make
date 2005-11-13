@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CPPUNIT
-PACKAGES += cppunit
-endif
+PACKAGES-$(PTXCONF_CPPUNIT) += cppunit
 
 #
 # Paths and names

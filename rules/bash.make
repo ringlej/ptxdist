@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BASH
-PACKAGES += bash
-endif
+PACKAGES-$(PTXCONF_BASH) += bash
 
 #
 # Paths and names 

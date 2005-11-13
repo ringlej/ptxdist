@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBGLADE
-PACKAGES += libglade
-endif
+PACKAGES-$(PTXCONF_LIBGLADE) += libglade
 
 #
 # Paths and names

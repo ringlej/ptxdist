@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PANGO12
-PACKAGES += pango
-endif
+PACKAGES-$(PTXCONF_PANGO12) += pango
 
 #
 # Paths and names

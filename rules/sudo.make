@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_SUDO
-PACKAGES += sudo
-endif
+PACKAGES-$(PTXCONF_SUDO) += sudo
 
 #
 # Paths and names

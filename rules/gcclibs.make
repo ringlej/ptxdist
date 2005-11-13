@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GCCLIBS_GCC_S
-PACKAGES += gcclibs
-endif
+PACKAGES-$(PTXCONF_GCCLIBS_GCC_S) += gcclibs
 
 
 # ----------------------------------------------------------------------------

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_OPENSSH
-PACKAGES += openssh
-endif
+PACKAGES-$(PTXCONF_OPENSSH) += openssh
 
 #
 # We depend on this package

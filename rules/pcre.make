@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PCRE
-PACKAGES += pcre
-endif
+PACKAGES-$(PTXCONF_PCRE) += pcre
 
 #
 # Paths and names

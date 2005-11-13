@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CLOCK
-PACKAGES += clock
-endif
+PACKAGES-$(PTXCONF_CLOCK) += clock
 
 #
 # Paths and names

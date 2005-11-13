@@ -9,12 +9,12 @@
 # see the README file.
 #
 
+# FIXME: rsc: make a host tool
+
 #
 # We provide this package
 #
-ifdef PTXCONF_XCHAIN-DISTCC
-PACKAGES += xchain-distcc
-endif
+PACKAGES-$(PTXCONF_XCHAIN-DISTCC) += xchain-distcc
 
 #
 # Paths and names

@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-DAMAGEEXT
-PACKAGES += xlibs-damageext
-endif
+PACKAGES-$(PTXCONF_XLIBS-DAMAGEEXT) += xlibs-damageext
 
 #
 # Paths and names
