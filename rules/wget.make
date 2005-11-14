@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_VALGRIND) += wget
+PACKAGES-$(PTXCONF_WGET) += wget
 
 #
 # Paths and names
