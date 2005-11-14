@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_@PACKET@
-HOST_PACKAGES += @packet@
-endif
+HOST_PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 
 #
 # Paths and names

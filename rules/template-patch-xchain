@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_@PACKET_NAME@_@PATCH@
-@PACKET@_PATCHES += @packet@-@patch@
-endif
+@PACKET@_PATCHES-$(PTXCONF_@PACKET_NAME@_@PATCH@) += @packet@-@patch@
 
 # ----------------------------------------------------------------------------
 # Get

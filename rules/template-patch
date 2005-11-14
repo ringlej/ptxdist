@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_@PACKET@_@PATCH@
-@PACKET@_PATCHES += @packet@-@patch@
-endif
+@PACKET@_PATCHES-PTXCONF_@PACKET@_@PATCH@ += @packet@-@patch@
 
 #
 # Paths and names

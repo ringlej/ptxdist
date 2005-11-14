@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_@PACKET@
-CROSS_PACKAGES += @packet@
-endif
+CROSS_PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 
 #
 # Paths and names
