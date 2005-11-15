@@ -1,0 +1,14 @@
+#
+# rules/earlyuserspace.in
+#
+
+menu	"Early Userspace     "
+
+config KLIBC
+	bool "klibc"
+	default N
+	help
+	  klibc is a lightweight C library for early userspace. 
+	  See http://www.kernel.org/pub/linux/libs/klibc for details. 
+
+endmenu
