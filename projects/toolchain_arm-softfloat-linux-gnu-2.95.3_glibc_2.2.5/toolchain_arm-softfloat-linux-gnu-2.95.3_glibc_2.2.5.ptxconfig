@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Tue Nov 15 22:50:45 2005
+# Tue Nov 15 18:06:57 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -84,7 +84,7 @@ PTXCONF_ARM_PROC="armv"
 #
 # Paths & Directories
 #
-PTXCONF_PREFIX="/opt/crosstool-0.38"
+PTXCONF_PREFIX="/opt/crosstool-0.32"
 PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_ROOT=""
@@ -327,11 +327,6 @@ PTXCONF_GLIBC_2_2_5=y
 #
 # PTXCONF_GCCLIBS_CXX is not set
 # PTXCONF_GCCLIBS_GCC_S is not set
-
-#
-# Early Userspace     
-#
-# PTXCONF_KLIBC is not set
 
 #
 # ----------------------------------

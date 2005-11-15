@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Tue Nov 15 22:51:12 2005
+# Sat Nov 12 23:28:07 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -71,7 +71,7 @@ PTXCONF_ARCH_USERSPACE="i386"
 #
 # Paths & Directories
 #
-PTXCONF_PREFIX="/opt/crosstool-0.38"
+PTXCONF_PREFIX="/opt/crosstool-0.32"
 PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_ROOT=""
@@ -91,8 +91,6 @@ PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 # Crosstool
 #
 PTXCONF_CROSSTOOL=y
-# PTXCONF_CROSSTOOL_VERSION_0_32 is not set
-PTXCONF_CROSSTOOL_VERSION_0_38=y
 # PTXCONF_GCC_2_95_3 is not set
 # PTXCONF_GCC_3_2_3 is not set
 # PTXCONF_GCC_3_3_2 is not set
@@ -100,11 +98,8 @@ PTXCONF_GCC_3_3_3=y
 # PTXCONF_GCC_3_4_0 is not set
 # PTXCONF_GCC_3_4_1 is not set
 # PTXCONF_GCC_3_4_2 is not set
-# PTXCONF_GCC_3_4_3 is not set
-# PTXCONF_GCC_3_4_4 is not set
 PTXCONF_CROSSTOOL_GCCLANG_CC=y
 # PTXCONF_GCC_MULTILIB is not set
-# PTXCONF_BINUTILS_2_16_1 is not set
 # PTXCONF_BINUTILS_2_15 is not set
 PTXCONF_BINUTILS_2_14_90_0_5=y
 # PTXCONF_BINUTILS_2_14 is not set
@@ -451,11 +446,6 @@ PTXCONF_UC_DEVEL_PREFIX="/usr/$(TARGET_ARCH)-linux-uclibc/usr/"
 #
 # PTXCONF_GCCLIBS_CXX is not set
 # PTXCONF_GCCLIBS_GCC_S is not set
-
-#
-# Early Userspace     
-#
-# PTXCONF_KLIBC is not set
 
 #
 # ----------------------------------
