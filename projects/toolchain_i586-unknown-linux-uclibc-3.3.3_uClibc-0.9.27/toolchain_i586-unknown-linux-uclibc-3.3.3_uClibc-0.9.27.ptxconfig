@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Tue Nov 15 18:17:36 2005
+# Tue Nov 15 22:51:12 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -451,6 +451,11 @@ PTXCONF_UC_DEVEL_PREFIX="/usr/$(TARGET_ARCH)-linux-uclibc/usr/"
 #
 # PTXCONF_GCCLIBS_CXX is not set
 # PTXCONF_GCCLIBS_GCC_S is not set
+
+#
+# Early Userspace     
+#
+# PTXCONF_KLIBC is not set
 
 #
 # ----------------------------------

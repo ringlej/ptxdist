@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Sat Nov 12 23:27:51 2005
+# Tue Nov 15 22:52:03 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -104,6 +104,8 @@ PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 # Crosstool
 #
 PTXCONF_CROSSTOOL=y
+PTXCONF_CROSSTOOL_VERSION_0_32=y
+# PTXCONF_CROSSTOOL_VERSION_0_38 is not set
 # PTXCONF_GCC_2_95_3 is not set
 # PTXCONF_GCC_3_2_3 is not set
 # PTXCONF_GCC_3_3_2 is not set
@@ -111,9 +113,12 @@ PTXCONF_CROSSTOOL=y
 # PTXCONF_GCC_3_4_0 is not set
 PTXCONF_GCC_3_4_1=y
 # PTXCONF_GCC_3_4_2 is not set
+# PTXCONF_GCC_3_4_3 is not set
+# PTXCONF_GCC_3_4_4 is not set
 PTXCONF_GCC_VERSION="3.4.1"
 PTXCONF_CROSSTOOL_GCCLANG_CC=y
 # PTXCONF_GCC_MULTILIB is not set
+# PTXCONF_BINUTILS_2_16_1 is not set
 PTXCONF_BINUTILS_2_15=y
 # PTXCONF_BINUTILS_2_14_90_0_5 is not set
 # PTXCONF_BINUTILS_2_14 is not set
@@ -322,6 +327,11 @@ PTXCONF_GLIBC_2_3_3=y
 #
 # PTXCONF_GCCLIBS_CXX is not set
 # PTXCONF_GCCLIBS_GCC_S is not set
+
+#
+# Early Userspace     
+#
+# PTXCONF_KLIBC is not set
 
 #
 # ----------------------------------
