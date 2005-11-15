@@ -17,7 +17,12 @@ PACKAGES-$(PTXCONF_CROSSTOOL) += crosstool
 #
 # Paths and names
 #
+ifdef PTXCONF_CROSSTOOL_VERSION_0_32
 CROSSTOOL_VERSION	= 0.32
+endif
+ifdef PTXCONF_CROSSTOOL_VERSION_0_38
+CROSSTOOL_VERSION       = 0.38
+endif
 CROSSTOOL		= crosstool-$(CROSSTOOL_VERSION)
 CROSSTOOL_SUFFIX	= tar.gz
 CROSSTOOL_URL		= http://www.kegel.com/crosstool/$(CROSSTOOL).$(CROSSTOOL_SUFFIX)
@@ -177,7 +182,12 @@ endif
 		echo "done" 						\
 		exit 1;							\
 	)
+ifdef PTXCONF_CROSSTOOL_VERSION_0_32
 	touch $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/gcc-$(GCC_VERSION)-$(CROSSTOOL_LIBC_DIR)/$(PTXCONF_GNU_TARGET)/include/linux/autoconf.h)
+endif
+ifdef PTXCONF_CROSSTOOL_VERSION_0_38
+	touch $(call remove_quotes,$(PTXCONF_PREFIX)/gcc-$(GCC_VERSION)-$(CROSSTOOL_LIBC_DIR)/$(PTXCONF_GNU_TARGET)/$(PTXCONF_GNU_TARGET)/include/linux/autoconf.h)
+endif
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
