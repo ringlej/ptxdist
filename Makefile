@@ -451,6 +451,7 @@ configdeps: before_config $(TOPDIR)/scripts/kconfig/conf
 	@$(call findout_config)
 	@echo
 	@echo "generating dependencies from kconfig..."
+	@mkdir -p $(IMAGEDIR)
 	@cd $(PTXDISTWORKSPACE) && \
 		$(TOPDIR)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
 			2> /dev/null > $(IMAGEDIR)/configdeps
