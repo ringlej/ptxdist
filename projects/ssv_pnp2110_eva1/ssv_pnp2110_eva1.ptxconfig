@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Sat Nov 12 23:28:17 2005
+# Wed Nov 16 07:51:05 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -404,6 +404,11 @@ PTXCONF_GLIBC_NSL=y
 #
 # PTXCONF_GCCLIBS_CXX is not set
 PTXCONF_GCCLIBS_GCC_S=y
+
+#
+# Early Userspace     
+#
+# PTXCONF_KLIBC is not set
 
 #
 # ----------------------------------
