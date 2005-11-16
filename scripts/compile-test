@@ -47,6 +47,9 @@ mv logfile logs/$2.log
 # FIXME: use image mechanism...
 tar -zcvf logs/$2-root.tar.gz root
 
+# save depend.out
+mv depend.out logs/$2.dep
+
 make distclean
 	
 
