@@ -18,7 +18,7 @@ config CROSSTOOL
 	  of the crosstool configuration. 
 
 choice
-	prompt "crosstool version"
+	prompt "version"
 		depends on CROSSTOOL
 	config CROSSTOOL_VERSION_0_32
 		bool
