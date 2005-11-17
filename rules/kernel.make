@@ -429,10 +429,12 @@ kernel_prepare: $(STATEDIR)/kernel.prepare
 
 kernel_prepare_deps =  $(STATEDIR)/virtual-xchain.install
 kernel_prepare_deps += $(STATEDIR)/kernel.extract
-ifdef PTXCONF_KERNEL_2_4
+ifndef PTXCONF_DONT_COMPILE_KERNEL
+ifdef  PTXCONF_KERNEL_2_4
 kernel_prepare_deps += $(STATEDIR)/hosttool-modutils.install
 else
 kernel_prepare_deps += $(STATEDIR)/hosttool-module-init-tools.install
+endif
 endif
 
 KERNEL_PATH	=  PATH=$(CROSS_PATH)
@@ -514,8 +516,8 @@ $(STATEDIR)/kernel-modversions.prepare: $(STATEDIR)/kernel.prepare
 kernel_compile: $(STATEDIR)/kernel.compile
 
 kernel_compile_deps =  $(STATEDIR)/kernel.prepare
-ifndef PTXCONF_DONT_COMPILE_KERNEL                                                                                                               
-ifdef PTXCONF_KERNEL_IMAGE_U
+ifndef PTXCONF_DONT_COMPILE_KERNEL
+ifdef  PTXCONF_KERNEL_IMAGE_U
 kernel_compile_deps += $(STATEDIR)/hosttool-umkimage.install
 endif
 endif                                                                                                                                            
@@ -555,7 +557,8 @@ kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-ifdef PTXCONF_KERNEL_INSTALL
+ifndef PTXCONF_DONT_COMPILE_KERNEL
+ifdef  PTXCONF_KERNEL_INSTALL
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,kernel)
 	@$(call install_fixup,PRIORITY,optional)
@@ -595,6 +598,7 @@ ifdef PTXCONF_KERNEL_INSTALL_MODULES
 	rm -fr $(KERNEL_INST_DIR)
 
 	@$(call install_finish)
+endif
 endif
 	$(call touch, $@)
 
