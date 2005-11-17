@@ -1,62 +1,62 @@
 Automatic Toolchain Compilation
 --------------------------
 
-start: Mon Aug 8 19:14:14 CEST 2005
+start: Mi Nov 16 08:38:36 CET 2005
 
 config...: toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5
-date.....: Mon Aug 8 19:14:14 CEST 2005
+date.....: Mi Nov 16 08:38:36 CET 2005
 user.....: rsc@himalia
-buildtime: 0h16m23s
+buildtime: 0h20m13s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2
-date.....: Mon Aug 8 19:30:44 CEST 2005
+date.....: Mi Nov 16 08:59:02 CET 2005
 user.....: rsc@himalia
-buildtime: 0h33m5s
+buildtime: 0h40m46s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Mon Aug 8 20:04:05 CEST 2005
+date.....: Mi Nov 16 09:40:25 CET 2005
 user.....: rsc@himalia
-buildtime: 0h14m53s
-result...: 0
+buildtime: 0h17m59s
+result...: 2
 
 config...: toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5
-date.....: Mon Aug 8 20:19:06 CEST 2005
+date.....: Mi Nov 16 09:58:50 CET 2005
 user.....: rsc@himalia
-buildtime: 0h16m29s
+buildtime: 0h20m52s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3
-date.....: Mon Aug 8 20:35:42 CEST 2005
+date.....: Mi Nov 16 10:20:02 CET 2005
 user.....: rsc@himalia
-buildtime: 0h35m32s
+buildtime: 0h41m25s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Mon Aug 8 21:11:31 CEST 2005
+date.....: Mi Nov 16 11:01:58 CET 2005
 user.....: rsc@himalia
-buildtime: 0h15m42s
+buildtime: 0h16m37s
 result...: 0
 
 config...: toolchain_m68k-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Mon Aug 8 21:27:20 CEST 2005
+date.....: Mi Nov 16 11:18:51 CET 2005
 user.....: rsc@himalia
-buildtime: 0h11m18s
-result...: 0
+buildtime: 0h12m4s
+result...: 2
 
 config...: toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5
-date.....: Mon Aug 8 21:38:45 CEST 2005
+date.....: Mi Nov 16 11:31:09 CET 2005
 user.....: rsc@himalia
-buildtime: 0h27m33s
+buildtime: 0h35m24s
 result...: 0
 
 config...: toolchain_powerpc-604-linux-gnu-3.4.1_glibc-2.3.3
-date.....: Mon Aug 8 22:06:32 CEST 2005
+date.....: Mi Nov 16 12:06:56 CET 2005
 user.....: rsc@himalia
-buildtime: 0h42m15s
+buildtime: 0h48m25s
 result...: 0
 
 
-stop: Mon Aug 8 22:49:05 CEST 2005
+stop: Mi Nov 16 12:55:52 CET 2005
 
