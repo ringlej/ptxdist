@@ -131,7 +131,7 @@ $(STATEDIR)/hrtimers-support.targetinstall: $(hrtimers-support_targetinstall_dep
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0644, \
-		$(HRTIMERS_SUPPORT_DIR)/lib/.libs/libposix-time.so.1.0.0, 
+		$(HRTIMERS_SUPPORT_DIR)/lib/.libs/libposix-time.so.1.0.0, \
 		/usr/lib/libposix-time.so.1.0.0)
 
 	@$(call install_link, \
