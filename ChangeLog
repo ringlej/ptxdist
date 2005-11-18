@@ -1,3 +1,7 @@
+2005-11-18 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ntpclient: targetinstall fixed; patch by Steven Scholz
+
 2005-11-14 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* klibc: added
