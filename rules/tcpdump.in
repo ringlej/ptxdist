@@ -2,7 +2,7 @@ menu    "tcpdump             "
 
 config TCPDUMP
         bool
-        prompt "Compile tcpdump"
+        prompt "tcpdump"
 	select LIBPCAP
 
 config TCPDUMP_DISABLE_CRYPTO

@@ -1,7 +1,7 @@
 menu    "nmap                "
 
 config NMAP
-        bool "Compile nmap"
+        bool "nmap"
 
 config NMAP_SERVICES
 	bool "Install nmap-services"

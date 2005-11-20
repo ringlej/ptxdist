@@ -3,17 +3,17 @@ menuconfig DOTGNU
 		
 config TRECC
 	bool
-	prompt "Compile treecc"
+	prompt "treecc"
 	depends on DOTGNU
 
 config PNET
 	bool
-	prompt "Compile pnet"
+	prompt "pnet"
 	select TRECC
 	depends on DOTGNU
 	
 config PNETLIB
 	bool
-	prompt "Compile pnetlib"
+	prompt "pnetlib"
 	select PNET
 	depends on DOTGNU

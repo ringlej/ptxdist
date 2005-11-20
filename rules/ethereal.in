@@ -2,7 +2,7 @@ menu    "ethereal            "
 
 config ETHEREAL
         bool
-        prompt "Compile ethereal"
+        prompt "ethereal"
 	select LIBPCAP
 
 config ETHEREAL_ETHEREAL

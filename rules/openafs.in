@@ -6,7 +6,7 @@ menu    "OpenAFS             "
 
 config OPENAFS
 	bool
-	prompt "Compile OpenAFS"
+	prompt "OpenAFS"
 
 choice
 	prompt "OpenAFS Version"

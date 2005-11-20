@@ -2,7 +2,7 @@ menu	"tcpwrapper          "
 
 config	TCPWRAPPER
 	bool
-	prompt "Compile tcpwrapper"
+	prompt "tcpwrapper"
 	
 config	TCPWRAPPER_INSTALL_TCPD
 	bool

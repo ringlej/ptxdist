@@ -2,7 +2,7 @@ menu	"Apache 1 HTTP Server"
 
 config APACHE
 	bool
-	prompt "Compile Apache HTTP server"
+	prompt "Apache HTTP server"
 	select EXPAT
 
 endmenu

@@ -2,7 +2,7 @@ menu    "Wireless Tools      "
 
 config WIRELESS
         bool
-        prompt "Compile Wireless Tools"
+        prompt "Wireless Tools"
 
 config WIRELESS_SHARED
 	bool "Build shared"

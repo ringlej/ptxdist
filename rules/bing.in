@@ -2,6 +2,6 @@ menu	"bing                "
 
 config BING
 	bool
-	prompt "Compile bing"
+	prompt "bing"
 
 endmenu

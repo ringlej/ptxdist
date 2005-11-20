@@ -2,6 +2,6 @@ menu    "dnsmasq             "
 
 config DNSMASQ
         bool
-        prompt "Compile dnsmasq"
+        prompt "dnsmasq"
 
 endmenu

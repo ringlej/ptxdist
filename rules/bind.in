@@ -4,7 +4,7 @@ menu "Bind                "
 
 config BIND
 	bool
-	prompt "Compile Bind 9"
+	prompt "bind 9"
 
 config BIND_THREADS
 	bool

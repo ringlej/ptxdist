@@ -4,13 +4,13 @@ menuconfig MFIREBIRD
 
 config MFIREBIRD_CALENDAR
 	bool
-	prompt "Compile Calender Client"
+	prompt "Calender Client"
 	depends on MFIREBIRD
 	default n
 
 config MFIREBIRD_MAILNEWS
 	bool
-	prompt "Compile Mail+News Client"
+	prompt "Mail+News Client"
 	depends on MFIREBIRD
 	default n
 
@@ -108,7 +108,7 @@ config MFIREBIRD_XFT
 	
 config MFIREBIRD_COMPOSER
 	bool
-	prompt "Compile Composer"
+	prompt "Composer"
 	depends on MFIREBIRD
 	default n
 	

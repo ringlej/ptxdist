@@ -2,6 +2,6 @@ menu    "libnet              "
 
 config LIBNET
         bool
-        prompt "Compile libnet-1.1.0"
+        prompt "libnet"
 
 endmenu

@@ -2,6 +2,6 @@ menu	"rsync               "
 
 config RSYNC   
 	bool
-	prompt "Compile rsync"
+	prompt "rsync"
 
 endmenu

@@ -7,7 +7,7 @@ menuconfig WXWINDOWS
 
 config WXWINDOWS_X11
 	bool
-	prompt "Compile wxWindows / X11"
+	prompt "wxWindows / X11"
 	depends on EXPERIMENTAL
 	depends on WXWINDOWS
 
