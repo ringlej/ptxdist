@@ -1,10 +1,10 @@
-##############################################################################
+comment "----------------------------------"
 comment "Populate Rootfs"
-##############################################################################
+comment "----------------------------------"
 
 config ROOTFS
 	bool
-	prompt "Create Directories"
+	prompt "Create Directories in /"
 	default y
         select BB_CONFIG_FEATURE_SHADOWPASSWDS  if BUSYBOX
 
@@ -31,7 +31,7 @@ config ROOTFS_HOME
 menuconfig ROOTFS_MEDIA
 	depends on ROOTFS
 	bool
-	prompt "/media"
+	prompt "/media                    "
 	default n
 
 config ROOTFS_MEDIA1
@@ -148,9 +148,9 @@ config ROOTFS_VAR_LOG
 	prompt "/var/log"
 	default y
 
-##############################################################################
-comment "Generic /etc Files"
-##############################################################################
+comment "----------------------------------"
+comment "Generic Config Files in /etc"
+comment "----------------------------------"
 
 config ROOTFS_GENERIC_FSTAB
 	depends on ROOTFS
@@ -160,7 +160,6 @@ config ROOTFS_GENERIC_FSTAB
 	help
 	  Installs a generic /etc/fstab file.
 
-
 config ROOTFS_GENERIC_GROUP
 	depends on ROOTFS
 	bool
@@ -169,19 +168,19 @@ config ROOTFS_GENERIC_GROUP
 	help
 	  Installs a generic /etc/group and /etc/gshadow file.
 
-config ROOTFS_GENERIC_HOSTNAME
+menuconfig ROOTFS_GENERIC_HOSTNAME
 	depends on ROOTFS
 	bool
-	prompt "/etc/hostname"
+	prompt "/etc/hostname               "
 	default y
 	help
 	  Installs a generic /etc/hostname file.
 
-config ROOTFS_ETC_HOSTNAME
-	depends on ROOTFS_GENERIC_HOSTNAME
-	string
-	default ptx
-	prompt "set hostname in /etc/hostname"
+	config ROOTFS_ETC_HOSTNAME
+		depends on ROOTFS_GENERIC_HOSTNAME
+		string
+		default ptx
+		prompt "set hostname in /etc/hostname"
 
 config ROOTFS_GENERIC_HOSTS
 	depends on ROOTFS
@@ -191,26 +190,26 @@ config ROOTFS_GENERIC_HOSTS
 	help
 	  Installs a generic /etc/hosts file.
 
-config ROOTFS_GENERIC_INITTAB
+menuconfig ROOTFS_GENERIC_INITTAB
 	depends on ROOTFS
 	bool
         select BB_CONFIG_GETTY if BUSYBOX
-	prompt "/etc/inittab"
+	prompt "/etc/inittab                "
 	default y
 	help
 	  Installs a generic /etc/inittab file.
 
-config ROOTFS_ETC_CONSOLE
-	depends on ROOTFS_GENERIC_INITTAB
-	string
-	default "/dev/tts/0"
-	prompt "start getty on this console"
+	config ROOTFS_ETC_CONSOLE
+		depends on ROOTFS_GENERIC_INITTAB
+		string
+		default "/dev/tts/0"
+		prompt "start getty on this console"
 
-config ROOTFS_ETC_CONSOLE_SPEED
-	depends on ROOTFS_GENERIC_INITTAB
-	string
-	default "115200"
-	prompt "getty baudrate"
+	config ROOTFS_ETC_CONSOLE_SPEED
+		depends on ROOTFS_GENERIC_INITTAB
+		string
+		default "115200"
+		prompt "getty baudrate"
 
 config ROOTFS_GENERIC_NSSWITCH
 	depends on ROOTFS
@@ -231,31 +230,31 @@ config ROOTFS_GENERIC_PASSWD
 	  use it in a network environment which is available to the 
 	  outside. 
 
-config ROOTFS_GENERIC_PROFILE
+menuconfig ROOTFS_GENERIC_PROFILE
 	depends on ROOTFS
 	bool
-	prompt "/etc/profile"
+	prompt "/etc/profile                "
 	default y
 	help
 	  Installs a generic /etc/profile file.
 
-config ROOTFS_ETC_PS1
-	depends on ROOTFS_GENERIC_PROFILE
-	string
-	default "\\u@\\h:\\w"
-	prompt "set PS1 in /etc/profile"
+	config ROOTFS_ETC_PS1
+		depends on ROOTFS_GENERIC_PROFILE
+		string
+		default "\\u@\\h:\\w"
+		prompt "set PS1 in /etc/profile"
 
-config ROOTFS_ETC_PS2
-	depends on ROOTFS_GENERIC_PROFILE
-	string
-	default ""
-	prompt "set PS2 in /etc/profile"
+	config ROOTFS_ETC_PS2
+		depends on ROOTFS_GENERIC_PROFILE
+		string
+		default ""
+		prompt "set PS2 in /etc/profile"
 
-config ROOTFS_ETC_PS4
-	depends on ROOTFS_GENERIC_PROFILE
-	string
-	default ""
-	prompt "set PS4 in /etc/profile"
+	config ROOTFS_ETC_PS4
+		depends on ROOTFS_GENERIC_PROFILE
+		string
+		default ""
+		prompt "set PS4 in /etc/profile"
 
 config ROOTFS_GENERIC_PROTOCOLS
 	depends on ROOTFS
@@ -291,14 +290,14 @@ config ROOTFS_GENERIC_UDHCPC
 	  udhcpc (busybox) accepts the -s file or --script=file option. 
 	  The /etc/udhcpc.script will be run at dhcp events.
 
-##############################################################################
+comment "----------------------------------"
 comment "Start Scripts in /etc/init.d"
-##############################################################################
+comment "----------------------------------"
 
 config ROOTFS_ETC_INITD
 	depends on ROOTFS
 	bool
-	prompt "Use generic scripts for /etc/init.d"
+	prompt "Generic Scripts for /etc/init.d"
 	default y
         select BB_CONFIG_RUN_PARTS      if BUSYBOX
 	help
@@ -310,7 +309,7 @@ config ROOTFS_ETC_INITD
 
 config ROOTFS_ETC_INITD_RCS
 	bool
-	prompt "rc file starter (/etc/init.d/rcS)"
+	prompt "rcS"
 	depends on ROOTFS_ETC_INITD
 	default y
 	help
@@ -318,103 +317,114 @@ config ROOTFS_ETC_INITD_RCS
 	  Its main purpose is to run the other init scripts by calling
 	  run-parts. 
 
-config ROOTFS_ETC_INITD_NETWORKING
+menuconfig ROOTFS_ETC_INITD_NETWORKING
 	depends on ROOTFS_ETC_INITD
 	bool
 	default y
-	prompt "generic /etc/init.d/networking"
+	prompt "networking                "
 	select BB_CONFIG_FEATURE_IFUPDOWN_IP if BUSYBOX
 	help
 	  When enabled, this option installs the generic
 	  /etc/init.d/networking file. This script starts
 	  your network interfaces by calling ifup -a
 
-config ROOTFS_ETC_INITD_NETWORKING_LINK
-	depends on ROOTFS_ETC_INITD_NETWORKING
-	string
-	prompt "link name in /etc/rcS"
-	default "S01_networking"
-	help
-	  Set a link to with this name in /etc/rc.d which points to 
-	  /etc/init.d/networking. 
+	config ROOTFS_ETC_INITD_NETWORKING_LINK
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_NETWORKING
+		string
+		prompt "link name in /etc/rcS"
+		default "S01_networking"
+		help
+		  Set a link to with this name in /etc/rc.d which points to 
+		  /etc/init.d/networking. 
 
-config ROOTFS_ETC_INITD_NETWORKING_INTERFACES
-	depends on ROOTFS_ETC_INITD_NETWORKING
-	string
-	prompt "/etc/network/interfaces file"
-	default "$(PROJECTDIR)/etc/network/interfaces"
-	help
-	  Copy this file to /etc/network/interfaces. 
+	config ROOTFS_ETC_INITD_NETWORKING_INTERFACES
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_NETWORKING
+		string
+		prompt "/etc/network/interfaces file"
+		default "$(PROJECTDIR)/etc/network/interfaces"
+		help
+		  Copy this file to /etc/network/interfaces. 
 
 ########################## Telnetd ##########################################
 
-comment "telnetd startup script needs telnet"
+comment "telnetd: select telnet"
+	depends on ROOTFS_ETC_INITD
 	depends on !UTELNETD
 
-config ROOTFS_ETC_INITD_TELNETD
-	depends on ROOTFS_ETC_INITD && UTELNETD
+menuconfig ROOTFS_ETC_INITD_TELNETD
+	depends on ROOTFS_ETC_INITD
+	depends on UTELNETD
 	bool
 	default y
-	prompt "telnet startup script"
+	prompt "telnetd                   "
 	help
 	  The /etc/init.d/telnetd script starts up your telnet
 	  demon. Depending on your configuration utelnetd or telnetd
 	  is started.
 
-choice
-	prompt "Kind of startup script"
-	default ROOTFS_ETC_INITD_TELNETD_DEFAULT
-	depends on ROOTFS_ETC_INITD_TELNETD
+	choice
+		prompt "Kind of startup script"
+		default ROOTFS_ETC_INITD_TELNETD_DEFAULT
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_TELNETD
 
-	config ROOTFS_ETC_INITD_TELNETD_DEFAULT
-		bool
-		prompt "Use default telnetd"
+		config ROOTFS_ETC_INITD_TELNETD_DEFAULT
+			depends on ROOTFS_ETC_INITD_TELNETD
+			bool
+			prompt "Use default telnetd"
+			help
+			  A file from projects/generic/etc/init.d/telnetd will be used
+
+		config ROOTFS_ETC_INITD_TELNETD_USER
+			depends on ROOTFS_ETC_INITD_TELNETD
+			bool
+			prompt "Use your own telnetd script"
+			help
+			  Select this, then you can enter a path and filename to your
+			  own httpd startup script
+	endchoice
+
+	config ROOTFS_ETC_INITD_TELNETD_USER_FILE
+		depends on ROOTFS_ETC_INITD_TELNETD
+		depends on ROOTFS_ETC_INITD_TELNETD_USER
+		prompt "Path and name of your own telnetd to be used"
+		string
+		default ""
 		help
-		  A file from projects/generic/etc/init.d/telnetd will be used
+		  Enter a path and filename to be used as telnetd script on your target
 
-	config ROOTFS_ETC_INITD_TELNETD_USER
-		bool
-		prompt "Use your own telnetd script"
+	config ROOTFS_ETC_INITD_TELNETD_LINK
+		depends on ROOTFS_ETC_INITD_TELNETD
+		string
+		prompt "link name in /etc/rcS"
+		default "S07_telnetd"
 		help
-		  Select this, then you can enter a path and filename to your
-		  own httpd startup script
-endchoice
-
-config ROOTFS_ETC_INITD_TELNETD_USER_FILE
-	depends on ROOTFS_ETC_INITD_TELNETD_USER
-	prompt "Path and name of your own telnetd to be used"
-	string
-	default ""
-	help
-	  Enter a path and filename to be used as telnetd script on your target
-
-config ROOTFS_ETC_INITD_TELNETD_LINK
-	depends on ROOTFS_ETC_INITD_TELNETD
-	string
-	prompt "link name in /etc/rcS"
-	default "S07_telnetd"
-	help
-	  Set a link to with this name in /etc/rc.d which points to 
-	  /etc/init.d/telnetd. 
+		  Set a link to with this name in /etc/rc.d which points to 
+		  /etc/init.d/telnetd. 
 
 ########################## User startup script ##############################
+
+# FIXME: RSC: needed somewhere? Shold be done by project specific stuff
+# if needed. 
 
 config ROOTFS_ETC_INITD_STARTUP
 	depends on ROOTFS_ETC_INITD
 	bool
 	default n
-	prompt "user startup script (/home/startup)"
+	prompt "startup"
 	help
 	  This script runs /home/startup if it exists and is
 	  executable
 
 ########################## Banner ##########################################
 
-config ROOTFS_ETC_INITD_BANNER
+menuconfig ROOTFS_ETC_INITD_BANNER
 	depends on ROOTFS_ETC_INITD
 	bool
 	default y
-	prompt "generic boot banner (/etc/init.d/banner)"
+	prompt "banner                    "
 	help
 	  This Option adds a specific vendor string to 
 	  the script which displays a nifty ptxdist
@@ -426,119 +436,130 @@ config ROOTFS_ETC_INITD_BANNER
 	  page with the hostname and other stuff at 
 	  startup. 
 
-config ROOTFS_ETC_INITD_BANNER_LINK
-	depends on ROOTFS_ETC_INITD_BANNER
-	string
-	prompt "link name in /etc/rcS"
-	default "S02_banner"
-	help
-	  Set a link to with this name in /etc/rc.d which points to 
-	  /etc/init.d/banner. 
+	config ROOTFS_ETC_INITD_BANNER_LINK
+		depends on ROOTFS_ETC_INITD_BANNER
+		string
+		prompt "link name in /etc/rcS"
+		default "S02_banner"
+		help
+		  Set a link to with this name in /etc/rc.d which points to 
+		  /etc/init.d/banner. 
 
-	  
-config ROOTFS_ETC_VENDOR
-	depends on ROOTFS_ETC_INITD_BANNER
-	string
-	prompt "vendorname in /etc/init.d/banner"
-	help
+		  
+	config ROOTFS_ETC_VENDOR
+		depends on ROOTFS_ETC_INITD_BANNER
+		string
+		prompt "vendorname in /etc/init.d/banner"
+		help
 
 ########################## Apache 2 ##########################################
 
-comment "apache startup script needs apache"
-	depends on !APACHE2
+comment "apache: select apache"
+	depends on ROOTFS_ETC_INITD && !APACHE2
 
 config ROOTFS_ETC_INITD_HTTPD
 	depends on ROOTFS_ETC_INITD && APACHE2
 	bool
 	default yes
-	prompt "Apache startup script"
+	prompt "apache"
 	help
 	  The /etc/init.d/httpd script lets you control the apache daemon.
 
-choice
-	prompt "Kind of startup scrict"
-	default ROOTFS_ETC_INITD_HTTPD_DEFAULT
-	depends on ROOTFS_ETC_INITD_HTTPD
+	choice
+		prompt "Kind of startup scrict"
+		default ROOTFS_ETC_INITD_HTTPD_DEFAULT
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_HTTPD
 
-	config ROOTFS_ETC_INITD_HTTPD_DEFAULT
-		bool
-		prompt "Use default httpd"
+		config ROOTFS_ETC_INITD_HTTPD_DEFAULT
+			depends on ROOTFS_ETC_INITD
+			depends on ROOTFS_ETC_INITD_HTTPD
+			bool
+			prompt "Use default httpd"
+			help
+			  A file from projects/generic/etc/init.d/httpd will be used
+
+		config ROOTFS_ETC_INITD_HTTPD_USER
+			depends on ROOTFS_ETC_INITD
+			depends on ROOTFS_ETC_INITD_HTTPD
+			bool
+			prompt "Use your own httpd file"
+			help
+			  Select this, then you can enter a path and filename to your
+			  own httpd startup script
+	endchoice
+
+	config ROOTFS_ETC_INITD_HTTPD_USER_FILE
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_HTTPD_USER
+		prompt "Path and name of your own httpd to be used"
+		string
+		default ""
 		help
-		  A file from projects/generic/etc/init.d/httpd will be used
+		  Enter a path and filename to be used as httpd script on your target
 
-	config ROOTFS_ETC_INITD_HTTPD_USER
-		bool
-		prompt "Use your own httpd file"
+	config ROOTFS_ETC_INITD_HTTPD_LINK
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_HTTPD
+		string
+		prompt "link name in /etc/rc.d"
+		default "S08_httpd"
 		help
-		  Select this, then you can enter a path and filename to your
-		  own httpd startup script
-endchoice
+		  Set a link into /etc/rc.d which points to /etc/init.d/httpd to
+		  start apache while system boot.
 
-config ROOTFS_ETC_INITD_HTTPD_USER_FILE
-	depends on ROOTFS_ETC_INITD_HTTPD_USER
-	prompt "Path and name of your own httpd to be used"
-	string
-	default ""
-	help
-	  Enter a path and filename to be used as httpd script on your target
+########################## udev support  ##########################################
 
-config ROOTFS_ETC_INITD_HTTPD_LINK
-	depends on ROOTFS_ETC_INITD_HTTPD
-	string
-	prompt "link name in /etc/rc.d"
-	default "S08_httpd"
-	help
-          Set a link into /etc/rc.d which points to /etc/init.d/httpd to
-	  start apache while system boot.
+comment "udev: select udev"
+	depends on ROOTFS_ETC_INITD && !UDEV
 
-########################## UDEV support  ##########################################
-
-comment "udev startup script needs udev"
-	depends on !UDEV
-
-config ROOTFS_ETC_INITD_UDEV
+menuconfig ROOTFS_ETC_INITD_UDEV
 	depends on ROOTFS_ETC_INITD && UDEV
 	bool
 	default yes
-	prompt "udev startup script"
+	prompt "udev                      "
 	help
 	  The /etc/init.d/udev script lets you control the udevd daemon.
 
-choice
-	prompt "Kind of startup scrict"
-	default ROOTFS_ETC_INITD_UDEV_DEFAULT
-	depends on ROOTFS_ETC_INITD_UDEV
+	choice
+		prompt "Kind of startup scrict"
+		default ROOTFS_ETC_INITD_UDEV_DEFAULT
+		depends on ROOTFS_ETC_INITD && ROOTFS_ETC_INITD_UDEV
 
-	config ROOTFS_ETC_INITD_UDEV_DEFAULT
-		bool
-		prompt "Use default udevd"
+		config ROOTFS_ETC_INITD_UDEV_DEFAULT
+			depends on ROOTFS_ETC_INITD && ROOTFS_ETC_INITD_UDEV
+			bool
+			prompt "Use default udevd"
+			help
+			  A file from projects/generic/etc/init.d/udev will be used
+
+		config ROOTFS_ETC_INITD_UDEV_USER
+			depends on ROOTFS_ETC_INITD && ROOTFS_ETC_INITD_UDEV
+			bool
+			prompt "Use your own udevd file"
+			help
+			  Select this, then you can enter a path and filename to your
+			  own udev startup script
+	endchoice
+
+	config ROOTFS_ETC_INITD_UDEV_USER_FILE
+		depends on ROOTFS_ETC_INITD && ROOTFS_ETC_INITD_UDEV
+		depends on ROOTFS_ETC_INITD_UDEV_USER
+		prompt "Path and name of your own udev to be used"
+		string
+		default ""
 		help
-		  A file from projects/generic/etc/init.d/udev will be used
+		  Enter a path and filename to be used as udev script on your target
 
-	config ROOTFS_ETC_INITD_UDEV_USER
-		bool
-		prompt "Use your own udevd file"
+	config ROOTFS_ETC_INITD_UDEV_LINK
+		depends on ROOTFS_ETC_INITD && ROOTFS_ETC_INITD_UDEV
+		depends on UDEV
+		string
+		prompt "link name in /etc/rc.d"
+		default "S00_udev"
 		help
-		  Select this, then you can enter a path and filename to your
-		  own udev startup script
-endchoice
-
-config ROOTFS_ETC_INITD_UDEV_USER_FILE
-	depends on ROOTFS_ETC_INITD_UDEV_USER
-	prompt "Path and name of your own udev to be used"
-	string
-	default ""
-	help
-	  Enter a path and filename to be used as udev script on your target
-
-config ROOTFS_ETC_INITD_UDEV_LINK
-        depends on UDEV
-        string
-        prompt "link name in /etc/rc.d"
-        default "S00_udev"
-        help
-          Set a link to with this name in /etc/rc.d which points to
-          /etc/init.d/udev.
+		  Set a link to with this name in /etc/rc.d which points to
+		  /etc/init.d/udev.
 
 ########################## ? ##########################################
 
