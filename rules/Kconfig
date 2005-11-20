@@ -159,6 +159,7 @@ endmenu
 
 menu "Scientific Apps             "
 source "rules/gnuplot.in"
+source "rules/libmodbus.in"
 source "rules/libpv.in"
 endmenu
 
