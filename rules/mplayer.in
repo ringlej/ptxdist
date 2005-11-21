@@ -1,0 +1,4 @@
+config MPLAYER
+        bool
+        prompt "Compile mplayer"
+

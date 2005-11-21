@@ -1,0 +1,155 @@
+# -*-makefile-*-
+# $Id: template 3345 2005-11-14 17:14:19Z rsc $
+#
+# Copyright (C) 2005 by Sascha Hauer
+#          
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_MPLAYER) += mplayer
+
+#
+# Paths and names
+#
+MPLAYER_VERSION	= 1.0pre7try2
+MPLAYER		= MPlayer-$(MPLAYER_VERSION)
+MPLAYER_SUFFIX		= tar.bz2
+MPLAYER_URL		= http://ftp5.mplayerhq.hu/mplayer/releases/$(MPLAYER).$(MPLAYER_SUFFIX)
+MPLAYER_SOURCE		= $(SRCDIR)/$(MPLAYER).$(MPLAYER_SUFFIX)
+MPLAYER_DIR		= $(BUILDDIR)/$(MPLAYER)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+mplayer_get: $(STATEDIR)/mplayer.get
+
+mplayer_get_deps = $(MPLAYER_SOURCE)
+
+$(STATEDIR)/mplayer.get: $(mplayer_get_deps)
+	@$(call targetinfo, $@)
+	$(call touch, $@)
+
+$(MPLAYER_SOURCE):
+	@$(call targetinfo, $@)
+	@$(call get, $(MPLAYER_URL))
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+mplayer_extract: $(STATEDIR)/mplayer.extract
+
+mplayer_extract_deps = $(STATEDIR)/mplayer.get
+
+$(STATEDIR)/mplayer.extract: $(mplayer_extract_deps)
+	@$(call targetinfo, $@)
+	@$(call clean, $(MPLAYER_DIR))
+	@$(call extract, $(MPLAYER_SOURCE))
+	@$(call patchin, $(MPLAYER))
+	$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+mplayer_prepare: $(STATEDIR)/mplayer.prepare
+
+#
+# dependencies
+#
+mplayer_prepare_deps = \
+	$(STATEDIR)/mplayer.extract \
+	$(STATEDIR)/virtual-xchain.install
+
+MPLAYER_PATH	=  PATH=$(CROSS_PATH)
+MPLAYER_ENV 	=  $(CROSS_ENV)
+MPLAYER_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+
+#
+# autoconf
+#
+#MPLAYER_AUTOCONF = $(CROSS_AUTOCONF)
+
+MPLAYER_AUTOCONF = --cc=$(PTXCONF_GNU_TARGET)-gcc
+MPLAYER_AUTOCONF += --as=$(PTXCONF_GNU_TARGET)-as
+MPLAYER_AUTOCONF += --host-cc=$(HOSTCC)
+MPLAYER_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+MPLAYER_AUTOCONF += --target=$(PTXCONF_ARCH)
+MPLAYER_AUTOCONF += --disable-mencoder
+MPLAYER_AUTOCONF += --enable-fbdev
+
+$(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps)
+	@$(call targetinfo, $@)
+	@$(call clean, $(MPLAYER_DIR)/config.cache)
+	cd $(MPLAYER_DIR) && \
+		$(MPLAYER_PATH) $(MPLAYER_ENV) \
+		./configure $(MPLAYER_AUTOCONF)
+	$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+mplayer_compile: $(STATEDIR)/mplayer.compile
+
+mplayer_compile_deps = $(STATEDIR)/mplayer.prepare
+
+$(STATEDIR)/mplayer.compile: $(mplayer_compile_deps)
+	@$(call targetinfo, $@)
+	cd $(MPLAYER_DIR) && $(MPLAYER_ENV) $(MPLAYER_PATH) make
+	$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+mplayer_install: $(STATEDIR)/mplayer.install
+
+$(STATEDIR)/mplayer.install: $(STATEDIR)/mplayer.compile
+	@$(call targetinfo, $@)
+	cd $(MPLAYER_DIR) && $(MPLAYER_ENV) $(MPLAYER_PATH) make install
+	$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+mplayer_targetinstall: $(STATEDIR)/mplayer.targetinstall
+
+mplayer_targetinstall_deps = $(STATEDIR)/mplayer.compile
+
+$(STATEDIR)/mplayer.targetinstall: $(mplayer_targetinstall_deps)
+	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,mplayer)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(MPLAYER_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+	@$(call install_copy, 0, 0, 0755, $(MPLAYER_DIR)/mplayer, /usr/bin/mplayer)
+
+	@$(call install_finish)
+
+	$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+mplayer_clean:
+	rm -rf $(STATEDIR)/mplayer.*
+	rm -rf $(IMAGEDIR)/mplayer_*
+	rm -rf $(MPLAYER_DIR)
+
+# vim: syntax=make
