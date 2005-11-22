@@ -1,6 +1,6 @@
 diff -urN crosstool-0.38.orig/all.sh crosstool-0.38/all.sh
 --- crosstool-0.38.orig/all.sh	2005-07-07 23:18:01.000000000 +0200
-+++ crosstool-0.38/all.sh	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/all.sh	2005-11-22 11:19:36.000000000 +0100
 @@ -18,14 +18,20 @@
  test -z "${BINUTILS_DIR}"     && abort "Please set BINUTILS_DIR to the bare filename of the binutils tarball or directory"
  test -z "${GCC_DIR}"          && abort "Please set GCC_DIR to the bare filename of the gcc tarball or directory"
@@ -84,7 +84,7 @@ diff -urN crosstool-0.38.orig/all.sh crosstool-0.38/all.sh
      # Build a debugger
 diff -urN crosstool-0.38.orig/arm-softfloat-uclibc.dat crosstool-0.38/arm-softfloat-uclibc.dat
 --- crosstool-0.38.orig/arm-softfloat-uclibc.dat	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/arm-softfloat-uclibc.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/arm-softfloat-uclibc.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,5 @@
 +KERNELCONFIG=`pwd`/arm.config
 +TARGET=arm-softfloat-linux-uclibc
@@ -93,7 +93,7 @@ diff -urN crosstool-0.38.orig/arm-softfloat-uclibc.dat crosstool-0.38/arm-softfl
 +GLIBC_EXTRA_CONFIG="--without-fp"
 diff -urN crosstool-0.38.orig/crosstest.sh crosstool-0.38/crosstest.sh
 --- crosstool-0.38.orig/crosstest.sh	2005-05-20 07:54:43.000000000 +0200
-+++ crosstool-0.38/crosstest.sh	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/crosstest.sh	2005-11-22 11:22:01.000000000 +0100
 @@ -23,7 +23,13 @@
  test -z "${BUILD_DIR}"      && abort "Please set BUILD_DIR to the directory build-gcc etc. live in"
  test -z "${BINUTILS_DIR}"   && abort "Please set BINUTILS_DIR to the bare filename of the binutils tarball or directory"
@@ -109,17 +109,54 @@ diff -urN crosstool-0.38.orig/crosstest.sh crosstool-0.38/crosstest.sh
  test -z "${TARGET}"         && abort "Please set TARGET to the Gnu target identifier (e.g. pentium-linux)"
  test -z "${TARGET_CFLAGS}"  && abort "Please set TARGET_CFLAGS to any compiler flags needed when building glibc (-O recommended)"
  test -z "${TOP_DIR}"        && abort "Please set TOP_DIR to where the crosstool scripts live"
-@@ -109,7 +115,7 @@
+@@ -109,8 +115,8 @@
  find . -name '*.log' | xargs rm -f
  
  #--- glibc tests ---
 -if true; then
+-cd build-glibc
 +if test "${C_LIBRARY}" = glibc ; then
- cd build-glibc
++cd build-libc
  
  make tests
-@@ -185,7 +191,7 @@
-    echo "Some glibc test failed.  Check logfiles on target in /jail/build-glibc/*/*.out."
+ 
+@@ -150,20 +156,20 @@
+ echo "rm -rf $BUILD_DIR || true" >> ../glibctest.sh
+ 
+ # this fails on one of my systems with EDIRTOOLONG (glibc problem?), so break it up
+-#echo "mkdir -p $BUILD_DIR; ln -s /build-glibc $BUILD_DIR/build-glibc" >> ../glibctest.sh
++#echo "mkdir -p $BUILD_DIR; ln -s /build-libc $BUILD_DIR/build-libc" >> ../glibctest.sh
+ echo "mkdir -p $TOP_DIR" >> ../glibctest.sh >> ../glibctest.sh
+ REST=`echo $BUILD_DIR | sed 's,$TOP_DIR/,,'`
+-echo "(cd $TOP_DIR; mkdir -p $REST; ln -s /build-glibc $REST/build-glibc)" >> ../glibctest.sh
++echo "(cd $TOP_DIR; mkdir -p $REST; ln -s /build-libc $REST/build-libc)" >> ../glibctest.sh
+ 
+ # For some reason, several dlfcn and elf tests don't pass without LD_LIBRARY_PATH
+-echo "LD_LIBRARY_PATH=../../build-glibc/elf:../../build-glibc/dlfcn; export LD_LIBRARY_PATH" >> ../glibctest.sh
++echo "LD_LIBRARY_PATH=../../build-libc/elf:../../build-libc/dlfcn; export LD_LIBRARY_PATH" >> ../glibctest.sh
+ cat ../tests.out >> ../glibctest.sh
+ 
+ # Grab files needed to run tests
+ cd ..
+ TESTPROGRAMS=`grep = tests.out | sed 's/[A-Z_]*=[^ ]* *//g;s/ .*//' | sort -u | sed "s,$REMOTE_TOP/,,"`
+ INPUTFILES="glibc*/*/*.input glibc*/stdio-common/xbug.c glibc*/io/Makefile glibc*/io/bug-ftw2.c"
+-TESTLIBS=`ls build-glibc/elf/*.so build-glibc/dlfcn/*.so | grep -v ld.so`
++TESTLIBS=`ls build-libc/elf/*.so build-libc/dlfcn/*.so | grep -v ld.so`
+ tar -czf test.tar.gz glibctest.sh $TESTPROGRAMS $INPUTFILES $TESTLIBS
+ # Strip the executables we're going to send to the target - makes a difference when compiled -g
+ rm -rf tmp || true
+@@ -177,15 +183,15 @@
+ rm -rf tmp
+ 
+ # Transfer to target system and run.  
+-rsh -n -l root-jail $REMOTE rm -rf build-glibc
++rsh -n -l root-jail $REMOTE rm -rf build-libc
+ cat test.tar.gz | rsh -l root-jail $REMOTE tar -xzf -
+ rsh -n -l root-jail $REMOTE sh -e glibctest.sh > glibctest.out 2>&1
+ 
+ if grep Error glibctest.out; then
+-   echo "Some glibc test failed.  Check logfiles on target in /jail/build-glibc/*/*.out."
++   echo "Some glibc test failed.  Check logfiles on target in /jail/build-libc/*/*.out."
  fi
  # it's not really a summary yet, but let's copy it up anyway
 -cp glibctest.out $TOP_DIR/$TARGET-$GCC_DIR-$GLIBC_DIR.glibc.sum
@@ -147,7 +184,7 @@ diff -urN crosstool-0.38.orig/crosstest.sh crosstool-0.38/crosstest.sh
  
 diff -urN crosstool-0.38.orig/crosstool.sh crosstool-0.38/crosstool.sh
 --- crosstool-0.38.orig/crosstool.sh	2005-07-21 19:58:19.000000000 +0200
-+++ crosstool-0.38/crosstool.sh	2005-11-15 13:04:19.000000000 +0100
++++ crosstool-0.38/crosstool.sh	2005-11-22 11:20:53.000000000 +0100
 @@ -33,7 +33,13 @@
  test -z "${SRC_DIR}"          && abort "Please set SRC_DIR to the directory where the source tarballs are to be unpacked"
  test -z "${BINUTILS_DIR}"     && abort "Please set BINUTILS_DIR to the bare filename of the binutils tarball or directory"
@@ -705,9 +742,24 @@ diff -urN crosstool-0.38.orig/crosstool.sh crosstool-0.38/crosstool.sh
  fi
  
  test "$CANADIAN_BUILD" = "" || make $PARALLELMFLAGS all-build-libiberty || true
+@@ -648,11 +807,11 @@
+ 
+ # Finally, build and install glibc programs, now that libeh (if any) is installed
+ # Don't do this unless needed, 'cause it causes glibc-2.{1.3,2.2} to fail here with
+-# .../gcc-3.4.1-glibc-2.1.3/build-glibc/libc.so.6: undefined reference to `__deregister_frame_info'
+-# .../gcc-3.4.1-glibc-2.1.3/build-glibc/libc.so.6: undefined reference to `__register_frame_info'
++# .../gcc-3.4.1-glibc-2.1.3/build-libc/libc.so.6: undefined reference to `__deregister_frame_info'
++# .../gcc-3.4.1-glibc-2.1.3/build-libc/libc.so.6: undefined reference to `__register_frame_info'
+ if test x$GLIBC_INSTALL_APPS_LATER = xyes;
+ then
+-  cd build-glibc
++  cd build-libc
+   make LD=${TARGET}-ld RANLIB=${TARGET}-ranlib
+   # note: should do full install and then fix linker scripts, but this is faster
+   make install_root=${SYSROOT} $GLIBC_SYSROOT_ARG install-bin install-rootsbin install-sbin install-data install-others
 diff -urN crosstool-0.38.orig/demo-arm-softfloat-uclibc.dat crosstool-0.38/demo-arm-softfloat-uclibc.dat
 --- crosstool-0.38.orig/demo-arm-softfloat-uclibc.dat	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/demo-arm-softfloat-uclibc.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/demo-arm-softfloat-uclibc.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,20 @@
 +#!/bin/sh
 +set -ex
@@ -731,7 +783,7 @@ diff -urN crosstool-0.38.orig/demo-arm-softfloat-uclibc.dat crosstool-0.38/demo-
 +echo Done.
 diff -urN crosstool-0.38.orig/demo-m68k-uclibc.sh crosstool-0.38/demo-m68k-uclibc.sh
 --- crosstool-0.38.orig/demo-m68k-uclibc.sh	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/demo-m68k-uclibc.sh	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/demo-m68k-uclibc.sh	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,20 @@
 +#!/bin/sh
 +set -ex
@@ -755,7 +807,7 @@ diff -urN crosstool-0.38.orig/demo-m68k-uclibc.sh crosstool-0.38/demo-m68k-uclib
 +echo Done.
 diff -urN crosstool-0.38.orig/demoptx.sh crosstool-0.38/demoptx.sh
 --- crosstool-0.38.orig/demoptx.sh	2005-03-08 01:34:33.000000000 +0100
-+++ crosstool-0.38/demoptx.sh	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/demoptx.sh	2005-11-22 11:19:36.000000000 +0100
 @@ -12,9 +12,11 @@
  #GCC_DIR=gcc-3.3.1
  GCC_DIR=gcc-2.95.3
@@ -774,7 +826,7 @@ diff -urN crosstool-0.38.orig/demoptx.sh crosstool-0.38/demoptx.sh
  sh ptx.sh
 diff -urN crosstool-0.38.orig/gcc-2.95.3-glibc-2.1.3.dat crosstool-0.38/gcc-2.95.3-glibc-2.1.3.dat
 --- crosstool-0.38.orig/gcc-2.95.3-glibc-2.1.3.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-2.95.3-glibc-2.1.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-2.95.3-glibc-2.1.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-2.95.3
@@ -786,7 +838,7 @@ diff -urN crosstool-0.38.orig/gcc-2.95.3-glibc-2.1.3.dat crosstool-0.38/gcc-2.95
  GLIBCCRYPT_FILENAME=glibc-crypt-2.1
 diff -urN crosstool-0.38.orig/gcc-2.95.3-glibc-2.2.2.dat crosstool-0.38/gcc-2.95.3-glibc-2.2.2.dat
 --- crosstool-0.38.orig/gcc-2.95.3-glibc-2.2.2.dat	2005-07-10 22:58:18.000000000 +0200
-+++ crosstool-0.38/gcc-2.95.3-glibc-2.2.2.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-2.95.3-glibc-2.2.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-2.95.3
@@ -797,7 +849,7 @@ diff -urN crosstool-0.38.orig/gcc-2.95.3-glibc-2.2.2.dat crosstool-0.38/gcc-2.95
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-2.95.3-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-2.95.3-glibc-2.2.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-2.95.3-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-07-10 22:58:16.000000000 +0200
-+++ crosstool-0.38/gcc-2.95.3-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-15 12:58:23.000000000 +0100
++++ crosstool-0.38/gcc-2.95.3-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-2.95.3
@@ -809,7 +861,7 @@ diff -urN crosstool-0.38.orig/gcc-2.95.3-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-2.95.3-glibc-2.2.5.dat crosstool-0.38/gcc-2.95.3-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-2.95.3-glibc-2.2.5.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-2.95.3-glibc-2.2.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-2.95.3-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-2.95.3
@@ -820,7 +872,7 @@ diff -urN crosstool-0.38.orig/gcc-2.95.3-glibc-2.2.5.dat crosstool-0.38/gcc-2.95
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.5
 diff -urN crosstool-0.38.orig/gcc-3.2.3-glibc-2.2.3.dat crosstool-0.38/gcc-3.2.3-glibc-2.2.3.dat
 --- crosstool-0.38.orig/gcc-3.2.3-glibc-2.2.3.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.2.3-glibc-2.2.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.2.3-glibc-2.2.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.2.3
@@ -831,7 +883,7 @@ diff -urN crosstool-0.38.orig/gcc-3.2.3-glibc-2.2.3.dat crosstool-0.38/gcc-3.2.3
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.3
 diff -urN crosstool-0.38.orig/gcc-3.2.3-glibc-2.2.5.dat crosstool-0.38/gcc-3.2.3-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.2.3-glibc-2.2.5.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.2.3-glibc-2.2.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.2.3-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.2.3
@@ -842,7 +894,7 @@ diff -urN crosstool-0.38.orig/gcc-3.2.3-glibc-2.2.5.dat crosstool-0.38/gcc-3.2.3
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.5
 diff -urN crosstool-0.38.orig/gcc-3.2.3-glibc-2.3.2.dat crosstool-0.38/gcc-3.2.3-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.2.3-glibc-2.3.2.dat	2005-05-15 22:08:30.000000000 +0200
-+++ crosstool-0.38/gcc-3.2.3-glibc-2.3.2.dat	2005-11-15 12:35:45.000000000 +0100
++++ crosstool-0.38/gcc-3.2.3-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.2.3
@@ -853,7 +905,7 @@ diff -urN crosstool-0.38.orig/gcc-3.2.3-glibc-2.3.2.dat crosstool-0.38/gcc-3.2.3
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-3.3.1-glibc-2.2.5.dat crosstool-0.38/gcc-3.3.1-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.3.1-glibc-2.2.5.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.1-glibc-2.2.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.1-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.14
  GCC_DIR=gcc-3.3.1
@@ -864,7 +916,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.1-glibc-2.2.5.dat crosstool-0.38/gcc-3.3.1
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.5
 diff -urN crosstool-0.38.orig/gcc-3.3.1-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.1-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.3.1-glibc-2.3.2.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.1-glibc-2.3.2.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.1-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.14
  GCC_DIR=gcc-3.3.1
@@ -875,7 +927,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.1-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.1
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-3.3.2-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.2-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.3.2-glibc-2.3.2.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.2-glibc-2.3.2.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.2-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.2
@@ -886,7 +938,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.2-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.2
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-3.3.3-glibc-2.1.3.dat crosstool-0.38/gcc-3.3.3-glibc-2.1.3.dat
 --- crosstool-0.38.orig/gcc-3.3.3-glibc-2.1.3.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.3-glibc-2.1.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.3-glibc-2.1.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.3
@@ -898,7 +950,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.3-glibc-2.1.3.dat crosstool-0.38/gcc-3.3.3
  GLIBCCRYPT_FILENAME=glibc-crypt-2.1
 diff -urN crosstool-0.38.orig/gcc-3.3.3-glibc-2.2.5.dat crosstool-0.38/gcc-3.3.3-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.3.3-glibc-2.2.5.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.3-glibc-2.2.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.3-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.3
@@ -909,7 +961,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.3-glibc-2.2.5.dat crosstool-0.38/gcc-3.3.3
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.5
 diff -urN crosstool-0.38.orig/gcc-3.3.3-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.3-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.3.3-glibc-2.3.2.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.3-glibc-2.3.2.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.3-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.3
@@ -920,7 +972,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.3-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.3
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-3.3.3-uclibc-0.9.27.dat crosstool-0.38/gcc-3.3.3-uclibc-0.9.27.dat
 --- crosstool-0.38.orig/gcc-3.3.3-uclibc-0.9.27.dat	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.3-uclibc-0.9.27.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.3-uclibc-0.9.27.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,6 @@
 +BINUTILS_DIR=binutils-2.14.90.0.5
 +BINUTILS_URL=http://www.kernel.org/pub/linux/devel/binutils
@@ -930,7 +982,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.3-uclibc-0.9.27.dat crosstool-0.38/gcc-3.3
 +LINUX_DIR=linux-2.4.21
 diff -urN crosstool-0.38.orig/gcc-3.3.4-glibc-2.1.3.dat crosstool-0.38/gcc-3.3.4-glibc-2.1.3.dat
 --- crosstool-0.38.orig/gcc-3.3.4-glibc-2.1.3.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.4-glibc-2.1.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.4-glibc-2.1.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.4
@@ -942,7 +994,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.4-glibc-2.1.3.dat crosstool-0.38/gcc-3.3.4
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.4-glibc-2.2.5.dat crosstool-0.38/gcc-3.3.4-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.3.4-glibc-2.2.5.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.4-glibc-2.2.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.4-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.4
@@ -953,7 +1005,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.4-glibc-2.2.5.dat crosstool-0.38/gcc-3.3.4
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.4-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.4-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.3.4-glibc-2.3.2.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.4-glibc-2.3.2.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.4-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.4
@@ -964,7 +1016,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.4-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.4
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.4-glibc-2.3.3.dat crosstool-0.38/gcc-3.3.4-glibc-2.3.3.dat
 --- crosstool-0.38.orig/gcc-3.3.4-glibc-2.3.3.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.4-glibc-2.3.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.4-glibc-2.3.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.4
@@ -975,7 +1027,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.4-glibc-2.3.3.dat crosstool-0.38/gcc-3.3.4
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.1.3.dat crosstool-0.38/gcc-3.3.5-glibc-2.1.3.dat
 --- crosstool-0.38.orig/gcc-3.3.5-glibc-2.1.3.dat	2005-04-17 19:28:39.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.5-glibc-2.1.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.5-glibc-2.1.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.5
@@ -987,7 +1039,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.1.3.dat crosstool-0.38/gcc-3.3.5
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.2.5.dat crosstool-0.38/gcc-3.3.5-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.3.5-glibc-2.2.5.dat	2005-04-17 19:32:11.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.5-glibc-2.2.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.5-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.5
@@ -998,7 +1050,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.2.5.dat crosstool-0.38/gcc-3.3.5
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.5-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.2.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3.5-glibc-2.3.2.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.5-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.5
@@ -1009,7 +1061,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.5
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.3.dat crosstool-0.38/gcc-3.3.5-glibc-2.3.3.dat
 --- crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.3.dat	2005-04-17 19:20:59.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.5-glibc-2.3.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.5-glibc-2.3.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.5
@@ -1020,7 +1072,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.3.dat crosstool-0.38/gcc-3.3.5
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.4.dat crosstool-0.38/gcc-3.3.5-glibc-2.3.4.dat
 --- crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.4.dat	2005-04-17 19:21:04.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.5-glibc-2.3.4.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.5-glibc-2.3.4.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.5
@@ -1031,7 +1083,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.4.dat crosstool-0.38/gcc-3.3.5
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.5.dat crosstool-0.38/gcc-3.3.5-glibc-2.3.5.dat
 --- crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.5.dat	2005-04-17 19:21:09.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.5-glibc-2.3.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.5-glibc-2.3.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.5
@@ -1042,7 +1094,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.5-glibc-2.3.5.dat crosstool-0.38/gcc-3.3.5
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.1.3.dat crosstool-0.38/gcc-3.3.6-glibc-2.1.3.dat
 --- crosstool-0.38.orig/gcc-3.3.6-glibc-2.1.3.dat	2005-07-05 00:03:44.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.6-glibc-2.1.3.dat	2005-11-15 12:57:35.000000000 +0100
++++ crosstool-0.38/gcc-3.3.6-glibc-2.1.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.6
@@ -1054,7 +1106,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.1.3.dat crosstool-0.38/gcc-3.3.6
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.2.2.dat crosstool-0.38/gcc-3.3.6-glibc-2.2.2.dat
 --- crosstool-0.38.orig/gcc-3.3.6-glibc-2.2.2.dat	2005-07-08 21:17:30.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.6-glibc-2.2.2.dat	2005-11-15 12:57:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3.6-glibc-2.2.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.6
@@ -1066,7 +1118,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.2.2.dat crosstool-0.38/gcc-3.3.6
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-3.3.6-glibc-2.2.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-3.3.6-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-07-08 21:17:27.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.6-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-15 12:57:28.000000000 +0100
++++ crosstool-0.38/gcc-3.3.6-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.6
@@ -1079,7 +1131,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-
  LINUX_SANITIZED_HEADER_DIR=linux-libc-headers-2.6.11.2
 diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.2.5.dat crosstool-0.38/gcc-3.3.6-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.3.6-glibc-2.2.5.dat	2005-07-05 00:03:44.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.6-glibc-2.2.5.dat	2005-11-15 12:57:25.000000000 +0100
++++ crosstool-0.38/gcc-3.3.6-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.6
@@ -1090,7 +1142,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.2.5.dat crosstool-0.38/gcc-3.3.6
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.6-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.2.dat	2005-07-05 00:03:44.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.6-glibc-2.3.2.dat	2005-11-15 12:57:21.000000000 +0100
++++ crosstool-0.38/gcc-3.3.6-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.6
@@ -1101,7 +1153,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.2.dat crosstool-0.38/gcc-3.3.6
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-3.3.6-glibc-2.3.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-07-08 21:10:40.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.6-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-15 12:57:17.000000000 +0100
++++ crosstool-0.38/gcc-3.3.6-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.6
@@ -1113,7 +1165,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-
  LINUX_SANITIZED_HEADER_DIR=linux-libc-headers-2.6.11.2
 diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.3.dat crosstool-0.38/gcc-3.3.6-glibc-2.3.3.dat
 --- crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.3.dat	2005-07-05 00:03:44.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.6-glibc-2.3.3.dat	2005-11-15 12:57:12.000000000 +0100
++++ crosstool-0.38/gcc-3.3.6-glibc-2.3.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.6
@@ -1124,7 +1176,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.3.dat crosstool-0.38/gcc-3.3.6
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.4.dat crosstool-0.38/gcc-3.3.6-glibc-2.3.4.dat
 --- crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.4.dat	2005-07-05 00:03:44.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.6-glibc-2.3.4.dat	2005-11-15 12:57:09.000000000 +0100
++++ crosstool-0.38/gcc-3.3.6-glibc-2.3.4.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.6
@@ -1135,7 +1187,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.4.dat crosstool-0.38/gcc-3.3.6
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.5.dat crosstool-0.38/gcc-3.3.6-glibc-2.3.5.dat
 --- crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.5.dat	2005-07-05 00:03:44.000000000 +0200
-+++ crosstool-0.38/gcc-3.3.6-glibc-2.3.5.dat	2005-11-15 12:57:05.000000000 +0100
++++ crosstool-0.38/gcc-3.3.6-glibc-2.3.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.3.6
@@ -1146,7 +1198,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3.6-glibc-2.3.5.dat crosstool-0.38/gcc-3.3.6
  LINUX_DIR=linux-2.4.26
 diff -urN crosstool-0.38.orig/gcc-3.3-glibc-2.2.5.dat crosstool-0.38/gcc-3.3-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.3-glibc-2.2.5.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3-glibc-2.2.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.14
  GCC_DIR=gcc-3.3
@@ -1157,7 +1209,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3-glibc-2.2.5.dat crosstool-0.38/gcc-3.3-gli
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.5
 diff -urN crosstool-0.38.orig/gcc-3.3-glibc-2.3.2.dat crosstool-0.38/gcc-3.3-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.3-glibc-2.3.2.dat	2005-03-09 23:05:23.000000000 +0100
-+++ crosstool-0.38/gcc-3.3-glibc-2.3.2.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.3-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.14
  GCC_DIR=gcc-3.3
@@ -1168,7 +1220,7 @@ diff -urN crosstool-0.38.orig/gcc-3.3-glibc-2.3.2.dat crosstool-0.38/gcc-3.3-gli
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-3.4.0-glibc-2.1.3.dat crosstool-0.38/gcc-3.4.0-glibc-2.1.3.dat
 --- crosstool-0.38.orig/gcc-3.4.0-glibc-2.1.3.dat	2005-03-09 23:05:49.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.0-glibc-2.1.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.0-glibc-2.1.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.0
@@ -1180,7 +1232,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.0-glibc-2.1.3.dat crosstool-0.38/gcc-3.4.0
  GLIBCCRYPT_FILENAME=glibc-crypt-2.1
 diff -urN crosstool-0.38.orig/gcc-3.4.0-glibc-2.2.5.dat crosstool-0.38/gcc-3.4.0-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.4.0-glibc-2.2.5.dat	2005-03-09 23:05:49.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.0-glibc-2.2.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.0-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.0
@@ -1191,7 +1243,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.0-glibc-2.2.5.dat crosstool-0.38/gcc-3.4.0
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.5
 diff -urN crosstool-0.38.orig/gcc-3.4.0-glibc-2.3.2.dat crosstool-0.38/gcc-3.4.0-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.4.0-glibc-2.3.2.dat	2005-03-09 23:05:49.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.0-glibc-2.3.2.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.0-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.0
@@ -1202,7 +1254,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.0-glibc-2.3.2.dat crosstool-0.38/gcc-3.4.0
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-3.4.1-glibc-2.1.3.dat crosstool-0.38/gcc-3.4.1-glibc-2.1.3.dat
 --- crosstool-0.38.orig/gcc-3.4.1-glibc-2.1.3.dat	2005-03-09 23:05:49.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.1-glibc-2.1.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.1-glibc-2.1.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.1
@@ -1214,7 +1266,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.1-glibc-2.1.3.dat crosstool-0.38/gcc-3.4.1
  GLIBCCRYPT_FILENAME=glibc-crypt-2.1
 diff -urN crosstool-0.38.orig/gcc-3.4.1-glibc-2.2.5.dat crosstool-0.38/gcc-3.4.1-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.4.1-glibc-2.2.5.dat	2005-03-09 23:05:49.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.1-glibc-2.2.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.1-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.1
@@ -1225,7 +1277,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.1-glibc-2.2.5.dat crosstool-0.38/gcc-3.4.1
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.5
 diff -urN crosstool-0.38.orig/gcc-3.4.1-glibc-2.3.2.dat crosstool-0.38/gcc-3.4.1-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.4.1-glibc-2.3.2.dat	2005-03-09 23:05:49.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.1-glibc-2.3.2.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.1-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.1
@@ -1236,7 +1288,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.1-glibc-2.3.2.dat crosstool-0.38/gcc-3.4.1
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-3.4.1-glibc-2.3.3.dat crosstool-0.38/gcc-3.4.1-glibc-2.3.3.dat
 --- crosstool-0.38.orig/gcc-3.4.1-glibc-2.3.3.dat	2005-03-09 23:05:49.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.1-glibc-2.3.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.1-glibc-2.3.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.1
@@ -1247,7 +1299,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.1-glibc-2.3.3.dat crosstool-0.38/gcc-3.4.1
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.3
 diff -urN crosstool-0.38.orig/gcc-3.4.2-glibc-2.2.5.dat crosstool-0.38/gcc-3.4.2-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.4.2-glibc-2.2.5.dat	2005-03-09 23:05:49.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.2-glibc-2.2.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.2-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.2
@@ -1259,7 +1311,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.2-glibc-2.2.5.dat crosstool-0.38/gcc-3.4.2
  EXTRA_TARGET_CFLAGS="-fno-unit-at-a-time"
 diff -urN crosstool-0.38.orig/gcc-3.4.2-glibc-2.3.3.dat crosstool-0.38/gcc-3.4.2-glibc-2.3.3.dat
 --- crosstool-0.38.orig/gcc-3.4.2-glibc-2.3.3.dat	2005-03-09 23:05:49.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.2-glibc-2.3.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.2-glibc-2.3.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.2
@@ -1270,7 +1322,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.2-glibc-2.3.3.dat crosstool-0.38/gcc-3.4.2
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.3
 diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.1.3.dat crosstool-0.38/gcc-3.4.3-glibc-2.1.3.dat
 --- crosstool-0.38.orig/gcc-3.4.3-glibc-2.1.3.dat	2005-04-17 19:33:14.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.3-glibc-2.1.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.3-glibc-2.1.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.3
@@ -1282,7 +1334,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.1.3.dat crosstool-0.38/gcc-3.4.3
  GLIBCCRYPT_FILENAME=glibc-crypt-2.1
 diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.2.2.dat crosstool-0.38/gcc-3.4.3-glibc-2.2.2.dat
 --- crosstool-0.38.orig/gcc-3.4.3-glibc-2.2.2.dat	2005-05-19 20:33:07.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.3-glibc-2.2.2.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.3-glibc-2.2.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_CORE_DIR=gcc-2.95.3
@@ -1294,7 +1346,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.2.2.dat crosstool-0.38/gcc-3.4.3
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-3.4.3-glibc-2.2.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-3.4.3-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-05-19 20:34:39.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.3-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-15 12:56:44.000000000 +0100
++++ crosstool-0.38/gcc-3.4.3-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.15
  GCC_CORE_DIR=gcc-2.95.3
@@ -1307,7 +1359,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.2.5.dat crosstool-0.38/gcc-3.4.3-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.4.3-glibc-2.2.5.dat	2005-03-10 01:24:10.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.3-glibc-2.2.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.3-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.3
@@ -1319,7 +1371,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.2.5.dat crosstool-0.38/gcc-3.4.3
  EXTRA_TARGET_CFLAGS="-fno-unit-at-a-time"
 diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.2.dat crosstool-0.38/gcc-3.4.3-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.2.dat	2005-04-04 20:17:26.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.3-glibc-2.3.2.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.3-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.3
@@ -1330,7 +1382,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.2.dat crosstool-0.38/gcc-3.4.3
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-3.4.3-glibc-2.3.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-06-17 20:26:55.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.3-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-15 12:56:37.000000000 +0100
++++ crosstool-0.38/gcc-3.4.3-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.3
@@ -1342,7 +1394,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.3.dat crosstool-0.38/gcc-3.4.3-glibc-2.3.3.dat
 --- crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.3.dat	2005-03-10 01:24:46.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.3-glibc-2.3.3.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.3-glibc-2.3.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.3
@@ -1353,7 +1405,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.3.dat crosstool-0.38/gcc-3.4.3
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.3
 diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.3-hdrs-2.6.11.2.dat crosstool-0.38/gcc-3.4.3-glibc-2.3.3-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.3-hdrs-2.6.11.2.dat	2005-06-29 08:32:10.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.3-glibc-2.3.3-hdrs-2.6.11.2.dat	2005-11-15 12:56:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.3-glibc-2.3.3-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.3
@@ -1365,7 +1417,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.3-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.3
 diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.4.dat crosstool-0.38/gcc-3.4.3-glibc-2.3.4.dat
 --- crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.4.dat	2005-03-26 20:21:21.000000000 +0100
-+++ crosstool-0.38/gcc-3.4.3-glibc-2.3.4.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.3-glibc-2.3.4.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.3
@@ -1376,7 +1428,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.4.dat crosstool-0.38/gcc-3.4.3
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.4
 diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.5.dat crosstool-0.38/gcc-3.4.3-glibc-2.3.5.dat
 --- crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.5.dat	2005-05-15 22:41:37.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.3-glibc-2.3.5.dat	2005-11-15 12:10:31.000000000 +0100
++++ crosstool-0.38/gcc-3.4.3-glibc-2.3.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.3
@@ -1387,7 +1439,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.5.dat crosstool-0.38/gcc-3.4.3
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.5
 diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.5-hdrs-2.6.11.2.dat crosstool-0.38/gcc-3.4.3-glibc-2.3.5-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-05-15 22:40:50.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.3-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-11-15 12:56:21.000000000 +0100
++++ crosstool-0.38/gcc-3.4.3-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.3
@@ -1399,7 +1451,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.3-glibc-2.3.5-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.5
 diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.1.3.dat crosstool-0.38/gcc-3.4.4-glibc-2.1.3.dat
 --- crosstool-0.38.orig/gcc-3.4.4-glibc-2.1.3.dat	2005-07-05 00:17:04.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.4-glibc-2.1.3.dat	2005-11-15 12:56:19.000000000 +0100
++++ crosstool-0.38/gcc-3.4.4-glibc-2.1.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.4
@@ -1411,7 +1463,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.1.3.dat crosstool-0.38/gcc-3.4.4
  GLIBCCRYPT_FILENAME=glibc-crypt-2.1
 diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.2.2.dat crosstool-0.38/gcc-3.4.4-glibc-2.2.2.dat
 --- crosstool-0.38.orig/gcc-3.4.4-glibc-2.2.2.dat	2005-07-05 00:17:04.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.4-glibc-2.2.2.dat	2005-11-15 12:56:15.000000000 +0100
++++ crosstool-0.38/gcc-3.4.4-glibc-2.2.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_CORE_DIR=gcc-2.95.3
@@ -1423,7 +1475,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.2.2.dat crosstool-0.38/gcc-3.4.4
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-3.4.4-glibc-2.2.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-3.4.4-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-07-09 15:53:41.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.4-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-15 12:56:08.000000000 +0100
++++ crosstool-0.38/gcc-3.4.4-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.15
  GCC_CORE_DIR=gcc-2.95.3
@@ -1436,7 +1488,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.2.5.dat crosstool-0.38/gcc-3.4.4-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-3.4.4-glibc-2.2.5.dat	2005-07-05 00:17:04.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.4-glibc-2.2.5.dat	2005-11-15 12:56:02.000000000 +0100
++++ crosstool-0.38/gcc-3.4.4-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.4
@@ -1448,7 +1500,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.2.5.dat crosstool-0.38/gcc-3.4.4
  EXTRA_TARGET_CFLAGS="-fno-unit-at-a-time"
 diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.2.dat crosstool-0.38/gcc-3.4.4-glibc-2.3.2.dat
 --- crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.2.dat	2005-07-05 00:17:04.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.4-glibc-2.3.2.dat	2005-11-15 12:55:55.000000000 +0100
++++ crosstool-0.38/gcc-3.4.4-glibc-2.3.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.4
@@ -1459,7 +1511,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.2.dat crosstool-0.38/gcc-3.4.4
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-3.4.4-glibc-2.3.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-07-09 15:53:44.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.4-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-15 12:55:51.000000000 +0100
++++ crosstool-0.38/gcc-3.4.4-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.4
@@ -1471,7 +1523,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.3.dat crosstool-0.38/gcc-3.4.4-glibc-2.3.3.dat
 --- crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.3.dat	2005-07-05 00:17:04.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.4-glibc-2.3.3.dat	2005-11-15 12:55:44.000000000 +0100
++++ crosstool-0.38/gcc-3.4.4-glibc-2.3.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.4
@@ -1482,7 +1534,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.3.dat crosstool-0.38/gcc-3.4.4
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.3
 diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.3-hdrs-2.6.11.2.dat crosstool-0.38/gcc-3.4.4-glibc-2.3.3-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.3-hdrs-2.6.11.2.dat	2005-07-05 00:17:04.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.4-glibc-2.3.3-hdrs-2.6.11.2.dat	2005-11-15 12:55:39.000000000 +0100
++++ crosstool-0.38/gcc-3.4.4-glibc-2.3.3-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.4
@@ -1494,7 +1546,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.3-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.3
 diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.4.dat crosstool-0.38/gcc-3.4.4-glibc-2.3.4.dat
 --- crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.4.dat	2005-07-05 00:17:04.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.4-glibc-2.3.4.dat	2005-11-15 12:55:32.000000000 +0100
++++ crosstool-0.38/gcc-3.4.4-glibc-2.3.4.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.4
@@ -1505,7 +1557,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.4.dat crosstool-0.38/gcc-3.4.4
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.4
 diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.5.dat crosstool-0.38/gcc-3.4.4-glibc-2.3.5.dat
 --- crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.5.dat	2005-07-05 00:17:04.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.4-glibc-2.3.5.dat	2005-11-15 12:55:26.000000000 +0100
++++ crosstool-0.38/gcc-3.4.4-glibc-2.3.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.4
@@ -1516,7 +1568,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.5.dat crosstool-0.38/gcc-3.4.4
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.5
 diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.5-hdrs-2.6.11.2.dat crosstool-0.38/gcc-3.4.4-glibc-2.3.5-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-07-05 00:17:04.000000000 +0200
-+++ crosstool-0.38/gcc-3.4.4-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-11-15 12:55:20.000000000 +0100
++++ crosstool-0.38/gcc-3.4.4-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.15
  GCC_DIR=gcc-3.4.4
@@ -1528,7 +1580,7 @@ diff -urN crosstool-0.38.orig/gcc-3.4.4-glibc-2.3.5-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.5
 diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.1.3.dat crosstool-0.38/gcc-4.0.0-glibc-2.1.3.dat
 --- crosstool-0.38.orig/gcc-4.0.0-glibc-2.1.3.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.0-glibc-2.1.3.dat	2005-11-15 12:11:07.000000000 +0100
++++ crosstool-0.38/gcc-4.0.0-glibc-2.1.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_DIR=gcc-4.0.0
@@ -1540,7 +1592,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.1.3.dat crosstool-0.38/gcc-4.0.0
  EXTRA_TARGET_CFLAGS="-fno-unit-at-a-time"
 diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.2.2.dat crosstool-0.38/gcc-4.0.0-glibc-2.2.2.dat
 --- crosstool-0.38.orig/gcc-4.0.0-glibc-2.2.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.0-glibc-2.2.2.dat	2005-11-15 12:11:07.000000000 +0100
++++ crosstool-0.38/gcc-4.0.0-glibc-2.2.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-2.95.3
@@ -1552,7 +1604,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.2.2.dat crosstool-0.38/gcc-4.0.0
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.0.0-glibc-2.2.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.0.0-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.0-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-15 12:55:09.000000000 +0100
++++ crosstool-0.38/gcc-4.0.0-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-2.95.3
@@ -1565,7 +1617,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.2.5.dat crosstool-0.38/gcc-4.0.0-glibc-2.2.5.dat
 --- crosstool-0.38.orig/gcc-4.0.0-glibc-2.2.5.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.0-glibc-2.2.5.dat	2005-11-15 12:11:07.000000000 +0100
++++ crosstool-0.38/gcc-4.0.0-glibc-2.2.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_DIR=gcc-4.0.0
@@ -1577,7 +1629,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.2.5.dat crosstool-0.38/gcc-4.0.0
  EXTRA_TARGET_CFLAGS="-fno-unit-at-a-time"
 diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.0.0-glibc-2.3.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.0-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-15 12:55:02.000000000 +0100
++++ crosstool-0.38/gcc-4.0.0-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_DIR=gcc-4.0.0
@@ -1589,7 +1641,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.3.dat crosstool-0.38/gcc-4.0.0-glibc-2.3.3.dat
 --- crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.3.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.0-glibc-2.3.3.dat	2005-11-15 12:11:07.000000000 +0100
++++ crosstool-0.38/gcc-4.0.0-glibc-2.3.3.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_DIR=gcc-4.0.0
@@ -1601,7 +1653,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.3.dat crosstool-0.38/gcc-4.0.0
  GCC_CORE_DIR=gcc-3.3.6
 diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.3-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.0.0-glibc-2.3.3-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.3-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.0-glibc-2.3.3-hdrs-2.6.11.2.dat	2005-11-15 12:54:51.000000000 +0100
++++ crosstool-0.38/gcc-4.0.0-glibc-2.3.3-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_DIR=gcc-4.0.0
@@ -1613,7 +1665,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.3-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.3
 diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.4.dat crosstool-0.38/gcc-4.0.0-glibc-2.3.4.dat
 --- crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.4.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.0-glibc-2.3.4.dat	2005-11-15 12:11:07.000000000 +0100
++++ crosstool-0.38/gcc-4.0.0-glibc-2.3.4.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,6 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_DIR=gcc-4.0.0
@@ -1624,7 +1676,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.4.dat crosstool-0.38/gcc-4.0.0
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.4
 diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.5.dat crosstool-0.38/gcc-4.0.0-glibc-2.3.5.dat
 --- crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.5.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.0-glibc-2.3.5.dat	2005-11-15 12:54:43.000000000 +0100
++++ crosstool-0.38/gcc-4.0.0-glibc-2.3.5.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,5 +1,7 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_DIR=gcc-4.0.0
@@ -1636,7 +1688,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.5.dat crosstool-0.38/gcc-4.0.0
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.5
 diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.5-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.0.0-glibc-2.3.5-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.0-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-11-15 12:54:38.000000000 +0100
++++ crosstool-0.38/gcc-4.0.0-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_DIR=gcc-4.0.0
@@ -1648,7 +1700,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.0-glibc-2.3.5-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.5
 diff -urN crosstool-0.38.orig/gcc-4.0.1-glibc-2.2.2.dat crosstool-0.38/gcc-4.0.1-glibc-2.2.2.dat
 --- crosstool-0.38.orig/gcc-4.0.1-glibc-2.2.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.1-glibc-2.2.2.dat	2005-11-15 12:54:35.000000000 +0100
++++ crosstool-0.38/gcc-4.0.1-glibc-2.2.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-2.95.3
@@ -1660,7 +1712,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.1-glibc-2.2.2.dat crosstool-0.38/gcc-4.0.1
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-4.0.1-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.0.1-glibc-2.2.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.0.1-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.1-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-15 12:54:29.000000000 +0100
++++ crosstool-0.38/gcc-4.0.1-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-2.95.3
@@ -1673,7 +1725,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.1-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-4.0.1-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.0.1-glibc-2.3.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.0.1-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.1-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-15 12:54:17.000000000 +0100
++++ crosstool-0.38/gcc-4.0.1-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-3.3.6
@@ -1686,7 +1738,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.1-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-4.0.1-glibc-2.3.5-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.0.1-glibc-2.3.5-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.0.1-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.0.1-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-11-15 12:54:10.000000000 +0100
++++ crosstool-0.38/gcc-4.0.1-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,7 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_DIR=gcc-4.0.1
@@ -1698,7 +1750,7 @@ diff -urN crosstool-0.38.orig/gcc-4.0.1-glibc-2.3.5-hdrs-2.6.11.2.dat crosstool-
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.5
 diff -urN crosstool-0.38.orig/gcc-4.1-20050702-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.1-20050702-glibc-2.2.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.1-20050702-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.1-20050702-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-15 12:54:01.000000000 +0100
++++ crosstool-0.38/gcc-4.1-20050702-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-2.95.3
@@ -1711,7 +1763,7 @@ diff -urN crosstool-0.38.orig/gcc-4.1-20050702-glibc-2.2.2-hdrs-2.6.11.2.dat cro
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-4.1-20050702-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.1-20050702-glibc-2.3.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.1-20050702-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.1-20050702-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-15 12:53:58.000000000 +0100
++++ crosstool-0.38/gcc-4.1-20050702-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-3.3.6
@@ -1724,7 +1776,7 @@ diff -urN crosstool-0.38.orig/gcc-4.1-20050702-glibc-2.3.2-hdrs-2.6.11.2.dat cro
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-4.1-20050702-glibc-2.3.5-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.1-20050702-glibc-2.3.5-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.1-20050702-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.1-20050702-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-11-15 12:53:54.000000000 +0100
++++ crosstool-0.38/gcc-4.1-20050702-glibc-2.3.5-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-3.4.3
@@ -1737,7 +1789,7 @@ diff -urN crosstool-0.38.orig/gcc-4.1-20050702-glibc-2.3.5-hdrs-2.6.11.2.dat cro
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.5
 diff -urN crosstool-0.38.orig/gcc-4.1-20050709-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.1-20050709-glibc-2.2.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.1-20050709-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.1-20050709-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-15 12:52:42.000000000 +0100
++++ crosstool-0.38/gcc-4.1-20050709-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-2.95.3
@@ -1750,7 +1802,7 @@ diff -urN crosstool-0.38.orig/gcc-4.1-20050709-glibc-2.2.2-hdrs-2.6.11.2.dat cro
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-4.1-20050709-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.1-20050709-glibc-2.3.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.1-20050709-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-07-12 20:12:25.000000000 +0200
-+++ crosstool-0.38/gcc-4.1-20050709-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-15 12:52:51.000000000 +0100
++++ crosstool-0.38/gcc-4.1-20050709-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-3.3.6
@@ -1763,7 +1815,7 @@ diff -urN crosstool-0.38.orig/gcc-4.1-20050709-glibc-2.3.2-hdrs-2.6.11.2.dat cro
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/gcc-4.1-20050716-glibc-2.2.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.1-20050716-glibc-2.2.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.1-20050716-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-07-18 08:09:38.000000000 +0200
-+++ crosstool-0.38/gcc-4.1-20050716-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-15 12:52:55.000000000 +0100
++++ crosstool-0.38/gcc-4.1-20050716-glibc-2.2.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-2.95.3
@@ -1776,7 +1828,7 @@ diff -urN crosstool-0.38.orig/gcc-4.1-20050716-glibc-2.2.2-hdrs-2.6.11.2.dat cro
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.2.2
 diff -urN crosstool-0.38.orig/gcc-4.1-20050716-glibc-2.3.2-hdrs-2.6.11.2.dat crosstool-0.38/gcc-4.1-20050716-glibc-2.3.2-hdrs-2.6.11.2.dat
 --- crosstool-0.38.orig/gcc-4.1-20050716-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-07-18 02:12:04.000000000 +0200
-+++ crosstool-0.38/gcc-4.1-20050716-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-15 12:53:02.000000000 +0100
++++ crosstool-0.38/gcc-4.1-20050716-glibc-2.3.2-hdrs-2.6.11.2.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -1,7 +1,8 @@
  BINUTILS_DIR=binutils-2.16.1
  GCC_CORE_DIR=gcc-3.3.6
@@ -1789,7 +1841,7 @@ diff -urN crosstool-0.38.orig/gcc-4.1-20050716-glibc-2.3.2-hdrs-2.6.11.2.dat cro
  GLIBCTHREADS_FILENAME=glibc-linuxthreads-2.3.2
 diff -urN crosstool-0.38.orig/getandpatch.sh crosstool-0.38/getandpatch.sh
 --- crosstool-0.38.orig/getandpatch.sh	2005-07-06 00:37:25.000000000 +0200
-+++ crosstool-0.38/getandpatch.sh	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/getandpatch.sh	2005-11-22 11:19:36.000000000 +0100
 @@ -29,13 +29,22 @@
  
  # When building a cygwin target the following are not needed.
@@ -1920,14 +1972,14 @@ diff -urN crosstool-0.38.orig/getandpatch.sh crosstool-0.38/getandpatch.sh
  if test -z "$JUST_DOWNLOAD"; then
 diff -urN crosstool-0.38.orig/m68k-uclibc.dat crosstool-0.38/m68k-uclibc.dat
 --- crosstool-0.38.orig/m68k-uclibc.dat	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/m68k-uclibc.dat	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/m68k-uclibc.dat	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,3 @@
 +KERNELCONFIG=`pwd`/m68k.config
 +TARGET=m68k-unknown-linux-uclibc
 +TARGET_CFLAGS="-O"
 diff -urN crosstool-0.38.orig/patches/binutils-2.14/bfddoc-cflags-for-build.patch crosstool-0.38/patches/binutils-2.14/bfddoc-cflags-for-build.patch
 --- crosstool-0.38.orig/patches/binutils-2.14/bfddoc-cflags-for-build.patch	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/patches/binutils-2.14/bfddoc-cflags-for-build.patch	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/patches/binutils-2.14/bfddoc-cflags-for-build.patch	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,37 @@
 +From the uClibc project.
 +
@@ -1968,7 +2020,7 @@ diff -urN crosstool-0.38.orig/patches/binutils-2.14/bfddoc-cflags-for-build.patc
 + 
 diff -urN crosstool-0.38.orig/patches/binutils-2.14/uclibc-target.patch crosstool-0.38/patches/binutils-2.14/uclibc-target.patch
 --- crosstool-0.38.orig/patches/binutils-2.14/uclibc-target.patch	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/patches/binutils-2.14/uclibc-target.patch	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/patches/binutils-2.14/uclibc-target.patch	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,652 @@
 +Provided by the uClibc project.
 +
@@ -2624,7 +2676,7 @@ diff -urN crosstool-0.38.orig/patches/binutils-2.14/uclibc-target.patch crosstoo
 +   need_version=no
 diff -urN crosstool-0.38.orig/patches/binutils-2.14.90.0.5/bfddoc-cflags-for-build.patch crosstool-0.38/patches/binutils-2.14.90.0.5/bfddoc-cflags-for-build.patch
 --- crosstool-0.38.orig/patches/binutils-2.14.90.0.5/bfddoc-cflags-for-build.patch	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/patches/binutils-2.14.90.0.5/bfddoc-cflags-for-build.patch	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/patches/binutils-2.14.90.0.5/bfddoc-cflags-for-build.patch	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,37 @@
 +From the uClibc project.
 +
@@ -2665,7 +2717,7 @@ diff -urN crosstool-0.38.orig/patches/binutils-2.14.90.0.5/bfddoc-cflags-for-bui
 + 
 diff -urN crosstool-0.38.orig/patches/binutils-2.14.90.0.5/uclibc-target.patch crosstool-0.38/patches/binutils-2.14.90.0.5/uclibc-target.patch
 --- crosstool-0.38.orig/patches/binutils-2.14.90.0.5/uclibc-target.patch	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/patches/binutils-2.14.90.0.5/uclibc-target.patch	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/patches/binutils-2.14.90.0.5/uclibc-target.patch	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,652 @@
 +Provided by the uClibc project.
 +
@@ -3321,7 +3373,7 @@ diff -urN crosstool-0.38.orig/patches/binutils-2.14.90.0.5/uclibc-target.patch c
 +   need_version=no
 diff -urN crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-01.patch crosstool-0.38/patches/gcc-3.3.3/uclibc-target-01.patch
 --- crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-01.patch	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/patches/gcc-3.3.3/uclibc-target-01.patch	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/patches/gcc-3.3.3/uclibc-target-01.patch	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,1605 @@
 +Provided by the uClibc project.
 +
@@ -4930,7 +4982,7 @@ diff -urN crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-01.patch crosstool
 +   need_version=no
 diff -urN crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-02.patch crosstool-0.38/patches/gcc-3.3.3/uclibc-target-02.patch
 --- crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-02.patch	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/patches/gcc-3.3.3/uclibc-target-02.patch	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/patches/gcc-3.3.3/uclibc-target-02.patch	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,60 @@
 +Provided by the uClibc project.
 +
@@ -4994,7 +5046,7 @@ diff -urN crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-02.patch crosstool
 +   { "cc1_endian_little",	CC1_ENDIAN_LITTLE_SPEC },		\
 diff -urN crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-03.patch crosstool-0.38/patches/gcc-3.3.3/uclibc-target-03.patch
 --- crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-03.patch	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/patches/gcc-3.3.3/uclibc-target-03.patch	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/patches/gcc-3.3.3/uclibc-target-03.patch	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,3030 @@
 +Provided by the uClibc project.
 +
@@ -8028,7 +8080,7 @@ diff -urN crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-03.patch crosstool
 ++#endif
 diff -urN crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-04.patch crosstool-0.38/patches/gcc-3.3.3/uclibc-target-04.patch
 --- crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-04.patch	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38/patches/gcc-3.3.3/uclibc-target-04.patch	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/patches/gcc-3.3.3/uclibc-target-04.patch	2005-11-22 11:19:36.000000000 +0100
 @@ -0,0 +1,130 @@
 +Adjunct patch for {alpha,m68k,sparc}-*-linux-uclibc* targets.  Adds stuff
 +nexessary to support compiling for uClibc on Alpha, Motorola68k, and Sparc
@@ -8162,7 +8214,7 @@ diff -urN crosstool-0.38.orig/patches/gcc-3.3.3/uclibc-target-04.patch crosstool
 +    It's safe to pass -s always, even if -g is not used.  */
 diff -urN crosstool-0.38.orig/ptx.sh crosstool-0.38/ptx.sh
 --- crosstool-0.38.orig/ptx.sh	2005-05-08 07:51:51.000000000 +0200
-+++ crosstool-0.38/ptx.sh	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/ptx.sh	2005-11-22 11:19:36.000000000 +0100
 @@ -6,10 +6,16 @@
  
  test -z "${TARGET}"           && abort "Please set TARGET to the Gnu target identifier (e.g. pentium-linux)"
@@ -8184,7 +8236,7 @@ diff -urN crosstool-0.38.orig/ptx.sh crosstool-0.38/ptx.sh
  
 diff -urN crosstool-0.38.orig/regtest-report.sh crosstool-0.38/regtest-report.sh
 --- crosstool-0.38.orig/regtest-report.sh	2005-07-20 13:40:37.000000000 +0200
-+++ crosstool-0.38/regtest-report.sh	2005-11-15 13:05:37.000000000 +0100
++++ crosstool-0.38/regtest-report.sh	2005-11-22 11:19:36.000000000 +0100
 @@ -11,10 +11,10 @@
  export LANG
  
@@ -8245,7 +8297,7 @@ diff -urN crosstool-0.38.orig/regtest-report.sh crosstool-0.38/regtest-report.sh
  
 diff -urN crosstool-0.38.orig/testhello.sh crosstool-0.38/testhello.sh
 --- crosstool-0.38.orig/testhello.sh	2005-07-12 20:06:57.000000000 +0200
-+++ crosstool-0.38/testhello.sh	2005-11-15 12:11:16.000000000 +0100
++++ crosstool-0.38/testhello.sh	2005-11-22 11:19:36.000000000 +0100
 @@ -1,6 +1,12 @@
  #!/bin/sh
  set -ex
