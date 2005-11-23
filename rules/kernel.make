@@ -475,6 +475,10 @@ ifndef PTXCONF_DONT_COMPILE_KERNEL
 		echo "ERROR: No kernel config file found.";		\
 		exit 1;							\
 	fi
+ifdef PTXCONF_KLIBC
+# tell the kernel where our spec file for initramfs is
+	sed -ie 's^CONFIG_INITRAMFS_SOURCE.*^CONFIG_INITRAMFS_SOURCE=\"$(KLIBC_DIR)/initramfs_spec\"^' $(KERNEL_DIR)/.config
+endif
 	@echo 
 	@echo "------------- make oldconfig -------------"
 	@echo
@@ -521,6 +525,9 @@ ifdef  PTXCONF_KERNEL_IMAGE_U
 kernel_compile_deps += $(STATEDIR)/hosttool-umkimage.install
 endif
 endif                                                                                                                                            
+ifdef PTXCONF_KLIBC
+kernel_compile_deps += $(STATEDIR)/klibc.install
+endif
 
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	@$(call targetinfo, $@)
