@@ -34,6 +34,7 @@ endmenu
 
 menu "Core (Kernel, C-Library)    "
 source "rules/kernel.in"
+source "rules/klibc.in"
 source "rules/libc.in"
 source "rules/gcclibs.in"
 source "rules/earlyuserspace.in"
