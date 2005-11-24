@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBRN) += librn
 #
 # Paths and names
 #
-LIBRN_VERSION	= 0.4.4
+LIBRN_VERSION	= 0.5.1
 LIBRN		= librn-$(LIBRN_VERSION)
 LIBRN_SUFFIX	= tar.bz2
 LIBRN_URL	= http://www.pengutronix.de/software/librn/download/$(LIBRN).$(LIBRN_SUFFIX)
@@ -31,11 +31,12 @@ LIBRN_DIR	= $(BUILDDIR)/$(LIBRN)
 
 librn_get: $(STATEDIR)/librn.get
 
-librn_get_deps = $(LIBRN_SOURCE)
+librn_get_deps = \
+	$(LIBRN_SOURCE) \
+	$(RULESDIR)/librn.make
 
 $(STATEDIR)/librn.get: $(librn_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(LIBRN))
 	$(call touch, $@)
 
 $(LIBRN_SOURCE):
@@ -133,9 +134,9 @@ $(STATEDIR)/librn.targetinstall: $(librn_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(LIBRN_DIR)/src/.libs/librn.so.0.0.0, /usr/lib/librn.so.0.0.0)
-	@$(call install_link, librn.so.0.0.0, /usr/lib/librn.so.0)
-	@$(call install_link, librn.so.0.0.0, /usr/lib/librn.so)
+	@$(call install_copy, 0, 0, 0644, $(LIBRN_DIR)/src/.libs/librn.so.0.1.1, /usr/lib/librn.so.0.1.1)
+	@$(call install_link, librn.so.0.1.1, /usr/lib/librn.so.0)
+	@$(call install_link, librn.so.0.1.1, /usr/lib/librn.so)
 
 	@$(call install_finish)
 
