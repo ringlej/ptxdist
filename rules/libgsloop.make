@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBGSLOOP) += libgsloop
 #
 # Paths and names
 #
-LIBGSLOOP_VERSION	= 0.0.5
+LIBGSLOOP_VERSION	= 0.0.6
 LIBGSLOOP		= libgsloop-$(LIBGSLOOP_VERSION)
 LIBGSLOOP_SUFFIX	= tar.bz2
 LIBGSLOOP_URL		= http://www.pengutronix.de/software/libgsloop/download/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
@@ -135,9 +135,9 @@ $(STATEDIR)/libgsloop.targetinstall: $(libgsloop_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(LIBGSLOOP_DIR)/src/.libs/libgsloop.so.1.0.1, /usr/lib/libgsloop.so.1.0.1)
-	@$(call install_link, libgsloop.so.1.0.1, /usr/lib/libgsloop.so.1)
-	@$(call install_link, libgsloop.so.1.0.1, /usr/lib/libgsloop.so)
+	@$(call install_copy, 0, 0, 0644, $(LIBGSLOOP_DIR)/src/.libs/libgsloop.so.1.1.0, /usr/lib/libgsloop.so.1.1.0)
+	@$(call install_link, libgsloop.so.1.1.0, /usr/lib/libgsloop.so.1)
+	@$(call install_link, libgsloop.so.1.1.0, /usr/lib/libgsloop.so)
 
 	@$(call install_finish)
 
