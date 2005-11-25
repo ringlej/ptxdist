@@ -32,7 +32,13 @@ Test suite components to be added
 
 Current TODO List
 =================
-
+- JBE:  add an identifier to a (central) toolchain (in "make setup").
+	It should be possible to use more than one toolchain in a local
+	ptxdist folder (for different targets/projects). So the idetifier
+	selects the right toolchain for this project. This identifier
+	simplifies the toolchain selection. There could be a central
+	folder in the system with all informations (and identifiers)
+	about any available toolchain installed on this system.
 - JBE:  add documentation to start from scratch with "make setup"
 	this menu should provide the toolchain, all pathes to everything
 	(also to a prebuilt toochain). All other targets should be project
