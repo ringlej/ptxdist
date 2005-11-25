@@ -32,6 +32,13 @@ Test suite components to be added
 
 Current TODO List
 =================
+- JBE:  For a graphical configurator instead of the ncurses one:
+	Maybe ship a static linked "qconfig" version, otherwise the
+	user also has to install the qt development libraries
+	Same with ncurses (menuconfig), or the user has to be forced
+	to install the development libraries for ncurses
+- JBE:  Make target "qconfig" starts target "oldconfig", even if
+	the configuration was aborted! Target "menuconfig" doesn't
 - JBE:  add an identifier to a (central) toolchain (in "make setup").
 	It should be possible to use more than one toolchain in a local
 	ptxdist folder (for different targets/projects). So the idetifier
@@ -65,7 +72,7 @@ Current TODO List
 	handwritten configure script have to be added; readline dependency
 	is now temporarily fixed, it should be made optional again.
 - RSC:	sed: replace all "sed" occurences by $(SED) and maybe switch to
-	a newer GNU sed, which has to be packaged as a hosttool then. 
+	a newer GNU sed, which has to be packaged as a hosttool then.
 - RSC:	Invent a project_clean mechanism
 - RSC:	is "select GLIBC_DEBUG" in gdb.in necessary??
 - RSC:	check bash (doesn't compile according to Lisa Hsu)
