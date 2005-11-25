@@ -32,6 +32,17 @@ Test suite components to be added
 
 Current TODO List
 =================
+- JBE: For menu entries that enables additional entries when they are
+	selected: Reorganize them to use a submenu instead the current
+	menu. It looks nicer in "menuconfig" and its much better
+	supported when using "xconfig"
+- JBE: Sort program entries in "Shell & Console Tools" and other
+	menus by function, not by program name! Especially if there is
+	more than one program that can do the job (see menu entries
+	"Apache 1", "Apache 2" and "thttpd").
+	To be more concise the whole group should have a checkbox. Not
+	until someone unlocks the "HTTP Server" group he can see the
+	programs in this group.
 - JBE:  For a graphical configurator instead of the ncurses one:
 	Maybe ship a static linked "qconfig" version, otherwise the
 	user also has to install the qt development libraries
