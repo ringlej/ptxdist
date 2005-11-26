@@ -18,21 +18,34 @@ FULLVERSION		:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
 export PROJECT VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION FULLVERSION
 
-ifdef PTXDISTDIR
-TOPDIR			:= $(PTXDISTDIR)
-else
-TOPDIR			:= $(shell pwd)
-endif
-
 #
 # We build on a workspace, for example one for native, one for cross
 #
 
 ifndef PTXDISTWORKSPACE
-PTXDISTWORKSPACE	:= $(TOPDIR)
+ PTXDISTWORKSPACE	:= $(TOPDIR)
+ ifeq ($(PTXDISTDIR),)
+  ifneq ($(MAKEFILE_LIST),)
+   # Since 3.80, we can find out which Makefile is currently processed,
+   # and infere the location of the source tree using MAKEFILE_LIST.
+   PTXDISTDIR := $(dir $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST)))
+  else
+   ifeq ($(PTXDISTDIR),)
+   PTXDISTDIR := $(shell test -d rules && pwd)
+    ifeq ($(PTXDISTDIR),)
+     $(error Please specify the location of your source tree: make PTXDISTDIR=...)
+    endif
+   endif
+  endif
+ endif
 endif
 
+override PTXDISTDIR	:= $(shell cd $(PTXDISTDIR) && pwd)
+TOPDIR			:= $(PTXDISTDIR)
 HOME			:= $(shell echo $$HOME)
+
+PTXDISTWORKSPACE	:= $(CURDIR)
+
 PATCHDIR		:= $(TOPDIR)/patches
 MISCDIR			:= $(TOPDIR)/misc
 RULESDIR		:= $(TOPDIR)/rules
@@ -46,13 +59,15 @@ ROOTDIR			:= $(PTXDISTWORKSPACE)/root
 
 include $(TOPDIR)/rules/Definitions.make
 
-ifeq (exists, $(shell test -e $(HOME)/.ptxdistrc && echo exists))
+ifneq ($(wildcard $(HOME)/.ptxdistrc),)
 include $(HOME)/.ptxdistrc
 else
 include $(TOPDIR)/config/setup/ptxdistrc.default
 endif
 
-SRCDIR			:= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
+-include $(PTXDISTWORKSPACE)/.config
+
+SRCDIR			:= $(call remove_quotes, $(PTXCONF_SETUP_SRCDIR))
 
 # ----------------------------------------------------------------------------
 # Setup a list of project directories
@@ -67,14 +82,15 @@ PROJECTDIRS		+= $(PTXCONF_SETUP_PROJECTDIR2)/
 endif
 PROJECTDIRS		+= $(wildcard $(PTXDISTWORKSPACE)/project-*)
 
+PROJECTDIRS		:= $(strip $(PROJECTDIRS))
+ 
+PROJECTCONFFILE		:= $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
+PROJECTDIR		:= $(strip $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE)))
+PROJECTRULES		:= $(wildcard $(PROJECTDIR)/rules/*.make)
+PROJECTRULESDIR		:= $(PROJECTDIR)/rules
+PROJECTPATCHDIR		:= $(PROJECTDIR)/patches
 
-PROJECTCONFFILE		=  $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
-PROJECTDIR		=  $(strip $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE)))
-PROJECTRULES		=  $(wildcard $(PROJECTDIR)/rules/*.make)
-PROJECTRULESDIR		=  $(PROJECTDIR)/rules
-PROJECTPATCHDIR		=  $(PROJECTDIR)/patches
-
-MENU			=  $(shell 						\
+MENU			:=  $(shell 						\
 				if [ -e $(PROJECTDIR)/Kconfig ]; then		\
 					echo $(PROJECTDIR)/Kconfig; 		\
 				else 						\
@@ -90,8 +106,6 @@ VIRTUAL            =
 export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR HOST_PACKAGES-y CROSS_PACKAGES-y PACKAGES-y
 
 all: help
-
--include $(PTXDISTWORKSPACE)/.config 
 
 # use command line prefix if specified
 ifdef PREFIX
@@ -184,8 +198,8 @@ help:
 	@echo "  make clean                   Remove everything but local/"
 	@echo "  make rootclean               Remove root directory contents"
 	@echo "  make distclean               Clean everything"
-	@echo "  make svn-up                  Run "svn update" in topdir and project dir"
-	@echo "  make svn-stat                Run "svn stat" in topdir and project dir"
+	@echo "  make svn-up                  Run \"svn update\" in topdir and project dir"
+	@echo "  make svn-stat                Run \"svn stat\" in topdir and project dir"
 	@echo
 	@echo "  make world                   Make-everything-and-be-happy"
 	@echo
