@@ -1,7 +1,0 @@
-#!/bin/sh
-echo "$PS1" > /tmp/ps1.old
-echo "Entering System Maintenance Mode ..."
-mount -o remount,rw / && PS1="SYSTEM MAINTENANCE #>" ash
-echo -n "Leaving System Maintenance Mode ..."
-mount -o remount,ro / && echo "DONE" 
-
