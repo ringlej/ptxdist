@@ -223,7 +223,7 @@ endif
 ifdef PTXCONF_OPENSSH_KEYGEN
 	# FIXME: if this is the only file in this directory move it
 	# to somewhere else (patch, echo << EOF?) [RSC]
-	@$(call install_copy, 0, 0, 0755, $(MISCDIR)/openssh-host-keygen.sh, /sbin/openssh-host-keygen.sh, n)
+	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/scripts/openssh-host-keygen.sh, /sbin/openssh-host-keygen.sh, n)
 	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/ssh-keygen, /usr/bin/ssh-keygen)
 endif
 	@$(call install_finish)
