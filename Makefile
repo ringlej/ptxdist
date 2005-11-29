@@ -536,11 +536,11 @@ compile-test:
 	echo >> COMPILE-TEST;						\
 	echo start: `date` >> COMPILE-TEST;				\
 	echo >> COMPILE-TEST;						\
-	scripts/compile-test $(default_crosstool)/gcc-3.4.2-glibc-2.3.3/i586-unknown-linux-gnu/bin abbcc-viac3        COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/gcc-3.4.2-glibc-2.3.3/i586-unknown-linux-gnu/bin i586-generic-glibc COMPILE-TEST;\
 	scripts/compile-test $(default_crosstool)/gcc-2.95.3-glibc-2.2.5/i586-unknown-linux-gnu/bin frako             COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/gcc-3.4.2-glibc-2.3.3/i586-unknown-linux-gnu/bin visbox             COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/gcc-3.4.2-glibc-2.3.3/i586-unknown-linux-gnu/bin rayonic-i586       COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin abbcc-viac3        COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin i586-generic-glibc COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin visbox             COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin rayonic-i586       COMPILE-TEST;\
 	scripts/compile-test $(default_crosstool)/gcc-2.95.3-glibc-2.2.5/arm-softfloat-linux-gnu/bin innokom-2.4-2.95 COMPILE-TEST;\
 	scripts/compile-test $(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin innokom-2.4-3.3.3 COMPILE-TEST;\
 	scripts/compile-test $(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin mx1fs2            COMPILE-TEST;\
