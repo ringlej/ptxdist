@@ -25,12 +25,12 @@ config PROJECT
 	  Name of this project; each PTXdist "Project" specifies a unique 
 	  configuration for an embedded Linux project. A project constists
 	  of one directory in $(PROJECTDIR), which is usually to be found
-	  in $(TOPDIR)/projects when being delivered with the PTXdist base
-	  package. 
+	  in $(PTXDIST_TOPDIR)/projects when being delivered with the
+	  PTXdist base package. 
 
 	  You can specifiy an additional directory which is being searched
 	  for "local" projects with "make setup". The predefined path
-	  for local projects is $(TOPDIR)/local_projects. 
+	  for local projects is $(PTXDIST_TOPDIR)/local_projects. 
 
 	  To find out which projects are available in the current tree, 
 	  type "make configs". 
