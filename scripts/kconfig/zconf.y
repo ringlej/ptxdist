@@ -350,7 +350,7 @@ if_block:
 menu: T_MENU prompt T_EOL
 {
 	menu_add_entry(NULL);
-	menu_add_prop(P_MENU, $2, NULL, NULL);
+	menu_add_prompt(P_MENU, $2, NULL);
 	printd(DEBUG_PARSE, "%s:%d:menu\n", zconf_curname(), zconf_lineno());
 };
 
@@ -400,7 +400,7 @@ source_stmt: source
 comment: T_COMMENT prompt T_EOL
 {
 	menu_add_entry(NULL);
-	menu_add_prop(P_COMMENT, $2, NULL, NULL);
+	menu_add_prompt(P_COMMENT, $2, NULL);
 	printd(DEBUG_PARSE, "%s:%d:comment\n", zconf_curname(), zconf_lineno());
 };
 
@@ -451,7 +451,7 @@ prompt_stmt_opt:
 	  /* empty */
 	| prompt if_expr
 {
-	menu_add_prop(P_PROMPT, $1, NULL, $2);
+	menu_add_prompt(P_PROMPT, $1, $2);
 };
 
 prompt:	  T_WORD
@@ -495,7 +495,7 @@ void conf_parse(const char *name)
 	sym_init();
 	menu_init();
 	modules_sym = sym_lookup("MODULES", 0);
-	rootmenu.prompt = menu_add_prop(P_MENU, "Linux Kernel Configuration", NULL, NULL);
+	rootmenu.prompt = menu_add_prompt(P_MENU, "Linux Kernel Configuration", NULL);
 
 	//zconfdebug = 1;
 	zconfparse();
@@ -691,6 +691,7 @@ void zconfdump(FILE *out)
 }
 
 #include "lex.zconf.c"
+#include "util.c"
 #include "confdata.c"
 #include "expr.c"
 #include "symbol.c"

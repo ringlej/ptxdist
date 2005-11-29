@@ -136,9 +136,9 @@ struct property *menu_add_prop(enum prop_type type, char *prompt, struct expr *e
 	return prop;
 }
 
-void menu_add_prompt(enum prop_type type, char *prompt, struct expr *dep)
+struct property *menu_add_prompt(enum prop_type type, char *prompt, struct expr *dep)
 {
-	menu_add_prop(type, prompt, NULL, dep);
+	return menu_add_prop(type, prompt, NULL, dep);
 }
 
 void menu_add_expr(enum prop_type type, struct expr *expr, struct expr *dep)
@@ -365,9 +365,9 @@ bool menu_is_visible(struct menu *menu)
 const char *menu_get_prompt(struct menu *menu)
 {
 	if (menu->prompt)
-		return menu->prompt->text;
+		return _(menu->prompt->text);
 	else if (menu->sym)
-		return menu->sym->name;
+		return _(menu->sym->name);
 	return NULL;
 }
 
@@ -386,45 +386,5 @@ struct menu *menu_get_parent_menu(struct menu *menu)
 			break;
 	}
 	return menu;
-}
-
-struct file *file_lookup(const char *name)
-{
-	struct file *file;
-
-	for (file = file_list; file; file = file->next) {
-		if (!strcmp(name, file->name))
-			return file;
-	}
-
-	file = malloc(sizeof(*file));
-	memset(file, 0, sizeof(*file));
-	file->name = strdup(name);
-	file->next = file_list;
-	file_list = file;
-	return file;
-}
-
-int file_write_dep(const char *name)
-{
-	struct file *file;
-	FILE *out;
-
-	if (!name)
-		name = ".config.cmd";
-	out = fopen("..config.tmp", "w");
-	if (!out)
-		return 1;
-	fprintf(out, "deps_config := \\\n");
-	for (file = file_list; file; file = file->next) {
-		if (file->next)
-			fprintf(out, "\t%s \\\n", file->name);
-		else
-			fprintf(out, "\t%s\n", file->name);
-	}
-	fprintf(out, "\n.config include/linux/autoconf.h: $(deps_config)\n\n$(deps_config):\n");
-	fclose(out);
-	rename("..config.tmp", name);
-	return 0;
 }
 
