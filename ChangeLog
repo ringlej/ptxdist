@@ -1,3 +1,15 @@
+2005-11-30 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* overall: re-unified TOPDIR and PTXDISTDIR to become
+	  PTXDIST_DIR now. 
+	* makefiles: out-of-tree builds should work now; just 
+	  make an empty directory, link the PTXdist toplevel
+	  Makefile there and do everything you want. This feature
+	  probably needs more testing, but it's a beginning.
+	* kconfig/lxdialog: migrated to be hosttools, but still
+	  with the strange effect that they need to be in 
+	  scripts/* seen from the Makefile. 
+
 2005-11-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ntpclient: targetinstall fixed; patch by Steven Scholz
@@ -52,7 +64,8 @@
 
 	* Makefile: more makefile cleanups. New policy: everything is
 	  now built in a "workspace"; usually nothing changes, but if 
-	  you set PTXDISTWORKSPACE we build there. 
+	  you set PTXDISTWORKSPACE we build there. (UPDDATE: this is 
+	  PTXDIST_WORKSPACE in more recent versions)
 	* paths: moved local_patches to patches; as the patch repository
 	  is now in the SVN repository there's no need to copy patches
 	  around. Policy: look for patches in $(TOPDIR)/patches and in
