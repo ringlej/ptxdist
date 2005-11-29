@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Thu Nov 17 11:58:35 2005
+# Tue Nov 29 08:59:09 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -38,15 +38,16 @@ PTXCONF_ARCH_ARM=y
 # PTXCONF_ARCH_CRIS is not set
 # PTXCONF_ARCH_PARISC is not set
 # PTXCONF_ARCH_SH is not set
-PTXCONF_ARM_ARCH_PXA=y
-# PTXCONF_ARM_ARCH_EPXA is not set
-# PTXCONF_ARM_ARCH_SA1100 is not set
-# PTXCONF_ARM_ARCH_IXP2000 is not set
-# PTXCONF_ARM_ARCH_NETARM is not set
 # PTXCONF_ARM_ARCH_ATMEL is not set
 # PTXCONF_ARM_ARCH_AT91RM9200 is not set
+# PTXCONF_ARM_ARCH_EPXA is not set
 # PTXCONF_ARM_ARCH_IMX is not set
+# PTXCONF_ARM_ARCH_IXP2000 is not set
+# PTXCONF_ARM_ARCH_NETARM is not set
+# PTXCONF_ARM_ARCH_NETX is not set
 # PTXCONF_ARM_ARCH_OMAP is not set
+PTXCONF_ARM_ARCH_PXA=y
+# PTXCONF_ARM_ARCH_SA1100 is not set
 PTXCONF_ARM_ARCH="pxa"
 PTXCONF_ARM_ARCH_LE=y
 PTXCONF_OPT_ARM=y
@@ -205,12 +206,32 @@ PTXCONF_BINUTILS_VERSION="2.14.90.0.5"
 #
 
 #
+# ----------------------------------
+#
+
+#
 # Populate Rootfs
+#
+
+#
+# ----------------------------------
 #
 # PTXCONF_ROOTFS is not set
 
 #
-# Generic /etc Files
+# ----------------------------------
+#
+
+#
+# Generic Config Files in /etc
+#
+
+#
+# ----------------------------------
+#
+
+#
+# ----------------------------------
 #
 
 #
@@ -218,15 +239,7 @@ PTXCONF_BINUTILS_VERSION="2.14.90.0.5"
 #
 
 #
-# telnetd startup script needs telnet
-#
-
-#
-# apache startup script needs apache
-#
-
-#
-# udev startup script needs udev
+# ----------------------------------
 #
 
 #
@@ -300,6 +313,11 @@ PTXCONF_KERNEL_HOST_CMDLINE=""
 #
 
 #
+# klibc               
+#
+# PTXCONF_KLIBC is not set
+
+#
 # C Library           
 #
 PTXCONF_GLIBC=y
@@ -311,6 +329,7 @@ PTXCONF_GLIBC=y
 # PTXCONF_GLIBC_2_3_4 is not set
 # PTXCONF_GLIBC_2_3_3 is not set
 PTXCONF_GLIBC_2_3_2=y
+# PTXCONF_GLIBC_2_3_5 is not set
 # PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
@@ -330,7 +349,6 @@ PTXCONF_GLIBC_2_3_2=y
 #
 # Early Userspace     
 #
-# PTXCONF_KLIBC is not set
 
 #
 # ----------------------------------
@@ -659,6 +677,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_MAD is not set
 # PTXCONF_SETMIXER is not set
 # PTXCONF_RAWREC is not set
+# PTXCONF_MPLAYER is not set
 
 #
 # Tools                       
@@ -682,6 +701,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_EXPAT is not set
 # PTXCONF_GETTEXT is not set
 # PTXCONF_GLIB26 is not set
+# PTXCONF_HRTIMERS_SUPPORT is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBXML2 is not set
 # PTXCONF_LIBXMLCONFIG is not set
@@ -741,6 +761,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # Scientific Apps             
 #
 # PTXCONF_GNUPLOT is not set
+# PTXCONF_LIBMODBUS is not set
 # PTXCONF_LIBPV is not set
 
 #

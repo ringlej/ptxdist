@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Thu Nov 17 12:06:59 2005
+# Tue Nov 29 08:59:41 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -193,12 +193,32 @@ PTXCONF_HOSTTOOL_FLEX254=y
 #
 
 #
+# ----------------------------------
+#
+
+#
 # Populate Rootfs
+#
+
+#
+# ----------------------------------
 #
 # PTXCONF_ROOTFS is not set
 
 #
-# Generic /etc Files
+# ----------------------------------
+#
+
+#
+# Generic Config Files in /etc
+#
+
+#
+# ----------------------------------
+#
+
+#
+# ----------------------------------
 #
 
 #
@@ -206,15 +226,7 @@ PTXCONF_HOSTTOOL_FLEX254=y
 #
 
 #
-# telnetd startup script needs telnet
-#
-
-#
-# apache startup script needs apache
-#
-
-#
-# udev startup script needs udev
+# ----------------------------------
 #
 
 #
@@ -288,6 +300,11 @@ PTXCONF_KERNEL_HOST_CMDLINE=""
 #
 
 #
+# klibc               
+#
+# PTXCONF_KLIBC is not set
+
+#
 # C Library           
 #
 PTXCONF_GLIBC=y
@@ -299,6 +316,7 @@ PTXCONF_GLIBC=y
 # PTXCONF_GLIBC_2_3_4 is not set
 # PTXCONF_GLIBC_2_3_3 is not set
 # PTXCONF_GLIBC_2_3_2 is not set
+# PTXCONF_GLIBC_2_3_5 is not set
 PTXCONF_GLIBC_2_2_5=y
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
@@ -319,7 +337,6 @@ PTXCONF_GLIBC_2_2_5=y
 #
 # Early Userspace     
 #
-# PTXCONF_KLIBC is not set
 
 #
 # ----------------------------------
@@ -648,6 +665,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_MAD is not set
 # PTXCONF_SETMIXER is not set
 # PTXCONF_RAWREC is not set
+# PTXCONF_MPLAYER is not set
 
 #
 # Tools                       
@@ -671,6 +689,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_EXPAT is not set
 # PTXCONF_GETTEXT is not set
 # PTXCONF_GLIB26 is not set
+# PTXCONF_HRTIMERS_SUPPORT is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBXML2 is not set
 # PTXCONF_LIBXMLCONFIG is not set
@@ -730,6 +749,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # Scientific Apps             
 #
 # PTXCONF_GNUPLOT is not set
+# PTXCONF_LIBMODBUS is not set
 # PTXCONF_LIBPV is not set
 
 #

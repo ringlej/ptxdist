@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Wed Nov 16 07:50:48 2005
+# Tue Nov 29 08:59:18 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -39,15 +39,16 @@ PTXCONF_ARCH_ARM=y
 # PTXCONF_ARCH_CRIS is not set
 # PTXCONF_ARCH_PARISC is not set
 # PTXCONF_ARCH_SH is not set
-PTXCONF_ARM_ARCH_PXA=y
-# PTXCONF_ARM_ARCH_EPXA is not set
-# PTXCONF_ARM_ARCH_SA1100 is not set
-# PTXCONF_ARM_ARCH_IXP2000 is not set
-# PTXCONF_ARM_ARCH_NETARM is not set
 # PTXCONF_ARM_ARCH_ATMEL is not set
 # PTXCONF_ARM_ARCH_AT91RM9200 is not set
+# PTXCONF_ARM_ARCH_EPXA is not set
 # PTXCONF_ARM_ARCH_IMX is not set
+# PTXCONF_ARM_ARCH_IXP2000 is not set
+# PTXCONF_ARM_ARCH_NETARM is not set
+# PTXCONF_ARM_ARCH_NETX is not set
 # PTXCONF_ARM_ARCH_OMAP is not set
+PTXCONF_ARM_ARCH_PXA=y
+# PTXCONF_ARM_ARCH_SA1100 is not set
 PTXCONF_ARM_ARCH="pxa"
 PTXCONF_ARM_ARCH_LE=y
 PTXCONF_OPT_ARM=y
@@ -190,7 +191,15 @@ PTXCONF_STRACE_SHARED=y
 #
 
 #
+# ----------------------------------
+#
+
+#
 # Populate Rootfs
+#
+
+#
+# ----------------------------------
 #
 PTXCONF_ROOTFS=y
 PTXCONF_ROOTFS_DEV=y
@@ -206,7 +215,15 @@ PTXCONF_ROOTFS_VAR_RUN=y
 PTXCONF_ROOTFS_VAR_LOG=y
 
 #
-# Generic /etc Files
+# ----------------------------------
+#
+
+#
+# Generic Config Files in /etc
+#
+
+#
+# ----------------------------------
 #
 PTXCONF_ROOTFS_GENERIC_FSTAB=y
 PTXCONF_ROOTFS_GENERIC_GROUP=y
@@ -227,7 +244,15 @@ PTXCONF_ROOTFS_GENERIC_RESOLV=y
 PTXCONF_ROOTFS_GENERIC_SHADOW=y
 
 #
+# ----------------------------------
+#
+
+#
 # Start Scripts in /etc/init.d
+#
+
+#
+# ----------------------------------
 #
 PTXCONF_ROOTFS_ETC_INITD=y
 PTXCONF_ROOTFS_ETC_INITD_RCS=y
@@ -244,11 +269,11 @@ PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK="S02_banner"
 PTXCONF_ROOTFS_ETC_VENDOR=""
 
 #
-# apache startup script needs apache
+# apache: select apache
 #
 
 #
-# udev startup script needs udev
+# udev: select udev
 #
 
 #
@@ -322,6 +347,11 @@ PTXCONF_KERNEL_HOST_CMDLINE=""
 #
 
 #
+# klibc               
+#
+# PTXCONF_KLIBC is not set
+
+#
 # C Library           
 #
 PTXCONF_GLIBC=y
@@ -333,6 +363,7 @@ PTXCONF_GLIBC=y
 # PTXCONF_GLIBC_2_3_4 is not set
 PTXCONF_GLIBC_2_3_3=y
 # PTXCONF_GLIBC_2_3_2 is not set
+# PTXCONF_GLIBC_2_3_5 is not set
 # PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
@@ -431,7 +462,6 @@ PTXCONF_GCCLIBS_GCC_S=y
 #
 # Early Userspace     
 #
-# PTXCONF_KLIBC is not set
 
 #
 # ----------------------------------
@@ -1287,6 +1317,7 @@ PTXCONF_UTELNETD=y
 # PTXCONF_MAD is not set
 # PTXCONF_SETMIXER is not set
 # PTXCONF_RAWREC is not set
+# PTXCONF_MPLAYER is not set
 
 #
 # Tools                       
@@ -1310,6 +1341,7 @@ PTXCONF_FIGLET=y
 # PTXCONF_EXPAT is not set
 # PTXCONF_GETTEXT is not set
 # PTXCONF_GLIB26 is not set
+# PTXCONF_HRTIMERS_SUPPORT is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBXML2 is not set
 # PTXCONF_LIBXMLCONFIG is not set
@@ -1373,6 +1405,7 @@ PTXCONF_ZLIB=y
 # Scientific Apps             
 #
 # PTXCONF_GNUPLOT is not set
+# PTXCONF_LIBMODBUS is not set
 # PTXCONF_LIBPV is not set
 
 #
