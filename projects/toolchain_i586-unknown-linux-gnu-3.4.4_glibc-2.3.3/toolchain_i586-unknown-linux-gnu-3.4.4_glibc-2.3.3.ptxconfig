@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Tue Nov 29 08:59:04 2005
+# Wed Nov 30 00:33:59 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -315,10 +315,10 @@ PTXCONF_GLIBC=y
 #
 # C Library options
 #
+# PTXCONF_GLIBC_2_3_5 is not set
 # PTXCONF_GLIBC_2_3_4 is not set
 PTXCONF_GLIBC_2_3_3=y
 # PTXCONF_GLIBC_2_3_2 is not set
-# PTXCONF_GLIBC_2_3_5 is not set
 # PTXCONF_GLIBC_2_2_5 is not set
 # PTXCONF_GLIBC_2_2_4 is not set
 # PTXCONF_GLIBC_2_2_3 is not set
