@@ -58,16 +58,16 @@ fi;
 # -------------------------------------------
 # Command line arguments:
 # -------------------------------------------
-# TOPDIR is the TOP of PTX Directory
-TOPDIR=$1
+# PTXDIST_TOPDIR is the TOP of PTX Directory
+PTXDIST_TOPDIR=$1
 # ARCH_PATH is where the archives will be created
-ARCH_PATH=$TOPDIR/..
+ARCH_PATH=$PTXDIST_TOPDIR/..
 # ARCH_BASENAME is the basename of the archive,
 # usually the name of the ptxdist-directory
 ARCH_BASENAME=$2
 
 cat << EOF
-TOPDIR=$TOPDIR
+PTXDIST_TOPDIR=$PTXDIST_TOPDIR
 ARCH_PATH=$ARCH_PATH
 ARCH_BASENAME=$ARCH_BASENAME
 EOF
@@ -120,19 +120,19 @@ _EOF_
 read
 
 echo $ARCH_BASENAME > ../release.lck
-cd $TOPDIR/..
+cd $PTXDIST_TOPDIR/..
 mv -v $ARCH_BASENAME $RELEASE || my_error
 ARCH_BASENAME=$RELEASE
-TOPDIR="$(dirname $TOPDIR)/$RELEASE"
-ARCH_PATH=$TOPDIR/..
+PTXDIST_TOPDIR="$(dirname $PTXDIST_TOPDIR)/$RELEASE"
+ARCH_PATH=$PTXDIST_TOPDIR/..
 
 cat << EOF
-TOPDIR=$TOPDIR
+PTXDIST_TOPDIR=$PTXDIST_TOPDIR
 ARCH_PATH=$ARCH_PATH
 ARCH_BASENAME=$ARCH_BASENAME
 EOF
 
-cd $TOPDIR
+cd $PTXDIST_TOPDIR
 sleep 3;
 }
 fi; 
@@ -144,7 +144,7 @@ MAGIC=`whoami`-`eval date +%s`-tmp
 STATE_DIR="state";
 RULE_DIR="rules";
 PKG_LIST="$STATE_DIR/packetlist"
-SRC_DIR=$TOPDIR/src
+SRC_DIR=$PTXDIST_TOPDIR/src
 SRC_TMP=/tmp/ptxdist_src-$$-$MAGIC
 PTX_TMP=/tmp/ptxdist_ptx-$$-$MAGIC
 SRC_TAR=$ARCH_PATH/$RELEASE-additional_sources.tar
@@ -196,7 +196,7 @@ echo "constructing ptxdist archive"
 # echo "WHRERE AM I ? $(pwd)"
 echo "$ARCH_BASENAME"
 
-$TAR -C $TOPDIR/.. -cf -                                \
+$TAR -C $PTXDIST_TOPDIR/.. -cf -			\
 	--exclude CVS					\
 	--exclude .svn					\
 	--exclude $ARCH_BASENAME/build/*		\
@@ -230,14 +230,14 @@ rm -rf $PTX_TMP && echo "OK"
 # Cleanup
 # -------------------------------------------
 
-if [ -e $TOPDIR/../release.lck ]; then {
+if [ -e $PTXDIST_TOPDIR/../release.lck ]; then {
 
 ARCH_BASENAME=$(cat ../release.lck)
 echo "archive release cycle for >>$RELEASE<< has ended,"
 echo "restoring old name >>$ARCH_BASENAME<<"
 
-cd $TOPDIR/..
-mv -v $(basename $TOPDIR) $ARCH_BASENAME
+cd $PTXDIST_TOPDIR/..
+mv -v $(basename $PTXDIST_TOPDIR) $ARCH_BASENAME
 rm -v release.lck
 
 echo "I am done. Have a nice day :-)"

@@ -2,7 +2,7 @@
 #
 # usage: IMAGES=/image/dir ROOT=/root/dir IPKG=/path/to/ipkg-cl ipkg-test 
 
-TOPDIR=`pwd`
+PTXDIST_TOPDIR=`pwd`
 DIR=`mktemp -d /tmp/ptxdist.XXXXXX`
 
 if [ -z "$IMAGES/*.ipk" ]; then
@@ -19,7 +19,7 @@ fi
 
 for archive in $IMAGES/*.ipk; do
 	$IPKG							\
-		-f $TOPDIR/projects/generic/etc/ipkg.conf	\
+		-f $PTXDIST_TOPDIR/projects/generic/etc/ipkg.conf	\
 		-force-depends 					\
 		-o $DIR						\
 		install $archive 1> /dev/null
@@ -27,11 +27,11 @@ done
 
 echo "checking files in ipkg tree..."
 cd $DIR
-find . | grep -v "./usr/lib/ipkg" | sort -u > $TOPDIR/logs/root-ipkg.txt
+find . | grep -v "./usr/lib/ipkg" | sort -u > $PTXDIST_TOPDIR/logs/root-ipkg.txt
 
 echo "checking files in original tree..."
 cd $ROOT
-find . | sort -u > $TOPDIR/logs/root-orig.txt
+find . | sort -u > $PTXDIST_TOPDIR/logs/root-orig.txt
 
 echo
 echo "----------------------------------------------------------------------------"
@@ -40,12 +40,12 @@ echo "--------------------------------------------------------------------------
 echo
 
 diff -u								\
-	$TOPDIR/logs/root-orig.txt				\
-	$TOPDIR/logs/root-ipkg.txt				\
-	> $TOPDIR/logs/root.diff
+	$PTXDIST_TOPDIR/logs/root-orig.txt			\
+	$PTXDIST_TOPDIR/logs/root-ipkg.txt			\
+	> $PTXDIST_TOPDIR/logs/root.diff
 
-cd $TOPDIR
+cd $PTXDIST_TOPDIR
 rm -fr $DIR
-cat $TOPDIR/logs/root.diff >&2
+cat $PTXDIST_TOPDIR/logs/root.diff >&2
 echo
 
