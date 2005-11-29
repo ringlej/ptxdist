@@ -47,7 +47,7 @@ menu "Sources         "
 config SETUP_SRCDIR
 	prompt "Source Directory"
 	string
-	default "$(TOPDIR)/local_src"
+	default "$(PTXDIST_TOPDIR)/local_src"
 	help
 	  This directoy is taken if PTXdist searches for vanilla
 	  sources. If the source is not already there, PTXdist 
@@ -60,7 +60,7 @@ menu "Patches         "
 config SETUP_LOCAL_PATCH_REPOSITORY
 	prompt "1st patch source: URL Patch Repository"
 	string
-	default "file://$(TOPDIR)/local_patches"
+	default "file://$(PTXDIST_TOPDIR)/local_patches"
 	help
 	  PTXdist searches for local patches in this location. 
 	  "patches" are bug fixing patches only; if you need patches
@@ -87,7 +87,7 @@ menu "Feature Patches "
 config SETUP_LOCAL_FEATUREPATCH_REPOSITORY
 	prompt "Local Feature Patch Repository (URL)"
 	string
-	default "$(TOPDIR)/local_featurepatches"
+	default "$(PTXDIST_TOPDIR)/local_featurepatches"
 	help
 	  PTXdist searches for local feature patches in this directory. 
 	  "feature patches" are patches which add a certain feature to a
@@ -101,7 +101,7 @@ menu "Projects        "
 config SETUP_PROJECTDIR1
 	prompt "1st Project Directory"
 	string
-	default "$(TOPDIR)/projects"
+	default "$(PTXDIST_TOPDIR)/projects"
 	help
 	  PTXdist uses the term "projecst" for configurations which form
 	  a configuration for a certain embedded board. A project
@@ -114,7 +114,7 @@ config SETUP_PROJECTDIR1
 config SETUP_PROJECTDIR2
 	prompt "2nd Project Directory"
 	string
-	default "$(TOPDIR)/local_projects"
+	default "$(PTXDIST_TOPDIR)/local_projects"
 	depends on SETUP_PROJECTDIR1 != ""
 	help
 	  PTXdist uses the term "projecst" for configurations which form
