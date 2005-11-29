@@ -36,7 +36,7 @@ canutils_get_deps = \
 
 $(STATEDIR)/canutils.get: $(canutils_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	@$(call touch, $@)
 
 $(CANUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/canutils.extract: $(canutils_extract_deps)
 	@$(call clean, $(CANUTILS_DIR))
 	@$(call extract, $(CANUTILS_SOURCE))
 	@$(call patchin, $(CANUTILS))
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -85,7 +85,7 @@ $(STATEDIR)/canutils.prepare: $(canutils_prepare_deps)
 	cd $(CANUTILS_DIR) && \
 		$(CANUTILS_PATH) $(CANUTILS_ENV) \
 		./configure $(CANUTILS_AUTOCONF)
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -98,7 +98,7 @@ canutils_compile_deps = $(STATEDIR)/canutils.prepare
 $(STATEDIR)/canutils.compile: $(canutils_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(CANUTILS_DIR) && $(CANUTILS_ENV) $(CANUTILS_PATH) make
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,7 +109,7 @@ canutils_install: $(STATEDIR)/canutils.install
 $(STATEDIR)/canutils.install: $(STATEDIR)/canutils.compile
 	@$(call targetinfo, $@)
 	cd $(CANUTILS_DIR) && $(CANUTILS_ENV) $(CANUTILS_PATH) make install
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -144,7 +144,7 @@ ifdef PTXCONF_CANUTILS_CANSEND
 	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/cansend,   /sbin/cansend)
 endif
 	@$(call install_finish)
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

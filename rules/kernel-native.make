@@ -197,7 +197,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_P
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_PATCH11_NAME).get:
 	@$(call targetinfo, "Patch 11")
 	@$(call get_feature_patch, $(KERNEL_HOST), $(PTXCONF_KERNEL_HOST_PATCH11_URL), $(PTXCONF_KERNEL_HOST_PATCH11_NAME))
-	touch $@
+	$(call touch, $@)
 endif
 endif
 
@@ -207,7 +207,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_P
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_PATCH12_NAME).get:
 	@$(call targetinfo, "Patch 12")
 	@$(call get_feature_patch, $(KERNEL_HOST), $(PTXCONF_KERNEL_HOST_PATCH12_URL), $(PTXCONF_KERNEL_HOST_PATCH12_NAME))
-	touch $@
+	$(call touch, $@)
 endif
 endif
 
@@ -217,7 +217,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_P
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_PATCH13_NAME).get:
 	@$(call targetinfo, "Patch 13")
 	@$(call get_feature_patch, $(KERNEL_HOST), $(PTXCONF_KERNEL_HOST_PATCH13_URL), $(PTXCONF_KERNEL_HOST_PATCH13_NAME))
-	touch $@
+	$(call touch, $@)
 endif
 endif
 
@@ -227,7 +227,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_P
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_PATCH14_NAME).get:
 	@$(call targetinfo, "Patch 14")
 	@$(call get_feature_patch, $(KERNEL_HOST), $(PTXCONF_KERNEL_HOST_PATCH14_URL), $(PTXCONF_KERNEL_HOST_PATCH14_NAME))
-	touch $@
+	$(call touch, $@)
 endif
 endif
 
@@ -237,7 +237,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_P
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_PATCH15_NAME).get:
 	@$(call targetinfo, "Patch 15")
 	@$(call get_feature_patch, $(KERNEL_HOST), $(PTXCONF_KERNEL_HOST_PATCH15_URL), $(PTXCONF_KERNEL_HOST_PATCH15_NAME))
-	touch $@
+	$(call touch, $@)
 endif
 endif
 
@@ -247,7 +247,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_P
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_PATCH16_NAME).get:
 	@$(call targetinfo, "Patch 16")
 	@$(call get_feature_patch, $(KERNEL_HOST), $(PTXCONF_KERNEL_HOST_PATCH16_URL), $(PTXCONF_KERNEL_HOST_PATCH16_NAME))
-	touch $@
+	$(call touch, $@)
 endif
 endif
 
@@ -257,7 +257,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_P
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_PATCH17_NAME).get:
 	@$(call targetinfo, "Patch 17")
 	@$(call get_feature_patch, $(KERNEL_HOST), $(PTXCONF_KERNEL_HOST_PATCH17_URL), $(PTXCONF_KERNEL_HOST_PATCH17_NAME))
-	touch $@
+	$(call touch, $@)
 endif
 endif
 
@@ -267,7 +267,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_P
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_PATCH18_NAME).get:
 	@$(call targetinfo, "Patch 18")
 	@$(call get_feature_patch, $(KERNEL_HOST), $(PTXCONF_KERNEL_HOST_PATCH18_URL), $(PTXCONF_KERNEL_HOST_PATCH18_NAME))
-	touch $@
+	$(call touch, $@)
 endif
 endif
 
@@ -277,7 +277,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_P
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_PATCH19_NAME).get:
 	@$(call targetinfo, "Patch 19")
 	@$(call get_feature_patch, $(KERNEL_HOST), $(PTXCONF_KERNEL_HOST_PATCH19_URL), $(PTXCONF_KERNEL_HOST_PATCH19_NAME))
-	touch $@
+	$(call touch, $@)
 endif
 endif
 
@@ -287,7 +287,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_P
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_PATCH20_NAME).get:
 	@$(call targetinfo, "Patch 20")
 	@$(call get_feature_patch, $(KERNEL_HOST), $(PTXCONF_KERNEL_HOST_PATCH20_URL), $(PTXCONF_KERNEL_HOST_PATCH20_NAME))
-	touch $@
+	$(call touch, $@)
 endif
 endif
 
@@ -516,7 +516,7 @@ kernel_clean:
 	for i in `find $(STATEDIR) -name "kernel-feature-*.*" | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do \
 		if [ $$? -eq 0 ]; then										\
 			rm -f $(STATEDIR)/kernel-feature-$$i*;							\
-			rm -fr $(TOPDIR)/feature-patches/$$i;							\
+			rm -fr $(PTXDIST_TOPDIR)/feature-patches/$$i;							\
 		fi;												\
 	done;													\
 	rm -f $(STATEDIR)/kernel-patchstack.get;								\

@@ -312,13 +312,13 @@ comment "Paths & Directories"
 config PREFIX
 	prompt "Prefix for \"install\" stage"
 	string
-	default "$(TOPDIR)/local"
+	default "$(PTXDIST_TOPDIR)/local"
 	help
 	  This directory is being used to install things during the "install" 
 	  stage of PTXdist. It usually contains host tools and libraries which 
 	  are needed to link programs. 
 
-	  A sane default for this is $(TOPDIR)/local. Use this one unless you 
+	  A sane default for this is $(PTXDIST_TOPDIR)/local. Use this one unless you 
 	  do exactly know what you are doing. 
 
 config HOST_PREFIX
@@ -334,13 +334,13 @@ config CROSS_PREFIX
 config ROOT
 	prompt "Prefix for \"targetinstall\" stage"
 	string
-	default "$(TOPDIR)/root"
+	default "$(PTXDIST_TOPDIR)/root"
 	help
 	  This directory is being used to install things during the "targetinstall"
 	  stage of PTXdist. It usually contains the root filesystem for the 
 	  embedded system.
 	  
-	  A sane default for this is $(TOPDIR)/root. Use this one unless you 
+	  A sane default for this is $(PTXDIST_TOPDIR)/root. Use this one unless you 
 	  do exactly know what you are doing. 
 
 comment "GNU Toolchain Identification String"

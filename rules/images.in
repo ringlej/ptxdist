@@ -34,7 +34,7 @@ config IMAGE_IPKG
 	select HOSTTOOL_IPKG
 	help
 	  When this option is selected, the install_* macros build 
-	  ipkg packets in $(TOPDIR)/images/ for each software component. 
+	  ipkg packets in $(PTXDIST_TOPDIR)/images/ for each software component. 
 
 config IMAGE_IPKG_EXTRA_ARGS
 	string

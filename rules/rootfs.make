@@ -153,14 +153,14 @@ endif
 	#
 
 ifdef PTXCONF_ROOTFS_GENERIC_FSTAB
-	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/fstab, /etc/fstab, n)
+	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/fstab, /etc/fstab, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_GROUP
-	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/group,        /etc/group, n)
-	@$(call install_copy, 0, 0, 0640, $(TOPDIR)/projects/generic/etc/gshadow,      /etc/gshadow, n)
+	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/group,        /etc/group, n)
+	@$(call install_copy, 0, 0, 0640, $(PTXDIST_TOPDIR)/projects/generic/etc/gshadow,      /etc/gshadow, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_HOSTNAME
-	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/hostname,     /etc/hostname, n)
+	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/hostname,     /etc/hostname, n)
 
 	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME))"; \
 	if [ -n "$$x" ]; then \
@@ -170,10 +170,10 @@ ifdef PTXCONF_ROOTFS_GENERIC_HOSTNAME
 	fi
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_HOSTS
-	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/hosts,        /etc/hosts, n)
+	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/hosts,        /etc/hosts, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_INITTAB
-	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/inittab,      /etc/inittab, n)
+	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/inittab,      /etc/inittab, n)
 
 	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE))"; \
 	if [ -n "$$x" ]; then \
@@ -190,13 +190,13 @@ ifdef PTXCONF_ROOTFS_GENERIC_INITTAB
 	fi
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_NSSWITCH
-	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/nsswitch.conf,/etc/nsswitch.conf, n)
+	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/nsswitch.conf,/etc/nsswitch.conf, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_PASSWD
-	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/passwd,       /etc/passwd, n)
+	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/passwd,       /etc/passwd, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_PROFILE
-	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/profile,      /etc/profile, n)
+	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/profile,      /etc/profile, n)
 	
 	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_PS1))"; \
 	echo $$x; \
@@ -214,17 +214,17 @@ ifdef PTXCONF_ROOTFS_GENERIC_PROFILE
 	perl -i -p -e "s,\@PS4@,\"$$x\",g" $(IMAGEDIR)/ipkg/etc/profile;
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_PROTOCOLS
-	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/protocols,    /etc/protocols, n)
+	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/protocols,    /etc/protocols, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_RESOLV
-	@$(call install_copy, 0, 0, 0644, $(TOPDIR)/projects/generic/etc/resolv.conf,  /etc/resolv.conf, n)
+	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/resolv.conf,  /etc/resolv.conf, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_SHADOW
-	@$(call install_copy, 0, 0, 0640, $(TOPDIR)/projects/generic/etc/shadow,       /etc/shadow, n)
-	@$(call install_copy, 0, 0, 0600, $(TOPDIR)/projects/generic/etc/shadow-,      /etc/shadow-, n)
+	@$(call install_copy, 0, 0, 0640, $(PTXDIST_TOPDIR)/projects/generic/etc/shadow,       /etc/shadow, n)
+	@$(call install_copy, 0, 0, 0600, $(PTXDIST_TOPDIR)/projects/generic/etc/shadow-,      /etc/shadow-, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_UDHCPC
-	@$(call install_copy, 0, 0, 0744, $(TOPDIR)/projects/generic/etc/udhcpc.script,/etc/udhcpc.script, n)
+	@$(call install_copy, 0, 0, 0744, $(PTXDIST_TOPDIR)/projects/generic/etc/udhcpc.script,/etc/udhcpc.script, n)
 endif
 
 	#
@@ -235,10 +235,10 @@ ifdef PTXCONF_ROOTFS_ETC_INITD
 
 	# Copy generic etc/init.d
 	@$(call install_copy, 0, 0, 0755, /etc/init.d)
-	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/rcS,        /etc/init.d/rcS, n)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/rcS,        /etc/init.d/rcS, n)
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_NETWORKING
-	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/networking, /etc/init.d/networking, n)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/networking, /etc/init.d/networking, n)
 	@$(call install_copy, 0, 0, 0755, /etc/network/if-down.d)
 	@$(call install_copy, 0, 0, 0755, /etc/network/if-up.d)
 	@$(call install_copy, 0, 0, 0755, /etc/network/if-post-down.d)
@@ -252,14 +252,14 @@ endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD
-	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/telnetd,    /etc/init.d/telnetd, n)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/telnetd,    /etc/init.d/telnetd, n)
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
 	@$(call install_link, /etc/init.d/telnetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
 endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
-	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/httpd,    /etc/init.d/httpd, n)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/httpd,    /etc/init.d/httpd, n)
 	x="$(call remove_quotes,$(PTXCONF_APACHE2_CONFIGDIR))/httpd.conf"; \
 	echo $$x; \
 	perl -i -p -e "s,\@APACHECONFIG@,$$x,g" $(ROOTDIR)/etc/init.d/httpd; \
@@ -271,13 +271,13 @@ endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_STARTUP
-	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/startup,    /etc/init.d/startup, n)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/startup,    /etc/init.d/startup, n)
 endif
 
 	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_BANNER
-	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/banner,     /etc/init.d/banner, n)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/banner,     /etc/init.d/banner, n)
 	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_VENDOR))"; \
 	perl -i -p -e "s,\@VENDOR@,$$x,g" $(ROOTDIR)/etc/init.d/banner; \
 	perl -i -p -e "s,\@VENDOR@,$$x,g" $(IMAGEDIR)/ipkg/etc/init.d/banner; \

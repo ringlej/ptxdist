@@ -209,7 +209,7 @@ ifneq ($(PTXCONF_APACHE2_DOCUMENTROOT),"")
 	@$(call install_copy, 12, 102, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
 ifdef PTXCONF_APACHE2_DEFAULT_INDEX
 	@$(call install_copy, 12, 102, 0644, \
-		$(TOPDIR)/project/generic/index.html \
+		$(PTXDIST_TOPDIR)/project/generic/index.html \
 		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html,n)
 endif
 endif
@@ -222,7 +222,7 @@ ifneq ($(PTXCONF_APACHE2_CONFIGDIR),"")
 		$(PTXCONF_APACHE2_CONFIGDIR)/magic,n)
 
 ifdef PTXCONF_APACHE2_DEFAULTCONFIG
-	cp $(TOPDIR)/projects/generic/httpd.conf $(APACHE2_DIR)/httpd.conf
+	cp $(PTXDIST_TOPDIR)/projects/generic/httpd.conf $(APACHE2_DIR)/httpd.conf
 
 	# now replace our own options
 	perl -i -p -e "s,\@SERVERROOT@,\"$(PTXCONF_APACHE2_SERVERROOT)\",g" $(APACHE2_DIR)/httpd.conf
@@ -260,7 +260,7 @@ endif
 # 		$(call install_copy, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/$$i,n); \
 # 	done
 # else
-# 	$(call install_copy, 12,102,0644,$(TOPDIR)/projetcs/generic/index.html,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/index.html,n)
+# 	$(call install_copy, 12,102,0644,$(PTXDIST_TOPDIR)/projetcs/generic/index.html,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/index.html,n)
 # endif
 # 	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin)
 # 	@$(call install_copy, 12,102,0644,$(APACHE2_DIR)/doc/cgi-examples/test-cgi,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin,n)

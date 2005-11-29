@@ -13,7 +13,7 @@ check_tools: check_dirs
 	$(call check_prog_version, wget, -V, 1\\\\.(9|1.?)\\\\.|1\\\\.9\\\\+cvs)
 
 #	# check if we have a toplevel .config file
-	$(call check_file_exists, $(PTXDISTWORKSPACE)/.config)
+	$(call check_file_exists, $(PTXDIST_WORKSPACE)/.config)
 
 #	# check if we have a project dir
 	@if [ -z "$(PROJECTDIR)" ]; then								\

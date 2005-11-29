@@ -13,7 +13,7 @@
 # FIXME: cleanup 
 
 PTXUSER		= $(shell echo $$USER)
-GNU_BUILD	= $(shell $(TOPDIR)/scripts/config.guess)
+GNU_BUILD	= $(shell $(PTXDIST_TOPDIR)/scripts/config.guess)
 GNU_HOST	= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 DEP_OUTPUT	= depend.out
 DEP_TREE_PS	= deptree.ps
@@ -377,7 +377,7 @@ targetinfo = 							\
 		-e "s@$(RULESDIR)@@g"				\
 		-e "s@$(PROJECTRULESDIR)@@g"			\
 		-e "s@$(PROJECTDIR)@@g"				\
-		-e "s@$(TOPDIR)@@g" 				\
+		-e "s@$(PTXDIST_TOPDIR)@@g" 			\
 		-e "s@/@@g" >> $(DEP_OUTPUT)
 
 #
@@ -512,7 +512,7 @@ get =								\
 # $1: Name of the package the patch has to be applied to 
 # $2: URL of the patch; this may either point to a single unified diff
 #     or to a directory containing a 'patcher' like patch series
-# $3: patch name; the patch is stored in $(TOPDIR)/feature-patches/$3
+# $3: patch name; the patch is stored in $(PTXDIST_TOPDIR)/feature-patches/$3
 # 
 get_feature_patch =						\
 	FP_PARENT="$(strip $(1))";				\
@@ -685,8 +685,8 @@ get_option =										\
 	$(shell										\
 		REGEX="$(strip $(1))";							\
 		DEFAULT="$(strip $(2))";						\
-		if [ -f $(PTXDISTWORKSPACE)/.config ]; then				\
-			VALUE=`$(CAT) $(PTXDISTWORKSPACE)/.config | sed -n -e "$${REGEX}p"`;	\
+		if [ -f $(PTXDIST_WORKSPACE)/.config ]; then				\
+			VALUE=`$(CAT) $(PTXDIST_WORKSPACE)/.config | sed -n -e "$${REGEX}p"`;	\
 		fi;									\
 		echo $${VALUE:-$$DEFAULT}						\
 	)
@@ -705,8 +705,8 @@ get_option =										\
 get_option_ext =									\
 	$(shell										\
 		REGEX="$(strip $(1))";							\
-		if [ -f $(PTXDISTWORKSPACE)/.config ]; then					\
-			$(CAT) $(PTXDISTWORKSPACE)/.config | sed -n -e "$${REGEX}p" | $(2);	\
+		if [ -f $(PTXDIST_WORKSPACE)/.config ]; then					\
+			$(CAT) $(PTXDIST_WORKSPACE)/.config | sed -n -e "$${REGEX}p" | $(2);	\
 		fi;									\
 	)
 
@@ -1256,7 +1256,7 @@ install_init =											\
 		echo "install_init: preparing for image creation...";				\
 		rm -fr $(IMAGEDIR)/ipkg;							\
 		mkdir -p $(IMAGEDIR)/ipkg/CONTROL; 						\
-		cp -f $(TOPDIR)/rules/default.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;		\
+		cp -f $(RULESDIR)/default.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;		\
 		if [ -z $(PTXCONF_IMAGE_IPKG_ARCH) ]; then					\
 			echo "Error: please specify an architecure name for ipkg!";		\
 			exit -1;								\
