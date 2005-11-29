@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_CANUTILS) += canutils
 #
 # Paths and names
 #
-CANUTILS_VERSION	= 1.0.5
+CANUTILS_VERSION	= 1.0.6
 CANUTILS		= canutils-$(CANUTILS_VERSION)
 CANUTILS_SUFFIX		= tar.bz2
 CANUTILS_URL		= http://www.pengutronix.de/software/socket-can/download/canutils/v1.0/$(CANUTILS).$(CANUTILS_SUFFIX)
@@ -36,7 +36,6 @@ canutils_get_deps = \
 
 $(STATEDIR)/canutils.get: $(canutils_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(CANUTILS))
 	touch $@
 
 $(CANUTILS_SOURCE):
@@ -133,16 +132,16 @@ $(STATEDIR)/canutils.targetinstall: $(canutils_targetinstall_deps)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 ifdef PTXCONF_CANUTILS_CANCONFIG
-	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/canconfig, /sbin/canconfig)
+	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/canconfig, /sbin/canconfig)
 endif
 ifdef PTXCONF_CANUTILS_CANECHO
-	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/canecho,   /sbin/canecho)
+	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/canecho,   /sbin/canecho)
 endif
 ifdef PTXCONF_CANUTILS_CANDUMP
-	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/candump,   /sbin/candump)
+	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/candump,   /sbin/candump)
 endif
 ifdef PTXCONF_CANUTILS_CANSEND
-	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/cansend,   /sbin/cansend)
+	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/cansend,   /sbin/cansend)
 endif
 	@$(call install_finish)
 	touch $@
