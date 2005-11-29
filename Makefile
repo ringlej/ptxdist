@@ -74,7 +74,7 @@ endif
 
 -include $(PTXDISTWORKSPACE)/.config
 
-SRCDIR			:= $(call remove_quotes, $(PTXCONF_SETUP_SRCDIR))
+SRCDIR			:= $(strip $(call remove_quotes, $(PTXCONF_SETUP_SRCDIR)))
 
 # ----------------------------------------------------------------------------
 # Setup a list of project directories
@@ -526,7 +526,7 @@ config-test:
 		cp .config $$i;						\
 	done
 
-default_crosstool=/opt/crosstool-0.28-rc37
+default_crosstool=/opt/crosstool-0.38
 
 compile-test:
 	cd $(TOPDIR); 							\
@@ -536,18 +536,18 @@ compile-test:
 	echo >> COMPILE-TEST;						\
 	echo start: `date` >> COMPILE-TEST;				\
 	echo >> COMPILE-TEST;						\
-	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin abbcc-viac3        COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin i586-generic-glibc COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-2.95.3-glibc-2.2.5/bin frako             COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin visbox             COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin rayonic-i586       COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-2.95.3-glibc-2.2.5/bin innokom-2.4-2.95 COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin innokom-2.4-3.3.3 COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin mx1fs2            COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin pii_nge           COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin ssv_pnp2110_eva1  COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/powerpc-604-linux-gnu/gcc-3.4.1-glibc-2.3.3/bin eb8245              COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/powerpc-405-linux-gnu/gcc-3.2.3-glibc-2.2.5/bin cameron-efco        COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.4.2-glibc-2.3.3/i586-unknown-linux-gnu/bin abbcc-viac3        COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.4.2-glibc-2.3.3/i586-unknown-linux-gnu/bin i586-generic-glibc COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-2.95.3-glibc-2.2.5/i586-unknown-linux-gnu/bin frako             COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.4.2-glibc-2.3.3/i586-unknown-linux-gnu/bin visbox             COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.4.2-glibc-2.3.3/i586-unknown-linux-gnu/bin rayonic-i586       COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-2.95.3-glibc-2.2.5/arm-softfloat-linux-gnu/bin innokom-2.4-2.95 COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin innokom-2.4-3.3.3 COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin mx1fs2            COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin pii_nge           COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin ssv_pnp2110_eva1  COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.4.1-glibc-2.3.3/powerpc-604-linux-gnu/bin eb8245              COMPILE-TEST;\
+	scripts/compile-test $(default_crosstool)/gcc-3.2.3-glibc-2.2.5/powerpc-405-linux-gnu/bin cameron-efco        COMPILE-TEST;\
 	echo >> COMPILE-TEST;						\
 	echo stop: `date` >> COMPILE-TEST;				\
 	echo >> COMPILE-TEST;
