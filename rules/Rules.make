@@ -352,28 +352,32 @@ check_file_exists = 				\
 # to perform compile or prepare stages. 
 # 
 # $1: name of the target to be printed out
+# $2: normally empty; if "n", don't run compilercheck
 #
-targetinfo = 						\
-	echo;						\
-	TG=`echo $(1) | sed -e "s,/.*/,,g"`; 		\
-	LINE=`echo target: $$TG |sed -e "s/./-/g"`;	\
-	echo $$LINE;					\
-	echo target: $$TG;				\
-	echo $$LINE;					\
-	echo;						\
-	if [ `echo $$TG | $(GREP) "\.compile"` ]; then	\
-		$(call compilercheck)			\
-	fi;						\
-	if [ `echo $$TG | $(GREP) "\.prepare"` ]; then	\
-		$(call compilercheck)			\
-	fi;						\
-	echo $@ : $^ | sed 				\
-		-e "s@$(PTXCONF_SETUP_SRCDIR)@@g"	\
-		-e "s@$(STATEDIR)@@g"			\
-		-e "s@$(RULESDIR)@@g"			\
-		-e "s@$(PROJECTRULESDIR)@@g"		\
-		-e "s@$(PROJECTDIR)@@g"			\
-		-e "s@$(TOPDIR)@@g" 			\
+targetinfo = 							\
+	echo;							\
+	TG=`echo $(1) | sed -e "s,/.*/,,g"`; 			\
+	NOCHECK=$(strip $(2));					\
+	LINE=`echo target: $$TG |sed -e "s/./-/g"`;		\
+	echo $$LINE;						\
+	echo target: $$TG;					\
+	echo $$LINE;						\
+	echo;							\
+	if [ "$$NOCHECK" != "n" ]; then 			\
+		if [ `echo $$TG | $(GREP) "\.compile"` ]; then	\
+			$(call compilercheck)			\
+		fi;						\
+		if [ `echo $$TG | $(GREP) "\.prepare"` ]; then	\
+			$(call compilercheck)			\
+		fi;						\
+	fi;							\
+	echo $@ : $^ | sed 					\
+		-e "s@$(PTXCONF_SETUP_SRCDIR)@@g"		\
+		-e "s@$(STATEDIR)@@g"				\
+		-e "s@$(RULESDIR)@@g"				\
+		-e "s@$(PROJECTRULESDIR)@@g"			\
+		-e "s@$(PROJECTDIR)@@g"				\
+		-e "s@$(TOPDIR)@@g" 				\
 		-e "s@/@@g" >> $(DEP_OUTPUT)
 
 #
