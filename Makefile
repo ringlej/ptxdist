@@ -19,28 +19,35 @@ FULLVERSION		:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 export PROJECT VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION FULLVERSION
 
 #
-# We build on a workspace, for example one for native, one for cross
+# For out-of-tree builds we have to find out where the Makefile
+# _reall_ lives; it may happen that somebody has created a softlink
 #
-
-ifndef PTXDISTWORKSPACE
- PTXDISTWORKSPACE	:= $(TOPDIR)
- ifeq ($(PTXDISTDIR),)
-  ifneq ($(MAKEFILE_LIST),)
-   # Since 3.80, we can find out which Makefile is currently processed,
-   # and infere the location of the source tree using MAKEFILE_LIST.
-   PTXDISTDIR := $(dir $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST)))
-  else
-   ifeq ($(PTXDISTDIR),)
-   PTXDISTDIR := $(shell test -d rules && pwd)
-    ifeq ($(PTXDISTDIR),)
-     $(error Please specify the location of your source tree: make PTXDISTDIR=...)
-    endif
-   endif
-  endif
- endif
+ifneq ($(MAKEFILE_LIST),)
+ # Since 3.80, we can find out which Makefile is currently processed,
+ # and infere the location of the source tree using MAKEFILE_LIST.
+ TOPLEVEL_MAKEFILE := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
+ TOPLEVEL_MAKEFILE := $(shell \
+	if [ -L "$(TOPLEVEL_MAKEFILE)" ]; then \
+		find $(TOPLEVEL_MAKEFILE) -printf "%l"; \
+	else \
+		echo "$(TOPLEVEL_MAKEFILE)"; \
+	fi \
+ )
 endif
 
+PTXDISTDIR := $(shell dirname $(TOPLEVEL_MAKEFILE))
+ifeq ($(PTXDISTDIR),)
+PTXDISTDIR := $(shell test -d rules && pwd)
+endif
+ifeq ($(PTXDISTDIR),)
+$(error Please specify the location of your source tree: make PTXDISTDIR=...)
+endif
 override PTXDISTDIR	:= $(shell cd $(PTXDISTDIR) && pwd)
+
+#
+# Now define the rest of the directories
+#
+
 TOPDIR			:= $(PTXDISTDIR)
 HOME			:= $(shell echo $$HOME)
 
