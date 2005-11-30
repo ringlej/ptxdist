@@ -126,6 +126,12 @@ $(STATEDIR)/dosfstools.targetinstall: $(dosfstools_targetinstall_deps)
 
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS
 	@$(call install_copy, 0, 0, 0755, $(DOSFSTOOLS_DIR)/mkdosfs/mkdosfs, /sbin/mkdosfs)
+ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_MSDOS
+	@$(call install_link, mkdosfs, /sbin/mkfs.msdos)
+endif
+ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_VFAT
+	@$(call install_link, mkdosfs, /sbin/mkfs.vfat)
+endif
 endif
 ifdef PTXCONF_DOSFSTOOLS_DOSFSCK
 	@$(call install_copy, 0, 0, 0755, $(DOSFSTOOLS_DIR)/dosfsck/dosfsck, /sbin/dosfsck)
