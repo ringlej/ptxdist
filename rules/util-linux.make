@@ -57,7 +57,7 @@ $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps)
 
 	perl -i -p -e 's/^CPU=.*$$/CPU=$(PTXCONF_ARCH)/g' $(UTIL-LINUX_DIR)/MCONFIG
 	$(call touch, $@)
-	
+
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
