@@ -85,10 +85,10 @@ $(STATEDIR)/host-kconfig.compile: $(host-kconfig_compile_deps)
 		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make conf
 	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
 		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make mconf
-	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
-		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make qconf
-	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
-		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make gconf
+#	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
+#		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make qconf
+#	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
+#		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make gconf
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
