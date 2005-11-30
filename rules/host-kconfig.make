@@ -44,7 +44,7 @@ $(STATEDIR)/host-kconfig.extract: $(host-kconfig_extract_deps)
 	# we may be in an out-of-tree workspace...
 	if [ ! -d "$(PTXDIST_WORKSPACE)/scripts/kconfig" ]; then \
 		mkdir -p $(PTXDIST_WORKSPACE)/scripts; \
-		cp -a $(PTXDIST_TOPDIR)/scripts/kconfig $(PTXDIST_WORKSPACE)/scripts/kconfig/; \
+		cp -a $(PTXDIST_TOPDIR)/scripts/kconfig $(PTXDIST_WORKSPACE)/scripts; \
 	fi
 
 	$(call touch, $@)
