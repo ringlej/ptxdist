@@ -468,10 +468,15 @@ ptx_lxdialog:
 	fi
 
 before_config:
-	@echo "checking PTXDIST_WORKSPACE/config,rules"
-	@[ -e "$(PTXDIST_WORKSPACE)/config" ]  || ln -sf $(PTXDIST_TOPDIR)/config  $(PTXDIST_WORKSPACE)/config
+	@echo "checking PTXDIST_WORKSPACE/config"
+	if [ -n "$(OUTOFTREE)" ] && [ ! -d "$(PTXDIST_WORKSPACE)/config/setup" ]; then 	\
+		echo "out-of-tree build, creating setup dir";				\
+		rm -fr $(PTXDIST_WORKSPACE)/config/setup;				\
+		mkdir -p $(PTXDIST_WORKSPACE)/config; 					\
+		cp -a $(PTXDIST_TOPDIR)/config/setup $(PTXDIST_WORKSPACE)/config; 	\
+	fi	
+	@echo "checking PTXDIST_WORKSPACE/rules"
 	@[ -e "$(PTXDIST_WORKSPACE)/rules" ]   || ln -sf $(PTXDIST_TOPDIR)/rules   $(PTXDIST_WORKSPACE)/rules
-#	@[ -e "$(PTXDIST_WORKSPACE)/scripts" ] || ln -sf $(PTXDIST_TOPDIR)/scripts $(PTXDIST_WORKSPACE)/scripts
 
 menuconfig: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
@@ -506,18 +511,18 @@ configdeps: before_config $(PTXDIST_TOPDIR)/scripts/kconfig/conf
 	@echo "$(IMAGEDIR)/configdeps"
 	@echo
 
-setup: $(STATEDIR)/host-lxdialog.install $(PTXDIST_TOPDIR)/scripts/kconfig/mconf
-	@rm -f $(PTXDIST_TOPDIR)/config/setup/.config
-	@ln -sf $(PTXDIST_TOPDIR)/scripts $(PTXDISTPDIR)/config/setup/scripts
-	@if [ -f $(HOME)/.ptxdistrc ]; then cp $(HOME)/.ptxdistrc $(PTXDIST_TOPDIR)/config/setup/.config; fi
-	@(cd $(PTXDIST_TOPDIR)/config/setup && $(PTXDIST_TOPDIR)/scripts/kconfig/mconf Kconfig)
+setup: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
+	@rm -f $(PTXDIST_WORKSPACE)/config/setup/.config
+	@ln -sf $(PTXDIST_TOPDIR)/scripts $(PTXDIST_WORKSPACE)/config/setup/scripts
+	@if [ -f $(HOME)/.ptxdistrc ]; then cp $(HOME)/.ptxdistrc $(PTXDIST_WORKSPACE)/config/setup/.config; fi
+	@(cd $(PTXDIST_WORKSPACE)/config/setup && $(PTXDIST_WORKSPACE)/scripts/kconfig/mconf Kconfig)
 	@echo "cleaning up after setup..."
 	@for i in .tmpconfig.h .config.old .config.cmd; do			\
-		rm -f $(PTXDIST_TOPDIR)/config/setup/$$i; 				\
+		rm -f $(PTXDIST_WORKSPACE)/config/setup/$$i; 			\
 	done
-	@if [ -f $(PTXDIST_TOPDIR)/config/setup/.config ]; then 			\
+	@if [ -f $(PTXDIST_WORKSPACE)/config/setup/.config ]; then 		\
 		echo "copying new .ptxdistrc to $(HOME)...";			\
-		cp $(PTXDIST_TOPDIR)/config/setup/.config $(HOME)/.ptxdistrc; 	\
+		cp $(PTXDIST_WORKSPACE)/config/setup/.config $(HOME)/.ptxdistrc;\
 		echo "done.";							\
 	fi
 
@@ -601,9 +606,11 @@ toolchains:
 	echo >> TOOLCHAINS;						\
 	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5     TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2      TOOLCHAINS;\
+	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.4.4_glibc_2.3.5      TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27 TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5      TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3       TOOLCHAINS;\
+	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.4_glibc-2.3.5       TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27  TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_m68k-unknown-linux-uclibc-3.3.3_uClibc-0.9.27  TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5        TOOLCHAINS;\
