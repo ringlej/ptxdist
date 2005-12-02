@@ -129,7 +129,7 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE),"")
 endif
 endif
 
-ifneq ($(PTXCONF_UDEV_ETC_INITD_LINK),"")
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK),"")
 	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
 	@$(call install_link, ../init.d/udev, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK))
 endif
