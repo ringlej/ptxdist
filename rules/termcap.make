@@ -113,7 +113,7 @@ termcap_install: $(STATEDIR)/termcap.install
 
 $(STATEDIR)/termcap.install: $(STATEDIR)/termcap.compile
 	@$(call targetinfo, $@)
-	cd $(TERMCAP_DIR) && $(TERMCAP_PATH) make install
+	cd $(TERMCAP_DIR) && $(TERMCAP_PATH) make prefix=$(CROSS_LIB_DIR) install
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
