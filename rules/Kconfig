@@ -85,13 +85,14 @@ source "rules/bonniexx.in"
 endmenu
 
 menu "Communication Utilities     "
+source "rules/bluez.in"
+source "rules/canutils.in"
 source "rules/efax.in"
 source "rules/lrzsz.in"
 source "rules/mgetty.in"
 source "rules/pop3spam.in"
 source "rules/smtpclient.in"
 source "rules/ssmtp.in"
-source "rules/canutils.in"
 endmenu
 
 menu "Applications                "
