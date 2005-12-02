@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Wed Nov 30 00:32:39 2005
+# Fri Dec  2 14:03:01 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -380,6 +380,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_PCMCIA_TOOLS is not set
 # PTXCONF_PDKSH is not set
 # PTXCONF_PROCPS is not set
+# PTXCONF_SETSERIAL is not set
 # PTXCONF_SYSFSUTILS is not set
 # PTXCONF_SYSUTILS is not set
 # PTXCONF_UTLNX is not set
@@ -657,17 +658,18 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # Communication Utilities     
 #
+# PTXCONF_BLUEZ is not set
+
+#
+# canutils            
+#
+# PTXCONF_CANUTILS is not set
 # PTXCONF_EFAX is not set
 # PTXCONF_LRZSZ is not set
 # PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
 # PTXCONF_SSMTP is not set
-
-#
-# canutils            
-#
-# PTXCONF_CANUTILS is not set
 
 #
 # Applications                

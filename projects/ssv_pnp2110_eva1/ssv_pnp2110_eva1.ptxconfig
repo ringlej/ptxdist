@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.8-rc1
-# Wed Nov 30 00:33:33 2005
+# Fri Dec  2 14:03:30 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -951,6 +951,7 @@ PTXCONF_MTD_JFFS2_DUMP=y
 # PTXCONF_PCMCIAUTILS is not set
 # PTXCONF_PDKSH is not set
 # PTXCONF_PROCPS is not set
+# PTXCONF_SETSERIAL is not set
 PTXCONF_SYSFSUTILS=y
 PTXCONF_SYSFSUTILS_LIB=y
 PTXCONF_SYSFSUTILS_SYSTOOL=y
@@ -1255,17 +1256,18 @@ PTXCONF_IPKG=y
 #
 # Communication Utilities     
 #
+# PTXCONF_BLUEZ is not set
+
+#
+# canutils            
+#
+# PTXCONF_CANUTILS is not set
 # PTXCONF_EFAX is not set
 # PTXCONF_LRZSZ is not set
 # PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
 # PTXCONF_SSMTP is not set
-
-#
-# canutils            
-#
-# PTXCONF_CANUTILS is not set
 
 #
 # Applications                
@@ -1386,3 +1388,4 @@ PTXCONF_ZLIB=y
 PTXCONF_TESTSUITE_DIR="/usr/lib/testsuites"
 # PTXCONF_DBENCH is not set
 # PTXCONF_LTP is not set
+# PTXCONF_XMLBENCH is not set
