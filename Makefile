@@ -8,7 +8,7 @@ PROJECT			:= PTXdist
 VERSION			:= 0
 PATCHLEVEL		:= 7
 SUBLEVEL		:= 8
-EXTRAVERSION		:=-rc1
+EXTRAVERSION		:=-rc2
 
 FULLVERSION		:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
@@ -474,6 +474,9 @@ before_config:
 		rm -fr $(PTXDIST_WORKSPACE)/config/setup;				\
 		mkdir -p $(PTXDIST_WORKSPACE)/config; 					\
 		cp -a $(PTXDIST_TOPDIR)/config/setup $(PTXDIST_WORKSPACE)/config; 	\
+		for i in $(PTXDIST_TOPDIR)/config/uClibc* $(PTXDIST_TOPDIR)/config/busybox*; do \
+			ln -sf $$i $(PTXDIST_WORKSPACE)/config/`basename $$i`; 		\
+		done; 									\
 	fi	
 	@echo "checking PTXDIST_WORKSPACE/rules"
 	@[ -e "$(PTXDIST_WORKSPACE)/rules" ]   || ln -sf $(PTXDIST_TOPDIR)/rules   $(PTXDIST_WORKSPACE)/rules
