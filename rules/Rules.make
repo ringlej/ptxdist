@@ -322,7 +322,7 @@ check_prog_exists = 				\
 #
 # check_prog_version
 #
-# $1: Call program with -V and extract version number from the output;
+# $1: Call program with args $2 (-V, ...) and extract version number from the output;
 #     the result is compared to the first argument. 
 #
 check_prog_version = 				\
@@ -603,73 +603,6 @@ get_feature_patch =						\
 get_patches =											\
 		echo "get_patches is obsolete now"
 
-# get_patches =											\
-# 	PACKET_NAME="$(strip $(1))";								\
-# 	if [ "$$PACKET_NAME" = "" ]; then							\
-# 		echo;										\
-# 		echo Error: empty parameter to \"get_pachtes\(\)\";				\
-# 		echo;										\
-# 		exit -1;									\
-# 	fi;											\
-# 	echo "checking if patch dir ($(PATCHDIR)) exists..."; 					\
-# 	if [ ! -d $(PATCHDIR) ]; then								\
-# 		$(MKDIR) -p $(PATCHDIR);							\
-# 	fi;											\
-# 	echo "removing old patches from $(PATCHDIR)..."; 					\
-# 	if [ -d $(PATCHDIR)/$$PACKET_NAME ]; then						\
-# 		$(RM) -fr $(PATCHDIR)/$$PACKET_NAME;						\
-# 	fi;											\
-# 	echo "checking for patches...";								\
-# 	for URL in $(PTXPATCH_URL); do 								\
-# 		echo "checking in $$URL";							\
-# 		[ "$$(expr match $$URL http://)" != "0" ] && URLTYPE="http"; 			\
-# 		[ "$$(expr match $$URL ftp://)" != "0" ]  && URLTYPE="ftp";			\
-# 		[ "$$(expr match $$URL file://)" != "0" ] && URLTYPE="file";			\
-# 		case $$URLTYPE in 								\
-# 		file)										\
-# 			echo "copying local patches"; 						\
-# 			URL_PATH="$$(echo $$URL | sed s-file://--g)";				\
-# 			if [ -d "$$URL_PATH/$$PACKET_NAME" ]; then 				\
-# 				echo "patch found";						\
-# 				$(CP) -vr $$URL_PATH/$$PACKET_NAME $(PATCHDIR);			\
-# 			else									\
-# 				echo "no patch available";					\
-# 			fi;									\
-# 			;;									\
-# 		http)										\
-# 			if [ "$(EXTRAVERSION)" = "-svn" ]; then					\
-# 				continue;							\
-# 			fi;									\
-# 			echo "copying network patches from Pengutronix server"; 		\
-# 			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-# 				--passive-ftp $$URL/$$PACKET_NAME/generic/;			\
-# 			[ $$? -eq 0 ] || {							\
-# 				echo;								\
-# 				echo "Could not get patch!";					\
-# 				echo "URL: $$URL/$$PACKET_NAME/generic/";			\
-# 				echo;								\
-# 				exit -1;							\
-# 			};									\
-# 			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-# 				--passive-ftp $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/;		\
-# 			[ $$? -eq 0 ] || {							\
-# 				echo;								\
-# 				echo "Could not get patch!";					\
-# 				echo "URL: $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";		\
-# 				echo;								\
-# 				exit -1;							\
-# 			};									\
-# 			true;									\
-# 			;;									\
-# 		*)										\
-# 			echo;									\
-# 			echo "Unknown URL Type for patch!";					\
-# 			echo "URL: $$URL";							\
-# 			echo;									\
-# 			exit -1;								\
-# 			;;									\
-# 		esac; 										\
-# 	done
 
 #
 # get_options
