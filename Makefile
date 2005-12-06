@@ -468,8 +468,8 @@ ptx_lxdialog:
 	fi
 
 before_config:
-	@echo "checking PTXDIST_WORKSPACE/config"
-	if [ -n "$(OUTOFTREE)" ] && [ ! -d "$(PTXDIST_WORKSPACE)/config/setup" ]; then 	\
+	@echo "checking \$$PTXDIST_WORKSPACE/config"
+	@if [ -n "$(OUTOFTREE)" ] && [ ! -d "$(PTXDIST_WORKSPACE)/config/setup" ]; then 	\
 		echo "out-of-tree build, creating setup dir";				\
 		rm -fr $(PTXDIST_WORKSPACE)/config/setup;				\
 		mkdir -p $(PTXDIST_WORKSPACE)/config; 					\
@@ -478,7 +478,7 @@ before_config:
 			ln -sf $$i $(PTXDIST_WORKSPACE)/config/`basename $$i`; 		\
 		done; 									\
 	fi	
-	@echo "checking PTXDIST_WORKSPACE/rules"
+	@echo "checking \$$PTXDIST_WORKSPACE/rules"
 	@[ -e "$(PTXDIST_WORKSPACE)/rules" ]   || ln -sf $(PTXDIST_TOPDIR)/rules   $(PTXDIST_WORKSPACE)/rules
 
 menuconfig: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
@@ -516,8 +516,11 @@ configdeps: before_config $(PTXDIST_TOPDIR)/scripts/kconfig/conf
 
 setup: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
 	@rm -f $(PTXDIST_WORKSPACE)/config/setup/.config
-	@ln -sf $(PTXDIST_TOPDIR)/scripts $(PTXDIST_WORKSPACE)/config/setup/scripts
-	@if [ -f $(HOME)/.ptxdistrc ]; then cp $(HOME)/.ptxdistrc $(PTXDIST_WORKSPACE)/config/setup/.config; fi
+	@ln -sf $(PTXDIST_WORKSPACE)/scripts $(PTXDIST_WORKSPACE)/config/setup/scripts
+	@if [ -f $(HOME)/.ptxdistrc ]; then 					\
+		echo "using \$$HOME/.ptxdistrc"; 				\
+		cp $(HOME)/.ptxdistrc $(PTXDIST_WORKSPACE)/config/setup/.config;\
+	fi
 	@(cd $(PTXDIST_WORKSPACE)/config/setup && $(PTXDIST_WORKSPACE)/scripts/kconfig/mconf Kconfig)
 	@echo "cleaning up after setup..."
 	@for i in .tmpconfig.h .config.old .config.cmd; do			\
