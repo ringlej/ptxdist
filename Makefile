@@ -8,7 +8,7 @@ PROJECT			:= PTXdist
 VERSION			:= 0
 PATCHLEVEL		:= 7
 SUBLEVEL		:= 8
-EXTRAVERSION		:=-rc2
+EXTRAVERSION		:=-rc3
 
 FULLVERSION		:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
@@ -326,6 +326,19 @@ cross-install: check_tools $(CROSS_PACKAGES_INSTALL)
 
 # Robert-is-faster-typing-than-thinking shortcut
 owrld: world
+
+#
+# Things which have to be done before _any_ suffix rule is executed
+# (especially PTXDIST_PATH handling)
+#
+
+$(PACKAGES_PREPARE): before_prepare
+before_prepare:
+	@for path in `echo $(PTXDIST_PATH) | awk -F: '{for (i=1; i<=NF; i++) {print $$i}}'`; do \
+		if [ ! -d $$path ]; then							\
+			echo "warning: PTXDIST_PATH component \"$$path\" is no directory";	\
+		fi;										\
+	done;
 
 # ----------------------------------------------------------------------------
 # Images
