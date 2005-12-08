@@ -25,11 +25,10 @@ SSMTP_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP_SRC)
 SSMTP_SOURCE		= $(SRCDIR)/$(SSMTP_SRC)
 SSMTP_DIR		= $(BUILDDIR)/ssmtp-$(SSMTP_VERSION)
 
-SSMTP_PATCH		= 3
+SSMTP_PATCH		= 5
 SSMTP_PATCH_SRC		= ssmtp_$(SSMTP_VERSION)-$(SSMTP_PATCH).diff.gz
 SSMTP_PATCH_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP_PATCH_SRC)
 SSMTP_PATCH_SOURCE	= $(SRCDIR)/$(SSMTP_PATCH_SRC)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -41,8 +40,7 @@ ssmtp_get_deps = $(SSMTP_SOURCE) $(SSMTP_PATCH_SOURCE)
 
 $(STATEDIR)/ssmtp.get: $(ssmtp_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(SSMTP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(SSMTP_SOURCE):
 	@$(call targetinfo, $@)
@@ -66,7 +64,7 @@ $(STATEDIR)/ssmtp.extract: $(ssmtp_extract_deps)
 	@$(call extract, $(SSMTP_SOURCE))
 	cd $(SSMTP_DIR) && zcat $(SSMTP_PATCH_SOURCE) | patch -p1
 	@$(call patchin, $(SSMTP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -112,7 +110,7 @@ $(STATEDIR)/ssmtp.prepare: $(ssmtp_prepare_deps)
 	cd $(SSMTP_DIR) && \
 		$(SSMTP_PATH) $(SSMTP_ENV) \
 		./configure $(SSMTP_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -125,7 +123,7 @@ ssmtp_compile_deps = $(STATEDIR)/ssmtp.prepare
 $(STATEDIR)/ssmtp.compile: $(ssmtp_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(SSMTP_DIR) && $(SSMTP_ENV) $(SSMTP_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -136,7 +134,7 @@ ssmtp_install: $(STATEDIR)/ssmtp.install
 $(STATEDIR)/ssmtp.install: $(STATEDIR)/ssmtp.compile
 	@$(call targetinfo, $@)
 #	cd $(SSMTP_DIR) && $(SSMTP_ENV) $(SSMTP_PATH) make install
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -162,7 +160,7 @@ $(STATEDIR)/ssmtp.targetinstall: $(ssmtp_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
