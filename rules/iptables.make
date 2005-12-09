@@ -91,7 +91,8 @@ iptables_compile_deps = $(STATEDIR)/iptables.prepare
 
 $(STATEDIR)/iptables.compile: $(iptables_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(IPTABLES_DIR) && $(IPTABLES_ENV) $(IPTABLES_PATH) make KERNEL_DIR=$(KERNEL_DIR)
+	cd $(IPTABLES_DIR) && $(IPTABLES_ENV) $(IPTABLES_PATH) \
+		make KERNEL_DIR=$(KERNEL_DIR) PREFIX=/usr
 	$(call touch, $@)
 
 # ----------------------------------------------------------------------------
