@@ -73,7 +73,6 @@ APACHE2_ENV 	=  $(CROSS_ENV)
 APACHE2_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 # FIXME: find a real patch for these (fix configure script)
-# APACHE2_ENV	+= SHELL="ac_cv_sizeof_ssize_t=4 ac_cv_sizeof_size_t=4 apr_cv_process_shared_works=yes ac_cv_func_setpgrp_void=yes /bin/sh"
 APACHE2_ENV	+= ac_cv_sizeof_ssize_t=4
 APACHE2_ENV	+= ac_cv_sizeof_size_t=4
 APACHE2_ENV	+= apr_cv_process_shared_works=yes
