@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.8-rc2
-# Thu Dec  8 19:14:54 2005
+# PTXdist version: 0.7.8-rc3(r3496-729)
+# Fri Dec  9 09:36:40 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -9,7 +9,7 @@ PTXCONF_PTXCONF=y
 #
 # ----------------------------------
 #
-PTXCONF_PROJECT="toolchain_i586-unknown-linux-gnu-3.3.3_glibc-2.3.2-linux-2.6.14"
+PTXCONF_PROJECT="toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2_linux_2.6.14"
 
 #
 # ----------------------------------
@@ -28,9 +28,9 @@ PTXCONF_PROJECT="toolchain_i586-unknown-linux-gnu-3.3.3_glibc-2.3.2-linux-2.6.14
 # Target Architecture Options
 #
 # PTXCONF_ARCH_ALPHA is not set
-# PTXCONF_ARCH_ARM is not set
+PTXCONF_ARCH_ARM=y
 # PTXCONF_ARCH_ARM_NOMMU is not set
-PTXCONF_ARCH_X86=y
+# PTXCONF_ARCH_X86 is not set
 # PTXCONF_ARCH_PPC is not set
 # PTXCONF_ARCH_M68K is not set
 # PTXCONF_ARCH_SPARC is not set
@@ -38,11 +38,23 @@ PTXCONF_ARCH_X86=y
 # PTXCONF_ARCH_CRIS is not set
 # PTXCONF_ARCH_PARISC is not set
 # PTXCONF_ARCH_SH is not set
-# PTXCONF_OPT_ARM is not set
+# PTXCONF_ARM_ARCH_ATMEL is not set
+# PTXCONF_ARM_ARCH_AT91RM9200 is not set
+# PTXCONF_ARM_ARCH_EPXA is not set
+# PTXCONF_ARM_ARCH_IMX is not set
+# PTXCONF_ARM_ARCH_IXP2000 is not set
+# PTXCONF_ARM_ARCH_NETARM is not set
+# PTXCONF_ARM_ARCH_NETX is not set
+# PTXCONF_ARM_ARCH_OMAP is not set
+PTXCONF_ARM_ARCH_PXA=y
+# PTXCONF_ARM_ARCH_SA1100 is not set
+PTXCONF_ARM_ARCH="pxa"
+PTXCONF_ARM_ARCH_LE=y
+PTXCONF_OPT_ARM=y
 # PTXCONF_OPT_ARM_NOMMU is not set
 # PTXCONF_OPT_I386 is not set
 # PTXCONF_OPT_I486 is not set
-PTXCONF_OPT_I586=y
+# PTXCONF_OPT_I586 is not set
 # PTXCONF_OPT_I686 is not set
 # PTXCONF_OPT_PPC is not set
 # PTXCONF_OPT_PPC405 is not set
@@ -56,6 +68,7 @@ PTXCONF_OPT_I586=y
 # PTXCONF_OPT_PARISC is not set
 # PTXCONF_OPT_SH3 is not set
 # PTXCONF_OPT_SH4 is not set
+PTXCONF_SOFTFLOAT=y
 
 #
 # Extra Toolchain Options
@@ -64,14 +77,15 @@ PTXCONF_TARGET_EXTRA_CPPFLAGS=""
 PTXCONF_TARGET_EXTRA_CFLAGS=""
 PTXCONF_TARGET_EXTRA_CXXFLAGS=""
 PTXCONF_TARGET_EXTRA_LDFLAGS=""
-PTXCONF_TARGET_CONFIG_FILE="i586.dat"
-PTXCONF_ARCH="i386"
-PTXCONF_ARCH_USERSPACE="i386"
+PTXCONF_TARGET_CONFIG_FILE="arm.dat"
+PTXCONF_ARCH="arm"
+PTXCONF_ARCH_USERSPACE="arm"
+PTXCONF_ARM_PROC="armv"
 
 #
 # Paths & Directories
 #
-PTXCONF_PREFIX="/opt/crosstool-0.38-gcc"
+PTXCONF_PREFIX="/opt/crosstool-0.38"
 PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_ROOT=""
@@ -80,7 +94,7 @@ PTXCONF_ROOT=""
 # GNU Toolchain Identification String
 #
 PTXCONF_CROSSCHAIN_CHECK="2.95.3"
-PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
+PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
 PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 
 #
@@ -108,7 +122,7 @@ PTXCONF_BINUTILS_2_16_1=y
 # PTXCONF_BINUTILS_2_15 is not set
 # PTXCONF_BINUTILS_2_14_90_0_5 is not set
 # PTXCONF_BINUTILS_2_14 is not set
-PTXCONF_CROSSTOOL_KERNELCONFIG="i586.config"
+PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
 PTXCONF_BINUTILS_VERSION="2.16.1"
 
 #
@@ -120,7 +134,6 @@ PTXCONF_BINUTILS_VERSION="2.16.1"
 # Other Tools
 #
 # PTXCONF_XCHAIN-DISTCC is not set
-# PTXCONF_NASM is not set
 # PTXCONF_XCHAIN-SCONS is not set
 
 #
@@ -169,7 +182,6 @@ PTXCONF_BINUTILS_VERSION="2.16.1"
 # PTXCONF_MEMTESTER is not set
 # PTXCONF_OPROFILE is not set
 # PTXCONF_STRACE is not set
-# PTXCONF_VALGRIND is not set
 
 #
 # ----------------------------------
@@ -250,7 +262,7 @@ PTXCONF_BINUTILS_VERSION="2.16.1"
 # ----------------------------------
 #
 # PTXCONF_USE_EXTERNAL_KERNEL is not set
-PTXCONF_KERNEL_CONFIG=""
+PTXCONF_KERNEL_CONFIG="kernel-2.6.14"
 PTXCONF_KERNEL_2_6=y
 # PTXCONF_KERNEL_2_4_19 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
@@ -633,10 +645,12 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # PTXCONF_DOSFSTOOLS is not set
 # PTXCONF_E2FSPROGS is not set
-# PTXCONF_GRUB is not set
+
+#
+# grub is only available on x86
+#
 # PTXCONF_HDPARM is not set
 # PTXCONF_IPKG is not set
-# PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
 # PTXCONF_BONNIEXX is not set
 
