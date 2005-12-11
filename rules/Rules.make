@@ -63,6 +63,13 @@ else
 FAKEROOT	= fakeroot
 endif
 
+ifdef PTXCONF_HOST_IMAGE_DEB
+CHECKINSTALL	=  $(PTXCONF_HOST_CHECKINSTALL_DIR)/checkinstall
+CHECKINSTALL	+= -D -y
+else
+CHECKINSTALL	=
+endif
+
 HOSTCC_ENV	= CC=$(HOSTCC)
 
 
@@ -654,11 +661,11 @@ get_option_ext =									\
 # $2: optional: alternative directory
 #
 install = \
-	BUILDDIR="$($(strip $(1)_DIR))";			\
-	[ "$(2)" != "" ] && BUILDDIR="$(strip $(2))";		\
-	cd $$BUILDDIR && 					\
-		$($(strip $(1)_ENV)) $($(strip $(1)_PATH)) 	\
-		make install $($(strip $(1)_MAKEVARS))
+	BUILDDIR="$($(strip $(1)_DIR))";				\
+	[ "$(2)" != "" ] && BUILDDIR="$(strip $(2))";			\
+	cd $$BUILDDIR && 						\
+		$($(strip $(1)_ENV)) $($(strip $(1)_PATH)) 		\
+		$(CHECKINSTALL) make install $($(strip $(1)_MAKEVARS))
 
 
 #
@@ -962,6 +969,7 @@ install_copy = 											\
 			echo "Error: install_copy failed!";					\
 			exit -1;								\
 		fi;										\
+		mkdir -p $(IMAGEDIR);								\
 		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(IMAGEDIR)/permissions;			\
 	else											\
 		echo "install_copy:";								\
@@ -993,6 +1001,7 @@ install_copy = 											\
 			$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
 			;;									\
 		esac;										\
+		mkdir -p $(IMAGESDIR);								\
 		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(IMAGEDIR)/permissions;			\
 	fi
 
@@ -1045,6 +1054,7 @@ install_copy_toolchain_lib =									\
 					fi;							\
 					;;							\
 				esac;								\
+				mkdir -p $(IMAGESDIR);						\
 				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				echo "error: found $${LIB}, but no file or link";		\
@@ -1117,6 +1127,7 @@ install_copy_toolchain_dl =									\
 					fi;							\
 					;;							\
 				esac;								\
+				mkdir -p $(IMAGESDIR);						\
 				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				exit -1;							\
@@ -1176,6 +1187,7 @@ install_node =				\
 	echo "  major=$$MAJ";		\
 	echo "  minor=$$MIN";		\
 	echo "  name=$$DEV";		\
+	mkdir -p $(IMAGESDIR);		\
 	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(IMAGEDIR)/permissions
 
 #
@@ -1228,6 +1240,7 @@ install_finish = 													\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then									\
 		echo -n "install_finish: writing ipkg packet ... ";							\
 		sed -i -e 's/^\(Version:\t*\)\(.*\)$$/\1$(PTXDIST_FULLVERSION)-\2/g' $(IMAGEDIR)/ipkg/CONTROL/control;	\
+		mkdir -p $(IMAGESDIR);											\
 		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions; echo "popd;"; 	\
 		echo "$(PTXCONF_HOST_PREFIX)/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\
 			$(FAKEROOT) -- 2>&1 | grep -v "cannot access" | grep -v "No such file or directory";		\
