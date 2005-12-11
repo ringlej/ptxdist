@@ -1,5 +1,5 @@
 ##############################################################################
-comment "Image Creation"
+comment "Image Creation for Target"
 ##############################################################################
 
 config IMAGE_TGZ
@@ -170,4 +170,18 @@ config IMAGE_MKNBI_APPEND
 	help
 	  If needed you can add extra arguments for mkelf-linux here
 	  (e.g. root=/dev/ram0)
+
+##############################################################################
+comment "Image Creation for Host"
+##############################################################################
+
+config IMAGE_HOST_DEB
+	bool
+	default n
+	prompt "Create Debian packets for host components"
+	help
+	  Usually the host side code is being installed during the
+	  "install" stages with "make install". If this option is
+	  checked, Debian .deb packets are created. 
+
 

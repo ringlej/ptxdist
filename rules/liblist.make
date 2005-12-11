@@ -108,7 +108,7 @@ liblist_install: $(STATEDIR)/liblist.install
 
 $(STATEDIR)/liblist.install: $(STATEDIR)/liblist.compile
 	@$(call targetinfo, $@)
-	@$(call install, LIBLIST)
+	$(call install, LIBLIST)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
