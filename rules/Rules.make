@@ -1001,7 +1001,7 @@ install_copy = 											\
 			$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
 			;;									\
 		esac;										\
-		mkdir -p $(IMAGESDIR);								\
+		mkdir -p $(IMAGEDIR);								\
 		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(IMAGEDIR)/permissions;			\
 	fi
 
@@ -1054,7 +1054,7 @@ install_copy_toolchain_lib =									\
 					fi;							\
 					;;							\
 				esac;								\
-				mkdir -p $(IMAGESDIR);						\
+				mkdir -p $(IMAGEDIR);						\
 				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				echo "error: found $${LIB}, but no file or link";		\
@@ -1127,7 +1127,7 @@ install_copy_toolchain_dl =									\
 					fi;							\
 					;;							\
 				esac;								\
-				mkdir -p $(IMAGESDIR);						\
+				mkdir -p $(IMAGEDIR);						\
 				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				exit -1;							\
@@ -1187,7 +1187,7 @@ install_node =				\
 	echo "  major=$$MAJ";		\
 	echo "  minor=$$MIN";		\
 	echo "  name=$$DEV";		\
-	mkdir -p $(IMAGESDIR);		\
+	mkdir -p $(IMAGEDIR);		\
 	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(IMAGEDIR)/permissions
 
 #
@@ -1240,7 +1240,7 @@ install_finish = 													\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then									\
 		echo -n "install_finish: writing ipkg packet ... ";							\
 		sed -i -e 's/^\(Version:\t*\)\(.*\)$$/\1$(PTXDIST_FULLVERSION)-\2/g' $(IMAGEDIR)/ipkg/CONTROL/control;	\
-		mkdir -p $(IMAGESDIR);											\
+		mkdir -p $(IMAGEDIR);											\
 		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions; echo "popd;"; 	\
 		echo "$(PTXCONF_HOST_PREFIX)/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\
 			$(FAKEROOT) -- 2>&1 | grep -v "cannot access" | grep -v "No such file or directory";		\
