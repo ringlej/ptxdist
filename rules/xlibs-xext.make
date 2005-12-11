@@ -37,7 +37,7 @@ xlibs-xext_get_deps = $(XLIBS-XEXT_SOURCE)
 $(STATEDIR)/xlibs-xext.get: $(xlibs-xext_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-XEXT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/xlibs-xext.extract: $(xlibs-xext_extract_deps)
 	@$(call clean, $(XLIBS-XEXT_DIR))
 	@$(call extract, $(XLIBS-XEXT_SOURCE))
 	@$(call patchin, $(XLIBS-XEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -91,7 +91,7 @@ $(STATEDIR)/xlibs-xext.prepare: $(xlibs-xext_prepare_deps)
 	cd $(XLIBS-XEXT_DIR) && \
 		$(XLIBS-XEXT_PATH) $(XLIBS-XEXT_ENV) \
 		./configure $(XLIBS-XEXT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -104,7 +104,7 @@ xlibs-xext_compile_deps = $(STATEDIR)/xlibs-xext.prepare
 $(STATEDIR)/xlibs-xext.compile: $(xlibs-xext_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XEXT_DIR) && $(XLIBS-XEXT_ENV) $(XLIBS-XEXT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,8 +114,8 @@ xlibs-xext_install: $(STATEDIR)/xlibs-xext.install
 
 $(STATEDIR)/xlibs-xext.install: $(STATEDIR)/xlibs-xext.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-XEXT_DIR) && $(XLIBS-XEXT_ENV) $(XLIBS-XEXT_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-XEXT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -146,7 +146,7 @@ $(STATEDIR)/xlibs-xext.targetinstall: $(xlibs-xext_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

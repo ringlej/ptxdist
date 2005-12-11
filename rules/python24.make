@@ -37,7 +37,7 @@ python24_get_deps = \
 $(STATEDIR)/python24.get: $(python24_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PYTHON24))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PYTHON24_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/python24.extract: $(python24_extract_deps)
 	@$(call clean, $(PYTHON24_DIR))
 	@$(call extract, $(PYTHON24_SOURCE))
 	@$(call patchin, $(PYTHON24))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -91,7 +91,7 @@ $(STATEDIR)/python24.prepare: $(python24_prepare_deps)
 	cd $(PYTHON24_BUILDDIR) && \
 		$(PYTHON24_PATH) $(PYTHON24_ENV) \
 		$(PYTHON24_DIR)/configure $(PYTHON24_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -106,7 +106,7 @@ python24_compile_deps = \
 $(STATEDIR)/python24.compile: $(python24_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PYTHON24_BUILDDIR) && $(PYTHON24_PATH) make $(PYTHON24_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -116,7 +116,7 @@ python24_install: $(STATEDIR)/python24.install
 
 $(STATEDIR)/python24.install:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -179,7 +179,7 @@ $(STATEDIR)/python24.targetinstall: $(STATEDIR)/python24.compile
 	rm -fr $(IMAGEDIR)/ipkg/usr/lib/python2.4/test
 
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

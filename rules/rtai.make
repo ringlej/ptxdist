@@ -41,7 +41,7 @@ rtai_get: $(STATEDIR)/rtai.get
 
 $(STATEDIR)/rtai.get: $(RTAI_SOURCE)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(RTAI_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/rtai.extract: $(STATEDIR)/rtai.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTAI_DIR))
 	@$(call extract, $(RTAI_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
 	perl -i -p -e "s,\@KERNEL_DIR@,$(KERNEL_DIR),g" $(RTAI_DIR)/.config
 	cd $(RTAI_DIR) && \
 		$(RTAI_PATH) $(RTAI_ENV) ./configure $(RTAI_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ rtai_compile: $(STATEDIR)/rtai.compile
 $(STATEDIR)/rtai.compile: $(STATEDIR)/rtai.prepare 
 	@$(call targetinfo, $@)
 	cd $(RTAI_DIR) && $(RTAI_PATH) TOPDIR=$(RTAI_DIR) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +113,8 @@ $(STATEDIR)/rtai.install: $(STATEDIR)/rtai.compile
 	@$(call targetinfo, $@)
 	# RTAI tries to install all kinds of useless crap which we don't
 	# want to have on the target, so install into a build dir here
-	cd $(RTAI_DIR) && $(RTAI_PATH) make install DESTDIR=$(RTAI_BUILDDIR)
-	$(call touch, $@)
+	cd $(RTAI_DIR) && $(RTAI_PATH) $(MAKE_INSTALL) DESTDIR=$(RTAI_BUILDDIR)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +140,7 @@ ifdef PTXCONF_RTAI_TESTSUITE
 		$(ROOTDIR)/usr/realtime
 	$(CROSS_STRIP) -S $(ROOTDIR)/usr/realtime/testsuite/kern/latency/display
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

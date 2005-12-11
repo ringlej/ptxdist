@@ -35,7 +35,7 @@ host-slirp_get_deps = $(HOST_SLIRP_SOURCE)
 $(STATEDIR)/host-slirp.get: $(host-slirp_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_SLIRP))
-	touch $@
+	@$(call touch, $@)
 
 $(HOST_SLIRP_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/host-slirp.extract: $(host-slirp_extract_deps)
 	@$(call clean, $(HOST_SLIRP_DIR))
 	@$(call extract, $(HOST_SLIRP_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOST_SLIRP), $(HOST_SLIRP_DIR))
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -84,7 +84,7 @@ $(STATEDIR)/host-slirp.prepare: $(host-slirp_prepare_deps)
 	cd $(HOST_SLIRP_DIR)/src && \
 		$(HOST_SLIRP_PATH) $(HOST_SLIRP_ENV) \
 		./configure $(HOST_SLIRP_AUTOCONF)
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +97,7 @@ host-slirp_compile_deps = $(STATEDIR)/host-slirp.prepare
 $(STATEDIR)/host-slirp.compile: $(host-slirp_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOST_SLIRP_DIR)/src && $(HOST_SLIRP_ENV) $(HOST_SLIRP_PATH) make
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,8 +109,8 @@ host-slirp_install_deps = $(STATEDIR)/host-slirp.compile
 
 $(STATEDIR)/host-slirp.install: $(host-slirp_install_deps)
 	@$(call targetinfo, $@)
-	cd $(HOST_SLIRP_DIR) && $(HOST_SLIRP_ENV) $(HOST_SLIRP_PATH) make install
-	touch $@
+	@$(call install, HOST_SLIRP)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

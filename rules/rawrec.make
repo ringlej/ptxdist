@@ -35,7 +35,7 @@ rawrec_get_deps = $(RAWREC_SOURCE)
 $(STATEDIR)/rawrec.get: $(rawrec_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(RAWREC))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(RAWREC_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/rawrec.extract: $(rawrec_extract_deps)
 	@$(call clean, $(RAWREC_DIR))
 	@$(call extract, $(RAWREC_SOURCE))
 	@$(call patchin, $(RAWREC))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -82,7 +82,7 @@ RAWREC_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/rawrec.prepare: $(rawrec_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ endif
 ifdef PTXCONF_RAWREC_RAWPLAY
 	cd $(RAWREC_DIR)/src && $(RAWREC_ENV) $(RAWREC_PATH) make CC=$(CROSS_CC) rawplay
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,7 +111,7 @@ rawrec_install: $(STATEDIR)/rawrec.install
 
 $(STATEDIR)/rawrec.install: $(STATEDIR)/rawrec.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,7 +141,7 @@ ifdef PTXCONF_RAWREC_RAWPLAY
 endif
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

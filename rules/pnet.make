@@ -35,7 +35,7 @@ pnet_get_deps = $(PNET_SOURCE)
 $(STATEDIR)/pnet.get: $(pnet_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PNET))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PNET_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/pnet.extract: $(pnet_extract_deps)
 	@$(call clean, $(PNET_DIR))
 	@$(call extract, $(PNET_SOURCE))
 	@$(call patchin, $(PNET))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/pnet.prepare: $(pnet_prepare_deps)
 	cd $(PNET_DIR) && \
 		$(PNET_PATH) $(PNET_ENV) \
 		./configure $(PNET_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +99,7 @@ pnet_compile_deps = $(STATEDIR)/pnet.prepare
 $(STATEDIR)/pnet.compile: $(pnet_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PNET_DIR) && $(PNET_ENV) $(PNET_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,8 +109,8 @@ pnet_install: $(STATEDIR)/pnet.install
 
 $(STATEDIR)/pnet.install: $(STATEDIR)/pnet.compile
 	@$(call targetinfo, $@)
-	cd $(PNET_DIR) && $(PNET_ENV) $(PNET_PATH) make install
-	$(call touch, $@)
+	@$(call install, PNET)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -136,7 +136,7 @@ $(STATEDIR)/pnet.targetinstall: $(pnet_targetinstall_deps)
 		
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

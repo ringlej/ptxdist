@@ -35,7 +35,7 @@ jed_get_deps = $(JED_SOURCE)
 $(STATEDIR)/jed.get: $(jed_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JED))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(JED_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/jed.extract: $(jed_extract_deps)
 	@$(call clean, $(JED_DIR))
 	@$(call extract, $(JED_SOURCE))
 	@$(call patchin, $(JED))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +87,7 @@ $(STATEDIR)/jed.prepare: $(jed_prepare_deps)
 	cd $(JED_DIR) && \
 		$(JED_PATH) $(JED_ENV) \
 		./configure $(JED_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +100,7 @@ jed_compile_deps = $(STATEDIR)/jed.prepare
 $(STATEDIR)/jed.compile: $(jed_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(JED_DIR) && $(JED_ENV) $(JED_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +111,8 @@ jed_install: $(STATEDIR)/jed.install
 $(STATEDIR)/jed.install: $(STATEDIR)/jed.compile
 	@$(call targetinfo, $@)
 	# FIXME: RSC: is it right that this is done on install? 
-	cd $(JED_DIR) && $(JED_ENV) $(JED_PATH) make install
-	$(call touch, $@)
+	@$(call install, JED)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -124,7 +124,7 @@ jed_targetinstall_deps = $(STATEDIR)/jed.compile
 
 $(STATEDIR)/jed.targetinstall: $(jed_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

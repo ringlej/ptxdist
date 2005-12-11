@@ -37,7 +37,7 @@ wxWindows_get_deps	=  $(WXWINDOWS_SOURCE)
 
 $(STATEDIR)/wxWindows.get: $(wxWindows_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(WXWINDOWS_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps)
 	@$(call clean, $(WXWINDOWS_DIR))
 	@$(call extract, $(WXWINDOWS_SOURCE))
 	@$(call patchin, $(WXWINDOWS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -100,7 +100,7 @@ $(STATEDIR)/wxWindows.prepare: $(wxWindows_prepare_deps)
 	cd $(WXWINDOWS_DIR) && \
 		$(WXWINDOWS_PATH) $(WXWINDOWS_ENV) \
 		./configure $(WXWINDOWS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -113,7 +113,7 @@ wxWindows_compile_deps =  $(STATEDIR)/wxWindows.prepare
 $(STATEDIR)/wxWindows.compile: $(wxWindows_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(WXWINDOWS_DIR) && $(WXWINDOWS_PATH) $(WXWINDOWS_ENV) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 
 # ----------------------------------------------------------------------------
@@ -124,7 +124,7 @@ wxWindows_install: $(STATEDIR)/wxWindows.install
 
 $(STATEDIR)/wxWindows.install: $(STATEDIR)/wxWindows.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -136,7 +136,7 @@ wxWindows_targetinstall_deps	=  $(STATEDIR)/wxWindows.compile
 
 $(STATEDIR)/wxWindows.targetinstall: $(wxWindows_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

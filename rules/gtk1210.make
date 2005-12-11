@@ -35,7 +35,7 @@ gtk1210_get_deps	=  $(GTK1210_SOURCE)
 
 $(STATEDIR)/gtk1210.get: $(gtk1210_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GTK1210_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/gtk1210.extract: $(gtk1210_extract_deps)
 	@$(call clean, $(GTK1210_DIR))
 	@$(call extract, $(GTK1210_SOURCE))
 	@$(call patchin, $(GTK1210))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/gtk1210.prepare: $(gtk1210_prepare_deps)
 	cd $(GTK1210_DIR) && \
 		$(GTK1210_PATH) $(GTK1210_ENV) \
 		./configure $(GTK1210_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ gtk1210_compile_deps =  $(STATEDIR)/gtk1210.prepare
 $(STATEDIR)/gtk1210.compile: $(gtk1210_compile_deps)
 	@$(call targetinfo, $@)
 	$(GTK1210_PATH) $(GTK1210_ENV) make -C $(GTK1210_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +113,8 @@ gtk1210_install: $(STATEDIR)/gtk1210.install
 
 $(STATEDIR)/gtk1210.install: $(STATEDIR)/gtk1210.compile
 	@$(call targetinfo, $@)
-	$(GTK1210_PATH) $(GTK1210_ENV) make -C $(GTK1210_DIR) install
-	$(call touch, $@)
+	@$(call install, GTK1210)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -153,7 +153,7 @@ $(STATEDIR)/gtk1210.targetinstall: $(gtk1210_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

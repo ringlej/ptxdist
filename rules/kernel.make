@@ -153,7 +153,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1_NAME).get:
 	@$(call targetinfo, "Patch 1")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH1_URL), $(PTXCONF_KERNEL_PATCH1_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -163,7 +163,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH2
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH2_NAME).get:
 	@$(call targetinfo, "Patch 2")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH2_URL), $(PTXCONF_KERNEL_PATCH2_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -173,7 +173,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH3
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH3_NAME).get:
 	@$(call targetinfo, "Patch 3")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH3_URL), $(PTXCONF_KERNEL_PATCH3_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -183,7 +183,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH4
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH4_NAME).get:
 	@$(call targetinfo, "Patch 4")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH4_URL), $(PTXCONF_KERNEL_PATCH4_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -193,7 +193,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH5
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH5_NAME).get:
 	@$(call targetinfo, "Patch 5")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH5_URL), $(PTXCONF_KERNEL_PATCH5_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -203,7 +203,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH6
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH6_NAME).get:
 	@$(call targetinfo, "Patch 6")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH6_URL), $(PTXCONF_KERNEL_PATCH6_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -213,7 +213,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH7
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH7_NAME).get:
 	@$(call targetinfo, "Patch 7")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH7_URL), $(PTXCONF_KERNEL_PATCH7_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -223,7 +223,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH8
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH8_NAME).get:
 	@$(call targetinfo, "Patch 8")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH8_URL), $(PTXCONF_KERNEL_PATCH8_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -233,7 +233,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH9
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH9_NAME).get:
 	@$(call targetinfo, "Patch 9")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH9_URL), $(PTXCONF_KERNEL_PATCH9_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -243,7 +243,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH10_NAME).get:
 	@$(call targetinfo, "Patch 10")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH10_URL), $(PTXCONF_KERNEL_PATCH10_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -253,7 +253,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH11_NAME).get:
 	@$(call targetinfo, "Patch 11")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH11_URL), $(PTXCONF_KERNEL_PATCH11_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -263,7 +263,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH12_NAME).get:
 	@$(call targetinfo, "Patch 12")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH12_URL), $(PTXCONF_KERNEL_PATCH12_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -273,7 +273,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH13_NAME).get:
 	@$(call targetinfo, "Patch 13")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH13_URL), $(PTXCONF_KERNEL_PATCH13_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -283,7 +283,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH14_NAME).get:
 	@$(call targetinfo, "Patch 14")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH14_URL), $(PTXCONF_KERNEL_PATCH14_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -293,7 +293,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH15_NAME).get:
 	@$(call targetinfo, "Patch 15")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH15_URL), $(PTXCONF_KERNEL_PATCH15_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -303,7 +303,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH16_NAME).get:
 	@$(call targetinfo, "Patch 16")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH16_URL), $(PTXCONF_KERNEL_PATCH16_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -313,7 +313,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH17_NAME).get:
 	@$(call targetinfo, "Patch 17")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH17_URL), $(PTXCONF_KERNEL_PATCH17_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -323,7 +323,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH18_NAME).get:
 	@$(call targetinfo, "Patch 18")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH18_URL), $(PTXCONF_KERNEL_PATCH18_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -333,7 +333,7 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH1
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH19_NAME).get:
 	@$(call targetinfo, "Patch 19")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH19_URL), $(PTXCONF_KERNEL_PATCH19_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
@@ -343,13 +343,13 @@ kernel_patchstack_get_deps += $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH2
 $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH20_NAME).get:
 	@$(call targetinfo, "Patch 20")
 	@$(call get_feature_patch, $(KERNEL), $(PTXCONF_KERNEL_PATCH20_URL), $(PTXCONF_KERNEL_PATCH20_NAME))
-	$(call touch, $@)
+	@$(call touch, $@)
 endif
 endif
 
 $(STATEDIR)/kernel-patchstack.get: $(kernel_patchstack_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -365,7 +365,7 @@ endif
 
 $(STATEDIR)/kernel.get: $(kernel_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(KERNEL_SOURCE):
 	@$(call targetinfo, $@)
@@ -383,7 +383,7 @@ endif
 
 $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
 	@$(call targetinfo, $@)
@@ -419,7 +419,7 @@ endif
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH19_NAME)) 
 	@$(call feature_patchin, $(KERNEL_DIR), $(PTXCONF_KERNEL_PATCH20_NAME)) 
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -493,7 +493,7 @@ endif
 	-cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
 endif
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Modversions-Prepare
@@ -511,7 +511,7 @@ $(STATEDIR)/kernel-modversions.prepare: $(STATEDIR)/kernel.prepare
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make				\
 		$(KERNEL_DIR)/include/linux/modversions.h		\
 		$(KERNEL_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -541,7 +541,7 @@ ifndef PTXCONF_DONT_COMPILE_KERNEL
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make \
 		$(KERNEL_TARGET) modules $(KERNEL_MAKEVARS)
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -551,7 +551,7 @@ kernel_install: $(STATEDIR)/kernel.install
 
 $(STATEDIR)/kernel.install:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -607,7 +607,7 @@ ifdef PTXCONF_KERNEL_INSTALL_MODULES
 	@$(call install_finish)
 endif
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

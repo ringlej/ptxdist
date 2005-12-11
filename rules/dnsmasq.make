@@ -35,7 +35,7 @@ dnsmasq_get_deps = $(DNSMASQ_SOURCE)
 $(STATEDIR)/dnsmasq.get: $(dnsmasq_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DNSMASQ)) 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(DNSMASQ_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/dnsmasq.extract: $(dnsmasq_extract_deps)
 	@$(call clean, $(DNSMASQ_DIR))
 	@$(call extract, $(DNSMASQ_SOURCE))
 	@$(call patchin, $(DNSMASQ))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -75,7 +75,7 @@ DNSMASQ_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/dnsmasq.prepare: $(dnsmasq_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -88,7 +88,7 @@ dnsmasq_compile_deps = $(STATEDIR)/dnsmasq.prepare
 $(STATEDIR)/dnsmasq.compile: $(dnsmasq_compile_deps)
 	@$(call targetinfo, $@)
 	$(DNSMASQ_PATH) $(DNSMASQ_ENV) make -C $(DNSMASQ_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -98,8 +98,8 @@ dnsmasq_install: $(STATEDIR)/dnsmasq.install
 
 $(STATEDIR)/dnsmasq.install: $(STATEDIR)/dnsmasq.compile
 	@$(call targetinfo, $@)
-	$(DNSMASQ_PATH) make -C $(DNSMASQ_DIR) install
-	$(call touch, $@)
+	@$(call install, DNSMASQ)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -125,7 +125,7 @@ $(STATEDIR)/dnsmasq.targetinstall: $(dnsmasq_targetinstall_deps)
 
 	@$(call install_finish)
 	
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

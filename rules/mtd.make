@@ -35,7 +35,7 @@ mtd_get_deps = $(MTD_SOURCE)
 $(STATEDIR)/mtd.get: $(mtd_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MTD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MTD_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/mtd.extract: $(mtd_extract_deps)
 	@$(call clean, $(MTD_DIR))
 	@$(call extract, $(MTD_SOURCE))
 	@$(call patchin, $(MTD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -76,7 +76,7 @@ MTD_ENV		= $(CROSS_ENV)
 
 $(STATEDIR)/mtd.prepare: $(mtd_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -143,7 +143,7 @@ endif
 ifdef PTXCONF_MTD_MKJFFS2
 	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make mkfs.jffs2 $(MTD_MAKEVARS)
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -153,7 +153,7 @@ mtd_install: $(STATEDIR)/mtd.install
 
 $(STATEDIR)/mtd.install: $(STATEDIR)/mtd.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -238,7 +238,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

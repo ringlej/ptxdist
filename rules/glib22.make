@@ -35,7 +35,7 @@ glib22_get_deps	=  $(GLIB22_SOURCE)
 
 $(STATEDIR)/glib22.get: $(glib22_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GLIB22_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/glib22.extract: $(glib22_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB22_DIR))
 	@$(call extract, $(GLIB22_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -95,7 +95,7 @@ $(STATEDIR)/glib22.prepare: $(glib22_prepare_deps)
 	cd $(GLIB22_DIR) && \
 		$(GLIB22_PATH) $(GLIB22_ENV) \
 		./configure $(GLIB22_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -108,7 +108,7 @@ glib22_compile_deps =  $(STATEDIR)/glib22.prepare
 $(STATEDIR)/glib22.compile: $(glib22_compile_deps)
 	@$(call targetinfo, $@)
 	$(GLIB22_PATH) $(GLIB22_ENV) make -C $(GLIB22_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -118,8 +118,8 @@ glib22_install: $(STATEDIR)/glib22.install
 
 $(STATEDIR)/glib22.install: $(STATEDIR)/glib22.compile
 	@$(call targetinfo, $@)
-	$(GLIB22_PATH) $(GLIB22_ENV) make -C $(GLIB22_DIR) install
-	$(call touch, $@)
+	@$(call install, GLIB22)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -167,7 +167,7 @@ $(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

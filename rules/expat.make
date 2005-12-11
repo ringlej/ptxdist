@@ -35,7 +35,7 @@ expat_get_deps	=  $(EXPAT_SOURCE)
 
 $(STATEDIR)/expat.get: $(expat_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(EXPAT_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/expat.extract: $(expat_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EXPAT_DIR))
 	@$(call extract, $(EXPAT_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -83,7 +83,7 @@ $(STATEDIR)/expat.prepare: $(expat_prepare_deps)
 	cd $(EXPAT_DIR) && \
 		$(EXPAT_PATH) $(EXPAT_ENV) \
 		./configure $(EXPAT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +97,7 @@ $(STATEDIR)/expat.compile: $(expat_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(EXPAT_DIR) && \
 	$(EXPAT_PATH) $(EXPAT_ENV) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -107,9 +107,8 @@ expat_install: $(STATEDIR)/expat.install
 
 $(STATEDIR)/expat.install: $(STATEDIR)/expat.compile
 	@$(call targetinfo, $@)
-	cd $(EXPAT_DIR) && \
-	$(EXPAT_PATH) $(EXPAT_ENV) make install
-	$(call touch, $@)
+	@$(call install, EXPAT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -137,7 +136,7 @@ $(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

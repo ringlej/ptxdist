@@ -37,7 +37,7 @@ libidl-2_get_deps	=  $(LIBIDL-2_SOURCE)
 
 $(STATEDIR)/libidl-2.get: $(libidl-2_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBIDL-2_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/libidl-2.extract: $(libidl-2_extract_deps)
 	@$(call clean, $(LIBIDL-2_DIR))
 	@$(call extract, $(LIBIDL-2_SOURCE))
 	@$(call patchin, $(LIBIDL-2))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -92,7 +92,7 @@ $(STATEDIR)/libidl-2.prepare: $(libidl-2_prepare_deps)
 	cd $(LIBIDL-2_DIR) && \
 		$(LIBIDL-2_PATH) $(LIBIDL-2_ENV) \
 		./configure $(LIBIDL-2_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -107,7 +107,7 @@ $(STATEDIR)/libidl-2.compile: $(libidl-2_compile_deps)
 
 	cd $(LIBIDL-2_DIR) && $(LIBIDL-2_PATH) $(LIBIDL-2_ENV) make
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -117,10 +117,8 @@ libidl-2_install: $(STATEDIR)/libidl-2.install
 
 $(STATEDIR)/libidl-2.install: $(STATEDIR)/libidl-2.compile
 	@$(call targetinfo, $@)
-
-	cd $(LIBIDL-2_DIR) && $(LIBIDL-2_PATH) $(LIBIDL-2_ENV) make install
-
-	$(call touch, $@)
+	@$(call install, LIBIDL-2)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -133,7 +131,7 @@ libidl-2_targetinstall_deps	=  $(STATEDIR)/libidl-2.compile
 $(STATEDIR)/libidl-2.targetinstall: $(libidl-2_targetinstall_deps)
 	@$(call targetinfo, $@)
 	# FIXME: nothing to do? 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

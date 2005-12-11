@@ -23,7 +23,7 @@ hosttool-zlib_get: $(STATEDIR)/hosttool-zlib.get
 
 $(STATEDIR)/hosttool-zlib.get: $(STATEDIR)/zlib.get
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -35,7 +35,7 @@ $(STATEDIR)/hosttool-zlib.extract: $(STATEDIR)/hosttool-zlib.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_ZLIB_BUILDDIR))
 	@$(call extract, $(ZLIB_SOURCE), $(HOST_BUILDDIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -51,7 +51,7 @@ $(STATEDIR)/hosttool-zlib.prepare: $(STATEDIR)/hosttool-zlib.extract
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_ZLIB_BUILDDIR) && \
 		./configure $(HOSTTOOL_ZLIB_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -62,7 +62,7 @@ hosttool-zlib_compile: $(STATEDIR)/hosttool-zlib.compile
 $(STATEDIR)/hosttool-zlib.compile: $(STATEDIR)/hosttool-zlib.prepare 
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_ZLIB_BUILDDIR) && make $(HOSTTOOL_ZLIB_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -72,8 +72,8 @@ hosttool-zlib_install: $(STATEDIR)/hosttool-zlib.install
 
 $(STATEDIR)/hosttool-zlib.install: $(STATEDIR)/hosttool-zlib.compile
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOL_ZLIB_BUILDDIR) && make $(HOSTTOOL_ZLIB_MAKEVARS) install
-	$(call touch, $@)
+	@$(call install, HOSTTOOL_ZLIB, $(HOSTTOOL_ZLIB_BUILDDIR))
+	@$(call touch, $@)
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -82,7 +82,7 @@ hosttool-zlib_targetinstall: $(STATEDIR)/hosttool-zlib.targetinstall
 
 $(STATEDIR)/hosttool-zlib.targetinstall: $(STATEDIR)/hosttool-zlib.install
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

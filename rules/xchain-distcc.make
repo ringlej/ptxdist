@@ -36,7 +36,7 @@ xchain-distcc_get_deps	=  $(XCHAIN-DISTCC_SOURCE)
 
 $(STATEDIR)/xchain-distcc.get: $(xchain-distcc_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XCHAIN-DISTCC_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/xchain-distcc.extract: $(xchain-distcc_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN-DISTCC_DIR))
 	@$(call extract, $(XCHAIN-DISTCC_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,7 +79,7 @@ $(STATEDIR)/xchain-distcc.prepare: $(xchain-distcc_prepare_deps)
 	@$(call clean, $(XCHAIN-DISTCC_DIR)/config.cache)
 	cd $(XCHAIN-DISTCC_DIR) && \
 		./configure $(XCHAIN-DISTCC_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -92,7 +92,7 @@ xchain-distcc_compile_deps =  $(STATEDIR)/xchain-distcc.prepare
 $(STATEDIR)/xchain-distcc.compile: $(xchain-distcc_compile_deps)
 	@$(call targetinfo, $@)
 	$(XCHAIN-DISTCC_PATH) make $(NATIVE_MAKE_JOBS) -C $(XCHAIN-DISTCC_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -102,6 +102,7 @@ xchain-distcc_install: $(STATEDIR)/xchain-distcc.install
 
 $(STATEDIR)/xchain-distcc.install: $(STATEDIR)/xchain-distcc.compile
 	@$(call targetinfo, $@)
+	# FIXME
 	$(XCHAIN-DISTCC_PATH) make -C $(XCHAIN-DISTCC_DIR) install
 	rm -rf $(PTXCONF_PREFIX)/lib/distcc/bin
 	mkdir -p $(PTXCONF_PREFIX)/lib/distcc/bin
@@ -110,7 +111,7 @@ $(STATEDIR)/xchain-distcc.install: $(STATEDIR)/xchain-distcc.compile
 	   && for a in $(PTXCONF_GNU_TARGET)-[cg][+c][+c] $(PTXCONF_GNU_TARGET)-cc; do \
 	       rm -f $$a; ln -s ../../../bin/distcc $$a; \
 	   done
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -122,7 +123,7 @@ xchain-distcc_targetinstall_deps	=  $(STATEDIR)/xchain-distcc.compile
 
 $(STATEDIR)/xchain-distcc.targetinstall: $(xchain-distcc_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

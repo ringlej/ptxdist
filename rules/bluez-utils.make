@@ -108,7 +108,7 @@ bluez-utils_install: $(STATEDIR)/bluez-utils.install
 
 $(STATEDIR)/bluez-utils.install: $(STATEDIR)/bluez-utils.compile
 	@$(call targetinfo, $@)
-	cd $(BLUEZ_UTILS_DIR) && $(BLUEZ_UTILS_ENV) $(BLUEZ_UTILS_PATH) make install
+	@$(call install, BLUEZ_UTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

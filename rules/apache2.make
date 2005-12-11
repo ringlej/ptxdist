@@ -34,7 +34,7 @@ apache2_get_deps = $(APACHE2_SOURCE)
 
 $(STATEDIR)/apache2.get: $(apache2_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(APACHE2_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/apache2.extract: $(apache2_extract_deps)
 	@$(call clean, $(APACHE2_DIR))
 	@$(call extract, $(APACHE2_SOURCE))
 	@$(call patchin, $(APACHE2))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -100,7 +100,7 @@ $(STATEDIR)/apache2.prepare: $(apache2_prepare_deps)
 	#
 	perl -i -p -e "s/^gen_test_char_OBJECTS =.*$$/gen_test_char_OBJECTS = dummy.lo/g" $(APACHE2_DIR)/server/Makefile
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -136,7 +136,7 @@ $(STATEDIR)/apache2.compile: $(apache2_compile_deps)
 
 	cd $(APACHE2_DIR) && $(APACHE2_ENV) $(APACHE2_PATH) make
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -144,10 +144,11 @@ $(STATEDIR)/apache2.compile: $(apache2_compile_deps)
 
 apache2_install: $(STATEDIR)/apache2.install
 
-$(STATEDIR)/apache2.install: $(STATEDIR)/apache2.compile
+#$(STATEDIR)/apache2.install: $(STATEDIR)/apache2.compile
+$(STATEDIR)/apache2.install:
 	@$(call targetinfo, $@)
-	cd $(APACHE2_DIR) && $(APACHE2_ENV) $(APACHE2_PATH) make install
-	$(call touch, $@)
+	@$(call install, APACHE2)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -268,7 +269,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

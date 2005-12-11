@@ -37,7 +37,7 @@ sudo_get_deps = $(SUDO_SOURCE)
 $(STATEDIR)/sudo.get: $(sudo_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SUDO))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(SUDO_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/sudo.extract: $(sudo_extract_deps)
 	@$(call clean, $(SUDO_DIR))
 	@$(call extract, $(SUDO_SOURCE))
 	@$(call patchin, $(SUDO))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -88,7 +88,7 @@ $(STATEDIR)/sudo.prepare: $(sudo_prepare_deps)
 	cd $(SUDO_DIR) && \
 		$(SUDO_PATH) $(SUDO_ENV) \
 		./configure $(SUDO_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ sudo_compile_deps = $(STATEDIR)/sudo.prepare
 $(STATEDIR)/sudo.compile: $(sudo_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(SUDO_DIR) && $(SUDO_ENV) $(SUDO_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +111,8 @@ sudo_install: $(STATEDIR)/sudo.install
 
 $(STATEDIR)/sudo.install: $(STATEDIR)/sudo.compile
 	@$(call targetinfo, $@)
-	cd $(SUDO_DIR) && $(SUDO_ENV) $(SUDO_PATH) make install
-	$(call touch, $@)
+	@$(call install, SUDO)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -124,7 +124,7 @@ sudo_targetinstall_deps = $(STATEDIR)/sudo.compile
 
 $(STATEDIR)/sudo.targetinstall: $(sudo_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

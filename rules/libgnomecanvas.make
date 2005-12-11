@@ -34,7 +34,7 @@ libgnomecanvas_get_deps = $(LIBGNOMECANVAS_SOURCE)
 
 $(STATEDIR)/libgnomecanvas.get: $(libgnomecanvas_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBGNOMECANVAS_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/libgnomecanvas.extract: $(libgnomecanvas_extract_deps)
 	@$(call clean, $(LIBGNOMECANVAS_DIR))
 	@$(call extract, $(LIBGNOMECANVAS_SOURCE))
 	@$(call patchin, $(LIBGNOMECANVAS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/libgnomecanvas.prepare: $(libgnomecanvas_prepare_deps)
 	cd $(LIBGNOMECANVAS_DIR) && \
 		$(LIBGNOMECANVAS_PATH) $(LIBGNOMECANVAS_ENV) \
 		./configure $(LIBGNOMECANVAS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +100,7 @@ $(STATEDIR)/libgnomecanvas.compile: $(libgnomecanvas_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBGNOMECANVAS_DIR) && \
 	   $(LIBGNOMECANVAS_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,9 +110,8 @@ libgnomecanvas_install: $(STATEDIR)/libgnomecanvas.install
 
 $(STATEDIR)/libgnomecanvas.install: $(STATEDIR)/libgnomecanvas.compile
 	@$(call targetinfo, $@)
-	cd $(LIBGNOMECANVAS_DIR) && \
-	$(LIBGNOMECANVAS_PATH) make install
-	$(call touch, $@)
+	@$(call install, LIBGNOMECANVAS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -143,7 +142,7 @@ $(STATEDIR)/libgnomecanvas.targetinstall: $(libgnomecanvas_targetinstall_deps)
 	
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -35,7 +35,7 @@ valgrind_get_deps = $(VALGRIND_SOURCE)
 $(STATEDIR)/valgrind.get: $(valgrind_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(VALGRIND))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(VALGRIND_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/valgrind.extract: $(valgrind_extract_deps)
 	@$(call clean, $(VALGRIND_DIR))
 	@$(call extract, $(VALGRIND_SOURCE))
 	@$(call patchin, $(VALGRIND))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/valgrind.prepare: $(valgrind_prepare_deps)
 	cd $(VALGRIND_DIR) && \
 		$(VALGRIND_PATH) $(VALGRIND_ENV) \
 		./configure $(VALGRIND_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ valgrind_compile_deps = $(STATEDIR)/valgrind.prepare
 $(STATEDIR)/valgrind.compile: $(valgrind_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(VALGRIND_DIR) && $(VALGRIND_ENV) $(VALGRIND_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -116,9 +116,9 @@ $(STATEDIR)/valgrind.install: $(STATEDIR)/valgrind.compile
 
 	# FIXME: rsc: if --prefix=/, doesn't this install to / on the 
 	#             development host? 
-	# cd $(VALGRIND_DIR) && $(VALGRIND_PATH) make install
+	# cd $(VALGRIND_DIR) && $(VALGRIND_PATH) $(MAKE_INSTALL)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -162,7 +162,7 @@ $(STATEDIR)/valgrind.targetinstall: $(valgrind_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

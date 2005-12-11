@@ -31,7 +31,7 @@ automake176_get_deps	=  $(AUTOMAKE176_SOURCE)
 
 $(STATEDIR)/automake176.get: $(automake176_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(AUTOMAKE176_SOURCE):
 	@$(call targetinfo, $@)
@@ -49,7 +49,7 @@ $(STATEDIR)/automake176.extract: $(automake176_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(AUTOMAKE176_DIR))
 	@$(call extract, $(AUTOMAKE176_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -77,7 +77,7 @@ $(STATEDIR)/automake176.prepare: $(automake176_prepare_deps)
 	cd $(AUTOMAKE176_DIR) && \
 		$(AUTOMAKE176_PATH) \
 		./configure $(AUTOMAKE176_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -90,7 +90,7 @@ automake176_compile_deps =  $(STATEDIR)/automake176.prepare
 $(STATEDIR)/automake176.compile: $(automake176_compile_deps)
 	@$(call targetinfo, $@)
 	$(AUTOMAKE176_PATH) make -C $(AUTOMAKE176_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -100,8 +100,8 @@ automake176_install: $(STATEDIR)/automake176.install
 
 $(STATEDIR)/automake176.install: $(STATEDIR)/automake176.compile
 	@$(call targetinfo, $@)
-	$(AUTOMAKE176_PATH) make -C $(AUTOMAKE176_DIR) install
-	$(call touch, $@)
+	@$(call install, AUTOMAKE176)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -113,7 +113,7 @@ automake176_targetinstall_deps	=
 
 $(STATEDIR)/automake176.targetinstall: $(automake176_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

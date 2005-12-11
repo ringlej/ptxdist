@@ -34,7 +34,7 @@ libmodbus_get_deps = $(LIBMODBUS_SOURCE)
 
 $(STATEDIR)/libmodbus.get: $(libmodbus_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBMODBUS_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/libmodbus.extract: $(libmodbus_extract_deps)
 	@$(call clean, $(LIBMODBUS_DIR))
 	@$(call extract, $(LIBMODBUS_SOURCE))
 	@$(call patchin, $(LIBMODBUS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -84,7 +84,7 @@ $(STATEDIR)/libmodbus.prepare: $(libmodbus_prepare_deps)
 	cd $(LIBMODBUS_DIR) && \
 		$(LIBMODBUS_PATH) $(LIBMODBUS_ENV) \
 		./configure $(LIBMODBUS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +97,7 @@ libmodbus_compile_deps = $(STATEDIR)/libmodbus.prepare
 $(STATEDIR)/libmodbus.compile: $(libmodbus_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBMODBUS_DIR) && $(LIBMODBUS_ENV) $(LIBMODBUS_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -107,8 +107,8 @@ libmodbus_install: $(STATEDIR)/libmodbus.install
 
 $(STATEDIR)/libmodbus.install: $(STATEDIR)/libmodbus.compile
 	@$(call targetinfo, $@)
-	cd $(LIBMODBUS_DIR) && $(LIBMODBUS_ENV) $(LIBMODBUS_PATH) make install
-	$(call touch, $@)
+	@$(call install, LIBMODBUS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -139,7 +139,7 @@ $(STATEDIR)/libmodbus.targetinstall: $(libmodbus_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

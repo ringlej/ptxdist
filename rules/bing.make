@@ -35,7 +35,7 @@ bing_get_deps = $(BING_SOURCE)
 $(STATEDIR)/bing.get: $(bing_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BING))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(BING_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/bing.extract: $(bing_extract_deps)
 	@$(call clean, $(BING_DIR))
 	@$(call extract, $(BING_SOURCE))
 	@$(call patchin, $(BING))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -74,7 +74,7 @@ BING_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/bing.prepare: $(bing_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -87,7 +87,7 @@ bing_compile_deps = $(STATEDIR)/bing.prepare
 $(STATEDIR)/bing.compile: $(bing_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(BING_DIR) && $(BING_ENV) $(BING_PATH) make bing
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -97,7 +97,9 @@ bing_install: $(STATEDIR)/bing.install
 
 $(STATEDIR)/bing.install: $(STATEDIR)/bing.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	# FIXME
+	#@$(call install, BING)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -121,7 +123,7 @@ $(STATEDIR)/bing.targetinstall: $(bing_targetinstall_deps)
 	@$(call install_copy, 0, 0, 0755, $(BING_DIR)/bing, /usr/sbin/bing)
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

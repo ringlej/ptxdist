@@ -35,7 +35,7 @@ gtk22_get_deps	=  $(GTK22_SOURCE)
 
 $(STATEDIR)/gtk22.get: $(gtk22_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GTK22_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/gtk22.extract: $(gtk22_extract_deps)
 	@$(call clean, $(GTK22_DIR))
 	@$(call extract, $(GTK22_SOURCE))
 	@$(call patchin, $(GTK22))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -102,7 +102,7 @@ $(STATEDIR)/gtk22.prepare: $(gtk22_prepare_deps)
 	
 	perl -i -p -e 's/^SRC_SUBDIRS =(.*) demos (.*)$$/SRC_SUBDIRS = $$1 $$2/g' $(GTK22_DIR)/Makefile
 	 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -115,7 +115,7 @@ gtk22_compile_deps =  $(STATEDIR)/gtk22.prepare
 $(STATEDIR)/gtk22.compile: $(gtk22_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(GTK22_DIR) && $(GTK22_PATH) $(GTK22_ENV) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -127,8 +127,8 @@ gtk22_install_deps	=  $(STATEDIR)/gtk22.compile
 
 $(STATEDIR)/gtk22.install: $(gtk22_install_deps)
 	@$(call targetinfo, $@)
-	cd $(GTK22_DIR) && $(GTK22_PATH) $(GTK22_ENV) make install
-	$(call touch, $@)
+	@$(call install, GTK22)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -181,7 +181,7 @@ $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

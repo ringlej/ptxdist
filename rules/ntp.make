@@ -35,7 +35,7 @@ ntp_get_deps = $(NTP_SOURCE)
 $(STATEDIR)/ntp.get: $(ntp_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NTP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(NTP_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/ntp.extract: $(ntp_extract_deps)
 	@$(call clean, $(NTP_DIR))
 	@$(call extract, $(NTP_SOURCE))
 	@$(call patchin, $(NTP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -318,7 +318,7 @@ $(STATEDIR)/ntp.prepare: $(ntp_prepare_deps)
 	cd $(NTP_DIR) && \
 		$(NTP_PATH) $(NTP_ENV) \
 		./configure $(NTP_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -339,7 +339,7 @@ $(STATEDIR)/ntp.compile: $(ntp_compile_deps)
 
 	# now build the rest
 	cd $(NTP_DIR) && $(NTP_ENV) $(NTP_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -349,8 +349,8 @@ ntp_install: $(STATEDIR)/ntp.install
 
 $(STATEDIR)/ntp.install: $(STATEDIR)/ntp.compile
 	@$(call targetinfo, $@)
-	cd $(NTP_DIR) && $(NTP_PATH) make install
-	$(call touch, $@)
+	@$(call install, NTP)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -389,7 +389,7 @@ endif
 	@$(call install_link, /etc/init.d/ntp-server, /etc/init.d/ntp-client, n)
 
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

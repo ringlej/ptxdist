@@ -34,7 +34,7 @@ host-termcap_get_deps = $(TERMCAP_SOURCE)
 $(STATEDIR)/host-termcap.get: $(host-termcap_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_TERMCAP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ $(STATEDIR)/host-termcap.extract: $(host-termcap_extract_deps)
 	@$(call clean, $(HOST_TERMCAP_DIR))
 	@$(call extract, $(TERMCAP_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOST_TERMCAP), $(HOST_TERMCAP_DIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,7 +79,7 @@ $(STATEDIR)/host-termcap.prepare: $(host-termcap_prepare_deps)
 	cd $(HOST_TERMCAP_DIR) && \
 		$(HOST_TERMCAP_PATH) $(HOST_TERMCAP_ENV) \
 		./configure $(HOST_TERMCAP_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -92,7 +92,7 @@ host-termcap_compile_deps = $(STATEDIR)/host-termcap.prepare
 $(STATEDIR)/host-termcap.compile: $(host-termcap_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOST_TERMCAP_DIR) && $(HOST_TERMCAP_ENV) $(HOST_TERMCAP_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -104,8 +104,8 @@ host-termcap_install_deps = $(STATEDIR)/host-termcap.compile
 
 $(STATEDIR)/host-termcap.install: $(host-termcap_install_deps)
 	@$(call targetinfo, $@)
-	cd $(HOST_TERMCAP_DIR) && $(HOST_TERMCAP_ENV) $(HOST_TERMCAP_PATH) make install
-	$(call touch, $@)
+	@$(call install, HOST_TERMCAP)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

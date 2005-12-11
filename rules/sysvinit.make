@@ -39,7 +39,7 @@ sysvinit_get_deps = $(SYSVINIT_SOURCE)
 
 $(STATEDIR)/sysvinit.get: $(sysvinit_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(SYSVINIT_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +58,7 @@ $(STATEDIR)/sysvinit.extract: $(sysvinit_extract_deps)
 	@$(call clean, $(SYSVINIT_DIR))
 	@$(call extract, $(SYSVINIT_SOURCE))
 	@$(call patchin, $(SYSVINIT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/sysvinit.prepare: $(sysvinit_prepare_deps)
 #		$(SYSVINIT_PATH) $(SYSVINIT_ENV) \
 #		./configure $(SYSVINIT_AUTOCONF)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -104,7 +104,7 @@ $(STATEDIR)/sysvinit.compile: $(sysvinit_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(SYSVINIT_DIR)/src && \
 		$(SYSVINIT_PATH) $(SYSVINIT_ENV) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,7 +114,7 @@ sysvinit_install: $(STATEDIR)/sysvinit.install
 
 $(STATEDIR)/sysvinit.install: $(STATEDIR)/sysvinit.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -190,7 +190,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

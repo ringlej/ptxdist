@@ -35,7 +35,7 @@ netcat_get_deps = $(NETCAT_SOURCE)
 $(STATEDIR)/netcat.get: $(netcat_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NETCAT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(NETCAT_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/netcat.extract: $(netcat_extract_deps)
 	@$(call clean, $(NETCAT_DIR))
 	@$(call extract, $(NETCAT_SOURCE))
 	@$(call patchin, $(NETCAT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -99,7 +99,7 @@ $(STATEDIR)/netcat.prepare: $(netcat_prepare_deps)
 	cd $(NETCAT_DIR) && \
 		$(NETCAT_PATH) $(NETCAT_ENV) \
 		./configure $(NETCAT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -112,7 +112,7 @@ netcat_compile_deps = $(STATEDIR)/netcat.prepare
 $(STATEDIR)/netcat.compile: $(netcat_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(NETCAT_DIR) && $(NETCAT_ENV) $(NETCAT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -122,8 +122,8 @@ netcat_install: $(STATEDIR)/netcat.install
 
 $(STATEDIR)/netcat.install: $(STATEDIR)/netcat.compile
 	@$(call targetinfo, $@)
-	cd $(NETCAT_DIR) && $(NETCAT_ENV) $(NETCAT_PATH) make install
-	$(call touch, $@)
+	@$(call install, NETCAT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -150,7 +150,7 @@ $(STATEDIR)/netcat.targetinstall: $(netcat_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

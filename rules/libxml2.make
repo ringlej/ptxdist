@@ -34,7 +34,7 @@ libxml2_get_deps = $(LIBXML2_SOURCE)
 
 $(STATEDIR)/libxml2.get: $(libxml2_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBXML2_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/libxml2.extract: $(libxml2_extract_deps)
 	@$(call clean, $(LIBXML2_DIR))
 	@$(call extract, $(LIBXML2_SOURCE))
 	@$(call patchin, $(LIBXML2))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -279,7 +279,7 @@ $(STATEDIR)/libxml2.prepare: $(libxml2_prepare_deps)
 	cd $(LIBXML2_DIR) && \
 		$(LIBXML2_PATH) $(LIBXML2_ENV) \
 		./configure $(LIBXML2_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -292,7 +292,7 @@ libxml2_compile_deps = $(STATEDIR)/libxml2.prepare
 $(STATEDIR)/libxml2.compile: $(libxml2_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBXML2_DIR) && $(LIBXML2_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -302,12 +302,12 @@ libxml2_install: $(STATEDIR)/libxml2.install
 
 $(STATEDIR)/libxml2.install: $(STATEDIR)/libxml2.compile
 	@$(call targetinfo, $@)
-	cd $(LIBXML2_DIR) && $(LIBXML2_PATH) make install
+	@$(call install, LIBXML2)
 	# FIXME: this probably has to be fixed upstream!
 	# libxml2 installs xml2-config to wrong path. 
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	install $(LIBXML2_DIR)/xml2-config $(PTXCONF_PREFIX)/bin/
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -338,7 +338,7 @@ $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps)
 	
 	@$(call install_finish)
 	
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

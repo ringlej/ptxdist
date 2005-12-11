@@ -36,7 +36,7 @@ libpv_get_deps = \
 
 $(STATEDIR)/libpv.get: $(libpv_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBPV_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/libpv.extract: $(libpv_extract_deps)
 	@$(call clean, $(LIBPV_DIR))
 	@$(call extract, $(LIBPV_SOURCE))
 	@$(call patchin, $(LIBPV))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -88,7 +88,7 @@ $(STATEDIR)/libpv.prepare: $(libpv_prepare_deps)
 	cd $(LIBPV_DIR) && \
 		$(LIBPV_PATH) $(LIBPV_ENV) \
 		./configure $(LIBPV_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ libpv_compile_deps = $(STATEDIR)/libpv.prepare
 $(STATEDIR)/libpv.compile: $(libpv_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBPV_DIR) && $(LIBPV_ENV) $(LIBPV_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +111,8 @@ libpv_install: $(STATEDIR)/libpv.install
 
 $(STATEDIR)/libpv.install: $(STATEDIR)/libpv.compile
 	@$(call targetinfo, $@)
-	cd $(LIBPV_DIR) && $(LIBPV_ENV) $(LIBPV_PATH) make install
-	$(call touch, $@)
+	@$(call install, LIBPV)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -147,7 +147,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

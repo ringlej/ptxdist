@@ -37,7 +37,7 @@ bridge-utils_get_deps = $(BRIDGE_UTILS_SOURCE)
 $(STATEDIR)/bridge-utils.get: $(bridge-utils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BRIDGE_UTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(BRIDGE_UTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/bridge-utils.extract: $(bridge-utils_extract_deps)
 	@$(call clean, $(BRIDGE_UTILS_DIR))
 	@$(call extract, $(BRIDGE_UTILS_SOURCE))
 	@$(call patchin, $(BRIDGE_UTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/bridge-utils.prepare: $(bridge-utils_prepare_deps)
 	cd $(BRIDGE_UTILS_DIR) && \
 		$(BRIDGE_UTILS_PATH) $(BRIDGE_UTILS_ENV) \
 		./configure $(BRIDGE_UTILS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +99,7 @@ bridge-utils_compile_deps = $(STATEDIR)/bridge-utils.prepare
 $(STATEDIR)/bridge-utils.compile: $(bridge-utils_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(BRIDGE_UTILS_DIR) && $(BRIDGE_UTILS_ENV) $(BRIDGE_UTILS_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,7 +109,9 @@ bridge-utils_install: $(STATEDIR)/bridge-utils.install
 
 $(STATEDIR)/bridge-utils.install: $(STATEDIR)/bridge-utils.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	# FIXME
+	#@$(call install, APACHE2)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -122,7 +124,7 @@ bridge-utils_targetinstall_deps = $(STATEDIR)/bridge-utils.compile
 $(STATEDIR)/bridge-utils.targetinstall: $(bridge-utils_targetinstall_deps)
 	@$(call targetinfo, $@)
 	cd $(BRIDGE_UTILS_DIR) && $(BRIDGE_UTILS_ENV) $(BRIDGE_UTILS_PATH) make prefix=$(ROOTDIR) install
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

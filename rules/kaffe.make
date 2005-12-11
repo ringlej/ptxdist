@@ -48,7 +48,7 @@ endif
 
 $(STATEDIR)/kaffe.get: $(kaffe_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(KAFFE_SOURCE):
 	@$(call targetinfo, $@)
@@ -71,13 +71,13 @@ endif
 
 $(STATEDIR)/kaffe.extract: $(kaffe_extract_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(STATEDIR)/kaffe-base.extract: $(STATEDIR)/kaffe.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(KAFFE_DIR))
 	@$(call extract, $(KAFFE_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(STATEDIR)/kaffe-kangaroo.extract: $(STATEDIR)/kaffe.get
 	@$(call targetinfo, $@)
@@ -85,7 +85,7 @@ $(STATEDIR)/kaffe-kangaroo.extract: $(STATEDIR)/kaffe.get
 	@$(call extract, $(KAFFE_KANGAROO_SOURCE))
 	cp -a $(BUILDDIR)/$(KAFFE_KANGAROO)/* $(BUILDDIR)/$(KAFFE)
 	rm -rf $(BUILDDIR)/$(KAFFE_KANGAROO)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -236,7 +236,7 @@ $(STATEDIR)/kaffe.prepare: $(kaffe_prepare_deps)
 	cd $(KAFFE_BUILDDIR) && \
 		$(KAFFE_PATH) $(KAFFE_ENV) \
 		$(KAFFE_DIR)/configure $(KAFFE_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -267,7 +267,7 @@ ifdef PTXCONF_KAFFE_LINK_GMP
 		$(KAFFE_BUILDDIR)/libraries/clib-cldc/native/libnative.la
 	$(KAFFE_PATH) make -C $(KAFFE_BUILDDIR) $(KAFFE_MAKEVARS)
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -277,7 +277,7 @@ kaffe_install: $(STATEDIR)/kaffe.install
 
 $(STATEDIR)/kaffe.install: $(STATEDIR)/kaffe.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -342,7 +342,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

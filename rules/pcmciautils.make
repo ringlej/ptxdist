@@ -34,7 +34,7 @@ pcmciautils_get_deps = $(PCMCIAUTILS_SOURCE)
 $(STATEDIR)/pcmciautils.get: $(pcmciautils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PCMCIAUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PCMCIAUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/pcmciautils.extract: $(pcmciautils_extract_deps)
 	@$(call clean, $(PCMCIAUTILS_DIR))
 	@$(call extract, $(PCMCIAUTILS_SOURCE))
 	@$(call patchin, $(PCMCIAUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -95,7 +95,7 @@ endif
 	#cd $(PCMCIAUTILS_DIR) && \
 	#	$(PCMCIAUTILS_PATH) $(PCMCIAUTILS_ENV) \
 	#	./configure $(PCMCIAUTILS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -108,7 +108,7 @@ pcmciautils_compile_deps = $(STATEDIR)/pcmciautils.prepare
 $(STATEDIR)/pcmciautils.compile: $(pcmciautils_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PCMCIAUTILS_DIR) && $(PCMCIAUTILS_ENV) $(PCMCIAUTILS_PATH) make $(PCMCIAUTILS_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -118,7 +118,7 @@ pcmciautils_install: $(STATEDIR)/pcmciautils.install
 
 $(STATEDIR)/pcmciautils.install: $(STATEDIR)/pcmciautils.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -171,7 +171,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

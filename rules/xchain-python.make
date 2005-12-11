@@ -27,7 +27,7 @@ xchain-python_get: $(STATEDIR)/xchain-python.get
 
 $(STATEDIR)/xchain-python.get: $(STATEDIR)/python.get
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -37,7 +37,7 @@ xchain-python_extract: $(STATEDIR)/xchain-python.extract
 
 $(STATEDIR)/xchain-python.extract: $(STATEDIR)/python.extract
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -61,7 +61,7 @@ $(STATEDIR)/xchain-python.prepare: $(xchain-python_prepare_deps)
 	cd $(XCHAIN_PYTHON_BUILDDIR) && \
 		$(XCHAIN_PYTHON_ENV) \
 		$(PYTHON_DIR)/configure $(XCHAIN_PYTHON_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -73,7 +73,7 @@ $(STATEDIR)/xchain-python.compile: $(STATEDIR)/xchain-python.prepare
 	@$(call targetinfo, $@)
 	make -C $(XCHAIN_PYTHON_BUILDDIR) python
 	make -C $(XCHAIN_PYTHON_BUILDDIR) Parser/pgen
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -85,7 +85,7 @@ $(STATEDIR)/xchain-python.install: $(STATEDIR)/xchain-python.compile
 	@$(call targetinfo, $@)
 # 	make -C $(XCHAIN_PYTHON_BUILDDIR) bininstall
 # 	install $(XCHAIN_PYTHON_BUILDDIR)/Parser/pgen $(PTXCONF_PREFIX)/bin/pgen
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -95,7 +95,7 @@ xchain-python_targetinstall: $(STATEDIR)/xchain-python.targetinstall
 
 $(STATEDIR)/xchain-python.targetinstall:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -35,7 +35,7 @@ hotplug_get_deps = $(HOTPLUG_SOURCE)
 $(STATEDIR)/hotplug.get: $(hotplug_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOTPLUG))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(HOTPLUG_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/hotplug.extract: $(hotplug_extract_deps)
 
 	perl -i -p -e "s,/bin/bash,/bin/sh,g" $(HOTPLUG_DIR)/etc/hotplug.d/default/default.hotplug
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -69,7 +69,7 @@ hotplug_prepare_deps = $(STATEDIR)/hotplug.extract
 
 $(STATEDIR)/hotplug.prepare: $(hotplug_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -81,7 +81,7 @@ hotplug_compile_deps = $(STATEDIR)/hotplug.prepare
 
 $(STATEDIR)/hotplug.compile: $(hotplug_compile_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -91,8 +91,8 @@ hotplug_install: $(STATEDIR)/hotplug.install
 
 $(STATEDIR)/hotplug.install: $(STATEDIR)/hotplug.compile
 	@$(call targetinfo, $@)
-	cd $(HOTPLUG_DIR) && $(HOTPLUG_ENV) $(HOTPLUG_PATH) make install
-	$(call touch, $@)
+	@$(call install, HOTPLUG)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -162,7 +162,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

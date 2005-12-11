@@ -38,7 +38,7 @@ xlibs-xextensions_get_deps = $(XLIBS-XEXTENSIONS_SOURCE)
 $(STATEDIR)/xlibs-xextensions.get: $(xlibs-xextensions_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XEXTENSIONS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-XEXTENSIONS_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/xlibs-xextensions.extract: $(xlibs-xextensions_extract_deps)
 	@$(call clean, $(XLIBS-XEXTENSIONS_DIR))
 	@$(call extract, $(XLIBS-XEXTENSIONS_SOURCE))
 	@$(call patchin, $(XLIBS-XEXTENSIONS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/xlibs-xextensions.prepare: $(xlibs-xextensions_prepare_deps)
 	cd $(XLIBS-XEXTENSIONS_DIR) && \
 		$(XLIBS-XEXTENSIONS_PATH) $(XLIBS-XEXTENSIONS_ENV) \
 		./configure $(XLIBS-XEXTENSIONS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ xlibs-xextensions_compile_deps = $(STATEDIR)/xlibs-xextensions.prepare
 $(STATEDIR)/xlibs-xextensions.compile: $(xlibs-xextensions_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XEXTENSIONS_DIR) && $(XLIBS-XEXTENSIONS_ENV) $(XLIBS-XEXTENSIONS_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +113,8 @@ xlibs-xextensions_install: $(STATEDIR)/xlibs-xextensions.install
 
 $(STATEDIR)/xlibs-xextensions.install: $(STATEDIR)/xlibs-xextensions.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-XEXTENSIONS_DIR) && $(XLIBS-XEXTENSIONS_ENV) $(XLIBS-XEXTENSIONS_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-XEXTENSIONS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -126,7 +126,7 @@ xlibs-xextensions_targetinstall_deps = $(STATEDIR)/xlibs-xextensions.compile
 
 $(STATEDIR)/xlibs-xextensions.targetinstall: $(xlibs-xextensions_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

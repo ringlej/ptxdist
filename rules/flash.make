@@ -42,12 +42,12 @@ flash_get_deps	+= $(STATEDIR)/flash-patches.get
 
 $(STATEDIR)/flash.get: $(flash_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(STATEDIR)/flash-patches.get:
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FLASH))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(FLASH_SOURCE):
 	@$(call targetinfo, $@)
@@ -69,7 +69,7 @@ $(STATEDIR)/flash.extract: $(STATEDIR)/flash.get
 	$(FLASH_EXTRACT) $(FLASH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	cd $(FLASH_DIR) && patch -p1 < $(FLASH_PATCH_SOURCE)
 	@$(call patchin, $(FLASH), $(FLASH_DIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 
 # ----------------------------------------------------------------------------
@@ -111,7 +111,7 @@ $(STATEDIR)/flash.prepare: $(flash_prepare_deps)
 		ac_cv_func_memcmp_clean=yes	\
 		ac_cv_func_getrlimit=yes	\
 		$(FLASH_PATH) $(FLASH_ENV) $(FLASH_DIR)/configure $(FLASH_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -122,7 +122,7 @@ flash_compile: $(STATEDIR)/flash.compile
 $(STATEDIR)/flash.compile: $(STATEDIR)/flash.prepare 
 	@$(call targetinfo, $@)
 	$(FLASH_PATH) $(FLASH_ENV) make -C $(FLASH_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -132,7 +132,9 @@ flash_install: $(STATEDIR)/flash.install
 
 $(STATEDIR)/flash.install: $(STATEDIR)/flash.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	# FIXME
+	#@$(call install, FLASH)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -164,7 +166,7 @@ $(STATEDIR)/flash.targetinstall: $(flash_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------

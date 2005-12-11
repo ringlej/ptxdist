@@ -35,7 +35,7 @@ ltp_get_deps = $(LTP_SOURCE)
 $(STATEDIR)/ltp.get: $(ltp_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LTP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LTP_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/ltp.extract: $(ltp_extract_deps)
 	@$(call clean, $(LTP_DIR))
 	@$(call extract, $(LTP_SOURCE))
 	@$(call patchin, $(LTP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -74,7 +74,7 @@ LTP_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/ltp.prepare: $(ltp_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -93,7 +93,7 @@ $(STATEDIR)/ltp.compile: $(ltp_compile_deps)
 ifdef PTXCONF_LTP_MISC_MATH
 	cd $(LTP_DIR)/testcases/misc/math && $(LTP_ENV) $(LTP_PATH) make
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -104,7 +104,7 @@ ltp_install: $(STATEDIR)/ltp.install
 $(STATEDIR)/ltp.install: $(STATEDIR)/ltp.compile
 	@$(call targetinfo, $@)
 	install -D $(LTP_DIR)/lib/libltp.a $(CROSS_LIB_DIR)/lib/libltp.a
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -264,7 +264,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

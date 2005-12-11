@@ -36,7 +36,7 @@ xlibs-xau_get_deps = $(XLIBS-XAU_SOURCE)
 $(STATEDIR)/xlibs-xau.get: $(xlibs-xau_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XAU))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-XAU_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/xlibs-xau.extract: $(xlibs-xau_extract_deps)
 	@$(call clean, $(XLIBS-XAU_DIR))
 	@$(call extract, $(XLIBS-XAU_SOURCE))
 	@$(call patchin, $(XLIBS-XAU))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -88,7 +88,7 @@ $(STATEDIR)/xlibs-xau.prepare: $(xlibs-xau_prepare_deps)
 	cd $(XLIBS-XAU_DIR) && \
 		$(XLIBS-XAU_PATH) $(XLIBS-XAU_ENV) \
 		./configure $(XLIBS-XAU_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ xlibs-xau_compile_deps = $(STATEDIR)/xlibs-xau.prepare
 $(STATEDIR)/xlibs-xau.compile: $(xlibs-xau_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XAU_DIR) && $(XLIBS-XAU_ENV) $(XLIBS-XAU_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +111,8 @@ xlibs-xau_install: $(STATEDIR)/xlibs-xau.install
 
 $(STATEDIR)/xlibs-xau.install: $(STATEDIR)/xlibs-xau.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-XAU_DIR) && $(XLIBS-XAU_ENV) $(XLIBS-XAU_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-XAU)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +140,7 @@ $(STATEDIR)/xlibs-xau.targetinstall: $(xlibs-xau_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

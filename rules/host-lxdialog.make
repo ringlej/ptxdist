@@ -29,7 +29,7 @@ host-lxdialog_get: $(STATEDIR)/host-lxdialog.get
 
 $(STATEDIR)/host-lxdialog.get:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -53,7 +53,7 @@ $(STATEDIR)/host-lxdialog.extract: $(host-lxdialog_extract_deps)
 		$(PTXDIST_TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx \
 		$(HOST_LXDIALOG_DIR)/Makefile
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -71,7 +71,7 @@ HOST_LXDIALOG_ENV 	=  $(HOSTCC_ENV)
 
 $(STATEDIR)/host-lxdialog.prepare: $(host-lxdialog_prepare_deps)
 	@$(call targetinfo, $@, n)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -84,7 +84,7 @@ host-lxdialog_compile_deps = $(STATEDIR)/host-lxdialog.prepare
 $(STATEDIR)/host-lxdialog.compile: $(host-lxdialog_compile_deps)
 	@$(call targetinfo, $@, n)
 	cd $(HOST_LXDIALOG_DIR) && $(HOST_LXDIALOG_ENV) $(HOST_LXDIALOG_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -96,7 +96,7 @@ host-lxdialog_install_deps = $(STATEDIR)/host-lxdialog.compile
 
 $(STATEDIR)/host-lxdialog.install: $(host-lxdialog_install_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

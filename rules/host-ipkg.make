@@ -40,7 +40,7 @@ hosttool-ipkg_get_deps = $(HOSTTOOL_IPKG_SOURCE)
 $(STATEDIR)/hosttool-ipkg.get: $(hosttool-ipkg_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL_IPKG))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -56,7 +56,7 @@ $(STATEDIR)/hosttool-ipkg.extract: $(hosttool-ipkg_extract_deps)
 	@$(call extract, $(HOSTTOOL_IPKG_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL_IPKG), $(HOSTTOOL_IPKG_DIR))
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +87,7 @@ $(STATEDIR)/hosttool-ipkg.prepare: $(hosttool-ipkg_prepare_deps)
 	cd $(HOSTTOOL_IPKG_DIR) && \
 		$(HOSTTOOL_IPKG_PATH) $(HOSTTOOL_IPKG_ENV) \
 		./configure $(HOSTTOOL_IPKG_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +100,7 @@ hosttool-ipkg_compile_deps = $(STATEDIR)/hosttool-ipkg.prepare
 $(STATEDIR)/hosttool-ipkg.compile: $(hosttool-ipkg_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_IPKG_DIR) && $(HOSTTOOL_IPKG_ENV) $(HOSTTOOL_IPKG_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,8 +110,8 @@ hosttool-ipkg_install: $(STATEDIR)/hosttool-ipkg.install
 
 $(STATEDIR)/hosttool-ipkg.install: $(STATEDIR)/hosttool-ipkg.compile
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOL_IPKG_DIR) && $(HOSTTOOL_IPKG_ENV) $(HOSTTOOL_IPKG_PATH) make install
-	$(call touch, $@)
+	@$(call install, HOSTTOOL_IPKG)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -123,7 +123,7 @@ hosttool-ipkg_targetinstall_deps = $(STATEDIR)/hosttool-ipkg.install
 
 $(STATEDIR)/hosttool-ipkg.targetinstall: $(hosttool-ipkg_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

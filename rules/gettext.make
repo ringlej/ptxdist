@@ -37,7 +37,7 @@ gettext_get_deps = $(GETTEXT_SOURCE)
 
 $(STATEDIR)/gettext.get: $(gettext_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GETTEXT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/gettext.extract: $(gettext_extract_deps)
 	@$(call clean, $(GETTEXT_DIR))
 	@$(call extract, $(GETTEXT_SOURCE))
 	@$(call patchin, $(GETTEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -91,7 +91,7 @@ $(STATEDIR)/gettext.prepare: $(gettext_prepare_deps)
 	cd $(GETTEXT_DIR) && \
 		$(GETTEXT_PATH) $(GETTEXT_ENV) \
 		./configure $(GETTEXT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -104,7 +104,7 @@ gettext_compile_deps = $(STATEDIR)/gettext.prepare
 $(STATEDIR)/gettext.compile: $(gettext_compile_deps)
 	@$(call targetinfo, $@)
 	$(GETTEXT_PATH) make -C $(GETTEXT_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -116,14 +116,16 @@ gettext_install_deps = $(STATEDIR)/gettext.compile
 
 $(STATEDIR)/gettext.install: $(gettext_install_deps)
 	@$(call targetinfo, $@)
+	# FIXME
+	#@$(call install, GETTEXT)
 	rm -rf $(GETTEXT_INST_DIR)
-	cd $(GETTEXT_DIR) && $(GETTEXT_PATH) make install prefix=$(GETTEXT_INST_DIR)/usr
+	cd $(GETTEXT_DIR) && $(GETTEXT_PATH) $(MAKE_INSTALL) prefix=$(GETTEXT_INST_DIR)/usr
 	mkdir -p $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	cp -a $(GETTEXT_INST_DIR)/usr/lib/. $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	mkdir -p $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 	cp -a $(GETTEXT_INST_DIR)/usr/include/. $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 	rm -rf $(GETTEXT_INST_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -156,7 +158,7 @@ $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

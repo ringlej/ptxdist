@@ -38,7 +38,7 @@ xserver_get_deps = $(XSERVER_SOURCE)
 $(STATEDIR)/xserver.get: $(xserver_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XSERVER))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XSERVER_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/xserver.extract: $(xserver_extract_deps)
 	@$(call clean, $(XSERVER_DIR))
 	@$(call extract, $(XSERVER_SOURCE))
 	@$(call patchin, $(XSERVER))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -245,7 +245,7 @@ $(STATEDIR)/xserver.prepare: $(xserver_prepare_deps)
 	cd $(XSERVER_DIR) && \
 		$(XSERVER_PATH) $(XSERVER_ENV) \
 		./configure $(XSERVER_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -258,7 +258,7 @@ xserver_compile_deps = $(STATEDIR)/xserver.prepare
 $(STATEDIR)/xserver.compile: $(xserver_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XSERVER_DIR) && $(XSERVER_ENV) $(XSERVER_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -268,8 +268,8 @@ xserver_install: $(STATEDIR)/xserver.install
 
 $(STATEDIR)/xserver.install: $(STATEDIR)/xserver.compile
 	@$(call targetinfo, $@)
-	cd $(XSERVER_DIR) && $(XSERVER_ENV) $(XSERVER_PATH) make install
-	$(call touch, $@)
+	@$(call install, XSERVER)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -289,7 +289,7 @@ xserver_targetinstall_deps += $(STATEDIR)/xlibs-xau.targetinstall
 
 $(STATEDIR)/xserver.targetinstall: $(xserver_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

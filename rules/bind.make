@@ -34,7 +34,7 @@ bind_get_deps = $(BIND_SOURCE)
 
 $(STATEDIR)/bind.get: $(bind_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(BIND_SOURCE):
 	@$(call targetinfo, $@)
@@ -52,7 +52,7 @@ $(STATEDIR)/bind.extract: $(bind_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BIND_DIR))
 	@$(call extract, $(BIND_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -99,7 +99,7 @@ $(STATEDIR)/bind.prepare: $(bind_prepare_deps)
 	cd $(BIND_DIR) && \
 		$(BIND_PATH) $(BIND_ENV) \
 		./configure $(BIND_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -112,7 +112,7 @@ bind_compile_deps = $(STATEDIR)/bind.prepare
 $(STATEDIR)/bind.compile: $(bind_compile_deps)
 	@$(call targetinfo, $@)
 	$(BIND_PATH) make -C $(BIND_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -123,8 +123,8 @@ bind_install: $(STATEDIR)/bind.install
 $(STATEDIR)/bind.install: $(STATEDIR)/bind.compile
 	@$(call targetinfo, $@)
 	# FIXME: RSC: is it right that we only install and do not targetinstall? 
-	cd $(BIND_DIR) && $(BIND_PATH) make install
-	$(call touch, $@)
+	@$(call install, BIND)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -136,7 +136,7 @@ bind_targetinstall_deps = $(STATEDIR)/bind.compile
 
 $(STATEDIR)/bind.targetinstall: $(bind_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -35,7 +35,7 @@ inetutils_get_deps	=  $(INETUTILS_SOURCE)
 $(STATEDIR)/inetutils.get: $(inetutils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(INETUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(INETUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/inetutils.extract: $(inetutils_extract_deps)
 	@$(call clean, $(INETUTILS_DIR))
 	@$(call extract, $(INETUTILS_SOURCE))
 	@$(call patchin, $(INETUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/inetutils.prepare: $(inetutils_prepare_deps)
 	cd $(INETUTILS_DIR) && \
 		$(INETUTILS_PATH) $(INETUTILS_ENV) \
 		./configure $(INETUTILS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -121,7 +121,7 @@ endif
 ifdef PTXCONF_INETUTILS_SYSLOGD
 	cd $(INETUTILS_DIR)/syslogd && $(INETUTILS_PATH) make
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -131,7 +131,7 @@ inetutils_install: $(STATEDIR)/inetutils.install
 
 $(STATEDIR)/inetutils.install:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -170,7 +170,7 @@ ifdef PTXCONF_INETUTILS_SYSLOGD
 endif
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

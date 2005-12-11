@@ -34,7 +34,7 @@ mplayer_get_deps = $(MPLAYER_SOURCE)
 
 $(STATEDIR)/mplayer.get: $(mplayer_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MPLAYER_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/mplayer.extract: $(mplayer_extract_deps)
 	@$(call clean, $(MPLAYER_DIR))
 	@$(call extract, $(MPLAYER_SOURCE))
 	@$(call patchin, $(MPLAYER))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -91,7 +91,7 @@ $(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps)
 	cd $(MPLAYER_DIR) && \
 		$(MPLAYER_PATH) $(MPLAYER_ENV) \
 		./configure $(MPLAYER_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -104,7 +104,7 @@ mplayer_compile_deps = $(STATEDIR)/mplayer.prepare
 $(STATEDIR)/mplayer.compile: $(mplayer_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(MPLAYER_DIR) && $(MPLAYER_ENV) $(MPLAYER_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,8 +114,8 @@ mplayer_install: $(STATEDIR)/mplayer.install
 
 $(STATEDIR)/mplayer.install: $(STATEDIR)/mplayer.compile
 	@$(call targetinfo, $@)
-	cd $(MPLAYER_DIR) && $(MPLAYER_ENV) $(MPLAYER_PATH) make install
-	$(call touch, $@)
+	@$(call install, MPLAYER)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,7 +141,7 @@ $(STATEDIR)/mplayer.targetinstall: $(mplayer_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

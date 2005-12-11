@@ -31,7 +31,7 @@ $(STATEDIR)/hosttool-util-linux.extract: $(hosttool-util-linux_extract_deps)
 	@$(call clean, $(UTIL-LINUX_DIR))
 	@$(call extract, $(UTIL-LINUX_SOURCE), $(BUILDDIR)/hosttool)
 	@$(call patchin, $(UTIL-LINUX))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Hosttool Prepare
@@ -48,7 +48,7 @@ $(STATEDIR)/hosttool-util-linux.prepare: $(hosttool-util-linux_prepare_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_UTIL-LINUX_DIR) && \
 		$(HOSTCC_ENV) ./configure
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Hosttool Compile
@@ -97,7 +97,7 @@ ifdef PTXCONF_UTLNX_CFFDISK
 		$(PTXCONF_PREFIX)/sbin/sfdisk
 endif
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Hosttool Clean

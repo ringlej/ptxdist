@@ -37,7 +37,7 @@ mfirebird_get_deps		+= $(MFIREBIRD_PATCH_SOURCE)
 $(STATEDIR)/mfirebird.get: $(mfirebird_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MFIREBIRD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MFIREBIRD_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/mfirebird.extract: $(mfirebird_extract_deps)
 	@$(call extract, $(MFIREBIRD_SOURCE))
 	cd $(BUILDDIR) && mv mozilla $(MFIREBIRD)
 	@$(call patchin, $(MFIREBIRD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -424,7 +424,7 @@ $(STATEDIR)/mfirebird.prepare: $(mfirebird_prepare_deps)
 	cd $(MFIREBIRD_DIR) && \
 		$(MFIREBIRD_PATH) $(MFIREBIRD_ENV) \
 		./configure $(MFIREBIRD_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -437,7 +437,7 @@ mfirebird_compile_deps =  $(STATEDIR)/mfirebird.prepare
 $(STATEDIR)/mfirebird.compile: $(mfirebird_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -447,8 +447,8 @@ mfirebird_install: $(STATEDIR)/mfirebird.install
 
 $(STATEDIR)/mfirebird.install: $(STATEDIR)/mfirebird.compile
 	@$(call targetinfo, $@)
-	cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make install
-	$(call touch, $@)
+	@$(call install, MFIREBIRD)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -501,7 +501,7 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

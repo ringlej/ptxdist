@@ -60,7 +60,7 @@ xfree430_get_deps	= $(XFREE430_SOURCE)
 $(STATEDIR)/xfree430.get: $(xfree430_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XFREE430))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XFREE430_SOURCE):
 	@$(call targetinfo, $@)
@@ -107,7 +107,7 @@ $(STATEDIR)/xfree430.extract: $(xfree430_extract_deps)
 #	@$(call extract, $(XFREE430_3_SOURCE))
 #	@$(call extract, $(XFREE430_4_SOURCE))
 #	@$(call extract, $(XFREE430_5_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -146,7 +146,7 @@ $(STATEDIR)/xfree430.prepare: $(xfree430_prepare_deps)
 	ln -sf $(COMPILER_PREFIX)g++ $(XFREE430_BUILDDIR)/cross_compiler/g++
 	ln -sf g++ $(XFREE430_BUILDDIR)/cross_compiler/c++
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -171,7 +171,7 @@ $(STATEDIR)/xfree430.compile: $(xfree430_compile_deps)
 		$(XFREE430_ENV) DESTDIR=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
 		make World CROSSCOMPILEDIR=$(XFREE430_BUILDDIR)/cross_compiler
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -188,9 +188,9 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 
 	cd $(XFREE430_BUILDDIR) && \
 		$(XFREE430_ENV) DESTDIR=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
-		make install
+		$(MAKE_INSTALL)
 
-	# 'make install' copies the pkg-config '.pc' files to the 
+	# '$(MAKE_INSTALL)' copies the pkg-config '.pc' files to the 
 	# wrong location: we usually search them here...
 	 
 	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/fontconfig.pc
@@ -215,7 +215,7 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 	perl -i -p -e "s,-lXft,-lXext -lXft,g" \
 		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/pkgconfig/xft.pc
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -237,14 +237,14 @@ $(STATEDIR)/xfree430.targetinstall: $(xfree430_targetinstall_deps)
 
 #	# FIXME: this is somehow not being built...
 	touch $(XFREE430_BUILDDIR)/fonts/encodings/encodings.dir
-	cd $(XFREE430_BUILDDIR) && make install DESTDIR=$(ROOTDIR)
+	cd $(XFREE430_BUILDDIR) && $(MAKE_INSTALL) DESTDIR=$(ROOTDIR)
 
 #	# FIXME: correct path? 
 	cp -f $(XFREE430_BUILDDIR)/lib/freetype2/libfreetype.so.6.3.3 $(ROOTDIR)/lib
 	ln -sf libfreetype.so.6.3.3 $(ROOTDIR)/lib/libfreetype.so.6
 	ln -sf libfreetype.so.6.3.3 $(ROOTDIR)/lib/libfreetype.so
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -34,7 +34,7 @@ openafs_get_deps = $(OPENAFS_SOURCE)
 
 $(STATEDIR)/openafs.get: $(openafs_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(OPENAFS_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/openafs.extract: $(openafs_extract_deps)
 	@$(call clean, $(OPENAFS_DIR))
 	@$(call extract, $(OPENAFS_SOURCE))
 	@$(call patchin, $(OPENAFS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -91,7 +91,7 @@ $(STATEDIR)/openafs.prepare: $(openafs_prepare_deps)
 	cd $(OPENAFS_DIR) && \
 		$(OPENAFS_PATH) $(OPENAFS_ENV) \
 		./configure $(OPENAFS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +105,7 @@ $(STATEDIR)/openafs.compile: $(openafs_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(OPENAFS_DIR) && $(OPENAFS_PATH) make
 	cd $(OPENAFS_DIR) && $(OPENAFS_PATH) make dest
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,7 +115,7 @@ openafs_install: $(STATEDIR)/openafs.install
 
 $(STATEDIR)/openafs.install: $(STATEDIR)/openafs.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,7 +141,7 @@ $(STATEDIR)/openafs.targetinstall: $(openafs_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

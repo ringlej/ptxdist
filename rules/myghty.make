@@ -34,7 +34,7 @@ myghty_get_deps = $(MYGHTY_SOURCE)
 
 $(STATEDIR)/myghty.get: $(myghty_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MYGHTY_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/myghty.extract: $(myghty_extract_deps)
 	@$(call clean, $(MYGHTY_DIR))
 	@$(call extract, $(MYGHTY_SOURCE))
 	@$(call patchin, $(MYGHTY))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -81,7 +81,7 @@ MYGHTY_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 $(STATEDIR)/myghty.prepare: $(myghty_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MYGHTY_DIR)/config.cache)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -94,7 +94,7 @@ myghty_compile_deps = $(STATEDIR)/myghty.prepare
 $(STATEDIR)/myghty.compile: $(myghty_compile_deps)
 	@$(call targetinfo, $@)
 	#cd $(MYGHTY_DIR) && $(MYGHTY_ENV) $(MYGHTY_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -104,8 +104,9 @@ myghty_install: $(STATEDIR)/myghty.install
 
 $(STATEDIR)/myghty.install: $(STATEDIR)/myghty.compile
 	@$(call targetinfo, $@)
-	#cd $(MYGHTY_DIR) && $(MYGHTY_ENV) $(MYGHTY_PATH) make install
-	$(call touch, $@)
+	# FIXME
+	# @$(call install, MYGHTY)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -131,7 +132,7 @@ $(STATEDIR)/myghty.targetinstall: $(myghty_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -33,12 +33,12 @@ binutils_get_deps = \
 
 $(STATEDIR)/binutils.get: $(binutils_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(STATEDIR)/binutils-patches.get:
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BINUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(BINUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/binutils.extract: $(STATEDIR)/binutils.get
 	@$(call clean, $(BINUTILS_DIR))
 	@$(call extract, $(BINUTILS_SOURCE))
 	@$(call patchin, $(BINUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +87,7 @@ $(STATEDIR)/binutils.prepare: $(binutils_prepare_deps)
 	mkdir -p $(BINUTILS_BUILDDIR)
 	cd $(BINUTILS_BUILDDIR) && $(BINUTILS_PATH) $(BINUTILS_ENV) \
 		$(BINUTILS_DIR)/configure $(BINUTILS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -115,7 +115,7 @@ $(STATEDIR)/binutils.compile: $(STATEDIR)/binutils.prepare
 #
 	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -125,9 +125,11 @@ binutils_install: $(STATEDIR)/binutils.install
 
 $(STATEDIR)/binutils.install: $(STATEDIR)/binutils.compile
 	@$(call targetinfo, $@)
+	# FIXME: 
+	#@$(call install, BINUTILS)
 	cd $(BINUTILS_BUILDDIR)/bfd && \
 		$(BINUTILS_PATH) make DESTDIR=$(CROSS_LIB_DIR) prefix='' install 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -152,7 +154,7 @@ $(STATEDIR)/binutils.targetinstall: $(STATEDIR)/binutils.install
 
 	@$(call install_finish)
 	
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

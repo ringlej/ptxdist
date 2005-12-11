@@ -36,7 +36,7 @@ xmlbench_get_deps = $(XMLBENCH_SOURCE)
 
 $(STATEDIR)/xmlbench.get: $(xmlbench_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XMLBENCH_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/xmlbench.extract: $(xmlbench_extract_deps)
 	@$(call extract, $(XMLBENCH_SOURCE))
 	mv $(BUILDDIR)/xmlbench $(XMLBENCH_DIR)
 	@$(call patchin, $(XMLBENCH))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +87,7 @@ $(STATEDIR)/xmlbench.prepare: $(xmlbench_prepare_deps)
 	cd $(XMLBENCH_DIR) && \
 		$(XMLBENCH_PATH) $(XMLBENCH_ENV) \
 		./configure $(XMLBENCH_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +100,7 @@ xmlbench_compile_deps = $(STATEDIR)/xmlbench.prepare
 $(STATEDIR)/xmlbench.compile: $(xmlbench_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XMLBENCH_DIR) && $(XMLBENCH_ENV) $(XMLBENCH_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,8 +110,8 @@ xmlbench_install: $(STATEDIR)/xmlbench.install
 
 $(STATEDIR)/xmlbench.install: $(STATEDIR)/xmlbench.compile
 	@$(call targetinfo, $@)
-	cd $(XMLBENCH_DIR) && $(XMLBENCH_ENV) $(XMLBENCH_PATH) make install
-	$(call touch, $@)
+	@$(call install, XMLBENCH)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -137,7 +137,7 @@ $(STATEDIR)/xmlbench.targetinstall: $(xmlbench_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

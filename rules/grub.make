@@ -31,7 +31,7 @@ grub_get: $(STATEDIR)/grub.get
 $(STATEDIR)/grub.get: $(GRUB_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GRUB))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GRUB_SOURCE):
 	@$(call targetinfo, $@)
@@ -48,7 +48,7 @@ $(STATEDIR)/grub.extract: $(STATEDIR)/grub.get
 	@$(call clean, $(GRUB_DIR))
 	@$(call extract, $(GRUB_SOURCE))
 	@$(call patchin, $(GRUB))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -133,7 +133,7 @@ $(STATEDIR)/grub.prepare: $(grub_prepare_deps)
 	@$(call targetinfo, $@)
 	cd $(GRUB_DIR) && \
 		$(GRUB_PATH) $(GRUB_ENV) ./configure $(GRUB_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -144,7 +144,7 @@ grub_compile: $(STATEDIR)/grub.compile
 $(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare 
 	@$(call targetinfo, $@)
 	$(GRUB_PATH) make -C $(GRUB_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -155,7 +155,7 @@ grub_install: $(STATEDIR)/grub.install
 $(STATEDIR)/grub.install: $(STATEDIR)/grub.compile
 	@$(call targetinfo, $@)
 #	make -C $(GRUB_DIR) install
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -181,7 +181,7 @@ $(STATEDIR)/grub.targetinstall: $(STATEDIR)/grub.install
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

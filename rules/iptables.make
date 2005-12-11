@@ -35,7 +35,7 @@ iptables_get_deps = $(IPTABLES_SOURCE)
 $(STATEDIR)/iptables.get: $(iptables_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(IPTABLES))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(IPTABLES_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/iptables.extract: $(iptables_extract_deps)
 	@$(call clean, $(IPTABLES_DIR))
 	@$(call extract, $(IPTABLES_SOURCE))
 	@$(call patchin, $(IPTABLES))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,7 +79,7 @@ IPTABLES_ENV 	=  $(CROSS_ENV)
 $(STATEDIR)/iptables.prepare: $(iptables_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPTABLES_DIR)/config.cache)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -93,7 +93,7 @@ $(STATEDIR)/iptables.compile: $(iptables_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(IPTABLES_DIR) && $(IPTABLES_ENV) $(IPTABLES_PATH) \
 		make KERNEL_DIR=$(KERNEL_DIR) PREFIX=/usr
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -103,8 +103,8 @@ iptables_install: $(STATEDIR)/iptables.install
 
 $(STATEDIR)/iptables.install: $(STATEDIR)/iptables.compile
 	@$(call targetinfo, $@)
-	cd $(IPTABLES_DIR) && $(IPTABLES_ENV) $(IPTABLES_PATH) make install
-	$(call touch, $@)
+	@$(call install, IPTABLES)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -450,7 +450,7 @@ endif
 	@$(call install_finish)	
 
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

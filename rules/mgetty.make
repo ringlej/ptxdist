@@ -35,7 +35,7 @@ mgetty_get_deps = $(MGETTY_SOURCE)
 
 $(STATEDIR)/mgetty.get: $(mgetty_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MGETTY_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/mgetty.extract: $(mgetty_extract_deps)
 	@$(call clean, $(MGETTY_DIR))
 	@$(call extract, $(MGETTY_SOURCE))
 	@$(call patchin, $(MGETTY), $(MGETTY_DIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -83,7 +83,7 @@ $(STATEDIR)/mgetty.prepare: $(mgetty_prepare_deps)
 			s/^LDFLAGS.*=.*// ;\
 			s/^LIBS.*=.*// ;\
 			s/^prefix.*=.*/prefix=/' {} \;
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -98,7 +98,7 @@ $(STATEDIR)/mgetty.compile: $(mgetty_compile_deps)
 	cd $(MGETTY_DIR) && make mksed
 	cd $(MGETTY_DIR) && $(MGETTY_PATH) $(MGETTY_ENV) make \
 		bin-all mgetty.config login.config sendfax.config
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -108,8 +108,8 @@ mgetty_install: $(STATEDIR)/mgetty.install
 
 $(STATEDIR)/mgetty.install: $(STATEDIR)/mgetty.compile
 	@$(call targetinfo, $@)
-	$(MGETTY_PATH) make -C $(MGETTY_DIR) install
-	$(call touch, $@)
+	@$(call install, MGETTY)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -163,7 +163,7 @@ endif
 endif
 	@$(call install_finish)
 	
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

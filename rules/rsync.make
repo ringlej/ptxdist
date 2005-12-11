@@ -34,7 +34,7 @@ rsync_get_deps	=  $(RSYNC_SOURCE)
 
 $(STATEDIR)/rsync.get: $(rsync_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(RSYNC_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/rsync.extract: $(rsync_extract_deps)
 	@$(call clean, $(RSYNC_DIR))
 	@$(call extract, $(RSYNC_SOURCE))
 	@$(call patchin, $(RSYNC))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/rsync.prepare: $(rsync_prepare_deps)
 	cd $(RSYNC_DIR) && \
 		$(RSYNC_PATH) $(RSYNC_ENV) \
 		./configure $(RSYNC_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +99,7 @@ rsync_compile_deps =  $(STATEDIR)/rsync.prepare
 $(STATEDIR)/rsync.compile: $(rsync_compile_deps)
 	@$(call targetinfo, $@)
 	$(RSYNC_PATH) make -C $(RSYNC_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,7 +109,7 @@ rsync_install: $(STATEDIR)/rsync.install
 
 $(STATEDIR)/rsync.install: $(STATEDIR)/rsync.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -134,7 +134,7 @@ $(STATEDIR)/rsync.targetinstall: $(rsync_targetinstall_deps)
 	@$(call install_copy, 0, 0, 0755, $(RSYNC_DIR)/rsync, /usr/bin/rsync)
 	
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

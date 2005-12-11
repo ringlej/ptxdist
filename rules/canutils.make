@@ -108,7 +108,7 @@ canutils_install: $(STATEDIR)/canutils.install
 
 $(STATEDIR)/canutils.install: $(STATEDIR)/canutils.compile
 	@$(call targetinfo, $@)
-	cd $(CANUTILS_DIR) && $(CANUTILS_ENV) $(CANUTILS_PATH) make install
+	@$(call install, CANUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

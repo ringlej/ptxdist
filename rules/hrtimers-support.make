@@ -34,7 +34,7 @@ hrtimers-support_get_deps = $(HRTIMERS_SUPPORT_SOURCE)
 
 $(STATEDIR)/hrtimers-support.get: $(hrtimers-support_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(HRTIMERS_SUPPORT_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/hrtimers-support.extract: $(hrtimers-support_extract_deps)
 	@$(call clean, $(HRTIMERS_SUPPORT_DIR))
 	@$(call extract, $(HRTIMERS_SUPPORT_SOURCE))
 	@$(call patchin, $(HRTIMERS_SUPPORT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -84,7 +84,7 @@ $(STATEDIR)/hrtimers-support.prepare: $(hrtimers-support_prepare_deps)
 	cd $(HRTIMERS_SUPPORT_DIR) && \
 		$(HRTIMERS_SUPPORT_PATH) $(HRTIMERS_SUPPORT_ENV) \
 		./configure $(HRTIMERS_SUPPORT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +97,7 @@ hrtimers-support_compile_deps = $(STATEDIR)/hrtimers-support.prepare
 $(STATEDIR)/hrtimers-support.compile: $(hrtimers-support_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HRTIMERS_SUPPORT_DIR) && $(HRTIMERS_SUPPORT_ENV) $(HRTIMERS_SUPPORT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -107,8 +107,8 @@ hrtimers-support_install: $(STATEDIR)/hrtimers-support.install
 
 $(STATEDIR)/hrtimers-support.install: $(STATEDIR)/hrtimers-support.compile
 	@$(call targetinfo, $@)
-	cd $(HRTIMERS_SUPPORT_DIR) && $(HRTIMERS_SUPPORT_ENV) $(HRTIMERS_SUPPORT_PATH) make install
-	$(call touch, $@)
+	@$(call install, HRTIMERS_SUPPORT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -144,7 +144,7 @@ $(STATEDIR)/hrtimers-support.targetinstall: $(hrtimers-support_targetinstall_dep
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -35,7 +35,7 @@ nano_get_deps = $(NANO_SOURCE)
 $(STATEDIR)/nano.get: $(nano_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NANO))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(NANO_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/nano.extract: $(nano_extract_deps)
 	@$(call clean, $(NANO_DIR))
 	@$(call extract, $(NANO_SOURCE))
 	@$(call patchin, $(NANO))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/nano.prepare: $(nano_prepare_deps)
 	cd $(NANO_DIR) && \
 		$(NANO_PATH) $(NANO_ENV) \
 		./configure $(NANO_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +99,7 @@ nano_compile_deps = $(STATEDIR)/nano.prepare
 $(STATEDIR)/nano.compile: $(nano_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(NANO_DIR) && $(NANO_ENV) $(NANO_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,8 +110,8 @@ nano_install: $(STATEDIR)/nano.install
 $(STATEDIR)/nano.install: $(STATEDIR)/nano.compile
 	@$(call targetinfo, $@)
 	# FIXME: put this into targetinstall? 
-	cd $(NANO_DIR) && $(NANO_ENV) $(NANO_PATH) make install
-	$(call touch, $@)
+	@$(call install, NANO)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -123,7 +123,7 @@ nano_targetinstall_deps = $(STATEDIR)/nano.compile
 
 $(STATEDIR)/nano.targetinstall: $(nano_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

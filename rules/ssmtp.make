@@ -133,7 +133,9 @@ ssmtp_install: $(STATEDIR)/ssmtp.install
 
 $(STATEDIR)/ssmtp.install: $(STATEDIR)/ssmtp.compile
 	@$(call targetinfo, $@)
-#	cd $(SSMTP_DIR) && $(SSMTP_ENV) $(SSMTP_PATH) make install
+	# FIXME
+	#@$(call install, SSMTP)
+#	cd $(SSMTP_DIR) && $(SSMTP_ENV) $(SSMTP_PATH) $(MAKE_INSTALL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

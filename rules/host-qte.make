@@ -35,7 +35,7 @@ host-qte_get_deps = $(HOST_QTE_SOURCE)
 $(STATEDIR)/host-qte.get: $(host-qte_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_QTE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ $(STATEDIR)/host-qte.extract: $(host-qte_extract_deps)
 	@$(call clean, $(HOST_QTE_DIR))
 	@$(call extract, $(HOST_QTE_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOST_QTE), $(HOST_QTE_DIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -103,7 +103,7 @@ $(STATEDIR)/host-qte.prepare: $(host-qte_prepare_deps)
 	cd $(HOST_QTE_DIR) && \
 		echo yes | $(HOST_QTE_PATH) $(HOST_QTE_ENV) \
 		./configure $(HOST_QTE_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -117,7 +117,7 @@ $(STATEDIR)/host-qte.compile: $(host-qte_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOST_QTE_DIR) && $(HOST_QTE_ENV) $(HOST_QTE_PATH) make sub-src
 	cd $(HOST_QTE_DIR)/tools/designer/uic && $(HOST_QTE_ENV) $(HOST_QTE_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -130,7 +130,7 @@ host-qte_install_deps = $(STATEDIR)/host-qte.compile
 $(STATEDIR)/host-qte.install: $(host-qte_install_deps)
 	@$(call targetinfo, $@)
 	cp $(HOST_QTE_DIR)/bin/uic $(PTXCONF_PREFIX)/bin
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

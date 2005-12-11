@@ -2,6 +2,8 @@
 # rules/earlyuserspace.in
 #
 
+# FIXME: remove this for klibc.in
+
 menu	"Early Userspace     "
 
 config KLIBC

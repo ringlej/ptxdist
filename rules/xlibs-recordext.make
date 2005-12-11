@@ -37,7 +37,7 @@ xlibs-recordext_get_deps = $(XLIBS-RECORDEXT_SOURCE)
 $(STATEDIR)/xlibs-recordext.get: $(xlibs-recordext_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-RECORDEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-RECORDEXT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/xlibs-recordext.extract: $(xlibs-recordext_extract_deps)
 	@$(call clean, $(XLIBS-RECORDEXT_DIR))
 	@$(call extract, $(XLIBS-RECORDEXT_SOURCE))
 	@$(call patchin, $(XLIBS-RECORDEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/xlibs-recordext.prepare: $(xlibs-recordext_prepare_deps)
 	cd $(XLIBS-RECORDEXT_DIR) && \
 		$(XLIBS-RECORDEXT_PATH) $(XLIBS-RECORDEXT_ENV) \
 		./configure $(XLIBS-RECORDEXT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ xlibs-recordext_compile_deps = $(STATEDIR)/xlibs-recordext.prepare
 $(STATEDIR)/xlibs-recordext.compile: $(xlibs-recordext_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-RECORDEXT_DIR) && $(XLIBS-RECORDEXT_ENV) $(XLIBS-RECORDEXT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +113,8 @@ xlibs-recordext_install: $(STATEDIR)/xlibs-recordext.install
 
 $(STATEDIR)/xlibs-recordext.install: $(STATEDIR)/xlibs-recordext.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-RECORDEXT_DIR) && $(XLIBS-RECORDEXT_ENV) $(XLIBS-RECORDEXT_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-RECORDEXT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -126,7 +126,7 @@ xlibs-recordext_targetinstall_deps = $(STATEDIR)/xlibs-recordext.compile
 
 $(STATEDIR)/xlibs-recordext.targetinstall: $(xlibs-recordext_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

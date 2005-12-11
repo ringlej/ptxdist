@@ -32,7 +32,7 @@ strace_get: $(STATEDIR)/strace.get
 $(STATEDIR)/strace.get: $(STRACE_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(STRACE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(STRACE_SOURCE):
 	@$(call targetinfo, $@)
@@ -52,7 +52,7 @@ $(STATEDIR)/strace.extract: $(strace_extract_deps)
 	@$(call clean, $(STRACE_DIR))
 	@$(call extract, $(STRACE_SOURCE))
 	@$(call patchin, $(STRACE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -82,7 +82,7 @@ $(STATEDIR)/strace.prepare: $(strace_prepare_deps)
 	cd $(STRACE_DIR) && \
 		$(STRACE_PATH) $(STRACE_ENV) \
 		./configure $(STRACE_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -93,7 +93,7 @@ strace_compile: $(STATEDIR)/strace.compile
 $(STATEDIR)/strace.compile: $(STATEDIR)/strace.prepare 
 	@$(call targetinfo, $@)
 	$(STRACE_PATH) $(STRACE_ENV) make -C $(STRACE_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -103,7 +103,7 @@ strace_install: $(STATEDIR)/strace.install
 
 $(STATEDIR)/strace.install: $(STATEDIR)/strace.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -127,7 +127,7 @@ $(STATEDIR)/strace.targetinstall: $(STATEDIR)/strace.compile
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

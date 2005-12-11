@@ -37,7 +37,7 @@ rtnet_get_deps = $(RTNET_SOURCE)
 
 $(STATEDIR)/rtnet.get: $(rtnet_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(RTNET_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/rtnet.extract: $(rtnet_extract_deps)
 	@$(call clean, $(RTNET_DIR))
 	@$(call extract, $(RTNET_SOURCE))
 	@$(call patchin, $(RTNET))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -186,7 +186,7 @@ $(STATEDIR)/rtnet.prepare: $(rtnet_prepare_deps)
 	cd $(RTNET_DIR) && \
 		$(RTNET_PATH) $(RTNET_ENV) \
 		./configure $(RTNET_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -199,7 +199,7 @@ rtnet_compile_deps = $(STATEDIR)/rtnet.prepare
 $(STATEDIR)/rtnet.compile: $(rtnet_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(RTNET_DIR) && $(RTNET_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -209,8 +209,10 @@ rtnet_install: $(STATEDIR)/rtnet.install
 
 $(STATEDIR)/rtnet.install: $(STATEDIR)/rtnet.compile
 	@$(call targetinfo, $@)
+	# FIXME
+	# @$(call install, RTNET)
 # 	$(RTNET_PATH) make -C $(RTNET_DIR) install
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -296,7 +298,7 @@ ifdef PTXCONF_RTNET_ROUTER
 endif
 	install $(RTNET_DIR)/tools/rtifconfig $(ROOTDIR)/sbin
 	install $(RTNET_DIR)/tools/rtroute $(ROOTDIR)/sbin
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

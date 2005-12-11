@@ -35,7 +35,7 @@ dropbear_get_deps	=  $(DROPBEAR_SOURCE)
 
 $(STATEDIR)/dropbear.get: $(dropbear_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(DROPBEAR_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/dropbear.extract: $(dropbear_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DROPBEAR_DIR))
 	@$(call extract, $(DROPBEAR_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -214,7 +214,7 @@ else
 	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_PUBKEY_AUTH)
 endif
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -239,7 +239,7 @@ endif
 ifdef PTXCONF_DROPBEAR_SCP
 	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make scp
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -249,7 +249,9 @@ dropbear_install: $(STATEDIR)/dropbear.install
 
 $(STATEDIR)/dropbear.install: $(STATEDIR)/dropbear.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	# FIXME
+	# @$(call install, DROPBEAR)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -292,7 +294,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -34,7 +34,7 @@ ppp_get_deps	= $(PPP_SOURCE)
 $(STATEDIR)/ppp.get: $(ppp_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PPP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PPP_SOURCE):
 	@$(call targetinfo, $@)
@@ -51,7 +51,7 @@ $(STATEDIR)/ppp.extract: $(STATEDIR)/ppp.get
 	@$(call clean, $(PPP_DIR))
 	@$(call extract, $(PPP_SOURCE))
 	@$(call patchin, $(PPP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -98,7 +98,7 @@ ifndef PTXCONF_PPP_MULTILINK
 	@perl -p -i -e 's/-DHAVE_MULTILINK //' $(PPP_DIR)/pppd/Makefile
 	@perl -p -i -e 's/multilink.o //' $(PPP_DIR)/pppd/Makefile
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -112,7 +112,7 @@ $(STATEDIR)/ppp.compile: $(ppp_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PPP_DIR) && \
 		$(PPP_PATH) make $(PPP_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -122,7 +122,7 @@ ppp_install: $(STATEDIR)/ppp.install
 
 $(STATEDIR)/ppp.install: $(STATEDIR)/ppp.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -146,7 +146,7 @@ $(STATEDIR)/ppp.targetinstall: $(STATEDIR)/ppp.compile
 	@$(call install_copy, 0, 0, 0755, $(PPP_DIR)/chat/chat, /usr/sbin/chat)
 
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

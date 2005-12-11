@@ -35,7 +35,7 @@ diffutils_get_deps = $(DIFFUTILS_SOURCE)
 $(STATEDIR)/diffutils.get: $(diffutils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DIFFUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(DIFFUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/diffutils.extract: $(diffutils_extract_deps)
 	@$(call clean, $(DIFFUTILS_DIR))
 	@$(call extract, $(DIFFUTILS_SOURCE))
 	@$(call patchin, $(DIFFUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -84,7 +84,7 @@ $(STATEDIR)/diffutils.prepare: $(diffutils_prepare_deps)
 	cd $(DIFFUTILS_DIR) && \
 		$(DIFFUTILS_PATH) $(DIFFUTILS_ENV) \
 		./configure $(DIFFUTILS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +97,7 @@ diffutils_compile_deps = $(STATEDIR)/diffutils.prepare
 $(STATEDIR)/diffutils.compile: $(diffutils_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(DIFFUTILS_DIR) && $(DIFFUTILS_ENV) $(DIFFUTILS_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -107,8 +107,8 @@ diffutils_install: $(STATEDIR)/diffutils.install
 
 $(STATEDIR)/diffutils.install: $(STATEDIR)/diffutils.compile
 	@$(call targetinfo, $@)
-	cd $(DIFFUTILS_DIR) && $(DIFFUTILS_ENV) $(DIFFUTILS_PATH) make install
-	$(call touch, $@)
+	@$(call install, DIFFUTILS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -145,7 +145,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

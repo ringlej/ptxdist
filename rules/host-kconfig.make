@@ -28,7 +28,7 @@ host-kconfig_get: $(STATEDIR)/host-kconfig.get
 
 $(STATEDIR)/host-kconfig.get:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,7 +47,7 @@ $(STATEDIR)/host-kconfig.extract: $(host-kconfig_extract_deps)
 		cp -a $(PTXDIST_TOPDIR)/scripts/kconfig $(PTXDIST_WORKSPACE)/scripts; \
 	fi
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare

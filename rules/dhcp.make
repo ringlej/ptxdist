@@ -34,7 +34,7 @@ dhcp_get_deps = $(DHCP_SOURCE)
 
 $(STATEDIR)/dhcp.get: $(dhcp_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(DHCP_SOURCE):
 	@$(call targetinfo, $@)
@@ -52,7 +52,7 @@ $(STATEDIR)/dhcp.extract: $(dhcp_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DHCP_DIR))
 	@$(call extract, $(DHCP_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,7 +79,7 @@ $(STATEDIR)/dhcp.prepare: $(dhcp_prepare_deps)
 	cd $(DHCP_DIR) && \
 		$(DHCP_PATH) $(DHCP_ENV) \
 		./configure "linux-2.2"
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -92,7 +92,7 @@ dhcp_compile_deps = $(STATEDIR)/dhcp.prepare
 $(STATEDIR)/dhcp.compile: $(dhcp_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(DHCP_DIR) && $(DHCP_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -102,8 +102,8 @@ dhcp_install: $(STATEDIR)/dhcp.install
 
 $(STATEDIR)/dhcp.install: $(STATEDIR)/dhcp.compile
 	@$(call targetinfo, $@)
-	$(DHCP_PATH) make -C $(DHCP_DIR) install
-	$(call touch, $@)
+	@$(call install, DHCP)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -129,7 +129,7 @@ $(STATEDIR)/dhcp.targetinstall: $(dhcp_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

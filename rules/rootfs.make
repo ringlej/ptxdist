@@ -21,7 +21,7 @@ rootfs_get: $(STATEDIR)/rootfs.get
 
 $(STATEDIR)/rootfs.get:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -31,7 +31,7 @@ rootfs_extract: $(STATEDIR)/rootfs.extract
 
 $(STATEDIR)/rootfs.extract: $(STATEDIR)/rootfs.get
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -41,7 +41,7 @@ rootfs_prepare: $(STATEDIR)/rootfs.prepare
 
 $(STATEDIR)/rootfs.prepare: $(STATEDIR)/rootfs.extract
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -51,7 +51,7 @@ rootfs_compile: $(STATEDIR)/rootfs.compile
 
 $(STATEDIR)/rootfs.compile: $(STATEDIR)/rootfs.prepare 
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -61,7 +61,7 @@ rootfs_install: $(STATEDIR)/rootfs.install
 
 $(STATEDIR)/rootfs.install: $(STATEDIR)/rootfs.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -303,7 +303,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

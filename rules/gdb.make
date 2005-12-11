@@ -37,7 +37,7 @@ gdb_get_deps = $(GDB_SOURCE)
 $(STATEDIR)/gdb.get: $(gdb_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GDB))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GDB_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/gdb.extract: $(STATEDIR)/gdb.get
 	@$(call clean, $(GDB_DIR))
 	@$(call extract, $(GDB_SOURCE))
 	@$(call patchin, $(GDB))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -112,7 +112,7 @@ $(STATEDIR)/gdb.prepare: $(gdb_prepare_deps)
 	cd $(GDB_BUILDDIR) && \
 		$(GDB_PATH) $(GDB_ENV) \
 		$(GDB_DIR)/configure $(GDB_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -123,7 +123,7 @@ gdb_compile: $(STATEDIR)/gdb.compile
 $(STATEDIR)/gdb.compile: $(STATEDIR)/gdb.prepare 
 	@$(call targetinfo, $@)
 	cd $(GDB_BUILDDIR) && $(GDB_PATH) $(GDB_ENV_AC) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -133,7 +133,7 @@ gdb_install: $(STATEDIR)/gdb.install
 
 $(STATEDIR)/gdb.install:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -161,7 +161,7 @@ $(STATEDIR)/gdb.targetinstall: $(gdb_targetinstall_deps)
 	@$(call install_copy, 0, 0, 0755, $(GDB_BUILDDIR)/gdb/gdb, /usr/bin/gdb)
 
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

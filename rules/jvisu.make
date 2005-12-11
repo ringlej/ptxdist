@@ -34,7 +34,7 @@ jvisu_get_deps = $(JVISU_SOURCE)
 $(STATEDIR)/jvisu.get: $(jvisu_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JVISU))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(JVISU_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +58,7 @@ $(STATEDIR)/jvisu.extract: $(jvisu_extract_deps)
 	# so we tweak it here in a way that it works at least with Debian
 	perl -i -p -e "s,^JAVAPATH=.*,JAVAPATH=$(PTXCONF_SETUP_JAVA_SDK),g" $(JVISU_DIR)/build.properties
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -80,7 +80,7 @@ JVISU_ENV	+= JAVA_HOME=$(PTXCONF_SETUP_JAVA_SDK)
 $(STATEDIR)/jvisu.prepare: $(jvisu_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JVISU_DIR)/config.cache)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -96,7 +96,7 @@ $(STATEDIR)/jvisu.compile: $(jvisu_compile_deps)
 	# FIXME: we need ant to do this; should we make it a host tool? 
 	cd $(JVISU_DIR) && $(JVISU_ENV) $(JVISU_PATH) ./build.sh jar
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -106,8 +106,8 @@ jvisu_install: $(STATEDIR)/jvisu.install
 
 $(STATEDIR)/jvisu.install: $(STATEDIR)/jvisu.compile
 	@$(call targetinfo, $@)
-	cd $(JVISU_DIR) && $(JVISU_ENV) $(JVISU_PATH) make install
-	$(call touch, $@)
+	@$(call install, JVISU)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -136,7 +136,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -38,7 +38,7 @@ xlibs-fixesext_get_deps = $(XLIBS-FIXESEXT_SOURCE)
 $(STATEDIR)/xlibs-fixesext.get: $(xlibs-fixesext_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-FIXESEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-FIXESEXT_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/xlibs-fixesext.extract: $(xlibs-fixesext_extract_deps)
 	@$(call clean, $(XLIBS-FIXESEXT_DIR))
 	@$(call extract, $(XLIBS-FIXESEXT_SOURCE))
 	@$(call patchin, $(XLIBS-FIXESEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/xlibs-fixesext.prepare: $(xlibs-fixesext_prepare_deps)
 	cd $(XLIBS-FIXESEXT_DIR) && \
 		$(XLIBS-FIXESEXT_PATH) $(XLIBS-FIXESEXT_ENV) \
 		./configure $(XLIBS-FIXESEXT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ xlibs-fixesext_compile_deps = $(STATEDIR)/xlibs-fixesext.prepare
 $(STATEDIR)/xlibs-fixesext.compile: $(xlibs-fixesext_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-FIXESEXT_DIR) && $(XLIBS-FIXESEXT_ENV) $(XLIBS-FIXESEXT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +113,8 @@ xlibs-fixesext_install: $(STATEDIR)/xlibs-fixesext.install
 
 $(STATEDIR)/xlibs-fixesext.install: $(STATEDIR)/xlibs-fixesext.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-FIXESEXT_DIR) && $(XLIBS-FIXESEXT_ENV) $(XLIBS-FIXESEXT_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-FIXESEXT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -126,7 +126,7 @@ xlibs-fixesext_targetinstall_deps = $(STATEDIR)/xlibs-fixesext.compile
 
 $(STATEDIR)/xlibs-fixesext.targetinstall: $(xlibs-fixesext_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

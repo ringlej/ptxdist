@@ -35,7 +35,7 @@ module-init-tools_get_deps = $(MODULE_INIT_TOOLS_SOURCE)
 $(STATEDIR)/module-init-tools.get: $(module-init-tools_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MODULE_INIT_TOOLS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MODULE_INIT_TOOLS_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/module-init-tools.extract: $(module-init-tools_extract_deps)
 	@$(call clean, $(MODULE_INIT_TOOLS_DIR))
 	@$(call extract, $(MODULE_INIT_TOOLS_SOURCE))
 	@$(call patchin, $(MODULE_INIT_TOOLS), $(MODULE_INIT_TOOLS_DIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -80,7 +80,7 @@ $(STATEDIR)/module-init-tools.prepare: $(module-init-tools_prepare_deps)
 	cd $(MODULE_INIT_TOOLS_DIR) && \
 		$(MODULE_INIT_TOOLS_PATH) $(MODULE_INIT_TOOLS_ENV) \
 		./configure $(MODULE_INIT_TOOLS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -93,7 +93,7 @@ module-init-tools_compile_deps = $(STATEDIR)/module-init-tools.prepare
 $(STATEDIR)/module-init-tools.compile: $(module-init-tools_compile_deps)
 	@$(call targetinfo, $@)
 	$(MODULE_INIT_TOOLS_PATH) make -C $(MODULE_INIT_TOOLS_DIR) $(MODULE_INIT_TOOLS_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -103,7 +103,7 @@ module-init-tools_install: $(STATEDIR)/module-init-tools.install
 
 $(STATEDIR)/module-init-tools.install: $(STATEDIR)/module-init-tools.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -146,7 +146,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

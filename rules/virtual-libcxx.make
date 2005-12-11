@@ -28,4 +28,4 @@ endif
 
 $(STATEDIR)/virtual-libcxx.targetinstall: $(virtual-libcxx_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)

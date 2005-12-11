@@ -35,7 +35,7 @@ hosttool-modutils_get_deps = $(HOSTTOOL_MODUTILS_SOURCE)
 $(STATEDIR)/hosttool-modutils.get: $(hosttool-modutils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL_MODUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(HOSTTOOL_MODUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/hosttool-modutils.extract: $(hosttool-modutils_extract_deps)
 	@$(call clean, $(HOSTTOOL_MODUTILS_DIR))
 	@$(call extract, $(HOSTTOOL_MODUTILS_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL_MODUTILS), $(HOSTTOOL_MODUTILS_DIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +87,7 @@ $(STATEDIR)/hosttool-modutils.prepare: $(hosttool-modutils_prepare_deps)
 	cd $(HOSTTOOL_MODUTILS_DIR) && \
 		$(HOSTTOOL_MODUTILS_PATH) $(HOSTTOOL_MODUTILS_ENV) \
 		./configure $(HOSTTOOL_MODUTILS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ $(STATEDIR)/hosttool-modutils.compile: $(hosttool-modutils_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_MODUTILS_DIR) && \
 		$(HOSTTOOL_MODUTILS_PATH) make -C $(HOSTTOOL_MODUTILS_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -130,7 +130,7 @@ $(STATEDIR)/hosttool-modutils.install: $(STATEDIR)/hosttool-modutils.compile
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-genksyms.old
 	install -D -m755 $(HOSTTOOL_MODUTILS_DIR)/depmod/depmod \
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod.old
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -142,7 +142,7 @@ hosttool-modutils_targetinstall_deps	=  $(STATEDIR)/hosttool-modutils.compile
 
 $(STATEDIR)/hosttool-modutils.targetinstall: $(hosttool-modutils_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

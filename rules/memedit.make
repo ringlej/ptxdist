@@ -35,7 +35,7 @@ memedit_get_deps = $(MEMEDIT_SOURCE)
 $(STATEDIR)/memedit.get: $(memedit_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMEDIT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MEMEDIT_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/memedit.extract: $(memedit_extract_deps)
 	@$(call clean, $(MEMEDIT_DIR))
 	@$(call extract, $(MEMEDIT_SOURCE))
 	@$(call patchin, $(MEMEDIT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/memedit.prepare: $(memedit_prepare_deps)
 	cd $(MEMEDIT_DIR) && \
 		$(MEMEDIT_PATH) $(MEMEDIT_ENV) \
 		./configure $(MEMEDIT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +99,7 @@ memedit_compile_deps = $(STATEDIR)/memedit.prepare
 $(STATEDIR)/memedit.compile: $(memedit_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(MEMEDIT_DIR) && $(MEMEDIT_ENV) $(MEMEDIT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,8 +109,8 @@ memedit_install: $(STATEDIR)/memedit.install
 
 $(STATEDIR)/memedit.install: $(STATEDIR)/memedit.compile
 	@$(call targetinfo, $@)
-	cd $(MEMEDIT_DIR) && $(MEMEDIT_ENV) $(MEMEDIT_PATH) make install
-	$(call touch, $@)
+	@$(call install, MEMEDIT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -137,7 +137,7 @@ $(STATEDIR)/memedit.targetinstall: $(memedit_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

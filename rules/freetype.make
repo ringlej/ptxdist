@@ -35,7 +35,7 @@ freetype_get_deps	=  $(FREETYPE_SOURCE)
 
 $(STATEDIR)/freetype.get: $(freetype_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(FREETYPE_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/freetype.extract: $(freetype_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FREETYPE_DIR))
 	@$(call extract, $(FREETYPE_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -89,7 +89,7 @@ $(STATEDIR)/freetype.prepare: $(freetype_prepare_deps)
 	cd $(FREETYPE_DIR) && \
 		$(FREETYPE_PATH) $(FREETYPE_ENV) \
 		./configure $(FREETYPE_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ $(STATEDIR)/freetype.compile: $(freetype_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(FREETYPE_DIR) $(FREETYPE_PATH) make
 	chmod a+x $(FREETYPE_DIR)/builds/unix/freetype-config
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +113,8 @@ freetype_install: $(STATEDIR)/freetype.install
 
 $(STATEDIR)/freetype.install: $(STATEDIR)/freetype.compile
 	@$(call targetinfo, $@)
-	cd $(FREETYPE_DIR) && $(FREETYPE_PATH) make install
-	$(call touch, $@)
+	@$(call install, FREETYPE)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -146,7 +146,7 @@ $(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

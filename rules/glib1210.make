@@ -35,7 +35,7 @@ glib1210_get_deps	=  $(GLIB1210_SOURCE)
 
 $(STATEDIR)/glib1210.get: $(glib1210_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GLIB1210_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/glib1210.extract: $(glib1210_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB1210_DIR))
 	@$(call extract, $(GLIB1210_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -101,7 +101,7 @@ $(STATEDIR)/glib1210.prepare: $(glib1210_prepare_deps)
 	cd $(GLIB1210_DIR) && \
 		$(GLIB1210_PATH) $(GLIB1210_ENV) \
 		./configure $(GLIB1210_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -114,7 +114,7 @@ glib1210_compile_deps =  $(STATEDIR)/glib1210.prepare
 $(STATEDIR)/glib1210.compile: $(glib1210_compile_deps)
 	@$(call targetinfo, $@)
 	$(GLIB1210_PATH) $(GLIB1210_ENV) make -C $(GLIB1210_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -124,8 +124,8 @@ glib1210_install: $(STATEDIR)/glib1210.install
 
 $(STATEDIR)/glib1210.install: $(STATEDIR)/glib1210.compile
 	@$(call targetinfo, $@)
-	$(GLIB1210_PATH) $(GLIB1210_ENV) make -C $(GLIB1210_DIR) install
-	$(call touch, $@)
+	@$(call install, GLIB1210)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -164,7 +164,7 @@ $(STATEDIR)/glib1210.targetinstall: $(glib1210_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

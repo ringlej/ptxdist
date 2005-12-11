@@ -27,7 +27,7 @@ xchain-python24_get: $(STATEDIR)/xchain-python24.get
 
 $(STATEDIR)/xchain-python24.get: $(STATEDIR)/python24.get
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -37,7 +37,7 @@ xchain-python24_extract: $(STATEDIR)/xchain-python24.extract
 
 $(STATEDIR)/xchain-python24.extract: $(STATEDIR)/python24.extract
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -61,7 +61,7 @@ $(STATEDIR)/xchain-python24.prepare: $(xchain-python24_prepare_deps)
 	cd $(XCHAIN_PYTHON24_BUILDDIR) && \
 		$(XCHAIN_PYTHON24_ENV) \
 		$(PYTHON24_DIR)/configure $(XCHAIN_PYTHON24_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -73,7 +73,7 @@ $(STATEDIR)/xchain-python24.compile: $(STATEDIR)/xchain-python24.prepare
 	@$(call targetinfo, $@)
 	cd $(XCHAIN_PYTHON24_BUILDDIR) && make python
 	cd $(XCHAIN_PYTHON24_BUILDDIR) && make Parser/pgen
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -85,7 +85,7 @@ $(STATEDIR)/xchain-python24.install: $(STATEDIR)/xchain-python24.compile
 	@$(call targetinfo, $@)
 # 	make -C $(XCHAIN_PYTHON24_BUILDDIR) bininstall
 # 	install $(XCHAIN_PYTHON24_BUILDDIR)/Parser/pgen $(PTXCONF_PREFIX)/bin/pgen
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -95,7 +95,7 @@ xchain-python24_targetinstall: $(STATEDIR)/xchain-python24.targetinstall
 
 $(STATEDIR)/xchain-python24.targetinstall:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

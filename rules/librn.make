@@ -37,7 +37,7 @@ librn_get_deps = \
 
 $(STATEDIR)/librn.get: $(librn_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBRN_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/librn.extract: $(librn_extract_deps)
 	@$(call clean, $(LIBRN_DIR))
 	@$(call extract, $(LIBRN_SOURCE))
 	@$(call patchin, $(LIBRN))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -88,7 +88,7 @@ $(STATEDIR)/librn.prepare: $(librn_prepare_deps)
 	cd $(LIBRN_DIR) && \
 		$(LIBRN_PATH) $(LIBRN_ENV) \
 		./configure $(LIBRN_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ librn_compile_deps = $(STATEDIR)/librn.prepare
 $(STATEDIR)/librn.compile: $(librn_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBRN_DIR) && $(LIBRN_ENV) $(LIBRN_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +111,8 @@ librn_install: $(STATEDIR)/librn.install
 
 $(STATEDIR)/librn.install: $(STATEDIR)/librn.compile
 	@$(call targetinfo, $@)
-	cd $(LIBRN_DIR) && $(LIBRN_ENV) $(LIBRN_PATH) make install
-	$(call touch, $@)
+	@$(call install, LIBRN)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +140,7 @@ $(STATEDIR)/librn.targetinstall: $(librn_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

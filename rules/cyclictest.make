@@ -34,7 +34,7 @@ cyclictest_get_deps = $(CYCLICTEST_SOURCE)
 
 $(STATEDIR)/cyclictest.get: $(cyclictest_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(CYCLICTEST_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/cyclictest.extract: $(cyclictest_extract_deps)
 	@$(call patchin, $(CYCLICTEST))
 	# Well, we extract to...
 	mv $(BUILDDIR)/cyclictest $(CYCLICTEST_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/cyclictest.prepare: $(cyclictest_prepare_deps)
 #	cd $(CYCLICTEST_DIR) && \
 #		$(CYCLICTEST_PATH) $(CYCLICTEST_ENV) \
 #		./configure $(CYCLICTEST_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +99,7 @@ cyclictest_compile_deps = $(STATEDIR)/cyclictest.prepare
 $(STATEDIR)/cyclictest.compile: $(cyclictest_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(CYCLICTEST_DIR) && $(CYCLICTEST_ENV) $(CYCLICTEST_PATH) make CROSS_COMPILE=$(PTXCONF_COMPILER_PREFIX)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,8 +109,8 @@ cyclictest_install: $(STATEDIR)/cyclictest.install
 
 $(STATEDIR)/cyclictest.install: $(STATEDIR)/cyclictest.compile
 	@$(call targetinfo, $@)
-	cd $(CYCLICTEST_DIR) && $(CYCLICTEST_ENV) $(CYCLICTEST_PATH) make install
-	$(call touch, $@)
+	@$(call install, CYCLICTEST)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -136,7 +136,7 @@ $(STATEDIR)/cyclictest.targetinstall: $(cyclictest_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

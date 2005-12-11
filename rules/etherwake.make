@@ -35,7 +35,7 @@ etherwake_get_deps = $(ETHERWAKE_SOURCE)
 $(STATEDIR)/etherwake.get: $(etherwake_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(ETHERWAKE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(ETHERWAKE_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/etherwake.extract: $(etherwake_extract_deps)
 	@$(call clean, $(ETHERWAKE_DIR))
 	@$(call extract, $(ETHERWAKE_SOURCE))
 	@$(call patchin, $(ETHERWAKE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -77,7 +77,7 @@ $(STATEDIR)/etherwake.prepare: $(etherwake_prepare_deps)
 	@$(call clean, $(ETHERWAKE_DIR)/config.cache)
 	cd $(ETHERWAKE_DIR) && \
 		perl -i -p -e 's/CC.*=.*//' $(ETHERWAKE_DIR)/Makefile
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -90,7 +90,7 @@ etherwake_compile_deps = $(STATEDIR)/etherwake.prepare
 $(STATEDIR)/etherwake.compile: $(etherwake_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(ETHERWAKE_DIR) && $(ETHERWAKE_ENV) $(ETHERWAKE_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -100,7 +100,9 @@ etherwake_install: $(STATEDIR)/etherwake.install
 
 $(STATEDIR)/etherwake.install: $(STATEDIR)/etherwake.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	# FIXME
+	#@$(call install, ETHERWAKE)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -126,7 +128,7 @@ $(STATEDIR)/etherwake.targetinstall: $(etherwake_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -35,7 +35,7 @@ php_get_deps = $(PHP_SOURCE)
 $(STATEDIR)/php.get: $(php_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PHP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PHP_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/php.extract: $(php_extract_deps)
 	@$(call clean, $(PHP_DIR))
 	@$(call extract, $(PHP_SOURCE))
 	@$(call patchin, $(PHP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -109,7 +109,7 @@ $(STATEDIR)/php.prepare: $(php_prepare_deps)
 	cd $(PHP_DIR) && \
  		$(PHP_PATH) $(PHP_ENV) \
 		./configure $(PHP_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -122,7 +122,7 @@ php_compile_deps = $(STATEDIR)/php.prepare
 $(STATEDIR)/php.compile: $(php_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PHP_DIR) && $(PHP_ENV) $(PHP_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -132,9 +132,10 @@ php_install: $(STATEDIR)/php.install
 
 $(STATEDIR)/php.install: $(STATEDIR)/php.compile
 	@$(call targetinfo, $@)
-	cd $(PHP_DIR) && $(PHP_ENV) $(PHP_PATH) make install-build install-headers install-programs
+	# FIXME
+	cd $(PHP_DIR) && $(PHP_ENV) $(PHP_PATH) $(MAKE_INSTALL)-build install-headers install-programs
 	install -m 755 -D $(PHP_DIR)/scripts/php-config $(PTXCONF_PREFIX)/bin/php-config
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -168,7 +169,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

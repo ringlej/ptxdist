@@ -35,7 +35,7 @@ treecc_get_deps = $(TREECC_SOURCE)
 $(STATEDIR)/treecc.get: $(treecc_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TREECC))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(TREECC_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/treecc.extract: $(treecc_extract_deps)
 	@$(call clean, $(TREECC_DIR))
 	@$(call extract, $(TREECC_SOURCE))
 	@$(call patchin, $(TREECC))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -85,7 +85,7 @@ $(STATEDIR)/treecc.prepare: $(treecc_prepare_deps)
 	cd $(TREECC_DIR) && \
 		$(TREECC_PATH) $(TREECC_ENV) \
 		./configure $(TREECC_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -98,7 +98,7 @@ treecc_compile_deps = $(STATEDIR)/treecc.prepare
 $(STATEDIR)/treecc.compile: $(treecc_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(TREECC_DIR) && $(TREECC_ENV) $(TREECC_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -108,8 +108,8 @@ treecc_install: $(STATEDIR)/treecc.install
 
 $(STATEDIR)/treecc.install: $(STATEDIR)/treecc.compile
 	@$(call targetinfo, $@)
-	cd $(TREECC_DIR) && $(TREECC_ENV) $(TREECC_PATH) make install
-	$(call touch, $@)
+	@$(call install, TREECC)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -135,7 +135,7 @@ $(STATEDIR)/treecc.targetinstall: $(treecc_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

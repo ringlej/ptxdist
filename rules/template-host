@@ -109,7 +109,7 @@ $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
 
 $(STATEDIR)/@packet@.install: $(@packet@_install_deps)
 	@$(call targetinfo, $@)
-	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make install
+	@$(call install, @PACKET@)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

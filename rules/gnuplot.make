@@ -35,7 +35,7 @@ gnuplot_get_deps = $(GNUPLOT_SOURCE)
 $(STATEDIR)/gnuplot.get: $(gnuplot_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GNUPLOT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GNUPLOT_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/gnuplot.extract: $(gnuplot_extract_deps)
 	@$(call clean, $(GNUPLOT_DIR))
 	@$(call extract, $(GNUPLOT_SOURCE))
 	@$(call patchin, $(GNUPLOT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -146,7 +146,7 @@ $(STATEDIR)/gnuplot.prepare: $(gnuplot_prepare_deps)
 	cd $(GNUPLOT_DIR) && \
 		$(GNUPLOT_PATH) $(GNUPLOT_ENV) \
 		./configure $(GNUPLOT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -160,7 +160,7 @@ $(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps)
 	@$(call targetinfo, $@)
 
 	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_ENV) $(GNUPLOT_PATH) make gnuplot
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -170,7 +170,7 @@ gnuplot_install: $(STATEDIR)/gnuplot.install
 
 $(STATEDIR)/gnuplot.install: $(STATEDIR)/gnuplot.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -199,7 +199,7 @@ $(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

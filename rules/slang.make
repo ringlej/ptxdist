@@ -34,7 +34,7 @@ slang_get_deps = $(SLANG_SOURCE)
 
 $(STATEDIR)/slang.get: $(slang_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(SLANG_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/slang.extract: $(slang_extract_deps)
 	@$(call clean, $(SLANG_DIR))
 	@$(call extract, $(SLANG_SOURCE))
 	@$(call patchin, $(SLANG))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -84,7 +84,7 @@ $(STATEDIR)/slang.prepare: $(slang_prepare_deps)
 	cd $(SLANG_DIR) && \
 		$(SLANG_PATH) $(SLANG_ENV) \
 		./configure $(SLANG_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +97,7 @@ slang_compile_deps = $(STATEDIR)/slang.prepare
 $(STATEDIR)/slang.compile: $(slang_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(SLANG_DIR) && $(SLANG_PATH) make elf
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -107,8 +107,8 @@ slang_install: $(STATEDIR)/slang.install
 
 $(STATEDIR)/slang.install: $(STATEDIR)/slang.compile
 	@$(call targetinfo, $@)
-	cd $(SLANG_DIR) && $(SLANG_PATH) make install-elf
-	$(call touch, $@)
+	@$(call install, SLANG)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -138,7 +138,7 @@ $(STATEDIR)/slang.targetinstall: $(slang_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

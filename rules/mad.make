@@ -34,7 +34,7 @@ mad_get_deps = $(MAD_SOURCE)
 
 $(STATEDIR)/mad.get: $(mad_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MAD_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/mad.extract: $(mad_extract_deps)
 	@$(call clean, $(MAD_DIR))
 	@$(call extract, $(MAD_SOURCE))
 	@$(call patchin, $(MAD_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -83,7 +83,7 @@ $(STATEDIR)/mad.prepare: $(mad_prepare_deps)
 	cd $(MAD_DIR) && \
 		$(MAD_PATH) $(MAD_ENV) \
 		./configure $(MAD_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -96,7 +96,7 @@ mad_compile_deps = $(STATEDIR)/mad.prepare
 $(STATEDIR)/mad.compile: $(mad_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(MAD_DIR) && $(MAD_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -106,7 +106,7 @@ mad_install: $(STATEDIR)/mad.install
 
 $(STATEDIR)/mad.install: $(STATEDIR)/mad.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -131,7 +131,7 @@ $(STATEDIR)/mad.targetinstall: $(mad_targetinstall_deps)
 	@$(call install_copy, 0, 0, 0755, $(MAD_DIR)/madplay, /usr/bin/madplay)
 
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

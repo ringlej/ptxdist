@@ -31,7 +31,7 @@ tcpwrapper_get: $(STATEDIR)/tcpwrapper.get
 
 $(STATEDIR)/tcpwrapper.get: $(TCPWRAPPER_SOURCE)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(TCPWRAPPER_SOURCE):
 	@$(call targetinfo, $@)
@@ -48,7 +48,7 @@ $(STATEDIR)/tcpwrapper.extract: $(STATEDIR)/tcpwrapper.get
 	@$(call clean, $(TCPWRAPPER_DIR))
 	@$(call extract, $(TCPWRAPPER_SOURCE))
 	@$(call patchin, $(TCPWRAPPER))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -58,7 +58,7 @@ tcpwrapper_prepare: $(STATEDIR)/tcpwrapper.prepare
 
 $(STATEDIR)/tcpwrapper.prepare: $(STATEDIR)/virtual-xchain.install $(STATEDIR)/tcpwrapper.extract
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -73,7 +73,7 @@ $(STATEDIR)/tcpwrapper.compile: $(STATEDIR)/tcpwrapper.prepare
 	@$(call targetinfo, $@)
 	$(TCPWRAPPER_PATH) $(TCPWRAPPER_ENV) \
 		make -C $(TCPWRAPPER_DIR) linux 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -85,7 +85,7 @@ $(STATEDIR)/tcpwrapper.install: $(STATEDIR)/tcpwrapper.compile
 	@$(call targetinfo, $@)
 	install -d $(CROSS_LIB_DIR)/lib
 	install $(TCPWRAPPER_DIR)/libwrap.a $(CROSS_LIB_DIR)/lib
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -109,7 +109,7 @@ ifdef PTXCONF_TCPWRAPPER_INSTALL_TCPD
 	@$(call install_copy, 0, 0, 0755, $(TCPWRAPPER_DIR)/tcpd, /usr/sbin/tcpd)
 endif
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

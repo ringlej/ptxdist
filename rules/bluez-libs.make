@@ -107,7 +107,7 @@ bluez-libs_install: $(STATEDIR)/bluez-libs.install
 
 $(STATEDIR)/bluez-libs.install: $(STATEDIR)/bluez-libs.compile
 	@$(call targetinfo, $@)
-	cd $(BLUEZ_LIBS_DIR) && $(BLUEZ_LIBS_ENV) $(BLUEZ_LIBS_PATH) make install
+	@$(call install, BLUEZ_LIBS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

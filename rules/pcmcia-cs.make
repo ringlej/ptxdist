@@ -34,7 +34,7 @@ pcmcia-cs_get_deps	=  $(PCMCIA-CS_SOURCE)
 
 $(STATEDIR)/pcmcia-cs.get: $(pcmcia-cs_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PCMCIA-CS_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/pcmcia-cs.extract: $(pcmcia-cs_extract_deps)
 	@$(call clean, $(PCMCIA-CS_DIR))
 	@$(call extract, $(PCMCIA-CS_SOURCE))
 	@$(call patchin, $(PCMCIA-CS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -93,7 +93,7 @@ $(STATEDIR)/pcmcia-cs.prepare: $(pcmcia-cs_prepare_deps)
 	chmod u+w $(PCMCIA-CS_DIR)/man/*
 	cd $(PCMCIA-CS_DIR) && \
 		./Configure $(PCMCIA-CS_CONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -107,7 +107,7 @@ $(STATEDIR)/pcmcia-cs.compile: $(pcmcia-cs_compile_deps)
 	@$(call targetinfo, $@)
 	$(PCMCIA-CS_PATH) $(PCMCIA-CS_ENV)	\
 	$(MAKE) -C $(PCMCIA-CS_DIR) all	
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -117,8 +117,8 @@ pcmcia-cs_install: $(STATEDIR)/pcmcia-cs.install
 
 $(STATEDIR)/pcmcia-cs.install: $(STATEDIR)/pcmcia-cs.compile
 	@$(call targetinfo, $@)
-	$(PCMCIA-CS_PATH) $(PCMCIA-CS_ENV) make -C $(PCMCIA-CS_DIR) install
-	$(call touch, $@)
+	@$(call install, PCMCIA-CS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -168,7 +168,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

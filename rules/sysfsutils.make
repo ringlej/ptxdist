@@ -35,7 +35,7 @@ sysfsutils_get_deps = $(SYSFSUTILS_SOURCE)
 $(STATEDIR)/sysfsutils.get: $(sysfsutils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SYSFSUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(SYSFSUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/sysfsutils.extract: $(sysfsutils_extract_deps)
 	@$(call clean, $(SYSFSUTILS_DIR))
 	@$(call extract, $(SYSFSUTILS_SOURCE))
 	@$(call patchin, $(SYSFSUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -84,7 +84,7 @@ $(STATEDIR)/sysfsutils.prepare: $(sysfsutils_prepare_deps)
 	cd $(SYSFSUTILS_DIR) && \
 		$(SYSFSUTILS_PATH) $(SYSFSUTILS_ENV) \
 		./configure $(SYSFSUTILS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +97,7 @@ sysfsutils_compile_deps = $(STATEDIR)/sysfsutils.prepare
 $(STATEDIR)/sysfsutils.compile: $(sysfsutils_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(SYSFSUTILS_DIR) && $(SYSFSUTILS_ENV) $(SYSFSUTILS_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -107,8 +107,8 @@ sysfsutils_install: $(STATEDIR)/sysfsutils.install
 
 $(STATEDIR)/sysfsutils.install: $(STATEDIR)/sysfsutils.compile
 	@$(call targetinfo, $@)
-	cd $(SYSFSUTILS_DIR) && $(SYSFSUTILS_ENV) $(SYSFSUTILS_PATH) make install
-	$(call touch, $@)
+	@$(call install, SYSFSUTILS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +140,7 @@ ifdef PTXCONF_SYSFSUTILS_SYSTOOL
 endif
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

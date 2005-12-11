@@ -36,7 +36,7 @@ qt_get_deps	=  $(QT_SOURCE)
 
 $(STATEDIR)/qt.get: $(qt_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(QT_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +55,7 @@ $(STATEDIR)/qt.extract: $(qt_extract_deps)
 	@$(call clean, $(QT_DIR))
 	@$(call extract, $(QT_SOURCE))
 	@$(call patchin, $(QT_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -103,7 +103,7 @@ $(STATEDIR)/qt.prepare: $(qt_prepare_deps)
 	cd $(QT_DIR) && \
 		echo "yes" | $(QT_PATH) $(QT_ENV) \
 		./configure $(QT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -116,7 +116,7 @@ qt_compile_deps =  $(STATEDIR)/qt.prepare
 $(STATEDIR)/qt.compile: $(qt_compile_deps)
 	@$(call targetinfo, $@)
 	$(QT_PATH) $(QT_ENV) make -C $(QT_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -126,8 +126,8 @@ qt_install: $(STATEDIR)/qt.install
 
 $(STATEDIR)/qt.install: $(STATEDIR)/qt.compile
 	@$(call targetinfo, $@)
-	$(QT_PATH) $(QT_ENV) make -C $(QT_DIR) install
-	$(call touch, $@)
+	@$(call install, QT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -139,7 +139,7 @@ qt_targetinstall_deps	=  $(STATEDIR)/qt.compile
 
 $(STATEDIR)/qt.targetinstall: $(qt_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

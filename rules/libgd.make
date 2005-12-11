@@ -34,7 +34,7 @@ libgd_get_deps	=  $(LIBGD_SOURCE)
 
 $(STATEDIR)/libgd.get: $(libgd_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBGD_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/libgd.extract: $(libgd_extract_deps)
 	@$(call clean, $(LIBGD_DIR))
 	@$(call extract, $(LIBGD_SOURCE))
 	@$(call patchin, $(LIBGD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +87,7 @@ $(STATEDIR)/libgd.prepare: $(libgd_prepare_deps)
 	cd $(LIBGD_DIR) && \
 		$(LIBGD_PATH) $(LIBGD_ENV) \
 		./configure $(LIBGD_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +100,7 @@ libgd_compile_deps =  $(STATEDIR)/libgd.prepare
 $(STATEDIR)/libgd.compile: $(libgd_compile_deps)
 	@$(call targetinfo, $@)
 	$(LIBGD_PATH) $(LIBGD_ENV) make -C $(LIBGD_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +111,8 @@ libgd_install: $(STATEDIR)/libgd.install
 $(STATEDIR)/libgd.install: $(STATEDIR)/libgd.compile
 	@$(call targetinfo, $@)
 	# FIXME: is this a hosttool? 
-	$(LIBGD_PATH) $(LIBGD_ENV) make -C $(LIBGD_DIR) install
-	$(call touch, $@)
+	@$(call install, LIBGD)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -124,7 +124,7 @@ libgd_targetinstall_deps	=  $(STATEDIR)/libgd.compile
 
 $(STATEDIR)/libgd.targetinstall: $(libgd_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

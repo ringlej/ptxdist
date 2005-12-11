@@ -38,7 +38,7 @@ xlibs-randr_get_deps = $(XLIBS-RANDR_SOURCE)
 $(STATEDIR)/xlibs-randr.get: $(xlibs-randr_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-RANDR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-RANDR_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +57,7 @@ $(STATEDIR)/xlibs-randr.extract: $(xlibs-randr_extract_deps)
 	@$(call clean, $(XLIBS-RANDR_DIR))
 	@$(call extract, $(XLIBS-RANDR_SOURCE))
 	@$(call patchin, $(XLIBS-RANDR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,7 +90,7 @@ $(STATEDIR)/xlibs-randr.prepare: $(xlibs-randr_prepare_deps)
 	cd $(XLIBS-RANDR_DIR) && \
 		$(XLIBS-RANDR_PATH) $(XLIBS-RANDR_ENV) \
 		./configure $(XLIBS-RANDR_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ xlibs-randr_compile_deps = $(STATEDIR)/xlibs-randr.prepare
 $(STATEDIR)/xlibs-randr.compile: $(xlibs-randr_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-RANDR_DIR) && $(XLIBS-RANDR_ENV) $(XLIBS-RANDR_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +113,8 @@ xlibs-randr_install: $(STATEDIR)/xlibs-randr.install
 
 $(STATEDIR)/xlibs-randr.install: $(STATEDIR)/xlibs-randr.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-RANDR_DIR) && $(XLIBS-RANDR_ENV) $(XLIBS-RANDR_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-RANDR)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -126,7 +126,7 @@ xlibs-randr_targetinstall_deps = $(STATEDIR)/xlibs-randr.compile
 
 $(STATEDIR)/xlibs-randr.targetinstall: $(xlibs-randr_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

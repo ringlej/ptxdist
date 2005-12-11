@@ -37,7 +37,7 @@ ipkg_get_deps = $(IPKG_SOURCE)
 $(STATEDIR)/ipkg.get: $(ipkg_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(IPKG))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(IPKG_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/ipkg.extract: $(ipkg_extract_deps)
 	@$(call clean, $(IPKG_DIR))
 	@$(call extract, $(IPKG_SOURCE))
 	@$(call patchin, $(IPKG))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -88,7 +88,7 @@ $(STATEDIR)/ipkg.prepare: $(ipkg_prepare_deps)
 	cd $(IPKG_DIR) && \
 		$(IPKG_PATH) $(IPKG_ENV) \
 		./configure $(IPKG_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +101,7 @@ ipkg_compile_deps = $(STATEDIR)/ipkg.prepare
 $(STATEDIR)/ipkg.compile: $(ipkg_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(IPKG_DIR) && $(IPKG_ENV) $(IPKG_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +111,8 @@ ipkg_install: $(STATEDIR)/ipkg.install
 
 $(STATEDIR)/ipkg.install: $(STATEDIR)/ipkg.compile
 	@$(call targetinfo, $@)
-	cd $(IPKG_DIR) && $(IPKG_ENV) $(IPKG_PATH) make install
-	$(call touch, $@)
+	@$(call install, IPKG)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -149,7 +149,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

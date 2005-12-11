@@ -35,7 +35,7 @@ hosttool-mknbi_get_deps = $(HOSTTOOL_MKNBI_SOURCE)
 $(STATEDIR)/hosttool-mknbi.get: $(hosttool-mknbi_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL_MKNBI))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(HOSTTOOL_MKNBI_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +54,7 @@ $(STATEDIR)/hosttool-mknbi.extract: $(hosttool-mknbi_extract_deps)
 	@$(call clean, $(HOSTTOOL_MKNBI_DIR))
 	@$(call extract, $(HOSTTOOL_MKNBI_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL_MKNBI), $(HOSTTOOL_MKNBI_DIR) )
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -73,7 +73,7 @@ HOSTTOOL_MKNBI_ENV	= CFLAGS=-I$(PTXCONF_PREFIX)/include PREFIX=$(PTXCONF_PREFIX)
 
 $(STATEDIR)/hosttool-mknbi.prepare: $(hosttool-mknbi_prepare_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -86,7 +86,7 @@ hosttool-mknbi_compile_deps = $(STATEDIR)/hosttool-mknbi.prepare
 $(STATEDIR)/hosttool-mknbi.compile: $(hosttool-mknbi_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_MKNBI_DIR) && $(HOSTTOOL_MKNBI_ENV) make $(HOSTTOOL_MKNBI_MAKEVARS)
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -96,9 +96,8 @@ hosttool-mknbi_install: $(STATEDIR)/hosttool-mknbi.install
 
 $(STATEDIR)/hosttool-mknbi.install: $(STATEDIR)/hosttool-mknbi.compile
 	@$(call targetinfo, $@)
-	mkdir -p $(PTXCONF_PREFIX)/bin
-	cd $(HOSTTOOL_MKNBI_DIR) && $(HOSTTOOL_MKNBI_FLAGS) make install
-	touch $@
+	@$(call install, HOSTTOOL_MKNBI)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -110,7 +109,7 @@ hosttool-mknbi_targetinstall_deps = $(STATEDIR)/hosttool-mknbi.install
 
 $(STATEDIR)/hosttool-mknbi.targetinstall: $(hosttool-mknbi_targetinstall_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

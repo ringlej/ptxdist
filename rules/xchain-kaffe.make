@@ -27,7 +27,7 @@ xchain-kaffe_get: $(STATEDIR)/xchain-kaffe.get
 
 $(STATEDIR)/xchain-kaffe.get: $(kaffe_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -37,7 +37,7 @@ xchain-kaffe_extract: $(STATEDIR)/xchain-kaffe.extract
 
 $(STATEDIR)/xchain-kaffe.extract: $(kaffe_extract_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -57,7 +57,7 @@ $(STATEDIR)/xchain-kaffe.prepare: $(xchain-kaffe_prepare_deps)
 	cd $(XCHAIN_KAFFE_BUILDDIR) && \
 		$(XCHAIN_KAFFE_ENV) \
 		$(KAFFE_DIR)/configure --prefix=$(PTXCONF_PREFIX)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -69,7 +69,7 @@ $(STATEDIR)/xchain-kaffe.compile: $(STATEDIR)/xchain-kaffe.prepare
 	@$(call targetinfo, $@)
 	make -C $(XCHAIN_KAFFE_BUILDDIR)/config
 	make -C $(XCHAIN_KAFFE_BUILDDIR)/kaffe/kaffeh
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -80,7 +80,7 @@ xchain-kaffe_install: $(STATEDIR)/xchain-kaffe.install
 $(STATEDIR)/xchain-kaffe.install: $(STATEDIR)/xchain-kaffe.compile
 	@$(call targetinfo, $@)
 	make -C $(XCHAIN_KAFFE_BUILDDIR)/kaffe/kaffeh install
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -90,7 +90,7 @@ xchain-kaffe_targetinstall: $(STATEDIR)/xchain-kaffe.targetinstall
 
 $(STATEDIR)/xchain-kaffe.targetinstall:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

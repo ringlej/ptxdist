@@ -36,7 +36,7 @@ sqlite_get_deps = $(SQLITE_SOURCE)
 $(STATEDIR)/sqlite.get: $(sqlite_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SQLITE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(SQLITE_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/sqlite.extract: $(sqlite_extract_deps)
 	@$(call extract, $(SQLITE_SOURCE))
 	mv $(BUILDDIR)/sqlite $(SQLITE_DIR)
 	@$(call patchin, $(SQLITE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -112,7 +112,7 @@ $(STATEDIR)/sqlite.prepare: $(sqlite_prepare_deps)
 	echo 'include $$(TOP)/main.mk'				>> $(SQLITE_MK)
 	echo 'libsqlite:   $$(LIBOBJ) libsqlite3.a'		>> $(SQLITE_MK)
 	echo -e '\t$$(TCCX) $(SQLITE_LDFLAGS) $$(LIBOBJ)'	>> $(SQLITE_MK)
-	$(call touch, $@)
+	@$(call touch, $@)
 		
 
 # ----------------------------------------------------------------------------
@@ -126,7 +126,7 @@ sqlite_compile_deps = $(STATEDIR)/sqlite.prepare
 $(STATEDIR)/sqlite.compile: $(sqlite_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(SQLITE_DIR) && $(SQLITE_PATH) make -f $(SQLITE_MK) libsqlite
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -144,7 +144,7 @@ $(STATEDIR)/sqlite.install: $(STATEDIR)/sqlite.compile
 		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 	cp $(SQLITE_DIR)/libsqlite3.so \
 		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -169,7 +169,7 @@ $(STATEDIR)/sqlite.targetinstall: $(STATEDIR)/sqlite.install
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

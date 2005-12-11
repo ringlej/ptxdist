@@ -44,7 +44,7 @@ madwifi_get_deps = $(MADWIFI_SOURCE)
 
 $(STATEDIR)/madwifi.get: $(madwifi_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MADWIFI_SOURCE):
 	@$(call targetinfo, $@)
@@ -63,7 +63,7 @@ $(STATEDIR)/madwifi.extract: $(madwifi_extract_deps)
 	@$(call clean, $(MADWIFI_DIR))
 	@$(call extract, $(MADWIFI_SOURCE))
 	@$(call patchin, $(MADWIFI))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -94,7 +94,7 @@ MADWIFI_AUTOCONF += --prefix=$(SYSROOT)
 
 $(STATEDIR)/madwifi.prepare: $(madwifi_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -113,7 +113,7 @@ endif
 ifdef PTXCONF_MADWIFI_TOOLS_80211_STATS
 	cd $(MADWIFI_DIR)/tools && $(MADWIFI_ENV) $(MADWIFI_PATH) $(MAKE) 80211stats
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -123,7 +123,7 @@ madwifi_install: $(STATEDIR)/madwifi.install
 
 $(STATEDIR)/madwifi.install: $(STATEDIR)/madwifi.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -158,7 +158,7 @@ ifdef PTXCONF_MADWIFI_TOOLS_80211_STATS
 endif
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -34,7 +34,7 @@ libart_get_deps = $(LIBART_SOURCE)
 
 $(STATEDIR)/libart.get: $(libart_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBART_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +53,7 @@ $(STATEDIR)/libart.extract: $(libart_extract_deps)
 	@$(call clean, $(LIBART_DIR))
 	@$(call extract, $(LIBART_SOURCE))
 	@$(call patchin, $(LIBART))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -85,7 +85,7 @@ $(STATEDIR)/libart.prepare: $(libart_prepare_deps)
 	cd $(LIBART_DIR) && \
 		$(LIBART_PATH) $(LIBART_ENV) \
 		./configure $(LIBART_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -98,7 +98,7 @@ libart_compile_deps = $(STATEDIR)/libart.prepare
 $(STATEDIR)/libart.compile: $(libart_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBART_DIR) && $(LIBART_PATH) $(LIBART_ENV) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -108,8 +108,8 @@ libart_install: $(STATEDIR)/libart.install
 
 $(STATEDIR)/libart.install: $(STATEDIR)/libart.compile
 	@$(call targetinfo, $@)
-	cd $(LIBART_DIR) && $(LIBART_PATH) $(LIBART_ENV) make install
-	$(call touch, $@)
+	@$(call install, LIBART)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +140,7 @@ $(STATEDIR)/libart.targetinstall: $(libart_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

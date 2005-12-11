@@ -33,6 +33,7 @@ WGET		= \
 	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
 	wget --cache=off
 MAKE		= make
+MAKE_INSTALL	= make install
 PATCH		= patch
 TAR		= tar
 GZIP		= gzip
@@ -642,6 +643,22 @@ get_option_ext =									\
 			$(CAT) $(PTXDIST_WORKSPACE)/.config | sed -n -e "$${REGEX}p" | $(2);	\
 		fi;									\
 	)
+
+
+#
+# install
+#
+# Perform standard install actions
+#
+# $1: label of the packet
+# $2: optional: alternative directory
+#
+install = \
+	BUILDDIR="$($(strip $(1)_DIR))";			\
+	[ "$(2)" != "" ] && BUILDDIR="$(strip $(2))";		\
+	cd $$BUILDDIR && 					\
+		$($(strip $(1)_ENV)) $($(strip $(1)_PATH)) 	\
+		make install $($(strip $(1)_MAKEVARS))
 
 
 #

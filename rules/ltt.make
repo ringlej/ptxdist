@@ -37,7 +37,7 @@ ltt_get_deps = $(LTT_SOURCE)
 $(STATEDIR)/ltt.get: $(ltt_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LTT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LTT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/ltt.extract: $(ltt_extract_deps)
 	@$(call clean, $(LTT_DIR))
 	@$(call extract, $(LTT_SOURCE))
 	@$(call patchin, $(LTT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -86,7 +86,7 @@ $(STATEDIR)/ltt.prepare: $(ltt_prepare_deps)
 	cd $(LTT_BUILDDIR) && \
 		$(LTT_PATH) $(LTT_ENV) \
 		$(LTT_DIR)/configure $(LTT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +103,7 @@ $(STATEDIR)/ltt.compile: $(STATEDIR)/ltt.prepare
 	$(LTT_PATH) make -C $(LTT_BUILDDIR)/LibUserTrace LDFLAGS="-static"
 	$(LTT_PATH) make -C $(LTT_BUILDDIR)/Daemon LDFLAGS="-static"
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -117,7 +117,7 @@ ltt_install_deps = \
 
 $(STATEDIR)/ltt.install: $(ltt_install_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -151,7 +151,7 @@ $(STATEDIR)/ltt.targetinstall: $(STATEDIR)/ltt.install
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

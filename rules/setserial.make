@@ -107,8 +107,7 @@ setserial_install: $(STATEDIR)/setserial.install
 
 $(STATEDIR)/setserial.install: $(STATEDIR)/setserial.compile
 	@$(call targetinfo, $@)
-	mkdir -p $(CROSS_LIB_DIR)/usr/man/man8
-	cd $(SETSERIAL_DIR) && $(SETSERIAL_ENV) $(SETSERIAL_PATH) make DESTDIR=$(CROSS_LIB_DIR) install
+	@$(call install, SETSERIAL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

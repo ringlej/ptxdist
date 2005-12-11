@@ -34,7 +34,7 @@ proftpd_get: $(STATEDIR)/proftpd.get
 $(STATEDIR)/proftpd.get: $(PROFTPD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PROFTPD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PROFTPD_SOURCE):
 	@$(call targetinfo, $@)
@@ -51,7 +51,7 @@ $(STATEDIR)/proftpd.extract: $(STATEDIR)/proftpd.get
 	@$(call clean, $(PROFTPD_DIR))
 	@$(call extract, $(PROFTPD_SOURCE))
 	@$(call patchin, $(PROFTPD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -99,7 +99,7 @@ $(STATEDIR)/proftpd.prepare: $(proftpd_extract_deps)
 	cd $(PROFTPD_DIR) && \
 		$(PROFTPD_PATH) $(PROFTPD_ENV) \
 		./configure $(PROFTPD_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -110,7 +110,7 @@ proftpd_compile: $(STATEDIR)/proftpd.compile
 $(STATEDIR)/proftpd.compile: $(STATEDIR)/proftpd.prepare 
 	@$(call targetinfo, $@)
 	cd $(PROFTPD_DIR) && $(PROFTPD_PATH) $(PROFTPD_ENV) make $(PROFTPD_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -120,7 +120,7 @@ proftpd_install: $(STATEDIR)/proftpd.install
 
 $(STATEDIR)/proftpd.install: $(STATEDIR)/proftpd.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -149,7 +149,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

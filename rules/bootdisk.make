@@ -107,7 +107,7 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 		echo "--------------------------------------------------------";\
 	fi
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

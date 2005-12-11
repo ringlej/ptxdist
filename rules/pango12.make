@@ -37,7 +37,7 @@ pango12_get_deps	+= $(PANGO12_PATCH_SOURCE)
 
 $(STATEDIR)/pango12.get: $(pango12_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PANGO12_SOURCE):
 	@$(call targetinfo, $@)
@@ -60,7 +60,7 @@ $(STATEDIR)/pango12.extract: $(pango12_extract_deps)
 	@$(call clean, $(PANGO12_DIR))
 	@$(call extract, $(PANGO12_SOURCE))
 	@$(call patchin, $(PANGO12))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -98,7 +98,7 @@ $(STATEDIR)/pango12.prepare: $(pango12_prepare_deps)
 	cd $(PANGO12_DIR) && \
 		$(PANGO12_PATH) $(PANGO12_ENV) \
 		./configure $(PANGO12_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -111,7 +111,7 @@ pango12_compile_deps =  $(STATEDIR)/pango12.prepare
 $(STATEDIR)/pango12.compile: $(pango12_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PANGO12_DIR) && $(PANGO12_PATH) $(PANGO12_ENV) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -121,8 +121,8 @@ pango12_install: $(STATEDIR)/pango12.install
 
 $(STATEDIR)/pango12.install: $(STATEDIR)/pango12.compile
 	@$(call targetinfo, $@)
-	cd $(PANGO12_DIR) && $(PANGO12_PATH) $(PANGO12_ENV) make install
-	$(call touch, $@)
+	@$(call install, PANGO12)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -190,7 +190,7 @@ $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps)
 		/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules)
 	@$(call install_finish)
 	
-	$(call touch, $@)
+	@$(call touch, $@)
 	
 
 # ----------------------------------------------------------------------------
