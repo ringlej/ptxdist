@@ -119,27 +119,36 @@ CROSSTOOL_ENV	=  export ptx_http_proxy=$(PTXCONF_SETUP_HTTP_PROXY); \
 	export ptx_ftp_proxy=$(PTXCONF_SETUP_FTP_PROXY); \
 	eval export \
 	$${ptx_http_proxy:+http_proxy=$${ptx_http_proxy}} \
-	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}};
-CROSSTOOL_ENV 	+= TARBALLS_DIR=$(SRCDIR)
-CROSSTOOL_ENV	+= RESULT_TOP=$(call remove_quotes,$(PTXCONF_PREFIX))
-CROSSTOOL_ENV	+= GCC_LANGUAGES="$(CROSSTOOL_GCCLANG)"
-CROSSTOOL_ENV	+= KERNELCONFIG=$(call remove_quotes,$(CROSSTOOL_DIR)/$(PTXCONF_CROSSTOOL_KERNELCONFIG))
-CROSSTOOL_ENV	+= TARGET=$(call remove_quotes,$(PTXCONF_GNU_TARGET))
-CROSSTOOL_ENV	+= TARGET_CFLAGS="$(call remove_quotes,$(CROSSTOOL_TARGET_CFLAGS))"
-CROSSTOOL_ENV	+= GCC_EXTRA_CONFIG=$(CROSSTOOL_GCC_EXTRA_CONFIG)
-CROSSTOOL_ENV	+= GLIBC_EXTRA_CONFIG=$(CROSSTOOL_GLIBC_EXTRA_CONFIG)
-CROSSTOOL_ENV	+= BINUTILS_DIR=binutils-$(PTXCONF_BINUTILS_VERSION)
-CROSSTOOL_ENV	+= GCC_DIR=gcc-$(GCC_VERSION)
-CROSSTOOL_ENV	+= LIBC_DIR=$(CROSSTOOL_LIBC_DIR)
-CROSSTOOL_ENV	+= C_LIBRARY=$(CROSSTOOL_LIBC)
+	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}}; \
+	\
+	TARBALLS_DIR=$(SRCDIR) \
+	RESULT_TOP=$(call remove_quotes,$(PTXCONF_PREFIX)) \
+	GCC_LANGUAGES="$(CROSSTOOL_GCCLANG)" \
+	KERNELCONFIG=$(call remove_quotes,$(CROSSTOOL_DIR)/$(PTXCONF_CROSSTOOL_KERNELCONFIG)) \
+	TARGET=$(call remove_quotes,$(PTXCONF_GNU_TARGET)) \
+	TARGET_CFLAGS="$(call remove_quotes,$(CROSSTOOL_TARGET_CFLAGS))" \
+	GCC_EXTRA_CONFIG=$(CROSSTOOL_GCC_EXTRA_CONFIG) \
+	GLIBC_EXTRA_CONFIG=$(CROSSTOOL_GLIBC_EXTRA_CONFIG) \
+	BINUTILS_DIR=binutils-$(PTXCONF_BINUTILS_VERSION) \
+	GCC_DIR=gcc-$(GCC_VERSION) \
+	LIBC_DIR=$(CROSSTOOL_LIBC_DIR) \
+	C_LIBRARY=$(CROSSTOOL_LIBC) \
+	LINUX_DIR=linux-$(KERNEL_VERSION) \
+	GLIBCTHREADS_FILENAME=glibc-linuxthreads-$(GLIBC_VERSION)
 ifdef PTXCONF_UCLIBC
 CROSSTOOL_ENV	+= UCLIBCCONFIG=$(CROSSTOOL_DIR)/uclibc_config
 endif
-CROSSTOOL_ENV	+= LINUX_DIR=linux-$(KERNEL_VERSION)
-CROSSTOOL_ENV	+= GLIBCTHREADS_FILENAME=glibc-linuxthreads-$(GLIBC_VERSION)
 
 $(STATEDIR)/crosstool.prepare: $(crosstool_prepare_deps)
 	@$(call targetinfo, $@)
+	mkdir -p $(call remove_quotes, $(PTXCONF_PREFIX))
+	(										\
+		cd $(CROSSTOOL_DIR); 							\
+		set -ex; 								\
+		$(CROSSTOOL_ENV) sh $(CROSSTOOL_DIR)/all.sh --nobuild --notest; 	\
+		echo "done" 								\
+		exit 1;									\
+	)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -155,6 +164,10 @@ crosstool_compile: $(STATEDIR)/crosstool.compile
 
 $(STATEDIR)/crosstool.compile: $(STATEDIR)/crosstool.prepare
 	@$(call targetinfo, $@)
+ifdef PTXCONF_UCLIBC
+	grep -e PTXCONF_UC_ $(PTXDIST_WORKSPACE)/.config > $(CROSSTOOL_DIR)/uclibc_config
+	perl -i -p -e 's/PTXCONF_UC_//g' $(CROSSTOOL_DIR)/uclibc_config
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -167,20 +180,15 @@ crosstool_install_deps = $(STATEDIR)/crosstool.compile
 
 $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 	@$(call targetinfo, $@)
-ifdef PTXCONF_UCLIBC
-	grep -e PTXCONF_UC_ $(PTXDIST_WORKSPACE)/.config > $(CROSSTOOL_DIR)/uclibc_config
-	perl -i -p -e 's/PTXCONF_UC_//g' $(CROSSTOOL_DIR)/uclibc_config
-endif
-
 #
 # We set all the stuff crosstool expects in it's environment
 #
-	(	cd $(CROSSTOOL_DIR); 					\
-		set -ex; 						\
-		mkdir -p $(call remove_quotes,$(PTXCONF_PREFIX)); 	\
-		$(CROSSTOOL_ENV) sh $(CROSSTOOL_DIR)/all.sh --notest; 	\
-		echo "done" 						\
-		exit 1;							\
+	(										\
+		cd $(CROSSTOOL_DIR);							\
+		set -ex;								\
+		$(CROSSTOOL_ENV) sh $(CROSSTOOL_DIR)/all.sh --nounpack --notest; 	\
+		echo "done"								\
+		exit 1;									\
 	)
 ifdef PTXCONF_CROSSTOOL_VERSION_0_32
 	touch $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/gcc-$(GCC_VERSION)-$(CROSSTOOL_LIBC_DIR)/$(PTXCONF_GNU_TARGET)/include/linux/autoconf.h)

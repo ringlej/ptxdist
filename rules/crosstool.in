@@ -48,6 +48,10 @@ choice
 		bool
 		prompt "3.3.3"
 
+	config GCC_3_3_6
+		bool
+		prompt "3.3.6"
+
 	config GCC_3_4_0
 		bool
 		prompt "3.4.0"
