@@ -72,6 +72,10 @@ UDEV_PATH	=  PATH=$(CROSS_PATH)
 UDEV_ENV 	=  $(CROSS_ENV)
 UDEV_MAKEVARS	=  CROSS=$(COMPILER_PREFIX)
 
+ifdef PTXCONF_UDEV_FW_HELPER
+UDEV_MAKEVARS	+=  EXTRAS=extras/firmware
+endif
+
 $(STATEDIR)/udev.prepare: $(udev_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UDEV_DIR)/config.cache)
@@ -87,7 +91,7 @@ udev_compile_deps = $(STATEDIR)/udev.prepare
 
 $(STATEDIR)/udev.compile: $(udev_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(UDEV_DIR) && $(UDEV_ENV) $(UDEV_PATH) make $(UDEV_MAKEVARS)
+	cd $(UDEV_DIR) && $(UDEV_ENV) $(UDEV_PATH) make $(UDEV_MAKEVARS) 
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -151,6 +155,10 @@ ifdef PTXCONF_UDEV_START
 endif
 ifdef PTXCONF_UDEV_TEST
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevtest, /sbin/udevtest)
+endif
+
+ifdef PTXCONF_UDEV_FW_HELPER
+	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/extras/firmware/firmware_helper, /sbin/firmware_helper)
 endif
 
 	@$(call install_node, 0, 0, 0644, c, 5, 1, /dev/console)

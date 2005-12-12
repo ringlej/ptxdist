@@ -25,3 +25,6 @@ config UDEV_TEST
 	bool "udevtest"
 	depends on UDEV
 
+config UDEV_FW_HELPER
+	bool "firmware helper"
+	depends on UDEV
