@@ -662,8 +662,10 @@ get_option_ext =									\
 # $2: optional: alternative directory
 #
 install = \
-	BUILDDIR="$($(strip $(1)_DIR))";				\
-	[ "$(2)" != "" ] && BUILDDIR="$(strip $(2))";			\
+	DIR="$($(strip $(1)_DIR))";					\
+	BUILDDIR="$($(strip $(1)_BUILDDIR))";				\
+	BUILDDIR="$${BUILDDIR:-$$DIR}";					\
+	[ "$(strip $(2))" != "" ] && BUILDDIR="$(strip $(2))";		\
 	cd $$BUILDDIR && 						\
 		$($(strip $(1)_ENV)) $($(strip $(1)_PATH)) 		\
 		$(CHECKINSTALL) make install $($(strip $(1)_MAKEVARS))
