@@ -171,6 +171,8 @@ CROSS_PACKAGES = $(CROSS_PACKAGES-y)
 HOST_PACKAGES = $(HOST_PACKAGES-y)
 VIRTUAL = $(VIRTUAL-y)
 
+ALL_PACKAGES = $(PACKAGES-y) $(PACKAGES-) $(CROSS_PACKAGES) $(CROSS_PACKAGES-) $(HOST_PACKAGES) $(HOST_PACKAGES-)
+
 # ----------------------------------------------------------------------------
 # Install targets 
 # ----------------------------------------------------------------------------
@@ -516,13 +518,13 @@ oldconfig: before_config $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -o $(MENU)
 
-configdeps: before_config $(PTXDIST_TOPDIR)/scripts/kconfig/conf
+configdeps: before_config $(STATEDIR)/host-kconfig.install
 	@$(call findout_config)
 	@echo
 	@echo "generating dependencies from kconfig..."
 	@mkdir -p $(IMAGEDIR)
 	@cd $(PTXDIST_WORKSPACE) && \
-		$(PTXDIST_TOPDIR)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
+		yes "" | $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
 			2> /dev/null > $(IMAGEDIR)/configdeps
 	@echo "$(IMAGEDIR)/configdeps"
 	@echo
@@ -815,6 +817,30 @@ configs:
 
 print-%:
 	@echo "$* is \"$($*)\""
+
+# ----------------------------------------------------------------------------
+# Autogenerate Dependencies
+# ----------------------------------------------------------------------------
+#
+# For all packages: 
+#
+# - each prepare stage depends on all prerequisites' install stage
+# - each targetinstall stage depends on all pre.'s targetinstall stages
+#
+
+deps_apache2 = expat glibc_librt
+
+define autogen_deps_prepare
+$(1)_test_prepare_deps: $(foreach dep,$(deps_$(1)),$(STATEDIR)/$(dep).install)
+endef
+
+$(foreach pkg,$(ALL_PACKAGES),$(eval $(call autogen_deps_prepare,$(pkg))))
+
+define autogen_deps_targetinstall
+$(1)_test_targetinstall_deps: $(foreach dep,$(deps_$(1)),$(STATEDIR)/$(dep).targetinstall)
+endef
+
+$(foreach pkg,$(ALL_PACKAGES),$(eval $(call autogen_deps_targetinstall,$(pkg))))
 
 .PHONY: dep_output_clean dep_tree dep_world
 # vim600:set foldmethod=marker:
