@@ -1,3 +1,9 @@
+2005-12-14 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* release: released 0.7.8. This is just an intermediate
+	  release. We are working hard towards 1.0, so expect
+	  things to be completely broken. You have been warned.
+
 2005-11-30 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* overall: re-unified TOPDIR and PTXDISTDIR to become
