@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.8-rc1
-# Fri Dec  2 14:03:11 2005
+# PTXdist version: 0.7.8
+# Wed Dec 14 22:05:10 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -97,6 +97,7 @@ PTXCONF_CROSSTOOL_VERSION_0_38=y
 # PTXCONF_GCC_3_2_3 is not set
 # PTXCONF_GCC_3_3_2 is not set
 PTXCONF_GCC_3_3_3=y
+# PTXCONF_GCC_3_3_6 is not set
 # PTXCONF_GCC_3_4_0 is not set
 # PTXCONF_GCC_3_4_1 is not set
 # PTXCONF_GCC_3_4_2 is not set
@@ -178,7 +179,7 @@ PTXCONF_HOSTTOOL_FLEX254=y
 #
 
 #
-# Image Creation
+# Image Creation for Target
 #
 # PTXCONF_IMAGE_TGZ is not set
 # PTXCONF_IMAGE_HD is not set
@@ -186,6 +187,11 @@ PTXCONF_HOSTTOOL_FLEX254=y
 # PTXCONF_IMAGE_JFFS2 is not set
 # PTXCONF_IMAGE_UIMAGE is not set
 # PTXCONF_IMAGE_EXT2 is not set
+
+#
+# Image Creation for Host
+#
+# PTXCONF_IMAGE_HOST_DEB is not set
 
 #
 # Root Filesystem             

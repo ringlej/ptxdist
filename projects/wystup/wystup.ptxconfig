@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.8-rc1
-# Fri Dec  2 14:03:36 2005
+# PTXdist version: 0.7.8
+# Wed Dec 14 22:06:19 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -162,7 +162,7 @@ PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 #
 
 #
-# Image Creation
+# Image Creation for Target
 #
 PTXCONF_IMAGE_TGZ=y
 # PTXCONF_IMAGE_HD is not set
@@ -170,6 +170,11 @@ PTXCONF_IMAGE_TGZ=y
 # PTXCONF_IMAGE_JFFS2 is not set
 # PTXCONF_IMAGE_UIMAGE is not set
 # PTXCONF_IMAGE_EXT2 is not set
+
+#
+# Image Creation for Host
+#
+# PTXCONF_IMAGE_HOST_DEB is not set
 
 #
 # Root Filesystem             
