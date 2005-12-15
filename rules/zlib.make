@@ -123,6 +123,8 @@ $(STATEDIR)/zlib.targetinstall: $(STATEDIR)/zlib.install
 # ----------------------------------------------------------------------------
 
 zlib_clean: 
-	rm -rf $(STATEDIR)/zlib.* $(ZLIB_DIR)
+	rm -rf $(STATEDIR)/zlib.* 
+	rm -rf $(IMAGEDIR)/zlib_*
+	rm -rf $(ZLIB_DIR)
 
 # vim: syntax=make
