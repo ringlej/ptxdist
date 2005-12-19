@@ -1,29 +1,42 @@
-#!/bin/sh
+#!/bin/bash
 #
+# ipkg-push: push .ipk files to a packet repository site
+#
+# We assume that all packages follow this naming scheme: 
+#
+# packetname_1.2.3-2_arch.ipk
+# ^^^^^^^^^^ ^^^^^ ^ ^^^^------ architecture
+#     \        \   \----------- ipkg packet revision
+#      \        \-------------- upstream packet revision
+#       \---------------------- packet name
+#
+# And we assume that, if a packet is named after this scheme it is
+# versioned internally using the same one :-)
+# 
+
 
 . `dirname $0`/libptxdist.sh
 
 usage() {
 	echo 
 	[ -n "$1" ] && echo -e "error: $1\n"
-	echo "usage: $0"
-	echo "          -i <ipkgdir>"
-	echo "          -d <destinationdir>"
-	echo "          -f"
+	echo "usage: $0 <args>"
 	echo
-	echo "  -d <destdir>          destination dir, for example on a server"
-	echo "  -i <ipkgdir>          use this directory as a ipkg packet source"
-	echo "  -f                    force overwrite of packets on server," 
-	echo "                        even if they already exist"
+	echo " Arguments:"
+	echo
+	echo "  --ipkgdir  <ipkgdir>       use this directory as an ipkg packet source"
+	echo "  --repodir  <repositorydir> path to ipkg packet repository to be updated"
+	echo "  --revision <revision>      dist revision name to be updated"
+	echo "  --project  <projectname>   project name"
 	echo
 	exit 0
 }
 
-#nflag=0
-#vlevel=0
 IPKGDIR=
-DESTDIR=
-FORCE=
+REPODIR=
+DISTREVISION=
+PROJECT=
+
 
 #
 # Option parser
@@ -31,84 +44,96 @@ FORCE=
 while [ $# -gt 0 ]; do
 	case "$1" in 
 		--help) usage ;;
-		-i) IPKGDIR=`abspath $2`;     shift 2 ;;
-		-d) DESTDIR=`abspath $2`;     shift 2 ;;
-		-f) FORCE=1;                  shift 1 ;; 
-		*)  usage "unknown option" ;;
+		--ipkgdir)  IPKGDIR=`ptxd_abspath $2`;      shift 2 ;;
+		--repodir)  REPODIR=`ptxd_abspath $2`;      shift 2 ;;
+		--revision) DISTREVISION=`ptxd_abspath $2`; shift 2 ;;
+		--project)  PROJECT=$2;	                    shift 2 ;;
+		*)  usage "unknown option $1" ;;
   	esac
 done
-
-IPKGCONF=`dirname $0`/../projects/generic/etc/ipkg.conf
-IPKGCONF=`abspath $IPKGCONF`
 
 #
 # Sanity checks
 #
-[ -z "$IPKGDIR" ] 			&& usage "error: specify ipkg packet dir with -i"
-[ -z "$DESTDIR" ] 			&& usage "error: specify destination packet dir with -d"
-[ ! -f "$IPKGCONF" ]			&& usage "error: $IPKGCONF does not exist"
+[ -z "$IPKGDIR" ] 	&& usage "error: specify ipkg packet dir with --ipkgdir"
+[ -z "$REPODIR" ] 	&& usage "error: specify repository dir with --repodir"
+[ -z "$DISTREVISION" ]	&& usage "error: specify dist revision with --revision"
+[ -d "$IPKGDIR" ]	|| usage "error: ipkg directory does not exist"
+[ -d "$REPODIR" ]	|| usage "error: repository dir does not exist"
+[ -z "$PROJECT" ]       && usage "error: specify a project name with --project"
+
+if [ "`find $IPKTDIR -name *.ipk`" = "" ]; then
+	echo "no ipkg packets found"
+	exit 0
+fi
+
+IPKG_PACKETS=`find $IPKGDIR -name *.ipk | xargs basename`
+SCRIPTDIR=`dirname $0`
+POOL=$REPODIR/$PROJECT/pool
+
+if [ ! -d "$POOL" ]; then
+	echo "IPKG pool directory ($POOL) does not exist, creating"
+	mkdir -p $POOL
+	[ "$?" = "0" ] || bailout "couldn't create pool directory $POOL" 
+fi
 
 #
-# Compare packets
+# For all ipkg packets we have built: check if already in pool
 #
 
-echo
-echo "comparing packets between"
-echo "  ipkg dir:   $IPKGDIR"
-echo "  server dir: $DESTDIR"
-echo
-for file in $IPKGDIR/*.ipk; do 
+for packet in $IPKG_PACKETS; do
 
-	file=`basename $file`
-	local_md5=`[ -e $IPKGDIR/$file ] && md5sum $IPKGDIR/$file  | awk -F' ' '{print $1}'`
-	server_md5=`[ -e $DESTDIR/$file ] && md5sum $DESTDIR/$file | awk -F' ' '{print $1}'`
-	if [ -e "$DESTDIR/$file" ] && [ "$local_md5" != "$server_md5" ]; then
-		if [ -n "$FORCE" ]; then
-			echo -n "warning: "
-		else
-			echo -n "error: "
-		fi
-		echo "packet $file exists on server but has different content"
-		if [ -z "$FORCE" ]; then
-			echo
-			exit 1
-		fi
-	fi
+	echo "checking pool for..: $packet"
 
-	if [ "$local_md5" = "$server_md5" ]; then
-		echo "skipping $file"
-		continue
-	fi
+	packet_split=`ptxd_ipkg_split $packet`
+	IPKG_NAME=`ptxd_ipkg_name $packet_split`
+	IPKG_REV_UPSTREAM=`ptxd_ipkg_rev_upstream $packet_split`
+	IPKG_REV_PACKET=`ptxd_ipkg_rev_packet $packet_split`
+	IPKG_REV="${IPKG_REV_UPSTREAM}${IPKG_REV_PACKET}"
+	IPKG_ARCH=`ptxd_ipkg_arch $packet_split`
+	PACKETS_IN_POOL=`find $POOL -name ${IPKG_NAME}_${IPKG_REV}-*_${IPKG_ARCH}.ipk -execdir basename \{} \;`
 
-	echo "copying  $file"
-	install -D $IPKGDIR/$file $DESTDIR/$file
+	cp -f $IPKGDIR/$packet $POOL/$packet
 
-done
+	if [ "$PACKETS_IN_POOL" = "" ]; then 
 
-echo
-echo "sanity check"
-echo
-for file in $DESTDIR/*.ipk; do 
-	file=`basename $file`
-	packetname=`echo $file | sed -e 's/^\([^_]*\)_.*$/\1/g'`
-	allpackets=`find $DESTDIR -name "$packetname\_*" | sort -u -r`
-	let count="`echo $allpackets | wc -w`"
-	if [ $count -gt 1 ]; then
-		echo "warning: more than one packet '$packetname' found, removing old ones"
-		first=1
-		for delfile in $allpackets; do 
-			if [ "$first" = "1" ]; then 
-				first=0
-			else
-				rm -i $delfile
+		# this packet wasn't there before, re-revision to -1
+		$SCRIPTDIR/ipkg-revision $POOL/$packet - 1
+
+	else
+
+		# find out latest revision
+		latest_pkg=""
+		for pkg in $PACKETS_IN_POOL; do 
+			echo "  candidate........: $pkg"
+			if [ "$latest_pkg" = "" ]; then
+				latest_pkg=$pkg
+				continue
 			fi
+			ptxd_ipkg_rev_smaller $pkg $latest_pkg && continue
+			latest_pkg=$pkg
 		done
+
+		echo "  latest version...: $latest_pkg"
+
+		echo "  comparing........: $packet with $latest_pkg"
+
+		$SCRIPTDIR/ipkg-check-equal $POOL/$packet $POOL/$latest_pkg
+		if [ "$?" = "0" ]; then 
+			echo "                     equal, new packet droped"
+			rm -f $POOL/$packet
+			continue
+		fi
+
+		packet_split=`ptxd_ipkg_split $latest_pkg`
+		IPKG_REV_PACKET=`ptxd_ipkg_rev_packet $packet_split`
+
+		$SCRIPTDIR/ipkg-revision $POOL/$packet - $(($IPKG_REV_PACKET+1))
+
 	fi
 
+	rm -f $POOL/$packet
 done
 
-echo
-echo "done"
-echo
-
+exit
 

@@ -7,8 +7,8 @@
 PROJECT			:= PTXdist
 VERSION			:= 0
 PATCHLEVEL		:= 7
-SUBLEVEL		:= 8
-EXTRAVERSION		:=
+SUBLEVEL		:= 9
+EXTRAVERSION		:=-svn
 
 FULLVERSION		:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
@@ -354,21 +354,14 @@ DOPERMISSIONS = '{	\
 
 images: $(STATEDIR)/images
 
-ipkg-push: images
-	$(PTXDIST_TOPDIR)/scripts/ipkg-push -i $(IMAGEDIR) -d $(PTXCONF_SETUP_IPKG_REPOSITORY)
-	rm -f $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages
-	PYTHONPATH=$(PTXCONF_PREFIX)/lib/python2.3/site-packages 		\
-		$(PTXCONF_PREFIX)/bin/ipkg-make-index 				\
-			-p $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages 		\
-			$(PTXCONF_SETUP_IPKG_REPOSITORY)
-
-ipkg-push-force: images
-	$(PTXDIST_TOPDIR)/scripts/ipkg-push -i $(IMAGEDIR) -d $(PTXCONF_SETUP_IPKG_REPOSITORY) -f 
-	rm -f $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages
-	PYTHONPATH=$(PTXCONF_PREFIX)/lib/python2.3/site-packages 		\
-		$(PTXCONF_PREFIX)/bin/ipkg-make-index 				\
-			-p $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages 		\
-			$(PTXCONF_SETUP_IPKG_REPOSITORY)
+ipkg-push: 
+	@$(call targetinfo, $@)
+	@$(PTXDIST_TOPDIR)/scripts/ipkg-push \
+		--ipkgdir  $(IMAGEDIR) \
+		--repodir  $(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)) \
+		--revision $(FULLVERSION) \
+		--project  $(PTXCONF_PROJECT)
+	@echo
 
 $(STATEDIR)/images: world
 ifdef PTXCONF_IMAGE_TGZ
