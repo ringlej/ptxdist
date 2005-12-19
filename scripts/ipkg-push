@@ -67,7 +67,7 @@ if [ "`find $IPKTDIR -name *.ipk`" = "" ]; then
 	exit 0
 fi
 
-IPKG_PACKETS=`find $IPKGDIR -name *.ipk | xargs basename`
+IPKG_PACKETS=`find $IPKGDIR -name *.ipk -exec basename \{} \;`
 SCRIPTDIR=`dirname $0`
 POOL=$REPODIR/$PROJECT/pool
 
@@ -91,7 +91,7 @@ for packet in $IPKG_PACKETS; do
 	IPKG_REV_PACKET=`ptxd_ipkg_rev_packet $packet_split`
 	IPKG_REV="${IPKG_REV_UPSTREAM}${IPKG_REV_PACKET}"
 	IPKG_ARCH=`ptxd_ipkg_arch $packet_split`
-	PACKETS_IN_POOL=`find $POOL -name ${IPKG_NAME}_${IPKG_REV}-*_${IPKG_ARCH}.ipk -execdir basename \{} \;`
+	PACKETS_IN_POOL=`find $POOL -name ${IPKG_NAME}_${IPKG_REV}-*_${IPKG_ARCH}.ipk -exec basename \{} \;`
 
 	cp -f $IPKGDIR/$packet $POOL/$packet
 
