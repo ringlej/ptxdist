@@ -1242,14 +1242,11 @@ install_finish = 													\
 	export LANG=C; 													\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then									\
 		echo -n "install_finish: writing ipkg packet ... ";							\
-		sed -i -e 's/^\(Version:\t*\)\(.*\)$$/\1$(PTXDIST_FULLVERSION)-\2/g' $(IMAGEDIR)/ipkg/CONTROL/control;	\
-		mkdir -p $(IMAGEDIR);											\
 		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions; echo "popd;"; 	\
 		echo "$(PTXCONF_HOST_PREFIX)/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\
 			$(FAKEROOT) -- 2>&1 | grep -v "cannot access" | grep -v "No such file or directory";		\
 		rm -fr $(IMAGEDIR)/ipkg;										\
 		echo "done."; 												\
 	fi
-
 
 # vim: syntax=make
