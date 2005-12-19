@@ -42,7 +42,7 @@ PTXCONF_SETUP_GNUMIRROR="ftp://ftp.informatik.rwth-aachen.de/pub/gnu"
 #
 # IPKG Repository 
 #
-PTXCONF_SETUP_IPKG_REPOSITORY="/var/www/ipkg/ptxdist-$(FULLVERSION)"
+PTXCONF_SETUP_IPKG_REPOSITORY="/var/www/ipkg-repository"
 
 #
 # Java SDK        
