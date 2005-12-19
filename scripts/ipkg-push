@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # ipkg-push: push .ipk files to a packet repository site
 #
