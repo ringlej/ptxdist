@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # ipkg-push: push .ipk files to a packet repository site
 #
@@ -62,12 +62,12 @@ done
 [ -d "$REPODIR" ]	|| usage "error: repository dir does not exist"
 [ -z "$PROJECT" ]       && usage "error: specify a project name with --project"
 
-if [ "`find $IPKTDIR -name *.ipk`" = "" ]; then
-	echo "no ipkg packets found"
+if [ "`find $IPKGDIR -name "*.ipk"`" = "" ]; then
+	echo "no ipkg packets found in --ipkgdir $IPKGDIR"
 	exit 0
 fi
 
-IPKG_PACKETS=`find $IPKGDIR -name *.ipk -exec basename \{} \;`
+IPKG_PACKETS=`find $IPKGDIR -name "*.ipk" -exec basename \{} \;`
 SCRIPTDIR=`dirname $0`
 POOL=$REPODIR/$PROJECT/pool
 
