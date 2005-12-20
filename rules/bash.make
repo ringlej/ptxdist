@@ -67,7 +67,7 @@ BASH_AUTOCONF	= $(CROSS_AUTOCONF)
 BASH_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 BASH_AUTOCONF	+= --disable-sanity-checks
 BASH_AUTOCONF	+= --prefix=/usr --bindir=/bin
-BASH_PATH	=  $(CROSS_PATH)
+BASH_PATH	=  PATH=$(CROSS_PATH)
 BASH_ENV	=  ac_cv_func_setvbuf_reversed=no bash_cv_have_mbstate_t=yes
 BASH_ENV	+= $(CROSS_ENV)
 

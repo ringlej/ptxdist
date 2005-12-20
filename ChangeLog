@@ -3,6 +3,8 @@
 	* Rules: remove some bogus mkdir $(IMAGEDIR)s; 
 	  Patch by Ladislav Michl
 
+	* bash: fixed PATH; patch by Vince Chen
+
 2005-12-14 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* release: released 0.7.8. This is just an intermediate
