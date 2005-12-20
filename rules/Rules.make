@@ -972,7 +972,6 @@ install_copy = 											\
 			echo "Error: install_copy failed!";					\
 			exit -1;								\
 		fi;										\
-		mkdir -p $(IMAGEDIR);								\
 		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(IMAGEDIR)/permissions;			\
 	else											\
 		echo "install_copy:";								\
@@ -1004,7 +1003,6 @@ install_copy = 											\
 			$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
 			;;									\
 		esac;										\
-		mkdir -p $(IMAGEDIR);								\
 		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(IMAGEDIR)/permissions;			\
 	fi
 
@@ -1057,7 +1055,6 @@ install_copy_toolchain_lib =									\
 					fi;							\
 					;;							\
 				esac;								\
-				mkdir -p $(IMAGEDIR);						\
 				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				echo "error: found $${LIB}, but no file or link";		\
@@ -1130,7 +1127,6 @@ install_copy_toolchain_dl =									\
 					fi;							\
 					;;							\
 				esac;								\
-				mkdir -p $(IMAGEDIR);						\
 				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				exit -1;							\
@@ -1190,7 +1186,6 @@ install_node =				\
 	echo "  major=$$MAJ";		\
 	echo "  minor=$$MIN";		\
 	echo "  name=$$DEV";		\
-	mkdir -p $(IMAGEDIR);		\
 	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(IMAGEDIR)/permissions
 
 #
