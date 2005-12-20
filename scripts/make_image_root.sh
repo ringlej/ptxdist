@@ -40,8 +40,8 @@ while [ $# -gt 0 ]; do
 		-r) ROOTDIR=`ptxd_abspath $2`;     shift 2 ;;
 		-i) IPKGDIR=`ptxd_abspath $2`;     shift 2 ;;
 		-p) PERMISSIONS=`ptxd_abspath $2`; shift 2 ;;
-		-e) ERASEBLOCKSIZE=$2;        shift 2 ;;
-		-j) JFFS2EXTRA=$2;            shift 2 ;;
+		-e) ERASEBLOCKSIZE=$2;             shift 2 ;;
+		-j) JFFS2EXTRA=$2;                 shift 2 ;;
 		-o) OUTFILE=`ptxd_abspath $2`;     shift 2 ;;
 		*)  usage "unknown option" ;;
   	esac
