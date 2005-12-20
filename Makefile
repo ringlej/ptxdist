@@ -354,7 +354,9 @@ DOPERMISSIONS = '{	\
 
 images: $(STATEDIR)/images
 
-ipkg-push: 
+ipkg-push: $(STATEDIR)/ipkg-push
+
+$(STATEDIR)/ipkg-push:
 	@$(call targetinfo, $@)
 	$(PTXDIST_TOPDIR)/scripts/ipkg-push \
 		--ipkgdir  $(call remove_quotes,$(IMAGEDIR)) \
@@ -363,8 +365,14 @@ ipkg-push:
 		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
 		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION))
 	@echo
+	$(call touch, $@)
 
-$(STATEDIR)/images: world
+images_deps =  world
+ifdef PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY
+images_deps += $(STATEDIR)/ipkg-push
+endif
+
+$(STATEDIR)/images: $(images_deps)
 ifdef PTXCONF_IMAGE_TGZ
 	cd $(ROOTDIR); \
 	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions && \
@@ -372,18 +380,24 @@ ifdef PTXCONF_IMAGE_TGZ
 endif
 ifdef PTXCONF_IMAGE_JFFS2
 ifdef PTXCONF_IMAGE_IPKG
-	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/make_image_root.sh	\
-		-i $(IMAGEDIR)							\
-		-p $(IMAGEDIR)/permissions					\
-		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)				\
-		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)				\
+	if [ -z "$(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY))" ]; then	\
+		imagesfrom=$(IMAGEDIR);							\
+	else										\
+		imagesfrom=$(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)); \
+	fi;										\
+	echo "Creating rootfs using packages from $$imagesfrom";			\
+	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/make_image_root.sh 	\
+		-i $$imagesfrom								\
+		-p $(IMAGEDIR)/permissions						\
+		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)					\
+		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)					\
 		-o $(IMAGEDIR)/root.jffs2
 else
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/make_image_root.sh	\
-		-r $(ROOTDIR)							\
-		-p $(IMAGEDIR)/permissions					\
-		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)				\
-		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)				\
+		-r $(ROOTDIR)								\
+		-p $(IMAGEDIR)/permissions						\
+		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)					\
+		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)					\
 		-o $(IMAGEDIR)/root.jffs2
 endif
 endif
@@ -607,7 +621,7 @@ cuckoo-test: world
 	@scripts/cuckoo-test $(PTXCONF_ARCH) $(ROOTDIR) $(PTXCONF_COMPILER_PREFIX)
 
 ipkg-test: world
-	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl  scripts/ipkg-test
+	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl $(PTXDIST_TOPDIR)/scripts/ipkg-test
 
 # ----------------------------------------------------------------------------
 
