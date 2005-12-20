@@ -35,4 +35,13 @@ config PROJECT
 	  To find out which projects are available in the current tree, 
 	  type "make configs". 
 
+config PROJECT_VERSION
+	string
+	prompt "Project Version   "
+	default "$(PTXCONF_PROJECT)-1"
+	help
+	  The Project Version can be used to differentiate between
+	  several sub versions which belong ontop of one PTXdist
+	  version. 
+
 source "rules/Kconfig"
