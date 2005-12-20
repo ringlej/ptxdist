@@ -211,6 +211,24 @@ menuconfig ROOTFS_GENERIC_INITTAB
 		default "115200"
 		prompt "getty baudrate"
 
+config ROOTFS_GENERIC_IPKG_CONF
+	depends on ROOTFS
+	depends on IMAGE_IPKG
+	bool
+	default N
+	prompt "/etc/ipkg.conf              "
+	help
+	  Installs a generic /etc/ipkg.conf file.
+
+config ROOTFS_GENERIC_IPKG_CONF_URL
+	depends on ROOTFS_GENERIC_IPKG_CONF
+	string
+	prompt "IPKG Update Site URL"
+	default "http://some/path"
+	help
+	  This path is put into the /etc/ipkg.conf file and specifies 
+	  where to find an IPKG packet feed. 
+
 config ROOTFS_GENERIC_NSSWITCH
 	depends on ROOTFS
 	bool
