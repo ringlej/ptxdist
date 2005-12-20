@@ -192,6 +192,17 @@ ifdef PTXCONF_ROOTFS_GENERIC_INITTAB
 		perl -i -p -e "s,\@SPEED@,$$x,g" $(IMAGEDIR)/ipkg/etc/inittab; \
 	fi
 endif
+ifdef PTXCONF_ROOTFS_GENERIC_IPKG_CONF
+	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
+	x="$(call remove_quotes,$(PTXCONF_ROOTFS_GENERIC_IPKG_CONF_URL))"; \
+	echo $$x; \
+	perl -i -p -e "s,\@SRC@,src $$x,g" $(ROOTDIR)/etc/ipkg.conf; \
+	perl -i -p -e "s,\@SRC@,src $$x,g" $(IMAGEDIR)/ipkg/etc/ipkg.conf; \
+	x="$(call remove_quotes,$(PTXCONF_ARCH))"; \
+	echo $$x; \
+	perl -i -p -e "s,\@ARCH@,$$x,g" $(ROOTDIR)/etc/ipkg.conf; \
+	perl -i -p -e "s,\@ARCH@,$$x,g" $(IMAGEDIR)/ipkg/etc/ipkg.conf;
+endif
 ifdef PTXCONF_ROOTFS_GENERIC_NSSWITCH
 	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/nsswitch.conf,/etc/nsswitch.conf, n)
 endif
