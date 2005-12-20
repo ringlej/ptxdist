@@ -37,18 +37,18 @@ OUTFILE=
 while [ $# -gt 0 ]; do
 	case "$1" in 
 		--help) usage ;;
-		-r) ROOTDIR=`abspath $2`;     shift 2 ;;
-		-i) IPKGDIR=`abspath $2`;     shift 2 ;;
-		-p) PERMISSIONS=`abspath $2`; shift 2 ;;
+		-r) ROOTDIR=`ptxd_abspath $2`;     shift 2 ;;
+		-i) IPKGDIR=`ptxd_abspath $2`;     shift 2 ;;
+		-p) PERMISSIONS=`ptxd_abspath $2`; shift 2 ;;
 		-e) ERASEBLOCKSIZE=$2;        shift 2 ;;
 		-j) JFFS2EXTRA=$2;            shift 2 ;;
-		-o) OUTFILE=`abspath $2`;     shift 2 ;;
+		-o) OUTFILE=`ptxd_abspath $2`;     shift 2 ;;
 		*)  usage "unknown option" ;;
   	esac
 done
 
 IPKGCONF=`dirname $0`/../projects/generic/etc/ipkg.conf
-IPKGCONF=`abspath $IPKGCONF`
+IPKGCONF=`ptxd_abspath $IPKGCONF`
 
 #
 # Sanity checks

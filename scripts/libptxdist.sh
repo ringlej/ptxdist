@@ -11,7 +11,7 @@ DOPERMISSIONS='{ if ($1 == "f") printf("chmod %s .%s; chown %s.%s .%s;\n", $5, $
 #
 ptxd_abspath() {
 	if [ "$#" != "1" ]; then
-		echo "usage: abspath <path>"
+		echo "usage: ptxd_abspath <path>"
 		exit 1
 	fi
 	DN=`dirname $1`
