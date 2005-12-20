@@ -2,7 +2,10 @@
 #
 # usage: IMAGES=/image/dir ROOT=/root/dir IPKG=/path/to/ipkg-cl ipkg-test 
 
-PTXDIST_TOPDIR=`pwd`
+if [ -z "$PTXDIST_TOPDIR" ] ; then                                                                                                      
+	PTXDIST_TOPDIR=`pwd`                                                                                                             
+fi                                                                                                                                      
+
 DIR=`mktemp -d /tmp/ptxdist.XXXXXX`
 
 if [ -z "$IMAGES/*.ipk" ]; then
