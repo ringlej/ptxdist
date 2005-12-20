@@ -22,7 +22,7 @@ fi
 
 for archive in $IMAGES/*.ipk; do
 	$IPKG							\
-		-f $PTXDIST_TOPDIR/projects/generic/etc/ipkg.conf	\
+		-f $ROOT/etc/ipkg.conf				\
 		-force-depends 					\
 		-o $DIR						\
 		install $archive 1> /dev/null

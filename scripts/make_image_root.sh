@@ -47,9 +47,6 @@ while [ $# -gt 0 ]; do
   	esac
 done
 
-IPKGCONF=`dirname $0`/../projects/generic/etc/ipkg.conf
-IPKGCONF=`ptxd_abspath $IPKGCONF`
-
 #
 # Sanity checks
 #
@@ -62,7 +59,6 @@ IPKGCONF=`ptxd_abspath $IPKGCONF`
 [ -n "$IPKGDIR" ] && \
 [ ! -x "`which ipkg-cl`" ]             && usage "error: you need ipkg-cl in your path"
 [ -z "$OUTFILE" ]                      && usage "error: specify an output file with -o"
-[ ! -f "$IPKGCONF" ]                   && usage "error: $IPKGCONF does not exist"
 
 echo
 
@@ -94,7 +90,7 @@ cd $WORKDIR
 
 if [ -n "$IPKGDIR" ]; then
 	for archive in $IPKGDIR/*.ipk; do
-		ipkg-cl -f $IPKGCONF -force-depends -o . install $archive 1> /dev/null
+		ipkg-cl -f `ptxd_abspath $ROOTDIR/etc/ipkg.conf` -force-depends -o . install $archive 1> /dev/null
 	done
 fi
 
