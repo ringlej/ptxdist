@@ -13,9 +13,11 @@ IPKG_DIR=`dirname $IPKG`
 NEW_REV_PART=$2
 NEW_PKG_PART=$3
 
+PREFIX=`basename $0`
+
 usage() {
         echo 
-        [ -n "$1" ] && echo -e "error: $1\n"
+        [ -n "$1" ] && echo -e "${PREFIX} error: $1\n"
         echo "usage: $0 <some.ipk> [upstream revision] [packet revision]"
 	echo
 	echo "upstream revision: '-': no change"
@@ -27,7 +29,7 @@ usage() {
 #
 # Sanity checks
 #
-[ -z "$IPKG" ]        && usage "error: specify ipkg packet dir as first argument"
+[ -z "$IPKG" ]        && usage "${PREFIX} error: specify ipkg packet dir as first argument"
 
 if [ ! -f "$IPKG" ]; then
 	echo -e "\nError: couldn't find $IPKG\n"
@@ -95,7 +97,8 @@ fi
 #
 
 if [ -e "${IPKG_DIR}/${PACKAGE}_${NEW_REV_PART}${NEW_PKG_PART}_${ARCH}.ipk" ]; then
-	echo "error: ${IPKG_DIR}/${PACKAGE}_${NEW_REV_PART}${NEW_PKG_PART}_${ARCH}.ipk already exists"
+	echo "${PREFIX} error: ${IPKG_DIR}/${PACKAGE}_${NEW_REV_PART}${NEW_PKG_PART}_${ARCH}.ipk already exists" >&2
+	echo ${IPKG_DIR}/${PACKAGE}_${NEW_REV_PART}${NEW_PKG_PART}_${ARCH}.ipk
 	rm -fr ${TMPDIR}
 	exit 1
 fi
@@ -120,9 +123,7 @@ ar r ${IPKG_DIR}/${PACKAGE}_${NEW_REV_PART}${NEW_PKG_PART}_${ARCH}.ipk `find .  
 
 popd 2>&1 > /dev/null
 
-echo "REVISION=$REVISION"
-echo "REV_PART=$REV_PART"
-echo "PKG_PART=$PKG_PART"
+echo ${PACKAGE}_${NEW_REV_PART}${NEW_PKG_PART}_${ARCH}.ipk
 
 rm -fr ${TMPDIR}
 
