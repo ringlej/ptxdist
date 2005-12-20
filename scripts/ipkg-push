@@ -17,9 +17,11 @@
 
 . `dirname $0`/libptxdist.sh
 
+PREFIX=`basename $0`
+
 usage() {
 	echo 
-	[ -n "$1" ] && echo -e "error: $1\n"
+	[ -n "$1" ] && echo -e "${PREFIX} error: $1\n"
 	echo "usage: $0 <args>"
 	echo
 	echo " Arguments:"
@@ -28,6 +30,7 @@ usage() {
 	echo "  --repodir  <repositorydir> path to ipkg packet repository to be updated"
 	echo "  --revision <revision>      dist revision name to be updated"
 	echo "  --project  <projectname>   project name"
+	echo "  --dist     <distname>      use this to make a dist release (optional)"
 	echo
 	exit 0
 }
@@ -36,6 +39,7 @@ IPKGDIR=
 REPODIR=
 DISTREVISION=
 PROJECT=
+DIST=
 
 
 #
@@ -48,6 +52,7 @@ while [ $# -gt 0 ]; do
 		--repodir)  REPODIR=`ptxd_abspath $2`;      shift 2 ;;
 		--revision) DISTREVISION=`ptxd_abspath $2`; shift 2 ;;
 		--project)  PROJECT=$2;	                    shift 2 ;;
+		--dist)     DIST=$2;                        shift 2 ;;
 		*)  usage "unknown option $1" ;;
   	esac
 done
@@ -55,12 +60,12 @@ done
 #
 # Sanity checks
 #
-[ -z "$IPKGDIR" ] 	&& usage "error: specify ipkg packet dir with --ipkgdir"
-[ -z "$REPODIR" ] 	&& usage "error: specify repository dir with --repodir"
-[ -z "$DISTREVISION" ]	&& usage "error: specify dist revision with --revision"
-[ -d "$IPKGDIR" ]	|| usage "error: ipkg directory does not exist"
-[ -d "$REPODIR" ]	|| usage "error: repository dir does not exist"
-[ -z "$PROJECT" ]       && usage "error: specify a project name with --project"
+[ -z "$IPKGDIR" ] 	&& usage "${PREFIX} error: specify ipkg packet dir with --ipkgdir"
+[ -z "$REPODIR" ] 	&& usage "${PREFIX} error: specify repository dir with --repodir"
+[ -z "$DISTREVISION" ]	&& usage "${PREFIX} error: specify dist revision with --revision"
+[ -d "$IPKGDIR" ]	|| usage "${PREFIX} error: ipkg directory does not exist"
+[ -d "$REPODIR" ]	|| usage "${PREFIX} error: repository dir does not exist"
+[ -z "$PROJECT" ]       && usage "${PREFIX} error: specify a project name with --project"
 
 if [ "`find $IPKGDIR -name "*.ipk"`" = "" ]; then
 	echo "no ipkg packets found in --ipkgdir $IPKGDIR"
@@ -76,6 +81,20 @@ if [ ! -d "$POOL" ]; then
 	mkdir -p $POOL
 	[ "$?" = "0" ] || bailout "couldn't create pool directory $POOL" 
 fi
+
+if [ -n "$DIST" ]; then
+
+	if [ -d "$REPODIR/$PROJECT/dists/$DIST" ]; then
+		echo "${PREFIX} error: $REPODIR/$PROJECT/dists/$DIST already exists!"
+		echo "${PREFIX} error: please remove this directory first if this is intended"
+		exit 1
+	fi
+
+	echo "checking dist dir..: $REPODIR/$PROJECT/dists/$DIST"
+	mkdir -p $REPODIR/$PROJECT/dists/$DIST
+fi
+	
+echo "dist directory.....: $DIST"
 
 #
 # For all ipkg packets we have built: check if already in pool
@@ -98,7 +117,12 @@ for packet in $IPKG_PACKETS; do
 	if [ "$PACKETS_IN_POOL" = "" ]; then 
 
 		# this packet wasn't there before, re-revision to -1
-		$SCRIPTDIR/ipkg-revision $POOL/$packet - 1
+		newpacket=`$SCRIPTDIR/ipkg-revision $POOL/$packet - 1`
+		if [ -n "$DIST" ]; then 
+			echo "  linking.source...: ../../pool/$newpacket"
+			echo "  linking.to.......: $REPODIR/$PROJECT/dists/$DIST/$newpacket"
+			ln -sf ../../pool/$newpacket $REPODIR/$PROJECT/dists/$DIST/$newpacket
+		fi
 
 	else
 
@@ -122,13 +146,24 @@ for packet in $IPKG_PACKETS; do
 		if [ "$?" = "0" ]; then 
 			echo "                     equal, new packet droped"
 			rm -f $POOL/$packet
+			if [ -n "$DIST" ]; then 
+				echo "  linking.source...: ../../pool/$latest_pkg"
+				echo "  linking.to.......: $REPODIR/$PROJECT/dists/$DIST/$latest_pkg"
+				ln -sf ../../pool/$latest_pkg $REPODIR/$PROJECT/dists/$DIST/$latest_pkg
+			fi
 			continue
 		fi
 
 		packet_split=`ptxd_ipkg_split $latest_pkg`
 		IPKG_REV_PACKET=`ptxd_ipkg_rev_packet $packet_split`
 
-		$SCRIPTDIR/ipkg-revision $POOL/$packet - $(($IPKG_REV_PACKET+1))
+		newpacket=`$SCRIPTDIR/ipkg-revision $POOL/$packet - $(($IPKG_REV_PACKET+1))`
+		echo "RSC2: newpacket=$newpacket"
+		if [ -n "$DIST" ]; then 
+			echo "  linking.source...: ../../pool/$newpacket"
+			echo "  linking.to.......: $REPODIR/$PROJECT/dists/$DIST/$newpacket"
+			ln -sf ../../pool/$newpacket $REPODIR/$PROJECT/dists/$DIST/$newpacket
+		fi
 
 	fi
 
