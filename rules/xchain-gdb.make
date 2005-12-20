@@ -88,7 +88,7 @@ xchain-gdb_install: $(STATEDIR)/xchain-gdb.install
 
 $(STATEDIR)/xchain-gdb.install: $(STATEDIR)/xchain-gdb.compile
 	@$(call targetinfo, $@)
-	@$(call install, XCHAIN_GDB)
+	@$(call install, XCHAIN_GDB, $(XCHAIN_GDB_BUILDDIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
