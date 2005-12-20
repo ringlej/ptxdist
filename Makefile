@@ -356,11 +356,12 @@ images: $(STATEDIR)/images
 
 ipkg-push: 
 	@$(call targetinfo, $@)
-	@$(PTXDIST_TOPDIR)/scripts/ipkg-push \
-		--ipkgdir  $(IMAGEDIR) \
+	$(PTXDIST_TOPDIR)/scripts/ipkg-push \
+		--ipkgdir  $(call remove_quotes,$(IMAGEDIR)) \
 		--repodir  $(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)) \
-		--revision $(FULLVERSION) \
-		--project  $(PTXCONF_PROJECT)
+		--revision $(call remove_quotes,$(FULLVERSION)) \
+		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
+		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION))
 	@echo
 
 $(STATEDIR)/images: world
