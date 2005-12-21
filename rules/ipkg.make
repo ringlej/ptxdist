@@ -17,9 +17,7 @@ PACKAGES-$(PTXCONF_IPKG) += ipkg
 #
 # Paths and names
 #
-# FIXME: for problems with versions > 0.99.135 see hosttool-ipkg.make
-#
-IPKG_VERSION		= 0.99.135
+IPKG_VERSION		= 0.99.154
 IPKG			= ipkg-$(IPKG_VERSION)
 IPKG_SUFFIX		= tar.gz
 IPKG_URL		= http://www.handhelds.org/download/packages/ipkg/$(IPKG).$(IPKG_SUFFIX)
