@@ -731,6 +731,7 @@ clean: projectclean
 	else								\
 		make -s -C $(PTXDIST_WORKSPACE)/scripts/kconfig clean;	\
 		rm -f $(PTXDIST_WORKSPACE)/scripts/lxdialog/lxdialog;	\
+		rm -f $(PTXDIST_WORKSPACE)/scripts/lxdialog/Makefile;	\
 	fi
 	@echo "done."
 	@echo
