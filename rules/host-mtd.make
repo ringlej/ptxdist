@@ -88,7 +88,7 @@ ifdef PTXCONF_HOSTTOOL_MTD_MKJFFS2
 	cd $(HOSTTOOL_MTD_DIR)/util && make mkfs.jffs2 $(HOSTTOOL_MTD_MAKEVARS)
 endif
 ifdef PTXCONF_HOSTTOOL_MTD_JFFS_DUMP
-	cd $(HOSTTOOL_MTD_DIR)/util && make jffs_dump $(HOSTTOOL_MTD_MAKEVARS)
+	cd $(HOSTTOOL_MTD_DIR)/util && make jffs-dump $(HOSTTOOL_MTD_MAKEVARS)
 endif
 ifdef PTXCONF_HOSTTOOL_MTD_JFFS2_DUMP
 	cd $(HOSTTOOL_MTD_DIR)/util && make jffs2dump $(HOSTTOOL_MTD_MAKEVARS)
@@ -112,7 +112,7 @@ ifdef PTXCONF_HOSTTOOL_MTD_MKJFFS2
 	install $(HOSTTOOL_MTD_DIR)/util/mkfs.jffs2 $(PTXCONF_PREFIX)/bin
 endif
 ifdef PTXCONF_HOSTTOOL_MTD_JFFS_DUMP
-	install $(HOSTTOOL_MTD_DIR)/util/jffs_dump $(PTXCONF_PREFIX)/bin
+	install $(HOSTTOOL_MTD_DIR)/util/jffs-dump $(PTXCONF_PREFIX)/bin
 endif
 ifdef PTXCONF_HOSTTOOL_MTD_JFFS2_DUMP
 	install $(HOSTTOOL_MTD_DIR)/util/jffs2dump $(PTXCONF_PREFIX)/bin
