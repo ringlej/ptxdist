@@ -67,12 +67,11 @@ fbtest_prepare: $(STATEDIR)/fbtest.prepare
 #
 fbtest_prepare_deps = \
 	$(STATEDIR)/fbtest.extract \
+	$(STATEDIR)/libnetpbm.install \
 	$(STATEDIR)/virtual-xchain.install
 
 FBTEST_PATH	=  PATH=$(CROSS_PATH)
 FBTEST_ENV 	=  $(CROSS_ENV)
-#FBTEST_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#FBTEST_ENV	+=
 
 $(STATEDIR)/fbtest.prepare: $(fbtest_prepare_deps)
 	@$(call touch, $@)
@@ -109,7 +108,9 @@ $(STATEDIR)/fbtest.install: $(STATEDIR)/fbtest.compile
 
 fbtest_targetinstall: $(STATEDIR)/fbtest.targetinstall
 
-fbtest_targetinstall_deps = $(STATEDIR)/fbtest.compile
+fbtest_targetinstall_deps = \
+	$(STATEDIR)/fbtest.compile \
+	$(STATEDIR)/libnetpbm.targetinstall
 
 $(STATEDIR)/fbtest.targetinstall: $(fbtest_targetinstall_deps)
 	@$(call targetinfo, $@)
