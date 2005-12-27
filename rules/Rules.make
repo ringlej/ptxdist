@@ -96,7 +96,7 @@ endif
 #
 # prepare the search path
 #
-CROSS_PATH := $(call remove_quotes,$(DISTCC_PATH_COLON)$(PTXCONF_CROSS_PREFIX))/bin:$$PATH
+CROSS_PATH := $(call remove_quotes,$(DISTCC_PATH_COLON)$(PTXCONF_PREFIX)/bin:$(DISTCC_PATH_COLON)$(PTXCONF_PREFIX)/usr/bin:$$PATH)
 HOST_PATH := $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:$$PATH
 
 #
