@@ -71,8 +71,6 @@ fbutils_prepare_deps = \
 
 FBUTILS_PATH	=  PATH=$(CROSS_PATH)
 FBUTILS_ENV 	=  $(CROSS_ENV)
-#FBUTILS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#FBUTILS_ENV	+=
 
 $(STATEDIR)/fbutils.prepare: $(fbutils_prepare_deps)
 	@$(call targetinfo, $@)
@@ -88,7 +86,7 @@ fbutils_compile_deps = $(STATEDIR)/fbutils.prepare
 
 $(STATEDIR)/fbutils.compile: $(fbutils_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(FBUTILS_DIR) && $(FBUTILS_ENV) $(FBUTILS_PATH) make $(CROSS_ENV)
+	cd $(FBUTILS_DIR) && $(FBUTILS_ENV) $(FBUTILS_PATH) make $(FBUTILS_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
