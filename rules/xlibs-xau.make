@@ -78,8 +78,7 @@ XLIBS-XAU_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 XLIBS-XAU_AUTOCONF = \
 	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+	--host=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/xlibs-xau.prepare: $(xlibs-xau_prepare_deps)
 	@$(call targetinfo, $@)

@@ -82,8 +82,7 @@ NMAP_ENV = \
 #
 # autoconf
 #
-NMAP_AUTOCONF =  $(CROSS_AUTOCONF)
-NMAP_AUTOCONF += --prefix=/usr
+NMAP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 NMAP_AUTOCONF += --with-pcap=linux 
 #
 # FIXME:

@@ -77,7 +77,6 @@ HOSTTOOL_E2TOOLS_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 HOSTTOOL_E2TOOLS_AUTOCONF = \
-	--prefix=$(PTXCONF_PREFIX) \
 	--build=$(GNU_HOST)
 	--host=$(GNU_HOST)
 	--target=$(GNU_HOST)

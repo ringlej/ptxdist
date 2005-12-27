@@ -75,11 +75,7 @@ HOSTTOOL_MODUTILS_ENV 	=  CC=$(HOSTCC)
 #
 # autoconf
 #
-HOSTTOOL_MODUTILS_AUTOCONF = \
-	--prefix=$(PTXCONF_PREFIX) \
-	--build=$(GNU_HOST) \
-	--host=$(GNU_HOST) \
-	--target=$(PTXCONF_GNU_TARGET)
+HOSTTOOL_MODUTILS_AUTOCONF = $(HOST_AUTOCONF)
 
 $(STATEDIR)/hosttool-modutils.prepare: $(hosttool-modutils_prepare_deps)
 	@$(call targetinfo, $@)
@@ -111,7 +107,8 @@ hosttool-modutils_install: $(STATEDIR)/hosttool-modutils.install
 
 $(STATEDIR)/hosttool-modutils.install: $(STATEDIR)/hosttool-modutils.compile
 	@$(call targetinfo, $@)
-
+#	FIXME
+#	@$(call install, HOSTTOOL_MODUTILS,,h)
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	install -D -m755 $(HOSTTOOL_MODUTILS_DIR)/insmod/insmod \
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-insmod.old

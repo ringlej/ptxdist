@@ -100,10 +100,9 @@ endif
 # autoconf
 #
 GDB_AUTOCONF = \
-	$(CROSS_AUTOCONF) \
+	$(CROSS_AUTOCONF_USR) \
 	--target=$(call remove_quotes,$(PTXCONF_GNU_TARGET)) \
-	--enable-serial-configure \
-	--prefix=/usr
+	--enable-serial-configure
 
 $(STATEDIR)/gdb.prepare: $(gdb_prepare_deps)
 	@$(call targetinfo, $@)

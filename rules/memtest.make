@@ -75,8 +75,7 @@ MEMTEST_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-MEMTEST_AUTOCONF =  $(CROSS_AUTOCONF)
-MEMTEST_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+MEMTEST_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/memtest.prepare: $(memtest_prepare_deps)
 	@$(call targetinfo, $@)

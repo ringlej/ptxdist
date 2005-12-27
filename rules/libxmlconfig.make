@@ -72,13 +72,11 @@ libxmlconfig_prepare_deps += $(STATEDIR)/liblist.install
 
 LIBXMLCONFIG_PATH	=  PATH=$(CROSS_PATH)
 LIBXMLCONFIG_ENV 	=  $(CROSS_ENV)
-LIBXMLCONFIG_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
 #
-LIBXMLCONFIG_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBXMLCONFIG_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBXMLCONFIG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/libxmlconfig.prepare: $(libxmlconfig_prepare_deps)
 	@$(call targetinfo, $@)

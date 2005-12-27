@@ -76,8 +76,7 @@ LIBART_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-LIBART_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBART_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBART_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/libart.prepare: $(libart_prepare_deps)
 	@$(call targetinfo, $@)

@@ -59,8 +59,7 @@ $(STATEDIR)/proftpd.extract: $(STATEDIR)/proftpd.get
 
 proftpd_prepare: $(STATEDIR)/proftpd.prepare
 
-PROFTPD_AUTOCONF	=  $(CROSS_AUTOCONF)
-PROFTPD_AUTOCONF	+= --prefix=/usr
+PROFTPD_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 PROFTPD_AUTOCONF	+= --sysconfdir=/etc
 
 PROFTPD_PATH		=  PATH=$(CROSS_PATH)

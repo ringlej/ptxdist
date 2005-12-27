@@ -75,8 +75,7 @@ GAWK_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-GAWK_AUTOCONF =  $(CROSS_AUTOCONF)
-GAWK_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+GAWK_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/gawk.prepare: $(gawk_prepare_deps)
 	@$(call targetinfo, $@)

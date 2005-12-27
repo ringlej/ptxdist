@@ -75,8 +75,7 @@ MYGHTY_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-MYGHTY_AUTOCONF =  $(CROSS_AUTOCONF)
-MYGHTY_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+MYGHTY_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/myghty.prepare: $(myghty_prepare_deps)
 	@$(call targetinfo, $@)

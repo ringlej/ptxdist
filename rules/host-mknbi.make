@@ -66,7 +66,6 @@ hosttool-mknbi_prepare: $(STATEDIR)/hosttool-mknbi.prepare
 # dependencies
 #
 hosttool-mknbi_prepare_deps =  $(STATEDIR)/hosttool-mknbi.extract
-#hosttool-mknbi_prepare_deps += $(STATEDIR)/hosttool-zlib.install
 
 HOSTTOOL_MKNBI_MAKEVARS	= CC=$(HOSTCC)
 HOSTTOOL_MKNBI_ENV	= CFLAGS=-I$(PTXCONF_PREFIX)/include PREFIX=$(PTXCONF_PREFIX)/usr/local

@@ -76,8 +76,7 @@ NTP_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-NTP_AUTOCONF =  $(CROSS_AUTOCONF)
-NTP_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+NTP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 # NTP: options, we need lots of options ;-)
 

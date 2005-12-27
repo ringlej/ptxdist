@@ -62,8 +62,7 @@ gmp3_prepare_deps = \
 GMP3_PATH	= PATH=$(CROSS_PATH)
 GMP3_ENV	= $(CROSS_ENV)
 
-GMP3_AUTOCONF =  $(CROSS_AUTOCONF)
-GMP3_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+GMP3_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 GMP3_AUTOCONF += --enable-shared
 GMP3_AUTOCONF += --enable-static
 

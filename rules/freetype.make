@@ -80,8 +80,7 @@ FREETYPE_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 # autoconf
 #
-FREETYPE_AUTOCONF	=  $(CROSS_AUTOCONF)
-FREETYPE_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
+FREETYPE_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/freetype.prepare: $(freetype_prepare_deps)
 	@$(call targetinfo, $@)

@@ -75,8 +75,7 @@ BONNIEXX_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BONNIEXX_AUTOCONF =  $(CROSS_AUTOCONF)
-BONNIEXX_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+BONNIEXX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/bonniexx.prepare: $(bonniexx_prepare_deps)
 	@$(call targetinfo, $@)

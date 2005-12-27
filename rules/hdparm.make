@@ -76,8 +76,7 @@ HDPARM_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-HDPARM_AUTOCONF =  $(CROSS_AUTOCONF)
-HDPARM_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+HDPARM_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/hdparm.prepare: $(hdparm_prepare_deps)
 	@$(call targetinfo, $@)

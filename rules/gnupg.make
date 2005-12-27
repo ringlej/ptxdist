@@ -75,8 +75,7 @@ GNUPG_ENV 	= $(CROSS_ENV)
 #
 # autoconf
 #
-GNUPG_AUTOCONF = $(CROSS_AUTOCONF)
-GNUPG_AUTOCONF += --prefix=$(CROSS_LIB_DIR) \
+GNUPG_AUTOCONF = $(CROSS_AUTOCONF_USR) \
 	--disable-card-support \
 	--disable-gnupg-iconv \
 	--disable-exec \

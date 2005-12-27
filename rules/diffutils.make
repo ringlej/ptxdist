@@ -75,8 +75,7 @@ DIFFUTILS_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-DIFFUTILS_AUTOCONF =  $(CROSS_AUTOCONF)
-DIFFUTILS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+DIFFUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/diffutils.prepare: $(diffutils_prepare_deps)
 	@$(call targetinfo, $@)

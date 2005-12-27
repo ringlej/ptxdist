@@ -81,8 +81,7 @@ TERMCAP_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-TERMCAP_AUTOCONF =  $(CROSS_AUTOCONF)
-TERMCAP_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+TERMCAP_AUTOCONF =  $(CROSS_AUTOCONF_BROKEN_USR)
 
 $(STATEDIR)/termcap.prepare: $(termcap_prepare_deps)
 	@$(call targetinfo, $@)

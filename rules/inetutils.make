@@ -75,8 +75,8 @@ INETUTILS_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-INETUTILS_AUTOCONF =  $(CROSS_AUTOCONF)
-INETUTILS_AUTOCONF += --prefix=/usr \
+INETUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+INETUTILS_AUTOCONF += \
 	--with-PATH-CP=/bin/cp \
 	--localstatedir=/var \
 	--sysconfdir=/etc

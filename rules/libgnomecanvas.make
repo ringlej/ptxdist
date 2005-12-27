@@ -77,8 +77,7 @@ LIBGNOMECANVAS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 # autoconf
 #
-LIBGNOMECANVAS_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBGNOMECANVAS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBGNOMECANVAS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/libgnomecanvas.prepare: $(libgnomecanvas_prepare_deps)
 	@$(call targetinfo, $@)

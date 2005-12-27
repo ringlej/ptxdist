@@ -78,8 +78,7 @@ PROCPS_MAKEVARS += LDFLAGS=-L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 #
 # autoconf
 #
-PROCPS_AUTOCONF =  $(CROSS_AUTOCONF)
-PROCPS_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
+PROCPS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/procps.prepare: $(procps_prepare_deps)
 	@$(call targetinfo, $@)

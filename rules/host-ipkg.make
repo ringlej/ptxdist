@@ -72,10 +72,7 @@ HOSTTOOL_IPKG_ENV 	=  $(HOSTCC_ENV)
 #
 # autoconf
 #
-HOSTTOOL_IPKG_AUTOCONF =  --prefix=$(PTXCONF_PREFIX)
-HOSTTOOL_IPKG_AUTOCONF += --build=$(GNU_HOST)
-HOSTTOOL_IPKG_AUTOCONF += --host=$(GNU_HOST)
-HOSTTOOL_IPKG_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
+HOSTTOOL_IPKG_AUTOCONF  = $(HOST_AUTOCONF)
 
 $(STATEDIR)/hosttool-ipkg.prepare: $(hosttool-ipkg_prepare_deps)
 	@$(call targetinfo, $@)
@@ -106,7 +103,7 @@ hosttool-ipkg_install: $(STATEDIR)/hosttool-ipkg.install
 
 $(STATEDIR)/hosttool-ipkg.install: $(STATEDIR)/hosttool-ipkg.compile
 	@$(call targetinfo, $@)
-	@$(call install, HOSTTOOL_IPKG)
+	@$(call install, HOSTTOOL_IPKG,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

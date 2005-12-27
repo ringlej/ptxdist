@@ -83,9 +83,8 @@ LSH_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-LSH_AUTOCONF =  $(CROSS_AUTOCONF)
+LSH_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 LSH_AUTOCONF = \
-	--prefix=/usr \
 	--sysconfdir=/etc/lsh \
 	--disable-kerberos \
 	--disable-pam \

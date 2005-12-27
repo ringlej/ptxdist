@@ -77,8 +77,7 @@ NANO_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-NANO_AUTOCONF =  $(CROSS_AUTOCONF)
-NANO_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+NANO_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/nano.prepare: $(nano_prepare_deps)
 	@$(call targetinfo, $@)

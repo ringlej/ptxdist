@@ -77,8 +77,7 @@ IPKG_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-IPKG_AUTOCONF =  $(CROSS_AUTOCONF)
-IPKG_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+IPKG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/ipkg.prepare: $(ipkg_prepare_deps)
 	@$(call targetinfo, $@)

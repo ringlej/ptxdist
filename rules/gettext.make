@@ -80,8 +80,7 @@ GETTEXT_ENV 	=  $(CROSS_ENV) \
 # autoconf
 #
 
-GETTEXT_AUTOCONF =  $(CROSS_AUTOCONF)
-GETTEXT_AUTOCONF +=  --prefix=/usr
+GETTEXT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 # This is braindead but correct :-) No, it isn't!
 # GETTEXT_AUTOCONF	+= --disable-nls

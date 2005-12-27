@@ -71,9 +71,8 @@ MODULE_INIT_TOOLS_PATH		= PATH=$(CROSS_PATH)
 MODULE_INIT_TOOLS_ENV		= $(CROSS_ENV)
 MODULE_INIT_TOOLS_MAKEVARS	= MAN5=''
 MODULE_INIT_TOOLS_AUTOCONF	= \
-	--prefix=/usr \
 	--target=$(PTXCONF_GNU_TARGET) \
-	$(CROSS_AUTOCONF)
+	$(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/module-init-tools.prepare: $(module-init-tools_prepare_deps)
 	@$(call targetinfo, $@)

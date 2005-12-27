@@ -81,7 +81,6 @@ XLIBS-FIXESEXT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 XLIBS-FIXESEXT_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/xlibs-fixesext.prepare: $(xlibs-fixesext_prepare_deps)
 	@$(call targetinfo, $@)

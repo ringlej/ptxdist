@@ -78,8 +78,7 @@ ATK_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 # autoconf
 #
-ATK_AUTOCONF	= $(CROSS_AUTOCONF)
-ATK_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
+ATK_AUTOCONF	= $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/atk.prepare: $(atk_prepare_deps)
 	@$(call targetinfo, $@)

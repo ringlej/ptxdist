@@ -76,8 +76,7 @@ NETKIT-FTP_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-#NETKIT-FTP_AUTOCONF =  $(CROSS_AUTOCONF)
-NETKIT-FTP_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+NETKIT-FTP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/netkit-ftp.prepare: $(netkit-ftp_prepare_deps)
 	@$(call targetinfo, $@)

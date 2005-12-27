@@ -66,7 +66,7 @@ nfsutils_prepare: $(STATEDIR)/nfsutils.prepare
 NFSUTILS_PATH		=  PATH=$(CROSS_PATH)
 NFSUTILS_ENV		+= CC_FOR_BUILD=$(HOSTCC) $(CROSS_ENV)
 
-NFSUTILS_AUTOCONF	=  $(CROSS_AUTOCONF)
+NFSUTILS_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 
 # FIXME: these are not probed correctly when cross compiling...
 NFSUTILS_AUTOCONF	+= ac_cv_func_malloc_0_nonnull=yes

@@ -56,7 +56,7 @@ $(STATEDIR)/coreutils.extract: $(STATEDIR)/coreutils.get
 
 coreutils_prepare: $(STATEDIR)/coreutils.prepare
 
-COREUTILS_AUTOCONF	=  $(CROSS_AUTOCONF)
+COREUTILS_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 COREUTILS_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 COREUTILS_AUTOCONF	+= --disable-nls
 

@@ -84,9 +84,7 @@ GLIB22_ENV	+= glib_cv_stack_grows=no
 #
 # autoconf
 #
-GLIB22_AUTOCONF =  $(CROSS_AUTOCONF)
-GLIB22_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
-
+GLIB22_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 GLIB22_AUTOCONF	+= --with-threads=posix
 
 $(STATEDIR)/glib22.prepare: $(glib22_prepare_deps)

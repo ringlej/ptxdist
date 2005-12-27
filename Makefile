@@ -295,7 +295,7 @@ endif
 endif
 	@if dot -V 2> /dev/null; then \
 		echo "creating dependency graph..."; \
-		sort $(DEP_OUTPUT) | uniq | scripts/makedeptree | $(DOT) -Tps > $(DEP_TREE_PS); \
+		sort $(DEP_OUTPUT) | uniq | $(PTXDIST_TOPDIR)/scripts/makedeptree | $(DOT) -Tps > $(DEP_TREE_PS); \
 		if [ -x "`which poster`" ]; then \
 			echo "creating A4 version..."; \
 			poster -v -c0\% -mA4 -o$(DEP_TREE_A4_PS) $(DEP_TREE_PS); \

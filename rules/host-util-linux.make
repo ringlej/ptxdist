@@ -13,10 +13,9 @@
 # Paths and names
 #
 
-# FIXME: RSC: check if this is correct
 HOSTPACKAGES-$(HOSTTOOL_UTIL-LINUX) += hosttool-util-linux
 
-HOSTTOOL_UTIL-LINUX_DIR	= $(BUILDDIR)/hosttool/$(UTIL-LINUX)
+HOSTTOOL_UTIL-LINUX_DIR	= $(HOST_BUILDDIR)/$(UTIL-LINUX)
 
 # ----------------------------------------------------------------------------
 # Hosttool Extract
@@ -29,8 +28,8 @@ hosttool-util-linux_extract_deps =  $(STATEDIR)/util-linux.get
 $(STATEDIR)/hosttool-util-linux.extract: $(hosttool-util-linux_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTIL-LINUX_DIR))
-	@$(call extract, $(UTIL-LINUX_SOURCE), $(BUILDDIR)/hosttool)
-	@$(call patchin, $(UTIL-LINUX))
+	@$(call extract, $(UTIL-LINUX_SOURCE), $(HOST_BUILDDIR))
+	@$(call patchin, $(UTIL-LINUX),$(HOSTTOOL_UTIL-LINUX_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -81,6 +80,8 @@ hosttool-util-linux_install: $(STATEDIR)/hosttool-util-linux.install
 
 $(STATEDIR)/hosttool-util-linux.install: $(STATEDIR)/hosttool-util-linux.compile
 	@$(call targetinfo, $@)
+
+	# FIXME: packetize
 
 ifdef PTXCONF_UTLNX_SFDISK
 	install -D $(HOSTTOOL_UTIL-LINUX_DIR)/fdisk/sfdisk \

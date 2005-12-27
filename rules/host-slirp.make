@@ -68,15 +68,14 @@ host-slirp_prepare: $(STATEDIR)/host-slirp.prepare
 host-slirp_prepare_deps = \
 	$(STATEDIR)/host-slirp.extract
 
-HOST_SLIRP_PATH	=  PATH=$(HOST_PATH)
-HOST_SLIRP_ENV 	=  $(HOSTCC_ENV)
+HOST_SLIRP_PATH		=  PATH=$(HOST_PATH)
+HOST_SLIRP_ENV 		=  $(HOSTCC_ENV)
 
 #
 # autoconf
 #
-HOST_SLIRP_AUTOCONF =  --prefix=$(PTXCONF_PREFIX)
-HOST_SLIRP_AUTOCONF += --build=$(GNU_HOST)
-HOST_SLIRP_AUTOCONF += --host=$(GNU_HOST)
+HOST_SLIRP_AUTOCONF  = $(HOST_AUTOCONF)
+HOST_SLIRP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)/usr
 
 $(STATEDIR)/host-slirp.prepare: $(host-slirp_prepare_deps)
 	@$(call targetinfo, $@)
@@ -109,7 +108,9 @@ host-slirp_install_deps = $(STATEDIR)/host-slirp.compile
 
 $(STATEDIR)/host-slirp.install: $(host-slirp_install_deps)
 	@$(call targetinfo, $@)
-	@$(call install, HOST_SLIRP)
+	mkdir -p $(PTXCONF_PREFIX)/usr/bin
+	mkdir -p $(PTXCONF_PREFIX)/usr/man/man1
+	@$(call install, HOST_SLIRP, $(HOST_SLIRP_DIR)/src ,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

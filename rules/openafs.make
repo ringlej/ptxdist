@@ -77,8 +77,7 @@ OPENAFS_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-OPENAFS_AUTOCONF =  $(CROSS_AUTOCONF)
-OPENAFS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+OPENAFS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 OPENAFS_AUTOCONF += -enable-tansac-paths
 OPENAFS_AUTOCONF += --with-afs-sysname=$(OPENAFS_SYS)
 OPENAFS_AUTOCONF += --with-linux-kernel-headers=$(KERNEL_DIR)

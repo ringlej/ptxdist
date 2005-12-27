@@ -75,8 +75,7 @@ SETSERIAL_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-SETSERIAL_AUTOCONF =  $(CROSS_AUTOCONF)
-SETSERIAL_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+SETSERIAL_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/setserial.prepare: $(setserial_prepare_deps)
 	@$(call targetinfo, $@)

@@ -76,8 +76,7 @@ TREECC_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-TREECC_AUTOCONF =  $(CROSS_AUTOCONF)
-TREECC_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+TREECC_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/treecc.prepare: $(treecc_prepare_deps)
 	@$(call targetinfo, $@)

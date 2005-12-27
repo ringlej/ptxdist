@@ -68,10 +68,9 @@ zebra_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/zebra.extract
 
-ZEBRA_AUTOCONF =  $(CROSS_AUTOCONF)
+ZEBRA_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 ZEBRA_AUTOCONF += \
 	--with-cflags="$(TARGET_CFLAGS)" \
-	--prefix=/usr \
 	--exec-prefix=/usr \
 	--sysconfdir=/etc/zebra \
 	--localstatedir=/var

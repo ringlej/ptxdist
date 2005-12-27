@@ -67,11 +67,10 @@ HOST_TERMCAP_PATH	=  PATH=$(HOST_PATH)
 HOST_TERMCAP_ENV 	=  $(HOSTCC_ENV)
 
 #
-# autoconf
+# autoconf without automake :-(
 #
-HOST_TERMCAP_AUTOCONF =  --prefix=$(PTXCONF_PREFIX)
-HOST_TERMCAP_AUTOCONF += --build=$(GNU_HOST)
-HOST_TERMCAP_AUTOCONF += --host=$(GNU_HOST)
+HOST_TERMCAP_AUTOCONF =  $(HOST_AUTOCONF)
+HOST_TERMCAP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)/usr
 
 $(STATEDIR)/host-termcap.prepare: $(host-termcap_prepare_deps)
 	@$(call targetinfo, $@)
@@ -104,7 +103,7 @@ host-termcap_install_deps = $(STATEDIR)/host-termcap.compile
 
 $(STATEDIR)/host-termcap.install: $(host-termcap_install_deps)
 	@$(call targetinfo, $@)
-	@$(call install, HOST_TERMCAP)
+	@$(call install, HOST_TERMCAP,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

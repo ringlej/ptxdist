@@ -76,8 +76,7 @@ VALGRIND_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-VALGRIND_AUTOCONF =  $(CROSS_AUTOCONF)
-VALGRIND_AUTOCONF += --prefix=/
+VALGRIND_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 # If --enable-tls is not set, test for TLS fails in cross compiling 
 # environment

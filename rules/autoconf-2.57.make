@@ -59,6 +59,7 @@ AUTOCONF257_ENV = $(HOSTCC_ENV)
 
 $(STATEDIR)/autoconf257.prepare: $(STATEDIR)/autoconf257.extract
 	@$(call targetinfo, $@)
+	# FIXME FIXME FIXME
 	cd $(AUTOCONF257_DIR) && \
 		$(AUTOCONF257_ENV) \
 		./configure --prefix=$(PTXCONF_PREFIX)/$(AUTOCONF257)

@@ -75,8 +75,7 @@ SYSFSUTILS_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-SYSFSUTILS_AUTOCONF =  $(CROSS_AUTOCONF)
-SYSFSUTILS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+SYSFSUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/sysfsutils.prepare: $(sysfsutils_prepare_deps)
 	@$(call targetinfo, $@)

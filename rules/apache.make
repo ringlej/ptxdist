@@ -82,8 +82,6 @@ APACHE_ENV = \
 # FIXME: RSC: add more config options 
 #
 APACHE_AUTOCONF = \
-	--prefix=$(CROSS_LIB_DIR) \
-	--sysconfdir=/etc \
 	--disable-module=access \
 	--disable-module=asis \
 	--disable-module=autoindex \

@@ -78,8 +78,7 @@ LIBRN_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 LIBRN_AUTOCONF = \
-	$(CROSS_AUTOCONF) \
-	--prefix=$(CROSS_LIB_DIR) \
+	$(CROSS_AUTOCONF_USR) \
 	--disable-debug
 
 $(STATEDIR)/librn.prepare: $(librn_prepare_deps)

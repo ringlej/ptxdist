@@ -60,8 +60,8 @@ zlib_prepare_deps = \
 
 ZLIB_PATH	= PATH=$(CROSS_PATH)
 ZLIB_ENV	= $(subst CFLAGS,SGALFC,$(CROSS_ENV)) AR="$(CROSS_AR) rc"
-ZLIB_AUTOCONF 	= --shared --prefix=$(CROSS_LIB_DIR)
-
+ZLIB_AUTOCONF	= --shared --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+ 
 $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps)
 	@$(call targetinfo, $@)
 	cd $(ZLIB_DIR) && $(ZLIB_ENV) $(ZLIB_PATH) ./configure $(ZLIB_AUTOCONF)

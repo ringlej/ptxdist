@@ -125,8 +125,7 @@ OPENSSH_ENV	= \
 # autoconf
 #
 OPENSSH_AUTOCONF = \
-	$(CROSS_AUTOCONF) \
-	--prefix=/usr \
+	$(CROSS_AUTOCONF_USR) \
 	--libexecdir=/usr/sbin \
 	--libdir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
 	--with-ldflags=-L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \

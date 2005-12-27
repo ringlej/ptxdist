@@ -77,8 +77,7 @@ CYCLICTEST_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-#CYCLICTEST_AUTOCONF =  $(CROSS_AUTOCONF)
-#CYCLICTEST_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+#CYCLICTEST_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/cyclictest.prepare: $(cyclictest_prepare_deps)
 	@$(call targetinfo, $@)

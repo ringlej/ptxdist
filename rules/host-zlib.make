@@ -43,8 +43,12 @@ $(STATEDIR)/hosttool-zlib.extract: $(STATEDIR)/hosttool-zlib.get
 
 hosttool-zlib_prepare: $(STATEDIR)/hosttool-zlib.prepare
 
-HOSTTOOL_ZLIB_AUTOCONF	=  --shared
-HOSTTOOL_ZLIB_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)
+#
+# autoconf without automake :-(
+#
+
+HOSTTOOL_ZLIB_AUTOCONF	=  --prefix=$(PTXCONF_HOST_PREFIX)/usr
+HOSTTOOL_ZLIB_AUTOCOHF +=  --shared
 HOSTTOOL_ZLIB_MAKEVARS	=  $(HOSTCC_ENV)
 
 $(STATEDIR)/hosttool-zlib.prepare: $(STATEDIR)/hosttool-zlib.extract
@@ -72,7 +76,7 @@ hosttool-zlib_install: $(STATEDIR)/hosttool-zlib.install
 
 $(STATEDIR)/hosttool-zlib.install: $(STATEDIR)/hosttool-zlib.compile
 	@$(call targetinfo, $@)
-	@$(call install, HOSTTOOL_ZLIB, $(HOSTTOOL_ZLIB_BUILDDIR))
+	@$(call install, HOSTTOOL_ZLIB, $(HOSTTOOL_ZLIB_BUILDDIR),h)
 	@$(call touch, $@)
 # ----------------------------------------------------------------------------
 # Target-Install

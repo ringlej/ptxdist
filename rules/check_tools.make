@@ -1,5 +1,12 @@
 # -*-makefile-*-
-check_tools: check_dirs
+
+check_tools_deps =  check_dirs
+check_tools_deps += $(STATEDIR)/host-pkg-config-wrapper.install
+ifdef $(PTXCONF_IMAGE_IPKG)
+check_tools_deps += $(STATEDIR)/host-ipkg-utils.install
+endif
+
+check_tools: $(check_tools_deps)
 
 	@echo "running check_tools..."
 	
@@ -8,6 +15,7 @@ check_tools: check_dirs
 	$(call check_prog_exists, awk)
 	$(call check_prog_exists, perl)
 	$(call check_prog_exists, wget)
+	$(call check_prog_exists, pkg-config)
 	
 #	# check if some programs are installed in the right version
 	$(call check_prog_version, wget, -V, 1\\\\.(9|1.?)\\\\.|1\\\\.9\\\\+cvs)

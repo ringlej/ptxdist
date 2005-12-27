@@ -72,9 +72,8 @@ NCURSES_ENV 	= $(CROSS_ENV)
 # include directory...
 #
 
-NCURSES_AUTOCONF =  $(CROSS_AUTOCONF)
+NCURSES_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 NCURSES_AUTOCONF += \
-	--prefix=/usr \
 	--exec-prefix=/usr \
 	--sysconfdir=/etc \
 	--localstatedir=/var \

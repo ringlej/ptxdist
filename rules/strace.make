@@ -71,10 +71,9 @@ ifndef PTXCONF_STRACE_SHARED
 STRACE_ENV	=  LDFLAGS=-static
 endif
 
-STRACE_AUTOCONF =  $(CROSS_AUTOCONF)
+STRACE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 STRACE_AUTOCONF	+= \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--prefix=/usr \
 	--disable-sanity-checks
 
 $(STATEDIR)/strace.prepare: $(strace_prepare_deps)

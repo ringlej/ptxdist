@@ -75,8 +75,7 @@ CHRONY_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-CHRONY_AUTOCONF =  $(CROSS_AUTOCONF)
-CHRONY_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+CHRONY_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 CHRONY_AUTOCONF += --disable-readline
 
 $(STATEDIR)/chrony.prepare: $(chrony_prepare_deps)

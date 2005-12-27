@@ -68,16 +68,11 @@ hosttool-fakeroot_prepare_deps = \
 
 HOSTTOOL_FAKEROOT_PATH	=  PATH=$(CROSS_PATH)
 HOSTTOOL_FAKEROOT_ENV 	=  $(HOSTCC_ENV)
-#HOSTTOOL_FAKEROOT_ENV	+=
 
 #
 # autoconf
 #
-HOSTTOOL_FAKEROOT_AUTOCONF = \
-	--prefix=$(PTXCONF_PREFIX) \
-	--build=$(GNU_HOST)
-	--host=$(GNU_HOST)
-	--target=$(GNU_HOST)
+HOSTTOOL_FAKEROOT_AUTOCONF = $(HOST_AUTOCONF)
 
 $(STATEDIR)/hosttool-fakeroot.prepare: $(hosttool-fakeroot_prepare_deps)
 	@$(call targetinfo, $@)
@@ -108,7 +103,7 @@ hosttool-fakeroot_install: $(STATEDIR)/hosttool-fakeroot.install
 
 $(STATEDIR)/hosttool-fakeroot.install: $(STATEDIR)/hosttool-fakeroot.compile
 	@$(call targetinfo, $@)
-	@$(call install, HOSTTOOL_FAKEROOT)
+	@$(call install, HOSTTOOL_FAKEROOT,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

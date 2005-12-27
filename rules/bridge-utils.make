@@ -77,8 +77,7 @@ BRIDGE_UTILS_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BRIDGE_UTILS_AUTOCONF =  $(CROSS_AUTOCONF)
-BRIDGE_UTILS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+BRIDGE_UTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/bridge-utils.prepare: $(bridge-utils_prepare_deps)
 	@$(call targetinfo, $@)

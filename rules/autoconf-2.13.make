@@ -59,6 +59,7 @@ AUTOCONF213_ENV = $(HOSTCC_ENV)
 
 $(STATEDIR)/autoconf213.prepare: $(STATEDIR)/autoconf213.extract
 	@$(call targetinfo, $@)
+	# FIXME FIXME FIXME 
 	cd $(AUTOCONF213_DIR) && \
 		$(AUTOCONF213_ENV) \
 		./configure --prefix=$(PTXCONF_PREFIX)/$(AUTOCONF213)

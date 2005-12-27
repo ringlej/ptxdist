@@ -77,8 +77,7 @@ WGET_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-WGET_AUTOCONF =  $(CROSS_AUTOCONF)
-WGET_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+WGET_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 WGET_AUTOCONF += --without-socks
 WGET_AUTOCONF += --without-ssl
 

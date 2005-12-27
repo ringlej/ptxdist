@@ -77,9 +77,7 @@ GTK1210_ENV	+= ac_cv_have_x='have_x=yes ac_x_includes=$(PTXCONF_PREFIX)/$(PTXCON
 #
 # autoconf
 #
-GTK1210_AUTOCONF	=  $(CROSS_AUTOCONF)
-GTK1210_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-
+GTK1210_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 GTK1210_AUTOCONF	+= --with-threads=posix
 GTK1210_AUTOCONF 	+= --with-glib-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 GTK1210_AUTOCONF	+= --with-x

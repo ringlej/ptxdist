@@ -75,8 +75,7 @@ AT-SPI_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-AT-SPI_AUTOCONF =  $(CROSS_AUTOCONF)
-AT-SPI_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+AT-SPI_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/at-spi.prepare: $(at-spi_prepare_deps)
 	@$(call targetinfo, $@)

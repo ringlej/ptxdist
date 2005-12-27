@@ -443,7 +443,7 @@ KERNEL_MAKEVARS += $(PARALLELMFLAGS)
 ifdef PTXCONF_KERNEL_2_4
 KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod.old)
 else
-KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod)
+KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/depmod)
 endif
 KERNEL_MAKEVARS	+= ARCH=$(call remove_quotes,$(PTXCONF_ARCH))
 KERNEL_MAKEVARS += CROSS_COMPILE=$(COMPILER_PREFIX)
@@ -535,7 +535,7 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 ifndef PTXCONF_DONT_COMPILE_KERNEL
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
-	echo '$(PTXCONF_PREFIX)/bin/u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
+	echo '$(call remove_quotes,$(PTXCONF_PREFIX))/bin/u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	chmod +x $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make \

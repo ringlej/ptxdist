@@ -78,8 +78,7 @@ TCPDUMP_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-TCPDUMP_AUTOCONF =  $(CROSS_AUTOCONF)
-TCPDUMP_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+TCPDUMP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 # while cross compiling configure cannot determine kernel version
 TCPDUMP_AUTOCONF += ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR)

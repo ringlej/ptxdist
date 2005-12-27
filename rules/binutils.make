@@ -67,11 +67,10 @@ binutils_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/binutils.extract
 
-BINUTILS_AUTOCONF =  $(CROSS_AUTOCONF)
+BINUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 BINUTILS_AUTOCONF += \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--enable-targets=$(PTXCONF_GNU_TARGET) \
-	--prefix=/usr \
 	--disable-nls \
 	--enable-shared \
 	--enable-commonbfdlib \

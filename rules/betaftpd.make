@@ -76,8 +76,7 @@ BETAFTPD_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BETAFTPD_AUTOCONF =  $(CROSS_AUTOCONF)
-BETAFTPD_AUTOCONF += --prefix=$(CROSS_LIB_DIR) \
+BETAFTPD_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/betaftpd.prepare: $(betaftpd_prepare_deps)
 	@$(call targetinfo, $@)

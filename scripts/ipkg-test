@@ -2,8 +2,11 @@
 #
 # usage: IMAGES=/image/dir ROOT=/root/dir IPKG=/path/to/ipkg-cl ipkg-test 
 
-if [ -z "$PTXDIST_TOPDIR" ] ; then                                                                                                      
-	PTXDIST_TOPDIR=`pwd`                                                                                                             
+SCRIPTDIR=`dirname $0`
+. $SCRIPTDIR/libptxdist.sh
+
+if [ -z "$PTXDIST_WORKSPACE" ] ; then
+	PTXDIST_WORKSPACE=`pwd`
 fi                                                                                                                                      
 
 DIR=`mktemp -d /tmp/ptxdist.XXXXXX`
@@ -20,21 +23,23 @@ if [ ! -x "$IPKG" ]; then
 	exit 1
 fi
 
-for archive in $IMAGES/*.ipk; do
+for archive in `cd $IMAGES && find . -name "*.ipk"`; do
 	$IPKG							\
 		-f $ROOT/etc/ipkg.conf				\
 		-force-depends 					\
 		-o $DIR						\
-		install $archive 1> /dev/null
+		install `ptxd_abspath $archive`
+#		install $archive 1> /dev/null
 done
 
 echo "checking files in ipkg tree..."
 cd $DIR
-find . | grep -v "./usr/lib/ipkg" | sort -u > $PTXDIST_TOPDIR/logs/root-ipkg.txt
+mkdir -p $PTXDIST_WORKSPACE/logs
+find . | grep -v "./usr/lib/ipkg" | sort -u > $PTXDIST_WORKSPACE/logs/root-ipkg.txt
 
 echo "checking files in original tree..."
 cd $ROOT
-find . | sort -u > $PTXDIST_TOPDIR/logs/root-orig.txt
+find . | sort -u > $PTXDIST_WORKSPACE/logs/root-orig.txt
 
 echo
 echo "----------------------------------------------------------------------------"
@@ -43,12 +48,12 @@ echo "--------------------------------------------------------------------------
 echo
 
 diff -u								\
-	$PTXDIST_TOPDIR/logs/root-orig.txt			\
-	$PTXDIST_TOPDIR/logs/root-ipkg.txt			\
-	> $PTXDIST_TOPDIR/logs/root.diff
+	$PTXDIST_WORKSPACE/logs/root-orig.txt			\
+	$PTXDIST_WORKSPACE/logs/root-ipkg.txt			\
+	> $PTXDIST_WORKSPACE/logs/root.diff
 
-cd $PTXDIST_TOPDIR
+cd $PTXDIST_WORKSPACE
 rm -fr $DIR
-cat $PTXDIST_TOPDIR/logs/root.diff >&2
+cat $PTXDIST_WORKSPACE/logs/root.diff >&2
 echo
 

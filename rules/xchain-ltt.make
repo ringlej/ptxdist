@@ -58,7 +58,7 @@ XCHAIN_LTT_ENV		=  $(HOSTCC_ENV)
 #
 # autoconf
 #
-XCHAIN_LTT_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX) #--with-gtk=no
+#XCHAIN_LTT_AUTOCONF	=  #--with-gtk=no
 
 $(STATEDIR)/xchain-ltt.prepare: $(xchain-ltt_prepare_deps)
 	@$(call targetinfo, $@)

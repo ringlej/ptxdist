@@ -78,11 +78,17 @@ libpng125_prepare_deps =  \
 
 LIBPNG125_PATH	   = PATH=$(CROSS_PATH)
 LIBPNG125_ENV      = $(CROSS_ENV)
-LIBPNG125_AUTOCONF = $(CROSS_AUTOCONF) --prefix=$(CROSS_LIB_DIR)
+
+LIBPNG125_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+# FIXME: this should be fixed upstream, the package doesn't take care of
+# DESTDIR. When fixed, the following option shouldn't be needed any
+# more.  
+LIBPNG125_AUTOCONF += --with-pkgconfigdir=$(SYSROOT)/lib
 
 $(STATEDIR)/libpng125.prepare: $(libpng125_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPNG125_BUILDDIR))
+	@echo "FIXME: broken autoconf, see .make file"
 	cd $(LIBPNG125_DIR) && \
 		$(LIBPNG125_PATH) $(LIBPNG125_ENV) \
 		./configure $(LIBPNG125_AUTOCONF)

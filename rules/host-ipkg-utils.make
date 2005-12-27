@@ -17,7 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOSTTOOL_IPKG_UTILS) += hosttool-ipkg-utils
 #
 # Paths and names
 #
-HOSTTOOL-IPKG-UTILS_VERSION	= 050831
+HOSTTOOL-IPKG-UTILS_VERSION	= 1.7
 HOSTTOOL-IPKG-UTILS		= ipkg-utils-$(HOSTTOOL-IPKG-UTILS_VERSION)
 HOSTTOOL-IPKG-UTILS_SUFFIX	= tar.gz
 HOSTTOOL-IPKG-UTILS_URL		= ftp://ftp.handhelds.org/packages/ipkg-utils/$(HOSTTOOL-IPKG-UTILS).$(HOSTTOOL-IPKG-UTILS_SUFFIX)
@@ -54,9 +54,9 @@ $(STATEDIR)/hosttool-ipkg-utils.extract: $(hosttool-ipkg-utils_extract_deps)
 	@$(call clean, $(HOSTTOOL-IPKG-UTILS_DIR))
 	@$(call extract, $(HOSTTOOL-IPKG-UTILS_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL-IPKG-UTILS), $(HOSTTOOL-IPKG-UTILS_DIR))
-	perl -i -p -e "s,^PREFIX=(.*),PREFIX=$(PTXCONF_PREFIX),g" \
+	perl -i -p -e "s,^PREFIX=(.*),PREFIX=$(PTXCONF_HOST_PREFIX)/usr,g" \
 		$(HOSTTOOL-IPKG-UTILS_DIR)/Makefile
-	perl -i -p -e "s,^	python setup.py install,	python setup.py install --prefix=$(PTXCONF_PREFIX),g" \
+	perl -i -p -e "s,^	python setup.py install,	python setup.py install --prefix=$(PTXCONF_HOST_PREFIX)/usr,g" \
 		$(HOSTTOOL-IPKG-UTILS_DIR)/Makefile
 	@$(call touch, $@)
 
@@ -100,13 +100,12 @@ hosttool-ipkg-utils_install: $(STATEDIR)/hosttool-ipkg-utils.install
 
 $(STATEDIR)/hosttool-ipkg-utils.install: $(STATEDIR)/hosttool-ipkg-utils.compile
 	@$(call targetinfo, $@)
-	mkdir -p $(PTXCONF_PREFIX)/bin
+	mkdir -p $(PTXCONF_HOST_PREFIX)/usr/bin
 	# ipkg.py is forgotten by MAKE_INSTALL, so we copy it manually
 	# FIXME: this should probably be fixed upstream
-	cd $(HOSTTOOL-IPKG-UTILS_DIR) && (\
-		$(HOSTTOOL-IPKG-UTILS_ENV) $(HOSTTOOL-IPKG-UTILS_PATH) $(MAKE_INSTALL) ;\
-		cp -f ipkg.py $(PTXCONF_PREFIX)/bin/;\
-	)
+	@$(call install, HOSTTOOL-IPKG-UTILS,,h)
+	mkdir -p $(PTXCONF_HOST_PREFIX)/usr/bin
+	cp -f $(HOSTTOOL-IPKG-UTILS_DIR)/ipkg.py $(PTXCONF_HOST_PREFIX)/usr/bin/
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

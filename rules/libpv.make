@@ -79,8 +79,8 @@ LIBPV_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-LIBPV_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBPV_AUTOCONF += --prefix=$(CROSS_LIB_DIR) --disable-debug
+LIBPV_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+LIBPV_AUTOCONF += --disable-debug
 
 $(STATEDIR)/libpv.prepare: $(libpv_prepare_deps)
 	@$(call targetinfo, $@)

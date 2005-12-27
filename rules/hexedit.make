@@ -79,8 +79,7 @@ HEXEDIT_ENV	+= CFLAGS='$(strip $(subst $(quote),,$(TARGET_CFLAGS))) $(strip $(su
 #
 # autoconf
 #
-HEXEDIT_AUTOCONF =  $(CROSS_AUTOCONF)
-HEXEDIT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+HEXEDIT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/hexedit.prepare: $(hexedit_prepare_deps)
 	@$(call targetinfo, $@)

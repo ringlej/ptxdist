@@ -78,8 +78,7 @@ LIBGSLOOP_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-LIBGSLOOP_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBGSLOOP_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBGSLOOP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/libgsloop.prepare: $(libgsloop_prepare_deps)
 	@$(call targetinfo, $@)

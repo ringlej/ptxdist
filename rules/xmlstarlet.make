@@ -79,11 +79,10 @@ XMLSTARLET_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 XMLSTARLET_AUTOCONF = \
-	$(CROSS_AUTOCONF) \
-	--prefix=$(CROSS_LIB_DIR) \
-	--with-libxml-prefix=$(CROSS_LIB_DIR) \
-	--with-libxslt-prefix=$(CROSS_LIB_DIR) \
-	--with-libiconv-prefix=$(CROSS_LIB_DIR)
+	$(CROSS_AUTOCONF_USR) \
+	--with-libxml-prefix=$(SYSROOT)/usr \
+	--with-libxslt-prefix=$(SYSROOT)/usr \
+	--with-libiconv-prefix=$(SYSROOT)/usr
 
 $(STATEDIR)/xmlstarlet.prepare: $(xmlstarlet_prepare_deps)
 	@$(call targetinfo, $@)

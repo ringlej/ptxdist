@@ -75,8 +75,7 @@ HRTIMERS_SUPPORT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-HRTIMERS_SUPPORT_AUTOCONF =  $(CROSS_AUTOCONF)
-HRTIMERS_SUPPORT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+HRTIMERS_SUPPORT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/hrtimers-support.prepare: $(hrtimers-support_prepare_deps)
 	@$(call targetinfo, $@)

@@ -76,8 +76,7 @@ CANUTILS_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-CANUTILS_AUTOCONF =  $(CROSS_AUTOCONF)
-CANUTILS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+CANUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/canutils.prepare: $(canutils_prepare_deps)
 	@$(call targetinfo, $@)

@@ -77,7 +77,6 @@ QT_ENV	+= QTDIR=$(QT_DIR)
 #
 # autoconf
 #
-#QT_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 #QT_AUTOCONF	+= --build=$(GNU_HOST)
 #QT_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 

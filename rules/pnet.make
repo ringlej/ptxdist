@@ -77,8 +77,7 @@ PNET_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-PNET_AUTOCONF =  $(CROSS_AUTOCONF)
-PNET_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+PNET_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/pnet.prepare: $(pnet_prepare_deps)
 	@$(call targetinfo, $@)

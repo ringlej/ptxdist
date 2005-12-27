@@ -69,6 +69,7 @@ AUTOMAKE176_PATH	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin:$(CROSS_PATH)
 #
 # autoconf
 #
+# FIXME FIXME FIXME
 AUTOMAKE176_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(AUTOMAKE176)
 
 $(STATEDIR)/automake176.prepare: $(automake176_prepare_deps)

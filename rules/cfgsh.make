@@ -80,7 +80,6 @@ CFGSH_ENV 	=  $(CROSS_ENV)
 CFGSH_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/cfgsh.prepare: $(cfgsh_prepare_deps)
 	@$(call targetinfo, $@)

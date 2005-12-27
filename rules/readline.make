@@ -78,8 +78,7 @@ READLINE_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-READLINE_AUTOCONF =  $(CROSS_AUTOCONF)
-READLINE_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+READLINE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/readline.prepare: $(readline_prepare_deps)
 	@$(call targetinfo, $@)

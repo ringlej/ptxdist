@@ -75,8 +75,7 @@ LIBMODBUS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-LIBMODBUS_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBMODBUS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBMODBUS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/libmodbus.prepare: $(libmodbus_prepare_deps)
 	@$(call targetinfo, $@)

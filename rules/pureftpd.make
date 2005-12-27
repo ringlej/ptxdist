@@ -78,8 +78,7 @@ PUREFTPD_ENV	+= ac_cv_func_snprintf=yes
 # autoconf
 #
 PUREFTPD_AUTOCONF = \
-	$(CROSS_AUTOCONF) \
-	--prefix=$(CROSS_LIB_DIR) \
+	$(CROSS_AUTOCONF_USR) \
 	--with-standalone \
 	--without-inetd \
 	--without-ascii \

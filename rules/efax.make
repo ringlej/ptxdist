@@ -75,8 +75,7 @@ EFAX_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-EFAX_AUTOCONF =  $(CROSS_AUTOCONF)
-EFAX_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+EFAX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/efax.prepare: $(efax_prepare_deps)
 	@$(call targetinfo, $@)

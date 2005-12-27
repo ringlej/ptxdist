@@ -75,8 +75,7 @@ FLEX_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-FLEX_AUTOCONF =  $(CROSS_AUTOCONF)
-FLEX_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+FLEX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/flex.prepare: $(flex_prepare_deps)
 	@$(call targetinfo, $@)

@@ -98,7 +98,6 @@ OPENSSL_MAKEVARS = \
 	MANDIR=/man
 
 OPENSSL_AUTOCONF = \
-	--prefix=/usr \
 	--openssldir=/etc/ssl
 
 ifdef PTXCONF_OPENSSL_SHARED

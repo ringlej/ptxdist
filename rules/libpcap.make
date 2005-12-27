@@ -77,8 +77,7 @@ LIBPCAP_ENV = \
 #
 # autoconf
 #
-LIBPCAP_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBPCAP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+LIBPCAP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 LIBPCAP_AUTOCONF += --with-pcap=linux
 
 $(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps)

@@ -75,8 +75,7 @@ BLUEZ_LIBS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-BLUEZ_LIBS_AUTOCONF =  $(CROSS_AUTOCONF)
-BLUEZ_LIBS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+BLUEZ_LIBS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/bluez-libs.prepare: $(bluez-libs_prepare_deps)
 	@$(call targetinfo, $@)

@@ -74,8 +74,7 @@ MAD_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-MAD_AUTOCONF =  $(CROSS_AUTOCONF)
-MAD_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+MAD_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/mad.prepare: $(mad_prepare_deps)
 	@$(call targetinfo, $@)

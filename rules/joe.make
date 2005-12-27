@@ -73,7 +73,8 @@ JOE_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-JOE_AUTOCONF =  $(CROSS_AUTOCONF)
+JOE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+# FIXME
 JOE_AUTOCONF += --prefix=/
 
 $(STATEDIR)/joe.prepare: $(joe_prepare_deps)

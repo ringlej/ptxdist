@@ -78,7 +78,7 @@ MEMEDIT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-MEMEDIT_AUTOCONF =  $(CROSS_AUTOCONF)
+MEMEDIT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/memedit.prepare: $(memedit_prepare_deps)
 	@$(call targetinfo, $@)

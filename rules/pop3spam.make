@@ -80,7 +80,6 @@ POP3SPAM_ENV 	=  $(CROSS_ENV)
 POP3SPAM_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/pop3spam.prepare: $(pop3spam_prepare_deps)
 	@$(call targetinfo, $@)

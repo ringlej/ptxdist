@@ -78,8 +78,7 @@ PHP_APC_ENV  = $(CROSS_ENV)
 # autoconf
 #
 PHP_APC_AUTOCONF = \
-	$(CROSS_AUTOCONF) \
-	--prefix=$(CROSS_LIB_DIR) \
+	$(CROSS_AUTOCONF_USR) \
 	--enable-apc
 
 $(STATEDIR)/php-apc.prepare: $(php-apc_prepare_deps)

@@ -73,8 +73,7 @@ DB41_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-DB41_AUTOCONF	=  $(CROSS_AUTOCONF)
-DB41_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
+DB41_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 DB41_AUTOCONF	+= --enable-cxx 
 
 $(STATEDIR)/db41.prepare: $(db41_prepare_deps)

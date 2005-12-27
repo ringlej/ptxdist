@@ -59,11 +59,7 @@ hosttool-module-init-tools_prepare_deps = $(STATEDIR)/hosttool-module-init-tools
 HOSTTOOL_MODULE_INIT_TOOLS_PATH	= PATH=$(CROSS_PATH) 
 HOSTTOOL_MODULE_INIT_TOOLS_ENV 	= $(HOSTCC_ENV)
 HOSTTOOL_MODULE_INIT_TOOLS_MAKEVARS	= MAN5=''
-HOSTTOOL_MODULE_INIT_TOOLS_AUTOCONF 	= \
-	--prefix=$(PTXCONF_PREFIX) \
-	--build=$(GNU_HOST) \
-	--host=$(GNU_HOST) \
-	--target=$(PTXCONF_GNU_TARGET)
+HOSTTOOL_MODULE_INIT_TOOLS_AUTOCONF 	= $(HOST_AUTOCONF)
 
 $(STATEDIR)/hosttool-module-init-tools.prepare: $(hosttool-module-init-tools_prepare_deps)
 	@$(call targetinfo, $@)
@@ -100,7 +96,7 @@ endif
 
 $(STATEDIR)/hosttool-module-init-tools.install: $(hosttool-module-init-tools_install_deps)
 	@$(call targetinfo, $@)
-	@$(call install, HOSTTOOL_MODULE_INIT_TOOLS)
+	@$(call install, HOSTTOOL_MODULE_INIT_TOOLS,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

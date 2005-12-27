@@ -76,7 +76,7 @@ CPPUNIT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-CPPUNIT_AUTOCONF = $(CROSS_AUTOCONF)
+CPPUNIT_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/cppunit.prepare: $(cppunit_prepare_deps)
 	@$(call targetinfo, $@)

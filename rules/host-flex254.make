@@ -61,11 +61,9 @@ HOSTTOOL_FLEX254_PATH	=  PATH=$(CROSS_PATH)
 HOSTTOOL_FLEX254_ENV 	=  $(HOSTCC_ENV)
 
 #
-# autoconf
+# autoconf, but without automake :-(
 #
-HOSTTOOL_FLEX254_AUTOCONF = \
-	--prefix=$(PTXCONF_PREFIX) \
-	--build=$(GNU_HOST)
+HOSTTOOL_FLEX254_AUTOCONF = --prefix=$(PTXCONF_PREFIX)/usr
 
 $(STATEDIR)/hosttool-flex254.prepare: $(hosttool-flex254_prepare_deps)
 	@$(call targetinfo, $@)
@@ -96,7 +94,7 @@ hosttool-flex254_install: $(STATEDIR)/hosttool-flex254.install
 
 $(STATEDIR)/hosttool-flex254.install: $(STATEDIR)/hosttool-flex254.compile
 	@$(call targetinfo, $@)
-	@$(call install, HOSTTOOL_FLEX254)
+	@$(call install, HOSTTOOL_FLEX254,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

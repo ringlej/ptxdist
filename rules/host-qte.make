@@ -95,7 +95,7 @@ HOST_QTE_CONF += -no-libjpeg
 HOST_QTE_CONF += -no-thread 
 HOST_QTE_CONF += -no-cups 
 HOST_QTE_CONF += -no-stl 
-QTE_AUTOCONF	+= -no-qvfb 
+QTE_AUTOCONF  += -no-qvfb 
 
 $(STATEDIR)/host-qte.prepare: $(host-qte_prepare_deps)
 	@$(call targetinfo, $@)

@@ -75,8 +75,7 @@ DBENCH_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-DBENCH_AUTOCONF =  $(CROSS_AUTOCONF)
-DBENCH_AUTOCONF += --prefix=$(PTXCONF_TESTSUITE_DIR)/$(DBENCH)
+DBENCH_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/dbench.prepare: $(dbench_prepare_deps)
 	@$(call targetinfo, $@)

@@ -75,8 +75,7 @@ GAIL_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-GAIL_AUTOCONF =  $(CROSS_AUTOCONF)
-GAIL_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+GAIL_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/gail.prepare: $(gail_prepare_deps)
 	@$(call targetinfo, $@)

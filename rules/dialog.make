@@ -75,8 +75,7 @@ DIALOG_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-DIALOG_AUTOCONF =  $(CROSS_AUTOCONF)
-DIALOG_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+DIALOG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/dialog.prepare: $(dialog_prepare_deps)
 	@$(call targetinfo, $@)

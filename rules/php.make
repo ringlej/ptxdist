@@ -84,8 +84,7 @@ PHP_ENV = \
 # autoconf
 #
 PHP_AUTOCONF = \
-	$(CROSS_AUTOCONF) \
-	--prefix=$(CROSS_LIB_DIR) \
+	$(CROSS_AUTOCONF_USR) \
 	--with-config-file-path=/etc \
 	--disable-all
 

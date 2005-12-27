@@ -81,8 +81,7 @@ APACHE2_ENV	+= ac_cv_func_setpgrp_void=yes
 #
 # autoconf
 #
-APACHE2_AUTOCONF =  $(CROSS_AUTOCONF)
-APACHE2_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+APACHE2_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/apache2.prepare: $(apache2_prepare_deps)
 	@$(call targetinfo, $@)

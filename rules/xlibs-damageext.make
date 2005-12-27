@@ -80,7 +80,6 @@ XLIBS-DAMAGEEXT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 XLIBS-DAMAGEEXT_AUTOCONF =  --build=$(GNU_HOST)
 XLIBS-DAMAGEEXT_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
-XLIBS-DAMAGEEXT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/xlibs-damageext.prepare: $(xlibs-damageext_prepare_deps)
 	@$(call targetinfo, $@)

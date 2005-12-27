@@ -82,8 +82,7 @@ XLIBS-X11_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 XLIBS-X11_AUTOCONF = \
 	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+	--host=$(PTXCONF_GNU_TARGET) 
 
 $(STATEDIR)/xlibs-x11.prepare: $(xlibs-x11_prepare_deps)
 	@$(call targetinfo, $@)

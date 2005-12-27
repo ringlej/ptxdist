@@ -77,8 +77,7 @@ SMTPCLIENT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-SMTPCLIENT_AUTOCONF =  $(CROSS_AUTOCONF)
-SMTPCLIENT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+SMTPCLIENT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/smtpclient.prepare: $(smtpclient_prepare_deps)
 	@$(call targetinfo, $@)

@@ -74,8 +74,7 @@ BIND_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BIND_AUTOCONF =  $(CROSS_AUTOCONF)
-BIND_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+BIND_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 BIND_AUTOCONF += --with-randomdev=/dev/random
 
 ifdef PTXCONF_BIND_THREADS

@@ -93,11 +93,11 @@ hosttool-genext2fs_install_deps = $(STATEDIR)/hosttool-genext2fs.compile
 
 $(STATEDIR)/hosttool-genext2fs.install: $(hosttool-genext2fs_install_deps)
 	@$(call targetinfo, $@)
-	install -d $(PTXCONF_HOST_PREFIX)/bin/
-	install -d $(PTXCONF_HOST_PREFIX)/man/man8/
-
-	install -m 755 $(HOSTTOOL_GENEXT2FS_DIR)/genext2fs $(PTXCONF_HOST_PREFIX)/bin/
-	install -m 644 $(HOSTTOOL_GENEXT2FS_DIR)/genext2fs.8 $(PTXCONF_HOST_PREFIX)/man/man8/
+	install -d $(PTXCONF_HOST_PREFIX)/usr/bin/
+	install -d $(PTXCONF_HOST_PREFIX)/usr/man/man8/
+	# FIXME: correct path?
+	install -m 755 $(HOSTTOOL_GENEXT2FS_DIR)/genext2fs $(PTXCONF_HOST_PREFIX)/usr/bin/
+	install -m 644 $(HOSTTOOL_GENEXT2FS_DIR)/genext2fs.8 $(PTXCONF_HOST_PREFIX)/usr/man/man8/
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

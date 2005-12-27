@@ -69,9 +69,7 @@ HOST_APACHE2_ENV 	=  $(HOSTCC_ENV)
 #
 # autoconf
 #
-HOST_APACHE2_AUTOCONF =  --prefix=$(PTXCONF_PREFIX)
-HOST_APACHE2_AUTOCONF += --build=$(GNU_HOST)
-HOST_APACHE2_AUTOCONF += --host=$(GNU_HOST)
+HOST_APACHE2_AUTOCONF =  $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-apache2.prepare: $(host-apache2_prepare_deps)
 	@$(call targetinfo, $@)
@@ -107,7 +105,7 @@ host-apache2_install_deps = $(STATEDIR)/host-apache2.compile
 $(STATEDIR)/host-apache2.install: $(host-apache2_install_deps)
 	@$(call targetinfo, $@)
 	# FIXME
-	#@$(call install, HOST-APACHE2)
+	#@$(call install, HOST-APACHE2,,h)
 #	cd $(HOST_APACHE2_DIR) && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) $(MAKE_INSTALL)
 	@$(call touch, $@)
 

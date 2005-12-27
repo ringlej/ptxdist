@@ -77,8 +77,7 @@ RAWREC_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-RAWREC_AUTOCONF =  $(CROSS_AUTOCONF)
-RAWREC_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+RAWREC_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/rawrec.prepare: $(rawrec_prepare_deps)
 	@$(call targetinfo, $@)

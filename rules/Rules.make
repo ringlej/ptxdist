@@ -82,6 +82,7 @@ HOSTCC_ENV	= CC=$(HOSTCC)
 # CROSS_LIB_DIR	= the libs for the target system are installed into this dir
 #
 CROSS_LIB_DIR := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
+SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
 
 #
 # Use the masquerading method of invoking distcc if enabled
@@ -143,8 +144,11 @@ TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
 ##
 ifndef $(PTXCONF_CROSSTOOL)
 TARGET_CXXFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+TARGET_CXXFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/include
 TARGET_CPPFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+TARGET_CPPFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/include
 TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib 
+TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/lib 
 endif
 
 
@@ -229,8 +233,17 @@ CROSS_ENV_PROGS := \
 	$(CROSS_ENV_RANLIB) \
 	$(CROSS_ENV_STRIP)
 
+#
+# prepare to use pkg-config with wrapper which takes care of $(SYSROOT). 
+# The wrapper's magic doesn't work when pkg-config strips out /usr/lib
+# and other system libs/cflags, so we leave them in; the wrapper
+# replaces them by proper $(SYSROOT) correspondees. 
+#
+
 CROSS_ENV_PKG_CONFIG := \
-	PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+	SYSROOT=$(SYSROOT) \
+	PKG_CONFIG_PATH=$(SYSROOT)/lib/pkgconfig:$(SYSROOT)/usr/lib/pkgconfig \
+	PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
 
 CROSS_ENV_FLAGS := \
 	$(CROSS_ENV_CFLAGS) \
@@ -257,21 +270,54 @@ CROSS_ENV_AC := \
 	gt_cv_func_gettext_libintl=yes \
 	ac_cv_sysv_ipc=yes
 
+CROSS_ENV_DESTDIR := \
+	DESTDIR=$(SYSROOT)
+
+#
+# We want to use DESTDIR and --prefix=/usr, to get no build paths in our
+# binaries. Unfortunately, not all packages support this, especially
+# libtool based packets seem to be broken. See for example: 
+# 
+# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=58664
+#
+# for a longer discussion [RSC]
+#
+
+CROSS_AUTOCONF_SYSROOT_USR := \
+	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=/usr --sysconfdir=/etc)
+
+CROSS_AUTOCONF_SYSROOT_ROOT := \
+	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=/)
+
+CROSS_AUTOCONF_BROKEN_USR := \
+	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=$(SYSROOT))
+
 ifndef NATIVE
+
 CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
 	$(CROSS_ENV_FLAGS) \
 	$(CROSS_ENV_PKG_CONFIG) \
-	$(CROSS_ENV_AC)
+	$(CROSS_ENV_AC) \
+	$(CROSS_ENV_DESTDIR)
 
-CROSS_AUTOCONF := $(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
+CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR)
+CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT)
+
 else
+
 CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
 	$(CROSS_ENV_FLAGS) \
-	$(CROSS_ENV_PKG_CONFIG)
+	$(CROSS_ENV_PKG_CONFIG) \
+	$(CROSS_ENV_DESTDIR)
+
+CROSS_AUTOCONF_USR  :=
+CROSS_AUTOCONF_ROOT :=
+
 endif
 
+HOST_AUTOCONF  := --prefix=$(PTXCONF_HOST_PREFIX)
 
 # ----------------------------------------------------------------------------
 # Convenience macros
@@ -660,15 +706,39 @@ get_option_ext =									\
 #
 # $1: label of the packet
 # $2: optional: alternative directory
+# $3: optional: "h" = install as a host tool
 #
+# FIXME: if we don't use --install=no we can make one packet.
+#
+ifdef PTXCONF_IMAGE_HOST_DEB
 install = \
-	DIR="$($(strip $(1)_DIR))";					\
-	BUILDDIR="$($(strip $(1)_BUILDDIR))";				\
-	BUILDDIR="$${BUILDDIR:-$$DIR}";					\
-	[ "$(strip $(2))" != "" ] && BUILDDIR="$(strip $(2))";		\
+	BUILDDIR="$($(strip $(1)_DIR))";				\
+	DESTDIR="$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)";		\
+	[ "$(2)" != "" ] && BUILDDIR="$(strip $(2))";			\
+	[ "$(3)" = "h" ] && unset DESTDIR;				\
 	cd $$BUILDDIR && 						\
-		$($(strip $(1)_ENV)) $($(strip $(1)_PATH)) 		\
-		$(CHECKINSTALL) make install $($(strip $(1)_MAKEVARS))
+		$($(strip $(1)_ENV)) 					\
+		$($(strip $(1)_PATH)) 					\
+		INSTALLWATCH_PREFIX=$(PTXCONF_PREFIX)			\
+		$(HOST_CHECKINSTALL_DIR)/checkinstall			\
+		-D -y -pakdir=$(IMAGEDIR) --install=no -nodoc		\
+		make install 						\
+		$($(strip $(1)_MAKEVARS))				\
+		DESTDIR=$$DESTDIR;					\
+	#dpkg-deb -x blablabla $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+else
+install = \
+	BUILDDIR="$($(strip $(1)_DIR))";				\
+	DESTDIR="$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)";		\
+	[ "$(2)" != "" ] && BUILDDIR="$(strip $(2))";			\
+	[ "$(3)" = "h" ] && unset DESTDIR;				\
+	cd $$BUILDDIR &&						\
+		$($(strip $(1)_ENV))					\
+		$($(strip $(1)_PATH))					\
+		make install						\
+		$($(strip $(1)_MAKEVARS))				\
+		DESTDIR=$$DESTDIR;
+endif
 
 
 #
@@ -972,6 +1042,7 @@ install_copy = 											\
 			echo "Error: install_copy failed!";					\
 			exit -1;								\
 		fi;										\
+		mkdir -p $(IMAGEDIR);								\
 		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(IMAGEDIR)/permissions;			\
 	else											\
 		echo "install_copy:";								\
@@ -1003,6 +1074,7 @@ install_copy = 											\
 			$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
 			;;									\
 		esac;										\
+		mkdir -p $(IMAGEDIR);								\
 		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(IMAGEDIR)/permissions;			\
 	fi
 
@@ -1055,6 +1127,7 @@ install_copy_toolchain_lib =									\
 					fi;							\
 					;;							\
 				esac;								\
+				mkdir -p $(IMAGEDIR);						\
 				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				echo "error: found $${LIB}, but no file or link";		\
@@ -1127,6 +1200,7 @@ install_copy_toolchain_dl =									\
 					fi;							\
 					;;							\
 				esac;								\
+				mkdir -p $(IMAGEDIR);						\
 				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				exit -1;							\
@@ -1186,6 +1260,7 @@ install_node =				\
 	echo "  major=$$MAJ";		\
 	echo "  minor=$$MIN";		\
 	echo "  name=$$DEV";		\
+	mkdir -p $(IMAGEDIR);		\
 	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(IMAGEDIR)/permissions
 
 #
@@ -1238,7 +1313,7 @@ install_finish = 													\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then									\
 		echo -n "install_finish: writing ipkg packet ... ";							\
 		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions; echo "popd;"; 	\
-		echo "$(PTXCONF_HOST_PREFIX)/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\
+		echo "$(PTXCONF_HOST_PREFIX)/usr/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\
 			$(FAKEROOT) -- 2>&1 | grep -v "cannot access" | grep -v "No such file or directory";		\
 		rm -fr $(IMAGEDIR)/ipkg;										\
 		echo "done."; 												\

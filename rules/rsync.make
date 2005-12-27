@@ -74,8 +74,7 @@ RSYNC_ENV 	=  rsync_cv_HAVE_GETTIMEOFDAY_TZ=yes $(CROSS_ENV)
 #
 # autoconf
 #
-RSYNC_AUTOCONF  =  $(CROSS_AUTOCONF)
-RSYNC_AUTOCONF	+= --prefix=/usr
+RSYNC_AUTOCONF  =  $(CROSS_AUTOCONF_USR)
 RSYNC_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 RSYNC_AUTOCONF	+= --with-included-popt
 

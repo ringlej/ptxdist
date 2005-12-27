@@ -75,8 +75,7 @@ SLANG_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-SLANG_AUTOCONF =  $(CROSS_AUTOCONF)
-SLANG_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+SLANG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/slang.prepare: $(slang_prepare_deps)
 	@$(call targetinfo, $@)

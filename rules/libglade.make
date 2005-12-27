@@ -77,8 +77,7 @@ LIBGLADE_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-LIBGLADE_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBGLADE_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBGLADE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/libglade.prepare: $(libglade_prepare_deps)
 	@$(call targetinfo, $@)

@@ -80,9 +80,8 @@ RTNET_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-RTNET_AUTOCONF =  $(CROSS_AUTOCONF)
+RTNET_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 RTNET_AUTOCONF += \
-	--prefix=$(CROSS_LIB_DIR) \
 	--with-rtai=$(RTAI_BUILDDIR)/usr/realtime
 #	--with-rtai=$(RTAI_DIR)
 

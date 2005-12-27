@@ -79,9 +79,7 @@ GNUPLOT_ENV	+= LIBPNG_CONFIG=$(CROSS_LIB_DIR)/bin/libpng-config
 #
 # autoconf
 #
-GNUPLOT_AUTOCONF =  $(CROSS_AUTOCONF)
-GNUPLOT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
-
+GNUPLOT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 GNUPLOT_AUTOCONF += --disable-history-file
 GNUPLOT_AUTOCONF += --disable-mouse
 GNUPLOT_AUTOCONF += --disable-pm3d 

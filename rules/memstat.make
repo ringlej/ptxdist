@@ -77,8 +77,7 @@ MEMSTAT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-MEMSTAT_AUTOCONF =  $(CROSS_AUTOCONF)
-MEMSTAT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+MEMSTAT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/memstat.prepare: $(memstat_prepare_deps)
 	@$(call targetinfo, $@)

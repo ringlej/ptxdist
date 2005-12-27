@@ -57,11 +57,10 @@ $(STATEDIR)/pdksh.extract: $(STATEDIR)/pdksh.get
 
 pdksh_prepare: $(STATEDIR)/pdksh.prepare
 
-PDKSH_AUTOCONF =  $(CROSS_AUTOCONF)
+PDKSH_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 PDKSH_AUTOCONF = \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-sanity-checks \
-	--prefix=/usr
 
 PDKSH_PATH	=  PATH=$(CROSS_PATH)
 PDKSH_ENV = \

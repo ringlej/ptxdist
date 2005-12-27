@@ -76,8 +76,7 @@ CGICC_ENV	+=
 #
 # autoconf
 #
-CGICC_AUTOCONF =  $(CROSS_AUTOCONF)
-CGICC_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+CGICC_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/cgicc.prepare: $(cgicc_prepare_deps)
 	@$(call targetinfo, $@)

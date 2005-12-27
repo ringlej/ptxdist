@@ -1,14 +1,14 @@
-config HOSTTOOL_E2FSPROGS
+config HOST_E2FSPROGS
 	bool
 	prompt "e2fsprogs"
 	
-config HOSTTOOL_E2FSPROGS_TUNE2FS
+config HOST_E2FSPROGS_TUNE2FS
 	bool
 	prompt "Install tune2fs"
-	depends on HOSTTOOL_E2FSPROGS
+	depends on HOST_E2FSPROGS
 
-config HOSTTOOL_E2FSPROGS_RESIZE2FS
+config HOST_E2FSPROGS_RESIZE2FS
 	bool
 	prompt "Install resize2fs"
-	depends on HOSTTOOL_E2FSPROGS
+	depends on HOST_E2FSPROGS
 

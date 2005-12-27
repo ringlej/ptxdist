@@ -93,8 +93,7 @@ FLASH_ENV	= $(CROSS_ENV)
 #
 # autoconf
 #
-FLASH_AUTOCONF  =  $(CROSS_AUTOCONF)
-FLASH_AUTOCONF	+= --prefix=/usr
+FLASH_AUTOCONF  =  $(CROSS_AUTOCONF_USR)
 FLASH_AUTOCONF	+= --with-ncurses-path=$(NCURSES_DIR)
 
 $(STATEDIR)/flash.prepare: $(flash_prepare_deps)

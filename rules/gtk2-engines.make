@@ -75,8 +75,7 @@ GTK2-ENGINES_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-GTK2-ENGINES_AUTOCONF =  $(CROSS_AUTOCONF)
-GTK2-ENGINES_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+GTK2-ENGINES_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/gtk2-engines.prepare: $(gtk2-engines_prepare_deps)
 	@$(call targetinfo, $@)

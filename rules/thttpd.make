@@ -75,8 +75,7 @@ THTTPD_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-THTTPD_AUTOCONF =  $(CROSS_AUTOCONF)
-THTTPD_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+THTTPD_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/thttpd.prepare: $(thttpd_prepare_deps)
 	@$(call targetinfo, $@)

@@ -77,7 +77,6 @@ POPT_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 POPT_AUTOCONF = \
-	--prefix=$(CROSS_LIB_DIR) \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET)
 

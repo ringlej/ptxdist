@@ -53,6 +53,7 @@ $(STATEDIR)/expat.extract: $(expat_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EXPAT_DIR))
 	@$(call extract, $(EXPAT_SOURCE))
+	@$(call patchin, $(EXPAT))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -74,8 +75,7 @@ EXPAT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 # autoconf
 #
-EXPAT_AUTOCONF  =  $(CROSS_AUTOCONF)
-EXPAT_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
+EXPAT_AUTOCONF  =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/expat.prepare: $(expat_prepare_deps)
 	@$(call targetinfo, $@)

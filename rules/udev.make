@@ -91,7 +91,7 @@ udev_compile_deps = $(STATEDIR)/udev.prepare
 
 $(STATEDIR)/udev.compile: $(udev_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(UDEV_DIR) && $(UDEV_ENV) $(UDEV_PATH) make $(UDEV_MAKEVARS) 
+	cd $(UDEV_DIR) && $(UDEV_ENV) $(UDEV_PATH) make $(UDEV_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

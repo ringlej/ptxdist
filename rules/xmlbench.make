@@ -78,8 +78,7 @@ XMLBENCH_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-XMLBENCH_AUTOCONF =  $(CROSS_AUTOCONF)
-XMLBENCH_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+XMLBENCH_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/xmlbench.prepare: $(xmlbench_prepare_deps)
 	@$(call targetinfo, $@)

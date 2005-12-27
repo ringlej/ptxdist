@@ -54,6 +54,7 @@ $(STATEDIR)/xchain-kaffe.prepare: $(xchain-kaffe_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN_KAFFE_BUILDDIR))
 	mkdir -p $(XCHAIN_KAFFE_BUILDDIR)
+	# FIXME
 	cd $(XCHAIN_KAFFE_BUILDDIR) && \
 		$(XCHAIN_KAFFE_ENV) \
 		$(KAFFE_DIR)/configure --prefix=$(PTXCONF_PREFIX)

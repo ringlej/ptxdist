@@ -79,8 +79,7 @@ SUDO_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-SUDO_AUTOCONF =  $(CROSS_AUTOCONF)
-SUDO_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+SUDO_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/sudo.prepare: $(sudo_prepare_deps)
 	@$(call targetinfo, $@)

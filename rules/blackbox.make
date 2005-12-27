@@ -74,8 +74,7 @@ BLACKBOX_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BLACKBOX_AUTOCONF =  $(CROSS_AUTOCONF)
-BLACKBOX_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+BLACKBOX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 BLACKBOX_AUTOCONF += -disable-nls
 
 BLACKBOX_AUTOCONF	+= --x-includes=/home/koan/ptxdist/ptxdist-testing/root/usr/X11R6/include

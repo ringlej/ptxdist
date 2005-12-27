@@ -74,9 +74,7 @@ HOST_CHECKINSTALL_ENV 	=  $(HOSTCC_ENV)
 #
 # autoconf
 #
-HOST_CHECKINSTALL_AUTOCONF =  --prefix=$(PTXCONF_PREFIX)
-HOST_CHECKINSTALL_AUTOCONF += --build=$(GNU_HOST)
-HOST_CHECKINSTALL_AUTOCONF += --host=$(GNU_HOST)
+HOST_CHECKINSTALL_AUTOCONF =  $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-checkinstall.prepare: $(host-checkinstall_prepare_deps)
 	@$(call targetinfo, $@)

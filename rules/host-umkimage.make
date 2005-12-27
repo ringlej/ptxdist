@@ -21,7 +21,7 @@ HOSTTOOL_UMKIMAGE		= u-boot-mkimage-$(HOSTTOOL_UMKIMAGE_VERSION)
 HOSTTOOL_UMKIMAGE_SUFFIX	= tar.gz
 HOSTTOOL_UMKIMAGE_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOSTTOOL_UMKIMAGE).$(HOSTTOOL_UMKIMAGE_SUFFIX)
 HOSTTOOL_UMKIMAGE_SOURCE	= $(SRCDIR)/$(HOSTTOOL_UMKIMAGE).$(HOSTTOOL_UMKIMAGE_SUFFIX)
-HOSTTOOL_UMKIMAGE_DIR		= $(BUILDDIR)/$(HOSTTOOL_UMKIMAGE)
+HOSTTOOL_UMKIMAGE_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL_UMKIMAGE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -50,7 +50,7 @@ hosttool-umkimage_extract_deps = $(STATEDIR)/hosttool-umkimage.get
 $(STATEDIR)/hosttool-umkimage.extract: $(hosttool-umkimage_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_UMKIMAGE_DIR))
-	@$(call extract, $(HOSTTOOL_UMKIMAGE_SOURCE))
+	@$(call extract, $(HOSTTOOL_UMKIMAGE_SOURCE), $(HOST_BUILDDIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -93,7 +93,8 @@ hosttool-umkimage_install: $(STATEDIR)/hosttool-umkimage.install
 
 $(STATEDIR)/hosttool-umkimage.install: $(STATEDIR)/hosttool-umkimage.compile
 	@$(call targetinfo, $@)
-	mkdir -p $(PTXCONF_PREFIX)/bin
+	# FIXME
+	mkdir -p $(PTXCONF_PREFIX)/usr/bin
 	install $(HOSTTOOL_UMKIMAGE_DIR)/mkimage $(PTXCONF_PREFIX)/bin/u-boot-mkimage
 	@$(call touch, $@)
 

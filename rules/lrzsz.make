@@ -77,8 +77,7 @@ LRZSZ_ENV	+= CFLAGS=-Wstrict-prototypes
 #
 # autoconf
 #
-LRZSZ_AUTOCONF	=  $(CROSS_AUTOCONF)
-LRZSZ_AUTOCONF	=  --prefix=/usr
+LRZSZ_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/lrzsz.prepare: $(lrzsz_prepare_deps)
 	@$(call targetinfo, $@)

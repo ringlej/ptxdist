@@ -79,8 +79,8 @@ LIBOOP_ENV = \
 #
 # autoconf
 #
-LIBOOP_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBOOP_AUTOCONF	= --prefix=$(CROSS_LIB_DIR) \
+LIBOOP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+LIBOOP_AUTOCONF	= \
 	--without-tcl \
 	--without-glib
 
