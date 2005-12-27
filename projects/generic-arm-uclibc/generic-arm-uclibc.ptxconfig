@@ -9,7 +9,7 @@ PTXCONF_PTXCONF=y
 #
 # ----------------------------------
 #
-PTXCONF_PROJECT="arm0815"
+PTXCONF_PROJECT="generic-arm-uclibc"
 PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
 
 #
