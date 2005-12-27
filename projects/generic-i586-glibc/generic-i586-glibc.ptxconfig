@@ -9,7 +9,7 @@ PTXCONF_PTXCONF=y
 #
 # ----------------------------------
 #
-PTXCONF_PROJECT="i586-generic-glibc"
+PTXCONF_PROJECT="generic-i586-glibc"
 PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
 
 #
@@ -287,7 +287,7 @@ PTXCONF_ROOTFS_ETC_VENDOR=""
 # ----------------------------------
 #
 # PTXCONF_USE_EXTERNAL_KERNEL is not set
-PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/i586-generic-glibc-2.6.8.kernelconfig"
+PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/generic-i586-glibc-2.6.8.kernelconfig"
 PTXCONF_KERNEL_2_6=y
 PTXCONF_KERNEL_2_6_COMPILE=y
 # PTXCONF_KERNEL_2_4_19 is not set
