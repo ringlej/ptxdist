@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.8
-# Wed Dec 14 22:06:19 2005
+# PTXdist version: 0.7.9-svn
+# Tue Dec 27 12:54:21 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -10,6 +10,7 @@ PTXCONF_PTXCONF=y
 # ----------------------------------
 #
 PTXCONF_PROJECT="wystup"
+PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
 
 #
 # ----------------------------------
@@ -113,7 +114,7 @@ PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 # Filesystem Manipulation Tools
 #
 PTXCONF_HOSTTOOL_GENEXT2FS=y
-# PTXCONF_HOSTTOOL_E2FSPROGS is not set
+# PTXCONF_HOST_E2FSPROGS is not set
 # PTXCONF_HOSTTOOL_MTD is not set
 
 #
@@ -167,6 +168,7 @@ PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 PTXCONF_IMAGE_TGZ=y
 # PTXCONF_IMAGE_HD is not set
 # PTXCONF_IMAGE_IPKG is not set
+# PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY is not set
 # PTXCONF_IMAGE_JFFS2 is not set
 # PTXCONF_IMAGE_UIMAGE is not set
 # PTXCONF_IMAGE_EXT2 is not set
