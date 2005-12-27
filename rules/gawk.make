@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_GAWK) += gawk
 #
 # Paths and names
 #
-GAWK_VERSION		= 3.1.4
+GAWK_VERSION		= 3.1.5
 GAWK			= gawk-$(GAWK_VERSION)
 GAWK_SUFFIX		= tar.gz
 GAWK_URL		= $(PTXCONF_SETUP_GNUMIRROR)/gawk/$(GAWK).$(GAWK_SUFFIX)
@@ -70,7 +70,6 @@ gawk_prepare_deps = \
 
 GAWK_PATH	=  PATH=$(CROSS_PATH)
 GAWK_ENV 	=  $(CROSS_ENV)
-#GAWK_ENV	+=
 
 #
 # autoconf
@@ -95,7 +94,7 @@ gawk_compile_deps = $(STATEDIR)/gawk.prepare
 
 $(STATEDIR)/gawk.compile: $(gawk_compile_deps)
 	@$(call targetinfo, $@)
-	$(GAWK_PATH) make -C $(GAWK_DIR)
+	cd $(GAWK_DIR) && $(GAWK_ENV) $(GAWK_PATH) make $(GAWK_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -120,7 +119,6 @@ gawk_targetinstall_deps = $(STATEDIR)/gawk.compile
 $(STATEDIR)/gawk.targetinstall: $(gawk_targetinstall_deps)
 	@$(call targetinfo, $@)
 	# FIXME: RSC: ipkgize
-	$(GAWK_PATH) make -C $(GAWK_DIR) install
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
