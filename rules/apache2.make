@@ -208,7 +208,7 @@ ifneq ($(PTXCONF_APACHE2_DOCUMENTROOT),"")
 	@$(call install_copy, 12, 102, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
 ifdef PTXCONF_APACHE2_DEFAULT_INDEX
 	@$(call install_copy, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/project/generic/index.html \
+		$(PTXDIST_TOPDIR)/projects/generic/index.html, \
 		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html,n)
 endif
 endif
@@ -233,11 +233,13 @@ ifdef PTXCONF_APACHE2_DEFAULTCONFIG
 	perl -i -p -e "s,\@SERVERADMIN@,$(PTXCONF_APACHE2_SERVERADMIN),g" $(APACHE2_DIR)/httpd.conf
 	perl -i -p -e "s,\@SERVERNAME@,$(PTXCONF_APACHE2_SERVERNAME),g" $(APACHE2_DIR)/httpd.conf
 
+	@echo "installing default config file..."
 	@$(call install_copy, 12, 102, 0644, \
 		$(APACHE2_DIR)/httpd.conf, \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,n)
 else
 ifneq ($(PTXCONF_APACHE2_USERCONFIG), "")
+	@echo "installing user config file..."
 	@$(call install_copy, 12, 102, 0644, \
 		$(PTXCONF_APACHE2_USERCONFIG), \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,n)
