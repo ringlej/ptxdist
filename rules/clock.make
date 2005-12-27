@@ -52,6 +52,7 @@ $(STATEDIR)/clock.extract: $(clock_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CLOCK_DIR))
 	@$(call extract, $(CLOCK_SOURCE))
+	@$(call patchin, $(CLOCK))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -84,7 +85,7 @@ clock_compile_deps = $(STATEDIR)/clock.prepare
 
 $(STATEDIR)/clock.compile: $(clock_compile_deps)
 	@$(call targetinfo, $@)
-	$(CLOCK_PATH) $(CLOCK_ENV) make -C $(CLOCK_DIR)
+	cd $(CLOCK_DIR) && $(CLOCK_PATH) $(CLOCK_ENV) make $(CLOCK_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
