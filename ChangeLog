@@ -1,3 +1,128 @@
+2005-12-20 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* Rules: remove some bogus mkdir $(IMAGEDIR)s; 
+	  Patch by Ladislav Michl
+
+	* bash: fixed PATH; patch by Vince Chen
+
+2005-12-14 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* release: released 0.7.8. This is just an intermediate
+	  release. We are working hard towards 1.0, so expect
+	  things to be completely broken. You have been warned.
+
+2005-11-30 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* overall: re-unified TOPDIR and PTXDISTDIR to become
+	  PTXDIST_DIR now. 
+	* makefiles: out-of-tree builds should work now; just 
+	  make an empty directory, link the PTXdist toplevel
+	  Makefile there and do everything you want. This feature
+	  probably needs more testing, but it's a beginning.
+	* kconfig/lxdialog: migrated to be hosttools, but still
+	  with the strange effect that they need to be in 
+	  scripts/* seen from the Makefile. 
+
+2005-11-18 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ntpclient: targetinstall fixed; patch by Steven Scholz
+
+2005-11-14 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* klibc: added
+
+2005-11-01 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* uml/native: fixed console
+
+2005-10-28 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* python24: fixed build dir; patch by Mike Wakerly
+
+2005-10-27 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* dropbear: fix DROPBEAR_CONVERT typo; patch by
+	  Mike Wakerly
+
+2005-10-26 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* rootfs: new fully configurable rootfs/etc templates
+	  to avoid duplicate files in ipkg packets.
+
+2005-10-26 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* release: released PTXdist 0.7.7
+
+2005-10-21 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* mknbi: added mknbi support; patch by Mike Wakerly. 
+	
+2005-10-08 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* epoll: removed rules/epoll.in, seems to be obsolete.
+	* rtai: removed rtai in kernel config, could now be done with
+	  the patch stack mechanism (in case anybody would be
+	  interested)
+	* lrzsz: fixed, builds now. Patch by Ladislav Michl, modified
+	  to actually build something on targetinstall.
+	* dhcp: update from 3.0.1 to 3.0.3; patch by Ulf Samuelsson
+	* sysvinit: patch by Oscar Peredo added.
+	* zlib: build also static zlib; patch by Kai-Uwe Bloem
+	* uclibc: install libthread_db if gdbserver is used; patch by
+	  Kai-Uwe Bloem.
+	* gettext: fixed stuff all over the place; make ipkg install
+	  work. Patch by Kai-Uwe Bloem
+
+2005-09-28 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* Makefile: more makefile cleanups. New policy: everything is
+	  now built in a "workspace"; usually nothing changes, but if 
+	  you set PTXDISTWORKSPACE we build there. (UPDDATE: this is 
+	  PTXDIST_WORKSPACE in more recent versions)
+	* paths: moved local_patches to patches; as the patch repository
+	  is now in the SVN repository there's no need to copy patches
+	  around. Policy: look for patches in $(TOPDIR)/patches and in
+	  $(PROJECTDIR)/patches. 
+	* toolchains: added gcc 3.3.3 glibc 2.3.2 toolchain
+	  for x86, corresponding to arm. Debian is broken at the moment.
+	  
+
+2005-09-28 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* misc: removed ptx-init-permissions.sh; this is obsolete now that
+	  we have the fakeroot based permission mechanism.
+
+2005-09-26 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* dotgnu: added initial support; patch by Benedikt Spranger
+	* busybox: added patch to make gcc 4.x happy; patch by 
+	  Benedikt Spranger
+	* coreutils: added get_patches; patch by Benedikt Spranger
+	* grub: update from 0.95 to 0.97; patch by Benedikt Spranger
+	* kernel: 2.6.13 is also available on PPC; patch by Benedikt
+	  Spranger
+	* nmap: update from 3.48 to 3.93; patch by Benedikt Spranger
+	* openssl: use cross-ar; patch by Benedikt Spranger
+	* rsync: update from 2.6.3 to 2.6.6. Patch by Benedikt Spranger
+	* Rules.make: fix LIB for relative paths; patch by Benedikt
+	  Spranger
+	* Version.make: fix extraversion whitespace handling; patch by
+	  Mike Wakerly
+
+2005-09-22 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libxmlconfig: version update
+	* libpv: version update
+	* liblist: version update
+
+2005-09-07 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libxslt: added xsltproc
+
+2005-09-02 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* added apache2
+
 2005-08-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* libpv: added

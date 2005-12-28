@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBIDL068
-PACKAGES += libidl068
-endif
+PACKAGES-$(PTXCONF_LIBIDL068) += libidl068
 
 #
 # Paths and names
@@ -39,7 +37,7 @@ libidl068_get_deps	=  $(LIBIDL068_SOURCE)
 
 $(STATEDIR)/libidl068.get: $(libidl068_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBIDL068_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +56,7 @@ $(STATEDIR)/libidl068.extract: $(libidl068_extract_deps)
 	@$(call clean, $(LIBIDL068_DIR))
 	@$(call extract, $(LIBIDL068_SOURCE))
 	@$(call patchin, $(LIBIDL068))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -81,8 +79,7 @@ LIBIDL068_ENV	+= PKG_CONFIG_PATH=../$(GLIB22):../$(PANGO12):../$(ATK124):../$(LI
 #
 # autoconf
 #
-LIBIDL068_AUTOCONF	=  $(CROSS_AUTOCONF)
-LIBIDL068_AUTOCONF	+= --prefix=/$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+LIBIDL068_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 
 ifdef PTXCONF_LIBIDL068_FOO
 LIBIDL068_AUTOCONF	+= --enable-foo
@@ -94,7 +91,7 @@ $(STATEDIR)/libidl068.prepare: $(libidl068_prepare_deps)
 	cd $(LIBIDL068_DIR) && \
 		$(LIBIDL068_PATH) $(LIBIDL068_ENV) \
 		./configure $(LIBIDL068_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -109,7 +106,7 @@ $(STATEDIR)/libidl068.compile: $(libidl068_compile_deps)
 
 	$(LIBIDL068_PATH) $(LIBIDL068_ENV) make -C $(LIBIDL068_DIR)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -119,10 +116,8 @@ libidl068_install: $(STATEDIR)/libidl068.install
 
 $(STATEDIR)/libidl068.install: $(STATEDIR)/libidl068.compile
 	@$(call targetinfo, $@)
-
-	$(LIBIDL068_PATH) $(LIBIDL068_ENV) make -C $(LIBIDL068_DIR) install
-
-	$(call touch, $@)
+	@$(call install, LIBIDL068)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -134,7 +129,7 @@ libidl068_targetinstall_deps	=  $(STATEDIR)/libidl068.compile
 
 $(STATEDIR)/libidl068.targetinstall: $(libidl068_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

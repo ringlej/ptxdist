@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CGICC
-PACKAGES += cgicc
-endif
+PACKAGES-$(PTXCONF_CGICC) += cgicc
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ cgicc_get_deps = $(CGICC_SOURCE)
 $(STATEDIR)/cgicc.get: $(cgicc_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CGICC))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(CGICC_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/cgicc.extract: $(cgicc_extract_deps)
 	@$(call clean, $(CGICC_DIR))
 	@$(call extract, $(CGICC_SOURCE))
 	@$(call patchin, $(CGICC))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -78,8 +76,7 @@ CGICC_ENV	+=
 #
 # autoconf
 #
-CGICC_AUTOCONF =  $(CROSS_AUTOCONF)
-CGICC_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+CGICC_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/cgicc.prepare: $(cgicc_prepare_deps)
 	@$(call targetinfo, $@)
@@ -87,7 +84,7 @@ $(STATEDIR)/cgicc.prepare: $(cgicc_prepare_deps)
 	cd $(CGICC_DIR) && \
 		$(CGICC_PATH) $(CGICC_ENV) \
 		./configure $(CGICC_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +97,7 @@ cgicc_compile_deps = $(STATEDIR)/cgicc.prepare
 $(STATEDIR)/cgicc.compile: $(cgicc_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(CGICC_DIR) && $(CGICC_ENV) $(CGICC_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,8 +107,8 @@ cgicc_install: $(STATEDIR)/cgicc.install
 
 $(STATEDIR)/cgicc.install: $(STATEDIR)/cgicc.compile
 	@$(call targetinfo, $@)
-#	cd $(CGICC_DIR) && $(CGICC_ENV) $(CGICC_PATH) make install
-	$(call touch, $@)
+	#@$(call install, CGICC)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -137,7 +134,7 @@ $(STATEDIR)/cgicc.targetinstall: $(cgicc_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

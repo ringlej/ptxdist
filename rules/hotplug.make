@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOTPLUG
-PACKAGES += hotplug
-endif
+PACKAGES-$(PTXCONF_HOTPLUG) += hotplug
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ hotplug_get_deps = $(HOTPLUG_SOURCE)
 $(STATEDIR)/hotplug.get: $(hotplug_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOTPLUG))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(HOTPLUG_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +57,7 @@ $(STATEDIR)/hotplug.extract: $(hotplug_extract_deps)
 
 	perl -i -p -e "s,/bin/bash,/bin/sh,g" $(HOTPLUG_DIR)/etc/hotplug.d/default/default.hotplug
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -71,7 +69,7 @@ hotplug_prepare_deps = $(STATEDIR)/hotplug.extract
 
 $(STATEDIR)/hotplug.prepare: $(hotplug_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -83,7 +81,7 @@ hotplug_compile_deps = $(STATEDIR)/hotplug.prepare
 
 $(STATEDIR)/hotplug.compile: $(hotplug_compile_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -93,8 +91,8 @@ hotplug_install: $(STATEDIR)/hotplug.install
 
 $(STATEDIR)/hotplug.install: $(STATEDIR)/hotplug.compile
 	@$(call targetinfo, $@)
-	cd $(HOTPLUG_DIR) && $(HOTPLUG_ENV) $(HOTPLUG_PATH) make install
-	$(call touch, $@)
+	@$(call install, HOTPLUG)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -110,7 +108,7 @@ $(STATEDIR)/hotplug.targetinstall: $(hotplug_targetinstall_deps)
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,hotplug)
 	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(HOTPLUG_VERSION))
+	@$(call install_fixup,VERSION,$(subst _,,$(HOTPLUG_VERSION)))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
@@ -135,7 +133,7 @@ ifdef PTXCONF_HOTPLUG_NET
 endif
 ifdef PTXCONF_HOTPLUG_PCI
 	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/pci.agent, /etc/hotplug/pci.agent, n)
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/pci.rc, /etc/hotplug/pci.rc, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/pci.rc, /etc/hotplug/pci.rc, n)
 	@$(call install_copy, 0, 0, 0755, /etc/hotplug/pci)
 endif
 ifdef PTXCONF_HOTPLUG_SCSI
@@ -146,12 +144,12 @@ ifdef PTXCONF_HOTPLUG_USB
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.distmap, /etc/hotplug/usb.distmap, n)
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.handmap, /etc/hotplug/usb.handmap, n)
 	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.usermap, /etc/hotplug/usb.usermap, n)
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/usb.rc, /etc/hotplug/usb.rc, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/usb.rc, /etc/hotplug/usb.rc, n)
 	@$(call install_copy, 0, 0, 0755, /etc/hotplug/usb.d)
 endif
 ifdef PTXCONF_HOTPLUG_INPUT
 	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/input.agent, /etc/hotplug/input.agent, n)
-	@$(call install_copy, 0, 0, 0644, $(HOTPLUG_DIR)/etc/hotplug/input.rc, /etc/hotplug/input.rc, n)
+	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/input.rc, /etc/hotplug/input.rc, n)
 endif
 ifdef PTXCONF_HOTPLUG_DASD
 	@$(call install_copy, 0, 0, 0755, $(HOTPLUG_DIR)/etc/hotplug/dasd.agent, /etc/hotplug/dasd.agent, n)
@@ -164,7 +162,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_TERMCAP
-PACKAGES += termcap
-endif
+PACKAGES-$(PTXCONF_TERMCAP) += termcap
 
 #
 # Paths and names
@@ -38,12 +36,12 @@ termcap_get_deps = \
 
 $(STATEDIR)/termcap.get: $(termcap_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(STATEDIR)/termcap-patches.get:
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TERMCAP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(TERMCAP_SOURCE):
 	@$(call targetinfo, $@)
@@ -62,7 +60,7 @@ $(STATEDIR)/termcap.extract: $(termcap_extract_deps)
 	@$(call clean, $(TERMCAP_DIR))
 	@$(call extract, $(TERMCAP_SOURCE))
 	@$(call patchin, $(TERMCAP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -83,8 +81,7 @@ TERMCAP_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-TERMCAP_AUTOCONF =  $(CROSS_AUTOCONF)
-TERMCAP_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+TERMCAP_AUTOCONF =  $(CROSS_AUTOCONF_BROKEN_USR)
 
 $(STATEDIR)/termcap.prepare: $(termcap_prepare_deps)
 	@$(call targetinfo, $@)
@@ -92,7 +89,7 @@ $(STATEDIR)/termcap.prepare: $(termcap_prepare_deps)
 	cd $(TERMCAP_DIR) && \
 		$(TERMCAP_PATH) $(TERMCAP_ENV) \
 		./configure $(TERMCAP_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +102,7 @@ termcap_compile_deps = $(STATEDIR)/termcap.prepare
 $(STATEDIR)/termcap.compile: $(termcap_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(TERMCAP_DIR) && $(TERMCAP_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,8 +112,8 @@ termcap_install: $(STATEDIR)/termcap.install
 
 $(STATEDIR)/termcap.install: $(STATEDIR)/termcap.compile
 	@$(call targetinfo, $@)
-	cd $(TERMCAP_DIR) && $(TERMCAP_PATH) make install
-	$(call touch, $@)
+	@$(call install, TERMCAP)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,7 +138,7 @@ $(STATEDIR)/termcap.targetinstall: $(termcap_targetinstall_deps)
 ifdef PTXCONF_TERMCAP_TERMCAP
 	@$(call install_copy, 0, 0, 0755, $(TERMCAP_DIR)/termcap.src, /etc/termcap.src,n)
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_OPENSSH
-PACKAGES += openssh
-endif
+PACKAGES-$(PTXCONF_OPENSSH) += openssh
 
 #
 # We depend on this package
@@ -41,7 +39,7 @@ openssh_get: $(STATEDIR)/openssh.get
 $(STATEDIR)/openssh.get: $(OPENSSH_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OPENSSH))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(OPENSSH_SOURCE):
 	@$(call targetinfo, $@)
@@ -79,7 +77,7 @@ $(STATEDIR)/openssh.extract: $(openssh_extract_deps)
 		$(OPENSSH_DIR)/configure.ac
 
 	cd $(OPENSSH_DIR) && PATH=$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin:$$PATH autoconf
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -127,8 +125,7 @@ OPENSSH_ENV	= \
 # autoconf
 #
 OPENSSH_AUTOCONF = \
-	$(CROSS_AUTOCONF) \
-	--prefix=/usr \
+	$(CROSS_AUTOCONF_USR) \
 	--libexecdir=/usr/sbin \
 	--libdir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
 	--with-ldflags=-L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
@@ -153,7 +150,7 @@ $(STATEDIR)/openssh.prepare: $(openssh_prepare_deps)
 	cd $(OPENSSH_DIR) && \
 		$(OPENSSH_PATH) $(OPENSSH_ENV) \
 		./configure $(OPENSSH_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -164,7 +161,7 @@ openssh_compile: $(STATEDIR)/openssh.compile
 $(STATEDIR)/openssh.compile: $(STATEDIR)/openssh.prepare 
 	@$(call targetinfo, $@)
 	cd $(OPENSSH_DIR) && $(OPENSSH_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -174,7 +171,7 @@ openssh_install: $(STATEDIR)/openssh.install
 
 $(STATEDIR)/openssh.install: $(STATEDIR)/openssh.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -225,12 +222,12 @@ endif
 ifdef PTXCONF_OPENSSH_KEYGEN
 	# FIXME: if this is the only file in this directory move it
 	# to somewhere else (patch, echo << EOF?) [RSC]
-	@$(call install_copy, 0, 0, 0755, $(MISCDIR)/openssh-host-keygen.sh, /sbin/openssh-host-keygen.sh, n)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/scripts/openssh-host-keygen.sh, /sbin/openssh-host-keygen.sh, n)
 	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/ssh-keygen, /usr/bin/ssh-keygen)
 endif
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

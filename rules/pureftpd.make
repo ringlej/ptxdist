@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PUREFTPD
-PACKAGES += pureftpd
-endif
+PACKAGES-$(PTXCONF_PUREFTPD) += pureftpd
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ pureftpd_get_deps = $(PUREFTPD_SOURCE)
 $(STATEDIR)/pureftpd.get: $(pureftpd_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PUREFTPD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PUREFTPD_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/pureftpd.extract: $(pureftpd_extract_deps)
 	@$(call clean, $(PUREFTPD_DIR))
 	@$(call extract, $(PUREFTPD_SOURCE))
 	@$(call patchin, $(PUREFTPD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -80,8 +78,7 @@ PUREFTPD_ENV	+= ac_cv_func_snprintf=yes
 # autoconf
 #
 PUREFTPD_AUTOCONF = \
-	$(CROSS_AUTOCONF) \
-	--prefix=$(CROSS_LIB_DIR) \
+	$(CROSS_AUTOCONF_USR) \
 	--with-standalone \
 	--without-inetd \
 	--without-ascii \
@@ -104,7 +101,7 @@ PUREFTPD_AUTOCONF = \
 	--without-mysql \
 	--without-pgsql \
 	--without-privsep \
-	--without-tls
+	--without-tls \
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 PUREFTPD_AUTOCONF += --with-uploadscript
@@ -128,7 +125,7 @@ $(STATEDIR)/pureftpd.prepare: $(pureftpd_prepare_deps)
 	cd $(PUREFTPD_DIR) && \
 		$(PUREFTPD_PATH) $(PUREFTPD_ENV) \
 		./configure $(PUREFTPD_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -141,7 +138,7 @@ pureftpd_compile_deps = $(STATEDIR)/pureftpd.prepare
 $(STATEDIR)/pureftpd.compile: $(pureftpd_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PUREFTPD_DIR) && $(PUREFTPD_ENV) $(PUREFTPD_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -151,8 +148,8 @@ pureftpd_install: $(STATEDIR)/pureftpd.install
 
 $(STATEDIR)/pureftpd.install: $(STATEDIR)/pureftpd.compile
 	@$(call targetinfo, $@)
-	cd $(PUREFTPD_DIR) && $(PUREFTPD_ENV) $(PUREFTPD_PATH) make install
-	$(call touch, $@)
+	@$(call install, PUREFTPD)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -174,11 +171,16 @@ $(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/foobar, /dev/null)
+	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-ftpd, /usr/sbin/pure-ftpd)
+	@$(call install_copy, 0, 0, 0775, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/pure-ftpd, /etc/init.d/pure-ftpd, n)
+
+ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
+	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-uploadscript, /usr/sbin/pure-uploadscript, n)
+endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

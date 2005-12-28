@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_MODUTILS
-HOST_PACKAGES += hosttool-modutils
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_MODUTILS) += hosttool-modutils
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ hosttool-modutils_get_deps = $(HOSTTOOL_MODUTILS_SOURCE)
 $(STATEDIR)/hosttool-modutils.get: $(hosttool-modutils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL_MODUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(HOSTTOOL_MODUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/hosttool-modutils.extract: $(hosttool-modutils_extract_deps)
 	@$(call clean, $(HOSTTOOL_MODUTILS_DIR))
 	@$(call extract, $(HOSTTOOL_MODUTILS_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL_MODUTILS), $(HOSTTOOL_MODUTILS_DIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -77,11 +75,7 @@ HOSTTOOL_MODUTILS_ENV 	=  CC=$(HOSTCC)
 #
 # autoconf
 #
-HOSTTOOL_MODUTILS_AUTOCONF = \
-	--prefix=$(PTXCONF_PREFIX) \
-	--build=$(GNU_HOST) \
-	--host=$(GNU_HOST) \
-	--target=$(PTXCONF_GNU_TARGET)
+HOSTTOOL_MODUTILS_AUTOCONF = $(HOST_AUTOCONF)
 
 $(STATEDIR)/hosttool-modutils.prepare: $(hosttool-modutils_prepare_deps)
 	@$(call targetinfo, $@)
@@ -89,7 +83,7 @@ $(STATEDIR)/hosttool-modutils.prepare: $(hosttool-modutils_prepare_deps)
 	cd $(HOSTTOOL_MODUTILS_DIR) && \
 		$(HOSTTOOL_MODUTILS_PATH) $(HOSTTOOL_MODUTILS_ENV) \
 		./configure $(HOSTTOOL_MODUTILS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +97,7 @@ $(STATEDIR)/hosttool-modutils.compile: $(hosttool-modutils_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_MODUTILS_DIR) && \
 		$(HOSTTOOL_MODUTILS_PATH) make -C $(HOSTTOOL_MODUTILS_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,7 +107,8 @@ hosttool-modutils_install: $(STATEDIR)/hosttool-modutils.install
 
 $(STATEDIR)/hosttool-modutils.install: $(STATEDIR)/hosttool-modutils.compile
 	@$(call targetinfo, $@)
-
+#	FIXME
+#	@$(call install, HOSTTOOL_MODUTILS,,h)
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	install -D -m755 $(HOSTTOOL_MODUTILS_DIR)/insmod/insmod \
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-insmod.old
@@ -132,7 +127,7 @@ $(STATEDIR)/hosttool-modutils.install: $(STATEDIR)/hosttool-modutils.compile
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-genksyms.old
 	install -D -m755 $(HOSTTOOL_MODUTILS_DIR)/depmod/depmod \
 		$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod.old
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -144,7 +139,7 @@ hosttool-modutils_targetinstall_deps	=  $(STATEDIR)/hosttool-modutils.compile
 
 $(STATEDIR)/hosttool-modutils.targetinstall: $(hosttool-modutils_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

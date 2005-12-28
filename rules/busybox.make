@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BUSYBOX
-PACKAGES += busybox
-endif
+PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 
 #
 # Paths and names
@@ -32,12 +30,13 @@ BUSYBOX_DIR		= $(BUILDDIR)/$(BUSYBOX)
 
 busybox_get: $(STATEDIR)/busybox.get
 
-busybox_get_deps	=  $(BUSYBOX_SOURCE)
+busybox_get_deps = \
+	$(BUSYBOX_SOURCE) \
+	$(RULESDIR)/busybox.make
 
 $(STATEDIR)/busybox.get: $(busybox_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(BUSYBOX))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(BUSYBOX_SOURCE):
 	@$(call targetinfo, $@)
@@ -60,7 +59,7 @@ $(STATEDIR)/busybox.extract: $(busybox_extract_deps)
 #	# fix: turn off debugging in init.c
 	perl -i -p -e 's/^#define DEBUG_INIT/#undef DEBUG_INIT/g' $(BUSYBOX_DIR)/init/init.c
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -95,14 +94,14 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	touch $(BUSYBOX_DIR)/busybox.links
 
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
-	grep -e PTXCONF_BB_ .config > $(BUSYBOX_DIR)/.config
+	grep -e PTXCONF_BB_ $(PTXDIST_WORKSPACE)/.config > $(BUSYBOX_DIR)/.config
 	perl -i -p -e 's/PTXCONF_BB_//g' $(BUSYBOX_DIR)/.config
 	echo GCC_PREFIX=$(COMPILER_PREFIX)
 	perl -i -p -e 's/^CROSS_COMPILER_PREFIX=.*$$/CROSS_COMPILER_PREFIX=\"$(COMPILER_PREFIX)\"/g' $(BUSYBOX_DIR)/.config
 	yes "" | $(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) dep $(BUSYBOX_MAKEVARS)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -115,7 +114,7 @@ busybox_compile_deps =  $(STATEDIR)/busybox.prepare
 $(STATEDIR)/busybox.compile: $(busybox_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) make $(BUSYBOX_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -125,7 +124,9 @@ busybox_install: $(STATEDIR)/busybox.install
 
 $(STATEDIR)/busybox.install: $(STATEDIR)/busybox.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	# FIXME
+	@$(call install, BUSYBOX)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -134,7 +135,6 @@ $(STATEDIR)/busybox.install: $(STATEDIR)/busybox.compile
 busybox_targetinstall: $(STATEDIR)/busybox.targetinstall
 
 busybox_targetinstall_deps	=  $(STATEDIR)/busybox.compile
-busybox_targetinstall_deps	+= $(STATEDIR)/virtual-libc.targetinstall
 
 $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 	@$(call targetinfo, $@)
@@ -147,7 +147,7 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	rm -f $(BUSYBOX_DIR)/busybox.links
 	cd $(BUSYBOX_DIR) && $(MAKE) busybox.links
 
@@ -157,8 +157,8 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
 	done
 
 	@$(call install_finish)
-	
-	$(call touch, $@)
+
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

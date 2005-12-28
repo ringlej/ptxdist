@@ -12,18 +12,16 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DIFFUTILS
-PACKAGES += diffutils
-endif
+PACKAGES-$(PTXCONF_DIFFUTILS) += diffutils
 
 #
 # Paths and names
 #
 DIFFUTILS_VERSION	= 2.8.1
 DIFFUTILS		= diffutils-$(DIFFUTILS_VERSION)
-DIFFUTILS_SUFFIX		= tar.gz
+DIFFUTILS_SUFFIX	= tar.gz
 DIFFUTILS_URL		= http://ftp.gnu.org/pub/gnu/diffutils/$(DIFFUTILS).$(DIFFUTILS_SUFFIX)
-DIFFUTILS_SOURCE		= $(SRCDIR)/$(DIFFUTILS).$(DIFFUTILS_SUFFIX)
+DIFFUTILS_SOURCE	= $(SRCDIR)/$(DIFFUTILS).$(DIFFUTILS_SUFFIX)
 DIFFUTILS_DIR		= $(BUILDDIR)/$(DIFFUTILS)
 
 # ----------------------------------------------------------------------------
@@ -37,7 +35,7 @@ diffutils_get_deps = $(DIFFUTILS_SOURCE)
 $(STATEDIR)/diffutils.get: $(diffutils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DIFFUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(DIFFUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/diffutils.extract: $(diffutils_extract_deps)
 	@$(call clean, $(DIFFUTILS_DIR))
 	@$(call extract, $(DIFFUTILS_SOURCE))
 	@$(call patchin, $(DIFFUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -73,14 +71,11 @@ diffutils_prepare_deps = \
 
 DIFFUTILS_PATH	=  PATH=$(CROSS_PATH)
 DIFFUTILS_ENV 	=  $(CROSS_ENV)
-#DIFFUTILS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#DIFFUTILS_ENV	+=
 
 #
 # autoconf
 #
-DIFFUTILS_AUTOCONF =  $(CROSS_AUTOCONF)
-DIFFUTILS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+DIFFUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/diffutils.prepare: $(diffutils_prepare_deps)
 	@$(call targetinfo, $@)
@@ -88,7 +83,7 @@ $(STATEDIR)/diffutils.prepare: $(diffutils_prepare_deps)
 	cd $(DIFFUTILS_DIR) && \
 		$(DIFFUTILS_PATH) $(DIFFUTILS_ENV) \
 		./configure $(DIFFUTILS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +96,7 @@ diffutils_compile_deps = $(STATEDIR)/diffutils.prepare
 $(STATEDIR)/diffutils.compile: $(diffutils_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(DIFFUTILS_DIR) && $(DIFFUTILS_ENV) $(DIFFUTILS_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +106,8 @@ diffutils_install: $(STATEDIR)/diffutils.install
 
 $(STATEDIR)/diffutils.install: $(STATEDIR)/diffutils.compile
 	@$(call targetinfo, $@)
-	cd $(DIFFUTILS_DIR) && $(DIFFUTILS_ENV) $(DIFFUTILS_PATH) make install
-	$(call touch, $@)
+	@$(call install, DIFFUTILS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -149,7 +144,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

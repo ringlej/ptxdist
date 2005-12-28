@@ -12,17 +12,15 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-XTST
-PACKAGES += xlibs-xtst
-endif
+PACKAGES-$(PTXCONF_XLIBS-XTST) += xlibs-xtst
 
 #
 # Paths and names
 #
-XLIBS-XTST_VERSION	= 0.99.0
-XLIBS-XTST		= libXtst-$(XLIBS-XTST_VERSION)
+XLIBS-XTST_VERSION	= 20041103-1
+XLIBS-XTST		= Xtst-$(XLIBS-XTST_VERSION)
 XLIBS-XTST_SUFFIX	= tar.bz2
-XLIBS-XTST_URL		= http://xorg.freedesktop.org/X11R7.0-RC0/$(XLIBS-XTST).$(XLIBS-XTST_SUFFIX)
+XLIBS-XTST_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-XTST).$(XLIBS-XTST_SUFFIX)
 XLIBS-XTST_SOURCE	= $(SRCDIR)/$(XLIBS-XTST).$(XLIBS-XTST_SUFFIX)
 XLIBS-XTST_DIR		= $(BUILDDIR)/$(XLIBS-XTST)
 
@@ -37,7 +35,7 @@ xlibs-xtst_get_deps = $(XLIBS-XTST_SOURCE)
 $(STATEDIR)/xlibs-xtst.get: $(xlibs-xtst_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XTST))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-XTST_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/xlibs-xtst.extract: $(xlibs-xtst_extract_deps)
 	@$(call clean, $(XLIBS-XTST_DIR))
 	@$(call extract, $(XLIBS-XTST_SOURCE))
 	@$(call patchin, $(XLIBS-XTST))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -80,8 +78,7 @@ XLIBS-XTST_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 XLIBS-XTST_AUTOCONF = \
 	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+	--host=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/xlibs-xtst.prepare: $(xlibs-xtst_prepare_deps)
 	@$(call targetinfo, $@)
@@ -90,7 +87,7 @@ $(STATEDIR)/xlibs-xtst.prepare: $(xlibs-xtst_prepare_deps)
 	cd $(XLIBS-XTST_DIR) && \
 		$(XLIBS-XTST_PATH) $(XLIBS-XTST_ENV) \
 		./configure $(XLIBS-XTST_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +100,7 @@ xlibs-xtst_compile_deps = $(STATEDIR)/xlibs-xtst.prepare
 $(STATEDIR)/xlibs-xtst.compile: $(xlibs-xtst_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XTST_DIR) && $(XLIBS-XTST_ENV) $(XLIBS-XTST_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +110,8 @@ xlibs-xtst_install: $(STATEDIR)/xlibs-xtst.install
 
 $(STATEDIR)/xlibs-xtst.install: $(STATEDIR)/xlibs-xtst.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-XTST_DIR) && $(XLIBS-XTST_ENV) $(XLIBS-XTST_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-XTST)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -144,7 +141,7 @@ $(STATEDIR)/xlibs-xtst.targetinstall: $(xlibs-xtst_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

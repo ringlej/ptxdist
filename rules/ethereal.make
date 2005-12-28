@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_ETHEREAL
-PACKAGES += ethereal
-endif
+PACKAGES-$(PTXCONF_ETHEREAL) += ethereal
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ ethereal_get_deps = $(ETHEREAL_SOURCE)
 $(STATEDIR)/ethereal.get: $(ethereal_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(ETHEREAL))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(ETHEREAL_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/ethereal.extract: $(ethereal_extract_deps)
 	@$(call clean, $(ETHEREAL_DIR))
 	@$(call extract, $(ETHEREAL_SOURCE))
 	@$(call patchin, $(ETHEREAL))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -73,14 +71,11 @@ ethereal_prepare_deps += $(STATEDIR)/libpcap.install
 
 ETHEREAL_PATH	=  PATH=$(CROSS_PATH)
 ETHEREAL_ENV 	=  $(CROSS_ENV)
-#ETHEREAL_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#ETHEREAL_ENV	+=
 
 #
 # autoconf
 #
-ETHEREAL_AUTOCONF =  $(CROSS_AUTOCONF)
-ETHEREAL_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+ETHEREAL_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 ETHEREAL_AUTOCONF += --disable-usr-local
 ETHEREAL_AUTOCONF += --disable-threads
@@ -113,7 +108,7 @@ $(STATEDIR)/ethereal.prepare: $(ethereal_prepare_deps)
 	cd $(ETHEREAL_DIR) && \
 		$(ETHEREAL_PATH) $(ETHEREAL_ENV) \
 		./configure $(ETHEREAL_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -126,7 +121,7 @@ ethereal_compile_deps = $(STATEDIR)/ethereal.prepare
 $(STATEDIR)/ethereal.compile: $(ethereal_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(ETHEREAL_DIR) && $(ETHEREAL_ENV) $(ETHEREAL_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -137,8 +132,8 @@ ethereal_install: $(STATEDIR)/ethereal.install
 $(STATEDIR)/ethereal.install: $(STATEDIR)/ethereal.compile
 	@$(call targetinfo, $@)
 	# FIXME: RSC: why do we do that on install, not on targetinstall? 
-	cd $(ETHEREAL_DIR) && $(ETHEREAL_ENV) $(ETHEREAL_PATH) make install
-	$(call touch, $@)
+	@$(call install, ETHEREAL)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -151,7 +146,7 @@ ethereal_targetinstall_deps += $(STATEDIR)/libpcap.targetinstall
 
 $(STATEDIR)/ethereal.targetinstall: $(ethereal_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

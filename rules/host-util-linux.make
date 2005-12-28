@@ -13,7 +13,9 @@
 # Paths and names
 #
 
-HOSTTOOL_UTIL-LINUX_DIR	= $(BUILDDIR)/hosttool/$(UTIL-LINUX)
+HOSTPACKAGES-$(HOSTTOOL_UTIL-LINUX) += hosttool-util-linux
+
+HOSTTOOL_UTIL-LINUX_DIR	= $(HOST_BUILDDIR)/$(UTIL-LINUX)
 
 # ----------------------------------------------------------------------------
 # Hosttool Extract
@@ -26,9 +28,9 @@ hosttool-util-linux_extract_deps =  $(STATEDIR)/util-linux.get
 $(STATEDIR)/hosttool-util-linux.extract: $(hosttool-util-linux_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTIL-LINUX_DIR))
-	@$(call extract, $(UTIL-LINUX_SOURCE), $(BUILDDIR)/hosttool)
-	@$(call patchin, $(UTIL-LINUX))
-	$(call touch, $@)
+	@$(call extract, $(UTIL-LINUX_SOURCE), $(HOST_BUILDDIR))
+	@$(call patchin, $(UTIL-LINUX),$(HOSTTOOL_UTIL-LINUX_DIR))
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Hosttool Prepare
@@ -45,7 +47,7 @@ $(STATEDIR)/hosttool-util-linux.prepare: $(hosttool-util-linux_prepare_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_UTIL-LINUX_DIR) && \
 		$(HOSTCC_ENV) ./configure
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Hosttool Compile
@@ -79,6 +81,8 @@ hosttool-util-linux_install: $(STATEDIR)/hosttool-util-linux.install
 $(STATEDIR)/hosttool-util-linux.install: $(STATEDIR)/hosttool-util-linux.compile
 	@$(call targetinfo, $@)
 
+	# FIXME: packetize
+
 ifdef PTXCONF_UTLNX_SFDISK
 	install -D $(HOSTTOOL_UTIL-LINUX_DIR)/fdisk/sfdisk \
 		$(PTXCONF_PREFIX)/sbin/sfdisk
@@ -94,7 +98,7 @@ ifdef PTXCONF_UTLNX_CFFDISK
 		$(PTXCONF_PREFIX)/sbin/sfdisk
 endif
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Hosttool Clean

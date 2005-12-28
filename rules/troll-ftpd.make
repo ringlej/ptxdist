@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_TROLL-FTPD
-PACKAGES += troll-ftpd
-endif
+PACKAGES-$(PTXCONF_TROLL-FTPD) += troll-ftpd
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ troll-ftpd_get_deps = $(TROLL-FTPD_SOURCE)
 $(STATEDIR)/troll-ftpd.get: $(troll-ftpd_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TROLL-FTPD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(TROLL-FTPD_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/troll-ftpd.extract: $(troll-ftpd_extract_deps)
 	@$(call clean, $(TROLL-FTPD_DIR))
 	@$(call extract, $(TROLL-FTPD_SOURCE))
 	@$(call patchin, $(TROLL-FTPD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -81,7 +79,7 @@ $(STATEDIR)/troll-ftpd.prepare: $(troll-ftpd_prepare_deps)
 	@$(call clean, $(TROLL-FTPD_DIR)/config.cache)
 	perl -p -i -e 's/CC = /CC ?= /'         $(TROLL-FTPD_DIR)/Makefile
 	perl -p -i -e 's/CFLAGS = /CFLAGS ?= /' $(TROLL-FTPD_DIR)/Makefile
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -94,7 +92,7 @@ troll-ftpd_compile_deps = $(STATEDIR)/troll-ftpd.prepare
 $(STATEDIR)/troll-ftpd.compile: $(troll-ftpd_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(TROLL-FTPD_DIR) && $(TROLL-FTPD_ENV) $(TROLL-FTPD_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -104,7 +102,7 @@ troll-ftpd_install: $(STATEDIR)/troll-ftpd.install
 
 $(STATEDIR)/troll-ftpd.install: $(STATEDIR)/troll-ftpd.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -130,7 +128,7 @@ $(STATEDIR)/troll-ftpd.targetinstall: $(troll-ftpd_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

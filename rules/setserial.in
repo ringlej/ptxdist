@@ -1,0 +1,4 @@
+config SETSERIAL
+	bool "setserial"
+	help
+	  setserial - get/set Linux serial port information

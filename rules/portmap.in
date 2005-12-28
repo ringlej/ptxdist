@@ -2,7 +2,7 @@ menu	"Portmapper          "
 
 config	PORTMAP
 	bool
-	prompt "Compile Portmapper"
+	prompt "Portmapper"
 	
 config	PORTMAP_INSTALL_PORTMAPPER
 	bool

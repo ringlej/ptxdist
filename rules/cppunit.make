@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CPPUNIT
-PACKAGES += cppunit
-endif
+PACKAGES-$(PTXCONF_CPPUNIT) += cppunit
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ cppunit_get_deps = $(CPPUNIT_SOURCE)
 $(STATEDIR)/cppunit.get: $(cppunit_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CPPUNIT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(CPPUNIT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/cppunit.extract: $(cppunit_extract_deps)
 	@$(call clean, $(CPPUNIT_DIR))
 	@$(call extract, $(CPPUNIT_SOURCE))
 	@$(call patchin, $(CPPUNIT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -78,7 +76,7 @@ CPPUNIT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-CPPUNIT_AUTOCONF = $(CROSS_AUTOCONF)
+CPPUNIT_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/cppunit.prepare: $(cppunit_prepare_deps)
 	@$(call targetinfo, $@)
@@ -86,7 +84,7 @@ $(STATEDIR)/cppunit.prepare: $(cppunit_prepare_deps)
 	cd $(CPPUNIT_DIR) && \
 		$(CPPUNIT_PATH) $(CPPUNIT_ENV) \
 		./configure $(CPPUNIT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +97,7 @@ cppunit_compile_deps = $(STATEDIR)/cppunit.prepare
 $(STATEDIR)/cppunit.compile: $(cppunit_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(CPPUNIT_DIR) && $(CPPUNIT_ENV) $(CPPUNIT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,8 +107,8 @@ cppunit_install: $(STATEDIR)/cppunit.install
 
 $(STATEDIR)/cppunit.install: $(STATEDIR)/cppunit.compile
 	@$(call targetinfo, $@)
-	cd $(CPPUNIT_DIR) && $(CPPUNIT_PATH) make install
-	$(call touch, $@)
+	@$(call install, CPPUNIT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,7 +139,7 @@ $(STATEDIR)/cppunit.targetinstall: $(cppunit_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

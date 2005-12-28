@@ -1,4 +1,4 @@
 config GNUPG
 	bool
-	prompt "Compile GnuPG"
+	prompt "GnuPG"
 

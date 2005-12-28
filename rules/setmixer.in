@@ -1,4 +1,4 @@
 config SETMIXER
 	bool
-	prompt "Compile setmixer"
+	prompt "setmixer"
 

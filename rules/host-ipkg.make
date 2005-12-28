@@ -12,19 +12,13 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_IPKG
-HOST_PACKAGES += hosttool-ipkg
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_IPKG) += hosttool-ipkg
 
 #
 # Paths and names
 #
 
-# FIXME: versions > 0.99.135 have the replace/Makefile.in problem; 
-#        0.99.148 (latest as of today) has it fixed, but installs into
-#        wrong paths. 
-
-HOSTTOOL_IPKG_VERSION	= 0.99.135
+HOSTTOOL_IPKG_VERSION	= 0.99.154
 HOSTTOOL_IPKG		= ipkg-$(HOSTTOOL_IPKG_VERSION)
 HOSTTOOL_IPKG_SUFFIX	= tar.gz
 HOSTTOOL_IPKG_URL	= http://www.handhelds.org/download/packages/ipkg/$(HOSTTOOL_IPKG).$(HOSTTOOL_IPKG_SUFFIX)
@@ -42,7 +36,7 @@ hosttool-ipkg_get_deps = $(HOSTTOOL_IPKG_SOURCE)
 $(STATEDIR)/hosttool-ipkg.get: $(hosttool-ipkg_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL_IPKG))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -58,7 +52,7 @@ $(STATEDIR)/hosttool-ipkg.extract: $(hosttool-ipkg_extract_deps)
 	@$(call extract, $(HOSTTOOL_IPKG_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL_IPKG), $(HOSTTOOL_IPKG_DIR))
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -78,10 +72,7 @@ HOSTTOOL_IPKG_ENV 	=  $(HOSTCC_ENV)
 #
 # autoconf
 #
-HOSTTOOL_IPKG_AUTOCONF =  --prefix=$(PTXCONF_PREFIX)
-HOSTTOOL_IPKG_AUTOCONF += --build=$(GNU_HOST)
-HOSTTOOL_IPKG_AUTOCONF += --host=$(GNU_HOST)
-HOSTTOOL_IPKG_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
+HOSTTOOL_IPKG_AUTOCONF  = $(HOST_AUTOCONF)
 
 $(STATEDIR)/hosttool-ipkg.prepare: $(hosttool-ipkg_prepare_deps)
 	@$(call targetinfo, $@)
@@ -89,7 +80,7 @@ $(STATEDIR)/hosttool-ipkg.prepare: $(hosttool-ipkg_prepare_deps)
 	cd $(HOSTTOOL_IPKG_DIR) && \
 		$(HOSTTOOL_IPKG_PATH) $(HOSTTOOL_IPKG_ENV) \
 		./configure $(HOSTTOOL_IPKG_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +93,7 @@ hosttool-ipkg_compile_deps = $(STATEDIR)/hosttool-ipkg.prepare
 $(STATEDIR)/hosttool-ipkg.compile: $(hosttool-ipkg_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_IPKG_DIR) && $(HOSTTOOL_IPKG_ENV) $(HOSTTOOL_IPKG_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,8 +103,8 @@ hosttool-ipkg_install: $(STATEDIR)/hosttool-ipkg.install
 
 $(STATEDIR)/hosttool-ipkg.install: $(STATEDIR)/hosttool-ipkg.compile
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOL_IPKG_DIR) && $(HOSTTOOL_IPKG_ENV) $(HOSTTOOL_IPKG_PATH) make install
-	$(call touch, $@)
+	@$(call install, HOSTTOOL_IPKG,,h)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -125,7 +116,7 @@ hosttool-ipkg_targetinstall_deps = $(STATEDIR)/hosttool-ipkg.install
 
 $(STATEDIR)/hosttool-ipkg.targetinstall: $(hosttool-ipkg_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

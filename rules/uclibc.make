@@ -12,8 +12,8 @@
 #
 # We provide this package
 #
+PACKAGES-$(PTXCONF_UCLIBC) += uclibc
 ifdef PTXCONF_UCLIBC
-PACKAGES	+= uclibc
 DYNAMIC_LINKER	=  /lib/ld-uClibc.so.0
 endif
 
@@ -27,7 +27,7 @@ uclibc_get: $(STATEDIR)/uclibc.get
 
 $(STATEDIR)/uclibc.get:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -39,7 +39,7 @@ uclibc_extract_deps = $(STATEDIR)/uclibc.get
 
 $(STATEDIR)/uclibc.extract: $(uclibc_extract_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -51,7 +51,7 @@ uclibc_prepare_deps =  $(STATEDIR)/uclibc.extract
 
 $(STATEDIR)/uclibc.prepare: $(uclibc_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -63,7 +63,7 @@ uclibc_compile_deps = $(STATEDIR)/uclibc.prepare
 
 $(STATEDIR)/uclibc.compile: $(uclibc_compile_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -73,7 +73,7 @@ uclibc_install: $(STATEDIR)/uclibc.install
 
 $(STATEDIR)/uclibc.install: $(STATEDIR)/uclibc.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -118,6 +118,9 @@ endif
 
 ifdef PTXCONF_UCLIBC_PTHREAD
 	@$(call install_copy_toolchain_lib, libpthread.so, /lib)
+ifdef PTXCONF_GDBSERVER
+	@$(call install_copy_toolchain_lib, libthread_db.so, /lib)
+endif
 endif
 
 ifdef PTXCONF_UCLIBC_RESOLV
@@ -131,7 +134,7 @@ endif
 endif
 	@$(call install_finish)
 	
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

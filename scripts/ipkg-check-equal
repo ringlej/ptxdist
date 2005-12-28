@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+# usage: ipkg-check-equal <first.ipk> <second.ipk>
+
+PTXDIST_TOPDIR=`pwd`
+TMPDIR=`mktemp -d /tmp/ptxdist.XXXXXX`
+IPKG1=$1
+IPKG2=$2
+
+if [ ! -f "$IPKG1" ]; then
+	echo -e "\nError: couldn't find $IPKG1\n"
+	exit 1
+fi
+
+if [ ! -f "$IPKG2" ]; then
+	echo -e "\nError: couldn't find $IPKG2\n"
+	exit 1
+fi
+
+mkdir -p ${TMPDIR}/first/data
+mkdir -p ${TMPDIR}/first/control
+pushd ${TMPDIR}/first > /dev/null
+ar x $IPKG1
+cd data    && tar -zxf ../data.tar.gz;    cd ..
+cd control && tar -zxf ../control.tar.gz; cd ..
+find data    -type f | xargs md5sum | awk '{printf("%s ", $2); print $1}' | sort -u > data.md5
+find control -type f | grep -v "control/control" | xargs md5sum | awk '{printf("%s ", $2); print $1}' | sort -u > control.md5
+popd > /dev/null
+
+mkdir -p ${TMPDIR}/second/data
+mkdir -p ${TMPDIR}/second/control
+pushd ${TMPDIR}/second > /dev/null
+ar x $IPKG2
+cd data    && tar -zxf ../data.tar.gz;    cd ..
+cd control && tar -zxf ../control.tar.gz; cd ..
+find data    -type f | xargs md5sum | awk '{printf("%s ", $2); print $1}' | sort -u > data.md5
+find control -type f | grep -v "control/control" | xargs md5sum | awk '{printf("%s ", $2); print $1}' | sort -u > control.md5
+popd > /dev/null
+
+diff -u ${TMPDIR}/first/data.md5 ${TMPDIR}/second/data.md5
+DIFF_DATA=$?
+
+diff -u ${TMPDIR}/first/control.md5 ${TMPDIR}/second/control.md5 
+DIFF_CONTROL=$?
+
+rm -fr ${TMPDIR}
+
+if [ "$DIFF_DATA" = "0" ] && [ "$DIFF_CONTROL" = "0" ]; then
+	exit 0
+fi
+
+exit 1
+

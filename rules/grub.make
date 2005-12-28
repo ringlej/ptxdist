@@ -11,14 +11,12 @@
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_GRUB))
-PACKAGES += grub
-endif
+PACKAGES-$(PTXCONF_GRUB) += grub
 
 #
 # Paths and names 
 #
-GRUB_VERSION		= 0.95
+GRUB_VERSION		= 0.97
 GRUB			= grub-$(GRUB_VERSION)
 GRUB_URL		= ftp://alpha.gnu.org/gnu/grub/$(GRUB).tar.gz
 GRUB_SOURCE		= $(SRCDIR)/$(GRUB).tar.gz
@@ -33,7 +31,7 @@ grub_get: $(STATEDIR)/grub.get
 $(STATEDIR)/grub.get: $(GRUB_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GRUB))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GRUB_SOURCE):
 	@$(call targetinfo, $@)
@@ -50,7 +48,7 @@ $(STATEDIR)/grub.extract: $(STATEDIR)/grub.get
 	@$(call clean, $(GRUB_DIR))
 	@$(call extract, $(GRUB_SOURCE))
 	@$(call patchin, $(GRUB))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -66,10 +64,10 @@ GRUB_PATH	= PATH=$(CROSS_PATH)
 
 GRUB_ENV	= $(CROSS_ENV) CFLAGS=''
 
-GRUB_AUTOCONF =  $(CROSS_AUTOCONF)
+GRUB_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 GRUB_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
-
-GRUB_AUTOCONF +=  --prefix=$(PTXCONF_PREFIX)
+# FIXME FIXME FIXME
+GRUB_AUTOCONF += --prefix=$(PTXCONF_PREFIX)
 
 ifneq ("", "$(PTXCONF_GRUB_PRESET_MENU)")
 GRUB_AUTOCONF += --enable-preset-menu=$(PTXCONF_GRUB_PRESET_MENU)
@@ -135,7 +133,7 @@ $(STATEDIR)/grub.prepare: $(grub_prepare_deps)
 	@$(call targetinfo, $@)
 	cd $(GRUB_DIR) && \
 		$(GRUB_PATH) $(GRUB_ENV) ./configure $(GRUB_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -146,7 +144,7 @@ grub_compile: $(STATEDIR)/grub.compile
 $(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare 
 	@$(call targetinfo, $@)
 	$(GRUB_PATH) make -C $(GRUB_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -157,7 +155,7 @@ grub_install: $(STATEDIR)/grub.install
 $(STATEDIR)/grub.install: $(STATEDIR)/grub.compile
 	@$(call targetinfo, $@)
 #	make -C $(GRUB_DIR) install
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -183,7 +181,7 @@ $(STATEDIR)/grub.targetinstall: $(STATEDIR)/grub.install
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

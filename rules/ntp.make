@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NTP
-PACKAGES += ntp
-endif
+PACKAGES-$(PTXCONF_NTP) += ntp
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ ntp_get_deps = $(NTP_SOURCE)
 $(STATEDIR)/ntp.get: $(ntp_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NTP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(NTP_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/ntp.extract: $(ntp_extract_deps)
 	@$(call clean, $(NTP_DIR))
 	@$(call extract, $(NTP_SOURCE))
 	@$(call patchin, $(NTP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -78,8 +76,7 @@ NTP_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-NTP_AUTOCONF =  $(CROSS_AUTOCONF)
-NTP_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+NTP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 # NTP: options, we need lots of options ;-)
 
@@ -320,7 +317,7 @@ $(STATEDIR)/ntp.prepare: $(ntp_prepare_deps)
 	cd $(NTP_DIR) && \
 		$(NTP_PATH) $(NTP_ENV) \
 		./configure $(NTP_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -341,7 +338,7 @@ $(STATEDIR)/ntp.compile: $(ntp_compile_deps)
 
 	# now build the rest
 	cd $(NTP_DIR) && $(NTP_ENV) $(NTP_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -351,8 +348,8 @@ ntp_install: $(STATEDIR)/ntp.install
 
 $(STATEDIR)/ntp.install: $(STATEDIR)/ntp.compile
 	@$(call targetinfo, $@)
-	cd $(NTP_DIR) && $(NTP_PATH) make install
-	$(call touch, $@)
+	@$(call install, NTP)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -387,11 +384,11 @@ ifdef PTXCONF_NTP_NTPDC
 	@$(call install_copy, 0, 0, 0755, $(NTP_DIR)/ntpq/ntpq, /usr/sbin/ntpq)
 endif
 
-	@$(call install_copy, 0, 0, 0755, $(TOPDIR)/projects/generic/etc/init.d/ntp, /etc/init.d/ntp-server, n)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/ntp, /etc/init.d/ntp-server, n)
 	@$(call install_link, /etc/init.d/ntp-server, /etc/init.d/ntp-client, n)
 
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

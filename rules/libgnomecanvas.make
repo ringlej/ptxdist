@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBGNOMECANVAS
-PACKAGES += libgnomecanvas
-endif
+PACKAGES-$(PTXCONF_LIBGNOMECANVAS) += libgnomecanvas
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ libgnomecanvas_get_deps = $(LIBGNOMECANVAS_SOURCE)
 
 $(STATEDIR)/libgnomecanvas.get: $(libgnomecanvas_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBGNOMECANVAS_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/libgnomecanvas.extract: $(libgnomecanvas_extract_deps)
 	@$(call clean, $(LIBGNOMECANVAS_DIR))
 	@$(call extract, $(LIBGNOMECANVAS_SOURCE))
 	@$(call patchin, $(LIBGNOMECANVAS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,8 +77,7 @@ LIBGNOMECANVAS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 # autoconf
 #
-LIBGNOMECANVAS_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBGNOMECANVAS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBGNOMECANVAS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/libgnomecanvas.prepare: $(libgnomecanvas_prepare_deps)
 	@$(call targetinfo, $@)
@@ -88,7 +85,7 @@ $(STATEDIR)/libgnomecanvas.prepare: $(libgnomecanvas_prepare_deps)
 	cd $(LIBGNOMECANVAS_DIR) && \
 		$(LIBGNOMECANVAS_PATH) $(LIBGNOMECANVAS_ENV) \
 		./configure $(LIBGNOMECANVAS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +99,7 @@ $(STATEDIR)/libgnomecanvas.compile: $(libgnomecanvas_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBGNOMECANVAS_DIR) && \
 	   $(LIBGNOMECANVAS_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,9 +109,8 @@ libgnomecanvas_install: $(STATEDIR)/libgnomecanvas.install
 
 $(STATEDIR)/libgnomecanvas.install: $(STATEDIR)/libgnomecanvas.compile
 	@$(call targetinfo, $@)
-	cd $(LIBGNOMECANVAS_DIR) && \
-	$(LIBGNOMECANVAS_PATH) make install
-	$(call touch, $@)
+	@$(call install, LIBGNOMECANVAS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -145,7 +141,7 @@ $(STATEDIR)/libgnomecanvas.targetinstall: $(libgnomecanvas_targetinstall_deps)
 	
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

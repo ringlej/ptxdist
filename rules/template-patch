@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_@PACKET@_@PATCH@
-@PACKET@_PATCHES += @packet@-@patch@
-endif
+@PACKET@_PATCHES-PTXCONF_@PACKET@_@PATCH@ += @packet@-@patch@
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ endif
 
 $(STATEDIR)/@packet@-@patch@.get: $(@packet@-@patch@_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	@$(call touch, $@)
 
 $(@PACKET@_@PATCH@_SOURCE):
 	@$(call targetinfo, $@)
@@ -52,7 +50,7 @@ $(@PACKET@_@PATCH@_SOURCE):
 $(STATEDIR)/@packet@-@patch@.install: $(STATEDIR)/@packet@-@patch@.get
 	@$(call targetinfo, $@)
 	@$(call patch_apply, $(@PACKET@_@PATCH@_SOURCE), $(@PACKET@_DIR))
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

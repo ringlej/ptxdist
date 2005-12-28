@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DROPBEAR
-PACKAGES += dropbear
-endif
+PACKAGES-$(PTXCONF_DROPBEAR) += dropbear
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ dropbear_get_deps	=  $(DROPBEAR_SOURCE)
 
 $(STATEDIR)/dropbear.get: $(dropbear_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(DROPBEAR_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/dropbear.extract: $(dropbear_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DROPBEAR_DIR))
 	@$(call extract, $(DROPBEAR_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -80,8 +78,7 @@ DROPBEAR_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-DROPBEAR_AUTOCONF	=  $(CROSS_AUTOCONF)
-DROPBEAR_AUTOCONF	+= --prefix=/usr
+DROPBEAR_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 DROPBEAR_AUTOCONF	+= --disable-nls
 
 ifdef PTXCONF_DROPBEAR_DIS_ZLIB
@@ -216,7 +213,7 @@ else
 	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_PUBKEY_AUTH)
 endif
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -234,14 +231,14 @@ ifdef PTXCONF_DROPBEAR_DROPBEAR_KEY
 	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make dropbearkey
 endif
 
-ifdef PTXCONF_DROPBEAR_CONVERT
+ifdef PTXCONF_DROPBEAR_DROPBEAR_CONVERT
 	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make dropbearconvert
 endif
 
 ifdef PTXCONF_DROPBEAR_SCP
 	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make scp
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -251,7 +248,9 @@ dropbear_install: $(STATEDIR)/dropbear.install
 
 $(STATEDIR)/dropbear.install: $(STATEDIR)/dropbear.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	# FIXME
+	# @$(call install, DROPBEAR)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -294,7 +293,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

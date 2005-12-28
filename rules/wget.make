@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_WGET
-PACKAGES += wget
-endif
+PACKAGES-$(PTXCONF_WGET) += wget
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ wget_get_deps = $(WGET_SOURCE)
 $(STATEDIR)/wget.get: $(wget_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(WGET_PACKET))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(WGET_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/wget.extract: $(wget_extract_deps)
 	@$(call clean, $(WGET_DIR))
 	@$(call extract, $(WGET_SOURCE))
 	@$(call patchin, $(WGET_PACKET))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,8 +77,7 @@ WGET_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-WGET_AUTOCONF =  $(CROSS_AUTOCONF)
-WGET_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+WGET_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 WGET_AUTOCONF += --without-socks
 WGET_AUTOCONF += --without-ssl
 
@@ -90,7 +87,7 @@ $(STATEDIR)/wget.prepare: $(wget_prepare_deps)
 	cd $(WGET_DIR) && \
 		$(WGET_PATH) $(WGET_ENV) \
 		./configure $(WGET_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +100,7 @@ wget_compile_deps = $(STATEDIR)/wget.prepare
 $(STATEDIR)/wget.compile: $(wget_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(WGET_DIR) && $(WGET_ENV) $(WGET_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +110,8 @@ wget_install: $(STATEDIR)/wget.install
 
 $(STATEDIR)/wget.install: $(STATEDIR)/wget.compile
 	@$(call targetinfo, $@)
-	cd $(WGET_DIR) && $(WGET_ENV) $(WGET_PATH) make install
-	$(call touch, $@)
+	@$(call install, WGET)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +137,7 @@ $(STATEDIR)/wget.targetinstall: $(wget_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

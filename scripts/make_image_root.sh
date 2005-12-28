@@ -37,18 +37,15 @@ OUTFILE=
 while [ $# -gt 0 ]; do
 	case "$1" in 
 		--help) usage ;;
-		-r) ROOTDIR=`abspath $2`;     shift 2 ;;
-		-i) IPKGDIR=`abspath $2`;     shift 2 ;;
-		-p) PERMISSIONS=`abspath $2`; shift 2 ;;
-		-e) ERASEBLOCKSIZE=$2;        shift 2 ;;
-		-j) JFFS2EXTRA=$2;            shift 2 ;;
-		-o) OUTFILE=`abspath $2`;     shift 2 ;;
+		-r) ROOTDIR=`ptxd_abspath $2`;     shift 2 ;;
+		-i) IPKGDIR=`ptxd_abspath $2`;     shift 2 ;;
+		-p) PERMISSIONS=`ptxd_abspath $2`; shift 2 ;;
+		-e) ERASEBLOCKSIZE=$2;             shift 2 ;;
+		-j) JFFS2EXTRA=$2;                 shift 2 ;;
+		-o) OUTFILE=`ptxd_abspath $2`;     shift 2 ;;
 		*)  usage "unknown option" ;;
   	esac
 done
-
-IPKGCONF=`dirname $0`/../projects/generic/etc/ipkg.conf
-IPKGCONF=`abspath $IPKGCONF`
 
 #
 # Sanity checks
@@ -62,7 +59,6 @@ IPKGCONF=`abspath $IPKGCONF`
 [ -n "$IPKGDIR" ] && \
 [ ! -x "`which ipkg-cl`" ]             && usage "error: you need ipkg-cl in your path"
 [ -z "$OUTFILE" ]                      && usage "error: specify an output file with -o"
-[ ! -f "$IPKGCONF" ]                   && usage "error: $IPKGCONF does not exist"
 
 echo
 
@@ -94,7 +90,7 @@ cd $WORKDIR
 
 if [ -n "$IPKGDIR" ]; then
 	for archive in $IPKGDIR/*.ipk; do
-		ipkg-cl -f $IPKGCONF -force-depends -o . install $archive 1> /dev/null
+		ipkg-cl -f `ptxd_abspath $ROOTDIR/etc/ipkg.conf` -force-depends -o . install $archive 1> /dev/null
 	done
 fi
 

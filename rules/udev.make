@@ -11,14 +11,12 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_UDEV
-PACKAGES += udev
-endif
+PACKAGES-$(PTXCONF_UDEV) += udev
 
 #
 # Paths and names
 #
-UDEV_VERSION	= 058
+UDEV_VERSION	= 068
 UDEV		= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	= tar.gz
 UDEV_URL	= http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
@@ -36,7 +34,7 @@ udev_get_deps = $(UDEV_SOURCE)
 $(STATEDIR)/udev.get: $(udev_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(UDEV))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(UDEV_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/udev.extract: $(udev_extract_deps)
 	@$(call clean, $(UDEV_DIR))
 	@$(call extract, $(UDEV_SOURCE))
 	@$(call patchin, $(UDEV))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -74,10 +72,14 @@ UDEV_PATH	=  PATH=$(CROSS_PATH)
 UDEV_ENV 	=  $(CROSS_ENV)
 UDEV_MAKEVARS	=  CROSS=$(COMPILER_PREFIX)
 
+ifdef PTXCONF_UDEV_FW_HELPER
+UDEV_MAKEVARS	+=  EXTRAS=extras/firmware
+endif
+
 $(STATEDIR)/udev.prepare: $(udev_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UDEV_DIR)/config.cache)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -90,7 +92,7 @@ udev_compile_deps = $(STATEDIR)/udev.prepare
 $(STATEDIR)/udev.compile: $(udev_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(UDEV_DIR) && $(UDEV_ENV) $(UDEV_PATH) make $(UDEV_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -100,7 +102,7 @@ udev_install: $(STATEDIR)/udev.install
 
 $(STATEDIR)/udev.install: $(STATEDIR)/udev.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -122,7 +124,19 @@ $(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/extras/start_udev, /etc/init.d/udev, n)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/udev/udev.conf, /etc/udev/udev.conf, n)
+ifdef PTXCONF_ROOTFS_ETC_INITD_UDEV
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/udev, /etc/init.d/udev, n)
+else
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE),"")
+	@$(call install_copy, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE), /etc/init.d/udev, n)
+endif
+endif
+
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK),"")
+	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, ../init.d/udev, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK))
+endif
 
 ifdef PTXCONF_UDEV_UDEV
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udev, /sbin/udev)
@@ -143,9 +157,15 @@ ifdef PTXCONF_UDEV_TEST
 	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevtest, /sbin/udevtest)
 endif
 
+ifdef PTXCONF_UDEV_FW_HELPER
+	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/extras/firmware/firmware_helper, /sbin/firmware_helper)
+endif
+
+	@$(call install_node, 0, 0, 0644, c, 5, 1, /dev/console)
+
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CFGSH
-PACKAGES += cfgsh
-endif
+PACKAGES-$(PTXCONF_CFGSH) += cfgsh
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ cfgsh_get_deps = $(CFGSH_SOURCE)
 
 $(STATEDIR)/cfgsh.get: $(cfgsh_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(CFGSH_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +52,7 @@ $(STATEDIR)/cfgsh.extract: $(cfgsh_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CFGSH_DIR))
 	@$(call extract, $(CFGSH_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -82,7 +80,6 @@ CFGSH_ENV 	=  $(CROSS_ENV)
 CFGSH_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/cfgsh.prepare: $(cfgsh_prepare_deps)
 	@$(call targetinfo, $@)
@@ -90,7 +87,7 @@ $(STATEDIR)/cfgsh.prepare: $(cfgsh_prepare_deps)
 #	cd $(CFGSH_DIR) && \
 #		$(CFGSH_PATH) $(CFGSH_ENV) \
 #		./configure $(CFGSH_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +100,7 @@ cfgsh_compile_deps = $(STATEDIR)/cfgsh.prepare
 $(STATEDIR)/cfgsh.compile: $(cfgsh_compile_deps)
 	@$(call targetinfo, $@)
 	$(CFGSH_ENV) $(CFGSH_PATH) make -C $(CFGSH_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +110,9 @@ cfgsh_install: $(STATEDIR)/cfgsh.install
 
 $(STATEDIR)/cfgsh.install: $(STATEDIR)/cfgsh.compile
 	@$(call targetinfo, $@)
-#	$(CFGSH_PATH) make -C $(CFGSH_DIR) install
-	$(call touch, $@)
+	# FIXME:
+	# @$(call install, CFGSH)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -137,7 +135,7 @@ $(STATEDIR)/cfgsh.targetinstall: $(cfgsh_targetinstall_deps)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0644, $(CFGSH_DIR)/cfgsh, /bin/cfgsh)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PROFTPD
-PACKAGES += proftpd
-endif
+PACKAGES-$(PTXCONF_PROFTPD) += proftpd
 
 #
 # Paths and names 
@@ -36,7 +34,7 @@ proftpd_get: $(STATEDIR)/proftpd.get
 $(STATEDIR)/proftpd.get: $(PROFTPD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PROFTPD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PROFTPD_SOURCE):
 	@$(call targetinfo, $@)
@@ -53,7 +51,7 @@ $(STATEDIR)/proftpd.extract: $(STATEDIR)/proftpd.get
 	@$(call clean, $(PROFTPD_DIR))
 	@$(call extract, $(PROFTPD_SOURCE))
 	@$(call patchin, $(PROFTPD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -61,8 +59,7 @@ $(STATEDIR)/proftpd.extract: $(STATEDIR)/proftpd.get
 
 proftpd_prepare: $(STATEDIR)/proftpd.prepare
 
-PROFTPD_AUTOCONF	=  $(CROSS_AUTOCONF)
-PROFTPD_AUTOCONF	+= --prefix=/usr
+PROFTPD_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 PROFTPD_AUTOCONF	+= --sysconfdir=/etc
 
 PROFTPD_PATH		=  PATH=$(CROSS_PATH)
@@ -101,7 +98,7 @@ $(STATEDIR)/proftpd.prepare: $(proftpd_extract_deps)
 	cd $(PROFTPD_DIR) && \
 		$(PROFTPD_PATH) $(PROFTPD_ENV) \
 		./configure $(PROFTPD_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -112,7 +109,7 @@ proftpd_compile: $(STATEDIR)/proftpd.compile
 $(STATEDIR)/proftpd.compile: $(STATEDIR)/proftpd.prepare 
 	@$(call targetinfo, $@)
 	cd $(PROFTPD_DIR) && $(PROFTPD_PATH) $(PROFTPD_ENV) make $(PROFTPD_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -122,7 +119,7 @@ proftpd_install: $(STATEDIR)/proftpd.install
 
 $(STATEDIR)/proftpd.install: $(STATEDIR)/proftpd.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -143,11 +140,15 @@ $(STATEDIR)/proftpd.targetinstall: $(STATEDIR)/proftpd.install
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0755, $(PROFTPD_DIR)/proftpd, /usr/sbin/proftpd)
-	@$(call install_copy, 11, 101, 0644, $(TOPDIR)/projects/generic/etc/proftpd.conf, /etc/proftpd.conf, n)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/proftpd, /etc/init.d/proftpd, n)
+	
+ifdef $(PTXCONF_PROFTPD_DEFAULTCONFIG)	
+	@$(call install_copy, 11, 101, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/proftpd.conf, /etc/proftpd.conf, n)
+endif	
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

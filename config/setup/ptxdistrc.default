@@ -13,24 +13,24 @@ PTXCONF_SETUP_PTXCONF=y
 #
 # Sources         
 #
-PTXCONF_SETUP_SRCDIR="$(TOPDIR)/local_src"
+PTXCONF_SETUP_SRCDIR="$(PTXDIST_WORKSPACE)/src"
 
 #
 # Patches         
 #
 PTXCONF_SETUP_PATCH_REPOSITORY=y
-PTXCONF_SETUP_LOCAL_PATCH_REPOSITORY="file://$(TOPDIR)/local_patches"
+PTXCONF_SETUP_LOCAL_PATCH_REPOSITORY="file://$(PTXDIST_TOPDIR)/local_patches"
 
 #
 # Feature Patches 
 #
-PTXCONF_SETUP_LOCAL_FEATUREPATCH_REPOSITORY="$(TOPDIR)/local_featurepatches"
+PTXCONF_SETUP_LOCAL_FEATUREPATCH_REPOSITORY="$(PTXDIST_TOPDIR)/local_featurepatches"
 
 #
 # Projects        
 #
-PTXCONF_SETUP_PROJECTDIR1="$(TOPDIR)/projects"
-PTXCONF_SETUP_PROJECTDIR2="$(TOPDIR)/local_projects"
+PTXCONF_SETUP_PROJECTDIR1="$(PTXDIST_TOPDIR)/projects"
+PTXCONF_SETUP_PROJECTDIR2="$(PTXDIST_WORKSPACE)/local_projects"
 
 #
 # Mirrors         
@@ -42,7 +42,7 @@ PTXCONF_SETUP_GNUMIRROR="ftp://ftp.informatik.rwth-aachen.de/pub/gnu"
 #
 # IPKG Repository 
 #
-PTXCONF_SETUP_IPKG_REPOSITORY="/var/www/ipkg/ptxdist-$(FULLVERSION)"
+PTXCONF_SETUP_IPKG_REPOSITORY="/var/www/ipkg-repository"
 
 #
 # Java SDK        

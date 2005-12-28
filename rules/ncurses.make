@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NCURSES
-PACKAGES += ncurses
-endif
+PACKAGES-$(PTXCONF_NCURSES) += ncurses
 
 #
 # Paths and names 
@@ -34,7 +32,7 @@ ncurses_get: $(STATEDIR)/ncurses.get
 $(STATEDIR)/ncurses.get: $(NCURSES_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NCURSES))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(NCURSES_SOURCE):
 	@$(call targetinfo, $@)
@@ -51,7 +49,7 @@ $(STATEDIR)/ncurses.extract: $(STATEDIR)/ncurses.get
 	@$(call clean, $(NCURSES_DIR))
 	@$(call extract, $(NCURSES_SOURCE))
 	@$(call patchin, $(NCURSES))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -74,9 +72,8 @@ NCURSES_ENV 	= $(CROSS_ENV)
 # include directory...
 #
 
-NCURSES_AUTOCONF =  $(CROSS_AUTOCONF)
+NCURSES_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 NCURSES_AUTOCONF += \
-	--prefix=/usr \
 	--exec-prefix=/usr \
 	--sysconfdir=/etc \
 	--localstatedir=/var \
@@ -103,7 +100,7 @@ $(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps)
 	cd $(NCURSES_DIR) && \
 		$(NCURSES_PATH) $(NCURSES_ENV) \
 		./configure $(NCURSES_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -122,7 +119,7 @@ $(STATEDIR)/ncurses.compile: $(STATEDIR)/ncurses.prepare
 #
 	cd $(NCURSES_DIR)/ncurses && $(NCURSES_PATH) make CFLAGS='' CXXFLAGS='' make_hash make_keys
 	cd $(NCURSES_DIR) && $(NCURSES_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -132,8 +129,10 @@ ncurses_install: $(STATEDIR)/ncurses.install
 
 $(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
 	@$(call targetinfo, $@)
+	# FIXME
+	# @$(call install, NCURSES)
 	$(NCURSES_PATH) make -C $(NCURSES_DIR) DESTDIR=$(CROSS_LIB_DIR) prefix='' exec_prefix='' install
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -189,7 +188,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

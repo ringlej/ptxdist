@@ -37,6 +37,10 @@ S: Via Pascoli, 3
 S: 24121 Bergamo
 S: Italia
 
+N: Vince Chen
+E: chen@glimmerglass.com
+D: Developer
+
 N: Sascha Hauer 
 E: s.hauer@pengutronix.de
 W: http://www.pengutronix.de
@@ -75,6 +79,10 @@ N: Oscar Peredo
 E: oscar@exis.cl
 D: Developer
 
+N: Ulf Samuelsson
+E: ulf@atmel.com
+D: Developer
+
 N: Werner Schmitt 
 E: mail2ws@gmx.de
 D: Developer
@@ -110,6 +118,10 @@ D: Developer
 
 N: Thibaut Varene
 E: varenet@parisc-linux.org
+D: Developer
+
+N: Mike Wakerly
+E: mike.wakerly@gmail.com
 D: Developer
 
 N: Gilad Ben-Yossef 

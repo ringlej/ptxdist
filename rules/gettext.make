@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GETTEXT
-PACKAGES += gettext
-endif
+PACKAGES-$(PTXCONF_GETTEXT) += gettext
 
 #
 # Paths and names
@@ -27,6 +25,8 @@ GETTEXT_URL		= $(PTXCONF_SETUP_GNUMIRROR)/gettext/$(GETTEXT).$(GETTEXT_SUFFIX)
 GETTEXT_SOURCE		= $(SRCDIR)/$(GETTEXT).$(GETTEXT_SUFFIX)
 GETTEXT_DIR		= $(BUILDDIR)/$(GETTEXT)
 
+GETTEXT_INST_DIR	= $(BUILDDIR)/$(GETTEXT)-install
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -37,7 +37,7 @@ gettext_get_deps = $(GETTEXT_SOURCE)
 
 $(STATEDIR)/gettext.get: $(gettext_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GETTEXT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/gettext.extract: $(gettext_extract_deps)
 	@$(call clean, $(GETTEXT_DIR))
 	@$(call extract, $(GETTEXT_SOURCE))
 	@$(call patchin, $(GETTEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -72,24 +72,25 @@ gettext_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install
 
 GETTEXT_PATH	=  PATH=$(CROSS_PATH)
-GETTEXT_ENV 	=  $(CROSS_ENV)
+GETTEXT_ENV 	=  $(CROSS_ENV) \
+	ac_cv_func_getline=yes \
+	am_cv_func_working_getline=yes
 
 #
 # autoconf
 #
 
-GETTEXT_AUTOCONF =  $(CROSS_AUTOCONF)
-GETTEXT_AUTOCONF +=  --prefix=/usr
+GETTEXT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-# This is braindead but correct :-) 
-GETTEXT_AUTOCONF	+= --disable-nls
+# This is braindead but correct :-) No, it isn't!
+# GETTEXT_AUTOCONF	+= --disable-nls
 
 $(STATEDIR)/gettext.prepare: $(gettext_prepare_deps)
 	@$(call targetinfo, $@)
 	cd $(GETTEXT_DIR) && \
 		$(GETTEXT_PATH) $(GETTEXT_ENV) \
 		./configure $(GETTEXT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +103,7 @@ gettext_compile_deps = $(STATEDIR)/gettext.prepare
 $(STATEDIR)/gettext.compile: $(gettext_compile_deps)
 	@$(call targetinfo, $@)
 	$(GETTEXT_PATH) make -C $(GETTEXT_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,16 +111,20 @@ $(STATEDIR)/gettext.compile: $(gettext_compile_deps)
 
 gettext_install: $(STATEDIR)/gettext.install
 
-$(STATEDIR)/gettext.install: $(STATEDIR)/gettext.compile
+gettext_install_deps = $(STATEDIR)/gettext.compile
+
+$(STATEDIR)/gettext.install: $(gettext_install_deps)
 	@$(call targetinfo, $@)
-	install -d $(PTXCONF_PREFIX)/lib
-	rm -f $(PTXCONF_PREFIX)/lib/libgnuintl.so*
-	install $(GETTEXT_DIR)/gettext-runtime/intl/.libs/libgnuintl.so* $(PTXCONF_PREFIX)/lib/
-#	ln -s $(PTXCONF_PREFIX)/lib/libgnuintl.so* $(PTXCONF_PREFIX)/lib/libgnuintl.so.2 
-#	ln -s $(PTXCONF_PREFIX)/lib/libgnuintl.so.2 $(PTXCONF_PREFIX)/lib/libgnuintl.so 
-	install $(GETTEXT_DIR)/gettext-runtime/intl/libgnuintl.h $(PTXCONF_PREFIX)/include
-	install $(GETTEXT_DIR)/gettext-tools/src/msgfmt $(PTXCONF_PREFIX)/bin
-	$(call touch, $@)
+	# FIXME
+	#@$(call install, GETTEXT)
+	rm -rf $(GETTEXT_INST_DIR)
+	cd $(GETTEXT_DIR) && $(GETTEXT_PATH) $(MAKE_INSTALL) prefix=$(GETTEXT_INST_DIR)/usr
+	mkdir -p $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	cp -a $(GETTEXT_INST_DIR)/usr/lib/. $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	mkdir -p $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+	cp -a $(GETTEXT_INST_DIR)/usr/include/. $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+	rm -rf $(GETTEXT_INST_DIR)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -127,7 +132,7 @@ $(STATEDIR)/gettext.install: $(STATEDIR)/gettext.compile
 
 gettext_targetinstall: $(STATEDIR)/gettext.targetinstall
 
-gettext_targetinstall_deps = $(STATEDIR)/gettext.compile
+gettext_targetinstall_deps = $(STATEDIR)/gettext.install
 
 $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps)
 	@$(call targetinfo, $@)
@@ -141,14 +146,18 @@ $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
-	# FIXME: RSC: do wildcards work? 
-	@$(call install_copy, 0, 0, 0644, $(GETTEXT_DIR)/gettext-runtime/intl/.libs/libgnuintl.so.*, /usr/lib/)
-	@$(call install_link, libgnuintl.so.*, /lib/libgnuintl.so.2)
-	@$(call install_link, libgnuintl.so.*, /lib/libgnuintl.so)
+	cd $(GETTEXT_DIR)/gettext-runtime/intl/.libs && \
+		for file in `find . -type f -name 'lib*intl.so*'`; do \
+			$(call install_copy, 0, 0, 0644, $$file, /usr/lib/$$file, n) \
+		done
+	cd $(GETTEXT_DIR)/gettext-runtime/intl/.libs && \
+		for file in `find . -type l -name 'lib*intl.so*'`; do \
+			$(call install_link, `readlink $$file`, /usr/lib/$$file) \
+		done
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

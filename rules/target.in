@@ -62,16 +62,20 @@ choice
 		  The ARM processor architecture has a variety of flavours. 
 		  Please chose one. 
 
-	config ARM_ARCH_PXA
-		bool "pxa (little endian)"
+	config ARM_ARCH_ATMEL
+		bool "atmel (little endian)"
+		depends on ARCH_ARM_NOMMU
+
+	config ARM_ARCH_AT91RM9200
+		bool "at91rm9200 (little endian)"
 		depends on ARCH_ARM
 
 	config ARM_ARCH_EPXA
 		bool "Excalibur (little endian)"
 		depends on ARCH_ARM
 
-	config ARM_ARCH_SA1100
-		bool "sa1100 (little endian)"
+	config ARM_ARCH_IMX
+		bool "i.MX (little endian)"
 		depends on ARCH_ARM
 
 	config ARM_ARCH_IXP2000
@@ -81,36 +85,37 @@ choice
 	config ARM_ARCH_NETARM
 		bool "net+arm (little endian)"
 		depends on ARCH_ARM_NOMMU
+
+	config ARM_ARCH_NETX
+		bool "netX (little endian)"
+		depends on ARCH_ARM
 		
-	config ARM_ARCH_ATMEL
-		bool "atmel (little endian)"
-		depends on ARCH_ARM_NOMMU
-
-	config ARM_ARCH_AT91RM9200
-		bool "at91rm9200 (little endian)"
-		depends on ARCH_ARM
-
-	config ARM_ARCH_IMX
-		bool "i.MX (little endian)"
-		depends on ARCH_ARM
-
 	config ARM_ARCH_OMAP
 		bool "OMAP (little endian)"
 		depends on ARCH_ARM
 		
+	config ARM_ARCH_PXA
+		bool "pxa (little endian)"
+		depends on ARCH_ARM
+
+	config ARM_ARCH_SA1100
+		bool "sa1100 (little endian)"
+		depends on ARCH_ARM
+
 endchoice
 
 config ARM_ARCH
 	string
-	default "pxa"			if ARM_ARCH_PXA
-	default "sa1100"		if ARM_ARCH_SA1100
-	default "netarm"		if ARM_ARCH_NETARM
 	default "atmel"			if ARM_ARCH_ATMEL
-	default "ixp2000"		if ARM_ARCH_IXP2000
+	default "at91rm9200"		if ARM_ARCH_AT91RM9200
 	default "epxa"			if ARM_ARCH_EPXA
 	default "imx"			if ARM_ARCH_IMX
-	default "at91rm9200"		if ARM_ARCH_AT91RM9200
+	default "ixp2000"		if ARM_ARCH_IXP2000
+	default "netarm"		if ARM_ARCH_NETARM
+	default "netx"			if ARM_ARCH_NETX
 	default "omap"			if ARM_ARCH_OMAP
+	default "pxa"			if ARM_ARCH_PXA
+	default "sa1100"		if ARM_ARCH_SA1100
 
 config ARM_ARCH_BE
 	bool
@@ -307,14 +312,14 @@ comment "Paths & Directories"
 config PREFIX
 	prompt "Prefix for \"install\" stage"
 	string
-	default "$(TOPDIR)/local"
+	default "$(PTXDIST_WORKSPACE)/local"
 	help
 	  This directory is being used to install things during the "install" 
 	  stage of PTXdist. It usually contains host tools and libraries which 
 	  are needed to link programs. 
 
-	  A sane default for this is $(TOPDIR)/local. Use this one unless you 
-	  do exactly know what you are doing. 
+	  A sane default for this is $(PTXDIST_WORKSPACE)/local. Use this one 
+	  unless you do exactly know what you are doing. 
 
 config HOST_PREFIX
 	prompt "Prefix for host tools development environment"
@@ -329,13 +334,13 @@ config CROSS_PREFIX
 config ROOT
 	prompt "Prefix for \"targetinstall\" stage"
 	string
-	default "$(TOPDIR)/root"
+	default "$(PTXDIST_WORKSPACE)/root"
 	help
 	  This directory is being used to install things during the "targetinstall"
 	  stage of PTXdist. It usually contains the root filesystem for the 
 	  embedded system.
 	  
-	  A sane default for this is $(TOPDIR)/root. Use this one unless you 
+	  A sane default for this is $(PTXDIST_WORKSPACE)/root. Use this one unless you 
 	  do exactly know what you are doing. 
 
 comment "GNU Toolchain Identification String"

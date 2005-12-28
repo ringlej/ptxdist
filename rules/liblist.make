@@ -12,14 +12,12 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBLIST
-PACKAGES += liblist
-endif
+PACKAGES-$(PTXCONF_LIBLIST) += liblist
 
 #
 # Paths and names
 #
-LIBLIST_VERSION		= 1.0.2
+LIBLIST_VERSION		= 1.0.3
 LIBLIST			= liblist-$(LIBLIST_VERSION)
 LIBLIST_SUFFIX		= tar.gz
 LIBLIST_URL		= http://www.pengutronix.de/software/liblist/download/$(LIBLIST).$(LIBLIST_SUFFIX)
@@ -37,7 +35,7 @@ liblist_get_deps = $(LIBLIST_SOURCE)
 $(STATEDIR)/liblist.get: $(liblist_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBLIST))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBLIST_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/liblist.extract: $(liblist_extract_deps)
 	@$(call clean, $(LIBLIST_DIR))
 	@$(call extract, $(LIBLIST_SOURCE))
 	@$(call patchin, $(LIBLIST))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -73,14 +71,12 @@ liblist_prepare_deps = \
 
 LIBLIST_PATH	=  PATH=$(CROSS_PATH)
 LIBLIST_ENV 	=  $(CROSS_ENV)
-#LIBLIST_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#LIBLIST_ENV	+=
+LIBLIST_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
 #
-LIBLIST_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBLIST_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBLIST_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/liblist.prepare: $(liblist_prepare_deps)
 	@$(call targetinfo, $@)
@@ -88,7 +84,7 @@ $(STATEDIR)/liblist.prepare: $(liblist_prepare_deps)
 	cd $(LIBLIST_DIR) && \
 		$(LIBLIST_PATH) $(LIBLIST_ENV) \
 		./configure $(LIBLIST_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +97,7 @@ liblist_compile_deps = $(STATEDIR)/liblist.prepare
 $(STATEDIR)/liblist.compile: $(liblist_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBLIST_DIR) && $(LIBLIST_ENV) $(LIBLIST_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +107,8 @@ liblist_install: $(STATEDIR)/liblist.install
 
 $(STATEDIR)/liblist.install: $(STATEDIR)/liblist.compile
 	@$(call targetinfo, $@)
-	cd $(LIBLIST_DIR) && $(LIBLIST_ENV) $(LIBLIST_PATH) make install
-	$(call touch, $@)
+	$(call install, LIBLIST)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -134,13 +130,13 @@ $(STATEDIR)/liblist.targetinstall: $(liblist_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LIBLIST_DIR)/.libs/libptxlist.so.0.0.0, /usr/lib/libptxlist.so.0.0.0)
+	@$(call install_copy, 0, 0, 0644, $(LIBLIST_DIR)/src/.libs/libptxlist.so.0.0.0, /usr/lib/libptxlist.so.0.0.0)
 	@$(call install_link, libptxlist.so.0.0.0, /usr/lib/libptxlist.so.0)
 	@$(call install_link, libptxlist.so.0.0.0, /usr/lib/libptxlist.so)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

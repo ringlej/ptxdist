@@ -24,10 +24,10 @@ const char *conf_confnames[] = {
 	NULL,
 };
 
-static char *conf_expand_value(const signed char *in)
+static char *conf_expand_value(const char *in)
 {
 	struct symbol *sym;
-	const signed char *src;
+	const char *src;
 	static char res_value[SYMBOL_MAXLENGTH];
 	char *dst, name[SYMBOL_MAXLENGTH];
 
@@ -85,9 +85,9 @@ int conf_read(const char *name)
 			name = conf_expand_value(name);
 			in = zconf_fopen(name);
 			if (in) {
-				printf("#\n"
-				       "# using defaults found in %s\n"
-				       "#\n", name);
+				printf(_("#\n"
+				         "# using defaults found in %s\n"
+				         "#\n"), name);
 				break;
 			}
 		}
@@ -307,11 +307,11 @@ int conf_write(const char *name)
 	if (env && *env)
 		use_timestamp = 0;
 
-	fprintf(out, "#\n"
-		     "# Automatically generated make config: don't edit\n"
-		     "# %s version: %s\n"
-		     "%s%s"
-		     "#\n",
+	fprintf(out, _("#\n"
+		       "# Automatically generated make config: don't edit\n"
+		       "# %s version: %s\n"
+		       "%s%s"
+		       "#\n"),
 		     getenv("PROJECT"), getenv("FULLVERSION"),
 		     use_timestamp ? "# " : "",
 		     use_timestamp ? ctime(&now) : "");

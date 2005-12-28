@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LTT
-PACKAGES += ltt
-endif
+PACKAGES-$(PTXCONF_LTT) += ltt
 
 #
 # Paths and names 
@@ -39,7 +37,7 @@ ltt_get_deps = $(LTT_SOURCE)
 $(STATEDIR)/ltt.get: $(ltt_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LTT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LTT_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +56,7 @@ $(STATEDIR)/ltt.extract: $(ltt_extract_deps)
 	@$(call clean, $(LTT_DIR))
 	@$(call extract, $(LTT_SOURCE))
 	@$(call patchin, $(LTT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -70,8 +68,7 @@ LTT_PATH	=  PATH=$(CROSS_PATH)
 LTT_ENV		=  $(CROSS_ENV)
 LTT_ENV		+= ac_cv_func_setvbuf_reversed=no ltt_cv_have_mbstate_t=yes
 
-LTT_AUTOCONF	=  $(CROSS_AUTOCONF)
-LTT_AUTOCONF	+= --prefix=/usr
+LTT_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 LTT_AUTOCONF	+= --with-gtk=no
 
 #
@@ -88,7 +85,7 @@ $(STATEDIR)/ltt.prepare: $(ltt_prepare_deps)
 	cd $(LTT_BUILDDIR) && \
 		$(LTT_PATH) $(LTT_ENV) \
 		$(LTT_DIR)/configure $(LTT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +102,7 @@ $(STATEDIR)/ltt.compile: $(STATEDIR)/ltt.prepare
 	$(LTT_PATH) make -C $(LTT_BUILDDIR)/LibUserTrace LDFLAGS="-static"
 	$(LTT_PATH) make -C $(LTT_BUILDDIR)/Daemon LDFLAGS="-static"
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -119,7 +116,7 @@ ltt_install_deps = \
 
 $(STATEDIR)/ltt.install: $(ltt_install_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -153,7 +150,7 @@ $(STATEDIR)/ltt.targetinstall: $(STATEDIR)/ltt.install
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

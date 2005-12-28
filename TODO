@@ -1,8 +1,19 @@
 Packets which could be added (volunteers needed)
 ================================================
 
+SYSROOT/DESTDIR migration
+-------------------------
+
+- audit for CROSS_AUTOCONF in project files
+- audit for CROSS_LIB_DIR, replace everything by SYSROOT/lib
+
+Interesting packets
+-------------------
+
+- RSC:	http://www.vanheusden.com/httping/
+- RSC: 	http://urunlevel.sourceforge.net/
 - RSC:	http://www.freshmeat.net/projects/bootutils
-- RSC:	ethtool: http://sourceforge.net/project/showfiles.php?group_id=3242&package_id=19201 
+- RSC:	ethtool: http://sourceforge.net/project/showfiles.php?group_id=3242&package_id=19201
 - RSC:	ntpclient: http://doolittle.faludi.com/ntpclient/
 - RSC:	openntpd: http://www.openntpd.org/
 - RSC:	http://www.reportlab.com/ftp/
@@ -16,35 +27,74 @@ Test suite components to be added
 =================================
 
 - RSC:	http://ltp.sourceforge.net/tooltable.php
-- RSC:	Add more test suite stuff: 
+- RSC:	Add more test suite stuff:
 	- http://gcc.gnu.org/install/test.html
 	- http://www.plumhall.com/stec.html
 - RSC:	lmbench
 - RSC: 	add regression tests from crosstool
-- RSC: 	look at Herbert Poetzl's cross test stuff: 
+- RSC: 	look at Herbert Poetzl's cross test stuff:
        	20040224182505.GA25038@MAIL.13thfloor.at
 - RSC: 	look at Linux Kernel Headers project:
        	http://ep09.pld-linux.org/~mmazur/linux-libc-headers/
 - RSC:  audit for LSB compatiblity
-- RSC:  have a look at http://asic-linux.com.mx/~izto/checkinstall/ 
+- RSC:  have a look at http://asic-linux.com.mx/~izto/checkinstall/
 
 Current TODO List
 =================
 
-- RSC: 	add dependency: world depends on all .make and .in files; use $? 
-	to clean packages which have been changed; find out which files
-	have been installed in root (can be determined from ipkg
-	packet), remove them, remove the ipkg packet and build/... dir. 
-	extract (?) stage has to remember the build directory.
+- RSC:	Move projects/generic/etc to config/etc
+- JBE: For menu entries that enables additional entries when they are
+	selected: Reorganize them to use a submenu instead the current
+	menu. It looks nicer in "menuconfig" and its much better
+	supported when using "xconfig"
+- JBE: Sort program entries in "Shell & Console Tools" and other
+	menus by function, not by program name! Especially if there is
+	more than one program that can do the job (see menu entries
+	"Apache 1", "Apache 2" and "thttpd").
+	To be more concise the whole group should have a checkbox. Not
+	until someone unlocks the "HTTP Server" group he can see the
+	programs in this group.
+- JBE:  For a graphical configurator instead of the ncurses one:
+	Maybe ship a static linked "qconfig" version, otherwise the
+	user also has to install the qt development libraries
+	Same with ncurses (menuconfig), or the user has to be forced
+	to install the development libraries for ncurses
+- JBE:  Make target "qconfig" starts target "oldconfig", even if
+	the configuration was aborted! Target "menuconfig" doesn't
+- JBE:  add an identifier to a (central) toolchain (in "make setup").
+	It should be possible to use more than one toolchain in a local
+	ptxdist folder (for different targets/projects). So the idetifier
+	selects the right toolchain for this project. This identifier
+	simplifies the toolchain selection. There could be a central
+	folder in the system with all informations (and identifiers)
+	about any available toolchain installed on this system.
+- JBE:  add documentation to start from scratch with "make setup"
+	this menu should provide the toolchain, all pathes to everything
+	(also to a prebuilt toochain). All other targets should be project
+	specific.
+- JBE:	fix Kconfig files in a way that only working combinations
+	can be selected if experimental is not checked
+- JBE:	separate between toolchains and project
+- JBE:	more help texts
+- RSC:	Test on SuSE 10.0: the following packets have to be installed:
+	- ncurses-dev
+	- bison
+	- ipkg for the host needs python distutils
+- RSC:	crosstool installs in build-target, not in build-cross
+- RSC:	crosstool doesn't build with gcc-4.0.2
+- RSC:	make projects doesn't find local_projects/something, if
+	something is a softlink and not a directory.
+- RSC:	replace perl by (modern) sed -i (hosttool)
+- RSC:	Do ipkg stuff during make images
+- RSC:	in NATIVE=1 mode libpthread.so.0 is not copied; find out why
+- RSC:	write back .config after make menuconfig (with oldconfig applied)
 - RSC:	port XOrg 7.0
-	- audit base libs (done until libICE)
-	- audit additional libs
 - MKL:	let get stages depend on the actual makefile
-- RSC:	Finish autotoolisation of chrony. The old features from the 
+- RSC:	Finish autotoolisation of chrony. The old features from the
 	handwritten configure script have to be added; readline dependency
-	is now temporarily fixed, it should be made optional again. 
-- RSC:	sed: replace all "sed" occurences by $(SED) and maybe switch to 
-	a newer GNU sed, which has to be packaged as a hosttool then. 
+	is now temporarily fixed, it should be made optional again.
+- RSC:	sed: replace all "sed" occurences by $(SED) and maybe switch to
+	a newer GNU sed, which has to be packaged as a hosttool then.
 - RSC:	Invent a project_clean mechanism
 - RSC:	is "select GLIBC_DEBUG" in gdb.in necessary??
 - RSC:	check bash (doesn't compile according to Lisa Hsu)

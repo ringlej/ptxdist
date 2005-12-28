@@ -12,14 +12,12 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GAWK
-PACKAGES += gawk
-endif
+PACKAGES-$(PTXCONF_GAWK) += gawk
 
 #
 # Paths and names
 #
-GAWK_VERSION		= 3.1.4
+GAWK_VERSION		= 3.1.5
 GAWK			= gawk-$(GAWK_VERSION)
 GAWK_SUFFIX		= tar.gz
 GAWK_URL		= $(PTXCONF_SETUP_GNUMIRROR)/gawk/$(GAWK).$(GAWK_SUFFIX)
@@ -36,7 +34,7 @@ gawk_get_deps = $(GAWK_SOURCE)
 
 $(STATEDIR)/gawk.get: $(gawk_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GAWK_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/gawk.extract: $(gawk_extract_deps)
 	@$(call clean, $(GAWK_DIR))
 	@$(call extract, $(GAWK_SOURCE))
 	@$(call patchin, $(GAWK))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -72,13 +70,11 @@ gawk_prepare_deps = \
 
 GAWK_PATH	=  PATH=$(CROSS_PATH)
 GAWK_ENV 	=  $(CROSS_ENV)
-#GAWK_ENV	+=
 
 #
 # autoconf
 #
-GAWK_AUTOCONF =  $(CROSS_AUTOCONF)
-GAWK_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+GAWK_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/gawk.prepare: $(gawk_prepare_deps)
 	@$(call targetinfo, $@)
@@ -86,7 +82,7 @@ $(STATEDIR)/gawk.prepare: $(gawk_prepare_deps)
 	cd $(GAWK_DIR) && \
 		$(GAWK_PATH) $(GAWK_ENV) \
 		./configure $(GAWK_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -98,8 +94,8 @@ gawk_compile_deps = $(STATEDIR)/gawk.prepare
 
 $(STATEDIR)/gawk.compile: $(gawk_compile_deps)
 	@$(call targetinfo, $@)
-	$(GAWK_PATH) make -C $(GAWK_DIR)
-	$(call touch, $@)
+	cd $(GAWK_DIR) && $(GAWK_ENV) $(GAWK_PATH) make $(GAWK_MAKEVARS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,7 +105,8 @@ gawk_install: $(STATEDIR)/gawk.install
 
 $(STATEDIR)/gawk.install: $(STATEDIR)/gawk.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call install, GAWK)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -122,8 +119,7 @@ gawk_targetinstall_deps = $(STATEDIR)/gawk.compile
 $(STATEDIR)/gawk.targetinstall: $(gawk_targetinstall_deps)
 	@$(call targetinfo, $@)
 	# FIXME: RSC: ipkgize
-	$(GAWK_PATH) make -C $(GAWK_DIR) install
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

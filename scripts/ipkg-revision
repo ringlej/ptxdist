@@ -1,0 +1,129 @@
+#!/bin/bash
+#
+# usage: ipkg-revision <some.ipk> 
+#                      [new upstream revision or - for no # change]
+#                      [new packet revision or + for increment]
+#
+# Output: 
+#
+
+TMPDIR=`mktemp -d /tmp/ptxdist.XXXXXX`
+IPKG=$1
+IPKG_DIR=`dirname $IPKG`
+NEW_REV_PART=$2
+NEW_PKG_PART=$3
+
+PREFIX=`basename $0`
+
+usage() {
+        echo 
+        [ -n "$1" ] && echo -e "${PREFIX} error: $1\n"
+        echo "usage: $0 <some.ipk> [upstream revision] [packet revision]"
+	echo
+	echo "upstream revision: '-': no change"
+	echo "packet revision:   '+': increment"
+        echo
+        exit 0
+}
+
+#
+# Sanity checks
+#
+[ -z "$IPKG" ]        && usage "${PREFIX} error: specify ipkg packet dir as first argument"
+
+if [ ! -f "$IPKG" ]; then
+	echo -e "\nError: couldn't find $IPKG\n"
+	exit 1
+fi
+
+mkdir -p ${TMPDIR}/control
+pushd ${TMPDIR} 2>&1 > /dev/null
+
+#
+# Extract control.tar.gz and find out 
+# upstream version and packet version
+#
+
+ar x $IPKG
+cd control 
+tar -zxf ../control.tar.gz
+REVISION=`grep -e "^Version[\t ]*:.*" control | sed -e "s/Version[\t ]*:[\t ]*//g" `
+PACKAGE=`grep -e "^Package[\t ]*:.*" control | sed -e "s/Package[\t ]*:[\t ]*//g"`
+ARCH=`grep -e "^Architecture[\t ]*:.*" control | sed -e "s/Architecture[\t ]*:[\t ]*//g"`
+
+# REVISION contains no "-"? -> we have only an upstream revision, no
+# packet revision
+if [ "`echo $REVISION | grep '-'`" = "" ]; then
+	REV_PART="$REVISION"
+	PKG_PART=""
+else
+	REV_PART=`echo $REVISION | sed -e "s/-.*$//g"`
+	PKG_PART=`echo $REVISION | sed -e "s/^.*-//g"`
+fi
+
+#
+# No new revisions? Print out info only
+#
+if [ "$NEW_REV_PART" = "" ] && [ "$NEW_PKG_PART" = "" ]; then
+	echo "$REV_PART $PKG_PART"
+	exit 1
+fi
+
+if [ "$NEW_REV_PART" = "-" ] && [ "$NEW_PKG_PART" = "" ]; then
+	echo "$REV_PART $PKG_PART"
+	exit 1
+fi
+
+#
+# We have found out the revisions now; construct the new ones according
+# to what the user has specified on the command line. 
+#
+
+[ "$PKG_PART" = "" ] && PKG_PART=0
+
+[ "$NEW_REV_PART" = "-" ] && NEW_REV_PART=$REV_PART
+
+if [ "$NEW_PKG_PART" = "+" ]; then
+	NEW_PKG_PART=$((++PKG_PART))
+else if [ "$NEW_PKG_PART" = "" ]; then
+	NEW_PKG_PART=$PKG_PART
+fi
+fi
+
+[ "$NEW_PKG_PART" != "" ] && NEW_PKG_PART="-$NEW_PKG_PART"
+
+#
+# Now we have the new values
+#
+
+if [ -e "${IPKG_DIR}/${PACKAGE}_${NEW_REV_PART}${NEW_PKG_PART}_${ARCH}.ipk" ]; then
+	echo "${PREFIX} error: ${IPKG_DIR}/${PACKAGE}_${NEW_REV_PART}${NEW_PKG_PART}_${ARCH}.ipk already exists" >&2
+	echo ${IPKG_DIR}/${PACKAGE}_${NEW_REV_PART}${NEW_PKG_PART}_${ARCH}.ipk
+	rm -fr ${TMPDIR}
+	exit 1
+fi
+
+sed -i -e "s/^Version.*/Version:        ${NEW_REV_PART}${NEW_PKG_PART}/g" control
+
+#
+# re-package the package
+#
+
+tar -zcf ../control-new.tar.gz .
+
+cd ..
+rm -fr control
+mv control-new.tar.gz control.tar.gz
+
+ar r ${IPKG_DIR}/${PACKAGE}_${NEW_REV_PART}${NEW_PKG_PART}_${ARCH}.ipk `find .  -type f` > /dev/null
+
+#
+# ok, finished, cleanup
+#
+
+popd 2>&1 > /dev/null
+
+echo ${PACKAGE}_${NEW_REV_PART}${NEW_PKG_PART}_${ARCH}.ipk
+
+rm -fr ${TMPDIR}
+

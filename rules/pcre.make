@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PCRE
-PACKAGES += pcre
-endif
+PACKAGES-$(PTXCONF_PCRE) += pcre
 
 #
 # Paths and names
@@ -38,7 +36,7 @@ pcre_get_deps = $(PCRE_SOURCE)
 $(STATEDIR)/pcre.get: $(pcre_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PCRE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PCRE_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +55,7 @@ $(STATEDIR)/pcre.extract: $(pcre_extract_deps)
 	@$(call clean, $(PCRE_DIR))
 	@$(call extract, $(PCRE_SOURCE))
 	@$(call patchin, $(PCRE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -83,7 +81,6 @@ PCRE_ENV 	=  $(CROSS_ENV)
 PCRE_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/pcre.prepare: $(pcre_prepare_deps)
 	@$(call targetinfo, $@)
@@ -95,7 +92,7 @@ $(STATEDIR)/pcre.prepare: $(pcre_prepare_deps)
 	# Hack: libtool wants --tag=C when linking host side tools
 	perl -i -p -e 's/LINK_FOR_BUILD = \$$\(LIBTOOL\)/LINK_FOR_BUILD = \$$\(LIBTOOL\) --tag=C/g' $(PCRE_DIR)/Makefile	
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -108,7 +105,7 @@ pcre_compile_deps = $(STATEDIR)/pcre.prepare
 $(STATEDIR)/pcre.compile: $(pcre_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PCRE_DIR) && $(PCRE_ENV) $(PCRE_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -118,8 +115,8 @@ pcre_install: $(STATEDIR)/pcre.install
 
 $(STATEDIR)/pcre.install: $(STATEDIR)/pcre.compile
 	@$(call targetinfo, $@)
-	cd $(PCRE_DIR) && $(PCRE_ENV) $(PCRE_PATH) make install
-	$(call touch, $@)
+	@$(call install, PCRE)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -150,7 +147,7 @@ $(STATEDIR)/pcre.targetinstall: $(pcre_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

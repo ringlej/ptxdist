@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DB41
-PACKAGES += db41
-endif
+PACKAGES-$(PTXCONF_DB41) += db41
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ db41_get_deps	=  $(DB41_SOURCE)
 
 $(STATEDIR)/db41.get: $(db41_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(DB41_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +52,7 @@ $(STATEDIR)/db41.extract: $(db41_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DB41_DIR))
 	@$(call extract, $(DB41_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -75,8 +73,7 @@ DB41_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-DB41_AUTOCONF	=  $(CROSS_AUTOCONF)
-DB41_AUTOCONF	=  --prefix=$(CROSS_LIB_DIR)
+DB41_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 DB41_AUTOCONF	+= --enable-cxx 
 
 $(STATEDIR)/db41.prepare: $(db41_prepare_deps)
@@ -85,7 +82,7 @@ $(STATEDIR)/db41.prepare: $(db41_prepare_deps)
 	cd $(DB41_DIR)/dist && \
 		$(DB41_PATH) $(DB41_ENV) \
 		./configure $(DB41_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -98,7 +95,7 @@ db41_compile_deps =  $(STATEDIR)/db41.prepare
 $(STATEDIR)/db41.compile: $(db41_compile_deps)
 	@$(call targetinfo, $@)
 	$(DB41_PATH) $(DB41_ENV) make -C $(DB41_DIR)/dist
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -108,8 +105,10 @@ db41_install: $(STATEDIR)/db41.install
 
 $(STATEDIR)/db41.install: $(STATEDIR)/db41.compile
 	@$(call targetinfo, $@)
+	# FIXME
+	# @$(call install, DB41)
 	$(DB41_PATH) $(DB41_ENV) make -C $(DB41_DIR)/dist install
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -137,7 +136,7 @@ $(STATEDIR)/db41.targetinstall: $(db41_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

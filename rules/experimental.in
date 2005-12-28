@@ -17,3 +17,9 @@ config EXPERIMENTAL_MORE
 	  definitely not for people who do not want to live on the 
 	  bleeding edge. 
 
+config BROKEN
+	bool "Support packets known to be broken"
+	depends on EXPERIMENTAL
+	help
+	  If this option is checked, even packets are activated which
+	  are known to be broken. 

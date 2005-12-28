@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_FBUTILS
-PACKAGES += fbutils
-endif
+PACKAGES-$(PTXCONF_FBUTILS) += fbutils
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ fbutils_get_deps = $(FBUTILS_SOURCE)
 $(STATEDIR)/fbutils.get: $(fbutils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FBUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(FBUTILS_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/fbutils.extract: $(fbutils_extract_deps)
 	@$(call clean, $(FBUTILS_DIR))
 	@$(call extract, $(FBUTILS_SOURCE))
 	@$(call patchin, $(FBUTILS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -73,12 +71,10 @@ fbutils_prepare_deps = \
 
 FBUTILS_PATH	=  PATH=$(CROSS_PATH)
 FBUTILS_ENV 	=  $(CROSS_ENV)
-#FBUTILS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#FBUTILS_ENV	+=
 
 $(STATEDIR)/fbutils.prepare: $(fbutils_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -90,8 +86,8 @@ fbutils_compile_deps = $(STATEDIR)/fbutils.prepare
 
 $(STATEDIR)/fbutils.compile: $(fbutils_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(FBUTILS_DIR) && $(FBUTILS_ENV) $(FBUTILS_PATH) make $(CROSS_ENV)
-	$(call touch, $@)
+	cd $(FBUTILS_DIR) && $(FBUTILS_ENV) $(FBUTILS_PATH) make $(FBUTILS_MAKEVARS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -101,8 +97,8 @@ fbutils_install: $(STATEDIR)/fbutils.install
 
 $(STATEDIR)/fbutils.install: $(STATEDIR)/fbutils.compile
 	@$(call targetinfo, $@)
-	cd $(FBUTILS_DIR) && $(FBUTILS_ENV) $(FBUTILS_PATH) make install
-	$(call touch, $@)
+	@$(call install, FBUTILS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -141,7 +137,7 @@ ifdef PTXCONF_FBUTILS_CON2FBMAP
 endif
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

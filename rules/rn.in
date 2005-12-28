@@ -1,5 +1,0 @@
-config RN
-        bool "rn"
-	help
-	  Add rn scalable networking readiness notification library (see http://www.kegel.com/rn)
-

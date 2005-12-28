@@ -2,7 +2,7 @@ menu "Config Shell        "
 
 config CFGSH
 	bool
-	prompt "Compile Config Shell"
+	prompt "cfgsh"
 	default n
 	help
 	  cfgsh, the Configuration Shell utility, is a small utility 

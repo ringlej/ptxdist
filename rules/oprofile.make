@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_OPROFILE
-PACKAGES += oprofile
-endif
+PACKAGES-$(PTXCONF_OPROFILE) += oprofile
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ oprofile_get_deps	=  $(OPROFILE_SOURCE)
 
 $(STATEDIR)/oprofile.get: $(oprofile_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(OPROFILE_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/oprofile.extract: $(oprofile_extract_deps)
 	@$(call clean, $(OPROFILE_DIR))
 	@$(call extract, $(OPROFILE_SOURCE))
 	@$(call patchin, $(OPROFILE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -77,8 +75,7 @@ OPROFILE_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-OPROFILE_AUTOCONF	=  $(CROSS_AUTOCONF)
-OPROFILE_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+OPROFILE_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 OPROFILE_AUTOCONF	+= --with-kernel-support
 #
 # note: we must use here the kernel's makevars (ARCH=fo CROSS_COMPILE=bar)
@@ -94,7 +91,7 @@ $(STATEDIR)/oprofile.prepare: $(oprofile_prepare_deps)
 	cd $(OPROFILE_DIR) && \
 		$(OPROFILE_PATH) $(OPROFILE_ENV) \
 		./configure $(OPROFILE_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -107,7 +104,7 @@ oprofile_compile_deps =  $(STATEDIR)/oprofile.prepare
 $(STATEDIR)/oprofile.compile: $(oprofile_compile_deps)
 	@$(call targetinfo, $@)
 	$(OPROFILE_PATH) make -C $(OPROFILE_DIR) $(OPROFILE_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -117,8 +114,8 @@ oprofile_install: $(STATEDIR)/oprofile.install
 
 $(STATEDIR)/oprofile.install: $(STATEDIR)/oprofile.compile
 	@$(call targetinfo, $@)
-	$(OPROFILE_PATH) make -C $(OPROFILE_DIR) install
-	$(call touch, $@)
+	@$(call install, OPROFILE)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -131,7 +128,7 @@ oprofile_targetinstall_deps	=  $(STATEDIR)/oprofile.compile
 $(STATEDIR)/oprofile.targetinstall: $(oprofile_targetinstall_deps)
 	@$(call targetinfo, $@)
 	# FIXME: nothing to do on targetinstall? 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

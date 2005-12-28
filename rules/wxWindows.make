@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_WXWINDOWS_X11
-PACKAGES += wxWindows
-endif
+PACKAGES-$(PTXCONF_WXWINDOWS_X11) += wxWindows
 
 #
 # Paths and names
@@ -39,7 +37,7 @@ wxWindows_get_deps	=  $(WXWINDOWS_SOURCE)
 
 $(STATEDIR)/wxWindows.get: $(wxWindows_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(WXWINDOWS_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +56,7 @@ $(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps)
 	@$(call clean, $(WXWINDOWS_DIR))
 	@$(call extract, $(WXWINDOWS_SOURCE))
 	@$(call patchin, $(WXWINDOWS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -81,8 +79,7 @@ WXWINDOWS_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-WXWINDOWS_AUTOCONF	=  $(CROSS_AUTOCONF)
-WXWINDOWS_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+WXWINDOWS_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 WXWINDOWS_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11
 WXWINDOWS_AUTOCONF	+= --x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 WXWINDOWS_AUTOCONF	+= --disable-shared 
@@ -102,7 +99,7 @@ $(STATEDIR)/wxWindows.prepare: $(wxWindows_prepare_deps)
 	cd $(WXWINDOWS_DIR) && \
 		$(WXWINDOWS_PATH) $(WXWINDOWS_ENV) \
 		./configure $(WXWINDOWS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -115,7 +112,7 @@ wxWindows_compile_deps =  $(STATEDIR)/wxWindows.prepare
 $(STATEDIR)/wxWindows.compile: $(wxWindows_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(WXWINDOWS_DIR) && $(WXWINDOWS_PATH) $(WXWINDOWS_ENV) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 
 # ----------------------------------------------------------------------------
@@ -126,7 +123,7 @@ wxWindows_install: $(STATEDIR)/wxWindows.install
 
 $(STATEDIR)/wxWindows.install: $(STATEDIR)/wxWindows.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -138,7 +135,7 @@ wxWindows_targetinstall_deps	=  $(STATEDIR)/wxWindows.compile
 
 $(STATEDIR)/wxWindows.targetinstall: $(wxWindows_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

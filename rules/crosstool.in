@@ -18,6 +18,17 @@ config CROSSTOOL
 	  of the crosstool configuration. 
 
 choice
+	prompt "version"
+		depends on CROSSTOOL
+	config CROSSTOOL_VERSION_0_32
+		bool
+		prompt "0.32"
+	config CROSSTOOL_VERSION_0_38
+		bool
+		prompt "0.38"
+endchoice
+	
+choice
 	prompt "GCC Version"
 		depends on CROSSTOOL
 
@@ -37,6 +48,10 @@ choice
 		bool
 		prompt "3.3.3"
 
+	config GCC_3_3_6
+		bool
+		prompt "3.3.6"
+
 	config GCC_3_4_0
 		bool
 		prompt "3.4.0"
@@ -49,6 +64,13 @@ choice
 		bool
 		prompt "3.4.2"
 
+	config GCC_3_4_3
+		bool
+		prompt "3.4.3"
+
+	config GCC_3_4_4
+		bool
+		prompt "3.4.4"
 endchoice
 
 config GCC_VERSION
@@ -60,6 +82,9 @@ config GCC_VERSION
 	default "3.4.0"		if GCC_3_4_0
 	default "3.4.1"		if GCC_3_4_1
 	default "3.4.2"		if GCC_3_4_2
+	default "3.4.3"		if GCC_3_4_3
+	default "3.4.4"		if GCC_3_4_4
+	
 
 config CROSSTOOL_GCCLANG_CC
 	depends on CROSSTOOL
@@ -78,6 +103,10 @@ config GCC_MULTILIB
 choice
 	prompt "binutils"
 		depends on CROSSTOOL
+
+	config BINUTILS_2_16_1
+		bool
+		prompt "2.16.1"
 
 	config BINUTILS_2_15
 		bool
@@ -117,6 +146,7 @@ config CROSSTOOL_KERNELCONFIG
 
 config BINUTILS_VERSION
 	string
+	default "2.16.1"	if BINUTILS_2_16_1
 	default "2.15"		if BINUTILS_2_15
 	default "2.14"		if BINUTILS_2_14
 	default "2.14.90.0.5"	if BINUTILS_2_14_90_0_5

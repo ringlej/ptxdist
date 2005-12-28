@@ -2,7 +2,7 @@ menu	"ppp                 "
 
 config PPP
 	bool
-	prompt "Compile ppp"
+	prompt "ppp"
 
 config PPP_MS_CHAP
 	bool

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_FLTK
-PACKAGES += fltk
-endif
+PACKAGES-$(PTXCONF_FLTK) += fltk
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ fltk_get_deps	=  $(FLTK_SOURCE)
 
 $(STATEDIR)/fltk.get: $(fltk_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(FLTK_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +52,7 @@ $(STATEDIR)/fltk.extract: $(fltk_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLTK_DIR))
 	@$(call extract, $(FLTK_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -76,8 +74,7 @@ FLTK_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-FLTK_AUTOCONF	=  $(CROSS_AUTOCONF)
-FLTK_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+FLTK_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 FLTK_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 FLTK_AUTOCONF	+= --x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 FLTK_AUTOCONF	+= --enable-shared 
@@ -113,7 +110,7 @@ endif
 	cd $(FLTK_DIR) && \
 		$(FLTK_PATH) $(FLTK_ENV) \
 		./configure $(FLTK_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -126,7 +123,7 @@ fltk_compile_deps =  $(STATEDIR)/fltk.prepare
 $(STATEDIR)/fltk.compile: $(fltk_compile_deps)
 	@$(call targetinfo, $@)
 	$(FLTK_PATH) $(FLTK_ENV) make -C $(FLTK_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -136,8 +133,8 @@ fltk_install: $(STATEDIR)/fltk.install
 
 $(STATEDIR)/fltk.install: $(STATEDIR)/fltk.compile
 	@$(call targetinfo, $@)
-	$(FLTK_PATH) $(FLTK_ENV) make -C $(FLTK_DIR) install
-	$(call touch, $@)
+	@$(call install, FLTK)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -177,7 +174,7 @@ $(STATEDIR)/fltk.targetinstall: $(fltk_targetinstall_deps)
 	
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

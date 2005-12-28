@@ -1,0 +1,3 @@
+menuconfig LIBNETPBM
+	bool
+	prompt "libnetpbm                   "

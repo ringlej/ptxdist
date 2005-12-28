@@ -2,7 +2,7 @@ menu    "netcat              "
 
 config NETCAT
         bool
-        prompt "Compile GNU netcat"
+        prompt "GNU netcat"
 	help
 	  This is the GNU Flavour of the "netcat" utility. 
 	  

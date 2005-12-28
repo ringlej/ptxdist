@@ -15,17 +15,15 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-DAMAGEEXT
-PACKAGES += xlibs-damageext
-endif
+PACKAGES-$(PTXCONF_XLIBS-DAMAGEEXT) += xlibs-damageext
 
 #
 # Paths and names
-# 
-XLIBS-DAMAGEEXT_VERSION	= 1.0.1
-XLIBS-DAMAGEEXT		= libXdamage-$(XLIBS-DAMAGEEXT_VERSION)
+#
+XLIBS-DAMAGEEXT_VERSION	= 20041103-1
+XLIBS-DAMAGEEXT		= DamageExt-$(XLIBS-DAMAGEEXT_VERSION)
 XLIBS-DAMAGEEXT_SUFFIX	= tar.bz2
-XLIBS-DAMAGEEXT_URL	= http://xorg.freedesktop.org/X11R7.0-RC0/lib/$(XLIBS-DAMAGEEXT).$(XLIBS-DAMAGEEXT_SUFFIX)
+XLIBS-DAMAGEEXT_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-DAMAGEEXT).$(XLIBS-DAMAGEEXT_SUFFIX)
 XLIBS-DAMAGEEXT_SOURCE	= $(SRCDIR)/$(XLIBS-DAMAGEEXT).$(XLIBS-DAMAGEEXT_SUFFIX)
 XLIBS-DAMAGEEXT_DIR	= $(BUILDDIR)/$(XLIBS-DAMAGEEXT)
 
@@ -40,7 +38,7 @@ xlibs-damageext_get_deps = $(XLIBS-DAMAGEEXT_SOURCE)
 $(STATEDIR)/xlibs-damageext.get: $(xlibs-damageext_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-DAMAGEEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-DAMAGEEXT_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +57,7 @@ $(STATEDIR)/xlibs-damageext.extract: $(xlibs-damageext_extract_deps)
 	@$(call clean, $(XLIBS-DAMAGEEXT_DIR))
 	@$(call extract, $(XLIBS-DAMAGEEXT_SOURCE))
 	@$(call patchin, $(XLIBS-DAMAGEEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -82,7 +80,6 @@ XLIBS-DAMAGEEXT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 XLIBS-DAMAGEEXT_AUTOCONF =  --build=$(GNU_HOST)
 XLIBS-DAMAGEEXT_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
-XLIBS-DAMAGEEXT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/xlibs-damageext.prepare: $(xlibs-damageext_prepare_deps)
 	@$(call targetinfo, $@)
@@ -91,7 +88,7 @@ $(STATEDIR)/xlibs-damageext.prepare: $(xlibs-damageext_prepare_deps)
 	cd $(XLIBS-DAMAGEEXT_DIR) && \
 		$(XLIBS-DAMAGEEXT_PATH) $(XLIBS-DAMAGEEXT_ENV) \
 		./configure $(XLIBS-DAMAGEEXT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -104,7 +101,7 @@ xlibs-damageext_compile_deps = $(STATEDIR)/xlibs-damageext.prepare
 $(STATEDIR)/xlibs-damageext.compile: $(xlibs-damageext_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-DAMAGEEXT_DIR) && $(XLIBS-DAMAGEEXT_ENV) $(XLIBS-DAMAGEEXT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,8 +111,8 @@ xlibs-damageext_install: $(STATEDIR)/xlibs-damageext.install
 
 $(STATEDIR)/xlibs-damageext.install: $(STATEDIR)/xlibs-damageext.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-DAMAGEEXT_DIR) && $(XLIBS-DAMAGEEXT_ENV) $(XLIBS-DAMAGEEXT_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-DAMAGEEXT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -127,7 +124,7 @@ xlibs-damageext_targetinstall_deps = $(STATEDIR)/xlibs-damageext.compile
 
 $(STATEDIR)/xlibs-damageext.targetinstall: $(xlibs-damageext_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

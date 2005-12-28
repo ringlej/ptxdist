@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PROCPS
-PACKAGES += procps
-endif
+PACKAGES-$(PTXCONF_PROCPS) += procps
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ procps_get_deps	=  $(PROCPS_SOURCE)
 $(STATEDIR)/procps.get: $(procps_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PROCPS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PROCPS_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/procps.extract: $(procps_extract_deps)
 	@$(call clean, $(PROCPS_DIR))
 	@$(call extract, $(PROCPS_SOURCE))
 	@$(call patchin, $(PROCPS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -80,13 +78,12 @@ PROCPS_MAKEVARS += LDFLAGS=-L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 #
 # autoconf
 #
-PROCPS_AUTOCONF =  $(CROSS_AUTOCONF)
-PROCPS_AUTOCONF	+= --prefix=$(CROSS_LIB_DIR)
+PROCPS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/procps.prepare: $(procps_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PROCPS_BUILDDIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -117,7 +114,7 @@ endif
 ifdef PTXCONF_PROCPS_PGREP
 	cd $(PROCPS_DIR) && $(PROCPS_PATH) make $(PROCPS_MAKEVARS) pgrep
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -127,7 +124,7 @@ procps_install: $(STATEDIR)/procps.install
 
 $(STATEDIR)/procps.install: $(STATEDIR)/procps.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -173,7 +170,7 @@ ifdef PTXCONF_PROCPS_PGREP
 	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/pgrep, $(ROOTDIR)/sbin/pgrep)
 endif
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

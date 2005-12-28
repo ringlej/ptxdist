@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GNUPG
-PACKAGES += gnupg
-endif
+PACKAGES-$(PTXCONF_GNUPG) += gnupg
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ gnupg_get_deps = $(GNUPG_SOURCE)
 $(STATEDIR)/gnupg.get: $(gnupg_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GNUPG))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GNUPG_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/gnupg.extract: $(gnupg_extract_deps)
 	@$(call clean, $(GNUPG_DIR))
 	@$(call extract, $(GNUPG_SOURCE))
 	@$(call patchin, $(GNUPG))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -77,8 +75,7 @@ GNUPG_ENV 	= $(CROSS_ENV)
 #
 # autoconf
 #
-GNUPG_AUTOCONF = $(CROSS_AUTOCONF)
-GNUPG_AUTOCONF += --prefix=$(CROSS_LIB_DIR) \
+GNUPG_AUTOCONF = $(CROSS_AUTOCONF_USR) \
 	--disable-card-support \
 	--disable-gnupg-iconv \
 	--disable-exec \
@@ -110,7 +107,7 @@ $(STATEDIR)/gnupg.prepare: $(gnupg_prepare_deps)
 	cd $(GNUPG_DIR) && \
 		$(GNUPG_PATH) $(GNUPG_ENV) \
 		./configure $(GNUPG_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -123,7 +120,7 @@ gnupg_compile_deps = $(STATEDIR)/gnupg.prepare
 $(STATEDIR)/gnupg.compile: $(gnupg_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(GNUPG_DIR) && $(GNUPG_ENV) $(GNUPG_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -133,8 +130,8 @@ gnupg_install: $(STATEDIR)/gnupg.install
 
 $(STATEDIR)/gnupg.install: $(STATEDIR)/gnupg.compile
 	@$(call targetinfo, $@)
-	cd $(GNUPG_DIR) && $(GNUPG_ENV) $(GNUPG_PATH) make install
-	$(call touch, $@)
+	@$(call install, GNUPG)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -160,7 +157,7 @@ $(STATEDIR)/gnupg.targetinstall: $(gnupg_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

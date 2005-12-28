@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BLACKBOX
-PACKAGES += blackbox
-endif
+PACKAGES-$(PTXCONF_BLACKBOX) += blackbox
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ blackbox_get_deps = $(BLACKBOX_SOURCE)
 
 $(STATEDIR)/blackbox.get: $(blackbox_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(BLACKBOX_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +52,7 @@ $(STATEDIR)/blackbox.extract: $(blackbox_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BLACKBOX_DIR))
 	@$(call extract, $(BLACKBOX_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -76,8 +74,7 @@ BLACKBOX_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BLACKBOX_AUTOCONF =  $(CROSS_AUTOCONF)
-BLACKBOX_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+BLACKBOX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 BLACKBOX_AUTOCONF += -disable-nls
 
 BLACKBOX_AUTOCONF	+= --x-includes=/home/koan/ptxdist/ptxdist-testing/root/usr/X11R6/include
@@ -92,7 +89,7 @@ $(STATEDIR)/blackbox.prepare: $(blackbox_prepare_deps)
 	cd $(BLACKBOX_DIR) && \
 		$(BLACKBOX_PATH) $(BLACKBOX_ENV) \
 		./configure $(BLACKBOX_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +102,7 @@ blackbox_compile_deps = $(STATEDIR)/blackbox.prepare
 $(STATEDIR)/blackbox.compile: $(blackbox_compile_deps)
 	@$(call targetinfo, $@)
 	$(BLACKBOX_PATH) make -C $(BLACKBOX_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,8 +112,8 @@ blackbox_install: $(STATEDIR)/blackbox.install
 
 $(STATEDIR)/blackbox.install: $(STATEDIR)/blackbox.compile
 	@$(call targetinfo, $@)
-	$(BLACKBOX_PATH) make -C $(BLACKBOX_DIR) install
-	$(call touch, $@)
+	@$(call install, BLACKBOX)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -143,7 +140,7 @@ $(STATEDIR)/blackbox.targetinstall: $(blackbox_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

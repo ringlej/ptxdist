@@ -1,0 +1,7 @@
+config HOSTTOOL_SLIRP
+	bool
+	prompt "slirp"
+	default N
+	help
+	  Slirp is a SLIP/PPP terminal emulator. For more details see
+	  the project homepage: http://slirp.sourceforge.net/

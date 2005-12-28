@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GNUPLOT
-PACKAGES += gnuplot
-endif
+PACKAGES-$(PTXCONF_GNUPLOT) += gnuplot
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ gnuplot_get_deps = $(GNUPLOT_SOURCE)
 $(STATEDIR)/gnuplot.get: $(gnuplot_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GNUPLOT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GNUPLOT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/gnuplot.extract: $(gnuplot_extract_deps)
 	@$(call clean, $(GNUPLOT_DIR))
 	@$(call extract, $(GNUPLOT_SOURCE))
 	@$(call patchin, $(GNUPLOT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -81,9 +79,7 @@ GNUPLOT_ENV	+= LIBPNG_CONFIG=$(CROSS_LIB_DIR)/bin/libpng-config
 #
 # autoconf
 #
-GNUPLOT_AUTOCONF =  $(CROSS_AUTOCONF)
-GNUPLOT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
-
+GNUPLOT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 GNUPLOT_AUTOCONF += --disable-history-file
 GNUPLOT_AUTOCONF += --disable-mouse
 GNUPLOT_AUTOCONF += --disable-pm3d 
@@ -122,7 +118,7 @@ GNUPLOT_AUTOCONF += --with-png
 else
 GNUPLOT_AUTOCONF += --without-png
 endif
-ifdef GNUPLOT_GD
+ifdef PTXCONF_GNUPLOT_GD
 GNUPLOT_AUTOCONF += --with-gd
 else
 GNUPLOT_AUTOCONF += --without-gd
@@ -148,7 +144,7 @@ $(STATEDIR)/gnuplot.prepare: $(gnuplot_prepare_deps)
 	cd $(GNUPLOT_DIR) && \
 		$(GNUPLOT_PATH) $(GNUPLOT_ENV) \
 		./configure $(GNUPLOT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -161,15 +157,8 @@ gnuplot_compile_deps = $(STATEDIR)/gnuplot.prepare
 $(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps)
 	@$(call targetinfo, $@)
 
-	# This has to be built with host compiler!!
-	# FIXME: uggly workaround for now...
-	#cd $(GNUPLOT_DIR)/src && make bf_test CC=$(HOSTCC) CFLAGS='-O2' LDFLAGS=''
-	#rm -f $(GNUPLOT_DIR)/src/*.o
-
-	# We only make the binary, as IT tries to start target stuff on the host
-	# otherwhise
 	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_ENV) $(GNUPLOT_PATH) make gnuplot
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -179,7 +168,7 @@ gnuplot_install: $(STATEDIR)/gnuplot.install
 
 $(STATEDIR)/gnuplot.install: $(STATEDIR)/gnuplot.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -208,7 +197,7 @@ $(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

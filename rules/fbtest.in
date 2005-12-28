@@ -1,3 +1,5 @@
 config FBTEST
 	bool
 	prompt "fbtest"
+	select LIBNETPBM
+

@@ -12,14 +12,12 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_FAKEROOT
-HOST_PACKAGES += hosttool-fakeroot
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_FAKEROOT) += hosttool-fakeroot
 
 #
 # Paths and names
 #
-HOSTTOOL_FAKEROOT_VERSION	= 1.3
+HOSTTOOL_FAKEROOT_VERSION	= 1.5.1
 HOSTTOOL_FAKEROOT		= fakeroot-$(HOSTTOOL_FAKEROOT_VERSION)
 HOSTTOOL_FAKEROOT_SUFFIX	= tar.gz
 HOSTTOOL_FAKEROOT_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/f/fakeroot/fakeroot_$(HOSTTOOL_FAKEROOT_VERSION).$(HOSTTOOL_FAKEROOT_SUFFIX)
@@ -36,7 +34,7 @@ hosttool-fakeroot_get_deps = $(HOSTTOOL_FAKEROOT_SOURCE)
 
 $(STATEDIR)/hosttool-fakeroot.get: $(hosttool-fakeroot_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(HOSTTOOL_FAKEROOT_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +52,7 @@ $(STATEDIR)/hosttool-fakeroot.extract: $(hosttool-fakeroot_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_FAKEROOT_DIR))
 	@$(call extract, $(HOSTTOOL_FAKEROOT_SOURCE), $(HOST_BUILDDIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -70,16 +68,11 @@ hosttool-fakeroot_prepare_deps = \
 
 HOSTTOOL_FAKEROOT_PATH	=  PATH=$(CROSS_PATH)
 HOSTTOOL_FAKEROOT_ENV 	=  $(HOSTCC_ENV)
-#HOSTTOOL_FAKEROOT_ENV	+=
 
 #
 # autoconf
 #
-HOSTTOOL_FAKEROOT_AUTOCONF = \
-	--prefix=$(PTXCONF_PREFIX) \
-	--build=$(GNU_HOST)
-	--host=$(GNU_HOST)
-	--target=$(GNU_HOST)
+HOSTTOOL_FAKEROOT_AUTOCONF = $(HOST_AUTOCONF)
 
 $(STATEDIR)/hosttool-fakeroot.prepare: $(hosttool-fakeroot_prepare_deps)
 	@$(call targetinfo, $@)
@@ -87,7 +80,7 @@ $(STATEDIR)/hosttool-fakeroot.prepare: $(hosttool-fakeroot_prepare_deps)
 	cd $(HOSTTOOL_FAKEROOT_DIR) && \
 		$(HOSTTOOL_FAKEROOT_PATH) $(HOSTTOOL_FAKEROOT_ENV) \
 		./configure $(HOSTTOOL_FAKEROOT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +93,7 @@ hosttool-fakeroot_compile_deps = $(STATEDIR)/hosttool-fakeroot.prepare
 $(STATEDIR)/hosttool-fakeroot.compile: $(hosttool-fakeroot_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_FAKEROOT_DIR) && $(HOSTTOOL_FAKEROOT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,8 +103,8 @@ hosttool-fakeroot_install: $(STATEDIR)/hosttool-fakeroot.install
 
 $(STATEDIR)/hosttool-fakeroot.install: $(STATEDIR)/hosttool-fakeroot.compile
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOL_FAKEROOT_DIR) && $(HOSTTOOL_FAKEROOT_PATH) make install
-	$(call touch, $@)
+	@$(call install, HOSTTOOL_FAKEROOT,,h)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -123,7 +116,7 @@ hosttool-fakeroot_targetinstall_deps = $(STATEDIR)/hosttool-fakeroot.compile
 
 $(STATEDIR)/hosttool-fakeroot.targetinstall: $(hosttool-fakeroot_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

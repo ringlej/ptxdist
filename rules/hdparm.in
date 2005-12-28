@@ -1,0 +1,7 @@
+menuconfig HDPARM
+	bool "hdparm              "
+	help
+	  hdparm - get/set ATA drive parameters under Linux
+
+	  See http://sourceforge.net/projects/hdparm/ for details. 
+

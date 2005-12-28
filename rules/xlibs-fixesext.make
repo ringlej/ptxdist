@@ -15,17 +15,15 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-FIXESEXT
-PACKAGES += xlibs-fixesext
-endif
+PACKAGES-$(PTXCONF_XLIBS-FIXESEXT) += xlibs-fixesext
 
 #
 # Paths and names
-# 
-XLIBS-FIXESEXT_VERSION	= 3.0.0
-XLIBS-FIXESEXT		= libXfixes-$(XLIBS-FIXESEXT_VERSION)
+#
+XLIBS-FIXESEXT_VERSION	= 20041103-1
+XLIBS-FIXESEXT		= FixesExt-$(XLIBS-FIXESEXT_VERSION)
 XLIBS-FIXESEXT_SUFFIX	= tar.bz2
-XLIBS-FIXESEXT_URL	= http://xorg.freedesktop.org/X11R7.0-RC0/lib/$(XLIBS-FIXESEXT).$(XLIBS-FIXESEXT_SUFFIX)
+XLIBS-FIXESEXT_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-FIXESEXT).$(XLIBS-FIXESEXT_SUFFIX)
 XLIBS-FIXESEXT_SOURCE	= $(SRCDIR)/$(XLIBS-FIXESEXT).$(XLIBS-FIXESEXT_SUFFIX)
 XLIBS-FIXESEXT_DIR	= $(BUILDDIR)/$(XLIBS-FIXESEXT)
 
@@ -40,7 +38,7 @@ xlibs-fixesext_get_deps = $(XLIBS-FIXESEXT_SOURCE)
 $(STATEDIR)/xlibs-fixesext.get: $(xlibs-fixesext_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-FIXESEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-FIXESEXT_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +57,7 @@ $(STATEDIR)/xlibs-fixesext.extract: $(xlibs-fixesext_extract_deps)
 	@$(call clean, $(XLIBS-FIXESEXT_DIR))
 	@$(call extract, $(XLIBS-FIXESEXT_SOURCE))
 	@$(call patchin, $(XLIBS-FIXESEXT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -83,7 +81,6 @@ XLIBS-FIXESEXT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 XLIBS-FIXESEXT_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/xlibs-fixesext.prepare: $(xlibs-fixesext_prepare_deps)
 	@$(call targetinfo, $@)
@@ -92,7 +89,7 @@ $(STATEDIR)/xlibs-fixesext.prepare: $(xlibs-fixesext_prepare_deps)
 	cd $(XLIBS-FIXESEXT_DIR) && \
 		$(XLIBS-FIXESEXT_PATH) $(XLIBS-FIXESEXT_ENV) \
 		./configure $(XLIBS-FIXESEXT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +102,7 @@ xlibs-fixesext_compile_deps = $(STATEDIR)/xlibs-fixesext.prepare
 $(STATEDIR)/xlibs-fixesext.compile: $(xlibs-fixesext_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-FIXESEXT_DIR) && $(XLIBS-FIXESEXT_ENV) $(XLIBS-FIXESEXT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,8 +112,8 @@ xlibs-fixesext_install: $(STATEDIR)/xlibs-fixesext.install
 
 $(STATEDIR)/xlibs-fixesext.install: $(STATEDIR)/xlibs-fixesext.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-FIXESEXT_DIR) && $(XLIBS-FIXESEXT_ENV) $(XLIBS-FIXESEXT_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-FIXESEXT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -128,7 +125,7 @@ xlibs-fixesext_targetinstall_deps = $(STATEDIR)/xlibs-fixesext.compile
 
 $(STATEDIR)/xlibs-fixesext.targetinstall: $(xlibs-fixesext_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

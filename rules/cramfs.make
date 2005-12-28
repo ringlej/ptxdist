@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CRAMFS
-PACKAGES += cramfs
-endif
+PACKAGES-$(PTXCONF_CRAMFS) += cramfs
 
 #
 # Paths and names
@@ -38,7 +36,7 @@ cramfs_get_deps	=  $(CRAMFS_SOURCE)
 
 $(STATEDIR)/cramfs.get: $(cramfs_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(CRAMFS_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/cramfs.extract: $(cramfs_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CRAMFS_DIR))
 	@$(call extract, $(CRAMFS_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -72,7 +70,7 @@ cramfs_prepare_deps =  \
 
 $(STATEDIR)/cramfs.prepare: $(cramfs_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -86,7 +84,7 @@ $(STATEDIR)/cramfs.compile: $(cramfs_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(CRAMFS_DIR) && \
 		make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -96,10 +94,12 @@ cramfs_install: $(STATEDIR)/cramfs.install
 
 $(STATEDIR)/cramfs.install: $(STATEDIR)/cramfs.compile
 	@$(call targetinfo, $@)
+	# FIXME
+	# @$(call install, CRAMFS)
 	install -d $(PTXCONF_PREFIX)/bin
 	cp $(CRAMFS_DIR)/mkcramfs $(PTXCONF_PREFIX)/bin
 	cp $(CRAMFS_DIR)/cramfsck $(PTXCONF_PREFIX)/bin
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -111,7 +111,7 @@ cramfs_targetinstall_deps	=  $(STATEDIR)/cramfs.install
 
 $(STATEDIR)/cramfs.targetinstall: $(cramfs_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

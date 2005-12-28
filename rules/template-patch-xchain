@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_@PACKET_NAME@_@PATCH@
-@PACKET@_PATCHES += @packet@-@patch@
-endif
+@PACKET@_PATCHES-$(PTXCONF_@PACKET_NAME@_@PATCH@) += @packet@-@patch@
 
 # ----------------------------------------------------------------------------
 # Get
@@ -27,7 +25,7 @@ endif
 
 $(STATEDIR)/@packet@-@patch@.get: $(@packet@-@patch@_get_deps)
 	@$(call targetinfo, $@)
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -38,7 +36,7 @@ $(STATEDIR)/@packet@-@patch@.get: $(@packet@-@patch@_get_deps)
 $(STATEDIR)/@packet@-@patch@.install: $(STATEDIR)/@packet@-@patch@.get
 	@$(call targetinfo, $@)
 	@$(call patch_apply, $(@PACKET_NAME@_@PATCH@_SOURCE), $(@PACKET@_BUILDDIR))
-	touch $@
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -1,8 +1,9 @@
-menu	"Apache HTTP server  "
-
-config APACHE
+menuconfig APACHE
 	bool
-	prompt "Compile Apache HTTP server"
+	prompt "Apache 1 HTTP Server"
+	depends on BROKEN
 	select EXPAT
 
-endmenu
+comment "Apache 1 is broken, please send a patch"
+	depends on !BROKEN
+

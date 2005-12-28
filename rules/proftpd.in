@@ -1,8 +1,5 @@
-menu	"proftpd             "
-
-config PROFTPD
-	bool
-	prompt "proftpd"
+menuconfig PROFTPD
+	bool "proftpd             "
 
 config PROFTPD_PAM
 	bool
@@ -24,4 +21,9 @@ config PROFTPD_AUTOSHADOW
 	prompt "autoshadow support"
 	depends on PROFTPD_SHADOW
 
-endmenu
+config PROFTPD_DEFAULTCONFIG
+	bool
+	prompt "install default config file"
+	default N
+	depends on PROFTPD
+

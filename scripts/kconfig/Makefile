@@ -177,6 +177,7 @@ clean:
 	rm -f $(OBJ) conf qconf mconf *.moc lex.* *.tab.? *.output
 	rm -f libkconfig.so lkc_defs.h gconf
 	rm -f .tmp_qtcheck .tmp_gtkcheck
+	rm -f *.o
 	rm -rf .ruby .python
 
 tgz:

@@ -15,14 +15,12 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-XEXTENSIONS
-PACKAGES += xlibs-xextensions
-endif
+PACKAGES-$(PTXCONF_XLIBS-XEXTENSIONS) += xlibs-xextensions
 
 #
 # Paths and names
 #
-XLIBS-XEXTENSIONS_VERSION	= FIXME
+XLIBS-XEXTENSIONS_VERSION	= 20041103-1
 XLIBS-XEXTENSIONS		= XExtensions-$(XLIBS-XEXTENSIONS_VERSION)
 XLIBS-XEXTENSIONS_SUFFIX	= tar.bz2
 XLIBS-XEXTENSIONS_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-XEXTENSIONS).$(XLIBS-XEXTENSIONS_SUFFIX)
@@ -40,7 +38,7 @@ xlibs-xextensions_get_deps = $(XLIBS-XEXTENSIONS_SOURCE)
 $(STATEDIR)/xlibs-xextensions.get: $(xlibs-xextensions_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XEXTENSIONS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-XEXTENSIONS_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +57,7 @@ $(STATEDIR)/xlibs-xextensions.extract: $(xlibs-xextensions_extract_deps)
 	@$(call clean, $(XLIBS-XEXTENSIONS_DIR))
 	@$(call extract, $(XLIBS-XEXTENSIONS_SOURCE))
 	@$(call patchin, $(XLIBS-XEXTENSIONS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -82,8 +80,7 @@ XLIBS-XEXTENSIONS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 XLIBS-XEXTENSIONS_AUTOCONF = \
 	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+	--host=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/xlibs-xextensions.prepare: $(xlibs-xextensions_prepare_deps)
 	@$(call targetinfo, $@)
@@ -92,7 +89,7 @@ $(STATEDIR)/xlibs-xextensions.prepare: $(xlibs-xextensions_prepare_deps)
 	cd $(XLIBS-XEXTENSIONS_DIR) && \
 		$(XLIBS-XEXTENSIONS_PATH) $(XLIBS-XEXTENSIONS_ENV) \
 		./configure $(XLIBS-XEXTENSIONS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +102,7 @@ xlibs-xextensions_compile_deps = $(STATEDIR)/xlibs-xextensions.prepare
 $(STATEDIR)/xlibs-xextensions.compile: $(xlibs-xextensions_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XEXTENSIONS_DIR) && $(XLIBS-XEXTENSIONS_ENV) $(XLIBS-XEXTENSIONS_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,8 +112,8 @@ xlibs-xextensions_install: $(STATEDIR)/xlibs-xextensions.install
 
 $(STATEDIR)/xlibs-xextensions.install: $(STATEDIR)/xlibs-xextensions.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-XEXTENSIONS_DIR) && $(XLIBS-XEXTENSIONS_ENV) $(XLIBS-XEXTENSIONS_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-XEXTENSIONS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -128,7 +125,7 @@ xlibs-xextensions_targetinstall_deps = $(STATEDIR)/xlibs-xextensions.compile
 
 $(STATEDIR)/xlibs-xextensions.targetinstall: $(xlibs-xextensions_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

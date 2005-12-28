@@ -12,14 +12,17 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CROSSTOOL
-PACKAGES += crosstool
-endif
+PACKAGES-$(PTXCONF_CROSSTOOL) += crosstool
 
 #
 # Paths and names
 #
+ifdef PTXCONF_CROSSTOOL_VERSION_0_32
 CROSSTOOL_VERSION	= 0.32
+endif
+ifdef PTXCONF_CROSSTOOL_VERSION_0_38
+CROSSTOOL_VERSION       = 0.38
+endif
 CROSSTOOL		= crosstool-$(CROSSTOOL_VERSION)
 CROSSTOOL_SUFFIX	= tar.gz
 CROSSTOOL_URL		= http://www.kegel.com/crosstool/$(CROSSTOOL).$(CROSSTOOL_SUFFIX)
@@ -37,7 +40,7 @@ crosstool_get_deps = $(CROSSTOOL_SOURCE)
 $(STATEDIR)/crosstool.get: $(crosstool_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CROSSTOOL))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(CROSSTOOL_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +59,7 @@ $(STATEDIR)/crosstool.extract: $(crosstool_extract_deps)
 	@$(call clean, $(CROSSTOOL_DIR))
 	@$(call extract, $(CROSSTOOL_SOURCE))
 	@$(call patchin, $(CROSSTOOL))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -137,7 +140,7 @@ CROSSTOOL_ENV	+= GLIBCTHREADS_FILENAME=glibc-linuxthreads-$(GLIBC_VERSION)
 
 $(STATEDIR)/crosstool.prepare: $(crosstool_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -152,7 +155,7 @@ crosstool_compile: $(STATEDIR)/crosstool.compile
 
 $(STATEDIR)/crosstool.compile: $(STATEDIR)/crosstool.prepare
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -165,7 +168,7 @@ crosstool_install_deps = $(STATEDIR)/crosstool.compile
 $(STATEDIR)/crosstool.install: $(crosstool_install_deps)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_UCLIBC
-	grep -e PTXCONF_UC_ .config > $(CROSSTOOL_DIR)/uclibc_config
+	grep -e PTXCONF_UC_ $(PTXDIST_WORKSPACE)/.config > $(CROSSTOOL_DIR)/uclibc_config
 	perl -i -p -e 's/PTXCONF_UC_//g' $(CROSSTOOL_DIR)/uclibc_config
 endif
 
@@ -179,8 +182,13 @@ endif
 		echo "done" 						\
 		exit 1;							\
 	)
+ifdef PTXCONF_CROSSTOOL_VERSION_0_32
 	touch $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/gcc-$(GCC_VERSION)-$(CROSSTOOL_LIBC_DIR)/$(PTXCONF_GNU_TARGET)/include/linux/autoconf.h)
-	$(call touch, $@)
+endif
+ifdef PTXCONF_CROSSTOOL_VERSION_0_38
+	touch $(call remove_quotes,$(PTXCONF_PREFIX)/gcc-$(GCC_VERSION)-$(CROSSTOOL_LIBC_DIR)/$(PTXCONF_GNU_TARGET)/$(PTXCONF_GNU_TARGET)/include/linux/autoconf.h)
+endif
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -192,7 +200,7 @@ crosstool_targetinstall_deps = $(STATEDIR)/crosstool.install
 
 $(STATEDIR)/crosstool.targetinstall: $(crosstool_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -1,5 +1,4 @@
 config CLEMENTINE
         bool
 	prompt "clementine            "
-	help
-	  FIXME
+

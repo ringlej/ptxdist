@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_KONQ-E
-PACKAGES += konq-e
-endif
+PACKAGES-$(PTXCONF_KONQ-E) += konq-e
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ konq-e_get_deps	=  $(KONQ-E_SOURCE)
 
 $(STATEDIR)/konq-e.get: $(konq-e_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(KONQ-E_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/konq-e.extract: $(konq-e_extract_deps)
 	@$(call clean, $(KONQ-E_DIR))
 	@$(call extract, $(KONQ-E_SOURCE))
 	@$(call patchin, $(KONQ-E))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -78,8 +76,7 @@ KONQ-E_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-KONQ-E_AUTOCONF =  $(CROSS_AUTOCONF)
-KONQ-E_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+KONQ-E_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/konq-e.prepare: $(konq-e_prepare_deps)
 	@$(call targetinfo, $@)
@@ -87,7 +84,7 @@ $(STATEDIR)/konq-e.prepare: $(konq-e_prepare_deps)
 	cd $(KONQ-E_DIR) && \
 		$(KONQ-E_PATH) $(KONQ-E_ENV) \
 		./configure $(KONQ-E_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +97,7 @@ konq-e_compile_deps =  $(STATEDIR)/konq-e.prepare
 $(STATEDIR)/konq-e.compile: $(konq-e_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(KONQ-E_DIR) && $(KONQ-E_PATH) $(KONQ-E_ENV) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +108,8 @@ konq-e_install: $(STATEDIR)/konq-e.install
 $(STATEDIR)/konq-e.install: $(STATEDIR)/konq-e.compile
 	@$(call targetinfo, $@)
 	# FIXME: RSC: shouldn't this be target-install? 
-	cd $(KONQ-E_DIR) && $(KONQ-E_PATH) $(KONQ-E_ENV) make install
-	$(call touch, $@)
+	@$(call install, KONQ-E)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -124,7 +121,7 @@ konq-e_targetinstall_deps	=  $(STATEDIR)/konq-e.compile
 
 $(STATEDIR)/konq-e.targetinstall: $(konq-e_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

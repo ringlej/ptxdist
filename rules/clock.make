@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CLOCK
-PACKAGES += clock
-endif
+PACKAGES-$(PTXCONF_CLOCK) += clock
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ clock_get_deps = $(CLOCK_SOURCE)
 
 $(STATEDIR)/clock.get: $(clock_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(CLOCK_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +52,8 @@ $(STATEDIR)/clock.extract: $(clock_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CLOCK_DIR))
 	@$(call extract, $(CLOCK_SOURCE))
-	$(call touch, $@)
+	@$(call patchin, $(CLOCK))
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -74,7 +73,7 @@ CLOCK_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/clock.prepare: $(clock_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -86,8 +85,8 @@ clock_compile_deps = $(STATEDIR)/clock.prepare
 
 $(STATEDIR)/clock.compile: $(clock_compile_deps)
 	@$(call targetinfo, $@)
-	$(CLOCK_PATH) $(CLOCK_ENV) make -C $(CLOCK_DIR)
-	$(call touch, $@)
+	cd $(CLOCK_DIR) && $(CLOCK_PATH) $(CLOCK_ENV) make $(CLOCK_MAKEVARS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -97,7 +96,9 @@ clock_install: $(STATEDIR)/clock.install
 
 $(STATEDIR)/clock.install: $(STATEDIR)/clock.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	# FIXME
+	#@$(call install, CLOCK)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -123,7 +124,7 @@ $(STATEDIR)/clock.targetinstall: $(clock_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -13,7 +13,7 @@
 # FIXME: cleanup 
 
 PTXUSER		= $(shell echo $$USER)
-GNU_BUILD	= $(shell $(TOPDIR)/scripts/config.guess)
+GNU_BUILD	= $(shell $(PTXDIST_TOPDIR)/scripts/config.guess)
 GNU_HOST	= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 DEP_OUTPUT	= depend.out
 DEP_TREE_PS	= deptree.ps
@@ -33,6 +33,7 @@ WGET		= \
 	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
 	wget --cache=off
 MAKE		= make
+MAKE_INSTALL	= make install
 PATCH		= patch
 TAR		= tar
 GZIP		= gzip
@@ -62,6 +63,14 @@ else
 FAKEROOT	= fakeroot
 endif
 
+ifdef PTXCONF_IMAGE_HOST_DEB
+CHECKINSTALL	=  INSTALLWATCH_PREFIX=$(PTXCONF_PREFIX)
+CHECKINSTALL	+= $(HOST_CHECKINSTALL_DIR)/checkinstall
+CHECKINSTALL	+= -D -y
+else
+CHECKINSTALL	=
+endif
+
 HOSTCC_ENV	= CC=$(HOSTCC)
 
 
@@ -73,6 +82,7 @@ HOSTCC_ENV	= CC=$(HOSTCC)
 # CROSS_LIB_DIR	= the libs for the target system are installed into this dir
 #
 CROSS_LIB_DIR := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
+SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
 
 #
 # Use the masquerading method of invoking distcc if enabled
@@ -86,7 +96,7 @@ endif
 #
 # prepare the search path
 #
-CROSS_PATH := $(call remove_quotes,$(DISTCC_PATH_COLON)$(PTXCONF_CROSS_PREFIX))/bin:$$PATH
+CROSS_PATH := $(call remove_quotes,$(DISTCC_PATH_COLON)$(PTXCONF_PREFIX)/bin:$(DISTCC_PATH_COLON)$(PTXCONF_PREFIX)/usr/bin:$$PATH)
 HOST_PATH := $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:$$PATH
 
 #
@@ -134,8 +144,11 @@ TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
 ##
 ifndef $(PTXCONF_CROSSTOOL)
 TARGET_CXXFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+TARGET_CXXFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/include
 TARGET_CPPFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+TARGET_CPPFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/include
 TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib 
+TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/lib 
 endif
 
 
@@ -220,8 +233,17 @@ CROSS_ENV_PROGS := \
 	$(CROSS_ENV_RANLIB) \
 	$(CROSS_ENV_STRIP)
 
+#
+# prepare to use pkg-config with wrapper which takes care of $(SYSROOT). 
+# The wrapper's magic doesn't work when pkg-config strips out /usr/lib
+# and other system libs/cflags, so we leave them in; the wrapper
+# replaces them by proper $(SYSROOT) correspondees. 
+#
+
 CROSS_ENV_PKG_CONFIG := \
-	PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+	SYSROOT=$(SYSROOT) \
+	PKG_CONFIG_PATH=$(SYSROOT)/lib/pkgconfig:$(SYSROOT)/usr/lib/pkgconfig \
+	PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
 
 CROSS_ENV_FLAGS := \
 	$(CROSS_ENV_CFLAGS) \
@@ -245,20 +267,57 @@ CROSS_ENV_AC := \
 	ac_cv_func_getrlimit=yes \
 	ac_cv_type_uintptr_t=yes \
 	ac_cv_func_dcgettext=yes \
-	gt_cv_func_gettext_libintl=yes
+	gt_cv_func_gettext_libintl=yes \
+	ac_cv_sysv_ipc=yes
+
+CROSS_ENV_DESTDIR := \
+	DESTDIR=$(SYSROOT)
+
+#
+# We want to use DESTDIR and --prefix=/usr, to get no build paths in our
+# binaries. Unfortunately, not all packages support this, especially
+# libtool based packets seem to be broken. See for example: 
+# 
+# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=58664
+#
+# for a longer discussion [RSC]
+#
+
+CROSS_AUTOCONF_SYSROOT_USR := \
+	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=/usr --sysconfdir=/etc)
+
+CROSS_AUTOCONF_SYSROOT_ROOT := \
+	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=/)
+
+CROSS_AUTOCONF_BROKEN_USR := \
+	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=$(SYSROOT))
 
 ifndef NATIVE
+
 CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
 	$(CROSS_ENV_FLAGS) \
-	$(CROSS_ENV_AC)
+	$(CROSS_ENV_PKG_CONFIG) \
+	$(CROSS_ENV_AC) \
+	$(CROSS_ENV_DESTDIR)
 
-CROSS_AUTOCONF := $(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
+CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR)
+CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT)
+
 else
+
 CROSS_ENV := \
-	$(CROSS_ENV_FLAGS)
+	$(CROSS_ENV_PROGS) \
+	$(CROSS_ENV_FLAGS) \
+	$(CROSS_ENV_PKG_CONFIG) \
+	$(CROSS_ENV_DESTDIR)
+
+CROSS_AUTOCONF_USR  :=
+CROSS_AUTOCONF_ROOT :=
+
 endif
 
+HOST_AUTOCONF  := --prefix=$(PTXCONF_HOST_PREFIX)
 
 # ----------------------------------------------------------------------------
 # Convenience macros
@@ -318,7 +377,7 @@ check_prog_exists = 				\
 #
 # check_prog_version
 #
-# $1: Call program with -V and extract version number from the output;
+# $1: Call program with args $2 (-V, ...) and extract version number from the output;
 #     the result is compared to the first argument. 
 #
 check_prog_version = 				\
@@ -348,28 +407,32 @@ check_file_exists = 				\
 # to perform compile or prepare stages. 
 # 
 # $1: name of the target to be printed out
+# $2: normally empty; if "n", don't run compilercheck
 #
-targetinfo = 						\
-	echo;						\
-	TG=`echo $(1) | sed -e "s,/.*/,,g"`; 		\
-	LINE=`echo target: $$TG |sed -e "s/./-/g"`;	\
-	echo $$LINE;					\
-	echo target: $$TG;				\
-	echo $$LINE;					\
-	echo;						\
-	if [ `echo $$TG | $(GREP) "\.compile"` ]; then	\
-		$(call compilercheck)			\
-	fi;						\
-	if [ `echo $$TG | $(GREP) "\.prepare"` ]; then	\
-		$(call compilercheck)			\
-	fi;						\
-	echo $@ : $^ | sed 				\
-		-e "s@$(PTXCONF_SETUP_SRCDIR)@@g"	\
-		-e "s@$(STATEDIR)@@g"			\
-		-e "s@$(RULESDIR)@@g"			\
-		-e "s@$(PROJECTRULESDIR)@@g"		\
-		-e "s@$(PROJECTDIR)@@g"			\
-		-e "s@$(TOPDIR)@@g" 			\
+targetinfo = 							\
+	echo;							\
+	TG=`echo $(1) | sed -e "s,/.*/,,g"`; 			\
+	NOCHECK=$(strip $(2));					\
+	LINE=`echo target: $$TG |sed -e "s/./-/g"`;		\
+	echo $$LINE;						\
+	echo target: $$TG;					\
+	echo $$LINE;						\
+	echo;							\
+	if [ "$$NOCHECK" != "n" ]; then 			\
+		if [ `echo $$TG | $(GREP) "\.compile"` ]; then	\
+			$(call compilercheck)			\
+		fi;						\
+		if [ `echo $$TG | $(GREP) "\.prepare"` ]; then	\
+			$(call compilercheck)			\
+		fi;						\
+	fi;							\
+	echo $@ : $^ | sed 					\
+		-e "s@$(PTXCONF_SETUP_SRCDIR)@@g"		\
+		-e "s@$(STATEDIR)@@g"				\
+		-e "s@$(RULESDIR)@@g"				\
+		-e "s@$(PROJECTRULESDIR)@@g"			\
+		-e "s@$(PROJECTDIR)@@g"				\
+		-e "s@$(PTXDIST_TOPDIR)@@g" 			\
 		-e "s@/@@g" >> $(DEP_OUTPUT)
 
 #
@@ -417,7 +480,6 @@ extract =							\
 		;;						\
 	esac;							\
 	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
-	mkdir -p $(STATEDIR);					\
 	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
 	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
 	[ $$? -eq 0 ] || {					\
@@ -505,7 +567,7 @@ get =								\
 # $1: Name of the package the patch has to be applied to 
 # $2: URL of the patch; this may either point to a single unified diff
 #     or to a directory containing a 'patcher' like patch series
-# $3: patch name; the patch is stored in $(TOPDIR)/feature-patches/$3
+# $3: patch name; the patch is stored in $(PTXDIST_TOPDIR)/feature-patches/$3
 # 
 get_feature_patch =						\
 	FP_PARENT="$(strip $(1))";				\
@@ -590,73 +652,12 @@ get_feature_patch =						\
 #			so "http://www.pengutronix.de/software/ptxdist-cvs/patches/glibc-2.2.5/*"
 #			becomes "glibc-2.2.5/*"
 #
+
+# FIXME: remove this if patch mechanism works
+
 get_patches =											\
-	PACKET_NAME="$(strip $(1))";								\
-	if [ "$$PACKET_NAME" = "" ]; then							\
-		echo;										\
-		echo Error: empty parameter to \"get_pachtes\(\)\";				\
-		echo;										\
-		exit -1;									\
-	fi;											\
-	echo "checking if patch dir ($(PATCHDIR)) exists..."; 					\
-	if [ ! -d $(PATCHDIR) ]; then								\
-		$(MKDIR) -p $(PATCHDIR);							\
-	fi;											\
-	echo "removing old patches from $(PATCHDIR)..."; 					\
-	if [ -d $(PATCHDIR)/$$PACKET_NAME ]; then						\
-		$(RM) -fr $(PATCHDIR)/$$PACKET_NAME;						\
-	fi;											\
-	echo "checking for patches...";								\
-	for URL in $(PTXPATCH_URL); do 								\
-		echo "checking in $$URL";							\
-		[ "$$(expr match $$URL http://)" != "0" ] && URLTYPE="http"; 			\
-		[ "$$(expr match $$URL ftp://)" != "0" ]  && URLTYPE="ftp";			\
-		[ "$$(expr match $$URL file://)" != "0" ] && URLTYPE="file";			\
-		case $$URLTYPE in 								\
-		file)										\
-			echo "copying local patches"; 						\
-			URL_PATH="$$(echo $$URL | sed s-file://--g)";				\
-			if [ -d "$$URL_PATH/$$PACKET_NAME" ]; then 				\
-				echo "patch found";						\
-				$(CP) -vr $$URL_PATH/$$PACKET_NAME $(PATCHDIR);			\
-			else									\
-				echo "no patch available";					\
-			fi;									\
-			;;									\
-		http)										\
-			if [ "$(EXTRAVERSION)" = "-svn" ]; then					\
-				continue;							\
-			fi;									\
-			echo "copying network patches from Pengutronix server"; 		\
-			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-				--passive-ftp $$URL/$$PACKET_NAME/generic/;			\
-			[ $$? -eq 0 ] || {							\
-				echo;								\
-				echo "Could not get patch!";					\
-				echo "URL: $$URL/$$PACKET_NAME/generic/";			\
-				echo;								\
-				exit -1;							\
-			};									\
-			$(WGET) -r -l 1 -nH --cut-dirs=3 -A.diff -A.patch -A.gz -A.bz2 -q -P $(PATCHDIR)	\
-				--passive-ftp $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/;		\
-			[ $$? -eq 0 ] || {							\
-				echo;								\
-				echo "Could not get patch!";					\
-				echo "URL: $$URL/$$PACKET_NAME/$(PTXCONF_ARCH)/ ";		\
-				echo;								\
-				exit -1;							\
-			};									\
-			true;									\
-			;;									\
-		*)										\
-			echo;									\
-			echo "Unknown URL Type for patch!";					\
-			echo "URL: $$URL";							\
-			echo;									\
-			exit -1;								\
-			;;									\
-		esac; 										\
-	done
+		echo "get_patches is obsolete now"
+
 
 #
 # get_options
@@ -672,8 +673,8 @@ get_option =										\
 	$(shell										\
 		REGEX="$(strip $(1))";							\
 		DEFAULT="$(strip $(2))";						\
-		if [ -f $(TOPDIR)/.config ]; then					\
-			VALUE=`$(CAT) $(TOPDIR)/.config | sed -n -e "$${REGEX}p"`;	\
+		if [ -f $(PTXDIST_WORKSPACE)/.config ]; then				\
+			VALUE=`$(CAT) $(PTXDIST_WORKSPACE)/.config | sed -n -e "$${REGEX}p"`;	\
 		fi;									\
 		echo $${VALUE:-$$DEFAULT}						\
 	)
@@ -692,10 +693,52 @@ get_option =										\
 get_option_ext =									\
 	$(shell										\
 		REGEX="$(strip $(1))";							\
-		if [ -f $(TOPDIR)/.config ]; then					\
-			$(CAT) $(TOPDIR)/.config | sed -n -e "$${REGEX}p" | $(2);	\
+		if [ -f $(PTXDIST_WORKSPACE)/.config ]; then					\
+			$(CAT) $(PTXDIST_WORKSPACE)/.config | sed -n -e "$${REGEX}p" | $(2);	\
 		fi;									\
 	)
+
+
+#
+# install
+#
+# Perform standard install actions
+#
+# $1: label of the packet
+# $2: optional: alternative directory
+# $3: optional: "h" = install as a host tool
+#
+# FIXME: if we don't use --install=no we can make one packet.
+#
+ifdef PTXCONF_IMAGE_HOST_DEB
+install = \
+	BUILDDIR="$($(strip $(1)_DIR))";				\
+	DESTDIR="$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)";		\
+	[ "$(2)" != "" ] && BUILDDIR="$(strip $(2))";			\
+	[ "$(3)" = "h" ] && unset DESTDIR;				\
+	cd $$BUILDDIR && 						\
+		$($(strip $(1)_ENV)) 					\
+		$($(strip $(1)_PATH)) 					\
+		INSTALLWATCH_PREFIX=$(PTXCONF_PREFIX)			\
+		$(HOST_CHECKINSTALL_DIR)/checkinstall			\
+		-D -y -pakdir=$(IMAGEDIR) --install=no -nodoc		\
+		make install 						\
+		$($(strip $(1)_MAKEVARS))				\
+		DESTDIR=$$DESTDIR;					\
+	#dpkg-deb -x blablabla $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+else
+install = \
+	BUILDDIR="$($(strip $(1)_DIR))";				\
+	DESTDIR="$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)";		\
+	[ "$(2)" != "" ] && BUILDDIR="$(strip $(2))";			\
+	[ "$(3)" = "h" ] && unset DESTDIR;				\
+	cd $$BUILDDIR &&						\
+		$($(strip $(1)_ENV))					\
+		$($(strip $(1)_PATH))					\
+		make install						\
+		$($(strip $(1)_MAKEVARS))				\
+		DESTDIR=$$DESTDIR;
+endif
 
 
 #
@@ -810,22 +853,22 @@ patchin =									\
 	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};			\
 	echo "patchin: dir=$$PACKET_DIR";					\
 	for PATCH_NAME in							\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.diff			\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.patch			\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.gz			\
-	    $(TOPDIR)/patches/$$PACKET_NAME/generic/*.bz2			\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff		\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch		\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz		\
-	    $(TOPDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2		\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.diff			\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.patch			\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.gz			\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/generic/*.bz2			\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff		\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch		\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz		\
-	    $(PROJECTDIR)/patches/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;		\
+	    $(PATCHDIR)/$$PACKET_NAME/generic/*.diff				\
+	    $(PATCHDIR)/$$PACKET_NAME/generic/*.patch				\
+	    $(PATCHDIR)/$$PACKET_NAME/generic/*.gz				\
+	    $(PATCHDIR)/$$PACKET_NAME/generic/*.bz2				\
+	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff			\
+	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch			\
+	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz			\
+	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2			\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.diff			\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.patch			\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.gz			\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.bz2			\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff		\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch		\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz		\
+	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;		\
 	    do									\
 		if [ -f $$PATCH_NAME ]; then					\
 			case `basename $$PATCH_NAME` in				\
@@ -999,7 +1042,8 @@ install_copy = 											\
 			echo "Error: install_copy failed!";					\
 			exit -1;								\
 		fi;										\
-		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			\
+		mkdir -p $(IMAGEDIR);								\
+		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(IMAGEDIR)/permissions;			\
 	else											\
 		echo "install_copy:";								\
 		echo "  src=$$SRC";								\
@@ -1030,7 +1074,8 @@ install_copy = 											\
 			$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
 			;;									\
 		esac;										\
-		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(TOPDIR)/permissions;			\
+		mkdir -p $(IMAGEDIR);								\
+		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(IMAGEDIR)/permissions;			\
 	fi
 
 #
@@ -1082,13 +1127,14 @@ install_copy_toolchain_lib =									\
 					fi;							\
 					;;							\
 				esac;								\
-				echo "f:$${DST}/$${LIB}:0:0:755" >> $(TOPDIR)/permissions;	\
+				mkdir -p $(IMAGEDIR);						\
+				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				echo "error: found $${LIB}, but no file or link";		\
 				echo;								\
 				exit -1;							\
 			fi;									\
-			LIB="`readlink $${LIB_DIR}/$${LIB}`";					\
+			LIB="`readlink $${LIB_DIR}/$${LIB} | sed s,^\\\\.,$${LIB_DIR}/\.,`";	\
 			if [ -n "$$LIB" ]; then							\
 				if [ "`dirname $$LIB`" != "." ]; then				\
 					LIB_DIR=`dirname $$LIB`;				\
@@ -1154,7 +1200,8 @@ install_copy_toolchain_dl =									\
 					fi;							\
 					;;							\
 				esac;								\
-				echo "f:$${DST}/$${LIB}:0:0:755" >> $(TOPDIR)/permissions;	\
+				mkdir -p $(IMAGEDIR);						\
+				echo "f:$${DST}/$${LIB}:0:0:755" >> $(IMAGEDIR)/permissions;	\
 			else									\
 				exit -1;							\
 			fi;									\
@@ -1213,7 +1260,8 @@ install_node =				\
 	echo "  major=$$MAJ";		\
 	echo "  minor=$$MIN";		\
 	echo "  name=$$DEV";		\
-	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(TOPDIR)/permissions
+	mkdir -p $(IMAGEDIR);		\
+	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(IMAGEDIR)/permissions
 
 #
 # install_fixup
@@ -1243,7 +1291,7 @@ install_init =											\
 		echo "install_init: preparing for image creation...";				\
 		rm -fr $(IMAGEDIR)/ipkg;							\
 		mkdir -p $(IMAGEDIR)/ipkg/CONTROL; 						\
-		cp -f $(TOPDIR)/rules/default.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;		\
+		cp -f $(RULESDIR)/default.ipkg $(IMAGEDIR)/ipkg/CONTROL/control;		\
 		if [ -z $(PTXCONF_IMAGE_IPKG_ARCH) ]; then					\
 			echo "Error: please specify an architecure name for ipkg!";		\
 			exit -1;								\
@@ -1264,13 +1312,11 @@ install_finish = 													\
 	export LANG=C; 													\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then									\
 		echo -n "install_finish: writing ipkg packet ... ";							\
-		sed -i -e 's/^\(Version:\t*\)\(.*\)$$/\1$(PTXDIST_FULLVERSION)-\2/g' $(IMAGEDIR)/ipkg/CONTROL/control;	\
-		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions; echo "popd;"; 	\
-		echo "$(PTXCONF_HOST_PREFIX)/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\
+		(echo "pushd $(IMAGEDIR)/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions; echo "popd;"; 	\
+		echo "$(PTXCONF_HOST_PREFIX)/usr/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/ipkg $(IMAGEDIR)") |\
 			$(FAKEROOT) -- 2>&1 | grep -v "cannot access" | grep -v "No such file or directory";		\
 		rm -fr $(IMAGEDIR)/ipkg;										\
 		echo "done."; 												\
 	fi
-
 
 # vim: syntax=make

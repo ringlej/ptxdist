@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MTD_UTILS
-PACKAGES += mtd
-endif
+PACKAGES-$(PTXCONF_MTD_UTILS) += mtd
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ mtd_get_deps = $(MTD_SOURCE)
 $(STATEDIR)/mtd.get: $(mtd_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MTD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MTD_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/mtd.extract: $(mtd_extract_deps)
 	@$(call clean, $(MTD_DIR))
 	@$(call extract, $(MTD_SOURCE))
 	@$(call patchin, $(MTD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -78,7 +76,7 @@ MTD_ENV		= $(CROSS_ENV)
 
 $(STATEDIR)/mtd.prepare: $(mtd_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -145,7 +143,7 @@ endif
 ifdef PTXCONF_MTD_MKJFFS2
 	cd $(MTD_DIR)/util && $(MTD_ENV) $(MTD_PATH) make mkfs.jffs2 $(MTD_MAKEVARS)
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -155,7 +153,7 @@ mtd_install: $(STATEDIR)/mtd.install
 
 $(STATEDIR)/mtd.install: $(STATEDIR)/mtd.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -177,7 +175,7 @@ $(STATEDIR)/mtd.targetinstall: $(mtd_targetinstall_deps)
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,mtd)
 	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MTD_VERSION))
+	@$(call install_fixup,VERSION,$(subst -,,$(MTD_VERSION)))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
@@ -240,7 +238,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

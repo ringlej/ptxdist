@@ -12,16 +12,12 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_IPKG
-PACKAGES += ipkg
-endif
+PACKAGES-$(PTXCONF_IPKG) += ipkg
 
 #
 # Paths and names
 #
-# FIXME: for problems with versions > 0.99.135 see hosttool-ipkg.make
-#
-IPKG_VERSION		= 0.99.135
+IPKG_VERSION		= 0.99.154
 IPKG			= ipkg-$(IPKG_VERSION)
 IPKG_SUFFIX		= tar.gz
 IPKG_URL		= http://www.handhelds.org/download/packages/ipkg/$(IPKG).$(IPKG_SUFFIX)
@@ -39,7 +35,7 @@ ipkg_get_deps = $(IPKG_SOURCE)
 $(STATEDIR)/ipkg.get: $(ipkg_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(IPKG))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(IPKG_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +54,7 @@ $(STATEDIR)/ipkg.extract: $(ipkg_extract_deps)
 	@$(call clean, $(IPKG_DIR))
 	@$(call extract, $(IPKG_SOURCE))
 	@$(call patchin, $(IPKG))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -81,8 +77,7 @@ IPKG_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-IPKG_AUTOCONF =  $(CROSS_AUTOCONF)
-IPKG_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+IPKG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/ipkg.prepare: $(ipkg_prepare_deps)
 	@$(call targetinfo, $@)
@@ -90,7 +85,7 @@ $(STATEDIR)/ipkg.prepare: $(ipkg_prepare_deps)
 	cd $(IPKG_DIR) && \
 		$(IPKG_PATH) $(IPKG_ENV) \
 		./configure $(IPKG_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -103,7 +98,7 @@ ipkg_compile_deps = $(STATEDIR)/ipkg.prepare
 $(STATEDIR)/ipkg.compile: $(ipkg_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(IPKG_DIR) && $(IPKG_ENV) $(IPKG_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +108,8 @@ ipkg_install: $(STATEDIR)/ipkg.install
 
 $(STATEDIR)/ipkg.install: $(STATEDIR)/ipkg.compile
 	@$(call targetinfo, $@)
-	cd $(IPKG_DIR) && $(IPKG_ENV) $(IPKG_PATH) make install
-	$(call touch, $@)
+	@$(call install, IPKG)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -151,7 +146,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

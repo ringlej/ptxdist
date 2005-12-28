@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_EFAX
-PACKAGES += efax
-endif
+PACKAGES-$(PTXCONF_EFAX) += efax
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ efax_get_deps = $(EFAX_SOURCE)
 $(STATEDIR)/efax.get: $(efax_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(EFAX))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(EFAX_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/efax.extract: $(efax_extract_deps)
 	@$(call clean, $(EFAX_DIR))
 	@$(call extract, $(EFAX_SOURCE))
 	@$(call patchin, $(EFAX))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -73,19 +71,16 @@ efax_prepare_deps = \
 
 EFAX_PATH	=  PATH=$(CROSS_PATH)
 EFAX_ENV 	=  $(CROSS_ENV)
-#EFAX_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#EFAX_ENV	+=
 
 #
 # autoconf
 #
-EFAX_AUTOCONF =  $(CROSS_AUTOCONF)
-EFAX_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+EFAX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/efax.prepare: $(efax_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EFAX_DIR)/config.cache)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -98,7 +93,7 @@ efax_compile_deps = $(STATEDIR)/efax.prepare
 $(STATEDIR)/efax.compile: $(efax_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(EFAX_DIR) && $(EFAX_ENV) $(EFAX_PATH) make all
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -108,7 +103,9 @@ efax_install: $(STATEDIR)/efax.install
 
 $(STATEDIR)/efax.install: $(STATEDIR)/efax.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	# FIXME
+	# @$(call install, EFAX)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -129,13 +126,13 @@ $(STATEDIR)/efax.targetinstall: $(efax_targetinstall_deps)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, 0, 0, 0755, $(EFAX_DIR)/efax, /usr/bin/efax)
 	@$(call install_copy, 0, 0, 0755, $(EFAX_DIR)/efix, /usr/bin/efix)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

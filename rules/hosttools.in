@@ -26,9 +26,16 @@ config HOSTTOOL_UMKIMAGE
 	default n
 	prompt "mkimage: U-Boot kernel image creation"
 
+config HOSTTOOL_MKNBI
+	bool
+	default n
+	prompt "mknbi: make etherboot image"
+
 ##############################################################################
 comment "Other Host Tools"
 ##############################################################################
 
 source "rules/host-flex.in"
+source "rules/host-qte.in"
+source "rules/host-slirp.in"
 

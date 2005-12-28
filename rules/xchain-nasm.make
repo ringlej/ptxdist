@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NASM
-PACKAGES += xchain-nasm
-endif
+PACKAGES-$(PTXCONF_NASM) += xchain-nasm
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ xchain-nasm_get_deps	=  $(XCHAIN_NASM_SOURCE)
 
 $(STATEDIR)/xchain-nasm.get: $(xchain-nasm_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XCHAIN_NASM_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +52,7 @@ $(STATEDIR)/xchain-nasm.extract: $(xchain-nasm_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN_NASM_DIR))
 	@$(call extract, $(XCHAIN_NASM_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,7 +85,7 @@ $(STATEDIR)/xchain-nasm.prepare: $(xchain-nasm_prepare_deps)
 	cd $(XCHAIN_NASM_DIR) && \
 		$(XCHAIN_NASM_PATH) $(XCHAIN_NASM_ENV) \
 		./configure $(XCHAIN_NASM_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -100,7 +98,7 @@ xchain-nasm_compile_deps =  $(STATEDIR)/xchain-nasm.prepare
 $(STATEDIR)/xchain-nasm.compile: $(xchain-nasm_compile_deps)
 	@$(call targetinfo, $@)
 	$(XCHAIN_NASM_PATH) make -C $(XCHAIN_NASM_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -110,10 +108,8 @@ xchain-nasm_install: $(STATEDIR)/xchain-nasm.install
 
 $(STATEDIR)/xchain-nasm.install: $(STATEDIR)/xchain-nasm.compile
 	@$(call targetinfo, $@)
-	mkdir -p $(PTXCONF_PREFIX)/bin
-	mkdir -p $(PTXCONF_PREFIX)/man/man1
-	$(XCHAIN_NASM_PATH) make -C $(XCHAIN_NASM_DIR) install
-	$(call touch, $@)
+	@$(call install, XCHAIN_NASM)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -125,7 +121,7 @@ xchain-nasm_targetinstall_deps	=  $(STATEDIR)/xchain-nasm.install
 
 $(STATEDIR)/xchain-nasm.targetinstall: $(xchain-nasm_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

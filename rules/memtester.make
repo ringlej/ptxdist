@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MEMTESTER
-PACKAGES += memtester
-endif
+PACKAGES-$(PTXCONF_MEMTESTER) += memtester
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ memtester_get_deps = $(MEMTESTER_SOURCE)
 $(STATEDIR)/memtester.get: $(memtester_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMTESTER))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MEMTESTER_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/memtester.extract: $(memtester_extract_deps)
 	@$(call clean, $(MEMTESTER_DIR))
 	@$(call extract, $(MEMTESTER_SOURCE))
 	@$(call patchin, $(MEMTESTER))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -80,7 +78,7 @@ $(STATEDIR)/memtester.prepare: $(memtester_prepare_deps)
 	@$(call targetinfo, $@)
 	echo "all: memtester" > $(MEMTESTER_DIR)/Makefile.ptxdist
 	echo "memtester: tests.o memtester.o" >> $(MEMTESTER_DIR)/Makefile.ptxdist
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -93,7 +91,7 @@ memtester_compile_deps = $(STATEDIR)/memtester.prepare
 $(STATEDIR)/memtester.compile: $(memtester_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(MEMTESTER_DIR) && $(MEMTESTER_ENV) $(MEMTESTER_PATH) make -f Makefile.ptxdist
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -103,7 +101,7 @@ memtester_install: $(STATEDIR)/memtester.install
 
 $(STATEDIR)/memtester.install: $(STATEDIR)/memtester.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -129,7 +127,7 @@ $(STATEDIR)/memtester.targetinstall: $(memtester_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

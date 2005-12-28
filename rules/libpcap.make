@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBPCAP
-PACKAGES += libpcap
-endif
+PACKAGES-$(PTXCONF_LIBPCAP) += libpcap
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ libpcap_get_deps = $(LIBPCAP_SOURCE)
 $(STATEDIR)/libpcap.get: $(libpcap_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBPCAP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBPCAP_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/libpcap.extract: $(libpcap_extract_deps)
 	@$(call clean, $(LIBPCAP_DIR))
 	@$(call extract, $(LIBPCAP_SOURCE))
 	@$(call patchin, $(LIBPCAP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,8 +77,7 @@ LIBPCAP_ENV = \
 #
 # autoconf
 #
-LIBPCAP_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBPCAP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+LIBPCAP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 LIBPCAP_AUTOCONF += --with-pcap=linux
 
 $(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps)
@@ -89,7 +86,7 @@ $(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps)
 	cd $(LIBPCAP_DIR) && \
 		$(LIBPCAP_PATH) $(LIBPCAP_ENV) \
 		./configure $(LIBPCAP_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +99,7 @@ libpcap_compile_deps = $(STATEDIR)/libpcap.prepare
 $(STATEDIR)/libpcap.compile: $(libpcap_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBPCAP_DIR) && $(LIBPCAP_PATH) make 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -113,8 +110,8 @@ libpcap_install: $(STATEDIR)/libpcap.install
 $(STATEDIR)/libpcap.install: $(STATEDIR)/libpcap.compile
 	@$(call targetinfo, $@)
 	# FIXME: shoudldn' that run on targetinstall? 
-	cd $(LIBPCAP_DIR) && $(LIBPCAP_PATH) make install
-	$(call touch, $@)
+	@$(call install, LIBPCAP)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -126,7 +123,7 @@ libpcap_targetinstall_deps =  $(STATEDIR)/libpcap.install
 
 $(STATEDIR)/libpcap.targetinstall: $(libpcap_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

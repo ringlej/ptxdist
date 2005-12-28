@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_GENEXT2FS
-HOST_PACKAGES += hosttool-genext2fs
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_GENEXT2FS) += hosttool-genext2fs
 
 #
 # Paths and names 
@@ -38,7 +36,7 @@ hosttool-genext2fs_get_deps  =  $(HOSTTOOL_GENEXT2FS_SOURCE)
 $(STATEDIR)/hosttool-genext2fs.get: $(hosttool-genext2fs_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL_GENEXT2FS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(HOSTTOOL_GENEXT2FS_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/hosttool-genext2fs.extract: $(STATEDIR)/hosttool-genext2fs.get
 	@$(call clean, $(HOSTTOOL_GENEXT2FS_DIR))
 	@$(call extract, $(HOSTTOOL_GENEXT2FS_SOURCE),$(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL_GENEXT2FS),$(HOSTTOOL_GENEXT2FS_DIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -70,7 +68,7 @@ hosttool-genext2fs_prepare_deps = \
 
 $(STATEDIR)/hosttool-genext2fs.prepare: $(hosttool-genext2fs_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -83,7 +81,7 @@ hosttool-genext2fs_compile_deps = $(STATEDIR)/hosttool-genext2fs.prepare
 $(STATEDIR)/hosttool-genext2fs.compile: $(hosttool-genext2fs_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL_GENEXT2FS_DIR) && make $(HOSTTOOL_GENEXT2FS_ENV)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -95,12 +93,12 @@ hosttool-genext2fs_install_deps = $(STATEDIR)/hosttool-genext2fs.compile
 
 $(STATEDIR)/hosttool-genext2fs.install: $(hosttool-genext2fs_install_deps)
 	@$(call targetinfo, $@)
-	install -d $(PTXCONF_HOST_PREFIX)/bin/
-	install -d $(PTXCONF_HOST_PREFIX)/man/man8/
-
-	install -m 755 $(HOSTTOOL_GENEXT2FS_DIR)/genext2fs $(PTXCONF_HOST_PREFIX)/bin/
-	install -m 644 $(HOSTTOOL_GENEXT2FS_DIR)/genext2fs.8 $(PTXCONF_HOST_PREFIX)/man/man8/
-	$(call touch, $@)
+	install -d $(PTXCONF_HOST_PREFIX)/usr/bin/
+	install -d $(PTXCONF_HOST_PREFIX)/usr/man/man8/
+	# FIXME: correct path?
+	install -m 755 $(HOSTTOOL_GENEXT2FS_DIR)/genext2fs $(PTXCONF_HOST_PREFIX)/usr/bin/
+	install -m 644 $(HOSTTOOL_GENEXT2FS_DIR)/genext2fs.8 $(PTXCONF_HOST_PREFIX)/usr/man/man8/
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -110,7 +108,7 @@ hosttool-genext2fs_targetinstall: $(STATEDIR)/hosttool-genext2fs.targetinstall
 
 $(STATEDIR)/hosttool-genext2fs.targetinstall: $(STATEDIR)/hosttool-genext2fs.install
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

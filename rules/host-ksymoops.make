@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_KSYMOOPS
-HOST_PACKAGES += hosttool-ksymoops
-endif
+HOST_PACKAGES-$(PTXCONF_KSYMOOPS) += hosttool-ksymoops
 
 #
 # Paths and names 
@@ -31,7 +29,7 @@ hosttool-ksymoops_get: $(STATEDIR)/hosttool-ksymoops.get
 
 $(STATEDIR)/hosttool-ksymoops.get: $(KSYMOOPS_SOURCE)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(KSYMOOPS_SOURCE):
 	@$(call targetinfo, $@)
@@ -47,7 +45,7 @@ $(STATEDIR)/hosttool-ksymoops.extract: $(STATEDIR)/hosttool-ksymoops.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(KSYMOOPS_DIR))
 	@$(call extract, $(KSYMOOPS_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -62,7 +60,7 @@ KSYMOOPS_MAKEVARS = \
 	DEF_TARGET='\"elf32-$(call remove_quotes,$(PTXCONF_ARCH))\"'
 
 $(STATEDIR)/hosttool-ksymoops.prepare:
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -76,7 +74,7 @@ hosttool-ksymoops_compile_deps = \
 $(STATEDIR)/hosttool-ksymoops.compile: $(hosttool-ksymoops_compile_deps)
 	@$(call targetinfo, $@)
 	make -C $(KSYMOOPS_DIR) $(KSYMOOPS_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -95,7 +93,7 @@ $(STATEDIR)/hosttool-ksymoops.install: $(STATEDIR)/hosttool-ksymoops.compile
 		for FILE in hosttool-ksymoops; do						\
 		ln -sf $(PTXCONF_GNU_TARGET)-$$FILE $(SHORT_TARGET)-linux-$$FILE;	\
 	done
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -105,7 +103,7 @@ hosttool-ksymoops_targetinstall: $(STATEDIR)/hosttool-ksymoops.targetinstall
 
 $(STATEDIR)/hosttool-ksymoops.targetinstall: $(STATEDIR)/hosttool-ksymoops.install
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

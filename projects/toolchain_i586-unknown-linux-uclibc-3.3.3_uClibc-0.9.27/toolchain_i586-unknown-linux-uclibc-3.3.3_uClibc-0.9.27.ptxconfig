@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.6-svn
-# Mon Aug  8 19:05:33 2005
+# PTXdist version: 0.7.9-svn
+# Tue Dec 27 12:54:11 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -10,6 +10,7 @@ PTXCONF_PTXCONF=y
 # ----------------------------------
 #
 PTXCONF_PROJECT="toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27"
+PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
 
 #
 # ----------------------------------
@@ -71,7 +72,7 @@ PTXCONF_ARCH_USERSPACE="i386"
 #
 # Paths & Directories
 #
-PTXCONF_PREFIX="/opt/crosstool-0.32"
+PTXCONF_PREFIX="/opt/crosstool-0.38"
 PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_ROOT=""
@@ -91,15 +92,21 @@ PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 # Crosstool
 #
 PTXCONF_CROSSTOOL=y
+# PTXCONF_CROSSTOOL_VERSION_0_32 is not set
+PTXCONF_CROSSTOOL_VERSION_0_38=y
 # PTXCONF_GCC_2_95_3 is not set
 # PTXCONF_GCC_3_2_3 is not set
 # PTXCONF_GCC_3_3_2 is not set
 PTXCONF_GCC_3_3_3=y
+# PTXCONF_GCC_3_3_6 is not set
 # PTXCONF_GCC_3_4_0 is not set
 # PTXCONF_GCC_3_4_1 is not set
 # PTXCONF_GCC_3_4_2 is not set
+# PTXCONF_GCC_3_4_3 is not set
+# PTXCONF_GCC_3_4_4 is not set
 PTXCONF_CROSSTOOL_GCCLANG_CC=y
 # PTXCONF_GCC_MULTILIB is not set
+# PTXCONF_BINUTILS_2_16_1 is not set
 # PTXCONF_BINUTILS_2_15 is not set
 PTXCONF_BINUTILS_2_14_90_0_5=y
 # PTXCONF_BINUTILS_2_14 is not set
@@ -126,7 +133,7 @@ PTXCONF_BINUTILS_VERSION="2.14.90.0.5"
 # Filesystem Manipulation Tools
 #
 # PTXCONF_HOSTTOOL_GENEXT2FS is not set
-# PTXCONF_HOSTTOOL_E2FSPROGS is not set
+# PTXCONF_HOST_E2FSPROGS is not set
 # PTXCONF_HOSTTOOL_MTD is not set
 
 #
@@ -142,11 +149,14 @@ PTXCONF_BINUTILS_VERSION="2.14.90.0.5"
 # PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS is not set
 # PTXCONF_HOSTTOOL_MODUTILS is not set
 # PTXCONF_HOSTTOOL_UMKIMAGE is not set
+# PTXCONF_HOSTTOOL_MKNBI is not set
 
 #
 # Other Host Tools
 #
-PTXCONF_HOSTTOOL_FLEX254=y
+# PTXCONF_HOSTTOOL_FLEX254 is not set
+# PTXCONF_HOSTTOOL_QTE is not set
+# PTXCONF_HOSTTOOL_SLIRP is not set
 
 #
 # Debugging Tools             
@@ -172,28 +182,61 @@ PTXCONF_HOSTTOOL_FLEX254=y
 #
 
 #
-# Image Creation
+# Image Creation for Target
 #
 # PTXCONF_IMAGE_TGZ is not set
 # PTXCONF_IMAGE_HD is not set
 # PTXCONF_IMAGE_IPKG is not set
+# PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY is not set
 # PTXCONF_IMAGE_JFFS2 is not set
 # PTXCONF_IMAGE_UIMAGE is not set
 # PTXCONF_IMAGE_EXT2 is not set
+
+#
+# Image Creation for Host
+#
+# PTXCONF_IMAGE_HOST_DEB is not set
 
 #
 # Root Filesystem             
 #
 
 #
+# ----------------------------------
+#
+
+#
 # Populate Rootfs
+#
+
+#
+# ----------------------------------
 #
 # PTXCONF_ROOTFS is not set
 
 #
-# Populate & Configure /etc
+# ----------------------------------
 #
-PTXCONF_VENDORTWEAKS=""
+
+#
+# Generic Config Files in /etc
+#
+
+#
+# ----------------------------------
+#
+
+#
+# ----------------------------------
+#
+
+#
+# Start Scripts in /etc/init.d
+#
+
+#
+# ----------------------------------
+#
 
 #
 # Core (Kernel, C-Library)    
@@ -201,6 +244,18 @@ PTXCONF_VENDORTWEAKS=""
 
 #
 # Kernel              
+#
+
+#
+# ----------------------------------
+#
+
+#
+# Target Kernel
+#
+
+#
+# ----------------------------------
 #
 # PTXCONF_USE_EXTERNAL_KERNEL is not set
 PTXCONF_KERNEL_CONFIG="kernel-2.4.21"
@@ -222,6 +277,8 @@ PTXCONF_KERNEL_2_4_21=y
 # PTXCONF_KERNEL_2_6_10 is not set
 # PTXCONF_KERNEL_2_6_11 is not set
 # PTXCONF_KERNEL_2_6_12 is not set
+# PTXCONF_KERNEL_2_6_13 is not set
+# PTXCONF_KERNEL_2_6_14 is not set
 PTXCONF_DONT_COMPILE_KERNEL=y
 # PTXCONF_KERNEL_INSTALL is not set
 # PTXCONF_KERNEL_INSTALL_MODULES is not set
@@ -233,13 +290,28 @@ PTXCONF_KERNEL_PATCH1_URL=""
 PTXCONF_KERNEL_PATCH1_NAME=""
 
 #
-# Extentions
+# ----------------------------------
 #
 
 #
-# epoll should be ported to patchstack mechanism, please send patch! :-)
+# Host Kernel (for simulation)
 #
-# PTXCONF_RTAI is not set
+
+#
+# ----------------------------------
+#
+# PTXCONF_KERNEL_HOST is not set
+# PTXCONF_KERNEL_HOST_ROOT_HOSTFS is not set
+PTXCONF_KERNEL_HOST_CMDLINE=""
+
+#
+# 
+#
+
+#
+# klibc               
+#
+# PTXCONF_KLIBC is not set
 
 #
 # C Library           
@@ -406,6 +478,10 @@ PTXCONF_UC_DEVEL_PREFIX="/usr/$(TARGET_ARCH)-linux-uclibc/usr/"
 # PTXCONF_GCCLIBS_GCC_S is not set
 
 #
+# Early Userspace     
+#
+
+#
 # ----------------------------------
 #
 
@@ -426,6 +502,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_CFGSH is not set
 # PTXCONF_COREUTILS is not set
 # PTXCONF_DIFFUTILS is not set
+# PTXCONF_SYSVINIT is not set
 # PTXCONF_MODULE_INIT_TOOLS is not set
 # PTXCONF_GAWK is not set
 # PTXCONF_HOTPLUG is not set
@@ -433,10 +510,12 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_PCMCIA_TOOLS is not set
 # PTXCONF_PDKSH is not set
 # PTXCONF_PROCPS is not set
+# PTXCONF_SETSERIAL is not set
 # PTXCONF_SYSFSUTILS is not set
 # PTXCONF_SYSUTILS is not set
 # PTXCONF_UTLNX is not set
 # PTXCONF_CLOCK is not set
+# PTXCONF_UDEV is not set
 # PTXCONF_XMLSTARLET is not set
 
 #
@@ -475,6 +554,14 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_IPTABLES is not set
 
 #
+# ----------------------------------
+#
+
+#
+# ----------------------------------
+#
+
+#
 # LSH                 
 #
 # PTXCONF_LSH is not set
@@ -499,9 +586,10 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 
 #
-# Apache HTTP server  
+# Apache 1 HTTP Server
 #
 # PTXCONF_APACHE is not set
+# PTXCONF_APACHE2 is not set
 
 #
 # betaftpd            
@@ -622,11 +710,8 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # ppp                 
 #
 # PTXCONF_PPP is not set
-
-#
-# proftpd             
-#
 # PTXCONF_PROFTPD is not set
+# PTXCONF_PUREFTPD is not set
 
 #
 # netkit-ftp          
@@ -692,6 +777,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_DOSFSTOOLS is not set
 # PTXCONF_E2FSPROGS is not set
 # PTXCONF_GRUB is not set
+# PTXCONF_HDPARM is not set
 # PTXCONF_IPKG is not set
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
@@ -700,7 +786,14 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # Communication Utilities     
 #
+# PTXCONF_BLUEZ is not set
+
+#
+# canutils            
+#
+# PTXCONF_CANUTILS is not set
 # PTXCONF_EFAX is not set
+# PTXCONF_LRZSZ is not set
 # PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
@@ -715,6 +808,7 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_MAD is not set
 # PTXCONF_SETMIXER is not set
 # PTXCONF_RAWREC is not set
+# PTXCONF_MPLAYER is not set
 
 #
 # Tools                       
@@ -722,7 +816,6 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_FIGLET is not set
 # PTXCONF_MEMEDIT is not set
 # PTXCONF_MEMSTAT is not set
-# PTXCONF_CANCONFIG is not set
 
 #
 # Editors                     
@@ -737,7 +830,9 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # PTXCONF_DB is not set
 # PTXCONF_EXPAT is not set
+# PTXCONF_GETTEXT is not set
 # PTXCONF_GLIB26 is not set
+# PTXCONF_HRTIMERS_SUPPORT is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBXML2 is not set
 # PTXCONF_LIBXMLCONFIG is not set
@@ -746,13 +841,15 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_PCRE is not set
 # PTXCONF_POPT is not set
 # PTXCONF_READLINE is not set
-# PTXCONF_RN is not set
+# PTXCONF_LIBRN is not set
+# PTXCONF_LIBGSLOOP is not set
 # PTXCONF_SQLITE is not set
 # PTXCONF_ZLIB is not set
 
 #
 # Middleware                  
 #
+# PTXCONF_DOTGNU is not set
 # PTXCONF_OMNIORB is not set
 
 #
@@ -762,17 +859,22 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 #
 # X Infrastructure
 #
+# PTXCONF_REALVNC is not set
 # PTXCONF_XFREE430 is not set
 # PTXCONF_XLIBS is not set
 # PTXCONF_XSERVER is not set
-# PTXCONF_REALVNC is not set
 
 #
 # X Applications
 #
-# PTXCONF_CLEMENTINE is not set
+# PTXCONF_QTE is not set
 # PTXCONF_WXWINDOWS is not set
+
+#
+# X Window Managers
+#
 # PTXCONF_BLACKBOX is not set
+# PTXCONF_CLEMENTINE is not set
 
 #
 # Framebuffer
@@ -781,9 +883,17 @@ PTXCONF_BB_HAVE_DOT_CONFIG=y
 # PTXCONF_FBUTILS is not set
 
 #
+# Other Stuff
+#
+# PTXCONF_FONTCONFIG22 is not set
+# PTXCONF_TSLIB is not set
+
+#
 # Scientific Apps             
 #
 # PTXCONF_GNUPLOT is not set
+# PTXCONF_LIBMODBUS is not set
+# PTXCONF_LIBPV is not set
 
 #
 # Web Applications            

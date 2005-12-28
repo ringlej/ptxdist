@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PHP_APC
-PACKAGES += php-apc
-endif
+PACKAGES-$(PTXCONF_PHP_APC) += php-apc
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ php-apc_get_deps = $(PHP_APC_SOURCE)
 $(STATEDIR)/php-apc.get: $(php-apc_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PHP_APC))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PHP_APC_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +55,7 @@ $(STATEDIR)/php-apc.extract: $(php-apc_extract_deps)
 	@$(call clean, $(PHP_APC_DIR))
 	@$(call extract, $(PHP_APC_SOURCE), $(PHP_DIR)/ext)
 	@$(call patchin, $(PHP_APC))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -80,8 +78,7 @@ PHP_APC_ENV  = $(CROSS_ENV)
 # autoconf
 #
 PHP_APC_AUTOCONF = \
-	$(CROSS_AUTOCONF) \
-	--prefix=$(CROSS_LIB_DIR) \
+	$(CROSS_AUTOCONF_USR) \
 	--enable-apc
 
 $(STATEDIR)/php-apc.prepare: $(php-apc_prepare_deps)
@@ -92,7 +89,7 @@ $(STATEDIR)/php-apc.prepare: $(php-apc_prepare_deps)
 		$(CROSS_LIB_DIR)/bin/phpize && \
 		$(PHP_APC_PATH) $(PHP_APC_ENV) \
 		./configure $(PHP_APC_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +102,7 @@ php-apc_compile_deps = $(STATEDIR)/php-apc.prepare
 $(STATEDIR)/php-apc.compile: $(php-apc_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(PHP_APC_DIR) && $(PHP_APC_ENV) $(PHP_APC_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,8 +112,8 @@ php-apc_install: $(STATEDIR)/php-apc.install
 
 $(STATEDIR)/php-apc.install: $(STATEDIR)/php-apc.compile
 	@$(call targetinfo, $@)
-	cd $(PHP_APC_DIR) && $(PHP_APC_ENV) $(PHP_APC_PATH) make install
-	$(call touch, $@)
+	@$(call install, PHP_APC)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -142,7 +139,7 @@ $(STATEDIR)/php-apc.targetinstall: $(php-apc_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

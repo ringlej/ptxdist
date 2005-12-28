@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XALF
-PACKAGES += xalf
-endif
+PACKAGES-$(PTXCONF_XALF) += xalf
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ xalf_get_deps	=  $(XALF_SOURCE)
 
 $(STATEDIR)/xalf.get: $(xalf_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XALF_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/xalf.extract: $(xalf_extract_deps)
 	@$(call clean, $(XALF_DIR))
 	@$(call extract, $(XALF_SOURCE))
 	@$(call patchin, $(XALF))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -78,8 +76,7 @@ XALF_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-XALF_AUTOCONF	=  $(CROSS_AUTOCONF)
-XALF_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+XALF_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 
 #XALF_AUTOCONF	+= 
 
@@ -89,7 +86,7 @@ $(STATEDIR)/xalf.prepare: $(xalf_prepare_deps)
 	cd $(XALF_DIR) && \
 		$(XALF_PATH) $(XALF_ENV) \
 		./configure $(XALF_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +99,7 @@ xalf_compile_deps =  $(STATEDIR)/xalf.prepare
 $(STATEDIR)/xalf.compile: $(xalf_compile_deps)
 	@$(call targetinfo, $@)
 	$(XALF_PATH) $(XALF_ENV) make -C $(XALF_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,8 +109,8 @@ xalf_install: $(STATEDIR)/xalf.install
 
 $(STATEDIR)/xalf.install: $(STATEDIR)/xalf.compile
 	@$(call targetinfo, $@)
-	$(XALF_PATH) $(XALF_ENV) make -C $(XALF_DIR) install
-	$(call touch, $@)
+	@$(call install, XALF)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -139,7 +136,7 @@ $(STATEDIR)/xalf.targetinstall: $(xalf_targetinstall_deps)
 	
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

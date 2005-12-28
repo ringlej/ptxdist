@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GTK2-ENGINES
-PACKAGES += gtk2-engines
-endif
+PACKAGES-$(PTXCONF_GTK2) += gtk2-engines
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ gtk2-engines_get_deps = $(GTK2-ENGINES_SOURCE)
 
 $(STATEDIR)/gtk2-engines.get: $(gtk2-engines_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GTK2-ENGINES_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +52,7 @@ $(STATEDIR)/gtk2-engines.extract: $(gtk2-engines_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK2-ENGINES_DIR))
 	@$(call extract, $(GTK2-ENGINES_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -77,8 +75,7 @@ GTK2-ENGINES_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-GTK2-ENGINES_AUTOCONF =  $(CROSS_AUTOCONF)
-GTK2-ENGINES_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+GTK2-ENGINES_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/gtk2-engines.prepare: $(gtk2-engines_prepare_deps)
 	@$(call targetinfo, $@)
@@ -86,7 +83,7 @@ $(STATEDIR)/gtk2-engines.prepare: $(gtk2-engines_prepare_deps)
 	cd $(GTK2-ENGINES_DIR) && \
 		$(GTK2-ENGINES_PATH) $(GTK2-ENGINES_ENV) \
 		./configure $(GTK2-ENGINES_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -99,7 +96,7 @@ gtk2-engines_compile_deps = $(STATEDIR)/gtk2-engines.prepare
 $(STATEDIR)/gtk2-engines.compile: $(gtk2-engines_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(GTK2-ENGINES_DIR) && $(GTK2-ENGINES_ENV) $(GTK2-ENGINES_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -109,8 +106,8 @@ gtk2-engines_install: $(STATEDIR)/gtk2-engines.install
 
 $(STATEDIR)/gtk2-engines.install: $(STATEDIR)/gtk2-engines.compile
 	@$(call targetinfo, $@)
-	cd $(GTK2-ENGINES_DIR) && $(GTK2-ENGINES_ENV) $(GTK2-ENGINES_PATH) make install
-	$(call touch, $@)
+	@$(call install, GTK2-ENGINES)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -144,7 +141,7 @@ $(STATEDIR)/gtk2-engines.targetinstall: $(gtk2-engines_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

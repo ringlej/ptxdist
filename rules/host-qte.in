@@ -1,0 +1,3 @@
+config HOSTTOOL_QTE
+	bool
+	prompt "qt embedded 3.3.4"

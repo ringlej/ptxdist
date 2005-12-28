@@ -14,9 +14,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LILO
-PACKAGES += lilo
-endif
+PACKAGES-$(PTXCONF_LILO) += lilo
 
 #
 # Paths and names 
@@ -37,7 +35,7 @@ lilo_get_deps =  $(LILO_SOURCE)
 
 $(STATEDIR)/lilo.get: $(lilo_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LILO_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +52,7 @@ $(STATEDIR)/lilo.extract: $(STATEDIR)/lilo.get
 	@$(call clean, $(LILO_DIR))
 	@$(call extract, $(LILO_SOURCE))
 	@$(call patchin, $(LILO))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -74,7 +72,7 @@ lilo_prepare_deps = \
 
 $(STATEDIR)/lilo.prepare: $(lilo_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -87,7 +85,7 @@ lilo_compile_deps =  $(STATEDIR)/lilo.prepare
 $(STATEDIR)/lilo.compile: $(lilo_compile_deps) 
 	@$(call targetinfo, $@)
 	cd $(LILO_DIR) && $(LILO_PATH) make $(LILO_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -97,7 +95,7 @@ lilo_install: $(STATEDIR)/lilo.install
 
 $(STATEDIR)/lilo.install: $(STATEDIR)/lilo.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -107,7 +105,7 @@ lilo_targetinstall: $(STATEDIR)/lilo.targetinstall
 
 $(STATEDIR)/lilo.targetinstall: $(STATEDIR)/lilo.install
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

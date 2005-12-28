@@ -1,0 +1,14 @@
+menuconfig TSLIB
+	bool
+	prompt "tslib (touch library) "
+	select HOSTTOOL_QTE
+
+config TSLIB_TS_CALIBRATE
+	bool
+	prompt "Install ts_calibrate on target"
+	depends on TSLIB
+
+config TSLIB_TS_TEST
+	bool
+	prompt "Install ts_test on target"
+	depends on TSLIB

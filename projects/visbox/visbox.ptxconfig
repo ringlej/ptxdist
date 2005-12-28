@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.9.0
-# Mon Aug 29 08:34:19 2005
+# PTXdist version: 0.7.9-svn
+# Tue Dec 27 12:54:19 2005
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -10,6 +10,7 @@ PTXCONF_PTXCONF=y
 # ----------------------------------
 #
 PTXCONF_PROJECT="visbox"
+PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
 
 #
 # ----------------------------------
@@ -71,7 +72,7 @@ PTXCONF_ARCH_USERSPACE="i386"
 #
 # Paths & Directories
 #
-PTXCONF_PREFIX="$(TOPDIR)/local"
+PTXCONF_PREFIX="$(PTXDIST_TOPDIR)/local"
 PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_ROOT=""
@@ -79,7 +80,7 @@ PTXCONF_ROOT=""
 #
 # GNU Toolchain Identification String
 #
-PTXCONF_CROSSCHAIN_CHECK="3.4.2"
+PTXCONF_CROSSCHAIN_CHECK="3.4.4"
 PTXCONF_GNU_TARGET="i586-unknown-linux-gnu"
 PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 
@@ -112,9 +113,7 @@ PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 # Filesystem Manipulation Tools
 #
 PTXCONF_HOSTTOOL_GENEXT2FS=y
-PTXCONF_HOSTTOOL_E2FSPROGS=y
-PTXCONF_HOSTTOOL_E2FSPROGS_TUNE2FS=y
-PTXCONF_HOSTTOOL_E2FSPROGS_RESIZE2FS=y
+# PTXCONF_HOST_E2FSPROGS is not set
 # PTXCONF_HOSTTOOL_MTD is not set
 
 #
@@ -130,11 +129,14 @@ PTXCONF_HOSTTOOL_IPKG_UTILS=y
 PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 # PTXCONF_HOSTTOOL_MODUTILS is not set
 # PTXCONF_HOSTTOOL_UMKIMAGE is not set
+# PTXCONF_HOSTTOOL_MKNBI is not set
 
 #
 # Other Host Tools
 #
 # PTXCONF_HOSTTOOL_FLEX254 is not set
+# PTXCONF_HOSTTOOL_QTE is not set
+# PTXCONF_HOSTTOOL_SLIRP is not set
 
 #
 # Debugging Tools             
@@ -160,25 +162,39 @@ PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS=y
 #
 
 #
-# Image Creation
+# Image Creation for Target
 #
 PTXCONF_IMAGE_TGZ=y
 # PTXCONF_IMAGE_HD is not set
 # PTXCONF_IMAGE_IPKG is not set
+# PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY is not set
 # PTXCONF_IMAGE_JFFS2 is not set
 # PTXCONF_IMAGE_UIMAGE is not set
 # PTXCONF_IMAGE_EXT2 is not set
+
+#
+# Image Creation for Host
+#
+# PTXCONF_IMAGE_HOST_DEB is not set
 
 #
 # Root Filesystem             
 #
 
 #
+# ----------------------------------
+#
+
+#
 # Populate Rootfs
+#
+
+#
+# ----------------------------------
 #
 PTXCONF_ROOTFS=y
 PTXCONF_ROOTFS_DEV=y
-PTXCONF_ROOTFS_FLOPPY=y
+PTXCONF_ROOTFS_DEV_PTS=y
 PTXCONF_ROOTFS_HOME=y
 # PTXCONF_ROOTFS_MEDIA is not set
 PTXCONF_ROOTFS_MNT=y
@@ -186,19 +202,70 @@ PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_SYS=y
 PTXCONF_ROOTFS_TMP=y
 PTXCONF_ROOTFS_VAR=y
+PTXCONF_ROOTFS_VAR_RUN=y
+PTXCONF_ROOTFS_VAR_LOG=y
 
 #
-# Populate & Configure /etc
+# ----------------------------------
 #
-PTXCONF_ROOTFS_ETC=y
+
+#
+# Generic Config Files in /etc
+#
+
+#
+# ----------------------------------
+#
+PTXCONF_ROOTFS_GENERIC_FSTAB=y
+PTXCONF_ROOTFS_GENERIC_GROUP=y
+PTXCONF_ROOTFS_GENERIC_HOSTNAME=y
+PTXCONF_ROOTFS_ETC_HOSTNAME="ptx"
+PTXCONF_ROOTFS_GENERIC_HOSTS=y
+PTXCONF_ROOTFS_GENERIC_INITTAB=y
 PTXCONF_ROOTFS_ETC_CONSOLE="/dev/tts/0"
 PTXCONF_ROOTFS_ETC_CONSOLE_SPEED="115200"
+PTXCONF_ROOTFS_GENERIC_NSSWITCH=y
+PTXCONF_ROOTFS_GENERIC_PASSWD=y
+PTXCONF_ROOTFS_GENERIC_PROFILE=y
 PTXCONF_ROOTFS_ETC_PS1="\\\\\\\\u@\\\\\\\\h:\\\\\\\\w> "
 PTXCONF_ROOTFS_ETC_PS2="> "
 PTXCONF_ROOTFS_ETC_PS4="+ "
-PTXCONF_ROOTFS_ETC_HOSTNAME="ptx"
+PTXCONF_ROOTFS_GENERIC_PROTOCOLS=y
+PTXCONF_ROOTFS_GENERIC_RESOLV=y
+PTXCONF_ROOTFS_GENERIC_SHADOW=y
+
+#
+# ----------------------------------
+#
+
+#
+# Start Scripts in /etc/init.d
+#
+
+#
+# ----------------------------------
+#
+PTXCONF_ROOTFS_ETC_INITD=y
+PTXCONF_ROOTFS_ETC_INITD_RCS=y
+PTXCONF_ROOTFS_ETC_INITD_NETWORKING=y
+PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK="S01_networking"
+PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES="$(PROJECTDIR)/etc/network/interfaces"
+PTXCONF_ROOTFS_ETC_INITD_TELNETD=y
+PTXCONF_ROOTFS_ETC_INITD_TELNETD_DEFAULT=y
+# PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER is not set
+PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK="S07_telnetd"
+# PTXCONF_ROOTFS_ETC_INITD_STARTUP is not set
+PTXCONF_ROOTFS_ETC_INITD_BANNER=y
+PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK="S02_banner"
 PTXCONF_ROOTFS_ETC_VENDOR=""
-PTXCONF_VENDORTWEAKS=""
+
+#
+# apache: select apache
+#
+
+#
+# udev: select udev
+#
 
 #
 # Core (Kernel, C-Library)    
@@ -206,6 +273,18 @@ PTXCONF_VENDORTWEAKS=""
 
 #
 # Kernel              
+#
+
+#
+# ----------------------------------
+#
+
+#
+# Target Kernel
+#
+
+#
+# ----------------------------------
 #
 # PTXCONF_USE_EXTERNAL_KERNEL is not set
 PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/visbox.kernelconfig"
@@ -228,6 +307,8 @@ PTXCONF_KERNEL_2_6_8=y
 # PTXCONF_KERNEL_2_6_10 is not set
 # PTXCONF_KERNEL_2_6_11 is not set
 # PTXCONF_KERNEL_2_6_12 is not set
+# PTXCONF_KERNEL_2_6_13 is not set
+# PTXCONF_KERNEL_2_6_14 is not set
 # PTXCONF_DONT_COMPILE_KERNEL is not set
 PTXCONF_KERNEL_IMAGE_BZ=y
 # PTXCONF_KERNEL_IMAGE_Z is not set
@@ -243,13 +324,28 @@ PTXCONF_KERNEL_PATCH1_URL=""
 PTXCONF_KERNEL_PATCH1_NAME=""
 
 #
-# Extentions
+# ----------------------------------
 #
 
 #
-# epoll should be ported to patchstack mechanism, please send patch! :-)
+# Host Kernel (for simulation)
 #
-# PTXCONF_RTAI is not set
+
+#
+# ----------------------------------
+#
+# PTXCONF_KERNEL_HOST is not set
+# PTXCONF_KERNEL_HOST_ROOT_HOSTFS is not set
+PTXCONF_KERNEL_HOST_CMDLINE=""
+
+#
+# 
+#
+
+#
+# klibc               
+#
+# PTXCONF_KLIBC is not set
 
 #
 # C Library           
@@ -260,6 +356,7 @@ PTXCONF_GLIBC=y
 #
 # C Library options
 #
+# PTXCONF_GLIBC_2_3_5 is not set
 # PTXCONF_GLIBC_2_3_4 is not set
 PTXCONF_GLIBC_2_3_3=y
 # PTXCONF_GLIBC_2_3_2 is not set
@@ -300,6 +397,10 @@ PTXCONF_GLIBC_NSL=y
 #
 # PTXCONF_GCCLIBS_CXX is not set
 # PTXCONF_GCCLIBS_GCC_S is not set
+
+#
+# Early Userspace     
+#
 
 #
 # ----------------------------------
@@ -612,8 +713,14 @@ PTXCONF_BB_CONFIG_IFCONFIG=y
 PTXCONF_BB_CONFIG_FEATURE_IFCONFIG_HW=y
 # PTXCONF_BB_CONFIG_FEATURE_IFCONFIG_BROADCAST_PLUS is not set
 # PTXCONF_BB_CONFIG_IFUPDOWN is not set
+PTXCONF_BB_CONFIG_FEATURE_IFUPDOWN_IP=y
+PTXCONF_BB_CONFIG_FEATURE_IFUPDOWN_IP_BUILTIN=y
 # PTXCONF_BB_CONFIG_INETD is not set
-# PTXCONF_BB_CONFIG_IP is not set
+PTXCONF_BB_CONFIG_IP=y
+PTXCONF_BB_CONFIG_FEATURE_IP_ADDRESS=y
+PTXCONF_BB_CONFIG_FEATURE_IP_LINK=y
+PTXCONF_BB_CONFIG_FEATURE_IP_ROUTE=y
+# PTXCONF_BB_CONFIG_FEATURE_IP_TUNNEL is not set
 # PTXCONF_BB_CONFIG_IPCALC is not set
 # PTXCONF_BB_CONFIG_IPADDR is not set
 # PTXCONF_BB_CONFIG_IPLINK is not set
@@ -759,6 +866,7 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_CFGSH is not set
 # PTXCONF_COREUTILS is not set
 # PTXCONF_DIFFUTILS is not set
+# PTXCONF_SYSVINIT is not set
 # PTXCONF_MODULE_INIT_TOOLS is not set
 # PTXCONF_GAWK is not set
 # PTXCONF_HOTPLUG is not set
@@ -766,10 +874,12 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_PCMCIA_TOOLS is not set
 # PTXCONF_PDKSH is not set
 # PTXCONF_PROCPS is not set
+# PTXCONF_SETSERIAL is not set
 # PTXCONF_SYSFSUTILS is not set
 # PTXCONF_SYSUTILS is not set
 # PTXCONF_UTLNX is not set
 # PTXCONF_CLOCK is not set
+# PTXCONF_UDEV is not set
 # PTXCONF_XMLSTARLET is not set
 
 #
@@ -781,6 +891,7 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 #
 # PTXCONF_PHP is not set
 # PTXCONF_PYTHON23 is not set
+# PTXCONF_PYTHON24 is not set
 
 #
 # Networking Tools            
@@ -803,6 +914,14 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # iptables            
 #
 # PTXCONF_IPTABLES is not set
+
+#
+# ----------------------------------
+#
+
+#
+# ----------------------------------
+#
 
 #
 # LSH                 
@@ -829,9 +948,10 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 #
 
 #
-# Apache HTTP server  
+# Apache 1 HTTP Server
 #
 # PTXCONF_APACHE is not set
+# PTXCONF_APACHE2 is not set
 
 #
 # betaftpd            
@@ -952,10 +1072,6 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # ppp                 
 #
 # PTXCONF_PPP is not set
-
-#
-# proftpd             
-#
 # PTXCONF_PROFTPD is not set
 # PTXCONF_PUREFTPD is not set
 
@@ -1023,6 +1139,7 @@ PTXCONF_UTELNETD=y
 # PTXCONF_DOSFSTOOLS is not set
 # PTXCONF_E2FSPROGS is not set
 # PTXCONF_GRUB is not set
+# PTXCONF_HDPARM is not set
 # PTXCONF_IPKG is not set
 # PTXCONF_LILO is not set
 # PTXCONF_CRAMFS is not set
@@ -1031,7 +1148,14 @@ PTXCONF_UTELNETD=y
 #
 # Communication Utilities     
 #
+# PTXCONF_BLUEZ is not set
+
+#
+# canutils            
+#
+# PTXCONF_CANUTILS is not set
 # PTXCONF_EFAX is not set
+# PTXCONF_LRZSZ is not set
 # PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
@@ -1046,6 +1170,7 @@ PTXCONF_UTELNETD=y
 # PTXCONF_MAD is not set
 # PTXCONF_SETMIXER is not set
 # PTXCONF_RAWREC is not set
+# PTXCONF_MPLAYER is not set
 
 #
 # Tools                       
@@ -1053,7 +1178,6 @@ PTXCONF_UTELNETD=y
 # PTXCONF_FIGLET is not set
 # PTXCONF_MEMEDIT is not set
 # PTXCONF_MEMSTAT is not set
-# PTXCONF_CANCONFIG is not set
 
 #
 # Editors                     
@@ -1068,7 +1192,9 @@ PTXCONF_UTELNETD=y
 #
 # PTXCONF_DB is not set
 # PTXCONF_EXPAT is not set
+# PTXCONF_GETTEXT is not set
 # PTXCONF_GLIB26 is not set
+# PTXCONF_HRTIMERS_SUPPORT is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBXML2 is not set
 # PTXCONF_LIBXMLCONFIG is not set
@@ -1077,13 +1203,15 @@ PTXCONF_UTELNETD=y
 # PTXCONF_PCRE is not set
 # PTXCONF_POPT is not set
 # PTXCONF_READLINE is not set
-# PTXCONF_RN is not set
+# PTXCONF_LIBRN is not set
+# PTXCONF_LIBGSLOOP is not set
 # PTXCONF_SQLITE is not set
 # PTXCONF_ZLIB is not set
 
 #
 # Middleware                  
 #
+# PTXCONF_DOTGNU is not set
 # PTXCONF_OMNIORB is not set
 
 #
@@ -1093,79 +1221,52 @@ PTXCONF_UTELNETD=y
 #
 # X Infrastructure
 #
+# PTXCONF_REALVNC is not set
 # PTXCONF_XFREE430 is not set
 PTXCONF_XLIBS=y
 
 #
 # Base Libraries
 #
-PTXCONF_XLIBS_X11=y
-PTXCONF_XLIBS_XAU=y
 PTXCONF_XLIBS_XEXT=y
-PTXCONF_XLIBS_XFONT=y
-PTXCONF_XLIBS_FONTCACHE=y
-PTXCONF_XLIBS_FONTENC=y
-PTXCONF_XLIBS_XTRANS=y
-
-#
-# Proto
-#
-PTXCONF_XLIBS_PROTO_BIGREQSPROTO=y
-PTXCONF_XLIBS_PROTO_FONTCACHEPROTO=y
-PTXCONF_XLIBS_PROTO_FONTSPROTO=y
-PTXCONF_XLIBS_PROTO_XPROTO=y
-PTXCONF_XLIBS_PROTO_XEXTPROTO=y
-PTXCONF_XLIBS_PROTO_XCMISCPROTO=y
-PTXCONF_XLIBS_PROTO_KBPROTO=y
-PTXCONF_XLIBS_PROTO_INPUTPROTO=y
-PTXCONF_XLIBS_PROTO_RANDRPROTO=y
-PTXCONF_XLIBS_PROTO_VIDEOPROTO=y
-PTXCONF_XLIBS_PROTO_RENDERPROTO=y
-PTXCONF_XLIBS_PROTO_FIXESPROTO=y
-PTXCONF_XLIBS_PROTO_DAMAGEPROTO=y
-PTXCONF_XLIBS_PROTO_XF86DGAPROTO=y
-PTXCONF_XLIBS_PROTO_XF86MISCPROTO=y
-PTXCONF_XLIBS_PROTO_XF86RUSHPROTO=y
-PTXCONF_XLIBS_PROTO_XF86VIDMODEPROTO=y
-PTXCONF_XLIBS_PROTO_XF86BIGFONTPROTO=y
-PTXCONF_XLIBS_PROTO_RECORDPROTO=y
-PTXCONF_XLIBS_XDMCP=y
-PTXCONF_XLIBS_XSCRNSAVER=y
-PTXCONF_XLIBS_XKBFILE=y
-PTXCONF_XLIBS_XV=y
 PTXCONF_XSERVER=y
-# PTXCONF_XSERVER_XF86MISC is not set
-# PTXCONF_XSERVER_XF86VIDMODE is not set
-# PTXCONF_XSERVER_XTRAP is not set
-# PTXCONF_XSERVER_XCSECURITY is not set
-# PTXCONF_XSERVER_XEVIE is not set
-# PTXCONF_XSERVER_WERROR is not set
+# PTXCONF_XSERVER_SHAPE is not set
 # PTXCONF_XSERVER_XV is not set
 # PTXCONF_XSERVER_COMPOSITE is not set
 # PTXCONF_XSERVER_SHM is not set
 # PTXCONF_XSERVER_XRES is not set
 # PTXCONF_XSERVER_XRECORD is not set
+PTXCONF_XSERVER_KDRIVE=y
 # PTXCONF_XSERVER_XNEST is not set
-PTXCONF_XSERVER_XORG=y
-# PTXCONF_XSERVER_DMX is not set
-# PTXCONF_XSERVER_XVFB is not set
 # PTXCONF_XSERVER_XWIN is not set
+# PTXCONF_XSERVER_XSDL is not set
+# PTXCONF_XSERVER_XGL is not set
+# PTXCONF_XSERVER_XTRAP is not set
+# PTXCONF_XSERVER_BUILTIN_RGB is not set
+# PTXCONF_XSERVER_SCREENSAVER is not set
 # PTXCONF_XSERVER_XDMCP is not set
 # PTXCONF_XSERVER_XDM_AUTH is not set
 # PTXCONF_XSERVER_GLX is not set
 # PTXCONF_XSERVER_DRI is not set
+# PTXCONF_XSERVER_XINPUT is not set
+# PTXCONF_XSERVER_XKB is not set
+# PTXCONF_XSERVER_XLOADABLE is not set
 # PTXCONF_XSERVER_XINERAMA is not set
 PTXCONF_XSERVER_UNIX_TRANSPORT=y
 PTXCONF_XSERVER_TCP_TRANSPORT=y
 # PTXCONF_XSERVER_IPV6_TRANSPORT is not set
-# PTXCONF_REALVNC is not set
 
 #
 # X Applications
 #
-# PTXCONF_CLEMENTINE is not set
+# PTXCONF_QTE is not set
 # PTXCONF_WXWINDOWS is not set
+
+#
+# X Window Managers
+#
 # PTXCONF_BLACKBOX is not set
+# PTXCONF_CLEMENTINE is not set
 
 #
 # Framebuffer
@@ -1176,12 +1277,14 @@ PTXCONF_XSERVER_TCP_TRANSPORT=y
 #
 # Other Stuff
 #
-PTXCONF_FONTCONFIG22=y
+# PTXCONF_FONTCONFIG22 is not set
+# PTXCONF_TSLIB is not set
 
 #
 # Scientific Apps             
 #
 # PTXCONF_GNUPLOT is not set
+# PTXCONF_LIBMODBUS is not set
 # PTXCONF_LIBPV is not set
 
 #

@@ -4,6 +4,6 @@ menu "Bridge Utils        "
 
 config BRIDGE_UTILS
 	bool
-	prompt "Compile Bridge Utils"
+	prompt "bridgeutils"
 
 endmenu

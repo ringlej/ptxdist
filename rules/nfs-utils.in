@@ -6,7 +6,7 @@ comment "compile options"
 
 config	NFSUTILS
 	bool
-	prompt "Compile nfs-utils"
+	prompt "nfs-utils"
 
 config	NFSUTILS_V3
 	bool

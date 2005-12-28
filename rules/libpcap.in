@@ -2,6 +2,6 @@ menu    "libpcap             "
 
 config LIBPCAP
         bool
-        prompt "Compile libpcap-0.7.2"
+        prompt "libpcap"
 
 endmenu

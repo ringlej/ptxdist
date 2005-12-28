@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBXSLT
-PACKAGES += libxslt
-endif
+PACKAGES-$(PTXCONF_LIBXSLT) += libxslt
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ libxslt_get_deps = $(LIBXSLT_SOURCE)
 $(STATEDIR)/libxslt.get: $(libxslt_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBXSLT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBXSLT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/libxslt.extract: $(libxslt_extract_deps)
 	@$(call clean, $(LIBXSLT_DIR))
 	@$(call extract, $(LIBXSLT_SOURCE))
 	@$(call patchin, $(LIBXSLT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -80,9 +78,9 @@ LIBXSLT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-LIBXSLT_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBXSLT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
-LIBXSLT_AUTOCONF += --with-libxml-prefix=$(CROSS_LIB_DIR)
+LIBXSLT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+LIBXSLT_AUTOCONF += --with-libxml-libs-prefix=$(SYSROOT)/usr/lib
+LIBXSLT_AUTOCONF += --with-libxml-include-prefix=$(SYSROOT)/usr/include 
 
 ifdef PTXCONF_LIBXSLT_CRYPTO
 	LIBXSLT_AUTOCONF += --with-crypto
@@ -113,7 +111,7 @@ $(STATEDIR)/libxslt.prepare: $(libxslt_prepare_deps)
 	cd $(LIBXSLT_DIR) && \
 		$(LIBXSLT_PATH) $(LIBXSLT_ENV) \
 		./configure $(LIBXSLT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -126,7 +124,7 @@ libxslt_compile_deps = $(STATEDIR)/libxslt.prepare
 $(STATEDIR)/libxslt.compile: $(libxslt_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBXSLT_DIR) && $(LIBXSLT_ENV) $(LIBXSLT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -136,14 +134,13 @@ libxslt_install: $(STATEDIR)/libxslt.install
 
 $(STATEDIR)/libxslt.install: $(STATEDIR)/libxslt.compile
 	@$(call targetinfo, $@)
-
-	cd $(LIBXSLT_DIR) && $(LIBXSLT_ENV) $(LIBXSLT_PATH) make install
-
+	@$(call install, LIBXSLT)
+	
 	# FIXME: this probably has to be fixed upstream!
 	# libxslt installs xslt-config to wrong path. 
 	install $(LIBXSLT_DIR)/xslt-config $(PTXCONF_PREFIX)/bin/
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -151,7 +148,9 @@ $(STATEDIR)/libxslt.install: $(STATEDIR)/libxslt.compile
 
 libxslt_targetinstall: $(STATEDIR)/libxslt.targetinstall
 
-libxslt_targetinstall_deps = $(STATEDIR)/libxslt.compile
+libxslt_targetinstall_deps = \
+	$(STATEDIR)/libxslt.compile \
+	$(STATEDIR)/libxml2.targetinstall
 
 $(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps)
 	@$(call targetinfo, $@)
@@ -165,15 +164,31 @@ $(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
+ifdef PTXCONF_LIBXSLT_LIBXSLT
 	@$(call install_copy, 0, 0, 0755, \
 		$(LIBXSLT_DIR)/libxslt/.libs/libxslt.so.1.1.14, \
 		/usr/lib/libxslt.so.1.1.14)
 	@$(call install_link, libxslt.so.1.1.14, /usr/lib/libxslt.so.1)
 	@$(call install_link, libxslt.so.1.1.14, /usr/lib/libxslt.so)
+endif
+
+ifdef PTXCONF_LIBXSLT_LIBEXSLT
+	@$(call install_copy, 0, 0, 0755, \
+		$(LIBXSLT_DIR)/libexslt/.libs/libexslt.so.0.8.12, \
+		/usr/lib/libexslt.so.0.8.12)
+	@$(call install_link, libexslt.so.0.8.12, /usr/lib/libexslt.so.0)
+	@$(call install_link, libexslt.so.0.8.12, /usr/lib/libexslt.so)
+endif
+
+ifdef PTXCONF_LIBXSLT_XSLTPROC
+	@$(call install_copy, 0, 0, 0755, \
+		$(LIBXSLT_DIR)/xsltproc/.libs/xsltproc, \
+		/usr/bin/xsltproc)
+endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

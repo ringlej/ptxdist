@@ -10,4 +10,5 @@ config TESTSUITE_DIR
 
 source "rules/dbench.in"
 source "rules/ltp.in"
+source "rules/xmlbench.in"
 

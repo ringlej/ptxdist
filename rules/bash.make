@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifeq (y, $(PTXCONF_BASH))
-PACKAGES += bash
-endif
+PACKAGES-$(PTXCONF_BASH) += bash
 
 #
 # Paths and names 
@@ -36,11 +34,11 @@ bash_get_deps = \
 
 $(STATEDIR)/bash.get: $(bash_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(STATEDIR)/bash-patches.get:
 	@$(call get_patches, $(BASH))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(BASH_SOURCE):
 	@$(call targetinfo, $@)
@@ -57,7 +55,7 @@ $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
 	@$(call clean $(BASH_DIR))
 	@$(call extract, $(BASH_SOURCE))
 	@$(call patchin, $(BASH))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -65,13 +63,11 @@ $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
 
 bash_prepare: $(STATEDIR)/bash.prepare
 
-BASH_AUTOCONF	= $(CROSS_AUTOCONF)
-BASH_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
+BASH_AUTOCONF	= $(CROSS_AUTOCONF_ROOT)
 BASH_AUTOCONF	+= --disable-sanity-checks
-BASH_AUTOCONF	+= --prefix=/usr --bindir=/bin
-BASH_PATH	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF213)/bin:$(CROSS_PATH)
-BASH_ENV	=  ac_cv_func_setvbuf_reversed=no bash_cv_have_mbstate_t=yes
-BASH_ENV	+= $(CROSS_ENV)
+BASH_PATH	=  PATH=$(CROSS_PATH)
+BASH_ENV	=  $(CROSS_ENV)
+BASH_ENV	+= ac_cv_func_setvbuf_reversed=no bash_cv_have_mbstate_t=yes
 
 # FIXME: "disable" does not compile with bash-2.05b (at least not on ARM)
 BASH_AUTOCONF	+= --enable-dparen-arithmetic
@@ -207,7 +203,7 @@ $(STATEDIR)/bash.prepare: $(bash_prepare_deps)
 	cd $(BASH_DIR) && \
 		$(BASH_PATH) $(BASH_ENV) \
 		./configure $(BASH_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -218,7 +214,7 @@ bash_compile: $(STATEDIR)/bash.compile
 $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare 
 	@$(call targetinfo, $@)
 	cd $(BASH_DIR) && $(BASH_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -228,7 +224,8 @@ bash_install: $(STATEDIR)/bash.install
 
 $(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	#@$(call install, BASH)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -247,13 +244,13 @@ $(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.compile
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, 0, 0, 0755, $(BASH_DIR)/bash, /bin/bash)
 	@$(call install_link, bash, /bin/sh)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

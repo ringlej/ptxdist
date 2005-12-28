@@ -15,9 +15,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_ZEBRA
-PACKAGES += zebra
-endif
+PACKAGES-$(PTXCONF_ZEBRA) += zebra
 
 #
 # Paths and names 
@@ -39,7 +37,7 @@ zebra_get_deps	= $(ZEBRA_SOURCE)
 
 $(STATEDIR)/zebra.get: $(zebra_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(ZEBRA_SOURCE):
 	@$(call targetinfo, $@)
@@ -58,7 +56,7 @@ $(STATEDIR)/zebra.extract: $(zebra_extract_deps)
 	@$(call clean, $(ZEBRA_DIR))
 	@$(call extract, $(ZEBRA_SOURCE))
 	@$(call patchin, $(ZEBRA))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -70,10 +68,9 @@ zebra_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/zebra.extract
 
-ZEBRA_AUTOCONF =  $(CROSS_AUTOCONF)
+ZEBRA_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 ZEBRA_AUTOCONF += \
 	--with-cflags="$(TARGET_CFLAGS)" \
-	--prefix=/usr \
 	--exec-prefix=/usr \
 	--sysconfdir=/etc/zebra \
 	--localstatedir=/var
@@ -94,7 +91,7 @@ $(STATEDIR)/zebra.prepare: $(zebra_prepare_deps)
 	cd $(ZEBRA_DIR) && \
 		$(ZEBRA_PATH) $(ZEBRA_ENV) \
 		./configure $(ZEBRA_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +102,7 @@ zebra_compile: $(STATEDIR)/zebra.compile
 $(STATEDIR)/zebra.compile: $(STATEDIR)/zebra.prepare 
 	@$(call targetinfo, $@)
 	$(ZEBRA_PATH) make -C $(ZEBRA_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,7 +112,7 @@ zebra_install: $(STATEDIR)/zebra.install
 
 $(STATEDIR)/zebra.install: $(STATEDIR)/zebra.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -126,7 +123,7 @@ zebra_targetinstall: $(STATEDIR)/zebra.targetinstall
 $(STATEDIR)/zebra.targetinstall: $(STATEDIR)/zebra.install
 	@$(call targetinfo, $@)
 	$(ZEBRA_PATH) make -C $(ZEBRA_DIR) DESTDIR=$(ROOTDIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------

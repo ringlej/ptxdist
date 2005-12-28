@@ -15,17 +15,15 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS_PROTO_XPROTO
-PACKAGES += xlibs-xproto
-endif
+PACKAGES-$(PTXCONF_XLIBS-XPROTO) += xlibs-xproto
 
 #
 # Paths and names
 #
-XLIBS-XPROTO_VERSION	= 7.0
-XLIBS-XPROTO		= xproto-$(XLIBS-XPROTO_VERSION)
+XLIBS-XPROTO_VERSION	= 20041103-1
+XLIBS-XPROTO		= Xproto-$(XLIBS-XPROTO_VERSION)
 XLIBS-XPROTO_SUFFIX	= tar.bz2
-XLIBS-XPROTO_URL	= http://xorg.freedesktop.org/X11R7.0-RC0/proto/$(XLIBS-XPROTO).$(XLIBS-XPROTO_SUFFIX)
+XLIBS-XPROTO_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-XPROTO).$(XLIBS-XPROTO_SUFFIX)
 XLIBS-XPROTO_SOURCE	= $(SRCDIR)/$(XLIBS-XPROTO).$(XLIBS-XPROTO_SUFFIX)
 XLIBS-XPROTO_DIR	= $(BUILDDIR)/$(XLIBS-XPROTO)
 
@@ -40,7 +38,7 @@ xlibs-xproto_get_deps = $(XLIBS-XPROTO_SOURCE)
 $(STATEDIR)/xlibs-xproto.get: $(xlibs-xproto_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XPROTO))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-XPROTO_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +57,7 @@ $(STATEDIR)/xlibs-xproto.extract: $(xlibs-xproto_extract_deps)
 	@$(call clean, $(XLIBS-XPROTO_DIR))
 	@$(call extract, $(XLIBS-XPROTO_SOURCE))
 	@$(call patchin, $(XLIBS-XPROTO))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -82,8 +80,7 @@ XLIBS-XPROTO_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 XLIBS-XPROTO_AUTOCONF = \
 	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+	--host=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/xlibs-xproto.prepare: $(xlibs-xproto_prepare_deps)
 	@$(call targetinfo, $@)
@@ -92,7 +89,7 @@ $(STATEDIR)/xlibs-xproto.prepare: $(xlibs-xproto_prepare_deps)
 	cd $(XLIBS-XPROTO_DIR) && \
 		$(XLIBS-XPROTO_PATH) $(XLIBS-XPROTO_ENV) \
 		./configure $(XLIBS-XPROTO_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +102,7 @@ xlibs-xproto_compile_deps = $(STATEDIR)/xlibs-xproto.prepare
 $(STATEDIR)/xlibs-xproto.compile: $(xlibs-xproto_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XPROTO_DIR) && $(XLIBS-XPROTO_ENV) $(XLIBS-XPROTO_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,8 +112,8 @@ xlibs-xproto_install: $(STATEDIR)/xlibs-xproto.install
 
 $(STATEDIR)/xlibs-xproto.install: $(STATEDIR)/xlibs-xproto.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-XPROTO_DIR) && $(XLIBS-XPROTO_ENV) $(XLIBS-XPROTO_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-XPROTO)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -128,7 +125,7 @@ xlibs-xproto_targetinstall_deps = $(STATEDIR)/xlibs-xproto.compile
 
 $(STATEDIR)/xlibs-xproto.targetinstall: $(xlibs-xproto_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

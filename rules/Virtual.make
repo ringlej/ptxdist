@@ -19,8 +19,12 @@ virtual-xchain_install_deps	= $(STATEDIR)/crosstool.install
 endif 
 
 ifdef PTXCONF_IMAGE_IPKG
-virtual-xchain_install_deps	=  $(STATEDIR)/hosttool-ipkg-utils.install
+virtual-xchain_install_deps	+= $(STATEDIR)/hosttool-ipkg-utils.install
 virtual-xchain_install_deps	+= $(STATEDIR)/hosttool-fakeroot.install
+endif
+
+ifdef PTXCONF_IMAGE_HOST_DEB
+virtual-xchain_install_deps	+= $(STATEDIR)/host-checkinstall.install
 endif
 
 ifdef PTXCONF_IMAGE_JFFS2                                                                                                                 
@@ -29,4 +33,4 @@ endif
 
 $(STATEDIR)/virtual-xchain.install: $(virtual-xchain_install_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)

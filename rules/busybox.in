@@ -2,7 +2,7 @@ menu	"BusyBox             "
 
 config BUSYBOX
 	bool
-	prompt "Compile Busybox"
+	prompt "Busybox"
 	help
 	  BusyBox is the Swiss Army Knife of embedded Linux. It is a
 	  multi call program which hosts nearly all important unix

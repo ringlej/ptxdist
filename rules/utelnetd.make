@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_UTELNETD
-PACKAGES += utelnetd
-endif
+PACKAGES-$(PTXCONF_UTELNETD) += utelnetd
 
 #
 # Paths and names 
@@ -32,7 +30,7 @@ utelnetd_get: $(STATEDIR)/utelnetd.get
 
 $(STATEDIR)/utelnetd.get: $(UTELNETD_SOURCE)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(UTELNETD_SOURCE):
 	@$(call targetinfo, $@)
@@ -48,7 +46,7 @@ $(STATEDIR)/utelnetd.extract: $(STATEDIR)/utelnetd.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTELNETS_DIR))
 	@$(call extract, $(UTELNETD_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -62,7 +60,7 @@ utelnetd_prepare_deps = \
 
 $(STATEDIR)/utelnetd.prepare: $(utelnetd_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -76,7 +74,7 @@ UTELNETD_MAKEVARS    += CROSS=$(COMPILER_PREFIX)
 $(STATEDIR)/utelnetd.compile: $(STATEDIR)/utelnetd.prepare 
 	@$(call targetinfo, $@)
 	$(UTELNETD_ENVIRONMENT) make -C $(UTELNETD_DIR) $(UTELNETD_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -86,7 +84,7 @@ utelnetd_install: $(STATEDIR)/utelnetd.install
 
 $(STATEDIR)/utelnetd.install: $(STATEDIR)/utelnetd.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -105,12 +103,19 @@ $(STATEDIR)/utelnetd.targetinstall: $(STATEDIR)/utelnetd.install
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
+ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD_DEFAULT 
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/telnetd, /etc/init.d/telnetd, n)
+else
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER_FILE),"")
+	@$(call install_copy, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER_FILE), /etc/init.d/telnetd, n)
+endif
+endif
 
 	@$(call install_copy, 0, 0, 0755, $(UTELNETD_DIR)/utelnetd, /sbin/utelnetd)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

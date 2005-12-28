@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBNET
-PACKAGES += libnet
-endif
+PACKAGES-$(PTXCONF_LIBNET) += libnet
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ libnet_get_deps	=  $(LIBNET_SOURCE)
 $(STATEDIR)/libnet.get: $(libnet_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBNET))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBNET_SOURCE):
 	@$(call targetinfo, $@)
@@ -64,7 +62,7 @@ $(STATEDIR)/libnet.extract: $(libnet_extract_deps)
 		$(PTXCONF_PREFIX)/$(AUTOMAKE15)/bin/aclocal && \
 		$(PTXCONF_PREFIX)/$(AUTOMAKE15)/bin/automake && \
 		$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin/autoconf
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -87,8 +85,7 @@ LIBNET_ENV = \
 #
 # autoconf
 #
-LIBNET_AUTOCONF	=  $(CROSS_AUTOCONF)
-LIBNET_AUTOCONF += --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+LIBNET_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 LIBNET_AUTOCONF += --with-pf_packet=yes
 
 $(STATEDIR)/libnet.prepare: $(libnet_prepare_deps)
@@ -97,7 +94,7 @@ $(STATEDIR)/libnet.prepare: $(libnet_prepare_deps)
 	cd $(LIBNET_DIR) && \
 		$(LIBNET_PATH) $(LIBNET_ENV) \
 		./configure $(LIBNET_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -110,7 +107,7 @@ libnet_compile_deps =  $(STATEDIR)/libnet.prepare
 $(STATEDIR)/libnet.compile: $(libnet_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBNET_DIR) && $(LIBNET_PATH) $(LIBNET_ENV) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -120,8 +117,8 @@ libnet_install: $(STATEDIR)/libnet.install
 
 $(STATEDIR)/libnet.install: $(STATEDIR)/libnet.compile
 	@$(call targetinfo, $@)
-	cd $(LIBNET_DIR) && $(LIBNET_PATH) $(LIBNET_ENV) make install
-	$(call touch, $@)
+	@$(call install, LIBNET)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -134,7 +131,7 @@ libnet_targetinstall_deps	=  $(STATEDIR)/libnet.install
 $(STATEDIR)/libnet.targetinstall: $(libnet_targetinstall_deps)
 	@$(call targetinfo, $@)
 	# FIXME: nothing to do? 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

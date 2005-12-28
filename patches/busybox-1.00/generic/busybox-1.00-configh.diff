@@ -1,0 +1,32 @@
+# 
+# Submitted-By: Robert Schwebel, 2005-10-24
+# Committed-By: Robert Schwebel
+#
+# Error: 
+#
+# gcc -I/home/rsc/svn/ptxdist-0.7-trunk/build-target/busybox-1.00/include -I/home/rsc/svn/ptxdist-0.7-trunk/build-target/busybox-1.00/include -I/home/rsc/svn/ptxdist-0.7-trunk/build-target/busybox-1.00/libbb -Wall -Wstrict-prototypes -Wshadow -Os -march=i386 -mpreferred-stack-boundary=2 -falign-functions=0 -falign-jumps=0 -falign-loops=0 -fomit-frame-pointer -D_GNU_SOURCE -DNDEBUG     -c -o /home/rsc/svn/ptxdist-0.7-trunk/build-target/busybox-1.00/applets/applets.o /home/rsc/svn/ptxdist-0.7-trunk/build-target/busybox-1.00/applets/applets.c
+# In file included from /home/rsc/svn/ptxdist-0.7-trunk/build-target/busybox-1.00/applets/applets.c:48:
+# applets.h:551: error: `sysctl_main' undeclared here (not in a function)
+# applets.h:551: error: initializer element is not constant
+#
+# Description: 
+#
+# no public discussion yet
+#
+# State:
+# 
+# unknown
+#
+
+diff -urN busybox-1.00/include/applets.h busybox-1.00-configh/include/applets.h
+--- busybox-1.00/include/applets.h	2004-08-27 01:01:34.000000000 +0200
++++ busybox-1.00-configh/include/applets.h	2005-10-24 13:11:14.000000000 +0200
+@@ -10,6 +10,8 @@
+  * file result in the listing remaining in ascii order. You have been warned.
+  */
+ 
++#include <config.h>
++
+ #undef APPLET
+ #undef APPLET_ODDNAME
+ #undef APPLET_NOUSAGE

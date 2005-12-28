@@ -1,0 +1,8 @@
+config LRZSZ
+	bool
+	prompt "lrzsz"
+	help
+	  lrzsz is a unix communication package providing the XMODEM,
+	  YMODEM and ZMODEM file transfer protocols. lrzsz is a heavily
+	  rehacked version of the last public domain release of Omen
+	  Technologies rzsz package.

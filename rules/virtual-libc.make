@@ -29,7 +29,7 @@ endif
 
 $(STATEDIR)/virtual-libc.install: $(virtual-libc_install_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -46,4 +46,4 @@ endif
 
 $(STATEDIR)/virtual-libc.targetinstall: $(virtual-libc_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)

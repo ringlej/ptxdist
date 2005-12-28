@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MEMTEST
-PACKAGES += memtest
-endif
+PACKAGES-$(PTXCONF_MEMTEST) += memtest
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ memtest_get_deps = $(MEMTEST_SOURCE)
 $(STATEDIR)/memtest.get: $(memtest_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMTEST))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MEMTEST_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/memtest.extract: $(memtest_extract_deps)
 	@$(call clean, $(MEMTEST_DIR))
 	@$(call extract, $(MEMTEST_SOURCE))
 	@$(call patchin, $(MEMTEST))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -77,13 +75,12 @@ MEMTEST_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-MEMTEST_AUTOCONF =  $(CROSS_AUTOCONF)
-MEMTEST_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+MEMTEST_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/memtest.prepare: $(memtest_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMTEST_DIR)/config.cache)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -96,7 +93,7 @@ memtest_compile_deps = $(STATEDIR)/memtest.prepare
 $(STATEDIR)/memtest.compile: $(memtest_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(MEMTEST_DIR) && $(MEMTEST_ENV) $(MEMTEST_PATH) make mtest
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -106,7 +103,7 @@ memtest_install: $(STATEDIR)/memtest.install
 
 $(STATEDIR)/memtest.install: $(STATEDIR)/memtest.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -132,7 +129,7 @@ $(STATEDIR)/memtest.targetinstall: $(memtest_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

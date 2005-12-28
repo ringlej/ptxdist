@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# $1 = project name
+
+RULESDIR="rules/"
+PROJECT="$1"
+
+#
+# find out where to find the project rules dir
+#
+
+PROJECTRULESDIR=""
+[ -d "projects/$PROJECT/rules" ]       && PROJECTRULESDIR="projects/$PROJECT/rules"
+[ -d "local_projects/$PROJECT/rules" ] && PROJECTRULESDIR="local_projects/$PROJECT/rules"
+if [ -z "$PROJECTRULESDIR" ]; then
+	echo "error: could not find project rule dir"
+	exit 1
+fi
+
+#
+# analyse all packet make files for packet names vs. config options 
+#
+
+grep -e "PACKAGES +=" $RULESDIR/*.make
+grep -e "PACKAGES +=" $PROJECTRULESDIR/*.make
+
+
+
+
+
+
+

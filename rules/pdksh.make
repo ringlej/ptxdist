@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PDKSH
-PACKAGES += pdksh
-endif
+PACKAGES-$(PTXCONF_PDKSH) += pdksh
 
 #
 # Paths and names 
@@ -34,7 +32,7 @@ pdksh_get: $(STATEDIR)/pdksh.get
 
 $(STATEDIR)/pdksh.get: $(PDKSH_SOURCE)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PDKSH_SOURCE):
 	@$(call targetinfo, $@)
@@ -51,7 +49,7 @@ $(STATEDIR)/pdksh.extract: $(STATEDIR)/pdksh.get
 	@$(call clean, $(PDKSH_DIR))
 	@$(call extract, $(PDKSH_SOURCE))
 	@$(call patchin, $(PDKSH))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -59,11 +57,10 @@ $(STATEDIR)/pdksh.extract: $(STATEDIR)/pdksh.get
 
 pdksh_prepare: $(STATEDIR)/pdksh.prepare
 
-PDKSH_AUTOCONF =  $(CROSS_AUTOCONF)
+PDKSH_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 PDKSH_AUTOCONF = \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-sanity-checks \
-	--prefix=/usr
 
 PDKSH_PATH	=  PATH=$(CROSS_PATH)
 PDKSH_ENV = \
@@ -134,7 +131,7 @@ $(STATEDIR)/pdksh.prepare: $(pdksh_prepare_deps)
 	cd $(PDKSH_DIR) && \
 		$(PDKSH_PATH) $(PDKSH_ENV) \
 		$(PDKSH_DIR)/configure $(PDKSH_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -147,7 +144,7 @@ pdksh_compile: $(STATEDIR)/pdksh.compile
 $(STATEDIR)/pdksh.compile: $(STATEDIR)/pdksh.prepare 
 	@$(call targetinfo, $@)
 	cd $(PDKSH_DIR) && $(PDKSH_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -157,7 +154,7 @@ pdksh_install: $(STATEDIR)/pdksh.install
 
 $(STATEDIR)/pdksh.install: $(STATEDIR)/pdksh.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -180,7 +177,7 @@ $(STATEDIR)/pdksh.targetinstall: $(STATEDIR)/pdksh.install
 	@$(call install_copy, 0, 0, 0755, $(PDKSH_DIR)/ksh, /bin/ksh)
 	
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

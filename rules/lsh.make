@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LSH
-PACKAGES += lsh
-endif
+PACKAGES-$(PTXCONF_LSH) += lsh
 
 #
 # Paths and names
@@ -38,11 +36,11 @@ lsh_get_deps = \
 
 $(STATEDIR)/lsh.get: $(lsh_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(STATEDIR)/lsh-patches.get:
 	@$(call get_patches, $(LSH))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LSH_SOURCE):
 	@$(call targetinfo, $@)
@@ -61,7 +59,7 @@ $(STATEDIR)/lsh.extract: $(lsh_extract_deps)
 	@$(call clean, $(LSH_DIR))
 	@$(call extract, $(LSH_SOURCE))
 	@$(call patchin, $(LSH))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -85,9 +83,8 @@ LSH_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-LSH_AUTOCONF =  $(CROSS_AUTOCONF)
+LSH_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 LSH_AUTOCONF = \
-	--prefix=/usr \
 	--sysconfdir=/etc/lsh \
 	--disable-kerberos \
 	--disable-pam \
@@ -105,7 +102,7 @@ $(STATEDIR)/lsh.prepare: $(lsh_prepare_deps)
 	cd $(LSH_DIR) && \
 		$(LSH_PATH) $(LSH_ENV) \
 		$(LSH_DIR)/configure $(LSH_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -118,7 +115,7 @@ lsh_compile_deps = $(STATEDIR)/lsh.prepare
 $(STATEDIR)/lsh.compile: $(lsh_compile_deps)
 	@$(call targetinfo, $@)
 	$(LSH_PATH) make -C $(LSH_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -128,7 +125,7 @@ lsh_install: $(STATEDIR)/lsh.install
 
 $(STATEDIR)/lsh.install: $(STATEDIR)/lsh.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -177,7 +174,7 @@ ifdef PTXCONF_LSH_KEYGEN
 	@$(call install_copy, 0, 0, 0755, $(LSH_DIR)/src/lsh-keygen, /sbin/lsh-keygen)
 endif
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

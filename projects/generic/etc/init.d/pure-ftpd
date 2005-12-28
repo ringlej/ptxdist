@@ -1,0 +1,123 @@
+#!/bin/sh
+# Start the proftpd FTP daemon.
+# 
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+# Defaults
+DAEMON="pure-ftpd"
+NAME="pure-ftpd"
+PREFIX="PURE-FTPD: "
+DAEMON_OPTIONS=""
+DAEMON_PIDFILE=/var/run/pure-ftpd.pid
+
+HELPER="pure-uploadscript"
+HELPER_START_SCRIPT=""
+HELPER_OPTIONS="-B -u 0 -g 0"
+
+# Read config (will override defaults)
+DEFAULTS="/etc/pure-ftpd.defaults"
+if [ -r $DEFAULTS ]; then 
+	 . $DEFAULTS 
+else
+	echo "${PREFIX}No $DEFAULTS found."
+fi
+
+trap "" 1
+trap "" 15
+
+which $DAEMON || { echo "${PREFIX}$DAEMON not found"; exit; }
+
+
+if [ ! -z $HELPER_START_SCRIPT ] ; then
+ DAEMON_OPTIONS="$DAEMON_OPTIONS -o"
+fi 
+
+start_helper(){
+	if [ ! -z $HELPER_START_SCRIPT ]; then
+		which $HELPER || { echo "${PREFIX}$HELPER not found"; exit; }
+		echo "${PREFIX}starting upload helper daemon..." 
+		$HELPER $HELPER_OPTIONS -r $HELPER_START_SCRIPT
+	else
+		echo "${PREFIX}no upload script defined, skipping"
+	fi
+}
+
+stop_helper(){
+	killall -9 "$HELPER"
+}
+
+start_daemon(){
+	which $DAEMON
+  	$DAEMON -g $DAEMON_PIDFILE $DAEMON_OPTIONS &
+}
+
+stop_daemon(){
+if [ -e "$DAEMON_PIDFILE" ]; then
+  kill `cat $DAEMON_PIDFILE` 
+	case $? in 
+		0)
+		echo "${PREFIX}$NAME stopped"
+		;;
+		*)
+		kill -9 `cat $DAEMON_PIDFILE` 
+		echo "${PREFIX}failed to stop $NAME - process killed" 
+		;;
+	esac
+	rm -f $DAEMON_PIDFILE 
+	echo "${PREFIX}pidfile removed"
+else
+  echo "${PREFIX}pid file not found - process not running"
+fi
+}
+
+start(){
+	start_daemon                                                     
+	start_helper                                                     
+}
+
+stop(){
+	stop_daemon
+	stop_helper
+}
+	
+case "$1" in
+    start)
+	    echo -n "${PREFIX}Starting $NAME: "
+	    start
+	    echo "Done"
+	;;
+
+    stop)
+	    echo -n "${PREFIX}Stopping $NAME: "
+	    stop
+	    echo "Done"
+	;;
+
+    reload)
+	echo -n "${PREFIX}Reloading $NAME configuration..."
+	if [ -e "$DAEMON_PIDFILE" ]; then                                                                                           
+	   kill -HUP `cat $DAEMON_PIDFILE`
+	   echo " done."
+	else
+	   echo "pid file not found - process not running" 
+	fi
+	;;
+
+    force-reload|restart)
+	    echo -n "${PREFIX}Restarting $NAME."
+	    stop
+	    echo -n "."
+	    sleep 2
+	    echo -n "."
+	    start
+	    echo " done."
+	;;
+
+    *)
+	echo "Usage: /etc/init.d/$NAME {start|stop|reload|restart|force-reload|help}"
+	exit 1
+	;;
+esac
+
+exit 0

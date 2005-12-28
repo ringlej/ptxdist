@@ -15,17 +15,15 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XLIBS-XTRANS
-PACKAGES += xlibs-xtrans
-endif
+PACKAGES-$(PTXCONF_XLIBS-XTRANS) += xlibs-xtrans
 
 #
 # Paths and names
 #
-XLIBS-XTRANS_VERSION	= 0.99.0
+XLIBS-XTRANS_VERSION	= 20041103-1
 XLIBS-XTRANS		= xtrans-$(XLIBS-XTRANS_VERSION)
 XLIBS-XTRANS_SUFFIX	= tar.bz2
-XLIBS-XTRANS_URL	= http://xorg.freedesktop.org/X11R7.0-RC0/lib/$(XLIBS-XTRANS).$(XLIBS-XTRANS_SUFFIX)
+XLIBS-XTRANS_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIBS-XTRANS).$(XLIBS-XTRANS_SUFFIX)
 XLIBS-XTRANS_SOURCE	= $(SRCDIR)/$(XLIBS-XTRANS).$(XLIBS-XTRANS_SUFFIX)
 XLIBS-XTRANS_DIR	= $(BUILDDIR)/$(XLIBS-XTRANS)
 
@@ -40,7 +38,7 @@ xlibs-xtrans_get_deps = $(XLIBS-XTRANS_SOURCE)
 $(STATEDIR)/xlibs-xtrans.get: $(xlibs-xtrans_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XTRANS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XLIBS-XTRANS_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +57,7 @@ $(STATEDIR)/xlibs-xtrans.extract: $(xlibs-xtrans_extract_deps)
 	@$(call clean, $(XLIBS-XTRANS_DIR))
 	@$(call extract, $(XLIBS-XTRANS_SOURCE))
 	@$(call patchin, $(XLIBS-XTRANS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -83,8 +81,7 @@ XLIBS-XTRANS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 XLIBS-XTRANS_AUTOCONF = \
 	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(CROSS_LIB_DIR)
+	--host=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/xlibs-xtrans.prepare: $(xlibs-xtrans_prepare_deps)
 	@$(call targetinfo, $@)
@@ -93,7 +90,7 @@ $(STATEDIR)/xlibs-xtrans.prepare: $(xlibs-xtrans_prepare_deps)
 	cd $(XLIBS-XTRANS_DIR) && \
 		$(XLIBS-XTRANS_PATH) $(XLIBS-XTRANS_ENV) \
 		./configure $(XLIBS-XTRANS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -106,7 +103,7 @@ xlibs-xtrans_compile_deps = $(STATEDIR)/xlibs-xtrans.prepare
 $(STATEDIR)/xlibs-xtrans.compile: $(xlibs-xtrans_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XTRANS_DIR) && $(XLIBS-XTRANS_ENV) $(XLIBS-XTRANS_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -116,8 +113,8 @@ xlibs-xtrans_install: $(STATEDIR)/xlibs-xtrans.install
 
 $(STATEDIR)/xlibs-xtrans.install: $(STATEDIR)/xlibs-xtrans.compile
 	@$(call targetinfo, $@)
-	cd $(XLIBS-XTRANS_DIR) && $(XLIBS-XTRANS_ENV) $(XLIBS-XTRANS_PATH) make install
-	$(call touch, $@)
+	@$(call install, XLIBS-XTRANS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -129,7 +126,7 @@ xlibs-xtrans_targetinstall_deps = $(STATEDIR)/xlibs-xtrans.compile
 
 $(STATEDIR)/xlibs-xtrans.targetinstall: $(xlibs-xtrans_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

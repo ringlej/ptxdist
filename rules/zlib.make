@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_ZLIB
-PACKAGES += zlib
-endif
+PACKAGES-$(PTXCONF_ZLIB) += zlib
 
 #
 # Paths and names 
@@ -32,7 +30,7 @@ zlib_get: $(STATEDIR)/zlib.get
 
 $(STATEDIR)/zlib.get: $(ZLIB_SOURCE)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(ZLIB_SOURCE):
 	@$(call targetinfo, $@)
@@ -48,7 +46,7 @@ $(STATEDIR)/zlib.extract: $(STATEDIR)/zlib.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(ZLIB_DIR))
 	@$(call extract, $(ZLIB_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -61,13 +59,13 @@ zlib_prepare_deps = \
 	$(STATEDIR)/zlib.extract
 
 ZLIB_PATH	= PATH=$(CROSS_PATH)
-ZLIB_ENV	= $(CROSS_ENV)
-ZLIB_AUTOCONF 	= --shared --prefix=$(CROSS_LIB_DIR)
-
+ZLIB_ENV	= $(subst CFLAGS,SGALFC,$(CROSS_ENV)) AR="$(CROSS_AR) rc"
+ZLIB_AUTOCONF	= --shared --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+ 
 $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps)
 	@$(call targetinfo, $@)
 	cd $(ZLIB_DIR) && $(ZLIB_ENV) $(ZLIB_PATH) ./configure $(ZLIB_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -78,7 +76,8 @@ zlib_compile: $(STATEDIR)/zlib.compile
 $(STATEDIR)/zlib.compile: $(STATEDIR)/zlib.prepare 
 	@$(call targetinfo, $@)
 	$(ZLIB_ENV) $(ZLIB_PATH) cd $(ZLIB_DIR) && make
-	$(call touch, $@)
+	$(ZLIB_ENV) $(ZLIB_PATH) cd $(ZLIB_DIR) && make libz.a
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -89,8 +88,9 @@ zlib_install: $(STATEDIR)/zlib.install
 $(STATEDIR)/zlib.install: $(STATEDIR)/zlib.compile
 	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-	cd $(ZLIB_DIR) && $(ZLIB_PATH) make install
-	$(call touch, $@)
+	cd $(ZLIB_DIR) && $(ZLIB_PATH) $(MAKE_INSTALL)
+	cp $(ZLIB_DIR)/libz.a $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -116,13 +116,15 @@ $(STATEDIR)/zlib.targetinstall: $(STATEDIR)/zlib.install
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
 zlib_clean: 
-	rm -rf $(STATEDIR)/zlib.* $(ZLIB_DIR)
+	rm -rf $(STATEDIR)/zlib.* 
+	rm -rf $(IMAGEDIR)/zlib_*
+	rm -rf $(ZLIB_DIR)
 
 # vim: syntax=make

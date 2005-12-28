@@ -48,7 +48,7 @@ endif
 # calculate rootfs image size incl. additional blocks
 
 ifdef PTXCONF_BOOTDISK_SIZE_AUTODETECT
-PTXCONF_BOOTDISK_SIZE = $$(du -s $(TOPDIR)/root | \
+PTXCONF_BOOTDISK_SIZE = $$(du -s $(PTXDIST_TOPDIR)/root | \
        $(AWK) '{size = $$1 + $(PTXCONF_BOOTDISK_SIZE_ADD); print size}')
 endif
 
@@ -88,7 +88,7 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	$(AWK) '{size = $$5} END{size = $(PTXCONF_BOOTDISK_HEAD)*$(PTXCONF_BOOTDISK_SECT)*512 - size;for (i = 0; i < size; i++) printf ("\xff")}' >> $(BOOTDISK_IMG)
 	
 	# create ext2 image for root fs	
-	$(PTXCONF_PREFIX)/bin/genext2fs -r 0 -d $(TOPDIR)/root \
+	$(PTXCONF_PREFIX)/bin/genext2fs -r 0 -d $(PTXDIST_TOPDIR)/root \
 		-b $(PTXCONF_BOOTDISK_SIZE) \
 		$(BOOTDISK_DEV) \
 		$(BOOTDISK_IMG).ext2
@@ -97,17 +97,17 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	cat $(BOOTDISK_IMG).ext2 >> $(BOOTDISK_IMG)
 	
 	# write partition table
-	@if [ -f $(TOPDIR)/config/bootdisk/$(PTXCONF_BOOTDISK_PART) ] ; then	\
+	@if [ -f $(PTXDIST_TOPDIR)/config/bootdisk/$(PTXCONF_BOOTDISK_PART) ] ; then	\
 		$(PTXCONF_PREFIX)/sbin/sfdisk -H $(PTXCONF_BOOTDISK_HEAD)	\
 			-S $(PTXCONF_BOOTDISK_SECT) -f $(BOOTDISK_IMG) <	\
-	   		$(TOPDIR)/config/bootdisk/$(PTXCONF_BOOTDISK_PART);	\
+	   		$(PTXDIST_TOPDIR)/config/bootdisk/$(PTXCONF_BOOTDISK_PART);	\
 		echo "--------------------------------------------------------";\
 		echo "The call above may have produced strange warnings";	\
 		echo "But hey, you can trust PTXdist to have made it right :-)";\
 		echo "--------------------------------------------------------";\
 	fi
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

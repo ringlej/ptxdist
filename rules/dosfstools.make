@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_DOSFSTOOLS
-PACKAGES += dosfstools
-endif
+PACKAGES-$(PTXCONF_DOSFSTOOLS) += dosfstools
 
 #
 # Paths and names
@@ -40,7 +38,7 @@ dosfstools_get_deps = $(DOSFSTOOLS_SOURCE)
 $(STATEDIR)/dosfstools.get: $(dosfstools_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DOSFSTOOLS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(DOSFSTOOLS_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +57,7 @@ $(STATEDIR)/dosfstools.extract: $(dosfstools_extract_deps)
 	@$(call clean, $(DOSFSTOOLS_DIR))
 	@$(call extract, $(DOSFSTOOLS_SOURCE))
 	@$(call patchin, $(DOSFSTOOLS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,7 +77,7 @@ DOSFSTOOLS_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/dosfstools.prepare: $(dosfstools_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -93,7 +91,7 @@ $(STATEDIR)/dosfstools.compile: $(dosfstools_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(DOSFSTOOLS_DIR) && $(DOSFSTOOLS_ENV) $(DOSFSTOOLS_PATH) \
 		make CC=$(COMPILER_PREFIX)gcc
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -103,8 +101,10 @@ dosfstools_install: $(STATEDIR)/dosfstools.install
 
 $(STATEDIR)/dosfstools.install: $(STATEDIR)/dosfstools.compile
 	@$(call targetinfo, $@)
-	#cd $(DOSFSTOOLS_DIR) && $(DOSFSTOOLS_ENV) $(DOSFSTOOLS_PATH) make install
-	$(call touch, $@)
+	# FIXME
+	# @$(call install, DOSFSTOOLS)
+	#cd $(DOSFSTOOLS_DIR) && $(DOSFSTOOLS_ENV) $(DOSFSTOOLS_PATH) $(MAKE_INSTALL)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -128,6 +128,12 @@ $(STATEDIR)/dosfstools.targetinstall: $(dosfstools_targetinstall_deps)
 
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS
 	@$(call install_copy, 0, 0, 0755, $(DOSFSTOOLS_DIR)/mkdosfs/mkdosfs, /sbin/mkdosfs)
+ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_MSDOS
+	@$(call install_link, mkdosfs, /sbin/mkfs.msdos)
+endif
+ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_VFAT
+	@$(call install_link, mkdosfs, /sbin/mkfs.vfat)
+endif
 endif
 ifdef PTXCONF_DOSFSTOOLS_DOSFSCK
 	@$(call install_copy, 0, 0, 0755, $(DOSFSTOOLS_DIR)/dosfsck/dosfsck, /sbin/dosfsck)
@@ -135,7 +141,7 @@ endif
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

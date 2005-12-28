@@ -13,9 +13,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_GTK1210
-PACKAGES += gtk1210
-endif
+PACKAGES-$(PTXCONF_GTK1210) += gtk1210
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ gtk1210_get_deps	=  $(GTK1210_SOURCE)
 
 $(STATEDIR)/gtk1210.get: $(gtk1210_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(GTK1210_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/gtk1210.extract: $(gtk1210_extract_deps)
 	@$(call clean, $(GTK1210_DIR))
 	@$(call extract, $(GTK1210_SOURCE))
 	@$(call patchin, $(GTK1210))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,9 +77,7 @@ GTK1210_ENV	+= ac_cv_have_x='have_x=yes ac_x_includes=$(PTXCONF_PREFIX)/$(PTXCON
 #
 # autoconf
 #
-GTK1210_AUTOCONF	=  $(CROSS_AUTOCONF)
-GTK1210_AUTOCONF	+= --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-
+GTK1210_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 GTK1210_AUTOCONF	+= --with-threads=posix
 GTK1210_AUTOCONF 	+= --with-glib-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 GTK1210_AUTOCONF	+= --with-x
@@ -92,7 +88,7 @@ $(STATEDIR)/gtk1210.prepare: $(gtk1210_prepare_deps)
 	cd $(GTK1210_DIR) && \
 		$(GTK1210_PATH) $(GTK1210_ENV) \
 		./configure $(GTK1210_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -105,7 +101,7 @@ gtk1210_compile_deps =  $(STATEDIR)/gtk1210.prepare
 $(STATEDIR)/gtk1210.compile: $(gtk1210_compile_deps)
 	@$(call targetinfo, $@)
 	$(GTK1210_PATH) $(GTK1210_ENV) make -C $(GTK1210_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -115,8 +111,8 @@ gtk1210_install: $(STATEDIR)/gtk1210.install
 
 $(STATEDIR)/gtk1210.install: $(STATEDIR)/gtk1210.compile
 	@$(call targetinfo, $@)
-	$(GTK1210_PATH) $(GTK1210_ENV) make -C $(GTK1210_DIR) install
-	$(call touch, $@)
+	@$(call install, GTK1210)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -155,7 +151,7 @@ $(STATEDIR)/gtk1210.targetinstall: $(gtk1210_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

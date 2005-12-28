@@ -1,0 +1,163 @@
+#
+# rules/klibc.in
+#
+
+##############################################################################
+menu "klibc               "
+##############################################################################
+
+config KLIBC
+	depends on KERNEL_2_6 && !DONT_COMPILE_KERNEL
+	bool
+	prompt "build klibc"
+	default n
+
+config KLIBC_KINIT
+	depends on KLIBC
+	bool
+	prompt "Install kinit program into initramfs"
+	default y
+
+config KLIBC_SH
+	depends on KLIBC
+	bool
+	prompt "Install sh into initramfs"
+	default no
+
+config KLIBC_INIT
+	depends on KLIBC
+	string
+	prompt "create a link from /init to the specified program"
+	default "/kinit"
+
+config KLIBC_CAT
+	depends on KLIBC
+	bool
+	prompt "Install cat into initramfs"
+	default no
+
+config KLIBC_INSMOD
+	depends on KLIBC
+	bool
+	prompt "Install insmod into initramfs"
+	default no
+
+config KLIBC_MOUNT
+	depends on KLIBC
+	bool
+	prompt "Install mount into initramfs"
+	default no
+
+config KLIBC_DD
+	depends on KLIBC
+	bool
+	prompt "Install dd into initramfs"
+	default no
+
+config KLIBC_CHROOT
+	depends on KLIBC
+	bool
+	prompt "Install chroot into initramfs"
+	default no
+
+config KLIBC_FALSE
+	depends on KLIBC
+	bool
+	prompt "Install false into initramfs"
+	default no
+
+config KLIBC_FSTYPE
+	depends on KLIBC
+	bool
+	prompt "Install fstype into initramfs"
+	default no
+
+config KLIBC_LN
+	depends on KLIBC
+	bool
+	prompt "Install ln into initramfs"
+	default no
+
+config KLIBC_MINIPS
+	depends on KLIBC
+	bool
+	prompt "Install minips into initramfs"
+	default no
+
+config KLIBC_MKDIR
+	depends on KLIBC
+	bool
+	prompt "Install mkdir into initramfs"
+	default no
+
+config KLIBC_MKFIFO
+	depends on KLIBC
+	bool
+	prompt "Install mkfifo into initramfs"
+	default no
+
+config KLIBC_NUKE
+	depends on KLIBC
+	bool
+	prompt "Install nuke into initramfs"
+	default no
+
+config KLIBC_PIVOT_ROOT
+	depends on KLIBC
+	bool
+	prompt "Install pivot-root into initramfs"
+	default no
+
+config KLIBC_PRINTF
+	depends on KLIBC
+	bool
+	prompt "Install printf into initramfs"
+	default no
+
+config KLIBC_RUN_INIT
+	depends on KLIBC
+	bool
+	prompt "Install run-init into initramfs"
+	default no
+
+config KLIBC_SLEEP
+	depends on KLIBC
+	bool
+	prompt "Install sleep into initramfs"
+	default no
+
+config KLIBC_TRUE
+	depends on KLIBC
+	bool
+	prompt "Install true into initramfs"
+	default no
+
+config KLIBC_UMOUNT
+	depends on KLIBC
+	bool
+	prompt "Install umount into initramfs"
+	default no
+
+config KLIBC_UNAME
+	depends on KLIBC
+	bool
+	prompt "Install uname into initramfs"
+	default no
+
+config KLIBC_NFSMOUNT
+	depends on KLIBC
+	bool
+	prompt "Install nfsmount into initramfs"
+	default no
+
+config KLIBC_USER_SPEC
+	depends on KLIBC
+	bool
+	prompt "parse project specific initramfs_spec"
+	help
+	  parse the spec file which is expected to live in $(PROJECTDIR)/initramfs_spec.
+	  The format is the same as described in the kernelsource under
+	  Documentation/early-userspace/README. Files described in this file can
+	  either have an absolute or a relative path (relative to $(PROJECTDIR))
+	
+endmenu

@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_UMKIMAGE
-HOST_PACKAGES += hosttool-umkimage
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_UMKIMAGE) += hosttool-umkimage
 
 #
 # Paths and names
@@ -23,7 +21,7 @@ HOSTTOOL_UMKIMAGE		= u-boot-mkimage-$(HOSTTOOL_UMKIMAGE_VERSION)
 HOSTTOOL_UMKIMAGE_SUFFIX	= tar.gz
 HOSTTOOL_UMKIMAGE_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOSTTOOL_UMKIMAGE).$(HOSTTOOL_UMKIMAGE_SUFFIX)
 HOSTTOOL_UMKIMAGE_SOURCE	= $(SRCDIR)/$(HOSTTOOL_UMKIMAGE).$(HOSTTOOL_UMKIMAGE_SUFFIX)
-HOSTTOOL_UMKIMAGE_DIR		= $(BUILDDIR)/$(HOSTTOOL_UMKIMAGE)
+HOSTTOOL_UMKIMAGE_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL_UMKIMAGE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -35,7 +33,7 @@ hosttool-umkimage_get_deps = $(HOSTTOOL_UMKIMAGE_SOURCE)
 
 $(STATEDIR)/hosttool-umkimage.get: $(hosttool-umkimage_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(HOSTTOOL_UMKIMAGE_SOURCE):
 	@$(call targetinfo, $@)
@@ -52,8 +50,8 @@ hosttool-umkimage_extract_deps = $(STATEDIR)/hosttool-umkimage.get
 $(STATEDIR)/hosttool-umkimage.extract: $(hosttool-umkimage_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL_UMKIMAGE_DIR))
-	@$(call extract, $(HOSTTOOL_UMKIMAGE_SOURCE))
-	$(call touch, $@)
+	@$(call extract, $(HOSTTOOL_UMKIMAGE_SOURCE), $(HOST_BUILDDIR))
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -72,7 +70,7 @@ HOSTTOOL_UMKIMAGE_ENV		= CFLAGS=-I$(PTXCONF_PREFIX)/include
 
 $(STATEDIR)/hosttool-umkimage.prepare: $(hosttool-umkimage_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -85,7 +83,7 @@ hosttool-umkimage_compile_deps = $(STATEDIR)/hosttool-umkimage.prepare
 $(STATEDIR)/hosttool-umkimage.compile: $(hosttool-umkimage_compile_deps)
 	@$(call targetinfo, $@)
 	$(HOSTTOOL_UMKIMAGE_ENV) make -C $(HOSTTOOL_UMKIMAGE_DIR) $(HOSTTOOL_UMKIMAGE_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -95,9 +93,10 @@ hosttool-umkimage_install: $(STATEDIR)/hosttool-umkimage.install
 
 $(STATEDIR)/hosttool-umkimage.install: $(STATEDIR)/hosttool-umkimage.compile
 	@$(call targetinfo, $@)
-	mkdir -p $(PTXCONF_PREFIX)/bin
+	# FIXME
+	mkdir -p $(PTXCONF_PREFIX)/usr/bin
 	install $(HOSTTOOL_UMKIMAGE_DIR)/mkimage $(PTXCONF_PREFIX)/bin/u-boot-mkimage
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -109,7 +108,7 @@ hosttool-umkimage_targetinstall_deps = $(STATEDIR)/hosttool-umkimage.install
 
 $(STATEDIR)/hosttool-umkimage.targetinstall: $(hosttool-umkimage_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

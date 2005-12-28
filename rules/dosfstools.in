@@ -3,11 +3,23 @@ menuconfig DOSFSTOOLS
 
 config DOSFSTOOLS_MKDOSFS
 	bool
-	prompt "Install mke2fs"
+	prompt "mkdosfs"
 	depends on DOSFSTOOLS
+
+config DOSFSTOOLS_MKDOSFS_MSDOS
+	bool
+	prompt "create mkfs.msdos link"
+	default N
+	depends on DOSFSTOOLS_MKDOSFS
+
+config DOSFSTOOLS_MKDOSFS_VFAT
+	bool
+	prompt "create mkfs.vfat link"
+	default N
+	depends on DOSFSTOOLS_MKDOSFS
 
 config DOSFSTOOLS_DOSFSCK
 	bool
-	prompt "Install dosfsck"
+	prompt "dosfsck"
 	depends on DOSFSTOOLS
 

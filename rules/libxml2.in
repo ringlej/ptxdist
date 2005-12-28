@@ -1,5 +1,6 @@
 #
 # LibXML2 - Options updated as of 2.6.19
+# Options valid for 2.6.20 as well. ZLIB missing in both.
 #
 
 menuconfig LIBXML2
@@ -22,7 +23,15 @@ config LIBXML2_CATALOG
 	depends on LIBXML2
 	prompt "Catalog support"
 	help
-	  FIXME: Add the Catalog support
+	  Add the Catalog support.
+	  What is a catalog? Basically it's a lookup mechanism used 
+	  when an entity (a file or a remote resource) references 
+	  another entity. The catalog lookup is inserted between 
+	  the moment the reference is recognized by the software 
+	  (XML parser, stylesheet processing, or even images 
+	  referenced for inclusion in a rendering) and the time 
+	  where loading that resource is actually started.
+	  http://xmlsoft.org/catalog.html
 
 config LIBXML2_DEBUG
 	bool
@@ -40,7 +49,7 @@ config LIBXML2_DOCBOOK
 	help
 	  Enable Docbook SGML support
 
-config LIBXML2_FEXCEPTION
+config LIBXML2_FEXCEPTIONS
 	bool
 	default N
 	depends on LIBXML2

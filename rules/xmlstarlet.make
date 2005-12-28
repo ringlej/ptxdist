@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_XMLSTARLET
-PACKAGES += xmlstarlet
-endif
+PACKAGES-$(PTXCONF_XMLSTARLET) += xmlstarlet
 
 #
 # Paths and names
@@ -32,12 +30,14 @@ XMLSTARLET_DIR		= $(BUILDDIR)/$(XMLSTARLET)
 
 xmlstarlet_get: $(STATEDIR)/xmlstarlet.get
 
-xmlstarlet_get_deps = $(XMLSTARLET_SOURCE)
+xmlstarlet_get_deps = \
+	$(XMLSTARLET_SOURCE) \
+	$(RULESDIR)/xmlstarlet.make
+
 
 $(STATEDIR)/xmlstarlet.get: $(xmlstarlet_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XMLSTARLET))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(XMLSTARLET_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +56,7 @@ $(STATEDIR)/xmlstarlet.extract: $(xmlstarlet_extract_deps)
 	@$(call clean, $(XMLSTARLET_DIR))
 	@$(call extract, $(XMLSTARLET_SOURCE))
 	@$(call patchin, $(XMLSTARLET))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -74,16 +74,15 @@ xmlstarlet_prepare_deps += $(STATEDIR)/libxslt.install
 
 XMLSTARLET_PATH	=  PATH=$(CROSS_PATH)
 XMLSTARLET_ENV 	=  $(CROSS_ENV)
-#XMLSTARLET_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#XMLSTARLET_ENV	+=
 
 #
 # autoconf
 #
-XMLSTARLET_AUTOCONF =  $(CROSS_AUTOCONF)
-XMLSTARLET_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
-XMLSTARLET_AUTOCONF += --with-libxml-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-XMLSTARLET_AUTOCONF += --with-libxslt-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+XMLSTARLET_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--with-libxml-prefix=$(SYSROOT)/usr \
+	--with-libxslt-prefix=$(SYSROOT)/usr \
+	--with-libiconv-prefix=$(SYSROOT)/usr
 
 $(STATEDIR)/xmlstarlet.prepare: $(xmlstarlet_prepare_deps)
 	@$(call targetinfo, $@)
@@ -91,7 +90,7 @@ $(STATEDIR)/xmlstarlet.prepare: $(xmlstarlet_prepare_deps)
 	cd $(XMLSTARLET_DIR) && \
 		$(XMLSTARLET_PATH) $(XMLSTARLET_ENV) \
 		./configure $(XMLSTARLET_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -104,7 +103,7 @@ xmlstarlet_compile_deps = $(STATEDIR)/xmlstarlet.prepare
 $(STATEDIR)/xmlstarlet.compile: $(xmlstarlet_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(XMLSTARLET_DIR) && $(XMLSTARLET_ENV) $(XMLSTARLET_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,8 +113,8 @@ xmlstarlet_install: $(STATEDIR)/xmlstarlet.install
 
 $(STATEDIR)/xmlstarlet.install: $(STATEDIR)/xmlstarlet.compile
 	@$(call targetinfo, $@)
-	cd $(XMLSTARLET_DIR) && $(XMLSTARLET_ENV) $(XMLSTARLET_PATH) make install
-	$(call touch, $@)
+	@$(call install, XMLSTARLET)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -139,11 +138,11 @@ $(STATEDIR)/xmlstarlet.targetinstall: $(xmlstarlet_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(XMLSTARLET_DIR)/src/xml, /usr/bin/xml)
+	@$(call install_copy, 0, 0, 0755, $(XMLSTARLET_DIR)/src/xml, /usr/bin/xmlstarlet)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

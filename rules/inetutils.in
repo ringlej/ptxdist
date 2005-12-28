@@ -2,7 +2,7 @@ menu	"inetutils           "
 
 config INETUTILS
 	bool
-	prompt "Compile inetutils"
+	prompt "inetutils"
 
 config INETUTILS_PING
 	bool

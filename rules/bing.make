@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BING
-PACKAGES += bing
-endif
+PACKAGES-$(PTXCONF_BING) += bing
 
 #
 # Paths and names
@@ -22,7 +20,7 @@ endif
 BING_VERSION		= 1.0.5
 BING			= bing-$(BING_VERSION)
 BING_SUFFIX		= tar.gz
-BING_URL		= http://www.freenix.org/reseau/$(BING).$(BING_SUFFIX)
+BING_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(BING).$(BING_SUFFIX)
 BING_SOURCE		= $(SRCDIR)/$(BING).$(BING_SUFFIX)
 BING_DIR		= $(BUILDDIR)/$(BING)
 
@@ -37,7 +35,7 @@ bing_get_deps = $(BING_SOURCE)
 $(STATEDIR)/bing.get: $(bing_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BING))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(BING_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/bing.extract: $(bing_extract_deps)
 	@$(call clean, $(BING_DIR))
 	@$(call extract, $(BING_SOURCE))
 	@$(call patchin, $(BING))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -69,17 +67,14 @@ bing_prepare: $(STATEDIR)/bing.prepare
 #
 bing_prepare_deps = \
 	$(STATEDIR)/bing.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/virtual-libc.targetinstall
+	$(STATEDIR)/virtual-xchain.install
 
 BING_PATH	=  PATH=$(CROSS_PATH)
 BING_ENV 	=  $(CROSS_ENV)
-#BING_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#BING_ENV	+=
 
 $(STATEDIR)/bing.prepare: $(bing_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -92,7 +87,7 @@ bing_compile_deps = $(STATEDIR)/bing.prepare
 $(STATEDIR)/bing.compile: $(bing_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(BING_DIR) && $(BING_ENV) $(BING_PATH) make bing
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -102,7 +97,9 @@ bing_install: $(STATEDIR)/bing.install
 
 $(STATEDIR)/bing.install: $(STATEDIR)/bing.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	# FIXME
+	#@$(call install, BING)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -118,7 +115,7 @@ $(STATEDIR)/bing.targetinstall: $(bing_targetinstall_deps)
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,bing)
 	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(BING_VERSION)-3)
+	@$(call install_fixup,VERSION,$(BING_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
@@ -126,7 +123,7 @@ $(STATEDIR)/bing.targetinstall: $(bing_targetinstall_deps)
 	@$(call install_copy, 0, 0, 0755, $(BING_DIR)/bing, /usr/sbin/bing)
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

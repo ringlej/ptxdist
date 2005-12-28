@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PORTMAP
-PACKAGES += portmap
-endif
+PACKAGES-$(PTXCONF_PORTMAP) += portmap
 
 #
 # Paths and names 
@@ -32,7 +30,7 @@ portmap_get: $(STATEDIR)/portmap.get
 $(STATEDIR)/portmap.get: $(PORTMAP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PORTMAP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PORTMAP_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +57,7 @@ $(STATEDIR)/portmap.extract: $(STATEDIR)/portmap.get
 ifndef PTXCONF_TCPWRAPPER
 	sed -ie 's/$$(WRAP_DIR)\/libwrap.a//' $(PORTMAP_DIR)/Makefile
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -76,7 +74,7 @@ portmap_prepare_deps += $(STATEDIR)/portmap.extract
 
 $(STATEDIR)/portmap.prepare: $(portmap_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -95,7 +93,7 @@ $(STATEDIR)/portmap.compile: $(STATEDIR)/portmap.prepare
 	@$(call targetinfo, $@)
 	cd $(PORTMAP_DIR) && 						\
 		$(PORTMAP_ENV) $(PORTMAP_PATH) make $(PORTMAP_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -105,7 +103,7 @@ portmap_install: $(STATEDIR)/portmap.install
 
 $(STATEDIR)/portmap.install: $(STATEDIR)/portmap.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -130,7 +128,7 @@ ifdef PTXCONF_PORTMAP_INSTALL_PORTMAPPER
 	@$(call install_copy, 0, 0, 0755, $(PORTMAP_DIR)/portmap, /sbin/portmap)
 endif
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

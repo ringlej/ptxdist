@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_SMTPCLIENT
-PACKAGES += smtpclient
-endif
+PACKAGES-$(PTXCONF_SMTPCLIENT) += smtpclient
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ smtpclient_get_deps = $(SMTPCLIENT_SOURCE)
 $(STATEDIR)/smtpclient.get: $(smtpclient_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SMTPCLIENT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(SMTPCLIENT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/smtpclient.extract: $(smtpclient_extract_deps)
 	@$(call clean, $(SMTPCLIENT_DIR))
 	@$(call extract, $(SMTPCLIENT_SOURCE))
 	@$(call patchin, $(SMTPCLIENT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,8 +77,7 @@ SMTPCLIENT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-SMTPCLIENT_AUTOCONF =  $(CROSS_AUTOCONF)
-SMTPCLIENT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+SMTPCLIENT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/smtpclient.prepare: $(smtpclient_prepare_deps)
 	@$(call targetinfo, $@)
@@ -88,7 +85,7 @@ $(STATEDIR)/smtpclient.prepare: $(smtpclient_prepare_deps)
 	cd $(SMTPCLIENT_DIR) && \
 		$(SMTPCLIENT_PATH) $(SMTPCLIENT_ENV) \
 		./configure $(SMTPCLIENT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +98,7 @@ smtpclient_compile_deps = $(STATEDIR)/smtpclient.prepare
 $(STATEDIR)/smtpclient.compile: $(smtpclient_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(SMTPCLIENT_DIR) && $(SMTPCLIENT_ENV) $(SMTPCLIENT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +108,8 @@ smtpclient_install: $(STATEDIR)/smtpclient.install
 
 $(STATEDIR)/smtpclient.install: $(STATEDIR)/smtpclient.compile
 	@$(call targetinfo, $@)
-	cd $(SMTPCLIENT_DIR) && $(SMTPCLIENT_ENV) $(SMTPCLIENT_PATH) make install
-	$(call touch, $@)
+	@$(call install, SMTPCLIENT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -138,7 +135,7 @@ $(STATEDIR)/smtpclient.targetinstall: $(smtpclient_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

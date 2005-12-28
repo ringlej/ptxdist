@@ -31,7 +31,7 @@ automake15_get_deps	=  $(AUTOMAKE15_SOURCE)
 
 $(STATEDIR)/automake15.get: $(automake15_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(AUTOMAKE15_SOURCE):
 	@$(call targetinfo, $@)
@@ -49,7 +49,7 @@ $(STATEDIR)/automake15.extract: $(automake15_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(AUTOMAKE15_DIR))
 	@$(call extract, $(AUTOMAKE15_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -69,6 +69,7 @@ AUTOMAKE15_PATH	=  PATH=$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin:$(CROSS_PATH)
 #
 # autoconf
 #
+# FIXME FIXME FIXME
 AUTOMAKE15_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX)/$(AUTOMAKE15)
 
 $(STATEDIR)/automake15.prepare: $(automake15_prepare_deps)
@@ -77,7 +78,7 @@ $(STATEDIR)/automake15.prepare: $(automake15_prepare_deps)
 	cd $(AUTOMAKE15_DIR) && \
 		$(AUTOMAKE15_PATH) \
 		./configure $(AUTOMAKE15_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -90,7 +91,7 @@ automake15_compile_deps =  $(STATEDIR)/automake15.prepare
 $(STATEDIR)/automake15.compile: $(automake15_compile_deps)
 	@$(call targetinfo, $@)
 	$(AUTOMAKE15_PATH) make -C $(AUTOMAKE15_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -100,8 +101,8 @@ automake15_install: $(STATEDIR)/automake15.install
 
 $(STATEDIR)/automake15.install: $(STATEDIR)/automake15.compile
 	@$(call targetinfo, $@)
-	$(AUTOMAKE15_PATH) make -C $(AUTOMAKE15_DIR) install
-	$(call touch, $@)
+	@$(call install, AUTOMAKE15)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -113,7 +114,7 @@ automake15_targetinstall_deps	=
 
 $(STATEDIR)/automake15.targetinstall: $(automake15_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

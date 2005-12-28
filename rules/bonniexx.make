@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BONNIEXX
-PACKAGES += bonniexx
-endif
+PACKAGES-$(PTXCONF_BONNIEXX) += bonniexx
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ bonniexx_get_deps = $(BONNIEXX_SOURCE)
 $(STATEDIR)/bonniexx.get: $(bonniexx_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BONNIEXX))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(BONNIEXX_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/bonniexx.extract: $(bonniexx_extract_deps)
 	@$(call clean, $(BONNIEXX_DIR))
 	@$(call extract, $(BONNIEXX_SOURCE))
 	@$(call patchin, $(BONNIEXX))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -73,14 +71,11 @@ bonniexx_prepare_deps = \
 
 BONNIEXX_PATH	=  PATH=$(CROSS_PATH)
 BONNIEXX_ENV 	=  $(CROSS_ENV)
-#BONNIEXX_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#BONNIEXX_ENV	+=
 
 #
 # autoconf
 #
-BONNIEXX_AUTOCONF =  $(CROSS_AUTOCONF)
-BONNIEXX_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+BONNIEXX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/bonniexx.prepare: $(bonniexx_prepare_deps)
 	@$(call targetinfo, $@)
@@ -88,7 +83,7 @@ $(STATEDIR)/bonniexx.prepare: $(bonniexx_prepare_deps)
 	cd $(BONNIEXX_DIR) && \
 		$(BONNIEXX_PATH) $(BONNIEXX_ENV) \
 		./configure $(BONNIEXX_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +96,7 @@ bonniexx_compile_deps = $(STATEDIR)/bonniexx.prepare
 $(STATEDIR)/bonniexx.compile: $(bonniexx_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(BONNIEXX_DIR) && $(BONNIEXX_ENV) $(BONNIEXX_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +106,8 @@ bonniexx_install: $(STATEDIR)/bonniexx.install
 
 $(STATEDIR)/bonniexx.install: $(STATEDIR)/bonniexx.compile
 	@$(call targetinfo, $@)
-	cd $(BONNIEXX_DIR) && $(BONNIEXX_ENV) $(BONNIEXX_PATH) make install
-	$(call touch, $@)
+	@$(call install, BONNIEXX)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -124,7 +119,7 @@ bonniexx_targetinstall_deps = $(STATEDIR)/bonniexx.compile
 
 $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps)
 	@$(call targetinfo, $@)
-	
+
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,bonniexx)
 	@$(call install_fixup,PRIORITY,optional)
@@ -133,12 +128,12 @@ $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, 0, 0, 0755, $(BONNIEXX_DIR)/bonnie++, /usr/bin/bonnie++)
 
 	@$(call install_finish)
-	
-	$(call touch, $@)
+
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

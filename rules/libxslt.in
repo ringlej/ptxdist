@@ -37,3 +37,30 @@ config LIBXSLT_DEBUG
 	default n
 	depends on LIBXSLT
 
+comment "Install Components"
+	depends on LIBXSLT
+
+config LIBXSLT_LIBXSLT
+	bool
+	prompt "libxslt"
+	default Y if LIBXSLT
+	depends on LIBXSLT
+
+config LIBXSLT_LIBEXSLT
+	bool
+	prompt "libexslt"
+	default Y if LIBXSLT
+	depends on LIBXSLT
+
+config LIBXSLT_XSLTPROC
+	bool
+	prompt "xsltproc"
+	default N
+	depends on LIBXSLT
+	select LIBXSLT_LIBEXSLT
+	select LIBXSLT_LIBXSLT
+	select LIBXML2
+	help
+	  xsltproc is an XML stylesheet processor. See
+	  http://xmlsoft.org/XSLT for details. 
+

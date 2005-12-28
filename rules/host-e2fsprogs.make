@@ -12,88 +12,85 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_E2FSPROGS
-HOST_PACKAGES += hosttool-e2fsprogs
-endif
+HOST_PACKAGES-$(PTXCONF_HOST_E2FSPROGS) += host-e2fsprogs
 
 #
 # Paths and names 
 #
-HOSTTOOL_E2FSPROGS_VERSION		= 1.35
-HOSTTOOL_E2FSPROGS			= e2fsprogs-$(HOSTTOOL_E2FSPROGS_VERSION)
-HOSTTOOL_E2FSPROGS_SUFFIX		= tar.gz
-HOSTTOOL_E2FSPROGS_URL			= $(PTXCONF_SETUP_SFMIRROR)/e2fsprogs/$(HOSTTOOL_E2FSPROGS).$(HOSTTOOL_E2FSPROGS_SUFFIX)
-HOSTTOOL_E2FSPROGS_SOURCE_DIR		= $(SRCDIR)/hosttool/
-HOSTTOOL_E2FSPROGS_SOURCE		= $(HOSTTOOL_E2FSPROGS_SOURCE_DIR)/$(HOSTTOOL_E2FSPROGS).$(HOSTTOOL_E2FSPROGS_SUFFIX)
-HOSTTOOL_E2FSPROGS_DIR			= $(BUILDDIR)/hosttool/$(HOSTTOOL_E2FSPROGS)
-HOSTTOOL_E2FSPROGS_BUILD_DIR		= $(BUILDDIR)/hosttool/$(HOSTTOOL_E2FSPROGS)-build
+HOST_E2FSPROGS_VERSION		= 1.35
+HOST_E2FSPROGS			= e2fsprogs-$(HOST_E2FSPROGS_VERSION)
+HOST_E2FSPROGS_SUFFIX		= tar.gz
+HOST_E2FSPROGS_URL		= $(PTXCONF_SETUP_SFMIRROR)/e2fsprogs/$(HOST_E2FSPROGS).$(HOST_E2FSPROGS_SUFFIX)
+HOST_E2FSPROGS_SOURCE_DIR	= $(SRCDIR)/host/
+HOST_E2FSPROGS_SOURCE		= $(HOST_E2FSPROGS_SOURCE_DIR)/$(HOST_E2FSPROGS).$(HOST_E2FSPROGS_SUFFIX)
+HOST_E2FSPROGS_DIR		= $(BUILDDIR)/host/$(HOST_E2FSPROGS)
+HOST_E2FSPROGS_BUILD_DIR	= $(BUILDDIR)/host/$(HOST_E2FSPROGS)-build
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-hosttool-e2fsprogs_get: $(STATEDIR)/hosttool-e2fsprogs.get
+host-e2fsprogs_get: $(STATEDIR)/host-e2fsprogs.get
 
-$(STATEDIR)/hosttool-e2fsprogs.get: $(HOSTTOOL_E2FSPROGS_SOURCE)
+$(STATEDIR)/host-e2fsprogs.get: $(HOST_E2FSPROGS_SOURCE)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOSTTOOL_E2FSPROGS))
-	$(call touch, $@)
+	@$(call get_patches, $(HOST_E2FSPROGS))
+	@$(call touch, $@)
 
-$(HOSTTOOL_E2FSPROGS_SOURCE):
+$(HOST_E2FSPROGS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOSTTOOL_E2FSPROGS_URL), $(HOSTTOOL_E2FSPROGS_SOURCE_DIR) )
+	@$(call get, $(HOST_E2FSPROGS_URL), $(HOST_E2FSPROGS_SOURCE_DIR) )
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-hosttool-e2fsprogs_extract: $(STATEDIR)/hosttool-e2fsprogs.extract
+host-e2fsprogs_extract: $(STATEDIR)/host-e2fsprogs.extract
 
-$(STATEDIR)/hosttool-e2fsprogs.extract: $(STATEDIR)/hosttool-e2fsprogs.get
+$(STATEDIR)/host-e2fsprogs.extract: $(STATEDIR)/host-e2fsprogs.get
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOL_E2FSPROGS_DIR))
-	@$(call extract, $(HOSTTOOL_E2FSPROGS_SOURCE) , $(BUILDDIR)/hosttool/ )
-	@$(call patchin, $(HOSTTOOL_E2FSPROGS), $(HOSTTOOL_E2FSPROGS_DIR) )
-	chmod +w $(HOSTTOOL_E2FSPROGS_DIR)/po/*.po
-	$(call touch, $@)
+	@$(call clean, $(HOST_E2FSPROGS_DIR))
+	@$(call extract, $(HOST_E2FSPROGS_SOURCE) , $(BUILDDIR)/host/ )
+	@$(call patchin, $(HOST_E2FSPROGS), $(HOST_E2FSPROGS_DIR) )
+	chmod +w $(HOST_E2FSPROGS_DIR)/po/*.po
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-hosttool-e2fsprogs_prepare: $(STATEDIR)/hosttool-e2fsprogs.prepare
+host-e2fsprogs_prepare: $(STATEDIR)/host-e2fsprogs.prepare
 
-# FIXME - doesn't seem to be a hosttool...
-HOSTTOOL_E2FSPROGS_AUTOCONF	=  $(CROSS_AUTOCONF)
-HOSTTOOL_E2FSPROGS_AUTOCONF	+= --prefix=/usr
-HOSTTOOL_E2FSPROGS_AUTOCONF	+= --enable-fsck
-HOSTTOOL_E2FSPROGS_AUTOCONF	+= --with-cc=$(COMPILER_PREFIX)gcc
-HOSTTOOL_E2FSPROGS_AUTOCONF	+= --with-linker=$(COMPILER_PREFIX)ld
-HOSTTOOL_E2FSPROGS_PATH		=  PATH=$(CROSS_PATH)
-HOSTTOOL_E2FSPROGS_ENV		=  $(CROSS_ENV) 
-HOSTTOOL_E2FSPROGS_ENV		+= BUILD_CC=$(HOSTCC)
+# FIXME - doesn't seem to be a host...
+HOST_E2FSPROGS_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
+HOST_E2FSPROGS_AUTOCONF	+= --enable-fsck
+HOST_E2FSPROGS_AUTOCONF	+= --with-cc=$(COMPILER_PREFIX)gcc
+HOST_E2FSPROGS_AUTOCONF	+= --with-linker=$(COMPILER_PREFIX)ld
+HOST_E2FSPROGS_PATH	=  PATH=$(CROSS_PATH)
+HOST_E2FSPROGS_ENV	=  $(CROSS_ENV) 
+HOST_E2FSPROGS_ENV	+= BUILD_CC=$(HOSTCC)
 
-hosttool-e2fsprogs_prepare_deps = \
+host-e2fsprogs_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/hosttool-e2fsprogs.extract
+	$(STATEDIR)/host-e2fsprogs.extract
 
-$(STATEDIR)/hosttool-e2fsprogs.prepare: $(hosttool-e2fsprogs_prepare_deps)
+$(STATEDIR)/host-e2fsprogs.prepare: $(host-e2fsprogs_prepare_deps)
 	@$(call targetinfo, $@)
-	mkdir -p $(HOSTTOOL_E2FSPROGS_BUILD_DIR) && \
-	cd $(HOSTTOOL_E2FSPROGS_BUILD_DIR) && \
-		$(HOSTTOOL_E2FSPROGS_PATH) $(HOSTTOOL_E2FSPROGS_ENV) \
-		$(HOSTTOOL_E2FSPROGS_DIR)/configure $(HOSTTOOL_E2FSPROGS_AUTOCONF)
-	$(call touch, $@)
+	mkdir -p $(HOST_E2FSPROGS_BUILD_DIR) && \
+	cd $(HOST_E2FSPROGS_BUILD_DIR) && \
+		$(HOST_E2FSPROGS_PATH) $(HOST_E2FSPROGS_ENV) \
+		$(HOST_E2FSPROGS_DIR)/configure $(HOST_E2FSPROGS_AUTOCONF)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-hosttool-e2fsprogs_compile: $(STATEDIR)/hosttool-e2fsprogs.compile
+host-e2fsprogs_compile: $(STATEDIR)/host-e2fsprogs.compile
 
-hosttool-e2fsprogs_compile_deps = $(STATEDIR)/hosttool-e2fsprogs.prepare
+host-e2fsprogs_compile_deps = $(STATEDIR)/host-e2fsprogs.prepare
 
-$(STATEDIR)/hosttool-e2fsprogs.compile: $(hosttool-e2fsprogs_compile_deps) 
+$(STATEDIR)/host-e2fsprogs.compile: $(host-e2fsprogs_compile_deps) 
 	@$(call targetinfo, $@)
 #
 # in the util dir are tools that are compiled for the host system
@@ -102,42 +99,42 @@ $(STATEDIR)/hosttool-e2fsprogs.compile: $(hosttool-e2fsprogs_compile_deps)
 # it's not good to pass target CFLAGS to the host compiler :)
 # so override these
 #
-	$(HOSTTOOL_E2FSPROGS_PATH) make -C $(HOSTTOOL_E2FSPROGS_BUILD_DIR)/util
-	$(HOSTTOOL_E2FSPROGS_PATH) make -C $(HOSTTOOL_E2FSPROGS_BUILD_DIR)
-	$(call touch, $@)
+	$(HOST_E2FSPROGS_PATH) make -C $(HOST_E2FSPROGS_BUILD_DIR)/util
+	$(HOST_E2FSPROGS_PATH) make -C $(HOST_E2FSPROGS_BUILD_DIR)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-hosttool-e2fsprogs_install: $(STATEDIR)/hosttool-e2fsprogs.install
+host-e2fsprogs_install: $(STATEDIR)/host-e2fsprogs.install
 
-$(STATEDIR)/hosttool-e2fsprogs.install:
+$(STATEDIR)/host-e2fsprogs.install:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Hosttool Install
 # ----------------------------------------------------------------------------
 
-hosttool-e2fsprogs_targetinstall: $(STATEDIR)/hosttool-e2fsprogs.targetinstall
+host-e2fsprogs_targetinstall: $(STATEDIR)/host-e2fsprogs.targetinstall
 
-$(STATEDIR)/hosttool-e2fsprogs.targetinstall: $(STATEDIR)/hosttool-e2fsprogs.compile
+$(STATEDIR)/host-e2fsprogs.targetinstall: $(STATEDIR)/host-e2fsprogs.compile
 	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/sbin
-ifdef PTXCONF_HOSTTOOL_E2FSPROGS_TUNE2FS
-	install -D $(HOSTTOOL_E2FSPROGS_BUILD_DIR)/misc/tune2fs $(PTXCONF_PREFIX)/sbin/tune2fs
+ifdef PTXCONF_HOST_E2FSPROGS_TUNE2FS
+	install -D $(HOST_E2FSPROGS_BUILD_DIR)/misc/tune2fs $(PTXCONF_PREFIX)/sbin/tune2fs
 endif
-ifdef PTXCONF_HOSTTOOL_E2FSPROGS_RESIZE2FS
-	install -D $(HOSTTOOL_E2FSPROGS_BUILD_DIR)/resize/resize2fs $(PTXCONF_PREFIX)/sbin/resize2fs
+ifdef PTXCONF_HOST_E2FSPROGS_RESIZE2FS
+	install -D $(HOST_E2FSPROGS_BUILD_DIR)/resize/resize2fs $(PTXCONF_PREFIX)/sbin/resize2fs
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-hosttool-e2fsprogs_clean: 
-	rm -rf $(STATEDIR)/hosttool-e2fsprogs.* $(HOSTTOOL_E2FSPROGS_DIR) $(HOSTTOOL_E2FSPROGS_BUILD_DIR)
+host-e2fsprogs_clean: 
+	rm -rf $(STATEDIR)/host-e2fsprogs.* $(HOST_E2FSPROGS_DIR) $(HOST_E2FSPROGS_BUILD_DIR)
 
 # vim: syntax=make

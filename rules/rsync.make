@@ -12,14 +12,12 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_RSYNC
-PACKAGES += rsync
-endif
+PACKAGES-$(PTXCONF_RSYNC) += rsync
 
 #
 # Paths and names
 #
-RSYNC_VERSION	= 2.6.3
+RSYNC_VERSION	= 2.6.6
 RSYNC		= rsync-$(RSYNC_VERSION)
 RSYNC_SUFFIX	= tar.gz
 RSYNC_URL	= http://samba.anu.edu.au/ftp/rsync/$(RSYNC).$(RSYNC_SUFFIX)
@@ -36,7 +34,7 @@ rsync_get_deps	=  $(RSYNC_SOURCE)
 
 $(STATEDIR)/rsync.get: $(rsync_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(RSYNC_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/rsync.extract: $(rsync_extract_deps)
 	@$(call clean, $(RSYNC_DIR))
 	@$(call extract, $(RSYNC_SOURCE))
 	@$(call patchin, $(RSYNC))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -76,8 +74,7 @@ RSYNC_ENV 	=  rsync_cv_HAVE_GETTIMEOFDAY_TZ=yes $(CROSS_ENV)
 #
 # autoconf
 #
-RSYNC_AUTOCONF  =  $(CROSS_AUTOCONF)
-RSYNC_AUTOCONF	+= --prefix=/usr
+RSYNC_AUTOCONF  =  $(CROSS_AUTOCONF_USR)
 RSYNC_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 RSYNC_AUTOCONF	+= --with-included-popt
 
@@ -88,7 +85,7 @@ $(STATEDIR)/rsync.prepare: $(rsync_prepare_deps)
 	cd $(RSYNC_DIR) && \
 		$(RSYNC_PATH) $(RSYNC_ENV) \
 		./configure $(RSYNC_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +98,7 @@ rsync_compile_deps =  $(STATEDIR)/rsync.prepare
 $(STATEDIR)/rsync.compile: $(rsync_compile_deps)
 	@$(call targetinfo, $@)
 	$(RSYNC_PATH) make -C $(RSYNC_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,7 +108,7 @@ rsync_install: $(STATEDIR)/rsync.install
 
 $(STATEDIR)/rsync.install: $(STATEDIR)/rsync.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -136,7 +133,7 @@ $(STATEDIR)/rsync.targetinstall: $(rsync_targetinstall_deps)
 	@$(call install_copy, 0, 0, 0755, $(RSYNC_DIR)/rsync, /usr/bin/rsync)
 	
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -1,54 +1,81 @@
 #
 # $Id$
 #
-# Copyright (C) 2002-2004 by Robert Schwebel <r.schwebel@pengutronix.de>
-# Copyright (C) 2002 by Jochen Striepe <ptxdist@tolot.escape.de>
-# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
-#
-# For further information about the PTXdist project see the README file.
+# Copyright (C) 2002-2005 by The PTXdist Team - See CREDITS for Details
 #
 
 PROJECT			:= PTXdist
 VERSION			:= 0
-PATCHLEVEL		:= 9
-SUBLEVEL		:= 0
-EXTRAVERSION		:=
+PATCHLEVEL		:= 7
+SUBLEVEL		:= 9
+EXTRAVERSION		:=-svn
 
 FULLVERSION		:= $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
 
 export PROJECT VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION FULLVERSION
 
-ifdef PTXDISTDIR
-TOPDIR			:= $(PTXDISTDIR)
-else
-TOPDIR			:= $(shell pwd)
+#
+# For out-of-tree builds we have to find out where the Makefile
+# _reall_ lives; it may happen that somebody has created a softlink
+#
+# FIXME: how to make sure that we have at least make 3.80?
+#
+
+ifneq ($(MAKEFILE_LIST),)
+ # Since 3.80, we can find out which Makefile is currently processed,
+ # and infere the location of the source tree using MAKEFILE_LIST.
+ TOPLEVEL_MAKEFILE := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
+ TOPLEVEL_MAKEFILE := $(shell \
+	if [ -L "$(TOPLEVEL_MAKEFILE)" ]; then \
+		find $(TOPLEVEL_MAKEFILE) -printf "%l"; \
+	else \
+		echo "$(TOPLEVEL_MAKEFILE)"; \
+	fi \
+ )
+ OUTOFTREE := $(shell [ -L "$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))" ] && echo 1)
 endif
 
-ifndef PTXDISTWORKSPACE
-PTXDISTWORKSPACE	:= $(TOPDIR)
+PTXDIST_TOPDIR := $(shell dirname $(TOPLEVEL_MAKEFILE))
+ifeq ($(PTXDIST_TOPDIR),)
+PTXDIST_TOPDIR := $(shell test -d rules && pwd)
 endif
+ifeq ($(PTXDIST_TOPDIR),)
+$(error Please specify the location of your source tree: make PTXDIST_TOPDIR=...)
+endif
+override PTXDIST_TOPDIR	:= $(shell cd $(PTXDIST_TOPDIR) && pwd)
 
-BUILDDIR		:= $(PTXDISTWORKSPACE)/build
+#
+# Now define the rest of the directories
+#
+# Make has the directory of the Makefile in $(CURDIR) 
+#
+
 HOME			:= $(shell echo $$HOME)
-PATCHDIR		:= $(TOPDIR)/patches
-MISCDIR			:= $(TOPDIR)/misc
-RULESDIR		:= $(TOPDIR)/rules
 
-CROSS_BUILDDIR		:= $(BUILDDIR)/crosstools
-HOST_BUILDDIR		:= $(BUILDDIR)/hosttools
-STATEDIR		:= $(BUILDDIR)/state
-IMAGEDIR		:= $(BUILDDIR)/images
-ROOTDIR			:= $(BUILDDIR)/root
+PTXDIST_WORKSPACE	:= $(CURDIR)
 
-include $(TOPDIR)/rules/Definitions.make
+PATCHDIR		:= $(PTXDIST_TOPDIR)/patches
+MISCDIR			:= $(PTXDIST_TOPDIR)/misc
+RULESDIR		:= $(PTXDIST_TOPDIR)/rules
 
-ifeq (exists, $(shell test -e $(HOME)/.ptxdistrc && echo exists))
+BUILDDIR		:= $(PTXDIST_WORKSPACE)/build-target
+CROSS_BUILDDIR		:= $(PTXDIST_WORKSPACE)/build-cross
+HOST_BUILDDIR		:= $(PTXDIST_WORKSPACE)/build-host
+STATEDIR		:= $(PTXDIST_WORKSPACE)/state
+IMAGEDIR		:= $(PTXDIST_WORKSPACE)/images
+ROOTDIR			:= $(PTXDIST_WORKSPACE)/root
+
+include $(RULESDIR)/Definitions.make
+
+ifneq ($(wildcard $(HOME)/.ptxdistrc),)
 include $(HOME)/.ptxdistrc
 else
-include $(TOPDIR)/config/setup/ptxdistrc.default
+include $(PTXDIST_TOPDIR)/config/setup/ptxdistrc.default
 endif
 
-SRCDIR			:= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
+-include $(PTXDIST_WORKSPACE)/.config
+
+SRCDIR			:= $(strip $(call remove_quotes, $(PTXCONF_SETUP_SRCDIR)))
 
 # ----------------------------------------------------------------------------
 # Setup a list of project directories
@@ -61,50 +88,47 @@ endif
 ifeq (exists, $(shell test -e $(PTXCONF_SETUP_PROJECTDIR2) && echo exists))
 PROJECTDIRS		+= $(PTXCONF_SETUP_PROJECTDIR2)/
 endif
-PROJECTDIRS		+= $(wildcard $(PTXDISTWORKSPACE)/project-*)
+PROJECTDIRS		+= $(wildcard $(PTXDIST_WORKSPACE)/project-*)
 
+PROJECTDIRS		:= $(strip $(PROJECTDIRS))
+ 
+PROJECTCONFFILE		:= $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
+PROJECTDIR		:= $(strip $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE)))
+PROJECTRULES		:= $(wildcard $(PROJECTDIR)/rules/*.make)
+PROJECTRULESDIR		:= $(PROJECTDIR)/rules
+PROJECTPATCHDIR		:= $(PROJECTDIR)/patches
 
-PROJECTCONFFILE		=  $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
-PROJECTDIR		=  $(strip $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE)))
-PROJECTRULES		=  $(wildcard $(PROJECTDIR)/rules/*.make)
-PROJECTRULESDIR		=  $(PROJECTDIR)/rules
-
-MENU			=  $(shell 						\
+MENU			:=  $(shell 						\
 				if [ -e $(PROJECTDIR)/Kconfig ]; then		\
 					echo $(PROJECTDIR)/Kconfig; 		\
 				else 						\
-					echo $(TOPDIR)/config/Kconfig; 		\
+					echo $(PTXDIST_TOPDIR)/config/Kconfig;	\
 				fi						\
 			   )
 
-# FIXME: remove
 # ----------------------------------------------------------------------------
-# Find out which patch repository is to be used
+# Packets for host, cross and target
 # ----------------------------------------------------------------------------
-
-# reverse order: patches which are being downloaded later superseed
-# earlier ones. 
-
-PTXPATCH_URL_POSTFIX	= -$(FULLVERSION)
-
-ifeq (y,$(PTXCONF_SETUP_PATCH_REPOSITORY))
-PTXPATCH_URL		+= http://www.pengutronix.de/software/ptxdist/patches$(PTXPATCH_URL_POSTFIX)
-endif
-
-PTXPATCH_URL		+= $(PTXCONF_SETUP_LOCAL_PATCH_REPOSITORY)
-# /FIXME
-
 
 PACKAGES           =
 CROSS_PACKAGES     =
 HOST_PACKAGES      =
 VIRTUAL            =
 
-export TAR TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR HOST_PACKAGES CROSS_PACKAGES PACKAGES
+export TAR PTXDIST_TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR HOST_PACKAGES-y CROSS_PACKAGES-y PACKAGES-y
 
-all: help
+# ----------------------------------------------------------------------------
+# PTXCONF_PREFIX can be overwritten from the make var PREFIX 
+# ----------------------------------------------------------------------------
 
--include $(TOPDIR)/.config 
+ifdef PREFIX
+PTXCONF_PREFIX=$(PREFIX)
+PREFIX=
+endif
+
+ifeq ($(PTXCONF_PREFIX),)
+PTXCONF_PREFIX=$(PTXDIST_WORKSPACE)/local
+endif
 
 # FIXME: this should be removed some day...
 PTXCONF_TARGET_CONFIG_FILE ?= none
@@ -114,19 +138,45 @@ endif
 -include config/arch/$(call remove_quotes,$(PTXCONF_TARGET_CONFIG_FILE))
 # /FIXME
 
-include $(TOPDIR)/rules/Rules.make
-include $(TOPDIR)/rules/Version.make
+# ----------------------------------------------------------------------------
+# Include all rule files
+# ----------------------------------------------------------------------------
 
-include $(filter-out 					\
-		$(TOPDIR)/rules/Virtual.make 		\
-		$(TOPDIR)/rules/Rules.make 		\
-		$(TOPDIR)/rules/Version.make 		\
-		$(TOPDIR)/rules/Definitions.make,	\
-		$(wildcard $(TOPDIR)/rules/*.make)	\
-	) $(PROJECTRULES)
-include $(TOPDIR)/rules/Virtual.make
+all: help
 
-# install targets 
+include $(RULESDIR)/Rules.make
+include $(RULESDIR)/Version.make
+
+TMP_PROJECTRULES_IN = $(filter-out 			\
+		$(RULESDIR)/Virtual.make 		\
+		$(RULESDIR)/Rules.make 			\
+		$(RULESDIR)/Version.make 		\
+		$(RULESDIR)/Definitions.make,		\
+		$(wildcard $(RULESDIR)/*.make)		\
+) $(PROJECTRULES)
+
+TMP_PROJECTRULES_FINAL = $(shell 			\
+	$(PTXDIST_TOPDIR)/scripts/select_projectrules 	\
+	"$(PTXDIST_TOPDIR)/rules" 				\
+	"$(PROJECTDIR)/rules" 				\
+	"$(TMP_PROJECTRULES_IN)" 			\
+)
+
+include $(TMP_PROJECTRULES_FINAL)
+
+include $(RULESDIR)/Virtual.make
+
+PACKAGES = $(PACKAGES-y)
+CROSS_PACKAGES = $(CROSS_PACKAGES-y)
+HOST_PACKAGES = $(HOST_PACKAGES-y)
+VIRTUAL = $(VIRTUAL-y)
+
+ALL_PACKAGES = $(PACKAGES-y) $(PACKAGES-) $(CROSS_PACKAGES) $(CROSS_PACKAGES-) $(HOST_PACKAGES) $(HOST_PACKAGES-)
+
+# ----------------------------------------------------------------------------
+# Install targets 
+# ----------------------------------------------------------------------------
+
 PACKAGES_TARGETINSTALL 	:= $(addsuffix _targetinstall,$(PACKAGES)) $(addsuffix _targetinstall,$(VIRTUAL))
 PACKAGES_GET		:= $(addsuffix _get,$(PACKAGES))
 PACKAGES_EXTRACT	:= $(addsuffix _extract,$(PACKAGES))
@@ -143,60 +193,109 @@ CROSS_PACKAGES_EXTRACT	:= $(addsuffix _extract,$(CROSS_PACKAGES))
 CROSS_PACKAGES_PREPARE	:= $(addsuffix _prepare,$(CROSS_PACKAGES))
 CROSS_PACKAGES_COMPILE	:= $(addsuffix _compile,$(CROSS_PACKAGES))
 
-# FIXME: this has to be reworked when the final usage was fixed
+# FIXME: should probably go somewhere else (separate images.make?)
+ifdef PTXCONF_MKNBI_NBI
+MKNBI_EXT = "nbi"
+else
+MKNBI_EXT = "elf"
+endif
+
+ifdef PTXCONF_USE_EXTERNAL_KERNEL
+MKNBI_KERNEL = $(PTXCONF_IMAGE_MKNBI_EXT_KERNEL)
+else
+MKNBI_KERNEL = $(KERNEL_TARGET_PATH)
+endif
+
+MKNBI_ROOTFS = $(IMAGEDIR)/root.ext2
+ifdef PTXCONF_IMAGE_EXT2_GZIP
+MKNBI_ROOTFS = $(IMAGEDIR)/root.ext2.gz
+endif
+
+# ----------------------------------------------------------------------------
+# Targets
+# ----------------------------------------------------------------------------
+
 help:
 	@echo
 	@echo "PTXdist - Build System for Embedded Linux Systems"
 	@echo
-	@echo "Syntax:"
+	@echo "Most Useful Targets:"
 	@echo
-	@echo "  make menuconfig              Configure the Root Filesystem"
-	@echo "  make setup                   Setup PTXdist Preferences"
+	@echo "  make projects                     show predefined project configs"
+	@echo "  make setup                        setup PTXdist per-user-preferences"
+	@echo "  make menuconfig|xconfig|gconfig   configure the root filesystem"
 	@echo
-	@echo "  make get                     Download (most) of the needed packets"
-	@echo "  make extract                 Extract all needed archives"
-	@echo "  make prepare                 Prepare the configured system for compilation"
-	@echo "  make compile                 Compile the packages"
-	@echo "  make install                 Install to rootdirectory"
-	@echo "  make images                  Build root filesystem images"
-	@echo "  make clean                   Remove everything but local/"
-	@echo "  make rootclean               Remove root directory contents"
-	@echo "  make distclean               Clean everything"
-	@echo "  make svn-up                  Run "svn update" in topdir and project dir"
-	@echo "  make svn-stat                Run "svn stat" in topdir and project dir"
+	@echo "  make world                        make-everything-and-be-happy"
+	@echo "  make run                          run simulation (only works in NATIVE=1 mode)"
 	@echo
-	@echo "  make world                   Make-everything-and-be-happy"
+	@echo "  make imagesclean                  cleanup images directory"
+	@echo "  make rootclean                    cleanup root directory for target"
+	@echo "  make projectclean                 cleanup build-target directory"
+	@echo "  make clean                        cleanup build-host and build-cross dirs"
+	@echo "  make distclean                    cleanup everything"
 	@echo
-	@echo "Some 'helpful' targets:"
+	@echo "  make images                       build root filesystem images"
+	@echo "  make svn-up                       run \"svn update\" in topdir and project dir"
+	@echo "  make svn-stat                     run \"svn stat\" in topdir and project dir"
 	@echo
-	@echo "  make configs                 show predefined configs"
+	@echo "Targets for Testing & QA:"
 	@echo
-	@echo "Targets for testing:"
+	@echo "  make cuckoo-test                  search for cuckoo-eggs in root system"
+	@echo "  make config-test                  run oldconfig on all ptxconfig files"
+	@echo "  make ipkg-test                    check if ipkg packets are consistent "
+	@echo "                                    with ROOTDIR"
+	@echo "  make qa                           run qa checks from scripts/qa"
 	@echo
-	@echo "  make cuckoo-test             search for cuckoo-eggs in root system"
-	@echo "  make compile-test            compile all supported targets, with report"
-	@echo "  make config-test             run oldconfig on all ptxconfig files"
-	@echo "  make ipkg-test               check if ipkg packets are consistent with ROOTDIR"
-	@echo "  make toolchains              build all supported toolchains"
+	@echo "Targets for Autobuilding:"
 	@echo
+	@echo "  make toolchains                   build all supported toolchains"
+	@echo "  make compile-test                 compile all supported targets, with report"
+	@echo
+#	@echo "Temporarily Broken:"
+#	@echo
+#	@echo "  make get                          download (most) of the needed packets"
+#	@echo "  make extract                      extract all needed archives"
+#	@echo "  make prepare                      prepare the configured system "
+#	@echo "                                    for compilation"
+#	@echo "  make compile                      compile the packages"
+#	@echo "  make install                      install to rootdirectory"
+#	@echo
+	@echo "Make Variables:"
+	@echo
+	@echo "  NATIVE=1                          build with native compiler "
+	@echo "                                    instead of cross compiler"
+	@echo "  PREFIX=<path>                     build into this directory, instead of"
+	@echo "                                    building into PTXCONF_PREFIX from config"
+	@echo
+
 
 # FIXME: this is not fully working yet, do to dependencies being defined
 # in make files and Kconfig files in a non-consistent way. 
-
-get:     check_tools getclean $(PACKAGES_GET)
-extract: check_tools $(PACKAGES_EXTRACT)
-prepare: check_tools $(PACKAGES_PREPARE)
-compile: check_tools $(PACKAGES_COMPILE)
-install: check_tools $(PACKAGES_TARGETINSTALL)
+#
+# get:     check_tools getclean $(PACKAGES_GET)
+# extract: check_tools $(PACKAGES_EXTRACT)
+# prepare: check_tools $(PACKAGES_PREPARE)
+# compile: check_tools $(PACKAGES_COMPILE)
+# install: check_tools $(PACKAGES_TARGETINSTALL)
 
 dep_output_clean:
 #	if [ -e $(DEP_OUTPUT) ]; then rm -f $(DEP_OUTPUT); fi
 	touch $(DEP_OUTPUT)
 
-dep_tree:
+dep_tree: $(STATEDIR)/dep_tree
+
+$(STATEDIR)/dep_tree:
+ifndef NATIVE
+	@echo "Launching cuckoo-test"
+	@$(PTXDIST_TOPDIR)/scripts/cuckoo-test $(PTXCONF_ARCH) $(ROOTDIR) $(PTXCONF_COMPILER_PREFIX)
+ifdef PTXCONF_IMAGE_IPKG
+	@echo "Launching ipkg-test"
+	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl $(PTXDIST_TOPDIR)/scripts/ipkg-test
+endif
+endif
 	@if dot -V 2> /dev/null; then \
 		echo "creating dependency graph..."; \
-		sort $(DEP_OUTPUT) | uniq | scripts/makedeptree | $(DOT) -Tps > $(DEP_TREE_PS); \
+		sort $(DEP_OUTPUT) | uniq | $(PTXDIST_TOPDIR)/scripts/makedeptree | $(DOT) -Tps > $(DEP_TREE_PS); \
 		if [ -x "`which poster`" ]; then \
 			echo "creating A4 version..."; \
 			poster -v -c0\% -mA4 -o$(DEP_TREE_A4_PS) $(DEP_TREE_PS); \
@@ -204,6 +303,7 @@ dep_tree:
 	else \
 		echo "Install 'dot' from graphviz packet if you want to have a nice dependency tree"; \
 	fi
+	$(call touch, $@)
 
 dep_world: $(HOST_PACKAGES_INSTALL) \
 	   $(CROSS_PACKAGES_INSTALL) \
@@ -212,14 +312,14 @@ dep_world: $(HOST_PACKAGES_INSTALL) \
 
 world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
 
-host-tools: check_tools dep_output_clean $(HOST_PACKAGES_INSTALL)  dep_tree
-host-get:     check_tools getclean $(HOST_PACKAGES_GET) 
-host-extract: check_tools $(HOST_PACKAGES_EXTRACT)
-host-prepare: check_tools $(HOST_PACKAGES_PREPARE)
-host-compile: check_tools $(HOST_PACKAGES_COMPILE)
-host-install: check_tools $(HOST_PACKAGES_INSTALL)
+host-tools:    check_tools dep_output_clean $(HOST_PACKAGES_INSTALL)  dep_tree
+host-get:      check_tools getclean $(HOST_PACKAGES_GET) 
+host-extract:  check_tools $(HOST_PACKAGES_EXTRACT)
+host-prepare:  check_tools $(HOST_PACKAGES_PREPARE)
+host-compile:  check_tools $(HOST_PACKAGES_COMPILE)
+host-install:  check_tools $(HOST_PACKAGES_INSTALL)
 
-cross-tools: check_tools dep_output_clean $(CROSS_PACKAGES_INSTALL)  dep_tree
+cross-tools:   check_tools dep_output_clean $(CROSS_PACKAGES_INSTALL)  dep_tree
 cross-get:     check_tools getclean $(CROSS_PACKAGES_GET) 
 cross-extract: check_tools $(CROSS_PACKAGES_EXTRACT)
 cross-prepare: check_tools $(CROSS_PACKAGES_PREPARE)
@@ -229,7 +329,22 @@ cross-install: check_tools $(CROSS_PACKAGES_INSTALL)
 # Robert-is-faster-typing-than-thinking shortcut
 owrld: world
 
-# Images ----------------------------------------------------------------------
+#
+# Things which have to be done before _any_ suffix rule is executed
+# (especially PTXDIST_PATH handling)
+#
+
+$(PACKAGES_PREPARE): before_prepare
+before_prepare:
+	@for path in `echo $(PTXDIST_PATH) | awk -F: '{for (i=1; i<=NF; i++) {print $$i}}'`; do \
+		if [ ! -d $$path ]; then							\
+			echo "warning: PTXDIST_PATH component \"$$path\" is no directory";	\
+		fi;										\
+	done;
+
+# ----------------------------------------------------------------------------
+# Images
+# ----------------------------------------------------------------------------
 
 DOPERMISSIONS = '{	\
 	if ($$1 == "f")	\
@@ -239,47 +354,55 @@ DOPERMISSIONS = '{	\
 
 images: $(STATEDIR)/images
 
-ipkg-push: images
-	scripts/ipkg-push -i $(IMAGEDIR) -d $(PTXCONF_SETUP_IPKG_REPOSITORY)
-	rm -f $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages
-	PYTHONPATH=$(PTXCONF_PREFIX)/lib/python2.3/site-packages 		\
-		$(PTXCONF_PREFIX)/bin/ipkg-make-index 				\
-			-p $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages 		\
-			$(PTXCONF_SETUP_IPKG_REPOSITORY)
+ipkg-push: $(STATEDIR)/ipkg-push
 
-ipkg-push-force: images
-	scripts/ipkg-push -i $(IMAGEDIR) -d $(PTXCONF_SETUP_IPKG_REPOSITORY) -f 
-	rm -f $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages
-	PYTHONPATH=$(PTXCONF_PREFIX)/lib/python2.3/site-packages 		\
-		$(PTXCONF_PREFIX)/bin/ipkg-make-index 				\
-			-p $(PTXCONF_SETUP_IPKG_REPOSITORY)/Packages 		\
-			$(PTXCONF_SETUP_IPKG_REPOSITORY)
+$(STATEDIR)/ipkg-push:
+	@$(call targetinfo, $@)
+	$(PTXDIST_TOPDIR)/scripts/ipkg-push \
+		--ipkgdir  $(call remove_quotes,$(IMAGEDIR)) \
+		--repodir  $(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)) \
+		--revision $(call remove_quotes,$(FULLVERSION)) \
+		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
+		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION))
+	@echo
+	$(call touch, $@)
 
-$(STATEDIR)/images: world
+images_deps =  world
+ifdef PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY
+images_deps += $(STATEDIR)/ipkg-push
+endif
+
+$(STATEDIR)/images: $(images_deps)
 ifdef PTXCONF_IMAGE_TGZ
 	cd $(ROOTDIR); \
-	($(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions && \
-	echo "tar -zcvf $(TOPDIR)/images/root.tgz . ") | $(FAKEROOT) --
+	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions && \
+	echo "tar -zcvf $(IMAGEDIR)/root.tgz . ") | $(FAKEROOT) --
 endif
 ifdef PTXCONF_IMAGE_JFFS2
 ifdef PTXCONF_IMAGE_IPKG
-	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(TOPDIR)/scripts/make_image_root.sh	\
-		-i $(IMAGEDIR)							\
-		-p $(TOPDIR)/permissions					\
-		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)				\
-		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)				\
-		-o $(TOPDIR)/images/root.jffs2
+	if [ -z "$(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY))" ]; then	\
+		imagesfrom=$(IMAGEDIR);							\
+	else										\
+		imagesfrom=$(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)); \
+	fi;										\
+	echo "Creating rootfs using packages from $$imagesfrom";			\
+	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/make_image_root.sh 	\
+		-i $$imagesfrom								\
+		-p $(IMAGEDIR)/permissions						\
+		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)					\
+		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)					\
+		-o $(IMAGEDIR)/root.jffs2
 else
-	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(TOPDIR)/scripts/make_image_root.sh	\
-		-r $(ROOTDIR)							\
-		-p $(TOPDIR)/permissions					\
-		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)				\
-		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)				\
-		-o $(TOPDIR)/images/root.jffs2
+	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/make_image_root.sh	\
+		-r $(ROOTDIR)								\
+		-p $(IMAGEDIR)/permissions						\
+		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)					\
+		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)					\
+		-o $(IMAGEDIR)/root.jffs2
 endif
 endif
 ifdef PTXCONF_IMAGE_HD
-	$(TOPDIR)/scripts/genhdimg \
+	$(PTXDIST_TOPDIR)/scripts/genhdimg \
 	-m $(GRUB_DIR)/stage1/stage1 \
 	-n $(GRUB_DIR)/stage2/stage2 \
 	-r $(ROOTDIR) \
@@ -288,18 +411,18 @@ ifdef PTXCONF_IMAGE_HD
 endif
 ifdef PTXCONF_IMAGE_EXT2
 	cd $(ROOTDIR); \
-	($(AWK) -F: $(DOPERMISSIONS) $(TOPDIR)/permissions && \
+	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions && \
 	( \
 		echo -n "$(PTXCONF_HOST_PREFIX)/bin/genext2fs "; \
 		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) "; \
 		echo -n "$(PTXCONF_IMAGE_EXT2_EXTRA_ARGS) "; \
 		echo -n "-d $(ROOTDIR) "; \
-		echo "$(TOPDIR)/images/root.ext2" ) \
+		echo "$(IMAGEDIR)/root.ext2" ) \
 	) | $(FAKEROOT) --
 endif
 ifdef PTXCONF_IMAGE_EXT2_GZIP
-	rm -f $(TOPDIR)/images/root.ext2.gz
-	gzip -v9 $(TOPDIR)/images/root.ext2
+	rm -f $(IMAGEDIR)/root.ext2.gz
+	gzip -v9 $(IMAGEDIR)/root.ext2
 endif
 ifdef PTXCONF_IMAGE_UIMAGE
 	$(PTXCONF_PREFIX)/bin/u-boot-mkimage \
@@ -308,12 +431,53 @@ ifdef PTXCONF_IMAGE_UIMAGE
 		-T ramdisk \
 		-C gzip \
 		-n $(PTXCONF_IMAGE_UIMAGE_NAME) \
-		-d  $(TOPDIR)/images/root.ext2.gz \
-		$(TOPDIR)/images/uRamdisk
+		-d $(IMAGEDIR)/root.ext2.gz \
+		$(IMAGEDIR)/uRamdisk
+endif
+ifdef PTXCONF_IMAGE_MKNBI
+	PERL5LIB=$(PTXCONF_PREFIX)/usr/local/lib/mknbi \
+		 $(PTXCONF_PREFIX)/usr/local/lib/mknbi/mknbi \
+		--format=$(MKNBI_EXT) \
+		--target=linux \
+		--output=$(IMAGEDIR)/$(PTXCONF_PROJECT).$(MKNBI_EXT) \
+		-a $(PTXCONF_IMAGE_MKNBI_APPEND) \
+		$(MKNBI_KERNEL) \
+		$(MKNBI_ROOTFS)
 endif
 	touch $@
 
-# Configuration system -------------------------------------------------------
+# ----------------------------------------------------------------------------
+# Simulation
+# ----------------------------------------------------------------------------
+
+uml_cmdline=
+ifdef PTXCONF_KERNEL_HOST_ROOT_HOSTFS
+uml_cmdline += root=/dev/root rootflags=$(ROOTDIR) rootfstype=hostfs
+endif
+ifdef PTXCONF_KERNEL_HOST_CONSOLE_STDSERIAL
+uml_cmdline += ssl0=fd:0,fd:1
+endif
+#uml_cmdline += eth0=slirp
+uml_cmdline += $(PTXCONF_KERNEL_HOST_CMDLINE)
+
+run: world
+	@$(call targetinfo, "Run Simulation")
+ifdef NATIVE
+	@echo "starting Linux..."
+	@echo
+	@$(ROOTDIR)/boot/linux $(call remove_quotes,$(uml_cmdline))
+else
+	@echo
+	@echo "cannot run simulation if not in NATIVE=1 mode"
+	@echo
+	@exit 1
+endif
+
+# ----------------------------------------------------------------------------
+# Configuration system
+# ----------------------------------------------------------------------------
+
+# FIXME: move this to a saner place, now that lxdialog is a host tool
 
 ptx_lxdialog:
 	@echo -e "#include \"ncurses.h\"\nint main(void){}" | gcc -E - > /dev/null; 	\
@@ -325,58 +489,79 @@ ptx_lxdialog:
 		echo;									\
 		exit 1;									\
 	fi
-	cd $(TOPDIR)/scripts/lxdialog && ln -s -f ../ptx-modifications/Makefile.lxdialog.ptx Makefile
 
-scripts/lxdialog/lxdialog: ptx_lxdialog
-	make -C $(TOPDIR)/scripts/lxdialog lxdialog
+before_config:
+	@echo "checking \$$PTXDIST_WORKSPACE/config"
+	@if [ -n "$(OUTOFTREE)" ] && [ ! -d "$(PTXDIST_WORKSPACE)/config/setup" ]; then 	\
+		echo "out-of-tree build, creating setup dir";				\
+		rm -fr $(PTXDIST_WORKSPACE)/config/setup;				\
+		mkdir -p $(PTXDIST_WORKSPACE)/config; 					\
+		cp -a $(PTXDIST_TOPDIR)/config/setup $(PTXDIST_WORKSPACE)/config; 	\
+		for i in $(PTXDIST_TOPDIR)/config/uClibc* $(PTXDIST_TOPDIR)/config/busybox*; do \
+			ln -sf $$i $(PTXDIST_WORKSPACE)/config/`basename $$i`; 		\
+		done; 									\
+	fi	
+	@echo "checking \$$PTXDIST_WORKSPACE/rules"
+	@[ -e "$(PTXDIST_WORKSPACE)/rules" ]   || ln -sf $(PTXDIST_TOPDIR)/rules   $(PTXDIST_WORKSPACE)/rules
 
-scripts/kconfig/libkconfig.so:
-	make -C $(TOPDIR)/scripts/kconfig libkconfig.so
-
-scripts/kconfig/conf: scripts/kconfig/libkconfig.so
-	make -C $(TOPDIR)/scripts/kconfig conf
-
-scripts/kconfig/mconf: scripts/kconfig/libkconfig.so
-	make -C $(TOPDIR)/scripts/kconfig mconf
-
-scripts/kconfig/qconf: scripts/kconfig/libkconfig.so
-	make -C $(TOPDIR)/scripts/kconfig qconf
-
-scripts/kconfig/gconf: scripts/kconfig/libkconfig.so
-	make -C $(TOPDIR)/scripts/kconfig gconf
-
-menuconfig: scripts/lxdialog/lxdialog scripts/kconfig/mconf
+menuconfig: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
-	cd $(TOPDIR) && scripts/kconfig/mconf $(MENU)
+	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/mconf $(MENU)
+	# automatic oldconfig for consistent .config files 
+	@if [ -f $(PTXDIST_WORKSPACE)/.config ]; then cd $(PTXDIST_WORKSPACE) && make oldconfig; fi
 
-xconfig: scripts/kconfig/qconf
+xconfig: before_config $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
-	cd $(TOPDIR) && scripts/kconfig/qconf $(MENU)
+	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/qconf $(MENU)
+	# automatic oldconfig for consistent .config files 
+	cd $(PTXDIST_WORKSPACE) && make oldconfig
 
-gconfig: scripts/kconfig/gconf
+gconfig: before_config $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
-	LD_LIBRARY_PATH=$(TOPDIR)/scripts/kconfig cd $(TOPDIR) && scripts/kconfig/gconf $(MENU)
+	LD_LIBRARY_PATH=$(PTXDIST_TOPDIR)/scripts/kconfig cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/gconf $(MENU)
+	# automatic oldconfig for consistent .config files 
+	cd $(PTXDIST_WORKSPACE) && make oldconfig
 
-oldconfig: scripts/kconfig/conf
+oldconfig: before_config $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
-	cd $(TOPDIR) && scripts/kconfig/conf -o $(MENU)
+	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -o $(MENU)
 
-setup: scripts/lxdialog/lxdialog scripts/kconfig/mconf
-	@rm -f $(TOPDIR)/config/setup/.config
-	@ln -sf $(TOPDIR)/scripts $(PTXDISTDIR)/config/setup/scripts
-	@if [ -f $(HOME)/.ptxdistrc ]; then cp $(HOME)/.ptxdistrc $(TOPDIR)/config/setup/.config; fi
-	@(cd $(TOPDIR)/config/setup && $(PTXDISTDIR)/scripts/kconfig/mconf Kconfig)
+allyesconfig: before_config $(STATEDIR)/host-kconfig.install
+	$(call findout_config)
+	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -y $(MENU)
+
+configdeps: before_config $(STATEDIR)/host-kconfig.install
+	@$(call findout_config)
+	@echo
+	@echo "generating dependencies from kconfig..."
+	@mkdir -p $(IMAGEDIR)
+	@cd $(PTXDIST_WORKSPACE) && \
+		yes "" | $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
+			2> /dev/null > $(IMAGEDIR)/configdeps
+	@echo "$(IMAGEDIR)/configdeps"
+	@echo
+
+setup: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
+	@rm -f $(PTXDIST_WORKSPACE)/config/setup/.config
+	@ln -sf $(PTXDIST_WORKSPACE)/scripts $(PTXDIST_WORKSPACE)/config/setup/scripts
+	@if [ -f $(HOME)/.ptxdistrc ]; then 					\
+		echo "using \$$HOME/.ptxdistrc"; 				\
+		cp $(HOME)/.ptxdistrc $(PTXDIST_WORKSPACE)/config/setup/.config;\
+	fi
+	@(cd $(PTXDIST_WORKSPACE)/config/setup && $(PTXDIST_WORKSPACE)/scripts/kconfig/mconf Kconfig)
 	@echo "cleaning up after setup..."
 	@for i in .tmpconfig.h .config.old .config.cmd; do			\
-		rm -f $(TOPDIR)/config/setup/$$i; 				\
+		rm -f $(PTXDIST_WORKSPACE)/config/setup/$$i; 			\
 	done
-	@if [ -f $(TOPDIR)/config/setup/.config ]; then 			\
+	@if [ -f $(PTXDIST_WORKSPACE)/config/setup/.config ]; then 		\
 		echo "copying new .ptxdistrc to $(HOME)...";			\
-		cp $(TOPDIR)/config/setup/.config $(HOME)/.ptxdistrc; 		\
+		cp $(PTXDIST_WORKSPACE)/config/setup/.config $(HOME)/.ptxdistrc;\
 		echo "done.";							\
 	fi
 
-# Config Targets -------------------------------------------------------------
+# ----------------------------------------------------------------------------
+# Config Targets
+# ----------------------------------------------------------------------------
 
 %_config:
 	@echo; \
@@ -388,15 +573,18 @@ setup: scripts/lxdialog/lxdialog scripts/kconfig/mconf
 		exit 1;								\
 	fi;									\
 	if [ -n "$$CFG" ]; then 						\
-		echo "using config file \"$$CFG\""; 				\
-		cp $$CFG $(TOPDIR)/.config; 					\
+		echo "config file: \"$$CFG\""; 					\
+		cp $$CFG $(PTXDIST_WORKSPACE)/.config; 				\
+		echo "workspace:   \"$(PTXDIST_WORKSPACE)\"";			\
 	else 									\
 		echo "could not find config file \"$@\""; 			\
 		exit 1;								\
 	fi; 									\
 	echo
 
-# Test -----------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+# Test
+# ----------------------------------------------------------------------------
 
 config-test: 
 	@for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 	\
@@ -407,42 +595,66 @@ config-test:
 		cp .config $$i;						\
 	done
 
-default_crosstool=/opt/crosstool-0.28-rc37
+default_crosstool=/opt/crosstool-0.38
 
 compile-test:
-	cd $(TOPDIR); 							\
+	cd $(PTXDIST_WORKSPACE);					\
+	mkdir -p logs;							\
 	rm -f COMPILE-TEST;						\
 	echo "Automatic Compilation Test" >> COMPILE-TEST;		\
 	echo "--------------------------" >> COMPILE-TEST;		\
 	echo >> COMPILE-TEST;						\
 	echo start: `date` >> COMPILE-TEST;				\
 	echo >> COMPILE-TEST;						\
-	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin abbcc-viac3        COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin i586-generic-glibc COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-2.95.3-glibc-2.2.5/bin frako             COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin visbox             COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/i586-unknown-linux-gnu/gcc-3.4.2-glibc-2.3.3/bin rayonic-i586       COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-2.95.3-glibc-2.2.5/bin innokom-2.4-2.95 COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin innokom-2.4-3.3.3 COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin mx1fs2            COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin pii_nge           COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/arm-softfloat-linux-gnu/gcc-3.3.3-glibc-2.3.2/bin ssv_pnp2110_eva1  COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/powerpc-604-linux-gnu/gcc-3.4.1-glibc-2.3.3/bin eb8245              COMPILE-TEST;\
-	scripts/compile-test $(default_crosstool)/powerpc-405-linux-gnu/gcc-3.2.3-glibc-2.2.5/bin cameron-efco        COMPILE-TEST;\
+	echo "projects" >> COMPILE-TEST;				\
+	echo "--------" >> COMPILE-TEST;				\
+	echo >> COMPILE-TEST;						\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.4.1-glibc-2.3.3/powerpc-604-linux-gnu/bin eb8245              COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/arm-softfloat-linux-gnu/bin generic-arm-glibc COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin generic-i586-glibc COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/arm-softfloat-linux-gnu/bin h7202             COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin ssv_pnp2110_eva1  COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin visbox             COMPILE-TEST;\
+	echo >> COMPILE-TEST;						\
+	echo "local_projects" >> COMPILE-TEST;				\
+	echo "--------------" >> COMPILE-TEST;				\
+	echo >> COMPILE-TEST;						\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin abbcc-viac3        COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.2.3-glibc-2.2.5/powerpc-405-linux-gnu/bin cameron-efco        COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-2.95.3-glibc-2.2.5/i586-unknown-linux-gnu/bin frako             COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-2.95.3-glibc-2.2.5/arm-softfloat-linux-gnu/bin innokom-2.4-2.95 COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin innokom-2.4-3.3.3 COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin mx1fs2            COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin pii_nge           COMPILE-TEST;\
+	$(PTXDIST_TOPDIR)/scripts/compile-test \
+		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin rayonic-i586       COMPILE-TEST;\
 	echo >> COMPILE-TEST;						\
 	echo stop: `date` >> COMPILE-TEST;				\
 	echo >> COMPILE-TEST;
 
 cuckoo-test: world
-	@scripts/cuckoo-test $(PTXCONF_ARCH) root $(PTXCONF_COMPILER_PREFIX)
+	@scripts/cuckoo-test $(PTXCONF_ARCH) $(ROOTDIR) $(PTXCONF_COMPILER_PREFIX)
 
 ipkg-test: world
-	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl  scripts/ipkg-test
+	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl $(PTXDIST_TOPDIR)/scripts/ipkg-test
 
 # ----------------------------------------------------------------------------
 
 toolchains:
-	cd $(TOPDIR); 							\
+	cd $(PTXDIST_WORKSPACE); 					\
 	rm -f TOOLCHAINS;						\
 	echo "Automatic Toolchain Compilation" >> TOOLCHAINS;		\
 	echo "--------------------------" >> TOOLCHAINS;		\
@@ -451,9 +663,11 @@ toolchains:
 	echo >> TOOLCHAINS;						\
 	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5     TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2      TOOLCHAINS;\
+	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.4.4_glibc_2.3.5      TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27 TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5      TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3       TOOLCHAINS;\
+	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.4_glibc-2.3.5       TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27  TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_m68k-unknown-linux-uclibc-3.3.3_uClibc-0.9.27  TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5        TOOLCHAINS;\
@@ -464,97 +678,117 @@ toolchains:
 
 # ----------------------------------------------------------------------------
 
-maintainer-clean: distclean
-	@echo -n "cleaning logs.................... "
-	@rm -f logs/*
-	@echo "done."
+qa:
+	@cd $(PTXDIST_WORKSPACE);					\
+	rm -f QA.log;							\
+	echo "Automatic Internal QA Check" >> QA.log;			\
+	echo start: `date` >> QA.log;                    		\
+	scripts/qa/master >> QA.log 2>&1;				\
+	echo stop: `date` >> QA.log;                                    \
+	echo >> QA.log;
+	@cat QA.log;
 
-distclean: clean
-	@echo -n "cleaning .config, .kernelconfig.. "
-	@rm -f .config* .kernelconfig .tmp* .rtaiconfig 
-	@rm -f config/setup/scripts config/setup/.config scripts/scripts
-	@echo "done."
-	@echo -n "cleaning logs.................... "
-	@rm -fr $(TOPDIR)/logs/root-orig.txt $(PTXDISTDIR)/logs/root-ipkg.txt $(PTXDISTDIR)/logs/root.diff
+# ----------------------------------------------------------------------------
+# Cleaning
+# ----------------------------------------------------------------------------
+
+imagesclean:
+	@echo -n "cleaning images dir.............. "
+	@rm -fr $(IMAGEDIR)
+	@rm -f $(STATEDIR)/images
 	@echo "done."
 	@echo
 
-clean: rootclean imagesclean
+rootclean: imagesclean
+	@echo -n "cleaning root dir................ "
+	@rm -fr $(ROOTDIR)
+	@echo "done."
+	@echo -n "cleaning state/*.targetinstall... "
+	@rm -f $(STATEDIR)/*.targetinstall
+	@echo "done."	
+	@echo -n "cleaning permissions............. "
+	@rm -f $(IMAGEDIR)/permissions
+	@echo "done."
 	@echo
+
+projectclean: rootclean
 	@echo -n "cleaning state dir............... "
-	@for i in $(wildcard $(STATEDIR)/*); do rm -rf $$i; done
+	@for i in $(notdir $(wildcard $(STATEDIR)/*)); do 		\
+		[ -n "`echo \"$$i\" | grep host-`" ] || rm -fr $(STATEDIR)/$$i;\
+	done
 	@echo "done."
-	@echo -n "cleaning build dir............... "
+	@echo -n "cleaning host build dir.......... "
 	@for i in $(wildcard $(BUILDDIR)/*); do 			\
 		echo -n $$i; 						\
 		rm -rf $$i; 						\
 		echo; echo -n "                                  ";	\
 	done
-	@echo "done."
-	@echo -n "cleaning scripts dir............. "
-	@make -s -C $(TOPDIR)/scripts/kconfig clean
-	@make -s -f $(TOPDIR)/scripts/ptx-modifications/Makefile.lxdialog.ptx -C $(TOPDIR)/scripts/lxdialog clean
-	@rm -f scripts/lxdialog/Makefile
+	@rm -fr $(BUILDDIR)
 	@echo "done."
 	@echo -n "cleaning dependency tree ........ "
 	@rm -f $(DEP_OUTPUT) $(DEP_TREE_PS) $(DEP_TREE_A4_PS)
 	@echo "done."
-	@echo -n "cleaning logfile................. "
-	@rm -f logfile* 
-	@echo "done."
-	@echo -n "cleaning local dir............... "
-	@rm -fr local
-	@echo "done."
-	@echo -n "cleaning patches dir............. "
-	@rm -rf $(TOPDIR)/patches/*
-	@echo "done."	
-	@if [ -d $(TOPDIR)/Documentation/manual ]; then		\
-		echo -n "cleaning manual.................. ";	\
-		make -C $(TOPDIR)/Documentation/manual clean > /dev/null;	\
-		echo "done.";					\
+	@if [ -d $(PTXDIST_TOPDIR)/Documentation/manual ]; then				\
+		echo -n "cleaning manual.................. ";				\
+		make -C $(PTXDIST_TOPDIR)/Documentation/manual clean > /dev/null;	\
+		echo "done.";								\
 	fi;
 	@echo
 
-rootclean: imagesclean
-	@echo
-	@echo -n "cleaning root dir................ "
-	@if [ -d $(ROOTDIR) ]; then \
-		for i in $(wildcard $(ROOTDIR)/*); do 			\
-			echo -n $$i; 					\
-			rm -rf $$i; 					\
-			echo; 						\
-			echo -n "                                  ";	\
-		done; 							\
-	fi
-	@echo "done."
-	@echo -n "cleaning state/*.targetinstall... "
-	@rm -f $(STATEDIR)/*.targetinstall
-	@echo "done."	
-	@echo -n "cleaning permissions...           "
-	@rm -f $(TOPDIR)/permissions
-	@echo "done."
-	@echo
-
-getclean:
-	@echo
-	@echo -n "cleaning state/*.get............. "
-	@rm -f $(STATEDIR)/*.get
-	@echo "done."
-	@echo
-
-imagesclean:
-	@echo -n "cleaning images dir.............. "
-	@for i in $$(ls -I CVS $(TOPDIR)/images); do 			\
+clean: projectclean
+	@echo -n "cleaning build-host dir.......... "
+	@for i in $(wildcard $(STATEDIR)/*); do rm -rf $$i; done
+	@for i in $(wildcard $(HOST_BUILDDIR)/*); do 			\
 		echo -n $$i; 						\
-		rm -rf $(TOPDIR)/images/"$$i"; 				\
+		rm -rf $$i; 						\
 		echo; echo -n "                                  ";	\
 	done
-	@rm -f $(STATEDIR)/images
+	@rm -fr $(HOST_BUILDDIR)
 	@echo "done."
+	@echo -n "cleaning build-cross dir......... "
+	@for i in $(wildcard $(CROSS_BUILDDIR)/*); do 			\
+		echo -n $$i; 						\
+		rm -rf $$i; 						\
+		echo; echo -n "                                  ";	\
+	done
+	@rm -fr $(CROSS_BUILDDIR)
+	@echo "done."
+	@echo -n "cleaning scripts dir............. "
+	@if [ -n "$(OUTOFTREE)" ]; then 				\
+		rm -fr $(PTXDIST_WORKSPACE)/scripts; 			\
+	else								\
+		make -s -C $(PTXDIST_WORKSPACE)/scripts/kconfig clean;	\
+		rm -f $(PTXDIST_WORKSPACE)/scripts/lxdialog/lxdialog;	\
+		rm -f $(PTXDIST_WORKSPACE)/scripts/lxdialog/Makefile;	\
+	fi
+	@echo "done."
+	@echo
+
+distclean: clean
+	@echo -n "cleaning logfile................. "
+	@rm -f logfile* 
+	@echo "done."
+	@echo -n "cleaning .config................. "
+	@cd $(PTXDIST_WORKSPACE) && rm -f .config* .tmp*
+	@cd $(PTXDIST_WORKSPACE) && rm -f config/setup/scripts config/setup/.config scripts/scripts
+	@echo "done."
+	@echo -n "cleaning logs.................... "
+	@rm -fr $(PTXDIST_WORKSPACE)/logs/root-orig.txt $(PTXDIST_WORKSPACE)/logs/root-ipkg.txt $(PTXDIST_WORKSPACE)/logs/root.diff
+	@echo "done."
+	@if [ -n "$(OUTOFTREE)" ]; then 				\
+		rm -f $(PTXDIST_WORKSPACE)/config;			\
+		rm -f $(PTXDIST_WORKSPACE)/rules;			\
+		rm -fr $(PTXDIST_WORKSPACE)/state;			\
+	fi
+	@echo
+
+# ----------------------------------------------------------------------------
+# SVN Targets
+# ----------------------------------------------------------------------------
 
 svn-up:
 	@$(call targetinfo, Updating in Toplevel)
-	@cd $(TOPDIR) && svn update
+	@cd $(PTXDIST_WORKSPACE) && svn update
 	@if [ -d "$(PROJECTDIR)" ]; then				\
 		$(call targetinfo, Updating in PROJECTDIR);		\
 		cd $(PROJECTDIR);					\
@@ -564,7 +798,7 @@ svn-up:
 
 svn-stat:
 	@$(call targetinfo, svn stat in Toplevel)
-	@cd $(TOPDIR) && svn stat
+	@cd $(PTXDIST_WORKSPACE) && svn stat
 	@if [ -d "$(PROJECTDIR)" ]; then				\
 		$(call targetinfo, svn stat in PROJECTDIR);		\
 		cd $(PROJECTDIR);					\
@@ -572,13 +806,17 @@ svn-stat:
 	fi;
 	@echo "done."
 
+# ----------------------------------------------------------------------------
+# Misc other targets
+# ----------------------------------------------------------------------------
+
 archive:  
 	@echo
 	@echo -n "packaging additional sources ...... "
-	scripts/collect_sources.sh $(TOPDIR) $(shell basename $(PTXDISTDIR))
+	scripts/collect_sources.sh $(PTXDIST_TOPDIR) $(shell basename $(PTXDIST_TOPDIR))
 
 archive-toolchain: virtual-xchain_install
-	$(TAR) -C $(PTXCONF_PREFIX)/.. -jcvf $(TOPDIR)/$(PTXCONF_GNU_TARGET).tar.bz2 \
+	$(TAR) -C $(PTXCONF_PREFIX)/.. -jcvf $(PTXDIST_TOPDIR)/$(PTXCONF_GNU_TARGET).tar.bz2 \
 		$(shell basename $(PTXCONF_PREFIX))
 
 .PHONY: projects
@@ -610,15 +848,36 @@ configs:
 	@echo "Please use 'make projects' instead of 'make configs'. Thanks."
 	@echo
 
-$(INSTALL_LOG): 
-	make -C $(TOPDIR)/tools/install-log-1.9
+%_recompile:
+	@rm -f $(STATEDIR)/$*.compile
+	@make -C $(PTXDIST_WORKSPACE) $*_compile
 
 print-%:
 	@echo "$* is \"$($*)\""
 
-%_recompile:
-	@rm -f $(STATEDIR)/$*.compile
-	@make -C $(TOPDIR) $*_compile
+# ----------------------------------------------------------------------------
+# Autogenerate Dependencies
+# ----------------------------------------------------------------------------
+#
+# For all packages: 
+#
+# - each prepare stage depends on all prerequisites' install stage
+# - each targetinstall stage depends on all pre.'s targetinstall stages
+#
 
-.PHONY: dep_output_clean dep_tree dep_world skip_vendortweaks
+deps_apache2 = expat glibc_librt
+
+define autogen_deps_prepare
+$(1)_test_prepare_deps: $(foreach dep,$(deps_$(1)),$(STATEDIR)/$(dep).install)
+endef
+
+$(foreach pkg,$(ALL_PACKAGES),$(eval $(call autogen_deps_prepare,$(pkg))))
+
+define autogen_deps_targetinstall
+$(1)_test_targetinstall_deps: $(foreach dep,$(deps_$(1)),$(STATEDIR)/$(dep).targetinstall)
+endef
+
+$(foreach pkg,$(ALL_PACKAGES),$(eval $(call autogen_deps_targetinstall,$(pkg))))
+
+.PHONY: dep_output_clean dep_tree dep_world
 # vim600:set foldmethod=marker:

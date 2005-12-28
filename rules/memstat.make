@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_MEMSTAT
-PACKAGES += memstat
-endif
+PACKAGES-$(PTXCONF_MEMSTAT) += memstat
 
 #
 # Paths and names
@@ -37,7 +35,7 @@ memstat_get_deps = $(MEMSTAT_SOURCE)
 $(STATEDIR)/memstat.get: $(memstat_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMSTAT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(MEMSTAT_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +54,7 @@ $(STATEDIR)/memstat.extract: $(memstat_extract_deps)
 	@$(call clean, $(MEMSTAT_DIR))
 	@$(call extract, $(MEMSTAT_SOURCE))
 	@$(call patchin, $(MEMSTAT))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,12 +77,11 @@ MEMSTAT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-MEMSTAT_AUTOCONF =  $(CROSS_AUTOCONF)
-MEMSTAT_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+MEMSTAT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/memstat.prepare: $(memstat_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -97,7 +94,7 @@ memstat_compile_deps = $(STATEDIR)/memstat.prepare
 $(STATEDIR)/memstat.compile: $(memstat_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(MEMSTAT_DIR) && $(MEMSTAT_ENV) $(MEMSTAT_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -107,8 +104,8 @@ memstat_install: $(STATEDIR)/memstat.install
 
 $(STATEDIR)/memstat.install: $(STATEDIR)/memstat.compile
 	@$(call targetinfo, $@)
-	cd $(MEMSTAT_DIR) && $(MEMSTAT_ENV) $(MEMSTAT_PATH) make install
-	$(call touch, $@)
+	@$(call install, MEMSTAT)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -134,7 +131,7 @@ $(STATEDIR)/memstat.targetinstall: $(memstat_targetinstall_deps)
 	
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

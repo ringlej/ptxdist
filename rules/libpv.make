@@ -12,14 +12,12 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBPV
-PACKAGES += libpv
-endif
+PACKAGES-$(PTXCONF_LIBPV) += libpv
 
 #
 # Paths and names
 #
-LIBPV_VERSION	= 1.0.2
+LIBPV_VERSION	= 1.1.6.1
 LIBPV		= libpv-$(LIBPV_VERSION)
 LIBPV_SUFFIX	= tar.bz2
 LIBPV_URL	= http://www.pengutronix.de/software/libpv/download/$(LIBPV).$(LIBPV_SUFFIX)
@@ -32,12 +30,13 @@ LIBPV_DIR	= $(BUILDDIR)/$(LIBPV)
 
 libpv_get: $(STATEDIR)/libpv.get
 
-libpv_get_deps = $(LIBPV_SOURCE)
+libpv_get_deps = \
+	$(LIBPV_SOURCE) \
+	$(RULESDIR)/libpv.make
 
 $(STATEDIR)/libpv.get: $(libpv_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(LIBPV))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBPV_SOURCE):
 	@$(call targetinfo, $@)
@@ -56,7 +55,7 @@ $(STATEDIR)/libpv.extract: $(libpv_extract_deps)
 	@$(call clean, $(LIBPV_DIR))
 	@$(call extract, $(LIBPV_SOURCE))
 	@$(call patchin, $(LIBPV))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -80,8 +79,8 @@ LIBPV_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-LIBPV_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBPV_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBPV_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+LIBPV_AUTOCONF += --disable-debug
 
 $(STATEDIR)/libpv.prepare: $(libpv_prepare_deps)
 	@$(call targetinfo, $@)
@@ -89,7 +88,7 @@ $(STATEDIR)/libpv.prepare: $(libpv_prepare_deps)
 	cd $(LIBPV_DIR) && \
 		$(LIBPV_PATH) $(LIBPV_ENV) \
 		./configure $(LIBPV_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -102,7 +101,7 @@ libpv_compile_deps = $(STATEDIR)/libpv.prepare
 $(STATEDIR)/libpv.compile: $(libpv_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBPV_DIR) && $(LIBPV_ENV) $(LIBPV_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,8 +111,8 @@ libpv_install: $(STATEDIR)/libpv.install
 
 $(STATEDIR)/libpv.install: $(STATEDIR)/libpv.compile
 	@$(call targetinfo, $@)
-	cd $(LIBPV_DIR) && $(LIBPV_ENV) $(LIBPV_PATH) make install
-	$(call touch, $@)
+	@$(call install, LIBPV)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -138,13 +137,17 @@ $(STATEDIR)/libpv.targetinstall: $(libpv_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LIBPV_DIR)/.libs/libpv.so.0.0.0, /usr/lib/libpv.so.0.0.0)
-	@$(call install_link, libpv.so.0.0.0, /usr/lib/libpv.so.0)
-	@$(call install_link, libpv.so.0.0.0, /usr/lib/libpv.so)
+ifdef PTXCONF_LIBPV_PVTOOL
+	@$(call install_copy, 0, 0, 0755, $(LIBPV_DIR)/src/.libs/pvtool, /usr/bin/pvtool)
+endif
+
+	@$(call install_copy, 0, 0, 0644, $(LIBPV_DIR)/src/.libs/libpv.so.5.2.2, /usr/lib/libpv.so.5.2.2)
+	@$(call install_link, libpv.so.5.2.2, /usr/lib/libpv.so.5)
+	@$(call install_link, libpv.so.5.2.2, /usr/lib/libpv.so)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

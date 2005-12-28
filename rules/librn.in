@@ -1,0 +1,5 @@
+config LIBRN
+        bool "librn"
+	help
+	  Add rn scalable networking readiness notification library (see http://www.kegel.com/rn)
+

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_HOSTTOOL_MTD
-HOST_PACKAGES += hosttool-mtd
-endif
+HOST_PACKAGES-$(PTXCONF_HOSTTOOL_MTD) += hosttool-mtd
 
 #
 # Paths and names
@@ -34,7 +32,7 @@ hosttool-mtd_get_deps = $(STATEDIR)/mtd.get
 $(STATEDIR)/hosttool-mtd.get: $(hosttool-mtd_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL_MTD))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +47,7 @@ $(STATEDIR)/hosttool-mtd.extract: $(hosttool-mtd_extract_deps)
 	@$(call clean, $(HOSTTOOL_MTD_DIR))
 	@$(call extract, $(HOSTTOOL_MTD_SOURCE), $(HOST_BUILDDIR))
 	@$(call patchin, $(HOSTTOOL_MTD), $(HOSTTOOL_MTD_DIR))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -71,7 +69,7 @@ HOSTTOOL_MTD_MAKEVARS = \
 
 $(STATEDIR)/hosttool-mtd.prepare: $(hosttool-mtd_prepare_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -90,12 +88,12 @@ ifdef PTXCONF_HOSTTOOL_MTD_MKJFFS2
 	cd $(HOSTTOOL_MTD_DIR)/util && make mkfs.jffs2 $(HOSTTOOL_MTD_MAKEVARS)
 endif
 ifdef PTXCONF_HOSTTOOL_MTD_JFFS_DUMP
-	cd $(HOSTTOOL_MTD_DIR)/util && make jffs_dump $(HOSTTOOL_MTD_MAKEVARS)
+	cd $(HOSTTOOL_MTD_DIR)/util && make jffs-dump $(HOSTTOOL_MTD_MAKEVARS)
 endif
 ifdef PTXCONF_HOSTTOOL_MTD_JFFS2_DUMP
 	cd $(HOSTTOOL_MTD_DIR)/util && make jffs2dump $(HOSTTOOL_MTD_MAKEVARS)
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -114,12 +112,12 @@ ifdef PTXCONF_HOSTTOOL_MTD_MKJFFS2
 	install $(HOSTTOOL_MTD_DIR)/util/mkfs.jffs2 $(PTXCONF_PREFIX)/bin
 endif
 ifdef PTXCONF_HOSTTOOL_MTD_JFFS_DUMP
-	install $(HOSTTOOL_MTD_DIR)/util/jffs_dump $(PTXCONF_PREFIX)/bin
+	install $(HOSTTOOL_MTD_DIR)/util/jffs-dump $(PTXCONF_PREFIX)/bin
 endif
 ifdef PTXCONF_HOSTTOOL_MTD_JFFS2_DUMP
 	install $(HOSTTOOL_MTD_DIR)/util/jffs2dump $(PTXCONF_PREFIX)/bin
 endif
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -131,7 +129,7 @@ hosttool-mtd_targetinstall_deps = $(STATEDIR)/hosttool-mtd.install
 
 $(STATEDIR)/hosttool-mtd.targetinstall: $(hosttool-mtd_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

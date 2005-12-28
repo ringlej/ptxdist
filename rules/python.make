@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_PYTHON23
-PACKAGES += python
-endif
+PACKAGES-$(PTXCONF_PYTHON23) += python
 
 #
 # Paths and names 
@@ -39,7 +37,7 @@ python_get_deps = \
 $(STATEDIR)/python.get: $(python_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PYTHON))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(PYTHON_SOURCE):
 	@$(call targetinfo, $@)
@@ -59,7 +57,7 @@ $(STATEDIR)/python.extract: $(python_extract_deps)
 	@$(call clean, $(PYTHON_DIR))
 	@$(call extract, $(PYTHON_SOURCE))
 	@$(call patchin, $(PYTHON))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -77,8 +75,7 @@ python_prepare_deps = \
 PYTHON_PATH	=  PATH=$(CROSS_PATH)
 PYTHON_ENV	=  $(CROSS_ENV)
 
-PYTHON_AUTOCONF =  $(CROSS_AUTOCONF)
-PYTHON_AUTOCONF	+= --prefix=/usr
+PYTHON_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 PYTHON_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
 
 PYTHON_MAKEVARS	=  HOSTPYTHON=$(XCHAIN_PYTHON_BUILDDIR)/python
@@ -93,7 +90,7 @@ $(STATEDIR)/python.prepare: $(python_prepare_deps)
 	cd $(PYTHON_BUILDDIR) && \
 		$(PYTHON_PATH) $(PYTHON_ENV) \
 		$(PYTHON_DIR)/configure $(PYTHON_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -108,7 +105,7 @@ python_compile_deps = \
 $(STATEDIR)/python.compile: $(python_compile_deps)
 	@$(call targetinfo, $@)
 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -118,7 +115,7 @@ python_install: $(STATEDIR)/python.install
 
 $(STATEDIR)/python.install:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -162,7 +159,7 @@ $(STATEDIR)/python.targetinstall: $(STATEDIR)/python.compile
 	$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/ipkg/usr/bin/python2.3
 
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

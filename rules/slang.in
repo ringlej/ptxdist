@@ -2,5 +2,5 @@ menu    "slang            "
 
 config SLANG
         bool
-        prompt "Compile S-Lang"
+        prompt "S-Lang"
 endmenu

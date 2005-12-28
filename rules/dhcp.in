@@ -2,6 +2,6 @@ menu    "dhcp                "
 
 config DHCP
         bool
-        prompt "Compile DHCP"
+        prompt "DHCP"
 
 endmenu

@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id: template 2680 2005-05-27 10:29:43Z rsc $
 #
 # Copyright (C) 2005 by Bjoern Buerger <b.buerger@pengutronix.de>
@@ -11,19 +12,17 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_CHRONY
-PACKAGES += chrony
-endif
+PACKAGES-$(PTXCONF_CHRONY) += chrony
 
 #
 # Paths and names
 #
 CHRONY_VERSION	= 1.20
 CHRONY		= chrony-$(CHRONY_VERSION)
-CHRONY_SUFFIX		= tar.gz
-CHRONY_URL		= http://chrony.sunsite.dk/download//$(CHRONY).$(CHRONY_SUFFIX)
-CHRONY_SOURCE		= $(SRCDIR)/$(CHRONY).$(CHRONY_SUFFIX)
-CHRONY_DIR		= $(BUILDDIR)/$(CHRONY)
+CHRONY_SUFFIX	= tar.gz
+CHRONY_URL	= http://chrony.sunsite.dk/download//$(CHRONY).$(CHRONY_SUFFIX)
+CHRONY_SOURCE	= $(SRCDIR)/$(CHRONY).$(CHRONY_SUFFIX)
+CHRONY_DIR	= $(BUILDDIR)/$(CHRONY)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -36,7 +35,7 @@ chrony_get_deps = $(CHRONY_SOURCE)
 $(STATEDIR)/chrony.get: $(chrony_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CHRONY))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(CHRONY_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +54,7 @@ $(STATEDIR)/chrony.extract: $(chrony_extract_deps)
 	@$(call clean, $(CHRONY_DIR))
 	@$(call extract, $(CHRONY_SOURCE))
 	@$(call patchin, $(CHRONY))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -72,14 +71,11 @@ chrony_prepare_deps += $(STATEDIR)/readline.install
 
 CHRONY_PATH	=  PATH=$(CROSS_PATH)
 CHRONY_ENV 	=  $(CROSS_ENV)
-#CHRONY_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#CHRONY_ENV	+=
 
 #
 # autoconf
 #
-CHRONY_AUTOCONF =  $(CROSS_AUTOCONF)
-CHRONY_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+CHRONY_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 CHRONY_AUTOCONF += --disable-readline
 
 $(STATEDIR)/chrony.prepare: $(chrony_prepare_deps)
@@ -88,7 +84,7 @@ $(STATEDIR)/chrony.prepare: $(chrony_prepare_deps)
 	cd $(CHRONY_DIR) && \
 		$(CHRONY_PATH) $(CHRONY_ENV) \
 		sh configure $(CHRONY_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +97,7 @@ chrony_compile_deps = $(STATEDIR)/chrony.prepare
 $(STATEDIR)/chrony.compile: $(chrony_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(CHRONY_DIR) && $(CHRONY_ENV) $(CHRONY_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,8 +107,8 @@ chrony_install: $(STATEDIR)/chrony.install
 
 $(STATEDIR)/chrony.install: $(STATEDIR)/chrony.compile
 	@$(call targetinfo, $@)
-	cd $(CHRONY_DIR) && $(CHRONY_ENV) $(CHRONY_PATH) make install
-	$(call touch, $@)
+	@$(call install, CHRONY)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -140,7 +136,7 @@ $(STATEDIR)/chrony.targetinstall: $(chrony_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

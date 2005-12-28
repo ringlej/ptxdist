@@ -1,7 +1,7 @@
 README.PTX
 ==========
 
-This is a copy of the linux-2.6.10 scripts/kconfig directory. The only
+This is a copy of the linux-2.6.14 scripts/kconfig directory. The only
 modification is the Makefile, which comes from an old version of kconfig
 (standalone version 1.4, patched with kconfig-Makefile.diff) and the
 kconfig.diff patch. 

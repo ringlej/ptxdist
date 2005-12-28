@@ -47,38 +47,11 @@ menu "Sources         "
 config SETUP_SRCDIR
 	prompt "Source Directory"
 	string
-	default "$(TOPDIR)/local_src"
+	default "$(PTXDIST_WORKSPACE)/src"
 	help
 	  This directoy is taken if PTXdist searches for vanilla
 	  sources. If the source is not already there, PTXdist 
 	  downloads it to this location. 
-
-endmenu
-
-menu "Patches         "
-
-config SETUP_LOCAL_PATCH_REPOSITORY
-	prompt "1st patch source: URL Patch Repository"
-	string
-	default "file://$(TOPDIR)/local_patches"
-	help
-	  PTXdist searches for local patches in this location. 
-	  "patches" are bug fixing patches only; if you need patches
-	  which introduce special features to a packet, use the 
-	  "feature patches" options below. 
-
-	  The string entered here has to be URL style; for local 
-	  patch repositories it can also contain file://
-
-	  PTXdist uses this URL as the primary source for patches. 
-
-config SETUP_PATCH_REPOSITORY
-	prompt "2nd patch source: Online Patch Repository"
-	bool
-	default y
-	help
-	  If this option is active, PTXdist directly downloads patches
-	  from the PTXdist Patch Repository. 
 
 endmenu
 
@@ -87,7 +60,7 @@ menu "Feature Patches "
 config SETUP_LOCAL_FEATUREPATCH_REPOSITORY
 	prompt "Local Feature Patch Repository (URL)"
 	string
-	default "$(TOPDIR)/local_featurepatches"
+	default "$(PTXDIST_TOPDIR)/local_featurepatches"
 	help
 	  PTXdist searches for local feature patches in this directory. 
 	  "feature patches" are patches which add a certain feature to a
@@ -101,9 +74,9 @@ menu "Projects        "
 config SETUP_PROJECTDIR1
 	prompt "1st Project Directory"
 	string
-	default "$(TOPDIR)/projects"
+	default "$(PTXDIST_TOPDIR)/projects"
 	help
-	  PTXdist uses the term "projecst" for configurations which form
+	  PTXdist uses the term "projects" for configurations which form
 	  a configuration for a certain embedded board. A project
 	  consists of a .config file and maybe additional scripts, 
 	  file or whatever is needed to build a project. 
@@ -114,10 +87,10 @@ config SETUP_PROJECTDIR1
 config SETUP_PROJECTDIR2
 	prompt "2nd Project Directory"
 	string
-	default "$(TOPDIR)/local_projects"
+	default "$(PTXDIST_TOPDIR)/local_projects"
 	depends on SETUP_PROJECTDIR1 != ""
 	help
-	  PTXdist uses the term "projecst" for configurations which form
+	  PTXdist uses the term "projects" for configurations which form
 	  a configuration for a certain embedded board. A project
 	  consists of a .config file and maybe additional scripts, 
 	  file or whatever is needed to build a project. 
@@ -153,7 +126,7 @@ menu "IPKG Repository "
 
 config SETUP_IPKG_REPOSITORY
 	string
-	default "/var/www/ipkg/ptxdist-$(FULLVERSION)"
+	default "/var/www/ipkg-repository"
 	prompt "Path to IPKG Repository"
 	help
 	  PTXdist can be used to update an IPKG server which is

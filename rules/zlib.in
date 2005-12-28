@@ -1,4 +1,4 @@
 config ZLIB
 	bool
-	prompt "Compile zlib"
+	prompt "zlib"
 

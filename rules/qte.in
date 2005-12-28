@@ -1,9 +1,31 @@
-#
-# Copyright (C) 03/11/2003 by Marco Cavallini <m.cavallini@koansoftware.com>
-#
-
-config QTE
+menuconfig QTE
 	bool
-	prompt "Compile qt/e"
-	depends on EXPERIMENTAL
+	prompt "QT Embedded           "
+	select HOSTTOOL_QTE
 
+
+config QTE_SHARED
+	bool
+	prompt "Build shared QT/E library"
+	depends on QTE
+
+config QTE_TSLIB
+	bool
+	prompt "Build QT/E library with tslib support"
+	depends on QTE
+	select TSLIB
+
+config QTE_THREAD
+	bool
+	prompt "Build QT/E library with threading support"
+	depends on QTE
+
+config QTE_STL
+	bool
+	prompt "Build QT/E library with STL support"
+	depends on QTE
+
+config QTE_QVFB
+	bool
+	prompt "Build QT/E library with Q Virtual Framebuffer support"
+	depends on QTE

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LIBGLADE
-PACKAGES += libglade
-endif
+PACKAGES-$(PTXCONF_LIBGLADE) += libglade
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ libglade_get_deps = $(LIBGLADE_SOURCE)
 
 $(STATEDIR)/libglade.get: $(libglade_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(LIBGLADE_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/libglade.extract: $(libglade_extract_deps)
 	@$(call clean, $(LIBGLADE_DIR))
 	@$(call extract, $(LIBGLADE_SOURCE))
 	@$(call patchin, $(LIBGLADE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,8 +77,7 @@ LIBGLADE_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-LIBGLADE_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBGLADE_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBGLADE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/libglade.prepare: $(libglade_prepare_deps)
 	@$(call targetinfo, $@)
@@ -88,7 +85,7 @@ $(STATEDIR)/libglade.prepare: $(libglade_prepare_deps)
 	cd $(LIBGLADE_DIR) && \
 		$(LIBGLADE_PATH) $(LIBGLADE_ENV) \
 		./configure $(LIBGLADE_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -101,7 +98,7 @@ libglade_compile_deps = $(STATEDIR)/libglade.prepare
 $(STATEDIR)/libglade.compile: $(libglade_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(LIBGLADE_DIR) && $(LIBGLADE_PATH) make
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -112,8 +109,8 @@ libglade_install: $(STATEDIR)/libglade.install
 $(STATEDIR)/libglade.install: $(STATEDIR)/libglade.compile
 	@$(call targetinfo, $@)
 	# FIXME: this is not a hosttool -> targetinstall? 
-	cd $(LIBGLADE_DIR) && $(LIBGLADE_PATH) make install
-	$(call touch, $@)
+	@$(call install, LIBGLADE)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -125,7 +122,7 @@ libglade_targetinstall_deps = $(STATEDIR)/libglade.compile
 
 $(STATEDIR)/libglade.targetinstall: $(libglade_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -1,6 +1,6 @@
 config RAWREC
 	bool
-	prompt "Compile rawrec/rawplay"
+	prompt "rawrec/rawplay"
 	default n
         help
          rawrec and rawplay are GPL'd utilities designed to provide

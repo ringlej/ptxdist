@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_OPENAFS
-PACKAGES += openafs
-endif
+PACKAGES-$(PTXCONF_OPENAFS) += openafs
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ openafs_get_deps = $(OPENAFS_SOURCE)
 
 $(STATEDIR)/openafs.get: $(openafs_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(OPENAFS_SOURCE):
 	@$(call targetinfo, $@)
@@ -55,7 +53,7 @@ $(STATEDIR)/openafs.extract: $(openafs_extract_deps)
 	@$(call clean, $(OPENAFS_DIR))
 	@$(call extract, $(OPENAFS_SOURCE))
 	@$(call patchin, $(OPENAFS))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,8 +77,7 @@ OPENAFS_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-OPENAFS_AUTOCONF =  $(CROSS_AUTOCONF)
-OPENAFS_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+OPENAFS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 OPENAFS_AUTOCONF += -enable-tansac-paths
 OPENAFS_AUTOCONF += --with-afs-sysname=$(OPENAFS_SYS)
 OPENAFS_AUTOCONF += --with-linux-kernel-headers=$(KERNEL_DIR)
@@ -93,7 +90,7 @@ $(STATEDIR)/openafs.prepare: $(openafs_prepare_deps)
 	cd $(OPENAFS_DIR) && \
 		$(OPENAFS_PATH) $(OPENAFS_ENV) \
 		./configure $(OPENAFS_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -107,7 +104,7 @@ $(STATEDIR)/openafs.compile: $(openafs_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(OPENAFS_DIR) && $(OPENAFS_PATH) make
 	cd $(OPENAFS_DIR) && $(OPENAFS_PATH) make dest
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -117,7 +114,7 @@ openafs_install: $(STATEDIR)/openafs.install
 
 $(STATEDIR)/openafs.install: $(STATEDIR)/openafs.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -143,7 +140,7 @@ $(STATEDIR)/openafs.targetinstall: $(openafs_targetinstall_deps)
 
 	@$(call install_finish)
 
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

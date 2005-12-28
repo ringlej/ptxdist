@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_LTT
-XCHAIN += xchain-ltt
-endif
+XCHAIN-$(PTXCONF_LTT) += xchain-ltt
 
 XCHAIN_LTT_BUILDDIR	= $(BUILDDIR)/xchain-$(LTT)-build
 
@@ -29,7 +27,7 @@ xchain-ltt_get_deps = \
 
 $(STATEDIR)/xchain-ltt.get: $(xchain-ltt_get_geps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -41,7 +39,7 @@ xchain-ltt_extract_deps = $(STATEDIR)/ltt.extract
 
 $(STATEDIR)/xchain-ltt.extract: $(xchain-ltt_extract_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -60,15 +58,15 @@ XCHAIN_LTT_ENV		=  $(HOSTCC_ENV)
 #
 # autoconf
 #
-XCHAIN_LTT_AUTOCONF	=  --prefix=$(PTXCONF_PREFIX) #--with-gtk=no
+#XCHAIN_LTT_AUTOCONF	=  #--with-gtk=no
 
 $(STATEDIR)/xchain-ltt.prepare: $(xchain-ltt_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCHAIN_LTT_BUILDDIR))
 	mkdir -p $(XCHAIN_LTT_BUILDDIR)
 #
-# the Daemon/Scripts subdir is needed by 'make install'
-# the Visualizer/Scripts subdir is needed by 'make install'
+# the Daemon/Scripts subdir is needed by '$(MAKE_INSTALL)'
+# the Visualizer/Scripts subdir is needed by '$(MAKE_INSTALL)'
 # so link to from the original sources dir
 #
 	mkdir -p $(XCHAIN_LTT_BUILDDIR)/Daemon
@@ -79,7 +77,7 @@ $(STATEDIR)/xchain-ltt.prepare: $(xchain-ltt_prepare_deps)
 	cd $(XCHAIN_LTT_BUILDDIR) && \
 		$(XCHAIN_LTT_ENV) \
 		$(LTT_DIR)/configure $(XCHAIN_LTT_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -93,7 +91,7 @@ xchain-ltt_compile_deps = \
 $(STATEDIR)/xchain-ltt.compile: $(STATEDIR)/xchain-ltt.prepare 
 	@$(call targetinfo, $@)
 	make -C $(XCHAIN_LTT_BUILDDIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -105,7 +103,7 @@ $(STATEDIR)/xchain-ltt.install: $(STATEDIR)/xchain-ltt.compile
 	@$(call targetinfo, $@)
 	make -C $(XCHAIN_LTT_BUILDDIR)/LibLTT install
 	make -C $(XCHAIN_LTT_BUILDDIR)/Visualizer install
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -115,7 +113,7 @@ xchain-ltt_targetinstall: $(STATEDIR)/xchain-ltt.targetinstall
 
 $(STATEDIR)/xchain-ltt.targetinstall:
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

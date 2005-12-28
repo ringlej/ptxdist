@@ -2,6 +2,6 @@ menu "glib-2.2.2       "
 
 config GLIB22
 	bool
-	prompt "Compile glib-2.2.2"
+	prompt "glib"
 
 endmenu

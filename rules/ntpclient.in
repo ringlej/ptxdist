@@ -2,7 +2,7 @@ menu	"ntpclient           "
 
 config NTPCLIENT
 	bool
-	prompt "Compile ntpclient"
+	prompt "ntpclient"
 	default n
 	help
 		ntpclient is a small and efficient client to the NTP protocol.

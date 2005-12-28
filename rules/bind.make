@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BIND
-PACKAGES += bind
-endif
+PACKAGES-$(PTXCONF_BIND) += bind
 
 #
 # Paths and names
@@ -36,7 +34,7 @@ bind_get_deps = $(BIND_SOURCE)
 
 $(STATEDIR)/bind.get: $(bind_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(BIND_SOURCE):
 	@$(call targetinfo, $@)
@@ -54,7 +52,7 @@ $(STATEDIR)/bind.extract: $(bind_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BIND_DIR))
 	@$(call extract, $(BIND_SOURCE))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -76,20 +74,19 @@ BIND_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BIND_AUTOCONF =  $(CROSS_AUTOCONF)
-BIND_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+BIND_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 BIND_AUTOCONF += --with-randomdev=/dev/random
 
-ifdef BIND_THREADS
+ifdef PTXCONF_BIND_THREADS
 BIND_AUTOCONF += --enable-threads
 endif
 
-ifdef BIND_CRYPTO
+ifdef PTXCONF_BIND_CRYPTO
 BIND_AUTOCONF += --with-openssl=$(OPENSSL_DIR)
 bind_prepare_deps += $(STATEDIR)/openssl.install
 endif
 
-ifdef BIND_IPV6
+ifdef PTXCONF_BIND_IPV6
 BIND_AUTOCONF += --enable-ipv6
 else
 BIND_AUTOCONF += --disable-ipv6
@@ -101,7 +98,7 @@ $(STATEDIR)/bind.prepare: $(bind_prepare_deps)
 	cd $(BIND_DIR) && \
 		$(BIND_PATH) $(BIND_ENV) \
 		./configure $(BIND_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -114,7 +111,7 @@ bind_compile_deps = $(STATEDIR)/bind.prepare
 $(STATEDIR)/bind.compile: $(bind_compile_deps)
 	@$(call targetinfo, $@)
 	$(BIND_PATH) make -C $(BIND_DIR)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -125,8 +122,8 @@ bind_install: $(STATEDIR)/bind.install
 $(STATEDIR)/bind.install: $(STATEDIR)/bind.compile
 	@$(call targetinfo, $@)
 	# FIXME: RSC: is it right that we only install and do not targetinstall? 
-	cd $(BIND_DIR) && $(BIND_PATH) make install
-	$(call touch, $@)
+	@$(call install, BIND)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -138,7 +135,7 @@ bind_targetinstall_deps = $(STATEDIR)/bind.compile
 
 $(STATEDIR)/bind.targetinstall: $(bind_targetinstall_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

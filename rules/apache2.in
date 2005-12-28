@@ -1,0 +1,97 @@
+menuconfig APACHE2
+	bool "Apache 2 HTTP Server"
+	select EXPAT
+	select GLIBC_LIBRT
+
+config APACHE2_DEFAULTCONFIG
+	prompt "install default config file"
+	bool
+	depends on APACHE2
+	default Y
+	help
+	  This uses a generic configuration file for your apache. There is
+	  nothing special in it, so you should check it before using.
+
+config APACHE2_LISTEN
+	depends on APACHE2_DEFAULTCONFIG
+	string
+	default "0.0.0.0:80"
+	prompt "LISTEN"
+	help
+	  LISTEN entry in httpd.conf; this entry must contain a server
+	  name or IP and a port, for example "0.0.0.0:80" to listen
+	  on all interfaces.  
+
+config APACHE2_SERVERNAME
+	depends on APACHE2_DEFAULTCONFIG
+	string
+	default "localhost"
+	prompt "SERVERNAME"
+	help
+	  SERVERNAME entry in httpd.conf
+
+config APACHE2_SERVERADMIN
+	depends on APACHE2_DEFAULTCONFIG
+	string
+	default "foo\@bar"
+	prompt "SERVERADMIN"
+	help
+	  SERVERADMIN entry in httpd.conf
+
+config APACHE2_USER_CONFIG
+	depends on APACHE2 && !APACHE2_DEFAULTCONFIG
+	string
+	prompt "Your own apache configurations file"
+	default ""
+	help
+	  Enter path to your own configuration file that should be
+	  used by apache on your target.
+
+comment "Directories"
+	depends on APACHE2
+
+config APACHE2_SERVERROOT
+	depends on APACHE2
+	string
+	prompt "serverroot directory"
+	default "/usr/share/apache2"
+	help
+	  This directory defines apache's serverroot where the icons are 
+	  located.
+
+config APACHE2_DOCUMENTROOT
+	depends on APACHE2
+	string
+	default "/var/www"
+	prompt "documentroot directory"
+	help
+	  Apache's docroot is very empty if you don't add some
+	  files. Later you can connect to your target, but you
+	  will see nothing special (only an very small html page
+	  is provided). 
+
+config APACHE2_DEFAULT_INDEX
+	depends on APACHE2
+	bool
+	default Y
+	prompt "install default index.html"
+	help
+	  Install a demo HTML file, from project/generic/index.html. 
+
+config APACHE2_CONFIGDIR
+	depends on APACHE2
+	string
+	default "/etc/apache2"
+	prompt "config directory"
+	help
+	  Apache's configuration directory (httpd.conf, mime.types etc. are
+	  searched here).  
+
+config APACHE2_LOGDIR
+	depends on APACHE2
+	string
+	default "/var/log/apache2"
+	prompt "logfile directory"
+	help
+	  Apache's logfile directory. 
+

@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_NMAP
-PACKAGES += nmap
-endif
+PACKAGES-$(PTXCONF_NMAP) += nmap
 
 #
 # We depend on this package
@@ -26,7 +24,7 @@ endif
 #
 # Paths and names 
 #
-NMAP_VERSION		= 3.48
+NMAP_VERSION		= 3.93
 NMAP			= nmap-$(NMAP_VERSION)
 NMAP_SUFFIX		= tgz
 NMAP_URL		= http://download.insecure.org/nmap/dist/$(NMAP).$(NMAP_SUFFIX)
@@ -43,7 +41,7 @@ nmap_get_deps  =  $(NMAP_SOURCE)
 
 $(STATEDIR)/nmap.get: $(nmap_get_deps)
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 $(NMAP_SOURCE):
 	@$(call targetinfo, $@)
@@ -60,7 +58,7 @@ $(STATEDIR)/nmap.extract: $(STATEDIR)/nmap.get
 	@$(call clean, $(NMAP_DIR))
 	@$(call extract, $(NMAP_SOURCE))
 	@$(call patchin, $(NMAP))
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -84,8 +82,7 @@ NMAP_ENV = \
 #
 # autoconf
 #
-NMAP_AUTOCONF =  $(CROSS_AUTOCONF)
-NMAP_AUTOCONF += --prefix=/usr
+NMAP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 NMAP_AUTOCONF += --with-pcap=linux 
 #
 # FIXME:
@@ -104,7 +101,7 @@ $(STATEDIR)/nmap.prepare: $(nmap_prepare_deps)
 	cd $(NMAP_DIR) && \
 		$(NMAP_PATH) $(NMAP_ENV) \
 		./configure $(NMAP_AUTOCONF)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -121,7 +118,7 @@ $(STATEDIR)/nmap.compile: $(nmap_compile_deps)
 #
 	$(NMAP_PATH) make -C $(NMAP_DIR)/libpcre $(HOSTCC_ENV) CFLAGS='' CXXFLAGS='' dftables
 	$(NMAP_PATH) make -C $(NMAP_DIR) nmap
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -131,7 +128,7 @@ nmap_install: $(STATEDIR)/nmap.install
 
 $(STATEDIR)/nmap.install: $(STATEDIR)/nmap.compile
 	@$(call targetinfo, $@)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -166,7 +163,7 @@ ifdef PTXCONF_NMAP_SERVICES
 	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-rpc, /usr/share/nmap/nmap-rpc, n)
 endif
 	@$(call install_finish)
-	$(call touch, $@)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean

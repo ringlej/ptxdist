@@ -2,6 +2,6 @@ menu    "GNU Zebra           "
 
 config ZEBRA
         bool
-        prompt "Compile GNU Zebra"
+        prompt "GNU Zebra"
 
 endmenu
