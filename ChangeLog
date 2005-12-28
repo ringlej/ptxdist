@@ -1,3 +1,10 @@
+2005-12-28 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* trunk: migrated destdir branch to new 0.9 trunk
+	  The tree is now using destdir/sysroot as it's standard
+	  mechanism. It doesn't work in all places, but it's the
+	  way to go for the future. 
+
 2005-12-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* Rules: remove some bogus mkdir $(IMAGEDIR)s; 
