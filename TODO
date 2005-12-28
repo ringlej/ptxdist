@@ -42,6 +42,7 @@ Test suite components to be added
 Current TODO List
 =================
 
+- RSC:	Move projects/generic/etc to config/etc
 - JBE: For menu entries that enables additional entries when they are
 	selected: Reorganize them to use a submenu instead the current
 	menu. It looks nicer in "menuconfig" and its much better
