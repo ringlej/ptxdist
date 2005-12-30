@@ -74,7 +74,6 @@ libpv_prepare_deps = \
 
 LIBPV_PATH	=  PATH=$(CROSS_PATH)
 LIBPV_ENV 	=  $(CROSS_ENV)
-LIBPV_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
