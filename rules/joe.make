@@ -131,12 +131,15 @@ $(STATEDIR)/joe.targetinstall: $(joe_targetinstall_deps)
 
 	@$(call install_copy, 0, 0, 0755, $(JOE_DIR)/joe, /bin/joe)
 	@$(call install_copy, 0, 0, 0755, $(JOE_DIR)/termidx, /bin/termidx)
-	@$(call install_copy, 0, 0, 0644, /etc/joe) 
+	@$(call install_copy, 0, 0, 0755, /etc/joe) 
 	@$(call install_copy, 0, 0, 0644, $(JOE_DIR)/joerc, /etc/joe/joerc,n)
-	@$(call install_copy, 0, 0, 0644, /etc/joe/syntax)
+	@$(call install_copy, 0, 0, 0755, /etc/joe/syntax)
 
-	# FIXME: this has to be done by the install_* macros. But how?  
-	cp -r $(JOE_DIR)/syntax/*.jsf  $(ROOTDIR)/etc/joe/syntax/
+	@for file in $(JOE_DIR)/syntax/*.jsf; do \
+		destination=`basename $$file`; \
+		echo "dst=$$destination"; \
+		$(call install_copy, 0, 0, 0644, $$file, /etc/joe/syntax/$$destination, n); \
+	done
 
 	@$(call install_finish)
 	@$(call touch, $@)
