@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	= 1.2.11
+IPTABLES_VERSION	= 1.3.4
 IPTABLES		= iptables-$(IPTABLES_VERSION)
 IPTABLES_SUFFIX		= tar.bz2
-IPTABLES_URL		= http://www.netfilter.org/files/$(IPTABLES).$(IPTABLES_SUFFIX)
+IPTABLES_URL		= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
 IPTABLES_SOURCE		= $(SRCDIR)/$(IPTABLES).$(IPTABLES_SUFFIX)
 IPTABLES_DIR		= $(BUILDDIR)/$(IPTABLES)
 
@@ -72,8 +72,6 @@ iptables_prepare_deps = \
 
 IPTABLES_PATH	=  PATH=$(CROSS_PATH)
 IPTABLES_ENV 	=  $(CROSS_ENV)
-#IPTABLES_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#IPTABLES_ENV	+=
 
 
 $(STATEDIR)/iptables.prepare: $(iptables_prepare_deps)
