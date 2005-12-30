@@ -67,11 +67,12 @@ betaftpd_prepare: $(STATEDIR)/betaftpd.prepare
 #
 betaftpd_prepare_deps =  \
 	$(STATEDIR)/betaftpd.extract \
-	$(STATEDIR)/rn.install	\
+	$(STATEDIR)/librn.install \
 	$(STATEDIR)/virtual-xchain.install
 
 BETAFTPD_PATH	=  PATH=$(CROSS_PATH)
 BETAFTPD_ENV 	=  $(CROSS_ENV)
+BETAFTPD_ENV	+= CFLAGS='$(CROSS_CPPFLAGS) $(CROSS_CFLAGS)'
 
 #
 # autoconf
@@ -96,7 +97,8 @@ betaftpd_compile_deps = $(STATEDIR)/betaftpd.prepare
 
 $(STATEDIR)/betaftpd.compile: $(betaftpd_compile_deps)
 	@$(call targetinfo, $@)
-	$(BETAFTPD_PATH) make -C $(BETAFTPD_DIR)
+	cd $(BETAFTPD_DIR) && \
+		$(BETAFTPD_ENV) $(BETAFTPD_PATH) make $(BETAFTPD_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
