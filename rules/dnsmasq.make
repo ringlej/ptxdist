@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_DNSMASQ) += dnsmasq
 #
 # Paths and names
 #
-DNSMASQ_VERSION		= 2.13
+DNSMASQ_VERSION		= 2.24
 DNSMASQ			= dnsmasq-$(DNSMASQ_VERSION)
 DNSMASQ_SUFFIX		= tar.gz
 DNSMASQ_URL		= http://www.thekelleys.org.uk/dnsmasq/$(DNSMASQ).$(DNSMASQ_SUFFIX)
@@ -71,7 +71,6 @@ dnsmasq_prepare_deps = \
 
 DNSMASQ_PATH	=  PATH=$(CROSS_PATH)
 DNSMASQ_ENV 	=  $(CROSS_ENV)
-#DNSMASQ_ENV	+=
 
 $(STATEDIR)/dnsmasq.prepare: $(dnsmasq_prepare_deps)
 	@$(call targetinfo, $@)
@@ -87,7 +86,7 @@ dnsmasq_compile_deps = $(STATEDIR)/dnsmasq.prepare
 
 $(STATEDIR)/dnsmasq.compile: $(dnsmasq_compile_deps)
 	@$(call targetinfo, $@)
-	$(DNSMASQ_PATH) $(DNSMASQ_ENV) make -C $(DNSMASQ_DIR)
+	cd $(DNSMASQ_DIR) && $(DNSMASQ_PATH) $(DNSMASQ_ENV) make $(DNSMASQ_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
