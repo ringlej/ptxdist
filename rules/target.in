@@ -321,6 +321,13 @@ config PREFIX
 	  A sane default for this is $(PTXDIST_WORKSPACE)/local. Use this one 
 	  unless you do exactly know what you are doing. 
 
+	  PTXdist uses a sysroot/destdir mechanism, which means that packets
+	  are being installed with 
+	  
+	  	make install DESTDIR=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+
+	  All host tools are directly being installed to $(PTXCONF_PREFIX). 
+
 config HOST_PREFIX
 	prompt "Prefix for host tools development environment"
 	string
