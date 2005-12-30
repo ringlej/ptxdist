@@ -1,5 +1,6 @@
 menuconfig KAFFE
 	bool "Kaffe"
+	depends on BROKEN
 
 comment	"Target Options"
 	depends on KAFFE
@@ -223,3 +224,5 @@ comment	"Linking options"
 			KAFFE_FEAT_CLDC_GMP && !(KAFFE_LINK_GMP || KAFFE_LINK_BIN)
 		depends on KAFFE
 
+comment "kaffe is broken, please send a patch"
+	depends on !BROKEN
