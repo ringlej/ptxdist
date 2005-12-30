@@ -1,4 +1,9 @@
 config CLOCK
 	bool
+	default N
+	depends on BROKEN
 	prompt "clock"
+
+comment "clock is broken, please send a patch"
+	depends on !BROKEN
 
