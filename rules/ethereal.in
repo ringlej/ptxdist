@@ -2,6 +2,7 @@ menu    "ethereal            "
 
 config ETHEREAL
         bool
+	depends on BROKEN
         prompt "ethereal"
 	select LIBPCAP
 
@@ -16,3 +17,6 @@ config ETHEREAL_TETHEREAL
 	depends on ETHEREAL
 
 endmenu
+
+comment "ethereal is broken, please send a patch"
+	depends on !BROKEN

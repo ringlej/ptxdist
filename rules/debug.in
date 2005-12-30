@@ -17,6 +17,10 @@ config LIBBFD
 	bool
 	prompt "libbfd (needed for profiling)"
 	default n
+	depends on BROKEN
+
+comment "libbfd is broken, please send a patch"
+        depends on !BROKEN
 
 config MEMTEST
 	bool 

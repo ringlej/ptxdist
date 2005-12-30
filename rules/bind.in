@@ -5,6 +5,7 @@ menu "Bind                "
 config BIND
 	bool
 	prompt "bind 9"
+	depends on BROKEN
 
 config BIND_THREADS
 	bool
@@ -22,3 +23,7 @@ config BIND_IPV6
 	depends BIND
 
 endmenu
+
+comment "bind 9 is broken, please send a patch"
+        depends on !BROKEN
+

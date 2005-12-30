@@ -1,3 +1,8 @@
 config JED
         bool
         prompt "jed"
+	depends on BROKEN
+	# tries to execute stuff which is cross compiled
+
+comment "jed is broken, please send a patch"
+	depends on !BROKEN

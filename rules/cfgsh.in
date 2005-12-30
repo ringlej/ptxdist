@@ -2,6 +2,7 @@ menu "Config Shell        "
 
 config CFGSH
 	bool
+	depends on BROKEN
 	prompt "cfgsh"
 	default n
 	help
@@ -21,3 +22,6 @@ config CFGSH
 	  functionality in a manner more consistent with the embedded 
 	  system world.
 endmenu
+
+comment "cfgsh is broken, please send a patch"
+	depends on !BROKEN
