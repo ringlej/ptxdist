@@ -1,7 +1,12 @@
 menu	"betaftpd            "
+depends on BROKEN
 
 config BETAFTPD
       bool
       prompt "betaftpd"
 
 endmenu
+
+comment "betaftpd is broken, please send a patch"
+        depends on !BROKEN
+
