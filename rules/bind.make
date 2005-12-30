@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BIND) += bind
 #
 # Paths and names
 #
-BIND_VERSION	= 9.3.0rc3
+BIND_VERSION	= 9.3.2
 BIND		= bind-$(BIND_VERSION)
 BIND_SUFFIX	= tar.gz
 BIND_URL	= ftp://ftp.isc.org/isc/bind9/$(BIND_VERSION)/$(BIND).$(BIND_SUFFIX)
