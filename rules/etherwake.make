@@ -124,7 +124,7 @@ $(STATEDIR)/etherwake.targetinstall: $(etherwake_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0755, $(ETHERWAKE_DIR)/etherwake, /usr/sbin)
+	@$(call install_copy, 0, 0, 0755, $(ETHERWAKE_DIR)/etherwake, /usr/sbin/etherwake)
 
 	@$(call install_finish)
 
