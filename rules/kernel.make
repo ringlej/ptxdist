@@ -476,8 +476,11 @@ ifndef PTXCONF_DONT_COMPILE_KERNEL
 		exit 1;							\
 	fi
 ifdef PTXCONF_KLIBC
-# tell the kernel where our spec file for initramfs is
-	sed -ie 's^CONFIG_INITRAMFS_SOURCE.*^CONFIG_INITRAMFS_SOURCE=\"$(KLIBC_DIR)/initramfs_spec\"^' $(KERNEL_DIR)/.config
+	# tell the kernel where our spec file for initramfs is
+	#
+	# FIXME: this doesn't really work, because other options
+	#        do depend on this
+	sed -ie 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(KLIBC_DIR)/initramfs_spec\",g' $(KERNEL_DIR)/.config
 endif
 	@echo 
 	@echo "------------- make oldconfig -------------"
