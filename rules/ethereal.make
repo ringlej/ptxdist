@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_ETHEREAL) += ethereal
 ETHEREAL_VERSION	= 0.10.6
 ETHEREAL		= ethereal-$(ETHEREAL_VERSION)
 ETHEREAL_SUFFIX		= tar.bz2
-ETHEREAL_URL		= http://netmirror.org/mirror/ftp.ethereal.com/$(ETHEREAL).$(ETHEREAL_SUFFIX)
+ETHEREAL_URL		= http://netmirror.org/mirror/ftp.ethereal.com/all-versions/$(ETHEREAL).$(ETHEREAL_SUFFIX)
 ETHEREAL_SOURCE		= $(SRCDIR)/$(ETHEREAL).$(ETHEREAL_SUFFIX)
 ETHEREAL_DIR		= $(BUILDDIR)/$(ETHEREAL)
 
