@@ -1,4 +1,8 @@
 config BLACKBOX
         bool
         prompt "Blackbox Window-Manager"
+	depends on BROKEN
+	# dependencies on X have to be added
 
+comment "blackbox is broken, please send a patch"
+	depends on !BROKEN
