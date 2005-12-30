@@ -1,9 +1,6 @@
-menu	"canutils            "
-
-config CANUTILS
-	bool
+menuconfig CANUTILS
+	bool "canutils            "
 	default N
-	prompt "canutils"
 
 config CANUTILS_CANCONFIG
 	bool
@@ -29,4 +26,3 @@ config CANUTILS_CANSEND
 	default N
 	prompt "cansend"
 
-endmenu
