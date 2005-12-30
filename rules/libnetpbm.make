@@ -75,8 +75,8 @@ LIBNETPBM_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-LIBNETPBM_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBNETPBM_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBNETPBM_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+#LIBNETPBM_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/libnetpbm.prepare: $(libnetpbm_prepare_deps)
 	@$(call targetinfo, $@)
