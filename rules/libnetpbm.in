@@ -1,3 +1,8 @@
 menuconfig LIBNETPBM
 	bool
+	default N
+	depends on BROKEN
 	prompt "libnetpbm                   "
+
+comment "libnetpbm is broken, please send a patch"
+	depends on !BROKEN
