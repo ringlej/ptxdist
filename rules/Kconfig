@@ -37,7 +37,6 @@ source "rules/kernel.in"
 source "rules/klibc.in"
 source "rules/libc.in"
 source "rules/gcclibs.in"
-source "rules/earlyuserspace.in"
 endmenu
 
 comment "----------------------------------"
