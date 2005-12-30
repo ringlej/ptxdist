@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBNET) += libnet
 #
 # Paths and names
 #
-LIBNET_VERSION	= 1.1.0
+LIBNET_VERSION	= 1.1.3-RC-01
 LIBNET		= libnet-$(LIBNET_VERSION)
 LIBNET_SUFFIX	= tar.gz
-LIBNET_URL	= http://www.packetfactory.net/libnet/dist/old/$(LIBNET).$(LIBNET_SUFFIX)
+LIBNET_URL	= http://www.packetfactory.net/libnet/dist/$(LIBNET).$(LIBNET_SUFFIX)
 LIBNET_SOURCE	= $(SRCDIR)/$(LIBNET).$(LIBNET_SUFFIX)
-LIBNET_DIR	= $(BUILDDIR)/Libnet-latest
+LIBNET_DIR	= $(BUILDDIR)/$(LIBNET)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -34,7 +34,6 @@ libnet_get_deps	=  $(LIBNET_SOURCE)
 
 $(STATEDIR)/libnet.get: $(libnet_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(LIBNET))
 	@$(call touch, $@)
 
 $(LIBNET_SOURCE):
@@ -48,20 +47,14 @@ $(LIBNET_SOURCE):
 libnet_extract: $(STATEDIR)/libnet.extract
 
 libnet_extract_deps = \
-	$(STATEDIR)/automake15.install \
-	$(STATEDIR)/autoconf257.install \
 	$(STATEDIR)/libnet.get
 
 $(STATEDIR)/libnet.extract: $(libnet_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBNET_DIR))
 	@$(call extract, $(LIBNET_SOURCE))
+	mv $(BUILDDIR)/libnet $(LIBNET_DIR)
 	@$(call patchin, $(LIBNET), $(LIBNET_DIR))
-	# FIXME: run this with well defined version!
-	cd $(LIBNET_DIR) && \
-		$(PTXCONF_PREFIX)/$(AUTOMAKE15)/bin/aclocal && \
-		$(PTXCONF_PREFIX)/$(AUTOMAKE15)/bin/automake && \
-		$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin/autoconf
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -78,9 +71,8 @@ libnet_prepare_deps =  \
 	$(STATEDIR)/virtual-xchain.install
 
 LIBNET_PATH	=  PATH=$(CROSS_PATH)
-LIBNET_ENV = \
-	$(CROSS_ENV) \
-	ac_libnet_have_packet_socket=yes
+LIBNET_ENV 	=  $(CROSS_ENV)
+LIBNET_ENV	+= ac_libnet_have_packet_socket=yes
 
 #
 # autoconf
