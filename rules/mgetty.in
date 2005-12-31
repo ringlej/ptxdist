@@ -4,7 +4,7 @@ menuconfig MGETTY
 config MGETTY_CONFIG
         prompt "Name of policy.h file to be used"
 	string
-	default "build/mgetty-1.1.30/policy.h-dist"
+	default "build-target/mgetty-1.1.30/policy.h-dist"
 	depends on MGETTY
 
 config MGETTY_INSTALL_CONFIG
