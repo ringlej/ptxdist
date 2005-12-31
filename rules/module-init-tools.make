@@ -70,9 +70,7 @@ module-init-tools_prepare_deps = $(STATEDIR)/module-init-tools.extract
 MODULE_INIT_TOOLS_PATH		= PATH=$(CROSS_PATH) 
 MODULE_INIT_TOOLS_ENV		= $(CROSS_ENV)
 MODULE_INIT_TOOLS_MAKEVARS	= MAN5=''
-MODULE_INIT_TOOLS_AUTOCONF	= \
-	--target=$(PTXCONF_GNU_TARGET) \
-	$(CROSS_AUTOCONF_USR)
+MODULE_INIT_TOOLS_AUTOCONF	= $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/module-init-tools.prepare: $(module-init-tools_prepare_deps)
 	@$(call targetinfo, $@)
@@ -91,7 +89,8 @@ module-init-tools_compile_deps = $(STATEDIR)/module-init-tools.prepare
 
 $(STATEDIR)/module-init-tools.compile: $(module-init-tools_compile_deps)
 	@$(call targetinfo, $@)
-	$(MODULE_INIT_TOOLS_PATH) make -C $(MODULE_INIT_TOOLS_DIR) $(MODULE_INIT_TOOLS_MAKEVARS)
+	cd $(MODULE_INIT_TOOLS_DIR) && \
+		$(MODULE_INIT_TOOLS_PATH) make $(MODULE_INIT_TOOLS_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
