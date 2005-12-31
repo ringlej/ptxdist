@@ -2,6 +2,7 @@ menu	"ntpclient           "
 
 config NTPCLIENT
 	bool
+	depends on BROKEN
 	prompt "ntpclient"
 	default n
 	help
@@ -19,5 +20,9 @@ config NTPCLIENT
 		GNU General Public License, version 2. 
 
 		See http://doolittle.faludi.com/ntpclient/ for details.
+
+# last time I tried the server with the source was unreachable
+comment "ntpclient is broken, please send a patch"
+	depends on !BROKEN
 
 endmenu

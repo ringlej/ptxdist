@@ -1,4 +1,8 @@
 config NANO
 	bool
+	depends on BROKEN
 	prompt "nano"
 	default n
+
+comment "nano is broken, please send a patch"
+	depends on !BROKEN

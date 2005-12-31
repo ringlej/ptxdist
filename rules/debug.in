@@ -10,8 +10,12 @@ config KSYMOOPS
 
 config LTT
 	bool
+	depends on BROKEN
 	prompt "ltt: Linux Trace Toolkit"
 	default n
+
+comment "LTT is broken, please send a patch"
+	depends on !BROKEN
 
 config LIBBFD
 	bool

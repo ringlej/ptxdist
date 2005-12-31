@@ -1,4 +1,8 @@
 config MPLAYER
         bool
+	depends on BROKEN
         prompt "Compile mplayer"
+
+comment "mplayer is broken, please send a patch"
+	depends on !BROKEN
 
