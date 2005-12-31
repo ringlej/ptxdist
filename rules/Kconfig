@@ -11,10 +11,12 @@ source "rules/target.in"
 endmenu
 
 menu "Cross Compilation Tools     "
+depends on BUILD_TOOLCHAIN
 source "rules/crosstool.in"
 endmenu
 
 menu "Host Side Tools             "
+depends on BUILD_USERLAND
 source "rules/hosttools.in"
 endmenu
 
@@ -25,14 +27,17 @@ endmenu
 comment "----------------------------------"
 
 menu "Image Creation Options      "
+depends on BUILD_USERLAND
 source "rules/images.in"
 endmenu
 
 menu "Root Filesystem             "
+depends on BUILD_USERLAND
 source "rules/rootfs.in"
 endmenu
 
 menu "Core (Kernel, C-Library)    "
+depends on BUILD_USERLAND
 source "rules/kernel.in"
 source "rules/klibc.in"
 source "rules/libc.in"
@@ -42,6 +47,7 @@ endmenu
 comment "----------------------------------"
 
 menu "Shell & Console Tools       "
+depends on BUILD_USERLAND
 source "rules/bash.in"
 source "rules/busybox.in"
 source "rules/cfgsh.in"
@@ -65,14 +71,17 @@ source "rules/xmlstarlet.in"
 endmenu
 
 menu "Scripting Languages         "
+depends on BUILD_USERLAND
 source "rules/scriptlanguages.in"
 endmenu
 
 menu "Networking Tools            "
+depends on BUILD_USERLAND
 source "rules/networking.in"
 endmenu
 
 menu "Disk and File Utilities     "
+depends on BUILD_USERLAND
 source "rules/dosfstools.in"
 source "rules/e2fsprogs.in"
 source "rules/grub.in"
@@ -84,6 +93,7 @@ source "rules/bonniexx.in"
 endmenu
 
 menu "Communication Utilities     "
+depends on BUILD_USERLAND
 source "rules/bluez.in"
 source "rules/canutils.in"
 source "rules/efax.in"
@@ -95,6 +105,7 @@ source "rules/ssmtp.in"
 endmenu
 
 menu "Applications                "
+depends on BUILD_USERLAND
 source "rules/flash.in"
 source "rules/gnupg.in"
 source "rules/kaffe.in"
@@ -105,14 +116,17 @@ source "rules/mplayer.in"
 endmenu
 
 menu "Tools                       "
+depends on BUILD_USERLAND
 source "rules/tools.in"
 endmenu
 
 menu "Editors                     "
+depends on BUILD_USERLAND
 source "rules/editors.in"
 endmenu
 
 menu "System Libraries            "
+depends on BUILD_USERLAND
 source "rules/db41.in"
 source "rules/expat.in"
 source "rules/gettext.in"
@@ -135,11 +149,13 @@ source "rules/zlib.in"
 endmenu
 
 menu "Middleware                  "
+depends on BUILD_USERLAND
 source "rules/dotgnu.in"
 source "rules/omniorb.in"
 endmenu
 
 menu "Graphics Libraries          "
+depends on BUILD_USERLAND
 comment "X Infrastructure"
 source "rules/realvnc.in"
 source "rules/xfree430.in"
@@ -162,18 +178,21 @@ source "rules/tslib.in"
 endmenu
 
 menu "Scientific Apps             "
+depends on BUILD_USERLAND
 source "rules/gnuplot.in"
 source "rules/libmodbus.in"
 source "rules/libpv.in"
 endmenu
 
 menu "Web Applications            "
+depends on BUILD_USERLAND
 source "rules/mfirebird.in"
 source "rules/penguzilla.in"
 source "rules/jvisu.in"
 endmenu
 
 menu "Test Suites                 "
+depends on BUILD_USERLAND
 source "rules/tests.in"
 endmenu
 
