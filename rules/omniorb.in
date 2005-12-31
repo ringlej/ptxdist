@@ -1,11 +1,15 @@
 config OMNIORB
 	bool
+	depends on BROKEN
 	prompt "omniORB"
 	help
 	  omniORB is a CORBA implementation, written in C++. For details see
 	  the homepage of the project: 
 
 	    http://omniorb.sourceforge.net/
+
+comment "omniorb is broken, please send a patch"
+	depends on !BROKEN
 
 config OMNIORB_SSL
 	bool
