@@ -6,7 +6,11 @@ menu    "OpenAFS             "
 
 config OPENAFS
 	bool
+	depends on BROKEN
 	prompt "OpenAFS"
+
+comment "openafs is broken, please send a patch"
+	depends on !BROKEN
 
 choice
 	prompt "OpenAFS Version"
