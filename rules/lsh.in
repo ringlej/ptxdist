@@ -9,11 +9,6 @@ config LSH_EXECUV
 	prompt "Install lsh-execuf"
 	depends on LSH
 
-config LSH_PROXY
-	bool
-	prompt "Install lsh_proxy"
-	depends on LSH
-
 config LSH_LSHD
 	bool
 	prompt "Install lshd"
