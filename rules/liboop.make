@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBOOP) += liboop
 #
 # Paths and names
 #
-LIBOOP_VERSION	= 0.9
+LIBOOP_VERSION	= 1.0
 LIBOOP		= liboop-$(LIBOOP_VERSION)
 LIBOOP_SUFFIX	= tar.bz2
 LIBOOP_URL	= http://download.ofb.net/liboop/$(LIBOOP).$(LIBOOP_SUFFIX)
@@ -80,7 +80,7 @@ LIBOOP_ENV = \
 # autoconf
 #
 LIBOOP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-LIBOOP_AUTOCONF	= \
+LIBOOP_AUTOCONF	+= \
 	--without-tcl \
 	--without-glib
 
@@ -136,8 +136,12 @@ $(STATEDIR)/liboop.targetinstall: $(liboop_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	# FIXME: wildcard copy
-	@$(call install_copy, 0, 0, 0644, $(PTXCONF_PREFIX)/lib/liboop.so*, /usr/lib/)
+	@$(call install_copy, 0, 0, 0644, \
+		$(LIBOOP_DIR)/.libs/liboop.so.4.0.1, \
+		/usr/lib/liboop.so.4.0.1)
+
+	@$(call install_link, liboop.so.4.0.1, /usr/lib/liboop.so.4)
+	@$(call install_link, liboop.so.4.0.1, /usr/lib/liboop.so)
 
 	@$(call install_finish)
 
