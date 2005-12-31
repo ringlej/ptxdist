@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LSH) += lsh
 #
 # Paths and names
 #
-LSH_VERSION	= 1.5.3
+LSH_VERSION	= 2.0.1
 LSH		= lsh-$(LSH_VERSION)
 LSH_SUFFIX	= tar.gz
 LSH_URL		= http://www.lysator.liu.se/~nisse/archive/$(LSH).$(LSH_SUFFIX)
@@ -39,7 +39,6 @@ $(STATEDIR)/lsh.get: $(lsh_get_deps)
 	@$(call touch, $@)
 
 $(STATEDIR)/lsh-patches.get:
-	@$(call get_patches, $(LSH))
 	@$(call touch, $@)
 
 $(LSH_SOURCE):
@@ -71,11 +70,10 @@ lsh_prepare: $(STATEDIR)/lsh.prepare
 # dependencies
 #
 lsh_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/zlib.install \
-	$(STATEDIR)/gmp3.install \
-	$(STATEDIR)/liboop.install \
 	$(STATEDIR)/lsh.extract \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/gmp4.install \
+	$(STATEDIR)/liboop.install
 
 LSH_PATH	=  PATH=$(CROSS_PATH)
 LSH_ENV 	=  $(CROSS_ENV)
@@ -84,7 +82,7 @@ LSH_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 LSH_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-LSH_AUTOCONF = \
+LSH_AUTOCONF += \
 	--sysconfdir=/etc/lsh \
 	--disable-kerberos \
 	--disable-pam \
@@ -135,7 +133,7 @@ lsh_targetinstall: $(STATEDIR)/lsh.targetinstall
 
 lsh_targetinstall_deps = \
 	$(STATEDIR)/lsh.compile \
-	$(STATEDIR)/gmp3.targetinstall \
+	$(STATEDIR)/gmp4.targetinstall \
 	$(STATEDIR)/liboop.targetinstall \
 	$(STATEDIR)/zlib.targetinstall
 
@@ -151,18 +149,14 @@ $(STATEDIR)/lsh.targetinstall: $(lsh_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	# FIXME: use build paths
 ifdef PTXCONF_LSH_EXECUV
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/sbin/lsh-execuv, /sbin/lsh-execuv)
-endif
-ifdef PTXCONF_LSH_PROXY
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/sbin/lsh_proxy, /sbin/lsh_proxy)
+	@$(call install_copy, 0, 0, 0755, $(LSH_DIR)/src/lsh-execuv, /sbin/lsh-execuv)
 endif
 ifdef PTXCONF_LSH_LSHD
 	@$(call install_copy, 0, 0, 0755, $(LSH_DIR)/src/lshd, /sbin/lshd)
 endif
 ifdef PTXCONF_LSH_SFTPD
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/sbin/sftp-server, /sbin/sftp-server)
+	@$(call install_copy, 0, 0, 0755, $(LSH_DIR)/src/sftp/sftp-server, /sbin/sftp-server)
 endif
 ifdef PTXCONF_LSH_MAKESEED
 	@$(call install_copy, 0, 0, 0755, $(LSH_DIR)/src/lsh-make-seed, /bin/lsh-make-seed)
