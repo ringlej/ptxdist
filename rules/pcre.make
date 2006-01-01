@@ -78,9 +78,7 @@ PCRE_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-PCRE_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
+PCRE_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/pcre.prepare: $(pcre_prepare_deps)
 	@$(call targetinfo, $@)
