@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_PHP) += php
 PHP_VERSION	= 4.3.11
 PHP		= php-$(PHP_VERSION)
 PHP_SUFFIX	= tar.bz2
-PHP_URL		= http://cz.php.net/get/$(PHP).$(PHP_SUFFIX)/from/this/mirror
+PHP_URL		= http://de.php.net/get/$(PHP).$(PHP_SUFFIX)/from/this/mirror
 PHP_SOURCE	= $(SRCDIR)/$(PHP).$(PHP_SUFFIX)
 PHP_DIR		= $(BUILDDIR)/$(PHP)
 
@@ -34,7 +34,6 @@ php_get_deps = $(PHP_SOURCE)
 
 $(STATEDIR)/php.get: $(php_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PHP))
 	@$(call touch, $@)
 
 $(PHP_SOURCE):
@@ -132,8 +131,12 @@ php_install: $(STATEDIR)/php.install
 $(STATEDIR)/php.install: $(STATEDIR)/php.compile
 	@$(call targetinfo, $@)
 	# FIXME
-	cd $(PHP_DIR) && $(PHP_ENV) $(PHP_PATH) $(MAKE_INSTALL)-build install-headers install-programs
+	cd $(PHP_DIR) && \
+		$(PHP_ENV) $(PHP_PATH) \
+		make install-build install-headers install-programs \
+		INSTALL_ROOT=$(SYSROOT)
 	install -m 755 -D $(PHP_DIR)/scripts/php-config $(PTXCONF_PREFIX)/bin/php-config
+	install -m 755 -D $(PHP_DIR)/scripts/phpize $(PTXCONF_PREFIX)/bin/phpize
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -142,8 +145,10 @@ $(STATEDIR)/php.install: $(STATEDIR)/php.compile
 
 php_targetinstall: $(STATEDIR)/php.targetinstall
 
-php_targetinstall_deps = $(STATEDIR)/php.compile \
-	$(STATEDIR)/apache.targetinstall
+php_targetinstall_deps = $(STATEDIR)/php.compile
+ifdef PTXCONF_APACHE
+php_targetinstall_deps += $(STATEDIR)/apache.targetinstall
+endif
 
 $(STATEDIR)/php.targetinstall: $(php_targetinstall_deps)
 	@$(call targetinfo, $@)
