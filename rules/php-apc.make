@@ -34,7 +34,6 @@ php-apc_get_deps = $(PHP_APC_SOURCE)
 
 $(STATEDIR)/php-apc.get: $(php-apc_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PHP_APC))
 	@$(call touch, $@)
 
 $(PHP_APC_SOURCE):
@@ -86,7 +85,7 @@ $(STATEDIR)/php-apc.prepare: $(php-apc_prepare_deps)
 	@$(call clean, $(PHP_APC_DIR)/config.cache)
 	cd $(PHP_APC_DIR) && \
 		$(PHP_APC_PATH) $(PHP_APC_ENV) \
-		$(CROSS_LIB_DIR)/bin/phpize && \
+		$(PTXCONF_PREFIX)/bin/phpize && \
 		$(PHP_APC_PATH) $(PHP_APC_ENV) \
 		./configure $(PHP_APC_AUTOCONF)
 	@$(call touch, $@)
