@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION		= 3.0.8
+SQLITE_VERSION		= 3.2.8
 SQLITE			= sqlite-$(SQLITE_VERSION)
 SQLITE_SUFFIX		= tar.gz
 SQLITE_URL		= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
@@ -35,7 +35,6 @@ sqlite_get_deps = $(SQLITE_SOURCE)
 
 $(STATEDIR)/sqlite.get: $(sqlite_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(SQLITE))
 	@$(call touch, $@)
 
 $(SQLITE_SOURCE):
@@ -54,7 +53,6 @@ $(STATEDIR)/sqlite.extract: $(sqlite_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SQLITE_DIR))
 	@$(call extract, $(SQLITE_SOURCE))
-	mv $(BUILDDIR)/sqlite $(SQLITE_DIR)
 	@$(call patchin, $(SQLITE))
 	@$(call touch, $@)
 
