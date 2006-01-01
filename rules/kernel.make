@@ -459,7 +459,7 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
 
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
-# create symlinks in case we are here only to provide headers
+	@echo "create symlinks in case we are here only to provide headers..."
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make include/linux/version.h $(KERNEL_MAKEVARS)
 	touch $(KERNEL_DIR)/include/linux/autoconf.h
 	ln -sf asm-$(PTXCONF_ARCH) $(KERNEL_DIR)/include/asm
@@ -472,7 +472,7 @@ ifndef PTXCONF_DONT_COMPILE_KERNEL
 		echo "Using kernel config file: $(KERNEL_CONFIG)"; 	\
 		install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config;	\
 	else								\
-		echo "ERROR: No kernel config file found.";		\
+		echo "ERROR: No such kernel config: $(KERNEL_CONFIG)";  \
 		exit 1;							\
 	fi
 ifdef PTXCONF_KLIBC
@@ -494,7 +494,11 @@ endif
 	@echo "---------- make modules_prepare ----------"
 	@echo 
 	-cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
+else
+	@echo "PTXCONF_DONT_COMPILE_KERNEL is set, copying .config suppressed"
 endif
+else
+	@echo "PTXCONF_USE_EXTERNAL_KERNEL is set, proceeding"
 endif
 	@$(call touch, $@)
 
