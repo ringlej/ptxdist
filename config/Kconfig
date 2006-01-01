@@ -44,4 +44,20 @@ config PROJECT_VERSION
 	  several sub versions which belong ontop of one PTXdist
 	  version. 
 
+choice 
+	prompt "Build...        "
+	default BUILD_USERLAND
+
+	config BUILD_USERLAND
+		bool
+		default Y
+		prompt "Userland "
+
+	config BUILD_TOOLCHAIN
+		bool
+		default N
+		prompt "Toolchain"
+
+endchoice
+
 source "rules/Kconfig"
