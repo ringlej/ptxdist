@@ -43,6 +43,7 @@ config MEMTESTER
 
 config OPROFILE
 	bool
+	depends on POPT && LIBBFD
 	prompt "oprofile"
 	default n
 
