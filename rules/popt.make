@@ -76,9 +76,11 @@ POPT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-POPT_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET)
+#POPT_AUTOCONF = \
+#	--build=$(GNU_HOST) \
+#	--host=$(PTXCONF_GNU_TARGET)
+
+POPT_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/popt.prepare: $(popt_prepare_deps)
 	@$(call targetinfo, $@)
