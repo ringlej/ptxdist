@@ -776,8 +776,8 @@ distclean: clean
 	@rm -fr $(PTXDIST_WORKSPACE)/logs/root-orig.txt $(PTXDIST_WORKSPACE)/logs/root-ipkg.txt $(PTXDIST_WORKSPACE)/logs/root.diff
 	@echo "done."
 	@if [ -n "$(OUTOFTREE)" ]; then 				\
-		rm -f $(PTXDIST_WORKSPACE)/config;			\
-		rm -f $(PTXDIST_WORKSPACE)/rules;			\
+		rm -fr $(PTXDIST_WORKSPACE)/config;			\
+		rm -fr $(PTXDIST_WORKSPACE)/rules;			\
 		rm -fr $(PTXDIST_WORKSPACE)/state;			\
 	fi
 	@echo
