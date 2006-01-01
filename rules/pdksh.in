@@ -2,13 +2,13 @@ menuconfig PDKSH
 	bool "Pdksh               "
 	depends on BROKEN
 
-comment "pdksh is broken, please send a patch"
-	depends on !BROKEN
-
 config PDKSH_SHLIKE
 	bool	
 	prompt "Enable minimal sh like configuration"
-	depends on PDKSH
+	depends on PDKSH && broken
+
+comment "shell=sh is broken, please send a patch"
+	depends on !BROKEN && PDKSH
 
 config PDKSH_POSIX
 	bool	
@@ -39,4 +39,7 @@ config PDKSH_BRACE_EXPAND
 	bool
 	prompt "Enable ksh brace expansion"
 	depends on PDKSH
+
+comment "pdksh is broken, please send a patch"
+	depends on !BROKEN
 

@@ -18,8 +18,8 @@ PACKAGES-$(PTXCONF_PDKSH) += pdksh
 #
 # Paths and names 
 #
-PDKSK_VERSION		= 5.2.14
-PDKSH			= pdksh-$(PDKSK_VERSION)
+PDKSH_VERSION		= 5.2.14
+PDKSH			= pdksh-$(PDKSH_VERSION)
 PDKSH_URL		= ftp://ftp.cs.mun.ca/pub/pdksh/$(PDKSH).tar.gz 
 PDKSH_SOURCE		= $(SRCDIR)/$(PDKSH).tar.gz
 PDKSH_DIR		= $(BUILDDIR)/$(PDKSH)
