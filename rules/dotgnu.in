@@ -1,15 +1,18 @@
 menuconfig DOTGNU
 	bool "DotGNU              "
 		
-config TRECC
+config TREECC
 	bool
+	depends on DOTGNU && BROKEN
 	prompt "treecc"
-	depends on DOTGNU
+
+comment "treecc is broken, please send a patch"
+	depends on !BROKEN
 
 config PNET
 	bool
 	prompt "pnet"
-	select TRECC
+	select TREECC
 	depends on DOTGNU
 	
 config PNETLIB

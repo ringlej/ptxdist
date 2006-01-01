@@ -16,8 +16,12 @@ config PHP_APACHE
 
 config PHP_APC
 	bool
+	depends on BROKEN
 	prompt "Build Alternative PHP-cache"
 	depends PHP
+
+comment "php-apc is broken, please send a patch"
+	depends on !BROKEN
 
 comment "Python requires libdl on the target (see C Library)"
 	depends on !GLIBC_DL && !UCLIBC_DL

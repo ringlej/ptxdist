@@ -1,5 +1,9 @@
 menuconfig PDKSH
 	bool "Pdksh               "
+	depends on BROKEN
+
+comment "pdksh is broken, please send a patch"
+	depends on !BROKEN
 
 config PDKSH_SHLIKE
 	bool	
