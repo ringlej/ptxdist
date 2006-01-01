@@ -66,7 +66,8 @@ pcmcia-cs_prepare: $(STATEDIR)/pcmcia-cs.prepare
 #
 pcmcia-cs_prepare_deps =  \
 	$(STATEDIR)/pcmcia-cs.extract \
-	$(STATEDIR)/virtual-xchain.install
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/kernel.prepare \
 
 PCMCIA-CS_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 PCMCIA-CS_ENV 	=  $(CROSS_ENV)
