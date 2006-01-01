@@ -34,7 +34,6 @@ pop3spam_get_deps = $(POP3SPAM_SOURCE)
 
 $(STATEDIR)/pop3spam.get: $(pop3spam_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(POP3SPAM))
 	@$(call touch, $@)
 
 $(POP3SPAM_SOURCE):
@@ -77,9 +76,7 @@ POP3SPAM_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-POP3SPAM_AUTOCONF = \
-	--build=$(GNU_HOST) \
-	--host=$(PTXCONF_GNU_TARGET) \
+POP3SPAM_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/pop3spam.prepare: $(pop3spam_prepare_deps)
 	@$(call targetinfo, $@)
