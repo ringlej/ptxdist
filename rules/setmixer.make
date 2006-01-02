@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_SETMIXER) += setmixer
 #
 # Paths and names
 #
-SETMIXER_VERSION	= 27DEC94
+SETMIXER_VERSION	= 27DEC94ds1
 SETMIXER		= setmixer_$(SETMIXER_VERSION).orig
 SETMIXER_SUFFIX		= tar.gz
 SETMIXER_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/setmixer/$(SETMIXER).$(SETMIXER_SUFFIX)
 SETMIXER_SOURCE		= $(SRCDIR)/$(SETMIXER).$(SETMIXER_SUFFIX)
-SETMIXER_DIR		= $(BUILDDIR)/setmixer-27DEC94.orig
+SETMIXER_DIR		= $(BUILDDIR)/setmixer-27DEC94ds1.orig
 
 # ----------------------------------------------------------------------------
 # Get
@@ -52,7 +52,7 @@ $(STATEDIR)/setmixer.extract: $(setmixer_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SETMIXER_DIR))
 	@$(call extract, $(SETMIXER_SOURCE))
-	@$(call patchin, $(SETMIXER))
+	@$(call patchin, $(SETMIXER),$(SETMIXER_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -68,8 +68,9 @@ setmixer_prepare_deps = \
 	$(STATEDIR)/setmixer.extract \
 	$(STATEDIR)/virtual-xchain.install
 
-SETMIXER_PATH	=  PATH=$(CROSS_PATH)
-SETMIXER_ENV 	=  $(CROSS_ENV)
+SETMIXER_PATH		=  PATH=$(CROSS_PATH)
+SETMIXER_ENV 		=  $(CROSS_ENV)
+SETMIXER_MAKEVARS	=  CC=$(PTXCONF_GNU_TARGET)-gcc 
 
 $(STATEDIR)/setmixer.prepare: $(setmixer_prepare_deps)
 	@$(call targetinfo, $@)
@@ -86,8 +87,8 @@ setmixer_compile_deps = $(STATEDIR)/setmixer.prepare
 
 $(STATEDIR)/setmixer.compile: $(setmixer_compile_deps)
 	@$(call targetinfo, $@)
-	$(SETMIXER_PATH) make CC=$(PTXCONF_GNU_TARGET)-gcc  \
-	      CFLAGS=$(TARGET_CFLAGS) -C $(SETMIXER_DIR)
+	cd $(SETMIXER_DIR) && \
+		$(SETMIXER_ENV) $(SETMIXER_PATH) make $(SETMIXER_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
