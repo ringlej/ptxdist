@@ -1,0 +1,4 @@
+config GLIB28
+	bool
+	prompt "glib-2.8"
+
