@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.9-svn
-# Sun Jan  1 14:19:02 2006
+# Mon Jan  2 12:09:09 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -853,14 +853,9 @@ PTXCONF_APACHE2_LOGDIR="/var/log/apache2"
 #
 # betaftpd is broken, please send a patch
 #
-
-#
-# Bind                
-#
-
-#
-# bind 9 is broken, please send a patch
-#
+PTXCONF_BIND=y
+# PTXCONF_BIND_CRYPTO is not set
+# PTXCONF_BIND_IPV6 is not set
 
 #
 # bing                
@@ -1122,10 +1117,9 @@ PTXCONF_BONNIEXX=y
 #
 # Communication Utilities     
 #
-
-#
-# bluez is broken, please send a patch
-#
+PTXCONF_BLUEZ=y
+PTXCONF_BLUEZ_UTILS=y
+PTXCONF_BLUEZ_LIBS=y
 PTXCONF_CANUTILS=y
 PTXCONF_CANUTILS_CANCONFIG=y
 PTXCONF_CANUTILS_CANDUMP=y
