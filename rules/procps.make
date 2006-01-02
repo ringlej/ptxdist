@@ -167,7 +167,7 @@ ifdef PTXCONF_PROCPS_W
 	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/w, /sbin/w)
 endif
 ifdef PTXCONF_PROCPS_PGREP
-	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/pgrep, $(ROOTDIR)/sbin/pgrep)
+	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/pgrep, /sbin/pgrep)
 endif
 	@$(call install_finish)
 	@$(call touch, $@)
