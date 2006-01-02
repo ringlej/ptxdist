@@ -1,23 +1,4 @@
 config GLIB26
 	bool
 	prompt "glib-2.6"
-	depends on BROKEN
-
-	# testglib.c: In function `main':
-	# testglib.c:1376: error: insn does not satisfy its constraints:
-	# (insn:HI 12588 17179 17404 0xb785e108 (set (reg:DI 3 r3)
-	# 	(zero_extend:DI (mem:QI (const (plus (label_ref 18405)
-	# 			(const_int 48 [0x30]))) [0 S1 A8]))) 146
-	# {zero_extendqidi2} (insn_list:REG_DEP_ANTI 17403 (insn_list:REG_DEP_ANTI
-	# 17402 (insn_list:REG_DEP_OUTPUT 12600 (nil))))
-	#     (nil))
-	# testglib.c:1376: internal compiler error: in final_scan_insn, at
-	# final.c:2722
-	# Please submit a full bug report,
-	# with preprocessed source if appropriate.
-	# See <URL:http://gcc.gnu.org/bugs.html> for instructions.
-	# make[4]: *** [testglib.o] Error 1
-
-comment "glib 2.6 is broken, please send a patch"
-	depends on !BROKEN
 
