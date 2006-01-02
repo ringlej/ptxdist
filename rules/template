@@ -75,7 +75,7 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 #
 # autoconf
 #
-@PACKET@_AUTOCONF =  $(CROSS_AUTOCONF)
+@PACKET@_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 @PACKET@_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
