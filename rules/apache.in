@@ -1,3 +1,5 @@
+# Apache 1 configuration
+
 menuconfig APACHE
 	bool
 	prompt "Apache 1 HTTP Server"
