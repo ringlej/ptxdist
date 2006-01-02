@@ -75,7 +75,7 @@ COMMONCPP2_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 # autoconf
 #
-COMMONCPP2_AUTOCONF =  $(CROSS_AUTOCONF)
+COMMONCPP2_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 COMMONCPP2_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/commoncpp2.prepare: $(commoncpp2_prepare_deps)
@@ -130,7 +130,19 @@ $(STATEDIR)/commoncpp2.targetinstall: $(commoncpp2_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(COMMONCPP2_DIR)/foobar, /dev/null)
+	@$(call install_copy, 0, 0, 0644, \
+		$(COMMONCPP2_DIR)/src/.libs/libccgnu2-1.3.so.1.0.18, \
+		/usr/lib/libccgnu2-1.3.so.1.0.18)
+
+	@$(call install_link, libccgnu2-1.3.so.1.0.18, /usr/lib//usr/lib/libccgnu2-1.3.so.1)
+	@$(call install_link, libccgnu2-1.3.so.1.0.18, /usr/lib//usr/lib/libccgnu2-1.3.so)
+
+	@$(call install_copy, 0, 0, 0644, \
+		$(COMMONCPP2_DIR)/src/.libs/libccext2-1.3.so.1.0.18 \
+		libccext2-1.3.so.1.0.18)
+
+	@$(call install_link, libccext2-1.3.so.1.0.18, /usr/lib//usr/lib/libccext2-1.3.so.1)
+	@$(call install_link, libccext2-1.3.so.1.0.18, /usr/lib//usr/lib/libccext2-1.3.so)
 
 	@$(call install_finish)
 
