@@ -1,3 +1,5 @@
+# Apache 2 configuration
+
 menuconfig APACHE2
 	bool "Apache 2 HTTP Server"
 	select EXPAT
