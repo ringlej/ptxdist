@@ -1,5 +1,5 @@
 menuconfig TERMCAP
-	bool "termcap"
+	bool "termcap                     "
 	default y
 	depends on GDB_TERMCAP
 	

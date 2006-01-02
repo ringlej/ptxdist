@@ -5,7 +5,7 @@
 
 menuconfig LIBXML2
         bool
-        prompt "libxml2"
+        prompt "libxml2                     "
 
 config LIBXML2_C14N
 	bool

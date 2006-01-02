@@ -1,5 +1,5 @@
 menuconfig GETTEXT
-	bool "gettext (GNU)        "
+	bool "gettext (GNU)               "
 
 config GETTEXT_LIBINTL
 	bool

@@ -1,7 +1,7 @@
 
 menuconfig SQLITE
 	bool
-	prompt "sqlite"
+	prompt "sqlite                      "
 
 choice
 	prompt "Assume text encoding"

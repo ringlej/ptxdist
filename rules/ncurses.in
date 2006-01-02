@@ -1,5 +1,5 @@
 menuconfig NCURSES
-	bool "ncurses"
+	bool "ncurses                     "
 
 #config NCURSES_NCURSES
 #	bool "Install libncurses on the target"

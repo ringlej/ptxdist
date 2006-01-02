@@ -4,7 +4,7 @@
 
 menuconfig LIBXSLT
         bool
-        prompt "libxslt"
+        prompt "libxslt                     "
 	default N
 	select LIBXML2
 	help

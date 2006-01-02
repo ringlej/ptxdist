@@ -1,5 +1,5 @@
 menuconfig DB   
-	bool "Berkeley DB-4"
+	bool "Berkeley DB-4               "
 
 config DB_INSTALL_BIN_UTIL
 	bool

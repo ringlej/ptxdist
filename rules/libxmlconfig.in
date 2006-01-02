@@ -1,7 +1,7 @@
 menuconfig LIBXMLCONFIG
 	bool
 	default N
-	prompt "libxmlconfig"
+	prompt "libxmlconfig                "
 	select LIBXML2
 	help
 	  libxmlconfig is a helper library which lets you pull config 
