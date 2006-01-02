@@ -52,6 +52,7 @@ $(STATEDIR)/bind.extract: $(bind_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BIND_DIR))
 	@$(call extract, $(BIND_SOURCE))
+	@$(call patchin, $(BIND))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -110,7 +111,8 @@ bind_compile_deps = $(STATEDIR)/bind.prepare
 
 $(STATEDIR)/bind.compile: $(bind_compile_deps)
 	@$(call targetinfo, $@)
-	$(BIND_PATH) make -C $(BIND_DIR)
+	cd $(BIND_DIR) && \
+		$(BIND_PATH) $(BIND_ENV) make $(BIND_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
