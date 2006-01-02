@@ -70,7 +70,6 @@ bluez-libs_prepare_deps = \
 
 BLUEZ_LIBS_PATH	=  PATH=$(CROSS_PATH)
 BLUEZ_LIBS_ENV 	=  $(CROSS_ENV)
-BLUEZ_LIBS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf

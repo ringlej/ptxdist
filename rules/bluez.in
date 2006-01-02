@@ -1,15 +1,10 @@
 menuconfig BLUEZ
 	bool "bluez               "
 	default N
-	depends on BROKEN
-	# internal compiler error in allyes-arm
 	help
 	  bluez is the official Bluetooth stack in the Linux kernel.
 	  This packet offers user space utilities and libraries to 
 	  work with the stack. 
-
-comment "bluez is broken, please send a patch"
-	depends on !BROKEN
 
 config BLUEZ_UTILS
 	bool
@@ -34,5 +29,4 @@ config BLUEZ_LIBS
 	  about this project see the homepage on 
 
 		http://www.bluez.org
-
 

@@ -71,12 +71,19 @@ bluez-utils_prepare_deps = \
 
 BLUEZ_UTILS_PATH	=  PATH=$(CROSS_PATH)
 BLUEZ_UTILS_ENV 	=  $(CROSS_ENV)
-BLUEZ_UTILS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
 #
-BLUEZ_UTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+BLUEZ_UTILS_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
+BLUEZ_UTILS_AUTOCONF	+= --with-bluez=$(BLUEZ_LIBS_DIR)
+
+# FIXME: these incorrectly pull in /usr/include if selected
+# Discuss with mkl what the right upstream solution is and make a patch
+BLUEZ_UTILS_AUTOCONF	+= --without-alsa
+BLUEZ_UTILS_AUTOCONF	+= --without-fuse
+BLUEZ_UTILS_AUTOCONF	+= --without-openobex
+BLUEZ_UTILS_AUTOCONF	+= --without-usb
 
 $(STATEDIR)/bluez-utils.prepare: $(bluez-utils_prepare_deps)
 	@$(call targetinfo, $@)
