@@ -165,7 +165,7 @@ $(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBXSLT_LIBXSLT
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, 0, 0, 0644, \
 		$(LIBXSLT_DIR)/libxslt/.libs/libxslt.so.1.1.14, \
 		/usr/lib/libxslt.so.1.1.14)
 	@$(call install_link, libxslt.so.1.1.14, /usr/lib/libxslt.so.1)
@@ -173,7 +173,7 @@ ifdef PTXCONF_LIBXSLT_LIBXSLT
 endif
 
 ifdef PTXCONF_LIBXSLT_LIBEXSLT
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, 0, 0, 0644, \
 		$(LIBXSLT_DIR)/libexslt/.libs/libexslt.so.0.8.12, \
 		/usr/lib/libexslt.so.0.8.12)
 	@$(call install_link, libexslt.so.0.8.12, /usr/lib/libexslt.so.0)

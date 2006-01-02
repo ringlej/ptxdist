@@ -129,7 +129,7 @@ $(STATEDIR)/libmodbus.targetinstall: $(libmodbus_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, 0, 0, 0644, \
 		$(LIBMODBUS_DIR)/src/.libs/libmodbus.so.0.0.0, \
 		/usr/lib/libmodbus.so.0.0.0, y)
 

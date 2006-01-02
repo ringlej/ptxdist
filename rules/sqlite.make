@@ -163,7 +163,7 @@ $(STATEDIR)/sqlite.targetinstall: $(STATEDIR)/sqlite.install
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(SQLITE_DIR)/libsqlite3.so, /usr/lib/libsqlite3.so)
+	@$(call install_copy, 0, 0, 0644, $(SQLITE_DIR)/libsqlite3.so, /usr/lib/libsqlite3.so)
 
 	@$(call install_finish)
 
