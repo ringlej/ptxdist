@@ -1,3 +1,20 @@
+# 
+# Submitted-By:
+# Committed-By: Bjørn Bürger, 2006-01-03
+#
+# Error: 
+# 
+# not gcc4 save, -mcpu is deprecated
+#
+# Description: 
+#
+# -march may be used alternatively
+#
+# State:
+# 
+# <upstream state of this problem>
+#
+
 diff -urN mknbi-1.4.4.orig/Makefile mknbi-1.4.4/Makefile
 --- mknbi-1.4.4.orig/Makefile	2006-01-03 13:58:14.000000000 +0100
 +++ mknbi-1.4.4/Makefile	2006-01-03 14:01:20.000000000 +0100
