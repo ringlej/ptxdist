@@ -24,6 +24,11 @@ choice
 	prompt "glibc Version"
 		default GLIBC_2_2_5
 		depends on GLIBC
+	
+	config GLIBC_2_3_6
+		bool
+		prompt "2.3.6"
+		depends on GLIBC
 
 	config GLIBC_2_3_5
 		bool
