@@ -66,6 +66,7 @@ apache2_prepare: $(STATEDIR)/apache2.prepare
 #
 apache2_prepare_deps = \
 	$(STATEDIR)/apache2.extract \
+	$(STATEDIR)/expat.install \
 	$(STATEDIR)/virtual-xchain.install
 
 APACHE2_PATH	=  PATH=$(CROSS_PATH)
@@ -108,8 +109,7 @@ apache2_compile: $(STATEDIR)/apache2.compile
 
 apache2_compile_deps = \
 	$(STATEDIR)/apache2.prepare \
-	$(STATEDIR)/host-apache2.compile \
-	$(STATEDIR)/expat.install
+	$(STATEDIR)/host-apache2.compile
 
 $(STATEDIR)/apache2.compile: $(apache2_compile_deps)
 	@$(call targetinfo, $@)
