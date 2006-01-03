@@ -85,6 +85,8 @@ endif
 ifdef PTXCONF_BIND_CRYPTO
 BIND_AUTOCONF += --with-openssl=$(OPENSSL_DIR)
 bind_prepare_deps += $(STATEDIR)/openssl.install
+else
+BIND_AUTOCONF += --without-openssl
 endif
 
 ifdef PTXCONF_BIND_IPV6
