@@ -435,6 +435,9 @@ kernel_prepare_deps += $(STATEDIR)/hosttool-modutils.install
 else
 kernel_prepare_deps += $(STATEDIR)/hosttool-module-init-tools.install
 endif
+ifdef PTXCONF_KLIBC
+kernel_prepare_deps += $(STATEDIR)/klibc.install
+endif
 endif
 
 KERNEL_PATH	=  PATH=$(CROSS_PATH)
