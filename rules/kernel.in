@@ -14,6 +14,7 @@ config USE_EXTERNAL_KERNEL
 	bool
 	prompt "Use external kernel"
 	default n
+	depends on BUILD_USERLAND
 	help
 	  Say yes if you intend to use an external already configured 
 	  kernel tree. You want this if you, for example, are currently
@@ -32,6 +33,7 @@ config KERNEL_CONFIG
 	string
 	prompt "Path to kernel .config file"
 	depends on !USE_EXTERNAL_KERNEL
+	depends on BUILD_USERLAND
 	help
 	  Usually config files for the kernel live in $(PROJECTDIR), so
 	  add something like
@@ -191,12 +193,14 @@ endchoice
 config DONT_COMPILE_KERNEL
 	bool
 	prompt "Don't compile kernel"
+	depends on BUILD_USERLAND
 	default n
 
 choice
 	prompt "Kernel Image"
 	default KERNEL_IMAGE_BZ
 	depends on !DONT_COMPILE_KERNEL || KERNEL_INSTALL
+	depends on BUILD_USERLAND
 
 	config KERNEL_IMAGE_BZ
 		bool
@@ -220,12 +224,14 @@ endchoice
 
 config KERNEL_INSTALL
 	bool
+	depends on BUILD_USERLAND
 	prompt "Install kernel into /boot on target"
 	default n
 	select KERNEL_INSTALL_MODULES if !DONT_COMPILE_KERNEL
 
 config KERNEL_INSTALL_MODULES
 	bool
+	depends on BUILD_USERLAND
 	prompt "Install modules into /lib/modules on target"
 	default n 
 
@@ -234,11 +240,13 @@ config KERNEL_INSTALL_MODULES
 # ----------------------------------------------------------------------------
 
 comment ""
+	depends on BUILD_USERLAND
 
 config KERNEL_PATCH1_URL
 	prompt "Patch 1 URL"
 	string
 	depends on !USE_EXTERNAL_KERNEL
+	depends on BUILD_USERLAND
 	help
 	  Enter a URL to a diff/patch file or to a directory containing
 	  a patch tree for patcher here. 
@@ -246,6 +254,7 @@ config KERNEL_PATCH1_URL
 config KERNEL_PATCH1_NAME
 	prompt "Patch 1 Name"
 	depends on !USE_EXTERNAL_KERNEL
+	depends on BUILD_USERLAND
 	string
 
 comment ""
@@ -577,11 +586,15 @@ comment ""
 # ----------------------------------------------------------------------------
 
 comment "----------------------------------"
+depends on BUILD_USERLAND
 comment "Host Kernel (for simulation)"
+depends on BUILD_USERLAND
 comment "----------------------------------"
+depends on BUILD_USERLAND
 
 config KERNEL_HOST
 	bool
+	depends on BUILD_USERLAND
 	default N
 	prompt "build UML kernel for simulation"
 	help
@@ -619,8 +632,8 @@ endchoice
 
 choice
 	prompt "Root filesystem method for host"
+	depends on KERNEL_HOST
 		
-
 	config KERNEL_HOST_ROOT_HOSTFS
 		bool
 		prompt "hostfs"
@@ -643,6 +656,7 @@ config KERNEL_HOST_CONSOLE_STDSERIAL
 config KERNEL_HOST_CMDLINE
 	string
 	prompt "kernel command line for host kernel"
+	depends on KERNEL_HOST
 	help
 	  Add your custom kernel commandline for the user mode linux 
 	  kernel here. 
@@ -657,6 +671,7 @@ config KERNEL_HOST_CMDLINE
 # ----------------------------------------------------------------------------
 
 comment ""
+	depends on BUILD_USERLAND
 
 config KERNEL_HOST_PATCH1_URL
 	prompt "Patch 1 URL"

@@ -37,7 +37,6 @@ source "rules/rootfs.in"
 endmenu
 
 menu "Core (Kernel, C-Library)    "
-depends on BUILD_USERLAND
 source "rules/kernel.in"
 source "rules/klibc.in"
 source "rules/libc.in"
@@ -45,6 +44,7 @@ source "rules/gcclibs.in"
 endmenu
 
 comment "----------------------------------"
+depends on BUILD_USERLAND
 
 menu "Shell & Console Tools       "
 depends on BUILD_USERLAND

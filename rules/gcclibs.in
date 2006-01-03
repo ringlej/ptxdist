@@ -3,6 +3,7 @@
 #
 
 menu	"GCC Libraries       "
+	depends on BUILD_USERLAND
 
 config GCCLIBS_CXX
 	bool "libstdc++"

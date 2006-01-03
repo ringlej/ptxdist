@@ -1,12 +1,15 @@
 config GLIBC_DEBUG
 	bool "Don't strip debugging symbols"
+	depends on BUILD_USERLAND
 
 # ----------
 
 comment	"Install options"
+	depends on BUILD_USERLAND
 
 config GLIBC_INSTALL
 	bool
+	depends on BUILD_USERLAND
 	default y if !CROSSTOOL
 	default n if CROSSTOOL
 	prompt "Install glibc libraries on the target"

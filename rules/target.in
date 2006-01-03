@@ -356,6 +356,7 @@ config CROSSCHAIN_CHECK
 	string
 	prompt "Check for specific gcc version"
 	default "2.95.3"
+	depends on BUILD_USERLAND
 	help
 	  PTXdist calls your cross compiler with -dumpversion and
 	  compares the output with this string. This should help

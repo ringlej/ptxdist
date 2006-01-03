@@ -20,57 +20,65 @@ config CROSSTOOL
 choice
 	prompt "version"
 		depends on CROSSTOOL
-	config CROSSTOOL_VERSION_0_32
-		bool
-		prompt "0.32"
+		default CROSSTOOL_VERSION_0_38
+
 	config CROSSTOOL_VERSION_0_38
 		bool
 		prompt "0.38"
+
+	config CROSSTOOL_VERSION_0_32
+		bool
+		prompt "0.32"
 endchoice
 	
 choice
 	prompt "GCC Version"
 		depends on CROSSTOOL
 
-	config GCC_2_95_3
+	config GCC_3_4_5
 		bool
-		prompt "2.95.3"
+		prompt "3.4.5"
 
-	config GCC_3_2_3
+	config GCC_3_4_4
 		bool
-		prompt "3.2.3"
-
-	config GCC_3_3_2
+		prompt "3.4.4"
+	
+	config GCC_3_4_3
 		bool
-		prompt "3.3.2"
-
-	config GCC_3_3_3
+		prompt "3.4.3"
+	
+	config GCC_3_4_2
 		bool
-		prompt "3.3.3"
-
-	config GCC_3_3_6
-		bool
-		prompt "3.3.6"
-
-	config GCC_3_4_0
-		bool
-		prompt "3.4.0"
+		prompt "3.4.2"
 
 	config GCC_3_4_1
 		bool
 		prompt "3.4.1"
 
-	config GCC_3_4_2
+	config GCC_3_4_0
 		bool
-		prompt "3.4.2"
+		prompt "3.4.0"
 
-	config GCC_3_4_3
+	config GCC_3_3_6
 		bool
-		prompt "3.4.3"
+		prompt "3.3.6"
 
-	config GCC_3_4_4
+	config GCC_3_3_3
 		bool
-		prompt "3.4.4"
+		prompt "3.3.3"
+
+	config GCC_3_3_2
+		bool
+		prompt "3.3.2"
+
+	config GCC_3_2_3
+		bool
+		prompt "3.2.3"
+
+	config GCC_2_95_3
+		bool
+		prompt "2.95.3"
+
 endchoice
 
 config GCC_VERSION
@@ -84,6 +92,7 @@ config GCC_VERSION
 	default "3.4.2"		if GCC_3_4_2
 	default "3.4.3"		if GCC_3_4_3
 	default "3.4.4"		if GCC_3_4_4
+	default "3.4.5"		if GCC_3_4_5
 	
 
 config CROSSTOOL_GCCLANG_CC

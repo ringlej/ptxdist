@@ -1,9 +1,7 @@
-menu "Config Shell        "
-
-config CFGSH
+menuconfig CFGSH
 	bool
 	depends on BROKEN
-	prompt "cfgsh"
+	prompt "cfgsh               "
 	default n
 	help
 	  cfgsh, the Configuration Shell utility, is a small utility 
@@ -21,7 +19,6 @@ config CFGSH
 	  program and configuration file that will implement the same 
 	  functionality in a manner more consistent with the embedded 
 	  system world.
-endmenu
 
 comment "cfgsh is broken, please send a patch"
 	depends on !BROKEN
