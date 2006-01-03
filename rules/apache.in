@@ -3,9 +3,5 @@
 menuconfig APACHE
 	bool
 	prompt "Apache 1 HTTP Server"
-	depends on BROKEN
 	select EXPAT
-
-comment "Apache 1 is broken, please send a patch"
-	depends on !BROKEN
 
