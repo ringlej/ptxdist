@@ -491,8 +491,15 @@ ptx_lxdialog:
 	fi
 
 before_config:
-	@echo "checking \$$PTXDIST_WORKSPACE/config"
-	@if [ -n "$(OUTOFTREE)" ] && [ ! -d "$(PTXDIST_WORKSPACE)/config/setup" ]; then 	\
+	@if [ -n "`grep "DONT_COMPILE_KERNEL" $(PTXDIST_WORKSPACE)/.config`" ];	then	\
+		echo;									\
+		echo "error: your .config file contains DONT_COMPILE_KERNEL (obsolete)";\
+		echo "error: please set COMPILE_KERNEL correctly and re-run!";		\
+		echo;									\
+		exit 1;									\
+	fi;										\
+	echo "checking \$$PTXDIST_WORKSPACE/config";					\
+	if [ -n "$(OUTOFTREE)" ] && [ ! -d "$(PTXDIST_WORKSPACE)/config/setup" ]; then \
 		echo "out-of-tree build, creating setup dir";				\
 		rm -fr $(PTXDIST_WORKSPACE)/config/setup;				\
 		mkdir -p $(PTXDIST_WORKSPACE)/config; 					\

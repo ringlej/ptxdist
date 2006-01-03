@@ -10,63 +10,27 @@ comment "----------------------------------"
 comment "Target Kernel"
 comment "----------------------------------"
 
-config USE_EXTERNAL_KERNEL
-	bool
-	prompt "Use external kernel"
-	default n
-	depends on BUILD_USERLAND
-	help
-	  Say yes if you intend to use an external already configured 
-	  kernel tree. You want this if you, for example, are currently
-	  working in a kernel tree and don't want to generate patches 
-	  for each and every PTXdist run. 
-
-config KERNEL_DIR
-	string
-	prompt "Path to external kernel source"
-	depends on USE_EXTERNAL_KERNEL
-	help
-	  Add a path to your external kernel here. The kernel must be
-	  configured. 
-
-config KERNEL_CONFIG
-	string
-	prompt "Path to kernel .config file"
-	depends on !USE_EXTERNAL_KERNEL
-	depends on BUILD_USERLAND
-	help
-	  Usually config files for the kernel live in $(PROJECTDIR), so
-	  add something like
-
-		$(PROJECTDIR)/your-kernelconfig.kernelconfig 
-
-	  here.
-
-
 config KERNEL_2_4
 	bool
 
 config KERNEL_2_4_COMPILE
 	bool
-	depends on !DONT_COMPILE_KERNEL
+	depends on COMPILE_KERNEL
 	default y if KERNEL_2_4
 	select HOSTTOOL_MODUTILS
-
 
 config KERNEL_2_6
 	bool
 
 config KERNEL_2_6_COMPILE
 	bool
-	depends on !DONT_COMPILE_KERNEL
+	depends on COMPILE_KERNEL
 	default y if KERNEL_2_6
 	select HOSTTOOL_MODULE_INIT_TOOLS
-
 
 choice 
 	prompt "Kernel Version"
 		default KERNEL_2_6_10
-		depends on !USE_EXTERNAL_KERNEL
 	
 	config KERNEL_2_6_15
 		bool
@@ -140,7 +104,7 @@ choice
 		depends on ARCH_X86 || ARCH_ARM
 		select KERNEL_2_6
 
-        # --------------------------------------------------------------------
+	# --------------------------------------------------------------------
 
 	config KERNEL_2_4_27
 		bool
@@ -190,44 +154,85 @@ choice
  
 endchoice
 
+config KERNEL_CONFIG
+	string
+	prompt "Path to kernel .config file"
+	depends on !USE_EXTERNAL_KERNEL
+	depends on BUILD_USERLAND
+	help
+	  Usually config files for the kernel live in $(PROJECTDIR), so
+	  add something like
+
+		$(PROJECTDIR)/your-kernelconfig.kernelconfig 
+
+	  here.
+
 config DONT_COMPILE_KERNEL
 	bool
-	prompt "Don't compile kernel"
+
+config COMPILE_KERNEL
+	bool
+	prompt "Compile Kernel"
 	depends on BUILD_USERLAND
-	default n
+	default Y if !DONT_COMPILE_KERNEL
+	default N if DONT_COMPILE_KERNEL
+	help
+	  Usually you want to compile your kernel. If not,
+	  deselect this option. 
 
 choice
 	prompt "Kernel Image"
 	default KERNEL_IMAGE_BZ
-	depends on !DONT_COMPILE_KERNEL || KERNEL_INSTALL
+	depends on COMPILE_KERNEL
+
+config KERNEL_IMAGE_BZ
+	bool
+	prompt "bzImage"
+	depends on ARCH_X86
+	
+config KERNEL_IMAGE_Z
+	bool
+	prompt "zImage"
+	depends on ARCH_X86 || ARCH_ARM
+
+config KERNEL_IMAGE_U
+	bool
+	prompt "uImage"
+	depends on ARCH_ARM || ARCH_X86 || ARCH_PPC
+
+config KERNEL_IMAGE_VMLINUX
+	bool
+	prompt "vmlinux"
+endchoice
+
+comment "Additional Kernel Options"
 	depends on BUILD_USERLAND
 
-	config KERNEL_IMAGE_BZ
-		bool
-		prompt "bzImage"
-		depends on ARCH_X86
-		
-	config KERNEL_IMAGE_Z
-		bool
-		prompt "zImage"
-		depends on ARCH_X86 || ARCH_ARM
+config USE_EXTERNAL_KERNEL
+	bool
+	prompt "Use external kernel"
+	default n
+	depends on BUILD_USERLAND
+	help
+	  Say yes if you intend to use an external already configured 
+	  kernel tree. You want this if you, for example, are currently
+	  working in a kernel tree and don't want to generate patches 
+	  for each and every PTXdist run. 
 
-	config KERNEL_IMAGE_U
-		bool
-		prompt "uImage"
-		depends on ARCH_ARM || ARCH_X86 || ARCH_PPC
-
-	config KERNEL_IMAGE_VMLINUX
-		bool
-		prompt "vmlinux"
-endchoice
+config KERNEL_DIR
+	string
+	prompt "Path to external kernel source"
+	depends on USE_EXTERNAL_KERNEL
+	help
+	  Add a path to your external kernel here. The kernel must be
+	  configured. 
 
 config KERNEL_INSTALL
 	bool
 	depends on BUILD_USERLAND
 	prompt "Install kernel into /boot on target"
 	default n
-	select KERNEL_INSTALL_MODULES if !DONT_COMPILE_KERNEL
+	select KERNEL_INSTALL_MODULES if COMPILE_KERNEL
 
 config KERNEL_INSTALL_MODULES
 	bool

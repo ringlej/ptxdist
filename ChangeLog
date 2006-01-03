@@ -1,3 +1,9 @@
+2006-01-03 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* overall: merged destdir branch into 0.9-trunk
+	  kernel: replaced DONT_COMPILE_KERNEL by 
+	  COMPILE_KERNEL
+
 2005-12-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* trunk: migrated destdir branch to new 0.9 trunk

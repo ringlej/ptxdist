@@ -429,8 +429,8 @@ kernel_prepare: $(STATEDIR)/kernel.prepare
 
 kernel_prepare_deps =  $(STATEDIR)/virtual-xchain.install
 kernel_prepare_deps += $(STATEDIR)/kernel.extract
-ifndef PTXCONF_DONT_COMPILE_KERNEL
-ifdef  PTXCONF_KERNEL_2_4
+ifdef PTXCONF_COMPILE_KERNEL
+ifdef PTXCONF_KERNEL_2_4
 kernel_prepare_deps += $(STATEDIR)/hosttool-modutils.install
 else
 kernel_prepare_deps += $(STATEDIR)/hosttool-module-init-tools.install
@@ -470,7 +470,7 @@ ifdef PTXCONF_ARM_PROC
 	ln -sf proc-$(PTXCONF_ARM_PROC) $(KERNEL_DIR)/include/asm/proc
 	ln -sf arch-$(PTXCONF_ARM_ARCH) $(KERNEL_DIR)/include/asm/arch
 endif
-ifndef PTXCONF_DONT_COMPILE_KERNEL
+ifdef PTXCONF_COMPILE_KERNEL
 	@if [ -f $(KERNEL_CONFIG) ]; then	                        \
 		echo "Using kernel config file: $(KERNEL_CONFIG)"; 	\
 		install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config;	\
@@ -498,7 +498,7 @@ endif
 	@echo 
 	-cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
 else
-	@echo "PTXCONF_DONT_COMPILE_KERNEL is set, copying .config suppressed"
+	@echo "PTXCONF_COMPILE_KERNEL is not set, copying .config suppressed"
 endif
 else
 	@echo "PTXCONF_USE_EXTERNAL_KERNEL is set, proceeding"
@@ -530,8 +530,8 @@ $(STATEDIR)/kernel-modversions.prepare: $(STATEDIR)/kernel.prepare
 kernel_compile: $(STATEDIR)/kernel.compile
 
 kernel_compile_deps =  $(STATEDIR)/kernel.prepare
-ifndef PTXCONF_DONT_COMPILE_KERNEL
-ifdef  PTXCONF_KERNEL_IMAGE_U
+ifdef PTXCONF_COMPILE_KERNEL
+ifdef PTXCONF_KERNEL_IMAGE_U
 kernel_compile_deps += $(STATEDIR)/hosttool-umkimage.install
 endif
 endif                                                                                                                                            
@@ -542,7 +542,7 @@ endif
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	@$(call targetinfo, $@)
 
-ifndef PTXCONF_DONT_COMPILE_KERNEL
+ifdef PTXCONF_COMPILE_KERNEL
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	echo '$(call remove_quotes,$(PTXCONF_PREFIX))/bin/u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
@@ -574,7 +574,7 @@ kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-ifndef PTXCONF_DONT_COMPILE_KERNEL
+ifdef PTXCONF_COMPILE_KERNEL
 ifdef  PTXCONF_KERNEL_INSTALL
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,kernel)

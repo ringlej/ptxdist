@@ -8,7 +8,7 @@ menu "klibc               "
 ##############################################################################
 
 config KLIBC
-	depends on KERNEL_2_6 && !DONT_COMPILE_KERNEL
+	depends on KERNEL_2_6 && COMPILE_KERNEL
 	bool
 	prompt "build klibc"
 	default n
