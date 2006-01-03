@@ -70,20 +70,23 @@ libnetpbm_prepare_deps = \
 
 LIBNETPBM_PATH	=  PATH=$(CROSS_PATH)
 LIBNETPBM_ENV 	=  $(CROSS_ENV)
-LIBNETPBM_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-
-#
-# autoconf
-#
-LIBNETPBM_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-#LIBNETPBM_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/libnetpbm.prepare: $(libnetpbm_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(LIBNETPBM_DIR)/config.cache)
-	cd $(LIBNETPBM_DIR) && \
-		$(LIBNETPBM_PATH) $(LIBNETPBM_ENV) \
-		./configure $(LIBNETPBM_AUTOCONF)
+	cp $(LIBNETPBM_DIR)/Makefile.config.in $(LIBNETPBM_DIR)/Makefile.config
+ifdef PTXCONF_LIBNETPBM_BUILD_FIASCO
+	sed -ie "s,^BUILD_FIASCO.*,BUILD_FIASCO=Y,g" $(LIBNETPBM_DIR)/Makefile.config
+else
+	sed -ie "s,^BUILD_FIASCO.*,BUILD_FIASCO=N,g" $(LIBNETPBM_DIR)/Makefile.config
+endif
+	sed -ie "s,^CC =.*,CC=$(CROSS_CC),g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -ie "s,^LINKER_CAN_DO_EXPLICIT_LIBRARY.*,LINKER_CAN_DO_EXPLICIT_LIBRARY=Y,g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -ie "s,^INTTYPES_H.*,INTTYPES_H = <stdint.h>,g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -ie "s,^CC_FOR_BUILD.*,CC_FOR_BUILD=$(HOSTCC),g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -ie "s,^LD_FOR_BUILD.*,LD_FOR_BUILD=$(HOSTCC),g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -ie "s,^CFLAGS_FOR_BUILD.*,CFLAGS_FOR_BUILD=,g" $(LIBNETPBM_DIR)/Makefile.config
+	echo "CFLAGS=$(CROSS_CFLAGS) $(CROSS_CPPFLAGS)" >> $(LIBNETPBM_DIR)/Makefile.config
+	
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -107,7 +110,9 @@ libnetpbm_install: $(STATEDIR)/libnetpbm.install
 
 $(STATEDIR)/libnetpbm.install: $(STATEDIR)/libnetpbm.compile
 	@$(call targetinfo, $@)
-	@$(call install, LIBNETPBM)
+	cp $(LIBNETPBM_DIR)/lib/libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so.10.31
+	ln -sf libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so.10
+	ln -sf libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -130,7 +135,12 @@ $(STATEDIR)/libnetpbm.targetinstall: $(libnetpbm_targetinstall_deps)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LIBNETPBM_DIR)/foobar, /dev/null)
+	@$(call install_copy, 0, 0, 0644, \
+		$(LIBNETPBM_DIR)/lib/libnetpbm.so.10.31, \
+		/usr/lib/libnetpbm.so.10.31)
+
+	@$(call install_link, libnetpbm.so.10.31, /usr/lib/libnetpbm.so.10)
+	@$(call install_link, libnetpbm.so.10.31, /usr/lib/libnetpbm.so)
 
 	@$(call install_finish)
 

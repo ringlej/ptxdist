@@ -1,8 +1,15 @@
+# netpbm configuration
+
 menuconfig LIBNETPBM
 	bool
 	default N
-	depends on BROKEN
 	prompt "libnetpbm                   "
 
-comment "libnetpbm is broken, please send a patch"
-	depends on !BROKEN
+config LIBNETPBM_BUILD_FIASCO
+	bool
+	depends on LIBNETPBM
+	default N
+	prompt "build fiasco"
+
+# FIXME: add library support (TIFF, JPEG, ...)
+
