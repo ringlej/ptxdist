@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.7.9-svn
-# Tue Jan  3 11:21:49 2006
+# Tue Jan  3 11:29:49 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -631,6 +631,7 @@ PTXCONF_XMLSTARLET=y
 #
 PTXCONF_PHP=y
 PTXCONF_PHP_CLI=y
+# PTXCONF_PHP_APACHE is not set
 
 #
 # php-apc is broken, please send a patch
@@ -835,10 +836,7 @@ PTXCONF_SHOREWALL=y
 #
 # Networking Apps
 #
-
-#
-# Apache 1 is broken, please send a patch
-#
+PTXCONF_APACHE=y
 PTXCONF_APACHE2=y
 PTXCONF_APACHE2_DEFAULTCONFIG=y
 PTXCONF_APACHE2_LISTEN="0.0.0.0:80"
