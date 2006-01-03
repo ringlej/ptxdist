@@ -126,9 +126,10 @@ $(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps)
 
 	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/udev/udev.conf, /etc/udev/udev.conf, n)
 ifdef PTXCONF_ROOTFS_ETC_INITD_UDEV
-	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/udev, /etc/init.d/udev, n)
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE),"")
+ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE)),)
 	@$(call install_copy, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE), /etc/init.d/udev, n)
+else
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/udev, /etc/init.d/udev, n)
 endif
 endif
 
