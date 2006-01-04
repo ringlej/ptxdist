@@ -1318,4 +1318,21 @@ install_finish = 													\
 		echo "done."; 												\
 	fi
 
+# ----------------------------------------------------
+#  autogeneration of dependencies
+# ----------------------------------------------------
+# $1: label of the packet
+#
+
+deps_extract = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh extract $1 \
+		$(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))
+deps_prepare = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh prepare $1 \
+		$(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))
+deps_compile = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh compile $1 \
+		$(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))
+deps_install = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh install $1 \
+		$(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))
+deps_targetinstall = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh targetinstall $1 \
+		$(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))
+
 # vim: syntax=make
