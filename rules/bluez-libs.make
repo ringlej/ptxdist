@@ -46,7 +46,7 @@ $(BLUEZ_LIBS_SOURCE):
 
 bluez-libs_extract: $(STATEDIR)/bluez-libs.extract
 
-bluez-libs_extract_deps = $(STATEDIR)/bluez-libs.get
+bluez-libs_extract_deps = $(call deps_extract, BLUEZ_LIBS)
 
 $(STATEDIR)/bluez-libs.extract: $(bluez-libs_extract_deps)
 	@$(call targetinfo, $@)
@@ -64,9 +64,7 @@ bluez-libs_prepare: $(STATEDIR)/bluez-libs.prepare
 #
 # dependencies
 #
-bluez-libs_prepare_deps = \
-	$(STATEDIR)/bluez-libs.extract \
-	$(STATEDIR)/virtual-xchain.install
+bluez-libs_prepare_deps = $(call deps_prepare, BLUEZ_LIBS)
 
 BLUEZ_LIBS_PATH	=  PATH=$(CROSS_PATH)
 BLUEZ_LIBS_ENV 	=  $(CROSS_ENV)
@@ -90,7 +88,7 @@ $(STATEDIR)/bluez-libs.prepare: $(bluez-libs_prepare_deps)
 
 bluez-libs_compile: $(STATEDIR)/bluez-libs.compile
 
-bluez-libs_compile_deps = $(STATEDIR)/bluez-libs.prepare
+bluez-libs_compile_deps = $(call deps_compile, BLUEZ_LIBS)
 
 $(STATEDIR)/bluez-libs.compile: $(bluez-libs_compile_deps)
 	@$(call targetinfo, $@)
@@ -103,7 +101,9 @@ $(STATEDIR)/bluez-libs.compile: $(bluez-libs_compile_deps)
 
 bluez-libs_install: $(STATEDIR)/bluez-libs.install
 
-$(STATEDIR)/bluez-libs.install: $(STATEDIR)/bluez-libs.compile
+bluez-libs_install_deps = $(call deps_install, BLUEZ_LIBS)
+
+$(STATEDIR)/bluez-libs.install: $(bluez-libs_install_deps)
 	@$(call targetinfo, $@)
 	@$(call install, BLUEZ_LIBS)
 	@$(call touch, $@)
@@ -114,7 +114,7 @@ $(STATEDIR)/bluez-libs.install: $(STATEDIR)/bluez-libs.compile
 
 bluez-libs_targetinstall: $(STATEDIR)/bluez-libs.targetinstall
 
-bluez-libs_targetinstall_deps = $(STATEDIR)/bluez-libs.compile
+bluez-libs_targetinstall_deps = $(call deps_targetinstall, BLUEZ_LIBS)
 
 $(STATEDIR)/bluez-libs.targetinstall: $(bluez-libs_targetinstall_deps)
 	@$(call targetinfo, $@)

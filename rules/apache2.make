@@ -138,8 +138,7 @@ apache2_install: $(STATEDIR)/apache2.install
 
 apache2_install_deps = $(call deps_install, APACHE2)
 
-#$(STATEDIR)/apache2.install: $(STATEDIR)/apache2.compile
-$(STATEDIR)/apache2.install:
+$(STATEDIR)/apache2.install: $(apache2_install_deps)
 	@$(call targetinfo, $@)
 	@$(call install, APACHE2)
 	@$(call touch, $@)

@@ -46,7 +46,7 @@ $(BIND_SOURCE):
 
 bind_extract: $(STATEDIR)/bind.extract
 
-bind_extract_deps = $(STATEDIR)/bind.get
+bind_extract_deps = $(call deps_extract, BIND)
 
 $(STATEDIR)/bind.extract: $(bind_extract_deps)
 	@$(call targetinfo, $@)
@@ -64,9 +64,7 @@ bind_prepare: $(STATEDIR)/bind.prepare
 #
 # dependencies
 #
-bind_prepare_deps = \
-	$(STATEDIR)/bind.extract \
-	$(STATEDIR)/virtual-xchain.install
+bind_prepare_deps = $(call deps_prepare, BIND)
 
 BIND_PATH	=  PATH=$(CROSS_PATH)
 BIND_ENV 	=  $(CROSS_ENV)
@@ -109,7 +107,7 @@ $(STATEDIR)/bind.prepare: $(bind_prepare_deps)
 
 bind_compile: $(STATEDIR)/bind.compile
 
-bind_compile_deps = $(STATEDIR)/bind.prepare
+bind_compile_deps = $(call deps_compile, BIND)
 
 $(STATEDIR)/bind.compile: $(bind_compile_deps)
 	@$(call targetinfo, $@)
@@ -123,7 +121,9 @@ $(STATEDIR)/bind.compile: $(bind_compile_deps)
 
 bind_install: $(STATEDIR)/bind.install
 
-$(STATEDIR)/bind.install: $(STATEDIR)/bind.compile
+bind_install_deps = $(call deps_install, BIND)
+
+$(STATEDIR)/bind.install: $(bind_install_deps)
 	@$(call targetinfo, $@)
 	# FIXME: RSC: is it right that we only install and do not targetinstall? 
 	@$(call install, BIND)
@@ -135,7 +135,7 @@ $(STATEDIR)/bind.install: $(STATEDIR)/bind.compile
 
 bind_targetinstall: $(STATEDIR)/bind.targetinstall
 
-bind_targetinstall_deps = $(STATEDIR)/bind.compile
+bind_targetinstall_deps = $(call deps_targetinstall, BIND)
 
 $(STATEDIR)/bind.targetinstall: $(bind_targetinstall_deps)
 	@$(call targetinfo, $@)

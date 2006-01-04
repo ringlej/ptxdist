@@ -47,7 +47,7 @@ $(BING_SOURCE):
 
 bing_extract: $(STATEDIR)/bing.extract
 
-bing_extract_deps = $(STATEDIR)/bing.get
+bing_extract_deps = $(call deps_extract, BING)
 
 $(STATEDIR)/bing.extract: $(bing_extract_deps)
 	@$(call targetinfo, $@)
@@ -65,9 +65,7 @@ bing_prepare: $(STATEDIR)/bing.prepare
 #
 # dependencies
 #
-bing_prepare_deps = \
-	$(STATEDIR)/bing.extract \
-	$(STATEDIR)/virtual-xchain.install
+bing_prepare_deps = $(call deps_prepare, BING)
 
 BING_PATH	=  PATH=$(CROSS_PATH)
 BING_ENV 	=  $(CROSS_ENV)
@@ -82,7 +80,7 @@ $(STATEDIR)/bing.prepare: $(bing_prepare_deps)
 
 bing_compile: $(STATEDIR)/bing.compile
 
-bing_compile_deps = $(STATEDIR)/bing.prepare
+bing_compile_deps = $(call deps_compile, BING)
 
 $(STATEDIR)/bing.compile: $(bing_compile_deps)
 	@$(call targetinfo, $@)
@@ -95,7 +93,9 @@ $(STATEDIR)/bing.compile: $(bing_compile_deps)
 
 bing_install: $(STATEDIR)/bing.install
 
-$(STATEDIR)/bing.install: $(STATEDIR)/bing.compile
+bing_install_deps = $(call deps_install, BING)
+
+$(STATEDIR)/bing.install: $(bing_install_deps)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, BING)
@@ -107,7 +107,7 @@ $(STATEDIR)/bing.install: $(STATEDIR)/bing.compile
 
 bing_targetinstall: $(STATEDIR)/bing.targetinstall
 
-bing_targetinstall_deps = $(STATEDIR)/bing.compile
+bing_targetinstall_deps = $(call deps_targetinstall, BING)
 
 $(STATEDIR)/bing.targetinstall: $(bing_targetinstall_deps)
 	@$(call targetinfo, $@)

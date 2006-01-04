@@ -47,7 +47,7 @@ $(BETAFTPD_SOURCE):
 
 betaftpd_extract: $(STATEDIR)/betaftpd.extract
 
-betaftpd_extract_deps = $(STATEDIR)/betaftpd.get
+betaftpd_extract_deps = $(call deps_extract, BETAFTPD)
 
 $(STATEDIR)/betaftpd.extract: $(betaftpd_extract_deps)
 	@$(call targetinfo, $@)
@@ -65,10 +65,7 @@ betaftpd_prepare: $(STATEDIR)/betaftpd.prepare
 #
 # dependencies
 #
-betaftpd_prepare_deps =  \
-	$(STATEDIR)/betaftpd.extract \
-	$(STATEDIR)/librn.install \
-	$(STATEDIR)/virtual-xchain.install
+betaftpd_prepare_deps = $(call deps_prepare, BETAFTPD)
 
 BETAFTPD_PATH	=  PATH=$(CROSS_PATH)
 BETAFTPD_ENV 	=  $(CROSS_ENV)
@@ -93,7 +90,7 @@ $(STATEDIR)/betaftpd.prepare: $(betaftpd_prepare_deps)
 
 betaftpd_compile: $(STATEDIR)/betaftpd.compile
 
-betaftpd_compile_deps = $(STATEDIR)/betaftpd.prepare
+betaftpd_compile_deps = $(call deps_compile, BETAFTPD)
 
 $(STATEDIR)/betaftpd.compile: $(betaftpd_compile_deps)
 	@$(call targetinfo, $@)
@@ -107,7 +104,9 @@ $(STATEDIR)/betaftpd.compile: $(betaftpd_compile_deps)
 
 betaftpd_install: $(STATEDIR)/betaftpd.install
 
-$(STATEDIR)/betaftpd.install: $(STATEDIR)/betaftpd.compile
+betaftpd_install_deps = $(call deps_install, BETAFTPD)
+
+$(STATEDIR)/betaftpd.install: $(betaftpd_install_deps)
 	@$(call targetinfo, $@)
 	# RSC: FIXME: is it correct that we only install and do not targetinstall? 
 	@$(call install, BETAFTPD)
@@ -119,7 +118,7 @@ $(STATEDIR)/betaftpd.install: $(STATEDIR)/betaftpd.compile
 
 betaftpd_targetinstall: $(STATEDIR)/betaftpd.targetinstall
 
-betaftpd_targetinstall_deps = $(STATEDIR)/betaftpd.install
+betaftpd_targetinstall_deps = $(call deps_targetinstall, BETAFTPD)
 
 $(STATEDIR)/betaftpd.targetinstall: $(betaftpd_targetinstall_deps)
 	@$(call targetinfo, $@)

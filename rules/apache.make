@@ -48,7 +48,7 @@ $(APACHE_SOURCE):
 
 apache_extract: $(STATEDIR)/apache.extract
 
-apache_extract_deps = $(STATEDIR)/apache.get
+apache_extract_deps = $(call deps_extract, APACHE)
 
 $(STATEDIR)/apache.extract: $(apache_extract_deps)
 	@$(call targetinfo, $@)
@@ -66,9 +66,7 @@ apache_prepare: $(STATEDIR)/apache.prepare
 #
 # dependencies
 #
-apache_prepare_deps = \
-	$(STATEDIR)/apache.extract \
-	$(STATEDIR)/virtual-xchain.install
+apache_prepare_deps = $(call deps_prepare, APACHE)
 
 APACHE_PATH = PATH=$(CROSS_PATH)
 APACHE_ENV = \
@@ -108,8 +106,7 @@ $(STATEDIR)/apache.prepare: $(apache_prepare_deps)
 
 apache_compile: $(STATEDIR)/apache.compile
 
-apache_compile_deps = $(STATEDIR)/apache.prepare \
-	$(STATEDIR)/expat.install
+apache_compile_deps = $(call deps_compile, APACHE)
 
 $(STATEDIR)/apache.compile: $(apache_compile_deps)
 	@$(call targetinfo, $@)
@@ -122,7 +119,9 @@ $(STATEDIR)/apache.compile: $(apache_compile_deps)
 
 apache_install: $(STATEDIR)/apache.install
 
-$(STATEDIR)/apache.install: $(STATEDIR)/apache.compile
+apache_install_deps = $(call deps_install, APACHE)
+
+$(STATEDIR)/apache.install: $(apache_install_deps)
 	@$(call targetinfo, $@)
 	@$(call install, APACHE)
 	@$(call touch, $@)
@@ -133,7 +132,7 @@ $(STATEDIR)/apache.install: $(STATEDIR)/apache.compile
 
 apache_targetinstall: $(STATEDIR)/apache.targetinstall
 
-apache_targetinstall_deps = $(STATEDIR)/apache.compile
+apache_tarbetinstall_deps = $(call deps_targetinstall, APACHE)
 
 $(STATEDIR)/apache.targetinstall: $(apache_targetinstall_deps)
 	@$(call targetinfo, $@)

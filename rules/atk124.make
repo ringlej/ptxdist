@@ -48,7 +48,7 @@ $(ATK_SOURCE):
 
 atk_extract: $(STATEDIR)/atk.extract
 
-atk_extract_deps	=  $(STATEDIR)/atk.get
+atk_extract_deps = $(call deps_extract, ATK)
 
 $(STATEDIR)/atk.extract: $(atk_extract_deps)
 	@$(call targetinfo, $@)
@@ -66,10 +66,7 @@ atk_prepare: $(STATEDIR)/atk.prepare
 #
 # dependencies
 #
-atk_prepare_deps =  \
-	$(STATEDIR)/atk.extract \
-	$(STATEDIR)/pango12.install \
-	$(STATEDIR)/virtual-xchain.install
+atk_prepare_deps = $(call deps_prepare, ATK)
 
 ATK_PATH	=  PATH=$(CROSS_PATH)
 ATK_ENV 	=  $(CROSS_ENV)
@@ -94,7 +91,7 @@ $(STATEDIR)/atk.prepare: $(atk_prepare_deps)
 
 atk_compile: $(STATEDIR)/atk.compile
 
-atk_compile_deps =  $(STATEDIR)/atk.prepare
+atk_compile_deps = $(call deps_compile, ATK)
 
 $(STATEDIR)/atk.compile: $(atk_compile_deps)
 	@$(call targetinfo, $@)
@@ -107,7 +104,9 @@ $(STATEDIR)/atk.compile: $(atk_compile_deps)
 
 atk_install: $(STATEDIR)/atk.install
 
-$(STATEDIR)/atk.install: $(STATEDIR)/atk.compile
+atk_install_deps = $(call deps_install, ATK)
+
+$(STATEDIR)/atk.install: $(atk_install_deps)
 	@$(call targetinfo, $@)
 	@$(call install, ATK)
 	@$(call touch, $@)
@@ -118,7 +117,7 @@ $(STATEDIR)/atk.install: $(STATEDIR)/atk.compile
 
 atk_targetinstall: $(STATEDIR)/atk.targetinstall
 
-atk_targetinstall_deps	=  $(STATEDIR)/atk.compile
+atk_targetinstall_deps = $(call deps_targetinstall, ATK)
 
 $(STATEDIR)/atk.targetinstall: $(atk_targetinstall_deps)
 	@$(call targetinfo, $@)

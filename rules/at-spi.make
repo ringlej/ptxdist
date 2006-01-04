@@ -46,7 +46,7 @@ $(AT-SPI_SOURCE):
 
 at-spi_extract: $(STATEDIR)/at-spi.extract
 
-at-spi_extract_deps = $(STATEDIR)/at-spi.get
+at-spi_extract_deps = $(call deps_extract, AT-SPI)
 
 $(STATEDIR)/at-spi.extract: $(at-spi_extract_deps)
 	@$(call targetinfo, $@)
@@ -64,9 +64,7 @@ at-spi_prepare: $(STATEDIR)/at-spi.prepare
 #
 # dependencies
 #
-at-spi_prepare_deps = \
-	$(STATEDIR)/at-spi.extract \
-	$(STATEDIR)/virtual-xchain.install
+at-spi_prepare_deps = $(call deps_prepare, AT-SPI)
 
 AT-SPI_PATH	=  PATH=$(CROSS_PATH)
 AT-SPI_ENV 	=  $(CROSS_ENV)
@@ -91,7 +89,7 @@ $(STATEDIR)/at-spi.prepare: $(at-spi_prepare_deps)
 
 at-spi_compile: $(STATEDIR)/at-spi.compile
 
-at-spi_compile_deps = $(STATEDIR)/at-spi.prepare
+at-spi_compile_deps = $(call deps_compile, AT-SPI)
 
 $(STATEDIR)/at-spi.compile: $(at-spi_compile_deps)
 	@$(call targetinfo, $@)
@@ -104,7 +102,9 @@ $(STATEDIR)/at-spi.compile: $(at-spi_compile_deps)
 
 at-spi_install: $(STATEDIR)/at-spi.install
 
-$(STATEDIR)/at-spi.install: $(STATEDIR)/at-spi.compile
+at-spi_install_deps = $(call deps_install, AT-SPI)
+
+$(STATEDIR)/at-spi.install: $(at-spi_install_deps)
 	@$(call targetinfo, $@)
 	@$(call install, AT-SPI)
 	@$(call touch, $@)
@@ -115,7 +115,7 @@ $(STATEDIR)/at-spi.install: $(STATEDIR)/at-spi.compile
 
 at-spi_targetinstall: $(STATEDIR)/at-spi.targetinstall
 
-at-spi_targetinstall_deps = $(STATEDIR)/at-spi.compile
+at-spi_targetinstall_deps = $(call deps_targetinstall, AT-SPI)
 
 $(STATEDIR)/at-spi.targetinstall: $(at-spi_targetinstall_deps)
 	@$(call targetinfo, $@)

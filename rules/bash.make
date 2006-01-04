@@ -50,6 +50,8 @@ $(BASH_SOURCE):
 
 bash_extract: $(STATEDIR)/bash.extract
 
+bash_extract_deps = $(call deps_extract, BASH)
+
 $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
 	@$(call targetinfo, $@)
 	@$(call clean $(BASH_DIR))
@@ -62,6 +64,8 @@ $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
 # ----------------------------------------------------------------------------
 
 bash_prepare: $(STATEDIR)/bash.prepare
+
+bash_prepare_deps = $(call deps_prepare, BASH)
 
 BASH_AUTOCONF	= $(CROSS_AUTOCONF_ROOT)
 BASH_AUTOCONF	+= --disable-sanity-checks
@@ -191,12 +195,6 @@ else
 BASH_AUTOCONF	+= --disable-static-link
 endif
 
-#
-# dependencies
-#
-bash_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/bash.extract
 
 $(STATEDIR)/bash.prepare: $(bash_prepare_deps)
 	@$(call targetinfo, $@)
@@ -211,6 +209,8 @@ $(STATEDIR)/bash.prepare: $(bash_prepare_deps)
 
 bash_compile: $(STATEDIR)/bash.compile
 
+bash_compile_deps = $(call deps_compile, BASH)
+
 $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare 
 	@$(call targetinfo, $@)
 	cd $(BASH_DIR) && $(BASH_PATH) make
@@ -222,6 +222,8 @@ $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare
 
 bash_install: $(STATEDIR)/bash.install
 
+bash_install_deps = $(call deps_install, BASH)
+
 $(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
 	@$(call targetinfo, $@)
 	#@$(call install, BASH)
@@ -232,6 +234,8 @@ $(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
 # ----------------------------------------------------------------------------
 
 bash_targetinstall: $(STATEDIR)/bash.targetinstall
+
+bash_targetinstall_deps = $(call deps_targetinstall, BASH)
 
 $(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.compile
 	@$(call targetinfo, $@)
