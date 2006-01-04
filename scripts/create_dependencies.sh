@@ -8,7 +8,7 @@
 # 			  $5: Imagedir
 # 			  $6: Statedir
 
-DEBUG=true
+#DEBUG=true
 
 label="$2"
 RULESDIR="$3"
