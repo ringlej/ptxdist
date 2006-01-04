@@ -157,12 +157,26 @@ TMP_PROJECTRULES_IN = $(filter-out 			\
 
 TMP_PROJECTRULES_FINAL = $(shell 			\
 	$(PTXDIST_TOPDIR)/scripts/select_projectrules 	\
-	"$(PTXDIST_TOPDIR)/rules" 				\
+	"$(PTXDIST_TOPDIR)/rules" 			\
 	"$(PROJECTDIR)/rules" 				\
 	"$(TMP_PROJECTRULES_IN)" 			\
 )
 
 include $(TMP_PROJECTRULES_FINAL)
+
+#
+# create packet dependency file (if not existing)
+#
+
+include $(shell \
+	if [ ! -f $(STATEDIR)/bla ]; then				\
+		cd $(PTXDIST_WORKSPACE);				\
+		make configdeps 2>&1 > /dev/null;			\
+		$(PTXDIST_TOPDIR)/scripts/create_dependencies.sh 	\
+			1> > $(STATEDIR)/Deps.make 2> /dev/null;	\
+	fi;								\
+	echo $(STATEDIR)/Deps.make;					\
+)
 
 include $(RULESDIR)/Virtual.make
 
