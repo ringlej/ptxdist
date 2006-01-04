@@ -150,7 +150,7 @@ $(STATEDIR)/apache2.install:
 
 apache2_targetinstall: $(STATEDIR)/apache2.targetinstall
 
-apache2_targetinstall_deps = $(call deps_prepare, APACHE2)
+apache2_targetinstall_deps = $(call deps_targetinstall, APACHE2)
 
 $(STATEDIR)/apache2.targetinstall: $(apache2_targetinstall_deps)
 	@$(call targetinfo, $@)
