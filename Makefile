@@ -514,24 +514,28 @@ before_config:
 menuconfig: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/mconf $(MENU)
-	# automatic oldconfig for consistent .config files 
-	@if [ -f $(PTXDIST_WORKSPACE)/.config ]; then cd $(PTXDIST_WORKSPACE) && make oldconfig; fi
+	# automatic silentoldconfig for consistent .config files 
+	@if [ -f $(PTXDIST_WORKSPACE)/.config ]; then cd $(PTXDIST_WORKSPACE) && make silentoldconfig; fi
 
 xconfig: before_config $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/qconf $(MENU)
-	# automatic oldconfig for consistent .config files 
-	cd $(PTXDIST_WORKSPACE) && make oldconfig
+	# automatic silentoldconfig for consistent .config files 
+	cd $(PTXDIST_WORKSPACE) && make silentoldconfig
 
 gconfig: before_config $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
 	LD_LIBRARY_PATH=$(PTXDIST_TOPDIR)/scripts/kconfig cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/gconf $(MENU)
-	# automatic oldconfig for consistent .config files 
-	cd $(PTXDIST_WORKSPACE) && make oldconfig
+	# automatic silentoldconfig for consistent .config files 
+	cd $(PTXDIST_WORKSPACE) && make silentoldconfig
 
 oldconfig: before_config $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -o $(MENU)
+
+silentoldconfig: before_config $(STATEDIR)/host-kconfig.install
+	$(call findout_config)
+	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -s $(MENU)
 
 allyesconfig: before_config $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
