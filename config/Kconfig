@@ -50,12 +50,10 @@ choice
 
 	config BUILD_USERLAND
 		bool
-		default Y
 		prompt "Userland "
 
 	config BUILD_TOOLCHAIN
 		bool
-		default N
 		prompt "Toolchain"
 
 endchoice
