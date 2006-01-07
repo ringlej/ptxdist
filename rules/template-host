@@ -34,7 +34,6 @@ HOST_PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 
 $(STATEDIR)/@packet@.get: $(@packet@_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(@PACKET@))
 	@$(call touch, $@)
 
 $(@PACKET@_SOURCE):
