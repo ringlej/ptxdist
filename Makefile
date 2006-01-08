@@ -164,20 +164,6 @@ TMP_PROJECTRULES_FINAL = $(shell 			\
 
 include $(TMP_PROJECTRULES_FINAL)
 
-#
-# create packet dependency file (if not existing)
-#
-
-include $(shell \
-	if [ ! -f $(STATEDIR)/bla ]; then				\
-		cd $(PTXDIST_WORKSPACE);				\
-		make configdeps 2>&1 > /dev/null;			\
-		$(PTXDIST_TOPDIR)/scripts/create_dependencies.sh 	\
-			1> > $(STATEDIR)/Deps.make 2> /dev/null;	\
-	fi;								\
-	echo $(STATEDIR)/Deps.make;					\
-)
-
 include $(RULESDIR)/Virtual.make
 
 PACKAGES = $(PACKAGES-y)
@@ -505,6 +491,8 @@ ptx_lxdialog:
 	fi
 
 before_config:
+	# check for some known-to-be-problematic changes; move to script
+	# later. (FIXME)
 	@if [ -n "`grep "DONT_COMPILE_KERNEL" $(PTXDIST_WORKSPACE)/.config`" ];	then	\
 		echo;									\
 		echo "error: your .config file contains DONT_COMPILE_KERNEL (obsolete)";\
@@ -555,14 +543,20 @@ allyesconfig: before_config $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -y $(MENU)
 
-configdeps: before_config $(STATEDIR)/host-kconfig.install
+configdeps: $(IMAGEDIR)/configdeps
+$(IMAGEDIR)/configdeps: before_config $(STATEDIR)/host-kconfig.install
 	@$(call findout_config)
 	@echo
 	@echo "generating dependencies from kconfig..."
 	@mkdir -p $(IMAGEDIR)
 	@cd $(PTXDIST_WORKSPACE) && \
 		yes "" | $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
-			2> /dev/null > $(IMAGEDIR)/configdeps
+			2> /dev/null > $(IMAGEDIR)/configdeps.new
+	@if [ -n "$(shell diff -u $(IMAGEDIR)/configdeps.new $(IMAGDIR)/configdeps)" ]; then \
+		mv $(IMAGEDIR)/configdeps.new $(IMAGEDIR)/configdeps; \
+	else \
+		rm $(IMAGEDIR)/configdeps.new; \
+	fi
 	@echo "$(IMAGEDIR)/configdeps"
 	@echo
 
@@ -905,4 +899,5 @@ endef
 $(foreach pkg,$(ALL_PACKAGES),$(eval $(call autogen_deps_targetinstall,$(pkg))))
 
 .PHONY: dep_output_clean dep_tree dep_world
+
 # vim600:set foldmethod=marker:
