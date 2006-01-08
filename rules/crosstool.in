@@ -182,12 +182,12 @@ config BINUTILS_VERSION
 comment "Cross Debugging Tools"
 ##############################################################################
 
-config XGDB
+config CROSS_GDB
 	bool "cross gdb"
 
-config GDB_WRAPPERS
+config CROSS_GDB_WRAPPERS
 	bool "cross gdb wrapper"
-        depends on XGDB
+        depends on CROSS_GDB
 	help
 	  Creates wrapper scripts in $PTXCONF_PREFIX/bin which preset
 	  all necessary preferences to use the cross debugger. 
