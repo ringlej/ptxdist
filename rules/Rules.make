@@ -1321,18 +1321,18 @@ install_finish = 													\
 # ----------------------------------------------------
 #  autogeneration of dependencies
 # ----------------------------------------------------
-# $1: label of the packet
-#
 
-deps_extract = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh extract $1 \
-		$(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))
-deps_prepare = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh prepare $1 \
-		$(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))
-deps_compile = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh compile $1 \
-		$(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))
-deps_install = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh install $1 \
-		$(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))
-deps_targetinstall = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh targetinstall $1 \
-		$(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))
+package_depfile=\
+	$(patsubst %.make,%.dep,$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST)))
+
+%.dep: %.in
+	@echo "creating dependency file:"
+	@echo "  source:$^"
+	@echo "  target:$@"
+	@echo "deps_extract_default = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh extract GDB $(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))" > $@
+	@echo "deps_prepare_default = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh prepare GDB $(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))" >> $@
+	@echo "deps_compile_default = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh compile GDB $(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))" >> $@
+	@echo "deps_install_default = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh install GDB $(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))" >> $@
+	@echo "deps_targetinstall = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh targetinstall GDB $(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))" >> $@
 
 # vim: syntax=make
