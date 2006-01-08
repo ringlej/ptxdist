@@ -17,11 +17,11 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_GDB) += cross-gdb
 #
 # Paths and names
 #
-CROSS_GDB_VERSION	= 6.3
-CROSS_GDB		= gdb-$(CROSS_GDB_VERSION)
-CROSS_GDB_SUFFIX	= tar.bz2
-CROSS_GDB_URL		= $(PTXCONF_SETUP_GNUMIRROR)/gdb/$(CROSS_GDB).$(CROSS_GDB_SUFFIX)
-CROSS_GDB_SOURCE	= $(SRCDIR)/$(CROSS_GDB).$(CROSS_GDB_SUFFIX)
+CROSS_GDB_VERSION	= $(GDB_VERSION)
+CROSS_GDB		= $(GDB)
+CROSS_GDB_SUFFIX	= $(GDB_SUFFIX)
+CROSS_GDB_URL		= $(GDB_URL)
+CROSS_GDB_SOURCE	= $(GDB_SOURCE)
 CROSS_GDB_DIR		= $(CROSS_BUILDDIR)/$(CROSS_GDB)
 
 # ----------------------------------------------------------------------------
@@ -35,10 +35,6 @@ cross-gdb_get_deps = $(CROSS_GDB_SOURCE)
 $(STATEDIR)/cross-gdb.get: $(cross-gdb_get_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
-$(CROSS_GDB_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, $(CROSS_GDB_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
