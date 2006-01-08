@@ -24,13 +24,15 @@ APACHE2_URL	= http://ftp.plusline.de/ftp.apache.org/httpd/$(APACHE2).$(APACHE2_S
 APACHE2_SOURCE	= $(SRCDIR)/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_DIR	= $(BUILDDIR)/$(APACHE2)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
 apache2_get: $(STATEDIR)/apache2.get
 
-apache2_get_deps = $(APACHE2_SOURCE) 
+apache2_get_deps := $(APACHE2_SOURCE) 
 
 $(STATEDIR)/apache2.get: $(apache2_get_deps)
 	@$(call targetinfo, $@)
@@ -46,7 +48,7 @@ $(APACHE2_SOURCE):
 
 apache2_extract: $(STATEDIR)/apache2.extract
 
-apache2_extract_deps = $(call deps_extract, APACHE2)
+apache2_extract_deps := $(apache2_default_extract_deps)
 
 $(STATEDIR)/apache2.extract: $(apache2_extract_deps)
 	@$(call targetinfo, $@)
@@ -61,7 +63,7 @@ $(STATEDIR)/apache2.extract: $(apache2_extract_deps)
 
 apache2_prepare: $(STATEDIR)/apache2.prepare
 
-apache2_prepare_deps = $(call deps_prepare, APACHE2)	
+apache2_prepare_deps := $(apache2_default_prepare_deps)
 
 APACHE2_PATH	=  PATH=$(CROSS_PATH)
 APACHE2_ENV 	=  $(CROSS_ENV)
@@ -101,9 +103,8 @@ $(STATEDIR)/apache2.prepare: $(apache2_prepare_deps)
 
 apache2_compile: $(STATEDIR)/apache2.compile
 
-apache2_compile_deps = \
-	$(call deps_compile, APACHE2) \
-	$(STATEDIR)/host-apache2.compile
+apache2_compile_deps := $(apache2_default_compile_deps)
+apache2_compile_deps += $(STATEDIR)/host-apache2.compile
 
 $(STATEDIR)/apache2.compile: $(apache2_compile_deps)
 	@$(call targetinfo, $@)
@@ -136,7 +137,7 @@ $(STATEDIR)/apache2.compile: $(apache2_compile_deps)
 
 apache2_install: $(STATEDIR)/apache2.install
 
-apache2_install_deps = $(call deps_install, APACHE2)
+apache2_install_deps := $(apache2_default_install_deps)
 
 $(STATEDIR)/apache2.install: $(apache2_install_deps)
 	@$(call targetinfo, $@)
@@ -149,7 +150,7 @@ $(STATEDIR)/apache2.install: $(apache2_install_deps)
 
 apache2_targetinstall: $(STATEDIR)/apache2.targetinstall
 
-apache2_targetinstall_deps = $(call deps_targetinstall, APACHE2)
+apache2_targetinstall_deps := $(apache2_default_targetinstall_deps)
 
 $(STATEDIR)/apache2.targetinstall: $(apache2_targetinstall_deps)
 	@$(call targetinfo, $@)
