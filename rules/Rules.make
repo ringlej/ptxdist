@@ -331,10 +331,10 @@ HOST_AUTOCONF  := --prefix=$(PTXCONF_HOST_PREFIX)
 # fulfills the requirements for a configuration. 
 #
 compilercheck =											\
-	CROSSTOOL="$(strip $(call remove_quotes, $(PTXCONF_CROSSTOOL)))";			\
+	TOOLCHAIN="$(strip $(call remove_quotes, $(PTXCONF_BUILD_TOOLCHAIN)))";			\
 	NATIVE="$(strip $(call remove_quotes, $(NATIVE)))";					\
 												\
-	if test "$${CROSSTOOL}" = "y" -o "$${NATIVE}" = "1" -o "$${NATIVE}" = "y"; then		\
+	if test "$${TOOLCHAIN}" = "y" -o "$${NATIVE}" = "1" -o "$${NATIVE}" = "y"; then		\
 		echo > /dev/null;								\
 	else											\
 		echo -n "compiler check...";							\
