@@ -27,6 +27,8 @@ WXWINDOWS_SOURCE	= $(SRCDIR)/$(WXWINDOWS).$(WXWINDOWS_SUFFIX)
 WXWINDOWS_DIR		= $(BUILDDIR)/$(WXWINDOWS)
 
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

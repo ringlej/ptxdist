@@ -23,6 +23,8 @@ GMP4_URL	= $(PTXCONF_SETUP_GNUMIRROR)/gmp/$(GMP4).$(GMP4_SUFFIX)
 GMP4_SOURCE	= $(SRCDIR)/$(GMP4).$(GMP4_SUFFIX)
 GMP4_DIR 	= $(BUILDDIR)/$(GMP4)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

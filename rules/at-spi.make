@@ -24,6 +24,8 @@ AT-SPI_URL	= ftp://ftp.gnome.org/pub/GNOME/sources/at-spi/1.3/$(AT-SPI).$(AT-SPI
 AT-SPI_SOURCE	= $(SRCDIR)/$(AT-SPI).$(AT-SPI_SUFFIX)
 AT-SPI_DIR	= $(BUILDDIR)/$(AT-SPI)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

@@ -24,6 +24,8 @@ CROSS_GDB_URL		= $(GDB_URL)
 CROSS_GDB_SOURCE	= $(GDB_SOURCE)
 CROSS_GDB_DIR		= $(CROSS_BUILDDIR)/$(CROSS_GDB)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

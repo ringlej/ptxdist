@@ -24,6 +24,8 @@ DNSMASQ_URL		= http://www.thekelleys.org.uk/dnsmasq/$(DNSMASQ).$(DNSMASQ_SUFFIX)
 DNSMASQ_SOURCE		= $(SRCDIR)/$(DNSMASQ).$(DNSMASQ_SUFFIX)
 DNSMASQ_DIR		= $(BUILDDIR)/$(DNSMASQ)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

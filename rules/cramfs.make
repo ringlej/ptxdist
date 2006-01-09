@@ -26,6 +26,8 @@ CRAMFS_URL	= $(PTXCONF_SETUP_SFMIRROR)/cramfs/$(CRAMFS).$(CRAMFS_SUFFIX)
 CRAMFS_SOURCE	= $(SRCDIR)/$(CRAMFS).$(CRAMFS_SUFFIX)
 CRAMFS_DIR	= $(BUILDDIR)/$(CRAMFS)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

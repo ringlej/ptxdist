@@ -31,6 +31,8 @@ NMAP_URL		= http://download.insecure.org/nmap/dist/$(NMAP).$(NMAP_SUFFIX)
 NMAP_SOURCE		= $(SRCDIR)/$(NMAP).$(NMAP_SUFFIX)
 NMAP_DIR		= $(BUILDDIR)/$(NMAP)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

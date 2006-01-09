@@ -20,6 +20,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_KCONFIG) += host-kconfig
 HOST_KCONFIG_VERSION	= 2.6.14
 HOST_KCONFIG		= kconfig-$(HOST_KCONFIG_VERSION)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

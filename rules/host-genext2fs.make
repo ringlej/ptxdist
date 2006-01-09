@@ -25,6 +25,8 @@ HOSTTOOL_GENEXT2FS_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/g/genext2fs/$(HOS
 HOSTTOOL_GENEXT2FS_SOURCE	= $(SRCDIR)/$(HOSTTOOL_GENEXT2FS_TARBALL)
 HOSTTOOL_GENEXT2FS_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL_GENEXT2FS)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

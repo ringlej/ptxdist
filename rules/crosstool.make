@@ -29,6 +29,8 @@ CROSSTOOL_URL		= http://www.kegel.com/crosstool/$(CROSSTOOL).$(CROSSTOOL_SUFFIX)
 CROSSTOOL_SOURCE	= $(SRCDIR)/$(CROSSTOOL).$(CROSSTOOL_SUFFIX)
 CROSSTOOL_DIR		= $(CROSS_BUILDDIR)/$(CROSSTOOL)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

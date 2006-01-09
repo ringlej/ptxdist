@@ -24,6 +24,8 @@ FBTEST_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBTEST).
 FBTEST_SOURCE	= $(SRCDIR)/$(FBTEST).$(FBTEST_SUFFIX)
 FBTEST_DIR	= $(BUILDDIR)/$(FBTEST)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

@@ -24,6 +24,8 @@ BONNIEXX_URL		= http://www.coker.com.au/bonnie++/$(BONNIEXX).$(BONNIEXX_SUFFIX)
 BONNIEXX_SOURCE		= $(SRCDIR)/$(BONNIEXX).$(BONNIEXX_SUFFIX)
 BONNIEXX_DIR		= $(BUILDDIR)/$(BONNIEXX)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

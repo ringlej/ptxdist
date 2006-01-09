@@ -26,6 +26,8 @@ PANGO12_SOURCE		= $(SRCDIR)/$(PANGO12).$(PANGO12_SUFFIX)
 PANGO12_DIR		= $(BUILDDIR)/$(PANGO12)
 PANGO_MODULE_VERSION	= 1.4
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

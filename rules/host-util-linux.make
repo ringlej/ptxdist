@@ -17,6 +17,8 @@ HOSTPACKAGES-$(HOSTTOOL_UTIL-LINUX) += hosttool-util-linux
 
 HOSTTOOL_UTIL-LINUX_DIR	= $(HOST_BUILDDIR)/$(UTIL-LINUX)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Hosttool Extract
 # ----------------------------------------------------------------------------

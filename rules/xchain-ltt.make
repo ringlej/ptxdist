@@ -12,9 +12,15 @@
 #
 # We provide this package
 #
+
+#
+# FIXME: Broken Package
+#
 XCHAIN-$(PTXCONF_LTT) += xchain-ltt
 
 XCHAIN_LTT_BUILDDIR	= $(BUILDDIR)/xchain-$(LTT)-build
+
+include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -12,6 +12,10 @@
 # RSC: FIXME: make this a hosttool
 
 #
+# FIXME: Broken Package
+#
+
+#
 # Paths and names
 #
 AUTOMAKE15_VERSION	= 1.5
@@ -20,6 +24,8 @@ AUTOMAKE15_SUFFIX	= tar.gz
 AUTOMAKE15_URL		= $(PTXCONF_SETUP_GNUMIRROR)/automake/$(AUTOMAKE15).$(AUTOMAKE15_SUFFIX)
 AUTOMAKE15_SOURCE	= $(SRCDIR)/$(AUTOMAKE15).$(AUTOMAKE15_SUFFIX)
 AUTOMAKE15_DIR		= $(BUILDDIR)/$(AUTOMAKE15)
+
+include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

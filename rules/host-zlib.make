@@ -8,12 +8,15 @@
 # see the README file.
 #
 
+
 HOST_PACKAGES-$(HOSTTOOL_ZLIB) += hosttool-zlib
 
 #
 # Paths and names 
 #
 HOSTTOOL_ZLIB_BUILDDIR	= $(HOST_BUILDDIR)/$(ZLIB)
+
+include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

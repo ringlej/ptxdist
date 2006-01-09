@@ -24,6 +24,8 @@ PHP_APC_URL	= http://pecl.php.net/get/$(PHP_APC).$(PHP_APC_SUFFIX)
 PHP_APC_SOURCE	= $(SRCDIR)/$(PHP_APC).$(PHP_APC_SUFFIX)
 PHP_APC_DIR	= $(PHP_DIR)/ext/$(PHP_APC)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

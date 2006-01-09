@@ -27,6 +27,8 @@ REALVNC_URL		= http://www.realvnc.com/dist/$(REALVNC).$(REALVNC_SUFFIX)
 REALVNC_SOURCE		= $(SRCDIR)/$(REALVNC).$(REALVNC_SUFFIX)
 REALVNC_DIR		= $(BUILDDIR)/$(REALVNC)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

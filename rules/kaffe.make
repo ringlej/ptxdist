@@ -35,6 +35,8 @@ KAFFE_KANGAROO_URL	= http://playground.gyro-net.de/kangaroo/$(KAFFE_KANGAROO).$(
 KAFFE_KANGAROO_SOURCE	= $(SRCDIR)/$(KAFFE_KANGAROO).$(KAFFE_KANGAROO_SUFFIX)
 KAFFE_KANGAROO_DIR	= $(BUILDDIR)/$(KAFFE_KANGAROO)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

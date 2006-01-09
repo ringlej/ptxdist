@@ -12,6 +12,10 @@
 # RSC: FIXME: make this a hosttool
 
 #
+# FIXME: Broken Package
+#
+
+#
 # Paths and names
 #
 AUTOMAKE176_VERSION	= 1.7.6
@@ -20,6 +24,8 @@ AUTOMAKE176_SUFFIX	= tar.bz2
 AUTOMAKE176_URL		= $(PTXCONF_SETUP_GNUMIRROR)/automake/$(AUTOMAKE176).$(AUTOMAKE176_SUFFIX)
 AUTOMAKE176_SOURCE	= $(SRCDIR)/$(AUTOMAKE176).$(AUTOMAKE176_SUFFIX)
 AUTOMAKE176_DIR		= $(BUILDDIR)/$(AUTOMAKE176)
+
+include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -25,6 +25,8 @@ GLIB26_URL		= ftp://ftp.gtk.org/pub/gtk/v2.6/$(GLIB26).$(GLIB26_SUFFIX)
 GLIB26_SOURCE		= $(SRCDIR)/$(GLIB26).$(GLIB26_SUFFIX)
 GLIB26_DIR		= $(BUILDDIR)/$(GLIB26)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

@@ -24,6 +24,8 @@ CLEMENTINE_URL		= $(PTXCONF_SETUP_SFMIRROR)/clementine/$(CLEMENTINE).$(CLEMENTIN
 CLEMENTINE_SOURCE	= $(SRCDIR)/$(CLEMENTINE).$(CLEMENTINE_SUFFIX)
 CLEMENTINE_DIR		= $(BUILDDIR)/$(CLEMENTINE)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

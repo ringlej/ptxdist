@@ -12,6 +12,10 @@
 #
 # We provide this package
 #
+
+#
+# FIXME: Broken Package
+#
 ifdef PTXCONF_XMLBENCH
 PACKAGES += xmlbench
 endif
@@ -25,6 +29,8 @@ XMLBENCH_SUFFIX		= tar.bz2
 XMLBENCH_URL		= $(PTXCONF_SETUP_SFMIRROR)/xmlbench/$(XMLBENCH).$(XMLBENCH_SUFFIX)
 XMLBENCH_SOURCE		= $(SRCDIR)/$(XMLBENCH).$(XMLBENCH_SUFFIX)
 XMLBENCH_DIR		= $(BUILDDIR)/$(XMLBENCH)
+
+include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -23,6 +23,8 @@ GMP3_URL	= $(PTXCONF_SETUP_GNUMIRROR)/gmp/$(GMP3).$(GMP3_SUFFIX)
 GMP3_SOURCE	= $(SRCDIR)/$(GMP3).$(GMP3_SUFFIX)
 GMP3_DIR 	= $(BUILDDIR)/$(GMP3)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

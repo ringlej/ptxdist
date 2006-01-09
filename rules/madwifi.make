@@ -34,6 +34,8 @@ MADWIFI_URL		= file://tmp/$(MADWIFI).$(MADWIFI_SUFFIX)
 MADWIFI_SOURCE		= $(SRCDIR)/$(MADWIFI).$(MADWIFI_SUFFIX)
 MADWIFI_DIR		= $(BUILDDIR)/$(MADWIFI)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

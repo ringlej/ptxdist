@@ -24,6 +24,8 @@ TSLIB_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(TSLIB).$
 TSLIB_SOURCE		= $(SRCDIR)/$(TSLIB).$(TSLIB_SUFFIX)
 TSLIB_DIR		= $(BUILDDIR)/$(TSLIB)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

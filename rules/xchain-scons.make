@@ -24,6 +24,8 @@ XCHAIN-SCONS_URL	= $(PTXCONF_SETUP_SFMIRROR)/scons/$(XCHAIN-SCONS).$(XCHAIN-SCON
 XCHAIN-SCONS_SOURCE	= $(SRCDIR)/$(XCHAIN-SCONS).$(XCHAIN-SCONS_SUFFIX)
 XCHAIN-SCONS_DIR	= $(BUILDDIR)/$(XCHAIN-SCONS)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

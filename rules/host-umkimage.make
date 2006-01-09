@@ -23,6 +23,8 @@ HOSTTOOL_UMKIMAGE_URL		= http://www.pengutronix.de/software/ptxdist/temporary-sr
 HOSTTOOL_UMKIMAGE_SOURCE	= $(SRCDIR)/$(HOSTTOOL_UMKIMAGE).$(HOSTTOOL_UMKIMAGE_SUFFIX)
 HOSTTOOL_UMKIMAGE_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL_UMKIMAGE)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

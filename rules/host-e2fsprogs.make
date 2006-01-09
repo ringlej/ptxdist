@@ -26,6 +26,8 @@ HOST_E2FSPROGS_SOURCE		= $(HOST_E2FSPROGS_SOURCE_DIR)/$(HOST_E2FSPROGS).$(HOST_E
 HOST_E2FSPROGS_DIR		= $(BUILDDIR)/host/$(HOST_E2FSPROGS)
 HOST_E2FSPROGS_BUILD_DIR	= $(BUILDDIR)/host/$(HOST_E2FSPROGS)-build
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

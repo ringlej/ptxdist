@@ -27,6 +27,8 @@ XLIBS-XTRANS_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XL
 XLIBS-XTRANS_SOURCE	= $(SRCDIR)/$(XLIBS-XTRANS).$(XLIBS-XTRANS_SUFFIX)
 XLIBS-XTRANS_DIR	= $(BUILDDIR)/$(XLIBS-XTRANS)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

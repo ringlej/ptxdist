@@ -25,6 +25,8 @@ GLIB28_URL		= ftp://ftp.gtk.org/pub/gtk/v2.8/$(GLIB28).$(GLIB28_SUFFIX)
 GLIB28_SOURCE		= $(SRCDIR)/$(GLIB28).$(GLIB28_SUFFIX)
 GLIB28_DIR		= $(BUILDDIR)/$(GLIB28)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

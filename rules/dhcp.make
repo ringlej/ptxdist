@@ -24,6 +24,8 @@ DHCP_URL	= ftp://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX)
 DHCP_SOURCE	= $(SRCDIR)/$(DHCP).$(DHCP_SUFFIX)
 DHCP_DIR	= $(BUILDDIR)/$(DHCP)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

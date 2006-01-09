@@ -24,6 +24,8 @@ SETSERIAL_URL		= $(PTXCONF_SETUP_SFMIRROR)/setserial/$(SETSERIAL).$(SETSERIAL_SU
 SETSERIAL_SOURCE	= $(SRCDIR)/$(SETSERIAL).$(SETSERIAL_SUFFIX)
 SETSERIAL_DIR		= $(BUILDDIR)/$(SETSERIAL)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

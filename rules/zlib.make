@@ -22,6 +22,8 @@ ZLIB_URL 		= http://www.zlib.net/$(ZLIB).tar.gz
 ZLIB_SOURCE		= $(SRCDIR)/$(ZLIB).tar.gz
 ZLIB_DIR		= $(BUILDDIR)/$(ZLIB)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

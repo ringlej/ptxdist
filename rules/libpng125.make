@@ -25,6 +25,8 @@ LIBPNG125_URL		= $(PTXCONF_SETUP_SFMIRROR)/libpng/$(LIBPNG125).$(LIBPNG125_SUFFI
 LIBPNG125_SOURCE	= $(SRCDIR)/$(LIBPNG125).$(LIBPNG125_SUFFIX)
 LIBPNG125_DIR		= $(BUILDDIR)/$(LIBPNG125)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

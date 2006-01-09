@@ -24,6 +24,8 @@ LIBXSLT_URL	= ftp://xmlsoft.org/$(LIBXSLT).$(LIBXSLT_SUFFIX)
 LIBXSLT_SOURCE	= $(SRCDIR)/$(LIBXSLT).$(LIBXSLT_SUFFIX)
 LIBXSLT_DIR	= $(BUILDDIR)/$(LIBXSLT)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

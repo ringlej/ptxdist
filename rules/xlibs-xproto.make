@@ -27,6 +27,8 @@ XLIBS-XPROTO_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XL
 XLIBS-XPROTO_SOURCE	= $(SRCDIR)/$(XLIBS-XPROTO).$(XLIBS-XPROTO_SUFFIX)
 XLIBS-XPROTO_DIR	= $(BUILDDIR)/$(XLIBS-XPROTO)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

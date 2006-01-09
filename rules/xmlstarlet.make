@@ -24,6 +24,8 @@ XMLSTARLET_URL		= $(PTXCONF_SETUP_SFMIRROR)/xmlstar/$(XMLSTARLET).$(XMLSTARLET_S
 XMLSTARLET_SOURCE	= $(SRCDIR)/$(XMLSTARLET).$(XMLSTARLET_SUFFIX)
 XMLSTARLET_DIR		= $(BUILDDIR)/$(XMLSTARLET)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

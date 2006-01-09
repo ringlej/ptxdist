@@ -27,6 +27,8 @@ LIBIDL068_URL		= http://ftp.mozilla.org/pub/mozilla/libraries/source/$(LIBIDL068
 LIBIDL068_SOURCE	= $(SRCDIR)/$(LIBIDL068).$(LIBIDL068_SUFFIX)
 LIBIDL068_DIR		= $(BUILDDIR)/$(LIBIDL068)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

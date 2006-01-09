@@ -23,6 +23,8 @@ STRACE_URL		= $(PTXCONF_SETUP_SFMIRROR)/strace/$(STRACE).tar.bz2
 STRACE_SOURCE		= $(SRCDIR)/$(STRACE).tar.bz2
 STRACE_DIR		= $(BUILDDIR)/$(STRACE)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

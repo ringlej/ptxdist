@@ -27,6 +27,8 @@ XLIBS-RENDER_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XL
 XLIBS-RENDER_SOURCE	= $(SRCDIR)/$(XLIBS-RENDER).$(XLIBS-RENDER_SUFFIX)
 XLIBS-RENDER_DIR	= $(BUILDDIR)/$(XLIBS-RENDER)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

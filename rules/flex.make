@@ -24,6 +24,8 @@ FLEX_URL	= $(PTXCONF_SETUP_GNUMIRROR)/non-gnu/flex/$(FLEX)a.$(FLEX_SUFFIX)
 FLEX_SOURCE	= $(SRCDIR)/$(FLEX)a.$(FLEX_SUFFIX)
 FLEX_DIR	= $(BUILDDIR)/$(FLEX)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

@@ -12,12 +12,18 @@
 #
 # We provide this package
 #
+
+#
+# FIXME: Broken Package
+#
 XCHAIN-$(PTXCONF_KAFFE) += xchain-kaffe
 
 #
 # Paths and names
 #
 XCHAIN_KAFFE_BUILDDIR	= $(BUILDDIR)/xchain-$(KAFFE)-build
+
+include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

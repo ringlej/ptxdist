@@ -11,11 +11,17 @@
 # FIXME: RSC: this should probably be heavily rewritten
 
 #
+# FIXME: Broken Package
+#
+
+#
 # We provide this package
 #
 #ifeq (y, $(PTXCONF_BOOTDISK))
 #PACKAGES += bootdisk
 #endif
+
+include $(call package_depfile)
 
 #
 # Paths and names 

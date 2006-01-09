@@ -24,6 +24,8 @@ ETHEREAL_URL		= http://netmirror.org/mirror/ftp.ethereal.com/all-versions/$(ETHE
 ETHEREAL_SOURCE		= $(SRCDIR)/$(ETHEREAL).$(ETHEREAL_SUFFIX)
 ETHEREAL_DIR		= $(BUILDDIR)/$(ETHEREAL)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

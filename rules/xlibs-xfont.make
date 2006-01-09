@@ -26,6 +26,8 @@ XLIBS-XFONT_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XL
 XLIBS-XFONT_SOURCE	= $(SRCDIR)/$(XLIBS-XFONT).$(XLIBS-XFONT_SUFFIX)
 XLIBS-XFONT_DIR		= $(BUILDDIR)/$(XLIBS-XFONT)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

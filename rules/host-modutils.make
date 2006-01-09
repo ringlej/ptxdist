@@ -24,6 +24,8 @@ HOSTTOOL_MODUTILS_URL		= http://www.kernel.org/pub/linux/utils/kernel/modutils/v
 HOSTTOOL_MODUTILS_SOURCE	= $(SRCDIR)/$(HOSTTOOL_MODUTILS).$(HOSTTOOL_MODUTILS_SUFFIX)
 HOSTTOOL_MODUTILS_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL_MODUTILS)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

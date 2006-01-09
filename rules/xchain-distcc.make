@@ -26,6 +26,8 @@ XCHAIN-DISTCC_URL	= http://distcc.samba.org/ftp/distcc/$(XCHAIN-DISTCC).$(XCHAIN
 XCHAIN-DISTCC_SOURCE	= $(SRCDIR)/$(XCHAIN-DISTCC).$(XCHAIN-DISTCC_SUFFIX)
 XCHAIN-DISTCC_DIR	= $(BUILDDIR)/$(XCHAIN-DISTCC)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

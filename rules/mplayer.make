@@ -24,6 +24,8 @@ MPLAYER_URL		= http://ftp5.mplayerhq.hu/mplayer/releases/$(MPLAYER).$(MPLAYER_SU
 MPLAYER_SOURCE		= $(SRCDIR)/$(MPLAYER).$(MPLAYER_SUFFIX)
 MPLAYER_DIR		= $(BUILDDIR)/$(MPLAYER)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

@@ -24,6 +24,8 @@ TROLL-FTPD_URL		= ftp://ftp.trolltech.com/freebies/ftpd/$(TROLL-FTPD).$(TROLL-FT
 TROLL-FTPD_SOURCE	= $(SRCDIR)/$(TROLL-FTPD).$(TROLL-FTPD_SUFFIX)
 TROLL-FTPD_DIR		= $(BUILDDIR)/$(TROLL-FTPD)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

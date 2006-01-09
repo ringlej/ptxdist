@@ -24,6 +24,8 @@ POP3SPAM_URL		= $(PTXCONF_SETUP_SFMIRROR)/pop3spam/$(POP3SPAM).$(POP3SPAM_SUFFIX
 POP3SPAM_SOURCE		= $(SRCDIR)/$(POP3SPAM).$(POP3SPAM_SUFFIX)
 POP3SPAM_DIR		= $(BUILDDIR)/$(POP3SPAM)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

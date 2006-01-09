@@ -24,6 +24,8 @@ NANO_URL		= http://www.nano-editor.org/dist/v1.2/$(NANO).$(NANO_SUFFIX)
 NANO_SOURCE		= $(SRCDIR)/$(NANO).$(NANO_SUFFIX)
 NANO_DIR		= $(BUILDDIR)/$(NANO)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

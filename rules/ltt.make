@@ -26,6 +26,8 @@ LTT_SOURCE		= $(SRCDIR)/$(LTT)a.$(LTT_SUFFIX)
 LTT_DIR			= $(BUILDDIR)/$(LTT)
 LTT_BUILDDIR		= $(BUILDDIR)/$(LTT)-build
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

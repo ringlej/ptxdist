@@ -24,6 +24,8 @@ MEMTESTER_URL		= http://pyropus.ca/software/memtester/$(MEMTESTER).$(MEMTESTER_S
 MEMTESTER_SOURCE	= $(SRCDIR)/$(MEMTESTER).$(MEMTESTER_SUFFIX)
 MEMTESTER_DIR		= $(BUILDDIR)/$(MEMTESTER)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

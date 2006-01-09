@@ -12,12 +12,18 @@
 #
 # We provide this package
 #
+
+#
+# FIXME: Broken Package
+#
 XCHAIN-$(PTXCONF_PYTHON24) += xchain-python24
 
 #
 # Paths and names
 #
 XCHAIN_PYTHON24_BUILDDIR	= $(HOST_BUILDDIR)/xchain-$(PYTHON24)-build
+
+include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

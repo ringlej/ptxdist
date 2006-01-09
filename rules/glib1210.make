@@ -25,6 +25,8 @@ GLIB1210_URL		= ftp://ftp.gtk.org/pub/gtk/v1.2/$(GLIB1210).$(GLIB1210_SUFFIX)
 GLIB1210_SOURCE		= $(SRCDIR)/$(GLIB1210).$(GLIB1210_SUFFIX)
 GLIB1210_DIR		= $(BUILDDIR)/$(GLIB1210)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

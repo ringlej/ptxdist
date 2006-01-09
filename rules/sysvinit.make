@@ -29,6 +29,8 @@ BSDINIT_URL		= http://www.exis.cl/ptxdist/bsdinit-1.0.tar.gz
 BSDINIT_SOURCE		= $(SRCDIR)/bsdinit-1.0.tar.gz
 BSDINIT_DIR		= $(BUILDDIR)/bsdinit-1.0
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

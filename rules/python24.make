@@ -25,6 +25,8 @@ PYTHON24_SOURCE		= $(SRCDIR)/$(PYTHON24).$(PYTHON24_SUFFIX)
 PYTHON24_DIR		= $(BUILDDIR)/$(PYTHON24)
 PYTHON24_BUILDDIR	= $(PYTHON24_DIR)-build
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

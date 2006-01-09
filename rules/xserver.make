@@ -27,6 +27,8 @@ XSERVER_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XSERVE
 XSERVER_SOURCE		= $(SRCDIR)/$(XSERVER).$(XSERVER_SUFFIX)
 XSERVER_DIR		= $(BUILDDIR)/$(XSERVER)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

@@ -24,6 +24,8 @@ LIBXMLCONFIG_URL	= http://www.pengutronix.de/software/libxmlconfig/download/$(LI
 LIBXMLCONFIG_SOURCE	= $(SRCDIR)/$(LIBXMLCONFIG).$(LIBXMLCONFIG_SUFFIX)
 LIBXMLCONFIG_DIR	= $(BUILDDIR)/$(LIBXMLCONFIG)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

@@ -24,6 +24,8 @@ GTK2-ENGINES_URL	= http://ftp.gnome.org/pub/GNOME/sources/gtk-engines/2.2/$(GTK2
 GTK2-ENGINES_SOURCE	= $(SRCDIR)/$(GTK2-ENGINES).$(GTK2-ENGINES_SUFFIX)
 GTK2-ENGINES_DIR	= $(BUILDDIR)/$(GTK2-ENGINES)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

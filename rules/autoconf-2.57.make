@@ -23,6 +23,8 @@ AUTOCONF257_URL			= $(PTXCONF_SETUP_GNUMIRROR)/autoconf/$(AUTOCONF257).tar.gz
 AUTOCONF257_SOURCE		= $(SRCDIR)/$(AUTOCONF257).tar.gz
 AUTOCONF257_DIR			= $(BUILDDIR)/$(AUTOCONF257)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

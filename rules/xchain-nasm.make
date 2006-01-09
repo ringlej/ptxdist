@@ -24,6 +24,8 @@ XCHAIN_NASM_URL		= $(PTXCONF_SETUP_SFMIRROR)/nasm/$(XCHAIN_NASM).$(XCHAIN_NASM_S
 XCHAIN_NASM_SOURCE	= $(SRCDIR)/$(XCHAIN_NASM).$(XCHAIN_NASM_SUFFIX)
 XCHAIN_NASM_DIR		= $(BUILDDIR)/$(XCHAIN_NASM)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

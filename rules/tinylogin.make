@@ -25,6 +25,8 @@ TINYLOGIN_URL		= http://tinylogin.busybox.net/downloads/$(TINYLOGIN).tar.bz2
 TINYLOGIN_SOURCE	= $(SRCDIR)/$(TINYLOGIN).tar.bz2
 TINYLOGIN_DIR		= $(BUILDDIR)/$(TINYLOGIN)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

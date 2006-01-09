@@ -24,6 +24,8 @@ DIALOG_URL		= http://invisible-island.net/dialog/$(DIALOG).$(DIALOG_SUFFIX)
 DIALOG_SOURCE		= $(SRCDIR)/$(DIALOG).$(DIALOG_SUFFIX)
 DIALOG_DIR		= $(BUILDDIR)/$(DIALOG)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

@@ -24,6 +24,8 @@ HDPARM_URL	= $(PTXCONF_SETUP_SFMIRROR)/hdparm/$(HDPARM).$(HDPARM_SUFFIX)
 HDPARM_SOURCE	= $(SRCDIR)/$(HDPARM).$(HDPARM_SUFFIX)
 HDPARM_DIR	= $(BUILDDIR)/$(HDPARM)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

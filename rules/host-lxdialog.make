@@ -21,6 +21,8 @@ HOST_LXDIALOG_VERSION	= 2.5.something# FIXME: should be updated
 HOST_LXDIALOG		= lxdialog-$(HOST_LXDIALOG_VERSION)
 HOST_LXDIALOG_DIR	= $(PTXDIST_WORKSPACE)/scripts/lxdialog
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

@@ -12,12 +12,18 @@
 #
 # We provide this package
 #
+
+#
+# FIXME: Broken Package
+#
 XCHAIN-$(PTXCONF_KAFFE) += xchain-python
 
 #
 # Paths and names
 #
 XCHAIN_PYTHON_BUILDDIR	= $(BUILDDIR)/xchain-$(PYTHON)-build
+
+include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

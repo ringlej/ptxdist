@@ -24,6 +24,8 @@ BING_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(BING).$(B
 BING_SOURCE		= $(SRCDIR)/$(BING).$(BING_SUFFIX)
 BING_DIR		= $(BUILDDIR)/$(BING)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

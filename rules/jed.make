@@ -24,6 +24,8 @@ JED_URL		= ftp://space.mit.edu/pub/davis/jed/v0.99/$(JED).$(JED_SUFFIX)
 JED_SOURCE	= $(SRCDIR)/$(JED).$(JED_SUFFIX)
 JED_DIR		= $(BUILDDIR)/$(JED)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

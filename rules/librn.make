@@ -25,6 +25,8 @@ LIBRN_URL	= http://www.pengutronix.de/software/librn/download/$(LIBRN).$(LIBRN_S
 LIBRN_SOURCE	= $(SRCDIR)/$(LIBRN).$(LIBRN_SUFFIX)
 LIBRN_DIR	= $(BUILDDIR)/$(LIBRN)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

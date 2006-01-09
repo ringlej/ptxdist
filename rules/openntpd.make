@@ -23,6 +23,8 @@ OPENNTPD_URL		= ftp://ftp.de.openbsd.org/pub/unix/OpenBSD/OpenNTPD/$(OPENNTPD).$
 OPENNTPD_SOURCE		= $(SRCDIR)/$(OPENNTPD).$(OPENNTPD_SUFFIX)
 OPENNTPD_DIR		= $(BUILDDIR)/$(OPENNTPD)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

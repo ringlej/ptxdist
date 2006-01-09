@@ -23,6 +23,8 @@ JOE_URL		= $(PTXCONF_SETUP_SFMIRROR)/joe-editor/$(JOE).$(JOE_SUFFIX)
 JOE_SOURCE	= $(SRCDIR)/$(JOE).$(JOE_SUFFIX)
 JOE_DIR		= $(BUILDDIR)/$(JOE)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

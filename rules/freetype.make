@@ -25,6 +25,8 @@ FREETYPE_URL		= ftp://gd.tuwien.ac.at/publishing/freetype/freetype2/$(FREETYPE).
 FREETYPE_SOURCE		= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
 FREETYPE_DIR		= $(BUILDDIR)/$(FREETYPE)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

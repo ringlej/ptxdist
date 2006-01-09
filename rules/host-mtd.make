@@ -21,6 +21,8 @@ HOSTTOOL_MTD		= $(MTD)
 HOSTTOOL_MTD_SOURCE	= $(MTD_SOURCE)
 HOSTTOOL_MTD_DIR	= $(HOST_BUILDDIR)/$(HOSTTOOL_MTD)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

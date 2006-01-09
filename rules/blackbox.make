@@ -24,6 +24,8 @@ BLACKBOX_URL		= $(PTXCONF_SETUP_SFMIRROR)/blackboxwm/$(BLACKBOX).$(BLACKBOX_SUFF
 BLACKBOX_SOURCE		= $(SRCDIR)/$(BLACKBOX).$(BLACKBOX_SUFFIX)
 BLACKBOX_DIR		= $(BUILDDIR)/$(BLACKBOX)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

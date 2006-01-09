@@ -26,6 +26,8 @@ POPT_URL	= ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.1.x/$(POPT).$(POPT_SUFFIX)
 POPT_SOURCE	= $(SRCDIR)/$(POPT).$(POPT_SUFFIX)
 POPT_DIR	= $(BUILDDIR)/$(POPT)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

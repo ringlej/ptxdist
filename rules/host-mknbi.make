@@ -24,6 +24,8 @@ HOSTTOOL_MKNBI_SOURCE		= $(SRCDIR)/$(HOSTTOOL_MKNBI).$(HOSTTOOL_MKNBI_SUFFIX)
 HOSTTOOL_MKNBI_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL_MKNBI)
 HOSTTOOL_MKNBI_FLAGS 		= BUILD_ROOT=$(PTXCONF_PREFIX)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

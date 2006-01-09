@@ -24,6 +24,8 @@ HOSTTOOL_FAKEROOT_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/f/fakeroot/fakeroo
 HOSTTOOL_FAKEROOT_SOURCE	= $(SRCDIR)/fakeroot_$(HOSTTOOL_FAKEROOT_VERSION).$(HOSTTOOL_FAKEROOT_SUFFIX)
 HOSTTOOL_FAKEROOT_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL_FAKEROOT)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

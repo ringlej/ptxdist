@@ -24,6 +24,8 @@ XLIBS-XTST_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLI
 XLIBS-XTST_SOURCE	= $(SRCDIR)/$(XLIBS-XTST).$(XLIBS-XTST_SUFFIX)
 XLIBS-XTST_DIR		= $(BUILDDIR)/$(XLIBS-XTST)
 
+#include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

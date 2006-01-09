@@ -25,6 +25,8 @@ GTK26_URL	= ftp://ftp.gtk.org/pub/gtk/v2.6/$(GTK26).$(GTK26_SUFFIX)
 GTK26_SOURCE	= $(SRCDIR)/$(GTK26).$(GTK26_SUFFIX)
 GTK26_DIR	= $(BUILDDIR)/$(GTK26)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

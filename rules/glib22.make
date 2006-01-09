@@ -25,6 +25,8 @@ GLIB22_URL		= ftp://ftp.gtk.org/pub/gtk/v2.3/$(GLIB22).$(GLIB22_SUFFIX)
 GLIB22_SOURCE		= $(SRCDIR)/$(GLIB22).$(GLIB22_SUFFIX)
 GLIB22_DIR		= $(BUILDDIR)/$(GLIB22)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

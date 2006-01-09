@@ -25,6 +25,8 @@ MGETTY_URL	= ftp://ftp.leo.org/historic/comp/os/unix/networking/mgetty/$(MGETTY)
 MGETTY_SOURCE	= $(SRCDIR)/$(MGETTY)-$(MGETTY_DATE).$(MGETTY_SUFFIX)
 MGETTY_DIR	= $(BUILDDIR)/mgetty-$(MGETTY_VERSION)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

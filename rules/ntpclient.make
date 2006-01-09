@@ -16,6 +16,8 @@ NTPCLIENT_URL		= http://doolittle.faludi.com/ntpclient/$(NTPCLIENT)_$(NTPCLIENT_
 NTPCLIENT_SOURCE	= $(SRCDIR)/$(NTPCLIENT)_$(NTPCLIENT_VERSION).$(NTPCLIENT_SUFFIX)
 NTPCLIENT_DIR		= $(BUILDDIR)/$(NTPCLIENT)
 
+include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
