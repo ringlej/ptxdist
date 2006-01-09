@@ -27,7 +27,7 @@ CROSSTOOL		= crosstool-$(CROSSTOOL_VERSION)
 CROSSTOOL_SUFFIX	= tar.gz
 CROSSTOOL_URL		= http://www.kegel.com/crosstool/$(CROSSTOOL).$(CROSSTOOL_SUFFIX)
 CROSSTOOL_SOURCE	= $(SRCDIR)/$(CROSSTOOL).$(CROSSTOOL_SUFFIX)
-CROSSTOOL_DIR		= $(BUILDDIR)/$(CROSSTOOL)
+CROSSTOOL_DIR		= $(CROSS_BUILDDIR)/$(CROSSTOOL)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -57,8 +57,8 @@ crosstool_extract_deps = $(STATEDIR)/crosstool.get
 $(STATEDIR)/crosstool.extract: $(crosstool_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSSTOOL_DIR))
-	@$(call extract, $(CROSSTOOL_SOURCE))
-	@$(call patchin, $(CROSSTOOL))
+	@$(call extract, $(CROSSTOOL_SOURCE), $(CROSS_BUILDDIR))
+	@$(call patchin, $(CROSSTOOL),$(CROSSTOOL_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
