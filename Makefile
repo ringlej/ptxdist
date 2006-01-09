@@ -490,9 +490,7 @@ ptx_lxdialog:
 		exit 1;									\
 	fi
 
-before_config:
-	# check for some known-to-be-problematic changes; move to script
-	# later. (FIXME)
+check_problematic_configs = 								\
 	@if [ -n "`grep "DONT_COMPILE_KERNEL" $(PTXDIST_WORKSPACE)/.config`" ];	then	\
 		echo;									\
 		echo "error: your .config file contains DONT_COMPILE_KERNEL (obsolete)";\
@@ -501,7 +499,7 @@ before_config:
 		exit 1;									\
 	fi;										\
 	echo "checking \$$PTXDIST_WORKSPACE/config";					\
-	if [ -n "$(OUTOFTREE)" ] && [ ! -d "$(PTXDIST_WORKSPACE)/config/setup" ]; then \
+	if [ -n "$(OUTOFTREE)" ] && [ ! -d "$(PTXDIST_WORKSPACE)/config/setup" ]; then	\
 		echo "out-of-tree build, creating setup dir";				\
 		rm -fr $(PTXDIST_WORKSPACE)/config/setup;				\
 		mkdir -p $(PTXDIST_WORKSPACE)/config; 					\
@@ -509,57 +507,65 @@ before_config:
 		for i in $(PTXDIST_TOPDIR)/config/uClibc* $(PTXDIST_TOPDIR)/config/busybox*; do \
 			ln -sf $$i $(PTXDIST_WORKSPACE)/config/`basename $$i`; 		\
 		done; 									\
-	fi	
-	@echo "checking \$$PTXDIST_WORKSPACE/rules"
-	@[ -e "$(PTXDIST_WORKSPACE)/rules" ]   || ln -sf $(PTXDIST_TOPDIR)/rules   $(PTXDIST_WORKSPACE)/rules
+	fi;										\
+	@echo "checking \$$PTXDIST_WORKSPACE/rules";					\
+	@[ -e "$(PTXDIST_WORKSPACE)/rules" ] || ln -sf $(PTXDIST_TOPDIR)/rules $(PTXDIST_WORKSPACE)/rules;
 
-menuconfig: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
+
+
+menuconfig: $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
+	$(call check_problematic_configs)
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/mconf $(MENU)
 	# automatic silentoldconfig for consistent .config files 
 	@if [ -f $(PTXDIST_WORKSPACE)/.config ]; then cd $(PTXDIST_WORKSPACE) && make silentoldconfig; fi
 
-xconfig: before_config $(STATEDIR)/host-kconfig.install
+xconfig: $(STATEDIR)/host-kconfig.install
+	$(call check_problematic_configs)
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/qconf $(MENU)
 	# automatic silentoldconfig for consistent .config files 
 	cd $(PTXDIST_WORKSPACE) && make silentoldconfig
 
-gconfig: before_config $(STATEDIR)/host-kconfig.install
+gconfig: $(STATEDIR)/host-kconfig.install
+	$(call check_problematic_configs)
 	$(call findout_config)
 	LD_LIBRARY_PATH=$(PTXDIST_TOPDIR)/scripts/kconfig cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/gconf $(MENU)
 	# automatic silentoldconfig for consistent .config files 
 	cd $(PTXDIST_WORKSPACE) && make silentoldconfig
 
-oldconfig: before_config $(STATEDIR)/host-kconfig.install
+oldconfig: $(STATEDIR)/host-kconfig.install
+	$(call check_problematic_configs)
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -o $(MENU)
 
-silentoldconfig: before_config $(STATEDIR)/host-kconfig.install
+silentoldconfig: $(STATEDIR)/host-kconfig.install
+	$(call check_problematic_configs)
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -s $(MENU)
 
-allyesconfig: before_config $(STATEDIR)/host-kconfig.install
+allyesconfig: $(STATEDIR)/host-kconfig.install
+	$(call check_problematic_configs)
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -y $(MENU)
 
-# FIXME : Dependencies do not work as they should... configdeps should be rebuilt when *.in changes
 configdeps_deps := $(wildcard $(RULESDIR)/*.in) $(wildcard $(PROJECTRULESDIR)/*.in)
-configdeps: $(IMAGEDIR)/configdeps $(configdeps_deps)
-$(IMAGEDIR)/configdeps: before_config $(STATEDIR)/host-kconfig.install 
+configdeps: $(IMAGEDIR)/configdeps
+
+$(IMAGEDIR)/configdeps: $(STATEDIR)/host-kconfig.install $(configdeps_deps)
+	@$(call check_problematic_configs)
 	@$(call findout_config)
 	@echo
 	@echo "generating dependencies from kconfig..."
 	@mkdir -p $(IMAGEDIR)
 	@cd $(PTXDIST_WORKSPACE) && \
 		yes "" | $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
-			2> /dev/null > $(IMAGEDIR)/configdeps.new
-	@if [ -n "$(shell diff -u $(IMAGEDIR)/configdeps.new $(IMAGDIR)/configdeps)" ]; then \
+			2> /dev/null > $(IMAGEDIR)/configdeps
+#	@if [ -n "$(shell diff -u $(IMAGEDIR)/configdeps.new $(IMAGDIR)/configdeps)" ]; then \
 		mv $(IMAGEDIR)/configdeps.new $(IMAGEDIR)/configdeps; \
 	else \
 		rm $(IMAGEDIR)/configdeps.new; \
 	fi
-	@echo "$(IMAGEDIR)/configdeps"
 	@echo
 
 setup: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
@@ -879,27 +885,19 @@ print-%:
 # ----------------------------------------------------------------------------
 # Autogenerate Dependencies
 # ----------------------------------------------------------------------------
-#
-# For all packages: 
-#
-# - each prepare stage depends on all prerequisites' install stage
-# - each targetinstall stage depends on all pre.'s targetinstall stages
-#
 
-deps_apache2 = expat glibc_librt
+%.dep: $(IMAGEDIR)/configdeps
+	@echo "creating dependency file: $@"
+	@$(PTXDIST_TOPDIR)/scripts/create_dependencies.sh \
+		--action defaults \
+		--rulesdir $(RULESDIR) \
+		--projectrulesdir $(PROJECTRULESDIR) \
+		--imagedir $(IMAGEDIR) \
+		--statedir $(STATEDIR) \
+		--dependency-file $@
 
-define autogen_deps_prepare
-$(1)_test_prepare_deps: $(foreach dep,$(deps_$(1)),$(STATEDIR)/$(dep).install)
-endef
+# ----------------------------------------------------------------------------
 
-$(foreach pkg,$(ALL_PACKAGES),$(eval $(call autogen_deps_prepare,$(pkg))))
-
-define autogen_deps_targetinstall
-$(1)_test_targetinstall_deps: $(foreach dep,$(deps_$(1)),$(STATEDIR)/$(dep).targetinstall)
-endef
-
-$(foreach pkg,$(ALL_PACKAGES),$(eval $(call autogen_deps_targetinstall,$(pkg))))
-
-.PHONY: dep_output_clean dep_tree dep_world
+.PHONY: dep_output_clean dep_tree dep_world before_config
 
 # vim600:set foldmethod=marker:
