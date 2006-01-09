@@ -18,17 +18,27 @@ config PTXCONF
 
 comment "----------------------------------"
 
-choice 
+choice
 	prompt "Build...        "
 	default BUILD_USERLAND
+	help
+	  Select here what you want to build today. See specific help in the submenu.
 
 	config BUILD_USERLAND
 		bool
 		prompt "Userland "
+		help
+		  Select this menu if you want to build your userland programs, e.g.
+		  applications, shells etc. This requires a ready-to-use toolchain
+		  (compiler, assembler, linker and the base runtime environment)
 
 	config BUILD_TOOLCHAIN
 		bool
 		prompt "Toolchain"
+		help
+		  Select this menu if you want to build a toolchain and the base runtime
+		  environment. This is the opposite of building "Userland". Building
+		  userland application requires this step first.
 
 endchoice
 
@@ -38,18 +48,18 @@ config PROJECT
 	string
 	prompt "Project Name "
 	help
-	  Name of this project; each PTXdist "Project" specifies a unique 
+	  Name of this project; each PTXdist "Project" specifies a unique
 	  configuration for an embedded Linux project. A project constists
 	  of one directory in $(PROJECTDIR), which is usually to be found
 	  in $(PTXDIST_TOPDIR)/projects when being delivered with the
-	  PTXdist base package. 
+	  PTXdist base package.
 
 	  You can specifiy an additional directory which is being searched
 	  for "local" projects with "make setup". The predefined path
-	  for local projects is $(PTXDIST_TOPDIR)/local_projects. 
+	  for local projects is $(PTXDIST_TOPDIR)/local_projects.
 
-	  To find out which projects are available in the current tree, 
-	  type "make configs". 
+	  To find out which projects are available in the current tree,
+	  type "make configs".
 
 config PROJECT_VERSION
 	string
@@ -58,7 +68,7 @@ config PROJECT_VERSION
 	help
 	  The Project Version can be used to differentiate between
 	  several sub versions which belong ontop of one PTXdist
-	  version. 
+	  version.
 
 endmenu
 
