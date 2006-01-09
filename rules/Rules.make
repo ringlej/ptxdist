@@ -1325,10 +1325,4 @@ install_finish = 													\
 package_depfile=\
 	$(patsubst %.make,%.dep,$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST)))
 
-%.dep: %.in 
-	@echo "creating dependency file:"
-	@echo "  source:$^"
-	@echo "  target:$@"
-	@$(PTXDIST_TOPDIR)/scripts/create_dependencies.sh --action defaults --rulesdir $(RULESDIR) --projectrulesdir $(PROJECTRULESDIR) --imagedir $(IMAGEDIR) --statedir $(STATEDIR) --dependency-file $@
-
 # vim: syntax=make
