@@ -18,6 +18,22 @@ config PTXCONF
 
 comment "----------------------------------"
 
+choice 
+	prompt "Build...        "
+	default BUILD_USERLAND
+
+	config BUILD_USERLAND
+		bool
+		prompt "Userland "
+
+	config BUILD_TOOLCHAIN
+		bool
+		prompt "Toolchain"
+
+endchoice
+
+menu "Project Name & Version      "
+
 config PROJECT
 	string
 	prompt "Project Name "
@@ -44,18 +60,6 @@ config PROJECT_VERSION
 	  several sub versions which belong ontop of one PTXdist
 	  version. 
 
-choice 
-	prompt "Build...        "
-	default BUILD_USERLAND
-
-	config BUILD_USERLAND
-		bool
-		prompt "Userland "
-
-	config BUILD_TOOLCHAIN
-		bool
-		prompt "Toolchain"
-
-endchoice
+endmenu
 
 source "rules/Kconfig"
