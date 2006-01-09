@@ -1325,14 +1325,10 @@ install_finish = 													\
 package_depfile=\
 	$(patsubst %.make,%.dep,$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST)))
 
-%.dep: %.in
+%.dep: %.in 
 	@echo "creating dependency file:"
 	@echo "  source:$^"
 	@echo "  target:$@"
-	@echo "deps_extract_default = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh extract GDB $(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))" > $@
-	@echo "deps_prepare_default = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh prepare GDB $(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))" >> $@
-	@echo "deps_compile_default = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh compile GDB $(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))" >> $@
-	@echo "deps_install_default = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh install GDB $(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))" >> $@
-	@echo "deps_targetinstall = $(shell $(PTXDIST_TOPDIR)/scripts/create_dependencies.sh targetinstall GDB $(RULESDIR) $(PROJECTRULESDIR) $(IMAGEDIR) $(STATEDIR))" >> $@
+	@$(PTXDIST_TOPDIR)/scripts/create_dependencies.sh --action defaults --rulesdir $(RULESDIR) --projectrulesdir $(PROJECTRULESDIR) --imagedir $(IMAGEDIR) --statedir $(STATEDIR) --dependency-file $@
 
 # vim: syntax=make

@@ -48,7 +48,7 @@ $(APACHE2_SOURCE):
 
 apache2_extract: $(STATEDIR)/apache2.extract
 
-apache2_extract_deps := $(apache2_default_extract_deps)
+apache2_extract_deps := $(apache2_extract_deps_default)
 
 $(STATEDIR)/apache2.extract: $(apache2_extract_deps)
 	@$(call targetinfo, $@)
@@ -63,7 +63,7 @@ $(STATEDIR)/apache2.extract: $(apache2_extract_deps)
 
 apache2_prepare: $(STATEDIR)/apache2.prepare
 
-apache2_prepare_deps := $(apache2_default_prepare_deps)
+apache2_prepare_deps := $(apache2_prepare_deps_default)
 
 APACHE2_PATH	=  PATH=$(CROSS_PATH)
 APACHE2_ENV 	=  $(CROSS_ENV)
@@ -103,7 +103,7 @@ $(STATEDIR)/apache2.prepare: $(apache2_prepare_deps)
 
 apache2_compile: $(STATEDIR)/apache2.compile
 
-apache2_compile_deps := $(apache2_default_compile_deps)
+apache2_compile_deps := $(apache2_compile_deps_default)
 apache2_compile_deps += $(STATEDIR)/host-apache2.compile
 
 $(STATEDIR)/apache2.compile: $(apache2_compile_deps)
@@ -137,7 +137,7 @@ $(STATEDIR)/apache2.compile: $(apache2_compile_deps)
 
 apache2_install: $(STATEDIR)/apache2.install
 
-apache2_install_deps := $(apache2_default_install_deps)
+apache2_install_deps := $(apache2_install_deps_default)
 
 $(STATEDIR)/apache2.install: $(apache2_install_deps)
 	@$(call targetinfo, $@)
@@ -150,7 +150,7 @@ $(STATEDIR)/apache2.install: $(apache2_install_deps)
 
 apache2_targetinstall: $(STATEDIR)/apache2.targetinstall
 
-apache2_targetinstall_deps := $(apache2_default_targetinstall_deps)
+apache2_targetinstall_deps := $(apache2_targetinstall_deps_default)
 
 $(STATEDIR)/apache2.targetinstall: $(apache2_targetinstall_deps)
 	@$(call targetinfo, $@)

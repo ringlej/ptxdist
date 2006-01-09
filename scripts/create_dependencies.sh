@@ -2,44 +2,156 @@
 # 
 # Autogenerate Dependencies for Package-Makefiles
 # 
-# Arguments:  $1: command
-#			  $2: label of the packet
-# 			  $3 $4 Rules Directories
-# 			  $5: Imagedir
-# 			  $6: Statedir
+
+FULLARGS="$@"
 
 #DEBUG=true
-
-label="$2"
-RULESDIR="$3"
-PROJECTRULESDIR="$4"
-IMAGEDIR="$5"
-STATEDIR="$6"
-
-[ -z "$RULESDIR" ] || rulesfiles="$RULESDIR/* $rulesfiles"  
-[ -z "$PROJECTRULESDIR" ] || rulesfiles="$PROJECTRULESDIR/* $rulesfiles"
-[ -z "$rulesfiles" ] && exit 1
 
 #
 # helper functions
 #
+
 debug_out(){
-[ $DEBUG ] && echo "$0: $1" >&2
+	[ $DEBUG ] && echo "$0: $1" >&2
 }
+
+my_exit(){
+	debug_out "$0: $1"
+	exit $2
+}
+
+usage() {
+        echo 
+        [ -n "$1" ] && echo -e "${PREFIX} error: $1\n"
+        echo "usage: $0 <args>"
+        echo
+        echo " Arguments:"
+        echo
+        echo "  --action    defaults"
+        echo "  --imagedir  <dir> 	  PTX Image Directory"
+        echo "  --statedir  <dir>         PTX State Directory"
+        echo "  --rulesdir  <dir>         PTX Rules Directory"
+        echo "  --projectrulesdir <dir>   optional local Rules Directory"
+        echo "  --dependency-file   <file>        optional outfile for default dependencies"
+        echo
+        exit 0
+}
+
+check_argument(){
+case "$1" in 
+	--*|"")
+	debug_out "missing argument"
+	return 1
+	;;
+	[[:alnum:]/]*)
+	#debug_out "argument $1 accepted"
+	return 0
+	;;
+esac
+}
+
+#
+# Option parser
+#
+while [ $# -gt 0 ]; do
+        case "$1" in
+                --help) usage ;;
+                --action)
+			check_argument $2  		
+			if [ "$?" == "0" ] ; then 
+				ACTION="$2";      		
+				shift 2 ;
+			else	
+				debug_out "skipping option $1";
+				shift 1 ;
+			fi
+			;;
+                --imagedir) 		
+			check_argument $2  		
+			if [ "$?" == "0" ] ; then 
+				IMAGEDIR="$2";      		
+				shift 2 ;
+			else	
+				debug_out "skipping option $1";
+				shift 1 ;
+			fi
+			;;
+                --statedir) 		
+			check_argument $2  		
+			if [ "$?" == "0" ] ; then 
+				STATEDIR="$2";      		
+				shift 2 ;
+			else	
+				debug_out "skipping option $1";
+				shift 1 ;
+			fi
+			;;
+                --rulesdir) 		
+			check_argument $2  		
+			if [ "$?" == "0" ] ; then 
+				RULESDIR="$2";      		
+				shift 2 ;
+			else	
+				debug_out "skipping option $1";
+				shift 1 ;
+			fi
+			;;
+                --projectrulesdir)  
+			check_argument $2  		
+			if [ "$?" == "0" ] ; then 
+				PROJECTRULESDIR="$2";      		
+				shift 2 ;
+			else	
+				debug_out "skipping option $1";
+				shift 1 ;
+			fi
+			;;
+                --dependency-file)    	
+			check_argument $2  		
+			if [ "$?" == "0" ] ; then 
+				OUTFILE="$2";      		
+				shift 2 ;
+			else	
+				debug_out "skipping option $1";
+				shift 1 ;
+			fi
+			;;
+                *)  
+			usage "unknown option $1" 
+			;;
+        esac
+done
+
+#
+# Sanity checks
+#
+
+[ -z "$RULESDIR" ] || rulesfiles="$RULESDIR/* $rulesfiles"  
+[ -z "$PROJECTRULESDIR" ] || rulesfiles="$PROJECTRULESDIR/* $rulesfiles"
+[ -z "$rulesfiles" ] && my_exit "Insufficient Arguments - Rules missing" 1
+[ -z "$IMAGEDIR" ] && my_exit "Insufficient Arguments - Image Directory missing" 1
+[ -z "$STATEDIR" ] && my_exit "Insufficient Arguments State Directory missing" 1
 
 debug_out "Rules set to $rulesfiles"
 
-#
-# identify package
-#
-my_target=$(grep -s "^PACKAGES-\$(PTXCONF_$(echo $label)" $rulesfiles | sed s/.*+=[\ ]//g)
-debug_out "creating deoendencies for make target ${my_target}_${1}"
+identify(){
+	#
+	# identify package
+	#
+	debug_out "--dependency-file set to: $OUTFILE"
+	TARGET=$(basename $OUTFILE .dep)
+	[ -z "$TARGET" ] && my_exit "ERROR while identifying target"
+	TARGET_MAKEFILE=$(dirname $OUTFILE)/${TARGET}.make
+	debug_out "creating dependencies for make target >${TARGET}< in makefile >$TARGET_MAKEFILE<"
+	LABEL=$(grep -s -h "^PACKAGES-\$(PTXCONF_" $TARGET_MAKEFILE | sed s/'^PACKAGES-$(PTXCONF_\(.*\)).*'/'\1'/g)
+	debug_out "LABEL is: >$LABEL<"
+}
 
 deps_extract(){
 	#
 	# minimal extract rule
 	#
-	echo "$STATEDIR/${my_target}.get"
+	echo "${TARGET}_extract_deps_default = $STATEDIR/${TARGET}.get"
 }
 
 deps_prepare(){
@@ -57,8 +169,8 @@ deps_prepare(){
 	#
 	if [ -e "$IMAGEDIR/configdeps" ]; then
 	 	debug_out "found dependency tree"
-		echo -n "$STATEDIR/${my_target}.extract" 
-		for dependency in $(grep "^DEP:$label" $IMAGEDIR/configdeps | sed -e s/^DEP:$label://g -e "s/:/\ /g"); do 
+		echo -n "${TARGET}_prepare_deps_default = $STATEDIR/${TARGET}.extract" 
+		for dependency in $(grep "^DEP:$LABEL" $IMAGEDIR/configdeps | sed -e s/^DEP:$LABEL://g -e "s/:/\ /g"); do 
 			targetname=$(grep -s "^PACKAGES-\$(PTXCONF_$(echo $dependency)" $rulesfiles | sed s/.*+=[\ ]//g)
 			if [ -z "$targetname" ]; then
 				debug_out "Package not identified for $dependency"
@@ -77,7 +189,7 @@ deps_compile(){
 	# 1) compile deps are:
 	#       $(STATEDIR)/thispacket.prepare
 	#
-	echo "$STATEDIR/${my_target}.prepare"	
+	echo "${TARGET}_compile_deps_default = $STATEDIR/${TARGET}.prepare"	
 }
 
 deps_install(){
@@ -85,7 +197,7 @@ deps_install(){
 	# 1) install deps are:
 	#       $(STATEDIR)/thispacket.compile
 	#
-	echo "$STATEDIR/${my_target}.compile"
+	echo "${TARGET}_install_deps_default = $STATEDIR/${TARGET}.compile"
 }
 
 
@@ -101,7 +213,8 @@ deps_targetinstall(){
     #
     if [ -e "$IMAGEDIR/configdeps" ]; then
         debug_out "found dependency tree"
-        for dependency in $(grep "^DEP:$label" $IMAGEDIR/configdeps | sed -e s/^DEP:$label://g -e "s/:/\ /g"); do
+	echo -n "${TARGET}_targetinstall_deps_default = " 
+        for dependency in $(grep "^DEP:$LABEL" $IMAGEDIR/configdeps | sed -e s/^DEP:$LABEL://g -e "s/:/\ /g"); do
             targetname=$(grep -s "^PACKAGES-\$(PTXCONF_$(echo $dependency)" $rulesfiles | sed s/.*+=[\ ]//g)
             if [ -z "$targetname" ]; then
                 debug_out "Package not identified for $dependency"
@@ -109,30 +222,43 @@ deps_targetinstall(){
                 echo -n " $STATEDIR/$targetname.targetinstall"
             fi
         done
-        echo "$STATEDIR/${my_target}.compile" 
+        echo " $STATEDIR/${TARGET}.compile" 
     else
             debug_out "ERROR - dependency tree not found" >&2
     fi
 }
 
+do_defaults(){
+    #
+    # write defaults to some file
+    #
+	identify
+	debug_out "Writing default Dependencies for package $PACKAGE to file $OUTFILE"
+	echo "# autogenerated by $0 - DO NOT EDIT" > $OUTFILE
+	echo "# options: $FULLARGS" >> $OUTFILE
+	echo "# " >> $OUTFILE
+	echo "# Package: $PACKAGE" >> $OUTFILE 
+	echo "# User: $(whoami)" >> $OUTFILE
+	echo "# Date: $(date)" >> $OUTFILE
+	echo "# Path: $(pwd)" >> $OUTFILE
+	echo "# " >> $OUTFILE
+	echo "Generating default dependencies for package label: >$LABEL< Outfile: >$OUTFILE<"
+	ACTION=extract deps_extract >> $OUTFILE
+	ACTION=prepare deps_prepare >> $OUTFILE
+	ACTION=compile deps_compile >> $OUTFILE
+	ACTION=install deps_install >> $OUTFILE
+	ACTION=targetinstall deps_targetinstall >> $OUTFILE
+}
+
 #
 # argument handling
 #
-case $1 in
-	extract)
-	deps_extract
+case $ACTION in
+	defaults)
+	do_defaults
 	;;
-	prepare)
-	deps_prepare
-	;;
-	compile)
-	deps_compile
-	;;
-	install)
-	deps_install
-	;;
-	targetinstall)
-	deps_targetinstall
+	*)
+	my_exit "Sorry, unknown --action specified: $ACTION"
 	;;
 esac
 

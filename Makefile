@@ -543,8 +543,10 @@ allyesconfig: before_config $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -y $(MENU)
 
-configdeps: $(IMAGEDIR)/configdeps
-$(IMAGEDIR)/configdeps: before_config $(STATEDIR)/host-kconfig.install
+# FIXME : Dependencies do not work as they should... configdeps should be rebuilt when *.in changes
+configdeps_deps := $(wildcard $(RULESDIR)/*.in) $(wildcard $(PROJECTRULESDIR)/*.in)
+configdeps: $(IMAGEDIR)/configdeps $(configdeps_deps)
+$(IMAGEDIR)/configdeps: before_config $(STATEDIR)/host-kconfig.install 
 	@$(call findout_config)
 	@echo
 	@echo "generating dependencies from kconfig..."
