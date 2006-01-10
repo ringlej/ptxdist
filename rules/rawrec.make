@@ -24,7 +24,7 @@ RAWREC_URL		= $(PTXCONF_SETUP_SFMIRROR)/rawrec/$(RAWREC).$(RAWREC_SUFFIX)
 RAWREC_SOURCE		= $(SRCDIR)/$(RAWREC).$(RAWREC_SUFFIX)
 RAWREC_DIR		= $(BUILDDIR)/$(RAWREC)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

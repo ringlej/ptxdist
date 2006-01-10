@@ -30,7 +30,7 @@ QTE_SOURCE	= $(SRCDIR)/$(QTE).$(QTE_SUFFIX)
 QTE_DIR		= $(BUILDDIR)/$(QTE)
 QTDIR		= $(BUILDDIR)/$(QTE)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

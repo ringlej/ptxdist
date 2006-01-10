@@ -27,7 +27,7 @@ GETTEXT_DIR		= $(BUILDDIR)/$(GETTEXT)
 
 GETTEXT_INST_DIR	= $(BUILDDIR)/$(GETTEXT)-install
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

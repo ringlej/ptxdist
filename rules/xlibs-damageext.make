@@ -27,7 +27,7 @@ XLIBS-DAMAGEEXT_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$
 XLIBS-DAMAGEEXT_SOURCE	= $(SRCDIR)/$(XLIBS-DAMAGEEXT).$(XLIBS-DAMAGEEXT_SUFFIX)
 XLIBS-DAMAGEEXT_DIR	= $(BUILDDIR)/$(XLIBS-DAMAGEEXT)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

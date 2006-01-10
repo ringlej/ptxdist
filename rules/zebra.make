@@ -27,7 +27,7 @@ ZEBRA_URL 		= ftp://ftp.sunet.se/pub/network/zebra/$(ZEBRA).$(ZEBRA_SUFFIX)
 ZEBRA_SOURCE		= $(SRCDIR)/$(ZEBRA).tar.gz
 ZEBRA_DIR 		= $(BUILDDIR)/$(ZEBRA)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

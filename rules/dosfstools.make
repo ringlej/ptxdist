@@ -27,7 +27,7 @@ DOSFSTOOLS_URL		= ftp://ftp.uni-erlangen.de/pub/Linux/LOCAL/dosfstools/$(DOSFSTO
 DOSFSTOOLS_SOURCE	= $(SRCDIR)/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_DIR		= $(BUILDDIR)/$(DOSFSTOOLS)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

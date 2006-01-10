@@ -22,7 +22,7 @@ GRUB_URL		= ftp://alpha.gnu.org/gnu/grub/$(GRUB).tar.gz
 GRUB_SOURCE		= $(SRCDIR)/$(GRUB).tar.gz
 GRUB_DIR		= $(BUILDDIR)/$(GRUB)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

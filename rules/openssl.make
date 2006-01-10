@@ -52,7 +52,7 @@ ifdef PTXCONF_ARCH_SPARC
 	THUD = linux-sparc
 endif
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

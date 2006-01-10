@@ -24,7 +24,7 @@ PUREFTPD_URL		= ftp://ftp.pureftpd.org/pub/pure-ftpd/releases/$(PUREFTPD).$(PURE
 PUREFTPD_SOURCE		= $(SRCDIR)/$(PUREFTPD).$(PUREFTPD_SUFFIX)
 PUREFTPD_DIR		= $(BUILDDIR)/$(PUREFTPD)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

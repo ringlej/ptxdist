@@ -24,7 +24,7 @@ LIBART_URL		= ftp://ftp.gnome.org/pub/gnome/sources/libart_lgpl/2.3/$(LIBART).$(
 LIBART_SOURCE		= $(SRCDIR)/$(LIBART).$(LIBART_SUFFIX)
 LIBART_DIR		= $(BUILDDIR)/$(LIBART)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

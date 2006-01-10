@@ -24,7 +24,7 @@ KLIBC_URL		= http://www.kernel.org/pub/linux/libs/klibc/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_SOURCE		= $(SRCDIR)/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_DIR		= $(BUILDDIR)/$(KLIBC)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

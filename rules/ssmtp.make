@@ -30,7 +30,7 @@ SSMTP_PATCH_SRC		= ssmtp_$(SSMTP_VERSION)-$(SSMTP_PATCH).diff.gz
 SSMTP_PATCH_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP_PATCH_SRC)
 SSMTP_PATCH_SOURCE	= $(SRCDIR)/$(SSMTP_PATCH_SRC)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

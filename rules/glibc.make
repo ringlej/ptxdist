@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_GLIBC) += glibc
 GLIBC			= glibc-$(GLIBC_VERSION)
 
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

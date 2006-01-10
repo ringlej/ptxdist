@@ -24,7 +24,7 @@ LIBGNOMECANVAS_URL	= ftp://ftp.gnome.org/pub/GNOME/sources/libgnomecanvas/2.5/$(
 LIBGNOMECANVAS_SOURCE	= $(SRCDIR)/$(LIBGNOMECANVAS).$(LIBGNOMECANVAS_SUFFIX)
 LIBGNOMECANVAS_DIR	= $(BUILDDIR)/$(LIBGNOMECANVAS)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

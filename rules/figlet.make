@@ -24,7 +24,7 @@ FIGLET_URL		= ftp://ftp.figlet.org/pub/figlet/program/unix/$(FIGLET).$(FIGLET_SU
 FIGLET_SOURCE		= $(SRCDIR)/$(FIGLET).$(FIGLET_SUFFIX)
 FIGLET_DIR		= $(BUILDDIR)/$(FIGLET)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

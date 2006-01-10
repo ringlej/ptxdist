@@ -19,7 +19,7 @@ endif
 
 UCLIBC = uClibc-$(UCLIBC_VERSION)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

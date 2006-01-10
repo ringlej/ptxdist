@@ -26,7 +26,7 @@ XLIBS-RECORDEXT_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src//
 XLIBS-RECORDEXT_SOURCE	= $(SRCDIR)/$(XLIBS-RECORDEXT).$(XLIBS-RECORDEXT_SUFFIX)
 XLIBS-RECORDEXT_DIR	= $(BUILDDIR)/$(XLIBS-RECORDEXT)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

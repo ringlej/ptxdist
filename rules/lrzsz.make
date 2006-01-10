@@ -26,7 +26,7 @@ LRZSZ_URL	= http://www.ohse.de/uwe/releases/$(LRZSZ).$(LRZSZ_SUFFIX)
 LRZSZ_SOURCE	= $(SRCDIR)/$(LRZSZ).$(LRZSZ_SUFFIX)
 LRZSZ_DIR	= $(BUILDDIR)/$(LRZSZ)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

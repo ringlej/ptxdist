@@ -24,7 +24,7 @@ DIFFUTILS_URL		= http://ftp.gnu.org/pub/gnu/diffutils/$(DIFFUTILS).$(DIFFUTILS_S
 DIFFUTILS_SOURCE	= $(SRCDIR)/$(DIFFUTILS).$(DIFFUTILS_SUFFIX)
 DIFFUTILS_DIR		= $(BUILDDIR)/$(DIFFUTILS)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

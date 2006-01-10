@@ -24,7 +24,7 @@ LSH_URL		= http://www.lysator.liu.se/~nisse/archive/$(LSH).$(LSH_SUFFIX)
 LSH_SOURCE	= $(SRCDIR)/$(LSH).$(LSH_SUFFIX)
 LSH_DIR		= $(BUILDDIR)/$(LSH)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

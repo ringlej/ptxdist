@@ -24,7 +24,7 @@ SMTPCLIENT_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(SMT
 SMTPCLIENT_SOURCE	= $(SRCDIR)/$(SMTPCLIENT).$(SMTPCLIENT_SUFFIX)
 SMTPCLIENT_DIR		= $(BUILDDIR)/$(SMTPCLIENT)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

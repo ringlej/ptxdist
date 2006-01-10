@@ -26,7 +26,7 @@ GDB_SOURCE	= $(SRCDIR)/$(GDB).$(GDB_SUFFIX)
 GDB_DIR		= $(BUILDDIR)/$(GDB)
 GDB_BUILDDIR	= $(BUILDDIR)/$(GDB)-build
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,7 @@ PARANOIA_URL		= http://www.netlib.org/paranoia/paranoia.c
 PARANOIA_SOURCE		= $(PARANOIA).c
 PARANOIA_DIR		= $(BUILDDIR)/$(PARANOIA)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

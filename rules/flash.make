@@ -30,7 +30,7 @@ FLASH_PATCH_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FL
 FLASH_PATCH_SOURCE	= $(SRCDIR)/$(FLASH_PATCH)
 FLASH_PATCH_EXTRACT	= cat
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

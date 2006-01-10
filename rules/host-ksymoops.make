@@ -21,7 +21,7 @@ KSYMOOPS_URL			= http://www.kernel.org/pub/linux/utils/kernel/ksymoops/v2.4/$(KS
 KSYMOOPS_SOURCE			= $(SRCDIR)/$(KSYMOOPS).tar.bz2
 KSYMOOPS_DIR			= $(BUILDDIR)/$(KSYMOOPS)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

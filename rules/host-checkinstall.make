@@ -24,7 +24,7 @@ HOST_CHECKINSTALL_URL		= http://checkinstall.izto.org/files/source/$(HOST_CHECKI
 HOST_CHECKINSTALL_SOURCE	= $(SRCDIR)/$(HOST_CHECKINSTALL).$(HOST_CHECKINSTALL_SUFFIX)
 HOST_CHECKINSTALL_DIR		= $(HOST_BUILDDIR)/$(HOST_CHECKINSTALL)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

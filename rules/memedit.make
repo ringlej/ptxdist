@@ -24,7 +24,7 @@ MEMEDIT_URL		= http://www.pengutronix.de/software/memedit/downloads/$(MEMEDIT).$
 MEMEDIT_SOURCE		= $(SRCDIR)/$(MEMEDIT).$(MEMEDIT_SUFFIX)
 MEMEDIT_DIR		= $(BUILDDIR)/$(MEMEDIT)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

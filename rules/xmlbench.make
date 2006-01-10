@@ -30,7 +30,7 @@ XMLBENCH_URL		= $(PTXCONF_SETUP_SFMIRROR)/xmlbench/$(XMLBENCH).$(XMLBENCH_SUFFIX
 XMLBENCH_SOURCE		= $(SRCDIR)/$(XMLBENCH).$(XMLBENCH_SUFFIX)
 XMLBENCH_DIR		= $(BUILDDIR)/$(XMLBENCH)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

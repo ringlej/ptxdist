@@ -26,7 +26,7 @@ XLIBS-XEXT_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLI
 XLIBS-XEXT_SOURCE	= $(SRCDIR)/$(XLIBS-XEXT).$(XLIBS-XEXT_SUFFIX)
 XLIBS-XEXT_DIR		= $(BUILDDIR)/$(XLIBS-XEXT)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

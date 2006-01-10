@@ -24,7 +24,7 @@ LIBGD_URL	= http://www.boutell.com/gd/http/$(LIBGD).$(LIBGD_SUFFIX)
 LIBGD_SOURCE	= $(SRCDIR)/$(LIBGD).$(LIBGD_SUFFIX)
 LIBGD_DIR	= $(BUILDDIR)/$(LIBGD)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

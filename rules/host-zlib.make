@@ -16,7 +16,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_ZLIB) += host-zlib
 #
 HOST_ZLIB_BUILDDIR	= $(HOST_BUILDDIR)/$(ZLIB)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

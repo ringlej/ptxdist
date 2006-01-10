@@ -23,7 +23,7 @@ PCMCIAUTILS_URL		= http://www.kernel.org/pub/linux/utils/kernel/pcmcia/$(PCMCIAU
 PCMCIAUTILS_SOURCE	= $(SRCDIR)/$(PCMCIAUTILS).$(PCMCIAUTILS_SUFFIX)
 PCMCIAUTILS_DIR		= $(BUILDDIR)/$(PCMCIAUTILS)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,7 @@ CANUTILS_URL		= http://www.pengutronix.de/software/socket-can/download/canutils/
 CANUTILS_SOURCE		= $(SRCDIR)/$(CANUTILS).$(CANUTILS_SUFFIX)
 CANUTILS_DIR		= $(BUILDDIR)/$(CANUTILS)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

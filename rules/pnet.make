@@ -24,7 +24,7 @@ PNET_URL	= http://www.southern-storm.com.au/download/$(PNET).$(PNET_SUFFIX)
 PNET_SOURCE	= $(SRCDIR)/$(PNET).$(PNET_SUFFIX)
 PNET_DIR	= $(BUILDDIR)/$(PNET)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

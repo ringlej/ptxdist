@@ -24,7 +24,7 @@ NTP_URL		= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/$(NTP).$(NTP_SUFFIX)
 NTP_SOURCE	= $(SRCDIR)/$(NTP).$(NTP_SUFFIX)
 NTP_DIR		= $(BUILDDIR)/$(NTP)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

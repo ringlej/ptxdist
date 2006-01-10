@@ -24,7 +24,7 @@ IPTABLES_URL		= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUF
 IPTABLES_SOURCE		= $(SRCDIR)/$(IPTABLES).$(IPTABLES_SUFFIX)
 IPTABLES_DIR		= $(BUILDDIR)/$(IPTABLES)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,7 @@ LIBXML2_URL	= ftp://xmlsoft.org/$(LIBXML2).$(LIBXML2_SUFFIX)
 LIBXML2_SOURCE	= $(SRCDIR)/$(LIBXML2).$(LIBXML2_SUFFIX)
 LIBXML2_DIR	= $(BUILDDIR)/$(LIBXML2)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

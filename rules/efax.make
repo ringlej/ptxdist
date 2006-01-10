@@ -24,7 +24,7 @@ EFAX_URL		= ftp://ftp.metalab.unc.edu/pub/Linux/apps/serialcomm/fax/$(EFAX).$(EF
 EFAX_SOURCE		= $(SRCDIR)/$(EFAX).$(EFAX_SUFFIX)
 EFAX_DIR		= $(BUILDDIR)/$(EFAX)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

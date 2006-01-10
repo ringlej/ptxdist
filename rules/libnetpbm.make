@@ -24,7 +24,7 @@ LIBNETPBM_URL		= http://puzzle.dl.sourceforge.net/sourceforge/netpbm/$(LIBNETPBM
 LIBNETPBM_SOURCE	= $(SRCDIR)/$(LIBNETPBM).$(LIBNETPBM_SUFFIX)
 LIBNETPBM_DIR		= $(BUILDDIR)/$(LIBNETPBM)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,7 @@ SYSUTILS_URL		= http://www.de.kernel.org/pub/linux/utils/kernel/hotplug/$(SYSUTI
 SYSUTILS_SOURCE		= $(SRCDIR)/$(SYSUTILS).$(SYSUTILS_SUFFIX)
 SYSUTILS_DIR		= $(BUILDDIR)/$(SYSUTILS)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -25,7 +25,7 @@ PCRE_URL		= ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$(PCRE).$(PCRE
 PCRE_SOURCE		= $(SRCDIR)/$(PCRE).$(PCRE_SUFFIX)
 PCRE_DIR		= $(BUILDDIR)/$(PCRE)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

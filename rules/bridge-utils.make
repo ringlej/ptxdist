@@ -26,7 +26,7 @@ BRIDGE_UTILS_URL	= $(PTXCONF_SETUP_SFMIRROR)/bridge/$(BRIDGE_UTILS).$(BRIDGE_UTI
 BRIDGE_UTILS_SOURCE	= $(SRCDIR)/$(BRIDGE_UTILS).$(BRIDGE_UTILS_SUFFIX)
 BRIDGE_UTILS_DIR	= $(BUILDDIR)/$(BRIDGE_UTILS)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

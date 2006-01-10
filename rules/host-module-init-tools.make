@@ -19,7 +19,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_MODULE_INIT_TOOLS) += host-module-init-tools
 #
 HOST_MODULE_INIT_TOOLS_DIR		= $(HOST_BUILDDIR)/$(MODULE_INIT_TOOLS)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

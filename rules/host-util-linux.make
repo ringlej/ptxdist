@@ -17,7 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_UTIL-LINUX) += host-util-linux
 
 HOST_UTIL-LINUX_DIR	= $(HOST_BUILDDIR)/$(UTIL-LINUX)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Hosttool Extract

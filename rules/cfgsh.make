@@ -24,7 +24,7 @@ CFGSH_URL		= $(PTXCONF_SETUP_SFMIRROR)/cfgsh/$(CFGSH).$(CFGSH_SUFFIX)
 CFGSH_SOURCE		= $(SRCDIR)/$(CFGSH).$(CFGSH_SUFFIX)
 CFGSH_DIR		= $(BUILDDIR)/$(CFGSH)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

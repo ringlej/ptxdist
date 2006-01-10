@@ -25,7 +25,7 @@ APACHE_PATCH_URL	= file://$(LOCALPATCHDIR)
 APACHE_SOURCE		= $(SRCDIR)/$(APACHE).$(APACHE_SUFFIX)
 APACHE_DIR		= $(BUILDDIR)/$(APACHE)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

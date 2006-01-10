@@ -24,7 +24,7 @@ PROCPS_URL	= http://procps.sourceforge.net/$(PROCPS).$(PROCPS_SUFFIX)
 PROCPS_SOURCE	= $(SRCDIR)/$(PROCPS).$(PROCPS_SUFFIX)
 PROCPS_DIR	= $(BUILDDIR)/$(PROCPS)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,7 @@ GAIL_URL	= ftp://ftp.gnome.org/pub/GNOME/sources/gail/1.5/$(GAIL).$(GAIL_SUFFIX)
 GAIL_SOURCE	= $(SRCDIR)/$(GAIL).$(GAIL_SUFFIX)
 GAIL_DIR	= $(BUILDDIR)/$(GAIL)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

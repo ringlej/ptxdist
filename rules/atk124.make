@@ -26,7 +26,7 @@ ATK_SOURCE	= $(SRCDIR)/$(ATK).$(ATK_SUFFIX)
 ATK_DIR		= $(BUILDDIR)/$(ATK)
 ATK_LIB_VERSION	= 501.3
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

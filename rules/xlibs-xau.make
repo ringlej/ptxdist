@@ -25,7 +25,7 @@ XLIBS-XAU_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XLIB
 XLIBS-XAU_SOURCE	= $(SRCDIR)/$(XLIBS-XAU).$(XLIBS-XAU_SUFFIX)
 XLIBS-XAU_DIR		= $(BUILDDIR)/$(XLIBS-XAU)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

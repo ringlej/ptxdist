@@ -21,7 +21,7 @@ HOST_MTD		= $(MTD)
 HOST_MTD_SOURCE	= $(MTD_SOURCE)
 HOST_MTD_DIR	= $(HOST_BUILDDIR)/$(HOST_MTD)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

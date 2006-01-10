@@ -27,7 +27,7 @@ XLIBS-RANDR_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XL
 XLIBS-RANDR_SOURCE	= $(SRCDIR)/$(XLIBS-RANDR).$(XLIBS-RANDR_SUFFIX)
 XLIBS-RANDR_DIR		= $(BUILDDIR)/$(XLIBS-RANDR)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

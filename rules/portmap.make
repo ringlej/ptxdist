@@ -21,7 +21,7 @@ PORTMAP_URL		= ftp://ftp.porcupine.org/pub/security/$(PORTMAP).tar.gz
 PORTMAP_SOURCE		= $(SRCDIR)/$(PORTMAP).tar.gz
 PORTMAP_DIR		= $(BUILDDIR)/$(PORTMAP)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

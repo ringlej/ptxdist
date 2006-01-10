@@ -24,7 +24,7 @@ GNUPLOT_URL		= ftp://ftp.gnuplot.info/pub/gnuplot/$(GNUPLOT).$(GNUPLOT_SUFFIX)
 GNUPLOT_SOURCE		= $(SRCDIR)/$(GNUPLOT).$(GNUPLOT_SUFFIX)
 GNUPLOT_DIR		= $(BUILDDIR)/$(GNUPLOT)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

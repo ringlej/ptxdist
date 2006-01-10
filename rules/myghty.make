@@ -24,7 +24,7 @@ MYGHTY_URL	= $(PTXCONF_SETUP_SFMIRROR)/myghty/$(MYGHTY).$(MYGHTY_SUFFIX)
 MYGHTY_SOURCE	= $(SRCDIR)/$(MYGHTY).$(MYGHTY_SUFFIX)
 MYGHTY_DIR	= $(BUILDDIR)/$(MYGHTY)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

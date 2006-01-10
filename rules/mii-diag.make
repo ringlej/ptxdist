@@ -24,7 +24,7 @@ MII-DIAG_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/m/mii-diag/mii-diag_$(MII-D
 MII-DIAG_SOURCE		= $(SRCDIR)/mii-diag_$(MII-DIAG_VERSION).orig.$(MII-DIAG_SUFFIX)
 MII-DIAG_DIR		= $(BUILDDIR)/$(MII-DIAG)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

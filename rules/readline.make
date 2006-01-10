@@ -24,7 +24,7 @@ READLINE_URL		= $(PTXCONF_SETUP_GNUMIRROR)/readline/$(READLINE).$(READLINE_SUFFI
 READLINE_SOURCE		= $(SRCDIR)/$(READLINE).$(READLINE_SUFFIX)
 READLINE_DIR		= $(BUILDDIR)/$(READLINE)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

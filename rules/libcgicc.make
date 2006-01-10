@@ -23,7 +23,7 @@ CGICC_URL		= http://www.cgicc.org/files/$(CGICC).$(CGICC_SUFFIX)
 CGICC_SOURCE		= $(SRCDIR)/$(CGICC).$(CGICC_SUFFIX)
 CGICC_DIR		= $(BUILDDIR)/$(CGICC)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

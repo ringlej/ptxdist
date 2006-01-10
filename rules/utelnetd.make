@@ -22,7 +22,7 @@ UTELNETD_URL			= http://www.pengutronix.de/software/utelnetd/$(UTELNETD).tar.gz
 UTELNETD_SOURCE			= $(SRCDIR)/$(UTELNETD).tar.gz
 UTELNETD_DIR			= $(BUILDDIR)/$(UTELNETD)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

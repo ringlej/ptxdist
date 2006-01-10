@@ -26,7 +26,7 @@ OMNIORB_URL		= $(PTXCONF_SETUP_SFMIRROR)/omniorb/$(OMNIORB).$(OMNIORB_SUFFIX)
 OMNIORB_SOURCE		= $(SRCDIR)/$(OMNIORB).$(OMNIORB_SUFFIX)
 OMNIORB_DIR		= $(BUILDDIR)/$(OMNIORB)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

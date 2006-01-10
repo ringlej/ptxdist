@@ -25,7 +25,7 @@ HOST_IPKG_URL	= http://www.handhelds.org/download/packages/ipkg/$(HOST_IPKG).$(H
 HOST_IPKG_SOURCE	= $(SRCDIR)/$(HOST_IPKG).$(HOST_IPKG_SUFFIX)
 HOST_IPKG_DIR	= $(HOST_BUILDDIR)/$(HOST_IPKG)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -27,7 +27,7 @@ $(STATEDIR)/gcclibs.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Extract

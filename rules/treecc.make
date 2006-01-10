@@ -24,7 +24,7 @@ TREECC_URL	= http://www.southern-storm.com.au/download/$(TREECC).$(TREECC_SUFFIX
 TREECC_SOURCE	= $(SRCDIR)/$(TREECC).$(TREECC_SUFFIX)
 TREECC_DIR	= $(BUILDDIR)/$(TREECC)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

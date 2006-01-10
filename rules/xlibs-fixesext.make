@@ -27,7 +27,7 @@ XLIBS-FIXESEXT_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(
 XLIBS-FIXESEXT_SOURCE	= $(SRCDIR)/$(XLIBS-FIXESEXT).$(XLIBS-FIXESEXT_SUFFIX)
 XLIBS-FIXESEXT_DIR	= $(BUILDDIR)/$(XLIBS-FIXESEXT)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

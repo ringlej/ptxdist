@@ -23,7 +23,7 @@ HOST_TERMCAP_SUFFIX	= tar.gz
 HOST_TERMCAP_URL	= $(PTXCONF_SETUP_GNUMIRROR)/termcap/$(TERMCAP).$(TERMCAP_SUFFIX)
 HOST_TERMCAP_DIR	= $(HOST_BUILDDIR)/$(HOST_TERMCAP)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

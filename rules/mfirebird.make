@@ -25,7 +25,7 @@ MFIREBIRD_URL			= ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$(MFIRE
 MFIREBIRD_SOURCE		= $(SRCDIR)/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
 MFIREBIRD_DIR			= $(BUILDDIR)/$(MFIREBIRD)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

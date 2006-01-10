@@ -25,7 +25,7 @@ E2FSPROGS_SOURCE		= $(SRCDIR)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
 E2FSPROGS_DIR			= $(BUILDDIR)/$(E2FSPROGS)
 E2FSPROGS_BUILD_DIR		= $(BUILDDIR)/$(E2FSPROGS)-build
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

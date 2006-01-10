@@ -24,7 +24,7 @@ MTD_URL		= http://www.pengutronix.de/software/mtd-snapshots/$(MTD).$(MTD_SUFFIX)
 MTD_SOURCE	= $(SRCDIR)/$(MTD).$(MTD_SUFFIX)
 MTD_DIR		= $(BUILDDIR)/$(MTD)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

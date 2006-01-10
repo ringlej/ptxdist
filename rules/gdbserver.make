@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_GDBSERVER) += gdbserver
 
 GDBSERVER_BUILDDIR	= $(BUILDDIR)/$(GDB)-server-build
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

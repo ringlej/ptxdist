@@ -24,7 +24,7 @@ HOST_QTE_URL		= ftp://ftp.trolltech.com/qt/source/$(HOST_QTE).$(HOST_QTE_SUFFIX)
 HOST_QTE_SOURCE		= $(SRCDIR)/$(HOST_QTE).$(HOST_QTE_SUFFIX)
 HOST_QTE_DIR		= $(HOST_BUILDDIR)/$(HOST_QTE)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

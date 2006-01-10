@@ -19,12 +19,12 @@ PACKAGES-$(PTXCONF_MPLAYER) += mplayer
 #
 MPLAYER_VERSION	= 1.0pre7try2
 MPLAYER		= MPlayer-$(MPLAYER_VERSION)
-MPLAYER_SUFFIX		= tar.bz2
-MPLAYER_URL		= http://ftp5.mplayerhq.hu/mplayer/releases/$(MPLAYER).$(MPLAYER_SUFFIX)
-MPLAYER_SOURCE		= $(SRCDIR)/$(MPLAYER).$(MPLAYER_SUFFIX)
-MPLAYER_DIR		= $(BUILDDIR)/$(MPLAYER)
+MPLAYER_SUFFIX	= tar.bz2
+MPLAYER_URL	= http://ftp5.mplayerhq.hu/mplayer/releases/$(MPLAYER).$(MPLAYER_SUFFIX)
+MPLAYER_SOURCE	= $(SRCDIR)/$(MPLAYER).$(MPLAYER_SUFFIX)
+MPLAYER_DIR	= $(BUILDDIR)/$(MPLAYER)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -92,6 +92,11 @@ $(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps)
 	cd $(MPLAYER_DIR) && \
 		$(MPLAYER_PATH) $(MPLAYER_ENV) \
 		./configure $(MPLAYER_AUTOCONF)
+	@echo 
+	@echo FIXME: this is necessary with gcc 3.4.4 which runs into OOM with -O4
+	@echo
+#	sed -ie "s/[ \t]-O4[ \t]/ -O2 /g" $(MPLAYER_DIR)/config.mak
+	@echo
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

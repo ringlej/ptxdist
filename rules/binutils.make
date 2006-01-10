@@ -21,7 +21,7 @@ BINUTILS_SOURCE		= $(SRCDIR)/$(BINUTILS).tar.gz
 BINUTILS_DIR		= $(BUILDDIR)/$(BINUTILS)
 BINUTILS_BUILDDIR	= $(BINUTILS_DIR)-build
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

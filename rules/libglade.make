@@ -24,7 +24,7 @@ LIBGLADE_URL		= ftp://ftp.gnome.org/pub/GNOME/sources/libglade/2.3/$(LIBGLADE).$
 LIBGLADE_SOURCE		= $(SRCDIR)/$(LIBGLADE).$(LIBGLADE_SUFFIX)
 LIBGLADE_DIR		= $(BUILDDIR)/$(LIBGLADE)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

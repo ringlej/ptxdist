@@ -23,7 +23,7 @@ NETKIT-FTP_URL		= ftp://ftp.uk.linux.org/pub/linux/Networking/netkit//$(NETKIT-F
 NETKIT-FTP_SOURCE	= $(SRCDIR)/$(NETKIT-FTP).$(NETKIT-FTP_SUFFIX)
 NETKIT-FTP_DIR		= $(BUILDDIR)/$(NETKIT-FTP)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

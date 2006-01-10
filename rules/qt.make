@@ -26,7 +26,7 @@ QT_URL		= ftp://ftp.trolltech.com/qt/source/$(QT).$(QT_SUFFIX)
 QT_SOURCE	= $(SRCDIR)/$(QT).$(QT_SUFFIX)
 QT_DIR		= $(BUILDDIR)/qt-$(QT_VERSION)
 
-include $(call package_depfile)
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get
