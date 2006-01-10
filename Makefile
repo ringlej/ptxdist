@@ -95,8 +95,10 @@ PROJECTDIRS		:= $(strip $(PROJECTDIRS))
 PROJECTCONFFILE		:= $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
 PROJECTDIR		:= $(strip $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE)))
 PROJECTRULES		:= $(wildcard $(PROJECTDIR)/rules/*.make)
+ifneq ($(PROJECTDIR),)
 PROJECTRULESDIR		:= $(PROJECTDIR)/rules
 PROJECTPATCHDIR		:= $(PROJECTDIR)/patches
+endif
 
 MENU			:=  $(shell 						\
 				if [ -e $(PROJECTDIR)/Kconfig ]; then		\
@@ -491,14 +493,17 @@ ptx_lxdialog:
 	fi
 
 check_problematic_configs = 								\
-	@if [ -n "`grep "DONT_COMPILE_KERNEL" $(PTXDIST_WORKSPACE)/.config`" ];	then	\
+	$(call targetinfo,checking problematic configs);				\
+	echo "checking \$$PTXDIST_WORKSPACE/.config";					\
+	if [ -f "$(PTXDIST_WORKSPACE)/.config" ] &&					\
+	   [ -n "`grep "DONT_COMPILE_KERNEL" $(PTXDIST_WORKSPACE)/.config`" ] ;	then	\
 		echo;									\
 		echo "error: your .config file contains DONT_COMPILE_KERNEL (obsolete)";\
 		echo "error: please set COMPILE_KERNEL correctly and re-run!";		\
 		echo;									\
 		exit 1;									\
 	fi;										\
-	echo "checking \$$PTXDIST_WORKSPACE/config";					\
+	echo "checking \$$PTXDIST_WORKSPACE/config/setup";				\
 	if [ -n "$(OUTOFTREE)" ] && [ ! -d "$(PTXDIST_WORKSPACE)/config/setup" ]; then	\
 		echo "out-of-tree build, creating setup dir";				\
 		rm -fr $(PTXDIST_WORKSPACE)/config/setup;				\
@@ -508,55 +513,57 @@ check_problematic_configs = 								\
 			ln -sf $$i $(PTXDIST_WORKSPACE)/config/`basename $$i`; 		\
 		done; 									\
 	fi;										\
-	@echo "checking \$$PTXDIST_WORKSPACE/rules";					\
-	@test -e "$(PTXDIST_WORKSPACE)/rules" || ln -sf $(PTXDIST_TOPDIR)/rules $(PTXDIST_WORKSPACE)/rules;
+	echo "checking \$$PTXDIST_WORKSPACE/rules";					\
+	test -e "$(PTXDIST_WORKSPACE)/rules" || ln -sf $(PTXDIST_TOPDIR)/rules $(PTXDIST_WORKSPACE)/rules;
 
 
 
 menuconfig: $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
-	$(call check_problematic_configs)
+	@$(call check_problematic_configs)
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/mconf $(MENU)
 	# automatic silentoldconfig for consistent .config files 
 	@if [ -f $(PTXDIST_WORKSPACE)/.config ]; then cd $(PTXDIST_WORKSPACE) && make silentoldconfig; fi
 
 xconfig: $(STATEDIR)/host-kconfig.install
-	$(call check_problematic_configs)
+	@$(call check_problematic_configs)
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/qconf $(MENU)
 	# automatic silentoldconfig for consistent .config files 
 	cd $(PTXDIST_WORKSPACE) && make silentoldconfig
 
 gconfig: $(STATEDIR)/host-kconfig.install
-	$(call check_problematic_configs)
+	@$(call check_problematic_configs)
 	$(call findout_config)
 	LD_LIBRARY_PATH=$(PTXDIST_TOPDIR)/scripts/kconfig cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/gconf $(MENU)
 	# automatic silentoldconfig for consistent .config files 
 	cd $(PTXDIST_WORKSPACE) && make silentoldconfig
 
 oldconfig: $(STATEDIR)/host-kconfig.install
-	$(call check_problematic_configs)
+	@$(call check_problematic_configs)
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -o $(MENU)
 
 silentoldconfig: $(STATEDIR)/host-kconfig.install
-	$(call check_problematic_configs)
+	@$(call check_problematic_configs)
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -s $(MENU)
 
 allyesconfig: $(STATEDIR)/host-kconfig.install
-	$(call check_problematic_configs)
+	@$(call check_problematic_configs)
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -y $(MENU)
 
-configdeps_deps := $(wildcard $(RULESDIR)/*.in) $(wildcard $(PROJECTRULESDIR)/*.in)
+configdeps_deps := $(wildcard $(RULESDIR)/*.in) 
+ifndef ($(PROJECTRULESDIR),)
+configdeps_deps += $(wildcard $(PROJECTRULESDIR)/*.in)
+endif
 configdeps: $(IMAGEDIR)/configdeps
 
 $(IMAGEDIR)/configdeps: $(STATEDIR)/host-kconfig.install $(configdeps_deps)
 	@$(call check_problematic_configs)
 	@$(call findout_config)
-	@echo
-	@echo "generating dependencies from kconfig..."
+	@$(call targetinfo,generating dependencies from kconfig)
 	@mkdir -p $(IMAGEDIR)
 	@cd $(PTXDIST_WORKSPACE) && \
 		yes "" | $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
@@ -887,11 +894,10 @@ print-%:
 # ----------------------------------------------------------------------------
 
 %.dep: $(IMAGEDIR)/configdeps
-	@echo "creating dependency file: $@"
 	@$(PTXDIST_TOPDIR)/scripts/create_dependencies.sh \
 		--action defaults \
 		--rulesdir $(RULESDIR) \
-		--projectrulesdir $(PROJECTRULESDIR) \
+		`test -n "$(PROJECTRULESDIR)" && echo "--projectrulesdir $(PROJECTRULESDIR)"` \
 		--imagedir $(IMAGEDIR) \
 		--statedir $(STATEDIR) \
 		--dependency-file $@
