@@ -13,7 +13,7 @@
 # Paths and names
 #
 
-HOSTPACKAGES-$(HOST_UTIL-LINUX) += host-util-linux
+HOST_PACKAGES-$(PTXCONF_HOST_UTIL-LINUX) += host-util-linux
 
 HOST_UTIL-LINUX_DIR	= $(HOST_BUILDDIR)/$(UTIL-LINUX)
 

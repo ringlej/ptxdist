@@ -9,7 +9,7 @@
 #
 
 
-HOST_PACKAGES-$(HOST_ZLIB) += host-zlib
+HOST_PACKAGES-$(PTXCONF_HOST_ZLIB) += host-zlib
 
 #
 # Paths and names 
