@@ -507,7 +507,8 @@ check_problematic_configs = 								\
 		echo "         new: '\# PTXCONF_COMPILE_KERNEL is not set'";		\
 		echo;									\
 		echo;									\
-		echo "The PTXdist team apologizes for any inconvenience";		\
+		echo "The PTXdist team apologizes for any inconvenience :-)";		\
+		echo;									\
 		exit 1;									\
 	fi;										\
 	echo "checking \$$PTXDIST_WORKSPACE/config/setup";				\
