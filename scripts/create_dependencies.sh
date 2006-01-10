@@ -141,12 +141,12 @@ identify(){
 	debug_out "--dependency-file set to: $OUTFILE"
 	TARGET=$(basename $OUTFILE .dep)
 	[ -z "$TARGET" ] && echo "# FIXME: dep file creation failed - broken package ?" > $OUTFILE
-	[ -z "$TARGET" ] && my_exit "ERROR while identifying target" 0
+	[ -z "$TARGET" ] && DEBUG=true my_exit "ERROR while identifying target" 1
 	TARGET_MAKEFILE=$(dirname $OUTFILE)/${TARGET}.make
 	debug_out "creating dependencies for make target >${TARGET}< in makefile >$TARGET_MAKEFILE<"
-	LABEL=$(grep -s -h "^PACKAGES-\$(PTXCONF_" $TARGET_MAKEFILE | sed s/'^PACKAGES-$(PTXCONF_\(.*\)).*'/'\1'/g)
+	LABEL=$(grep -s -h "^.*PACKAGES-\$(PTXCONF_" $TARGET_MAKEFILE | sed s/'^.*PACKAGES-$(PTXCONF_\(.*\)).*'/'\1'/g)
 	[ -z "$LABEL" ] && echo "# FIXME: dep file creation failed - broken package ?" > $OUTFILE
-	[ -z "$LABEL" ] && my_exit "ERROR while identifying CONFIG LABEL  for $TARGET_MAKEFILE" 0
+	[ -z "$LABEL" ] && DEBUG=true my_exit "ERROR while identifying CONFIG LABEL  for $TARGET_MAKEFILE" 1
 	debug_out "LABEL is: >$LABEL<"
 }
 
