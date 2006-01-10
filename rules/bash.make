@@ -30,16 +30,8 @@ BASH_DIR		= $(BUILDDIR)/$(BASH)
 
 bash_get: $(STATEDIR)/bash.get
 
-bash_get_deps = \
-	$(BASH_SOURCE) \
-	$(STATEDIR)/bash-patches.get
-
-$(STATEDIR)/bash.get: $(bash_get_deps)
+$(STATEDIR)/bash.get: $(BASH_SOURCE)
 	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-$(STATEDIR)/bash-patches.get:
-	@$(call get_patches, $(BASH))
 	@$(call touch, $@)
 
 $(BASH_SOURCE):
@@ -52,9 +44,7 @@ $(BASH_SOURCE):
 
 bash_extract: $(STATEDIR)/bash.extract
 
-bash_extract_deps = $(call deps_extract, BASH)
-
-$(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
+$(STATEDIR)/bash.extract: $(bash_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean $(BASH_DIR))
 	@$(call extract, $(BASH_SOURCE))
@@ -66,8 +56,6 @@ $(STATEDIR)/bash.extract: $(STATEDIR)/bash.get
 # ----------------------------------------------------------------------------
 
 bash_prepare: $(STATEDIR)/bash.prepare
-
-bash_prepare_deps = $(call deps_prepare, BASH)
 
 BASH_AUTOCONF	= $(CROSS_AUTOCONF_ROOT)
 BASH_AUTOCONF	+= --disable-sanity-checks
@@ -198,7 +186,7 @@ BASH_AUTOCONF	+= --disable-static-link
 endif
 
 
-$(STATEDIR)/bash.prepare: $(bash_prepare_deps)
+$(STATEDIR)/bash.prepare: $(bash_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BASH_DIR) && \
 		$(BASH_PATH) $(BASH_ENV) \
@@ -211,9 +199,7 @@ $(STATEDIR)/bash.prepare: $(bash_prepare_deps)
 
 bash_compile: $(STATEDIR)/bash.compile
 
-bash_compile_deps = $(call deps_compile, BASH)
-
-$(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare 
+$(STATEDIR)/bash.compile: $(bash_compile_deps_default) 
 	@$(call targetinfo, $@)
 	cd $(BASH_DIR) && $(BASH_PATH) make
 	@$(call touch, $@)
@@ -224,9 +210,7 @@ $(STATEDIR)/bash.compile: $(STATEDIR)/bash.prepare
 
 bash_install: $(STATEDIR)/bash.install
 
-bash_install_deps = $(call deps_install, BASH)
-
-$(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
+$(STATEDIR)/bash.install: $(bash_install_deps_default)
 	@$(call targetinfo, $@)
 	#@$(call install, BASH)
 	@$(call touch, $@)
@@ -237,9 +221,7 @@ $(STATEDIR)/bash.install: $(STATEDIR)/bash.compile
 
 bash_targetinstall: $(STATEDIR)/bash.targetinstall
 
-bash_targetinstall_deps = $(call deps_targetinstall, BASH)
-
-$(STATEDIR)/bash.targetinstall: $(STATEDIR)/bash.compile
+$(STATEDIR)/bash.targetinstall: $(bash_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -13,6 +13,7 @@ config BIND_CRYPTO
 	bool
 	prompt "enable DNSSEC"
 	depends BIND && OPENSSL
+	select OPENSSL
 
 config BIND_IPV6
 	bool

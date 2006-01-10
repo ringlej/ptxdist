@@ -73,4 +73,5 @@ config GRUB_RTL8139
 	prompt "Realtek  network driver"
 	depends on GRUB
 
-source "rules/bootdisk.in"
+# FIXME
+# source "rules/bootdisk.in"

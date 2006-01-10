@@ -29,17 +29,8 @@ BINUTILS_BUILDDIR	= $(BINUTILS_DIR)-build
 
 binutils_get: $(STATEDIR)/binutils.get
 
-binutils_get_deps = \
-	$(BINUTILS_SOURCE) \
-	$(STATEDIR)/binutils-patches.get
-
-$(STATEDIR)/binutils.get: $(binutils_get_deps)
+$(STATEDIR)/binutils.get: $(BINUTILS_SOURCE)
 	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-$(STATEDIR)/binutils-patches.get:
-	@$(call targetinfo, $@)
-	@$(call get_patches, $(BINUTILS))
 	@$(call touch, $@)
 
 $(BINUTILS_SOURCE):
@@ -52,7 +43,7 @@ $(BINUTILS_SOURCE):
 
 binutils_extract: $(STATEDIR)/binutils.extract
 
-$(STATEDIR)/binutils.extract: $(STATEDIR)/binutils.get
+$(STATEDIR)/binutils.extract: $(binutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BINUTILS_DIR))
 	@$(call extract, $(BINUTILS_SOURCE))
@@ -64,10 +55,6 @@ $(STATEDIR)/binutils.extract: $(STATEDIR)/binutils.get
 # ----------------------------------------------------------------------------
 
 binutils_prepare: $(STATEDIR)/binutils.prepare
-
-binutils_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/binutils.extract
 
 BINUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 BINUTILS_AUTOCONF += \
@@ -82,7 +69,7 @@ BINUTILS_AUTOCONF += \
 BINUTILS_ENV	= $(CROSS_ENV)
 BINUTILS_PATH	= PATH=$(CROSS_PATH)
 
-$(STATEDIR)/binutils.prepare: $(binutils_prepare_deps)
+$(STATEDIR)/binutils.prepare: $(binutils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BINUTILS_BUILDDIR))
 	mkdir -p $(BINUTILS_BUILDDIR)
@@ -96,7 +83,7 @@ $(STATEDIR)/binutils.prepare: $(binutils_prepare_deps)
 
 binutils_compile: $(STATEDIR)/binutils.compile
 
-$(STATEDIR)/binutils.compile: $(STATEDIR)/binutils.prepare 
+$(STATEDIR)/binutils.compile: $(binutils_compile_deps_default)
 	@$(call targetinfo, $@)
 #
 # the libiberty part is compiled for the host system
@@ -124,7 +111,7 @@ $(STATEDIR)/binutils.compile: $(STATEDIR)/binutils.prepare
 
 binutils_install: $(STATEDIR)/binutils.install
 
-$(STATEDIR)/binutils.install: $(STATEDIR)/binutils.compile
+$(STATEDIR)/binutils.install: $(binutils_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: 
 	#@$(call install, BINUTILS)
@@ -138,7 +125,7 @@ $(STATEDIR)/binutils.install: $(STATEDIR)/binutils.compile
 
 binutils_targetinstall: $(STATEDIR)/binutils.targetinstall
 
-$(STATEDIR)/binutils.targetinstall: $(STATEDIR)/binutils.install
+$(STATEDIR)/binutils.targetinstall: $(binutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

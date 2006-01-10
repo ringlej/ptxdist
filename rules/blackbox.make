@@ -32,9 +32,7 @@ BLACKBOX_DIR		= $(BUILDDIR)/$(BLACKBOX)
 
 blackbox_get: $(STATEDIR)/blackbox.get
 
-blackbox_get_deps = $(BLACKBOX_SOURCE)
-
-$(STATEDIR)/blackbox.get: $(blackbox_get_deps)
+$(STATEDIR)/blackbox.get: $(BLACKBOX_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,9 +46,7 @@ $(BLACKBOX_SOURCE):
 
 blackbox_extract: $(STATEDIR)/blackbox.extract
 
-blackbox_extract_deps = $(call deps_extract, BLACKBOX)
-
-$(STATEDIR)/blackbox.extract: $(blackbox_extract_deps)
+$(STATEDIR)/blackbox.extract: $(blackbox_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BLACKBOX_DIR))
 	@$(call extract, $(BLACKBOX_SOURCE))
@@ -62,14 +58,8 @@ $(STATEDIR)/blackbox.extract: $(blackbox_extract_deps)
 
 blackbox_prepare: $(STATEDIR)/blackbox.prepare
 
-#
-# dependencies
-#
-blackbox_prepare_deps = $(call deps_prepare, BLACKBOX)
-
 BLACKBOX_PATH	=  PATH=$(CROSS_PATH)
 BLACKBOX_ENV 	=  $(CROSS_ENV)
-#BLACKBOX_ENV	+=
 
 #
 # autoconf
@@ -97,9 +87,7 @@ $(STATEDIR)/blackbox.prepare: $(blackbox_prepare_deps)
 
 blackbox_compile: $(STATEDIR)/blackbox.compile
 
-blackbox_compile_deps = $(call deps_compile, BLACKBOX)
-
-$(STATEDIR)/blackbox.compile: $(blackbox_compile_deps)
+$(STATEDIR)/blackbox.compile: $(blackbox_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(BLACKBOX_PATH) make -C $(BLACKBOX_DIR)
 	@$(call touch, $@)
@@ -110,9 +98,7 @@ $(STATEDIR)/blackbox.compile: $(blackbox_compile_deps)
 
 blackbox_install: $(STATEDIR)/blackbox.install
 
-blackbox_install_deps = $(call deps_install, BLACKBOX)
-
-$(STATEDIR)/blackbox.install: $(blackbox_install_deps)
+$(STATEDIR)/blackbox.install: $(blackbox_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, BLACKBOX)
 	@$(call touch, $@)
@@ -123,9 +109,7 @@ $(STATEDIR)/blackbox.install: $(blackbox_install_deps)
 
 blackbox_targetinstall: $(STATEDIR)/blackbox.targetinstall
 
-blackbox_targetinstall_deps = $(call deps_targetinstall, BLACKBOX)
-
-$(STATEDIR)/blackbox.targetinstall: $(blackbox_targetinstall_deps)
+$(STATEDIR)/blackbox.targetinstall: $(blackbox_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -3,7 +3,7 @@
 # Package: hexedit
 # 
 hexedit_extract_deps_default = $(STATEDIR)/hexedit.get
-hexedit_prepare_deps_default = $(STATEDIR)/hexedit.extract $(STATEDIR)/virtual-xchain.install
+hexedit_prepare_deps_default = $(STATEDIR)/hexedit.extract $(STATEDIR)/ncurses.install $(STATEDIR)/virtual-xchain.install
 hexedit_compile_deps_default = $(STATEDIR)/hexedit.prepare
 hexedit_install_deps_default = $(STATEDIR)/hexedit.compile
-hexedit_targetinstall_deps_default =  $(STATEDIR)/hexedit.compile
+hexedit_targetinstall_deps_default =  $(STATEDIR)/ncurses.targetinstall $(STATEDIR)/hexedit.compile

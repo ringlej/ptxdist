@@ -3,7 +3,7 @@
 # Package: libpv
 # 
 libpv_extract_deps_default = $(STATEDIR)/libpv.get
-libpv_prepare_deps_default = $(STATEDIR)/libpv.extract $(STATEDIR)/virtual-xchain.install
+libpv_prepare_deps_default = $(STATEDIR)/libpv.extract $(STATEDIR)/liblist.install $(STATEDIR)/libxmlconfig.install $(STATEDIR)/virtual-xchain.install
 libpv_compile_deps_default = $(STATEDIR)/libpv.prepare
 libpv_install_deps_default = $(STATEDIR)/libpv.compile
-libpv_targetinstall_deps_default =  $(STATEDIR)/libpv.compile
+libpv_targetinstall_deps_default =  $(STATEDIR)/liblist.targetinstall $(STATEDIR)/libxmlconfig.targetinstall $(STATEDIR)/libpv.compile

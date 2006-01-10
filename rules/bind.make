@@ -32,9 +32,7 @@ BIND_DIR	= $(BUILDDIR)/$(BIND)
 
 bind_get: $(STATEDIR)/bind.get
 
-bind_get_deps = $(BIND_SOURCE)
-
-$(STATEDIR)/bind.get: $(bind_get_deps)
+$(STATEDIR)/bind.get: $(BIND_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,9 +46,7 @@ $(BIND_SOURCE):
 
 bind_extract: $(STATEDIR)/bind.extract
 
-bind_extract_deps = $(call deps_extract, BIND)
-
-$(STATEDIR)/bind.extract: $(bind_extract_deps)
+$(STATEDIR)/bind.extract: $(bind_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BIND_DIR))
 	@$(call extract, $(BIND_SOURCE))
@@ -62,11 +58,6 @@ $(STATEDIR)/bind.extract: $(bind_extract_deps)
 # ----------------------------------------------------------------------------
 
 bind_prepare: $(STATEDIR)/bind.prepare
-
-#
-# dependencies
-#
-bind_prepare_deps = $(call deps_prepare, BIND)
 
 BIND_PATH	=  PATH=$(CROSS_PATH)
 BIND_ENV 	=  $(CROSS_ENV)
@@ -84,7 +75,6 @@ endif
 
 ifdef PTXCONF_BIND_CRYPTO
 BIND_AUTOCONF += --with-openssl=$(OPENSSL_DIR)
-bind_prepare_deps += $(STATEDIR)/openssl.install
 else
 BIND_AUTOCONF += --without-openssl
 endif
@@ -95,7 +85,7 @@ else
 BIND_AUTOCONF += --disable-ipv6
 endif
 
-$(STATEDIR)/bind.prepare: $(bind_prepare_deps)
+$(STATEDIR)/bind.prepare: $(bind_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BIND_DIR)/config.cache)
 	cd $(BIND_DIR) && \
@@ -109,9 +99,7 @@ $(STATEDIR)/bind.prepare: $(bind_prepare_deps)
 
 bind_compile: $(STATEDIR)/bind.compile
 
-bind_compile_deps = $(call deps_compile, BIND)
-
-$(STATEDIR)/bind.compile: $(bind_compile_deps)
+$(STATEDIR)/bind.compile: $(bind_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BIND_DIR) && \
 		$(BIND_PATH) $(BIND_ENV) make $(BIND_MAKEVARS)
@@ -123,9 +111,7 @@ $(STATEDIR)/bind.compile: $(bind_compile_deps)
 
 bind_install: $(STATEDIR)/bind.install
 
-bind_install_deps = $(call deps_install, BIND)
-
-$(STATEDIR)/bind.install: $(bind_install_deps)
+$(STATEDIR)/bind.install: $(bind_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: RSC: is it right that we only install and do not targetinstall? 
 	@$(call install, BIND)
@@ -137,9 +123,7 @@ $(STATEDIR)/bind.install: $(bind_install_deps)
 
 bind_targetinstall: $(STATEDIR)/bind.targetinstall
 
-bind_targetinstall_deps = $(call deps_targetinstall, BIND)
-
-$(STATEDIR)/bind.targetinstall: $(bind_targetinstall_deps)
+$(STATEDIR)/bind.targetinstall: $(bind_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

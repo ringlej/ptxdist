@@ -32,9 +32,7 @@ BETAFTPD_DIR		= $(BUILDDIR)/$(BETAFTPD)
 
 betaftpd_get: $(STATEDIR)/betaftpd.get
 
-betaftpd_get_deps = $(BETAFTPD_SOURCE)
-
-$(STATEDIR)/betaftpd.get: $(betaftpd_get_deps)
+$(STATEDIR)/betaftpd.get: $(BETAFTPD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BETAFTPD))
 	@$(call touch, $@)
@@ -49,9 +47,7 @@ $(BETAFTPD_SOURCE):
 
 betaftpd_extract: $(STATEDIR)/betaftpd.extract
 
-betaftpd_extract_deps = $(call deps_extract, BETAFTPD)
-
-$(STATEDIR)/betaftpd.extract: $(betaftpd_extract_deps)
+$(STATEDIR)/betaftpd.extract: $(betaftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BETAFTPD_DIR))
 	@$(call extract, $(BETAFTPD_SOURCE))
@@ -64,11 +60,6 @@ $(STATEDIR)/betaftpd.extract: $(betaftpd_extract_deps)
 
 betaftpd_prepare: $(STATEDIR)/betaftpd.prepare
 
-#
-# dependencies
-#
-betaftpd_prepare_deps = $(call deps_prepare, BETAFTPD)
-
 BETAFTPD_PATH	=  PATH=$(CROSS_PATH)
 BETAFTPD_ENV 	=  $(CROSS_ENV)
 BETAFTPD_ENV	+= CFLAGS='$(CROSS_CPPFLAGS) $(CROSS_CFLAGS)'
@@ -78,7 +69,7 @@ BETAFTPD_ENV	+= CFLAGS='$(CROSS_CPPFLAGS) $(CROSS_CFLAGS)'
 #
 BETAFTPD_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/betaftpd.prepare: $(betaftpd_prepare_deps)
+$(STATEDIR)/betaftpd.prepare: $(betaftpd_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BETAFTPD_DIR)/config.cache)
 	cd $(BETAFTPD_DIR) && \
@@ -92,9 +83,7 @@ $(STATEDIR)/betaftpd.prepare: $(betaftpd_prepare_deps)
 
 betaftpd_compile: $(STATEDIR)/betaftpd.compile
 
-betaftpd_compile_deps = $(call deps_compile, BETAFTPD)
-
-$(STATEDIR)/betaftpd.compile: $(betaftpd_compile_deps)
+$(STATEDIR)/betaftpd.compile: $(betaftpd_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BETAFTPD_DIR) && \
 		$(BETAFTPD_ENV) $(BETAFTPD_PATH) make $(BETAFTPD_MAKEVARS)
@@ -106,9 +95,7 @@ $(STATEDIR)/betaftpd.compile: $(betaftpd_compile_deps)
 
 betaftpd_install: $(STATEDIR)/betaftpd.install
 
-betaftpd_install_deps = $(call deps_install, BETAFTPD)
-
-$(STATEDIR)/betaftpd.install: $(betaftpd_install_deps)
+$(STATEDIR)/betaftpd.install: $(betaftpd_install_deps_default)
 	@$(call targetinfo, $@)
 	# RSC: FIXME: is it correct that we only install and do not targetinstall? 
 	@$(call install, BETAFTPD)
@@ -120,9 +107,7 @@ $(STATEDIR)/betaftpd.install: $(betaftpd_install_deps)
 
 betaftpd_targetinstall: $(STATEDIR)/betaftpd.targetinstall
 
-betaftpd_targetinstall_deps = $(call deps_targetinstall, BETAFTPD)
-
-$(STATEDIR)/betaftpd.targetinstall: $(betaftpd_targetinstall_deps)
+$(STATEDIR)/betaftpd.targetinstall: $(betaftpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

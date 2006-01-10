@@ -32,9 +32,7 @@ BING_DIR		= $(BUILDDIR)/$(BING)
 
 bing_get: $(STATEDIR)/bing.get
 
-bing_get_deps = $(BING_SOURCE)
-
-$(STATEDIR)/bing.get: $(bing_get_deps)
+$(STATEDIR)/bing.get: $(BING_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BING))
 	@$(call touch, $@)
@@ -49,9 +47,7 @@ $(BING_SOURCE):
 
 bing_extract: $(STATEDIR)/bing.extract
 
-bing_extract_deps := $(bing_extract_deps_default)
-
-$(STATEDIR)/bing.extract: $(bing_extract_deps)
+$(STATEDIR)/bing.extract: $(bing_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BING_DIR))
 	@$(call extract, $(BING_SOURCE))
@@ -64,15 +60,10 @@ $(STATEDIR)/bing.extract: $(bing_extract_deps)
 
 bing_prepare: $(STATEDIR)/bing.prepare
 
-#
-# dependencies
-#
-bing_prepare_deps := $(bing_prepare_deps_default)
-
 BING_PATH	=  PATH=$(CROSS_PATH)
 BING_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/bing.prepare: $(bing_prepare_deps)
+$(STATEDIR)/bing.prepare: $(bing_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -82,9 +73,7 @@ $(STATEDIR)/bing.prepare: $(bing_prepare_deps)
 
 bing_compile: $(STATEDIR)/bing.compile
 
-bing_compile_deps := $(bing_compile_deps_default)
-
-$(STATEDIR)/bing.compile: $(bing_compile_deps)
+$(STATEDIR)/bing.compile: $(bing_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BING_DIR) && $(BING_ENV) $(BING_PATH) make bing
 	@$(call touch, $@)
@@ -95,9 +84,7 @@ $(STATEDIR)/bing.compile: $(bing_compile_deps)
 
 bing_install: $(STATEDIR)/bing.install
 
-bing_install_deps := $(bing_install_deps_default)
-
-$(STATEDIR)/bing.install: $(bing_install_deps)
+$(STATEDIR)/bing.install: $(bing_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, BING)
@@ -109,9 +96,7 @@ $(STATEDIR)/bing.install: $(bing_install_deps)
 
 bing_targetinstall: $(STATEDIR)/bing.targetinstall
 
-bing_targetinstall_deps := $(bing_targetinstall_deps_default)
-
-$(STATEDIR)/bing.targetinstall: $(bing_targetinstall_deps)
+$(STATEDIR)/bing.targetinstall: $(bing_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

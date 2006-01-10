@@ -33,9 +33,7 @@ APACHE_DIR		= $(BUILDDIR)/$(APACHE)
 
 apache_get: $(STATEDIR)/apache.get
 
-apache_get_deps = $(APACHE_SOURCE)
-
-$(STATEDIR)/apache.get: $(apache_get_deps)
+$(STATEDIR)/apache.get: $(APACHE_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(APACHE))
 	@$(call touch, $@)
@@ -50,9 +48,7 @@ $(APACHE_SOURCE):
 
 apache_extract: $(STATEDIR)/apache.extract
 
-apache_extract_deps = $(call deps_extract, APACHE)
-
-$(STATEDIR)/apache.extract: $(apache_extract_deps)
+$(STATEDIR)/apache.extract: $(apache_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(APACHE_DIR))
 	@$(call extract, $(APACHE_SOURCE))
@@ -64,11 +60,6 @@ $(STATEDIR)/apache.extract: $(apache_extract_deps)
 # ----------------------------------------------------------------------------
 
 apache_prepare: $(STATEDIR)/apache.prepare
-
-#
-# dependencies
-#
-apache_prepare_deps = $(call deps_prepare, APACHE)
 
 APACHE_PATH = PATH=$(CROSS_PATH)
 APACHE_ENV = \
@@ -94,7 +85,7 @@ APACHE_AUTOCONF = \
 	--disable-module=env \
 	--enable-module=so
 
-$(STATEDIR)/apache.prepare: $(apache_prepare_deps)
+$(STATEDIR)/apache.prepare: $(apache_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(APACHE_DIR)/config.cache)
 	cd $(APACHE_DIR) && \
@@ -108,9 +99,7 @@ $(STATEDIR)/apache.prepare: $(apache_prepare_deps)
 
 apache_compile: $(STATEDIR)/apache.compile
 
-apache_compile_deps = $(call deps_compile, APACHE)
-
-$(STATEDIR)/apache.compile: $(apache_compile_deps)
+$(STATEDIR)/apache.compile: $(apache_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(APACHE_DIR) && $(APACHE_ENV) $(APACHE_PATH) make
 	@$(call touch, $@)
@@ -121,9 +110,7 @@ $(STATEDIR)/apache.compile: $(apache_compile_deps)
 
 apache_install: $(STATEDIR)/apache.install
 
-apache_install_deps = $(call deps_install, APACHE)
-
-$(STATEDIR)/apache.install: $(apache_install_deps)
+$(STATEDIR)/apache.install: $(apache_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, APACHE)
 	@$(call touch, $@)
@@ -134,9 +121,7 @@ $(STATEDIR)/apache.install: $(apache_install_deps)
 
 apache_targetinstall: $(STATEDIR)/apache.targetinstall
 
-apache_tarbetinstall_deps = $(call deps_targetinstall, APACHE)
-
-$(STATEDIR)/apache.targetinstall: $(apache_targetinstall_deps)
+$(STATEDIR)/apache.targetinstall: $(apache_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

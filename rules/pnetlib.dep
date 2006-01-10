@@ -3,7 +3,7 @@
 # Package: pnetlib
 # 
 pnetlib_extract_deps_default = $(STATEDIR)/pnetlib.get
-pnetlib_prepare_deps_default = $(STATEDIR)/pnetlib.extract $(STATEDIR)/virtual-xchain.install
+pnetlib_prepare_deps_default = $(STATEDIR)/pnetlib.extract $(STATEDIR)/pnet.install $(STATEDIR)/virtual-xchain.install
 pnetlib_compile_deps_default = $(STATEDIR)/pnetlib.prepare
 pnetlib_install_deps_default = $(STATEDIR)/pnetlib.compile
-pnetlib_targetinstall_deps_default =  $(STATEDIR)/pnetlib.compile
+pnetlib_targetinstall_deps_default =  $(STATEDIR)/pnet.targetinstall $(STATEDIR)/pnetlib.compile

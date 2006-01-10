@@ -32,9 +32,7 @@ APACHE2_DIR	= $(BUILDDIR)/$(APACHE2)
 
 apache2_get: $(STATEDIR)/apache2.get
 
-apache2_get_deps := $(APACHE2_SOURCE) 
-
-$(STATEDIR)/apache2.get: $(apache2_get_deps)
+$(STATEDIR)/apache2.get: $(APACHE2_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,9 +46,7 @@ $(APACHE2_SOURCE):
 
 apache2_extract: $(STATEDIR)/apache2.extract
 
-apache2_extract_deps := $(apache2_extract_deps_default)
-
-$(STATEDIR)/apache2.extract: $(apache2_extract_deps)
+$(STATEDIR)/apache2.extract: $(apache2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(APACHE2_DIR))
 	@$(call extract, $(APACHE2_SOURCE))
@@ -62,8 +58,6 @@ $(STATEDIR)/apache2.extract: $(apache2_extract_deps)
 # ----------------------------------------------------------------------------
 
 apache2_prepare: $(STATEDIR)/apache2.prepare
-
-apache2_prepare_deps := $(apache2_prepare_deps_default)
 
 APACHE2_PATH	=  PATH=$(CROSS_PATH)
 APACHE2_ENV 	=  $(CROSS_ENV)
@@ -80,7 +74,7 @@ APACHE2_ENV	+= ac_cv_func_setpgrp_void=yes
 #
 APACHE2_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/apache2.prepare: $(apache2_prepare_deps)
+$(STATEDIR)/apache2.prepare: $(apache2_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(APACHE2_DIR)/config.cache)
 	cd $(APACHE2_DIR) && \
@@ -103,10 +97,7 @@ $(STATEDIR)/apache2.prepare: $(apache2_prepare_deps)
 
 apache2_compile: $(STATEDIR)/apache2.compile
 
-apache2_compile_deps := $(apache2_compile_deps_default)
-apache2_compile_deps += $(STATEDIR)/host-apache2.compile
-
-$(STATEDIR)/apache2.compile: $(apache2_compile_deps)
+$(STATEDIR)/apache2.compile: $(apache2_compile_deps_default)
 	@$(call targetinfo, $@)
 
 	#
@@ -137,9 +128,7 @@ $(STATEDIR)/apache2.compile: $(apache2_compile_deps)
 
 apache2_install: $(STATEDIR)/apache2.install
 
-apache2_install_deps := $(apache2_install_deps_default)
-
-$(STATEDIR)/apache2.install: $(apache2_install_deps)
+$(STATEDIR)/apache2.install: $(apache2_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, APACHE2)
 	@$(call touch, $@)
@@ -150,9 +139,7 @@ $(STATEDIR)/apache2.install: $(apache2_install_deps)
 
 apache2_targetinstall: $(STATEDIR)/apache2.targetinstall
 
-apache2_targetinstall_deps := $(apache2_targetinstall_deps_default)
-
-$(STATEDIR)/apache2.targetinstall: $(apache2_targetinstall_deps)
+$(STATEDIR)/apache2.targetinstall: $(apache2_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

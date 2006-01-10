@@ -34,9 +34,7 @@ ATK_LIB_VERSION	= 501.3
 
 atk_get: $(STATEDIR)/atk.get
 
-atk_get_deps	=  $(ATK_SOURCE)
-
-$(STATEDIR)/atk.get: $(atk_get_deps)
+$(STATEDIR)/atk.get: $(ATK_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -50,9 +48,7 @@ $(ATK_SOURCE):
 
 atk_extract: $(STATEDIR)/atk.extract
 
-atk_extract_deps = $(call deps_extract, ATK)
-
-$(STATEDIR)/atk.extract: $(atk_extract_deps)
+$(STATEDIR)/atk.extract: $(atk_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ATK_DIR))
 	@$(call extract, $(ATK_SOURCE))
@@ -65,11 +61,6 @@ $(STATEDIR)/atk.extract: $(atk_extract_deps)
 
 atk_prepare: $(STATEDIR)/atk.prepare
 
-#
-# dependencies
-#
-atk_prepare_deps = $(call deps_prepare, ATK)
-
 ATK_PATH	=  PATH=$(CROSS_PATH)
 ATK_ENV 	=  $(CROSS_ENV)
 ATK_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
@@ -79,7 +70,7 @@ ATK_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 ATK_AUTOCONF	= $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/atk.prepare: $(atk_prepare_deps)
+$(STATEDIR)/atk.prepare: $(atk_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ATK_BUILDDIR))
 	cd $(ATK_DIR) && \
@@ -93,9 +84,7 @@ $(STATEDIR)/atk.prepare: $(atk_prepare_deps)
 
 atk_compile: $(STATEDIR)/atk.compile
 
-atk_compile_deps = $(call deps_compile, ATK)
-
-$(STATEDIR)/atk.compile: $(atk_compile_deps)
+$(STATEDIR)/atk.compile: $(atk_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(ATK_PATH) make -C $(ATK_DIR) 
 	@$(call touch, $@)
@@ -106,9 +95,7 @@ $(STATEDIR)/atk.compile: $(atk_compile_deps)
 
 atk_install: $(STATEDIR)/atk.install
 
-atk_install_deps = $(call deps_install, ATK)
-
-$(STATEDIR)/atk.install: $(atk_install_deps)
+$(STATEDIR)/atk.install: $(atk_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, ATK)
 	@$(call touch, $@)
@@ -119,9 +106,7 @@ $(STATEDIR)/atk.install: $(atk_install_deps)
 
 atk_targetinstall: $(STATEDIR)/atk.targetinstall
 
-atk_targetinstall_deps = $(call deps_targetinstall, ATK)
-
-$(STATEDIR)/atk.targetinstall: $(atk_targetinstall_deps)
+$(STATEDIR)/atk.targetinstall: $(atk_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
