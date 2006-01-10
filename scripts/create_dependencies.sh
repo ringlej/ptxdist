@@ -126,8 +126,8 @@ done
 # Sanity checks
 #
 
-[ -z "$RULESDIR" ] || rulesfiles="$RULESDIR/* $rulesfiles"  
-[ -z "$PROJECTRULESDIR" ] || rulesfiles="$PROJECTRULESDIR/* $rulesfiles"
+[ -z "$RULESDIR" ] || rulesfiles="$RULESDIR/*.make $rulesfiles"  
+[ -z "$PROJECTRULESDIR" ] || rulesfiles="$PROJECTRULESDIR/*.make $rulesfiles"
 [ -z "$rulesfiles" ] && my_exit "Insufficient Arguments - Rules missing" 1
 [ -z "$IMAGEDIR" ] && my_exit "Insufficient Arguments - Image Directory missing" 1
 [ -z "$STATEDIR" ] && my_exit "Insufficient Arguments State Directory missing" 1
@@ -143,7 +143,7 @@ identify(){
 	[ -z "$TARGET" ] && echo "# FIXME: dep file creation failed - broken package ?" > $OUTFILE
 	[ -z "$TARGET" ] && DEBUG=true my_exit "ERROR while identifying target" 1
 	TARGET_MAKEFILE=$(dirname $OUTFILE)/${TARGET}.make
-	debug_out "creating dependencies for make target >${TARGET}< in makefile >$TARGET_MAKEFILE<"
+	#debug_out "creating dependencies for make target >${TARGET}< in makefile >$TARGET_MAKEFILE<"
 	LABEL=$(grep -s -h "^.*PACKAGES-\$(PTXCONF_" $TARGET_MAKEFILE | sed s/'^.*PACKAGES-$(PTXCONF_\(.*\)).*'/'\1'/g)
 	[ -z "$LABEL" ] && echo "# FIXME: dep file creation failed - broken package ?" > $OUTFILE
 	[ -z "$LABEL" ] && DEBUG=true my_exit "ERROR while identifying CONFIG LABEL  for $TARGET_MAKEFILE" 1
@@ -178,7 +178,7 @@ deps_prepare(){
 			if [ -z "$targetname" ]; then
 				debug_out "Package not identified for $dependency"
 			else
-				echo -n " \$(STATEDIR)/$targetname.install"
+				echo -n " \$(STATEDIR)/${targetname}.install"
 			fi	
 		done  
 		echo " \$(STATEDIR)/virtual-xchain.install"                                                       
@@ -246,7 +246,7 @@ do_defaults(){
 	[ $DEBUG ] && echo "# User: $(whoami)" >> $OUTFILE
 	[ $DEBUG ] && echo "# Path: $(pwd)" >> $OUTFILE
 	echo "# " >> $OUTFILE
-	echo "Generating default dependencies for package label: >$LABEL< Outfile: >$OUTFILE<"
+	echo "$LABEL -> $OUTFILE"
 	ACTION=extract deps_extract >> $OUTFILE
 	ACTION=prepare deps_prepare >> $OUTFILE
 	ACTION=compile deps_compile >> $OUTFILE
