@@ -17,7 +17,7 @@
 # FIXME: Broken Package
 #
 ifdef PTXCONF_XMLBENCH
-PACKAGES += xmlbench
+PACKAGES-$(PTXCONF_XMLBENCH) += xmlbench
 endif
 
 #
