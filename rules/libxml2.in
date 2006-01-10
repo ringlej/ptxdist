@@ -6,6 +6,7 @@
 menuconfig LIBXML2
         bool
         prompt "libxml2                     "
+        select ZLIB
 
 config LIBXML2_C14N
 	bool
@@ -13,9 +14,9 @@ config LIBXML2_C14N
 	depends on LIBXML2
 	prompt "C14N Support"
 	help
-	  Activate the W3C XML Canonicalisation (C14N) to serialize 
-	  the result of parsing to stdout. It keeps comments in the 
-	  result. 
+	  Activate the W3C XML Canonicalisation (C14N) to serialize
+	  the result of parsing to stdout. It keeps comments in the
+	  result.
 
 config LIBXML2_CATALOG
 	bool
@@ -24,12 +25,12 @@ config LIBXML2_CATALOG
 	prompt "Catalog support"
 	help
 	  Add the Catalog support.
-	  What is a catalog? Basically it's a lookup mechanism used 
-	  when an entity (a file or a remote resource) references 
-	  another entity. The catalog lookup is inserted between 
-	  the moment the reference is recognized by the software 
-	  (XML parser, stylesheet processing, or even images 
-	  referenced for inclusion in a rendering) and the time 
+	  What is a catalog? Basically it's a lookup mechanism used
+	  when an entity (a file or a remote resource) references
+	  another entity. The catalog lookup is inserted between
+	  the moment the reference is recognized by the software
+	  (XML parser, stylesheet processing, or even images
+	  referenced for inclusion in a rendering) and the time
 	  where loading that resource is actually started.
 	  http://xmlsoft.org/catalog.html
 
@@ -39,7 +40,7 @@ config LIBXML2_DEBUG
 	depends on LIBXML2
 	prompt "Debugging"
 	help
-	  Enable debugging support. 
+	  Enable debugging support.
 
 config LIBXML2_DOCBOOK
 	bool
@@ -55,7 +56,7 @@ config LIBXML2_FEXCEPTIONS
 	depends on LIBXML2
 	prompt "C++ Exception Support"
 	help
-	  Add GCC flag -fexceptions for C++ exceptions. 
+	  Add GCC flag -fexceptions for C++ exceptions.
 
 config LIBXML2_FTP
 	bool
@@ -71,7 +72,7 @@ config LIBXML2_HISTORY
 	depends on LIBXML2
 	prompt "History support for xmlling shell"
 	help
-	  This feature adds history support to the xmllint shell. 
+	  This feature adds history support to the xmllint shell.
 
 config LIBXML2_HTML
 	bool
@@ -79,7 +80,7 @@ config LIBXML2_HTML
 	depends on LIBXML2
 	prompt "HTML support"
 	help
-	  Add HTML support. 
+	  Add HTML support.
 
 config LIBXML2_HTML_DIR
 	string
@@ -87,7 +88,7 @@ config LIBXML2_HTML_DIR
 	depends on LIBXML2_HTML
 	prompt "HTML directory"
 	help
-	  Path to HTML base directory. 
+	  Path to HTML base directory.
 
 config LIBXML2_HTML_SUBDIR
 	string
@@ -95,7 +96,7 @@ config LIBXML2_HTML_SUBDIR
 	depends on LIBXML2_HTML
 	prompt "HTML sub directory"
 	help
-	  Directory used under HTML-dir. 
+	  Directory used under HTML-dir.
 
 config LIBXML2_HTTP
 	bool
@@ -103,15 +104,15 @@ config LIBXML2_HTTP
 	depends on LIBXML2
 	prompt "HTTP support"
 	help
-	  Add HTTP support. 
+	  Add HTTP support.
 
 config LIBXML2_ICONV
 	bool
 	default Y
-	depends on LIBXML2  
+	depends on LIBXML2
 	prompt "ICONV support"
 	help
-	  Add ICONV support. 
+	  Add ICONV support.
 
 config LIBXML2_ISO8859X
 	bool
@@ -119,7 +120,7 @@ config LIBXML2_ISO8859X
 	depends on LIBXML2
 	prompt "ISO8859x support if no ICONV"
 	help
-	  Add ISO8859X support if no iconv. 
+	  Add ISO8859X support if no iconv.
 
 config LIBXML2_LEGACY
 	bool
@@ -135,7 +136,7 @@ config LIBXML2_MEM_DEBUG
 	depends on LIBXML2
 	prompt "Memory Debugging Module"
 	help
-	  Add the memory debugging support. 
+	  Add the memory debugging support.
 
 config LIBXML2_MINIMUM
 	bool
@@ -151,7 +152,7 @@ config LIBXML2_OUTPUT
 	depends on LIBXML2
 	prompt "Output Serialization"
 	help
-	  Add the serialization support. 
+	  Add the serialization support.
 
 config LIBXML2_PATTERN
 	bool
@@ -167,14 +168,14 @@ config LIBXML2_PUSH
 	depends on LIBXML2
 	prompt "PUSH Parser"
 	help
-	  Add the PUSH parser interface. 
+	  Add the PUSH parser interface.
 
 config LIBXML2_PYTHON
 	bool
 	depends on LIBXML2
 	prompt "Python bindings"
 	help
-	  Build Python bindings if found. 
+	  Build Python bindings if found.
 
 config LIBXML2_READER
 	bool
@@ -182,7 +183,7 @@ config LIBXML2_READER
 	depends on LIBXML2
 	prompt "xmlReader Parsing Interface"
 	help
-	  Add the xmlReader parsing interface. 
+	  Add the xmlReader parsing interface.
 
 config LIBXML2_REGEXPS
 	bool
@@ -190,8 +191,8 @@ config LIBXML2_REGEXPS
 	depends on LIBXML2
 	prompt "Regular Expressions support"
 	help
-	  Add support for Regular Expressions. 
-	  
+	  Add support for Regular Expressions.
+
 #  --with-readline=DIR     use readline in DIR
 
 config LIBXML2_RUN_DEBUG
@@ -200,7 +201,7 @@ config LIBXML2_RUN_DEBUG
 	depends on LIBXML2
 	prompt "Enable Runtime Debugging"
 	help
-	  Enable runtime debugging module. 
+	  Enable runtime debugging module.
 
 config LIBXML2_SAX1
 	bool
@@ -232,16 +233,16 @@ config LIBXML2_THREADS_ALLOC
 	depends on LIBXML2
 	prompt "Per-Thread memory"
 	help
-	  Add per-thread memory. 
-	  
+	  Add per-thread memory.
+
 config LIBXML2_DOM
 	bool
 	default Y
 	depends on LIBXML2
 	prompt "DOM API"
 	help
-	  Add the DOM tree manipulation API. 
-	  
+	  Add the DOM tree manipulation API.
+
 config LIBXML2_DTD
 	bool
 	default Y
@@ -256,16 +257,16 @@ config LIBXML2_WRITER
 	depends on LIBXML2
 	prompt "xmlWriter support"
 	help
-	  Add XML Writer support. 
-	  
+	  Add XML Writer support.
+
 config LIBXML2_XINCLUDE
 	bool
 	default Y
 	depends on LIBXML2
 	prompt "XInclude"
 	help
-	  XInclude support. 
-	  
+	  XInclude support.
+
 config LIBXML2_XPATH
 	bool
 	default Y
@@ -273,7 +274,7 @@ config LIBXML2_XPATH
 	prompt "XPATH support"
 	help
 	  XPATH support
-	  
+
 config LIBXML2_XPTR
 	bool
 	default Y
@@ -288,5 +289,5 @@ config LIBXML2_MODULES
 	depends on LIBXML2
 	prompt "Dynamic Modules"
 	help
-	  Dynamic Modules support. 
+	  Dynamic Modules support.
 

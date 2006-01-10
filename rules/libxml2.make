@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -48,7 +48,7 @@ $(LIBXML2_SOURCE):
 
 libxml2_extract: $(STATEDIR)/libxml2.extract
 
-libxml2_extract_deps = $(STATEDIR)/libxml2.get
+libxml2_extract_deps = $(libxml2_extract_deps_default)
 
 $(STATEDIR)/libxml2.extract: $(libxml2_extract_deps)
 	@$(call targetinfo, $@)
@@ -66,11 +66,6 @@ libxml2_prepare: $(STATEDIR)/libxml2.prepare
 #
 # dependencies
 #
-libxml2_prepare_deps = \
-	$(STATEDIR)/libxml2.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/zlib.install
-
 LIBXML2_PATH	=  PATH=$(CROSS_PATH)
 
 #
@@ -272,7 +267,7 @@ else
 LIBXML2_AUTOCONF += --without-modules
 endif
 
-$(STATEDIR)/libxml2.prepare: $(libxml2_prepare_deps)
+$(STATEDIR)/libxml2.prepare: $(libxml2_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXML2_DIR)/config.cache)
 	cd $(LIBXML2_DIR) && \
@@ -286,9 +281,7 @@ $(STATEDIR)/libxml2.prepare: $(libxml2_prepare_deps)
 
 libxml2_compile: $(STATEDIR)/libxml2.compile
 
-libxml2_compile_deps = $(STATEDIR)/libxml2.prepare
-
-$(STATEDIR)/libxml2.compile: $(libxml2_compile_deps)
+$(STATEDIR)/libxml2.compile: $(libxml2_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBXML2_DIR) && $(LIBXML2_PATH) make
 	@$(call touch, $@)
@@ -299,11 +292,11 @@ $(STATEDIR)/libxml2.compile: $(libxml2_compile_deps)
 
 libxml2_install: $(STATEDIR)/libxml2.install
 
-$(STATEDIR)/libxml2.install: $(STATEDIR)/libxml2.compile
+$(STATEDIR)/libxml2.install: $(libxml2_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBXML2)
 	# FIXME: this probably has to be fixed upstream!
-	# libxml2 installs xml2-config to wrong path. 
+	# libxml2 installs xml2-config to wrong path.
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	install $(LIBXML2_DIR)/xml2-config $(PTXCONF_PREFIX)/bin/
 	@$(call touch, $@)
@@ -314,10 +307,7 @@ $(STATEDIR)/libxml2.install: $(STATEDIR)/libxml2.compile
 
 libxml2_targetinstall: $(STATEDIR)/libxml2.targetinstall
 
-libxml2_targetinstall_deps = $(STATEDIR)/libxml2.compile \
-	$(STATEDIR)/zlib.targetinstall
-
-$(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps)
+$(STATEDIR)/libxml2.targetinstall: $(libxml2_install_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
@@ -328,15 +318,15 @@ $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, 0, 0, 0644, \
 		$(LIBXML2_DIR)/.libs/libxml2.so.2.6.19, \
 		/usr/lib/libxml2.so.2.6.19)
 	@$(call install_link, libxml2.so.2.6.19, /usr/lib/libxml2.so.2)
 	@$(call install_link, libxml2.so.2.6.19, /usr/lib/libxml2.so)
-	
+
 	@$(call install_finish)
-	
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -14,7 +14,7 @@
 PACKAGES-$(PTXCONF_ZLIB) += zlib
 
 #
-# Paths and names 
+# Paths and names
 #
 ZLIB_VERSION		= 1.2.3
 ZLIB			= zlib-$(ZLIB_VERSION)
@@ -44,7 +44,7 @@ $(ZLIB_SOURCE):
 
 zlib_extract: $(STATEDIR)/zlib.extract
 
-$(STATEDIR)/zlib.extract: $(STATEDIR)/zlib.get
+$(STATEDIR)/zlib.extract: $(zlib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ZLIB_DIR))
 	@$(call extract, $(ZLIB_SOURCE))
@@ -56,15 +56,11 @@ $(STATEDIR)/zlib.extract: $(STATEDIR)/zlib.get
 
 zlib_prepare: $(STATEDIR)/zlib.prepare
 
-zlib_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/zlib.extract
-
 ZLIB_PATH	= PATH=$(CROSS_PATH)
 ZLIB_ENV	= $(subst CFLAGS,SGALFC,$(CROSS_ENV)) AR="$(CROSS_AR) rc"
 ZLIB_AUTOCONF	= --shared --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
- 
-$(STATEDIR)/zlib.prepare: $(zlib_prepare_deps)
+
+$(STATEDIR)/zlib.prepare: $(zlib_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(ZLIB_DIR) && $(ZLIB_ENV) $(ZLIB_PATH) ./configure $(ZLIB_AUTOCONF)
 	@$(call touch, $@)
@@ -75,7 +71,7 @@ $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps)
 
 zlib_compile: $(STATEDIR)/zlib.compile
 
-$(STATEDIR)/zlib.compile: $(STATEDIR)/zlib.prepare 
+$(STATEDIR)/zlib.compile: $(zlib_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(ZLIB_ENV) $(ZLIB_PATH) cd $(ZLIB_DIR) && make
 	$(ZLIB_ENV) $(ZLIB_PATH) cd $(ZLIB_DIR) && make libz.a
@@ -87,7 +83,7 @@ $(STATEDIR)/zlib.compile: $(STATEDIR)/zlib.prepare
 
 zlib_install: $(STATEDIR)/zlib.install
 
-$(STATEDIR)/zlib.install: $(STATEDIR)/zlib.compile
+$(STATEDIR)/zlib.install: $(zlib_install_deps_default)
 	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 	cd $(ZLIB_DIR) && $(ZLIB_PATH) $(MAKE_INSTALL)
@@ -100,7 +96,7 @@ $(STATEDIR)/zlib.install: $(STATEDIR)/zlib.compile
 
 zlib_targetinstall: $(STATEDIR)/zlib.targetinstall
 
-$(STATEDIR)/zlib.targetinstall: $(STATEDIR)/zlib.install
+$(STATEDIR)/zlib.targetinstall: $(zlib_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
@@ -124,8 +120,8 @@ $(STATEDIR)/zlib.targetinstall: $(STATEDIR)/zlib.install
 # Clean
 # ----------------------------------------------------------------------------
 
-zlib_clean: 
-	rm -rf $(STATEDIR)/zlib.* 
+zlib_clean:
+	rm -rf $(STATEDIR)/zlib.*
 	rm -rf $(IMAGEDIR)/zlib_*
 	rm -rf $(ZLIB_DIR)
 
