@@ -14,9 +14,9 @@
 #
 
 #
-# FIXME: Broken Package
+# FIXME: Broken Package?
 #
-XCHAIN-$(PTXCONF_KAFFE) += xchain-python
+XCHAIN-$(PTXCONF_PYTHON) += xchain-python
 
 #
 # Paths and names
