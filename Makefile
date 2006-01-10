@@ -506,7 +506,6 @@ check_problematic_configs = 								\
 		echo "or:      old: 'PTXCONF_DONT_COMPILE_KERNEL=y'";			\
 		echo "         new: '\# PTXCONF_COMPILE_KERNEL is not set'";		\
 		echo;									\
-		echo;									\
 		echo "The PTXdist team apologizes for any inconvenience :-)";		\
 		echo;									\
 		exit 1;									\
