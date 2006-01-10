@@ -431,9 +431,9 @@ kernel_prepare_deps =  $(STATEDIR)/virtual-xchain.install
 kernel_prepare_deps += $(STATEDIR)/kernel.extract
 ifdef PTXCONF_COMPILE_KERNEL
 ifdef PTXCONF_KERNEL_2_4
-kernel_prepare_deps += $(STATEDIR)/hosttool-modutils.install
+kernel_prepare_deps += $(STATEDIR)/host-modutils.install
 else
-kernel_prepare_deps += $(STATEDIR)/hosttool-module-init-tools.install
+kernel_prepare_deps += $(STATEDIR)/host-module-init-tools.install
 endif
 ifdef PTXCONF_KLIBC
 kernel_prepare_deps += $(STATEDIR)/klibc.install
@@ -532,7 +532,7 @@ kernel_compile: $(STATEDIR)/kernel.compile
 kernel_compile_deps =  $(STATEDIR)/kernel.prepare
 ifdef PTXCONF_COMPILE_KERNEL
 ifdef PTXCONF_KERNEL_IMAGE_U
-kernel_compile_deps += $(STATEDIR)/hosttool-umkimage.install
+kernel_compile_deps += $(STATEDIR)/host-umkimage.install
 endif
 endif                                                                                                                                            
 ifdef PTXCONF_KLIBC

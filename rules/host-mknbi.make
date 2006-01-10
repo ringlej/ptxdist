@@ -11,18 +11,18 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOSTTOOL_MKNBI) += hosttool-mknbi
+HOST_PACKAGES-$(PTXCONF_HOST_MKNBI) += host-mknbi
 
 #
 # Paths and names
 #
-HOSTTOOL_MKNBI_VERSION		= 1.4.4
-HOSTTOOL_MKNBI			= mknbi-$(HOSTTOOL_MKNBI_VERSION)
-HOSTTOOL_MKNBI_SUFFIX		= tar.gz
-HOSTTOOL_MKNBI_URL		= $(PTXCONF_SETUP_SFMIRROR)/etherboot/$(HOSTTOOL_MKNBI).$(HOSTTOOL_MKNBI_SUFFIX)
-HOSTTOOL_MKNBI_SOURCE		= $(SRCDIR)/$(HOSTTOOL_MKNBI).$(HOSTTOOL_MKNBI_SUFFIX)
-HOSTTOOL_MKNBI_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL_MKNBI)
-HOSTTOOL_MKNBI_FLAGS 		= BUILD_ROOT=$(PTXCONF_PREFIX)
+HOST_MKNBI_VERSION		= 1.4.4
+HOST_MKNBI			= mknbi-$(HOST_MKNBI_VERSION)
+HOST_MKNBI_SUFFIX		= tar.gz
+HOST_MKNBI_URL		= $(PTXCONF_SETUP_SFMIRROR)/etherboot/$(HOST_MKNBI).$(HOST_MKNBI_SUFFIX)
+HOST_MKNBI_SOURCE		= $(SRCDIR)/$(HOST_MKNBI).$(HOST_MKNBI_SUFFIX)
+HOST_MKNBI_DIR		= $(HOST_BUILDDIR)/$(HOST_MKNBI)
+HOST_MKNBI_FLAGS 		= BUILD_ROOT=$(PTXCONF_PREFIX)
 
 include $(call package_depfile)
 
@@ -30,49 +30,49 @@ include $(call package_depfile)
 # Get
 # ----------------------------------------------------------------------------
 
-hosttool-mknbi_get: $(STATEDIR)/hosttool-mknbi.get
+host-mknbi_get: $(STATEDIR)/host-mknbi.get
 
-hosttool-mknbi_get_deps = $(HOSTTOOL_MKNBI_SOURCE)
+host-mknbi_get_deps = $(HOST_MKNBI_SOURCE)
 
-$(STATEDIR)/hosttool-mknbi.get: $(hosttool-mknbi_get_deps)
+$(STATEDIR)/host-mknbi.get: $(host-mknbi_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOSTTOOL_MKNBI))
+	@$(call get_patches, $(HOST_MKNBI))
 	@$(call touch, $@)
 
-$(HOSTTOOL_MKNBI_SOURCE):
+$(HOST_MKNBI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOSTTOOL_MKNBI_URL))
+	@$(call get, $(HOST_MKNBI_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-hosttool-mknbi_extract: $(STATEDIR)/hosttool-mknbi.extract
+host-mknbi_extract: $(STATEDIR)/host-mknbi.extract
 
-hosttool-mknbi_extract_deps = $(STATEDIR)/hosttool-mknbi.get
+host-mknbi_extract_deps = $(STATEDIR)/host-mknbi.get
 
-$(STATEDIR)/hosttool-mknbi.extract: $(hosttool-mknbi_extract_deps)
+$(STATEDIR)/host-mknbi.extract: $(host-mknbi_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOL_MKNBI_DIR))
-	@$(call extract, $(HOSTTOOL_MKNBI_SOURCE), $(HOST_BUILDDIR))
-	@$(call patchin, $(HOSTTOOL_MKNBI), $(HOSTTOOL_MKNBI_DIR) )
+	@$(call clean, $(HOST_MKNBI_DIR))
+	@$(call extract, $(HOST_MKNBI_SOURCE), $(HOST_BUILDDIR))
+	@$(call patchin, $(HOST_MKNBI), $(HOST_MKNBI_DIR) )
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-hosttool-mknbi_prepare: $(STATEDIR)/hosttool-mknbi.prepare
+host-mknbi_prepare: $(STATEDIR)/host-mknbi.prepare
 
 #
 # dependencies
 #
-hosttool-mknbi_prepare_deps =  $(STATEDIR)/hosttool-mknbi.extract
+host-mknbi_prepare_deps =  $(STATEDIR)/host-mknbi.extract
 
-HOSTTOOL_MKNBI_MAKEVARS	= CC=$(HOSTCC)
-HOSTTOOL_MKNBI_ENV	= CFLAGS=-I$(PTXCONF_PREFIX)/include PREFIX=$(PTXCONF_PREFIX)/usr/local
+HOST_MKNBI_MAKEVARS	= CC=$(HOSTCC)
+HOST_MKNBI_ENV	= CFLAGS=-I$(PTXCONF_PREFIX)/include PREFIX=$(PTXCONF_PREFIX)/usr/local
 
-$(STATEDIR)/hosttool-mknbi.prepare: $(hosttool-mknbi_prepare_deps)
+$(STATEDIR)/host-mknbi.prepare: $(host-mknbi_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -80,35 +80,35 @@ $(STATEDIR)/hosttool-mknbi.prepare: $(hosttool-mknbi_prepare_deps)
 # Compile
 # ----------------------------------------------------------------------------
 
-hosttool-mknbi_compile: $(STATEDIR)/hosttool-mknbi.compile
+host-mknbi_compile: $(STATEDIR)/host-mknbi.compile
 
-hosttool-mknbi_compile_deps = $(STATEDIR)/hosttool-mknbi.prepare
+host-mknbi_compile_deps = $(STATEDIR)/host-mknbi.prepare
 
-$(STATEDIR)/hosttool-mknbi.compile: $(hosttool-mknbi_compile_deps)
+$(STATEDIR)/host-mknbi.compile: $(host-mknbi_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOL_MKNBI_DIR) && $(HOSTTOOL_MKNBI_ENV) make $(HOSTTOOL_MKNBI_MAKEVARS)
+	cd $(HOST_MKNBI_DIR) && $(HOST_MKNBI_ENV) make $(HOST_MKNBI_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-hosttool-mknbi_install: $(STATEDIR)/hosttool-mknbi.install
+host-mknbi_install: $(STATEDIR)/host-mknbi.install
 
-$(STATEDIR)/hosttool-mknbi.install: $(STATEDIR)/hosttool-mknbi.compile
+$(STATEDIR)/host-mknbi.install: $(STATEDIR)/host-mknbi.compile
 	@$(call targetinfo, $@)
-	@$(call install, HOSTTOOL_MKNBI)
+	@$(call install, HOST_MKNBI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-hosttool-mknbi_targetinstall: $(STATEDIR)/hosttool-mknbi.targetinstall
+host-mknbi_targetinstall: $(STATEDIR)/host-mknbi.targetinstall
 
-hosttool-mknbi_targetinstall_deps = $(STATEDIR)/hosttool-mknbi.install
+host-mknbi_targetinstall_deps = $(STATEDIR)/host-mknbi.install
 
-$(STATEDIR)/hosttool-mknbi.targetinstall: $(hosttool-mknbi_targetinstall_deps)
+$(STATEDIR)/host-mknbi.targetinstall: $(host-mknbi_targetinstall_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -116,8 +116,8 @@ $(STATEDIR)/hosttool-mknbi.targetinstall: $(hosttool-mknbi_targetinstall_deps)
 # Clean
 # ----------------------------------------------------------------------------
 
-hosttool-mknbi_clean:
-	rm -rf $(STATEDIR)/hosttool-mknbi.*
-	rm -rf $(HOSTTOOL_MKNBI_DIR)
+host-mknbi_clean:
+	rm -rf $(STATEDIR)/host-mknbi.*
+	rm -rf $(HOST_MKNBI_DIR)
 
 # vim: syntax=make

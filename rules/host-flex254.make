@@ -12,12 +12,12 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOSTTOOL_FLEX254) += hosttool-flex254
+HOST_PACKAGES-$(PTXCONF_HOST_FLEX254) += host-flex254
 
 #
 # Paths and names
 #
-HOSTTOOL_FLEX254_DIR	= $(HOST_BUILDDIR)/$(FLEX)
+HOST_FLEX254_DIR	= $(HOST_BUILDDIR)/$(FLEX)
 
 include $(call package_depfile)
 
@@ -25,11 +25,11 @@ include $(call package_depfile)
 # Get
 # ----------------------------------------------------------------------------
 
-hosttool-flex254_get: $(STATEDIR)/hosttool-flex254.get
+host-flex254_get: $(STATEDIR)/host-flex254.get
 
-hosttool-flex254_get_deps = $(STATEDIR)/flex.get
+host-flex254_get_deps = $(STATEDIR)/flex.get
 
-$(STATEDIR)/hosttool-flex254.get: $(hosttool-flex254_get_deps)
+$(STATEDIR)/host-flex254.get: $(host-flex254_get_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -37,13 +37,13 @@ $(STATEDIR)/hosttool-flex254.get: $(hosttool-flex254_get_deps)
 # Extract
 # ----------------------------------------------------------------------------
 
-hosttool-flex254_extract: $(STATEDIR)/hosttool-flex254.extract
+host-flex254_extract: $(STATEDIR)/host-flex254.extract
 
-hosttool-flex254_extract_deps = $(STATEDIR)/hosttool-flex254.get
+host-flex254_extract_deps = $(STATEDIR)/host-flex254.get
 
-$(STATEDIR)/hosttool-flex254.extract: $(hosttool-flex254_extract_deps)
+$(STATEDIR)/host-flex254.extract: $(host-flex254_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOL_FLEX254_DIR))
+	@$(call clean, $(HOST_FLEX254_DIR))
 	@$(call extract, $(FLEX_SOURCE), $(HOST_BUILDDIR))
 	@$(call touch, $@)
 
@@ -51,63 +51,63 @@ $(STATEDIR)/hosttool-flex254.extract: $(hosttool-flex254_extract_deps)
 # Prepare
 # ----------------------------------------------------------------------------
 
-hosttool-flex254_prepare: $(STATEDIR)/hosttool-flex254.prepare
+host-flex254_prepare: $(STATEDIR)/host-flex254.prepare
 
 #
 # dependencies
 #
-hosttool-flex254_prepare_deps = \
-	$(STATEDIR)/hosttool-flex254.extract
+host-flex254_prepare_deps = \
+	$(STATEDIR)/host-flex254.extract
 
-HOSTTOOL_FLEX254_PATH	=  PATH=$(CROSS_PATH)
-HOSTTOOL_FLEX254_ENV 	=  $(HOSTCC_ENV)
+HOST_FLEX254_PATH	=  PATH=$(CROSS_PATH)
+HOST_FLEX254_ENV 	=  $(HOSTCC_ENV)
 
 #
 # autoconf, but without automake :-(
 #
-HOSTTOOL_FLEX254_AUTOCONF = --prefix=$(PTXCONF_PREFIX)/usr
+HOST_FLEX254_AUTOCONF = --prefix=$(PTXCONF_PREFIX)/usr
 
-$(STATEDIR)/hosttool-flex254.prepare: $(hosttool-flex254_prepare_deps)
+$(STATEDIR)/host-flex254.prepare: $(host-flex254_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOL_FLEX254_DIR)/config.cache)
-	cd $(HOSTTOOL_FLEX254_DIR) && \
-		$(HOSTTOOL_FLEX254_PATH) $(HOSTTOOL_FLEX254_ENV) \
-		./configure $(HOSTTOOL_FLEX254_AUTOCONF)
+	@$(call clean, $(HOST_FLEX254_DIR)/config.cache)
+	cd $(HOST_FLEX254_DIR) && \
+		$(HOST_FLEX254_PATH) $(HOST_FLEX254_ENV) \
+		./configure $(HOST_FLEX254_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-hosttool-flex254_compile: $(STATEDIR)/hosttool-flex254.compile
+host-flex254_compile: $(STATEDIR)/host-flex254.compile
 
-hosttool-flex254_compile_deps = $(STATEDIR)/hosttool-flex254.prepare
+host-flex254_compile_deps = $(STATEDIR)/host-flex254.prepare
 
-$(STATEDIR)/hosttool-flex254.compile: $(hosttool-flex254_compile_deps)
+$(STATEDIR)/host-flex254.compile: $(host-flex254_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOL_FLEX254_DIR) && $(HOSTTOOL_FLEX254_PATH) make
+	cd $(HOST_FLEX254_DIR) && $(HOST_FLEX254_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-hosttool-flex254_install: $(STATEDIR)/hosttool-flex254.install
+host-flex254_install: $(STATEDIR)/host-flex254.install
 
-$(STATEDIR)/hosttool-flex254.install: $(STATEDIR)/hosttool-flex254.compile
+$(STATEDIR)/host-flex254.install: $(STATEDIR)/host-flex254.compile
 	@$(call targetinfo, $@)
-	@$(call install, HOSTTOOL_FLEX254,,h)
+	@$(call install, HOST_FLEX254,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-hosttool-flex254_targetinstall: $(STATEDIR)/hosttool-flex254.targetinstall
+host-flex254_targetinstall: $(STATEDIR)/host-flex254.targetinstall
 
-hosttool-flex254_targetinstall_deps = $(STATEDIR)/hosttool-flex254.compile
+host-flex254_targetinstall_deps = $(STATEDIR)/host-flex254.compile
 
-$(STATEDIR)/hosttool-flex254.targetinstall: $(hosttool-flex254_targetinstall_deps)
+$(STATEDIR)/host-flex254.targetinstall: $(host-flex254_targetinstall_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -115,8 +115,8 @@ $(STATEDIR)/hosttool-flex254.targetinstall: $(hosttool-flex254_targetinstall_dep
 # Clean
 # ----------------------------------------------------------------------------
 
-hosttool-flex254_clean:
-	rm -rf $(STATEDIR)/hosttool-flex254.*
-	rm -rf $(HOSTTOOL_FLEX254_DIR)
+host-flex254_clean:
+	rm -rf $(STATEDIR)/host-flex254.*
+	rm -rf $(HOST_FLEX254_DIR)
 
 # vim: syntax=make

@@ -11,17 +11,17 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOSTTOOL_UMKIMAGE) += hosttool-umkimage
+HOST_PACKAGES-$(PTXCONF_HOST_UMKIMAGE) += host-umkimage
 
 #
 # Paths and names
 #
-HOSTTOOL_UMKIMAGE_VERSION	= 1.1.2
-HOSTTOOL_UMKIMAGE		= u-boot-mkimage-$(HOSTTOOL_UMKIMAGE_VERSION)
-HOSTTOOL_UMKIMAGE_SUFFIX	= tar.gz
-HOSTTOOL_UMKIMAGE_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOSTTOOL_UMKIMAGE).$(HOSTTOOL_UMKIMAGE_SUFFIX)
-HOSTTOOL_UMKIMAGE_SOURCE	= $(SRCDIR)/$(HOSTTOOL_UMKIMAGE).$(HOSTTOOL_UMKIMAGE_SUFFIX)
-HOSTTOOL_UMKIMAGE_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL_UMKIMAGE)
+HOST_UMKIMAGE_VERSION	= 1.1.2
+HOST_UMKIMAGE		= u-boot-mkimage-$(HOST_UMKIMAGE_VERSION)
+HOST_UMKIMAGE_SUFFIX	= tar.gz
+HOST_UMKIMAGE_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOST_UMKIMAGE).$(HOST_UMKIMAGE_SUFFIX)
+HOST_UMKIMAGE_SOURCE	= $(SRCDIR)/$(HOST_UMKIMAGE).$(HOST_UMKIMAGE_SUFFIX)
+HOST_UMKIMAGE_DIR		= $(HOST_BUILDDIR)/$(HOST_UMKIMAGE)
 
 include $(call package_depfile)
 
@@ -29,48 +29,48 @@ include $(call package_depfile)
 # Get
 # ----------------------------------------------------------------------------
 
-hosttool-umkimage_get: $(STATEDIR)/hosttool-umkimage.get
+host-umkimage_get: $(STATEDIR)/host-umkimage.get
 
-hosttool-umkimage_get_deps = $(HOSTTOOL_UMKIMAGE_SOURCE)
+host-umkimage_get_deps = $(HOST_UMKIMAGE_SOURCE)
 
-$(STATEDIR)/hosttool-umkimage.get: $(hosttool-umkimage_get_deps)
+$(STATEDIR)/host-umkimage.get: $(host-umkimage_get_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(HOSTTOOL_UMKIMAGE_SOURCE):
+$(HOST_UMKIMAGE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOSTTOOL_UMKIMAGE_URL))
+	@$(call get, $(HOST_UMKIMAGE_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-hosttool-umkimage_extract: $(STATEDIR)/hosttool-umkimage.extract
+host-umkimage_extract: $(STATEDIR)/host-umkimage.extract
 
-hosttool-umkimage_extract_deps = $(STATEDIR)/hosttool-umkimage.get
+host-umkimage_extract_deps = $(STATEDIR)/host-umkimage.get
 
-$(STATEDIR)/hosttool-umkimage.extract: $(hosttool-umkimage_extract_deps)
+$(STATEDIR)/host-umkimage.extract: $(host-umkimage_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOL_UMKIMAGE_DIR))
-	@$(call extract, $(HOSTTOOL_UMKIMAGE_SOURCE), $(HOST_BUILDDIR))
+	@$(call clean, $(HOST_UMKIMAGE_DIR))
+	@$(call extract, $(HOST_UMKIMAGE_SOURCE), $(HOST_BUILDDIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-hosttool-umkimage_prepare: $(STATEDIR)/hosttool-umkimage.prepare
+host-umkimage_prepare: $(STATEDIR)/host-umkimage.prepare
 
 #
 # dependencies
 #
-hosttool-umkimage_prepare_deps =  $(STATEDIR)/hosttool-umkimage.extract
-hosttool-umkimage_prepare_deps += $(STATEDIR)/hosttool-zlib.install
+host-umkimage_prepare_deps =  $(STATEDIR)/host-umkimage.extract
+host-umkimage_prepare_deps += $(STATEDIR)/host-zlib.install
 
-HOSTTOOL_UMKIMAGE_MAKEVARS	= CC=$(HOSTCC)
-HOSTTOOL_UMKIMAGE_ENV		= CFLAGS=-I$(PTXCONF_PREFIX)/include
+HOST_UMKIMAGE_MAKEVARS	= CC=$(HOSTCC)
+HOST_UMKIMAGE_ENV		= CFLAGS=-I$(PTXCONF_PREFIX)/include
 
-$(STATEDIR)/hosttool-umkimage.prepare: $(hosttool-umkimage_prepare_deps)
+$(STATEDIR)/host-umkimage.prepare: $(host-umkimage_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -78,37 +78,37 @@ $(STATEDIR)/hosttool-umkimage.prepare: $(hosttool-umkimage_prepare_deps)
 # Compile
 # ----------------------------------------------------------------------------
 
-hosttool-umkimage_compile: $(STATEDIR)/hosttool-umkimage.compile
+host-umkimage_compile: $(STATEDIR)/host-umkimage.compile
 
-hosttool-umkimage_compile_deps = $(STATEDIR)/hosttool-umkimage.prepare
+host-umkimage_compile_deps = $(STATEDIR)/host-umkimage.prepare
 
-$(STATEDIR)/hosttool-umkimage.compile: $(hosttool-umkimage_compile_deps)
+$(STATEDIR)/host-umkimage.compile: $(host-umkimage_compile_deps)
 	@$(call targetinfo, $@)
-	$(HOSTTOOL_UMKIMAGE_ENV) make -C $(HOSTTOOL_UMKIMAGE_DIR) $(HOSTTOOL_UMKIMAGE_MAKEVARS)
+	$(HOST_UMKIMAGE_ENV) make -C $(HOST_UMKIMAGE_DIR) $(HOST_UMKIMAGE_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-hosttool-umkimage_install: $(STATEDIR)/hosttool-umkimage.install
+host-umkimage_install: $(STATEDIR)/host-umkimage.install
 
-$(STATEDIR)/hosttool-umkimage.install: $(STATEDIR)/hosttool-umkimage.compile
+$(STATEDIR)/host-umkimage.install: $(STATEDIR)/host-umkimage.compile
 	@$(call targetinfo, $@)
 	# FIXME
 	mkdir -p $(PTXCONF_PREFIX)/usr/bin
-	install $(HOSTTOOL_UMKIMAGE_DIR)/mkimage $(PTXCONF_PREFIX)/bin/u-boot-mkimage
+	install $(HOST_UMKIMAGE_DIR)/mkimage $(PTXCONF_PREFIX)/bin/u-boot-mkimage
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-hosttool-umkimage_targetinstall: $(STATEDIR)/hosttool-umkimage.targetinstall
+host-umkimage_targetinstall: $(STATEDIR)/host-umkimage.targetinstall
 
-hosttool-umkimage_targetinstall_deps = $(STATEDIR)/hosttool-umkimage.install
+host-umkimage_targetinstall_deps = $(STATEDIR)/host-umkimage.install
 
-$(STATEDIR)/hosttool-umkimage.targetinstall: $(hosttool-umkimage_targetinstall_deps)
+$(STATEDIR)/host-umkimage.targetinstall: $(host-umkimage_targetinstall_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -116,8 +116,8 @@ $(STATEDIR)/hosttool-umkimage.targetinstall: $(hosttool-umkimage_targetinstall_d
 # Clean
 # ----------------------------------------------------------------------------
 
-hosttool-umkimage_clean:
-	rm -rf $(STATEDIR)/hosttool-umkimage.*
-	rm -rf $(HOSTTOOL_UMKIMAGE_DIR)
+host-umkimage_clean:
+	rm -rf $(STATEDIR)/host-umkimage.*
+	rm -rf $(HOST_UMKIMAGE_DIR)
 
 # vim: syntax=make

@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOSTTOOL_IPKG_UTILS) += hosttool-ipkg-utils
+HOST_PACKAGES-$(PTXCONF_HOST_IPKG_UTILS) += host-ipkg-utils
 
 #
 # Paths and names
@@ -30,11 +30,11 @@ include $(call package_depfile)
 # Get
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg-utils_get: $(STATEDIR)/hosttool-ipkg-utils.get
+host-ipkg-utils_get: $(STATEDIR)/host-ipkg-utils.get
 
-hosttool-ipkg-utils_get_deps = $(HOSTTOOL-IPKG-UTILS_SOURCE)
+host-ipkg-utils_get_deps = $(HOSTTOOL-IPKG-UTILS_SOURCE)
 
-$(STATEDIR)/hosttool-ipkg-utils.get: $(hosttool-ipkg-utils_get_deps)
+$(STATEDIR)/host-ipkg-utils.get: $(host-ipkg-utils_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL-IPKG-UTILS))
 	@$(call touch, $@)
@@ -47,11 +47,11 @@ $(HOSTTOOL-IPKG-UTILS_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg-utils_extract: $(STATEDIR)/hosttool-ipkg-utils.extract
+host-ipkg-utils_extract: $(STATEDIR)/host-ipkg-utils.extract
 
-hosttool-ipkg-utils_extract_deps = $(STATEDIR)/hosttool-ipkg-utils.get
+host-ipkg-utils_extract_deps = $(STATEDIR)/host-ipkg-utils.get
 
-$(STATEDIR)/hosttool-ipkg-utils.extract: $(hosttool-ipkg-utils_extract_deps)
+$(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL-IPKG-UTILS_DIR))
 	@$(call extract, $(HOSTTOOL-IPKG-UTILS_SOURCE), $(HOST_BUILDDIR))
@@ -66,18 +66,18 @@ $(STATEDIR)/hosttool-ipkg-utils.extract: $(hosttool-ipkg-utils_extract_deps)
 # Prepare
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg-utils_prepare: $(STATEDIR)/hosttool-ipkg-utils.prepare
+host-ipkg-utils_prepare: $(STATEDIR)/host-ipkg-utils.prepare
 
 #
 # dependencies
 #
-hosttool-ipkg-utils_prepare_deps = \
-	$(STATEDIR)/hosttool-ipkg-utils.extract
+host-ipkg-utils_prepare_deps = \
+	$(STATEDIR)/host-ipkg-utils.extract
 
 HOSTTOOL-IPKG-UTILS_PATH	=  PATH=$(CROSS_PATH)
 HOSTTOOL-IPKG-UTILS_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/hosttool-ipkg-utils.prepare: $(hosttool-ipkg-utils_prepare_deps)
+$(STATEDIR)/host-ipkg-utils.prepare: $(host-ipkg-utils_prepare_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -85,11 +85,11 @@ $(STATEDIR)/hosttool-ipkg-utils.prepare: $(hosttool-ipkg-utils_prepare_deps)
 # Compile
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg-utils_compile: $(STATEDIR)/hosttool-ipkg-utils.compile
+host-ipkg-utils_compile: $(STATEDIR)/host-ipkg-utils.compile
 
-hosttool-ipkg-utils_compile_deps = $(STATEDIR)/hosttool-ipkg-utils.prepare
+host-ipkg-utils_compile_deps = $(STATEDIR)/host-ipkg-utils.prepare
 
-$(STATEDIR)/hosttool-ipkg-utils.compile: $(hosttool-ipkg-utils_compile_deps)
+$(STATEDIR)/host-ipkg-utils.compile: $(host-ipkg-utils_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL-IPKG-UTILS_DIR) && $(HOSTTOOL-IPKG-UTILS_ENV) $(HOSTTOOL-IPKG-UTILS_PATH) make
 	@$(call touch, $@)
@@ -98,9 +98,9 @@ $(STATEDIR)/hosttool-ipkg-utils.compile: $(hosttool-ipkg-utils_compile_deps)
 # Install
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg-utils_install: $(STATEDIR)/hosttool-ipkg-utils.install
+host-ipkg-utils_install: $(STATEDIR)/host-ipkg-utils.install
 
-$(STATEDIR)/hosttool-ipkg-utils.install: $(STATEDIR)/hosttool-ipkg-utils.compile
+$(STATEDIR)/host-ipkg-utils.install: $(STATEDIR)/host-ipkg-utils.compile
 	@$(call targetinfo, $@)
 	mkdir -p $(PTXCONF_HOST_PREFIX)/usr/bin
 	# ipkg.py is forgotten by MAKE_INSTALL, so we copy it manually
@@ -114,11 +114,11 @@ $(STATEDIR)/hosttool-ipkg-utils.install: $(STATEDIR)/hosttool-ipkg-utils.compile
 # Target-Install
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg-utils_targetinstall: $(STATEDIR)/hosttool-ipkg-utils.targetinstall
+host-ipkg-utils_targetinstall: $(STATEDIR)/host-ipkg-utils.targetinstall
 
-hosttool-ipkg-utils_targetinstall_deps = $(STATEDIR)/hosttool-ipkg-utils.install
+host-ipkg-utils_targetinstall_deps = $(STATEDIR)/host-ipkg-utils.install
 
-$(STATEDIR)/hosttool-ipkg-utils.targetinstall: $(hosttool-ipkg-utils_targetinstall_deps)
+$(STATEDIR)/host-ipkg-utils.targetinstall: $(host-ipkg-utils_targetinstall_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -126,8 +126,8 @@ $(STATEDIR)/hosttool-ipkg-utils.targetinstall: $(hosttool-ipkg-utils_targetinsta
 # Clean
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg-utils_clean:
-	rm -rf $(STATEDIR)/hosttool-ipkg-utils.*
+host-ipkg-utils_clean:
+	rm -rf $(STATEDIR)/host-ipkg-utils.*
 	rm -rf $(HOSTTOOL-IPKG-UTILS_DIR)
 
 # vim: syntax=make

@@ -368,7 +368,7 @@ kernel_prepare: $(STATEDIR)/kernel.prepare
 
 kernel_prepare_deps =  $(STATEDIR)/virtual-xchain.install
 kernel_prepare_deps += $(STATEDIR)/kernel.extract
-kernel_prepare_deps += $(STATEDIR)/hosttool-module-init-tools.install
+kernel_prepare_deps += $(STATEDIR)/host-module-init-tools.install
 
 KERNEL_HOST_PATH	=  PATH=$(CROSS_PATH)
 KERNEL_HOST_MAKEVARS	=  HOSTCC=$(HOSTCC)

@@ -68,8 +68,8 @@ bootdisk_targetinstall_deps = $(STATEDIR)/kernel.compile
 bootdisk_targetinstall_deps += $(STATEDIR)/grub.compile
 bootdisk_targetinstall_deps += $(STATEDIR)/e2fsprogs.compile
 bootdisk_targetinstall_deps += $(STATEDIR)/ncurses.compile
-bootdisk_targetinstall_deps += $(STATEDIR)/hosttool-genext2fs.install
-bootdisk_targetinstall_deps += $(STATEDIR)/hosttool-util-linux.install
+bootdisk_targetinstall_deps += $(STATEDIR)/host-genext2fs.install
+bootdisk_targetinstall_deps += $(STATEDIR)/host-util-linux.install
 
 $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	@$(call targetinfo, $@)	

@@ -12,18 +12,18 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOSTTOOL_IPKG) += hosttool-ipkg
+HOST_PACKAGES-$(PTXCONF_HOST_IPKG) += host-ipkg
 
 #
 # Paths and names
 #
 
-HOSTTOOL_IPKG_VERSION	= 0.99.154
-HOSTTOOL_IPKG		= ipkg-$(HOSTTOOL_IPKG_VERSION)
-HOSTTOOL_IPKG_SUFFIX	= tar.gz
-HOSTTOOL_IPKG_URL	= http://www.handhelds.org/download/packages/ipkg/$(HOSTTOOL_IPKG).$(HOSTTOOL_IPKG_SUFFIX)
-HOSTTOOL_IPKG_SOURCE	= $(SRCDIR)/$(HOSTTOOL_IPKG).$(HOSTTOOL_IPKG_SUFFIX)
-HOSTTOOL_IPKG_DIR	= $(HOST_BUILDDIR)/$(HOSTTOOL_IPKG)
+HOST_IPKG_VERSION	= 0.99.154
+HOST_IPKG		= ipkg-$(HOST_IPKG_VERSION)
+HOST_IPKG_SUFFIX	= tar.gz
+HOST_IPKG_URL	= http://www.handhelds.org/download/packages/ipkg/$(HOST_IPKG).$(HOST_IPKG_SUFFIX)
+HOST_IPKG_SOURCE	= $(SRCDIR)/$(HOST_IPKG).$(HOST_IPKG_SUFFIX)
+HOST_IPKG_DIR	= $(HOST_BUILDDIR)/$(HOST_IPKG)
 
 include $(call package_depfile)
 
@@ -31,28 +31,28 @@ include $(call package_depfile)
 # Get
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg_get: $(STATEDIR)/hosttool-ipkg.get
+host-ipkg_get: $(STATEDIR)/host-ipkg.get
 
-hosttool-ipkg_get_deps = $(HOSTTOOL_IPKG_SOURCE)
+host-ipkg_get_deps = $(HOST_IPKG_SOURCE)
 
-$(STATEDIR)/hosttool-ipkg.get: $(hosttool-ipkg_get_deps)
+$(STATEDIR)/host-ipkg.get: $(host-ipkg_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOSTTOOL_IPKG))
+	@$(call get_patches, $(HOST_IPKG))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg_extract: $(STATEDIR)/hosttool-ipkg.extract
+host-ipkg_extract: $(STATEDIR)/host-ipkg.extract
 
-hosttool-ipkg_extract_deps = $(STATEDIR)/hosttool-ipkg.get
+host-ipkg_extract_deps = $(STATEDIR)/host-ipkg.get
 
-$(STATEDIR)/hosttool-ipkg.extract: $(hosttool-ipkg_extract_deps)
+$(STATEDIR)/host-ipkg.extract: $(host-ipkg_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOL_IPKG_DIR))
-	@$(call extract, $(HOSTTOOL_IPKG_SOURCE), $(HOST_BUILDDIR))
-	@$(call patchin, $(HOSTTOOL_IPKG), $(HOSTTOOL_IPKG_DIR))
+	@$(call clean, $(HOST_IPKG_DIR))
+	@$(call extract, $(HOST_IPKG_SOURCE), $(HOST_BUILDDIR))
+	@$(call patchin, $(HOST_IPKG), $(HOST_IPKG_DIR))
 
 	@$(call touch, $@)
 
@@ -60,63 +60,63 @@ $(STATEDIR)/hosttool-ipkg.extract: $(hosttool-ipkg_extract_deps)
 # Prepare
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg_prepare: $(STATEDIR)/hosttool-ipkg.prepare
+host-ipkg_prepare: $(STATEDIR)/host-ipkg.prepare
 
 #
 # dependencies
 #
-hosttool-ipkg_prepare_deps = \
-	$(STATEDIR)/hosttool-ipkg.extract
+host-ipkg_prepare_deps = \
+	$(STATEDIR)/host-ipkg.extract
 
-HOSTTOOL_IPKG_PATH	=  PATH=$(CROSS_PATH)
-HOSTTOOL_IPKG_ENV 	=  $(HOSTCC_ENV)
+HOST_IPKG_PATH	=  PATH=$(CROSS_PATH)
+HOST_IPKG_ENV 	=  $(HOSTCC_ENV)
 
 #
 # autoconf
 #
-HOSTTOOL_IPKG_AUTOCONF  = $(HOST_AUTOCONF)
+HOST_IPKG_AUTOCONF  = $(HOST_AUTOCONF)
 
-$(STATEDIR)/hosttool-ipkg.prepare: $(hosttool-ipkg_prepare_deps)
+$(STATEDIR)/host-ipkg.prepare: $(host-ipkg_prepare_deps)
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOL_IPKG_DIR)/config.cache)
-	cd $(HOSTTOOL_IPKG_DIR) && \
-		$(HOSTTOOL_IPKG_PATH) $(HOSTTOOL_IPKG_ENV) \
-		./configure $(HOSTTOOL_IPKG_AUTOCONF)
+	@$(call clean, $(HOST_IPKG_DIR)/config.cache)
+	cd $(HOST_IPKG_DIR) && \
+		$(HOST_IPKG_PATH) $(HOST_IPKG_ENV) \
+		./configure $(HOST_IPKG_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg_compile: $(STATEDIR)/hosttool-ipkg.compile
+host-ipkg_compile: $(STATEDIR)/host-ipkg.compile
 
-hosttool-ipkg_compile_deps = $(STATEDIR)/hosttool-ipkg.prepare
+host-ipkg_compile_deps = $(STATEDIR)/host-ipkg.prepare
 
-$(STATEDIR)/hosttool-ipkg.compile: $(hosttool-ipkg_compile_deps)
+$(STATEDIR)/host-ipkg.compile: $(host-ipkg_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOL_IPKG_DIR) && $(HOSTTOOL_IPKG_ENV) $(HOSTTOOL_IPKG_PATH) make
+	cd $(HOST_IPKG_DIR) && $(HOST_IPKG_ENV) $(HOST_IPKG_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg_install: $(STATEDIR)/hosttool-ipkg.install
+host-ipkg_install: $(STATEDIR)/host-ipkg.install
 
-$(STATEDIR)/hosttool-ipkg.install: $(STATEDIR)/hosttool-ipkg.compile
+$(STATEDIR)/host-ipkg.install: $(STATEDIR)/host-ipkg.compile
 	@$(call targetinfo, $@)
-	@$(call install, HOSTTOOL_IPKG,,h)
+	@$(call install, HOST_IPKG,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg_targetinstall: $(STATEDIR)/hosttool-ipkg.targetinstall
+host-ipkg_targetinstall: $(STATEDIR)/host-ipkg.targetinstall
 
-hosttool-ipkg_targetinstall_deps = $(STATEDIR)/hosttool-ipkg.install
+host-ipkg_targetinstall_deps = $(STATEDIR)/host-ipkg.install
 
-$(STATEDIR)/hosttool-ipkg.targetinstall: $(hosttool-ipkg_targetinstall_deps)
+$(STATEDIR)/host-ipkg.targetinstall: $(host-ipkg_targetinstall_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -124,8 +124,8 @@ $(STATEDIR)/hosttool-ipkg.targetinstall: $(hosttool-ipkg_targetinstall_deps)
 # Clean
 # ----------------------------------------------------------------------------
 
-hosttool-ipkg_clean:
-	rm -rf $(STATEDIR)/hosttool-ipkg.*
-	rm -rf $(HOSTTOOL_IPKG_DIR)
+host-ipkg_clean:
+	rm -rf $(STATEDIR)/host-ipkg.*
+	rm -rf $(HOST_IPKG_DIR)
 
 # vim: syntax=make

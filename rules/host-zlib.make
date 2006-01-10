@@ -9,12 +9,12 @@
 #
 
 
-HOST_PACKAGES-$(HOSTTOOL_ZLIB) += hosttool-zlib
+HOST_PACKAGES-$(HOST_ZLIB) += host-zlib
 
 #
 # Paths and names 
 #
-HOSTTOOL_ZLIB_BUILDDIR	= $(HOST_BUILDDIR)/$(ZLIB)
+HOST_ZLIB_BUILDDIR	= $(HOST_BUILDDIR)/$(ZLIB)
 
 include $(call package_depfile)
 
@@ -22,9 +22,9 @@ include $(call package_depfile)
 # Get
 # ----------------------------------------------------------------------------
 
-hosttool-zlib_get: $(STATEDIR)/hosttool-zlib.get
+host-zlib_get: $(STATEDIR)/host-zlib.get
 
-$(STATEDIR)/hosttool-zlib.get: $(STATEDIR)/zlib.get
+$(STATEDIR)/host-zlib.get: $(STATEDIR)/zlib.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -32,11 +32,11 @@ $(STATEDIR)/hosttool-zlib.get: $(STATEDIR)/zlib.get
 # Extract
 # ----------------------------------------------------------------------------
 
-hosttool-zlib_extract: $(STATEDIR)/hosttool-zlib.extract
+host-zlib_extract: $(STATEDIR)/host-zlib.extract
 
-$(STATEDIR)/hosttool-zlib.extract: $(STATEDIR)/hosttool-zlib.get
+$(STATEDIR)/host-zlib.extract: $(STATEDIR)/host-zlib.get
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOSTTOOL_ZLIB_BUILDDIR))
+	@$(call clean, $(HOST_ZLIB_BUILDDIR))
 	@$(call extract, $(ZLIB_SOURCE), $(HOST_BUILDDIR))
 	@$(call touch, $@)
 
@@ -44,50 +44,50 @@ $(STATEDIR)/hosttool-zlib.extract: $(STATEDIR)/hosttool-zlib.get
 # Prepare
 # ----------------------------------------------------------------------------
 
-hosttool-zlib_prepare: $(STATEDIR)/hosttool-zlib.prepare
+host-zlib_prepare: $(STATEDIR)/host-zlib.prepare
 
 #
 # autoconf without automake :-(
 #
 
-HOSTTOOL_ZLIB_AUTOCONF	=  --prefix=$(PTXCONF_HOST_PREFIX)/usr
-HOSTTOOL_ZLIB_AUTOCOHF +=  --shared
-HOSTTOOL_ZLIB_MAKEVARS	=  $(HOSTCC_ENV)
+HOST_ZLIB_AUTOCONF	=  --prefix=$(PTXCONF_HOST_PREFIX)/usr
+HOST_ZLIB_AUTOCOHF +=  --shared
+HOST_ZLIB_MAKEVARS	=  $(HOSTCC_ENV)
 
-$(STATEDIR)/hosttool-zlib.prepare: $(STATEDIR)/hosttool-zlib.extract
+$(STATEDIR)/host-zlib.prepare: $(STATEDIR)/host-zlib.extract
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOL_ZLIB_BUILDDIR) && \
-		./configure $(HOSTTOOL_ZLIB_AUTOCONF)
+	cd $(HOST_ZLIB_BUILDDIR) && \
+		./configure $(HOST_ZLIB_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-hosttool-zlib_compile: $(STATEDIR)/hosttool-zlib.compile
+host-zlib_compile: $(STATEDIR)/host-zlib.compile
 
-$(STATEDIR)/hosttool-zlib.compile: $(STATEDIR)/hosttool-zlib.prepare 
+$(STATEDIR)/host-zlib.compile: $(STATEDIR)/host-zlib.prepare 
 	@$(call targetinfo, $@)
-	cd $(HOSTTOOL_ZLIB_BUILDDIR) && make $(HOSTTOOL_ZLIB_MAKEVARS)
+	cd $(HOST_ZLIB_BUILDDIR) && make $(HOST_ZLIB_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-hosttool-zlib_install: $(STATEDIR)/hosttool-zlib.install
+host-zlib_install: $(STATEDIR)/host-zlib.install
 
-$(STATEDIR)/hosttool-zlib.install: $(STATEDIR)/hosttool-zlib.compile
+$(STATEDIR)/host-zlib.install: $(STATEDIR)/host-zlib.compile
 	@$(call targetinfo, $@)
-	@$(call install, HOSTTOOL_ZLIB, $(HOSTTOOL_ZLIB_BUILDDIR),h)
+	@$(call install, HOST_ZLIB, $(HOST_ZLIB_BUILDDIR),h)
 	@$(call touch, $@)
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-hosttool-zlib_targetinstall: $(STATEDIR)/hosttool-zlib.targetinstall
+host-zlib_targetinstall: $(STATEDIR)/host-zlib.targetinstall
 
-$(STATEDIR)/hosttool-zlib.targetinstall: $(STATEDIR)/hosttool-zlib.install
+$(STATEDIR)/host-zlib.targetinstall: $(STATEDIR)/host-zlib.install
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -95,8 +95,8 @@ $(STATEDIR)/hosttool-zlib.targetinstall: $(STATEDIR)/hosttool-zlib.install
 # Clean
 # ----------------------------------------------------------------------------
 
-hosttool-zlib_clean:
-	rm -rf $(STATEDIR)/hosttool-zlib.*
-	rm -rf $(HOSTTOOL_ZLIB_BUILDDIR)
+host-zlib_clean:
+	rm -rf $(STATEDIR)/host-zlib.*
+	rm -rf $(HOST_ZLIB_BUILDDIR)
 
 # vim: syntax=make
