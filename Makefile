@@ -498,9 +498,16 @@ check_problematic_configs = 								\
 	if [ -f "$(PTXDIST_WORKSPACE)/.config" ] &&					\
 	   [ -n "`grep "DONT_COMPILE_KERNEL" $(PTXDIST_WORKSPACE)/.config`" ] ;	then	\
 		echo;									\
-		echo "error: your .config file contains DONT_COMPILE_KERNEL (obsolete)";\
-		echo "error: please set COMPILE_KERNEL correctly and re-run!";		\
+		echo "error: your .config file contains PTXCONF_DONT_COMPILE_KERNEL (obsolete)";\
+		echo "error: please set PTXCONF_COMPILE_KERNEL correctly and re-run!";	\
 		echo;									\
+		echo "example: old: '\# PTXCONF_DONT_COMPILE_KERNEL is not set'";	\
+		echo "         new: 'PTXCONF_COMPILE_KERNEL=y'";			\
+		echo "or:      old: 'PTXCONF_DONT_COMPILE_KERNEL=y'";			\
+		echo "         new: '\# PTXCONF_COMPILE_KERNEL is not set'";		\
+		echo;									\
+		echo;									\
+		echo "The PTXdist team apologizes for any inconvenience";		\
 		exit 1;									\
 	fi;										\
 	echo "checking \$$PTXDIST_WORKSPACE/config/setup";				\
@@ -514,9 +521,8 @@ check_problematic_configs = 								\
 		done; 									\
 	fi;										\
 	echo "checking \$$PTXDIST_WORKSPACE/rules";					\
-	test -e "$(PTXDIST_WORKSPACE)/rules" || ln -sf $(PTXDIST_TOPDIR)/rules $(PTXDIST_WORKSPACE)/rules;
-
-
+	test -e "$(PTXDIST_WORKSPACE)/rules" || ln -sf $(PTXDIST_TOPDIR)/rules $(PTXDIST_WORKSPACE)/rules
+		
 
 menuconfig: $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
 	@$(call check_problematic_configs)
@@ -558,21 +564,16 @@ configdeps_deps := $(wildcard $(RULESDIR)/*.in)
 ifndef ($(PROJECTRULESDIR),)
 configdeps_deps += $(wildcard $(PROJECTRULESDIR)/*.in)
 endif
-configdeps: $(IMAGEDIR)/configdeps
+configdeps: $(RULESDIR)/configdeps
 
-$(IMAGEDIR)/configdeps: $(STATEDIR)/host-kconfig.install $(configdeps_deps)
+$(RULESDIR)/configdeps: $(STATEDIR)/host-kconfig.install $(configdeps_deps)
 	@$(call check_problematic_configs)
 	@$(call findout_config)
 	@$(call targetinfo,generating dependencies from kconfig)
 	@mkdir -p $(IMAGEDIR)
 	@cd $(PTXDIST_WORKSPACE) && \
 		yes "" | $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
-			2> /dev/null > $(IMAGEDIR)/configdeps
-#	@if [ -n "$(shell diff -u $(IMAGEDIR)/configdeps.new $(IMAGDIR)/configdeps)" ]; then \
-		mv $(IMAGEDIR)/configdeps.new $(IMAGEDIR)/configdeps; \
-	else \
-		rm $(IMAGEDIR)/configdeps.new; \
-	fi
+			2> /dev/null > $(RULESDIR)/configdeps
 	@echo
 
 setup: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
@@ -893,7 +894,7 @@ print-%:
 # Autogenerate Dependencies
 # ----------------------------------------------------------------------------
 
-%.dep: $(IMAGEDIR)/configdeps
+%.dep: $(RULESDIR)/configdeps
 	@$(PTXDIST_TOPDIR)/scripts/create_dependencies.sh \
 		--action defaults \
 		--rulesdir $(RULESDIR) \
