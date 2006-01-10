@@ -1,0 +1,36 @@
+--- crosstool-0.38/patches/glibc-2.3.6/glibc-2.3.6-arm-ctl-bus-isa.patch	1970-01-01 01:00:00.000000000 +0100
++++ crosstool-0.38-ptx/patches/glibc-2.3.6/glibc-2.3.6-arm-ctl-bus-isa.patch	2006-01-09 22:55:17.000000000 +0100
+@@ -0,0 +1,33 @@
++Applies to both glibc-2.2.5 and glibc-2.3.2, and probably glibc cvs as of Aug 2004.
++Needed to build glibc with linux kernels 2.4.23 or higher on ARM, 
++Fixes following error:
++
++../sysdeps/unix/sysv/linux/arm/ioperm.c: In function `init_iosys':
++../sysdeps/unix/sysv/linux/arm/ioperm.c:103: error: `BUS_ISA' undeclared (first use in this function)
++../sysdeps/unix/sysv/linux/arm/ioperm.c:103: error: (Each undeclared identifier is reported only once
++../sysdeps/unix/sysv/linux/arm/ioperm.c:103: error: for each function it appears in.)
++../sysdeps/unix/sysv/linux/arm/ioperm.c:103: error: initializer element is not constant
++../sysdeps/unix/sysv/linux/arm/ioperm.c:103: error: (near initialization for `iobase_name[1]')
++../sysdeps/unix/sysv/linux/arm/ioperm.c:104: error: initializer element is not constant
++../sysdeps/unix/sysv/linux/arm/ioperm.c:104: error: (near initialization for `ioshift_name[1]')
++make[2]: *** [/home/dank/crosstool-0.28/build/arm-softfloat-linux-gnu/gcc-3.3.4-glibc-2.2.5/build-glibc/misc/ioperm.o] Error 1
++
++cf. "[SYSCTL] BUS_ISA -> CTL_BUS_ISA",  http://www.ussg.iu.edu/hypermail/linux/kernel/0311.0/0529.html
++
++Index: glibc-2.3.6-ptx/sysdeps/unix/sysv/linux/arm/ioperm.c
++===================================================================
++--- glibc-2.3.6-ptx.orig/sysdeps/unix/sysv/linux/arm/ioperm.c
+++++ glibc-2.3.6-ptx/sysdeps/unix/sysv/linux/arm/ioperm.c
++@@ -53,6 +53,12 @@
++ #define CTL_BUS_ISA BUS_ISA	/* and hope it's not the one from linux/input.h */
++ #endif
++ 
+++/* see http://www.ussg.iu.edu/hypermail/linux/kernel/0311.0/0529.html */
+++#include <linux/version.h>
+++#if (LINUX_VERSION_CODE < KERNEL_VERSION(2,4,23))
+++#define CTL_BUS_ISA BUS_ISA	/* and hope it's not the one from linux/input.h */
+++#endif
+++
++ #define PATH_ARM_SYSTYPE	"/etc/arm_systype"
++ #define PATH_CPUINFO		"/proc/cpuinfo"
++ 
