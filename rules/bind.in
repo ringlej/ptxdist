@@ -7,12 +7,12 @@ menuconfig BIND
 config BIND_THREADS
 	bool
 	prompt "enable threads"
-	depends BIND && GLIBC_PTHREADS
+	depends on BIND && GLIBC_PTHREADS
 
 config BIND_CRYPTO
 	bool
 	prompt "enable DNSSEC"
-	depends BIND && OPENSSL
+	depends on BIND
 	select OPENSSL
 
 config BIND_IPV6
