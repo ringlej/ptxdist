@@ -509,7 +509,7 @@ check_problematic_configs = 								\
 		done; 									\
 	fi;										\
 	@echo "checking \$$PTXDIST_WORKSPACE/rules";					\
-	@[ -e "$(PTXDIST_WORKSPACE)/rules" ] || ln -sf $(PTXDIST_TOPDIR)/rules $(PTXDIST_WORKSPACE)/rules;
+	@test -e "$(PTXDIST_WORKSPACE)/rules" || ln -sf $(PTXDIST_TOPDIR)/rules $(PTXDIST_WORKSPACE)/rules;
 
 
 
