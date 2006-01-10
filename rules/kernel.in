@@ -17,7 +17,7 @@ config KERNEL_2_4_COMPILE
 	bool
 	depends on COMPILE_KERNEL
 	default y if KERNEL_2_4
-	select HOSTTOOL_MODUTILS
+	select HOST_MODUTILS
 
 config KERNEL_2_6
 	bool
@@ -26,7 +26,7 @@ config KERNEL_2_6_COMPILE
 	bool
 	depends on COMPILE_KERNEL
 	default y if KERNEL_2_6
-	select HOSTTOOL_MODULE_INIT_TOOLS
+	select HOST_MODULE_INIT_TOOLS
 
 choice 
 	prompt "Kernel Version"

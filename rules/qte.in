@@ -1,7 +1,7 @@
 menuconfig QTE
 	bool
 	prompt "QT Embedded           "
-	select HOSTTOOL_QTE
+	select HOST_QTE
 
 
 config QTE_SHARED

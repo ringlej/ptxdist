@@ -1,4 +1,4 @@
-config HOSTTOOL_IPKG
+config HOST_IPKG
 	bool
 	prompt "ipkg"
 	default N
@@ -9,18 +9,18 @@ config HOSTTOOL_IPKG
 		ipkg-cl -o . --force-depends -f ../projects/generic/etc/ipkg.conf install foo.ipk
 
 
-config HOSTTOOL_IPKG_EXTRACT_TEST
+config HOST_IPKG_EXTRACT_TEST
 	bool
 	prompt "ipkg_extract_test"
-	depends on HOSTTOOL_IPKG
+	depends on HOST_IPKG
 	default N
 	help
 	  Unfortunately, nobody knows what this program is being used for. 
 
-config HOSTTOOL_IPKG_HASH_TEST
+config HOST_IPKG_HASH_TEST
 	bool
 	prompt "ipkg_hash_test"
-	depends on HOSTTOOL_IPKG
+	depends on HOST_IPKG
 	default N
 	help
 	  Unfortunately, nobody knows what this program is being used for. 

@@ -30,8 +30,8 @@ config IMAGE_HD_CONF
 config IMAGE_IPKG
 	bool
 	prompt "Create ipkg packets"
-	select HOSTTOOL_IPKG_UTILS
-	select HOSTTOOL_IPKG
+	select HOST_IPKG_UTILS
+	select HOST_IPKG
 	help
 	  When this option is selected, the install_* macros build 
 	  ipkg packets in $(IMAGEDIR) for each software component. 
@@ -69,8 +69,8 @@ config IMAGE_IPKG_ARCH
 config IMAGE_JFFS2
 	bool
 	default n
-	select HOSTTOOL_MTD_MKJFFS2
-	select HOSTTOOL_MTD
+	select HOST_MTD_MKJFFS2
+	select HOST_MTD
 	prompt "Generate images/root.jffs2"
 	help
 	  Build a jffs2 image of the root filesystem
@@ -94,7 +94,7 @@ config IMAGE_UIMAGE
 	bool
 	default n
 	prompt "Generate images/uRamdisk"
-	select HOSTTOOL_UMKIMAGE
+	select HOST_UMKIMAGE
 	select IMAGE_EXT2
 	select IMAGE_EXT2_GZIP
 	help
@@ -118,7 +118,7 @@ config IMAGE_UIMAGE_EXTRA_ARGS
 config IMAGE_EXT2
 	bool
 	default n
-	select HOSTTOOL_GENEXT2FS
+	select HOST_GENEXT2FS
 	prompt "Generate images/root.ext2 (initrd)"
 	help
 	  Build an ext2 image of the root filesystem that can be used as an initrd
@@ -147,7 +147,7 @@ config IMAGE_EXT2_GZIP
 config IMAGE_MKNBI
 	bool
 	default n
-	select HOSTTOOL_MKNBI
+	select HOST_MKNBI
 	depends on IMAGE_EXT2
 	prompt "Generate images/$(PROJECTNAME).{elf|nbi}"
 	help

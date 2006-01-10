@@ -1,21 +1,21 @@
 
-config HOSTTOOL_MTD
+config HOST_MTD
 	bool "MTD Utilities"
 
-config HOSTTOOL_MTD_MKJFFS
+config HOST_MTD_MKJFFS
 	bool "mkfs.jffs"
-	depends on HOSTTOOL_MTD
+	depends on HOST_MTD
 
-config HOSTTOOL_MTD_MKJFFS2
+config HOST_MTD_MKJFFS2
 	bool "mkfs.jffs2"
-	depends on HOSTTOOL_MTD
+	depends on HOST_MTD
 
-config HOSTTOOL_MTD_JFFS_DUMP
+config HOST_MTD_JFFS_DUMP
 	bool
 	prompt "jffs_dump"
-	depends on HOSTTOOL_MTD
+	depends on HOST_MTD
 
-config HOSTTOOL_MTD_JFFS2_DUMP
+config HOST_MTD_JFFS2_DUMP
 	bool
 	prompt "jffs2_dump"
-	depends on HOSTTOOL_MTD
+	depends on HOST_MTD

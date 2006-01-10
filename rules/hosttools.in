@@ -21,12 +21,12 @@ comment "Kernel Tools"
 source "rules/host-module-init-tools.in"
 source "rules/host-util-linux.in"
 
-config HOSTTOOL_UMKIMAGE
+config HOST_UMKIMAGE
 	bool
 	default n
 	prompt "mkimage: U-Boot kernel image creation"
 
-config HOSTTOOL_MKNBI
+config HOST_MKNBI
 	bool
 	default n
 	prompt "mknbi: make etherboot image"

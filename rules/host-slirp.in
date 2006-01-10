@@ -1,4 +1,4 @@
-config HOSTTOOL_SLIRP
+config HOST_SLIRP
 	bool
 	prompt "slirp"
 	default N

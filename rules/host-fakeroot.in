@@ -1,5 +1,5 @@
 
-config HOSTTOOL_FAKEROOT
+config HOST_FAKEROOT
 	bool
 	prompt "fakeroot"
 	default y

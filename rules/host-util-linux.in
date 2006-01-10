@@ -1,14 +1,14 @@
-config HOSTTOOL_UTLNX_FDISK
+config HOST_UTLNX_FDISK
 	bool
 	prompt "fdisk"
 	depends on UTLNX
 
-config HOSTTOOL_UTLNX_CFDISK
+config HOST_UTLNX_CFDISK
 	bool
 	prompt "cfdisk"
 	depends on UTLNX
 
-config HOSTTOOL_UTLNX_SFDISK
+config HOST_UTLNX_SFDISK
 	bool
 	prompt "sfdisk"
 	depends on UTLNX

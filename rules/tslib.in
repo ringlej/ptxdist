@@ -1,7 +1,7 @@
 menuconfig TSLIB
 	bool
 	prompt "tslib (touch library) "
-	select HOSTTOOL_QTE
+	select HOST_QTE
 
 config TSLIB_TS_CALIBRATE
 	bool
