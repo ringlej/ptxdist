@@ -49,7 +49,7 @@ $(BING_SOURCE):
 
 bing_extract: $(STATEDIR)/bing.extract
 
-bing_extract_deps := bing_extract_deps_default
+bing_extract_deps := $(bing_extract_deps_default)
 
 $(STATEDIR)/bing.extract: $(bing_extract_deps)
 	@$(call targetinfo, $@)
@@ -67,7 +67,7 @@ bing_prepare: $(STATEDIR)/bing.prepare
 #
 # dependencies
 #
-bing_prepare_deps := bing_prepare_deps_default
+bing_prepare_deps := $(bing_prepare_deps_default)
 
 BING_PATH	=  PATH=$(CROSS_PATH)
 BING_ENV 	=  $(CROSS_ENV)
@@ -82,7 +82,7 @@ $(STATEDIR)/bing.prepare: $(bing_prepare_deps)
 
 bing_compile: $(STATEDIR)/bing.compile
 
-bing_compile_deps := bing_compile_deps_default
+bing_compile_deps := $(bing_compile_deps_default)
 
 $(STATEDIR)/bing.compile: $(bing_compile_deps)
 	@$(call targetinfo, $@)
@@ -95,7 +95,7 @@ $(STATEDIR)/bing.compile: $(bing_compile_deps)
 
 bing_install: $(STATEDIR)/bing.install
 
-bing_install_deps := bing_install_deps_default
+bing_install_deps := $(bing_install_deps_default)
 
 $(STATEDIR)/bing.install: $(bing_install_deps)
 	@$(call targetinfo, $@)
@@ -109,7 +109,7 @@ $(STATEDIR)/bing.install: $(bing_install_deps)
 
 bing_targetinstall: $(STATEDIR)/bing.targetinstall
 
-bing_targetinstall_deps := bing_targetinstall_deps_default
+bing_targetinstall_deps := $(bing_targetinstall_deps_default)
 
 $(STATEDIR)/bing.targetinstall: $(bing_targetinstall_deps)
 	@$(call targetinfo, $@)
