@@ -2,7 +2,7 @@
 # $Id: template 2922 2005-07-11 19:17:53Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -49,9 +49,7 @@ $(LIBXMLCONFIG_SOURCE):
 
 libxmlconfig_extract: $(STATEDIR)/libxmlconfig.extract
 
-libxmlconfig_extract_deps = $(STATEDIR)/libxmlconfig.get
-
-$(STATEDIR)/libxmlconfig.extract: $(libxmlconfig_extract_deps)
+$(STATEDIR)/libxmlconfig.extract: $(libxmlconfig_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXMLCONFIG_DIR))
 	@$(call extract, $(LIBXMLCONFIG_SOURCE))
@@ -64,14 +62,6 @@ $(STATEDIR)/libxmlconfig.extract: $(libxmlconfig_extract_deps)
 
 libxmlconfig_prepare: $(STATEDIR)/libxmlconfig.prepare
 
-#
-# dependencies
-#
-libxmlconfig_prepare_deps =  $(STATEDIR)/libxmlconfig.extract
-libxmlconfig_prepare_deps += $(STATEDIR)/virtual-xchain.install
-libxmlconfig_prepare_deps += $(STATEDIR)/libxml2.install
-libxmlconfig_prepare_deps += $(STATEDIR)/liblist.install
-
 LIBXMLCONFIG_PATH	=  PATH=$(CROSS_PATH)
 LIBXMLCONFIG_ENV 	=  $(CROSS_ENV)
 
@@ -80,7 +70,7 @@ LIBXMLCONFIG_ENV 	=  $(CROSS_ENV)
 #
 LIBXMLCONFIG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/libxmlconfig.prepare: $(libxmlconfig_prepare_deps)
+$(STATEDIR)/libxmlconfig.prepare: $(libxmlconfig_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXMLCONFIG_DIR)/config.cache)
 	cd $(LIBXMLCONFIG_DIR) && \
@@ -94,9 +84,7 @@ $(STATEDIR)/libxmlconfig.prepare: $(libxmlconfig_prepare_deps)
 
 libxmlconfig_compile: $(STATEDIR)/libxmlconfig.compile
 
-libxmlconfig_compile_deps = $(STATEDIR)/libxmlconfig.prepare
-
-$(STATEDIR)/libxmlconfig.compile: $(libxmlconfig_compile_deps)
+$(STATEDIR)/libxmlconfig.compile: $(libxmlconfig_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBXMLCONFIG_DIR) && $(LIBXMLCONFIG_ENV) $(LIBXMLCONFIG_PATH) make
 	@$(call touch, $@)
@@ -107,7 +95,7 @@ $(STATEDIR)/libxmlconfig.compile: $(libxmlconfig_compile_deps)
 
 libxmlconfig_install: $(STATEDIR)/libxmlconfig.install
 
-$(STATEDIR)/libxmlconfig.install: $(STATEDIR)/libxmlconfig.compile
+$(STATEDIR)/libxmlconfig.install: $(libxmlconfig_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBXMLCONFIG)
 	@$(call touch, $@)
@@ -118,11 +106,7 @@ $(STATEDIR)/libxmlconfig.install: $(STATEDIR)/libxmlconfig.compile
 
 libxmlconfig_targetinstall: $(STATEDIR)/libxmlconfig.targetinstall
 
-libxmlconfig_targetinstall_deps =  $(STATEDIR)/libxmlconfig.compile
-libxmlconfig_targetinstall_deps += $(STATEDIR)/libxml2.targetinstall
-libxmlconfig_targetinstall_deps += $(STATEDIR)/liblist.targetinstall
-
-$(STATEDIR)/libxmlconfig.targetinstall: $(libxmlconfig_targetinstall_deps)
+$(STATEDIR)/libxmlconfig.targetinstall: $(libxmlconfig_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

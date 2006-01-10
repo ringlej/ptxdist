@@ -2,11 +2,11 @@ menuconfig LIBXMLCONFIG
 	bool
 	default N
 	prompt "libxmlconfig                "
-	select LIBXML2
+	select LIBXML2 LIBLIST
 	help
-	  libxmlconfig is a helper library which lets you pull config 
+	  libxmlconfig is a helper library which lets you pull config
 	  information out of XML files by using XPath queries. For more
-	  details see the project web site: 
+	  details see the project web site:
 
 	  	http://www.pengutronix.de/software/libxmlconfig/
 
