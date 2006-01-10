@@ -3,7 +3,7 @@
 # Package: flash
 # 
 flash_extract_deps_default = $(STATEDIR)/flash.get
-flash_prepare_deps_default = $(STATEDIR)/flash.extract $(STATEDIR)/ncurses.install $(STATEDIR)/virtual-xchain.install
+flash_prepare_deps_default = $(STATEDIR)/flash.extract $(STATEDIR)/virtual-xchain.install
 flash_compile_deps_default = $(STATEDIR)/flash.prepare
 flash_install_deps_default = $(STATEDIR)/flash.compile
-flash_targetinstall_deps_default =  $(STATEDIR)/ncurses.targetinstall $(STATEDIR)/flash.compile
+flash_targetinstall_deps_default =  $(STATEDIR)/flash.compile

@@ -3,7 +3,7 @@
 # Package: readline
 # 
 readline_extract_deps_default = $(STATEDIR)/readline.get
-readline_prepare_deps_default = $(STATEDIR)/readline.extract $(STATEDIR)/ncurses.install $(STATEDIR)/gcclibs.install $(STATEDIR)/virtual-xchain.install
+readline_prepare_deps_default = $(STATEDIR)/readline.extract $(STATEDIR)/virtual-xchain.install
 readline_compile_deps_default = $(STATEDIR)/readline.prepare
 readline_install_deps_default = $(STATEDIR)/readline.compile
-readline_targetinstall_deps_default =  $(STATEDIR)/ncurses.targetinstall $(STATEDIR)/gcclibs.targetinstall $(STATEDIR)/readline.compile
+readline_targetinstall_deps_default =  $(STATEDIR)/readline.compile

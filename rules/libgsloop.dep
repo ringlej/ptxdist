@@ -3,7 +3,7 @@
 # Package: libgsloop
 # 
 libgsloop_extract_deps_default = $(STATEDIR)/libgsloop.get
-libgsloop_prepare_deps_default = $(STATEDIR)/libgsloop.extract $(STATEDIR)/librn.install $(STATEDIR)/virtual-xchain.install
+libgsloop_prepare_deps_default = $(STATEDIR)/libgsloop.extract $(STATEDIR)/virtual-xchain.install
 libgsloop_compile_deps_default = $(STATEDIR)/libgsloop.prepare
 libgsloop_install_deps_default = $(STATEDIR)/libgsloop.compile
-libgsloop_targetinstall_deps_default =  $(STATEDIR)/librn.targetinstall $(STATEDIR)/libgsloop.compile
+libgsloop_targetinstall_deps_default =  $(STATEDIR)/libgsloop.compile

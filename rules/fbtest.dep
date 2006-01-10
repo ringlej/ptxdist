@@ -3,7 +3,7 @@
 # Package: fbtest
 # 
 fbtest_extract_deps_default = $(STATEDIR)/fbtest.get
-fbtest_prepare_deps_default = $(STATEDIR)/fbtest.extract $(STATEDIR)/libnetpbm.install $(STATEDIR)/virtual-xchain.install
+fbtest_prepare_deps_default = $(STATEDIR)/fbtest.extract $(STATEDIR)/virtual-xchain.install
 fbtest_compile_deps_default = $(STATEDIR)/fbtest.prepare
 fbtest_install_deps_default = $(STATEDIR)/fbtest.compile
-fbtest_targetinstall_deps_default =  $(STATEDIR)/libnetpbm.targetinstall $(STATEDIR)/fbtest.compile
+fbtest_targetinstall_deps_default =  $(STATEDIR)/fbtest.compile

@@ -3,7 +3,7 @@
 # Package: gnuplot
 # 
 gnuplot_extract_deps_default = $(STATEDIR)/gnuplot.get
-gnuplot_prepare_deps_default = $(STATEDIR)/gnuplot.extract $(STATEDIR)/zlib.install $(STATEDIR)/virtual-xchain.install
+gnuplot_prepare_deps_default = $(STATEDIR)/gnuplot.extract $(STATEDIR)/virtual-xchain.install
 gnuplot_compile_deps_default = $(STATEDIR)/gnuplot.prepare
 gnuplot_install_deps_default = $(STATEDIR)/gnuplot.compile
-gnuplot_targetinstall_deps_default =  $(STATEDIR)/zlib.targetinstall $(STATEDIR)/gnuplot.compile
+gnuplot_targetinstall_deps_default =  $(STATEDIR)/gnuplot.compile
