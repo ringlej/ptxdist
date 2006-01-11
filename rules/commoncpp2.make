@@ -32,13 +32,11 @@ COMMONCPP2_DIR		= $(BUILDDIR)/$(COMMONCPP2)
 
 commoncpp2_get: $(STATEDIR)/commoncpp2.get
 
-commoncpp2_get_deps = $(COMMONCPP2_SOURCE)
-
 $(STATEDIR)/commoncpp2.get: $(commoncpp2_get_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(COMMONCPP2_SOURCE):
+$(COMMONCPP2_SOURCE): $(COMMONCPP2_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get, $(COMMONCPP2_URL))
 
@@ -48,9 +46,7 @@ $(COMMONCPP2_SOURCE):
 
 commoncpp2_extract: $(STATEDIR)/commoncpp2.extract
 
-commoncpp2_extract_deps = $(STATEDIR)/commoncpp2.get
-
-$(STATEDIR)/commoncpp2.extract: $(commoncpp2_extract_deps)
+$(STATEDIR)/commoncpp2.extract: $(commoncpp2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(COMMONCPP2_DIR))
 	@$(call extract, $(COMMONCPP2_SOURCE))
@@ -63,13 +59,6 @@ $(STATEDIR)/commoncpp2.extract: $(commoncpp2_extract_deps)
 
 commoncpp2_prepare: $(STATEDIR)/commoncpp2.prepare
 
-#
-# dependencies
-#
-commoncpp2_prepare_deps = \
-	$(STATEDIR)/commoncpp2.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 COMMONCPP2_PATH	=  PATH=$(CROSS_PATH)
 COMMONCPP2_ENV 	=  $(CROSS_ENV)
 COMMONCPP2_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
@@ -80,7 +69,7 @@ COMMONCPP2_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 COMMONCPP2_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 COMMONCPP2_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
-$(STATEDIR)/commoncpp2.prepare: $(commoncpp2_prepare_deps)
+$(STATEDIR)/commoncpp2.prepare: $(commoncpp2_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(COMMONCPP2_DIR)/config.cache)
 	cd $(COMMONCPP2_DIR) && \
@@ -94,9 +83,7 @@ $(STATEDIR)/commoncpp2.prepare: $(commoncpp2_prepare_deps)
 
 commoncpp2_compile: $(STATEDIR)/commoncpp2.compile
 
-commoncpp2_compile_deps = $(STATEDIR)/commoncpp2.prepare
-
-$(STATEDIR)/commoncpp2.compile: $(commoncpp2_compile_deps)
+$(STATEDIR)/commoncpp2.compile: $(commoncpp2_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(COMMONCPP2_DIR) && $(COMMONCPP2_ENV) $(COMMONCPP2_PATH) make
 	@$(call touch, $@)
@@ -107,7 +94,7 @@ $(STATEDIR)/commoncpp2.compile: $(commoncpp2_compile_deps)
 
 commoncpp2_install: $(STATEDIR)/commoncpp2.install
 
-$(STATEDIR)/commoncpp2.install: $(STATEDIR)/commoncpp2.compile
+$(STATEDIR)/commoncpp2.install: $(commoncpp2_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, COMMONCPP2)
 	@$(call touch, $@)
@@ -118,9 +105,7 @@ $(STATEDIR)/commoncpp2.install: $(STATEDIR)/commoncpp2.compile
 
 commoncpp2_targetinstall: $(STATEDIR)/commoncpp2.targetinstall
 
-commoncpp2_targetinstall_deps = $(STATEDIR)/commoncpp2.compile
-
-$(STATEDIR)/commoncpp2.targetinstall: $(commoncpp2_targetinstall_deps)
+$(STATEDIR)/commoncpp2.targetinstall: $(commoncpp2_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
@@ -136,15 +121,15 @@ $(STATEDIR)/commoncpp2.targetinstall: $(commoncpp2_targetinstall_deps)
 		$(COMMONCPP2_DIR)/src/.libs/libccgnu2-1.3.so.1.0.18, \
 		/usr/lib/libccgnu2-1.3.so.1.0.18)
 
-	@$(call install_link, libccgnu2-1.3.so.1.0.18, /usr/lib//usr/lib/libccgnu2-1.3.so.1)
-	@$(call install_link, libccgnu2-1.3.so.1.0.18, /usr/lib//usr/lib/libccgnu2-1.3.so)
+	@$(call install_link, libccgnu2-1.3.so.1.0.18, /usr/lib/libccgnu2-1.3.so.1)
+	@$(call install_link, libccgnu2-1.3.so.1.0.18, /usr/lib/libccgnu2-1.3.so)
 
 	@$(call install_copy, 0, 0, 0644, \
-		$(COMMONCPP2_DIR)/src/.libs/libccext2-1.3.so.1.0.18 \
-		libccext2-1.3.so.1.0.18)
+		$(COMMONCPP2_DIR)/src/.libs/libccext2-1.3.so.1.0.18, \
+		/usr/lib/libccext2-1.3.so.1.0.18)
 
-	@$(call install_link, libccext2-1.3.so.1.0.18, /usr/lib//usr/lib/libccext2-1.3.so.1)
-	@$(call install_link, libccext2-1.3.so.1.0.18, /usr/lib//usr/lib/libccext2-1.3.so)
+	@$(call install_link, libccext2-1.3.so.1.0.18, /usr/lib/libccext2-1.3.so.1)
+	@$(call install_link, libccext2-1.3.so.1.0.18, /usr/lib/libccext2-1.3.so)
 
 	@$(call install_finish)
 
