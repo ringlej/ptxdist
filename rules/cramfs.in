@@ -1,3 +1,8 @@
 config CRAMFS
 	bool
 	prompt "cramfs tools"
+	help
+	  This package contains tools that let you construct a CramFs
+	  (Compressed ROM File System) image from the contents of a 
+	  given directory, as well as checking a constructed CramFs 
+	  image and extracting its contents.

@@ -50,9 +50,7 @@ $(CRAMFS_SOURCE):
 
 cramfs_extract: $(STATEDIR)/cramfs.extract
 
-cramfs_extract_deps	=  $(STATEDIR)/cramfs.get
-
-$(STATEDIR)/cramfs.extract: $(cramfs_extract_deps)
+$(STATEDIR)/cramfs.extract: $(cramfs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CRAMFS_DIR))
 	@$(call extract, $(CRAMFS_SOURCE))
@@ -64,13 +62,7 @@ $(STATEDIR)/cramfs.extract: $(cramfs_extract_deps)
 
 cramfs_prepare: $(STATEDIR)/cramfs.prepare
 
-#
-# dependencies
-#
-cramfs_prepare_deps =  \
-	$(STATEDIR)/cramfs.extract
-
-$(STATEDIR)/cramfs.prepare: $(cramfs_prepare_deps)
+$(STATEDIR)/cramfs.prepare: $(cramfs_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -80,9 +72,7 @@ $(STATEDIR)/cramfs.prepare: $(cramfs_prepare_deps)
 
 cramfs_compile: $(STATEDIR)/cramfs.compile
 
-cramfs_compile_deps =  $(STATEDIR)/cramfs.prepare
-
-$(STATEDIR)/cramfs.compile: $(cramfs_compile_deps)
+$(STATEDIR)/cramfs.compile: $(cramfs_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(CRAMFS_DIR) && \
 		make
@@ -94,7 +84,7 @@ $(STATEDIR)/cramfs.compile: $(cramfs_compile_deps)
 
 cramfs_install: $(STATEDIR)/cramfs.install
 
-$(STATEDIR)/cramfs.install: $(STATEDIR)/cramfs.compile
+$(STATEDIR)/cramfs.install: $(cramfs_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	# @$(call install, CRAMFS)
@@ -109,9 +99,7 @@ $(STATEDIR)/cramfs.install: $(STATEDIR)/cramfs.compile
 
 cramfs_targetinstall: $(STATEDIR)/cramfs.targetinstall
 
-cramfs_targetinstall_deps	=  $(STATEDIR)/cramfs.install
-
-$(STATEDIR)/cramfs.targetinstall: $(cramfs_targetinstall_deps)
+$(STATEDIR)/cramfs.targetinstall: $(cramfs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
