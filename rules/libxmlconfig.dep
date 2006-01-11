@@ -3,7 +3,7 @@
 # Package: libxmlconfig
 # 
 libxmlconfig_extract_deps_default = $(STATEDIR)/libxmlconfig.get
-libxmlconfig_prepare_deps_default = $(STATEDIR)/libxmlconfig.extract $(STATEDIR)/libxml2.install $(STATEDIR)/virtual-xchain.install
+libxmlconfig_prepare_deps_default = $(STATEDIR)/libxmlconfig.extract $(STATEDIR)/libxml2.install $(STATEDIR)/liblist.install $(STATEDIR)/virtual-xchain.install
 libxmlconfig_compile_deps_default = $(STATEDIR)/libxmlconfig.prepare
 libxmlconfig_install_deps_default = $(STATEDIR)/libxmlconfig.compile
-libxmlconfig_targetinstall_deps_default =  $(STATEDIR)/libxml2.targetinstall $(STATEDIR)/libxmlconfig.compile
+libxmlconfig_targetinstall_deps_default =  $(STATEDIR)/libxml2.targetinstall $(STATEDIR)/liblist.targetinstall $(STATEDIR)/libxmlconfig.compile
