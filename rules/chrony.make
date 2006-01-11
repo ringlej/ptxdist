@@ -49,9 +49,7 @@ $(CHRONY_SOURCE):
 
 chrony_extract: $(STATEDIR)/chrony.extract
 
-chrony_extract_deps = $(STATEDIR)/chrony.get
-
-$(STATEDIR)/chrony.extract: $(chrony_extract_deps)
+$(STATEDIR)/chrony.extract: $(chrony_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CHRONY_DIR))
 	@$(call extract, $(CHRONY_SOURCE))
@@ -64,13 +62,6 @@ $(STATEDIR)/chrony.extract: $(chrony_extract_deps)
 
 chrony_prepare: $(STATEDIR)/chrony.prepare
 
-#
-# dependencies
-#
-chrony_prepare_deps =  $(STATEDIR)/chrony.extract
-chrony_prepare_deps += $(STATEDIR)/virtual-xchain.install
-chrony_prepare_deps += $(STATEDIR)/readline.install
-
 CHRONY_PATH	=  PATH=$(CROSS_PATH)
 CHRONY_ENV 	=  $(CROSS_ENV)
 
@@ -80,7 +71,7 @@ CHRONY_ENV 	=  $(CROSS_ENV)
 CHRONY_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 CHRONY_AUTOCONF += --disable-readline
 
-$(STATEDIR)/chrony.prepare: $(chrony_prepare_deps)
+$(STATEDIR)/chrony.prepare: $(chrony_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CHRONY_DIR)/config.cache)
 	cd $(CHRONY_DIR) && \
@@ -94,9 +85,7 @@ $(STATEDIR)/chrony.prepare: $(chrony_prepare_deps)
 
 chrony_compile: $(STATEDIR)/chrony.compile
 
-chrony_compile_deps = $(STATEDIR)/chrony.prepare
-
-$(STATEDIR)/chrony.compile: $(chrony_compile_deps)
+$(STATEDIR)/chrony.compile: $(chrony_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(CHRONY_DIR) && $(CHRONY_ENV) $(CHRONY_PATH) make
 	@$(call touch, $@)
@@ -107,7 +96,7 @@ $(STATEDIR)/chrony.compile: $(chrony_compile_deps)
 
 chrony_install: $(STATEDIR)/chrony.install
 
-$(STATEDIR)/chrony.install: $(STATEDIR)/chrony.compile
+$(STATEDIR)/chrony.install: $(chrony_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, CHRONY)
 	@$(call touch, $@)
@@ -118,10 +107,7 @@ $(STATEDIR)/chrony.install: $(STATEDIR)/chrony.compile
 
 chrony_targetinstall: $(STATEDIR)/chrony.targetinstall
 
-chrony_targetinstall_deps =  $(STATEDIR)/chrony.compile
-chrony_targetinstall_deps += $(STATEDIR)/readline.targetinstall
-
-$(STATEDIR)/chrony.targetinstall: $(chrony_targetinstall_deps)
+$(STATEDIR)/chrony.targetinstall: $(chrony_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
