@@ -49,9 +49,7 @@ $(CPPUNIT_SOURCE):
 
 cppunit_extract: $(STATEDIR)/cppunit.extract
 
-cppunit_extract_deps = $(STATEDIR)/cppunit.get
-
-$(STATEDIR)/cppunit.extract: $(cppunit_extract_deps)
+$(STATEDIR)/cppunit.extract: $(cppunit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CPPUNIT_DIR))
 	@$(call extract, $(CPPUNIT_SOURCE))
@@ -64,13 +62,6 @@ $(STATEDIR)/cppunit.extract: $(cppunit_extract_deps)
 
 cppunit_prepare: $(STATEDIR)/cppunit.prepare
 
-#
-# dependencies
-#
-cppunit_prepare_deps = \
-	$(STATEDIR)/cppunit.extract 
-			
-
 CPPUNIT_PATH	=  PATH=$(CROSS_PATH)
 CPPUNIT_ENV 	=  $(CROSS_ENV)
 #CPPUNIT_ENV	+= 
@@ -80,7 +71,7 @@ CPPUNIT_ENV 	=  $(CROSS_ENV)
 #
 CPPUNIT_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/cppunit.prepare: $(cppunit_prepare_deps)
+$(STATEDIR)/cppunit.prepare: $(cppunit_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CPPUNIT_DIR)/config.cache)
 	cd $(CPPUNIT_DIR) && \
@@ -94,9 +85,7 @@ $(STATEDIR)/cppunit.prepare: $(cppunit_prepare_deps)
 
 cppunit_compile: $(STATEDIR)/cppunit.compile
 
-cppunit_compile_deps = $(STATEDIR)/cppunit.prepare
-
-$(STATEDIR)/cppunit.compile: $(cppunit_compile_deps)
+$(STATEDIR)/cppunit.compile: $(cppunit_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(CPPUNIT_DIR) && $(CPPUNIT_ENV) $(CPPUNIT_PATH) make
 	@$(call touch, $@)
@@ -107,7 +96,7 @@ $(STATEDIR)/cppunit.compile: $(cppunit_compile_deps)
 
 cppunit_install: $(STATEDIR)/cppunit.install
 
-$(STATEDIR)/cppunit.install: $(STATEDIR)/cppunit.compile
+$(STATEDIR)/cppunit.install: $(cppunit_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, CPPUNIT)
 	@$(call touch, $@)
@@ -118,9 +107,7 @@ $(STATEDIR)/cppunit.install: $(STATEDIR)/cppunit.compile
 
 cppunit_targetinstall: $(STATEDIR)/cppunit.targetinstall
 
-cppunit_targetinstall_deps = $(STATEDIR)/cppunit.install
-
-$(STATEDIR)/cppunit.targetinstall: $(cppunit_targetinstall_deps)
+$(STATEDIR)/cppunit.targetinstall: $(cppunit_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
