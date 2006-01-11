@@ -1,1 +1,15 @@
-# FIXME: There should be a *.in for this package
+config AT-SPI
+        bool
+        default N
+        depends on BROKEN
+        prompt "Assistive Technology Service Provider Interface"
+	help
+	  Providing accessibility means removing barriers that prevent people
+ 	  with disabilities from participating in substantial life activities,
+ 	  including the use of services, products, and information.
+ 	  Assistive access means that system infrastructure allows add-on
+ 	  assistive software to transparently provide specialized input and
+ 	  output capabilities. This is a part of the GNOME Prokect.
+
+comment "at-spi is broken, please send a patch"
+        depends on !BROKEN
