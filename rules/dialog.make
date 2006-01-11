@@ -49,9 +49,7 @@ $(DIALOG_SOURCE):
 
 dialog_extract: $(STATEDIR)/dialog.extract
 
-dialog_extract_deps = $(STATEDIR)/dialog.get
-
-$(STATEDIR)/dialog.extract: $(dialog_extract_deps)
+$(STATEDIR)/dialog.extract: $(dialog_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DIALOG_DIR))
 	@$(call extract, $(DIALOG_SOURCE))
@@ -64,13 +62,6 @@ $(STATEDIR)/dialog.extract: $(dialog_extract_deps)
 
 dialog_prepare: $(STATEDIR)/dialog.prepare
 
-#
-# dependencies
-#
-dialog_prepare_deps = \
-	$(STATEDIR)/dialog.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 DIALOG_PATH	=  PATH=$(CROSS_PATH)
 DIALOG_ENV 	=  $(CROSS_ENV)
 
@@ -79,7 +70,7 @@ DIALOG_ENV 	=  $(CROSS_ENV)
 #
 DIALOG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/dialog.prepare: $(dialog_prepare_deps)
+$(STATEDIR)/dialog.prepare: $(dialog_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DIALOG_DIR)/config.cache)
 	cd $(DIALOG_DIR) && \
@@ -93,9 +84,7 @@ $(STATEDIR)/dialog.prepare: $(dialog_prepare_deps)
 
 dialog_compile: $(STATEDIR)/dialog.compile
 
-dialog_compile_deps = $(STATEDIR)/dialog.prepare
-
-$(STATEDIR)/dialog.compile: $(dialog_compile_deps)
+$(STATEDIR)/dialog.compile: $(dialog_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(DIALOG_DIR) && $(DIALOG_ENV) $(DIALOG_PATH) make
 	@$(call touch, $@)
@@ -106,7 +95,7 @@ $(STATEDIR)/dialog.compile: $(dialog_compile_deps)
 
 dialog_install: $(STATEDIR)/dialog.install
 
-$(STATEDIR)/dialog.install: $(STATEDIR)/dialog.compile
+$(STATEDIR)/dialog.install: $(
 	@$(call targetinfo, $@)
 	@$(call install, DIALOG)
 	@$(call touch, $@)
@@ -117,9 +106,7 @@ $(STATEDIR)/dialog.install: $(STATEDIR)/dialog.compile
 
 dialog_targetinstall: $(STATEDIR)/dialog.targetinstall
 
-dialog_targetinstall_deps = $(STATEDIR)/dialog.compile
-
-$(STATEDIR)/dialog.targetinstall: $(dialog_targetinstall_deps)
+$(STATEDIR)/dialog.targetinstall: $(dialog_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: RSC: nothing to do on targetinstall? 
 	@$(call touch, $@)
