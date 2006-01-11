@@ -154,7 +154,7 @@ deps_extract(){
 	#
 	# minimal extract rule
 	#
-	echo "${TARGET}_extract_deps_default = \$(STATEDIR)/${TARGET}.get"
+	echo "${TARGET}_extract_deps_default := \$(STATEDIR)/${TARGET}.get"
 }
 
 deps_prepare(){
@@ -172,7 +172,7 @@ deps_prepare(){
 	#
 	if [ -e "$RULESDIR/configdeps" ]; then
 	 	debug_out "found dependency tree"
-		echo -n "${TARGET}_prepare_deps_default = \$(STATEDIR)/${TARGET}.extract" 
+		echo -n "${TARGET}_prepare_deps_default := \$(STATEDIR)/${TARGET}.extract" 
 		for dependency in $(grep "^DEP:$LABEL:" $RULESDIR/configdeps | sed -e s/^DEP:$LABEL://g -e "s/:/\ /g"); do 
 			targetname=$(grep -s "^PACKAGES-\$(PTXCONF_$(echo $dependency))" $rulesfiles | sed s/.*+=[\ ]//g)
 			if [ -z "$targetname" ]; then
@@ -192,7 +192,7 @@ deps_compile(){
 	# 1) compile deps are:
 	#       $(STATEDIR)/thispacket.prepare
 	#
-	echo "${TARGET}_compile_deps_default = \$(STATEDIR)/${TARGET}.prepare"	
+	echo "${TARGET}_compile_deps_default := \$(STATEDIR)/${TARGET}.prepare"	
 }
 
 deps_install(){
@@ -200,7 +200,7 @@ deps_install(){
 	# 1) install deps are:
 	#       $(STATEDIR)/thispacket.compile
 	#
-	echo "${TARGET}_install_deps_default = \$(STATEDIR)/${TARGET}.compile"
+	echo "${TARGET}_install_deps_default := \$(STATEDIR)/${TARGET}.compile"
 }
 
 
@@ -216,7 +216,7 @@ deps_targetinstall(){
     #
     if [ -e "$RULESDIR/configdeps" ]; then
         debug_out "found dependency tree"
-	echo -n "${TARGET}_targetinstall_deps_default = " 
+	echo -n "${TARGET}_targetinstall_deps_default := " 
         for dependency in $(grep "^DEP:$LABEL:" $RULESDIR/configdeps | sed -e s/^DEP:$LABEL://g -e "s/:/\ /g"); do
             targetname=$(grep -s -h "^PACKAGES-\$(PTXCONF_$(echo $dependency))" $rulesfiles | sed s/.*+=[\ ]//g)
             if [ -z "$targetname" ]; then
