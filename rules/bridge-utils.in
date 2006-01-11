@@ -5,5 +5,16 @@ menu "Bridge Utils        "
 config BRIDGE_UTILS
 	bool
 	prompt "bridgeutils"
-
+	help
+	  Utilities for configuring the Linux ethernet bridge
+ 
+	  This package contains utilities for configuring the 
+	  Linux ethernet bridge in Linux 2.4 or later. 
+	  
+	  The Linux ethernet bridge can be used to tie multiple 
+	  ethernet devices together. The connection is fully 
+	  transparent: hosts connected to one ethernet device 
+	  can see all hosts connected to any of the other 
+	  ethernet devices directly.
+	  
 endmenu

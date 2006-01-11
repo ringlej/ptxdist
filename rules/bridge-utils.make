@@ -51,9 +51,7 @@ $(BRIDGE_UTILS_SOURCE):
 
 bridge-utils_extract: $(STATEDIR)/bridge-utils.extract
 
-bridge-utils_extract_deps = $(STATEDIR)/bridge-utils.get
-
-$(STATEDIR)/bridge-utils.extract: $(bridge-utils_extract_deps)
+$(STATEDIR)/bridge-utils.extract: $(bridge-utils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BRIDGE_UTILS_DIR))
 	@$(call extract, $(BRIDGE_UTILS_SOURCE))
@@ -66,13 +64,6 @@ $(STATEDIR)/bridge-utils.extract: $(bridge-utils_extract_deps)
 
 bridge-utils_prepare: $(STATEDIR)/bridge-utils.prepare
 
-#
-# dependencies
-#
-bridge-utils_prepare_deps = \
-	$(STATEDIR)/bridge-utils.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 BRIDGE_UTILS_PATH	=  PATH=$(CROSS_PATH)
 BRIDGE_UTILS_ENV 	=  $(CROSS_ENV)
 
@@ -81,7 +72,7 @@ BRIDGE_UTILS_ENV 	=  $(CROSS_ENV)
 #
 BRIDGE_UTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/bridge-utils.prepare: $(bridge-utils_prepare_deps)
+$(STATEDIR)/bridge-utils.prepare: $(bridge-utils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BRIDGE_UTILS_DIR)/config.cache)
 	cd $(BRIDGE_UTILS_DIR) && \
@@ -95,9 +86,7 @@ $(STATEDIR)/bridge-utils.prepare: $(bridge-utils_prepare_deps)
 
 bridge-utils_compile: $(STATEDIR)/bridge-utils.compile
 
-bridge-utils_compile_deps = $(STATEDIR)/bridge-utils.prepare
-
-$(STATEDIR)/bridge-utils.compile: $(bridge-utils_compile_deps)
+$(STATEDIR)/bridge-utils.compile: $(bridge-utils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BRIDGE_UTILS_DIR) && $(BRIDGE_UTILS_ENV) $(BRIDGE_UTILS_PATH) make
 	@$(call touch, $@)
@@ -108,7 +97,7 @@ $(STATEDIR)/bridge-utils.compile: $(bridge-utils_compile_deps)
 
 bridge-utils_install: $(STATEDIR)/bridge-utils.install
 
-$(STATEDIR)/bridge-utils.install: $(STATEDIR)/bridge-utils.compile
+$(STATEDIR)/bridge-utils.install: $(bridge-utils_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, APACHE2)
@@ -120,9 +109,7 @@ $(STATEDIR)/bridge-utils.install: $(STATEDIR)/bridge-utils.compile
 
 bridge-utils_targetinstall: $(STATEDIR)/bridge-utils.targetinstall
 
-bridge-utils_targetinstall_deps = $(STATEDIR)/bridge-utils.compile
-
-$(STATEDIR)/bridge-utils.targetinstall: $(bridge-utils_targetinstall_deps)
+$(STATEDIR)/bridge-utils.targetinstall: $(bridge-utils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BRIDGE_UTILS_DIR) && $(BRIDGE_UTILS_ENV) $(BRIDGE_UTILS_PATH) make prefix=$(ROOTDIR) install
 	@$(call touch, $@)
