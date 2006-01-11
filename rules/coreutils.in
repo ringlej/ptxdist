@@ -1,23 +1,33 @@
 menuconfig COREUTILS
 	bool "GNU coreutils       "
+	help
+	  This package contains some of the The GNU Core Utilities
 
 config COREUTILS_CP
 	bool
 	prompt "cp"
 	depends on COREUTILS
-
+	help
+	  copy files and directories
+	  
 config COREUTILS_DD
 	bool
 	prompt "dd"
 	depends on COREUTILS
+	help
+	  convert and copy a file
 
 config COREUTILS_MD5SUM
 	bool
 	prompt "md5sum"
 	depends on COREUTILS
+	help
+	  compute and check MD5 message digest
 
 config COREUTILS_SEQ
         bool
         prompt "seq"
         depends on COREUTILS
+	help
+	  print a sequence of numbers
 

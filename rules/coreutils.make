@@ -45,7 +45,7 @@ $(COREUTILS_SOURCE):
 
 coreutils_extract: $(STATEDIR)/coreutils.extract
 
-$(STATEDIR)/coreutils.extract: $(STATEDIR)/coreutils.get
+$(STATEDIR)/coreutils.extract: $(coreutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(COREUTILS_DIR))
 	@$(call extract, $(COREUTILS_SOURCE))
@@ -71,14 +71,7 @@ COREUTILS_ENV		=  $(CROSS_ENV)
 #COREUTILS_AUTOCONF	+= --enable-shell=ksh
 #endif
 
-#
-# dependencies
-#
-coreutils_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/coreutils.extract \
-
-$(STATEDIR)/coreutils.prepare: $(coreutils_prepare_deps)
+$(STATEDIR)/coreutils.prepare: $(coreutils_prepare_deps_default)
 	@$(call targetinfo, $@)
 
 	cd $(COREUTILS_DIR) && \
@@ -97,7 +90,7 @@ coreutils_compile_deps = $(STATEDIR)/coreutils.prepare
 
 coreutils_compile: $(STATEDIR)/coreutils.compile
 
-$(STATEDIR)/coreutils.compile: $(STATEDIR)/coreutils.prepare 
+$(STATEDIR)/coreutils.compile: $(coreutils_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/lib libfetish.a
 ifdef PTXCONF_COREUTILS_CP
@@ -120,7 +113,7 @@ endif
 
 coreutils_install: $(STATEDIR)/coreutils.install
 
-$(STATEDIR)/coreutils.install:
+$(STATEDIR)/coreutils.install: $(coreutils_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	# @$(call install, COREUTILS)
@@ -132,7 +125,7 @@ $(STATEDIR)/coreutils.install:
 
 coreutils_targetinstall: $(STATEDIR)/coreutils.targetinstall
 
-$(STATEDIR)/coreutils.targetinstall: $(STATEDIR)/coreutils.compile
+$(STATEDIR)/coreutils.targetinstall: $(coreutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
