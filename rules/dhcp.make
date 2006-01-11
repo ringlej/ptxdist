@@ -48,9 +48,7 @@ $(DHCP_SOURCE):
 
 dhcp_extract: $(STATEDIR)/dhcp.extract
 
-dhcp_extract_deps = $(STATEDIR)/dhcp.get
-
-$(STATEDIR)/dhcp.extract: $(dhcp_extract_deps)
+$(STATEDIR)/dhcp.extract: $(dhcp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DHCP_DIR))
 	@$(call extract, $(DHCP_SOURCE))
@@ -62,20 +60,13 @@ $(STATEDIR)/dhcp.extract: $(dhcp_extract_deps)
 
 dhcp_prepare: $(STATEDIR)/dhcp.prepare
 
-#
-# dependencies
-#
-dhcp_prepare_deps = \
-	$(STATEDIR)/dhcp.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 DHCP_PATH	=  PATH=$(CROSS_PATH)
 DHCP_ENV 	=  $(CROSS_ENV)
 #DHCP_ENV	+=
 
 # linux-2.2 is the way to go ;-)
 
-$(STATEDIR)/dhcp.prepare: $(dhcp_prepare_deps)
+$(STATEDIR)/dhcp.prepare: $(dhcp_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DHCP_DIR)/config.cache)
 	cd $(DHCP_DIR) && \
@@ -89,9 +80,7 @@ $(STATEDIR)/dhcp.prepare: $(dhcp_prepare_deps)
 
 dhcp_compile: $(STATEDIR)/dhcp.compile
 
-dhcp_compile_deps = $(STATEDIR)/dhcp.prepare
-
-$(STATEDIR)/dhcp.compile: $(dhcp_compile_deps)
+$(STATEDIR)/dhcp.compile: $(dhcp_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(DHCP_DIR) && $(DHCP_PATH) make
 	@$(call touch, $@)
@@ -102,7 +91,7 @@ $(STATEDIR)/dhcp.compile: $(dhcp_compile_deps)
 
 dhcp_install: $(STATEDIR)/dhcp.install
 
-$(STATEDIR)/dhcp.install: $(STATEDIR)/dhcp.compile
+$(STATEDIR)/dhcp.install: $(dhcp_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, DHCP)
 	@$(call touch, $@)
@@ -113,9 +102,7 @@ $(STATEDIR)/dhcp.install: $(STATEDIR)/dhcp.compile
 
 dhcp_targetinstall: $(STATEDIR)/dhcp.targetinstall
 
-dhcp_targetinstall_deps = $(STATEDIR)/dhcp.compile
-
-$(STATEDIR)/dhcp.targetinstall: $(dhcp_targetinstall_deps)
+$(STATEDIR)/dhcp.targetinstall: $(dhcp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
