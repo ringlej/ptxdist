@@ -48,9 +48,7 @@ $(BLUEZ_UTILS_SOURCE):
 
 bluez-utils_extract: $(STATEDIR)/bluez-utils.extract
 
-bluez-utils_extract_deps = $(call deps_extract, BLUEZ_UTILS)
-
-$(STATEDIR)/bluez-utils.extract: $(bluez-utils_extract_deps)
+$(STATEDIR)/bluez-utils.extract: $(bluez-utils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BLUEZ_UTILS_DIR))
 	@$(call extract, $(BLUEZ_UTILS_SOURCE))
@@ -62,11 +60,6 @@ $(STATEDIR)/bluez-utils.extract: $(bluez-utils_extract_deps)
 # ----------------------------------------------------------------------------
 
 bluez-utils_prepare: $(STATEDIR)/bluez-utils.prepare
-
-#
-# dependencies
-#
-bluez-utils_prepare_deps = $(call deps_prepare, BLUEZ_UTILS)
 
 BLUEZ_UTILS_PATH	=  PATH=$(CROSS_PATH)
 BLUEZ_UTILS_ENV 	=  $(CROSS_ENV)
@@ -84,7 +77,7 @@ BLUEZ_UTILS_AUTOCONF	+= --without-fuse
 BLUEZ_UTILS_AUTOCONF	+= --without-openobex
 BLUEZ_UTILS_AUTOCONF	+= --without-usb
 
-$(STATEDIR)/bluez-utils.prepare: $(bluez-utils_prepare_deps)
+$(STATEDIR)/bluez-utils.prepare: $(bluez-utils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BLUEZ_UTILS_DIR)/config.cache)
 	cd $(BLUEZ_UTILS_DIR) && \
@@ -98,9 +91,7 @@ $(STATEDIR)/bluez-utils.prepare: $(bluez-utils_prepare_deps)
 
 bluez-utils_compile: $(STATEDIR)/bluez-utils.compile
 
-bluez-utils_compile_deps = $(call deps_compile, BLUEZ_UTILS)
-
-$(STATEDIR)/bluez-utils.compile: $(bluez-utils_compile_deps)
+$(STATEDIR)/bluez-utils.compile: $(bluez-utils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BLUEZ_UTILS_DIR) && $(BLUEZ_UTILS_ENV) $(BLUEZ_UTILS_PATH) make
 	@$(call touch, $@)
@@ -111,9 +102,7 @@ $(STATEDIR)/bluez-utils.compile: $(bluez-utils_compile_deps)
 
 bluez-utils_install: $(STATEDIR)/bluez-utils.install
 
-bluez-utils_install_deps = $(call deps_install, BLUEZ_UTILS)
-
-$(STATEDIR)/bluez-utils.install: $(bluez-utils_install_deps)
+$(STATEDIR)/bluez-utils.install: $(bluez-utils_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, BLUEZ_UTILS)
 	@$(call touch, $@)
@@ -124,9 +113,7 @@ $(STATEDIR)/bluez-utils.install: $(bluez-utils_install_deps)
 
 bluez-utils_targetinstall: $(STATEDIR)/bluez-utils.targetinstall
 
-bluez-utils_targetinstall_deps = $(call deps_targetinstall, BLUEZ_UTILS)
-
-$(STATEDIR)/bluez-utils.targetinstall: $(bluez-utils_targetinstall_deps)
+$(STATEDIR)/bluez-utils.targetinstall: $(bluez-utils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
