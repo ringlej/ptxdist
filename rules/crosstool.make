@@ -54,9 +54,7 @@ $(CROSSTOOL_SOURCE):
 
 crosstool_extract: $(STATEDIR)/crosstool.extract
 
-crosstool_extract_deps = $(STATEDIR)/crosstool.get
-
-$(STATEDIR)/crosstool.extract: $(crosstool_extract_deps)
+$(STATEDIR)/crosstool.extract: $(crosstool_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSSTOOL_DIR))
 	@$(call extract, $(CROSSTOOL_SOURCE), $(CROSS_BUILDDIR))
@@ -68,11 +66,6 @@ $(STATEDIR)/crosstool.extract: $(crosstool_extract_deps)
 # ----------------------------------------------------------------------------
 
 crosstool_prepare: $(STATEDIR)/crosstool.prepare
-
-#
-# dependencies
-#
-crosstool_prepare_deps = $(STATEDIR)/crosstool.extract
 
 CROSSTOOL_PATH	=  PATH=$(CROSS_PATH)
 
@@ -140,7 +133,7 @@ endif
 CROSSTOOL_ENV	+= LINUX_DIR=linux-$(KERNEL_VERSION)
 CROSSTOOL_ENV	+= GLIBCTHREADS_FILENAME=glibc-linuxthreads-$(GLIBC_VERSION)
 
-$(STATEDIR)/crosstool.prepare: $(crosstool_prepare_deps)
+$(STATEDIR)/crosstool.prepare: $(crosstool_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -155,7 +148,7 @@ $(STATEDIR)/crosstool.prepare: $(crosstool_prepare_deps)
 
 crosstool_compile: $(STATEDIR)/crosstool.compile
 
-$(STATEDIR)/crosstool.compile: $(STATEDIR)/crosstool.prepare
+$(STATEDIR)/crosstool.compile: $(crosstool_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -165,9 +158,7 @@ $(STATEDIR)/crosstool.compile: $(STATEDIR)/crosstool.prepare
 
 crosstool_install: $(STATEDIR)/crosstool.install
 
-crosstool_install_deps = $(STATEDIR)/crosstool.compile
-
-$(STATEDIR)/crosstool.install: $(crosstool_install_deps)
+$(STATEDIR)/crosstool.install: $(crosstool_install_deps_default)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_UCLIBC
 	grep -e PTXCONF_UC_ $(PTXDIST_WORKSPACE)/.config > $(CROSSTOOL_DIR)/uclibc_config
@@ -198,9 +189,7 @@ endif
 
 crosstool_targetinstall: $(STATEDIR)/crosstool.targetinstall
 
-crosstool_targetinstall_deps = $(STATEDIR)/crosstool.install
-
-$(STATEDIR)/crosstool.targetinstall: $(crosstool_targetinstall_deps)
+$(STATEDIR)/crosstool.targetinstall: $(crosstool_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
