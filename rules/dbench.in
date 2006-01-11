@@ -13,16 +13,22 @@ config DBENCH_DBENCH
 	prompt "install dbench"
 	depends on DBENCH
 	default N
+	help
+	  FIXME: This item needs to be documented
 
 config DBENCH_TBENCH
 	bool
 	prompt "install tbench"
 	depends on DBENCH
 	default N
+	help
+	  FIXME: This item needs to be documented
 
 config DBENCH_TBENCH_SERVER
 	bool
 	prompt "install tbench server"
 	depends on DBENCH
 	default N
+	help
+	  FIXME: This item needs to be documented
 

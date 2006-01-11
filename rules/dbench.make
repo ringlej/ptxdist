@@ -49,9 +49,7 @@ $(DBENCH_SOURCE):
 
 dbench_extract: $(STATEDIR)/dbench.extract
 
-dbench_extract_deps = $(STATEDIR)/dbench.get
-
-$(STATEDIR)/dbench.extract: $(dbench_extract_deps)
+$(STATEDIR)/dbench.extract: $(dbench_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DBENCH_DIR))
 	@$(call extract, $(DBENCH_SOURCE))
@@ -64,13 +62,6 @@ $(STATEDIR)/dbench.extract: $(dbench_extract_deps)
 
 dbench_prepare: $(STATEDIR)/dbench.prepare
 
-#
-# dependencies
-#
-dbench_prepare_deps = \
-	$(STATEDIR)/dbench.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 DBENCH_PATH	=  PATH=$(CROSS_PATH)
 DBENCH_ENV 	=  $(CROSS_ENV)
 
@@ -79,7 +70,7 @@ DBENCH_ENV 	=  $(CROSS_ENV)
 #
 DBENCH_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/dbench.prepare: $(dbench_prepare_deps)
+$(STATEDIR)/dbench.prepare: $(dbench_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DBENCH_DIR)/config.cache)
 	cd $(DBENCH_DIR) && \
@@ -93,9 +84,7 @@ $(STATEDIR)/dbench.prepare: $(dbench_prepare_deps)
 
 dbench_compile: $(STATEDIR)/dbench.compile
 
-dbench_compile_deps = $(STATEDIR)/dbench.prepare
-
-$(STATEDIR)/dbench.compile: $(dbench_compile_deps)
+$(STATEDIR)/dbench.compile: $(dbench_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(DBENCH_DIR) && $(DBENCH_ENV) $(DBENCH_PATH) make
 	@$(call touch, $@)
@@ -106,7 +95,7 @@ $(STATEDIR)/dbench.compile: $(dbench_compile_deps)
 
 dbench_install: $(STATEDIR)/dbench.install
 
-$(STATEDIR)/dbench.install: $(STATEDIR)/dbench.compile
+$(STATEDIR)/dbench.install: $(dbench_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, DBENCH)
 	@$(call touch, $@)
@@ -117,9 +106,7 @@ $(STATEDIR)/dbench.install: $(STATEDIR)/dbench.compile
 
 dbench_targetinstall: $(STATEDIR)/dbench.targetinstall
 
-dbench_targetinstall_deps = $(STATEDIR)/dbench.compile
-
-$(STATEDIR)/dbench.targetinstall: $(dbench_targetinstall_deps)
+$(STATEDIR)/dbench.targetinstall: $(dbench_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
