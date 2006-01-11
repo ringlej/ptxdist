@@ -1,28 +1,40 @@
 menuconfig CANUTILS
 	bool "canutils            "
 	default N
+	help
+	  The canutils package contains tools to configure 
+	  and test the Socket CAN framework
 
 config CANUTILS_CANCONFIG
 	bool
 	depends on CANUTILS
 	default N
 	prompt "canconfig"
-
+	help
+	  FIXME: This needs to be documented.
+	  
 config CANUTILS_CANDUMP
 	bool
 	depends on CANUTILS
 	default N
 	prompt "candump"
+	help
+	  FIXME: This needs to be documented.
+	  
 
 config CANUTILS_CANECHO
 	bool
 	depends on CANUTILS
 	default N
 	prompt "canecho"
+	help
+	  FIXME: This needs to be documented.
 
 config CANUTILS_CANSEND
 	bool
 	depends on CANUTILS
 	default N
 	prompt "cansend"
+	help
+	  FIXME: This needs to be documented.
 

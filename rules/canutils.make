@@ -50,9 +50,7 @@ $(CANUTILS_SOURCE):
 
 canutils_extract: $(STATEDIR)/canutils.extract
 
-canutils_extract_deps = $(STATEDIR)/canutils.get
-
-$(STATEDIR)/canutils.extract: $(canutils_extract_deps)
+$(STATEDIR)/canutils.extract: $(canutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CANUTILS_DIR))
 	@$(call extract, $(CANUTILS_SOURCE))
@@ -65,13 +63,6 @@ $(STATEDIR)/canutils.extract: $(canutils_extract_deps)
 
 canutils_prepare: $(STATEDIR)/canutils.prepare
 
-#
-# dependencies
-#
-canutils_prepare_deps = \
-	$(STATEDIR)/canutils.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 CANUTILS_PATH	=  PATH=$(CROSS_PATH)
 CANUTILS_ENV 	=  $(CROSS_ENV)
 
@@ -80,7 +71,7 @@ CANUTILS_ENV 	=  $(CROSS_ENV)
 #
 CANUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/canutils.prepare: $(canutils_prepare_deps)
+$(STATEDIR)/canutils.prepare: $(canutils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CANUTILS_DIR)/config.cache)
 	cd $(CANUTILS_DIR) && \
@@ -94,9 +85,7 @@ $(STATEDIR)/canutils.prepare: $(canutils_prepare_deps)
 
 canutils_compile: $(STATEDIR)/canutils.compile
 
-canutils_compile_deps = $(STATEDIR)/canutils.prepare
-
-$(STATEDIR)/canutils.compile: $(canutils_compile_deps)
+$(STATEDIR)/canutils.compile: $(canutils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(CANUTILS_DIR) && $(CANUTILS_ENV) $(CANUTILS_PATH) make
 	@$(call touch, $@)
@@ -107,7 +96,7 @@ $(STATEDIR)/canutils.compile: $(canutils_compile_deps)
 
 canutils_install: $(STATEDIR)/canutils.install
 
-$(STATEDIR)/canutils.install: $(STATEDIR)/canutils.compile
+$(STATEDIR)/canutils.install: $(canutils_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, CANUTILS)
 	@$(call touch, $@)
@@ -118,9 +107,7 @@ $(STATEDIR)/canutils.install: $(STATEDIR)/canutils.compile
 
 canutils_targetinstall: $(STATEDIR)/canutils.targetinstall
 
-canutils_targetinstall_deps = $(STATEDIR)/canutils.compile
-
-$(STATEDIR)/canutils.targetinstall: $(canutils_targetinstall_deps)
+$(STATEDIR)/canutils.targetinstall: $(canutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
