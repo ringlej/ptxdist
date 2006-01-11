@@ -17,14 +17,7 @@ config LTT
 comment "LTT is broken, please send a patch"
 	depends on !BROKEN
 
-config LIBBFD
-	bool
-	prompt "libbfd (needed for profiling)"
-	default n
-	depends on BROKEN
-
-comment "libbfd is broken, please send a patch"
-        depends on !BROKEN
+source "rules/binutils.in"
 
 config MEMTEST
 	bool 

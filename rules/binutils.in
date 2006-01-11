@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+
+config LIBBFD
+	bool
+	prompt "libbfd (needed for profiling)"
+	default n
+	depends on BROKEN
+	help
+	  The GNU binary utilities / GNU BFD library
+	  
+comment "libbfd (binutils) is broken, please send a patch"
+        depends on !BROKEN
