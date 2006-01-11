@@ -203,5 +203,6 @@ depends on BROKEN
 source "rules/atk124.in"
 source "rules/at-spi.in"
 source "rules/cfgsh.in"
+source "rules/cyclictest.in"
 endmenu
 
