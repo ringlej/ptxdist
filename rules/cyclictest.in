@@ -1,1 +1,9 @@
-# FIXME: There should be a *.in for this package
+config CYCLICTEST
+        bool
+        default N
+        prompt "CYCLICTEST    "
+	help
+	  CYCLICTEST is a testprogram for high resolution timers
+	  
+	  See also: http://www.tglx.de/projects/misc/cyclictest/
+

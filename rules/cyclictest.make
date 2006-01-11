@@ -48,9 +48,7 @@ $(CYCLICTEST_SOURCE):
 
 cyclictest_extract: $(STATEDIR)/cyclictest.extract
 
-cyclictest_extract_deps = $(STATEDIR)/cyclictest.get
-
-$(STATEDIR)/cyclictest.extract: $(cyclictest_extract_deps)
+$(STATEDIR)/cyclictest.extract: $(cyclictest_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CYCLICTEST_DIR))
 	@$(call extract, $(CYCLICTEST_SOURCE))
@@ -65,13 +63,6 @@ $(STATEDIR)/cyclictest.extract: $(cyclictest_extract_deps)
 
 cyclictest_prepare: $(STATEDIR)/cyclictest.prepare
 
-#
-# dependencies
-#
-cyclictest_prepare_deps = \
-	$(STATEDIR)/cyclictest.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 CYCLICTEST_PATH	=  PATH=$(CROSS_PATH)
 CYCLICTEST_ENV 	=  $(CROSS_ENV)
 #CYCLICTEST_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
@@ -81,7 +72,7 @@ CYCLICTEST_ENV 	=  $(CROSS_ENV)
 #
 #CYCLICTEST_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/cyclictest.prepare: $(cyclictest_prepare_deps)
+$(STATEDIR)/cyclictest.prepare: $(cyclictest_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CYCLICTEST_DIR)/config.cache)
 #	cd $(CYCLICTEST_DIR) && \
@@ -95,9 +86,7 @@ $(STATEDIR)/cyclictest.prepare: $(cyclictest_prepare_deps)
 
 cyclictest_compile: $(STATEDIR)/cyclictest.compile
 
-cyclictest_compile_deps = $(STATEDIR)/cyclictest.prepare
-
-$(STATEDIR)/cyclictest.compile: $(cyclictest_compile_deps)
+$(STATEDIR)/cyclictest.compile: $(cyclictest_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(CYCLICTEST_DIR) && $(CYCLICTEST_ENV) $(CYCLICTEST_PATH) make CROSS_COMPILE=$(PTXCONF_COMPILER_PREFIX)
 	@$(call touch, $@)
@@ -108,7 +97,7 @@ $(STATEDIR)/cyclictest.compile: $(cyclictest_compile_deps)
 
 cyclictest_install: $(STATEDIR)/cyclictest.install
 
-$(STATEDIR)/cyclictest.install: $(STATEDIR)/cyclictest.compile
+$(STATEDIR)/cyclictest.install: $(cyclictest_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, CYCLICTEST)
 	@$(call touch, $@)
@@ -119,9 +108,7 @@ $(STATEDIR)/cyclictest.install: $(STATEDIR)/cyclictest.compile
 
 cyclictest_targetinstall: $(STATEDIR)/cyclictest.targetinstall
 
-cyclictest_targetinstall_deps = $(STATEDIR)/cyclictest.compile
-
-$(STATEDIR)/cyclictest.targetinstall: $(cyclictest_targetinstall_deps)
+$(STATEDIR)/cyclictest.targetinstall: $(cyclictest_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
