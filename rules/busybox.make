@@ -50,9 +50,7 @@ $(BUSYBOX_SOURCE):
 
 busybox_extract: $(STATEDIR)/busybox.extract
 
-busybox_extract_deps	=  $(STATEDIR)/busybox.get
-
-$(STATEDIR)/busybox.extract: $(busybox_extract_deps)
+$(STATEDIR)/busybox.extract: $(busybox_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BUSYBOX_DIR))
 	@$(call extract, $(BUSYBOX_SOURCE))
@@ -85,9 +83,8 @@ BUSYBOX_MAKEVARS	+= LDFLAGS='$(BUSYBOX_TARGET_LDFLAGS)'
 #
 # dependencies
 #
-busybox_prepare_deps	=  $(STATEDIR)/virtual-xchain.install
+busybox_prepare_deps	=  $(busybox_extract_deps_default)
 busybox_prepare_deps	+= $(STATEDIR)/virtual-libc.install
-busybox_prepare_deps	+= $(STATEDIR)/busybox.extract
 
 $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 	@$(call targetinfo, $@)
@@ -111,9 +108,7 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
 
 busybox_compile: $(STATEDIR)/busybox.compile
 
-busybox_compile_deps =  $(STATEDIR)/busybox.prepare
-
-$(STATEDIR)/busybox.compile: $(busybox_compile_deps)
+$(STATEDIR)/busybox.compile: $(busybox_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) make $(BUSYBOX_MAKEVARS)
 	@$(call touch, $@)
@@ -124,7 +119,7 @@ $(STATEDIR)/busybox.compile: $(busybox_compile_deps)
 
 busybox_install: $(STATEDIR)/busybox.install
 
-$(STATEDIR)/busybox.install: $(STATEDIR)/busybox.compile
+$(STATEDIR)/busybox.install: $(busybox_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	@$(call install, BUSYBOX)
@@ -136,9 +131,7 @@ $(STATEDIR)/busybox.install: $(STATEDIR)/busybox.compile
 
 busybox_targetinstall: $(STATEDIR)/busybox.targetinstall
 
-busybox_targetinstall_deps	=  $(STATEDIR)/busybox.compile
-
-$(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps)
+$(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
