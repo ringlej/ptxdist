@@ -48,9 +48,7 @@ $(CLEMENTINE_SOURCE):
 
 clementine_extract: $(STATEDIR)/clementine.extract
 
-clementine_extract_deps	=  $(STATEDIR)/clementine.get
-
-$(STATEDIR)/clementine.extract: $(clementine_extract_deps)
+$(STATEDIR)/clementine.extract: $(clementine_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CLEMENTINE_DIR))
 	@$(call extract, $(CLEMENTINE_SOURCE))
@@ -62,18 +60,10 @@ $(STATEDIR)/clementine.extract: $(clementine_extract_deps)
 
 clementine_prepare: $(STATEDIR)/clementine.prepare
 
-#
-# dependencies
-#
-clementine_prepare_deps =  \
-	$(STATEDIR)/clementine.extract \
-	$(STATEDIR)/glib1210.install \
-	$(STATEDIR)/virtual-xchain.install
-
 CLEMENTINE_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 CLEMENTINE_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/clementine.prepare: $(clementine_prepare_deps)
+$(STATEDIR)/clementine.prepare: $(clementine_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CLEMENTINE_BUILDDIR))
 	@$(call touch, $@)
@@ -84,9 +74,7 @@ $(STATEDIR)/clementine.prepare: $(clementine_prepare_deps)
 
 clementine_compile: $(STATEDIR)/clementine.compile
 
-clementine_compile_deps =  $(STATEDIR)/clementine.prepare
-
-$(STATEDIR)/clementine.compile: $(clementine_compile_deps)
+$(STATEDIR)/clementine.compile: $(clementine_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(CLEMENTINE_PATH) $(CLEMENTINE_ENV) make -C $(CLEMENTINE_DIR)
 	@$(call touch, $@)
@@ -97,7 +85,7 @@ $(STATEDIR)/clementine.compile: $(clementine_compile_deps)
 
 clementine_install: $(STATEDIR)/clementine.install
 
-$(STATEDIR)/clementine.install: $(STATEDIR)/clementine.compile
+$(STATEDIR)/clementine.install: $(clementine_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, CLEMENTINE)
@@ -109,9 +97,7 @@ $(STATEDIR)/clementine.install: $(STATEDIR)/clementine.compile
 
 clementine_targetinstall: $(STATEDIR)/clementine.targetinstall
 
-clementine_targetinstall_deps	=  $(STATEDIR)/clementine.compile
-
-$(STATEDIR)/clementine.targetinstall: $(clementine_targetinstall_deps)
+$(STATEDIR)/clementine.targetinstall: $(clementine_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
