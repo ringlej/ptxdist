@@ -6,27 +6,6 @@ menuconfig BLUEZ
 	  This packet offers user space utilities and libraries to 
 	  work with the stack. 
 
-config BLUEZ_UTILS
-	bool
-	prompt "bluez-utils"
-	depends on BLUEZ && BLUEZ_LIBS
-	default N
-	help
-	  For details about this project see the homepage on 
 
-		http://www.bluez.org
-
-comment "bluez-utils need bluez-libs"
-	depends on BLUEZ && !BLUEZ_LIBS
-
-config BLUEZ_LIBS
-	bool
-	prompt "bluez-libs"
-	depends on BLUEZ
-	default N
-	help
-	  bluez libraries, needed to build bluez-utils. For details
-	  about this project see the homepage on 
-
-		http://www.bluez.org
-
+source "rules/bluez-utils.in"
+source "rules/bluez-libs.in"
