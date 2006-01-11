@@ -49,9 +49,7 @@ $(DIFFUTILS_SOURCE):
 
 diffutils_extract: $(STATEDIR)/diffutils.extract
 
-diffutils_extract_deps = $(STATEDIR)/diffutils.get
-
-$(STATEDIR)/diffutils.extract: $(diffutils_extract_deps)
+$(STATEDIR)/diffutils.extract: $(diffutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DIFFUTILS_DIR))
 	@$(call extract, $(DIFFUTILS_SOURCE))
@@ -64,13 +62,6 @@ $(STATEDIR)/diffutils.extract: $(diffutils_extract_deps)
 
 diffutils_prepare: $(STATEDIR)/diffutils.prepare
 
-#
-# dependencies
-#
-diffutils_prepare_deps = \
-	$(STATEDIR)/diffutils.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 DIFFUTILS_PATH	=  PATH=$(CROSS_PATH)
 DIFFUTILS_ENV 	=  $(CROSS_ENV)
 
@@ -79,7 +70,7 @@ DIFFUTILS_ENV 	=  $(CROSS_ENV)
 #
 DIFFUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/diffutils.prepare: $(diffutils_prepare_deps)
+$(STATEDIR)/diffutils.prepare: $(diffutils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DIFFUTILS_DIR)/config.cache)
 	cd $(DIFFUTILS_DIR) && \
@@ -93,9 +84,7 @@ $(STATEDIR)/diffutils.prepare: $(diffutils_prepare_deps)
 
 diffutils_compile: $(STATEDIR)/diffutils.compile
 
-diffutils_compile_deps = $(STATEDIR)/diffutils.prepare
-
-$(STATEDIR)/diffutils.compile: $(diffutils_compile_deps)
+$(STATEDIR)/diffutils.compile: $(diffutils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(DIFFUTILS_DIR) && $(DIFFUTILS_ENV) $(DIFFUTILS_PATH) make
 	@$(call touch, $@)
@@ -106,7 +95,7 @@ $(STATEDIR)/diffutils.compile: $(diffutils_compile_deps)
 
 diffutils_install: $(STATEDIR)/diffutils.install
 
-$(STATEDIR)/diffutils.install: $(STATEDIR)/diffutils.compile
+$(STATEDIR)/diffutils.install: $(diffutils_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, DIFFUTILS)
 	@$(call touch, $@)
@@ -117,9 +106,7 @@ $(STATEDIR)/diffutils.install: $(STATEDIR)/diffutils.compile
 
 diffutils_targetinstall: $(STATEDIR)/diffutils.targetinstall
 
-diffutils_targetinstall_deps = $(STATEDIR)/diffutils.compile
-
-$(STATEDIR)/diffutils.targetinstall: $(diffutils_targetinstall_deps)
+$(STATEDIR)/diffutils.targetinstall: $(diffutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
