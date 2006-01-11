@@ -1,1 +1,3 @@
-# FIXME: There should be a *.in for this package
+# check_tools is a helper makefile
+# no config options at the moment
+
