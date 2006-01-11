@@ -2,3 +2,10 @@ config BONNIEXX
 	bool
 	prompt "bonnie++"
 	select GCCLIBS_CXX
+	help
+	  Hard drive bottleneck testing benchmark suite
+	  
+ 	  It is called Bonnie++ because it was based on the Bonnie program.
+	  This program also tests performance with creating large numbers 
+	  of files.
+ 

@@ -49,9 +49,7 @@ $(BONNIEXX_SOURCE):
 
 bonniexx_extract: $(STATEDIR)/bonniexx.extract
 
-bonniexx_extract_deps = $(STATEDIR)/bonniexx.get
-
-$(STATEDIR)/bonniexx.extract: $(bonniexx_extract_deps)
+$(STATEDIR)/bonniexx.extract: $(bonniexx_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BONNIEXX_DIR))
 	@$(call extract, $(BONNIEXX_SOURCE))
@@ -64,13 +62,6 @@ $(STATEDIR)/bonniexx.extract: $(bonniexx_extract_deps)
 
 bonniexx_prepare: $(STATEDIR)/bonniexx.prepare
 
-#
-# dependencies
-#
-bonniexx_prepare_deps = \
-	$(STATEDIR)/bonniexx.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 BONNIEXX_PATH	=  PATH=$(CROSS_PATH)
 BONNIEXX_ENV 	=  $(CROSS_ENV)
 
@@ -79,7 +70,7 @@ BONNIEXX_ENV 	=  $(CROSS_ENV)
 #
 BONNIEXX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/bonniexx.prepare: $(bonniexx_prepare_deps)
+$(STATEDIR)/bonniexx.prepare: $(bonniexx_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BONNIEXX_DIR)/config.cache)
 	cd $(BONNIEXX_DIR) && \
@@ -93,9 +84,7 @@ $(STATEDIR)/bonniexx.prepare: $(bonniexx_prepare_deps)
 
 bonniexx_compile: $(STATEDIR)/bonniexx.compile
 
-bonniexx_compile_deps = $(STATEDIR)/bonniexx.prepare
-
-$(STATEDIR)/bonniexx.compile: $(bonniexx_compile_deps)
+$(STATEDIR)/bonniexx.compile: $(bonniexx_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BONNIEXX_DIR) && $(BONNIEXX_ENV) $(BONNIEXX_PATH) make
 	@$(call touch, $@)
@@ -106,7 +95,7 @@ $(STATEDIR)/bonniexx.compile: $(bonniexx_compile_deps)
 
 bonniexx_install: $(STATEDIR)/bonniexx.install
 
-$(STATEDIR)/bonniexx.install: $(STATEDIR)/bonniexx.compile
+$(STATEDIR)/bonniexx.install: $(bonniexx_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, BONNIEXX)
 	@$(call touch, $@)
@@ -117,9 +106,7 @@ $(STATEDIR)/bonniexx.install: $(STATEDIR)/bonniexx.compile
 
 bonniexx_targetinstall: $(STATEDIR)/bonniexx.targetinstall
 
-bonniexx_targetinstall_deps = $(STATEDIR)/bonniexx.compile
-
-$(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps)
+$(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
