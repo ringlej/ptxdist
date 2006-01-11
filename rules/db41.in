@@ -5,3 +5,5 @@ config DB_INSTALL_BIN_UTIL
 	bool
 	prompt "install db_* tools on target"
 	depends on DB
+	help
+	  v4.x Berkeley Database Tools

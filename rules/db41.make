@@ -48,9 +48,7 @@ $(DB41_SOURCE):
 
 db41_extract: $(STATEDIR)/db41.extract
 
-db41_extract_deps	=  $(STATEDIR)/db41.get
-
-$(STATEDIR)/db41.extract: $(db41_extract_deps)
+$(STATEDIR)/db41.extract: $(db41_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DB41_DIR))
 	@$(call extract, $(DB41_SOURCE))
@@ -62,13 +60,6 @@ $(STATEDIR)/db41.extract: $(db41_extract_deps)
 
 db41_prepare: $(STATEDIR)/db41.prepare
 
-#
-# dependencies
-#
-db41_prepare_deps =  \
-	$(STATEDIR)/db41.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 DB41_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 DB41_ENV 	=  $(CROSS_ENV)
 
@@ -78,7 +69,7 @@ DB41_ENV 	=  $(CROSS_ENV)
 DB41_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 DB41_AUTOCONF	+= --enable-cxx 
 
-$(STATEDIR)/db41.prepare: $(db41_prepare_deps)
+$(STATEDIR)/db41.prepare: $(db41_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DB41_BUILDDIR))
 	cd $(DB41_DIR)/dist && \
@@ -92,9 +83,7 @@ $(STATEDIR)/db41.prepare: $(db41_prepare_deps)
 
 db41_compile: $(STATEDIR)/db41.compile
 
-db41_compile_deps =  $(STATEDIR)/db41.prepare
-
-$(STATEDIR)/db41.compile: $(db41_compile_deps)
+$(STATEDIR)/db41.compile: $(db41_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(DB41_PATH) $(DB41_ENV) make -C $(DB41_DIR)/dist
 	@$(call touch, $@)
@@ -105,7 +94,7 @@ $(STATEDIR)/db41.compile: $(db41_compile_deps)
 
 db41_install: $(STATEDIR)/db41.install
 
-$(STATEDIR)/db41.install: $(STATEDIR)/db41.compile
+$(STATEDIR)/db41.install: $(db41_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	# @$(call install, DB41)
@@ -116,10 +105,9 @@ $(STATEDIR)/db41.install: $(STATEDIR)/db41.compile
 # Target-Install
 # ----------------------------------------------------------------------------
 
-db41_targetinstall_deps: $(STATEDIR)/db41.targetinstall
-	$(STATEDIR)/db41.install
+db41_targetinstall: $(STATEDIR)/db41.targetinstall
 
-$(STATEDIR)/db41.targetinstall: $(db41_targetinstall_deps)
+$(STATEDIR)/db41.targetinstall: $(db41_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
