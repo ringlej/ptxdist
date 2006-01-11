@@ -49,9 +49,7 @@ $(DNSMASQ_SOURCE):
 
 dnsmasq_extract: $(STATEDIR)/dnsmasq.extract
 
-dnsmasq_extract_deps = $(STATEDIR)/dnsmasq.get
-
-$(STATEDIR)/dnsmasq.extract: $(dnsmasq_extract_deps)
+$(STATEDIR)/dnsmasq.extract: $(dnsmasq_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DNSMASQ_DIR))
 	@$(call extract, $(DNSMASQ_SOURCE))
@@ -64,17 +62,10 @@ $(STATEDIR)/dnsmasq.extract: $(dnsmasq_extract_deps)
 
 dnsmasq_prepare: $(STATEDIR)/dnsmasq.prepare
 
-#
-# dependencies
-#
-dnsmasq_prepare_deps = \
-	$(STATEDIR)/dnsmasq.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 DNSMASQ_PATH	=  PATH=$(CROSS_PATH)
 DNSMASQ_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/dnsmasq.prepare: $(dnsmasq_prepare_deps)
+$(STATEDIR)/dnsmasq.prepare: $(dnsmasq_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -84,9 +75,7 @@ $(STATEDIR)/dnsmasq.prepare: $(dnsmasq_prepare_deps)
 
 dnsmasq_compile: $(STATEDIR)/dnsmasq.compile
 
-dnsmasq_compile_deps = $(STATEDIR)/dnsmasq.prepare
-
-$(STATEDIR)/dnsmasq.compile: $(dnsmasq_compile_deps)
+$(STATEDIR)/dnsmasq.compile: $(dnsmasq_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(DNSMASQ_DIR) && $(DNSMASQ_PATH) $(DNSMASQ_ENV) make $(DNSMASQ_MAKEVARS)
 	@$(call touch, $@)
@@ -97,7 +86,7 @@ $(STATEDIR)/dnsmasq.compile: $(dnsmasq_compile_deps)
 
 dnsmasq_install: $(STATEDIR)/dnsmasq.install
 
-$(STATEDIR)/dnsmasq.install: $(STATEDIR)/dnsmasq.compile
+$(STATEDIR)/dnsmasq.install: $(dnsmasq_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, DNSMASQ)
 	@$(call touch, $@)
@@ -108,9 +97,7 @@ $(STATEDIR)/dnsmasq.install: $(STATEDIR)/dnsmasq.compile
 
 dnsmasq_targetinstall: $(STATEDIR)/dnsmasq.targetinstall
 
-dnsmasq_targetinstall_deps = $(STATEDIR)/dnsmasq.compile
-
-$(STATEDIR)/dnsmasq.targetinstall: $(dnsmasq_targetinstall_deps)
+$(STATEDIR)/dnsmasq.targetinstall: $(dnsmasq_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
