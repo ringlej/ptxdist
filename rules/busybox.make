@@ -84,6 +84,7 @@ BUSYBOX_MAKEVARS	+= LDFLAGS='$(BUSYBOX_TARGET_LDFLAGS)'
 # dependencies
 #
 busybox_prepare_deps	=  $(busybox_extract_deps_default)
+# FIXME: is this necessary?
 busybox_prepare_deps	+= $(STATEDIR)/virtual-libc.install
 
 $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)

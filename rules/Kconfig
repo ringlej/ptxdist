@@ -202,5 +202,6 @@ menu "Broken or orphaned Packages "
 depends on BROKEN
 source "rules/atk124.in"
 source "rules/at-spi.in"
+source "rules/cfgsh.in"
 endmenu
 

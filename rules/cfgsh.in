@@ -1,6 +1,8 @@
 menuconfig CFGSH
 	bool
 	depends on BROKEN
+	select NCURSES
+	select READLINE
 	prompt "cfgsh               "
 	default n
 	help
