@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config XALF
+        bool
+        default N
+        depends on BROKEN
+        prompt "XALF"
+	help
+	  XALF is ...
+	  FIME: This item needs to be documented
+
+comment "XALF is broken, please send a patch"
+        depends on !BROKEN

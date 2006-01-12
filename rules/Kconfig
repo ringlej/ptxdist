@@ -207,5 +207,6 @@ source "rules/cyclictest.in"
 source "rules/dialog.in"
 source "rules/e2tools.in"
 source "rules/flex.in"
+source "rules/xalf.make"
 endmenu
 

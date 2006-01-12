@@ -32,9 +32,7 @@ XALF_DIR		= $(BUILDDIR)/$(XALF)
 
 xalf_get: $(STATEDIR)/xalf.get
 
-xalf_get_deps	=  $(XALF_SOURCE)
-
-$(STATEDIR)/xalf.get: $(xalf_get_deps_default)
+$(STATEDIR)/xalf.get: $(XALF_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,9 +46,7 @@ $(XALF_SOURCE):
 
 xalf_extract: $(STATEDIR)/xalf.extract
 
-xalf_extract_deps	=  $(STATEDIR)/xalf.get
-
-$(STATEDIR)/xalf.extract: $(xalf_extract_deps)
+$(STATEDIR)/xalf.extract: $(xalf_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XALF_DIR))
 	@$(call extract, $(XALF_SOURCE))
@@ -63,17 +59,9 @@ $(STATEDIR)/xalf.extract: $(xalf_extract_deps)
 
 xalf_prepare: $(STATEDIR)/xalf.prepare
 
-#
-# dependencies
-#
-xalf_prepare_deps =  \
-	$(STATEDIR)/xalf.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 XALF_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 XALF_ENV 	=  $(CROSS_ENV)
 #XALF_ENV	+=
-
 
 #
 # autoconf
@@ -96,8 +84,6 @@ $(STATEDIR)/xalf.prepare: $(xalf_prepare_deps_default)
 
 xalf_compile: $(STATEDIR)/xalf.compile
 
-xalf_compile_deps =  $(STATEDIR)/xalf.prepare
-
 $(STATEDIR)/xalf.compile: $(xalf_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(XALF_PATH) $(XALF_ENV) make -C $(XALF_DIR)
@@ -109,7 +95,7 @@ $(STATEDIR)/xalf.compile: $(xalf_compile_deps_default)
 
 xalf_install: $(STATEDIR)/xalf.install
 
-$(STATEDIR)/xalf.install: $(STATEDIR)/xalf.compile
+$(STATEDIR)/xalf.install: $(xalf_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XALF)
 	@$(call touch, $@)
@@ -119,8 +105,6 @@ $(STATEDIR)/xalf.install: $(STATEDIR)/xalf.compile
 # ----------------------------------------------------------------------------
 
 xalf_targetinstall: $(STATEDIR)/xalf.targetinstall
-
-xalf_targetinstall_deps	=  $(STATEDIR)/xalf.compile
 
 $(STATEDIR)/xalf.targetinstall: $(xalf_targetinstall_deps_default)
 	@$(call targetinfo, $@)
