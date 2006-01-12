@@ -32,9 +32,7 @@ BONNIEXX_DIR		= $(BUILDDIR)/$(BONNIEXX)
 
 bonniexx_get: $(STATEDIR)/bonniexx.get
 
-bonniexx_get_deps = $(BONNIEXX_SOURCE)
-
-$(STATEDIR)/bonniexx.get: $(bonniexx_get_deps)
+$(STATEDIR)/bonniexx.get: $(BONNIEXX_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BONNIEXX))
 	@$(call touch, $@)

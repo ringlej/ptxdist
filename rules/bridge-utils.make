@@ -34,9 +34,7 @@ BRIDGE_UTILS_DIR	= $(BUILDDIR)/$(BRIDGE_UTILS)
 
 bridge-utils_get: $(STATEDIR)/bridge-utils.get
 
-bridge-utils_get_deps = $(BRIDGE_UTILS_SOURCE)
-
-$(STATEDIR)/bridge-utils.get: $(bridge-utils_get_deps)
+$(STATEDIR)/bridge-utils.get: $(BRIDGE_UTILS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BRIDGE_UTILS))
 	@$(call touch, $@)

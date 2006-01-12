@@ -32,9 +32,7 @@ CFGSH_DIR		= $(BUILDDIR)/$(CFGSH)
 
 cfgsh_get: $(STATEDIR)/cfgsh.get
 
-cfgsh_get_deps = $(CFGSH_SOURCE)
-
-$(STATEDIR)/cfgsh.get: $(cfgsh_get_deps)
+$(STATEDIR)/cfgsh.get: $(CFGSH_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

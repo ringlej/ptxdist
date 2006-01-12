@@ -32,11 +32,7 @@ BUSYBOX_DIR		= $(BUILDDIR)/$(BUSYBOX)
 
 busybox_get: $(STATEDIR)/busybox.get
 
-busybox_get_deps = \
-	$(BUSYBOX_SOURCE) \
-	$(RULESDIR)/busybox.make
-
-$(STATEDIR)/busybox.get: $(busybox_get_deps)
+$(STATEDIR)/busybox.get: $(BUSYBOX_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -79,13 +75,6 @@ BUSYBOX_MAKEVARS	=  CROSS=$(COMPILER_PREFIX)
 BUSYBOX_MAKEVARS	+= HOSTCC=$(HOSTCC) 
 BUSYBOX_MAKEVARS	+= EXTRA_CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))'
 BUSYBOX_MAKEVARS	+= LDFLAGS='$(BUSYBOX_TARGET_LDFLAGS)'
-
-#
-# dependencies
-#
-busybox_prepare_deps	=  $(busybox_extract_deps_default)
-# FIXME: is this necessary?
-busybox_prepare_deps	+= $(STATEDIR)/virtual-libc.install
 
 $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps_default)
 	@$(call targetinfo, $@)

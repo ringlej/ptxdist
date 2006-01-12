@@ -32,9 +32,7 @@ BLUEZ_LIBS_DIR		= $(BUILDDIR)/$(BLUEZ_LIBS)
 
 bluez-libs_get: $(STATEDIR)/bluez-libs.get
 
-bluez-libs_get_deps = $(BLUEZ_LIBS_SOURCE)
-
-$(STATEDIR)/bluez-libs.get: $(bluez-libs_get_deps)
+$(STATEDIR)/bluez-libs.get: $(BLUEZ_LIBS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

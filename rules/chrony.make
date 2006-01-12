@@ -32,9 +32,7 @@ CHRONY_DIR	= $(BUILDDIR)/$(CHRONY)
 
 chrony_get: $(STATEDIR)/chrony.get
 
-chrony_get_deps = $(CHRONY_SOURCE)
-
-$(STATEDIR)/chrony.get: $(chrony_get_deps)
+$(STATEDIR)/chrony.get: $(CHRONY_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CHRONY))
 	@$(call touch, $@)

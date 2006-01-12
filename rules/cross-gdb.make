@@ -32,9 +32,7 @@ CROSS_GDB_DIR		= $(CROSS_BUILDDIR)/$(CROSS_GDB)
 
 cross-gdb_get: $(STATEDIR)/cross-gdb.get
 
-cross-gdb_get_deps = $(CROSS_GDB_SOURCE)
-
-$(STATEDIR)/cross-gdb.get: $(cross-gdb_get_deps)
+$(STATEDIR)/cross-gdb.get: $(CROSS_GDB_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -57,15 +55,6 @@ $(STATEDIR)/cross-gdb.extract: $(cross-gdb_extract_deps_default)
 
 cross-gdb_prepare: $(STATEDIR)/cross-gdb.prepare
 
-#
-# dependencies
-#
-cross-gdb_prepare_deps = $(cross-gdb_prepare_deps_default)
-
-ifdef PTXCONF_GDB_TERMCAP
-cross-gdb_prepare_deps += $(STATEDIR)/host-termcap.install
-endif
-
 CROSS_GDB_PATH	=  PATH=$(CROSS_PATH)
 CROSS_GDB_ENV 	=  $(HOSTCC_ENV)
 
@@ -77,7 +66,7 @@ CROSS_GDB_AUTOCONF += --build=$(GNU_HOST)
 CROSS_GDB_AUTOCONF += --host=$(GNU_HOST)
 CROSS_GDB_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/cross-gdb.prepare: $(cross-gdb_prepare_deps)
+$(STATEDIR)/cross-gdb.prepare: $(cross-gdb_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_GDB_DIR)/config.cache)
 	cd $(CROSS_GDB_DIR) && \
@@ -102,8 +91,6 @@ $(STATEDIR)/cross-gdb.compile: $(cross-gdb_compile_deps_default)
 
 cross-gdb_install: $(STATEDIR)/cross-gdb.install
 
-cross-gdb_install_deps = $(STATEDIR)/cross-gdb.compile
-
 $(STATEDIR)/cross-gdb.install: $(cross-gdb_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, CROSS_GDB,,h)
@@ -112,8 +99,6 @@ $(STATEDIR)/cross-gdb.install: $(cross-gdb_install_deps_default)
 # ----------------------------------------------------------------------------
 # Targetinstall
 # ----------------------------------------------------------------------------
-
-# n/a
 
 # ----------------------------------------------------------------------------
 # Clean

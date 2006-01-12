@@ -32,9 +32,7 @@ BLUEZ_UTILS_DIR		= $(BUILDDIR)/$(BLUEZ_UTILS)
 
 bluez-utils_get: $(STATEDIR)/bluez-utils.get
 
-bluez-utils_get_deps = $(BLUEZ_UTILS_SOURCE)
-
-$(STATEDIR)/bluez-utils.get: $(bluez-utils_get_deps)
+$(STATEDIR)/bluez-utils.get: $(BLUEZ_UTILS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

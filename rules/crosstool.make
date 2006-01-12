@@ -37,9 +37,7 @@ CROSSTOOL_DIR		= $(CROSS_BUILDDIR)/$(CROSSTOOL)
 
 crosstool_get: $(STATEDIR)/crosstool.get
 
-crosstool_get_deps = $(CROSSTOOL_SOURCE)
-
-$(STATEDIR)/crosstool.get: $(crosstool_get_deps)
+$(STATEDIR)/crosstool.get: $(CROSSTOOL_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CROSSTOOL))
 	@$(call touch, $@)

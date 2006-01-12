@@ -32,9 +32,7 @@ CPPUNIT_DIR	= $(BUILDDIR)/$(CPPUNIT)
 
 cppunit_get: $(STATEDIR)/cppunit.get
 
-cppunit_get_deps = $(CPPUNIT_SOURCE)
-
-$(STATEDIR)/cppunit.get: $(cppunit_get_deps)
+$(STATEDIR)/cppunit.get: $(CPPUNIT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CPPUNIT))
 	@$(call touch, $@)

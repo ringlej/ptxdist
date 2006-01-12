@@ -32,9 +32,7 @@ CLOCK_DIR		= $(BUILDDIR)/$(CLOCK)
 
 clock_get: $(STATEDIR)/clock.get
 
-clock_get_deps = $(CLOCK_SOURCE)
-
-$(STATEDIR)/clock.get: $(clock_get_deps)
+$(STATEDIR)/clock.get: $(CLOCK_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
