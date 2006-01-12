@@ -49,9 +49,7 @@ $(FBUTILS_SOURCE):
 
 fbutils_extract: $(STATEDIR)/fbutils.extract
 
-fbutils_extract_deps = $(STATEDIR)/fbutils.get
-
-$(STATEDIR)/fbutils.extract: $(fbutils_extract_deps)
+$(STATEDIR)/fbutils.extract: $(fbutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FBUTILS_DIR))
 	@$(call extract, $(FBUTILS_SOURCE))
@@ -64,17 +62,10 @@ $(STATEDIR)/fbutils.extract: $(fbutils_extract_deps)
 
 fbutils_prepare: $(STATEDIR)/fbutils.prepare
 
-#
-# dependencies
-#
-fbutils_prepare_deps = \
-	$(STATEDIR)/fbutils.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 FBUTILS_PATH	=  PATH=$(CROSS_PATH)
 FBUTILS_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/fbutils.prepare: $(fbutils_prepare_deps)
+$(STATEDIR)/fbutils.prepare: $(fbutils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -84,9 +75,7 @@ $(STATEDIR)/fbutils.prepare: $(fbutils_prepare_deps)
 
 fbutils_compile: $(STATEDIR)/fbutils.compile
 
-fbutils_compile_deps = $(STATEDIR)/fbutils.prepare
-
-$(STATEDIR)/fbutils.compile: $(fbutils_compile_deps)
+$(STATEDIR)/fbutils.compile: $(fbutils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(FBUTILS_DIR) && $(FBUTILS_ENV) $(FBUTILS_PATH) make $(FBUTILS_MAKEVARS)
 	@$(call touch, $@)
@@ -97,7 +86,7 @@ $(STATEDIR)/fbutils.compile: $(fbutils_compile_deps)
 
 fbutils_install: $(STATEDIR)/fbutils.install
 
-$(STATEDIR)/fbutils.install: $(STATEDIR)/fbutils.compile
+$(STATEDIR)/fbutils.install: $(fbutils_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, FBUTILS)
 	@$(call touch, $@)
@@ -108,9 +97,7 @@ $(STATEDIR)/fbutils.install: $(STATEDIR)/fbutils.compile
 
 fbutils_targetinstall: $(STATEDIR)/fbutils.targetinstall
 
-fbutils_targetinstall_deps = $(STATEDIR)/fbutils.compile
-
-$(STATEDIR)/fbutils.targetinstall: $(fbutils_targetinstall_deps)
+$(STATEDIR)/fbutils.targetinstall: $(fbutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

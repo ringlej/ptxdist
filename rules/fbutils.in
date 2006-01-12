@@ -1,6 +1,8 @@
 menuconfig FBUTILS
 	bool
 	prompt "fbutils               "
+	help
+	  Utilities and support for framebuffer devices 
 
 comment	"Target Options"
 	depends on FBUTILS
@@ -10,21 +12,35 @@ config FBUTILS_FBSET
 	bool
 	default y
 	prompt "install fbset util on target"
+	help
+	  fbset  is  a system utility to show or change the settings
+          of the frame buffer device. The frame buffer  device  pro-
+          vides  a  simple  and unique interface to access different
+          kinds of graphic displays.
 
 config FBUTILS_FBCMAP
 	depends on FBUTILS
 	bool
 	default y
 	prompt "install fbcmap util on target"
+	help
+	  FIXME: This item needs to be documented
 
 config FBUTILS_CON2FBMAP
 	depends on FBUTILS
 	bool
 	default y
 	prompt "install con2fbmap util on target"
+	help
+	  con2fbmap is a system utility to show or change the mapping 
+	  of the consoles to the frame buffer device. The frame buffer 
+	  device provides a simple and unique interface to access 
+	  different kinds of graphic displays.
 
 config FBUTILS_FBCONVERT
 	depends on FBUTILS
 	bool
 	default y
 	prompt "install fbconvert util on target"
+	help
+	  FIXME: This item needs to be documented
