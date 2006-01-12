@@ -66,7 +66,7 @@ $(FLASH_PATCH_SOURCE):
 
 flash_extract: $(STATEDIR)/flash.extract
 
-$(STATEDIR)/flash.extract: $(STATEDIR)/flash.get
+$(STATEDIR)/flash.extract: $(flash_extract_deps_default)
 	@$(call targetinfo, $@)
 	$(FLASH_EXTRACT) $(FLASH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	cd $(FLASH_DIR) && patch -p1 < $(FLASH_PATCH_SOURCE)
@@ -83,12 +83,11 @@ flash_prepare: $(STATEDIR)/flash.prepare
 #
 # dependencies
 #
-flash_prepare_deps =  \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/ncurses.install \
-	$(STATEDIR)/autoconf257.install \
-        $(STATEDIR)/flash.extract
+flash_prepare_deps  = $(flash_prepare_deps_default)
 
+# FIXME: This dependency is broken / not available
+flash_prepare_deps += $(STATEDIR)/autoconf257.install
+ 
 FLASH_PATH	= PATH=$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin:$(CROSS_PATH)
 FLASH_ENV	= $(CROSS_ENV)
 
@@ -120,7 +119,7 @@ $(STATEDIR)/flash.prepare: $(flash_prepare_deps)
 
 flash_compile: $(STATEDIR)/flash.compile
 
-$(STATEDIR)/flash.compile: $(STATEDIR)/flash.prepare 
+$(STATEDIR)/flash.compile: $(flash_prepare_deps_default)
 	@$(call targetinfo, $@)
 	$(FLASH_PATH) $(FLASH_ENV) make -C $(FLASH_DIR)
 	@$(call touch, $@)
@@ -131,7 +130,7 @@ $(STATEDIR)/flash.compile: $(STATEDIR)/flash.prepare
 
 flash_install: $(STATEDIR)/flash.install
 
-$(STATEDIR)/flash.install: $(STATEDIR)/flash.compile
+$(STATEDIR)/flash.install: $(flash_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, FLASH)
@@ -143,10 +142,7 @@ $(STATEDIR)/flash.install: $(STATEDIR)/flash.compile
 
 flash_targetinstall: $(STATEDIR)/flash.targetinstall
 
-flash_targetinstall_deps =  $(STATEDIR)/flash.install
-flash_targetinstall_deps += $(STATEDIR)/ncurses.targetinstall
-
-$(STATEDIR)/flash.targetinstall: $(flash_targetinstall_deps)
+$(STATEDIR)/flash.targetinstall: $(flash_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	
 	@$(call install_init,default)
