@@ -382,14 +382,11 @@ ifdef PTXCONF_IMAGE_TGZ
 endif
 ifdef PTXCONF_IMAGE_JFFS2
 ifdef PTXCONF_IMAGE_IPKG
-	if [ -z "$(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY))" ]; then	\
-		imagesfrom=$(IMAGEDIR);							\
-	else										\
-		imagesfrom=$(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)); \
-	fi;										\
+	@imagesfrom=$(IMAGEDIR);								\
 	echo "Creating rootfs using packages from $$imagesfrom";			\
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/make_image_root.sh 	\
 		-i $$imagesfrom								\
+		-r $(ROOTDIR)								\
 		-p $(IMAGEDIR)/permissions						\
 		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)					\
 		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)					\
