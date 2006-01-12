@@ -48,7 +48,7 @@ $(E2FSPROGS_SOURCE):
 
 e2fsprogs_extract: $(STATEDIR)/e2fsprogs.extract
 
-$(STATEDIR)/e2fsprogs.extract: $(STATEDIR)/e2fsprogs.get
+$(STATEDIR)/e2fsprogs.extract: $(e2fsprogs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(E2FSPROGS_DIR))
 	@$(call extract, $(E2FSPROGS_SOURCE))
@@ -72,11 +72,7 @@ E2FSPROGS_PATH		=  PATH=$(CROSS_PATH)
 E2FSPROGS_ENV		=  $(CROSS_ENV) 
 E2FSPROGS_ENV		+= BUILD_CC=$(HOSTCC)
 
-e2fsprogs_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/e2fsprogs.extract
-
-$(STATEDIR)/e2fsprogs.prepare: $(e2fsprogs_prepare_deps)
+$(STATEDIR)/e2fsprogs.prepare: $(e2fsprogs_prepare_deps_default)
 	@$(call targetinfo, $@)
 	mkdir -p $(E2FSPROGS_BUILD_DIR) && \
 	cd $(E2FSPROGS_BUILD_DIR) && \
@@ -90,9 +86,7 @@ $(STATEDIR)/e2fsprogs.prepare: $(e2fsprogs_prepare_deps)
 
 e2fsprogs_compile: $(STATEDIR)/e2fsprogs.compile
 
-e2fsprogs_compile_deps = $(STATEDIR)/e2fsprogs.prepare
-
-$(STATEDIR)/e2fsprogs.compile: $(e2fsprogs_compile_deps) 
+$(STATEDIR)/e2fsprogs.compile: $(e2fsprogs_compile_deps_default) 
 	@$(call targetinfo, $@)
 #
 # in the util dir are tools that are compiled for the host system
@@ -111,7 +105,7 @@ $(STATEDIR)/e2fsprogs.compile: $(e2fsprogs_compile_deps)
 
 e2fsprogs_install: $(STATEDIR)/e2fsprogs.install
 
-$(STATEDIR)/e2fsprogs.install:
+$(STATEDIR)/e2fsprogs.install: $(e2fsprogs_install_deps_default) 
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, E2FSPROGS)
@@ -123,7 +117,7 @@ $(STATEDIR)/e2fsprogs.install:
 
 e2fsprogs_targetinstall: $(STATEDIR)/e2fsprogs.targetinstall
 
-$(STATEDIR)/e2fsprogs.targetinstall: $(STATEDIR)/e2fsprogs.compile
+$(STATEDIR)/e2fsprogs.targetinstall: $(e2fsprogs_targetinstall_deps_default) 
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
