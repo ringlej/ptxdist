@@ -40,7 +40,7 @@ xmlbench_get: $(STATEDIR)/xmlbench.get
 
 xmlbench_get_deps = $(XMLBENCH_SOURCE)
 
-$(STATEDIR)/xmlbench.get: $(xmlbench_get_deps)
+$(STATEDIR)/xmlbench.get: $(xmlbench_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -86,7 +86,7 @@ XMLBENCH_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 XMLBENCH_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xmlbench.prepare: $(xmlbench_prepare_deps)
+$(STATEDIR)/xmlbench.prepare: $(xmlbench_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XMLBENCH_DIR)/config.cache)
 	cd $(XMLBENCH_DIR) && \
@@ -102,7 +102,7 @@ xmlbench_compile: $(STATEDIR)/xmlbench.compile
 
 xmlbench_compile_deps = $(STATEDIR)/xmlbench.prepare
 
-$(STATEDIR)/xmlbench.compile: $(xmlbench_compile_deps)
+$(STATEDIR)/xmlbench.compile: $(xmlbench_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XMLBENCH_DIR) && $(XMLBENCH_ENV) $(XMLBENCH_PATH) make
 	@$(call touch, $@)
@@ -126,7 +126,7 @@ xmlbench_targetinstall: $(STATEDIR)/xmlbench.targetinstall
 
 xmlbench_targetinstall_deps = $(STATEDIR)/xmlbench.compile
 
-$(STATEDIR)/xmlbench.targetinstall: $(xmlbench_targetinstall_deps)
+$(STATEDIR)/xmlbench.targetinstall: $(xmlbench_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

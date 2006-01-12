@@ -147,7 +147,7 @@ OPENSSH_AUTOCONF = \
 	--with-ssl-dir=$(CROSS_LIB_DIR)
 
 
-$(STATEDIR)/openssh.prepare: $(openssh_prepare_deps)
+$(STATEDIR)/openssh.prepare: $(openssh_prepare_deps_default)
 	@$(call targetinfo, openssh.prepare)
 	cd $(OPENSSH_DIR) && \
 		$(OPENSSH_PATH) $(OPENSSH_ENV) \
@@ -186,7 +186,7 @@ openssh_targetinstall_deps = \
 	$(STATEDIR)/zlib.targetinstall \
 	$(STATEDIR)/openssh.compile
 
-$(STATEDIR)/openssh.targetinstall: $(openssh_targetinstall_deps)
+$(STATEDIR)/openssh.targetinstall: $(openssh_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

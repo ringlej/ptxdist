@@ -34,7 +34,7 @@ setserial_get: $(STATEDIR)/setserial.get
 
 setserial_get_deps = $(SETSERIAL_SOURCE)
 
-$(STATEDIR)/setserial.get: $(setserial_get_deps)
+$(STATEDIR)/setserial.get: $(setserial_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -79,7 +79,7 @@ SETSERIAL_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 SETSERIAL_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/setserial.prepare: $(setserial_prepare_deps)
+$(STATEDIR)/setserial.prepare: $(setserial_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SETSERIAL_DIR)/config.cache)
 	cd $(SETSERIAL_DIR) && \
@@ -95,7 +95,7 @@ setserial_compile: $(STATEDIR)/setserial.compile
 
 setserial_compile_deps = $(STATEDIR)/setserial.prepare
 
-$(STATEDIR)/setserial.compile: $(setserial_compile_deps)
+$(STATEDIR)/setserial.compile: $(setserial_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SETSERIAL_DIR) && $(SETSERIAL_ENV) $(SETSERIAL_PATH) make
 	@$(call touch, $@)
@@ -119,7 +119,7 @@ setserial_targetinstall: $(STATEDIR)/setserial.targetinstall
 
 setserial_targetinstall_deps = $(STATEDIR)/setserial.compile
 
-$(STATEDIR)/setserial.targetinstall: $(setserial_targetinstall_deps)
+$(STATEDIR)/setserial.targetinstall: $(setserial_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

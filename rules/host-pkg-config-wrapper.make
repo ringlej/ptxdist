@@ -32,7 +32,7 @@ host-pkg-config-wrapper_get: $(STATEDIR)/host-pkg-config-wrapper.get
 
 host-pkg-config-wrapper_get_deps = $(HOST_PKG_CONFIG_WRAPPER_SOURCE)
 
-$(STATEDIR)/host-pkg-config-wrapper.get: $(host-pkg-config-wrapper_get_deps)
+$(STATEDIR)/host-pkg-config-wrapper.get: $(host-pkg-config-wrapper_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -57,7 +57,7 @@ host-pkg-config-wrapper_prepare: $(STATEDIR)/host-pkg-config-wrapper.prepare
 host-pkg-config-wrapper_prepare_deps = \
 	$(STATEDIR)/host-pkg-config-wrapper.extract
 
-$(STATEDIR)/host-pkg-config-wrapper.prepare: $(host-pkg-config-wrapper_prepare_deps)
+$(STATEDIR)/host-pkg-config-wrapper.prepare: $(host-pkg-config-wrapper_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -69,7 +69,7 @@ host-pkg-config-wrapper_compile: $(STATEDIR)/host-pkg-config-wrapper.compile
 
 host-pkg-config-wrapper_compile_deps = $(STATEDIR)/host-pkg-config-wrapper.prepare
 
-$(STATEDIR)/host-pkg-config-wrapper.compile: $(host-pkg-config-wrapper_compile_deps)
+$(STATEDIR)/host-pkg-config-wrapper.compile: $(host-pkg-config-wrapper_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -81,7 +81,7 @@ host-pkg-config-wrapper_install: $(STATEDIR)/host-pkg-config-wrapper.install
 
 host-pkg-config-wrapper_install_deps = $(STATEDIR)/host-pkg-config-wrapper.compile
 
-$(STATEDIR)/host-pkg-config-wrapper.install: $(host-pkg-config-wrapper_install_deps)
+$(STATEDIR)/host-pkg-config-wrapper.install: $(host-pkg-config-wrapper_install_deps_default)
 	@$(call targetinfo, $@)
 	# fake a pkg-config
 	mkdir -p $(PTXCONF_PREFIX)/bin

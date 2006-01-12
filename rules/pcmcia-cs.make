@@ -34,7 +34,7 @@ pcmcia-cs_get: $(STATEDIR)/pcmcia-cs.get
 
 pcmcia-cs_get_deps	=  $(PCMCIA-CS_SOURCE)
 
-$(STATEDIR)/pcmcia-cs.get: $(pcmcia-cs_get_deps)
+$(STATEDIR)/pcmcia-cs.get: $(pcmcia-cs_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -91,7 +91,7 @@ PCMCIA-CS_CONF	+= --trust --nocardbus --nopnp --noapm --srctree --bsd
 #PCMCIA-CS_CONF	+= --kflags=-I$(KERNEL_DIR)/include
 #PCMCIA-CS_CONF	+= --uflags=-I$(KERNEL_DIR)/include
 
-$(STATEDIR)/pcmcia-cs.prepare: $(pcmcia-cs_prepare_deps)
+$(STATEDIR)/pcmcia-cs.prepare: $(pcmcia-cs_prepare_deps_default)
 	@$(call targetinfo, $@)
 	chmod u+w $(PCMCIA-CS_DIR)/man/*
 	cd $(PCMCIA-CS_DIR) && \
@@ -106,7 +106,7 @@ pcmcia-cs_compile: $(STATEDIR)/pcmcia-cs.compile
 
 pcmcia-cs_compile_deps =  $(STATEDIR)/pcmcia-cs.prepare
 
-$(STATEDIR)/pcmcia-cs.compile: $(pcmcia-cs_compile_deps)
+$(STATEDIR)/pcmcia-cs.compile: $(pcmcia-cs_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(PCMCIA-CS_PATH) $(PCMCIA-CS_ENV)	\
 	$(MAKE) -C $(PCMCIA-CS_DIR) all	
@@ -131,7 +131,7 @@ pcmcia-cs_targetinstall: $(STATEDIR)/pcmcia-cs.targetinstall
 
 pcmcia-cs_targetinstall_deps	=  $(STATEDIR)/pcmcia-cs.install
 
-$(STATEDIR)/pcmcia-cs.targetinstall: $(pcmcia-cs_targetinstall_deps)
+$(STATEDIR)/pcmcia-cs.targetinstall: $(pcmcia-cs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

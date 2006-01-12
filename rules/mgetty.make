@@ -35,7 +35,7 @@ mgetty_get: $(STATEDIR)/mgetty.get
 
 mgetty_get_deps = $(MGETTY_SOURCE)
 
-$(STATEDIR)/mgetty.get: $(mgetty_get_deps)
+$(STATEDIR)/mgetty.get: $(mgetty_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -75,7 +75,7 @@ MGETTY_PATH	=  PATH=$(CROSS_PATH)
 MGETTY_ENV 	=  $(CROSS_ENV)
 #MGETTY_ENV	+=
 
-$(STATEDIR)/mgetty.prepare: $(mgetty_prepare_deps)
+$(STATEDIR)/mgetty.prepare: $(mgetty_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MGETTY_DIR)/config.cache)
 	cp $(PTXCONF_MGETTY_CONFIG) $(MGETTY_DIR)/policy.h
@@ -95,7 +95,7 @@ mgetty_compile: $(STATEDIR)/mgetty.compile
 
 mgetty_compile_deps = $(STATEDIR)/mgetty.prepare
 
-$(STATEDIR)/mgetty.compile: $(mgetty_compile_deps)
+$(STATEDIR)/mgetty.compile: $(mgetty_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MGETTY_DIR) && make mksed
 	cd $(MGETTY_DIR) && $(MGETTY_PATH) $(MGETTY_ENV) make \
@@ -121,7 +121,7 @@ mgetty_targetinstall: $(STATEDIR)/mgetty.targetinstall
 
 mgetty_targetinstall_deps = $(STATEDIR)/mgetty.compile
 
-$(STATEDIR)/mgetty.targetinstall: $(mgetty_targetinstall_deps)
+$(STATEDIR)/mgetty.targetinstall: $(mgetty_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

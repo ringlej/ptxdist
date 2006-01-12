@@ -34,7 +34,7 @@ xalf_get: $(STATEDIR)/xalf.get
 
 xalf_get_deps	=  $(XALF_SOURCE)
 
-$(STATEDIR)/xalf.get: $(xalf_get_deps)
+$(STATEDIR)/xalf.get: $(xalf_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -82,7 +82,7 @@ XALF_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 
 #XALF_AUTOCONF	+= 
 
-$(STATEDIR)/xalf.prepare: $(xalf_prepare_deps)
+$(STATEDIR)/xalf.prepare: $(xalf_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XALF_BUILDDIR))
 	cd $(XALF_DIR) && \
@@ -98,7 +98,7 @@ xalf_compile: $(STATEDIR)/xalf.compile
 
 xalf_compile_deps =  $(STATEDIR)/xalf.prepare
 
-$(STATEDIR)/xalf.compile: $(xalf_compile_deps)
+$(STATEDIR)/xalf.compile: $(xalf_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(XALF_PATH) $(XALF_ENV) make -C $(XALF_DIR)
 	@$(call touch, $@)
@@ -122,7 +122,7 @@ xalf_targetinstall: $(STATEDIR)/xalf.targetinstall
 
 xalf_targetinstall_deps	=  $(STATEDIR)/xalf.compile
 
-$(STATEDIR)/xalf.targetinstall: $(xalf_targetinstall_deps)
+$(STATEDIR)/xalf.targetinstall: $(xalf_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

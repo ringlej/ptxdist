@@ -33,7 +33,7 @@ udev_get: $(STATEDIR)/udev.get
 
 udev_get_deps = $(UDEV_SOURCE)
 
-$(STATEDIR)/udev.get: $(udev_get_deps)
+$(STATEDIR)/udev.get: $(udev_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(UDEV))
 	@$(call touch, $@)
@@ -78,7 +78,7 @@ ifdef PTXCONF_UDEV_FW_HELPER
 UDEV_MAKEVARS	+=  EXTRAS=extras/firmware
 endif
 
-$(STATEDIR)/udev.prepare: $(udev_prepare_deps)
+$(STATEDIR)/udev.prepare: $(udev_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UDEV_DIR)/config.cache)
 	@$(call touch, $@)
@@ -91,7 +91,7 @@ udev_compile: $(STATEDIR)/udev.compile
 
 udev_compile_deps = $(STATEDIR)/udev.prepare
 
-$(STATEDIR)/udev.compile: $(udev_compile_deps)
+$(STATEDIR)/udev.compile: $(udev_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(UDEV_DIR) && $(UDEV_ENV) $(UDEV_PATH) make $(UDEV_MAKEVARS)
 	@$(call touch, $@)
@@ -114,7 +114,7 @@ udev_targetinstall: $(STATEDIR)/udev.targetinstall
 
 udev_targetinstall_deps = $(STATEDIR)/udev.compile
 
-$(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps)
+$(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -36,7 +36,7 @@ lrzsz_get: $(STATEDIR)/lrzsz.get
 
 lrzsz_get_deps	=  $(LRZSZ_SOURCE)
 
-$(STATEDIR)/lrzsz.get: $(lrzsz_get_deps)
+$(STATEDIR)/lrzsz.get: $(lrzsz_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -81,7 +81,7 @@ LRZSZ_ENV	+= CFLAGS=-Wstrict-prototypes
 #
 LRZSZ_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/lrzsz.prepare: $(lrzsz_prepare_deps)
+$(STATEDIR)/lrzsz.prepare: $(lrzsz_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LRZSZ_DIR) && \
 		$(LRZSZ_PATH) $(LRZSZ_ENV) \
@@ -96,7 +96,7 @@ lrzsz_compile: $(STATEDIR)/lrzsz.compile
 
 lrzsz_compile_deps =  $(STATEDIR)/lrzsz.prepare
 
-$(STATEDIR)/lrzsz.compile: $(lrzsz_compile_deps)
+$(STATEDIR)/lrzsz.compile: $(lrzsz_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LRZSZ_DIR) && $(LRZSZ_PATH) make
 	@$(call touch, $@)
@@ -119,7 +119,7 @@ lrzsz_targetinstall: $(STATEDIR)/lrzsz.targetinstall
 
 lrzsz_targetinstall_deps	=  $(STATEDIR)/lrzsz.compile
 
-$(STATEDIR)/lrzsz.targetinstall: $(lrzsz_targetinstall_deps)
+$(STATEDIR)/lrzsz.targetinstall: $(lrzsz_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

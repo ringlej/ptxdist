@@ -34,7 +34,7 @@ ntp_get: $(STATEDIR)/ntp.get
 
 ntp_get_deps = $(NTP_SOURCE)
 
-$(STATEDIR)/ntp.get: $(ntp_get_deps)
+$(STATEDIR)/ntp.get: $(ntp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NTP))
 	@$(call touch, $@)
@@ -313,7 +313,7 @@ endif
 
 #
 
-$(STATEDIR)/ntp.prepare: $(ntp_prepare_deps)
+$(STATEDIR)/ntp.prepare: $(ntp_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NTP_DIR)/config.cache)
 	cd $(NTP_DIR) && \
@@ -329,7 +329,7 @@ ntp_compile: $(STATEDIR)/ntp.compile
 
 ntp_compile_deps = $(STATEDIR)/ntp.prepare
 
-$(STATEDIR)/ntp.compile: $(ntp_compile_deps)
+$(STATEDIR)/ntp.compile: $(ntp_compile_deps_default)
 	@$(call targetinfo, $@)
 
 	# ntp-4.2.0 tries to build ntpdc/ntpdc-layout for the target but
@@ -361,7 +361,7 @@ ntp_targetinstall: $(STATEDIR)/ntp.targetinstall
 
 ntp_targetinstall_deps = $(STATEDIR)/ntp.compile
 
-$(STATEDIR)/ntp.targetinstall: $(ntp_targetinstall_deps)
+$(STATEDIR)/ntp.targetinstall: $(ntp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -44,7 +44,7 @@ madwifi_get: $(STATEDIR)/madwifi.get
 
 madwifi_get_deps = $(MADWIFI_SOURCE)
 
-$(STATEDIR)/madwifi.get: $(madwifi_get_deps)
+$(STATEDIR)/madwifi.get: $(madwifi_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -93,7 +93,7 @@ MADWIFI_ENV    += TARGET=i386-elf
 #
 MADWIFI_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/madwifi.prepare: $(madwifi_prepare_deps)
+$(STATEDIR)/madwifi.prepare: $(madwifi_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -105,7 +105,7 @@ madwifi_compile: $(STATEDIR)/madwifi.compile
 
 madwifi_compile_deps = $(STATEDIR)/madwifi.prepare
 
-$(STATEDIR)/madwifi.compile: $(madwifi_compile_deps)
+$(STATEDIR)/madwifi.compile: $(madwifi_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MADWIFI_DIR) && $(MADWIFI_ENV) $(MADWIFI_PATH) $(MAKE)
 ifdef PTXCONF_MADWIFI_TOOLS_ATHEROS_STATS
@@ -135,7 +135,7 @@ madwifi_targetinstall: $(STATEDIR)/madwifi.targetinstall
 madwifi_targetinstall_deps = $(STATEDIR)/madwifi.compile
 
 # requires uudecode, which is part of sharutils
-$(STATEDIR)/madwifi.targetinstall: $(madwifi_targetinstall_deps)
+$(STATEDIR)/madwifi.targetinstall: $(madwifi_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

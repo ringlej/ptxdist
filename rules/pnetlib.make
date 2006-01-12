@@ -34,7 +34,7 @@ pnetlib_get: $(STATEDIR)/pnetlib.get
 
 pnetlib_get_deps = $(PNETLIB_SOURCE)
 
-$(STATEDIR)/pnetlib.get: $(pnetlib_get_deps)
+$(STATEDIR)/pnetlib.get: $(pnetlib_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PNETLIB))
 	@$(call touch, $@)
@@ -81,7 +81,7 @@ PNETLIB_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 PNETLIB_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/pnetlib.prepare: $(pnetlib_prepare_deps)
+$(STATEDIR)/pnetlib.prepare: $(pnetlib_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PNETLIB_DIR)/config.cache)
 	cd $(PNETLIB_DIR) && \
@@ -97,7 +97,7 @@ pnetlib_compile: $(STATEDIR)/pnetlib.compile
 
 pnetlib_compile_deps = $(STATEDIR)/pnetlib.prepare
 
-$(STATEDIR)/pnetlib.compile: $(pnetlib_compile_deps)
+$(STATEDIR)/pnetlib.compile: $(pnetlib_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PNETLIB_DIR) && $(PNETLIB_ENV) $(PNETLIB_PATH) make
 	@$(call touch, $@)
@@ -121,7 +121,7 @@ pnetlib_targetinstall: $(STATEDIR)/pnetlib.targetinstall
 
 pnetlib_targetinstall_deps = $(STATEDIR)/pnetlib.compile
 
-$(STATEDIR)/pnetlib.targetinstall: $(pnetlib_targetinstall_deps)
+$(STATEDIR)/pnetlib.targetinstall: $(pnetlib_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

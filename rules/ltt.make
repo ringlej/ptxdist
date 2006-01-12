@@ -36,7 +36,7 @@ ltt_get: $(STATEDIR)/ltt.get
 
 ltt_get_deps = $(LTT_SOURCE)
 
-$(STATEDIR)/ltt.get: $(ltt_get_deps)
+$(STATEDIR)/ltt.get: $(ltt_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LTT))
 	@$(call touch, $@)
@@ -80,7 +80,7 @@ ltt_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/ltt.extract 
 
-$(STATEDIR)/ltt.prepare: $(ltt_prepare_deps)
+$(STATEDIR)/ltt.prepare: $(ltt_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LTT_BUILDDIR))
 	mkdir -p $(LTT_BUILDDIR)
@@ -116,7 +116,7 @@ ltt_install_deps = \
 	$(STATEDIR)/ltt.compile \
 	$(STATEDIR)/xchain-ltt.compile
 
-$(STATEDIR)/ltt.install: $(ltt_install_deps)
+$(STATEDIR)/ltt.install: $(ltt_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

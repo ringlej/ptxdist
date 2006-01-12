@@ -34,7 +34,7 @@ php-apc_get: $(STATEDIR)/php-apc.get
 
 php-apc_get_deps = $(PHP_APC_SOURCE)
 
-$(STATEDIR)/php-apc.get: $(php-apc_get_deps)
+$(STATEDIR)/php-apc.get: $(php-apc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -82,7 +82,7 @@ PHP_APC_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-apc
 
-$(STATEDIR)/php-apc.prepare: $(php-apc_prepare_deps)
+$(STATEDIR)/php-apc.prepare: $(php-apc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP_APC_DIR)/config.cache)
 	cd $(PHP_APC_DIR) && \
@@ -100,7 +100,7 @@ php-apc_compile: $(STATEDIR)/php-apc.compile
 
 php-apc_compile_deps = $(STATEDIR)/php-apc.prepare
 
-$(STATEDIR)/php-apc.compile: $(php-apc_compile_deps)
+$(STATEDIR)/php-apc.compile: $(php-apc_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PHP_APC_DIR) && $(PHP_APC_ENV) $(PHP_APC_PATH) make
 	@$(call touch, $@)
@@ -124,7 +124,7 @@ php-apc_targetinstall: $(STATEDIR)/php-apc.targetinstall
 
 php-apc_targetinstall_deps = $(STATEDIR)/php-apc.compile
 
-$(STATEDIR)/php-apc.targetinstall: $(php-apc_targetinstall_deps)
+$(STATEDIR)/php-apc.targetinstall: $(php-apc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

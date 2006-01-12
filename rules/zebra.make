@@ -37,7 +37,7 @@ zebra_get: $(STATEDIR)/zebra.get
 
 zebra_get_deps	= $(ZEBRA_SOURCE)
 
-$(STATEDIR)/zebra.get: $(zebra_get_deps)
+$(STATEDIR)/zebra.get: $(zebra_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -88,7 +88,7 @@ ZEBRA_ENV = \
 ZEBRA_PATH	=  PATH=$(CROSS_PATH)
 
 
-$(STATEDIR)/zebra.prepare: $(zebra_prepare_deps)
+$(STATEDIR)/zebra.prepare: $(zebra_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(ZEBRA_DIR) && \
 		$(ZEBRA_PATH) $(ZEBRA_ENV) \

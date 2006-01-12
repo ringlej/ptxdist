@@ -37,7 +37,7 @@ xlibs-fixesext_get: $(STATEDIR)/xlibs-fixesext.get
 
 xlibs-fixesext_get_deps = $(XLIBS-FIXESEXT_SOURCE)
 
-$(STATEDIR)/xlibs-fixesext.get: $(xlibs-fixesext_get_deps)
+$(STATEDIR)/xlibs-fixesext.get: $(xlibs-fixesext_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-FIXESEXT))
 	@$(call touch, $@)
@@ -84,7 +84,7 @@ XLIBS-FIXESEXT_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
 
-$(STATEDIR)/xlibs-fixesext.prepare: $(xlibs-fixesext_prepare_deps)
+$(STATEDIR)/xlibs-fixesext.prepare: $(xlibs-fixesext_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-FIXESEXT_DIR)/config.cache)
 	chmod a+x $(XLIBS-FIXESEXT_DIR)/configure
@@ -101,7 +101,7 @@ xlibs-fixesext_compile: $(STATEDIR)/xlibs-fixesext.compile
 
 xlibs-fixesext_compile_deps = $(STATEDIR)/xlibs-fixesext.prepare
 
-$(STATEDIR)/xlibs-fixesext.compile: $(xlibs-fixesext_compile_deps)
+$(STATEDIR)/xlibs-fixesext.compile: $(xlibs-fixesext_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-FIXESEXT_DIR) && $(XLIBS-FIXESEXT_ENV) $(XLIBS-FIXESEXT_PATH) make
 	@$(call touch, $@)
@@ -125,7 +125,7 @@ xlibs-fixesext_targetinstall: $(STATEDIR)/xlibs-fixesext.targetinstall
 
 xlibs-fixesext_targetinstall_deps = $(STATEDIR)/xlibs-fixesext.compile
 
-$(STATEDIR)/xlibs-fixesext.targetinstall: $(xlibs-fixesext_targetinstall_deps)
+$(STATEDIR)/xlibs-fixesext.targetinstall: $(xlibs-fixesext_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

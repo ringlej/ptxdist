@@ -34,7 +34,7 @@ openafs_get: $(STATEDIR)/openafs.get
 
 openafs_get_deps = $(OPENAFS_SOURCE)
 
-$(STATEDIR)/openafs.get: $(openafs_get_deps)
+$(STATEDIR)/openafs.get: $(openafs_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -86,7 +86,7 @@ OPENAFS_AUTOCONF += --with-linux-kernel-headers=$(KERNEL_DIR)
 
 OPENAFS_SYS=i386_linux24
 
-$(STATEDIR)/openafs.prepare: $(openafs_prepare_deps)
+$(STATEDIR)/openafs.prepare: $(openafs_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENAFS_DIR)/config.cache)
 	cd $(OPENAFS_DIR) && \
@@ -102,7 +102,7 @@ openafs_compile: $(STATEDIR)/openafs.compile
 
 openafs_compile_deps = $(STATEDIR)/openafs.prepare
 
-$(STATEDIR)/openafs.compile: $(openafs_compile_deps)
+$(STATEDIR)/openafs.compile: $(openafs_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(OPENAFS_DIR) && $(OPENAFS_PATH) make
 	cd $(OPENAFS_DIR) && $(OPENAFS_PATH) make dest
@@ -126,7 +126,7 @@ openafs_targetinstall: $(STATEDIR)/openafs.targetinstall
 
 openafs_targetinstall_deps = $(STATEDIR)/openafs.compile
 
-$(STATEDIR)/openafs.targetinstall: $(openafs_targetinstall_deps)
+$(STATEDIR)/openafs.targetinstall: $(openafs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

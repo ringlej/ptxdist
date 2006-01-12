@@ -34,7 +34,7 @@ host-fakeroot_get: $(STATEDIR)/host-fakeroot.get
 
 host-fakeroot_get_deps = $(HOST_FAKEROOT_SOURCE)
 
-$(STATEDIR)/host-fakeroot.get: $(host-fakeroot_get_deps)
+$(STATEDIR)/host-fakeroot.get: $(host-fakeroot_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -76,7 +76,7 @@ HOST_FAKEROOT_ENV 	=  $(HOSTCC_ENV)
 #
 HOST_FAKEROOT_AUTOCONF = $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-fakeroot.prepare: $(host-fakeroot_prepare_deps)
+$(STATEDIR)/host-fakeroot.prepare: $(host-fakeroot_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_FAKEROOT_DIR)/config.cache)
 	cd $(HOST_FAKEROOT_DIR) && \
@@ -92,7 +92,7 @@ host-fakeroot_compile: $(STATEDIR)/host-fakeroot.compile
 
 host-fakeroot_compile_deps = $(STATEDIR)/host-fakeroot.prepare
 
-$(STATEDIR)/host-fakeroot.compile: $(host-fakeroot_compile_deps)
+$(STATEDIR)/host-fakeroot.compile: $(host-fakeroot_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_FAKEROOT_DIR) && $(HOST_FAKEROOT_PATH) make
 	@$(call touch, $@)
@@ -116,7 +116,7 @@ host-fakeroot_targetinstall: $(STATEDIR)/host-fakeroot.targetinstall
 
 host-fakeroot_targetinstall_deps = $(STATEDIR)/host-fakeroot.compile
 
-$(STATEDIR)/host-fakeroot.targetinstall: $(host-fakeroot_targetinstall_deps)
+$(STATEDIR)/host-fakeroot.targetinstall: $(host-fakeroot_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

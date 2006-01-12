@@ -45,7 +45,7 @@ host-util-linux_prepare: $(STATEDIR)/host-util-linux.prepare
 #
 host-util-linux_prepare_deps = $(STATEDIR)/host-util-linux.extract
 
-$(STATEDIR)/host-util-linux.prepare: $(host-util-linux_prepare_deps)
+$(STATEDIR)/host-util-linux.prepare: $(host-util-linux_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_UTIL-LINUX_DIR) && \
 		$(HOSTCC_ENV) ./configure
@@ -59,7 +59,7 @@ host-util-linux_compile: $(STATEDIR)/host-util-linux.compile
 
 host-util-linux_compile_deps =  $(STATEDIR)/host-util-linux.prepare
 
-$(STATEDIR)/host-util-linux.compile: $(host-util-linux_compile_deps)
+$(STATEDIR)/host-util-linux.compile: $(host-util-linux_compile_deps_default)
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_UTLNX_SFDISK

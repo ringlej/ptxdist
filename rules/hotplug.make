@@ -34,7 +34,7 @@ hotplug_get: $(STATEDIR)/hotplug.get
 
 hotplug_get_deps = $(HOTPLUG_SOURCE)
 
-$(STATEDIR)/hotplug.get: $(hotplug_get_deps)
+$(STATEDIR)/hotplug.get: $(hotplug_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOTPLUG))
 	@$(call touch, $@)
@@ -69,7 +69,7 @@ hotplug_prepare: $(STATEDIR)/hotplug.prepare
 
 hotplug_prepare_deps = $(STATEDIR)/hotplug.extract
 
-$(STATEDIR)/hotplug.prepare: $(hotplug_prepare_deps)
+$(STATEDIR)/hotplug.prepare: $(hotplug_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -81,7 +81,7 @@ hotplug_compile: $(STATEDIR)/hotplug.compile
 
 hotplug_compile_deps = $(STATEDIR)/hotplug.prepare
 
-$(STATEDIR)/hotplug.compile: $(hotplug_compile_deps)
+$(STATEDIR)/hotplug.compile: $(hotplug_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -104,7 +104,7 @@ hotplug_targetinstall: $(STATEDIR)/hotplug.targetinstall
 
 hotplug_targetinstall_deps = $(STATEDIR)/hotplug.compile
 
-$(STATEDIR)/hotplug.targetinstall: $(hotplug_targetinstall_deps)
+$(STATEDIR)/hotplug.targetinstall: $(hotplug_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

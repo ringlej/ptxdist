@@ -34,7 +34,7 @@ util-linux_get: $(STATEDIR)/util-linux.get
 
 util-linux_get_deps	=  $(UTIL-LINUX_SOURCE)
 
-$(STATEDIR)/util-linux.get: $(util-linux_get_deps)
+$(STATEDIR)/util-linux.get: $(util-linux_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(UTIL-LINUX))
 	@$(call touch, $@)
@@ -76,7 +76,7 @@ util-linux_prepare_deps =  \
 UTIL-LINUX_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 UTIL-LINUX_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/util-linux.prepare: $(util-linux_prepare_deps)
+$(STATEDIR)/util-linux.prepare: $(util-linux_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(UTIL-LINUX_DIR) && \
 		$(UTIL-LINUX_PATH) $(UTIL-LINUX_ENV) \
@@ -91,7 +91,7 @@ util-linux_compile: $(STATEDIR)/util-linux.compile
 
 util-linux_compile_deps =  $(STATEDIR)/util-linux.prepare
 
-$(STATEDIR)/util-linux.compile: $(util-linux_compile_deps)
+$(STATEDIR)/util-linux.compile: $(util-linux_compile_deps_default)
 	@$(call targetinfo, $@)
 
 	cd $(UTIL-LINUX_DIR)/lib && $(UTIL-LINUX_PATH) make all
@@ -142,7 +142,7 @@ util-linux_targetinstall: $(STATEDIR)/util-linux.targetinstall
 
 util-linux_targetinstall_deps	=  $(STATEDIR)/util-linux.compile
 
-$(STATEDIR)/util-linux.targetinstall: $(util-linux_targetinstall_deps)
+$(STATEDIR)/util-linux.targetinstall: $(util-linux_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

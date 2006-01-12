@@ -66,7 +66,7 @@ host-kconfig_prepare_deps = \
 HOST_KCONFIG_PATH	=  PATH=$(HOST_PATH)
 HOST_KCONFIG_ENV 	=  $(HOSTCC_ENV)
 
-$(STATEDIR)/host-kconfig.prepare: $(host-kconfig_prepare_deps)
+$(STATEDIR)/host-kconfig.prepare: $(host-kconfig_prepare_deps_default)
 	@$(call targetinfo, $@, n)
 	@$(call clean, $(HOST_KCONFIG_DIR)/config.cache)
 	@$(call touch, $@)
@@ -79,7 +79,7 @@ host-kconfig_compile: $(STATEDIR)/host-kconfig.compile
 
 host-kconfig_compile_deps = $(STATEDIR)/host-kconfig.prepare
 
-$(STATEDIR)/host-kconfig.compile: $(host-kconfig_compile_deps)
+$(STATEDIR)/host-kconfig.compile: $(host-kconfig_compile_deps_default)
 	@$(call targetinfo, $@, n)
 	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
 		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make libkconfig.so
@@ -101,7 +101,7 @@ host-kconfig_install: $(STATEDIR)/host-kconfig.install
 
 host-kconfig_install_deps = $(STATEDIR)/host-kconfig.compile
 
-$(STATEDIR)/host-kconfig.install: $(host-kconfig_install_deps)
+$(STATEDIR)/host-kconfig.install: $(host-kconfig_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -36,7 +36,7 @@ xlibs-xext_get: $(STATEDIR)/xlibs-xext.get
 
 xlibs-xext_get_deps = $(XLIBS-XEXT_SOURCE)
 
-$(STATEDIR)/xlibs-xext.get: $(xlibs-xext_get_deps)
+$(STATEDIR)/xlibs-xext.get: $(xlibs-xext_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XEXT))
 	@$(call touch, $@)
@@ -85,7 +85,7 @@ XLIBS-XEXT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 XLIBS-XEXT_AUTOCONF =  --build=$(GNU_HOST)
 XLIBS-XEXT_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/xlibs-xext.prepare: $(xlibs-xext_prepare_deps)
+$(STATEDIR)/xlibs-xext.prepare: $(xlibs-xext_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XEXT_DIR)/config.cache)
 	chmod a+x $(XLIBS-XEXT_DIR)/configure
@@ -102,7 +102,7 @@ xlibs-xext_compile: $(STATEDIR)/xlibs-xext.compile
 
 xlibs-xext_compile_deps = $(STATEDIR)/xlibs-xext.prepare
 
-$(STATEDIR)/xlibs-xext.compile: $(xlibs-xext_compile_deps)
+$(STATEDIR)/xlibs-xext.compile: $(xlibs-xext_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XEXT_DIR) && $(XLIBS-XEXT_ENV) $(XLIBS-XEXT_PATH) make
 	@$(call touch, $@)
@@ -126,7 +126,7 @@ xlibs-xext_targetinstall: $(STATEDIR)/xlibs-xext.targetinstall
 
 xlibs-xext_targetinstall_deps = $(STATEDIR)/xlibs-xext.compile
 
-$(STATEDIR)/xlibs-xext.targetinstall: $(xlibs-xext_targetinstall_deps)
+$(STATEDIR)/xlibs-xext.targetinstall: $(xlibs-xext_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

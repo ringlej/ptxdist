@@ -26,7 +26,7 @@ ntpclient_get: $(STATEDIR)/ntpclient.get
 
 ntpclient_get_deps = $(NTPCLIENT_SOURCE)
 
-$(STATEDIR)/ntpclient.get: $(ntpclient_get_deps)
+$(STATEDIR)/ntpclient.get: $(ntpclient_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -65,7 +65,7 @@ ntpclient_prepare_deps = \
 NTPCLIENT_PATH	=  PATH=$(CROSS_PATH)
 NTPCLIENT_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/ntpclient.prepare: $(ntpclient_prepare_deps)
+$(STATEDIR)/ntpclient.prepare: $(ntpclient_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -77,7 +77,7 @@ ntpclient_compile: $(STATEDIR)/ntpclient.compile
 
 ntpclient_compile_deps = $(STATEDIR)/ntpclient.prepare
 
-$(STATEDIR)/ntpclient.compile: $(ntpclient_compile_deps)
+$(STATEDIR)/ntpclient.compile: $(ntpclient_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(NTPCLIENT_DIR) && $(NTPCLIENT_ENV) $(NTPCLIENT_PATH) make
 	@$(call touch, $@)
@@ -100,7 +100,7 @@ ntpclient_targetinstall: $(STATEDIR)/ntpclient.targetinstall
 
 ntpclient_targetinstall_deps = $(STATEDIR)/ntpclient.compile
 
-$(STATEDIR)/ntpclient.targetinstall: $(ntpclient_targetinstall_deps)
+$(STATEDIR)/ntpclient.targetinstall: $(ntpclient_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,ntpclient)

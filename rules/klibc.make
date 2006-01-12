@@ -34,7 +34,7 @@ klibc_get: $(STATEDIR)/klibc.get
 
 klibc_get_deps = $(KLIBC_SOURCE)
 
-$(STATEDIR)/klibc.get: $(klibc_get_deps)
+$(STATEDIR)/klibc.get: $(klibc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -78,7 +78,7 @@ KLIBC_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 # autoconf
 #
 
-$(STATEDIR)/klibc.prepare: $(klibc_prepare_deps)
+$(STATEDIR)/klibc.prepare: $(klibc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -91,7 +91,7 @@ klibc_compile: $(STATEDIR)/klibc.compile
 klibc_compile_deps = $(STATEDIR)/klibc.prepare
 klibc_compile_deps += $(STATEDIR)/kernel.prepare
 
-$(STATEDIR)/klibc.compile: $(klibc_compile_deps)
+$(STATEDIR)/klibc.compile: $(klibc_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(KLIBC_DIR) && make ARCH=$(PTXCONF_ARCH) CROSS=$(COMPILER_PREFIX) KRNLSRC=$(KERNEL_DIR) prefix=$(PTXCONF_PREFIX)
 	@$(call touch, $@)
@@ -204,7 +204,7 @@ klibc_targetinstall: $(STATEDIR)/klibc.targetinstall
 
 klibc_targetinstall_deps = $(STATEDIR)/klibc.compile
 
-$(STATEDIR)/klibc.targetinstall: $(klibc_targetinstall_deps)
+$(STATEDIR)/klibc.targetinstall: $(klibc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

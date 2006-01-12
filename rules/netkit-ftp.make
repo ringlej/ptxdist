@@ -33,7 +33,7 @@ netkit-ftp_get: $(STATEDIR)/netkit-ftp.get
 
 netkit-ftp_get_deps = $(NETKIT-FTP_SOURCE)
 
-$(STATEDIR)/netkit-ftp.get: $(netkit-ftp_get_deps)
+$(STATEDIR)/netkit-ftp.get: $(netkit-ftp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NETKIT-FTP))
 	@$(call touch, $@)
@@ -80,7 +80,7 @@ NETKIT-FTP_ENV 	=  $(CROSS_ENV)
 #
 NETKIT-FTP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/netkit-ftp.prepare: $(netkit-ftp_prepare_deps)
+$(STATEDIR)/netkit-ftp.prepare: $(netkit-ftp_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NETKIT-FTP_DIR)/config.cache)
 	cd $(NETKIT-FTP_DIR) && \
@@ -108,7 +108,7 @@ netkit-ftp_compile: $(STATEDIR)/netkit-ftp.compile
 
 netkit-ftp_compile_deps = $(STATEDIR)/netkit-ftp.prepare
 
-$(STATEDIR)/netkit-ftp.compile: $(netkit-ftp_compile_deps)
+$(STATEDIR)/netkit-ftp.compile: $(netkit-ftp_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(NETKIT-FTP_DIR) && $(NETKIT-FTP_ENV) $(NETKIT-FTP_PATH) make
 	@$(call touch, $@)
@@ -133,7 +133,7 @@ netkit-ftp_targetinstall: $(STATEDIR)/netkit-ftp.targetinstall
 
 netkit-ftp_targetinstall_deps = $(STATEDIR)/netkit-ftp.compile
 
-$(STATEDIR)/netkit-ftp.targetinstall: $(netkit-ftp_targetinstall_deps)
+$(STATEDIR)/netkit-ftp.targetinstall: $(netkit-ftp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -34,7 +34,7 @@ valgrind_get: $(STATEDIR)/valgrind.get
 
 valgrind_get_deps = $(VALGRIND_SOURCE)
 
-$(STATEDIR)/valgrind.get: $(valgrind_get_deps)
+$(STATEDIR)/valgrind.get: $(valgrind_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(VALGRIND))
 	@$(call touch, $@)
@@ -85,7 +85,7 @@ VALGRIND_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 VALGRIND_AUTOCONF += --enable-tls
 
-$(STATEDIR)/valgrind.prepare: $(valgrind_prepare_deps)
+$(STATEDIR)/valgrind.prepare: $(valgrind_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(VALGRIND_DIR)/config.cache)
 	cd $(VALGRIND_DIR) && \
@@ -101,7 +101,7 @@ valgrind_compile: $(STATEDIR)/valgrind.compile
 
 valgrind_compile_deps = $(STATEDIR)/valgrind.prepare
 
-$(STATEDIR)/valgrind.compile: $(valgrind_compile_deps)
+$(STATEDIR)/valgrind.compile: $(valgrind_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(VALGRIND_DIR) && $(VALGRIND_ENV) $(VALGRIND_PATH) make
 	@$(call touch, $@)
@@ -129,7 +129,7 @@ valgrind_targetinstall: $(STATEDIR)/valgrind.targetinstall
 
 valgrind_targetinstall_deps = $(STATEDIR)/valgrind.compile
 
-$(STATEDIR)/valgrind.targetinstall: $(valgrind_targetinstall_deps)
+$(STATEDIR)/valgrind.targetinstall: $(valgrind_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

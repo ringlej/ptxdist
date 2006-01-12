@@ -34,7 +34,7 @@ libpcap_get: $(STATEDIR)/libpcap.get
 
 libpcap_get_deps = $(LIBPCAP_SOURCE)
 
-$(STATEDIR)/libpcap.get: $(libpcap_get_deps)
+$(STATEDIR)/libpcap.get: $(libpcap_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBPCAP))
 	@$(call touch, $@)
@@ -82,7 +82,7 @@ LIBPCAP_ENV = \
 LIBPCAP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 LIBPCAP_AUTOCONF += --with-pcap=linux
 
-$(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps)
+$(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPCAP_BUILDDIR))
 	cd $(LIBPCAP_DIR) && \
@@ -98,7 +98,7 @@ libpcap_compile: $(STATEDIR)/libpcap.compile
 
 libpcap_compile_deps = $(STATEDIR)/libpcap.prepare
 
-$(STATEDIR)/libpcap.compile: $(libpcap_compile_deps)
+$(STATEDIR)/libpcap.compile: $(libpcap_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBPCAP_DIR) && $(LIBPCAP_PATH) make 
 	@$(call touch, $@)
@@ -123,7 +123,7 @@ libpcap_targetinstall: $(STATEDIR)/libpcap.targetinstall
 
 libpcap_targetinstall_deps =  $(STATEDIR)/libpcap.install
 
-$(STATEDIR)/libpcap.targetinstall: $(libpcap_targetinstall_deps)
+$(STATEDIR)/libpcap.targetinstall: $(libpcap_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -34,7 +34,7 @@ mplayer_get: $(STATEDIR)/mplayer.get
 
 mplayer_get_deps = $(MPLAYER_SOURCE)
 
-$(STATEDIR)/mplayer.get: $(mplayer_get_deps)
+$(STATEDIR)/mplayer.get: $(mplayer_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -86,7 +86,7 @@ MPLAYER_AUTOCONF += --target=$(PTXCONF_ARCH)
 MPLAYER_AUTOCONF += --disable-mencoder
 MPLAYER_AUTOCONF += --enable-fbdev
 
-$(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps)
+$(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MPLAYER_DIR)/config.cache)
 	cd $(MPLAYER_DIR) && \
@@ -107,7 +107,7 @@ mplayer_compile: $(STATEDIR)/mplayer.compile
 
 mplayer_compile_deps = $(STATEDIR)/mplayer.prepare
 
-$(STATEDIR)/mplayer.compile: $(mplayer_compile_deps)
+$(STATEDIR)/mplayer.compile: $(mplayer_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MPLAYER_DIR) && $(MPLAYER_ENV) $(MPLAYER_PATH) make
 	@$(call touch, $@)
@@ -131,7 +131,7 @@ mplayer_targetinstall: $(STATEDIR)/mplayer.targetinstall
 
 mplayer_targetinstall_deps = $(STATEDIR)/mplayer.compile
 
-$(STATEDIR)/mplayer.targetinstall: $(mplayer_targetinstall_deps)
+$(STATEDIR)/mplayer.targetinstall: $(mplayer_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

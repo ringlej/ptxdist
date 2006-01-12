@@ -36,7 +36,7 @@ xlibs-xfont_get: $(STATEDIR)/xlibs-xfont.get
 
 xlibs-xfont_get_deps = $(XLIBS-XFONT_SOURCE)
 
-$(STATEDIR)/xlibs-xfont.get: $(xlibs-xfont_get_deps)
+$(STATEDIR)/xlibs-xfont.get: $(xlibs-xfont_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XFONT))
 	@$(call touch, $@)
@@ -84,7 +84,7 @@ XLIBS-XFONT_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/xlibs-xfont.prepare: $(xlibs-xfont_prepare_deps)
+$(STATEDIR)/xlibs-xfont.prepare: $(xlibs-xfont_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XFONT_DIR)/config.cache)
 	chmod a+x $(XLIBS-XFONT_DIR)/configure
@@ -101,7 +101,7 @@ xlibs-xfont_compile: $(STATEDIR)/xlibs-xfont.compile
 
 xlibs-xfont_compile_deps = $(STATEDIR)/xlibs-xfont.prepare
 
-$(STATEDIR)/xlibs-xfont.compile: $(xlibs-xfont_compile_deps)
+$(STATEDIR)/xlibs-xfont.compile: $(xlibs-xfont_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XFONT_DIR) && $(XLIBS-XFONT_ENV) $(XLIBS-XFONT_PATH) make
 	@$(call touch, $@)
@@ -125,7 +125,7 @@ xlibs-xfont_targetinstall: $(STATEDIR)/xlibs-xfont.targetinstall
 
 xlibs-xfont_targetinstall_deps = $(STATEDIR)/xlibs-xfont.compile
 
-$(STATEDIR)/xlibs-xfont.targetinstall: $(xlibs-xfont_targetinstall_deps)
+$(STATEDIR)/xlibs-xfont.targetinstall: $(xlibs-xfont_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

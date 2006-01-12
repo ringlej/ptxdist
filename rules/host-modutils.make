@@ -34,7 +34,7 @@ host-modutils_get: $(STATEDIR)/host-modutils.get
 
 host-modutils_get_deps = $(HOST_MODUTILS_SOURCE)
 
-$(STATEDIR)/host-modutils.get: $(host-modutils_get_deps)
+$(STATEDIR)/host-modutils.get: $(host-modutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_MODUTILS))
 	@$(call touch, $@)
@@ -79,7 +79,7 @@ HOST_MODUTILS_ENV 	=  CC=$(HOSTCC)
 #
 HOST_MODUTILS_AUTOCONF = $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-modutils.prepare: $(host-modutils_prepare_deps)
+$(STATEDIR)/host-modutils.prepare: $(host-modutils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MODUTILS_DIR)/config.cache)
 	cd $(HOST_MODUTILS_DIR) && \
@@ -95,7 +95,7 @@ host-modutils_compile: $(STATEDIR)/host-modutils.compile
 
 host-modutils_compile_deps =  $(STATEDIR)/host-modutils.prepare
 
-$(STATEDIR)/host-modutils.compile: $(host-modutils_compile_deps)
+$(STATEDIR)/host-modutils.compile: $(host-modutils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_MODUTILS_DIR) && \
 		$(HOST_MODUTILS_PATH) make -C $(HOST_MODUTILS_DIR)
@@ -139,7 +139,7 @@ host-modutils_targetinstall: $(STATEDIR)/host-modutils.targetinstall
 
 host-modutils_targetinstall_deps	=  $(STATEDIR)/host-modutils.compile
 
-$(STATEDIR)/host-modutils.targetinstall: $(host-modutils_targetinstall_deps)
+$(STATEDIR)/host-modutils.targetinstall: $(host-modutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

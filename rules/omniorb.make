@@ -36,7 +36,7 @@ omniorb_get: $(STATEDIR)/omniorb.get
 
 omniorb_get_deps = $(OMNIORB_SOURCE)
 
-$(STATEDIR)/omniorb.get: $(omniorb_get_deps)
+$(STATEDIR)/omniorb.get: $(omniorb_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OMNIORB))
 	@$(call touch, $@)
@@ -84,7 +84,7 @@ ifdef PTXCONF_OMNIORB_SSL
 OMNIORB_AUTOCONF += --with-ssl
 endif
 
-$(STATEDIR)/omniorb.prepare: $(omniorb_prepare_deps)
+$(STATEDIR)/omniorb.prepare: $(omniorb_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OMNIORB_DIR)/config.cache)
 	cd $(OMNIORB_DIR) && \
@@ -100,7 +100,7 @@ omniorb_compile: $(STATEDIR)/omniorb.compile
 
 omniorb_compile_deps = $(STATEDIR)/omniorb.prepare
 
-$(STATEDIR)/omniorb.compile: $(omniorb_compile_deps)
+$(STATEDIR)/omniorb.compile: $(omniorb_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(OMNIORB_DIR) && $(OMNIORB_ENV) $(OMNIORB_PATH) make
 	@$(call touch, $@)
@@ -124,7 +124,7 @@ omniorb_targetinstall: $(STATEDIR)/omniorb.targetinstall
 
 omniorb_targetinstall_deps = $(STATEDIR)/omniorb.compile
 
-$(STATEDIR)/omniorb.targetinstall: $(omniorb_targetinstall_deps)
+$(STATEDIR)/omniorb.targetinstall: $(omniorb_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

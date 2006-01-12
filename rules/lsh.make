@@ -36,7 +36,7 @@ lsh_get_deps = \
 	$(LSH_SOURCE) \
 	$(STATEDIR)/lsh-patches.get
 
-$(STATEDIR)/lsh.get: $(lsh_get_deps)
+$(STATEDIR)/lsh.get: $(lsh_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -96,7 +96,7 @@ LSH_AUTOCONF += \
 	--without-system-argp
 
 
-$(STATEDIR)/lsh.prepare: $(lsh_prepare_deps)
+$(STATEDIR)/lsh.prepare: $(lsh_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LSH_DIR)/config.cache)
 	cd $(LSH_DIR) && \
@@ -112,7 +112,7 @@ lsh_compile: $(STATEDIR)/lsh.compile
 
 lsh_compile_deps = $(STATEDIR)/lsh.prepare
 
-$(STATEDIR)/lsh.compile: $(lsh_compile_deps)
+$(STATEDIR)/lsh.compile: $(lsh_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(LSH_PATH) make -C $(LSH_DIR)
 	@$(call touch, $@)
@@ -139,7 +139,7 @@ lsh_targetinstall_deps = \
 	$(STATEDIR)/liboop.targetinstall \
 	$(STATEDIR)/zlib.targetinstall
 
-$(STATEDIR)/lsh.targetinstall: $(lsh_targetinstall_deps)
+$(STATEDIR)/lsh.targetinstall: $(lsh_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

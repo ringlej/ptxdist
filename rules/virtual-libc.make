@@ -27,7 +27,7 @@ ifdef PTXCONF_UCLIBC
 virtual-libc_install_deps = $(STATEDIR)/uclibc.install
 endif 
 
-$(STATEDIR)/virtual-libc.install: $(virtual-libc_install_deps)
+$(STATEDIR)/virtual-libc.install: $(virtual-libc_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,6 +44,6 @@ ifdef PTXCONF_UCLIBC
 virtual-libc_targetinstall_deps = $(STATEDIR)/uclibc.targetinstall
 endif 
 
-$(STATEDIR)/virtual-libc.targetinstall: $(virtual-libc_targetinstall_deps)
+$(STATEDIR)/virtual-libc.targetinstall: $(virtual-libc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)

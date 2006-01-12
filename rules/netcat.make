@@ -34,7 +34,7 @@ netcat_get: $(STATEDIR)/netcat.get
 
 netcat_get_deps = $(NETCAT_SOURCE)
 
-$(STATEDIR)/netcat.get: $(netcat_get_deps)
+$(STATEDIR)/netcat.get: $(netcat_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NETCAT))
 	@$(call touch, $@)
@@ -94,7 +94,7 @@ NETCAT_AUTOCONF += --disable-oldtelnet
 endif
 
 
-$(STATEDIR)/netcat.prepare: $(netcat_prepare_deps)
+$(STATEDIR)/netcat.prepare: $(netcat_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NETCAT_DIR)/config.cache)
 	cd $(NETCAT_DIR) && \
@@ -110,7 +110,7 @@ netcat_compile: $(STATEDIR)/netcat.compile
 
 netcat_compile_deps = $(STATEDIR)/netcat.prepare
 
-$(STATEDIR)/netcat.compile: $(netcat_compile_deps)
+$(STATEDIR)/netcat.compile: $(netcat_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(NETCAT_DIR) && $(NETCAT_ENV) $(NETCAT_PATH) make
 	@$(call touch, $@)
@@ -134,7 +134,7 @@ netcat_targetinstall: $(STATEDIR)/netcat.targetinstall
 
 netcat_targetinstall_deps = $(STATEDIR)/netcat.compile
 
-$(STATEDIR)/netcat.targetinstall: $(netcat_targetinstall_deps)
+$(STATEDIR)/netcat.targetinstall: $(netcat_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

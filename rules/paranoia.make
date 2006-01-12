@@ -34,7 +34,7 @@ paranoia_get: $(STATEDIR)/paranoia.get
 
 paranoia_get_deps = $(PARANOIA_SOURCE)
 
-$(STATEDIR)/paranoia.get: $(paranoia_get_deps)
+$(STATEDIR)/paranoia.get: $(paranoia_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PARANOIA))
 	@$(call touch, $@)
@@ -74,7 +74,7 @@ paranoia_prepare_deps += $(STATEDIR)/virtual-xchain.install
 PARANOIA_PATH	=  PATH=$(CROSS_PATH)
 PARANOIA_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/paranoia.prepare: $(paranoia_prepare_deps)
+$(STATEDIR)/paranoia.prepare: $(paranoia_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -86,7 +86,7 @@ paranoia_compile: $(STATEDIR)/paranoia.compile
 
 paranoia_compile_deps = $(STATEDIR)/paranoia.prepare
 
-$(STATEDIR)/paranoia.compile: $(paranoia_compile_deps)
+$(STATEDIR)/paranoia.compile: $(paranoia_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PARANOIA_DIR) && \
 		$(PARANOIA_ENV) $(PARANOIA_PATH) $(CROSS_GCC) paranoia.c -o paranoia
@@ -110,7 +110,7 @@ paranoia_targetinstall: $(STATEDIR)/paranoia.targetinstall
 
 paranoia_targetinstall_deps = $(STATEDIR)/paranoia.compile
 
-$(STATEDIR)/paranoia.targetinstall: $(paranoia_targetinstall_deps)
+$(STATEDIR)/paranoia.targetinstall: $(paranoia_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

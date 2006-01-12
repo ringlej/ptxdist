@@ -34,7 +34,7 @@ xvkbd_get: $(STATEDIR)/xvkbd.get
 
 xvkbd_get_deps	=  $(XVKBD_SOURCE)
 
-$(STATEDIR)/xvkbd.get: $(xvkbd_get_deps)
+$(STATEDIR)/xvkbd.get: $(xvkbd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -73,7 +73,7 @@ XVKBD_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 XVKBD_ENV 	=  $(CROSS_ENV)
 #XVKBD_ENV	+=
 
-$(STATEDIR)/xvkbd.prepare: $(xvkbd_prepare_deps)
+$(STATEDIR)/xvkbd.prepare: $(xvkbd_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XVKBD_DIR) && \
 		$(XVKBD_PATH) $(XVKBD_ENV) \
@@ -88,7 +88,7 @@ xvkbd_compile: $(STATEDIR)/xvkbd.compile
 
 xvkbd_compile_deps =  $(STATEDIR)/xvkbd.prepare
 
-$(STATEDIR)/xvkbd.compile: $(xvkbd_compile_deps)
+$(STATEDIR)/xvkbd.compile: $(xvkbd_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XVKBD_DIR) && $(XVKBD_PATH) $(XVKBD_ENV) make
 	@$(call touch, $@)
@@ -112,7 +112,7 @@ xvkbd_targetinstall: $(STATEDIR)/xvkbd.targetinstall
 
 xvkbd_targetinstall_deps	=  $(STATEDIR)/xvkbd.compile
 
-$(STATEDIR)/xvkbd.targetinstall: $(xvkbd_targetinstall_deps)
+$(STATEDIR)/xvkbd.targetinstall: $(xvkbd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

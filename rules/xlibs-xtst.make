@@ -34,7 +34,7 @@ xlibs-xtst_get: $(STATEDIR)/xlibs-xtst.get
 
 xlibs-xtst_get_deps = $(XLIBS-XTST_SOURCE)
 
-$(STATEDIR)/xlibs-xtst.get: $(xlibs-xtst_get_deps)
+$(STATEDIR)/xlibs-xtst.get: $(xlibs-xtst_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XTST))
 	@$(call touch, $@)
@@ -82,7 +82,7 @@ XLIBS-XTST_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/xlibs-xtst.prepare: $(xlibs-xtst_prepare_deps)
+$(STATEDIR)/xlibs-xtst.prepare: $(xlibs-xtst_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XTST_DIR)/config.cache)
 	chmod a+x $(XLIBS-XTST_DIR)/configure
@@ -99,7 +99,7 @@ xlibs-xtst_compile: $(STATEDIR)/xlibs-xtst.compile
 
 xlibs-xtst_compile_deps = $(STATEDIR)/xlibs-xtst.prepare
 
-$(STATEDIR)/xlibs-xtst.compile: $(xlibs-xtst_compile_deps)
+$(STATEDIR)/xlibs-xtst.compile: $(xlibs-xtst_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XTST_DIR) && $(XLIBS-XTST_ENV) $(XLIBS-XTST_PATH) make
 	@$(call touch, $@)
@@ -124,7 +124,7 @@ xlibs-xtst_targetinstall: $(STATEDIR)/xlibs-xtst.targetinstall
 xlibs-xtst_targetinstall_deps =  $(STATEDIR)/xlibs-xtst.compile
 xlibs-xtst_targetinstall_deps += $(STATEDIR)/xlibs-recordext.targetinstall
 
-$(STATEDIR)/xlibs-xtst.targetinstall: $(xlibs-xtst_targetinstall_deps)
+$(STATEDIR)/xlibs-xtst.targetinstall: $(xlibs-xtst_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

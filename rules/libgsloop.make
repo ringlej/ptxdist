@@ -36,7 +36,7 @@ libgsloop_get_deps = \
 	$(LIBGSLOOP_SOURCE) \
 	$(RULESDIR)/libgsloop.make
 
-$(STATEDIR)/libgsloop.get: $(libgsloop_get_deps)
+$(STATEDIR)/libgsloop.get: $(libgsloop_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBGSLOOP))
 	@$(call touch, $@)
@@ -82,7 +82,7 @@ LIBGSLOOP_ENV 	=  $(CROSS_ENV)
 #
 LIBGSLOOP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/libgsloop.prepare: $(libgsloop_prepare_deps)
+$(STATEDIR)/libgsloop.prepare: $(libgsloop_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGSLOOP_DIR)/config.cache)
 	cd $(LIBGSLOOP_DIR) && \
@@ -98,7 +98,7 @@ libgsloop_compile: $(STATEDIR)/libgsloop.compile
 
 libgsloop_compile_deps = $(STATEDIR)/libgsloop.prepare
 
-$(STATEDIR)/libgsloop.compile: $(libgsloop_compile_deps)
+$(STATEDIR)/libgsloop.compile: $(libgsloop_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBGSLOOP_DIR) && $(LIBGSLOOP_ENV) $(LIBGSLOOP_PATH) make
 	@$(call touch, $@)
@@ -124,7 +124,7 @@ libgsloop_targetinstall_deps = \
 	$(STATEDIR)/libgsloop.compile \
 	$(STATEDIR)/librn.targetinstall
 
-$(STATEDIR)/libgsloop.targetinstall: $(libgsloop_targetinstall_deps)
+$(STATEDIR)/libgsloop.targetinstall: $(libgsloop_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -291,7 +291,7 @@ $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_HOST_PATCH20_NAME).get:
 endif
 endif
 
-$(STATEDIR)/kernel-patchstack.get: $(kernel_patchstack_get_deps)
+$(STATEDIR)/kernel-patchstack.get: $(kernel_patchstack_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -307,7 +307,7 @@ kernel_get_deps = \
 	$(STATEDIR)/kernel-patchstack.get
 endif
 
-$(STATEDIR)/kernel.get: $(kernel_get_deps)
+$(STATEDIR)/kernel.get: $(kernel_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -378,7 +378,7 @@ KERNEL_HOST_MAKEVARS 	+= DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PT
 KERNEL_HOST_MAKEVARS	+= ARCH=um
 KERNEL_HOST_MAKEVARS 	+= CROSS_COMPILE=$(COMPILER_PREFIX)
 
-$(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
+$(STATEDIR)/kernel.prepare: $(kernel_prepare_deps_default)
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_KERNEL_HOST
@@ -436,7 +436,7 @@ kernel_compile: $(STATEDIR)/kernel.compile
 
 kernel_compile_deps =  $(STATEDIR)/kernel.prepare
 
-$(STATEDIR)/kernel.compile: $(kernel_compile_deps)
+$(STATEDIR)/kernel.compile: $(kernel_compile_deps_default)
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_KERNEL_HOST
@@ -464,7 +464,7 @@ kernel_targetinstall: $(STATEDIR)/kernel.targetinstall
 
 kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
 
-$(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
+$(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_KERNEL_HOST

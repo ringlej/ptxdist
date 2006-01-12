@@ -347,7 +347,7 @@ $(STATEDIR)/kernel-feature-$(PTXCONF_KERNEL_PATCH20_NAME).get:
 endif
 endif
 
-$(STATEDIR)/kernel-patchstack.get: $(kernel_patchstack_get_deps)
+$(STATEDIR)/kernel-patchstack.get: $(kernel_patchstack_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -363,7 +363,7 @@ kernel_get_deps = \
 	$(STATEDIR)/kernel-patchstack.get
 endif
 
-$(STATEDIR)/kernel.get: $(kernel_get_deps)
+$(STATEDIR)/kernel.get: $(kernel_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -458,7 +458,7 @@ endif
 # This was defined before; we leave it here for reference. [RSC]
 # GENKSYMS=$(COMPILER_PREFIX)genksyms
 
-$(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
+$(STATEDIR)/kernel.prepare: $(kernel_prepare_deps_default)
 	@$(call targetinfo, $@)
 
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
@@ -539,7 +539,7 @@ ifdef PTXCONF_KLIBC
 kernel_compile_deps += $(STATEDIR)/klibc.install
 endif
 
-$(STATEDIR)/kernel.compile: $(kernel_compile_deps)
+$(STATEDIR)/kernel.compile: $(kernel_compile_deps_default)
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_COMPILE_KERNEL
@@ -571,7 +571,7 @@ kernel_targetinstall: $(STATEDIR)/kernel.targetinstall
 
 kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
 
-$(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
+$(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_COMPILE_KERNEL

@@ -34,7 +34,7 @@ memedit_get: $(STATEDIR)/memedit.get
 
 memedit_get_deps = $(MEMEDIT_SOURCE)
 
-$(STATEDIR)/memedit.get: $(memedit_get_deps)
+$(STATEDIR)/memedit.get: $(memedit_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMEDIT))
 	@$(call touch, $@)
@@ -82,7 +82,7 @@ MEMEDIT_ENV 	=  $(CROSS_ENV)
 #
 MEMEDIT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/memedit.prepare: $(memedit_prepare_deps)
+$(STATEDIR)/memedit.prepare: $(memedit_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMEDIT_DIR)/config.cache)
 	cd $(MEMEDIT_DIR) && \
@@ -98,7 +98,7 @@ memedit_compile: $(STATEDIR)/memedit.compile
 
 memedit_compile_deps = $(STATEDIR)/memedit.prepare
 
-$(STATEDIR)/memedit.compile: $(memedit_compile_deps)
+$(STATEDIR)/memedit.compile: $(memedit_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MEMEDIT_DIR) && $(MEMEDIT_ENV) $(MEMEDIT_PATH) make
 	@$(call touch, $@)
@@ -123,7 +123,7 @@ memedit_targetinstall: $(STATEDIR)/memedit.targetinstall
 memedit_targetinstall_deps = $(STATEDIR)/memedit.compile \
 			      $(STATEDIR)/readline.targetinstall
 
-$(STATEDIR)/memedit.targetinstall: $(memedit_targetinstall_deps)
+$(STATEDIR)/memedit.targetinstall: $(memedit_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

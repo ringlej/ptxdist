@@ -33,7 +33,7 @@ ppp_get:	$(STATEDIR)/ppp.get
 
 ppp_get_deps	= $(PPP_SOURCE)
 
-$(STATEDIR)/ppp.get: $(ppp_get_deps)
+$(STATEDIR)/ppp.get: $(ppp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PPP))
 	@$(call touch, $@)
@@ -110,7 +110,7 @@ ppp_compile: $(STATEDIR)/ppp.compile
 
 ppp_compile_deps =  $(STATEDIR)/ppp.prepare
 
-$(STATEDIR)/ppp.compile: $(ppp_compile_deps) 
+$(STATEDIR)/ppp.compile: $(ppp_compile_deps_default) 
 	@$(call targetinfo, $@)
 	cd $(PPP_DIR) && \
 		$(PPP_PATH) make $(PPP_MAKEVARS)

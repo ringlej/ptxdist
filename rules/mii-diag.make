@@ -34,7 +34,7 @@ mii-diag_get: $(STATEDIR)/mii-diag.get
 
 mii-diag_get_deps = $(MII-DIAG_SOURCE)
 
-$(STATEDIR)/mii-diag.get: $(mii-diag_get_deps)
+$(STATEDIR)/mii-diag.get: $(mii-diag_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MII-DIAG))
 	@$(call touch, $@)
@@ -74,7 +74,7 @@ mii-diag_prepare_deps = \
 MII-DIAG_PATH	=  PATH=$(CROSS_PATH)
 MII-DIAG_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/mii-diag.prepare: $(mii-diag_prepare_deps)
+$(STATEDIR)/mii-diag.prepare: $(mii-diag_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -86,7 +86,7 @@ mii-diag_compile: $(STATEDIR)/mii-diag.compile
 
 mii-diag_compile_deps = $(STATEDIR)/mii-diag.prepare
 
-$(STATEDIR)/mii-diag.compile: $(mii-diag_compile_deps)
+$(STATEDIR)/mii-diag.compile: $(mii-diag_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MII-DIAG_DIR) && $(MII-DIAG_ENV) $(MII-DIAG_PATH) make
 	@$(call touch, $@)
@@ -109,7 +109,7 @@ mii-diag_targetinstall: $(STATEDIR)/mii-diag.targetinstall
 
 mii-diag_targetinstall_deps = $(STATEDIR)/mii-diag.compile
 
-$(STATEDIR)/mii-diag.targetinstall: $(mii-diag_targetinstall_deps)
+$(STATEDIR)/mii-diag.targetinstall: $(mii-diag_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

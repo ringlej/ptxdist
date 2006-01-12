@@ -37,7 +37,7 @@ pango12_get: $(STATEDIR)/pango12.get
 pango12_get_deps	=  $(PANGO12_SOURCE)
 pango12_get_deps	+= $(PANGO12_PATCH_SOURCE)
 
-$(STATEDIR)/pango12.get: $(pango12_get_deps)
+$(STATEDIR)/pango12.get: $(pango12_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -93,7 +93,7 @@ PANGO12_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 PANGO12_AUTOCONF	+= --with-x=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6
 PANGO12_AUTOCONF	+= --enable-explicit-deps
 
-$(STATEDIR)/pango12.prepare: $(pango12_prepare_deps)
+$(STATEDIR)/pango12.prepare: $(pango12_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PANGO12_BUILDDIR))
 	cd $(PANGO12_DIR) && \
@@ -109,7 +109,7 @@ pango12_compile: $(STATEDIR)/pango12.compile
 
 pango12_compile_deps =  $(STATEDIR)/pango12.prepare
 
-$(STATEDIR)/pango12.compile: $(pango12_compile_deps)
+$(STATEDIR)/pango12.compile: $(pango12_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PANGO12_DIR) && $(PANGO12_PATH) $(PANGO12_ENV) make
 	@$(call touch, $@)
@@ -137,7 +137,7 @@ pango12_targetinstall_deps	+= $(STATEDIR)/xfree430.targetinstall
 pango12_targetinstall_deps	+= $(STATEDIR)/fontconfig22.targetinstall
 pango12_targetinstall_deps	+= $(STATEDIR)/freetype.targetinstall
 
-$(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps)
+$(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

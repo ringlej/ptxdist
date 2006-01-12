@@ -34,7 +34,7 @@ slang_get: $(STATEDIR)/slang.get
 
 slang_get_deps = $(SLANG_SOURCE)
 
-$(STATEDIR)/slang.get: $(slang_get_deps)
+$(STATEDIR)/slang.get: $(slang_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -79,7 +79,7 @@ SLANG_ENV 	=  $(CROSS_ENV)
 #
 SLANG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/slang.prepare: $(slang_prepare_deps)
+$(STATEDIR)/slang.prepare: $(slang_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SLANG_DIR)/config.cache)
 	cd $(SLANG_DIR) && \
@@ -95,7 +95,7 @@ slang_compile: $(STATEDIR)/slang.compile
 
 slang_compile_deps = $(STATEDIR)/slang.prepare
 
-$(STATEDIR)/slang.compile: $(slang_compile_deps)
+$(STATEDIR)/slang.compile: $(slang_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SLANG_DIR) && $(SLANG_PATH) make elf
 	@$(call touch, $@)
@@ -119,7 +119,7 @@ slang_targetinstall: $(STATEDIR)/slang.targetinstall
 
 slang_targetinstall_deps = $(STATEDIR)/slang.compile
 
-$(STATEDIR)/slang.targetinstall: $(slang_targetinstall_deps)
+$(STATEDIR)/slang.targetinstall: $(slang_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

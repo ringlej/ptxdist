@@ -34,7 +34,7 @@ memtester_get: $(STATEDIR)/memtester.get
 
 memtester_get_deps = $(MEMTESTER_SOURCE)
 
-$(STATEDIR)/memtester.get: $(memtester_get_deps)
+$(STATEDIR)/memtester.get: $(memtester_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMTESTER))
 	@$(call touch, $@)
@@ -76,7 +76,7 @@ MEMTESTER_ENV 	=  $(CROSS_ENV)
 #MEMTESTER_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #MEMTESTER_ENV	+=
 
-$(STATEDIR)/memtester.prepare: $(memtester_prepare_deps)
+$(STATEDIR)/memtester.prepare: $(memtester_prepare_deps_default)
 	@$(call targetinfo, $@)
 	echo "all: memtester" > $(MEMTESTER_DIR)/Makefile.ptxdist
 	echo "memtester: tests.o memtester.o" >> $(MEMTESTER_DIR)/Makefile.ptxdist
@@ -90,7 +90,7 @@ memtester_compile: $(STATEDIR)/memtester.compile
 
 memtester_compile_deps = $(STATEDIR)/memtester.prepare
 
-$(STATEDIR)/memtester.compile: $(memtester_compile_deps)
+$(STATEDIR)/memtester.compile: $(memtester_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MEMTESTER_DIR) && $(MEMTESTER_ENV) $(MEMTESTER_PATH) make -f Makefile.ptxdist
 	@$(call touch, $@)
@@ -113,7 +113,7 @@ memtester_targetinstall: $(STATEDIR)/memtester.targetinstall
 
 memtester_targetinstall_deps = $(STATEDIR)/memtester.compile
 
-$(STATEDIR)/memtester.targetinstall: $(memtester_targetinstall_deps)
+$(STATEDIR)/memtester.targetinstall: $(memtester_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

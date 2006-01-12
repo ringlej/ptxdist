@@ -34,7 +34,7 @@ php_get: $(STATEDIR)/php.get
 
 php_get_deps = $(PHP_SOURCE)
 
-$(STATEDIR)/php.get: $(php_get_deps)
+$(STATEDIR)/php.get: $(php_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -103,7 +103,7 @@ ifdef PTXCONF_NS_PHP_MODULE
 PHP_AUTOCONF += NS_DIR=$(NS_DIR) --with-netstar_cfg=shared
 endif
 
-$(STATEDIR)/php.prepare: $(php_prepare_deps)
+$(STATEDIR)/php.prepare: $(php_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP_DIR)/config.cache)
 	cd $(PHP_DIR) && \
@@ -119,7 +119,7 @@ php_compile: $(STATEDIR)/php.compile
 
 php_compile_deps = $(STATEDIR)/php.prepare
 
-$(STATEDIR)/php.compile: $(php_compile_deps)
+$(STATEDIR)/php.compile: $(php_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PHP_DIR) && $(PHP_ENV) $(PHP_PATH) make
 	@$(call touch, $@)
@@ -152,7 +152,7 @@ ifdef PTXCONF_APACHE
 php_targetinstall_deps += $(STATEDIR)/apache.targetinstall
 endif
 
-$(STATEDIR)/php.targetinstall: $(php_targetinstall_deps)
+$(STATEDIR)/php.targetinstall: $(php_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -34,7 +34,7 @@ tcpdump_get: $(STATEDIR)/tcpdump.get
 
 tcpdump_get_deps = $(TCPDUMP_SOURCE)
 
-$(STATEDIR)/tcpdump.get: $(tcpdump_get_deps)
+$(STATEDIR)/tcpdump.get: $(tcpdump_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TCPDUMP))
 	@$(call touch, $@)
@@ -89,7 +89,7 @@ ifdef PTXCONF_TCPDUMP_DISABLE_CRYPTO
 TCPDUMP_AUTOCONF += --without-crypto
 endif
 
-$(STATEDIR)/tcpdump.prepare: $(tcpdump_prepare_deps)
+$(STATEDIR)/tcpdump.prepare: $(tcpdump_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TCPDUMP_DIR)/config.cache)
 	cd $(TCPDUMP_DIR) && \
@@ -105,7 +105,7 @@ tcpdump_compile: $(STATEDIR)/tcpdump.compile
 
 tcpdump_compile_deps = $(STATEDIR)/tcpdump.prepare
 
-$(STATEDIR)/tcpdump.compile: $(tcpdump_compile_deps)
+$(STATEDIR)/tcpdump.compile: $(tcpdump_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(TCPDUMP_DIR) && $(TCPDUMP_ENV) $(TCPDUMP_PATH) make
 	@$(call touch, $@)
@@ -130,7 +130,7 @@ tcpdump_targetinstall: $(STATEDIR)/tcpdump.targetinstall
 tcpdump_targetinstall_deps = $(STATEDIR)/tcpdump.compile \
 			     $(STATEDIR)/libpcap.install
 
-$(STATEDIR)/tcpdump.targetinstall: $(tcpdump_targetinstall_deps)
+$(STATEDIR)/tcpdump.targetinstall: $(tcpdump_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

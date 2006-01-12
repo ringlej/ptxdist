@@ -35,7 +35,7 @@ shorewall_get: $(STATEDIR)/shorewall.get
 
 shorewall_get_deps	=  $(SHOREWALL_SOURCE)
 
-$(STATEDIR)/shorewall.get: $(shorewall_get_deps)
+$(STATEDIR)/shorewall.get: $(shorewall_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -90,7 +90,7 @@ shorewall_targetinstall_deps	=  $(STATEDIR)/shorewall.extract
 # create /etc/shorewall directory before installing to keep it from
 # using build system's chkconfig script to install itself!
 #
-$(STATEDIR)/shorewall.targetinstall: $(shorewall_targetinstall_deps)
+$(STATEDIR)/shorewall.targetinstall: $(shorewall_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

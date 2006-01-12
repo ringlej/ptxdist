@@ -35,7 +35,7 @@ sqlite_get: $(STATEDIR)/sqlite.get
 
 sqlite_get_deps = $(SQLITE_SOURCE)
 
-$(STATEDIR)/sqlite.get: $(sqlite_get_deps)
+$(STATEDIR)/sqlite.get: $(sqlite_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -91,7 +91,7 @@ endif
 SQLITE_CFLAGS = $(call remove_quotes,$(TARGET_CFLAGS)) -fpic
 SQLITE_LDFLAGS = $(call remove_quotes,$(TARGET_LDFLAGS)) -shared -o libsqlite3.so
 
-$(STATEDIR)/sqlite.prepare: $(sqlite_prepare_deps)
+$(STATEDIR)/sqlite.prepare: $(sqlite_prepare_deps_default)
 	@$(call targetinfo, $@)
 	# Create Makefile
 	echo "TOP = $(SQLITE_DIR)"				>  $(SQLITE_MK)
@@ -123,7 +123,7 @@ sqlite_compile: $(STATEDIR)/sqlite.compile
 
 sqlite_compile_deps = $(STATEDIR)/sqlite.prepare
 
-$(STATEDIR)/sqlite.compile: $(sqlite_compile_deps)
+$(STATEDIR)/sqlite.compile: $(sqlite_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SQLITE_DIR) && $(SQLITE_PATH) make -f $(SQLITE_MK) libsqlite
 	@$(call touch, $@)

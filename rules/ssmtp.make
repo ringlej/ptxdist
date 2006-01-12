@@ -40,7 +40,7 @@ ssmtp_get: $(STATEDIR)/ssmtp.get
 
 ssmtp_get_deps = $(SSMTP_SOURCE) $(SSMTP_PATCH_SOURCE)
 
-$(STATEDIR)/ssmtp.get: $(ssmtp_get_deps)
+$(STATEDIR)/ssmtp.get: $(ssmtp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -105,7 +105,7 @@ ifdef PTXCONF_SSMTP_MD5AUTH
 SSMTP_AUTOCONF  += --enable-md5auth
 endif
 
-$(STATEDIR)/ssmtp.prepare: $(ssmtp_prepare_deps)
+$(STATEDIR)/ssmtp.prepare: $(ssmtp_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SSMTP_DIR)/config.cache)
 	cd $(SSMTP_DIR) && \
@@ -121,7 +121,7 @@ ssmtp_compile: $(STATEDIR)/ssmtp.compile
 
 ssmtp_compile_deps = $(STATEDIR)/ssmtp.prepare
 
-$(STATEDIR)/ssmtp.compile: $(ssmtp_compile_deps)
+$(STATEDIR)/ssmtp.compile: $(ssmtp_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SSMTP_DIR) && $(SSMTP_ENV) $(SSMTP_PATH) make
 	@$(call touch, $@)
@@ -147,7 +147,7 @@ ssmtp_targetinstall: $(STATEDIR)/ssmtp.targetinstall
 
 ssmtp_targetinstall_deps = $(STATEDIR)/ssmtp.compile
 
-$(STATEDIR)/ssmtp.targetinstall: $(ssmtp_targetinstall_deps)
+$(STATEDIR)/ssmtp.targetinstall: $(ssmtp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -35,7 +35,7 @@ pcre_get: $(STATEDIR)/pcre.get
 
 pcre_get_deps = $(PCRE_SOURCE)
 
-$(STATEDIR)/pcre.get: $(pcre_get_deps)
+$(STATEDIR)/pcre.get: $(pcre_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PCRE))
 	@$(call touch, $@)
@@ -82,7 +82,7 @@ PCRE_ENV 	=  $(CROSS_ENV)
 #
 PCRE_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/pcre.prepare: $(pcre_prepare_deps)
+$(STATEDIR)/pcre.prepare: $(pcre_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCRE_DIR)/config.cache)
 	cd $(PCRE_DIR) && \
@@ -102,7 +102,7 @@ pcre_compile: $(STATEDIR)/pcre.compile
 
 pcre_compile_deps = $(STATEDIR)/pcre.prepare
 
-$(STATEDIR)/pcre.compile: $(pcre_compile_deps)
+$(STATEDIR)/pcre.compile: $(pcre_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PCRE_DIR) && $(PCRE_ENV) $(PCRE_PATH) make
 	@$(call touch, $@)
@@ -126,7 +126,7 @@ pcre_targetinstall: $(STATEDIR)/pcre.targetinstall
 
 pcre_targetinstall_deps = $(STATEDIR)/pcre.compile
 
-$(STATEDIR)/pcre.targetinstall: $(pcre_targetinstall_deps)
+$(STATEDIR)/pcre.targetinstall: $(pcre_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

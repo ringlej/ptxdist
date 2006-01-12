@@ -68,7 +68,7 @@ GMP3_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 GMP3_AUTOCONF += --enable-shared
 GMP3_AUTOCONF += --enable-static
 
-$(STATEDIR)/gmp3.prepare: $(gmp3_prepare_deps)
+$(STATEDIR)/gmp3.prepare: $(gmp3_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GMP3_DIR) && \
 		$(GMP3_PATH) $(GMP3_ENV) \

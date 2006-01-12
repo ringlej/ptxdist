@@ -34,7 +34,7 @@ module-init-tools_get: $(STATEDIR)/module-init-tools.get
 
 module-init-tools_get_deps = $(MODULE_INIT_TOOLS_SOURCE)
 
-$(STATEDIR)/module-init-tools.get: $(module-init-tools_get_deps)
+$(STATEDIR)/module-init-tools.get: $(module-init-tools_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MODULE_INIT_TOOLS))
 	@$(call touch, $@)
@@ -74,7 +74,7 @@ MODULE_INIT_TOOLS_ENV		= $(CROSS_ENV)
 MODULE_INIT_TOOLS_MAKEVARS	= MAN5=''
 MODULE_INIT_TOOLS_AUTOCONF	= $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/module-init-tools.prepare: $(module-init-tools_prepare_deps)
+$(STATEDIR)/module-init-tools.prepare: $(module-init-tools_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MODULE_INIT_TOOLS_DIR) && \
 		$(MODULE_INIT_TOOLS_PATH) $(MODULE_INIT_TOOLS_ENV) \
@@ -89,7 +89,7 @@ module-init-tools_compile: $(STATEDIR)/module-init-tools.compile
 
 module-init-tools_compile_deps = $(STATEDIR)/module-init-tools.prepare
 
-$(STATEDIR)/module-init-tools.compile: $(module-init-tools_compile_deps)
+$(STATEDIR)/module-init-tools.compile: $(module-init-tools_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MODULE_INIT_TOOLS_DIR) && \
 		$(MODULE_INIT_TOOLS_PATH) make $(MODULE_INIT_TOOLS_MAKEVARS)
@@ -113,7 +113,7 @@ module-init-tools_targetinstall: $(STATEDIR)/module-init-tools.targetinstall
 
 module-init-tools_targetinstall_deps = $(STATEDIR)/module-init-tools.compile
 
-$(STATEDIR)/module-init-tools.targetinstall: $(module-init-tools_targetinstall_deps)
+$(STATEDIR)/module-init-tools.targetinstall: $(module-init-tools_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

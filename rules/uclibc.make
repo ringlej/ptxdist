@@ -51,7 +51,7 @@ uclibc_prepare: $(STATEDIR)/uclibc.prepare
 
 uclibc_prepare_deps =  $(STATEDIR)/uclibc.extract
 
-$(STATEDIR)/uclibc.prepare: $(uclibc_prepare_deps)
+$(STATEDIR)/uclibc.prepare: $(uclibc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -63,7 +63,7 @@ uclibc_compile: $(STATEDIR)/uclibc.compile
 
 uclibc_compile_deps = $(STATEDIR)/uclibc.prepare
 
-$(STATEDIR)/uclibc.compile: $(uclibc_compile_deps)
+$(STATEDIR)/uclibc.compile: $(uclibc_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -85,7 +85,7 @@ uclibc_targetinstall: $(STATEDIR)/uclibc.targetinstall
 
 uclibc_targetinstall_deps = $(STATEDIR)/uclibc.install
 
-$(STATEDIR)/uclibc.targetinstall: $(uclibc_targetinstall_deps)
+$(STATEDIR)/uclibc.targetinstall: $(uclibc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -34,7 +34,7 @@ rsync_get: $(STATEDIR)/rsync.get
 
 rsync_get_deps	=  $(RSYNC_SOURCE)
 
-$(STATEDIR)/rsync.get: $(rsync_get_deps)
+$(STATEDIR)/rsync.get: $(rsync_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -81,7 +81,7 @@ RSYNC_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
 RSYNC_AUTOCONF	+= --with-included-popt
 
 
-$(STATEDIR)/rsync.prepare: $(rsync_prepare_deps)
+$(STATEDIR)/rsync.prepare: $(rsync_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RSYNC_BUILDDIR))
 	cd $(RSYNC_DIR) && \
@@ -97,7 +97,7 @@ rsync_compile: $(STATEDIR)/rsync.compile
 
 rsync_compile_deps =  $(STATEDIR)/rsync.prepare
 
-$(STATEDIR)/rsync.compile: $(rsync_compile_deps)
+$(STATEDIR)/rsync.compile: $(rsync_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(RSYNC_PATH) make -C $(RSYNC_DIR)
 	@$(call touch, $@)
@@ -120,7 +120,7 @@ rsync_targetinstall: $(STATEDIR)/rsync.targetinstall
 
 rsync_targetinstall_deps	=  $(STATEDIR)/rsync.compile
 
-$(STATEDIR)/rsync.targetinstall: $(rsync_targetinstall_deps)
+$(STATEDIR)/rsync.targetinstall: $(rsync_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

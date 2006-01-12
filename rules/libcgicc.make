@@ -33,7 +33,7 @@ cgicc_get: $(STATEDIR)/cgicc.get
 
 cgicc_get_deps = $(CGICC_SOURCE)
 
-$(STATEDIR)/cgicc.get: $(cgicc_get_deps)
+$(STATEDIR)/cgicc.get: $(cgicc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CGICC))
 	@$(call touch, $@)
@@ -80,7 +80,7 @@ CGICC_ENV	+=
 #
 CGICC_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/cgicc.prepare: $(cgicc_prepare_deps)
+$(STATEDIR)/cgicc.prepare: $(cgicc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CGICC_DIR)/config.cache)
 	cd $(CGICC_DIR) && \
@@ -96,7 +96,7 @@ cgicc_compile: $(STATEDIR)/cgicc.compile
 
 cgicc_compile_deps = $(STATEDIR)/cgicc.prepare
 
-$(STATEDIR)/cgicc.compile: $(cgicc_compile_deps)
+$(STATEDIR)/cgicc.compile: $(cgicc_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(CGICC_DIR) && $(CGICC_ENV) $(CGICC_PATH) make
 	@$(call touch, $@)
@@ -120,7 +120,7 @@ cgicc_targetinstall: $(STATEDIR)/cgicc.targetinstall
 
 cgicc_targetinstall_deps = $(STATEDIR)/cgicc.compile
 
-$(STATEDIR)/cgicc.targetinstall: $(cgicc_targetinstall_deps)
+$(STATEDIR)/cgicc.targetinstall: $(cgicc_targetinstall_deps_default)
 
 	@$(call targetinfo, $@)
 	@$(call install_init,default)

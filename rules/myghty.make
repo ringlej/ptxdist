@@ -34,7 +34,7 @@ myghty_get: $(STATEDIR)/myghty.get
 
 myghty_get_deps = $(MYGHTY_SOURCE)
 
-$(STATEDIR)/myghty.get: $(myghty_get_deps)
+$(STATEDIR)/myghty.get: $(myghty_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -79,7 +79,7 @@ MYGHTY_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 MYGHTY_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/myghty.prepare: $(myghty_prepare_deps)
+$(STATEDIR)/myghty.prepare: $(myghty_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MYGHTY_DIR)/config.cache)
 	@$(call touch, $@)
@@ -92,7 +92,7 @@ myghty_compile: $(STATEDIR)/myghty.compile
 
 myghty_compile_deps = $(STATEDIR)/myghty.prepare
 
-$(STATEDIR)/myghty.compile: $(myghty_compile_deps)
+$(STATEDIR)/myghty.compile: $(myghty_compile_deps_default)
 	@$(call targetinfo, $@)
 	#cd $(MYGHTY_DIR) && $(MYGHTY_ENV) $(MYGHTY_PATH) make
 	@$(call touch, $@)
@@ -117,7 +117,7 @@ myghty_targetinstall: $(STATEDIR)/myghty.targetinstall
 
 myghty_targetinstall_deps = $(STATEDIR)/myghty.compile
 
-$(STATEDIR)/myghty.targetinstall: $(myghty_targetinstall_deps)
+$(STATEDIR)/myghty.targetinstall: $(myghty_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

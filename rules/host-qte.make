@@ -34,7 +34,7 @@ host-qte_get: $(STATEDIR)/host-qte.get
 
 host-qte_get_deps = $(HOST_QTE_SOURCE)
 
-$(STATEDIR)/host-qte.get: $(host-qte_get_deps)
+$(STATEDIR)/host-qte.get: $(host-qte_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_QTE))
 	@$(call touch, $@)
@@ -99,7 +99,7 @@ HOST_QTE_CONF += -no-cups
 HOST_QTE_CONF += -no-stl 
 QTE_AUTOCONF  += -no-qvfb 
 
-$(STATEDIR)/host-qte.prepare: $(host-qte_prepare_deps)
+$(STATEDIR)/host-qte.prepare: $(host-qte_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_QTE_DIR)/config.cache)
 	cd $(HOST_QTE_DIR) && \
@@ -115,7 +115,7 @@ host-qte_compile: $(STATEDIR)/host-qte.compile
 
 host-qte_compile_deps = $(STATEDIR)/host-qte.prepare
 
-$(STATEDIR)/host-qte.compile: $(host-qte_compile_deps)
+$(STATEDIR)/host-qte.compile: $(host-qte_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_QTE_DIR) && $(HOST_QTE_ENV) $(HOST_QTE_PATH) make sub-src
 	cd $(HOST_QTE_DIR)/tools/designer/uic && $(HOST_QTE_ENV) $(HOST_QTE_PATH) make
@@ -129,7 +129,7 @@ host-qte_install: $(STATEDIR)/host-qte.install
 
 host-qte_install_deps = $(STATEDIR)/host-qte.compile
 
-$(STATEDIR)/host-qte.install: $(host-qte_install_deps)
+$(STATEDIR)/host-qte.install: $(host-qte_install_deps_default)
 	@$(call targetinfo, $@)
 	cp $(HOST_QTE_DIR)/bin/uic $(PTXCONF_PREFIX)/bin
 	@$(call touch, $@)

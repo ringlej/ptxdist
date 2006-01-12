@@ -37,7 +37,7 @@ xlibs-xextensions_get: $(STATEDIR)/xlibs-xextensions.get
 
 xlibs-xextensions_get_deps = $(XLIBS-XEXTENSIONS_SOURCE)
 
-$(STATEDIR)/xlibs-xextensions.get: $(xlibs-xextensions_get_deps)
+$(STATEDIR)/xlibs-xextensions.get: $(xlibs-xextensions_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XEXTENSIONS))
 	@$(call touch, $@)
@@ -84,7 +84,7 @@ XLIBS-XEXTENSIONS_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/xlibs-xextensions.prepare: $(xlibs-xextensions_prepare_deps)
+$(STATEDIR)/xlibs-xextensions.prepare: $(xlibs-xextensions_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XEXTENSIONS_DIR)/config.cache)
 	chmod a+x $(XLIBS-XEXTENSIONS_DIR)/configure
@@ -101,7 +101,7 @@ xlibs-xextensions_compile: $(STATEDIR)/xlibs-xextensions.compile
 
 xlibs-xextensions_compile_deps = $(STATEDIR)/xlibs-xextensions.prepare
 
-$(STATEDIR)/xlibs-xextensions.compile: $(xlibs-xextensions_compile_deps)
+$(STATEDIR)/xlibs-xextensions.compile: $(xlibs-xextensions_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XEXTENSIONS_DIR) && $(XLIBS-XEXTENSIONS_ENV) $(XLIBS-XEXTENSIONS_PATH) make
 	@$(call touch, $@)
@@ -125,7 +125,7 @@ xlibs-xextensions_targetinstall: $(STATEDIR)/xlibs-xextensions.targetinstall
 
 xlibs-xextensions_targetinstall_deps = $(STATEDIR)/xlibs-xextensions.compile
 
-$(STATEDIR)/xlibs-xextensions.targetinstall: $(xlibs-xextensions_targetinstall_deps)
+$(STATEDIR)/xlibs-xextensions.targetinstall: $(xlibs-xextensions_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

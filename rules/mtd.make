@@ -34,7 +34,7 @@ mtd_get: $(STATEDIR)/mtd.get
 
 mtd_get_deps = $(MTD_SOURCE)
 
-$(STATEDIR)/mtd.get: $(mtd_get_deps)
+$(STATEDIR)/mtd.get: $(mtd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MTD))
 	@$(call touch, $@)
@@ -76,7 +76,7 @@ MTD_PATH	= PATH=$(CROSS_PATH)
 MTD_MAKEVARS	= CROSS=$(COMPILER_PREFIX)
 MTD_ENV		= $(CROSS_ENV)
 
-$(STATEDIR)/mtd.prepare: $(mtd_prepare_deps)
+$(STATEDIR)/mtd.prepare: $(mtd_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -88,7 +88,7 @@ mtd_compile: $(STATEDIR)/mtd.compile
 
 mtd_compile_deps = $(STATEDIR)/mtd.prepare
 
-$(STATEDIR)/mtd.compile: $(mtd_compile_deps)
+$(STATEDIR)/mtd.compile: $(mtd_compile_deps_default)
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_MTD_FLASH_ERASE
@@ -171,7 +171,7 @@ ifdef PTXCONF_MTD_MKJFFS2
 mtd_targetinstall_deps	+= $(STATEDIR)/zlib.targetinstall
 endif
 
-$(STATEDIR)/mtd.targetinstall: $(mtd_targetinstall_deps)
+$(STATEDIR)/mtd.targetinstall: $(mtd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

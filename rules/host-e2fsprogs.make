@@ -76,7 +76,7 @@ host-e2fsprogs_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/host-e2fsprogs.extract
 
-$(STATEDIR)/host-e2fsprogs.prepare: $(host-e2fsprogs_prepare_deps)
+$(STATEDIR)/host-e2fsprogs.prepare: $(host-e2fsprogs_prepare_deps_default)
 	@$(call targetinfo, $@)
 	mkdir -p $(HOST_E2FSPROGS_BUILD_DIR) && \
 	cd $(HOST_E2FSPROGS_BUILD_DIR) && \
@@ -92,7 +92,7 @@ host-e2fsprogs_compile: $(STATEDIR)/host-e2fsprogs.compile
 
 host-e2fsprogs_compile_deps = $(STATEDIR)/host-e2fsprogs.prepare
 
-$(STATEDIR)/host-e2fsprogs.compile: $(host-e2fsprogs_compile_deps) 
+$(STATEDIR)/host-e2fsprogs.compile: $(host-e2fsprogs_compile_deps_default) 
 	@$(call targetinfo, $@)
 #
 # in the util dir are tools that are compiled for the host system

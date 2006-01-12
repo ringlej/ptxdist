@@ -34,7 +34,7 @@ gnupg_get: $(STATEDIR)/gnupg.get
 
 gnupg_get_deps = $(GNUPG_SOURCE)
 
-$(STATEDIR)/gnupg.get: $(gnupg_get_deps)
+$(STATEDIR)/gnupg.get: $(gnupg_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GNUPG))
 	@$(call touch, $@)
@@ -103,7 +103,7 @@ GNUPG_AUTOCONF = $(CROSS_AUTOCONF_USR) \
 	--disable-rpath \
 	--disable-regex
 
-$(STATEDIR)/gnupg.prepare: $(gnupg_prepare_deps)
+$(STATEDIR)/gnupg.prepare: $(gnupg_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GNUPG_DIR)/config.cache)
 	cd $(GNUPG_DIR) && \
@@ -119,7 +119,7 @@ gnupg_compile: $(STATEDIR)/gnupg.compile
 
 gnupg_compile_deps = $(STATEDIR)/gnupg.prepare
 
-$(STATEDIR)/gnupg.compile: $(gnupg_compile_deps)
+$(STATEDIR)/gnupg.compile: $(gnupg_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GNUPG_DIR) && $(GNUPG_ENV) $(GNUPG_PATH) make
 	@$(call touch, $@)
@@ -143,7 +143,7 @@ gnupg_targetinstall: $(STATEDIR)/gnupg.targetinstall
 
 gnupg_targetinstall_deps = $(STATEDIR)/gnupg.install
 
-$(STATEDIR)/gnupg.targetinstall: $(gnupg_targetinstall_deps)
+$(STATEDIR)/gnupg.targetinstall: $(gnupg_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

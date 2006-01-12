@@ -37,7 +37,7 @@ xlibs-xtrans_get: $(STATEDIR)/xlibs-xtrans.get
 
 xlibs-xtrans_get_deps = $(XLIBS-XTRANS_SOURCE)
 
-$(STATEDIR)/xlibs-xtrans.get: $(xlibs-xtrans_get_deps)
+$(STATEDIR)/xlibs-xtrans.get: $(xlibs-xtrans_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XTRANS))
 	@$(call touch, $@)
@@ -85,7 +85,7 @@ XLIBS-XTRANS_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/xlibs-xtrans.prepare: $(xlibs-xtrans_prepare_deps)
+$(STATEDIR)/xlibs-xtrans.prepare: $(xlibs-xtrans_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XTRANS_DIR)/config.cache)
 	chmod a+x $(XLIBS-XTRANS_DIR)/configure
@@ -102,7 +102,7 @@ xlibs-xtrans_compile: $(STATEDIR)/xlibs-xtrans.compile
 
 xlibs-xtrans_compile_deps = $(STATEDIR)/xlibs-xtrans.prepare
 
-$(STATEDIR)/xlibs-xtrans.compile: $(xlibs-xtrans_compile_deps)
+$(STATEDIR)/xlibs-xtrans.compile: $(xlibs-xtrans_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XTRANS_DIR) && $(XLIBS-XTRANS_ENV) $(XLIBS-XTRANS_PATH) make
 	@$(call touch, $@)
@@ -126,7 +126,7 @@ xlibs-xtrans_targetinstall: $(STATEDIR)/xlibs-xtrans.targetinstall
 
 xlibs-xtrans_targetinstall_deps = $(STATEDIR)/xlibs-xtrans.compile
 
-$(STATEDIR)/xlibs-xtrans.targetinstall: $(xlibs-xtrans_targetinstall_deps)
+$(STATEDIR)/xlibs-xtrans.targetinstall: $(xlibs-xtrans_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

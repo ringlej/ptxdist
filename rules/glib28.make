@@ -94,7 +94,7 @@ glib28_compile: $(STATEDIR)/glib28.compile
 
 glib28_compile_deps =  $(STATEDIR)/glib28.prepare
 
-$(STATEDIR)/glib28.compile: $(glib28_compile_deps)
+$(STATEDIR)/glib28.compile: $(glib28_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GLIB28_DIR) && $(GLIB28_PATH) $(GLIB28_ENV) make $(GLIB28_MAKEVARS)
 	@$(call touch, $@)
@@ -118,7 +118,7 @@ glib28_targetinstall: $(STATEDIR)/glib28.targetinstall
 
 glib28_targetinstall_deps	=  $(STATEDIR)/glib28.compile
 
-$(STATEDIR)/glib28.targetinstall: $(glib28_targetinstall_deps)
+$(STATEDIR)/glib28.targetinstall: $(glib28_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

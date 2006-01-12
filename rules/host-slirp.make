@@ -34,7 +34,7 @@ host-slirp_get: $(STATEDIR)/host-slirp.get
 
 host-slirp_get_deps = $(HOST_SLIRP_SOURCE)
 
-$(STATEDIR)/host-slirp.get: $(host-slirp_get_deps)
+$(STATEDIR)/host-slirp.get: $(host-slirp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_SLIRP))
 	@$(call touch, $@)
@@ -79,7 +79,7 @@ HOST_SLIRP_ENV 		=  $(HOSTCC_ENV)
 HOST_SLIRP_AUTOCONF  = $(HOST_AUTOCONF)
 HOST_SLIRP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)/usr
 
-$(STATEDIR)/host-slirp.prepare: $(host-slirp_prepare_deps)
+$(STATEDIR)/host-slirp.prepare: $(host-slirp_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_SLIRP_DIR)/config.cache)
 	cd $(HOST_SLIRP_DIR)/src && \
@@ -95,7 +95,7 @@ host-slirp_compile: $(STATEDIR)/host-slirp.compile
 
 host-slirp_compile_deps = $(STATEDIR)/host-slirp.prepare
 
-$(STATEDIR)/host-slirp.compile: $(host-slirp_compile_deps)
+$(STATEDIR)/host-slirp.compile: $(host-slirp_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_SLIRP_DIR)/src && $(HOST_SLIRP_ENV) $(HOST_SLIRP_PATH) make
 	@$(call touch, $@)
@@ -108,7 +108,7 @@ host-slirp_install: $(STATEDIR)/host-slirp.install
 
 host-slirp_install_deps = $(STATEDIR)/host-slirp.compile
 
-$(STATEDIR)/host-slirp.install: $(host-slirp_install_deps)
+$(STATEDIR)/host-slirp.install: $(host-slirp_install_deps_default)
 	@$(call targetinfo, $@)
 	mkdir -p $(PTXCONF_PREFIX)/usr/bin
 	mkdir -p $(PTXCONF_PREFIX)/usr/man/man1

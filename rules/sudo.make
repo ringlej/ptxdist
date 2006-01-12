@@ -36,7 +36,7 @@ sudo_get: $(STATEDIR)/sudo.get
 
 sudo_get_deps = $(SUDO_SOURCE)
 
-$(STATEDIR)/sudo.get: $(sudo_get_deps)
+$(STATEDIR)/sudo.get: $(sudo_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SUDO))
 	@$(call touch, $@)
@@ -83,7 +83,7 @@ SUDO_ENV 	=  $(CROSS_ENV)
 #
 SUDO_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/sudo.prepare: $(sudo_prepare_deps)
+$(STATEDIR)/sudo.prepare: $(sudo_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SUDO_DIR)/config.cache)
 	cd $(SUDO_DIR) && \
@@ -99,7 +99,7 @@ sudo_compile: $(STATEDIR)/sudo.compile
 
 sudo_compile_deps = $(STATEDIR)/sudo.prepare
 
-$(STATEDIR)/sudo.compile: $(sudo_compile_deps)
+$(STATEDIR)/sudo.compile: $(sudo_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SUDO_DIR) && $(SUDO_ENV) $(SUDO_PATH) make
 	@$(call touch, $@)
@@ -123,7 +123,7 @@ sudo_targetinstall: $(STATEDIR)/sudo.targetinstall
 
 sudo_targetinstall_deps = $(STATEDIR)/sudo.compile
 
-$(STATEDIR)/sudo.targetinstall: $(sudo_targetinstall_deps)
+$(STATEDIR)/sudo.targetinstall: $(sudo_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

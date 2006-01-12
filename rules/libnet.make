@@ -34,7 +34,7 @@ libnet_get: $(STATEDIR)/libnet.get
 
 libnet_get_deps	=  $(LIBNET_SOURCE)
 
-$(STATEDIR)/libnet.get: $(libnet_get_deps)
+$(STATEDIR)/libnet.get: $(libnet_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -82,7 +82,7 @@ LIBNET_ENV	+= ac_libnet_have_packet_socket=yes
 LIBNET_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 LIBNET_AUTOCONF += --with-pf_packet=yes
 
-$(STATEDIR)/libnet.prepare: $(libnet_prepare_deps)
+$(STATEDIR)/libnet.prepare: $(libnet_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBNET_BUILDDIR))
 	cd $(LIBNET_DIR) && \
@@ -98,7 +98,7 @@ libnet_compile: $(STATEDIR)/libnet.compile
 
 libnet_compile_deps =  $(STATEDIR)/libnet.prepare
 
-$(STATEDIR)/libnet.compile: $(libnet_compile_deps)
+$(STATEDIR)/libnet.compile: $(libnet_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBNET_DIR) && $(LIBNET_PATH) $(LIBNET_ENV) make
 	@$(call touch, $@)
@@ -122,7 +122,7 @@ libnet_targetinstall: $(STATEDIR)/libnet.targetinstall
 
 libnet_targetinstall_deps	=  $(STATEDIR)/libnet.install
 
-$(STATEDIR)/libnet.targetinstall: $(libnet_targetinstall_deps)
+$(STATEDIR)/libnet.targetinstall: $(libnet_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: nothing to do? 
 	@$(call touch, $@)

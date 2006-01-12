@@ -35,7 +35,7 @@ gtk22_get: $(STATEDIR)/gtk22.get
 
 gtk22_get_deps	=  $(GTK22_SOURCE)
 
-$(STATEDIR)/gtk22.get: $(gtk22_get_deps)
+$(STATEDIR)/gtk22.get: $(gtk22_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -91,7 +91,7 @@ GTK22_AUTOCONF	+= --without-libtiff
 GTK22_AUTOCONF	+= --without-libjpeg
 
 
-$(STATEDIR)/gtk22.prepare: $(gtk22_prepare_deps)
+$(STATEDIR)/gtk22.prepare: $(gtk22_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK22_BUILDDIR))
 	cd $(GTK22_DIR) && \
@@ -113,7 +113,7 @@ gtk22_compile: $(STATEDIR)/gtk22.compile
 
 gtk22_compile_deps =  $(STATEDIR)/gtk22.prepare
 
-$(STATEDIR)/gtk22.compile: $(gtk22_compile_deps)
+$(STATEDIR)/gtk22.compile: $(gtk22_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GTK22_DIR) && $(GTK22_PATH) $(GTK22_ENV) make
 	@$(call touch, $@)
@@ -126,7 +126,7 @@ gtk22_install: $(STATEDIR)/gtk22.install
 
 gtk22_install_deps	=  $(STATEDIR)/gtk22.compile
 
-$(STATEDIR)/gtk22.install: $(gtk22_install_deps)
+$(STATEDIR)/gtk22.install: $(gtk22_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GTK22)
 	@$(call touch, $@)
@@ -143,7 +143,7 @@ gtk22_targetinstall_deps	+= $(STATEDIR)/freetype.targetinstall
 gtk22_targetinstall_deps	+= $(STATEDIR)/libidl-2.targetinstall
 gtk22_targetinstall_deps	+= $(STATEDIR)/pango12.targetinstall
 
-$(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps)
+$(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

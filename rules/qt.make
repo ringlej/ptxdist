@@ -36,7 +36,7 @@ qt_get: $(STATEDIR)/qt.get
 
 qt_get_deps	=  $(QT_SOURCE)
 
-$(STATEDIR)/qt.get: $(qt_get_deps)
+$(STATEDIR)/qt.get: $(qt_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -99,7 +99,7 @@ QT_AUTOCONF	+= -depths 16
 QT_AUTOCONF	+= -no-qvfb 
 QT_AUTOCONF	+= -xplatform linux-g++
 
-$(STATEDIR)/qt.prepare: $(qt_prepare_deps)
+$(STATEDIR)/qt.prepare: $(qt_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(QT_DIR) && \
 		echo "yes" | $(QT_PATH) $(QT_ENV) \
@@ -114,7 +114,7 @@ qt_compile: $(STATEDIR)/qt.compile
 
 qt_compile_deps =  $(STATEDIR)/qt.prepare
 
-$(STATEDIR)/qt.compile: $(qt_compile_deps)
+$(STATEDIR)/qt.compile: $(qt_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(QT_PATH) $(QT_ENV) make -C $(QT_DIR)
 	@$(call touch, $@)
@@ -138,7 +138,7 @@ qt_targetinstall: $(STATEDIR)/qt.targetinstall
 
 qt_targetinstall_deps	=  $(STATEDIR)/qt.compile
 
-$(STATEDIR)/qt.targetinstall: $(qt_targetinstall_deps)
+$(STATEDIR)/qt.targetinstall: $(qt_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -34,7 +34,7 @@ nano_get: $(STATEDIR)/nano.get
 
 nano_get_deps = $(NANO_SOURCE)
 
-$(STATEDIR)/nano.get: $(nano_get_deps)
+$(STATEDIR)/nano.get: $(nano_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NANO))
 	@$(call touch, $@)
@@ -81,7 +81,7 @@ NANO_ENV 	=  $(CROSS_ENV)
 #
 NANO_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/nano.prepare: $(nano_prepare_deps)
+$(STATEDIR)/nano.prepare: $(nano_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NANO_DIR)/config.cache)
 	cd $(NANO_DIR) && \
@@ -97,7 +97,7 @@ nano_compile: $(STATEDIR)/nano.compile
 
 nano_compile_deps = $(STATEDIR)/nano.prepare
 
-$(STATEDIR)/nano.compile: $(nano_compile_deps)
+$(STATEDIR)/nano.compile: $(nano_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(NANO_DIR) && $(NANO_ENV) $(NANO_PATH) make
 	@$(call touch, $@)
@@ -122,7 +122,7 @@ nano_targetinstall: $(STATEDIR)/nano.targetinstall
 
 nano_targetinstall_deps = $(STATEDIR)/nano.compile
 
-$(STATEDIR)/nano.targetinstall: $(nano_targetinstall_deps)
+$(STATEDIR)/nano.targetinstall: $(nano_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

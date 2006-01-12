@@ -34,7 +34,7 @@ setmixer_get: $(STATEDIR)/setmixer.get
 
 setmixer_get_deps = $(SETMIXER_SOURCE)
 
-$(STATEDIR)/setmixer.get: $(setmixer_get_deps)
+$(STATEDIR)/setmixer.get: $(setmixer_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -74,7 +74,7 @@ SETMIXER_PATH		=  PATH=$(CROSS_PATH)
 SETMIXER_ENV 		=  $(CROSS_ENV)
 SETMIXER_MAKEVARS	=  CC=$(PTXCONF_GNU_TARGET)-gcc 
 
-$(STATEDIR)/setmixer.prepare: $(setmixer_prepare_deps)
+$(STATEDIR)/setmixer.prepare: $(setmixer_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SETMIXER_DIR)/config.cache)
 	@$(call touch, $@)
@@ -87,7 +87,7 @@ setmixer_compile: $(STATEDIR)/setmixer.compile
 
 setmixer_compile_deps = $(STATEDIR)/setmixer.prepare
 
-$(STATEDIR)/setmixer.compile: $(setmixer_compile_deps)
+$(STATEDIR)/setmixer.compile: $(setmixer_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SETMIXER_DIR) && \
 		$(SETMIXER_ENV) $(SETMIXER_PATH) make $(SETMIXER_MAKEVARS)
@@ -111,7 +111,7 @@ setmixer_targetinstall: $(STATEDIR)/setmixer.targetinstall
 
 setmixer_targetinstall_deps = $(STATEDIR)/setmixer.compile
 
-$(STATEDIR)/setmixer.targetinstall: $(setmixer_targetinstall_deps)
+$(STATEDIR)/setmixer.targetinstall: $(setmixer_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

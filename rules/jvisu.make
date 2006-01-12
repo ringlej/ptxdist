@@ -33,7 +33,7 @@ jvisu_get: $(STATEDIR)/jvisu.get
 
 jvisu_get_deps = $(JVISU_SOURCE)
 
-$(STATEDIR)/jvisu.get: $(jvisu_get_deps)
+$(STATEDIR)/jvisu.get: $(jvisu_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JVISU))
 	@$(call touch, $@)
@@ -79,7 +79,7 @@ JVISU_PATH	=  PATH=$(PTXCONF_SETUP_JAVA_SDK)/bin:$(CROSS_PATH)
 JVISU_ENV 	=  $(CROSS_ENV)
 JVISU_ENV	+= JAVA_HOME=$(PTXCONF_SETUP_JAVA_SDK)
 
-$(STATEDIR)/jvisu.prepare: $(jvisu_prepare_deps)
+$(STATEDIR)/jvisu.prepare: $(jvisu_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JVISU_DIR)/config.cache)
 	@$(call touch, $@)
@@ -92,7 +92,7 @@ jvisu_compile: $(STATEDIR)/jvisu.compile
 
 jvisu_compile_deps = $(STATEDIR)/jvisu.prepare
 
-$(STATEDIR)/jvisu.compile: $(jvisu_compile_deps)
+$(STATEDIR)/jvisu.compile: $(jvisu_compile_deps_default)
 	@$(call targetinfo, $@)
 
 	# FIXME: we need ant to do this; should we make it a host tool? 
@@ -119,7 +119,7 @@ jvisu_targetinstall: $(STATEDIR)/jvisu.targetinstall
 
 jvisu_targetinstall_deps = $(STATEDIR)/jvisu.compile
 
-$(STATEDIR)/jvisu.targetinstall: $(jvisu_targetinstall_deps)
+$(STATEDIR)/jvisu.targetinstall: $(jvisu_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

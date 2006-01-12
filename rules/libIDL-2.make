@@ -37,7 +37,7 @@ libidl-2_get: $(STATEDIR)/libidl-2.get
 
 libidl-2_get_deps	=  $(LIBIDL-2_SOURCE)
 
-$(STATEDIR)/libidl-2.get: $(libidl-2_get_deps)
+$(STATEDIR)/libidl-2.get: $(libidl-2_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -87,7 +87,7 @@ ifdef PTXCONF_LIBIDL-2_FOO
 LIBIDL-2_AUTOCONF	+= --enable-foo
 endif
 
-$(STATEDIR)/libidl-2.prepare: $(libidl-2_prepare_deps)
+$(STATEDIR)/libidl-2.prepare: $(libidl-2_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBIDL-2_BUILDDIR))
 	cd $(LIBIDL-2_DIR) && \
@@ -103,7 +103,7 @@ libidl-2_compile: $(STATEDIR)/libidl-2.compile
 
 libidl-2_compile_deps =  $(STATEDIR)/libidl-2.prepare
 
-$(STATEDIR)/libidl-2.compile: $(libidl-2_compile_deps)
+$(STATEDIR)/libidl-2.compile: $(libidl-2_compile_deps_default)
 	@$(call targetinfo, $@)
 
 	cd $(LIBIDL-2_DIR) && $(LIBIDL-2_PATH) $(LIBIDL-2_ENV) make
@@ -129,7 +129,7 @@ libidl-2_targetinstall: $(STATEDIR)/libidl-2.targetinstall
 
 libidl-2_targetinstall_deps	=  $(STATEDIR)/libidl-2.compile
 
-$(STATEDIR)/libidl-2.targetinstall: $(libidl-2_targetinstall_deps)
+$(STATEDIR)/libidl-2.targetinstall: $(libidl-2_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: nothing to do? 
 	@$(call touch, $@)

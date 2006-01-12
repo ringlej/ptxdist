@@ -52,7 +52,7 @@ glibc_prepare: $(STATEDIR)/glibc.prepare
 
 glibc_prepare_deps = $(STATEDIR)/glibc.extract
 
-$(STATEDIR)/glibc.prepare: $(glibc_prepare_deps)
+$(STATEDIR)/glibc.prepare: $(glibc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -64,7 +64,7 @@ glibc_compile: $(STATEDIR)/glibc.compile
 
 glibc_compile_deps = $(STATEDIR)/glibc.prepare 
 
-$(STATEDIR)/glibc.compile: $(glibc_compile_deps)
+$(STATEDIR)/glibc.compile: $(glibc_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -76,7 +76,7 @@ glibc_install: $(STATEDIR)/glibc.install
 
 glibc_install_deps = $(STATEDIR)/glibc.compile
 
-$(STATEDIR)/glibc.install: $(glibc_install_deps)
+$(STATEDIR)/glibc.install: $(glibc_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -94,7 +94,7 @@ else
 GLIBC_STRIP	= y
 endif
 
-$(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps)
+$(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

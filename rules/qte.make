@@ -40,7 +40,7 @@ qte_get: $(STATEDIR)/qte.get
 
 qte_get_deps = $(QTE_SOURCE)
 
-$(STATEDIR)/qte.get: $(qte_get_deps)
+$(STATEDIR)/qte.get: $(qte_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -127,7 +127,7 @@ else
 QTE_AUTOCONF	+= -static 
 endif
 
-$(STATEDIR)/qte.prepare: $(qte_prepare_deps)
+$(STATEDIR)/qte.prepare: $(qte_prepare_deps_default)
 	@$(call targetinfo, $@)
 	mkdir -p $(QTE_DIR)/mkspecs/linux-ptxdist
 	ln -sf ../linux-g++/qplatformdefs.h $(QTE_DIR)/mkspecs/linux-ptxdist
@@ -221,7 +221,7 @@ qte_compile: $(STATEDIR)/qte.compile
 
 qte_compile_deps = $(STATEDIR)/qte.prepare
 
-$(STATEDIR)/qte.compile: $(qte_compile_deps)
+$(STATEDIR)/qte.compile: $(qte_compile_deps_default)
 	@$(call targetinfo, $@)
 	cp -f $(PTXCONF_PREFIX)/bin/uic $(QTE_DIR)/bin/uic
 	$(QTE_PATH) $(QTE_ENV) make -C $(QTE_DIR) $(QTE_ENV)
@@ -246,7 +246,7 @@ qte_targetinstall: $(STATEDIR)/qte.targetinstall
 
 qte_targetinstall_deps = $(STATEDIR)/qte.compile
 
-$(STATEDIR)/qte.targetinstall: $(qte_targetinstall_deps)
+$(STATEDIR)/qte.targetinstall: $(qte_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

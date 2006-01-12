@@ -74,7 +74,7 @@ portmap_prepare_deps += $(STATEDIR)/tcpwrapper.install
 endif
 portmap_prepare_deps += $(STATEDIR)/portmap.extract
 
-$(STATEDIR)/portmap.prepare: $(portmap_prepare_deps)
+$(STATEDIR)/portmap.prepare: $(portmap_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

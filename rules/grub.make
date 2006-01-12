@@ -131,7 +131,7 @@ grub_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/grub.extract
 
-$(STATEDIR)/grub.prepare: $(grub_prepare_deps)
+$(STATEDIR)/grub.prepare: $(grub_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GRUB_DIR) && \
 		$(GRUB_PATH) $(GRUB_ENV) ./configure $(GRUB_AUTOCONF)

@@ -34,7 +34,7 @@ oprofile_get: $(STATEDIR)/oprofile.get
 
 oprofile_get_deps	=  $(OPROFILE_SOURCE)
 
-$(STATEDIR)/oprofile.get: $(oprofile_get_deps)
+$(STATEDIR)/oprofile.get: $(oprofile_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -87,7 +87,7 @@ OPROFILE_AUTOCONF	+= --with-kernel-support
 #
 OPROFILE_MAKEVARS	=  $(KERNEL_MAKEVARS)
 
-$(STATEDIR)/oprofile.prepare: $(oprofile_prepare_deps)
+$(STATEDIR)/oprofile.prepare: $(oprofile_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPROFILE_DIR)/config.cache)
 	cd $(OPROFILE_DIR) && \
@@ -103,7 +103,7 @@ oprofile_compile: $(STATEDIR)/oprofile.compile
 
 oprofile_compile_deps =  $(STATEDIR)/oprofile.prepare
 
-$(STATEDIR)/oprofile.compile: $(oprofile_compile_deps)
+$(STATEDIR)/oprofile.compile: $(oprofile_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(OPROFILE_PATH) make -C $(OPROFILE_DIR) $(OPROFILE_MAKEVARS)
 	@$(call touch, $@)
@@ -127,7 +127,7 @@ oprofile_targetinstall: $(STATEDIR)/oprofile.targetinstall
 
 oprofile_targetinstall_deps	=  $(STATEDIR)/oprofile.compile
 
-$(STATEDIR)/oprofile.targetinstall: $(oprofile_targetinstall_deps)
+$(STATEDIR)/oprofile.targetinstall: $(oprofile_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: nothing to do on targetinstall? 
 	@$(call touch, $@)

@@ -37,7 +37,7 @@ xmlstarlet_get_deps = \
 	$(RULESDIR)/xmlstarlet.make
 
 
-$(STATEDIR)/xmlstarlet.get: $(xmlstarlet_get_deps)
+$(STATEDIR)/xmlstarlet.get: $(xmlstarlet_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -86,7 +86,7 @@ XMLSTARLET_AUTOCONF = \
 	--with-libxslt-prefix=$(SYSROOT)/usr \
 	--with-libiconv-prefix=$(SYSROOT)/usr
 
-$(STATEDIR)/xmlstarlet.prepare: $(xmlstarlet_prepare_deps)
+$(STATEDIR)/xmlstarlet.prepare: $(xmlstarlet_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XMLSTARLET_DIR)/config.cache)
 	cd $(XMLSTARLET_DIR) && \
@@ -102,7 +102,7 @@ xmlstarlet_compile: $(STATEDIR)/xmlstarlet.compile
 
 xmlstarlet_compile_deps = $(STATEDIR)/xmlstarlet.prepare
 
-$(STATEDIR)/xmlstarlet.compile: $(xmlstarlet_compile_deps)
+$(STATEDIR)/xmlstarlet.compile: $(xmlstarlet_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XMLSTARLET_DIR) && $(XMLSTARLET_ENV) $(XMLSTARLET_PATH) make
 	@$(call touch, $@)
@@ -128,7 +128,7 @@ xmlstarlet_targetinstall_deps =  $(STATEDIR)/xmlstarlet.compile
 xmlstarlet_targetinstall_deps += $(STATEDIR)/libxml2.targetinstall
 xmlstarlet_targetinstall_deps += $(STATEDIR)/libxslt.targetinstall
 
-$(STATEDIR)/xmlstarlet.targetinstall: $(xmlstarlet_targetinstall_deps)
+$(STATEDIR)/xmlstarlet.targetinstall: $(xmlstarlet_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

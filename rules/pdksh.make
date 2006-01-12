@@ -127,7 +127,7 @@ pdksh_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	 $(STATEDIR)/pdksh.extract 
 
-$(STATEDIR)/pdksh.prepare: $(pdksh_prepare_deps)
+$(STATEDIR)/pdksh.prepare: $(pdksh_prepare_deps_default)
 	@$(call targetinfo, $@)
 	mkdir -p $(BUILDDIR)/$(PDKSH)
 	cd $(PDKSH_DIR) && \

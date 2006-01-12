@@ -34,7 +34,7 @@ liblist_get: $(STATEDIR)/liblist.get
 
 liblist_get_deps = $(LIBLIST_SOURCE)
 
-$(STATEDIR)/liblist.get: $(liblist_get_deps)
+$(STATEDIR)/liblist.get: $(liblist_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBLIST))
 	@$(call touch, $@)
@@ -80,7 +80,7 @@ LIBLIST_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 LIBLIST_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/liblist.prepare: $(liblist_prepare_deps)
+$(STATEDIR)/liblist.prepare: $(liblist_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBLIST_DIR)/config.cache)
 	cd $(LIBLIST_DIR) && \
@@ -96,7 +96,7 @@ liblist_compile: $(STATEDIR)/liblist.compile
 
 liblist_compile_deps = $(STATEDIR)/liblist.prepare
 
-$(STATEDIR)/liblist.compile: $(liblist_compile_deps)
+$(STATEDIR)/liblist.compile: $(liblist_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBLIST_DIR) && $(LIBLIST_ENV) $(LIBLIST_PATH) make
 	@$(call touch, $@)
@@ -120,7 +120,7 @@ liblist_targetinstall: $(STATEDIR)/liblist.targetinstall
 
 liblist_targetinstall_deps = $(STATEDIR)/liblist.compile
 
-$(STATEDIR)/liblist.targetinstall: $(liblist_targetinstall_deps)
+$(STATEDIR)/liblist.targetinstall: $(liblist_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -73,7 +73,7 @@ BLACKBOX_AUTOCONF	+= --x-libraries=/home/koan/ptxdist/ptxdist-testing/root/usr/X
 #BLACKBOX_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11 \
 #BLACKBOX_AUTOCONF	+= --x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
 
-$(STATEDIR)/blackbox.prepare: $(blackbox_prepare_deps)
+$(STATEDIR)/blackbox.prepare: $(blackbox_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BLACKBOX_DIR)/config.cache)
 	cd $(BLACKBOX_DIR) && \

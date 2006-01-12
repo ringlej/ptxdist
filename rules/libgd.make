@@ -34,7 +34,7 @@ libgd_get: $(STATEDIR)/libgd.get
 
 libgd_get_deps	=  $(LIBGD_SOURCE)
 
-$(STATEDIR)/libgd.get: $(libgd_get_deps)
+$(STATEDIR)/libgd.get: $(libgd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -82,7 +82,7 @@ LIBGD_AUTOCONF  =  $(CROSS_AUTOCONF_USR)
 
 #LIBGD_AUTOCONF	+= 
 
-$(STATEDIR)/libgd.prepare: $(libgd_prepare_deps)
+$(STATEDIR)/libgd.prepare: $(libgd_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGD_BUILDDIR))
 	cd $(LIBGD_DIR) && \
@@ -98,7 +98,7 @@ libgd_compile: $(STATEDIR)/libgd.compile
 
 libgd_compile_deps =  $(STATEDIR)/libgd.prepare
 
-$(STATEDIR)/libgd.compile: $(libgd_compile_deps)
+$(STATEDIR)/libgd.compile: $(libgd_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(LIBGD_PATH) $(LIBGD_ENV) make -C $(LIBGD_DIR)
 	@$(call touch, $@)
@@ -123,7 +123,7 @@ libgd_targetinstall: $(STATEDIR)/libgd.targetinstall
 
 libgd_targetinstall_deps	=  $(STATEDIR)/libgd.compile
 
-$(STATEDIR)/libgd.targetinstall: $(libgd_targetinstall_deps)
+$(STATEDIR)/libgd.targetinstall: $(libgd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

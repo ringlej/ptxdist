@@ -36,7 +36,7 @@ python24_get: $(STATEDIR)/python24.get
 python24_get_deps = \
 	$(PYTHON24_SOURCE)
 
-$(STATEDIR)/python24.get: $(python24_get_deps)
+$(STATEDIR)/python24.get: $(python24_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PYTHON24))
 	@$(call touch, $@)
@@ -85,7 +85,7 @@ PYTHON24_MAKEVARS	+= HOSTPGEN=$(XCHAIN_PYTHON24_BUILDDIR)/Parser/pgen
 PYTHON24_MAKEVARS	+= CROSS_COMPILE=yes
 PYTHON24_MAKEVARS	+= DESTDIR=$(ROOTDIR)
 
-$(STATEDIR)/python24.prepare: $(python24_prepare_deps)
+$(STATEDIR)/python24.prepare: $(python24_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PYTHON24_BUILDDIR))
 	mkdir -p $(PYTHON24_BUILDDIR)
@@ -104,7 +104,7 @@ python24_compile_deps = \
 	$(STATEDIR)/xchain-python24.compile \
 	$(STATEDIR)/python24.prepare
 
-$(STATEDIR)/python24.compile: $(python24_compile_deps)
+$(STATEDIR)/python24.compile: $(python24_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PYTHON24_BUILDDIR) && $(PYTHON24_PATH) make $(PYTHON24_MAKEVARS)
 	@$(call touch, $@)

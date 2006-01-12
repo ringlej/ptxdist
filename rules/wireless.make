@@ -33,7 +33,7 @@ wireless_get: $(STATEDIR)/wireless.get
 
 wireless_get_deps	= $(WIRELESS_SOURCE)
 
-$(STATEDIR)/wireless.get: $(wireless_get_deps)
+$(STATEDIR)/wireless.get: $(wireless_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -64,7 +64,7 @@ wireless_prepare: $(STATEDIR)/wireless.prepare
 
 wireless_prepare_deps	= $(STATEDIR)/wireless.extract
 
-$(STATEDIR)/wireless.prepare: $(wireless_prepare_deps)
+$(STATEDIR)/wireless.prepare: $(wireless_prepare_deps_default)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_WIRELESS_SHARED
 	@$(call disable_sh,$(WIRELESS_DIR)/Makefile,BUILD_STATIC)
@@ -83,7 +83,7 @@ wireless_compile: $(STATEDIR)/wireless.compile
 
 wireless_compile_deps	= $(STATEDIR)/wireless.prepare
 
-$(STATEDIR)/wireless.compile: $(wireless_compile_deps) 
+$(STATEDIR)/wireless.compile: $(wireless_compile_deps_default) 
 	@$(call targetinfo, $@)
 	cd $(WIRELESS_DIR) && $(WIRELESS_PATH) $(WIRELESS_ENV) make CC=${CROSS_CC}
 	@$(call touch, $@)
@@ -96,7 +96,7 @@ wireless_install: $(STATEDIR)/wireless.install
 
 wireless_compile_deps	= $(STATEDIR)/wireless.compile
 
-$(STATEDIR)/wireless.install: $(wireless_compile_deps)
+$(STATEDIR)/wireless.install: $(wireless_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

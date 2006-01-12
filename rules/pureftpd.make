@@ -34,7 +34,7 @@ pureftpd_get: $(STATEDIR)/pureftpd.get
 
 pureftpd_get_deps = $(PUREFTPD_SOURCE)
 
-$(STATEDIR)/pureftpd.get: $(pureftpd_get_deps)
+$(STATEDIR)/pureftpd.get: $(pureftpd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PUREFTPD))
 	@$(call touch, $@)
@@ -121,7 +121,7 @@ else
 PUREFTPD_AUTOCONF += --without-diraliases
 endif
 
-$(STATEDIR)/pureftpd.prepare: $(pureftpd_prepare_deps)
+$(STATEDIR)/pureftpd.prepare: $(pureftpd_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PUREFTPD_DIR)/config.cache)
 	cd $(PUREFTPD_DIR) && \
@@ -137,7 +137,7 @@ pureftpd_compile: $(STATEDIR)/pureftpd.compile
 
 pureftpd_compile_deps = $(STATEDIR)/pureftpd.prepare
 
-$(STATEDIR)/pureftpd.compile: $(pureftpd_compile_deps)
+$(STATEDIR)/pureftpd.compile: $(pureftpd_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PUREFTPD_DIR) && $(PUREFTPD_ENV) $(PUREFTPD_PATH) make
 	@$(call touch, $@)
@@ -161,7 +161,7 @@ pureftpd_targetinstall: $(STATEDIR)/pureftpd.targetinstall
 
 pureftpd_targetinstall_deps = $(STATEDIR)/pureftpd.compile
 
-$(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps)
+$(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

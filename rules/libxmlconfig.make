@@ -34,7 +34,7 @@ libxmlconfig_get: $(STATEDIR)/libxmlconfig.get
 
 libxmlconfig_get_deps = $(LIBXMLCONFIG_SOURCE)
 
-$(STATEDIR)/libxmlconfig.get: $(libxmlconfig_get_deps)
+$(STATEDIR)/libxmlconfig.get: $(libxmlconfig_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBXMLCONFIG))
 	@$(call touch, $@)

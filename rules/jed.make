@@ -34,7 +34,7 @@ jed_get: $(STATEDIR)/jed.get
 
 jed_get_deps = $(JED_SOURCE)
 
-$(STATEDIR)/jed.get: $(jed_get_deps)
+$(STATEDIR)/jed.get: $(jed_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JED))
 	@$(call touch, $@)
@@ -82,7 +82,7 @@ JED_ENV 	=  $(CROSS_ENV)
 #
 JED_AUTOCONF =  $(CROSS_AUTOCONF_USR) 
 
-$(STATEDIR)/jed.prepare: $(jed_prepare_deps)
+$(STATEDIR)/jed.prepare: $(jed_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JED_DIR)/config.cache)
 	cd $(JED_DIR) && \
@@ -98,7 +98,7 @@ jed_compile: $(STATEDIR)/jed.compile
 
 jed_compile_deps = $(STATEDIR)/jed.prepare
 
-$(STATEDIR)/jed.compile: $(jed_compile_deps)
+$(STATEDIR)/jed.compile: $(jed_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(JED_DIR) && $(JED_ENV) $(JED_PATH) make
 	@$(call touch, $@)
@@ -123,7 +123,7 @@ jed_targetinstall: $(STATEDIR)/jed.targetinstall
 
 jed_targetinstall_deps = $(STATEDIR)/jed.compile
 
-$(STATEDIR)/jed.targetinstall: $(jed_targetinstall_deps)
+$(STATEDIR)/jed.targetinstall: $(jed_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

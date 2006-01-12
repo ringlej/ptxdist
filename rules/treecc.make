@@ -34,7 +34,7 @@ treecc_get: $(STATEDIR)/treecc.get
 
 treecc_get_deps = $(TREECC_SOURCE)
 
-$(STATEDIR)/treecc.get: $(treecc_get_deps)
+$(STATEDIR)/treecc.get: $(treecc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TREECC))
 	@$(call touch, $@)
@@ -80,7 +80,7 @@ TREECC_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 TREECC_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/treecc.prepare: $(treecc_prepare_deps)
+$(STATEDIR)/treecc.prepare: $(treecc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TREECC_DIR)/config.cache)
 	cd $(TREECC_DIR) && \
@@ -96,7 +96,7 @@ treecc_compile: $(STATEDIR)/treecc.compile
 
 treecc_compile_deps = $(STATEDIR)/treecc.prepare
 
-$(STATEDIR)/treecc.compile: $(treecc_compile_deps)
+$(STATEDIR)/treecc.compile: $(treecc_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(TREECC_DIR) && $(TREECC_ENV) $(TREECC_PATH) make
 	@$(call touch, $@)
@@ -120,7 +120,7 @@ treecc_targetinstall: $(STATEDIR)/treecc.targetinstall
 
 treecc_targetinstall_deps = $(STATEDIR)/treecc.compile
 
-$(STATEDIR)/treecc.targetinstall: $(treecc_targetinstall_deps)
+$(STATEDIR)/treecc.targetinstall: $(treecc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

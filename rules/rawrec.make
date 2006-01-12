@@ -34,7 +34,7 @@ rawrec_get: $(STATEDIR)/rawrec.get
 
 rawrec_get_deps = $(RAWREC_SOURCE)
 
-$(STATEDIR)/rawrec.get: $(rawrec_get_deps)
+$(STATEDIR)/rawrec.get: $(rawrec_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(RAWREC))
 	@$(call touch, $@)
@@ -81,7 +81,7 @@ RAWREC_ENV 	=  $(CROSS_ENV)
 #
 RAWREC_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/rawrec.prepare: $(rawrec_prepare_deps)
+$(STATEDIR)/rawrec.prepare: $(rawrec_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -94,7 +94,7 @@ rawrec_compile: $(STATEDIR)/rawrec.compile
 rawrec_compile_deps = $(STATEDIR)/rawrec.prepare
 
 # CC=$(CROSS_CC) to override Makefile's "CC = gcc"
-$(STATEDIR)/rawrec.compile: $(rawrec_compile_deps)
+$(STATEDIR)/rawrec.compile: $(rawrec_compile_deps_default)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_RAWREC_RAWREC
 	cd $(RAWREC_DIR)/src && $(RAWREC_ENV) $(RAWREC_PATH) make CC=$(CROSS_CC) rawrec
@@ -122,7 +122,7 @@ rawrec_targetinstall: $(STATEDIR)/rawrec.targetinstall
 
 rawrec_targetinstall_deps = $(STATEDIR)/rawrec.compile
 
-$(STATEDIR)/rawrec.targetinstall: $(rawrec_targetinstall_deps)
+$(STATEDIR)/rawrec.targetinstall: $(rawrec_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

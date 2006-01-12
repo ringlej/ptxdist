@@ -102,7 +102,7 @@ nfsutils_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/nfsutils.extract
 
-$(STATEDIR)/nfsutils.prepare: $(nfsutils_prepare_deps)
+$(STATEDIR)/nfsutils.prepare: $(nfsutils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(NFSUTILS_DIR) &&						\
 		$(NFSUTILS_PATH) $(NFSUTILS_ENV)			\

@@ -108,7 +108,7 @@ else
 OPENSSL_AUTOCONF	+= no-shared
 endif
 
-$(STATEDIR)/openssl.prepare: $(openssl_prepare_deps)
+$(STATEDIR)/openssl.prepare: $(openssl_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(OPENSSL_DIR) && \
 		$(OPENSSL_PATH) \
@@ -162,7 +162,7 @@ openssl_targetinstall: $(STATEDIR)/openssl.targetinstall
 openssl_targetinstall_deps = \
 	$(STATEDIR)/openssl.install
 
-$(STATEDIR)/openssl.targetinstall: $(openssl_targetinstall_deps)
+$(STATEDIR)/openssl.targetinstall: $(openssl_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -34,7 +34,7 @@ libxml2_get: $(STATEDIR)/libxml2.get
 
 libxml2_get_deps = $(LIBXML2_SOURCE)
 
-$(STATEDIR)/libxml2.get: $(libxml2_get_deps)
+$(STATEDIR)/libxml2.get: $(libxml2_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

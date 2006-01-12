@@ -34,7 +34,7 @@ wget_get: $(STATEDIR)/wget.get
 
 wget_get_deps = $(WGET_SOURCE)
 
-$(STATEDIR)/wget.get: $(wget_get_deps)
+$(STATEDIR)/wget.get: $(wget_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(WGET_PACKET))
 	@$(call touch, $@)
@@ -83,7 +83,7 @@ WGET_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 WGET_AUTOCONF += --without-socks
 WGET_AUTOCONF += --without-ssl
 
-$(STATEDIR)/wget.prepare: $(wget_prepare_deps)
+$(STATEDIR)/wget.prepare: $(wget_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WGET_DIR)/config.cache)
 	cd $(WGET_DIR) && \
@@ -99,7 +99,7 @@ wget_compile: $(STATEDIR)/wget.compile
 
 wget_compile_deps = $(STATEDIR)/wget.prepare
 
-$(STATEDIR)/wget.compile: $(wget_compile_deps)
+$(STATEDIR)/wget.compile: $(wget_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(WGET_DIR) && $(WGET_ENV) $(WGET_PATH) make
 	@$(call touch, $@)
@@ -123,7 +123,7 @@ wget_targetinstall: $(STATEDIR)/wget.targetinstall
 
 wget_targetinstall_deps = $(STATEDIR)/wget.compile
 
-$(STATEDIR)/wget.targetinstall: $(wget_targetinstall_deps)
+$(STATEDIR)/wget.targetinstall: $(wget_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

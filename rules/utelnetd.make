@@ -60,7 +60,7 @@ utelnetd_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/utelnetd.extract
 
-$(STATEDIR)/utelnetd.prepare: $(utelnetd_prepare_deps)
+$(STATEDIR)/utelnetd.prepare: $(utelnetd_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

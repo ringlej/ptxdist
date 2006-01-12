@@ -73,7 +73,7 @@ host-ksymoops_compile: $(STATEDIR)/host-ksymoops.compile
 host-ksymoops_compile_deps = \
 	$(STATEDIR)/host-ksymoops.extract
 
-$(STATEDIR)/host-ksymoops.compile: $(host-ksymoops_compile_deps)
+$(STATEDIR)/host-ksymoops.compile: $(host-ksymoops_compile_deps_default)
 	@$(call targetinfo, $@)
 	make -C $(KSYMOOPS_DIR) $(KSYMOOPS_MAKEVARS)
 	@$(call touch, $@)

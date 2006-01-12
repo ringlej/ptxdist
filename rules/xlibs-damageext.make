@@ -37,7 +37,7 @@ xlibs-damageext_get: $(STATEDIR)/xlibs-damageext.get
 
 xlibs-damageext_get_deps = $(XLIBS-DAMAGEEXT_SOURCE)
 
-$(STATEDIR)/xlibs-damageext.get: $(xlibs-damageext_get_deps)
+$(STATEDIR)/xlibs-damageext.get: $(xlibs-damageext_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-DAMAGEEXT))
 	@$(call touch, $@)
@@ -83,7 +83,7 @@ XLIBS-DAMAGEEXT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 XLIBS-DAMAGEEXT_AUTOCONF =  --build=$(GNU_HOST)
 XLIBS-DAMAGEEXT_AUTOCONF += --host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/xlibs-damageext.prepare: $(xlibs-damageext_prepare_deps)
+$(STATEDIR)/xlibs-damageext.prepare: $(xlibs-damageext_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-DAMAGEEXT_DIR)/config.cache)
 	chmod a+x $(XLIBS-DAMAGEEXT_DIR)/configure
@@ -100,7 +100,7 @@ xlibs-damageext_compile: $(STATEDIR)/xlibs-damageext.compile
 
 xlibs-damageext_compile_deps = $(STATEDIR)/xlibs-damageext.prepare
 
-$(STATEDIR)/xlibs-damageext.compile: $(xlibs-damageext_compile_deps)
+$(STATEDIR)/xlibs-damageext.compile: $(xlibs-damageext_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-DAMAGEEXT_DIR) && $(XLIBS-DAMAGEEXT_ENV) $(XLIBS-DAMAGEEXT_PATH) make
 	@$(call touch, $@)
@@ -124,7 +124,7 @@ xlibs-damageext_targetinstall: $(STATEDIR)/xlibs-damageext.targetinstall
 
 xlibs-damageext_targetinstall_deps = $(STATEDIR)/xlibs-damageext.compile
 
-$(STATEDIR)/xlibs-damageext.targetinstall: $(xlibs-damageext_targetinstall_deps)
+$(STATEDIR)/xlibs-damageext.targetinstall: $(xlibs-damageext_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

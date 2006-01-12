@@ -37,7 +37,7 @@ rtnet_get: $(STATEDIR)/rtnet.get
 
 rtnet_get_deps = $(RTNET_SOURCE)
 
-$(STATEDIR)/rtnet.get: $(rtnet_get_deps)
+$(STATEDIR)/rtnet.get: $(rtnet_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -181,7 +181,7 @@ ifdef PTXCONF_RTNET_SMC91111
 RTNET_AUTOCONF	+= --enable-smc91111
 endif
 
-$(STATEDIR)/rtnet.prepare: $(rtnet_prepare_deps)
+$(STATEDIR)/rtnet.prepare: $(rtnet_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTNET_DIR)/config.cache)
 	cd $(RTNET_DIR) && \
@@ -197,7 +197,7 @@ rtnet_compile: $(STATEDIR)/rtnet.compile
 
 rtnet_compile_deps = $(STATEDIR)/rtnet.prepare
 
-$(STATEDIR)/rtnet.compile: $(rtnet_compile_deps)
+$(STATEDIR)/rtnet.compile: $(rtnet_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(RTNET_DIR) && $(RTNET_PATH) make
 	@$(call touch, $@)
@@ -223,7 +223,7 @@ rtnet_targetinstall: $(STATEDIR)/rtnet.targetinstall
 
 rtnet_targetinstall_deps = $(STATEDIR)/rtnet.compile
 
-$(STATEDIR)/rtnet.targetinstall: $(rtnet_targetinstall_deps)
+$(STATEDIR)/rtnet.targetinstall: $(rtnet_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	# Network drivers

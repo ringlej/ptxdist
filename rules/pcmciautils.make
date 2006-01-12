@@ -33,7 +33,7 @@ pcmciautils_get: $(STATEDIR)/pcmciautils.get
 
 pcmciautils_get_deps = $(PCMCIAUTILS_SOURCE)
 
-$(STATEDIR)/pcmciautils.get: $(pcmciautils_get_deps)
+$(STATEDIR)/pcmciautils.get: $(pcmciautils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PCMCIAUTILS))
 	@$(call touch, $@)
@@ -87,7 +87,7 @@ PCMCIAUTILS_MAKEVARS	+= CROSS=$(COMPILER_PREFIX)
 PCMCIAUTILS_MAKEVARS	+= GCCINCDIR=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/include
 #PCMCIAUTILS_MAKEVARS	+= KERNEL_DIR=$(PTXCONF_KERNEL_DIR)
 
-$(STATEDIR)/pcmciautils.prepare: $(pcmciautils_prepare_deps)
+$(STATEDIR)/pcmciautils.prepare: $(pcmciautils_prepare_deps_default)
 	@$(call targetinfo, $@)
 ifndef PTXCONF_PCMCIAUTILS_STARTUP
 	@perl -p -i -e 's/STARTUP = true/STARTUP = false/' $(PCMCIAUTILS_DIR)/Makefile
@@ -107,7 +107,7 @@ pcmciautils_compile: $(STATEDIR)/pcmciautils.compile
 
 pcmciautils_compile_deps = $(STATEDIR)/pcmciautils.prepare
 
-$(STATEDIR)/pcmciautils.compile: $(pcmciautils_compile_deps)
+$(STATEDIR)/pcmciautils.compile: $(pcmciautils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PCMCIAUTILS_DIR) && $(PCMCIAUTILS_ENV) $(PCMCIAUTILS_PATH) make $(PCMCIAUTILS_MAKEVARS)
 	@$(call touch, $@)
@@ -130,7 +130,7 @@ pcmciautils_targetinstall: $(STATEDIR)/pcmciautils.targetinstall
 
 pcmciautils_targetinstall_deps = $(STATEDIR)/pcmciautils.compile
 
-$(STATEDIR)/pcmciautils.targetinstall: $(pcmciautils_targetinstall_deps)
+$(STATEDIR)/pcmciautils.targetinstall: $(pcmciautils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

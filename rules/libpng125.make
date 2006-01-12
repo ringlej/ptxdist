@@ -36,7 +36,7 @@ libpng125_get: $(STATEDIR)/libpng125.get
 libpng125_get_deps	=  $(LIBPNG125_SOURCE)
 
 
-$(STATEDIR)/libpng125.get: $(libpng125_get_deps) $(STATEDIR)/libpng125-patches.get
+$(STATEDIR)/libpng125.get: $(libpng125_get_deps_default) $(STATEDIR)/libpng125-patches.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -87,7 +87,7 @@ LIBPNG125_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 # more.  
 LIBPNG125_AUTOCONF += --with-pkgconfigdir=$(SYSROOT)/lib
 
-$(STATEDIR)/libpng125.prepare: $(libpng125_prepare_deps)
+$(STATEDIR)/libpng125.prepare: $(libpng125_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPNG125_BUILDDIR))
 	@echo "FIXME: broken autoconf, see .make file"
@@ -106,7 +106,7 @@ libpng125_compile: $(STATEDIR)/libpng125.compile
 libpng125_compile_deps =  $(STATEDIR)/libpng125.prepare
 libpng125_compile_deps += $(STATEDIR)/zlib.install
 
-$(STATEDIR)/libpng125.compile: $(libpng125_compile_deps)
+$(STATEDIR)/libpng125.compile: $(libpng125_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBPNG125_DIR) && $(LIBPNG125_PATH) $(LIBPNG125_ENV) make
 	@$(call touch, $@)
@@ -135,7 +135,7 @@ libpng125_targetinstall: $(STATEDIR)/libpng125.targetinstall
 
 libpng125_targetinstall_deps	=  $(STATEDIR)/libpng125.compile
 
-$(STATEDIR)/libpng125.targetinstall: $(libpng125_targetinstall_deps)
+$(STATEDIR)/libpng125.targetinstall: $(libpng125_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

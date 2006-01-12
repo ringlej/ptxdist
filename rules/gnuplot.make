@@ -34,7 +34,7 @@ gnuplot_get: $(STATEDIR)/gnuplot.get
 
 gnuplot_get_deps = $(GNUPLOT_SOURCE)
 
-$(STATEDIR)/gnuplot.get: $(gnuplot_get_deps)
+$(STATEDIR)/gnuplot.get: $(gnuplot_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GNUPLOT))
 	@$(call touch, $@)
@@ -140,7 +140,7 @@ GNUPLOT_AUTOCONF += --without-lisp-files
 GNUPLOT_AUTOCONF += --without-row-help
 GNUPLOT_AUTOCONF += --without-tutorial
 
-$(STATEDIR)/gnuplot.prepare: $(gnuplot_prepare_deps)
+$(STATEDIR)/gnuplot.prepare: $(gnuplot_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GNUPLOT_DIR)/config.cache)
 	cd $(GNUPLOT_DIR) && \
@@ -156,7 +156,7 @@ gnuplot_compile: $(STATEDIR)/gnuplot.compile
 
 gnuplot_compile_deps = $(STATEDIR)/gnuplot.prepare
 
-$(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps)
+$(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps_default)
 	@$(call targetinfo, $@)
 
 	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_ENV) $(GNUPLOT_PATH) make gnuplot
@@ -183,7 +183,7 @@ ifdef PTXCONF_GNUPLOT_PNG
 gnuplot_targetinstall_deps += $(STATEDIR)/libpng125.targetinstall
 endif
 
-$(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps)
+$(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

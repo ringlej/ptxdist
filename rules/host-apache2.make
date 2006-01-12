@@ -34,7 +34,7 @@ host-apache2_get: $(STATEDIR)/host-apache2.get
 
 host-apache2_get_deps = $(HOST_APACHE2_SOURCE)
 
-$(STATEDIR)/host-apache2.get: $(host-apache2_get_deps)
+$(STATEDIR)/host-apache2.get: $(host-apache2_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -73,7 +73,7 @@ HOST_APACHE2_ENV 	=  $(HOSTCC_ENV)
 #
 HOST_APACHE2_AUTOCONF =  $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-apache2.prepare: $(host-apache2_prepare_deps)
+$(STATEDIR)/host-apache2.prepare: $(host-apache2_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_APACHE2_DIR)/config.cache)
 	cd $(HOST_APACHE2_DIR) && \
@@ -89,7 +89,7 @@ host-apache2_compile: $(STATEDIR)/host-apache2.compile
 
 host-apache2_compile_deps = $(STATEDIR)/host-apache2.prepare
 
-$(STATEDIR)/host-apache2.compile: $(host-apache2_compile_deps)
+$(STATEDIR)/host-apache2.compile: $(host-apache2_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_APACHE2_DIR)/srclib/apr-util/uri && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) make
 	cd $(HOST_APACHE2_DIR)/srclib/pcre && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) make dftables
@@ -104,7 +104,7 @@ host-apache2_install: $(STATEDIR)/host-apache2.install
 
 host-apache2_install_deps = $(STATEDIR)/host-apache2.compile
 
-$(STATEDIR)/host-apache2.install: $(host-apache2_install_deps)
+$(STATEDIR)/host-apache2.install: $(host-apache2_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, HOST-APACHE2,,h)

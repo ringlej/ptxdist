@@ -35,7 +35,7 @@ gtk1210_get: $(STATEDIR)/gtk1210.get
 
 gtk1210_get_deps	=  $(GTK1210_SOURCE)
 
-$(STATEDIR)/gtk1210.get: $(gtk1210_get_deps)
+$(STATEDIR)/gtk1210.get: $(gtk1210_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -84,7 +84,7 @@ GTK1210_AUTOCONF	+= --with-threads=posix
 GTK1210_AUTOCONF 	+= --with-glib-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 GTK1210_AUTOCONF	+= --with-x
 
-$(STATEDIR)/gtk1210.prepare: $(gtk1210_prepare_deps)
+$(STATEDIR)/gtk1210.prepare: $(gtk1210_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK1210_BUILDDIR))
 	cd $(GTK1210_DIR) && \
@@ -100,7 +100,7 @@ gtk1210_compile: $(STATEDIR)/gtk1210.compile
 
 gtk1210_compile_deps =  $(STATEDIR)/gtk1210.prepare
 
-$(STATEDIR)/gtk1210.compile: $(gtk1210_compile_deps)
+$(STATEDIR)/gtk1210.compile: $(gtk1210_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(GTK1210_PATH) $(GTK1210_ENV) make -C $(GTK1210_DIR)
 	@$(call touch, $@)
@@ -125,7 +125,7 @@ gtk1210_targetinstall: $(STATEDIR)/gtk1210.targetinstall
 gtk1210_targetinstall_deps	=  $(STATEDIR)/gtk1210.compile
 gtk1210_targetinstall_deps	+= $(STATEDIR)/glib1210.targetinstall
 
-$(STATEDIR)/gtk1210.targetinstall: $(gtk1210_targetinstall_deps)
+$(STATEDIR)/gtk1210.targetinstall: $(gtk1210_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

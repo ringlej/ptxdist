@@ -31,7 +31,7 @@ host-mtd_get: $(STATEDIR)/host-mtd.get
 
 host-mtd_get_deps = $(STATEDIR)/mtd.get
 
-$(STATEDIR)/host-mtd.get: $(host-mtd_get_deps)
+$(STATEDIR)/host-mtd.get: $(host-mtd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_MTD))
 	@$(call touch, $@)
@@ -69,7 +69,7 @@ HOST_MTD_MAKEVARS = \
 	CFLAGS="-I$(PTXCONF_PREFIX)/include -I$(HOST_MTD_DIR)/include" \
 	LDFLAGS=-L$(PTXCONF_PREFIX)/lib
 
-$(STATEDIR)/host-mtd.prepare: $(host-mtd_prepare_deps)
+$(STATEDIR)/host-mtd.prepare: $(host-mtd_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -81,7 +81,7 @@ host-mtd_compile: $(STATEDIR)/host-mtd.compile
 
 host-mtd_compile_deps = $(STATEDIR)/host-mtd.prepare
 
-$(STATEDIR)/host-mtd.compile: $(host-mtd_compile_deps)
+$(STATEDIR)/host-mtd.compile: $(host-mtd_compile_deps_default)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_HOST_MTD_MKJFFS
 	cd $(HOST_MTD_DIR)/util && make mkfs.jffs $(HOST_MTD_MAKEVARS)
@@ -129,7 +129,7 @@ host-mtd_targetinstall: $(STATEDIR)/host-mtd.targetinstall
 
 host-mtd_targetinstall_deps = $(STATEDIR)/host-mtd.install
 
-$(STATEDIR)/host-mtd.targetinstall: $(host-mtd_targetinstall_deps)
+$(STATEDIR)/host-mtd.targetinstall: $(host-mtd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

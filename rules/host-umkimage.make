@@ -33,7 +33,7 @@ host-umkimage_get: $(STATEDIR)/host-umkimage.get
 
 host-umkimage_get_deps = $(HOST_UMKIMAGE_SOURCE)
 
-$(STATEDIR)/host-umkimage.get: $(host-umkimage_get_deps)
+$(STATEDIR)/host-umkimage.get: $(host-umkimage_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -70,7 +70,7 @@ host-umkimage_prepare_deps += $(STATEDIR)/host-zlib.install
 HOST_UMKIMAGE_MAKEVARS	= CC=$(HOSTCC)
 HOST_UMKIMAGE_ENV		= CFLAGS=-I$(PTXCONF_PREFIX)/include
 
-$(STATEDIR)/host-umkimage.prepare: $(host-umkimage_prepare_deps)
+$(STATEDIR)/host-umkimage.prepare: $(host-umkimage_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -82,7 +82,7 @@ host-umkimage_compile: $(STATEDIR)/host-umkimage.compile
 
 host-umkimage_compile_deps = $(STATEDIR)/host-umkimage.prepare
 
-$(STATEDIR)/host-umkimage.compile: $(host-umkimage_compile_deps)
+$(STATEDIR)/host-umkimage.compile: $(host-umkimage_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(HOST_UMKIMAGE_ENV) make -C $(HOST_UMKIMAGE_DIR) $(HOST_UMKIMAGE_MAKEVARS)
 	@$(call touch, $@)
@@ -108,7 +108,7 @@ host-umkimage_targetinstall: $(STATEDIR)/host-umkimage.targetinstall
 
 host-umkimage_targetinstall_deps = $(STATEDIR)/host-umkimage.install
 
-$(STATEDIR)/host-umkimage.targetinstall: $(host-umkimage_targetinstall_deps)
+$(STATEDIR)/host-umkimage.targetinstall: $(host-umkimage_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -34,7 +34,7 @@ readline_get: $(STATEDIR)/readline.get
 
 readline_get_deps = $(READLINE_SOURCE)
 
-$(STATEDIR)/readline.get: $(readline_get_deps)
+$(STATEDIR)/readline.get: $(readline_get_deps_default)
 	@$(call targetinfo, $@)
 #	@$(call get_patches, $(READLINE))
 	@$(call touch, $@)
@@ -82,7 +82,7 @@ READLINE_ENV 	=  $(CROSS_ENV)
 #
 READLINE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/readline.prepare: $(readline_prepare_deps)
+$(STATEDIR)/readline.prepare: $(readline_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(READLINE_DIR)/config.cache)
 	cd $(READLINE_DIR) && \
@@ -98,7 +98,7 @@ readline_compile: $(STATEDIR)/readline.compile
 
 readline_compile_deps = $(STATEDIR)/readline.prepare
 
-$(STATEDIR)/readline.compile: $(readline_compile_deps)
+$(STATEDIR)/readline.compile: $(readline_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(READLINE_DIR) && $(READLINE_ENV) $(READLINE_PATH) make
 	@$(call touch, $@)
@@ -122,7 +122,7 @@ readline_targetinstall: $(STATEDIR)/readline.targetinstall
 
 readline_targetinstall_deps = $(STATEDIR)/readline.compile
 
-$(STATEDIR)/readline.targetinstall: $(readline_targetinstall_deps)
+$(STATEDIR)/readline.targetinstall: $(readline_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -34,7 +34,7 @@ thttpd_get: $(STATEDIR)/thttpd.get
 
 thttpd_get_deps = $(THTTPD_SOURCE)
 
-$(STATEDIR)/thttpd.get: $(thttpd_get_deps)
+$(STATEDIR)/thttpd.get: $(thttpd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -79,7 +79,7 @@ THTTPD_ENV 	=  $(CROSS_ENV)
 #
 THTTPD_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/thttpd.prepare: $(thttpd_prepare_deps)
+$(STATEDIR)/thttpd.prepare: $(thttpd_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(THTTPD_DIR)/config.cache)
 	cd $(THTTPD_DIR) && \
@@ -95,7 +95,7 @@ thttpd_compile: $(STATEDIR)/thttpd.compile
 
 thttpd_compile_deps = $(STATEDIR)/thttpd.prepare
 
-$(STATEDIR)/thttpd.compile: $(thttpd_compile_deps)
+$(STATEDIR)/thttpd.compile: $(thttpd_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(THTTPD_PATH) make -C $(THTTPD_DIR)
 	@$(call touch, $@)
@@ -119,7 +119,7 @@ thttpd_targetinstall: $(STATEDIR)/thttpd.targetinstall
 
 thttpd_targetinstall_deps = $(STATEDIR)/thttpd.compile
 
-$(STATEDIR)/thttpd.targetinstall: $(thttpd_targetinstall_deps)
+$(STATEDIR)/thttpd.targetinstall: $(thttpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

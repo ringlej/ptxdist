@@ -37,7 +37,7 @@ xlibs-render_get: $(STATEDIR)/xlibs-render.get
 
 xlibs-render_get_deps = $(XLIBS-RENDER_SOURCE)
 
-$(STATEDIR)/xlibs-render.get: $(xlibs-render_get_deps)
+$(STATEDIR)/xlibs-render.get: $(xlibs-render_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-RENDER))
 	@$(call touch, $@)
@@ -85,7 +85,7 @@ XLIBS-RENDER_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/xlibs-render.prepare: $(xlibs-render_prepare_deps)
+$(STATEDIR)/xlibs-render.prepare: $(xlibs-render_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-RENDER_DIR)/config.cache)
 	chmod a+x $(XLIBS-RENDER_DIR)/configure
@@ -102,7 +102,7 @@ xlibs-render_compile: $(STATEDIR)/xlibs-render.compile
 
 xlibs-render_compile_deps = $(STATEDIR)/xlibs-render.prepare
 
-$(STATEDIR)/xlibs-render.compile: $(xlibs-render_compile_deps)
+$(STATEDIR)/xlibs-render.compile: $(xlibs-render_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-RENDER_DIR) && $(XLIBS-RENDER_ENV) $(XLIBS-RENDER_PATH) make
 	@$(call touch, $@)
@@ -126,7 +126,7 @@ xlibs-render_targetinstall: $(STATEDIR)/xlibs-render.targetinstall
 
 xlibs-render_targetinstall_deps = $(STATEDIR)/xlibs-render.compile
 
-$(STATEDIR)/xlibs-render.targetinstall: $(xlibs-render_targetinstall_deps)
+$(STATEDIR)/xlibs-render.targetinstall: $(xlibs-render_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

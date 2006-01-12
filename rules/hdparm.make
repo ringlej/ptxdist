@@ -34,7 +34,7 @@ hdparm_get: $(STATEDIR)/hdparm.get
 
 hdparm_get_deps = $(HDPARM_SOURCE)
 
-$(STATEDIR)/hdparm.get: $(hdparm_get_deps)
+$(STATEDIR)/hdparm.get: $(hdparm_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HDPARM))
 	@$(call touch, $@)
@@ -80,7 +80,7 @@ HDPARM_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 HDPARM_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/hdparm.prepare: $(hdparm_prepare_deps)
+$(STATEDIR)/hdparm.prepare: $(hdparm_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HDPARM_DIR)/config.cache)
 	@$(call touch, $@)
@@ -93,7 +93,7 @@ hdparm_compile: $(STATEDIR)/hdparm.compile
 
 hdparm_compile_deps = $(STATEDIR)/hdparm.prepare
 
-$(STATEDIR)/hdparm.compile: $(hdparm_compile_deps)
+$(STATEDIR)/hdparm.compile: $(hdparm_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HDPARM_DIR) && $(HDPARM_ENV) $(HDPARM_PATH) make
 	@$(call touch, $@)
@@ -117,7 +117,7 @@ hdparm_targetinstall: $(STATEDIR)/hdparm.targetinstall
 
 hdparm_targetinstall_deps = $(STATEDIR)/hdparm.compile
 
-$(STATEDIR)/hdparm.targetinstall: $(hdparm_targetinstall_deps)
+$(STATEDIR)/hdparm.targetinstall: $(hdparm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

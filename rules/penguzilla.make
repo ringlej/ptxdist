@@ -34,7 +34,7 @@ penguzilla_get: $(STATEDIR)/penguzilla.get
 
 penguzilla_get_deps	=  $(PENGUZILLA_SOURCE)
 
-$(STATEDIR)/penguzilla.get: $(penguzilla_get_deps)
+$(STATEDIR)/penguzilla.get: $(penguzilla_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -85,7 +85,7 @@ PENGUZILLA_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 PENGUZILLA_AUTOCONF	+= --with-mozilla=$(MFIREBIRD_DIR)
 PENGUZILLA_AUTOCONF	+= --with-gtk-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/penguzilla.prepare: $(penguzilla_prepare_deps)
+$(STATEDIR)/penguzilla.prepare: $(penguzilla_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PENGUZILLA_BUILDDIR))
 	cd $(PENGUZILLA_DIR) && \
@@ -101,7 +101,7 @@ penguzilla_compile: $(STATEDIR)/penguzilla.compile
 
 penguzilla_compile_deps =  $(STATEDIR)/penguzilla.prepare
 
-$(STATEDIR)/penguzilla.compile: $(penguzilla_compile_deps)
+$(STATEDIR)/penguzilla.compile: $(penguzilla_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(PENGUZILLA_PATH) $(PENGUZILLA_ENV) make -C $(PENGUZILLA_DIR)
 	@$(call touch, $@)
@@ -128,7 +128,7 @@ penguzilla_targetinstall_deps =	\
 	$(STATEDIR)/gail.targetinstall \
 	$(STATEDIR)/libxml2.targetinstall
 
-$(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps)
+$(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

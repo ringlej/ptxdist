@@ -35,7 +35,7 @@ host-ipkg_get: $(STATEDIR)/host-ipkg.get
 
 host-ipkg_get_deps = $(HOST_IPKG_SOURCE)
 
-$(STATEDIR)/host-ipkg.get: $(host-ipkg_get_deps)
+$(STATEDIR)/host-ipkg.get: $(host-ipkg_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_IPKG))
 	@$(call touch, $@)
@@ -76,7 +76,7 @@ HOST_IPKG_ENV 	=  $(HOSTCC_ENV)
 #
 HOST_IPKG_AUTOCONF  = $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-ipkg.prepare: $(host-ipkg_prepare_deps)
+$(STATEDIR)/host-ipkg.prepare: $(host-ipkg_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_IPKG_DIR)/config.cache)
 	cd $(HOST_IPKG_DIR) && \
@@ -92,7 +92,7 @@ host-ipkg_compile: $(STATEDIR)/host-ipkg.compile
 
 host-ipkg_compile_deps = $(STATEDIR)/host-ipkg.prepare
 
-$(STATEDIR)/host-ipkg.compile: $(host-ipkg_compile_deps)
+$(STATEDIR)/host-ipkg.compile: $(host-ipkg_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_IPKG_DIR) && $(HOST_IPKG_ENV) $(HOST_IPKG_PATH) make
 	@$(call touch, $@)
@@ -116,7 +116,7 @@ host-ipkg_targetinstall: $(STATEDIR)/host-ipkg.targetinstall
 
 host-ipkg_targetinstall_deps = $(STATEDIR)/host-ipkg.install
 
-$(STATEDIR)/host-ipkg.targetinstall: $(host-ipkg_targetinstall_deps)
+$(STATEDIR)/host-ipkg.targetinstall: $(host-ipkg_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

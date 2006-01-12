@@ -34,7 +34,7 @@ pop3spam_get: $(STATEDIR)/pop3spam.get
 
 pop3spam_get_deps = $(POP3SPAM_SOURCE)
 
-$(STATEDIR)/pop3spam.get: $(pop3spam_get_deps)
+$(STATEDIR)/pop3spam.get: $(pop3spam_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -80,7 +80,7 @@ POP3SPAM_ENV 	=  $(CROSS_ENV)
 #
 POP3SPAM_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/pop3spam.prepare: $(pop3spam_prepare_deps)
+$(STATEDIR)/pop3spam.prepare: $(pop3spam_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(POP3SPAM_DIR)/config.cache)
 	cd $(POP3SPAM_DIR) && \
@@ -96,7 +96,7 @@ pop3spam_compile: $(STATEDIR)/pop3spam.compile
 
 pop3spam_compile_deps = $(STATEDIR)/pop3spam.prepare
 
-$(STATEDIR)/pop3spam.compile: $(pop3spam_compile_deps)
+$(STATEDIR)/pop3spam.compile: $(pop3spam_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(POP3SPAM_DIR) && $(POP3SPAM_ENV) $(POP3SPAM_PATH) make
 	@$(call touch, $@)
@@ -121,7 +121,7 @@ pop3spam_targetinstall: $(STATEDIR)/pop3spam.targetinstall
 pop3spam_targetinstall_deps =  $(STATEDIR)/pop3spam.compile
 pop3spam_targetinstall_deps += $(STATEDIR)/pcre.targetinstall
 
-$(STATEDIR)/pop3spam.targetinstall: $(pop3spam_targetinstall_deps)
+$(STATEDIR)/pop3spam.targetinstall: $(pop3spam_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	
 	@$(call install_init,default)

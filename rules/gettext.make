@@ -91,7 +91,7 @@ gettext_compile: $(STATEDIR)/gettext.compile
 
 gettext_compile_deps = $(gettext_compile_deps_default)
 
-$(STATEDIR)/gettext.compile: $(gettext_compile_deps)
+$(STATEDIR)/gettext.compile: $(gettext_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(GETTEXT_PATH) make -C $(GETTEXT_DIR)
 	@$(call touch, $@)

@@ -34,7 +34,7 @@ sysutils_get: $(STATEDIR)/sysutils.get
 
 sysutils_get_deps = $(SYSUTILS_SOURCE)
 
-$(STATEDIR)/sysutils.get: $(sysutils_get_deps)
+$(STATEDIR)/sysutils.get: $(sysutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SYSUTILS))
 	@$(call touch, $@)
@@ -74,7 +74,7 @@ sysutils_prepare_deps = \
 SYSUTILS_PATH	=  PATH=$(CROSS_PATH)
 SYSUTILS_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/sysutils.prepare: $(sysutils_prepare_deps)
+$(STATEDIR)/sysutils.prepare: $(sysutils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -86,7 +86,7 @@ sysutils_compile: $(STATEDIR)/sysutils.compile
 
 sysutils_compile_deps = $(STATEDIR)/sysutils.prepare
 
-$(STATEDIR)/sysutils.compile: $(sysutils_compile_deps)
+$(STATEDIR)/sysutils.compile: $(sysutils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SYSUTILS_DIR) && $(SYSUTILS_ENV) $(SYSUTILS_PATH) make
 	@$(call touch, $@)
@@ -109,7 +109,7 @@ sysutils_targetinstall: $(STATEDIR)/sysutils.targetinstall
 
 sysutils_targetinstall_deps = $(STATEDIR)/sysutils.compile
 
-$(STATEDIR)/sysutils.targetinstall: $(sysutils_targetinstall_deps)
+$(STATEDIR)/sysutils.targetinstall: $(sysutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

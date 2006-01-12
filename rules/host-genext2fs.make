@@ -35,7 +35,7 @@ host-genext2fs_get: $(STATEDIR)/host-genext2fs.get
 
 host-genext2fs_get_deps  =  $(HOST_GENEXT2FS_SOURCE)
 
-$(STATEDIR)/host-genext2fs.get: $(host-genext2fs_get_deps)
+$(STATEDIR)/host-genext2fs.get: $(host-genext2fs_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_GENEXT2FS))
 	@$(call touch, $@)
@@ -68,7 +68,7 @@ HOST_GENEXT2FS_ENV		=  $(HOSTCC_ENV)
 host-genext2fs_prepare_deps = \
 	$(STATEDIR)/host-genext2fs.extract
 
-$(STATEDIR)/host-genext2fs.prepare: $(host-genext2fs_prepare_deps)
+$(STATEDIR)/host-genext2fs.prepare: $(host-genext2fs_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -80,7 +80,7 @@ host-genext2fs_compile: $(STATEDIR)/host-genext2fs.compile
 
 host-genext2fs_compile_deps = $(STATEDIR)/host-genext2fs.prepare
 
-$(STATEDIR)/host-genext2fs.compile: $(host-genext2fs_compile_deps)
+$(STATEDIR)/host-genext2fs.compile: $(host-genext2fs_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_GENEXT2FS_DIR) && make $(HOST_GENEXT2FS_ENV)
 	@$(call touch, $@)
@@ -93,7 +93,7 @@ host-genext2fs_install: $(STATEDIR)/host-genext2fs.install
 
 host-genext2fs_install_deps = $(STATEDIR)/host-genext2fs.compile
 
-$(STATEDIR)/host-genext2fs.install: $(host-genext2fs_install_deps)
+$(STATEDIR)/host-genext2fs.install: $(host-genext2fs_install_deps_default)
 	@$(call targetinfo, $@)
 	install -d $(PTXCONF_HOST_PREFIX)/usr/bin/
 	install -d $(PTXCONF_HOST_PREFIX)/usr/man/man8/

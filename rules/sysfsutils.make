@@ -34,7 +34,7 @@ sysfsutils_get: $(STATEDIR)/sysfsutils.get
 
 sysfsutils_get_deps = $(SYSFSUTILS_SOURCE)
 
-$(STATEDIR)/sysfsutils.get: $(sysfsutils_get_deps)
+$(STATEDIR)/sysfsutils.get: $(sysfsutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SYSFSUTILS))
 	@$(call touch, $@)
@@ -79,7 +79,7 @@ SYSFSUTILS_ENV 	=  $(CROSS_ENV)
 #
 SYSFSUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/sysfsutils.prepare: $(sysfsutils_prepare_deps)
+$(STATEDIR)/sysfsutils.prepare: $(sysfsutils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSFSUTILS_DIR)/config.cache)
 	cd $(SYSFSUTILS_DIR) && \
@@ -95,7 +95,7 @@ sysfsutils_compile: $(STATEDIR)/sysfsutils.compile
 
 sysfsutils_compile_deps = $(STATEDIR)/sysfsutils.prepare
 
-$(STATEDIR)/sysfsutils.compile: $(sysfsutils_compile_deps)
+$(STATEDIR)/sysfsutils.compile: $(sysfsutils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SYSFSUTILS_DIR) && $(SYSFSUTILS_ENV) $(SYSFSUTILS_PATH) make
 	@$(call touch, $@)
@@ -119,7 +119,7 @@ sysfsutils_targetinstall: $(STATEDIR)/sysfsutils.targetinstall
 
 sysfsutils_targetinstall_deps = $(STATEDIR)/sysfsutils.compile
 
-$(STATEDIR)/sysfsutils.targetinstall: $(sysfsutils_targetinstall_deps)
+$(STATEDIR)/sysfsutils.targetinstall: $(sysfsutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

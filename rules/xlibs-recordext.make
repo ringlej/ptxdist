@@ -36,7 +36,7 @@ xlibs-recordext_get: $(STATEDIR)/xlibs-recordext.get
 
 xlibs-recordext_get_deps = $(XLIBS-RECORDEXT_SOURCE)
 
-$(STATEDIR)/xlibs-recordext.get: $(xlibs-recordext_get_deps)
+$(STATEDIR)/xlibs-recordext.get: $(xlibs-recordext_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-RECORDEXT))
 	@$(call touch, $@)
@@ -84,7 +84,7 @@ XLIBS-RECORDEXT_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/xlibs-recordext.prepare: $(xlibs-recordext_prepare_deps)
+$(STATEDIR)/xlibs-recordext.prepare: $(xlibs-recordext_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-RECORDEXT_DIR)/config.cache)
 	chmod a+x $(XLIBS-RECORDEXT_DIR)/configure
@@ -101,7 +101,7 @@ xlibs-recordext_compile: $(STATEDIR)/xlibs-recordext.compile
 
 xlibs-recordext_compile_deps = $(STATEDIR)/xlibs-recordext.prepare
 
-$(STATEDIR)/xlibs-recordext.compile: $(xlibs-recordext_compile_deps)
+$(STATEDIR)/xlibs-recordext.compile: $(xlibs-recordext_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-RECORDEXT_DIR) && $(XLIBS-RECORDEXT_ENV) $(XLIBS-RECORDEXT_PATH) make
 	@$(call touch, $@)
@@ -125,7 +125,7 @@ xlibs-recordext_targetinstall: $(STATEDIR)/xlibs-recordext.targetinstall
 
 xlibs-recordext_targetinstall_deps = $(STATEDIR)/xlibs-recordext.compile
 
-$(STATEDIR)/xlibs-recordext.targetinstall: $(xlibs-recordext_targetinstall_deps)
+$(STATEDIR)/xlibs-recordext.targetinstall: $(xlibs-recordext_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -34,7 +34,7 @@ liboop_get: $(STATEDIR)/liboop.get
 
 liboop_get_deps = $(LIBOOP_SOURCE)
 
-$(STATEDIR)/liboop.get: $(liboop_get_deps)
+$(STATEDIR)/liboop.get: $(liboop_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -86,7 +86,7 @@ LIBOOP_AUTOCONF	+= \
 	--without-tcl \
 	--without-glib
 
-$(STATEDIR)/liboop.prepare: $(liboop_prepare_deps)
+$(STATEDIR)/liboop.prepare: $(liboop_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBOOP_DIR)/config.cache)
 	cd $(LIBOOP_DIR) && \
@@ -102,7 +102,7 @@ liboop_compile: $(STATEDIR)/liboop.compile
 
 liboop_compile_deps = $(STATEDIR)/liboop.prepare
 
-$(STATEDIR)/liboop.compile: $(liboop_compile_deps)
+$(STATEDIR)/liboop.compile: $(liboop_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBOOP_DIR) && $(LIBOOP_PATH) make
 	@$(call touch, $@)
@@ -126,7 +126,7 @@ liboop_targetinstall: $(STATEDIR)/liboop.targetinstall
 
 liboop_targetinstall_deps = $(STATEDIR)/liboop.compile
 
-$(STATEDIR)/liboop.targetinstall: $(liboop_targetinstall_deps)
+$(STATEDIR)/liboop.targetinstall: $(liboop_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

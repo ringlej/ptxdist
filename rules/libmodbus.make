@@ -34,7 +34,7 @@ libmodbus_get: $(STATEDIR)/libmodbus.get
 
 libmodbus_get_deps = $(LIBMODBUS_SOURCE)
 
-$(STATEDIR)/libmodbus.get: $(libmodbus_get_deps)
+$(STATEDIR)/libmodbus.get: $(libmodbus_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -79,7 +79,7 @@ LIBMODBUS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 LIBMODBUS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/libmodbus.prepare: $(libmodbus_prepare_deps)
+$(STATEDIR)/libmodbus.prepare: $(libmodbus_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBMODBUS_DIR)/config.cache)
 	cd $(LIBMODBUS_DIR) && \
@@ -95,7 +95,7 @@ libmodbus_compile: $(STATEDIR)/libmodbus.compile
 
 libmodbus_compile_deps = $(STATEDIR)/libmodbus.prepare
 
-$(STATEDIR)/libmodbus.compile: $(libmodbus_compile_deps)
+$(STATEDIR)/libmodbus.compile: $(libmodbus_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBMODBUS_DIR) && $(LIBMODBUS_ENV) $(LIBMODBUS_PATH) make
 	@$(call touch, $@)
@@ -119,7 +119,7 @@ libmodbus_targetinstall: $(STATEDIR)/libmodbus.targetinstall
 
 libmodbus_targetinstall_deps = $(STATEDIR)/libmodbus.compile
 
-$(STATEDIR)/libmodbus.targetinstall: $(libmodbus_targetinstall_deps)
+$(STATEDIR)/libmodbus.targetinstall: $(libmodbus_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

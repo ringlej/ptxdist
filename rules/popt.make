@@ -36,7 +36,7 @@ popt_get: $(STATEDIR)/popt.get
 
 popt_get_deps = $(POPT_SOURCE)
 
-$(STATEDIR)/popt.get: $(popt_get_deps)
+$(STATEDIR)/popt.get: $(popt_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -84,7 +84,7 @@ POPT_ENV 	=  $(CROSS_ENV)
 
 POPT_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/popt.prepare: $(popt_prepare_deps)
+$(STATEDIR)/popt.prepare: $(popt_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(POP_DIR)/config.cache)
 	cd $(POPT_DIR) && \
@@ -100,7 +100,7 @@ popt_compile: $(STATEDIR)/popt.compile
 
 popt_compile_deps = $(STATEDIR)/popt.prepare
 
-$(STATEDIR)/popt.compile: $(popt_compile_deps)
+$(STATEDIR)/popt.compile: $(popt_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(POPT_DIR) && $(POPT_PATH) make
 	@$(call touch, $@)
@@ -124,7 +124,7 @@ popt_targetinstall: $(STATEDIR)/popt.targetinstall
 
 popt_targetinstall_deps	= $(STATEDIR)/popt.compile
 
-$(STATEDIR)/popt.targetinstall: $(popt_targetinstall_deps)
+$(STATEDIR)/popt.targetinstall: $(popt_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

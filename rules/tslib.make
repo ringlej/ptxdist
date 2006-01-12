@@ -34,7 +34,7 @@ tslib_get: $(STATEDIR)/tslib.get
 
 tslib_get_deps = $(TSLIB_SOURCE)
 
-$(STATEDIR)/tslib.get: $(tslib_get_deps)
+$(STATEDIR)/tslib.get: $(tslib_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TSLIB))
 	@$(call touch, $@)
@@ -83,7 +83,7 @@ TSLIB_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 TSLIB_AUTOCONF += --prefix=/
 TSLIB_AUTOCONF += --sysconfdir=/etc
 
-$(STATEDIR)/tslib.prepare: $(tslib_prepare_deps)
+$(STATEDIR)/tslib.prepare: $(tslib_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TSLIB_DIR)/config.cache)
 	cd $(TSLIB_DIR) && \
@@ -99,7 +99,7 @@ tslib_compile: $(STATEDIR)/tslib.compile
 
 tslib_compile_deps = $(STATEDIR)/tslib.prepare
 
-$(STATEDIR)/tslib.compile: $(tslib_compile_deps)
+$(STATEDIR)/tslib.compile: $(tslib_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(TSLIB_DIR) && $(TSLIB_ENV) $(TSLIB_PATH) make
 	@$(call touch, $@)
@@ -123,7 +123,7 @@ tslib_targetinstall: $(STATEDIR)/tslib.targetinstall
 
 tslib_targetinstall_deps = $(STATEDIR)/tslib.compile
 
-$(STATEDIR)/tslib.targetinstall: $(tslib_targetinstall_deps)
+$(STATEDIR)/tslib.targetinstall: $(tslib_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

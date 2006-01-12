@@ -36,7 +36,7 @@ xlibs-x11_get: $(STATEDIR)/xlibs-x11.get
 
 xlibs-x11_get_deps = $(XLIBS-X11_SOURCE)
 
-$(STATEDIR)/xlibs-x11.get: $(xlibs-x11_get_deps)
+$(STATEDIR)/xlibs-x11.get: $(xlibs-x11_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-X11))
 	@$(call touch, $@)
@@ -86,7 +86,7 @@ XLIBS-X11_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) 
 
-$(STATEDIR)/xlibs-x11.prepare: $(xlibs-x11_prepare_deps)
+$(STATEDIR)/xlibs-x11.prepare: $(xlibs-x11_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-X11_DIR)/config.cache)
 	chmod a+x $(XLIBS-X11_DIR)/configure
@@ -103,7 +103,7 @@ xlibs-x11_compile: $(STATEDIR)/xlibs-x11.compile
 
 xlibs-x11_compile_deps = $(STATEDIR)/xlibs-x11.prepare
 
-$(STATEDIR)/xlibs-x11.compile: $(xlibs-x11_compile_deps)
+$(STATEDIR)/xlibs-x11.compile: $(xlibs-x11_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-X11_DIR) && $(XLIBS-X11_ENV) $(XLIBS-X11_PATH) make
 	@$(call touch, $@)
@@ -127,7 +127,7 @@ xlibs-x11_targetinstall: $(STATEDIR)/xlibs-x11.targetinstall
 
 xlibs-x11_targetinstall_deps = $(STATEDIR)/xlibs-x11.compile
 
-$(STATEDIR)/xlibs-x11.targetinstall: $(xlibs-x11_targetinstall_deps)
+$(STATEDIR)/xlibs-x11.targetinstall: $(xlibs-x11_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

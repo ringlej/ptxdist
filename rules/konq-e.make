@@ -34,7 +34,7 @@ konq-e_get: $(STATEDIR)/konq-e.get
 
 konq-e_get_deps	=  $(KONQ-E_SOURCE)
 
-$(STATEDIR)/konq-e.get: $(konq-e_get_deps)
+$(STATEDIR)/konq-e.get: $(konq-e_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -80,7 +80,7 @@ KONQ-E_ENV 	=  $(CROSS_ENV)
 #
 KONQ-E_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/konq-e.prepare: $(konq-e_prepare_deps)
+$(STATEDIR)/konq-e.prepare: $(konq-e_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KONQ-E_BUILDDIR))
 	cd $(KONQ-E_DIR) && \
@@ -96,7 +96,7 @@ konq-e_compile: $(STATEDIR)/konq-e.compile
 
 konq-e_compile_deps =  $(STATEDIR)/konq-e.prepare
 
-$(STATEDIR)/konq-e.compile: $(konq-e_compile_deps)
+$(STATEDIR)/konq-e.compile: $(konq-e_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(KONQ-E_DIR) && $(KONQ-E_PATH) $(KONQ-E_ENV) make
 	@$(call touch, $@)
@@ -121,7 +121,7 @@ konq-e_targetinstall: $(STATEDIR)/konq-e.targetinstall
 
 konq-e_targetinstall_deps	=  $(STATEDIR)/konq-e.compile
 
-$(STATEDIR)/konq-e.targetinstall: $(konq-e_targetinstall_deps)
+$(STATEDIR)/konq-e.targetinstall: $(konq-e_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

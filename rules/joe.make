@@ -33,7 +33,7 @@ joe_get: $(STATEDIR)/joe.get
 
 joe_get_deps = $(JOE_SOURCE)
 
-$(STATEDIR)/joe.get: $(joe_get_deps)
+$(STATEDIR)/joe.get: $(joe_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JOE))
 	@$(call touch, $@)
@@ -79,7 +79,7 @@ JOE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 # FIXME
 JOE_AUTOCONF += --prefix=/
 
-$(STATEDIR)/joe.prepare: $(joe_prepare_deps)
+$(STATEDIR)/joe.prepare: $(joe_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JOE_DIR)/config.cache)
 	cd $(JOE_DIR) && \
@@ -95,7 +95,7 @@ joe_compile: $(STATEDIR)/joe.compile
 
 joe_compile_deps = $(STATEDIR)/joe.prepare
 
-$(STATEDIR)/joe.compile: $(joe_compile_deps)
+$(STATEDIR)/joe.compile: $(joe_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(JOE_DIR) && $(JOE_ENV) $(JOE_PATH) make
 	@$(call touch, $@)
@@ -119,7 +119,7 @@ joe_targetinstall: $(STATEDIR)/joe.targetinstall
 
 joe_targetinstall_deps = $(STATEDIR)/joe.compile
 
-$(STATEDIR)/joe.targetinstall: $(joe_targetinstall_deps)
+$(STATEDIR)/joe.targetinstall: $(joe_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

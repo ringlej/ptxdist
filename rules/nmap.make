@@ -41,7 +41,7 @@ nmap_get: $(STATEDIR)/nmap.get
 
 nmap_get_deps  =  $(NMAP_SOURCE)
 
-$(STATEDIR)/nmap.get: $(nmap_get_deps)
+$(STATEDIR)/nmap.get: $(nmap_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -98,7 +98,7 @@ else
 NMAP_AUTOCONF		+= --without-openssl
 endif
 
-$(STATEDIR)/nmap.prepare: $(nmap_prepare_deps)
+$(STATEDIR)/nmap.prepare: $(nmap_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(NMAP_DIR) && \
 		$(NMAP_PATH) $(NMAP_ENV) \
@@ -113,7 +113,7 @@ nmap_compile: $(STATEDIR)/nmap.compile
 
 nmap_compile_deps = $(STATEDIR)/nmap.prepare
 
-$(STATEDIR)/nmap.compile: $(nmap_compile_deps) 
+$(STATEDIR)/nmap.compile: $(nmap_compile_deps_default) 
 	@$(call targetinfo, $@)
 #
 # dftables is a tool that is run during make in the host system
@@ -143,7 +143,7 @@ ifdef PTXCONF_OPENSSL_SHARED
 nmap_targetinstall_deps	+= $(STATEDIR)/openssl.targetinstall
 endif
 
-$(STATEDIR)/nmap.targetinstall: $(nmap_targetinstall_deps)
+$(STATEDIR)/nmap.targetinstall: $(nmap_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

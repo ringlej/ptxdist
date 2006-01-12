@@ -39,7 +39,7 @@ sysvinit_get: $(STATEDIR)/sysvinit.get
 
 sysvinit_get_deps = $(SYSVINIT_SOURCE)
 
-$(STATEDIR)/sysvinit.get: $(sysvinit_get_deps)
+$(STATEDIR)/sysvinit.get: $(sysvinit_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -84,7 +84,7 @@ SYSVINIT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 SYSVINIT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/sysvinit.prepare: $(sysvinit_prepare_deps)
+$(STATEDIR)/sysvinit.prepare: $(sysvinit_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSVINIT_DIR)/config.cache)
 #	cd $(SYSVINIT_DIR) && \
@@ -101,7 +101,7 @@ sysvinit_compile: $(STATEDIR)/sysvinit.compile
 
 sysvinit_compile_deps = $(STATEDIR)/sysvinit.prepare
 
-$(STATEDIR)/sysvinit.compile: $(sysvinit_compile_deps)
+$(STATEDIR)/sysvinit.compile: $(sysvinit_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SYSVINIT_DIR)/src && \
 		$(SYSVINIT_PATH) $(SYSVINIT_ENV) make
@@ -125,7 +125,7 @@ sysvinit_targetinstall: $(STATEDIR)/sysvinit.targetinstall
 
 sysvinit_targetinstall_deps = $(STATEDIR)/sysvinit.compile
 
-$(STATEDIR)/sysvinit.targetinstall: $(sysvinit_targetinstall_deps)
+$(STATEDIR)/sysvinit.targetinstall: $(sysvinit_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -37,7 +37,7 @@ wxWindows_get: $(STATEDIR)/wxWindows.get
 
 wxWindows_get_deps	=  $(WXWINDOWS_SOURCE)
 
-$(STATEDIR)/wxWindows.get: $(wxWindows_get_deps)
+$(STATEDIR)/wxWindows.get: $(wxWindows_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -95,7 +95,7 @@ WXWINDOWS_AUTOCONF	+= --with-x11 --without-gtk \
 --disable-joystick --with-libjpeg=builtin --with-libtiff=builtin
 
 
-$(STATEDIR)/wxWindows.prepare: $(wxWindows_prepare_deps)
+$(STATEDIR)/wxWindows.prepare: $(wxWindows_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WXWINDOWS_BUILDDIR))
 	cd $(WXWINDOWS_DIR) && \
@@ -111,7 +111,7 @@ wxWindows_compile: $(STATEDIR)/wxWindows.compile
 
 wxWindows_compile_deps =  $(STATEDIR)/wxWindows.prepare
 
-$(STATEDIR)/wxWindows.compile: $(wxWindows_compile_deps)
+$(STATEDIR)/wxWindows.compile: $(wxWindows_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(WXWINDOWS_DIR) && $(WXWINDOWS_PATH) $(WXWINDOWS_ENV) make
 	@$(call touch, $@)
@@ -135,7 +135,7 @@ wxWindows_targetinstall: $(STATEDIR)/wxWindows.targetinstall
 
 wxWindows_targetinstall_deps	=  $(STATEDIR)/wxWindows.compile
 
-$(STATEDIR)/wxWindows.targetinstall: $(wxWindows_targetinstall_deps)
+$(STATEDIR)/wxWindows.targetinstall: $(wxWindows_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

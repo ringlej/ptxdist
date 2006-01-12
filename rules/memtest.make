@@ -34,7 +34,7 @@ memtest_get: $(STATEDIR)/memtest.get
 
 memtest_get_deps = $(MEMTEST_SOURCE)
 
-$(STATEDIR)/memtest.get: $(memtest_get_deps)
+$(STATEDIR)/memtest.get: $(memtest_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMTEST))
 	@$(call touch, $@)
@@ -79,7 +79,7 @@ MEMTEST_ENV 	=  $(CROSS_ENV)
 #
 MEMTEST_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/memtest.prepare: $(memtest_prepare_deps)
+$(STATEDIR)/memtest.prepare: $(memtest_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMTEST_DIR)/config.cache)
 	@$(call touch, $@)
@@ -92,7 +92,7 @@ memtest_compile: $(STATEDIR)/memtest.compile
 
 memtest_compile_deps = $(STATEDIR)/memtest.prepare
 
-$(STATEDIR)/memtest.compile: $(memtest_compile_deps)
+$(STATEDIR)/memtest.compile: $(memtest_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MEMTEST_DIR) && $(MEMTEST_ENV) $(MEMTEST_PATH) make mtest
 	@$(call touch, $@)
@@ -115,7 +115,7 @@ memtest_targetinstall: $(STATEDIR)/memtest.targetinstall
 
 memtest_targetinstall_deps = $(STATEDIR)/memtest.compile
 
-$(STATEDIR)/memtest.targetinstall: $(memtest_targetinstall_deps)
+$(STATEDIR)/memtest.targetinstall: $(memtest_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

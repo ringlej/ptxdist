@@ -48,7 +48,7 @@ ifdef PTXCONF_KAFFE_API_CLDC
 kaffe_get_deps	+= $(KAFFE_KANGAROO_SOURCE)
 endif
 
-$(STATEDIR)/kaffe.get: $(kaffe_get_deps)
+$(STATEDIR)/kaffe.get: $(kaffe_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -230,7 +230,7 @@ ifdef PTXCONF_KAFFE_LINK_LIB
 KAFFE_AUTOCONF	+= --with-staticlib
 endif
 
-$(STATEDIR)/kaffe.prepare: $(kaffe_prepare_deps)
+$(STATEDIR)/kaffe.prepare: $(kaffe_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KAFFE_BUILDDIR))
 	mkdir -p $(KAFFE_BUILDDIR)
@@ -253,7 +253,7 @@ else
 KAFFE_MAKEVARS	= JAVAC_FLAGS="-verbose"
 endif
 
-$(STATEDIR)/kaffe.compile: $(kaffe_compile_deps)
+$(STATEDIR)/kaffe.compile: $(kaffe_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(KAFFE_PATH) make -C $(KAFFE_BUILDDIR) $(KAFFE_MAKEVARS)
 
@@ -292,7 +292,7 @@ ifdef PTXCONF_KAFFE_TARGETINSTALL_GMP
 kaffe_targetinstall_deps	+= $(STATEDIR)/gmp3.targetinstall
 endif
 
-$(STATEDIR)/kaffe.targetinstall: $(kaffe_targetinstall_deps)
+$(STATEDIR)/kaffe.targetinstall: $(kaffe_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KAFFE_BUILDDIR)-tmp)
 

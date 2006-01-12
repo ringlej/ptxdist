@@ -32,7 +32,7 @@ COMMONCPP2_DIR		= $(BUILDDIR)/$(COMMONCPP2)
 
 commoncpp2_get: $(STATEDIR)/commoncpp2.get
 
-$(STATEDIR)/commoncpp2.get: $(commoncpp2_get_deps)
+$(STATEDIR)/commoncpp2.get: $(commoncpp2_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

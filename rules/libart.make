@@ -34,7 +34,7 @@ libart_get: $(STATEDIR)/libart.get
 
 libart_get_deps = $(LIBART_SOURCE)
 
-$(STATEDIR)/libart.get: $(libart_get_deps)
+$(STATEDIR)/libart.get: $(libart_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -80,7 +80,7 @@ LIBART_ENV 	=  $(CROSS_ENV)
 #
 LIBART_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/libart.prepare: $(libart_prepare_deps)
+$(STATEDIR)/libart.prepare: $(libart_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBART_DIR)/config.cache)
 	cd $(LIBART_DIR) && \
@@ -96,7 +96,7 @@ libart_compile: $(STATEDIR)/libart.compile
 
 libart_compile_deps = $(STATEDIR)/libart.prepare
 
-$(STATEDIR)/libart.compile: $(libart_compile_deps)
+$(STATEDIR)/libart.compile: $(libart_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBART_DIR) && $(LIBART_PATH) $(LIBART_ENV) make
 	@$(call touch, $@)
@@ -120,7 +120,7 @@ libart_targetinstall: $(STATEDIR)/libart.targetinstall
 
 libart_targetinstall_deps = $(STATEDIR)/libart.compile
 
-$(STATEDIR)/libart.targetinstall: $(libart_targetinstall_deps)
+$(STATEDIR)/libart.targetinstall: $(libart_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

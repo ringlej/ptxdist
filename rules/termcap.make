@@ -36,7 +36,7 @@ termcap_get_deps = \
 	$(TERMCAP_SOURCE) \
 	$(STATEDIR)/termcap-patches.get
 
-$(STATEDIR)/termcap.get: $(termcap_get_deps)
+$(STATEDIR)/termcap.get: $(termcap_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -85,7 +85,7 @@ TERMCAP_ENV 	=  $(CROSS_ENV)
 #
 TERMCAP_AUTOCONF =  $(CROSS_AUTOCONF_BROKEN_USR)
 
-$(STATEDIR)/termcap.prepare: $(termcap_prepare_deps)
+$(STATEDIR)/termcap.prepare: $(termcap_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TERMCAP_DIR)/config.cache)
 	cd $(TERMCAP_DIR) && \
@@ -101,7 +101,7 @@ termcap_compile: $(STATEDIR)/termcap.compile
 
 termcap_compile_deps = $(STATEDIR)/termcap.prepare
 
-$(STATEDIR)/termcap.compile: $(termcap_compile_deps)
+$(STATEDIR)/termcap.compile: $(termcap_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(TERMCAP_DIR) && $(TERMCAP_PATH) make
 	@$(call touch, $@)
@@ -125,7 +125,7 @@ termcap_targetinstall: $(STATEDIR)/termcap.targetinstall
 
 termcap_targetinstall_deps = $(STATEDIR)/termcap.install
 
-$(STATEDIR)/termcap.targetinstall: $(termcap_targetinstall_deps)
+$(STATEDIR)/termcap.targetinstall: $(termcap_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

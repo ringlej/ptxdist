@@ -34,7 +34,7 @@ pnet_get: $(STATEDIR)/pnet.get
 
 pnet_get_deps = $(PNET_SOURCE)
 
-$(STATEDIR)/pnet.get: $(pnet_get_deps)
+$(STATEDIR)/pnet.get: $(pnet_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PNET))
 	@$(call touch, $@)
@@ -81,7 +81,7 @@ PNET_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 PNET_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/pnet.prepare: $(pnet_prepare_deps)
+$(STATEDIR)/pnet.prepare: $(pnet_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PNET_DIR)/config.cache)
 	cd $(PNET_DIR) && \
@@ -97,7 +97,7 @@ pnet_compile: $(STATEDIR)/pnet.compile
 
 pnet_compile_deps = $(STATEDIR)/pnet.prepare
 
-$(STATEDIR)/pnet.compile: $(pnet_compile_deps)
+$(STATEDIR)/pnet.compile: $(pnet_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PNET_DIR) && $(PNET_ENV) $(PNET_PATH) make
 	@$(call touch, $@)
@@ -120,7 +120,7 @@ $(STATEDIR)/pnet.install: $(STATEDIR)/pnet.compile
 pnet_targetinstall: $(STATEDIR)/pnet.targetinstall
 pnet_targetinstall_deps = $(STATEDIR)/pnet.compile
 
-$(STATEDIR)/pnet.targetinstall: $(pnet_targetinstall_deps)
+$(STATEDIR)/pnet.targetinstall: $(pnet_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

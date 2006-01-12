@@ -34,7 +34,7 @@ inetutils_get: $(STATEDIR)/inetutils.get
 
 inetutils_get_deps	=  $(INETUTILS_SOURCE)
 
-$(STATEDIR)/inetutils.get: $(inetutils_get_deps)
+$(STATEDIR)/inetutils.get: $(inetutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(INETUTILS))
 	@$(call touch, $@)
@@ -83,7 +83,7 @@ INETUTILS_AUTOCONF += \
 	--localstatedir=/var \
 	--sysconfdir=/etc
 
-$(STATEDIR)/inetutils.prepare: $(inetutils_prepare_deps)
+$(STATEDIR)/inetutils.prepare: $(inetutils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(INETUTILS_DIR) && \
 		$(INETUTILS_PATH) $(INETUTILS_ENV) \
@@ -98,7 +98,7 @@ inetutils_compile: $(STATEDIR)/inetutils.compile
 
 inetutils_compile_deps =  $(STATEDIR)/inetutils.prepare
 
-$(STATEDIR)/inetutils.compile: $(inetutils_compile_deps)
+$(STATEDIR)/inetutils.compile: $(inetutils_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(INETUTILS_PATH) make -C $(INETUTILS_DIR)/libinetutils
 
@@ -143,7 +143,7 @@ inetutils_targetinstall: $(STATEDIR)/inetutils.targetinstall
 
 inetutils_targetinstall_deps	=  $(STATEDIR)/inetutils.compile
 
-$(STATEDIR)/inetutils.targetinstall: $(inetutils_targetinstall_deps)
+$(STATEDIR)/inetutils.targetinstall: $(inetutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

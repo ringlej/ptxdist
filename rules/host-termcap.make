@@ -33,7 +33,7 @@ host-termcap_get: $(STATEDIR)/host-termcap.get
 
 host-termcap_get_deps = $(TERMCAP_SOURCE)
 
-$(STATEDIR)/host-termcap.get: $(host-termcap_get_deps)
+$(STATEDIR)/host-termcap.get: $(host-termcap_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_TERMCAP))
 	@$(call touch, $@)
@@ -74,7 +74,7 @@ HOST_TERMCAP_ENV 	=  $(HOSTCC_ENV)
 HOST_TERMCAP_AUTOCONF =  $(HOST_AUTOCONF)
 HOST_TERMCAP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)/usr
 
-$(STATEDIR)/host-termcap.prepare: $(host-termcap_prepare_deps)
+$(STATEDIR)/host-termcap.prepare: $(host-termcap_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_TERMCAP_DIR)/config.cache)
 	cd $(HOST_TERMCAP_DIR) && \
@@ -90,7 +90,7 @@ host-termcap_compile: $(STATEDIR)/host-termcap.compile
 
 host-termcap_compile_deps = $(STATEDIR)/host-termcap.prepare
 
-$(STATEDIR)/host-termcap.compile: $(host-termcap_compile_deps)
+$(STATEDIR)/host-termcap.compile: $(host-termcap_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_TERMCAP_DIR) && $(HOST_TERMCAP_ENV) $(HOST_TERMCAP_PATH) make
 	@$(call touch, $@)
@@ -103,7 +103,7 @@ host-termcap_install: $(STATEDIR)/host-termcap.install
 
 host-termcap_install_deps = $(STATEDIR)/host-termcap.compile
 
-$(STATEDIR)/host-termcap.install: $(host-termcap_install_deps)
+$(STATEDIR)/host-termcap.install: $(host-termcap_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HOST_TERMCAP,,h)
 	@$(call touch, $@)

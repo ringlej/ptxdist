@@ -34,7 +34,7 @@ memstat_get: $(STATEDIR)/memstat.get
 
 memstat_get_deps = $(MEMSTAT_SOURCE)
 
-$(STATEDIR)/memstat.get: $(memstat_get_deps)
+$(STATEDIR)/memstat.get: $(memstat_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMSTAT))
 	@$(call touch, $@)
@@ -81,7 +81,7 @@ MEMSTAT_ENV 	=  $(CROSS_ENV)
 #
 MEMSTAT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/memstat.prepare: $(memstat_prepare_deps)
+$(STATEDIR)/memstat.prepare: $(memstat_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -93,7 +93,7 @@ memstat_compile: $(STATEDIR)/memstat.compile
 
 memstat_compile_deps = $(STATEDIR)/memstat.prepare
 
-$(STATEDIR)/memstat.compile: $(memstat_compile_deps)
+$(STATEDIR)/memstat.compile: $(memstat_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MEMSTAT_DIR) && $(MEMSTAT_ENV) $(MEMSTAT_PATH) make
 	@$(call touch, $@)
@@ -117,7 +117,7 @@ memstat_targetinstall: $(STATEDIR)/memstat.targetinstall
 
 memstat_targetinstall_deps = $(STATEDIR)/memstat.compile
 
-$(STATEDIR)/memstat.targetinstall: $(memstat_targetinstall_deps)
+$(STATEDIR)/memstat.targetinstall: $(memstat_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -34,7 +34,7 @@ hexedit_get: $(STATEDIR)/hexedit.get
 
 hexedit_get_deps = $(HEXEDIT_SOURCE)
 
-$(STATEDIR)/hexedit.get: $(hexedit_get_deps)
+$(STATEDIR)/hexedit.get: $(hexedit_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HEXEDIT))
 	@$(call touch, $@)
@@ -83,7 +83,7 @@ HEXEDIT_ENV	+= CFLAGS='$(strip $(subst $(quote),,$(TARGET_CFLAGS))) $(strip $(su
 #
 HEXEDIT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/hexedit.prepare: $(hexedit_prepare_deps)
+$(STATEDIR)/hexedit.prepare: $(hexedit_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HEXEDIT_DIR)/config.cache)
 	cd $(HEXEDIT_DIR) && \
@@ -99,7 +99,7 @@ hexedit_compile: $(STATEDIR)/hexedit.compile
 
 hexedit_compile_deps = $(STATEDIR)/hexedit.prepare
 
-$(STATEDIR)/hexedit.compile: $(hexedit_compile_deps)
+$(STATEDIR)/hexedit.compile: $(hexedit_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HEXEDIT_DIR) && $(HEXEDIT_ENV) $(HEXEDIT_PATH) make
 	@$(call touch, $@)
@@ -122,7 +122,7 @@ hexedit_targetinstall: $(STATEDIR)/hexedit.targetinstall
 
 hexedit_targetinstall_deps = $(STATEDIR)/hexedit.compile
 
-$(STATEDIR)/hexedit.targetinstall: $(hexedit_targetinstall_deps)
+$(STATEDIR)/hexedit.targetinstall: $(hexedit_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

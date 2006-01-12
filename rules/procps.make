@@ -34,7 +34,7 @@ procps_get: $(STATEDIR)/procps.get
 
 procps_get_deps	=  $(PROCPS_SOURCE)
 
-$(STATEDIR)/procps.get: $(procps_get_deps)
+$(STATEDIR)/procps.get: $(procps_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PROCPS))
 	@$(call touch, $@)
@@ -82,7 +82,7 @@ PROCPS_MAKEVARS += LDFLAGS=-L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
 #
 PROCPS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/procps.prepare: $(procps_prepare_deps)
+$(STATEDIR)/procps.prepare: $(procps_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PROCPS_BUILDDIR))
 	@$(call touch, $@)
@@ -95,7 +95,7 @@ procps_compile: $(STATEDIR)/procps.compile
 
 procps_compile_deps =  $(STATEDIR)/procps.prepare
 
-$(STATEDIR)/procps.compile: $(procps_compile_deps)
+$(STATEDIR)/procps.compile: $(procps_compile_deps_default)
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_PROCPS_TOP
@@ -138,7 +138,7 @@ procps_targetinstall_deps = \
 	$(STATEDIR)/procps.compile \
 	$(STATEDIR)/ncurses.targetinstall
 
-$(STATEDIR)/procps.targetinstall: $(procps_targetinstall_deps)
+$(STATEDIR)/procps.targetinstall: $(procps_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

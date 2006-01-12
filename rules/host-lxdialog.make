@@ -71,7 +71,7 @@ host-lxdialog_prepare_deps = $(STATEDIR)/host-lxdialog.extract
 HOST_LXDIALOG_PATH	=  PATH=$(HOST_PATH)
 HOST_LXDIALOG_ENV 	=  $(HOSTCC_ENV)
 
-$(STATEDIR)/host-lxdialog.prepare: $(host-lxdialog_prepare_deps)
+$(STATEDIR)/host-lxdialog.prepare: $(host-lxdialog_prepare_deps_default)
 	@$(call targetinfo, $@, n)
 	@$(call touch, $@)
 
@@ -83,7 +83,7 @@ host-lxdialog_compile: $(STATEDIR)/host-lxdialog.compile
 
 host-lxdialog_compile_deps = $(STATEDIR)/host-lxdialog.prepare
 
-$(STATEDIR)/host-lxdialog.compile: $(host-lxdialog_compile_deps)
+$(STATEDIR)/host-lxdialog.compile: $(host-lxdialog_compile_deps_default)
 	@$(call targetinfo, $@, n)
 	cd $(HOST_LXDIALOG_DIR) && $(HOST_LXDIALOG_ENV) $(HOST_LXDIALOG_PATH) make
 	@$(call touch, $@)
@@ -96,7 +96,7 @@ host-lxdialog_install: $(STATEDIR)/host-lxdialog.install
 
 host-lxdialog_install_deps = $(STATEDIR)/host-lxdialog.compile
 
-$(STATEDIR)/host-lxdialog.install: $(host-lxdialog_install_deps)
+$(STATEDIR)/host-lxdialog.install: $(host-lxdialog_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

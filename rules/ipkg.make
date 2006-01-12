@@ -34,7 +34,7 @@ ipkg_get: $(STATEDIR)/ipkg.get
 
 ipkg_get_deps = $(IPKG_SOURCE)
 
-$(STATEDIR)/ipkg.get: $(ipkg_get_deps)
+$(STATEDIR)/ipkg.get: $(ipkg_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(IPKG))
 	@$(call touch, $@)
@@ -81,7 +81,7 @@ IPKG_ENV 	=  $(CROSS_ENV)
 #
 IPKG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/ipkg.prepare: $(ipkg_prepare_deps)
+$(STATEDIR)/ipkg.prepare: $(ipkg_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPKG_DIR)/config.cache)
 	cd $(IPKG_DIR) && \
@@ -97,7 +97,7 @@ ipkg_compile: $(STATEDIR)/ipkg.compile
 
 ipkg_compile_deps = $(STATEDIR)/ipkg.prepare
 
-$(STATEDIR)/ipkg.compile: $(ipkg_compile_deps)
+$(STATEDIR)/ipkg.compile: $(ipkg_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(IPKG_DIR) && $(IPKG_ENV) $(IPKG_PATH) make
 	@$(call touch, $@)
@@ -121,7 +121,7 @@ ipkg_targetinstall: $(STATEDIR)/ipkg.targetinstall
 
 ipkg_targetinstall_deps = $(STATEDIR)/ipkg.compile
 
-$(STATEDIR)/ipkg.targetinstall: $(ipkg_targetinstall_deps)
+$(STATEDIR)/ipkg.targetinstall: $(ipkg_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -34,7 +34,7 @@ hrtimers-support_get: $(STATEDIR)/hrtimers-support.get
 
 hrtimers-support_get_deps = $(HRTIMERS_SUPPORT_SOURCE)
 
-$(STATEDIR)/hrtimers-support.get: $(hrtimers-support_get_deps)
+$(STATEDIR)/hrtimers-support.get: $(hrtimers-support_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -79,7 +79,7 @@ HRTIMERS_SUPPORT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 HRTIMERS_SUPPORT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/hrtimers-support.prepare: $(hrtimers-support_prepare_deps)
+$(STATEDIR)/hrtimers-support.prepare: $(hrtimers-support_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HRTIMERS_SUPPORT_DIR)/config.cache)
 	cd $(HRTIMERS_SUPPORT_DIR) && \
@@ -95,7 +95,7 @@ hrtimers-support_compile: $(STATEDIR)/hrtimers-support.compile
 
 hrtimers-support_compile_deps = $(STATEDIR)/hrtimers-support.prepare
 
-$(STATEDIR)/hrtimers-support.compile: $(hrtimers-support_compile_deps)
+$(STATEDIR)/hrtimers-support.compile: $(hrtimers-support_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HRTIMERS_SUPPORT_DIR) && $(HRTIMERS_SUPPORT_ENV) $(HRTIMERS_SUPPORT_PATH) make
 	@$(call touch, $@)
@@ -119,7 +119,7 @@ hrtimers-support_targetinstall: $(STATEDIR)/hrtimers-support.targetinstall
 
 hrtimers-support_targetinstall_deps = $(STATEDIR)/hrtimers-support.compile
 
-$(STATEDIR)/hrtimers-support.targetinstall: $(hrtimers-support_targetinstall_deps)
+$(STATEDIR)/hrtimers-support.targetinstall: $(hrtimers-support_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

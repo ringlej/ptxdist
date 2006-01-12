@@ -33,7 +33,7 @@ openntpd_get: $(STATEDIR)/openntpd.get
 
 openntpd_get_deps = $(OPENNTPD_SOURCE)
 
-$(STATEDIR)/openntpd.get: $(openntpd_get_deps)
+$(STATEDIR)/openntpd.get: $(openntpd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OPENNTPD))
 	@$(call touch, $@)
@@ -89,7 +89,7 @@ endif
 OPENNTPD_AUTOCONF += --with-privsep-user=ntp
 OPENNTPD_AUTOCONF += --with-privsep-path=/var/run/ntp
 
-$(STATEDIR)/openntpd.prepare: $(openntpd_prepare_deps)
+$(STATEDIR)/openntpd.prepare: $(openntpd_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENNTPD_DIR)/config.cache)
 	cd $(OPENNTPD_DIR) && \
@@ -105,7 +105,7 @@ openntpd_compile: $(STATEDIR)/openntpd.compile
 
 openntpd_compile_deps = $(STATEDIR)/openntpd.prepare
 
-$(STATEDIR)/openntpd.compile: $(openntpd_compile_deps)
+$(STATEDIR)/openntpd.compile: $(openntpd_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(OPENNTPD_DIR) && $(OPENNTPD_ENV) $(OPENNTPD_PATH) make
 	@$(call touch, $@)
@@ -129,7 +129,7 @@ openntpd_targetinstall: $(STATEDIR)/openntpd.targetinstall
 
 openntpd_targetinstall_deps = $(STATEDIR)/openntpd.compile
 
-$(STATEDIR)/openntpd.targetinstall: $(openntpd_targetinstall_deps)
+$(STATEDIR)/openntpd.targetinstall: $(openntpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

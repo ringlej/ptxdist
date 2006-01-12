@@ -68,7 +68,7 @@ GMP4_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 GMP4_AUTOCONF += --enable-shared
 GMP4_AUTOCONF += --enable-static
 
-$(STATEDIR)/gmp4.prepare: $(gmp4_prepare_deps)
+$(STATEDIR)/gmp4.prepare: $(gmp4_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GMP4_DIR) && \
 		$(GMP4_PATH) $(GMP4_ENV) \

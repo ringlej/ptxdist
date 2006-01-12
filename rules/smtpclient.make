@@ -34,7 +34,7 @@ smtpclient_get: $(STATEDIR)/smtpclient.get
 
 smtpclient_get_deps = $(SMTPCLIENT_SOURCE)
 
-$(STATEDIR)/smtpclient.get: $(smtpclient_get_deps)
+$(STATEDIR)/smtpclient.get: $(smtpclient_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SMTPCLIENT))
 	@$(call touch, $@)
@@ -81,7 +81,7 @@ SMTPCLIENT_ENV 	=  $(CROSS_ENV)
 #
 SMTPCLIENT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/smtpclient.prepare: $(smtpclient_prepare_deps)
+$(STATEDIR)/smtpclient.prepare: $(smtpclient_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SMTPCLIENT_DIR)/config.cache)
 	cd $(SMTPCLIENT_DIR) && \
@@ -97,7 +97,7 @@ smtpclient_compile: $(STATEDIR)/smtpclient.compile
 
 smtpclient_compile_deps = $(STATEDIR)/smtpclient.prepare
 
-$(STATEDIR)/smtpclient.compile: $(smtpclient_compile_deps)
+$(STATEDIR)/smtpclient.compile: $(smtpclient_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SMTPCLIENT_DIR) && $(SMTPCLIENT_ENV) $(SMTPCLIENT_PATH) make
 	@$(call touch, $@)
@@ -121,7 +121,7 @@ smtpclient_targetinstall: $(STATEDIR)/smtpclient.targetinstall
 
 smtpclient_targetinstall_deps = $(STATEDIR)/smtpclient.compile
 
-$(STATEDIR)/smtpclient.targetinstall: $(smtpclient_targetinstall_deps)
+$(STATEDIR)/smtpclient.targetinstall: $(smtpclient_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	
 	@$(call install_init,default)

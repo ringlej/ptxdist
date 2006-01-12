@@ -35,7 +35,7 @@ tinylogin_get: $(STATEDIR)/tinylogin.get
 
 tinylogin_get_deps =  $(TINYLOGIN_SOURCE)
 
-$(STATEDIR)/tinylogin.get: $(tinylogin_get_deps)
+$(STATEDIR)/tinylogin.get: $(tinylogin_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -72,7 +72,7 @@ tinylogin_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/tinylogin.extract
 
-$(STATEDIR)/tinylogin.prepare: $(tinylogin_prepare_deps)
+$(STATEDIR)/tinylogin.prepare: $(tinylogin_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -84,7 +84,7 @@ tinylogin_compile: $(STATEDIR)/tinylogin.compile
 
 tinylogin_compile_deps =  $(STATEDIR)/tinylogin.prepare
 
-$(STATEDIR)/tinylogin.compile: $(tinylogin_compile_deps) 
+$(STATEDIR)/tinylogin.compile: $(tinylogin_compile_deps_default) 
 	@$(call targetinfo, $@)
 	cd $(TINYLOGIN_DIR) && $(TINYLOGIN_PATH) make $(TINYLOGIN_MAKEVARS)
 	@$(call touch, $@)

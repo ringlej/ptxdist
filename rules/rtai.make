@@ -84,7 +84,7 @@ RTAI_AUTOCONF += \
 	--with-kconfig-file=$(RTAI_DIR)/.config \
 	--with-linux-dir=$(KERNEL_DIR)
 
-$(STATEDIR)/rtai.prepare: $(rtai_prepare_deps)
+$(STATEDIR)/rtai.prepare: $(rtai_prepare_deps_default)
 	@$(call targetinfo, $@)
 	grep -e PTXCONF_RTAICFG_ .config > $(RTAI_DIR)/.config
 	perl -i -p -e 's/PTXCONF_RTAICFG_/CONFIG_/g' $(RTAI_DIR)/.config

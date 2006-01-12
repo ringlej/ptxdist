@@ -36,7 +36,7 @@ mfirebird_get: $(STATEDIR)/mfirebird.get
 mfirebird_get_deps		=  $(MFIREBIRD_SOURCE)
 mfirebird_get_deps		+= $(MFIREBIRD_PATCH_SOURCE)
 
-$(STATEDIR)/mfirebird.get: $(mfirebird_get_deps)
+$(STATEDIR)/mfirebird.get: $(mfirebird_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MFIREBIRD))
 	@$(call touch, $@)
@@ -420,7 +420,7 @@ endif
 #MFIREBIRD_AUTOCONF	+= --disable-necko-small-buffers
 #endif
 
-$(STATEDIR)/mfirebird.prepare: $(mfirebird_prepare_deps)
+$(STATEDIR)/mfirebird.prepare: $(mfirebird_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MFIREBIRD_BUILDDIR))
 	cd $(MFIREBIRD_DIR) && \
@@ -436,7 +436,7 @@ mfirebird_compile: $(STATEDIR)/mfirebird.compile
 
 mfirebird_compile_deps =  $(STATEDIR)/mfirebird.prepare
 
-$(STATEDIR)/mfirebird.compile: $(mfirebird_compile_deps)
+$(STATEDIR)/mfirebird.compile: $(mfirebird_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make
 	@$(call touch, $@)
@@ -464,7 +464,7 @@ mfirebird_targetinstall_deps	+= $(STATEDIR)/atk.targetinstall
 mfirebird_targetinstall_deps	+= $(STATEDIR)/pango12.targetinstall
 mfirebird_targetinstall_deps	+= $(STATEDIR)/glib22.targetinstall
 
-$(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps)
+$(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

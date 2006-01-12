@@ -34,7 +34,7 @@ mad_get: $(STATEDIR)/mad.get
 
 mad_get_deps = $(MAD_SOURCE)
 
-$(STATEDIR)/mad.get: $(mad_get_deps)
+$(STATEDIR)/mad.get: $(mad_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -78,7 +78,7 @@ MAD_ENV 	=  $(CROSS_ENV)
 #
 MAD_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/mad.prepare: $(mad_prepare_deps)
+$(STATEDIR)/mad.prepare: $(mad_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MAD_DIR)/config.cache)
 	cd $(MAD_DIR) && \
@@ -94,7 +94,7 @@ mad_compile: $(STATEDIR)/mad.compile
 
 mad_compile_deps = $(STATEDIR)/mad.prepare
 
-$(STATEDIR)/mad.compile: $(mad_compile_deps)
+$(STATEDIR)/mad.compile: $(mad_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MAD_DIR) && $(MAD_PATH) make
 	@$(call touch, $@)
@@ -117,7 +117,7 @@ mad_targetinstall: $(STATEDIR)/mad.targetinstall
 
 mad_targetinstall_deps = $(STATEDIR)/mad.compile
 
-$(STATEDIR)/mad.targetinstall: $(mad_targetinstall_deps)
+$(STATEDIR)/mad.targetinstall: $(mad_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

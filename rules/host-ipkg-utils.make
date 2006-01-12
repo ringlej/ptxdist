@@ -34,7 +34,7 @@ host-ipkg-utils_get: $(STATEDIR)/host-ipkg-utils.get
 
 host-ipkg-utils_get_deps = $(HOSTTOOL-IPKG-UTILS_SOURCE)
 
-$(STATEDIR)/host-ipkg-utils.get: $(host-ipkg-utils_get_deps)
+$(STATEDIR)/host-ipkg-utils.get: $(host-ipkg-utils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL-IPKG-UTILS))
 	@$(call touch, $@)
@@ -77,7 +77,7 @@ host-ipkg-utils_prepare_deps = \
 HOSTTOOL-IPKG-UTILS_PATH	=  PATH=$(CROSS_PATH)
 HOSTTOOL-IPKG-UTILS_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/host-ipkg-utils.prepare: $(host-ipkg-utils_prepare_deps)
+$(STATEDIR)/host-ipkg-utils.prepare: $(host-ipkg-utils_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -89,7 +89,7 @@ host-ipkg-utils_compile: $(STATEDIR)/host-ipkg-utils.compile
 
 host-ipkg-utils_compile_deps = $(STATEDIR)/host-ipkg-utils.prepare
 
-$(STATEDIR)/host-ipkg-utils.compile: $(host-ipkg-utils_compile_deps)
+$(STATEDIR)/host-ipkg-utils.compile: $(host-ipkg-utils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOSTTOOL-IPKG-UTILS_DIR) && $(HOSTTOOL-IPKG-UTILS_ENV) $(HOSTTOOL-IPKG-UTILS_PATH) make
 	@$(call touch, $@)
@@ -118,7 +118,7 @@ host-ipkg-utils_targetinstall: $(STATEDIR)/host-ipkg-utils.targetinstall
 
 host-ipkg-utils_targetinstall_deps = $(STATEDIR)/host-ipkg-utils.install
 
-$(STATEDIR)/host-ipkg-utils.targetinstall: $(host-ipkg-utils_targetinstall_deps)
+$(STATEDIR)/host-ipkg-utils.targetinstall: $(host-ipkg-utils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

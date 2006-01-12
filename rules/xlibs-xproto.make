@@ -37,7 +37,7 @@ xlibs-xproto_get: $(STATEDIR)/xlibs-xproto.get
 
 xlibs-xproto_get_deps = $(XLIBS-XPROTO_SOURCE)
 
-$(STATEDIR)/xlibs-xproto.get: $(xlibs-xproto_get_deps)
+$(STATEDIR)/xlibs-xproto.get: $(xlibs-xproto_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XPROTO))
 	@$(call touch, $@)
@@ -84,7 +84,7 @@ XLIBS-XPROTO_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/xlibs-xproto.prepare: $(xlibs-xproto_prepare_deps)
+$(STATEDIR)/xlibs-xproto.prepare: $(xlibs-xproto_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XPROTO_DIR)/config.cache)
 	chmod a+x $(XLIBS-XPROTO_DIR)/configure
@@ -101,7 +101,7 @@ xlibs-xproto_compile: $(STATEDIR)/xlibs-xproto.compile
 
 xlibs-xproto_compile_deps = $(STATEDIR)/xlibs-xproto.prepare
 
-$(STATEDIR)/xlibs-xproto.compile: $(xlibs-xproto_compile_deps)
+$(STATEDIR)/xlibs-xproto.compile: $(xlibs-xproto_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XPROTO_DIR) && $(XLIBS-XPROTO_ENV) $(XLIBS-XPROTO_PATH) make
 	@$(call touch, $@)
@@ -125,7 +125,7 @@ xlibs-xproto_targetinstall: $(STATEDIR)/xlibs-xproto.targetinstall
 
 xlibs-xproto_targetinstall_deps = $(STATEDIR)/xlibs-xproto.compile
 
-$(STATEDIR)/xlibs-xproto.targetinstall: $(xlibs-xproto_targetinstall_deps)
+$(STATEDIR)/xlibs-xproto.targetinstall: $(xlibs-xproto_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

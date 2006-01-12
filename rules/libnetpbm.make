@@ -34,7 +34,7 @@ libnetpbm_get: $(STATEDIR)/libnetpbm.get
 
 libnetpbm_get_deps = $(LIBNETPBM_SOURCE)
 
-$(STATEDIR)/libnetpbm.get: $(libnetpbm_get_deps)
+$(STATEDIR)/libnetpbm.get: $(libnetpbm_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -73,7 +73,7 @@ libnetpbm_prepare_deps = \
 LIBNETPBM_PATH	=  PATH=$(CROSS_PATH)
 LIBNETPBM_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/libnetpbm.prepare: $(libnetpbm_prepare_deps)
+$(STATEDIR)/libnetpbm.prepare: $(libnetpbm_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cp $(LIBNETPBM_DIR)/Makefile.config.in $(LIBNETPBM_DIR)/Makefile.config
 ifdef PTXCONF_LIBNETPBM_BUILD_FIASCO
@@ -99,7 +99,7 @@ libnetpbm_compile: $(STATEDIR)/libnetpbm.compile
 
 libnetpbm_compile_deps = $(STATEDIR)/libnetpbm.prepare
 
-$(STATEDIR)/libnetpbm.compile: $(libnetpbm_compile_deps)
+$(STATEDIR)/libnetpbm.compile: $(libnetpbm_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBNETPBM_DIR) && $(LIBNETPBM_ENV) $(LIBNETPBM_PATH) make
 	@$(call touch, $@)
@@ -125,7 +125,7 @@ libnetpbm_targetinstall: $(STATEDIR)/libnetpbm.targetinstall
 
 libnetpbm_targetinstall_deps = $(STATEDIR)/libnetpbm.compile
 
-$(STATEDIR)/libnetpbm.targetinstall: $(libnetpbm_targetinstall_deps)
+$(STATEDIR)/libnetpbm.targetinstall: $(libnetpbm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

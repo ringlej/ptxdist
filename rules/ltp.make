@@ -34,7 +34,7 @@ ltp_get: $(STATEDIR)/ltp.get
 
 ltp_get_deps = $(LTP_SOURCE)
 
-$(STATEDIR)/ltp.get: $(ltp_get_deps)
+$(STATEDIR)/ltp.get: $(ltp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LTP))
 	@$(call touch, $@)
@@ -74,7 +74,7 @@ ltp_prepare_deps = \
 LTP_PATH	=  PATH=$(CROSS_PATH)
 LTP_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/ltp.prepare: $(ltp_prepare_deps)
+$(STATEDIR)/ltp.prepare: $(ltp_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -86,7 +86,7 @@ ltp_compile: $(STATEDIR)/ltp.compile
 
 ltp_compile_deps = $(STATEDIR)/ltp.prepare
 
-$(STATEDIR)/ltp.compile: $(ltp_compile_deps)
+$(STATEDIR)/ltp.compile: $(ltp_compile_deps_default)
 	@$(call targetinfo, $@)
 
 	# We need the toplevel lib dir for all LTP tests. 
@@ -116,7 +116,7 @@ ltp_targetinstall: $(STATEDIR)/ltp.targetinstall
 
 ltp_targetinstall_deps = $(STATEDIR)/ltp.compile
 
-$(STATEDIR)/ltp.targetinstall: $(ltp_targetinstall_deps)
+$(STATEDIR)/ltp.targetinstall: $(ltp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

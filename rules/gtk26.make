@@ -35,7 +35,7 @@ gtk26_get: $(STATEDIR)/gtk26.get
 
 gtk26_get_deps = $(GTK26_SOURCE)
 
-$(STATEDIR)/gtk26.get: $(gtk26_get_deps)
+$(STATEDIR)/gtk26.get: $(gtk26_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -80,7 +80,7 @@ GTK26_ENV = $(CROSS_ENV)
 #
 GTK26_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/gtk26.prepare: $(gtk26_prepare_deps)
+$(STATEDIR)/gtk26.prepare: $(gtk26_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK26_BUILDDIR))
 	cd $(GTK26_DIR) && \
@@ -96,7 +96,7 @@ gtk26_compile: $(STATEDIR)/gtk26.compile
 
 gtk26_compile_deps =  $(STATEDIR)/gtk26.prepare
 
-$(STATEDIR)/gtk26.compile: $(gtk26_compile_deps)
+$(STATEDIR)/gtk26.compile: $(gtk26_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GTK26_DIR) && $(GTK26_PATH) $(GTK26_ENV) make
 	@$(call touch, $@)
@@ -109,7 +109,7 @@ gtk26_install: $(STATEDIR)/gtk26.install
 
 gtk26_install_deps	=  $(STATEDIR)/gtk26.compile
 
-$(STATEDIR)/gtk26.install: $(gtk26_install_deps)
+$(STATEDIR)/gtk26.install: $(gtk26_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GTK26)
 	@$(call touch, $@)
@@ -123,7 +123,7 @@ gtk26_targetinstall: $(STATEDIR)/gtk26.targetinstall
 gtk26_targetinstall_deps = \
 	$(STATEDIR)/gtk26.install
 
-$(STATEDIR)/gtk26.targetinstall: $(gtk26_targetinstall_deps)
+$(STATEDIR)/gtk26.targetinstall: $(gtk26_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

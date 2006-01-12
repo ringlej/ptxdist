@@ -35,7 +35,7 @@ xlibs-xau_get: $(STATEDIR)/xlibs-xau.get
 
 xlibs-xau_get_deps = $(XLIBS-XAU_SOURCE)
 
-$(STATEDIR)/xlibs-xau.get: $(xlibs-xau_get_deps)
+$(STATEDIR)/xlibs-xau.get: $(xlibs-xau_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XAU))
 	@$(call touch, $@)
@@ -82,7 +82,7 @@ XLIBS-XAU_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/xlibs-xau.prepare: $(xlibs-xau_prepare_deps)
+$(STATEDIR)/xlibs-xau.prepare: $(xlibs-xau_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XAU_DIR)/config.cache)
 	chmod a+x $(XLIBS-XAU_DIR)/configure
@@ -99,7 +99,7 @@ xlibs-xau_compile: $(STATEDIR)/xlibs-xau.compile
 
 xlibs-xau_compile_deps = $(STATEDIR)/xlibs-xau.prepare
 
-$(STATEDIR)/xlibs-xau.compile: $(xlibs-xau_compile_deps)
+$(STATEDIR)/xlibs-xau.compile: $(xlibs-xau_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XAU_DIR) && $(XLIBS-XAU_ENV) $(XLIBS-XAU_PATH) make
 	@$(call touch, $@)
@@ -123,7 +123,7 @@ xlibs-xau_targetinstall: $(STATEDIR)/xlibs-xau.targetinstall
 
 xlibs-xau_targetinstall_deps = $(STATEDIR)/xlibs-xau.compile
 
-$(STATEDIR)/xlibs-xau.targetinstall: $(xlibs-xau_targetinstall_deps)
+$(STATEDIR)/xlibs-xau.targetinstall: $(xlibs-xau_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	
 	@$(call install_init,default)

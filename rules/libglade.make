@@ -34,7 +34,7 @@ libglade_get: $(STATEDIR)/libglade.get
 
 libglade_get_deps = $(LIBGLADE_SOURCE)
 
-$(STATEDIR)/libglade.get: $(libglade_get_deps)
+$(STATEDIR)/libglade.get: $(libglade_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -81,7 +81,7 @@ LIBGLADE_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 #
 LIBGLADE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/libglade.prepare: $(libglade_prepare_deps)
+$(STATEDIR)/libglade.prepare: $(libglade_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGLADE_DIR)/config.cache)
 	cd $(LIBGLADE_DIR) && \
@@ -97,7 +97,7 @@ libglade_compile: $(STATEDIR)/libglade.compile
 
 libglade_compile_deps = $(STATEDIR)/libglade.prepare
 
-$(STATEDIR)/libglade.compile: $(libglade_compile_deps)
+$(STATEDIR)/libglade.compile: $(libglade_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBGLADE_DIR) && $(LIBGLADE_PATH) make
 	@$(call touch, $@)
@@ -122,7 +122,7 @@ libglade_targetinstall: $(STATEDIR)/libglade.targetinstall
 
 libglade_targetinstall_deps = $(STATEDIR)/libglade.compile
 
-$(STATEDIR)/libglade.targetinstall: $(libglade_targetinstall_deps)
+$(STATEDIR)/libglade.targetinstall: $(libglade_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

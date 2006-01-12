@@ -37,7 +37,7 @@ libidl068_get: $(STATEDIR)/libidl068.get
 
 libidl068_get_deps	=  $(LIBIDL068_SOURCE)
 
-$(STATEDIR)/libidl068.get: $(libidl068_get_deps)
+$(STATEDIR)/libidl068.get: $(libidl068_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -87,7 +87,7 @@ ifdef PTXCONF_LIBIDL068_FOO
 LIBIDL068_AUTOCONF	+= --enable-foo
 endif
 
-$(STATEDIR)/libidl068.prepare: $(libidl068_prepare_deps)
+$(STATEDIR)/libidl068.prepare: $(libidl068_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBIDL068_BUILDDIR))
 	cd $(LIBIDL068_DIR) && \
@@ -103,7 +103,7 @@ libidl068_compile: $(STATEDIR)/libidl068.compile
 
 libidl068_compile_deps =  $(STATEDIR)/libidl068.prepare
 
-$(STATEDIR)/libidl068.compile: $(libidl068_compile_deps)
+$(STATEDIR)/libidl068.compile: $(libidl068_compile_deps_default)
 	@$(call targetinfo, $@)
 
 	$(LIBIDL068_PATH) $(LIBIDL068_ENV) make -C $(LIBIDL068_DIR)
@@ -129,7 +129,7 @@ libidl068_targetinstall: $(STATEDIR)/libidl068.targetinstall
 
 libidl068_targetinstall_deps	=  $(STATEDIR)/libidl068.compile
 
-$(STATEDIR)/libidl068.targetinstall: $(libidl068_targetinstall_deps)
+$(STATEDIR)/libidl068.targetinstall: $(libidl068_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

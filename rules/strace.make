@@ -78,7 +78,7 @@ STRACE_AUTOCONF	+= \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-sanity-checks
 
-$(STATEDIR)/strace.prepare: $(strace_prepare_deps)
+$(STATEDIR)/strace.prepare: $(strace_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(STRACE_DIR) && \
 		$(STRACE_PATH) $(STRACE_ENV) \

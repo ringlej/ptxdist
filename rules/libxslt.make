@@ -34,7 +34,7 @@ libxslt_get: $(STATEDIR)/libxslt.get
 
 libxslt_get_deps = $(LIBXSLT_SOURCE)
 
-$(STATEDIR)/libxslt.get: $(libxslt_get_deps)
+$(STATEDIR)/libxslt.get: $(libxslt_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBXSLT))
 	@$(call touch, $@)
@@ -107,7 +107,7 @@ else
 endif
 
 
-$(STATEDIR)/libxslt.prepare: $(libxslt_prepare_deps)
+$(STATEDIR)/libxslt.prepare: $(libxslt_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXSLT_DIR)/config.cache)
 	cd $(LIBXSLT_DIR) && \
@@ -123,7 +123,7 @@ libxslt_compile: $(STATEDIR)/libxslt.compile
 
 libxslt_compile_deps = $(STATEDIR)/libxslt.prepare
 
-$(STATEDIR)/libxslt.compile: $(libxslt_compile_deps)
+$(STATEDIR)/libxslt.compile: $(libxslt_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBXSLT_DIR) && $(LIBXSLT_ENV) $(LIBXSLT_PATH) make
 	@$(call touch, $@)
@@ -154,7 +154,7 @@ libxslt_targetinstall_deps = \
 	$(STATEDIR)/libxslt.compile \
 	$(STATEDIR)/libxml2.targetinstall
 
-$(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps)
+$(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

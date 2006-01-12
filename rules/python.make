@@ -36,7 +36,7 @@ python_get: $(STATEDIR)/python.get
 python_get_deps = \
 	$(PYTHON_SOURCE)
 
-$(STATEDIR)/python.get: $(python_get_deps)
+$(STATEDIR)/python.get: $(python_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PYTHON))
 	@$(call touch, $@)
@@ -85,7 +85,7 @@ PYTHON_MAKEVARS	+= HOSTPGEN=$(XCHAIN_PYTHON_BUILDDIR)/Parser/pgen
 PYTHON_MAKEVARS	+= CROSS_COMPILE=yes
 PYTHON_MAKEVARS	+= DESTDIR=$(ROOTDIR)
 
-$(STATEDIR)/python.prepare: $(python_prepare_deps)
+$(STATEDIR)/python.prepare: $(python_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PYTHON_BUILDDIR))
 	mkdir -p $(PYTHON_BUILDDIR)
@@ -104,7 +104,7 @@ python_compile_deps = \
 	$(STATEDIR)/xchain-python.compile \
 	$(STATEDIR)/python.prepare
 
-$(STATEDIR)/python.compile: $(python_compile_deps)
+$(STATEDIR)/python.compile: $(python_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS)
 	@$(call touch, $@)

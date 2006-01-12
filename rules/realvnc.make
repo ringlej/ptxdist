@@ -37,7 +37,7 @@ realvnc_get: $(STATEDIR)/realvnc.get
 
 realvnc_get_deps = $(REALVNC_SOURCE)
 
-$(STATEDIR)/realvnc.get: $(realvnc_get_deps)
+$(STATEDIR)/realvnc.get: $(realvnc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(REALVNC))
 	@$(call touch, $@)
@@ -89,7 +89,7 @@ REALVNC_AUTOCONF += --x-includes=$(CROSS_LIB_DIR)/include
 REALVNC_AUTOCONF += --x-libraries=$(CROSS_LIB_DIR)/lib
 REALVNC_AUTOCONF += --with-installed-zlib
 
-$(STATEDIR)/realvnc.prepare: $(realvnc_prepare_deps)
+$(STATEDIR)/realvnc.prepare: $(realvnc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(REALVNC_DIR)/config.cache)
 	cd $(REALVNC_DIR) && \
@@ -105,7 +105,7 @@ realvnc_compile: $(STATEDIR)/realvnc.compile
 
 realvnc_compile_deps = $(STATEDIR)/realvnc.prepare
 
-$(STATEDIR)/realvnc.compile: $(realvnc_compile_deps)
+$(STATEDIR)/realvnc.compile: $(realvnc_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(REALVNC_DIR) && $(REALVNC_ENV) $(REALVNC_PATH) make
 	@$(call touch, $@)
@@ -130,7 +130,7 @@ realvnc_targetinstall: $(STATEDIR)/realvnc.targetinstall
 realvnc_targetinstall_deps =  $(STATEDIR)/realvnc.compile
 realvnc_targetinstall_deps += $(STATEDIR)/xlibs-xtst.targetinstall
 
-$(STATEDIR)/realvnc.targetinstall: $(realvnc_targetinstall_deps)
+$(STATEDIR)/realvnc.targetinstall: $(realvnc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	
 	@$(call touch, $@)

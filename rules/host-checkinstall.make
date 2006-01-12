@@ -34,7 +34,7 @@ host-checkinstall_get: $(STATEDIR)/host-checkinstall.get
 
 host-checkinstall_get_deps = $(HOST_CHECKINSTALL_SOURCE)
 
-$(STATEDIR)/host-checkinstall.get: $(host-checkinstall_get_deps)
+$(STATEDIR)/host-checkinstall.get: $(host-checkinstall_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_CHECKINSTALL))
 	@$(call touch, $@)
@@ -78,7 +78,7 @@ HOST_CHECKINSTALL_ENV 	=  $(HOSTCC_ENV)
 #
 HOST_CHECKINSTALL_AUTOCONF =  $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-checkinstall.prepare: $(host-checkinstall_prepare_deps)
+$(STATEDIR)/host-checkinstall.prepare: $(host-checkinstall_prepare_deps_default)
 	@$(call targetinfo, $@)
 #	@$(call clean, $(HOST_CHECKINSTALL_DIR)/config.cache)
 #	cd $(HOST_CHECKINSTALL_DIR) && \
@@ -94,7 +94,7 @@ host-checkinstall_compile: $(STATEDIR)/host-checkinstall.compile
 
 host-checkinstall_compile_deps = $(STATEDIR)/host-checkinstall.prepare
 
-$(STATEDIR)/host-checkinstall.compile: $(host-checkinstall_compile_deps)
+$(STATEDIR)/host-checkinstall.compile: $(host-checkinstall_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_CHECKINSTALL_DIR)/installwatch-* && $(HOST_CHECKINSTALL_ENV) $(HOST_CHECKINSTALL_PATH) make
 	@$(call touch, $@)
@@ -107,7 +107,7 @@ host-checkinstall_install: $(STATEDIR)/host-checkinstall.install
 
 host-checkinstall_install_deps = $(STATEDIR)/host-checkinstall.compile
 
-$(STATEDIR)/host-checkinstall.install: $(host-checkinstall_install_deps)
+$(STATEDIR)/host-checkinstall.install: $(host-checkinstall_install_deps_default)
 	@$(call targetinfo, $@)
 	# manual installation, make sure the directories exist
 	mkdir -p $(PTXCONF_PREFIX)/lib

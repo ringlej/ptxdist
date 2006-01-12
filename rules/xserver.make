@@ -37,7 +37,7 @@ xserver_get: $(STATEDIR)/xserver.get
 
 xserver_get_deps = $(XSERVER_SOURCE)
 
-$(STATEDIR)/xserver.get: $(xserver_get_deps)
+$(STATEDIR)/xserver.get: $(xserver_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XSERVER))
 	@$(call touch, $@)
@@ -239,7 +239,7 @@ else
 XSERVER_AUTOCONF += --disable-ipv6
 endif
 
-$(STATEDIR)/xserver.prepare: $(xserver_prepare_deps)
+$(STATEDIR)/xserver.prepare: $(xserver_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XSERVER_DIR)/config.cache)
 	chmod a+x $(XSERVER_DIR)/configure
@@ -256,7 +256,7 @@ xserver_compile: $(STATEDIR)/xserver.compile
 
 xserver_compile_deps = $(STATEDIR)/xserver.prepare
 
-$(STATEDIR)/xserver.compile: $(xserver_compile_deps)
+$(STATEDIR)/xserver.compile: $(xserver_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XSERVER_DIR) && $(XSERVER_ENV) $(XSERVER_PATH) make
 	@$(call touch, $@)
@@ -288,7 +288,7 @@ xserver_targetinstall_deps += $(STATEDIR)/xlibs-render.targetinstall
 xserver_targetinstall_deps += $(STATEDIR)/xlibs-x11.targetinstall
 xserver_targetinstall_deps += $(STATEDIR)/xlibs-xau.targetinstall
 
-$(STATEDIR)/xserver.targetinstall: $(xserver_targetinstall_deps)
+$(STATEDIR)/xserver.targetinstall: $(xserver_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -29,7 +29,7 @@ host-flex254_get: $(STATEDIR)/host-flex254.get
 
 host-flex254_get_deps = $(STATEDIR)/flex.get
 
-$(STATEDIR)/host-flex254.get: $(host-flex254_get_deps)
+$(STATEDIR)/host-flex254.get: $(host-flex254_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -67,7 +67,7 @@ HOST_FLEX254_ENV 	=  $(HOSTCC_ENV)
 #
 HOST_FLEX254_AUTOCONF = --prefix=$(PTXCONF_PREFIX)/usr
 
-$(STATEDIR)/host-flex254.prepare: $(host-flex254_prepare_deps)
+$(STATEDIR)/host-flex254.prepare: $(host-flex254_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_FLEX254_DIR)/config.cache)
 	cd $(HOST_FLEX254_DIR) && \
@@ -83,7 +83,7 @@ host-flex254_compile: $(STATEDIR)/host-flex254.compile
 
 host-flex254_compile_deps = $(STATEDIR)/host-flex254.prepare
 
-$(STATEDIR)/host-flex254.compile: $(host-flex254_compile_deps)
+$(STATEDIR)/host-flex254.compile: $(host-flex254_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_FLEX254_DIR) && $(HOST_FLEX254_PATH) make
 	@$(call touch, $@)
@@ -107,7 +107,7 @@ host-flex254_targetinstall: $(STATEDIR)/host-flex254.targetinstall
 
 host-flex254_targetinstall_deps = $(STATEDIR)/host-flex254.compile
 
-$(STATEDIR)/host-flex254.targetinstall: $(host-flex254_targetinstall_deps)
+$(STATEDIR)/host-flex254.targetinstall: $(host-flex254_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -33,6 +33,6 @@ endif
 
 virtual-xchain_install_deps	+= $(STATEDIR)/host-pkg-config-wrapper.install
 
-$(STATEDIR)/virtual-xchain.install: $(virtual-xchain_install_deps)
+$(STATEDIR)/virtual-xchain.install: $(virtual-xchain_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)

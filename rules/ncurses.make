@@ -97,7 +97,7 @@ ifndef PTXCONF_CXX
 NCURSES_AUTOCONF += --without-cxx-binding
 endif
 
-$(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps)
+$(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(NCURSES_DIR) && \
 		$(NCURSES_PATH) $(NCURSES_ENV) \

@@ -37,7 +37,7 @@ xlibs-randr_get: $(STATEDIR)/xlibs-randr.get
 
 xlibs-randr_get_deps = $(XLIBS-RANDR_SOURCE)
 
-$(STATEDIR)/xlibs-randr.get: $(xlibs-randr_get_deps)
+$(STATEDIR)/xlibs-randr.get: $(xlibs-randr_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-RANDR))
 	@$(call touch, $@)
@@ -84,7 +84,7 @@ XLIBS-RANDR_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/xlibs-randr.prepare: $(xlibs-randr_prepare_deps)
+$(STATEDIR)/xlibs-randr.prepare: $(xlibs-randr_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-RANDR_DIR)/config.cache)
 	chmod a+x $(XLIBS-RANDR_DIR)/configure
@@ -101,7 +101,7 @@ xlibs-randr_compile: $(STATEDIR)/xlibs-randr.compile
 
 xlibs-randr_compile_deps = $(STATEDIR)/xlibs-randr.prepare
 
-$(STATEDIR)/xlibs-randr.compile: $(xlibs-randr_compile_deps)
+$(STATEDIR)/xlibs-randr.compile: $(xlibs-randr_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-RANDR_DIR) && $(XLIBS-RANDR_ENV) $(XLIBS-RANDR_PATH) make
 	@$(call touch, $@)
@@ -125,7 +125,7 @@ xlibs-randr_targetinstall: $(STATEDIR)/xlibs-randr.targetinstall
 
 xlibs-randr_targetinstall_deps = $(STATEDIR)/xlibs-randr.compile
 
-$(STATEDIR)/xlibs-randr.targetinstall: $(xlibs-randr_targetinstall_deps)
+$(STATEDIR)/xlibs-randr.targetinstall: $(xlibs-randr_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
