@@ -32,9 +32,7 @@ DBENCH_DIR	= $(BUILDDIR)/$(DBENCH)
 
 dbench_get: $(STATEDIR)/dbench.get
 
-dbench_get_deps = $(DBENCH_SOURCE)
-
-$(STATEDIR)/dbench.get: $(dbench_get_deps)
+$(STATEDIR)/dbench.get: $(DBENCH_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DBENCH))
 	@$(call touch, $@)

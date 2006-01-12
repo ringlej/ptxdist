@@ -35,9 +35,7 @@ DOSFSTOOLS_DIR		= $(BUILDDIR)/$(DOSFSTOOLS)
 
 dosfstools_get: $(STATEDIR)/dosfstools.get
 
-dosfstools_get_deps = $(DOSFSTOOLS_SOURCE)
-
-$(STATEDIR)/dosfstools.get: $(dosfstools_get_deps)
+$(STATEDIR)/dosfstools.get: $(DOSFSTOOLS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DOSFSTOOLS))
 	@$(call touch, $@)

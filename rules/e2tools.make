@@ -21,10 +21,10 @@ PACKAGES-$(PTXCONF_E2TOOLS) += host-e2tools
 #
 HOST_E2TOOLS_VERSION	= 0.0.15
 HOST_E2TOOLS		= e2tools-$(HOST_E2TOOLS_VERSION)
-HOST_E2TOOLS_SUFFIX		= tar.gz
-HOST_E2TOOLS_URL		= http://home.earthlink.net/~k_sheff/sw/e2tools/$(HOST_E2TOOLS).$(HOST_E2TOOLS_SUFFIX)
-HOST_E2TOOLS_SOURCE		= $(SRCDIR)/$(HOST_E2TOOLS).$(HOST_E2TOOLS_SUFFIX)
-HOST_E2TOOLS_DIR		= $(BUILDDIR)/$(E2TOOLS)
+HOST_E2TOOLS_SUFFIX	= tar.gz
+HOST_E2TOOLS_URL	= http://home.earthlink.net/~k_sheff/sw/e2tools/$(HOST_E2TOOLS).$(HOST_E2TOOLS_SUFFIX)
+HOST_E2TOOLS_SOURCE	= $(SRCDIR)/$(HOST_E2TOOLS).$(HOST_E2TOOLS_SUFFIX)
+HOST_E2TOOLS_DIR	= $(BUILDDIR)/$(E2TOOLS)
 
 -include $(call package_depfile)
 
@@ -34,9 +34,7 @@ HOST_E2TOOLS_DIR		= $(BUILDDIR)/$(E2TOOLS)
 
 host-e2tools_get: $(STATEDIR)/host-e2tools.get
 
-host-e2tools_get_deps = $(HOST_E2TOOLS_SOURCE)
-
-$(STATEDIR)/host-e2tools.get: $(host-e2tools_get_deps)
+$(STATEDIR)/host-e2tools.get: $(HOST_E2TOOLS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -64,7 +62,6 @@ host-e2tools_prepare: $(STATEDIR)/host-e2tools.prepare
 
 HOST_E2TOOLS_PATH	=  PATH=$(CROSS_PATH)
 HOST_E2TOOLS_ENV 	=  $(CROSS_ENV)
-#HOST_E2TOOLS_ENV	+=
 
 #
 # autoconf

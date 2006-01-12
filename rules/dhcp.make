@@ -32,9 +32,7 @@ DHCP_DIR	= $(BUILDDIR)/$(DHCP)
 
 dhcp_get: $(STATEDIR)/dhcp.get
 
-dhcp_get_deps = $(DHCP_SOURCE)
-
-$(STATEDIR)/dhcp.get: $(dhcp_get_deps)
+$(STATEDIR)/dhcp.get: $(DHCP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
