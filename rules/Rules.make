@@ -1323,6 +1323,6 @@ install_finish = 													\
 # ----------------------------------------------------
 
 package_depfile=\
-	$(patsubst %.make,%.dep,$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST)))
+	$(STATEDIR)/$(shell basename $(patsubst %.make,%.dep,$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))))
 
 # vim: syntax=make
