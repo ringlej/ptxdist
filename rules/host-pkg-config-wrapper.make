@@ -30,7 +30,7 @@ HOST_PKG_CONFIG_WRAPPER_DIR	= $(HOST_BUILDDIR)/$(HOST_PKG_CONFIG_WRAPPER)
 
 host-pkg-config-wrapper_get: $(STATEDIR)/host-pkg-config-wrapper.get
 
-$(STATEDIR)/host-pkg-config-wrapper.get: $(host-pkg-config-wrapper_get_deps_default)
+$(STATEDIR)/host-pkg-config-wrapper.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -40,7 +40,7 @@ $(STATEDIR)/host-pkg-config-wrapper.get: $(host-pkg-config-wrapper_get_deps_defa
 
 host-pkg-config-wrapper_extract: $(STATEDIR)/host-pkg-config-wrapper.extract
 
-$(STATEDIR)/host-pkg-config-wrapper.extract: $(host-pkg-config-wrapper_extract_deps)
+$(STATEDIR)/host-pkg-config-wrapper.extract: $(STATEDIR)/host-pkg-config-wrapper.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -50,7 +50,7 @@ $(STATEDIR)/host-pkg-config-wrapper.extract: $(host-pkg-config-wrapper_extract_d
 
 host-pkg-config-wrapper_prepare: $(STATEDIR)/host-pkg-config-wrapper.prepare
 
-$(STATEDIR)/host-pkg-config-wrapper.prepare: $(host-pkg-config-wrapper_prepare_deps_default)
+$(STATEDIR)/host-pkg-config-wrapper.prepare: $(STATEDIR)/host-pkg-config-wrapper.extract
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -60,7 +60,7 @@ $(STATEDIR)/host-pkg-config-wrapper.prepare: $(host-pkg-config-wrapper_prepare_d
 
 host-pkg-config-wrapper_compile: $(STATEDIR)/host-pkg-config-wrapper.compile
 
-$(STATEDIR)/host-pkg-config-wrapper.compile: $(host-pkg-config-wrapper_compile_deps_default)
+$(STATEDIR)/host-pkg-config-wrapper.compile: $(STATEDIR)/host-pkg-config-wrapper.prepare
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -70,7 +70,7 @@ $(STATEDIR)/host-pkg-config-wrapper.compile: $(host-pkg-config-wrapper_compile_d
 
 host-pkg-config-wrapper_install: $(STATEDIR)/host-pkg-config-wrapper.install
 
-$(STATEDIR)/host-pkg-config-wrapper.install: $(host-pkg-config-wrapper_install_deps_default)
+$(STATEDIR)/host-pkg-config-wrapper.install: $(STATEDIR)/host-pkg-config-wrapper.compile
 	@$(call targetinfo, $@)
 	# fake a pkg-config
 	mkdir -p $(PTXCONF_PREFIX)/bin
