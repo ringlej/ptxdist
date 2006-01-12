@@ -32,15 +32,8 @@ LSH_DIR		= $(BUILDDIR)/$(LSH)
 
 lsh_get: $(STATEDIR)/lsh.get
 
-lsh_get_deps = \
-	$(LSH_SOURCE) \
-	$(STATEDIR)/lsh-patches.get
-
-$(STATEDIR)/lsh.get: $(lsh_get_deps_default)
+$(STATEDIR)/lsh.get: $(LSH_SOURCE)
 	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-$(STATEDIR)/lsh-patches.get:
 	@$(call touch, $@)
 
 $(LSH_SOURCE):
@@ -52,8 +45,6 @@ $(LSH_SOURCE):
 # ----------------------------------------------------------------------------
 
 lsh_extract: $(STATEDIR)/lsh.extract
-
-lsh_extract_deps = $(STATEDIR)/lsh.get
 
 $(STATEDIR)/lsh.extract: $(lsh_extract_deps)
 	@$(call targetinfo, $@)
@@ -67,15 +58,6 @@ $(STATEDIR)/lsh.extract: $(lsh_extract_deps)
 # ----------------------------------------------------------------------------
 
 lsh_prepare: $(STATEDIR)/lsh.prepare
-
-#
-# dependencies
-#
-lsh_prepare_deps = \
-	$(STATEDIR)/lsh.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/gmp4.install \
-	$(STATEDIR)/liboop.install
 
 LSH_PATH	=  PATH=$(CROSS_PATH)
 LSH_ENV 	=  $(CROSS_ENV)
@@ -110,8 +92,6 @@ $(STATEDIR)/lsh.prepare: $(lsh_prepare_deps_default)
 
 lsh_compile: $(STATEDIR)/lsh.compile
 
-lsh_compile_deps = $(STATEDIR)/lsh.prepare
-
 $(STATEDIR)/lsh.compile: $(lsh_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(LSH_PATH) make -C $(LSH_DIR)
@@ -132,12 +112,6 @@ $(STATEDIR)/lsh.install: $(STATEDIR)/lsh.compile
 # ----------------------------------------------------------------------------
 
 lsh_targetinstall: $(STATEDIR)/lsh.targetinstall
-
-lsh_targetinstall_deps = \
-	$(STATEDIR)/lsh.compile \
-	$(STATEDIR)/gmp4.targetinstall \
-	$(STATEDIR)/liboop.targetinstall \
-	$(STATEDIR)/zlib.targetinstall
 
 $(STATEDIR)/lsh.targetinstall: $(lsh_targetinstall_deps_default)
 	@$(call targetinfo, $@)

@@ -34,9 +34,7 @@ LTT_BUILDDIR		= $(BUILDDIR)/$(LTT)-build
 
 ltt_get: $(STATEDIR)/ltt.get
 
-ltt_get_deps = $(LTT_SOURCE)
-
-$(STATEDIR)/ltt.get: $(ltt_get_deps_default)
+$(STATEDIR)/ltt.get: $(LTT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LTT))
 	@$(call touch, $@)
@@ -50,8 +48,6 @@ $(LTT_SOURCE):
 # ----------------------------------------------------------------------------
 
 ltt_extract: $(STATEDIR)/ltt.extract
-
-ltt_extract_deps =  $(STATEDIR)/ltt.get
 
 $(STATEDIR)/ltt.extract: $(ltt_extract_deps)
 	@$(call targetinfo, $@)
@@ -73,13 +69,6 @@ LTT_ENV		+= ac_cv_func_setvbuf_reversed=no ltt_cv_have_mbstate_t=yes
 LTT_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 LTT_AUTOCONF	+= --with-gtk=no
 
-#
-# dependencies
-#
-ltt_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/ltt.extract 
-
 $(STATEDIR)/ltt.prepare: $(ltt_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LTT_BUILDDIR))
@@ -95,8 +84,6 @@ $(STATEDIR)/ltt.prepare: $(ltt_prepare_deps_default)
 
 ltt_compile: $(STATEDIR)/ltt.compile
 
-ltt_compile_deps = $(STATEDIR)/ltt.prepare
-
 $(STATEDIR)/ltt.compile: $(STATEDIR)/ltt.prepare 
 	@$(call targetinfo, $@)
 
@@ -111,10 +98,6 @@ $(STATEDIR)/ltt.compile: $(STATEDIR)/ltt.prepare
 # ----------------------------------------------------------------------------
 
 ltt_install: $(STATEDIR)/ltt.install
-
-ltt_install_deps = \
-	$(STATEDIR)/ltt.compile \
-	$(STATEDIR)/xchain-ltt.compile
 
 $(STATEDIR)/ltt.install: $(ltt_install_deps_default)
 	@$(call targetinfo, $@)

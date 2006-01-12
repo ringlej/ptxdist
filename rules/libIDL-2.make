@@ -35,9 +35,7 @@ LIBIDL-2_DIR		= $(BUILDDIR)/$(LIBIDL-2)
 
 libidl-2_get: $(STATEDIR)/libidl-2.get
 
-libidl-2_get_deps	=  $(LIBIDL-2_SOURCE)
-
-$(STATEDIR)/libidl-2.get: $(libidl-2_get_deps_default)
+$(STATEDIR)/libidl-2.get: $(LIBIDL-2_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -50,8 +48,6 @@ $(LIBIDL-2_SOURCE):
 # ----------------------------------------------------------------------------
 
 libidl-2_extract: $(STATEDIR)/libidl-2.extract
-
-libidl-2_extract_deps	=  $(STATEDIR)/libidl-2.get
 
 $(STATEDIR)/libidl-2.extract: $(libidl-2_extract_deps)
 	@$(call targetinfo, $@)
@@ -66,16 +62,8 @@ $(STATEDIR)/libidl-2.extract: $(libidl-2_extract_deps)
 
 libidl-2_prepare: $(STATEDIR)/libidl-2.prepare
 
-#
-# dependencies
-#
-libidl-2_prepare_deps =  \
-	$(STATEDIR)/libidl-2.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 LIBIDL-2_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 LIBIDL-2_ENV 	=  $(CROSS_ENV)
-LIBIDL-2_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 LIBIDL-2_ENV	+= libIDL_cv_long_long_format=ll
 
 #
@@ -101,8 +89,6 @@ $(STATEDIR)/libidl-2.prepare: $(libidl-2_prepare_deps_default)
 
 libidl-2_compile: $(STATEDIR)/libidl-2.compile
 
-libidl-2_compile_deps =  $(STATEDIR)/libidl-2.prepare
-
 $(STATEDIR)/libidl-2.compile: $(libidl-2_compile_deps_default)
 	@$(call targetinfo, $@)
 
@@ -126,8 +112,6 @@ $(STATEDIR)/libidl-2.install: $(STATEDIR)/libidl-2.compile
 # ----------------------------------------------------------------------------
 
 libidl-2_targetinstall: $(STATEDIR)/libidl-2.targetinstall
-
-libidl-2_targetinstall_deps	=  $(STATEDIR)/libidl-2.compile
 
 $(STATEDIR)/libidl-2.targetinstall: $(libidl-2_targetinstall_deps_default)
 	@$(call targetinfo, $@)

@@ -32,9 +32,7 @@ MEMEDIT_DIR		= $(BUILDDIR)/$(MEMEDIT)
 
 memedit_get: $(STATEDIR)/memedit.get
 
-memedit_get_deps = $(MEMEDIT_SOURCE)
-
-$(STATEDIR)/memedit.get: $(memedit_get_deps_default)
+$(STATEDIR)/memedit.get: $(MEMEDIT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMEDIT))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(MEMEDIT_SOURCE):
 
 memedit_extract: $(STATEDIR)/memedit.extract
 
-memedit_extract_deps = $(STATEDIR)/memedit.get
-
 $(STATEDIR)/memedit.extract: $(memedit_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMEDIT_DIR))
@@ -64,18 +60,8 @@ $(STATEDIR)/memedit.extract: $(memedit_extract_deps)
 
 memedit_prepare: $(STATEDIR)/memedit.prepare
 
-#
-# dependencies
-#
-memedit_prepare_deps = \
-	$(STATEDIR)/memedit.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/readline.install	
-
 MEMEDIT_PATH	=  PATH=$(CROSS_PATH)
 MEMEDIT_ENV 	=  $(CROSS_ENV)
-#MEMEDIT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#MEMEDIT_ENV	+=
 
 #
 # autoconf
@@ -95,8 +81,6 @@ $(STATEDIR)/memedit.prepare: $(memedit_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 memedit_compile: $(STATEDIR)/memedit.compile
-
-memedit_compile_deps = $(STATEDIR)/memedit.prepare
 
 $(STATEDIR)/memedit.compile: $(memedit_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -119,9 +103,6 @@ $(STATEDIR)/memedit.install: $(STATEDIR)/memedit.compile
 # ----------------------------------------------------------------------------
 
 memedit_targetinstall: $(STATEDIR)/memedit.targetinstall
-
-memedit_targetinstall_deps = $(STATEDIR)/memedit.compile \
-			      $(STATEDIR)/readline.targetinstall
 
 $(STATEDIR)/memedit.targetinstall: $(memedit_targetinstall_deps_default)
 	@$(call targetinfo, $@)

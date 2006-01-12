@@ -32,9 +32,7 @@ MAD_DIR		= $(BUILDDIR)/$(MAD)
 
 mad_get: $(STATEDIR)/mad.get
 
-mad_get_deps = $(MAD_SOURCE)
-
-$(STATEDIR)/mad.get: $(mad_get_deps_default)
+$(STATEDIR)/mad.get: $(MAD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +46,6 @@ $(MAD_SOURCE):
 
 mad_extract: $(STATEDIR)/mad.extract
 
-mad_extract_deps = $(STATEDIR)/mad.get
-
 $(STATEDIR)/mad.extract: $(mad_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MAD_DIR))
@@ -62,13 +58,6 @@ $(STATEDIR)/mad.extract: $(mad_extract_deps)
 # ----------------------------------------------------------------------------
 
 mad_prepare: $(STATEDIR)/mad.prepare
-
-#
-# dependencies
-#
-mad_prepare_deps = \
-	$(STATEDIR)/mad.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 MAD_PATH	=  PATH=$(CROSS_PATH)
 MAD_ENV 	=  $(CROSS_ENV)
@@ -92,8 +81,6 @@ $(STATEDIR)/mad.prepare: $(mad_prepare_deps_default)
 
 mad_compile: $(STATEDIR)/mad.compile
 
-mad_compile_deps = $(STATEDIR)/mad.prepare
-
 $(STATEDIR)/mad.compile: $(mad_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MAD_DIR) && $(MAD_PATH) make
@@ -114,8 +101,6 @@ $(STATEDIR)/mad.install: $(STATEDIR)/mad.compile
 # ----------------------------------------------------------------------------
 
 mad_targetinstall: $(STATEDIR)/mad.targetinstall
-
-mad_targetinstall_deps = $(STATEDIR)/mad.compile
 
 $(STATEDIR)/mad.targetinstall: $(mad_targetinstall_deps_default)
 	@$(call targetinfo, $@)

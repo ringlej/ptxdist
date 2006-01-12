@@ -32,9 +32,7 @@ LIBNETPBM_DIR		= $(BUILDDIR)/$(LIBNETPBM)
 
 libnetpbm_get: $(STATEDIR)/libnetpbm.get
 
-libnetpbm_get_deps = $(LIBNETPBM_SOURCE)
-
-$(STATEDIR)/libnetpbm.get: $(libnetpbm_get_deps_default)
+$(STATEDIR)/libnetpbm.get: $(LIBNETPBM_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +46,6 @@ $(LIBNETPBM_SOURCE):
 
 libnetpbm_extract: $(STATEDIR)/libnetpbm.extract
 
-libnetpbm_extract_deps = $(STATEDIR)/libnetpbm.get
-
 $(STATEDIR)/libnetpbm.extract: $(libnetpbm_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBNETPBM_DIR))
@@ -62,13 +58,6 @@ $(STATEDIR)/libnetpbm.extract: $(libnetpbm_extract_deps)
 # ----------------------------------------------------------------------------
 
 libnetpbm_prepare: $(STATEDIR)/libnetpbm.prepare
-
-#
-# dependencies
-#
-libnetpbm_prepare_deps = \
-	$(STATEDIR)/libnetpbm.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 LIBNETPBM_PATH	=  PATH=$(CROSS_PATH)
 LIBNETPBM_ENV 	=  $(CROSS_ENV)
@@ -97,8 +86,6 @@ endif
 
 libnetpbm_compile: $(STATEDIR)/libnetpbm.compile
 
-libnetpbm_compile_deps = $(STATEDIR)/libnetpbm.prepare
-
 $(STATEDIR)/libnetpbm.compile: $(libnetpbm_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBNETPBM_DIR) && $(LIBNETPBM_ENV) $(LIBNETPBM_PATH) make
@@ -122,8 +109,6 @@ $(STATEDIR)/libnetpbm.install: $(STATEDIR)/libnetpbm.compile
 # ----------------------------------------------------------------------------
 
 libnetpbm_targetinstall: $(STATEDIR)/libnetpbm.targetinstall
-
-libnetpbm_targetinstall_deps = $(STATEDIR)/libnetpbm.compile
 
 $(STATEDIR)/libnetpbm.targetinstall: $(libnetpbm_targetinstall_deps_default)
 	@$(call targetinfo, $@)

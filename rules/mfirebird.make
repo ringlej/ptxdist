@@ -33,10 +33,7 @@ MFIREBIRD_DIR			= $(BUILDDIR)/$(MFIREBIRD)
 
 mfirebird_get: $(STATEDIR)/mfirebird.get
 
-mfirebird_get_deps		=  $(MFIREBIRD_SOURCE)
-mfirebird_get_deps		+= $(MFIREBIRD_PATCH_SOURCE)
-
-$(STATEDIR)/mfirebird.get: $(mfirebird_get_deps_default)
+$(STATEDIR)/mfirebird.get: $(MFIREBIRD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MFIREBIRD))
 	@$(call touch, $@)
@@ -51,8 +48,6 @@ $(MFIREBIRD_SOURCE):
 
 mfirebird_extract: $(STATEDIR)/mfirebird.extract
 
-mfirebird_extract_deps	=  $(STATEDIR)/mfirebird.get
-
 $(STATEDIR)/mfirebird.extract: $(mfirebird_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MFIREBIRD_DIR))
@@ -66,27 +61,6 @@ $(STATEDIR)/mfirebird.extract: $(mfirebird_extract_deps)
 # ----------------------------------------------------------------------------
 
 mfirebird_prepare: $(STATEDIR)/mfirebird.prepare
-
-#
-# dependencies GTK 1.2
-#
-#mfirebird_prepare_deps =  \
-#	$(STATEDIR)/mfirebird.extract \
-#	$(STATEDIR)/gtk1210.install \
-#	$(STATEDIR)/libidl068.install \
-#	$(STATEDIR)/freetype.install \
-#	$(STATEDIR)/virtual-xchain.install \
-
-#
-# dependencies GTK 2.0
-#
-mfirebird_prepare_deps =  \
-	$(STATEDIR)/mfirebird.extract \
-	$(STATEDIR)/gtk22.install \
-	$(STATEDIR)/libidl-2.install \
-	$(STATEDIR)/virtual-xchain.install \
-
-
 
 MFIREBIRD_PATH	=  PATH=$(CROSS_PATH)
 
@@ -434,8 +408,6 @@ $(STATEDIR)/mfirebird.prepare: $(mfirebird_prepare_deps_default)
 
 mfirebird_compile: $(STATEDIR)/mfirebird.compile
 
-mfirebird_compile_deps =  $(STATEDIR)/mfirebird.prepare
-
 $(STATEDIR)/mfirebird.compile: $(mfirebird_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MFIREBIRD_DIR) && $(MFIREBIRD_PATH) $(MFIREBIRD_ENV) make
@@ -457,12 +429,6 @@ $(STATEDIR)/mfirebird.install: $(STATEDIR)/mfirebird.compile
 # ----------------------------------------------------------------------------
 
 mfirebird_targetinstall: $(STATEDIR)/mfirebird.targetinstall
-
-mfirebird_targetinstall_deps	=  $(STATEDIR)/mfirebird.install
-mfirebird_targetinstall_deps	+= $(STATEDIR)/gtk22.targetinstall
-mfirebird_targetinstall_deps	+= $(STATEDIR)/atk.targetinstall
-mfirebird_targetinstall_deps	+= $(STATEDIR)/pango12.targetinstall
-mfirebird_targetinstall_deps	+= $(STATEDIR)/glib22.targetinstall
 
 $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps_default)
 	@$(call targetinfo, $@)

@@ -32,9 +32,7 @@ MEMTEST_DIR		= $(BUILDDIR)/$(MEMTEST)
 
 memtest_get: $(STATEDIR)/memtest.get
 
-memtest_get_deps = $(MEMTEST_SOURCE)
-
-$(STATEDIR)/memtest.get: $(memtest_get_deps_default)
+$(STATEDIR)/memtest.get: $(MEMTEST_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMTEST))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(MEMTEST_SOURCE):
 
 memtest_extract: $(STATEDIR)/memtest.extract
 
-memtest_extract_deps = $(STATEDIR)/memtest.get
-
 $(STATEDIR)/memtest.extract: $(memtest_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMTEST_DIR))
@@ -63,13 +59,6 @@ $(STATEDIR)/memtest.extract: $(memtest_extract_deps)
 # ----------------------------------------------------------------------------
 
 memtest_prepare: $(STATEDIR)/memtest.prepare
-
-#
-# dependencies
-#
-memtest_prepare_deps = \
-	$(STATEDIR)/memtest.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 MEMTEST_PATH	=  PATH=$(CROSS_PATH)
 MEMTEST_ENV 	=  $(CROSS_ENV)
@@ -89,8 +78,6 @@ $(STATEDIR)/memtest.prepare: $(memtest_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 memtest_compile: $(STATEDIR)/memtest.compile
-
-memtest_compile_deps = $(STATEDIR)/memtest.prepare
 
 $(STATEDIR)/memtest.compile: $(memtest_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -112,8 +99,6 @@ $(STATEDIR)/memtest.install: $(STATEDIR)/memtest.compile
 # ----------------------------------------------------------------------------
 
 memtest_targetinstall: $(STATEDIR)/memtest.targetinstall
-
-memtest_targetinstall_deps = $(STATEDIR)/memtest.compile
 
 $(STATEDIR)/memtest.targetinstall: $(memtest_targetinstall_deps_default)
 	@$(call targetinfo, $@)

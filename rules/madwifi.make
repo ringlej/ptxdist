@@ -42,9 +42,7 @@ MADWIFI_DIR		= $(BUILDDIR)/$(MADWIFI)
 
 madwifi_get: $(STATEDIR)/madwifi.get
 
-madwifi_get_deps = $(MADWIFI_SOURCE)
-
-$(STATEDIR)/madwifi.get: $(madwifi_get_deps_default)
+$(STATEDIR)/madwifi.get: $(MADWIFI_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -57,8 +55,6 @@ $(MADWIFI_SOURCE):
 # ----------------------------------------------------------------------------
 
 madwifi_extract: $(STATEDIR)/madwifi.extract
-
-madwifi_extract_deps = $(STATEDIR)/madwifi.get
 
 $(STATEDIR)/madwifi.extract: $(madwifi_extract_deps)
 	@$(call targetinfo, $@)
@@ -73,16 +69,8 @@ $(STATEDIR)/madwifi.extract: $(madwifi_extract_deps)
 
 madwifi_prepare: $(STATEDIR)/madwifi.prepare
 
-#
-# dependencies
-#
-madwifi_prepare_deps = \
-	$(STATEDIR)/madwifi.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 MADWIFI_PATH	=  PATH=$(CROSS_PATH)
 MADWIFI_ENV 	=  $(CROSS_ENV)
-#MADWIFI_ENV	+= PKG_CONFIG_PATH=$(SYSROOT)/lib/pkgconfig
 MADWIFI_ENV    += KERNELRELEASE=$(KERNEL_VERSION)
 MADWIFI_ENV    += KERNELPATH=$(KERNEL_DIR)
 MADWIFI_ENV    += DESTDIR=$(ROOTDIR)
@@ -102,8 +90,6 @@ $(STATEDIR)/madwifi.prepare: $(madwifi_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 madwifi_compile: $(STATEDIR)/madwifi.compile
-
-madwifi_compile_deps = $(STATEDIR)/madwifi.prepare
 
 $(STATEDIR)/madwifi.compile: $(madwifi_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -131,8 +117,6 @@ $(STATEDIR)/madwifi.install: $(STATEDIR)/madwifi.compile
 # ----------------------------------------------------------------------------
 
 madwifi_targetinstall: $(STATEDIR)/madwifi.targetinstall
-
-madwifi_targetinstall_deps = $(STATEDIR)/madwifi.compile
 
 # requires uudecode, which is part of sharutils
 $(STATEDIR)/madwifi.targetinstall: $(madwifi_targetinstall_deps_default)

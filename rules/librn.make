@@ -33,11 +33,7 @@ LIBRN_DIR	= $(BUILDDIR)/$(LIBRN)
 
 librn_get: $(STATEDIR)/librn.get
 
-librn_get_deps = \
-	$(LIBRN_SOURCE) \
-	$(RULESDIR)/librn.make
-
-$(STATEDIR)/librn.get: $(librn_get_deps_default)
+$(STATEDIR)/librn.get: $(LIBRN_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -51,8 +47,6 @@ $(LIBRN_SOURCE):
 
 librn_extract: $(STATEDIR)/librn.extract
 
-librn_extract_deps = $(STATEDIR)/librn.get
-
 $(STATEDIR)/librn.extract: $(librn_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBRN_DIR))
@@ -65,13 +59,6 @@ $(STATEDIR)/librn.extract: $(librn_extract_deps)
 # ----------------------------------------------------------------------------
 
 librn_prepare: $(STATEDIR)/librn.prepare
-
-#
-# dependencies
-#
-librn_prepare_deps = \
-	$(STATEDIR)/librn.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 LIBRN_PATH	=  PATH=$(CROSS_PATH)
 LIBRN_ENV 	=  $(CROSS_ENV)
@@ -97,8 +84,6 @@ $(STATEDIR)/librn.prepare: $(librn_prepare_deps_default)
 
 librn_compile: $(STATEDIR)/librn.compile
 
-librn_compile_deps = $(STATEDIR)/librn.prepare
-
 $(STATEDIR)/librn.compile: $(librn_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBRN_DIR) && $(LIBRN_ENV) $(LIBRN_PATH) make
@@ -120,8 +105,6 @@ $(STATEDIR)/librn.install: $(STATEDIR)/librn.compile
 # ----------------------------------------------------------------------------
 
 librn_targetinstall: $(STATEDIR)/librn.targetinstall
-
-librn_targetinstall_deps = $(STATEDIR)/librn.compile
 
 $(STATEDIR)/librn.targetinstall: $(librn_targetinstall_deps_default)
 	@$(call targetinfo, $@)

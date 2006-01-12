@@ -32,9 +32,7 @@ LIBXMLCONFIG_DIR	= $(BUILDDIR)/$(LIBXMLCONFIG)
 
 libxmlconfig_get: $(STATEDIR)/libxmlconfig.get
 
-libxmlconfig_get_deps = $(LIBXMLCONFIG_SOURCE)
-
-$(STATEDIR)/libxmlconfig.get: $(libxmlconfig_get_deps_default)
+$(STATEDIR)/libxmlconfig.get: $(LIBXMLCONFIG_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBXMLCONFIG))
 	@$(call touch, $@)

@@ -32,9 +32,7 @@ MPLAYER_DIR	= $(BUILDDIR)/$(MPLAYER)
 
 mplayer_get: $(STATEDIR)/mplayer.get
 
-mplayer_get_deps = $(MPLAYER_SOURCE)
-
-$(STATEDIR)/mplayer.get: $(mplayer_get_deps_default)
+$(STATEDIR)/mplayer.get: $(MPLAYER_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +46,6 @@ $(MPLAYER_SOURCE):
 
 mplayer_extract: $(STATEDIR)/mplayer.extract
 
-mplayer_extract_deps = $(STATEDIR)/mplayer.get
-
 $(STATEDIR)/mplayer.extract: $(mplayer_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MPLAYER_DIR))
@@ -62,13 +58,6 @@ $(STATEDIR)/mplayer.extract: $(mplayer_extract_deps)
 # ----------------------------------------------------------------------------
 
 mplayer_prepare: $(STATEDIR)/mplayer.prepare
-
-#
-# dependencies
-#
-mplayer_prepare_deps = \
-	$(STATEDIR)/mplayer.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 MPLAYER_PATH	=  PATH=$(CROSS_PATH)
 MPLAYER_ENV 	=  $(CROSS_ENV)
@@ -105,8 +94,6 @@ $(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps_default)
 
 mplayer_compile: $(STATEDIR)/mplayer.compile
 
-mplayer_compile_deps = $(STATEDIR)/mplayer.prepare
-
 $(STATEDIR)/mplayer.compile: $(mplayer_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(MPLAYER_DIR) && $(MPLAYER_ENV) $(MPLAYER_PATH) make
@@ -128,8 +115,6 @@ $(STATEDIR)/mplayer.install: $(STATEDIR)/mplayer.compile
 # ----------------------------------------------------------------------------
 
 mplayer_targetinstall: $(STATEDIR)/mplayer.targetinstall
-
-mplayer_targetinstall_deps = $(STATEDIR)/mplayer.compile
 
 $(STATEDIR)/mplayer.targetinstall: $(mplayer_targetinstall_deps_default)
 	@$(call targetinfo, $@)

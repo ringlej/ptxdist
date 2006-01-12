@@ -33,16 +33,8 @@ LIBPNG125_DIR		= $(BUILDDIR)/$(LIBPNG125)
 
 libpng125_get: $(STATEDIR)/libpng125.get
 
-libpng125_get_deps	=  $(LIBPNG125_SOURCE)
-
-
-$(STATEDIR)/libpng125.get: $(libpng125_get_deps_default) $(STATEDIR)/libpng125-patches.get
+$(STATEDIR)/libpng125.get: $(LIBPNG125_SOURCE)
 	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-$(STATEDIR)/libpng125-patches.get:
-	@$(call targetinfo, $@)
-	@$(call get_patches, $(LIBPNG125))
 	@$(call touch, $@)
 
 $(LIBPNG125_SOURCE):
@@ -54,8 +46,6 @@ $(LIBPNG125_SOURCE):
 # ----------------------------------------------------------------------------
 
 libpng125_extract: $(STATEDIR)/libpng125.extract
-
-libpng125_extract_deps	=  $(STATEDIR)/libpng125.get
 
 $(STATEDIR)/libpng125.extract: $(libpng125_extract_deps)
 	@$(call targetinfo, $@)
@@ -69,14 +59,6 @@ $(STATEDIR)/libpng125.extract: $(libpng125_extract_deps)
 # ----------------------------------------------------------------------------
 
 libpng125_prepare: $(STATEDIR)/libpng125.prepare
-
-#
-# dependencies
-#
-libpng125_prepare_deps =  \
-	$(STATEDIR)/libpng125.extract \
-	$(STATEDIR)/zlib.install \
-	$(STATEDIR)/virtual-xchain.install
 
 LIBPNG125_PATH	   = PATH=$(CROSS_PATH)
 LIBPNG125_ENV      = $(CROSS_ENV)
@@ -102,9 +84,6 @@ $(STATEDIR)/libpng125.prepare: $(libpng125_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 libpng125_compile: $(STATEDIR)/libpng125.compile
-
-libpng125_compile_deps =  $(STATEDIR)/libpng125.prepare
-libpng125_compile_deps += $(STATEDIR)/zlib.install
 
 $(STATEDIR)/libpng125.compile: $(libpng125_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -132,8 +111,6 @@ $(STATEDIR)/libpng125.install: $(STATEDIR)/libpng125.compile
 # ----------------------------------------------------------------------------
 
 libpng125_targetinstall: $(STATEDIR)/libpng125.targetinstall
-
-libpng125_targetinstall_deps	=  $(STATEDIR)/libpng125.compile
 
 $(STATEDIR)/libpng125.targetinstall: $(libpng125_targetinstall_deps_default)
 	@$(call targetinfo, $@)

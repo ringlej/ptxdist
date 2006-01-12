@@ -32,8 +32,6 @@ LIBXML2_DIR	= $(BUILDDIR)/$(LIBXML2)
 
 libxml2_get: $(STATEDIR)/libxml2.get
 
-libxml2_get_deps = $(LIBXML2_SOURCE)
-
 $(STATEDIR)/libxml2.get: $(libxml2_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -47,8 +45,6 @@ $(LIBXML2_SOURCE):
 # ----------------------------------------------------------------------------
 
 libxml2_extract: $(STATEDIR)/libxml2.extract
-
-libxml2_extract_deps = $(libxml2_extract_deps_default)
 
 $(STATEDIR)/libxml2.extract: $(libxml2_extract_deps)
 	@$(call targetinfo, $@)

@@ -32,9 +32,7 @@ MODULE_INIT_TOOLS_DIR		= $(BUILDDIR)/$(MODULE_INIT_TOOLS)
 
 module-init-tools_get: $(STATEDIR)/module-init-tools.get
 
-module-init-tools_get_deps = $(MODULE_INIT_TOOLS_SOURCE)
-
-$(STATEDIR)/module-init-tools.get: $(module-init-tools_get_deps_default)
+$(STATEDIR)/module-init-tools.get: $(MODULE_INIT_TOOLS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MODULE_INIT_TOOLS))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(MODULE_INIT_TOOLS_SOURCE):
 
 module-init-tools_extract: $(STATEDIR)/module-init-tools.extract
 
-module-init-tools_extract_deps = $(STATEDIR)/module-init-tools.get
-
 $(STATEDIR)/module-init-tools.extract: $(module-init-tools_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MODULE_INIT_TOOLS_DIR))
@@ -63,11 +59,6 @@ $(STATEDIR)/module-init-tools.extract: $(module-init-tools_extract_deps)
 # ----------------------------------------------------------------------------
 
 module-init-tools_prepare: $(STATEDIR)/module-init-tools.prepare
-
-#
-# dependencies
-#
-module-init-tools_prepare_deps = $(STATEDIR)/module-init-tools.extract
 
 MODULE_INIT_TOOLS_PATH		= PATH=$(CROSS_PATH) 
 MODULE_INIT_TOOLS_ENV		= $(CROSS_ENV)
@@ -86,8 +77,6 @@ $(STATEDIR)/module-init-tools.prepare: $(module-init-tools_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 module-init-tools_compile: $(STATEDIR)/module-init-tools.compile
-
-module-init-tools_compile_deps = $(STATEDIR)/module-init-tools.prepare
 
 $(STATEDIR)/module-init-tools.compile: $(module-init-tools_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -110,8 +99,6 @@ $(STATEDIR)/module-init-tools.install: $(STATEDIR)/module-init-tools.compile
 # ----------------------------------------------------------------------------
 
 module-init-tools_targetinstall: $(STATEDIR)/module-init-tools.targetinstall
-
-module-init-tools_targetinstall_deps = $(STATEDIR)/module-init-tools.compile
 
 $(STATEDIR)/module-init-tools.targetinstall: $(module-init-tools_targetinstall_deps_default)
 	@$(call targetinfo, $@)

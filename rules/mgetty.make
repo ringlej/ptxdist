@@ -33,9 +33,7 @@ MGETTY_DIR	= $(BUILDDIR)/mgetty-$(MGETTY_VERSION)
 
 mgetty_get: $(STATEDIR)/mgetty.get
 
-mgetty_get_deps = $(MGETTY_SOURCE)
-
-$(STATEDIR)/mgetty.get: $(mgetty_get_deps_default)
+$(STATEDIR)/mgetty.get: $(MGETTY_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,9 +47,6 @@ $(MGETTY_SOURCE):
 
 mgetty_extract: $(STATEDIR)/mgetty.extract
 
-mgetty_extract_deps = $(STATEDIR)/mgetty.get
-
-$(STATEDIR)/mgetty.extract: $(mgetty_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MGETTY_DIR))
 	@$(call extract, $(MGETTY_SOURCE))
@@ -64,16 +59,8 @@ $(STATEDIR)/mgetty.extract: $(mgetty_extract_deps)
 
 mgetty_prepare: $(STATEDIR)/mgetty.prepare
 
-#
-# dependencies
-#
-mgetty_prepare_deps = \
-	$(STATEDIR)/mgetty.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 MGETTY_PATH	=  PATH=$(CROSS_PATH)
 MGETTY_ENV 	=  $(CROSS_ENV)
-#MGETTY_ENV	+=
 
 $(STATEDIR)/mgetty.prepare: $(mgetty_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -92,8 +79,6 @@ $(STATEDIR)/mgetty.prepare: $(mgetty_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 mgetty_compile: $(STATEDIR)/mgetty.compile
-
-mgetty_compile_deps = $(STATEDIR)/mgetty.prepare
 
 $(STATEDIR)/mgetty.compile: $(mgetty_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -118,8 +103,6 @@ $(STATEDIR)/mgetty.install: $(STATEDIR)/mgetty.compile
 # ----------------------------------------------------------------------------
 
 mgetty_targetinstall: $(STATEDIR)/mgetty.targetinstall
-
-mgetty_targetinstall_deps = $(STATEDIR)/mgetty.compile
 
 $(STATEDIR)/mgetty.targetinstall: $(mgetty_targetinstall_deps_default)
 	@$(call targetinfo, $@)

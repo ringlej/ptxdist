@@ -32,9 +32,7 @@ LIBXSLT_DIR	= $(BUILDDIR)/$(LIBXSLT)
 
 libxslt_get: $(STATEDIR)/libxslt.get
 
-libxslt_get_deps = $(LIBXSLT_SOURCE)
-
-$(STATEDIR)/libxslt.get: $(libxslt_get_deps_default)
+$(STATEDIR)/libxslt.get: $(LIBXSLT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBXSLT))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(LIBXSLT_SOURCE):
 
 libxslt_extract: $(STATEDIR)/libxslt.extract
 
-libxslt_extract_deps = $(STATEDIR)/libxslt.get
-
 $(STATEDIR)/libxslt.extract: $(libxslt_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXSLT_DIR))
@@ -64,18 +60,8 @@ $(STATEDIR)/libxslt.extract: $(libxslt_extract_deps)
 
 libxslt_prepare: $(STATEDIR)/libxslt.prepare
 
-#
-# dependencies
-#
-libxslt_prepare_deps = \
-	$(STATEDIR)/libxslt.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/libxml2.install
-
 LIBXSLT_PATH	=  PATH=$(CROSS_PATH)
 LIBXSLT_ENV 	=  $(CROSS_ENV)
-#LIBXSLT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#LIBXSLT_ENV	+=
 
 #
 # autoconf
@@ -121,8 +107,6 @@ $(STATEDIR)/libxslt.prepare: $(libxslt_prepare_deps_default)
 
 libxslt_compile: $(STATEDIR)/libxslt.compile
 
-libxslt_compile_deps = $(STATEDIR)/libxslt.prepare
-
 $(STATEDIR)/libxslt.compile: $(libxslt_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBXSLT_DIR) && $(LIBXSLT_ENV) $(LIBXSLT_PATH) make
@@ -149,10 +133,6 @@ $(STATEDIR)/libxslt.install: $(STATEDIR)/libxslt.compile
 # ----------------------------------------------------------------------------
 
 libxslt_targetinstall: $(STATEDIR)/libxslt.targetinstall
-
-libxslt_targetinstall_deps = \
-	$(STATEDIR)/libxslt.compile \
-	$(STATEDIR)/libxml2.targetinstall
 
 $(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps_default)
 	@$(call targetinfo, $@)

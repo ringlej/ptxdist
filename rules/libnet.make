@@ -32,9 +32,7 @@ LIBNET_DIR	= $(BUILDDIR)/$(LIBNET)
 
 libnet_get: $(STATEDIR)/libnet.get
 
-libnet_get_deps	=  $(LIBNET_SOURCE)
-
-$(STATEDIR)/libnet.get: $(libnet_get_deps_default)
+$(STATEDIR)/libnet.get: $(LIBNET_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,9 +45,6 @@ $(LIBNET_SOURCE):
 # ----------------------------------------------------------------------------
 
 libnet_extract: $(STATEDIR)/libnet.extract
-
-libnet_extract_deps = \
-	$(STATEDIR)/libnet.get
 
 $(STATEDIR)/libnet.extract: $(libnet_extract_deps)
 	@$(call targetinfo, $@)
@@ -64,13 +59,6 @@ $(STATEDIR)/libnet.extract: $(libnet_extract_deps)
 # ----------------------------------------------------------------------------
 
 libnet_prepare: $(STATEDIR)/libnet.prepare
-
-#
-# dependencies
-#
-libnet_prepare_deps =  \
-	$(STATEDIR)/libnet.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 LIBNET_PATH	=  PATH=$(CROSS_PATH)
 LIBNET_ENV 	=  $(CROSS_ENV)
@@ -96,8 +84,6 @@ $(STATEDIR)/libnet.prepare: $(libnet_prepare_deps_default)
 
 libnet_compile: $(STATEDIR)/libnet.compile
 
-libnet_compile_deps =  $(STATEDIR)/libnet.prepare
-
 $(STATEDIR)/libnet.compile: $(libnet_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBNET_DIR) && $(LIBNET_PATH) $(LIBNET_ENV) make
@@ -119,8 +105,6 @@ $(STATEDIR)/libnet.install: $(STATEDIR)/libnet.compile
 # ----------------------------------------------------------------------------
 
 libnet_targetinstall: $(STATEDIR)/libnet.targetinstall
-
-libnet_targetinstall_deps	=  $(STATEDIR)/libnet.install
 
 $(STATEDIR)/libnet.targetinstall: $(libnet_targetinstall_deps_default)
 	@$(call targetinfo, $@)

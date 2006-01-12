@@ -32,9 +32,7 @@ LIBOOP_DIR	= $(BUILDDIR)/$(LIBOOP)
 
 liboop_get: $(STATEDIR)/liboop.get
 
-liboop_get_deps = $(LIBOOP_SOURCE)
-
-$(STATEDIR)/liboop.get: $(liboop_get_deps_default)
+$(STATEDIR)/liboop.get: $(LIBOOP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +46,6 @@ $(LIBOOP_SOURCE):
 
 liboop_extract: $(STATEDIR)/liboop.extract
 
-liboop_extract_deps = $(STATEDIR)/liboop.get
-
 $(STATEDIR)/liboop.extract: $(liboop_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBOOP_DIR))
@@ -62,13 +58,6 @@ $(STATEDIR)/liboop.extract: $(liboop_extract_deps)
 # ----------------------------------------------------------------------------
 
 liboop_prepare: $(STATEDIR)/liboop.prepare
-
-#
-# dependencies
-#
-liboop_prepare_deps = \
-	$(STATEDIR)/liboop.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 LIBOOP_PATH	=  PATH=$(CROSS_PATH)
 #
@@ -100,8 +89,6 @@ $(STATEDIR)/liboop.prepare: $(liboop_prepare_deps_default)
 
 liboop_compile: $(STATEDIR)/liboop.compile
 
-liboop_compile_deps = $(STATEDIR)/liboop.prepare
-
 $(STATEDIR)/liboop.compile: $(liboop_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBOOP_DIR) && $(LIBOOP_PATH) make
@@ -123,8 +110,6 @@ $(STATEDIR)/liboop.install: $(STATEDIR)/liboop.compile
 # ----------------------------------------------------------------------------
 
 liboop_targetinstall: $(STATEDIR)/liboop.targetinstall
-
-liboop_targetinstall_deps = $(STATEDIR)/liboop.compile
 
 $(STATEDIR)/liboop.targetinstall: $(liboop_targetinstall_deps_default)
 	@$(call targetinfo, $@)

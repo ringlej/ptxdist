@@ -32,8 +32,6 @@ MII-DIAG_DIR		= $(BUILDDIR)/$(MII-DIAG)
 
 mii-diag_get: $(STATEDIR)/mii-diag.get
 
-mii-diag_get_deps = $(MII-DIAG_SOURCE)
-
 $(STATEDIR)/mii-diag.get: $(mii-diag_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MII-DIAG))
@@ -49,8 +47,6 @@ $(MII-DIAG_SOURCE):
 
 mii-diag_extract: $(STATEDIR)/mii-diag.extract
 
-mii-diag_extract_deps = $(STATEDIR)/mii-diag.get
-
 $(STATEDIR)/mii-diag.extract: $(mii-diag_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MII-DIAG_DIR))
@@ -64,13 +60,6 @@ $(STATEDIR)/mii-diag.extract: $(mii-diag_extract_deps)
 
 mii-diag_prepare: $(STATEDIR)/mii-diag.prepare
 
-#
-# dependencies
-#
-mii-diag_prepare_deps = \
-	$(STATEDIR)/mii-diag.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 MII-DIAG_PATH	=  PATH=$(CROSS_PATH)
 MII-DIAG_ENV 	=  $(CROSS_ENV)
 
@@ -83,8 +72,6 @@ $(STATEDIR)/mii-diag.prepare: $(mii-diag_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 mii-diag_compile: $(STATEDIR)/mii-diag.compile
-
-mii-diag_compile_deps = $(STATEDIR)/mii-diag.prepare
 
 $(STATEDIR)/mii-diag.compile: $(mii-diag_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -106,8 +93,6 @@ $(STATEDIR)/mii-diag.install: $(STATEDIR)/mii-diag.compile
 # ----------------------------------------------------------------------------
 
 mii-diag_targetinstall: $(STATEDIR)/mii-diag.targetinstall
-
-mii-diag_targetinstall_deps = $(STATEDIR)/mii-diag.compile
 
 $(STATEDIR)/mii-diag.targetinstall: $(mii-diag_targetinstall_deps_default)
 	@$(call targetinfo, $@)

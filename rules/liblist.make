@@ -32,9 +32,7 @@ LIBLIST_DIR		= $(BUILDDIR)/$(LIBLIST)
 
 liblist_get: $(STATEDIR)/liblist.get
 
-liblist_get_deps = $(LIBLIST_SOURCE)
-
-$(STATEDIR)/liblist.get: $(liblist_get_deps_default)
+$(STATEDIR)/liblist.get: $(LIBLIST_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBLIST))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(LIBLIST_SOURCE):
 
 liblist_extract: $(STATEDIR)/liblist.extract
 
-liblist_extract_deps = $(STATEDIR)/liblist.get
-
 $(STATEDIR)/liblist.extract: $(liblist_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBLIST_DIR))
@@ -64,16 +60,8 @@ $(STATEDIR)/liblist.extract: $(liblist_extract_deps)
 
 liblist_prepare: $(STATEDIR)/liblist.prepare
 
-#
-# dependencies
-#
-liblist_prepare_deps = \
-	$(STATEDIR)/liblist.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 LIBLIST_PATH	=  PATH=$(CROSS_PATH)
 LIBLIST_ENV 	=  $(CROSS_ENV)
-LIBLIST_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -93,8 +81,6 @@ $(STATEDIR)/liblist.prepare: $(liblist_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 liblist_compile: $(STATEDIR)/liblist.compile
-
-liblist_compile_deps = $(STATEDIR)/liblist.prepare
 
 $(STATEDIR)/liblist.compile: $(liblist_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -117,8 +103,6 @@ $(STATEDIR)/liblist.install: $(STATEDIR)/liblist.compile
 # ----------------------------------------------------------------------------
 
 liblist_targetinstall: $(STATEDIR)/liblist.targetinstall
-
-liblist_targetinstall_deps = $(STATEDIR)/liblist.compile
 
 $(STATEDIR)/liblist.targetinstall: $(liblist_targetinstall_deps_default)
 	@$(call targetinfo, $@)

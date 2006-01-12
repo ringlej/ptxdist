@@ -34,9 +34,7 @@ LRZSZ_DIR	= $(BUILDDIR)/$(LRZSZ)
 
 lrzsz_get: $(STATEDIR)/lrzsz.get
 
-lrzsz_get_deps	=  $(LRZSZ_SOURCE)
-
-$(STATEDIR)/lrzsz.get: $(lrzsz_get_deps_default)
+$(STATEDIR)/lrzsz.get: $(LRZSZ_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -50,8 +48,6 @@ $(LRZSZ_SOURCE):
 
 lrzsz_extract: $(STATEDIR)/lrzsz.extract
 
-lrzsz_extract_deps	=  $(STATEDIR)/lrzsz.get
-
 $(STATEDIR)/lrzsz.extract: $(lrzsz_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LRZSZ_DIR))
@@ -64,13 +60,6 @@ $(STATEDIR)/lrzsz.extract: $(lrzsz_extract_deps)
 # ----------------------------------------------------------------------------
 
 lrzsz_prepare: $(STATEDIR)/lrzsz.prepare
-
-#
-# dependencies
-#
-lrzsz_prepare_deps =  \
-	$(STATEDIR)/lrzsz.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 LRZSZ_PATH	=  PATH=$(CROSS_PATH)
 LRZSZ_ENV 	=  $(CROSS_ENV)
@@ -94,8 +83,6 @@ $(STATEDIR)/lrzsz.prepare: $(lrzsz_prepare_deps_default)
 
 lrzsz_compile: $(STATEDIR)/lrzsz.compile
 
-lrzsz_compile_deps =  $(STATEDIR)/lrzsz.prepare
-
 $(STATEDIR)/lrzsz.compile: $(lrzsz_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LRZSZ_DIR) && $(LRZSZ_PATH) make
@@ -116,8 +103,6 @@ $(STATEDIR)/lrzsz.install: $(STATEDIR)/lrzsz.compile
 # ----------------------------------------------------------------------------
 
 lrzsz_targetinstall: $(STATEDIR)/lrzsz.targetinstall
-
-lrzsz_targetinstall_deps	=  $(STATEDIR)/lrzsz.compile
 
 $(STATEDIR)/lrzsz.targetinstall: $(lrzsz_targetinstall_deps_default)
 	@$(call targetinfo, $@)

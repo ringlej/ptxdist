@@ -32,9 +32,7 @@ LTP_DIR		= $(BUILDDIR)/$(LTP)
 
 ltp_get: $(STATEDIR)/ltp.get
 
-ltp_get_deps = $(LTP_SOURCE)
-
-$(STATEDIR)/ltp.get: $(ltp_get_deps_default)
+$(STATEDIR)/ltp.get: $(LTP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LTP))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(LTP_SOURCE):
 
 ltp_extract: $(STATEDIR)/ltp.extract
 
-ltp_extract_deps = $(STATEDIR)/ltp.get
-
 $(STATEDIR)/ltp.extract: $(ltp_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LTP_DIR))
@@ -64,13 +60,6 @@ $(STATEDIR)/ltp.extract: $(ltp_extract_deps)
 
 ltp_prepare: $(STATEDIR)/ltp.prepare
 
-#
-# dependencies
-#
-ltp_prepare_deps = \
-	$(STATEDIR)/ltp.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 LTP_PATH	=  PATH=$(CROSS_PATH)
 LTP_ENV 	=  $(CROSS_ENV)
 
@@ -83,8 +72,6 @@ $(STATEDIR)/ltp.prepare: $(ltp_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 ltp_compile: $(STATEDIR)/ltp.compile
-
-ltp_compile_deps = $(STATEDIR)/ltp.prepare
 
 $(STATEDIR)/ltp.compile: $(ltp_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -113,8 +100,6 @@ $(STATEDIR)/ltp.install: $(STATEDIR)/ltp.compile
 # ----------------------------------------------------------------------------
 
 ltp_targetinstall: $(STATEDIR)/ltp.targetinstall
-
-ltp_targetinstall_deps = $(STATEDIR)/ltp.compile
 
 $(STATEDIR)/ltp.targetinstall: $(ltp_targetinstall_deps_default)
 	@$(call targetinfo, $@)

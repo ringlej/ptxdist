@@ -32,9 +32,7 @@ LIBPCAP_DIR	= $(BUILDDIR)/$(LIBPCAP)
 
 libpcap_get: $(STATEDIR)/libpcap.get
 
-libpcap_get_deps = $(LIBPCAP_SOURCE)
-
-$(STATEDIR)/libpcap.get: $(libpcap_get_deps_default)
+$(STATEDIR)/libpcap.get: $(LIBPCAP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBPCAP))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(LIBPCAP_SOURCE):
 
 libpcap_extract: $(STATEDIR)/libpcap.extract
 
-libpcap_extract_deps = $(STATEDIR)/libpcap.get
-
 $(STATEDIR)/libpcap.extract: $(libpcap_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPCAP_DIR))
@@ -63,13 +59,6 @@ $(STATEDIR)/libpcap.extract: $(libpcap_extract_deps)
 # ----------------------------------------------------------------------------
 
 libpcap_prepare: $(STATEDIR)/libpcap.prepare
-
-#
-# dependencies
-#
-libpcap_prepare_deps =  \
-	$(STATEDIR)/libpcap.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 LIBPCAP_PATH	=  PATH=$(CROSS_PATH)
 LIBPCAP_ENV = \
@@ -96,8 +85,6 @@ $(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps_default)
 
 libpcap_compile: $(STATEDIR)/libpcap.compile
 
-libpcap_compile_deps = $(STATEDIR)/libpcap.prepare
-
 $(STATEDIR)/libpcap.compile: $(libpcap_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBPCAP_DIR) && $(LIBPCAP_PATH) make 
@@ -120,8 +107,6 @@ $(STATEDIR)/libpcap.install: $(STATEDIR)/libpcap.compile
 # ----------------------------------------------------------------------------
 
 libpcap_targetinstall: $(STATEDIR)/libpcap.targetinstall
-
-libpcap_targetinstall_deps =  $(STATEDIR)/libpcap.install
 
 $(STATEDIR)/libpcap.targetinstall: $(libpcap_targetinstall_deps_default)
 	@$(call targetinfo, $@)

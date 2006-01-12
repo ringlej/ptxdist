@@ -33,9 +33,7 @@ LILO_DIR	= $(BUILDDIR)/$(LILO)
 
 lilo_get: $(STATEDIR)/lilo.get
 
-lilo_get_deps =  $(LILO_SOURCE)
-
-$(STATEDIR)/lilo.get: $(lilo_get_deps_default)
+$(STATEDIR)/lilo.get: $(LILO_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -65,13 +63,6 @@ lilo_prepare: $(STATEDIR)/lilo.prepare
 LILO_PATH	= PATH=$(CROSS_PATH)
 LILO_MAKEVARS 	= CROSS=$(COMPILER_PREFIX)
 
-#
-# dependencies
-#
-lilo_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/lilo.extract
-
 $(STATEDIR)/lilo.prepare: $(lilo_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -81,8 +72,6 @@ $(STATEDIR)/lilo.prepare: $(lilo_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 lilo_compile: $(STATEDIR)/lilo.compile
-
-lilo_compile_deps =  $(STATEDIR)/lilo.prepare
 
 $(STATEDIR)/lilo.compile: $(lilo_compile_deps_default) 
 	@$(call targetinfo, $@)

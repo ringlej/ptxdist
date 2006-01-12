@@ -32,9 +32,7 @@ LIBMODBUS_DIR		= $(BUILDDIR)/$(LIBMODBUS)
 
 libmodbus_get: $(STATEDIR)/libmodbus.get
 
-libmodbus_get_deps = $(LIBMODBUS_SOURCE)
-
-$(STATEDIR)/libmodbus.get: $(libmodbus_get_deps_default)
+$(STATEDIR)/libmodbus.get: $(LIBMODBUS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,8 +45,6 @@ $(LIBMODBUS_SOURCE):
 # ----------------------------------------------------------------------------
 
 libmodbus_extract: $(STATEDIR)/libmodbus.extract
-
-libmodbus_extract_deps = $(STATEDIR)/libmodbus.get
 
 $(STATEDIR)/libmodbus.extract: $(libmodbus_extract_deps)
 	@$(call targetinfo, $@)
@@ -63,16 +59,8 @@ $(STATEDIR)/libmodbus.extract: $(libmodbus_extract_deps)
 
 libmodbus_prepare: $(STATEDIR)/libmodbus.prepare
 
-#
-# dependencies
-#
-libmodbus_prepare_deps = \
-	$(STATEDIR)/libmodbus.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 LIBMODBUS_PATH	=  PATH=$(CROSS_PATH)
 LIBMODBUS_ENV 	=  $(CROSS_ENV)
-LIBMODBUS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -92,8 +80,6 @@ $(STATEDIR)/libmodbus.prepare: $(libmodbus_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 libmodbus_compile: $(STATEDIR)/libmodbus.compile
-
-libmodbus_compile_deps = $(STATEDIR)/libmodbus.prepare
 
 $(STATEDIR)/libmodbus.compile: $(libmodbus_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -116,8 +102,6 @@ $(STATEDIR)/libmodbus.install: $(STATEDIR)/libmodbus.compile
 # ----------------------------------------------------------------------------
 
 libmodbus_targetinstall: $(STATEDIR)/libmodbus.targetinstall
-
-libmodbus_targetinstall_deps = $(STATEDIR)/libmodbus.compile
 
 $(STATEDIR)/libmodbus.targetinstall: $(libmodbus_targetinstall_deps_default)
 	@$(call targetinfo, $@)

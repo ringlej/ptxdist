@@ -32,9 +32,7 @@ MEMSTAT_DIR	= $(BUILDDIR)/memstat-$(MEMSTAT_VERSION)
 
 memstat_get: $(STATEDIR)/memstat.get
 
-memstat_get_deps = $(MEMSTAT_SOURCE)
-
-$(STATEDIR)/memstat.get: $(memstat_get_deps_default)
+$(STATEDIR)/memstat.get: $(MEMSTAT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMSTAT))
 	@$(call touch, $@)
@@ -49,9 +47,6 @@ $(MEMSTAT_SOURCE):
 
 memstat_extract: $(STATEDIR)/memstat.extract
 
-memstat_extract_deps = $(STATEDIR)/memstat.get
-
-$(STATEDIR)/memstat.extract: $(memstat_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMSTAT_DIR))
 	@$(call extract, $(MEMSTAT_SOURCE))
@@ -64,17 +59,8 @@ $(STATEDIR)/memstat.extract: $(memstat_extract_deps)
 
 memstat_prepare: $(STATEDIR)/memstat.prepare
 
-#
-# dependencies
-#
-memstat_prepare_deps = \
-	$(STATEDIR)/memstat.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 MEMSTAT_PATH	=  PATH=$(CROSS_PATH)
 MEMSTAT_ENV 	=  $(CROSS_ENV)
-#MEMSTAT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#MEMSTAT_ENV	+=
 
 #
 # autoconf
@@ -90,8 +76,6 @@ $(STATEDIR)/memstat.prepare: $(memstat_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 memstat_compile: $(STATEDIR)/memstat.compile
-
-memstat_compile_deps = $(STATEDIR)/memstat.prepare
 
 $(STATEDIR)/memstat.compile: $(memstat_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -114,8 +98,6 @@ $(STATEDIR)/memstat.install: $(STATEDIR)/memstat.compile
 # ----------------------------------------------------------------------------
 
 memstat_targetinstall: $(STATEDIR)/memstat.targetinstall
-
-memstat_targetinstall_deps = $(STATEDIR)/memstat.compile
 
 $(STATEDIR)/memstat.targetinstall: $(memstat_targetinstall_deps_default)
 	@$(call targetinfo, $@)

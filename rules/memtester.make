@@ -32,9 +32,7 @@ MEMTESTER_DIR		= $(BUILDDIR)/$(MEMTESTER)
 
 memtester_get: $(STATEDIR)/memtester.get
 
-memtester_get_deps = $(MEMTESTER_SOURCE)
-
-$(STATEDIR)/memtester.get: $(memtester_get_deps_default)
+$(STATEDIR)/memtester.get: $(MEMTESTER_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMTESTER))
 	@$(call touch, $@)
@@ -49,9 +47,6 @@ $(MEMTESTER_SOURCE):
 
 memtester_extract: $(STATEDIR)/memtester.extract
 
-memtester_extract_deps = $(STATEDIR)/memtester.get
-
-$(STATEDIR)/memtester.extract: $(memtester_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMTESTER_DIR))
 	@$(call extract, $(MEMTESTER_SOURCE))
@@ -64,17 +59,8 @@ $(STATEDIR)/memtester.extract: $(memtester_extract_deps)
 
 memtester_prepare: $(STATEDIR)/memtester.prepare
 
-#
-# dependencies
-#
-memtester_prepare_deps = \
-	$(STATEDIR)/memtester.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 MEMTESTER_PATH	=  PATH=$(CROSS_PATH)
 MEMTESTER_ENV 	=  $(CROSS_ENV)
-#MEMTESTER_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#MEMTESTER_ENV	+=
 
 $(STATEDIR)/memtester.prepare: $(memtester_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -87,8 +73,6 @@ $(STATEDIR)/memtester.prepare: $(memtester_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 memtester_compile: $(STATEDIR)/memtester.compile
-
-memtester_compile_deps = $(STATEDIR)/memtester.prepare
 
 $(STATEDIR)/memtester.compile: $(memtester_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -110,8 +94,6 @@ $(STATEDIR)/memtester.install: $(STATEDIR)/memtester.compile
 # ----------------------------------------------------------------------------
 
 memtester_targetinstall: $(STATEDIR)/memtester.targetinstall
-
-memtester_targetinstall_deps = $(STATEDIR)/memtester.compile
 
 $(STATEDIR)/memtester.targetinstall: $(memtester_targetinstall_deps_default)
 	@$(call targetinfo, $@)
