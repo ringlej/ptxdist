@@ -11,6 +11,16 @@ menuconfig LIBPV
 
 	  The library has also an integrated JVisu socket server. 
 
+config LIBPV_EVENTS
+	bool
+	prompt "event support"
+	depends on LIBPV
+	select LIBMQUEUE
+	help
+	  This switch enables support for the libpv event mechanism. If
+	  enabled it is possible to be notified when process variables have
+	  changed. 
+
 config LIBPV_PVTOOL
 	bool
 	prompt "install pvtool"
