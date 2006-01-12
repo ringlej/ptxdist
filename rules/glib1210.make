@@ -33,9 +33,8 @@ GLIB1210_DIR		= $(BUILDDIR)/$(GLIB1210)
 
 glib1210_get: $(STATEDIR)/glib1210.get
 
-glib1210_get_deps	=  $(GLIB1210_SOURCE)
 
-$(STATEDIR)/glib1210.get: $(glib1210_get_deps)
+$(STATEDIR)/glib1210.get: $(GLIB1210_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,9 +48,7 @@ $(GLIB1210_SOURCE):
 
 glib1210_extract: $(STATEDIR)/glib1210.extract
 
-glib1210_extract_deps	=  $(STATEDIR)/glib1210.get
-
-$(STATEDIR)/glib1210.extract: $(glib1210_extract_deps)
+$(STATEDIR)/glib1210.extract: $(glib1210_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB1210_DIR))
 	@$(call extract, $(GLIB1210_SOURCE))
@@ -62,19 +59,6 @@ $(STATEDIR)/glib1210.extract: $(glib1210_extract_deps)
 # ----------------------------------------------------------------------------
 
 glib1210_prepare: $(STATEDIR)/glib1210.prepare
-
-#
-# dependencies
-#
-glib1210_prepare_deps =  $(STATEDIR)/glib1210.extract
-glib1210_prepare_deps += $(STATEDIR)/virtual-xchain.install
-ifdef PTXCONF_XFREE430
-glib1210_prepare_deps += $(STATEDIR)/xfree430.install
-else
-ifdef PTXCONF_XSERVER
-glib1210_prepare_deps += $(STATEDIR)/xserver.install
-endif
-endif
 
 GLIB1210_PATH	=  PATH=$(CROSS_PATH)
 GLIB1210_ENV 	=  $(CROSS_ENV)
@@ -95,7 +79,7 @@ GLIB1210_ENV 	=  $(CROSS_ENV)
 GLIB1210_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 GLIB1210_AUTOCONF	+= --with-threads=posix
 
-$(STATEDIR)/glib1210.prepare: $(glib1210_prepare_deps)
+$(STATEDIR)/glib1210.prepare: $(glib1210_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB1210_BUILDDIR))
 	cd $(GLIB1210_DIR) && \
@@ -109,9 +93,7 @@ $(STATEDIR)/glib1210.prepare: $(glib1210_prepare_deps)
 
 glib1210_compile: $(STATEDIR)/glib1210.compile
 
-glib1210_compile_deps =  $(STATEDIR)/glib1210.prepare
-
-$(STATEDIR)/glib1210.compile: $(glib1210_compile_deps)
+$(STATEDIR)/glib1210.compile: $(glib1210_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(GLIB1210_PATH) $(GLIB1210_ENV) make -C $(GLIB1210_DIR)
 	@$(call touch, $@)
@@ -133,9 +115,7 @@ $(STATEDIR)/glib1210.install: $(STATEDIR)/glib1210.compile
 
 glib1210_targetinstall: $(STATEDIR)/glib1210.targetinstall
 
-glib1210_targetinstall_deps	=  $(STATEDIR)/glib1210.compile
-
-$(STATEDIR)/glib1210.targetinstall: $(glib1210_targetinstall_deps)
+$(STATEDIR)/glib1210.targetinstall: $(glib1210_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

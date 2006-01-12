@@ -33,9 +33,7 @@ GLIB26_DIR		= $(BUILDDIR)/$(GLIB26)
 
 glib26_get: $(STATEDIR)/glib26.get
 
-glib26_get_deps	=  $(GLIB26_SOURCE)
-
-$(STATEDIR)/glib26.get: $(glib26_get_deps)
+$(STATEDIR)/glib26.get: $(glib26_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,9 +47,7 @@ $(GLIB26_SOURCE):
 
 glib26_extract: $(STATEDIR)/glib26.extract
 
-glib26_extract_deps	=  $(STATEDIR)/glib26.get
-
-$(STATEDIR)/glib26.extract: $(glib26_extract_deps)
+$(STATEDIR)/glib26.extract: $(glib26_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB26_DIR))
 	@$(call extract, $(GLIB26_SOURCE))
@@ -62,13 +58,6 @@ $(STATEDIR)/glib26.extract: $(glib26_extract_deps)
 # ----------------------------------------------------------------------------
 
 glib26_prepare: $(STATEDIR)/glib26.prepare
-
-#
-# dependencies
-#
-glib26_prepare_deps = \
-	$(STATEDIR)/glib26.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 GLIB26_PATH = PATH=$(CROSS_PATH)
 GLIB26_ENV = \
@@ -90,7 +79,7 @@ GLIB26_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--with-threads=posix
 
-$(STATEDIR)/glib26.prepare: $(glib26_prepare_deps)
+$(STATEDIR)/glib26.prepare: $(glib26_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB26_BUILDDIR))
 	cd $(GLIB26_DIR) && \
@@ -104,9 +93,7 @@ $(STATEDIR)/glib26.prepare: $(glib26_prepare_deps)
 
 glib26_compile: $(STATEDIR)/glib26.compile
 
-glib26_compile_deps =  $(STATEDIR)/glib26.prepare
-
-$(STATEDIR)/glib26.compile: $(glib26_compile_deps)
+$(STATEDIR)/glib26.compile: $(glib26_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(GLIB26_PATH) $(GLIB26_ENV) make -C $(GLIB26_DIR)
 	@$(call touch, $@)
@@ -128,9 +115,7 @@ $(STATEDIR)/glib26.install: $(STATEDIR)/glib26.compile
 
 glib26_targetinstall: $(STATEDIR)/glib26.targetinstall
 
-glib26_targetinstall_deps	=  $(STATEDIR)/glib26.compile
-
-$(STATEDIR)/glib26.targetinstall: $(glib26_targetinstall_deps)
+$(STATEDIR)/glib26.targetinstall: $(glib26_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

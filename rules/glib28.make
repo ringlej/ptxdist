@@ -33,9 +33,7 @@ GLIB28_DIR		= $(BUILDDIR)/$(GLIB28)
 
 glib28_get: $(STATEDIR)/glib28.get
 
-glib28_get_deps	=  $(GLIB28_SOURCE)
-
-$(STATEDIR)/glib28.get: $(glib28_get_deps)
+$(STATEDIR)/glib28.get: $(GLIB28_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,9 +47,7 @@ $(GLIB28_SOURCE):
 
 glib28_extract: $(STATEDIR)/glib28.extract
 
-glib28_extract_deps	=  $(STATEDIR)/glib28.get
-
-$(STATEDIR)/glib28.extract: $(glib28_extract_deps)
+$(STATEDIR)/glib28.extract: $(glib28_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB28_DIR))
 	@$(call extract, $(GLIB28_SOURCE))
@@ -62,13 +58,6 @@ $(STATEDIR)/glib28.extract: $(glib28_extract_deps)
 # ----------------------------------------------------------------------------
 
 glib28_prepare: $(STATEDIR)/glib28.prepare
-
-#
-# dependencies
-#
-glib28_prepare_deps = \
-	$(STATEDIR)/glib28.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 GLIB28_PATH = PATH=$(CROSS_PATH)
 GLIB28_ENV = \
@@ -89,7 +78,7 @@ endif
 GLIB28_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 GLIB28_AUTOCONF += --with-threads=posix
 
-$(STATEDIR)/glib28.prepare: $(glib28_prepare_deps)
+$(STATEDIR)/glib28.prepare: $(glib28_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB28_BUILDDIR))
 	cd $(GLIB28_DIR) && \

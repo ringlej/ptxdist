@@ -33,9 +33,7 @@ GLIB22_DIR		= $(BUILDDIR)/$(GLIB22)
 
 glib22_get: $(STATEDIR)/glib22.get
 
-glib22_get_deps	=  $(GLIB22_SOURCE)
-
-$(STATEDIR)/glib22.get: $(glib22_get_deps)
+$(STATEDIR)/glib22.get: $(GLIB22_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,9 +47,7 @@ $(GLIB22_SOURCE):
 
 glib22_extract: $(STATEDIR)/glib22.extract
 
-glib22_extract_deps	=  $(STATEDIR)/glib22.get
-
-$(STATEDIR)/glib22.extract: $(glib22_extract_deps)
+$(STATEDIR)/glib22.extract: $(glib22_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB22_DIR))
 	@$(call extract, $(GLIB22_SOURCE))
@@ -62,13 +58,6 @@ $(STATEDIR)/glib22.extract: $(glib22_extract_deps)
 # ----------------------------------------------------------------------------
 
 glib22_prepare: $(STATEDIR)/glib22.prepare
-
-#
-# dependencies
-#
-glib22_prepare_deps =  \
-	$(STATEDIR)/glib22.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 GLIB22_PATH	=  PATH=$(CROSS_PATH)
 GLIB22_ENV 	=  $(CROSS_ENV)
@@ -89,7 +78,7 @@ GLIB22_ENV	+= glib_cv_stack_grows=no
 GLIB22_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 GLIB22_AUTOCONF	+= --with-threads=posix
 
-$(STATEDIR)/glib22.prepare: $(glib22_prepare_deps)
+$(STATEDIR)/glib22.prepare: $(glib22_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB22_BUILDDIR))
 	cd $(GLIB22_DIR) && \
@@ -103,9 +92,7 @@ $(STATEDIR)/glib22.prepare: $(glib22_prepare_deps)
 
 glib22_compile: $(STATEDIR)/glib22.compile
 
-glib22_compile_deps =  $(STATEDIR)/glib22.prepare
-
-$(STATEDIR)/glib22.compile: $(glib22_compile_deps)
+$(STATEDIR)/glib22.compile: $(glib22_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(GLIB22_PATH) $(GLIB22_ENV) make -C $(GLIB22_DIR)
 	@$(call touch, $@)
@@ -127,9 +114,7 @@ $(STATEDIR)/glib22.install: $(STATEDIR)/glib22.compile
 
 glib22_targetinstall: $(STATEDIR)/glib22.targetinstall
 
-glib22_targetinstall_deps	=  $(STATEDIR)/glib22.compile
-
-$(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps)
+$(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
