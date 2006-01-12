@@ -49,9 +49,7 @@ $(FLEX_SOURCE):
 
 flex_extract: $(STATEDIR)/flex.extract
 
-flex_extract_deps = $(STATEDIR)/flex.get
-
-$(STATEDIR)/flex.extract: $(flex_extract_deps)
+$(STATEDIR)/flex.extract: $(flex_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLEX_DIR))
 	@$(call extract, $(FLEX_SOURCE))
@@ -64,13 +62,6 @@ $(STATEDIR)/flex.extract: $(flex_extract_deps)
 
 flex_prepare: $(STATEDIR)/flex.prepare
 
-#
-# dependencies
-#
-flex_prepare_deps = \
-	$(STATEDIR)/flex.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 FLEX_PATH	=  PATH=$(CROSS_PATH)
 FLEX_ENV 	=  $(CROSS_ENV)
 
@@ -79,7 +70,7 @@ FLEX_ENV 	=  $(CROSS_ENV)
 #
 FLEX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/flex.prepare: $(flex_prepare_deps)
+$(STATEDIR)/flex.prepare: $(flex_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLEX_DIR)/config.cache)
 	cd $(FLEX_DIR) && \
@@ -93,9 +84,7 @@ $(STATEDIR)/flex.prepare: $(flex_prepare_deps)
 
 flex_compile: $(STATEDIR)/flex.compile
 
-flex_compile_deps = $(STATEDIR)/flex.prepare
-
-$(STATEDIR)/flex.compile: $(flex_compile_deps)
+$(STATEDIR)/flex.compile: $(flex_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(FLEX_DIR) && $(FLEX_ENV) $(FLEX_PATH) make
 	@$(call touch, $@)
@@ -106,7 +95,7 @@ $(STATEDIR)/flex.compile: $(flex_compile_deps)
 
 flex_install: $(STATEDIR)/flex.install
 
-$(STATEDIR)/flex.install: $(STATEDIR)/flex.compile
+$(STATEDIR)/flex.install: $(flex_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, FLEX)
 	@$(call touch, $@)
@@ -117,9 +106,7 @@ $(STATEDIR)/flex.install: $(STATEDIR)/flex.compile
 
 flex_targetinstall: $(STATEDIR)/flex.targetinstall
 
-flex_targetinstall_deps = $(STATEDIR)/flex.compile
-
-$(STATEDIR)/flex.targetinstall: $(flex_targetinstall_deps)
+$(STATEDIR)/flex.targetinstall: $(flex_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
