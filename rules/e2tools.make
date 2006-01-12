@@ -50,9 +50,7 @@ $(HOST_E2TOOLS_SOURCE):
 
 host-e2tools_extract: $(STATEDIR)/host-e2tools.extract
 
-host-e2tools_extract_deps = $(STATEDIR)/host-e2tools.get
-
-$(STATEDIR)/host-e2tools.extract: $(host-e2tools_extract_deps)
+$(STATEDIR)/host-e2tools.extract: $(host-e2tools_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_E2TOOLS_DIR))
 	@$(call extract, $(HOST_E2TOOLS_SOURCE))
@@ -63,13 +61,6 @@ $(STATEDIR)/host-e2tools.extract: $(host-e2tools_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-e2tools_prepare: $(STATEDIR)/host-e2tools.prepare
-
-#
-# dependencies
-#
-host-e2tools_prepare_deps = \
-	$(STATEDIR)/host-e2tools.extract \
-	$(STATEDIR)/host-e2fsprogs.install
 
 HOST_E2TOOLS_PATH	=  PATH=$(CROSS_PATH)
 HOST_E2TOOLS_ENV 	=  $(CROSS_ENV)
@@ -83,7 +74,7 @@ HOST_E2TOOLS_AUTOCONF = \
 	--host=$(GNU_HOST)
 	--target=$(GNU_HOST)
 
-$(STATEDIR)/host-e2tools.prepare: $(host-e2tools_prepare_deps)
+$(STATEDIR)/host-e2tools.prepare: $(host-e2tools_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_E2TOOLS_DIR)/config.cache)
 	cd $(HOST_E2TOOLS_DIR) && \
@@ -97,9 +88,7 @@ $(STATEDIR)/host-e2tools.prepare: $(host-e2tools_prepare_deps)
 
 host-e2tools_compile: $(STATEDIR)/host-e2tools.compile
 
-host-e2tools_compile_deps = $(STATEDIR)/host-e2tools.prepare
-
-$(STATEDIR)/host-e2tools.compile: $(host-e2tools_compile_deps)
+$(STATEDIR)/host-e2tools.compile: $(host-e2tools_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(HOST_E2TOOLS_PATH) make -C $(HOST_E2TOOLS_DIR)
 	@$(call touch, $@)
@@ -110,7 +99,7 @@ $(STATEDIR)/host-e2tools.compile: $(host-e2tools_compile_deps)
 
 host-e2tools_install: $(STATEDIR)/host-e2tools.install
 
-$(STATEDIR)/host-e2tools.install: $(STATEDIR)/host-e2tools.compile
+$(STATEDIR)/host-e2tools.install: $(host-e2tools_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HOST_E2TOOLS)
 	@$(call touch, $@)
@@ -121,9 +110,7 @@ $(STATEDIR)/host-e2tools.install: $(STATEDIR)/host-e2tools.compile
 
 host-e2tools_targetinstall: $(STATEDIR)/host-e2tools.targetinstall
 
-host-e2tools_targetinstall_deps = $(STATEDIR)/host-e2tools.compile
-
-$(STATEDIR)/host-e2tools.targetinstall: $(host-e2tools_targetinstall_deps)
+$(STATEDIR)/host-e2tools.targetinstall: $(host-e2tools_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
