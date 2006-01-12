@@ -33,9 +33,7 @@ DROPBEAR_DIR			= $(BUILDDIR)/$(DROPBEAR)
 
 dropbear_get: $(STATEDIR)/dropbear.get
 
-dropbear_get_deps	=  $(DROPBEAR_SOURCE)
-
-$(STATEDIR)/dropbear.get: $(dropbear_get_deps)
+$(STATEDIR)/dropbear.get: $(DROPBEAR_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -60,12 +58,6 @@ $(STATEDIR)/dropbear.extract: $(dropbear_extract_deps_default)
 # ----------------------------------------------------------------------------
 
 dropbear_prepare: $(STATEDIR)/dropbear.prepare
-
-dropbear_prepare_deps =  $(dropbear_prepare_deps_default)
-
-ifndef PTXCONF_DROPBEAR_DIS_ZLIB
-dropbear_prepare_deps +=  $(STATEDIR)/zlib.install
-endif
 
 DROPBEAR_PATH	=  PATH=$(CROSS_PATH)
 DROPBEAR_ENV 	=  $(CROSS_ENV)
@@ -120,7 +112,7 @@ ifdef PTXCONF_DROPBEAR_DIS_PUTUTXLINE
 DROPBEAR_AUTOCONF	+= --disable-pututxline
 endif
 
-$(STATEDIR)/dropbear.prepare: $(dropbear_prepare_deps)
+$(STATEDIR)/dropbear.prepare: $(dropbear_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DROPBEAR_BUILDDIR))
 	cd $(DROPBEAR_DIR) && \
@@ -251,13 +243,7 @@ $(STATEDIR)/dropbear.install: $(dropbear_install_deps_default)
 
 dropbear_targetinstall: $(STATEDIR)/dropbear.targetinstall
 
-dropbear_targetinstall_deps	=  $(dropbear_targetinstall_deps_default)
-
-ifndef PTXCONF_DROPBEAR_DIS_ZLIB
-dropbear_targetinstall_deps	+= $(STATEDIR)/zlib.targetinstall
-endif
-
-$(STATEDIR)/dropbear.targetinstall: $(dropbear_targetinstall_deps)
+$(STATEDIR)/dropbear.targetinstall: $(dropbear_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
