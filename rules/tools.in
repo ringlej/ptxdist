@@ -1,10 +1,4 @@
-config FIGLET
-	bool
-	prompt "figlet"
-	help
-	  Figlet is a tool to create bit ASCII text. 
-
-          For more information see http://www.figlet.org
+source "rules/figlet.in"
 
 config MEMEDIT
 	bool
