@@ -32,9 +32,7 @@ HOST_SLIRP_DIR		= $(HOST_BUILDDIR)/$(HOST_SLIRP)
 
 host-slirp_get: $(STATEDIR)/host-slirp.get
 
-host-slirp_get_deps = $(HOST_SLIRP_SOURCE)
-
-$(STATEDIR)/host-slirp.get: $(host-slirp_get_deps_default)
+$(STATEDIR)/host-slirp.get: $(HOST_SLIRP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_SLIRP))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(HOST_SLIRP_SOURCE):
 
 host-slirp_extract: $(STATEDIR)/host-slirp.extract
 
-host-slirp_extract_deps = $(STATEDIR)/host-slirp.get
-
 $(STATEDIR)/host-slirp.extract: $(host-slirp_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_SLIRP_DIR))
@@ -63,12 +59,6 @@ $(STATEDIR)/host-slirp.extract: $(host-slirp_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-slirp_prepare: $(STATEDIR)/host-slirp.prepare
-
-#
-# dependencies
-#
-host-slirp_prepare_deps = \
-	$(STATEDIR)/host-slirp.extract
 
 HOST_SLIRP_PATH		=  PATH=$(HOST_PATH)
 HOST_SLIRP_ENV 		=  $(HOSTCC_ENV)
@@ -93,8 +83,6 @@ $(STATEDIR)/host-slirp.prepare: $(host-slirp_prepare_deps_default)
 
 host-slirp_compile: $(STATEDIR)/host-slirp.compile
 
-host-slirp_compile_deps = $(STATEDIR)/host-slirp.prepare
-
 $(STATEDIR)/host-slirp.compile: $(host-slirp_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_SLIRP_DIR)/src && $(HOST_SLIRP_ENV) $(HOST_SLIRP_PATH) make
@@ -105,8 +93,6 @@ $(STATEDIR)/host-slirp.compile: $(host-slirp_compile_deps_default)
 # ----------------------------------------------------------------------------
 
 host-slirp_install: $(STATEDIR)/host-slirp.install
-
-host-slirp_install_deps = $(STATEDIR)/host-slirp.compile
 
 $(STATEDIR)/host-slirp.install: $(host-slirp_install_deps_default)
 	@$(call targetinfo, $@)

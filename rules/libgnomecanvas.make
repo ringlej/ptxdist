@@ -32,9 +32,7 @@ LIBGNOMECANVAS_DIR	= $(BUILDDIR)/$(LIBGNOMECANVAS)
 
 libgnomecanvas_get: $(STATEDIR)/libgnomecanvas.get
 
-libgnomecanvas_get_deps = $(LIBGNOMECANVAS_SOURCE)
-
-$(STATEDIR)/libgnomecanvas.get: $(libgnomecanvas_get_deps_default)
+$(STATEDIR)/libgnomecanvas.get: $(LIBGNOMECANVAS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,8 +45,6 @@ $(LIBGNOMECANVAS_SOURCE):
 # ----------------------------------------------------------------------------
 
 libgnomecanvas_extract: $(STATEDIR)/libgnomecanvas.extract
-
-libgnomecanvas_extract_deps = $(STATEDIR)/libgnomecanvas.get
 
 $(STATEDIR)/libgnomecanvas.extract: $(libgnomecanvas_extract_deps)
 	@$(call targetinfo, $@)
@@ -63,18 +59,8 @@ $(STATEDIR)/libgnomecanvas.extract: $(libgnomecanvas_extract_deps)
 
 libgnomecanvas_prepare: $(STATEDIR)/libgnomecanvas.prepare
 
-#
-# dependencies
-#
-libgnomecanvas_prepare_deps = \
-	$(STATEDIR)/libgnomecanvas.extract \
-	$(STATEDIR)/libglade.install \
-	$(STATEDIR)/libart.install \
-	$(STATEDIR)/virtual-xchain.install
-
 LIBGNOMECANVAS_PATH	=  PATH=$(CROSS_PATH)
 LIBGNOMECANVAS_ENV 	=  $(CROSS_ENV)
-LIBGNOMECANVAS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 #
 # autoconf
@@ -94,8 +80,6 @@ $(STATEDIR)/libgnomecanvas.prepare: $(libgnomecanvas_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 libgnomecanvas_compile: $(STATEDIR)/libgnomecanvas.compile
-
-libgnomecanvas_compile_deps = $(STATEDIR)/libgnomecanvas.prepare
 
 $(STATEDIR)/libgnomecanvas.compile: $(libgnomecanvas_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -119,9 +103,6 @@ $(STATEDIR)/libgnomecanvas.install: $(STATEDIR)/libgnomecanvas.compile
 # ----------------------------------------------------------------------------
 
 libgnomecanvas_targetinstall: $(STATEDIR)/libgnomecanvas.targetinstall
-
-libgnomecanvas_targetinstall_deps = $(STATEDIR)/libgnomecanvas.compile
-libgnomecanvas_targetinstall_deps = $(STATEDIR)/libart.targetinstall
 
 $(STATEDIR)/libgnomecanvas.targetinstall: $(libgnomecanvas_targetinstall_deps_default)
 	@$(call targetinfo, $@)

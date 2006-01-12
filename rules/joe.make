@@ -31,9 +31,7 @@ JOE_DIR		= $(BUILDDIR)/$(JOE)
 
 joe_get: $(STATEDIR)/joe.get
 
-joe_get_deps = $(JOE_SOURCE)
-
-$(STATEDIR)/joe.get: $(joe_get_deps_default)
+$(STATEDIR)/joe.get: $(JOE_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JOE))
 	@$(call touch, $@)
@@ -48,8 +46,6 @@ $(JOE_SOURCE):
 
 joe_extract: $(STATEDIR)/joe.extract
 
-joe_extract_deps = $(STATEDIR)/joe.get
-
 $(STATEDIR)/joe.extract: $(joe_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JOE_DIR))
@@ -62,12 +58,6 @@ $(STATEDIR)/joe.extract: $(joe_extract_deps)
 # ----------------------------------------------------------------------------
 
 joe_prepare: $(STATEDIR)/joe.prepare
-
-#
-# dependencies
-#
-joe_prepare_deps =  $(STATEDIR)/joe.extract
-joe_prepare_deps += $(STATEDIR)/virtual-xchain.install
 
 JOE_PATH	=  PATH=$(CROSS_PATH)
 JOE_ENV 	=  $(CROSS_ENV)
@@ -93,8 +83,6 @@ $(STATEDIR)/joe.prepare: $(joe_prepare_deps_default)
 
 joe_compile: $(STATEDIR)/joe.compile
 
-joe_compile_deps = $(STATEDIR)/joe.prepare
-
 $(STATEDIR)/joe.compile: $(joe_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(JOE_DIR) && $(JOE_ENV) $(JOE_PATH) make
@@ -116,8 +104,6 @@ $(STATEDIR)/joe.install: $(STATEDIR)/joe.compile
 # ----------------------------------------------------------------------------
 
 joe_targetinstall: $(STATEDIR)/joe.targetinstall
-
-joe_targetinstall_deps = $(STATEDIR)/joe.compile
 
 $(STATEDIR)/joe.targetinstall: $(joe_targetinstall_deps_default)
 	@$(call targetinfo, $@)

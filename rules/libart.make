@@ -32,8 +32,6 @@ LIBART_DIR		= $(BUILDDIR)/$(LIBART)
 
 libart_get: $(STATEDIR)/libart.get
 
-libart_get_deps = $(LIBART_SOURCE)
-
 $(STATEDIR)/libart.get: $(libart_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -48,8 +46,6 @@ $(LIBART_SOURCE):
 
 libart_extract: $(STATEDIR)/libart.extract
 
-libart_extract_deps = $(STATEDIR)/libart.get
-
 $(STATEDIR)/libart.extract: $(libart_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBART_DIR))
@@ -63,17 +59,8 @@ $(STATEDIR)/libart.extract: $(libart_extract_deps)
 
 libart_prepare: $(STATEDIR)/libart.prepare
 
-#
-# dependencies
-#
-libart_prepare_deps = \
-	$(STATEDIR)/libart.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 LIBART_PATH	=  PATH=$(CROSS_PATH)
 LIBART_ENV 	=  $(CROSS_ENV)
-#LIBART_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#LIBART_ENV	+=
 
 #
 # autoconf
@@ -93,8 +80,6 @@ $(STATEDIR)/libart.prepare: $(libart_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 libart_compile: $(STATEDIR)/libart.compile
-
-libart_compile_deps = $(STATEDIR)/libart.prepare
 
 $(STATEDIR)/libart.compile: $(libart_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -117,8 +102,6 @@ $(STATEDIR)/libart.install: $(STATEDIR)/libart.compile
 # ----------------------------------------------------------------------------
 
 libart_targetinstall: $(STATEDIR)/libart.targetinstall
-
-libart_targetinstall_deps = $(STATEDIR)/libart.compile
 
 $(STATEDIR)/libart.targetinstall: $(libart_targetinstall_deps_default)
 	@$(call targetinfo, $@)

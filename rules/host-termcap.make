@@ -31,8 +31,6 @@ HOST_TERMCAP_DIR	= $(HOST_BUILDDIR)/$(HOST_TERMCAP)
 
 host-termcap_get: $(STATEDIR)/host-termcap.get
 
-host-termcap_get_deps = $(TERMCAP_SOURCE)
-
 $(STATEDIR)/host-termcap.get: $(host-termcap_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_TERMCAP))
@@ -43,8 +41,6 @@ $(STATEDIR)/host-termcap.get: $(host-termcap_get_deps_default)
 # ----------------------------------------------------------------------------
 
 host-termcap_extract: $(STATEDIR)/host-termcap.extract
-
-host-termcap_extract_deps = $(STATEDIR)/host-termcap.get
 
 $(STATEDIR)/host-termcap.extract: $(host-termcap_extract_deps)
 	@$(call targetinfo, $@)
@@ -58,12 +54,6 @@ $(STATEDIR)/host-termcap.extract: $(host-termcap_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-termcap_prepare: $(STATEDIR)/host-termcap.prepare
-
-#
-# dependencies
-#
-host-termcap_prepare_deps = \
-	$(STATEDIR)/host-termcap.extract
 
 HOST_TERMCAP_PATH	=  PATH=$(HOST_PATH)
 HOST_TERMCAP_ENV 	=  $(HOSTCC_ENV)
@@ -88,8 +78,6 @@ $(STATEDIR)/host-termcap.prepare: $(host-termcap_prepare_deps_default)
 
 host-termcap_compile: $(STATEDIR)/host-termcap.compile
 
-host-termcap_compile_deps = $(STATEDIR)/host-termcap.prepare
-
 $(STATEDIR)/host-termcap.compile: $(host-termcap_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_TERMCAP_DIR) && $(HOST_TERMCAP_ENV) $(HOST_TERMCAP_PATH) make
@@ -100,8 +88,6 @@ $(STATEDIR)/host-termcap.compile: $(host-termcap_compile_deps_default)
 # ----------------------------------------------------------------------------
 
 host-termcap_install: $(STATEDIR)/host-termcap.install
-
-host-termcap_install_deps = $(STATEDIR)/host-termcap.compile
 
 $(STATEDIR)/host-termcap.install: $(host-termcap_install_deps_default)
 	@$(call targetinfo, $@)

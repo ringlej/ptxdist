@@ -32,9 +32,7 @@ LIBGLADE_DIR		= $(BUILDDIR)/$(LIBGLADE)
 
 libglade_get: $(STATEDIR)/libglade.get
 
-libglade_get_deps = $(LIBGLADE_SOURCE)
-
-$(STATEDIR)/libglade.get: $(libglade_get_deps_default)
+$(STATEDIR)/libglade.get: $(LIBGLADE_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,8 +45,6 @@ $(LIBGLADE_SOURCE):
 # ----------------------------------------------------------------------------
 
 libglade_extract: $(STATEDIR)/libglade.extract
-
-libglade_extract_deps = $(STATEDIR)/libglade.get
 
 $(STATEDIR)/libglade.extract: $(libglade_extract_deps)
 	@$(call targetinfo, $@)
@@ -63,18 +59,8 @@ $(STATEDIR)/libglade.extract: $(libglade_extract_deps)
 
 libglade_prepare: $(STATEDIR)/libglade.prepare
 
-#
-# dependencies
-#
-libglade_prepare_deps = \
-	$(STATEDIR)/libglade.extract \
-	$(STATEDIR)/libxml2.install \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/gtk22.install	
-
 LIBGLADE_PATH	=  PATH=$(CROSS_PATH)
 LIBGLADE_ENV 	=  $(CROSS_ENV)
-LIBGLADE_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -94,8 +80,6 @@ $(STATEDIR)/libglade.prepare: $(libglade_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 libglade_compile: $(STATEDIR)/libglade.compile
-
-libglade_compile_deps = $(STATEDIR)/libglade.prepare
 
 $(STATEDIR)/libglade.compile: $(libglade_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -119,8 +103,6 @@ $(STATEDIR)/libglade.install: $(STATEDIR)/libglade.compile
 # ----------------------------------------------------------------------------
 
 libglade_targetinstall: $(STATEDIR)/libglade.targetinstall
-
-libglade_targetinstall_deps = $(STATEDIR)/libglade.compile
 
 $(STATEDIR)/libglade.targetinstall: $(libglade_targetinstall_deps_default)
 	@$(call targetinfo, $@)

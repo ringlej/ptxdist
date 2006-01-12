@@ -32,11 +32,7 @@ LIBGSLOOP_DIR		= $(BUILDDIR)/$(LIBGSLOOP)
 
 libgsloop_get: $(STATEDIR)/libgsloop.get
 
-libgsloop_get_deps = \
-	$(LIBGSLOOP_SOURCE) \
-	$(RULESDIR)/libgsloop.make
-
-$(STATEDIR)/libgsloop.get: $(libgsloop_get_deps_default)
+$(STATEDIR)/libgsloop.get: $(LIBGSLOOP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBGSLOOP))
 	@$(call touch, $@)
@@ -51,8 +47,6 @@ $(LIBGSLOOP_SOURCE):
 
 libgsloop_extract: $(STATEDIR)/libgsloop.extract
 
-libgsloop_extract_deps = $(STATEDIR)/libgsloop.get
-
 $(STATEDIR)/libgsloop.extract: $(libgsloop_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGSLOOP_DIR))
@@ -65,14 +59,6 @@ $(STATEDIR)/libgsloop.extract: $(libgsloop_extract_deps)
 # ----------------------------------------------------------------------------
 
 libgsloop_prepare: $(STATEDIR)/libgsloop.prepare
-
-#
-# dependencies
-#
-libgsloop_prepare_deps = \
-	$(STATEDIR)/libgsloop.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/librn.install
 
 LIBGSLOOP_PATH	=  PATH=$(CROSS_PATH)
 LIBGSLOOP_ENV 	=  $(CROSS_ENV)
@@ -96,8 +82,6 @@ $(STATEDIR)/libgsloop.prepare: $(libgsloop_prepare_deps_default)
 
 libgsloop_compile: $(STATEDIR)/libgsloop.compile
 
-libgsloop_compile_deps = $(STATEDIR)/libgsloop.prepare
-
 $(STATEDIR)/libgsloop.compile: $(libgsloop_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBGSLOOP_DIR) && $(LIBGSLOOP_ENV) $(LIBGSLOOP_PATH) make
@@ -119,10 +103,6 @@ $(STATEDIR)/libgsloop.install: $(STATEDIR)/libgsloop.compile
 # ----------------------------------------------------------------------------
 
 libgsloop_targetinstall: $(STATEDIR)/libgsloop.targetinstall
-
-libgsloop_targetinstall_deps = \
-	$(STATEDIR)/libgsloop.compile \
-	$(STATEDIR)/librn.targetinstall
 
 $(STATEDIR)/libgsloop.targetinstall: $(libgsloop_targetinstall_deps_default)
 	@$(call targetinfo, $@)

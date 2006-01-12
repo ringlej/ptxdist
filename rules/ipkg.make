@@ -32,9 +32,7 @@ IPKG_DIR		= $(BUILDDIR)/$(IPKG)
 
 ipkg_get: $(STATEDIR)/ipkg.get
 
-ipkg_get_deps = $(IPKG_SOURCE)
-
-$(STATEDIR)/ipkg.get: $(ipkg_get_deps_default)
+$(STATEDIR)/ipkg.get: $(IPKG_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(IPKG))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(IPKG_SOURCE):
 
 ipkg_extract: $(STATEDIR)/ipkg.extract
 
-ipkg_extract_deps = $(STATEDIR)/ipkg.get
-
 $(STATEDIR)/ipkg.extract: $(ipkg_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPKG_DIR))
@@ -64,17 +60,8 @@ $(STATEDIR)/ipkg.extract: $(ipkg_extract_deps)
 
 ipkg_prepare: $(STATEDIR)/ipkg.prepare
 
-#
-# dependencies
-#
-ipkg_prepare_deps = \
-	$(STATEDIR)/ipkg.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 IPKG_PATH	=  PATH=$(CROSS_PATH)
 IPKG_ENV 	=  $(CROSS_ENV)
-#IPKG_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#IPKG_ENV	+=
 
 #
 # autoconf
@@ -94,8 +81,6 @@ $(STATEDIR)/ipkg.prepare: $(ipkg_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 ipkg_compile: $(STATEDIR)/ipkg.compile
-
-ipkg_compile_deps = $(STATEDIR)/ipkg.prepare
 
 $(STATEDIR)/ipkg.compile: $(ipkg_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -118,8 +103,6 @@ $(STATEDIR)/ipkg.install: $(STATEDIR)/ipkg.compile
 # ----------------------------------------------------------------------------
 
 ipkg_targetinstall: $(STATEDIR)/ipkg.targetinstall
-
-ipkg_targetinstall_deps = $(STATEDIR)/ipkg.compile
 
 $(STATEDIR)/ipkg.targetinstall: $(ipkg_targetinstall_deps_default)
 	@$(call targetinfo, $@)

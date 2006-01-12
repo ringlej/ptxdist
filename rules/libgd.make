@@ -32,9 +32,7 @@ LIBGD_DIR	= $(BUILDDIR)/$(LIBGD)
 
 libgd_get: $(STATEDIR)/libgd.get
 
-libgd_get_deps	=  $(LIBGD_SOURCE)
-
-$(STATEDIR)/libgd.get: $(libgd_get_deps_default)
+$(STATEDIR)/libgd.get: $(LIBGD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,8 +45,6 @@ $(LIBGD_SOURCE):
 # ----------------------------------------------------------------------------
 
 libgd_extract: $(STATEDIR)/libgd.extract
-
-libgd_extract_deps	=  $(STATEDIR)/libgd.get
 
 $(STATEDIR)/libgd.extract: $(libgd_extract_deps)
 	@$(call targetinfo, $@)
@@ -63,16 +59,8 @@ $(STATEDIR)/libgd.extract: $(libgd_extract_deps)
 
 libgd_prepare: $(STATEDIR)/libgd.prepare
 
-#
-# dependencies
-#
-libgd_prepare_deps =  \
-	$(STATEDIR)/libgd.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 LIBGD_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 LIBGD_ENV 	=  $(CROSS_ENV)
-#LIBGD_ENV	+=
 
 
 #
@@ -96,8 +84,6 @@ $(STATEDIR)/libgd.prepare: $(libgd_prepare_deps_default)
 
 libgd_compile: $(STATEDIR)/libgd.compile
 
-libgd_compile_deps =  $(STATEDIR)/libgd.prepare
-
 $(STATEDIR)/libgd.compile: $(libgd_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(LIBGD_PATH) $(LIBGD_ENV) make -C $(LIBGD_DIR)
@@ -120,8 +106,6 @@ $(STATEDIR)/libgd.install: $(STATEDIR)/libgd.compile
 # ----------------------------------------------------------------------------
 
 libgd_targetinstall: $(STATEDIR)/libgd.targetinstall
-
-libgd_targetinstall_deps	=  $(STATEDIR)/libgd.compile
 
 $(STATEDIR)/libgd.targetinstall: $(libgd_targetinstall_deps_default)
 	@$(call targetinfo, $@)

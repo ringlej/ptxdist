@@ -32,9 +32,7 @@ INETUTILS_DIR		= $(BUILDDIR)/$(INETUTILS)
 
 inetutils_get: $(STATEDIR)/inetutils.get
 
-inetutils_get_deps	=  $(INETUTILS_SOURCE)
-
-$(STATEDIR)/inetutils.get: $(inetutils_get_deps_default)
+$(STATEDIR)/inetutils.get: $(INETUTILS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(INETUTILS))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(INETUTILS_SOURCE):
 
 inetutils_extract: $(STATEDIR)/inetutils.extract
 
-inetutils_extract_deps	=  $(STATEDIR)/inetutils.get
-
 $(STATEDIR)/inetutils.extract: $(inetutils_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(INETUTILS_DIR))
@@ -63,13 +59,6 @@ $(STATEDIR)/inetutils.extract: $(inetutils_extract_deps)
 # ----------------------------------------------------------------------------
 
 inetutils_prepare: $(STATEDIR)/inetutils.prepare
-
-#
-# dependencies
-#
-inetutils_prepare_deps =  \
-	$(STATEDIR)/inetutils.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 INETUTILS_PATH	=  PATH=$(CROSS_PATH)
 INETUTILS_ENV 	=  $(CROSS_ENV)
@@ -95,8 +84,6 @@ $(STATEDIR)/inetutils.prepare: $(inetutils_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 inetutils_compile: $(STATEDIR)/inetutils.compile
-
-inetutils_compile_deps =  $(STATEDIR)/inetutils.prepare
 
 $(STATEDIR)/inetutils.compile: $(inetutils_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -140,8 +127,6 @@ $(STATEDIR)/inetutils.install:
 # ----------------------------------------------------------------------------
 
 inetutils_targetinstall: $(STATEDIR)/inetutils.targetinstall
-
-inetutils_targetinstall_deps	=  $(STATEDIR)/inetutils.compile
 
 $(STATEDIR)/inetutils.targetinstall: $(inetutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)

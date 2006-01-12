@@ -43,12 +43,13 @@ KAFFE_KANGAROO_DIR	= $(BUILDDIR)/$(KAFFE_KANGAROO)
 
 kaffe_get: $(STATEDIR)/kaffe.get
 
+# FIXME
 kaffe_get_deps	=  $(KAFFE_SOURCE)
 ifdef PTXCONF_KAFFE_API_CLDC
 kaffe_get_deps	+= $(KAFFE_KANGAROO_SOURCE)
 endif
 
-$(STATEDIR)/kaffe.get: $(kaffe_get_deps_default)
+$(STATEDIR)/kaffe.get: $(kaffe_get_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -65,11 +66,6 @@ $(KAFFE_KANGAROO_SOURCE):
 # ----------------------------------------------------------------------------
 
 kaffe_extract: $(STATEDIR)/kaffe.extract
-
-kaffe_extract_deps	=  $(STATEDIR)/kaffe-base.extract
-ifdef PTXCONF_KAFFE_API_CLDC
-kaffe_extract_deps	+= $(STATEDIR)/kaffe-kangaroo.extract
-endif
 
 $(STATEDIR)/kaffe.extract: $(kaffe_extract_deps)
 	@$(call targetinfo, $@)
@@ -94,21 +90,6 @@ $(STATEDIR)/kaffe-kangaroo.extract: $(STATEDIR)/kaffe.get
 # ----------------------------------------------------------------------------
 
 kaffe_prepare: $(STATEDIR)/kaffe.prepare
-
-#
-# dependencies
-#
-kaffe_prepare_deps =  \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/xchain-kaffe.install \
-	$(STATEDIR)/kaffe.extract
-
-ifndef PTXCONF_KAFFE_FEAT_JAVAMATH
-kaffe_prepare_deps	+= $(STATEDIR)/gmp3.install
-endif
-ifdef PTXCONF_KAFFE_FEAT_CLDC_GMP
-kaffe_prepare_deps	+= $(STATEDIR)/gmp3.install
-endif
 
 KAFFE_PATH	= PATH=$(CROSS_PATH)
 KAFFE_ENV 	= $(CROSS_ENV) KAFFEH=$(PTXCONF_PREFIX)/bin/kaffeh
@@ -245,8 +226,6 @@ $(STATEDIR)/kaffe.prepare: $(kaffe_prepare_deps_default)
 
 kaffe_compile: $(STATEDIR)/kaffe.compile
 
-kaffe_compile_deps =  $(STATEDIR)/kaffe.prepare
-
 ifdef PTXCONF_KAFFE_JIKES_WO_DEBUG
 KAFFE_MAKEVARS	= JAVAC_FLAGS="-g:none -verbose"
 else
@@ -285,12 +264,6 @@ $(STATEDIR)/kaffe.install: $(STATEDIR)/kaffe.compile
 # ----------------------------------------------------------------------------
 
 kaffe_targetinstall: $(STATEDIR)/kaffe.targetinstall
-
-kaffe_targetinstall_deps	=  $(STATEDIR)/kaffe.compile
-
-ifdef PTXCONF_KAFFE_TARGETINSTALL_GMP
-kaffe_targetinstall_deps	+= $(STATEDIR)/gmp3.targetinstall
-endif
 
 $(STATEDIR)/kaffe.targetinstall: $(kaffe_targetinstall_deps_default)
 	@$(call targetinfo, $@)

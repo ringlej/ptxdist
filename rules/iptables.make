@@ -32,9 +32,7 @@ IPTABLES_DIR		= $(BUILDDIR)/$(IPTABLES)
 
 iptables_get: $(STATEDIR)/iptables.get
 
-iptables_get_deps = $(IPTABLES_SOURCE)
-
-$(STATEDIR)/iptables.get: $(iptables_get_deps_default)
+$(STATEDIR)/iptables.get: $(IPTABLES_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(IPTABLES))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(IPTABLES_SOURCE):
 
 iptables_extract: $(STATEDIR)/iptables.extract
 
-iptables_extract_deps = $(STATEDIR)/iptables.get
-
 $(STATEDIR)/iptables.extract: $(iptables_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPTABLES_DIR))
@@ -64,17 +60,8 @@ $(STATEDIR)/iptables.extract: $(iptables_extract_deps)
 
 iptables_prepare: $(STATEDIR)/iptables.prepare
 
-#
-# dependencies
-#
-iptables_prepare_deps = \
-	$(STATEDIR)/iptables.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/kernel.prepare
-
 IPTABLES_PATH	=  PATH=$(CROSS_PATH)
 IPTABLES_ENV 	=  $(CROSS_ENV)
-
 
 $(STATEDIR)/iptables.prepare: $(iptables_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -86,8 +73,6 @@ $(STATEDIR)/iptables.prepare: $(iptables_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 iptables_compile: $(STATEDIR)/iptables.compile
-
-iptables_compile_deps = $(STATEDIR)/iptables.prepare
 
 $(STATEDIR)/iptables.compile: $(iptables_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -111,8 +96,6 @@ $(STATEDIR)/iptables.install: $(STATEDIR)/iptables.compile
 # ----------------------------------------------------------------------------
 
 iptables_targetinstall: $(STATEDIR)/iptables.targetinstall
-
-iptables_targetinstall_deps = $(STATEDIR)/iptables.compile
 
 $(STATEDIR)/iptables.targetinstall: $(iptables_targetinstall_deps_default)
 	@$(call targetinfo, $@)

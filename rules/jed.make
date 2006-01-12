@@ -32,9 +32,7 @@ JED_DIR		= $(BUILDDIR)/$(JED)
 
 jed_get: $(STATEDIR)/jed.get
 
-jed_get_deps = $(JED_SOURCE)
-
-$(STATEDIR)/jed.get: $(jed_get_deps_default)
+$(STATEDIR)/jed.get: $(JED_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JED))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(JED_SOURCE):
 
 jed_extract: $(STATEDIR)/jed.extract
 
-jed_extract_deps = $(STATEDIR)/jed.get
-
 $(STATEDIR)/jed.extract: $(jed_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JED_DIR))
@@ -64,18 +60,8 @@ $(STATEDIR)/jed.extract: $(jed_extract_deps)
 
 jed_prepare: $(STATEDIR)/jed.prepare
 
-#
-# dependencies
-#
-jed_prepare_deps = \
-	$(STATEDIR)/jed.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/slang.install
-
 JED_PATH	=  PATH=$(CROSS_PATH)
 JED_ENV 	=  $(CROSS_ENV)
-#JED_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#JED_ENV	+=
 
 #
 # autoconf
@@ -95,8 +81,6 @@ $(STATEDIR)/jed.prepare: $(jed_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 jed_compile: $(STATEDIR)/jed.compile
-
-jed_compile_deps = $(STATEDIR)/jed.prepare
 
 $(STATEDIR)/jed.compile: $(jed_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -120,8 +104,6 @@ $(STATEDIR)/jed.install: $(STATEDIR)/jed.compile
 # ----------------------------------------------------------------------------
 
 jed_targetinstall: $(STATEDIR)/jed.targetinstall
-
-jed_targetinstall_deps = $(STATEDIR)/jed.compile
 
 $(STATEDIR)/jed.targetinstall: $(jed_targetinstall_deps_default)
 	@$(call targetinfo, $@)

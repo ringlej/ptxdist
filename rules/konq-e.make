@@ -32,9 +32,7 @@ KONQ-E_DIR		= $(BUILDDIR)/$(KONQ-E)
 
 konq-e_get: $(STATEDIR)/konq-e.get
 
-konq-e_get_deps	=  $(KONQ-E_SOURCE)
-
-$(STATEDIR)/konq-e.get: $(konq-e_get_deps_default)
+$(STATEDIR)/konq-e.get: $(KONQ-E_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,8 +45,6 @@ $(KONQ-E_SOURCE):
 # ----------------------------------------------------------------------------
 
 konq-e_extract: $(STATEDIR)/konq-e.extract
-
-konq-e_extract_deps	=  $(STATEDIR)/konq-e.get
 
 $(STATEDIR)/konq-e.extract: $(konq-e_extract_deps)
 	@$(call targetinfo, $@)
@@ -63,17 +59,8 @@ $(STATEDIR)/konq-e.extract: $(konq-e_extract_deps)
 
 konq-e_prepare: $(STATEDIR)/konq-e.prepare
 
-#
-# dependencies
-#
-konq-e_prepare_deps =  \
-	$(STATEDIR)/konq-e.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 KONQ-E_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 KONQ-E_ENV 	=  $(CROSS_ENV)
-#KONQ-E_ENV	+=
-
 
 #
 # autoconf
@@ -93,8 +80,6 @@ $(STATEDIR)/konq-e.prepare: $(konq-e_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 konq-e_compile: $(STATEDIR)/konq-e.compile
-
-konq-e_compile_deps =  $(STATEDIR)/konq-e.prepare
 
 $(STATEDIR)/konq-e.compile: $(konq-e_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -118,8 +103,6 @@ $(STATEDIR)/konq-e.install: $(STATEDIR)/konq-e.compile
 # ----------------------------------------------------------------------------
 
 konq-e_targetinstall: $(STATEDIR)/konq-e.targetinstall
-
-konq-e_targetinstall_deps	=  $(STATEDIR)/konq-e.compile
 
 $(STATEDIR)/konq-e.targetinstall: $(konq-e_targetinstall_deps_default)
 	@$(call targetinfo, $@)

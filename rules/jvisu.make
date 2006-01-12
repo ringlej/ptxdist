@@ -31,9 +31,7 @@ JVISU_DIR	= $(BUILDDIR)/$(JVISU)
 
 jvisu_get: $(STATEDIR)/jvisu.get
 
-jvisu_get_deps = $(JVISU_SOURCE)
-
-$(STATEDIR)/jvisu.get: $(jvisu_get_deps_default)
+$(STATEDIR)/jvisu.get: $(JVISU_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JVISU))
 	@$(call touch, $@)
@@ -47,8 +45,6 @@ $(JVISU_SOURCE):
 # ----------------------------------------------------------------------------
 
 jvisu_extract: $(STATEDIR)/jvisu.extract
-
-jvisu_extract_deps = $(STATEDIR)/jvisu.get
 
 $(STATEDIR)/jvisu.extract: $(jvisu_extract_deps)
 	@$(call targetinfo, $@)
@@ -68,13 +64,6 @@ $(STATEDIR)/jvisu.extract: $(jvisu_extract_deps)
 
 jvisu_prepare: $(STATEDIR)/jvisu.prepare
 
-#
-# dependencies
-#
-jvisu_prepare_deps = \
-	$(STATEDIR)/jvisu.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 JVISU_PATH	=  PATH=$(PTXCONF_SETUP_JAVA_SDK)/bin:$(CROSS_PATH)
 JVISU_ENV 	=  $(CROSS_ENV)
 JVISU_ENV	+= JAVA_HOME=$(PTXCONF_SETUP_JAVA_SDK)
@@ -89,8 +78,6 @@ $(STATEDIR)/jvisu.prepare: $(jvisu_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 jvisu_compile: $(STATEDIR)/jvisu.compile
-
-jvisu_compile_deps = $(STATEDIR)/jvisu.prepare
 
 $(STATEDIR)/jvisu.compile: $(jvisu_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -116,8 +103,6 @@ $(STATEDIR)/jvisu.install: $(STATEDIR)/jvisu.compile
 # ----------------------------------------------------------------------------
 
 jvisu_targetinstall: $(STATEDIR)/jvisu.targetinstall
-
-jvisu_targetinstall_deps = $(STATEDIR)/jvisu.compile
 
 $(STATEDIR)/jvisu.targetinstall: $(jvisu_targetinstall_deps_default)
 	@$(call targetinfo, $@)

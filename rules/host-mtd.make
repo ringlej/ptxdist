@@ -29,8 +29,6 @@ HOST_MTD_DIR	= $(HOST_BUILDDIR)/$(HOST_MTD)
 
 host-mtd_get: $(STATEDIR)/host-mtd.get
 
-host-mtd_get_deps = $(STATEDIR)/mtd.get
-
 $(STATEDIR)/host-mtd.get: $(host-mtd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_MTD))
@@ -41,8 +39,6 @@ $(STATEDIR)/host-mtd.get: $(host-mtd_get_deps_default)
 # ----------------------------------------------------------------------------
 
 host-mtd_extract: $(STATEDIR)/host-mtd.extract
-
-host-mtd_extract_deps = $(STATEDIR)/host-mtd.get
 
 $(STATEDIR)/host-mtd.extract: $(host-mtd_extract_deps)
 	@$(call targetinfo, $@)
@@ -56,13 +52,6 @@ $(STATEDIR)/host-mtd.extract: $(host-mtd_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-mtd_prepare: $(STATEDIR)/host-mtd.prepare
-
-#
-# dependencies
-#
-host-mtd_prepare_deps = \
-	$(STATEDIR)/host-zlib.install \
-	$(STATEDIR)/host-mtd.extract
 
 HOST_MTD_MAKEVARS = \
 	$(HOSTCC_ENV) \
@@ -78,8 +67,6 @@ $(STATEDIR)/host-mtd.prepare: $(host-mtd_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 host-mtd_compile: $(STATEDIR)/host-mtd.compile
-
-host-mtd_compile_deps = $(STATEDIR)/host-mtd.prepare
 
 $(STATEDIR)/host-mtd.compile: $(host-mtd_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -126,8 +113,6 @@ endif
 # ----------------------------------------------------------------------------
 
 host-mtd_targetinstall: $(STATEDIR)/host-mtd.targetinstall
-
-host-mtd_targetinstall_deps = $(STATEDIR)/host-mtd.install
 
 $(STATEDIR)/host-mtd.targetinstall: $(host-mtd_targetinstall_deps_default)
 	@$(call targetinfo, $@)

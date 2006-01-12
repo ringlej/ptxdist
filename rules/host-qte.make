@@ -32,8 +32,6 @@ HOST_QTE_DIR		= $(HOST_BUILDDIR)/$(HOST_QTE)
 
 host-qte_get: $(STATEDIR)/host-qte.get
 
-host-qte_get_deps = $(HOST_QTE_SOURCE)
-
 $(STATEDIR)/host-qte.get: $(host-qte_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_QTE))
@@ -44,8 +42,6 @@ $(STATEDIR)/host-qte.get: $(host-qte_get_deps_default)
 # ----------------------------------------------------------------------------
 
 host-qte_extract: $(STATEDIR)/host-qte.extract
-
-host-qte_extract_deps = $(STATEDIR)/host-qte.get
 
 $(STATEDIR)/host-qte.extract: $(host-qte_extract_deps)
 	@$(call targetinfo, $@)
@@ -59,12 +55,6 @@ $(STATEDIR)/host-qte.extract: $(host-qte_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-qte_prepare: $(STATEDIR)/host-qte.prepare
-
-#
-# dependencies
-#
-host-qte_prepare_deps = \
-	$(STATEDIR)/host-qte.extract
 
 HOST_QTE_PATH	=  PATH=$(HOST_PATH)
 HOST_QTE_ENV 	=  $(HOSTCC_ENV)
@@ -113,8 +103,6 @@ $(STATEDIR)/host-qte.prepare: $(host-qte_prepare_deps_default)
 
 host-qte_compile: $(STATEDIR)/host-qte.compile
 
-host-qte_compile_deps = $(STATEDIR)/host-qte.prepare
-
 $(STATEDIR)/host-qte.compile: $(host-qte_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_QTE_DIR) && $(HOST_QTE_ENV) $(HOST_QTE_PATH) make sub-src
@@ -126,8 +114,6 @@ $(STATEDIR)/host-qte.compile: $(host-qte_compile_deps_default)
 # ----------------------------------------------------------------------------
 
 host-qte_install: $(STATEDIR)/host-qte.install
-
-host-qte_install_deps = $(STATEDIR)/host-qte.compile
 
 $(STATEDIR)/host-qte.install: $(host-qte_install_deps_default)
 	@$(call targetinfo, $@)

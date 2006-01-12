@@ -32,9 +32,7 @@ KLIBC_DIR		= $(BUILDDIR)/$(KLIBC)
 
 klibc_get: $(STATEDIR)/klibc.get
 
-klibc_get_deps = $(KLIBC_SOURCE)
-
-$(STATEDIR)/klibc.get: $(klibc_get_deps_default)
+$(STATEDIR)/klibc.get: $(KLIBC_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +46,6 @@ $(KLIBC_SOURCE):
 
 klibc_extract: $(STATEDIR)/klibc.extract
 
-klibc_extract_deps = $(STATEDIR)/klibc.get
-
 $(STATEDIR)/klibc.extract: $(klibc_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KLIBC_DIR))
@@ -62,13 +58,6 @@ $(STATEDIR)/klibc.extract: $(klibc_extract_deps)
 # ----------------------------------------------------------------------------
 
 klibc_prepare: $(STATEDIR)/klibc.prepare
-
-#
-# dependencies
-#
-klibc_prepare_deps = \
-	$(STATEDIR)/klibc.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 KLIBC_PATH	=  PATH=$(CROSS_PATH)
 KLIBC_ENV 	=  $(CROSS_ENV)
@@ -91,7 +80,7 @@ klibc_compile: $(STATEDIR)/klibc.compile
 klibc_compile_deps = $(STATEDIR)/klibc.prepare
 klibc_compile_deps += $(STATEDIR)/kernel.prepare
 
-$(STATEDIR)/klibc.compile: $(klibc_compile_deps_default)
+$(STATEDIR)/klibc.compile: $(klibc_compile_deps)
 	@$(call targetinfo, $@)
 	cd $(KLIBC_DIR) && make ARCH=$(PTXCONF_ARCH) CROSS=$(COMPILER_PREFIX) KRNLSRC=$(KERNEL_DIR) prefix=$(PTXCONF_PREFIX)
 	@$(call touch, $@)
@@ -204,7 +193,7 @@ klibc_targetinstall: $(STATEDIR)/klibc.targetinstall
 
 klibc_targetinstall_deps = $(STATEDIR)/klibc.compile
 
-$(STATEDIR)/klibc.targetinstall: $(klibc_targetinstall_deps_default)
+$(STATEDIR)/klibc.targetinstall: $(klibc_targetinstall_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

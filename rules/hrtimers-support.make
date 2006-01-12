@@ -32,9 +32,7 @@ HRTIMERS_SUPPORT_DIR		= $(BUILDDIR)/$(HRTIMERS_SUPPORT)
 
 hrtimers-support_get: $(STATEDIR)/hrtimers-support.get
 
-hrtimers-support_get_deps = $(HRTIMERS_SUPPORT_SOURCE)
-
-$(STATEDIR)/hrtimers-support.get: $(hrtimers-support_get_deps_default)
+$(STATEDIR)/hrtimers-support.get: $(HRTIMERS_SUPPORT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +46,6 @@ $(HRTIMERS_SUPPORT_SOURCE):
 
 hrtimers-support_extract: $(STATEDIR)/hrtimers-support.extract
 
-hrtimers-support_extract_deps = $(STATEDIR)/hrtimers-support.get
-
 $(STATEDIR)/hrtimers-support.extract: $(hrtimers-support_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HRTIMERS_SUPPORT_DIR))
@@ -62,13 +58,6 @@ $(STATEDIR)/hrtimers-support.extract: $(hrtimers-support_extract_deps)
 # ----------------------------------------------------------------------------
 
 hrtimers-support_prepare: $(STATEDIR)/hrtimers-support.prepare
-
-#
-# dependencies
-#
-hrtimers-support_prepare_deps = \
-	$(STATEDIR)/hrtimers-support.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 HRTIMERS_SUPPORT_PATH	=  PATH=$(CROSS_PATH)
 HRTIMERS_SUPPORT_ENV 	=  $(CROSS_ENV)
@@ -93,8 +82,6 @@ $(STATEDIR)/hrtimers-support.prepare: $(hrtimers-support_prepare_deps_default)
 
 hrtimers-support_compile: $(STATEDIR)/hrtimers-support.compile
 
-hrtimers-support_compile_deps = $(STATEDIR)/hrtimers-support.prepare
-
 $(STATEDIR)/hrtimers-support.compile: $(hrtimers-support_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HRTIMERS_SUPPORT_DIR) && $(HRTIMERS_SUPPORT_ENV) $(HRTIMERS_SUPPORT_PATH) make
@@ -116,8 +103,6 @@ $(STATEDIR)/hrtimers-support.install: $(STATEDIR)/hrtimers-support.compile
 # ----------------------------------------------------------------------------
 
 hrtimers-support_targetinstall: $(STATEDIR)/hrtimers-support.targetinstall
-
-hrtimers-support_targetinstall_deps = $(STATEDIR)/hrtimers-support.compile
 
 $(STATEDIR)/hrtimers-support.targetinstall: $(hrtimers-support_targetinstall_deps_default)
 	@$(call targetinfo, $@)

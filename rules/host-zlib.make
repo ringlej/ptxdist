@@ -34,7 +34,7 @@ $(STATEDIR)/host-zlib.get: $(STATEDIR)/zlib.get
 
 host-zlib_extract: $(STATEDIR)/host-zlib.extract
 
-$(STATEDIR)/host-zlib.extract: $(STATEDIR)/host-zlib.get
+$(STATEDIR)/host-zlib.extract: $(host_zlib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_ZLIB_BUILDDIR))
 	@$(call extract, $(ZLIB_SOURCE), $(HOST_BUILDDIR))
@@ -54,7 +54,7 @@ HOST_ZLIB_AUTOCONF	=  --prefix=$(PTXCONF_HOST_PREFIX)/usr
 HOST_ZLIB_AUTOCOHF +=  --shared
 HOST_ZLIB_MAKEVARS	=  $(HOSTCC_ENV)
 
-$(STATEDIR)/host-zlib.prepare: $(STATEDIR)/host-zlib.extract
+$(STATEDIR)/host-zlib.prepare: $(host_zlib_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_ZLIB_BUILDDIR) && \
 		./configure $(HOST_ZLIB_AUTOCONF)
@@ -66,7 +66,7 @@ $(STATEDIR)/host-zlib.prepare: $(STATEDIR)/host-zlib.extract
 
 host-zlib_compile: $(STATEDIR)/host-zlib.compile
 
-$(STATEDIR)/host-zlib.compile: $(STATEDIR)/host-zlib.prepare 
+$(STATEDIR)/host-zlib.compile: $(host_zlib_compile_deps_default) 
 	@$(call targetinfo, $@)
 	cd $(HOST_ZLIB_BUILDDIR) && make $(HOST_ZLIB_MAKEVARS)
 	@$(call touch, $@)
@@ -77,17 +77,18 @@ $(STATEDIR)/host-zlib.compile: $(STATEDIR)/host-zlib.prepare
 
 host-zlib_install: $(STATEDIR)/host-zlib.install
 
-$(STATEDIR)/host-zlib.install: $(STATEDIR)/host-zlib.compile
+$(STATEDIR)/host-zlib.install: $(host_zlib_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HOST_ZLIB, $(HOST_ZLIB_BUILDDIR),h)
 	@$(call touch, $@)
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 host-zlib_targetinstall: $(STATEDIR)/host-zlib.targetinstall
 
-$(STATEDIR)/host-zlib.targetinstall: $(STATEDIR)/host-zlib.install
+$(STATEDIR)/host-zlib.targetinstall: $(host_zlib_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

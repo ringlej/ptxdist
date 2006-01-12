@@ -20,9 +20,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_MODUTILS) += host-modutils
 HOST_MODUTILS_VERSION	= 2.4.27
 HOST_MODUTILS		= modutils-$(HOST_MODUTILS_VERSION)
 HOST_MODUTILS_SUFFIX	= tar.bz2
-HOST_MODUTILS_URL		= http://www.kernel.org/pub/linux/utils/kernel/modutils/v2.4/$(HOST_MODUTILS).$(HOST_MODUTILS_SUFFIX)
+HOST_MODUTILS_URL	= http://www.kernel.org/pub/linux/utils/kernel/modutils/v2.4/$(HOST_MODUTILS).$(HOST_MODUTILS_SUFFIX)
 HOST_MODUTILS_SOURCE	= $(SRCDIR)/$(HOST_MODUTILS).$(HOST_MODUTILS_SUFFIX)
-HOST_MODUTILS_DIR		= $(HOST_BUILDDIR)/$(HOST_MODUTILS)
+HOST_MODUTILS_DIR	= $(HOST_BUILDDIR)/$(HOST_MODUTILS)
 
 -include $(call package_depfile)
 
@@ -31,8 +31,6 @@ HOST_MODUTILS_DIR		= $(HOST_BUILDDIR)/$(HOST_MODUTILS)
 # ----------------------------------------------------------------------------
 
 host-modutils_get: $(STATEDIR)/host-modutils.get
-
-host-modutils_get_deps = $(HOST_MODUTILS_SOURCE)
 
 $(STATEDIR)/host-modutils.get: $(host-modutils_get_deps_default)
 	@$(call targetinfo, $@)
@@ -49,8 +47,6 @@ $(HOST_MODUTILS_SOURCE):
 
 host-modutils_extract: $(STATEDIR)/host-modutils.extract
 
-host-modutils_extract_deps = $(STATEDIR)/host-modutils.get
-
 $(STATEDIR)/host-modutils.extract: $(host-modutils_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MODUTILS_DIR))
@@ -63,13 +59,6 @@ $(STATEDIR)/host-modutils.extract: $(host-modutils_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-modutils_prepare: $(STATEDIR)/host-modutils.prepare
-
-#
-# dependencies
-#
-host-modutils_prepare_deps =  \
-	$(STATEDIR)/host-flex254.install \
-	$(STATEDIR)/host-modutils.extract
 
 HOST_MODUTILS_PATH	=  PATH=$(CROSS_PATH)
 HOST_MODUTILS_ENV 	=  CC=$(HOSTCC)
@@ -92,8 +81,6 @@ $(STATEDIR)/host-modutils.prepare: $(host-modutils_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 host-modutils_compile: $(STATEDIR)/host-modutils.compile
-
-host-modutils_compile_deps =  $(STATEDIR)/host-modutils.prepare
 
 $(STATEDIR)/host-modutils.compile: $(host-modutils_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -136,8 +123,6 @@ $(STATEDIR)/host-modutils.install: $(STATEDIR)/host-modutils.compile
 # ----------------------------------------------------------------------------
 
 host-modutils_targetinstall: $(STATEDIR)/host-modutils.targetinstall
-
-host-modutils_targetinstall_deps	=  $(STATEDIR)/host-modutils.compile
 
 $(STATEDIR)/host-modutils.targetinstall: $(host-modutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)

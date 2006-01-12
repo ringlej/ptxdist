@@ -31,8 +31,6 @@ CGICC_DIR		= $(BUILDDIR)/$(CGICC)
 
 cgicc_get: $(STATEDIR)/cgicc.get
 
-cgicc_get_deps = $(CGICC_SOURCE)
-
 $(STATEDIR)/cgicc.get: $(cgicc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(CGICC))
@@ -48,8 +46,6 @@ $(CGICC_SOURCE):
 
 cgicc_extract: $(STATEDIR)/cgicc.extract
 
-cgicc_extract_deps = $(STATEDIR)/cgicc.get
-
 $(STATEDIR)/cgicc.extract: $(cgicc_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CGICC_DIR))
@@ -63,17 +59,8 @@ $(STATEDIR)/cgicc.extract: $(cgicc_extract_deps)
 
 cgicc_prepare: $(STATEDIR)/cgicc.prepare
 
-#
-# dependencies
-#
-cgicc_prepare_deps = \
-	$(STATEDIR)/cgicc.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 CGICC_PATH	=  PATH=$(CROSS_PATH)
 CGICC_ENV 	=  $(CROSS_ENV)
-CGICC_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-CGICC_ENV	+=
 
 #
 # autoconf
@@ -93,8 +80,6 @@ $(STATEDIR)/cgicc.prepare: $(cgicc_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 cgicc_compile: $(STATEDIR)/cgicc.compile
-
-cgicc_compile_deps = $(STATEDIR)/cgicc.prepare
 
 $(STATEDIR)/cgicc.compile: $(cgicc_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -117,8 +102,6 @@ $(STATEDIR)/cgicc.install: $(STATEDIR)/cgicc.compile
 # ----------------------------------------------------------------------------
 
 cgicc_targetinstall: $(STATEDIR)/cgicc.targetinstall
-
-cgicc_targetinstall_deps = $(STATEDIR)/cgicc.compile
 
 $(STATEDIR)/cgicc.targetinstall: $(cgicc_targetinstall_deps_default)
 
