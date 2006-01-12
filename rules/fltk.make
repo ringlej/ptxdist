@@ -48,9 +48,7 @@ $(FLTK_SOURCE):
 
 fltk_extract: $(STATEDIR)/fltk.extract
 
-fltk_extract_deps	=  $(STATEDIR)/fltk.get
-
-$(STATEDIR)/fltk.extract: $(fltk_extract_deps)
+$(STATEDIR)/fltk.extract: $(fltk_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLTK_DIR))
 	@$(call extract, $(FLTK_SOURCE))
@@ -61,14 +59,6 @@ $(STATEDIR)/fltk.extract: $(fltk_extract_deps)
 # ----------------------------------------------------------------------------
 
 fltk_prepare: $(STATEDIR)/fltk.prepare
-
-#
-# dependencies
-#
-fltk_prepare_deps =  \
-	$(STATEDIR)/fltk.extract \
-	$(STATEDIR)/xfree430.install \
-	$(STATEDIR)/virtual-xchain.install
 
 FLTK_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 FLTK_ENV 	=  $(CROSS_ENV)
@@ -103,7 +93,7 @@ ifdef PTXCONF_FLTK_XDBE
 FLTK_AUTOCONF  += --enable-xdbe
 endif
 
-$(STATEDIR)/fltk.prepare: $(fltk_prepare_deps)
+$(STATEDIR)/fltk.prepare: $(fltk_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLTK_BUILDDIR))
 ifndef PTXCONF_FLTK_FLUID
@@ -120,9 +110,7 @@ endif
 
 fltk_compile: $(STATEDIR)/fltk.compile
 
-fltk_compile_deps =  $(STATEDIR)/fltk.prepare
-
-$(STATEDIR)/fltk.compile: $(fltk_compile_deps)
+$(STATEDIR)/fltk.compile: $(fltk_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(FLTK_PATH) $(FLTK_ENV) make -C $(FLTK_DIR)
 	@$(call touch, $@)
@@ -133,7 +121,7 @@ $(STATEDIR)/fltk.compile: $(fltk_compile_deps)
 
 fltk_install: $(STATEDIR)/fltk.install
 
-$(STATEDIR)/fltk.install: $(STATEDIR)/fltk.compile
+$(STATEDIR)/fltk.install: $(fltk_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, FLTK)
 	@$(call touch, $@)
@@ -144,12 +132,7 @@ $(STATEDIR)/fltk.install: $(STATEDIR)/fltk.compile
 
 fltk_targetinstall: $(STATEDIR)/fltk.targetinstall
 
-
-fltk_targetinstall_deps	=  $(STATEDIR)/fltk.compile \
-	$(STATEDIR)/fltk.install \
-	$(STATEDIR)/xfree430.targetinstall
-
-$(STATEDIR)/fltk.targetinstall: $(fltk_targetinstall_deps)
+$(STATEDIR)/fltk.targetinstall: $(fltk_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

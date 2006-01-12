@@ -1,30 +1,43 @@
 menuconfig FLTK
 	bool "FLTK GUI Toolkit      "
-	depends on XFREE430
+	select on XFREE430
+	help
+	  FLTK, a LGPLed cross-platform graphical 
+	  user interface toolkit originally based on libForms.
+ 
+ 	  URL: http://www.fltk.org/
 
 config FLTK_OPENGL
-       bool
-       prompt "Turn on OpenGL support"
-       default y
-       depends on FLTK
+       	bool
+       	prompt "Turn on OpenGL support"
+       	default y
+       	depends on FLTK
+	help
+	  FIXME: This item needs to be documented
 
 config FLTK_THREADS
-       bool
-       prompt "Enable multi-threading support"
-       default n
-       depends on FLTK
+       	bool
+       	prompt "Enable multi-threading support"
+       	default n
+       	depends on FLTK
+	help
+	  FIXME: This item needs to be documented
 
 config FLTK_XFT
        bool
        prompt "Turn on Xft support"
        default n
        depends on FLTK
+	help
+	  FIXME: This item needs to be documented
 
 config FLTK_XDBE
-       bool
-       prompt "Turn on Xdbe support"
-       default n
-       depends on FLTK
+       	bool
+       	prompt "Turn on Xdbe support"
+       	default n
+       	depends on FLTK
+	help
+	  FIXME: This item needs to be documented
 
 config FLTK_FLUID
 	bool
