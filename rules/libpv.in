@@ -11,7 +11,7 @@ menuconfig LIBPV
 
 	  The library has also an integrated JVisu socket server. 
 
-config LIBPV_EVENTS
+config LIBPV_EVENT
 	bool
 	prompt "event support"
 	depends on LIBPV

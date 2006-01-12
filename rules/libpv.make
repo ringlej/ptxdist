@@ -65,8 +65,9 @@ LIBPV_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-LIBPV_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-LIBPV_AUTOCONF += --disable-debug
+LIBPV_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug
 ifdef PTXCONF_LIBPV_EVENT
 LIBPV_AUTOCONF += --enable-event
 else
