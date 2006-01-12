@@ -105,7 +105,7 @@ $(STATEDIR)/e2fsprogs.compile: $(e2fsprogs_compile_deps_default)
 
 e2fsprogs_install: $(STATEDIR)/e2fsprogs.install
 
-$(STATEDIR)/e2fsprogs.install: $(e2fsprogs_install_deps_default) 
+$(STATEDIR)/e2fsprogs.install: $(e2fsprogs_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, E2FSPROGS)
@@ -117,7 +117,7 @@ $(STATEDIR)/e2fsprogs.install: $(e2fsprogs_install_deps_default)
 
 e2fsprogs_targetinstall: $(STATEDIR)/e2fsprogs.targetinstall
 
-$(STATEDIR)/e2fsprogs.targetinstall: $(e2fsprogs_targetinstall_deps_default) 
+$(STATEDIR)/e2fsprogs.targetinstall: $(e2fsprogs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
