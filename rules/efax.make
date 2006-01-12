@@ -32,9 +32,7 @@ EFAX_DIR		= $(BUILDDIR)/$(EFAX)
 
 efax_get: $(STATEDIR)/efax.get
 
-efax_get_deps = $(EFAX_SOURCE)
-
-$(STATEDIR)/efax.get: $(efax_get_deps)
+$(STATEDIR)/efax.get: $(EFAX_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(EFAX))
 	@$(call touch, $@)
