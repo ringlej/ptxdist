@@ -49,9 +49,7 @@ $(EFAX_SOURCE):
 
 efax_extract: $(STATEDIR)/efax.extract
 
-efax_extract_deps = $(STATEDIR)/efax.get
-
-$(STATEDIR)/efax.extract: $(efax_extract_deps)
+$(STATEDIR)/efax.extract: $(efax_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EFAX_DIR))
 	@$(call extract, $(EFAX_SOURCE))
@@ -64,13 +62,6 @@ $(STATEDIR)/efax.extract: $(efax_extract_deps)
 
 efax_prepare: $(STATEDIR)/efax.prepare
 
-#
-# dependencies
-#
-efax_prepare_deps = \
-	$(STATEDIR)/efax.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 EFAX_PATH	=  PATH=$(CROSS_PATH)
 EFAX_ENV 	=  $(CROSS_ENV)
 
@@ -79,7 +70,7 @@ EFAX_ENV 	=  $(CROSS_ENV)
 #
 EFAX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/efax.prepare: $(efax_prepare_deps)
+$(STATEDIR)/efax.prepare: $(efax_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EFAX_DIR)/config.cache)
 	@$(call touch, $@)
@@ -90,9 +81,7 @@ $(STATEDIR)/efax.prepare: $(efax_prepare_deps)
 
 efax_compile: $(STATEDIR)/efax.compile
 
-efax_compile_deps = $(STATEDIR)/efax.prepare
-
-$(STATEDIR)/efax.compile: $(efax_compile_deps)
+$(STATEDIR)/efax.compile: $(efax_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(EFAX_DIR) && $(EFAX_ENV) $(EFAX_PATH) make all
 	@$(call touch, $@)
@@ -103,7 +92,7 @@ $(STATEDIR)/efax.compile: $(efax_compile_deps)
 
 efax_install: $(STATEDIR)/efax.install
 
-$(STATEDIR)/efax.install: $(STATEDIR)/efax.compile
+$(STATEDIR)/efax.install: $(efax_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	# @$(call install, EFAX)
@@ -115,9 +104,7 @@ $(STATEDIR)/efax.install: $(STATEDIR)/efax.compile
 
 efax_targetinstall: $(STATEDIR)/efax.targetinstall
 
-efax_targetinstall_deps = $(STATEDIR)/efax.compile
-
-$(STATEDIR)/efax.targetinstall: $(efax_targetinstall_deps)
+$(STATEDIR)/efax.targetinstall: $(efax_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
