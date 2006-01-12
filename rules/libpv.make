@@ -17,8 +17,7 @@ PACKAGES-$(PTXCONF_LIBPV) += libpv
 #
 # Paths and names
 #
-#LIBPV_VERSION	= 1.1.6.1
-LIBPV_VERSION	= 1.2.1
+LIBPV_VERSION	= 1.2.2
 LIBPV		= libpv-$(LIBPV_VERSION)
 LIBPV_SUFFIX	= tar.bz2
 LIBPV_URL	= http://www.pengutronix.de/software/libpv/download/$(LIBPV).$(LIBPV_SUFFIX)
@@ -126,9 +125,12 @@ ifdef PTXCONF_LIBPV_PVTOOL
 	@$(call install_copy, 0, 0, 0755, $(LIBPV_DIR)/src/.libs/pvtool, /usr/bin/pvtool)
 endif
 
-	@$(call install_copy, 0, 0, 0644, $(LIBPV_DIR)/src/.libs/libpv.so.5.2.2, /usr/lib/libpv.so.5.2.2)
-	@$(call install_link, libpv.so.5.2.2, /usr/lib/libpv.so.5)
-	@$(call install_link, libpv.so.5.2.2, /usr/lib/libpv.so)
+	@$(call install_copy, 0, 0, 0644, \
+		$(LIBPV_DIR)/src/.libs/libpv.so.8.1.0, \
+		/usr/lib/libpv.so.8.1.0)
+
+	@$(call install_link, libpv.so.8.1.0, /usr/lib/libpv.so.8)
+	@$(call install_link, libpv.so.8.1.0, /usr/lib/libpv.so)
 
 	@$(call install_finish)
 
