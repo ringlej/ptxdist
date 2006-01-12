@@ -32,9 +32,7 @@ UTIL-LINUX_DIR		= $(BUILDDIR)/$(UTIL-LINUX)
 
 util-linux_get: $(STATEDIR)/util-linux.get
 
-util-linux_get_deps	=  $(UTIL-LINUX_SOURCE)
-
-$(STATEDIR)/util-linux.get: $(util-linux_get_deps_default)
+$(STATEDIR)/util-linux.get: $(UTIL-LINUX_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(UTIL-LINUX))
 	@$(call touch, $@)
@@ -48,8 +46,6 @@ $(UTIL-LINUX_SOURCE):
 # ----------------------------------------------------------------------------
 
 util-linux_extract: $(STATEDIR)/util-linux.extract
-
-util-linux_extract_deps	=  $(STATEDIR)/util-linux.get
 
 $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps)
 	@$(call targetinfo, $@)
@@ -66,13 +62,6 @@ $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps)
 
 util-linux_prepare: $(STATEDIR)/util-linux.prepare
 
-#
-# dependencies
-#
-util-linux_prepare_deps =  \
-	$(STATEDIR)/util-linux.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 UTIL-LINUX_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 UTIL-LINUX_ENV 	=  $(CROSS_ENV)
 
@@ -88,8 +77,6 @@ $(STATEDIR)/util-linux.prepare: $(util-linux_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 util-linux_compile: $(STATEDIR)/util-linux.compile
-
-util-linux_compile_deps =  $(STATEDIR)/util-linux.prepare
 
 $(STATEDIR)/util-linux.compile: $(util-linux_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -139,8 +126,6 @@ $(STATEDIR)/util-linux.install: $(STATEDIR)/util-linux.compile
 # ----------------------------------------------------------------------------
 
 util-linux_targetinstall: $(STATEDIR)/util-linux.targetinstall
-
-util-linux_targetinstall_deps	=  $(STATEDIR)/util-linux.compile
 
 $(STATEDIR)/util-linux.targetinstall: $(util-linux_targetinstall_deps_default)
 	@$(call targetinfo, $@)

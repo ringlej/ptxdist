@@ -31,8 +31,6 @@ WIRELESS_DIR 		= $(BUILDDIR)/$(WIRELESS)
 
 wireless_get: $(STATEDIR)/wireless.get
 
-wireless_get_deps	= $(WIRELESS_SOURCE)
-
 $(STATEDIR)/wireless.get: $(wireless_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -47,8 +45,6 @@ $(WIRELESS_SOURCE):
 
 wireless_extract: $(STATEDIR)/wireless.extract
 
-wireless_extract_deps	= $(STATEDIR)/wireless.get
-
 $(STATEDIR)/wireless.extract: $(wireless_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WIRELESS_DIR))
@@ -61,8 +57,6 @@ $(STATEDIR)/wireless.extract: $(wireless_extract_deps)
 # ----------------------------------------------------------------------------
 
 wireless_prepare: $(STATEDIR)/wireless.prepare
-
-wireless_prepare_deps	= $(STATEDIR)/wireless.extract
 
 $(STATEDIR)/wireless.prepare: $(wireless_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -81,8 +75,6 @@ WIRELESS_ENV 	=  $(CROSS_ENV)
 
 wireless_compile: $(STATEDIR)/wireless.compile
 
-wireless_compile_deps	= $(STATEDIR)/wireless.prepare
-
 $(STATEDIR)/wireless.compile: $(wireless_compile_deps_default) 
 	@$(call targetinfo, $@)
 	cd $(WIRELESS_DIR) && $(WIRELESS_PATH) $(WIRELESS_ENV) make CC=${CROSS_CC}
@@ -94,8 +86,6 @@ $(STATEDIR)/wireless.compile: $(wireless_compile_deps_default)
 
 wireless_install: $(STATEDIR)/wireless.install
 
-wireless_compile_deps	= $(STATEDIR)/wireless.compile
-
 $(STATEDIR)/wireless.install: $(wireless_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -106,7 +96,7 @@ $(STATEDIR)/wireless.install: $(wireless_compile_deps_default)
 
 wireless_targetinstall: $(STATEDIR)/wireless.targetinstall
 
-$(STATEDIR)/wireless.targetinstall: $(STATEDIR)/wireless.install
+$(STATEDIR)/wireless.targetinstall: $(wireless_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

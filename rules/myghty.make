@@ -32,9 +32,7 @@ MYGHTY_DIR	= $(BUILDDIR)/$(MYGHTY)
 
 myghty_get: $(STATEDIR)/myghty.get
 
-myghty_get_deps = $(MYGHTY_SOURCE)
-
-$(STATEDIR)/myghty.get: $(myghty_get_deps_default)
+$(STATEDIR)/myghty.get: $(MYGHTY_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,8 +45,6 @@ $(MYGHTY_SOURCE):
 # ----------------------------------------------------------------------------
 
 myghty_extract: $(STATEDIR)/myghty.extract
-
-myghty_extract_deps = $(STATEDIR)/myghty.get
 
 $(STATEDIR)/myghty.extract: $(myghty_extract_deps)
 	@$(call targetinfo, $@)
@@ -63,16 +59,8 @@ $(STATEDIR)/myghty.extract: $(myghty_extract_deps)
 
 myghty_prepare: $(STATEDIR)/myghty.prepare
 
-#
-# dependencies
-#
-myghty_prepare_deps = \
-	$(STATEDIR)/myghty.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 MYGHTY_PATH	=  PATH=$(CROSS_PATH)
 MYGHTY_ENV 	=  $(CROSS_ENV)
-MYGHTY_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -89,8 +77,6 @@ $(STATEDIR)/myghty.prepare: $(myghty_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 myghty_compile: $(STATEDIR)/myghty.compile
-
-myghty_compile_deps = $(STATEDIR)/myghty.prepare
 
 $(STATEDIR)/myghty.compile: $(myghty_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -114,8 +100,6 @@ $(STATEDIR)/myghty.install: $(STATEDIR)/myghty.compile
 # ----------------------------------------------------------------------------
 
 myghty_targetinstall: $(STATEDIR)/myghty.targetinstall
-
-myghty_targetinstall_deps = $(STATEDIR)/myghty.compile
 
 $(STATEDIR)/myghty.targetinstall: $(myghty_targetinstall_deps_default)
 	@$(call targetinfo, $@)

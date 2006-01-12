@@ -33,8 +33,6 @@ PCRE_DIR		= $(BUILDDIR)/$(PCRE)
 
 pcre_get: $(STATEDIR)/pcre.get
 
-pcre_get_deps = $(PCRE_SOURCE)
-
 $(STATEDIR)/pcre.get: $(pcre_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PCRE))
@@ -50,8 +48,6 @@ $(PCRE_SOURCE):
 
 pcre_extract: $(STATEDIR)/pcre.extract
 
-pcre_extract_deps = $(STATEDIR)/pcre.get
-
 $(STATEDIR)/pcre.extract: $(pcre_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCRE_DIR))
@@ -65,17 +61,8 @@ $(STATEDIR)/pcre.extract: $(pcre_extract_deps)
 
 pcre_prepare: $(STATEDIR)/pcre.prepare
 
-#
-# dependencies
-#
-pcre_prepare_deps = \
-	$(STATEDIR)/pcre.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 PCRE_PATH	=  PATH=$(CROSS_PATH)
 PCRE_ENV 	=  $(CROSS_ENV)
-#PCRE_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#PCRE_ENV	+=
 
 #
 # autoconf
@@ -100,8 +87,6 @@ $(STATEDIR)/pcre.prepare: $(pcre_prepare_deps_default)
 
 pcre_compile: $(STATEDIR)/pcre.compile
 
-pcre_compile_deps = $(STATEDIR)/pcre.prepare
-
 $(STATEDIR)/pcre.compile: $(pcre_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PCRE_DIR) && $(PCRE_ENV) $(PCRE_PATH) make
@@ -123,8 +108,6 @@ $(STATEDIR)/pcre.install: $(STATEDIR)/pcre.compile
 # ----------------------------------------------------------------------------
 
 pcre_targetinstall: $(STATEDIR)/pcre.targetinstall
-
-pcre_targetinstall_deps = $(STATEDIR)/pcre.compile
 
 $(STATEDIR)/pcre.targetinstall: $(pcre_targetinstall_deps_default)
 	@$(call targetinfo, $@)

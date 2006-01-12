@@ -32,11 +32,8 @@ READLINE_DIR		= $(BUILDDIR)/$(READLINE)
 
 readline_get: $(STATEDIR)/readline.get
 
-readline_get_deps = $(READLINE_SOURCE)
-
-$(STATEDIR)/readline.get: $(readline_get_deps_default)
+$(STATEDIR)/readline.get: $(READLINE_SOURCE)
 	@$(call targetinfo, $@)
-#	@$(call get_patches, $(READLINE))
 	@$(call touch, $@)
 
 $(READLINE_SOURCE):
@@ -48,8 +45,6 @@ $(READLINE_SOURCE):
 # ----------------------------------------------------------------------------
 
 readline_extract: $(STATEDIR)/readline.extract
-
-readline_extract_deps = $(STATEDIR)/readline.get
 
 $(STATEDIR)/readline.extract: $(readline_extract_deps)
 	@$(call targetinfo, $@)
@@ -64,18 +59,8 @@ $(STATEDIR)/readline.extract: $(readline_extract_deps)
 
 readline_prepare: $(STATEDIR)/readline.prepare
 
-#
-# dependencies
-#
-readline_prepare_deps = \
-	$(STATEDIR)/readline.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/ncurses.install
-
 READLINE_PATH	=  PATH=$(CROSS_PATH)
 READLINE_ENV 	=  $(CROSS_ENV)
-#READLINE_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#READLINE_ENV	+=
 
 #
 # autoconf
@@ -95,8 +80,6 @@ $(STATEDIR)/readline.prepare: $(readline_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 readline_compile: $(STATEDIR)/readline.compile
-
-readline_compile_deps = $(STATEDIR)/readline.prepare
 
 $(STATEDIR)/readline.compile: $(readline_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -119,8 +102,6 @@ $(STATEDIR)/readline.install: $(STATEDIR)/readline.compile
 # ----------------------------------------------------------------------------
 
 readline_targetinstall: $(STATEDIR)/readline.targetinstall
-
-readline_targetinstall_deps = $(STATEDIR)/readline.compile
 
 $(STATEDIR)/readline.targetinstall: $(readline_targetinstall_deps_default)
 	@$(call targetinfo, $@)

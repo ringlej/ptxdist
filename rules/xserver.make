@@ -35,8 +35,6 @@ XSERVER_DIR		= $(BUILDDIR)/$(XSERVER)
 
 xserver_get: $(STATEDIR)/xserver.get
 
-xserver_get_deps = $(XSERVER_SOURCE)
-
 $(STATEDIR)/xserver.get: $(xserver_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XSERVER))
@@ -52,8 +50,6 @@ $(XSERVER_SOURCE):
 
 xserver_extract: $(STATEDIR)/xserver.extract
 
-xserver_extract_deps = $(STATEDIR)/xserver.get
-
 $(STATEDIR)/xserver.extract: $(xserver_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XSERVER_DIR))
@@ -66,18 +62,6 @@ $(STATEDIR)/xserver.extract: $(xserver_extract_deps)
 # ----------------------------------------------------------------------------
 
 xserver_prepare: $(STATEDIR)/xserver.prepare
-
-#
-# dependencies
-#
-xserver_prepare_deps =  $(STATEDIR)/xserver.extract
-xserver_prepare_deps += $(STATEDIR)/virtual-xchain.install
-xserver_prepare_deps += $(STATEDIR)/xlibs-xext.install
-xserver_prepare_deps += $(STATEDIR)/xlibs-randr.install
-xserver_prepare_deps += $(STATEDIR)/xlibs-fixesext.install
-xserver_prepare_deps += $(STATEDIR)/xlibs-damageext.install
-xserver_prepare_deps += $(STATEDIR)/xlibs-xfont.install
-xserver_prepare_deps += $(STATEDIR)/xlibs-render.install
 
 XSERVER_PATH	=  PATH=$(CROSS_PATH)
 XSERVER_ENV 	=  $(CROSS_ENV)
@@ -254,8 +238,6 @@ $(STATEDIR)/xserver.prepare: $(xserver_prepare_deps_default)
 
 xserver_compile: $(STATEDIR)/xserver.compile
 
-xserver_compile_deps = $(STATEDIR)/xserver.prepare
-
 $(STATEDIR)/xserver.compile: $(xserver_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XSERVER_DIR) && $(XSERVER_ENV) $(XSERVER_PATH) make
@@ -277,16 +259,6 @@ $(STATEDIR)/xserver.install: $(STATEDIR)/xserver.compile
 # ----------------------------------------------------------------------------
 
 xserver_targetinstall: $(STATEDIR)/xserver.targetinstall
-
-xserver_targetinstall_deps = $(STATEDIR)/xserver.compile
-xserver_targetinstall_deps += $(STATEDIR)/xlibs-xext.targetinstall
-xserver_targetinstall_deps += $(STATEDIR)/xlibs-randr.targetinstall
-xserver_targetinstall_deps += $(STATEDIR)/xlibs-fixesext.targetinstall
-xserver_targetinstall_deps += $(STATEDIR)/xlibs-damageext.targetinstall
-xserver_targetinstall_deps += $(STATEDIR)/xlibs-xfont.targetinstall
-xserver_targetinstall_deps += $(STATEDIR)/xlibs-render.targetinstall
-xserver_targetinstall_deps += $(STATEDIR)/xlibs-x11.targetinstall
-xserver_targetinstall_deps += $(STATEDIR)/xlibs-xau.targetinstall
 
 $(STATEDIR)/xserver.targetinstall: $(xserver_targetinstall_deps_default)
 	@$(call targetinfo, $@)

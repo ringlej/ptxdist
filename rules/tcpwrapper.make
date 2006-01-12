@@ -45,7 +45,7 @@ $(TCPWRAPPER_SOURCE):
 
 tcpwrapper_extract: $(STATEDIR)/tcpwrapper.extract
 
-$(STATEDIR)/tcpwrapper.extract: $(STATEDIR)/tcpwrapper.get
+$(STATEDIR)/tcpwrapper.extract: $(tcpwrapper_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TCPWRAPPER_DIR))
 	@$(call extract, $(TCPWRAPPER_SOURCE))
@@ -58,7 +58,7 @@ $(STATEDIR)/tcpwrapper.extract: $(STATEDIR)/tcpwrapper.get
 
 tcpwrapper_prepare: $(STATEDIR)/tcpwrapper.prepare
 
-$(STATEDIR)/tcpwrapper.prepare: $(STATEDIR)/virtual-xchain.install $(STATEDIR)/tcpwrapper.extract
+$(STATEDIR)/tcpwrapper.prepare: $(tcpwrapper_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -71,7 +71,7 @@ tcpwrapper_compile: $(STATEDIR)/tcpwrapper.compile
 TCPWRAPPER_ENV	= $(CROSS_ENV)
 TCPWRAPPER_PATH	= PATH=$(CROSS_PATH)
 
-$(STATEDIR)/tcpwrapper.compile: $(STATEDIR)/tcpwrapper.prepare
+$(STATEDIR)/tcpwrapper.compile: $(tcpwrapper_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(TCPWRAPPER_PATH) $(TCPWRAPPER_ENV) \
 		make -C $(TCPWRAPPER_DIR) linux 
@@ -83,7 +83,7 @@ $(STATEDIR)/tcpwrapper.compile: $(STATEDIR)/tcpwrapper.prepare
 
 tcpwrapper_install: $(STATEDIR)/tcpwrapper.install
 
-$(STATEDIR)/tcpwrapper.install: $(STATEDIR)/tcpwrapper.compile
+$(STATEDIR)/tcpwrapper.install: $(tcpwrapper_install_deps_default)
 	@$(call targetinfo, $@)
 	install -d $(CROSS_LIB_DIR)/lib
 	install $(TCPWRAPPER_DIR)/libwrap.a $(CROSS_LIB_DIR)/lib
@@ -95,7 +95,7 @@ $(STATEDIR)/tcpwrapper.install: $(STATEDIR)/tcpwrapper.compile
 
 tcpwrapper_targetinstall: $(STATEDIR)/tcpwrapper.targetinstall
 
-$(STATEDIR)/tcpwrapper.targetinstall: $(STATEDIR)/tcpwrapper.install
+$(STATEDIR)/tcpwrapper.targetinstall: $(tcpwrapper_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

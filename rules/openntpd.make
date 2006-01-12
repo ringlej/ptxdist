@@ -31,9 +31,7 @@ OPENNTPD_DIR		= $(BUILDDIR)/$(OPENNTPD)
 
 openntpd_get: $(STATEDIR)/openntpd.get
 
-openntpd_get_deps = $(OPENNTPD_SOURCE)
-
-$(STATEDIR)/openntpd.get: $(openntpd_get_deps_default)
+$(STATEDIR)/openntpd.get: $(OPENNTPD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OPENNTPD))
 	@$(call touch, $@)
@@ -48,8 +46,6 @@ $(OPENNTPD_SOURCE):
 
 openntpd_extract: $(STATEDIR)/openntpd.extract
 
-openntpd_extract_deps = $(STATEDIR)/openntpd.get
-
 $(STATEDIR)/openntpd.extract: $(openntpd_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENNTPD_DIR))
@@ -63,17 +59,8 @@ $(STATEDIR)/openntpd.extract: $(openntpd_extract_deps)
 
 openntpd_prepare: $(STATEDIR)/openntpd.prepare
 
-#
-# dependencies
-#
-openntpd_prepare_deps = \
-	$(STATEDIR)/openntpd.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 OPENNTPD_PATH	=  PATH=$(CROSS_PATH)
 OPENNTPD_ENV 	=  $(CROSS_ENV)
-#OPENNTPD_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#OPENNTPD_ENV	+=
 
 #
 # autoconf
@@ -103,8 +90,6 @@ $(STATEDIR)/openntpd.prepare: $(openntpd_prepare_deps_default)
 
 openntpd_compile: $(STATEDIR)/openntpd.compile
 
-openntpd_compile_deps = $(STATEDIR)/openntpd.prepare
-
 $(STATEDIR)/openntpd.compile: $(openntpd_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(OPENNTPD_DIR) && $(OPENNTPD_ENV) $(OPENNTPD_PATH) make
@@ -126,8 +111,6 @@ $(STATEDIR)/openntpd.install: $(STATEDIR)/openntpd.compile
 # ----------------------------------------------------------------------------
 
 openntpd_targetinstall: $(STATEDIR)/openntpd.targetinstall
-
-openntpd_targetinstall_deps = $(STATEDIR)/openntpd.compile
 
 $(STATEDIR)/openntpd.targetinstall: $(openntpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)

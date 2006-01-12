@@ -120,13 +120,6 @@ else
 PDKSH_AUTOCONF	+= --disable-brace-expand
 endif
 
-#
-# dependencies
-#
-pdksh_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	 $(STATEDIR)/pdksh.extract 
-
 $(STATEDIR)/pdksh.prepare: $(pdksh_prepare_deps_default)
 	@$(call targetinfo, $@)
 	mkdir -p $(BUILDDIR)/$(PDKSH)
@@ -139,11 +132,9 @@ $(STATEDIR)/pdksh.prepare: $(pdksh_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-pdksh_compile_deps = $(STATEDIR)/pdksh.prepare
-
 pdksh_compile: $(STATEDIR)/pdksh.compile
 
-$(STATEDIR)/pdksh.compile: $(STATEDIR)/pdksh.prepare 
+$(STATEDIR)/pdksh.compile: $(pdksh_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PDKSH_DIR) && $(PDKSH_PATH) make
 	@$(call touch, $@)
@@ -154,7 +145,7 @@ $(STATEDIR)/pdksh.compile: $(STATEDIR)/pdksh.prepare
 
 pdksh_install: $(STATEDIR)/pdksh.install
 
-$(STATEDIR)/pdksh.install: $(STATEDIR)/pdksh.compile
+$(STATEDIR)/pdksh.install: $(pdksh_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -164,7 +155,7 @@ $(STATEDIR)/pdksh.install: $(STATEDIR)/pdksh.compile
 
 pdksh_targetinstall: $(STATEDIR)/pdksh.targetinstall
 
-$(STATEDIR)/pdksh.targetinstall: $(STATEDIR)/pdksh.install
+$(STATEDIR)/pdksh.targetinstall: $(pdksh_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -31,9 +31,7 @@ PPP_DIR		= $(BUILDDIR)/$(PPP)
 
 ppp_get:	$(STATEDIR)/ppp.get
 
-ppp_get_deps	= $(PPP_SOURCE)
-
-$(STATEDIR)/ppp.get: $(ppp_get_deps_default)
+$(STATEDIR)/ppp.get: $(PPP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PPP))
 	@$(call touch, $@)
@@ -108,8 +106,6 @@ endif
 
 ppp_compile: $(STATEDIR)/ppp.compile
 
-ppp_compile_deps =  $(STATEDIR)/ppp.prepare
-
 $(STATEDIR)/ppp.compile: $(ppp_compile_deps_default) 
 	@$(call targetinfo, $@)
 	cd $(PPP_DIR) && \
@@ -122,7 +118,7 @@ $(STATEDIR)/ppp.compile: $(ppp_compile_deps_default)
 
 ppp_install: $(STATEDIR)/ppp.install
 
-$(STATEDIR)/ppp.install: $(STATEDIR)/ppp.compile
+$(STATEDIR)/ppp.install: $(ppp_install_deps_default) 
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -132,7 +128,7 @@ $(STATEDIR)/ppp.install: $(STATEDIR)/ppp.compile
 
 ppp_targetinstall: $(STATEDIR)/ppp.targetinstall
 
-$(STATEDIR)/ppp.targetinstall: $(STATEDIR)/ppp.compile
+$(STATEDIR)/ppp.targetinstall: $(ppp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

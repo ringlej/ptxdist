@@ -34,10 +34,7 @@ PANGO_MODULE_VERSION	= 1.4
 
 pango12_get: $(STATEDIR)/pango12.get
 
-pango12_get_deps	=  $(PANGO12_SOURCE)
-pango12_get_deps	+= $(PANGO12_PATCH_SOURCE)
-
-$(STATEDIR)/pango12.get: $(pango12_get_deps_default)
+$(STATEDIR)/pango12.get: $(PANGO12_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,17 +42,11 @@ $(PANGO12_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(PANGO12_URL))
 
-$(PANGO12_PATCH_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, $(PANGO12_PATCH_URL))
-
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
 pango12_extract: $(STATEDIR)/pango12.extract
-
-pango12_extract_deps	=  $(STATEDIR)/pango12.get
 
 $(STATEDIR)/pango12.extract: $(pango12_extract_deps)
 	@$(call targetinfo, $@)
@@ -70,21 +61,8 @@ $(STATEDIR)/pango12.extract: $(pango12_extract_deps)
 
 pango12_prepare: $(STATEDIR)/pango12.prepare
 
-#
-# dependencies
-#
-pango12_prepare_deps =  \
-	$(STATEDIR)/pango12.extract \
-	$(STATEDIR)/glib22.install \
-	$(STATEDIR)/xfree430.install \
-	$(STATEDIR)/fontconfig22.install \
-	$(STATEDIR)/freetype.install \
-	$(STATEDIR)/virtual-xchain.install
-
-
 PANGO12_PATH	=  PATH=$(CROSS_PATH)
 PANGO12_ENV 	=  $(CROSS_ENV)
-PANGO12_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 #
 # autoconf
@@ -107,8 +85,6 @@ $(STATEDIR)/pango12.prepare: $(pango12_prepare_deps_default)
 
 pango12_compile: $(STATEDIR)/pango12.compile
 
-pango12_compile_deps =  $(STATEDIR)/pango12.prepare
-
 $(STATEDIR)/pango12.compile: $(pango12_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PANGO12_DIR) && $(PANGO12_PATH) $(PANGO12_ENV) make
@@ -130,12 +106,6 @@ $(STATEDIR)/pango12.install: $(STATEDIR)/pango12.compile
 # ----------------------------------------------------------------------------
 
 pango12_targetinstall: $(STATEDIR)/pango12.targetinstall
-
-pango12_targetinstall_deps	=  $(STATEDIR)/pango12.install
-pango12_targetinstall_deps	+= $(STATEDIR)/glib22.targetinstall
-pango12_targetinstall_deps	+= $(STATEDIR)/xfree430.targetinstall
-pango12_targetinstall_deps	+= $(STATEDIR)/fontconfig22.targetinstall
-pango12_targetinstall_deps	+= $(STATEDIR)/freetype.targetinstall
 
 $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps_default)
 	@$(call targetinfo, $@)

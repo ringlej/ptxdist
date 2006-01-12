@@ -32,9 +32,7 @@ NETCAT_DIR		= $(BUILDDIR)/$(NETCAT)
 
 netcat_get: $(STATEDIR)/netcat.get
 
-netcat_get_deps = $(NETCAT_SOURCE)
-
-$(STATEDIR)/netcat.get: $(netcat_get_deps_default)
+$(STATEDIR)/netcat.get: $(NETCAT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NETCAT))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(NETCAT_SOURCE):
 
 netcat_extract: $(STATEDIR)/netcat.extract
 
-netcat_extract_deps = $(STATEDIR)/netcat.get
-
 $(STATEDIR)/netcat.extract: $(netcat_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NETCAT_DIR))
@@ -64,17 +60,8 @@ $(STATEDIR)/netcat.extract: $(netcat_extract_deps)
 
 netcat_prepare: $(STATEDIR)/netcat.prepare
 
-#
-# dependencies
-#
-netcat_prepare_deps = \
-	$(STATEDIR)/netcat.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 NETCAT_PATH	=  PATH=$(CROSS_PATH)
 NETCAT_ENV 	=  $(CROSS_ENV)
-#NETCAT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#NETCAT_ENV	+=
 
 #
 # autoconf
@@ -108,8 +95,6 @@ $(STATEDIR)/netcat.prepare: $(netcat_prepare_deps_default)
 
 netcat_compile: $(STATEDIR)/netcat.compile
 
-netcat_compile_deps = $(STATEDIR)/netcat.prepare
-
 $(STATEDIR)/netcat.compile: $(netcat_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(NETCAT_DIR) && $(NETCAT_ENV) $(NETCAT_PATH) make
@@ -131,8 +116,6 @@ $(STATEDIR)/netcat.install: $(STATEDIR)/netcat.compile
 # ----------------------------------------------------------------------------
 
 netcat_targetinstall: $(STATEDIR)/netcat.targetinstall
-
-netcat_targetinstall_deps = $(STATEDIR)/netcat.compile
 
 $(STATEDIR)/netcat.targetinstall: $(netcat_targetinstall_deps_default)
 	@$(call targetinfo, $@)

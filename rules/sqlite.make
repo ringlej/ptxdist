@@ -33,9 +33,7 @@ SQLITE_DIR		= $(BUILDDIR)/$(SQLITE)
 
 sqlite_get: $(STATEDIR)/sqlite.get
 
-sqlite_get_deps = $(SQLITE_SOURCE)
-
-$(STATEDIR)/sqlite.get: $(sqlite_get_deps_default)
+$(STATEDIR)/sqlite.get: $(SQLITE_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,9 +47,7 @@ $(SQLITE_SOURCE):
 
 sqlite_extract: $(STATEDIR)/sqlite.extract
 
-sqlite_extract_deps = $(STATEDIR)/sqlite.get
-
-$(STATEDIR)/sqlite.extract: $(sqlite_extract_deps)
+$(STATEDIR)/sqlite.extract: $(sqlite_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SQLITE_DIR))
 	@$(call extract, $(SQLITE_SOURCE))
@@ -63,13 +59,6 @@ $(STATEDIR)/sqlite.extract: $(sqlite_extract_deps)
 # ----------------------------------------------------------------------------
 
 sqlite_prepare: $(STATEDIR)/sqlite.prepare
-
-#
-# dependencies
-#
-sqlite_prepare_deps = \
-	$(STATEDIR)/sqlite.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 SQLITE_PATH	= PATH=$(CROSS_PATH)
 SQLITE_ENV 	= $(CROSS_ENV)
@@ -121,8 +110,6 @@ $(STATEDIR)/sqlite.prepare: $(sqlite_prepare_deps_default)
 
 sqlite_compile: $(STATEDIR)/sqlite.compile
 
-sqlite_compile_deps = $(STATEDIR)/sqlite.prepare
-
 $(STATEDIR)/sqlite.compile: $(sqlite_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SQLITE_DIR) && $(SQLITE_PATH) make -f $(SQLITE_MK) libsqlite
@@ -134,7 +121,7 @@ $(STATEDIR)/sqlite.compile: $(sqlite_compile_deps_default)
 
 sqlite_install: $(STATEDIR)/sqlite.install
 
-$(STATEDIR)/sqlite.install: $(STATEDIR)/sqlite.compile
+$(STATEDIR)/sqlite.install: $(sqlite_install_deps_default)
 	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
@@ -152,7 +139,7 @@ $(STATEDIR)/sqlite.install: $(STATEDIR)/sqlite.compile
 
 sqlite_targetinstall: $(STATEDIR)/sqlite.targetinstall
 
-$(STATEDIR)/sqlite.targetinstall: $(STATEDIR)/sqlite.install
+$(STATEDIR)/sqlite.targetinstall: $(sqlite_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	install -d $(ROOTDIR)/usr/lib
 

@@ -35,9 +35,7 @@ XLIBS-DAMAGEEXT_DIR	= $(BUILDDIR)/$(XLIBS-DAMAGEEXT)
 
 xlibs-damageext_get: $(STATEDIR)/xlibs-damageext.get
 
-xlibs-damageext_get_deps = $(XLIBS-DAMAGEEXT_SOURCE)
-
-$(STATEDIR)/xlibs-damageext.get: $(xlibs-damageext_get_deps_default)
+$(STATEDIR)/xlibs-damageext.get: $(XLIBS-DAMAGEEXT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-DAMAGEEXT))
 	@$(call touch, $@)
@@ -52,8 +50,6 @@ $(XLIBS-DAMAGEEXT_SOURCE):
 
 xlibs-damageext_extract: $(STATEDIR)/xlibs-damageext.extract
 
-xlibs-damageext_extract_deps = $(STATEDIR)/xlibs-damageext.get
-
 $(STATEDIR)/xlibs-damageext.extract: $(xlibs-damageext_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-DAMAGEEXT_DIR))
@@ -67,15 +63,8 @@ $(STATEDIR)/xlibs-damageext.extract: $(xlibs-damageext_extract_deps)
 
 xlibs-damageext_prepare: $(STATEDIR)/xlibs-damageext.prepare
 
-#
-# dependencies
-#
-xlibs-damageext_prepare_deps =  $(STATEDIR)/xlibs-damageext.extract
-xlibs-damageext_prepare_deps += $(STATEDIR)/virtual-xchain.install
-
 XLIBS-DAMAGEEXT_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-DAMAGEEXT_ENV 	=  $(CROSS_ENV)
-XLIBS-DAMAGEEXT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -98,8 +87,6 @@ $(STATEDIR)/xlibs-damageext.prepare: $(xlibs-damageext_prepare_deps_default)
 
 xlibs-damageext_compile: $(STATEDIR)/xlibs-damageext.compile
 
-xlibs-damageext_compile_deps = $(STATEDIR)/xlibs-damageext.prepare
-
 $(STATEDIR)/xlibs-damageext.compile: $(xlibs-damageext_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-DAMAGEEXT_DIR) && $(XLIBS-DAMAGEEXT_ENV) $(XLIBS-DAMAGEEXT_PATH) make
@@ -121,8 +108,6 @@ $(STATEDIR)/xlibs-damageext.install: $(STATEDIR)/xlibs-damageext.compile
 # ----------------------------------------------------------------------------
 
 xlibs-damageext_targetinstall: $(STATEDIR)/xlibs-damageext.targetinstall
-
-xlibs-damageext_targetinstall_deps = $(STATEDIR)/xlibs-damageext.compile
 
 $(STATEDIR)/xlibs-damageext.targetinstall: $(xlibs-damageext_targetinstall_deps_default)
 	@$(call targetinfo, $@)

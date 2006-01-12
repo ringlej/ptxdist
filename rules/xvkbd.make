@@ -32,9 +32,7 @@ XVKBD_DIR		= $(BUILDDIR)/$(XVKBD)
 
 xvkbd_get: $(STATEDIR)/xvkbd.get
 
-xvkbd_get_deps	=  $(XVKBD_SOURCE)
-
-$(STATEDIR)/xvkbd.get: $(xvkbd_get_deps_default)
+$(STATEDIR)/xvkbd.get: $(XVKBD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +46,6 @@ $(XVKBD_SOURCE):
 
 xvkbd_extract: $(STATEDIR)/xvkbd.extract
 
-xvkbd_extract_deps	=  $(STATEDIR)/xvkbd.get
-
 $(STATEDIR)/xvkbd.extract: $(xvkbd_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XVKBD_DIR))
@@ -62,16 +58,8 @@ $(STATEDIR)/xvkbd.extract: $(xvkbd_extract_deps)
 
 xvkbd_prepare: $(STATEDIR)/xvkbd.prepare
 
-#
-# dependencies
-#
-xvkbd_prepare_deps =  \
-	$(STATEDIR)/xvkbd.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 XVKBD_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 XVKBD_ENV 	=  $(CROSS_ENV)
-#XVKBD_ENV	+=
 
 $(STATEDIR)/xvkbd.prepare: $(xvkbd_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -85,8 +73,6 @@ $(STATEDIR)/xvkbd.prepare: $(xvkbd_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 xvkbd_compile: $(STATEDIR)/xvkbd.compile
-
-xvkbd_compile_deps =  $(STATEDIR)/xvkbd.prepare
 
 $(STATEDIR)/xvkbd.compile: $(xvkbd_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -109,8 +95,6 @@ $(STATEDIR)/xvkbd.install: $(STATEDIR)/xvkbd.compile
 # ----------------------------------------------------------------------------
 
 xvkbd_targetinstall: $(STATEDIR)/xvkbd.targetinstall
-
-xvkbd_targetinstall_deps	=  $(STATEDIR)/xvkbd.compile
 
 $(STATEDIR)/xvkbd.targetinstall: $(xvkbd_targetinstall_deps_default)
 	@$(call targetinfo, $@)

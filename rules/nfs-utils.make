@@ -45,7 +45,7 @@ $(NFSUTILS_SOURCE):
 
 nfsutils_extract: $(STATEDIR)/nfsutils.extract
 
-$(STATEDIR)/nfsutils.extract: $(STATEDIR)/nfsutils.get $(STATEDIR)/autoconf257.install
+$(STATEDIR)/nfsutils.extract: $(nfsutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NFSUTILS_DIR))
 	@$(call extract, $(NFSUTILS_SOURCE))
@@ -97,10 +97,6 @@ NFSUTILS_AUTOCONF += --with-tcpwrappers=$(PTXCONF_PREFIX)
 else
 NFSUTILS_AUTOCONF += --without-tcpwrappers
 endif
-
-nfsutils_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/nfsutils.extract
 
 $(STATEDIR)/nfsutils.prepare: $(nfsutils_prepare_deps_default)
 	@$(call targetinfo, $@)

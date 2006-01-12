@@ -32,9 +32,7 @@ THTTPD_DIR	= $(BUILDDIR)/$(THTTPD)
 
 thttpd_get: $(STATEDIR)/thttpd.get
 
-thttpd_get_deps = $(THTTPD_SOURCE)
-
-$(STATEDIR)/thttpd.get: $(thttpd_get_deps_default)
+$(STATEDIR)/thttpd.get: $(THTTPD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,8 +45,6 @@ $(THTTPD_SOURCE):
 # ----------------------------------------------------------------------------
 
 thttpd_extract: $(STATEDIR)/thttpd.extract
-
-thttpd_extract_deps = $(STATEDIR)/thttpd.get
 
 $(STATEDIR)/thttpd.extract: $(thttpd_extract_deps)
 	@$(call targetinfo, $@)
@@ -63,16 +59,8 @@ $(STATEDIR)/thttpd.extract: $(thttpd_extract_deps)
 
 thttpd_prepare: $(STATEDIR)/thttpd.prepare
 
-#
-# dependencies
-#
-thttpd_prepare_deps = \
-	$(STATEDIR)/thttpd.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 THTTPD_PATH	=  PATH=$(CROSS_PATH)
 THTTPD_ENV 	=  $(CROSS_ENV)
-#THTTPD_ENV	+=
 
 #
 # autoconf
@@ -92,8 +80,6 @@ $(STATEDIR)/thttpd.prepare: $(thttpd_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 thttpd_compile: $(STATEDIR)/thttpd.compile
-
-thttpd_compile_deps = $(STATEDIR)/thttpd.prepare
 
 $(STATEDIR)/thttpd.compile: $(thttpd_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -116,8 +102,6 @@ $(STATEDIR)/thttpd.install: $(STATEDIR)/thttpd.compile
 # ----------------------------------------------------------------------------
 
 thttpd_targetinstall: $(STATEDIR)/thttpd.targetinstall
-
-thttpd_targetinstall_deps = $(STATEDIR)/thttpd.compile
 
 $(STATEDIR)/thttpd.targetinstall: $(thttpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)

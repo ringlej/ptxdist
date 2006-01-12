@@ -39,9 +39,7 @@ NMAP_DIR		= $(BUILDDIR)/$(NMAP)
 
 nmap_get: $(STATEDIR)/nmap.get
 
-nmap_get_deps  =  $(NMAP_SOURCE)
-
-$(STATEDIR)/nmap.get: $(nmap_get_deps_default)
+$(STATEDIR)/nmap.get: $(NMAP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -68,14 +66,6 @@ $(STATEDIR)/nmap.extract: $(STATEDIR)/nmap.get
 
 nmap_prepare: $(STATEDIR)/nmap.prepare
 
-#
-# dependencies
-#
-nmap_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/nmap.extract \
-	$(STATEDIR)/libpcap.install
-
 NMAP_PATH	=  PATH=$(CROSS_PATH)
 NMAP_ENV = \
 	$(CROSS_ENV) \
@@ -93,7 +83,6 @@ NMAP_AUTOCONF += --with-pcap=linux
 #
 ifdef PTXCONF_OPENSSL_SHARED
 NMAP_AUTOCONF		+= --with-openssl=$(CROSS_LIB_DIR)
-nmap_prepare_deps	+= $(STATEDIR)/openssl.install
 else
 NMAP_AUTOCONF		+= --without-openssl
 endif
@@ -110,8 +99,6 @@ $(STATEDIR)/nmap.prepare: $(nmap_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 nmap_compile: $(STATEDIR)/nmap.compile
-
-nmap_compile_deps = $(STATEDIR)/nmap.prepare
 
 $(STATEDIR)/nmap.compile: $(nmap_compile_deps_default) 
 	@$(call targetinfo, $@)
@@ -137,11 +124,6 @@ $(STATEDIR)/nmap.install: $(STATEDIR)/nmap.compile
 # ----------------------------------------------------------------------------
 
 nmap_targetinstall: $(STATEDIR)/nmap.targetinstall
-
-nmap_targetinstall_deps	=  $(STATEDIR)/nmap.install
-ifdef PTXCONF_OPENSSL_SHARED
-nmap_targetinstall_deps	+= $(STATEDIR)/openssl.targetinstall
-endif
 
 $(STATEDIR)/nmap.targetinstall: $(nmap_targetinstall_deps_default)
 	@$(call targetinfo, $@)

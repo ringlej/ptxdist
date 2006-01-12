@@ -32,8 +32,6 @@ SYSUTILS_DIR		= $(BUILDDIR)/$(SYSUTILS)
 
 sysutils_get: $(STATEDIR)/sysutils.get
 
-sysutils_get_deps = $(SYSUTILS_SOURCE)
-
 $(STATEDIR)/sysutils.get: $(sysutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SYSUTILS))
@@ -49,8 +47,6 @@ $(SYSUTILS_SOURCE):
 
 sysutils_extract: $(STATEDIR)/sysutils.extract
 
-sysutils_extract_deps = $(STATEDIR)/sysutils.get
-
 $(STATEDIR)/sysutils.extract: $(sysutils_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSUTILS_DIR))
@@ -64,13 +60,6 @@ $(STATEDIR)/sysutils.extract: $(sysutils_extract_deps)
 
 sysutils_prepare: $(STATEDIR)/sysutils.prepare
 
-#
-# dependencies
-#
-sysutils_prepare_deps = \
-	$(STATEDIR)/sysutils.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 SYSUTILS_PATH	=  PATH=$(CROSS_PATH)
 SYSUTILS_ENV 	=  $(CROSS_ENV)
 
@@ -83,8 +72,6 @@ $(STATEDIR)/sysutils.prepare: $(sysutils_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 sysutils_compile: $(STATEDIR)/sysutils.compile
-
-sysutils_compile_deps = $(STATEDIR)/sysutils.prepare
 
 $(STATEDIR)/sysutils.compile: $(sysutils_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -106,8 +93,6 @@ $(STATEDIR)/sysutils.install: $(STATEDIR)/sysutils.compile
 # ----------------------------------------------------------------------------
 
 sysutils_targetinstall: $(STATEDIR)/sysutils.targetinstall
-
-sysutils_targetinstall_deps = $(STATEDIR)/sysutils.compile
 
 $(STATEDIR)/sysutils.targetinstall: $(sysutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)

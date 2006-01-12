@@ -33,8 +33,6 @@ TINYLOGIN_DIR		= $(BUILDDIR)/$(TINYLOGIN)
 
 tinylogin_get: $(STATEDIR)/tinylogin.get
 
-tinylogin_get_deps =  $(TINYLOGIN_SOURCE)
-
 $(STATEDIR)/tinylogin.get: $(tinylogin_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -65,13 +63,6 @@ tinylogin_prepare: $(STATEDIR)/tinylogin.prepare
 TINYLOGIN_PATH	 = PATH=$(CROSS_PATH)
 TINYLOGIN_MAKEVARS = CROSS=$(PTXCONF_GNU_TARGET)-
 
-#
-# dependencies
-#
-tinylogin_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/tinylogin.extract
-
 $(STATEDIR)/tinylogin.prepare: $(tinylogin_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -81,8 +72,6 @@ $(STATEDIR)/tinylogin.prepare: $(tinylogin_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 tinylogin_compile: $(STATEDIR)/tinylogin.compile
-
-tinylogin_compile_deps =  $(STATEDIR)/tinylogin.prepare
 
 $(STATEDIR)/tinylogin.compile: $(tinylogin_compile_deps_default) 
 	@$(call targetinfo, $@)
@@ -95,7 +84,7 @@ $(STATEDIR)/tinylogin.compile: $(tinylogin_compile_deps_default)
 
 tinylogin_install: $(STATEDIR)/tinylogin.install
 
-$(STATEDIR)/tinylogin.install: $(STATEDIR)/tinylogin.compile
+$(STATEDIR)/tinylogin.install: $(tinylogin_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -105,7 +94,7 @@ $(STATEDIR)/tinylogin.install: $(STATEDIR)/tinylogin.compile
 
 tinylogin_targetinstall: $(STATEDIR)/tinylogin.targetinstall
 
-$(STATEDIR)/tinylogin.targetinstall: $(STATEDIR)/tinylogin.install
+$(STATEDIR)/tinylogin.targetinstall: $(tinylogin_targetinstall_deps_default
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

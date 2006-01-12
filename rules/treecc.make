@@ -32,9 +32,7 @@ TREECC_DIR	= $(BUILDDIR)/$(TREECC)
 
 treecc_get: $(STATEDIR)/treecc.get
 
-treecc_get_deps = $(TREECC_SOURCE)
-
-$(STATEDIR)/treecc.get: $(treecc_get_deps_default)
+$(STATEDIR)/treecc.get: $(TREECC_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TREECC))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(TREECC_SOURCE):
 
 treecc_extract: $(STATEDIR)/treecc.extract
 
-treecc_extract_deps = $(STATEDIR)/treecc.get
-
 $(STATEDIR)/treecc.extract: $(treecc_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TREECC_DIR))
@@ -64,16 +60,8 @@ $(STATEDIR)/treecc.extract: $(treecc_extract_deps)
 
 treecc_prepare: $(STATEDIR)/treecc.prepare
 
-#
-# dependencies
-#
-treecc_prepare_deps = \
-	$(STATEDIR)/treecc.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 TREECC_PATH	=  PATH=$(CROSS_PATH)
 TREECC_ENV 	=  $(CROSS_ENV)
-TREECC_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -93,8 +81,6 @@ $(STATEDIR)/treecc.prepare: $(treecc_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 treecc_compile: $(STATEDIR)/treecc.compile
-
-treecc_compile_deps = $(STATEDIR)/treecc.prepare
 
 $(STATEDIR)/treecc.compile: $(treecc_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -117,8 +103,6 @@ $(STATEDIR)/treecc.install: $(STATEDIR)/treecc.compile
 # ----------------------------------------------------------------------------
 
 treecc_targetinstall: $(STATEDIR)/treecc.targetinstall
-
-treecc_targetinstall_deps = $(STATEDIR)/treecc.compile
 
 $(STATEDIR)/treecc.targetinstall: $(treecc_targetinstall_deps_default)
 	@$(call targetinfo, $@)

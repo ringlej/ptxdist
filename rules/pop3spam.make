@@ -32,8 +32,6 @@ POP3SPAM_DIR		= $(BUILDDIR)/$(POP3SPAM)
 
 pop3spam_get: $(STATEDIR)/pop3spam.get
 
-pop3spam_get_deps = $(POP3SPAM_SOURCE)
-
 $(STATEDIR)/pop3spam.get: $(pop3spam_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -48,8 +46,6 @@ $(POP3SPAM_SOURCE):
 
 pop3spam_extract: $(STATEDIR)/pop3spam.extract
 
-pop3spam_extract_deps = $(STATEDIR)/pop3spam.get
-
 $(STATEDIR)/pop3spam.extract: $(pop3spam_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(POP3SPAM_DIR))
@@ -63,17 +59,8 @@ $(STATEDIR)/pop3spam.extract: $(pop3spam_extract_deps)
 
 pop3spam_prepare: $(STATEDIR)/pop3spam.prepare
 
-#
-# dependencies
-#
-pop3spam_prepare_deps =  $(STATEDIR)/pop3spam.extract
-pop3spam_prepare_deps += $(STATEDIR)/virtual-xchain.install
-pop3spam_prepare_deps += $(STATEDIR)/pcre.install
-
 POP3SPAM_PATH	=  PATH=$(CROSS_PATH)
 POP3SPAM_ENV 	=  $(CROSS_ENV)
-#POP3SPAM_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#POP3SPAM_ENV	+=
 
 #
 # autoconf

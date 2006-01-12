@@ -32,9 +32,7 @@ PUREFTPD_DIR		= $(BUILDDIR)/$(PUREFTPD)
 
 pureftpd_get: $(STATEDIR)/pureftpd.get
 
-pureftpd_get_deps = $(PUREFTPD_SOURCE)
-
-$(STATEDIR)/pureftpd.get: $(pureftpd_get_deps_default)
+$(STATEDIR)/pureftpd.get: $(PUREFTPD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PUREFTPD))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(PUREFTPD_SOURCE):
 
 pureftpd_extract: $(STATEDIR)/pureftpd.extract
 
-pureftpd_extract_deps = $(STATEDIR)/pureftpd.get
-
 $(STATEDIR)/pureftpd.extract: $(pureftpd_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PUREFTPD_DIR))
@@ -64,16 +60,8 @@ $(STATEDIR)/pureftpd.extract: $(pureftpd_extract_deps)
 
 pureftpd_prepare: $(STATEDIR)/pureftpd.prepare
 
-#
-# dependencies
-#
-pureftpd_prepare_deps = \
-	$(STATEDIR)/pureftpd.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 PUREFTPD_PATH	=  PATH=$(CROSS_PATH)
 PUREFTPD_ENV 	=  $(CROSS_ENV)
-PUREFTPD_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 PUREFTPD_ENV	+= ac_cv_func_snprintf=yes
 
 #
@@ -135,8 +123,6 @@ $(STATEDIR)/pureftpd.prepare: $(pureftpd_prepare_deps_default)
 
 pureftpd_compile: $(STATEDIR)/pureftpd.compile
 
-pureftpd_compile_deps = $(STATEDIR)/pureftpd.prepare
-
 $(STATEDIR)/pureftpd.compile: $(pureftpd_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PUREFTPD_DIR) && $(PUREFTPD_ENV) $(PUREFTPD_PATH) make
@@ -158,8 +144,6 @@ $(STATEDIR)/pureftpd.install: $(STATEDIR)/pureftpd.compile
 # ----------------------------------------------------------------------------
 
 pureftpd_targetinstall: $(STATEDIR)/pureftpd.targetinstall
-
-pureftpd_targetinstall_deps = $(STATEDIR)/pureftpd.compile
 
 $(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)

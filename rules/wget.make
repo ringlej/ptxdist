@@ -32,9 +32,7 @@ WGET_DIR	= $(BUILDDIR)/$(WGET_PACKET)
 
 wget_get: $(STATEDIR)/wget.get
 
-wget_get_deps = $(WGET_SOURCE)
-
-$(STATEDIR)/wget.get: $(wget_get_deps_default)
+$(STATEDIR)/wget.get: $(WGET_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(WGET_PACKET))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(WGET_SOURCE):
 
 wget_extract: $(STATEDIR)/wget.extract
 
-wget_extract_deps = $(STATEDIR)/wget.get
-
 $(STATEDIR)/wget.extract: $(wget_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WGET_DIR))
@@ -64,17 +60,8 @@ $(STATEDIR)/wget.extract: $(wget_extract_deps)
 
 wget_prepare: $(STATEDIR)/wget.prepare
 
-#
-# dependencies
-#
-wget_prepare_deps = \
-	$(STATEDIR)/wget.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 WGET_PATH	=  PATH=$(CROSS_PATH)
 WGET_ENV 	=  $(CROSS_ENV)
-#WGET_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#WGET_ENV	+=
 
 #
 # autoconf
@@ -97,8 +84,6 @@ $(STATEDIR)/wget.prepare: $(wget_prepare_deps_default)
 
 wget_compile: $(STATEDIR)/wget.compile
 
-wget_compile_deps = $(STATEDIR)/wget.prepare
-
 $(STATEDIR)/wget.compile: $(wget_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(WGET_DIR) && $(WGET_ENV) $(WGET_PATH) make
@@ -120,8 +105,6 @@ $(STATEDIR)/wget.install: $(STATEDIR)/wget.compile
 # ----------------------------------------------------------------------------
 
 wget_targetinstall: $(STATEDIR)/wget.targetinstall
-
-wget_targetinstall_deps = $(STATEDIR)/wget.compile
 
 $(STATEDIR)/wget.targetinstall: $(wget_targetinstall_deps_default)
 	@$(call targetinfo, $@)

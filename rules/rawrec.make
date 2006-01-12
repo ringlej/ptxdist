@@ -32,8 +32,6 @@ RAWREC_DIR		= $(BUILDDIR)/$(RAWREC)
 
 rawrec_get: $(STATEDIR)/rawrec.get
 
-rawrec_get_deps = $(RAWREC_SOURCE)
-
 $(STATEDIR)/rawrec.get: $(rawrec_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(RAWREC))
@@ -49,8 +47,6 @@ $(RAWREC_SOURCE):
 
 rawrec_extract: $(STATEDIR)/rawrec.extract
 
-rawrec_extract_deps = $(STATEDIR)/rawrec.get
-
 $(STATEDIR)/rawrec.extract: $(rawrec_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RAWREC_DIR))
@@ -64,17 +60,8 @@ $(STATEDIR)/rawrec.extract: $(rawrec_extract_deps)
 
 rawrec_prepare: $(STATEDIR)/rawrec.prepare
 
-#
-# dependencies
-#
-rawrec_prepare_deps = \
-	$(STATEDIR)/rawrec.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 RAWREC_PATH	=  PATH=$(CROSS_PATH)
 RAWREC_ENV 	=  $(CROSS_ENV)
-#RAWREC_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#RAWREC_ENV	+=
 
 #
 # autoconf
@@ -90,8 +77,6 @@ $(STATEDIR)/rawrec.prepare: $(rawrec_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 rawrec_compile: $(STATEDIR)/rawrec.compile
-
-rawrec_compile_deps = $(STATEDIR)/rawrec.prepare
 
 # CC=$(CROSS_CC) to override Makefile's "CC = gcc"
 $(STATEDIR)/rawrec.compile: $(rawrec_compile_deps_default)
@@ -119,8 +104,6 @@ $(STATEDIR)/rawrec.install: $(STATEDIR)/rawrec.compile
 # ----------------------------------------------------------------------------
 
 rawrec_targetinstall: $(STATEDIR)/rawrec.targetinstall
-
-rawrec_targetinstall_deps = $(STATEDIR)/rawrec.compile
 
 $(STATEDIR)/rawrec.targetinstall: $(rawrec_targetinstall_deps_default)
 	@$(call targetinfo, $@)

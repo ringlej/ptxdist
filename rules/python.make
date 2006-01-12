@@ -33,10 +33,7 @@ PYTHON_BUILDDIR		= $(PYTHON_DIR)-build
 
 python_get: $(STATEDIR)/python.get
 
-python_get_deps = \
-	$(PYTHON_SOURCE)
-
-$(STATEDIR)/python.get: $(python_get_deps_default)
+$(STATEDIR)/python.get: $(PYTHON_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PYTHON))
 	@$(call touch, $@)
@@ -51,9 +48,6 @@ $(PYTHON_SOURCE):
 
 python_extract: $(STATEDIR)/python.extract
 
-python_extract_deps = \
-	$(STATEDIR)/python.get
-
 $(STATEDIR)/python.extract: $(python_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PYTHON_DIR))
@@ -66,13 +60,6 @@ $(STATEDIR)/python.extract: $(python_extract_deps)
 # ----------------------------------------------------------------------------
 
 python_prepare: $(STATEDIR)/python.prepare
-
-#
-# dependencies
-#
-python_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/python.extract
 
 PYTHON_PATH	=  PATH=$(CROSS_PATH)
 PYTHON_ENV	=  $(CROSS_ENV)
@@ -100,10 +87,6 @@ $(STATEDIR)/python.prepare: $(python_prepare_deps_default)
 
 python_compile: $(STATEDIR)/python.compile
 
-python_compile_deps = \
-	$(STATEDIR)/xchain-python.compile \
-	$(STATEDIR)/python.prepare
-
 $(STATEDIR)/python.compile: $(python_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(PYTHON_PATH) make -C $(PYTHON_BUILDDIR) $(PYTHON_MAKEVARS)
@@ -115,7 +98,7 @@ $(STATEDIR)/python.compile: $(python_compile_deps_default)
 
 python_install: $(STATEDIR)/python.install
 
-$(STATEDIR)/python.install:
+$(STATEDIR)/python.install: $(python_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -125,7 +108,7 @@ $(STATEDIR)/python.install:
 
 python_targetinstall: $(STATEDIR)/python.targetinstall
 
-$(STATEDIR)/python.targetinstall: $(STATEDIR)/python.compile
+$(STATEDIR)/python.targetinstall: $(python_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

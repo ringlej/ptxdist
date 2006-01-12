@@ -35,8 +35,6 @@ XLIBS-FIXESEXT_DIR	= $(BUILDDIR)/$(XLIBS-FIXESEXT)
 
 xlibs-fixesext_get: $(STATEDIR)/xlibs-fixesext.get
 
-xlibs-fixesext_get_deps = $(XLIBS-FIXESEXT_SOURCE)
-
 $(STATEDIR)/xlibs-fixesext.get: $(xlibs-fixesext_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-FIXESEXT))
@@ -52,8 +50,6 @@ $(XLIBS-FIXESEXT_SOURCE):
 
 xlibs-fixesext_extract: $(STATEDIR)/xlibs-fixesext.extract
 
-xlibs-fixesext_extract_deps = $(STATEDIR)/xlibs-fixesext.get
-
 $(STATEDIR)/xlibs-fixesext.extract: $(xlibs-fixesext_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-FIXESEXT_DIR))
@@ -67,15 +63,8 @@ $(STATEDIR)/xlibs-fixesext.extract: $(xlibs-fixesext_extract_deps)
 
 xlibs-fixesext_prepare: $(STATEDIR)/xlibs-fixesext.prepare
 
-#
-# dependencies
-#
-xlibs-fixesext_prepare_deps =  $(STATEDIR)/xlibs-fixesext.extract
-xlibs-fixesext_prepare_deps += $(STATEDIR)/virtual-xchain.install
-
 XLIBS-FIXESEXT_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-FIXESEXT_ENV 	=  $(CROSS_ENV)
-XLIBS-FIXESEXT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -99,8 +88,6 @@ $(STATEDIR)/xlibs-fixesext.prepare: $(xlibs-fixesext_prepare_deps_default)
 
 xlibs-fixesext_compile: $(STATEDIR)/xlibs-fixesext.compile
 
-xlibs-fixesext_compile_deps = $(STATEDIR)/xlibs-fixesext.prepare
-
 $(STATEDIR)/xlibs-fixesext.compile: $(xlibs-fixesext_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-FIXESEXT_DIR) && $(XLIBS-FIXESEXT_ENV) $(XLIBS-FIXESEXT_PATH) make
@@ -122,8 +109,6 @@ $(STATEDIR)/xlibs-fixesext.install: $(STATEDIR)/xlibs-fixesext.compile
 # ----------------------------------------------------------------------------
 
 xlibs-fixesext_targetinstall: $(STATEDIR)/xlibs-fixesext.targetinstall
-
-xlibs-fixesext_targetinstall_deps = $(STATEDIR)/xlibs-fixesext.compile
 
 $(STATEDIR)/xlibs-fixesext.targetinstall: $(xlibs-fixesext_targetinstall_deps_default)
 	@$(call targetinfo, $@)

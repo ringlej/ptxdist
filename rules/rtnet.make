@@ -35,9 +35,7 @@ RTNET_MODULEDIR	= $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)-adeos/kernel/drivers
 
 rtnet_get: $(STATEDIR)/rtnet.get
 
-rtnet_get_deps = $(RTNET_SOURCE)
-
-$(STATEDIR)/rtnet.get: $(rtnet_get_deps_default)
+$(STATEDIR)/rtnet.get: $(RTNET_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -51,8 +49,6 @@ $(RTNET_SOURCE):
 
 rtnet_extract: $(STATEDIR)/rtnet.extract
 
-rtnet_extract_deps = $(STATEDIR)/rtnet.get
-
 $(STATEDIR)/rtnet.extract: $(rtnet_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTNET_DIR))
@@ -65,16 +61,6 @@ $(STATEDIR)/rtnet.extract: $(rtnet_extract_deps)
 # ----------------------------------------------------------------------------
 
 rtnet_prepare: $(STATEDIR)/rtnet.prepare
-
-#
-# dependencies
-#
-rtnet_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/kernel-modversions.prepare \
-	$(STATEDIR)/rtai.prepare \
-	$(STATEDIR)/ncurses.install \
-	$(STATEDIR)/rtnet.extract
 
 RTNET_PATH	=  PATH=$(CROSS_PATH)
 RTNET_ENV 	=  $(CROSS_ENV)
@@ -195,8 +181,6 @@ $(STATEDIR)/rtnet.prepare: $(rtnet_prepare_deps_default)
 
 rtnet_compile: $(STATEDIR)/rtnet.compile
 
-rtnet_compile_deps = $(STATEDIR)/rtnet.prepare
-
 $(STATEDIR)/rtnet.compile: $(rtnet_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(RTNET_DIR) && $(RTNET_PATH) make
@@ -208,7 +192,7 @@ $(STATEDIR)/rtnet.compile: $(rtnet_compile_deps_default)
 
 rtnet_install: $(STATEDIR)/rtnet.install
 
-$(STATEDIR)/rtnet.install: $(STATEDIR)/rtnet.compile
+$(STATEDIR)/rtnet.install: $(rtnet_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	# @$(call install, RTNET)
@@ -220,8 +204,6 @@ $(STATEDIR)/rtnet.install: $(STATEDIR)/rtnet.compile
 # ----------------------------------------------------------------------------
 
 rtnet_targetinstall: $(STATEDIR)/rtnet.targetinstall
-
-rtnet_targetinstall_deps = $(STATEDIR)/rtnet.compile
 
 $(STATEDIR)/rtnet.targetinstall: $(rtnet_targetinstall_deps_default)
 	@$(call targetinfo, $@)

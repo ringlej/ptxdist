@@ -32,9 +32,7 @@ MTD_DIR		= $(BUILDDIR)/$(MTD)
 
 mtd_get: $(STATEDIR)/mtd.get
 
-mtd_get_deps = $(MTD_SOURCE)
-
-$(STATEDIR)/mtd.get: $(mtd_get_deps_default)
+$(STATEDIR)/mtd.get: $(MTD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MTD))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(MTD_SOURCE):
 
 mtd_extract: $(STATEDIR)/mtd.extract
 
-mtd_extract_deps = $(STATEDIR)/mtd.get
-
 $(STATEDIR)/mtd.extract: $(mtd_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MTD_DIR))
@@ -63,14 +59,6 @@ $(STATEDIR)/mtd.extract: $(mtd_extract_deps)
 # ----------------------------------------------------------------------------
 
 mtd_prepare: $(STATEDIR)/mtd.prepare
-
-#
-# dependencies
-#
-mtd_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/zlib.install \
-	$(STATEDIR)/mtd.extract
 
 MTD_PATH	= PATH=$(CROSS_PATH)
 MTD_MAKEVARS	= CROSS=$(COMPILER_PREFIX)
@@ -85,8 +73,6 @@ $(STATEDIR)/mtd.prepare: $(mtd_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 mtd_compile: $(STATEDIR)/mtd.compile
-
-mtd_compile_deps = $(STATEDIR)/mtd.prepare
 
 $(STATEDIR)/mtd.compile: $(mtd_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -162,14 +148,6 @@ $(STATEDIR)/mtd.install: $(STATEDIR)/mtd.compile
 # ----------------------------------------------------------------------------
 
 mtd_targetinstall: $(STATEDIR)/mtd.targetinstall
-
-mtd_targetinstall_deps	=  $(STATEDIR)/mtd.compile
-ifdef PTXCONF_MTD_MKJFFS
-mtd_targetinstall_deps	+= $(STATEDIR)/zlib.targetinstall
-endif
-ifdef PTXCONF_MTD_MKJFFS2
-mtd_targetinstall_deps	+= $(STATEDIR)/zlib.targetinstall
-endif
 
 $(STATEDIR)/mtd.targetinstall: $(mtd_targetinstall_deps_default)
 	@$(call targetinfo, $@)

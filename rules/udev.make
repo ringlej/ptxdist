@@ -31,11 +31,8 @@ UDEV_DIR	= $(BUILDDIR)/$(UDEV)
 
 udev_get: $(STATEDIR)/udev.get
 
-udev_get_deps = $(UDEV_SOURCE)
-
-$(STATEDIR)/udev.get: $(udev_get_deps_default)
+$(STATEDIR)/udev.get: $(UDEV_SOURCE)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(UDEV))
 	@$(call touch, $@)
 
 $(UDEV_SOURCE):
@@ -47,8 +44,6 @@ $(UDEV_SOURCE):
 # ----------------------------------------------------------------------------
 
 udev_extract: $(STATEDIR)/udev.extract
-
-udev_extract_deps = $(STATEDIR)/udev.get
 
 $(STATEDIR)/udev.extract: $(udev_extract_deps)
 	@$(call targetinfo, $@)
@@ -62,13 +57,6 @@ $(STATEDIR)/udev.extract: $(udev_extract_deps)
 # ----------------------------------------------------------------------------
 
 udev_prepare: $(STATEDIR)/udev.prepare
-
-#
-# dependencies
-#
-udev_prepare_deps = \
-	$(STATEDIR)/udev.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 UDEV_PATH	=  PATH=$(CROSS_PATH)
 UDEV_ENV 	=  $(CROSS_ENV)
@@ -88,8 +76,6 @@ $(STATEDIR)/udev.prepare: $(udev_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 udev_compile: $(STATEDIR)/udev.compile
-
-udev_compile_deps = $(STATEDIR)/udev.prepare
 
 $(STATEDIR)/udev.compile: $(udev_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -111,8 +97,6 @@ $(STATEDIR)/udev.install: $(STATEDIR)/udev.compile
 # ----------------------------------------------------------------------------
 
 udev_targetinstall: $(STATEDIR)/udev.targetinstall
-
-udev_targetinstall_deps = $(STATEDIR)/udev.compile
 
 $(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps_default)
 	@$(call targetinfo, $@)

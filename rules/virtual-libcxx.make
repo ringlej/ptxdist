@@ -26,6 +26,6 @@ ifdef PTXCONF_LIBSTDCXX
 virtual-libcxx_targetinstall_deps = $(STATEDIR)/xchain-gccstage2.targetinstall
 endif 
 
-$(STATEDIR)/virtual-libcxx.targetinstall: $(virtual-libcxx_targetinstall_deps_default)
+$(STATEDIR)/virtual-libcxx.targetinstall: $(virtual-libcxx_targetinstall_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)

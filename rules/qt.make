@@ -34,9 +34,7 @@ QT_DIR		= $(BUILDDIR)/qt-$(QT_VERSION)
 
 qt_get: $(STATEDIR)/qt.get
 
-qt_get_deps	=  $(QT_SOURCE)
-
-$(STATEDIR)/qt.get: $(qt_get_deps_default)
+$(STATEDIR)/qt.get: $(QT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -50,8 +48,6 @@ $(QT_SOURCE):
 
 qt_extract: $(STATEDIR)/qt.extract
 
-qt_extract_deps	=  $(STATEDIR)/qt.get
-
 $(STATEDIR)/qt.extract: $(qt_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(QT_DIR))
@@ -64,13 +60,6 @@ $(STATEDIR)/qt.extract: $(qt_extract_deps)
 # ----------------------------------------------------------------------------
 
 qt_prepare: $(STATEDIR)/qt.prepare
-
-#
-# dependencies
-#
-qt_prepare_deps =  \
-	$(STATEDIR)/qt.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 QT_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 QT_ENV 	=  $(CROSS_ENV)
@@ -112,8 +101,6 @@ $(STATEDIR)/qt.prepare: $(qt_prepare_deps_default)
 
 qt_compile: $(STATEDIR)/qt.compile
 
-qt_compile_deps =  $(STATEDIR)/qt.prepare
-
 $(STATEDIR)/qt.compile: $(qt_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(QT_PATH) $(QT_ENV) make -C $(QT_DIR)
@@ -135,8 +122,6 @@ $(STATEDIR)/qt.install: $(STATEDIR)/qt.compile
 # ----------------------------------------------------------------------------
 
 qt_targetinstall: $(STATEDIR)/qt.targetinstall
-
-qt_targetinstall_deps	=  $(STATEDIR)/qt.compile
 
 $(STATEDIR)/qt.targetinstall: $(qt_targetinstall_deps_default)
 	@$(call targetinfo, $@)

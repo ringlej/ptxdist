@@ -24,9 +24,7 @@ NTPCLIENT_DIR		= $(BUILDDIR)/$(NTPCLIENT)
 
 ntpclient_get: $(STATEDIR)/ntpclient.get
 
-ntpclient_get_deps = $(NTPCLIENT_SOURCE)
-
-$(STATEDIR)/ntpclient.get: $(ntpclient_get_deps_default)
+$(STATEDIR)/ntpclient.get: $(NTPCLIENT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -39,8 +37,6 @@ $(NTPCLIENT_SOURCE):
 # ----------------------------------------------------------------------------
 
 ntpclient_extract: $(STATEDIR)/ntpclient.extract
-
-ntpclient_extract_deps = $(STATEDIR)/ntpclient.get
 
 $(STATEDIR)/ntpclient.extract: $(ntpclient_extract_deps)
 	@$(call targetinfo, $@)
@@ -55,13 +51,6 @@ $(STATEDIR)/ntpclient.extract: $(ntpclient_extract_deps)
 
 ntpclient_prepare: $(STATEDIR)/ntpclient.prepare
 
-#
-# dependencies
-#
-ntpclient_prepare_deps = \
-	$(STATEDIR)/ntpclient.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 NTPCLIENT_PATH	=  PATH=$(CROSS_PATH)
 NTPCLIENT_ENV 	=  $(CROSS_ENV)
 
@@ -74,8 +63,6 @@ $(STATEDIR)/ntpclient.prepare: $(ntpclient_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 ntpclient_compile: $(STATEDIR)/ntpclient.compile
-
-ntpclient_compile_deps = $(STATEDIR)/ntpclient.prepare
 
 $(STATEDIR)/ntpclient.compile: $(ntpclient_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -97,8 +84,6 @@ $(STATEDIR)/ntpclient.install: $(STATEDIR)/ntpclient.compile
 # ----------------------------------------------------------------------------
 
 ntpclient_targetinstall: $(STATEDIR)/ntpclient.targetinstall
-
-ntpclient_targetinstall_deps = $(STATEDIR)/ntpclient.compile
 
 $(STATEDIR)/ntpclient.targetinstall: $(ntpclient_targetinstall_deps_default)
 	@$(call targetinfo, $@)

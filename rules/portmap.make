@@ -67,13 +67,6 @@ endif
 
 portmap_prepare: $(STATEDIR)/portmap.prepare
 
-portmap_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install 
-ifdef PTXCONF_TCPWRAPPER
-portmap_prepare_deps += $(STATEDIR)/tcpwrapper.install
-endif
-portmap_prepare_deps += $(STATEDIR)/portmap.extract
-
 $(STATEDIR)/portmap.prepare: $(portmap_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -91,7 +84,7 @@ ifdef PTXCONF_TCPWRAPPER
 PORTMAP_MAKEVARS	= WRAP_DIR=$(CROSS_LIB_DIR)/lib
 endif
 
-$(STATEDIR)/portmap.compile: $(STATEDIR)/portmap.prepare
+$(STATEDIR)/portmap.compile: $(portmap_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PORTMAP_DIR) && 						\
 		$(PORTMAP_ENV) $(PORTMAP_PATH) make $(PORTMAP_MAKEVARS)
@@ -103,7 +96,7 @@ $(STATEDIR)/portmap.compile: $(STATEDIR)/portmap.prepare
 
 portmap_install: $(STATEDIR)/portmap.install
 
-$(STATEDIR)/portmap.install: $(STATEDIR)/portmap.compile
+$(STATEDIR)/portmap.install: $(portmap_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -113,7 +106,7 @@ $(STATEDIR)/portmap.install: $(STATEDIR)/portmap.compile
 
 portmap_targetinstall: $(STATEDIR)/portmap.targetinstall
 
-$(STATEDIR)/portmap.targetinstall: $(STATEDIR)/portmap.install
+$(STATEDIR)/portmap.targetinstall: $(portmap_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

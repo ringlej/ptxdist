@@ -32,9 +32,7 @@ VALGRIND_DIR		= $(BUILDDIR)/$(VALGRIND)
 
 valgrind_get: $(STATEDIR)/valgrind.get
 
-valgrind_get_deps = $(VALGRIND_SOURCE)
-
-$(STATEDIR)/valgrind.get: $(valgrind_get_deps_default)
+$(STATEDIR)/valgrind.get: $(VALGRIND_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(VALGRIND))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(VALGRIND_SOURCE):
 
 valgrind_extract: $(STATEDIR)/valgrind.extract
 
-valgrind_extract_deps = $(STATEDIR)/valgrind.get
-
 $(STATEDIR)/valgrind.extract: $(valgrind_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(VALGRIND_DIR))
@@ -64,12 +60,6 @@ $(STATEDIR)/valgrind.extract: $(valgrind_extract_deps)
 
 valgrind_prepare: $(STATEDIR)/valgrind.prepare
 
-#
-# dependencies
-#
-valgrind_prepare_deps = \
-	$(STATEDIR)/valgrind.extract 
-			
 
 VALGRIND_PATH	=  PATH=$(CROSS_PATH)
 VALGRIND_ENV 	=  $(CROSS_ENV)
@@ -99,8 +89,6 @@ $(STATEDIR)/valgrind.prepare: $(valgrind_prepare_deps_default)
 
 valgrind_compile: $(STATEDIR)/valgrind.compile
 
-valgrind_compile_deps = $(STATEDIR)/valgrind.prepare
-
 $(STATEDIR)/valgrind.compile: $(valgrind_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(VALGRIND_DIR) && $(VALGRIND_ENV) $(VALGRIND_PATH) make
@@ -112,7 +100,7 @@ $(STATEDIR)/valgrind.compile: $(valgrind_compile_deps_default)
 
 valgrind_install: $(STATEDIR)/valgrind.install
 
-$(STATEDIR)/valgrind.install: $(STATEDIR)/valgrind.compile
+$(STATEDIR)/valgrind.install: $(valgrind_install_deps_default)
 	@$(call targetinfo, $@)
 
 	# FIXME: rsc: if --prefix=/, doesn't this install to / on the 
@@ -126,8 +114,6 @@ $(STATEDIR)/valgrind.install: $(STATEDIR)/valgrind.compile
 # ----------------------------------------------------------------------------
 
 valgrind_targetinstall: $(STATEDIR)/valgrind.targetinstall
-
-valgrind_targetinstall_deps = $(STATEDIR)/valgrind.compile
 
 $(STATEDIR)/valgrind.targetinstall: $(valgrind_targetinstall_deps_default)
 	@$(call targetinfo, $@)

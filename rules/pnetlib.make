@@ -32,8 +32,6 @@ PNETLIB_DIR	= $(BUILDDIR)/$(PNETLIB)
 
 pnetlib_get: $(STATEDIR)/pnetlib.get
 
-pnetlib_get_deps = $(PNETLIB_SOURCE)
-
 $(STATEDIR)/pnetlib.get: $(pnetlib_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PNETLIB))
@@ -49,8 +47,6 @@ $(PNETLIB_SOURCE):
 
 pnetlib_extract: $(STATEDIR)/pnetlib.extract
 
-pnetlib_extract_deps = $(STATEDIR)/pnetlib.get
-
 $(STATEDIR)/pnetlib.extract: $(pnetlib_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PNETLIB_DIR))
@@ -64,17 +60,8 @@ $(STATEDIR)/pnetlib.extract: $(pnetlib_extract_deps)
 
 pnetlib_prepare: $(STATEDIR)/pnetlib.prepare
 
-#
-# dependencies
-#
-pnetlib_prepare_deps = \
-	$(STATEDIR)/pnetlib.extract \
-	$(STATEDIR)/pnet.install \
-	$(STATEDIR)/virtual-xchain.install
-
 PNETLIB_PATH	=  PATH=$(CROSS_PATH)
 PNETLIB_ENV 	=  $(CROSS_ENV)
-PNETLIB_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -94,8 +81,6 @@ $(STATEDIR)/pnetlib.prepare: $(pnetlib_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 pnetlib_compile: $(STATEDIR)/pnetlib.compile
-
-pnetlib_compile_deps = $(STATEDIR)/pnetlib.prepare
 
 $(STATEDIR)/pnetlib.compile: $(pnetlib_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -118,8 +103,6 @@ $(STATEDIR)/pnetlib.install: $(STATEDIR)/pnetlib.compile
 # ----------------------------------------------------------------------------
 
 pnetlib_targetinstall: $(STATEDIR)/pnetlib.targetinstall
-
-pnetlib_targetinstall_deps = $(STATEDIR)/pnetlib.compile
 
 $(STATEDIR)/pnetlib.targetinstall: $(pnetlib_targetinstall_deps_default)
 	@$(call targetinfo, $@)

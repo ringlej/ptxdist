@@ -59,13 +59,6 @@ $(STATEDIR)/ncurses.extract: $(STATEDIR)/ncurses.get
 
 ncurses_prepare: $(STATEDIR)/ncurses.prepare
 
-#
-# dependencies
-#
-ncurses_prepare_deps =  \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/ncurses.extract
-
 NCURSES_PATH	= PATH=$(CROSS_PATH)
 NCURSES_ENV 	= $(CROSS_ENV)
 

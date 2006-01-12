@@ -32,9 +32,7 @@ TROLL-FTPD_DIR		= $(BUILDDIR)/$(TROLL-FTPD)
 
 troll-ftpd_get: $(STATEDIR)/troll-ftpd.get
 
-troll-ftpd_get_deps = $(TROLL-FTPD_SOURCE)
-
-$(STATEDIR)/troll-ftpd.get: $(troll-ftpd_get_deps_default)
+$(STATEDIR)/troll-ftpd.get: $(TROLL-FTPD_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TROLL-FTPD))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(TROLL-FTPD_SOURCE):
 
 troll-ftpd_extract: $(STATEDIR)/troll-ftpd.extract
 
-troll-ftpd_extract_deps = $(STATEDIR)/troll-ftpd.get
-
 $(STATEDIR)/troll-ftpd.extract: $(troll-ftpd_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TROLL-FTPD_DIR))
@@ -64,17 +60,8 @@ $(STATEDIR)/troll-ftpd.extract: $(troll-ftpd_extract_deps)
 
 troll-ftpd_prepare: $(STATEDIR)/troll-ftpd.prepare
 
-#
-# dependencies
-#
-troll-ftpd_prepare_deps = \
-	$(STATEDIR)/troll-ftpd.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 TROLL-FTPD_PATH	=  PATH=$(CROSS_PATH)
 TROLL-FTPD_ENV 	=  $(CROSS_ENV)
-#TROLL-FTPD_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#TROLL-FTPD_ENV	+=
 
 $(STATEDIR)/troll-ftpd.prepare: $(troll-ftpd_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -89,8 +76,6 @@ $(STATEDIR)/troll-ftpd.prepare: $(troll-ftpd_prepare_deps_default)
 
 troll-ftpd_compile: $(STATEDIR)/troll-ftpd.compile
 
-troll-ftpd_compile_deps = $(STATEDIR)/troll-ftpd.prepare
-
 $(STATEDIR)/troll-ftpd.compile: $(troll-ftpd_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(TROLL-FTPD_DIR) && $(TROLL-FTPD_ENV) $(TROLL-FTPD_PATH) make
@@ -102,7 +87,7 @@ $(STATEDIR)/troll-ftpd.compile: $(troll-ftpd_compile_deps_default)
 
 troll-ftpd_install: $(STATEDIR)/troll-ftpd.install
 
-$(STATEDIR)/troll-ftpd.install: $(STATEDIR)/troll-ftpd.compile
+$(STATEDIR)/troll-ftpd.install: $(troll-ftpd_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -111,8 +96,6 @@ $(STATEDIR)/troll-ftpd.install: $(STATEDIR)/troll-ftpd.compile
 # ----------------------------------------------------------------------------
 
 troll-ftpd_targetinstall: $(STATEDIR)/troll-ftpd.targetinstall
-
-troll-ftpd_targetinstall_deps = $(STATEDIR)/troll-ftpd.compile
 
 $(STATEDIR)/troll-ftpd.targetinstall: $(troll-ftpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)

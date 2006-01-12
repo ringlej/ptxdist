@@ -33,10 +33,7 @@ PYTHON24_BUILDDIR	= $(PYTHON24_DIR)-build
 
 python24_get: $(STATEDIR)/python24.get
 
-python24_get_deps = \
-	$(PYTHON24_SOURCE)
-
-$(STATEDIR)/python24.get: $(python24_get_deps_default)
+$(STATEDIR)/python24.get: $(PYTHON24_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PYTHON24))
 	@$(call touch, $@)
@@ -51,10 +48,7 @@ $(PYTHON24_SOURCE):
 
 python24_extract: $(STATEDIR)/python24.extract
 
-python24_extract_deps = \
-	$(STATEDIR)/python24.get
-
-$(STATEDIR)/python24.extract: $(python24_extract_deps)
+$(STATEDIR)/python24.extract: $(python24_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PYTHON24_DIR))
 	@$(call extract, $(PYTHON24_SOURCE))
@@ -66,13 +60,6 @@ $(STATEDIR)/python24.extract: $(python24_extract_deps)
 # ----------------------------------------------------------------------------
 
 python24_prepare: $(STATEDIR)/python24.prepare
-
-#
-# dependencies
-#
-python24_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/python24.extract
 
 PYTHON24_PATH		=  PATH=$(CROSS_PATH)
 PYTHON24_ENV		=  $(CROSS_ENV)
@@ -100,10 +87,6 @@ $(STATEDIR)/python24.prepare: $(python24_prepare_deps_default)
 
 python24_compile: $(STATEDIR)/python24.compile
 
-python24_compile_deps = \
-	$(STATEDIR)/xchain-python24.compile \
-	$(STATEDIR)/python24.prepare
-
 $(STATEDIR)/python24.compile: $(python24_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PYTHON24_BUILDDIR) && $(PYTHON24_PATH) make $(PYTHON24_MAKEVARS)
@@ -115,7 +98,7 @@ $(STATEDIR)/python24.compile: $(python24_compile_deps_default)
 
 python24_install: $(STATEDIR)/python24.install
 
-$(STATEDIR)/python24.install:
+$(STATEDIR)/python24.install: $(python24_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -125,7 +108,7 @@ $(STATEDIR)/python24.install:
 
 python24_targetinstall: $(STATEDIR)/python24.targetinstall
 
-$(STATEDIR)/python24.targetinstall: $(STATEDIR)/python24.compile
+$(STATEDIR)/python24.targetinstall: $(python24_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

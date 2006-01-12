@@ -53,16 +53,6 @@ $(OPENSSH_SOURCE):
 
 openssh_extract: $(STATEDIR)/openssh.extract
 
-#
-# we depend on openssl.install, because we need the header files
-# to patch configure.ac with the version string of the installed
-# openssl packet
-#
-openssh_extract_deps = \
-	$(STATEDIR)/autoconf257.install \
-	$(STATEDIR)/openssl.install \
-	$(STATEDIR)/openssh.get
-
 $(STATEDIR)/openssh.extract: $(openssh_extract_deps)
 	@$(call targetinfo, openssh.extract)
 	@$(call clean, $(OPENSSH_DIR))
@@ -86,14 +76,6 @@ $(STATEDIR)/openssh.extract: $(openssh_extract_deps)
 # ----------------------------------------------------------------------------
 
 openssh_prepare: $(STATEDIR)/openssh.prepare
-
-#
-# dependencies
-#
-openssh_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/zlib.install \
-	$(STATEDIR)/openssh.extract
 
 OPENSSH_PATH	= PATH=$(CROSS_PATH)
 #
@@ -180,11 +162,6 @@ $(STATEDIR)/openssh.install: $(STATEDIR)/openssh.compile
 # ----------------------------------------------------------------------------
 
 openssh_targetinstall: $(STATEDIR)/openssh.targetinstall
-
-openssh_targetinstall_deps = \
-	$(STATEDIR)/openssl.targetinstall \
-	$(STATEDIR)/zlib.targetinstall \
-	$(STATEDIR)/openssh.compile
 
 $(STATEDIR)/openssh.targetinstall: $(openssh_targetinstall_deps_default)
 	@$(call targetinfo, $@)

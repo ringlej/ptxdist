@@ -34,9 +34,7 @@ POPT_DIR	= $(BUILDDIR)/$(POPT)
 
 popt_get: $(STATEDIR)/popt.get
 
-popt_get_deps = $(POPT_SOURCE)
-
-$(STATEDIR)/popt.get: $(popt_get_deps_default)
+$(STATEDIR)/popt.get: $(POPT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -50,8 +48,6 @@ $(POPT_SOURCE):
 
 popt_extract: $(STATEDIR)/popt.extract
 
-popt_extract_deps = $(STATEDIR)/popt.get
-
 $(STATEDIR)/popt.extract: $(popt_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(POPT_DIR))
@@ -64,13 +60,6 @@ $(STATEDIR)/popt.extract: $(popt_extract_deps)
 # ----------------------------------------------------------------------------
 
 popt_prepare: $(STATEDIR)/popt.prepare
-
-#
-# dependencies
-#
-popt_prepare_deps =  \
-	$(STATEDIR)/popt.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 POPT_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 POPT_ENV 	=  $(CROSS_ENV)
@@ -98,8 +87,6 @@ $(STATEDIR)/popt.prepare: $(popt_prepare_deps_default)
 
 popt_compile: $(STATEDIR)/popt.compile
 
-popt_compile_deps = $(STATEDIR)/popt.prepare
-
 $(STATEDIR)/popt.compile: $(popt_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(POPT_DIR) && $(POPT_PATH) make
@@ -121,8 +108,6 @@ $(STATEDIR)/popt.install: $(STATEDIR)/popt.compile
 # ----------------------------------------------------------------------------
 
 popt_targetinstall: $(STATEDIR)/popt.targetinstall
-
-popt_targetinstall_deps	= $(STATEDIR)/popt.compile
 
 $(STATEDIR)/popt.targetinstall: $(popt_targetinstall_deps_default)
 	@$(call targetinfo, $@)

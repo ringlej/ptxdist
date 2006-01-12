@@ -35,9 +35,7 @@ REALVNC_DIR		= $(BUILDDIR)/$(REALVNC)
 
 realvnc_get: $(STATEDIR)/realvnc.get
 
-realvnc_get_deps = $(REALVNC_SOURCE)
-
-$(STATEDIR)/realvnc.get: $(realvnc_get_deps_default)
+$(STATEDIR)/realvnc.get: $(REALVNC_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(REALVNC))
 	@$(call touch, $@)
@@ -52,8 +50,6 @@ $(REALVNC_SOURCE):
 
 realvnc_extract: $(STATEDIR)/realvnc.extract
 
-realvnc_extract_deps = $(STATEDIR)/realvnc.get
-
 $(STATEDIR)/realvnc.extract: $(realvnc_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(REALVNC_DIR))
@@ -67,17 +63,8 @@ $(STATEDIR)/realvnc.extract: $(realvnc_extract_deps)
 
 realvnc_prepare: $(STATEDIR)/realvnc.prepare
 
-#
-# dependencies
-#
-realvnc_prepare_deps =  $(STATEDIR)/realvnc.extract
-realvnc_prepare_deps += $(STATEDIR)/virtual-xchain.install
-realvnc_prepare_deps += $(STATEDIR)/xlibs-xtst.install
-
 REALVNC_PATH	=  PATH=$(CROSS_PATH)
 REALVNC_ENV 	=  $(CROSS_ENV)
-#REALVNC_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#REALVNC_ENV	+=
 
 #
 # autoconf
@@ -103,8 +90,6 @@ $(STATEDIR)/realvnc.prepare: $(realvnc_prepare_deps_default)
 
 realvnc_compile: $(STATEDIR)/realvnc.compile
 
-realvnc_compile_deps = $(STATEDIR)/realvnc.prepare
-
 $(STATEDIR)/realvnc.compile: $(realvnc_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(REALVNC_DIR) && $(REALVNC_ENV) $(REALVNC_PATH) make
@@ -116,7 +101,7 @@ $(STATEDIR)/realvnc.compile: $(realvnc_compile_deps_default)
 
 realvnc_install: $(STATEDIR)/realvnc.install
 
-$(STATEDIR)/realvnc.install: $(STATEDIR)/realvnc.compile
+$(STATEDIR)/realvnc.install: $(realvnc_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, REALVNC)
 	@$(call touch, $@)
@@ -126,9 +111,6 @@ $(STATEDIR)/realvnc.install: $(STATEDIR)/realvnc.compile
 # ----------------------------------------------------------------------------
 
 realvnc_targetinstall: $(STATEDIR)/realvnc.targetinstall
-
-realvnc_targetinstall_deps =  $(STATEDIR)/realvnc.compile
-realvnc_targetinstall_deps += $(STATEDIR)/xlibs-xtst.targetinstall
 
 $(STATEDIR)/realvnc.targetinstall: $(realvnc_targetinstall_deps_default)
 	@$(call targetinfo, $@)

@@ -36,7 +36,6 @@ tcpdump_get_deps = $(TCPDUMP_SOURCE)
 
 $(STATEDIR)/tcpdump.get: $(tcpdump_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(TCPDUMP))
 	@$(call touch, $@)
 
 $(TCPDUMP_SOURCE):
@@ -48,8 +47,6 @@ $(TCPDUMP_SOURCE):
 # ----------------------------------------------------------------------------
 
 tcpdump_extract: $(STATEDIR)/tcpdump.extract
-
-tcpdump_extract_deps = $(STATEDIR)/tcpdump.get
 
 $(STATEDIR)/tcpdump.extract: $(tcpdump_extract_deps)
 	@$(call targetinfo, $@)
@@ -64,18 +61,8 @@ $(STATEDIR)/tcpdump.extract: $(tcpdump_extract_deps)
 
 tcpdump_prepare: $(STATEDIR)/tcpdump.prepare
 
-#
-# dependencies
-#
-tcpdump_prepare_deps = \
-	$(STATEDIR)/tcpdump.extract \
-	$(STATEDIR)/libpcap.install \
-	$(STATEDIR)/virtual-xchain.install
-
 TCPDUMP_PATH	=  PATH=$(CROSS_PATH)
 TCPDUMP_ENV 	=  $(CROSS_ENV)
-#TCPDUMP_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#TCPDUMP_ENV	+=
 
 #
 # autoconf
@@ -103,8 +90,6 @@ $(STATEDIR)/tcpdump.prepare: $(tcpdump_prepare_deps_default)
 
 tcpdump_compile: $(STATEDIR)/tcpdump.compile
 
-tcpdump_compile_deps = $(STATEDIR)/tcpdump.prepare
-
 $(STATEDIR)/tcpdump.compile: $(tcpdump_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(TCPDUMP_DIR) && $(TCPDUMP_ENV) $(TCPDUMP_PATH) make
@@ -116,7 +101,7 @@ $(STATEDIR)/tcpdump.compile: $(tcpdump_compile_deps_default)
 
 tcpdump_install: $(STATEDIR)/tcpdump.install
 
-$(STATEDIR)/tcpdump.install: $(STATEDIR)/tcpdump.compile
+$(STATEDIR)/tcpdump.install: $(tcpdump_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, TCPDUMP)
 	@$(call touch, $@)
@@ -126,9 +111,6 @@ $(STATEDIR)/tcpdump.install: $(STATEDIR)/tcpdump.compile
 # ----------------------------------------------------------------------------
 
 tcpdump_targetinstall: $(STATEDIR)/tcpdump.targetinstall
-
-tcpdump_targetinstall_deps = $(STATEDIR)/tcpdump.compile \
-			     $(STATEDIR)/libpcap.install
 
 $(STATEDIR)/tcpdump.targetinstall: $(tcpdump_targetinstall_deps_default)
 	@$(call targetinfo, $@)

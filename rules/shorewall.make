@@ -33,9 +33,7 @@ SHOREWALL_DIR		= $(BUILDDIR)/$(SHOREWALL)
 
 shorewall_get: $(STATEDIR)/shorewall.get
 
-shorewall_get_deps	=  $(SHOREWALL_SOURCE)
-
-$(STATEDIR)/shorewall.get: $(shorewall_get_deps_default)
+$(STATEDIR)/shorewall.get: $(SHOREWALL_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,9 +47,7 @@ $(SHOREWALL_SOURCE):
 
 shorewall_extract: $(STATEDIR)/shorewall.extract
 
-shorewall_extract_deps	=  $(STATEDIR)/shorewall.get
-
-$(STATEDIR)/shorewall.extract: $(shorewall_extract_deps)
+$(STATEDIR)/shorewall.extract: $(shorewall_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SHOREWALL_DIR))
 	@$(call extract, $(SHOREWALL_SOURCE))
@@ -64,7 +60,7 @@ $(STATEDIR)/shorewall.extract: $(shorewall_extract_deps)
 
 shorewall_prepare: $(STATEDIR)/shorewall.prepare
 
-$(STATEDIR)/shorewall.prepare:
+$(STATEDIR)/shorewall.prepare: $(shorewall_prepare_deps_default
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -74,7 +70,7 @@ $(STATEDIR)/shorewall.prepare:
 
 shorewall_compile: $(STATEDIR)/shorewall.compile
 
-$(STATEDIR)/shorewall.compile:
+$(STATEDIR)/shorewall.compile: $(shorewall_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -83,8 +79,6 @@ $(STATEDIR)/shorewall.compile:
 # ----------------------------------------------------------------------------
 
 shorewall_targetinstall: $(STATEDIR)/shorewall.targetinstall
-
-shorewall_targetinstall_deps	=  $(STATEDIR)/shorewall.extract
 
 #
 # create /etc/shorewall directory before installing to keep it from

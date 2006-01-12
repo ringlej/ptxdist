@@ -48,7 +48,7 @@ $(PROFTPD_SOURCE):
 
 proftpd_extract: $(STATEDIR)/proftpd.extract
 
-$(STATEDIR)/proftpd.extract: $(STATEDIR)/proftpd.get
+$(STATEDIR)/proftpd.extract: $(proftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PROFTPD_DIR))
 	@$(call extract, $(PROFTPD_SOURCE))
@@ -95,7 +95,7 @@ proftpd_extract_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/proftpd.extract
 
-$(STATEDIR)/proftpd.prepare: $(proftpd_extract_deps)
+$(STATEDIR)/proftpd.prepare: $(proftpd_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PROFTPD_DIR) && \
 		$(PROFTPD_PATH) $(PROFTPD_ENV) \
@@ -108,7 +108,7 @@ $(STATEDIR)/proftpd.prepare: $(proftpd_extract_deps)
 
 proftpd_compile: $(STATEDIR)/proftpd.compile
 
-$(STATEDIR)/proftpd.compile: $(STATEDIR)/proftpd.prepare 
+$(STATEDIR)/proftpd.compile: $(proftpd_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PROFTPD_DIR) && $(PROFTPD_PATH) $(PROFTPD_ENV) make $(PROFTPD_MAKEVARS)
 	@$(call touch, $@)
@@ -119,7 +119,7 @@ $(STATEDIR)/proftpd.compile: $(STATEDIR)/proftpd.prepare
 
 proftpd_install: $(STATEDIR)/proftpd.install
 
-$(STATEDIR)/proftpd.install: $(STATEDIR)/proftpd.compile
+$(STATEDIR)/proftpd.install: $(proftpd_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -129,7 +129,7 @@ $(STATEDIR)/proftpd.install: $(STATEDIR)/proftpd.compile
 
 proftpd_targetinstall: $(STATEDIR)/proftpd.targetinstall
 
-$(STATEDIR)/proftpd.targetinstall: $(STATEDIR)/proftpd.install
+$(STATEDIR)/proftpd.targetinstall: $(proftpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

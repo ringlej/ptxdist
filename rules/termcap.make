@@ -32,17 +32,8 @@ TERMCAP_DIR	= $(BUILDDIR)/$(TERMCAP)
 
 termcap_get: $(STATEDIR)/termcap.get
 
-termcap_get_deps = \
-	$(TERMCAP_SOURCE) \
-	$(STATEDIR)/termcap-patches.get
-
-$(STATEDIR)/termcap.get: $(termcap_get_deps_default)
+$(STATEDIR)/termcap.get: $(TERMCAP_SOURCE)
 	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-$(STATEDIR)/termcap-patches.get:
-	@$(call targetinfo, $@)
-	@$(call get_patches, $(TERMCAP))
 	@$(call touch, $@)
 
 $(TERMCAP_SOURCE):
@@ -54,8 +45,6 @@ $(TERMCAP_SOURCE):
 # ----------------------------------------------------------------------------
 
 termcap_extract: $(STATEDIR)/termcap.extract
-
-termcap_extract_deps = $(STATEDIR)/termcap.get
 
 $(STATEDIR)/termcap.extract: $(termcap_extract_deps)
 	@$(call targetinfo, $@)
@@ -69,13 +58,6 @@ $(STATEDIR)/termcap.extract: $(termcap_extract_deps)
 # ----------------------------------------------------------------------------
 
 termcap_prepare: $(STATEDIR)/termcap.prepare
-
-#
-# dependencies
-#
-termcap_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/termcap.extract
 
 TERMCAP_PATH	=  PATH=$(CROSS_PATH)
 TERMCAP_ENV 	=  $(CROSS_ENV)
@@ -99,8 +81,6 @@ $(STATEDIR)/termcap.prepare: $(termcap_prepare_deps_default)
 
 termcap_compile: $(STATEDIR)/termcap.compile
 
-termcap_compile_deps = $(STATEDIR)/termcap.prepare
-
 $(STATEDIR)/termcap.compile: $(termcap_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(TERMCAP_DIR) && $(TERMCAP_PATH) make
@@ -112,7 +92,7 @@ $(STATEDIR)/termcap.compile: $(termcap_compile_deps_default)
 
 termcap_install: $(STATEDIR)/termcap.install
 
-$(STATEDIR)/termcap.install: $(STATEDIR)/termcap.compile
+$(STATEDIR)/termcap.install: $(termcap_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, TERMCAP)
 	@$(call touch, $@)
@@ -122,8 +102,6 @@ $(STATEDIR)/termcap.install: $(STATEDIR)/termcap.compile
 # ----------------------------------------------------------------------------
 
 termcap_targetinstall: $(STATEDIR)/termcap.targetinstall
-
-termcap_targetinstall_deps = $(STATEDIR)/termcap.install
 
 $(STATEDIR)/termcap.targetinstall: $(termcap_targetinstall_deps_default)
 	@$(call targetinfo, $@)

@@ -46,9 +46,6 @@ $(STRACE_SOURCE):
 
 strace_extract: $(STATEDIR)/strace.extract
 
-strace_extract_deps = \
-	$(STATEDIR)/strace.get
-
 $(STATEDIR)/strace.extract: $(strace_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(STRACE_DIR))
@@ -61,10 +58,6 @@ $(STATEDIR)/strace.extract: $(strace_extract_deps)
 # ----------------------------------------------------------------------------
 
 strace_prepare: $(STATEDIR)/strace.prepare
-
-strace_prepare_deps = \
-	$(STATEDIR)/strace.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 STRACE_PATH	=  PATH=$(CROSS_PATH)
 STRACE_ENV	=  $(CROSS_ENV)
@@ -91,7 +84,7 @@ $(STATEDIR)/strace.prepare: $(strace_prepare_deps_default)
 
 strace_compile: $(STATEDIR)/strace.compile
 
-$(STATEDIR)/strace.compile: $(STATEDIR)/strace.prepare 
+$(STATEDIR)/strace.compile: $(strace_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(STRACE_PATH) $(STRACE_ENV) make -C $(STRACE_DIR)
 	@$(call touch, $@)
@@ -102,7 +95,7 @@ $(STATEDIR)/strace.compile: $(STATEDIR)/strace.prepare
 
 strace_install: $(STATEDIR)/strace.install
 
-$(STATEDIR)/strace.install: $(STATEDIR)/strace.compile
+$(STATEDIR)/strace.install: $(strace_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -112,7 +105,7 @@ $(STATEDIR)/strace.install: $(STATEDIR)/strace.compile
 
 strace_targetinstall: $(STATEDIR)/strace.targetinstall
 
-$(STATEDIR)/strace.targetinstall: $(STATEDIR)/strace.compile
+$(STATEDIR)/strace.targetinstall: $(strace_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

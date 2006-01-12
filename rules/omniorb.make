@@ -34,8 +34,6 @@ OMNIORB_DIR		= $(BUILDDIR)/$(OMNIORB)
 
 omniorb_get: $(STATEDIR)/omniorb.get
 
-omniorb_get_deps = $(OMNIORB_SOURCE)
-
 $(STATEDIR)/omniorb.get: $(omniorb_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OMNIORB))
@@ -51,8 +49,6 @@ $(OMNIORB_SOURCE):
 
 omniorb_extract: $(STATEDIR)/omniorb.extract
 
-omniorb_extract_deps = $(STATEDIR)/omniorb.get
-
 $(STATEDIR)/omniorb.extract: $(omniorb_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OMNIORB_DIR))
@@ -65,13 +61,6 @@ $(STATEDIR)/omniorb.extract: $(omniorb_extract_deps)
 # ----------------------------------------------------------------------------
 
 omniorb_prepare: $(STATEDIR)/omniorb.prepare
-
-#
-# dependencies
-#
-omniorb_prepare_deps = \
-	$(STATEDIR)/omniorb.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 OMNIORB_PATH	=  PATH=$(CROSS_PATH)
 OMNIORB_ENV 	=  $(CROSS_ENV)
@@ -98,8 +87,6 @@ $(STATEDIR)/omniorb.prepare: $(omniorb_prepare_deps_default)
 
 omniorb_compile: $(STATEDIR)/omniorb.compile
 
-omniorb_compile_deps = $(STATEDIR)/omniorb.prepare
-
 $(STATEDIR)/omniorb.compile: $(omniorb_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(OMNIORB_DIR) && $(OMNIORB_ENV) $(OMNIORB_PATH) make
@@ -121,8 +108,6 @@ $(STATEDIR)/omniorb.install: $(STATEDIR)/omniorb.compile
 # ----------------------------------------------------------------------------
 
 omniorb_targetinstall: $(STATEDIR)/omniorb.targetinstall
-
-omniorb_targetinstall_deps = $(STATEDIR)/omniorb.compile
 
 $(STATEDIR)/omniorb.targetinstall: $(omniorb_targetinstall_deps_default)
 	@$(call targetinfo, $@)

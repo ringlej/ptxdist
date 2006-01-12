@@ -32,9 +32,7 @@ NTP_DIR		= $(BUILDDIR)/$(NTP)
 
 ntp_get: $(STATEDIR)/ntp.get
 
-ntp_get_deps = $(NTP_SOURCE)
-
-$(STATEDIR)/ntp.get: $(ntp_get_deps_default)
+$(STATEDIR)/ntp.get: $(NTP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NTP))
 	@$(call touch, $@)
@@ -49,9 +47,6 @@ $(NTP_SOURCE):
 
 ntp_extract: $(STATEDIR)/ntp.extract
 
-ntp_extract_deps = $(STATEDIR)/ntp.get
-
-$(STATEDIR)/ntp.extract: $(ntp_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NTP_DIR))
 	@$(call extract, $(NTP_SOURCE))
@@ -64,16 +59,8 @@ $(STATEDIR)/ntp.extract: $(ntp_extract_deps)
 
 ntp_prepare: $(STATEDIR)/ntp.prepare
 
-#
-# dependencies
-#
-ntp_prepare_deps = \
-	$(STATEDIR)/ntp.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 NTP_PATH	=  PATH=$(CROSS_PATH)
 NTP_ENV 	=  $(CROSS_ENV)
-#NTP_ENV	+=
 
 #
 # autoconf
@@ -327,8 +314,6 @@ $(STATEDIR)/ntp.prepare: $(ntp_prepare_deps_default)
 
 ntp_compile: $(STATEDIR)/ntp.compile
 
-ntp_compile_deps = $(STATEDIR)/ntp.prepare
-
 $(STATEDIR)/ntp.compile: $(ntp_compile_deps_default)
 	@$(call targetinfo, $@)
 
@@ -358,8 +343,6 @@ $(STATEDIR)/ntp.install: $(STATEDIR)/ntp.compile
 # ----------------------------------------------------------------------------
 
 ntp_targetinstall: $(STATEDIR)/ntp.targetinstall
-
-ntp_targetinstall_deps = $(STATEDIR)/ntp.compile
 
 $(STATEDIR)/ntp.targetinstall: $(ntp_targetinstall_deps_default)
 	@$(call targetinfo, $@)

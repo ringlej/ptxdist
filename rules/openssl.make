@@ -88,10 +88,6 @@ $(STATEDIR)/openssl.extract: $(STATEDIR)/openssl.get
 
 openssl_prepare: $(STATEDIR)/openssl.prepare
 
-openssl_prepare_deps =  \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/openssl.extract 
-
 OPENSSL_PATH	= PATH=$(CROSS_PATH)
 OPENSSL_MAKEVARS = \
 	$(CROSS_ENV_CC) \
@@ -158,9 +154,6 @@ $(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
 # ----------------------------------------------------------------------------
 
 openssl_targetinstall: $(STATEDIR)/openssl.targetinstall
-
-openssl_targetinstall_deps = \
-	$(STATEDIR)/openssl.install
 
 $(STATEDIR)/openssl.targetinstall: $(openssl_targetinstall_deps_default)
 	@$(call targetinfo, $@)

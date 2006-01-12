@@ -74,11 +74,6 @@ RTAI_ENV = \
 	LINUXDIR=$(KERNEL_DIR) \
 	MAKE='make $(KERNEL_MAKEVARS)'
 
-rtai_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/kernel.prepare \
-	$(STATEDIR)/rtai.extract
-
 RTAI_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 RTAI_AUTOCONF += \
 	--with-kconfig-file=$(RTAI_DIR)/.config \
@@ -100,7 +95,7 @@ $(STATEDIR)/rtai.prepare: $(rtai_prepare_deps_default)
 
 rtai_compile: $(STATEDIR)/rtai.compile
 
-$(STATEDIR)/rtai.compile: $(STATEDIR)/rtai.prepare 
+$(STATEDIR)/rtai.compile: $(rtai_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(RTAI_DIR) && $(RTAI_PATH) TOPDIR=$(RTAI_DIR) make
 	@$(call touch, $@)
@@ -111,7 +106,7 @@ $(STATEDIR)/rtai.compile: $(STATEDIR)/rtai.prepare
 
 rtai_install: $(STATEDIR)/rtai.install
 
-$(STATEDIR)/rtai.install: $(STATEDIR)/rtai.compile
+$(STATEDIR)/rtai.install: $(rtai_install_deps_default)
 	@$(call targetinfo, $@)
 	# RTAI tries to install all kinds of useless crap which we don't
 	# want to have on the target, so install into a build dir here
@@ -124,7 +119,7 @@ $(STATEDIR)/rtai.install: $(STATEDIR)/rtai.compile
 
 rtai_targetinstall: $(STATEDIR)/rtai.targetinstall
 
-$(STATEDIR)/rtai.targetinstall: $(STATEDIR)/rtai.install
+$(STATEDIR)/rtai.targetinstall: $(rtai_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	install -d $(RTAI_MODULEDIR)/rtai

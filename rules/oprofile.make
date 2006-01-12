@@ -32,8 +32,6 @@ OPROFILE_DIR		= $(BUILDDIR)/$(OPROFILE)
 
 oprofile_get: $(STATEDIR)/oprofile.get
 
-oprofile_get_deps	=  $(OPROFILE_SOURCE)
-
 $(STATEDIR)/oprofile.get: $(oprofile_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -48,8 +46,6 @@ $(OPROFILE_SOURCE):
 
 oprofile_extract: $(STATEDIR)/oprofile.extract
 
-oprofile_extract_deps	=  $(STATEDIR)/oprofile.get
-
 $(STATEDIR)/oprofile.extract: $(oprofile_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPROFILE_DIR))
@@ -62,14 +58,6 @@ $(STATEDIR)/oprofile.extract: $(oprofile_extract_deps)
 # ----------------------------------------------------------------------------
 
 oprofile_prepare: $(STATEDIR)/oprofile.prepare
-
-#
-# dependencies
-#
-oprofile_prepare_deps =  \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/popt.install \
-	$(STATEDIR)/oprofile.extract
 
 OPROFILE_PATH	=  PATH=$(CROSS_PATH)
 OPROFILE_ENV 	=  $(CROSS_ENV)
@@ -101,8 +89,6 @@ $(STATEDIR)/oprofile.prepare: $(oprofile_prepare_deps_default)
 
 oprofile_compile: $(STATEDIR)/oprofile.compile
 
-oprofile_compile_deps =  $(STATEDIR)/oprofile.prepare
-
 $(STATEDIR)/oprofile.compile: $(oprofile_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(OPROFILE_PATH) make -C $(OPROFILE_DIR) $(OPROFILE_MAKEVARS)
@@ -124,8 +110,6 @@ $(STATEDIR)/oprofile.install: $(STATEDIR)/oprofile.compile
 # ----------------------------------------------------------------------------
 
 oprofile_targetinstall: $(STATEDIR)/oprofile.targetinstall
-
-oprofile_targetinstall_deps	=  $(STATEDIR)/oprofile.compile
 
 $(STATEDIR)/oprofile.targetinstall: $(oprofile_targetinstall_deps_default)
 	@$(call targetinfo, $@)

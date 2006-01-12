@@ -35,8 +35,6 @@ WXWINDOWS_DIR		= $(BUILDDIR)/$(WXWINDOWS)
 
 wxWindows_get: $(STATEDIR)/wxWindows.get
 
-wxWindows_get_deps	=  $(WXWINDOWS_SOURCE)
-
 $(STATEDIR)/wxWindows.get: $(wxWindows_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -51,8 +49,6 @@ $(WXWINDOWS_SOURCE):
 
 wxWindows_extract: $(STATEDIR)/wxWindows.extract
 
-wxWindows_extract_deps	=  $(STATEDIR)/wxWindows.get
-
 $(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WXWINDOWS_DIR))
@@ -66,16 +62,8 @@ $(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps)
 
 wxWindows_prepare: $(STATEDIR)/wxWindows.prepare
 
-#
-# dependencies
-#
-wxWindows_prepare_deps =  \
-	$(STATEDIR)/wxWindows.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 WXWINDOWS_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 WXWINDOWS_ENV 	=  $(CROSS_ENV)
-#WXWINDOWS_ENV	+=
 
 
 #
@@ -123,7 +111,7 @@ $(STATEDIR)/wxWindows.compile: $(wxWindows_compile_deps_default)
 
 wxWindows_install: $(STATEDIR)/wxWindows.install
 
-$(STATEDIR)/wxWindows.install: $(STATEDIR)/wxWindows.compile
+$(STATEDIR)/wxWindows.install: $(wxWindows_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -132,8 +120,6 @@ $(STATEDIR)/wxWindows.install: $(STATEDIR)/wxWindows.compile
 # ----------------------------------------------------------------------------
 
 wxWindows_targetinstall: $(STATEDIR)/wxWindows.targetinstall
-
-wxWindows_targetinstall_deps	=  $(STATEDIR)/wxWindows.compile
 
 $(STATEDIR)/wxWindows.targetinstall: $(wxWindows_targetinstall_deps_default)
 	@$(call targetinfo, $@)

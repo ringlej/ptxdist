@@ -31,9 +31,7 @@ NETKIT-FTP_DIR		= $(BUILDDIR)/$(NETKIT-FTP)
 
 netkit-ftp_get: $(STATEDIR)/netkit-ftp.get
 
-netkit-ftp_get_deps = $(NETKIT-FTP_SOURCE)
-
-$(STATEDIR)/netkit-ftp.get: $(netkit-ftp_get_deps_default)
+$(STATEDIR)/netkit-ftp.get: $(NETKIT-FTP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NETKIT-FTP))
 	@$(call touch, $@)
@@ -48,8 +46,6 @@ $(NETKIT-FTP_SOURCE):
 
 netkit-ftp_extract: $(STATEDIR)/netkit-ftp.extract
 
-netkit-ftp_extract_deps = $(STATEDIR)/netkit-ftp.get
-
 $(STATEDIR)/netkit-ftp.extract: $(netkit-ftp_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NETKIT-FTP_DIR))
@@ -63,17 +59,8 @@ $(STATEDIR)/netkit-ftp.extract: $(netkit-ftp_extract_deps)
 
 netkit-ftp_prepare: $(STATEDIR)/netkit-ftp.prepare
 
-#
-# dependencies
-#
-netkit-ftp_prepare_deps = \
-	$(STATEDIR)/netkit-ftp.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 NETKIT-FTP_PATH	=  PATH=$(CROSS_PATH)
 NETKIT-FTP_ENV 	=  $(CROSS_ENV)
-#NETKIT-FTP_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#NETKIT-FTP_ENV	+=
 
 #
 # autoconf
@@ -106,8 +93,6 @@ $(STATEDIR)/netkit-ftp.prepare: $(netkit-ftp_prepare_deps_default)
 
 netkit-ftp_compile: $(STATEDIR)/netkit-ftp.compile
 
-netkit-ftp_compile_deps = $(STATEDIR)/netkit-ftp.prepare
-
 $(STATEDIR)/netkit-ftp.compile: $(netkit-ftp_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(NETKIT-FTP_DIR) && $(NETKIT-FTP_ENV) $(NETKIT-FTP_PATH) make
@@ -130,8 +115,6 @@ $(STATEDIR)/netkit-ftp.install: $(STATEDIR)/netkit-ftp.compile
 # ----------------------------------------------------------------------------
 
 netkit-ftp_targetinstall: $(STATEDIR)/netkit-ftp.targetinstall
-
-netkit-ftp_targetinstall_deps = $(STATEDIR)/netkit-ftp.compile
 
 $(STATEDIR)/netkit-ftp.targetinstall: $(netkit-ftp_targetinstall_deps_default)
 	@$(call targetinfo, $@)

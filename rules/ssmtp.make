@@ -38,8 +38,6 @@ SSMTP_PATCH_SOURCE	= $(SRCDIR)/$(SSMTP_PATCH_SRC)
 
 ssmtp_get: $(STATEDIR)/ssmtp.get
 
-ssmtp_get_deps = $(SSMTP_SOURCE) $(SSMTP_PATCH_SOURCE)
-
 $(STATEDIR)/ssmtp.get: $(ssmtp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -58,8 +56,6 @@ $(SSMTP_PATCH_SOURCE):
 
 ssmtp_extract: $(STATEDIR)/ssmtp.extract
 
-ssmtp_extract_deps = $(STATEDIR)/ssmtp.get
-
 $(STATEDIR)/ssmtp.extract: $(ssmtp_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SSMTP_DIR))
@@ -73,13 +69,6 @@ $(STATEDIR)/ssmtp.extract: $(ssmtp_extract_deps)
 # ----------------------------------------------------------------------------
 
 ssmtp_prepare: $(STATEDIR)/ssmtp.prepare
-
-#
-# dependencies
-#
-ssmtp_prepare_deps = \
-	$(STATEDIR)/ssmtp.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 SSMTP_PATH	=  PATH=$(CROSS_PATH)
 SSMTP_ENV 	=  $(CROSS_ENV)
@@ -119,8 +108,6 @@ $(STATEDIR)/ssmtp.prepare: $(ssmtp_prepare_deps_default)
 
 ssmtp_compile: $(STATEDIR)/ssmtp.compile
 
-ssmtp_compile_deps = $(STATEDIR)/ssmtp.prepare
-
 $(STATEDIR)/ssmtp.compile: $(ssmtp_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SSMTP_DIR) && $(SSMTP_ENV) $(SSMTP_PATH) make
@@ -144,8 +131,6 @@ $(STATEDIR)/ssmtp.install: $(STATEDIR)/ssmtp.compile
 # ----------------------------------------------------------------------------
 
 ssmtp_targetinstall: $(STATEDIR)/ssmtp.targetinstall
-
-ssmtp_targetinstall_deps = $(STATEDIR)/ssmtp.compile
 
 $(STATEDIR)/ssmtp.targetinstall: $(ssmtp_targetinstall_deps_default)
 	@$(call targetinfo, $@)

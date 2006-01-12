@@ -37,9 +37,7 @@ BSDINIT_DIR		= $(BUILDDIR)/bsdinit-1.0
 
 sysvinit_get: $(STATEDIR)/sysvinit.get
 
-sysvinit_get_deps = $(SYSVINIT_SOURCE)
-
-$(STATEDIR)/sysvinit.get: $(sysvinit_get_deps_default)
+$(STATEDIR)/sysvinit.get: $(SYSVINIT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -52,8 +50,6 @@ $(SYSVINIT_SOURCE):
 # ----------------------------------------------------------------------------
 
 sysvinit_extract: $(STATEDIR)/sysvinit.extract
-
-sysvinit_extract_deps = $(STATEDIR)/sysvinit.get
 
 $(STATEDIR)/sysvinit.extract: $(sysvinit_extract_deps)
 	@$(call targetinfo, $@)
@@ -68,16 +64,8 @@ $(STATEDIR)/sysvinit.extract: $(sysvinit_extract_deps)
 
 sysvinit_prepare: $(STATEDIR)/sysvinit.prepare
 
-#
-# dependencies
-#
-sysvinit_prepare_deps = \
-	$(STATEDIR)/sysvinit.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 SYSVINIT_PATH	=  PATH=$(CROSS_PATH)
 SYSVINIT_ENV 	=  $(CROSS_ENV)
-SYSVINIT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -98,8 +86,6 @@ $(STATEDIR)/sysvinit.prepare: $(sysvinit_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 sysvinit_compile: $(STATEDIR)/sysvinit.compile
-
-sysvinit_compile_deps = $(STATEDIR)/sysvinit.prepare
 
 $(STATEDIR)/sysvinit.compile: $(sysvinit_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -122,8 +108,6 @@ $(STATEDIR)/sysvinit.install: $(STATEDIR)/sysvinit.compile
 # ----------------------------------------------------------------------------
 
 sysvinit_targetinstall: $(STATEDIR)/sysvinit.targetinstall
-
-sysvinit_targetinstall_deps = $(STATEDIR)/sysvinit.compile
 
 $(STATEDIR)/sysvinit.targetinstall: $(sysvinit_targetinstall_deps_default)
 	@$(call targetinfo, $@)

@@ -32,9 +32,7 @@ PNET_DIR	= $(BUILDDIR)/$(PNET)
 
 pnet_get: $(STATEDIR)/pnet.get
 
-pnet_get_deps = $(PNET_SOURCE)
-
-$(STATEDIR)/pnet.get: $(pnet_get_deps_default)
+$(STATEDIR)/pnet.get: $(PNET_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PNET))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(PNET_SOURCE):
 
 pnet_extract: $(STATEDIR)/pnet.extract
 
-pnet_extract_deps = $(STATEDIR)/pnet.get
-
 $(STATEDIR)/pnet.extract: $(pnet_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PNET_DIR))
@@ -64,17 +60,8 @@ $(STATEDIR)/pnet.extract: $(pnet_extract_deps)
 
 pnet_prepare: $(STATEDIR)/pnet.prepare
 
-#
-# dependencies
-#
-pnet_prepare_deps = \
-	$(STATEDIR)/pnet.extract \
-	$(STATEDIR)/treecc.install \
-	$(STATEDIR)/virtual-xchain.install
-
 PNET_PATH	=  PATH=$(CROSS_PATH)
 PNET_ENV 	=  $(CROSS_ENV)
-PNET_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -94,8 +81,6 @@ $(STATEDIR)/pnet.prepare: $(pnet_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 pnet_compile: $(STATEDIR)/pnet.compile
-
-pnet_compile_deps = $(STATEDIR)/pnet.prepare
 
 $(STATEDIR)/pnet.compile: $(pnet_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -118,7 +103,6 @@ $(STATEDIR)/pnet.install: $(STATEDIR)/pnet.compile
 # ----------------------------------------------------------------------------
 
 pnet_targetinstall: $(STATEDIR)/pnet.targetinstall
-pnet_targetinstall_deps = $(STATEDIR)/pnet.compile
 
 $(STATEDIR)/pnet.targetinstall: $(pnet_targetinstall_deps_default)
 	@$(call targetinfo, $@)

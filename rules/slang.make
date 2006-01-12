@@ -32,9 +32,7 @@ SLANG_DIR	= $(BUILDDIR)/$(SLANG)
 
 slang_get: $(STATEDIR)/slang.get
 
-slang_get_deps = $(SLANG_SOURCE)
-
-$(STATEDIR)/slang.get: $(slang_get_deps_default)
+$(STATEDIR)/slang.get: $(SLANG_URL)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,8 +45,6 @@ $(SLANG_SOURCE):
 # ----------------------------------------------------------------------------
 
 slang_extract: $(STATEDIR)/slang.extract
-
-slang_extract_deps = $(STATEDIR)/slang.get
 
 $(STATEDIR)/slang.extract: $(slang_extract_deps)
 	@$(call targetinfo, $@)
@@ -63,16 +59,8 @@ $(STATEDIR)/slang.extract: $(slang_extract_deps)
 
 slang_prepare: $(STATEDIR)/slang.prepare
 
-#
-# dependencies
-#
-slang_prepare_deps = \
-	$(STATEDIR)/slang.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 SLANG_PATH	=  PATH=$(CROSS_PATH)
 SLANG_ENV 	=  $(CROSS_ENV)
-#SLANG_ENV	+=
 
 #
 # autoconf
@@ -93,8 +81,6 @@ $(STATEDIR)/slang.prepare: $(slang_prepare_deps_default)
 
 slang_compile: $(STATEDIR)/slang.compile
 
-slang_compile_deps = $(STATEDIR)/slang.prepare
-
 $(STATEDIR)/slang.compile: $(slang_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SLANG_DIR) && $(SLANG_PATH) make elf
@@ -106,7 +92,7 @@ $(STATEDIR)/slang.compile: $(slang_compile_deps_default)
 
 slang_install: $(STATEDIR)/slang.install
 
-$(STATEDIR)/slang.install: $(STATEDIR)/slang.compile
+$(STATEDIR)/slang.install: $(slang_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, SLANG)
 	@$(call touch, $@)
@@ -116,8 +102,6 @@ $(STATEDIR)/slang.install: $(STATEDIR)/slang.compile
 # ----------------------------------------------------------------------------
 
 slang_targetinstall: $(STATEDIR)/slang.targetinstall
-
-slang_targetinstall_deps = $(STATEDIR)/slang.compile
 
 $(STATEDIR)/slang.targetinstall: $(slang_targetinstall_deps_default)
 	@$(call targetinfo, $@)

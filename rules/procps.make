@@ -32,9 +32,7 @@ PROCPS_DIR	= $(BUILDDIR)/$(PROCPS)
 
 procps_get: $(STATEDIR)/procps.get
 
-procps_get_deps	=  $(PROCPS_SOURCE)
-
-$(STATEDIR)/procps.get: $(procps_get_deps_default)
+$(STATEDIR)/procps.get: $(PROCPS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PROCPS))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(PROCPS_SOURCE):
 
 procps_extract: $(STATEDIR)/procps.extract
 
-procps_extract_deps	=  $(STATEDIR)/procps.get
-
 $(STATEDIR)/procps.extract: $(procps_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PROCPS_DIR))
@@ -63,14 +59,6 @@ $(STATEDIR)/procps.extract: $(procps_extract_deps)
 # ----------------------------------------------------------------------------
 
 procps_prepare: $(STATEDIR)/procps.prepare
-
-#
-# dependencies
-#
-procps_prepare_deps =  \
-	$(STATEDIR)/procps.extract \
-	$(STATEDIR)/ncurses.install \
-	$(STATEDIR)/virtual-xchain.install
 
 PROCPS_PATH	=  PATH=$(CROSS_PATH)
 PROCPS_MAKEVARS	=  $(CROSS_ENV)
@@ -92,8 +80,6 @@ $(STATEDIR)/procps.prepare: $(procps_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 procps_compile: $(STATEDIR)/procps.compile
-
-procps_compile_deps =  $(STATEDIR)/procps.prepare
 
 $(STATEDIR)/procps.compile: $(procps_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -124,7 +110,7 @@ endif
 
 procps_install: $(STATEDIR)/procps.install
 
-$(STATEDIR)/procps.install: $(STATEDIR)/procps.compile
+$(STATEDIR)/procps.install: $(procps_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -133,10 +119,6 @@ $(STATEDIR)/procps.install: $(STATEDIR)/procps.compile
 # ----------------------------------------------------------------------------
 
 procps_targetinstall: $(STATEDIR)/procps.targetinstall
-
-procps_targetinstall_deps = \
-	$(STATEDIR)/procps.compile \
-	$(STATEDIR)/ncurses.targetinstall
 
 $(STATEDIR)/procps.targetinstall: $(procps_targetinstall_deps_default)
 	@$(call targetinfo, $@)

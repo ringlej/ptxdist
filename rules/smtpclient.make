@@ -32,9 +32,7 @@ SMTPCLIENT_DIR		= $(BUILDDIR)/$(SMTPCLIENT)
 
 smtpclient_get: $(STATEDIR)/smtpclient.get
 
-smtpclient_get_deps = $(SMTPCLIENT_SOURCE)
-
-$(STATEDIR)/smtpclient.get: $(smtpclient_get_deps_default)
+$(STATEDIR)/smtpclient.get: $(SMTPCLIENT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SMTPCLIENT))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(SMTPCLIENT_SOURCE):
 
 smtpclient_extract: $(STATEDIR)/smtpclient.extract
 
-smtpclient_extract_deps = $(STATEDIR)/smtpclient.get
-
 $(STATEDIR)/smtpclient.extract: $(smtpclient_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SMTPCLIENT_DIR))
@@ -64,17 +60,8 @@ $(STATEDIR)/smtpclient.extract: $(smtpclient_extract_deps)
 
 smtpclient_prepare: $(STATEDIR)/smtpclient.prepare
 
-#
-# dependencies
-#
-smtpclient_prepare_deps = \
-	$(STATEDIR)/smtpclient.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 SMTPCLIENT_PATH	=  PATH=$(CROSS_PATH)
 SMTPCLIENT_ENV 	=  $(CROSS_ENV)
-#SMTPCLIENT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#SMTPCLIENT_ENV	+=
 
 #
 # autoconf
@@ -94,8 +81,6 @@ $(STATEDIR)/smtpclient.prepare: $(smtpclient_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 smtpclient_compile: $(STATEDIR)/smtpclient.compile
-
-smtpclient_compile_deps = $(STATEDIR)/smtpclient.prepare
 
 $(STATEDIR)/smtpclient.compile: $(smtpclient_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -118,8 +103,6 @@ $(STATEDIR)/smtpclient.install: $(STATEDIR)/smtpclient.compile
 # ----------------------------------------------------------------------------
 
 smtpclient_targetinstall: $(STATEDIR)/smtpclient.targetinstall
-
-smtpclient_targetinstall_deps = $(STATEDIR)/smtpclient.compile
 
 $(STATEDIR)/smtpclient.targetinstall: $(smtpclient_targetinstall_deps_default)
 	@$(call targetinfo, $@)

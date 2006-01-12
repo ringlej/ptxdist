@@ -32,9 +32,7 @@ TSLIB_DIR		= $(BUILDDIR)/$(TSLIB)
 
 tslib_get: $(STATEDIR)/tslib.get
 
-tslib_get_deps = $(TSLIB_SOURCE)
-
-$(STATEDIR)/tslib.get: $(tslib_get_deps_default)
+$(STATEDIR)/tslib.get: $(TSLIB_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TSLIB))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(TSLIB_SOURCE):
 
 tslib_extract: $(STATEDIR)/tslib.extract
 
-tslib_extract_deps = $(STATEDIR)/tslib.get
-
 $(STATEDIR)/tslib.extract: $(tslib_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TSLIB_DIR))
@@ -64,24 +60,13 @@ $(STATEDIR)/tslib.extract: $(tslib_extract_deps)
 
 tslib_prepare: $(STATEDIR)/tslib.prepare
 
-#
-# dependencies
-#
-tslib_prepare_deps = \
-	$(STATEDIR)/tslib.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 TSLIB_PATH	=  PATH=$(CROSS_PATH)
 TSLIB_ENV 	=  $(CROSS_ENV)
-TSLIB_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-TSLIB_ENV	+= DESTDIR=$(CROSS_LIB_DIR)
 
 #
 # autoconf
 #
-TSLIB_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-TSLIB_AUTOCONF += --prefix=/
-TSLIB_AUTOCONF += --sysconfdir=/etc
+TSLIB_AUTOCONF =  $(CROSS_AUTOCONF_ROOT)
 
 $(STATEDIR)/tslib.prepare: $(tslib_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -96,8 +81,6 @@ $(STATEDIR)/tslib.prepare: $(tslib_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 tslib_compile: $(STATEDIR)/tslib.compile
-
-tslib_compile_deps = $(STATEDIR)/tslib.prepare
 
 $(STATEDIR)/tslib.compile: $(tslib_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -120,8 +103,6 @@ $(STATEDIR)/tslib.install: $(STATEDIR)/tslib.compile
 # ----------------------------------------------------------------------------
 
 tslib_targetinstall: $(STATEDIR)/tslib.targetinstall
-
-tslib_targetinstall_deps = $(STATEDIR)/tslib.compile
 
 $(STATEDIR)/tslib.targetinstall: $(tslib_targetinstall_deps_default)
 	@$(call targetinfo, $@)

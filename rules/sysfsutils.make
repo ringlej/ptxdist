@@ -32,9 +32,7 @@ SYSFSUTILS_DIR		= $(BUILDDIR)/$(SYSFSUTILS)
 
 sysfsutils_get: $(STATEDIR)/sysfsutils.get
 
-sysfsutils_get_deps = $(SYSFSUTILS_SOURCE)
-
-$(STATEDIR)/sysfsutils.get: $(sysfsutils_get_deps_default)
+$(STATEDIR)/sysfsutils.get: $(SYSFSUTILS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SYSFSUTILS))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(SYSFSUTILS_SOURCE):
 
 sysfsutils_extract: $(STATEDIR)/sysfsutils.extract
 
-sysfsutils_extract_deps = $(STATEDIR)/sysfsutils.get
-
 $(STATEDIR)/sysfsutils.extract: $(sysfsutils_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSFSUTILS_DIR))
@@ -63,13 +59,6 @@ $(STATEDIR)/sysfsutils.extract: $(sysfsutils_extract_deps)
 # ----------------------------------------------------------------------------
 
 sysfsutils_prepare: $(STATEDIR)/sysfsutils.prepare
-
-#
-# dependencies
-#
-sysfsutils_prepare_deps = \
-	$(STATEDIR)/sysfsutils.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 SYSFSUTILS_PATH	=  PATH=$(CROSS_PATH)
 SYSFSUTILS_ENV 	=  $(CROSS_ENV)
@@ -93,8 +82,6 @@ $(STATEDIR)/sysfsutils.prepare: $(sysfsutils_prepare_deps_default)
 
 sysfsutils_compile: $(STATEDIR)/sysfsutils.compile
 
-sysfsutils_compile_deps = $(STATEDIR)/sysfsutils.prepare
-
 $(STATEDIR)/sysfsutils.compile: $(sysfsutils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(SYSFSUTILS_DIR) && $(SYSFSUTILS_ENV) $(SYSFSUTILS_PATH) make
@@ -116,8 +103,6 @@ $(STATEDIR)/sysfsutils.install: $(STATEDIR)/sysfsutils.compile
 # ----------------------------------------------------------------------------
 
 sysfsutils_targetinstall: $(STATEDIR)/sysfsutils.targetinstall
-
-sysfsutils_targetinstall_deps = $(STATEDIR)/sysfsutils.compile
 
 $(STATEDIR)/sysfsutils.targetinstall: $(sysfsutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)

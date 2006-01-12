@@ -34,9 +34,7 @@ SUDO_DIR	= $(BUILDDIR)/$(SUDO)
 
 sudo_get: $(STATEDIR)/sudo.get
 
-sudo_get_deps = $(SUDO_SOURCE)
-
-$(STATEDIR)/sudo.get: $(sudo_get_deps_default)
+$(STATEDIR)/sudo.get: $(SUDO_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SUDO))
 	@$(call touch, $@)
@@ -51,8 +49,6 @@ $(SUDO_SOURCE):
 
 sudo_extract: $(STATEDIR)/sudo.extract
 
-sudo_extract_deps = $(STATEDIR)/sudo.get
-
 $(STATEDIR)/sudo.extract: $(sudo_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SUDO_DIR))
@@ -66,17 +62,8 @@ $(STATEDIR)/sudo.extract: $(sudo_extract_deps)
 
 sudo_prepare: $(STATEDIR)/sudo.prepare
 
-#
-# dependencies
-#
-sudo_prepare_deps = \
-	$(STATEDIR)/sudo.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 SUDO_PATH	=  PATH=$(CROSS_PATH)
 SUDO_ENV 	=  $(CROSS_ENV)
-#SUDO_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#SUDO_ENV	+=
 
 #
 # autoconf
@@ -96,8 +83,6 @@ $(STATEDIR)/sudo.prepare: $(sudo_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 sudo_compile: $(STATEDIR)/sudo.compile
-
-sudo_compile_deps = $(STATEDIR)/sudo.prepare
 
 $(STATEDIR)/sudo.compile: $(sudo_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -120,8 +105,6 @@ $(STATEDIR)/sudo.install: $(STATEDIR)/sudo.compile
 # ----------------------------------------------------------------------------
 
 sudo_targetinstall: $(STATEDIR)/sudo.targetinstall
-
-sudo_targetinstall_deps = $(STATEDIR)/sudo.compile
 
 $(STATEDIR)/sudo.targetinstall: $(sudo_targetinstall_deps_default)
 	@$(call targetinfo, $@)

@@ -32,9 +32,7 @@ OPENAFS_DIR		= $(BUILDDIR)/$(OPENAFS)
 
 openafs_get: $(STATEDIR)/openafs.get
 
-openafs_get_deps = $(OPENAFS_SOURCE)
-
-$(STATEDIR)/openafs.get: $(openafs_get_deps_default)
+$(STATEDIR)/openafs.get: $(OPENAFS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,8 +45,6 @@ $(OPENAFS_SOURCE):
 # ----------------------------------------------------------------------------
 
 openafs_extract: $(STATEDIR)/openafs.extract
-
-openafs_extract_deps = $(STATEDIR)/openafs.get
 
 $(STATEDIR)/openafs.extract: $(openafs_extract_deps)
 	@$(call targetinfo, $@)
@@ -63,18 +59,8 @@ $(STATEDIR)/openafs.extract: $(openafs_extract_deps)
 
 openafs_prepare: $(STATEDIR)/openafs.prepare
 
-#
-# dependencies
-#
-openafs_prepare_deps = 				\
-	kernel_targetinstall 			\
-	$(STATEDIR)/openafs.extract 		\
-	openafs-openafs-ptx-build_install 	\
-	$(STATEDIR)/virtual-xchain.install
-
 OPENAFS_PATH	=  PATH=$(CROSS_PATH)
 OPENAFS_ENV 	=  $(CROSS_ENV)
-#OPENAFS_ENV	+=
 
 #
 # autoconf
@@ -100,8 +86,6 @@ $(STATEDIR)/openafs.prepare: $(openafs_prepare_deps_default)
 
 openafs_compile: $(STATEDIR)/openafs.compile
 
-openafs_compile_deps = $(STATEDIR)/openafs.prepare
-
 $(STATEDIR)/openafs.compile: $(openafs_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(OPENAFS_DIR) && $(OPENAFS_PATH) make
@@ -123,8 +107,6 @@ $(STATEDIR)/openafs.install: $(STATEDIR)/openafs.compile
 # ----------------------------------------------------------------------------
 
 openafs_targetinstall: $(STATEDIR)/openafs.targetinstall
-
-openafs_targetinstall_deps = $(STATEDIR)/openafs.compile
 
 $(STATEDIR)/openafs.targetinstall: $(openafs_targetinstall_deps_default)
 	@$(call targetinfo, $@)

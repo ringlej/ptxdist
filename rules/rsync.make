@@ -32,9 +32,7 @@ RSYNC_DIR	= $(BUILDDIR)/$(RSYNC)
 
 rsync_get: $(STATEDIR)/rsync.get
 
-rsync_get_deps	=  $(RSYNC_SOURCE)
-
-$(STATEDIR)/rsync.get: $(rsync_get_deps_default)
+$(STATEDIR)/rsync.get: $(RSYNC_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +46,6 @@ $(RSYNC_SOURCE):
 
 rsync_extract: $(STATEDIR)/rsync.extract
 
-rsync_extract_deps	=  $(STATEDIR)/rsync.get
-
 $(STATEDIR)/rsync.extract: $(rsync_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RSYNC_DIR))
@@ -62,13 +58,6 @@ $(STATEDIR)/rsync.extract: $(rsync_extract_deps)
 # ----------------------------------------------------------------------------
 
 rsync_prepare: $(STATEDIR)/rsync.prepare
-
-#
-# dependencies
-#
-rsync_prepare_deps =  \
-	$(STATEDIR)/rsync.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 RSYNC_PATH	=  PATH=$(CROSS_PATH)
 RSYNC_ENV 	=  rsync_cv_HAVE_GETTIMEOFDAY_TZ=yes $(CROSS_ENV)
@@ -95,8 +84,6 @@ $(STATEDIR)/rsync.prepare: $(rsync_prepare_deps_default)
 
 rsync_compile: $(STATEDIR)/rsync.compile
 
-rsync_compile_deps =  $(STATEDIR)/rsync.prepare
-
 $(STATEDIR)/rsync.compile: $(rsync_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(RSYNC_PATH) make -C $(RSYNC_DIR)
@@ -108,7 +95,7 @@ $(STATEDIR)/rsync.compile: $(rsync_compile_deps_default)
 
 rsync_install: $(STATEDIR)/rsync.install
 
-$(STATEDIR)/rsync.install: $(STATEDIR)/rsync.compile
+$(STATEDIR)/rsync.install: $(rsync_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -117,8 +104,6 @@ $(STATEDIR)/rsync.install: $(STATEDIR)/rsync.compile
 # ----------------------------------------------------------------------------
 
 rsync_targetinstall: $(STATEDIR)/rsync.targetinstall
-
-rsync_targetinstall_deps	=  $(STATEDIR)/rsync.compile
 
 $(STATEDIR)/rsync.targetinstall: $(rsync_targetinstall_deps_default)
 	@$(call targetinfo, $@)

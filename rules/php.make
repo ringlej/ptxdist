@@ -32,9 +32,7 @@ PHP_DIR		= $(BUILDDIR)/$(PHP)
 
 php_get: $(STATEDIR)/php.get
 
-php_get_deps = $(PHP_SOURCE)
-
-$(STATEDIR)/php.get: $(php_get_deps_default)
+$(STATEDIR)/php.get: $(PHP_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +46,6 @@ $(PHP_SOURCE):
 
 php_extract: $(STATEDIR)/php.extract
 
-php_extract_deps = $(STATEDIR)/php.get
-
 $(STATEDIR)/php.extract: $(php_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP_DIR))
@@ -62,17 +58,6 @@ $(STATEDIR)/php.extract: $(php_extract_deps)
 # ----------------------------------------------------------------------------
 
 php_prepare: $(STATEDIR)/php.prepare
-
-#
-# dependencies
-#
-php_prepare_deps = \
-	$(STATEDIR)/php.extract \
-	$(STATEDIR)/virtual-xchain.install
-
-ifdef PTXCONF_PHP_APACHE
-php_prepare_deps += $(STATEDIR)/apache.install
-endif
 
 PHP_PATH = PATH=$(CROSS_PATH)
 PHP_ENV = \
@@ -117,8 +102,6 @@ $(STATEDIR)/php.prepare: $(php_prepare_deps_default)
 
 php_compile: $(STATEDIR)/php.compile
 
-php_compile_deps = $(STATEDIR)/php.prepare
-
 $(STATEDIR)/php.compile: $(php_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PHP_DIR) && $(PHP_ENV) $(PHP_PATH) make
@@ -146,11 +129,6 @@ $(STATEDIR)/php.install: $(STATEDIR)/php.compile
 # ----------------------------------------------------------------------------
 
 php_targetinstall: $(STATEDIR)/php.targetinstall
-
-php_targetinstall_deps = $(STATEDIR)/php.compile
-ifdef PTXCONF_APACHE
-php_targetinstall_deps += $(STATEDIR)/apache.targetinstall
-endif
 
 $(STATEDIR)/php.targetinstall: $(php_targetinstall_deps_default)
 	@$(call targetinfo, $@)

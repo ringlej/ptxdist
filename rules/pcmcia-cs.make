@@ -32,8 +32,6 @@ PCMCIA-CS_DIR		= $(BUILDDIR)/$(PCMCIA-CS)
 
 pcmcia-cs_get: $(STATEDIR)/pcmcia-cs.get
 
-pcmcia-cs_get_deps	=  $(PCMCIA-CS_SOURCE)
-
 $(STATEDIR)/pcmcia-cs.get: $(pcmcia-cs_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -48,8 +46,6 @@ $(PCMCIA-CS_SOURCE):
 
 pcmcia-cs_extract: $(STATEDIR)/pcmcia-cs.extract
 
-pcmcia-cs_extract_deps	=  $(STATEDIR)/pcmcia-cs.get
-
 $(STATEDIR)/pcmcia-cs.extract: $(pcmcia-cs_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCMCIA-CS_DIR))
@@ -63,17 +59,8 @@ $(STATEDIR)/pcmcia-cs.extract: $(pcmcia-cs_extract_deps)
 
 pcmcia-cs_prepare: $(STATEDIR)/pcmcia-cs.prepare
 
-#
-# dependencies
-#
-pcmcia-cs_prepare_deps =  \
-	$(STATEDIR)/pcmcia-cs.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/kernel.prepare \
-
 PCMCIA-CS_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 PCMCIA-CS_ENV 	=  $(CROSS_ENV)
-#PCMCIA-CS_ENV	+=
 
 PCMCIA-CS_CONF	=  --noprompt
 PCMCIA-CS_CONF	+= --kernel=$(KERNEL_DIR)

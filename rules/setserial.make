@@ -32,9 +32,7 @@ SETSERIAL_DIR		= $(BUILDDIR)/$(SETSERIAL)
 
 setserial_get: $(STATEDIR)/setserial.get
 
-setserial_get_deps = $(SETSERIAL_SOURCE)
-
-$(STATEDIR)/setserial.get: $(setserial_get_deps_default)
+$(STATEDIR)/setserial.get: $(SETSERIAL_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,8 +45,6 @@ $(SETSERIAL_SOURCE):
 # ----------------------------------------------------------------------------
 
 setserial_extract: $(STATEDIR)/setserial.extract
-
-setserial_extract_deps = $(STATEDIR)/setserial.get
 
 $(STATEDIR)/setserial.extract: $(setserial_extract_deps)
 	@$(call targetinfo, $@)
@@ -63,16 +59,8 @@ $(STATEDIR)/setserial.extract: $(setserial_extract_deps)
 
 setserial_prepare: $(STATEDIR)/setserial.prepare
 
-#
-# dependencies
-#
-setserial_prepare_deps = \
-	$(STATEDIR)/setserial.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 SETSERIAL_PATH	=  PATH=$(CROSS_PATH)
 SETSERIAL_ENV 	=  $(CROSS_ENV)
-SETSERIAL_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -92,8 +80,6 @@ $(STATEDIR)/setserial.prepare: $(setserial_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 setserial_compile: $(STATEDIR)/setserial.compile
-
-setserial_compile_deps = $(STATEDIR)/setserial.prepare
 
 $(STATEDIR)/setserial.compile: $(setserial_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -116,8 +102,6 @@ $(STATEDIR)/setserial.install: $(STATEDIR)/setserial.compile
 # ----------------------------------------------------------------------------
 
 setserial_targetinstall: $(STATEDIR)/setserial.targetinstall
-
-setserial_targetinstall_deps = $(STATEDIR)/setserial.compile
 
 $(STATEDIR)/setserial.targetinstall: $(setserial_targetinstall_deps_default)
 	@$(call targetinfo, $@)

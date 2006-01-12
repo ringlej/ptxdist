@@ -32,9 +32,7 @@ NANO_DIR		= $(BUILDDIR)/$(NANO)
 
 nano_get: $(STATEDIR)/nano.get
 
-nano_get_deps = $(NANO_SOURCE)
-
-$(STATEDIR)/nano.get: $(nano_get_deps_default)
+$(STATEDIR)/nano.get: $(NANO_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NANO))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(NANO_SOURCE):
 
 nano_extract: $(STATEDIR)/nano.extract
 
-nano_extract_deps = $(STATEDIR)/nano.get
-
 $(STATEDIR)/nano.extract: $(nano_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NANO_DIR))
@@ -64,17 +60,8 @@ $(STATEDIR)/nano.extract: $(nano_extract_deps)
 
 nano_prepare: $(STATEDIR)/nano.prepare
 
-#
-# dependencies
-#
-nano_prepare_deps = \
-	$(STATEDIR)/nano.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 NANO_PATH	=  PATH=$(CROSS_PATH)
 NANO_ENV 	=  $(CROSS_ENV)
-#NANO_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#NANO_ENV	+=
 
 #
 # autoconf
@@ -94,8 +81,6 @@ $(STATEDIR)/nano.prepare: $(nano_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 nano_compile: $(STATEDIR)/nano.compile
-
-nano_compile_deps = $(STATEDIR)/nano.prepare
 
 $(STATEDIR)/nano.compile: $(nano_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -119,8 +104,6 @@ $(STATEDIR)/nano.install: $(STATEDIR)/nano.compile
 # ----------------------------------------------------------------------------
 
 nano_targetinstall: $(STATEDIR)/nano.targetinstall
-
-nano_targetinstall_deps = $(STATEDIR)/nano.compile
 
 $(STATEDIR)/nano.targetinstall: $(nano_targetinstall_deps_default)
 	@$(call targetinfo, $@)

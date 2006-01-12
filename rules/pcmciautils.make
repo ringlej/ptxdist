@@ -31,8 +31,6 @@ PCMCIAUTILS_DIR		= $(BUILDDIR)/$(PCMCIAUTILS)
 
 pcmciautils_get: $(STATEDIR)/pcmciautils.get
 
-pcmciautils_get_deps = $(PCMCIAUTILS_SOURCE)
-
 $(STATEDIR)/pcmciautils.get: $(pcmciautils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PCMCIAUTILS))
@@ -48,8 +46,6 @@ $(PCMCIAUTILS_SOURCE):
 
 pcmciautils_extract: $(STATEDIR)/pcmciautils.extract
 
-pcmciautils_extract_deps = $(STATEDIR)/pcmciautils.get
-
 $(STATEDIR)/pcmciautils.extract: $(pcmciautils_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCMCIAUTILS_DIR))
@@ -63,18 +59,8 @@ $(STATEDIR)/pcmciautils.extract: $(pcmciautils_extract_deps)
 
 pcmciautils_prepare: $(STATEDIR)/pcmciautils.prepare
 
-#
-# dependencies
-#
-pcmciautils_prepare_deps = \
-	$(STATEDIR)/pcmciautils.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/sysfsutils.install
-
 PCMCIAUTILS_PATH	=  PATH=$(CROSS_PATH)
 PCMCIAUTILS_ENV 	=  $(CROSS_ENV)
-#PCMCIAUTILS_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-#PCMCIAUTILS_ENV	+=
 
 # Get the latest revision of pcmciautils.
 # If you have a static socket, open the file "Makefile" with an editor of your
@@ -105,8 +91,6 @@ endif
 
 pcmciautils_compile: $(STATEDIR)/pcmciautils.compile
 
-pcmciautils_compile_deps = $(STATEDIR)/pcmciautils.prepare
-
 $(STATEDIR)/pcmciautils.compile: $(pcmciautils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PCMCIAUTILS_DIR) && $(PCMCIAUTILS_ENV) $(PCMCIAUTILS_PATH) make $(PCMCIAUTILS_MAKEVARS)
@@ -127,8 +111,6 @@ $(STATEDIR)/pcmciautils.install: $(STATEDIR)/pcmciautils.compile
 # ----------------------------------------------------------------------------
 
 pcmciautils_targetinstall: $(STATEDIR)/pcmciautils.targetinstall
-
-pcmciautils_targetinstall_deps = $(STATEDIR)/pcmciautils.compile
 
 $(STATEDIR)/pcmciautils.targetinstall: $(pcmciautils_targetinstall_deps_default)
 	@$(call targetinfo, $@)

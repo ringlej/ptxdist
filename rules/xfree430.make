@@ -114,16 +114,6 @@ $(STATEDIR)/xfree430.extract: $(xfree430_extract_deps_default)
 
 xfree430_prepare: $(STATEDIR)/xfree430.prepare
 
-#
-# dependencies
-#
-#xfree430_prepare_deps =  \
-#	$(STATEDIR)/xfree430.extract \
-#	$(STATEDIR)/zlib.install \
-#	$(STATEDIR)/ncurses.install \
-#	$(STATEDIR)/libpng125.install \
-#	$(STATEDIR)/virtual-xchain.install
-
 XFREE430_PATH	=  PATH=$(CROSS_PATH)
 XFREE430_ENV	=  XCURSORGEN=xcursorgen
 

@@ -38,9 +38,7 @@ QTDIR		= $(BUILDDIR)/$(QTE)
 
 qte_get: $(STATEDIR)/qte.get
 
-qte_get_deps = $(QTE_SOURCE)
-
-$(STATEDIR)/qte.get: $(qte_get_deps_default)
+$(STATEDIR)/qte.get: $(QTE_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -54,8 +52,6 @@ $(QTE_SOURCE):
 
 qte_extract: $(STATEDIR)/qte.extract
 
-qte_extract_deps = $(STATEDIR)/qte.get
-
 $(STATEDIR)/qte.extract: $(qte_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(QTE_DIR))
@@ -68,14 +64,6 @@ $(STATEDIR)/qte.extract: $(qte_extract_deps)
 # ----------------------------------------------------------------------------
 
 qte_prepare: $(STATEDIR)/qte.prepare
-
-#
-# dependencies
-#
-qte_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/host-qte.install \
-	$(STATEDIR)/qte.extract
 
 QTE_PATH	=  PATH=$(CROSS_PATH)
 # QTE_ENV 	=  $(CROSS_ENV)
@@ -118,7 +106,6 @@ QTE_AUTOCONF	+= -disable-sql
 QTE_AUTOCONF	+= -disable-workspace
 ifdef PTXCONF_QTE_TSLIB
 QTE_AUTOCONF	+= -qt-mouse-tslib
-qte_prepare_deps += $(STATEDIR)/tslib.install
 endif
 
 ifdef PTXCONF_QTE_SHARED
@@ -219,8 +206,6 @@ $(STATEDIR)/qte.prepare: $(qte_prepare_deps_default)
 
 qte_compile: $(STATEDIR)/qte.compile
 
-qte_compile_deps = $(STATEDIR)/qte.prepare
-
 $(STATEDIR)/qte.compile: $(qte_compile_deps_default)
 	@$(call targetinfo, $@)
 	cp -f $(PTXCONF_PREFIX)/bin/uic $(QTE_DIR)/bin/uic
@@ -233,7 +218,7 @@ $(STATEDIR)/qte.compile: $(qte_compile_deps_default)
 
 qte_install: $(STATEDIR)/qte.install
 
-$(STATEDIR)/qte.install: $(STATEDIR)/qte.compile
+$(STATEDIR)/qte.install: $(qte_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, QTE)
 	@$(call touch, $@)
@@ -243,8 +228,6 @@ $(STATEDIR)/qte.install: $(STATEDIR)/qte.compile
 # ----------------------------------------------------------------------------
 
 qte_targetinstall: $(STATEDIR)/qte.targetinstall
-
-qte_targetinstall_deps = $(STATEDIR)/qte.compile
 
 $(STATEDIR)/qte.targetinstall: $(qte_targetinstall_deps_default)
 	@$(call targetinfo, $@)

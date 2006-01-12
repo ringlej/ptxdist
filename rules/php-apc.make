@@ -32,9 +32,7 @@ PHP_APC_DIR	= $(PHP_DIR)/ext/$(PHP_APC)
 
 php-apc_get: $(STATEDIR)/php-apc.get
 
-php-apc_get_deps = $(PHP_APC_SOURCE)
-
-$(STATEDIR)/php-apc.get: $(php-apc_get_deps_default)
+$(STATEDIR)/php-apc.get: $(PHP_APC_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,9 +46,6 @@ $(PHP_APC_SOURCE):
 
 php-apc_extract: $(STATEDIR)/php-apc.extract
 
-php-apc_extract_deps = $(STATEDIR)/php-apc.get \
-	$(STATEDIR)/php.extract
-
 $(STATEDIR)/php-apc.extract: $(php-apc_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP_APC_DIR))
@@ -63,14 +58,6 @@ $(STATEDIR)/php-apc.extract: $(php-apc_extract_deps)
 # ----------------------------------------------------------------------------
 
 php-apc_prepare: $(STATEDIR)/php-apc.prepare
-
-#
-# dependencies
-#
-php-apc_prepare_deps = \
-	$(STATEDIR)/php-apc.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/php.install
 
 PHP_APC_PATH = PATH=$(CROSS_PATH)
 PHP_APC_ENV  = $(CROSS_ENV)
@@ -98,8 +85,6 @@ $(STATEDIR)/php-apc.prepare: $(php-apc_prepare_deps_default)
 
 php-apc_compile: $(STATEDIR)/php-apc.compile
 
-php-apc_compile_deps = $(STATEDIR)/php-apc.prepare
-
 $(STATEDIR)/php-apc.compile: $(php-apc_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PHP_APC_DIR) && $(PHP_APC_ENV) $(PHP_APC_PATH) make
@@ -121,8 +106,6 @@ $(STATEDIR)/php-apc.install: $(STATEDIR)/php-apc.compile
 # ----------------------------------------------------------------------------
 
 php-apc_targetinstall: $(STATEDIR)/php-apc.targetinstall
-
-php-apc_targetinstall_deps = $(STATEDIR)/php-apc.compile
 
 $(STATEDIR)/php-apc.targetinstall: $(php-apc_targetinstall_deps_default)
 	@$(call targetinfo, $@)

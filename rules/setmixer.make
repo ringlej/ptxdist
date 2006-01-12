@@ -32,9 +32,7 @@ SETMIXER_DIR		= $(BUILDDIR)/setmixer-27DEC94ds1.orig
 
 setmixer_get: $(STATEDIR)/setmixer.get
 
-setmixer_get_deps = $(SETMIXER_SOURCE)
-
-$(STATEDIR)/setmixer.get: $(setmixer_get_deps_default)
+$(STATEDIR)/setmixer.get: $(SETMIXER_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +46,6 @@ $(SETMIXER_SOURCE):
 
 setmixer_extract: $(STATEDIR)/setmixer.extract
 
-setmixer_extract_deps = $(STATEDIR)/setmixer.get
-
 $(STATEDIR)/setmixer.extract: $(setmixer_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SETMIXER_DIR))
@@ -62,13 +58,6 @@ $(STATEDIR)/setmixer.extract: $(setmixer_extract_deps)
 # ----------------------------------------------------------------------------
 
 setmixer_prepare: $(STATEDIR)/setmixer.prepare
-
-#
-# dependencies
-#
-setmixer_prepare_deps = \
-	$(STATEDIR)/setmixer.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 SETMIXER_PATH		=  PATH=$(CROSS_PATH)
 SETMIXER_ENV 		=  $(CROSS_ENV)
@@ -84,8 +73,6 @@ $(STATEDIR)/setmixer.prepare: $(setmixer_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 setmixer_compile: $(STATEDIR)/setmixer.compile
-
-setmixer_compile_deps = $(STATEDIR)/setmixer.prepare
 
 $(STATEDIR)/setmixer.compile: $(setmixer_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -108,8 +95,6 @@ $(STATEDIR)/setmixer.install: $(STATEDIR)/setmixer.compile
 # ----------------------------------------------------------------------------
 
 setmixer_targetinstall: $(STATEDIR)/setmixer.targetinstall
-
-setmixer_targetinstall_deps = $(STATEDIR)/setmixer.compile
 
 $(STATEDIR)/setmixer.targetinstall: $(setmixer_targetinstall_deps_default)
 	@$(call targetinfo, $@)

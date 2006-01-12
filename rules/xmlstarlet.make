@@ -32,12 +32,7 @@ XMLSTARLET_DIR		= $(BUILDDIR)/$(XMLSTARLET)
 
 xmlstarlet_get: $(STATEDIR)/xmlstarlet.get
 
-xmlstarlet_get_deps = \
-	$(XMLSTARLET_SOURCE) \
-	$(RULESDIR)/xmlstarlet.make
-
-
-$(STATEDIR)/xmlstarlet.get: $(xmlstarlet_get_deps_default)
+$(STATEDIR)/xmlstarlet.get: $(XMLSTARLET_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -51,8 +46,6 @@ $(XMLSTARLET_SOURCE):
 
 xmlstarlet_extract: $(STATEDIR)/xmlstarlet.extract
 
-xmlstarlet_extract_deps = $(STATEDIR)/xmlstarlet.get
-
 $(STATEDIR)/xmlstarlet.extract: $(xmlstarlet_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XMLSTARLET_DIR))
@@ -65,14 +58,6 @@ $(STATEDIR)/xmlstarlet.extract: $(xmlstarlet_extract_deps)
 # ----------------------------------------------------------------------------
 
 xmlstarlet_prepare: $(STATEDIR)/xmlstarlet.prepare
-
-#
-# dependencies
-#
-xmlstarlet_prepare_deps =  $(STATEDIR)/xmlstarlet.extract
-xmlstarlet_prepare_deps += $(STATEDIR)/virtual-xchain.install
-xmlstarlet_prepare_deps += $(STATEDIR)/libxml2.install
-xmlstarlet_prepare_deps += $(STATEDIR)/libxslt.install
 
 XMLSTARLET_PATH	=  PATH=$(CROSS_PATH)
 XMLSTARLET_ENV 	=  $(CROSS_ENV)
@@ -100,8 +85,6 @@ $(STATEDIR)/xmlstarlet.prepare: $(xmlstarlet_prepare_deps_default)
 
 xmlstarlet_compile: $(STATEDIR)/xmlstarlet.compile
 
-xmlstarlet_compile_deps = $(STATEDIR)/xmlstarlet.prepare
-
 $(STATEDIR)/xmlstarlet.compile: $(xmlstarlet_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XMLSTARLET_DIR) && $(XMLSTARLET_ENV) $(XMLSTARLET_PATH) make
@@ -123,10 +106,6 @@ $(STATEDIR)/xmlstarlet.install: $(STATEDIR)/xmlstarlet.compile
 # ----------------------------------------------------------------------------
 
 xmlstarlet_targetinstall: $(STATEDIR)/xmlstarlet.targetinstall
-
-xmlstarlet_targetinstall_deps =  $(STATEDIR)/xmlstarlet.compile
-xmlstarlet_targetinstall_deps += $(STATEDIR)/libxml2.targetinstall
-xmlstarlet_targetinstall_deps += $(STATEDIR)/libxslt.targetinstall
 
 $(STATEDIR)/xmlstarlet.targetinstall: $(xmlstarlet_targetinstall_deps_default)
 	@$(call targetinfo, $@)
