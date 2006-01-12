@@ -1,6 +1,6 @@
 config CLEMENTINE
         bool
-	select GLIB1210
+	select GLIB12
 	prompt "clementine            "
 	help
 	  Clementine is a window manager for X, based on  aewm. 
