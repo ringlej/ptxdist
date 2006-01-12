@@ -25,9 +25,7 @@ PACKAGES-$(PTXCONF_GDB_WRAPPER) += gdb-wrapper
 
 gdb-wrapper_get: $(STATEDIR)/gdb-wrapper.get
 
-gdb-wrapper_get_deps =
-
-$(STATEDIR)/gdb-wrapper.get: $(gdb-wrapper_get_deps)
+$(STATEDIR)/gdb-wrapper.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -37,7 +35,7 @@ $(STATEDIR)/gdb-wrapper.get: $(gdb-wrapper_get_deps)
 
 gdb-wrapper_extract: $(STATEDIR)/gdb-wrapper.extract
 
-$(STATEDIR)/gdb-wrapper.extract: $(STATEDIR)/gdb-wrapper.get
+$(STATEDIR)/gdb-wrapper.extract: $(gdb_wrapper_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,7 +45,7 @@ $(STATEDIR)/gdb-wrapper.extract: $(STATEDIR)/gdb-wrapper.get
 
 gdb-wrapper_prepare: $(STATEDIR)/gdb-wrapper.prepare
 
-$(STATEDIR)/gdb-wrapper.prepare: $(STATEDIR)/gdb-wrapper.extract
+$(STATEDIR)/gdb-wrapper.prepare: $(gdb_wrapper_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -57,7 +55,7 @@ $(STATEDIR)/gdb-wrapper.prepare: $(STATEDIR)/gdb-wrapper.extract
 
 gdb-wrapper_compile: $(STATEDIR)/gdb-wrapper.compile
 
-$(STATEDIR)/gdb-wrapper.compile: $(STATEDIR)/gdb-wrapper.prepare 
+$(STATEDIR)/gdb-wrapper.compile: $(gdb_wrapper_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -67,7 +65,7 @@ $(STATEDIR)/gdb-wrapper.compile: $(STATEDIR)/gdb-wrapper.prepare
 
 gdb-wrapper_install: $(STATEDIR)/gdb-wrapper.install
 
-$(STATEDIR)/gdb-wrapper.install:
+$(STATEDIR)/gdb-wrapper.install: $(gdb_wrapper_install_deps_default)
 	@$(call targetinfo, $@)
 
 	# let gdb find the target libraries for remote cross debugging
@@ -99,7 +97,7 @@ $(STATEDIR)/gdb-wrapper.install:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-gdb-wrapper_targetinstall: $(STATEDIR)/gdb-wrapper.targetinstall
+gdb-wrapper_targetinstall: $(gdb_wrapper_targetinstall_defaults)
 
 $(STATEDIR)/gdb-wrapper.targetinstall: $(STATEDIR)/gdb-wrapper.compile
 	@$(call targetinfo, $@)

@@ -32,9 +32,7 @@ GAIL_DIR	= $(BUILDDIR)/$(GAIL)
 
 gail_get: $(STATEDIR)/gail.get
 
-gail_get_deps = $(GAIL_SOURCE)
-
-$(STATEDIR)/gail.get: $(gail_get_deps)
+$(STATEDIR)/gail.get: $(GAIL_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,9 +46,7 @@ $(GAIL_SOURCE):
 
 gail_extract: $(STATEDIR)/gail.extract
 
-gail_extract_deps = $(STATEDIR)/gail.get
-
-$(STATEDIR)/gail.extract: $(gail_extract_deps)
+$(STATEDIR)/gail.extract: $(gail_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GAIL_DIR))
 	@$(call extract, $(GAIL_SOURCE))
@@ -62,24 +58,15 @@ $(STATEDIR)/gail.extract: $(gail_extract_deps)
 
 gail_prepare: $(STATEDIR)/gail.prepare
 
-#
-# dependencies
-#
-gail_prepare_deps = \
-	$(STATEDIR)/gail.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/libgnomecanvas.install
-
 GAIL_PATH	=  PATH=$(CROSS_PATH)
 GAIL_ENV 	=  $(CROSS_ENV)
-GAIL_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
 #
 GAIL_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/gail.prepare: $(gail_prepare_deps)
+$(STATEDIR)/gail.prepare: $(gail_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GAIL_DIR)/config.cache)
 	cd $(GAIL_DIR) && \
@@ -93,9 +80,7 @@ $(STATEDIR)/gail.prepare: $(gail_prepare_deps)
 
 gail_compile: $(STATEDIR)/gail.compile
 
-gail_compile_deps = $(STATEDIR)/gail.prepare
-
-$(STATEDIR)/gail.compile: $(gail_compile_deps)
+$(STATEDIR)/gail.compile: $(gail_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GAIL_DIR) && \
 	$(GAIL_PATH) make
@@ -118,10 +103,7 @@ $(STATEDIR)/gail.install: $(STATEDIR)/gail.compile
 
 gail_targetinstall: $(STATEDIR)/gail.targetinstall
 
-gail_targetinstall_deps = $(STATEDIR)/gail.compile
-gail_targetinstall_deps = $(STATEDIR)/libgnomecanvas.targetinstall
-
-$(STATEDIR)/gail.targetinstall: $(gail_targetinstall_deps)
+$(STATEDIR)/gail.targetinstall: $(gail_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

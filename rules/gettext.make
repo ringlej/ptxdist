@@ -35,9 +35,7 @@ GETTEXT_INST_DIR	= $(BUILDDIR)/$(GETTEXT)-install
 
 gettext_get: $(STATEDIR)/gettext.get
 
-gettext_get_deps = $(GETTEXT_SOURCE)
-
-$(STATEDIR)/gettext.get: $(gettext_get_deps)
+$(STATEDIR)/gettext.get: $(GETTEXT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -51,9 +49,7 @@ $(GETTEXT_SOURCE):
 
 gettext_extract: $(STATEDIR)/gettext.extract
 
-gettext_extract_deps = $(STATEDIR)/gettext.get
-
-$(STATEDIR)/gettext.extract: $(gettext_extract_deps)
+$(STATEDIR)/gettext.extract: $(gettext_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GETTEXT_DIR))
 	@$(call extract, $(GETTEXT_SOURCE))
@@ -65,13 +61,6 @@ $(STATEDIR)/gettext.extract: $(gettext_extract_deps)
 # ----------------------------------------------------------------------------
 
 gettext_prepare: $(STATEDIR)/gettext.prepare
-
-#
-# dependencies
-#
-gettext_prepare_deps =  \
-	$(STATEDIR)/gettext.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 GETTEXT_PATH	=  PATH=$(CROSS_PATH)
 GETTEXT_ENV 	=  $(CROSS_ENV) \
@@ -87,7 +76,7 @@ GETTEXT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 # This is braindead but correct :-) No, it isn't!
 # GETTEXT_AUTOCONF	+= --disable-nls
 
-$(STATEDIR)/gettext.prepare: $(gettext_prepare_deps)
+$(STATEDIR)/gettext.prepare: $(gettext_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GETTEXT_DIR) && \
 		$(GETTEXT_PATH) $(GETTEXT_ENV) \
@@ -100,7 +89,7 @@ $(STATEDIR)/gettext.prepare: $(gettext_prepare_deps)
 
 gettext_compile: $(STATEDIR)/gettext.compile
 
-gettext_compile_deps = $(STATEDIR)/gettext.prepare
+gettext_compile_deps = $(gettext_compile_deps_default)
 
 $(STATEDIR)/gettext.compile: $(gettext_compile_deps)
 	@$(call targetinfo, $@)
@@ -113,9 +102,7 @@ $(STATEDIR)/gettext.compile: $(gettext_compile_deps)
 
 gettext_install: $(STATEDIR)/gettext.install
 
-gettext_install_deps = $(STATEDIR)/gettext.compile
-
-$(STATEDIR)/gettext.install: $(gettext_install_deps)
+$(STATEDIR)/gettext.install: (gettext_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, GETTEXT)
@@ -134,9 +121,7 @@ $(STATEDIR)/gettext.install: $(gettext_install_deps)
 
 gettext_targetinstall: $(STATEDIR)/gettext.targetinstall
 
-gettext_targetinstall_deps = $(STATEDIR)/gettext.install
-
-$(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps)
+$(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

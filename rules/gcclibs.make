@@ -16,6 +16,7 @@
 #
 PACKAGES-$(PTXCONF_GCCLIBS_GCC_S) += gcclibs
 
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -26,8 +27,6 @@ gcclibs_get: $(STATEDIR)/gcclibs.get
 $(STATEDIR)/gcclibs.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,9 +46,7 @@ $(STATEDIR)/gcclibs.extract: $(gcclibs_extract_deps)
 
 gcclibs_prepare: $(STATEDIR)/gcclibs.prepare
 
-gcclibs_prepare_deps = $(STATEDIR)/gcclibs.extract
-
-$(STATEDIR)/gcclibs.prepare: $(gcclibs_prepare_deps)
+$(STATEDIR)/gcclibs.prepare: $(gcclibs_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -59,9 +56,7 @@ $(STATEDIR)/gcclibs.prepare: $(gcclibs_prepare_deps)
 
 gcclibs_compile: $(STATEDIR)/gcclibs.compile
 
-gcclibs_compile_deps = $(STATEDIR)/gcclibs.prepare
-
-$(STATEDIR)/gcclibs.compile: $(gcclibs_compile_deps)
+$(STATEDIR)/gcclibs.compile: $(gcclibs_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -71,7 +66,7 @@ $(STATEDIR)/gcclibs.compile: $(gcclibs_compile_deps)
 
 gcclibs_install: $(STATEDIR)/gcclibs.install
 
-$(STATEDIR)/gcclibs.install: $(STATEDIR)/gcclibs.compile
+$(STATEDIR)/gcclibs.install: $(gcclibs_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -81,9 +76,7 @@ $(STATEDIR)/gcclibs.install: $(STATEDIR)/gcclibs.compile
 
 gcclibs_targetinstall: $(STATEDIR)/gcclibs.targetinstall
 
-gcclibs_targetinstall_deps = $(STATEDIR)/gcclibs.compile
-
-$(STATEDIR)/gcclibs.targetinstall: $(gcclibs_targetinstall_deps)
+$(STATEDIR)/gcclibs.targetinstall: $(gcclibs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

@@ -34,9 +34,7 @@ GDB_BUILDDIR	= $(BUILDDIR)/$(GDB)-build
 
 gdb_get: $(STATEDIR)/gdb.get
 
-gdb_get_deps = $(GDB_SOURCE)
-
-$(STATEDIR)/gdb.get: $(gdb_get_deps)
+$(STATEDIR)/gdb.get: $(GDB_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GDB))
 	@$(call touch, $@)
@@ -51,7 +49,7 @@ $(GDB_SOURCE):
 
 gdb_extract: $(STATEDIR)/gdb.extract
 
-$(STATEDIR)/gdb.extract: $(STATEDIR)/gdb.get
+$(STATEDIR)/gdb.extract: $(gdb_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GDB_DIR))
 	@$(call extract, $(GDB_SOURCE))
@@ -63,19 +61,6 @@ $(STATEDIR)/gdb.extract: $(STATEDIR)/gdb.get
 # ----------------------------------------------------------------------------
 
 gdb_prepare: $(STATEDIR)/gdb.prepare
-
-#
-# dependencies
-#
-gdb_prepare_deps =  $(STATEDIR)/virtual-xchain.install
-gdb_prepare_deps += $(STATEDIR)/gdb.extract
-
-ifdef PTXCONF_GDB_TERMCAP
-gdb_prepare_deps += $(STATEDIR)/termcap.install
-endif
-ifdef PTXCONF_GDB_NCURSES
-gdb_prepare_deps += $(STATEDIR)/ncurses.install
-endif
 
 GDB_PATH	=  PATH=$(CROSS_PATH)
 
@@ -106,7 +91,7 @@ GDB_AUTOCONF = \
 	--target=$(call remove_quotes,$(PTXCONF_GNU_TARGET)) \
 	--enable-serial-configure
 
-$(STATEDIR)/gdb.prepare: $(gdb_prepare_deps)
+$(STATEDIR)/gdb.prepare: $(gdb_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GDB_BUILDDIR))
 	mkdir -p $(GDB_BUILDDIR)
@@ -121,7 +106,7 @@ $(STATEDIR)/gdb.prepare: $(gdb_prepare_deps)
 
 gdb_compile: $(STATEDIR)/gdb.compile
 
-$(STATEDIR)/gdb.compile: $(STATEDIR)/gdb.prepare 
+$(STATEDIR)/gdb.compile: $(gdb_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GDB_BUILDDIR) && $(GDB_PATH) $(GDB_ENV_AC) make
 	@$(call touch, $@)
@@ -142,10 +127,7 @@ $(STATEDIR)/gdb.install:
 
 gdb_targetinstall: $(STATEDIR)/gdb.targetinstall
 
-gdb_targetinstall_deps = \
-	$(STATEDIR)/gdb.compile
-
-$(STATEDIR)/gdb.targetinstall: $(gdb_targetinstall_deps)
+$(STATEDIR)/gdb.targetinstall: $(gdb_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	mkdir -p $(ROOTDIR)/usr/bin

@@ -25,7 +25,7 @@ GDBSERVER_BUILDDIR	= $(BUILDDIR)/$(GDB)-server-build
 
 gdbserver_get: $(STATEDIR)/gdbserver.get
 
-$(STATEDIR)/gdbserver.get: $(gdb_get_deps)
+$(STATEDIR)/gdbserver.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -35,7 +35,7 @@ $(STATEDIR)/gdbserver.get: $(gdb_get_deps)
 
 gdbserver_extract: $(STATEDIR)/gdbserver.extract
 
-$(STATEDIR)/gdbserver.extract: $(STATEDIR)/gdb.extract
+$(STATEDIR)/gdbserver.extract: $(gdbserver_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,10 +44,6 @@ $(STATEDIR)/gdbserver.extract: $(STATEDIR)/gdb.extract
 # ----------------------------------------------------------------------------
 
 gdbserver_prepare: $(STATEDIR)/gdbserver.prepare
-
-gdbserver_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/gdbserver.extract
 
 GDBSERVER_PATH		= $(GDB_PATH)
 GDBSERVER_ENV		= $(GDB_ENV)
@@ -61,7 +57,7 @@ endif
 #
 GDBSERVER_AUTOCONF	= $(GDB_AUTOCONF)
 
-$(STATEDIR)/gdbserver.prepare: $(gdbserver_prepare_deps)
+$(STATEDIR)/gdbserver.prepare: $(gdbserver_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GDBSERVER_BUILDDIR))
 	mkdir -p $(GDBSERVER_BUILDDIR)
@@ -78,7 +74,7 @@ $(STATEDIR)/gdbserver.prepare: $(gdbserver_prepare_deps)
 
 gdbserver_compile: $(STATEDIR)/gdbserver.compile
 
-$(STATEDIR)/gdbserver.compile: $(STATEDIR)/gdbserver.prepare 
+$(STATEDIR)/gdbserver.compile: $(gdbserver_prepare_deps_default)
 	@$(call targetinfo, $@)
 	$(GDBSERVER_PATH) make -C $(GDBSERVER_BUILDDIR)
 	@$(call touch, $@)
@@ -99,7 +95,7 @@ $(STATEDIR)/gdbserver.install:
 
 gdbserver_targetinstall: $(STATEDIR)/gdbserver.targetinstall
 
-$(STATEDIR)/gdbserver.targetinstall: $(STATEDIR)/gdbserver.compile
+$(STATEDIR)/gdbserver.targetinstall: $(gdbserver_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
