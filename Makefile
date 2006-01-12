@@ -507,15 +507,17 @@ check_problematic_configs = 								\
 		echo;									\
 		exit 1;									\
 	fi;										\
-	echo "checking \$$PTXDIST_WORKSPACE/config/setup";				\
+	echo -n "checking \$$PTXDIST_WORKSPACE/config/setup";				\
 	if [ -n "$(OUTOFTREE)" ] && [ ! -d "$(PTXDIST_WORKSPACE)/config/setup" ]; then	\
-		echo "out-of-tree build, creating setup dir";				\
+		echo "-> out-of-tree build, creating setup dir";			\
 		rm -fr $(PTXDIST_WORKSPACE)/config/setup;				\
 		mkdir -p $(PTXDIST_WORKSPACE)/config; 					\
 		cp -a $(PTXDIST_TOPDIR)/config/setup $(PTXDIST_WORKSPACE)/config; 	\
 		for i in $(PTXDIST_TOPDIR)/config/uClibc* $(PTXDIST_TOPDIR)/config/busybox*; do \
 			ln -sf $$i $(PTXDIST_WORKSPACE)/config/`basename $$i`; 		\
 		done; 									\
+	else										\
+		echo;									\
 	fi;										\
 	echo "checking \$$PTXDIST_WORKSPACE/rules";					\
 	test -e "$(PTXDIST_WORKSPACE)/rules" || ln -sf $(PTXDIST_TOPDIR)/rules $(PTXDIST_WORKSPACE)/rules
