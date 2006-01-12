@@ -49,9 +49,7 @@ $(ETHERWAKE_SOURCE):
 
 etherwake_extract: $(STATEDIR)/etherwake.extract
 
-etherwake_extract_deps = $(STATEDIR)/etherwake.get
-
-$(STATEDIR)/etherwake.extract: $(etherwake_extract_deps)
+$(STATEDIR)/etherwake.extract: $(etherwake_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ETHERWAKE_DIR))
 	@$(call extract, $(ETHERWAKE_SOURCE))
@@ -64,17 +62,10 @@ $(STATEDIR)/etherwake.extract: $(etherwake_extract_deps)
 
 etherwake_prepare: $(STATEDIR)/etherwake.prepare
 
-#
-# dependencies
-#
-etherwake_prepare_deps = \
-	$(STATEDIR)/etherwake.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 ETHERWAKE_PATH	=  PATH=$(CROSS_PATH)
 ETHERWAKE_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/etherwake.prepare: $(etherwake_prepare_deps)
+$(STATEDIR)/etherwake.prepare: $(etherwake_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ETHERWAKE_DIR)/config.cache)
 	cd $(ETHERWAKE_DIR) && \
@@ -87,9 +78,7 @@ $(STATEDIR)/etherwake.prepare: $(etherwake_prepare_deps)
 
 etherwake_compile: $(STATEDIR)/etherwake.compile
 
-etherwake_compile_deps = $(STATEDIR)/etherwake.prepare
-
-$(STATEDIR)/etherwake.compile: $(etherwake_compile_deps)
+$(STATEDIR)/etherwake.compile: $(etherwake_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(ETHERWAKE_DIR) && $(ETHERWAKE_ENV) $(ETHERWAKE_PATH) make
 	@$(call touch, $@)
@@ -100,7 +89,7 @@ $(STATEDIR)/etherwake.compile: $(etherwake_compile_deps)
 
 etherwake_install: $(STATEDIR)/etherwake.install
 
-$(STATEDIR)/etherwake.install: $(STATEDIR)/etherwake.compile
+$(STATEDIR)/etherwake.install: $(etherwake_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, ETHERWAKE)
@@ -112,9 +101,7 @@ $(STATEDIR)/etherwake.install: $(STATEDIR)/etherwake.compile
 
 etherwake_targetinstall: $(STATEDIR)/etherwake.targetinstall
 
-etherwake_targetinstall_deps = $(STATEDIR)/etherwake.compile
-
-$(STATEDIR)/etherwake.targetinstall: $(etherwake_targetinstall_deps)
+$(STATEDIR)/etherwake.targetinstall: $(etherwake_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	
 	@$(call install_init,default)
