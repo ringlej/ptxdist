@@ -24,15 +24,15 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 @PACKET@_SOURCE		= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
 @PACKET@_DIR		= $(BUILDDIR)/$(@PACKET@)
 
+-include $(call package_depfile)
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
 @packet@_get: $(STATEDIR)/@packet@.get
 
-@packet@_get_deps = $(@PACKET@_SOURCE)
-
-$(STATEDIR)/@packet@.get: $(@packet@_get_deps)
+$(STATEDIR)/@packet@.get: $(@PACKET@_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,9 +46,7 @@ $(@PACKET@_SOURCE):
 
 @packet@_extract: $(STATEDIR)/@packet@.extract
 
-@packet@_extract_deps = $(STATEDIR)/@packet@.get
-
-$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
+$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
 	@$(call extract, $(@PACKET@_SOURCE))
@@ -61,16 +59,8 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 
 @packet@_prepare: $(STATEDIR)/@packet@.prepare
 
-#
-# dependencies
-#
-@packet@_prepare_deps = \
-	$(STATEDIR)/@packet@.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 @PACKET@_PATH	=  PATH=$(CROSS_PATH)
 @PACKET@_ENV 	=  $(CROSS_ENV)
-@PACKET@_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -78,7 +68,7 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 @PACKET@_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 @PACKET@_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
-$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
+$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR)/config.cache)
 	cd $(@PACKET@_DIR) && \
@@ -92,9 +82,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
 
 @packet@_compile: $(STATEDIR)/@packet@.compile
 
-@packet@_compile_deps = $(STATEDIR)/@packet@.prepare
-
-$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
+$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make
 	@$(call touch, $@)
@@ -116,9 +104,7 @@ $(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
 
 @packet@_targetinstall: $(STATEDIR)/@packet@.targetinstall
 
-@packet@_targetinstall_deps = $(STATEDIR)/@packet@.compile
-
-$(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps)
+$(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
