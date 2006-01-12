@@ -49,9 +49,7 @@ $(FIGLET_SOURCE):
 
 figlet_extract: $(STATEDIR)/figlet.extract
 
-figlet_extract_deps = $(STATEDIR)/figlet.get
-
-$(STATEDIR)/figlet.extract: $(figlet_extract_deps)
+$(STATEDIR)/figlet.extract: $(figlet_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FIGLET_DIR))
 	@$(call extract, $(FIGLET_SOURCE))
@@ -64,19 +62,12 @@ $(STATEDIR)/figlet.extract: $(figlet_extract_deps)
 
 figlet_prepare: $(STATEDIR)/figlet.prepare
 
-#
-# dependencies
-#
-figlet_prepare_deps = \
-	$(STATEDIR)/figlet.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 FIGLET_PATH	=  PATH=$(CROSS_PATH)
 FIGLET_ENV 	=  $(CROSS_ENV)
 FIGLET_ENV	+= CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))'
 FIGLET_ENV	+= LDFLAGS='$(call remove_quotes,$(TARGET_LDFLAGS))'
 
-$(STATEDIR)/figlet.prepare: $(figlet_prepare_deps)
+$(STATEDIR)/figlet.prepare: $(figlet_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -86,9 +77,7 @@ $(STATEDIR)/figlet.prepare: $(figlet_prepare_deps)
 
 figlet_compile: $(STATEDIR)/figlet.compile
 
-figlet_compile_deps = $(STATEDIR)/figlet.prepare
-
-$(STATEDIR)/figlet.compile: $(figlet_compile_deps)
+$(STATEDIR)/figlet.compile: $(figlet_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(FIGLET_DIR) && $(FIGLET_ENV) $(FIGLET_PATH) make
 	@$(call touch, $@)
@@ -99,7 +88,7 @@ $(STATEDIR)/figlet.compile: $(figlet_compile_deps)
 
 figlet_install: $(STATEDIR)/figlet.install
 
-$(STATEDIR)/figlet.install: $(STATEDIR)/figlet.compile
+$(STATEDIR)/figlet.install: $(figlet_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, FIGLET)
 	@$(call touch, $@)
@@ -110,9 +99,7 @@ $(STATEDIR)/figlet.install: $(STATEDIR)/figlet.compile
 
 figlet_targetinstall: $(STATEDIR)/figlet.targetinstall
 
-figlet_targetinstall_deps = $(STATEDIR)/figlet.compile
-
-$(STATEDIR)/figlet.targetinstall: $(figlet_targetinstall_deps)
+$(STATEDIR)/figlet.targetinstall: $(figlet_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	rm -f $(ROOTDIR)/usr/sbin/figlet $(ROOTDIR)/usr/share/figlet/*
