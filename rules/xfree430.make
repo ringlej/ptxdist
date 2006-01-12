@@ -43,7 +43,6 @@ XFREE430_SOURCE		= $(SRCDIR)/$(XFREE430).$(XFREE430_SUFFIX)
 
 -include $(call package_depfile)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -59,7 +58,7 @@ xfree430_get_deps	= $(XFREE430_SOURCE)
 #xfree430_get_deps	+= $(XFREE430_4_SOURCE)
 #xfree430_get_deps	+= $(XFREE430_5_SOURCE)
 
-$(STATEDIR)/xfree430.get: $(xfree430_get_deps_default)
+$(STATEDIR)/xfree430.get: $(xfree430_get_deps)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XFREE430))
 	@$(call touch, $@)
@@ -95,9 +94,7 @@ $(XFREE430_SOURCE):
 
 xfree430_extract: $(STATEDIR)/xfree430.extract
 
-xfree430_extract_deps	=  $(STATEDIR)/xfree430.get
-
-$(STATEDIR)/xfree430.extract: $(xfree430_extract_deps)
+$(STATEDIR)/xfree430.extract: $(xfree430_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XFREE430_DIR))
 	@$(call extract, $(XFREE430_SOURCE))
@@ -120,12 +117,12 @@ xfree430_prepare: $(STATEDIR)/xfree430.prepare
 #
 # dependencies
 #
-xfree430_prepare_deps =  \
-	$(STATEDIR)/xfree430.extract \
-	$(STATEDIR)/zlib.install \
-	$(STATEDIR)/ncurses.install \
-	$(STATEDIR)/libpng125.install \
-	$(STATEDIR)/virtual-xchain.install
+#xfree430_prepare_deps =  \
+#	$(STATEDIR)/xfree430.extract \
+#	$(STATEDIR)/zlib.install \
+#	$(STATEDIR)/ncurses.install \
+#	$(STATEDIR)/libpng125.install \
+#	$(STATEDIR)/virtual-xchain.install
 
 XFREE430_PATH	=  PATH=$(CROSS_PATH)
 XFREE430_ENV	=  XCURSORGEN=xcursorgen
@@ -156,8 +153,6 @@ $(STATEDIR)/xfree430.prepare: $(xfree430_prepare_deps_default)
 
 xfree430_compile: $(STATEDIR)/xfree430.compile
 
-xfree430_compile_deps =  $(STATEDIR)/xfree430.prepare
-
 $(STATEDIR)/xfree430.compile: $(xfree430_compile_deps_default)
 	@$(call targetinfo, $@)
 
@@ -181,7 +176,7 @@ $(STATEDIR)/xfree430.compile: $(xfree430_compile_deps_default)
 
 xfree430_install: $(STATEDIR)/xfree430.install
 
-$(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
+$(STATEDIR)/xfree430.install: $(xfree430_install_deps_default)
 	@$(call targetinfo, $@)
 
 	# These links are set incorrectly :-(
@@ -224,11 +219,6 @@ $(STATEDIR)/xfree430.install: $(STATEDIR)/xfree430.compile
 # ----------------------------------------------------------------------------
 
 xfree430_targetinstall: $(STATEDIR)/xfree430.targetinstall
-
-xfree430_targetinstall_deps =  $(STATEDIR)/xfree430.compile
-xfree430_targetinstall_deps += $(STATEDIR)/ncurses.targetinstall
-xfree430_targetinstall_deps += $(STATEDIR)/libpng125.targetinstall
-xfree430_targetinstall_deps += $(STATEDIR)/zlib.targetinstall
 
 $(STATEDIR)/xfree430.targetinstall: $(xfree430_targetinstall_deps_default)
 	@$(call targetinfo, $@)

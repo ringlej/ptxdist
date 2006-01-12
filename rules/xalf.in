@@ -5,7 +5,7 @@ config XALF
         prompt "XALF"
 	help
 	  XALF is ...
-	  FIME: This item needs to be documented
+	  FIXME: This item needs to be documented
 
 comment "XALF is broken, please send a patch"
         depends on !BROKEN
