@@ -33,9 +33,7 @@ FREETYPE_DIR		= $(BUILDDIR)/$(FREETYPE)
 
 freetype_get: $(STATEDIR)/freetype.get
 
-freetype_get_deps	=  $(FREETYPE_SOURCE)
-
-$(STATEDIR)/freetype.get: $(freetype_get_deps)
+$(STATEDIR)/freetype.get: $(FREETYPE_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,9 +47,7 @@ $(FREETYPE_SOURCE):
 
 freetype_extract: $(STATEDIR)/freetype.extract
 
-freetype_extract_deps	=  $(STATEDIR)/freetype.get
-
-$(STATEDIR)/freetype.extract: $(freetype_extract_deps)
+$(STATEDIR)/freetype.extract: $(freetype_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FREETYPE_DIR))
 	@$(call extract, $(FREETYPE_SOURCE))
@@ -63,18 +59,6 @@ $(STATEDIR)/freetype.extract: $(freetype_extract_deps)
 
 freetype_prepare: $(STATEDIR)/freetype.prepare
 
-#
-# dependencies
-#
-freetype_prepare_deps =  \
-	$(STATEDIR)/freetype.extract \
-	$(STATEDIR)/virtual-xchain.install
-
-	# FIXME: these dependencies have been there for penguzilla;
-	# check if they are still needed [RSC]	
-	# $(STATEDIR)/glib22.install \
-	# $(STATEDIR)/expat.install \
-
 FREETYPE_PATH	=  PATH=$(CROSS_PATH)
 FREETYPE_ENV 	=  $(CROSS_ENV)
 FREETYPE_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
@@ -84,7 +68,7 @@ FREETYPE_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 FREETYPE_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/freetype.prepare: $(freetype_prepare_deps)
+$(STATEDIR)/freetype.prepare: $(freetype_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FREETYPE_BUILDDIR))
 	cd $(FREETYPE_DIR) && \
@@ -98,9 +82,7 @@ $(STATEDIR)/freetype.prepare: $(freetype_prepare_deps)
 
 freetype_compile: $(STATEDIR)/freetype.compile
 
-freetype_compile_deps =  $(STATEDIR)/freetype.prepare
-
-$(STATEDIR)/freetype.compile: $(freetype_compile_deps)
+$(STATEDIR)/freetype.compile: $(freetype_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(FREETYPE_DIR) $(FREETYPE_PATH) make
 	chmod a+x $(FREETYPE_DIR)/builds/unix/freetype-config
@@ -112,7 +94,7 @@ $(STATEDIR)/freetype.compile: $(freetype_compile_deps)
 
 freetype_install: $(STATEDIR)/freetype.install
 
-$(STATEDIR)/freetype.install: $(STATEDIR)/freetype.compile
+$(STATEDIR)/freetype.install: $(freetype_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, FREETYPE)
 	@$(call touch, $@)
@@ -123,11 +105,7 @@ $(STATEDIR)/freetype.install: $(STATEDIR)/freetype.compile
 
 freetype_targetinstall: $(STATEDIR)/freetype.targetinstall
 
-freetype_targetinstall_deps	=  $(STATEDIR)/freetype.compile
-freetype_targetinstall_deps	+= $(STATEDIR)/glib22.targetinstall
-freetype_targetinstall_deps	+= $(STATEDIR)/expat.targetinstall
-
-$(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps)
+$(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

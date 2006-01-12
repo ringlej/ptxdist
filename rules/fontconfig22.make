@@ -35,9 +35,7 @@ FONTCONFIG22_DIR		= $(BUILDDIR)/$(FONTCONFIG22)
 
 fontconfig22_get: $(STATEDIR)/fontconfig22.get
 
-fontconfig22_get_deps	=  $(FONTCONFIG22_SOURCE)
-
-$(STATEDIR)/fontconfig22.get: $(fontconfig22_get_deps)
+$(STATEDIR)/fontconfig22.get: $(FONTCONFIG22_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FONTCONFIG22))
 	@$(call touch, $@)
@@ -52,9 +50,7 @@ $(FONTCONFIG22_SOURCE):
 
 fontconfig22_extract: $(STATEDIR)/fontconfig22.extract
 
-fontconfig22_extract_deps	=  $(STATEDIR)/fontconfig22.get
-
-$(STATEDIR)/fontconfig22.extract: $(fontconfig22_extract_deps)
+$(STATEDIR)/fontconfig22.extract: $(fontconfig22_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FONTCONFIG22_DIR))
 	@$(call extract, $(FONTCONFIG22_SOURCE))
@@ -72,16 +68,6 @@ $(STATEDIR)/fontconfig22.extract: $(fontconfig22_extract_deps)
 
 fontconfig22_prepare: $(STATEDIR)/fontconfig22.prepare
 
-#
-# dependencies
-#
-fontconfig22_prepare_deps =  \
-	$(STATEDIR)/fontconfig22.extract \
-	$(STATEDIR)/glib22.install \
-	$(STATEDIR)/expat.install \
-	$(STATEDIR)/freetype.install \
-	$(STATEDIR)/virtual-xchain.install
-
 FONTCONFIG22_PATH	=  PATH=$(CROSS_PATH)
 FONTCONFIG22_ENV 	=  $(CROSS_ENV)
 FONTCONFIG22_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
@@ -95,7 +81,7 @@ FONTCONFIG22_AUTOCONF	+= --with-expat-lib=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET
 FONTCONFIG22_AUTOCONF	+= --with-expat-include=$(PTXCONF_PREFIX)/include
 FONTCONFIG22_AUTOCONF	+= --with-freetype-config="pkg-config freetype2"
 
-$(STATEDIR)/fontconfig22.prepare: $(fontconfig22_prepare_deps)
+$(STATEDIR)/fontconfig22.prepare: $(fontconfig22_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FONTCONFIG22_BUILDDIR))
 	cd $(FONTCONFIG22_DIR) && \
@@ -109,9 +95,7 @@ $(STATEDIR)/fontconfig22.prepare: $(fontconfig22_prepare_deps)
 
 fontconfig22_compile: $(STATEDIR)/fontconfig22.compile
 
-fontconfig22_compile_deps =  $(STATEDIR)/fontconfig22.prepare
-
-$(STATEDIR)/fontconfig22.compile: $(fontconfig22_compile_deps)
+$(STATEDIR)/fontconfig22.compile: $(fontconfig22_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(FONTCONFIG22_DIR) && \
 	   $(FONTCONFIG22_PATH) make 
@@ -123,7 +107,7 @@ $(STATEDIR)/fontconfig22.compile: $(fontconfig22_compile_deps)
 
 fontconfig22_install: $(STATEDIR)/fontconfig22.install
 
-$(STATEDIR)/fontconfig22.install: $(STATEDIR)/fontconfig22.compile
+$(STATEDIR)/fontconfig22.install: $(fontconfig22_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, FONTCONFIG22)
 	@$(call touch, $@)
@@ -134,12 +118,7 @@ $(STATEDIR)/fontconfig22.install: $(STATEDIR)/fontconfig22.compile
 
 fontconfig22_targetinstall: $(STATEDIR)/fontconfig22.targetinstall
 
-fontconfig22_targetinstall_deps	=	$(STATEDIR)/fontconfig22.compile
-fontconfig22_targetinstall_deps +=	$(STATEDIR)/glib22.targetinstall
-fontconfig22_targetinstall_deps +=	$(STATEDIR)/expat.targetinstall
-fontconfig22_targetinstall_deps +=	$(STATEDIR)/freetype.targetinstall
-
-$(STATEDIR)/fontconfig22.targetinstall: $(fontconfig22_targetinstall_deps)
+$(STATEDIR)/fontconfig22.targetinstall: $(fontconfig22_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

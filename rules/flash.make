@@ -38,27 +38,13 @@ FLASH_PATCH_EXTRACT	= cat
 
 flash_get: $(STATEDIR)/flash.get
 
-flash_get_deps	=  $(FLASH_SOURCE)
-flash_get_deps	+= $(FLASH_PATCH_SOURCE)
-flash_get_deps	+= $(STATEDIR)/flash-patches.get
-
-$(STATEDIR)/flash.get: $(flash_get_deps)
+$(STATEDIR)/flash.get: $(FLASH_SOURCE)
 	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-$(STATEDIR)/flash-patches.get:
-	@$(call targetinfo, $@)
-	@$(call get_patches, $(FLASH))
 	@$(call touch, $@)
 
 $(FLASH_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(FLASH_URL))
-
-$(FLASH_PATCH_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, $(FLASH_PATCH_URL))
-
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -80,14 +66,6 @@ $(STATEDIR)/flash.extract: $(flash_extract_deps_default)
 
 flash_prepare: $(STATEDIR)/flash.prepare
 
-#
-# dependencies
-#
-flash_prepare_deps  = $(flash_prepare_deps_default)
-
-# FIXME: This dependency is broken / not available
-flash_prepare_deps += $(STATEDIR)/autoconf257.install
- 
 FLASH_PATH	= PATH=$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin:$(CROSS_PATH)
 FLASH_ENV	= $(CROSS_ENV)
 
@@ -97,7 +75,7 @@ FLASH_ENV	= $(CROSS_ENV)
 FLASH_AUTOCONF  =  $(CROSS_AUTOCONF_USR)
 FLASH_AUTOCONF	+= --with-ncurses-path=$(NCURSES_DIR)
 
-$(STATEDIR)/flash.prepare: $(flash_prepare_deps)
+$(STATEDIR)/flash.prepare: $(flash_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLASH_BUILDDIR))
 	mkdir -p $(FLASH_DIR)
