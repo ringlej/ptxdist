@@ -38,9 +38,7 @@ $(STATEDIR)/glibc.get:
 
 glibc_extract: $(STATEDIR)/glibc.extract
 
-glibc_extract_deps =  $(STATEDIR)/glibc.get
-
-$(STATEDIR)/glibc.extract: $(glibc_extract_deps)
+$(STATEDIR)/glibc.extract: $(glibc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,8 +47,6 @@ $(STATEDIR)/glibc.extract: $(glibc_extract_deps)
 # ----------------------------------------------------------------------------
 
 glibc_prepare: $(STATEDIR)/glibc.prepare
-
-glibc_prepare_deps = $(STATEDIR)/glibc.extract
 
 $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -62,8 +58,6 @@ $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps_default)
 
 glibc_compile: $(STATEDIR)/glibc.compile
 
-glibc_compile_deps = $(STATEDIR)/glibc.prepare 
-
 $(STATEDIR)/glibc.compile: $(glibc_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -74,8 +68,6 @@ $(STATEDIR)/glibc.compile: $(glibc_compile_deps_default)
 
 glibc_install: $(STATEDIR)/glibc.install
 
-glibc_install_deps = $(STATEDIR)/glibc.compile
-
 $(STATEDIR)/glibc.install: $(glibc_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -85,8 +77,6 @@ $(STATEDIR)/glibc.install: $(glibc_install_deps_default)
 # ----------------------------------------------------------------------------
 
 glibc_targetinstall: $(STATEDIR)/glibc.targetinstall
-
-glibc_targetinstall_deps = $(STATEDIR)/glibc.install
 
 ifdef PTXCONF_GLIBC_DEBUG
 GLIBC_STRIP	= n

@@ -32,8 +32,6 @@ HOST_MKNBI_FLAGS 		= BUILD_ROOT=$(PTXCONF_PREFIX)
 
 host-mknbi_get: $(STATEDIR)/host-mknbi.get
 
-host-mknbi_get_deps = $(HOST_MKNBI_SOURCE)
-
 $(STATEDIR)/host-mknbi.get: $(host-mknbi_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_MKNBI))
@@ -49,8 +47,6 @@ $(HOST_MKNBI_SOURCE):
 
 host-mknbi_extract: $(STATEDIR)/host-mknbi.extract
 
-host-mknbi_extract_deps = $(STATEDIR)/host-mknbi.get
-
 $(STATEDIR)/host-mknbi.extract: $(host-mknbi_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MKNBI_DIR))
@@ -64,11 +60,6 @@ $(STATEDIR)/host-mknbi.extract: $(host-mknbi_extract_deps)
 
 host-mknbi_prepare: $(STATEDIR)/host-mknbi.prepare
 
-#
-# dependencies
-#
-host-mknbi_prepare_deps =  $(STATEDIR)/host-mknbi.extract
-
 HOST_MKNBI_MAKEVARS	= CC=$(HOSTCC)
 HOST_MKNBI_ENV	= CFLAGS=-I$(PTXCONF_PREFIX)/include PREFIX=$(PTXCONF_PREFIX)/usr/local
 
@@ -81,8 +72,6 @@ $(STATEDIR)/host-mknbi.prepare: $(host-mknbi_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 host-mknbi_compile: $(STATEDIR)/host-mknbi.compile
-
-host-mknbi_compile_deps = $(STATEDIR)/host-mknbi.prepare
 
 $(STATEDIR)/host-mknbi.compile: $(host-mknbi_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -105,8 +94,6 @@ $(STATEDIR)/host-mknbi.install: $(STATEDIR)/host-mknbi.compile
 # ----------------------------------------------------------------------------
 
 host-mknbi_targetinstall: $(STATEDIR)/host-mknbi.targetinstall
-
-host-mknbi_targetinstall_deps = $(STATEDIR)/host-mknbi.install
 
 $(STATEDIR)/host-mknbi.targetinstall: $(host-mknbi_targetinstall_deps_default)
 	@$(call targetinfo, $@)

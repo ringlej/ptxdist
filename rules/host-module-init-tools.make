@@ -27,8 +27,6 @@ HOST_MODULE_INIT_TOOLS_DIR		= $(HOST_BUILDDIR)/$(MODULE_INIT_TOOLS)
 
 host-module-init-tools_get: $(STATEDIR)/host-module-init-tools.get
 
-host-module-init-tools_get_deps = $(STATEDIR)/module-init-tools.get
-
 $(STATEDIR)/host-module-init-tools.get: $(host-module-init-tools_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -38,8 +36,6 @@ $(STATEDIR)/host-module-init-tools.get: $(host-module-init-tools_get_deps_defaul
 # ----------------------------------------------------------------------------
 
 host-module-init-tools_extract: $(STATEDIR)/host-module-init-tools.extract
-
-host-module-init-tools_extract_deps = $(STATEDIR)/host-module-init-tools.get
 
 $(STATEDIR)/host-module-init-tools.extract: $(host-module-init-tools_extract_deps)
 	@$(call targetinfo, $@)
@@ -53,15 +49,11 @@ $(STATEDIR)/host-module-init-tools.extract: $(host-module-init-tools_extract_dep
 # ----------------------------------------------------------------------------
 
 host-module-init-tools_prepare: $(STATEDIR)/host-module-init-tools.prepare
-#
-# dependencies
-#
-host-module-init-tools_prepare_deps = $(STATEDIR)/host-module-init-tools.extract
 
 HOST_MODULE_INIT_TOOLS_PATH	= PATH=$(CROSS_PATH) 
 HOST_MODULE_INIT_TOOLS_ENV 	= $(HOSTCC_ENV)
 HOST_MODULE_INIT_TOOLS_MAKEVARS	= MAN5=''
-HOST_MODULE_INIT_TOOLS_AUTOCONF 	= $(HOST_AUTOCONF)
+HOST_MODULE_INIT_TOOLS_AUTOCONF = $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-module-init-tools.prepare: $(host-module-init-tools_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -76,8 +68,6 @@ $(STATEDIR)/host-module-init-tools.prepare: $(host-module-init-tools_prepare_dep
 
 host-module-init-tools_compile: $(STATEDIR)/host-module-init-tools.compile
 
-host-module-init-tools_compile_deps = $(STATEDIR)/host-module-init-tools.prepare
-
 $(STATEDIR)/host-module-init-tools.compile: $(host-module-init-tools_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_MODULE_INIT_TOOLS_DIR) && \
@@ -90,11 +80,6 @@ $(STATEDIR)/host-module-init-tools.compile: $(host-module-init-tools_compile_dep
 # ----------------------------------------------------------------------------
 
 host-module-init-tools_install: $(STATEDIR)/host-module-init-tools.install
-
-host-module-init-tools_install_deps = $(STATEDIR)/host-module-init-tools.compile
-ifdef PTXCONF_KERNEL_2_4
-host-module-init-tools_install_deps += $(STATEDIR)/host-modutils.install
-endif
 
 $(STATEDIR)/host-module-init-tools.install: $(host-module-init-tools_install_deps_default)
 	@$(call targetinfo, $@)

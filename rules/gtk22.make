@@ -33,9 +33,7 @@ GTK22_DIR		= $(BUILDDIR)/$(GTK22)
 
 gtk22_get: $(STATEDIR)/gtk22.get
 
-gtk22_get_deps	=  $(GTK22_SOURCE)
-
-$(STATEDIR)/gtk22.get: $(gtk22_get_deps_default)
+$(STATEDIR)/gtk22.get: $(GTK22_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,8 +47,6 @@ $(GTK22_SOURCE):
 
 gtk22_extract: $(STATEDIR)/gtk22.extract
 
-gtk22_extract_deps	=  $(STATEDIR)/gtk22.get
-
 $(STATEDIR)/gtk22.extract: $(gtk22_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK22_DIR))
@@ -63,17 +59,6 @@ $(STATEDIR)/gtk22.extract: $(gtk22_extract_deps)
 # ----------------------------------------------------------------------------
 
 gtk22_prepare: $(STATEDIR)/gtk22.prepare
-
-#
-# dependencies
-#
-gtk22_prepare_deps =  \
-	$(STATEDIR)/gtk22.extract \
-	$(STATEDIR)/glib22.install \
-	$(STATEDIR)/atk.install \
-	$(STATEDIR)/pango12.install \
-	$(STATEDIR)/freetype.install \
-	$(STATEDIR)/virtual-xchain.install \
 
 GTK22_PATH	=  PATH=$(CROSS_PATH)
 GTK22_ENV 	=  $(CROSS_ENV)
@@ -111,8 +96,6 @@ $(STATEDIR)/gtk22.prepare: $(gtk22_prepare_deps_default)
 
 gtk22_compile: $(STATEDIR)/gtk22.compile
 
-gtk22_compile_deps =  $(STATEDIR)/gtk22.prepare
-
 $(STATEDIR)/gtk22.compile: $(gtk22_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GTK22_DIR) && $(GTK22_PATH) $(GTK22_ENV) make
@@ -124,8 +107,6 @@ $(STATEDIR)/gtk22.compile: $(gtk22_compile_deps_default)
 
 gtk22_install: $(STATEDIR)/gtk22.install
 
-gtk22_install_deps	=  $(STATEDIR)/gtk22.compile
-
 $(STATEDIR)/gtk22.install: $(gtk22_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GTK22)
@@ -136,12 +117,6 @@ $(STATEDIR)/gtk22.install: $(gtk22_install_deps_default)
 # ----------------------------------------------------------------------------
 
 gtk22_targetinstall: $(STATEDIR)/gtk22.targetinstall
-
-gtk22_targetinstall_deps	=  $(STATEDIR)/gtk22.install
-gtk22_targetinstall_deps	+= $(STATEDIR)/fontconfig22.targetinstall
-gtk22_targetinstall_deps	+= $(STATEDIR)/freetype.targetinstall
-gtk22_targetinstall_deps	+= $(STATEDIR)/libidl-2.targetinstall
-gtk22_targetinstall_deps	+= $(STATEDIR)/pango12.targetinstall
 
 $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps_default)
 	@$(call targetinfo, $@)

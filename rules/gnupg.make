@@ -32,9 +32,7 @@ GNUPG_DIR	= $(BUILDDIR)/$(GNUPG)
 
 gnupg_get: $(STATEDIR)/gnupg.get
 
-gnupg_get_deps = $(GNUPG_SOURCE)
-
-$(STATEDIR)/gnupg.get: $(gnupg_get_deps_default)
+$(STATEDIR)/gnupg.get: $(GNUPG_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GNUPG))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(GNUPG_SOURCE):
 
 gnupg_extract: $(STATEDIR)/gnupg.extract
 
-gnupg_extract_deps = $(STATEDIR)/gnupg.get
-
 $(STATEDIR)/gnupg.extract: $(gnupg_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GNUPG_DIR))
@@ -63,13 +59,6 @@ $(STATEDIR)/gnupg.extract: $(gnupg_extract_deps)
 # ----------------------------------------------------------------------------
 
 gnupg_prepare: $(STATEDIR)/gnupg.prepare
-
-#
-# dependencies
-#
-gnupg_prepare_deps = \
-	$(STATEDIR)/gnupg.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 GNUPG_PATH	= PATH=$(CROSS_PATH)
 GNUPG_ENV 	= $(CROSS_ENV)
@@ -117,8 +106,6 @@ $(STATEDIR)/gnupg.prepare: $(gnupg_prepare_deps_default)
 
 gnupg_compile: $(STATEDIR)/gnupg.compile
 
-gnupg_compile_deps = $(STATEDIR)/gnupg.prepare
-
 $(STATEDIR)/gnupg.compile: $(gnupg_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GNUPG_DIR) && $(GNUPG_ENV) $(GNUPG_PATH) make
@@ -140,8 +127,6 @@ $(STATEDIR)/gnupg.install: $(STATEDIR)/gnupg.compile
 # ----------------------------------------------------------------------------
 
 gnupg_targetinstall: $(STATEDIR)/gnupg.targetinstall
-
-gnupg_targetinstall_deps = $(STATEDIR)/gnupg.install
 
 $(STATEDIR)/gnupg.targetinstall: $(gnupg_targetinstall_deps_default)
 	@$(call targetinfo, $@)

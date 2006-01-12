@@ -38,8 +38,6 @@ $(STATEDIR)/host-kconfig.get:
 
 host-kconfig_extract: $(STATEDIR)/host-kconfig.extract
 
-host-kconfig_extract_deps = $(STATEDIR)/host-kconfig.get
-
 $(STATEDIR)/host-kconfig.extract: $(host-kconfig_extract_deps)
 	@$(call targetinfo, $@)
 
@@ -56,12 +54,6 @@ $(STATEDIR)/host-kconfig.extract: $(host-kconfig_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-kconfig_prepare: $(STATEDIR)/host-kconfig.prepare
-
-#
-# dependencies
-#
-host-kconfig_prepare_deps = \
-	$(STATEDIR)/host-kconfig.extract
 
 HOST_KCONFIG_PATH	=  PATH=$(HOST_PATH)
 HOST_KCONFIG_ENV 	=  $(HOSTCC_ENV)

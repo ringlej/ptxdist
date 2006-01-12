@@ -72,10 +72,6 @@ HOST_E2FSPROGS_PATH	=  PATH=$(CROSS_PATH)
 HOST_E2FSPROGS_ENV	=  $(CROSS_ENV) 
 HOST_E2FSPROGS_ENV	+= BUILD_CC=$(HOSTCC)
 
-host-e2fsprogs_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/host-e2fsprogs.extract
-
 $(STATEDIR)/host-e2fsprogs.prepare: $(host-e2fsprogs_prepare_deps_default)
 	@$(call targetinfo, $@)
 	mkdir -p $(HOST_E2FSPROGS_BUILD_DIR) && \
@@ -89,8 +85,6 @@ $(STATEDIR)/host-e2fsprogs.prepare: $(host-e2fsprogs_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 host-e2fsprogs_compile: $(STATEDIR)/host-e2fsprogs.compile
-
-host-e2fsprogs_compile_deps = $(STATEDIR)/host-e2fsprogs.prepare
 
 $(STATEDIR)/host-e2fsprogs.compile: $(host-e2fsprogs_compile_deps_default) 
 	@$(call targetinfo, $@)
@@ -111,17 +105,17 @@ $(STATEDIR)/host-e2fsprogs.compile: $(host-e2fsprogs_compile_deps_default)
 
 host-e2fsprogs_install: $(STATEDIR)/host-e2fsprogs.install
 
-$(STATEDIR)/host-e2fsprogs.install:
+$(STATEDIR)/host-e2fsprogs.install: $(host-e2fsprogs_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
-# Hosttool Install
+# Targetinstall
 # ----------------------------------------------------------------------------
 
 host-e2fsprogs_targetinstall: $(STATEDIR)/host-e2fsprogs.targetinstall
 
-$(STATEDIR)/host-e2fsprogs.targetinstall: $(STATEDIR)/host-e2fsprogs.compile
+$(STATEDIR)/host-e2fsprogs.targetinstall: $(host-e2fsprogs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	mkdir -p $(ROOTDIR)/sbin
 ifdef PTXCONF_HOST_E2FSPROGS_TUNE2FS

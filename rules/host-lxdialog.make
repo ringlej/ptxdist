@@ -39,8 +39,6 @@ $(STATEDIR)/host-lxdialog.get:
 
 host-lxdialog_extract: $(STATEDIR)/host-lxdialog.extract
 
-host-lxdialog_extract_deps = $(STATEDIR)/host-lxdialog.get
-
 $(STATEDIR)/host-lxdialog.extract: $(host-lxdialog_extract_deps)
 	@$(call targetinfo, $@)
 
@@ -81,8 +79,6 @@ $(STATEDIR)/host-lxdialog.prepare: $(host-lxdialog_prepare_deps_default)
 
 host-lxdialog_compile: $(STATEDIR)/host-lxdialog.compile
 
-host-lxdialog_compile_deps = $(STATEDIR)/host-lxdialog.prepare
-
 $(STATEDIR)/host-lxdialog.compile: $(host-lxdialog_compile_deps_default)
 	@$(call targetinfo, $@, n)
 	cd $(HOST_LXDIALOG_DIR) && $(HOST_LXDIALOG_ENV) $(HOST_LXDIALOG_PATH) make
@@ -93,8 +89,6 @@ $(STATEDIR)/host-lxdialog.compile: $(host-lxdialog_compile_deps_default)
 # ----------------------------------------------------------------------------
 
 host-lxdialog_install: $(STATEDIR)/host-lxdialog.install
-
-host-lxdialog_install_deps = $(STATEDIR)/host-lxdialog.compile
 
 $(STATEDIR)/host-lxdialog.install: $(host-lxdialog_install_deps_default)
 	@$(call targetinfo, $@)

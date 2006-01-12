@@ -57,10 +57,6 @@ $(STATEDIR)/gmp3.extract: $(STATEDIR)/gmp3.get
 
 gmp3_prepare: $(STATEDIR)/gmp3.prepare
 
-gmp3_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/gmp3.extract
-
 GMP3_PATH	= PATH=$(CROSS_PATH)
 GMP3_ENV	= $(CROSS_ENV)
 

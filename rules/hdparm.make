@@ -32,9 +32,7 @@ HDPARM_DIR	= $(BUILDDIR)/$(HDPARM)
 
 hdparm_get: $(STATEDIR)/hdparm.get
 
-hdparm_get_deps = $(HDPARM_SOURCE)
-
-$(STATEDIR)/hdparm.get: $(hdparm_get_deps_default)
+$(STATEDIR)/hdparm.get: $(HDPARM_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HDPARM))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(HDPARM_SOURCE):
 
 hdparm_extract: $(STATEDIR)/hdparm.extract
 
-hdparm_extract_deps = $(STATEDIR)/hdparm.get
-
 $(STATEDIR)/hdparm.extract: $(hdparm_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HDPARM_DIR))
@@ -64,16 +60,8 @@ $(STATEDIR)/hdparm.extract: $(hdparm_extract_deps)
 
 hdparm_prepare: $(STATEDIR)/hdparm.prepare
 
-#
-# dependencies
-#
-hdparm_prepare_deps = \
-	$(STATEDIR)/hdparm.extract \
-	$(STATEDIR)/virtual-xchain.install
-
 HDPARM_PATH	=  PATH=$(CROSS_PATH)
 HDPARM_ENV 	=  $(CROSS_ENV)
-HDPARM_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
@@ -90,8 +78,6 @@ $(STATEDIR)/hdparm.prepare: $(hdparm_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 hdparm_compile: $(STATEDIR)/hdparm.compile
-
-hdparm_compile_deps = $(STATEDIR)/hdparm.prepare
 
 $(STATEDIR)/hdparm.compile: $(hdparm_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -114,8 +100,6 @@ $(STATEDIR)/hdparm.install: $(STATEDIR)/hdparm.compile
 # ----------------------------------------------------------------------------
 
 hdparm_targetinstall: $(STATEDIR)/hdparm.targetinstall
-
-hdparm_targetinstall_deps = $(STATEDIR)/hdparm.compile
 
 $(STATEDIR)/hdparm.targetinstall: $(hdparm_targetinstall_deps_default)
 	@$(call targetinfo, $@)

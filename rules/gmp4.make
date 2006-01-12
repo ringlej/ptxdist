@@ -57,10 +57,6 @@ $(STATEDIR)/gmp4.extract: $(STATEDIR)/gmp4.get
 
 gmp4_prepare: $(STATEDIR)/gmp4.prepare
 
-gmp4_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/gmp4.extract
-
 GMP4_PATH	= PATH=$(CROSS_PATH)
 GMP4_ENV	= $(CROSS_ENV)
 

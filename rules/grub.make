@@ -127,10 +127,6 @@ else
 GRUB_AUTOCONF += --disable-rtl8139
 endif
 
-grub_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/grub.extract
-
 $(STATEDIR)/grub.prepare: $(grub_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GRUB_DIR) && \

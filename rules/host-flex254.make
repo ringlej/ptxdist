@@ -39,8 +39,6 @@ $(STATEDIR)/host-flex254.get: $(host-flex254_get_deps_default)
 
 host-flex254_extract: $(STATEDIR)/host-flex254.extract
 
-host-flex254_extract_deps = $(STATEDIR)/host-flex254.get
-
 $(STATEDIR)/host-flex254.extract: $(host-flex254_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_FLEX254_DIR))
@@ -52,12 +50,6 @@ $(STATEDIR)/host-flex254.extract: $(host-flex254_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-flex254_prepare: $(STATEDIR)/host-flex254.prepare
-
-#
-# dependencies
-#
-host-flex254_prepare_deps = \
-	$(STATEDIR)/host-flex254.extract
 
 HOST_FLEX254_PATH	=  PATH=$(CROSS_PATH)
 HOST_FLEX254_ENV 	=  $(HOSTCC_ENV)
@@ -81,8 +73,6 @@ $(STATEDIR)/host-flex254.prepare: $(host-flex254_prepare_deps_default)
 
 host-flex254_compile: $(STATEDIR)/host-flex254.compile
 
-host-flex254_compile_deps = $(STATEDIR)/host-flex254.prepare
-
 $(STATEDIR)/host-flex254.compile: $(host-flex254_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_FLEX254_DIR) && $(HOST_FLEX254_PATH) make
@@ -104,8 +94,6 @@ $(STATEDIR)/host-flex254.install: $(STATEDIR)/host-flex254.compile
 # ----------------------------------------------------------------------------
 
 host-flex254_targetinstall: $(STATEDIR)/host-flex254.targetinstall
-
-host-flex254_targetinstall_deps = $(STATEDIR)/host-flex254.compile
 
 $(STATEDIR)/host-flex254.targetinstall: $(host-flex254_targetinstall_deps_default)
 	@$(call targetinfo, $@)

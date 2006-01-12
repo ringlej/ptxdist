@@ -32,9 +32,7 @@ HOST_CHECKINSTALL_DIR		= $(HOST_BUILDDIR)/$(HOST_CHECKINSTALL)
 
 host-checkinstall_get: $(STATEDIR)/host-checkinstall.get
 
-host-checkinstall_get_deps = $(HOST_CHECKINSTALL_SOURCE)
-
-$(STATEDIR)/host-checkinstall.get: $(host-checkinstall_get_deps_default)
+$(STATEDIR)/host-checkinstall.get: $(HOST_CHECKINSTALL_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_CHECKINSTALL))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(HOST_CHECKINSTALL_SOURCE):
 
 host-checkinstall_extract: $(STATEDIR)/host-checkinstall.extract
 
-host-checkinstall_extract_deps = $(STATEDIR)/host-checkinstall.get
-
 $(STATEDIR)/host-checkinstall.extract: $(host-checkinstall_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_CHECKINSTALL_DIR))
@@ -63,12 +59,6 @@ $(STATEDIR)/host-checkinstall.extract: $(host-checkinstall_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-checkinstall_prepare: $(STATEDIR)/host-checkinstall.prepare
-
-#
-# dependencies
-#
-host-checkinstall_prepare_deps = \
-	$(STATEDIR)/host-checkinstall.extract
 
 HOST_CHECKINSTALL_PATH	=  PATH=$(HOST_PATH)
 HOST_CHECKINSTALL_ENV 	=  $(HOSTCC_ENV)
@@ -92,8 +82,6 @@ $(STATEDIR)/host-checkinstall.prepare: $(host-checkinstall_prepare_deps_default)
 
 host-checkinstall_compile: $(STATEDIR)/host-checkinstall.compile
 
-host-checkinstall_compile_deps = $(STATEDIR)/host-checkinstall.prepare
-
 $(STATEDIR)/host-checkinstall.compile: $(host-checkinstall_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_CHECKINSTALL_DIR)/installwatch-* && $(HOST_CHECKINSTALL_ENV) $(HOST_CHECKINSTALL_PATH) make
@@ -104,8 +92,6 @@ $(STATEDIR)/host-checkinstall.compile: $(host-checkinstall_compile_deps_default)
 # ----------------------------------------------------------------------------
 
 host-checkinstall_install: $(STATEDIR)/host-checkinstall.install
-
-host-checkinstall_install_deps = $(STATEDIR)/host-checkinstall.compile
 
 $(STATEDIR)/host-checkinstall.install: $(host-checkinstall_install_deps_default)
 	@$(call targetinfo, $@)

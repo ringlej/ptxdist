@@ -32,8 +32,6 @@ HOSTTOOL-IPKG-UTILS_DIR		= $(HOST_BUILDDIR)/$(HOSTTOOL-IPKG-UTILS)
 
 host-ipkg-utils_get: $(STATEDIR)/host-ipkg-utils.get
 
-host-ipkg-utils_get_deps = $(HOSTTOOL-IPKG-UTILS_SOURCE)
-
 $(STATEDIR)/host-ipkg-utils.get: $(host-ipkg-utils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOSTTOOL-IPKG-UTILS))
@@ -48,8 +46,6 @@ $(HOSTTOOL-IPKG-UTILS_SOURCE):
 # ----------------------------------------------------------------------------
 
 host-ipkg-utils_extract: $(STATEDIR)/host-ipkg-utils.extract
-
-host-ipkg-utils_extract_deps = $(STATEDIR)/host-ipkg-utils.get
 
 $(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps)
 	@$(call targetinfo, $@)
@@ -68,12 +64,6 @@ $(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps)
 
 host-ipkg-utils_prepare: $(STATEDIR)/host-ipkg-utils.prepare
 
-#
-# dependencies
-#
-host-ipkg-utils_prepare_deps = \
-	$(STATEDIR)/host-ipkg-utils.extract
-
 HOSTTOOL-IPKG-UTILS_PATH	=  PATH=$(CROSS_PATH)
 HOSTTOOL-IPKG-UTILS_ENV 	=  $(CROSS_ENV)
 
@@ -86,8 +76,6 @@ $(STATEDIR)/host-ipkg-utils.prepare: $(host-ipkg-utils_prepare_deps_default)
 # ----------------------------------------------------------------------------
 
 host-ipkg-utils_compile: $(STATEDIR)/host-ipkg-utils.compile
-
-host-ipkg-utils_compile_deps = $(STATEDIR)/host-ipkg-utils.prepare
 
 $(STATEDIR)/host-ipkg-utils.compile: $(host-ipkg-utils_compile_deps_default)
 	@$(call targetinfo, $@)
@@ -115,8 +103,6 @@ $(STATEDIR)/host-ipkg-utils.install: $(STATEDIR)/host-ipkg-utils.compile
 # ----------------------------------------------------------------------------
 
 host-ipkg-utils_targetinstall: $(STATEDIR)/host-ipkg-utils.targetinstall
-
-host-ipkg-utils_targetinstall_deps = $(STATEDIR)/host-ipkg-utils.install
 
 $(STATEDIR)/host-ipkg-utils.targetinstall: $(host-ipkg-utils_targetinstall_deps_default)
 	@$(call targetinfo, $@)

@@ -32,8 +32,6 @@ GNUPLOT_DIR		= $(BUILDDIR)/$(GNUPLOT)
 
 gnuplot_get: $(STATEDIR)/gnuplot.get
 
-gnuplot_get_deps = $(GNUPLOT_SOURCE)
-
 $(STATEDIR)/gnuplot.get: $(gnuplot_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GNUPLOT))
@@ -49,8 +47,6 @@ $(GNUPLOT_SOURCE):
 
 gnuplot_extract: $(STATEDIR)/gnuplot.extract
 
-gnuplot_extract_deps = $(STATEDIR)/gnuplot.get
-
 $(STATEDIR)/gnuplot.extract: $(gnuplot_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GNUPLOT_DIR))
@@ -63,15 +59,6 @@ $(STATEDIR)/gnuplot.extract: $(gnuplot_extract_deps)
 # ----------------------------------------------------------------------------
 
 gnuplot_prepare: $(STATEDIR)/gnuplot.prepare
-
-#
-# dependencies
-#
-gnuplot_prepare_deps =  $(STATEDIR)/gnuplot.extract
-gnuplot_prepare_deps += $(STATEDIR)/virtual-xchain.install
-ifdef PTXCONF_GNUPLOT_PNG
-gnuplot_prepare_deps += $(STATEDIR)/libpng125.install
-endif
 
 GNUPLOT_PATH	=  PATH=$(CROSS_PATH)
 GNUPLOT_ENV 	=  $(CROSS_ENV)
@@ -154,8 +141,6 @@ $(STATEDIR)/gnuplot.prepare: $(gnuplot_prepare_deps_default)
 
 gnuplot_compile: $(STATEDIR)/gnuplot.compile
 
-gnuplot_compile_deps = $(STATEDIR)/gnuplot.prepare
-
 $(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps_default)
 	@$(call targetinfo, $@)
 
@@ -177,11 +162,6 @@ $(STATEDIR)/gnuplot.install: $(STATEDIR)/gnuplot.compile
 # ----------------------------------------------------------------------------
 
 gnuplot_targetinstall: $(STATEDIR)/gnuplot.targetinstall
-
-gnuplot_targetinstall_deps =  $(STATEDIR)/gnuplot.compile
-ifdef PTXCONF_GNUPLOT_PNG
-gnuplot_targetinstall_deps += $(STATEDIR)/libpng125.targetinstall
-endif
 
 $(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps_default)
 	@$(call targetinfo, $@)

@@ -33,9 +33,7 @@ GTK1210_DIR		= $(BUILDDIR)/$(GTK1210)
 
 gtk1210_get: $(STATEDIR)/gtk1210.get
 
-gtk1210_get_deps	=  $(GTK1210_SOURCE)
-
-$(STATEDIR)/gtk1210.get: $(gtk1210_get_deps_default)
+$(STATEDIR)/gtk1210.get: $(GTK1210_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,9 +47,7 @@ $(GTK1210_SOURCE):
 
 gtk1210_extract: $(STATEDIR)/gtk1210.extract
 
-gtk1210_extract_deps	=  $(STATEDIR)/gtk1210.get
-
-$(STATEDIR)/gtk1210.extract: $(gtk1210_extract_deps)
+$(STATEDIR)/gtk1210.extract: $(gtk1210_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK1210_DIR))
 	@$(call extract, $(GTK1210_SOURCE))
@@ -63,14 +59,6 @@ $(STATEDIR)/gtk1210.extract: $(gtk1210_extract_deps)
 # ----------------------------------------------------------------------------
 
 gtk1210_prepare: $(STATEDIR)/gtk1210.prepare
-
-#
-# dependencies
-#
-gtk1210_prepare_deps =  \
-	$(STATEDIR)/gtk1210.extract \
-	$(STATEDIR)/glib1210.install \
-	$(STATEDIR)/virtual-xchain.install
 
 GTK1210_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 GTK1210_ENV 	=  $(CROSS_ENV)
@@ -98,8 +86,6 @@ $(STATEDIR)/gtk1210.prepare: $(gtk1210_prepare_deps_default)
 
 gtk1210_compile: $(STATEDIR)/gtk1210.compile
 
-gtk1210_compile_deps =  $(STATEDIR)/gtk1210.prepare
-
 $(STATEDIR)/gtk1210.compile: $(gtk1210_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(GTK1210_PATH) $(GTK1210_ENV) make -C $(GTK1210_DIR)
@@ -121,9 +107,6 @@ $(STATEDIR)/gtk1210.install: $(STATEDIR)/gtk1210.compile
 # ----------------------------------------------------------------------------
 
 gtk1210_targetinstall: $(STATEDIR)/gtk1210.targetinstall
-
-gtk1210_targetinstall_deps	=  $(STATEDIR)/gtk1210.compile
-gtk1210_targetinstall_deps	+= $(STATEDIR)/glib1210.targetinstall
 
 $(STATEDIR)/gtk1210.targetinstall: $(gtk1210_targetinstall_deps_default)
 	@$(call targetinfo, $@)

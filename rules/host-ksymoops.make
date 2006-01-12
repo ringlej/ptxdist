@@ -70,9 +70,6 @@ $(STATEDIR)/host-ksymoops.prepare:
 
 host-ksymoops_compile: $(STATEDIR)/host-ksymoops.compile
 
-host-ksymoops_compile_deps = \
-	$(STATEDIR)/host-ksymoops.extract
-
 $(STATEDIR)/host-ksymoops.compile: $(host-ksymoops_compile_deps_default)
 	@$(call targetinfo, $@)
 	make -C $(KSYMOOPS_DIR) $(KSYMOOPS_MAKEVARS)
@@ -84,7 +81,7 @@ $(STATEDIR)/host-ksymoops.compile: $(host-ksymoops_compile_deps_default)
 
 host-ksymoops_install: $(STATEDIR)/host-ksymoops.install
 
-$(STATEDIR)/host-ksymoops.install: $(STATEDIR)/host-ksymoops.compile
+$(STATEDIR)/host-ksymoops.install: $(host-ksymoops_install_deps_default)
 	@$(call targetinfo, $@)
 	make -C $(KSYMOOPS_DIR) $(KSYMOOPS_MAKEVARS) install
 #
@@ -103,7 +100,7 @@ $(STATEDIR)/host-ksymoops.install: $(STATEDIR)/host-ksymoops.compile
 
 host-ksymoops_targetinstall: $(STATEDIR)/host-ksymoops.targetinstall
 
-$(STATEDIR)/host-ksymoops.targetinstall: $(STATEDIR)/host-ksymoops.install
+$(STATEDIR)/host-ksymoops.targetinstall: $(host-ksymoops_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

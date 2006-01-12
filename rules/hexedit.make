@@ -32,9 +32,7 @@ HEXEDIT_DIR	= $(BUILDDIR)/$(HEXEDIT)
 
 hexedit_get: $(STATEDIR)/hexedit.get
 
-hexedit_get_deps = $(HEXEDIT_SOURCE)
-
-$(STATEDIR)/hexedit.get: $(hexedit_get_deps_default)
+$(STATEDIR)/hexedit.get: $(HEXEDIT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HEXEDIT))
 	@$(call touch, $@)
@@ -49,8 +47,6 @@ $(HEXEDIT_SOURCE):
 
 hexedit_extract: $(STATEDIR)/hexedit.extract
 
-hexedit_extract_deps = $(STATEDIR)/hexedit.get
-
 $(STATEDIR)/hexedit.extract: $(hexedit_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HEXEDIT_DIR))
@@ -64,14 +60,6 @@ $(STATEDIR)/hexedit.extract: $(hexedit_extract_deps)
 # ----------------------------------------------------------------------------
 
 hexedit_prepare: $(STATEDIR)/hexedit.prepare
-
-#
-# dependencies
-#
-hexedit_prepare_deps = \
-	$(STATEDIR)/hexedit.extract \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/ncurses.install
 
 HEXEDIT_PATH	=  PATH=$(CROSS_PATH)
 HEXEDIT_ENV 	=  $(CROSS_ENV)
@@ -97,8 +85,6 @@ $(STATEDIR)/hexedit.prepare: $(hexedit_prepare_deps_default)
 
 hexedit_compile: $(STATEDIR)/hexedit.compile
 
-hexedit_compile_deps = $(STATEDIR)/hexedit.prepare
-
 $(STATEDIR)/hexedit.compile: $(hexedit_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HEXEDIT_DIR) && $(HEXEDIT_ENV) $(HEXEDIT_PATH) make
@@ -119,8 +105,6 @@ $(STATEDIR)/hexedit.install: $(STATEDIR)/hexedit.compile
 # ----------------------------------------------------------------------------
 
 hexedit_targetinstall: $(STATEDIR)/hexedit.targetinstall
-
-hexedit_targetinstall_deps = $(STATEDIR)/hexedit.compile
 
 $(STATEDIR)/hexedit.targetinstall: $(hexedit_targetinstall_deps_default)
 	@$(call targetinfo, $@)

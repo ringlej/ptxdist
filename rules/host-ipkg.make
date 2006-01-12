@@ -46,8 +46,6 @@ $(STATEDIR)/host-ipkg.get: $(host-ipkg_get_deps_default)
 
 host-ipkg_extract: $(STATEDIR)/host-ipkg.extract
 
-host-ipkg_extract_deps = $(STATEDIR)/host-ipkg.get
-
 $(STATEDIR)/host-ipkg.extract: $(host-ipkg_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_IPKG_DIR))
@@ -61,12 +59,6 @@ $(STATEDIR)/host-ipkg.extract: $(host-ipkg_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-ipkg_prepare: $(STATEDIR)/host-ipkg.prepare
-
-#
-# dependencies
-#
-host-ipkg_prepare_deps = \
-	$(STATEDIR)/host-ipkg.extract
 
 HOST_IPKG_PATH	=  PATH=$(CROSS_PATH)
 HOST_IPKG_ENV 	=  $(HOSTCC_ENV)
@@ -90,8 +82,6 @@ $(STATEDIR)/host-ipkg.prepare: $(host-ipkg_prepare_deps_default)
 
 host-ipkg_compile: $(STATEDIR)/host-ipkg.compile
 
-host-ipkg_compile_deps = $(STATEDIR)/host-ipkg.prepare
-
 $(STATEDIR)/host-ipkg.compile: $(host-ipkg_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_IPKG_DIR) && $(HOST_IPKG_ENV) $(HOST_IPKG_PATH) make
@@ -113,8 +103,6 @@ $(STATEDIR)/host-ipkg.install: $(STATEDIR)/host-ipkg.compile
 # ----------------------------------------------------------------------------
 
 host-ipkg_targetinstall: $(STATEDIR)/host-ipkg.targetinstall
-
-host-ipkg_targetinstall_deps = $(STATEDIR)/host-ipkg.install
 
 $(STATEDIR)/host-ipkg.targetinstall: $(host-ipkg_targetinstall_deps_default)
 	@$(call targetinfo, $@)

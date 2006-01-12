@@ -20,9 +20,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_FAKEROOT) += host-fakeroot
 HOST_FAKEROOT_VERSION	= 1.5.1
 HOST_FAKEROOT		= fakeroot-$(HOST_FAKEROOT_VERSION)
 HOST_FAKEROOT_SUFFIX	= tar.gz
-HOST_FAKEROOT_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/f/fakeroot/fakeroot_$(HOST_FAKEROOT_VERSION).$(HOST_FAKEROOT_SUFFIX)
+HOST_FAKEROOT_URL	= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/f/fakeroot/fakeroot_$(HOST_FAKEROOT_VERSION).$(HOST_FAKEROOT_SUFFIX)
 HOST_FAKEROOT_SOURCE	= $(SRCDIR)/fakeroot_$(HOST_FAKEROOT_VERSION).$(HOST_FAKEROOT_SUFFIX)
-HOST_FAKEROOT_DIR		= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
+HOST_FAKEROOT_DIR	= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
 
 -include $(call package_depfile)
 
@@ -32,9 +32,7 @@ HOST_FAKEROOT_DIR		= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
 
 host-fakeroot_get: $(STATEDIR)/host-fakeroot.get
 
-host-fakeroot_get_deps = $(HOST_FAKEROOT_SOURCE)
-
-$(STATEDIR)/host-fakeroot.get: $(host-fakeroot_get_deps_default)
+$(STATEDIR)/host-fakeroot.get: $(HOST_FAKEROOT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +46,6 @@ $(HOST_FAKEROOT_SOURCE):
 
 host-fakeroot_extract: $(STATEDIR)/host-fakeroot.extract
 
-host-fakeroot_extract_deps = $(STATEDIR)/host-fakeroot.get
-
 $(STATEDIR)/host-fakeroot.extract: $(host-fakeroot_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_FAKEROOT_DIR))
@@ -61,12 +57,6 @@ $(STATEDIR)/host-fakeroot.extract: $(host-fakeroot_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-fakeroot_prepare: $(STATEDIR)/host-fakeroot.prepare
-
-#
-# dependencies
-#
-host-fakeroot_prepare_deps = \
-	$(STATEDIR)/host-fakeroot.extract
 
 HOST_FAKEROOT_PATH	=  PATH=$(CROSS_PATH)
 HOST_FAKEROOT_ENV 	=  $(HOSTCC_ENV)
@@ -90,8 +80,6 @@ $(STATEDIR)/host-fakeroot.prepare: $(host-fakeroot_prepare_deps_default)
 
 host-fakeroot_compile: $(STATEDIR)/host-fakeroot.compile
 
-host-fakeroot_compile_deps = $(STATEDIR)/host-fakeroot.prepare
-
 $(STATEDIR)/host-fakeroot.compile: $(host-fakeroot_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_FAKEROOT_DIR) && $(HOST_FAKEROOT_PATH) make
@@ -113,8 +101,6 @@ $(STATEDIR)/host-fakeroot.install: $(STATEDIR)/host-fakeroot.compile
 # ----------------------------------------------------------------------------
 
 host-fakeroot_targetinstall: $(STATEDIR)/host-fakeroot.targetinstall
-
-host-fakeroot_targetinstall_deps = $(STATEDIR)/host-fakeroot.compile
 
 $(STATEDIR)/host-fakeroot.targetinstall: $(host-fakeroot_targetinstall_deps_default)
 	@$(call targetinfo, $@)

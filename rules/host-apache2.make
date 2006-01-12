@@ -32,9 +32,7 @@ HOST_APACHE2_DIR	= $(HOST_BUILDDIR)/$(HOST_APACHE2)
 
 host-apache2_get: $(STATEDIR)/host-apache2.get
 
-host-apache2_get_deps = $(HOST_APACHE2_SOURCE)
-
-$(STATEDIR)/host-apache2.get: $(host-apache2_get_deps_default)
+$(STATEDIR)/host-apache2.get: $(HOST_APACHE2_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,8 +41,6 @@ $(STATEDIR)/host-apache2.get: $(host-apache2_get_deps_default)
 # ----------------------------------------------------------------------------
 
 host-apache2_extract: $(STATEDIR)/host-apache2.extract
-
-host-apache2_extract_deps = $(STATEDIR)/host-apache2.get
 
 $(STATEDIR)/host-apache2.extract: $(host-apache2_extract_deps)
 	@$(call targetinfo, $@)
@@ -58,12 +54,6 @@ $(STATEDIR)/host-apache2.extract: $(host-apache2_extract_deps)
 # ----------------------------------------------------------------------------
 
 host-apache2_prepare: $(STATEDIR)/host-apache2.prepare
-
-#
-# dependencies
-#
-host-apache2_prepare_deps = \
-	$(STATEDIR)/host-apache2.extract
 
 HOST_APACHE2_PATH	=  PATH=$(HOST_PATH)
 HOST_APACHE2_ENV 	=  $(HOSTCC_ENV)
@@ -87,8 +77,6 @@ $(STATEDIR)/host-apache2.prepare: $(host-apache2_prepare_deps_default)
 
 host-apache2_compile: $(STATEDIR)/host-apache2.compile
 
-host-apache2_compile_deps = $(STATEDIR)/host-apache2.prepare
-
 $(STATEDIR)/host-apache2.compile: $(host-apache2_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_APACHE2_DIR)/srclib/apr-util/uri && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) make
@@ -101,8 +89,6 @@ $(STATEDIR)/host-apache2.compile: $(host-apache2_compile_deps_default)
 # ----------------------------------------------------------------------------
 
 host-apache2_install: $(STATEDIR)/host-apache2.install
-
-host-apache2_install_deps = $(STATEDIR)/host-apache2.compile
 
 $(STATEDIR)/host-apache2.install: $(host-apache2_install_deps_default)
 	@$(call targetinfo, $@)
