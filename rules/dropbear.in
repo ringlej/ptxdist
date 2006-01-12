@@ -3,61 +3,95 @@ menu	"Dropbear SSH-Server "
 config DROPBEAR
 	bool
 	prompt "Dropbear SSH Server"
+	help
+	  dropbear is a SSH 2 server and client designed 
+	  to be small enough to be used in small memory 
+	  environments, while still being functional and
+ 	  secure enough for general use.
+	  
+	  It implements most required features of the 
+	  SSH 2 protocol, and other features such as X11 
+	  and authentication agent forwarding.
+ 	
+	  http://matt.ucc.asn.au/dropbear/dropbear.html
+
 
 config DROPBEAR_DIS_ZLIB
 	bool
 	prompt "Don't include zlib support"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_OPENPTY
 	bool
 	prompt "Don't use openpty, use alternative method"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_SYSLOG
 	bool
 	prompt "Don't include syslog support"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_LASTLOG
 	bool
 	prompt "disable use of lastlog"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_UTMP
 	bool
 	prompt "disable use of utmp"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_UTMPX
 	bool
 	prompt "disable use of utmpx"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_WTMP
 	bool
 	prompt "disable use of wtmp"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_WTMPX
 	bool
 	prompt "disable use of wtmpx"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_LIBUTIL
 	bool
 	prompt "disable use of libutil"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_PUTUTLINE
 	bool
 	prompt "disable use of pututline"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_PUTUTXLINE
 	bool
 	prompt "disable use of pututxline"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 
 comment features
@@ -67,17 +101,22 @@ config DROPBEAR_DIS_X11
 	bool
 	prompt "disable X11 Forwarding"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_TCP
 	bool
 	prompt "disable TCP Fowarding"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DIS_AGENT
 	bool
 	prompt "disable Authentication Agent Forwarding"
 	depends on DROPBEAR
-
+	help
+	  FIXME: This item should be documented in detail
 
 comment "Encryption, at least one required --- RFC Draft requires 3DES"
 	depends on DROPBEAR
@@ -86,23 +125,30 @@ config DROPBEAR_AES128
 	bool
 	prompt "AES 128"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_BLOWFISH
 	bool
 	prompt "Blowfish"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_TWOFISH128
 	bool
 	prompt "Twofish128"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_3DES
 	bool
 	prompt "3DES"
 	default y
 	depends on DROPBEAR
-
+	help
+	  FIXME: This item should be documented in detail
 
 comment "Integrity, at least one required --- RFC Draft requires sha1-hmac"
 	depends on DROPBEAR
@@ -112,12 +158,15 @@ config DROPBEAR_SHA1
 	prompt "sha1"
 	default y
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_MD5
 	bool
 	prompt "md5"
 	depends on DROPBEAR
-
+	help
+	  FIXME: This item should be documented in detail
 
 comment "Hostkey/public key algorithms, at least one required --- SSH2 RFC Draft requires dss"
 	depends on DROPBEAR
@@ -126,12 +175,16 @@ config DROPBEAR_RSA
 	bool
 	prompt "rsa"
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DSS
 	bool
 	prompt "dss"
 	default y
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 
 comment "Authentication types, at least one required --- RFC Draft requires pubkey auth"
@@ -142,12 +195,16 @@ config DROPBEAR_PASSWD
 	prompt "password"
 	default y
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_PUBKEY
 	bool
 	prompt "pubkey"
 	default y
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 
 comment "installation options"
@@ -158,6 +215,8 @@ config DROPBEAR_DROPBEAR
 	prompt "Install dropbear SSH server"
 	default y
 	depends on DROPBEAR
+	help
+	  FIXME: This item should be documented in detail
 
 config DROPBEAR_DROPBEAR_KEY
 	bool

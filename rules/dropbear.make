@@ -49,9 +49,7 @@ $(DROPBEAR_SOURCE):
 
 dropbear_extract: $(STATEDIR)/dropbear.extract
 
-dropbear_extract_deps	=  $(STATEDIR)/dropbear.get
-
-$(STATEDIR)/dropbear.extract: $(dropbear_extract_deps)
+$(STATEDIR)/dropbear.extract: $(dropbear_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DROPBEAR_DIR))
 	@$(call extract, $(DROPBEAR_SOURCE))
@@ -63,12 +61,7 @@ $(STATEDIR)/dropbear.extract: $(dropbear_extract_deps)
 
 dropbear_prepare: $(STATEDIR)/dropbear.prepare
 
-#
-# dependencies
-#
-dropbear_prepare_deps =  \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/dropbear.extract
+dropbear_prepare_deps =  $(dropbear_prepare_deps_default)
 
 ifndef PTXCONF_DROPBEAR_DIS_ZLIB
 dropbear_prepare_deps +=  $(STATEDIR)/zlib.install
@@ -223,9 +216,7 @@ endif
 
 dropbear_compile: $(STATEDIR)/dropbear.compile
 
-dropbear_compile_deps =  $(STATEDIR)/dropbear.prepare
-
-$(STATEDIR)/dropbear.compile: $(dropbear_compile_deps)
+$(STATEDIR)/dropbear.compile: $(dropbear_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make dropbear
 
@@ -248,7 +239,7 @@ endif
 
 dropbear_install: $(STATEDIR)/dropbear.install
 
-$(STATEDIR)/dropbear.install: $(STATEDIR)/dropbear.compile
+$(STATEDIR)/dropbear.install: $(dropbear_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	# @$(call install, DROPBEAR)
@@ -260,7 +251,8 @@ $(STATEDIR)/dropbear.install: $(STATEDIR)/dropbear.compile
 
 dropbear_targetinstall: $(STATEDIR)/dropbear.targetinstall
 
-dropbear_targetinstall_deps	=  $(STATEDIR)/dropbear.compile
+dropbear_targetinstall_deps	=  $(dropbear_targetinstall_deps_default)
+
 ifndef PTXCONF_DROPBEAR_DIS_ZLIB
 dropbear_targetinstall_deps	+= $(STATEDIR)/zlib.targetinstall
 endif
