@@ -49,9 +49,7 @@ $(FBTEST_SOURCE):
 
 fbtest_extract: $(STATEDIR)/fbtest.extract
 
-fbtest_extract_deps = $(STATEDIR)/fbtest.get
-
-$(STATEDIR)/fbtest.extract: $(fbtest_extract_deps)
+$(STATEDIR)/fbtest.extract: $(fbtest_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FBTEST_DIR))
 	@$(call extract, $(FBTEST_SOURCE))
@@ -64,18 +62,10 @@ $(STATEDIR)/fbtest.extract: $(fbtest_extract_deps)
 
 fbtest_prepare: $(STATEDIR)/fbtest.prepare
 
-#
-# dependencies
-#
-fbtest_prepare_deps = \
-	$(STATEDIR)/fbtest.extract \
-	$(STATEDIR)/libnetpbm.install \
-	$(STATEDIR)/virtual-xchain.install
-
 FBTEST_PATH	=  PATH=$(CROSS_PATH)
 FBTEST_ENV 	=  $(CROSS_ENV)
 
-$(STATEDIR)/fbtest.prepare: $(fbtest_prepare_deps)
+$(STATEDIR)/fbtest.prepare: $(fbtest_prepare_deps_default)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -84,9 +74,7 @@ $(STATEDIR)/fbtest.prepare: $(fbtest_prepare_deps)
 
 fbtest_compile: $(STATEDIR)/fbtest.compile
 
-fbtest_compile_deps = $(STATEDIR)/fbtest.prepare
-
-$(STATEDIR)/fbtest.compile: $(fbtest_compile_deps)
+$(STATEDIR)/fbtest.compile: $(fbtest_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(FBTEST_DIR) && $(FBTEST_ENV) $(FBTEST_PATH) \
 		CROSS_COMPILE=$(COMPILER_PREFIX) make
@@ -98,7 +86,7 @@ $(STATEDIR)/fbtest.compile: $(fbtest_compile_deps)
 
 fbtest_install: $(STATEDIR)/fbtest.install
 
-$(STATEDIR)/fbtest.install: $(STATEDIR)/fbtest.compile
+$(STATEDIR)/fbtest.install: $(fbtest_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#$(call install, FBTEST)
@@ -110,11 +98,7 @@ $(STATEDIR)/fbtest.install: $(STATEDIR)/fbtest.compile
 
 fbtest_targetinstall: $(STATEDIR)/fbtest.targetinstall
 
-fbtest_targetinstall_deps = \
-	$(STATEDIR)/fbtest.compile \
-	$(STATEDIR)/libnetpbm.targetinstall
-
-$(STATEDIR)/fbtest.targetinstall: $(fbtest_targetinstall_deps)
+$(STATEDIR)/fbtest.targetinstall: $(fbtest_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
