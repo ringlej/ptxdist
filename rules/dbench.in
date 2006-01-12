@@ -3,7 +3,20 @@ menuconfig DBENCH
 	prompt "dbench"
 	default N
 	help
-	  dbench is a filesystem throughput test. 
+	  The dbench (disk) and tbench (TCP) benchmarks
+ 	  dbench and tbench simulate the load of the 
+	  netbench "industry standard" benchmark used 
+	  to rate (windows) file servers.  Unlike netbench,
+	  they do not require a lab of Microsoft Windows 
+	  PCs: dbench produces the filesystem load on a 
+	  netbench run, and tbench produces the network 
+	  load, allowing simpler bottleneck isolation.
+ 	  
+	  Note that this benchmark is *not* a realistic 
+	  reflection of normal server load.
+ 	  
+	  http://samba.org/ftp/tridge/dbench/
+
 
 comment "Installation Options"
 	depends on DBENCH
@@ -14,7 +27,8 @@ config DBENCH_DBENCH
 	depends on DBENCH
 	default N
 	help
-	  FIXME: This item needs to be documented
+	  dbench produces the filesystem load 
+	  on a netbench run
 
 config DBENCH_TBENCH
 	bool
@@ -22,7 +36,8 @@ config DBENCH_TBENCH
 	depends on DBENCH
 	default N
 	help
-	  FIXME: This item needs to be documented
+	  tbench produces the network load 
+	  on a netbench run. Client component.
 
 config DBENCH_TBENCH_SERVER
 	bool
@@ -30,5 +45,6 @@ config DBENCH_TBENCH_SERVER
 	depends on DBENCH
 	default N
 	help
-	  FIXME: This item needs to be documented
+	  tbench produces the network load 
+	  on a netbench run. Server component.
 
