@@ -31,7 +31,7 @@ HOST_PKG_CONFIG_WRAPPER_DIR	= $(HOST_BUILDDIR)/$(HOST_PKG_CONFIG_WRAPPER)
 host-pkg-config-wrapper_get: $(STATEDIR)/host-pkg-config-wrapper.get
 
 $(STATEDIR)/host-pkg-config-wrapper.get:
-	@$(call targetinfo, $@)
+	@$(call targetinfo,$@,n)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -41,7 +41,7 @@ $(STATEDIR)/host-pkg-config-wrapper.get:
 host-pkg-config-wrapper_extract: $(STATEDIR)/host-pkg-config-wrapper.extract
 
 $(STATEDIR)/host-pkg-config-wrapper.extract: $(STATEDIR)/host-pkg-config-wrapper.get
-	@$(call targetinfo, $@)
+	@$(call targetinfo,$@,n)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ $(STATEDIR)/host-pkg-config-wrapper.extract: $(STATEDIR)/host-pkg-config-wrapper
 host-pkg-config-wrapper_prepare: $(STATEDIR)/host-pkg-config-wrapper.prepare
 
 $(STATEDIR)/host-pkg-config-wrapper.prepare: $(STATEDIR)/host-pkg-config-wrapper.extract
-	@$(call targetinfo, $@)
+	@$(call targetinfo,$@,n)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ $(STATEDIR)/host-pkg-config-wrapper.prepare: $(STATEDIR)/host-pkg-config-wrapper
 host-pkg-config-wrapper_compile: $(STATEDIR)/host-pkg-config-wrapper.compile
 
 $(STATEDIR)/host-pkg-config-wrapper.compile: $(STATEDIR)/host-pkg-config-wrapper.prepare
-	@$(call targetinfo, $@)
+	@$(call targetinfo,$@,n)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -71,7 +71,7 @@ $(STATEDIR)/host-pkg-config-wrapper.compile: $(STATEDIR)/host-pkg-config-wrapper
 host-pkg-config-wrapper_install: $(STATEDIR)/host-pkg-config-wrapper.install
 
 $(STATEDIR)/host-pkg-config-wrapper.install: $(STATEDIR)/host-pkg-config-wrapper.compile
-	@$(call targetinfo, $@)
+	@$(call targetinfo,$@,n)
 	# fake a pkg-config
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	cp $(PTXDIST_TOPDIR)/scripts/pkg-config-wrapper $(PTXCONF_PREFIX)/bin/pkg-config
