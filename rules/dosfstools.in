@@ -14,7 +14,7 @@ config DOSFSTOOLS_MKDOSFS_MSDOS
 	default N
 	depends on DOSFSTOOLS_MKDOSFS
 	help
-	  FIXME: This item needs to be documented
+	  FAT 12 / MSDOS Format
 
 config DOSFSTOOLS_MKDOSFS_VFAT
 	bool
@@ -22,12 +22,12 @@ config DOSFSTOOLS_MKDOSFS_VFAT
 	default N
 	depends on DOSFSTOOLS_MKDOSFS
 	help
-	  FIXME: This item needs to be documented
+	  VFAT Format - Long Filenames, big files, etc.
 
 config DOSFSTOOLS_DOSFSCK
 	bool
 	prompt "dosfsck"
 	depends on DOSFSTOOLS
 	help
-	  FIXME: This item needs to be documented
+	  This is the DOSFS / VFAT Filesystem Checker
 
