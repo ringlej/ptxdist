@@ -1,0 +1,4 @@
+config GLIB12
+	bool
+	prompt "glib-1.2"
+
