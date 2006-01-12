@@ -49,9 +49,7 @@ $(EXPAT_SOURCE):
 
 expat_extract: $(STATEDIR)/expat.extract
 
-expat_extract_deps = $(STATEDIR)/expat.get
-
-$(STATEDIR)/expat.extract: $(expat_extract_deps)
+$(STATEDIR)/expat.extract: $(expat_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EXPAT_DIR))
 	@$(call extract, $(EXPAT_SOURCE))
@@ -64,12 +62,6 @@ $(STATEDIR)/expat.extract: $(expat_extract_deps)
 
 expat_prepare: $(STATEDIR)/expat.prepare
 
-#
-# dependencies
-#
-expat_prepare_deps =  $(STATEDIR)/expat.extract
-expat_prepare_deps += $(STATEDIR)/virtual-xchain.install
-
 EXPAT_PATH	=  PATH=$(CROSS_PATH)
 EXPAT_ENV 	=  $(CROSS_ENV)
 EXPAT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
@@ -79,7 +71,7 @@ EXPAT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 #
 EXPAT_AUTOCONF  =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/expat.prepare: $(expat_prepare_deps)
+$(STATEDIR)/expat.prepare: $(expat_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EXPAT_BUILDDIR))
 	cd $(EXPAT_DIR) && \
@@ -93,9 +85,7 @@ $(STATEDIR)/expat.prepare: $(expat_prepare_deps)
 
 expat_compile: $(STATEDIR)/expat.compile
 
-expat_compile_deps =  $(STATEDIR)/expat.prepare
-
-$(STATEDIR)/expat.compile: $(expat_compile_deps)
+$(STATEDIR)/expat.compile: $(expat_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(EXPAT_DIR) && \
 	$(EXPAT_PATH) $(EXPAT_ENV) make
@@ -107,7 +97,7 @@ $(STATEDIR)/expat.compile: $(expat_compile_deps)
 
 expat_install: $(STATEDIR)/expat.install
 
-$(STATEDIR)/expat.install: $(STATEDIR)/expat.compile
+$(STATEDIR)/expat.install: $(expat_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, EXPAT)
 	@$(call touch, $@)
@@ -118,9 +108,7 @@ $(STATEDIR)/expat.install: $(STATEDIR)/expat.compile
 
 expat_targetinstall: $(STATEDIR)/expat.targetinstall
 
-expat_targetinstall_deps	=  $(STATEDIR)/expat.install
-
-$(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps)
+$(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
