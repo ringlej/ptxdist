@@ -35,9 +35,7 @@ ZEBRA_DIR 		= $(BUILDDIR)/$(ZEBRA)
 
 zebra_get: $(STATEDIR)/zebra.get
 
-zebra_get_deps	= $(ZEBRA_SOURCE)
-
-$(STATEDIR)/zebra.get: $(zebra_get_deps_default)
+$(STATEDIR)/zebra.get: $(ZEBRA_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -51,9 +49,7 @@ $(ZEBRA_SOURCE):
 
 zebra_extract: $(STATEDIR)/zebra.extract
 
-zebra_extract_deps	= $(STATEDIR)/zebra.get
-
-$(STATEDIR)/zebra.extract: $(zebra_extract_deps)
+$(STATEDIR)/zebra.extract: $(zebra_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ZEBRA_DIR))
 	@$(call extract, $(ZEBRA_SOURCE))
@@ -65,10 +61,6 @@ $(STATEDIR)/zebra.extract: $(zebra_extract_deps)
 # ----------------------------------------------------------------------------
 
 zebra_prepare: $(STATEDIR)/zebra.prepare
-
-zebra_prepare_deps = \
-	$(STATEDIR)/virtual-xchain.install \
-	$(STATEDIR)/zebra.extract
 
 ZEBRA_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 ZEBRA_AUTOCONF += \
@@ -87,7 +79,6 @@ ZEBRA_ENV = \
 
 ZEBRA_PATH	=  PATH=$(CROSS_PATH)
 
-
 $(STATEDIR)/zebra.prepare: $(zebra_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(ZEBRA_DIR) && \
@@ -101,7 +92,7 @@ $(STATEDIR)/zebra.prepare: $(zebra_prepare_deps_default)
 
 zebra_compile: $(STATEDIR)/zebra.compile
 
-$(STATEDIR)/zebra.compile: $(STATEDIR)/zebra.prepare 
+$(STATEDIR)/zebra.compile: $(zebra_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(ZEBRA_PATH) make -C $(ZEBRA_DIR)
 	@$(call touch, $@)
@@ -112,7 +103,7 @@ $(STATEDIR)/zebra.compile: $(STATEDIR)/zebra.prepare
 
 zebra_install: $(STATEDIR)/zebra.install
 
-$(STATEDIR)/zebra.install: $(STATEDIR)/zebra.compile
+$(STATEDIR)/zebra.install: $(zebra_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -122,7 +113,7 @@ $(STATEDIR)/zebra.install: $(STATEDIR)/zebra.compile
 
 zebra_targetinstall: $(STATEDIR)/zebra.targetinstall
 
-$(STATEDIR)/zebra.targetinstall: $(STATEDIR)/zebra.install
+$(STATEDIR)/zebra.targetinstall: $(zebra_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	$(ZEBRA_PATH) make -C $(ZEBRA_DIR) DESTDIR=$(ROOTDIR)
 	@$(call touch, $@)
