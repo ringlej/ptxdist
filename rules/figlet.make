@@ -32,9 +32,7 @@ FIGLET_DIR		= $(BUILDDIR)/$(FIGLET)
 
 figlet_get: $(STATEDIR)/figlet.get
 
-figlet_get_deps = $(FIGLET_SOURCE)
-
-$(STATEDIR)/figlet.get: $(figlet_get_deps)
+$(STATEDIR)/figlet.get: $(FIGLET_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FIGLET))
 	@$(call touch, $@)

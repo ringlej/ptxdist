@@ -33,9 +33,7 @@ EXPAT_DIR		= $(BUILDDIR)/$(EXPAT)
 
 expat_get: $(STATEDIR)/expat.get
 
-expat_get_deps	=  $(EXPAT_SOURCE)
-
-$(STATEDIR)/expat.get: $(expat_get_deps)
+$(STATEDIR)/expat.get: $(EXPAT_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

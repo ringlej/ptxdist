@@ -32,9 +32,7 @@ ETHERWAKE_DIR		= $(BUILDDIR)/$(ETHERWAKE)
 
 etherwake_get: $(STATEDIR)/etherwake.get
 
-etherwake_get_deps = $(ETHERWAKE_SOURCE)
-
-$(STATEDIR)/etherwake.get: $(etherwake_get_deps)
+$(STATEDIR)/etherwake.get: $(ETHERWAKE_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(ETHERWAKE))
 	@$(call touch, $@)

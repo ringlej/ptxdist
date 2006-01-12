@@ -32,9 +32,7 @@ FBTEST_DIR	= $(BUILDDIR)/$(FBTEST)
 
 fbtest_get: $(STATEDIR)/fbtest.get
 
-fbtest_get_deps = $(FBTEST_SOURCE)
-
-$(STATEDIR)/fbtest.get: $(fbtest_get_deps)
+$(STATEDIR)/fbtest.get: $(FBTEST_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FBTEST))
 	@$(call touch, $@)

@@ -32,9 +32,7 @@ ETHEREAL_DIR		= $(BUILDDIR)/$(ETHEREAL)
 
 ethereal_get: $(STATEDIR)/ethereal.get
 
-ethereal_get_deps = $(ETHEREAL_SOURCE)
-
-$(STATEDIR)/ethereal.get: $(ethereal_get_deps)
+$(STATEDIR)/ethereal.get: $(ETHEREAL_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(ETHEREAL))
 	@$(call touch, $@)
@@ -120,9 +118,8 @@ $(STATEDIR)/ethereal.compile: $(ethereal_compile_deps_default)
 
 ethereal_install: $(STATEDIR)/ethereal.install
 
-$(STATEDIR)/ethereal.install: $(ethereal_install_deps_default)
+$(STATEDIR)/ethereal.install: $(STATEDIR)/ethereal.compile
 	@$(call targetinfo, $@)
-	# FIXME: RSC: why do we do that on install, not on targetinstall? 
 	@$(call install, ETHEREAL)
 	@$(call touch, $@)
 

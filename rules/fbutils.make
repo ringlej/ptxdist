@@ -32,9 +32,7 @@ FBUTILS_DIR	= $(BUILDDIR)/$(FBUTILS)
 
 fbutils_get: $(STATEDIR)/fbutils.get
 
-fbutils_get_deps = $(FBUTILS_SOURCE)
-
-$(STATEDIR)/fbutils.get: $(fbutils_get_deps)
+$(STATEDIR)/fbutils.get: $(FBUTILS_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FBUTILS))
 	@$(call touch, $@)
