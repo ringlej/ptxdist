@@ -5,16 +5,25 @@ config ETHEREAL
 	depends on BROKEN
         prompt "ethereal"
 	select LIBPCAP
+	help
+	  Ethereal is a network traffic analyzer for Unix 
+	  and Unix-like operating systems. It is a tool used 
+	  to capture packets off the wire. Ethereal decodes 
+	  numerous protocols (too many to list).
 
 config ETHEREAL_ETHEREAL
 	bool 
 	prompt "Gtk based ethereal"
 	depends on ETHEREAL
+	help
+	  This is the graphical Version, based on GTK+
 
 config ETHEREAL_TETHEREAL
 	bool
 	prompt "Text based tethereal"
 	depends on ETHEREAL
+	help
+	  This is the textmode Version of ethereal.
 
 endmenu
 

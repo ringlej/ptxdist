@@ -49,9 +49,7 @@ $(ETHEREAL_SOURCE):
 
 ethereal_extract: $(STATEDIR)/ethereal.extract
 
-ethereal_extract_deps = $(STATEDIR)/ethereal.get
-
-$(STATEDIR)/ethereal.extract: $(ethereal_extract_deps)
+$(STATEDIR)/ethereal.extract: $(ethereal_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ETHEREAL_DIR))
 	@$(call extract, $(ETHEREAL_SOURCE))
@@ -63,13 +61,6 @@ $(STATEDIR)/ethereal.extract: $(ethereal_extract_deps)
 # ----------------------------------------------------------------------------
 
 ethereal_prepare: $(STATEDIR)/ethereal.prepare
-
-#
-# dependencies
-#
-ethereal_prepare_deps =  $(STATEDIR)/ethereal.extract
-ethereal_prepare_deps += $(STATEDIR)/virtual-xchain.install
-ethereal_prepare_deps += $(STATEDIR)/libpcap.install
 
 ETHEREAL_PATH	=  PATH=$(CROSS_PATH)
 ETHEREAL_ENV 	=  $(CROSS_ENV)
@@ -104,7 +95,7 @@ else
 ETHEREAL_AUTOCONF += --disable-tethereal
 endif
 
-$(STATEDIR)/ethereal.prepare: $(ethereal_prepare_deps)
+$(STATEDIR)/ethereal.prepare: $(ethereal_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ETHEREAL_DIR)/config.cache)
 	cd $(ETHEREAL_DIR) && \
@@ -118,9 +109,7 @@ $(STATEDIR)/ethereal.prepare: $(ethereal_prepare_deps)
 
 ethereal_compile: $(STATEDIR)/ethereal.compile
 
-ethereal_compile_deps = $(STATEDIR)/ethereal.prepare
-
-$(STATEDIR)/ethereal.compile: $(ethereal_compile_deps)
+$(STATEDIR)/ethereal.compile: $(ethereal_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(ETHEREAL_DIR) && $(ETHEREAL_ENV) $(ETHEREAL_PATH) make
 	@$(call touch, $@)
@@ -131,7 +120,7 @@ $(STATEDIR)/ethereal.compile: $(ethereal_compile_deps)
 
 ethereal_install: $(STATEDIR)/ethereal.install
 
-$(STATEDIR)/ethereal.install: $(STATEDIR)/ethereal.compile
+$(STATEDIR)/ethereal.install: $(ethereal_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: RSC: why do we do that on install, not on targetinstall? 
 	@$(call install, ETHEREAL)
@@ -143,10 +132,7 @@ $(STATEDIR)/ethereal.install: $(STATEDIR)/ethereal.compile
 
 ethereal_targetinstall: $(STATEDIR)/ethereal.targetinstall
 
-ethereal_targetinstall_deps =  $(STATEDIR)/ethereal.compile
-ethereal_targetinstall_deps += $(STATEDIR)/libpcap.targetinstall
-
-$(STATEDIR)/ethereal.targetinstall: $(ethereal_targetinstall_deps)
+$(STATEDIR)/ethereal.targetinstall: $(ethereal_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
