@@ -1,1 +1,2 @@
-# FIXME: There should be a *.in for this package
+# Rules.make is a Meta Makefile
+# No config options so far.
