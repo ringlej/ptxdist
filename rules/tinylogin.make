@@ -94,7 +94,7 @@ $(STATEDIR)/tinylogin.install: $(tinylogin_install_deps_default)
 
 tinylogin_targetinstall: $(STATEDIR)/tinylogin.targetinstall
 
-$(STATEDIR)/tinylogin.targetinstall: $(tinylogin_targetinstall_deps_default
+$(STATEDIR)/tinylogin.targetinstall: $(tinylogin_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

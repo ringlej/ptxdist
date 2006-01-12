@@ -59,6 +59,7 @@ endif
 
 ifdef PTXCONF_UTLNX_FDISK
 	$(UTIL-LINUX_PATH) make -C $(HOST_UTIL-LINUX_DIR)/fdisk fdisk
+endif
 
 ifdef PTXCONF_UTLNX_CFFDISK
 	$(UTIL-LINUX_PATH) make -C $(HOST_UTIL-LINUX_DIR)/fdisk cfdisk

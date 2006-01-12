@@ -32,7 +32,7 @@ SLANG_DIR	= $(BUILDDIR)/$(SLANG)
 
 slang_get: $(STATEDIR)/slang.get
 
-$(STATEDIR)/slang.get: $(SLANG_URL)
+$(STATEDIR)/slang.get: $(SLANG_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -60,7 +60,7 @@ $(STATEDIR)/shorewall.extract: $(shorewall_extract_deps_default)
 
 shorewall_prepare: $(STATEDIR)/shorewall.prepare
 
-$(STATEDIR)/shorewall.prepare: $(shorewall_prepare_deps_default
+$(STATEDIR)/shorewall.prepare: $(shorewall_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
