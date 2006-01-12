@@ -87,7 +87,7 @@ busybox_prepare_deps	=  $(busybox_extract_deps_default)
 # FIXME: is this necessary?
 busybox_prepare_deps	+= $(STATEDIR)/virtual-libc.install
 
-$(STATEDIR)/busybox.prepare: $(busybox_prepare_deps)
+$(STATEDIR)/busybox.prepare: $(busybox_prepare_deps_default)
 	@$(call targetinfo, $@)
 
 #	FIXME: is this necessary?
