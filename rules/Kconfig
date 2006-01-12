@@ -206,6 +206,6 @@ source "rules/cfgsh.in"
 source "rules/cyclictest.in"
 source "rules/dialog.in"
 source "rules/e2tools.in"
-source "rules/flex.make"
+source "rules/flex.in"
 endmenu
 
