@@ -145,12 +145,17 @@ identify(){
 	# Nothing is true, everything is permitted (Illuminatus) 	
 	TARGET_MAKEFILE_BASENAME=${TARGET}.make
 	TARGET_MAKEFILE="NOT_DEFINED"
-	if [ -z "$PROJECTRULESDIR" ] || [ -e "$PROJECTRULESDIR/$TARGET_MAKEFILE_BASENAME" ] ; then
+	if [ -n "$PROJECTRULESDIR" ] && [ -e "$PROJECTRULESDIR/$TARGET_MAKEFILE_BASENAME" ] ; then
 		TARGET_MAKEFILE="$PROJECTRULESDIR/$TARGET_MAKEFILE_BASENAME"
 	else
 	   [ -e "$RULESDIR/$TARGET_MAKEFILE_BASENAME" ] && TARGET_MAKEFILE="$RULESDIR/$TARGET_MAKEFILE_BASENAME"
 	fi
-	debug_out "creating >${OUTFILE}< for >${TARGET}< in >$TARGET_MAKEFILE<"
+	debug_out "creating:"
+	debug_out " RULESDIR=$RULESDIR"
+	debug_out " PROJECTRULESDIR=$PROJECTRULESDIR"
+	debug_out " OUTFILE=${OUTFILE}"
+	debug_out " TARGET=${TARGET}"
+	debug_out " TARGET_MAKEFILE=${TARGET_MAKEFILE}"
 	LABEL=$(grep -s -h "^.*PACKAGES-\$(PTXCONF_" $TARGET_MAKEFILE | sed s/'^.*PACKAGES-$(PTXCONF_\(.*\)).*'/'\1'/g)
 	[ -z "$LABEL" ] && echo "# FIXME: dep file creation failed - broken package ?" > $OUTFILE
 	[ -z "$LABEL" ] && DEBUG=true my_exit "ERROR while identifying CONFIG LABEL  for $TARGET_MAKEFILE" 1
