@@ -6,7 +6,8 @@
 usage() {
 	echo 
 	[ -n "$1" ] && echo -e "error: $1\n"
-	echo "usage: $0 -r <rootdir> || -i <ipkgdir>"
+	echo "usage: $0 -r <rootdir>"
+	echo "          [-i <ipkgdir>]"
 	echo "          -p permissions"
 	echo "          -e eraseblocksize"
 	echo "          -o outputfile"
@@ -50,8 +51,7 @@ done
 #
 # Sanity checks
 #
-[ -n "$ROOTDIR" ] && [ -n "$IPKGDIR" ] && usage "error: specify only one of -r and -i"
-[ -z "$ROOTDIR" ] && [ -z "$IPKGDIR" ] && usage "error: specify one of -r and -i"
+[ -z "$ROOTDIR" ]                      && usage "error: -r for your root dir"
 [ ! -f "$PERMISSIONS" ]                && usage "error: specify the permissions file with -p"
 [ -z "$ERASEBLOCKSIZE" ]               && usage "error: erase block size not specified"
 [ ! -x "`which mkfs.jffs2`" ]          && usage "error: you need mkfs.jffs2 in your path"
@@ -70,7 +70,7 @@ if [ -n "$IPKGDIR" ]; then
 	echo "-i specified, extracting ipkg packets"
 	WORKDIR=`mktemp -d /tmp/ptxdist.XXXXXX`
 else
-	echo "-r specified, using files from plain root directory"
+	echo "-i not specified, using files from plain root directory"
 	WORKDIR=$ROOTDIR
 fi
 
@@ -90,7 +90,7 @@ cd $WORKDIR
 
 if [ -n "$IPKGDIR" ]; then
 	for archive in $IPKGDIR/*.ipk; do
-		ipkg-cl -f `ptxd_abspath $ROOTDIR/etc/ipkg.conf` -force-depends -o . install $archive 1> /dev/null
+		ipkg-cl -f `ptxd_abspath $ROOTDIR/etc/ipkg.conf` -force-depends -o `pwd` install $archive 1> /dev/null
 	done
 fi
 
