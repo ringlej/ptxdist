@@ -95,7 +95,7 @@ $(STATEDIR)/dialog.compile: $(dialog_compile_deps_default)
 
 dialog_install: $(STATEDIR)/dialog.install
 
-$(STATEDIR)/dialog.install: $(
+$(STATEDIR)/dialog.install: $(dialog_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, DIALOG)
 	@$(call touch, $@)
