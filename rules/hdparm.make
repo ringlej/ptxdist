@@ -32,7 +32,7 @@ HDPARM_DIR	= $(BUILDDIR)/$(HDPARM)
 
 hdparm_get: $(STATEDIR)/hdparm.get
 
-$(STATEDIR)/hdparm.get: $(HDPARM_SOURCE)
+$(STATEDIR)/hdparm.get: $(hdparm_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HDPARM))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(HDPARM_SOURCE):
 
 hdparm_extract: $(STATEDIR)/hdparm.extract
 
-$(STATEDIR)/hdparm.extract: $(hdparm_extract_deps)
+$(STATEDIR)/hdparm.extract: $(hdparm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HDPARM_DIR))
 	@$(call extract, $(HDPARM_SOURCE))
@@ -90,7 +90,7 @@ $(STATEDIR)/hdparm.compile: $(hdparm_compile_deps_default)
 
 hdparm_install: $(STATEDIR)/hdparm.install
 
-$(STATEDIR)/hdparm.install: $(STATEDIR)/hdparm.compile
+$(STATEDIR)/hdparm.install: $(hdparm_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HDPARM)
 	@$(call touch, $@)
