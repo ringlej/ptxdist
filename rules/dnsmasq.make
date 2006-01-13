@@ -32,7 +32,7 @@ DNSMASQ_DIR		= $(BUILDDIR)/$(DNSMASQ)
 
 dnsmasq_get: $(STATEDIR)/dnsmasq.get
 
-$(STATEDIR)/dnsmasq.get: $(DNSMASQ_SOURCE)
+$(STATEDIR)/dnsmasq.get: $(dnsmasq_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DNSMASQ)) 
 	@$(call touch, $@)
