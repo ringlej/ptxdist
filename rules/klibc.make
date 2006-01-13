@@ -32,7 +32,7 @@ KLIBC_DIR		= $(BUILDDIR)/$(KLIBC)
 
 klibc_get: $(STATEDIR)/klibc.get
 
-$(STATEDIR)/klibc.get: $(KLIBC_SOURCE)
+$(STATEDIR)/klibc.get: $(klibc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(KLIBC_SOURCE):
 
 klibc_extract: $(STATEDIR)/klibc.extract
 
-$(STATEDIR)/klibc.extract: $(klibc_extract_deps)
+$(STATEDIR)/klibc.extract: $(klibc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KLIBC_DIR))
 	@$(call extract, $(KLIBC_SOURCE))
@@ -77,7 +77,7 @@ $(STATEDIR)/klibc.prepare: $(klibc_prepare_deps_default)
 
 klibc_compile: $(STATEDIR)/klibc.compile
 
-klibc_compile_deps = $(STATEDIR)/klibc.prepare
+klibc_compile_deps = $(klibc_compile_deps_default)
 klibc_compile_deps += $(STATEDIR)/kernel.prepare
 
 $(STATEDIR)/klibc.compile: $(klibc_compile_deps)
@@ -91,7 +91,7 @@ $(STATEDIR)/klibc.compile: $(klibc_compile_deps)
 
 klibc_install: $(STATEDIR)/klibc.install
 
-$(STATEDIR)/klibc.install: $(STATEDIR)/klibc.compile
+$(STATEDIR)/klibc.install: $(klibc_install_deps_default)
 	@$(call targetinfo, $@)
 
 	echo "dir /dev/ 755 0 0" > $(KLIBC_DIR)/initramfs_spec
@@ -191,9 +191,7 @@ endif
 
 klibc_targetinstall: $(STATEDIR)/klibc.targetinstall
 
-klibc_targetinstall_deps = $(STATEDIR)/klibc.compile
-
-$(STATEDIR)/klibc.targetinstall: $(klibc_targetinstall_deps)
+$(STATEDIR)/klibc.targetinstall: $(klibc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
