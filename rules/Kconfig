@@ -158,10 +158,11 @@ endmenu
 menu "Graphics Libraries          "
 depends on BUILD_USERLAND
 comment "X Infrastructure"
+source "rules/libdrm.in"
+source "rules/mesa.in"
 source "rules/realvnc.in"
 source "rules/xfree430.in"
 source "rules/xlibs.in"
-source "rules/libdrm.in"
 source "rules/xserver.in"
 comment "X Applications"
 #source "rules/gtk22.in"
