@@ -32,7 +32,7 @@ BIND_DIR	= $(BUILDDIR)/$(BIND)
 
 bind_get: $(STATEDIR)/bind.get
 
-$(STATEDIR)/bind.get: $(BIND_SOURCE)
+$(STATEDIR)/bind.get: $(bind_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
