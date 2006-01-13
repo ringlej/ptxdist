@@ -32,7 +32,7 @@ GNUPG_DIR	= $(BUILDDIR)/$(GNUPG)
 
 gnupg_get: $(STATEDIR)/gnupg.get
 
-$(STATEDIR)/gnupg.get: $(GNUPG_SOURCE)
+$(STATEDIR)/gnupg.get: $(gnupg_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GNUPG))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(GNUPG_SOURCE):
 
 gnupg_extract: $(STATEDIR)/gnupg.extract
 
-$(STATEDIR)/gnupg.extract: $(gnupg_extract_deps)
+$(STATEDIR)/gnupg.extract: $(gnupg_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GNUPG_DIR))
 	@$(call extract, $(GNUPG_SOURCE))
@@ -117,7 +117,7 @@ $(STATEDIR)/gnupg.compile: $(gnupg_compile_deps_default)
 
 gnupg_install: $(STATEDIR)/gnupg.install
 
-$(STATEDIR)/gnupg.install: $(STATEDIR)/gnupg.compile
+$(STATEDIR)/gnupg.install: $(gnupg_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GNUPG)
 	@$(call touch, $@)
