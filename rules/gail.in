@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config GAIL
+        bool
+        default N
+        depends on BROKEN
+        prompt "GAIL"
+	help
+	  GAIL is ... 
+	  FIXME: This item need to be documented
+
+comment "GAIL is broken, please send a patch"
+        depends on !BROKEN

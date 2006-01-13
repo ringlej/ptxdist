@@ -32,7 +32,7 @@ GAIL_DIR	= $(BUILDDIR)/$(GAIL)
 
 gail_get: $(STATEDIR)/gail.get
 
-$(STATEDIR)/gail.get: $(GAIL_SOURCE)
+$(STATEDIR)/gail.get: $(gail_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -92,7 +92,7 @@ $(STATEDIR)/gail.compile: $(gail_compile_deps_default)
 
 gail_install: $(STATEDIR)/gail.install
 
-$(STATEDIR)/gail.install: $(STATEDIR)/gail.compile
+$(STATEDIR)/gail.install: $(gail_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GAIL)
 	@$(call touch, $@)
