@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config LIBGNOMECANVAS
+        bool
+        default N
+        depends on BROKEN
+        prompt "LIBGNOMECANVAS"
+	help
+	  FIXME: This item needs to be documented
+	
+
+comment "LIBGNOMECANVAS is broken, please send a patch"
+        depends on !BROKEN

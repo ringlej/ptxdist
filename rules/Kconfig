@@ -232,5 +232,6 @@ source "rules/konq-e.in"
 source "rules/libart.in"
 source "rules/libgd.in"
 source "rules/libglade.in"
+source "rules/libgnomecanvas.in"
 endmenu
 
