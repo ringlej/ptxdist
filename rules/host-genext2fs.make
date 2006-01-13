@@ -48,7 +48,7 @@ $(HOST_GENEXT2FS_SOURCE):
 
 host-genext2fs_extract: $(STATEDIR)/host-genext2fs.extract
 
-$(STATEDIR)/host-genext2fs.extract: $(STATEDIR)/host-genext2fs.get
+$(STATEDIR)/host-genext2fs.extract: $(host-genext2fs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_GENEXT2FS_DIR))
 	@$(call extract, $(HOST_GENEXT2FS_SOURCE),$(HOST_BUILDDIR))
