@@ -3,4 +3,6 @@ config HOST_GENEXT2FS
 	bool
 	prompt "genext2fs"
 	default n
+	help
+	  FIXME: This item needs to be documented
 
