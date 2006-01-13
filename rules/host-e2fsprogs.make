@@ -34,7 +34,7 @@ HOST_E2FSPROGS_BUILD_DIR	= $(BUILDDIR)/host/$(HOST_E2FSPROGS)-build
 
 host-e2fsprogs_get: $(STATEDIR)/host-e2fsprogs.get
 
-$(STATEDIR)/host-e2fsprogs.get: $(HOST_E2FSPROGS_SOURCE)
+$(STATEDIR)/host-e2fsprogs.get: $(host-e2fsprogs_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_E2FSPROGS))
 	@$(call touch, $@)
@@ -49,7 +49,7 @@ $(HOST_E2FSPROGS_SOURCE):
 
 host-e2fsprogs_extract: $(STATEDIR)/host-e2fsprogs.extract
 
-$(STATEDIR)/host-e2fsprogs.extract: $(STATEDIR)/host-e2fsprogs.get
+$(STATEDIR)/host-e2fsprogs.extract: $(host-e2fsprogs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_E2FSPROGS_DIR))
 	@$(call extract, $(HOST_E2FSPROGS_SOURCE) , $(BUILDDIR)/host/ )
