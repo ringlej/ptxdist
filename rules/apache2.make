@@ -32,7 +32,7 @@ APACHE2_DIR	= $(BUILDDIR)/$(APACHE2)
 
 apache2_get: $(STATEDIR)/apache2.get
 
-$(STATEDIR)/apache2.get: $(APACHE2_SOURCE)
+$(STATEDIR)/apache2.get: $(apache2_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
