@@ -32,7 +32,7 @@ LIBMODBUS_DIR		= $(BUILDDIR)/$(LIBMODBUS)
 
 libmodbus_get: $(STATEDIR)/libmodbus.get
 
-$(STATEDIR)/libmodbus.get: $(LIBMODBUS_SOURCE)
+$(STATEDIR)/libmodbus.get: $(libmodbus_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(LIBMODBUS_SOURCE):
 
 libmodbus_extract: $(STATEDIR)/libmodbus.extract
 
-$(STATEDIR)/libmodbus.extract: $(libmodbus_extract_deps)
+$(STATEDIR)/libmodbus.extract: $(libmodbus_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBMODBUS_DIR))
 	@$(call extract, $(LIBMODBUS_SOURCE))
@@ -92,7 +92,7 @@ $(STATEDIR)/libmodbus.compile: $(libmodbus_compile_deps_default)
 
 libmodbus_install: $(STATEDIR)/libmodbus.install
 
-$(STATEDIR)/libmodbus.install: $(STATEDIR)/libmodbus.compile
+$(STATEDIR)/libmodbus.install: $(libmodbus_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBMODBUS)
 	@$(call touch, $@)
