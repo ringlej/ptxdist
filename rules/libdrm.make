@@ -32,7 +32,7 @@ LIBDRM_DIR	= $(BUILDDIR)/$(LIBDRM)
 
 libdrm_get: $(STATEDIR)/libdrm.get
 
-$(STATEDIR)/libdrm.get: $(LIBDRM_SOURCE)
+$(STATEDIR)/libdrm.get: $(libdrm_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -93,7 +93,7 @@ $(STATEDIR)/libdrm.compile: $(libdrm_compile_deps_default)
 
 libdrm_install: $(STATEDIR)/libdrm.install
 
-$(STATEDIR)/libdrm.install: $(STATEDIR)/libdrm.compile
+$(STATEDIR)/libdrm.install: $(libdrm_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBDRM)
 	@$(call touch, $@)
