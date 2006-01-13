@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config LIBOOP
+        bool
+        default N
+        depends on BROKEN
+        prompt "LIBOOP"
+	help
+	  FIXME: This item needs to be documented
+	
+
+comment "LIBOOP is broken, please send a patch"
+        depends on !BROKEN

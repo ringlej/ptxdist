@@ -235,5 +235,6 @@ source "rules/libglade.in"
 source "rules/libgnomecanvas.in"
 source "rules/libidl068.in"
 source "rules/libIDL-2.in"
+source "rules/liboop.in"
 endmenu
 

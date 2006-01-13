@@ -32,7 +32,7 @@ LIBOOP_DIR	= $(BUILDDIR)/$(LIBOOP)
 
 liboop_get: $(STATEDIR)/liboop.get
 
-$(STATEDIR)/liboop.get: $(LIBOOP_SOURCE)
+$(STATEDIR)/liboop.get: $(liboop_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(LIBOOP_SOURCE):
 
 liboop_extract: $(STATEDIR)/liboop.extract
 
-$(STATEDIR)/liboop.extract: $(liboop_extract_deps)
+$(STATEDIR)/liboop.extract: $(liboop_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBOOP_DIR))
 	@$(call extract, $(LIBOOP_SOURCE))
@@ -100,7 +100,7 @@ $(STATEDIR)/liboop.compile: $(liboop_compile_deps_default)
 
 liboop_install: $(STATEDIR)/liboop.install
 
-$(STATEDIR)/liboop.install: $(STATEDIR)/liboop.compile
+$(STATEDIR)/liboop.install: $(liboop_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBOOP)
 	@$(call touch, $@)
