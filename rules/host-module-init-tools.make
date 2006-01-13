@@ -92,8 +92,6 @@ $(STATEDIR)/host-module-init-tools.install: $(host-module-init-tools_install_dep
 
 host-module-init-tools_targetinstall: $(STATEDIR)/host-module-init-tools.targetinstall
 
-host-module-init-tools_targetinstall_deps = $(STATEDIR)/host-module-init-tools.install
-
 $(STATEDIR)/host-module-init-tools.targetinstall: $(host-module-init-tools_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
