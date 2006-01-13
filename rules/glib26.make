@@ -104,7 +104,7 @@ $(STATEDIR)/glib26.compile: $(glib26_compile_deps_default)
 
 glib26_install: $(STATEDIR)/glib26.install
 
-$(STATEDIR)/glib26.install: $(STATEDIR)/glib26.compile
+$(STATEDIR)/glib26.install: $(glib26_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GLIB26)
 	@$(call touch, $@)

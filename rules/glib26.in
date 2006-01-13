@@ -1,4 +1,6 @@
 config GLIB26
 	bool
 	prompt "glib-2.6"
+	help
+	  FIXME: This item needs to be documented
 
