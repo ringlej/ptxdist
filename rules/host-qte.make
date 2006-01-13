@@ -32,7 +32,7 @@ HOST_QTE_DIR		= $(HOST_BUILDDIR)/$(HOST_QTE)
 
 host-qte_get: $(STATEDIR)/host-qte.get
 
-$(STATEDIR)/host-qte.get: $(host-qte_get_deps_default)
+$(STATEDIR)/host-qte.get: $(host-qte_get_deps_default_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_QTE))
 	@$(call touch, $@)
@@ -43,7 +43,7 @@ $(STATEDIR)/host-qte.get: $(host-qte_get_deps_default)
 
 host-qte_extract: $(STATEDIR)/host-qte.extract
 
-$(STATEDIR)/host-qte.extract: $(host-qte_extract_deps)
+$(STATEDIR)/host-qte.extract: $(host-qte_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_QTE_DIR))
 	@$(call extract, $(HOST_QTE_SOURCE), $(HOST_BUILDDIR))
@@ -119,6 +119,10 @@ $(STATEDIR)/host-qte.install: $(host-qte_install_deps_default)
 	@$(call targetinfo, $@)
 	cp $(HOST_QTE_DIR)/bin/uic $(PTXCONF_PREFIX)/bin
 	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Tagetinstall
+# ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
 # Clean
