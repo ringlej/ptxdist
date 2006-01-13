@@ -1,3 +1,6 @@
+# Editor Menu
+# sourced by Kconfig
+
 source "rules/hexedit.in"
 source "rules/jed.in"
 source "rules/joe.in"
