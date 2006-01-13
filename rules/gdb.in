@@ -2,12 +2,16 @@
 
 config GDBSERVER
 	bool "gdbserver"
+	help
+	  FIXME: This item needs to be documented
 
 config GDBSERVER_SHARED
 	bool "shared gdbserver"
 	default y
 	depends on GDBSERVER
         select GLIBC_THREAD_DB if GLIBC && GLIBC_INSTALL
+	help
+	  FIXME: This item needs to be documented
 
 
 config GDB
@@ -18,6 +22,8 @@ config GDB_SHARED
 	default y
 	depends on GDB
         select GLIBC_LIBM if GLIBC && GLIBC_INSTALL
+	help
+	  FIXME: This item needs to be documented
 
 choice
 	prompt "Select term library"
@@ -27,10 +33,14 @@ choice
 	config GDB_TERMCAP
 		bool "termcap"
                 select TERMCAP
+		help
+	  	  FIXME: This item needs to be documented
 
 	config GDB_NCURSES
 		bool "ncurses"
                 select NCURSES
+		help
+	  	  FIXME: This item needs to be documented
 endchoice        
 
 config GDB_THREAD_DEBUG
@@ -38,3 +48,5 @@ config GDB_THREAD_DEBUG
         depends on GDB || GDBSERVER
         default y
         select GLIBC_DEBUG if GLIBC
+	help
+	  FIXME: This item needs to be documented

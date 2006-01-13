@@ -34,7 +34,7 @@ GDB_BUILDDIR	= $(BUILDDIR)/$(GDB)-build
 
 gdb_get: $(STATEDIR)/gdb.get
 
-$(STATEDIR)/gdb.get: $(GDB_SOURCE)
+$(STATEDIR)/gdb.get: $(gdb_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GDB))
 	@$(call touch, $@)
@@ -117,7 +117,7 @@ $(STATEDIR)/gdb.compile: $(gdb_compile_deps_default)
 
 gdb_install: $(STATEDIR)/gdb.install
 
-$(STATEDIR)/gdb.install:
+$(STATEDIR)/gdb.install: $(gdb_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
