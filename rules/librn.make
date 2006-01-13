@@ -33,7 +33,7 @@ LIBRN_DIR	= $(BUILDDIR)/$(LIBRN)
 
 librn_get: $(STATEDIR)/librn.get
 
-$(STATEDIR)/librn.get: $(LIBRN_SOURCE)
+$(STATEDIR)/librn.get: $(librn_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,7 +47,7 @@ $(LIBRN_SOURCE):
 
 librn_extract: $(STATEDIR)/librn.extract
 
-$(STATEDIR)/librn.extract: $(librn_extract_deps)
+$(STATEDIR)/librn.extract: $(librn_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBRN_DIR))
 	@$(call extract, $(LIBRN_SOURCE))
@@ -95,7 +95,7 @@ $(STATEDIR)/librn.compile: $(librn_compile_deps_default)
 
 librn_install: $(STATEDIR)/librn.install
 
-$(STATEDIR)/librn.install: $(STATEDIR)/librn.compile
+$(STATEDIR)/librn.install: $(librn_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBRN)
 	@$(call touch, $@)
