@@ -32,7 +32,7 @@ LIBPCAP_DIR	= $(BUILDDIR)/$(LIBPCAP)
 
 libpcap_get: $(STATEDIR)/libpcap.get
 
-$(STATEDIR)/libpcap.get: $(LIBPCAP_SOURCE)
+$(STATEDIR)/libpcap.get: $(libpcap_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBPCAP))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(LIBPCAP_SOURCE):
 
 libpcap_extract: $(STATEDIR)/libpcap.extract
 
-$(STATEDIR)/libpcap.extract: $(libpcap_extract_deps)
+$(STATEDIR)/libpcap.extract: $(libpcap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPCAP_DIR))
 	@$(call extract, $(LIBPCAP_SOURCE))
@@ -96,7 +96,7 @@ $(STATEDIR)/libpcap.compile: $(libpcap_compile_deps_default)
 
 libpcap_install: $(STATEDIR)/libpcap.install
 
-$(STATEDIR)/libpcap.install: $(STATEDIR)/libpcap.compile
+$(STATEDIR)/libpcap.install: $(libpcap_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: shoudldn' that run on targetinstall? 
 	@$(call install, LIBPCAP)

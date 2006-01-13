@@ -3,5 +3,7 @@ menu    "libpcap             "
 config LIBPCAP
         bool
         prompt "libpcap"
+	help
+	  FIXME: This item needs to be documented
 
 endmenu
