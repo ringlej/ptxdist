@@ -316,4 +316,3 @@ config XLIBS_XEXT
 # 	bool
 # 	depends on XLIBS
 # 	prompt "XvMC"
-
