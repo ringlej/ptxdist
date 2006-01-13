@@ -32,7 +32,7 @@ BLACKBOX_DIR		= $(BUILDDIR)/$(BLACKBOX)
 
 blackbox_get: $(STATEDIR)/blackbox.get
 
-$(STATEDIR)/blackbox.get: $(BLACKBOX_SOURCE)
+$(STATEDIR)/blackbox.get: $(blackbox_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
