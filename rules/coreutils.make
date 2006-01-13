@@ -30,7 +30,7 @@ COREUTILS_DIR		= $(BUILDDIR)/$(COREUTILS)
 
 coreutils_get: $(STATEDIR)/coreutils.get
 
-$(STATEDIR)/coreutils.get: $(COREUTILS_SOURCE)
+$(STATEDIR)/coreutils.get: $(coreutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(COREUTILS))
 	@$(call touch, $@)
