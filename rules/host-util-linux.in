@@ -2,13 +2,19 @@ config HOST_UTLNX_FDISK
 	bool
 	prompt "fdisk"
 	depends on UTLNX
+	help
+	  FIXME: This item needs to be documented
 
 config HOST_UTLNX_CFDISK
 	bool
 	prompt "cfdisk"
 	depends on UTLNX
+	help
+	  FIXME: This item needs to be documented
 
 config HOST_UTLNX_SFDISK
 	bool
 	prompt "sfdisk"
 	depends on UTLNX
+	help
+	  FIXME: This item needs to be documented

@@ -20,6 +20,12 @@ HOST_UTIL-LINUX_DIR	= $(HOST_BUILDDIR)/$(UTIL-LINUX)
 -include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
+# Hosttool Get
+# ----------------------------------------------------------------------------
+
+# FIXME: Where is the get stage?
+
+# ----------------------------------------------------------------------------
 # Hosttool Extract
 # ----------------------------------------------------------------------------
 
@@ -71,7 +77,7 @@ endif
 
 host-util-linux_install: $(STATEDIR)/host-util-linux.install
 
-$(STATEDIR)/host-util-linux.install: $(STATEDIR)/host-util-linux.compile
+$(STATEDIR)/host-util-linux.install: $(host-util-linux_install_deps_default)
 	@$(call targetinfo, $@)
 
 	# FIXME: packetize
@@ -92,6 +98,10 @@ ifdef PTXCONF_UTLNX_CFFDISK
 endif
 
 	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Hosttool Targetinstall
+# ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
 # Hosttool Clean
