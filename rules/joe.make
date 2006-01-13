@@ -31,7 +31,7 @@ JOE_DIR		= $(BUILDDIR)/$(JOE)
 
 joe_get: $(STATEDIR)/joe.get
 
-$(STATEDIR)/joe.get: $(JOE_SOURCE)
+$(STATEDIR)/joe.get: $(joe_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JOE))
 	@$(call touch, $@)
@@ -46,7 +46,7 @@ $(JOE_SOURCE):
 
 joe_extract: $(STATEDIR)/joe.extract
 
-$(STATEDIR)/joe.extract: $(joe_extract_deps)
+$(STATEDIR)/joe.extract: $(joe_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JOE_DIR))
 	@$(call extract, $(JOE_SOURCE))
@@ -94,7 +94,7 @@ $(STATEDIR)/joe.compile: $(joe_compile_deps_default)
 
 joe_install: $(STATEDIR)/joe.install
 
-$(STATEDIR)/joe.install: $(STATEDIR)/joe.compile
+$(STATEDIR)/joe.install: $(joe_install_deps_default)
 	@$(call targetinfo, $@)
 	#@$(call install, JOE)
 	@$(call touch, $@)
