@@ -35,7 +35,7 @@ FONTCONFIG22_DIR		= $(BUILDDIR)/$(FONTCONFIG22)
 
 fontconfig22_get: $(STATEDIR)/fontconfig22.get
 
-$(STATEDIR)/fontconfig22.get: $(FONTCONFIG22_SOURCE)
+$(STATEDIR)/fontconfig22.get: $(fontconfig22_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FONTCONFIG22))
 	@$(call touch, $@)

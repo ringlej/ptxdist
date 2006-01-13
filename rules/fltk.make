@@ -32,7 +32,7 @@ FLTK_DIR	= $(BUILDDIR)/$(FLTK)
 
 fltk_get: $(STATEDIR)/fltk.get
 
-$(STATEDIR)/fltk.get: $(FLTK_SOURCE)
+$(STATEDIR)/fltk.get: $(fltk_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
