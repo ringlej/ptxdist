@@ -32,7 +32,7 @@ LIBGSLOOP_DIR		= $(BUILDDIR)/$(LIBGSLOOP)
 
 libgsloop_get: $(STATEDIR)/libgsloop.get
 
-$(STATEDIR)/libgsloop.get: $(LIBGSLOOP_SOURCE)
+$(STATEDIR)/libgsloop.get: $(libgsloop_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBGSLOOP))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(LIBGSLOOP_SOURCE):
 
 libgsloop_extract: $(STATEDIR)/libgsloop.extract
 
-$(STATEDIR)/libgsloop.extract: $(libgsloop_extract_deps)
+$(STATEDIR)/libgsloop.extract: $(libgsloop_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGSLOOP_DIR))
 	@$(call extract, $(LIBGSLOOP_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/libgsloop.compile: $(libgsloop_compile_deps_default)
 
 libgsloop_install: $(STATEDIR)/libgsloop.install
 
-$(STATEDIR)/libgsloop.install: $(STATEDIR)/libgsloop.compile
+$(STATEDIR)/libgsloop.install: $(libgsloop_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBGSLOOP)
 	@$(call touch, $@)
