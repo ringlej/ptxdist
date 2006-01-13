@@ -227,5 +227,6 @@ source "rules/host-pkg-config-wrapper.in"
 source "rules/host-termcap.in"
 source "rules/host-umkimage.in"
 source "rules/host-zlib.in"
+source "rules/host-lxdialog.in"
 endmenu
 
