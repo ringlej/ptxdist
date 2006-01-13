@@ -32,7 +32,7 @@ HOST_CHECKINSTALL_DIR		= $(HOST_BUILDDIR)/$(HOST_CHECKINSTALL)
 
 host-checkinstall_get: $(STATEDIR)/host-checkinstall.get
 
-$(STATEDIR)/host-checkinstall.get: $(HOST_CHECKINSTALL_SOURCE)
+$(STATEDIR)/host-checkinstall.get: $(host-checkinstall_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_CHECKINSTALL))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(HOST_CHECKINSTALL_SOURCE):
 
 host-checkinstall_extract: $(STATEDIR)/host-checkinstall.extract
 
-$(STATEDIR)/host-checkinstall.extract: $(host-checkinstall_extract_deps)
+$(STATEDIR)/host-checkinstall.extract: $(host-checkinstall_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_CHECKINSTALL_DIR))
 	@$(call extract, $(HOST_CHECKINSTALL_SOURCE), $(HOST_BUILDDIR))
@@ -100,6 +100,10 @@ $(STATEDIR)/host-checkinstall.install: $(host-checkinstall_install_deps_default)
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	cd $(HOST_CHECKINSTALL_DIR)/installwatch-* && make install PREFIX=$(PTXCONF_PREFIX)
 	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Targetinstall
+# ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
 # Clean

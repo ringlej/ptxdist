@@ -217,5 +217,6 @@ source "rules/gmp3.in"
 source "rules/gmp4.in"
 source "rules/gtk1210.in"
 source "rules/host-apache2.in"
+source "rules/host-checkinstall.in"
 endmenu
 
