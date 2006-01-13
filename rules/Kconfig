@@ -215,5 +215,6 @@ source "rules/gdb.in"
 source "rules/cross-gdb.in"
 source "rules/gmp3.in"
 source "rules/gmp4.in"
+source "rules/gtk1210.in"
 endmenu
 

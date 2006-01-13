@@ -33,7 +33,7 @@ GTK1210_DIR		= $(BUILDDIR)/$(GTK1210)
 
 gtk1210_get: $(STATEDIR)/gtk1210.get
 
-$(STATEDIR)/gtk1210.get: $(GTK1210_SOURCE)
+$(STATEDIR)/gtk1210.get: $(gtk1210_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -97,7 +97,7 @@ $(STATEDIR)/gtk1210.compile: $(gtk1210_compile_deps_default)
 
 gtk1210_install: $(STATEDIR)/gtk1210.install
 
-$(STATEDIR)/gtk1210.install: $(STATEDIR)/gtk1210.compile
+$(STATEDIR)/gtk1210.install: $(gtk1210_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GTK1210)
 	@$(call touch, $@)
