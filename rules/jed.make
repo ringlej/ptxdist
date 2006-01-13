@@ -32,7 +32,7 @@ JED_DIR		= $(BUILDDIR)/$(JED)
 
 jed_get: $(STATEDIR)/jed.get
 
-$(STATEDIR)/jed.get: $(JED_SOURCE)
+$(STATEDIR)/jed.get: $(jed_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JED))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(JED_SOURCE):
 
 jed_extract: $(STATEDIR)/jed.extract
 
-$(STATEDIR)/jed.extract: $(jed_extract_deps)
+$(STATEDIR)/jed.extract: $(jed_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JED_DIR))
 	@$(call extract, $(JED_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/jed.compile: $(jed_compile_deps_default)
 
 jed_install: $(STATEDIR)/jed.install
 
-$(STATEDIR)/jed.install: $(STATEDIR)/jed.compile
+$(STATEDIR)/jed.install: $(jed_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: RSC: is it right that this is done on install? 
 	@$(call install, JED)
