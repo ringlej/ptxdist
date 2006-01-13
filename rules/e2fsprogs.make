@@ -33,7 +33,7 @@ E2FSPROGS_BUILD_DIR		= $(BUILDDIR)/$(E2FSPROGS)-build
 
 e2fsprogs_get: $(STATEDIR)/e2fsprogs.get
 
-$(STATEDIR)/e2fsprogs.get: $(E2FSPROGS_SOURCE)
+$(STATEDIR)/e2fsprogs.get: $(e2fsprogs_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(E2FSPROGS))
 	@$(call touch, $@)
