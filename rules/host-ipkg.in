@@ -16,6 +16,7 @@ config HOST_IPKG_EXTRACT_TEST
 	default N
 	help
 	  Unfortunately, nobody knows what this program is being used for. 
+	  FIXME: This item needs to be documented
 
 config HOST_IPKG_HASH_TEST
 	bool
@@ -24,3 +25,4 @@ config HOST_IPKG_HASH_TEST
 	default N
 	help
 	  Unfortunately, nobody knows what this program is being used for. 
+	  FIXME: This item needs to be documented

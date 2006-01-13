@@ -33,7 +33,7 @@ HOST_IPKG_DIR	= $(HOST_BUILDDIR)/$(HOST_IPKG)
 
 host-ipkg_get: $(STATEDIR)/host-ipkg.get
 
-$(STATEDIR)/host-ipkg.get: $(HOST_IPKG_SOURCE)
+$(STATEDIR)/host-ipkg.get: $(host-ipkg_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_IPKG))
 	@$(call touch, $@)
@@ -44,7 +44,7 @@ $(STATEDIR)/host-ipkg.get: $(HOST_IPKG_SOURCE)
 
 host-ipkg_extract: $(STATEDIR)/host-ipkg.extract
 
-$(STATEDIR)/host-ipkg.extract: $(host-ipkg_extract_deps)
+$(STATEDIR)/host-ipkg.extract: $(host-ipkg_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_IPKG_DIR))
 	@$(call extract, $(HOST_IPKG_SOURCE), $(HOST_BUILDDIR))
@@ -91,7 +91,7 @@ $(STATEDIR)/host-ipkg.compile: $(host-ipkg_compile_deps_default)
 
 host-ipkg_install: $(STATEDIR)/host-ipkg.install
 
-$(STATEDIR)/host-ipkg.install: $(STATEDIR)/host-ipkg.compile
+$(STATEDIR)/host-ipkg.install: $(host-ipkg_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HOST_IPKG,,h)
 	@$(call touch, $@)
