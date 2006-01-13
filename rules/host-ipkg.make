@@ -33,9 +33,7 @@ HOST_IPKG_DIR	= $(HOST_BUILDDIR)/$(HOST_IPKG)
 
 host-ipkg_get: $(STATEDIR)/host-ipkg.get
 
-host-ipkg_get_deps = $(HOST_IPKG_SOURCE)
-
-$(STATEDIR)/host-ipkg.get: $(host-ipkg_get_deps_default)
+$(STATEDIR)/host-ipkg.get: $(HOST_IPKG_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_IPKG))
 	@$(call touch, $@)
