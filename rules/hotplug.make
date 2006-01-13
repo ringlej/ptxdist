@@ -32,7 +32,7 @@ HOTPLUG_DIR		= $(BUILDDIR)/$(HOTPLUG)
 
 hotplug_get: $(STATEDIR)/hotplug.get
 
-$(STATEDIR)/hotplug.get: $(HOTPLUG_SOURCE)
+$(STATEDIR)/hotplug.get: $(hotplug_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOTPLUG))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(HOTPLUG_SOURCE):
 
 hotplug_extract: $(STATEDIR)/hotplug.extract
 
-$(STATEDIR)/hotplug.extract: $(hotplug_extract_deps)
+$(STATEDIR)/hotplug.extract: $(hotplug_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOTPLUG_DIR))
 	@$(call extract, $(HOTPLUG_SOURCE))
@@ -83,7 +83,7 @@ $(STATEDIR)/hotplug.compile: $(hotplug_compile_deps_default)
 
 hotplug_install: $(STATEDIR)/hotplug.install
 
-$(STATEDIR)/hotplug.install: $(STATEDIR)/hotplug.compile
+$(STATEDIR)/hotplug.install: $(hotplug_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HOTPLUG)
 	@$(call touch, $@)
