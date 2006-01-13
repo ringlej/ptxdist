@@ -32,7 +32,7 @@ DIFFUTILS_DIR		= $(BUILDDIR)/$(DIFFUTILS)
 
 diffutils_get: $(STATEDIR)/diffutils.get
 
-$(STATEDIR)/diffutils.get: $(DIFFUTILS_SOURCE)
+$(STATEDIR)/diffutils.get: $(diffutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DIFFUTILS))
 	@$(call touch, $@)
