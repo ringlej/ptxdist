@@ -34,7 +34,7 @@ CRAMFS_DIR	= $(BUILDDIR)/$(CRAMFS)
 
 cramfs_get: $(STATEDIR)/cramfs.get
 
-$(STATEDIR)/cramfs.get: $(CRAMFS_SOURCE)
+$(STATEDIR)/cramfs.get: $(cramfs_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
