@@ -32,7 +32,7 @@ HOST_FAKEROOT_DIR	= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
 
 host-fakeroot_get: $(STATEDIR)/host-fakeroot.get
 
-$(STATEDIR)/host-fakeroot.get: $(HOST_FAKEROOT_SOURCE)
+$(STATEDIR)/host-fakeroot.get: $(host-fakeroot_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(HOST_FAKEROOT_SOURCE):
 
 host-fakeroot_extract: $(STATEDIR)/host-fakeroot.extract
 
-$(STATEDIR)/host-fakeroot.extract: $(host-fakeroot_extract_deps)
+$(STATEDIR)/host-fakeroot.extract: $(host-fakeroot_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_FAKEROOT_DIR))
 	@$(call extract, $(HOST_FAKEROOT_SOURCE), $(HOST_BUILDDIR))
@@ -91,7 +91,7 @@ $(STATEDIR)/host-fakeroot.compile: $(host-fakeroot_compile_deps_default)
 
 host-fakeroot_install: $(STATEDIR)/host-fakeroot.install
 
-$(STATEDIR)/host-fakeroot.install: $(STATEDIR)/host-fakeroot.compile
+$(STATEDIR)/host-fakeroot.install: $(host-fakeroot_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HOST_FAKEROOT,,h)
 	@$(call touch, $@)
