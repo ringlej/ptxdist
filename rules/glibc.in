@@ -1,6 +1,8 @@
 config GLIBC_DEBUG
 	bool "Don't strip debugging symbols"
 	depends on BUILD_USERLAND
+	help
+	  FIXME: This item needs to be documented
 
 # ----------
 
@@ -13,59 +15,81 @@ config GLIBC_INSTALL
 	default y if !CROSSTOOL
 	default n if CROSSTOOL
 	prompt "Install glibc libraries on the target"
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_LIBC
 	bool
 	depends on GLIBC_INSTALL
 	default y
 	prompt "Install libc on the target"
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_PTHREAD
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libpthread on the target"
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_THREAD_DB
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libthread_db on the target"
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_LIBRT
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install librt on the target"
 	default n
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_DL
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libdl on the target"
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_CRYPT
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libcrypt on the target"
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_UTIL
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libutil on the target"
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_LIBM
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libm on the target"
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_NSS_DNS
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libnss_dns"
 	select GLIBC_RESOLV
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_NSS_FILES
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libnss_files"
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_NSS_HESIOD
 	bool
@@ -73,6 +97,8 @@ config GLIBC_NSS_HESIOD
 	prompt "Install libnss_hesiod"
 	select GLIBC_RESOLV
 	select GLIBC_NSS_FILES
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_NSS_NIS
 	bool
@@ -80,28 +106,38 @@ config GLIBC_NSS_NIS
 	prompt "Install libnss_nis"
 	select GLIBC_NSL
 	select GLIBC_NSS_FILES
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_NSS_NISPLUS
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libnss_nisplus"
 	select GLIBC_NSL
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_NSS_COMPAT
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libnss_compat"
 	select GLIBC_NSL
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_RESOLV
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libresolv"
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_NSL
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libnsl"
+	help
+	  FIXME: This item needs to be documented
 
 # -----
 
@@ -110,11 +146,15 @@ config GLIBC_GCONV
 	depends on GLIBC_INSTALL
 	prompt "Install gconv libraries"
 	depends on GLIBC 
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_GCONV_ISO8859_1
 	bool
 	prompt "  ISO8859-1"
 	depends on GLIBC_GCONV 
+	help
+	  FIXME: This item needs to be documented
 
 # -----
 
@@ -126,6 +166,8 @@ config GLIBC_ZONEINFO
 	prompt "Install zoneinfo files"
 	depends on GLIBC_INSTALL
 	default N
+	help
+	  FIXME: This item needs to be documented
 
 config GLIBC_ZONEINFO_AFRICA
 	bool

@@ -27,7 +27,7 @@ GLIBC			= glibc-$(GLIBC_VERSION)
 
 glibc_get: $(STATEDIR)/glibc.get
 
-$(STATEDIR)/glibc.get:
+$(STATEDIR)/glibc.get: $(glibc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
