@@ -34,7 +34,7 @@ GLIB12_DIR	= $(BUILDDIR)/$(GLIB12)
 glib12_get: $(STATEDIR)/glib12.get
 
 
-$(STATEDIR)/glib12.get: $(GLIB12_SOURCE)
+$(STATEDIR)/glib12.get: $(glib12_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -104,7 +104,7 @@ $(STATEDIR)/glib12.compile: $(glib12_compile_deps_default)
 
 glib12_install: $(STATEDIR)/glib12.install
 
-$(STATEDIR)/glib12.install: $(STATEDIR)/glib12.compile
+$(STATEDIR)/glib12.install: $(glib12_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GLIB12)
 	@$(call touch, $@)

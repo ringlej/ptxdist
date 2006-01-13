@@ -1,4 +1,6 @@
 config GLIB12
 	bool
 	prompt "glib-1.2"
+	help
+	  FIXME: This item needs to be documented
 
