@@ -3,5 +3,7 @@ menu "glib-2.2.2       "
 config GLIB22
 	bool
 	prompt "glib"
+	help
+	  FIXME: This item needs to be documented
 
 endmenu

@@ -33,7 +33,7 @@ GLIB22_DIR		= $(BUILDDIR)/$(GLIB22)
 
 glib22_get: $(STATEDIR)/glib22.get
 
-$(STATEDIR)/glib22.get: $(GLIB22_SOURCE)
+$(STATEDIR)/glib22.get: $(glib22_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -103,7 +103,7 @@ $(STATEDIR)/glib22.compile: $(glib22_compile_deps_default)
 
 glib22_install: $(STATEDIR)/glib22.install
 
-$(STATEDIR)/glib22.install: $(STATEDIR)/glib22.compile
+$(STATEDIR)/glib22.install: $(glib22_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GLIB22)
 	@$(call touch, $@)
