@@ -1,6 +1,8 @@
 menuconfig IPKG
 	bool "ipkg                "
 	default N
+	help
+	  FIXME: This item needs to be documented
 
 config IPKG_EXTRACT_TEST
 	bool
@@ -9,6 +11,7 @@ config IPKG_EXTRACT_TEST
 	default N
 	help
 	  Unfortunately, nobody knows what this program is being used for. 
+	  FIXME: This item needs to be documented
 
 config IPKG_HASH_TEST
 	bool
@@ -17,4 +20,5 @@ config IPKG_HASH_TEST
 	default N
 	help
 	  Unfortunately, nobody knows what this program is being used for. 
+	  FIXME: This item needs to be documented
 

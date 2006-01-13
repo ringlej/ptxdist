@@ -32,7 +32,7 @@ IPKG_DIR		= $(BUILDDIR)/$(IPKG)
 
 ipkg_get: $(STATEDIR)/ipkg.get
 
-$(STATEDIR)/ipkg.get: $(IPKG_SOURCE)
+$(STATEDIR)/ipkg.get: $(ipkg_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(IPKG))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(IPKG_SOURCE):
 
 ipkg_extract: $(STATEDIR)/ipkg.extract
 
-$(STATEDIR)/ipkg.extract: $(ipkg_extract_deps)
+$(STATEDIR)/ipkg.extract: $(ipkg_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPKG_DIR))
 	@$(call extract, $(IPKG_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/ipkg.compile: $(ipkg_compile_deps_default)
 
 ipkg_install: $(STATEDIR)/ipkg.install
 
-$(STATEDIR)/ipkg.install: $(STATEDIR)/ipkg.compile
+$(STATEDIR)/ipkg.install: $(ipkg_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, IPKG)
 	@$(call touch, $@)
