@@ -209,5 +209,6 @@ source "rules/dialog.in"
 source "rules/e2tools.in"
 source "rules/flex.in"
 source "rules/xalf.in"
+source "rules/dotgnu.in"
 endmenu
 

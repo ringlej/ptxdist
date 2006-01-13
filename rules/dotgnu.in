@@ -1,3 +1,5 @@
+# FIXME: There is no makefile for this stuff. Broken Package ?
+
 menuconfig DOTGNU
 	bool "DotGNU              "
 		
