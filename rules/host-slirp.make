@@ -32,7 +32,7 @@ HOST_SLIRP_DIR		= $(HOST_BUILDDIR)/$(HOST_SLIRP)
 
 host-slirp_get: $(STATEDIR)/host-slirp.get
 
-$(STATEDIR)/host-slirp.get: $(HOST_SLIRP_SOURCE)
+$(STATEDIR)/host-slirp.get: $(host-slirp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_SLIRP))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(HOST_SLIRP_SOURCE):
 
 host-slirp_extract: $(STATEDIR)/host-slirp.extract
 
-$(STATEDIR)/host-slirp.extract: $(host-slirp_extract_deps)
+$(STATEDIR)/host-slirp.extract: $(host-slirp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_SLIRP_DIR))
 	@$(call extract, $(HOST_SLIRP_SOURCE), $(HOST_BUILDDIR))
