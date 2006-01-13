@@ -32,7 +32,7 @@ LIBPV_DIR	= $(BUILDDIR)/$(LIBPV)
 
 libpv_get: $(STATEDIR)/libpv.get
 
-$(STATEDIR)/libpv.get: $(LIBPV_SOURCE)
+$(STATEDIR)/libpv.get: $(libpv_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

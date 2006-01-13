@@ -25,3 +25,5 @@ config LIBPV_PVTOOL
 	bool
 	prompt "install pvtool"
 	depends on LIBPV
+	help
+	  FIXME: This item needs to be documented
