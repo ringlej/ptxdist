@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config LIBIDL068
+        bool
+        default N
+        depends on BROKEN
+        prompt "LIBIDL068"
+	help
+	  FIXME: This item needs to be documented
+	
+
+comment "LIBIDL068 is broken, please send a patch"
+        depends on !BROKEN

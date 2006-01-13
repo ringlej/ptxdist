@@ -35,7 +35,7 @@ LIBIDL068_DIR		= $(BUILDDIR)/$(LIBIDL068)
 
 libidl068_get: $(STATEDIR)/libidl068.get
 
-$(STATEDIR)/libidl068.get: $(LIBIDL068_SOURCE)
+$(STATEDIR)/libidl068.get: $(libidl068_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,7 +49,7 @@ $(LIBIDL068_SOURCE):
 
 libidl068_extract: $(STATEDIR)/libidl068.extract
 
-$(STATEDIR)/libidl068.extract: $(libidl068_extract_deps)
+$(STATEDIR)/libidl068.extract: $(libidl068_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBIDL068_DIR))
 	@$(call extract, $(LIBIDL068_SOURCE))
@@ -102,7 +102,7 @@ $(STATEDIR)/libidl068.compile: $(libidl068_compile_deps_default)
 
 libidl068_install: $(STATEDIR)/libidl068.install
 
-$(STATEDIR)/libidl068.install: $(STATEDIR)/libidl068.compile
+$(STATEDIR)/libidl068.install: $(libidl068_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBIDL068)
 	@$(call touch, $@)
