@@ -46,7 +46,7 @@ $(CGICC_SOURCE):
 
 cgicc_extract: $(STATEDIR)/cgicc.extract
 
-$(STATEDIR)/cgicc.extract: $(cgicc_extract_deps)
+$(STATEDIR)/cgicc.extract: $(cgicc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CGICC_DIR))
 	@$(call extract, $(CGICC_SOURCE))
@@ -92,7 +92,7 @@ $(STATEDIR)/cgicc.compile: $(cgicc_compile_deps_default)
 
 cgicc_install: $(STATEDIR)/cgicc.install
 
-$(STATEDIR)/cgicc.install: $(STATEDIR)/cgicc.compile
+$(STATEDIR)/cgicc.install: $(cgicc_install_deps_default)
 	@$(call targetinfo, $@)
 	#@$(call install, CGICC)
 	@$(call touch, $@)
