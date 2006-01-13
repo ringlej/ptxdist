@@ -32,7 +32,7 @@ HRTIMERS_SUPPORT_DIR		= $(BUILDDIR)/$(HRTIMERS_SUPPORT)
 
 hrtimers-support_get: $(STATEDIR)/hrtimers-support.get
 
-$(STATEDIR)/hrtimers-support.get: $(HRTIMERS_SUPPORT_SOURCE)
+$(STATEDIR)/hrtimers-support.get: $(hrtimers-support_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(HRTIMERS_SUPPORT_SOURCE):
 
 hrtimers-support_extract: $(STATEDIR)/hrtimers-support.extract
 
-$(STATEDIR)/hrtimers-support.extract: $(hrtimers-support_extract_deps)
+$(STATEDIR)/hrtimers-support.extract: $(hrtimers-support_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HRTIMERS_SUPPORT_DIR))
 	@$(call extract, $(HRTIMERS_SUPPORT_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/hrtimers-support.compile: $(hrtimers-support_compile_deps_default)
 
 hrtimers-support_install: $(STATEDIR)/hrtimers-support.install
 
-$(STATEDIR)/hrtimers-support.install: $(STATEDIR)/hrtimers-support.compile
+$(STATEDIR)/hrtimers-support.install: $(hrtimers-support_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HRTIMERS_SUPPORT)
 	@$(call touch, $@)
