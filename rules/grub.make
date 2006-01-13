@@ -30,7 +30,7 @@ GRUB_DIR		= $(BUILDDIR)/$(GRUB)
 
 grub_get: $(STATEDIR)/grub.get
 
-$(STATEDIR)/grub.get: $(GRUB_SOURCE)
+$(STATEDIR)/grub.get: $(grub_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(GRUB))
 	@$(call touch, $@)
@@ -45,7 +45,7 @@ $(GRUB_SOURCE):
 
 grub_extract: $(STATEDIR)/grub.extract
 
-$(STATEDIR)/grub.extract: $(STATEDIR)/grub.get
+$(STATEDIR)/grub.extract: $(grub_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GRUB_DIR))
 	@$(call extract, $(GRUB_SOURCE))
@@ -139,7 +139,7 @@ $(STATEDIR)/grub.prepare: $(grub_prepare_deps_default)
 
 grub_compile: $(STATEDIR)/grub.compile
 
-$(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare 
+$(STATEDIR)/grub.compile: $(grub_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(GRUB_PATH) make -C $(GRUB_DIR)
 	@$(call touch, $@)
@@ -150,7 +150,7 @@ $(STATEDIR)/grub.compile: $(STATEDIR)/grub.prepare
 
 grub_install: $(STATEDIR)/grub.install
 
-$(STATEDIR)/grub.install: $(STATEDIR)/grub.compile
+$(STATEDIR)/grub.install: $(grub_install_deps_default)
 	@$(call targetinfo, $@)
 #	make -C $(GRUB_DIR) install
 	@$(call touch, $@)
@@ -161,7 +161,7 @@ $(STATEDIR)/grub.install: $(STATEDIR)/grub.compile
 
 grub_targetinstall: $(STATEDIR)/grub.targetinstall
 
-$(STATEDIR)/grub.targetinstall: $(STATEDIR)/grub.install
+$(STATEDIR)/grub.targetinstall: $(grub_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

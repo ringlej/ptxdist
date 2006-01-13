@@ -2,6 +2,8 @@
 menuconfig GRUB
 	bool "grub                "
 	depends on ARCH_X86
+	help
+	  Grub - The GRand Unified Bootloader
 
 comment "grub is only available on x86"
 	depends on !ARCH_X86
@@ -29,31 +31,43 @@ config GRUB_FFS
 	bool
 	prompt "ffs      filesystem"
 	depends on GRUB
+	help
+	  FIXME: This item needs to be documented
 
 config GRUB_MINIXFS
 	bool
 	prompt "minix    filesystem"
 	depends on GRUB
+	help
+	  FIXME: This item needs to be documented
 
 config GRUB_REISERFS
 	bool
 	prompt "reiser   filesystem"
 	depends on GRUB
+	help
+	  FIXME: This item needs to be documented
 
 config GRUB_VSTAFS
 	bool
 	prompt "vstafs   filesystem"
 	depends on GRUB
+	help
+	  FIXME: This item needs to be documented
 
 config GRUB_JFS
 	bool
 	prompt "jfs      filesystem"
 	depends on GRUB
+	help
+	  FIXME: This item needs to be documented
 
 config GRUB_XFS
 	bool
 	prompt "xfs      filesystem"
 	depends on GRUB
+	help
+	  FIXME: This item needs to be documented
 
 comment "Network Card Support"
 	depends on GRUB
@@ -62,16 +76,22 @@ config GRUB_CS89X0
 	bool
 	prompt "cs89x0   network driver"
 	depends on GRUB
+	help
+	  FIXME: This item needs to be documented
 
 config GRUB_EEPRO100
 	bool
 	prompt "eepro100 network driver"
 	depends on GRUB
+	help
+	  Include support for the Intel eepro 10/100 series of network devices.
 
 config GRUB_RTL8139
 	bool
 	prompt "Realtek  network driver"
 	depends on GRUB
+	help
+	  Include support for Realtek RTL8139 based nics.
 
 # FIXME
 # source "rules/bootdisk.in"
