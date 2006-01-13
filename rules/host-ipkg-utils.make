@@ -47,7 +47,7 @@ $(HOSTTOOL-IPKG-UTILS_SOURCE):
 
 host-ipkg-utils_extract: $(STATEDIR)/host-ipkg-utils.extract
 
-$(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps)
+$(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOSTTOOL-IPKG-UTILS_DIR))
 	@$(call extract, $(HOSTTOOL-IPKG-UTILS_SOURCE), $(HOST_BUILDDIR))
@@ -88,7 +88,7 @@ $(STATEDIR)/host-ipkg-utils.compile: $(host-ipkg-utils_compile_deps_default)
 
 host-ipkg-utils_install: $(STATEDIR)/host-ipkg-utils.install
 
-$(STATEDIR)/host-ipkg-utils.install: $(STATEDIR)/host-ipkg-utils.compile
+$(STATEDIR)/host-ipkg-utils.install: $(host-ipkg-utils_install_deps_default)
 	@$(call targetinfo, $@)
 	mkdir -p $(PTXCONF_HOST_PREFIX)/usr/bin
 	# ipkg.py is forgotten by MAKE_INSTALL, so we copy it manually
