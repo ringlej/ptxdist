@@ -47,7 +47,7 @@ $(GNUPLOT_SOURCE):
 
 gnuplot_extract: $(STATEDIR)/gnuplot.extract
 
-$(STATEDIR)/gnuplot.extract: $(gnuplot_extract_deps)
+$(STATEDIR)/gnuplot.extract: $(gnuplot_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GNUPLOT_DIR))
 	@$(call extract, $(GNUPLOT_SOURCE))
@@ -153,7 +153,7 @@ $(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps_default)
 
 gnuplot_install: $(STATEDIR)/gnuplot.install
 
-$(STATEDIR)/gnuplot.install: $(STATEDIR)/gnuplot.compile
+$(STATEDIR)/gnuplot.install: $(gnuplot_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

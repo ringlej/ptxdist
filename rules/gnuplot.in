@@ -2,39 +2,55 @@ menuconfig GNUPLOT
 	bool
 	prompt "gnuplot"
 	select ZLIB
+	help
+	  FIXME: This item needs to be documented
 
 config GNUPLOT_FITERRVARS
 	bool
 	prompt "Support for itting error variables"
 	depends on GNUPLOT
+	help
+	  FIXME: This item needs to be documented
 
 config GNUPLOT_WITH_X
 	bool
 	prompt "X support"
 	depends on GNUPLOT
+	help
+	  FIXME: This item needs to be documented
 
 config GNUPLOT_PLOT
 	bool
 	prompt "use Unix plot library"
 	depends on GNUPLOT
+	help
+	  FIXME: This item needs to be documented
 
 config GNUPLOT_PNG
 	bool
 	prompt "PNG support"
 	depends on GNUPLOT
+	help
+	  FIXME: This item needs to be documented
 
 config GNUPLOT_GD
 	bool
 	prompt "GD support"
 	depends on GNUPLOT
+	help
+	  FIXME: This item needs to be documented
 
 config GNUPLOT_GIF
 	bool
 	prompt "GIF support"
 	depends on GNUPLOT
+	help
+	  FIXME: This item needs to be documented
 
 config GNUPLOT_PDF
 	bool
 	prompt "PDF support"
 	depends on GNUPLOT
+	help
+	  FIXME: This item needs to be documented
 
