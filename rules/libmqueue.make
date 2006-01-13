@@ -32,7 +32,7 @@ LIBMQUEUE_DIR		= $(BUILDDIR)/$(LIBMQUEUE)
 
 libmqueue_get: $(STATEDIR)/libmqueue.get
 
-$(STATEDIR)/libmqueue.get: $(LIBMQUEUE_SOURCE)
+$(STATEDIR)/libmqueue.get: $(libmqueue_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -93,7 +93,7 @@ $(STATEDIR)/libmqueue.compile: $(libmqueue_compile_deps_default)
 
 libmqueue_install: $(STATEDIR)/libmqueue.install
 
-$(STATEDIR)/libmqueue.install: $(STATEDIR)/libmqueue.compile
+$(STATEDIR)/libmqueue.install: $(libmqueue_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBMQUEUE)
 	@$(call touch, $@)
