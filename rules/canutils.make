@@ -32,7 +32,7 @@ CANUTILS_DIR		= $(BUILDDIR)/$(CANUTILS)
 
 canutils_get: $(STATEDIR)/canutils.get
 
-$(STATEDIR)/canutils.get: $(CANUTILS_SOURCE)
+$(STATEDIR)/canutils.get: $(canutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

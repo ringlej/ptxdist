@@ -11,7 +11,7 @@ config CANUTILS_CANCONFIG
 	default N
 	prompt "canconfig"
 	help
-	  FIXME: This needs to be documented.
+	  Configuration Tool for socket can.
 	  
 config CANUTILS_CANDUMP
 	bool
@@ -19,7 +19,7 @@ config CANUTILS_CANDUMP
 	default N
 	prompt "candump"
 	help
-	  FIXME: This needs to be documented.
+	  A little utility to dump canbus messages
 	  
 
 config CANUTILS_CANECHO
@@ -28,7 +28,7 @@ config CANUTILS_CANECHO
 	default N
 	prompt "canecho"
 	help
-	  FIXME: This needs to be documented.
+	  A little utility to echo canbus messages 
 
 config CANUTILS_CANSEND
 	bool
@@ -36,5 +36,5 @@ config CANUTILS_CANSEND
 	default N
 	prompt "cansend"
 	help
-	  FIXME: This needs to be documented.
+	  A little utility to send canbus messages from command line
 

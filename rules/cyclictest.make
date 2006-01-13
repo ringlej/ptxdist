@@ -32,7 +32,7 @@ CYCLICTEST_DIR		= $(BUILDDIR)/$(CYCLICTEST)
 
 cyclictest_get: $(STATEDIR)/cyclictest.get
 
-$(STATEDIR)/cyclictest.get: $(CYCLICTEST_SOURCE)
+$(STATEDIR)/cyclictest.get: $(cyclictest_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
