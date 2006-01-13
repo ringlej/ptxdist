@@ -36,7 +36,7 @@ $(STATEDIR)/commoncpp2.get: $(commoncpp2_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(COMMONCPP2_SOURCE): $(COMMONCPP2_SOURCE)
+$(COMMONCPP2_SOURCE): 
 	@$(call targetinfo, $@)
 	@$(call get, $(COMMONCPP2_URL))
 
