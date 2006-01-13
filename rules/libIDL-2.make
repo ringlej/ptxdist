@@ -35,7 +35,7 @@ LIBIDL-2_DIR		= $(BUILDDIR)/$(LIBIDL-2)
 
 libidl-2_get: $(STATEDIR)/libidl-2.get
 
-$(STATEDIR)/libidl-2.get: $(LIBIDL-2_SOURCE)
+$(STATEDIR)/libidl-2.get: $(libidl-2_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,7 +49,7 @@ $(LIBIDL-2_SOURCE):
 
 libidl-2_extract: $(STATEDIR)/libidl-2.extract
 
-$(STATEDIR)/libidl-2.extract: $(libidl-2_extract_deps)
+$(STATEDIR)/libidl-2.extract: $(libidl-2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBIDL-2_DIR))
 	@$(call extract, $(LIBIDL-2_SOURCE))
@@ -102,7 +102,7 @@ $(STATEDIR)/libidl-2.compile: $(libidl-2_compile_deps_default)
 
 libidl-2_install: $(STATEDIR)/libidl-2.install
 
-$(STATEDIR)/libidl-2.install: $(STATEDIR)/libidl-2.compile
+$(STATEDIR)/libidl-2.install: $(libidl-2_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBIDL-2)
 	@$(call touch, $@)
