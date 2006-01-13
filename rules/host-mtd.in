@@ -1,21 +1,31 @@
 
 config HOST_MTD
 	bool "MTD Utilities"
+	help
+	  FIXME: This item needs to be documented
 
 config HOST_MTD_MKJFFS
 	bool "mkfs.jffs"
 	depends on HOST_MTD
+	help
+	  FIXME: This item needs to be documented
 
 config HOST_MTD_MKJFFS2
 	bool "mkfs.jffs2"
 	depends on HOST_MTD
+	help
+	  FIXME: This item needs to be documented
 
 config HOST_MTD_JFFS_DUMP
 	bool
 	prompt "jffs_dump"
 	depends on HOST_MTD
+	help
+	  FIXME: This item needs to be documented
 
 config HOST_MTD_JFFS2_DUMP
 	bool
 	prompt "jffs2_dump"
 	depends on HOST_MTD
+	help
+	  FIXME: This item needs to be documented
