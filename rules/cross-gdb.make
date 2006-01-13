@@ -32,7 +32,7 @@ CROSS_GDB_DIR		= $(CROSS_BUILDDIR)/$(CROSS_GDB)
 
 cross-gdb_get: $(STATEDIR)/cross-gdb.get
 
-$(STATEDIR)/cross-gdb.get: $(CROSS_GDB_SOURCE)
+$(STATEDIR)/cross-gdb.get: $(cross-gdb_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
