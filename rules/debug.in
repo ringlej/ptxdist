@@ -7,12 +7,16 @@ config KSYMOOPS
 	bool
 	prompt "ksymoops"
 	default n
+	help
+	  FIXME: This item needs to be documented
 
 config LTT
 	bool
 	depends on BROKEN
 	prompt "ltt: Linux Trace Toolkit"
 	default n
+	help
+	  FIXME: This item needs to be documented
 
 comment "LTT is broken, please send a patch"
 	depends on !BROKEN
@@ -23,6 +27,8 @@ config MEMTEST
 	bool 
 	prompt "memtest"
 	default n
+	help
+	  FIXME: This item needs to be documented
 
 config MEMTESTER
 	bool 
@@ -39,16 +45,27 @@ config OPROFILE
 	depends on POPT && LIBBFD
 	prompt "oprofile"
 	default n
+	help
+	  FIXME: This item needs to be documented
 
 config STRACE
 	bool
 	prompt "strace"
 	default n
+	help
+	  In  the  simplest  case  strace  runs  the  specified  
+	  command until it exits.  It intercepts and records the 
+	  system calls which are called by a process and the 
+	  signals which are received by a process.  The name of 
+	  each system call, its arguments and its return value 
+	  are printed on standard error
 
 config STRACE_SHARED
 	bool "shared strace"
 	default y
 	depends on STRACE
+	help
+	  FIXME: This item needs to be documented
 
 source "rules/valgrind.in"
 
