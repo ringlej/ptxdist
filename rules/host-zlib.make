@@ -24,7 +24,7 @@ HOST_ZLIB_BUILDDIR	= $(HOST_BUILDDIR)/$(ZLIB)
 
 host-zlib_get: $(STATEDIR)/host-zlib.get
 
-$(STATEDIR)/host-zlib.get: $(STATEDIR)/zlib.get
+$(STATEDIR)/host-zlib.get: $(host_zlib_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
