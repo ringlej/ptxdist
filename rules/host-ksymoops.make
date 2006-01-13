@@ -29,7 +29,7 @@ KSYMOOPS_DIR			= $(BUILDDIR)/$(KSYMOOPS)
 
 host-ksymoops_get: $(STATEDIR)/host-ksymoops.get
 
-$(STATEDIR)/host-ksymoops.get: $(KSYMOOPS_SOURCE)
+$(STATEDIR)/host-ksymoops.get: $(host-ksymoops_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,7 +43,7 @@ $(KSYMOOPS_SOURCE):
 
 host-ksymoops_extract: $(STATEDIR)/host-ksymoops.extract
 
-$(STATEDIR)/host-ksymoops.extract: $(STATEDIR)/host-ksymoops.get
+$(STATEDIR)/host-ksymoops.extract: $(host-ksymoops_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KSYMOOPS_DIR))
 	@$(call extract, $(KSYMOOPS_SOURCE))
@@ -61,7 +61,7 @@ KSYMOOPS_MAKEVARS = \
 	BFD_PREFIX=$(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET) \
 	DEF_TARGET='\"elf32-$(call remove_quotes,$(PTXCONF_ARCH))\"'
 
-$(STATEDIR)/host-ksymoops.prepare:
+$(STATEDIR)/host-ksymoops.prepare: $(host-ksymoops_prepare_deps_default)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

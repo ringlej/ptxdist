@@ -220,5 +220,6 @@ source "rules/host-apache2.in"
 source "rules/host-checkinstall.in"
 source "rules/host-flex.in"
 source "rules/host-kconfig.in"
+source "rules/host-ksymoops.in"
 endmenu
 

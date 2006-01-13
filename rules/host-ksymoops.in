@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config KSYMOOPS
+        bool
+        default N
+        depends on BROKEN
+        prompt "KSYMOOPS"
+	help
+	  FIXME: This item needs to be documented
+	
+
+comment "KSYMOOPS is broken, please send a patch"
+        depends on !BROKEN
