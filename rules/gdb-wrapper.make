@@ -25,7 +25,7 @@ PACKAGES-$(PTXCONF_GDB_WRAPPER) += gdb-wrapper
 
 gdb-wrapper_get: $(STATEDIR)/gdb-wrapper.get
 
-$(STATEDIR)/gdb-wrapper.get:
+$(STATEDIR)/gdb-wrapper.get: $(gdb_wrapper_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -212,5 +212,6 @@ source "rules/xalf.in"
 source "rules/dotgnu.in"
 source "rules/gail.in"
 source "rules/gdb.in"
+source "rules/cross-gdb.in"
 endmenu
 
