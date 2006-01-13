@@ -32,7 +32,7 @@ CLEMENTINE_DIR		= $(BUILDDIR)/$(CLEMENTINE)
 
 clementine_get: $(STATEDIR)/clementine.get
 
-$(STATEDIR)/clementine.get: $(CLEMENTINE_SOURCE)
+$(STATEDIR)/clementine.get: $(clementine_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
