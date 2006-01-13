@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config HOST_APACHE2
+        bool
+        default N
+        depends on BROKEN
+        prompt "HOST_APACHE2"
+	help
+	  FIXME: This item needs to be documented
+	
+
+comment "HOST_APACHE2 is broken, please send a patch"
+        depends on !BROKEN

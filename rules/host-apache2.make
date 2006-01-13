@@ -32,7 +32,7 @@ HOST_APACHE2_DIR	= $(HOST_BUILDDIR)/$(HOST_APACHE2)
 
 host-apache2_get: $(STATEDIR)/host-apache2.get
 
-$(STATEDIR)/host-apache2.get: $(HOST_APACHE2_SOURCE)
+$(STATEDIR)/host-apache2.get: $(host-apache2_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -42,7 +42,7 @@ $(STATEDIR)/host-apache2.get: $(HOST_APACHE2_SOURCE)
 
 host-apache2_extract: $(STATEDIR)/host-apache2.extract
 
-$(STATEDIR)/host-apache2.extract: $(host-apache2_extract_deps)
+$(STATEDIR)/host-apache2.extract: $(host-apache2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_APACHE2_DIR))
 	@$(call extract, $(HOST_APACHE2_SOURCE), $(HOST_BUILDDIR))
@@ -96,6 +96,10 @@ $(STATEDIR)/host-apache2.install: $(host-apache2_install_deps_default)
 	#@$(call install, HOST-APACHE2,,h)
 #	cd $(HOST_APACHE2_DIR) && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) $(MAKE_INSTALL)
 	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Tagetinstall 
+# ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
 # Clean
