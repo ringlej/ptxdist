@@ -32,7 +32,7 @@ LIBNETPBM_DIR		= $(BUILDDIR)/$(LIBNETPBM)
 
 libnetpbm_get: $(STATEDIR)/libnetpbm.get
 
-$(STATEDIR)/libnetpbm.get: $(LIBNETPBM_SOURCE)
+$(STATEDIR)/libnetpbm.get: $(libnetpbm_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(LIBNETPBM_SOURCE):
 
 libnetpbm_extract: $(STATEDIR)/libnetpbm.extract
 
-$(STATEDIR)/libnetpbm.extract: $(libnetpbm_extract_deps)
+$(STATEDIR)/libnetpbm.extract: $(libnetpbm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBNETPBM_DIR))
 	@$(call extract, $(LIBNETPBM_SOURCE))
@@ -97,7 +97,7 @@ $(STATEDIR)/libnetpbm.compile: $(libnetpbm_compile_deps_default)
 
 libnetpbm_install: $(STATEDIR)/libnetpbm.install
 
-$(STATEDIR)/libnetpbm.install: $(STATEDIR)/libnetpbm.compile
+$(STATEDIR)/libnetpbm.install: $(libnetpbm_install_deps_default)
 	@$(call targetinfo, $@)
 	cp $(LIBNETPBM_DIR)/lib/libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so.10.31
 	ln -sf libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so.10
