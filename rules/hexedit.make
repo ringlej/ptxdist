@@ -32,7 +32,7 @@ HEXEDIT_DIR	= $(BUILDDIR)/$(HEXEDIT)
 
 hexedit_get: $(STATEDIR)/hexedit.get
 
-$(STATEDIR)/hexedit.get: $(HEXEDIT_SOURCE)
+$(STATEDIR)/hexedit.get: $(hexedit_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HEXEDIT))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(HEXEDIT_SOURCE):
 
 hexedit_extract: $(STATEDIR)/hexedit.extract
 
-$(STATEDIR)/hexedit.extract: $(hexedit_extract_deps)
+$(STATEDIR)/hexedit.extract: $(hexedit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HEXEDIT_DIR))
 	@$(call extract, $(HEXEDIT_SOURCE))
@@ -96,7 +96,7 @@ $(STATEDIR)/hexedit.compile: $(hexedit_compile_deps_default)
 
 hexedit_install: $(STATEDIR)/hexedit.install
 
-$(STATEDIR)/hexedit.install: $(STATEDIR)/hexedit.compile
+$(STATEDIR)/hexedit.install: $(hexedit_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
