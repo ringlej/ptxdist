@@ -32,7 +32,7 @@ BETAFTPD_DIR		= $(BUILDDIR)/$(BETAFTPD)
 
 betaftpd_get: $(STATEDIR)/betaftpd.get
 
-$(STATEDIR)/betaftpd.get: $(BETAFTPD_SOURCE)
+$(STATEDIR)/betaftpd.get: $(betaftpd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BETAFTPD))
 	@$(call touch, $@)
