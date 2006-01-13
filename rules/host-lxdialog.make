@@ -29,7 +29,7 @@ HOST_LXDIALOG_DIR	= $(PTXDIST_WORKSPACE)/scripts/lxdialog
 
 host-lxdialog_get: $(STATEDIR)/host-lxdialog.get
 
-$(STATEDIR)/host-lxdialog.get:
+$(STATEDIR)/host-lxdialog.get: 
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

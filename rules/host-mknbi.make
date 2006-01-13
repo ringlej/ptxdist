@@ -47,7 +47,7 @@ $(HOST_MKNBI_SOURCE):
 
 host-mknbi_extract: $(STATEDIR)/host-mknbi.extract
 
-$(STATEDIR)/host-mknbi.extract: $(host-mknbi_extract_deps)
+$(STATEDIR)/host-mknbi.extract: $(host-mknbi_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MKNBI_DIR))
 	@$(call extract, $(HOST_MKNBI_SOURCE), $(HOST_BUILDDIR))
@@ -84,7 +84,7 @@ $(STATEDIR)/host-mknbi.compile: $(host-mknbi_compile_deps_default)
 
 host-mknbi_install: $(STATEDIR)/host-mknbi.install
 
-$(STATEDIR)/host-mknbi.install: $(STATEDIR)/host-mknbi.compile
+$(STATEDIR)/host-mknbi.install: $(host-mknbi_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HOST_MKNBI)
 	@$(call touch, $@)
