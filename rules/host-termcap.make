@@ -42,7 +42,7 @@ $(STATEDIR)/host-termcap.get: $(host-termcap_get_deps_default)
 
 host-termcap_extract: $(STATEDIR)/host-termcap.extract
 
-$(STATEDIR)/host-termcap.extract: $(host-termcap_extract_deps)
+$(STATEDIR)/host-termcap.extract: $(host-termcap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_TERMCAP_DIR))
 	@$(call extract, $(TERMCAP_SOURCE), $(HOST_BUILDDIR))
