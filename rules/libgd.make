@@ -32,7 +32,7 @@ LIBGD_DIR	= $(BUILDDIR)/$(LIBGD)
 
 libgd_get: $(STATEDIR)/libgd.get
 
-$(STATEDIR)/libgd.get: $(LIBGD_SOURCE)
+$(STATEDIR)/libgd.get: $(libgd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(LIBGD_SOURCE):
 
 libgd_extract: $(STATEDIR)/libgd.extract
 
-$(STATEDIR)/libgd.extract: $(libgd_extract_deps)
+$(STATEDIR)/libgd.extract: $(libgd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGD_DIR))
 	@$(call extract, $(LIBGD_SOURCE))
@@ -95,7 +95,7 @@ $(STATEDIR)/libgd.compile: $(libgd_compile_deps_default)
 
 libgd_install: $(STATEDIR)/libgd.install
 
-$(STATEDIR)/libgd.install: $(STATEDIR)/libgd.compile
+$(STATEDIR)/libgd.install: $(libgd_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: is this a hosttool? 
 	@$(call install, LIBGD)
