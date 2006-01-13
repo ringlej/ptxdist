@@ -222,5 +222,6 @@ source "rules/host-flex.in"
 source "rules/host-kconfig.in"
 source "rules/host-ksymoops.in"
 source "rules/host-mknbi.in"
+source "rules/host-modutils.in"
 endmenu
 

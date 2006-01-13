@@ -47,7 +47,7 @@ $(HOST_MODUTILS_SOURCE):
 
 host-modutils_extract: $(STATEDIR)/host-modutils.extract
 
-$(STATEDIR)/host-modutils.extract: $(host-modutils_extract_deps)
+$(STATEDIR)/host-modutils.extract: $(host-modutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MODUTILS_DIR))
 	@$(call extract, $(HOST_MODUTILS_SOURCE), $(HOST_BUILDDIR))
