@@ -3,5 +3,7 @@ menu    "libnet              "
 config LIBNET
         bool
         prompt "libnet"
+	help
+	  FIXME: This item needs to be documented
 
 endmenu

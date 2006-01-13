@@ -32,7 +32,7 @@ LIBNET_DIR	= $(BUILDDIR)/$(LIBNET)
 
 libnet_get: $(STATEDIR)/libnet.get
 
-$(STATEDIR)/libnet.get: $(LIBNET_SOURCE)
+$(STATEDIR)/libnet.get: $(libnet_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(LIBNET_SOURCE):
 
 libnet_extract: $(STATEDIR)/libnet.extract
 
-$(STATEDIR)/libnet.extract: $(libnet_extract_deps)
+$(STATEDIR)/libnet.extract: $(libnet_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBNET_DIR))
 	@$(call extract, $(LIBNET_SOURCE))
@@ -95,7 +95,7 @@ $(STATEDIR)/libnet.compile: $(libnet_compile_deps_default)
 
 libnet_install: $(STATEDIR)/libnet.install
 
-$(STATEDIR)/libnet.install: $(STATEDIR)/libnet.compile
+$(STATEDIR)/libnet.install: $(libnet_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBNET)
 	@$(call touch, $@)
