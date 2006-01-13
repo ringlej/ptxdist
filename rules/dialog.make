@@ -32,7 +32,7 @@ DIALOG_DIR		= $(BUILDDIR)/$(DIALOG)
 
 dialog_get: $(STATEDIR)/dialog.get
 
-$(STATEDIR)/dialog.get: $(DIALOG_SOURCE)
+$(STATEDIR)/dialog.get: $(dialog_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(DIALOG))
 	@$(call touch, $@)
