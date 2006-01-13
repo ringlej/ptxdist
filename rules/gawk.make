@@ -32,7 +32,7 @@ GAWK_DIR		= $(BUILDDIR)/$(GAWK)
 
 gawk_get: $(STATEDIR)/gawk.get
 
-$(STATEDIR)/gawk.get: $(GAWK_SOURCE)
+$(STATEDIR)/gawk.get: $(gawk_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

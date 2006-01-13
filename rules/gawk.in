@@ -1,3 +1,4 @@
 menuconfig GAWK
 	bool "Gawk                "
-
+	help
+	  FIXME: This item needs to be documented
