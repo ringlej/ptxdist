@@ -32,7 +32,7 @@ ETHEREAL_DIR		= $(BUILDDIR)/$(ETHEREAL)
 
 ethereal_get: $(STATEDIR)/ethereal.get
 
-$(STATEDIR)/ethereal.get: $(ETHEREAL_SOURCE)
+$(STATEDIR)/ethereal.get: $(ethereal_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(ETHEREAL))
 	@$(call touch, $@)
@@ -118,7 +118,7 @@ $(STATEDIR)/ethereal.compile: $(ethereal_compile_deps_default)
 
 ethereal_install: $(STATEDIR)/ethereal.install
 
-$(STATEDIR)/ethereal.install: $(STATEDIR)/ethereal.compile
+$(STATEDIR)/ethereal.install: $(ethereal_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, ETHEREAL)
 	@$(call touch, $@)
