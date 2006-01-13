@@ -32,7 +32,7 @@ KONQ-E_DIR		= $(BUILDDIR)/$(KONQ-E)
 
 konq-e_get: $(STATEDIR)/konq-e.get
 
-$(STATEDIR)/konq-e.get: $(KONQ-E_SOURCE)
+$(STATEDIR)/konq-e.get: $(konq-e_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(KONQ-E_SOURCE):
 
 konq-e_extract: $(STATEDIR)/konq-e.extract
 
-$(STATEDIR)/konq-e.extract: $(konq-e_extract_deps)
+$(STATEDIR)/konq-e.extract: $(konq-e_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KONQ-E_DIR))
 	@$(call extract, $(KONQ-E_SOURCE))
@@ -92,7 +92,7 @@ $(STATEDIR)/konq-e.compile: $(konq-e_compile_deps_default)
 
 konq-e_install: $(STATEDIR)/konq-e.install
 
-$(STATEDIR)/konq-e.install: $(STATEDIR)/konq-e.compile
+$(STATEDIR)/konq-e.install: $(konq-e_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: RSC: shouldn't this be target-install? 
 	@$(call install, KONQ-E)
