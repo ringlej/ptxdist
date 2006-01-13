@@ -27,6 +27,8 @@ HOST_KCONFIG		= kconfig-$(HOST_KCONFIG_VERSION)
 # Get
 # ----------------------------------------------------------------------------
 
+# Don't use default dependencies here - not created yet when we need it!
+
 host-kconfig_get: $(STATEDIR)/host-kconfig.get
 
 $(STATEDIR)/host-kconfig.get:
@@ -56,6 +58,8 @@ $(STATEDIR)/host-kconfig.extract: $(STATEDIR)/host-kconfig.get
 # Prepare
 # ----------------------------------------------------------------------------
 
+# Don't use default dependencies here - not created yet when we need it!
+
 host-kconfig_prepare: $(STATEDIR)/host-kconfig.prepare
 
 HOST_KCONFIG_PATH	=  PATH=$(HOST_PATH)
@@ -69,6 +73,8 @@ $(STATEDIR)/host-kconfig.prepare: $(STATEDIR)/host-kconfig.extract
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
+
+# Don't use default dependencies here - not created yet when we need it!
 
 host-kconfig_compile: $(STATEDIR)/host-kconfig.compile
 
@@ -91,6 +97,8 @@ $(STATEDIR)/host-kconfig.compile: $(STATEDIR)/host-kconfig.prepare
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
+
+# Don't use default dependencies here - not created yet when we need it!
 
 host-kconfig_install: $(STATEDIR)/host-kconfig.install
 
