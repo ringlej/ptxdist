@@ -30,7 +30,7 @@ BASH_DIR		= $(BUILDDIR)/$(BASH)
 
 bash_get: $(STATEDIR)/bash.get
 
-$(STATEDIR)/bash.get: $(BASH_SOURCE)
+$(STATEDIR)/bash.get: $(bash_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -19,11 +19,15 @@ config BASH_SHLIKE
 	bool	
 	prompt "Enable minimal sh like configuration"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_ALIASES
 	bool
 	prompt "Enable aliases"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 #config BASH_ARITHMETIC_FOR
 #	bool
@@ -40,11 +44,15 @@ config BASH_HISTORY
         bool
 	prompt "Turn on csh-style history substitution"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_BRACE
 	bool
 	prompt "Include brace expansion"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 #config BASH_CONDITIONAL
 #	bool
@@ -56,6 +64,8 @@ config BASH_DIRSTACK
 	bool
 	prompt "Enable builtins pushd/popd/dirs"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 #config BASH_EXTPATTERN
 #	bool
@@ -67,58 +77,82 @@ config BASH_HELP
 	bool
 	prompt "Include the help builtin"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_CMDHISTORY
 	bool
 	prompt "Turn on command history"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_JOBS
 	bool
 	prompt "Enable job control features"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_LARGEFILES
 	bool
 	prompt "Enable support for large files"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_PROCSUBST
         bool 
 	prompt "Enable process substitution"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_COMPLETION
 	bool 
 	prompt "Enable programmable completion"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_ESC
 	bool
 	prompt "Turn on escape character decoding in prompts"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_EDIT
 	bool
 	prompt "Turn on command line editing"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_RESTRICTED
 	bool
 	prompt "Enable a restricted shell"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_SELECT
 	bool
 	prompt "Include select command"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_GPROF
 	bool
 	prompt "Allow profiling with gprof"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
 
 config BASH_STATIC
 	bool
 	prompt "Link bash statically"
 	depends on BASH
+	help
+	  FIXME: This item needs to be documented
