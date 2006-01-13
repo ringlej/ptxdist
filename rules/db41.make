@@ -32,7 +32,7 @@ DB41_DIR	= $(BUILDDIR)/$(DB41)
 
 db41_get: $(STATEDIR)/db41.get
 
-$(STATEDIR)/db41.get: $(DB41_SOURCE)
+$(STATEDIR)/db41.get: $(db41_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
