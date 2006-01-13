@@ -32,7 +32,7 @@ AT-SPI_DIR	= $(BUILDDIR)/$(AT-SPI)
 
 at-spi_get: $(STATEDIR)/at-spi.get
 
-$(STATEDIR)/at-spi.get: $(AT-SPI_SOURCE)
+$(STATEDIR)/at-spi.get: $(at-spi_get_deps_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
