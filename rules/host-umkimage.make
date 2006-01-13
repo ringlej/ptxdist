@@ -31,7 +31,7 @@ HOST_UMKIMAGE_DIR	= $(HOST_BUILDDIR)/$(HOST_UMKIMAGE)
 
 host-umkimage_get: $(STATEDIR)/host-umkimage.get
 
-$(STATEDIR)/host-umkimage.get: $(HOST_UMKIMAGE_SOURCE)
+$(STATEDIR)/host-umkimage.get: $(host-umkimage_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(HOST_UMKIMAGE_SOURCE):
 
 host-umkimage_extract: $(STATEDIR)/host-umkimage.extract
 
-$(STATEDIR)/host-umkimage.extract: $(host-umkimage_extract_deps)
+$(STATEDIR)/host-umkimage.extract: $(host-umkimage_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_UMKIMAGE_DIR))
 	@$(call extract, $(HOST_UMKIMAGE_SOURCE), $(HOST_BUILDDIR))
@@ -81,7 +81,7 @@ $(STATEDIR)/host-umkimage.compile: $(host-umkimage_compile_deps_default)
 
 host-umkimage_install: $(STATEDIR)/host-umkimage.install
 
-$(STATEDIR)/host-umkimage.install: $(STATEDIR)/host-umkimage.compile
+$(STATEDIR)/host-umkimage.install: $(host-umkimage_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	mkdir -p $(PTXCONF_PREFIX)/usr/bin
