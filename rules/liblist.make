@@ -32,7 +32,7 @@ LIBLIST_DIR		= $(BUILDDIR)/$(LIBLIST)
 
 liblist_get: $(STATEDIR)/liblist.get
 
-$(STATEDIR)/liblist.get: $(LIBLIST_SOURCE)
+$(STATEDIR)/liblist.get: $(liblist_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBLIST))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(LIBLIST_SOURCE):
 
 liblist_extract: $(STATEDIR)/liblist.extract
 
-$(STATEDIR)/liblist.extract: $(liblist_extract_deps)
+$(STATEDIR)/liblist.extract: $(liblist_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBLIST_DIR))
 	@$(call extract, $(LIBLIST_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/liblist.compile: $(liblist_compile_deps_default)
 
 liblist_install: $(STATEDIR)/liblist.install
 
-$(STATEDIR)/liblist.install: $(STATEDIR)/liblist.compile
+$(STATEDIR)/liblist.install: $(liblist_install_deps_default)
 	@$(call targetinfo, $@)
 	$(call install, LIBLIST)
 	@$(call touch, $@)
