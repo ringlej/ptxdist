@@ -31,7 +31,7 @@ GMP3_DIR 	= $(BUILDDIR)/$(GMP3)
 
 gmp3_get: $(STATEDIR)/gmp3.get
 
-$(STATEDIR)/gmp3.get: $(GMP3_SOURCE)
+$(STATEDIR)/gmp3.get: $(gmp3_get_deps_default))
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(GMP3_SOURCE):
 
 gmp3_extract: $(STATEDIR)/gmp3.extract
 
-$(STATEDIR)/gmp3.extract: $(STATEDIR)/gmp3.get
+$(STATEDIR)/gmp3.extract: $(gmp3_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GMP3_DIR))
 	@$(call extract, $(GMP3_SOURCE))
@@ -77,7 +77,7 @@ $(STATEDIR)/gmp3.prepare: $(gmp3_prepare_deps_default)
 
 gmp3_compile: $(STATEDIR)/gmp3.compile
 
-$(STATEDIR)/gmp3.compile: $(STATEDIR)/gmp3.prepare 
+$(STATEDIR)/gmp3.compile: $(gmp3_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(GMP3_PATH) make -C $(GMP3_DIR)
 	@$(call touch, $@)
@@ -88,7 +88,7 @@ $(STATEDIR)/gmp3.compile: $(STATEDIR)/gmp3.prepare
 
 gmp3_install: $(STATEDIR)/gmp3.install
 
-$(STATEDIR)/gmp3.install: $(STATEDIR)/gmp3.compile
+$(STATEDIR)/gmp3.install: $(gmp3_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GMP3)
 	@$(call touch, $@)
@@ -99,7 +99,7 @@ $(STATEDIR)/gmp3.install: $(STATEDIR)/gmp3.compile
 
 gmp3_targetinstall: $(STATEDIR)/gmp3.targetinstall
 
-$(STATEDIR)/gmp3.targetinstall: $(STATEDIR)/gmp3.install
+$(STATEDIR)/gmp3.targetinstall: $(gmp3_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
