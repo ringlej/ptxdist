@@ -1,7 +1,16 @@
 menuconfig JVISU
 	bool
 	prompt "JVisu                       "
-
+	help
+	  JVISU - A java applet based visualisation suite
+ 
+ 	  JVisu Highlights:
+	  Graphical Interface Builder for easy contruction of interfaces
+	  Clear Separation between HMI frontend and PLC backend
+	  Java applet runs in every JDK-1.4.x enabled web browser
+	  High performance due to optimized communication channels
+	  Easily adaptable to field devices with well known protocols
+	
 config JVISU_APPLET
 	bool
 	depends on JVISU

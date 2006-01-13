@@ -31,7 +31,7 @@ JVISU_DIR	= $(BUILDDIR)/$(JVISU)
 
 jvisu_get: $(STATEDIR)/jvisu.get
 
-$(STATEDIR)/jvisu.get: $(JVISU_SOURCE)
+$(STATEDIR)/jvisu.get: $(jvisu_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(JVISU))
 	@$(call touch, $@)
@@ -46,7 +46,7 @@ $(JVISU_SOURCE):
 
 jvisu_extract: $(STATEDIR)/jvisu.extract
 
-$(STATEDIR)/jvisu.extract: $(jvisu_extract_deps)
+$(STATEDIR)/jvisu.extract: $(jvisu_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JVISU_DIR))
 	@$(call extract, $(JVISU_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/jvisu.compile: $(jvisu_compile_deps_default)
 
 jvisu_install: $(STATEDIR)/jvisu.install
 
-$(STATEDIR)/jvisu.install: $(STATEDIR)/jvisu.compile
+$(STATEDIR)/jvisu.install: $(jvisu_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, JVISU)
 	@$(call touch, $@)
