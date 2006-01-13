@@ -32,7 +32,7 @@ FLEX_DIR	= $(BUILDDIR)/$(FLEX)
 
 flex_get: $(STATEDIR)/flex.get
 
-$(STATEDIR)/flex.get: $(FLEX_SOURCE)
+$(STATEDIR)/flex.get: $(flex_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(FLEX))
 	@$(call touch, $@)
