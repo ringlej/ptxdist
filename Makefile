@@ -563,16 +563,16 @@ configdeps_deps := $(wildcard $(RULESDIR)/*.in)
 ifndef ($(PROJECTRULESDIR),)
 configdeps_deps += $(wildcard $(PROJECTRULESDIR)/*.in)
 endif
-configdeps: $(RULESDIR)/configdeps
+configdeps: $(STATEDIR)/configdeps
 
-$(RULESDIR)/configdeps: $(STATEDIR)/host-kconfig.install $(configdeps_deps)
+$(STATEDIR)/configdeps: $(STATEDIR)/host-kconfig.install $(configdeps_deps)
 	@$(call check_problematic_configs)
 	@$(call findout_config)
 	@$(call targetinfo,generating dependencies from kconfig)
 	@mkdir -p $(IMAGEDIR)
 	@cd $(PTXDIST_WORKSPACE) && \
 		yes "" | $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
-			2> /dev/null > $(RULESDIR)/configdeps
+			2> /dev/null > $(STATEDIR)/configdeps
 	@echo
 
 setup: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
@@ -893,7 +893,7 @@ print-%:
 # Autogenerate Dependencies
 # ----------------------------------------------------------------------------
 
-%.dep: $(RULESDIR)/configdeps
+%.dep: $(STATEDIR)/configdeps
 	@$(PTXDIST_TOPDIR)/scripts/create_dependencies.sh \
 		--action defaults \
 		--rulesdir $(RULESDIR) \

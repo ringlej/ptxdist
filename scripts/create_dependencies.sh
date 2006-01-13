@@ -171,7 +171,7 @@ deps_extract(){
 
 deps_prepare(){
 	#
-	# 1) search $(RULESDIR)/configdeps for packet labels of dependees^
+	# 1) search $(STATEDIR)/configdeps for packet labels of dependees^
 	# 2) find out packet name corresponding to these labels
 	# 3) prepare deps are:
 	#       $(STATEDIR)/thispacket.extract
@@ -182,10 +182,10 @@ deps_prepare(){
 	#
 	# identify dependencies
 	#
-	if [ -e "$RULESDIR/configdeps" ]; then
+	if [ -e "$STATEDIR/configdeps" ]; then
 	 	debug_out "found dependency tree"
 		echo -n "${TARGET}_prepare_deps_default := \$(STATEDIR)/${TARGET}.extract" 
-		for dependency in $(grep "^DEP:$LABEL:" $RULESDIR/configdeps | sed -e s/^DEP:$LABEL://g -e "s/:/\ /g"); do 
+		for dependency in $(grep "^DEP:$LABEL:" $STATEDIR/configdeps | sed -e s/^DEP:$LABEL://g -e "s/:/\ /g"); do 
 			targetname=$(grep -s "^PACKAGES-\$(PTXCONF_$(echo $dependency))" $rulesfiles | sed s/.*+=[\ ]//g)
 			if [ -z "$targetname" ]; then
 				debug_out "Package not identified for $dependency"
@@ -226,10 +226,10 @@ deps_targetinstall(){
     #
     # identify dependencies
     #
-    if [ -e "$RULESDIR/configdeps" ]; then
+    if [ -e "$STATEDIR/configdeps" ]; then
         debug_out "found dependency tree"
 	echo -n "${TARGET}_targetinstall_deps_default := " 
-        for dependency in $(grep "^DEP:$LABEL:" $RULESDIR/configdeps | sed -e s/^DEP:$LABEL://g -e "s/:/\ /g"); do
+        for dependency in $(grep "^DEP:$LABEL:" $STATEDIR/configdeps | sed -e s/^DEP:$LABEL://g -e "s/:/\ /g"); do
             targetname=$(grep -s -h "^PACKAGES-\$(PTXCONF_$(echo $dependency))" $rulesfiles | sed s/.*+=[\ ]//g)
             if [ -z "$targetname" ]; then
 		debug_out "Package not identified for $dependency"
