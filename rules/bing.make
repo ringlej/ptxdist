@@ -32,7 +32,7 @@ BING_DIR		= $(BUILDDIR)/$(BING)
 
 bing_get: $(STATEDIR)/bing.get
 
-$(STATEDIR)/bing.get: $(BING_SOURCE)
+$(STATEDIR)/bing.get: $(bing_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(BING))
 	@$(call touch, $@)
