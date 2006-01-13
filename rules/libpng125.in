@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config LIBPNG125
+        bool
+        default N
+        depends on BROKEN
+        prompt "LIBPNG125"
+	help
+	  FIXME: This item needs to be documented
+	
+
+comment "LIBPNG125 is broken, please send a patch"
+        depends on !BROKEN

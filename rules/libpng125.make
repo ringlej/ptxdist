@@ -33,7 +33,7 @@ LIBPNG125_DIR		= $(BUILDDIR)/$(LIBPNG125)
 
 libpng125_get: $(STATEDIR)/libpng125.get
 
-$(STATEDIR)/libpng125.get: $(LIBPNG125_SOURCE)
+$(STATEDIR)/libpng125.get: $(libpng125_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,7 +47,7 @@ $(LIBPNG125_SOURCE):
 
 libpng125_extract: $(STATEDIR)/libpng125.extract
 
-$(STATEDIR)/libpng125.extract: $(libpng125_extract_deps)
+$(STATEDIR)/libpng125.extract: $(libpng125_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPNG125_DIR))
 	@$(call extract, $(LIBPNG125_SOURCE))
@@ -96,7 +96,7 @@ $(STATEDIR)/libpng125.compile: $(libpng125_compile_deps_default)
 
 libpng125_install: $(STATEDIR)/libpng125.install
 
-$(STATEDIR)/libpng125.install: $(STATEDIR)/libpng125.compile
+$(STATEDIR)/libpng125.install: $(libpng125_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBPNG125)
 # and now the ugly part
