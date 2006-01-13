@@ -30,7 +30,7 @@ HOST_PKG_CONFIG_WRAPPER_DIR	= $(HOST_BUILDDIR)/$(HOST_PKG_CONFIG_WRAPPER)
 
 host-pkg-config-wrapper_get: $(STATEDIR)/host-pkg-config-wrapper.get
 
-$(STATEDIR)/host-pkg-config-wrapper.get:
+$(STATEDIR)/host-pkg-config-wrapper.get: $(host-pkg-config-wrapper_get_deps_default)
 	@$(call targetinfo,$@,n)
 	@$(call touch, $@)
 
@@ -40,7 +40,7 @@ $(STATEDIR)/host-pkg-config-wrapper.get:
 
 host-pkg-config-wrapper_extract: $(STATEDIR)/host-pkg-config-wrapper.extract
 
-$(STATEDIR)/host-pkg-config-wrapper.extract: $(STATEDIR)/host-pkg-config-wrapper.get
+$(STATEDIR)/host-pkg-config-wrapper.extract: $(host-pkg-config-wrapper_extract_deps_default)
 	@$(call targetinfo,$@,n)
 	@$(call touch, $@)
 
@@ -50,7 +50,7 @@ $(STATEDIR)/host-pkg-config-wrapper.extract: $(STATEDIR)/host-pkg-config-wrapper
 
 host-pkg-config-wrapper_prepare: $(STATEDIR)/host-pkg-config-wrapper.prepare
 
-$(STATEDIR)/host-pkg-config-wrapper.prepare: $(STATEDIR)/host-pkg-config-wrapper.extract
+$(STATEDIR)/host-pkg-config-wrapper.prepare: $(host-pkg-config-wrapper_prepare_deps_default)
 	@$(call targetinfo,$@,n)
 	@$(call touch, $@)
 
@@ -60,7 +60,7 @@ $(STATEDIR)/host-pkg-config-wrapper.prepare: $(STATEDIR)/host-pkg-config-wrapper
 
 host-pkg-config-wrapper_compile: $(STATEDIR)/host-pkg-config-wrapper.compile
 
-$(STATEDIR)/host-pkg-config-wrapper.compile: $(STATEDIR)/host-pkg-config-wrapper.prepare
+$(STATEDIR)/host-pkg-config-wrapper.compile: $(host-pkg-config-wrapper_compile_deps_default)
 	@$(call targetinfo,$@,n)
 	@$(call touch, $@)
 
@@ -70,12 +70,16 @@ $(STATEDIR)/host-pkg-config-wrapper.compile: $(STATEDIR)/host-pkg-config-wrapper
 
 host-pkg-config-wrapper_install: $(STATEDIR)/host-pkg-config-wrapper.install
 
-$(STATEDIR)/host-pkg-config-wrapper.install: $(STATEDIR)/host-pkg-config-wrapper.compile
+$(STATEDIR)/host-pkg-config-wrapper.install: $(host-pkg-config-wrapper_install_deps_default)
 	@$(call targetinfo,$@,n)
 	# fake a pkg-config
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	cp $(PTXDIST_TOPDIR)/scripts/pkg-config-wrapper $(PTXCONF_PREFIX)/bin/pkg-config
 	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# targetinstall
+# ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
 # Clean
