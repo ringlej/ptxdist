@@ -27,8 +27,6 @@ HOST_FLEX254_DIR	= $(HOST_BUILDDIR)/$(FLEX)
 
 host-flex254_get: $(STATEDIR)/host-flex254.get
 
-host-flex254_get_deps = $(STATEDIR)/flex.get
-
 $(STATEDIR)/host-flex254.get: $(host-flex254_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -39,7 +37,7 @@ $(STATEDIR)/host-flex254.get: $(host-flex254_get_deps_default)
 
 host-flex254_extract: $(STATEDIR)/host-flex254.extract
 
-$(STATEDIR)/host-flex254.extract: $(host-flex254_extract_deps)
+$(STATEDIR)/host-flex254.extract: $(host-flex254_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_FLEX254_DIR))
 	@$(call extract, $(FLEX_SOURCE), $(HOST_BUILDDIR))
@@ -84,7 +82,7 @@ $(STATEDIR)/host-flex254.compile: $(host-flex254_compile_deps_default)
 
 host-flex254_install: $(STATEDIR)/host-flex254.install
 
-$(STATEDIR)/host-flex254.install: $(STATEDIR)/host-flex254.compile
+$(STATEDIR)/host-flex254.install: $(host-flex254_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HOST_FLEX254,,h)
 	@$(call touch, $@)
