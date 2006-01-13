@@ -34,7 +34,7 @@ HOST_E2TOOLS_DIR	= $(BUILDDIR)/$(E2TOOLS)
 
 host-e2tools_get: $(STATEDIR)/host-e2tools.get
 
-$(STATEDIR)/host-e2tools.get: $(HOST_E2TOOLS_SOURCE)
+$(STATEDIR)/host-e2tools.get: $(host-e2tools_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
