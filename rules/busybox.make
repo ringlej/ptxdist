@@ -32,7 +32,7 @@ BUSYBOX_DIR		= $(BUILDDIR)/$(BUSYBOX)
 
 busybox_get: $(STATEDIR)/busybox.get
 
-$(STATEDIR)/busybox.get: $(BUSYBOX_SOURCE)
+$(STATEDIR)/busybox.get: $(busybox_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
