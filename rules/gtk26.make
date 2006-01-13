@@ -33,7 +33,7 @@ GTK26_DIR	= $(BUILDDIR)/$(GTK26)
 
 gtk26_get: $(STATEDIR)/gtk26.get
 
-$(STATEDIR)/gtk26.get: $(GTK26_SOURCE)
+$(STATEDIR)/gtk26.get: $(gtk26_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,7 +47,7 @@ $(GTK26_SOURCE):
 
 gtk26_extract: $(STATEDIR)/gtk26.extract
 
-$(STATEDIR)/gtk26.extract: $(gtk26_extract_deps)
+$(STATEDIR)/gtk26.extract: $(gtk26_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK26_DIR))
 	@$(call extract, $(GTK26_SOURCE))
