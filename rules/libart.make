@@ -46,7 +46,7 @@ $(LIBART_SOURCE):
 
 libart_extract: $(STATEDIR)/libart.extract
 
-$(STATEDIR)/libart.extract: $(libart_extract_deps)
+$(STATEDIR)/libart.extract: $(libart_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBART_DIR))
 	@$(call extract, $(LIBART_SOURCE))
@@ -92,7 +92,7 @@ $(STATEDIR)/libart.compile: $(libart_compile_deps_default)
 
 libart_install: $(STATEDIR)/libart.install
 
-$(STATEDIR)/libart.install: $(STATEDIR)/libart.compile
+$(STATEDIR)/libart.install: $(libart_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBART)
 	@$(call touch, $@)

@@ -228,5 +228,6 @@ source "rules/host-zlib.in"
 source "rules/host-lxdialog.in"
 # ---
 source "rules/konq-e.in"
+source "rules/libart.in"
 endmenu
 

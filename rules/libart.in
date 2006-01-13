@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config LIBART
+        bool
+        default N
+        depends on BROKEN
+        prompt "LIBART"
+	help
+	  FIXME: This item needs to be documented
+	
+
+comment "LIBART is broken, please send a patch"
+        depends on !BROKEN
