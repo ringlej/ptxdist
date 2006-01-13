@@ -32,7 +32,7 @@ GTK2-ENGINES_DIR	= $(BUILDDIR)/$(GTK2-ENGINES)
 
 gtk2-engines_get: $(STATEDIR)/gtk2-engines.get
 
-$(STATEDIR)/gtk2-engines.get: $(GTK2-ENGINES_SOURCE)
+$(STATEDIR)/gtk2-engines.get: $(gtk2-engines_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(GTK2-ENGINES_SOURCE):
 
 gtk2-engines_extract: $(STATEDIR)/gtk2-engines.extract
 
-$(STATEDIR)/gtk2-engines.extract: $(gtk2-engines_extract_deps)
+$(STATEDIR)/gtk2-engines.extract: $(gtk2-engines_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK2-ENGINES_DIR))
 	@$(call extract, $(GTK2-ENGINES_SOURCE))
@@ -91,7 +91,7 @@ $(STATEDIR)/gtk2-engines.compile: $(gtk2-engines_compile_deps_default)
 
 gtk2-engines_install: $(STATEDIR)/gtk2-engines.install
 
-$(STATEDIR)/gtk2-engines.install: $(STATEDIR)/gtk2-engines.compile
+$(STATEDIR)/gtk2-engines.install: $(gtk2-engines_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GTK2-ENGINES)
 	@$(call touch, $@)
