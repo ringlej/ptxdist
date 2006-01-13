@@ -22,9 +22,7 @@ PACKAGES-$(PTXCONF_GCCLIBS_GCC_S) += gcclibs
 # Get
 # ----------------------------------------------------------------------------
 
-gcclibs_get: $(STATEDIR)/gcclibs.get
-
-$(STATEDIR)/gcclibs.get:
+$(STATEDIR)/gcclibs.get: $(gcclibs_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -34,9 +32,7 @@ $(STATEDIR)/gcclibs.get:
 
 gcclibs_extract: $(STATEDIR)/gcclibs.extract
 
-gcclibs_extract_deps = $(STATEDIR)/gcclibs.get
-
-$(STATEDIR)/gcclibs.extract: $(gcclibs_extract_deps)
+$(STATEDIR)/gcclibs.extract: $(gcclibs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

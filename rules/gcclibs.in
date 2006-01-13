@@ -11,14 +11,20 @@ config GCCLIBS_CXX
 	select GCCLIBS_GCC_S_NOF if ARCH_PPC
 	select GLIBC_LIBM
 	default n
+	help
+	  FIXME: This item needs to be documented
 
 config GCCLIBS_GCC_S
 	bool "libgcc_s"
 	default n
+	help
+	  FIXME: This item needs to be documented
 
 config GCCLIBS_GCC_S_NOF
 	bool "libgcc_s_nof"
 	default n
 	depends on ARCH_PPC
+	help
+	  FIXME: This item needs to be documented
 
 endmenu
