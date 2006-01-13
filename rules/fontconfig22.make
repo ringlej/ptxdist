@@ -16,14 +16,13 @@
 PACKAGES-$(PTXCONF_FONTCONFIG22) += fontconfig22
 
 
-# http://pdx.freedesktop.org/~fontconfig/release/fontconfig-2.2.92.tar.gz
 #
 # Paths and names
 #
-FONTCONFIG22_VERSION		= 2.2.95
+FONTCONFIG22_VERSION		= 2.2.99
 FONTCONFIG22			= fontconfig-$(FONTCONFIG22_VERSION)
 FONTCONFIG22_SUFFIX		= tar.gz
-FONTCONFIG22_URL		= http://pdx.freedesktop.org/~fontconfig/release/$(FONTCONFIG22).$(FONTCONFIG22_SUFFIX)
+FONTCONFIG22_URL		= http://fontconfig.org/release/$(FONTCONFIG22).$(FONTCONFIG22_SUFFIX)
 FONTCONFIG22_SOURCE		= $(SRCDIR)/$(FONTCONFIG22).$(FONTCONFIG22_SUFFIX)
 FONTCONFIG22_DIR		= $(BUILDDIR)/$(FONTCONFIG22)
 
