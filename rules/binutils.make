@@ -29,7 +29,7 @@ BINUTILS_BUILDDIR	= $(BINUTILS_DIR)-build
 
 binutils_get: $(STATEDIR)/binutils.get
 
-$(STATEDIR)/binutils.get: $(BINUTILS_SOURCE)
+$(STATEDIR)/binutils.get: $(binutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
