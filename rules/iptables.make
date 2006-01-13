@@ -32,7 +32,7 @@ IPTABLES_DIR		= $(BUILDDIR)/$(IPTABLES)
 
 iptables_get: $(STATEDIR)/iptables.get
 
-$(STATEDIR)/iptables.get: $(IPTABLES_SOURCE)
+$(STATEDIR)/iptables.get: $(iptables_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(IPTABLES))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(IPTABLES_SOURCE):
 
 iptables_extract: $(STATEDIR)/iptables.extract
 
-$(STATEDIR)/iptables.extract: $(iptables_extract_deps)
+$(STATEDIR)/iptables.extract: $(iptables_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPTABLES_DIR))
 	@$(call extract, $(IPTABLES_SOURCE))
@@ -86,7 +86,7 @@ $(STATEDIR)/iptables.compile: $(iptables_compile_deps_default)
 
 iptables_install: $(STATEDIR)/iptables.install
 
-$(STATEDIR)/iptables.install: $(STATEDIR)/iptables.compile
+$(STATEDIR)/iptables.install: $(iptables_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, IPTABLES)
 	@$(call touch, $@)
