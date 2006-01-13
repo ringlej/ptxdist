@@ -46,7 +46,7 @@ $(LIBXML2_SOURCE):
 
 libxml2_extract: $(STATEDIR)/libxml2.extract
 
-$(STATEDIR)/libxml2.extract: $(libxml2_extract_deps)
+$(STATEDIR)/libxml2.extract: $(libxml2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXML2_DIR))
 	@$(call extract, $(LIBXML2_SOURCE))
