@@ -33,7 +33,7 @@ DROPBEAR_DIR			= $(BUILDDIR)/$(DROPBEAR)
 
 dropbear_get: $(STATEDIR)/dropbear.get
 
-$(STATEDIR)/dropbear.get: $(DROPBEAR_SOURCE)
+$(STATEDIR)/dropbear.get: $(dropbear_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
