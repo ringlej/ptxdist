@@ -32,7 +32,7 @@ LIBGLADE_DIR		= $(BUILDDIR)/$(LIBGLADE)
 
 libglade_get: $(STATEDIR)/libglade.get
 
-$(STATEDIR)/libglade.get: $(LIBGLADE_SOURCE)
+$(STATEDIR)/libglade.get: $(libglade_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(LIBGLADE_SOURCE):
 
 libglade_extract: $(STATEDIR)/libglade.extract
 
-$(STATEDIR)/libglade.extract: $(libglade_extract_deps)
+$(STATEDIR)/libglade.extract: $(libglade_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGLADE_DIR))
 	@$(call extract, $(LIBGLADE_SOURCE))
@@ -92,7 +92,7 @@ $(STATEDIR)/libglade.compile: $(libglade_compile_deps_default)
 
 libglade_install: $(STATEDIR)/libglade.install
 
-$(STATEDIR)/libglade.install: $(STATEDIR)/libglade.compile
+$(STATEDIR)/libglade.install: $(libglade_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: this is not a hosttool -> targetinstall? 
 	@$(call install, LIBGLADE)

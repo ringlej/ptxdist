@@ -231,5 +231,6 @@ source "rules/host-lxdialog.in"
 source "rules/konq-e.in"
 source "rules/libart.in"
 source "rules/libgd.in"
+source "rules/libglade.in"
 endmenu
 

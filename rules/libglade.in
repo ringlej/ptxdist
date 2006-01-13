@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config LIBGLADE
+        bool
+        default N
+        depends on BROKEN
+        prompt "LIBGLADE"
+	help
+	  FIXME: This item needs to be documented
+	
+
+comment "LIBGLADE is broken, please send a patch"
+        depends on !BROKEN
