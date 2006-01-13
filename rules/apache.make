@@ -33,7 +33,7 @@ APACHE_DIR		= $(BUILDDIR)/$(APACHE)
 
 apache_get: $(STATEDIR)/apache.get
 
-$(STATEDIR)/apache.get: $(APACHE_SOURCE)
+$(STATEDIR)/apache.get: $(apache_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(APACHE))
 	@$(call touch, $@)
