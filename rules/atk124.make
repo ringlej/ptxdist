@@ -34,7 +34,7 @@ ATK_LIB_VERSION	= 501.3
 
 atk_get: $(STATEDIR)/atk.get
 
-$(STATEDIR)/atk.get: $(ATK_SOURCE)
+$(STATEDIR)/atk.get: $(atk_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
