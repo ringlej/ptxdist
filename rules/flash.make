@@ -38,7 +38,7 @@ FLASH_PATCH_EXTRACT	= cat
 
 flash_get: $(STATEDIR)/flash.get
 
-$(STATEDIR)/flash.get: $(FLASH_SOURCE)
+$(STATEDIR)/flash.get: $(flash_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -97,7 +97,7 @@ $(STATEDIR)/flash.prepare: $(flash_prepare_deps_default)
 
 flash_compile: $(STATEDIR)/flash.compile
 
-$(STATEDIR)/flash.compile: $(flash_prepare_deps_default)
+$(STATEDIR)/flash.compile: $(flash_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(FLASH_PATH) $(FLASH_ENV) make -C $(FLASH_DIR)
 	@$(call touch, $@)
