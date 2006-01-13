@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config GDBSERVER
+        bool
+        default N
+        depends on BROKEN
+        prompt "GDBSERVER"
+	help
+	  FIXME: This item needs to be documented
+	
+
+comment "GDBSERVER is broken, please send a patch"
+        depends on !BROKEN

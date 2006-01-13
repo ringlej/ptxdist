@@ -25,7 +25,7 @@ GDBSERVER_BUILDDIR	= $(BUILDDIR)/$(GDB)-server-build
 
 gdbserver_get: $(STATEDIR)/gdbserver.get
 
-$(STATEDIR)/gdbserver.get:
+$(STATEDIR)/gdbserver.get: $(gdbserver_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -74,7 +74,7 @@ $(STATEDIR)/gdbserver.prepare: $(gdbserver_prepare_deps_default)
 
 gdbserver_compile: $(STATEDIR)/gdbserver.compile
 
-$(STATEDIR)/gdbserver.compile: $(gdbserver_prepare_deps_default)
+$(STATEDIR)/gdbserver.compile: $(gdbserver_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(GDBSERVER_PATH) make -C $(GDBSERVER_BUILDDIR)
 	@$(call touch, $@)
@@ -85,7 +85,7 @@ $(STATEDIR)/gdbserver.compile: $(gdbserver_prepare_deps_default)
 
 gdbserver_install: $(STATEDIR)/gdbserver.install
 
-$(STATEDIR)/gdbserver.install:
+$(STATEDIR)/gdbserver.install: $(gdbserver_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
