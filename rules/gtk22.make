@@ -33,7 +33,7 @@ GTK22_DIR		= $(BUILDDIR)/$(GTK22)
 
 gtk22_get: $(STATEDIR)/gtk22.get
 
-$(STATEDIR)/gtk22.get: $(GTK22_SOURCE)
+$(STATEDIR)/gtk22.get: $(gtk22_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,7 +47,7 @@ $(GTK22_SOURCE):
 
 gtk22_extract: $(STATEDIR)/gtk22.extract
 
-$(STATEDIR)/gtk22.extract: $(gtk22_extract_deps)
+$(STATEDIR)/gtk22.extract: $(gtk22_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK22_DIR))
 	@$(call extract, $(GTK22_SOURCE))
