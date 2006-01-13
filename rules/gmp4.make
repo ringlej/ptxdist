@@ -31,7 +31,7 @@ GMP4_DIR 	= $(BUILDDIR)/$(GMP4)
 
 gmp4_get: $(STATEDIR)/gmp4.get
 
-$(STATEDIR)/gmp4.get: $(GMP4_SOURCE)
+$(STATEDIR)/gmp4.get: $(gmp4_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(GMP4_SOURCE):
 
 gmp4_extract: $(STATEDIR)/gmp4.extract
 
-$(STATEDIR)/gmp4.extract: $(STATEDIR)/gmp4.get
+$(STATEDIR)/gmp4.extract: $(gmp4_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GMP4_DIR))
 	@$(call extract, $(GMP4_SOURCE))
@@ -77,7 +77,7 @@ $(STATEDIR)/gmp4.prepare: $(gmp4_prepare_deps_default)
 
 gmp4_compile: $(STATEDIR)/gmp4.compile
 
-$(STATEDIR)/gmp4.compile: $(STATEDIR)/gmp4.prepare 
+$(STATEDIR)/gmp4.compile: $(gmp4_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(GMP4_DIR) && $(GMP4_PATH) make
 	@$(call touch, $@)
@@ -88,7 +88,7 @@ $(STATEDIR)/gmp4.compile: $(STATEDIR)/gmp4.prepare
 
 gmp4_install: $(STATEDIR)/gmp4.install
 
-$(STATEDIR)/gmp4.install: $(STATEDIR)/gmp4.compile
+$(STATEDIR)/gmp4.install: $(gmp4_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GMP4)
 	@$(call touch, $@)
@@ -99,7 +99,7 @@ $(STATEDIR)/gmp4.install: $(STATEDIR)/gmp4.compile
 
 gmp4_targetinstall: $(STATEDIR)/gmp4.targetinstall
 
-$(STATEDIR)/gmp4.targetinstall: $(STATEDIR)/gmp4.install
+$(STATEDIR)/gmp4.targetinstall: $(gmp4_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
