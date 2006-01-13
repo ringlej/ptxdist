@@ -32,7 +32,7 @@ INETUTILS_DIR		= $(BUILDDIR)/$(INETUTILS)
 
 inetutils_get: $(STATEDIR)/inetutils.get
 
-$(STATEDIR)/inetutils.get: $(INETUTILS_SOURCE)
+$(STATEDIR)/inetutils.get: $(inetutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(INETUTILS))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(INETUTILS_SOURCE):
 
 inetutils_extract: $(STATEDIR)/inetutils.extract
 
-$(STATEDIR)/inetutils.extract: $(inetutils_extract_deps)
+$(STATEDIR)/inetutils.extract: $(inetutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(INETUTILS_DIR))
 	@$(call extract, $(INETUTILS_SOURCE))
@@ -118,7 +118,7 @@ endif
 
 inetutils_install: $(STATEDIR)/inetutils.install
 
-$(STATEDIR)/inetutils.install:
+$(STATEDIR)/inetutils.install: $(inetutils_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

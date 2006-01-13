@@ -3,35 +3,47 @@ menu	"inetutils           "
 config INETUTILS
 	bool
 	prompt "inetutils"
+	help
+	  FIXME: This item needs to be documented
 
 config INETUTILS_PING
 	bool
 	prompt "ping"
 	default n
 	depends on INETUTILS
+	help
+	  FIXME: This item needs to be documented
 
 config INETUTILS_RCP
 	bool
 	prompt "rcp"
 	default y
 	depends on INETUTILS
+	help
+	  FIXME: This item needs to be documented
 
 config INETUTILS_RLOGIND
 	bool
 	prompt "rlogind"
 	default y
 	depends on INETUTILS
+	help
+	  FIXME: This item needs to be documented
 
 config INETUTILS_RSHD
 	bool
 	prompt "rshd"
 	default y
 	depends on INETUTILS
+	help
+	  FIXME: This item needs to be documented
 
 config INETUTILS_SYSLOGD
 	bool
 	prompt "syslogd"
 	default N
 	depends on INETUTILS
+	help
+	  FIXME: This item needs to be documented
 
 endmenu
