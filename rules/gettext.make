@@ -35,7 +35,7 @@ GETTEXT_INST_DIR	= $(BUILDDIR)/$(GETTEXT)-install
 
 gettext_get: $(STATEDIR)/gettext.get
 
-$(STATEDIR)/gettext.get: $(GETTEXT_SOURCE)
+$(STATEDIR)/gettext.get: $(gettext_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
