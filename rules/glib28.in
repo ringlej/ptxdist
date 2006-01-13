@@ -1,4 +1,6 @@
 config GLIB28
 	bool
 	prompt "glib-2.8"
+	help
+	  FIXME: This item needs to be documented
 

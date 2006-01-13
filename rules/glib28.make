@@ -33,7 +33,7 @@ GLIB28_DIR		= $(BUILDDIR)/$(GLIB28)
 
 glib28_get: $(STATEDIR)/glib28.get
 
-$(STATEDIR)/glib28.get: $(GLIB28_SOURCE)
+$(STATEDIR)/glib28.get: $(glib28_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -105,7 +105,7 @@ $(STATEDIR)/glib28.compile: $(glib28_compile_deps_default)
 
 glib28_install: $(STATEDIR)/glib28.install
 
-$(STATEDIR)/glib28.install: $(STATEDIR)/glib28.compile
+$(STATEDIR)/glib28.install: $(glib28_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, GLIB28)
 	@$(call touch, $@)
@@ -115,8 +115,6 @@ $(STATEDIR)/glib28.install: $(STATEDIR)/glib28.compile
 # ----------------------------------------------------------------------------
 
 glib28_targetinstall: $(STATEDIR)/glib28.targetinstall
-
-glib28_targetinstall_deps	=  $(STATEDIR)/glib28.compile
 
 $(STATEDIR)/glib28.targetinstall: $(glib28_targetinstall_deps_default)
 	@$(call targetinfo, $@)
