@@ -33,7 +33,7 @@ FREETYPE_DIR		= $(BUILDDIR)/$(FREETYPE)
 
 freetype_get: $(STATEDIR)/freetype.get
 
-$(STATEDIR)/freetype.get: $(FREETYPE_SOURCE)
+$(STATEDIR)/freetype.get: $(freetype_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
