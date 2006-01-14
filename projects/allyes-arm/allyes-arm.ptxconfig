@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.9-svn
-# Tue Jan  3 11:29:49 2006
+# PTXdist version: 0.9.0-svn
+# Sat Jan 14 12:50:30 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -9,10 +9,14 @@ PTXCONF_PTXCONF=y
 #
 # ----------------------------------
 #
-PTXCONF_PROJECT="allyes-arm"
-PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
 PTXCONF_BUILD_USERLAND=y
 # PTXCONF_BUILD_TOOLCHAIN is not set
+
+#
+# Project Name & Version      
+#
+PTXCONF_PROJECT="allyes-arm"
+PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
 
 #
 # ----------------------------------
@@ -143,6 +147,10 @@ PTXCONF_HOST_MKNBI=y
 # Other Host Tools
 #
 PTXCONF_HOST_FLEX254=y
+
+#
+# HOST_FLEX254 is broken, please send a patch
+#
 PTXCONF_HOST_QTE=y
 PTXCONF_HOST_SLIRP=y
 
@@ -164,7 +172,7 @@ PTXCONF_GDB_THREAD_DEBUG=y
 #
 
 #
-# libbfd is broken, please send a patch
+# libbfd (binutils) is broken, please send a patch
 #
 PTXCONF_MEMTEST=y
 PTXCONF_MEMTESTER=y
@@ -308,8 +316,6 @@ PTXCONF_ROOTFS_ETC_INITD_RCS=y
 #
 # ----------------------------------
 #
-# PTXCONF_USE_EXTERNAL_KERNEL is not set
-PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/allyes-arm.kernelconfig"
 PTXCONF_KERNEL_2_6=y
 PTXCONF_KERNEL_2_6_COMPILE=y
 # PTXCONF_KERNEL_2_6_15 is not set
@@ -332,11 +338,17 @@ PTXCONF_KERNEL_2_6_11=y
 # PTXCONF_KERNEL_2_4_21 is not set
 # PTXCONF_KERNEL_2_4_20 is not set
 # PTXCONF_KERNEL_2_4_19 is not set
-# PTXCONF_DONT_COMPILE_KERNEL is not set
+PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/allyes-arm.kernelconfig"
+PTXCONF_COMPILE_KERNEL=y
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
 PTXCONF_KERNEL_IMAGE_U=y
 # PTXCONF_KERNEL_IMAGE_VMLINUX is not set
+
+#
+# Additional Kernel Options
+#
+# PTXCONF_USE_EXTERNAL_KERNEL is not set
 PTXCONF_KERNEL_INSTALL=y
 PTXCONF_KERNEL_INSTALL_MODULES=y
 
@@ -358,8 +370,6 @@ PTXCONF_KERNEL_PATCH1_NAME=""
 # ----------------------------------
 #
 # PTXCONF_KERNEL_HOST is not set
-# PTXCONF_KERNEL_HOST_ROOT_HOSTFS is not set
-PTXCONF_KERNEL_HOST_CMDLINE=""
 
 #
 # 
@@ -379,6 +389,7 @@ PTXCONF_GLIBC=y
 #
 # C Library options
 #
+# PTXCONF_GLIBC_2_3_6 is not set
 PTXCONF_GLIBC_2_3_5=y
 # PTXCONF_GLIBC_2_3_4 is not set
 # PTXCONF_GLIBC_2_3_3 is not set
@@ -510,14 +521,6 @@ PTXCONF_BASH_STATIC=y
 #
 # PTXCONF_BUSYBOX is not set
 PTXCONF_BB_HAVE_DOT_CONFIG=y
-
-#
-# Config Shell        
-#
-
-#
-# cfgsh is broken, please send a patch
-#
 PTXCONF_COREUTILS=y
 PTXCONF_COREUTILS_CP=y
 PTXCONF_COREUTILS_DD=y
@@ -1145,12 +1148,11 @@ PTXCONF_SMTPCLIENT=y
 #
 # Applications                
 #
-PTXCONF_FLASH=y
-PTXCONF_GNUPG=y
 
 #
-# kaffe is broken, please send a patch
+# FLASH is broken, please send a patch
 #
+PTXCONF_GNUPG=y
 PTXCONF_MAD=y
 PTXCONF_SETMIXER=y
 PTXCONF_RAWREC=y
@@ -1191,14 +1193,13 @@ PTXCONF_DB_INSTALL_BIN_UTIL=y
 PTXCONF_EXPAT=y
 PTXCONF_GETTEXT=y
 PTXCONF_GETTEXT_LIBINTL=y
+# PTXCONF_GLIB12 is not set
 # PTXCONF_GLIB26 is not set
 PTXCONF_GLIB28=y
 PTXCONF_HRTIMERS_SUPPORT=y
 PTXCONF_LIBLIST=y
-
-#
-# libnetpbm is broken, please send a patch
-#
+# PTXCONF_LIBMQUEUE is not set
+# PTXCONF_LIBNETPBM is not set
 PTXCONF_LIBXML2=y
 PTXCONF_LIBXML2_C14N=y
 PTXCONF_LIBXML2_CATALOG=y
@@ -1276,13 +1277,6 @@ PTXCONF_ZLIB=y
 #
 # Middleware                  
 #
-PTXCONF_DOTGNU=y
-
-#
-# treecc is broken, please send a patch
-#
-# PTXCONF_PNET is not set
-# PTXCONF_PNETLIB is not set
 
 #
 # omniorb is broken, please send a patch
@@ -1295,14 +1289,20 @@ PTXCONF_DOTGNU=y
 #
 # X Infrastructure
 #
+# PTXCONF_LIBDRM is not set
+# PTXCONF_MESA is not set
 # PTXCONF_REALVNC is not set
-# PTXCONF_XFREE430 is not set
+
+#
+# XFREE430 is broken, please send a patch
+#
 # PTXCONF_XLIBS is not set
 # PTXCONF_XSERVER is not set
 
 #
 # X Applications
 #
+# PTXCONF_FLTK is not set
 PTXCONF_QTE=y
 PTXCONF_QTE_SHARED=y
 PTXCONF_QTE_TSLIB=y
@@ -1348,6 +1348,7 @@ PTXCONF_TSLIB_TS_TEST=y
 # PTXCONF_GNUPLOT is not set
 PTXCONF_LIBMODBUS=y
 PTXCONF_LIBPV=y
+# PTXCONF_LIBPV_EVENT is not set
 PTXCONF_LIBPV_PVTOOL=y
 
 #
