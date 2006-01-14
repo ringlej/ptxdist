@@ -63,8 +63,8 @@ diff -urN modutils-2.4.27/depmod/depmod.c modutils-2.4.27-orig/depmod/depmod.c
  
  		for (ksym = ksyms; so_far < nksyms; ++so_far, ksym++) {
  			if (strncmp((char *)ksym->name, "GPLONLY_", 8) == 0)
--				ksym->name = ((char *)ksym->name) + 8;
-+				((char *)ksym->name) += 8;
+-				((char *)ksym->name) += 8;
++				ksym->name = ((char *)ksym->name) + 8;
  			assert(n_syms < MAX_MAP_SYM);
  			symtab[n_syms++] = addsym((char *)ksym->name, mod, SYM_DEFINED, 0);
  		}
@@ -75,8 +75,8 @@ diff -urN modutils-2.4.27/genksyms/genksyms.c modutils-2.4.27-orig/genksyms/genk
  int flag_debug, flag_dump_defs, flag_warnings;
  int checksum_version = 1, kernel_version = version(2,0,0);
  
--int errors;
-+static int errors;
+-static int errors;
++int errors;
  static int nsyms;
  
  static struct symbol *expansion_trail;
