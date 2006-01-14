@@ -132,31 +132,31 @@ PTXCONF_BINUTILS_VERSION="2.15"
 #
 # Filesystem Manipulation Tools
 #
-# PTXCONF_HOSTTOOL_GENEXT2FS is not set
+# PTXCONF_HOST_GENEXT2FS is not set
 # PTXCONF_HOST_E2FSPROGS is not set
-# PTXCONF_HOSTTOOL_MTD is not set
+# PTXCONF_HOST_MTD is not set
 
 #
 # Packaging Tools
 #
-# PTXCONF_HOSTTOOL_FAKEROOT is not set
-# PTXCONF_HOSTTOOL_IPKG is not set
-# PTXCONF_HOSTTOOL_IPKG_UTILS is not set
+# PTXCONF_HOST_FAKEROOT is not set
+# PTXCONF_HOST_IPKG is not set
+# PTXCONF_HOST_IPKG_UTILS is not set
 
 #
 # Kernel Tools
 #
-# PTXCONF_HOSTTOOL_MODULE_INIT_TOOLS is not set
-# PTXCONF_HOSTTOOL_MODUTILS is not set
-# PTXCONF_HOSTTOOL_UMKIMAGE is not set
-# PTXCONF_HOSTTOOL_MKNBI is not set
+# PTXCONF_HOST_MODULE_INIT_TOOLS is not set
+# PTXCONF_HOST_MODUTILS is not set
+# PTXCONF_HOST_UMKIMAGE is not set
+# PTXCONF_HOST_MKNBI is not set
 
 #
 # Other Host Tools
 #
-PTXCONF_HOSTTOOL_FLEX254=y
-# PTXCONF_HOSTTOOL_QTE is not set
-# PTXCONF_HOSTTOOL_SLIRP is not set
+PTXCONF_HOST_FLEX254=y
+# PTXCONF_HOST_QTE is not set
+# PTXCONF_HOST_SLIRP is not set
 
 #
 # Debugging Tools             
