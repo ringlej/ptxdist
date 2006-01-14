@@ -1,13 +1,19 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.9-svn
-# Tue Dec 27 12:54:15 2005
+# PTXdist version: 0.9.0-svn
+# Sat Jan 14 13:15:26 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
 
 #
 # ----------------------------------
+#
+PTXCONF_BUILD_USERLAND=y
+# PTXCONF_BUILD_TOOLCHAIN is not set
+
+#
+# Project Name & Version      
 #
 PTXCONF_PROJECT="ssv_pnp2110_eva1"
 PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
@@ -25,6 +31,7 @@ PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
 #
 PTXCONF_EXPERIMENTAL=y
 PTXCONF_EXPERIMENTAL_MORE=y
+# PTXCONF_BROKEN is not set
 
 #
 # Target Architecture Options
@@ -100,27 +107,6 @@ PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
 PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 
 #
-# Cross Compilation Tools     
-#
-
-#
-# Crosstool
-#
-# PTXCONF_CROSSTOOL is not set
-
-#
-# Cross Debugging Tools
-#
-PTXCONF_XGDB=y
-# PTXCONF_GDB_WRAPPERS is not set
-
-#
-# Other Tools
-#
-# PTXCONF_XCHAIN-DISTCC is not set
-# PTXCONF_XCHAIN-SCONS is not set
-
-#
 # Host Side Tools             
 #
 
@@ -158,7 +144,10 @@ PTXCONF_HOST_MODULE_INIT_TOOLS=y
 #
 # Other Host Tools
 #
-# PTXCONF_HOST_FLEX254 is not set
+
+#
+# HOST_FLEX254 is broken, please send a patch
+#
 # PTXCONF_HOST_QTE is not set
 # PTXCONF_HOST_SLIRP is not set
 
@@ -174,11 +163,16 @@ PTXCONF_GDB_TERMCAP=y
 # PTXCONF_GDB_NCURSES is not set
 # PTXCONF_GDB_THREAD_DEBUG is not set
 # PTXCONF_KSYMOOPS is not set
-# PTXCONF_LTT is not set
-# PTXCONF_LIBBFD is not set
+
+#
+# LTT is broken, please send a patch
+#
+
+#
+# libbfd (binutils) is broken, please send a patch
+#
 # PTXCONF_MEMTEST is not set
 # PTXCONF_MEMTESTER is not set
-# PTXCONF_OPROFILE is not set
 PTXCONF_STRACE=y
 PTXCONF_STRACE_SHARED=y
 
@@ -320,34 +314,39 @@ PTXCONF_ROOTFS_ETC_VENDOR=""
 #
 # ----------------------------------
 #
-# PTXCONF_USE_EXTERNAL_KERNEL is not set
-PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/ssv_pnp2110_eva1.kernelconfig"
 PTXCONF_KERNEL_2_6=y
 PTXCONF_KERNEL_2_6_COMPILE=y
-# PTXCONF_KERNEL_2_4_19 is not set
-# PTXCONF_KERNEL_2_4_20 is not set
-# PTXCONF_KERNEL_2_4_21 is not set
-# PTXCONF_KERNEL_2_4_22 is not set
-# PTXCONF_KERNEL_2_4_23 is not set
-# PTXCONF_KERNEL_2_4_25 is not set
-# PTXCONF_KERNEL_2_4_26 is not set
-# PTXCONF_KERNEL_2_4_27 is not set
-# PTXCONF_KERNEL_2_6_0 is not set
-# PTXCONF_KERNEL_2_6_1 is not set
-# PTXCONF_KERNEL_2_6_6 is not set
-# PTXCONF_KERNEL_2_6_7 is not set
-# PTXCONF_KERNEL_2_6_8 is not set
-# PTXCONF_KERNEL_2_6_9 is not set
-PTXCONF_KERNEL_2_6_10=y
-# PTXCONF_KERNEL_2_6_11 is not set
-# PTXCONF_KERNEL_2_6_12 is not set
-# PTXCONF_KERNEL_2_6_13 is not set
+# PTXCONF_KERNEL_2_6_15 is not set
 # PTXCONF_KERNEL_2_6_14 is not set
+# PTXCONF_KERNEL_2_6_13 is not set
+# PTXCONF_KERNEL_2_6_12 is not set
+# PTXCONF_KERNEL_2_6_11 is not set
+PTXCONF_KERNEL_2_6_10=y
+# PTXCONF_KERNEL_2_6_9 is not set
+# PTXCONF_KERNEL_2_6_8 is not set
+# PTXCONF_KERNEL_2_6_7 is not set
+# PTXCONF_KERNEL_2_6_6 is not set
+# PTXCONF_KERNEL_2_6_1 is not set
+# PTXCONF_KERNEL_2_6_0 is not set
+# PTXCONF_KERNEL_2_4_27 is not set
+# PTXCONF_KERNEL_2_4_26 is not set
+# PTXCONF_KERNEL_2_4_25 is not set
+# PTXCONF_KERNEL_2_4_23 is not set
+# PTXCONF_KERNEL_2_4_22 is not set
+# PTXCONF_KERNEL_2_4_21 is not set
+# PTXCONF_KERNEL_2_4_20 is not set
+# PTXCONF_KERNEL_2_4_19 is not set
+PTXCONF_KERNEL_CONFIG="$(PROJECTDIR)/ssv_pnp2110_eva1.kernelconfig"
 PTXCONF_COMPILE_KERNEL=y
 # PTXCONF_KERNEL_IMAGE_BZ is not set
 # PTXCONF_KERNEL_IMAGE_Z is not set
 PTXCONF_KERNEL_IMAGE_U=y
 # PTXCONF_KERNEL_IMAGE_VMLINUX is not set
+
+#
+# Additional Kernel Options
+#
+# PTXCONF_USE_EXTERNAL_KERNEL is not set
 PTXCONF_KERNEL_INSTALL=y
 PTXCONF_KERNEL_INSTALL_MODULES=y
 
@@ -381,8 +380,6 @@ PTXCONF_KERNEL_PATCH3_NAME=""
 # ----------------------------------
 #
 # PTXCONF_KERNEL_HOST is not set
-# PTXCONF_KERNEL_HOST_ROOT_HOSTFS is not set
-PTXCONF_KERNEL_HOST_CMDLINE=""
 
 #
 # 
@@ -402,6 +399,7 @@ PTXCONF_GLIBC=y
 #
 # C Library options
 #
+# PTXCONF_GLIBC_2_3_6 is not set
 # PTXCONF_GLIBC_2_3_5 is not set
 # PTXCONF_GLIBC_2_3_4 is not set
 # PTXCONF_GLIBC_2_3_3 is not set
@@ -443,10 +441,6 @@ PTXCONF_GLIBC_NSL=y
 #
 # PTXCONF_GCCLIBS_CXX is not set
 PTXCONF_GCCLIBS_GCC_S=y
-
-#
-# Early Userspace     
-#
 
 #
 # ----------------------------------
@@ -911,11 +905,6 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # Debugging Options
 #
 # PTXCONF_BB_CONFIG_DEBUG is not set
-
-#
-# Config Shell        
-#
-# PTXCONF_CFGSH is not set
 PTXCONF_COREUTILS=y
 PTXCONF_COREUTILS_CP=y
 PTXCONF_COREUTILS_DD=y
@@ -955,9 +944,11 @@ PTXCONF_MTD_JFFS2_DUMP=y
 # PTXCONF_MTD_NFTLDUMP is not set
 # PTXCONF_MTD_MKJFFS is not set
 # PTXCONF_MTD_MKJFFS2 is not set
-# PTXCONF_PCMCIA_TOOLS is not set
 # PTXCONF_PCMCIAUTILS is not set
-# PTXCONF_PDKSH is not set
+
+#
+# pdksh is broken, please send a patch
+#
 # PTXCONF_PROCPS is not set
 # PTXCONF_SETSERIAL is not set
 PTXCONF_SYSFSUTILS=y
@@ -976,7 +967,10 @@ PTXCONF_UTLNX_FDISK=y
 # PTXCONF_UTLNX_UMOUNT is not set
 # PTXCONF_UTLNX_IPCS is not set
 # PTXCONF_UTLNX_READPROFILE is not set
-# PTXCONF_CLOCK is not set
+
+#
+# clock is broken, please send a patch
+#
 # PTXCONF_UDEV is not set
 # PTXCONF_XMLSTARLET is not set
 
@@ -988,6 +982,10 @@ PTXCONF_UTLNX_FDISK=y
 # Scripting Languages
 #
 # PTXCONF_PHP is not set
+
+#
+# php-apc is broken, please send a patch
+#
 # PTXCONF_PYTHON23 is not set
 # PTXCONF_PYTHON24 is not set
 
@@ -1044,20 +1042,11 @@ PTXCONF_UTLNX_FDISK=y
 #
 # Networking Apps
 #
-
-#
-# Apache 1 HTTP Server
-#
 # PTXCONF_APACHE is not set
 # PTXCONF_APACHE2 is not set
 
 #
-# betaftpd            
-#
-# PTXCONF_BETAFTPD is not set
-
-#
-# Bind                
+# betaftpd is broken, please send a patch
 #
 # PTXCONF_BIND is not set
 
@@ -1089,7 +1078,10 @@ PTXCONF_BING=y
 #
 # ethereal            
 #
-# PTXCONF_ETHEREAL is not set
+
+#
+# ethereal is broken, please send a patch
+#
 
 #
 # ethewake            
@@ -1148,17 +1140,26 @@ PTXCONF_LIBPCAP=y
 #
 # NTP                 
 #
-# PTXCONF_NTP is not set
+
+#
+# ntp is broken, please send a patch
+#
 
 #
 # ntpclient           
 #
-# PTXCONF_NTPCLIENT is not set
+
+#
+# ntpclient is broken, please send a patch
+#
 
 #
 # OpenAFS             
 #
-# PTXCONF_OPENAFS is not set
+
+#
+# openafs is broken, please send a patch
+#
 # PTXCONF_OPENAFS_1_2_11 is not set
 
 #
@@ -1265,28 +1266,32 @@ PTXCONF_IPKG=y
 # Communication Utilities     
 #
 # PTXCONF_BLUEZ is not set
-
-#
-# canutils            
-#
 # PTXCONF_CANUTILS is not set
 # PTXCONF_EFAX is not set
 # PTXCONF_LRZSZ is not set
 # PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
-# PTXCONF_SSMTP is not set
+
+#
+# ssmtp is broken, please send a patch
+#
 
 #
 # Applications                
 #
-# PTXCONF_FLASH is not set
+
+#
+# FLASH is broken, please send a patch
+#
 # PTXCONF_GNUPG is not set
-# PTXCONF_KAFFE is not set
 # PTXCONF_MAD is not set
 # PTXCONF_SETMIXER is not set
 # PTXCONF_RAWREC is not set
-# PTXCONF_MPLAYER is not set
+
+#
+# mplayer is broken, please send a patch
+#
 
 #
 # Tools                       
@@ -1299,19 +1304,30 @@ PTXCONF_MEMEDIT=y
 # Editors                     
 #
 PTXCONF_HEXEDIT=y
-# PTXCONF_JED is not set
+
+#
+# jed is broken, please send a patch
+#
 # PTXCONF_JOE is not set
-# PTXCONF_NANO is not set
+
+#
+# nano is broken, please send a patch
+#
 
 #
 # System Libraries            
 #
+# PTXCONF_COMMONCPP2 is not set
 # PTXCONF_DB is not set
 # PTXCONF_EXPAT is not set
 # PTXCONF_GETTEXT is not set
+# PTXCONF_GLIB12 is not set
 # PTXCONF_GLIB26 is not set
+# PTXCONF_GLIB28 is not set
 # PTXCONF_HRTIMERS_SUPPORT is not set
 # PTXCONF_LIBLIST is not set
+# PTXCONF_LIBMQUEUE is not set
+# PTXCONF_LIBNETPBM is not set
 # PTXCONF_LIBXML2 is not set
 # PTXCONF_LIBXMLCONFIG is not set
 # PTXCONF_LIBXSLT is not set
@@ -1337,8 +1353,10 @@ PTXCONF_ZLIB=y
 #
 # Middleware                  
 #
-# PTXCONF_DOTGNU is not set
-# PTXCONF_OMNIORB is not set
+
+#
+# omniorb is broken, please send a patch
+#
 
 #
 # Graphics Libraries          
@@ -1347,21 +1365,30 @@ PTXCONF_ZLIB=y
 #
 # X Infrastructure
 #
+# PTXCONF_LIBDRM is not set
+# PTXCONF_MESA is not set
 # PTXCONF_REALVNC is not set
-# PTXCONF_XFREE430 is not set
+
+#
+# XFREE430 is broken, please send a patch
+#
 # PTXCONF_XLIBS is not set
 # PTXCONF_XSERVER is not set
 
 #
 # X Applications
 #
+# PTXCONF_FLTK is not set
 # PTXCONF_QTE is not set
 # PTXCONF_WXWINDOWS is not set
 
 #
 # X Window Managers
 #
-# PTXCONF_BLACKBOX is not set
+
+#
+# blackbox is broken, please send a patch
+#
 # PTXCONF_CLEMENTINE is not set
 
 #

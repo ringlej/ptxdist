@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.9.0-svn
-# Mon Jan  9 16:02:35 2006
+# Sat Jan 14 13:14:24 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -158,7 +158,7 @@ PTXCONF_BINUTILS_VERSION="2.14.90.0.5"
 #
 
 #
-# libbfd is broken, please send a patch
+# libbfd (binutils) is broken, please send a patch
 #
 # PTXCONF_MEMTEST is not set
 # PTXCONF_MEMTESTER is not set
