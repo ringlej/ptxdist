@@ -632,55 +632,10 @@ config-test:
 		cp .config $$i;						\
 	done
 
-default_crosstool=/opt/crosstool-0.38
-
 compile-test:
-	cd $(PTXDIST_WORKSPACE);					\
-	mkdir -p logs;							\
-	rm -f COMPILE-TEST;						\
-	echo "Automatic Compilation Test" >> COMPILE-TEST;		\
-	echo "--------------------------" >> COMPILE-TEST;		\
-	echo >> COMPILE-TEST;						\
-	echo start: `date` >> COMPILE-TEST;				\
-	echo >> COMPILE-TEST;						\
-	echo "projects" >> COMPILE-TEST;				\
-	echo "--------" >> COMPILE-TEST;				\
-	echo >> COMPILE-TEST;						\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.4.1-glibc-2.3.3/powerpc-604-linux-gnu/bin eb8245              COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/arm-softfloat-linux-gnu/bin generic-arm-glibc COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin generic-i586-glibc COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/arm-softfloat-linux-gnu/bin h7202             COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin ssv_pnp2110_eva1  COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin visbox             COMPILE-TEST;\
-	echo >> COMPILE-TEST;						\
-	echo "local_projects" >> COMPILE-TEST;				\
-	echo "--------------" >> COMPILE-TEST;				\
-	echo >> COMPILE-TEST;						\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin abbcc-viac3        COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.2.3-glibc-2.2.5/powerpc-405-linux-gnu/bin cameron-efco        COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-2.95.3-glibc-2.2.5/i586-unknown-linux-gnu/bin frako             COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-2.95.3-glibc-2.2.5/arm-softfloat-linux-gnu/bin innokom-2.4-2.95 COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin innokom-2.4-3.3.3 COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin mx1fs2            COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.3.3-glibc-2.3.2/arm-softfloat-linux-gnu/bin pii_nge           COMPILE-TEST;\
-	$(PTXDIST_TOPDIR)/scripts/compile-test \
-		$(default_crosstool)/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/bin rayonic-i586       COMPILE-TEST;\
-	echo >> COMPILE-TEST;						\
-	echo stop: `date` >> COMPILE-TEST;				\
-	echo >> COMPILE-TEST;
+	@echo 
+	@echo "compile-test is obsolete, run qa-autobuild target instead."
+	@echo
 
 cuckoo-test: world
 	@scripts/cuckoo-test $(PTXCONF_ARCH) $(ROOTDIR) $(PTXCONF_COMPILER_PREFIX)
@@ -730,16 +685,26 @@ qa-static:
 # ----------------------------------------------------------------------------
 
 qa-autobuild:
-	@cd $(PTXDIST_WORKSPACE);					\
-	rm -f QA.log;							\
-	echo "QA: Autobuild Report" >> QA-autobuild.log;		\
-	echo start: `date` >> QA-autobuild.log;                    	\
-	echo >> QA-autobuild.log;					\
-	scripts/qa-autobuild/master >> QA-autobuild.log 2>&1;		\
-	echo >> QA-autobuild.log;					\
-	echo stop: `date` >> QA-autobuild.log;				\
-	echo >> QA-autobuild.log;
-	@cat QA-autobuild.log;
+	@cd $(PTXDIST_WORKSPACE);							\
+	rm -f QA-autobuild.log;								\
+	echo | tee -a QA-autobuild.log;							\
+	echo "QA: Autobuild Report" | tee -a QA-autobuild.log;				\
+	echo "start: `date`" | tee -a QA-autobuild.log;                			\
+	echo | tee -a QA-autobuild.log;							\
+											\
+	for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 				\
+		autobuild=`echo $$i | perl -p -e "s/.ptxconfig/.autobuild/g"`; 		\
+		if [ -x "$$autobuild" ]; then						\
+			PTXDIST_TOPDIR=$(PTXDIST_TOPDIR)				\
+			PTXDIST_WORKSPACE=$(PTXDIST_WORKSPACE)				\
+			$$autobuild | tee -a QA-autobuild.log;				\
+		else									\
+			echo "skipping `basename $$autobuild`|tee -a QA-autobuild.log";	\
+		fi;									\
+	done;										\
+	echo | tee -a QA-autobuild.log;							\
+	echo stop: `date` | tee -a QA-autobuild.log;					\
+	echo | tee -a QA-autobuild.log
 
 # ----------------------------------------------------------------------------
 # Cleaning
