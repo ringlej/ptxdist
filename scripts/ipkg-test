@@ -24,12 +24,12 @@ if [ ! -x "$IPKG" ]; then
 fi
 
 for archive in `cd $IMAGES && find . -name "*.ipk"`; do
+	archive=`ptxd_abspath ${IMAGES}/${archive}`
 	$IPKG							\
 		-f $ROOT/etc/ipkg.conf				\
 		-force-depends 					\
 		-o $DIR						\
-		install `ptxd_abspath $archive`
-#		install $archive 1> /dev/null
+		install $archive 1> /dev/null
 done
 
 echo "checking files in ipkg tree..."
