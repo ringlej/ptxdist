@@ -21,9 +21,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_IPKG) += host-ipkg
 HOST_IPKG_VERSION	= 0.99.154
 HOST_IPKG		= ipkg-$(HOST_IPKG_VERSION)
 HOST_IPKG_SUFFIX	= tar.gz
-HOST_IPKG_URL	= http://www.handhelds.org/download/packages/ipkg/$(HOST_IPKG).$(HOST_IPKG_SUFFIX)
+HOST_IPKG_URL		= http://www.handhelds.org/download/packages/ipkg/$(HOST_IPKG).$(HOST_IPKG_SUFFIX)
 HOST_IPKG_SOURCE	= $(SRCDIR)/$(HOST_IPKG).$(HOST_IPKG_SUFFIX)
-HOST_IPKG_DIR	= $(HOST_BUILDDIR)/$(HOST_IPKG)
+HOST_IPKG_DIR		= $(HOST_BUILDDIR)/$(HOST_IPKG)
 
 -include $(call package_depfile)
 
