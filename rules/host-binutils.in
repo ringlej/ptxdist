@@ -1,0 +1,8 @@
+
+config HOST_LIBBFD
+	bool
+	prompt "libbfd (needed for profiling)"
+	default n
+	help
+	  The GNU binary utilities / GNU BFD library
+
