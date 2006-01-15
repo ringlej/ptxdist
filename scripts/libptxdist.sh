@@ -128,3 +128,82 @@ ptxd_ipkg_rev_smaller() {
 	ptxd_error "packets $1 and $2 have the same revision"
 }
 
+
+#
+# ptxd_compile_test: test-compile a configuration
+#
+
+ptxd_compile_test() {
+
+	# Option parser
+	while [ $# -gt 0 ]; do
+		case "$1" in
+		--path)
+			PATH=$2;
+			shift 2;
+			;;
+		--config-name)
+			CONFIG_NAME=$2;
+			shift 2;
+			;;
+		--ptxdist)
+			PTXDIST_TOPDIR=$2;
+			shift 2;
+			;;
+		*)
+			echo "error: unknown argument: $1" >&2
+			exit 1
+		esac
+	done
+
+	# sanity checks
+	if [ -z "$PTXDIST_TOPDIR" ]; then 
+		echo "error: PTXDIST_TOPDIR must be set with --ptxdist" >&2
+		echo "error: commandline is $*" >&2
+		exit 1
+	fi
+
+	LOGFILE=logfile
+	OLD_DIR=`pwd`
+	cd ${PTXDIST_WORKSPACE}
+
+	echo config...: $CONFIG_NAME
+	echo date.....: `date`
+	echo user.....: $USER@$HOSTNAME
+
+	make ${CONFIG_NAME}_config >> ${LOGFILE} 
+
+	if [ $? != "0" ]; then 
+		echo "result...: no config file '$CONFIG_NAME'"
+		echo >> $LOGFILE
+		exit 1
+	fi
+
+	make silentoldconfig >> $LOGFILE
+
+	# Now start the compilation
+
+	PTX_STARTTIME=`date +"%s"`
+	(make world; echo PTX_RESULT=$?) > $LOGFILE 2>&1 
+	PTX_STOPTIME=`date +"%s"`
+	PTX_RESULT=`grep PTX_RESULT logfile | awk -F"=" -- '{print $2}'`
+	let "PTX_TIME=$PTX_STOPTIME-$PTX_STARTTIME"
+
+	PTX_BUILDTIME_H=$(($PTX_TIME/3600))
+	PTX_TIME=$(($PTX_TIME-$PTX_BUILDTIME_H*3600))
+	PTX_BUILDTIME_M=$(($PTX_TIME/60))
+	PTX_TIME=$(($PTX_TIME-$PTX_BUILDTIME_M*60))
+	PTX_BUILDTIME_S=$PTX_TIME
+
+	echo buildtime: ${PTX_BUILDTIME_H}h${PTX_BUILDTIME_M}m${PTX_BUILDTIME_S}s
+	echo result...: $PTX_RESULT
+	echo
+
+	# save logfile
+	mv logfile ${PTXDIST_WORKSPACE}/logs/${CONFIG_NAME}.log
+
+	make distclean
+
+	cd ${OLD_DIR}
+}	
+
