@@ -61,13 +61,11 @@ commoncpp2_prepare: $(STATEDIR)/commoncpp2.prepare
 
 COMMONCPP2_PATH	=  PATH=$(CROSS_PATH)
 COMMONCPP2_ENV 	=  $(CROSS_ENV)
-COMMONCPP2_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
 #
 COMMONCPP2_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-COMMONCPP2_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
 
 $(STATEDIR)/commoncpp2.prepare: $(commoncpp2_prepare_deps_default)
 	@$(call targetinfo, $@)
