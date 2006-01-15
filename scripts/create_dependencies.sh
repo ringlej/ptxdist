@@ -175,7 +175,7 @@ deps_prepare(){
 	# 2) find out packet name corresponding to these labels
 	# 3) prepare deps are:
 	#       $(STATEDIR)/thispacket.extract
-	#       $(STATEDIR)/virtual-xchain.install
+	#       $(STATEDIR)/virtual-xchain.install <- for all non-host-tools
 	#       $(STATEDIR)/dependee.install <- loop for all dependees  
 	#
 	
@@ -193,7 +193,13 @@ deps_prepare(){
 				echo -n " \$(STATEDIR)/${targetname}.install"
 			fi	
 		done  
-		echo " \$(STATEDIR)/virtual-xchain.install"                                                       
+		# create virtual xchain dependency only for non-host / cross targets 
+		# to avoid dependency loops
+		if [ -z `echo ${TARGET} | grep -e "^[host-|cross-]"` ]; then
+			echo " \$(STATEDIR)/virtual-xchain.install"                                                       
+		else
+			echo
+		fi
 	else
 	        debug_out "ERROR - dependency tree not found" >&2
 	fi
