@@ -20,7 +20,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_KCONFIG) += host-kconfig
 HOST_KCONFIG_VERSION	= 2.6.14
 HOST_KCONFIG		= kconfig-$(HOST_KCONFIG_VERSION)
 
--include $(call package_depfile)
+# This package is special: it is needed to create the dependencies!
+# So we don't use -include $(call package_depfile) here.
 
 # ----------------------------------------------------------------------------
 # Get
@@ -42,7 +43,7 @@ host-kconfig_extract: $(STATEDIR)/host-kconfig.extract
 
 # Don't use default dependencies here - not created yet when we need it!
 
-$(STATEDIR)/host-kconfig.extract: $(host_kconfig_extract_deps_default)
+$(STATEDIR)/host-kconfig.extract: $(STATEDIR)/host-kconfig.get
 	@$(call targetinfo, $@)
 
 	# we may be in an out-of-tree workspace...
@@ -64,7 +65,7 @@ host-kconfig_prepare: $(STATEDIR)/host-kconfig.prepare
 HOST_KCONFIG_PATH	=  PATH=$(HOST_PATH)
 HOST_KCONFIG_ENV 	=  $(HOSTCC_ENV)
 
-$(STATEDIR)/host-kconfig.prepare: $(host_kconfig_prepare_deps_default)
+$(STATEDIR)/host-kconfig.prepare: $(STATEDIR)/host-kconfig.extract
 	@$(call targetinfo, $@, n)
 	@$(call clean, $(HOST_KCONFIG_DIR)/config.cache)
 	@$(call touch, $@)
@@ -79,7 +80,7 @@ host-kconfig_compile: $(STATEDIR)/host-kconfig.compile
 
 host-kconfig_compile_deps = $(STATEDIR)/host-kconfig.prepare
 
-$(STATEDIR)/host-kconfig.compile: $(host_kconfig_compile_deps_default)
+$(STATEDIR)/host-kconfig.compile: $(STATEDIR)/host-kconfig.prepare
 	@$(call targetinfo, $@, n)
 	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
 		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make libkconfig.so
@@ -103,7 +104,7 @@ host-kconfig_install: $(STATEDIR)/host-kconfig.install
 
 host-kconfig_install_deps = $(STATEDIR)/host-kconfig.compile
 
-$(STATEDIR)/host-kconfig.install: $(host_kconfig_install_deps_default)
+$(STATEDIR)/host-kconfig.install: $(STATEDIR)/host-kconfig.compile
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
