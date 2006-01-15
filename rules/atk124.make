@@ -63,7 +63,6 @@ atk_prepare: $(STATEDIR)/atk.prepare
 
 ATK_PATH	=  PATH=$(CROSS_PATH)
 ATK_ENV 	=  $(CROSS_ENV)
-ATK_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 #
 # autoconf

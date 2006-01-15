@@ -69,7 +69,6 @@ fontconfig22_prepare: $(STATEDIR)/fontconfig22.prepare
 
 FONTCONFIG22_PATH	=  PATH=$(CROSS_PATH)
 FONTCONFIG22_ENV 	=  $(CROSS_ENV)
-FONTCONFIG22_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 
 #
 # autoconf
@@ -97,7 +96,7 @@ fontconfig22_compile: $(STATEDIR)/fontconfig22.compile
 $(STATEDIR)/fontconfig22.compile: $(fontconfig22_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(FONTCONFIG22_DIR) && \
-	   $(FONTCONFIG22_PATH) make 
+		$(FONTCONFIG22_PATH) make 
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

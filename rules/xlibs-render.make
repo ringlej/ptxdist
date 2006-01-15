@@ -76,7 +76,6 @@ xlibs-render_prepare_deps = \
 
 XLIBS-RENDER_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-RENDER_ENV 	=  $(CROSS_ENV)
-XLIBS-RENDER_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf

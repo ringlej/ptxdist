@@ -79,7 +79,6 @@ xmlbench_prepare_deps = \
 
 XMLBENCH_PATH	=  PATH=$(CROSS_PATH)
 XMLBENCH_ENV 	=  $(CROSS_ENV)
-XMLBENCH_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf

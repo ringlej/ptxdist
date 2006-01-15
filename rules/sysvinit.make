@@ -138,7 +138,6 @@ ifdef PTXCONF_SYSVINIT_RUNLEVEL
 endif
 ifdef PTXCONF_SYSVINIT_KILLALL5
 	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/killall5, /sbin/killall5)
-	
 endif
 ifdef PTXCONF_SYSVINIT_SULOGIN
 	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/sulogin, /sbin/sulogin)

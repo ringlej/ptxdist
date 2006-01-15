@@ -70,11 +70,12 @@ $(STATEDIR)/madwifi.extract: $(madwifi_extract_deps)
 madwifi_prepare: $(STATEDIR)/madwifi.prepare
 
 MADWIFI_PATH	=  PATH=$(CROSS_PATH)
-MADWIFI_ENV 	=  $(CROSS_ENV)
-MADWIFI_ENV    += KERNELRELEASE=$(KERNEL_VERSION)
-MADWIFI_ENV    += KERNELPATH=$(KERNEL_DIR)
-MADWIFI_ENV    += DESTDIR=$(ROOTDIR)
-MADWIFI_ENV    += TARGET=i386-elf
+MADWIFI_ENV = \
+	$(CROSS_ENV) \
+	KERNELRELEASE=$(KERNEL_VERSION) \
+	KERNELPATH=$(KERNEL_DIR)
+	DESTDIR=$(ROOTDIR) \
+	TARGET=i386-elf
 
 #
 # autoconf
@@ -130,7 +131,7 @@ $(STATEDIR)/madwifi.targetinstall: $(madwifi_targetinstall_deps_default)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	# FIXME: ipkgize
 ifdef PTXCONF_KERNEL_INSTALL
 	cd $(MADWIFI_DIR) && $(MADWIFI_ENV) $(MADWIFI_PATH) $(MAKE) install

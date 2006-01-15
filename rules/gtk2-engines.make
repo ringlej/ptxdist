@@ -113,7 +113,7 @@ $(STATEDIR)/gtk2-engines.targetinstall: $(gtk2-engines_targetinstall_deps_defaul
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, 0, 0, 0644, \
 		$(GTK2-ENGINES_DIR)/metal/.libs/libmetal.so, \
 		/usr/lib/engines/libmetal.so)

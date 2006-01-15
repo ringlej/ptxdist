@@ -67,9 +67,10 @@ PANGO12_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-PANGO12_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
-PANGO12_AUTOCONF	+= --with-x=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6
-PANGO12_AUTOCONF	+= --enable-explicit-deps
+PANGO12_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--with-x=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6 \
+	--enable-explicit-deps
 
 $(STATEDIR)/pango12.prepare: $(pango12_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -144,11 +145,11 @@ $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps_default)
 		/usr/lib/libpangoft2-1.0.so.0.300.2)
 	@$(call install_link, libpangoft2-1.0.so.0.300.2, /lib/libpangoft2-1.0.so.0)
 	@$(call install_link, libpangoft2-1.0.so.0.300.2, /lib/libpangoft2-1.0.so)
-	
+
 	@$(call install_copy, 0, 0, 0644, \
 		$(PANGO12_DIR)/pango/.libs/pango-querymodules, \
 		/usr/bin/pango-querymodules)
-		
+
 	# FIXME: ipkgize
 	cp -a $(CROSS_LIB_DIR)/lib/pango $(ROOTDIR)/usr/lib
 
@@ -160,9 +161,9 @@ $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps_default)
 		$(PANGO12_DIR)/modules/basic/.libs/*.so, \
 		/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules)
 	@$(call install_finish)
-	
+
 	@$(call touch, $@)
-	
+
 
 # ----------------------------------------------------------------------------
 # Clean

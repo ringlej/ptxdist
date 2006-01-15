@@ -63,7 +63,6 @@ cyclictest_prepare: $(STATEDIR)/cyclictest.prepare
 
 CYCLICTEST_PATH	=  PATH=$(CROSS_PATH)
 CYCLICTEST_ENV 	=  $(CROSS_ENV)
-#CYCLICTEST_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
 
 #
 # autoconf
