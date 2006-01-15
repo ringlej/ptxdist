@@ -246,7 +246,10 @@ help:
 	@echo "  make config-test                  run oldconfig on all ptxconfig files"
 	@echo "  make ipkg-test                    check if ipkg packets are consistent "
 	@echo "                                    with ROOTDIR"
-	@echo "  make qa                           run qa checks from scripts/qa"
+	@echo "  make qa-static	                   run qa checks from scripts/qa-static which
+	@echo "                                    perform static analysis steps"
+	@echo "  make qa-autobuild                 run autobuild scripts from"
+	@echo "                                    scripts/qa-autobuild"
 	@echo
 	@echo "Targets for Autobuilding:"
 	@echo
@@ -712,15 +715,31 @@ toolchains:
 
 # ----------------------------------------------------------------------------
 
-qa:
+qa-static:
 	@cd $(PTXDIST_WORKSPACE);					\
 	rm -f QA.log;							\
-	echo "Automatic Internal QA Check" >> QA.log;			\
-	echo start: `date` >> QA.log;                    		\
-	scripts/qa/master >> QA.log 2>&1;				\
-	echo stop: `date` >> QA.log;                                    \
-	echo >> QA.log;
-	@cat QA.log;
+	echo "QA: Static Analysis Report" >> QA-static.log;		\
+	echo start: `date` >> QA-static.log;                   		\
+	echo >> QA-static.log;						\
+	scripts/qa-static/master >> QA-static.log 2>&1;			\
+	echo >> QA-static.log;						\
+	echo stop: `date` >> QA-static.log;				\
+	echo >> QA-static.log;
+	@cat QA-static.log;
+
+# ----------------------------------------------------------------------------
+
+qa-autobuild:
+	@cd $(PTXDIST_WORKSPACE);					\
+	rm -f QA.log;							\
+	echo "QA: Autobuild Report" >> QA-autobuild.log;		\
+	echo start: `date` >> QA-autobuild.log;                    	\
+	echo >> QA-autobuild.log;					\
+	scripts/qa-autobuild/master >> QA-autobuild.log 2>&1;		\
+	echo >> QA-autobuild.log;					\
+	echo stop: `date` >> QA-autobuild.log;				\
+	echo >> QA-autobuild.log;
+	@cat QA-autobuild.log;
 
 # ----------------------------------------------------------------------------
 # Cleaning
