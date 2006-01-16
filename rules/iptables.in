@@ -53,13 +53,13 @@ config IPTABLES_INSTALL_libipt_addrtype
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libipt_ah
-	bool
-	prompt "install libipt_ah.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	default N
-	help
-	  FIXME: This item needs to be documented
+#config IPTABLES_INSTALL_libipt_ah
+#	bool
+#	prompt "install libipt_ah.so"
+#	depends on IPTABLES_INSTALL_IPTABLES
+#	default N
+#	help
+#	  FIXME: This item needs to be documented
 
 config IPTABLES_INSTALL_libipt_CLASSIFY
 	bool
@@ -69,13 +69,13 @@ config IPTABLES_INSTALL_libipt_CLASSIFY
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libipt_CLUSTERIP
-	bool
-	prompt "install libipt_CLUSTERIP.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	default N
-	help
-	  FIXME: This item needs to be documented
+#config IPTABLES_INSTALL_libipt_CLUSTERIP
+#	bool
+#	prompt "install libipt_CLUSTERIP.so"
+#	depends on IPTABLES_INSTALL_IPTABLES
+#	default N
+#	help
+#	  FIXME: This item needs to be documented
 
 config IPTABLES_INSTALL_libipt_connlimit
 	bool
@@ -301,13 +301,13 @@ config IPTABLES_INSTALL_libipt_realm
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libipt_recent
-	bool
-	prompt "install libipt_recent.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	default N
-	help
-	  FIXME: This item needs to be documented
+#config IPTABLES_INSTALL_libipt_recent
+#	bool
+#	prompt "install libipt_recent.so"
+#	depends on IPTABLES_INSTALL_IPTABLES
+#	default N
+#	help
+#	  FIXME: This item needs to be documented
 
 config IPTABLES_INSTALL_libipt_REDIRECT
 	bool
@@ -471,29 +471,29 @@ config IPTABLES_INSTALL_libipt_unclean
 
 comment "----------------------------------"
 
-config IPTABLES_INSTALL_libip6t_ah
-	bool
-	prompt "install libip6t_ah.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	default N
-	help
-	  FIXME: This item needs to be documented
+#config IPTABLES_INSTALL_libip6t_ah
+#	bool
+#	prompt "install libip6t_ah.so"
+#	depends on IPTABLES_INSTALL_IP6TABLES
+#	default N
+#	help
+#	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libip6t_dst
-	bool
-	prompt "install libip6t_dst.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	default N
-	help
-	  FIXME: This item needs to be documented
+#config IPTABLES_INSTALL_libip6t_dst
+#	bool
+#	prompt "install libip6t_dst.so"
+#	depends on IPTABLES_INSTALL_IP6TABLES
+#	default N
+#	help
+#	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libip6t_esp
-	bool
-	prompt "install libip6t_esp.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	default N
-	help
-	  FIXME: This item needs to be documented
+#config IPTABLES_INSTALL_libip6t_esp
+#	bool
+#	prompt "install libip6t_esp.so"
+#	depends on IPTABLES_INSTALL_IP6TABLES
+#	default N
+#	help
+#	  FIXME: This item needs to be documented
 
 config IPTABLES_INSTALL_libip6t_eui64
 	bool
@@ -503,21 +503,21 @@ config IPTABLES_INSTALL_libip6t_eui64
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libip6t_frag
-	bool
-	prompt "install libip6t_frag.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	default N
-	help
-	  FIXME: This item needs to be documented
+#config IPTABLES_INSTALL_libip6t_frag
+#	bool
+#	prompt "install libip6t_frag.so"
+#	depends on IPTABLES_INSTALL_IP6TABLES
+#	default N
+#	help
+#	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libip6t_hbh
-	bool
-	prompt "install libip6t_hbh.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	default N
-	help
-	  FIXME: This item needs to be documented
+#config IPTABLES_INSTALL_libip6t_hbh
+#	bool
+#	prompt "install libip6t_hbh.so"
+#	depends on IPTABLES_INSTALL_IP6TABLES
+#	default N
+#	help
+#	  FIXME: This item needs to be documented
 
 config IPTABLES_INSTALL_libip6t_hl
 	bool
@@ -543,13 +543,13 @@ config IPTABLES_INSTALL_libip6t_icmpv6
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libip6t_ipv6header
-	bool
-	prompt "install libip6t_ipv6header.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	default N
-	help
-	  FIXME: This item needs to be documented
+#config IPTABLES_INSTALL_libip6t_ipv6header
+#	bool
+#	prompt "install libip6t_ipv6header.so"
+#	depends on IPTABLES_INSTALL_IP6TABLES
+#	default N
+#	help
+#	  FIXME: This item needs to be documented
 
 config IPTABLES_INSTALL_libip6t_length
 	bool
@@ -615,13 +615,13 @@ config IPTABLES_INSTALL_libip6t_owner
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libip6t_rt
-	bool
-	prompt "install libip6t_rt.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	default N
-	help
-	  FIXME: This item needs to be documented
+#config IPTABLES_INSTALL_libip6t_rt
+#	bool
+#	prompt "install libip6t_rt.so"
+#	depends on IPTABLES_INSTALL_IP6TABLES
+#	default N
+#	help
+#	  FIXME: This item needs to be documented
 
 config IPTABLES_INSTALL_libip6t_standard
 	bool
