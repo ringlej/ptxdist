@@ -33,7 +33,7 @@ LILO_DIR	= $(BUILDDIR)/$(LILO)
 
 lilo_get: $(STATEDIR)/lilo.get
 
-$(STATEDIR)/lilo.get: $(LILO_SOURCE)
+$(STATEDIR)/lilo.get: $(lilo_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,7 +47,7 @@ $(LILO_SOURCE):
 
 lilo_extract: $(STATEDIR)/lilo.extract
 
-$(STATEDIR)/lilo.extract: $(STATEDIR)/lilo.get
+$(STATEDIR)/lilo.extract: $(lilo_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LILO_DIR))
 	@$(call extract, $(LILO_SOURCE))
@@ -84,7 +84,7 @@ $(STATEDIR)/lilo.compile: $(lilo_compile_deps_default)
 
 lilo_install: $(STATEDIR)/lilo.install
 
-$(STATEDIR)/lilo.install: $(STATEDIR)/lilo.compile
+$(STATEDIR)/lilo.install: $(lilo_install_deps_default) 
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -94,7 +94,7 @@ $(STATEDIR)/lilo.install: $(STATEDIR)/lilo.compile
 
 lilo_targetinstall: $(STATEDIR)/lilo.targetinstall
 
-$(STATEDIR)/lilo.targetinstall: $(STATEDIR)/lilo.install
+$(STATEDIR)/lilo.targetinstall: $(lilo_targetinstall_deps_default) 
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
