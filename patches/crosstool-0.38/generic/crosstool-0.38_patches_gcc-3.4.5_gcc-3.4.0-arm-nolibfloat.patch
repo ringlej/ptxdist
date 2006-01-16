@@ -1,5 +1,5 @@
 --- crosstool-0.38/patches/gcc-3.4.5/gcc-3.4.0-arm-nolibfloat.patch	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38-ptx/patches/gcc-3.4.5/gcc-3.4.0-arm-nolibfloat.patch	2006-01-09 23:13:05.000000000 +0100
++++ crosstool-0.38-ptxdist/patches/gcc-3.4.5/gcc-3.4.0-arm-nolibfloat.patch	2006-01-16 08:15:49.000000000 +0100
 @@ -0,0 +1,24 @@
 +# Dimitry Andric <dimitry@andric.com>, 2004-05-01
 +#
