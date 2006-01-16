@@ -32,7 +32,7 @@ MEMEDIT_DIR		= $(BUILDDIR)/$(MEMEDIT)
 
 memedit_get: $(STATEDIR)/memedit.get
 
-$(STATEDIR)/memedit.get: $(MEMEDIT_SOURCE)
+$(STATEDIR)/memedit.get: $(memedit_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMEDIT))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(MEMEDIT_SOURCE):
 
 memedit_extract: $(STATEDIR)/memedit.extract
 
-$(STATEDIR)/memedit.extract: $(memedit_extract_deps)
+$(STATEDIR)/memedit.extract: $(memedit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMEDIT_DIR))
 	@$(call extract, $(MEMEDIT_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/memedit.compile: $(memedit_compile_deps_default)
 
 memedit_install: $(STATEDIR)/memedit.install
 
-$(STATEDIR)/memedit.install: $(STATEDIR)/memedit.compile
+$(STATEDIR)/memedit.install: $(memedit_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, MEMEDIT)
 	@$(call touch, $@)
