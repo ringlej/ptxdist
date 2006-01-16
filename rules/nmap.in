@@ -2,10 +2,14 @@ menu    "nmap                "
 
 config NMAP
         bool "nmap"
+	help
+	  FIXME: This item needs to be documented
 
 config NMAP_SERVICES
 	bool "Install nmap-services"
 	default y
 	depends on NMAP
 	select GCCLIBS_CXX
+	help
+	  FIXME: This item needs to be documented
 endmenu

@@ -39,7 +39,7 @@ NMAP_DIR		= $(BUILDDIR)/$(NMAP)
 
 nmap_get: $(STATEDIR)/nmap.get
 
-$(STATEDIR)/nmap.get: $(NMAP_SOURCE)
+$(STATEDIR)/nmap.get: $(nmap_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -53,7 +53,7 @@ $(NMAP_SOURCE):
 
 nmap_extract: $(STATEDIR)/nmap.extract
 
-$(STATEDIR)/nmap.extract: $(STATEDIR)/nmap.get
+$(STATEDIR)/nmap.extract: $(nmap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NMAP_DIR))
 	@$(call extract, $(NMAP_SOURCE))
@@ -115,7 +115,7 @@ $(STATEDIR)/nmap.compile: $(nmap_compile_deps_default)
 
 nmap_install: $(STATEDIR)/nmap.install
 
-$(STATEDIR)/nmap.install: $(STATEDIR)/nmap.compile
+$(STATEDIR)/nmap.install: $(nmap_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
