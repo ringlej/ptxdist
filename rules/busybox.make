@@ -71,10 +71,12 @@ ifdef PTXCONF_BB_CONFIG_STATIC
 BUSYBOX_TARGET_LDFLAGS	+= -static
 endif                                                                                                                                 
 
-BUSYBOX_MAKEVARS	=  CROSS=$(COMPILER_PREFIX)
-BUSYBOX_MAKEVARS	+= HOSTCC=$(HOSTCC) 
-BUSYBOX_MAKEVARS	+= EXTRA_CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))'
-BUSYBOX_MAKEVARS	+= LDFLAGS='$(BUSYBOX_TARGET_LDFLAGS)'
+BUSYBOX_MAKEVARS=\
+	CROSS=$(COMPILER_PREFIX) \
+	HOSTCC=$(HOSTCC) \
+	EXTRA_CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))' \
+	LDFLAGS='$(BUSYBOX_TARGET_LDFLAGS)' \
+	PREFIX=$(SYSROOT)
 
 $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -111,7 +113,6 @@ busybox_install: $(STATEDIR)/busybox.install
 
 $(STATEDIR)/busybox.install: $(busybox_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME
 	@$(call install, BUSYBOX)
 	@$(call touch, $@)
 
