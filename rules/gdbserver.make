@@ -93,7 +93,7 @@ $(STATEDIR)/gdbserver.compile: $(gdbserver_compile_deps_default)
 
 gdbserver_install: $(STATEDIR)/gdbserver.install
 
-$(STATEDIR)/gdbserver.install: $(gdbserver_install_deps_install)
+$(STATEDIR)/gdbserver.install: $(gdbserver_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
