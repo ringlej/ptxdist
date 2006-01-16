@@ -38,7 +38,7 @@ OPENSSH_DIR 		= $(BUILDDIR)/$(OPENSSH)
 
 openssh_get: $(STATEDIR)/openssh.get
 
-$(STATEDIR)/openssh.get: $(OPENSSH_SOURCE)
+$(STATEDIR)/openssh.get: $(openssh_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OPENSSH))
 	@$(call touch, $@)
@@ -53,7 +53,7 @@ $(OPENSSH_SOURCE):
 
 openssh_extract: $(STATEDIR)/openssh.extract
 
-$(STATEDIR)/openssh.extract: $(openssh_extract_deps)
+$(STATEDIR)/openssh.extract: $(openssh_extract_deps_default)
 	@$(call targetinfo, openssh.extract)
 	@$(call clean, $(OPENSSH_DIR))
 	@$(call extract, $(OPENSSH_SOURCE))
@@ -142,7 +142,7 @@ $(STATEDIR)/openssh.prepare: $(openssh_prepare_deps_default)
 
 openssh_compile: $(STATEDIR)/openssh.compile
 
-$(STATEDIR)/openssh.compile: $(STATEDIR)/openssh.prepare 
+$(STATEDIR)/openssh.compile: $(openssh_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(OPENSSH_DIR) && $(OPENSSH_PATH) make
 	@$(call touch, $@)
@@ -153,7 +153,7 @@ $(STATEDIR)/openssh.compile: $(STATEDIR)/openssh.prepare
 
 openssh_install: $(STATEDIR)/openssh.install
 
-$(STATEDIR)/openssh.install: $(STATEDIR)/openssh.compile
+$(STATEDIR)/openssh.install: $(openssh_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

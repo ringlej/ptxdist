@@ -31,7 +31,7 @@ OPENNTPD_DIR		= $(BUILDDIR)/$(OPENNTPD)
 
 openntpd_get: $(STATEDIR)/openntpd.get
 
-$(STATEDIR)/openntpd.get: $(OPENNTPD_SOURCE)
+$(STATEDIR)/openntpd.get: $(openntpd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OPENNTPD))
 	@$(call touch, $@)
@@ -46,7 +46,7 @@ $(OPENNTPD_SOURCE):
 
 openntpd_extract: $(STATEDIR)/openntpd.extract
 
-$(STATEDIR)/openntpd.extract: $(openntpd_extract_deps)
+$(STATEDIR)/openntpd.extract: $(openntpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENNTPD_DIR))
 	@$(call extract, $(OPENNTPD_SOURCE))
@@ -101,7 +101,7 @@ $(STATEDIR)/openntpd.compile: $(openntpd_compile_deps_default)
 
 openntpd_install: $(STATEDIR)/openntpd.install
 
-$(STATEDIR)/openntpd.install: $(STATEDIR)/openntpd.compile
+$(STATEDIR)/openntpd.install: $(openntpd_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, OPENNTPD)
 	@$(call touch, $@)
