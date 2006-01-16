@@ -33,7 +33,7 @@ MFIREBIRD_DIR			= $(BUILDDIR)/$(MFIREBIRD)
 
 mfirebird_get: $(STATEDIR)/mfirebird.get
 
-$(STATEDIR)/mfirebird.get: $(MFIREBIRD_SOURCE)
+$(STATEDIR)/mfirebird.get: $(mfirebird_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MFIREBIRD))
 	@$(call touch, $@)
@@ -48,7 +48,7 @@ $(MFIREBIRD_SOURCE):
 
 mfirebird_extract: $(STATEDIR)/mfirebird.extract
 
-$(STATEDIR)/mfirebird.extract: $(mfirebird_extract_deps)
+$(STATEDIR)/mfirebird.extract: $(mfirebird_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MFIREBIRD_DIR))
 	@$(call extract, $(MFIREBIRD_SOURCE))
@@ -419,7 +419,7 @@ $(STATEDIR)/mfirebird.compile: $(mfirebird_compile_deps_default)
 
 mfirebird_install: $(STATEDIR)/mfirebird.install
 
-$(STATEDIR)/mfirebird.install: $(STATEDIR)/mfirebird.compile
+$(STATEDIR)/mfirebird.install: $(mfirebird_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, MFIREBIRD)
 	@$(call touch, $@)

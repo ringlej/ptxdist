@@ -1,18 +1,24 @@
 menuconfig MFIREBIRD
 	bool
 	prompt "Mozilla Firefox             "
+	help
+	  FIXME: This item needs to be documented
 
 config MFIREBIRD_CALENDAR
 	bool
 	prompt "Calender Client"
 	depends on MFIREBIRD
 	default n
+	help
+	  FIXME: This item needs to be documented
 
 config MFIREBIRD_MAILNEWS
 	bool
 	prompt "Mail+News Client"
 	depends on MFIREBIRD
 	default n
+	help
+	  FIXME: This item needs to be documented
 
 #config MFIREBIRD_MAILNEWS_STATICBUILD
 #	bool
@@ -29,12 +35,16 @@ config MFIREBIRD_FREETYPE2
 	prompt "FreeType2 support"
 	depends on MFIREBIRD
 	default y
+	help
+	  FIXME: This item needs to be documented
 
 config MFIREBIRD_XFT
 	bool
 	prompt "Xft support"
 	depends on MFIREBIRD
 	default n
+	help
+	  FIXME: This item needs to be documented
 
 #config MFIREBIRD_POSTSCRIPT
 #	bool
@@ -111,6 +121,8 @@ config MFIREBIRD_COMPOSER
 	prompt "Composer"
 	depends on MFIREBIRD
 	default n
+	help
+	  FIXME: This item needs to be documented
 	
 #config MFIREBIRD_EXTENSIONS
 #	bool
@@ -172,12 +184,16 @@ config MFIREBIRD_DEBUG
 	prompt "Build with debug info"
 	depends on MFIREBIRD
 	default n
+	help
+	  FIXME: This item needs to be documented
 
 config MFIREBIRD_OPTIMIZE
 	string
 	prompt "Optimisation Flags"
 	depends on MFIREBIRD
 	default "-O"
+	help
+	  FIXME: This item needs to be documented
 
 #config MFIREBIRD_BOEHM
 #	bool
