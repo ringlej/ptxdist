@@ -9,7 +9,7 @@ menu "C Library           "
 choice
         prompt "Which C library do you want to use?"
         default GLIBC
-	
+
 	config GLIBC
 		bool
  		prompt "GLIBC"

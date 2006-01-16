@@ -303,7 +303,7 @@ $(STATEDIR)/libxml2.install: $(libxml2_install_deps_default)
 
 libxml2_targetinstall: $(STATEDIR)/libxml2.targetinstall
 
-$(STATEDIR)/libxml2.targetinstall: $(libxml2_install_deps_default)
+$(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
