@@ -2,7 +2,7 @@
 # $Id: template 2224 2005-01-20 15:19:18Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOST_IPKG_UTILS) += HOST_IPKG_UTILS
+HOST_PACKAGES-$(PTXCONF_HOST_IPKG_UTILS) += host-ipkg-utils
 
 #
 # Paths and names
