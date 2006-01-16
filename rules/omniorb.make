@@ -49,7 +49,7 @@ $(OMNIORB_SOURCE):
 
 omniorb_extract: $(STATEDIR)/omniorb.extract
 
-$(STATEDIR)/omniorb.extract: $(omniorb_extract_deps)
+$(STATEDIR)/omniorb.extract: $(omniorb_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OMNIORB_DIR))
 	@$(call extract, $(OMNIORB_SOURCE))
@@ -98,7 +98,7 @@ $(STATEDIR)/omniorb.compile: $(omniorb_compile_deps_default)
 
 omniorb_install: $(STATEDIR)/omniorb.install
 
-$(STATEDIR)/omniorb.install: $(STATEDIR)/omniorb.compile
+$(STATEDIR)/omniorb.install: $(omniorb_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, OMNIORB)
 	@$(call touch, $@)
