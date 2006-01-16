@@ -1,12 +1,11 @@
 config BLUEZ_UTILS
 	bool
 	prompt "bluez-utils"
-	depends on BLUEZ && BLUEZ_LIBS
+	depends on BLUEZ
+	select BLUEZ_LIBS
 	default N
 	help
 	  For details about this project see the homepage on 
 
 		http://www.bluez.org
 
-comment "bluez-utils need bluez-libs"
-	depends on BLUEZ && !BLUEZ_LIBS
