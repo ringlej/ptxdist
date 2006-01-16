@@ -47,7 +47,7 @@ $(MII-DIAG_SOURCE):
 
 mii-diag_extract: $(STATEDIR)/mii-diag.extract
 
-$(STATEDIR)/mii-diag.extract: $(mii-diag_extract_deps)
+$(STATEDIR)/mii-diag.extract: $(mii-diag_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MII-DIAG_DIR))
 	@$(call extract, $(MII-DIAG_SOURCE))
@@ -84,7 +84,7 @@ $(STATEDIR)/mii-diag.compile: $(mii-diag_compile_deps_default)
 
 mii-diag_install: $(STATEDIR)/mii-diag.install
 
-$(STATEDIR)/mii-diag.install: $(STATEDIR)/mii-diag.compile
+$(STATEDIR)/mii-diag.install: $(mii-diag_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
