@@ -252,7 +252,7 @@ deps_targetinstall(){
                echo -n " \$(STATEDIR)/${targetname}.targetinstall"
            fi
         done
-        echo " \$(STATEDIR)/${TARGET}.compile \$(STATEDIR)/${TARGET}.install" 
+        echo " \$(STATEDIR)/${TARGET}.install" 
     else
             debug_out "ERROR - dependency tree not found" >&2
     fi
