@@ -62,6 +62,7 @@ dbench_prepare: $(STATEDIR)/dbench.prepare
 
 DBENCH_PATH	=  PATH=$(CROSS_PATH)
 DBENCH_ENV 	=  $(CROSS_ENV)
+DBENCH_MAKEVARS =  prefix=$(SYSROOT)
 
 #
 # autoconf
