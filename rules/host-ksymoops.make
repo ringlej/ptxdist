@@ -11,15 +11,15 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_KSYMOOPS) += host-ksymoops
+HOST_PACKAGES-$(PTXCONF_HOST_KSYMOOPS) += host-ksymoops
 
 #
 # Paths and names 
 #
-KSYMOOPS			= ksymoops-2.4.9
-KSYMOOPS_URL			= http://www.kernel.org/pub/linux/utils/kernel/ksymoops/v2.4/$(KSYMOOPS).tar.bz2
-KSYMOOPS_SOURCE			= $(SRCDIR)/$(KSYMOOPS).tar.bz2
-KSYMOOPS_DIR			= $(BUILDDIR)/$(KSYMOOPS)
+HOST_KSYMOOPS		= ksymoops-2.4.9
+HOST_KSYMOOPS_URL	= http://www.kernel.org/pub/linux/utils/kernel/ksymoops/v2.4/$(KSYMOOPS).tar.bz2
+HOST_KSYMOOPS_SOURCE	= $(SRCDIR)/$(HOST_KSYMOOPS).tar.bz2
+HOST_KSYMOOPS_DIR	= $(HOST_BUILDDIR)/$(HOST_KSYMOOPS)
 
 -include $(call package_depfile)
 
@@ -33,9 +33,9 @@ $(STATEDIR)/host-ksymoops.get: $(host-ksymoops_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(KSYMOOPS_SOURCE):
+$(HOST_KSYMOOPS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(KSYMOOPS_URL))
+	@$(call get, $(HOST_KSYMOOPS_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -45,8 +45,8 @@ host-ksymoops_extract: $(STATEDIR)/host-ksymoops.extract
 
 $(STATEDIR)/host-ksymoops.extract: $(host-ksymoops_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(KSYMOOPS_DIR))
-	@$(call extract, $(KSYMOOPS_SOURCE))
+	@$(call clean, $(HOST_KSYMOOPS_DIR))
+	@$(call extract, $(HOST_KSYMOOPS_SOURCE),$(HOST_BUILDDIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -55,10 +55,10 @@ $(STATEDIR)/host-ksymoops.extract: $(host-ksymoops_extract_deps_default)
 
 host-ksymoops_prepare: $(STATEDIR)/host-ksymoops.prepare
 
-KSYMOOPS_MAKEVARS = \
+HOST_KSYMOOPS_MAKEVARS = \
 	CROSS=$(PTXCONF_GNU_TARGET)- \
 	INSTALL_PREFIX=$(PTXCONF_PREFIX) \
-	BFD_PREFIX=$(PTXCONF_PREFIX)/$(GNU_HOST)/$(PTXCONF_GNU_TARGET) \
+	BFD_PREFIX=$(PTXCONF_PREFIX) \
 	DEF_TARGET='\"elf32-$(call remove_quotes,$(PTXCONF_ARCH))\"'
 
 $(STATEDIR)/host-ksymoops.prepare: $(host-ksymoops_prepare_deps_default)
@@ -72,7 +72,7 @@ host-ksymoops_compile: $(STATEDIR)/host-ksymoops.compile
 
 $(STATEDIR)/host-ksymoops.compile: $(host-ksymoops_compile_deps_default)
 	@$(call targetinfo, $@)
-	make -C $(KSYMOOPS_DIR) $(KSYMOOPS_MAKEVARS)
+	make -C $(HOST_KSYMOOPS_DIR) $(HOST_KSYMOOPS_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ host-ksymoops_install: $(STATEDIR)/host-ksymoops.install
 
 $(STATEDIR)/host-ksymoops.install: $(host-ksymoops_install_deps_default)
 	@$(call targetinfo, $@)
-	make -C $(KSYMOOPS_DIR) $(KSYMOOPS_MAKEVARS) install
+	make -C $(HOST_KSYMOOPS_DIR) $(HOST_KSYMOOPS_MAKEVARS) install
 #
 # make short-name links to long-name programms
 # e.g.: arm-linux-gcc -> arm-unknown-linux-gnu-gcc
@@ -109,6 +109,6 @@ $(STATEDIR)/host-ksymoops.targetinstall: $(host-ksymoops_targetinstall_deps_defa
 # ----------------------------------------------------------------------------
 
 host-ksymoops_clean: 
-	rm -rf $(STATEDIR)/host-ksymoops.* $(KSYMOOPS_DIR)
+	rm -rf $(STATEDIR)/host-ksymoops.* $(HOST_KSYMOOPS_DIR)
 
 # vim: syntax=make
