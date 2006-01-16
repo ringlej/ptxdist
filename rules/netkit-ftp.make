@@ -32,7 +32,7 @@ NETKIT-FTP_DIR		= $(BUILDDIR)/$(NETKIT-FTP)
 
 netkit-ftp_get: $(STATEDIR)/netkit-ftp.get
 
-$(STATEDIR)/netkit-ftp.get: $(NETKIT-FTP_SOURCE)
+$(STATEDIR)/netkit-ftp.get: $(netkit-ftp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NETKIT-FTP))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(NETKIT-FTP_SOURCE):
 
 netkit-ftp_extract: $(STATEDIR)/netkit-ftp.extract
 
-$(STATEDIR)/netkit-ftp.extract: $(netkit-ftp_extract_deps)
+$(STATEDIR)/netkit-ftp.extract: $(netkit-ftp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NETKIT-FTP_DIR))
 	@$(call extract, $(NETKIT-FTP_SOURCE))
@@ -105,7 +105,7 @@ $(STATEDIR)/netkit-ftp.compile: $(netkit-ftp_compile_deps_default)
 
 netkit-ftp_install: $(STATEDIR)/netkit-ftp.install
 
-$(STATEDIR)/netkit-ftp.install: $(STATEDIR)/netkit-ftp.compile
+$(STATEDIR)/netkit-ftp.install: $(netkit-ftp_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	# @$(call install, NETKIT-FTP)
