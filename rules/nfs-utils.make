@@ -30,7 +30,7 @@ NFSUTILS_DIR		= $(BUILDDIR)/$(NFSUTILS)
 
 nfsutils_get: $(STATEDIR)/nfsutils.get
 
-$(STATEDIR)/nfsutils.get: $(NFSUTILS_SOURCE)
+$(STATEDIR)/nfsutils.get: $(nfsutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NFSUTILS))
 	@$(call touch, $@)
@@ -111,7 +111,7 @@ $(STATEDIR)/nfsutils.prepare: $(nfsutils_prepare_deps_default)
 
 nfsutils_compile: $(STATEDIR)/nfsutils.compile
 
-$(STATEDIR)/nfsutils.compile: $(STATEDIR)/nfsutils.prepare 
+$(STATEDIR)/nfsutils.compile: $(nfsutils_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(NFSUTILS_DIR) && $(NFSUTILS_PATH) make
 	@$(call touch, $@)
@@ -122,7 +122,7 @@ $(STATEDIR)/nfsutils.compile: $(STATEDIR)/nfsutils.prepare
 
 nfsutils_install: $(STATEDIR)/nfsutils.install
 
-$(STATEDIR)/nfsutils.install: $(STATEDIR)/nfsutils.compile
+$(STATEDIR)/nfsutils.install: $(nfsutils_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -132,7 +132,7 @@ $(STATEDIR)/nfsutils.install: $(STATEDIR)/nfsutils.compile
 
 nfsutils_targetinstall: $(STATEDIR)/nfsutils.targetinstall
 
-$(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
+$(STATEDIR)/nfsutils.targetinstall: $(nfsutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
