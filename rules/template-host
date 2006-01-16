@@ -30,9 +30,7 @@ HOST_PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 
 @packet@_get: $(STATEDIR)/@packet@.get
 
-@packet@_get_deps = $(@PACKET@_SOURCE)
-
-$(STATEDIR)/@packet@.get: $(@packet@_get_deps)
+$(STATEDIR)/@packet@.get: $(@packet@_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,9 +44,7 @@ $(@PACKET@_SOURCE):
 
 @packet@_extract: $(STATEDIR)/@packet@.extract
 
-@packet@_extract_deps = $(STATEDIR)/@packet@.get
-
-$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
+$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
 	@$(call extract, $(@PACKET@_SOURCE), $(HOST_BUILDDIR))
@@ -61,23 +57,15 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps)
 
 @packet@_prepare: $(STATEDIR)/@packet@.prepare
 
-#
-# dependencies
-#
-@packet@_prepare_deps = \
-	$(STATEDIR)/@packet@.extract
-
 @PACKET@_PATH	=  PATH=$(HOST_PATH)
 @PACKET@_ENV 	=  $(HOSTCC_ENV)
 
 #
 # autoconf
 #
-@PACKET@_AUTOCONF =  --prefix=$(PTXCONF_PREFIX)
-@PACKET@_AUTOCONF += --build=$(GNU_HOST)
-@PACKET@_AUTOCONF += --host=$(GNU_HOST)
+@PACKET@_AUTOCONF =  $(HOST_AUTOCONF)
 
-$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
+$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR)/config.cache)
 	cd $(@PACKET@_DIR) && \
@@ -91,9 +79,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps)
 
 @packet@_compile: $(STATEDIR)/@packet@.compile
 
-@packet@_compile_deps = $(STATEDIR)/@packet@.prepare
-
-$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
+$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make
 	@$(call touch, $@)
@@ -104,11 +90,9 @@ $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps)
 
 @packet@_install: $(STATEDIR)/@packet@.install
 
-@packet@_install_deps = $(STATEDIR)/@packet@.compile
-
-$(STATEDIR)/@packet@.install: $(@packet@_install_deps)
+$(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, @PACKET@)
+	@$(call install, @PACKET@,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
