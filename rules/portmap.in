@@ -1,12 +1,12 @@
-menu	"Portmapper          "
-
-config	PORTMAP
+menuconfig PORTMAP
 	bool
-	prompt "Portmapper"
-	
+	depends on BROKEN
+	prompt "portmapper          "
+
 config	PORTMAP_INSTALL_PORTMAPPER
 	bool
-	prompt "Install /sbin/portmap"
 	depends on PORTMAP
+	prompt "Install /sbin/portmap"
 
-endmenu
+comment "portmap is broken, please send a patch"
+        depends on !BROKEN
