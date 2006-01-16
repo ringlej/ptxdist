@@ -127,21 +127,21 @@ $(STATEDIR)/glib26.targetinstall: $(glib26_targetinstall_deps_default)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(GLIB26_DIR)/glib/.libs/libglib-2.0.so.0.600.1, /usr/lib/libglib-2.0.so.0.600.1)
-	@$(call install_link, /usr/lib/libglib-2.0.so.0.600.1, /usr/lib/libglib-2.0.so.0)
-	@$(call install_link, /usr/lib/libglib-2.0.so.0.600.1, /usr/lib/libglib-2.0.so)
+	@$(call install_copy, 0, 0, 0644, $(GLIB26_DIR)/glib/.libs/libglib-2.0.so.0.600.6, /usr/lib/libglib-2.0.so.0.600.6)
+	@$(call install_link, /usr/lib/libglib-2.0.so.0.600.6, /usr/lib/libglib-2.0.so.0)
+	@$(call install_link, /usr/lib/libglib-2.0.so.0.600.6, /usr/lib/libglib-2.0.so)
 
-	@$(call install_copy, 0, 0, 0644, $(GLIB26_DIR)/gobject/.libs/libgobject-2.0.so.0.600.1, /usr/lib/libgobject-2.0.so.0.600.1)
-	@$(call install_link, /usr/lib/libgobject-2.0.so.0.600.1, /usr/lib/libgobject-2.0.so.0)
-	@$(call install_link, /usr/lib/libgobject-2.0.so.0.600.1, /usr/lib/libgobject-2.0.so)
+	@$(call install_copy, 0, 0, 0644, $(GLIB26_DIR)/gobject/.libs/libgobject-2.0.so.0.600.6, /usr/lib/libgobject-2.0.so.0.600.6)
+	@$(call install_link, /usr/lib/libgobject-2.0.so.0.600.6, /usr/lib/libgobject-2.0.so.0)
+	@$(call install_link, /usr/lib/libgobject-2.0.so.0.600.6, /usr/lib/libgobject-2.0.so)
 
-	@$(call install_copy, 0, 0, 0644, $(GLIB26_DIR)/gmodule/.libs/libgmodule-2.0.so.0.600.1, /usr/lib/libgmodule-2.0.so.0.600.1)
-	@$(call install_link, /usr/lib/libgmodule-2.0.so.0.600.1, /usr/lib/libgmodule-2.0.so.0)
-	@$(call install_link, /usr/lib/libgmodule-2.0.so.0.600.1, /usr/lib/libgmodule-2.0.so)
+	@$(call install_copy, 0, 0, 0644, $(GLIB26_DIR)/gmodule/.libs/libgmodule-2.0.so.0.600.6, /usr/lib/libgmodule-2.0.so.0.600.6)
+	@$(call install_link, /usr/lib/libgmodule-2.0.so.0.600.6, /usr/lib/libgmodule-2.0.so.0)
+	@$(call install_link, /usr/lib/libgmodule-2.0.so.0.600.6, /usr/lib/libgmodule-2.0.so)
 
-	@$(call install_copy, 0, 0, 0644, $(GLIB26_DIR)/gthread/.libs/libgthread-2.0.so.0.600.1, /usr/lib/libgthread-2.0.so.0.600.1)
-	@$(call install_link, /usr/lib/libgthread-2.0.so.0.600.1, /usr/lib/libgthread-2.0.so.0)
-	@$(call install_link, /usr/lib/libgthread-2.0.so.0.600.1, /usr/lib/libgthread-2.0.so)
+	@$(call install_copy, 0, 0, 0644, $(GLIB26_DIR)/gthread/.libs/libgthread-2.0.so.0.600.6, /usr/lib/libgthread-2.0.so.0.600.6)
+	@$(call install_link, /usr/lib/libgthread-2.0.so.0.600.6, /usr/lib/libgthread-2.0.so.0)
+	@$(call install_link, /usr/lib/libgthread-2.0.so.0.600.6, /usr/lib/libgthread-2.0.so)
 
 	@$(call install_finish)
 
