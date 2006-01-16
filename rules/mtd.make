@@ -32,7 +32,7 @@ MTD_DIR		= $(BUILDDIR)/$(MTD)
 
 mtd_get: $(STATEDIR)/mtd.get
 
-$(STATEDIR)/mtd.get: $(MTD_SOURCE)
+$(STATEDIR)/mtd.get: $(mtd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MTD))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(MTD_SOURCE):
 
 mtd_extract: $(STATEDIR)/mtd.extract
 
-$(STATEDIR)/mtd.extract: $(mtd_extract_deps)
+$(STATEDIR)/mtd.extract: $(mtd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MTD_DIR))
 	@$(call extract, $(MTD_SOURCE))
@@ -139,7 +139,7 @@ endif
 
 mtd_install: $(STATEDIR)/mtd.install
 
-$(STATEDIR)/mtd.install: $(STATEDIR)/mtd.compile
+$(STATEDIR)/mtd.install: $(mtd_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
