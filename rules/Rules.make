@@ -714,7 +714,7 @@ ifdef PTXCONF_IMAGE_HOST_DEB
 install = \
 	BUILDDIR="$($(strip $(1)_DIR))";				\
 	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
-	[ "$(strip $(3))" != "h" ] && DESTDIR="$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)";	\
+	[ "$(strip $(3))" != "h" ] && DESTDIR="$(SYSROOT)";		\
 	cd $$BUILDDIR && 						\
 		$($(strip $(1))_ENV) 					\
 		$($(strip $(1))_PATH) 					\
@@ -729,7 +729,7 @@ else
 install = \
 	BUILDDIR="$($(strip $(1))_DIR)";				\
 	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
-	[ "$(strip $(3))" != "h" ] && DESTDIR="$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)";	\
+	[ "$(strip $(3))" != "h" ] && DESTDIR="$(SYSROOT)";		\
 	cd $$BUILDDIR &&						\
 		$($(strip $(1))_ENV)					\
 		$($(strip $(1))_PATH)					\
