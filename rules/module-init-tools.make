@@ -32,7 +32,7 @@ MODULE_INIT_TOOLS_DIR		= $(BUILDDIR)/$(MODULE_INIT_TOOLS)
 
 module-init-tools_get: $(STATEDIR)/module-init-tools.get
 
-$(STATEDIR)/module-init-tools.get: $(MODULE_INIT_TOOLS_SOURCE)
+$(STATEDIR)/module-init-tools.get: $(module-init-tools_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MODULE_INIT_TOOLS))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(MODULE_INIT_TOOLS_SOURCE):
 
 module-init-tools_extract: $(STATEDIR)/module-init-tools.extract
 
-$(STATEDIR)/module-init-tools.extract: $(module-init-tools_extract_deps)
+$(STATEDIR)/module-init-tools.extract: $(module-init-tools_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MODULE_INIT_TOOLS_DIR))
 	@$(call extract, $(MODULE_INIT_TOOLS_SOURCE))
@@ -90,7 +90,7 @@ $(STATEDIR)/module-init-tools.compile: $(module-init-tools_compile_deps_default)
 
 module-init-tools_install: $(STATEDIR)/module-init-tools.install
 
-$(STATEDIR)/module-init-tools.install: $(STATEDIR)/module-init-tools.compile
+$(STATEDIR)/module-init-tools.install: $(module-init-tools_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

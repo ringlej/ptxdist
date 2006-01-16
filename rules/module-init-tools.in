@@ -11,28 +11,40 @@ config MODULE_INIT_TOOLS_INSMOD
 	bool
 	prompt "Install insmod on target"
 	depends on MODULE_INIT_TOOLS
+	help
+	  FIXME: This item needs to be documented
 
 config MODULE_INIT_TOOLS_RMMOD
 	bool
 	prompt "Install rmmod on target"
 	depends on MODULE_INIT_TOOLS
+	help
+	  FIXME: This item needs to be documented
 
 config MODULE_INIT_TOOLS_LSMOD
 	bool
 	prompt "Install lsmod on target"
 	depends on MODULE_INIT_TOOLS
+	help
+	  FIXME: This item needs to be documented
 
 config MODULE_INIT_TOOLS_MODINFO
 	bool
 	prompt "Install modinfo on target"
 	depends on MODULE_INIT_TOOLS
+	help
+	  FIXME: This item needs to be documented
 
 config MODULE_INIT_TOOLS_MODPROBE
 	bool
 	prompt "Install modprobe on target"
 	depends on MODULE_INIT_TOOLS
+	help
+	  FIXME: This item needs to be documented
 
 config MODULE_INIT_TOOLS_DEPMOD
 	bool
 	prompt "Install depmod on target"
 	depends on MODULE_INIT_TOOLS
+	help
+	  FIXME: This item needs to be documented
