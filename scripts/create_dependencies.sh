@@ -162,6 +162,13 @@ identify(){
 	debug_out "LABEL is: >$LABEL<"
 }
 
+deps_get(){
+	#
+	# minimal get rule
+	#
+	echo "${TARGET}_get_deps_default := \$(${TARGET}_SOURCE)"
+}
+
 deps_extract(){
 	#
 	# minimal extract rule
@@ -245,7 +252,7 @@ deps_targetinstall(){
                echo -n " \$(STATEDIR)/${targetname}.targetinstall"
            fi
         done
-        echo " \$(STATEDIR)/${TARGET}.compile" 
+        echo " \$(STATEDIR)/${TARGET}.compile \$(STATEDIR)/${TARGET}.install" 
     else
             debug_out "ERROR - dependency tree not found" >&2
     fi
@@ -265,6 +272,7 @@ do_defaults(){
 	[ $DEBUG ] && echo "# Path: $(pwd)" >> $OUTFILE
 	echo "# " >> $OUTFILE
 	echo "$LABEL -> $OUTFILE"
+	ACTION=get deps_get >> $OUTFILE
 	ACTION=extract deps_extract >> $OUTFILE
 	ACTION=prepare deps_prepare >> $OUTFILE
 	ACTION=compile deps_compile >> $OUTFILE
