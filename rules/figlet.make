@@ -89,7 +89,7 @@ figlet_install: $(STATEDIR)/figlet.install
 
 $(STATEDIR)/figlet.install: $(figlet_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, FIGLET,,,$(FIGLET_MAKEVARS))
+	@$(call install, FIGLET)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
