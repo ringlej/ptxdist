@@ -3,6 +3,7 @@
 menuconfig BIND
 	prompt "bind 9              "
 	bool
+	select OPENSSL
 	help
 	  The Berkeley Internet Name Domain (BIND) implements 
 	  an Internet domain name server. BIND is the most 
