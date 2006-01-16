@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config PYTHON24
+	bool
+	depends on BROKEN
+	prompt "Python 2.4"
+	depends on GLIBC_DL || UCLIBC_DL
+	select GLIBC_UTIL if GLIBC
+	select GCCLIBS_CXX
+
+comment "python24 is broken, please send a patch"
+        depends on !BROKEN
+

@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config PYTHON23
+	bool
+	depends on BROKEN
+	prompt "Python 2.3"
+	depends on GLIBC_DL || UCLIBC_DL
+	select GLIBC_UTIL if GLIBC
+	select GCCLIBS_CXX
+
+comment "python23 is broken, please send a patch"
+        depends on !BROKEN
+

@@ -23,20 +23,5 @@ config PHP_APC
 comment "php-apc is broken, please send a patch"
 	depends on !BROKEN
 
-comment "Python requires libdl on the target (see C Library)"
-	depends on !GLIBC_DL && !UCLIBC_DL
-
-config PYTHON23
-	bool
-	prompt "Python 2.3"
-	depends on GLIBC_DL || UCLIBC_DL
-	select GLIBC_UTIL if GLIBC
-	select GCCLIBS_CXX
-
-config PYTHON24
-	bool
-	prompt "Python 2.4"
-	depends on GLIBC_DL || UCLIBC_DL
-	select GLIBC_UTIL if GLIBC
-	select GCCLIBS_CXX
-
+source "rules/python.in"
+source "rules/python24.in"
