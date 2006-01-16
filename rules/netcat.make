@@ -32,7 +32,7 @@ NETCAT_DIR		= $(BUILDDIR)/$(NETCAT)
 
 netcat_get: $(STATEDIR)/netcat.get
 
-$(STATEDIR)/netcat.get: $(NETCAT_SOURCE)
+$(STATEDIR)/netcat.get: $(netcat_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NETCAT))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(NETCAT_SOURCE):
 
 netcat_extract: $(STATEDIR)/netcat.extract
 
-$(STATEDIR)/netcat.extract: $(netcat_extract_deps)
+$(STATEDIR)/netcat.extract: $(netcat_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NETCAT_DIR))
 	@$(call extract, $(NETCAT_SOURCE))
@@ -106,7 +106,7 @@ $(STATEDIR)/netcat.compile: $(netcat_compile_deps_default)
 
 netcat_install: $(STATEDIR)/netcat.install
 
-$(STATEDIR)/netcat.install: $(STATEDIR)/netcat.compile
+$(STATEDIR)/netcat.install: $(netcat_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, NETCAT)
 	@$(call touch, $@)
