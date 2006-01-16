@@ -8,6 +8,11 @@ config OPENAFS
 	bool
 	depends on BROKEN
 	prompt "OpenAFS"
+	help
+	  AFS is a distributed filesystem allowing cross-platform 
+	  sharing of files among multiple computers.  Facilities 
+	  are provided for access control, authentication, backup 
+	  and administrative management.
 
 comment "openafs is broken, please send a patch"
 	depends on !BROKEN

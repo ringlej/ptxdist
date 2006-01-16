@@ -32,7 +32,7 @@ OPENAFS_DIR		= $(BUILDDIR)/$(OPENAFS)
 
 openafs_get: $(STATEDIR)/openafs.get
 
-$(STATEDIR)/openafs.get: $(OPENAFS_SOURCE)
+$(STATEDIR)/openafs.get: $(openafs_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(OPENAFS_SOURCE):
 
 openafs_extract: $(STATEDIR)/openafs.extract
 
-$(STATEDIR)/openafs.extract: $(openafs_extract_deps)
+$(STATEDIR)/openafs.extract: $(openafs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENAFS_DIR))
 	@$(call extract, $(OPENAFS_SOURCE))
@@ -98,7 +98,7 @@ $(STATEDIR)/openafs.compile: $(openafs_compile_deps_default)
 
 openafs_install: $(STATEDIR)/openafs.install
 
-$(STATEDIR)/openafs.install: $(STATEDIR)/openafs.compile
+$(STATEDIR)/openafs.install: $(openafs_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
