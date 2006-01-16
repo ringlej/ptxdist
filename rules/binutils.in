@@ -1,3 +1,4 @@
+# binutils configuration
 
 config LIBBFD
 	bool
