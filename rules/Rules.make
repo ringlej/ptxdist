@@ -499,7 +499,7 @@ extract =							\
 #
 # $1: URL of the packet
 # $2: source directory
-# 
+#
 get =								\
 	URL="$(strip $(1))";					\
 	if [ "$$URL" = "" ]; then				\
@@ -567,7 +567,7 @@ get =								\
 # $2: URL of the patch; this may either point to a single unified diff
 #     or to a directory containing a 'patcher' like patch series
 # $3: patch name; the patch is stored in $(PTXDIST_TOPDIR)/feature-patches/$3
-# 
+#
 get_feature_patch =						\
 	FP_PARENT="$(strip $(1))";				\
 	FP_URL="$(strip $(2))";					\
@@ -635,7 +635,7 @@ get_feature_patch =						\
 
 #
 # get_patches
-# 
+#
 # Download patches from a local or global patch repository. 
 # PTXPATCH_URL contains a list of URLs where to search for patches. 
 # First hit matches, so URLs earlier in the list superseed later ones. 
@@ -706,6 +706,7 @@ get_option_ext =									\
 # $1: label of the packet
 # $2: optional: alternative directory
 # $3: optional: "h" = install as a host tool
+# $4: optional: args to pass to make install call
 #
 # FIXME: if we don't use --install=no we can make one packet.
 #
@@ -721,7 +722,7 @@ install = \
 		INSTALLWATCH_PREFIX=$(PTXCONF_PREFIX)			\
 		$(HOST_CHECKINSTALL_DIR)/checkinstall			\
 		-D -y -pakdir=$(IMAGEDIR) --install=no -nodoc		\
-		make install 						\
+		make install $(4)						\
 		$($(strip $(1)_MAKEVARS))				\
 		DESTDIR=$$DESTDIR;					\
 	#dpkg-deb -x blablabla $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
@@ -734,7 +735,7 @@ install = \
 	cd $$BUILDDIR &&						\
 		$($(strip $(1)_ENV))					\
 		$($(strip $(1)_PATH))					\
-		make install						\
+		make install $(4)						\
 		$($(strip $(1)_MAKEVARS))				\
 		DESTDIR=$$DESTDIR;
 endif
