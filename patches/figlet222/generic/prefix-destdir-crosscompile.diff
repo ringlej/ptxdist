@@ -1,6 +1,6 @@
 diff -ruN figlet222-orig/Makefile figlet222/Makefile
 --- figlet222-orig/Makefile	2005-07-05 11:57:46.000000000 +0200
-+++ figlet222/Makefile	2006-01-16 18:22:14.000000000 +0100
++++ figlet222/Makefile	2006-01-16 18:29:27.000000000 +0100
 @@ -11,19 +11,20 @@
  # Don't change this even if your shell is different. The only reason
  # for changing this is if sh is not in the same place.
@@ -28,7 +28,7 @@ diff -ruN figlet222-orig/Makefile figlet222/Makefile
  
  # The filename of the font to be used if no other is specified
  #   (standard.flf is recommended, but any other can be used).
-@@ -52,11 +53,13 @@
+@@ -52,11 +53,11 @@
  	rm -f *.o figlet chkfont
  
  install: figlet chkfont
@@ -40,13 +40,11 @@ diff -ruN figlet222-orig/Makefile figlet222/Makefile
 -	cp showfigfonts $(DESTDIR)
 -	cp fonts/*.flf $(DEFAULTFONTDIR)
 -	cp fonts/*.flc $(DEFAULTFONTDIR)
-+	mkdir -p $(DESTDIR)$(DEFAULTFONTDIR)
-+	mkdir -p $(DESTDIR)$(MANDIR)
-+	mkdir -p $(DESTDIR)$(BINDIR)
-+	cp figlet $(DESTDIR)$(BINDIR)
-+	cp figlet.6 $(DESTDIR)$(MANDIR)
-+	cp chkfont $(DESTDIR)$(BINDIR)
-+	cp figlist $(DESTDIR)$(BINDIR)
-+	cp showfigfonts $(DESTDIR)$(BINDIR)
-+	cp fonts/*.flf $(DESTDIR)$(DEFAULTFONTDIR)
-+	cp fonts/*.flc $(DESTDIR)$(DEFAULTFONTDIR)
++	install -m 755 -D figlet $(DESTDIR)$(BINDIR)
++	install -m 644 -D figlet.6 $(DESTDIR)$(MANDIR)
++	install -m 755 -D chkfont $(DESTDIR)$(BINDIR)
++	install -m 755 -D figlist $(DESTDIR)$(BINDIR)
++	install -m 755 -D showfigfonts $(DESTDIR)$(BINDIR)
++	for FILE in fonts/*.fl[fc]; do \
++		install -m 644 -D $$FILE $(DESTDIR)$(DEFAULTFONTDIR); \
++	done
