@@ -32,7 +32,7 @@ MYGHTY_DIR	= $(BUILDDIR)/$(MYGHTY)
 
 myghty_get: $(STATEDIR)/myghty.get
 
-$(STATEDIR)/myghty.get: $(MYGHTY_SOURCE)
+$(STATEDIR)/myghty.get: $(myghty_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(MYGHTY_SOURCE):
 
 myghty_extract: $(STATEDIR)/myghty.extract
 
-$(STATEDIR)/myghty.extract: $(myghty_extract_deps)
+$(STATEDIR)/myghty.extract: $(myghty_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MYGHTY_DIR))
 	@$(call extract, $(MYGHTY_SOURCE))
@@ -89,7 +89,7 @@ $(STATEDIR)/myghty.compile: $(myghty_compile_deps_default)
 
 myghty_install: $(STATEDIR)/myghty.install
 
-$(STATEDIR)/myghty.install: $(STATEDIR)/myghty.compile
+$(STATEDIR)/myghty.install: $(myghty_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	# @$(call install, MYGHTY)
