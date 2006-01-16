@@ -13,6 +13,8 @@ menuconfig LTP_KERNEL_FS
 	prompt "File System Tests"
 	depends on LTP_KERNEL
 	default N
+	help
+	  FIXME: This item needs to be documented
 
 # acl - access control lists
 # acls - access control lists
