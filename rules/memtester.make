@@ -32,7 +32,7 @@ MEMTESTER_DIR		= $(BUILDDIR)/$(MEMTESTER)
 
 memtester_get: $(STATEDIR)/memtester.get
 
-$(STATEDIR)/memtester.get: $(MEMTESTER_SOURCE)
+$(STATEDIR)/memtester.get: $(memtester_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMTESTER))
 	@$(call touch, $@)
@@ -47,6 +47,7 @@ $(MEMTESTER_SOURCE):
 
 memtester_extract: $(STATEDIR)/memtester.extract
 
+$(STATEDIR)/memtester.extract: $(memtester_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMTESTER_DIR))
 	@$(call extract, $(MEMTESTER_SOURCE))
@@ -85,7 +86,7 @@ $(STATEDIR)/memtester.compile: $(memtester_compile_deps_default)
 
 memtester_install: $(STATEDIR)/memtester.install
 
-$(STATEDIR)/memtester.install: $(STATEDIR)/memtester.compile
+$(STATEDIR)/memtester.install: $(memtester_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -1,1 +1,9 @@
-# FIXME: There should be a *.in for this package
+config MEMTESTER
+	bool 
+	prompt "memtester"
+	default n
+	help
+	  Memory tester written by Charles Cazabon. See
+	  http://pyropus.ca/software/memtester/ for more
+	  info. This test has much more sophisticated
+	  test patterns than the one above.
