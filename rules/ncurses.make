@@ -31,7 +31,7 @@ NCURSES_DIR	= $(BUILDDIR)/$(NCURSES)
 
 ncurses_get: $(STATEDIR)/ncurses.get
 
-$(STATEDIR)/ncurses.get: $(NCURSES_SOURCE)
+$(STATEDIR)/ncurses.get: $(ncurses_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NCURSES))
 	@$(call touch, $@)
@@ -46,7 +46,7 @@ $(NCURSES_SOURCE):
 
 ncurses_extract: $(STATEDIR)/ncurses.extract
 
-$(STATEDIR)/ncurses.extract: $(STATEDIR)/ncurses.get
+$(STATEDIR)/ncurses.extract: $(ncurses_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NCURSES_DIR))
 	@$(call extract, $(NCURSES_SOURCE))
@@ -103,7 +103,7 @@ $(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps_default)
 
 ncurses_compile: $(STATEDIR)/ncurses.compile
 
-$(STATEDIR)/ncurses.compile: $(STATEDIR)/ncurses.prepare 
+$(STATEDIR)/ncurses.compile: $(ncurses_compile_deps_default)
 	@$(call targetinfo, $@)
 #
 # the two tools make_hash and make_keys are compiled for the host system
@@ -122,7 +122,7 @@ $(STATEDIR)/ncurses.compile: $(STATEDIR)/ncurses.prepare
 
 ncurses_install: $(STATEDIR)/ncurses.install
 
-$(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
+$(STATEDIR)/ncurses.install: $(ncurses_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	# @$(call install, NCURSES)
@@ -135,7 +135,7 @@ $(STATEDIR)/ncurses.install: $(STATEDIR)/ncurses.compile
 
 ncurses_targetinstall: $(STATEDIR)/ncurses.targetinstall
 
-$(STATEDIR)/ncurses.targetinstall: $(STATEDIR)/ncurses.install
+$(STATEDIR)/ncurses.targetinstall: $(ncurses_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)

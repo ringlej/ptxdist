@@ -1,5 +1,7 @@
 menuconfig NCURSES
 	bool "ncurses                     "
+	help
+	  FIXME: This item needs to be documented
 
 #config NCURSES_NCURSES
 #	bool "Install libncurses on the target"
@@ -23,12 +25,18 @@ config NCURSES_TERMCAP
 config NCURSES_FORM
 	bool "Install libform on the target"
 	depends on NCURSES
+	help
+	  FIXME: This item needs to be documented
 
 config NCURSES_MENU
 	bool "Install libmenu on the target"
 	depends on NCURSES
+	help
+	  FIXME: This item needs to be documented
 
 config NCURSES_PANEL
 	bool "Install libpanel on the target"
 	depends on NCURSES
+	help
+	  FIXME: This item needs to be documented
 
