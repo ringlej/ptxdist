@@ -102,7 +102,7 @@ $(STATEDIR)/gettext.compile: $(gettext_compile_deps_default)
 
 gettext_install: $(STATEDIR)/gettext.install
 
-$(STATEDIR)/gettext.install: (gettext_install_deps_default)
+$(STATEDIR)/gettext.install: $(gettext_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, GETTEXT)
