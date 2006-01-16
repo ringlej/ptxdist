@@ -34,7 +34,7 @@ LTT_BUILDDIR		= $(BUILDDIR)/$(LTT)-build
 
 ltt_get: $(STATEDIR)/ltt.get
 
-$(STATEDIR)/ltt.get: $(LTT_SOURCE)
+$(STATEDIR)/ltt.get: $(ltt_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LTT))
 	@$(call touch, $@)
@@ -49,7 +49,7 @@ $(LTT_SOURCE):
 
 ltt_extract: $(STATEDIR)/ltt.extract
 
-$(STATEDIR)/ltt.extract: $(ltt_extract_deps)
+$(STATEDIR)/ltt.extract: $(ltt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LTT_DIR))
 	@$(call extract, $(LTT_SOURCE))
@@ -84,7 +84,7 @@ $(STATEDIR)/ltt.prepare: $(ltt_prepare_deps_default)
 
 ltt_compile: $(STATEDIR)/ltt.compile
 
-$(STATEDIR)/ltt.compile: $(STATEDIR)/ltt.prepare 
+$(STATEDIR)/ltt.compile: $(ltt_compile_deps_default)
 	@$(call targetinfo, $@)
 
 	$(LTT_PATH) make -C $(LTT_BUILDDIR)/LibUserTrace UserTrace.o
@@ -109,7 +109,7 @@ $(STATEDIR)/ltt.install: $(ltt_install_deps_default)
 
 ltt_targetinstall: $(STATEDIR)/ltt.targetinstall
 
-$(STATEDIR)/ltt.targetinstall: $(STATEDIR)/ltt.install
+$(STATEDIR)/ltt.targetinstall: $(ltt_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
