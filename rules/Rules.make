@@ -713,30 +713,28 @@ get_option_ext =									\
 ifdef PTXCONF_IMAGE_HOST_DEB
 install = \
 	BUILDDIR="$($(strip $(1)_DIR))";				\
-	DESTDIR="$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)";		\
-	[ "$(2)" != "" ] && BUILDDIR="$(strip $(2))";			\
-	[ "$(3)" = "h" ] && unset DESTDIR;				\
+	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
+	[ "$(strip $(3))" != "h" ] && DESTDIR="$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)";	\
 	cd $$BUILDDIR && 						\
-		$($(strip $(1)_ENV)) 					\
-		$($(strip $(1)_PATH)) 					\
+		$($(strip $(1))_ENV) 					\
+		$($(strip $(1))_PATH) 					\
 		INSTALLWATCH_PREFIX=$(PTXCONF_PREFIX)			\
 		$(HOST_CHECKINSTALL_DIR)/checkinstall			\
 		-D -y -pakdir=$(IMAGEDIR) --install=no -nodoc		\
-		make install $(4)						\
-		$($(strip $(1)_MAKEVARS))				\
+		make install $(4) 					\
+		$($(strip $(1))_MAKEVARS)				\
 		DESTDIR=$$DESTDIR;					\
 	#dpkg-deb -x blablabla $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
 else
 install = \
-	BUILDDIR="$($(strip $(1)_DIR))";				\
-	DESTDIR="$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)";		\
-	[ "$(2)" != "" ] && BUILDDIR="$(strip $(2))";			\
-	[ "$(3)" = "h" ] && unset DESTDIR;				\
+	BUILDDIR="$($(strip $(1))_DIR)";				\
+	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
+	[ "$(strip $(3))" != "h" ] && DESTDIR="$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)";	\
 	cd $$BUILDDIR &&						\
-		$($(strip $(1)_ENV))					\
-		$($(strip $(1)_PATH))					\
-		make install $(4)						\
-		$($(strip $(1)_MAKEVARS))				\
+		$($(strip $(1))_ENV)					\
+		$($(strip $(1))_PATH)					\
+		make install $(4)					\
+		$($(strip $(1))_MAKEVARS)				\
 		DESTDIR=$$DESTDIR;
 endif
 
