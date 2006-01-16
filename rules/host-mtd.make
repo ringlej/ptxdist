@@ -29,7 +29,7 @@ HOST_MTD_DIR	= $(HOST_BUILDDIR)/$(HOST_MTD)
 
 host-mtd_get: $(STATEDIR)/host-mtd.get
 
-$(STATEDIR)/host-mtd.get: $(host-mtd_get_deps_default) mtd_get
+$(STATEDIR)/host-mtd.get: $(host-mtd_get_deps_default) $(STATEDIR)/mtd.get
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_MTD))
 	@$(call touch, $@)
