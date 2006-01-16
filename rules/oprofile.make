@@ -46,7 +46,7 @@ $(OPROFILE_SOURCE):
 
 oprofile_extract: $(STATEDIR)/oprofile.extract
 
-$(STATEDIR)/oprofile.extract: $(oprofile_extract_deps)
+$(STATEDIR)/oprofile.extract: $(oprofile_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPROFILE_DIR))
 	@$(call extract, $(OPROFILE_SOURCE))
@@ -100,7 +100,7 @@ $(STATEDIR)/oprofile.compile: $(oprofile_compile_deps_default)
 
 oprofile_install: $(STATEDIR)/oprofile.install
 
-$(STATEDIR)/oprofile.install: $(STATEDIR)/oprofile.compile
+$(STATEDIR)/oprofile.install: $(oprofile_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, OPROFILE)
 	@$(call touch, $@)

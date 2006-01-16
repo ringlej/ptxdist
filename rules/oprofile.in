@@ -1,1 +1,7 @@
-# FIXME: There should be a *.in for this package
+config OPROFILE
+	bool
+	depends on POPT && LIBBFD
+	prompt "oprofile"
+	default n
+	help
+	  FIXME: This item needs to be documented
