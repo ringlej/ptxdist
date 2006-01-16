@@ -85,6 +85,9 @@ APACHE_AUTOCONF = \
 	--disable-module=env \
 	--enable-module=so
 
+APACHE_MAKEVARS = \
+	root=$(SYSROOT)
+
 $(STATEDIR)/apache.prepare: $(apache_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(APACHE_DIR)/config.cache)
@@ -101,7 +104,7 @@ apache_compile: $(STATEDIR)/apache.compile
 
 $(STATEDIR)/apache.compile: $(apache_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(APACHE_DIR) && $(APACHE_ENV) $(APACHE_PATH) make
+	cd $(APACHE_DIR) && $(APACHE_ENV) $(APACHE_PATH) make $(APACHE_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -112,7 +115,7 @@ apache_install: $(STATEDIR)/apache.install
 
 $(STATEDIR)/apache.install: $(apache_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, APACHE)
+	$(call install,APACHE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
