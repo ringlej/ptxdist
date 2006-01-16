@@ -34,7 +34,7 @@ LRZSZ_DIR	= $(BUILDDIR)/$(LRZSZ)
 
 lrzsz_get: $(STATEDIR)/lrzsz.get
 
-$(STATEDIR)/lrzsz.get: $(LRZSZ_SOURCE)
+$(STATEDIR)/lrzsz.get: $(lrzsz_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,7 +48,7 @@ $(LRZSZ_SOURCE):
 
 lrzsz_extract: $(STATEDIR)/lrzsz.extract
 
-$(STATEDIR)/lrzsz.extract: $(lrzsz_extract_deps)
+$(STATEDIR)/lrzsz.extract: $(lrzsz_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LRZSZ_DIR))
 	@$(call extract, $(LRZSZ_SOURCE))
@@ -94,7 +94,7 @@ $(STATEDIR)/lrzsz.compile: $(lrzsz_compile_deps_default)
 
 lrzsz_install: $(STATEDIR)/lrzsz.install
 
-$(STATEDIR)/lrzsz.install: $(STATEDIR)/lrzsz.compile
+$(STATEDIR)/lrzsz.install: $(lrzsz_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
