@@ -32,7 +32,7 @@ MESA_DIR	= $(BUILDDIR)/$(MESA)
 
 mesa_get: $(STATEDIR)/mesa.get
 
-$(STATEDIR)/mesa.get: $(MESA_SOURCE)
+$(STATEDIR)/mesa.get: $(mesa_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -93,7 +93,7 @@ $(STATEDIR)/mesa.compile: $(mesa_compile_deps_default)
 
 mesa_install: $(STATEDIR)/mesa.install
 
-$(STATEDIR)/mesa.install: $(STATEDIR)/mesa.compile
+$(STATEDIR)/mesa.install: $(mesa_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, MESA)
 	@$(call touch, $@)
