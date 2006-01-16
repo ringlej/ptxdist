@@ -60,13 +60,19 @@ $(STATEDIR)/bonniexx.extract: $(bonniexx_extract_deps_default)
 
 bonniexx_prepare: $(STATEDIR)/bonniexx.prepare
 
-BONNIEXX_PATH	=  PATH=$(CROSS_PATH)
-BONNIEXX_ENV 	=  $(CROSS_ENV)
+BONNIEXX_PATH	  =  PATH=$(CROSS_PATH)
+BONNIEXX_ENV 	  =  $(CROSS_ENV)
+BONNIEXX_MAKEVARS =  prefix=$(SYSROOT) 
 
 #
-# autoconf
+# autoconf without automake :-(
 #
-BONNIEXX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+# - stripping does not work, because bonnie's Makefile uses wrong
+#   install version (for host)
+
+BONNIEXX_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-stripping
 
 $(STATEDIR)/bonniexx.prepare: $(bonniexx_prepare_deps_default)
 	@$(call targetinfo, $@)
