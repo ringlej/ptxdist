@@ -30,9 +30,9 @@ HOST_IPKG_UTILS_DIR		= $(HOST_BUILDDIR)/$(HOST_IPKG_UTILS)
 # Get
 # ----------------------------------------------------------------------------
 
-HOST_IPKG_UTILS_get: $(STATEDIR)/HOST_IPKG_UTILS.get
+host-ipkg-utils_get: $(STATEDIR)/host-ipkg-utils.get
 
-$(STATEDIR)/HOST_IPKG_UTILS.get: $(host-ipkg-utils_get_deps_default)
+$(STATEDIR)/host-ipkg-utils.get: $(host-ipkg-utils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(HOST_IPKG_UTILS))
 	@$(call touch, $@)
