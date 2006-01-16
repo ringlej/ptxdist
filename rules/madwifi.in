@@ -3,14 +3,20 @@ config MADWIFI
 	bool
 	prompt "Multiband Atheros WiFi Driver"
 	depends on ARCH_X86 && WIRELESS
+	help
+	  FIXME: This item needs to be documented
 
 config MADWIFI_TOOLS_ATHEROS_STATS
 	bool
 	prompt "Atheros Stats"
 	depends on MADWIFI
+	help
+	  FIXME: This item needs to be documented
 
 config MADWIFI_TOOLS_80211_STATS
 	bool
 	prompt "802.11 Stats"
 	depends on MADWIFI
+	help
+	  FIXME: This item needs to be documented
 

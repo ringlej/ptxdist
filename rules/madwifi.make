@@ -42,7 +42,7 @@ MADWIFI_DIR		= $(BUILDDIR)/$(MADWIFI)
 
 madwifi_get: $(STATEDIR)/madwifi.get
 
-$(STATEDIR)/madwifi.get: $(MADWIFI_SOURCE)
+$(STATEDIR)/madwifi.get: $(madwifi_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -56,7 +56,7 @@ $(MADWIFI_SOURCE):
 
 madwifi_extract: $(STATEDIR)/madwifi.extract
 
-$(STATEDIR)/madwifi.extract: $(madwifi_extract_deps)
+$(STATEDIR)/madwifi.extract: $(madwifi_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MADWIFI_DIR))
 	@$(call extract, $(MADWIFI_SOURCE))
@@ -109,7 +109,7 @@ endif
 
 madwifi_install: $(STATEDIR)/madwifi.install
 
-$(STATEDIR)/madwifi.install: $(STATEDIR)/madwifi.compile
+$(STATEDIR)/madwifi.install: $(madwifi_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
