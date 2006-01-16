@@ -19,6 +19,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_MODULE_INIT_TOOLS) += host-module-init-tools
 #
 HOST_MODULE_INIT_TOOLS_DIR		= $(HOST_BUILDDIR)/$(MODULE_INIT_TOOLS)
 
+
 -include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
@@ -27,7 +28,9 @@ HOST_MODULE_INIT_TOOLS_DIR		= $(HOST_BUILDDIR)/$(MODULE_INIT_TOOLS)
 
 host-module-init-tools_get: $(STATEDIR)/host-module-init-tools.get
 
-$(STATEDIR)/host-module-init-tools.get: $(host-module-init-tools_get_deps_default)
+host-module-init-tools_get_deps = $(host-module-init-tools_get_deps_default) $(STATEDIR)/module-init-tools.get
+
+$(STATEDIR)/host-module-init-tools.get: $(host-module-init-tools_get_deps)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
