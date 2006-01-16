@@ -32,7 +32,7 @@ NTP_DIR		= $(BUILDDIR)/$(NTP)
 
 ntp_get: $(STATEDIR)/ntp.get
 
-$(STATEDIR)/ntp.get: $(NTP_SOURCE)
+$(STATEDIR)/ntp.get: $(ntp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NTP))
 	@$(call touch, $@)
@@ -47,6 +47,7 @@ $(NTP_SOURCE):
 
 ntp_extract: $(STATEDIR)/ntp.extract
 
+$(STATEDIR)/ntp.extract: $(ntp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NTP_DIR))
 	@$(call extract, $(NTP_SOURCE))
@@ -333,7 +334,7 @@ $(STATEDIR)/ntp.compile: $(ntp_compile_deps_default)
 
 ntp_install: $(STATEDIR)/ntp.install
 
-$(STATEDIR)/ntp.install: $(STATEDIR)/ntp.compile
+$(STATEDIR)/ntp.install: $(ntp_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, NTP)
 	@$(call touch, $@)
