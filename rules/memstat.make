@@ -34,7 +34,6 @@ memstat_get: $(STATEDIR)/memstat.get
 
 $(STATEDIR)/memstat.get: $(memstat_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(MEMSTAT))
 	@$(call touch, $@)
 
 $(MEMSTAT_SOURCE):
@@ -51,7 +50,7 @@ $(STATEDIR)/memstat.extract: $(memstat_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMSTAT_DIR))
 	@$(call extract, $(MEMSTAT_SOURCE))
-	@$(call patchin, $(MEMSTAT))
+	@$(call patchin, memstat-$(MEMSTAT_VERSION))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -91,7 +90,10 @@ memstat_install: $(STATEDIR)/memstat.install
 
 $(STATEDIR)/memstat.install: $(memstat_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, MEMSTAT)
+	# make install does bogus stuff
+	mkdir -p $(SYSROOT)/usr/bin/
+	rm -f $(SYSROOT)/usr/bin/memstat
+	cp $(MEMSTAT_DIR)/memstat $(SYSROOT)/usr/bin/memstat
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
