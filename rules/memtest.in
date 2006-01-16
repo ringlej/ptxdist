@@ -1,1 +1,7 @@
-# FIXME: There should be a *.in for this package
+config MEMTEST
+	bool 
+	prompt "memtest"
+	default n
+	help
+	  FIXME: This item needs to be documented
+

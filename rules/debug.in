@@ -22,14 +22,7 @@ comment "LTT is broken, please send a patch"
 	depends on !BROKEN
 
 source "rules/binutils.in"
-
-config MEMTEST
-	bool 
-	prompt "memtest"
-	default n
-	help
-	  FIXME: This item needs to be documented
-
+source "rules/memtest.in"
 source "rules/memtester.in"
 
 config OPROFILE

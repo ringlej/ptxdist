@@ -32,7 +32,7 @@ MEMTEST_DIR		= $(BUILDDIR)/$(MEMTEST)
 
 memtest_get: $(STATEDIR)/memtest.get
 
-$(STATEDIR)/memtest.get: $(MEMTEST_SOURCE)
+$(STATEDIR)/memtest.get: $(memtest_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMTEST))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(MEMTEST_SOURCE):
 
 memtest_extract: $(STATEDIR)/memtest.extract
 
-$(STATEDIR)/memtest.extract: $(memtest_extract_deps)
+$(STATEDIR)/memtest.extract: $(memtest_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMTEST_DIR))
 	@$(call extract, $(MEMTEST_SOURCE))
@@ -90,7 +90,7 @@ $(STATEDIR)/memtest.compile: $(memtest_compile_deps_default)
 
 memtest_install: $(STATEDIR)/memtest.install
 
-$(STATEDIR)/memtest.install: $(STATEDIR)/memtest.compile
+$(STATEDIR)/memtest.install: $(memtest_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
