@@ -1,0 +1,106 @@
+# -----
+
+menu	"nfsutils            "
+
+comment "compile options"
+
+config	NFSUTILS
+	bool
+	prompt "nfsutils"
+
+config	NFSUTILS_V3
+	bool
+	prompt "Enable support for NFSv3"
+	depends on NFSUTILS
+
+config	NFSUTILS_SECURE_STATD
+	bool
+	prompt "Only lockd can use statd (security)"
+	depends on NFSUTILS
+
+config	NFSUTILS_RQUOTAD
+	bool
+	prompt "Enable rquotad"
+	depends on NFSUTILS	
+
+config	NFSUTILS_WITH_TCPWRAPPERS
+	bool
+	prompt "Use TCP Wrappers"
+	depends on NFSUTILS
+	select TCPWRAPPER
+
+# -----
+
+comment "install options"
+
+config	NFSUTILS_INSTALL_CLIENTSCRIPT
+	bool
+	prompt "Install /etc/init.d/nfs-client"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_FUNCTIONSSCRIPT
+	bool
+	prompt "Install /etc/init.d/nfs-functions"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_SERVERSCRIPT
+	bool
+	prompt "Install /etc/init.d/nfs-server"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_EXPORTFS
+	bool
+	prompt "Install /sbin/exportfs"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_LOCKD
+	bool
+	prompt "Install /sbin/lockd"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_MOUNTD
+	bool
+	prompt "Install /sbin/mountd"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_NFSD
+	bool
+	prompt "Install /sbin/nfsd"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_NFSSTAT
+	bool
+	prompt "Install /sbin/nfsstat"
+	depends on NFSUTILS
+
+config	NFSUTILS_INSTALL_NHFSGRAPH
+	bool
+	prompt "Install /sbin/nhfsgraph"
+	depends on NFSUTILS
+
+config  NFSUTILS_INSTALL_NHFSNUMS
+        bool
+        prompt "Install /sbin/nhfsnums"
+        depends on NFSUTILS
+
+config  NFSUTILS_INSTALL_NHFSRUN
+        bool
+        prompt "Install /sbin/nhfsrun"
+        depends on NFSUTILS
+
+config  NFSUTILS_INSTALL_NHFSSTONE
+        bool
+        prompt "Install /sbin/nhfsstone"
+        depends on NFSUTILS
+
+config  NFSUTILS_INSTALL_SHOWMOUNT
+        bool
+        prompt "Install /sbin/showmount"
+        depends on NFSUTILS
+
+config  NFSUTILS_INSTALL_STATD
+        bool
+        prompt "Install /sbin/statd"
+        depends on NFSUTILS
+
+endmenu
