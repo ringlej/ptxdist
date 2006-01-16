@@ -35,6 +35,7 @@ config HOST_MKNBI
 comment "Other Host Tools"
 ##############################################################################
 
+source "rules/host-binutils.in"
 source "rules/host-flex.in"
 source "rules/host-qte.in"
 source "rules/host-slirp.in"
