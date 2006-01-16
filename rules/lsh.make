@@ -32,7 +32,7 @@ LSH_DIR		= $(BUILDDIR)/$(LSH)
 
 lsh_get: $(STATEDIR)/lsh.get
 
-$(STATEDIR)/lsh.get: $(LSH_SOURCE)
+$(STATEDIR)/lsh.get: $(lsh_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(LSH_SOURCE):
 
 lsh_extract: $(STATEDIR)/lsh.extract
 
-$(STATEDIR)/lsh.extract: $(lsh_extract_deps)
+$(STATEDIR)/lsh.extract: $(lsh_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LSH_DIR))
 	@$(call extract, $(LSH_SOURCE))
@@ -103,7 +103,7 @@ $(STATEDIR)/lsh.compile: $(lsh_compile_deps_default)
 
 lsh_install: $(STATEDIR)/lsh.install
 
-$(STATEDIR)/lsh.install: $(STATEDIR)/lsh.compile
+$(STATEDIR)/lsh.install: $(lsh_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
