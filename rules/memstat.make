@@ -47,7 +47,7 @@ $(MEMSTAT_SOURCE):
 
 memstat_extract: $(STATEDIR)/memstat.extract
 
-$(STATEDIR)/memstat_extract: $(memstat_extract_deps_default)
+$(STATEDIR)/memstat.extract: $(memstat_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMSTAT_DIR))
 	@$(call extract, $(MEMSTAT_SOURCE))
