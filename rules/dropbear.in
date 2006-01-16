@@ -2,6 +2,7 @@ menu	"Dropbear SSH-Server "
 
 config DROPBEAR
 	bool
+	select ZLIB
 	prompt "Dropbear SSH Server"
 	help
 	  dropbear is a SSH 2 server and client designed 
