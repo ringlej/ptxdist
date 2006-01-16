@@ -61,9 +61,10 @@ $(STATEDIR)/figlet.extract: $(figlet_extract_deps_default)
 figlet_prepare: $(STATEDIR)/figlet.prepare
 
 FIGLET_PATH	=  PATH=$(CROSS_PATH)
-FIGLET_ENV 	=  $(CROSS_ENV)
-FIGLET_ENV	+= CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))'
-FIGLET_ENV	+= LDFLAGS='$(call remove_quotes,$(TARGET_LDFLAGS))'
+FIGLET_ENV 	= $(CROSS_ENV) \
+	CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))' \
+	LDFLAGS='$(call remove_quotes,$(TARGET_LDFLAGS))'
+FIGLET_MAKEVARS = prefix=/usr
 
 $(STATEDIR)/figlet.prepare: $(figlet_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -77,7 +78,7 @@ figlet_compile: $(STATEDIR)/figlet.compile
 
 $(STATEDIR)/figlet.compile: $(figlet_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(FIGLET_DIR) && $(FIGLET_ENV) $(FIGLET_PATH) make
+	cd $(FIGLET_DIR) && $(FIGLET_ENV) $(FIGLET_PATH) make $(FIGLET_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -88,7 +89,7 @@ figlet_install: $(STATEDIR)/figlet.install
 
 $(STATEDIR)/figlet.install: $(figlet_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, FIGLET)
+	@$(call install, FIGLET,,,$(FIGLET_MAKEVARS))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
