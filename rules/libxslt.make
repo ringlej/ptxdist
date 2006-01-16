@@ -32,7 +32,7 @@ LIBXSLT_DIR	= $(BUILDDIR)/$(LIBXSLT)
 
 libxslt_get: $(STATEDIR)/libxslt.get
 
-$(STATEDIR)/libxslt.get: $(LIBXSLT_SOURCE)
+$(STATEDIR)/libxslt.get: $(libxslt_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LIBXSLT))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(LIBXSLT_SOURCE):
 
 libxslt_extract: $(STATEDIR)/libxslt.extract
 
-$(STATEDIR)/libxslt.extract: $(libxslt_extract_deps)
+$(STATEDIR)/libxslt.extract: $(libxslt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXSLT_DIR))
 	@$(call extract, $(LIBXSLT_SOURCE))
@@ -118,7 +118,7 @@ $(STATEDIR)/libxslt.compile: $(libxslt_compile_deps_default)
 
 libxslt_install: $(STATEDIR)/libxslt.install
 
-$(STATEDIR)/libxslt.install: $(STATEDIR)/libxslt.compile
+$(STATEDIR)/libxslt.install: $(libxslt_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBXSLT)
 	
