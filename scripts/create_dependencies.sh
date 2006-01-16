@@ -192,8 +192,8 @@ deps_prepare(){
 	if [ -e "$STATEDIR/configdeps" ]; then
 	 	debug_out "found dependency tree"
 		echo -n "${TARGET}_prepare_deps_default := \$(STATEDIR)/${TARGET}.extract" 
-		for dependency in $(grep "^DEP:$LABEL:" $STATEDIR/configdeps | sed -e s/^DEP:$LABEL://g -e "s/:/\ /g"); do 
-			targetname=$(grep -s "^PACKAGES-\$(PTXCONF_$(echo $dependency))" $rulesfiles | sed s/.*+=[\ ]//g)
+		for dependency in $(grep "^DEP:$LABEL:" $STATEDIR/configdeps | sed -e s/^DEP:$LABEL://g -e "s/:/\ /g" -e "s/-/_/g"); do 
+			targetname=$(grep -s "PACKAGES-\$(PTXCONF_$(echo $dependency))" $rulesfiles | sed s/.*+=[\ ]//g)
 			if [ -z "$targetname" ]; then
 				debug_out "Package not identified for $dependency"
 			else
