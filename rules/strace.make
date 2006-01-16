@@ -31,7 +31,7 @@ STRACE_DIR		= $(BUILDDIR)/$(STRACE)
 
 strace_get: $(STATEDIR)/strace.get
 
-$(STATEDIR)/strace.get: $(STRACE_SOURCE)
+$(STATEDIR)/strace.get: $(strace_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(STRACE))
 	@$(call touch, $@)
