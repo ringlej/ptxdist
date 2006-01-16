@@ -34,7 +34,7 @@ PANGO_MODULE_VERSION	= 1.4
 
 pango12_get: $(STATEDIR)/pango12.get
 
-$(STATEDIR)/pango12.get: $(PANGO12_SOURCE)
+$(STATEDIR)/pango12.get: $(pango12_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,7 +48,7 @@ $(PANGO12_SOURCE):
 
 pango12_extract: $(STATEDIR)/pango12.extract
 
-$(STATEDIR)/pango12.extract: $(pango12_extract_deps)
+$(STATEDIR)/pango12.extract: $(pango12_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PANGO12_DIR))
 	@$(call extract, $(PANGO12_SOURCE))
@@ -97,7 +97,7 @@ $(STATEDIR)/pango12.compile: $(pango12_compile_deps_default)
 
 pango12_install: $(STATEDIR)/pango12.install
 
-$(STATEDIR)/pango12.install: $(STATEDIR)/pango12.compile
+$(STATEDIR)/pango12.install: $(pango12_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, PANGO12)
 	@$(call touch, $@)
