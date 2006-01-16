@@ -166,7 +166,7 @@ deps_get(){
 	#
 	# minimal get rule
 	#
-	echo "${TARGET}_get_deps_default := \$(${TARGET}_SOURCE)"
+	echo "${TARGET}_get_deps_default := \$(${LABEL}_SOURCE)"
 }
 
 deps_extract(){
