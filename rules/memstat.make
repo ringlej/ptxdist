@@ -32,7 +32,7 @@ MEMSTAT_DIR	= $(BUILDDIR)/memstat-$(MEMSTAT_VERSION)
 
 memstat_get: $(STATEDIR)/memstat.get
 
-$(STATEDIR)/memstat.get: $(MEMSTAT_SOURCE)
+$(STATEDIR)/memstat.get: $(memstat_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(MEMSTAT))
 	@$(call touch, $@)
@@ -47,6 +47,7 @@ $(MEMSTAT_SOURCE):
 
 memstat_extract: $(STATEDIR)/memstat.extract
 
+$(STATEDIR)/memstat_extract: $(memstat_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMSTAT_DIR))
 	@$(call extract, $(MEMSTAT_SOURCE))
@@ -88,7 +89,7 @@ $(STATEDIR)/memstat.compile: $(memstat_compile_deps_default)
 
 memstat_install: $(STATEDIR)/memstat.install
 
-$(STATEDIR)/memstat.install: $(STATEDIR)/memstat.compile
+$(STATEDIR)/memstat.install: $(memstat_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, MEMSTAT)
 	@$(call touch, $@)

@@ -1,10 +1,4 @@
 source "rules/figlet.in"
 source "rules/memedit.in"
+source "rules/memstat.in"
 
-config MEMSTAT
-	bool
-	default N
-	prompt "memstat"
-	help
-	  memstat is a memory diagnose tool which lets you find
- 	  out which process uses how much virtual memory. 

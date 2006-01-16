@@ -1,1 +1,7 @@
-# FIXME: There should be a *.in for this package
+config MEMSTAT
+	bool
+	default N
+	prompt "memstat"
+	help
+	  memstat is a memory diagnose tool which lets you find
+ 	  out which process uses how much virtual memory. 
