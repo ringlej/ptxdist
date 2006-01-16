@@ -32,7 +32,7 @@ NANO_DIR		= $(BUILDDIR)/$(NANO)
 
 nano_get: $(STATEDIR)/nano.get
 
-$(STATEDIR)/nano.get: $(NANO_SOURCE)
+$(STATEDIR)/nano.get: $(nano_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(NANO))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(NANO_SOURCE):
 
 nano_extract: $(STATEDIR)/nano.extract
 
-$(STATEDIR)/nano.extract: $(nano_extract_deps)
+$(STATEDIR)/nano.extract: $(nano_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NANO_DIR))
 	@$(call extract, $(NANO_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/nano.compile: $(nano_compile_deps_default)
 
 nano_install: $(STATEDIR)/nano.install
 
-$(STATEDIR)/nano.install: $(STATEDIR)/nano.compile
+$(STATEDIR)/nano.install: $(nano_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: put this into targetinstall? 
 	@$(call install, NANO)
