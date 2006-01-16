@@ -32,7 +32,7 @@ LTP_DIR		= $(BUILDDIR)/$(LTP)
 
 ltp_get: $(STATEDIR)/ltp.get
 
-$(STATEDIR)/ltp.get: $(LTP_SOURCE)
+$(STATEDIR)/ltp.get: $(ltp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(LTP))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(LTP_SOURCE):
 
 ltp_extract: $(STATEDIR)/ltp.extract
 
-$(STATEDIR)/ltp.extract: $(ltp_extract_deps)
+$(STATEDIR)/ltp.extract: $(ltp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LTP_DIR))
 	@$(call extract, $(LTP_SOURCE))
@@ -90,7 +90,7 @@ endif
 
 ltp_install: $(STATEDIR)/ltp.install
 
-$(STATEDIR)/ltp.install: $(STATEDIR)/ltp.compile
+$(STATEDIR)/ltp.install: $(ltp_install_deps_default)
 	@$(call targetinfo, $@)
 	install -D $(LTP_DIR)/lib/libltp.a $(CROSS_LIB_DIR)/lib/libltp.a
 	@$(call touch, $@)

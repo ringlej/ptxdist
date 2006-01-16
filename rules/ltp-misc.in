@@ -13,6 +13,8 @@ config LTP_MISC_MATH
 	prompt "math"
 	depends on LTP_MISC
 	default N
+	help
+	  FIXME: This item needs to be documented
 
 config LTP_MISC_MATH_ABS
 	bool
