@@ -1,11 +1,10 @@
-config KSYMOOPS
+config HOST_KSYMOOPS
         bool
         default N
-        depends on BROKEN
         prompt "KSYMOOPS"
+	select HOST_BINUTILS_LIBBFD
+	select HOST_BINUTILS_LIBIBERTY
+	select HOST_BINUTILS
 	help
 	  FIXME: This item needs to be documented
 	
-
-comment "KSYMOOPS is broken, please send a patch"
-        depends on !BROKEN
