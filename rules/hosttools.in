@@ -40,3 +40,9 @@ source "rules/host-flex.in"
 source "rules/host-qte.in"
 source "rules/host-slirp.in"
 
+##############################################################################
+comment "Scripting Languages"
+##############################################################################
+
+source "rules/host-python24.in"
+
