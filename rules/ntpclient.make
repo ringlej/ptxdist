@@ -24,7 +24,7 @@ NTPCLIENT_DIR		= $(BUILDDIR)/$(NTPCLIENT)
 
 ntpclient_get: $(STATEDIR)/ntpclient.get
 
-$(STATEDIR)/ntpclient.get: $(NTPCLIENT_SOURCE)
+$(STATEDIR)/ntpclient.get: $(ntpclient_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -38,7 +38,7 @@ $(NTPCLIENT_SOURCE):
 
 ntpclient_extract: $(STATEDIR)/ntpclient.extract
 
-$(STATEDIR)/ntpclient.extract: $(ntpclient_extract_deps)
+$(STATEDIR)/ntpclient.extract: $(ntpclient_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NTPCLIENT_DIR))
 	@$(call extract, $(NTPCLIENT_SOURCE))
@@ -75,7 +75,7 @@ $(STATEDIR)/ntpclient.compile: $(ntpclient_compile_deps_default)
 
 ntpclient_install: $(STATEDIR)/ntpclient.install
 
-$(STATEDIR)/ntpclient.install: $(STATEDIR)/ntpclient.compile
+$(STATEDIR)/ntpclient.install: $(ntpclient_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
