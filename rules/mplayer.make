@@ -32,7 +32,7 @@ MPLAYER_DIR	= $(BUILDDIR)/$(MPLAYER)
 
 mplayer_get: $(STATEDIR)/mplayer.get
 
-$(STATEDIR)/mplayer.get: $(MPLAYER_SOURCE)
+$(STATEDIR)/mplayer.get: $(mplayer_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(MPLAYER_SOURCE):
 
 mplayer_extract: $(STATEDIR)/mplayer.extract
 
-$(STATEDIR)/mplayer.extract: $(mplayer_extract_deps)
+$(STATEDIR)/mplayer.extract: $(mplayer_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MPLAYER_DIR))
 	@$(call extract, $(MPLAYER_SOURCE))
@@ -105,7 +105,7 @@ $(STATEDIR)/mplayer.compile: $(mplayer_compile_deps_default)
 
 mplayer_install: $(STATEDIR)/mplayer.install
 
-$(STATEDIR)/mplayer.install: $(STATEDIR)/mplayer.compile
+$(STATEDIR)/mplayer.install: $(mplayer_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, MPLAYER)
 	@$(call touch, $@)
