@@ -60,7 +60,7 @@ endif
 
 openssl_get: $(STATEDIR)/openssl.get
 
-$(STATEDIR)/openssl.get: $(OPENSSL_SOURCE)
+$(STATEDIR)/openssl.get: $(openssl_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(OPENSSL))
 	@$(call touch, $@)
@@ -75,7 +75,7 @@ $(OPENSSL_SOURCE):
 
 openssl_extract: $(STATEDIR)/openssl.extract
 
-$(STATEDIR)/openssl.extract: $(STATEDIR)/openssl.get
+$(STATEDIR)/openssl.extract: $(openssl_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENSSL_DIR))
 	@$(call extract, $(OPENSSL_SOURCE))
@@ -117,7 +117,7 @@ $(STATEDIR)/openssl.prepare: $(openssl_prepare_deps_default)
 
 openssl_compile: $(STATEDIR)/openssl.compile
 
-$(STATEDIR)/openssl.compile: $(STATEDIR)/openssl.prepare 
+$(STATEDIR)/openssl.compile: $(openssl_compile_deps_default)
 	@$(call targetinfo, $@)
 #
 # generate openssl.pc with correct path inside
@@ -132,7 +132,7 @@ $(STATEDIR)/openssl.compile: $(STATEDIR)/openssl.prepare
 
 openssl_install: $(STATEDIR)/openssl.install
 
-$(STATEDIR)/openssl.install: $(STATEDIR)/openssl.compile
+$(STATEDIR)/openssl.install: $(openssl_install_deps_default)
 	@$(call targetinfo, $@)
 #
 # broken Makefile, generates dir with wrong permissions...

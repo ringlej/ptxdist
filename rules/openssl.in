@@ -2,10 +2,14 @@ menu   "OpenSSL             "
 
 config OPENSSL
 	bool "OpenSSL support in various tools"
+	help
+	  FIXME: This item needs to be documented
 
 config OPENSSL_SHARED
 	bool "build shared lib"
 	default y
 	depends on OPENSSL
+	help
+	  FIXME: This item needs to be documented
 
 endmenu
