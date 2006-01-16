@@ -1,5 +1,7 @@
 menu	"iptables            "
 
+# FIXME: audit which extensions are still there
+
 config IPTABLES
 	bool
 	prompt "compile iptables"
