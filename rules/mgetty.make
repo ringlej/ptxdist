@@ -33,7 +33,7 @@ MGETTY_DIR	= $(BUILDDIR)/mgetty-$(MGETTY_VERSION)
 
 mgetty_get: $(STATEDIR)/mgetty.get
 
-$(STATEDIR)/mgetty.get: $(MGETTY_SOURCE)
+$(STATEDIR)/mgetty.get: $(mgetty_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,6 +47,7 @@ $(MGETTY_SOURCE):
 
 mgetty_extract: $(STATEDIR)/mgetty.extract
 
+$(STATEDIR)/mgetty.extract: $(mgetty_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MGETTY_DIR))
 	@$(call extract, $(MGETTY_SOURCE))
@@ -93,7 +94,7 @@ $(STATEDIR)/mgetty.compile: $(mgetty_compile_deps_default)
 
 mgetty_install: $(STATEDIR)/mgetty.install
 
-$(STATEDIR)/mgetty.install: $(STATEDIR)/mgetty.compile
+$(STATEDIR)/mgetty.install: $(mgetty_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, MGETTY)
 	@$(call touch, $@)

@@ -1,11 +1,15 @@
 menuconfig MGETTY
 	bool "mgetty & sendfax    "
+	help
+	  FIXME: This item needs to be documented
 
 config MGETTY_CONFIG
         prompt "Name of policy.h file to be used"
 	string
 	default "build-target/mgetty-1.1.30/policy.h-dist"
 	depends on MGETTY
+	help
+	  FIXME: This item needs to be documented
 
 config MGETTY_INSTALL_CONFIG
 	prompt "Install default config files to $(ROOTDIR)/etc/mgetty+sendfax"
@@ -22,16 +26,22 @@ config SENDFAX
 	bool
 	default y
 	depends on MGETTY
+	help
+	  FIXME: This item needs to be documented
 
 config SENDFAX_SPOOL
 	bool
 	default y
 	prompt "Install faxspooling programs"
 	depends on MGETTY
+	help
+	  FIXME: This item needs to be documented
 
 config MGETTY_CALLBACK
 	prompt "Install callback program"
 	bool
 	default n
 	depends on MGETTY
+	help
+	  FIXME: This item needs to be documented
 
