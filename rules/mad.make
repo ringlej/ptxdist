@@ -32,7 +32,7 @@ MAD_DIR		= $(BUILDDIR)/$(MAD)
 
 mad_get: $(STATEDIR)/mad.get
 
-$(STATEDIR)/mad.get: $(MAD_SOURCE)
+$(STATEDIR)/mad.get: $(mad_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(MAD_SOURCE):
 
 mad_extract: $(STATEDIR)/mad.extract
 
-$(STATEDIR)/mad.extract: $(mad_extract_deps)
+$(STATEDIR)/mad.extract: $(mad_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MAD_DIR))
 	@$(call extract, $(MAD_SOURCE))
@@ -92,7 +92,7 @@ $(STATEDIR)/mad.compile: $(mad_compile_deps_default)
 
 mad_install: $(STATEDIR)/mad.install
 
-$(STATEDIR)/mad.install: $(STATEDIR)/mad.compile
+$(STATEDIR)/mad.install: $(mad_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
