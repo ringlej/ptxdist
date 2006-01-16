@@ -116,7 +116,12 @@ $(STATEDIR)/libmqueue.targetinstall: $(libmqueue_targetinstall_deps_default)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LIBMQUEUE_DIR)/foobar, /dev/null)
+	@$(call install_copy, 0, 0, 0755, \
+		$(LIBMQUEUE_DIR)/src/.libs/libmqueue.so.4.0.41, \
+		/usr/lib/libmqueue.so.4.0.41)
+
+	@$(call install_link, libmqueue.so.4.0.41, /usr/lib/libmqueue.so.4)
+	@$(call install_link, libmqueue.so.4.0.41, /usr/lib/libmqueue.so)
 
 	@$(call install_finish)
 
