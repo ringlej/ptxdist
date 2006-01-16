@@ -28,6 +28,11 @@ HOST_MODULE_INIT_TOOLS_DIR		= $(HOST_BUILDDIR)/$(MODULE_INIT_TOOLS)
 
 host-module-init-tools_get: $(STATEDIR)/host-module-init-tools.get
 
+#
+# FIXME: This Package is probably totally broken - this dependency definition 
+#        is only a quick-fix to make it compile again. Please review this 
+#        makefile and make it a real cross- (?) or host- (?) package
+#
 host-module-init-tools_get_deps = $(host-module-init-tools_get_deps_default) $(STATEDIR)/module-init-tools.get
 
 $(STATEDIR)/host-module-init-tools.get: $(host-module-init-tools_get_deps)
