@@ -33,7 +33,7 @@ PYTHON_BUILDDIR		= $(PYTHON_DIR)-build
 
 python_get: $(STATEDIR)/python.get
 
-$(STATEDIR)/python.get: $(PYTHON_SOURCE)
+$(STATEDIR)/python.get: $(python_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PYTHON))
 	@$(call touch, $@)
@@ -48,7 +48,7 @@ $(PYTHON_SOURCE):
 
 python_extract: $(STATEDIR)/python.extract
 
-$(STATEDIR)/python.extract: $(python_extract_deps)
+$(STATEDIR)/python.extract: $(python_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PYTHON_DIR))
 	@$(call extract, $(PYTHON_SOURCE))
