@@ -56,7 +56,7 @@ $(SSMTP_PATCH_SOURCE):
 
 ssmtp_extract: $(STATEDIR)/ssmtp.extract
 
-$(STATEDIR)/ssmtp.extract: $(ssmtp_extract_deps)
+$(STATEDIR)/ssmtp.extract: $(ssmtp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SSMTP_DIR))
 	@$(call extract, $(SSMTP_SOURCE))
@@ -119,7 +119,7 @@ $(STATEDIR)/ssmtp.compile: $(ssmtp_compile_deps_default)
 
 ssmtp_install: $(STATEDIR)/ssmtp.install
 
-$(STATEDIR)/ssmtp.install: $(STATEDIR)/ssmtp.compile
+$(STATEDIR)/ssmtp.install: $(ssmtp_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, SSMTP)

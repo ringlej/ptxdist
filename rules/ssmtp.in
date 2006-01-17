@@ -14,22 +14,30 @@ config SSMTP_REWRITE_DOMAIN
 	prompt "support for rewriting the sending domain"
 	default y
 	depends on SSMTP
+	help
+	  FIXME: This item needs to be documented
 
 config SSMTP_SSL
 	bool
 	prompt "support for secure connection to mail server (needs SSL shared libraries)"
 	default n
 	depends on SSMTP
+	help
+	  FIXME: This item needs to be documented
 
 config SSMTP_INET6
 	bool
 	prompt "support for IPv6 transport"
 	default n
 	depends on SSMTP
+	help
+	  FIXME: This item needs to be documented
 
 config SSMTP_MD5AUTH
 	bool
 	prompt "support for MD5 authentication"
 	default n
 	depends on SSMTP
+	help
+	  FIXME: This item needs to be documented
 
