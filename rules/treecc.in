@@ -1,1 +1,10 @@
-# FIXME: There should be a *.in for this package
+config TREECC
+	bool
+	depends on DOTGNU && BROKEN
+	prompt "treecc"
+	help
+	  FIXME: This item needs to be documented
+
+comment "treecc is broken, please send a patch"
+	depends on !BROKEN
+
