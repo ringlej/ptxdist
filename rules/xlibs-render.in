@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config XLIBS-RENDER
+        bool
+        default N
+        depends on BROKEN
+        prompt "Package XLIBS-RENDER"
+	help
+	  XLIBS-RENDER is 
+	  FIXME: This item needs to bee documented
+
+comment "XLIBS-RENDER is broken, please send a patch"
+        depends on !BROKEN

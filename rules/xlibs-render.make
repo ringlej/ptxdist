@@ -35,8 +35,6 @@ XLIBS-RENDER_DIR	= $(BUILDDIR)/$(XLIBS-RENDER)
 
 xlibs-render_get: $(STATEDIR)/xlibs-render.get
 
-xlibs-render_get_deps = $(XLIBS-RENDER_SOURCE)
-
 $(STATEDIR)/xlibs-render.get: $(xlibs-render_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-RENDER))
@@ -52,9 +50,7 @@ $(XLIBS-RENDER_SOURCE):
 
 xlibs-render_extract: $(STATEDIR)/xlibs-render.extract
 
-xlibs-render_extract_deps = $(STATEDIR)/xlibs-render.get
-
-$(STATEDIR)/xlibs-render.extract: $(xlibs-render_extract_deps)
+$(STATEDIR)/xlibs-render.extract: $(xlibs-render_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-RENDER_DIR))
 	@$(call extract, $(XLIBS-RENDER_SOURCE))
@@ -66,13 +62,6 @@ $(STATEDIR)/xlibs-render.extract: $(xlibs-render_extract_deps)
 # ----------------------------------------------------------------------------
 
 xlibs-render_prepare: $(STATEDIR)/xlibs-render.prepare
-
-#
-# dependencies
-#
-xlibs-render_prepare_deps = \
-	$(STATEDIR)/xlibs-render.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 XLIBS-RENDER_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-RENDER_ENV 	=  $(CROSS_ENV)
@@ -99,8 +88,6 @@ $(STATEDIR)/xlibs-render.prepare: $(xlibs-render_prepare_deps_default)
 
 xlibs-render_compile: $(STATEDIR)/xlibs-render.compile
 
-xlibs-render_compile_deps = $(STATEDIR)/xlibs-render.prepare
-
 $(STATEDIR)/xlibs-render.compile: $(xlibs-render_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-RENDER_DIR) && $(XLIBS-RENDER_ENV) $(XLIBS-RENDER_PATH) make
@@ -112,7 +99,7 @@ $(STATEDIR)/xlibs-render.compile: $(xlibs-render_compile_deps_default)
 
 xlibs-render_install: $(STATEDIR)/xlibs-render.install
 
-$(STATEDIR)/xlibs-render.install: $(STATEDIR)/xlibs-render.compile
+$(STATEDIR)/xlibs-render.install: $(xlibs-render_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-RENDER)
 	@$(call touch, $@)
@@ -122,8 +109,6 @@ $(STATEDIR)/xlibs-render.install: $(STATEDIR)/xlibs-render.compile
 # ----------------------------------------------------------------------------
 
 xlibs-render_targetinstall: $(STATEDIR)/xlibs-render.targetinstall
-
-xlibs-render_targetinstall_deps = $(STATEDIR)/xlibs-render.compile
 
 $(STATEDIR)/xlibs-render.targetinstall: $(xlibs-render_targetinstall_deps_default)
 	@$(call targetinfo, $@)
