@@ -4,8 +4,12 @@ config FREETYPE
         depends on BROKEN
         prompt "FREETYPE"
 	help
-	  FREETYPE is ...
-	  FIXME: This item should be documented briefly
+	  The FreeType project is a team of volunteers who develop free,
+ 	  portable and high-quality software solutions for digital typography.
+ 	  They specifically target embedded systems and focus on bringing small,
+ 	  efficient and ubiquitous products.
+	  
+	  The FreeType library is their software font engine
 	  
 comment "FREETYPE is broken, please send a patch"
         depends on !BROKEN

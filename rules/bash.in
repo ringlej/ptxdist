@@ -27,7 +27,10 @@ config BASH_ALIASES
 	prompt "Enable aliases"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  Aliases allow a string to be substituted for a word 
+	  when it is used as the first word of a simple command.  
+	  The shell maintains a list of aliases that may be
+	  set  and unset with the alias and unalias builtin commands
 
 #config BASH_ARITHMETIC_FOR
 #	bool
@@ -45,14 +48,18 @@ config BASH_HISTORY
 	prompt "Turn on csh-style history substitution"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  The bash shell supports a history expansion feature 
+	  that is similar to the history expansion in csh.
 
 config BASH_BRACE
 	bool
 	prompt "Include brace expansion"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  Brace  expansion is a mechanism by which arbitrary 
+	  strings may be generated.  This mechanism is similar 
+	  to pathname expansion, but the filenames generated
+          need not exist.
 
 #config BASH_CONDITIONAL
 #	bool
@@ -65,7 +72,12 @@ config BASH_DIRSTACK
 	prompt "Enable builtins pushd/popd/dirs"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	   Without  options, "dirs" displays the list of 
+	   currently remembered directories.  The default 
+	   display is on a single line with directory 
+	   names separated by spaces.  Directories are 
+	   added to the list with the pushd command; 
+	   the popd command removes entries from the list.
 
 #config BASH_EXTPATTERN
 #	bool
@@ -78,21 +90,25 @@ config BASH_HELP
 	prompt "Include the help builtin"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  This builtin support minimal help features inside bash
 
 config BASH_CMDHISTORY
 	bool
 	prompt "Turn on command history"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  This enables command history features. The shell
+	  buffers command in a rinfbuffer, which can be listed, 
+	  searched and accessed by various commands and magic
+	  shell expansion features.
 
 config BASH_JOBS
 	bool
 	prompt "Enable job control features"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  This enables support for background jobs in bash.
+	  You can list the actual managed jobs by the "jobs" command.
 
 config BASH_LARGEFILES
 	bool
