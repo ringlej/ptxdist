@@ -32,7 +32,7 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 
 @packet@_get: $(STATEDIR)/@packet@.get
 
-$(STATEDIR)/@packet@.get: $(@PACKET@_SOURCE)
+$(STATEDIR)/@packet@.get: $(@packet@_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -94,7 +94,7 @@ $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
 
 @packet@_install: $(STATEDIR)/@packet@.install
 
-$(STATEDIR)/@packet@.install: $(STATEDIR)/@packet@.compile
+$(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, @PACKET@)
 	@$(call touch, $@)
