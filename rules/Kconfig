@@ -240,5 +240,6 @@ source "rules/pango12.in"
 source "rules/paranoia.in"
 source "rules/qte.in"
 source "rules/sudo.in"
+source "rules/tinylogin.in"
 endmenu
 

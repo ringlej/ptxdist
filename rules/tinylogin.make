@@ -47,7 +47,7 @@ $(TINYLOGIN_SOURCE):
 
 tinylogin_extract: $(STATEDIR)/tinylogin.extract
 
-$(STATEDIR)/tinylogin.extract: $(STATEDIR)/tinylogin.get
+$(STATEDIR)/tinylogin.extract: $(tinylogin_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TINYLOGIN_DIR))
 	@$(call extract, $(TINYLOGIN_SOURCE))

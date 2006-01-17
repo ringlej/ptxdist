@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config TINYLOGIN
+        bool
+        default N
+        depends on BROKEN
+        prompt "Package TINYLOGIN"
+	help
+	  TINYLOGIN is 
+	  FIXME: This item needs to bee documented
+
+comment "TINYLOGIN is broken, please send a patch"
+        depends on !BROKEN
