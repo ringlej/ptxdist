@@ -27,7 +27,7 @@ UCLIBC = uClibc-$(UCLIBC_VERSION)
 
 uclibc_get: $(STATEDIR)/uclibc.get
 
-$(STATEDIR)/uclibc.get:
+$(STATEDIR)/uclibc.get: $(uclibc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -37,7 +37,7 @@ $(STATEDIR)/uclibc.get:
 
 uclibc_extract: $(STATEDIR)/uclibc.extract
 
-$(STATEDIR)/uclibc.extract: $(uclibc_extract_deps)
+$(STATEDIR)/uclibc.extract: $(uclibc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -67,7 +67,7 @@ $(STATEDIR)/uclibc.compile: $(uclibc_compile_deps_default)
 
 uclibc_install: $(STATEDIR)/uclibc.install
 
-$(STATEDIR)/uclibc.install: $(STATEDIR)/uclibc.compile
+$(STATEDIR)/uclibc.install: $(uclibc_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
