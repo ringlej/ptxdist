@@ -575,11 +575,11 @@ $(STATEDIR)/configdeps: $(STATEDIR)/host-kconfig.install $(configdeps_deps)
 	@mkdir -p $(IMAGEDIR)
 	@cd $(PTXDIST_WORKSPACE) && \
 		yes "" | $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
-			2> /dev/null > $(STATEDIR)/configdeps; 			\
+			2> /dev/null > $(STATEDIR)/configdeps;
 	#if [ "$?" != "0" ]; then						\
-		echo "error: configdeps failed!";				\
-		exit 1;								\
-	fi
+	#	echo "error: configdeps failed!";				\
+	#	exit 1;								\
+	#fi
 	@echo
 
 setup: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
