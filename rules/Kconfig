@@ -242,5 +242,6 @@ source "rules/qte.in"
 source "rules/sudo.in"
 source "rules/tinylogin.in"
 source "rules/xlibs-damageext.in"
+source "rules/xlibs-fixesext.in"
 endmenu
 

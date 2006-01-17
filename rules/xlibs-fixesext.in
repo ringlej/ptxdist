@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config XLIBS-FIXESEXT
+        bool
+        default N
+        depends on BROKEN
+        prompt "Package XLIBS-FIXESEXT"
+	help
+	  XLIBS-FIXESEXT is 
+	  FIXME: This item needs to bee documented
+
+comment "XLIBS-FIXESEXT is broken, please send a patch"
+        depends on !BROKEN

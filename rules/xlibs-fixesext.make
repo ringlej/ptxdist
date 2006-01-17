@@ -50,7 +50,7 @@ $(XLIBS-FIXESEXT_SOURCE):
 
 xlibs-fixesext_extract: $(STATEDIR)/xlibs-fixesext.extract
 
-$(STATEDIR)/xlibs-fixesext.extract: $(xlibs-fixesext_extract_deps)
+$(STATEDIR)/xlibs-fixesext.extract: $(xlibs-fixesext_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-FIXESEXT_DIR))
 	@$(call extract, $(XLIBS-FIXESEXT_SOURCE))
@@ -99,7 +99,7 @@ $(STATEDIR)/xlibs-fixesext.compile: $(xlibs-fixesext_compile_deps_default)
 
 xlibs-fixesext_install: $(STATEDIR)/xlibs-fixesext.install
 
-$(STATEDIR)/xlibs-fixesext.install: $(STATEDIR)/xlibs-fixesext.compile
+$(STATEDIR)/xlibs-fixesext.install: $(xlibs-fixesext_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-FIXESEXT)
 	@$(call touch, $@)
