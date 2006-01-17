@@ -32,7 +32,7 @@ WGET_DIR	= $(BUILDDIR)/$(WGET_PACKET)
 
 wget_get: $(STATEDIR)/wget.get
 
-$(STATEDIR)/wget.get: $(WGET_SOURCE)
+$(STATEDIR)/wget.get: $(wget_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(WGET_PACKET))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(WGET_SOURCE):
 
 wget_extract: $(STATEDIR)/wget.extract
 
-$(STATEDIR)/wget.extract: $(wget_extract_deps)
+$(STATEDIR)/wget.extract: $(wget_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WGET_DIR))
 	@$(call extract, $(WGET_SOURCE))
@@ -95,7 +95,7 @@ $(STATEDIR)/wget.compile: $(wget_compile_deps_default)
 
 wget_install: $(STATEDIR)/wget.install
 
-$(STATEDIR)/wget.install: $(STATEDIR)/wget.compile
+$(STATEDIR)/wget.install: $(wget_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, WGET)
 	@$(call touch, $@)
