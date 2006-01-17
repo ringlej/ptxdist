@@ -3,6 +3,11 @@ menu    "Wireless Tools      "
 config WIRELESS
         bool
         prompt "Wireless Tools"
+	help
+ 	  The wireless tools are used to manipulate the 
+	  Linux Wireless Extension. The Wireless Extension 
+	  is an interface allowing you to set Wireless LAN 
+	  specific parameters and get the specific stats.
 
 config WIRELESS_SHARED
 	bool "Build shared"
