@@ -32,7 +32,7 @@ XVKBD_DIR		= $(BUILDDIR)/$(XVKBD)
 
 xvkbd_get: $(STATEDIR)/xvkbd.get
 
-$(STATEDIR)/xvkbd.get: $(XVKBD_SOURCE)
+$(STATEDIR)/xvkbd.get: $(xvkbd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(XVKBD_SOURCE):
 
 xvkbd_extract: $(STATEDIR)/xvkbd.extract
 
-$(STATEDIR)/xvkbd.extract: $(xvkbd_extract_deps)
+$(STATEDIR)/xvkbd.extract: $(xvkbd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XVKBD_DIR))
 	@$(call extract, $(XVKBD_SOURCE))
@@ -85,7 +85,7 @@ $(STATEDIR)/xvkbd.compile: $(xvkbd_compile_deps_default)
 
 xvkbd_install: $(STATEDIR)/xvkbd.install
 
-$(STATEDIR)/xvkbd.install: $(STATEDIR)/xvkbd.compile
+$(STATEDIR)/xvkbd.install: $(xvkbd_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XVKBD)
 	@$(call touch, $@)
