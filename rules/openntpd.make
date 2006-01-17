@@ -103,7 +103,8 @@ openntpd_install: $(STATEDIR)/openntpd.install
 
 $(STATEDIR)/openntpd.install: $(openntpd_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, OPENNTPD)
+	# FIXME: does not work because of install -s 
+	# @$(call install, OPENNTPD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
