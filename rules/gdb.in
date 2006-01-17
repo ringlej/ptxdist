@@ -3,7 +3,9 @@
 config GDBSERVER
 	bool "gdbserver"
 	help
-	  FIXME: This item needs to be documented
+	  GDBSERVER is a program that allows you to run GDB on a 
+	  different machine than the one which is running the 
+	  program being debugged.
 
 config GDBSERVER_SHARED
 	bool "shared gdbserver"
