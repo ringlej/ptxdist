@@ -33,7 +33,7 @@ PYTHON24_BUILDDIR	= $(PYTHON24_DIR)-build
 
 python24_get: $(STATEDIR)/python24.get
 
-$(STATEDIR)/python24.get: $(PYTHON24_SOURCE)
+$(STATEDIR)/python24.get: $(python24_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PYTHON24))
 	@$(call touch, $@)
