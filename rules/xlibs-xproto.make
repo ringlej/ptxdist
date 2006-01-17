@@ -35,8 +35,6 @@ XLIBS-XPROTO_DIR	= $(BUILDDIR)/$(XLIBS-XPROTO)
 
 xlibs-xproto_get: $(STATEDIR)/xlibs-xproto.get
 
-xlibs-xproto_get_deps = $(XLIBS-XPROTO_SOURCE)
-
 $(STATEDIR)/xlibs-xproto.get: $(xlibs-xproto_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XPROTO))
@@ -52,9 +50,7 @@ $(XLIBS-XPROTO_SOURCE):
 
 xlibs-xproto_extract: $(STATEDIR)/xlibs-xproto.extract
 
-xlibs-xproto_extract_deps = $(STATEDIR)/xlibs-xproto.get
-
-$(STATEDIR)/xlibs-xproto.extract: $(xlibs-xproto_extract_deps)
+$(STATEDIR)/xlibs-xproto.extract: $(xlibs-xproto_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XPROTO_DIR))
 	@$(call extract, $(XLIBS-XPROTO_SOURCE))
@@ -66,12 +62,6 @@ $(STATEDIR)/xlibs-xproto.extract: $(xlibs-xproto_extract_deps)
 # ----------------------------------------------------------------------------
 
 xlibs-xproto_prepare: $(STATEDIR)/xlibs-xproto.prepare
-
-#
-# dependencies
-#
-xlibs-xproto_prepare_deps =  $(STATEDIR)/xlibs-xproto.extract
-xlibs-xproto_prepare_deps += $(STATEDIR)/virtual-xchain.install
 
 XLIBS-XPROTO_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-XPROTO_ENV 	=  $(CROSS_ENV)
@@ -99,8 +89,6 @@ $(STATEDIR)/xlibs-xproto.prepare: $(xlibs-xproto_prepare_deps_default)
 
 xlibs-xproto_compile: $(STATEDIR)/xlibs-xproto.compile
 
-xlibs-xproto_compile_deps = $(STATEDIR)/xlibs-xproto.prepare
-
 $(STATEDIR)/xlibs-xproto.compile: $(xlibs-xproto_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XPROTO_DIR) && $(XLIBS-XPROTO_ENV) $(XLIBS-XPROTO_PATH) make
@@ -112,7 +100,7 @@ $(STATEDIR)/xlibs-xproto.compile: $(xlibs-xproto_compile_deps_default)
 
 xlibs-xproto_install: $(STATEDIR)/xlibs-xproto.install
 
-$(STATEDIR)/xlibs-xproto.install: $(STATEDIR)/xlibs-xproto.compile
+$(STATEDIR)/xlibs-xproto.install: $(xlibs-xproto_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-XPROTO)
 	@$(call touch, $@)
@@ -122,8 +110,6 @@ $(STATEDIR)/xlibs-xproto.install: $(STATEDIR)/xlibs-xproto.compile
 # ----------------------------------------------------------------------------
 
 xlibs-xproto_targetinstall: $(STATEDIR)/xlibs-xproto.targetinstall
-
-xlibs-xproto_targetinstall_deps = $(STATEDIR)/xlibs-xproto.compile
 
 $(STATEDIR)/xlibs-xproto.targetinstall: $(xlibs-xproto_targetinstall_deps_default)
 	@$(call targetinfo, $@)
