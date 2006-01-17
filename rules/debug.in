@@ -1,4 +1,5 @@
-#
+# Meta Config File
+# Debugging tools
 
 source "rules/cppunit.in"
 source "rules/gdb.in"

@@ -1,4 +1,4 @@
-# FIXME: There is no makefile for this stuff. Broken Package ?
+# Meta Config File
 
 menuconfig DOTGNU
 	bool "DotGNU              "
