@@ -29,6 +29,8 @@ config IMAGE_HD_CONF
 
 config IMAGE_IPKG
 	bool
+	default Y
+	select ROOTFS_GENERIC_IPKG_CONF
 	prompt "Create ipkg packets"
 	select HOST_IPKG_UTILS
 	select HOST_IPKG
