@@ -246,5 +246,6 @@ source "rules/xlibs-fixesext.in"
 source "rules/xlibs-xrandr.in"
 source "rules/xlibs-recordext.in"
 source "rules/xlibs-render.in"
+source "rules/xlibs-x11.in"
 endmenu
 

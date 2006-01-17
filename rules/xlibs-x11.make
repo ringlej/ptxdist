@@ -34,8 +34,6 @@ XLIBS-X11_DIR		= $(BUILDDIR)/$(XLIBS-X11)
 
 xlibs-x11_get: $(STATEDIR)/xlibs-x11.get
 
-xlibs-x11_get_deps = $(XLIBS-X11_SOURCE)
-
 $(STATEDIR)/xlibs-x11.get: $(xlibs-x11_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-X11))
@@ -51,9 +49,7 @@ $(XLIBS-X11_SOURCE):
 
 xlibs-x11_extract: $(STATEDIR)/xlibs-x11.extract
 
-xlibs-x11_extract_deps = $(STATEDIR)/xlibs-x11.get
-
-$(STATEDIR)/xlibs-x11.extract: $(xlibs-x11_extract_deps)
+$(STATEDIR)/xlibs-x11.extract: $(xlibs-x11_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-X11_DIR))
 	@$(call extract, $(XLIBS-X11_SOURCE))
@@ -65,15 +61,6 @@ $(STATEDIR)/xlibs-x11.extract: $(xlibs-x11_extract_deps)
 # ----------------------------------------------------------------------------
 
 xlibs-x11_prepare: $(STATEDIR)/xlibs-x11.prepare
-
-#
-# dependencies
-#
-xlibs-x11_prepare_deps =  $(STATEDIR)/xlibs-x11.extract
-xlibs-x11_prepare_deps += $(STATEDIR)/virtual-xchain.install
-xlibs-x11_prepare_deps += $(STATEDIR)/xlibs-xextensions.install
-xlibs-x11_prepare_deps += $(STATEDIR)/xlibs-xtrans.install
-xlibs-x11_prepare_deps += $(STATEDIR)/xlibs-xau.install
 
 XLIBS-X11_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-X11_ENV 	=  $(CROSS_ENV)
@@ -101,8 +88,6 @@ $(STATEDIR)/xlibs-x11.prepare: $(xlibs-x11_prepare_deps_default)
 
 xlibs-x11_compile: $(STATEDIR)/xlibs-x11.compile
 
-xlibs-x11_compile_deps = $(STATEDIR)/xlibs-x11.prepare
-
 $(STATEDIR)/xlibs-x11.compile: $(xlibs-x11_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-X11_DIR) && $(XLIBS-X11_ENV) $(XLIBS-X11_PATH) make
@@ -114,7 +99,7 @@ $(STATEDIR)/xlibs-x11.compile: $(xlibs-x11_compile_deps_default)
 
 xlibs-x11_install: $(STATEDIR)/xlibs-x11.install
 
-$(STATEDIR)/xlibs-x11.install: $(STATEDIR)/xlibs-x11.compile
+$(STATEDIR)/xlibs-x11.install: $(xlibs-x11_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-X11)
 	@$(call touch, $@)
@@ -124,8 +109,6 @@ $(STATEDIR)/xlibs-x11.install: $(STATEDIR)/xlibs-x11.compile
 # ----------------------------------------------------------------------------
 
 xlibs-x11_targetinstall: $(STATEDIR)/xlibs-x11.targetinstall
-
-xlibs-x11_targetinstall_deps = $(STATEDIR)/xlibs-x11.compile
 
 $(STATEDIR)/xlibs-x11.targetinstall: $(xlibs-x11_targetinstall_deps_default)
 	@$(call targetinfo, $@)
