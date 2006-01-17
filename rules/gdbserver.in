@@ -1,11 +1,15 @@
 config GDBSERVER
-        bool
-        default N
-        depends on BROKEN
-        prompt "GDBSERVER"
-	help
-	  FIXME: This item needs to be documented
-	
+        bool "gdbserver"
+        help
+          GDBSERVER is a program that allows you to run GDB on a
+          different machine than the one which is running the
+          program being debugged.
 
-comment "GDBSERVER is broken, please send a patch"
-        depends on !BROKEN
+config GDBSERVER_SHARED
+        bool "shared gdbserver"
+        default y
+        depends on GDBSERVER
+        select GLIBC_THREAD_DB if GLIBC && GLIBC_INSTALL
+        help
+          FIXME: This item needs to be documented
+
