@@ -2,30 +2,42 @@ menuconfig QTE
 	bool
 	prompt "QT Embedded           "
 	select HOST_QTE
+	help
+	  FIXME: This item needs to be documented
 
 
 config QTE_SHARED
 	bool
 	prompt "Build shared QT/E library"
 	depends on QTE
+	help
+	  FIXME: This item needs to be documented
 
 config QTE_TSLIB
 	bool
 	prompt "Build QT/E library with tslib support"
 	depends on QTE
 	select TSLIB
+	help
+	  FIXME: This item needs to be documented
 
 config QTE_THREAD
 	bool
 	prompt "Build QT/E library with threading support"
 	depends on QTE
+	help
+	  FIXME: This item needs to be documented
 
 config QTE_STL
 	bool
 	prompt "Build QT/E library with STL support"
 	depends on QTE
+	help
+	  FIXME: This item needs to be documented
 
 config QTE_QVFB
 	bool
 	prompt "Build QT/E library with Q Virtual Framebuffer support"
 	depends on QTE
+	help
+	  FIXME: This item needs to be documented

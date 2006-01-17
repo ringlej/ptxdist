@@ -38,7 +38,7 @@ QTDIR		= $(BUILDDIR)/$(QTE)
 
 qte_get: $(STATEDIR)/qte.get
 
-$(STATEDIR)/qte.get: $(QTE_SOURCE)
+$(STATEDIR)/qte.get: $(qte_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -52,7 +52,7 @@ $(QTE_SOURCE):
 
 qte_extract: $(STATEDIR)/qte.extract
 
-$(STATEDIR)/qte.extract: $(qte_extract_deps)
+$(STATEDIR)/qte.extract: $(qte_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(QTE_DIR))
 	@$(call extract, $(QTE_SOURCE))
