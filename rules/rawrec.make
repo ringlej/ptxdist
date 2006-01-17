@@ -47,7 +47,7 @@ $(RAWREC_SOURCE):
 
 rawrec_extract: $(STATEDIR)/rawrec.extract
 
-$(STATEDIR)/rawrec.extract: $(rawrec_extract_deps)
+$(STATEDIR)/rawrec.extract: $(rawrec_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RAWREC_DIR))
 	@$(call extract, $(RAWREC_SOURCE))
@@ -95,7 +95,7 @@ endif
 
 rawrec_install: $(STATEDIR)/rawrec.install
 
-$(STATEDIR)/rawrec.install: $(STATEDIR)/rawrec.compile
+$(STATEDIR)/rawrec.install: $(rawrec_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
