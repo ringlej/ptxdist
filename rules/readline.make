@@ -32,7 +32,7 @@ READLINE_DIR		= $(BUILDDIR)/$(READLINE)
 
 readline_get: $(STATEDIR)/readline.get
 
-$(STATEDIR)/readline.get: $(READLINE_SOURCE)
+$(STATEDIR)/readline.get: $(readline_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -92,7 +92,7 @@ $(STATEDIR)/readline.compile: $(readline_compile_deps_default)
 
 readline_install: $(STATEDIR)/readline.install
 
-$(STATEDIR)/readline.install: $(STATEDIR)/readline.compile
+$(STATEDIR)/readline.install: $(readline_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, READLINE)
 	@$(call touch, $@)
