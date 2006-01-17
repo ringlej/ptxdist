@@ -34,7 +34,7 @@ POPT_DIR	= $(BUILDDIR)/$(POPT)
 
 popt_get: $(STATEDIR)/popt.get
 
-$(STATEDIR)/popt.get: $(POPT_SOURCE)
+$(STATEDIR)/popt.get: $(popt_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,7 +48,7 @@ $(POPT_SOURCE):
 
 popt_extract: $(STATEDIR)/popt.extract
 
-$(STATEDIR)/popt.extract: $(popt_extract_deps)
+$(STATEDIR)/popt.extract: $(popt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(POPT_DIR))
 	@$(call extract, $(POPT_SOURCE))
@@ -98,7 +98,7 @@ $(STATEDIR)/popt.compile: $(popt_compile_deps_default)
 
 popt_install: $(STATEDIR)/popt.install
 
-$(STATEDIR)/popt.install: $(STATEDIR)/popt.compile
+$(STATEDIR)/popt.install: $(popt_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, POPT)
 	@$(call touch, $@)
