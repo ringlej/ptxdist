@@ -35,7 +35,7 @@ REALVNC_DIR		= $(BUILDDIR)/$(REALVNC)
 
 realvnc_get: $(STATEDIR)/realvnc.get
 
-$(STATEDIR)/realvnc.get: $(REALVNC_SOURCE)
+$(STATEDIR)/realvnc.get: $(realvnc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(REALVNC))
 	@$(call touch, $@)
@@ -50,7 +50,7 @@ $(REALVNC_SOURCE):
 
 realvnc_extract: $(STATEDIR)/realvnc.extract
 
-$(STATEDIR)/realvnc.extract: $(realvnc_extract_deps)
+$(STATEDIR)/realvnc.extract: $(realvnc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(REALVNC_DIR))
 	@$(call extract, $(REALVNC_SOURCE))
