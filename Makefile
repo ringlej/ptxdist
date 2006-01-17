@@ -644,7 +644,10 @@ cuckoo-test: world
 	@scripts/cuckoo-test $(PTXCONF_ARCH) $(ROOTDIR) $(PTXCONF_COMPILER_PREFIX)
 
 ipkg-test: world
-	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl $(PTXDIST_TOPDIR)/scripts/ipkg-test
+	@$(call targetinfo,ipkg-test)
+	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) \
+	IPKG=$(call remove_quotes,$(PTXCONF_PREFIX))/bin/ipkg-cl \
+		$(PTXDIST_TOPDIR)/scripts/ipkg-test
 
 # ----------------------------------------------------------------------------
 
