@@ -4,8 +4,14 @@ config HOST_MKNBI
         depends on BROKEN
         prompt "HOST_MKNBI"
 	help
-	  FIXME: This item needs to be documented
-	
+	  With mknbi you can create tagged images for Etherboot. 
+	  Tagged images are data files, which contains the 
+	  necessary files for booting up (kernel+root for 
+	  linux, kernel+minifs for dos, ...) bundled together 
+	  with a special format.
+ 	  
+	  These tagged images are downloaded and understood 
+	  by Etherboot and Netboot during the boot process.
 
 comment "HOST_MKNBI is broken, please send a patch"
         depends on !BROKEN
