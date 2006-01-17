@@ -246,7 +246,7 @@ help:
 	@echo "  make config-test                  run oldconfig on all ptxconfig files"
 	@echo "  make ipkg-test                    check if ipkg packets are consistent "
 	@echo "                                    with ROOTDIR"
-	@echo "  make qa-static	                   run qa checks from scripts/qa-static which
+	@echo "  make qa-static	                   run qa checks from scripts/qa-static which"
 	@echo "                                    perform static analysis steps"
 	@echo "  make qa-autobuild                 run autobuild scripts from"
 	@echo "                                    scripts/qa-autobuild"
@@ -274,10 +274,9 @@ help:
 	@echo
 
 
-# FIXME: this is not fully working yet, do to dependencies being defined
-# in make files and Kconfig files in a non-consistent way. 
-#
-# get:     check_tools getclean $(PACKAGES_GET)
+# FIXME: add check_tools getclean here
+get: $(PACKAGES_GET) $(HOST_PACKAGES_GET) $(CROSS_PACKAGES_GET)
+
 # extract: check_tools $(PACKAGES_EXTRACT)
 # prepare: check_tools $(PACKAGES_PREPARE)
 # compile: check_tools $(PACKAGES_COMPILE)
