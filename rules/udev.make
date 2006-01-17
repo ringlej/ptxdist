@@ -31,7 +31,7 @@ UDEV_DIR	= $(BUILDDIR)/$(UDEV)
 
 udev_get: $(STATEDIR)/udev.get
 
-$(STATEDIR)/udev.get: $(UDEV_SOURCE)
+$(STATEDIR)/udev.get: $(udev_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -88,7 +88,7 @@ $(STATEDIR)/udev.compile: $(udev_compile_deps_default)
 
 udev_install: $(STATEDIR)/udev.install
 
-$(STATEDIR)/udev.install: $(STATEDIR)/udev.compile
+$(STATEDIR)/udev.install: $(udev_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
