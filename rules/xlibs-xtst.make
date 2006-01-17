@@ -32,8 +32,6 @@ XLIBS-XTST_DIR		= $(BUILDDIR)/$(XLIBS-XTST)
 
 xlibs-xtst_get: $(STATEDIR)/xlibs-xtst.get
 
-xlibs-xtst_get_deps = $(XLIBS-XTST_SOURCE)
-
 $(STATEDIR)/xlibs-xtst.get: $(xlibs-xtst_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XTST))
@@ -49,9 +47,7 @@ $(XLIBS-XTST_SOURCE):
 
 xlibs-xtst_extract: $(STATEDIR)/xlibs-xtst.extract
 
-xlibs-xtst_extract_deps = $(STATEDIR)/xlibs-xtst.get
-
-$(STATEDIR)/xlibs-xtst.extract: $(xlibs-xtst_extract_deps)
+$(STATEDIR)/xlibs-xtst.extract: $(xlibs-xtst_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XTST_DIR))
 	@$(call extract, $(XLIBS-XTST_SOURCE))
@@ -63,13 +59,6 @@ $(STATEDIR)/xlibs-xtst.extract: $(xlibs-xtst_extract_deps)
 # ----------------------------------------------------------------------------
 
 xlibs-xtst_prepare: $(STATEDIR)/xlibs-xtst.prepare
-
-#
-# dependencies
-#
-xlibs-xtst_prepare_deps =  $(STATEDIR)/xlibs-xtst.extract
-xlibs-xtst_prepare_deps += $(STATEDIR)/virtual-xchain.install
-xlibs-xtst_prepare_deps += $(STATEDIR)/xlibs-recordext.install
 
 XLIBS-XTST_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-XTST_ENV 	=  $(CROSS_ENV)
@@ -97,8 +86,6 @@ $(STATEDIR)/xlibs-xtst.prepare: $(xlibs-xtst_prepare_deps_default)
 
 xlibs-xtst_compile: $(STATEDIR)/xlibs-xtst.compile
 
-xlibs-xtst_compile_deps = $(STATEDIR)/xlibs-xtst.prepare
-
 $(STATEDIR)/xlibs-xtst.compile: $(xlibs-xtst_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XTST_DIR) && $(XLIBS-XTST_ENV) $(XLIBS-XTST_PATH) make
@@ -110,7 +97,7 @@ $(STATEDIR)/xlibs-xtst.compile: $(xlibs-xtst_compile_deps_default)
 
 xlibs-xtst_install: $(STATEDIR)/xlibs-xtst.install
 
-$(STATEDIR)/xlibs-xtst.install: $(STATEDIR)/xlibs-xtst.compile
+$(STATEDIR)/xlibs-xtst.install: $(xlibs-xtst_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-XTST)
 	@$(call touch, $@)
@@ -120,9 +107,6 @@ $(STATEDIR)/xlibs-xtst.install: $(STATEDIR)/xlibs-xtst.compile
 # ----------------------------------------------------------------------------
 
 xlibs-xtst_targetinstall: $(STATEDIR)/xlibs-xtst.targetinstall
-
-xlibs-xtst_targetinstall_deps =  $(STATEDIR)/xlibs-xtst.compile
-xlibs-xtst_targetinstall_deps += $(STATEDIR)/xlibs-recordext.targetinstall
 
 $(STATEDIR)/xlibs-xtst.targetinstall: $(xlibs-xtst_targetinstall_deps_default)
 	@$(call targetinfo, $@)

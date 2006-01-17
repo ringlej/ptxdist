@@ -1,1 +1,12 @@
-# FIXME: There should be a *.in for this package
+config XLIBS-XTST
+        bool
+        default N
+        depends on BROKEN
+	select XLIBS-RECORDEXT
+        prompt "Package XLIBS-XTST"
+	help
+	  XLIBS-XTST is 
+	  FIXME: This item needs to bee documented
+
+comment "XLIBS-XTST is broken, please send a patch"
+        depends on !BROKEN

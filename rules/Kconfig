@@ -253,5 +253,6 @@ source "rules/xlibs-xext.in"
 source "rules/xlibs-xfont.in"
 source "rules/xlibs-xproto.in"
 source "rules/xlibs-xtrans.in"
+source "rules/xlibs-xtst.in"
 endmenu
 
