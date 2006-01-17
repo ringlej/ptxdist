@@ -32,7 +32,7 @@ SYSFSUTILS_DIR		= $(BUILDDIR)/$(SYSFSUTILS)
 
 sysfsutils_get: $(STATEDIR)/sysfsutils.get
 
-$(STATEDIR)/sysfsutils.get: $(SYSFSUTILS_SOURCE)
+$(STATEDIR)/sysfsutils.get: $(sysfsutils_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SYSFSUTILS))
 	@$(call touch, $@)
@@ -93,7 +93,7 @@ $(STATEDIR)/sysfsutils.compile: $(sysfsutils_compile_deps_default)
 
 sysfsutils_install: $(STATEDIR)/sysfsutils.install
 
-$(STATEDIR)/sysfsutils.install: $(STATEDIR)/sysfsutils.compile
+$(STATEDIR)/sysfsutils.install: $(sysfsutils_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, SYSFSUTILS)
 	@$(call touch, $@)

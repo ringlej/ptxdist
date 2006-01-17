@@ -5,9 +5,13 @@ config SYSFSUTILS_LIB
 	bool
 	prompt "install libsysfs"
 	depends on SYSFSUTILS
+	help
+	  FIXME: This item needs to be documented
 
 config SYSFSUTILS_SYSTOOL
 	bool
 	prompt "install sysfs systool"
 	depends on SYSFSUTILS
+	help
+	  FIXME: This item needs to be documented
 
