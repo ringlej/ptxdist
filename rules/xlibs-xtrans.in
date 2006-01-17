@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config XLIBS-XTRANS
+        bool
+        default N
+        depends on BROKEN
+        prompt "Package XLIBS-XTRANS"
+	help
+	  XLIBS-XTRANS is 
+	  FIXME: This item needs to bee documented
+
+comment "XLIBS-XTRANS is broken, please send a patch"
+        depends on !BROKEN

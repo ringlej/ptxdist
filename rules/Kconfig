@@ -251,5 +251,7 @@ source "rules/xlibs-xau.in"
 source "rules/xlibs-xextensions.in"
 source "rules/xlibs-xext.in"
 source "rules/xlibs-xfont.in"
+source "rules/xlibs-xproto.in"
+source "rules/xlibs-xtrans.in"
 endmenu
 

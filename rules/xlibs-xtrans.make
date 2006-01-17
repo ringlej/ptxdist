@@ -35,8 +35,6 @@ XLIBS-XTRANS_DIR	= $(BUILDDIR)/$(XLIBS-XTRANS)
 
 xlibs-xtrans_get: $(STATEDIR)/xlibs-xtrans.get
 
-xlibs-xtrans_get_deps = $(XLIBS-XTRANS_SOURCE)
-
 $(STATEDIR)/xlibs-xtrans.get: $(xlibs-xtrans_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XTRANS))
@@ -52,9 +50,7 @@ $(XLIBS-XTRANS_SOURCE):
 
 xlibs-xtrans_extract: $(STATEDIR)/xlibs-xtrans.extract
 
-xlibs-xtrans_extract_deps = $(STATEDIR)/xlibs-xtrans.get
-
-$(STATEDIR)/xlibs-xtrans.extract: $(xlibs-xtrans_extract_deps)
+$(STATEDIR)/xlibs-xtrans.extract: $(xlibs-xtrans_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XTRANS_DIR))
 	@$(call extract, $(XLIBS-XTRANS_SOURCE))
@@ -66,13 +62,6 @@ $(STATEDIR)/xlibs-xtrans.extract: $(xlibs-xtrans_extract_deps)
 # ----------------------------------------------------------------------------
 
 xlibs-xtrans_prepare: $(STATEDIR)/xlibs-xtrans.prepare
-
-#
-# dependencies
-#
-xlibs-xtrans_prepare_deps = \
-	$(STATEDIR)/xlibs-xtrans.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 XLIBS-XTRANS_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-XTRANS_ENV 	=  $(CROSS_ENV)
@@ -100,8 +89,6 @@ $(STATEDIR)/xlibs-xtrans.prepare: $(xlibs-xtrans_prepare_deps_default)
 
 xlibs-xtrans_compile: $(STATEDIR)/xlibs-xtrans.compile
 
-xlibs-xtrans_compile_deps = $(STATEDIR)/xlibs-xtrans.prepare
-
 $(STATEDIR)/xlibs-xtrans.compile: $(xlibs-xtrans_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XTRANS_DIR) && $(XLIBS-XTRANS_ENV) $(XLIBS-XTRANS_PATH) make
@@ -113,7 +100,7 @@ $(STATEDIR)/xlibs-xtrans.compile: $(xlibs-xtrans_compile_deps_default)
 
 xlibs-xtrans_install: $(STATEDIR)/xlibs-xtrans.install
 
-$(STATEDIR)/xlibs-xtrans.install: $(STATEDIR)/xlibs-xtrans.compile
+$(STATEDIR)/xlibs-xtrans.install: $(xlibs-xtrans_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-XTRANS)
 	@$(call touch, $@)
@@ -123,8 +110,6 @@ $(STATEDIR)/xlibs-xtrans.install: $(STATEDIR)/xlibs-xtrans.compile
 # ----------------------------------------------------------------------------
 
 xlibs-xtrans_targetinstall: $(STATEDIR)/xlibs-xtrans.targetinstall
-
-xlibs-xtrans_targetinstall_deps = $(STATEDIR)/xlibs-xtrans.compile
 
 $(STATEDIR)/xlibs-xtrans.targetinstall: $(xlibs-xtrans_targetinstall_deps_default)
 	@$(call targetinfo, $@)
