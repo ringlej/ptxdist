@@ -3,5 +3,7 @@ menu	"rsync               "
 config RSYNC   
 	bool
 	prompt "rsync"
+	help
+	  FIXME: This item needs to be documented
 
 endmenu

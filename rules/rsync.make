@@ -32,7 +32,7 @@ RSYNC_DIR	= $(BUILDDIR)/$(RSYNC)
 
 rsync_get: $(STATEDIR)/rsync.get
 
-$(STATEDIR)/rsync.get: $(RSYNC_SOURCE)
+$(STATEDIR)/rsync.get: $(rsync_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(RSYNC_SOURCE):
 
 rsync_extract: $(STATEDIR)/rsync.extract
 
-$(STATEDIR)/rsync.extract: $(rsync_extract_deps)
+$(STATEDIR)/rsync.extract: $(rsync_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RSYNC_DIR))
 	@$(call extract, $(RSYNC_SOURCE))
