@@ -31,7 +31,7 @@ TCPWRAPPER_DIR			= $(BUILDDIR)/$(TCPWRAPPER)
 
 tcpwrapper_get: $(STATEDIR)/tcpwrapper.get
 
-$(STATEDIR)/tcpwrapper.get: $(TCPWRAPPER_SOURCE)
+$(STATEDIR)/tcpwrapper.get: $(tcpwrapper_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

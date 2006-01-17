@@ -3,10 +3,14 @@ menu	"tcpwrapper          "
 config	TCPWRAPPER
 	bool
 	prompt "tcpwrapper"
-	
+	help
+	  FIXME: This item needs to be documented
+
 config	TCPWRAPPER_INSTALL_TCPD
 	bool
 	prompt "Install /usr/sbin/tcpd"
 	depends on TCPWRAPPER
+	help
+	  FIXME: This item needs to be documented
 
 endmenu
