@@ -21,7 +21,7 @@ UTIL-LINUX_VERSION	= 2.12j
 UTIL-LINUX		= util-linux-$(UTIL-LINUX_VERSION)
 UTIL-LINUX_SUFFIX	= tar.gz
 UTIL-LINUX_URL		= http://ftp.cwi.nl/aeb/util-linux/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
-UTIL-LINUX_SOURCE	= $(SRCDIR)/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
+UTLNX_SOURCE	= $(SRCDIR)/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
 UTIL-LINUX_DIR		= $(BUILDDIR)/$(UTIL-LINUX)
 
 -include $(call package_depfile)
@@ -37,7 +37,7 @@ $(STATEDIR)/util-linux.get: $(util-linux_get_deps_default)
 	@$(call get_patches, $(UTIL-LINUX))
 	@$(call touch, $@)
 
-$(UTIL-LINUX_SOURCE):
+$(UTLNX_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(UTIL-LINUX_URL))
 
@@ -50,7 +50,7 @@ util-linux_extract: $(STATEDIR)/util-linux.extract
 $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTIL-LINUX_DIR))
-	@$(call extract, $(UTIL-LINUX_SOURCE))
+	@$(call extract, $(UTLNX_SOURCE))
 	@$(call patchin, $(UTIL-LINUX))
 
 	perl -i -p -e 's/^CPU=.*$$/CPU=$(PTXCONF_ARCH)/g' $(UTIL-LINUX_DIR)/MCONFIG
