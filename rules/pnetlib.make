@@ -47,7 +47,7 @@ $(PNETLIB_SOURCE):
 
 pnetlib_extract: $(STATEDIR)/pnetlib.extract
 
-$(STATEDIR)/pnetlib.extract: $(pnetlib_extract_deps)
+$(STATEDIR)/pnetlib.extract: $(pnetlib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PNETLIB_DIR))
 	@$(call extract, $(PNETLIB_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/pnetlib.compile: $(pnetlib_compile_deps_default)
 
 pnetlib_install: $(STATEDIR)/pnetlib.install
 
-$(STATEDIR)/pnetlib.install: $(STATEDIR)/pnetlib.compile
+$(STATEDIR)/pnetlib.install: $(pnetlib_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, PNETLIB)
 	@$(call touch, $@)

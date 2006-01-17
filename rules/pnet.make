@@ -32,7 +32,7 @@ PNET_DIR	= $(BUILDDIR)/$(PNET)
 
 pnet_get: $(STATEDIR)/pnet.get
 
-$(STATEDIR)/pnet.get: $(PNET_SOURCE)
+$(STATEDIR)/pnet.get: $(pnet_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PNET))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(PNET_SOURCE):
 
 pnet_extract: $(STATEDIR)/pnet.extract
 
-$(STATEDIR)/pnet.extract: $(pnet_extract_deps)
+$(STATEDIR)/pnet.extract: $(pnet_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PNET_DIR))
 	@$(call extract, $(PNET_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/pnet.compile: $(pnet_compile_deps_default)
 
 pnet_install: $(STATEDIR)/pnet.install
 
-$(STATEDIR)/pnet.install: $(STATEDIR)/pnet.compile
+$(STATEDIR)/pnet.install: $(pnet_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, PNET)
 	@$(call touch, $@)

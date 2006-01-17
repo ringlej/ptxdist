@@ -1,1 +1,8 @@
-# FIXME: There should be a *.in for this package
+config PNET
+	bool
+	prompt "pnet"
+	select TREECC
+	depends on DOTGNU
+	help
+	  FIXME: This item needs to be documented
+

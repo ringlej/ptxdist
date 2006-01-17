@@ -11,14 +11,6 @@ config TREECC
 comment "treecc is broken, please send a patch"
 	depends on !BROKEN
 
-config PNET
-	bool
-	prompt "pnet"
-	select TREECC
-	depends on DOTGNU
-	
-config PNETLIB
-	bool
-	prompt "pnetlib"
-	select PNET
-	depends on DOTGNU
+
+source "rules/pnet.in"
+source "rules/pnetlib.in"
