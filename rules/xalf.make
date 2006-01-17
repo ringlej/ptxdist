@@ -32,7 +32,7 @@ XALF_DIR		= $(BUILDDIR)/$(XALF)
 
 xalf_get: $(STATEDIR)/xalf.get
 
-$(STATEDIR)/xalf.get: $(XALF_SOURCE)
+$(STATEDIR)/xalf.get: $(xalf_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
