@@ -35,7 +35,7 @@ XLIBS-DAMAGEEXT_DIR	= $(BUILDDIR)/$(XLIBS-DAMAGEEXT)
 
 xlibs-damageext_get: $(STATEDIR)/xlibs-damageext.get
 
-$(STATEDIR)/xlibs-damageext.get: $(XLIBS-DAMAGEEXT_SOURCE)
+$(STATEDIR)/xlibs-damageext.get: $(xlibs-damageext_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-DAMAGEEXT))
 	@$(call touch, $@)
@@ -50,7 +50,7 @@ $(XLIBS-DAMAGEEXT_SOURCE):
 
 xlibs-damageext_extract: $(STATEDIR)/xlibs-damageext.extract
 
-$(STATEDIR)/xlibs-damageext.extract: $(xlibs-damageext_extract_deps)
+$(STATEDIR)/xlibs-damageext.extract: $(xlibs-damageext_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-DAMAGEEXT_DIR))
 	@$(call extract, $(XLIBS-DAMAGEEXT_SOURCE))
@@ -98,7 +98,7 @@ $(STATEDIR)/xlibs-damageext.compile: $(xlibs-damageext_compile_deps_default)
 
 xlibs-damageext_install: $(STATEDIR)/xlibs-damageext.install
 
-$(STATEDIR)/xlibs-damageext.install: $(STATEDIR)/xlibs-damageext.compile
+$(STATEDIR)/xlibs-damageext.install: $(xlibs-damageext_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-DAMAGEEXT)
 	@$(call touch, $@)
