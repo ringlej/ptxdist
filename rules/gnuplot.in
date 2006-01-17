@@ -3,7 +3,15 @@ menuconfig GNUPLOT
 	prompt "gnuplot"
 	select ZLIB
 	help
-	  FIXME: This item needs to be documented
+	  A command-line driven interactive plotting program for 
+	  making 2D and 3D graphs from data and functions. 
+	  
+	  Supports lots of output formats, including drivers for 
+	  many printers, (La)TeX, (x)fig, Postscript, and so on. 
+
+	  Data files and self-defined functions can be manipulated by internal
+ 	  C-like language.  Can perform smoothing, spline-fitting, or nonlinear
+ 	  fits. Can work with complex numbers.
 
 config GNUPLOT_FITERRVARS
 	bool
