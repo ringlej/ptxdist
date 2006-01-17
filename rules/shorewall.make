@@ -33,7 +33,7 @@ SHOREWALL_DIR		= $(BUILDDIR)/$(SHOREWALL)
 
 shorewall_get: $(STATEDIR)/shorewall.get
 
-$(STATEDIR)/shorewall.get: $(SHOREWALL_SOURCE)
+$(STATEDIR)/shorewall.get: $(shorewall_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
