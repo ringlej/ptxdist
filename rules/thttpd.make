@@ -94,7 +94,6 @@ thttpd_install: $(STATEDIR)/thttpd.install
 
 $(STATEDIR)/thttpd.install: $(STATEDIR)/thttpd.compile
 	@$(call targetinfo, $@)
-	@$(call install, THTTPD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
