@@ -32,7 +32,7 @@ PARANOIA_DIR		= $(BUILDDIR)/$(PARANOIA)
 
 paranoia_get: $(STATEDIR)/paranoia.get
 
-$(STATEDIR)/paranoia.get: $(PARANOIA_SOURCE)
+$(STATEDIR)/paranoia.get: $(paranoia_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PARANOIA))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(PARANOIA_SOURCE):
 
 paranoia_extract: $(STATEDIR)/paranoia.extract
 
-$(STATEDIR)/paranoia.extract: $(paranoia_extract_deps)
+$(STATEDIR)/paranoia.extract: $(paranoia_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PARANOIA_DIR))
 	mkdir $(PARANOIA_DIR)
@@ -86,7 +86,7 @@ $(STATEDIR)/paranoia.compile: $(paranoia_compile_deps_default)
 
 paranoia_install: $(STATEDIR)/paranoia.install
 
-$(STATEDIR)/paranoia.install: $(STATEDIR)/paranoia.compile
+$(STATEDIR)/paranoia.install: $(paranoia_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config PARANOIA
+        bool
+        default N
+        depends on BROKEN
+        prompt "Package PARANOIA"
+	help
+	  PARANOIA is 
+	  FIXME: This item needs to bee documented
+
+comment "PARANOIA is broken, please send a patch"
+        depends on !BROKEN

@@ -237,5 +237,6 @@ source "rules/libIDL-2.in"
 source "rules/liboop.in"
 source "rules/libpng125.in"
 source "rules/pango12.in"
+source "rules/paranoia.in"
 endmenu
 
