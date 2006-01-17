@@ -32,7 +32,7 @@ UTIL-LINUX_DIR		= $(BUILDDIR)/$(UTIL-LINUX)
 
 util-linux_get: $(STATEDIR)/util-linux.get
 
-$(STATEDIR)/util-linux.get: $(UTIL-LINUX_SOURCE)
+$(STATEDIR)/util-linux.get: $(util-linux_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(UTIL-LINUX))
 	@$(call touch, $@)
@@ -117,7 +117,7 @@ endif
 
 util-linux_install: $(STATEDIR)/util-linux.install
 
-$(STATEDIR)/util-linux.install: $(STATEDIR)/util-linux.compile
+$(STATEDIR)/util-linux.install: $(util-linux_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

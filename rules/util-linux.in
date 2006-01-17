@@ -5,47 +5,77 @@ config UTLNX_FDISK
 	bool
 	prompt "fdisk"
 	depends on UTLNX
+	help
+	  fdisk - Partition table manipulator for Linux
 
 config UTLNX_SFDISK
 	bool
 	prompt "sfdisk"
 	depends on UTLNX
-
+	help
+	  sfdisk - Partition table manipulator for Linux, 
+	  scriptable for unattended partitioning
+	  
 config UTLNX_CFDISK
 	bool
 	prompt "cfdisk"
 	depends on UTLNX
 	depends on NCURSES
-
+	help
+	  cfdisk is a curses based program for partitioning any hard disk drive.
+	  
 config UTLNX_MKSWAP
 	bool
         prompt "mkswap"
 	depends on UTLNX
-
+	help
+	  mkswap sets up a Linux swap area on a device or in a file.
+	  
 config UTLNX_SWAPON
 	bool
 	prompt "swapon"
 	depends on UTLNX
+	help
+	  Swapon is used to specify devices on which paging and swapping are to take place.
 
 config UTLNX_MOUNT
 	bool
 	prompt "mount"
 	depends on UTLNX
+	help
+	  The mount command serves to attach the file system 
+	  found on some device to the big file tree. 
 
 config UTLNX_UMOUNT
 	bool
 	prompt "umount"
 	depends on UTLNX
+	help
+	  The mount(8) command serves to attach the file system 
+	  found on some device to the big file tree. 
+	  Conversely, the umount(8) command will detach it again.
 
 config UTLNX_IPCS
 	bool
 	prompt "ipcs"
 	depends on UTLNX
+	help
+	  ipcs provides information on the ipc facilities 
+	  for which the calling process has read acccess.
 
 config UTLNX_READPROFILE
 	bool
 	prompt "readprofile"
 	depends on UTLNX
+	help
+	  The readprofile command uses the /proc/profile information 
+	  to print ascii data on standard output.  The output is 
+	  organized in three columns: the first is the number of 
+	  clock ticks, the second is the name of the C function 
+	  in the kernel where those many ticks occurred, and the 
+	  third is the normalized  `load' of the procedure, calculated 
+	  as a ratio between the number of ticks and the length of the 
+	  procedure. The output is filled with blanks to ease readability.
 
 source "rules/clock.in"
 
