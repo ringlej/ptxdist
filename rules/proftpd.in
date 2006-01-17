@@ -1,29 +1,41 @@
 menuconfig PROFTPD
 	bool "proftpd             "
+	help
+	  FIXME: This item needs to be documented
 
 config PROFTPD_PAM
 	bool
 	prompt "PAM support"
 	depends on PROFTPD
+	help
+	  FIXME: This item needs to be documented
 
 config PROFTPD_SENDFILE
 	bool
 	prompt "sendfile support"
 	depends on PROFTPD
+	help
+	  FIXME: This item needs to be documented
 	
 config PROFTPD_SHADOW
 	bool
 	prompt "shadow support"
 	depends on PROFTPD
+	help
+	  FIXME: This item needs to be documented
 
 config PROFTPD_AUTOSHADOW
 	bool
 	prompt "autoshadow support"
 	depends on PROFTPD_SHADOW
+	help
+	  FIXME: This item needs to be documented
 
 config PROFTPD_DEFAULTCONFIG
 	bool
 	prompt "install default config file"
 	default N
 	depends on PROFTPD
+	help
+	  FIXME: This item needs to be documented
 
