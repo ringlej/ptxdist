@@ -4,4 +4,4 @@ config OPROFILE
 	prompt "oprofile"
 	default n
 	help
-	  FIXME: This item needs to be documented
+	  system-wide profiler for Linux systems
