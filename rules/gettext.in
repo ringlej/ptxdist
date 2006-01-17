@@ -1,7 +1,10 @@
 menuconfig GETTEXT
 	bool "gettext (GNU)               "
 	help
-	  FIXME: This item needs to be documented
+	  The gettext program translates a natural language 
+	  message into the user's language, by looking up 
+	  the translation in a message catalog.
+	 
 
 config GETTEXT_LIBINTL
 	bool
