@@ -29,7 +29,7 @@ PORTMAP_DIR		= $(BUILDDIR)/$(PORTMAP)
 
 portmap_get: $(STATEDIR)/portmap.get
 
-$(STATEDIR)/portmap.get: $(PORTMAP_SOURCE)
+$(STATEDIR)/portmap.get: $(portmap_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PORTMAP))
 	@$(call touch, $@)
@@ -44,7 +44,7 @@ $(PORTMAP_SOURCE):
 
 portmap_extract: $(STATEDIR)/portmap.extract
 
-$(STATEDIR)/portmap.extract: $(STATEDIR)/portmap.get
+$(STATEDIR)/portmap.extract: $(portmap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PORTMAP_DIR))
 	@$(call extract, $(PORTMAP_SOURCE))
