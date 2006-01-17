@@ -34,7 +34,7 @@ QT_DIR		= $(BUILDDIR)/qt-$(QT_VERSION)
 
 qt_get: $(STATEDIR)/qt.get
 
-$(STATEDIR)/qt.get: $(QT_SOURCE)
+$(STATEDIR)/qt.get: $(qt_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,7 +48,7 @@ $(QT_SOURCE):
 
 qt_extract: $(STATEDIR)/qt.extract
 
-$(STATEDIR)/qt.extract: $(qt_extract_deps)
+$(STATEDIR)/qt.extract: $(qt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(QT_DIR))
 	@$(call extract, $(QT_SOURCE))
@@ -112,7 +112,7 @@ $(STATEDIR)/qt.compile: $(qt_compile_deps_default)
 
 qt_install: $(STATEDIR)/qt.install
 
-$(STATEDIR)/qt.install: $(STATEDIR)/qt.compile
+$(STATEDIR)/qt.install: $(qt_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, QT)
 	@$(call touch, $@)
