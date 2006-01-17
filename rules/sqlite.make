@@ -33,7 +33,7 @@ SQLITE_DIR		= $(BUILDDIR)/$(SQLITE)
 
 sqlite_get: $(STATEDIR)/sqlite.get
 
-$(STATEDIR)/sqlite.get: $(SQLITE_SOURCE)
+$(STATEDIR)/sqlite.get: $(sqlite_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
