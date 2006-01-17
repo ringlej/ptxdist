@@ -30,7 +30,7 @@ UTELNETD_DIR			= $(BUILDDIR)/$(UTELNETD)
 
 utelnetd_get: $(STATEDIR)/utelnetd.get
 
-$(STATEDIR)/utelnetd.get: $(UTELNETD_SOURCE)
+$(STATEDIR)/utelnetd.get: $(utelnetd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

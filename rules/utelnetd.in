@@ -3,5 +3,7 @@ menu	"utelnetd            "
 config UTELNETD
 	bool
 	prompt "utelnetd"
+	help
+	  FIXME: This item needs to be documented
 
 endmenu
