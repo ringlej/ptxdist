@@ -1,44 +1,64 @@
 config RTNET
 	bool "RTnet"
 	depends on RTAI
+	help
+	  FIXME: This item needs to be documented
 
 comment "Optional Features"
 
 config RTNET_RTCFG
 	bool "RTcfg"
 	depends on RTNET
+	help
+	  FIXME: This item needs to be documented
 
 config RTNET_RTCFG_DEBUG
 	bool "Enable debugging in RTcfg"
 	depends on RTNET_RTCFG
+	help
+	  FIXME: This item needs to be documented
 
 config RTNET_RTCAP
 	bool "RTcap"
 	depends on RTNET
+	help
+	  FIXME: This item needs to be documented
 
 config RTNET_PROXY
 	bool "Proxy"
 	depends on RTNET
+	help
+	  FIXME: This item needs to be documented
 
 config RTNET_RTDM
 	bool "realtime driver module"
 	depends on RTNET
+	help
+	  FIXME: This item needs to be documented
 
 config RTNET_EXAMPLES
 	bool "examples"
 	depends on RTNET
+	help
+	  FIXME: This item needs to be documented
 
 config RTNET_NET_ROUTING
 	bool "net routing"
 	depends on RTNET
+	help
+	  FIXME: This item needs to be documented
 
 config RTNET_ROUTER
 	bool "router"
 	depends on RTNET
+	help
+	  FIXME: This item needs to be documented
 
 config RTNET_BUG_CHECK
 	bool "internal bug checks"
 	depends on RTNET
+	help
+	  FIXME: This item needs to be documented
 
 comment "Network Card Support"
 

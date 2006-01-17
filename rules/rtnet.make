@@ -35,7 +35,7 @@ RTNET_MODULEDIR	= $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)-adeos/kernel/drivers
 
 rtnet_get: $(STATEDIR)/rtnet.get
 
-$(STATEDIR)/rtnet.get: $(RTNET_SOURCE)
+$(STATEDIR)/rtnet.get: $(rtnet_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -49,7 +49,7 @@ $(RTNET_SOURCE):
 
 rtnet_extract: $(STATEDIR)/rtnet.extract
 
-$(STATEDIR)/rtnet.extract: $(rtnet_extract_deps)
+$(STATEDIR)/rtnet.extract: $(rtnet_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTNET_DIR))
 	@$(call extract, $(RTNET_SOURCE))
