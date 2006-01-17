@@ -45,7 +45,7 @@ $(WIRELESS_SOURCE):
 
 wireless_extract: $(STATEDIR)/wireless.extract
 
-$(STATEDIR)/wireless.extract: $(wireless_extract_deps)
+$(STATEDIR)/wireless.extract: $(wireless_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WIRELESS_DIR))
 	@$(call extract, $(WIRELESS_SOURCE))
@@ -70,6 +70,7 @@ endif
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
+
 WIRELESS_PATH	=  PATH=$(CROSS_PATH)
 WIRELESS_ENV 	=  $(CROSS_ENV)
 
@@ -86,7 +87,7 @@ $(STATEDIR)/wireless.compile: $(wireless_compile_deps_default)
 
 wireless_install: $(STATEDIR)/wireless.install
 
-$(STATEDIR)/wireless.install: $(wireless_compile_deps_default)
+$(STATEDIR)/wireless.install: $(wireless_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
