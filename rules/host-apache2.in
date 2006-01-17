@@ -4,8 +4,12 @@ config HOST_APACHE2
         depends on BROKEN
         prompt "HOST_APACHE2"
 	help
-	  FIXME: This item needs to be documented
-	
+	  This is the host-package for Apache v2, which is 
+	  the next generation of the Apache web server. 
+          
+	  This version - a total rewrite - introduces many new 
+          improvements, such as threading, a new API, IPv6 support, 
+          request/response filtering, and more.
 
 comment "HOST_APACHE2 is broken, please send a patch"
         depends on !BROKEN
