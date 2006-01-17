@@ -37,7 +37,7 @@ BSDINIT_DIR		= $(BUILDDIR)/bsdinit-1.0
 
 sysvinit_get: $(STATEDIR)/sysvinit.get
 
-$(STATEDIR)/sysvinit.get: $(SYSVINIT_SOURCE)
+$(STATEDIR)/sysvinit.get: $(sysvinit_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -51,7 +51,7 @@ $(SYSVINIT_SOURCE):
 
 sysvinit_extract: $(STATEDIR)/sysvinit.extract
 
-$(STATEDIR)/sysvinit.extract: $(sysvinit_extract_deps)
+$(STATEDIR)/sysvinit.extract: $(sysvinit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSVINIT_DIR))
 	@$(call extract, $(SYSVINIT_SOURCE))
@@ -99,7 +99,7 @@ $(STATEDIR)/sysvinit.compile: $(sysvinit_compile_deps_default)
 
 sysvinit_install: $(STATEDIR)/sysvinit.install
 
-$(STATEDIR)/sysvinit.install: $(STATEDIR)/sysvinit.compile
+$(STATEDIR)/sysvinit.install: $(sysvinit_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

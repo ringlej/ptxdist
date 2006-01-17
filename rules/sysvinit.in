@@ -19,41 +19,57 @@ config SYSVINIT_SHUTDOWN
 	bool
 	prompt "shutdown"
 	depends on SYSVINIT
+	help
+	  FIXME: This item needs to be documented
 
 config SYSVINIT_RUNLEVEL
 	bool
 	prompt "runlevel"
 	depends on SYSVINIT
+	help
+	  FIXME: This item needs to be documented
 
 config SYSVINIT_KILLALL5
 	bool
 	prompt "killall5"
 	depends on SYSVINIT
+	help
+	  FIXME: This item needs to be documented
 
 config SYSVINIT_SULOGIN
 	bool
 	prompt "sulogin"
 	depends on SYSVINIT
+	help
+	  FIXME: This item needs to be documented
 
 config SYSVINIT_BOOTLOGD
 	bool
 	prompt "bootlogd"
 	depends on SYSVINIT
+	help
+	  FIXME: This item needs to be documented
 
 config SYSVINIT_WALL
 	bool
 	prompt "wall"
 	depends on SYSVINIT
+	help
+	  FIXME: This item needs to be documented
 
 config SYSVINIT_LAST
 	bool
 	prompt "last"
 	depends on SYSVINIT
+	help
+	  FIXME: This item needs to be documented
 
 config SYSVINIT_MESG
 	bool
 	prompt "mesg"
 	depends on SYSVINIT
+	help
+	  FIXME: This item needs to be documented
 
 config SYSVINIT_BSDINIT
 	bool
