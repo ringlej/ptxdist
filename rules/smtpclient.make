@@ -32,7 +32,7 @@ SMTPCLIENT_DIR		= $(BUILDDIR)/$(SMTPCLIENT)
 
 smtpclient_get: $(STATEDIR)/smtpclient.get
 
-$(STATEDIR)/smtpclient.get: $(SMTPCLIENT_SOURCE)
+$(STATEDIR)/smtpclient.get: $(smtpclient_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SMTPCLIENT))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(SMTPCLIENT_SOURCE):
 
 smtpclient_extract: $(STATEDIR)/smtpclient.extract
 
-$(STATEDIR)/smtpclient.extract: $(smtpclient_extract_deps)
+$(STATEDIR)/smtpclient.extract: $(smtpclient_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SMTPCLIENT_DIR))
 	@$(call extract, $(SMTPCLIENT_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/smtpclient.compile: $(smtpclient_compile_deps_default)
 
 smtpclient_install: $(STATEDIR)/smtpclient.install
 
-$(STATEDIR)/smtpclient.install: $(STATEDIR)/smtpclient.compile
+$(STATEDIR)/smtpclient.install: $(smtpclient_install_deps_default)
 	@$(call targetinfo, $@)
 	# No install for applications
 	@$(call touch, $@)
