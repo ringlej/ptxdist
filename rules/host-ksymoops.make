@@ -2,7 +2,7 @@
 # $Id:$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -14,10 +14,10 @@
 HOST_PACKAGES-$(PTXCONF_HOST_KSYMOOPS) += host-ksymoops
 
 #
-# Paths and names 
+# Paths and names
 #
 HOST_KSYMOOPS		= ksymoops-2.4.9
-HOST_KSYMOOPS_URL	= http://www.kernel.org/pub/linux/utils/kernel/ksymoops/v2.4/$(KSYMOOPS).tar.bz2
+HOST_KSYMOOPS_URL	= http://www.kernel.org/pub/linux/utils/kernel/ksymoops/v2.4/$(HOST_KSYMOOPS).tar.bz2
 HOST_KSYMOOPS_SOURCE	= $(SRCDIR)/$(HOST_KSYMOOPS).tar.bz2
 HOST_KSYMOOPS_DIR	= $(HOST_BUILDDIR)/$(HOST_KSYMOOPS)
 
