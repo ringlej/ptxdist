@@ -32,7 +32,7 @@ XMLSTARLET_DIR		= $(BUILDDIR)/$(XMLSTARLET)
 
 xmlstarlet_get: $(STATEDIR)/xmlstarlet.get
 
-$(STATEDIR)/xmlstarlet.get: $(XMLSTARLET_SOURCE)
+$(STATEDIR)/xmlstarlet.get: $(xmlstarlet_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(XMLSTARLET_SOURCE):
 
 xmlstarlet_extract: $(STATEDIR)/xmlstarlet.extract
 
-$(STATEDIR)/xmlstarlet.extract: $(xmlstarlet_extract_deps)
+$(STATEDIR)/xmlstarlet.extract: $(xmlstarlet_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XMLSTARLET_DIR))
 	@$(call extract, $(XMLSTARLET_SOURCE))
@@ -96,7 +96,7 @@ $(STATEDIR)/xmlstarlet.compile: $(xmlstarlet_compile_deps_default)
 
 xmlstarlet_install: $(STATEDIR)/xmlstarlet.install
 
-$(STATEDIR)/xmlstarlet.install: $(STATEDIR)/xmlstarlet.compile
+$(STATEDIR)/xmlstarlet.install: $(xmlstarlet_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XMLSTARLET)
 	@$(call touch, $@)
