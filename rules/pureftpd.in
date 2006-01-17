@@ -2,7 +2,14 @@ menuconfig PUREFTPD
 	bool
 	prompt "pureftpd            "
 	help
-	  FIXME: This item needs to be documented
+	  Pure-FTPd is a fast, production-quality, standards-conformant 
+	  FTP server based upon Troll-FTPd. Features include chrooted 
+	  home directories, virtual domains, built-in 'ls', anti-warez 
+	  system, configurable ports for passive downloads, FXP protocol, 
+	  bandwidth throttling, ratios, fortune files, Apache-like log 
+	  files, fast standalone mode, atomic uploads, text / HTML / 
+	  XML real-time status report, virtual users, virtual quotas,
+ 	  privilege separation, SSL/TLS and more.
 
 config PUREFTPD_UPLOADSCRIPT
 	bool

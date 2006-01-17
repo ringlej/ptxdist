@@ -4,4 +4,4 @@ config READLINE
 	select GCCLIBS_GCC_S
         prompt "readline"
 	help
-	  FIXME: This item needs to be documented
+	  Shared libraries for terminal handling
