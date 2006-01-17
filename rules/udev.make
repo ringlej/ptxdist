@@ -1,7 +1,7 @@
 # $Id: template 2680 2005-05-27 10:29:43Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -45,7 +45,7 @@ $(UDEV_SOURCE):
 
 udev_extract: $(STATEDIR)/udev.extract
 
-$(STATEDIR)/udev.extract: $(udev_extract_deps)
+$(STATEDIR)/udev.extract: $(udev_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UDEV_DIR))
 	@$(call extract, $(UDEV_SOURCE))
