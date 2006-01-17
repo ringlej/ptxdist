@@ -1,3 +1,5 @@
+# FIXME: Broken infile? There is no makefile for most of these...
+
 menuconfig XLIBS
 	bool "xlibs                 "
 	help
@@ -107,6 +109,8 @@ config XLIBS_XEXT
 	bool
 	depends on XLIBS
 	prompt "Xext"
+	help
+	  FIXME: This item needs to be documented
 
 # ---
 # 
