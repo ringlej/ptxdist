@@ -31,7 +31,7 @@ PPP_DIR		= $(BUILDDIR)/$(PPP)
 
 ppp_get:	$(STATEDIR)/ppp.get
 
-$(STATEDIR)/ppp.get: $(PPP_SOURCE)
+$(STATEDIR)/ppp.get: $(ppp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PPP))
 	@$(call touch, $@)
@@ -46,7 +46,7 @@ $(PPP_SOURCE):
 
 ppp_extract: $(STATEDIR)/ppp.extract
 
-$(STATEDIR)/ppp.extract: $(STATEDIR)/ppp.get
+$(STATEDIR)/ppp.extract: $(ppp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PPP_DIR))
 	@$(call extract, $(PPP_SOURCE))
@@ -62,9 +62,7 @@ ppp_prepare: $(STATEDIR)/ppp.prepare
 PPP_PATH	= PATH=$(CROSS_PATH)
 PPP_MAKEVARS	= CROSS=$(CROSS_ENV)
 
-$(STATEDIR)/ppp.prepare: \
-		$(STATEDIR)/virtual-xchain.install \
-		$(STATEDIR)/ppp.extract
+$(STATEDIR)/ppp.prepare: $(ppp_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PPP_DIR) && \
 		./configure

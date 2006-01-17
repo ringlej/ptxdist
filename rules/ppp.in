@@ -3,30 +3,42 @@ menu	"ppp                 "
 config PPP
 	bool
 	prompt "ppp"
+	help
+	  FIXME: This item needs to be documented
 
 config PPP_MS_CHAP
 	bool
 	prompt "support Micro$oft's MS-CHAP authentication protocol"
 	depends on PPP
+	help
+	  FIXME: This item needs to be documented
 
 config PPP_SHADOW
 	bool
 	prompt "ppp server: support for shadow passwords"
 	depends on PPP
+	help
+	  FIXME: This item needs to be documented
 
 config PPP_PLUGINS
 	bool
 	prompt "support plugins"
 	depends on PPP
+	help
+	  FIXME: This item needs to be documented
 
 config PPP_IPX
 	bool
 	prompt "support IPX protocol"
 	depends on PPP
+	help
+	  FIXME: This item needs to be documented
 
 config PPP_MULTILINK
 	bool
 	prompt "support multilink"
 	depends on PPP
+	help
+	  FIXME: This item needs to be documented
 
 endmenu
