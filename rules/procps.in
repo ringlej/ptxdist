@@ -1,33 +1,47 @@
 menuconfig PROCPS
 	bool "procps              "
 	select NCURSES
+	help
+	  FIXME: This item needs to be documented
 
 config PROCPS_TOP
 	bool
         prompt "top"
 	depends on PROCPS
+	help
+	  FIXME: This item needs to be documented
 
 config PROCPS_SLABTOP
 	bool
 	prompt "slabtop"
 	depends on PROCPS
+	help
+	  FIXME: This item needs to be documented
 
 config PROCPS_SYSCTL
 	bool
 	prompt "sysctl"
 	depends on PROCPS
+	help
+	  FIXME: This item needs to be documented
 
 config PROCPS_PS
 	bool
 	prompt "ps"
 	depends on PROCPS
+	help
+	  FIXME: This item needs to be documented
 
 config PROCPS_W
 	bool
 	prompt "w"
 	depends on PROCPS
+	help
+	  FIXME: This item needs to be documented
 
 config PROCPS_PGREP
 	bool
 	prompt "pgrep"
 	depends on PROCPS
+	help
+	  FIXME: This item needs to be documented

@@ -32,7 +32,7 @@ PROCPS_DIR	= $(BUILDDIR)/$(PROCPS)
 
 procps_get: $(STATEDIR)/procps.get
 
-$(STATEDIR)/procps.get: $(PROCPS_SOURCE)
+$(STATEDIR)/procps.get: $(procps_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PROCPS))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(PROCPS_SOURCE):
 
 procps_extract: $(STATEDIR)/procps.extract
 
-$(STATEDIR)/procps.extract: $(procps_extract_deps)
+$(STATEDIR)/procps.extract: $(procps_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PROCPS_DIR))
 	@$(call extract, $(PROCPS_SOURCE))
