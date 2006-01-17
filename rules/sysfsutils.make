@@ -47,7 +47,7 @@ $(SYSFSUTILS_SOURCE):
 
 sysfsutils_extract: $(STATEDIR)/sysfsutils.extract
 
-$(STATEDIR)/sysfsutils.extract: $(sysfsutils_extract_deps)
+$(STATEDIR)/sysfsutils.extract: $(sysfsutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSFSUTILS_DIR))
 	@$(call extract, $(SYSFSUTILS_SOURCE))
