@@ -47,7 +47,7 @@ $(UTIL-LINUX_SOURCE):
 
 util-linux_extract: $(STATEDIR)/util-linux.extract
 
-$(STATEDIR)/util-linux.extract: $(util-linux_extract_deps)
+$(STATEDIR)/util-linux.extract: $(util-linux_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTIL-LINUX_DIR))
 	@$(call extract, $(UTIL-LINUX_SOURCE))
