@@ -34,7 +34,7 @@ SUDO_DIR	= $(BUILDDIR)/$(SUDO)
 
 sudo_get: $(STATEDIR)/sudo.get
 
-$(STATEDIR)/sudo.get: $(SUDO_SOURCE)
+$(STATEDIR)/sudo.get: $(sudo_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(SUDO))
 	@$(call touch, $@)
@@ -49,7 +49,7 @@ $(SUDO_SOURCE):
 
 sudo_extract: $(STATEDIR)/sudo.extract
 
-$(STATEDIR)/sudo.extract: $(sudo_extract_deps)
+$(STATEDIR)/sudo.extract: $(sudo_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SUDO_DIR))
 	@$(call extract, $(SUDO_SOURCE))
@@ -95,7 +95,7 @@ $(STATEDIR)/sudo.compile: $(sudo_compile_deps_default)
 
 sudo_install: $(STATEDIR)/sudo.install
 
-$(STATEDIR)/sudo.install: $(STATEDIR)/sudo.compile
+$(STATEDIR)/sudo.install: $(sudo_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, SUDO)
 	@$(call touch, $@)

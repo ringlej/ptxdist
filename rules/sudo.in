@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config SUDO
+        bool
+        default N
+        depends on BROKEN
+        prompt "Package SUDO"
+	help
+	  SUDO is 
+	  FIXME: This item needs to bee documented
+
+comment "SUDO is broken, please send a patch"
+        depends on !BROKEN
