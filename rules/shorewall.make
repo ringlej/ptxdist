@@ -75,6 +75,16 @@ $(STATEDIR)/shorewall.compile: $(shorewall_compile_deps_default)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+shorewall_install: $(STATEDIR)/shorewall.install
+
+$(STATEDIR)/shorewall.install: $(shorewall_install_deps_default)
+	@$(call targetinfo, $@)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
