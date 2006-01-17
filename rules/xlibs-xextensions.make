@@ -35,8 +35,6 @@ XLIBS-XEXTENSIONS_DIR		= $(BUILDDIR)/$(XLIBS-XEXTENSIONS)
 
 xlibs-xextensions_get: $(STATEDIR)/xlibs-xextensions.get
 
-xlibs-xextensions_get_deps = $(XLIBS-XEXTENSIONS_SOURCE)
-
 $(STATEDIR)/xlibs-xextensions.get: $(xlibs-xextensions_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XEXTENSIONS))
@@ -52,9 +50,7 @@ $(XLIBS-XEXTENSIONS_SOURCE):
 
 xlibs-xextensions_extract: $(STATEDIR)/xlibs-xextensions.extract
 
-xlibs-xextensions_extract_deps = $(STATEDIR)/xlibs-xextensions.get
-
-$(STATEDIR)/xlibs-xextensions.extract: $(xlibs-xextensions_extract_deps)
+$(STATEDIR)/xlibs-xextensions.extract: $(xlibs-xextensions_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XEXTENSIONS_DIR))
 	@$(call extract, $(XLIBS-XEXTENSIONS_SOURCE))
@@ -66,12 +62,6 @@ $(STATEDIR)/xlibs-xextensions.extract: $(xlibs-xextensions_extract_deps)
 # ----------------------------------------------------------------------------
 
 xlibs-xextensions_prepare: $(STATEDIR)/xlibs-xextensions.prepare
-
-#
-# dependencies
-#
-xlibs-xextensions_prepare_deps =  $(STATEDIR)/xlibs-xextensions.extract
-xlibs-xextensions_prepare_deps += $(STATEDIR)/virtual-xchain.install
 
 XLIBS-XEXTENSIONS_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-XEXTENSIONS_ENV 	=  $(CROSS_ENV)
@@ -99,8 +89,6 @@ $(STATEDIR)/xlibs-xextensions.prepare: $(xlibs-xextensions_prepare_deps_default)
 
 xlibs-xextensions_compile: $(STATEDIR)/xlibs-xextensions.compile
 
-xlibs-xextensions_compile_deps = $(STATEDIR)/xlibs-xextensions.prepare
-
 $(STATEDIR)/xlibs-xextensions.compile: $(xlibs-xextensions_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XEXTENSIONS_DIR) && $(XLIBS-XEXTENSIONS_ENV) $(XLIBS-XEXTENSIONS_PATH) make
@@ -112,7 +100,7 @@ $(STATEDIR)/xlibs-xextensions.compile: $(xlibs-xextensions_compile_deps_default)
 
 xlibs-xextensions_install: $(STATEDIR)/xlibs-xextensions.install
 
-$(STATEDIR)/xlibs-xextensions.install: $(STATEDIR)/xlibs-xextensions.compile
+$(STATEDIR)/xlibs-xextensions.install: $(xlibs-xextensions_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-XEXTENSIONS)
 	@$(call touch, $@)
@@ -122,8 +110,6 @@ $(STATEDIR)/xlibs-xextensions.install: $(STATEDIR)/xlibs-xextensions.compile
 # ----------------------------------------------------------------------------
 
 xlibs-xextensions_targetinstall: $(STATEDIR)/xlibs-xextensions.targetinstall
-
-xlibs-xextensions_targetinstall_deps = $(STATEDIR)/xlibs-xextensions.compile
 
 $(STATEDIR)/xlibs-xextensions.targetinstall: $(xlibs-xextensions_targetinstall_deps_default)
 	@$(call targetinfo, $@)

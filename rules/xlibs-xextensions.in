@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config XLIBS-XEXTENSIONS
+        bool
+        default N
+        depends on BROKEN
+        prompt "Package XLIBS-XEXTENSIONS"
+	help
+	  XLIBS-XEXTENSIONS is 
+	  FIXME: This item needs to bee documented
+
+comment "XLIBS-XEXTENSIONS is broken, please send a patch"
+        depends on !BROKEN

@@ -247,5 +247,7 @@ source "rules/xlibs-xrandr.in"
 source "rules/xlibs-recordext.in"
 source "rules/xlibs-render.in"
 source "rules/xlibs-x11.in"
+source "rules/xlibs-xau.in"
+source "rules/xlibs-xextensions.in"
 endmenu
 
