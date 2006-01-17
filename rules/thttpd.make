@@ -32,7 +32,7 @@ THTTPD_DIR	= $(BUILDDIR)/$(THTTPD)
 
 thttpd_get: $(STATEDIR)/thttpd.get
 
-$(STATEDIR)/thttpd.get: $(THTTPD_SOURCE)
+$(STATEDIR)/thttpd.get: $(thttpd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(THTTPD_SOURCE):
 
 thttpd_extract: $(STATEDIR)/thttpd.extract
 
-$(STATEDIR)/thttpd.extract: $(thttpd_extract_deps)
+$(STATEDIR)/thttpd.extract: $(thttpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(THTTPD_DIR))
 	@$(call extract, $(THTTPD_SOURCE))
@@ -92,7 +92,7 @@ $(STATEDIR)/thttpd.compile: $(thttpd_compile_deps_default)
 
 thttpd_install: $(STATEDIR)/thttpd.install
 
-$(STATEDIR)/thttpd.install: $(STATEDIR)/thttpd.compile
+$(STATEDIR)/thttpd.install: $(thttpd_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

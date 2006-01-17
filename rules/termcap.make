@@ -32,7 +32,7 @@ TERMCAP_DIR	= $(BUILDDIR)/$(TERMCAP)
 
 termcap_get: $(STATEDIR)/termcap.get
 
-$(STATEDIR)/termcap.get: $(TERMCAP_SOURCE)
+$(STATEDIR)/termcap.get: $(termcap_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(TERMCAP_SOURCE):
 
 termcap_extract: $(STATEDIR)/termcap.extract
 
-$(STATEDIR)/termcap.extract: $(termcap_extract_deps)
+$(STATEDIR)/termcap.extract: $(termcap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TERMCAP_DIR))
 	@$(call extract, $(TERMCAP_SOURCE))

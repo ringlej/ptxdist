@@ -1,4 +1,13 @@
 menuconfig THTTPD
 	bool 
 	prompt "thttpd              "
+	help
+	  thttpd is a small, fast secure webserver. 
+	  
+	  It features CGI support, URL-traffic-based throttling 
+	  and basic authentication. thttpd has a very small memory 
+	  footprint as it only forks itself in order to execute 
+	  CGI scripts. It is designed to be as fast as fully 
+	  featured web-servers and it performs extremely well 
+	  under high load.
 

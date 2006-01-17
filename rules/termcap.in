@@ -2,9 +2,13 @@ menuconfig TERMCAP
 	bool "termcap                     "
 	default y
 	depends on GDB_TERMCAP
-	
+	help
+	  FIXME: This item needs to be documented
+
 config TERMCAP_TERMCAP
 	bool "install termcap data file"
 	default n
 	depends on TERMCAP
+	help
+	  FIXME: This item needs to be documented
 
