@@ -32,7 +32,7 @@ PDKSH_DIR		= $(BUILDDIR)/$(PDKSH)
 
 pdksh_get: $(STATEDIR)/pdksh.get
 
-$(STATEDIR)/pdksh.get: $(PDKSH_SOURCE)
+$(STATEDIR)/pdksh.get: $(pdksh_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(PDKSH_SOURCE):
 
 pdksh_extract: $(STATEDIR)/pdksh.extract
 
-$(STATEDIR)/pdksh.extract: $(STATEDIR)/pdksh.get
+$(STATEDIR)/pdksh.extract: $(pdksh_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PDKSH_DIR))
 	@$(call extract, $(PDKSH_SOURCE))
