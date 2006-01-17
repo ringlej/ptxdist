@@ -4,8 +4,14 @@ config XVKBD
         depends on BROKEN
         prompt "Package XVKBD"
 	help
-	  XVKBD is 
-	  FIXME: This item needs to bee documented
+	  xvkbd is a virtual (graphical) keyboard program 
+	  for X Window System which provides facility to enter 
+	  characters onto other clients (softwares) by clicking 
+	  on a keyboard displayed on the screen.  This
+ 	  may be used for systems without a hardware keyboard 
+	  such as kiosk terminals or handheld devices.  This 
+	  program also has facility to send characters specified 
+	  as the command line option to another client.
 
 comment "XVKBD is broken, please send a patch"
         depends on !BROKEN
