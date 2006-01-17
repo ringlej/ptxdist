@@ -32,7 +32,7 @@ PENGUZILLA_DIR		= $(BUILDDIR)/$(PENGUZILLA)
 
 penguzilla_get: $(STATEDIR)/penguzilla.get
 
-$(STATEDIR)/penguzilla.get: $(PENGUZILLA_SOURCE)
+$(STATEDIR)/penguzilla.get: $(penguzilla_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(PENGUZILLA_SOURCE):
 
 penguzilla_extract: $(STATEDIR)/penguzilla.extract
 
-$(STATEDIR)/penguzilla.extract: $(penguzilla_extract_deps)
+$(STATEDIR)/penguzilla.extract: $(penguzilla_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PENGUZILLA_DIR))
 	@$(call extract, $(PENGUZILLA_SOURCE))
@@ -94,7 +94,7 @@ $(STATEDIR)/penguzilla.compile: $(penguzilla_compile_deps_default)
 
 penguzilla_install: $(STATEDIR)/penguzilla.install
 
-$(STATEDIR)/penguzilla.install: $(STATEDIR)/penguzilla.compile
+$(STATEDIR)/penguzilla.install: $(penguzilla_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
