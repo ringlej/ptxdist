@@ -84,7 +84,7 @@ $(STATEDIR)/sysutils.compile: $(sysutils_compile_deps_default)
 
 sysutils_install: $(STATEDIR)/sysutils.install
 
-$(STATEDIR)/sysutils.install: $(STATEDIR)/sysutils.compile
+$(STATEDIR)/sysutils.install: $(sysutils_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

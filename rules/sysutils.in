@@ -5,9 +5,13 @@ config SYSUTILS_LSBUS
 	bool
 	prompt "  install lsbus"
 	depends on SYSUTILS
+	help
+	  FIXME: This item needs to be documented
 
 config SYSUTILS_SYSTOOL
 	bool
 	prompt "  install systool"
 	depends on SYSUTILS
+	help
+	  FIXME: This item needs to be documented
 
