@@ -66,13 +66,15 @@ MGETTY_ENV 	=  $(CROSS_ENV)
 $(STATEDIR)/mgetty.prepare: $(mgetty_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MGETTY_DIR)/config.cache)
+	# FIXME: mgetty doesn't allow DESTDIR/SYSROOT mechanism
 	cp $(PTXCONF_MGETTY_CONFIG) $(MGETTY_DIR)/policy.h
-	find $(MGETTY_DIR) -name Makefile \
-		-exec perl -i -p -e 's/^CFLAGS.*=.*/CFLAGS+=-DAUTO_PPP/ ;\
-			s/^CC.*=.*// ;\
-			s/^LDFLAGS.*=.*// ;\
-			s/^LIBS.*=.*// ;\
-			s/^prefix.*=.*/prefix=/' {} \;
+	for file in `find $(MGETTY_DIR) -name Makefile`; do \
+		sed -i -e "s,^CFLAGS.*=.*,CFLAGS+=-DAUTO_PPP,g" $$file; \
+		sed -i -e "s,^CC.*=.*,,g" $$file; \
+		sed -i -e "s,^LDFLAGS.*=.*,,g" $$file; \
+		sed -i -e "s,^LIBS.*=.*,,g" $$file; \
+		sed -i -e "s,^prefix.*=.*,prefix=$(SYSROOT),g" $$file; \
+	done
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -96,7 +98,8 @@ mgetty_install: $(STATEDIR)/mgetty.install
 
 $(STATEDIR)/mgetty.install: $(mgetty_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, MGETTY)
+	# don't run make install - there's nothing to install and
+	# mgetty's Makefile doesn't work for non-root 
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
