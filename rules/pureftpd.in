@@ -1,6 +1,8 @@
 menuconfig PUREFTPD
 	bool
 	prompt "pureftpd            "
+	help
+	  FIXME: This item needs to be documented
 
 config PUREFTPD_UPLOADSCRIPT
 	bool

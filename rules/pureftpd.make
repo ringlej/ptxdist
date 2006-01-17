@@ -32,7 +32,7 @@ PUREFTPD_DIR		= $(BUILDDIR)/$(PUREFTPD)
 
 pureftpd_get: $(STATEDIR)/pureftpd.get
 
-$(STATEDIR)/pureftpd.get: $(PUREFTPD_SOURCE)
+$(STATEDIR)/pureftpd.get: $(pureftpd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(PUREFTPD))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(PUREFTPD_SOURCE):
 
 pureftpd_extract: $(STATEDIR)/pureftpd.extract
 
-$(STATEDIR)/pureftpd.extract: $(pureftpd_extract_deps)
+$(STATEDIR)/pureftpd.extract: $(pureftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PUREFTPD_DIR))
 	@$(call extract, $(PUREFTPD_SOURCE))
@@ -134,7 +134,7 @@ $(STATEDIR)/pureftpd.compile: $(pureftpd_compile_deps_default)
 
 pureftpd_install: $(STATEDIR)/pureftpd.install
 
-$(STATEDIR)/pureftpd.install: $(STATEDIR)/pureftpd.compile
+$(STATEDIR)/pureftpd.install: $(pureftpd_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, PUREFTPD)
 	@$(call touch, $@)
