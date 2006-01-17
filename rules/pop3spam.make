@@ -46,7 +46,7 @@ $(POP3SPAM_SOURCE):
 
 pop3spam_extract: $(STATEDIR)/pop3spam.extract
 
-$(STATEDIR)/pop3spam.extract: $(pop3spam_extract_deps)
+$(STATEDIR)/pop3spam.extract: $(pop3spam_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(POP3SPAM_DIR))
 	@$(call extract, $(POP3SPAM_SOURCE))
@@ -94,7 +94,7 @@ $(STATEDIR)/pop3spam.compile: $(pop3spam_compile_deps_default)
 
 pop3spam_install: $(STATEDIR)/pop3spam.install
 
-$(STATEDIR)/pop3spam.install: $(STATEDIR)/pop3spam.compile
+$(STATEDIR)/pop3spam.install: $(pop3spam_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, POP3SPAM)
 	@$(call touch, $@)
