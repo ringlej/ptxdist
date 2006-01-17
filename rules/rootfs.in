@@ -7,24 +7,32 @@ config ROOTFS
 	prompt "Create Directories in /"
 	default y
         select BB_CONFIG_FEATURE_SHADOWPASSWDS  if BUSYBOX
+	help
+	  FIXME: This item needs to be documented
 
 config ROOTFS_DEV
 	depends on ROOTFS
 	bool
 	prompt "/dev"
 	default y
+	help
+	  FIXME: This item needs to be documented
 
 config ROOTFS_DEV_PTS
 	depends on ROOTFS_DEV
 	bool
 	prompt "/dev/pts"
 	default y
+	help
+	  FIXME: This item needs to be documented
 
 config ROOTFS_HOME
 	depends on ROOTFS
 	bool
 	prompt "/home"
 	default y
+	help
+	  FIXME: This item needs to be documented
 
 # Media Mountpoints
 
@@ -111,42 +119,56 @@ config ROOTFS_MNT
 	bool
 	prompt "/mnt"
 	default y
+	help
+	  FIXME: This item needs to be documented
 
 config ROOTFS_PROC
 	depends on ROOTFS
 	bool
 	prompt "/proc"
 	default y 
+	help
+	  FIXME: This item needs to be documented
 
 config ROOTFS_SYS
 	depends on ROOTFS
 	bool
 	prompt "/sys"
 	default y
+	help
+	  FIXME: This item needs to be documented
 
 config ROOTFS_TMP
 	depends on ROOTFS
 	bool
 	prompt "/tmp"
 	default y
+	help
+	  FIXME: This item needs to be documented
 
 config ROOTFS_VAR
 	depends on ROOTFS
 	bool
 	prompt "/var"
 	default y
+	help
+	  FIXME: This item needs to be documented
 
 config ROOTFS_VAR_RUN
 	depends on ROOTFS_VAR
 	bool
 	prompt "/var/run"
 	default y
+	help
+	  FIXME: This item needs to be documented
 
 config ROOTFS_VAR_LOG
 	depends on ROOTFS_VAR
 	bool
 	prompt "/var/log"
 	default y
+	help
+	  FIXME: This item needs to be documented
 
 comment "----------------------------------"
 comment "Generic Config Files in /etc"

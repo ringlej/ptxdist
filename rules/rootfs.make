@@ -24,7 +24,7 @@ ROOTFS_VERSION=1.0.0
 
 rootfs_get: $(STATEDIR)/rootfs.get
 
-$(STATEDIR)/rootfs.get:
+$(STATEDIR)/rootfs.get: $(rootfs_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -34,7 +34,7 @@ $(STATEDIR)/rootfs.get:
 
 rootfs_extract: $(STATEDIR)/rootfs.extract
 
-$(STATEDIR)/rootfs.extract: $(STATEDIR)/rootfs.get
+$(STATEDIR)/rootfs.extract: $(rootfs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +44,7 @@ $(STATEDIR)/rootfs.extract: $(STATEDIR)/rootfs.get
 
 rootfs_prepare: $(STATEDIR)/rootfs.prepare
 
-$(STATEDIR)/rootfs.prepare: $(STATEDIR)/rootfs.extract
+$(STATEDIR)/rootfs.prepare: $(rootfs_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -54,7 +54,7 @@ $(STATEDIR)/rootfs.prepare: $(STATEDIR)/rootfs.extract
 
 rootfs_compile: $(STATEDIR)/rootfs.compile
 
-$(STATEDIR)/rootfs.compile: $(STATEDIR)/rootfs.prepare 
+$(STATEDIR)/rootfs.compile: $(rootfs_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -64,7 +64,7 @@ $(STATEDIR)/rootfs.compile: $(STATEDIR)/rootfs.prepare
 
 rootfs_install: $(STATEDIR)/rootfs.install
 
-$(STATEDIR)/rootfs.install: $(STATEDIR)/rootfs.compile
+$(STATEDIR)/rootfs.install: $(rootfs_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -74,7 +74,7 @@ $(STATEDIR)/rootfs.install: $(STATEDIR)/rootfs.compile
 
 rootfs_targetinstall: $(STATEDIR)/rootfs.targetinstall
 
-$(STATEDIR)/rootfs.targetinstall: $(STATEDIR)/rootfs.install
+$(STATEDIR)/rootfs.targetinstall: $(rootfs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
