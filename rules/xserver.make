@@ -50,7 +50,7 @@ $(XSERVER_SOURCE):
 
 xserver_extract: $(STATEDIR)/xserver.extract
 
-$(STATEDIR)/xserver.extract: $(xserver_extract_deps)
+$(STATEDIR)/xserver.extract: $(xserver_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XSERVER_DIR))
 	@$(call extract, $(XSERVER_SOURCE))
@@ -249,7 +249,7 @@ $(STATEDIR)/xserver.compile: $(xserver_compile_deps_default)
 
 xserver_install: $(STATEDIR)/xserver.install
 
-$(STATEDIR)/xserver.install: $(STATEDIR)/xserver.compile
+$(STATEDIR)/xserver.install: $(xserver_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XSERVER)
 	@$(call touch, $@)

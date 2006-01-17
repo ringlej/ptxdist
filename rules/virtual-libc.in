@@ -1,1 +1,2 @@
-# FIXME: There should be a *.in for this package
+# virtual-libc.make is a meta makefile
+# no config options so far.

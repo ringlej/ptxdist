@@ -1,1 +1,2 @@
-# FIXME: There should be a *.in for this package
+# virtual-libcxx.make is a meta makefile
+# no config options so far.
