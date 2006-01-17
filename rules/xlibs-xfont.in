@@ -1,1 +1,12 @@
-# FIXME: There should be a *.in for this package
+config XLIBS-XFONT
+        bool
+        default N
+        depends on BROKEN
+	select ZLIB
+        prompt "Package XLIBS-XFONT"
+	help
+	  XLIBS-XFONT is 
+	  FIXME: This item needs to bee documented
+
+comment "XLIBS-XFONT is broken, please send a patch"
+        depends on !BROKEN

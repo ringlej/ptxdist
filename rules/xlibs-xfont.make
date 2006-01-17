@@ -34,8 +34,6 @@ XLIBS-XFONT_DIR		= $(BUILDDIR)/$(XLIBS-XFONT)
 
 xlibs-xfont_get: $(STATEDIR)/xlibs-xfont.get
 
-xlibs-xfont_get_deps = $(XLIBS-XFONT_SOURCE)
-
 $(STATEDIR)/xlibs-xfont.get: $(xlibs-xfont_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XFONT))
@@ -51,9 +49,7 @@ $(XLIBS-XFONT_SOURCE):
 
 xlibs-xfont_extract: $(STATEDIR)/xlibs-xfont.extract
 
-xlibs-xfont_extract_deps = $(STATEDIR)/xlibs-xfont.get
-
-$(STATEDIR)/xlibs-xfont.extract: $(xlibs-xfont_extract_deps)
+$(STATEDIR)/xlibs-xfont.extract: $(xlibs-xfont_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XFONT_DIR))
 	@$(call extract, $(XLIBS-XFONT_SOURCE))
@@ -65,13 +61,6 @@ $(STATEDIR)/xlibs-xfont.extract: $(xlibs-xfont_extract_deps)
 # ----------------------------------------------------------------------------
 
 xlibs-xfont_prepare: $(STATEDIR)/xlibs-xfont.prepare
-
-#
-# dependencies
-#
-xlibs-xfont_prepare_deps =  $(STATEDIR)/xlibs-xfont.extract
-xlibs-xfont_prepare_deps += $(STATEDIR)/virtual-xchain.install
-xlibs-xfont_prepare_deps += $(STATEDIR)/zlib.install
 
 XLIBS-XFONT_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-XFONT_ENV 	=  $(CROSS_ENV)
@@ -99,8 +88,6 @@ $(STATEDIR)/xlibs-xfont.prepare: $(xlibs-xfont_prepare_deps_default)
 
 xlibs-xfont_compile: $(STATEDIR)/xlibs-xfont.compile
 
-xlibs-xfont_compile_deps = $(STATEDIR)/xlibs-xfont.prepare
-
 $(STATEDIR)/xlibs-xfont.compile: $(xlibs-xfont_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XFONT_DIR) && $(XLIBS-XFONT_ENV) $(XLIBS-XFONT_PATH) make
@@ -112,7 +99,7 @@ $(STATEDIR)/xlibs-xfont.compile: $(xlibs-xfont_compile_deps_default)
 
 xlibs-xfont_install: $(STATEDIR)/xlibs-xfont.install
 
-$(STATEDIR)/xlibs-xfont.install: $(STATEDIR)/xlibs-xfont.compile
+$(STATEDIR)/xlibs-xfont.install: $(xlibs-xfont_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-XFONT)
 	@$(call touch, $@)
@@ -122,8 +109,6 @@ $(STATEDIR)/xlibs-xfont.install: $(STATEDIR)/xlibs-xfont.compile
 # ----------------------------------------------------------------------------
 
 xlibs-xfont_targetinstall: $(STATEDIR)/xlibs-xfont.targetinstall
-
-xlibs-xfont_targetinstall_deps = $(STATEDIR)/xlibs-xfont.compile
 
 $(STATEDIR)/xlibs-xfont.targetinstall: $(xlibs-xfont_targetinstall_deps_default)
 	@$(call targetinfo, $@)

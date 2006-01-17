@@ -250,5 +250,6 @@ source "rules/xlibs-x11.in"
 source "rules/xlibs-xau.in"
 source "rules/xlibs-xextensions.in"
 source "rules/xlibs-xext.in"
+source "rules/xlibs-xfont.in"
 endmenu
 
