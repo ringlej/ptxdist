@@ -1,19 +1,6 @@
 comment "Scripting Languages"
 
-config PHP
-	bool
-	prompt "PHP4"
-
-config PHP_CLI
-	bool
-	prompt "Build CLI version of PHP"
-	depends on PHP
-
-config PHP_APACHE
-	bool
-	prompt "Build shared Apache 1.x module"
-	depends on PHP && APACHE
-
+source "rules/php.in"
 source "rules/php-apc.in"
 source "rules/python.in"
 source "rules/python24.in"

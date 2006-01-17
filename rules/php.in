@@ -1,1 +1,19 @@
-# FIXME: There should be a *.in for this package
+config PHP
+	bool
+	prompt "PHP4"
+	help
+	  FIXME: This item needs to be documented
+
+config PHP_CLI
+	bool
+	prompt "Build CLI version of PHP"
+	depends on PHP
+	help
+	  FIXME: This item needs to be documented
+
+config PHP_APACHE
+	bool
+	prompt "Build shared Apache 1.x module"
+	depends on PHP && APACHE
+	help
+	  FIXME: This item needs to be documented

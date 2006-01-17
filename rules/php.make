@@ -32,7 +32,7 @@ PHP_DIR		= $(BUILDDIR)/$(PHP)
 
 php_get: $(STATEDIR)/php.get
 
-$(STATEDIR)/php.get: $(PHP_SOURCE)
+$(STATEDIR)/php.get: $(php_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(PHP_SOURCE):
 
 php_extract: $(STATEDIR)/php.extract
 
-$(STATEDIR)/php.extract: $(php_extract_deps)
+$(STATEDIR)/php.extract: $(php_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP_DIR))
 	@$(call extract, $(PHP_SOURCE))
@@ -113,7 +113,7 @@ $(STATEDIR)/php.compile: $(php_compile_deps_default)
 
 php_install: $(STATEDIR)/php.install
 
-$(STATEDIR)/php.install: $(STATEDIR)/php.compile
+$(STATEDIR)/php.install: $(php_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	cd $(PHP_DIR) && \
