@@ -49,7 +49,7 @@ $(WXWINDOWS_SOURCE):
 
 wxWindows_extract: $(STATEDIR)/wxWindows.extract
 
-$(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps)
+$(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WXWINDOWS_DIR))
 	@$(call extract, $(WXWINDOWS_SOURCE))
