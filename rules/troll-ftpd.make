@@ -32,7 +32,7 @@ TROLL-FTPD_DIR		= $(BUILDDIR)/$(TROLL-FTPD)
 
 troll-ftpd_get: $(STATEDIR)/troll-ftpd.get
 
-$(STATEDIR)/troll-ftpd.get: $(TROLL-FTPD_SOURCE)
+$(STATEDIR)/troll-ftpd.get: $(troll-ftpd_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TROLL-FTPD))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(TROLL-FTPD_SOURCE):
 
 troll-ftpd_extract: $(STATEDIR)/troll-ftpd.extract
 
-$(STATEDIR)/troll-ftpd.extract: $(troll-ftpd_extract_deps)
+$(STATEDIR)/troll-ftpd.extract: $(troll-ftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TROLL-FTPD_DIR))
 	@$(call extract, $(TROLL-FTPD_SOURCE))
@@ -87,7 +87,7 @@ $(STATEDIR)/troll-ftpd.compile: $(troll-ftpd_compile_deps_default)
 
 troll-ftpd_install: $(STATEDIR)/troll-ftpd.install
 
-$(STATEDIR)/troll-ftpd.install: $(troll-ftpd_compile_deps_default)
+$(STATEDIR)/troll-ftpd.install: $(troll-ftpd_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
