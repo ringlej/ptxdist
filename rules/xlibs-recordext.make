@@ -34,8 +34,6 @@ XLIBS-RECORDEXT_DIR	= $(BUILDDIR)/$(XLIBS-RECORDEXT)
 
 xlibs-recordext_get: $(STATEDIR)/xlibs-recordext.get
 
-xlibs-recordext_get_deps = $(XLIBS-RECORDEXT_SOURCE)
-
 $(STATEDIR)/xlibs-recordext.get: $(xlibs-recordext_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-RECORDEXT))
@@ -51,9 +49,7 @@ $(XLIBS-RECORDEXT_SOURCE):
 
 xlibs-recordext_extract: $(STATEDIR)/xlibs-recordext.extract
 
-xlibs-recordext_extract_deps = $(STATEDIR)/xlibs-recordext.get
-
-$(STATEDIR)/xlibs-recordext.extract: $(xlibs-recordext_extract_deps)
+$(STATEDIR)/xlibs-recordext.extract: $(xlibs-recordext_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-RECORDEXT_DIR))
 	@$(call extract, $(XLIBS-RECORDEXT_SOURCE))
@@ -65,13 +61,6 @@ $(STATEDIR)/xlibs-recordext.extract: $(xlibs-recordext_extract_deps)
 # ----------------------------------------------------------------------------
 
 xlibs-recordext_prepare: $(STATEDIR)/xlibs-recordext.prepare
-
-#
-# dependencies
-#
-xlibs-recordext_prepare_deps = \
-	$(STATEDIR)/xlibs-recordext.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 XLIBS-RECORDEXT_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-RECORDEXT_ENV 	=  $(CROSS_ENV)
@@ -99,8 +88,6 @@ $(STATEDIR)/xlibs-recordext.prepare: $(xlibs-recordext_prepare_deps_default)
 
 xlibs-recordext_compile: $(STATEDIR)/xlibs-recordext.compile
 
-xlibs-recordext_compile_deps = $(STATEDIR)/xlibs-recordext.prepare
-
 $(STATEDIR)/xlibs-recordext.compile: $(xlibs-recordext_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-RECORDEXT_DIR) && $(XLIBS-RECORDEXT_ENV) $(XLIBS-RECORDEXT_PATH) make
@@ -112,7 +99,7 @@ $(STATEDIR)/xlibs-recordext.compile: $(xlibs-recordext_compile_deps_default)
 
 xlibs-recordext_install: $(STATEDIR)/xlibs-recordext.install
 
-$(STATEDIR)/xlibs-recordext.install: $(STATEDIR)/xlibs-recordext.compile
+$(STATEDIR)/xlibs-recordext.install: $(xlibs-recordext_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-RECORDEXT)
 	@$(call touch, $@)
@@ -122,8 +109,6 @@ $(STATEDIR)/xlibs-recordext.install: $(STATEDIR)/xlibs-recordext.compile
 # ----------------------------------------------------------------------------
 
 xlibs-recordext_targetinstall: $(STATEDIR)/xlibs-recordext.targetinstall
-
-xlibs-recordext_targetinstall_deps = $(STATEDIR)/xlibs-recordext.compile
 
 $(STATEDIR)/xlibs-recordext.targetinstall: $(xlibs-recordext_targetinstall_deps_default)
 	@$(call targetinfo, $@)
