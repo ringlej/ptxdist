@@ -62,7 +62,7 @@ $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps)
 
 util-linux_prepare: $(STATEDIR)/util-linux.prepare
 
-UTIL-LINUX_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+UTIL-LINUX_PATH	=  PATH=$(CROSS_PATH)
 UTIL-LINUX_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/util-linux.prepare: $(util-linux_prepare_deps_default)
