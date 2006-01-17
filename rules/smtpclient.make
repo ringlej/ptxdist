@@ -95,7 +95,7 @@ smtpclient_install: $(STATEDIR)/smtpclient.install
 
 $(STATEDIR)/smtpclient.install: $(STATEDIR)/smtpclient.compile
 	@$(call targetinfo, $@)
-	@$(call install, SMTPCLIENT)
+	# No install for applications
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
