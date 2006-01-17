@@ -33,8 +33,6 @@ XLIBS-XAU_DIR		= $(BUILDDIR)/$(XLIBS-XAU)
 
 xlibs-xau_get: $(STATEDIR)/xlibs-xau.get
 
-xlibs-xau_get_deps = $(XLIBS-XAU_SOURCE)
-
 $(STATEDIR)/xlibs-xau.get: $(xlibs-xau_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XAU))
@@ -50,9 +48,7 @@ $(XLIBS-XAU_SOURCE):
 
 xlibs-xau_extract: $(STATEDIR)/xlibs-xau.extract
 
-xlibs-xau_extract_deps = $(STATEDIR)/xlibs-xau.get
-
-$(STATEDIR)/xlibs-xau.extract: $(xlibs-xau_extract_deps)
+$(STATEDIR)/xlibs-xau.extract: $(xlibs-xau_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XAU_DIR))
 	@$(call extract, $(XLIBS-XAU_SOURCE))
@@ -64,12 +60,6 @@ $(STATEDIR)/xlibs-xau.extract: $(xlibs-xau_extract_deps)
 # ----------------------------------------------------------------------------
 
 xlibs-xau_prepare: $(STATEDIR)/xlibs-xau.prepare
-
-#
-# dependencies
-#
-xlibs-xau_prepare_deps =  $(STATEDIR)/xlibs-xau.extract
-xlibs-xau_prepare_deps += $(STATEDIR)/virtual-xchain.install
 
 XLIBS-XAU_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-XAU_ENV 	=  $(CROSS_ENV)
@@ -97,8 +87,6 @@ $(STATEDIR)/xlibs-xau.prepare: $(xlibs-xau_prepare_deps_default)
 
 xlibs-xau_compile: $(STATEDIR)/xlibs-xau.compile
 
-xlibs-xau_compile_deps = $(STATEDIR)/xlibs-xau.prepare
-
 $(STATEDIR)/xlibs-xau.compile: $(xlibs-xau_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XAU_DIR) && $(XLIBS-XAU_ENV) $(XLIBS-XAU_PATH) make
@@ -110,7 +98,7 @@ $(STATEDIR)/xlibs-xau.compile: $(xlibs-xau_compile_deps_default)
 
 xlibs-xau_install: $(STATEDIR)/xlibs-xau.install
 
-$(STATEDIR)/xlibs-xau.install: $(STATEDIR)/xlibs-xau.compile
+$(STATEDIR)/xlibs-xau.install: $(xlibs-xau_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-XAU)
 	@$(call touch, $@)
@@ -120,8 +108,6 @@ $(STATEDIR)/xlibs-xau.install: $(STATEDIR)/xlibs-xau.compile
 # ----------------------------------------------------------------------------
 
 xlibs-xau_targetinstall: $(STATEDIR)/xlibs-xau.targetinstall
-
-xlibs-xau_targetinstall_deps = $(STATEDIR)/xlibs-xau.compile
 
 $(STATEDIR)/xlibs-xau.targetinstall: $(xlibs-xau_targetinstall_deps_default)
 	@$(call targetinfo, $@)
