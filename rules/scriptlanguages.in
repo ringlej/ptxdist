@@ -14,14 +14,6 @@ config PHP_APACHE
 	prompt "Build shared Apache 1.x module"
 	depends on PHP && APACHE
 
-config PHP_APC
-	bool
-	depends on BROKEN
-	prompt "Build Alternative PHP-cache"
-	depends PHP
-
-comment "php-apc is broken, please send a patch"
-	depends on !BROKEN
-
+source "rules/php-apc.in"
 source "rules/python.in"
 source "rules/python24.in"

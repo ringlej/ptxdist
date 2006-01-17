@@ -32,7 +32,7 @@ PHP_APC_DIR	= $(PHP_DIR)/ext/$(PHP_APC)
 
 php-apc_get: $(STATEDIR)/php-apc.get
 
-$(STATEDIR)/php-apc.get: $(PHP_APC_SOURCE)
+$(STATEDIR)/php-apc.get: $(php-apc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(PHP_APC_SOURCE):
 
 php-apc_extract: $(STATEDIR)/php-apc.extract
 
-$(STATEDIR)/php-apc.extract: $(php-apc_extract_deps)
+$(STATEDIR)/php-apc.extract: $(php-apc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP_APC_DIR))
 	@$(call extract, $(PHP_APC_SOURCE), $(PHP_DIR)/ext)
@@ -96,7 +96,7 @@ $(STATEDIR)/php-apc.compile: $(php-apc_compile_deps_default)
 
 php-apc_install: $(STATEDIR)/php-apc.install
 
-$(STATEDIR)/php-apc.install: $(STATEDIR)/php-apc.compile
+$(STATEDIR)/php-apc.install: $(php-apc_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, PHP_APC)
 	@$(call touch, $@)
