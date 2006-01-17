@@ -32,7 +32,7 @@ SLANG_DIR	= $(BUILDDIR)/$(SLANG)
 
 slang_get: $(STATEDIR)/slang.get
 
-$(STATEDIR)/slang.get: $(SLANG_SOURCE)
+$(STATEDIR)/slang.get: $(slang_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(SLANG_SOURCE):
 
 slang_extract: $(STATEDIR)/slang.extract
 
-$(STATEDIR)/slang.extract: $(slang_extract_deps)
+$(STATEDIR)/slang.extract: $(slang_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SLANG_DIR))
 	@$(call extract, $(SLANG_SOURCE))
@@ -92,7 +92,7 @@ $(STATEDIR)/slang.compile: $(slang_compile_deps_default)
 
 slang_install: $(STATEDIR)/slang.install
 
-$(STATEDIR)/slang.install: $(slang_compile_deps_default)
+$(STATEDIR)/slang.install: $(slang_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, SLANG)
 	@$(call touch, $@)

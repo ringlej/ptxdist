@@ -3,4 +3,7 @@ menu    "slang            "
 config SLANG
         bool
         prompt "S-Lang"
+	help
+	  FIXME: This item needs to be documented
+	
 endmenu
