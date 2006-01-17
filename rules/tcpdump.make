@@ -32,7 +32,7 @@ TCPDUMP_DIR		= $(BUILDDIR)/$(TCPDUMP)
 
 tcpdump_get: $(STATEDIR)/tcpdump.get
 
-tcpdump_get_deps = $(TCPDUMP_SOURCE)
+tcpdump_get_deps = $(tcpdump_get_deps_default)
 
 $(STATEDIR)/tcpdump.get: $(tcpdump_get_deps_default)
 	@$(call targetinfo, $@)

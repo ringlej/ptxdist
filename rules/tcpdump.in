@@ -4,10 +4,14 @@ config TCPDUMP
         bool
         prompt "tcpdump"
 	select LIBPCAP
+	help
+	  FIXME: This item needs to be documented
 
 config TCPDUMP_DISABLE_CRYPTO
 	bool
 	prompt "disable crypto support"
 	depends on TCPDUMP
+	help
+	  FIXME: This item needs to be documented
 
 endmenu
