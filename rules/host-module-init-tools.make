@@ -33,7 +33,7 @@ host-module-init-tools_get: $(STATEDIR)/host-module-init-tools.get
 #        is only a quick-fix to make it compile again. Please review this 
 #        makefile and make it a real cross- (?) or host- (?) package
 #
-host-module-init-tools_get_deps = $(host-module-init-tools_get_deps_default) module-init-tools_get
+host-module-init-tools_get_deps = $(host-module-init-tools_get_deps_default) $(STATEDIR)/module-init-tools.get
 
 $(STATEDIR)/host-module-init-tools.get: $(host-module-init-tools_get_deps)
 	@$(call targetinfo, $@)
