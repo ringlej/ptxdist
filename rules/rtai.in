@@ -32,3 +32,5 @@ config RTAI_TESTSUITE
 	bool "install RTAI testsuite"
 	depends on RTAI
 	default n
+	help
+	  FIXME: This item needs to be documented

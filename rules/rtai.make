@@ -41,7 +41,7 @@ RTAI_PATCH		= $(RTAI_DIR)/patches/patch-$(KERNEL_VERSION)-$(RTAI_TECH)
 
 rtai_get: $(STATEDIR)/rtai.get
 
-$(STATEDIR)/rtai.get: $(RTAI_SOURCE)
+$(STATEDIR)/rtai.get: $(rtai_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -55,7 +55,7 @@ $(RTAI_SOURCE):
 
 rtai_extract: $(STATEDIR)/rtai.extract
 
-$(STATEDIR)/rtai.extract: $(STATEDIR)/rtai.get
+$(STATEDIR)/rtai.extract: $(rtai_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTAI_DIR))
 	@$(call extract, $(RTAI_SOURCE))
