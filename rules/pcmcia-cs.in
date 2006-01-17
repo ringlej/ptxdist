@@ -1,6 +1,8 @@
 menuconfig PCMCIA_TOOLS
 	bool "PCMCIA Tools        "
 	depends on KERNEL_2_4
+	help
+	  FIXME: This item needs to be documented
 
 config PCMCIA_TOOLS_CARDMGR
 	bool

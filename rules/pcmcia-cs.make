@@ -46,7 +46,7 @@ $(PCMCIA-CS_SOURCE):
 
 pcmcia-cs_extract: $(STATEDIR)/pcmcia-cs.extract
 
-$(STATEDIR)/pcmcia-cs.extract: $(pcmcia-cs_extract_deps)
+$(STATEDIR)/pcmcia-cs.extract: $(pcmcia-cs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCMCIA-CS_DIR))
 	@$(call extract, $(PCMCIA-CS_SOURCE))
@@ -105,7 +105,7 @@ $(STATEDIR)/pcmcia-cs.compile: $(pcmcia-cs_compile_deps_default)
 
 pcmcia-cs_install: $(STATEDIR)/pcmcia-cs.install
 
-$(STATEDIR)/pcmcia-cs.install: $(STATEDIR)/pcmcia-cs.compile
+$(STATEDIR)/pcmcia-cs.install: $(pcmcia-cs_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, PCMCIA-CS)
 	@$(call touch, $@)
@@ -115,8 +115,6 @@ $(STATEDIR)/pcmcia-cs.install: $(STATEDIR)/pcmcia-cs.compile
 # ----------------------------------------------------------------------------
 
 pcmcia-cs_targetinstall: $(STATEDIR)/pcmcia-cs.targetinstall
-
-pcmcia-cs_targetinstall_deps	=  $(STATEDIR)/pcmcia-cs.install
 
 $(STATEDIR)/pcmcia-cs.targetinstall: $(pcmcia-cs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
