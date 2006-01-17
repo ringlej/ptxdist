@@ -1,4 +1,6 @@
 config SETMIXER
 	bool
 	prompt "setmixer"
+	help
+	  FIXME: This item needs to be documented
 

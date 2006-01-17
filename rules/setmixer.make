@@ -32,7 +32,7 @@ SETMIXER_DIR		= $(BUILDDIR)/setmixer-27DEC94ds1.orig
 
 setmixer_get: $(STATEDIR)/setmixer.get
 
-$(STATEDIR)/setmixer.get: $(SETMIXER_SOURCE)
+$(STATEDIR)/setmixer.get: $(setmixer_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(SETMIXER_SOURCE):
 
 setmixer_extract: $(STATEDIR)/setmixer.extract
 
-$(STATEDIR)/setmixer.extract: $(setmixer_extract_deps)
+$(STATEDIR)/setmixer.extract: $(setmixer_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SETMIXER_DIR))
 	@$(call extract, $(SETMIXER_SOURCE))
@@ -86,7 +86,7 @@ $(STATEDIR)/setmixer.compile: $(setmixer_compile_deps_default)
 
 setmixer_install: $(STATEDIR)/setmixer.install
 
-$(STATEDIR)/setmixer.install: $(STATEDIR)/setmixer.compile
+$(STATEDIR)/setmixer.install: $(setmixer_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
