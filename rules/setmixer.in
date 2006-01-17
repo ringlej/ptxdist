@@ -2,5 +2,7 @@ config SETMIXER
 	bool
 	prompt "setmixer"
 	help
-	  FIXME: This item needs to be documented
+	  Got bored resetting soundcard manually after every reboot?
+	  Here is a small utility which can help you to avoid that.  
+	  The whole source is setmixer.c.
 
