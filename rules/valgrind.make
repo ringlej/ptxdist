@@ -32,7 +32,7 @@ VALGRIND_DIR		= $(BUILDDIR)/$(VALGRIND)
 
 valgrind_get: $(STATEDIR)/valgrind.get
 
-$(STATEDIR)/valgrind.get: $(VALGRIND_SOURCE)
+$(STATEDIR)/valgrind.get: $(valgrind_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(VALGRIND))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(VALGRIND_SOURCE):
 
 valgrind_extract: $(STATEDIR)/valgrind.extract
 
-$(STATEDIR)/valgrind.extract: $(valgrind_extract_deps)
+$(STATEDIR)/valgrind.extract: $(valgrind_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(VALGRIND_DIR))
 	@$(call extract, $(VALGRIND_SOURCE))
