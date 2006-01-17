@@ -46,7 +46,7 @@ $(PCMCIAUTILS_SOURCE):
 
 pcmciautils_extract: $(STATEDIR)/pcmciautils.extract
 
-$(STATEDIR)/pcmciautils.extract: $(pcmciautils_extract_deps)
+$(STATEDIR)/pcmciautils.extract: $(pcmciautils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCMCIAUTILS_DIR))
 	@$(call extract, $(PCMCIAUTILS_SOURCE))
@@ -102,7 +102,7 @@ $(STATEDIR)/pcmciautils.compile: $(pcmciautils_compile_deps_default)
 
 pcmciautils_install: $(STATEDIR)/pcmciautils.install
 
-$(STATEDIR)/pcmciautils.install: $(STATEDIR)/pcmciautils.compile
+$(STATEDIR)/pcmciautils.install: $(pcmciautils_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
