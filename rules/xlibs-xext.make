@@ -34,8 +34,6 @@ XLIBS-XEXT_DIR		= $(BUILDDIR)/$(XLIBS-XEXT)
 
 xlibs-xext_get: $(STATEDIR)/xlibs-xext.get
 
-xlibs-xext_get_deps = $(XLIBS-XEXT_SOURCE)
-
 $(STATEDIR)/xlibs-xext.get: $(xlibs-xext_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-XEXT))
@@ -51,9 +49,7 @@ $(XLIBS-XEXT_SOURCE):
 
 xlibs-xext_extract: $(STATEDIR)/xlibs-xext.extract
 
-xlibs-xext_extract_deps = $(STATEDIR)/xlibs-xext.get
-
-$(STATEDIR)/xlibs-xext.extract: $(xlibs-xext_extract_deps)
+$(STATEDIR)/xlibs-xext.extract: $(xlibs-xext_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-XEXT_DIR))
 	@$(call extract, $(XLIBS-XEXT_SOURCE))
@@ -65,15 +61,6 @@ $(STATEDIR)/xlibs-xext.extract: $(xlibs-xext_extract_deps)
 # ----------------------------------------------------------------------------
 
 xlibs-xext_prepare: $(STATEDIR)/xlibs-xext.prepare
-
-#
-# dependencies
-#
-xlibs-xext_prepare_deps =  $(STATEDIR)/xlibs-xext.extract
-xlibs-xext_prepare_deps += $(STATEDIR)/virtual-xchain.install
-xlibs-xext_prepare_deps += $(STATEDIR)/virtual-libc.install
-xlibs-xext_prepare_deps += $(STATEDIR)/xlibs-xproto.install
-xlibs-xext_prepare_deps += $(STATEDIR)/xlibs-x11.install
 
 XLIBS-XEXT_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-XEXT_ENV 	=  $(CROSS_ENV)
@@ -100,8 +87,6 @@ $(STATEDIR)/xlibs-xext.prepare: $(xlibs-xext_prepare_deps_default)
 
 xlibs-xext_compile: $(STATEDIR)/xlibs-xext.compile
 
-xlibs-xext_compile_deps = $(STATEDIR)/xlibs-xext.prepare
-
 $(STATEDIR)/xlibs-xext.compile: $(xlibs-xext_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-XEXT_DIR) && $(XLIBS-XEXT_ENV) $(XLIBS-XEXT_PATH) make
@@ -113,7 +98,7 @@ $(STATEDIR)/xlibs-xext.compile: $(xlibs-xext_compile_deps_default)
 
 xlibs-xext_install: $(STATEDIR)/xlibs-xext.install
 
-$(STATEDIR)/xlibs-xext.install: $(STATEDIR)/xlibs-xext.compile
+$(STATEDIR)/xlibs-xext.install: $(xlibs-xext_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-XEXT)
 	@$(call touch, $@)
@@ -123,8 +108,6 @@ $(STATEDIR)/xlibs-xext.install: $(STATEDIR)/xlibs-xext.compile
 # ----------------------------------------------------------------------------
 
 xlibs-xext_targetinstall: $(STATEDIR)/xlibs-xext.targetinstall
-
-xlibs-xext_targetinstall_deps = $(STATEDIR)/xlibs-xext.compile
 
 $(STATEDIR)/xlibs-xext.targetinstall: $(xlibs-xext_targetinstall_deps_default)
 	@$(call targetinfo, $@)

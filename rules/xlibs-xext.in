@@ -1,1 +1,13 @@
-# FIXME: There should be a *.in for this package
+config XLIBS-XEXT
+        bool
+        default N
+        depends on BROKEN
+	select XLIBS-XPROTO
+	select XLIBS-X11
+        prompt "Package XLIBS-XEXT"
+	help
+	  XLIBS-XEXT is 
+	  FIXME: This item needs to bee documented
+
+comment "XLIBS-XEXT is broken, please send a patch"
+        depends on !BROKEN
