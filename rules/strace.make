@@ -46,7 +46,7 @@ $(STRACE_SOURCE):
 
 strace_extract: $(STATEDIR)/strace.extract
 
-$(STATEDIR)/strace.extract: $(strace_extract_deps)
+$(STATEDIR)/strace.extract: $(strace_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(STRACE_DIR))
 	@$(call extract, $(STRACE_SOURCE))
