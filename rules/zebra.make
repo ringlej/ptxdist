@@ -35,7 +35,7 @@ ZEBRA_DIR 		= $(BUILDDIR)/$(ZEBRA)
 
 zebra_get: $(STATEDIR)/zebra.get
 
-$(STATEDIR)/zebra.get: $(ZEBRA_SOURCE)
+$(STATEDIR)/zebra.get: $(zebra_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

@@ -30,7 +30,7 @@ ZLIB_DIR		= $(BUILDDIR)/$(ZLIB)
 
 zlib_get: $(STATEDIR)/zlib.get
 
-$(STATEDIR)/zlib.get: $(ZLIB_SOURCE)
+$(STATEDIR)/zlib.get: $(zlib_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
