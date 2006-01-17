@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -21,7 +21,7 @@ MTD_VERSION	= 20040621-1
 MTD		= mtd-$(MTD_VERSION)
 MTD_SUFFIX	= tar.gz
 MTD_URL		= http://www.pengutronix.de/software/mtd-snapshots/$(MTD).$(MTD_SUFFIX)
-MTD_SOURCE	= $(SRCDIR)/$(MTD).$(MTD_SUFFIX)
+MTD_UTILS_SOURCE	= $(SRCDIR)/$(MTD).$(MTD_SUFFIX)
 MTD_DIR		= $(BUILDDIR)/$(MTD)
 
 -include $(call package_depfile)
@@ -37,7 +37,7 @@ $(STATEDIR)/mtd.get: $(mtd_get_deps_default)
 	@$(call get_patches, $(MTD))
 	@$(call touch, $@)
 
-$(MTD_SOURCE):
+$(MTD_UTILS_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(MTD_URL))
 
@@ -50,7 +50,7 @@ mtd_extract: $(STATEDIR)/mtd.extract
 $(STATEDIR)/mtd.extract: $(mtd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MTD_DIR))
-	@$(call extract, $(MTD_SOURCE))
+	@$(call extract, $(MTD_UTILS_SOURCE))
 	@$(call patchin, $(MTD))
 	@$(call touch, $@)
 
