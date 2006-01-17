@@ -48,7 +48,7 @@ $(PCRE_SOURCE):
 
 pcre_extract: $(STATEDIR)/pcre.extract
 
-$(STATEDIR)/pcre.extract: $(pcre_extract_deps)
+$(STATEDIR)/pcre.extract: $(pcre_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCRE_DIR))
 	@$(call extract, $(PCRE_SOURCE))
@@ -98,7 +98,7 @@ $(STATEDIR)/pcre.compile: $(pcre_compile_deps_default)
 
 pcre_install: $(STATEDIR)/pcre.install
 
-$(STATEDIR)/pcre.install: $(STATEDIR)/pcre.compile
+$(STATEDIR)/pcre.install: $(pcre_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, PCRE)
 	@$(call touch, $@)
