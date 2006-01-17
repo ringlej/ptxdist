@@ -38,8 +38,6 @@ XMLBENCH_DIR		= $(BUILDDIR)/$(XMLBENCH)
 
 xmlbench_get: $(STATEDIR)/xmlbench.get
 
-xmlbench_get_deps = $(XMLBENCH_SOURCE)
-
 $(STATEDIR)/xmlbench.get: $(xmlbench_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -54,9 +52,7 @@ $(XMLBENCH_SOURCE):
 
 xmlbench_extract: $(STATEDIR)/xmlbench.extract
 
-xmlbench_extract_deps = $(STATEDIR)/xmlbench.get
-
-$(STATEDIR)/xmlbench.extract: $(xmlbench_extract_deps)
+$(STATEDIR)/xmlbench.extract: $(xmlbench_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XMLBENCH_DIR))
 	@$(call extract, $(XMLBENCH_SOURCE))
@@ -69,13 +65,6 @@ $(STATEDIR)/xmlbench.extract: $(xmlbench_extract_deps)
 # ----------------------------------------------------------------------------
 
 xmlbench_prepare: $(STATEDIR)/xmlbench.prepare
-
-#
-# dependencies
-#
-xmlbench_prepare_deps = \
-	$(STATEDIR)/xmlbench.extract \
-	$(STATEDIR)/virtual-xchain.install
 
 XMLBENCH_PATH	=  PATH=$(CROSS_PATH)
 XMLBENCH_ENV 	=  $(CROSS_ENV)
@@ -99,8 +88,6 @@ $(STATEDIR)/xmlbench.prepare: $(xmlbench_prepare_deps_default)
 
 xmlbench_compile: $(STATEDIR)/xmlbench.compile
 
-xmlbench_compile_deps = $(STATEDIR)/xmlbench.prepare
-
 $(STATEDIR)/xmlbench.compile: $(xmlbench_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XMLBENCH_DIR) && $(XMLBENCH_ENV) $(XMLBENCH_PATH) make
@@ -112,7 +99,7 @@ $(STATEDIR)/xmlbench.compile: $(xmlbench_compile_deps_default)
 
 xmlbench_install: $(STATEDIR)/xmlbench.install
 
-$(STATEDIR)/xmlbench.install: $(STATEDIR)/xmlbench.compile
+$(STATEDIR)/xmlbench.install: $(xmlbench_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XMLBENCH)
 	@$(call touch, $@)
@@ -122,8 +109,6 @@ $(STATEDIR)/xmlbench.install: $(STATEDIR)/xmlbench.compile
 # ----------------------------------------------------------------------------
 
 xmlbench_targetinstall: $(STATEDIR)/xmlbench.targetinstall
-
-xmlbench_targetinstall_deps = $(STATEDIR)/xmlbench.compile
 
 $(STATEDIR)/xmlbench.targetinstall: $(xmlbench_targetinstall_deps_default)
 	@$(call targetinfo, $@)
