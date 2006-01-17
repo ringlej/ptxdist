@@ -32,7 +32,7 @@ TSLIB_DIR		= $(BUILDDIR)/$(TSLIB)
 
 tslib_get: $(STATEDIR)/tslib.get
 
-$(STATEDIR)/tslib.get: $(TSLIB_SOURCE)
+$(STATEDIR)/tslib.get: $(tslib_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TSLIB))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(TSLIB_SOURCE):
 
 tslib_extract: $(STATEDIR)/tslib.extract
 
-$(STATEDIR)/tslib.extract: $(tslib_extract_deps)
+$(STATEDIR)/tslib.extract: $(tslib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TSLIB_DIR))
 	@$(call extract, $(TSLIB_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/tslib.compile: $(tslib_compile_deps_default)
 
 tslib_install: $(STATEDIR)/tslib.install
 
-$(STATEDIR)/tslib.install: $(STATEDIR)/tslib.compile
+$(STATEDIR)/tslib.install: $(tslib_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, TSLIB)
 	@$(call touch, $@)

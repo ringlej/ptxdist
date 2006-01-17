@@ -2,13 +2,19 @@ menuconfig TSLIB
 	bool
 	prompt "tslib (touch library) "
 	select HOST_QTE
+	help
+	  FIXME: This item needs to be documented
 
 config TSLIB_TS_CALIBRATE
 	bool
 	prompt "Install ts_calibrate on target"
 	depends on TSLIB
+	help
+	  FIXME: This item needs to be documented
 
 config TSLIB_TS_TEST
 	bool
 	prompt "Install ts_test on target"
 	depends on TSLIB
+	help
+	  FIXME: This item needs to be documented
