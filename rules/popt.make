@@ -61,7 +61,7 @@ $(STATEDIR)/popt.extract: $(popt_extract_deps)
 
 popt_prepare: $(STATEDIR)/popt.prepare
 
-POPT_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+POPT_PATH	=  PATH=$(CROSS_PATH)
 POPT_ENV 	=  $(CROSS_ENV)
 
 #
