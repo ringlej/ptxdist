@@ -3,14 +3,6 @@
 menuconfig DOTGNU
 	bool "DotGNU              "
 		
-config TREECC
-	bool
-	depends on DOTGNU && BROKEN
-	prompt "treecc"
-
-comment "treecc is broken, please send a patch"
-	depends on !BROKEN
-
-
+source "rules/treecc.in"
 source "rules/pnet.in"
 source "rules/pnetlib.in"

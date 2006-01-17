@@ -32,7 +32,7 @@ TREECC_DIR	= $(BUILDDIR)/$(TREECC)
 
 treecc_get: $(STATEDIR)/treecc.get
 
-$(STATEDIR)/treecc.get: $(TREECC_SOURCE)
+$(STATEDIR)/treecc.get: $(treecc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(TREECC))
 	@$(call touch, $@)
@@ -47,7 +47,7 @@ $(TREECC_SOURCE):
 
 treecc_extract: $(STATEDIR)/treecc.extract
 
-$(STATEDIR)/treecc.extract: $(treecc_extract_deps)
+$(STATEDIR)/treecc.extract: $(treecc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TREECC_DIR))
 	@$(call extract, $(TREECC_SOURCE))
@@ -93,7 +93,7 @@ $(STATEDIR)/treecc.compile: $(treecc_compile_deps_default)
 
 treecc_install: $(STATEDIR)/treecc.install
 
-$(STATEDIR)/treecc.install: $(STATEDIR)/treecc.compile
+$(STATEDIR)/treecc.install: $(treecc_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, TREECC)
 	@$(call touch, $@)
