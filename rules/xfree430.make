@@ -49,7 +49,7 @@ XFREE430_SOURCE		= $(SRCDIR)/$(XFREE430).$(XFREE430_SUFFIX)
 
 xfree430_get: $(STATEDIR)/xfree430.get
 
-xfree430_get_deps	= $(XFREE430_SOURCE)
+xfree430_get_deps	= $(xfree430_get_deps_default)
 
 # FIXME: for a release use split sources
 #xfree430_get_deps	=  $(XFREE430_1_SOURCE)
