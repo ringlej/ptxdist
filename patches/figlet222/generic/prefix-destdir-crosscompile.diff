@@ -40,11 +40,11 @@ diff -ruN figlet222-orig/Makefile figlet222/Makefile
 -	cp showfigfonts $(DESTDIR)
 -	cp fonts/*.flf $(DEFAULTFONTDIR)
 -	cp fonts/*.flc $(DEFAULTFONTDIR)
-+	install -m 755 -D figlet $(DESTDIR)$(BINDIR)
-+	install -m 644 -D figlet.6 $(DESTDIR)$(MANDIR)
-+	install -m 755 -D chkfont $(DESTDIR)$(BINDIR)
-+	install -m 755 -D figlist $(DESTDIR)$(BINDIR)
-+	install -m 755 -D showfigfonts $(DESTDIR)$(BINDIR)
++	install -m 755 -D figlet $(DESTDIR)$(BINDIR)/figlet
++	install -m 644 -D figlet.6 $(DESTDIR)$(MANDIR)/figlet.6
++	install -m 755 -D chkfont $(DESTDIR)$(BINDIR)/chkfont
++	install -m 755 -D figlist $(DESTDIR)$(BINDIR)/figlist
++	install -m 755 -D showfigfonts $(DESTDIR)$(BINDIR)/showfigfonts
 +	for FILE in fonts/*.fl[fc]; do \
-+		install -m 644 -D $$FILE $(DESTDIR)$(DEFAULTFONTDIR); \
++		install -m 644 -D $$FILE $(DESTDIR)$(DEFAULTFONTDIR)/$$FILE; \
 +	done
