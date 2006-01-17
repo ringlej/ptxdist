@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_MODULE_INIT_TOOLS) += module-init-tools
 #
 # Paths and names
 #
-MODULE_INIT_TOOLS_VERSION	= 3.2.1
+MODULE_INIT_TOOLS_VERSION	= 3.2.2
 MODULE_INIT_TOOLS		= module-init-tools-$(MODULE_INIT_TOOLS_VERSION)
 MODULE_INIT_TOOLS_SUFFIX	= tar.bz2
 MODULE_INIT_TOOLS_URL		= http://www.kernel.org/pub/linux/utils/kernel/module-init-tools/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX)
@@ -61,7 +61,7 @@ $(STATEDIR)/module-init-tools.extract: $(module-init-tools_extract_deps_default)
 module-init-tools_prepare: $(STATEDIR)/module-init-tools.prepare
 
 MODULE_INIT_TOOLS_PATH		= PATH=$(CROSS_PATH) 
-MODULE_INIT_TOOLS_ENV		= $(CROSS_ENV)
+MODULE_INIT_TOOLS_ENV		= $(CROSS_ENV) CFLAGS="$$CFLAGS -DCONFIG_NO_BACKWARDS_COMPAT"
 MODULE_INIT_TOOLS_MAKEVARS	= MAN5=''
 MODULE_INIT_TOOLS_AUTOCONF	= $(CROSS_AUTOCONF_USR)
 
