@@ -4,6 +4,9 @@ config RSYNC
 	bool
 	prompt "rsync"
 	help
-	  FIXME: This item needs to be documented
+	  rsync  is  a program that behaves in much the same way 
+	  that rcp does, but has many more options and uses the 
+	  rsync remote-update protocol to greatly speed up file 
+	  transfers when the destination file is being updated.
 
 endmenu
