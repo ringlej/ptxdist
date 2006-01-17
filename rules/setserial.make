@@ -32,7 +32,7 @@ SETSERIAL_DIR		= $(BUILDDIR)/$(SETSERIAL)
 
 setserial_get: $(STATEDIR)/setserial.get
 
-$(STATEDIR)/setserial.get: $(setserial_get_deps_defaults)
+$(STATEDIR)/setserial.get: $(setserial_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(SETSERIAL_SOURCE):
 
 setserial_extract: $(STATEDIR)/setserial.extract
 
-$(STATEDIR)/setserial.extract: $(setserial_extract_deps_defaults)
+$(STATEDIR)/setserial.extract: $(setserial_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SETSERIAL_DIR))
 	@$(call extract, $(SETSERIAL_SOURCE))
