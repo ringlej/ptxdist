@@ -35,8 +35,6 @@ XLIBS-RANDR_DIR		= $(BUILDDIR)/$(XLIBS-RANDR)
 
 xlibs-randr_get: $(STATEDIR)/xlibs-randr.get
 
-xlibs-randr_get_deps = $(XLIBS-RANDR_SOURCE)
-
 $(STATEDIR)/xlibs-randr.get: $(xlibs-randr_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call get_patches, $(XLIBS-RANDR))
@@ -52,9 +50,7 @@ $(XLIBS-RANDR_SOURCE):
 
 xlibs-randr_extract: $(STATEDIR)/xlibs-randr.extract
 
-xlibs-randr_extract_deps = $(STATEDIR)/xlibs-randr.get
-
-$(STATEDIR)/xlibs-randr.extract: $(xlibs-randr_extract_deps)
+$(STATEDIR)/xlibs-randr.extract: $(xlibs-randr_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XLIBS-RANDR_DIR))
 	@$(call extract, $(XLIBS-RANDR_SOURCE))
@@ -66,12 +62,6 @@ $(STATEDIR)/xlibs-randr.extract: $(xlibs-randr_extract_deps)
 # ----------------------------------------------------------------------------
 
 xlibs-randr_prepare: $(STATEDIR)/xlibs-randr.prepare
-
-#
-# dependencies
-#
-xlibs-randr_prepare_deps =  $(STATEDIR)/xlibs-randr.extract
-xlibs-randr_prepare_deps += $(STATEDIR)/virtual-xchain.install
 
 XLIBS-RANDR_PATH	=  PATH=$(CROSS_PATH)
 XLIBS-RANDR_ENV 	=  $(CROSS_ENV)
@@ -99,8 +89,6 @@ $(STATEDIR)/xlibs-randr.prepare: $(xlibs-randr_prepare_deps_default)
 
 xlibs-randr_compile: $(STATEDIR)/xlibs-randr.compile
 
-xlibs-randr_compile_deps = $(STATEDIR)/xlibs-randr.prepare
-
 $(STATEDIR)/xlibs-randr.compile: $(xlibs-randr_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XLIBS-RANDR_DIR) && $(XLIBS-RANDR_ENV) $(XLIBS-RANDR_PATH) make
@@ -112,7 +100,7 @@ $(STATEDIR)/xlibs-randr.compile: $(xlibs-randr_compile_deps_default)
 
 xlibs-randr_install: $(STATEDIR)/xlibs-randr.install
 
-$(STATEDIR)/xlibs-randr.install: $(STATEDIR)/xlibs-randr.compile
+$(STATEDIR)/xlibs-randr.install: $(xlibs-randr_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XLIBS-RANDR)
 	@$(call touch, $@)
@@ -122,8 +110,6 @@ $(STATEDIR)/xlibs-randr.install: $(STATEDIR)/xlibs-randr.compile
 # ----------------------------------------------------------------------------
 
 xlibs-randr_targetinstall: $(STATEDIR)/xlibs-randr.targetinstall
-
-xlibs-randr_targetinstall_deps = $(STATEDIR)/xlibs-randr.compile
 
 $(STATEDIR)/xlibs-randr.targetinstall: $(xlibs-randr_targetinstall_deps_default)
 	@$(call targetinfo, $@)

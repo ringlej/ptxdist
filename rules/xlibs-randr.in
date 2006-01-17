@@ -1,1 +1,11 @@
-# FIXME: There should be a *.in for this package
+config XLIBS-RANDR
+        bool
+        default N
+        depends on BROKEN
+        prompt "Package XLIBS-RANDR"
+	help
+	  XLIBS-RANDR is 
+	  FIXME: This item needs to bee documented
+
+comment "XLIBS-RANDR is broken, please send a patch"
+        depends on !BROKEN
