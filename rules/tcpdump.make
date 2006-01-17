@@ -48,7 +48,7 @@ $(TCPDUMP_SOURCE):
 
 tcpdump_extract: $(STATEDIR)/tcpdump.extract
 
-$(STATEDIR)/tcpdump.extract: $(tcpdump_extract_deps)
+$(STATEDIR)/tcpdump.extract: $(tcpdump_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TCPDUMP_DIR))
 	@$(call extract, $(TCPDUMP_SOURCE), $(BUILDDIR))
