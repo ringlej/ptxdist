@@ -153,4 +153,4 @@ Current TODO List
 - BBU: Implement scheme for alternative download-URLs as 
        fallback (e.g. mirrors)
 - BBU: rsync URLs
-
+- BBU: show required cross-tool, host-gcc and -glibc-versions (compilercheck)
