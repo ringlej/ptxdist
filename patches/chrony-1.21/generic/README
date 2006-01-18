@@ -1,0 +1,8 @@
+#
+# This patch is not reviewed yet! They use stuff in user space which is
+# not guarantied to be consistent across kernel versions (like IOC
+# numbers)
+#
+# Use at your own risk. (rsc)
+#
+
