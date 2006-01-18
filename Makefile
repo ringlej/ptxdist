@@ -661,7 +661,8 @@ toolchains:
 	echo >> TOOLCHAINS;						\
 	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5     TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2      TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.4.4_glibc_2.3.5      TOOLCHAINS;\
+	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.3.6_glibc_2.3.2_linux_2.6.14 TOOLCHAINS;\
+	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.4.5_glibc_2.3.6      TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27 TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5      TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3       TOOLCHAINS;\
