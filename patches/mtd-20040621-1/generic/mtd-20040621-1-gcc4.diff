@@ -1,0 +1,12 @@
+diff -urN mtd-20040621-1-orig/util/flash_eraseall.c mtd-20040621-1/util/flash_eraseall.c
+--- mtd-20040621-1-orig/util/flash_eraseall.c	2004-05-07 00:00:15.000000000 +0200
++++ mtd-20040621-1/util/flash_eraseall.c	2006-01-18 19:06:06.000000000 +0100
+@@ -54,7 +54,7 @@
+ static void display_help (void);
+ static void display_version (void);
+ static struct jffs2_unknown_node cleanmarker;
+-static int target_endian = __BYTE_ORDER;
++int target_endian = __BYTE_ORDER;
+ 
+ int main (int argc, char *argv[])
+ {
