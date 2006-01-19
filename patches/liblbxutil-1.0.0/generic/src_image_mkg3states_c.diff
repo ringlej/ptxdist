@@ -158,7 +158,16 @@ diff -ruN liblbxutil-1.0.0-orig/compile liblbxutil-1.0.0-patched/compile
 +# End:
 diff -ruN liblbxutil-1.0.0-orig/configure liblbxutil-1.0.0-patched/configure
 --- liblbxutil-1.0.0-orig/configure	2005-12-21 08:04:51.000000000 +0100
-+++ liblbxutil-1.0.0-patched/configure	2006-01-19 12:39:56.000000000 +0100
++++ liblbxutil-1.0.0-patched/configure	2006-01-19 12:45:39.000000000 +0100
+@@ -19445,7 +19445,7 @@
+ 	fi
+ 
+ 
+-                              ac_config_files="$ac_config_files Makefile src/Makefile lbxutil.pc"
++                              ac_config_files="$ac_config_files Makefile src/Makefile src/image/Makefile lbxutil.pc"
+ cat >confcache <<\_ACEOF
+ # This file is a shell script that caches the results of configure
+ # tests run on this system so they can be shared between configure
 @@ -20011,6 +20011,7 @@
    # Handling of arguments.
    "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
