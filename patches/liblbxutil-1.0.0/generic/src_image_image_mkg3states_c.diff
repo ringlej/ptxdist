@@ -1,6 +1,6 @@
-diff -ruN liblbxutil-1.0.0-orig/Makefile.in liblbxutil-1.0.0/Makefile.in
+diff -ruN liblbxutil-1.0.0-orig/Makefile.in liblbxutil-1.0.0-patched/Makefile.in
 --- liblbxutil-1.0.0-orig/Makefile.in	2005-12-21 08:04:55.000000000 +0100
-+++ liblbxutil-1.0.0/Makefile.in	2006-01-19 12:15:40.000000000 +0100
++++ liblbxutil-1.0.0-patched/Makefile.in	2006-01-19 12:40:39.000000000 +0100
 @@ -183,7 +183,7 @@
  	installdirs-recursive install-recursive uninstall-recursive \
  	check-recursive installcheck-recursive
@@ -10,7 +10,9 @@ diff -ruN liblbxutil-1.0.0-orig/Makefile.in liblbxutil-1.0.0/Makefile.in
  	config.guess config.h.in config.sub configure configure.ac \
  	depcomp install-sh lbxutil.pc.in ltmain.sh missing \
  	mkinstalldirs
-+++ liblbxutil-1.0.0/compile	2006-01-19 12:07:36.000000000 +0100
+diff -ruN liblbxutil-1.0.0-orig/compile liblbxutil-1.0.0-patched/compile
+--- liblbxutil-1.0.0-orig/compile	1970-01-01 01:00:00.000000000 +0100
++++ liblbxutil-1.0.0-patched/compile	2006-01-19 12:40:39.000000000 +0100
 @@ -0,0 +1,142 @@
 +#! /bin/sh
 +# Wrapper for compilers which do not understand `-c -o'.
@@ -154,18 +156,29 @@ diff -ruN liblbxutil-1.0.0-orig/Makefile.in liblbxutil-1.0.0/Makefile.in
 +# time-stamp-format: "%:y-%02m-%02d.%02H"
 +# time-stamp-end: "$"
 +# End:
-diff -ruN liblbxutil-1.0.0-orig/configure.ac liblbxutil-1.0.0/configure.ac
+diff -ruN liblbxutil-1.0.0-orig/configure liblbxutil-1.0.0-patched/configure
+--- liblbxutil-1.0.0-orig/configure	2005-12-21 08:04:51.000000000 +0100
++++ liblbxutil-1.0.0-patched/configure	2006-01-19 12:39:56.000000000 +0100
+@@ -20011,6 +20011,7 @@
+   # Handling of arguments.
+   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+   "src/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
++  "src/image/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/image/Makefile" ;;
+   "lbxutil.pc" ) CONFIG_FILES="$CONFIG_FILES lbxutil.pc" ;;
+   "depfiles" ) CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
+   "config.h" ) CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
+diff -ruN liblbxutil-1.0.0-orig/configure.ac liblbxutil-1.0.0-patched/configure.ac
 --- liblbxutil-1.0.0-orig/configure.ac	2005-12-15 01:24:36.000000000 +0100
-+++ liblbxutil-1.0.0/configure.ac	2006-01-19 12:06:33.000000000 +0100
++++ liblbxutil-1.0.0-patched/configure.ac	2006-01-19 12:40:39.000000000 +0100
 @@ -60,4 +60,5 @@
  
  AC_OUTPUT([Makefile
  	   src/Makefile
 +	   src/image/Makefile
  	   lbxutil.pc])
-diff -ruN liblbxutil-1.0.0-orig/src/Makefile.am liblbxutil-1.0.0/src/Makefile.am
+diff -ruN liblbxutil-1.0.0-orig/src/Makefile.am liblbxutil-1.0.0-patched/src/Makefile.am
 --- liblbxutil-1.0.0-orig/src/Makefile.am	2005-10-16 04:07:10.000000000 +0200
-+++ liblbxutil-1.0.0/src/Makefile.am	2006-01-19 12:07:14.000000000 +0100
++++ liblbxutil-1.0.0-patched/src/Makefile.am	2006-01-19 12:40:39.000000000 +0100
 @@ -1,9 +1,6 @@
 -lib_LTLIBRARIES = liblbxutil.la
 -
@@ -190,9 +203,9 @@ diff -ruN liblbxutil-1.0.0-orig/src/Makefile.am liblbxutil-1.0.0/src/Makefile.am
  
  liblbxutil_la_LDFLAGS = -version-number 1:0:0
  
-diff -ruN liblbxutil-1.0.0-orig/src/Makefile.in liblbxutil-1.0.0/src/Makefile.in
+diff -ruN liblbxutil-1.0.0-orig/src/Makefile.in liblbxutil-1.0.0-patched/src/Makefile.in
 --- liblbxutil-1.0.0-orig/src/Makefile.in	2005-12-21 08:04:55.000000000 +0100
-+++ liblbxutil-1.0.0/src/Makefile.in	2006-01-19 12:15:40.000000000 +0100
++++ liblbxutil-1.0.0-patched/src/Makefile.in	2006-01-19 12:40:39.000000000 +0100
 @@ -136,13 +136,9 @@
  sharedstatedir = @sharedstatedir@
  sysconfdir = @sysconfdir@
@@ -570,12 +583,13 @@ diff -ruN liblbxutil-1.0.0-orig/src/Makefile.in liblbxutil-1.0.0/src/Makefile.in
  # Tell versions [3.59,3.63) of GNU make to not export all variables.
  # Otherwise a system limit (for SysV at least) may be exceeded.
  .NOEXPORT:
-diff -ruN liblbxutil-1.0.0-orig/src/image/Makefile.am liblbxutil-1.0.0/src/image/Makefile.am
+diff -ruN liblbxutil-1.0.0-orig/src/image/Makefile.am liblbxutil-1.0.0-patched/src/image/Makefile.am
 --- liblbxutil-1.0.0-orig/src/image/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ liblbxutil-1.0.0/src/image/Makefile.am	2006-01-19 12:05:55.000000000 +0100
-@@ -0,0 +1,14 @@
++++ liblbxutil-1.0.0-patched/src/image/Makefile.am	2006-01-19 12:40:39.000000000 +0100
+@@ -0,0 +1,15 @@
 +# evil hack
 +CFLAGS=$(CFLAGS_FOR_BUILD)
++CPPFLAGS=$(CPPFLAGS_FOR_BUILD)
 +LDFLAGS=$(LDFLAGS_FOR_BUILD)
 +
 +CC=$(CC_FOR_BUILD)
@@ -588,9 +602,9 @@ diff -ruN liblbxutil-1.0.0-orig/src/image/Makefile.am liblbxutil-1.0.0/src/image
 +
 +mkg3states_CFLAGS=$(CFLAGS_FOR_BUILD)
 +mkg3states_LDFLAGS=$(LDFLAGS_FOR_BUILD)
-diff -ruN liblbxutil-1.0.0-orig/src/image/Makefile.in liblbxutil-1.0.0/src/image/Makefile.in
+diff -ruN liblbxutil-1.0.0-orig/src/image/Makefile.in liblbxutil-1.0.0-patched/src/image/Makefile.in
 --- liblbxutil-1.0.0-orig/src/image/Makefile.in	1970-01-01 01:00:00.000000000 +0100
-+++ liblbxutil-1.0.0/src/image/Makefile.in	2006-01-19 12:15:40.000000000 +0100
++++ liblbxutil-1.0.0-patched/src/image/Makefile.in	2006-01-19 12:40:39.000000000 +0100
 @@ -0,0 +1,459 @@
 +# Makefile.in generated by automake 1.7.9 from Makefile.am.
 +# @configure_input@
@@ -646,7 +660,7 @@ diff -ruN liblbxutil-1.0.0-orig/src/image/Makefile.in liblbxutil-1.0.0/src/image
 +# evil hack
 +CFLAGS = $(CFLAGS_FOR_BUILD)
 +CPP = @CPP@
-+CPPFLAGS = @CPPFLAGS@
++CPPFLAGS = $(CPPFLAGS_FOR_BUILD)
 +CXX = @CXX@
 +CXXCPP = @CXXCPP@
 +CXXDEPMODE = @CXXDEPMODE@
