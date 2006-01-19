@@ -113,8 +113,11 @@ MENU			:=  $(shell 						\
 # ----------------------------------------------------------------------------
 
 PACKAGES           =
+PACKAGES-y         =
 CROSS_PACKAGES     =
+CROSS_PACKAGES-y   =
 HOST_PACKAGES      =
+HOST_PACKAGES-y    =
 VIRTUAL            =
 
 export TAR PTXDIST_TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR HOST_PACKAGES-y CROSS_PACKAGES-y PACKAGES-y
@@ -565,6 +568,10 @@ configdeps_deps := $(wildcard $(RULESDIR)/*.in)
 ifndef ($(PROJECTRULESDIR),)
 configdeps_deps += $(wildcard $(PROJECTRULESDIR)/*.in)
 endif
+ifneq ($(shell test -e $(PTXDIST_WORKSPACE)/.config && echo "y"),)
+configdeps_deps += $(PTXDIST_WORKSPACE)/.config
+endif
+
 configdeps: $(STATEDIR)/configdeps
 
 $(STATEDIR)/configdeps: $(STATEDIR)/host-kconfig.install $(configdeps_deps)
@@ -665,8 +672,7 @@ toolchains:
 	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.4.5_glibc_2.3.6      TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27 TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5      TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3       TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.4_glibc-2.3.5       TOOLCHAINS;\
+	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.5_glibc-2.3.6       TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27  TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_m68k-unknown-linux-uclibc-3.3.3_uClibc-0.9.27  TOOLCHAINS;\
 	scripts/compile-test /usr/bin toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5        TOOLCHAINS;\
@@ -674,6 +680,9 @@ toolchains:
 	echo >> TOOLCHAINS;						\
 	echo stop: `date` >> TOOLCHAINS;				\
 	echo >> TOOLCHAINS;
+	
+#	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3       TOOLCHAINS;\
+#	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.4_glibc-2.3.5       TOOLCHAINS;\
 
 # ----------------------------------------------------------------------------
 
