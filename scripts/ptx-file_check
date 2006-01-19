@@ -2,6 +2,8 @@
 # 
 # Generate MD5 Files for Release Tracking
 # 
+# This Script can be used on both sides - the host and the target
+#
 
 FULLARGS="$@"
 DEBUG=${DEBUG:="false"}
@@ -45,6 +47,8 @@ esac
 usage() {
         echo 
         [ -n "$1" ] && echo -e "${PREFIX} error: $1\n"
+	echo "Generate / Check MD5 Files for Release Tracking"
+	echo 
         echo "usage: $0 <args>"
         echo
         echo " Arguments:"
