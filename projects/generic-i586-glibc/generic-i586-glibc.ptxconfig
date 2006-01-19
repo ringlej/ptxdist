@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.9.0-svn
-# Sat Jan 14 13:16:01 2006
+# Thu Jan 19 09:29:32 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -119,6 +119,7 @@ PTXCONF_HOST_MODULE_INIT_TOOLS=y
 #
 # Other Host Tools
 #
+# PTXCONF_HOST_BINUTILS is not set
 
 #
 # HOST_FLEX254 is broken, please send a patch
@@ -127,20 +128,22 @@ PTXCONF_HOST_MODULE_INIT_TOOLS=y
 # PTXCONF_HOST_SLIRP is not set
 
 #
+# Scripting Languages
+#
+# PTXCONF_HOST_PYTHON24 is not set
+
+#
 # Debugging Tools             
 #
 # PTXCONF_CPPUNIT is not set
 # PTXCONF_GDBSERVER is not set
 # PTXCONF_GDB is not set
-# PTXCONF_KSYMOOPS is not set
+# PTXCONF_HOST_KSYMOOPS is not set
 
 #
 # LTT is broken, please send a patch
 #
-
-#
-# libbfd (binutils) is broken, please send a patch
-#
+# PTXCONF_LIBBFD is not set
 # PTXCONF_MEMTEST is not set
 # PTXCONF_MEMTESTER is not set
 # PTXCONF_STRACE is not set
@@ -855,7 +858,13 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_COREUTILS is not set
 # PTXCONF_DIFFUTILS is not set
 # PTXCONF_SYSVINIT is not set
-# PTXCONF_MODULE_INIT_TOOLS is not set
+PTXCONF_MODULE_INIT_TOOLS=y
+# PTXCONF_MODULE_INIT_TOOLS_INSMOD is not set
+# PTXCONF_MODULE_INIT_TOOLS_RMMOD is not set
+# PTXCONF_MODULE_INIT_TOOLS_LSMOD is not set
+# PTXCONF_MODULE_INIT_TOOLS_MODINFO is not set
+# PTXCONF_MODULE_INIT_TOOLS_MODPROBE is not set
+# PTXCONF_MODULE_INIT_TOOLS_DEPMOD is not set
 # PTXCONF_GAWK is not set
 # PTXCONF_HOTPLUG is not set
 # PTXCONF_MTD_UTILS is not set
@@ -887,8 +896,14 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 #
 # php-apc is broken, please send a patch
 #
-# PTXCONF_PYTHON23 is not set
-# PTXCONF_PYTHON24 is not set
+
+#
+# python23 is broken, please send a patch
+#
+
+#
+# python24 is broken, please send a patch
+#
 
 #
 # Networking Tools            
@@ -1016,7 +1031,7 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_NETCAT is not set
 
 #
-# nfs-utils           
+# nfsutils            
 #
 
 #
@@ -1031,7 +1046,10 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 #
 # nmap                
 #
-# PTXCONF_NMAP is not set
+
+#
+# NMAP is broken, please send a patch
+#
 
 #
 # NTP                 
@@ -1064,9 +1082,8 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_FORCE=y
 # PTXCONF_OPENNTPD is not set
 
 #
-# Portmapper          
+# portmap is broken, please send a patch
 #
-# PTXCONF_PORTMAP is not set
 
 #
 # ppp                 
@@ -1136,7 +1153,10 @@ PTXCONF_UTELNETD=y
 #
 # Disk and File Utilities     
 #
-# PTXCONF_DOSFSTOOLS is not set
+
+#
+# DOSFSTOOLS are broken, please send a patch
+#
 # PTXCONF_E2FSPROGS is not set
 # PTXCONF_GRUB is not set
 # PTXCONF_HDPARM is not set
@@ -1204,7 +1224,10 @@ PTXCONF_UTELNETD=y
 # PTXCONF_DB is not set
 # PTXCONF_EXPAT is not set
 # PTXCONF_GETTEXT is not set
-# PTXCONF_GLIB12 is not set
+
+#
+# GLIB12 is broken, please send a patch
+#
 # PTXCONF_GLIB26 is not set
 # PTXCONF_GLIB28 is not set
 # PTXCONF_HRTIMERS_SUPPORT is not set
@@ -1252,7 +1275,6 @@ PTXCONF_UTELNETD=y
 # X Applications
 #
 # PTXCONF_FLTK is not set
-# PTXCONF_QTE is not set
 # PTXCONF_WXWINDOWS is not set
 
 #
@@ -1296,3 +1318,15 @@ PTXCONF_UTELNETD=y
 PTXCONF_TESTSUITE_DIR="/usr/lib/testsuites"
 # PTXCONF_DBENCH is not set
 # PTXCONF_LTP is not set
+
+#
+# Ballista is broken, please send a patch
+#
+
+#
+# LTP_COMMANDS is broken, please send a patch
+#
+
+#
+# xmlbench is broken, please send a patch
+#

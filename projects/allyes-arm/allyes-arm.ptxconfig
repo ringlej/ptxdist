@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.9.0-svn
-# Mon Jan 16 15:47:26 2006
+# Thu Jan 19 09:29:57 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -149,6 +149,11 @@ PTXCONF_HOST_BINUTILS_LIBIBERTY=y
 #
 # PTXCONF_HOST_QTE is not set
 # PTXCONF_HOST_SLIRP is not set
+
+#
+# Scripting Languages
+#
+# PTXCONF_HOST_PYTHON24 is not set
 
 #
 # Debugging Tools             
@@ -1107,8 +1112,14 @@ PTXCONF_PHP=y
 #
 # php-apc is broken, please send a patch
 #
-PTXCONF_PYTHON23=y
-PTXCONF_PYTHON24=y
+
+#
+# python23 is broken, please send a patch
+#
+
+#
+# python24 is broken, please send a patch
+#
 
 #
 # Networking Tools            
@@ -1192,9 +1203,7 @@ PTXCONF_IPTABLES_INSTALL_IPTABLES_SAVE=y
 # ----------------------------------
 #
 PTXCONF_IPTABLES_INSTALL_libipt_addrtype=y
-PTXCONF_IPTABLES_INSTALL_libipt_ah=y
 PTXCONF_IPTABLES_INSTALL_libipt_CLASSIFY=y
-PTXCONF_IPTABLES_INSTALL_libipt_CLUSTERIP=y
 PTXCONF_IPTABLES_INSTALL_libipt_connlimit=y
 PTXCONF_IPTABLES_INSTALL_libipt_connmark=y
 PTXCONF_IPTABLES_INSTALL_libipt_CONNMARK=y
@@ -1223,7 +1232,6 @@ PTXCONF_IPTABLES_INSTALL_libipt_owner=y
 PTXCONF_IPTABLES_INSTALL_libipt_physdev=y
 PTXCONF_IPTABLES_INSTALL_libipt_pkttype=y
 PTXCONF_IPTABLES_INSTALL_libipt_realm=y
-PTXCONF_IPTABLES_INSTALL_libipt_recent=y
 PTXCONF_IPTABLES_INSTALL_libipt_REDIRECT=y
 PTXCONF_IPTABLES_INSTALL_libipt_REJECT=y
 PTXCONF_IPTABLES_INSTALL_libipt_rpc=y
@@ -1248,16 +1256,10 @@ PTXCONF_IPTABLES_INSTALL_libipt_unclean=y
 #
 # ----------------------------------
 #
-PTXCONF_IPTABLES_INSTALL_libip6t_ah=y
-PTXCONF_IPTABLES_INSTALL_libip6t_dst=y
-PTXCONF_IPTABLES_INSTALL_libip6t_esp=y
 PTXCONF_IPTABLES_INSTALL_libip6t_eui64=y
-PTXCONF_IPTABLES_INSTALL_libip6t_frag=y
-PTXCONF_IPTABLES_INSTALL_libip6t_hbh=y
 PTXCONF_IPTABLES_INSTALL_libip6t_hl=y
 PTXCONF_IPTABLES_INSTALL_libip6t_HL=y
 PTXCONF_IPTABLES_INSTALL_libip6t_icmpv6=y
-PTXCONF_IPTABLES_INSTALL_libip6t_ipv6header=y
 PTXCONF_IPTABLES_INSTALL_libip6t_length=y
 PTXCONF_IPTABLES_INSTALL_libip6t_limit=y
 PTXCONF_IPTABLES_INSTALL_libip6t_LOG=y
@@ -1266,7 +1268,6 @@ PTXCONF_IPTABLES_INSTALL_libip6t_mark=y
 PTXCONF_IPTABLES_INSTALL_libip6t_MARK=y
 PTXCONF_IPTABLES_INSTALL_libip6t_multiport=y
 PTXCONF_IPTABLES_INSTALL_libip6t_owner=y
-PTXCONF_IPTABLES_INSTALL_libip6t_rt=y
 PTXCONF_IPTABLES_INSTALL_libip6t_standard=y
 PTXCONF_IPTABLES_INSTALL_libip6t_tcp=y
 PTXCONF_IPTABLES_INSTALL_libip6t_TRACE=y
@@ -1402,7 +1403,7 @@ PTXCONF_NETCAT_OLD_HEXDUMP=y
 PTXCONF_NETCAT_OLD_TELNET=y
 
 #
-# nfs-utils           
+# nfsutils            
 #
 
 #
@@ -1435,8 +1436,10 @@ PTXCONF_NFSUTILS_INSTALL_STATD=y
 #
 # nmap                
 #
-PTXCONF_NMAP=y
-PTXCONF_NMAP_SERVICES=y
+
+#
+# NMAP is broken, please send a patch
+#
 
 #
 # NTP                 
@@ -1478,10 +1481,8 @@ PTXCONF_OPENNTPD=y
 PTXCONF_OPENNTPD_ARC4RANDOM=y
 
 #
-# Portmapper          
+# portmap is broken, please send a patch
 #
-PTXCONF_PORTMAP=y
-PTXCONF_PORTMAP_INSTALL_PORTMAPPER=y
 
 #
 # ppp                 
@@ -1770,7 +1771,6 @@ PTXCONF_ZLIB=y
 # X Applications
 #
 # PTXCONF_FLTK is not set
-# PTXCONF_QTE is not set
 # PTXCONF_WXWINDOWS is not set
 
 #
@@ -1823,8 +1823,14 @@ PTXCONF_DBENCH_DBENCH=y
 PTXCONF_DBENCH_TBENCH=y
 PTXCONF_DBENCH_TBENCH_SERVER=y
 PTXCONF_LTP=y
-PTXCONF_LTP_BALLISTA=y
-PTXCONF_LTP_COMMANDS=y
+
+#
+# Ballista is broken, please send a patch
+#
+
+#
+# LTP_COMMANDS is broken, please send a patch
+#
 PTXCONF_LTP_KERNEL=y
 PTXCONF_LTP_KERNEL_FS=y
 PTXCONF_LTP_KERNEL_FS_DOIO=y
@@ -1848,5 +1854,10 @@ PTXCONF_LTP_MISC_MATH=y
 PTXCONF_LTP_MISC_MATH_ABS=y
 PTXCONF_LTP_MISC_MATH_ATOF=y
 PTXCONF_LTP_MISC_MATH_FLOAT=y
-PTXCONF_XMLBENCH=y
+
+#
+# xmlbench is broken, please send a patch
+#
+PTXCONF_GMP4=y
 PTXCONF_HOST_APACHE2=y
+PTXCONF_LIBOOP=y
