@@ -1,62 +1,74 @@
 Automatic Toolchain Compilation
 --------------------------
 
-start: Mi Nov 16 08:38:36 CET 2005
+start: Do Jan 19 11:31:36 CET 2006
 
 config...: toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5
-date.....: Mi Nov 16 08:38:36 CET 2005
+date.....: Do Jan 19 11:31:36 CET 2006
 user.....: rsc@himalia
-buildtime: 0h20m13s
+buildtime: 0h17m10s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2
-date.....: Mi Nov 16 08:59:02 CET 2005
+date.....: Do Jan 19 11:49:26 CET 2006
 user.....: rsc@himalia
-buildtime: 0h40m46s
+buildtime: 0h37m56s
+result...: 0
+
+config...: toolchain_arm-softfloat-linux-gnu-3.3.6_glibc_2.3.2_linux_2.6.14
+date.....: Do Jan 19 12:28:31 CET 2006
+user.....: rsc@himalia
+buildtime: 0h42m19s
+result...: 0
+
+config...: toolchain_arm-softfloat-linux-gnu-3.4.5_glibc_2.3.6
+date.....: Do Jan 19 13:12:22 CET 2006
+user.....: rsc@himalia
+buildtime: 0h42m39s
 result...: 0
 
 config...: toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Mi Nov 16 09:40:25 CET 2005
+date.....: Do Jan 19 13:56:50 CET 2006
 user.....: rsc@himalia
-buildtime: 0h17m59s
-result...: 2
-
-config...: toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5
-date.....: Mi Nov 16 09:58:50 CET 2005
-user.....: rsc@himalia
-buildtime: 0h20m52s
+buildtime: 0h16m59s
 result...: 0
 
-config...: toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3
-date.....: Mi Nov 16 10:20:02 CET 2005
+config...: toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5
+date.....: Do Jan 19 14:14:46 CET 2006
 user.....: rsc@himalia
-buildtime: 0h41m25s
+buildtime: 0h17m55s
+result...: 0
+
+config...: toolchain_i586-unknown-linux-gnu-3.4.5_glibc-2.3.6
+date.....: Do Jan 19 14:33:34 CET 2006
+user.....: rsc@himalia
+buildtime: 0h49m9s
 result...: 0
 
 config...: toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Mi Nov 16 11:01:58 CET 2005
+date.....: Do Jan 19 15:24:03 CET 2006
 user.....: rsc@himalia
-buildtime: 0h16m37s
+buildtime: 0h19m25s
 result...: 0
 
 config...: toolchain_m68k-unknown-linux-uclibc-3.3.3_uClibc-0.9.27
-date.....: Mi Nov 16 11:18:51 CET 2005
+date.....: Do Jan 19 15:44:35 CET 2006
 user.....: rsc@himalia
-buildtime: 0h12m4s
+buildtime: 0h14m6s
 result...: 2
 
 config...: toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5
-date.....: Mi Nov 16 11:31:09 CET 2005
+date.....: Do Jan 19 16:00:11 CET 2006
 user.....: rsc@himalia
-buildtime: 0h35m24s
+buildtime: 0h30m34s
 result...: 0
 
 config...: toolchain_powerpc-604-linux-gnu-3.4.1_glibc-2.3.3
-date.....: Mi Nov 16 12:06:56 CET 2005
+date.....: Do Jan 19 16:31:48 CET 2006
 user.....: rsc@himalia
-buildtime: 0h48m25s
-result...: 0
+buildtime: 0h43m53s
+result...: 2
 
 
-stop: Mi Nov 16 12:55:52 CET 2005
+stop: Do Jan 19 17:16:34 CET 2006
 
