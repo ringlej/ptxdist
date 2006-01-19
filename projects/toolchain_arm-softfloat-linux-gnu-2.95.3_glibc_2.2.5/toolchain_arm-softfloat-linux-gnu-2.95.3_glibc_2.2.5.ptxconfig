@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.9.0-svn
-# Thu Jan 19 09:27:31 2006
+# Thu Jan 19 09:35:31 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -16,7 +16,7 @@ PTXCONF_BUILD_TOOLCHAIN=y
 # Project Name & Version      
 #
 PTXCONF_PROJECT="toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5"
-PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
+PTXCONF_PROJECT_VERSION="-1"
 
 #
 # ----------------------------------
