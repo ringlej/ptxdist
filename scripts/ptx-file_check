@@ -1,0 +1,186 @@
+#!/bin/sh
+# 
+# Generate MD5 Files for Release Tracking
+# 
+
+FULLARGS="$@"
+DEBUG=${DEBUG:="false"}
+
+# DEFAULTS:
+RELEASE="release"
+ACTION="check"
+ROOT="/"
+REPORT="false"
+LOCALSTATS="local"
+STORE="usr/local/md5sums"
+
+#
+# helper functions
+#
+
+debug_out(){
+	[ "$DEBUG" = "true" ] && echo "$0: $1" >&2
+}
+	
+debug_out "Debugging is enabled - Turn off with DEBUG=false"
+
+my_exit(){
+	debug_out "$0: $1"
+	exit $2
+}
+
+check_argument(){
+case "$1" in 
+	--*|"")
+	debug_out "missing argument"
+	return 1
+	;;
+	[[:alnum:]/]*)
+	#debug_out "argument $1 accepted"
+	return 0
+	;;
+esac
+}
+
+usage() {
+        echo 
+        [ -n "$1" ] && echo -e "${PREFIX} error: $1\n"
+        echo "usage: $0 <args>"
+        echo
+        echo " Arguments:"
+        echo
+        echo "  --action           create | check                  Default: check"
+        echo "  --root <path>      Path of the root directory      Default: /"
+        echo "  --release <name>   the release name                Default: release"
+        echo "  --report           print a report on stdout        Default: deactivated"
+        echo "  --store <path>     path of the release store       Default: $STORE"
+        echo
+		echo " $0 returns with an exit status != 0, if something failed."
+	    echo 
+        exit 0
+}
+
+#
+# Option parser
+#
+while [ $# -gt 0 ]; do
+        case "$1" in
+                --help) usage ;;
+                --action)
+			check_argument $2  		
+			if [ "$?" = "0" ] ; then 
+				ACTION="$2";      		
+				shift 2 ;
+			else	
+				debug_out "skipping option $1";
+				shift 1 ;
+			fi
+			;;
+                 --release)
+			check_argument $2  		
+			if [ "$?" = "0" ] ; then 
+				RELEASE="$2";      		
+				shift 2 ;
+			else	
+				debug_out "skipping option $1";
+				shift 1 ;
+			fi
+			;;
+                --root)
+			check_argument $2  		
+			if [ "$?" = "0" ] ; then 
+				ROOT="$2";      		
+				shift 2 ;
+			else	
+				debug_out "skipping option $1";
+				shift 1 ;
+			fi
+			;;
+                --report)
+			REPORT="true";      		
+			shift 1 ;
+			;;
+               *)  
+			usage "unknown option $1" 
+			;;
+        esac
+done
+
+#
+# sanity checks
+#
+
+#
+# functions
+#
+
+create_md5(){
+	if [ -d "$ROOT" ]; then 
+		cd $ROOT
+		debug_out "ROOT Directory is >$(pwd)<"
+		RELEASEDIR=$STORE/$RELEASE
+		mkdir -p "$RELEASEDIR" || my_exit "mkdir $ROOT/$RELEASEDIR failed" 1
+		find . -type f | egrep -v "/sys/|/proc/|/dev/|/mnt|/$STORE" > $RELEASEDIR/files.list
+		LC_ALL=C sort -u $RELEASEDIR/files.list > $RELEASEDIR/files.list.tmp && mv $RELEASEDIR/files.list.tmp $RELEASEDIR/files.list
+		while read line ; do 
+			md5sum $line 
+		done < $RELEASEDIR/files.list > $RELEASEDIR/files.md5
+	else
+		my_exit "directory $ROOT was not found" 1
+	fi 
+}
+
+check_md5(){
+	if [ -d "$ROOT" ]; then 
+		cd $ROOT
+		debug_out "ROOT Directory is >$(pwd)<"
+		RELEASEDIR=$STORE/$RELEASE
+		[ -d "$RELEASEDIR" ] || my_exit "release >$RELEASE< invalid" 1
+		LOCALSTATSDIR=$STORE/$LOCALSTATS
+		mkdir -p "$LOCALSTATSDIR" || my_exit "mkdir $ROOT/$LOCALSTATSDIR failed" 1
+		echo "# $(date)" > $LOCALSTATSDIR/check-md5.status
+		echo "# These files differ from release $RELEASE:" >> $LOCALSTATSDIR/check-md5.status
+		echo "# " >> $LOCALSTATSDIR/check-md5.status
+		echo "----------- START ------------" >> $LOCALSTATSDIR/check-md5.status
+		md5sum -c $RELEASEDIR/files.md5 | grep -v OK | sed s/:\ FAILED//g>> $LOCALSTATSDIR/check-md5.status
+		echo "------------ END -------------" >> $LOCALSTATSDIR/check-md5.status
+		#
+		find . -type f | egrep -v "/sys/|/proc/|/dev/|/mnt|/$STORE" > $LOCALSTATSDIR/files.list
+		LC_ALL=C sort -u $LOCALSTATSDIR/files.list > $LOCALSTATSDIR/files.list.tmp && mv $LOCALSTATSDIR/files.list.tmp $LOCALSTATSDIR/files.list
+		echo "# $(date)" > $LOCALSTATSDIR/check-files.status
+		echo "# These files do not appear in release $RELEASE, " >> $LOCALSTATSDIR/check-files.status
+		echo "# however - they appear on the system:" >> $LOCALSTATSDIR/check-files.status
+		echo "# " >> $LOCALSTATSDIR/check-files.status
+		echo "----------- START ------------" >> $LOCALSTATSDIR/check-files.status
+		diff $RELEASEDIR/files.list $LOCALSTATSDIR/files.list | egrep "<|>" | sed s/'[><][ ][\.]'//g >> $LOCALSTATSDIR/check-files.status
+		echo "------------ END -------------" >> $LOCALSTATSDIR/check-files.status
+		#
+		if [ "$REPORT" = "true" ]; then 
+			echo
+			cat $LOCALSTATSDIR/check-md5.status
+			echo
+			cat $LOCALSTATSDIR/check-files.status
+			echo 
+		fi
+	else
+		my_exit "directory $ROOT was not found" 1
+	fi 
+}
+
+
+#
+# argument handling
+#
+case $ACTION in
+	create)
+	create_md5
+	;;
+	check)
+	check_md5
+	;;
+	*)
+	my_exit "Sorry, unknown --action specified: $ACTION"
+	;;
+esac
+# vim: syntax=sh
+# vim: tabstop=4
