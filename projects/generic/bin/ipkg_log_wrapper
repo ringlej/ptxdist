@@ -1,0 +1,16 @@
+#!/bin/sh
+# ipkg wrapper - log when installing / removing things 
+# 
+
+FULLARGS="$@"
+IDENT="$(date -R)"
+IPKG=${IPKG:=/usr/bin/ipkg-cl}
+LOGDIR=${LOGDIR:=/var/log}
+LOGFILENAME=${LOGFILENAME:=ipkg_activities.log}
+LOGFILE=$LOGDIR/$LOGFILENAME
+
+[ -e "$LOGDIR" ] || mkdir -p  $LOGDIR
+echo -n "$IDENT - $FULLARGS" >> $LOGFILE
+$IPKG $FULLARGS
+echo "   ($?)" >> $LOGFILE
+
