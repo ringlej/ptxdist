@@ -239,6 +239,7 @@ ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE)),)
 else
 	@cp $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/httpd $(APACHE2_DIR)/init_httpd
 	@perl -i -p -e "s,\@APACHECONFIG@,$(call remove_quotes,$(PTXCONF_APACHE2_CONFIGDIR))/httpd.conf,g" $(APACHE2_DIR)/init_httpd
+	@perl -i -p -e "s,\@LOGPATH@,$(call remove_quotes,$(PTXCONF_APACHE2_LOGDIR))/httpd.conf,g" $(APACHE2_DIR)/init_httpd
 	@$(call install_copy, 0, 0, 0755, $(APACHE2_DIR)/init_httpd, /etc/init.d/httpd, n)
 endif
 endif
