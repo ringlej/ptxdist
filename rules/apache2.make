@@ -233,6 +233,20 @@ endif
 ifneq ($(PTXCONF_APACHE2_LOGDIR),"")
 	@$(call install_copy, 12, 102, 0755, $(PTXCONF_APACHE2_LOGDIR))
 endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
+ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE)),)
+	@$(call install_copy, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE), /etc/init.d/httpd, n)
+else
+	@cp $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/httpd $(APACHE2_DIR)/init_httpd
+	perl -i -p -e "s,\@APACHECONFIG@,$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,g" $(APACHE2_DIR)/init_httpd
+	@$(call install_copy, 0, 0, 0755, $(APACHE2_DIR)/init_httpd, /etc/init.d/httpd, n)
+endif
+endif
+
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
+	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, ../init.d/apache, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
+endif
 
 # #
 # # create apache's default serverroot
