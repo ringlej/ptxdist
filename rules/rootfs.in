@@ -482,10 +482,10 @@ menuconfig ROOTFS_ETC_INITD_BANNER
 		prompt "link name in /etc/rcS"
 		default "S02_banner"
 		help
-		  Set a link to with this name in /etc/rc.d which points to 
-		  /etc/init.d/banner. 
+		  Set a link to with this name in /etc/rc.d which points to
+		  /etc/init.d/banner.
 
-		  
+
 	config ROOTFS_ETC_VENDOR
 		depends on ROOTFS_ETC_INITD_BANNER
 		string
@@ -509,18 +509,16 @@ menuconfig ROOTFS_ETC_INITD_HTTPD
 
 	choice
 		prompt "Kind of startup scrict"
-		default ROOTFS_ETC_INITD_HTTPD_DEFAULT
 		depends on ROOTFS_ETC_INITD_HTTPD
+		default ROOTFS_ETC_INITD_HTTPD_DEFAULT
 
 		config ROOTFS_ETC_INITD_HTTPD_DEFAULT
-			depends on ROOTFS_ETC_INITD_HTTPD
 			bool
 			prompt "Use default httpd"
 			help
 			  A file from projects/generic/etc/init.d/httpd will be used.
 
 		config ROOTFS_ETC_INITD_HTTPD_USER
-			depends on ROOTFS_ETC_INITD_HTTPD
 			bool
 			prompt "Use your own httpd file"
 			help
@@ -529,6 +527,7 @@ menuconfig ROOTFS_ETC_INITD_HTTPD
 	endchoice
 
 	config ROOTFS_ETC_INITD_HTTPD_USER_FILE
+		depends on ROOTFS_ETC_INITD_HTTPD
 		depends on ROOTFS_ETC_INITD_HTTPD_USER
 		prompt "Path and name of your own httpd to be used"
 		string
@@ -543,7 +542,7 @@ menuconfig ROOTFS_ETC_INITD_HTTPD
 		default "S08_httpd"
 		help
 		  Set a link into /etc/rc.d which points to /etc/init.d/httpd to
-		  start apache while system boot.
+		  start apache when system boots.
 
 ########################## udev support  ##########################################
 
