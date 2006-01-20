@@ -6,6 +6,10 @@
 #
 
 NAME=apache2
+#
+# This is an workaround, if the path targets into a ramfs
+#
+mkdir -p @LOGPATH@
 
 case "$1" in
     start)
