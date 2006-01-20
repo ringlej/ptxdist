@@ -120,12 +120,11 @@ $(STATEDIR)/ipkg.targetinstall: $(ipkg_targetinstall_deps_default)
 	@$(call install_link, libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0)
 	@$(call install_link, libipkg.so.0.0.0, /usr/lib/libipkg.so.0)
 
-ifndef PTXCONF_IPKG_LOG_WRAPPER
-        @$(call install_copy, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg)
-endif
 ifdef PTXCONF_IPKG_LOG_WRAPPER
-        @$(call install_copy, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg-cl)
-        @$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/bin/ipkg_log_wrapper, /usr/bin/ipkg, n)
+	@$(call install_copy, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg-cl)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/bin/ipkg_log_wrapper, /usr/bin/ipkg, n)
+else
+	@$(call install_copy, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg)
 endif
 
 ifdef PTXCONF_IPKG_EXTRACT_TEST
