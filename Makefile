@@ -594,6 +594,9 @@ setup: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.
 	@if [ -f $(HOME)/.ptxdistrc ]; then 					\
 		echo "using \$$HOME/.ptxdistrc"; 				\
 		cp $(HOME)/.ptxdistrc $(PTXDIST_WORKSPACE)/config/setup/.config;\
+	else									\
+		cp $(PTXDIST_WORKSPACE)/config/setup/ptxdistrc.default		\
+		   $(PTXDIST_WORKSPACE)/config/setup/.config;			\
 	fi
 	@(cd $(PTXDIST_WORKSPACE)/config/setup && $(PTXDIST_WORKSPACE)/scripts/kconfig/mconf Kconfig)
 	@echo "cleaning up after setup..."
@@ -602,7 +605,7 @@ setup: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.
 	done
 	@if [ -f $(PTXDIST_WORKSPACE)/config/setup/.config ]; then 		\
 		echo "copying new .ptxdistrc to $(HOME)...";			\
-		cp $(PTXDIST_WORKSPACE)/config/setup/.config $(HOME)/.ptxdistrc;\
+		mv $(PTXDIST_WORKSPACE)/config/setup/.config $(HOME)/.ptxdistrc;\
 		echo "done.";							\
 	fi
 
