@@ -466,15 +466,15 @@ menuconfig ROOTFS_ETC_INITD_BANNER
 	default y
 	prompt "banner                    "
 	help
-	  This Option adds a specific vendor string to 
+	  This Option adds a specific vendor string to
 	  the script which displays a nifty ptxdist
-	   _                                 
-	  | |__   __ _ _ __  _ __   ___ _ __ 
+	   _
+	  | |__   __ _ _ __  _ __   ___ _ __
 	  | '_ \ / _` | '_ \| '_ \ / _ \ '__|
-	  | |_) | (_| | | | | | | |  __/ |   
-	  |_.__/ \__,_|_| |_|_| |_|\___|_|   
-	  page with the hostname and other stuff at 
-	  startup. 
+	  | |_) | (_| | | | | | | |  __/ |
+	  |_.__/ \__,_|_| |_|_| |_|\___|_|
+	  page with the hostname and other stuff at
+	  startup.
 
 	config ROOTFS_ETC_INITD_BANNER_LINK
 		depends on ROOTFS_ETC_INITD_BANNER
@@ -596,6 +596,56 @@ menuconfig ROOTFS_ETC_INITD_UDEV
 		help
 		  Set a link to with this name in /etc/rc.d which points to
 		  /etc/init.d/udev.
+
+########################## pureftpd  ##########################################
+
+comment "pureftpd: select pureftpd"
+	depends on ROOTFS_ETC_INITD && !PUREFTPD
+
+menuconfig ROOTFS_ETC_INITD_PUREFTPD
+	depends on ROOTFS_ETC_INITD && PUREFTPD
+	bool
+	default y
+	prompt "purefptd                  "
+	help
+	  The /etc/init.d/pure-ftpd script lets you control the pure ftp daemon.
+
+	choice
+		prompt "Kind of startup scrict"
+		depends on ROOTFS_ETC_INITD_PUREFTPD
+		default ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
+
+		config ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
+			bool
+			prompt "Use default pure-ftpd"
+			help
+			  A file from projects/generic/etc/init.d/pure-ftpd will be used.
+
+		config ROOTFS_ETC_INITD_PUREFTPD_USER
+			bool
+			prompt "Use your own pure-ftpd file"
+			help
+			  Select this, then you can enter a path and filename to your
+			  own pure-ftpd startup script.
+	endchoice
+
+	config ROOTFS_ETC_INITD_PUREFTPD_USER_FILE
+		depends on ROOTFS_ETC_INITD_PUREFTPD
+		depends on ROOTFS_ETC_INITD_PUREFTPD_USER
+		prompt "Path and name of your own pure-ftpd to be used"
+		string
+		default ""
+		help
+		  Enter a path and filename to be used as pure-ftpd script on your target.
+
+	config ROOTFS_ETC_INITD_PUREFTPD_LINK
+		depends on ROOTFS_ETC_INITD_PUREFTPD
+		string
+		prompt "link name in /etc/rc.d"
+		default "S09_pureftpd"
+		help
+		  Set a link into /etc/rc.d which points to /etc/init.d/pure-ftpd to
+		  start pure ftp daemon when system starts.
 
 ########################## ? ##########################################
 

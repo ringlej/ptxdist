@@ -2,7 +2,7 @@
 # $Id: template 2922 2005-07-11 19:17:53Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -158,7 +158,18 @@ $(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps_default)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-ftpd, /usr/sbin/pure-ftpd)
-	@$(call install_copy, 0, 0, 0775, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/pure-ftpd, /etc/init.d/pure-ftpd, n)
+ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD
+ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER_FILE)),)
+	@$(call install_copy, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER_FILE), /etc/init.d/pure-ftpd, n)
+else
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/pure-ftpd, /etc/init.d/pure-ftpd, n)
+endif
+endif
+
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_LINK),"")
+	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, ../init.d/pure-ftpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_LINK))
+endif
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-uploadscript, /usr/sbin/pure-uploadscript, n)
