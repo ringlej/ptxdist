@@ -110,6 +110,11 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER_FILE),"")
 endif
 endif
 endif
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
+	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, ../init.d/telnetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
+endif
+
 	@$(call install_copy, 0, 0, 0755, $(UTELNETD_DIR)/utelnetd, /sbin/utelnetd)
 
 	@$(call install_finish)
