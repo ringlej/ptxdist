@@ -17,7 +17,7 @@ config INETUTILS_PING
 config INETUTILS_RCP
 	bool
 	prompt "rcp"
-	default y
+	default n
 	depends on INETUTILS
 	help
 	  FIXME: This item needs to be documented
@@ -25,7 +25,15 @@ config INETUTILS_RCP
 config INETUTILS_RLOGIND
 	bool
 	prompt "rlogind"
-	default y
+	default n
+	depends on INETUTILS
+	help
+	  FIXME: This item needs to be documented
+
+config INETUTILS_RSH
+	bool
+	prompt "rsh"
+	default N
 	depends on INETUTILS
 	help
 	  FIXME: This item needs to be documented
@@ -33,7 +41,7 @@ config INETUTILS_RLOGIND
 config INETUTILS_RSHD
 	bool
 	prompt "rshd"
-	default y
+	default n
 	depends on INETUTILS
 	help
 	  FIXME: This item needs to be documented
@@ -41,7 +49,7 @@ config INETUTILS_RSHD
 config INETUTILS_SYSLOGD
 	bool
 	prompt "syslogd"
-	default N
+	default n
 	depends on INETUTILS
 	help
 	  FIXME: This item needs to be documented
