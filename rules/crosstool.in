@@ -34,6 +34,10 @@ endchoice
 choice
 	prompt "GCC Version"
 		depends on CROSSTOOL
+	
+	config GCC_4_0_2
+		bool
+		prompt "4.0.2"
 
 	config GCC_3_4_5
 		bool
@@ -93,6 +97,7 @@ config GCC_VERSION
 	default "3.4.3"		if GCC_3_4_3
 	default "3.4.4"		if GCC_3_4_4
 	default "3.4.5"		if GCC_3_4_5
+	default "4.0.2"		if GCC_4_0_2
 	
 
 config CROSSTOOL_GCCLANG_CC
