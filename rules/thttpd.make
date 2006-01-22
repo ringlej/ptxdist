@@ -127,7 +127,7 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK),"")
 	@$(call install_link, ../init.d/thttpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK))
 endif
 	@$(call install_copy, 0, 0, 0755, /var/www)
-	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/thttpd.html, /var/www/index.html, n)
+	@$(call install_copy, 12, 102, 0755, $(PTXDIST_TOPDIR)/projects/generic/thttpd.html, /var/www/index.html, n)
 
 	@$(call install_finish)
 	@$(call touch, $@)
