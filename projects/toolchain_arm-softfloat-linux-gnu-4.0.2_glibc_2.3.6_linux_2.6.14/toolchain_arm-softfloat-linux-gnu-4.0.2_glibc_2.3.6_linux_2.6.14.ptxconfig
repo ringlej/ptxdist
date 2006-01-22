@@ -1,0 +1,226 @@
+#
+# Automatically generated make config: don't edit
+# PTXdist version: 0.9.0-svn
+# Sat Jan 21 00:39:54 2006
+#
+PTXCONF_MODULES=y
+PTXCONF_PTXCONF=y
+
+#
+# ----------------------------------
+#
+# PTXCONF_BUILD_USERLAND is not set
+PTXCONF_BUILD_TOOLCHAIN=y
+
+#
+# Project Name & Version      
+#
+PTXCONF_PROJECT="toolchain_arm-softfloat-linux-gnu-3.4.5_glibc_2.3.6_linux_2.6.14"
+PTXCONF_PROJECT_VERSION="-1"
+
+#
+# ----------------------------------
+#
+
+#
+# PTXdist Config, Architecture
+#
+
+#
+# Code maturity       
+#
+# PTXCONF_EXPERIMENTAL is not set
+
+#
+# Target Architecture Options
+#
+# PTXCONF_ARCH_ALPHA is not set
+PTXCONF_ARCH_ARM=y
+# PTXCONF_ARCH_ARM_NOMMU is not set
+# PTXCONF_ARCH_X86 is not set
+# PTXCONF_ARCH_PPC is not set
+# PTXCONF_ARCH_M68K is not set
+# PTXCONF_ARCH_SPARC is not set
+# PTXCONF_ARCH_MIPS is not set
+# PTXCONF_ARCH_CRIS is not set
+# PTXCONF_ARCH_PARISC is not set
+# PTXCONF_ARCH_SH is not set
+# PTXCONF_ARM_ARCH_ATMEL is not set
+# PTXCONF_ARM_ARCH_AT91RM9200 is not set
+# PTXCONF_ARM_ARCH_EPXA is not set
+# PTXCONF_ARM_ARCH_IMX is not set
+# PTXCONF_ARM_ARCH_IXP2000 is not set
+# PTXCONF_ARM_ARCH_NETARM is not set
+# PTXCONF_ARM_ARCH_NETX is not set
+# PTXCONF_ARM_ARCH_OMAP is not set
+PTXCONF_ARM_ARCH_PXA=y
+# PTXCONF_ARM_ARCH_SA1100 is not set
+PTXCONF_ARM_ARCH="pxa"
+PTXCONF_ARM_ARCH_LE=y
+PTXCONF_OPT_ARM=y
+# PTXCONF_OPT_ARM_NOMMU is not set
+# PTXCONF_OPT_I386 is not set
+# PTXCONF_OPT_I486 is not set
+# PTXCONF_OPT_I586 is not set
+# PTXCONF_OPT_I686 is not set
+# PTXCONF_OPT_PPC is not set
+# PTXCONF_OPT_PPC405 is not set
+# PTXCONF_OPT_PPC604 is not set
+# PTXCONF_OPT_PPC750 is not set
+# PTXCONF_OPT_PPC7450 is not set
+# PTXCONF_OPT_SPARC is not set
+# PTXCONF_OPT_MIPS is not set
+# PTXCONF_OPT_MIPSEL is not set
+# PTXCONF_OPT_CRIS is not set
+# PTXCONF_OPT_PARISC is not set
+# PTXCONF_OPT_SH3 is not set
+# PTXCONF_OPT_SH4 is not set
+PTXCONF_SOFTFLOAT=y
+
+#
+# Extra Toolchain Options
+#
+PTXCONF_TARGET_EXTRA_CPPFLAGS=""
+PTXCONF_TARGET_EXTRA_CFLAGS=""
+PTXCONF_TARGET_EXTRA_CXXFLAGS=""
+PTXCONF_TARGET_EXTRA_LDFLAGS=""
+PTXCONF_TARGET_CONFIG_FILE="arm.dat"
+PTXCONF_ARCH="arm"
+PTXCONF_ARCH_USERSPACE="arm"
+PTXCONF_ARM_PROC="armv"
+
+#
+# Paths & Directories
+#
+PTXCONF_PREFIX="/opt/ptxdist-$(FULLVERSION)"
+PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
+PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
+PTXCONF_ROOT=""
+
+#
+# GNU Toolchain Identification String
+#
+PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
+PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
+
+#
+# Cross Compilation Tools     
+#
+
+#
+# Crosstool
+#
+PTXCONF_CROSSTOOL=y
+PTXCONF_CROSSTOOL_VERSION_0_38=y
+# PTXCONF_CROSSTOOL_VERSION_0_32 is not set
+PTXCONF_GCC_4_0_2=y
+# PTXCONF_GCC_3_4_5 is not set
+# PTXCONF_GCC_3_4_4 is not set
+# PTXCONF_GCC_3_4_3 is not set
+# PTXCONF_GCC_3_4_2 is not set
+# PTXCONF_GCC_3_4_1 is not set
+# PTXCONF_GCC_3_4_0 is not set
+# PTXCONF_GCC_3_3_6 is not set
+# PTXCONF_GCC_3_3_3 is not set
+# PTXCONF_GCC_3_3_2 is not set
+# PTXCONF_GCC_3_2_3 is not set
+# PTXCONF_GCC_2_95_3 is not set
+PTXCONF_GCC_VERSION="4.0.2"
+PTXCONF_CROSSTOOL_GCCLANG_CC=y
+# PTXCONF_GCC_MULTILIB is not set
+PTXCONF_BINUTILS_2_16_1=y
+# PTXCONF_BINUTILS_2_15 is not set
+# PTXCONF_BINUTILS_2_14_90_0_5 is not set
+# PTXCONF_BINUTILS_2_14 is not set
+PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
+PTXCONF_BINUTILS_VERSION="2.16.1"
+
+#
+# Cross Debugging Tools
+#
+# PTXCONF_CROSS_GDB is not set
+
+#
+# Other Tools
+#
+# PTXCONF_XCHAIN-DISTCC is not set
+# PTXCONF_XCHAIN-SCONS is not set
+
+#
+# Debugging Tools             
+#
+# PTXCONF_CPPUNIT is not set
+# PTXCONF_GDBSERVER is not set
+# PTXCONF_GDB is not set
+# PTXCONF_HOST_KSYMOOPS is not set
+
+#
+# LTT is broken, please send a patch
+#
+# PTXCONF_LIBBFD is not set
+# PTXCONF_MEMTEST is not set
+# PTXCONF_MEMTESTER is not set
+# PTXCONF_STRACE is not set
+
+#
+# ----------------------------------
+#
+
+#
+# Core (Kernel, C-Library)    
+#
+
+#
+# Kernel              
+#
+
+#
+# ----------------------------------
+#
+
+#
+# Target Kernel
+#
+
+#
+# ----------------------------------
+#
+PTXCONF_KERNEL_2_6=y
+# PTXCONF_KERNEL_2_6_15 is not set
+PTXCONF_KERNEL_2_6_14=y
+# PTXCONF_KERNEL_2_6_13 is not set
+# PTXCONF_KERNEL_2_6_12 is not set
+# PTXCONF_KERNEL_2_6_11 is not set
+# PTXCONF_KERNEL_2_6_10 is not set
+# PTXCONF_KERNEL_2_6_9 is not set
+# PTXCONF_KERNEL_2_6_8 is not set
+# PTXCONF_KERNEL_2_6_7 is not set
+# PTXCONF_KERNEL_2_6_6 is not set
+# PTXCONF_KERNEL_2_6_1 is not set
+# PTXCONF_KERNEL_2_6_0 is not set
+# PTXCONF_KERNEL_2_4_27 is not set
+# PTXCONF_KERNEL_2_4_26 is not set
+# PTXCONF_KERNEL_2_4_25 is not set
+# PTXCONF_KERNEL_2_4_23 is not set
+# PTXCONF_KERNEL_2_4_22 is not set
+# PTXCONF_KERNEL_2_4_21 is not set
+# PTXCONF_KERNEL_2_4_20 is not set
+# PTXCONF_KERNEL_2_4_19 is not set
+
+#
+# C Library           
+#
+PTXCONF_GLIBC=y
+# PTXCONF_UCLIBC is not set
+
+#
+# C Library options
+#
+PTXCONF_GLIBC_2_3_6=y
+# PTXCONF_GLIBC_2_3_5 is not set
+# PTXCONF_GLIBC_2_3_4 is not set
+# PTXCONF_GLIBC_2_3_3 is not set
+# PTXCONF_GLIBC_2_3_2 is not set
+# PTXCONF_GLIBC_2_2_5 is not set
+# PTXCONF_GLIBC_2_2_4 is not set
+# PTXCONF_GLIBC_2_2_3 is not set
