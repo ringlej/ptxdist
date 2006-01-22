@@ -311,7 +311,7 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_BANNER
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
 	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK),"")
-	@$(call install_link, /etc/init.d/banner, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK))
+	@$(call install_link, ../init.d/banner, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK))
 endif
 endif
 
