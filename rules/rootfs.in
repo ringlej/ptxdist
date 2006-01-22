@@ -647,5 +647,55 @@ menuconfig ROOTFS_ETC_INITD_PUREFTPD
 		  Set a link into /etc/rc.d which points to /etc/init.d/pure-ftpd to
 		  start pure ftp daemon when system starts.
 
+########################## thin httpd  ##########################################
+
+comment "thin httpd: select thttpd"
+	depends on ROOTFS_ETC_INITD && !THTTPD
+
+menuconfig ROOTFS_ETC_INITD_THTTPD
+	depends on ROOTFS_ETC_INITD && THTTPD
+	bool
+	default y
+	prompt "thin httpd (thttpd)       "
+	help
+	  The /etc/init.d/thttpd script lets you control the thin http daemon.
+
+	choice
+		prompt "Kind of startup scrict"
+		depends on ROOTFS_ETC_INITD_THTTPD
+		default ROOTFS_ETC_INITD_THTTPD_DEFAULT
+
+		config ROOTFS_ETC_INITD_THTTPD_DEFAULT
+			bool
+			prompt "Use default thttpd script"
+			help
+			  The file from projects/generic/etc/init.d/thttpd will be used.
+
+		config ROOTFS_ETC_INITD_THTTPD_USER
+			bool
+			prompt "Use your own thttpd script file"
+			help
+			  Select this, then you can enter a path and filename to your
+			  own thttpd startup script.
+	endchoice
+
+	config ROOTFS_ETC_INITD_THTTPD_USER_FILE
+		depends on ROOTFS_ETC_INITD_THTTPD
+		depends on ROOTFS_ETC_INITD_THTTPD_USER
+		prompt "Path and name of your own thttpd script to be used"
+		string
+		default ""
+		help
+		  Enter a path and filename to be used as thttpd script on your target.
+
+	config ROOTFS_ETC_INITD_THTTPD_LINK
+		depends on ROOTFS_ETC_INITD_THTTPD
+		string
+		prompt "link name in /etc/rc.d"
+		default "S10_thttpd"
+		help
+		  Set a link into /etc/rc.d which points to /etc/init.d/thttpd to
+		  start thin http daemon when system starts.
+
 ########################## ? ##########################################
 

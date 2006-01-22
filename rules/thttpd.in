@@ -1,8 +1,8 @@
 menuconfig THTTPD
-	bool 
+	bool
 	prompt "thttpd              "
 	help
-	  thttpd is a small, fast secure webserver. 
+	  thttpd (thin httpd) is a small, fast secure webserver. 
 	  
 	  It features CGI support, URL-traffic-based throttling 
 	  and basic authentication. thttpd has a very small memory 

@@ -115,7 +115,17 @@ $(STATEDIR)/thttpd.targetinstall: $(thttpd_targetinstall_deps_default)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 	@$(call install_copy, 0, 0, 0755, $(THTTPD_DIR)/thttpd, /usr/sbin/thttpd)
+ifdef PTXCONF_ROOTFS_ETC_INITD_THTTPD
+ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_USER_FILE)),)
+	@$(call install_copy, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_THTTPD_USER_FILE), /etc/init.d/thttpd, n)
+else
 	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/thttpd, /etc/init.d/thttpd, n)
+endif
+endif
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK),"")
+	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, ../init.d/thttpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK))
+endif
 
 	@$(call install_finish)
 	@$(call touch, $@)
