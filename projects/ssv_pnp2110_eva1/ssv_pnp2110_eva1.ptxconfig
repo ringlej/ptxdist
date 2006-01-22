@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.9.0-svn
-# Thu Jan 19 09:28:46 2006
+# Sun Jan 22 16:13:42 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -1111,6 +1111,7 @@ PTXCONF_INETUTILS=y
 PTXCONF_INETUTILS_PING=y
 # PTXCONF_INETUTILS_RCP is not set
 # PTXCONF_INETUTILS_RLOGIND is not set
+# PTXCONF_INETUTILS_RSH is not set
 # PTXCONF_INETUTILS_RSHD is not set
 # PTXCONF_INETUTILS_SYSLOGD is not set
 # PTXCONF_CGICC is not set
@@ -1280,6 +1281,7 @@ PTXCONF_E2FSPROGS_TUNE2FS=y
 PTXCONF_IPKG=y
 # PTXCONF_IPKG_EXTRACT_TEST is not set
 # PTXCONF_IPKG_HASH_TEST is not set
+# PTXCONF_IPKG_LOG_WRAPPER is not set
 # PTXCONF_CRAMFS is not set
 # PTXCONF_BONNIEXX is not set
 

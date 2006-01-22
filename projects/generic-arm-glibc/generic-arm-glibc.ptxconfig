@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.9.0-svn
-# Thu Jan 19 09:30:04 2006
+# Sun Jan 22 16:15:05 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y

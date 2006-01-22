@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.9.0-svn
-# Thu Jan 19 09:29:07 2006
+# Sun Jan 22 16:14:32 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -100,6 +100,7 @@ PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 PTXCONF_CROSSTOOL=y
 PTXCONF_CROSSTOOL_VERSION_0_38=y
 # PTXCONF_CROSSTOOL_VERSION_0_32 is not set
+# PTXCONF_GCC_4_0_2 is not set
 # PTXCONF_GCC_3_4_5 is not set
 # PTXCONF_GCC_3_4_4 is not set
 # PTXCONF_GCC_3_4_3 is not set
