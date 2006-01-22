@@ -175,6 +175,8 @@ ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-uploadscript, /usr/sbin/pure-uploadscript, n)
 endif
 
+	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/configuration-file/pure-ftpd.conf, /etc/pure-ftpd.defaults)
+
 	@$(call install_finish)
 
 	@$(call touch, $@)
