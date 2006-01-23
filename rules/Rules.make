@@ -283,10 +283,13 @@ CROSS_ENV_DESTDIR := \
 #
 
 CROSS_AUTOCONF_SYSROOT_USR := \
-	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=/usr --sysconfdir=/etc)
+	$(call remove_quotes,--prefix=/usr --sysconfdir=/etc)
 
 CROSS_AUTOCONF_SYSROOT_ROOT := \
-	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=/)
+	$(call remove_quotes,-prefix=/)
+
+CROSS_AUTOCONF_ARCH := \
+	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
 
 CROSS_AUTOCONF_BROKEN_USR := \
 	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=$(SYSROOT))
@@ -300,8 +303,8 @@ CROSS_ENV := \
 	$(CROSS_ENV_AC) \
 	$(CROSS_ENV_DESTDIR)
 
-CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR)
-CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT)
+CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR) $(CROSS_AUTOCONF_ARCH)
+CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) $(CROSS_AUTOCONF_ARCH)
 
 else
 
@@ -311,8 +314,8 @@ CROSS_ENV := \
 	$(CROSS_ENV_PKG_CONFIG) \
 	$(CROSS_ENV_DESTDIR)
 
-CROSS_AUTOCONF_USR  :=
-CROSS_AUTOCONF_ROOT :=
+CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR) 
+CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) 
 
 endif
 
