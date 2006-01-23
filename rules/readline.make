@@ -59,8 +59,9 @@ $(STATEDIR)/readline.extract: $(readline_extract_deps_default)
 
 readline_prepare: $(STATEDIR)/readline.prepare
 
-READLINE_PATH	=  PATH=$(CROSS_PATH)
-READLINE_ENV 	=  $(CROSS_ENV)
+READLINE_PATH	  =  PATH=$(CROSS_PATH)
+READLINE_ENV 	  =  $(CROSS_ENV)
+READLINE_MAKEVARS = DESTDIR=$(SYSROOT)
 
 #
 # autoconf
@@ -94,7 +95,10 @@ readline_install: $(STATEDIR)/readline.install
 
 $(STATEDIR)/readline.install: $(readline_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, READLINE)
+	cd $(READLINE_DIR) && \
+		$(READLINE_ENV) $(READLINE_PATH) \
+		make install \
+		$(READLINE_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
