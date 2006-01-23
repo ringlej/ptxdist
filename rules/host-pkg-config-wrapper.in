@@ -1,11 +1,6 @@
 config HOST_PKG_CONFIG_WRAPPER
         bool
-        default N
-        depends on BROKEN
-        prompt "HOST_PKG_CONFIG_WRAPPER"
+        default y
 	help
-	  FIXME: This item needs to be documented
-	
-
-comment "HOST_PKG_CONFIG_WRAPPER is broken, please send a patch"
-        depends on !BROKEN
+	  This is a wrapper for pkg-config which has proper support for
+	  sysroot/destdir.

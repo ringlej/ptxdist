@@ -27,7 +27,7 @@ ifdef PTXCONF_IMAGE_HOST_DEB
 virtual-xchain_install_deps	+= $(STATEDIR)/host-checkinstall.install
 endif
 
-ifdef PTXCONF_IMAGE_JFFS2                                                                                                                 
+ifdef PTXCONF_IMAGE_JFFS2
 virtual-xchain_install_deps	+=  $(STATEDIR)/host-mtd.install
 endif
 
