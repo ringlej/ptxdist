@@ -825,7 +825,7 @@ distclean: clean
 
 svn-up:
 	@$(call targetinfo, Updating in Toplevel)
-	@cd $(PTXDIST_WORKSPACE) && svn update
+	@cd $(PTXDIST_TOPDIR) && svn update
 	@if [ -d "$(PROJECTDIR)" ]; then				\
 		$(call targetinfo, Updating in PROJECTDIR);		\
 		cd $(PROJECTDIR);					\
@@ -835,7 +835,7 @@ svn-up:
 
 svn-stat:
 	@$(call targetinfo, svn stat in Toplevel)
-	@cd $(PTXDIST_WORKSPACE) && svn stat
+	@cd $(PTXDIST_TOPDIR) && svn stat
 	@if [ -d "$(PROJECTDIR)" ]; then				\
 		$(call targetinfo, svn stat in PROJECTDIR);		\
 		cd $(PROJECTDIR);					\
