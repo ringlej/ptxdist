@@ -734,11 +734,12 @@ install = \
 	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
 	[ "$(strip $(3))" != "h" ] && DESTDIR="$(SYSROOT)";		\
 	cd $$BUILDDIR &&						\
-		$($(strip $(1))_ENV)					\
+		echo "$($(strip $(1))_ENV)				\
 		$($(strip $(1))_PATH)					\
 		make install $(4)					\
 		$($(strip $(1))_MAKEVARS)				\
-		DESTDIR=$$DESTDIR;
+		DESTDIR=$$DESTDIR;"					\
+		| $(FAKEROOT) --
 endif
 
 
