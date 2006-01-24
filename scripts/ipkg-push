@@ -170,5 +170,11 @@ for packet in $IPKG_PACKETS; do
 	rm -f $POOL/$packet
 done
 
+# Everything finished, create the packet index
+
+echo "creating index.....: "
+
+(cd $REPODIR/$PROJECT/dists/$DIST && ipkg-make-index . > Packages)
+
 exit
 
