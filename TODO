@@ -7,6 +7,13 @@ SYSROOT/DESTDIR migration
 - audit for CROSS_AUTOCONF in project files
 - audit for CROSS_LIB_DIR, replace everything by SYSROOT/lib
 
+PKG_CONFIG_PATH
+---------------
+
+- problem: PKG_CONFIG_PATH is not exported to children
+- solution: export PKG_CONFIG_PATH in all packets
+- write macros for standard configure and compile
+
 Interesting packets
 -------------------
 
