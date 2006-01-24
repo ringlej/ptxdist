@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_IPKG) += ipkg
 #
 # Paths and names
 #
-IPKG_VERSION		= 0.99.154
+IPKG_VERSION		= 0.99.157
 IPKG			= ipkg-$(IPKG_VERSION)
 IPKG_SUFFIX		= tar.gz
-IPKG_URL		= http://www.handhelds.org/download/packages/ipkg/$(IPKG).$(IPKG_SUFFIX)
+IPKG_URL		= http://handhelds.org/download/packages/ipkg/$(IPKG).$(IPKG_SUFFIX)
 IPKG_SOURCE		= $(SRCDIR)/$(IPKG).$(IPKG_SUFFIX)
 IPKG_DIR		= $(BUILDDIR)/$(IPKG)
 
