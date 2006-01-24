@@ -6,6 +6,12 @@ config INETUTILS
 	help
 	  FIXME: This item needs to be documented
 
+config INETUTILS_INETD
+	bool
+	prompt "inetd"
+	default n
+	depends on INETUTILS
+
 config INETUTILS_PING
 	bool
 	prompt "ping"
@@ -43,6 +49,7 @@ config INETUTILS_RSHD
 	prompt "rshd"
 	default n
 	depends on INETUTILS
+	select INETUTILS_INETD
 	help
 	  FIXME: This item needs to be documented
 
