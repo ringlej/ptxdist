@@ -1,0 +1,15 @@
+menu    "liblockfile       "
+
+config LIBLOCKFILE
+        bool
+        prompt "dotlockfile"
+	default n
+	help
+	  Dotlockfile is a command line utility to safely create, 
+	  test and remove lockfiles. Lockfiles are created in an 
+	  NFS-safe way. Dotlockfile can can also be used to lock 
+	  and unlock mailboxes even if the mailspool directory 
+	  is only writable by group mail. However, its use is not
+	  restricted to mail 
+		 
+endmenu

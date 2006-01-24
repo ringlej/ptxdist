@@ -89,6 +89,7 @@ source "rules/ipkg.in"
 source "rules/lilo.in"
 source "rules/cramfs.in"
 source "rules/bonniexx.in"
+source "rules/liblockfile.in"
 endmenu
 
 menu "Communication Utilities     "
