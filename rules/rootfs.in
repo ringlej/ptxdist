@@ -357,6 +357,14 @@ config ROOTFS_ETC_INITD_RCS
 	  Its main purpose is to run the other init scripts by calling
 	  run-parts. 
 
+config ROOTFS_ETC_INITD_LOGROTATE
+	bool
+	prompt "minimal logrotate"
+	depends on ROOTFS_ETC_INITD
+	default n
+	help
+	  The /etc/init.d/logrotate script is a minimal logrotator.
+
 menuconfig ROOTFS_ETC_INITD_NETWORKING
 	depends on ROOTFS_ETC_INITD
 	bool

@@ -253,6 +253,10 @@ ifdef PTXCONF_ROOTFS_ETC_INITD
 	@$(call install_copy, 0, 0, 0755, /etc/init.d)
 	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/rcS,        /etc/init.d/rcS, n)
 
+ifdef ROOTFS_ETC_INITD_LOGROTATE
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/logrotate, /etc/init.d/logrotate, n)
+endif
+
 ifdef PTXCONF_ROOTFS_ETC_INITD_NETWORKING
 	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/networking, /etc/init.d/networking, n)
 	@$(call install_copy, 0, 0, 0755, /etc/network/if-down.d)
