@@ -93,7 +93,9 @@ host-fakeroot_install: $(STATEDIR)/host-fakeroot.install
 
 $(STATEDIR)/host-fakeroot.install: $(host-fakeroot_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, HOST_FAKEROOT,,h)
+	cd $(HOST_FAKEROOT_DIR) &&					\
+		$(HOST_FAKEROOT_ENV) $(HOST_FAKEROOT_PATH) 		\
+		make install $(HOST_FAKEROOT_MAKEVARS)			
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
