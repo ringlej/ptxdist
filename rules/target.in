@@ -303,10 +303,6 @@ config ARCH_USERSPACE
 	default "hppa"			if ARCH_PARISC
 	default "sh"			if ARCH_SH
 
-config ARM_PROC
-	string
-	default "armv" if ARCH_ARM || ARCH_ARM_NOMMU
-
 comment "Paths & Directories"
 
 config PREFIX
