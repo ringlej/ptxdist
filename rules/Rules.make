@@ -31,7 +31,7 @@ WGET		= \
 	eval \
 	$${ptx_http_proxy:+http_proxy=$${ptx_http_proxy}} \
 	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
-	wget --cache=off
+	wget --cache=off --passive-ftp
 MAKE		= make
 MAKE_INSTALL	= make install
 PATCH		= patch
@@ -511,18 +511,13 @@ get =								\
 		echo;						\
 		exit -1;					\
 	fi;							\
-	[ "$$(expr match $$URL http://)" != "0" ] && URLTYPE="http"; \
-	[ "$$(expr match $$URL ftp://)" != "0" ] && URLTYPE="ftp";   \
-	[ "$$(expr match $$URL file://)" != "0" ] && URLTYPE="file"; \
 	SRC="$(strip $(2))";					\
 	SRC=$${SRC:-$(SRCDIR)};					\
 	[ -d $$SRC ] || $(MKDIR) -p $$SRC;			\
-	[ "$(PTXCONF_SETUP_FTP_PROXY)" != "" ] && FTPPROXY="-Yon";	\
-	[ "$(PTXCONF_SETUP_HTTP_PROXY)" != "" ] && HTTPPROXY="-Yon";	\
-	case $$URLTYPE in 						\
-	http)								\
-		$(WGET) -P $$SRC --passive-ftp $$HTTPPROXY $$URL;	\
-		[ $$? -eq 0 ] || {					\
+	case $$URL in 						\
+	http*)							\
+		$(WGET) -P $$SRC $$URL;				\
+		[ $$? -eq 0 ] || {				\
 			echo;					\
 			echo "Could not get packet via http!";	\
 			echo "URL: $$URL";			\
@@ -530,9 +525,9 @@ get =								\
 			exit -1;				\
 			};					\
 		;;						\
-	ftp)								\
-		$(WGET) -P $$SRC --passive-ftp $$FTPPROXY $$URL;	\
-		[ $$? -eq 0 ] || {					\
+	ftp*)							\
+		$(WGET) -P $$SRC $$URL;				\
+		[ $$? -eq 0 ] || {				\
 			echo;					\
 			echo "Could not get packet via ftp!";	\
 			echo "URL: $$URL";			\
@@ -540,7 +535,7 @@ get =								\
 			exit -1;				\
 			};					\
 		;;						\
-	file)							\
+	file*)							\
 		FILE="$$(echo $$URL | sed s-file://-/-g)";	\
 		$(CP) -av $$FILE $$SRC;				\
 		[ $$? -eq 0 ] || {				\
@@ -589,15 +584,12 @@ get_feature_patch =						\
 		echo "Error: empty feature patch name or URL";	\
 		echo;						\
 		exit -1;					\
-	fi;											\
+	fi;							\
 	FP_DIR="$(PTXCONF_SETUP_LOCAL_FEATUREPATCH_REPOSITORY)/$$FP_NAME/";			\
-	[ -d $$FP_DIR ] || $(MKDIR) -p $$FP_DIR;						\
-	[ "$$(expr match $$FP_URL http://)" != "0" ] && FP_URLTYPE="http"; 			\
-	[ "$$(expr match $$FP_URL ftp://)" != "0" ]  && FP_URLTYPE="ftp";  			\
-	[ "$$(expr match $$FP_URL file://)" != "0" ] && FP_URLTYPE="file"; 			\
-	case $$FP_URLTYPE in                                    \
-	http)                                                   \
-		$(WGET) -np -nd -nH --cut-dirs=0 -P $$FP_DIR --passive-ftp $$FP_URL; \
+	[ -d $$FP_DIR ] || $(MKDIR) -p $$FP_DIR;		\
+	case $$FP_URL in                                    	\
+	http*)                                                   \
+		$(WGET) -np -nd -nH --cut-dirs=0 -P $$FP_DIR $$FP_URL; \
 		[ $$? -eq 0 ] || {                              \
 			echo;                                   \
 			echo "Could not get feature patch via http!";  \
@@ -606,8 +598,8 @@ get_feature_patch =						\
 			exit 1;                                 \
 			};                                      \
 		;;                                              \
-	ftp)                                                    \
-		$(WGET) -np -nd -nH --cut-dirs=0 -P $$FP_DIR --passive-ftp $$FP_URL; \
+	ftp*)                                                    \
+		$(WGET) -np -nd -nH --cut-dirs=0 -P $$FP_DIR $$FP_URL; \
 		[ $$? -eq 0 ] || {                              \
 			echo;                                   \
 			echo "Could not get feature patch via ftp!";   \
@@ -616,7 +608,7 @@ get_feature_patch =						\
 			exit 1;                                 \
 			};                                      \
 		;;                                              \
-	file)                                                   \
+	file*)                                                  \
 		FP_FILE="$$(echo $$FP_URL | sed s-file://-/-g)";\
 		$(CP) -av $$FP_FILE $$FP_DIR;			\
 		[ $$? -eq 0 ] || {                              \
@@ -695,7 +687,7 @@ get_option =										\
 get_option_ext =									\
 	$(shell										\
 		REGEX="$(strip $(1))";							\
-		if [ -f $(PTXDIST_WORKSPACE)/.config ]; then					\
+		if [ -f $(PTXDIST_WORKSPACE)/.config ]; then				\
 			$(CAT) $(PTXDIST_WORKSPACE)/.config | sed -n -e "$${REGEX}p" | $(2);	\
 		fi;									\
 	)
