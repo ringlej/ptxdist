@@ -27,7 +27,7 @@ ifneq ($(MAKEFILE_LIST),)
  TOPLEVEL_MAKEFILE := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
  TOPLEVEL_MAKEFILE := $(shell \
 	if [ -L "$(TOPLEVEL_MAKEFILE)" ]; then \
-		find $(TOPLEVEL_MAKEFILE) -printf "%l"; \
+		readlink $(TOPLEVEL_MAKEFILE); \
 	else \
 		echo "$(TOPLEVEL_MAKEFILE)"; \
 	fi \
@@ -526,7 +526,7 @@ check_problematic_configs = 								\
 	fi;										\
 	echo "checking \$$PTXDIST_WORKSPACE/rules";					\
 	test -e "$(PTXDIST_WORKSPACE)/rules" || ln -sf $(PTXDIST_TOPDIR)/rules $(PTXDIST_WORKSPACE)/rules
-		
+
 
 menuconfig: $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
 	@$(call check_problematic_configs)
