@@ -95,6 +95,9 @@ ifdef PTXCONF_INETUTILS_PING
 endif
 
 # Now the tools: 
+ifdef PTXCONF_INETUTILS_INETD
+	cd $(INETUTILS_DIR)/inetd && $(INETUTILS_PATH) make
+endif
 ifdef PTXCONF_INETUTILS_PING
 	cd $(INETUTILS_DIR)/ping && $(INETUTILS_PATH) make
 endif
@@ -143,6 +146,9 @@ $(STATEDIR)/inetutils.targetinstall: $(inetutils_targetinstall_deps_default)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
+ifdef PTXCONF_INETUTILS_INETD
+	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/inetd/inetd, /usr/sbin/inetd)
+endif
 ifdef PTXCONF_INETUTILS_PING
 	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/ping/ping, /bin/ping)
 endif
