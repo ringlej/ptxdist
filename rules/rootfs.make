@@ -243,6 +243,32 @@ endif
 ifdef PTXCONF_ROOTFS_GENERIC_RESOLV
 	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/resolv.conf,  /etc/resolv.conf, n)
 endif
+ifdef PTXCONF_ROOTFS_GENERIC_INETD
+	inetdconf=`mktemp`; \
+	servicesfile=`mktemp`; \
+	cp $(PTXDIST_TOPDIR)/projects/generic/etc/inetd.conf $$inetdconf; \
+	cp $(PTXDIST_TOPDIR)/projects/generic/etc/services $$servicesfile; \
+	if [ "$(PTXCONF_INETUTILS_RSHD)" = "y" ]; then \
+		sed -ie "s,@RSHD@,shell stream tcp nowait root /usr/sbin/rshd,g" $$inetdconf; \
+		sed -ie "s,@RSHD@,shell 514/tcp cmd,g" $$servicesfile; \
+	else \
+		sed -ie "s,@RSHD@,,g" $$inetdconf; \
+		sed -ie "s,@RSHD@,,g" $$servicesfile; \
+	fi; \
+	if [ "$(PTXCONF_NTP)$(PTXCONF_CHRONY)" != "" ]; then \
+		sed -ie "s,@NTP@,ntp 123/tcp\nntp 123/udp,g" $$servicesfile; \
+	else \
+		sed -ie "s,@NTP@,,g" $$servicesfile; \
+	fi; \
+	echo "inetd.conf:"; \
+	cat $$inetdconf; \
+	echo "services:"; \
+	cat $$servicesfile; \
+	$(call install_copy, 0, 0, 0644, $$inetdconf, /etc/inetd.conf, n); \
+	$(call install_copy, 0, 0, 0644, $$servicesfile, /etc/services, n); \
+	rm -f $$inetdconf; \
+	rm -f $$servicesfile
+endif
 ifdef PTXCONF_ROOTFS_GENERIC_SHADOW
 	@$(call install_copy, 0, 0, 0640, $(PTXDIST_TOPDIR)/projects/generic/etc/shadow,       /etc/shadow, n)
 	@$(call install_copy, 0, 0, 0600, $(PTXDIST_TOPDIR)/projects/generic/etc/shadow-,      /etc/shadow-, n)
