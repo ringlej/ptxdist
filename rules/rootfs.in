@@ -128,7 +128,8 @@ config ROOTFS_PROC
 	prompt "/proc"
 	default y 
 	help
-	  FIXME: This item needs to be documented
+	  Create a /proc directory in the root filesystem.
+	  You should say yes here.
 
 config ROOTFS_SYS
 	depends on ROOTFS
@@ -136,7 +137,8 @@ config ROOTFS_SYS
 	prompt "/sys"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  Create a /sys directory in the root filesystem.
+	  2.6 kernel users should say yes here.
 
 config ROOTFS_TMP
 	depends on ROOTFS
@@ -144,7 +146,8 @@ config ROOTFS_TMP
 	prompt "/tmp"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  Create a /tmp directory in the root filesystem.
+	  You should say yes here.
 
 config ROOTFS_VAR
 	depends on ROOTFS
@@ -152,7 +155,8 @@ config ROOTFS_VAR
 	prompt "/var"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  Create a /var directory in the root filesystem.
+	  You should say yes here.
 
 config ROOTFS_VAR_RUN
 	depends on ROOTFS_VAR
@@ -160,7 +164,9 @@ config ROOTFS_VAR_RUN
 	prompt "/var/run"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  Create a /var/run directory in the root filesystem.
+	  Unless you want to mount a tmpfs on /var you should
+	  say yes here.
 
 config ROOTFS_VAR_LOG
 	depends on ROOTFS_VAR
@@ -168,7 +174,19 @@ config ROOTFS_VAR_LOG
 	prompt "/var/log"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  Create a /var/log directory in the root filesystem.
+	  Unless you want to mount a tmpfs on /var you should
+	  say yes here.
+
+config ROOTFS_VAR_LOCK
+	depends on ROOTFS_VAR
+	bool
+	prompt "/var/lock"
+	default y
+	help
+	  Create a /var/lock directory in the root filesystem.
+	  Unless you want to mount a tmpfs on /var you should
+	  say yes here.
 
 comment "----------------------------------"
 comment "Generic Config Files in /etc"
