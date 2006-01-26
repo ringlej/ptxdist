@@ -163,6 +163,11 @@ endif
 ifdef PTXCONF_ROOTFS_GENERIC_FSTAB
 	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/fstab, /etc/fstab, n)
 endif
+
+ifdef PTXCONF_ROOTFS_GENERIC_MTAB
+	@$(call install_link, /proc/mounts, /etc/mtab)
+endif
+
 ifdef PTXCONF_ROOTFS_GENERIC_GROUP
 	@$(call install_copy, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/group,        /etc/group, n)
 	@$(call install_copy, 0, 0, 0640, $(PTXDIST_TOPDIR)/projects/generic/etc/gshadow,      /etc/gshadow, n)

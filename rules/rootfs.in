@@ -200,6 +200,24 @@ config ROOTFS_GENERIC_FSTAB
 	help
 	  Installs a generic /etc/fstab file.
 
+config ROOTFS_GENERIC_MTAB
+	depends on ROOTFS
+	bool
+	prompt "generic /etc/mtab"
+	default y
+	help
+	  Installs a link to /proc/mounts
+	  as /etc/mtab. Some tools like those 
+	  from the e2fs-tools suite need this
+	  file to function properly. However, 
+	  it is a good idea to keep this file
+	  around, since a real /etc/mtab would
+	  have to be read-write to be accurate, 
+	  which is not a good idea in embedded 
+	  environments with ro-mounted rootfs.
+
+	  The Default is therefore: Yes 
+
 config ROOTFS_GENERIC_GROUP
 	depends on ROOTFS
 	bool
