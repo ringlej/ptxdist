@@ -375,6 +375,27 @@ config ROOTFS_ETC_INITD_RCS
 	  Its main purpose is to run the other init scripts by calling
 	  run-parts. 
 
+menuconfig ROOTFS_ETC_INITD_INETD
+	depends on ROOTFS_ETC_INITD
+	bool
+	default n
+	prompt "inetd                     "
+	select FIXME
+	help
+	  When enabled, this option installs the generic
+	  /etc/init.d/inetd file. This script starts
+	  your internet super server (inetd).
+
+	config ROOTFS_ETC_INITD_INETD_LINK
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_INETD
+		string
+		prompt "link name in /etc/rcS"
+		default "S11_inetd"
+		help
+		  Set a link to with this name in /etc/rc.d which points to 
+		  /etc/init.d/inetd. 
+
 config ROOTFS_ETC_INITD_LOGROTATE
 	bool
 	prompt "minimal logrotate"

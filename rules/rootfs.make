@@ -249,6 +249,12 @@ endif
 	#
 	# Startup scripts in /etc/init.d
 	#
+ifdef ROOTFS_ETC_INITD_INETD
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/inetd, /etc/init.d/inetd, n)
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK),"")
+	@$(call install_link, /etc/init.d/inetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK))
+endif
+endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD
 
