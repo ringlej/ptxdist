@@ -348,6 +348,14 @@ config ROOTFS_GENERIC_RESOLV
 	help
 	  Install a generic /etc/resolv.conf file.
 
+config ROOTFS_GENERIC_INETD
+	depends on ROOTFS
+	bool
+	prompt "/etc/inetd.conf"
+	default y
+	help
+	  Install a generic /etc/inetd.conf file.
+
 config ROOTFS_GENERIC_SHADOW
 	depends on ROOTFS
 	bool
