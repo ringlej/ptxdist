@@ -145,7 +145,7 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps_default)
 ifdef PTXCONF_BB_CONFIG_VI
 	vimfile=`mktemp`; \
 	echo "#!/bin/sh" >> $$vimfile; \
-	echo "/usr/bin/vi $*" >> $$vimfile; \
+	echo "/bin/vi $*" >> $$vimfile; \
 	@$(call install_copy, 0, 0, 0755, $$vimfile, /usr/bin/vim); \
 	rm $$vimfile
 endif
