@@ -326,7 +326,7 @@ diff -urN -x .svn kconfig-2.6.14/mconf.c kconfig/mconf.c
  	{
  		if (sym->name) {
 -			str_printf(&help, "CONFIG_%s:\n\n", sym->name);
-+			str_printf(&help, CFGSYM "%s:\n\n%s", sym->name, help);
++			str_printf(&help, CFGSYM "%s:\n\n", sym->name);
  			str_append(&help, _(sym->help));
  			str_append(&help, "\n");
  		}
