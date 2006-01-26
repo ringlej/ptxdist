@@ -380,7 +380,7 @@ menuconfig ROOTFS_ETC_INITD_INETD
 	bool
 	default n
 	prompt "inetd                     "
-	select FIXME
+	select INETUTILS_INETD
 	help
 	  When enabled, this option installs the generic
 	  /etc/init.d/inetd file. This script starts
