@@ -14,7 +14,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_GCCLIBS_GCC_S) += gcclibs
+PACKAGES-$(PTXCONF_GCCLIBS) += gcclibs
 
 -include $(call package_depfile)
 
