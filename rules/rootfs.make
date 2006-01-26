@@ -152,6 +152,9 @@ endif
 ifdef PTXCONF_ROOTFS_VAR_RUN
 	@$(call install_copy, 0, 0, 0755, /var/run)
 endif
+ifdef PTXCONF_ROOTFS_VAR_LOCK
+	@$(call install_copy, 0, 0, 0755, /var/lock)
+endif
 
 	#
 	# Files in /etc directory
