@@ -5,9 +5,6 @@
 
 PATH=/sbin:/bin:/usr/bin
 BINARY=/usr/sbin/inetd
-PIDFILE="/var/run/inetd.pid"
-
-HARD=false
 
 # --- nothing to change after this line ---
 
@@ -15,22 +12,13 @@ test -f $BINARY || { echo "$BINARY not found" >&2 ; exit 0; }
 
 start_proc() {
 	echo -n "Starting INETD server: inetd ..."
-	test -f "$PIDFILE" && ( echo "pid-file exists" >&2 ; exit 0; )
-	$BINARY -p $PIDFILE -c $CONFIG
+	$BINARY
 	echo "DONE"
 }
 
 stop_proc() {
 	echo -n "Stopping INETD server: inetd ..."
-	test -f "$PIDFILE"
-	case $? in
-		0)
-			kill `cat $PIDFILE` && rm -f $PIDFILE
-			;;
-		*)
-			if [ "$HARD" = "true" ] ; then killall inetd; fi
-			;;
-	esac
+	killall inetd
 	echo "DONE"
 }
 
