@@ -142,6 +142,9 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps_default)
 		$(call install_link, /bin/busybox, $$file);	\
 	done
 
+ifdef PTXCONF_BB_CONFIG_VI
+	@$(call install_link, vi, /usr/bin/vim)
+endif
 	@$(call install_finish)
 
 	@$(call touch, $@)
