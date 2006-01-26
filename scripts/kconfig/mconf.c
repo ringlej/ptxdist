@@ -851,7 +851,7 @@ static void show_help(struct menu *menu)
 	if (sym->help)
 	{
 		if (sym->name) {
-			str_printf(&help, CFGSYM "%s:\n\n%s", sym->name, help);
+			str_printf(&help, CFGSYM "%s:\n\n", sym->name);
 			str_append(&help, _(sym->help));
 			str_append(&help, "\n");
 		}
