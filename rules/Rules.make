@@ -725,6 +725,7 @@ install = \
 	BUILDDIR="$($(strip $(1))_DIR)";				\
 	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
 	[ "$(strip $(3))" != "h" ] && DESTDIR="$(SYSROOT)";		\
+	mkdir -p $$DESTDIR;						\
 	cd $$BUILDDIR &&						\
 		echo "$($(strip $(1))_ENV)				\
 		$($(strip $(1))_PATH)					\
