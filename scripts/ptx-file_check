@@ -100,6 +100,16 @@ while [ $# -gt 0 ]; do
 				shift 1 ;
 			fi
 			;;
+                --store)
+			check_argument $2  		
+			if [ "$?" = "0" ] ; then 
+				STORE="$2";      		
+				shift 2 ;
+			else	
+				debug_out "skipping option $1";
+				shift 1 ;
+			fi
+			;;
                 --report)
 			REPORT="true";      		
 			shift 1 ;
@@ -171,6 +181,47 @@ check_md5(){
 	fi 
 }
 
+create_ipkglist(){
+	which ipkg 2>&1 >/dev/null || return
+	if [ -d "$ROOT" ]; then 
+		cd $ROOT
+		debug_out "ROOT Directory is >$(pwd)<"
+		RELEASEDIR=$STORE/$RELEASE
+		mkdir -p "$RELEASEDIR" || my_exit "mkdir $ROOT/$RELEASEDIR failed" 1
+		ipkg list > $RELEASEDIR/ipkg.list
+		LC_ALL=C sort -u $RELEASEDIR/ipkg.list > $RELEASEDIR/ipkg.list.tmp && mv $RELEASEDIR/ipkg.list.tmp $RELEASEDIR/ipkg.list
+	else
+		my_exit "directory $ROOT was not found" 1
+	fi 
+}
+
+check_ipkglist(){
+	which ipkg 2>&1 >/dev/null || return
+	if [ -d "$ROOT" ]; then 
+		cd $ROOT
+		debug_out "ROOT Directory is >$(pwd)<"
+		RELEASEDIR=$STORE/$RELEASE
+		[ -d "$RELEASEDIR" ] || my_exit "release >$RELEASE< invalid" 1
+		[ -e "$RELEASEDIR/ipkg.list" ] || return
+		LOCALSTATSDIR=$STORE/$LOCALSTATS
+		mkdir -p "$LOCALSTATSDIR" || my_exit "mkdir $ROOT/$LOCALSTATSDIR failed" 1
+		ipkg list > $LOCALSTATSDIR/ipkg.list
+		LC_ALL=C sort -u $LOCALSTATSDIR/ipkg.list > $LOCALSTATSDIR/ipkg.list.tmp && mv $LOCALSTATSDIR/ipkg.list.tmp $LOCALSTATSDIR/ipkg.list
+		echo "# $(date)" > $LOCALSTATSDIR/check-ipkglist.status
+		echo "# These package versions differ from release $RELEASE:" >> $LOCALSTATSDIR/check-ipkglist.status
+		echo "# " >> $LOCALSTATSDIR/check-ipkglist.status
+		echo "----------- START ------------" >> $LOCALSTATSDIR/check-ipkglist.status
+		diff $RELEASEDIR/ipkg.list $LOCALSTATSDIR/ipkg.list | egrep ">" | sed s/'[><][ ]'//g >> $LOCALSTATSDIR/check-ipkglist.status
+		echo "------------ END -------------" >> $LOCALSTATSDIR/check-ipkglist.status
+		#
+		if [ "$REPORT" = "true" ]; then 
+			cat $LOCALSTATSDIR/check-ipkglist.status
+			echo 
+		fi
+	else
+		my_exit "directory $ROOT was not found" 1
+	fi 
+}
 
 #
 # argument handling
@@ -178,9 +229,11 @@ check_md5(){
 case $ACTION in
 	create)
 	create_md5
+	create_ipkglist
 	;;
 	check)
 	check_md5
+	check_ipkglist
 	;;
 	*)
 	my_exit "Sorry, unknown --action specified: $ACTION"
