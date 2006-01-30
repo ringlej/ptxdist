@@ -94,7 +94,7 @@ $(STATEDIR)/liblockfile.compile: $(liblockfile_compile_deps_default)
 
 liblockfile_install: $(STATEDIR)/liblockfile.install
 
-$(STATEDIR)/liblockfile.install: $(liblockfile_install_deps)
+$(STATEDIR)/liblockfile.install: $(liblockfile_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBLOCKFILE)
 	@$(call touch, $@)
@@ -105,7 +105,7 @@ $(STATEDIR)/liblockfile.install: $(liblockfile_install_deps)
 
 liblockfile_targetinstall: $(STATEDIR)/liblockfile.targetinstall
 
-$(STATEDIR)/liblockfile.targetinstall: $(liblockfile_targetinstall_deps)
+$(STATEDIR)/liblockfile.targetinstall: $(liblockfile_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
