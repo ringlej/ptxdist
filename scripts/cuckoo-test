@@ -31,8 +31,10 @@ echo
 echo $CPUVENDOR cuckoo test
 
 echo "1 pass (egg test)"
-find . -type f -exec file {} \; | grep -v "usr/share/terminfo" | sed -e "s/ASCII.*/+++OK+++/" \
--e "s/Bourne.*executable/+++OK+++/" -e "s/empty/+++OK+++/" \
+find . -type f -a \! -path "*share/terminfo*" -exec file {} \; | sed \
+-e "s/ASCII.*/+++OK+++/" \
+-e "s/Bourne.*executable/+++OK+++/" \
+-e "s/empty/+++OK+++/" \
 -e "s/Bourne.*text/+++OK+++/" \
 -e "s/PPCBoot.*/+++OK+++/" \
 -e "s/ELF.*$CPUVENDOR.*/+++OK+++/" \
@@ -45,6 +47,8 @@ find . -type f -exec file {} \; | grep -v "usr/share/terminfo" | sed -e "s/ASCII
 -e "s/MPEG.*/+++OK+++/" \
 -e "s/XML.*/+++OK+++/" \
 -e "s/.*\.qpf/+++OK+++/" \
+-e "s/exported SGML document text/+++OK+++/" \
+-e "s/.*\.bin: $/+++OK+++/" \
     | \
 grep -v "+++OK+++" | \
 awk -F, '{print substr($1, 1, index($1,":"))" wrong architecture! ("$2")"}'
