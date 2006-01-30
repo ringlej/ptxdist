@@ -362,16 +362,15 @@ ifdef PTXCONF_NTP_NTPDATE
 endif
 ifdef PTXCONF_NTP_NTPD
 	@$(call install_copy, 0, 0, 0755, $(NTP_DIR)/ntpd/ntpd, /usr/sbin/ntpd)
+	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/ntp, /etc/init.d/ntp-server, n)
 endif
 ifdef PTXCONF_NTP_NTPDC
 	@$(call install_copy, 0, 0, 0755, $(NTP_DIR)/ntpdc/ntpdc, /usr/sbin/ntpdc)
+	@$(call install_link, /etc/init.d/ntp-server, /etc/init.d/ntp-client, n)
 endif
-ifdef PTXCONF_NTP_NTPDC
+ifdef PTXCONF_NTP_NTPQ
 	@$(call install_copy, 0, 0, 0755, $(NTP_DIR)/ntpq/ntpq, /usr/sbin/ntpq)
 endif
-
-	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/ntp, /etc/init.d/ntp-server, n)
-	@$(call install_link, /etc/init.d/ntp-server, /etc/init.d/ntp-client, n)
 
 	@$(call install_finish)
 	@$(call touch, $@)
