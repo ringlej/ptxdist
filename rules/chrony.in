@@ -4,7 +4,6 @@ config CHRONY
 	bool             
 	prompt "Chrony (Alternative NTP Synchronisation Daemon)"             
 	default n
-	select READLINE
 	help
 	  This will install the Chrony NTPD Daemon (chronyd)
 	  Chrony is a pair of programs which are used to maintain 

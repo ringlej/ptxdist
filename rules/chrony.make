@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_CHRONY) += chrony
 #
 # Paths and names
 #
-CHRONY_VERSION	= 1.20
-CHRONY		= chrony-$(CHRONY_VERSION)
-CHRONY_SUFFIX	= tar.gz
-CHRONY_URL	= http://chrony.sunsite.dk/download/$(CHRONY).$(CHRONY_SUFFIX)
-CHRONY_SOURCE	= $(SRCDIR)/$(CHRONY).$(CHRONY_SUFFIX)
-CHRONY_DIR	= $(BUILDDIR)/$(CHRONY)
+CHRONY_VERSION	:= 1.21
+CHRONY		:= chrony-$(CHRONY_VERSION)
+CHRONY_SUFFIX	:= tar.gz
+CHRONY_URL	:= http://chrony.sunsite.dk/download/$(CHRONY).$(CHRONY_SUFFIX)
+CHRONY_SOURCE	:= $(SRCDIR)/$(CHRONY).$(CHRONY_SUFFIX)
+CHRONY_DIR	:= $(BUILDDIR)/$(CHRONY)
 
 -include $(call package_depfile)
 
@@ -60,14 +60,14 @@ $(STATEDIR)/chrony.extract: $(chrony_extract_deps_default)
 
 chrony_prepare: $(STATEDIR)/chrony.prepare
 
-CHRONY_PATH	=  PATH=$(CROSS_PATH)
-CHRONY_ENV 	=  $(CROSS_ENV)
+CHRONY_PATH	:=  PATH=$(CROSS_PATH)
+CHRONY_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-CHRONY_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-CHRONY_AUTOCONF += --disable-readline
+CHRONY_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/chrony.prepare: $(chrony_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -85,7 +85,7 @@ chrony_compile: $(STATEDIR)/chrony.compile
 
 $(STATEDIR)/chrony.compile: $(chrony_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(CHRONY_DIR) && $(CHRONY_ENV) $(CHRONY_PATH) make
+	cd $(CHRONY_DIR) && $(CHRONY_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
