@@ -35,8 +35,13 @@ config MICO_COSS
 	default y
 	prompt "use MICO COSS"
 	depends on MICO
+	depends on BROKEN
 	help
 	  FIXME: This feature needs documentation.
+
+comment "MICO COSS is broken, please send a patch"
+	depends on MICO
+	depends on !BROKEN
 
 config MICO_CSL2
 	bool
