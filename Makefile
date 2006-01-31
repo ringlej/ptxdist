@@ -651,7 +651,7 @@ compile-test:
 	@echo
 
 cuckoo-test: world
-	@scripts/cuckoo-test $(PTXCONF_ARCH) $(ROOTDIR) $(PTXCONF_COMPILER_PREFIX)
+	@$(PTXDIST_TOPDIR)/scripts/cuckoo-test $(PTXCONF_ARCH) $(ROOTDIR) $(PTXCONF_COMPILER_PREFIX)
 
 ipkg-test: world
 	@$(call targetinfo,ipkg-test)
