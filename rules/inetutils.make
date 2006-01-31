@@ -159,7 +159,7 @@ ifdef PTXCONF_INETUTILS_RLOGIND
 	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rlogind/rlogind, /usr/sbin/rlogind)
 endif
 ifdef PTXCONF_INETUTILS_RSH
-	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rsh/rsh, /usr/bin/srsh)
+	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rsh/rsh, /usr/bin/rsh)
 endif
 ifdef PTXCONF_INETUTILS_RSHD
 	@$(call install_copy, 0, 0, 0755, $(INETUTILS_DIR)/rshd/rshd, /usr/sbin/rshd)
