@@ -124,11 +124,12 @@ MICO_AUTOCONF += --enable-property
 else
 MICO_AUTOCONF += --disable-property
 endif
-ifdef PTXCONF_MICO_SERVICE_TRADER
-MICO_AUTOCONF += --enable-trader
-else
-MICO_AUTOCONF += --disable-trader
-endif
+# FIXME: even with --disable-trader it tries to use it (tested with 2.3.12RC3)
+#ifdef PTXCONF_MICO_SERVICE_TRADER
+#MICO_AUTOCONF += --enable-trader
+#else
+#MICO_AUTOCONF += --disable-trader
+#endif
 ifdef PTXCONF_MICO_SERVICE_TIME
 MICO_AUTOCONF += --enable-time
 else
@@ -231,8 +232,26 @@ $(STATEDIR)/mico.targetinstall: $(mico_targetinstall_deps_default)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(MICO_DIR)/foobar, /dev/null)
-
+ifdef PTXCONF_MICO_LIBMICOAUX
+	@$(call install_copy, 0, 0, 0644, \
+		$(MICO_DIR)/libs/libmicoaux$(MICO_VERSION).so, \
+		/usr/lib/libmicoaux$(MICO_VERSION).so)
+endif
+ifdef PTXCONF_MICO_LIBMICOCOSS
+	@$(call install_copy, 0, 0, 0644, \
+		$(MICO_DIR)/libs/libmicocoss$(MICO_VERSION).so, \
+		/usr/lib/libmicocoss$(MICO_VERSION).so)
+endif
+ifdef PTXCONF_MICO_LIBMICOIR
+	@$(call install_copy, 0, 0, 0644, \
+		$(MICO_DIR)/libs/libmicoir$(MICO_VERSION).so, \
+		/usr/lib/libmicoir$(MICO_VERSION).so)
+endif
+ifdef PTXCONF_MICO_LIBMICO
+	@$(call install_copy, 0, 0, 0644, \
+		$(MICO_DIR)/libs/libmico$(MICO_VERSION).so, \
+		/usr/lib/libmico$(MICO_VERSION).so)
+endif
 	@$(call install_finish)
 
 	@$(call touch, $@)

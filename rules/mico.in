@@ -14,13 +14,19 @@ config MICO_THREAD
 	prompt "multithreading support"
 	depends on MICO
 	depends on !MICO_WIRELESS
+	depends on !MICO_SERVICE_STREAM
+	depends on !MICO_SERVICE_RELSHIP
+	depends on !MICO_SERVICE_EXTERNALIZATION
+	depends on !MICO_SERVICE_LIFECYCLE
+	depends on !MICO_SERVICE_TRADER
+	depends on !MICO_CCM
 	help
 	  Add support for multithreading. This feature does not work
 	  when the wireless support is enabled.
 
-comment "multithreading not available if wireless selected"
+comment "no multithreading with wireless, stream, relship, externalization, lifecycle, trader and ccm"
 	depends on MICO
-	depends on MICO_WIRELESS
+	depends on MICO_WIRELESS||MICO_SERVICE_STREAM||MICO_SERVICE_RELSHIP||MICO_SERVICE_EXTERNALIZATION||MICO_SERVICE_LIFECYCLE||MICO_SERVICE_TRADER||MICO_CCM
 
 config MICO_CCM
 	bool
@@ -112,8 +118,13 @@ config MICO_SERVICE_TRADER
 	default n
 	prompt "Trading Service"
 	depends on MICO
+	depends on BROKEN
 	help
 	  FIXME: This feature needs documentation.
+
+comment "MICO Trading Service is broken, please send a patch"
+	depends on MICO
+	depends on !BROKEN
 
 config MICO_SERVICE_TIME
 	bool
@@ -203,3 +214,39 @@ config MICO_MINI
 	depends on MICO
 	help
 	  FIXME: This feature needs documentation.
+
+comment "Install Options"
+	depends on MICO
+
+config MICO_LIBMICOAUX
+	bool
+	default n
+	depends on MICO
+	prompt "libmicoaux"
+	help
+	  Install libmicoaux.so on target.
+
+config MICO_LIBMICOCOSS
+	bool
+	default n
+	depends on MICO
+	prompt "libmicocoss"
+	help
+	  Install libmicocoss.so on target.
+
+config MICO_LIBMICOIR
+	bool
+	default n
+	depends on MICO
+	prompt "libmicoir"
+	help
+	  Install libmicoir.so on target.
+
+config MICO_LIBMICO
+	bool
+	default n
+	depends on MICO
+	prompt "libmico"
+	help
+	  Install libmico.so on target.
+
