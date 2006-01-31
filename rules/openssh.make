@@ -15,13 +15,6 @@
 PACKAGES-$(PTXCONF_OPENSSH) += openssh
 
 #
-# We depend on this package
-#
-ifdef PTXCONF_OPENSSH
-PACKAGES += openssl
-endif
-
-#
 # Paths and names 
 #
 OPENSSH_VERSION		= 3.9p1

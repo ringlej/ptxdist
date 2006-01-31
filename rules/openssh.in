@@ -3,6 +3,7 @@ menu	"OpenSSH             "
 config OPENSSH
 	bool
 	select ZLIB
+	select OPENSSL
 	prompt "OpenSSH"
 	help
 	  FIXME: This item needs to be documented
