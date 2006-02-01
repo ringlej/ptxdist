@@ -363,15 +363,18 @@ images: $(STATEDIR)/images
 
 ipkg-push: $(STATEDIR)/ipkg-push
 
-$(STATEDIR)/ipkg-push:
+$(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install
 	@$(call targetinfo, $@)
+	( \
+	export PATH=$(PTXCONF_PREFIX)/bin:$(PTXCONF_PREFIX)/usr/bin:$$PATH; \
 	$(PTXDIST_TOPDIR)/scripts/ipkg-push \
 		--ipkgdir  $(call remove_quotes,$(IMAGEDIR)) \
 		--repodir  $(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)) \
 		--revision $(call remove_quotes,$(FULLVERSION)) \
 		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
-		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION))
-	@echo
+		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)); \
+	echo; \
+	)
 	$(call touch, $@)
 
 images_deps =  world
