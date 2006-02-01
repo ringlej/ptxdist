@@ -10,7 +10,7 @@ PROGRAM_DESCRIPTION="Create Release Archives / Tarballs"
 TOPDIR=$(pwd) 
 BASE="$(cd $TOPDIR ; cd .. ; pwd)"
 ARCHPATH="$TOPDIR/.."
-PROJECTSPATH=""
+PROJECTSPATH="$TOPDIR/local_projects"
 ACTION=create
 RELEASE="undefined"
 TAR="tar"
@@ -43,7 +43,7 @@ LOCKFILE="$BASE/.make_archive.lock"
 [ -d "$TOPDIR" ] || ptxd_exit "invalid --topdir ($TOPDIR)" 1
 [ -d "$BASE" ] || ptxd_exit "invalid base directory ($BASE)" 1
 [ -d "$ARCHPATH" ] || ptxd_exit "invalid --arch-path ($ARCHPATH)" 1
-[ -n "$PROJECTSPATH" ] && PROJECTSPATH=$(cd $PROJECTSPATH; pwd)
+[ -d "$PROJECTSPATH/" ] && PROJECTSPATH=$(cd $PROJECTSPATH; pwd)
 
 ARCHPATH="$(cd $ARCHPATH ; pwd)"
 TOPDIR="$(cd $TOPDIR ; pwd)"
@@ -95,7 +95,11 @@ cd $BASE || ptxd_exit "Could not enter $BASE" 1
 
 ptxd_debug "copy content to release directory $TMPDIR"
 ptxd_debug "$(mkdir $TMPDIR/$RELEASE  2>&1 || ptxd_exit "Could not create temporary RELEASE directory" 1)"
-$TAR -C $TOPDIR -cf - --exclude .svn --exclude local_projects . | $TAR -C $TMPDIR/$RELEASE/ -xf -
+$TAR -C $TOPDIR -cf - 					\
+	--exclude .svn 					\
+	--exclude local_projects 			\
+	--exclude state 				\
+	. | $TAR -C $TMPDIR/$RELEASE/ -xf -
 if [ -d "$PROJECTSPATH" ] ; then
 	ptxd_debug "$(mkdir -v $TMPDIR/$RELEASE/local_projects 2>&1 || ptxd_exit "Could not create temporary local_projects dir" 1)"
 	$TAR -C $PROJECTSPATH -cf - --exclude .svn . | $TAR -C $TMPDIR/$RELEASE/local_projects/ -xf -

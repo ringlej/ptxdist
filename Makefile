@@ -850,10 +850,13 @@ svn-stat:
 # Misc other targets
 # ----------------------------------------------------------------------------
 
-archive:  
+archive: distclean 
 	@echo
-	@echo -n "packaging additional sources ...... "
-	scripts/collect_sources.sh $(PTXDIST_TOPDIR) $(shell basename $(PTXDIST_TOPDIR))
+	@echo "packaging sources ...... "
+	@echo "PLEASE RUN scripts/make_archive.sh --action create --topdir $(PTXDIST_TOPDIR) manually"
+	@echo "to get a clean archive (FIXME)"
+	svn stat
+	scripts/make_archive.sh --action create --topdir $(PTXDIST_TOPDIR) 
 
 archive-toolchain: virtual-xchain_install
 	$(TAR) -C $(PTXCONF_PREFIX)/.. -jcvf $(PTXDIST_TOPDIR)/$(PTXCONF_GNU_TARGET).tar.bz2 \
