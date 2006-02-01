@@ -1,5 +1,8 @@
 #!/bin/bash
 
+FULLARGS="$@"
+DEBUG=${DEBUG:="false"}
+
 # 
 # awk script for permission fixing
 #
@@ -18,6 +21,29 @@ ptxd_abspath() {
 	echo `cd $DN && pwd`/`basename $1`
 }
 
+
+#
+# customized exit functions
+#
+# $1 --> Error Message
+# $2 --> Exit Code
+#
+ptxd_exit(){
+	echo "$0: $1"
+	exit $2
+}
+ptxd_exit_silent(){
+	ptxd_debug "$0: $1"
+	exit $2
+}
+
+#
+# Debugging Output
+#
+ptxd_debug(){
+	[ "$DEBUG" = "true" ] && echo "$0: $1" >&2
+}	
+ptxd_debug "Debugging is enabled - Turn off with DEBUG=false"
 
 #
 # print out error message and exit with status 1
@@ -207,3 +233,96 @@ ptxd_compile_test() {
 	cd ${OLD_DIR}
 }	
 
+
+#
+# create generic option parser
+# <stdin> --> Option List:
+# SYMBOL NAME HELPTEXT
+#
+# proof of concept / test implementation 
+# FIXME: This should be read and written 
+#        without tmpfiles and it is nasty anyway ;-)
+#      
+# Use at your own risk
+
+ptxd_generic_option_parser(){
+TMPDIR=`mktemp -d /tmp/ptxd_generic_option_parser.XXXXXX` || exit 1
+INFILE=$TMPDIR/infile
+OUTFILE=$TMPDIR/outfile
+while read line ; do 
+	echo $line >> $INFILE
+done 
+cat << EOF > $OUTFILE
+
+check_argument(){
+case "\$1" in 
+	--*|"")
+	ptxd_debug "missing argument"
+	return 1
+	;;
+	[[:alnum:]/]*)
+	return 0
+	;;
+esac
+}
+
+usage() {
+        echo 
+        [ -n "\$1" ] && echo -e "\${PREFIX} error: \$1\n"
+	echo "$PROGRAM_DESCRIPTION"
+	echo 
+        echo "usage: \$0 <args>"
+        echo
+        echo " Arguments:"
+        echo
+EOF
+while read SYMBOL OPTION DESCRIPTION ; do 
+cat << EOF >> $OUTFILE
+        echo -e "  --$OPTION\\t $DESCRIPTION"
+EOF
+done < $INFILE
+cat << EOF >> $OUTFILE
+        echo
+		echo " \$0 returns with an exit status != 0, if something failed."
+	echo 
+        exit 0
+}
+
+#
+# Option parser
+#
+# FIXME: rsc wants to reimplement this with getopt
+# 
+invoke_parser(){
+while [ \$# -gt 0 ]; do
+	case "\$1" in
+
+                --help) usage ;;
+EOF
+while read SYMBOL OPTION DESCRIPTION ; do 
+cat << EOF >> $OUTFILE
+                --$OPTION)
+			check_argument \$2  		
+			if [ "\$?" = "0" ] ; then 
+				$SYMBOL="\$2";      		
+				shift 2 ;
+			else	
+				ptxd_debug "skipping option \$1";
+				shift 1 ;
+			fi
+			;;
+EOF
+done < $INFILE
+cat << EOF >> $OUTFILE
+               *)  
+			usage "unknown option \$1" 
+			;;
+        esac
+done
+}
+# cleanup
+rm -f $INFILE $OUTFILE || exit 1
+rmdir $TMPDIR || exit 1
+EOF
+echo "$OUTFILE"
+}
