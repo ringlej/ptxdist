@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_CHRONY) += chrony
 #
 # Paths and names
 #
-CHRONY_VERSION	:= 1.21
+CHRONY_VERSION	:= 1.20
 CHRONY		:= chrony-$(CHRONY_VERSION)
 CHRONY_SUFFIX	:= tar.gz
 CHRONY_URL	:= http://chrony.sunsite.dk/download/$(CHRONY).$(CHRONY_SUFFIX)
