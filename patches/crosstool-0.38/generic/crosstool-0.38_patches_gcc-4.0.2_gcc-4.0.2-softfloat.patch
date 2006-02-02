@@ -1,6 +1,8 @@
---- crosstool-0.38/patches/gcc-4.0.2/gentoo-gcc-4.0.2-softfloat.patch	1970-01-01 01:00:00.000000000 +0100
-+++ crosstool-0.38-ptxdist/patches/gcc-4.0.2/gentoo-gcc-4.0.2-softfloat.patch	2006-01-22 07:57:27.000000000 +0100
-@@ -0,0 +1,84 @@
+Index: crosstool-0.38/patches/gcc-4.0.2/gentoo-gcc-4.0.2-softfloat.patch
+===================================================================
+--- /dev/null
++++ crosstool-0.38/patches/gcc-4.0.2/gentoo-gcc-4.0.2-softfloat.patch
+@@ -0,0 +1,94 @@
 +The hunk for gcc/config/arm/t-linux comes from:
 +http://gcc.gnu.org/PR14352
 +
@@ -12,7 +14,13 @@
 +
 +http://bugs.gentoo.org/75585
 +
-+--- gcc-4.0.2/gcc/config/arm/elf.h
++_NOTE_: This patch has been modified!
++- gcc is patched to generate softvfp gerardless if the user specifies -msoft-float or not
++- this avoids ugly linking errors in "das U-Boot"
++
++Index: gcc-4.0.2/gcc/config/arm/elf.h
++===================================================================
++--- gcc-4.0.2.orig/gcc/config/arm/elf.h
 ++++ gcc-4.0.2/gcc/config/arm/elf.h
 +@@ -45,8 +45,9 @@
 + #endif
@@ -22,7 +30,7 @@
 +-%{mapcs-float:-mfloat}"
 ++#define SUBTARGET_ASM_FLOAT_SPEC "%{mapcs-float:-mfloat} \
 ++  %{mhard-float:-mfpu=fpa} \
-++  %{!mhard-float: %{msoft-float:-mfpu=softfpa;:-mfpu=softvfp}}"
+++  %{!mhard-float:-mfpu=softvfp}"
 + #endif
 + 
 + #ifndef ASM_SPEC
@@ -35,7 +43,9 @@
 + %(subtarget_extra_asm_spec)"
 + #endif
 + 
-+--- gcc-4.0.2/gcc/config/arm/linux-elf.h
++Index: gcc-4.0.2/gcc/config/arm/linux-elf.h
++===================================================================
++--- gcc-4.0.2.orig/gcc/config/arm/linux-elf.h
 ++++ gcc-4.0.2/gcc/config/arm/linux-elf.h
 +@@ -32,18 +32,22 @@
 + #define NO_IMPLICIT_EXTERN_C
@@ -49,7 +59,7 @@
 + 
 ++#undef  SUBTARGET_EXTRA_ASM_SPEC
 ++#define SUBTARGET_EXTRA_ASM_SPEC "%{mhard-float:-mfpu=fpa} \
-++  %{!mhard-float: %{msoft-float:-mfpu=softfpa;:-mfpu=softvfp}}"
+++  %{!mhard-float:-mfpu=softvfp}"
 ++
 + #define SUBTARGET_CPU_DEFAULT TARGET_CPU_arm6
 + 
@@ -71,7 +81,9 @@
 + 
 + /* Provide a STARTFILE_SPEC appropriate for GNU/Linux.  Here we add
 +    the GNU/Linux magical crtbegin.o file (see crtstuff.c) which
-+--- gcc-4.0.2/gcc/config/arm/t-linux
++Index: gcc-4.0.2/gcc/config/arm/t-linux
++===================================================================
++--- gcc-4.0.2.orig/gcc/config/arm/t-linux
 ++++ gcc-4.0.2/gcc/config/arm/t-linux
 +@@ -4,7 +4,10 @@ TARGET_LIBGCC2_CFLAGS = -fomit-frame-poi
 + LIBGCC2_DEBUG_CFLAGS = -g0
