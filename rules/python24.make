@@ -23,7 +23,6 @@ PYTHON24_SUFFIX		= tgz
 PYTHON24_URL		= http://www.python.org/ftp/python/$(PYTHON24_VERSION)/$(PYTHON24).$(PYTHON24_SUFFIX)
 PYTHON24_SOURCE		= $(SRCDIR)/$(PYTHON24).$(PYTHON24_SUFFIX)
 PYTHON24_DIR		= $(BUILDDIR)/$(PYTHON24)
-PYTHON24_BUILDDIR	= $(PYTHON24_DIR)-build
 
 -include $(call package_depfile)
 
@@ -67,18 +66,13 @@ PYTHON24_ENV		=  $(CROSS_ENV)
 PYTHON24_AUTOCONF 	=  $(CROSS_AUTOCONF_USR)
 PYTHON24_AUTOCONF 	+= --target=$(PTXCONF_GNU_TARGET)
 
-# FIXME we probably need to port a hosttool python
-
-PYTHON24_MAKEVARS	=  HOSTPYTHON=python
-PYTHON24_MAKEVARS	+= HOSTPGEN=pgen
+PYTHON24_MAKEVARS	=  HOSTPYTHON=$(PTXCONF_PREFIX)/bin/python
+PYTHON24_MAKEVARS	+= HOSTPGEN=$(HOST_PYTHON24_DIR)/Parser/pgen
 PYTHON24_MAKEVARS	+= CROSS_COMPILE=yes
-PYTHON24_MAKEVARS	+= DESTDIR=$(ROOTDIR)
 
 $(STATEDIR)/python24.prepare: $(python24_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(PYTHON24_BUILDDIR))
-	mkdir -p $(PYTHON24_BUILDDIR)
-	cd $(PYTHON24_BUILDDIR) && \
+	cd $(PYTHON24_DIR) && \
 		$(PYTHON24_PATH) $(PYTHON24_ENV) \
 		$(PYTHON24_DIR)/configure $(PYTHON24_AUTOCONF)
 	@$(call touch, $@)
@@ -91,7 +85,14 @@ python24_compile: $(STATEDIR)/python24.compile
 
 $(STATEDIR)/python24.compile: $(python24_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(PYTHON24_BUILDDIR) && $(PYTHON24_PATH) make $(PYTHON24_MAKEVARS)
+	( \
+		export DESTDIR=$(SYSROOT); \
+		cd $(PYTHON24_DIR) && \
+			$(PYTHON24_PATH) \
+			$(PYTHON24_ENV) \
+			make \
+			$(PYTHON24_MAKEVARS); \
+	)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -124,31 +125,31 @@ $(STATEDIR)/python24.targetinstall: $(python24_targetinstall_deps_default)
 
 	# FIXME: RSC: ipkgize in a cleaner way
 
-	$(PYTHON24_PATH) make -C $(PYTHON24_BUILDDIR) $(PYTHON24_MAKEVARS) \
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
 		altbininstall DESTDIR=$(ROOTDIR)
-	$(PYTHON24_PATH) make -C $(PYTHON24_BUILDDIR) $(PYTHON24_MAKEVARS) \
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
 		altbininstall DESTDIR=$(IMAGEDIR)/ipkg
 
 	umask 022 && \
-		$(PYTHON24_PATH) make -C $(PYTHON24_BUILDDIR) $(PYTHON24_MAKEVARS) \
+		$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
 		libinstall DESTDIR=$(ROOTDIR)
 	umask 022 && \
-		$(PYTHON24_PATH) make -C $(PYTHON24_BUILDDIR) $(PYTHON24_MAKEVARS) \
+		$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
 		libinstall DESTDIR=$(IMAGEDIR)/ipkg
 
-	$(PYTHON24_PATH) make -C $(PYTHON24_BUILDDIR) $(PYTHON24_MAKEVARS) \
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
 		libainstall DESTDIR=$(ROOTDIR)
-	$(PYTHON24_PATH) make -C $(PYTHON24_BUILDDIR) $(PYTHON24_MAKEVARS) \
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
 		libainstall DESTDIR=$(IMAGEDIR)/ipkg
 
-	$(PYTHON24_PATH) make -C $(PYTHON24_BUILDDIR) $(PYTHON24_MAKEVARS) \
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
 		sharedinstall DESTDIR=$(ROOTDIR)
-	$(PYTHON24_PATH) make -C $(PYTHON24_BUILDDIR) $(PYTHON24_MAKEVARS) \
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
 		sharedinstall DESTDIR=$(IMAGEDIR)/ipkg
 
-	$(PYTHON24_PATH) make -C $(PYTHON24_BUILDDIR) $(PYTHON24_MAKEVARS) \
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
 		oldsharedinstall DESTDIR=$(ROOTDIR)
-	$(PYTHON24_PATH) make -C $(PYTHON24_BUILDDIR) $(PYTHON24_MAKEVARS) \
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
 		oldsharedinstall DESTDIR=$(IMAGEDIR)/ipkg
 
 	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/python2.4
@@ -175,6 +176,5 @@ python24_clean:
 	rm -rf $(STATEDIR)/python24.*
 	rm -rf $(IMAGEDIR)/python24_*
 	rm -fr $(PYTHON24_DIR)
-	rm -fr $(PYTHON24_BUILDDIR)
 
 # vim: syntax=make
