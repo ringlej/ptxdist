@@ -1,13 +1,11 @@
 config PYTHON24
 	bool
-	depends on BROKEN
 	prompt "Python 2.4"
 	depends on GLIBC_DL || UCLIBC_DL
-	select GLIBC_UTIL if GLIBC
+	select HOST_PYTHON24
+	select GLIBC_UTIL
+	select GLIBC_THREAD
+	select GLIBC
 	select GCCLIBS_CXX
 	help
 	  FIXME: This item needs to be documented
-
-comment "python24 is broken, please send a patch"
-        depends on !BROKEN
-
