@@ -1,10 +1,11 @@
 config PYTHON24
 	bool
 	prompt "Python 2.4"
-	depends on GLIBC_DL || UCLIBC_DL
+	# FIXME: make this uClibc/glibc aware
+	select GLIBC_DL
 	select HOST_PYTHON24
 	select GLIBC_UTIL
-	select GLIBC_THREAD
+	select GLIBC_PTHREAD
 	select GLIBC
 	select GCCLIBS_CXX
 	help
