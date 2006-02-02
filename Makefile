@@ -567,12 +567,14 @@ allyesconfig: $(STATEDIR)/host-kconfig.install
 	$(call findout_config)
 	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -y $(MENU)
 
+ifneq ($(findstring _get,$(MAKECMDGOALS))$(findstring _prepare,$(MAKECMDGOALS))$(findstring _compile,$(MAKECMDGOALS))$(findstring _install,$(MAKECMDGOALS))$(findstring _targetinstall,$(MAKECMDGOALS))$(findstring world,$(MAKECMDGOALS)),)
 configdeps_deps := $(wildcard $(RULESDIR)/*.in) 
 ifndef ($(PROJECTRULESDIR),)
 configdeps_deps += $(wildcard $(PROJECTRULESDIR)/*.in)
 endif
 ifneq ($(shell test -e $(PTXDIST_WORKSPACE)/.config && echo "y"),)
 configdeps_deps += $(PTXDIST_WORKSPACE)/.config
+endif
 endif
 
 configdeps: $(STATEDIR)/configdeps
