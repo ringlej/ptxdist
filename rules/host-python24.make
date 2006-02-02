@@ -18,11 +18,13 @@ HOST_PACKAGES-$(PTXCONF_HOST_PYTHON24) += host-python24
 # Paths and names
 #
 HOST_PYTHON24_VERSION	= 2.4.2
-HOST_PYTHON24		= python24-$(HOST_PYTHON24_VERSION)
-HOST_PYTHON24_SUFFIX	= tar.bz2
+HOST_PYTHON24		= Python-$(HOST_PYTHON24_VERSION)
+HOST_PYTHON24_SUFFIX	= tgz
 HOST_PYTHON24_URL	= http://www.python.org/ftp/python/$(HOST_PYTHON24).$(HOST_PYTHON24_SUFFIX)
-HOST_PYTHON24_SOURCE	= $(SRCDIR)/$(HOST_PYTHON24).$(HOST_PYTHON24_SUFFIX)
+HOST_PYTHON24_SOURCE	= $(PYTHON24_SOURCE)
 HOST_PYTHON24_DIR	= $(HOST_BUILDDIR)/$(HOST_PYTHON24)
+
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -33,10 +35,6 @@ host-python24_get: $(STATEDIR)/host-python24.get
 $(STATEDIR)/host-python24.get: $(host-python24_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
-$(HOST_PYTHON24_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, $(HOST_PYTHON24_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -81,7 +79,13 @@ host-python24_compile: $(STATEDIR)/host-python24.compile
 
 $(STATEDIR)/host-python24.compile: $(host-python24_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_PYTHON24_DIR) && $(HOST_PYTHON24_ENV) $(HOST_PYTHON24_PATH) make
+	( \
+		export DESTDIR=$(PTXCONF_PREFIX); \
+		cd $(HOST_PYTHON24_DIR) && \
+			$(HOST_PYTHON24_ENV) \
+			$(HOST_PYTHON24_PATH) \
+			make; \
+	)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
