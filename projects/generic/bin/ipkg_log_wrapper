@@ -2,10 +2,12 @@
 # ipkg wrapper - log when installing / removing things 
 # 
 
+[ -e "/etc/ipkg_log_wrapper.cf" ] && . /etc/ipkg_log_wrapper.cf
+
 FULLARGS="$@"
 IDENT="$(date -R)"
 IPKG=${IPKG:=/usr/bin/ipkg-cl}
-LOGDIR=${LOGDIR:=/var/log}
+LOGDIR=${LOGDIR:=/var/cache/ipkg}
 LOGFILENAME=${LOGFILENAME:=ipkg_activities.log}
 LOGFILE=$LOGDIR/$LOGFILENAME
 
