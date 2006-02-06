@@ -6,7 +6,7 @@
 
 PROJECT			:= PTXdist
 VERSION			:= 0
-PATCHLEVEL		:= 9
+PATCHLEVEL		:= 10
 SUBLEVEL		:= 0
 EXTRAVERSION		:=-svn
 
