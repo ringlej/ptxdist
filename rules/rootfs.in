@@ -6,7 +6,7 @@ config ROOTFS
 	bool
 	prompt "Create Directories in /"
 	default y
-        select BB_CONFIG_FEATURE_SHADOWPASSWDS  if BUSYBOX
+	select BB_CONFIG_FEATURE_SHADOWPASSWDS if BUSYBOX
 	help
 	  FIXME: This item needs to be documented
 
@@ -40,76 +40,75 @@ menuconfig ROOTFS_MEDIA
 	depends on ROOTFS
 	bool
 	prompt "/media                    "
-	default n
 
 config ROOTFS_MEDIA1
-        prompt "Mountpoint 1"
-        string
+	prompt "Mountpoint 1"
+	string
 	depends on ROOTFS_MEDIA
-        help
+	help
 	  This string defines a mountpoint directory in /media
 
 config ROOTFS_MEDIA2
-        prompt "Mountpoint 2"
-        string
+	prompt "Mountpoint 2"
+	string
 	depends on ROOTFS_MEDIA && ROOTFS_MEDIA1!=""
-        help
+	help
 	  This string defines a mountpoint directory in /media
 
 config ROOTFS_MEDIA3
-        prompt "Mountpoint 3"
-        string
+	prompt "Mountpoint 3"
+	string
 	depends on ROOTFS_MEDIA && ROOTFS_MEDIA2!=""
-        help
+	help
 	  This string defines a mountpoint directory in /media
 
 config ROOTFS_MEDIA4
-        prompt "Mountpoint 4"
-        string
+	prompt "Mountpoint 4"
+	string
 	depends on ROOTFS_MEDIA && ROOTFS_MEDIA3!=""
-        help
+	help
 	  This string defines a mountpoint directory in /media
 
 config ROOTFS_MEDIA5
-        prompt "Mountpoint 5"
-        string
+	prompt "Mountpoint 5"
+	string
 	depends on ROOTFS_MEDIA && ROOTFS_MEDIA4!=""
-        help
+	help
 	  This string defines a mountpoint directory in /media
 
 config ROOTFS_MEDIA6
-        prompt "Mountpoint 6"
-        string
+	prompt "Mountpoint 6"
+	string
 	depends on ROOTFS_MEDIA && ROOTFS_MEDIA5!=""
-        help
+	help
 	  This string defines a mountpoint directory in /media
 
 config ROOTFS_MEDIA7
-        prompt "Mountpoint 7"
-        string
+	prompt "Mountpoint 7"
+	string
 	depends on ROOTFS_MEDIA && ROOTFS_MEDIA6!=""
-        help
+	help
 	  This string defines a mountpoint directory in /media
 
 config ROOTFS_MEDIA8
-        prompt "Mountpoint 8"
-        string
+	prompt "Mountpoint 8"
+	string
 	depends on ROOTFS_MEDIA && ROOTFS_MEDIA7!=""
-        help
+	help
 	  This string defines a mountpoint directory in /media
 
 config ROOTFS_MEDIA9
-        prompt "Mountpoint 9"
-        string
+	prompt "Mountpoint 9"
+	string
 	depends on ROOTFS_MEDIA && ROOTFS_MEDIA8!=""
-        help
+	help
 	  This string defines a mountpoint directory in /media
 
 config ROOTFS_MEDIA10
-        prompt "Mountpoint 10"
-        string
+	prompt "Mountpoint 10"
+	string
 	depends on ROOTFS_MEDIA && ROOTFS_MEDIA9!=""
-        help
+	help
 	  This string defines a mountpoint directory in /media
 
 # ok, that's all for /media. 
@@ -206,17 +205,12 @@ config ROOTFS_GENERIC_MTAB
 	prompt "generic /etc/mtab"
 	default y
 	help
-	  Installs a link to /proc/mounts
-	  as /etc/mtab. Some tools like those 
-	  from the e2fs-tools suite need this
-	  file to function properly. However, 
-	  it is a good idea to keep this file
-	  around, since a real /etc/mtab would
-	  have to be read-write to be accurate, 
-	  which is not a good idea in embedded 
-	  environments with ro-mounted rootfs.
-
-	  The Default is therefore: Yes 
+	  Installs a link to /proc/mounts as /etc/mtab. Some tools
+	  like those from the e2fs-tools suite need this file to
+	  function properly. However, it is a good idea to keep this
+	  file around, since a real /etc/mtab would have to be
+	  read-write to be accurate, which is not a good idea in
+	  embedded environments with ro-mounted rootfs.
 
 config ROOTFS_GENERIC_GROUP
 	depends on ROOTFS
@@ -273,7 +267,6 @@ config ROOTFS_GENERIC_IPKG_CONF
 	depends on ROOTFS
 	depends on IMAGE_IPKG
 	bool
-	default N
 	prompt "/etc/ipkg.conf              "
 	help
 	  Installs a generic /etc/ipkg.conf file.
@@ -404,13 +397,11 @@ config ROOTFS_ETC_INITD_RCS
 menuconfig ROOTFS_ETC_INITD_INETD
 	depends on ROOTFS_ETC_INITD
 	bool
-	default n
 	prompt "inetd                     "
 	select INETUTILS_INETD
 	help
-	  When enabled, this option installs the generic
-	  /etc/init.d/inetd file. This script starts
-	  your internet super server (inetd).
+	  When enabled, this option installs the generic /etc/init.d/inetd
+	  file. This script starts your internet super server (inetd).
 
 	config ROOTFS_ETC_INITD_INETD_LINK
 		depends on ROOTFS_ETC_INITD
@@ -426,7 +417,6 @@ config ROOTFS_ETC_INITD_LOGROTATE
 	bool
 	prompt "minimal logrotate"
 	depends on ROOTFS_ETC_INITD
-	default n
 	help
 	  The /etc/init.d/logrotate script is a minimal logrotator.
 
@@ -525,7 +515,6 @@ menuconfig ROOTFS_ETC_INITD_TELNETD
 config ROOTFS_ETC_INITD_STARTUP
 	depends on ROOTFS_ETC_INITD
 	bool
-	default n
 	prompt "startup"
 	help
 	  This script runs /home/startup if it exists and is
@@ -625,7 +614,7 @@ comment "udev: select udev"
 menuconfig ROOTFS_ETC_INITD_UDEV
 	depends on ROOTFS_ETC_INITD && UDEV
 	bool
-	default yes
+	default y
 	prompt "udev                      "
 	help
 	  The /etc/init.d/udev script lets you control the udevd daemon.
