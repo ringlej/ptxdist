@@ -4,7 +4,6 @@ comment "Image Creation for Target"
 
 config IMAGE_TGZ
 	bool
-	default n
 	prompt "Generate images/root.tgz"
 	help
 	  Build a tar.gz archive of the root filesystem, containing the
@@ -12,7 +11,6 @@ config IMAGE_TGZ
 
 config IMAGE_HD
 	bool
-	default n
 	prompt "Generate images/hd.img"
 	help
 	  Build a harddisk root image
@@ -29,7 +27,7 @@ config IMAGE_HD_CONF
 
 config IMAGE_IPKG
 	bool
-	default Y
+	default y
 	select ROOTFS_GENERIC_IPKG_CONF
 	prompt "Create ipkg packets"
 	select HOST_IPKG_UTILS
@@ -40,7 +38,6 @@ config IMAGE_IPKG
 
 config IMAGE_IPKG_IMAGE_FROM_REPOSITORY
 	bool
-	default N
 	prompt "make images: use packets from repository"
 	help
 	  Usually 'make images' packages the files from $(IMAGEDIR)
@@ -70,7 +67,6 @@ config IMAGE_IPKG_ARCH
 
 config IMAGE_JFFS2
 	bool
-	default n
 	select HOST_MTD_MKJFFS2
 	select HOST_MTD
 	prompt "Generate images/root.jffs2"
@@ -96,7 +92,6 @@ config IMAGE_JFFS2_EXTRA_ARGS
 
 config IMAGE_UIMAGE
 	bool
-	default n
 	prompt "Generate images/uRamdisk"
 	select HOST_UMKIMAGE
 	select IMAGE_EXT2
@@ -123,7 +118,6 @@ config IMAGE_UIMAGE_EXTRA_ARGS
 
 config IMAGE_EXT2
 	bool
-	default n
 	select HOST_GENEXT2FS
 	prompt "Generate images/root.ext2 (initrd)"
 	help
@@ -148,7 +142,6 @@ config IMAGE_EXT2_EXTRA_ARGS
 
 config IMAGE_EXT2_GZIP
 	bool
-	default n
 	prompt "Compress the image using gzip"
 	depends on IMAGE_EXT2
 	help
@@ -156,7 +149,6 @@ config IMAGE_EXT2_GZIP
 
 config IMAGE_MKNBI
 	bool
-	default n
 	select HOST_MKNBI
 	depends on IMAGE_EXT2
 	prompt "Generate images/$(PROJECTNAME).{elf|nbi}"
@@ -199,7 +191,6 @@ comment "Image Creation for Host"
 
 config IMAGE_HOST_DEB
 	bool
-	default n
 	prompt "Create Debian packets for host components"
 	help
 	  Usually the host side code is being installed during the
