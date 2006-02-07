@@ -83,9 +83,8 @@ host-umkimage_install: $(STATEDIR)/host-umkimage.install
 
 $(STATEDIR)/host-umkimage.install: $(host-umkimage_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME
-	mkdir -p $(PTXCONF_PREFIX)/usr/bin
-	install $(HOST_UMKIMAGE_DIR)/mkimage $(PTXCONF_PREFIX)/bin/u-boot-mkimage
+	mkdir -p $(PTXCONF_HOST_PREFIX)/bin
+	install $(HOST_UMKIMAGE_DIR)/mkimage $(PTXCONF_HOST_PREFIX)/bin/u-boot-mkimage
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

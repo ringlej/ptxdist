@@ -42,8 +42,19 @@ cat "$SERIES" | egrep -v "^[[:space:]]*#" | egrep -v "^[[:space:]]*$" | while re
 		echo "patch $abspatch does not exist. aborting"
 		exit 1
 	fi
+	case `basename $abspatch` in
+	*.gz)
+		CAT=zcat
+		;;
+	*.bz2)
+		CAT=bzcat
+		;;
+	*)
+		CAT=cat
+		;;
+	esac;
 	echo "applying $abspatch"
-	cat "$abspatch" | patch -p1 || exit 1
+	$CAT "$abspatch" | patch -p1 || exit 1
 done
 
 if [ "$?" != 0 ]; then
