@@ -1,7 +1,6 @@
 menuconfig CGICC
 	bool "libcgicc            "
 	select GCCLIBS_CXX
-	default n
 	help
 	  cgicc is a C++ class library for writing CGI applications. See 
 	  http://www.cgicc.org for more details. 

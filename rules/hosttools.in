@@ -23,12 +23,10 @@ source "rules/host-util-linux.in"
 
 config HOST_UMKIMAGE
 	bool
-	default n
 	prompt "mkimage: U-Boot kernel image creation"
 
 config HOST_MKNBI
 	bool
-	default n
 	prompt "mknbi: make etherboot image"
 
 ##############################################################################

@@ -1,7 +1,6 @@
 config MEMTEST
 	bool 
 	prompt "memtest"
-	default n
 	help
 	  FIXME: This item needs to be documented
 

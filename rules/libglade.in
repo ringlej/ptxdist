@@ -1,6 +1,5 @@
 config LIBGLADE
         bool
-        default N
         depends on BROKEN
         prompt "LIBGLADE"
 	help

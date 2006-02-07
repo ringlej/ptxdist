@@ -18,7 +18,6 @@ config FLTK_OPENGL
 config FLTK_THREADS
 	bool
 	prompt "Enable multi-threading support"
-	default n
 	depends on FLTK
 	help
 	  FIXME: This item needs to be documented
@@ -26,7 +25,6 @@ config FLTK_THREADS
 config FLTK_XFT
 	bool
 	prompt "Turn on Xft support"
-	default n
 	depends on FLTK
 	help
 	  FIXME: This item needs to be documented
@@ -34,7 +32,6 @@ config FLTK_XFT
 config FLTK_XDBE
 	bool
 	prompt "Turn on Xdbe support"
-	default n
 	depends on FLTK
 	help
 	  FIXME: This item needs to be documented
@@ -42,7 +39,6 @@ config FLTK_XDBE
 config FLTK_FLUID
 	bool
 	prompt "Build FLUID and demos"
-	default n
 	depends on FLTK
 	help
 	  fluid is an interactive GUI designer for FLTK and is needed to build

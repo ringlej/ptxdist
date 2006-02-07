@@ -5,7 +5,6 @@
 menuconfig LIBXSLT
         bool
         prompt "libxslt                     "
-	default N
 	select LIBXML2
 	help
 	  LibXSLT is a generic XSLT implementation. For details see the
@@ -22,7 +21,6 @@ comment "Compile Options"
 config LIBXSLT_CRYPTO
 	bool
 	prompt "Add crypto support to exslt"
-	default n
 	depends on LIBXSLT
 
 config LIBXSLT_PLUGINS
@@ -34,7 +32,6 @@ config LIBXSLT_PLUGINS
 config LIBXSLT_DEBUG
 	bool
 	prompt "Add the debugging support"
-	default n
 	depends on LIBXSLT
 
 comment "Install Components"
@@ -43,19 +40,18 @@ comment "Install Components"
 config LIBXSLT_LIBXSLT
 	bool
 	prompt "libxslt"
-	default Y if LIBXSLT
+	default y if LIBXSLT
 	depends on LIBXSLT
 
 config LIBXSLT_LIBEXSLT
 	bool
 	prompt "libexslt"
-	default Y if LIBXSLT
+	default y if LIBXSLT
 	depends on LIBXSLT
 
 config LIBXSLT_XSLTPROC
 	bool
 	prompt "xsltproc"
-	default N
 	depends on LIBXSLT
 	select LIBXSLT_LIBEXSLT
 	select LIBXSLT_LIBXSLT

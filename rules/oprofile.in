@@ -2,6 +2,5 @@ config OPROFILE
 	bool
 	depends on POPT && LIBBFD
 	prompt "oprofile"
-	default n
 	help
 	  system-wide profiler for Linux systems

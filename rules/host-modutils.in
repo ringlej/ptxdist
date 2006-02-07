@@ -1,6 +1,5 @@
 config HOST_MODUTILS
         bool
-        default N
         depends on BROKEN
         prompt "HOST_MODUTILS"
 	help

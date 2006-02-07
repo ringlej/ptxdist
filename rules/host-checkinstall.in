@@ -1,6 +1,5 @@
 config HOST_IMAGE_DEB
         bool
-        default N
         depends on BROKEN
         prompt "HOST_IMAGE_DEB"
 	help

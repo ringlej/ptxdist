@@ -4,7 +4,6 @@ menuconfig CFGSH
 	select NCURSES
 	select READLINE
 	prompt "cfgsh               "
-	default n
 	help
 	  cfgsh, the Configuration Shell utility, is a small utility 
 	  meant to be used for he configuration of embedded systems. 

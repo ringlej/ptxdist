@@ -2,7 +2,6 @@ config NANO
 	bool
 	depends on BROKEN
 	prompt "nano"
-	default n
 	help
 	  nano  is a small, free and friendly editor which aims 
 	  to replace Pico. Rather than just copying Pico's look 

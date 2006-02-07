@@ -2,7 +2,6 @@ menu    "wget                "
 
 config WGET
         bool
-	default N
         prompt "wget"
 	help
 	  GNU wget is a commandline mirroring tool. 

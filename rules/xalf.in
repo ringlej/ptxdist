@@ -1,6 +1,5 @@
 config XALF
         bool
-        default N
         depends on BROKEN
         prompt "XALF"
 	help

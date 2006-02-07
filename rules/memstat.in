@@ -1,6 +1,5 @@
 config MEMSTAT
 	bool
-	default N
 	prompt "memstat"
 	help
 	  memstat is a memory diagnose tool which lets you find

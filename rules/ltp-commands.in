@@ -3,7 +3,6 @@ menuconfig LTP_COMMANDS
 	prompt "Commands            "
 	depends on LTP
         depends on BROKEN
-	default N
 	help
 	  Test user land commands. 
 

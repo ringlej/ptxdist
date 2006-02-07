@@ -9,13 +9,11 @@ config INETUTILS
 config INETUTILS_INETD
 	bool
 	prompt "inetd"
-	default n
 	depends on INETUTILS
 
 config INETUTILS_PING
 	bool
 	prompt "ping"
-	default n
 	depends on INETUTILS
 	help
 	  FIXME: This item needs to be documented
@@ -23,7 +21,6 @@ config INETUTILS_PING
 config INETUTILS_RCP
 	bool
 	prompt "rcp"
-	default n
 	depends on INETUTILS
 	help
 	  FIXME: This item needs to be documented
@@ -31,7 +28,6 @@ config INETUTILS_RCP
 config INETUTILS_RLOGIND
 	bool
 	prompt "rlogind"
-	default n
 	depends on INETUTILS
 	help
 	  FIXME: This item needs to be documented
@@ -39,7 +35,6 @@ config INETUTILS_RLOGIND
 config INETUTILS_RSH
 	bool
 	prompt "rsh"
-	default N
 	depends on INETUTILS
 	help
 	  FIXME: This item needs to be documented
@@ -47,7 +42,6 @@ config INETUTILS_RSH
 config INETUTILS_RSHD
 	bool
 	prompt "rshd"
-	default n
 	depends on INETUTILS
 	select INETUTILS_INETD
 	help
@@ -56,7 +50,6 @@ config INETUTILS_RSHD
 config INETUTILS_SYSLOGD
 	bool
 	prompt "syslogd"
-	default n
 	depends on INETUTILS
 	help
 	  FIXME: This item needs to be documented

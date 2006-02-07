@@ -1,6 +1,5 @@
 menuconfig LIBXMLCONFIG
 	bool
-	default N
 	prompt "libxmlconfig                "
 	select LIBXML2
 	select LIBLIST

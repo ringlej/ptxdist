@@ -8,7 +8,6 @@ config MFIREBIRD_CALENDAR
 	bool
 	prompt "Calender Client"
 	depends on MFIREBIRD
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -16,7 +15,6 @@ config MFIREBIRD_MAILNEWS
 	bool
 	prompt "Mail+News Client"
 	depends on MFIREBIRD
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -42,7 +40,6 @@ config MFIREBIRD_XFT
 	bool
 	prompt "Xft support"
 	depends on MFIREBIRD
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -120,7 +117,6 @@ config MFIREBIRD_COMPOSER
 	bool
 	prompt "Composer"
 	depends on MFIREBIRD
-	default n
 	help
 	  FIXME: This item needs to be documented
 	
@@ -183,7 +179,6 @@ config MFIREBIRD_DEBUG
 	bool
 	prompt "Build with debug info"
 	depends on MFIREBIRD
-	default n
 	help
 	  FIXME: This item needs to be documented
 

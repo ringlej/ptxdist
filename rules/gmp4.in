@@ -1,6 +1,5 @@
 config GMP4
         bool
-        default N
         depends on BROKEN
         prompt "GMP4"
 	help

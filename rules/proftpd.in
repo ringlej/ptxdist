@@ -37,7 +37,6 @@ config PROFTPD_AUTOSHADOW
 config PROFTPD_DEFAULTCONFIG
 	bool
 	prompt "install default config file"
-	default N
 	depends on PROFTPD
 	help
 	  FIXME: This item needs to be documented

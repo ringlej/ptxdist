@@ -1,6 +1,5 @@
 config LIBIDL068
         bool
-        default N
         depends on BROKEN
         prompt "LIBIDL068"
 	help

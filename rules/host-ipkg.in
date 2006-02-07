@@ -1,7 +1,6 @@
 config HOST_IPKG
 	bool
 	prompt "ipkg"
-	default N
 	help
 	  ipkg is used on the development host to install packets into 
 	  some directory. Example: 
@@ -13,7 +12,6 @@ config HOST_IPKG_EXTRACT_TEST
 	bool
 	prompt "ipkg_extract_test"
 	depends on HOST_IPKG
-	default N
 	help
 	  Unfortunately, nobody knows what this program is being used for. 
 	  FIXME: This item needs to be documented
@@ -22,7 +20,6 @@ config HOST_IPKG_HASH_TEST
 	bool
 	prompt "ipkg_hash_test"
 	depends on HOST_IPKG
-	default N
 	help
 	  Unfortunately, nobody knows what this program is being used for. 
 	  FIXME: This item needs to be documented

@@ -12,7 +12,7 @@ menuconfig LIBXML2
 
 config LIBXML2_C14N
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "C14N Support"
 	help
@@ -22,7 +22,7 @@ config LIBXML2_C14N
 
 config LIBXML2_CATALOG
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "Catalog support"
 	help
@@ -38,7 +38,7 @@ config LIBXML2_CATALOG
 
 config LIBXML2_DEBUG
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "Debugging"
 	help
@@ -46,7 +46,7 @@ config LIBXML2_DEBUG
 
 config LIBXML2_DOCBOOK
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "Docbook support"
 	help
@@ -54,7 +54,6 @@ config LIBXML2_DOCBOOK
 
 config LIBXML2_FEXCEPTIONS
 	bool
-	default N
 	depends on LIBXML2
 	prompt "C++ Exception Support"
 	help
@@ -62,7 +61,7 @@ config LIBXML2_FEXCEPTIONS
 
 config LIBXML2_FTP
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "FTP Support"
 	help
@@ -70,7 +69,6 @@ config LIBXML2_FTP
 
 config LIBXML2_HISTORY
 	bool
-	default N
 	depends on LIBXML2
 	prompt "History support for xmlling shell"
 	help
@@ -78,7 +76,7 @@ config LIBXML2_HISTORY
 
 config LIBXML2_HTML
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "HTML support"
 	help
@@ -102,7 +100,7 @@ config LIBXML2_HTML_SUBDIR
 
 config LIBXML2_HTTP
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "HTTP support"
 	help
@@ -110,7 +108,7 @@ config LIBXML2_HTTP
 
 config LIBXML2_ICONV
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "ICONV support"
 	help
@@ -118,7 +116,7 @@ config LIBXML2_ICONV
 
 config LIBXML2_ISO8859X
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "ISO8859x support if no ICONV"
 	help
@@ -126,7 +124,7 @@ config LIBXML2_ISO8859X
 
 config LIBXML2_LEGACY
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "Support for deprecated APIs"
 	help
@@ -134,7 +132,6 @@ config LIBXML2_LEGACY
 
 config LIBXML2_MEM_DEBUG
 	bool
-	default N
 	depends on LIBXML2
 	prompt "Memory Debugging Module"
 	help
@@ -142,7 +139,6 @@ config LIBXML2_MEM_DEBUG
 
 config LIBXML2_MINIMUM
 	bool
-	default N
 	depends on LIBXML2
 	prompt "Optimize for size"
 	help
@@ -150,7 +146,7 @@ config LIBXML2_MINIMUM
 
 config LIBXML2_OUTPUT
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "Output Serialization"
 	help
@@ -158,7 +154,7 @@ config LIBXML2_OUTPUT
 
 config LIBXML2_PATTERN
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "XML Pattern Selection Interface"
 	help
@@ -166,7 +162,7 @@ config LIBXML2_PATTERN
 
 config LIBXML2_PUSH
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "PUSH Parser"
 	help
@@ -181,7 +177,7 @@ config LIBXML2_PYTHON
 
 config LIBXML2_READER
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "xmlReader Parsing Interface"
 	help
@@ -189,7 +185,7 @@ config LIBXML2_READER
 
 config LIBXML2_REGEXPS
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "Regular Expressions support"
 	help
@@ -199,7 +195,6 @@ config LIBXML2_REGEXPS
 
 config LIBXML2_RUN_DEBUG
 	bool
-	default N
 	depends on LIBXML2
 	prompt "Enable Runtime Debugging"
 	help
@@ -207,7 +202,7 @@ config LIBXML2_RUN_DEBUG
 
 config LIBXML2_SAX1
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "SAX1 API"
 	help
@@ -215,7 +210,7 @@ config LIBXML2_SAX1
 
 config LIBXML2_SCHEMAS
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "Relax-NG/Schema Support"
 	help
@@ -223,7 +218,7 @@ config LIBXML2_SCHEMAS
 
 config LIBXML2_THREADS
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "Thread support"
 	help
@@ -231,7 +226,6 @@ config LIBXML2_THREADS
 
 config LIBXML2_THREADS_ALLOC
 	bool
-	default N
 	depends on LIBXML2
 	prompt "Per-Thread memory"
 	help
@@ -239,7 +233,7 @@ config LIBXML2_THREADS_ALLOC
 
 config LIBXML2_DOM
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "DOM API"
 	help
@@ -247,7 +241,7 @@ config LIBXML2_DOM
 
 config LIBXML2_DTD
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "DTD Validation support"
 	help
@@ -255,7 +249,7 @@ config LIBXML2_DTD
 
 config LIBXML2_WRITER
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "xmlWriter support"
 	help
@@ -263,7 +257,7 @@ config LIBXML2_WRITER
 
 config LIBXML2_XINCLUDE
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "XInclude"
 	help
@@ -271,7 +265,7 @@ config LIBXML2_XINCLUDE
 
 config LIBXML2_XPATH
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "XPATH support"
 	help
@@ -279,7 +273,7 @@ config LIBXML2_XPATH
 
 config LIBXML2_XPTR
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "XPTR"
 	help
@@ -287,7 +281,7 @@ config LIBXML2_XPTR
 
 config LIBXML2_MODULES
 	bool
-	default Y
+	default y
 	depends on LIBXML2
 	prompt "Dynamic Modules"
 	help

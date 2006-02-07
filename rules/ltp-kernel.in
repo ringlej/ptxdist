@@ -2,7 +2,6 @@ menuconfig LTP_KERNEL
 	bool
 	prompt "Kernel              "
 	depends on LTP
-	default N
 	help
 	  Kernel based tests. 
 
@@ -12,7 +11,6 @@ menuconfig LTP_KERNEL_FS
 	bool
 	prompt "File System Tests"
 	depends on LTP_KERNEL
-	default N
 	help
 	  FIXME: This item needs to be documented
 
@@ -26,7 +24,6 @@ config LTP_KERNEL_FS_DOIO
 	prompt "doio"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  A set of tests to generate file system load. 
 
@@ -34,7 +31,6 @@ config LTP_KERNEL_FS_DOIO_RWTEST
 	prompt "rwtest"
 	bool
 	depends on LTP_KERNEL_FS_DOIO
-	default N
 	help
 	  Wrapper for doio and iogen: do basic i/o instructions on a set of file 
 	  descriptors.
@@ -43,7 +39,6 @@ config LTP_KERNEL_FS_DOIO_GROWFILES
 	prompt "growfiles"
 	bool
 	depends on LTP_KERNEL_FS_DOIO
-	default N
 	help
 	  Creates and truncates files in gradual steps and check all system 
 	  calls for proper return values. This test can cause 
@@ -55,7 +50,6 @@ config LTP_KERNEL_FS_FSBENCH
 	prompt "fs-bench"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  File system stress test benchmarking. 
 
@@ -67,7 +61,6 @@ config LTP_KERNEL_FS_FSDI
 	prompt "fsdi"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  Data integrity test: create file of a specified size and copy it
 	  to a certain directory depth, then checking the integrity. 
@@ -78,7 +71,6 @@ config LTP_KERNEL_FS_INOD
 	prompt "fs_inod"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  Inode creation/deletion stress test. 
 
@@ -92,7 +84,6 @@ config LTP_KERNEL_FS_PERMS
 	prompt "fs_perms"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  Permission test. 
 
@@ -102,7 +93,6 @@ config LTP_KERNEL_FS_FSSTRESS
 	prompt "fsstress"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  File system stress test. 
 
@@ -112,7 +102,6 @@ config LTP_KERNEL_FS_FSX
 	prompt "fsx"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  File system stress test. 
 
@@ -122,7 +111,6 @@ config LTP_KERNEL_FS_FTEST
 	prompt "ftest"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 
 # ----------------------------------------------------------------------------	  
 
@@ -130,7 +118,6 @@ config LTP_KERNEL_FS_INODE
 	prompt "inode"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 
 # ----------------------------------------------------------------------------	  
 
@@ -138,7 +125,6 @@ config LTP_KERNEL_FS_LFTEST
 	prompt "lftest"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  Test large file support on a filesystem. 
 
@@ -151,7 +137,6 @@ config LTP_KERNEL_FS_OPENFILE
 	prompt "openfile"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  Create files and open simultanously. 
 
@@ -161,7 +146,6 @@ config LTP_KERNEL_FS_PROC
 	prompt "proc"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  Test proc system entries. 
 
@@ -171,7 +155,6 @@ config LTP_KERNEL_FS_RACER
 	prompt "racer"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  Create filess and shuffle them around, to provoke race conditions. 
 
@@ -183,6 +166,5 @@ config LTP_KERNEL_FS_STREAM
 	prompt "stream"
 	bool
 	depends on LTP_KERNEL_FS
-	default N
 	help
 	  Stream I/O. 

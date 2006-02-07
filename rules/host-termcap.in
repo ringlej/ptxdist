@@ -1,6 +1,5 @@
 config HOST_TERMCAP
         bool
-        default N
         depends on BROKEN
         prompt "HOST_TERMCAP"
 	help

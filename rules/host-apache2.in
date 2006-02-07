@@ -1,6 +1,5 @@
 config HOST_APACHE2
         bool
-        default N
         depends on BROKEN
         prompt "HOST_APACHE2"
 	help

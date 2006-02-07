@@ -1,6 +1,5 @@
 config HOST_MODULE_INIT_TOOLS
 	bool
-	default N
 	prompt "Module Init Tools"
 	select MODULE_INIT_TOOLS
 	help
@@ -10,7 +9,6 @@ config HOST_MODULE_INIT_TOOLS
 
 config HOST_MODUTILS
 	bool
-	default N
 	prompt "Modutils"
 	select HOST_FLEX254
 	help

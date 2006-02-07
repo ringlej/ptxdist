@@ -2,13 +2,7 @@ menuconfig XMLBENCH
 	depends on BROKEN
         bool
         prompt "xmlbench"
-	default N
 
 comment "xmlbench is broken, please send a patch"
 	depends on !BROKEN
-
-
-
-
-
 

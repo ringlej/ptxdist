@@ -1,6 +1,5 @@
 config GTK26
         bool
-        default N
         depends on BROKEN
         prompt "GTK26"
 	help

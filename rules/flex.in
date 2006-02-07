@@ -1,6 +1,5 @@
 config FLEX
 	bool
-	default N
 	depends on BROKEN
 	prompt "FLEX"
 	help

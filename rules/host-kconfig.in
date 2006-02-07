@@ -1,6 +1,5 @@
 config HOST_KCONFIG
         bool
-        default N
         depends on BROKEN
         prompt "HOST_KCONFIG"
 	help

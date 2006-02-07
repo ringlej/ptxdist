@@ -1,7 +1,6 @@
 config EFAX
 	bool
 	prompt "efax"
-	default n
 	help
 	  Programs to send and receive fax messages
 	  

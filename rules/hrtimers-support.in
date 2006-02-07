@@ -1,7 +1,6 @@
 config HRTIMERS_SUPPORT
 	bool
 	prompt "hrtimers-support"
-	default N
 	help
 	  This is the support library for the High Resolution Timer
 	  project. More details can be found on 

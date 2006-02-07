@@ -40,17 +40,15 @@ config NETCAT
 config  NETCAT_OLD_HEXDUMP
         bool
         prompt "Use the old style hexdump format"
-        default n
 	depends on NETCAT
 	help
-	  Disabled by default - if unshure, say NO
+	  Disabled by default - if unsure, say NO
 
 config  NETCAT_OLD_TELNET
         bool
         prompt "Use old telnet codes parsing policy"
-        default n
         depends on NETCAT
 	help
-	  Disabled by default - if unshure, say NO
+	  Disabled by default - if unsure, say NO
 
 endmenu

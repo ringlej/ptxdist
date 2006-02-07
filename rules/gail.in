@@ -1,6 +1,5 @@
 config GAIL
         bool
-        default N
         depends on BROKEN
         prompt "GAIL"
 	help

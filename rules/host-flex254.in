@@ -1,6 +1,5 @@
 config HOST_FLEX254
         bool
-        default N
         depends on BROKEN
         prompt "HOST_FLEX254"
 	help

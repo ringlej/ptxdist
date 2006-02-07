@@ -5,7 +5,6 @@ menuconfig LTP_BALLISTA
 	prompt "Ballista            "
         depends on BROKEN
 	depends on LTP
-	default N
 	help
 	  The ballista test suite is designed to provide numerous
 	  combinations of erroneous input parameters to system calls.

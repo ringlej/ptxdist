@@ -1,6 +1,5 @@
 config AT-SPI
         bool
-        default N
         depends on BROKEN
         prompt "Assistive Technology Service Provider Interface"
 	help

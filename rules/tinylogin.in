@@ -1,6 +1,5 @@
 config TINYLOGIN
         bool
-        default N
         depends on BROKEN
         prompt "Package TINYLOGIN"
 	help

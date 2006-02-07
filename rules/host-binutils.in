@@ -8,7 +8,6 @@ config HOST_BINUTILS_LIBBFD
 	bool
 	depends on HOST_BINUTILS
 	prompt "libbfd"
-	default n
 	help
 	  The GNU binary utilities / GNU BFD library
 
@@ -16,6 +15,5 @@ config HOST_BINUTILS_LIBIBERTY
 	bool
 	depends on HOST_BINUTILS
 	prompt "libiberty"
-	default N
 	help
 	  FIXME

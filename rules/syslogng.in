@@ -2,13 +2,14 @@
 
 menuconfig SYSLOGNG
 	bool
-	prompt "syslog-ng"
+	prompt "syslog-ng           "
 	default n
 	help
 	  The next generation syslog daemon.
 
 config SYSLOGNG_SUNSTREAMS
 	bool
+	depends on SYSLOGNG
 	prompt "sun streams support"
 	default n
 	help
@@ -16,6 +17,7 @@ config SYSLOGNG_SUNSTREAMS
 
 config SYSLOGNG_SUNDOOR
 	bool
+	depends on SYSLOGNG
 	prompt "sun door support"
 	default n
 	help
@@ -23,6 +25,7 @@ config SYSLOGNG_SUNDOOR
 
 config SYSLOGNG_TCPWRAPPER
 	bool
+	depends on SYSLOGNG
 	prompt "tcpwrapper support"
 	default n
 	help
@@ -30,6 +33,7 @@ config SYSLOGNG_TCPWRAPPER
 
 config SYSLOGNG_SPOOF_SOURCE
 	bool
+	depends on SYSLOGNG
 	prompt "spoof_source feature"
 	default n
 	help

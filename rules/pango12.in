@@ -1,6 +1,5 @@
 config PANGO12
         bool
-        default N
         depends on BROKEN
         prompt "Package PANGO12"
 	help

@@ -1,6 +1,5 @@
 config DIALOG
         bool
-        default N
         prompt "dialog"
 	help
 	  Displays user-friendly dialog boxes from shell scripts

@@ -1,6 +1,5 @@
 config PARANOIA
         bool
-        default N
         depends on BROKEN
         prompt "Package PARANOIA"
 	help

@@ -2,7 +2,6 @@ menu "netkit-ftp          "
 
 config NETKIT-FTP
 	bool
-	default n
 	prompt "Install the NetKit FTP client"
 	help 
 	  This is the ftp client from netkit 

@@ -15,7 +15,6 @@ config OMNIORB_SSL
 	bool
 	prompt "SSL support"
 	depends on OMNIORB
-	default n
 	help 
 	  Activate Secure Socket Layer support for omniORB. 
 

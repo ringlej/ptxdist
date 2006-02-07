@@ -2,7 +2,6 @@ menuconfig XMLSTARLET
 	bool
 	select LIBXML2
 	prompt "xmlstarlet          "
-	default N
 	help
 	  XMLStarlet is a set of command line utilities (tools) which
 	  can be used to transform, query, validate, and edit XML documents and

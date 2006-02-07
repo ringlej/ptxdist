@@ -1,6 +1,5 @@
 config MEMEDIT
 	bool
-	default N
 	select READLINE
 	prompt "memedit"
 	help

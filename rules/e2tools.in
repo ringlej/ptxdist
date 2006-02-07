@@ -1,6 +1,5 @@
 config E2TOOLS
 	bool
-	default N
 	depends on BROKEN
 	prompt "E2TOOLS - Ext2 Filesystem Tools"
 	help

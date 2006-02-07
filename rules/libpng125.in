@@ -1,6 +1,5 @@
 config LIBPNG125
         bool
-        default N
         depends on BROKEN
         prompt "LIBPNG125"
 	help

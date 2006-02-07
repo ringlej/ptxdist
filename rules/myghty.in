@@ -1,7 +1,6 @@
 config MYGHTY
 	bool
 	prompt "myghty"
-	default N
 	select PYTHON24
 	help
 	  Myghty is a Python based web and templating framework

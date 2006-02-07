@@ -1,7 +1,6 @@
 config MEMTESTER
 	bool 
 	prompt "memtester"
-	default n
 	help
 	  Memory tester written by Charles Cazabon. See
 	  http://pyropus.ca/software/memtester/ for more

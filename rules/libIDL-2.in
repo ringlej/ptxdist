@@ -1,6 +1,5 @@
 config LIBIDL-2
         bool
-        default N
         depends on BROKEN
         prompt "LIBIDL-2"
 	help

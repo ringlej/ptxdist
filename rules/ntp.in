@@ -5,7 +5,6 @@ menu "NTP                 "
 config NTP
 	bool             
 	prompt "NTP"             
-	default n
 	help
 	  Build the standard NTP Daemon Process
 	  This conflicts with BSD openntpd. 	
@@ -21,7 +20,6 @@ comment "Compile Options"
 config NTP_CLOCKCTL
 	bool
 	prompt "Use /dev/clockctl for non-root time control"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -29,7 +27,6 @@ config NTP_CLOCKCTL
 config NTP_DEBUGGING
 	bool
 	prompt "include debugging code"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -45,7 +42,6 @@ config NTP_DST-MINUTES
 config NTP_BANCOMM
 	bool
 	prompt "Datum/Bancomm bc635/VME interface"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -53,7 +49,6 @@ config NTP_BANCOMM
 config NTP_GPSVME
 	bool
 	prompt "TrueTime GPS receiver/VME interface"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -61,7 +56,6 @@ config NTP_GPSVME
 config NTP_KMEM
 	bool
 	prompt "read /dev/kmem for tick and/or tickadj"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -69,7 +63,6 @@ config NTP_KMEM
 config NTP_ACCURATE_ADJTIME
 	bool
 	prompt "the adjtime () call is accurate"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -77,7 +70,6 @@ config NTP_ACCURATE_ADJTIME
 config NTP_TICK_FORCE
 	bool
 	prompt "force a value for 'tick'"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -93,7 +85,6 @@ config NTP_TICK
 config NTP_TICKADJ_FORCE
 	bool
 	prompt "force a value for 'tickadj'"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -109,7 +100,6 @@ config NTP_TICKADJ
 config NTP_SIMULATOR
 	bool
 	prompt "build/install the NTPD simulator?"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -117,7 +107,6 @@ config NTP_SIMULATOR
 config NTP_UDP_WILDCARD
 	bool
 	prompt "use UDP wildcard delivery"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -125,7 +114,6 @@ config NTP_UDP_WILDCARD
 config NTP_SLEW_ALWAYS
 	bool
 	prompt "always slew the time"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -133,7 +121,6 @@ config NTP_SLEW_ALWAYS
 config NTP_STEP_SLEW
 	bool
 	prompt "step and slew the time"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -141,7 +128,6 @@ config NTP_STEP_SLEW
 config NTP_NTPDATE_STEP
 	bool
 	prompt "if ntpdate should step the time"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -149,7 +135,6 @@ config NTP_NTPDATE_STEP
 config NTP_HOURLY_TODR_SYNC
 	bool
 	prompt "if we should sync TODR hourly"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -157,7 +142,6 @@ config NTP_HOURLY_TODR_SYNC
 config NTP_KERNEL_FLL_BUG
 	bool
 	prompt "if we should avoid a kernel FLL bug"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -165,7 +149,6 @@ config NTP_KERNEL_FLL_BUG
 config NTP_IRIG_SAWTOOTH
 	bool
 	prompt "if we should enable the IRIG sawtooth filter"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -173,7 +156,6 @@ config NTP_IRIG_SAWTOOTH
 config NTP_NIST
 	bool
 	prompt "if we should enable the NIST lockclock scheme"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -181,7 +163,6 @@ config NTP_NIST
 config NTP_CRYPTO
 	bool
 	prompt "use openssl"
-	default n
 	depends on NTP && OPENSSL
 	help
 	  FIXME: This item needs to be documented
@@ -192,7 +173,6 @@ comment "crypto needs openssl"
 config NTP_SNTP
 	bool
 	prompt "Build SNTP"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -200,7 +180,6 @@ config NTP_SNTP
 config NTP_ARLIB
 	bool
 	prompt "Compile the async resolver library"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -216,7 +195,6 @@ depends on NTP
 config NTP_NTPDATE
 	bool
 	prompt "install ntpdate"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -224,7 +202,6 @@ config NTP_NTPDATE
 config NTP_NTPD
 	bool
 	prompt "install ntpd"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -232,7 +209,6 @@ config NTP_NTPD
 config NTP_NTPDC
 	bool
 	prompt "install ntpdc"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
@@ -240,7 +216,6 @@ config NTP_NTPDC
 config NTP_NTPQ
 	bool
 	prompt "install ntpq"
-	default n
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented

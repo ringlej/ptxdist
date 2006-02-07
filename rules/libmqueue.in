@@ -1,7 +1,6 @@
 config LIBMQUEUE
 	bool
 	prompt "libmqueue"
-	default N
 	help
 	  Libmqueue offers an implementation of POSIX Message Queues
 	  which work on systems whith older glibc versions. 

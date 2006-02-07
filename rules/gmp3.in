@@ -1,6 +1,5 @@
 config GMP3
         bool
-        default N
         depends on BROKEN
         prompt "GMP3"
 	help

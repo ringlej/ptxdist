@@ -1,6 +1,5 @@
 config HOST_KSYMOOPS
         bool
-        default N
         prompt "KSYMOOPS"
 	select HOST_BINUTILS_LIBBFD
 	select HOST_BINUTILS_LIBIBERTY

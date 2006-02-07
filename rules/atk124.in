@@ -1,6 +1,5 @@
 config ATK
         bool
-        default N
         depends on BROKEN
         prompt "atk - accessibility toolkit"
 	help

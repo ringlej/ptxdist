@@ -1,6 +1,5 @@
 menuconfig CANUTILS
 	bool "canutils            "
-	default N
 	help
 	  The canutils package contains tools to configure 
 	  and test the Socket CAN framework
@@ -8,7 +7,6 @@ menuconfig CANUTILS
 config CANUTILS_CANCONFIG
 	bool
 	depends on CANUTILS
-	default N
 	prompt "canconfig"
 	help
 	  Configuration Tool for socket can.
@@ -16,16 +14,13 @@ config CANUTILS_CANCONFIG
 config CANUTILS_CANDUMP
 	bool
 	depends on CANUTILS
-	default N
 	prompt "candump"
 	help
 	  A little utility to dump canbus messages
-	  
 
 config CANUTILS_CANECHO
 	bool
 	depends on CANUTILS
-	default N
 	prompt "canecho"
 	help
 	  A little utility to echo canbus messages 
@@ -33,7 +28,6 @@ config CANUTILS_CANECHO
 config CANUTILS_CANSEND
 	bool
 	depends on CANUTILS
-	default N
 	prompt "cansend"
 	help
 	  A little utility to send canbus messages from command line

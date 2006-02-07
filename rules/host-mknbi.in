@@ -1,6 +1,5 @@
 config HOST_MKNBI
         bool
-        default N
         depends on BROKEN
         prompt "HOST_MKNBI"
 	help

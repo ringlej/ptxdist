@@ -1,6 +1,5 @@
 config LIBOOP
         bool
-        default N
         depends on BROKEN
         prompt "LIBOOP"
 	help

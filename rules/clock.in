@@ -1,6 +1,5 @@
 config CLOCK
 	bool
-	default N
 	depends on BROKEN
 	prompt "clock"
 	help

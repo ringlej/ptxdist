@@ -4,7 +4,6 @@ menuconfig MICO
 	bool
 	select HOST_MICO
 	prompt "mico"
-	default n
 	help
 	  MICO is a CORBA ORB. See http://www.mico.com for details.
 
@@ -30,7 +29,6 @@ comment "no multithreading with wireless, stream, relship, externalization, life
 
 config MICO_CCM
 	bool
-	default n
 	prompt "build CCM-specific parts"
 	depends on MICO
 	help
@@ -51,7 +49,6 @@ comment "MICO COSS is broken, please send a patch"
 
 config MICO_CSL2
 	bool
-	default n
 	prompt "CORBASec Level 2"
 	depends on MICO
 	depends on BROKEN
@@ -83,7 +80,6 @@ config MICO_SERVICE_NAMING
 
 config MICO_SERVICE_RELSHIP
 	bool
-	default n
 	prompt "Relationship Service"
 	depends on MICO
 	help
@@ -99,7 +95,6 @@ config MICO_SERVICE_EVENTS
 
 config MICO_SERVICE_STREAM
 	bool
-	default n
 	prompt "Stream Service"
 	depends on MICO
 	help
@@ -115,7 +110,6 @@ config MICO_SERVICE_PROPERTY
 
 config MICO_SERVICE_TRADER
 	bool
-	default n
 	prompt "Trading Service"
 	depends on MICO
 	depends on BROKEN
@@ -136,7 +130,6 @@ config MICO_SERVICE_TIME
 
 config MICO_SERVICE_LIFECYCLE
 	bool
-	default n
 	prompt "Lifecycle Service"
 	depends on MICO
 	help
@@ -144,7 +137,6 @@ config MICO_SERVICE_LIFECYCLE
 
 config MICO_SERVICE_EXTERNALIZATION
 	bool
-	default n
 	prompt "Externalization Service"
 	depends on MICO
 	help
@@ -155,7 +147,6 @@ comment "Wireless"
 
 config MICO_WIRELESS
 	bool
-	default n
 	prompt "Wireless CORBA Support"
 	depends on MICO
 	help
@@ -164,7 +155,6 @@ config MICO_WIRELESS
 config MICO_WIRELESS_HOME
 	bool
 	depends on MICO_WIRELESS
-	default n
 	prompt "Home Location Agent"
 	help
 	  FIXME: This feature needs documentation.
@@ -172,14 +162,12 @@ config MICO_WIRELESS_HOME
 config MICO_WIRELESS_TERMINAL
 	bool
 	depends on MICO_WIRELESS
-	default n
 	prompt "Wireless CORBA for Terminals"
 	help
 	  FIXME: This feature needs documentation.
 
 config MICO_WIRELESS_ACCESS
 	bool
-	default n
 	prompt "Wireless CORBA Access Bridge"
 	depends on MICO_WIRELESS
 	help
@@ -190,7 +178,6 @@ comment "Other Features"
 
 config MICO_MINI_STL
 	bool
-	default n
 	prompt "Use MICO supplied STL"
 	depends on MICO
 	help
@@ -198,7 +185,6 @@ config MICO_MINI_STL
 
 config MICO_REPO
 	bool
-	default n
 	prompt "Use gcc's template repository"
 	depends on MICO
 	help
@@ -209,7 +195,6 @@ comment "Build Options"
 
 config MICO_MINI
 	bool
-	default n
 	prompt "build minimum CORBA ORB only"
 	depends on MICO
 	help
@@ -220,7 +205,6 @@ comment "Install Options"
 
 config MICO_LIBMICOAUX
 	bool
-	default n
 	depends on MICO
 	prompt "libmicoaux"
 	help
@@ -228,7 +212,6 @@ config MICO_LIBMICOAUX
 
 config MICO_LIBMICOCOSS
 	bool
-	default n
 	depends on MICO
 	prompt "libmicocoss"
 	help
@@ -236,7 +219,6 @@ config MICO_LIBMICOCOSS
 
 config MICO_LIBMICOIR
 	bool
-	default n
 	depends on MICO
 	prompt "libmicoir"
 	help
@@ -244,7 +226,6 @@ config MICO_LIBMICOIR
 
 config MICO_LIBMICO
 	bool
-	default n
 	depends on MICO
 	prompt "libmico"
 	help

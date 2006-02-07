@@ -1,6 +1,5 @@
 config LIBGNOMECANVAS
         bool
-        default N
         depends on BROKEN
         prompt "LIBGNOMECANVAS"
 	help

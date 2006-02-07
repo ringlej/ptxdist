@@ -12,7 +12,6 @@ config NTP_ALL_CLOCKS
 config NTP_ACTS
 	bool
 	prompt "ACTS modem service"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_ARBITER
@@ -36,7 +35,6 @@ config NTP_AS2201
 config NTP_ATOM
 	bool
 	prompt "ATOM PPS interface"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_CHRONOLOG
@@ -54,13 +52,11 @@ config NTP_CHU
 config NTP_AUDIO_CHU
 	bool
 	prompt "CHU audio/decoder"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_DATUM
 	bool
 	prompt "Datum Programmable Time System"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_DUMBCLOCK
@@ -78,7 +74,6 @@ config NTP_FG
 config NTP_HEATH
 	bool
 	prompt "Heath GC-1000 WWV/WWVH receiver "
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_HOPFSERIAL
@@ -102,7 +97,6 @@ config NTP_HPGPS
 config NTP_IRIG
 	bool
 	prompt "IRIG audio decoder "
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_JJY
@@ -114,7 +108,6 @@ config NTP_JJY
 config NTP_JUPITER
 	bool
 	prompt "Rockwell Jupiter GPS receiver"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_LEITCH
@@ -138,7 +131,6 @@ config NTP_MSFEES
 config NTP_MX4200
 	bool
 	prompt "Magnavox MX4200 GPS receiver "
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_NEOCLOCK4X
@@ -156,13 +148,11 @@ config NTP_NMEA
 config NTP_ONCORE
 	bool
 	prompt "Motorola VP/UT Oncore GPS receiver"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_PALISADE
 	bool
 	prompt "Palisade clock"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_PCF
@@ -180,19 +170,16 @@ config NTP_PST
 config NTP_PTBACTS
 	bool
 	prompt "PTB modem service"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_RIPENCC
 	bool
 	prompt "RIPENCC specific Trimble driver"
-	default n
 	depends on NTP
 
 config NTP_SHM
 	bool
 	prompt "SHM clock attached thru shared memory"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_SPECTRACOM
@@ -204,7 +191,6 @@ config NTP_SPECTRACOM
 config NTP_TPRO
 	bool
 	prompt "KSI/Odetics TPRO/S GPS receiver/IRIG interface"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_TRAK
@@ -216,13 +202,11 @@ config NTP_TRAK
 config NTP_TRUETIME
 	bool
 	prompt "Kinemetrics/TrueTime receivers"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_TT560
 	bool
 	prompt "TrueTime 560 IRIG-B decoder"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_ULINK
@@ -234,13 +218,11 @@ config NTP_ULINK
 config NTP_USNO
 	bool
 	prompt "USNO modem service"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_WWV
 	bool
 	prompt "WWV Audio receiver"
-	default n
 	depends on NTP && NTP_ALL_CLOCKS
 
 config NTP_ZYFER

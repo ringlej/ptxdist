@@ -1,6 +1,5 @@
 config LTT
         bool
-        default N
         depends on BROKEN
         prompt "LTT - Linux Trace Toolkit"
 	help

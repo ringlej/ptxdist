@@ -7,7 +7,6 @@ comment "Crosstool"
 config CROSSTOOL
 	bool
 	prompt "crosstool: Cross Toolchain Build Suite"
-	default n
 	help
 	  Crosstool is a canned build script which is being used to build
 	  the cross compiler and GNU binutils. Historically PTXdist had 
@@ -109,7 +108,6 @@ config CROSSTOOL_GCCLANG_CC
 config GCC_MULTILIB
 	bool
 	prompt "build gcc with multilib support"
-	default n
 	depends on CROSSTOOL
 	help
 	  FIXME: is this working and being used? [RSC]
@@ -196,7 +194,6 @@ comment "Other Tools"
 config XCHAIN-DISTCC
 	bool
 	prompt "distcc"
-	default n
 
 config NASM
 	bool

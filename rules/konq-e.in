@@ -1,6 +1,5 @@
 config KONQ-E
         bool
-        default N
         depends on BROKEN
         prompt "KONQ-E"
 	help

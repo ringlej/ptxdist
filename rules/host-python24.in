@@ -1,5 +1,4 @@
 config HOST_PYTHON24
 	bool
-	default N
 	prompt "Python 2.4"
 

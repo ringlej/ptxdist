@@ -1,7 +1,6 @@
 config MESA
 	bool
 	prompt "mesa"
-	default N
 	help
 	  Mesa is a 3-D graphics library with an API which is very
 	  similar to that of OpenGL. See the project homepage for

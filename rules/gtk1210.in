@@ -1,6 +1,5 @@
 config GTK1210
         bool
-        default N
         depends on BROKEN
         prompt "GTK1210"
 	help

@@ -1,6 +1,5 @@
 config HOST_LXDIALOG
         bool
-        default N
         depends on BROKEN
         prompt "HOST_LXDIALOG"
 	help

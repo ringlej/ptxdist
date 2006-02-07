@@ -12,7 +12,6 @@ config DOSFSTOOLS_MKDOSFS
 config DOSFSTOOLS_MKDOSFS_MSDOS
 	bool
 	prompt "create mkfs.msdos link"
-	default N
 	depends on DOSFSTOOLS_MKDOSFS
 	help
 	  FAT 12 / MSDOS Format
@@ -20,7 +19,6 @@ config DOSFSTOOLS_MKDOSFS_MSDOS
 config DOSFSTOOLS_MKDOSFS_VFAT
 	bool
 	prompt "create mkfs.vfat link"
-	default N
 	depends on DOSFSTOOLS_MKDOSFS
 	help
 	  VFAT Format - Long Filenames, big files, etc.

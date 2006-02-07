@@ -40,7 +40,6 @@ config SENDFAX_SPOOL
 config MGETTY_CALLBACK
 	prompt "Install callback program"
 	bool
-	default n
 	depends on MGETTY
 	help
 	  FIXME: This item needs to be documented

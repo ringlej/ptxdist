@@ -1,6 +1,5 @@
 config GDB_WRAPPER
         bool
-        default N
         depends on BROKEN
         prompt "GDB_WRAPPER"
 	help

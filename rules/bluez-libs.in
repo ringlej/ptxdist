@@ -2,7 +2,6 @@ config BLUEZ_LIBS
 	bool
 	prompt "bluez-libs"
 	depends on BLUEZ
-	default N
 	help
 	  bluez libraries, needed to build bluez-utils. For details
 	  about this project see the homepage on 

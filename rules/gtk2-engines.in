@@ -1,6 +1,5 @@
 config GTK2
         bool
-        default N
         depends on BROKEN
         prompt "GTK2"
 	help

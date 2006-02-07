@@ -1,7 +1,6 @@
 menuconfig DBENCH
 	bool
 	prompt "dbench"
-	default N
 	help
 	  The dbench (disk) and tbench (TCP) benchmarks
  	  dbench and tbench simulate the load of the 
@@ -25,7 +24,6 @@ config DBENCH_DBENCH
 	bool
 	prompt "install dbench"
 	depends on DBENCH
-	default N
 	help
 	  dbench produces the filesystem load 
 	  on a netbench run
@@ -34,7 +32,6 @@ config DBENCH_TBENCH
 	bool
 	prompt "install tbench"
 	depends on DBENCH
-	default N
 	help
 	  tbench produces the network load 
 	  on a netbench run. Client component.
@@ -43,7 +40,6 @@ config DBENCH_TBENCH_SERVER
 	bool
 	prompt "install tbench server"
 	depends on DBENCH
-	default N
 	help
 	  tbench produces the network load 
 	  on a netbench run. Server component.

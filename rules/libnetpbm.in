@@ -2,7 +2,6 @@
 
 menuconfig LIBNETPBM
 	bool
-	default N
 	prompt "libnetpbm                   "
 	help
 	  FIXME: This item needs to be documented
@@ -10,7 +9,6 @@ menuconfig LIBNETPBM
 config LIBNETPBM_BUILD_FIASCO
 	bool
 	depends on LIBNETPBM
-	default N
 	prompt "build fiasco"
 	help
 	  FIXME: This item needs to be documented

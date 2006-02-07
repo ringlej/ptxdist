@@ -1,6 +1,5 @@
 config LIBGD
         bool
-        default N
         depends on BROKEN
         prompt "LIBGD"
 	help

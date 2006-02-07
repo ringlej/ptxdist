@@ -1,6 +1,5 @@
 config QT
         bool
-        default N
         depends on BROKEN
         prompt "Package QT"
 	help

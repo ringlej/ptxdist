@@ -1,6 +1,5 @@
 config HOST_UMKIMAGE
         bool
-        default N
         depends on BROKEN
         prompt "HOST_UMKIMAGE"
 	help

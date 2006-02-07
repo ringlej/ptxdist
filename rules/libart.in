@@ -1,6 +1,5 @@
 config LIBART
         bool
-        default N
         depends on BROKEN
         prompt "LIBART"
 	help
