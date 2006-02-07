@@ -1,0 +1,72 @@
+#!/bin/bash
+
+#
+# TODO:
+#
+# - modify parser to understand --prefix=/foo, not only --prefix /foo
+#
+
+PROMPT="ptxdist: "
+PTXDIST_TOPDIR=$(cd $(dirname $0) && pwd)
+
+
+#
+# we need the PTXdist shell library
+#
+
+libptxdist=${PTXDIST_TOPDIR}/scripts/libptxdist.sh
+
+if [ -e "$libptxdist" ]; then 
+	. $libptxdist
+else
+	echo "${PROMPT}didn't find \$(PTXDIST_TOPDIR)/scripts/libptxdist.sh"
+	exit 1
+fi
+
+
+#
+# we need the static variable definitions
+#
+
+ptxdistvars=${PTXDIST_TOPDIR}/scripts/ptxdistvars.sh
+
+if [ -e "$ptxdistvars" ]; then
+	. $ptxdistvars
+else
+	echo "${PROMPT}didn't find \$(PTXDIST_TOPDIR)/scripts/ptxdistvars.sh"
+	exit 1
+fi
+
+
+#
+# main()
+#
+
+PROGRAM_DESCRIPTION="PTXdist configure"
+
+source $(cat << EOF | ptxd_generic_option_parser 
+PREFIX prefix <dir>	Set Installation Directory
+EOF
+)
+invoke_parser $@
+
+
+prefix=${PREFIX:="/usr/local"}
+libdir="${prefix}/lib"
+bindir="${prefix}/bin"
+instdir="${libdir}/ptxdist-${PTXDIST_FULLVERSION}"
+
+echo "checking version=${PTXDIST_FULLVERSION}"
+echo "checking prefix=${prefix}"
+echo "checking topdir=${PTXDIST_TOPDIR}"
+echo "checking instdir=${instdir}"
+
+# substitute variables
+echo "creating Makefile"
+cat "${PTXDIST_TOPDIR}/Makefile.in" | \
+	sed -e "s,@PREFIX@,\"${prefix}\",g" | \
+	sed -e "s,@TOPDIR@,\"${PTXDIST_TOPDIR}\",g" | \
+	sed -e "s,@INSTDIR@,\"${instdir}\",g" | \
+	sed -e "s,@VERSION@,\"${PTXDIST_FULLVERSION}\",g" \
+	> ${PTXDIST_TOPDIR}/Makefile
+

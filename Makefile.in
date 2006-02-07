@@ -1,0 +1,28 @@
+prefix=@PREFIX@
+topdir=@TOPDIR@
+instdir=@INSTDIR@
+version=@VERSION@
+
+all: main
+
+main: 
+	@echo "building lxdialog..."
+	cp ${topdir}/scripts/ptx-modifications/Makefile.lxdialog.ptx ${topdir}/scripts/lxdialog/Makefile
+	cd ${topdir}/scripts/lxdialog && make
+	@echo "building conf..."
+	cd ${topdir}/scripts/kconfig && make conf
+	@echo "building mconf..."
+	cd ${topdir}/scripts/kconfig && make mconf
+
+install: main
+	@echo "installing PTXdist to ${prefix}..."
+	@rm -fr ${instdir}
+	@mkdir -p ${instdir}
+	@test -d ${instdir} || exit 1
+	@touch ${instdir} || exit 1 
+	@cp -a ${topdir}/* ${instdir}/
+	@echo "installing PTXdist to ${prefix}/bin..."
+	@mkdir -p ${prefix}/bin
+	@rm -f ${prefix}/bin/ptxdist
+	@ln -sf ${instdir}/bin/ptxdist ${prefix}/bin/ptxdist-${version}
+	@ln -sf ${instdir}/bin/ptxdist ${prefix}/bin/ptxdist
