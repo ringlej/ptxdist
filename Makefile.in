@@ -26,3 +26,15 @@ install: main
 	@rm -f ${prefix}/bin/ptxdist
 	@ln -sf ${instdir}/bin/ptxdist ${prefix}/bin/ptxdist-${version}
 	@ln -sf ${instdir}/bin/ptxdist ${prefix}/bin/ptxdist
+
+clean:
+	rm -f Makefile
+	rm -f scripts/lxdialog/lxdialog
+	rm -f scripts/lxdialog/Makefile
+	rm -f scripts/kconfig/conf
+	rm -f scripts/kconfig/zconf.tab.c
+	rm -f scripts/kconfig/lex.zconf.c
+	rm -f scripts/kconfig/lex.backup
+	rm -f scripts/kconfig/lkc_defs.h
+	rm -f scripts/kconfig/mconf
+
