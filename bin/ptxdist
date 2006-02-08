@@ -49,11 +49,11 @@ fi
 usage() {
 cat << EOF
 
-PTXdist `printf "%-22s" ${PTXDIST_FULLVERSION}` Build System for Embedded Linux Systems
+PTXdist `printf "%-24s" ${FULLVERSION}` Build System for Embedded Linux Systems
 
   ptxdist <action [args]> [options]
 
-Actions:
+Setup and Project Actions:
 
   setup                          setup per-user preferences
 
@@ -62,8 +62,16 @@ Actions:
 
   menuconfig                     configure the root filesystem
 
-  (make <target>)                build PTXdist targets        
-  (run)                          run simulation (only works in NATIVE=1 mode)
+Build Actions:
+
+  get <package>                  get packet sources
+  prepare <package>              run configure stages for packet
+  compile <package>              compile the sources
+  install <package>              install host side components into sysroot/
+  targetinstall <package>        install files for target into root/
+  clean <package>                cleanup packet
+
+Clean Actions:
 
   (clean)                        cleanup build-host and build-cross dirs
   (clean images)                 cleanup images directory
@@ -84,6 +92,11 @@ Environment:
 			         building into PTXCONF_PREFIX from config
 
 EOF
+}
+
+make() {
+
+
 }
 
 menuconfig() {
