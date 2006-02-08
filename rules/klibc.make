@@ -170,10 +170,10 @@ ifdef PTXCONF_KLIBC_INIT
 	echo "slink /init $(PTXCONF_KLIBC_INIT) 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
 endif
 ifdef PTXCONF_KLIBC_USER_SPEC
-	cat $(PROJECTDIR)/initramfs_spec | while read type target source rest; do	\
+	cat $(PTXDIST_WORKSPACE)/initramfs_spec | while read type target source rest; do	\
 		if [ "$$type" == "file" ]; then						\
 			if [ "$$(echo "$$source" | grep "^/")" == "" ]; then		\
-				source=$(PROJECTDIR)/$$source;				\
+				source=$(PTXDIST_WORKSPACE)/$$source;				\
 			fi;								\
 		fi;									\
 		echo "$$type $$target $$source $$rest" >> $(KLIBC_DIR)/initramfs_spec;	\
