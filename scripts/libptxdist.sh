@@ -271,7 +271,7 @@ usage() {
         [ -n "\$1" ] && echo -e "\${PREFIX} error: \$1\n"
 	echo "$PROGRAM_DESCRIPTION"
 	echo 
-        echo "usage: \$0 <args>"
+        echo "usage: \`basename \$0\` <args>"
         echo
         echo " Arguments:"
         echo
@@ -283,7 +283,7 @@ EOF
 done < $INFILE
 cat << EOF >> $OUTFILE
         echo
-		echo " \$0 returns with an exit status != 0, if something failed."
+		echo " \`basename \$0\` returns with an exit status != 0 if something failed."
 	echo 
         exit 0
 }
