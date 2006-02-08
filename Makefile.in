@@ -20,8 +20,8 @@ install: main
 	@mkdir -p ${instdir}
 	@test -d ${instdir} || exit 1
 	@touch ${instdir} || exit 1 
-	@cp -a ${topdir}/* ${instdir}/
 	@echo "installing PTXdist to ${prefix}/bin..."
+	tar -C ${topdir} -cf - --exclude .svn --exclude state . | tar -C ${instdir} -xvf -
 	@mkdir -p ${prefix}/bin
 	@rm -f ${prefix}/bin/ptxdist
 	@ln -sf ${instdir}/bin/ptxdist ${prefix}/bin/ptxdist-${version}
