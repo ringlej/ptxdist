@@ -446,7 +446,7 @@ menuconfig ROOTFS_ETC_INITD_NETWORKING
 		depends on ROOTFS_ETC_INITD_NETWORKING
 		string
 		prompt "/etc/network/interfaces file"
-		default "$(PROJECTDIR)/etc/network/interfaces"
+		default "$(PTXDIST_WORKSPACE)/etc/network/interfaces"
 		help
 		  Copy this file to /etc/network/interfaces. 
 
