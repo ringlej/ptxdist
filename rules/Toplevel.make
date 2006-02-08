@@ -12,6 +12,9 @@
 #
 # - Should we allow only src/ in the work dir for sources?
 #
+# - Find out what to do with PREFIX / PTXCONF_PREFIX; Sysroot?
+#   take care of toolchain requirements
+#
 
 
 # This makefile is called with PTXDIST_TOPDIR set to the PTXdist
@@ -21,7 +24,9 @@
 include ${PTXDIST_TOPDIR}/scripts/ptxdistvars.sh
 
 
-# some directory locations
+# ----------------------------------------------------------------------------
+# Some directory locations
+# ----------------------------------------------------------------------------
 
 HOME			:= $(shell echo $$HOME)
 PTXDIST_WORKSPACE	:= $(shell pwd)
@@ -30,12 +35,18 @@ PATCHDIR		:= $(PTXDIST_TOPDIR)/patches
 MISCDIR			:= $(PTXDIST_TOPDIR)/misc
 RULESDIR		:= $(PTXDIST_TOPDIR)/rules
 
+PROJECTRULESDIR		:= $(PTXDIST_WORKSPACE)/rules
 BUILDDIR		:= $(PTXDIST_WORKSPACE)/build-target
 CROSS_BUILDDIR		:= $(PTXDIST_WORKSPACE)/build-cross
 HOST_BUILDDIR		:= $(PTXDIST_WORKSPACE)/build-host
 STATEDIR		:= $(PTXDIST_WORKSPACE)/state
 IMAGEDIR		:= $(PTXDIST_WORKSPACE)/images
 ROOTDIR			:= $(PTXDIST_WORKSPACE)/root
+SRCDIR			:= $(PTXDIST_WORKSPACE)/src
+
+export HOME PTXDIST_WORKSPACE PTXDIST_TOPDIR
+export PATCHDIR MISCDIR RULESDIR BUILDDIR CROSS_BUILDDIR 
+export HOST_BUILDDIR STATEDIR IMAGEDIR ROOTDIR SRCDIR 
 
 include $(RULESDIR)/Definitions.make
 
@@ -45,44 +56,14 @@ else
 include $(PTXDIST_TOPDIR)/config/setup/ptxdistrc.default
 endif
 
--include $(PTXDIST_WORKSPACE)/.config
+-include $(PTXDIST_WORKSPACE)/ptxconfig
 
-SRCDIR			:= $(strip $(call remove_quotes, $(PTXCONF_SETUP_SRCDIR)))
-
-# ----------------------------------------------------------------------------
-# Setup a list of project directories
-# ----------------------------------------------------------------------------
-
-PROJECTDIRS		:= 
-ifeq (exists, $(shell test -e $(PTXCONF_SETUP_PROJECTDIR1) && echo exists))
-PROJECTDIRS		+= $(PTXCONF_SETUP_PROJECTDIR1)/
-endif
-ifeq (exists, $(shell test -e $(PTXCONF_SETUP_PROJECTDIR2) && echo exists))
-PROJECTDIRS		+= $(PTXCONF_SETUP_PROJECTDIR2)/
-endif
-PROJECTDIRS		+= $(wildcard $(PTXDIST_WORKSPACE)/project-*)
-
-PROJECTDIRS		:= $(strip $(PROJECTDIRS))
- 
-PROJECTCONFFILE		:= $(shell find $(PROJECTDIRS) -name $(PTXCONF_PROJECT).ptxconfig)
-PROJECTDIR		:= $(strip $(shell test -z "$(PROJECTCONFFILE)" || dirname $(PROJECTCONFFILE)))
-PROJECTRULES		:= $(wildcard $(PROJECTDIR)/rules/*.make)
-ifneq ($(PROJECTDIR),)
-PROJECTRULESDIR		:= $(PROJECTDIR)/rules
-PROJECTPATCHDIR		:= $(PROJECTDIR)/patches
-endif
-
-MENU			:=  $(shell 						\
-				if [ -e $(PROJECTDIR)/Kconfig ]; then		\
-					echo $(PROJECTDIR)/Kconfig; 		\
-				else 						\
-					echo $(PTXDIST_TOPDIR)/config/Kconfig;	\
-				fi						\
-			   )
 
 # ----------------------------------------------------------------------------
 # Packets for host, cross and target
 # ----------------------------------------------------------------------------
+
+# clean these variables (they may be set from earlier runs during recursion)
 
 PACKAGES           =
 PACKAGES-y         =
@@ -92,7 +73,6 @@ HOST_PACKAGES      =
 HOST_PACKAGES-y    =
 VIRTUAL            =
 
-export TAR PTXDIST_TOPDIR BUILDDIR ROOTDIR SRCDIR PTXSRCDIR STATEDIR HOST_PACKAGES-y CROSS_PACKAGES-y PACKAGES-y
 
 # ----------------------------------------------------------------------------
 # PTXCONF_PREFIX can be overwritten from the make var PREFIX 
@@ -104,7 +84,7 @@ PREFIX=
 endif
 
 ifeq ($(PTXCONF_PREFIX),)
-PTXCONF_PREFIX=$(PTXDIST_WORKSPACE)/local
+PTXCONF_PREFIX=$(PTXDIST_WORKSPACE)/sysroot
 endif
 
 # FIXME: this should be removed some day...
@@ -119,7 +99,9 @@ endif
 # Include all rule files
 # ----------------------------------------------------------------------------
 
-all: help
+all: 
+	@echo "ptxdist: error: please use ptxdist instead of calling make directly."
+	@exit 1
 
 include $(RULESDIR)/Rules.make
 include $(RULESDIR)/Version.make
@@ -136,7 +118,7 @@ TMP_PROJECTRULES_IN = $(filter-out 			\
 TMP_PROJECTRULES_FINAL = $(shell 			\
 	$(PTXDIST_TOPDIR)/scripts/select_projectrules 	\
 	"$(PTXDIST_TOPDIR)/rules" 			\
-	"$(PROJECTDIR)/rules" 				\
+	"$(PTXDIST_WORKSPACE)/rules"			\
 	"$(TMP_PROJECTRULES_IN)" 			\
 )
 
@@ -193,70 +175,8 @@ endif
 # Targets
 # ----------------------------------------------------------------------------
 
-help:
-	@echo
-	@echo "PTXdist - Build System for Embedded Linux Systems"
-	@echo
-	@echo "Most Useful Targets:"
-	@echo
-	@echo "  make projects                     show predefined project configs"
-	@echo "  make setup                        setup PTXdist per-user-preferences"
-	@echo "  make menuconfig|xconfig|gconfig   configure the root filesystem"
-	@echo
-	@echo "  make world                        make-everything-and-be-happy"
-	@echo "  make run                          run simulation (only works in NATIVE=1 mode)"
-	@echo
-	@echo "  make imagesclean                  cleanup images directory"
-	@echo "  make rootclean                    cleanup root directory for target"
-	@echo "  make projectclean                 cleanup build-target directory"
-	@echo "  make clean                        cleanup build-host and build-cross dirs"
-	@echo "  make distclean                    cleanup everything"
-	@echo
-	@echo "  make images                       build root filesystem images"
-	@echo "  make svn-up                       run \"svn update\" in topdir and project dir"
-	@echo "  make svn-stat                     run \"svn stat\" in topdir and project dir"
-	@echo
-	@echo "Targets for Testing & QA:"
-	@echo
-	@echo "  make cuckoo-test                  search for cuckoo-eggs in root system"
-	@echo "  make config-test                  run oldconfig on all ptxconfig files"
-	@echo "  make ipkg-test                    check if ipkg packets are consistent "
-	@echo "                                    with ROOTDIR"
-	@echo "  make qa-static	                   run qa checks from scripts/qa-static which"
-	@echo "                                    perform static analysis steps"
-	@echo "  make qa-autobuild                 run autobuild scripts from"
-	@echo "                                    scripts/qa-autobuild"
-	@echo
-	@echo "Targets for Autobuilding:"
-	@echo
-	@echo "  make toolchains                   build all supported toolchains"
-	@echo "  make compile-test                 compile all supported targets, with report"
-	@echo
-#	@echo "Temporarily Broken:"
-#	@echo
-#	@echo "  make get                          download (most) of the needed packets"
-#	@echo "  make extract                      extract all needed archives"
-#	@echo "  make prepare                      prepare the configured system "
-#	@echo "                                    for compilation"
-#	@echo "  make compile                      compile the packages"
-#	@echo "  make install                      install to rootdirectory"
-#	@echo
-	@echo "Make Variables:"
-	@echo
-	@echo "  NATIVE=1                          build with native compiler "
-	@echo "                                    instead of cross compiler"
-	@echo "  PREFIX=<path>                     build into this directory, instead of"
-	@echo "                                    building into PTXCONF_PREFIX from config"
-	@echo
-
-
 # FIXME: add check_tools getclean here
 get: $(PACKAGES_GET) $(HOST_PACKAGES_GET) $(CROSS_PACKAGES_GET)
-
-# extract: check_tools $(PACKAGES_EXTRACT)
-# prepare: check_tools $(PACKAGES_PREPARE)
-# compile: check_tools $(PACKAGES_COMPILE)
-# install: check_tools $(PACKAGES_TARGETINSTALL)
 
 dep_output_clean:
 #	if [ -e $(DEP_OUTPUT) ]; then rm -f $(DEP_OUTPUT); fi
@@ -459,24 +379,13 @@ endif
 
 # FIXME: move this to a saner place, now that lxdialog is a host tool
 
-ptx_lxdialog:
-	@echo -e "#include \"ncurses.h\"\nint main(void){}" | gcc -E - > /dev/null; 	\
-	if [ "$$?" = "1" ]; then							\
-		echo;									\
-		echo "Error: you don't seem to have ncurses.h; this probably means"; 	\
-		echo "       that you'll have to install some ncurses-devel packet";	\
-		echo "       from your distribution.";					\
-		echo;									\
-		exit 1;									\
-	fi
-
 check_problematic_configs = 								\
 	$(call targetinfo,checking problematic configs);				\
-	echo "checking \$$PTXDIST_WORKSPACE/.config";					\
-	if [ -f "$(PTXDIST_WORKSPACE)/.config" ] &&					\
-	   [ -n "`grep "DONT_COMPILE_KERNEL" $(PTXDIST_WORKSPACE)/.config`" ] ;	then	\
+	echo "checking \$$PTXDIST_WORKSPACE/ptxconfig";					\
+	if [ -f "$(PTXDIST_WORKSPACE)/ptxconfig" ] &&					\
+	   [ -n "`grep "DONT_COMPILE_KERNEL" $(PTXDIST_WORKSPACE)/ptxconfig`" ]; then	\
 		echo;									\
-		echo "error: your .config file contains PTXCONF_DONT_COMPILE_KERNEL (obsolete)";\
+		echo "error: your ptxconfig file contains PTXCONF_DONT_COMPILE_KERNEL (obsolete)";\
 		echo "error: please set PTXCONF_COMPILE_KERNEL correctly and re-run!";	\
 		echo;									\
 		echo "example: old: '\# PTXCONF_DONT_COMPILE_KERNEL is not set'";	\
@@ -504,124 +413,53 @@ check_problematic_configs = 								\
 	test -e "$(PTXDIST_WORKSPACE)/rules" || ln -sf $(PTXDIST_TOPDIR)/rules $(PTXDIST_WORKSPACE)/rules
 
 
-menuconfig: $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
-	@$(call check_problematic_configs)
-	$(call findout_config)
-	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/mconf $(MENU)
-	# automatic silentoldconfig for consistent .config files 
-	@if [ -f $(PTXDIST_WORKSPACE)/.config ]; then cd $(PTXDIST_WORKSPACE) && make silentoldconfig; fi
-
-xconfig: $(STATEDIR)/host-kconfig.install
-	@$(call check_problematic_configs)
-	$(call findout_config)
-	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/qconf $(MENU)
-	# automatic silentoldconfig for consistent .config files 
-	cd $(PTXDIST_WORKSPACE) && make silentoldconfig
-
-gconfig: $(STATEDIR)/host-kconfig.install
-	@$(call check_problematic_configs)
-	$(call findout_config)
-	LD_LIBRARY_PATH=$(PTXDIST_TOPDIR)/scripts/kconfig cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/gconf $(MENU)
-	# automatic silentoldconfig for consistent .config files 
-	cd $(PTXDIST_WORKSPACE) && make silentoldconfig
-
-oldconfig: $(STATEDIR)/host-kconfig.install
-	@$(call check_problematic_configs)
-	$(call findout_config)
-	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -o $(MENU)
-
-silentoldconfig: $(STATEDIR)/host-kconfig.install
-	@$(call check_problematic_configs)
-	$(call findout_config)
-	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -s $(MENU)
-
-allyesconfig: $(STATEDIR)/host-kconfig.install
-	@$(call check_problematic_configs)
-	$(call findout_config)
-	cd $(PTXDIST_WORKSPACE) && $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -y $(MENU)
-
-ifneq ($(findstring _get,$(MAKECMDGOALS))$(findstring _prepare,$(MAKECMDGOALS))$(findstring _compile,$(MAKECMDGOALS))$(findstring _install,$(MAKECMDGOALS))$(findstring _targetinstall,$(MAKECMDGOALS))$(findstring world,$(MAKECMDGOALS)),)
 configdeps_deps := $(wildcard $(RULESDIR)/*.in) 
 ifndef ($(PROJECTRULESDIR),)
 configdeps_deps += $(wildcard $(PROJECTRULESDIR)/*.in)
 endif
-ifneq ($(shell test -e $(PTXDIST_WORKSPACE)/.config && echo "y"),)
-configdeps_deps += $(PTXDIST_WORKSPACE)/.config
-endif
-endif
+configdeps_deps += $(PTXDIST_WORKSPACE)/ptxconfig
 
 configdeps: $(STATEDIR)/configdeps
 
-$(STATEDIR)/configdeps: $(STATEDIR)/host-kconfig.install $(configdeps_deps)
+$(STATEDIR)/configdeps: $(configdeps_deps)
 	@$(call check_problematic_configs)
-	@$(call findout_config)
 	@$(call targetinfo,generating dependencies from kconfig)
 	@mkdir -p $(IMAGEDIR)
-	@cd $(PTXDIST_WORKSPACE) && \
-		yes "" | $(PTXDIST_WORKSPACE)/scripts/kconfig/conf -O $(MENU) | grep -e "^DEP:.*:.*" \
-			2> /dev/null > $(STATEDIR)/configdeps;
-	@#if [ "$?" != "0" ]; then						\
-	#	echo "error: configdeps failed!";				\
-	#	exit 1;								\
-	#fi
-	@echo
-
-setup: before_config $(STATEDIR)/host-lxdialog.install $(STATEDIR)/host-kconfig.install
-	@rm -f $(PTXDIST_WORKSPACE)/config/setup/.config
-	@ln -sf $(PTXDIST_WORKSPACE)/scripts $(PTXDIST_WORKSPACE)/config/setup/scripts
-	@if [ -f $(HOME)/.ptxdistrc ]; then 					\
-		echo "using \$$HOME/.ptxdistrc"; 				\
-		cp $(HOME)/.ptxdistrc $(PTXDIST_WORKSPACE)/config/setup/.config;\
-	else									\
-		cp $(PTXDIST_WORKSPACE)/config/setup/ptxdistrc.default		\
-		   $(PTXDIST_WORKSPACE)/config/setup/.config;			\
-	fi
-	@(cd $(PTXDIST_WORKSPACE)/config/setup && $(PTXDIST_WORKSPACE)/scripts/kconfig/mconf Kconfig)
-	@echo "cleaning up after setup..."
-	@for i in .tmpconfig.h .config.old .config.cmd; do			\
-		rm -f $(PTXDIST_WORKSPACE)/config/setup/$$i; 			\
-	done
-	@if [ -f $(PTXDIST_WORKSPACE)/config/setup/.config ]; then 		\
-		echo "copying new .ptxdistrc to $(HOME)...";			\
-		mv $(PTXDIST_WORKSPACE)/config/setup/.config $(HOME)/.ptxdistrc;\
-		echo "done.";							\
-	fi
-
-# ----------------------------------------------------------------------------
-# Config Targets
-# ----------------------------------------------------------------------------
-
-%_config:
-	@echo; \
-	echo "[Searching for Config File:]"; 						\
-	CFG="`find $(PROJECTDIRS) -name $(subst _config,.ptxconfig,$@) 2> /dev/null`";	\
-	if [ `echo $$CFG | wc -w` -gt 1 ]; then						\
-		echo "ERROR: more than one config file found:"; 		\
-		echo $$CFG; echo; 						\
-		exit 1;								\
-	fi;									\
-	if [ -n "$$CFG" ]; then 						\
-		echo "config file: \"$$CFG\""; 					\
-		cp $$CFG $(PTXDIST_WORKSPACE)/.config; 				\
-		echo "workspace:   \"$(PTXDIST_WORKSPACE)\"";			\
-	else 									\
-		echo "could not find config file \"$@\""; 			\
-		exit 1;								\
-	fi; 									\
-	echo
+	@mkdir -p $(STATEDIR)
+	@( \
+		tmpdir=`mktemp -d -t ptxdist.XXXXXX`; \
+		pushd $$tmpdir > /dev/null; \
+		\
+		ln -sf ${PTXDIST_TOPDIR}/scripts; \
+		ln -sf ${PTXDIST_TOPDIR}/rules; \
+		ln -sf ${PTXDIST_TOPDIR}/config; \
+		ln -sf ${PTXDIST_WORKSPACE} workspace; \
+		cp ${PTXDIST_WORKSPACE}/ptxconfig .config; \
+		if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then \
+			MENU=${PTXDIST_WORKSPACE}/Kconfig; \
+		else \
+			MENU=config/Kconfig; \
+		fi; \
+		yes "" | ${PTXDIST_TOPDIR}/scripts/kconfig/conf -O \
+			${PTXDIST_WORKSPACE}/Kconfig | grep -e "^DEP:.*:.*" \
+			2> /dev/null > $(STATEDIR)/configdeps; \
+		\
+		popd > /dev/null; \
+		rm -fr $$tmpdir; \
+	)
 
 # ----------------------------------------------------------------------------
 # Test
 # ----------------------------------------------------------------------------
 
-config-test: 
-	@for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 	\
-		OUT=`basename $$i`;					\
-		$(call targetinfo,$$OUT);				\
-		cp $$i .config;						\
-		make oldconfig;						\
-		cp .config $$i;						\
-	done
+# config-test: 
+# 	@for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 	\
+# 		OUT=`basename $$i`;					\
+# 		$(call targetinfo,$$OUT);				\
+# 		cp $$i .config;						\
+# 		make oldconfig;						\
+# 		cp .config $$i;						\
+# 	done
 
 compile-test:
 	@echo 
@@ -681,27 +519,27 @@ qa-static:
 
 # ----------------------------------------------------------------------------
 
-qa-autobuild:
-	@cd $(PTXDIST_WORKSPACE);							\
-	rm -f QA-autobuild.log;								\
-	echo | tee -a QA-autobuild.log;							\
-	echo "QA: Autobuild Report" | tee -a QA-autobuild.log;				\
-	echo "start: `date`" | tee -a QA-autobuild.log;                			\
-	echo | tee -a QA-autobuild.log;							\
-											\
-	for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 				\
-		autobuild=`echo $$i | perl -p -e "s/.ptxconfig/.autobuild/g"`; 		\
-		if [ -x "$$autobuild" ]; then						\
-			PTXDIST_TOPDIR=$(PTXDIST_TOPDIR)				\
-			PTXDIST_WORKSPACE=$(PTXDIST_WORKSPACE)				\
-			$$autobuild | tee -a QA-autobuild.log;				\
-		else									\
-			echo "skipping `basename $$autobuild`|tee -a QA-autobuild.log";	\
-		fi;									\
-	done;										\
-	echo | tee -a QA-autobuild.log;							\
-	echo stop: `date` | tee -a QA-autobuild.log;					\
-	echo | tee -a QA-autobuild.log
+# qa-autobuild:
+# 	@cd $(PTXDIST_WORKSPACE);							\
+# 	rm -f QA-autobuild.log;								\
+# 	echo | tee -a QA-autobuild.log;							\
+# 	echo "QA: Autobuild Report" | tee -a QA-autobuild.log;				\
+# 	echo "start: `date`" | tee -a QA-autobuild.log;                			\
+# 	echo | tee -a QA-autobuild.log;							\
+# 											\
+# 	for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 				\
+# 		autobuild=`echo $$i | perl -p -e "s/.ptxconfig/.autobuild/g"`; 		\
+# 		if [ -x "$$autobuild" ]; then						\
+# 			PTXDIST_TOPDIR=$(PTXDIST_TOPDIR)				\
+# 			PTXDIST_WORKSPACE=$(PTXDIST_WORKSPACE)				\
+# 			$$autobuild | tee -a QA-autobuild.log;				\
+# 		else									\
+# 			echo "skipping `basename $$autobuild`|tee -a QA-autobuild.log";	\
+# 		fi;									\
+# 	done;										\
+# 	echo | tee -a QA-autobuild.log;							\
+# 	echo stop: `date` | tee -a QA-autobuild.log;					\
+# 	echo | tee -a QA-autobuild.log
 
 # ----------------------------------------------------------------------------
 # Cleaning
@@ -801,25 +639,25 @@ distclean: clean
 # SVN Targets
 # ----------------------------------------------------------------------------
 
-svn-up:
-	@$(call targetinfo, Updating in Toplevel)
-	@cd $(PTXDIST_TOPDIR) && svn update
-	@if [ -d "$(PROJECTDIR)" ]; then				\
-		$(call targetinfo, Updating in PROJECTDIR);		\
-		cd $(PROJECTDIR);					\
-		[ -d .svn ] && svn update; 				\
-	fi;
-	@echo "done."
-
-svn-stat:
-	@$(call targetinfo, svn stat in Toplevel)
-	@cd $(PTXDIST_TOPDIR) && svn stat
-	@if [ -d "$(PROJECTDIR)" ]; then				\
-		$(call targetinfo, svn stat in PROJECTDIR);		\
-		cd $(PROJECTDIR);					\
-		[ -d .svn ] && svn stat; 				\
-	fi;
-	@echo "done."
+# svn-up:
+# 	@$(call targetinfo, Updating in Toplevel)
+# 	@cd $(PTXDIST_TOPDIR) && svn update
+# 	@if [ -d "$(PROJECTDIR)" ]; then				\
+# 		$(call targetinfo, Updating in PROJECTDIR);		\
+# 		cd $(PROJECTDIR);					\
+# 		[ -d .svn ] && svn update; 				\
+# 	fi;
+# 	@echo "done."
+# 
+# svn-stat:
+# 	@$(call targetinfo, svn stat in Toplevel)
+# 	@cd $(PTXDIST_TOPDIR) && svn stat
+# 	@if [ -d "$(PROJECTDIR)" ]; then				\
+# 		$(call targetinfo, svn stat in PROJECTDIR);		\
+# 		cd $(PROJECTDIR);					\
+# 		[ -d .svn ] && svn stat; 				\
+# 	fi;
+# 	@echo "done."
 
 # ----------------------------------------------------------------------------
 # Misc other targets
@@ -836,35 +674,6 @@ archive: distclean
 archive-toolchain: virtual-xchain_install
 	$(TAR) -C $(PTXCONF_PREFIX)/.. -jcvf $(PTXDIST_TOPDIR)/$(PTXCONF_GNU_TARGET).tar.bz2 \
 		$(shell basename $(PTXCONF_PREFIX))
-
-.PHONY: projects
-projects:
-	@for dir in $(call remove_quotes,$(PROJECTDIRS)); do 						\
-		(cd $$dir); 										\
-		if [ "$$?" != "0" ]; then								\
-			echo;										\
-			echo "Error: PTXCONF_SETUP_PROJECTDIR macros point to something which";		\
-			echo "       is no directory. Check your .ptxdistrc file. ";			\
-			echo;										\
-			echo "Directory: $$dir";							\
-			echo;										\
-			exit 1;										\
-		fi											\
-	done
-	@echo
-	@echo "---------------------- Available PTXdist Projects: ----------------------------"
-	@echo
-	@for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 					\
-		basename `echo $$i | perl -p -e "s/.ptxconfig/_config/g"`; 				\
-	done | sort 
-	@echo
-	@echo "-------------------------------------------------------------------------------"
-	@echo
-
-configs:
-	@echo
-	@echo "Please use 'make projects' instead of 'make configs'. Thanks."
-	@echo
 
 %_recompile:
 	@rm -f $(STATEDIR)/$*.compile
