@@ -2,8 +2,11 @@ menu "Chrony              "
 
 config CHRONY
 	bool             
+	select READLINE
 	prompt "Chrony (Alternative NTP Synchronisation Daemon)"             
 	help
+	  FIXME: remove READLINE select when 1.21 works again.
+
 	  This will install the Chrony NTPD Daemon (chronyd)
 	  Chrony is a pair of programs which are used to maintain 
 	  the accuracy of the system clock on a computer. The two 
