@@ -109,7 +109,7 @@ menuconfig() {
 	if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
 		${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_WORKSPACE}/Kconfig
 	else
-		${PTXDIST_TOPDIR}/scripts/kconfig/mconf rules/Kconfig
+		${PTXDIST_TOPDIR}/scripts/kconfig/mconf config/Kconfig
 	fi
 	echo "${PROMPT}saving ptxconfig"
 	cp .config ${PTXDIST_WORKSPACE}/ptxconfig
