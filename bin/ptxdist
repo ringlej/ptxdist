@@ -1,0 +1,226 @@
+#!/bin/bash
+
+PROMPT="ptxdist: "
+PTXDIST_WORKSPACE=$(pwd)
+
+if [ -L "$0" ]; then
+	PTXDIST_TOPDIR=$(cd $(dirname $(readlink $0))/.. && pwd)
+else
+	PTXDIST_TOPDIR=$(cd $(dirname $0)/.. && pwd)
+fi
+
+
+#
+# we need the PTXdist shell library
+#
+
+libptxdist=${PTXDIST_TOPDIR}/scripts/libptxdist.sh
+
+if [ -e "$libptxdist" ]; then 
+	. $libptxdist
+else
+	echo "${PROMPT}didn't find \$(PTXDIST_TOPDIR)/scripts/libptxdist.sh"
+	exit 1
+fi
+
+
+#
+# we need the static variable definitions
+#
+
+ptxdistvars=${PTXDIST_TOPDIR}/scripts/ptxdistvars.sh
+
+if [ -e "$ptxdistvars" ]; then
+	. $ptxdistvars
+else
+	echo "${PROMPT}didn't find \$(PTXDIST_TOPDIR)/scripts/ptxdistvars.sh"
+	exit 1
+fi
+
+
+# source the user's .ptxdistrc
+[ -e "$HOME/.ptxdistrc" ] && . $HOME/.ptxdistrc
+
+
+#
+# usage()
+#
+
+usage() {
+cat << EOF
+
+PTXdist `printf "%-22s" ${PTXDIST_FULLVERSION}` Build System for Embedded Linux Systems
+
+  ptxdist <action [args]> [options]
+
+Actions:
+
+  setup                          setup per-user preferences
+
+  projects                       show available projects
+  clone <from> <to>              create a new project, cloned from <from>. 
+
+  menuconfig                     configure the root filesystem
+
+  (make <target>)                build PTXdist targets        
+  (run)                          run simulation (only works in NATIVE=1 mode)
+
+  (clean)                        cleanup build-host and build-cross dirs
+  (clean images)                 cleanup images directory
+  (clean root)                   cleanup root directory for target
+  (clean project)                cleanup project specific packages
+  (clean maintainer)             maintainerclean
+	
+  (svn up)                       run "svn update" in topdir and project dir
+  (svn stat)                     run "svn stat" in topdir and project dir
+
+  (test <testname>)              run tests
+
+Environment:
+
+  NATIVE=1                       build with native compiler 
+			         instead of cross compiler
+  PREFIX=<path>                  build into this directory, instead of
+			         building into PTXCONF_PREFIX from config
+
+EOF
+}
+
+menuconfig() {
+	echo
+
+	# check if this is a PTXdist project dir
+	if [ -z "$(find . -maxdepth 1 -name "ptxconfig" | grep -v .svn)" ]; then
+		echo "${PROMPT}error: no ptxconfig file found."
+		echo "${PROMPT}error: check if this is a PTXdist project directory"
+		echo
+		exit 1
+	fi
+
+	echo "${PROMPT}menuconfig..."
+	tmpdir=`mktemp -d -t ptxdist.XXXXXX`
+
+	pushd $tmpdir > /dev/null
+	ln -sf ${PTXDIST_TOPDIR}/scripts
+	ln -sf ${PTXDIST_TOPDIR}/rules
+	ln -sf ${PTXDIST_TOPDIR}/config
+	ln -sf ${PTXDIST_WORKSPACE} workspace
+	cp ${PTXDIST_WORKSPACE}/ptxconfig .config
+	if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
+		${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_WORKSPACE}/Kconfig
+	else
+		${PTXDIST_TOPDIR}/scripts/kconfig/mconf rules/Kconfig
+	fi
+	echo "${PROMPT}saving ptxconfig"
+	cp .config ${PTXDIST_WORKSPACE}/ptxconfig
+
+	popd > /dev/null
+	echo "${PROMPT}cleanup..."
+	rm -fr $tmpdir
+	echo
+}
+
+projects() {
+	echo
+	echo "${PROMPT}searching for projects:"
+	echo "${PROMPT}scanning ${PTXDIST_TOPDIR}/projects..."
+	projects=`cd ${PTXDIST_TOPDIR}/projects && find . -maxdepth 1 -type d ! -name .svn ! -name .  -exec basename {} \;`
+	echo -n "${PROMPT}scanning \${PTXCONF_SETUP_PROJECTDIR}..."
+	if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ]; then
+	lprojects=`cd ${PTXCONF_SETUP_PROJECTDIR} && find . -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;`
+	echo
+	else
+	echo "not found"
+	fi
+	projects=`(for i in $projects $lprojects; do echo $i; done) | sort -u`
+	echo
+	echo "---------------------- Available PTXdist Projects: ----------------------------"
+	for i in $projects; do echo $i; done
+	echo "-------------------------------------------------------------------------------"
+	echo
+}
+
+setup() {
+	echo
+	echo "${PROMPT}setup..."
+	tmpdir=`mktemp -d -t ptxdist.XXXXXX`
+	pushd $tmpdir > /dev/null
+
+	# prepare everything to make kconfig see it's original environment
+	ln -sf ${PTXDIST_TOPDIR}/scripts
+	cp ${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default .config
+	if [ -f "$HOME/.ptxdistrc" ]; then
+		echo "using \$HOME/.ptxdistrc"
+		cp $HOME/.ptxdistrc .config
+	fi
+
+	# store ~/.ptxdistrc	
+	${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_TOPDIR}/config/setup/Kconfig
+	echo "${PROMPT}saving \$HOME/.ptxdistrc"
+	cp .config $HOME/.ptxdistrc
+
+	popd > /dev/null
+	echo "${PROMPT}cleanup..."
+	rm -fr $tmpdir
+}
+
+clone() {
+
+	if [ -z "$1" ]; then usage; exit 1; fi
+	if [ -z "$2" ]; then usage; exit 1; fi
+
+	if [ -d "$2" ]; then
+		echo
+		echo "${PROMPT}error: directory $2 does already exist"
+		echo
+		exit 1
+	fi
+
+	echo
+	echo "${PROMPT}searching for projects:"
+	echo "${PROMPT}scanning ${PTXDIST_TOPDIR}/projects..."
+	projects=`cd ${PTXDIST_TOPDIR}/projects && find . -maxdepth 1 -type d ! -name .svn ! -name .  -exec basename {} \;`
+	echo -n "${PROMPT}scanning \${PTXCONF_SETUP_PROJECTDIR}..."
+	if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ]; then
+	lprojects=`cd ${PTXCONF_SETUP_PROJECTDIR} && find . -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;`
+	echo
+	else
+	echo "not found"
+	fi
+	projects=`(for i in $projects $lprojects; do echo $i; done) | sort -u`
+	echo
+
+	for i in $projects; do 
+		if [ "$1" = "$i" ]; then
+			echo "${PROMPT}cloning project $1 to $2"
+			if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ] && 
+			   [ -d "${PTXCONF_SETUP_PROJECTDIR}/$1" ] ; then
+				cp -a ${PTXCONF_SETUP_PROJECTDIR}/$1 $2
+			else
+				cp -a ${PTXDIST_TOPDIR}/projects/$1 $2
+			fi
+			echo "${PROMPT}done."
+			echo
+			return
+		fi
+	done
+
+	echo "${PROMPT}project $1 is to be cloned, but could not be found"
+	echo
+}
+
+
+#
+# main()
+#
+case $1 in 
+clone)      clone $2 $3;;
+make)       make -f ${PTXDIST_TOPDIR}/rules/Toplevel.make PTXDIST_TOPDIR=${PTXDIST_TOPDIR};;
+menuconfig) menuconfig;;
+projects)   projects;;
+setup)      setup;;
+*)          usage;;
+esac
+
+exit 0
+

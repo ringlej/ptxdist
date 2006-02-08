@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.7.2-svn
-# Sun Mar 20 02:18:20 2005
+# PTXdist version: 0.10.0-svn
+# Wed Feb  8 08:40:30 2006
 #
 PTXCONF_SETUP_MODULES=y
 PTXCONF_SETUP_PTXCONF=y
@@ -11,21 +11,15 @@ PTXCONF_SETUP_PTXCONF=y
 #
 
 #
-# Sources         
+# Proxies         
 #
-PTXCONF_SETUP_SRCDIR="$(PTXDIST_WORKSPACE)/src"
-
-#
-# Patches         
-#
-PTXCONF_SETUP_PATCH_REPOSITORY=y
-PTXCONF_SETUP_LOCAL_PATCH_REPOSITORY="OBSOLETE-DONT-USE"
+PTXCONF_SETUP_FTP_PROXY=""
+PTXCONF_SETUP_HTTP_PROXY=""
 
 #
 # Projects        
 #
-PTXCONF_SETUP_PROJECTDIR1="$(PTXDIST_TOPDIR)/projects"
-PTXCONF_SETUP_PROJECTDIR2="$(PTXDIST_WORKSPACE)/local_projects"
+PTXCONF_SETUP_PROJECTDIR=""
 
 #
 # Mirrors         
@@ -43,4 +37,3 @@ PTXCONF_SETUP_IPKG_REPOSITORY="/var/www/ipkg-repository"
 # Java SDK        
 #
 PTXCONF_SETUP_JAVA_SDK="/usr"
-
