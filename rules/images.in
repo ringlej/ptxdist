@@ -22,8 +22,8 @@ config IMAGE_HD_CONF
 	help
 	  FIXME
 
-	  Usually your hd geometry file lives in $(PROJECTDIR), so enter
-	  something like "$(PROJECTDIR)/your-filename" here. 
+	  Usually your hd geometry file lives in $(PTXDIST_WORKSPACE), so enter
+	  something like "$(PTXDIST_WORKSPACE)/your-filename" here. 
 
 config IMAGE_IPKG
 	bool
@@ -88,7 +88,7 @@ config IMAGE_JFFS2_EXTRA_ARGS
 	depends on IMAGE_JFFS2
 	help
 	  If needed you can add extra arguments for mkfs.jffs2 here
-	  (e.g. --devtable=$(PROJECTDIR)/device_table.txt)
+	  (e.g. --devtable=$(PTXDIST_WORKSPACE)/device_table.txt)
 
 config IMAGE_UIMAGE
 	bool
@@ -138,7 +138,7 @@ config IMAGE_EXT2_EXTRA_ARGS
 	depends on IMAGE_EXT2
 	help
 	  If needed you can add extra arguments for genext2fs here
-	  (e.g. -U -r 0 -D=$(PROJECTDIR)/device_table.txt)
+	  (e.g. -U -r 0 -D=$(PTXDIST_WORKSPACE)/device_table.txt)
 
 config IMAGE_EXT2_GZIP
 	bool
