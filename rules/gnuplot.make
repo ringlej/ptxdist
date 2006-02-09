@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_GNUPLOT) += gnuplot
 #
 # Paths and names
 #
-GNUPLOT_VERSION		= 4.0.0
-GNUPLOT			= gnuplot-$(GNUPLOT_VERSION)
-GNUPLOT_SUFFIX		= tar.gz
-GNUPLOT_URL		= ftp://ftp.gnuplot.info/pub/gnuplot/$(GNUPLOT).$(GNUPLOT_SUFFIX)
-GNUPLOT_SOURCE		= $(SRCDIR)/$(GNUPLOT).$(GNUPLOT_SUFFIX)
-GNUPLOT_DIR		= $(BUILDDIR)/$(GNUPLOT)
+GNUPLOT_VERSION	:= 4.0.0
+GNUPLOT		:= gnuplot-$(GNUPLOT_VERSION)
+GNUPLOT_SUFFIX	:= tar.gz
+GNUPLOT_URL	:= ftp://ftp.gnuplot.info/pub/gnuplot/$(GNUPLOT).$(GNUPLOT_SUFFIX)
+GNUPLOT_SOURCE	:= $(SRCDIR)/$(GNUPLOT).$(GNUPLOT_SUFFIX)
+GNUPLOT_DIR	:= $(BUILDDIR)/$(GNUPLOT)
 
 -include $(call package_depfile)
 
@@ -60,72 +60,82 @@ $(STATEDIR)/gnuplot.extract: $(gnuplot_extract_deps_default)
 
 gnuplot_prepare: $(STATEDIR)/gnuplot.prepare
 
-GNUPLOT_PATH	=  PATH=$(CROSS_PATH)
-GNUPLOT_ENV 	=  $(CROSS_ENV)
-GNUPLOT_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-GNUPLOT_ENV	+= LIBPNG_CONFIG=$(CROSS_LIB_DIR)/bin/libpng-config
+GNUPLOT_PATH	:= PATH=$(CROSS_PATH)
+GNUPLOT_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-GNUPLOT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-GNUPLOT_AUTOCONF += --disable-history-file
-GNUPLOT_AUTOCONF += --disable-mouse
-GNUPLOT_AUTOCONF += --disable-pm3d 
-GNUPLOT_AUTOCONF += --disable-filledboxes
-GNUPLOT_AUTOCONF += --disable-relative-boxwidth
-GNUPLOT_AUTOCONF += --disable-defined-var
-GNUPLOT_AUTOCONF += --disable-thin-splines
-GNUPLOT_AUTOCONF += --disable-iris
-GNUPLOT_AUTOCONF += --disable-mgr
+GNUPLOT_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-history-file \
+	--disable-mouse \
+	--disable-pm3d \
+	--disable-filledboxes \
+	--disable-relative-boxwidth \
+	--disable-defined-var \
+	--disable-thin-splines \
+	--disable-iris \
+	--disable-mgr \
+	\
+	--disable-rgip \
+	--disable-h3d-quadtree \
+	--disable-h3d-gridbox \
+	\
+	--without-lasergnu \
+	--without-gihdir \
+	--without-linux-vga \
+	--without-ggi \
+	--without-xmi \
+	--with-readline \
+	\
+	--without-cwdrc \
+	--without-lisp-files \
+	--without-row-help \
+	--without-tutorial
+
 ifdef PTXCONF_GNUPLOT_FITERRVARS
 GNUPLOT_AUTOCONF += --enable-fiterrvars
 else
 GNUPLOT_AUTOCONF += --disable-fiterrvars
 endif
-GNUPLOT_AUTOCONF += --disable-rgip
-GNUPLOT_AUTOCONF += --disable-h3d-quadtree
-GNUPLOT_AUTOCONF += --disable-h3d-gridbox 
+
 ifdef PTXCONF_GNUPLOT_X
 GNUPLOT_AUTOCONF += --with-x
 else
 GNUPLOT_AUTOCONF += --without-x
 endif
-GNUPLOT_AUTOCONF += --without-lasergnu
-GNUPLOT_AUTOCONF += --without-gihdir
-GNUPLOT_AUTOCONF += --without-linux-vga
-GNUPLOT_AUTOCONF += --without-ggi
-GNUPLOT_AUTOCONF += --without-xmi
-GNUPLOT_AUTOCONF += --with-readline
+
 ifdef PTXCONF_GNUPLOT_PLOT
 GNUPLOT_AUTOCONF += --with-plot
 else
 GNUPLOT_AUTOCONF += --without-plot
 endif
+
 ifdef PTXCONF_GNUPLOT_PNG
 GNUPLOT_AUTOCONF += --with-png
 else
 GNUPLOT_AUTOCONF += --without-png
 endif
+
 ifdef PTXCONF_GNUPLOT_GD
 GNUPLOT_AUTOCONF += --with-gd
 else
 GNUPLOT_AUTOCONF += --without-gd
 endif
+
 ifdef PTXCONF_GNUPLOT_GIF
 GNUPLOT_AUTOCONF += --with-gif
 else
 GNUPLOT_AUTOCONF += --without-gif
 endif
+
 ifdef PTXCONF_GNUPLOT_PDF
 GNUPLOT_AUTOCONF += --with-pdf
 else
 GNUPLOT_AUTOCONF += --without-pdf
 endif
-GNUPLOT_AUTOCONF += --without-cwdrc 
-GNUPLOT_AUTOCONF += --without-lisp-files
-GNUPLOT_AUTOCONF += --without-row-help
-GNUPLOT_AUTOCONF += --without-tutorial
+
 
 $(STATEDIR)/gnuplot.prepare: $(gnuplot_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -144,7 +154,7 @@ gnuplot_compile: $(STATEDIR)/gnuplot.compile
 $(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps_default)
 	@$(call targetinfo, $@)
 
-	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_ENV) $(GNUPLOT_PATH) make gnuplot
+	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_PATH) make gnuplot
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

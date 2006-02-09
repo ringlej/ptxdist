@@ -2,6 +2,7 @@ menuconfig GNUPLOT
 	bool
 	prompt "gnuplot"
 	select ZLIB
+	select LIBPNG if GNUPLOT_PNG
 	help
 	  A command-line driven interactive plotting program for 
 	  making 2D and 3D graphs from data and functions. 
