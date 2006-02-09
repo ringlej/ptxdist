@@ -1,66 +1,66 @@
 # --- PARSE clocks ---
 
 menu "PARSE clocks    "
-depends NTP
+	depends on NTP
 
 config NTP_PARSE_CLOCKS
-bool
-prompt "include all suitable PARSE clocks:"
-depends NTP
+	bool
+	prompt "include all suitable PARSE clocks:"
+	depends on NTP
 
 config NTP_COMPUTIME
-bool
-prompt "Diem Computime Radio Clock"
-depends NTP && NTP_PARSE_CLOCKS
+	bool
+	prompt "Diem Computime Radio Clock"
+	depends on NTP && NTP_PARSE_CLOCKS
 
 config NTP_DCF7000
-bool
-prompt "ELV/DCF7000 clock"
-depends NTP && NTP_PARSE_CLOCKS
+	bool
+	prompt "ELV/DCF7000 clock"
+	depends on NTP && NTP_PARSE_CLOCKS
 
 config NTP_HOPF6021
-bool
-prompt "HOPF 6021 clock"
-depends NTP && NTP_PARSE_CLOCKS
+	bool
+	prompt "HOPF 6021 clock"
+	depends on NTP && NTP_PARSE_CLOCKS
 
 config NTP_MEINBERG
-bool
-prompt "Meinberg clocks"
-depends NTP && NTP_PARSE_CLOCKS
+	bool
+	prompt "Meinberg clocks"
+	depends on NTP && NTP_PARSE_CLOCKS
 
 config NTP_RAWDCF
-bool
-prompt "DCF77 raw time code"
-depends NTP && NTP_PARSE_CLOCKS
+	bool
+	prompt "DCF77 raw time code"
+	depends on NTP && NTP_PARSE_CLOCKS
 
 config NTP_RCC8000
-bool
-prompt "RCC 8000 clock"
-depends NTP && NTP_PARSE_CLOCKS
+	bool
+	prompt "RCC 8000 clock"
+	depends on NTP && NTP_PARSE_CLOCKS
 
 config NTP_SCHMID
-bool
-prompt "Schmid DCF77 clock"
-depends NTP && NTP_PARSE_CLOCKS
+	bool
+	prompt "Schmid DCF77 clock"
+	depends on NTP && NTP_PARSE_CLOCKS
 
 config NTP_TRIMTAIP
-bool
-prompt "Trimble GPS receiver/TAIP protocol"
-depends NTP && NTP_PARSE_CLOCKS
+	bool
+	prompt "Trimble GPS receiver/TAIP protocol"
+	depends on NTP && NTP_PARSE_CLOCKS
 
 config NTP_TRIMTSIP
-bool
-prompt "Trimble GPS receiver/TSIP protocol"
-depends NTP && NTP_PARSE_CLOCKS
+	bool
+	prompt "Trimble GPS receiver/TSIP protocol"
+	depends on NTP && NTP_PARSE_CLOCKS
 
 config NTP_WHARTON
-bool
-prompt "WHARTON 400A Series clock"
-depends NTP && NTP_PARSE_CLOCKS
+	bool
+	prompt "WHARTON 400A Series clock"
+	depends on NTP && NTP_PARSE_CLOCKS
 
 config NTP_VARITEXT
-bool
-prompt "VARITEXT clock"
-depends NTP && NTP_PARSE_CLOCKS
+	bool
+	prompt "VARITEXT clock"
+	depends on NTP && NTP_PARSE_CLOCKS
 
 endmenu
