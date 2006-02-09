@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_TCPDUMP) += tcpdump
 #
 # Paths and names
 #
-TCPDUMP_VERSION		= 3.9.1
-TCPDUMP			= tcpdump-$(TCPDUMP_VERSION)
-TCPDUMP_SUFFIX		= tar.gz
-TCPDUMP_URL		= ftp://ftp.gwdg.de/pub/misc/tcpdump/beta/$(TCPDUMP)-096.$(TCPDUMP_SUFFIX)
-TCPDUMP_SOURCE		= $(SRCDIR)/$(TCPDUMP)-096.$(TCPDUMP_SUFFIX)
-TCPDUMP_DIR		= $(BUILDDIR)/$(TCPDUMP)
+TCPDUMP_VERSION	:= 3.9.1
+TCPDUMP		:= tcpdump-$(TCPDUMP_VERSION)
+TCPDUMP_SUFFIX	:= tar.gz
+TCPDUMP_URL	:= ftp://ftp.gwdg.de/pub/misc/tcpdump/beta/$(TCPDUMP)-096.$(TCPDUMP_SUFFIX)
+TCPDUMP_SOURCE	:= $(SRCDIR)/$(TCPDUMP)-096.$(TCPDUMP_SUFFIX)
+TCPDUMP_DIR	:= $(BUILDDIR)/$(TCPDUMP)
 
 -include $(call package_depfile)
 
@@ -31,8 +31,6 @@ TCPDUMP_DIR		= $(BUILDDIR)/$(TCPDUMP)
 # ----------------------------------------------------------------------------
 
 tcpdump_get: $(STATEDIR)/tcpdump.get
-
-tcpdump_get_deps = $(tcpdump_get_deps_default)
 
 $(STATEDIR)/tcpdump.get: $(tcpdump_get_deps_default)
 	@$(call targetinfo, $@)
@@ -61,16 +59,15 @@ $(STATEDIR)/tcpdump.extract: $(tcpdump_extract_deps_default)
 
 tcpdump_prepare: $(STATEDIR)/tcpdump.prepare
 
-TCPDUMP_PATH	=  PATH=$(CROSS_PATH)
-TCPDUMP_ENV 	=  $(CROSS_ENV)
+TCPDUMP_PATH	:= PATH=$(CROSS_PATH)
+TCPDUMP_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-TCPDUMP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-
-# while cross compiling configure cannot determine kernel version
-TCPDUMP_AUTOCONF += ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR)
+TCPDUMP_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR)
 
 ifdef PTXCONF_TCPDUMP_DISABLE_CRYPTO
 TCPDUMP_AUTOCONF += --without-crypto
@@ -92,7 +89,7 @@ tcpdump_compile: $(STATEDIR)/tcpdump.compile
 
 $(STATEDIR)/tcpdump.compile: $(tcpdump_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(TCPDUMP_DIR) && $(TCPDUMP_ENV) $(TCPDUMP_PATH) make
+	cd $(TCPDUMP_DIR) && $(TCPDUMP_PATH) $(TCPDUMP_ENV) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
