@@ -1,7 +1,15 @@
 #!/bin/bash
 
+#
+# TODO
+#
+# - add compilercheck 
+#
+#
+
 PROMPT="ptxdist: "
 PTXDIST_WORKSPACE=$(pwd)
+DEBUG=
 
 if [ -L "$0" ]; then
 	PTXDIST_TOPDIR=$(cd $(dirname $(readlink $0))/.. && pwd)
@@ -64,6 +72,8 @@ Setup and Project Actions:
 
 Build Actions:
 
+  go                             start building the current project
+
   get <package>                  get packet sources
   prepare <package>              run configure stages for packet
   compile <package>              compile the sources
@@ -92,11 +102,6 @@ Environment:
 			         building into PTXCONF_PREFIX from config
 
 EOF
-}
-
-make() {
-
-
 }
 
 menuconfig() {
@@ -226,14 +231,71 @@ clone() {
 #
 # main()
 #
-case $1 in 
-clone)      clone $2 $3;;
-make)       make -f ${PTXDIST_TOPDIR}/rules/Toplevel.make PTXDIST_TOPDIR=${PTXDIST_TOPDIR};;
-menuconfig) menuconfig;;
-projects)   projects;;
-setup)      setup;;
-*)          usage;;
-esac
+
+if [ "$#" = "0" ]; then
+	usage
+	exit 0
+fi
+
+while [ "$#" != "0" ]; do 
+
+	case $1 in 
+	compile)	shift
+			if [ "$#" = "0" ]; then
+				echo "${PROMPT}error: add target you want to compile"
+				exit 1
+			fi
+			echo "make -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $* PTXDIST_TOPDIR=${PTXDIST_TOPDIR}"
+			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $* PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			exit $?
+			;;
+	clean)		shift 
+			echo "${PROMPT}removing build directories..."
+			rm -fr build-cross
+			rm -fr build-host
+			rm -fr build-target
+			echo "${PROMPT}removing deps..."
+			rm -f depend.out deptree-a4.ps deptree.ps
+			echo "${PROMPT}removing imagedir..."
+			rm -fr images
+			echo "${PROMPT}removing sysroot..."
+			rm -fr sysroot
+			echo "${PROMPT}removing root..."
+			rm -fr root
+			echo "${PROMPT}removing state..."
+			rm -fr state
+			;;
+	clone)		shift; clone $1 $2; exit 0;;
+	-d|--debug)	shift; MAKEDBG="--debug=make"; ;;
+	extract)	shift ;;
+	get)		shift
+			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_get PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			exit $?
+			;;
+	go)		shift
+			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make world PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			exit $?
+			;;
+	help|--help)	shift; usage; exit 0; ;;
+	install)	shift ;;
+	make)		shift; make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make PTXDIST_TOPDIR=${PTXDIST_TOPDIR};;
+	menuconfig)	shift; menuconfig;;
+	prepare)	shift
+			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_prepare PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			exit $?
+			;;
+	print)		shift
+			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make print-$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			shift
+			;;
+			
+	projects)	shift; projects;;
+	setup)		shift; setup;;
+	targetinstall)	shift; ;;
+	*)		shift; usage;;
+	esac
+
+done
 
 exit 0
 
