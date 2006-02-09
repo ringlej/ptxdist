@@ -1,0 +1,5 @@
+config LIBPNG
+        bool
+        prompt "libpng"
+	help
+	  FIXME: This item needs to be documented
