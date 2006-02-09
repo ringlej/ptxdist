@@ -1,6 +1,5 @@
 config XLIBS-XEXT
         bool
-        default N
         depends on BROKEN
 	select XLIBS-XPROTO
 	select XLIBS-X11

@@ -1,6 +1,5 @@
 config XLIBS-XTST
         bool
-        default N
         depends on BROKEN
 	select XLIBS-RECORDEXT
         prompt "Package XLIBS-XTST"

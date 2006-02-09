@@ -1,6 +1,5 @@
 config XLIBS-FIXESEXT
         bool
-        default N
         depends on BROKEN
         prompt "Package XLIBS-FIXESEXT"
 	help

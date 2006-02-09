@@ -59,7 +59,6 @@ config XSERVER_XNEST
 	bool
 	depends on XSERVER
 	prompt "xnest server"
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -67,7 +66,6 @@ config XSERVER_XWIN
 	bool
 	depends on XSERVER
 	prompt "xwin server"
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -75,7 +73,6 @@ config XSERVER_XSDL
 	bool
 	depends on XSERVER
 	prompt "xsdl server"
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -83,7 +80,6 @@ config XSERVER_XGL
 	bool
 	depends on XSERVER
 	prompt "xgl server"
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -91,7 +87,6 @@ config XSERVER_XTRAP
 	bool
 	depends on XSERVER
 	prompt "xtrap"
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -131,7 +126,6 @@ config XSERVER_GLX
 	bool
 	depends on XSERVER
 	prompt "GLX"
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -139,7 +133,6 @@ config XSERVER_DRI
 	bool
 	depends on XSERVER
 	prompt "DRI"
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -147,7 +140,6 @@ config XSERVER_XINPUT
 	bool
 	depends on XSERVER
 	prompt "xinput"
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -155,7 +147,6 @@ config XSERVER_XKB
 	bool
 	depends on XSERVER
 	prompt "xkb"
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -163,7 +154,6 @@ config XSERVER_XLOADABLE
 	bool
 	depends on XSERVER
 	prompt "xloadable"
-	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -171,7 +161,6 @@ config XSERVER_XINERAMA
 	bool
 	depends on XSERVER
 	prompt "xinerama"
-	default n
 	help
 	  FIXME: This item needs to be documented
 

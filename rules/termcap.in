@@ -8,7 +8,6 @@ menuconfig TERMCAP
 
 config TERMCAP_TERMCAP
 	bool "install termcap data file"
-	default n
 	depends on TERMCAP
 	help
 	  FIXME: This item needs to be documented

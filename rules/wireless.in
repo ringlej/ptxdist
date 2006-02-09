@@ -11,7 +11,6 @@ config WIRELESS
 
 config WIRELESS_SHARED
 	bool "Build shared"
-	default n
 	depends on WIRELESS
 	help
 	  Building shared version of wireless tools and

@@ -1,6 +1,5 @@
 config XLIBS-RENDER
         bool
-        default N
         depends on BROKEN
         prompt "Package XLIBS-RENDER"
 	help

@@ -61,13 +61,12 @@ comment "Base Libraries"
 # 	bool
 # 	prompt "IPv6 Support"
 # 	depends on XLIBS_X11
-# 	default no
 # 
 # config XLIBS_X11_XTHREADS
 # 	bool
 # 	prompt "Xlib support for multithreading"
 # 	depends on XLIBS_X11
-# 	default yes
+# 	default y
 # 
 # config XLIBS_X11_XCMS
 # 	bool
@@ -91,7 +90,6 @@ comment "Base Libraries"
 # 	bool
 # 	prompt "Use XCB for low-level protocol implementation"
 # 	depends on XLIBS_X11
-# 	default no
 # 
 # # ---	
 # 
@@ -123,19 +121,16 @@ config XLIBS_XEXT
 # 	bool
 # 	prompt "Freetype Support"
 # 	depends on XLIBS_XFONT
-# 	default n
 # 
 # config XLIBS_XFONT_FONTCACHE
 # 	bool
 # 	prompt "Fontcache Support"
 # 	depends on XLIBS_XFONT
-# 	default n
 # 
 # config XLIBS_XFONT_FC
 # 	bool
 # 	prompt "FC"
 # 	depends on XLIBS_XFONT
-# 	default n
 # 
 # config XLIBS_XFONT_BUILTINS
 # 	bool

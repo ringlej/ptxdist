@@ -1,6 +1,5 @@
 config XLIBS-XPROTO
         bool
-        default N
         depends on BROKEN
         prompt "Package XLIBS-XPROTO"
 	help

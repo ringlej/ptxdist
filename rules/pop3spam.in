@@ -1,7 +1,6 @@
 config POP3SPAM
 	bool
 	prompt "pop3spam"
-	default n
 	select PCRE
 	help
 	  pop3spam is a rudimentary POP3 client. It is normally supposed

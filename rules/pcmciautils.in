@@ -17,7 +17,6 @@ menuconfig PCMCIAUTILS
 config PCMCIAUTILS_STARTUP
 	bool
 	prompt "Support dynamic sockets (STARTUP, PCCARD_NONSTATIC)"
-	default n
 	depends on PCMCIAUTILS
 	help
 	  If this is enabled some more programms are built and installed to allow

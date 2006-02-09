@@ -1,6 +1,5 @@
 config XLIBS-RANDR
         bool
-        default N
         depends on BROKEN
         prompt "Package XLIBS-RANDR"
 	help

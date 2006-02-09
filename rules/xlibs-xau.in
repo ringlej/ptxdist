@@ -1,6 +1,5 @@
 config XLIBS-XAU
         bool
-        default N
         depends on BROKEN
         prompt "Package XLIBS-XAU"
 	help

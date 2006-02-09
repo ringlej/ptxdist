@@ -66,8 +66,8 @@ config COMPILE_KERNEL
 	bool
 	prompt "Compile Kernel"
 	depends on BUILD_USERLAND
-	default Y if !DONT_COMPILE_KERNEL
-	default N if DONT_COMPILE_KERNEL
+	default y if !DONT_COMPILE_KERNEL
+	default n if DONT_COMPILE_KERNEL
 	help
 	  Usually you want to compile your kernel. If not,
 	  deselect this option. 
@@ -103,7 +103,6 @@ comment "Additional Kernel Options"
 config USE_EXTERNAL_KERNEL
 	bool
 	prompt "Use external kernel"
-	default n
 	depends on BUILD_USERLAND
 	help
 	  Say yes if you intend to use an external already configured 
@@ -123,14 +122,12 @@ config KERNEL_INSTALL
 	bool
 	depends on BUILD_USERLAND
 	prompt "Install kernel into /boot on target"
-	default n
 	select KERNEL_INSTALL_MODULES if COMPILE_KERNEL
 
 config KERNEL_INSTALL_MODULES
 	bool
 	depends on BUILD_USERLAND
 	prompt "Install modules into /lib/modules on target"
-	default n 
 
 # ----------------------------------------------------------------------------
 
@@ -144,7 +141,6 @@ depends on BUILD_USERLAND
 config KERNEL_HOST
 	bool
 	depends on BUILD_USERLAND
-	default N
 	prompt "build UML kernel for simulation"
 	help
 	  When compiling with NATIVE=1 it is possible that you build an
@@ -213,7 +209,6 @@ config KERNEL_HOST_CMDLINE
 #config KERNEL_INSTALL_MODULES
 #	bool
 #	prompt "Install modules into /lib/modules on target"
-#	default n 
 
 endmenu
 

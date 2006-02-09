@@ -1,6 +1,5 @@
 config XLIBS-X11
         bool
-        default N
         depends on BROKEN
 	select XLIBS-XEXTENSIONS
 	select XLIBS-XTRANS

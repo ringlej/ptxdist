@@ -1,6 +1,5 @@
 config XLIBS-XFONT
         bool
-        default N
         depends on BROKEN
 	select ZLIB
         prompt "Package XLIBS-XFONT"

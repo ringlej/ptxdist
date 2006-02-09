@@ -1,6 +1,5 @@
 config XLIBS-XEXTENSIONS
         bool
-        default N
         depends on BROKEN
         prompt "Package XLIBS-XEXTENSIONS"
 	help
