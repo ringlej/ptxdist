@@ -23,10 +23,3 @@ fi
 
 grep -e "PACKAGES +=" $RULESDIR/*.make
 grep -e "PACKAGES +=" $PROJECTRULESDIR/*.make
-
-
-
-
-
-
-
