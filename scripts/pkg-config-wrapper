@@ -2,8 +2,12 @@
 
 PKGCONFIG=/usr/bin/pkg-config
 
-if [ ! "$SYSROOT" ]; then
-	echo "pkg-config-filter: missing \$SYSROOT environment variable"
+if [ \! "$SYSROOT" ]; then
+	echo >&2
+	echo >&2
+	echo "pkg-config: missing \$SYSROOT environment variable" >&2
+	echo >&2
+	echo >&2
 	exit 2
 fi
 
@@ -16,8 +20,6 @@ export PKG_CONFIG_PATH
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
 
-[ "$PTXDIST_DEBUG" = "1" ] && echo "$PKGCONFIG $*" >&2
-
 #
 # 1) protect already given sysroot
 # 2) add sysroot symbol to all absolute paths
@@ -29,7 +31,7 @@ export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
 OUTPUT=`$PKGCONFIG $*` || exit $?
 
 echo -n $OUTPUT |
-	sed -e "s~\-L/*$SYSROOT/*~-L=/~g; s~\-I/*$SYSROOT/*~-I=/~g;" | # 1)
-	sed -e "s~\-L/~-L=/~g; s~\-I/~-I=/~g;" |                       # 2)
-	sed -e "s~\-L\=~-L$SYSROOT~g; s~\-I\=~-I$SYSROOT~g;" |         # 3)
-	sed -e "s~[\t ]\-l~ -Wl,-l~g;"                                 # 4)
+	sed -e "s~\-L/*$SYSROOT/*~-L=/~g; s~\-I/*$SYSROOT/*~-I=/~g;" \
+	    -e "s~\-L/~-L=/~g; s~\-I/~-I=/~g;"                       \
+	    -e "s~\-L\=~-L$SYSROOT~g; s~\-I\=~-I$SYSROOT~g;"         \
+	    -e "s~[\t ]\-l~ -Wl,-l~g;"
