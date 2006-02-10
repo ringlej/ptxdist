@@ -1,15 +1,8 @@
-diff -urN expat-1.95.8-orig/Makefile.in expat-1.95.8/Makefile.in
---- expat-1.95.8-orig/Makefile.in	2004-05-07 22:00:48.000000000 +0200
-+++ expat-1.95.8/Makefile.in	2005-12-25 16:38:05.000000000 +0100
-@@ -44,6 +44,7 @@
- APIHEADER = $(srcdir)/lib/expat.h $(srcdir)/lib/expat_external.h
- LIBRARY = libexpat.la
- 
-+DESTDIR := $(DESTDIR)/
- 
- default:  buildlib xmlwf/xmlwf
- 
-@@ -73,22 +74,22 @@
+Index: expat-1.95.8/Makefile.in
+===================================================================
+--- expat-1.95.8.orig/Makefile.in	2006-02-10 11:33:29.000000000 +0100
++++ expat-1.95.8/Makefile.in	2006-02-10 11:36:24.000000000 +0100
+@@ -73,22 +73,22 @@
  	tests/runtests
  
  install: xmlwf/xmlwf installlib
@@ -42,12 +35,3 @@ diff -urN expat-1.95.8-orig/Makefile.in expat-1.95.8/Makefile.in
  
  # for VPATH builds (invoked by configure)
  mkdir-init:
-@@ -110,7 +111,7 @@
- 
- COMPILE = $(CC) $(CFLAGS) $(DEFS) $(CPPFLAGS) $(INCLUDES)
- LTCOMPILE = $(LIBTOOL) $(LTFLAGS) --mode=compile $(COMPILE)
--LINK_LIB = $(LIBTOOL) $(LTFLAGS) --mode=link $(COMPILE) -no-undefined $(VSNFLAG) -rpath $(libdir) $(LDFLAGS) -o $@
-+LINK_LIB = $(LIBTOOL) $(LTFLAGS) --mode=link $(COMPILE) -no-undefined $(VSNFLAG) -rpath $(DESTDIR)$(libdir) $(LDFLAGS) -o $@
- LINK_EXE = $(LIBTOOL) $(LTFLAGS) --mode=link $(COMPILE) $(LDFLAGS) -o $@
- 
- LIB_OBJS = lib/xmlparse.lo lib/xmltok.lo lib/xmlrole.lo
