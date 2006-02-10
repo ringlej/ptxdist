@@ -49,6 +49,8 @@ fi
 # source the user's .ptxdistrc
 [ -e "$HOME/.ptxdistrc" ] && . $HOME/.ptxdistrc
 
+# use linked toolchain if available
+[ -d ".toolchain" ] && export PATH=`pwd`/.toolchain:$PATH
 
 #
 # usage()
@@ -70,6 +72,8 @@ Setup and Project Actions:
 
   menuconfig                     configure the root filesystem
 
+  toolchain <path>               select this toolchain (path to binaries)
+
 Build Actions:
 
   go                             start building the current project
@@ -83,7 +87,8 @@ Build Actions:
 
 Clean Actions:
 
-  (clean)                        cleanup build-host and build-cross dirs
+  clean                          cleanup build-host and build-cross dirs
+  distclean                      cleanup everything
   (clean images)                 cleanup images directory
   (clean root)                   cleanup root directory for target
   (clean project)                cleanup project specific packages
@@ -250,6 +255,7 @@ while [ "$#" != "0" ]; do
 			exit $?
 			;;
 	clean)		shift 
+			echo
 			echo "${PROMPT}removing build directories..."
 			rm -fr build-cross
 			rm -fr build-host
@@ -264,9 +270,18 @@ while [ "$#" != "0" ]; do
 			rm -fr root
 			echo "${PROMPT}removing state..."
 			rm -fr state
+			echo "${PROMPT}done."
+			echo
+			exit 0
 			;;
 	clone)		shift; clone $1 $2; exit 0;;
 	-d|--debug)	shift; MAKEDBG="--debug=make"; ;;
+	distclean)	shift
+			echo
+			echo "${PROMPT}removing toolchain link..."
+			rm -f .toolchain
+			echo
+			;;
 	extract)	shift ;;
 	get)		shift
 			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_get PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
@@ -292,6 +307,18 @@ while [ "$#" != "0" ]; do
 	projects)	shift; projects;;
 	setup)		shift; setup;;
 	targetinstall)	shift; ;;
+	toolchain)	shift
+			echo
+			if [ ! -d "$1" ]; then
+				echo "${PROMPT}error: path $1 does not exist"
+				echo
+				exit 1
+			fi
+			echo "${PROMPT}using toolchain in $1"
+			ln -sf $1 .toolchain
+			echo
+			exit 0
+			;;
 	*)		shift; usage;;
 	esac
 
