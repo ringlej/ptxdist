@@ -441,7 +441,7 @@ $(STATEDIR)/configdeps: $(configdeps_deps)
 			MENU=config/Kconfig; \
 		fi; \
 		yes "" | ${PTXDIST_TOPDIR}/scripts/kconfig/conf -O \
-			${PTXDIST_WORKSPACE}/Kconfig | grep -e "^DEP:.*:.*" \
+			$$MENU | grep -e "^DEP:.*:.*" \
 			2> /dev/null > $(STATEDIR)/configdeps; \
 		\
 		popd > /dev/null; \
