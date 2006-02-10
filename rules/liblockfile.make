@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBLOCKFILE) += liblockfile
 #
 # Paths and names
 #
-LIBLOCKFILE_VERSION	= 1.06
-LIBLOCKFILE		= liblockfile_$(LIBLOCKFILE_VERSION)
-LIBLOCKFILE_SUFFIX	= tar.gz
-LIBLOCKFILE_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/libl/liblockfile/$(LIBLOCKFILE).$(LIBLOCKFILE_SUFFIX)
-LIBLOCKFILE_SOURCE	= $(SRCDIR)/$(LIBLOCKFILE).$(LIBLOCKFILE_SUFFIX)
-LIBLOCKFILE_DIR		= $(BUILDDIR)/liblockfile-$(LIBLOCKFILE_VERSION)
+LIBLOCKFILE_VERSION	:= 1.06
+LIBLOCKFILE		:= liblockfile_$(LIBLOCKFILE_VERSION)
+LIBLOCKFILE_SUFFIX	:= tar.gz
+LIBLOCKFILE_URL		:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/libl/liblockfile/$(LIBLOCKFILE).$(LIBLOCKFILE_SUFFIX)
+LIBLOCKFILE_SOURCE	:= $(SRCDIR)/$(LIBLOCKFILE).$(LIBLOCKFILE_SUFFIX)
+LIBLOCKFILE_DIR		:= $(BUILDDIR)/liblockfile-$(LIBLOCKFILE_VERSION)
 
 -include $(call package_depfile)
 
@@ -59,15 +59,13 @@ $(STATEDIR)/liblockfile.extract: $(liblockfile_extract_deps_default)
 
 liblockfile_prepare: $(STATEDIR)/liblockfile.prepare
 
-LIBLOCKFILE_PATH	=  PATH=$(CROSS_PATH)
-LIBLOCKFILE_ENV 	=  $(CROSS_ENV)
-LIBLOCKFILE_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+LIBLOCKFILE_PATH	:=  PATH=$(CROSS_PATH)
+LIBLOCKFILE_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIBLOCKFILE_AUTOCONF =  $(CROSS_AUTOCONF)
-LIBLOCKFILE_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBLOCKFILE_AUTOCONF	:=  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/liblockfile.prepare: $(liblockfile_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -85,7 +83,7 @@ liblockfile_compile: $(STATEDIR)/liblockfile.compile
 
 $(STATEDIR)/liblockfile.compile: $(liblockfile_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LIBLOCKFILE_DIR) && $(LIBLOCKFILE_ENV) $(LIBLOCKFILE_PATH) make
+	cd $(LIBLOCKFILE_DIR) && $(LIBLOCKFILE_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -96,7 +94,7 @@ liblockfile_install: $(STATEDIR)/liblockfile.install
 
 $(STATEDIR)/liblockfile.install: $(liblockfile_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, LIBLOCKFILE)
+	@$(call install, LIBLOCKFILE,,,ROOT=$(SYSROOT))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -117,7 +115,7 @@ $(STATEDIR)/liblockfile.targetinstall: $(liblockfile_targetinstall_deps_default)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LIBLOCKFILE_DIR)/dotlockfile, /bin/dotlockfile)
+	@$(call install_copy, 0, 0, 0755, $(LIBLOCKFILE_DIR)/dotlockfile, /usr/bin/dotlockfile)
 
 	@$(call install_finish)
 
