@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002-2006 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -16,12 +16,12 @@ PACKAGES-$(PTXCONF_NCURSES) += ncurses
 #
 # Paths and names 
 #
-NCURSES_VERSION	= 5.4
-NCURSES		= ncurses-$(NCURSES_VERSION)
-NCURSES_SUFFIX	= tar.gz
-NCURSES_URL	= $(PTXCONF_SETUP_GNUMIRROR)/ncurses/$(NCURSES).$(NCURSES_SUFFIX)
-NCURSES_SOURCE	= $(SRCDIR)/$(NCURSES).$(NCURSES_SUFFIX)
-NCURSES_DIR	= $(BUILDDIR)/$(NCURSES)
+NCURSES_VERSION	:= 5.5
+NCURSES		:= ncurses-$(NCURSES_VERSION)
+NCURSES_SUFFIX	:= tar.gz
+NCURSES_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/ncurses/$(NCURSES).$(NCURSES_SUFFIX)
+NCURSES_SOURCE	:= $(SRCDIR)/$(NCURSES).$(NCURSES_SUFFIX)
+NCURSES_DIR	:= $(BUILDDIR)/$(NCURSES)
 
 -include $(call package_depfile)
 
@@ -59,36 +59,17 @@ $(STATEDIR)/ncurses.extract: $(ncurses_extract_deps_default)
 
 ncurses_prepare: $(STATEDIR)/ncurses.prepare
 
-NCURSES_PATH	= PATH=$(CROSS_PATH)
-NCURSES_ENV 	= $(CROSS_ENV)
+NCURSES_PATH	:= PATH=$(CROSS_PATH)
+NCURSES_ENV 	:= $(CROSS_ENV)
 
-#
-# RSC: --with-build-cflags: ncurses seems to forget to include it's own
-# include directory...
-#
-
-NCURSES_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-NCURSES_AUTOCONF += \
-	--exec-prefix=/usr \
-	--sysconfdir=/etc \
-	--localstatedir=/var \
+NCURSES_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--libdir=/lib \
 	--with-shared \
 	--disable-nls \
-	--disable-rpath \
 	--without-ada \
 	--enable-const \
-	--enable-overwrite \
-	--with-terminfo-dirs=/usr/share/terminfo \
-	--with-default-terminfo-dir=/usr/share/terminfo \
-	--with-build-cc=$(HOSTCC) \
-	--with-build-cflags=-I../include \
-	--with-build-ldflags= \
-	--with-build-cppflags= \
-	--with-build-libs= 
-
-ifndef PTXCONF_CXX
-NCURSES_AUTOCONF += --without-cxx-binding
-endif
+	--enable-overwrite
 
 $(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -105,14 +86,6 @@ ncurses_compile: $(STATEDIR)/ncurses.compile
 
 $(STATEDIR)/ncurses.compile: $(ncurses_compile_deps_default)
 	@$(call targetinfo, $@)
-#
-# the two tools make_hash and make_keys are compiled for the host system
-# these tools are needed later in the compile progress
-#
-# it's not good to pass target CFLAGS to the host compiler :)
-# so override these
-#
-	cd $(NCURSES_DIR)/ncurses && $(NCURSES_PATH) make CFLAGS='' CXXFLAGS='' make_hash make_keys
 	cd $(NCURSES_DIR) && $(NCURSES_PATH) make
 	@$(call touch, $@)
 
@@ -124,9 +97,7 @@ ncurses_install: $(STATEDIR)/ncurses.install
 
 $(STATEDIR)/ncurses.install: $(ncurses_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME
-	# @$(call install, NCURSES)
-	$(NCURSES_PATH) make -C $(NCURSES_DIR) DESTDIR=$(CROSS_LIB_DIR) prefix='' exec_prefix='' install
+	@$(call install, NCURSES)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -147,38 +118,38 @@ $(STATEDIR)/ncurses.targetinstall: $(ncurses_targetinstall_deps_default)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.4, /lib/libncurses.so.5.4)
-	@$(call install_link, libncurses.so.5.4, /lib/libncurses.so.5)
-	@$(call install_link, libncurses.so.5.4, /lib/libncurses.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libncurses.so.5.5, /lib/libncurses.so.5.5)
+	@$(call install_link, libncurses.so.5.5, /lib/libncurses.so.5)
+	@$(call install_link, libncurses.so.5.5, /lib/libncurses.so)
 
 ifdef PTXCONF_NCURSES_FORM
-	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libform.so.5.4, /lib/libform.so.5.4)
-	@$(call install_link, libform.so.5.4, /lib/libform.so.5)
-	@$(call install_link, libform.so.5.4, /lib/libform.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libform.so.5.5, /lib/libform.so.5.5)
+	@$(call install_link, libform.so.5.5, /lib/libform.so.5)
+	@$(call install_link, libform.so.5.5, /lib/libform.so)
 endif
 
 ifdef PTXCONF_NCURSES_MENU
-	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libmenu.so.5.4, /lib/libmenu.so.5.4)
-	@$(call install_link, libmenu.so.5.4, /lib/libmenu.so.5)
-	@$(call install_link, libmenu.so.5.4, /lib/libmenu.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libmenu.so.5.5, /lib/libmenu.so.5.5)
+	@$(call install_link, libmenu.so.5.5, /lib/libmenu.so.5)
+	@$(call install_link, libmenu.so.5.5, /lib/libmenu.so)
 endif
 
 ifdef PTXCONF_NCURSES_PANEL
-	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libpanel.so.5.4, /lib/libpanel.so.5.4)
-	@$(call install_link, libpanel.so.5.4, /lib/libpanel.so.5)
-	@$(call install_link, libpanel.so.5.4, /lib/libpanel.so)
+	@$(call install_copy, 0, 0, 0644, $(NCURSES_DIR)/lib/libpanel.so.5.5, /lib/libpanel.so.5.5)
+	@$(call install_link, libpanel.so.5.5, /lib/libpanel.so.5)
+	@$(call install_link, libpanel.so.5.5, /lib/libpanel.so)
 endif
 
 ifdef PTXCONF_NCURSES_TERMCAP
 	mkdir -p $(ROOTDIR)/usr/share/terminfo
-	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm, /usr/share/terminfo/x/xterm, n);
-	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-color, /usr/share/terminfo/x/xterm-color, n);
-	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/x/xterm-xfree86, /usr/share/terminfo/x/xterm-xfree86, n);
-	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt100, /usr/share/terminfo/v/vt100, n);
-	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt102, /usr/share/terminfo/v/vt102, n);
-	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/v/vt200, /usr/share/terminfo/v/vt200, n);
-	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/a/ansi, /usr/share/terminfo/a/ansi, n);
-	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/usr/share/terminfo/l/linux, /usr/share/terminfo/l/linux, n);
+	@$(call install_copy, 0, 0, 0644, $(SYSROOT)/usr/share/terminfo/x/xterm, /usr/share/terminfo/x/xterm, n);
+	@$(call install_copy, 0, 0, 0644, $(SYSROOT)/usr/share/terminfo/x/xterm-color, /usr/share/terminfo/x/xterm-color, n);
+	@$(call install_copy, 0, 0, 0644, $(SYSROOT)/usr/share/terminfo/x/xterm-xfree86, /usr/share/terminfo/x/xterm-xfree86, n);
+	@$(call install_copy, 0, 0, 0644, $(SYSROOT)/usr/share/terminfo/v/vt100, /usr/share/terminfo/v/vt100, n);
+	@$(call install_copy, 0, 0, 0644, $(SYSROOT)/usr/share/terminfo/v/vt102, /usr/share/terminfo/v/vt102, n);
+	@$(call install_copy, 0, 0, 0644, $(SYSROOT)/usr/share/terminfo/v/vt200, /usr/share/terminfo/v/vt200, n);
+	@$(call install_copy, 0, 0, 0644, $(SYSROOT)/usr/share/terminfo/a/ansi, /usr/share/terminfo/a/ansi, n);
+	@$(call install_copy, 0, 0, 0644, $(SYSROOT)/usr/share/terminfo/l/linux, /usr/share/terminfo/l/linux, n);
 endif
 
 	@$(call install_finish)
