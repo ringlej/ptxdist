@@ -21,6 +21,18 @@ export PTXDIST_WORKSPACE PTXDIST_TOPDIR
 
 
 #
+# sanity check: is PTXdist already configured?
+#
+
+if [ ! -e ${PTXDIST_TOPDIR}/.done ]; then
+	echo
+	echo "${PROMPT}error: PTXdist in ${PTXDIST_TOPDIR} is not built."
+	echo
+	exit 1
+fi
+
+
+#
 # we need the PTXdist shell library
 #
 
@@ -73,6 +85,7 @@ Setup and Project Actions:
   clone <from> <to>              create a new project, cloned from <from>. 
 
   menuconfig                     configure the root filesystem
+  oldconfig                      run 'make oldconfig' on ptxconfig file
 
   toolchain <path>               select this toolchain (path to binaries)
 
@@ -112,6 +125,12 @@ EOF
 }
 
 clean() {
+
+	if [ -n "$1" ]; then
+		make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_clean PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+		return
+	fi
+
 	echo
 	echo "${PROMPT}removing build directories..."
 	rm -fr build-cross
@@ -157,8 +176,47 @@ menuconfig() {
 	cp ${PTXDIST_WORKSPACE}/ptxconfig .config
 	if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
 		${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_WORKSPACE}/Kconfig
+		echo "${PROMPT}silentoldconfig..."
+		${PTXDIST_TOPDIR}/scripts/kconfig/conf -s ${PTXDIST_WORKSPACE}/Kconfig
 	else
 		${PTXDIST_TOPDIR}/scripts/kconfig/mconf config/Kconfig
+		echo "${PROMPT}silentoldconfig..."
+		${PTXDIST_TOPDIR}/scripts/kconfig/conf -s config/Kconfig
+	fi
+
+	echo "${PROMPT}saving ptxconfig"
+	cp .config ${PTXDIST_WORKSPACE}/ptxconfig
+
+	popd > /dev/null
+	echo "${PROMPT}cleanup..."
+	rm -fr $tmpdir
+	echo
+}
+
+oldconfig() {
+	echo
+
+	# check if this is a PTXdist project dir
+	if [ -z "$(find . -maxdepth 1 -name "ptxconfig" | grep -v .svn)" ]; then
+		echo "${PROMPT}error: no ptxconfig file found."
+		echo "${PROMPT}error: check if this is a PTXdist project directory"
+		echo
+		exit 1
+	fi
+
+	echo "${PROMPT}oldconfig..."
+	tmpdir=`mktemp -d -t ptxdist.XXXXXX`
+
+	pushd $tmpdir > /dev/null
+	ln -sf ${PTXDIST_TOPDIR}/scripts
+	ln -sf ${PTXDIST_TOPDIR}/rules
+	ln -sf ${PTXDIST_TOPDIR}/config
+	ln -sf ${PTXDIST_WORKSPACE} workspace
+	cp ${PTXDIST_WORKSPACE}/ptxconfig .config
+	if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
+		${PTXDIST_TOPDIR}/scripts/kconfig/conf -o ${PTXDIST_WORKSPACE}/Kconfig
+	else
+		${PTXDIST_TOPDIR}/scripts/kconfig/conf -o config/Kconfig
 	fi
 	echo "${PROMPT}saving ptxconfig"
 	cp .config ${PTXDIST_WORKSPACE}/ptxconfig
@@ -281,7 +339,7 @@ while [ "$#" != "0" ]; do
 			exit $?
 			;;
 	clean)		shift 
-			clean
+			clean $1
 			exit 0
 			;;
 	clone)		shift; clone $1 $2; exit 0;;
@@ -309,6 +367,7 @@ while [ "$#" != "0" ]; do
 	install)	shift ;;
 	make)		shift; make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make PTXDIST_TOPDIR=${PTXDIST_TOPDIR};;
 	menuconfig)	shift; menuconfig;;
+	oldconfig)	shift; oldconfig;;
 	prepare)	shift
 			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_prepare PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
 			exit $?
