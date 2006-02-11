@@ -1,6 +1,6 @@
 menu    "mii-diag            "
 
-config MII-DIAG
+config MII_DIAG
 	bool
 	prompt "mii-diag"
 	help
