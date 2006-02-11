@@ -38,3 +38,5 @@ clean:
 	rm -f scripts/kconfig/lkc_defs.h
 	rm -f scripts/kconfig/mconf
 
+distclean: clean
+
