@@ -186,8 +186,6 @@ dep_tree: $(STATEDIR)/dep_tree
 
 $(STATEDIR)/dep_tree:
 ifndef NATIVE
-	@echo "Launching cuckoo-test"
-	@$(PTXDIST_TOPDIR)/scripts/cuckoo-test $(PTXCONF_ARCH) $(ROOTDIR) $(PTXCONF_COMPILER_PREFIX)
 ifdef PTXCONF_IMAGE_IPKG
 	@echo "Launching ipkg-test"
 	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl $(PTXDIST_TOPDIR)/scripts/ipkg-test
@@ -465,9 +463,6 @@ compile-test:
 	@echo 
 	@echo "compile-test is obsolete, run qa-autobuild target instead."
 	@echo
-
-cuckoo-test: world
-	@$(PTXDIST_TOPDIR)/scripts/cuckoo-test $(PTXCONF_ARCH) $(ROOTDIR) $(PTXCONF_COMPILER_PREFIX)
 
 ipkg-test: world
 	@$(call targetinfo,ipkg-test)
