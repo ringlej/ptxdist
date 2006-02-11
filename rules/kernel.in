@@ -2,6 +2,17 @@
 # rules/kernel.in
 #
 
+# compatiblity stuff
+config DONT_COMPILE_KERNEL
+	bool
+
+# 
+# FIXME / TODO: 
+#
+# select HOST_MODUTILS for 2.4 kernels
+# select HOST_MODULE_INIT_TOOLS for 2.6 kernels
+#
+
 ##############################################################################
 menu "Kernel              "
 ##############################################################################
@@ -10,61 +21,14 @@ comment "----------------------------------"
 comment "Target Kernel"
 comment "----------------------------------"
 
-config KERNEL_2_4
-	bool
-
-config KERNEL_2_4_COMPILE
-	bool
-	depends on COMPILE_KERNEL
-	default y if KERNEL_2_4
-	select HOST_MODUTILS
-
-config KERNEL_2_6
-	bool
-
-config KERNEL_2_6_COMPILE
-	bool
-	depends on COMPILE_KERNEL
-	default y if KERNEL_2_6
-	select HOST_MODULE_INIT_TOOLS
-
-config KERNEL_VERSION 
-	prompt "Kernel Version"
+config KERNEL_TARGET_VERSION 
+	prompt "Target Kernel Version"
 	string
 	default "2.6.15"
 
-config KERNEL_PATCH_SERIES
-	prompt "Kernel patch series file"
-	string
-	default "$(PROJECTDIR)/series"
-	help
-	  If you need patches applied to your vanilla kernel
-	  you can specify a series file here. A series file
-	  is a textfile with one patch per line.
-	  This file lies usually in your project directory,
-	  so the default is $(PROJECTDIR)/series.
-	  The patches given in the series file must be relative
-	  to the series file
-
-config KERNEL_CONFIG
-	string
-	prompt "Path to kernel .config file"
-	depends on !USE_EXTERNAL_KERNEL
-	depends on BUILD_USERLAND
-	help
-	  Usually config files for the kernel live in $(PROJECTDIR), so
-	  add something like
-
-		$(PROJECTDIR)/your-kernelconfig.kernelconfig 
-
-	  here.
-
-config DONT_COMPILE_KERNEL
+config KERNEL_TARGET_COMPILE
 	bool
-
-config COMPILE_KERNEL
-	bool
-	prompt "Compile Kernel"
+	prompt "Compile Target Kernel"
 	depends on BUILD_USERLAND
 	default y if !DONT_COMPILE_KERNEL
 	default n if DONT_COMPILE_KERNEL
@@ -72,37 +36,36 @@ config COMPILE_KERNEL
 	  Usually you want to compile your kernel. If not,
 	  deselect this option. 
 
-choice
-	prompt "Kernel Image"
-	default KERNEL_IMAGE_BZ
-	depends on COMPILE_KERNEL
+# ----------------------------------------------------------------------------
 
-config KERNEL_IMAGE_BZ
+comment "Target Kernel Options"
+	depends on BUILD_USERLAND
+
+choice
+	prompt "Image Type"
+	default KERNEL_TARGET_IMAGE_BZ
+	depends on KERNEL_TARGET_COMPILE
+
+config KERNEL_TARGET_IMAGE_BZ
 	bool
 	prompt "bzImage"
-	depends on ARCH_X86
 	
-config KERNEL_IMAGE_Z
+config KERNEL_TARGET_IMAGE_Z
 	bool
 	prompt "zImage"
-	depends on ARCH_X86 || ARCH_ARM
 
-config KERNEL_IMAGE_U
+config KERNEL_TARGET_IMAGE_U
 	bool
 	prompt "uImage"
-	depends on ARCH_ARM || ARCH_X86 || ARCH_PPC
 
-config KERNEL_IMAGE_VMLINUX
+config KERNEL_TARGET_IMAGE_VMLINUX
 	bool
 	prompt "vmlinux"
 endchoice
 
-comment "Additional Kernel Options"
-	depends on BUILD_USERLAND
-
-config USE_EXTERNAL_KERNEL
+config KERNEL_TARGET_EXTERNAL
 	bool
-	prompt "Use external kernel"
+	prompt "External Kernel"
 	depends on BUILD_USERLAND
 	help
 	  Say yes if you intend to use an external already configured 
@@ -110,21 +73,21 @@ config USE_EXTERNAL_KERNEL
 	  working in a kernel tree and don't want to generate patches 
 	  for each and every PTXdist run. 
 
-config KERNEL_DIR
+config KERNEL_TARGET_EXTERNAL_DIR
 	string
 	prompt "Path to external kernel source"
-	depends on USE_EXTERNAL_KERNEL
+	depends on KERNEL_TARGET_EXTERNAL
 	help
 	  Add a path to your external kernel here. The kernel must be
 	  configured. 
 
-config KERNEL_INSTALL
+config KERNEL_TARGET_INSTALL
 	bool
 	depends on BUILD_USERLAND
 	prompt "Install kernel into /boot on target"
-	select KERNEL_INSTALL_MODULES if COMPILE_KERNEL
+	select KERNEL_TARGET_INSTALL_MODULES if KERNEL_TARGET_COMPILE
 
-config KERNEL_INSTALL_MODULES
+config KERNEL_TARGET_INSTALL_MODULES
 	bool
 	depends on BUILD_USERLAND
 	prompt "Install modules into /lib/modules on target"
@@ -133,82 +96,80 @@ config KERNEL_INSTALL_MODULES
 
 comment "----------------------------------"
 depends on BUILD_USERLAND
-comment "Host Kernel (for simulation)"
+comment "Native Kernel (Simulation)"
 depends on BUILD_USERLAND
 comment "----------------------------------"
 depends on BUILD_USERLAND
 
-config KERNEL_HOST
+config KERNEL_NATIVE_VERSION 
+	prompt "Native Kernel Version"
+	string
+	default "2.6.15"
+
+config KERNEL_NATIVE_COMPILE
 	bool
+	prompt "Compile Native Kernel"
 	depends on BUILD_USERLAND
-	prompt "build UML kernel for simulation"
+	default Y
 	help
-	  When compiling with NATIVE=1 it is possible that you build an
-	  UML kernel which runs on the host as a virtual machine. 
+	  FIXME
 
-config KERNEL_HOST_CONFIG
-	string
-	prompt "Path to kernel .config file"
-	depends on KERNEL_HOST
-	help
-	  Usually config files for the kernel live in $(PROJECTDIR), so
-	  add something like
+# ----------------------------------------------------------------------------
 
-		$(PROJECTDIR)/your-hostkernelconfig.kernelconfig 
-
-	  here.
-
-config KERNEL_HOST_VERSION
-	prompt "UML Kernel Version"
-	string
-
-config KERNEL_HOST_PATCH_SERIES
-	prompt "UML Kernel patch series file"
-	string
-	default "$(PROJECTDIR)/series"
-	help
-	  If you need patches applied to your vanilla kernel
-	  you can specify a series file here. A series file
-	  is a textfile with one patch per line.
-	  This file lies usually in your project directory,
-	  so the default is $(PROJECTDIR)/series.
-	  The patches given in the series file must be relative
-	  to the series file
+comment "Native Kernel Options"
 
 choice
-	prompt "Root filesystem method for host"
-	depends on KERNEL_HOST
+	prompt "Image Type"
+	default KERNEL_NATIVE_IMAGE_BZ
+	depends on KERNEL_NATIVE_COMPILE
+
+config KERNEL_NATIVE_IMAGE_BZ
+	bool
+	prompt "bzImage"
+	
+config KERNEL_NATIVE_IMAGE_Z
+	bool
+	prompt "zImage"
+
+config KERNEL_NATIVE_IMAGE_U
+	bool
+	prompt "uImage"
+
+config KERNEL_NATIVE_IMAGE_VMLINUX
+	bool
+	prompt "vmlinux"
+endchoice
+
+
+choice
+	prompt "Root Filesystem Method"
+	depends on KERNEL_NATIVE_COMPILE
 		
-	config KERNEL_HOST_ROOT_HOSTFS
+	config KERNEL_NATIVE_ROOT_HOSTFS
 		bool
 		prompt "hostfs"
-		depends on KERNEL_HOST
 		help
 		  Using the hostfs method, $(ROOTDIR) is shared between
 		  the host and the user mode linux machine.
 
 endchoice
 
-config KERNEL_HOST_CONSOLE_STDSERIAL
+config KERNEL_NATIVE_CONSOLE_STDSERIAL
 	bool
-	prompt "map uml's /dev/ttyS0 to host's stdio"
-	depends on KERNEL_HOST
+	prompt "map /dev/ttyS0 to stdio"
+	depends on KERNEL_NATIVE_COMPILE
 	help
 	  This switch adds "ssl0=fd:0,fd:1" to the kernel command line,
 	  which forwards /dev/ttyS0 of the user mode linux vm to the
 	  host's stdin/stdout. 
 
-config KERNEL_HOST_CMDLINE
+config KERNEL_NATIVE_CMDLINE
 	string
-	prompt "kernel command line for host kernel"
-	depends on KERNEL_HOST
+	prompt "kernel command line"
+	depends on KERNEL_NATIVE_COMPILE
 	help
 	  Add your custom kernel commandline for the user mode linux 
 	  kernel here. 
-
-#config KERNEL_INSTALL_MODULES
-#	bool
-#	prompt "Install modules into /lib/modules on target"
 
 endmenu
 

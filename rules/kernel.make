@@ -282,10 +282,10 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	echo '$(call remove_quotes,$(PTXCONF_PREFIX))/bin/u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	chmod +x $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
-
+ifdef PTXCONF_COMPILE_KERNEL
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make \
 		$(KERNEL_TARGET) modules $(KERNEL_MAKEVARS)
-
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -309,6 +309,7 @@ kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
+ifdef  PTXCONF_COMPILE_KERNEL
 ifdef  PTXCONF_KERNEL_INSTALL
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,kernel)
@@ -349,6 +350,7 @@ ifdef PTXCONF_KERNEL_INSTALL_MODULES
 	rm -fr $(KERNEL_INST_DIR)
 
 	@$(call install_finish)
+endif
 endif
 	@$(call touch, $@)
 
