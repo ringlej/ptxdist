@@ -3,9 +3,7 @@ topdir=@TOPDIR@
 instdir=@INSTDIR@
 version=@VERSION@
 
-all: main
-
-main: 
+all:
 	@echo "building lxdialog..."
 	cp ${topdir}/scripts/ptx-modifications/Makefile.lxdialog.ptx ${topdir}/scripts/lxdialog/Makefile
 	cd ${topdir}/scripts/lxdialog && make
@@ -13,6 +11,8 @@ main:
 	cd ${topdir}/scripts/kconfig && make conf
 	@echo "building mconf..."
 	cd ${topdir}/scripts/kconfig && make mconf
+	@echo "done."
+	@touch .done
 
 install: main
 	@echo "installing PTXdist to ${prefix}..."
@@ -37,6 +37,7 @@ clean:
 	rm -f scripts/kconfig/lex.backup
 	rm -f scripts/kconfig/lkc_defs.h
 	rm -f scripts/kconfig/mconf
+	rm -f .done
 
 distclean: clean
 
