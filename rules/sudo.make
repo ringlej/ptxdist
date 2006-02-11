@@ -36,7 +36,6 @@ sudo_get: $(STATEDIR)/sudo.get
 
 $(STATEDIR)/sudo.get: $(sudo_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(SUDO))
 	@$(call touch, $@)
 
 $(SUDO_SOURCE):

@@ -35,7 +35,6 @@ pcre_get: $(STATEDIR)/pcre.get
 
 $(STATEDIR)/pcre.get: $(pcre_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PCRE))
 	@$(call touch, $@)
 
 $(PCRE_SOURCE):

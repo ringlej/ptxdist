@@ -34,7 +34,6 @@ diffutils_get: $(STATEDIR)/diffutils.get
 
 $(STATEDIR)/diffutils.get: $(diffutils_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(DIFFUTILS))
 	@$(call touch, $@)
 
 $(DIFFUTILS_SOURCE):

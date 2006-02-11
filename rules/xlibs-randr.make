@@ -37,7 +37,6 @@ xlibs-randr_get: $(STATEDIR)/xlibs-randr.get
 
 $(STATEDIR)/xlibs-randr.get: $(xlibs-randr_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XLIBS-RANDR))
 	@$(call touch, $@)
 
 $(XLIBS-RANDR_SOURCE):

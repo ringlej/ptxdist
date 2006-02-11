@@ -34,7 +34,6 @@ smtpclient_get: $(STATEDIR)/smtpclient.get
 
 $(STATEDIR)/smtpclient.get: $(smtpclient_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(SMTPCLIENT))
 	@$(call touch, $@)
 
 $(SMTPCLIENT_SOURCE):

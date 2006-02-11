@@ -35,7 +35,6 @@ host-ipkg_get: $(STATEDIR)/host-ipkg.get
 
 $(STATEDIR)/host-ipkg.get: $(host-ipkg_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOST_IPKG))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

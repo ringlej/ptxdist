@@ -34,7 +34,6 @@ ethereal_get: $(STATEDIR)/ethereal.get
 
 $(STATEDIR)/ethereal.get: $(ethereal_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(ETHEREAL))
 	@$(call touch, $@)
 
 $(ETHEREAL_SOURCE):

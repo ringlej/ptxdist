@@ -34,7 +34,6 @@ host-qte_get: $(STATEDIR)/host-qte.get
 
 $(STATEDIR)/host-qte.get: $(host-qte_get_deps_default_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOST_QTE))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

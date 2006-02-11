@@ -34,7 +34,6 @@ fbtest_get: $(STATEDIR)/fbtest.get
 
 $(STATEDIR)/fbtest.get: $(fbtest_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(FBTEST))
 	@$(call touch, $@)
 
 $(FBTEST_SOURCE):

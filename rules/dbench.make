@@ -34,7 +34,6 @@ dbench_get: $(STATEDIR)/dbench.get
 
 $(STATEDIR)/dbench.get: $(dbench_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(DBENCH))
 	@$(call touch, $@)
 
 $(DBENCH_SOURCE):

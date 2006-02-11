@@ -34,7 +34,6 @@ host-checkinstall_get: $(STATEDIR)/host-checkinstall.get
 
 $(STATEDIR)/host-checkinstall.get: $(host-checkinstall_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOST_CHECKINSTALL))
 	@$(call touch, $@)
 
 $(HOST_CHECKINSTALL_SOURCE):

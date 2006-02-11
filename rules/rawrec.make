@@ -34,7 +34,6 @@ rawrec_get: $(STATEDIR)/rawrec.get
 
 $(STATEDIR)/rawrec.get: $(rawrec_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(RAWREC))
 	@$(call touch, $@)
 
 $(RAWREC_SOURCE):

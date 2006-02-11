@@ -34,7 +34,6 @@ gnuplot_get: $(STATEDIR)/gnuplot.get
 
 $(STATEDIR)/gnuplot.get: $(gnuplot_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(GNUPLOT))
 	@$(call touch, $@)
 
 $(GNUPLOT_SOURCE):

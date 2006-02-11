@@ -36,7 +36,6 @@ omniorb_get: $(STATEDIR)/omniorb.get
 
 $(STATEDIR)/omniorb.get: $(omniorb_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(OMNIORB))
 	@$(call touch, $@)
 
 $(OMNIORB_SOURCE):

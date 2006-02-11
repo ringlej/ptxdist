@@ -33,7 +33,6 @@ pcmciautils_get: $(STATEDIR)/pcmciautils.get
 
 $(STATEDIR)/pcmciautils.get: $(pcmciautils_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PCMCIAUTILS))
 	@$(call touch, $@)
 
 $(PCMCIAUTILS_SOURCE):

@@ -34,7 +34,6 @@ jed_get: $(STATEDIR)/jed.get
 
 $(STATEDIR)/jed.get: $(jed_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(JED))
 	@$(call touch, $@)
 
 $(JED_SOURCE):

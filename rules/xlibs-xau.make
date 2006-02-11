@@ -35,7 +35,6 @@ xlibs-xau_get: $(STATEDIR)/xlibs-xau.get
 
 $(STATEDIR)/xlibs-xau.get: $(xlibs-xau_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XLIBS-XAU))
 	@$(call touch, $@)
 
 $(XLIBS-XAU_SOURCE):

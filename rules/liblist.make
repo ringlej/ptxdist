@@ -34,7 +34,6 @@ liblist_get: $(STATEDIR)/liblist.get
 
 $(STATEDIR)/liblist.get: $(liblist_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(LIBLIST))
 	@$(call touch, $@)
 
 $(LIBLIST_SOURCE):

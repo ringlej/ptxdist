@@ -34,7 +34,6 @@ netcat_get: $(STATEDIR)/netcat.get
 
 $(STATEDIR)/netcat.get: $(netcat_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(NETCAT))
 	@$(call touch, $@)
 
 $(NETCAT_SOURCE):

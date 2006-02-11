@@ -33,7 +33,6 @@ cgicc_get: $(STATEDIR)/cgicc.get
 
 $(STATEDIR)/cgicc.get: $(cgicc_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(CGICC))
 	@$(call touch, $@)
 
 $(CGICC_SOURCE):

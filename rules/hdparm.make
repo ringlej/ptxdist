@@ -34,7 +34,6 @@ hdparm_get: $(STATEDIR)/hdparm.get
 
 $(STATEDIR)/hdparm.get: $(hdparm_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HDPARM))
 	@$(call touch, $@)
 
 $(HDPARM_SOURCE):

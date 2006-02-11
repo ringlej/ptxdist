@@ -34,7 +34,6 @@ bonniexx_get: $(STATEDIR)/bonniexx.get
 
 $(STATEDIR)/bonniexx.get: $(bonniexx_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(BONNIEXX))
 	@$(call touch, $@)
 
 $(BONNIEXX_SOURCE):

@@ -34,7 +34,6 @@ betaftpd_get: $(STATEDIR)/betaftpd.get
 
 $(STATEDIR)/betaftpd.get: $(betaftpd_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(BETAFTPD))
 	@$(call touch, $@)
 
 $(BETAFTPD_SOURCE):

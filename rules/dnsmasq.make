@@ -34,7 +34,6 @@ dnsmasq_get: $(STATEDIR)/dnsmasq.get
 
 $(STATEDIR)/dnsmasq.get: $(dnsmasq_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(DNSMASQ)) 
 	@$(call touch, $@)
 
 $(DNSMASQ_SOURCE):

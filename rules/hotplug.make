@@ -34,7 +34,6 @@ hotplug_get: $(STATEDIR)/hotplug.get
 
 $(STATEDIR)/hotplug.get: $(hotplug_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOTPLUG))
 	@$(call touch, $@)
 
 $(HOTPLUG_SOURCE):

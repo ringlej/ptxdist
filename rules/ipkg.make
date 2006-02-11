@@ -34,7 +34,6 @@ ipkg_get: $(STATEDIR)/ipkg.get
 
 $(STATEDIR)/ipkg.get: $(ipkg_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(IPKG))
 	@$(call touch, $@)
 
 $(IPKG_SOURCE):

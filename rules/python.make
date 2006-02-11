@@ -35,7 +35,6 @@ python_get: $(STATEDIR)/python.get
 
 $(STATEDIR)/python.get: $(python_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PYTHON))
 	@$(call touch, $@)
 
 $(PYTHON_SOURCE):

@@ -35,7 +35,6 @@ proftpd_get: $(STATEDIR)/proftpd.get
 
 $(STATEDIR)/proftpd.get: $(proftpd_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PROFTPD))
 	@$(call touch, $@)
 
 $(PROFTPD_SOURCE):

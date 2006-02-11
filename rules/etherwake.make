@@ -34,7 +34,6 @@ etherwake_get: $(STATEDIR)/etherwake.get
 
 $(STATEDIR)/etherwake.get: $(etherwake_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(ETHERWAKE))
 	@$(call touch, $@)
 
 $(ETHERWAKE_SOURCE):

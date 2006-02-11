@@ -34,7 +34,6 @@ gnupg_get: $(STATEDIR)/gnupg.get
 
 $(STATEDIR)/gnupg.get: $(gnupg_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(GNUPG))
 	@$(call touch, $@)
 
 $(GNUPG_SOURCE):

@@ -34,7 +34,6 @@ valgrind_get: $(STATEDIR)/valgrind.get
 
 $(STATEDIR)/valgrind.get: $(valgrind_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(VALGRIND))
 	@$(call touch, $@)
 
 $(VALGRIND_SOURCE):

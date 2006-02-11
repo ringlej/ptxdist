@@ -37,7 +37,6 @@ xlibs-xproto_get: $(STATEDIR)/xlibs-xproto.get
 
 $(STATEDIR)/xlibs-xproto.get: $(xlibs-xproto_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XLIBS-XPROTO))
 	@$(call touch, $@)
 
 $(XLIBS-XPROTO_SOURCE):

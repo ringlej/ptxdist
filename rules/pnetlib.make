@@ -34,7 +34,6 @@ pnetlib_get: $(STATEDIR)/pnetlib.get
 
 $(STATEDIR)/pnetlib.get: $(pnetlib_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PNETLIB))
 	@$(call touch, $@)
 
 $(PNETLIB_SOURCE):

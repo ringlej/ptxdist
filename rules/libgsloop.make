@@ -34,7 +34,6 @@ libgsloop_get: $(STATEDIR)/libgsloop.get
 
 $(STATEDIR)/libgsloop.get: $(libgsloop_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(LIBGSLOOP))
 	@$(call touch, $@)
 
 $(LIBGSLOOP_SOURCE):

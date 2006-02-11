@@ -33,7 +33,6 @@ joe_get: $(STATEDIR)/joe.get
 
 $(STATEDIR)/joe.get: $(joe_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(JOE))
 	@$(call touch, $@)
 
 $(JOE_SOURCE):

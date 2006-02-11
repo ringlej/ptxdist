@@ -33,7 +33,6 @@ jvisu_get: $(STATEDIR)/jvisu.get
 
 $(STATEDIR)/jvisu.get: $(jvisu_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(JVISU))
 	@$(call touch, $@)
 
 $(JVISU_SOURCE):

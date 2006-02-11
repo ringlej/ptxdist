@@ -37,7 +37,6 @@ realvnc_get: $(STATEDIR)/realvnc.get
 
 $(STATEDIR)/realvnc.get: $(realvnc_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(REALVNC))
 	@$(call touch, $@)
 
 $(REALVNC_SOURCE):

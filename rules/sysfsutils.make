@@ -34,7 +34,6 @@ sysfsutils_get: $(STATEDIR)/sysfsutils.get
 
 $(STATEDIR)/sysfsutils.get: $(sysfsutils_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(SYSFSUTILS))
 	@$(call touch, $@)
 
 $(SYSFSUTILS_SOURCE):

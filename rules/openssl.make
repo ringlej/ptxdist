@@ -62,7 +62,6 @@ openssl_get: $(STATEDIR)/openssl.get
 
 $(STATEDIR)/openssl.get: $(openssl_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(OPENSSL))
 	@$(call touch, $@)
 
 $(OPENSSL_SOURCE):

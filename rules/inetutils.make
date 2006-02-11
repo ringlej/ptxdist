@@ -34,7 +34,6 @@ inetutils_get: $(STATEDIR)/inetutils.get
 
 $(STATEDIR)/inetutils.get: $(inetutils_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(INETUTILS))
 	@$(call touch, $@)
 
 $(INETUTILS_SOURCE):

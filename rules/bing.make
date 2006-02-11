@@ -34,7 +34,6 @@ bing_get: $(STATEDIR)/bing.get
 
 $(STATEDIR)/bing.get: $(bing_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(BING))
 	@$(call touch, $@)
 
 $(BING_SOURCE):

@@ -37,7 +37,6 @@ xlibs-damageext_get: $(STATEDIR)/xlibs-damageext.get
 
 $(STATEDIR)/xlibs-damageext.get: $(xlibs-damageext_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XLIBS-DAMAGEEXT))
 	@$(call touch, $@)
 
 $(XLIBS-DAMAGEEXT_SOURCE):

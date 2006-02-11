@@ -34,7 +34,6 @@ flex_get: $(STATEDIR)/flex.get
 
 $(STATEDIR)/flex.get: $(flex_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(FLEX))
 	@$(call touch, $@)
 
 $(FLEX_SOURCE):

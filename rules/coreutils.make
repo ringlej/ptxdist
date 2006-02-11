@@ -32,7 +32,6 @@ coreutils_get: $(STATEDIR)/coreutils.get
 
 $(STATEDIR)/coreutils.get: $(coreutils_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(COREUTILS))
 	@$(call touch, $@)
 
 $(COREUTILS_SOURCE):

@@ -34,7 +34,6 @@ memedit_get: $(STATEDIR)/memedit.get
 
 $(STATEDIR)/memedit.get: $(memedit_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(MEMEDIT))
 	@$(call touch, $@)
 
 $(MEMEDIT_SOURCE):

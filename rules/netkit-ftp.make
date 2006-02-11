@@ -34,7 +34,6 @@ netkit-ftp_get: $(STATEDIR)/netkit-ftp.get
 
 $(STATEDIR)/netkit-ftp.get: $(netkit-ftp_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(NETKIT-FTP))
 	@$(call touch, $@)
 
 $(NETKIT-FTP_SOURCE):

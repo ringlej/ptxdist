@@ -34,7 +34,6 @@ efax_get: $(STATEDIR)/efax.get
 
 $(STATEDIR)/efax.get: $(efax_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(EFAX))
 	@$(call touch, $@)
 
 $(EFAX_SOURCE):

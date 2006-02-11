@@ -34,7 +34,6 @@ nano_get: $(STATEDIR)/nano.get
 
 $(STATEDIR)/nano.get: $(nano_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(NANO))
 	@$(call touch, $@)
 
 $(NANO_SOURCE):

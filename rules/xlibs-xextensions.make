@@ -37,7 +37,6 @@ xlibs-xextensions_get: $(STATEDIR)/xlibs-xextensions.get
 
 $(STATEDIR)/xlibs-xextensions.get: $(xlibs-xextensions_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XLIBS-XEXTENSIONS))
 	@$(call touch, $@)
 
 $(XLIBS-XEXTENSIONS_SOURCE):

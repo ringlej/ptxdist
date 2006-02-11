@@ -34,7 +34,6 @@ util-linux_get: $(STATEDIR)/util-linux.get
 
 $(STATEDIR)/util-linux.get: $(util-linux_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(UTIL-LINUX))
 	@$(call touch, $@)
 
 $(UTLNX_SOURCE):

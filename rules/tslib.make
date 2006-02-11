@@ -34,7 +34,6 @@ tslib_get: $(STATEDIR)/tslib.get
 
 $(STATEDIR)/tslib.get: $(tslib_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(TSLIB))
 	@$(call touch, $@)
 
 $(TSLIB_SOURCE):

@@ -34,7 +34,6 @@ figlet_get: $(STATEDIR)/figlet.get
 
 $(STATEDIR)/figlet.get: $(figlet_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(FIGLET))
 	@$(call touch, $@)
 
 $(FIGLET_SOURCE):

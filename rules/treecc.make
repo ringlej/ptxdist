@@ -34,7 +34,6 @@ treecc_get: $(STATEDIR)/treecc.get
 
 $(STATEDIR)/treecc.get: $(treecc_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(TREECC))
 	@$(call touch, $@)
 
 $(TREECC_SOURCE):

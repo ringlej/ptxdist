@@ -33,7 +33,6 @@ ncurses_get: $(STATEDIR)/ncurses.get
 
 $(STATEDIR)/ncurses.get: $(ncurses_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(NCURSES))
 	@$(call touch, $@)
 
 $(NCURSES_SOURCE):

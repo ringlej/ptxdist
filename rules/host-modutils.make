@@ -34,7 +34,6 @@ host-modutils_get: $(STATEDIR)/host-modutils.get
 
 $(STATEDIR)/host-modutils.get: $(host-modutils_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOST_MODUTILS))
 	@$(call touch, $@)
 
 $(HOST_MODUTILS_SOURCE):

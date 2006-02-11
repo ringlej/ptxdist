@@ -33,7 +33,6 @@ openssh_get: $(STATEDIR)/openssh.get
 
 $(STATEDIR)/openssh.get: $(openssh_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(OPENSSH))
 	@$(call touch, $@)
 
 $(OPENSSH_SOURCE):

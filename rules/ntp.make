@@ -34,7 +34,6 @@ ntp_get: $(STATEDIR)/ntp.get
 
 $(STATEDIR)/ntp.get: $(ntp_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(NTP))
 	@$(call touch, $@)
 
 $(NTP_SOURCE):

@@ -34,7 +34,6 @@ wget_get: $(STATEDIR)/wget.get
 
 $(STATEDIR)/wget.get: $(wget_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(WGET_PACKET))
 	@$(call touch, $@)
 
 $(WGET_SOURCE):

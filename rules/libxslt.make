@@ -34,7 +34,6 @@ libxslt_get: $(STATEDIR)/libxslt.get
 
 $(STATEDIR)/libxslt.get: $(libxslt_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(LIBXSLT))
 	@$(call touch, $@)
 
 $(LIBXSLT_SOURCE):

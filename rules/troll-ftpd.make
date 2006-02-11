@@ -34,7 +34,6 @@ troll-ftpd_get: $(STATEDIR)/troll-ftpd.get
 
 $(STATEDIR)/troll-ftpd.get: $(troll-ftpd_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(TROLL-FTPD))
 	@$(call touch, $@)
 
 $(TROLL-FTPD_SOURCE):

@@ -34,7 +34,6 @@ mii-diag_get: $(STATEDIR)/mii-diag.get
 
 $(STATEDIR)/mii-diag.get: $(mii-diag_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(MII-DIAG))
 	@$(call touch, $@)
 
 $(MII-DIAG_SOURCE):

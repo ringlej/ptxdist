@@ -34,7 +34,6 @@ module-init-tools_get: $(STATEDIR)/module-init-tools.get
 
 $(STATEDIR)/module-init-tools.get: $(module-init-tools_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(MODULE_INIT_TOOLS))
 	@$(call touch, $@)
 
 $(MODULE_INIT_TOOLS_SOURCE):

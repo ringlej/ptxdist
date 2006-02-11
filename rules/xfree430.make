@@ -60,7 +60,6 @@ xfree430_get_deps	= $(xfree430_get_deps_default)
 
 $(STATEDIR)/xfree430.get: $(xfree430_get_deps)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XFREE430))
 	@$(call touch, $@)
 
 $(XFREE430_SOURCE):

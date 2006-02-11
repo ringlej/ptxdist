@@ -36,7 +36,6 @@ xlibs-x11_get: $(STATEDIR)/xlibs-x11.get
 
 $(STATEDIR)/xlibs-x11.get: $(xlibs-x11_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XLIBS-X11))
 	@$(call touch, $@)
 
 $(XLIBS-X11_SOURCE):

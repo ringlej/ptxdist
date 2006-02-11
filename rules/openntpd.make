@@ -33,7 +33,6 @@ openntpd_get: $(STATEDIR)/openntpd.get
 
 $(STATEDIR)/openntpd.get: $(openntpd_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(OPENNTPD))
 	@$(call touch, $@)
 
 $(OPENNTPD_SOURCE):

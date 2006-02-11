@@ -34,7 +34,6 @@ host-slirp_get: $(STATEDIR)/host-slirp.get
 
 $(STATEDIR)/host-slirp.get: $(host-slirp_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOST_SLIRP))
 	@$(call touch, $@)
 
 $(HOST_SLIRP_SOURCE):

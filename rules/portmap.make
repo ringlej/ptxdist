@@ -31,7 +31,6 @@ portmap_get: $(STATEDIR)/portmap.get
 
 $(STATEDIR)/portmap.get: $(portmap_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PORTMAP))
 	@$(call touch, $@)
 
 $(PORTMAP_SOURCE):

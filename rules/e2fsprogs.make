@@ -35,7 +35,6 @@ e2fsprogs_get: $(STATEDIR)/e2fsprogs.get
 
 $(STATEDIR)/e2fsprogs.get: $(e2fsprogs_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(E2FSPROGS))
 	@$(call touch, $@)
 
 $(E2FSPROGS_SOURCE):

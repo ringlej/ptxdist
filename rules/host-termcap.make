@@ -33,7 +33,6 @@ host-termcap_get: $(STATEDIR)/host-termcap.get
 
 $(STATEDIR)/host-termcap.get: $(host-termcap_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOST_TERMCAP))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

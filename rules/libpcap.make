@@ -34,7 +34,6 @@ libpcap_get: $(STATEDIR)/libpcap.get
 
 $(STATEDIR)/libpcap.get: $(libpcap_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(LIBPCAP))
 	@$(call touch, $@)
 
 $(LIBPCAP_SOURCE):

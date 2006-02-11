@@ -37,7 +37,6 @@ xserver_get: $(STATEDIR)/xserver.get
 
 $(STATEDIR)/xserver.get: $(xserver_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XSERVER))
 	@$(call touch, $@)
 
 $(XSERVER_SOURCE):

@@ -32,7 +32,6 @@ grub_get: $(STATEDIR)/grub.get
 
 $(STATEDIR)/grub.get: $(grub_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(GRUB))
 	@$(call touch, $@)
 
 $(GRUB_SOURCE):

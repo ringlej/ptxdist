@@ -34,7 +34,6 @@ host-mknbi_get: $(STATEDIR)/host-mknbi.get
 
 $(STATEDIR)/host-mknbi.get: $(host-mknbi_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOST_MKNBI))
 	@$(call touch, $@)
 
 $(HOST_MKNBI_SOURCE):

@@ -34,7 +34,6 @@ mtd_get: $(STATEDIR)/mtd.get
 
 $(STATEDIR)/mtd.get: $(mtd_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(MTD))
 	@$(call touch, $@)
 
 $(MTD_UTILS_SOURCE):

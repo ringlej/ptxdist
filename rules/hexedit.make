@@ -34,7 +34,6 @@ hexedit_get: $(STATEDIR)/hexedit.get
 
 $(STATEDIR)/hexedit.get: $(hexedit_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HEXEDIT))
 	@$(call touch, $@)
 
 $(HEXEDIT_SOURCE):

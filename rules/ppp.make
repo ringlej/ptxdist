@@ -33,7 +33,6 @@ ppp_get:	$(STATEDIR)/ppp.get
 
 $(STATEDIR)/ppp.get: $(ppp_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PPP))
 	@$(call touch, $@)
 
 $(PPP_SOURCE):

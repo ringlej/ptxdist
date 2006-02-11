@@ -36,7 +36,6 @@ xlibs-recordext_get: $(STATEDIR)/xlibs-recordext.get
 
 $(STATEDIR)/xlibs-recordext.get: $(xlibs-recordext_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XLIBS-RECORDEXT))
 	@$(call touch, $@)
 
 $(XLIBS-RECORDEXT_SOURCE):

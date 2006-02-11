@@ -34,7 +34,6 @@ iptables_get: $(STATEDIR)/iptables.get
 
 $(STATEDIR)/iptables.get: $(iptables_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(IPTABLES))
 	@$(call touch, $@)
 
 $(IPTABLES_SOURCE):

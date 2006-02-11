@@ -34,7 +34,6 @@ dialog_get: $(STATEDIR)/dialog.get
 
 $(STATEDIR)/dialog.get: $(dialog_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(DIALOG))
 	@$(call touch, $@)
 
 $(DIALOG_SOURCE):

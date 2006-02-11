@@ -34,7 +34,6 @@ procps_get: $(STATEDIR)/procps.get
 
 $(STATEDIR)/procps.get: $(procps_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PROCPS))
 	@$(call touch, $@)
 
 $(PROCPS_SOURCE):

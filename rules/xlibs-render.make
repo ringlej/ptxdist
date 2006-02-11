@@ -37,7 +37,6 @@ xlibs-render_get: $(STATEDIR)/xlibs-render.get
 
 $(STATEDIR)/xlibs-render.get: $(xlibs-render_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XLIBS-RENDER))
 	@$(call touch, $@)
 
 $(XLIBS-RENDER_SOURCE):

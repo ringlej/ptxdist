@@ -37,7 +37,6 @@ xlibs-fixesext_get: $(STATEDIR)/xlibs-fixesext.get
 
 $(STATEDIR)/xlibs-fixesext.get: $(xlibs-fixesext_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XLIBS-FIXESEXT))
 	@$(call touch, $@)
 
 $(XLIBS-FIXESEXT_SOURCE):

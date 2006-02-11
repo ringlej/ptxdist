@@ -34,7 +34,6 @@ memtest_get: $(STATEDIR)/memtest.get
 
 $(STATEDIR)/memtest.get: $(memtest_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(MEMTEST))
 	@$(call touch, $@)
 
 $(MEMTEST_SOURCE):

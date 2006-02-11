@@ -35,7 +35,6 @@ mfirebird_get: $(STATEDIR)/mfirebird.get
 
 $(STATEDIR)/mfirebird.get: $(mfirebird_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(MFIREBIRD))
 	@$(call touch, $@)
 
 $(MFIREBIRD_SOURCE):

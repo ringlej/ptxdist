@@ -36,7 +36,6 @@ xlibs-xfont_get: $(STATEDIR)/xlibs-xfont.get
 
 $(STATEDIR)/xlibs-xfont.get: $(xlibs-xfont_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XLIBS-XFONT))
 	@$(call touch, $@)
 
 $(XLIBS-XFONT_SOURCE):

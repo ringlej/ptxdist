@@ -34,7 +34,6 @@ host-ipkg-utils_get: $(STATEDIR)/host-ipkg-utils.get
 
 $(STATEDIR)/host-ipkg-utils.get: $(host-ipkg-utils_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOST_IPKG_UTILS))
 	@$(call touch, $@)
 
 $(HOST_IPKG_UTILS_SOURCE):

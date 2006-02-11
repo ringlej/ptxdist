@@ -37,7 +37,6 @@ xlibs-xtrans_get: $(STATEDIR)/xlibs-xtrans.get
 
 $(STATEDIR)/xlibs-xtrans.get: $(xlibs-xtrans_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(XLIBS-XTRANS))
 	@$(call touch, $@)
 
 $(XLIBS-XTRANS_SOURCE):

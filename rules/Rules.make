@@ -547,30 +547,6 @@ get =								\
 		;;						\
 	esac;								
 
-#
-# get_patches
-#
-# Download patches from a local or global patch repository. 
-# PTXPATCH_URL contains a list of URLs where to search for patches. 
-# First hit matches, so URLs earlier in the list superseed later ones. 
-#
-#
-# $1: packet name. The packet name is the identifier for a patch
-#     subdirecotry. 
-# 
-# These wget options are being used: 
-# 
-# -r -l1		recursive 1 level
-# -nH --cutdirs=3	remove hostname and next 3 dirs from URL, when saving
-#			so "http://www.pengutronix.de/software/ptxdist-cvs/patches/glibc-2.2.5/*"
-#			becomes "glibc-2.2.5/*"
-#
-
-# FIXME: remove this if patch mechanism works
-
-get_patches =											\
-		echo "get_patches is obsolete now"
-
 
 #
 # get_options

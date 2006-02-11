@@ -34,7 +34,6 @@ pureftpd_get: $(STATEDIR)/pureftpd.get
 
 $(STATEDIR)/pureftpd.get: $(pureftpd_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PUREFTPD))
 	@$(call touch, $@)
 
 $(PUREFTPD_SOURCE):

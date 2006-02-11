@@ -37,7 +37,6 @@ dosfstools_get: $(STATEDIR)/dosfstools.get
 
 $(STATEDIR)/dosfstools.get: $(dosfstools_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(DOSFSTOOLS))
 	@$(call touch, $@)
 
 $(DOSFSTOOLS_SOURCE):

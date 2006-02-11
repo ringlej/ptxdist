@@ -36,7 +36,6 @@ host-e2fsprogs_get: $(STATEDIR)/host-e2fsprogs.get
 
 $(STATEDIR)/host-e2fsprogs.get: $(host-e2fsprogs_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(HOST_E2FSPROGS))
 	@$(call touch, $@)
 
 $(HOST_E2FSPROGS_SOURCE):

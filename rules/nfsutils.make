@@ -32,7 +32,6 @@ nfsutils_get: $(STATEDIR)/nfsutils.get
 
 $(STATEDIR)/nfsutils.get: $(NFSUTILS_SOURCE)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(NFSUTILS))
 	@$(call touch, $@)
 
 $(NFSUTILS_SOURCE):

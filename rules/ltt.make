@@ -36,7 +36,6 @@ ltt_get: $(STATEDIR)/ltt.get
 
 $(STATEDIR)/ltt.get: $(ltt_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(LTT))
 	@$(call touch, $@)
 
 $(LTT_SOURCE):

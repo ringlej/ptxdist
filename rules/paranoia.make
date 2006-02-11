@@ -34,7 +34,6 @@ paranoia_get: $(STATEDIR)/paranoia.get
 
 $(STATEDIR)/paranoia.get: $(paranoia_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(PARANOIA))
 	@$(call touch, $@)
 
 $(PARANOIA_SOURCE):

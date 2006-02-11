@@ -34,7 +34,6 @@ chrony_get: $(STATEDIR)/chrony.get
 
 $(STATEDIR)/chrony.get: $(chrony_get_deps_default)
 	@$(call targetinfo, $@)
-	@$(call get_patches, $(CHRONY))
 	@$(call touch, $@)
 
 $(CHRONY_SOURCE):
