@@ -12,17 +12,17 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_MII-DIAG) += mii-diag
+PACKAGES-$(PTXCONF_MII_DIAG) += mii-diag
 
 #
 # Paths and names
 #
-MII-DIAG_VERSION	= 2.09
-MII-DIAG		= mii-diag-$(MII-DIAG_VERSION).orig
-MII-DIAG_SUFFIX		= tar.gz
-MII-DIAG_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/m/mii-diag/mii-diag_$(MII-DIAG_VERSION).orig.$(MII-DIAG_SUFFIX)
-MII-DIAG_SOURCE		= $(SRCDIR)/mii-diag_$(MII-DIAG_VERSION).orig.$(MII-DIAG_SUFFIX)
-MII-DIAG_DIR		= $(BUILDDIR)/$(MII-DIAG)
+MII_DIAG_VERSION	= 2.09
+MII_DIAG		= mii-diag-$(MII_DIAG_VERSION).orig
+MII_DIAG_SUFFIX		= tar.gz
+MII_DIAG_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/m/mii-diag/mii-diag_$(MII_DIAG_VERSION).orig.$(MII_DIAG_SUFFIX)
+MII_DIAG_SOURCE		= $(SRCDIR)/mii-diag_$(MII_DIAG_VERSION).orig.$(MII_DIAG_SUFFIX)
+MII_DIAG_DIR		= $(BUILDDIR)/$(MII_DIAG)
 
 -include $(call package_depfile)
 
@@ -36,9 +36,9 @@ $(STATEDIR)/mii-diag.get: $(mii-diag_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(MII-DIAG_SOURCE):
+$(MII_DIAG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MII-DIAG_URL))
+	@$(call get, $(MII_DIAG_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,9 +48,9 @@ mii-diag_extract: $(STATEDIR)/mii-diag.extract
 
 $(STATEDIR)/mii-diag.extract: $(mii-diag_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(MII-DIAG_DIR))
-	@$(call extract, $(MII-DIAG_SOURCE))
-	@$(call patchin, $(MII-DIAG))
+	@$(call clean, $(MII_DIAG_DIR))
+	@$(call extract, $(MII_DIAG_SOURCE))
+	@$(call patchin, $(MII_DIAG))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -59,8 +59,8 @@ $(STATEDIR)/mii-diag.extract: $(mii-diag_extract_deps_default)
 
 mii-diag_prepare: $(STATEDIR)/mii-diag.prepare
 
-MII-DIAG_PATH	=  PATH=$(CROSS_PATH)
-MII-DIAG_ENV 	=  $(CROSS_ENV)
+MII_DIAG_PATH	=  PATH=$(CROSS_PATH)
+MII_DIAG_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/mii-diag.prepare: $(mii-diag_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -74,7 +74,7 @@ mii-diag_compile: $(STATEDIR)/mii-diag.compile
 
 $(STATEDIR)/mii-diag.compile: $(mii-diag_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(MII-DIAG_DIR) && $(MII-DIAG_ENV) $(MII-DIAG_PATH) make
+	cd $(MII_DIAG_DIR) && $(MII_DIAG_ENV) $(MII_DIAG_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -99,13 +99,13 @@ $(STATEDIR)/mii-diag.targetinstall: $(mii-diag_targetinstall_deps_default)
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,mii-diag)
 	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MII-DIAG_VERSION))
+	@$(call install_fixup,VERSION,$(MII_DIAG_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(MII-DIAG_DIR)/mii-diag, /usr/sbin/mii-diag)
+	@$(call install_copy, 0, 0, 0755, $(MII_DIAG_DIR)/mii-diag, /usr/sbin/mii-diag)
 
 	@$(call install_finish)
 
@@ -118,6 +118,6 @@ $(STATEDIR)/mii-diag.targetinstall: $(mii-diag_targetinstall_deps_default)
 mii-diag_clean:
 	rm -rf $(STATEDIR)/mii-diag.*
 	rm -rf $(IMAGEDIR)/mii-diag_*
-	rm -rf $(MII-DIAG_DIR)
+	rm -rf $(MII_DIAG_DIR)
 
 # vim: syntax=make
