@@ -1,9 +1,9 @@
 # betaftpd configuration
 
 menuconfig BETAFTPD
-        bool
-        prompt "betaftpd            "
-        depends on BROKEN
+	bool
+	prompt "betaftpd            "
+	depends on BROKEN
 	help
 	  BetaFTPD is an ftpd replacement for Unix/Linux. 
 	  
@@ -13,5 +13,5 @@ menuconfig BETAFTPD
 	  http://betaftpd.sourceforge.net/
 
 comment "betaftpd is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN
 

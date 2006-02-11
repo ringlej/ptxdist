@@ -1,8 +1,8 @@
 menu    "mii-diag            "
 
 config MII-DIAG
-        bool
-        prompt "mii-diag"
+	bool
+	prompt "mii-diag"
 	help
 	  mii-diag command configures, controls and monitors 
 	  the transceiver management registers for network 

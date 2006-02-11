@@ -1,6 +1,6 @@
 config HOST_KSYMOOPS
-        bool
-        prompt "KSYMOOPS"
+	bool
+	prompt "KSYMOOPS"
 	select HOST_BINUTILS_LIBBFD
 	select HOST_BINUTILS_LIBIBERTY
 	select HOST_BINUTILS

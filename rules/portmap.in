@@ -13,4 +13,4 @@ config	PORTMAP_INSTALL_PORTMAPPER
 	  FIXME: This item needs to be documented
 
 comment "portmap is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

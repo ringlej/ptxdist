@@ -1,4 +1,3 @@
-
 config MADWIFI
 	bool
 	prompt "Multiband Atheros WiFi Driver"

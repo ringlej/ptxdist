@@ -1,8 +1,8 @@
 menu    "dnsmasq             "
 
 config DNSMASQ
-        bool
-        prompt "dnsmasq"
+	bool
+	prompt "dnsmasq"
 	help
 	  A small caching DNS proxy and DHCP server.
 	  

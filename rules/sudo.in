@@ -1,7 +1,7 @@
 config SUDO
-        bool
-        depends on BROKEN
-        prompt "Package SUDO"
+	bool
+	depends on BROKEN
+	prompt "Package SUDO"
 	help
 	  Sudo is a program designed to allow a sysadmin 
 	  to give limited root privileges to users and log 
@@ -10,4 +10,4 @@ config SUDO
 	  people to get their work done.
 
 comment "SUDO is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

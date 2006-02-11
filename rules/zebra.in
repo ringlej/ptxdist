@@ -1,8 +1,8 @@
 menu    "GNU Zebra           "
 
 config ZEBRA
-        bool
-        prompt "GNU Zebra"
+	bool
+	prompt "GNU Zebra"
 	help
 	  GNU Zebra is free software that manages TCP/IP based routing protocols. 
 	  It is released as part of the GNU Project, and it is distributed under 

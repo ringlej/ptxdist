@@ -1,7 +1,7 @@
 config GAIL
-        bool
-        depends on BROKEN
-        prompt "GAIL"
+	bool
+	depends on BROKEN
+	prompt "GAIL"
 	help
 	  GNOME Accessibility Implementation Library
 	  
@@ -13,4 +13,4 @@ config GAIL
 	  without the need to modify the application at all.
 
 comment "GAIL is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

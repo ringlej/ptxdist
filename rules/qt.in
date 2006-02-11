@@ -1,10 +1,10 @@
 config QT
-        bool
-        depends on BROKEN
-        prompt "Package QT"
+	bool
+	depends on BROKEN
+	prompt "Package QT"
 	help
 	  QT is 
 	  FIXME: This item needs to bee documented
 
 comment "QT is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

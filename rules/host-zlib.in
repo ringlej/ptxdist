@@ -1,10 +1,10 @@
 config HOST_ZLIB
-        bool
-        depends on BROKEN
-        prompt "HOST_ZLIB"
+	bool
+	depends on BROKEN
+	prompt "HOST_ZLIB"
 	help
 	  FIXME: This item needs to be documented
 	
 
 comment "HOST_ZLIB is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

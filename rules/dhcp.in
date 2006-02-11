@@ -1,8 +1,8 @@
 menu    "dhcp                "
 
 config DHCP
-        bool
-        prompt "DHCP"
+	bool
+	prompt "DHCP"
 	help
 	  This is the DHCP server from version 3 of the Internet Software
 	  Consortium DHCP package. For more information visit the ISC web

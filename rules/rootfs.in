@@ -245,7 +245,7 @@ config ROOTFS_GENERIC_HOSTS
 menuconfig ROOTFS_GENERIC_INITTAB
 	depends on ROOTFS
 	bool
-        select BB_CONFIG_GETTY if BUSYBOX
+	select BB_CONFIG_GETTY if BUSYBOX
 	prompt "/etc/inittab                "
 	default y
 	help
@@ -376,7 +376,7 @@ config ROOTFS_ETC_INITD
 	bool
 	prompt "Generic Scripts for /etc/init.d"
 	default y
-        select BB_CONFIG_RUN_PARTS      if BUSYBOX
+	select BB_CONFIG_RUN_PARTS      if BUSYBOX
 	help
 	  When enabled, this option copies the files from 
 	  $(PTXDIST_TOPDIR)/projects/generic/etc/init.d to the target root 

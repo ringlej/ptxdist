@@ -1,10 +1,10 @@
 config TINYLOGIN
-        bool
-        depends on BROKEN
-        prompt "Package TINYLOGIN"
+	bool
+	depends on BROKEN
+	prompt "Package TINYLOGIN"
 	help
 	  TINYLOGIN is 
 	  FIXME: This item needs to bee documented
 
 comment "TINYLOGIN is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

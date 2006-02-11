@@ -114,7 +114,7 @@ config IMAGE_UIMAGE_EXTRA_ARGS
 	depends on IMAGE_UIMAGE
 	help
 	  If needed you can add extra arguments for umkimage here
-          (e.g. -a 0xaa00000 -e 0xaa00000 )
+	  (e.g. -a 0xaa00000 -e 0xaa00000 )
 
 config IMAGE_EXT2
 	bool

@@ -1,4 +1,3 @@
-
 config TESTSUITE_DIR
 	string
 	prompt "Directory for Test Suites"

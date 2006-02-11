@@ -1,10 +1,10 @@
 config PANGO12
-        bool
-        depends on BROKEN
-        prompt "Package PANGO12"
+	bool
+	depends on BROKEN
+	prompt "Package PANGO12"
 	help
 	  PANGO12 is 
 	  FIXME: This item needs to bee documented
 
 comment "PANGO12 is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

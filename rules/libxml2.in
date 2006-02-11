@@ -4,9 +4,9 @@
 #
 
 menuconfig LIBXML2
-        bool
-        prompt "libxml2                     "
-        select ZLIB
+	bool
+	prompt "libxml2                     "
+	select ZLIB
 	help
 	  FIXME: This item needs to be documented
 

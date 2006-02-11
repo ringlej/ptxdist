@@ -1,11 +1,11 @@
 config XLIBS-DAMAGEEXT
-        bool
-        default N
-        depends on BROKEN
-        prompt "Package XLIBS-DAMAGEEXT"
+	bool
+	default N
+	depends on BROKEN
+	prompt "Package XLIBS-DAMAGEEXT"
 	help
 	  XLIBS-DAMAGEEXT is 
 	  FIXME: This item needs to bee documented
 
 comment "XLIBS-DAMAGEEXT is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

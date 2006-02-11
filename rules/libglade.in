@@ -1,10 +1,10 @@
 config LIBGLADE
-        bool
-        depends on BROKEN
-        prompt "LIBGLADE"
+	bool
+	depends on BROKEN
+	prompt "LIBGLADE"
 	help
 	  FIXME: This item needs to be documented
 	
 
 comment "LIBGLADE is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

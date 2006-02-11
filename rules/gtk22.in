@@ -1,10 +1,10 @@
 config GTK22
-        bool
-        depends on BROKEN
-        prompt "GTK22"
+	bool
+	depends on BROKEN
+	prompt "GTK22"
 	help
 	  FIXME: This item needs to be documented
 	
 
 comment "GTK22 is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

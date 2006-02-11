@@ -1,10 +1,10 @@
 config LIBGD
-        bool
-        depends on BROKEN
-        prompt "LIBGD"
+	bool
+	depends on BROKEN
+	prompt "LIBGD"
 	help
 	  FIXME: This item needs to be documented
 	
 
 comment "LIBGD is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

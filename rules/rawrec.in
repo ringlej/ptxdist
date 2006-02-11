@@ -1,18 +1,18 @@
 config RAWREC
 	bool
 	prompt "rawrec/rawplay"
-        help
-         rawrec and rawplay are GPL'd utilities designed to provide
-         the user with a simple way of recording or playing raw audio data from
-         or to their sound card under intel Linux (I havn't tested other
-         architectures, but its written to be portable, I think)
+	help
+	 rawrec and rawplay are GPL'd utilities designed to provide
+	 the user with a simple way of recording or playing raw audio data from
+	 or to their sound card under intel Linux (I havn't tested other
+	 architectures, but its written to be portable, I think)
 
 	 Details: http://rawrec.sourceforge.net
 
 config RAWREC_RAWREC
 	bool
 	prompt "rawrec"
-        depends on RAWREC
+	depends on RAWREC
 	help
 	  rawrec - a simple audio recording tool
 	  http://rawrec.sourceforge.net
@@ -20,7 +20,7 @@ config RAWREC_RAWREC
 config RAWREC_RAWPLAY
 	bool
 	prompt "rawplay"
-        depends on RAWREC
+	depends on RAWREC
 	help
 	  rawplay - a simple audio player tool
 	  http://rawrec.sourceforge.net

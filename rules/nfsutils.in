@@ -79,28 +79,28 @@ config	NFSUTILS_INSTALL_NHFSGRAPH
 	depends on NFSUTILS
 
 config  NFSUTILS_INSTALL_NHFSNUMS
-        bool
-        prompt "Install /sbin/nhfsnums"
-        depends on NFSUTILS
+	bool
+	prompt "Install /sbin/nhfsnums"
+	depends on NFSUTILS
 
 config  NFSUTILS_INSTALL_NHFSRUN
-        bool
-        prompt "Install /sbin/nhfsrun"
-        depends on NFSUTILS
+	bool
+	prompt "Install /sbin/nhfsrun"
+	depends on NFSUTILS
 
 config  NFSUTILS_INSTALL_NHFSSTONE
-        bool
-        prompt "Install /sbin/nhfsstone"
-        depends on NFSUTILS
+	bool
+	prompt "Install /sbin/nhfsstone"
+	depends on NFSUTILS
 
 config  NFSUTILS_INSTALL_SHOWMOUNT
-        bool
-        prompt "Install /sbin/showmount"
-        depends on NFSUTILS
+	bool
+	prompt "Install /sbin/showmount"
+	depends on NFSUTILS
 
 config  NFSUTILS_INSTALL_STATD
-        bool
-        prompt "Install /sbin/statd"
-        depends on NFSUTILS
+	bool
+	prompt "Install /sbin/statd"
+	depends on NFSUTILS
 
 endmenu

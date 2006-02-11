@@ -3,7 +3,7 @@ config CROSS_GDB
 
 config CROSS_GDB_WRAPPERS
 	bool "cross gdb wrapper"
-        depends on CROSS_GDB
+	depends on CROSS_GDB
 	help
 	  Creates wrapper scripts in $PTXCONF_PREFIX/bin which preset
 	  all necessary preferences to use the cross debugger. 

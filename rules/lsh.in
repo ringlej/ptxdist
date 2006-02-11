@@ -44,7 +44,7 @@ config LSH_KEYGEN
 	  FIXME: This item needs to be documented
 
 config LSH_WRITEKEY
-        bool
+	bool
 	prompt "Install lsh-writekey"
 	depends on LSH
 	help

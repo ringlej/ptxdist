@@ -1,8 +1,8 @@
 menu    "ethewake            "
 
 config ETHERWAKE
-        bool
-        prompt "etherwake"
+	bool
+	prompt "etherwake"
 	help
 	  A little tool to send magic Wake-on-LAN packets
  

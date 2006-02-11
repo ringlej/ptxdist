@@ -3,8 +3,8 @@ config GLIB26
 	prompt "glib-2.6"
 	help
 	  GLib is a library containing many useful C 
-          routines for things such as trees, hashes, 
-          lists, and strings.  It is a useful general-purpose
-          C library used by projects such as GTK+, 
-          GIMP, and GNOME.
+	  routines for things such as trees, hashes, 
+	  lists, and strings.  It is a useful general-purpose
+	  C library used by projects such as GTK+, 
+	  GIMP, and GNOME.
 

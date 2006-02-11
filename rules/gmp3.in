@@ -1,7 +1,7 @@
 config GMP3
-        bool
-        depends on BROKEN
-        prompt "GMP3"
+	bool
+	depends on BROKEN
+	prompt "GMP3"
 	help
 	  Multiprecision arithmetic library
  
@@ -15,4 +15,4 @@ config GMP3
 	  	The home page is http://www.swox.com/gmp
 
 comment "GMP3 is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

@@ -1,5 +1,5 @@
 config CLEMENTINE
-        bool
+	bool
 	select GLIB12
 	prompt "clementine            "
 	help

@@ -25,9 +25,9 @@ config COREUTILS_MD5SUM
 	  compute and check MD5 message digest
 
 config COREUTILS_SEQ
-        bool
-        prompt "seq"
-        depends on COREUTILS
+	bool
+	prompt "seq"
+	depends on COREUTILS
 	help
 	  print a sequence of numbers
 

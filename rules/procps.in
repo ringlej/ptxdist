@@ -6,7 +6,7 @@ menuconfig PROCPS
 
 config PROCPS_TOP
 	bool
-        prompt "top"
+	prompt "top"
 	depends on PROCPS
 	help
 	  FIXME: This item needs to be documented

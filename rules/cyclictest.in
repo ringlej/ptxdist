@@ -1,6 +1,6 @@
 config CYCLICTEST
-        bool
-        prompt "CYCLICTEST    "
+	bool
+	prompt "CYCLICTEST    "
 	help
 	  CYCLICTEST is a testprogram for high resolution timers
 	  

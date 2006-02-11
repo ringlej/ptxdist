@@ -1,7 +1,7 @@
 config ATK
-        bool
-        depends on BROKEN
-        prompt "atk - accessibility toolkit"
+	bool
+	depends on BROKEN
+	prompt "atk - accessibility toolkit"
 	help
 	  ATK is a toolkit providing accessibility interfaces 
 	  for applications or other toolkits. By implementing 
@@ -11,4 +11,4 @@ config ATK
 	  ATK is part of the GNOME project.
 
 comment "ATK is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

@@ -1,7 +1,7 @@
 config XVKBD
-        bool
-        depends on BROKEN
-        prompt "Package XVKBD"
+	bool
+	depends on BROKEN
+	prompt "Package XVKBD"
 	help
 	  xvkbd is a virtual (graphical) keyboard program 
 	  for X Window System which provides facility to enter 
@@ -13,4 +13,4 @@ config XVKBD
 	  as the command line option to another client.
 
 comment "XVKBD is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

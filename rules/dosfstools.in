@@ -31,5 +31,5 @@ config DOSFSTOOLS_DOSFSCK
 	  This is the DOSFS / VFAT Filesystem Checker
 
 comment "DOSFSTOOLS are broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN
 

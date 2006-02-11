@@ -3,8 +3,8 @@
 #
 
 menuconfig LIBXSLT
-        bool
-        prompt "libxslt                     "
+	bool
+	prompt "libxslt                     "
 	select LIBXML2
 	help
 	  LibXSLT is a generic XSLT implementation. For details see the

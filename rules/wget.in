@@ -1,8 +1,8 @@
 menu    "wget                "
 
 config WGET
-        bool
-        prompt "wget"
+	bool
+	prompt "wget"
 	help
 	  GNU wget is a commandline mirroring tool. 
 	  

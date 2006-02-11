@@ -1,10 +1,10 @@
 config LIBIDL-2
-        bool
-        depends on BROKEN
-        prompt "LIBIDL-2"
+	bool
+	depends on BROKEN
+	prompt "LIBIDL-2"
 	help
 	  FIXME: This item needs to be documented
 	
 
 comment "LIBIDL-2 is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

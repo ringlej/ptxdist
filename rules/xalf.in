@@ -1,10 +1,10 @@
 config XALF
-        bool
-        depends on BROKEN
-        prompt "XALF"
+	bool
+	depends on BROKEN
+	prompt "XALF"
 	help
 	  XALF is ...
 	  FIXME: This item needs to be documented
 
 comment "XALF is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

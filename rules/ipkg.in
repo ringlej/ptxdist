@@ -20,9 +20,9 @@ config IPKG_HASH_TEST
 	  FIXME: This item needs to be documented
 
 config IPKG_LOG_WRAPPER
-        bool
-        prompt "use ipkg log wrapper"
-        depends on IPKG
-        help
-          If selected, ipkg will be installed with a wrapper script 
-          which provides basic logging facilities
+	bool
+	prompt "use ipkg log wrapper"
+	depends on IPKG
+	help
+	  If selected, ipkg will be installed with a wrapper script 
+	  which provides basic logging facilities

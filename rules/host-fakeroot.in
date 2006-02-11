@@ -1,4 +1,3 @@
-
 config HOST_FAKEROOT
 	bool
 	prompt "fakeroot"

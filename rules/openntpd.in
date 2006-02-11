@@ -20,13 +20,12 @@ comment "Compile Options"
 	depends on OPENNTPD
 
 config  OPENNTPD_ARC4RANDOM
-        bool
-        prompt "Use builtin arc4random rather than OpenSSL's"
-        default y
-        depends on OPENNTPD
-        help
-          Enabled by default - if unsure, say YES
+	bool
+	prompt "Use builtin arc4random rather than OpenSSL's"
+	default y
+	depends on OPENNTPD
+	help
+	  Enabled by default - if unsure, say YES
 	  Say NO and install OpenSSL as alternative.
-
 
 endmenu

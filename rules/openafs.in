@@ -1,7 +1,3 @@
-#
-# rules/openafs.in
-#
-
 menu    "OpenAFS             "
 
 config OPENAFS

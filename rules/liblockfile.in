@@ -1,8 +1,8 @@
 menu    "liblockfile       "
 
 config LIBLOCKFILE
-        bool
-        prompt "dotlockfile"
+	bool
+	prompt "dotlockfile"
 	help
 	  Dotlockfile is a command line utility to safely create, 
 	  test and remove lockfiles. Lockfiles are created in an 

@@ -1,7 +1,7 @@
 # GNU commoncpp 2 configuration
 
 menuconfig COMMONCPP2
-        bool 
+	bool 
 	prompt "CommonC++ 2                 "
 	help
 	  GNU Common C++ is a portable and highly optimized class

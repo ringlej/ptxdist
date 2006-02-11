@@ -1,7 +1,7 @@
 config HOST_MKNBI
-        bool
-        depends on BROKEN
-        prompt "HOST_MKNBI"
+	bool
+	depends on BROKEN
+	prompt "HOST_MKNBI"
 	help
 	  With mknbi you can create tagged images for Etherboot. 
 	  Tagged images are data files, which contains the 
@@ -13,4 +13,4 @@ config HOST_MKNBI
 	  by Etherboot and Netboot during the boot process.
 
 comment "HOST_MKNBI is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

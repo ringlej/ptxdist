@@ -1,10 +1,10 @@
 config HOST_IMAGE_DEB
-        bool
-        depends on BROKEN
-        prompt "HOST_IMAGE_DEB"
+	bool
+	depends on BROKEN
+	prompt "HOST_IMAGE_DEB"
 	help
 	  FIXME: This item needs to be documented
 	
 
 comment "HOST_IMAGE_DEB is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

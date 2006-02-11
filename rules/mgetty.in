@@ -4,7 +4,7 @@ menuconfig MGETTY
 	  FIXME: This item needs to be documented
 
 config MGETTY_CONFIG
-        prompt "Name of policy.h file to be used"
+	prompt "Name of policy.h file to be used"
 	string
 	default "build-target/mgetty-1.1.30/policy.h-dist"
 	depends on MGETTY

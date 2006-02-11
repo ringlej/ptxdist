@@ -1,15 +1,15 @@
 config GDBSERVER
-        bool "gdbserver"
-        help
-          GDBSERVER is a program that allows you to run GDB on a
-          different machine than the one which is running the
-          program being debugged.
+	bool "gdbserver"
+	help
+	  GDBSERVER is a program that allows you to run GDB on a
+	  different machine than the one which is running the
+	  program being debugged.
 
 config GDBSERVER_SHARED
-        bool "shared gdbserver"
-        default y
-        depends on GDBSERVER
-        select GLIBC_THREAD_DB if GLIBC && GLIBC_INSTALL
-        help
-          FIXME: This item needs to be documented
+	bool "shared gdbserver"
+	default y
+	depends on GDBSERVER
+	select GLIBC_THREAD_DB if GLIBC && GLIBC_INSTALL
+	help
+	  FIXME: This item needs to be documented
 

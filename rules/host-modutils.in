@@ -1,10 +1,10 @@
 config HOST_MODUTILS
-        bool
-        depends on BROKEN
-        prompt "HOST_MODUTILS"
+	bool
+	depends on BROKEN
+	prompt "HOST_MODUTILS"
 	help
 	  FIXME: This item needs to be documented
 	
 
 comment "HOST_MODUTILS is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

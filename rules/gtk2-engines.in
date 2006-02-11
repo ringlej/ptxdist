@@ -1,10 +1,10 @@
 config GTK2
-        bool
-        depends on BROKEN
-        prompt "GTK2"
+	bool
+	depends on BROKEN
+	prompt "GTK2"
 	help
 	  FIXME: This item needs to be documented
 	
 
 comment "GTK2 is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

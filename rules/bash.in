@@ -1,6 +1,6 @@
 menuconfig BASH
 	bool "Bash                "
-        select GLIBC_DL
+	select GLIBC_DL
 	help
 	  The GNU Bourne Again SHell
 	  Bash is an sh-compatible command language interpreter that executes
@@ -37,14 +37,14 @@ config BASH_ALIASES
 #	prompt "Enable arithmetic for command"
 #	depends on BASH
 #	help "This does currently (bash-2.05b) not work properly and is deactivated in bash.make!"
-        
+	
 config BASH_ARRAY
 	bool
 	prompt "Include shell array variables"
 	depends on BASH
 
 config BASH_HISTORY
-        bool
+	bool
 	prompt "Turn on csh-style history substitution"
 	depends on BASH
 	help
@@ -59,7 +59,7 @@ config BASH_BRACE
 	  Brace  expansion is a mechanism by which arbitrary 
 	  strings may be generated.  This mechanism is similar 
 	  to pathname expansion, but the filenames generated
-          need not exist.
+	  need not exist.
 
 #config BASH_CONDITIONAL
 #	bool
@@ -118,7 +118,7 @@ config BASH_LARGEFILES
 	  FIXME: This item needs to be documented
 
 config BASH_PROCSUBST
-        bool 
+	bool 
 	prompt "Enable process substitution"
 	depends on BASH
 	help

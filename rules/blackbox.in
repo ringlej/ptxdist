@@ -1,6 +1,6 @@
 config BLACKBOX
-        bool
-        prompt "Blackbox Window-Manager"
+	bool
+	prompt "Blackbox Window-Manager"
 	depends on BROKEN
 	# FIXME: dependencies on X have to be added
 	help

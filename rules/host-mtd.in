@@ -1,4 +1,3 @@
-
 config HOST_MTD
 	bool "MTD Utilities"
 	help

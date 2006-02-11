@@ -1,7 +1,3 @@
-#
-# Copyright (C) 08/10/2003 by Marco Cavallini <m.cavallini@koansoftware.com>
-#
-
 menuconfig WXWINDOWS
 	bool "wxWidgets             "
 	help
@@ -16,7 +12,7 @@ config WXWINDOWS_X11
 	  FIXME: This item needs to be documented
 
 config WXWINDOWS_X11_CONFIG
-        prompt "Configuration to be used (not used)"
+	prompt "Configuration to be used (not used)"
 	string
 	default "--with-x11"
 	depends on WXWINDOWS_X11

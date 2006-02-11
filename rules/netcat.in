@@ -1,8 +1,8 @@
 menu    "netcat              "
 
 config NETCAT
-        bool
-        prompt "GNU netcat"
+	bool
+	prompt "GNU netcat"
 	help
 	  This is the GNU Flavour of the "netcat" utility. 
 	  
@@ -13,13 +13,13 @@ config NETCAT
 	  At the same time it is a feature-rich network debugging and 
 	  exploration tool, since it can create almost any kind of
  	  connection you would need and has several interesting built-in
-          capabilities.
+	  capabilities.
 	  
 	  It provides access to the following main features:
 
     	  * Outbound and inbound connections, TCP or UDP, 
 	    to or from any ports.
-          * Featured tunneling mode which allows also special 
+	  * Featured tunneling mode which allows also special 
 	    tunneling such as UDP to TCP, with the possibility 
 	    of specifying all network parameters (source port/interface, 
 	    listening port/interface, and the remote host allowed to 
@@ -36,18 +36,17 @@ config NETCAT
 	  homepage for more info:  http://netcat.sourceforge.net/
 	  
 
-
 config  NETCAT_OLD_HEXDUMP
-        bool
-        prompt "Use the old style hexdump format"
+	bool
+	prompt "Use the old style hexdump format"
 	depends on NETCAT
 	help
 	  Disabled by default - if unsure, say NO
 
 config  NETCAT_OLD_TELNET
-        bool
-        prompt "Use old telnet codes parsing policy"
-        depends on NETCAT
+	bool
+	prompt "Use old telnet codes parsing policy"
+	depends on NETCAT
 	help
 	  Disabled by default - if unsure, say NO
 

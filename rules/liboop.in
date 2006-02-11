@@ -1,10 +1,10 @@
 config LIBOOP
-        bool
-        depends on BROKEN
-        prompt "LIBOOP"
+	bool
+	depends on BROKEN
+	prompt "LIBOOP"
 	help
 	  FIXME: This item needs to be documented
 	
 
 comment "LIBOOP is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

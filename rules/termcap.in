@@ -1,5 +1,3 @@
-# termcap configuration
-
 menuconfig TERMCAP
 	bool "termcap                     "
 	default y

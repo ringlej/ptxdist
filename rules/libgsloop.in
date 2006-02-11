@@ -1,5 +1,5 @@
 config LIBGSLOOP
-        bool "libgsloop"
+	bool "libgsloop"
 	select LIBRN
 	help
 	  FIXME: This item needs to be documented

@@ -1,6 +1,6 @@
 config JED
-        bool
-        prompt "jed"
+	bool
+	prompt "jed"
 	depends on BROKEN
 	# tries to execute stuff which is cross compiled
 	help

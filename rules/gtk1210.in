@@ -1,10 +1,10 @@
 config GTK1210
-        bool
-        depends on BROKEN
-        prompt "GTK1210"
+	bool
+	depends on BROKEN
+	prompt "GTK1210"
 	help
 	  FIXME: This item needs to be documented
 	
 
 comment "GTK1210 is broken, please send a patch"
-        depends on !BROKEN
+	depends on !BROKEN

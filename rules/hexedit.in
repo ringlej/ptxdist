@@ -1,6 +1,6 @@
 config HEXEDIT
-        bool
+	bool
 	select NCURSES
-        prompt "hexedit"
+	prompt "hexedit"
 	help
 	  hexedit - view and edit files in hexadecimal or in ASCII

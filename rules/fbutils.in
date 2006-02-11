@@ -14,9 +14,9 @@ config FBUTILS_FBSET
 	prompt "install fbset util on target"
 	help
 	  fbset  is  a system utility to show or change the settings
-          of the frame buffer device. The frame buffer  device  pro-
-          vides  a  simple  and unique interface to access different
-          kinds of graphic displays.
+	  of the frame buffer device. The frame buffer  device  pro-
+	  vides  a  simple  and unique interface to access different
+	  kinds of graphic displays.
 
 config FBUTILS_FBCMAP
 	depends on FBUTILS
