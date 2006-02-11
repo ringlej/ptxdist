@@ -1,11 +1,8 @@
 #! /bin/sh
 
-if [ $# != 3 ]; then
-	echo "usage: $0 <arch> <root-path> <arch-prefix>"
-	exit 1
-fi
+source ${PTXDIST_WORKSPACE}/ptxconfig
 
-case $1 in
+case ${PTXCONF_ARCH} in
 	arm)
 		CPUVENDOR="ARM"
 	;;
@@ -22,11 +19,11 @@ case $1 in
 		CPUVENDOR="MIPS"
 	;;
 	*)
-		@echo please add CPUVENDOR to Makefile
+		echo please add CPUVENDOR for PTXCONF_ARCH=${PTXCONF_ARCH} to Makefile
 		exit 1
 	;;
 esac
-cd $2
+cd $PTXDIST_WORKSPACE/root
 echo
 echo $CPUVENDOR cuckoo test
 
@@ -62,7 +59,7 @@ echo "---"
 echo "3 pass (in laws test)"
 
 find . -type f -exec file {} \; | \
-awk -F: -vARCH=$3 '{if (index($2,"ELF")) print ARCH"readelf -d "$1}' | \
+awk -F: -vARCH=${PTXCONF_COMPILER_PREFIX} '{if (index($2,"ELF")) print ARCH"readelf -d "$1}' | \
 sh | grep "(NEEDED)" | \
 awk '{gsub("\\[","");gsub("\\]","");print "if [ \"x$(find . -name "$5")\" = \"x\" ]; then echo "$5" not found ; fi"}' | \
 sort -u | sh
