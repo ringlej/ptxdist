@@ -5,6 +5,9 @@
 #
 # - add compilercheck 
 #
+# - split images out of Makefile; we should have a command "image jffs2"
+#   which starts a corresponding script in scripts/
+#
 #
 
 PROMPT="ptxdist: "
@@ -99,6 +102,8 @@ Build Actions:
   install <package>              install host side components into sysroot/
   targetinstall <package>        install files for target into root/
   clean <package>                cleanup packet
+
+  images                         build images for target system
 
 Clean Actions:
 
@@ -364,6 +369,13 @@ while [ "$#" != "0" ]; do
 			exit $?
 			;;
 	help|--help)	shift; usage; exit 0; ;;
+	images)		shift
+			make \
+				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				images PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			image $1
+			exit $?
+			;;
 	install)	shift ;;
 	make)		shift; make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make PTXDIST_TOPDIR=${PTXDIST_TOPDIR};;
 	menuconfig)	shift; menuconfig;;
