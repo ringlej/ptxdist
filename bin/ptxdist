@@ -17,6 +17,8 @@ else
 	PTXDIST_TOPDIR=$(cd $(dirname $0)/.. && pwd)
 fi
 
+export PTXDIST_WORKSPACE PTXDIST_TOPDIR
+
 
 #
 # we need the PTXdist shell library
@@ -97,7 +99,7 @@ Clean Actions:
   (svn up)                       run "svn update" in topdir and project dir
   (svn stat)                     run "svn stat" in topdir and project dir
 
-  (test <testname>)              run tests
+  test <testname>                run tests
 
 Environment:
 
@@ -107,6 +109,30 @@ Environment:
 			         building into PTXCONF_PREFIX from config
 
 EOF
+}
+
+clean() {
+	echo
+	echo "${PROMPT}removing build directories..."
+	rm -fr build-cross
+	rm -fr build-host
+	rm -fr build-target
+	echo "${PROMPT}removing deps..."
+	rm -f depend.out deptree-a4.ps deptree.ps
+	echo "${PROMPT}removing imagedir..."
+	rm -fr images
+	echo "${PROMPT}removing sysroot directory (local)..."
+	rm -fr local
+	echo "${PROMPT}removing sysroot..."
+	rm -fr sysroot
+	echo "${PROMPT}removing root..."
+	rm -fr root
+	echo "${PROMPT}removing state..."
+	rm -fr state
+	echo "${PROMPT}removing logfile..."
+	rm -f logfile
+	echo "${PROMPT}done."
+	echo
 }
 
 menuconfig() {
@@ -255,31 +281,17 @@ while [ "$#" != "0" ]; do
 			exit $?
 			;;
 	clean)		shift 
-			echo
-			echo "${PROMPT}removing build directories..."
-			rm -fr build-cross
-			rm -fr build-host
-			rm -fr build-target
-			echo "${PROMPT}removing deps..."
-			rm -f depend.out deptree-a4.ps deptree.ps
-			echo "${PROMPT}removing imagedir..."
-			rm -fr images
-			echo "${PROMPT}removing sysroot..."
-			rm -fr sysroot
-			echo "${PROMPT}removing root..."
-			rm -fr root
-			echo "${PROMPT}removing state..."
-			rm -fr state
-			echo "${PROMPT}done."
-			echo
+			clean
 			exit 0
 			;;
 	clone)		shift; clone $1 $2; exit 0;;
 	-d|--debug)	shift; MAKEDBG="--debug=make"; ;;
 	distclean)	shift
-			echo
+			clean
 			echo "${PROMPT}removing toolchain link..."
 			rm -f .toolchain
+			echo "${PROMPT}removing logs dir..."
+			rm -fr logs
 			echo
 			;;
 	extract)	shift ;;
@@ -288,7 +300,9 @@ while [ "$#" != "0" ]; do
 			exit $?
 			;;
 	go)		shift
-			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make world PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			make \
+				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				world PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
 	help|--help)	shift; usage; exit 0; ;;
@@ -307,6 +321,27 @@ while [ "$#" != "0" ]; do
 	projects)	shift; projects;;
 	setup)		shift; setup;;
 	targetinstall)	shift; ;;
+	test)		shift
+			if [ -x "$PTXDIST_WORKSPACE/tests/$1" ]; then
+				echo
+				echo "${PROMPT}starting test $1"
+				$PTXDIST_WORKSPACE/tests/$1
+				echo "${PROMPT}test $1 finished"
+				echo
+			else if [ -x "$PTXDIST_TOPDIR/tests/$1" ]; then
+				echo
+				echo "${PROMPT}starting test $1"
+				$PTXDIST_TOPDIR/tests/$1
+				echo "${PROMPT}test $1 finished"
+				echo
+			else
+				echo
+				echo "${PROMPT}error: test $i not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"	
+				echo
+			fi
+			fi
+			exit 0
+			;;	
 	toolchain)	shift
 			echo
 			if [ ! -d "$1" ]; then
