@@ -166,7 +166,6 @@ endif
 
 ifdef PTXCONF_GLIBC_GCONV
 	@$(call install_copy, 0, 0, 0755, /usr/lib/gconv)
-	rm -f $(ROOTDIR)/usr/lib/gconv/gconv-modules
 endif
 
 ifdef PTXCONF_GLIBC_GCONV_ISO8859_1
