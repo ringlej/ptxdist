@@ -23,7 +23,7 @@ SUDO		= sudo
 HOSTCC		= gcc
 DOT		= dot
 SH		= /bin/sh
-# FIXME: disabled cashing in wget. Make sure that all patches on the webserver
+# FIXME: disabled caching in wget. Make sure that all patches on the webserver
 #        have a version number and reenable caching
 WGET		= \
 	export ptx_http_proxy=$(PTXCONF_SETUP_HTTP_PROXY); \
