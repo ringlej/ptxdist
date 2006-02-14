@@ -249,26 +249,6 @@ config TARGET_EXTRA_LDFLAGS
 	help
 	  Extra options for the linker. 
 
-config TARGET_CONFIG_FILE
-	string
-	prompt "Name of architecture config file in $PTXDIST/config/arch"
-	default "arm.dat"		if ARCH_ARM
-	default "m68k.dat"		if ARCH_M68K
-	default "ix86.dat"		if ARCH_X86
-	default "powerpc.dat"		if OPT_PPC
-	default "powerpc-405.dat"	if OPT_PPC405
-	default "powerpc-604.dat"	if OPT_PPC604
-	default "powerpc-750.dat"	if OPT_PPC750
-	default "powerpc-7450.dat"	if OPT_PPC7450
-	default "sparc.dat"		if ARCH_SPARC
-	default "mips.dat"		if MIPS_ARCH_BE
-	default "mipsel.dat"		if MIPS_ARCH_LE
-	default "cris.dat"		if ARCH_CRIS
-	default "hppa.dat"		if ARCH_PARISC
-	default "sh3.dat"		if SH_ARCH_SH3
-	default "sh4.dat"		if SH_ARCH_SH4
-	default "alpha.dat"		if ARCH_ALPHA
-
 config ARCH_NOMMU
 	bool
 	default y if ARCH_ARM_NOMMU
