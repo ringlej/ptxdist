@@ -1,3 +1,0 @@
-KERNELCONFIG=$PWD/sparc.config
-TARGET=sparc-unknown-linux-gnu
-TARGET_CFLAGS="-O"

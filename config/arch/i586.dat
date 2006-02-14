@@ -1,2 +1,0 @@
-TARGET=i586-unknown-linux-gnu
-TARGET_CFLAGS="-O"
