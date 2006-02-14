@@ -1,6 +1,15 @@
+# FIXME: This is broken. We read Config.in from 0.9.27 while
+#        the uclibc version is configurable.
+
 source "config/uClibc-0.9.27/extra/Configs/Config.in"
 
 comment "Install options"
+
+config UCLIBC_VERSION
+	prompt "uClibc Version"
+	string
+	default "0.9.27"
+	depends on UCLIBC
 
 config UCLIBC_INSTALL
 	bool

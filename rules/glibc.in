@@ -1,3 +1,9 @@
+config GLIBC_VERSION
+	prompt "glibc Version"
+	string
+	default "2.3.6"
+	depends on GLIBC
+
 config GLIBC_DEBUG
 	bool "Don't strip debugging symbols"
 	depends on BUILD_USERLAND

@@ -15,7 +15,7 @@
 
 ifndef NATIVE
 
-PACKAGES-$(PTXCONF_COMPILE_KERNEL) += kernel
+PACKAGES-$(PTXCONF_KERNEL_COMPILE) += kernel
 
 #
 # Use a PTXdist built kernel which is parametrized here or use one from 
@@ -26,8 +26,6 @@ ifdef PTXCONF_USE_EXTERNAL_KERNEL
 KERNEL_DIR	= $(call remove_quotes,$(PTXCONF_KERNEL_DIR))
 else
 
-KERNEL_VERSION	= $(call remove_quotes,$(PTXCONF_KERNEL_VERSION))
-
 # version stuff in now in rules/Version.make
 # NB: make s*cks
 
@@ -36,7 +34,7 @@ KERNEL_SUFFIX	= tar.bz2
 KERNEL_URL	= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_SOURCE	= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DIR	= $(BUILDDIR)/$(KERNEL)
-KERNEL_CONFIG	= $(PTXCONF_KERNEL_CONFIG)
+KERNEL_CONFIG	= $(PTXDIST_WORKSPACE)/kernelconfig.target
 endif
 
 KERNEL_INST_DIR	= $(BUILDDIR)/$(KERNEL)-install
@@ -159,8 +157,8 @@ endif
 #
 # apply the patch series
 #
-	@if [ -e $(PTXCONF_KERNEL_PATCH_SERIES) ]; then \
-		$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh -s $(PTXCONF_KERNEL_PATCH_SERIES) -d $(KERNEL_DIR); \
+	if [ -e $(PTXDIST_WORKSPACE)/kernel-patches-target/series ]; then \
+		$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh -s $(PTXDIST_WORKSPACE)/kernel-patches-target/series -d $(KERNEL_DIR); \
 	fi
 
 	@$(call touch, $@)
@@ -282,7 +280,7 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	echo '$(call remove_quotes,$(PTXCONF_PREFIX))/bin/u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	chmod +x $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
-ifdef PTXCONF_COMPILE_KERNEL
+ifdef PTXCONF_KERNEL_COMPILE
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make \
 		$(KERNEL_TARGET) modules $(KERNEL_MAKEVARS)
 endif
@@ -309,7 +307,7 @@ kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-ifdef  PTXCONF_COMPILE_KERNEL
+ifdef  PTXCONF_KERNEL_COMPILE
 ifdef  PTXCONF_KERNEL_INSTALL
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,kernel)
@@ -360,13 +358,6 @@ endif
 
 kernel_clean:
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
-	for i in `find $(STATEDIR) -name "kernel-feature-*.*" | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do \
-		if [ $$? -eq 0 ]; then										\
-			rm -f $(STATEDIR)/kernel-feature-$$i*;							\
-			rm -fr $(PTXDIST_TOPDIR)/feature-patches/$$i;						\
-		fi;												\
-	done;													\
-	rm -f $(STATEDIR)/kernel-patchstack.get;								\
 	rm -rf $(KERNEL_DIR)
 endif
 	rm -f $(STATEDIR)/kernel.*

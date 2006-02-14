@@ -22,67 +22,6 @@ endchoice
 
 comment "C Library options"
 
-choice
-	prompt "glibc Version"
-		default GLIBC_2_2_5
-		depends on GLIBC
-	
-	config GLIBC_2_3_6
-		bool
-		prompt "2.3.6"
-		depends on GLIBC
-
-	config GLIBC_2_3_5
-		bool
-		prompt "2.3.5"
-		depends on GLIBC
-
-	config GLIBC_2_3_4
-		bool
-		prompt "2.3.4"
-		depends on GLIBC
-
-	config GLIBC_2_3_3
-		bool
-		prompt "2.3.3"
-		depends on GLIBC
-
-	config GLIBC_2_3_2
-		bool
-		prompt "2.3.2"
-		depends on GLIBC
-
-	config GLIBC_2_2_5
-		bool
-		prompt "2.2.5"
-		depends on GLIBC
-
-	config GLIBC_2_2_4
-		bool
-		prompt "2.2.4"
-		depends on GLIBC
-		depends on ARCH_X86
-
-	config GLIBC_2_2_3
-		bool
-		prompt "2.2.3"
-		depends on GLIBC
-		depends on ARCH_X86
-
-endchoice
-
-choice
-	prompt "uClibc Version"
-	default UCLIBC_0_9_27
-	depends on UCLIBC
-
-	config UCLIBC_0_9_27
-		bool
-		prompt "0.9.27"
-		depends on UCLIBC
-
-endchoice
-
 if GLIBC
 source "rules/glibc.in"
 endif

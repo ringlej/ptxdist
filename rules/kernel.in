@@ -21,12 +21,12 @@ comment "----------------------------------"
 comment "Target Kernel"
 comment "----------------------------------"
 
-config KERNEL_TARGET_VERSION 
+config KERNEL_VERSION 
 	prompt "Target Kernel Version"
 	string
 	default "2.6.15"
 
-config KERNEL_TARGET_COMPILE
+config KERNEL_COMPILE
 	bool
 	prompt "Compile Target Kernel"
 	depends on BUILD_USERLAND
@@ -73,7 +73,7 @@ config KERNEL_TARGET_EXTERNAL
 	  working in a kernel tree and don't want to generate patches 
 	  for each and every PTXdist run. 
 
-config KERNEL_TARGET_EXTERNAL_DIR
+config KERNEL_EXTERNAL_DIR
 	string
 	prompt "Path to external kernel source"
 	depends on KERNEL_TARGET_EXTERNAL
@@ -81,13 +81,13 @@ config KERNEL_TARGET_EXTERNAL_DIR
 	  Add a path to your external kernel here. The kernel must be
 	  configured. 
 
-config KERNEL_TARGET_INSTALL
+config KERNEL_INSTALL
 	bool
 	depends on BUILD_USERLAND
 	prompt "Install kernel into /boot on target"
 	select KERNEL_TARGET_INSTALL_MODULES if KERNEL_TARGET_COMPILE
 
-config KERNEL_TARGET_INSTALL_MODULES
+config KERNEL_INSTALL_MODULES
 	bool
 	depends on BUILD_USERLAND
 	prompt "Install modules into /lib/modules on target"
