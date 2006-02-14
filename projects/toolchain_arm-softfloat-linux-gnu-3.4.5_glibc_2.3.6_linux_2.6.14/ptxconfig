@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.10.0-svn
-# Tue Feb 14 15:23:39 2006
+# Tue Feb 14 17:04:41 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -167,8 +167,8 @@ PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
 #
 # ----------------------------------
 #
-PTXCONF_KERNEL_VERSION="2.6.15"
-PTXCONF_KERNEL_NATIVE_VERSION="2.6.15"
+PTXCONF_KERNEL_VERSION="2.6.14"
+PTXCONF_KERNEL_NATIVE_VERSION=""
 
 #
 # Native Kernel Options
