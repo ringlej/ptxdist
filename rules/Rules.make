@@ -551,9 +551,9 @@ get =								\
 #
 # get_options
 # 
-# Returns an options from the .config file
+# Returns an options from the ptxconfig file
 #
-# $1: regex, that's applied to the .config file
+# $1: regex, that's applied to the ptxconfig file
 #     format: 's/foo/bar/'
 #
 # $2: default option, this value is returned if the regex outputs nothing
@@ -562,8 +562,8 @@ get_option =										\
 	$(shell										\
 		REGEX="$(strip $(1))";							\
 		DEFAULT="$(strip $(2))";						\
-		if [ -f $(PTXDIST_WORKSPACE)/.config ]; then				\
-			VALUE=`$(CAT) $(PTXDIST_WORKSPACE)/.config | sed -n -e "$${REGEX}p"`;	\
+		if [ -f $(PTXDIST_WORKSPACE)/ptxconfig ]; then				\
+			VALUE=`$(CAT) $(PTXDIST_WORKSPACE)/ptxconfig | sed -n -e "$${REGEX}p"`;	\
 		fi;									\
 		echo $${VALUE:-$$DEFAULT}						\
 	)
