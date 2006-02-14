@@ -87,14 +87,6 @@ ifeq ($(PTXCONF_PREFIX),)
 PTXCONF_PREFIX=$(PTXDIST_WORKSPACE)/sysroot
 endif
 
-# FIXME: this should be removed some day...
-PTXCONF_TARGET_CONFIG_FILE ?= none
-ifeq ("", $(PTXCONF_TARGET_CONFIG_FILE))
-PTXCONF_TARGET_CONFIG_FILE = none
-endif
--include config/arch/$(call remove_quotes,$(PTXCONF_TARGET_CONFIG_FILE))
-# /FIXME
-
 # ----------------------------------------------------------------------------
 # Include all rule files
 # ----------------------------------------------------------------------------
