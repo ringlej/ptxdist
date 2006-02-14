@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.9.0-svn
-# Sun Jan 22 16:11:57 2006
+# PTXdist version: 0.10.0-svn
+# Tue Feb 14 17:11:51 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -84,10 +84,8 @@ PTXCONF_TARGET_EXTRA_CPPFLAGS=""
 PTXCONF_TARGET_EXTRA_CFLAGS=""
 PTXCONF_TARGET_EXTRA_CXXFLAGS=""
 PTXCONF_TARGET_EXTRA_LDFLAGS=""
-PTXCONF_TARGET_CONFIG_FILE="arm.dat"
 PTXCONF_ARCH="arm"
 PTXCONF_ARCH_USERSPACE="arm"
-PTXCONF_ARM_PROC="armv"
 
 #
 # Paths & Directories
@@ -113,26 +111,11 @@ PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
 PTXCONF_CROSSTOOL=y
 PTXCONF_CROSSTOOL_VERSION_0_38=y
 # PTXCONF_CROSSTOOL_VERSION_0_32 is not set
-# PTXCONF_GCC_4_0_2 is not set
-# PTXCONF_GCC_3_4_5 is not set
-# PTXCONF_GCC_3_4_4 is not set
-# PTXCONF_GCC_3_4_3 is not set
-# PTXCONF_GCC_3_4_2 is not set
-# PTXCONF_GCC_3_4_1 is not set
-# PTXCONF_GCC_3_4_0 is not set
-# PTXCONF_GCC_3_3_6 is not set
-PTXCONF_GCC_3_3_3=y
-# PTXCONF_GCC_3_3_2 is not set
-# PTXCONF_GCC_3_2_3 is not set
-# PTXCONF_GCC_2_95_3 is not set
+PTXCONF_GCC_VERSION="3.3.3"
 PTXCONF_CROSSTOOL_GCCLANG_CC=y
 # PTXCONF_GCC_MULTILIB is not set
-PTXCONF_BINUTILS_2_16_1=y
-# PTXCONF_BINUTILS_2_15 is not set
-# PTXCONF_BINUTILS_2_14_90_0_5 is not set
-# PTXCONF_BINUTILS_2_14 is not set
-PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
 PTXCONF_BINUTILS_VERSION="2.16.1"
+PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
 
 #
 # Cross Debugging Tools
@@ -184,27 +167,12 @@ PTXCONF_BINUTILS_VERSION="2.16.1"
 #
 # ----------------------------------
 #
-PTXCONF_KERNEL_2_6=y
-# PTXCONF_KERNEL_2_6_15 is not set
-PTXCONF_KERNEL_2_6_14=y
-# PTXCONF_KERNEL_2_6_13 is not set
-# PTXCONF_KERNEL_2_6_12 is not set
-# PTXCONF_KERNEL_2_6_11 is not set
-# PTXCONF_KERNEL_2_6_10 is not set
-# PTXCONF_KERNEL_2_6_9 is not set
-# PTXCONF_KERNEL_2_6_8 is not set
-# PTXCONF_KERNEL_2_6_7 is not set
-# PTXCONF_KERNEL_2_6_6 is not set
-# PTXCONF_KERNEL_2_6_1 is not set
-# PTXCONF_KERNEL_2_6_0 is not set
-# PTXCONF_KERNEL_2_4_27 is not set
-# PTXCONF_KERNEL_2_4_26 is not set
-# PTXCONF_KERNEL_2_4_25 is not set
-# PTXCONF_KERNEL_2_4_23 is not set
-# PTXCONF_KERNEL_2_4_22 is not set
-# PTXCONF_KERNEL_2_4_21 is not set
-# PTXCONF_KERNEL_2_4_20 is not set
-# PTXCONF_KERNEL_2_4_19 is not set
+PTXCONF_KERNEL_VERSION="2.6.14"
+PTXCONF_KERNEL_NATIVE_VERSION=""
+
+#
+# Native Kernel Options
+#
 
 #
 # C Library           
@@ -215,7 +183,6 @@ PTXCONF_UCLIBC=y
 #
 # C Library options
 #
-PTXCONF_UCLIBC_0_9_27=y
 # PTXCONF_UC_TARGET_alpha is not set
 PTXCONF_UC_TARGET_arm=y
 # PTXCONF_UC_TARGET_bfin is not set
@@ -377,4 +344,5 @@ PTXCONF_UC_DEVEL_PREFIX="/usr/$(TARGET_ARCH)-linux-uclibc/usr/"
 #
 # Install options
 #
+PTXCONF_UCLIBC_VERSION="0.9.27"
 # PTXCONF_UCLIBC_INSTALL is not set
