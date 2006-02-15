@@ -398,15 +398,11 @@ check_problematic_configs = 								\
 		done; 									\
 	else										\
 		echo;									\
-	fi;										\
-	echo "checking \$$PTXDIST_WORKSPACE/rules";					\
-	test -e "$(PTXDIST_WORKSPACE)/rules" || ln -sf $(PTXDIST_TOPDIR)/rules $(PTXDIST_WORKSPACE)/rules
+	fi;
 
 
 configdeps_deps := $(wildcard $(RULESDIR)/*.in) 
-ifndef ($(PROJECTRULESDIR),)
 configdeps_deps += $(wildcard $(PROJECTRULESDIR)/*.in)
-endif
 configdeps_deps += $(PTXDIST_WORKSPACE)/ptxconfig
 
 configdeps: $(STATEDIR)/configdeps

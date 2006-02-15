@@ -23,15 +23,4 @@ check_tools: $(check_tools_deps)
 #	# check if we have a toplevel ptxconfig file
 	$(call check_file_exists, $(PTXDIST_WORKSPACE)/ptxconfig)
 
-#	# check if we have a project rules dir
-	@if ! [ -d "$(PROJECTRULESDIR)" ]; then								\
-		echo; 											\
-		echo "You need a rules/ directory in your workspace. If your PTXdist project ";	\
-		echo "is called 'foo' your projectdir is usually local_projects/foo, and I ";		\
-		echo "expect your PROJECTRULESDIR to be local_projects/foo/rules."; 			\
-		echo "check if this project does exist.";						\
-		echo;											\
-		exit 1; 										\
-	fi
-
 	
