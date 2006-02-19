@@ -26,7 +26,20 @@ config KERNEL_VERSION
 	string
 	default "2.6.15"
 
-config KERNEL_COMPILE
+config KERNEL_TARGET_SERIES
+	prompt "Patch Series File"
+	string
+	default "series"
+	help
+	  This entry specifies a patch series file which has to live in
+	  this directory: 
+
+		PTXDIST_WORKSPACE/kernel-patches-target
+
+	  The series file contains lines with names of patch files which
+	  are then being applied to the kernel.  
+
+config KERNEL_TARGET_COMPILE
 	bool
 	prompt "Compile Target Kernel"
 	depends on BUILD_USERLAND
@@ -57,6 +70,7 @@ config KERNEL_TARGET_IMAGE_Z
 config KERNEL_TARGET_IMAGE_U
 	bool
 	prompt "uImage"
+	select HOST_UMKIMAGE
 
 config KERNEL_TARGET_IMAGE_VMLINUX
 	bool
@@ -104,7 +118,22 @@ depends on BUILD_USERLAND
 config KERNEL_NATIVE_VERSION 
 	prompt "Native Kernel Version"
 	string
+	depends on BUILD_USERLAND
 	default "2.6.15"
+
+config KERNEL_NATIVE_SERIES
+	prompt "Patch Series File"
+	string
+	default "series"
+	depends on BUILD_USERLAND
+	help
+	  This entry specifies a patch series file which has to live in
+	  this directory: 
+
+		PTXDIST_WORKSPACE/kernel-patches-native
+
+	  The series file contains lines with names of patch files which
+	  are then being applied to the kernel.  
 
 config KERNEL_NATIVE_COMPILE
 	bool
@@ -138,6 +167,7 @@ config KERNEL_NATIVE_IMAGE_U
 config KERNEL_NATIVE_IMAGE_VMLINUX
 	bool
 	prompt "vmlinux"
+	select HOST_UMKIMAGE
 endchoice
 
 
