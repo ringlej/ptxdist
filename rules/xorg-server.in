@@ -1,188 +1,188 @@
-menuconfig XSERVER
-	bool "xserver               "
+menuconfig XORG_SERVER
+	bool "xorg server           "
 
-config XSERVER_SHAPE
+config XORG_SERVER_SHAPE
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "Shape"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XV
+config XORG_SERVER_XV
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xv"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_COMPOSITE
+config XORG_SERVER_COMPOSITE
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "Composite"
 	default y
 	
-config XSERVER_SHM
+config XORG_SERVER_SHM
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "shm"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XRES
+config XORG_SERVER_XRES
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xres"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XRECORD
+config XORG_SERVER_XRECORD
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xrecord"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_KDRIVE
+config XORG_SERVER_KDRIVE
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "kdrive server"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XNEST
+config XORG_SERVER_XNEST
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xnest server"
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XWIN
+config XORG_SERVER_XWIN
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xwin server"
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XSDL
+config XORG_SERVER_XSDL
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xsdl server"
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XGL
+config XORG_SERVER_XGL
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xgl server"
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XTRAP
+config XORG_SERVER_XTRAP
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xtrap"
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_BUILTIN_RGB
+config XORG_SERVER_BUILTIN_RGB
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "Builtin RGB"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_SCREENSAVER
+config XORG_SERVER_SCREENSAVER
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "Screensaver"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XDMCP
+config XORG_SERVER_XDMCP
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "XDMCP"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XDM_AUTH
+config XORG_SERVER_XDM_AUTH
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xdm-auth"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_GLX
+config XORG_SERVER_GLX
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "GLX"
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_DRI
+config XORG_SERVER_DRI
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "DRI"
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XINPUT
+config XORG_SERVER_XINPUT
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xinput"
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XKB
+config XORG_SERVER_XKB
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xkb"
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XLOADABLE
+config XORG_SERVER_XLOADABLE
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xloadable"
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_XINERAMA
+config XORG_SERVER_XINERAMA
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "xinerama"
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_UNIX_TRANSPORT
+config XORG_SERVER_UNIX_TRANSPORT
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "Unix Transport"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_TCP_TRANSPORT
+config XORG_SERVER_TCP_TRANSPORT
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "TCP Transport"
 	default y
 	help
 	  FIXME: This item needs to be documented
 
-config XSERVER_IPV6_TRANSPORT
+config XORG_SERVER_IPV6_TRANSPORT
 	bool
-	depends on XSERVER
+	depends on XORG_SERVER
 	prompt "IPv6 Transport"
 	default y
 	help
