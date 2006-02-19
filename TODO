@@ -47,8 +47,27 @@ Test suite components to be added
 Current TODO List
 =================
 
+[ ] RSC: port XOrg 7.0
+
+    Requirements, according to
+    http://xorg.freedesktop.org/wiki/ModularDevelopersGuide
+
+	[x] pkg-config > 0.18 
+	[ ] write test in configure to check for >0.18!
+	[x] expat 1.95.8
+	[x] freetype 1.2.9
+	[x] fontconfig-2.2.3 recommendet, we have 2.2.99 (latest 2.2)
+	[x] libpng 1.2.8
+	[x] libdrm 2.0
+	[x] zlib 1.2.3
+	[x] mesa 6.4.1
+
 [ ] Tree Structure
     RSC: Find sane place for generic files from projects/generic
+    ERO: Make subdirectories, e.g. for x.org stuff. Might use symlinks
+    to avoid changing the scripts. 
+    SHA: push make and in files into subdirs, add patches to that dirs
+    as well. 
 
 [ ] Menu Structure
     JBE: Use menuconfig instead of menu + configs whereever possible.
@@ -110,8 +129,6 @@ Current TODO List
 [ ] RSC: in NATIVE=1 mode libpthread.so.0 is not copied; find out why
 
 [ ] RSC: write back .config after make menuconfig (with oldconfig applied)
-
-[ ] RSC: port XOrg 7.0
 
 [ ] MKL: let get stages depend on the actual makefile
 
