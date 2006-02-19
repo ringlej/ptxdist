@@ -97,6 +97,7 @@ Build Actions:
   go                             start building the current project
 
   get <package>                  get packet sources
+  extract <package>              extract packet
   prepare <package>              run configure stages for packet
   compile <package>              compile the sources
   install <package>              install host side components into sysroot/
@@ -110,7 +111,7 @@ Clean Actions:
   clean                          cleanup build-host and build-cross dirs
   distclean                      cleanup everything
   (clean images)                 cleanup images directory
-  (clean root)                   cleanup root directory for target
+  clean root                     cleanup root directory for target
   (clean project)                cleanup project specific packages
   (clean maintainer)             maintainerclean
 	
@@ -130,6 +131,17 @@ EOF
 }
 
 clean() {
+
+	if [ "$1" = "root" ]; then
+		echo
+		echo "${PROMPT}cleaning root directory..."
+		rm -fr root
+		echo "${PROMPT}cleaning targetinstall stages..."
+		rm -f state/*.targetinstall
+		echo "${PROMPT}done."
+		echo
+		return
+	fi
 
 	if [ -n "$1" ]; then
 		make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_clean PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
@@ -357,7 +369,10 @@ while [ "$#" != "0" ]; do
 			rm -fr logs
 			echo
 			;;
-	extract)	shift ;;
+	extract)	shift 
+			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_extract PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			exit $?
+			;;
 	get)		shift
 			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_get PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
 			exit $?
@@ -373,7 +388,6 @@ while [ "$#" != "0" ]; do
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				images PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
-			image $1
 			exit $?
 			;;
 	install)	shift ;;
