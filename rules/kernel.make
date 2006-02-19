@@ -9,55 +9,68 @@
 # see the README file.
 #
 
-#
-# We provide this package
-#
-
-ifndef NATIVE
-
-PACKAGES-$(PTXCONF_KERNEL_COMPILE) += kernel
-
-#
-# Use a PTXdist built kernel which is parametrized here or use one from 
-# an external directory
-#
-
-ifdef PTXCONF_USE_EXTERNAL_KERNEL
-KERNEL_DIR	= $(call remove_quotes,$(PTXCONF_KERNEL_DIR))
+ifdef NATIVE
+PACKAGES-$(PTXCONF_KERNEL_HOST_COMPILE)   += kernel
+KERNEL_CONFIG	= $(PTXDIST_WORKSPACE)/kernelconfig.native
+KERNEL_DIR	= FIXME_TAKE_CARE_OF_EXTERNAL_KERNEL
+KERNEL_VERSION	= $(call remove_quotes,$(PTXCONF_KERNEL_TARGET_VERSION))
+KERNEL_SERIES	= $(PTXDIST_WORKSPACE)/kernel-patches-native/$(PTXCONF_KERNEL_NATIVE_SERIES)
 else
-
-# version stuff in now in rules/Version.make
-# NB: make s*cks
+PACKAGES-$(PTXCONF_KERNEL_TARGET_COMPILE) += kernel
+KERNEL_CONFIG	= $(PTXDIST_WORKSPACE)/kernelconfig.target
+KERNEL_DIR	= $(BUILDDIR)/$(KERNEL)
+KERNEL_VERSION	= $(call remove_quotes,$(PTXCONF_KERNEL_NATIVE_VERSION))
+KERNEL_SERIES	= $(PTXDIST_WORKSPACE)/kernel-patches-target/$(PTXCONF_KERNEL_TARGET_SERIES)
+endif
 
 KERNEL		= linux-$(KERNEL_VERSION)
 KERNEL_SUFFIX	= tar.bz2
 KERNEL_URL	= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_SOURCE	= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
-KERNEL_DIR	= $(BUILDDIR)/$(KERNEL)
-KERNEL_CONFIG	= $(PTXDIST_WORKSPACE)/kernelconfig.target
-endif
 
+# FIXME: what's this?
 KERNEL_INST_DIR	= $(BUILDDIR)/$(KERNEL)-install
 
 #
 # Some configuration stuff for the different kernel image formats
 #
 
-ifdef PTXCONF_KERNEL_IMAGE_Z
+# FIXME: there's probably a more intelligent solution than duplicating this
+
+ifdef PTXCONF_KERNEL_TARGET_IMAGE_Z
 KERNEL_TARGET		= zImage
 KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/zImage
 endif
-ifdef PTXCONF_KERNEL_IMAGE_BZ
+ifdef PTXCONF_KERNEL_TARGET_IMAGE_BZ
 KERNEL_TARGET		= bzImage
 KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/bzImage
 endif
-ifdef PTXCONF_KERNEL_IMAGE_U
+ifdef PTXCONF_KERNEL_TARGET_IMAGE_U
 KERNEL_TARGET		=  uImage
 KERNEL_TARGET_PATH	=  $(KERNEL_DIR)/uImage 
 KERNEL_TARGET_PATH	+= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/vmlinux.UBoot
 KERNEL_TARGET_PATH	+= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/uImage
 endif
-ifdef PTXCONF_KERNEL_IMAGE_VMLINUX
+ifdef PTXCONF_KERNEL_TARGET_IMAGE_VMLINUX
+KERNEL_TARGET		= vmlinux
+KERNEL_TARGET_PATH	= $(KERNEL_DIR)/vmlinux
+endif
+
+ifdef PTXCONF_KERNEL_NATIVE_IMAGE_Z
+KERNEL_TARGET		= zImage
+KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/zImage
+endif
+ifdef PTXCONF_KERNEL_NATIVE_IMAGE_BZ
+KERNEL_TARGET		= bzImage
+KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/bzImage
+endif
+ifdef PTXCONF_KERNEL_NATIVE_IMAGE_U
+KERNEL_TARGET		=  uImage
+KERNEL_TARGET_PATH	=  $(KERNEL_DIR)/uImage 
+KERNEL_TARGET_PATH	+= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/vmlinux.UBoot
+KERNEL_TARGET_PATH	+= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/uImage
+endif
+ifdef PTXCONF_KERNEL_NATIVE_IMAGE_VMLINUX
 KERNEL_TARGET		= vmlinux
 KERNEL_TARGET_PATH	= $(KERNEL_DIR)/vmlinux
 endif
@@ -157,8 +170,8 @@ endif
 #
 # apply the patch series
 #
-	if [ -e $(PTXDIST_WORKSPACE)/kernel-patches-target/series ]; then \
-		$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh -s $(PTXDIST_WORKSPACE)/kernel-patches-target/series -d $(KERNEL_DIR); \
+	@if [ -e $(KERNEL_SERIES) ]; then \
+		$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh -s $(KERNEL_SERIES) -d $(KERNEL_DIR); \
 	fi
 
 	@$(call touch, $@)
@@ -191,7 +204,10 @@ endif
 KERNEL_MAKEVARS	+= ARCH=$(call remove_quotes,$(PTXCONF_ARCH))
 KERNEL_MAKEVARS += CROSS_COMPILE=$(COMPILER_PREFIX)
 
-ifdef PTXCONF_KERNEL_IMAGE_U
+ifdef PTXCONF_KERNEL_TARGET_IMAGE_U
+KERNEL_MAKEVARS += MKIMAGE=$(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
+endif
+ifdef PTXCONF_KERNEL_HOST_IMAGE_U
 KERNEL_MAKEVARS += MKIMAGE=$(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 endif
 
@@ -203,10 +219,6 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
 	@echo "create symlinks in case we are here only to provide headers..."
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) make include/linux/version.h $(KERNEL_MAKEVARS)
-	touch $(KERNEL_DIR)/include/linux/autoconf.h
-	ln -sf asm-$(PTXCONF_ARCH) $(KERNEL_DIR)/include/asm
-
 	@if [ -f $(KERNEL_CONFIG) ]; then	                        \
 		echo "Using kernel config file: $(KERNEL_CONFIG)"; 	\
 		install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config;	\
@@ -214,6 +226,10 @@ ifndef PTXCONF_USE_EXTERNAL_KERNEL
 		echo "ERROR: No such kernel config: $(KERNEL_CONFIG)";  \
 		exit 1;							\
 	fi
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make include/linux/version.h $(KERNEL_MAKEVARS)
+	touch $(KERNEL_DIR)/include/linux/autoconf.h
+	ln -sf asm-$(PTXCONF_ARCH) $(KERNEL_DIR)/include/asm
+
 ifdef PTXCONF_KLIBC
 	# tell the kernel where our spec file for initramfs is
 	#
@@ -280,10 +296,8 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	echo "#!/bin/sh" > $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	echo '$(call remove_quotes,$(PTXCONF_PREFIX))/bin/u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	chmod +x $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
-ifdef PTXCONF_KERNEL_COMPILE
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make \
 		$(KERNEL_TARGET) modules $(KERNEL_MAKEVARS)
-endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -307,8 +321,7 @@ kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
 $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
-ifdef  PTXCONF_KERNEL_COMPILE
-ifdef  PTXCONF_KERNEL_INSTALL
+ifdef  PTXCONF_KERNEL_TARGET_INSTALL
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,kernel)
 	@$(call install_fixup,PRIORITY,optional)
@@ -325,7 +338,7 @@ ifdef  PTXCONF_KERNEL_INSTALL
 	done
 	@$(call install_finish)
 endif
-ifdef PTXCONF_KERNEL_INSTALL_MODULES
+ifdef PTXCONF_KERNEL_TARGET_INSTALL_MODULES
 	rm -fr $(KERNEL_INST_DIR)
 
 	@$(call install_init,default)
@@ -349,7 +362,6 @@ ifdef PTXCONF_KERNEL_INSTALL_MODULES
 
 	@$(call install_finish)
 endif
-endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -358,10 +370,15 @@ endif
 
 kernel_clean:
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
+	for i in `find $(STATEDIR) -name "kernel-feature-*.*" | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do \
+		if [ $$? -eq 0 ]; then										\
+			rm -f $(STATEDIR)/kernel-feature-$$i*;							\
+			rm -fr $(PTXDIST_TOPDIR)/feature-patches/$$i;						\
+		fi;												\
+	done;													\
+	rm -f $(STATEDIR)/kernel-patchstack.get;								\
 	rm -rf $(KERNEL_DIR)
 endif
 	rm -f $(STATEDIR)/kernel.*
-
-endif # NATIVE
 
 # vim: syntax=make
