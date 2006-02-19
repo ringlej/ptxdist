@@ -67,154 +67,214 @@ XORG_SERVER_ENV 	:=  $(CROSS_ENV)
 #
 XORG_SERVER_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-ifdef PTXCONF_XORG_SERVER_SHAPE
-XORG_SERVER_AUTOCONF += --enable-shape
-else
-XORG_SERVER_AUTOCONF += --disable-shape
-endif
-
-ifdef PTXCONF_XORG_SERVER_XV
-XORG_SERVER_AUTOCONF += --enable-xv
-else
-XORG_SERVER_AUTOCONF += --disable-xv
-endif
-
-ifdef PTXCONF_XORG_SERVER_COMPOSITE
+ifdef XORG_SERVER_EXT_COMPOSITE
 XORG_SERVER_AUTOCONF += --enable-composite
 else
 XORG_SERVER_AUTOCONF += --disable-composite
 endif
 
-ifdef PTXCONF_XORG_SERVER_SHM
+ifdef XORG_SERVER_EXT_SHM
 XORG_SERVER_AUTOCONF += --enable-shm
 else
 XORG_SERVER_AUTOCONF += --disable-shm
 endif
 
-ifdef PTXCONF_XORG_SERVER_XRES
+ifdef XORG_SERVER_EXT_XRES
 XORG_SERVER_AUTOCONF += --enable-xres
 else
 XORG_SERVER_AUTOCONF += --disable-xres
 endif
 
-ifdef PTXCONF_XORG_SERVER_XRECORD
-XORG_SERVER_AUTOCONF += --enable-xrecord
-else
-XORG_SERVER_AUTOCONF += --disable-xrecord
-endif
-
-ifdef PTXCONF_XORG_SERVER_KDRIVE
-XORG_SERVER_AUTOCONF += --enable-kdriveserver
-else
-XORG_SERVER_AUTOCONF += --disable-kdriveserver
-endif
-
-ifdef PTXCONF_XORG_SERVER_XNEST
-XORG_SERVER_AUTOCONF += --enable-xnestserver
-else
-XORG_SERVER_AUTOCONF += --disable-xnestserver
-endif
-
-ifdef PTXCONF_XORG_SERVER_XWIN
-XORG_SERVER_AUTOCONF += --enable-xwinserver
-else
-XORG_SERVER_AUTOCONF += --disable-xwinserver
-endif
-
-ifdef PTXCONF_XORG_SERVER_XSDL
-XORG_SERVER_AUTOCONF += --enable-xsdlserver
-else
-XORG_SERVER_AUTOCONF += --disable-xsdlserver
-endif
-
-ifdef PTXCONF_XORG_SERVER_XGL
-XORG_SERVER_AUTOCONF += --enable-xglserver
-else
-XORG_SERVER_AUTOCONF += --disable-xglserver
-endif
-
-ifdef PTXCONF_XORG_SERVER_XTRAP
+ifdef XORG_SERVER_EXT_XTRAP
 XORG_SERVER_AUTOCONF += --enable-xtrap
 else
 XORG_SERVER_AUTOCONF += --disable-xtrap
 endif
 
-ifdef PTXCONF_XORG_SERVER_BUILTIN_RGB
-XORG_SERVER_AUTOCONF += --enable-builtinrgb
+ifdef XORG_SERVER_EXT_RECORD
+XORG_SERVER_AUTOCONF += --enable-record
 else
-XORG_SERVER_AUTOCONF += --disable-builtinrgb
+XORG_SERVER_AUTOCONF += --disable-record
 endif
 
-ifdef PTXCONF_XORG_SERVER_SCREENSAVER
+ifdef XORG_SERVER_EXT_XV
+XORG_SERVER_AUTOCONF += --enable-xv
+else
+XORG_SERVER_AUTOCONF += --disable-xv
+endif
+
+ifdef XORG_SERVER_EXT_XVMC
+XORG_SERVER_AUTOCONF += --enable-xvmc
+else
+XORG_SERVER_AUTOCONF += --disable-xvmc
+endif
+
+ifdef XORG_SERVER_EXT_DGA
+XORG_SERVER_AUTOCONF += --enable-dga
+else
+XORG_SERVER_AUTOCONF += --disable-dga
+endif
+
+ifdef XORG_SERVER_EXT_SCREENSAVER
 XORG_SERVER_AUTOCONF += --enable-screensaver
 else
 XORG_SERVER_AUTOCONF += --disable-screensaver
 endif
 
-ifdef PTXCONF_XORG_SERVER_XDMCP
+ifdef XORG_SERVER_EXT_XDMCP
 XORG_SERVER_AUTOCONF += --enable-xdmcp
 else
 XORG_SERVER_AUTOCONF += --disable-xdmcp
 endif
 
-ifdef PTXCONF_XORG_SERVER_XDM_AUTH
-XORG_SERVER_AUTOCONF += --enable-xdm-auth-1
+ifdef XORG_SERVER_EXT_XDMCP_AUTH_1
+XORG_SERVER_AUTOCONF += --enable-xdmcp-auth-1
 else
-XORG_SERVER_AUTOCONF += --disable-xdm-auth-1
+XORG_SERVER_AUTOCONF += --disable-xdmcp-auth-1
 endif
 
-ifdef PTXCONF_XORG_SERVER_GLX
+ifdef XORG_SERVER_EXT_GLX
 XORG_SERVER_AUTOCONF += --enable-glx
 else
 XORG_SERVER_AUTOCONF += --disable-glx
 endif
 
-ifdef PTXCONF_XORG_SERVER_DRI
+ifdef XORG_SERVER_EXT_DRI
 XORG_SERVER_AUTOCONF += --enable-dri
 else
 XORG_SERVER_AUTOCONF += --disable-dri
 endif
 
-ifdef PTXCONF_XORG_SERVER_XINPUT
-XORG_SERVER_AUTOCONF += --enable-xinput
-else
-XORG_SERVER_AUTOCONF += --disable-xinput
-endif
-
-ifdef PTXCONF_XORG_SERVER_XKB
-XORG_SERVER_AUTOCONF += --enable-xkb
-else
-XORG_SERVER_AUTOCONF += --disable-xkb
-endif
-
-ifdef PTXCONF_XORG_SERVER_XLOADABLE
-XORG_SERVER_AUTOCONF += --enable-xloadable
-else
-XORG_SERVER_AUTOCONF += --disable-xloadable
-endif
-
-ifdef PTXCONF_XORG_SERVER_XINERAMA
+ifdef XORG_SERVER_EXT_XINERAMA
 XORG_SERVER_AUTOCONF += --enable-xinerama
 else
 XORG_SERVER_AUTOCONF += --disable-xinerama
 endif
 
-ifdef PTXCONF_XORG_SERVER_UNIX_TRANSPORT
-XORG_SERVER_AUTOCONF += --enable-unix-transport
+ifdef XORG_SERVER_EXT_XF86VIDMODE
+XORG_SERVER_AUTOCONF += --enable-xf86vidmode
 else
-XORG_SERVER_AUTOCONF += --disable-unix-transport
+XORG_SERVER_AUTOCONF += --disable-xf86vidmode
 endif
 
-ifdef PTXCONF_XORG_SERVER_TCP_TRANSPORT
-XORG_SERVER_AUTOCONF += --enable-tcp-transport
+ifdef XORG_SERVER_EXT_XF86MISC
+XORG_SERVER_AUTOCONF += --enable-xf86misc
 else
-XORG_SERVER_AUTOCONF += --disable-tcp-transport
+XORG_SERVER_AUTOCONF += --disable-xf86misc
 endif
 
-ifdef PTXCONF_XORG_SERVER_IPV6_TRANSPORT
-XORG_SERVER_AUTOCONF += --enable-ipv6
+ifdef XORG_SERVER_EXT_XCSECURITY
+XORG_SERVER_AUTOCONF += --enable-xcsecurity
 else
-XORG_SERVER_AUTOCONF += --disable-ipv6
+XORG_SERVER_AUTOCONF += --disable-xcsecurity
+endif
+
+ifdef XORG_SERVER_EXT_XEVIE
+XORG_SERVER_AUTOCONF += --enable-xevie
+else
+XORG_SERVER_AUTOCONF += --disable-xevie
+endif
+
+ifdef XORG_SERVER_EXT_LBX
+XORG_SERVER_AUTOCONF += --enable-lbx
+else
+XORG_SERVER_AUTOCONF += --disable-lbx
+endif
+
+ifdef XORG_SERVER_EXT_APPGROUP
+XORG_SERVER_AUTOCONF += --enable-appgroup
+else
+XORG_SERVER_AUTOCONF += --disable-appgroup
+endif
+
+ifdef XORG_SERVER_EXT_CUP
+XORG_SERVER_AUTOCONF += --enable-cup
+else
+XORG_SERVER_AUTOCONF += --disable-cup
+endif
+
+ifdef XORG_SERVER_EXT_EVI
+XORG_SERVER_AUTOCONF += --enable-evi
+else
+XORG_SERVER_AUTOCONF += --disable-evi
+endif
+
+ifdef XORG_SERVER_EXT_MULTIBUFFER
+XORG_SERVER_AUTOCONF += --enable-multibuffer
+else
+XORG_SERVER_AUTOCONF += --disable-multibuffer
+endif
+
+ifdef XORG_SERVER_EXT_FONTCACHE
+XORG_SERVER_AUTOCONF += --enable-fontcache
+else
+XORG_SERVER_AUTOCONF += --disable-fontcache
+endif
+
+ifdef XORG_SERVER_EXT_DBE
+XORG_SERVER_AUTOCONF += --enable-dbe
+else
+XORG_SERVER_AUTOCONF += --disable-dbe
+endif
+
+ifdef XORG_SERVER_XORG
+XORG_SERVER_AUTOCONF += --enable-xorg
+else
+XORG_SERVER_AUTOCONF += --disable-xorg
+endif
+
+ifdef XORG_SERVER_DMX
+XORG_SERVER_AUTOCONF += --enable-dmx
+else
+XORG_SERVER_AUTOCONF += --disable-dmx
+endif
+
+ifdef XORG_SERVER_XVFB
+XORG_SERVER_AUTOCONF += --enable-xvfb
+else
+XORG_SERVER_AUTOCONF += --disable-xvfb
+endif
+
+ifdef XORG_SERVER_XNEST
+XORG_SERVER_AUTOCONF += --enable-xnest
+else
+XORG_SERVER_AUTOCONF += --disable-xnest
+endif
+
+ifdef XORG_SERVER_XWIN
+XORG_SERVER_AUTOCONF += --enable-xwin
+else
+XORG_SERVER_AUTOCONF += --disable-xwin
+endif
+
+ifdef XORG_SERVER_XPRINT
+XORG_SERVER_AUTOCONF += --enable-xprint
+else
+XORG_SERVER_AUTOCONF += --disable-xprint
+endif
+
+ifdef XORG_SERVER_OPT_INSTALL_SETUID
+XORG_SERVER_AUTOCONF += --enable-install-setuid
+else
+XORG_SERVER_AUTOCONF += --disable-install-setuid
+endif
+
+ifdef XORG_SERVER_OPT_SECURE_RPC
+XORG_SERVER_AUTOCONF += --enable-secure-rpc
+else
+XORG_SERVER_AUTOCONF += --disable-secure-rpc
+endif
+
+ifdef XORG_SERVER_OPT_XORGCFG
+XORG_SERVER_AUTOCONF += --enable-xorgcfg
+else
+XORG_SERVER_AUTOCONF += --disable-xorgcfg
+endif
+
+ifdef XORG_SERVER_OPT_KBD_MODE
+XORG_SERVER_AUTOCONF += --enable-kbd_mode
+else
+XORG_SERVER_AUTOCONF += --disable-kbd_mode
 endif
 
 $(STATEDIR)/xorg-server.prepare: $(xorg-server_prepare_deps_default)

@@ -1,190 +1,266 @@
 menuconfig XORG_SERVER
 	bool "xorg server           "
 
-config XORG_SERVER_SHAPE
-	bool
+comment "X.org Extensions"
 	depends on XORG_SERVER
-	prompt "Shape"
-	default y
-	help
-	  FIXME: This item needs to be documented
 
-config XORG_SERVER_XV
+config XORG_SERVER_EXT_COMPOSITE
 	bool
 	depends on XORG_SERVER
-	prompt "xv"
+	prompt "composite extension"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  --enable-composite 
 
-config XORG_SERVER_COMPOSITE
+config XORG_SERVER_EXT_SHM
 	bool
 	depends on XORG_SERVER
-	prompt "Composite"
-	default y
-	
-config XORG_SERVER_SHM
-	bool
-	depends on XORG_SERVER
-	prompt "shm"
+	prompt "SHM extension"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  --enable-shm
 
-config XORG_SERVER_XRES
+config XORG_SERVER_EXT_XRES
 	bool
 	depends on XORG_SERVER
-	prompt "xres"
+	prompt "XRes extension"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  --enable-xres
 
-config XORG_SERVER_XRECORD
+config XORG_SERVER_EXT_XTRAP
 	bool
 	depends on XORG_SERVER
-	prompt "xrecord"
+	prompt "XTrap extension"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  --enable-xtrap
 
-config XORG_SERVER_KDRIVE
+config XORG_SERVER_EXT_RECORD
 	bool
 	depends on XORG_SERVER
-	prompt "kdrive server"
+	prompt "Record extension"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  --enable-record
+
+config XORG_SERVER_EXT_XV
+	bool
+	depends on XORG_SERVER
+	prompt "Xv extension"
+	default y
+	help
+	  --enable-xv
+
+config XORG_SERVER_EXT_XVMC
+	bool
+	depends on XORG_SERVER
+	prompt "XvMC extension"
+	default y
+	help
+	  --enable-xvmc
+
+config XORG_SERVER_EXT_DGA
+	bool
+	depends on XORG_SERVER
+	prompt "DGA extension"
+	default y
+	help
+	  --enable-dga
+
+config XORG_SERVER_EXT_SCREENSAVER
+	bool
+	depends on XORG_SERVER
+	prompt "ScreenSaver extension"
+	default y
+	help
+	  --enable-screensaver
+
+config XORG_SERVER_EXT_XDMCP
+	bool
+	depends on XORG_SERVER
+	prompt "XDMCP extension"
+	help
+	  --enable-xdmcp
+
+config XORG_SERVER_EXT_XDMCP_AUTH_1
+	bool
+	depends on XORG_SERVER
+	prompt "XDM-Auth-1 extension"
+	help
+	  --enable-xdmcp
+
+config XORG_SERVER_EXT_GLX
+	bool
+	depends on XORG_SERVER
+	prompt "GLX extension"
+	help
+	  --enable-glx
+
+config XORG_SERVER_EXT_DRI
+	bool
+	depends on XORG_SERVER
+	prompt "DRI extension"
+	help
+	  --enable-dri
+
+config XORG_SERVER_EXT_XINERAMA
+	bool
+	depends on XORG_SERVER
+	prompt "Xinerama extension"
+	help
+	  --enable-xinerama
+
+config XORG_SERVER_EXT_XF86VIDMODE
+	bool
+	depends on XORG_SERVER
+	prompt "XF86VidMode extension"
+	help
+	  --enable-xf86vidmode
+
+config XORG_SERVER_EXT_XF86MISC
+	bool
+	depends on XORG_SERVER
+	prompt "XF86Misc extension"
+	help
+	  --enable-xf86misc
+
+config XORG_SERVER_EXT_XCSECURITY
+	bool
+	depends on XORG_SERVER
+	prompt "Security extension"
+	help
+	  --enable-xcsecurity
+
+config XORG_SERVER_EXT_XEVIE
+	bool
+	depends on XORG_SERVER
+	prompt "XEvIE extension"
+	help
+	  --enable-xevie
+
+config XORG_SERVER_EXT_LBX
+	bool
+	depends on XORG_SERVER
+	prompt "LBX extension"
+	help
+	  --enable-lbx
+
+config XORG_SERVER_EXT_APPGROUP
+	bool
+	depends on XORG_SERVER
+	prompt "XC-APPGROUP extension"
+	help
+	  --enable-appgroup
+
+config XORG_SERVER_EXT_CUP
+	bool
+	depends on XORG_SERVER
+	prompt "TOG-CUP extension"
+	help
+	  --enable-cup
+
+config XORG_SERVER_EXT_EVI
+	bool
+	depends on XORG_SERVER
+	prompt "Extended-Visual-Information extension"
+	help
+	  --enable-evi
+
+config XORG_SERVER_EXT_MULTIBUFFER
+	bool
+	depends on XORG_SERVER
+	prompt "Multibuffer extension"
+	help
+	  --enable-multibuffer
+
+config XORG_SERVER_EXT_FONTCACHE
+	bool
+	depends on XORG_SERVER
+	prompt "FontCache extension"
+	help
+	  --enable-fontcache
+
+config XORG_SERVER_EXT_DBE
+	bool
+	depends on XORG_SERVER
+	prompt "DBE extension"
+	help
+	  --enable-dbe
+
+comment "X.org Servers"
+	depends on XORG_SERVER
+
+config XORG_SERVER_XORG
+	bool
+	depends on XORG_SERVER
+	prompt "Xorg server"
+	help
+	  --enable-xorg
+
+config XORG_SERVER_DMX
+	bool
+	depends on XORG_SERVER
+	prompt "DMX server"
+	help
+	  --enable-dmx
+
+config XORG_SERVER_XVFB
+	bool
+	depends on XORG_SERVER
+	prompt "Xvfb server"
+	help
+	  --enable-xvfb
 
 config XORG_SERVER_XNEST
 	bool
 	depends on XORG_SERVER
-	prompt "xnest server"
+	prompt "Xnest server"
 	help
-	  FIXME: This item needs to be documented
+	  --enable-xnest
 
 config XORG_SERVER_XWIN
 	bool
 	depends on XORG_SERVER
-	prompt "xwin server"
+	prompt "XWin server"
 	help
-	  FIXME: This item needs to be documented
+	  --enable-xwin
 
-config XORG_SERVER_XSDL
+config XORG_SERVER_XPRINT
 	bool
 	depends on XORG_SERVER
-	prompt "xsdl server"
+	prompt "Xprint server and extension"
 	help
-	  FIXME: This item needs to be documented
+	  --enable-xprint
 
-config XORG_SERVER_XGL
+comment "X.org Options"
+	depends on XORG_SERVER
+
+config XORG_SERVER_OPT_INSTALL_SETUID
 	bool
 	depends on XORG_SERVER
-	prompt "xgl server"
+	prompt "Install Xorg server as owned by root with setupd bit"
 	help
-	  FIXME: This item needs to be documented
+	  --enable-install-setuid
 
-config XORG_SERVER_XTRAP
+config XORG_SERVER_OPT_SECURE_RPC
 	bool
 	depends on XORG_SERVER
-	prompt "xtrap"
+	prompt "secure RPC"
 	help
-	  FIXME: This item needs to be documented
+	  --enable-secure-rpc
 
-config XORG_SERVER_BUILTIN_RGB
+config XORG_SERVER_OPT_XORGCFG
 	bool
 	depends on XORG_SERVER
-	prompt "Builtin RGB"
-	default y
+	prompt "build xorgcfg GUI config utility"
 	help
-	  FIXME: This item needs to be documented
+	  --enable-xorgcfg
 
-config XORG_SERVER_SCREENSAVER
+config XORG_SERVER_OPT_KBD_MODE
 	bool
 	depends on XORG_SERVER
-	prompt "Screensaver"
-	default y
+	prompt "build kbd_mode utility"
 	help
-	  FIXME: This item needs to be documented
-
-config XORG_SERVER_XDMCP
-	bool
-	depends on XORG_SERVER
-	prompt "XDMCP"
-	default y
-	help
-	  FIXME: This item needs to be documented
-
-config XORG_SERVER_XDM_AUTH
-	bool
-	depends on XORG_SERVER
-	prompt "xdm-auth"
-	default y
-	help
-	  FIXME: This item needs to be documented
-
-config XORG_SERVER_GLX
-	bool
-	depends on XORG_SERVER
-	prompt "GLX"
-	help
-	  FIXME: This item needs to be documented
-
-config XORG_SERVER_DRI
-	bool
-	depends on XORG_SERVER
-	prompt "DRI"
-	help
-	  FIXME: This item needs to be documented
-
-config XORG_SERVER_XINPUT
-	bool
-	depends on XORG_SERVER
-	prompt "xinput"
-	help
-	  FIXME: This item needs to be documented
-
-config XORG_SERVER_XKB
-	bool
-	depends on XORG_SERVER
-	prompt "xkb"
-	help
-	  FIXME: This item needs to be documented
-
-config XORG_SERVER_XLOADABLE
-	bool
-	depends on XORG_SERVER
-	prompt "xloadable"
-	help
-	  FIXME: This item needs to be documented
-
-config XORG_SERVER_XINERAMA
-	bool
-	depends on XORG_SERVER
-	prompt "xinerama"
-	help
-	  FIXME: This item needs to be documented
-
-config XORG_SERVER_UNIX_TRANSPORT
-	bool
-	depends on XORG_SERVER
-	prompt "Unix Transport"
-	default y
-	help
-	  FIXME: This item needs to be documented
-
-config XORG_SERVER_TCP_TRANSPORT
-	bool
-	depends on XORG_SERVER
-	prompt "TCP Transport"
-	default y
-	help
-	  FIXME: This item needs to be documented
-
-config XORG_SERVER_IPV6_TRANSPORT
-	bool
-	depends on XORG_SERVER
-	prompt "IPv6 Transport"
-	default y
-	help
-	  FIXME: This item needs to be documented
+	  --enable-kbd_mode
 
