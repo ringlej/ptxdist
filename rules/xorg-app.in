@@ -1,0 +1,7 @@
+# xorg proto configuration
+
+menuconfig XORG_APP
+        bool "xorg applications       "
+
+source "rules/xorg-app-xdm.in"
+

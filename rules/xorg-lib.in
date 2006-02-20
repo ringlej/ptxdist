@@ -1,0 +1,8 @@
+# xorg proto configuration
+
+menuconfig XORG_LIB
+        bool "xorg libs       "
+
+source "rules/xorg-lib-xkbui.in"
+source "rules/xorg-lib-xtrans.in"
+
