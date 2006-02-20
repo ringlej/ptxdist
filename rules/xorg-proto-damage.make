@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_XORG_PROTO_DAMAGE) += xorg-proto-damage
 #
 # Paths and names
 #
-XORG_PROTO_DAMAGE_VERSION := 1.0.3
-XORG_PROTO_DAMAGE	:= damageproto-X11R7.0-$(XORG_PROTO_DAMAGE_VERSION)
+XORG_PROTO_DAMAGE_VERSION	:= 1.0.3
+XORG_PROTO_DAMAGE		:= damageproto-X11R7.0-$(XORG_PROTO_DAMAGE_VERSION)
 XORG_PROTO_DAMAGE_SUFFIX	:= tar.bz2
-XORG_PROTO_DAMAGE_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$(XORG_PROTO_DAMAGE).$(XORG_PROTO_DAMAGE_SUFFIX)
+XORG_PROTO_DAMAGE_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$(XORG_PROTO_DAMAGE).$(XORG_PROTO_DAMAGE_SUFFIX)
 XORG_PROTO_DAMAGE_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_DAMAGE).$(XORG_PROTO_DAMAGE_SUFFIX)
-XORG_PROTO_DAMAGE_DIR	:= $(BUILDDIR)/$(XORG_PROTO_DAMAGE)
+XORG_PROTO_DAMAGE_DIR		:= $(BUILDDIR)/$(XORG_PROTO_DAMAGE)
 
 -include $(call package_depfile)
 
@@ -111,7 +111,7 @@ $(STATEDIR)/xorg-proto-damage.targetinstall: $(xorg-proto-damage_targetinstall_d
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_PROTO_DAMAGE_VERSION))
 	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 

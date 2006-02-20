@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_XORG_PROTO_COMPOSITE) += xorg-proto-composite
 #
 # Paths and names
 #
-XORG_PROTO_COMPOSITE_VERSION := 0.2.2
-XORG_PROTO_COMPOSITE	:= compositeproto-X11R7.0-$(XORG_PROTO_COMPOSITE_VERSION)
+XORG_PROTO_COMPOSITE_VERSION 	:= 0.2.2
+XORG_PROTO_COMPOSITE		:= compositeproto-X11R7.0-$(XORG_PROTO_COMPOSITE_VERSION)
 XORG_PROTO_COMPOSITE_SUFFIX	:= tar.bz2
 XORG_PROTO_COMPOSITE_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$(XORG_PROTO_COMPOSITE).$(XORG_PROTO_COMPOSITE_SUFFIX)
 XORG_PROTO_COMPOSITE_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_COMPOSITE).$(XORG_PROTO_COMPOSITE_SUFFIX)
@@ -111,7 +111,7 @@ $(STATEDIR)/xorg-proto-composite.targetinstall: $(xorg-proto-composite_targetins
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_PROTO_COMPOSITE_VERSION))
 	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 

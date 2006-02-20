@@ -1,4 +1,4 @@
-# -*-makefile-*-
+ -*-makefile-*-
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_XORG_PROTO_BIGREQS) += xorg-proto-bigreqs
 #
 # Paths and names
 #
-XORG_PROTO_BIGREQS_VERSION := 1.0.2
-XORG_PROTO_BIGREQS	:= bigreqsproto-X11R7.0-$(XORG_PROTO_BIGREQS_VERSION)
+XORG_PROTO_BIGREQS_VERSION	:= 1.0.2
+XORG_PROTO_BIGREQS		:= bigreqsproto-X11R7.0-$(XORG_PROTO_BIGREQS_VERSION)
 XORG_PROTO_BIGREQS_SUFFIX	:= tar.bz2
-XORG_PROTO_BIGREQS_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$(XORG_PROTO_BIGREQS).$(XORG_PROTO_BIGREQS_SUFFIX)
+XORG_PROTO_BIGREQS_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$(XORG_PROTO_BIGREQS).$(XORG_PROTO_BIGREQS_SUFFIX)
 XORG_PROTO_BIGREQS_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_BIGREQS).$(XORG_PROTO_BIGREQS_SUFFIX)
-XORG_PROTO_BIGREQS_DIR	:= $(BUILDDIR)/$(XORG_PROTO_BIGREQS)
+XORG_PROTO_BIGREQS_DIR		:= $(BUILDDIR)/$(XORG_PROTO_BIGREQS)
 
 -include $(call package_depfile)
 
@@ -111,7 +111,7 @@ $(STATEDIR)/xorg-proto-bigreqs.targetinstall: $(xorg-proto-bigreqs_targetinstall
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_PROTO_BIGREQS_VERSION))
 	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
