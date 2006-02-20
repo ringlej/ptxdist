@@ -6,5 +6,8 @@ config XORG_LIB_X11
 	select XORG_LIB_XTRANS
 	select XORG_LIB_XAU
 	select XORG_PROTO_XCMISC
+	select XORG_LIB_XDMCP
+	select XORG_PROTO_KB
+	select XORG_PROTO_INPUT
 	help
 	  FIXME
