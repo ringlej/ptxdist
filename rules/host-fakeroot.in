@@ -1,6 +1,5 @@
 config HOST_FAKEROOT
 	bool
-	prompt "fakeroot"
 	default y
 	help
 	  fakeroot lets you create archives with "real" owners and
