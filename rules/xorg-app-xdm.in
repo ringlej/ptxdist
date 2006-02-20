@@ -1,0 +1,7 @@
+config XORG_APP_XDM
+	bool
+	depends on XORG_APP
+	prompt "xorg XDM"
+	help
+	  FIXME
+
