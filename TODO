@@ -62,6 +62,12 @@ Current TODO List
 	[x] zlib 1.2.3
 	[x] mesa 6.4.1
 
+    Things noticed during xorg port: 
+
+	[ ] address PTXCONF_XORG_SERVER_QUIRKS by sane upstream patching
+	[ ] check ac_cv_* variables - they are problably not really 
+	    needed, at least not all of them.
+
 [ ] Tree Structure
     RSC: Find sane place for generic files from projects/generic
     ERO: Make subdirectories, e.g. for x.org stuff. Might use symlinks
