@@ -351,8 +351,7 @@ while [ "$#" != "0" ]; do
 				echo "${PROMPT}error: add target you want to compile"
 				exit 1
 			fi
-			echo "make -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $* PTXDIST_TOPDIR=${PTXDIST_TOPDIR}"
-			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $* PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_compile PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
 			exit $?
 			;;
 	clean)		shift 
