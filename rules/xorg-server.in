@@ -2,14 +2,32 @@
 
 menuconfig XORG_SERVER
 	bool "xorg server           "
-	depends on XORG_PROTO_RANDR && XORG_PROTO_RENDER && XORG_PROTO_FIXES
+	select XORG_PROTO_RANDR
+	select XORG_PROTO_RENDER
+	select XORG_PROTO_FIXES
+	select XORG_PROTO_DAMAGE
+	select XORG_PROTO_XCMISC
+	select XORG_PROTO_XEXT
+	select XORG_PROTO_X
+#	select XORG_PROTO_XTRANS
+	select XORG_PROTO_XF86MISC
+	select XORG_PROTO_XF86VIDMODE
+	select XORG_PROTO_XF86BIGFONT
+	select XORG_PROTO_SCRNSAVER
+	select XORG_PROTO_BIGREQS
+	select XORG_PROTO_RESOURCE
+	select XORG_PROTO_FONTS
+	select XORG_PROTO_INPUT
+	select XORG_PROTO_XF86DGA
+#	select XORG_PROTO_XKBFILE
+#	select XORG_PROTO_XAU
+#	select XORG_PROTO_FONTENC
 	
 # configure wants to have these
 # randrproto renderproto fixesproto damageproto xcmiscproto xextproto
 # xproto xtrans xf86miscproto xf86vidmodeproto xf86bigfontproto
 # scrnsaverproto bigreqsproto resourceproto fontsproto inputproto
 # xf86dgaproto xkbfile xfont xau fontenc
-
 
 
 config XORG_SERVER_QUIRKS
@@ -22,6 +40,88 @@ config XORG_SERVER_QUIRKS
 	  xorg server and the libraries. These dependencies should not
 	  be there, it is just for showing where currently things with 
 	  the build system do not work as expected. 
+
+# ----------------------------------------------------------------------------
+
+comment "X.org Servers"
+	depends on XORG_SERVER
+
+config XORG_SERVER_XORG
+	bool
+	depends on XORG_SERVER
+	prompt "Xorg server"
+	help
+	  --enable-xorg
+
+config XORG_SERVER_DMX
+	bool
+	depends on XORG_SERVER
+	prompt "DMX server"
+	help
+	  --enable-dmx
+
+config XORG_SERVER_XVFB
+	bool
+	depends on XORG_SERVER
+	prompt "Xvfb server"
+	help
+	  --enable-xvfb
+
+config XORG_SERVER_XNEST
+	bool
+	depends on XORG_SERVER
+	prompt "Xnest server"
+	help
+	  --enable-xnest
+
+config XORG_SERVER_XWIN
+	bool
+	depends on XORG_SERVER
+	prompt "XWin server"
+	help
+	  --enable-xwin
+
+config XORG_SERVER_XPRINT
+	bool
+	depends on XORG_SERVER
+	prompt "Xprint server and extension"
+	help
+	  --enable-xprint
+
+# ----------------------------------------------------------------------------
+
+comment "X.org Options"
+	depends on XORG_SERVER
+
+config XORG_SERVER_OPT_INSTALL_SETUID
+	bool
+	depends on XORG_SERVER
+	prompt "Install Xorg server as owned by root with setupd bit"
+	help
+	  --enable-install-setuid
+
+config XORG_SERVER_OPT_SECURE_RPC
+	bool
+	depends on XORG_SERVER
+	prompt "secure RPC"
+	help
+	  --enable-secure-rpc
+
+config XORG_SERVER_OPT_XORGCFG
+	bool
+	depends on XORG_SERVER
+	prompt "build xorgcfg GUI config utility"
+	help
+	  --enable-xorgcfg
+
+config XORG_SERVER_OPT_KBD_MODE
+	bool
+	depends on XORG_SERVER
+	prompt "build kbd_mode utility"
+	help
+	  --enable-kbd_mode
+
+# ----------------------------------------------------------------------------
 
 comment "X.org Extensions"
 	depends on XORG_SERVER
@@ -209,80 +309,4 @@ config XORG_SERVER_EXT_DBE
 	prompt "DBE extension"
 	help
 	  --enable-dbe
-
-comment "X.org Servers"
-	depends on XORG_SERVER
-
-config XORG_SERVER_XORG
-	bool
-	depends on XORG_SERVER
-	prompt "Xorg server"
-	help
-	  --enable-xorg
-
-config XORG_SERVER_DMX
-	bool
-	depends on XORG_SERVER
-	prompt "DMX server"
-	help
-	  --enable-dmx
-
-config XORG_SERVER_XVFB
-	bool
-	depends on XORG_SERVER
-	prompt "Xvfb server"
-	help
-	  --enable-xvfb
-
-config XORG_SERVER_XNEST
-	bool
-	depends on XORG_SERVER
-	prompt "Xnest server"
-	help
-	  --enable-xnest
-
-config XORG_SERVER_XWIN
-	bool
-	depends on XORG_SERVER
-	prompt "XWin server"
-	help
-	  --enable-xwin
-
-config XORG_SERVER_XPRINT
-	bool
-	depends on XORG_SERVER
-	prompt "Xprint server and extension"
-	help
-	  --enable-xprint
-
-comment "X.org Options"
-	depends on XORG_SERVER
-
-config XORG_SERVER_OPT_INSTALL_SETUID
-	bool
-	depends on XORG_SERVER
-	prompt "Install Xorg server as owned by root with setupd bit"
-	help
-	  --enable-install-setuid
-
-config XORG_SERVER_OPT_SECURE_RPC
-	bool
-	depends on XORG_SERVER
-	prompt "secure RPC"
-	help
-	  --enable-secure-rpc
-
-config XORG_SERVER_OPT_XORGCFG
-	bool
-	depends on XORG_SERVER
-	prompt "build xorgcfg GUI config utility"
-	help
-	  --enable-xorgcfg
-
-config XORG_SERVER_OPT_KBD_MODE
-	bool
-	depends on XORG_SERVER
-	prompt "build kbd_mode utility"
-	help
-	  --enable-kbd_mode
 
