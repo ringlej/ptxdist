@@ -1,4 +1,4 @@
- -*-makefile-*-
+# -*-makefile-*-
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
