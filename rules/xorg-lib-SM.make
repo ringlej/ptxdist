@@ -12,17 +12,17 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XTRANS) += xorg-lib-xtrans
+PACKAGES-$(PTXCONF_XORG_LIB_SM) += xorg-lib-SM
 
 #
 # Paths and names
 #
-XORG_LIB_XTRANS_VERSION	:= 1.0.0
-XORG_LIB_XTRANS		:= xtrans-X11R7.0-$(XORG_LIB_XTRANS_VERSION)
-XORG_LIB_XTRANS_SUFFIX	:= tar.bz2
-XORG_LIB_XTRANS_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_LIB_XTRANS).$(XORG_LIB_XTRANS_SUFFIX)
-XORG_LIB_XTRANS_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XTRANS).$(XORG_LIB_XTRANS_SUFFIX)
-XORG_LIB_XTRANS_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTRANS)
+XORG_LIB_SM_VERSION	:= 1.0.0
+XORG_LIB_SM		:= libSM-X11R7.0-$(XORG_LIB_SM_VERSION)
+XORG_LIB_SM_SUFFIX	:= tar.bz2
+XORG_LIB_SM_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_LIB_SM).$(XORG_LIB_SM_SUFFIX)
+XORG_LIB_SM_SOURCE	:= $(SRCDIR)/$(XORG_LIB_SM).$(XORG_LIB_SM_SUFFIX)
+XORG_LIB_SM_DIR		:= $(BUILDDIR)/$(XORG_LIB_SM)
 
 -include $(call package_depfile)
 
@@ -30,86 +30,86 @@ XORG_LIB_XTRANS_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTRANS)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_get: $(STATEDIR)/xorg-lib-xtrans.get
+xorg-lib-SM_get: $(STATEDIR)/xorg-lib-SM.get
 
-$(STATEDIR)/xorg-lib-xtrans.get: $(xorg-lib-xtrans_get_deps_default)
+$(STATEDIR)/xorg-lib-SM.get: $(xorg-lib-SM_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(XORG_LIB_XTRANS_SOURCE):
+$(XORG_LIB_SM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XTRANS_URL))
+	@$(call get, $(XORG_LIB_SM_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_extract: $(STATEDIR)/xorg-lib-xtrans.extract
+xorg-lib-SM_extract: $(STATEDIR)/xorg-lib-SM.extract
 
-$(STATEDIR)/xorg-lib-xtrans.extract: $(xorg-lib-xtrans_extract_deps_default)
+$(STATEDIR)/xorg-lib-SM.extract: $(xorg-lib-SM_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XTRANS_DIR))
-	@$(call extract, $(XORG_LIB_XTRANS_SOURCE))
-	@$(call patchin, $(XORG_LIB_XTRANS))
+	@$(call clean, $(XORG_LIB_SM_DIR))
+	@$(call extract, $(XORG_LIB_SM_SOURCE))
+	@$(call patchin, $(XORG_LIB_SM))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_prepare: $(STATEDIR)/xorg-lib-xtrans.prepare
+xorg-lib-SM_prepare: $(STATEDIR)/xorg-lib-SM.prepare
 
-XORG_LIB_XTRANS_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XTRANS_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_SM_PATH	:=  PATH=$(CROSS_PATH)
+XORG_LIB_SM_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_LIB_XTRANS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_SM_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xorg-lib-xtrans.prepare: $(xorg-lib-xtrans_prepare_deps_default)
+$(STATEDIR)/xorg-lib-SM.prepare: $(xorg-lib-SM_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XTRANS_DIR)/config.cache)
-	cd $(XORG_LIB_XTRANS_DIR) && \
-		$(XORG_LIB_XTRANS_PATH) $(XORG_LIB_XTRANS_ENV) \
-		./configure $(XORG_LIB_XTRANS_AUTOCONF)
+	@$(call clean, $(XORG_LIB_SM_DIR)/config.cache)
+	cd $(XORG_LIB_SM_DIR) && \
+		$(XORG_LIB_SM_PATH) $(XORG_LIB_SM_ENV) \
+		./configure $(XORG_LIB_SM_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_compile: $(STATEDIR)/xorg-lib-xtrans.compile
+xorg-lib-SM_compile: $(STATEDIR)/xorg-lib-SM.compile
 
-$(STATEDIR)/xorg-lib-xtrans.compile: $(xorg-lib-xtrans_compile_deps_default)
+$(STATEDIR)/xorg-lib-SM.compile: $(xorg-lib-SM_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XTRANS_DIR) && $(XORG_LIB_XTRANS_PATH) make
+	cd $(XORG_LIB_SM_DIR) && $(XORG_LIB_SM_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_install: $(STATEDIR)/xorg-lib-xtrans.install
+xorg-lib-SM_install: $(STATEDIR)/xorg-lib-SM.install
 
-$(STATEDIR)/xorg-lib-xtrans.install: $(xorg-lib-xtrans_install_deps_default)
+$(STATEDIR)/xorg-lib-SM.install: $(xorg-lib-SM_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_LIB_XTRANS)
+	@$(call install, XORG_LIB_SM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_targetinstall: $(STATEDIR)/xorg-lib-xtrans.targetinstall
+xorg-lib-SM_targetinstall: $(STATEDIR)/xorg-lib-SM.targetinstall
 
-$(STATEDIR)/xorg-lib-xtrans.targetinstall: $(xorg-lib-xtrans_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-SM.targetinstall: $(xorg-lib-SM_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xtrans)
+	@$(call install_fixup,PACKAGE,xorg-lib-SM)
 	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XTRANS_VERSION))
+	@$(call install_fixup,VERSION,$(XORG_LIB_SM_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
@@ -125,9 +125,9 @@ $(STATEDIR)/xorg-lib-xtrans.targetinstall: $(xorg-lib-xtrans_targetinstall_deps_
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xtrans.*
-	rm -rf $(IMAGEDIR)/xorg-lib-xtrans_*
-	rm -rf $(XORG_LIB_XTRANS_DIR)
+xorg-lib-SM_clean:
+	rm -rf $(STATEDIR)/xorg-lib-SM.*
+	rm -rf $(IMAGEDIR)/xorg-lib-SM_*
+	rm -rf $(XORG_LIB_SM_DIR)
 
 # vim: syntax=make

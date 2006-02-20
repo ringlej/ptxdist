@@ -12,17 +12,17 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XTRANS) += xorg-lib-xtrans
+PACKAGES-$(PTXCONF_XORG_LIB_DMX) += xorg-lib-dmx
 
 #
 # Paths and names
 #
-XORG_LIB_XTRANS_VERSION	:= 1.0.0
-XORG_LIB_XTRANS		:= xtrans-X11R7.0-$(XORG_LIB_XTRANS_VERSION)
-XORG_LIB_XTRANS_SUFFIX	:= tar.bz2
-XORG_LIB_XTRANS_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_LIB_XTRANS).$(XORG_LIB_XTRANS_SUFFIX)
-XORG_LIB_XTRANS_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XTRANS).$(XORG_LIB_XTRANS_SUFFIX)
-XORG_LIB_XTRANS_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTRANS)
+XORG_LIB_DMX_VERSION	:= 1.0.1
+XORG_LIB_DMX		:= libdmx-X11R7.0-$(XORG_LIB_DMX_VERSION)
+XORG_LIB_DMX_SUFFIX	:= tar.bz2
+XORG_LIB_DMX_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_LIB_DMX).$(XORG_LIB_DMX_SUFFIX)
+XORG_LIB_DMX_SOURCE	:= $(SRCDIR)/$(XORG_LIB_DMX).$(XORG_LIB_DMX_SUFFIX)
+XORG_LIB_DMX_DIR	:= $(BUILDDIR)/$(XORG_LIB_DMX)
 
 -include $(call package_depfile)
 
@@ -30,92 +30,92 @@ XORG_LIB_XTRANS_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTRANS)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_get: $(STATEDIR)/xorg-lib-xtrans.get
+xorg-lib-dmx_get: $(STATEDIR)/xorg-lib-dmx.get
 
-$(STATEDIR)/xorg-lib-xtrans.get: $(xorg-lib-xtrans_get_deps_default)
+$(STATEDIR)/xorg-lib-dmx.get: $(xorg-lib-dmx_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(XORG_LIB_XTRANS_SOURCE):
+$(XORG_LIB_DMX_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XTRANS_URL))
+	@$(call get, $(XORG_LIB_DMX_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_extract: $(STATEDIR)/xorg-lib-xtrans.extract
+xorg-lib-dmx_extract: $(STATEDIR)/xorg-lib-dmx.extract
 
-$(STATEDIR)/xorg-lib-xtrans.extract: $(xorg-lib-xtrans_extract_deps_default)
+$(STATEDIR)/xorg-lib-dmx.extract: $(xorg-lib-dmx_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XTRANS_DIR))
-	@$(call extract, $(XORG_LIB_XTRANS_SOURCE))
-	@$(call patchin, $(XORG_LIB_XTRANS))
+	@$(call clean, $(XORG_LIB_DMX_DIR))
+	@$(call extract, $(XORG_LIB_DMX_SOURCE))
+	@$(call patchin, $(XORG_LIB_DMX))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_prepare: $(STATEDIR)/xorg-lib-xtrans.prepare
+xorg-lib-dmx_prepare: $(STATEDIR)/xorg-lib-dmx.prepare
 
-XORG_LIB_XTRANS_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XTRANS_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_DMX_PATH	:=  PATH=$(CROSS_PATH)
+XORG_LIB_DMX_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_LIB_XTRANS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_DMX_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xorg-lib-xtrans.prepare: $(xorg-lib-xtrans_prepare_deps_default)
+$(STATEDIR)/xorg-lib-dmx.prepare: $(xorg-lib-dmx_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XTRANS_DIR)/config.cache)
-	cd $(XORG_LIB_XTRANS_DIR) && \
-		$(XORG_LIB_XTRANS_PATH) $(XORG_LIB_XTRANS_ENV) \
-		./configure $(XORG_LIB_XTRANS_AUTOCONF)
+	@$(call clean, $(XORG_LIB_DMX_DIR)/config.cache)
+	cd $(XORG_LIB_DMX_DIR) && \
+		$(XORG_LIB_DMX_PATH) $(XORG_LIB_DMX_ENV) \
+		./configure $(XORG_LIB_DMX_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_compile: $(STATEDIR)/xorg-lib-xtrans.compile
+xorg-lib-dmx_compile: $(STATEDIR)/xorg-lib-dmx.compile
 
-$(STATEDIR)/xorg-lib-xtrans.compile: $(xorg-lib-xtrans_compile_deps_default)
+$(STATEDIR)/xorg-lib-dmx.compile: $(xorg-lib-dmx_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XTRANS_DIR) && $(XORG_LIB_XTRANS_PATH) make
+	cd $(XORG_LIB_DMX_DIR) && $(XORG_LIB_DMX_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_install: $(STATEDIR)/xorg-lib-xtrans.install
+xorg-lib-dmx_install: $(STATEDIR)/xorg-lib-dmx.install
 
-$(STATEDIR)/xorg-lib-xtrans.install: $(xorg-lib-xtrans_install_deps_default)
+$(STATEDIR)/xorg-lib-dmx.install: $(xorg-lib-dmx_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_LIB_XTRANS)
+	@$(call install, XORG_LIB_DMX)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_targetinstall: $(STATEDIR)/xorg-lib-xtrans.targetinstall
+xorg-lib-dmx_targetinstall: $(STATEDIR)/xorg-lib-dmx.targetinstall
 
-$(STATEDIR)/xorg-lib-xtrans.targetinstall: $(xorg-lib-xtrans_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-dmx.targetinstall: $(xorg-lib-dmx_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xtrans)
+	@$(call install_fixup,PACKAGE,xorg-lib-dmx)
 	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XTRANS_VERSION))
+	@$(call install_fixup,VERSION,$(XORG_LIB_DMX_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+# FIXME
 
 	@$(call install_finish)
 
@@ -125,9 +125,9 @@ $(STATEDIR)/xorg-lib-xtrans.targetinstall: $(xorg-lib-xtrans_targetinstall_deps_
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xtrans.*
-	rm -rf $(IMAGEDIR)/xorg-lib-xtrans_*
-	rm -rf $(XORG_LIB_XTRANS_DIR)
+xorg-lib-dmx_clean:
+	rm -rf $(STATEDIR)/xorg-lib-dmx.*
+	rm -rf $(IMAGEDIR)/xorg-lib-dmx_*
+	rm -rf $(XORG_LIB_DMX_DIR)
 
 # vim: syntax=make

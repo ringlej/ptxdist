@@ -12,17 +12,17 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XTRANS) += xorg-lib-xtrans
+PACKAGES-$(PTXCONF_XORG_LIB_XFIXES) += xorg-lib-Xfixes
 
 #
 # Paths and names
 #
-XORG_LIB_XTRANS_VERSION	:= 1.0.0
-XORG_LIB_XTRANS		:= xtrans-X11R7.0-$(XORG_LIB_XTRANS_VERSION)
-XORG_LIB_XTRANS_SUFFIX	:= tar.bz2
-XORG_LIB_XTRANS_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_LIB_XTRANS).$(XORG_LIB_XTRANS_SUFFIX)
-XORG_LIB_XTRANS_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XTRANS).$(XORG_LIB_XTRANS_SUFFIX)
-XORG_LIB_XTRANS_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTRANS)
+XORG_LIB_XFIXES_VERSION	:= 3.0.1.2
+XORG_LIB_XFIXES		:= libXfixes-X11R7.0-$(XORG_LIB_XFIXES_VERSION)
+XORG_LIB_XFIXES_SUFFIX	:= tar.bz2
+XORG_LIB_XFIXES_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_LIB_XFIXES).$(XORG_LIB_XFIXES_SUFFIX)
+XORG_LIB_XFIXES_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XFIXES).$(XORG_LIB_XFIXES_SUFFIX)
+XORG_LIB_XFIXES_DIR	:= $(BUILDDIR)/$(XORG_LIB_XFIXES)
 
 -include $(call package_depfile)
 
@@ -30,86 +30,86 @@ XORG_LIB_XTRANS_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTRANS)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_get: $(STATEDIR)/xorg-lib-xtrans.get
+xorg-lib-Xfixes_get: $(STATEDIR)/xorg-lib-Xfixes.get
 
-$(STATEDIR)/xorg-lib-xtrans.get: $(xorg-lib-xtrans_get_deps_default)
+$(STATEDIR)/xorg-lib-Xfixes.get: $(xorg-lib-Xfixes_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(XORG_LIB_XTRANS_SOURCE):
+$(XORG_LIB_XFIXES_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XTRANS_URL))
+	@$(call get, $(XORG_LIB_XFIXES_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_extract: $(STATEDIR)/xorg-lib-xtrans.extract
+xorg-lib-Xfixes_extract: $(STATEDIR)/xorg-lib-Xfixes.extract
 
-$(STATEDIR)/xorg-lib-xtrans.extract: $(xorg-lib-xtrans_extract_deps_default)
+$(STATEDIR)/xorg-lib-Xfixes.extract: $(xorg-lib-Xfixes_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XTRANS_DIR))
-	@$(call extract, $(XORG_LIB_XTRANS_SOURCE))
-	@$(call patchin, $(XORG_LIB_XTRANS))
+	@$(call clean, $(XORG_LIB_XFIXES_DIR))
+	@$(call extract, $(XORG_LIB_XFIXES_SOURCE))
+	@$(call patchin, $(XORG_LIB_XFIXES))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_prepare: $(STATEDIR)/xorg-lib-xtrans.prepare
+xorg-lib-Xfixes_prepare: $(STATEDIR)/xorg-lib-Xfixes.prepare
 
-XORG_LIB_XTRANS_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XTRANS_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XFIXES_PATH	:=  PATH=$(CROSS_PATH)
+XORG_LIB_XFIXES_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_LIB_XTRANS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XFIXES_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xorg-lib-xtrans.prepare: $(xorg-lib-xtrans_prepare_deps_default)
+$(STATEDIR)/xorg-lib-Xfixes.prepare: $(xorg-lib-Xfixes_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XTRANS_DIR)/config.cache)
-	cd $(XORG_LIB_XTRANS_DIR) && \
-		$(XORG_LIB_XTRANS_PATH) $(XORG_LIB_XTRANS_ENV) \
-		./configure $(XORG_LIB_XTRANS_AUTOCONF)
+	@$(call clean, $(XORG_LIB_XFIXES_DIR)/config.cache)
+	cd $(XORG_LIB_XFIXES_DIR) && \
+		$(XORG_LIB_XFIXES_PATH) $(XORG_LIB_XFIXES_ENV) \
+		./configure $(XORG_LIB_XFIXES_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_compile: $(STATEDIR)/xorg-lib-xtrans.compile
+xorg-lib-Xfixes_compile: $(STATEDIR)/xorg-lib-Xfixes.compile
 
-$(STATEDIR)/xorg-lib-xtrans.compile: $(xorg-lib-xtrans_compile_deps_default)
+$(STATEDIR)/xorg-lib-Xfixes.compile: $(xorg-lib-Xfixes_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XTRANS_DIR) && $(XORG_LIB_XTRANS_PATH) make
+	cd $(XORG_LIB_XFIXES_DIR) && $(XORG_LIB_XFIXES_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_install: $(STATEDIR)/xorg-lib-xtrans.install
+xorg-lib-Xfixes_install: $(STATEDIR)/xorg-lib-Xfixes.install
 
-$(STATEDIR)/xorg-lib-xtrans.install: $(xorg-lib-xtrans_install_deps_default)
+$(STATEDIR)/xorg-lib-Xfixes.install: $(xorg-lib-Xfixes_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_LIB_XTRANS)
+	@$(call install, XORG_LIB_XFIXES)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_targetinstall: $(STATEDIR)/xorg-lib-xtrans.targetinstall
+xorg-lib-Xfixes_targetinstall: $(STATEDIR)/xorg-lib-Xfixes.targetinstall
 
-$(STATEDIR)/xorg-lib-xtrans.targetinstall: $(xorg-lib-xtrans_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-Xfixes.targetinstall: $(xorg-lib-Xfixes_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xtrans)
+	@$(call install_fixup,PACKAGE,xorg-lib-Xfixes)
 	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XTRANS_VERSION))
+	@$(call install_fixup,VERSION,$(XORG_LIB_XFIXES_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
@@ -125,9 +125,9 @@ $(STATEDIR)/xorg-lib-xtrans.targetinstall: $(xorg-lib-xtrans_targetinstall_deps_
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-xtrans_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xtrans.*
-	rm -rf $(IMAGEDIR)/xorg-lib-xtrans_*
-	rm -rf $(XORG_LIB_XTRANS_DIR)
+xorg-lib-Xfixes_clean:
+	rm -rf $(STATEDIR)/xorg-lib-Xfixes.*
+	rm -rf $(IMAGEDIR)/xorg-lib-Xfixes_*
+	rm -rf $(XORG_LIB_XFIXES_DIR)
 
 # vim: syntax=make

@@ -1,0 +1,133 @@
+# -*-makefile-*-
+# $Id: template 4565 2006-02-10 14:23:10Z mkl $
+#
+# Copyright (C) 2006 by Erwin Rol
+#          
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_XORG_LIB_XSCRNSAVER) += xorg-lib-XScrnSaver
+
+#
+# Paths and names
+#
+XORG_LIB_XSCRNSAVER_VERSION	:= 1.0.1
+XORG_LIB_XSCRNSAVER		:= libXScrnSaver-X11R7.0-$(XORG_LIB_XSCRNSAVER_VERSION)
+XORG_LIB_XSCRNSAVER_SUFFIX	:= tar.bz2
+XORG_LIB_XSCRNSAVER_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_LIB_XSCRNSAVER).$(XORG_LIB_XSCRNSAVER_SUFFIX)
+XORG_LIB_XSCRNSAVER_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XSCRNSAVER).$(XORG_LIB_XSCRNSAVER_SUFFIX)
+XORG_LIB_XSCRNSAVER_DIR		:= $(BUILDDIR)/$(XORG_LIB_XSCRNSAVER)
+
+-include $(call package_depfile)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+xorg-lib-XScrnSaver_get: $(STATEDIR)/xorg-lib-XScrnSaver.get
+
+$(STATEDIR)/xorg-lib-XScrnSaver.get: $(xorg-lib-XScrnSaver_get_deps_default)
+	@$(call targetinfo, $@)
+	@$(call touch, $@)
+
+$(XORG_LIB_XSCRNSAVER_SOURCE):
+	@$(call targetinfo, $@)
+	@$(call get, $(XORG_LIB_XSCRNSAVER_URL))
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+xorg-lib-XScrnSaver_extract: $(STATEDIR)/xorg-lib-XScrnSaver.extract
+
+$(STATEDIR)/xorg-lib-XScrnSaver.extract: $(xorg-lib-XScrnSaver_extract_deps_default)
+	@$(call targetinfo, $@)
+	@$(call clean, $(XORG_LIB_XSCRNSAVER_DIR))
+	@$(call extract, $(XORG_LIB_XSCRNSAVER_SOURCE))
+	@$(call patchin, $(XORG_LIB_XSCRNSAVER))
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+xorg-lib-XScrnSaver_prepare: $(STATEDIR)/xorg-lib-XScrnSaver.prepare
+
+XORG_LIB_XSCRNSAVER_PATH	:=  PATH=$(CROSS_PATH)
+XORG_LIB_XSCRNSAVER_ENV 	:=  $(CROSS_ENV)
+
+#
+# autoconf
+#
+XORG_LIB_XSCRNSAVER_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+$(STATEDIR)/xorg-lib-XScrnSaver.prepare: $(xorg-lib-XScrnSaver_prepare_deps_default)
+	@$(call targetinfo, $@)
+	@$(call clean, $(XORG_LIB_XSCRNSAVER_DIR)/config.cache)
+	cd $(XORG_LIB_XSCRNSAVER_DIR) && \
+		$(XORG_LIB_XSCRNSAVER_PATH) $(XORG_LIB_XSCRNSAVER_ENV) \
+		./configure $(XORG_LIB_XSCRNSAVER_AUTOCONF)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+xorg-lib-XScrnSaver_compile: $(STATEDIR)/xorg-lib-XScrnSaver.compile
+
+$(STATEDIR)/xorg-lib-XScrnSaver.compile: $(xorg-lib-XScrnSaver_compile_deps_default)
+	@$(call targetinfo, $@)
+	cd $(XORG_LIB_XSCRNSAVER_DIR) && $(XORG_LIB_XSCRNSAVER_PATH) make
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+xorg-lib-XScrnSaver_install: $(STATEDIR)/xorg-lib-XScrnSaver.install
+
+$(STATEDIR)/xorg-lib-XScrnSaver.install: $(xorg-lib-XScrnSaver_install_deps_default)
+	@$(call targetinfo, $@)
+	@$(call install, XORG_LIB_XSCRNSAVER)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+xorg-lib-XScrnSaver_targetinstall: $(STATEDIR)/xorg-lib-XScrnSaver.targetinstall
+
+$(STATEDIR)/xorg-lib-XScrnSaver.targetinstall: $(xorg-lib-XScrnSaver_targetinstall_deps_default)
+	@$(call targetinfo, $@)
+
+	@$(call install_init,default)
+	@$(call install_fixup,PACKAGE,xorg-lib-XScrnSaver)
+	@$(call install_fixup,PRIORITY,optional)
+	@$(call install_fixup,VERSION,$(XORG_LIB_XSCRNSAVER_VERSION))
+	@$(call install_fixup,SECTION,base)
+	@$(call install_fixup,AUTHOR,"Erwin rol <ero\@pengutronix.de>")
+	@$(call install_fixup,DEPENDS,)
+	@$(call install_fixup,DESCRIPTION,missing)
+
+#FIXME
+
+	@$(call install_finish)
+
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+xorg-lib-XScrnSaver_clean:
+	rm -rf $(STATEDIR)/xorg-lib-XScrnSaver.*
+	rm -rf $(IMAGEDIR)/xorg-lib-XScrnSaver_*
+	rm -rf $(XORG_LIB_XSCRNSAVER_DIR)
+
+# vim: syntax=make
