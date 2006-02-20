@@ -67,6 +67,8 @@ XORG_LIB_XEXT_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_XEXT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+XORG_LIB_XEXT_AUTOCONF += --enable-malloc0returnsnull
+
 $(STATEDIR)/xorg-lib-Xext.prepare: $(xorg-lib-Xext_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XEXT_DIR)/config.cache)
