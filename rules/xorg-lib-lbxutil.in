@@ -1,0 +1,6 @@
+config XORG_LIB_LBXUTIL
+	bool
+	depends on XORG_LIB
+	prompt "lbxutil"
+	help
+	  FIXME

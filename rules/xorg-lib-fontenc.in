@@ -1,0 +1,6 @@
+config XORG_LIB_
+	bool
+	depends on XORG_LIB
+	prompt "libfontenc"
+	help
+	  FIXME

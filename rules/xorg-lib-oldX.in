@@ -1,0 +1,6 @@
+config XORG_LIB_OLDX
+	bool
+	depends on XORG_LIB
+	prompt "liboldX"
+	help
+	  FIXME

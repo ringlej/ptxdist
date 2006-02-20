@@ -1,0 +1,6 @@
+config XORG_LIB_XEVIE
+	bool
+	depends on XORG_LIB
+	prompt "libXevie"
+	help
+	  FIXME

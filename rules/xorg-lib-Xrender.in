@@ -1,0 +1,6 @@
+config XORG_LIB_XRENDER
+	bool
+	depends on XORG_LIB
+	prompt "libXrender"
+	help
+	  FIXME

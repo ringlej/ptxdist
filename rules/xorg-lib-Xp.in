@@ -1,0 +1,6 @@
+config XORG_LIB_XP
+	bool
+	depends on XORG_LIB
+	prompt "libXp"
+	help
+	  FIXME

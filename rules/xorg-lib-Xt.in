@@ -1,0 +1,6 @@
+config XORG_LIB_XT
+	bool
+	depends on XORG_LIB
+	prompt "libXt"
+	help
+	  FIXME
