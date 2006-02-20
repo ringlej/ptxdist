@@ -394,7 +394,10 @@ while [ "$#" != "0" ]; do
 				images PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
-	install)	shift ;;
+	install)	shift 
+			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_install PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			exit $?
+			;;
 	make)		shift; make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make PTXDIST_TOPDIR=${PTXDIST_TOPDIR};;
 	menuconfig)	shift; menuconfig;;
 	oldconfig)	shift; oldconfig;;
@@ -409,7 +412,10 @@ while [ "$#" != "0" ]; do
 			
 	projects)	shift; projects;;
 	setup)		shift; setup;;
-	targetinstall)	shift; ;;
+	targetinstall)	shift
+			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_targetinstall PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			exit $?
+			;;
 	test)		shift
 			if [ -x "$PTXDIST_WORKSPACE/tests/$1" ]; then
 				echo
