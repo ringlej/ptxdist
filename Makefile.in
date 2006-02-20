@@ -14,7 +14,7 @@ all:
 	@echo "done."
 	@touch .done
 
-install: main
+install: all 
 	@echo "installing PTXdist to ${prefix}..."
 	@rm -fr ${instdir}
 	@mkdir -p ${instdir}
