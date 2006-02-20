@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.10.0-svn
-# Tue Feb 14 17:18:53 2006
+# Mon Feb 20 12:40:19 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -157,7 +157,7 @@ PTXCONF_CROSSTOOL_KERNELCONFIG="i586.config"
 # ----------------------------------
 #
 PTXCONF_KERNEL_VERSION="2.6.8"
-PTXCONF_KERNEL_NATIVE_VERSION=""
+PTXCONF_KERNEL_TARGET_SERIES="series"
 
 #
 # Native Kernel Options
