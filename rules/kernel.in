@@ -101,7 +101,7 @@ config KERNEL_INSTALL
 	prompt "Install kernel into /boot on target"
 	select KERNEL_TARGET_INSTALL_MODULES if KERNEL_TARGET_COMPILE
 
-config KERNEL_INSTALL_MODULES
+config KERNEL_TARGET_INSTALL_MODULES
 	bool
 	depends on BUILD_USERLAND
 	prompt "Install modules into /lib/modules on target"
