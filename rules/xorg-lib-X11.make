@@ -67,6 +67,8 @@ XORG_LIB_X11_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_X11_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+XORG_LIB_X11_AUTOCONF += --enable-malloc0returnsnull
+
 $(STATEDIR)/xorg-lib-X11.prepare: $(xorg-lib-X11_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_X11_DIR)/config.cache)
