@@ -2,8 +2,9 @@
 
 menuconfig XORG_SERVER
 	bool "xorg server           "
-	# configure wants to have these
-
+	depends on XORG_PROTO_RANDR && XORG_PROTO_RENDER && XORG_PROTO_FIXES
+	
+# configure wants to have these
 # randrproto renderproto fixesproto damageproto xcmiscproto xextproto
 # xproto xtrans xf86miscproto xf86vidmodeproto xf86bigfontproto
 # scrnsaverproto bigreqsproto resourceproto fontsproto inputproto
