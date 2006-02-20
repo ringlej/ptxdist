@@ -1,5 +1,26 @@
+# xorg server configuration
+
 menuconfig XORG_SERVER
 	bool "xorg server           "
+	# configure wants to have these
+
+# randrproto renderproto fixesproto damageproto xcmiscproto xextproto
+# xproto xtrans xf86miscproto xf86vidmodeproto xf86bigfontproto
+# scrnsaverproto bigreqsproto resourceproto fontsproto inputproto
+# xf86dgaproto xkbfile xfont xau fontenc
+
+
+
+config XORG_SERVER_QUIRKS
+	bool
+	depends on XORG_SERVER
+	prompt "enable xorg quirks"
+	default y
+	help
+	  This option turns on some additional dependencies between the
+	  xorg server and the libraries. These dependencies should not
+	  be there, it is just for showing where currently things with 
+	  the build system do not work as expected. 
 
 comment "X.org Extensions"
 	depends on XORG_SERVER

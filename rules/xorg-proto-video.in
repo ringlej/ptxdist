@@ -1,0 +1,6 @@
+config XORG_PROTO_VIDEO
+	bool
+	depends on XORG_PROTO
+	prompt "video proto"
+	help
+	  FIXME

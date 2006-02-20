@@ -1,0 +1,6 @@
+config XORG_PROTO_EVIEEXT
+	bool
+	depends on XORG_PROTO
+	prompt "evieext"
+	help
+	  FIXME

@@ -1,0 +1,6 @@
+config XORG_PROTO_FONTCACHE
+	bool
+	depends on XORG_PROTO
+	prompt "fontcache proto"
+	help
+	  FIXME

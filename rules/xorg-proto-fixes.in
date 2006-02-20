@@ -1,0 +1,6 @@
+config XORG_PROTO_FIXES
+	bool
+	depends on XORG_PROTO
+	prompt "fixes proto"
+	help
+	  FIXME

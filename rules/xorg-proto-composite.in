@@ -1,0 +1,6 @@
+config XORG_PROTO_COMPOSITE
+	bool
+	depends on XORG_PROTO
+	prompt "composite proto"
+	help
+	  FIXME

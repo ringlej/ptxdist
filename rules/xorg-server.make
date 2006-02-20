@@ -62,6 +62,15 @@ xorg-server_prepare: $(STATEDIR)/xorg-server.prepare
 XORG_SERVER_PATH	:=  PATH=$(CROSS_PATH)
 XORG_SERVER_ENV 	:=  $(CROSS_ENV)
 
+# some tweaking for cross compilation
+
+# doesn't work while cross compiling
+XORG_SERVER_ENV		+=  ac_cv_sys_linker_h=yes
+
+# isn't switched off correctly with --disable-builddocs, IMHO the test
+# should disable this as well (it is sgml documentation stuff)
+XORG_SERVER_ENV		+=  ac_cv_file__usr_share_X11_sgml_defs_ent=no
+
 #
 # autoconf
 #
@@ -276,6 +285,8 @@ XORG_SERVER_AUTOCONF += --enable-kbd_mode
 else
 XORG_SERVER_AUTOCONF += --disable-kbd_mode
 endif
+
+XORG_SERVER_AUTOCONF += --disable-builddocs
 
 $(STATEDIR)/xorg-server.prepare: $(xorg-server_prepare_deps_default)
 	@$(call targetinfo, $@)

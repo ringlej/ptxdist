@@ -1,0 +1,6 @@
+config XORG_PROTO_RESOURCE
+	bool
+	depends on XORG_PROTO
+	prompt "resource proto"
+	help
+	  FIXME

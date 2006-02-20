@@ -1,0 +1,6 @@
+config XORG_PROTO_INPUT
+	bool
+	depends on XORG_PROTO
+	prompt "input proto"
+	help
+	  FIXME

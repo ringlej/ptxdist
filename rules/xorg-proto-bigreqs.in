@@ -1,0 +1,7 @@
+config XORG_PROTO_BIGREQS
+	bool
+	depends on XORG_PROTO
+	prompt "bigreqsproto proto"
+	help
+	  FIXME
+
