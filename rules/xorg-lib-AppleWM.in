@@ -1,0 +1,6 @@
+config XORG_LIB_APPLEWM
+	bool
+	depends on XORG_LIB
+	prompt "libAppleWM"
+	help
+	  FIXME

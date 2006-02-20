@@ -1,0 +1,6 @@
+config XORG_LIB_ICE
+	bool
+	depends on XORG_LIB
+	prompt "libICE"
+	help
+	  FIXME

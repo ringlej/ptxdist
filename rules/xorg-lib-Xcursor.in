@@ -1,0 +1,6 @@
+config XORG_LIB_XCURSOR
+	bool
+	depends on XORG_LIB
+	prompt "libXcursor"
+	help
+	  FIXME

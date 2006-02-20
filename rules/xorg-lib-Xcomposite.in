@@ -1,0 +1,6 @@
+config XORG_LIB_XCOMPOSITE
+	bool
+	depends on XORG_LIB
+	prompt "libXcomposite"
+	help
+	  FIXME

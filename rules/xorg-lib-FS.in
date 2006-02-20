@@ -1,0 +1,6 @@
+config XORG_LIB_FS
+	bool
+	depends on XORG_LIB
+	prompt "libFS"
+	help
+	  FIXME
