@@ -2,5 +2,9 @@ config XORG_LIB_XT
 	bool
 	depends on XORG_LIB
 	prompt "libXt"
+	select XORG_LIB_SM
+	select XORG_LIB_X11
+	select XORG_PROTO_X
+	select XORG_PROTO_KB
 	help
 	  FIXME

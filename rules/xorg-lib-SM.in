@@ -2,5 +2,7 @@ config XORG_LIB_SM
 	bool
 	depends on XORG_LIB
 	prompt "libSM"
+	select XORG_LIB_ICE
+	select XORG_PROTO_X
 	help
 	  FIXME
