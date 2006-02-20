@@ -1,0 +1,7 @@
+config XORG_LIB_XTRANS
+	bool
+	depends on XORG_PROTO
+	prompt "xorg lib xtrans"
+	help
+	  FIXME
+
