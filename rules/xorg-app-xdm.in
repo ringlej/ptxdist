@@ -3,6 +3,7 @@ config XORG_APP_XDM
 	depends on XORG_APP
 	select XORG_LIB_XMU
 	prompt "xorg XDM"
+	select XORG_LIB_XPM
 	help
 	  FIXME
 
