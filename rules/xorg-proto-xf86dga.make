@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
-# Copyright (C) 2006 by Robert Schwebel
+# Copyright (C) 2006 by Erwin Rol
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -111,7 +111,7 @@ $(STATEDIR)/xorg-proto-xf86dga.targetinstall: $(xorg-proto-xf86dga_targetinstall
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_PROTO_XF86DGA_VERSION))
 	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
