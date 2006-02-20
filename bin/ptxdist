@@ -373,8 +373,13 @@ while [ "$#" != "0" ]; do
 			exit $?
 			;;
 	get)		shift
-			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_get PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
-			exit $?
+			if [ "$#" = "0" ]; then
+				make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make get PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+				exit $?
+			else
+				make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_get PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+				exit $?
+			fi
 			;;
 	go)		shift
 			make \
