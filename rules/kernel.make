@@ -29,6 +29,9 @@ KERNEL_URL	= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(K
 KERNEL_SOURCE	= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 
 # FIXME: what's this?
+# Here we are installing kernel modules which are copied to proper place
+# later (after depmod is run). The real question is, What to do with external
+# kernel modules?
 KERNEL_INST_DIR	= $(BUILDDIR)/$(KERNEL)-install
 
 #
@@ -370,13 +373,6 @@ endif
 
 kernel_clean:
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
-	for i in `find $(STATEDIR) -name "kernel-feature-*.*" | sed -e 's/.*kernel-feature-\(.*\)\..*$$/\1/g'`; do \
-		if [ $$? -eq 0 ]; then										\
-			rm -f $(STATEDIR)/kernel-feature-$$i*;							\
-			rm -fr $(PTXDIST_TOPDIR)/feature-patches/$$i;						\
-		fi;												\
-	done;													\
-	rm -f $(STATEDIR)/kernel-patchstack.get;								\
 	rm -rf $(KERNEL_DIR)
 endif
 	rm -f $(STATEDIR)/kernel.*
