@@ -1,0 +1,6 @@
+config XORG_FONT_BH_100DPI
+	bool
+	depends on XORG_FONT
+	prompt "BH 100dpi"
+	help
+	  FIXME

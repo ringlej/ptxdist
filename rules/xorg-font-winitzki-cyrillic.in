@@ -1,0 +1,6 @@
+config XORG_FONT_WINITZKI_CYRILLIC
+	bool
+	depends on XORG_FONT
+	prompt "Winitzki cyrillic"
+	help
+	  FIXME

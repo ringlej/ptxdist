@@ -1,0 +1,6 @@
+config XORG_FONT_SUN_MISC
+	bool
+	depends on XORG_FONT
+	prompt "Sun misc"
+	help
+	  FIXME

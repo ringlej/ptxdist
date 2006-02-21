@@ -1,0 +1,6 @@
+config XORG_FONT_ADOBE_75DPI
+	bool
+	depends on XORG_FONT
+	prompt "Adobe 75dpi"
+	help
+	  FIXME

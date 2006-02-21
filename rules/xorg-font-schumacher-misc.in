@@ -1,0 +1,6 @@
+config XORG_FONT_SCHUMACHER_MISC
+	bool
+	depends on XORG_FONT
+	prompt "Schumacher misc"
+	help
+	  FIXME

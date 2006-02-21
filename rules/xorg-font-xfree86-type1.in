@@ -1,0 +1,6 @@
+config XORG_FONT_XFREE86_TYPE1
+	bool
+	depends on XORG_FONT
+	prompt "Xfree86 type1"
+	help
+	  FIXME

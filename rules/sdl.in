@@ -1,6 +1,14 @@
-config SDL
+menuconfig SDL
 	bool
-	select XORG_LIB_X11
-	prompt "SDL"
+	prompt "SDL Support"
 	help
 	  FIXME
+
+config SDL_LIB
+	bool
+	prompt "SDL Base library"
+	depends on SDL
+	help 
+	  FIXME
+
+source "rules/sdl_image.in"

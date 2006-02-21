@@ -12,17 +12,17 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_SDL) += sdl
+PACKAGES-$(PTXCONF_SDL_LIB) += sdl
 
 #
 # Paths and names
 #
-SDL_VERSION	:= 1.2.9
-SDL		:= SDL-$(SDL_VERSION)
-SDL_SUFFIX	:= tar.gz
-SDL_URL		:= http://www.libsdl.org/release//$(SDL).$(SDL_SUFFIX)
-SDL_SOURCE	:= $(SRCDIR)/$(SDL).$(SDL_SUFFIX)
-SDL_DIR		:= $(BUILDDIR)/$(SDL)
+SDL_LIB_VERSION	:= 1.2.9
+SDL_LIB		:= SDL-$(SDL_LIB_VERSION)
+SDL_LIB_SUFFIX	:= tar.gz
+SDL_LIB_URL	:= http://www.libsdl.org/release//$(SDL_LIB).$(SDL_LIB_SUFFIX)
+SDL_LIB_SOURCE	:= $(SRCDIR)/$(SDL_LIB).$(SDL_LIB_SUFFIX)
+SDL_LIB_DIR	:= $(BUILDDIR)/$(SDL_LIB)
 
 -include $(call package_depfile)
 
@@ -36,9 +36,9 @@ $(STATEDIR)/sdl.get: $(sdl_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(SDL_SOURCE):
+$(SDL_LIB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SDL_URL))
+	@$(call get, $(SDL_LIB_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,9 +48,9 @@ sdl_extract: $(STATEDIR)/sdl.extract
 
 $(STATEDIR)/sdl.extract: $(sdl_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(SDL_DIR))
-	@$(call extract, $(SDL_SOURCE))
-	@$(call patchin, $(SDL))
+	@$(call clean, $(SDL_LIB_DIR))
+	@$(call extract, $(SDL_LIB_SOURCE))
+	@$(call patchin, $(SDL_LIB))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -59,82 +59,82 @@ $(STATEDIR)/sdl.extract: $(sdl_extract_deps_default)
 
 sdl_prepare: $(STATEDIR)/sdl.prepare
 
-SDL_PATH	:=  PATH=$(CROSS_PATH)
-SDL_ENV 	:=  $(CROSS_ENV)
+SDL_LIB_PATH	:=  PATH=$(CROSS_PATH)
+SDL_LIB_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-SDL_AUTOCONF := $(CROSS_AUTOCONF_USR)
-SDL_AUTOCONF += --disable-debug 
-SDL_AUTOCONF += --disable-strict-ansi 
-SDL_AUTOCONF += --enable-audio     
-SDL_AUTOCONF += --enable-video    
-SDL_AUTOCONF += --enable-events   
-SDL_AUTOCONF += --enable-joystick 
-SDL_AUTOCONF += --enable-cdrom   
-SDL_AUTOCONF += --enable-threads 
-SDL_AUTOCONF += --enable-timers 
-SDL_AUTOCONF += --enable-endian 
-SDL_AUTOCONF += --enable-file   
-SDL_AUTOCONF += --enable-cpuinfo 
-SDL_AUTOCONF += --enable-oss    
-SDL_AUTOCONF += --enable-alsa   
-SDL_AUTOCONF += --disable-alsatest 
-SDL_AUTOCONF += --enable-alsa-shared 
-SDL_AUTOCONF += --enable-esd        
-SDL_AUTOCONF += --disable-esdtest   
-SDL_AUTOCONF += --enable-esd-shared 
-SDL_AUTOCONF += --enable-arts       
-SDL_AUTOCONF += --enable-arts-shared  
-SDL_AUTOCONF += --enable-nas         
-SDL_AUTOCONF += --enable-diskaudio   
-SDL_AUTOCONF += --enable-mintaudio   
-SDL_AUTOCONF += --enable-nasm       
-SDL_AUTOCONF += --disable-video-nanox 
-SDL_AUTOCONF += --disable-nanox-debug 
-SDL_AUTOCONF += --disable-nanox-share-memory 
-SDL_AUTOCONF += --disable-nanox-direct-fb
-SDL_AUTOCONF += --enable-video-x11     
-SDL_AUTOCONF += --enable-video-x11-vm 
-SDL_AUTOCONF += --enable-dga         
-SDL_AUTOCONF += --enable-video-x11-dgamouse 
-SDL_AUTOCONF += --enable-video-x11-xv 
-SDL_AUTOCONF += --enable-video-x11-xinerama 
-SDL_AUTOCONF += --enable-video-x11-xme 
-SDL_AUTOCONF += --enable-video-dga    
-SDL_AUTOCONF += --disable-video-photon 
-SDL_AUTOCONF += --disable-video-fbcon   
-SDL_AUTOCONF += --disable-video-directfb
-SDL_AUTOCONF += --disable-video-ps2gs 
-SDL_AUTOCONF += --disable-video-ggi  
-SDL_AUTOCONF += --disable-video-svga 
-SDL_AUTOCONF += --disable-video-vgl  
-SDL_AUTOCONF += --disable-video-aalib
-SDL_AUTOCONF += --disable-video-xbios 
-SDL_AUTOCONF += --disable-video-gem 
-SDL_AUTOCONF += --enable-video-dummy 
-SDL_AUTOCONF += --enable-video-opengl 
-SDL_AUTOCONF += --enable-osmesa-shared 
-SDL_AUTOCONF += --enable-input-events 
-SDL_AUTOCONF += --disable-pth      
-SDL_AUTOCONF += --enable-pthreads   
-SDL_AUTOCONF += --enable-pthread-sem 
-SDL_AUTOCONF += --enable-sigaction    
-SDL_AUTOCONF += --disable-stdio-redirect
-SDL_AUTOCONF += --disable-directx     
-SDL_AUTOCONF += --disable-video-qtopia 
-SDL_AUTOCONF += --disable-video-picogui 
-SDL_AUTOCONF += --enable-sdl-dlopen 
-SDL_AUTOCONF += --disable-atari-ldg 
-SDL_AUTOCONF += --enable-rpath       
+SDL_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
+SDL_LIB_AUTOCONF += --disable-debug 
+SDL_LIB_AUTOCONF += --disable-strict-ansi 
+SDL_LIB_AUTOCONF += --enable-audio     
+SDL_LIB_AUTOCONF += --enable-video    
+SDL_LIB_AUTOCONF += --enable-events   
+SDL_LIB_AUTOCONF += --enable-joystick 
+SDL_LIB_AUTOCONF += --enable-cdrom   
+SDL_LIB_AUTOCONF += --enable-threads 
+SDL_LIB_AUTOCONF += --enable-timers 
+SDL_LIB_AUTOCONF += --enable-endian 
+SDL_LIB_AUTOCONF += --enable-file   
+SDL_LIB_AUTOCONF += --enable-cpuinfo 
+SDL_LIB_AUTOCONF += --enable-oss    
+SDL_LIB_AUTOCONF += --enable-alsa   
+SDL_LIB_AUTOCONF += --disable-alsatest 
+SDL_LIB_AUTOCONF += --enable-alsa-shared 
+SDL_LIB_AUTOCONF += --enable-esd        
+SDL_LIB_AUTOCONF += --disable-esdtest   
+SDL_LIB_AUTOCONF += --enable-esd-shared 
+SDL_LIB_AUTOCONF += --enable-arts       
+SDL_LIB_AUTOCONF += --enable-arts-shared  
+SDL_LIB_AUTOCONF += --enable-nas         
+SDL_LIB_AUTOCONF += --enable-diskaudio   
+SDL_LIB_AUTOCONF += --enable-mintaudio   
+SDL_LIB_AUTOCONF += --enable-nasm       
+SDL_LIB_AUTOCONF += --disable-video-nanox 
+SDL_LIB_AUTOCONF += --disable-nanox-debug 
+SDL_LIB_AUTOCONF += --disable-nanox-share-memory 
+SDL_LIB_AUTOCONF += --disable-nanox-direct-fb
+SDL_LIB_AUTOCONF += --enable-video-x11     
+SDL_LIB_AUTOCONF += --enable-video-x11-vm 
+SDL_LIB_AUTOCONF += --enable-dga         
+SDL_LIB_AUTOCONF += --enable-video-x11-dgamouse 
+SDL_LIB_AUTOCONF += --enable-video-x11-xv 
+SDL_LIB_AUTOCONF += --enable-video-x11-xinerama 
+SDL_LIB_AUTOCONF += --enable-video-x11-xme 
+SDL_LIB_AUTOCONF += --enable-video-dga    
+SDL_LIB_AUTOCONF += --disable-video-photon 
+SDL_LIB_AUTOCONF += --disable-video-fbcon   
+SDL_LIB_AUTOCONF += --disable-video-directfb
+SDL_LIB_AUTOCONF += --disable-video-ps2gs 
+SDL_LIB_AUTOCONF += --disable-video-ggi  
+SDL_LIB_AUTOCONF += --disable-video-svga 
+SDL_LIB_AUTOCONF += --disable-video-vgl  
+SDL_LIB_AUTOCONF += --disable-video-aalib
+SDL_LIB_AUTOCONF += --disable-video-xbios 
+SDL_LIB_AUTOCONF += --disable-video-gem 
+SDL_LIB_AUTOCONF += --enable-video-dummy 
+SDL_LIB_AUTOCONF += --enable-video-opengl 
+SDL_LIB_AUTOCONF += --enable-osmesa-shared 
+SDL_LIB_AUTOCONF += --enable-input-events 
+SDL_LIB_AUTOCONF += --disable-pth      
+SDL_LIB_AUTOCONF += --enable-pthreads   
+SDL_LIB_AUTOCONF += --enable-pthread-sem 
+SDL_LIB_AUTOCONF += --enable-sigaction    
+SDL_LIB_AUTOCONF += --disable-stdio-redirect
+SDL_LIB_AUTOCONF += --disable-directx     
+SDL_LIB_AUTOCONF += --disable-video-qtopia 
+SDL_LIB_AUTOCONF += --disable-video-picogui 
+SDL_LIB_AUTOCONF += --enable-sdl-dlopen 
+SDL_LIB_AUTOCONF += --disable-atari-ldg 
+SDL_LIB_AUTOCONF += --enable-rpath       
 
 $(STATEDIR)/sdl.prepare: $(sdl_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(SDL_DIR)/config.cache)
-	cd $(SDL_DIR) && \
-		$(SDL_PATH) $(SDL_ENV) \
-		./configure $(SDL_AUTOCONF)
+	@$(call clean, $(SDL_LIB_DIR)/config.cache)
+	cd $(SDL_LIB_DIR) && \
+		$(SDL_LIB_PATH) $(SDL_LIB_ENV) \
+		./configure $(SDL_LIB_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -145,7 +145,7 @@ sdl_compile: $(STATEDIR)/sdl.compile
 
 $(STATEDIR)/sdl.compile: $(sdl_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(SDL_DIR) && $(SDL_PATH) make
+	cd $(SDL_LIB_DIR) && $(SDL_LIB_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -156,7 +156,7 @@ sdl_install: $(STATEDIR)/sdl.install
 
 $(STATEDIR)/sdl.install: $(sdl_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, SDL)
+	@$(call install, SDL_LIB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -171,7 +171,7 @@ $(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
 	@$(call install_init,default)
 	@$(call install_fixup,PACKAGE,sdl)
 	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SDL_VERSION))
+	@$(call install_fixup,VERSION,$(SDL_LIB_VERSION))
 	@$(call install_fixup,SECTION,base)
 	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
 	@$(call install_fixup,DEPENDS,)
@@ -190,6 +190,6 @@ $(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
 sdl_clean:
 	rm -rf $(STATEDIR)/sdl.*
 	rm -rf $(IMAGEDIR)/sdl_*
-	rm -rf $(SDL_DIR)
+	rm -rf $(SDL_LIB_DIR)
 
 # vim: syntax=make

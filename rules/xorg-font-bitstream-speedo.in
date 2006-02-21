@@ -1,0 +1,6 @@
+config XORG_FONT_BITSTREAM_SPEEDO
+	bool
+	depends on XORG_FONT
+	prompt "Bitstream speedo"
+	help
+	  FIXME
