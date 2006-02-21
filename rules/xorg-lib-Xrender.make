@@ -67,6 +67,8 @@ XORG_LIB_XRENDER_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_XRENDER_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+XORG_LIB_XRENDER_AUTOCONF += --disable-malloc0returnsnull
+
 $(STATEDIR)/xorg-lib-Xrender.prepare: $(xorg-lib-Xrender_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRENDER_DIR)/config.cache)
