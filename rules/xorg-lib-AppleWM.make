@@ -67,6 +67,8 @@ XORG_LIB_APPLEWM_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_APPLEWM_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+XORG_LIB_APPLEWM_AUTOCONF += --disable-malloc0returnsnull
+
 $(STATEDIR)/xorg-lib-AppleWM.prepare: $(xorg-lib-AppleWM_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_APPLEWM_DIR)/config.cache)

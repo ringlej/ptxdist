@@ -1,6 +1,7 @@
 config XORG_LIB_
 	bool
 	depends on XORG_LIB
+	select ZLIB
 	prompt "libfontenc"
 	help
 	  FIXME

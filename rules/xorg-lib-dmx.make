@@ -67,6 +67,8 @@ XORG_LIB_DMX_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_DMX_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+XORG_LIB_DMX_AUTOCONF += --disable-malloc0returnsnull
+
 $(STATEDIR)/xorg-lib-dmx.prepare: $(xorg-lib-dmx_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_DMX_DIR)/config.cache)

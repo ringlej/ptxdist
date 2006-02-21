@@ -1,6 +1,10 @@
 config XORG_LIB_APPLEWM
 	bool
 	depends on XORG_LIB
+	select XORG_PROTO_APPLEWM
+	select XORG_LIB_X11
+	select XORG_LIB_XEXT
+	select XORG_PROTO_XEXT
 	prompt "libAppleWM"
 	help
 	  FIXME
