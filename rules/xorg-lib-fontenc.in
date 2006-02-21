@@ -1,4 +1,4 @@
-config XORG_LIB_
+config XORG_LIB_FONTENC
 	bool
 	depends on XORG_LIB
 	select ZLIB
