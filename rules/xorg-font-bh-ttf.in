@@ -1,6 +1,7 @@
 config XORG_FONT_BH_TTF
 	bool
 	depends on XORG_FONT
+	select XORG_FONT_UTIL
 	prompt "BH ttf"
 	help
 	  FIXME

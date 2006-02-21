@@ -1,6 +1,7 @@
 config XORG_FONT_SCREEN_CYRILLIC
 	bool
 	depends on XORG_FONT
+	select XORG_FONT_UTIL
 	prompt "Screen cyrillic"
 	help
 	  FIXME

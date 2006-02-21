@@ -1,6 +1,7 @@
 config XORG_FONT_DEC_MISC
 	bool
 	depends on XORG_FONT
+	select XORG_FONT_UTIL
 	prompt "DEC misc"
 	help
 	  FIXME

@@ -1,6 +1,7 @@
 config XORG_FONT_BH_LUCIDATYPEWRITER_75DPI
 	bool
 	depends on XORG_FONT
+	select XORG_FONT_UTIL
 	prompt "BH Lucida Typewriter 75dpi"
 	help
 	  FIXME

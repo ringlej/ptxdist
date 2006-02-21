@@ -1,6 +1,7 @@
 config XORG_FONT_ISAS_MISC
 	bool
 	depends on XORG_FONT
+	select XORG_FONT_UTIL
 	prompt "Isas misc"
 	help
 	  FIXME

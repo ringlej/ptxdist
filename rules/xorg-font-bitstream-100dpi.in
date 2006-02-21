@@ -1,6 +1,7 @@
 config XORG_FONT_BITSTREAM_100DPI
 	bool
 	depends on XORG_FONT
+	select XORG_FONT_UTIL
 	prompt "Bitstream 100dpi"
 	help
 	  FIXME
