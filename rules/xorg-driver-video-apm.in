@@ -1,0 +1,6 @@
+config XORG_DRIVER_VIDEO_APM
+	bool
+	depends on XORG_DRIVER
+	prompt "APM"
+	help
+	  FIXME

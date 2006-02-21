@@ -1,6 +1,6 @@
 config XORG_LIB_XTRANS
 	bool
-	depends on XORG_PROTO
+	depends on XORG_LIB
 	prompt "xtrans"
 	help
 	  FIXME

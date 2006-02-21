@@ -1,0 +1,6 @@
+config XORG_DRIVER_INPUT_VOID
+	bool
+	depends on XORG_DRIVER
+	prompt "void"
+	help
+	  FIXME

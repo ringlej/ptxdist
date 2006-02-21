@@ -1,0 +1,6 @@
+config XORG_DRIVER_VIDEO_FBDEV
+	bool
+	depends on XORG_DRIVER
+	prompt "FBDev"
+	help
+	  FIXME

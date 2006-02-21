@@ -1,0 +1,6 @@
+config XORG_DRIVER_VIDEO_ATI
+	bool
+	depends on XORG_DRIVER
+	prompt "Ati"
+	help
+	  FIXME
