@@ -67,6 +67,8 @@ XORG_LIB_XI_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_XI_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+XORG_LIB_XI_AUTOCONF += --disable-malloc0returnsnull
+
 $(STATEDIR)/xorg-lib-Xi.prepare: $(xorg-lib-Xi_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XI_DIR)/config.cache)

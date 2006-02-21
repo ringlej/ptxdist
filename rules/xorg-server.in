@@ -23,7 +23,8 @@ menuconfig XORG_SERVER
 	select XORG_LIB_XKBFILE
 	select XORG_LIB_XFONT
 	select XORG_LIB_XRENDER
-
+	select XORG_LIB_XI
+	
 #	select XORG_PROTO_XKBFILE
 #	select XORG_PROTO_XAU
 #	select XORG_PROTO_FONTENC
