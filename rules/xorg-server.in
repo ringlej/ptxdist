@@ -89,6 +89,9 @@ config XORG_SERVER_XPRINT
 	prompt "Xprint server and extension"
 	help
 	  --enable-xprint
+# ----------------------------------------------------------------------------
+
+source "rules/xorg-driver.in"
 
 # ----------------------------------------------------------------------------
 

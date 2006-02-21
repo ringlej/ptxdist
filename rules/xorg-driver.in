@@ -1,6 +1,7 @@
 # xorg driver configuration
 
 menuconfig XORG_DRIVER                
+	depends on XORG_SERVER
         bool "xorg drivers            "
                                   
 menu "Input Drivers               "
