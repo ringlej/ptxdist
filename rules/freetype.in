@@ -1,14 +1,11 @@
 config FREETYPE
 	bool
-	depends on BROKEN
-	prompt "FREETYPE"
+	prompt "freetype"
 	help
 	  The FreeType project is a team of volunteers who develop free,
  	  portable and high-quality software solutions for digital typography.
  	  They specifically target embedded systems and focus on bringing small,
  	  efficient and ubiquitous products.
 	  
-	  The FreeType library is their software font engine
-	  
-comment "FREETYPE is broken, please send a patch"
-	depends on !BROKEN
+	  The FreeType library is their software font engine. 
+

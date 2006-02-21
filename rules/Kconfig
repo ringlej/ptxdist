@@ -160,6 +160,7 @@ endmenu
 menu "Graphics Libraries          "
 depends on BUILD_USERLAND
 comment "X Infrastructure"
+source "rules/freetype.in"
 source "rules/libdrm.in"
 source "rules/mesa.in"
 source "rules/realvnc.in"
