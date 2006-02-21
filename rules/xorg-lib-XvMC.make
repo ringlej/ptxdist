@@ -67,6 +67,8 @@ XORG_LIB_XVMC_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_XVMC_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+XORG_LIB_XVMC_AUTOCONF += --disable-malloc0returnsnull
+
 $(STATEDIR)/xorg-lib-XvMC.prepare: $(xorg-lib-XvMC_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XVMC_DIR)/config.cache)

@@ -67,6 +67,8 @@ XORG_LIB_XV_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_XV_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+XORG_LIB_XV_AUTOCONF += --disable-malloc0returnsnull
+
 $(STATEDIR)/xorg-lib-Xv.prepare: $(xorg-lib-Xv_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XV_DIR)/config.cache)
