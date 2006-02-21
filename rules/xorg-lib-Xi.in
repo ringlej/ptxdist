@@ -2,5 +2,9 @@ config XORG_LIB_XI
 	bool
 	depends on XORG_LIB
 	prompt "libXi"
+	select XORG_PROTO_X
+	select XORG_LIB_X11
+	select XORG_LIB_XEXT
+	select XORG_PROTO_INPUT
 	help
 	  FIXME

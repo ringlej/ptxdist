@@ -2,5 +2,9 @@ config XORG_LIB_XV
 	bool
 	depends on XORG_LIB
 	prompt "libXv"
+	select XORG_LIB_X11
+	select XORG_LIB_XEXT
+	select XORG_PROTO_XEXT
+	select XORG_PROTO_VIDEO
 	help
 	  FIXME
