@@ -352,8 +352,7 @@ while [ "$#" != "0" ]; do
 				exit 1
 			fi
 			make \
-				$MAKEDBG -f
-				${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_compile PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
