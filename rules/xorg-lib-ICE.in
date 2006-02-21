@@ -2,5 +2,7 @@ config XORG_LIB_ICE
 	bool
 	depends on XORG_LIB
 	prompt "libICE"
+	select XORG_PROTO_X
+	select XORG_LIB_XTRANS
 	help
 	  FIXME
