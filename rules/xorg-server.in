@@ -25,11 +25,10 @@ menuconfig XORG_SERVER
 	select XORG_LIB_XRENDER
 	select XORG_LIB_XI
 	select XORG_LIB_XV
-	select XORG_LIB_XVMC
-	
-#	select XORG_PROTO_XKBFILE
-#	select XORG_PROTO_XAU
-#	select XORG_PROTO_FONTENC
+
+	# FIXME: if not enabled, we get this one: 
+	# record.c:46:38: X11/extensions/recordstr.h: No such file or directory
+	select XORG_PROTO_RECORD if XORG_SERVER_QUIRKS
 	
 # configure wants to have these
 # randrproto renderproto fixesproto damageproto xcmiscproto xextproto
