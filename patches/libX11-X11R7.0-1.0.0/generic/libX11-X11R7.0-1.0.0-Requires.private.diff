@@ -1,0 +1,37 @@
+# 
+# Submitted-By: Robert Schwebel, 2006-02-21
+# Committed-By: Robert Schwebel
+#
+# Error: while building xorgconfig: 
+# 
+# /opt/crosstool-0.38/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/lib/gcc/i586-unknown-linux-gnu/3.4.4/../../../../i586-unknown-linux-gnu/bin/ld: warning: libXau.so.6, needed by /home/rsc/svn/ptxdist-0.10-trunk/projects/visbox/local/i586-unknown-linux-gnu/usr/lib/libX11.so, not found (try using -rpath or -rpath-link)
+# /opt/crosstool-0.38/gcc-3.4.4-glibc-2.3.5/i586-unknown-linux-gnu/lib/gcc/i586-unknown-linux-gnu/3.4.4/../../../../i586-unknown-linux-gnu/bin/ld: warning: libXdmcp.so.6, needed by /home/rsc/svn/ptxdist-0.10-trunk/projects/visbox/local/i586-unknown-linux-gnu/usr/lib/libX11.so, not found (try using -rpath or -rpath-link)
+# /home/rsc/svn/ptxdist-0.10-trunk/projects/visbox/local/i586-unknown-linux-gnu/usr/lib/libX11.so: undefined reference to `XdmcpWrap'
+# /home/rsc/svn/ptxdist-0.10-trunk/projects/visbox/local/i586-unknown-linux-gnu/usr/lib/libX11.so: undefined reference to `XauGetBestAuthByAddr'
+# /home/rsc/svn/ptxdist-0.10-trunk/projects/visbox/local/i586-unknown-linux-gnu/usr/lib/libX11.so: undefined reference to `XauDisposeAuth'
+# collect2: ld returned 1 exit status
+# make[7]: *** [xorgconfig] Error 1
+#  
+# Description: 
+#
+# Looks like a libtool/pkg-config problem.
+#
+# State:
+# 
+# unknown
+#
+
+diff -urN libX11-X11R7.0-1.0.0-orig/x11.pc.in libX11-X11R7.0-1.0.0/x11.pc.in
+--- libX11-X11R7.0-1.0.0-orig/x11.pc.in	2005-11-19 08:15:40.000000000 +0100
++++ libX11-X11R7.0-1.0.0/x11.pc.in	2006-02-21 19:52:03.000000000 +0100
+@@ -8,8 +8,6 @@
+ Name: X11
+ Description: X Library
+ Version: @PACKAGE_VERSION@
+-Requires: xproto @XKBPROTO_REQUIRES@
+-Requires.private: xau xdmcp
++Requires: xproto @XKBPROTO_REQUIRES@ xau xdmcp
+ Cflags: -I${includedir} @XTHREAD_CFLAGS@
+-Libs: -L${libdir} -lX11
+-Libs.private: @XTHREADLIB@
++Libs: -L${libdir} -lX11 @XTHREADLIB@
