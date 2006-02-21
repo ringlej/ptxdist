@@ -29,6 +29,13 @@ menuconfig XORG_SERVER
 	# FIXME: if not enabled, we get this one: 
 	# record.c:46:38: X11/extensions/recordstr.h: No such file or directory
 	select XORG_PROTO_RECORD if XORG_SERVER_QUIRKS
+
+	# FIXME: if not enabled, we get this one: 
+	# dbemodule.c:17: error: `noDbeExtension' undeclared here (not in a function)
+	select XORG_SERVER_EXT_DBE if XORG_SERVER_QUIRKS
+
+	# FIXME: XVMC_[TRUE|FALSE] are ifdefd out if XV is not set!
+	select XORG_SERVER_EXT_XV if XORG_SERVER_QUIRKS && XORG_SERVER_EXT_XVMC
 	
 # configure wants to have these
 # randrproto renderproto fixesproto damageproto xcmiscproto xextproto
