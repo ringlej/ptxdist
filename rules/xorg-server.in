@@ -36,10 +36,10 @@ menuconfig XORG_SERVER
 	select XORG_SERVER_EXT_DBE if XORG_SERVER_QUIRKS
 
 	# FIXME: XVMC_[TRUE|FALSE] are ifdefd out if XV is not set!
-	select XORG_SERVER_EXT_XV if XORG_SERVER_QUIRKS && XORG_SERVER_EXT_XVMC
+	select XORG_SERVER_EXT_XVMC if XORG_SERVER_QUIRKS && XORG_SERVER_EXT_XV
 
-	# FIXME: same problem as the last one
-	select XORG_LIB_XV if XORG_SERVER_QUIRKS
+	# FIXME: same problem as above
+	select XORG_SERVER_EXT_XV if XORG_SERVER_QUIRKS
 	
 # configure wants to have these
 # randrproto renderproto fixesproto damageproto xcmiscproto xextproto
