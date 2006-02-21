@@ -351,7 +351,10 @@ while [ "$#" != "0" ]; do
 				echo "${PROMPT}error: add target you want to compile"
 				exit 1
 			fi
-			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_compile PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			make \
+				$MAKEDBG -f
+				${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$1_compile PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
 	clean)		shift 
@@ -369,15 +372,21 @@ while [ "$#" != "0" ]; do
 			echo
 			;;
 	extract)	shift 
-			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_extract PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			make \
+				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$1_extract PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
 	get)		shift
 			if [ "$#" = "0" ]; then
-				make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make get PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+				make \
+					$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+					get PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 				exit $?
 			else
-				make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_get PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+				make \
+					$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+					$1_get PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 				exit $?
 			fi
 			;;
@@ -395,25 +404,37 @@ while [ "$#" != "0" ]; do
 			exit $?
 			;;
 	install)	shift 
-			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_install PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			make \
+				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$1_install PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
-	make)		shift; make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make PTXDIST_TOPDIR=${PTXDIST_TOPDIR};;
+	make)		shift
+			make \
+				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			;;
 	menuconfig)	shift; menuconfig;;
 	oldconfig)	shift; oldconfig;;
 	prepare)	shift
-			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_prepare PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			make \
+				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$1_prepare PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
 	print)		shift
-			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make print-$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			make \
+				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				print-$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			shift
 			;;
 			
 	projects)	shift; projects;;
 	setup)		shift; setup;;
 	targetinstall)	shift
-			make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_targetinstall PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+			make \
+				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$1_targetinstall PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
 	test)		shift
