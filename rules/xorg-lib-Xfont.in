@@ -5,6 +5,10 @@ config XORG_LIB_XFONT
 	select ZLIB
 	select XORG_LIB_FONTENC
 	select XORG_PROTO_FONTCACHE
+	select XORG_PROTO_X
+	select XORG_LIB_XTRANS
+	select XORG_PROTO_FONTS
+	select XORG_LIB_FONTENC
 	prompt "libXfont"
 	help
 	  FIXME

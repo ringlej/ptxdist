@@ -2,5 +2,7 @@ config XORG_LIB_LBXUTIL
 	bool
 	depends on XORG_LIB
 	prompt "lbxutil"
+	select XORG_PROTO_XEXT
+	select XORG_PROTO_X
 	help
 	  FIXME

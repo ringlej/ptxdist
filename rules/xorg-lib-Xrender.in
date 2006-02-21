@@ -2,5 +2,6 @@ config XORG_LIB_XRENDER
 	bool
 	depends on XORG_LIB
 	prompt "libXrender"
+	select XORG_PROTO_RENDER
 	help
 	  FIXME
