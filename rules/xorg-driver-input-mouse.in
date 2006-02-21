@@ -2,7 +2,7 @@ config XORG_DRIVER_INPUT_MOUSE
 	bool
 	depends on XORG_DRIVER 
 	select XORG_PROTO_X
-	select XORG_SERVER_XORG
+	select XORG_SERVER
 	prompt "Mouse"
 	help
 	  FIXME
