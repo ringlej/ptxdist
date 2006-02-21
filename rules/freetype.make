@@ -118,10 +118,10 @@ $(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps_default)
 	@$(call install_fixup,DESCRIPTION,missing)
 	
 	@$(call install_copy, 0, 0, 0644, \
-		$(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.5, \
-		/usr/lib/libfreetype.so.6.3.5)
-	@$(call install_link, libfreetype.so.6.3.5, /usr/lib/libfreetype.so.6)		
-	@$(call install_link, libfreetype.so.6.3.5, /usr/lib/libfreetype.so)		
+		$(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.7, \
+		/usr/lib/libfreetype.so.6.3.7)
+	@$(call install_link, libfreetype.so.6.3.7, /usr/lib/libfreetype.so.6)		
+	@$(call install_link, libfreetype.so.6.3.7, /usr/lib/libfreetype.so)		
 
 	@$(call install_finish)
 
