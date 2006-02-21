@@ -20,6 +20,8 @@ menuconfig XORG_SERVER
 	select XORG_PROTO_XF86DGA
 	select XORG_LIB_XTRANS
 	select XORG_LIB_XDMCP
+	select XORG_LIB_XKBFILE
+	select XORG_LIB_XFONT
 
 #	select XORG_PROTO_XKBFILE
 #	select XORG_PROTO_XAU

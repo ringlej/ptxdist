@@ -1,6 +1,9 @@
 config XORG_LIB_XFONT
 	bool
 	depends on XORG_LIB
+	select FREETYPE
+	select ZLIB
+	select XORG_LIB_FONTENC
 	prompt "libXfont"
 	help
 	  FIXME
