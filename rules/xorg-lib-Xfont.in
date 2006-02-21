@@ -4,6 +4,7 @@ config XORG_LIB_XFONT
 	select FREETYPE
 	select ZLIB
 	select XORG_LIB_FONTENC
+	select XORG_PROTO_FONTCACHE
 	prompt "libXfont"
 	help
 	  FIXME

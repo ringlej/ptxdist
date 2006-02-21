@@ -1,6 +1,6 @@
 config XORG_DRIVER_INPUT_MOUSE
 	bool
-	depends on XORG_DRIVER 
+	depends on XORG_DRIVER_INPUT
 	select XORG_PROTO_X
 	select XORG_SERVER
 	prompt "Mouse"

@@ -1,26 +1,18 @@
 # xorg driver configuration
 
-menuconfig XORG_DRIVER                
-	bool "xorg drivers            "
-	depends on XORG_SERVER
-                                  
-menu "Input Drivers               "
-depends on XORG_DRIVER
+menuconfig XORG_DRIVER_INPUT
+        bool "xorg input drivers    "
 
 source "rules/xorg-driver-input-evdev.in"
 source "rules/xorg-driver-input-keyboard.in"
 source "rules/xorg-driver-input-mouse.in"
 source "rules/xorg-driver-input-void.in"
 
-endmenu
-                                  
-menu "Video Drivers               "
-depends on XORG_DRIVER
+menuconfig XORG_DRIVER_VIDEO
+        bool "xorg video drivers    "
 
 source "rules/xorg-driver-video-apm.in"
 source "rules/xorg-driver-video-ati.in"
 source "rules/xorg-driver-video-dummy.in"
 source "rules/xorg-driver-video-fbdev.in"
-
-endmenu
 

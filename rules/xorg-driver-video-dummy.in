@@ -1,6 +1,6 @@
 config XORG_DRIVER_VIDEO_DUMMY
 	bool
-	depends on XORG_DRIVER
+	depends on XORG_DRIVER_VIDEO
 	prompt "Dummy"
 	help
 	  FIXME

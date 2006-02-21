@@ -1,6 +1,6 @@
 config XORG_DRIVER_INPUT_KEYBOARD
 	bool
-	depends on XORG_DRIVER
 	prompt "Keyboard"
+	depends on XORG_DRIVER_INPUT
 	help
 	  FIXME
