@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-Xau.targetinstall: $(xorg-lib-Xau_targetinstall_deps_defaul
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, 0, 0, 0644, \
+		$(XORG_LIB_XAU_DIR)/.libs/libXau.so.6.0.0, \
+		/usr/X11R6/lib/libXau.so.6.0.0)
+
+	@$(call install_link, \
+		libXau.so.6.0.0, \
+		/usr/X11R6/lib/libXau.so.6)
+
+	@$(call install_link, \
+		libXau.so.6.0.0, \
+		/usr/X11R6/lib/libXau.so)
 
 	@$(call install_finish)
 

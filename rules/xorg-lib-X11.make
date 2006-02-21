@@ -117,7 +117,17 @@ $(STATEDIR)/xorg-lib-X11.targetinstall: $(xorg-lib-X11_targetinstall_deps_defaul
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/src/.libs/libX11.so.6.2.0, \
+		/usr/X11R6/lib/libX11.so.6.2.0)
+
+	@$(call install_link, \
+		libX11.so.6.2.0, \
+		/usr/X11R6/lib/libX11.so.6)
+
+	@$(call install_link, \
+		libX11.so.6.2.0, \
+		/usr/X11R6/lib/libX11.so)
 
 	@$(call install_finish)
 

@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-fontenc.targetinstall: $(xorg-lib-fontenc_targetinstall_dep
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, 0, 0, 0644, \
+		$(XORG_LIB_FONTENC_DIR)/src/.libs/libfontenc.so.1.0.0, \
+		/usr/X11R6/lib/libfontenc.so.1.0.0)
+
+	@$(call install_link, \
+		libfontenc.so.1.0.0, \
+		/usr/X11R6/lib/libfontenc.so.1)
+
+	@$(call install_link, \
+		libfontenc.so.1.0.0, \
+		/usr/X11R6/lib/libfontenc.so)
 
 	@$(call install_finish)
 

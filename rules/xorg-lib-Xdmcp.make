@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-Xdmcp.targetinstall: $(xorg-lib-Xdmcp_targetinstall_deps_de
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, 0, 0, 0644, \
+		$(XORG_LIB_XDMCP_DIR)/.libs/libXdmcp.so.6.0.0, \
+		/usr/X11R6/lib/libXdmcp.so.6.0.0)
+
+	@$(call install_link, \
+		libXdmcp.so.6.0.0, \
+		/usr/X11R6/lib/libXdmcp.so.6)
+
+	@$(call install_link, \
+		libXdmcp.so.6.0.0, \
+		/usr/X11R6/lib/libXdmcp.so)
 
 	@$(call install_finish)
 

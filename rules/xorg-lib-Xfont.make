@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-Xfont.targetinstall: $(xorg-lib-Xfont_targetinstall_deps_de
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, 0, 0, 0644, \
+		$(XORG_LIB_XFONT_DIR)/src/.libs/libXfont.so.1.4.1, \
+		/usr/X11R6/lib/libXfont.so.1.4.1)
+
+	@$(call install_link, \
+		libXfont.so.1.4.1, \
+		/usr/X11R6/lib/libXfont.so.1)
+	
+	@$(call install_link, \
+		libXfont.so.1.4.1, \
+		/usr/X11R6/lib/libXfont.so)
 
 	@$(call install_finish)
 

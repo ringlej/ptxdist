@@ -117,7 +117,17 @@ $(STATEDIR)/xorg-lib-Xext.targetinstall: $(xorg-lib-Xext_targetinstall_deps_defa
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, 0, 0, 0644, \
+		$(XORG_LIB_XEXT_DIR)/src/.libs/libXext.so.6.4.0, \
+		/usr/X11R6/lib/libXext.so.6.4.0)
+
+	@$(call install_link, \
+		libXext.so.6.4.0, \
+		/usr/X11R6/lib/libXext.so.6)
+
+	@$(call install_link, \
+		libXext.so.6.4.0, \
+		/usr/X11R6/lib/libXext.so)
 
 	@$(call install_finish)
 
