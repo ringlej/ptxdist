@@ -336,8 +336,23 @@ $(STATEDIR)/xorg-server.targetinstall: $(xorg-server_targetinstall_deps_default)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/foobar, /dev/null)
-
+ifdef PTXCONF_XORG_SERVER_XVFB
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/vfb/Xvfb, /usr/bin/X11/Xvfb)
+endif
+ifdef PTXCONF_XORG_SERVER_XORG
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/Xorg, /usr/bin/X11/Xorg)
+endif
+ifdef PTXCONF_XORG_SERVER_DMX
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/dmx/Xdmx, /usr/bin/X11/Xdmx)
+endif
+ifdef PTXCONF_XORG_SERVER_XNEST
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xnest/Xnest, /usr/bin/X11/Xnest)
+endif
+ifdef PTXCONF_XORG_SERVER_XPRINT
+endif
+ifdef PTXCONF_XORG_SERVER_XWIN
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xwin/Xwin, /usr/bin/X11/Xwin)
+endif
 	@$(call install_finish)
 
 	@$(call touch, $@)
