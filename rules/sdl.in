@@ -1,0 +1,6 @@
+config SDL
+	bool
+	select XORG_LIB_X11
+	prompt "SDL"
+	help
+	  FIXME
