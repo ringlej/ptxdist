@@ -250,12 +250,11 @@ else
 XORG_SERVER_AUTOCONF += --disable-xnest
 endif
 
-# FIXME Always disable the X server for Microsoft Windows
-#ifdef PTXCONF_XORG_SERVER_XWIN
-#XORG_SERVER_AUTOCONF += --enable-xwin
-#else
+ifdef PTXCONF_XORG_SERVER_XWIN
+XORG_SERVER_AUTOCONF += --enable-xwin
+else
 XORG_SERVER_AUTOCONF += --disable-xwin
-#endif
+endif
 
 ifdef PTXCONF_XORG_SERVER_XPRINT
 XORG_SERVER_AUTOCONF += --enable-xprint

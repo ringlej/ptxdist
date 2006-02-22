@@ -120,14 +120,13 @@ config XORG_SERVER_XNEST
 	help
 	  --enable-xnest
 
-# FIXME remove Xwin this is the X server for Microsoft Windows
-#config XORG_SERVER_XWIN
-#	bool
-#	depends on XORG_SERVER
-#	prompt "XWin server"
-#	help
-#	  --enable-xwin
-#
+config XORG_SERVER_XWIN
+	bool
+	depends on BROKEN && XORG_SERVER
+	prompt "XWin server"
+	help
+	  --enable-xwin
+
 config XORG_SERVER_XPRINT
 	bool
 	depends on XORG_SERVER
