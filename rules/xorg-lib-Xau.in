@@ -1,6 +1,7 @@
 config XORG_LIB_XAU
 	bool
 	depends on XORG_LIB
+	select XORG_PROTO_X
 	prompt "libXau"
 	help
 	  FIXME
