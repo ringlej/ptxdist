@@ -67,6 +67,8 @@ XORG_LIB_XXF86MISC_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_XXF86MISC_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+XORG_LIB_XXF86MISC_AUTOCONF += --disable-malloc0returnsnull
+
 $(STATEDIR)/xorg-lib-Xxf86misc.prepare: $(xorg-lib-Xxf86misc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XXF86MISC_DIR)/config.cache)
