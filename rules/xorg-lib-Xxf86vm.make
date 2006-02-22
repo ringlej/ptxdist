@@ -66,6 +66,7 @@ XORG_LIB_XXF86VM_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 XORG_LIB_XXF86VM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XXF86VM_AUTOCONF += --disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-Xxf86vm.prepare: $(xorg-lib-Xxf86vm_prepare_deps_default)
 	@$(call targetinfo, $@)
