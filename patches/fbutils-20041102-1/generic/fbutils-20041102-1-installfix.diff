@@ -1,0 +1,14 @@
+use install -D for etc/fb/modes because directory is nonexistent in ptxdist
+
+diff -urN fbutils-20041102-1.orig/Makefile fbutils-20041102-1/Makefile
+--- fbutils-20041102-1.orig/Makefile	2001-08-06 19:28:23.000000000 +0200
++++ fbutils-20041102-1/Makefile	2006-02-22 15:00:04.000000000 +0100
+@@ -17,7 +17,7 @@
+ 		$(INSTALL) fbset/fbset $(DESTDIR)/usr/sbin/fbset
+ 		$(INSTALL) fbcmap/fbcmap $(DESTDIR)/usr/sbin/fbcmap
+ 		$(INSTALL) con2fbmap/con2fbmap $(DESTDIR)/usr/sbin/con2fbmap
+-		$(INSTALL) -p etc/modes $(DESTDIR)/etc/fb/modes
++		$(INSTALL) -D -p etc/modes $(DESTDIR)/etc/fb/modes
+ 
+ include Rules.build
+ 
