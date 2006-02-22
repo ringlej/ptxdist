@@ -1,6 +1,18 @@
-config XORG_DRIVER_VIDEO_ATI
+menuconfig XORG_DRIVER_VIDEO_ATI
 	bool
 	depends on XORG_DRIVER_VIDEO
 	prompt "Ati"
 	help
 	  FIXME
+
+comment "X.org ATI Driver"
+        depends on XORG_DRIVER_VIDEO_ATI
+
+config XORG_DRIVER_VIDEO_ATI_DRI
+        bool
+        depends on XORG_DRIVER_VIDEO_ATI
+	select LIBDRM
+        prompt "Enable DRI"
+        help
+          --enable-dri
+

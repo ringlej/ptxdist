@@ -67,6 +67,12 @@ XORG_DRIVER_VIDEO_ATI_ENV 	:=  $(CROSS_ENV)
 #
 XORG_DRIVER_VIDEO_ATI_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+ifdef PTXCONF_XORG_DRIVER_VIDEO_ATI_DRI
+XORG_DRIVER_VIDEO_ATI_AUTOCONF += --enable-dri
+else
+XORG_DRIVER_VIDEO_ATI_AUTOCONF += --disable-dri
+endif
+
 $(STATEDIR)/xorg-driver-video-ati.prepare: $(xorg-driver-video-ati_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_VIDEO_ATI_DIR)/config.cache)
