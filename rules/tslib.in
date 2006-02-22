@@ -1,7 +1,6 @@
 menuconfig TSLIB
 	bool
 	prompt "tslib (touch library) "
-	select HOST_QTE
 	help
 	  FIXME: This item needs to be documented
 
