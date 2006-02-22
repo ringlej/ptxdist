@@ -1,0 +1,17 @@
+Remove the -Werror flag to compile it with gcc4. Yes I know, a real fix
+different ;)
+
+sha
+
+diff -urN fbtest-20041102-1.orig/Rules.make fbtest-20041102-1/Rules.make
+--- fbtest-20041102-1.orig/Rules.make	2003-01-20 13:58:47.000000000 +0100
++++ fbtest-20041102-1/Rules.make	2006-02-22 14:55:44.000000000 +0100
+@@ -6,7 +6,7 @@
+ IFLAGS = -I$(TOPDIR)/include
+ #DFLAGS = -g
+ OFLAGS = -O3 -fomit-frame-pointer
+-CFLAGS = -Wall -Werror $(IFLAGS) $(DFLAGS) $(OFLAGS)
++CFLAGS = -Wall $(IFLAGS) $(DFLAGS) $(OFLAGS)
+ 
+ SRCS += $(wildcard *.c)
+ OBJS += $(subst .c,.o,$(SRCS))
