@@ -67,6 +67,8 @@ XORG_LIB_XRES_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_XRES_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+XORG_LIB_XRES_AUTOCONF += --disable-malloc0returnsnull
+
 $(STATEDIR)/xorg-lib-Xres.prepare: $(xorg-lib-Xres_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRES_DIR)/config.cache)
