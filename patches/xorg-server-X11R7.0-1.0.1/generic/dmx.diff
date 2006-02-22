@@ -1,0 +1,31 @@
+--- xorg-server-X11R7.0-1.0.1/hw/dmx/input/Makefile.am.orig	2005-12-02 07:02:40.000000000 +0100
++++ xorg-server-X11R7.0-1.0.1/hw/dmx/input/Makefile.am	2006-02-22 02:36:49.000000000 +0100
+@@ -58,6 +58,7 @@
+ AM_CFLAGS = @SERVER_DEFINES@ \
+             -I$(top_srcdir)/hw/dmx \
+             -I$(top_srcdir)/hw/xfree86/common \
++            -I@MESA_SOURCE@/include \
+             -DHAVE_DMX_CONFIG_H \
+             @DMXMODULES_CFLAGS@
+ 
+--- xorg-server-X11R7.0-1.0.1/hw/dmx/config/Makefile.am.orig	2005-12-06 23:48:48.000000000 +0100
++++ xorg-server-X11R7.0-1.0.1/hw/dmx/config/Makefile.am	2006-02-22 02:33:30.000000000 +0100
+@@ -24,6 +24,7 @@
+ AM_CFLAGS = \
+ 	@SERVER_DEFINES@ \
+ 	-I$(top_srcdir)/hw/dmx \
++	-I@MESA_SOURCE@/include \
+ 	-DHAVE_DMX_CONFIG_H \
+ 	-DDMX_LOG_STANDALONE \
+ 	@DMXMODULES_CFLAGS@
+--- xorg-server-X11R7.0-1.0.1/hw/dmx/Makefile.am.orig	2005-12-06 23:48:48.000000000 +0100
++++ xorg-server-X11R7.0-1.0.1/hw/dmx/Makefile.am	2006-02-22 02:35:29.000000000 +0100
+@@ -11,7 +11,7 @@
+ SUBDIRS += glxProxy
+ GLX_LIBS = glxProxy/libglxproxy.a
+ GLX_SRCS = $(PANORAMIX_SRCS) dmx_glxvisuals.c dmx_glxvisuals.h
+-GLX_INCS = -I$(top_srcdir)/hw/xfree86/dixmods/extmod
++GLX_INCS = -I$(top_srcdir)/hw/xfree86/dixmods/extmod -I@MESA_SOURCE@/include
+ endif
+ 
+ if BUILDDOCS

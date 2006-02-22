@@ -159,34 +159,43 @@ endmenu
 
 menu "Graphics Libraries          "
 depends on BUILD_USERLAND
-comment "X Infrastructure"
-source "rules/freetype.in"
-source "rules/libdrm.in"
-source "rules/mesa.in"
-source "rules/realvnc.in"
-source "rules/xfree430.in"
+
+comment "Xorg Infrastructure"
 source "rules/xorg-server.in"
 source "rules/xorg-driver.in"
 source "rules/xorg-proto.in"
 source "rules/xorg-lib.in"
 source "rules/xorg-app.in"
 source "rules/xorg-font.in"
+
+comment "Xorg Support Libraries"
+source "rules/freetype.in"
+source "rules/libdrm.in"
+source "rules/mesalib.in"
+
 comment "X Applications"
 #source "rules/gtk22.in"
 source "rules/fltk.in"
 #source "rules/qte.in"
 source "rules/wxWindows.in"
+source "rules/realvnc.in"
+
 comment "X Window Managers"
 source "rules/blackbox.in"
 source "rules/clementine.in"
+
 comment "Framebuffer"
 source "rules/fbtest.in"
 source "rules/fbutils.in"
+
 comment "Other Stuff"
 source "rules/sdl.in"
 source "rules/libpng.in"
 source "rules/fontconfig22.in"
 source "rules/tslib.in"
+
+comment "Old Xfree86 Stuff"
+source "rules/xfree430.in"
 endmenu
 
 menu "Scientific Apps             "

@@ -250,11 +250,12 @@ else
 XORG_SERVER_AUTOCONF += --disable-xnest
 endif
 
-ifdef PTXCONF_XORG_SERVER_XWIN
-XORG_SERVER_AUTOCONF += --enable-xwin
-else
+# FIXME Always disable the X server for Microsoft Windows
+#ifdef PTXCONF_XORG_SERVER_XWIN
+#XORG_SERVER_AUTOCONF += --enable-xwin
+#else
 XORG_SERVER_AUTOCONF += --disable-xwin
-endif
+#endif
 
 ifdef PTXCONF_XORG_SERVER_XPRINT
 XORG_SERVER_AUTOCONF += --enable-xprint
@@ -287,6 +288,7 @@ XORG_SERVER_AUTOCONF += --disable-kbd_mode
 endif
 
 XORG_SERVER_AUTOCONF += --disable-builddocs
+XORG_SERVER_AUTOCONF += --with-mesa-source=$(MESALIB_DIR)/
 
 $(STATEDIR)/xorg-server.prepare: $(xorg-server_prepare_deps_default)
 	@$(call targetinfo, $@)
