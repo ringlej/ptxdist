@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 3821 2006-01-12 08:09:04Z rsc $
+# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
-# Copyright (C) 2006 by Robert Schwebel
+# Copyright (C) 2006 by Erwin Rol
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBDRM) += libdrm
 #
 # Paths and names
 #
-LIBDRM_VERSION	= 2.0
-LIBDRM		= libdrm-$(LIBDRM_VERSION)
-LIBDRM_SUFFIX	= tar.gz
-LIBDRM_URL	= http://dri.freedesktop.org/libdrm/$(LIBDRM).$(LIBDRM_SUFFIX)
-LIBDRM_SOURCE	= $(SRCDIR)/$(LIBDRM).$(LIBDRM_SUFFIX)
-LIBDRM_DIR	= $(BUILDDIR)/$(LIBDRM)
+LIBDRM_VERSION	:= 2.0
+LIBDRM		:= libdrm-$(LIBDRM_VERSION)
+LIBDRM_SUFFIX	:= tar.gz
+LIBDRM_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/util//$(LIBDRM).$(LIBDRM_SUFFIX)
+LIBDRM_SOURCE	:= $(SRCDIR)/$(LIBDRM).$(LIBDRM_SUFFIX)
+LIBDRM_DIR	:= $(BUILDDIR)/$(LIBDRM)
 
 -include $(call package_depfile)
 
@@ -59,14 +59,13 @@ $(STATEDIR)/libdrm.extract: $(libdrm_extract_deps_default)
 
 libdrm_prepare: $(STATEDIR)/libdrm.prepare
 
-LIBDRM_PATH	=  PATH=$(CROSS_PATH)
-LIBDRM_ENV 	=  $(CROSS_ENV)
+LIBDRM_PATH	:=  PATH=$(CROSS_PATH)
+LIBDRM_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIBDRM_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-LIBDRM_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBDRM_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/libdrm.prepare: $(libdrm_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -84,7 +83,7 @@ libdrm_compile: $(STATEDIR)/libdrm.compile
 
 $(STATEDIR)/libdrm.compile: $(libdrm_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LIBDRM_DIR) && $(LIBDRM_ENV) $(LIBDRM_PATH) make
+	cd $(LIBDRM_DIR) && $(LIBDRM_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -116,7 +115,7 @@ $(STATEDIR)/libdrm.targetinstall: $(libdrm_targetinstall_deps_default)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LIBDRM_DIR)/foobar, /dev/null)
+#FIXME
 
 	@$(call install_finish)
 
