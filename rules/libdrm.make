@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_LIBDRM) += libdrm
 LIBDRM_VERSION	:= 2.0
 LIBDRM		:= libdrm-$(LIBDRM_VERSION)
 LIBDRM_SUFFIX	:= tar.gz
-LIBDRM_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/util//$(LIBDRM).$(LIBDRM_SUFFIX)
+LIBDRM_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/extras/$(LIBDRM).$(LIBDRM_SUFFIX)
 LIBDRM_SOURCE	:= $(SRCDIR)/$(LIBDRM).$(LIBDRM_SUFFIX)
 LIBDRM_DIR	:= $(BUILDDIR)/$(LIBDRM)
 
