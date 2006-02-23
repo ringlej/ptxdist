@@ -115,7 +115,7 @@ $(STATEDIR)/xorg-driver-input-mouse.targetinstall: $(xorg-driver-input-mouse_tar
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, 0, 0, 0755, $(XORG_DRIVER_INPUT_MOUSE_DIR)/src/.libs/mouse_drv.so, /usr/lib/xorg/modules/mouse_drv.so)
 
 	@$(call install_finish)
 
