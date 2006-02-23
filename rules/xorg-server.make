@@ -26,6 +26,8 @@ XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
 
 -include $(call package_depfile)
 
+XORG_PREFIX = /usr
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -338,22 +340,31 @@ $(STATEDIR)/xorg-server.targetinstall: $(xorg-server_targetinstall_deps_default)
 	@$(call install_fixup,DESCRIPTION,missing)
 
 ifdef PTXCONF_XORG_SERVER_XVFB
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/vfb/Xvfb, /usr/bin/X11/Xvfb)
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/vfb/Xvfb, $(XORG_PREFIX)/bin/Xvfb)
 endif
 ifdef PTXCONF_XORG_SERVER_XORG
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/Xorg, /usr/bin/X11/Xorg)
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/Xorg, $(XORG_PREFIX)/bin/Xorg)
 endif
 ifdef PTXCONF_XORG_SERVER_DMX
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/dmx/Xdmx, /usr/bin/X11/Xdmx)
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/dmx/Xdmx, $(XORG_PREFIX)/bin/Xdmx)
 endif
 ifdef PTXCONF_XORG_SERVER_XNEST
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xnest/Xnest, /usr/bin/X11/Xnest)
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xnest/Xnest, $(XORG_PREFIX)/bin/Xnest)
 endif
 ifdef PTXCONF_XORG_SERVER_XPRINT
 endif
 ifdef PTXCONF_XORG_SERVER_XWIN
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xwin/Xwin, /usr/bin/X11/Xwin)
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xwin/Xwin, $(XORG_PREFIX)/bin/Xwin)
 endif
+ifdef PTXCONF_XORG_DRIVER_VIDEO_FBDEV
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/fbdevhw/.libs/libfbdevhw.so, $(XORG_PREFIX)/lib/xorg/modules/libfbdevhw.so)
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libfb.so, $(XORG_PREFIX)/lib/xorg/modules/libfb.so)
+endif
+
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libbitmap.so, $(XORG_PREFIX)/lib/xorg/modules/libbitmap.so)
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/scanpci/.libs/libpcidata.so, $(XORG_PREFIX)/lib/xorg/modules/libpcidata.so)
+	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libshadow.so, $(XORG_PREFIX)/lib/xorg/modules/libshadow.so)
+
 	@$(call install_finish)
 
 	@$(call touch, $@)
