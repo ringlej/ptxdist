@@ -115,7 +115,10 @@ $(STATEDIR)/xorg-font-bh-lucidatypewriter-75dpi.targetinstall: $(xorg-font-bh-lu
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@cd $(XORG_FONT_BH_LUCIDATYPEWRITER_75DPI_DIR); \
+	for file in *.pcf.gz; do	\
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/75dpi/$$file, n); \
+	done
 
 	@$(call install_finish)
 

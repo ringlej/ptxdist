@@ -115,7 +115,10 @@ $(STATEDIR)/xorg-font-bitstream-type1.targetinstall: $(xorg-font-bitstream-type1
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@cd $(XORG_FONT_BITSTREAM_TYPE1_DIR); \
+	for file in *.afm *.pfb; do	\
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/Type1/$$file, n); \
+	done
 
 	@$(call install_finish)
 

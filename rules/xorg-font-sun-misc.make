@@ -115,7 +115,10 @@ $(STATEDIR)/xorg-font-sun-misc.targetinstall: $(xorg-font-sun-misc_targetinstall
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FXIME
+	@cd $(XORG_FONT_SUN_MISC_DIR); \
+	for file in *.pcf.gz; do	\
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/misc/$$file, n); \
+	done
 
 	@$(call install_finish)
 

@@ -115,7 +115,10 @@ $(STATEDIR)/xorg-font-misc-meltho.targetinstall: $(xorg-font-misc-meltho_targeti
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@cd $(XORG_FONT_MISC_MELTHO_DIR); \
+	for file in *.otf; do	\
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/misc/$$file, n); \
+	done
 
 	@$(call install_finish)
 

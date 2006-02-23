@@ -115,7 +115,10 @@ $(STATEDIR)/xorg-font-daewoo-misc.targetinstall: $(xorg-font-daewoo-misc_targeti
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@cd $(XORG_FONT_DAEWOO_MISC_DIR); \
+	for file in *.pcf.gz; do	\
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/misc/$$file, n); \
+	done
 
 	@$(call install_finish)
 

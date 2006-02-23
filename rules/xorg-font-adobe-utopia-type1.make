@@ -115,7 +115,10 @@ $(STATEDIR)/xorg-font-adobe-utopia-type1.targetinstall: $(xorg-font-adobe-utopia
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@cd $(XORG_FONT_ADOBE_UTOPIA_TYPE1_DIR); \
+	for file in *.afm *.pfa; do	\
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/Type1/$$file, n); \
+	done
 
 	@$(call install_finish)
 

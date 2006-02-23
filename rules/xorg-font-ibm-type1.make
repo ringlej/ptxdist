@@ -115,7 +115,10 @@ $(STATEDIR)/xorg-font-ibm-type1.targetinstall: $(xorg-font-ibm-type1_targetinsta
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@cd $(XORG_FONT_IBM_TYPE1_DIR); \
+	for file in *.pfa *.afm; do	\
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/Type1/$$file, n); \
+	done
 
 	@$(call install_finish)
 
