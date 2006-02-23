@@ -83,7 +83,7 @@ xorg-lib-lbxutil_compile: $(STATEDIR)/xorg-lib-lbxutil.compile
 
 $(STATEDIR)/xorg-lib-lbxutil.compile: $(xorg-lib-lbxutil_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_LBXUTIL_DIR) && $(XORG_LIB_LBXUTIL_PATH) make
+	cd $(XORG_LIB_LBXUTIL_DIR) && $(XORG_LIB_LBXUTIL_PATH) $(XORG_LIB_LBXUTIL_ENV) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
