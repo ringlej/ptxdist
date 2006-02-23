@@ -85,7 +85,7 @@ xorg-lib-X11_compile: $(STATEDIR)/xorg-lib-X11.compile
 
 $(STATEDIR)/xorg-lib-X11.compile: $(xorg-lib-X11_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_X11_DIR) && $(XORG_LIB_X11_PATH) make
+	cd $(XORG_LIB_X11_DIR) && $(XORG_LIB_X11_PATH) $(XORG_LIB_X11_ENV) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
