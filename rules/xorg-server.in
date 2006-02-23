@@ -52,6 +52,8 @@ menuconfig XORG_SERVER
 	select XORG_LIB_XXF86VM
 	select LIBDRM
 	select MESALIB
+	select GCCLIBS
+	select GCCLIBS_GCC_S
 
 
 	# FIXME: if not enabled, we get this one: 
