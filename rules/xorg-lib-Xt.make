@@ -68,6 +68,7 @@ XORG_LIB_XT_ENV 	:=  $(CROSS_ENV)
 XORG_LIB_XT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 XORG_LIB_XT_AUTOCONF += --disable-malloc0returnsnull
+XORG_LIB_XT_AUTOCONF += --disable-install-makestrs
 
 $(STATEDIR)/xorg-lib-Xt.prepare: $(xorg-lib-Xt_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -85,7 +86,7 @@ xorg-lib-Xt_compile: $(STATEDIR)/xorg-lib-Xt.compile
 
 $(STATEDIR)/xorg-lib-Xt.compile: $(xorg-lib-Xt_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XT_DIR) && $(XORG_LIB_XT_PATH) make
+	cd $(XORG_LIB_XT_DIR) && $(XORG_LIB_XT_PATH) $(XORG_LIB_XT_ENV) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
