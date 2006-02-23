@@ -1,5 +1,7 @@
 menuconfig FBUTILS
 	bool
+	select GCCLIBS
+	select GCCLIBS_CXX
 	prompt "fbutils               "
 	help
 	  Utilities and support for framebuffer devices 
