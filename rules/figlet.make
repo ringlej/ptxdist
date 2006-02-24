@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_FIGLET) += figlet
 FIGLET_VERSION		= 222
 FIGLET			= figlet$(FIGLET_VERSION)
 FIGLET_SUFFIX		= tar.gz
-FIGLET_URL		= ftp://ftp.figlet.org/pub/figlet/program/unix/$(FIGLET).$(FIGLET_SUFFIX)
+FIGLET_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FIGLET).$(FIGLET_SUFFIX)
 FIGLET_SOURCE		= $(SRCDIR)/$(FIGLET).$(FIGLET_SUFFIX)
 FIGLET_DIR		= $(BUILDDIR)/$(FIGLET)
 
