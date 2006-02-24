@@ -17,8 +17,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_KCONFIG) += host-kconfig
 #
 # Paths and names
 #
-HOST_KCONFIG_VERSION	= 2.6.14
-HOST_KCONFIG		= kconfig-$(HOST_KCONFIG_VERSION)
+HOST_KCONFIG_VERSION	:= 2.6.14
+HOST_KCONFIG		:= kconfig-$(HOST_KCONFIG_VERSION)
 
 # This package is special: it is needed to create the dependencies!
 # So we don't use -include $(call package_depfile) here.
@@ -62,8 +62,8 @@ $(STATEDIR)/host-kconfig.extract: $(STATEDIR)/host-kconfig.get
 
 host-kconfig_prepare: $(STATEDIR)/host-kconfig.prepare
 
-HOST_KCONFIG_PATH	=  PATH=$(HOST_PATH)
-HOST_KCONFIG_ENV 	=  $(HOSTCC_ENV)
+HOST_KCONFIG_PATH	:=  PATH=$(HOST_PATH)
+HOST_KCONFIG_ENV 	:=  $(HOSTCC_ENV)
 
 $(STATEDIR)/host-kconfig.prepare: $(STATEDIR)/host-kconfig.extract
 	@$(call targetinfo, $@, n)
@@ -78,20 +78,12 @@ $(STATEDIR)/host-kconfig.prepare: $(STATEDIR)/host-kconfig.extract
 
 host-kconfig_compile: $(STATEDIR)/host-kconfig.compile
 
-host-kconfig_compile_deps = $(STATEDIR)/host-kconfig.prepare
-
 $(STATEDIR)/host-kconfig.compile: $(STATEDIR)/host-kconfig.prepare
 	@$(call targetinfo, $@, n)
 	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
-		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make libkconfig.so
-	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
-		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make conf
-	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
-		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make mconf
+		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make conf mconf
 #	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
-#		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make qconf
-#	cd $(PTXDIST_WORKSPACE)/scripts/kconfig && \
-#		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make gconf
+#		$(HOST_KCONFIG_ENV) $(HOST_KCONFIG_PATH) make qconf gconf
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -101,8 +93,6 @@ $(STATEDIR)/host-kconfig.compile: $(STATEDIR)/host-kconfig.prepare
 # Don't use default dependencies here - not created yet when we need it!
 
 host-kconfig_install: $(STATEDIR)/host-kconfig.install
-
-host-kconfig_install_deps = $(STATEDIR)/host-kconfig.compile
 
 $(STATEDIR)/host-kconfig.install: $(STATEDIR)/host-kconfig.compile
 	@$(call targetinfo, $@)
