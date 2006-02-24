@@ -109,16 +109,16 @@ cfgsh_targetinstall: $(STATEDIR)/cfgsh.targetinstall
 $(STATEDIR)/cfgsh.targetinstall: $(cfgsh_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,cfgsh)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(CFGSH_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Gilad Ben-Yossef <gilad\@codefidence.com>")
-	@$(call install_fixup,DEPENDS, readline)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, cfgsh)
+	@$(call install_fixup, cfgsh,PACKAGE,cfgsh)
+	@$(call install_fixup, cfgsh,PRIORITY,optional)
+	@$(call install_fixup, cfgsh,VERSION,$(CFGSH_VERSION))
+	@$(call install_fixup, cfgsh,SECTION,base)
+	@$(call install_fixup, cfgsh,AUTHOR,"Gilad Ben-Yossef <gilad\@codefidence.com>")
+	@$(call install_fixup, cfgsh,DEPENDS, readline)
+	@$(call install_fixup, cfgsh,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(CFGSH_DIR)/cfgsh, /bin/cfgsh)
+	@$(call install_copy, cfgsh, 0, 0, 0644, $(CFGSH_DIR)/cfgsh, /bin/cfgsh)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

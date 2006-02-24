@@ -106,18 +106,18 @@ xorg-lib-xkbfile_targetinstall: $(STATEDIR)/xorg-lib-xkbfile.targetinstall
 $(STATEDIR)/xorg-lib-xkbfile.targetinstall: $(xorg-lib-xkbfile_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xkbfile)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XKBFILE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xkbfile)
+	@$(call install_fixup, xorg-lib-xkbfile,PACKAGE,xorg-lib-xkbfile)
+	@$(call install_fixup, xorg-lib-xkbfile,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xkbfile,VERSION,$(XORG_LIB_XKBFILE_VERSION))
+	@$(call install_fixup, xorg-lib-xkbfile,SECTION,base)
+	@$(call install_fixup, xorg-lib-xkbfile,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xkbfile,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xkbfile,DESCRIPTION,missing)
 
 # FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-xkbfile)
 
 	@$(call touch, $@)
 

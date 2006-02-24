@@ -108,18 +108,18 @@ xorg-lib-Xres_targetinstall: $(STATEDIR)/xorg-lib-Xres.targetinstall
 $(STATEDIR)/xorg-lib-Xres.targetinstall: $(xorg-lib-Xres_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xres)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XRES_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xres)
+	@$(call install_fixup, xorg-lib-Xres,PACKAGE,xorg-lib-xres)
+	@$(call install_fixup, xorg-lib-Xres,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xres,VERSION,$(XORG_LIB_XRES_VERSION))
+	@$(call install_fixup, xorg-lib-Xres,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xres,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xres,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xres,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xres)
 
 	@$(call touch, $@)
 

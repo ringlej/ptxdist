@@ -106,16 +106,16 @@ xorg-proto-evieext_targetinstall: $(STATEDIR)/xorg-proto-evieext.targetinstall
 $(STATEDIR)/xorg-proto-evieext.targetinstall: $(xorg-proto-evieext_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-evieext)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_EVIEEXT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-evieext)
+	@$(call install_fixup, xorg-proto-evieext,PACKAGE,xorg-proto-evieext)
+	@$(call install_fixup, xorg-proto-evieext,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-evieext,VERSION,$(XORG_PROTO_EVIEEXT_VERSION))
+	@$(call install_fixup, xorg-proto-evieext,SECTION,base)
+	@$(call install_fixup, xorg-proto-evieext,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-evieext,DEPENDS,)
+	@$(call install_fixup, xorg-proto-evieext,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-evieext)
 
 	@$(call touch, $@)
 

@@ -111,14 +111,14 @@ python_targetinstall: $(STATEDIR)/python.targetinstall
 $(STATEDIR)/python.targetinstall: $(python_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,python)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PYTHON_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, python)
+	@$(call install_fixup, python,PACKAGE,python)
+	@$(call install_fixup, python,PRIORITY,optional)
+	@$(call install_fixup, python,VERSION,$(PYTHON_VERSION))
+	@$(call install_fixup, python,SECTION,base)
+	@$(call install_fixup, python,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, python,DEPENDS,)
+	@$(call install_fixup, python,DESCRIPTION,missing)
 
 	# FIXME: RSC: ipkgize in a cleaner way
 
@@ -143,7 +143,7 @@ $(STATEDIR)/python.targetinstall: $(python_targetinstall_deps_default)
 	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/python2.3
 	$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/ipkg/usr/bin/python2.3
 
-	@$(call install_finish)
+	@$(call install_finish, python)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

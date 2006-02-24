@@ -106,18 +106,18 @@ xorg-lib-XTrap_targetinstall: $(STATEDIR)/xorg-lib-XTrap.targetinstall
 $(STATEDIR)/xorg-lib-XTrap.targetinstall: $(xorg-lib-XTrap_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xtrap)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XTRAP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-XTrap)
+	@$(call install_fixup, xorg-lib-XTrap,PACKAGE,xorg-lib-xtrap)
+	@$(call install_fixup, xorg-lib-XTrap,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-XTrap,VERSION,$(XORG_LIB_XTRAP_VERSION))
+	@$(call install_fixup, xorg-lib-XTrap,SECTION,base)
+	@$(call install_fixup, xorg-lib-XTrap,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-XTrap,DEPENDS,)
+	@$(call install_fixup, xorg-lib-XTrap,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-XTrap)
 
 	@$(call touch, $@)
 

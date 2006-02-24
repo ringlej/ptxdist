@@ -123,23 +123,23 @@ flash_targetinstall: $(STATEDIR)/flash.targetinstall
 $(STATEDIR)/flash.targetinstall: $(flash_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,flash)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(FLASH_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, flash)
+	@$(call install_fixup, flash,PACKAGE,flash)
+	@$(call install_fixup, flash,PRIORITY,optional)
+	@$(call install_fixup, flash,VERSION,$(FLASH_VERSION))
+	@$(call install_fixup, flash,SECTION,base)
+	@$(call install_fixup, flash,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, flash,DEPENDS,)
+	@$(call install_fixup, flash,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(FLASH_DIR)/flash, /usr/bin/flash)
+	@$(call install_copy, flash, 0, 0, 0755, $(FLASH_DIR)/flash, /usr/bin/flash)
 
 	# FIMXE: RSC: permissions? 
-	@$(call install_copy, 0, 0, 0755, $(FLASH_DIR)/modules/alarms, /usr/lib/flash/alarms)
-	@$(call install_copy, 0, 0, 0755, $(FLASH_DIR)/modules/background, /usr/lib/flash/background)
-	@$(call install_copy, 0, 0, 0755, $(FLASH_DIR)/modules/countdown, /usr/lib/flash/countdown)
+	@$(call install_copy, flash, 0, 0, 0755, $(FLASH_DIR)/modules/alarms, /usr/lib/flash/alarms)
+	@$(call install_copy, flash, 0, 0, 0755, $(FLASH_DIR)/modules/background, /usr/lib/flash/background)
+	@$(call install_copy, flash, 0, 0, 0755, $(FLASH_DIR)/modules/countdown, /usr/lib/flash/countdown)
 
-	@$(call install_finish)
+	@$(call install_finish, flash)
 
 	@$(call touch, $@)
 # ----------------------------------------------------------------------------

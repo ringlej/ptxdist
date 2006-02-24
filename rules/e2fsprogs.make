@@ -119,28 +119,28 @@ e2fsprogs_targetinstall: $(STATEDIR)/e2fsprogs.targetinstall
 $(STATEDIR)/e2fsprogs.targetinstall: $(e2fsprogs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,e2fsprogs)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(E2FSPROGS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, e2fsprogs)
+	@$(call install_fixup, e2fsprogs,PACKAGE,e2fsprogs)
+	@$(call install_fixup, e2fsprogs,PRIORITY,optional)
+	@$(call install_fixup, e2fsprogs,VERSION,$(E2FSPROGS_VERSION))
+	@$(call install_fixup, e2fsprogs,SECTION,base)
+	@$(call install_fixup, e2fsprogs,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, e2fsprogs,DEPENDS,)
+	@$(call install_fixup, e2fsprogs,DESCRIPTION,missing)
 
 ifdef PTXCONF_E2FSPROGS_MKFS
-	@$(call install_copy, 0, 0, 0755, $(E2FSPROGS_BUILD_DIR)/misc/mke2fs, /sbin/mke2fs)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_BUILD_DIR)/misc/mke2fs, /sbin/mke2fs)
 endif
 ifdef PTXCONF_E2FSPROGS_E2FSCK
-	@$(call install_copy, 0, 0, 0755, $(E2FSPROGS_BUILD_DIR)/e2fsck/e2fsck.shared, /sbin/e2fsck)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_BUILD_DIR)/e2fsck/e2fsck.shared, /sbin/e2fsck)
 endif
 ifdef PTXCONF_E2FSPROGS_TUNE2FS
-	@$(call install_copy, 0, 0, 0755, $(E2FSPROGS_BUILD_DIR)/misc/tune2fs, /sbin/tune2fs)
-	@$(call install_link, /sbin/tune2fs, /sbin/findfs)
-	@$(call install_link, /sbin/tune2fs, /sbin/e2label)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_BUILD_DIR)/misc/tune2fs, /sbin/tune2fs)
+	@$(call install_link, e2fsprogs, /sbin/tune2fs, /sbin/findfs)
+	@$(call install_link, e2fsprogs, /sbin/tune2fs, /sbin/e2label)
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, e2fsprogs)
 
 	@$(call touch, $@)
 

@@ -110,18 +110,18 @@ php-apc_targetinstall: $(STATEDIR)/php-apc.targetinstall
 $(STATEDIR)/php-apc.targetinstall: $(php-apc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,php-apc)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PHP_APC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Jiri Nesladek <nesladek\@2n.cz>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, php-apc)
+	@$(call install_fixup, php-apc,PACKAGE,php-apc)
+	@$(call install_fixup, php-apc,PRIORITY,optional)
+	@$(call install_fixup, php-apc,VERSION,$(PHP_APC_VERSION))
+	@$(call install_fixup, php-apc,SECTION,base)
+	@$(call install_fixup, php-apc,AUTHOR,"Jiri Nesladek <nesladek\@2n.cz>")
+	@$(call install_fixup, php-apc,DEPENDS,)
+	@$(call install_fixup, php-apc,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(PHP_APC_DIR)/modules/apc.so, /usr/lib/php/apc.so)
+	@$(call install_copy, php-apc, 0, 0, 0644, $(PHP_APC_DIR)/modules/apc.so, /usr/lib/php/apc.so)
 
-	@$(call install_finish)
+	@$(call install_finish, php-apc)
 
 	@$(call touch, $@)
 

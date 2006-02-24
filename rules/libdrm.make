@@ -106,18 +106,18 @@ libdrm_targetinstall: $(STATEDIR)/libdrm.targetinstall
 $(STATEDIR)/libdrm.targetinstall: $(libdrm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libdrm)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBDRM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libdrm)
+	@$(call install_fixup, libdrm,PACKAGE,libdrm)
+	@$(call install_fixup, libdrm,PRIORITY,optional)
+	@$(call install_fixup, libdrm,VERSION,$(LIBDRM_VERSION))
+	@$(call install_fixup, libdrm,SECTION,base)
+	@$(call install_fixup, libdrm,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libdrm,DEPENDS,)
+	@$(call install_fixup, libdrm,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, libdrm)
 
 	@$(call touch, $@)
 

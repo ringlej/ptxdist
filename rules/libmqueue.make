@@ -107,23 +107,23 @@ libmqueue_targetinstall: $(STATEDIR)/libmqueue.targetinstall
 $(STATEDIR)/libmqueue.targetinstall: $(libmqueue_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libmqueue)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBMQUEUE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libmqueue)
+	@$(call install_fixup, libmqueue,PACKAGE,libmqueue)
+	@$(call install_fixup, libmqueue,PRIORITY,optional)
+	@$(call install_fixup, libmqueue,VERSION,$(LIBMQUEUE_VERSION))
+	@$(call install_fixup, libmqueue,SECTION,base)
+	@$(call install_fixup, libmqueue,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libmqueue,DEPENDS,)
+	@$(call install_fixup, libmqueue,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, libmqueue, 0, 0, 0755, \
 		$(LIBMQUEUE_DIR)/src/.libs/libmqueue.so.4.0.41, \
 		/usr/lib/libmqueue.so.4.0.41)
 
-	@$(call install_link, libmqueue.so.4.0.41, /usr/lib/libmqueue.so.4)
-	@$(call install_link, libmqueue.so.4.0.41, /usr/lib/libmqueue.so)
+	@$(call install_link, libmqueue, libmqueue.so.4.0.41, /usr/lib/libmqueue.so.4)
+	@$(call install_link, libmqueue, libmqueue.so.4.0.41, /usr/lib/libmqueue.so)
 
-	@$(call install_finish)
+	@$(call install_finish, libmqueue)
 
 	@$(call touch, $@)
 

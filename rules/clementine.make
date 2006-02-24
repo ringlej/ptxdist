@@ -98,18 +98,18 @@ clementine_targetinstall: $(STATEDIR)/clementine.targetinstall
 $(STATEDIR)/clementine.targetinstall: $(clementine_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,clementine)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(CLEMENTINE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, clementine)
+	@$(call install_fixup, clementine,PACKAGE,clementine)
+	@$(call install_fixup, clementine,PRIORITY,optional)
+	@$(call install_fixup, clementine,VERSION,$(CLEMENTINE_VERSION))
+	@$(call install_fixup, clementine,SECTION,base)
+	@$(call install_fixup, clementine,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, clementine,DEPENDS,)
+	@$(call install_fixup, clementine,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0755, $(CLEMENTINE_DIR)/clementine, /usr/X11R6/bin/clementine)
+	@$(call install_copy, clementine, 0, 0, 0755, $(CLEMENTINE_DIR)/clementine, /usr/X11R6/bin/clementine)
 
-	@$(call install_finish)
+	@$(call install_finish, clementine)
 
 	@$(call touch, $@)
 

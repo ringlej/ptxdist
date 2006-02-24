@@ -108,31 +108,31 @@ canutils_targetinstall: $(STATEDIR)/canutils.targetinstall
 $(STATEDIR)/canutils.targetinstall: $(canutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,canutils)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(CANUTILS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, canutils)
+	@$(call install_fixup, canutils,PACKAGE,canutils)
+	@$(call install_fixup, canutils,PRIORITY,optional)
+	@$(call install_fixup, canutils,VERSION,$(CANUTILS_VERSION))
+	@$(call install_fixup, canutils,SECTION,base)
+	@$(call install_fixup, canutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, canutils,DEPENDS,)
+	@$(call install_fixup, canutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_CANUTILS_CANCONFIG
-	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/canconfig, /sbin/canconfig)
+	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/canconfig, /sbin/canconfig)
 endif
 ifdef PTXCONF_CANUTILS_CANECHO
-	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/canecho,   /sbin/canecho)
+	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/canecho,   /sbin/canecho)
 endif
 ifdef PTXCONF_CANUTILS_CANDUMP
-	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/candump,   /sbin/candump)
+	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/candump,   /sbin/candump)
 endif
 ifdef PTXCONF_CANUTILS_CANSEND
-	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/cansend,   /sbin/cansend)
+	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/cansend,   /sbin/cansend)
 endif
 ifdef PTXCONF_CANUTILS_CANSEQUENCE
-	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/cansequence, /sbin/cansequence)
+	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/cansequence, /sbin/cansequence)
 endif
-	@$(call install_finish)
+	@$(call install_finish, canutils)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

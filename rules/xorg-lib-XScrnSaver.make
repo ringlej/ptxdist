@@ -106,18 +106,18 @@ xorg-lib-XScrnSaver_targetinstall: $(STATEDIR)/xorg-lib-XScrnSaver.targetinstall
 $(STATEDIR)/xorg-lib-XScrnSaver.targetinstall: $(xorg-lib-XScrnSaver_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xscrnsaver)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XSCRNSAVER_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-XScrnSaver)
+	@$(call install_fixup, xorg-lib-XScrnSaver,PACKAGE,xorg-lib-xscrnsaver)
+	@$(call install_fixup, xorg-lib-XScrnSaver,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-XScrnSaver,VERSION,$(XORG_LIB_XSCRNSAVER_VERSION))
+	@$(call install_fixup, xorg-lib-XScrnSaver,SECTION,base)
+	@$(call install_fixup, xorg-lib-XScrnSaver,AUTHOR,"Erwin rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-XScrnSaver,DEPENDS,)
+	@$(call install_fixup, xorg-lib-XScrnSaver,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-XScrnSaver)
 
 	@$(call touch, $@)
 

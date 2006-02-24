@@ -97,21 +97,21 @@ shorewall_targetinstall: $(STATEDIR)/shorewall.targetinstall
 $(STATEDIR)/shorewall.targetinstall: $(shorewall_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,shorewall)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SHOREWALL_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, shorewall)
+	@$(call install_fixup, shorewall,PACKAGE,shorewall)
+	@$(call install_fixup, shorewall,PRIORITY,optional)
+	@$(call install_fixup, shorewall,VERSION,$(SHOREWALL_VERSION))
+	@$(call install_fixup, shorewall,SECTION,base)
+	@$(call install_fixup, shorewall,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, shorewall,DEPENDS,)
+	@$(call install_fixup, shorewall,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0755, /etc/shorewall)
+	@$(call install_copy, shorewall, 0, 0, 0755, /etc/shorewall)
 	# FIXME: do this right
 	PREFIX=$(ROOTDIR) $(FAKEROOT) $(SHOREWALL_DIR)/install.sh
 	PREFIX=$(IMAGEDIR)/ipkg $(FAKEROOT) $(SHOREWALL_DIR)/install.sh
 
-	@$(call install_finish)
+	@$(call install_finish, shorewall)
 
 	@$(call touch, $@)
 

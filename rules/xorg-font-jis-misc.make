@@ -106,21 +106,21 @@ xorg-font-jis-misc_targetinstall: $(STATEDIR)/xorg-font-jis-misc.targetinstall
 $(STATEDIR)/xorg-font-jis-misc.targetinstall: $(xorg-font-jis-misc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-font-jis-misc)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_FONT_JIS_MISC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-font-jis-misc)
+	@$(call install_fixup, xorg-font-jis-misc,PACKAGE,xorg-font-jis-misc)
+	@$(call install_fixup, xorg-font-jis-misc,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-jis-misc,VERSION,$(XORG_FONT_JIS_MISC_VERSION))
+	@$(call install_fixup, xorg-font-jis-misc,SECTION,base)
+	@$(call install_fixup, xorg-font-jis-misc,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-font-jis-misc,DEPENDS,)
+	@$(call install_fixup, xorg-font-jis-misc,DESCRIPTION,missing)
 
 	@cd $(XORG_FONT_JIS_MISC_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
+		$(call install_copy, xorg-font-jis-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
 	done
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-font-jis-misc)
 
 	@$(call touch, $@)
 

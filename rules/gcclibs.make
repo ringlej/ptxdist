@@ -77,28 +77,28 @@ gcclibs_targetinstall: $(STATEDIR)/gcclibs.targetinstall
 $(STATEDIR)/gcclibs.targetinstall: $(gcclibs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,gcclibs)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(shell $(CROSS_CC) -dumpversion))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, gcclibs)
+	@$(call install_fixup, gcclibs,PACKAGE,gcclibs)
+	@$(call install_fixup, gcclibs,PRIORITY,optional)
+	@$(call install_fixup, gcclibs,VERSION,$(shell $(CROSS_CC) -dumpversion))
+	@$(call install_fixup, gcclibs,SECTION,base)
+	@$(call install_fixup, gcclibs,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gcclibs,DEPENDS,)
+	@$(call install_fixup, gcclibs,DESCRIPTION,missing)
 
 ifdef PTXCONF_GCCLIBS_CXX
-	@$(call install_copy_toolchain_lib, libstdc++.so, /usr/lib)
+	@$(call install_copy_toolchain_lib, gcclibs, libstdc++.so, /usr/lib)
 endif
 
 ifdef PTXCONF_GCCLIBS_GCC_S
-	@$(call install_copy_toolchain_lib, libgcc_s.so, /lib)
+	@$(call install_copy_toolchain_lib, gcclibs, libgcc_s.so, /lib)
 endif
 
 ifdef PTXCONF_GCCLIBS_GCC_S_NOF
-	@$(call install_copy_toolchain_lib, libgcc_s_nof.so, /lib)
+	@$(call install_copy_toolchain_lib, gcclibs, libgcc_s_nof.so, /lib)
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, gcclibs)
 
 	@$(call touch, $@)
 

@@ -106,18 +106,18 @@ pnetlib_targetinstall: $(STATEDIR)/pnetlib.targetinstall
 $(STATEDIR)/pnetlib.targetinstall: $(pnetlib_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,pnetlib)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PNETLIB_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <b.spranger\@linutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, pnetlib)
+	@$(call install_fixup, pnetlib,PACKAGE,pnetlib)
+	@$(call install_fixup, pnetlib,PRIORITY,optional)
+	@$(call install_fixup, pnetlib,VERSION,$(PNETLIB_VERSION))
+	@$(call install_fixup, pnetlib,SECTION,base)
+	@$(call install_fixup, pnetlib,AUTHOR,"Robert Schwebel <b.spranger\@linutronix.de>")
+	@$(call install_fixup, pnetlib,DEPENDS,)
+	@$(call install_fixup, pnetlib,DESCRIPTION,missing)
 
-	#@$(call install_copy, 0, 0, 0755, $(PNETLIB_DIR)/foobar, /dev/null)
+	#@$(call install_copy, pnetlib, 0, 0, 0755, $(PNETLIB_DIR)/foobar, /dev/null)
 
-	@$(call install_finish)
+	@$(call install_finish, pnetlib)
 
 	@$(call touch, $@)
 

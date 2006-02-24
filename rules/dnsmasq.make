@@ -97,18 +97,18 @@ dnsmasq_targetinstall: $(STATEDIR)/dnsmasq.targetinstall
 $(STATEDIR)/dnsmasq.targetinstall: $(dnsmasq_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,dnsmasq)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(DNSMASQ_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, dnsmasq)
+	@$(call install_fixup, dnsmasq,PACKAGE,dnsmasq)
+	@$(call install_fixup, dnsmasq,PRIORITY,optional)
+	@$(call install_fixup, dnsmasq,VERSION,$(DNSMASQ_VERSION))
+	@$(call install_fixup, dnsmasq,SECTION,base)
+	@$(call install_fixup, dnsmasq,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, dnsmasq,DEPENDS,)
+	@$(call install_fixup, dnsmasq,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0755, $(DNSMASQ_DIR)/src/dnsmasq, /sbin/dnsmasq)
+	@$(call install_copy, dnsmasq, 0, 0, 0755, $(DNSMASQ_DIR)/src/dnsmasq, /sbin/dnsmasq)
 
-	@$(call install_finish)
+	@$(call install_finish, dnsmasq)
 	
 	@$(call touch, $@)
 

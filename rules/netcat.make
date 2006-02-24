@@ -119,19 +119,19 @@ netcat_targetinstall: $(STATEDIR)/netcat.targetinstall
 $(STATEDIR)/netcat.targetinstall: $(netcat_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,netcat)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(NETCAT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Bjoern Buerger <b.buerger\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, netcat)
+	@$(call install_fixup, netcat,PACKAGE,netcat)
+	@$(call install_fixup, netcat,PRIORITY,optional)
+	@$(call install_fixup, netcat,VERSION,$(NETCAT_VERSION))
+	@$(call install_fixup, netcat,SECTION,base)
+	@$(call install_fixup, netcat,AUTHOR,"Bjoern Buerger <b.buerger\@pengutronix.de>")
+	@$(call install_fixup, netcat,DEPENDS,libc)
+	@$(call install_fixup, netcat,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(NETCAT_DIR)/src/netcat, /bin/netcat)
-	@$(call install_link, netcat, /bin/nc)
+	@$(call install_copy, netcat, 0, 0, 0755, $(NETCAT_DIR)/src/netcat, /bin/netcat)
+	@$(call install_link, netcat, netcat, /bin/nc)
 
-	@$(call install_finish)
+	@$(call install_finish, netcat)
 
 	@$(call touch, $@)
 

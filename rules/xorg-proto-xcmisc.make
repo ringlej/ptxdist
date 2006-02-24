@@ -106,16 +106,16 @@ xorg-proto-xcmisc_targetinstall: $(STATEDIR)/xorg-proto-xcmisc.targetinstall
 $(STATEDIR)/xorg-proto-xcmisc.targetinstall: $(xorg-proto-xcmisc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-xcmisc)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_XCMISC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-xcmisc)
+	@$(call install_fixup, xorg-proto-xcmisc,PACKAGE,xorg-proto-xcmisc)
+	@$(call install_fixup, xorg-proto-xcmisc,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-xcmisc,VERSION,$(XORG_PROTO_XCMISC_VERSION))
+	@$(call install_fixup, xorg-proto-xcmisc,SECTION,base)
+	@$(call install_fixup, xorg-proto-xcmisc,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-xcmisc,DEPENDS,)
+	@$(call install_fixup, xorg-proto-xcmisc,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-xcmisc)
 
 	@$(call touch, $@)
 

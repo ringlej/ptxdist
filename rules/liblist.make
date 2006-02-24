@@ -106,20 +106,20 @@ liblist_targetinstall: $(STATEDIR)/liblist.targetinstall
 $(STATEDIR)/liblist.targetinstall: $(liblist_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,liblist)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBLIST_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, liblist)
+	@$(call install_fixup, liblist,PACKAGE,liblist)
+	@$(call install_fixup, liblist,PRIORITY,optional)
+	@$(call install_fixup, liblist,VERSION,$(LIBLIST_VERSION))
+	@$(call install_fixup, liblist,SECTION,base)
+	@$(call install_fixup, liblist,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, liblist,DEPENDS,)
+	@$(call install_fixup, liblist,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(LIBLIST_DIR)/src/.libs/libptxlist.so.0.0.0, /usr/lib/libptxlist.so.0.0.0)
-	@$(call install_link, libptxlist.so.0.0.0, /usr/lib/libptxlist.so.0)
-	@$(call install_link, libptxlist.so.0.0.0, /usr/lib/libptxlist.so)
+	@$(call install_copy, liblist, 0, 0, 0644, $(LIBLIST_DIR)/src/.libs/libptxlist.so.0.0.0, /usr/lib/libptxlist.so.0.0.0)
+	@$(call install_link, liblist, libptxlist.so.0.0.0, /usr/lib/libptxlist.so.0)
+	@$(call install_link, liblist, libptxlist.so.0.0.0, /usr/lib/libptxlist.so)
 
-	@$(call install_finish)
+	@$(call install_finish, liblist)
 
 	@$(call touch, $@)
 

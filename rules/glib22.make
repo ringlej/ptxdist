@@ -117,40 +117,40 @@ glib22_targetinstall: $(STATEDIR)/glib22.targetinstall
 $(STATEDIR)/glib22.targetinstall: $(glib22_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,glib22)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GLIB22_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, glib22)
+	@$(call install_fixup, glib22,PACKAGE,glib22)
+	@$(call install_fixup, glib22,PRIORITY,optional)
+	@$(call install_fixup, glib22,VERSION,$(GLIB22_VERSION))
+	@$(call install_fixup, glib22,SECTION,base)
+	@$(call install_fixup, glib22,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, glib22,DEPENDS,)
+	@$(call install_fixup, glib22,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, glib22, 0, 0, 0644, \
 		$(GLIB22_DIR)/glib/.libs/libglib-2.0.so.0.302.0, \
 		/usr/lib/libglib-2.0.so.0.302.0)
-	@$(call install_link, libglib-2.0.so.0.302.0, /usr/lib/libglib-2.0.so.0)
-	@$(call install_link, libglib-2.0.so.0.302.0, /usr/lib/libglib-2.0.so)
+	@$(call install_link, glib22, libglib-2.0.so.0.302.0, /usr/lib/libglib-2.0.so.0)
+	@$(call install_link, glib22, libglib-2.0.so.0.302.0, /usr/lib/libglib-2.0.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, glib22, 0, 0, 0644, \
 		$(GLIB22_DIR)/gobject/.libs/libgobject-2.0.so.0.302.0, \
 		/usr/lib/libgobject-2.0.so.0.302.0)
-	@$(call install_link, libgobject-2.0.so.0.302.0, /usr/lib/libgobject-2.0.so.0)
-	@$(call install_link, libgobject-2.0.so.0.302.0, /usr/lib/libgobject-2.0.so)
+	@$(call install_link, glib22, libgobject-2.0.so.0.302.0, /usr/lib/libgobject-2.0.so.0)
+	@$(call install_link, glib22, libgobject-2.0.so.0.302.0, /usr/lib/libgobject-2.0.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, glib22, 0, 0, 0644, \
 		$(GLIB22_DIR)/gmodule/.libs/libgmodule-2.0.so.0.302.0, \
 		/usr/lib/libgmodule-2.0.so.0.302.0)
-	@$(call install_link, libgmodule-2.0.so.0.302.0, /usr/lib/libgmodule-2.0.so.0)
-	@$(call install_link, libgmodule-2.0.so.0.302.0, /usr/lib/libgmodule-2.0.so)
+	@$(call install_link, glib22, libgmodule-2.0.so.0.302.0, /usr/lib/libgmodule-2.0.so.0)
+	@$(call install_link, glib22, libgmodule-2.0.so.0.302.0, /usr/lib/libgmodule-2.0.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, glib22, 0, 0, 0644, \
 		$(GLIB22_DIR)/gthread/.libs/libgthread-2.0.so.0.302.0, \
 		/usr/lib/libgthread-2.0.so.0.302.0)
-	@$(call install_link, libgthread-2.0.so.0.302.0, /usr/lib/libgthread-2.0.so.0)
-	@$(call install_link, libgthread-2.0.so.0.302.0, /usr/lib/libgthread-2.0.so)
+	@$(call install_link, glib22, libgthread-2.0.so.0.302.0, /usr/lib/libgthread-2.0.so.0)
+	@$(call install_link, glib22, libgthread-2.0.so.0.302.0, /usr/lib/libgthread-2.0.so)
 
-	@$(call install_finish)
+	@$(call install_finish, glib22)
 
 	@$(call touch, $@)
 

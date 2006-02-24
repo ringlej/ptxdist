@@ -106,21 +106,21 @@ xorg-font-screen-cyrillic_targetinstall: $(STATEDIR)/xorg-font-screen-cyrillic.t
 $(STATEDIR)/xorg-font-screen-cyrillic.targetinstall: $(xorg-font-screen-cyrillic_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-font-screen-cyrillic)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_FONT_SCREEN_CYRILLIC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-font-screen-cyrillic)
+	@$(call install_fixup, xorg-font-screen-cyrillic,PACKAGE,xorg-font-screen-cyrillic)
+	@$(call install_fixup, xorg-font-screen-cyrillic,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-screen-cyrillic,VERSION,$(XORG_FONT_SCREEN_CYRILLIC_VERSION))
+	@$(call install_fixup, xorg-font-screen-cyrillic,SECTION,base)
+	@$(call install_fixup, xorg-font-screen-cyrillic,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-font-screen-cyrillic,DEPENDS,)
+	@$(call install_fixup, xorg-font-screen-cyrillic,DESCRIPTION,missing)
 
 	@cd $(XORG_FONT_SCREEN_CYRILLIC_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/cyrillic/$$file, n); \
+		$(call install_copy, xorg-font-screen-cyrillic, 0, 0, 0644, $$file, $(XORG_FONTDIR)/cyrillic/$$file, n); \
 	done
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-font-screen-cyrillic)
 
 	@$(call touch, $@)
 

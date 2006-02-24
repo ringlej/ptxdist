@@ -106,18 +106,18 @@ liblockfile_targetinstall: $(STATEDIR)/liblockfile.targetinstall
 $(STATEDIR)/liblockfile.targetinstall: $(liblockfile_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,liblockfile)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBLOCKFILE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Bjoern Buerger <b.buerger\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, liblockfile)
+	@$(call install_fixup, liblockfile,PACKAGE,liblockfile)
+	@$(call install_fixup, liblockfile,PRIORITY,optional)
+	@$(call install_fixup, liblockfile,VERSION,$(LIBLOCKFILE_VERSION))
+	@$(call install_fixup, liblockfile,SECTION,base)
+	@$(call install_fixup, liblockfile,AUTHOR,"Bjoern Buerger <b.buerger\@pengutronix.de>")
+	@$(call install_fixup, liblockfile,DEPENDS,)
+	@$(call install_fixup, liblockfile,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LIBLOCKFILE_DIR)/dotlockfile, /usr/bin/dotlockfile)
+	@$(call install_copy, liblockfile, 0, 0, 0755, $(LIBLOCKFILE_DIR)/dotlockfile, /usr/bin/dotlockfile)
 
-	@$(call install_finish)
+	@$(call install_finish, liblockfile)
 
 	@$(call touch, $@)
 

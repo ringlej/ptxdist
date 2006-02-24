@@ -98,18 +98,18 @@ clock_targetinstall: $(STATEDIR)/clock.targetinstall
 $(STATEDIR)/clock.targetinstall: $(clock_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,clock)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(CLOCK_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, clock)
+	@$(call install_fixup, clock,PACKAGE,clock)
+	@$(call install_fixup, clock,PRIORITY,optional)
+	@$(call install_fixup, clock,VERSION,$(CLOCK_VERSION))
+	@$(call install_fixup, clock,SECTION,base)
+	@$(call install_fixup, clock,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, clock,DEPENDS,)
+	@$(call install_fixup, clock,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(CLOCK_DIR)/clock, /sbin/clock)
+	@$(call install_copy, clock, 0, 0, 0755, $(CLOCK_DIR)/clock, /sbin/clock)
 
-	@$(call install_finish)
+	@$(call install_finish, clock)
 
 	@$(call touch, $@)
 

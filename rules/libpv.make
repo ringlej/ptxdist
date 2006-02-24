@@ -113,27 +113,27 @@ libpv_targetinstall: $(STATEDIR)/libpv.targetinstall
 $(STATEDIR)/libpv.targetinstall: $(libpv_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libpv)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBPV_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libpv)
+	@$(call install_fixup, libpv,PACKAGE,libpv)
+	@$(call install_fixup, libpv,PRIORITY,optional)
+	@$(call install_fixup, libpv,VERSION,$(LIBPV_VERSION))
+	@$(call install_fixup, libpv,SECTION,base)
+	@$(call install_fixup, libpv,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libpv,DEPENDS,)
+	@$(call install_fixup, libpv,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBPV_PVTOOL
-	@$(call install_copy, 0, 0, 0755, $(LIBPV_DIR)/src/.libs/pvtool, /usr/bin/pvtool)
+	@$(call install_copy, libpv, 0, 0, 0755, $(LIBPV_DIR)/src/.libs/pvtool, /usr/bin/pvtool)
 endif
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, libpv, 0, 0, 0644, \
 		$(LIBPV_DIR)/src/.libs/libpv.so.8.1.0, \
 		/usr/lib/libpv.so.8.1.0)
 
-	@$(call install_link, libpv.so.8.1.0, /usr/lib/libpv.so.8)
-	@$(call install_link, libpv.so.8.1.0, /usr/lib/libpv.so)
+	@$(call install_link, libpv, libpv.so.8.1.0, /usr/lib/libpv.so.8)
+	@$(call install_link, libpv, libpv.so.8.1.0, /usr/lib/libpv.so)
 
-	@$(call install_finish)
+	@$(call install_finish, libpv)
 
 	@$(call touch, $@)
 

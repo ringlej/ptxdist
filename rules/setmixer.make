@@ -99,18 +99,18 @@ setmixer_targetinstall: $(STATEDIR)/setmixer.targetinstall
 $(STATEDIR)/setmixer.targetinstall: $(setmixer_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,setmixer)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SETMIXER_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, setmixer)
+	@$(call install_fixup, setmixer,PACKAGE,setmixer)
+	@$(call install_fixup, setmixer,PRIORITY,optional)
+	@$(call install_fixup, setmixer,VERSION,$(SETMIXER_VERSION))
+	@$(call install_fixup, setmixer,SECTION,base)
+	@$(call install_fixup, setmixer,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, setmixer,DEPENDS,)
+	@$(call install_fixup, setmixer,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0755, $(SETMIXER_DIR)/setmixer, /usr/bin/setmixer)
+	@$(call install_copy, setmixer, 0, 0, 0755, $(SETMIXER_DIR)/setmixer, /usr/bin/setmixer)
 
-	@$(call install_finish)
+	@$(call install_finish, setmixer)
 
 	@$(call touch, $@)
 

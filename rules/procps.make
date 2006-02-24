@@ -122,37 +122,37 @@ procps_targetinstall: $(STATEDIR)/procps.targetinstall
 $(STATEDIR)/procps.targetinstall: $(procps_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,procps)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PROCPS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, procps)
+	@$(call install_fixup, procps,PACKAGE,procps)
+	@$(call install_fixup, procps,PRIORITY,optional)
+	@$(call install_fixup, procps,VERSION,$(PROCPS_VERSION))
+	@$(call install_fixup, procps,SECTION,base)
+	@$(call install_fixup, procps,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, procps,DEPENDS,)
+	@$(call install_fixup, procps,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(PROCPS_DIR)/proc/libproc-3.2.4.so, /usr/lib/libproc-3.2.4.so)
+	@$(call install_copy, procps, 0, 0, 0644, $(PROCPS_DIR)/proc/libproc-3.2.4.so, /usr/lib/libproc-3.2.4.so)
 
 ifdef PTXCONF_PROCPS_TOP
-	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/top, /usr/bin/top)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/top, /usr/bin/top)
 endif
 
 ifdef PTXCONF_PROCPS_SLABTOP
-	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/slabtop, /usr/bin/slabtop)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/slabtop, /usr/bin/slabtop)
 endif
 ifdef PTXCONF_PROCPS_SYSCTL
-	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/sysctl, /sbin/sysctl)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/sysctl, /sbin/sysctl)
 endif
 ifdef PTXCONF_PROCPS_PS
-	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/ps/ps, /sbin/ps)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/ps/ps, /sbin/ps)
 endif
 ifdef PTXCONF_PROCPS_W
-	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/w, /sbin/w)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/w, /sbin/w)
 endif
 ifdef PTXCONF_PROCPS_PGREP
-	@$(call install_copy, 0, 0, 0755, $(PROCPS_DIR)/pgrep, /sbin/pgrep)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/pgrep, /sbin/pgrep)
 endif
-	@$(call install_finish)
+	@$(call install_finish, procps)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

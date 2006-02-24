@@ -102,19 +102,19 @@ $(STATEDIR)/figlet.targetinstall: $(figlet_targetinstall_deps_default)
 
 	rm -f $(ROOTDIR)/usr/sbin/figlet $(ROOTDIR)/usr/share/figlet/*
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,figlet)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(FIGLET_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, figlet)
+	@$(call install_fixup, figlet,PACKAGE,figlet)
+	@$(call install_fixup, figlet,PRIORITY,optional)
+	@$(call install_fixup, figlet,VERSION,$(FIGLET_VERSION))
+	@$(call install_fixup, figlet,SECTION,base)
+	@$(call install_fixup, figlet,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, figlet,DEPENDS,)
+	@$(call install_fixup, figlet,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(FIGLET_DIR)/figlet, /usr/sbin/figlet)
-	@$(call install_copy, 0, 0, 0644, $(FIGLET_DIR)/fonts/standard.flf, /usr/share/figlet/standard.flf, n)
+	@$(call install_copy, figlet, 0, 0, 0755, $(FIGLET_DIR)/figlet, /usr/sbin/figlet)
+	@$(call install_copy, figlet, 0, 0, 0644, $(FIGLET_DIR)/fonts/standard.flf, /usr/share/figlet/standard.flf, n)
 
-	@$(call install_finish)
+	@$(call install_finish, figlet)
 
 	@$(call touch, $@)
 

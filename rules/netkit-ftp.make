@@ -119,18 +119,18 @@ netkit-ftp_targetinstall: $(STATEDIR)/netkit-ftp.targetinstall
 $(STATEDIR)/netkit-ftp.targetinstall: $(netkit-ftp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,netkit-ftp)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(NETKIT-FTP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,libc)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, netkit-ftp)
+	@$(call install_fixup, netkit-ftp,PACKAGE,netkit-ftp)
+	@$(call install_fixup, netkit-ftp,PRIORITY,optional)
+	@$(call install_fixup, netkit-ftp,VERSION,$(NETKIT-FTP_VERSION))
+	@$(call install_fixup, netkit-ftp,SECTION,base)
+	@$(call install_fixup, netkit-ftp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, netkit-ftp,DEPENDS,libc)
+	@$(call install_fixup, netkit-ftp,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(NETKIT-FTP_DIR)/ftp/ftp, /bin/ftp)
+	@$(call install_copy, netkit-ftp, 0, 0, 0755, $(NETKIT-FTP_DIR)/ftp/ftp, /bin/ftp)
 
-	@$(call install_finish)
+	@$(call install_finish, netkit-ftp)
 
 	@$(call touch, $@)
 

@@ -107,28 +107,28 @@ hrtimers-support_targetinstall: $(STATEDIR)/hrtimers-support.targetinstall
 $(STATEDIR)/hrtimers-support.targetinstall: $(hrtimers-support_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,hrtimers-support)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(HRTIMERS_SUPPORT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, hrtimers-support)
+	@$(call install_fixup, hrtimers-support,PACKAGE,hrtimers-support)
+	@$(call install_fixup, hrtimers-support,PRIORITY,optional)
+	@$(call install_fixup, hrtimers-support,VERSION,$(HRTIMERS_SUPPORT_VERSION))
+	@$(call install_fixup, hrtimers-support,SECTION,base)
+	@$(call install_fixup, hrtimers-support,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, hrtimers-support,DEPENDS,)
+	@$(call install_fixup, hrtimers-support,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, hrtimers-support, 0, 0, 0644, \
 		$(HRTIMERS_SUPPORT_DIR)/lib/.libs/libposix-time.so.1.0.0, \
 		/usr/lib/libposix-time.so.1.0.0)
 
-	@$(call install_link, \
+	@$(call install_link, hrtimers-support, \
 		libposix-time.so.1.0.0, \
 		/usr/lib/libposix-time.so.1)
 
-	@$(call install_link, \
+	@$(call install_link, hrtimers-support, \
 		libposix-time.so.1.0.0, \
 		/usr/lib/libposix-time.so)
 
-	@$(call install_finish)
+	@$(call install_finish, hrtimers-support)
 
 	@$(call touch, $@)
 

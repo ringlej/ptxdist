@@ -108,22 +108,22 @@ atk_targetinstall: $(STATEDIR)/atk.targetinstall
 $(STATEDIR)/atk.targetinstall: $(atk_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,atk)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(ATK_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, atk)
+	@$(call install_fixup, atk,PACKAGE,atk)
+	@$(call install_fixup, atk,PRIORITY,optional)
+	@$(call install_fixup, atk,VERSION,$(ATK_VERSION))
+	@$(call install_fixup, atk,SECTION,base)
+	@$(call install_fixup, atk,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, atk,DEPENDS,)
+	@$(call install_fixup, atk,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, atk, 0, 0, 0644, \
 		$(ATK_DIR)/atk/.libs/libatk-1.0.so.0.$(ATK_LIB_VERSION), \
 		/usr/lib/libatk-1.0.so.o.$(ATK_LIB_VERSION))
-	@$(call install_link, libatk-1.0.so.0.$(ATK_LIB_VERSION), /usr/lib/libatk-1.0.so.0)
-	@$(call install_link, libatk-1.0.so.0.$(ATK_LIB_VERSION), /usr/lib/libatk-1.0.so)
+	@$(call install_link, atk, libatk-1.0.so.0.$(ATK_LIB_VERSION), /usr/lib/libatk-1.0.so.0)
+	@$(call install_link, atk, libatk-1.0.so.0.$(ATK_LIB_VERSION), /usr/lib/libatk-1.0.so)
 
-	@$(call install_finish)
+	@$(call install_finish, atk)
 
 	@$(call touch, $@)
 

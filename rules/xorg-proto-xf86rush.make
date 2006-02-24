@@ -106,16 +106,16 @@ xorg-proto-xf86rush_targetinstall: $(STATEDIR)/xorg-proto-xf86rush.targetinstall
 $(STATEDIR)/xorg-proto-xf86rush.targetinstall: $(xorg-proto-xf86rush_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-xf86rush)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_XF86RUSH_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-xf86rush)
+	@$(call install_fixup, xorg-proto-xf86rush,PACKAGE,xorg-proto-xf86rush)
+	@$(call install_fixup, xorg-proto-xf86rush,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-xf86rush,VERSION,$(XORG_PROTO_XF86RUSH_VERSION))
+	@$(call install_fixup, xorg-proto-xf86rush,SECTION,base)
+	@$(call install_fixup, xorg-proto-xf86rush,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-xf86rush,DEPENDS,)
+	@$(call install_fixup, xorg-proto-xf86rush,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-xf86rush)
 
 	@$(call touch, $@)
 

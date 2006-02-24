@@ -106,23 +106,23 @@ libmodbus_targetinstall: $(STATEDIR)/libmodbus.targetinstall
 $(STATEDIR)/libmodbus.targetinstall: $(libmodbus_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libmodbus)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBMODBUS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libmodbus)
+	@$(call install_fixup, libmodbus,PACKAGE,libmodbus)
+	@$(call install_fixup, libmodbus,PRIORITY,optional)
+	@$(call install_fixup, libmodbus,VERSION,$(LIBMODBUS_VERSION))
+	@$(call install_fixup, libmodbus,SECTION,base)
+	@$(call install_fixup, libmodbus,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libmodbus,DEPENDS,)
+	@$(call install_fixup, libmodbus,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, libmodbus, 0, 0, 0644, \
 		$(LIBMODBUS_DIR)/src/.libs/libmodbus.so.0.0.0, \
 		/usr/lib/libmodbus.so.0.0.0, y)
 
-	@$(call install_link, libmodbus.so.0.0.0, /usr/lib/libmodbus.so.0)
-	@$(call install_link, libmodbus.so.0.0.0, /usr/lib/libmodbus.so)
+	@$(call install_link, libmodbus, libmodbus.so.0.0.0, /usr/lib/libmodbus.so.0)
+	@$(call install_link, libmodbus, libmodbus.so.0.0.0, /usr/lib/libmodbus.so)
 
-	@$(call install_finish)
+	@$(call install_finish, libmodbus)
 
 	@$(call touch, $@)
 

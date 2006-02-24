@@ -106,18 +106,18 @@ xorg-lib-lbxutil_targetinstall: $(STATEDIR)/xorg-lib-lbxutil.targetinstall
 $(STATEDIR)/xorg-lib-lbxutil.targetinstall: $(xorg-lib-lbxutil_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-lbxutil)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_LBXUTIL_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-lbxutil)
+	@$(call install_fixup, xorg-lib-lbxutil,PACKAGE,xorg-lib-lbxutil)
+	@$(call install_fixup, xorg-lib-lbxutil,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-lbxutil,VERSION,$(XORG_LIB_LBXUTIL_VERSION))
+	@$(call install_fixup, xorg-lib-lbxutil,SECTION,base)
+	@$(call install_fixup, xorg-lib-lbxutil,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-lbxutil,DEPENDS,)
+	@$(call install_fixup, xorg-lib-lbxutil,DESCRIPTION,missing)
 
 # FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-lbxutil)
 
 	@$(call touch, $@)
 

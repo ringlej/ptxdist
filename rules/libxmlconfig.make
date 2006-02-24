@@ -106,20 +106,20 @@ libxmlconfig_targetinstall: $(STATEDIR)/libxmlconfig.targetinstall
 $(STATEDIR)/libxmlconfig.targetinstall: $(libxmlconfig_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libxmlconfig)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBXMLCONFIG_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libxmlconfig)
+	@$(call install_fixup, libxmlconfig,PACKAGE,libxmlconfig)
+	@$(call install_fixup, libxmlconfig,PRIORITY,optional)
+	@$(call install_fixup, libxmlconfig,VERSION,$(LIBXMLCONFIG_VERSION))
+	@$(call install_fixup, libxmlconfig,SECTION,base)
+	@$(call install_fixup, libxmlconfig,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libxmlconfig,DEPENDS,)
+	@$(call install_fixup, libxmlconfig,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(LIBXMLCONFIG_DIR)/.libs/libxmlconfig.so.0.0.0, /usr/lib/libxmlconfig.so.0.0.0)
-	@$(call install_link, libxmlconfig.so.0.0.0, /usr/lib/libxmlconfig.so.0)
-	@$(call install_link, libxmlconfig.so.0.0.0, /usr/lib/libxmlconfig.so)
+	@$(call install_copy, libxmlconfig, 0, 0, 0644, $(LIBXMLCONFIG_DIR)/.libs/libxmlconfig.so.0.0.0, /usr/lib/libxmlconfig.so.0.0.0)
+	@$(call install_link, libxmlconfig, libxmlconfig.so.0.0.0, /usr/lib/libxmlconfig.so.0)
+	@$(call install_link, libxmlconfig, libxmlconfig.so.0.0.0, /usr/lib/libxmlconfig.so)
 
-	@$(call install_finish)
+	@$(call install_finish, libxmlconfig)
 
 	@$(call touch, $@)
 

@@ -106,18 +106,18 @@ xorg-driver-input-keyboard_targetinstall: $(STATEDIR)/xorg-driver-input-keyboard
 $(STATEDIR)/xorg-driver-input-keyboard.targetinstall: $(xorg-driver-input-keyboard_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-driver-input-keyboard)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_DRIVER_INPUT_KEYBOARD_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-driver-input-keyboard)
+	@$(call install_fixup, xorg-driver-input-keyboard,PACKAGE,xorg-driver-input-keyboard)
+	@$(call install_fixup, xorg-driver-input-keyboard,PRIORITY,optional)
+	@$(call install_fixup, xorg-driver-input-keyboard,VERSION,$(XORG_DRIVER_INPUT_KEYBOARD_VERSION))
+	@$(call install_fixup, xorg-driver-input-keyboard,SECTION,base)
+	@$(call install_fixup, xorg-driver-input-keyboard,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-driver-input-keyboard,DEPENDS,)
+	@$(call install_fixup, xorg-driver-input-keyboard,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(XORG_DRIVER_INPUT_KEYBOARD_DIR)/src/.libs/keyboard_drv.so, /usr/lib/xorg/modules/keyboard_drv.so)
+	@$(call install_copy, xorg-driver-input-keyboard, 0, 0, 0755, $(XORG_DRIVER_INPUT_KEYBOARD_DIR)/src/.libs/keyboard_drv.so, /usr/lib/xorg/modules/keyboard_drv.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-driver-input-keyboard)
 
 	@$(call touch, $@)
 

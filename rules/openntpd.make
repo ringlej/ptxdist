@@ -115,18 +115,18 @@ openntpd_targetinstall: $(STATEDIR)/openntpd.targetinstall
 $(STATEDIR)/openntpd.targetinstall: $(openntpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,openntpd)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(OPENNTPD_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Bjoern Buerger <b.buerger\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, openntpd)
+	@$(call install_fixup, openntpd,PACKAGE,openntpd)
+	@$(call install_fixup, openntpd,PRIORITY,optional)
+	@$(call install_fixup, openntpd,VERSION,$(OPENNTPD_VERSION))
+	@$(call install_fixup, openntpd,SECTION,base)
+	@$(call install_fixup, openntpd,AUTHOR,"Bjoern Buerger <b.buerger\@pengutronix.de>")
+	@$(call install_fixup, openntpd,DEPENDS,)
+	@$(call install_fixup, openntpd,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(OPENNTPD_DIR)/ntpd, /usr/sbin/ntpd)
+	@$(call install_copy, openntpd, 0, 0, 0755, $(OPENNTPD_DIR)/ntpd, /usr/sbin/ntpd)
 
-	@$(call install_finish)
+	@$(call install_finish, openntpd)
 
 	@$(call touch, $@)
 

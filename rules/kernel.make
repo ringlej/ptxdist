@@ -316,45 +316,45 @@ $(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.compile
 	@$(call targetinfo, $@)
 
 ifdef  PTXCONF_KERNEL_TARGET_INSTALL
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,kernel)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(KERNEL_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,  kernel)
+	@$(call install_fixup, kernel, PACKAGE, kernel)
+	@$(call install_fixup, kernel, PRIORITY,optional)
+	@$(call install_fixup, kernel, VERSION,$(KERNEL_VERSION))
+	@$(call install_fixup, kernel, SECTION,base)
+	@$(call install_fixup, kernel, AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, kernel, DEPENDS,)
+	@$(call install_fixup, kernel, DESCRIPTION,missing)
 
 	for i in $(KERNEL_TARGET_PATH); do 				\
 		if [ -f $$i ]; then					\
-			$(call install_copy, 0, 0, 0644, $$i, /boot/$(KERNEL_TARGET), n)\
+			$(call install_copy, KERNEL, 0, 0, 0644, $$i, /boot/$(KERNEL_TARGET), n)\
 		fi;							\
 	done
-	@$(call install_finish)
+	@$(call install_finish, KERNEL)
 endif
 ifdef PTXCONF_KERNEL_TARGET_INSTALL_MODULES
 	rm -fr $(KERNEL_INST_DIR)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,kernel-modules)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(KERNEL_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init,  kernel)
+	@$(call install_fixup, kernel, PACKAGE,kernel-modules)
+	@$(call install_fixup, kernel, PRIORITY,optional)
+	@$(call install_fixup, kernel, VERSION,$(KERNEL_VERSION))
+	@$(call install_fixup, kernel, SECTION,base)
+	@$(call install_fixup, kernel, AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, kernel, DEPENDS,)
+	@$(call install_fixup, kernel, DESCRIPTION,missing)
 
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make 			\
 		modules_install $(KERNEL_MAKEVARS) INSTALL_MOD_PATH=$(KERNEL_INST_DIR)
 
 	cd $(KERNEL_INST_DIR) &&					\
 		for file in `find . -type f | sed -e "s/\.\//\//g"`; do	\
-			$(call install_copy, 0, 0, 0664, $(KERNEL_INST_DIR)/$$file, $$file, n) \
+			$(call install_copy, KERNEL, 0, 0, 0664, $(KERNEL_INST_DIR)/$$file, $$file, n) \
 		done
 
 	rm -fr $(KERNEL_INST_DIR)
 
-	@$(call install_finish)
+	@$(call install_finish, kernel)
 endif
 	@$(call touch, $@)
 

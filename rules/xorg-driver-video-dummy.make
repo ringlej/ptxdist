@@ -106,18 +106,18 @@ xorg-driver-video-dummy_targetinstall: $(STATEDIR)/xorg-driver-video-dummy.targe
 $(STATEDIR)/xorg-driver-video-dummy.targetinstall: $(xorg-driver-video-dummy_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-driver-video-dummy)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_DRIVER_VIDEO_DUMMY_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-driver-video-dummy)
+	@$(call install_fixup, xorg-driver-video-dummy,PACKAGE,xorg-driver-video-dummy)
+	@$(call install_fixup, xorg-driver-video-dummy,PRIORITY,optional)
+	@$(call install_fixup, xorg-driver-video-dummy,VERSION,$(XORG_DRIVER_VIDEO_DUMMY_VERSION))
+	@$(call install_fixup, xorg-driver-video-dummy,SECTION,base)
+	@$(call install_fixup, xorg-driver-video-dummy,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-driver-video-dummy,DEPENDS,)
+	@$(call install_fixup, xorg-driver-video-dummy,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-driver-video-dummy)
 
 	@$(call touch, $@)
 

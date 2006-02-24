@@ -106,30 +106,30 @@ commoncpp2_targetinstall: $(STATEDIR)/commoncpp2.targetinstall
 $(STATEDIR)/commoncpp2.targetinstall: $(commoncpp2_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,commoncpp2)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(COMMONCPP2_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, commoncpp2)
+	@$(call install_fixup, commoncpp2,PACKAGE,commoncpp2)
+	@$(call install_fixup, commoncpp2,PRIORITY,optional)
+	@$(call install_fixup, commoncpp2,VERSION,$(COMMONCPP2_VERSION))
+	@$(call install_fixup, commoncpp2,SECTION,base)
+	@$(call install_fixup, commoncpp2,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, commoncpp2,DEPENDS,)
+	@$(call install_fixup, commoncpp2,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, commoncpp2, 0, 0, 0644, \
 		$(COMMONCPP2_DIR)/src/.libs/libccgnu2-1.3.so.1.0.18, \
 		/usr/lib/libccgnu2-1.3.so.1.0.18)
 
-	@$(call install_link, libccgnu2-1.3.so.1.0.18, /usr/lib/libccgnu2-1.3.so.1)
-	@$(call install_link, libccgnu2-1.3.so.1.0.18, /usr/lib/libccgnu2-1.3.so)
+	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.18, /usr/lib/libccgnu2-1.3.so.1)
+	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.18, /usr/lib/libccgnu2-1.3.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, commoncpp2, 0, 0, 0644, \
 		$(COMMONCPP2_DIR)/src/.libs/libccext2-1.3.so.1.0.18, \
 		/usr/lib/libccext2-1.3.so.1.0.18)
 
-	@$(call install_link, libccext2-1.3.so.1.0.18, /usr/lib/libccext2-1.3.so.1)
-	@$(call install_link, libccext2-1.3.so.1.0.18, /usr/lib/libccext2-1.3.so)
+	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.18, /usr/lib/libccext2-1.3.so.1)
+	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.18, /usr/lib/libccext2-1.3.so)
 
-	@$(call install_finish)
+	@$(call install_finish, commoncpp2)
 
 	@$(call touch, $@)
 

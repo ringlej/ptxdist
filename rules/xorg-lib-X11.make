@@ -108,28 +108,28 @@ xorg-lib-X11_targetinstall: $(STATEDIR)/xorg-lib-X11.targetinstall
 $(STATEDIR)/xorg-lib-X11.targetinstall: $(xorg-lib-X11_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-x11)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_X11_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-X11)
+	@$(call install_fixup, xorg-lib-X11,PACKAGE,xorg-lib-x11)
+	@$(call install_fixup, xorg-lib-X11,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-X11,VERSION,$(XORG_LIB_X11_VERSION))
+	@$(call install_fixup, xorg-lib-X11,SECTION,base)
+	@$(call install_fixup, xorg-lib-X11,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-X11,DEPENDS,)
+	@$(call install_fixup, xorg-lib-X11,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
 		$(XORG_LIB_X11_DIR)/src/.libs/libX11.so.6.2.0, \
 		$(XORG_LIBDIR)/libX11.so.6.2.0)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-X11, \
 		libX11.so.6.2.0, \
 		$(XORG_LIBDIR)/libX11.so.6)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-X11, \
 		libX11.so.6.2.0, \
 		$(XORG_LIBDIR)/libX11.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-X11)
 
 	@$(call touch, $@)
 

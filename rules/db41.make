@@ -108,21 +108,21 @@ db41_targetinstall: $(STATEDIR)/db41.targetinstall
 $(STATEDIR)/db41.targetinstall: $(db41_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,db41)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(DB41_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, db41)
+	@$(call install_fixup, db41,PACKAGE,db41)
+	@$(call install_fixup, db41,PRIORITY,optional)
+	@$(call install_fixup, db41,VERSION,$(DB41_VERSION))
+	@$(call install_fixup, db41,SECTION,base)
+	@$(call install_fixup, db41,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, db41,DEPENDS,)
+	@$(call install_fixup, db41,DESCRIPTION,missing)
 	
 	# FIXME: RSC: the wildcard will probably break; fix when needed :-) 
 	# FIXME: RSC: use correct paths from the build directories
-	@$(call install_copy, 0, 0, 0755, $(CROSS_LIB_DIR)/bin/db_*, /usr/bin/)
-	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/lib/libdb*.so*, /usr/lib/)
+	@$(call install_copy, db41, 0, 0, 0755, $(CROSS_LIB_DIR)/bin/db_*, /usr/bin/)
+	@$(call install_copy, db41, 0, 0, 0644, $(CROSS_LIB_DIR)/lib/libdb*.so*, /usr/lib/)
 
-	@$(call install_finish)
+	@$(call install_finish, db41)
 
 	@$(call touch, $@)
 

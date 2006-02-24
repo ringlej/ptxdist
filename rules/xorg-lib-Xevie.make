@@ -106,18 +106,18 @@ xorg-lib-Xevie_targetinstall: $(STATEDIR)/xorg-lib-Xevie.targetinstall
 $(STATEDIR)/xorg-lib-Xevie.targetinstall: $(xorg-lib-Xevie_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xevie)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XEVIE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xevie)
+	@$(call install_fixup, xorg-lib-Xevie,PACKAGE,xorg-lib-xevie)
+	@$(call install_fixup, xorg-lib-Xevie,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xevie,VERSION,$(XORG_LIB_XEVIE_VERSION))
+	@$(call install_fixup, xorg-lib-Xevie,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xevie,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xevie,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xevie,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xevie)
 
 	@$(call touch, $@)
 

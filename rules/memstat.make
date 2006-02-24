@@ -105,18 +105,18 @@ memstat_targetinstall: $(STATEDIR)/memstat.targetinstall
 $(STATEDIR)/memstat.targetinstall: $(memstat_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,memstat)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MEMSTAT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, memstat)
+	@$(call install_fixup, memstat,PACKAGE,memstat)
+	@$(call install_fixup, memstat,PRIORITY,optional)
+	@$(call install_fixup, memstat,VERSION,$(MEMSTAT_VERSION))
+	@$(call install_fixup, memstat,SECTION,base)
+	@$(call install_fixup, memstat,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, memstat,DEPENDS,)
+	@$(call install_fixup, memstat,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(MEMSTAT_DIR)/memstat, /usr/bin/memstat)
+	@$(call install_copy, memstat, 0, 0, 0755, $(MEMSTAT_DIR)/memstat, /usr/bin/memstat)
 	
-	@$(call install_finish)
+	@$(call install_finish, memstat)
 
 	@$(call touch, $@)
 

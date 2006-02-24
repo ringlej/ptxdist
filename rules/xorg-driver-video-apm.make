@@ -106,18 +106,18 @@ xorg-driver-video-apm_targetinstall: $(STATEDIR)/xorg-driver-video-apm.targetins
 $(STATEDIR)/xorg-driver-video-apm.targetinstall: $(xorg-driver-video-apm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-driver-video-apm)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_DRIVER_VIDEO_APM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-driver-video-apm)
+	@$(call install_fixup, xorg-driver-video-apm,PACKAGE,xorg-driver-video-apm)
+	@$(call install_fixup, xorg-driver-video-apm,PRIORITY,optional)
+	@$(call install_fixup, xorg-driver-video-apm,VERSION,$(XORG_DRIVER_VIDEO_APM_VERSION))
+	@$(call install_fixup, xorg-driver-video-apm,SECTION,base)
+	@$(call install_fixup, xorg-driver-video-apm,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-driver-video-apm,DEPENDS,)
+	@$(call install_fixup, xorg-driver-video-apm,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-driver-video-apm)
 
 	@$(call touch, $@)
 

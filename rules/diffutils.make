@@ -106,29 +106,29 @@ diffutils_targetinstall: $(STATEDIR)/diffutils.targetinstall
 $(STATEDIR)/diffutils.targetinstall: $(diffutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,diffutils)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(DIFFUTILS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, diffutils)
+	@$(call install_fixup, diffutils,PACKAGE,diffutils)
+	@$(call install_fixup, diffutils,PRIORITY,optional)
+	@$(call install_fixup, diffutils,VERSION,$(DIFFUTILS_VERSION))
+	@$(call install_fixup, diffutils,SECTION,base)
+	@$(call install_fixup, diffutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, diffutils,DEPENDS,)
+	@$(call install_fixup, diffutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_DIFFUTILS_DIFF
-	@$(call install_copy, 0, 0, 0755, $(DIFFUTILS_DIR)/src/diff, /usr/bin/diff)
+	@$(call install_copy, diffutils, 0, 0, 0755, $(DIFFUTILS_DIR)/src/diff, /usr/bin/diff)
 endif
 ifdef PTXCONF_DIFFUTILS_DIFF3
-	@$(call install_copy, 0, 0, 0755, $(DIFFUTILS_DIR)/src/diff3, /usr/bin/diff3)
+	@$(call install_copy, diffutils, 0, 0, 0755, $(DIFFUTILS_DIR)/src/diff3, /usr/bin/diff3)
 endif
 ifdef PTXCONF_DIFFUTILS_SDIFF
-	@$(call install_copy, 0, 0, 0755, $(DIFFUTILS_DIR)/src/diff, /usr/bin/sdiff)
+	@$(call install_copy, diffutils, 0, 0, 0755, $(DIFFUTILS_DIR)/src/diff, /usr/bin/sdiff)
 endif
 ifdef PTXCONF_DIFFUTILS_CMP
-	@$(call install_copy, 0, 0, 0755, $(DIFFUTILS_DIR)/src/cmp, /usr/bin/cmp)
+	@$(call install_copy, diffutils, 0, 0, 0755, $(DIFFUTILS_DIR)/src/cmp, /usr/bin/cmp)
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, diffutils)
 
 	@$(call touch, $@)
 

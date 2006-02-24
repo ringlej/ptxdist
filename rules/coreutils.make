@@ -127,29 +127,29 @@ coreutils_targetinstall: $(STATEDIR)/coreutils.targetinstall
 $(STATEDIR)/coreutils.targetinstall: $(coreutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,coreutils)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(COREUTILS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, coreutils)
+	@$(call install_fixup, coreutils,PACKAGE,coreutils)
+	@$(call install_fixup, coreutils,PRIORITY,optional)
+	@$(call install_fixup, coreutils,VERSION,$(COREUTILS_VERSION))
+	@$(call install_fixup, coreutils,SECTION,base)
+	@$(call install_fixup, coreutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, coreutils,DEPENDS,)
+	@$(call install_fixup, coreutils,DESCRIPTION,missing)
 	
 ifdef PTXCONF_COREUTILS_CP
-	@$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/cp, /bin/cp)
+	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/cp, /bin/cp)
 endif
 ifdef PTXCONF_COREUTILS_DD
-	@$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/dd, /bin/dd)	
+	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/dd, /bin/dd)	
 endif
 ifdef PTXCONF_COREUTILS_MD5SUM
-	@$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/md5sum, /bin/md5sum)
+	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/md5sum, /bin/md5sum)
 endif
 ifdef PTXCONF_COREUTILS_SEQ
-	@$(call install_copy, 0, 0, 0755, $(COREUTILS_DIR)/src/seq, /usr/bin/seq)
+	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/seq, /usr/bin/seq)
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, coreutils)
 
 	@$(call touch, $@)
 

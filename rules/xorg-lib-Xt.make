@@ -109,28 +109,28 @@ xorg-lib-Xt_targetinstall: $(STATEDIR)/xorg-lib-Xt.targetinstall
 $(STATEDIR)/xorg-lib-Xt.targetinstall: $(xorg-lib-Xt_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xt)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xt)
+	@$(call install_fixup, xorg-lib-Xt,PACKAGE,xorg-lib-xt)
+	@$(call install_fixup, xorg-lib-Xt,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xt,VERSION,$(XORG_LIB_XT_VERSION))
+	@$(call install_fixup, xorg-lib-Xt,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xt,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xt,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xt,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-Xt, 0, 0, 0644, \
 		$(XORG_LIB_XT_DIR)/src/.libs/libXt.so.6.0.0, \
 		$(XORG_LIBDIR)/libXt.so.6.0.0)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xt, \
 		libXt.so.6.0.0, \
 		$(XORG_LIBDIR)/libXt.so.6)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xt, \
 		libXt.so.6.0.0, \
 		$(XORG_LIBDIR)/libXt.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xt)
 
 	@$(call touch, $@)
 

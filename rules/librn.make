@@ -109,20 +109,20 @@ librn_targetinstall: $(STATEDIR)/librn.targetinstall
 $(STATEDIR)/librn.targetinstall: $(librn_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,librn)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBRN_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, librn)
+	@$(call install_fixup, librn,PACKAGE,librn)
+	@$(call install_fixup, librn,PRIORITY,optional)
+	@$(call install_fixup, librn,VERSION,$(LIBRN_VERSION))
+	@$(call install_fixup, librn,SECTION,base)
+	@$(call install_fixup, librn,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, librn,DEPENDS,)
+	@$(call install_fixup, librn,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(LIBRN_DIR)/src/.libs/librn.so.0.1.1, /usr/lib/librn.so.0.1.1)
-	@$(call install_link, librn.so.0.1.1, /usr/lib/librn.so.0)
-	@$(call install_link, librn.so.0.1.1, /usr/lib/librn.so)
+	@$(call install_copy, librn, 0, 0, 0644, $(LIBRN_DIR)/src/.libs/librn.so.0.1.1, /usr/lib/librn.so.0.1.1)
+	@$(call install_link, librn, librn.so.0.1.1, /usr/lib/librn.so.0)
+	@$(call install_link, librn, librn.so.0.1.1, /usr/lib/librn.so)
 
-	@$(call install_finish)
+	@$(call install_finish, librn)
 
 	@$(call touch, $@)
 

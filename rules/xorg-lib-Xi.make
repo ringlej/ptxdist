@@ -108,18 +108,18 @@ xorg-lib-Xi_targetinstall: $(STATEDIR)/xorg-lib-Xi.targetinstall
 $(STATEDIR)/xorg-lib-Xi.targetinstall: $(xorg-lib-Xi_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xi)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XI_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xi)
+	@$(call install_fixup, xorg-lib-Xi,PACKAGE,xorg-lib-xi)
+	@$(call install_fixup, xorg-lib-Xi,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xi,VERSION,$(XORG_LIB_XI_VERSION))
+	@$(call install_fixup, xorg-lib-Xi,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xi,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xi,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xi,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xi)
 
 	@$(call touch, $@)
 

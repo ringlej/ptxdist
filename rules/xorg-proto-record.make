@@ -106,16 +106,16 @@ xorg-proto-record_targetinstall: $(STATEDIR)/xorg-proto-record.targetinstall
 $(STATEDIR)/xorg-proto-record.targetinstall: $(xorg-proto-record_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-record)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_RECORD_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-record)
+	@$(call install_fixup, xorg-proto-record,PACKAGE,xorg-proto-record)
+	@$(call install_fixup, xorg-proto-record,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-record,VERSION,$(XORG_PROTO_RECORD_VERSION))
+	@$(call install_fixup, xorg-proto-record,SECTION,base)
+	@$(call install_fixup, xorg-proto-record,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-record,DEPENDS,)
+	@$(call install_fixup, xorg-proto-record,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-record)
 
 	@$(call touch, $@)
 

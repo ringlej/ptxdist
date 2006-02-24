@@ -109,18 +109,18 @@ xalf_targetinstall: $(STATEDIR)/xalf.targetinstall
 $(STATEDIR)/xalf.targetinstall: $(xalf_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xalf)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XALF_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xalf)
+	@$(call install_fixup, xalf,PACKAGE,xalf)
+	@$(call install_fixup, xalf,PRIORITY,optional)
+	@$(call install_fixup, xalf,VERSION,$(XALF_VERSION))
+	@$(call install_fixup, xalf,SECTION,base)
+	@$(call install_fixup, xalf,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xalf,DEPENDS,)
+	@$(call install_fixup, xalf,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(XALF_DIR)/src/xalf, /usr/bin/xalf)
+	@$(call install_copy, xalf, 0, 0, 0755, $(XALF_DIR)/src/xalf, /usr/bin/xalf)
 	
-	@$(call install_finish)
+	@$(call install_finish, xalf)
 
 	@$(call touch, $@)
 

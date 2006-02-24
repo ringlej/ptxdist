@@ -112,19 +112,19 @@ blackbox_targetinstall: $(STATEDIR)/blackbox.targetinstall
 $(STATEDIR)/blackbox.targetinstall: $(blackbox_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,blackbox)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(BLACKBOX_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, blackbox)
+	@$(call install_fixup, blackbox,PACKAGE,blackbox)
+	@$(call install_fixup, blackbox,PRIORITY,optional)
+	@$(call install_fixup, blackbox,VERSION,$(BLACKBOX_VERSION))
+	@$(call install_fixup, blackbox,SECTION,base)
+	@$(call install_fixup, blackbox,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, blackbox,DEPENDS,)
+	@$(call install_fixup, blackbox,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(BLACKBOX_DIR)/src/blackbox, /usr/X11R6/bin/blackbox)
-	@$(call install_copy, 0, 0, 0755, $(BLACKBOX_DIR)/util/bsetroot, /usr/X11R6/bin/bsetroot)
+	@$(call install_copy, blackbox, 0, 0, 0755, $(BLACKBOX_DIR)/src/blackbox, /usr/X11R6/bin/blackbox)
+	@$(call install_copy, blackbox, 0, 0, 0755, $(BLACKBOX_DIR)/util/bsetroot, /usr/X11R6/bin/bsetroot)
 
-	@$(call install_finish)
+	@$(call install_finish, blackbox)
 
 	@$(call touch, $@)
 

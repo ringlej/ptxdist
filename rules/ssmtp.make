@@ -135,18 +135,18 @@ ssmtp_targetinstall: $(STATEDIR)/ssmtp.targetinstall
 $(STATEDIR)/ssmtp.targetinstall: $(ssmtp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,ssmtp)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SSMTP_VERSION)-$(SSMTP_PATCH))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, ssmtp)
+	@$(call install_fixup, ssmtp,PACKAGE,ssmtp)
+	@$(call install_fixup, ssmtp,PRIORITY,optional)
+	@$(call install_fixup, ssmtp,VERSION,$(SSMTP_VERSION)-$(SSMTP_PATCH))
+	@$(call install_fixup, ssmtp,SECTION,base)
+	@$(call install_fixup, ssmtp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ssmtp,DEPENDS,)
+	@$(call install_fixup, ssmtp,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(SSMTP_DIR)/ssmtp, /sbin/ssmtp)
+	@$(call install_copy, ssmtp, 0, 0, 0755, $(SSMTP_DIR)/ssmtp, /sbin/ssmtp)
 
-	@$(call install_finish)
+	@$(call install_finish, ssmtp)
 
 	@$(call touch, $@)
 

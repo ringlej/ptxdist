@@ -168,18 +168,18 @@ sdl_targetinstall: $(STATEDIR)/sdl.targetinstall
 $(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,sdl)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SDL_LIB_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, sdl)
+	@$(call install_fixup, sdl,PACKAGE,sdl)
+	@$(call install_fixup, sdl,PRIORITY,optional)
+	@$(call install_fixup, sdl,VERSION,$(SDL_LIB_VERSION))
+	@$(call install_fixup, sdl,SECTION,base)
+	@$(call install_fixup, sdl,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, sdl,DEPENDS,)
+	@$(call install_fixup, sdl,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, sdl)
 
 	@$(call touch, $@)
 

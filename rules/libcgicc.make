@@ -105,18 +105,18 @@ cgicc_targetinstall: $(STATEDIR)/cgicc.targetinstall
 $(STATEDIR)/cgicc.targetinstall: $(cgicc_targetinstall_deps_default)
 
 	@$(call targetinfo, $@)
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,cgicc)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(CGICC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, cgicc)
+	@$(call install_fixup, cgicc,PACKAGE,cgicc)
+	@$(call install_fixup, cgicc,PRIORITY,optional)
+	@$(call install_fixup, cgicc,VERSION,$(CGICC_VERSION))
+	@$(call install_fixup, cgicc,SECTION,base)
+	@$(call install_fixup, cgicc,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, cgicc,DEPENDS,)
+	@$(call install_fixup, cgicc,DESCRIPTION,missing)
 
 	@$(call copy_lib_root, libcgicc.so.1, /usr/lib)
 
-	@$(call install_finish)
+	@$(call install_finish, cgicc)
 
 	@$(call touch, $@)
 

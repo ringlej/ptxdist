@@ -106,18 +106,18 @@ xorg-font-util_targetinstall: $(STATEDIR)/xorg-font-util.targetinstall
 $(STATEDIR)/xorg-font-util.targetinstall: $(xorg-font-util_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-font-util)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_FONT_UTIL_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-font-util)
+	@$(call install_fixup, xorg-font-util,PACKAGE,xorg-font-util)
+	@$(call install_fixup, xorg-font-util,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-util,VERSION,$(XORG_FONT_UTIL_VERSION))
+	@$(call install_fixup, xorg-font-util,SECTION,base)
+	@$(call install_fixup, xorg-font-util,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-font-util,DEPENDS,)
+	@$(call install_fixup, xorg-font-util,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-font-util)
 
 	@$(call touch, $@)
 

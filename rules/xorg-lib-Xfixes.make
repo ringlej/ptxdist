@@ -106,18 +106,18 @@ xorg-lib-Xfixes_targetinstall: $(STATEDIR)/xorg-lib-Xfixes.targetinstall
 $(STATEDIR)/xorg-lib-Xfixes.targetinstall: $(xorg-lib-Xfixes_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xfixes)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XFIXES_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xfixes)
+	@$(call install_fixup, xorg-lib-Xfixes,PACKAGE,xorg-lib-xfixes)
+	@$(call install_fixup, xorg-lib-Xfixes,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xfixes,VERSION,$(XORG_LIB_XFIXES_VERSION))
+	@$(call install_fixup, xorg-lib-Xfixes,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xfixes,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xfixes,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xfixes,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xfixes)
 
 	@$(call touch, $@)
 

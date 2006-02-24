@@ -108,18 +108,18 @@ xorg-lib-XvMC_targetinstall: $(STATEDIR)/xorg-lib-XvMC.targetinstall
 $(STATEDIR)/xorg-lib-XvMC.targetinstall: $(xorg-lib-XvMC_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xvmc)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XVMC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-XvMC)
+	@$(call install_fixup, xorg-lib-XvMC,PACKAGE,xorg-lib-xvmc)
+	@$(call install_fixup, xorg-lib-XvMC,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-XvMC,VERSION,$(XORG_LIB_XVMC_VERSION))
+	@$(call install_fixup, xorg-lib-XvMC,SECTION,base)
+	@$(call install_fixup, xorg-lib-XvMC,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-XvMC,DEPENDS,)
+	@$(call install_fixup, xorg-lib-XvMC,DESCRIPTION,missing)
 
 # FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-XvMC)
 
 	@$(call touch, $@)
 

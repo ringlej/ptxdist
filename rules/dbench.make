@@ -107,32 +107,32 @@ dbench_targetinstall: $(STATEDIR)/dbench.targetinstall
 $(STATEDIR)/dbench.targetinstall: $(dbench_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,dbench)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(DBENCH_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, dbench)
+	@$(call install_fixup, dbench,PACKAGE,dbench)
+	@$(call install_fixup, dbench,PRIORITY,optional)
+	@$(call install_fixup, dbench,VERSION,$(DBENCH_VERSION))
+	@$(call install_fixup, dbench,SECTION,base)
+	@$(call install_fixup, dbench,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, dbench,DEPENDS,)
+	@$(call install_fixup, dbench,DESCRIPTION,missing)
 
 ifdef PTXCONF_DBENCH_DBENCH
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, dbench, 0, 0, 0755, \
 		$(DBENCH_DIR)/dbench, \
 		$(PTXCONF_TESTSUITE_DIR)/$(DBENCH)/dbench)
 endif
 ifdef PTXCONF_DBENCH_TBENCH
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, dbench, 0, 0, 0755, \
 		$(DBENCH_DIR)/tbench, \
 		$(PTXCONF_TESTSUITE_DIR)/$(DBENCH)/tbench)
 endif
 ifdef PTXCONF_DBENCH_TBENCH_SERVER
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, dbench, 0, 0, 0755, \
 		$(DBENCH_DIR)/tbench_srv, \
 		$(PTXCONF_TESTSUITE_DIR)/$(DBENCH)/tbench_srv)
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, dbench)
 
 	@$(call touch, $@)
 

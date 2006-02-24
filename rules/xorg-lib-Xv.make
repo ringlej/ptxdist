@@ -108,18 +108,18 @@ xorg-lib-Xv_targetinstall: $(STATEDIR)/xorg-lib-Xv.targetinstall
 $(STATEDIR)/xorg-lib-Xv.targetinstall: $(xorg-lib-Xv_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xv)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XV_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xv)
+	@$(call install_fixup, xorg-lib-Xv,PACKAGE,xorg-lib-xv)
+	@$(call install_fixup, xorg-lib-Xv,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xv,VERSION,$(XORG_LIB_XV_VERSION))
+	@$(call install_fixup, xorg-lib-Xv,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xv,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xv,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xv,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xv)
 
 	@$(call touch, $@)
 

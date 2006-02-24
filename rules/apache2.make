@@ -142,64 +142,64 @@ apache2_targetinstall: $(STATEDIR)/apache2.targetinstall
 $(STATEDIR)/apache2.targetinstall: $(apache2_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,apache2)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(APACHE2_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, apache2)
+	@$(call install_fixup, apache2,PACKAGE,apache2)
+	@$(call install_fixup, apache2,PRIORITY,optional)
+	@$(call install_fixup, apache2,VERSION,$(APACHE2_VERSION))
+	@$(call install_fixup, apache2,SECTION,base)
+	@$(call install_fixup, apache2,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, apache2,DEPENDS,)
+	@$(call install_fixup, apache2,DESCRIPTION,missing)
 
 	# the server binary
-	@$(call install_copy, 0, 0, 0755, $(APACHE2_DIR)/.libs/httpd, /usr/sbin/apache2)
+	@$(call install_copy, apache2, 0, 0, 0755, $(APACHE2_DIR)/.libs/httpd, /usr/sbin/apache2)
 
 	# and some needed shared libraries
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, apache2, 0, 0, 0644, \
 		$(APACHE2_DIR)/srclib/apr-util/.libs/libaprutil-0.so.0.9.7, \
 		/usr/lib/libaprutil-0.so.0.9.7)
-	@$(call install_link, libaprutil-0.so.0.9.7, /usr/lib/libaprutil-0.so.0.9)
-	@$(call install_link, libaprutil-0.so.0.9.7, /usr/lib/libaprutil-0.so.0)
+	@$(call install_link, apache2, libaprutil-0.so.0.9.7, /usr/lib/libaprutil-0.so.0.9)
+	@$(call install_link, apache2, libaprutil-0.so.0.9.7, /usr/lib/libaprutil-0.so.0)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, apache2, 0, 0, 0644, \
 		$(APACHE2_DIR)/srclib/apr/.libs/libapr-0.so.0.9.7, \
 		/usr/lib/libapr-0.so.0.9.7)
-	@$(call install_link, libapr-0.so.0.9.7, /usr/lib/libapr-0.so.0.9)
-	@$(call install_link, libapr-0.so.0.9.7, /usr/lib/libapr-0.so.0)
+	@$(call install_link, apache2, libapr-0.so.0.9.7, /usr/lib/libapr-0.so.0.9)
+	@$(call install_link, apache2, libapr-0.so.0.9.7, /usr/lib/libapr-0.so.0)
 
 ifneq ($(PTXCONF_APACHE2_SERVERROOT),"")
-	@$(call install_copy, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT))
+	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT))
 
 	# TODO: are the icons needed? (or are all icons required?)
 
-	@$(call install_copy, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons)
+	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons)
 	@cd $(APACHE2_DIR)/docs/icons; \
 	for i in *.gif *.png; do \
-		$(call install_copy, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/$$i,n); \
+		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/$$i,n); \
 	done
-	@$(call install_copy, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons/small)
+	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons/small)
 	@cd $(APACHE2_DIR)/docs/icons/small; \
 	for i in *.gif *.png; do \
-		$(call install_copy, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i,n); \
+		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i,n); \
 	done
-	@$(call install_copy, 12, 102, 0644, \
+	@$(call install_copy, apache2, 12, 102, 0644, \
 		$(APACHE2_DIR)/docs/conf/mime.types, \
 		$(PTXCONF_APACHE2_SERVERROOT)/conf/mime.types,n)
 endif
 
 ifneq ($(PTXCONF_APACHE2_DOCUMENTROOT),"")
-	@$(call install_copy, 12, 102, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
+	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
 ifdef PTXCONF_APACHE2_DEFAULT_INDEX
-	@$(call install_copy, 12, 102, 0644, \
+	@$(call install_copy, apache2, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/projects/generic/index.html, \
 		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html,n)
 endif
 endif
 
 ifneq ($(PTXCONF_APACHE2_CONFIGDIR),"")
-	@$(call install_copy, 12, 102, 0755, $(PTXCONF_APACHE2_CONFIGDIR))
+	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_CONFIGDIR))
 
-	@$(call install_copy, 12, 102, 0644, \
+	@$(call install_copy, apache2, 12, 102, 0644, \
 		$(APACHE2_DIR)/docs/conf/magic, \
 		$(PTXCONF_APACHE2_CONFIGDIR)/magic,n)
 
@@ -217,13 +217,13 @@ ifdef PTXCONF_APACHE2_DEFAULTCONFIG
 	perl -i -p -e "s,\@SERVERNAME@,$(PTXCONF_APACHE2_SERVERNAME),g" $(APACHE2_DIR)/httpd.conf
 
 	@echo "installing default config file..."
-	@$(call install_copy, 12, 102, 0644, \
+	@$(call install_copy, apache2, 12, 102, 0644, \
 		$(APACHE2_DIR)/httpd.conf, \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,n)
 else
 ifneq ($(PTXCONF_APACHE2_USERCONFIG), "")
 	@echo "installing user config file..."
-	@$(call install_copy, 12, 102, 0644, \
+	@$(call install_copy, apache2, 12, 102, 0644, \
 		$(PTXCONF_APACHE2_USERCONFIG), \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,n)
 endif
@@ -231,22 +231,22 @@ endif
 endif
 
 ifneq ($(PTXCONF_APACHE2_LOGDIR),"")
-	@$(call install_copy, 12, 102, 0755, $(PTXCONF_APACHE2_LOGDIR))
+	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_LOGDIR))
 endif
 ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
 ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE)),)
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE), /etc/init.d/httpd, n)
+	@$(call install_copy, apache2, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE), /etc/init.d/httpd, n)
 else
 	@cp $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/httpd $(APACHE2_DIR)/init_httpd
 	@perl -i -p -e "s,\@APACHECONFIG@,$(call remove_quotes,$(PTXCONF_APACHE2_CONFIGDIR))/httpd.conf,g" $(APACHE2_DIR)/init_httpd
 	@perl -i -p -e "s,\@LOGPATH@,$(call remove_quotes,$(PTXCONF_APACHE2_LOGDIR))/httpd.conf,g" $(APACHE2_DIR)/init_httpd
-	@$(call install_copy, 0, 0, 0755, $(APACHE2_DIR)/init_httpd, /etc/init.d/httpd, n)
+	@$(call install_copy, apache2, 0, 0, 0755, $(APACHE2_DIR)/init_httpd, /etc/init.d/httpd, n)
 endif
 endif
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
-	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, ../init.d/httpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
+	@$(call install_copy, apache2, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, apache2, ../init.d/httpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
 endif
 
 # #
@@ -256,16 +256,16 @@ endif
 # ifdef ROOTFS_HTTPD_USER_DOC
 # 	@cd $(PTXCONF_ROOTFS_HTTPD_USER_DOC_PATH); \
 # 	for i in *.html *.gif *.png; do \
-# 		$(call install_copy, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/$$i,n); \
+# 		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/$$i,n); \
 # 	done
 # else
-# 	$(call install_copy, 12,102,0644,$(PTXDIST_TOPDIR)/projetcs/generic/index.html,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/index.html,n)
+# 	$(call install_copy, apache2, 12,102,0644,$(PTXDIST_TOPDIR)/projetcs/generic/index.html,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/index.html,n)
 # endif
-# 	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin)
-# 	@$(call install_copy, 12,102,0644,$(APACHE2_DIR)/doc/cgi-examples/test-cgi,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin,n)
-# 	@$(call install_copy, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/log)
+# 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin)
+# 	@$(call install_copy, apache2, 12,102,0644,$(APACHE2_DIR)/doc/cgi-examples/test-cgi,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin,n)
+# 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/log)
 
-	@$(call install_finish)
+	@$(call install_finish, apache2)
 
 	@$(call touch, $@)
 

@@ -106,16 +106,16 @@ xorg-proto-windowswm_targetinstall: $(STATEDIR)/xorg-proto-windowswm.targetinsta
 $(STATEDIR)/xorg-proto-windowswm.targetinstall: $(xorg-proto-windowswm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-windowswm)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_WINDOWSWM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-windowswm)
+	@$(call install_fixup, xorg-proto-windowswm,PACKAGE,xorg-proto-windowswm)
+	@$(call install_fixup, xorg-proto-windowswm,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-windowswm,VERSION,$(XORG_PROTO_WINDOWSWM_VERSION))
+	@$(call install_fixup, xorg-proto-windowswm,SECTION,base)
+	@$(call install_fixup, xorg-proto-windowswm,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-windowswm,DEPENDS,)
+	@$(call install_fixup, xorg-proto-windowswm,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-windowswm)
 
 	@$(call touch, $@)
 

@@ -96,22 +96,22 @@ sysutils_targetinstall: $(STATEDIR)/sysutils.targetinstall
 $(STATEDIR)/sysutils.targetinstall: $(sysutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,sysutils)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SYSUTILS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, sysutils)
+	@$(call install_fixup, sysutils,PACKAGE,sysutils)
+	@$(call install_fixup, sysutils,PRIORITY,optional)
+	@$(call install_fixup, sysutils,VERSION,$(SYSUTILS_VERSION))
+	@$(call install_fixup, sysutils,SECTION,base)
+	@$(call install_fixup, sysutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, sysutils,DEPENDS,)
+	@$(call install_fixup, sysutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_SYSUTILS_LSBUS
-	@$(call install_copy, 0, 0, 0755, $(SYSUTILS_DIR)/cmd/lsbus, /usr/sbin/lsbus)
+	@$(call install_copy, sysutils, 0, 0, 0755, $(SYSUTILS_DIR)/cmd/lsbus, /usr/sbin/lsbus)
 endif
 ifdef PTXCONF_SYSUTILS_SYSTOOL
-	@$(call install_copy, 0, 0, 0755, $(SYSUTILS_DIR)/cmd/systool, /usr/sbin/systool)
+	@$(call install_copy, sysutils, 0, 0, 0755, $(SYSUTILS_DIR)/cmd/systool, /usr/sbin/systool)
 endif
-	@$(call install_finish)
+	@$(call install_finish, sysutils)
 
 	@$(call touch, $@)
 

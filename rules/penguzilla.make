@@ -107,26 +107,26 @@ penguzilla_targetinstall: $(STATEDIR)/penguzilla.targetinstall
 $(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,penguzilla)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PENGUZILLA_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, penguzilla)
+	@$(call install_fixup, penguzilla,PACKAGE,penguzilla)
+	@$(call install_fixup, penguzilla,PRIORITY,optional)
+	@$(call install_fixup, penguzilla,VERSION,$(PENGUZILLA_VERSION))
+	@$(call install_fixup, penguzilla,SECTION,base)
+	@$(call install_fixup, penguzilla,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, penguzilla,DEPENDS,)
+	@$(call install_fixup, penguzilla,DESCRIPTION,missing)
 
 # 	# pixmap directory
 	for file in $(PENGUZILLA_DIR)/pixmaps/*; do 						\
-		$(call install_copy, 0, 0, 0644, $$file, /usr/share/penguzilla/pixmaps/)	\
+		$(call install_copy, penguzilla, 0, 0, 0644, $$file, /usr/share/penguzilla/pixmaps/)	\
 	done
 
-	@$(call install_copy, 0, 0, 0755, $(PENGUZILLA_DIR)/src/penguzilla, /usr/bin/penguzilla)
+	@$(call install_copy, penguzilla, 0, 0, 0755, $(PENGUZILLA_DIR)/src/penguzilla, /usr/bin/penguzilla)
 
 # 	# Style
-	@$(call install_copy, 0, 0, 0644, $(PENGUZILLA_DIR)/penguzilla.rc, /usr/share/penguzilla/penguzillarc, n)
+	@$(call install_copy, penguzilla, 0, 0, 0644, $(PENGUZILLA_DIR)/penguzilla.rc, /usr/share/penguzilla/penguzillarc, n)
 
-	@$(call install_finish)
+	@$(call install_finish, penguzilla)
 
 	@$(call touch, $@)
 

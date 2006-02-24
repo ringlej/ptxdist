@@ -106,16 +106,16 @@ xorg-proto-scrnsaver_targetinstall: $(STATEDIR)/xorg-proto-scrnsaver.targetinsta
 $(STATEDIR)/xorg-proto-scrnsaver.targetinstall: $(xorg-proto-scrnsaver_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-scrnsaver)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_SCRNSAVER_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-scrnsaver)
+	@$(call install_fixup, xorg-proto-scrnsaver,PACKAGE,xorg-proto-scrnsaver)
+	@$(call install_fixup, xorg-proto-scrnsaver,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-scrnsaver,VERSION,$(XORG_PROTO_SCRNSAVER_VERSION))
+	@$(call install_fixup, xorg-proto-scrnsaver,SECTION,base)
+	@$(call install_fixup, xorg-proto-scrnsaver,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-scrnsaver,DEPENDS,)
+	@$(call install_fixup, xorg-proto-scrnsaver,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-scrnsaver)
 
 	@$(call touch, $@)
 

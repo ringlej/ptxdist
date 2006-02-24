@@ -106,18 +106,18 @@ xorg-lib-FS_targetinstall: $(STATEDIR)/xorg-lib-FS.targetinstall
 $(STATEDIR)/xorg-lib-FS.targetinstall: $(xorg-lib-FS_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-fs)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_FS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-FS)
+	@$(call install_fixup, xorg-lib-FS,PACKAGE,xorg-lib-fs)
+	@$(call install_fixup, xorg-lib-FS,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-FS,VERSION,$(XORG_LIB_FS_VERSION))
+	@$(call install_fixup, xorg-lib-FS,SECTION,base)
+	@$(call install_fixup, xorg-lib-FS,AUTHOR,"Erwin rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-FS,DEPENDS,)
+	@$(call install_fixup, xorg-lib-FS,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-FS)
 
 	@$(call touch, $@)
 

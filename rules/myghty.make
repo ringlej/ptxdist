@@ -104,18 +104,18 @@ myghty_targetinstall: $(STATEDIR)/myghty.targetinstall
 $(STATEDIR)/myghty.targetinstall: $(myghty_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,myghty)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MYGHTY_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, myghty)
+	@$(call install_fixup, myghty,PACKAGE,myghty)
+	@$(call install_fixup, myghty,PRIORITY,optional)
+	@$(call install_fixup, myghty,VERSION,$(MYGHTY_VERSION))
+	@$(call install_fixup, myghty,SECTION,base)
+	@$(call install_fixup, myghty,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, myghty,DEPENDS,)
+	@$(call install_fixup, myghty,DESCRIPTION,missing)
 
-	#@$(call install_copy, 0, 0, 0755, $(MYGHTY_DIR)/foobar, /dev/null)
+	#@$(call install_copy, myghty, 0, 0, 0755, $(MYGHTY_DIR)/foobar, /dev/null)
 
-	@$(call install_finish)
+	@$(call install_finish, myghty)
 
 	@$(call touch, $@)
 

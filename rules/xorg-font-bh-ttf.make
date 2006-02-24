@@ -106,18 +106,18 @@ xorg-font-bh-ttf_targetinstall: $(STATEDIR)/xorg-font-bh-ttf.targetinstall
 $(STATEDIR)/xorg-font-bh-ttf.targetinstall: $(xorg-font-bh-ttf_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-font-bh-ttf)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_FONT_BH_TTF_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-font-bh-ttf)
+	@$(call install_fixup, xorg-font-bh-ttf,PACKAGE,xorg-font-bh-ttf)
+	@$(call install_fixup, xorg-font-bh-ttf,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-bh-ttf,VERSION,$(XORG_FONT_BH_TTF_VERSION))
+	@$(call install_fixup, xorg-font-bh-ttf,SECTION,base)
+	@$(call install_fixup, xorg-font-bh-ttf,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-font-bh-ttf,DEPENDS,)
+	@$(call install_fixup, xorg-font-bh-ttf,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-font-bh-ttf)
 
 	@$(call touch, $@)
 

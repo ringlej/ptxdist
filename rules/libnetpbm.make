@@ -113,23 +113,23 @@ libnetpbm_targetinstall: $(STATEDIR)/libnetpbm.targetinstall
 $(STATEDIR)/libnetpbm.targetinstall: $(libnetpbm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libnetpbm)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBNETPBM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libnetpbm)
+	@$(call install_fixup, libnetpbm,PACKAGE,libnetpbm)
+	@$(call install_fixup, libnetpbm,PRIORITY,optional)
+	@$(call install_fixup, libnetpbm,VERSION,$(LIBNETPBM_VERSION))
+	@$(call install_fixup, libnetpbm,SECTION,base)
+	@$(call install_fixup, libnetpbm,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libnetpbm,DEPENDS,)
+	@$(call install_fixup, libnetpbm,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, libnetpbm, 0, 0, 0644, \
 		$(LIBNETPBM_DIR)/lib/libnetpbm.so.10.31, \
 		/usr/lib/libnetpbm.so.10.31)
 
-	@$(call install_link, libnetpbm.so.10.31, /usr/lib/libnetpbm.so.10)
-	@$(call install_link, libnetpbm.so.10.31, /usr/lib/libnetpbm.so)
+	@$(call install_link, libnetpbm, libnetpbm.so.10.31, /usr/lib/libnetpbm.so.10)
+	@$(call install_link, libnetpbm, libnetpbm.so.10.31, /usr/lib/libnetpbm.so)
 
-	@$(call install_finish)
+	@$(call install_finish, libnetpbm)
 
 	@$(call touch, $@)
 

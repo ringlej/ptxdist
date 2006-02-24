@@ -107,28 +107,28 @@ joe_targetinstall: $(STATEDIR)/joe.targetinstall
 $(STATEDIR)/joe.targetinstall: $(joe_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,joe)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(JOE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Oscar Peredo <oscar\@exis.cl>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, joe)
+	@$(call install_fixup, joe,PACKAGE,joe)
+	@$(call install_fixup, joe,PRIORITY,optional)
+	@$(call install_fixup, joe,VERSION,$(JOE_VERSION))
+	@$(call install_fixup, joe,SECTION,base)
+	@$(call install_fixup, joe,AUTHOR,"Oscar Peredo <oscar\@exis.cl>")
+	@$(call install_fixup, joe,DEPENDS,)
+	@$(call install_fixup, joe,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(JOE_DIR)/joe, /bin/joe)
-	@$(call install_copy, 0, 0, 0755, $(JOE_DIR)/termidx, /bin/termidx)
-	@$(call install_copy, 0, 0, 0755, /etc/joe) 
-	@$(call install_copy, 0, 0, 0644, $(JOE_DIR)/joerc, /etc/joe/joerc,n)
-	@$(call install_copy, 0, 0, 0755, /etc/joe/syntax)
+	@$(call install_copy, joe, 0, 0, 0755, $(JOE_DIR)/joe, /bin/joe)
+	@$(call install_copy, joe, 0, 0, 0755, $(JOE_DIR)/termidx, /bin/termidx)
+	@$(call install_copy, joe, 0, 0, 0755, /etc/joe) 
+	@$(call install_copy, joe, 0, 0, 0644, $(JOE_DIR)/joerc, /etc/joe/joerc,n)
+	@$(call install_copy, joe, 0, 0, 0755, /etc/joe/syntax)
 
 	@for file in $(JOE_DIR)/syntax/*.jsf; do \
 		destination=`basename $$file`; \
 		echo "dst=$$destination"; \
-		$(call install_copy, 0, 0, 0644, $$file, /etc/joe/syntax/$$destination, n); \
+		$(call install_copy, joe, 0, 0, 0644, $$file, /etc/joe/syntax/$$destination, n); \
 	done
 
-	@$(call install_finish)
+	@$(call install_finish, joe)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

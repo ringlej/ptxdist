@@ -106,18 +106,18 @@ xorg-driver-input-evdev_targetinstall: $(STATEDIR)/xorg-driver-input-evdev.targe
 $(STATEDIR)/xorg-driver-input-evdev.targetinstall: $(xorg-driver-input-evdev_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-driver-input-evdev)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_DRIVER_INPUT_EVDEV_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-driver-input-evdev)
+	@$(call install_fixup, xorg-driver-input-evdev,PACKAGE,xorg-driver-input-evdev)
+	@$(call install_fixup, xorg-driver-input-evdev,PRIORITY,optional)
+	@$(call install_fixup, xorg-driver-input-evdev,VERSION,$(XORG_DRIVER_INPUT_EVDEV_VERSION))
+	@$(call install_fixup, xorg-driver-input-evdev,SECTION,base)
+	@$(call install_fixup, xorg-driver-input-evdev,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-driver-input-evdev,DEPENDS,)
+	@$(call install_fixup, xorg-driver-input-evdev,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-driver-input-evdev)
 
 	@$(call touch, $@)
 

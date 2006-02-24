@@ -147,40 +147,40 @@ pureftpd_targetinstall: $(STATEDIR)/pureftpd.targetinstall
 $(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,pureftpd)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PUREFTPD_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, pureftpd)
+	@$(call install_fixup, pureftpd,PACKAGE,pureftpd)
+	@$(call install_fixup, pureftpd,PRIORITY,optional)
+	@$(call install_fixup, pureftpd,VERSION,$(PUREFTPD_VERSION))
+	@$(call install_fixup, pureftpd,SECTION,base)
+	@$(call install_fixup, pureftpd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, pureftpd,DEPENDS,)
+	@$(call install_fixup, pureftpd,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-ftpd, /usr/sbin/pure-ftpd)
+	@$(call install_copy, pureftpd, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-ftpd, /usr/sbin/pure-ftpd)
 ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD
 ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER_FILE)),)
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER_FILE), /etc/init.d/pure-ftpd, n)
+	@$(call install_copy, pureftpd, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER_FILE), /etc/init.d/pure-ftpd, n)
 else
-	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/pure-ftpd, /etc/init.d/pure-ftpd, n)
+	@$(call install_copy, pureftpd, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/pure-ftpd, /etc/init.d/pure-ftpd, n)
 endif
 endif
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_LINK),"")
-	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, ../init.d/pure-ftpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_LINK))
+	@$(call install_copy, pureftpd, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, pureftpd, ../init.d/pure-ftpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_LINK))
 endif
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
-	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-uploadscript, /usr/sbin/pure-uploadscript, n)
+	@$(call install_copy, pureftpd, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-uploadscript, /usr/sbin/pure-uploadscript, n)
 endif
 
 
-	@$(call install_finish)
+	@$(call install_finish, pureftpd)
 
 	@$(call touch, $@)
 
 # FIXME: Define a default configuration
-#	@$(call install_copy, 0, 0, 0755, $(PUREFTPD_DIR)/configuration-file/pure-ftpd.conf, /etc/pure-ftpd.defaults)
+#	@$(call install_copy, pureftpd, 0, 0, 0755, $(PUREFTPD_DIR)/configuration-file/pure-ftpd.conf, /etc/pure-ftpd.defaults)
 
 # ----------------------------------------------------------------------------
 # Clean

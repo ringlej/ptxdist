@@ -106,16 +106,16 @@ xorg-proto-render_targetinstall: $(STATEDIR)/xorg-proto-render.targetinstall
 $(STATEDIR)/xorg-proto-render.targetinstall: $(xorg-proto-render_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-render)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_RENDER_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-render)
+	@$(call install_fixup, xorg-proto-render,PACKAGE,xorg-proto-render)
+	@$(call install_fixup, xorg-proto-render,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-render,VERSION,$(XORG_PROTO_RENDER_VERSION))
+	@$(call install_fixup, xorg-proto-render,SECTION,base)
+	@$(call install_fixup, xorg-proto-render,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-render,DEPENDS,)
+	@$(call install_fixup, xorg-proto-render,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-render)
 
 	@$(call touch, $@)
 

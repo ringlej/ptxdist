@@ -108,18 +108,18 @@ cyclictest_targetinstall: $(STATEDIR)/cyclictest.targetinstall
 $(STATEDIR)/cyclictest.targetinstall: $(cyclictest_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,cyclictest)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(CYCLICTEST_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, cyclictest)
+	@$(call install_fixup, cyclictest,PACKAGE,cyclictest)
+	@$(call install_fixup, cyclictest,PRIORITY,optional)
+	@$(call install_fixup, cyclictest,VERSION,$(CYCLICTEST_VERSION))
+	@$(call install_fixup, cyclictest,SECTION,base)
+	@$(call install_fixup, cyclictest,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, cyclictest,DEPENDS,)
+	@$(call install_fixup, cyclictest,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(CYCLICTEST_DIR)/foobar, /dev/null)
+	@$(call install_copy, cyclictest, 0, 0, 0755, $(CYCLICTEST_DIR)/foobar, /dev/null)
 
-	@$(call install_finish)
+	@$(call install_finish, cyclictest)
 
 	@$(call touch, $@)
 

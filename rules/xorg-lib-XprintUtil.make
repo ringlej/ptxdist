@@ -106,18 +106,18 @@ xorg-lib-XprintUtil_targetinstall: $(STATEDIR)/xorg-lib-XprintUtil.targetinstall
 $(STATEDIR)/xorg-lib-XprintUtil.targetinstall: $(xorg-lib-XprintUtil_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xprintutil)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XPRINTUTIL_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-XprintUtil)
+	@$(call install_fixup, xorg-lib-XprintUtil,PACKAGE,xorg-lib-xprintutil)
+	@$(call install_fixup, xorg-lib-XprintUtil,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-XprintUtil,VERSION,$(XORG_LIB_XPRINTUTIL_VERSION))
+	@$(call install_fixup, xorg-lib-XprintUtil,SECTION,base)
+	@$(call install_fixup, xorg-lib-XprintUtil,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-XprintUtil,DEPENDS,)
+	@$(call install_fixup, xorg-lib-XprintUtil,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-XprintUtil)
 
 	@$(call touch, $@)
 

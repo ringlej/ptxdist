@@ -119,18 +119,18 @@ mplayer_targetinstall: $(STATEDIR)/mplayer.targetinstall
 $(STATEDIR)/mplayer.targetinstall: $(mplayer_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,mplayer)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MPLAYER_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, mplayer)
+	@$(call install_fixup, mplayer,PACKAGE,mplayer)
+	@$(call install_fixup, mplayer,PRIORITY,optional)
+	@$(call install_fixup, mplayer,VERSION,$(MPLAYER_VERSION))
+	@$(call install_fixup, mplayer,SECTION,base)
+	@$(call install_fixup, mplayer,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, mplayer,DEPENDS,)
+	@$(call install_fixup, mplayer,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(MPLAYER_DIR)/mplayer, /usr/bin/mplayer)
+	@$(call install_copy, mplayer, 0, 0, 0755, $(MPLAYER_DIR)/mplayer, /usr/bin/mplayer)
 
-	@$(call install_finish)
+	@$(call install_finish, mplayer)
 
 	@$(call touch, $@)
 

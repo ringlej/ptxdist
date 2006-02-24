@@ -106,16 +106,16 @@ xorg-proto-damage_targetinstall: $(STATEDIR)/xorg-proto-damage.targetinstall
 $(STATEDIR)/xorg-proto-damage.targetinstall: $(xorg-proto-damage_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-damage)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_DAMAGE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-damage)
+	@$(call install_fixup, xorg-proto-damage,PACKAGE,xorg-proto-damage)
+	@$(call install_fixup, xorg-proto-damage,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-damage,VERSION,$(XORG_PROTO_DAMAGE_VERSION))
+	@$(call install_fixup, xorg-proto-damage,SECTION,base)
+	@$(call install_fixup, xorg-proto-damage,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-damage,DEPENDS,)
+	@$(call install_fixup, xorg-proto-damage,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-damage)
 
 	@$(call touch, $@)
 

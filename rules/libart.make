@@ -106,23 +106,23 @@ libart_targetinstall: $(STATEDIR)/libart.targetinstall
 $(STATEDIR)/libart.targetinstall: $(libart_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libart)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBART_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libart)
+	@$(call install_fixup, libart,PACKAGE,libart)
+	@$(call install_fixup, libart,PRIORITY,optional)
+	@$(call install_fixup, libart,VERSION,$(LIBART_VERSION))
+	@$(call install_fixup, libart,SECTION,base)
+	@$(call install_fixup, libart,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libart,DEPENDS,)
+	@$(call install_fixup, libart,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, libart, 0, 0, 0644, \
 		$(LIBART_DIR)/.libs/libart_lgpl_2.so.2.3.16, \
 		/usr/lib/libart_lgpl_2.so.2.3.16)
-	@$(call install_link, libart_lgpl_2.so.2.3.16, /usr/lib/libart_lgpl_2.so.2.3)
-	@$(call install_link, libart_lgpl_2.so.2.3.16, /usr/lib/libart_lgpl_2.so.2)
-	@$(call install_link, libart_lgpl_2.so.2.3.16, /usr/lib/libart_lgpl_2.so)
+	@$(call install_link, libart, libart_lgpl_2.so.2.3.16, /usr/lib/libart_lgpl_2.so.2.3)
+	@$(call install_link, libart, libart_lgpl_2.so.2.3.16, /usr/lib/libart_lgpl_2.so.2)
+	@$(call install_link, libart, libart_lgpl_2.so.2.3.16, /usr/lib/libart_lgpl_2.so)
 
-	@$(call install_finish)
+	@$(call install_finish, libart)
 
 	@$(call touch, $@)
 

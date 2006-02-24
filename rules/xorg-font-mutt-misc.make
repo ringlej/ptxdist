@@ -106,21 +106,21 @@ xorg-font-mutt-misc_targetinstall: $(STATEDIR)/xorg-font-mutt-misc.targetinstall
 $(STATEDIR)/xorg-font-mutt-misc.targetinstall: $(xorg-font-mutt-misc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-font-mutt-misc)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_FONT_MUTT_MISC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-font-mutt-misc)
+	@$(call install_fixup, xorg-font-mutt-misc,PACKAGE,xorg-font-mutt-misc)
+	@$(call install_fixup, xorg-font-mutt-misc,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-mutt-misc,VERSION,$(XORG_FONT_MUTT_MISC_VERSION))
+	@$(call install_fixup, xorg-font-mutt-misc,SECTION,base)
+	@$(call install_fixup, xorg-font-mutt-misc,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-font-mutt-misc,DEPENDS,)
+	@$(call install_fixup, xorg-font-mutt-misc,DESCRIPTION,missing)
 
 	@cd $(XORG_FONT_MUTT_MISC_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
+		$(call install_copy, xorg-font-mutt-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
 	done
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-font-mutt-misc)
 
 	@$(call touch, $@)
 

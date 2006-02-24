@@ -107,19 +107,19 @@ lrzsz_targetinstall: $(STATEDIR)/lrzsz.targetinstall
 $(STATEDIR)/lrzsz.targetinstall: $(lrzsz_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,lrzsz)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LRZSZ_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, lrzsz)
+	@$(call install_fixup, lrzsz,PACKAGE,lrzsz)
+	@$(call install_fixup, lrzsz,PRIORITY,optional)
+	@$(call install_fixup, lrzsz,VERSION,$(LRZSZ_VERSION))
+	@$(call install_fixup, lrzsz,SECTION,base)
+	@$(call install_fixup, lrzsz,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, lrzsz,DEPENDS,)
+	@$(call install_fixup, lrzsz,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(LRZSZ_DIR)/src/lrz, /usr/sbin/lrz)
-	@$(call install_copy, 0, 0, 0755, $(LRZSZ_DIR)/src/lsz, /usr/sbin/lsz)
+	@$(call install_copy, lrzsz, 0, 0, 0755, $(LRZSZ_DIR)/src/lrz, /usr/sbin/lrz)
+	@$(call install_copy, lrzsz, 0, 0, 0755, $(LRZSZ_DIR)/src/lsz, /usr/sbin/lsz)
 
-	@$(call install_finish)
+	@$(call install_finish, lrzsz)
 
 	@$(call touch, $@)
 

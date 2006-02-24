@@ -136,38 +136,38 @@ libxslt_targetinstall: $(STATEDIR)/libxslt.targetinstall
 $(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libxslt)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBXSLT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libxslt)
+	@$(call install_fixup, libxslt,PACKAGE,libxslt)
+	@$(call install_fixup, libxslt,PRIORITY,optional)
+	@$(call install_fixup, libxslt,VERSION,$(LIBXSLT_VERSION))
+	@$(call install_fixup, libxslt,SECTION,base)
+	@$(call install_fixup, libxslt,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libxslt,DEPENDS,)
+	@$(call install_fixup, libxslt,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBXSLT_LIBXSLT
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, libxslt, 0, 0, 0644, \
 		$(LIBXSLT_DIR)/libxslt/.libs/libxslt.so.1.1.14, \
 		/usr/lib/libxslt.so.1.1.14)
-	@$(call install_link, libxslt.so.1.1.14, /usr/lib/libxslt.so.1)
-	@$(call install_link, libxslt.so.1.1.14, /usr/lib/libxslt.so)
+	@$(call install_link, libxslt, libxslt.so.1.1.14, /usr/lib/libxslt.so.1)
+	@$(call install_link, libxslt, libxslt.so.1.1.14, /usr/lib/libxslt.so)
 endif
 
 ifdef PTXCONF_LIBXSLT_LIBEXSLT
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, libxslt, 0, 0, 0644, \
 		$(LIBXSLT_DIR)/libexslt/.libs/libexslt.so.0.8.12, \
 		/usr/lib/libexslt.so.0.8.12)
-	@$(call install_link, libexslt.so.0.8.12, /usr/lib/libexslt.so.0)
-	@$(call install_link, libexslt.so.0.8.12, /usr/lib/libexslt.so)
+	@$(call install_link, libxslt, libexslt.so.0.8.12, /usr/lib/libexslt.so.0)
+	@$(call install_link, libxslt, libexslt.so.0.8.12, /usr/lib/libexslt.so)
 endif
 
 ifdef PTXCONF_LIBXSLT_XSLTPROC
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, libxslt, 0, 0, 0755, \
 		$(LIBXSLT_DIR)/xsltproc/.libs/xsltproc, \
 		/usr/bin/xsltproc)
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, libxslt)
 
 	@$(call touch, $@)
 

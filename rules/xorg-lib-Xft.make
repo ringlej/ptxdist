@@ -106,18 +106,18 @@ xorg-lib-Xft_targetinstall: $(STATEDIR)/xorg-lib-Xft.targetinstall
 $(STATEDIR)/xorg-lib-Xft.targetinstall: $(xorg-lib-Xft_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xft)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XFT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xft)
+	@$(call install_fixup, xorg-lib-Xft,PACKAGE,xorg-lib-xft)
+	@$(call install_fixup, xorg-lib-Xft,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xft,VERSION,$(XORG_LIB_XFT_VERSION))
+	@$(call install_fixup, xorg-lib-Xft,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xft,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xft,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xft,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xft)
 
 	@$(call touch, $@)
 

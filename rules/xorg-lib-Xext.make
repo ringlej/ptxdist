@@ -108,28 +108,28 @@ xorg-lib-Xext_targetinstall: $(STATEDIR)/xorg-lib-Xext.targetinstall
 $(STATEDIR)/xorg-lib-Xext.targetinstall: $(xorg-lib-Xext_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xext)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XEXT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xext)
+	@$(call install_fixup, xorg-lib-Xext,PACKAGE,xorg-lib-xext)
+	@$(call install_fixup, xorg-lib-Xext,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xext,VERSION,$(XORG_LIB_XEXT_VERSION))
+	@$(call install_fixup, xorg-lib-Xext,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xext,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xext,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xext,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-Xext, 0, 0, 0644, \
 		$(XORG_LIB_XEXT_DIR)/src/.libs/libXext.so.6.4.0, \
 		$(XORG_LIBDIR)/libXext.so.6.4.0)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xext, \
 		libXext.so.6.4.0, \
 		$(XORG_LIBDIR)/libXext.so.6)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xext, \
 		libXext.so.6.4.0, \
 		$(XORG_LIBDIR)/libXext.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xext)
 
 	@$(call touch, $@)
 

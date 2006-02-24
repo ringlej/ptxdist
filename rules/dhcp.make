@@ -103,18 +103,18 @@ dhcp_targetinstall: $(STATEDIR)/dhcp.targetinstall
 $(STATEDIR)/dhcp.targetinstall: $(dhcp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,dhcp)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(DHCP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, dhcp)
+	@$(call install_fixup, dhcp,PACKAGE,dhcp)
+	@$(call install_fixup, dhcp,PRIORITY,optional)
+	@$(call install_fixup, dhcp,VERSION,$(DHCP_VERSION))
+	@$(call install_fixup, dhcp,SECTION,base)
+	@$(call install_fixup, dhcp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, dhcp,DEPENDS,)
+	@$(call install_fixup, dhcp,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0755, $(DHCP_DIR)/work.linux-2.2/server/dhcpd, /usr/sbin/dhcpd)
+	@$(call install_copy, dhcp, 0, 0, 0755, $(DHCP_DIR)/work.linux-2.2/server/dhcpd, /usr/sbin/dhcpd)
 
-	@$(call install_finish)
+	@$(call install_finish, dhcp)
 
 	@$(call touch, $@)
 

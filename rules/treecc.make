@@ -106,18 +106,18 @@ treecc_targetinstall: $(STATEDIR)/treecc.targetinstall
 $(STATEDIR)/treecc.targetinstall: $(treecc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,treecc)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(TREECC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Benedikt Spranger <b.spranger\@linutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, treecc)
+	@$(call install_fixup, treecc,PACKAGE,treecc)
+	@$(call install_fixup, treecc,PRIORITY,optional)
+	@$(call install_fixup, treecc,VERSION,$(TREECC_VERSION))
+	@$(call install_fixup, treecc,SECTION,base)
+	@$(call install_fixup, treecc,AUTHOR,"Benedikt Spranger <b.spranger\@linutronix.de>")
+	@$(call install_fixup, treecc,DEPENDS,)
+	@$(call install_fixup, treecc,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(TREECC_DIR)/treecc, /usr/bin/treecc)
+	@$(call install_copy, treecc, 0, 0, 0755, $(TREECC_DIR)/treecc, /usr/bin/treecc)
 
-	@$(call install_finish)
+	@$(call install_finish, treecc)
 
 	@$(call touch, $@)
 

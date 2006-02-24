@@ -106,19 +106,19 @@ xorg-lib-Xp_targetinstall: $(STATEDIR)/xorg-lib-Xp.targetinstall
 $(STATEDIR)/xorg-lib-Xp.targetinstall: $(xorg-lib-Xp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xp)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xp)
+	@$(call install_fixup, xorg-lib-Xp,PACKAGE,xorg-lib-xp)
+	@$(call install_fixup, xorg-lib-Xp,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xp,VERSION,$(XORG_LIB_XP_VERSION))
+	@$(call install_fixup, xorg-lib-Xp,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xp,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xp,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xp,DESCRIPTION,missing)
 
 #FIXME
 
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xp)
 
 	@$(call touch, $@)
 

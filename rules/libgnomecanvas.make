@@ -107,22 +107,22 @@ libgnomecanvas_targetinstall: $(STATEDIR)/libgnomecanvas.targetinstall
 $(STATEDIR)/libgnomecanvas.targetinstall: $(libgnomecanvas_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libgnomecanvas)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBGNOMECANVAS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libgnomecanvas)
+	@$(call install_fixup, libgnomecanvas,PACKAGE,libgnomecanvas)
+	@$(call install_fixup, libgnomecanvas,PRIORITY,optional)
+	@$(call install_fixup, libgnomecanvas,VERSION,$(LIBGNOMECANVAS_VERSION))
+	@$(call install_fixup, libgnomecanvas,SECTION,base)
+	@$(call install_fixup, libgnomecanvas,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libgnomecanvas,DEPENDS,)
+	@$(call install_fixup, libgnomecanvas,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, libgnomecanvas, 0, 0, 0644, \
 		$(LIBGNOMECANVAS_DIR)/libgnomecanvas/.libs/libgnomecanvas-2.so.0.590.0, \
 		/usr/lib/libgnomecanvas-2.so.0.590.0)
-	@$(call install_link, libgnomecanvas-2.so.0.590.0, /usr/lib/libgnomecanvas-2.so.0)
-	@$(call install_link, libgnomecanvas-2.so.0.590.0, /usr/lib/libgnomecanvas-2.so)
+	@$(call install_link, libgnomecanvas, libgnomecanvas-2.so.0.590.0, /usr/lib/libgnomecanvas-2.so.0)
+	@$(call install_link, libgnomecanvas, libgnomecanvas-2.so.0.590.0, /usr/lib/libgnomecanvas-2.so)
 
-	@$(call install_finish)
+	@$(call install_finish, libgnomecanvas)
 
 	@$(call touch, $@)
 

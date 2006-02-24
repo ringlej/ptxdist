@@ -106,16 +106,16 @@ xorg-proto-video_targetinstall: $(STATEDIR)/xorg-proto-video.targetinstall
 $(STATEDIR)/xorg-proto-video.targetinstall: $(xorg-proto-video_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-video)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_VIDEO_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-video)
+	@$(call install_fixup, xorg-proto-video,PACKAGE,xorg-proto-video)
+	@$(call install_fixup, xorg-proto-video,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-video,VERSION,$(XORG_PROTO_VIDEO_VERSION))
+	@$(call install_fixup, xorg-proto-video,SECTION,base)
+	@$(call install_fixup, xorg-proto-video,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-video,DEPENDS,)
+	@$(call install_fixup, xorg-proto-video,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-video)
 
 	@$(call touch, $@)
 

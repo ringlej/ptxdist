@@ -105,28 +105,28 @@ libpng_targetinstall: $(STATEDIR)/libpng.targetinstall
 $(STATEDIR)/libpng.targetinstall: $(libpng_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libpng)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBPNG_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libpng)
+	@$(call install_fixup, libpng,PACKAGE,libpng)
+	@$(call install_fixup, libpng,PRIORITY,optional)
+	@$(call install_fixup, libpng,VERSION,$(LIBPNG_VERSION))
+	@$(call install_fixup, libpng,SECTION,base)
+	@$(call install_fixup, libpng,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libpng,DEPENDS,)
+	@$(call install_fixup, libpng,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, libpng, 0, 0, 0644, \
 		$(LIBPNG_DIR)/.libs/libpng12.so.0.0.0, \
 		/usr/lib/libpng12.so.0.0.0)
-	@$(call install_link, libpng12.so.0.0.0, /usr/lib/libpng12.so.0.0)
-	@$(call install_link, libpng12.so.0.0.0, /usr/lib/libpng12.so.0)
+	@$(call install_link, libpng, libpng12.so.0.0.0, /usr/lib/libpng12.so.0.0)
+	@$(call install_link, libpng, libpng12.so.0.0.0, /usr/lib/libpng12.so.0)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, libpng, 0, 0, 0644, \
 		$(LIBPNG_DIR)/.libs/libpng.so.3.0.0, \
 		/usr/lib/libpng.so.3.0.0)
-	@$(call install_link, libpng.so.3.0.0, /usr/lib/libpng.so.3.0)
-	@$(call install_link, libpng.so.3.0.0, /usr/lib/libpng.so.3)
+	@$(call install_link, libpng, libpng.so.3.0.0, /usr/lib/libpng.so.3.0)
+	@$(call install_link, libpng, libpng.so.3.0.0, /usr/lib/libpng.so.3)
 
-	@$(call install_finish)
+	@$(call install_finish, libpng)
 
 	@$(call touch, $@)
 

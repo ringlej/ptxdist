@@ -106,18 +106,18 @@ xorg-lib-Xcursor_targetinstall: $(STATEDIR)/xorg-lib-Xcursor.targetinstall
 $(STATEDIR)/xorg-lib-Xcursor.targetinstall: $(xorg-lib-Xcursor_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xcursor)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XCURSOR_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xcursor)
+	@$(call install_fixup, xorg-lib-Xcursor,PACKAGE,xorg-lib-xcursor)
+	@$(call install_fixup, xorg-lib-Xcursor,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xcursor,VERSION,$(XORG_LIB_XCURSOR_VERSION))
+	@$(call install_fixup, xorg-lib-Xcursor,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xcursor,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xcursor,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xcursor,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xcursor)
 
 	@$(call touch, $@)
 

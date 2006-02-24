@@ -106,18 +106,18 @@ xorg-lib-xkbui_targetinstall: $(STATEDIR)/xorg-lib-xkbui.targetinstall
 $(STATEDIR)/xorg-lib-xkbui.targetinstall: $(xorg-lib-xkbui_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xkbui)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XKBUI_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xkbui)
+	@$(call install_fixup, xorg-lib-xkbui,PACKAGE,xorg-lib-xkbui)
+	@$(call install_fixup, xorg-lib-xkbui,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xkbui,VERSION,$(XORG_LIB_XKBUI_VERSION))
+	@$(call install_fixup, xorg-lib-xkbui,SECTION,base)
+	@$(call install_fixup, xorg-lib-xkbui,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xkbui,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xkbui,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-xkbui)
 
 	@$(call touch, $@)
 

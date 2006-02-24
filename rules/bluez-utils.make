@@ -114,19 +114,19 @@ bluez-utils_targetinstall: $(STATEDIR)/bluez-utils.targetinstall
 $(STATEDIR)/bluez-utils.targetinstall: $(bluez-utils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,bluez-utils)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(BLUEZ_UTILS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, bluez-utils)
+	@$(call install_fixup, bluez-utils,PACKAGE,bluez-utils)
+	@$(call install_fixup, bluez-utils,PRIORITY,optional)
+	@$(call install_fixup, bluez-utils,VERSION,$(BLUEZ_UTILS_VERSION))
+	@$(call install_fixup, bluez-utils,SECTION,base)
+	@$(call install_fixup, bluez-utils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, bluez-utils,DEPENDS,)
+	@$(call install_fixup, bluez-utils,DESCRIPTION,missing)
 
 	# FIXME: wait for patch from Sandro Noel
-#	@$(call install_copy, 0, 0, 0755, $(BLUEZ_UTILS_DIR)/foobar, /dev/null)
+#	@$(call install_copy, bluez-utils, 0, 0, 0755, $(BLUEZ_UTILS_DIR)/foobar, /dev/null)
 
-	@$(call install_finish)
+	@$(call install_finish, bluez-utils)
 
 	@$(call touch, $@)
 

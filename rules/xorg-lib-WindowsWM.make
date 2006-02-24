@@ -106,18 +106,18 @@ xorg-lib-WindowsWM_targetinstall: $(STATEDIR)/xorg-lib-WindowsWM.targetinstall
 $(STATEDIR)/xorg-lib-WindowsWM.targetinstall: $(xorg-lib-WindowsWM_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-windowswm)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_WINDOWSWM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-WindowsWM)
+	@$(call install_fixup, xorg-lib-WindowsWM,PACKAGE,xorg-lib-windowswm)
+	@$(call install_fixup, xorg-lib-WindowsWM,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-WindowsWM,VERSION,$(XORG_LIB_WINDOWSWM_VERSION))
+	@$(call install_fixup, xorg-lib-WindowsWM,SECTION,base)
+	@$(call install_fixup, xorg-lib-WindowsWM,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-WindowsWM,DEPENDS,)
+	@$(call install_fixup, xorg-lib-WindowsWM,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-WindowsWM)
 
 	@$(call touch, $@)
 

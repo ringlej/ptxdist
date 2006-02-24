@@ -128,25 +128,25 @@ nmap_targetinstall: $(STATEDIR)/nmap.targetinstall
 $(STATEDIR)/nmap.targetinstall: $(nmap_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,nmap)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(NMAP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, nmap)
+	@$(call install_fixup, nmap,PACKAGE,nmap)
+	@$(call install_fixup, nmap,PRIORITY,optional)
+	@$(call install_fixup, nmap,VERSION,$(NMAP_VERSION))
+	@$(call install_fixup, nmap,SECTION,base)
+	@$(call install_fixup, nmap,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, nmap,DEPENDS,)
+	@$(call install_fixup, nmap,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(NMAP_DIR)/nmap, /usr/bin/nmap)
+	@$(call install_copy, nmap, 0, 0, 0755, $(NMAP_DIR)/nmap, /usr/bin/nmap)
 
 ifdef PTXCONF_NMAP_SERVICES
-	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-os-fingerprints, /usr/share/nmap/nmap-os-fingerprints, n)
-	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-service-probes, /usr/share/nmap/nmap-service-probes, n)
-	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-services, /usr/share/nmap/nmap-services, n)
-	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-protocols, /usr/share/nmap/nmap-protocols, n)
-	@$(call install_copy, 0, 0, 0644, $(NMAP_DIR)/nmap-rpc, /usr/share/nmap/nmap-rpc, n)
+	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-os-fingerprints, /usr/share/nmap/nmap-os-fingerprints, n)
+	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-service-probes, /usr/share/nmap/nmap-service-probes, n)
+	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-services, /usr/share/nmap/nmap-services, n)
+	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-protocols, /usr/share/nmap/nmap-protocols, n)
+	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-rpc, /usr/share/nmap/nmap-rpc, n)
 endif
-	@$(call install_finish)
+	@$(call install_finish, nmap)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

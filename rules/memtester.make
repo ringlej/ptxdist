@@ -98,18 +98,18 @@ memtester_targetinstall: $(STATEDIR)/memtester.targetinstall
 $(STATEDIR)/memtester.targetinstall: $(memtester_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,memtester)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MEMTESTER_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, memtester)
+	@$(call install_fixup, memtester,PACKAGE,memtester)
+	@$(call install_fixup, memtester,PRIORITY,optional)
+	@$(call install_fixup, memtester,VERSION,$(MEMTESTER_VERSION))
+	@$(call install_fixup, memtester,SECTION,base)
+	@$(call install_fixup, memtester,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, memtester,DEPENDS,)
+	@$(call install_fixup, memtester,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(MEMTESTER_DIR)/memtester, /usr/sbin/memtester)
+	@$(call install_copy, memtester, 0, 0, 0755, $(MEMTESTER_DIR)/memtester, /usr/sbin/memtester)
 
-	@$(call install_finish)
+	@$(call install_finish, memtester)
 
 	@$(call touch, $@)
 

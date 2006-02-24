@@ -106,28 +106,28 @@ xorg-lib-Xdmcp_targetinstall: $(STATEDIR)/xorg-lib-Xdmcp.targetinstall
 $(STATEDIR)/xorg-lib-Xdmcp.targetinstall: $(xorg-lib-Xdmcp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xdmcp)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XDMCP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xdmcp)
+	@$(call install_fixup, xorg-lib-Xdmcp,PACKAGE,xorg-lib-xdmcp)
+	@$(call install_fixup, xorg-lib-Xdmcp,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xdmcp,VERSION,$(XORG_LIB_XDMCP_VERSION))
+	@$(call install_fixup, xorg-lib-Xdmcp,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xdmcp,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xdmcp,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xdmcp,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-Xdmcp, 0, 0, 0644, \
 		$(XORG_LIB_XDMCP_DIR)/.libs/libXdmcp.so.6.0.0, \
 		$(XORG_LIBDIR)/libXdmcp.so.6.0.0)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xdmcp, \
 		libXdmcp.so.6.0.0, \
 		$(XORG_LIBDIR)/libXdmcp.so.6)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xdmcp, \
 		libXdmcp.so.6.0.0, \
 		$(XORG_LIBDIR)/libXdmcp.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xdmcp)
 
 	@$(call touch, $@)
 

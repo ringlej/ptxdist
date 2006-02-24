@@ -224,19 +224,19 @@ bash_targetinstall: $(STATEDIR)/bash.targetinstall
 $(STATEDIR)/bash.targetinstall: $(bash_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,BASH)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(BASH_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, bash)
+	@$(call install_fixup, bash,PACKAGE,BASH)
+	@$(call install_fixup, bash,PRIORITY,optional)
+	@$(call install_fixup, bash,VERSION,$(BASH_VERSION))
+	@$(call install_fixup, bash,SECTION,base)
+	@$(call install_fixup, bash,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, bash,DEPENDS,)
+	@$(call install_fixup, bash,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(BASH_DIR)/bash, /bin/bash)
-	@$(call install_link, bash, /bin/sh)
+	@$(call install_copy, bash, 0, 0, 0755, $(BASH_DIR)/bash, /bin/bash)
+	@$(call install_link, bash, bash, /bin/sh)
 
-	@$(call install_finish)
+	@$(call install_finish, bash)
 
 	@$(call touch, $@)
 

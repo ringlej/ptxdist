@@ -107,41 +107,41 @@ gtk26_targetinstall: $(STATEDIR)/gtk26.targetinstall
 $(STATEDIR)/gtk26.targetinstall: $(gtk26_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,gtk26)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GTK26_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, gtk26)
+	@$(call install_fixup, gtk26,PACKAGE,gtk26)
+	@$(call install_fixup, gtk26,PRIORITY,optional)
+	@$(call install_fixup, gtk26,VERSION,$(GTK26_VERSION))
+	@$(call install_fixup, gtk26,SECTION,base)
+	@$(call install_fixup, gtk26,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gtk26,DEPENDS,)
+	@$(call install_fixup, gtk26,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk26, 0, 0, 0644, \
 		$(GTK26_DIR)/gtk/.libs/libgtk-x11-2.0.so.0.302.0, \
 		/usr/lib/libgtk-x11-2.0.so.0.302.0)
-	@$(call install_link, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so.0)
-	@$(call install_link, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so)
+	@$(call install_link, gtk26, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so.0)
+	@$(call install_link, gtk26, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk26, 0, 0, 0644, \
 		$(GTK26_DIR)/gdk/.libs/libgdk-x11-2.0.so.0.302.0, \
 		/usr/lib/libgdk-x11-2.0.so.0.302.0)
-	@$(call install_link, libgdk-x11-2.0.so.0.302.0, /usr/lib/libgdk-x11-2.0.so.0)
-	@$(call install_link, libgdk-x11-2.0.so.0.302.0, /usr/lib/libgdk-x11-2.0.so)
+	@$(call install_link, gtk26, libgdk-x11-2.0.so.0.302.0, /usr/lib/libgdk-x11-2.0.so.0)
+	@$(call install_link, gtk26, libgdk-x11-2.0.so.0.302.0, /usr/lib/libgdk-x11-2.0.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk26, 0, 0, 0644, \
 		$(GTK26_DIR)/gdk-pixbuf/.libs/libgdk_pixbuf-2.0.so.0.302.0, \
 		/usr/lib/libgdk_pixbuf-2.0.so.0.302.0)
-	@$(call install_link, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so.0)
-	@$(call install_link, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so)
+	@$(call install_link, gtk26, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so.0)
+	@$(call install_link, gtk26, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk26, 0, 0, 0644, \
 		$(GTK26_DIR)/gdk-pixbuf/.libs/gdk-pixbuf-query-loaders, \
 		/usr/bin/gdk-pixbuf-query-loaders)
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk26, 0, 0, 0644, \
 		$(GTK26_DIR)/gdk-pixbuf/.libs/libpixbufloader*so, \
 		/usr/lib/gdk-pixbuf-loaders/)
 
-	@$(call install_finish)
+	@$(call install_finish, gtk26)
 
 	@$(call touch, $@)
 

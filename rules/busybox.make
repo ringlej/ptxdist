@@ -125,31 +125,31 @@ busybox_targetinstall: $(STATEDIR)/busybox.targetinstall
 $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,busybox)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(BUSYBOX_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, busybox)
+	@$(call install_fixup, busybox,PACKAGE,busybox)
+	@$(call install_fixup, busybox,PRIORITY,optional)
+	@$(call install_fixup, busybox,VERSION,$(BUSYBOX_VERSION))
+	@$(call install_fixup, busybox,SECTION,base)
+	@$(call install_fixup, busybox,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, busybox,DEPENDS,)
+	@$(call install_fixup, busybox,DESCRIPTION,missing)
 
 	rm -f $(BUSYBOX_DIR)/busybox.links
 	cd $(BUSYBOX_DIR) && $(MAKE) busybox.links
 
-	@$(call install_copy, 0, 0, 1555, $(BUSYBOX_DIR)/busybox, /bin/busybox)
+	@$(call install_copy, busybox, 0, 0, 1555, $(BUSYBOX_DIR)/busybox, /bin/busybox)
 	for file in `cat $(BUSYBOX_DIR)/busybox.links`; do	\
-		$(call install_link, /bin/busybox, $$file);	\
+		$(call install_link, busybox, /bin/busybox, $$file);	\
 	done
 
 ifdef PTXCONF_BB_CONFIG_VI
 	vimfile=`mktemp`; \
 	echo "#!/bin/sh" >> $$vimfile; \
 	echo "/bin/vi $*" >> $$vimfile; \
-	$(call install_copy, 0, 0, 0755, $$vimfile, /usr/bin/vim, ); \
+	$(call install_copy, busybox, 0, 0, 0755, $$vimfile, /usr/bin/vim, ); \
 	rm $$vimfile
 endif
-	@$(call install_finish)
+	@$(call install_finish, busybox)
 
 	@$(call touch, $@)
 

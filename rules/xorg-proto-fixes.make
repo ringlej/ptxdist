@@ -106,16 +106,16 @@ xorg-proto-fixes_targetinstall: $(STATEDIR)/xorg-proto-fixes.targetinstall
 $(STATEDIR)/xorg-proto-fixes.targetinstall: $(xorg-proto-fixes_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-fixes)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_FIXES_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-fixes)
+	@$(call install_fixup, xorg-proto-fixes,PACKAGE,xorg-proto-fixes)
+	@$(call install_fixup, xorg-proto-fixes,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-fixes,VERSION,$(XORG_PROTO_FIXES_VERSION))
+	@$(call install_fixup, xorg-proto-fixes,SECTION,base)
+	@$(call install_fixup, xorg-proto-fixes,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-fixes,DEPENDS,)
+	@$(call install_fixup, xorg-proto-fixes,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-fixes)
 
 	@$(call touch, $@)
 

@@ -99,18 +99,18 @@ troll-ftpd_targetinstall: $(STATEDIR)/troll-ftpd.targetinstall
 $(STATEDIR)/troll-ftpd.targetinstall: $(troll-ftpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,trollftpd)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(TROLL-FTPD_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, troll-ftpd)
+	@$(call install_fixup, troll-ftpd,PACKAGE,trollftpd)
+	@$(call install_fixup, troll-ftpd,PRIORITY,optional)
+	@$(call install_fixup, troll-ftpd,VERSION,$(TROLL-FTPD_VERSION))
+	@$(call install_fixup, troll-ftpd,SECTION,base)
+	@$(call install_fixup, troll-ftpd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, troll-ftpd,DEPENDS,)
+	@$(call install_fixup, troll-ftpd,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(TROLL-FTPD_DIR)/ftpd, /sbin/ftpd)
+	@$(call install_copy, troll-ftpd, 0, 0, 0755, $(TROLL-FTPD_DIR)/ftpd, /sbin/ftpd)
 
-	@$(call install_finish)
+	@$(call install_finish, troll-ftpd)
 
 	@$(call touch, $@)
 

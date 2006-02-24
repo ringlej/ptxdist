@@ -98,19 +98,19 @@ tcpwrapper_targetinstall: $(STATEDIR)/tcpwrapper.targetinstall
 $(STATEDIR)/tcpwrapper.targetinstall: $(tcpwrapper_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,tcpwrapper)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(TCPWRAPPER_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, tcpwrapper)
+	@$(call install_fixup, tcpwrapper,PACKAGE,tcpwrapper)
+	@$(call install_fixup, tcpwrapper,PRIORITY,optional)
+	@$(call install_fixup, tcpwrapper,VERSION,$(TCPWRAPPER_VERSION))
+	@$(call install_fixup, tcpwrapper,SECTION,base)
+	@$(call install_fixup, tcpwrapper,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, tcpwrapper,DEPENDS,)
+	@$(call install_fixup, tcpwrapper,DESCRIPTION,missing)
 
 ifdef PTXCONF_TCPWRAPPER_INSTALL_TCPD
-	@$(call install_copy, 0, 0, 0755, $(TCPWRAPPER_DIR)/tcpd, /usr/sbin/tcpd)
+	@$(call install_copy, tcpwrapper, 0, 0, 0755, $(TCPWRAPPER_DIR)/tcpd, /usr/sbin/tcpd)
 endif
-	@$(call install_finish)
+	@$(call install_finish, tcpwrapper)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

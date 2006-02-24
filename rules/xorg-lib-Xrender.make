@@ -108,18 +108,18 @@ xorg-lib-Xrender_targetinstall: $(STATEDIR)/xorg-lib-Xrender.targetinstall
 $(STATEDIR)/xorg-lib-Xrender.targetinstall: $(xorg-lib-Xrender_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xrender)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XRENDER_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xrender)
+	@$(call install_fixup, xorg-lib-Xrender,PACKAGE,xorg-lib-xrender)
+	@$(call install_fixup, xorg-lib-Xrender,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xrender,VERSION,$(XORG_LIB_XRENDER_VERSION))
+	@$(call install_fixup, xorg-lib-Xrender,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xrender,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xrender,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xrender,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xrender)
 
 	@$(call touch, $@)
 

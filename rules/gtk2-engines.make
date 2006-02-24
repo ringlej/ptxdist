@@ -105,26 +105,26 @@ gtk2-engines_targetinstall: $(STATEDIR)/gtk2-engines.targetinstall
 $(STATEDIR)/gtk2-engines.targetinstall: $(gtk2-engines_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,gtk2-engines)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GTK2-ENGINES_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, gtk2-engines)
+	@$(call install_fixup, gtk2-engines,PACKAGE,gtk2-engines)
+	@$(call install_fixup, gtk2-engines,PRIORITY,optional)
+	@$(call install_fixup, gtk2-engines,VERSION,$(GTK2-ENGINES_VERSION))
+	@$(call install_fixup, gtk2-engines,SECTION,base)
+	@$(call install_fixup, gtk2-engines,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gtk2-engines,DEPENDS,)
+	@$(call install_fixup, gtk2-engines,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk2-engines, 0, 0, 0644, \
 		$(GTK2-ENGINES_DIR)/metal/.libs/libmetal.so, \
 		/usr/lib/engines/libmetal.so)
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk2-engines, 0, 0, 0644, \
 		$(GTK2-ENGINES_DIR)/redmond95/.libs/libredmond95.so, \
 		/usr/lib/engines/libredmond95.so)
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk2-engines, 0, 0, 0644, \
 		$(GTK2-ENGINES_DIR)/pixbuf/.libs/libpixmap.so, \
 		/usr/lib/engines/libpixmap.so)
 
-	@$(call install_finish)
+	@$(call install_finish, gtk2-engines)
 
 	@$(call touch, $@)
 

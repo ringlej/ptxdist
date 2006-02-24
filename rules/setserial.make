@@ -106,18 +106,18 @@ setserial_targetinstall: $(STATEDIR)/setserial.targetinstall
 $(STATEDIR)/setserial.targetinstall: $(setserial_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,setserial)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SETSERIAL_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Benedikt Spranger <b.spranger\@linutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, setserial)
+	@$(call install_fixup, setserial,PACKAGE,setserial)
+	@$(call install_fixup, setserial,PRIORITY,optional)
+	@$(call install_fixup, setserial,VERSION,$(SETSERIAL_VERSION))
+	@$(call install_fixup, setserial,SECTION,base)
+	@$(call install_fixup, setserial,AUTHOR,"Benedikt Spranger <b.spranger\@linutronix.de>")
+	@$(call install_fixup, setserial,DEPENDS,)
+	@$(call install_fixup, setserial,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(SETSERIAL_DIR)/setserial, /bin/setserial)
+	@$(call install_copy, setserial, 0, 0, 0755, $(SETSERIAL_DIR)/setserial, /bin/setserial)
 
-	@$(call install_finish)
+	@$(call install_finish, setserial)
 
 	@$(call touch, $@)
 

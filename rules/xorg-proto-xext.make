@@ -106,16 +106,16 @@ xorg-proto-xext_targetinstall: $(STATEDIR)/xorg-proto-xext.targetinstall
 $(STATEDIR)/xorg-proto-xext.targetinstall: $(xorg-proto-xext_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-xext)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_XEXT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-xext)
+	@$(call install_fixup, xorg-proto-xext,PACKAGE,xorg-proto-xext)
+	@$(call install_fixup, xorg-proto-xext,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-xext,VERSION,$(XORG_PROTO_XEXT_VERSION))
+	@$(call install_fixup, xorg-proto-xext,SECTION,base)
+	@$(call install_fixup, xorg-proto-xext,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-xext,DEPENDS,)
+	@$(call install_fixup, xorg-proto-xext,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-xext)
 
 	@$(call touch, $@)
 

@@ -106,18 +106,18 @@ smtpclient_targetinstall: $(STATEDIR)/smtpclient.targetinstall
 $(STATEDIR)/smtpclient.targetinstall: $(smtpclient_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,smtpclient)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SMTPCLIENT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, smtpclient)
+	@$(call install_fixup, smtpclient,PACKAGE,smtpclient)
+	@$(call install_fixup, smtpclient,PRIORITY,optional)
+	@$(call install_fixup, smtpclient,VERSION,$(SMTPCLIENT_VERSION))
+	@$(call install_fixup, smtpclient,SECTION,base)
+	@$(call install_fixup, smtpclient,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, smtpclient,DEPENDS,)
+	@$(call install_fixup, smtpclient,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(SMTPCLIENT_DIR)/smtpclient, /usr/bin/smtpclient)
+	@$(call install_copy, smtpclient, 0, 0, 0755, $(SMTPCLIENT_DIR)/smtpclient, /usr/bin/smtpclient)
 
-	@$(call install_finish)
+	@$(call install_finish, smtpclient)
 
 	@$(call touch, $@)
 

@@ -108,18 +108,18 @@ rsync_targetinstall: $(STATEDIR)/rsync.targetinstall
 $(STATEDIR)/rsync.targetinstall: $(rsync_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,rsync)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(RSYNC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, rsync)
+	@$(call install_fixup, rsync,PACKAGE,rsync)
+	@$(call install_fixup, rsync,PRIORITY,optional)
+	@$(call install_fixup, rsync,VERSION,$(RSYNC_VERSION))
+	@$(call install_fixup, rsync,SECTION,base)
+	@$(call install_fixup, rsync,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, rsync,DEPENDS,)
+	@$(call install_fixup, rsync,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0755, $(RSYNC_DIR)/rsync, /usr/bin/rsync)
+	@$(call install_copy, rsync, 0, 0, 0755, $(RSYNC_DIR)/rsync, /usr/bin/rsync)
 	
-	@$(call install_finish)
+	@$(call install_finish, rsync)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

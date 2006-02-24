@@ -107,23 +107,23 @@ cppunit_targetinstall: $(STATEDIR)/cppunit.targetinstall
 $(STATEDIR)/cppunit.targetinstall: $(cppunit_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,$(CPPUNIT))
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(CPPUNIT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Shahar Livne <shahar\@livnex.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, cppunit)
+	@$(call install_fixup, cppunit,PACKAGE,$(CPPUNIT))
+	@$(call install_fixup, cppunit,PRIORITY,optional)
+	@$(call install_fixup, cppunit,VERSION,$(CPPUNIT_VERSION))
+	@$(call install_fixup, cppunit,SECTION,base)
+	@$(call install_fixup, cppunit,AUTHOR,"Shahar Livne <shahar\@livnex.com>")
+	@$(call install_fixup, cppunit,DEPENDS,)
+	@$(call install_fixup, cppunit,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, cppunit, 0, 0, 0644, \
 		$(CPPUNIT_DIR)/src/cppunit/.libs/libcppunit-1.10.so.2.0.0, \
 		/usr/lib/libcppunit-1.10.so.2.0.0)
 
-	@$(call install_link, libcppunit-1.10.so.2.0.0, /usr/lib/libcppunit-1.10.so.2)
-	@$(call install_link, libcppunit-1.10.so.2.0.0, /usr/lib/libcppunit.so)
+	@$(call install_link, cppunit, libcppunit-1.10.so.2.0.0, /usr/lib/libcppunit-1.10.so.2)
+	@$(call install_link, cppunit, libcppunit-1.10.so.2.0.0, /usr/lib/libcppunit.so)
 
-	@$(call install_finish)
+	@$(call install_finish, cppunit)
 
 	@$(call touch, $@)
 

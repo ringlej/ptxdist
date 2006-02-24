@@ -96,18 +96,18 @@ mii-diag_targetinstall: $(STATEDIR)/mii-diag.targetinstall
 $(STATEDIR)/mii-diag.targetinstall: $(mii-diag_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,mii-diag)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MII_DIAG_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, mii-diag)
+	@$(call install_fixup, mii-diag,PACKAGE,mii-diag)
+	@$(call install_fixup, mii-diag,PRIORITY,optional)
+	@$(call install_fixup, mii-diag,VERSION,$(MII_DIAG_VERSION))
+	@$(call install_fixup, mii-diag,SECTION,base)
+	@$(call install_fixup, mii-diag,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, mii-diag,DEPENDS,)
+	@$(call install_fixup, mii-diag,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(MII_DIAG_DIR)/mii-diag, /usr/sbin/mii-diag)
+	@$(call install_copy, mii-diag, 0, 0, 0755, $(MII_DIAG_DIR)/mii-diag, /usr/sbin/mii-diag)
 
-	@$(call install_finish)
+	@$(call install_finish, mii-diag)
 
 	@$(call touch, $@)
 

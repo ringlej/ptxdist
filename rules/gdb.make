@@ -131,18 +131,18 @@ $(STATEDIR)/gdb.targetinstall: $(gdb_targetinstall_deps_default)
 
 	mkdir -p $(ROOTDIR)/usr/bin
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,gdb)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GDB_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, gdb)
+	@$(call install_fixup, gdb,PACKAGE,gdb)
+	@$(call install_fixup, gdb,PRIORITY,optional)
+	@$(call install_fixup, gdb,VERSION,$(GDB_VERSION))
+	@$(call install_fixup, gdb,SECTION,base)
+	@$(call install_fixup, gdb,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gdb,DEPENDS,)
+	@$(call install_fixup, gdb,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(GDB_BUILDDIR)/gdb/gdb, /usr/bin/gdb)
+	@$(call install_copy, gdb, 0, 0, 0755, $(GDB_BUILDDIR)/gdb/gdb, /usr/bin/gdb)
 
-	@$(call install_finish)
+	@$(call install_finish, gdb)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

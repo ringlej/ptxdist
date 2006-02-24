@@ -101,18 +101,18 @@ etherwake_targetinstall: $(STATEDIR)/etherwake.targetinstall
 $(STATEDIR)/etherwake.targetinstall: $(etherwake_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,etherwake)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(ETHERWAKE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, etherwake)
+	@$(call install_fixup, etherwake,PACKAGE,etherwake)
+	@$(call install_fixup, etherwake,PRIORITY,optional)
+	@$(call install_fixup, etherwake,VERSION,$(ETHERWAKE_VERSION))
+	@$(call install_fixup, etherwake,SECTION,base)
+	@$(call install_fixup, etherwake,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, etherwake,DEPENDS,)
+	@$(call install_fixup, etherwake,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0755, $(ETHERWAKE_DIR)/etherwake, /usr/sbin/etherwake)
+	@$(call install_copy, etherwake, 0, 0, 0755, $(ETHERWAKE_DIR)/etherwake, /usr/sbin/etherwake)
 
-	@$(call install_finish)
+	@$(call install_finish, etherwake)
 
 	@$(call touch, $@)
 

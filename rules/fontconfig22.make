@@ -118,22 +118,22 @@ fontconfig22_targetinstall: $(STATEDIR)/fontconfig22.targetinstall
 $(STATEDIR)/fontconfig22.targetinstall: $(fontconfig22_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,fontconfig22)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(FONTCONFIG22_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, fontconfig22)
+	@$(call install_fixup, fontconfig22,PACKAGE,fontconfig22)
+	@$(call install_fixup, fontconfig22,PRIORITY,optional)
+	@$(call install_fixup, fontconfig22,VERSION,$(FONTCONFIG22_VERSION))
+	@$(call install_fixup, fontconfig22,SECTION,base)
+	@$(call install_fixup, fontconfig22,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, fontconfig22,DEPENDS,)
+	@$(call install_fixup, fontconfig22,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, fontconfig22, 0, 0, 0644, \
 		$(FONTCONFIG22_DIR)/src/.libs/libfontconfig.so.1.0.4, \
 		/usr/lib/libfontconfig.so.1.0.4)
-	@$(call install_link, libfontconfig.so.1.0.4, /usr/lib/libfontconfig.so.1)
-	@$(call install_link, libfontconfig.so.1.0.4, /usr/lib/libfontconfig.so)
+	@$(call install_link, fontconfig22, libfontconfig.so.1.0.4, /usr/lib/libfontconfig.so.1)
+	@$(call install_link, fontconfig22, libfontconfig.so.1.0.4, /usr/lib/libfontconfig.so)
 
-	@$(call install_finish)
+	@$(call install_finish, fontconfig22)
 
 	@$(call touch, $@)
 

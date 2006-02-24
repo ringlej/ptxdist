@@ -108,18 +108,18 @@ wget_targetinstall: $(STATEDIR)/wget.targetinstall
 $(STATEDIR)/wget.targetinstall: $(wget_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,wget)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(WGET_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, wget)
+	@$(call install_fixup, wget,PACKAGE,wget)
+	@$(call install_fixup, wget,PRIORITY,optional)
+	@$(call install_fixup, wget,VERSION,$(WGET_VERSION))
+	@$(call install_fixup, wget,SECTION,base)
+	@$(call install_fixup, wget,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, wget,DEPENDS,)
+	@$(call install_fixup, wget,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(WGET_DIR)/src/wget, /usr/bin/wget)
+	@$(call install_copy, wget, 0, 0, 0755, $(WGET_DIR)/src/wget, /usr/bin/wget)
 
-	@$(call install_finish)
+	@$(call install_finish, wget)
 
 	@$(call touch, $@)
 

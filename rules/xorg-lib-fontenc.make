@@ -106,28 +106,28 @@ xorg-lib-fontenc_targetinstall: $(STATEDIR)/xorg-lib-fontenc.targetinstall
 $(STATEDIR)/xorg-lib-fontenc.targetinstall: $(xorg-lib-fontenc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-fontenc)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_FONTENC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-fontenc)
+	@$(call install_fixup, xorg-lib-fontenc,PACKAGE,xorg-lib-fontenc)
+	@$(call install_fixup, xorg-lib-fontenc,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-fontenc,VERSION,$(XORG_LIB_FONTENC_VERSION))
+	@$(call install_fixup, xorg-lib-fontenc,SECTION,base)
+	@$(call install_fixup, xorg-lib-fontenc,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-fontenc,DEPENDS,)
+	@$(call install_fixup, xorg-lib-fontenc,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-fontenc, 0, 0, 0644, \
 		$(XORG_LIB_FONTENC_DIR)/src/.libs/libfontenc.so.1.0.0, \
 		$(XORG_LIBDIR)/libfontenc.so.1.0.0)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-fontenc, \
 		libfontenc.so.1.0.0, \
 		$(XORG_LIBDIR)/libfontenc.so.1)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-fontenc, \
 		libfontenc.so.1.0.0, \
 		$(XORG_LIBDIR)/libfontenc.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-fontenc)
 
 	@$(call touch, $@)
 

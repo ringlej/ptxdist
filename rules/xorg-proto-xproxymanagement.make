@@ -106,16 +106,16 @@ xorg-proto-xproxymanagement_targetinstall: $(STATEDIR)/xorg-proto-xproxymanageme
 $(STATEDIR)/xorg-proto-xproxymanagement.targetinstall: $(xorg-proto-xproxymanagement_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-xproxymanagement)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_XPROXYMANAGEMENT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-xproxymanagement)
+	@$(call install_fixup, xorg-proto-xproxymanagement,PACKAGE,xorg-proto-xproxymanagement)
+	@$(call install_fixup, xorg-proto-xproxymanagement,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-xproxymanagement,VERSION,$(XORG_PROTO_XPROXYMANAGEMENT_VERSION))
+	@$(call install_fixup, xorg-proto-xproxymanagement,SECTION,base)
+	@$(call install_fixup, xorg-proto-xproxymanagement,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-xproxymanagement,DEPENDS,)
+	@$(call install_fixup, xorg-proto-xproxymanagement,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-xproxymanagement)
 
 	@$(call touch, $@)
 

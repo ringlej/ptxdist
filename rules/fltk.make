@@ -133,29 +133,29 @@ fltk_targetinstall: $(STATEDIR)/fltk.targetinstall
 $(STATEDIR)/fltk.targetinstall: $(fltk_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,fltk)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(FLTK_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, fltk)
+	@$(call install_fixup, fltk,PACKAGE,fltk)
+	@$(call install_fixup, fltk,PRIORITY,optional)
+	@$(call install_fixup, fltk,VERSION,$(FLTK_VERSION))
+	@$(call install_fixup, fltk,SECTION,base)
+	@$(call install_fixup, fltk,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, fltk,DEPENDS,)
+	@$(call install_fixup, fltk,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, fltk, 0, 0, 0644, \
 		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk.so.1.1, \
 		/usr/lib/libfltk.so.1.1)
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, fltk, 0, 0, 0644, \
 		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk_forms.so.1.1, \
 		/usr/lib/libfltk_forms.so.1.1)
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, fltk, 0, 0, 0644, \
 		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk_images.so.1.1, \
 		/usr/lib/libfltk_images.so.1.1)
-	@$(call install_link, libfltk.so.1.1, /usr/lib/libfltk.so)
-	@$(call install_link, libfltk_forms.so.1.1, /usr/lib/libfltk_forms.so)
-	@$(call install_link, libfltk_images.so.1.1, /usr/lib/libfltk_images.so)
+	@$(call install_link, fltk, libfltk.so.1.1, /usr/lib/libfltk.so)
+	@$(call install_link, fltk, libfltk_forms.so.1.1, /usr/lib/libfltk_forms.so)
+	@$(call install_link, fltk, libfltk_images.so.1.1, /usr/lib/libfltk_images.so)
 	
-	@$(call install_finish)
+	@$(call install_finish, fltk)
 
 	@$(call touch, $@)
 

@@ -102,23 +102,23 @@ gmp4_targetinstall: $(STATEDIR)/gmp4.targetinstall
 $(STATEDIR)/gmp4.targetinstall: $(gmp4_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,gmp4)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GMP4_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, gmp4)
+	@$(call install_fixup, gmp4,PACKAGE,gmp4)
+	@$(call install_fixup, gmp4,PRIORITY,optional)
+	@$(call install_fixup, gmp4,VERSION,$(GMP4_VERSION))
+	@$(call install_fixup, gmp4,SECTION,base)
+	@$(call install_fixup, gmp4,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gmp4,DEPENDS,)
+	@$(call install_fixup, gmp4,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gmp4, 0, 0, 0644, \
 		$(GMP4_DIR)/.libs/libgmp.so.3.3.3, \
 		/usr/lib/libgmp.so.3.3.3)
 
-	@$(call install_link, libgmp.so.3.3.3, /usr/lib/libgmp.so.3)
-	@$(call install_link, libgmp.so.3.3.3, /usr/lib/libgmp.so)
+	@$(call install_link, gmp4, libgmp.so.3.3.3, /usr/lib/libgmp.so.3)
+	@$(call install_link, gmp4, libgmp.so.3.3.3, /usr/lib/libgmp.so)
 
-	@$(call install_finish)
+	@$(call install_finish, gmp4)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

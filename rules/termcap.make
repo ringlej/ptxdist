@@ -106,18 +106,20 @@ termcap_targetinstall: $(STATEDIR)/termcap.targetinstall
 $(STATEDIR)/termcap.targetinstall: $(termcap_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,termcap)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(TERMCAP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, termcap)
+	@$(call install_fixup, termcap,PACKAGE,termcap)
+	@$(call install_fixup, termcap,PRIORITY,optional)
+	@$(call install_fixup, termcap,VERSION,$(TERMCAP_VERSION))
+	@$(call install_fixup, termcap,SECTION,base)
+	@$(call install_fixup, termcap,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, termcap,DEPENDS,)
+	@$(call install_fixup, termcap,DESCRIPTION,missing)
 	
 ifdef PTXCONF_TERMCAP_TERMCAP
-	@$(call install_copy, 0, 0, 0755, $(TERMCAP_DIR)/termcap.src, /etc/termcap.src,n)
+	@$(call install_copy, termcap, 0, 0, 0755, $(TERMCAP_DIR)/termcap.src, /etc/termcap.src,n)
 endif
+	@$(call install_finish, termcap)
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

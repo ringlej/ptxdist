@@ -110,18 +110,18 @@ xmlstarlet_targetinstall: $(STATEDIR)/xmlstarlet.targetinstall
 $(STATEDIR)/xmlstarlet.targetinstall: $(xmlstarlet_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xmlstarlet)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XMLSTARLET_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xmlstarlet)
+	@$(call install_fixup, xmlstarlet,PACKAGE,xmlstarlet)
+	@$(call install_fixup, xmlstarlet,PRIORITY,optional)
+	@$(call install_fixup, xmlstarlet,VERSION,$(XMLSTARLET_VERSION))
+	@$(call install_fixup, xmlstarlet,SECTION,base)
+	@$(call install_fixup, xmlstarlet,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xmlstarlet,DEPENDS,)
+	@$(call install_fixup, xmlstarlet,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(XMLSTARLET_DIR)/src/xml, /usr/bin/xmlstarlet)
+	@$(call install_copy, xmlstarlet, 0, 0, 0755, $(XMLSTARLET_DIR)/src/xml, /usr/bin/xmlstarlet)
 
-	@$(call install_finish)
+	@$(call install_finish, xmlstarlet)
 
 	@$(call touch, $@)
 

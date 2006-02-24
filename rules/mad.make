@@ -105,18 +105,18 @@ mad_targetinstall: $(STATEDIR)/mad.targetinstall
 $(STATEDIR)/mad.targetinstall: $(mad_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,mad)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MAD_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, mad)
+	@$(call install_fixup, mad,PACKAGE,mad)
+	@$(call install_fixup, mad,PRIORITY,optional)
+	@$(call install_fixup, mad,VERSION,$(MAD_VERSION))
+	@$(call install_fixup, mad,SECTION,base)
+	@$(call install_fixup, mad,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, mad,DEPENDS,)
+	@$(call install_fixup, mad,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(MAD_DIR)/madplay, /usr/bin/madplay)
+	@$(call install_copy, mad, 0, 0, 0755, $(MAD_DIR)/madplay, /usr/bin/madplay)
 
-	@$(call install_finish)
+	@$(call install_finish, mad)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

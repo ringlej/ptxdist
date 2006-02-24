@@ -126,18 +126,18 @@ syslogng_targetinstall: $(STATEDIR)/syslogng.targetinstall
 $(STATEDIR)/syslogng.targetinstall: $(syslogng_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,syslogng)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SYSLOGNG_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, syslogng)
+	@$(call install_fixup, syslogng,PACKAGE,syslogng)
+	@$(call install_fixup, syslogng,PRIORITY,optional)
+	@$(call install_fixup, syslogng,VERSION,$(SYSLOGNG_VERSION))
+	@$(call install_fixup, syslogng,SECTION,base)
+	@$(call install_fixup, syslogng,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, syslogng,DEPENDS,)
+	@$(call install_fixup, syslogng,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(SYSLOGNG_DIR)/src/syslog-ng, /sbin/syslog-ng)
+	@$(call install_copy, syslogng, 0, 0, 0755, $(SYSLOGNG_DIR)/src/syslog-ng, /sbin/syslog-ng)
 
-	@$(call install_finish)
+	@$(call install_finish, syslogng)
 
 	@$(call touch, $@)
 

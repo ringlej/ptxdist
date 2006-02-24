@@ -223,36 +223,36 @@ mico_targetinstall: $(STATEDIR)/mico.targetinstall
 $(STATEDIR)/mico.targetinstall: $(mico_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,mico)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MICO_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, mico)
+	@$(call install_fixup, mico,PACKAGE,mico)
+	@$(call install_fixup, mico,PRIORITY,optional)
+	@$(call install_fixup, mico,VERSION,$(MICO_VERSION))
+	@$(call install_fixup, mico,SECTION,base)
+	@$(call install_fixup, mico,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, mico,DEPENDS,)
+	@$(call install_fixup, mico,DESCRIPTION,missing)
 
 ifdef PTXCONF_MICO_LIBMICOAUX
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, mico, 0, 0, 0644, \
 		$(MICO_DIR)/libs/libmicoaux$(MICO_VERSION).so, \
 		/usr/lib/libmicoaux$(MICO_VERSION).so)
 endif
 ifdef PTXCONF_MICO_LIBMICOCOSS
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, mico, 0, 0, 0644, \
 		$(MICO_DIR)/libs/libmicocoss$(MICO_VERSION).so, \
 		/usr/lib/libmicocoss$(MICO_VERSION).so)
 endif
 ifdef PTXCONF_MICO_LIBMICOIR
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, mico, 0, 0, 0644, \
 		$(MICO_DIR)/libs/libmicoir$(MICO_VERSION).so, \
 		/usr/lib/libmicoir$(MICO_VERSION).so)
 endif
 ifdef PTXCONF_MICO_LIBMICO
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, mico, 0, 0, 0644, \
 		$(MICO_DIR)/libs/libmico$(MICO_VERSION).so, \
 		/usr/lib/libmico$(MICO_VERSION).so)
 endif
-	@$(call install_finish)
+	@$(call install_finish, mico)
 
 	@$(call touch, $@)
 

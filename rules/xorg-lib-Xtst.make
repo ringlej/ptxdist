@@ -106,18 +106,18 @@ xorg-lib-Xtst_targetinstall: $(STATEDIR)/xorg-lib-Xtst.targetinstall
 $(STATEDIR)/xorg-lib-Xtst.targetinstall: $(xorg-lib-Xtst_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xtst)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XTST_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xtst)
+	@$(call install_fixup, xorg-lib-Xtst,PACKAGE,xorg-lib-xtst)
+	@$(call install_fixup, xorg-lib-Xtst,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xtst,VERSION,$(XORG_LIB_XTST_VERSION))
+	@$(call install_fixup, xorg-lib-Xtst,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xtst,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xtst,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xtst,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xtst)
 
 	@$(call touch, $@)
 

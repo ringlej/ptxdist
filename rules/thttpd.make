@@ -105,31 +105,31 @@ thttpd_targetinstall: $(STATEDIR)/thttpd.targetinstall
 $(STATEDIR)/thttpd.targetinstall: $(thttpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,thttpd)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(THTTPD_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, thttpd)
+	@$(call install_fixup, thttpd,PACKAGE,thttpd)
+	@$(call install_fixup, thttpd,PRIORITY,optional)
+	@$(call install_fixup, thttpd,VERSION,$(THTTPD_VERSION))
+	@$(call install_fixup, thttpd,SECTION,base)
+	@$(call install_fixup, thttpd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, thttpd,DEPENDS,)
+	@$(call install_fixup, thttpd,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(THTTPD_DIR)/thttpd, /usr/sbin/thttpd)
+	@$(call install_copy, thttpd, 0, 0, 0755, $(THTTPD_DIR)/thttpd, /usr/sbin/thttpd)
 ifdef PTXCONF_ROOTFS_ETC_INITD_THTTPD
 ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_USER_FILE)),)
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_THTTPD_USER_FILE), /etc/init.d/thttpd, n)
+	@$(call install_copy, thttpd, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_THTTPD_USER_FILE), /etc/init.d/thttpd, n)
 else
-	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/thttpd, /etc/init.d/thttpd, n)
+	@$(call install_copy, thttpd, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/thttpd, /etc/init.d/thttpd, n)
 endif
 endif
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK),"")
-	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, ../init.d/thttpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK))
+	@$(call install_copy, thttpd, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, thttpd, ../init.d/thttpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK))
 endif
-	@$(call install_copy, 12, 102, 0755, /var/www)
-	@$(call install_copy, 12, 102, 0644, $(PTXDIST_TOPDIR)/projects/generic/thttpd.html, /var/www/index.html, n)
+	@$(call install_copy, thttpd, 12, 102, 0755, /var/www)
+	@$(call install_copy, thttpd, 12, 102, 0644, $(PTXDIST_TOPDIR)/projects/generic/thttpd.html, /var/www/index.html, n)
 
-	@$(call install_finish)
+	@$(call install_finish, thttpd)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

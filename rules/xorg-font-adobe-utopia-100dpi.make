@@ -106,21 +106,21 @@ xorg-font-adobe-utopia-100dpi_targetinstall: $(STATEDIR)/xorg-font-adobe-utopia-
 $(STATEDIR)/xorg-font-adobe-utopia-100dpi.targetinstall: $(xorg-font-adobe-utopia-100dpi_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-font-adobe-utopia-100dpi)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_FONT_ADOBE_UTOPIA_100DPI_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-font-adobe-utopia-100dpi)
+	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,PACKAGE,xorg-font-adobe-utopia-100dpi)
+	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,VERSION,$(XORG_FONT_ADOBE_UTOPIA_100DPI_VERSION))
+	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,SECTION,base)
+	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,DEPENDS,)
+	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,DESCRIPTION,missing)
 
 	@cd $(XORG_FONT_ADOBE_UTOPIA_100DPI_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/100dpi/$$file, n); \
+		$(call install_copy, xorg-font-adobe-utopia-100dpi, 0, 0, 0644, $$file, $(XORG_FONTDIR)/100dpi/$$file, n); \
 	done
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-font-adobe-utopia-100dpi)
 
 	@$(call touch, $@)
 

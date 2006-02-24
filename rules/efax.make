@@ -104,19 +104,19 @@ efax_targetinstall: $(STATEDIR)/efax.targetinstall
 $(STATEDIR)/efax.targetinstall: $(efax_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,efax)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(EFAX_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, efax)
+	@$(call install_fixup, efax,PACKAGE,efax)
+	@$(call install_fixup, efax,PRIORITY,optional)
+	@$(call install_fixup, efax,VERSION,$(EFAX_VERSION))
+	@$(call install_fixup, efax,SECTION,base)
+	@$(call install_fixup, efax,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, efax,DEPENDS,)
+	@$(call install_fixup, efax,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(EFAX_DIR)/efax, /usr/bin/efax)
-	@$(call install_copy, 0, 0, 0755, $(EFAX_DIR)/efix, /usr/bin/efix)
+	@$(call install_copy, efax, 0, 0, 0755, $(EFAX_DIR)/efax, /usr/bin/efax)
+	@$(call install_copy, efax, 0, 0, 0755, $(EFAX_DIR)/efix, /usr/bin/efix)
 
-	@$(call install_finish)
+	@$(call install_finish, efax)
 
 	@$(call touch, $@)
 

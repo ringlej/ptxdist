@@ -103,29 +103,29 @@ dosfstools_targetinstall: $(STATEDIR)/dosfstools.targetinstall
 $(STATEDIR)/dosfstools.targetinstall: $(dosfstools_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,dosfstools)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(DOSFSTOOLS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Steven Scholz <steven.scholz\@imc-berlin.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, dosfstools)
+	@$(call install_fixup, dosfstools,PACKAGE,dosfstools)
+	@$(call install_fixup, dosfstools,PRIORITY,optional)
+	@$(call install_fixup, dosfstools,VERSION,$(DOSFSTOOLS_VERSION))
+	@$(call install_fixup, dosfstools,SECTION,base)
+	@$(call install_fixup, dosfstools,AUTHOR,"Steven Scholz <steven.scholz\@imc-berlin.de>")
+	@$(call install_fixup, dosfstools,DEPENDS,)
+	@$(call install_fixup, dosfstools,DESCRIPTION,missing)
 
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS
-	@$(call install_copy, 0, 0, 0755, $(DOSFSTOOLS_DIR)/mkdosfs/mkdosfs, /sbin/mkdosfs)
+	@$(call install_copy, dosfstools, 0, 0, 0755, $(DOSFSTOOLS_DIR)/mkdosfs/mkdosfs, /sbin/mkdosfs)
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_MSDOS
-	@$(call install_link, mkdosfs, /sbin/mkfs.msdos)
+	@$(call install_link, dosfstools, mkdosfs, /sbin/mkfs.msdos)
 endif
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_VFAT
-	@$(call install_link, mkdosfs, /sbin/mkfs.vfat)
+	@$(call install_link, dosfstools, mkdosfs, /sbin/mkfs.vfat)
 endif
 endif
 ifdef PTXCONF_DOSFSTOOLS_DOSFSCK
-	@$(call install_copy, 0, 0, 0755, $(DOSFSTOOLS_DIR)/dosfsck/dosfsck, /sbin/dosfsck)
+	@$(call install_copy, dosfstools, 0, 0, 0755, $(DOSFSTOOLS_DIR)/dosfsck/dosfsck, /sbin/dosfsck)
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, dosfstools)
 
 	@$(call touch, $@)
 

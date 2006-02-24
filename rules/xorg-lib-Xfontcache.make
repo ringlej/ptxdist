@@ -108,18 +108,18 @@ xorg-lib-Xfontcache_targetinstall: $(STATEDIR)/xorg-lib-Xfontcache.targetinstall
 $(STATEDIR)/xorg-lib-Xfontcache.targetinstall: $(xorg-lib-Xfontcache_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xfontcache)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XFONTCACHE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xfontcache)
+	@$(call install_fixup, xorg-lib-Xfontcache,PACKAGE,xorg-lib-xfontcache)
+	@$(call install_fixup, xorg-lib-Xfontcache,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xfontcache,VERSION,$(XORG_LIB_XFONTCACHE_VERSION))
+	@$(call install_fixup, xorg-lib-Xfontcache,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xfontcache,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xfontcache,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xfontcache,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xfontcache)
 
 	@$(call touch, $@)
 

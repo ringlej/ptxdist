@@ -99,20 +99,20 @@ zlib_targetinstall: $(STATEDIR)/zlib.targetinstall
 $(STATEDIR)/zlib.targetinstall: $(zlib_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,zlib)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(ZLIB_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, zlib)
+	@$(call install_fixup, zlib,PACKAGE,zlib)
+	@$(call install_fixup, zlib,PRIORITY,optional)
+	@$(call install_fixup, zlib,VERSION,$(ZLIB_VERSION))
+	@$(call install_fixup, zlib,SECTION,base)
+	@$(call install_fixup, zlib,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, zlib,DEPENDS,)
+	@$(call install_fixup, zlib,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(ZLIB_DIR)/libz.so.1.2.3, /usr/lib/libz.so.1.2.3)
-	@$(call install_link, libz.so.1.2.3, /usr/lib/libz.so.1)
-	@$(call install_link, libz.so.1.2.3, /usr/lib/libz.so)
+	@$(call install_copy, zlib, 0, 0, 0644, $(ZLIB_DIR)/libz.so.1.2.3, /usr/lib/libz.so.1.2.3)
+	@$(call install_link, zlib, libz.so.1.2.3, /usr/lib/libz.so.1)
+	@$(call install_link, zlib, libz.so.1.2.3, /usr/lib/libz.so)
 
-	@$(call install_finish)
+	@$(call install_finish, zlib)
 
 	@$(call touch, $@)
 

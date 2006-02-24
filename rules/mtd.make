@@ -151,71 +151,71 @@ mtd_targetinstall: $(STATEDIR)/mtd.targetinstall
 $(STATEDIR)/mtd.targetinstall: $(mtd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,mtd)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(subst -,,$(MTD_VERSION)))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, mtd)
+	@$(call install_fixup, mtd,PACKAGE,mtd)
+	@$(call install_fixup, mtd,PRIORITY,optional)
+	@$(call install_fixup, mtd,VERSION,$(subst -,,$(MTD_VERSION)))
+	@$(call install_fixup, mtd,SECTION,base)
+	@$(call install_fixup, mtd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, mtd,DEPENDS,)
+	@$(call install_fixup, mtd,DESCRIPTION,missing)
 
 ifdef PTXCONF_MTD_FLASH_ERASE
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flash_erase, /sbin/flash_erase)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/flash_erase, /sbin/flash_erase)
 endif
 ifdef PTXCONF_MTD_FLASH_ERASEALL
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flash_eraseall, /sbin/flash_eraseall)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/flash_eraseall, /sbin/flash_eraseall)
 endif
 ifdef PTXCONF_MTD_FLASH_INFO
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flash_info, /sbin/flash_info)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/flash_info, /sbin/flash_info)
 endif
 ifdef PTXCONF_MTD_FLASH_LOCK
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flash_lock, /sbin/flash_lock)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/flash_lock, /sbin/flash_lock)
 endif
 ifdef PTXCONF_MTD_FLASH_UNLOCK
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flash_unlock, /sbin/flash_unlock)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/flash_unlock, /sbin/flash_unlock)
 endif
 ifdef PTXCONF_MTD_FLASHCP
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/flashcp, /sbin/flashcp)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/flashcp, /sbin/flashcp)
 endif
 ifdef PTXCONF_MTD_FTL_CHECK
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/ftl_check, /sbin/ftl_check)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/ftl_check, /sbin/ftl_check)
 endif
 ifdef PTXCONF_MTD_FTL_FORMAT
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/ftl_format, /sbin/ftl_format)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/ftl_format, /sbin/ftl_format)
 endif
 ifdef PTXCONF_MTD_JFFS_DUMP
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/jffs-dump, /sbin/jffs-dump)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/jffs-dump, /sbin/jffs-dump)
 endif
 ifdef PTXCONF_MTD_JFFS2_DUMP
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/jffs2dump, /sbin/jffs2dump)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/jffs2dump, /sbin/jffs2dump)
 endif
 ifdef PTXCONF_MTD_JFFS2READER
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/jffs2reader, /sbin/jffs2reader)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/jffs2reader, /sbin/jffs2reader)
 endif
 ifdef PTXCONF_MTD_MTDDEBUG
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/mtd_debug, /sbin/mtd_debug)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/mtd_debug, /sbin/mtd_debug)
 endif
 ifdef PTXCONF_MTD_NANDDUMP
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/nanddump, /sbin/nanddump)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/nanddump, /sbin/nanddump)
 endif
 ifdef PTXCONF_MTD_NANDWRITE
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/nandwrite, /sbin/nandwrite)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/nandwrite, /sbin/nandwrite)
 endif
 ifdef PTXCONF_MTD_NFTL_FORMAT
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/nftl_format, /sbin/nftl_format)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/nftl_format, /sbin/nftl_format)
 endif
 ifdef PTXCONF_MTD_NFTLDUMP
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/nftldump, /sbin/nftldump)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/nftldump, /sbin/nftldump)
 endif
 ifdef PTXCONF_MTD_MKJFFS
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/mkfs.jffs, /sbin/mkfs.jffs)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/mkfs.jffs, /sbin/mkfs.jffs)
 endif
 ifdef PTXCONF_MTD_MKJFFS2
-	@$(call install_copy, 0, 0, 0755, $(MTD_DIR)/util/mkfs.jffs2, /sbin/mkfs.jffs2)
+	@$(call install_copy, mtd, 0, 0, 0755, $(MTD_DIR)/util/mkfs.jffs2, /sbin/mkfs.jffs2)
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, mtd)
 
 	@$(call touch, $@)
 

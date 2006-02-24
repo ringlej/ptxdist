@@ -106,16 +106,16 @@ xorg-proto-applewm_targetinstall: $(STATEDIR)/xorg-proto-applewm.targetinstall
 $(STATEDIR)/xorg-proto-applewm.targetinstall: $(xorg-proto-applewm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-applewm)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_APPLEWM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-applewm)
+	@$(call install_fixup, xorg-proto-applewm,PACKAGE,xorg-proto-applewm)
+	@$(call install_fixup, xorg-proto-applewm,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-applewm,VERSION,$(XORG_PROTO_APPLEWM_VERSION))
+	@$(call install_fixup, xorg-proto-applewm,SECTION,base)
+	@$(call install_fixup, xorg-proto-applewm,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-applewm,DEPENDS,)
+	@$(call install_fixup, xorg-proto-applewm,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-applewm)
 
 	@$(call touch, $@)
 

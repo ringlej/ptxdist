@@ -99,23 +99,23 @@ xvkbd_targetinstall: $(STATEDIR)/xvkbd.targetinstall
 $(STATEDIR)/xvkbd.targetinstall: $(xvkbd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xvkbd)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(COREUTILS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xvkbd)
+	@$(call install_fixup, xvkbd,PACKAGE,xvkbd)
+	@$(call install_fixup, xvkbd,PRIORITY,optional)
+	@$(call install_fixup, xvkbd,VERSION,$(COREUTILS_VERSION))
+	@$(call install_fixup, xvkbd,SECTION,base)
+	@$(call install_fixup, xvkbd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xvkbd,DEPENDS,)
+	@$(call install_fixup, xvkbd,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(XVKBD_DIR)/xvkbd, /usr/X11R6/bin/xvkbd)
-	@$(call install_copy, 0, 0, 0755, $(XVKBD_DIR)/XVkbd-common.ad, /etc/X11/app-defaults/XVkbd-common)
-	@$(call install_copy, 0, 0, 0755, $(XVKBD_DIR)/XVkbd-german.ad, /etc/X11/app-defaults/XVkbd-german)
+	@$(call install_copy, xvkbd, 0, 0, 0755, $(XVKBD_DIR)/xvkbd, /usr/X11R6/bin/xvkbd)
+	@$(call install_copy, xvkbd, 0, 0, 0755, $(XVKBD_DIR)/XVkbd-common.ad, /etc/X11/app-defaults/XVkbd-common)
+	@$(call install_copy, xvkbd, 0, 0, 0755, $(XVKBD_DIR)/XVkbd-german.ad, /etc/X11/app-defaults/XVkbd-german)
 	echo '#include "XVkbd-german"' > $(ROOTDIR)/etc/X11/app-defaults/XVkbd
 	# FIXME: fix permissions
 	echo '#include "XVkbd-german"' > $(IMAGEIR)/ipkg/etc/X11/app-defaults/XVkbd
 
-	@$(call install_finish)
+	@$(call install_finish, xvkbd)
 	
 	@$(call touch, $@)
 

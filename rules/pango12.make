@@ -111,42 +111,42 @@ pango12_targetinstall: $(STATEDIR)/pango12.targetinstall
 $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,pango12)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PANGO12_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, pango)
+	@$(call install_fixup, pango,PACKAGE,pango12)
+	@$(call install_fixup, pango,PRIORITY,optional)
+	@$(call install_fixup, pango,VERSION,$(PANGO12_VERSION))
+	@$(call install_fixup, pango,SECTION,base)
+	@$(call install_fixup, pango,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, pango,DEPENDS,)
+	@$(call install_fixup, pango,DESCRIPTION,missing)
 
 	rm -f $(ROOTDIR)/lib/libpango-1.0.so*
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, pango, 0, 0, 0644, \
 		$(PANGO12_DIR)/pango/.libs/libpango-1.0.so.0.300.2, \
 		/usr/lib/libpango-1.0.so.0.300.2)
-	@$(call install_link, libpango-1.0.so.0.300.2, /usr/lib/libpango-1.0.so.0)
-	@$(call install_link, libpango-1.0.so.0.300.2, /usr/lib/libpango-1.0.so)
+	@$(call install_link, pango, libpango-1.0.so.0.300.2, /usr/lib/libpango-1.0.so.0)
+	@$(call install_link, pango, libpango-1.0.so.0.300.2, /usr/lib/libpango-1.0.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, pango, 0, 0, 0644, \
 		$(PANGO12_DIR)/pango/.libs/libpangox-1.0.so.0.300.2, \
 		/usr/lib/libpangox-1.0.so.0.300.2)
-	@$(call install_link, libpangox-1.0.so.0.300.2, /lib/libpangox-1.0.so.0)
-	@$(call install_link, libpangox-1.0.so.0.300.2, /lib/libpangox-1.0.so)
+	@$(call install_link, pango, libpangox-1.0.so.0.300.2, /lib/libpangox-1.0.so.0)
+	@$(call install_link, pango, libpangox-1.0.so.0.300.2, /lib/libpangox-1.0.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, pango, 0, 0, 0644, \
 		$(PANGO12_DIR)/pango/.libs/libpangoxft-1.0.so.0.300.2, \
 		/usr/lib/libpangoxft-1.0.so.0.300.2)
-	@$(call install_link, libpangoxft-1.0.so.0.300.2, /usr/lib/libpangoxft-1.0.so.0)
-	@$(call install_link, libpangoxft-1.0.so.0.300.2, /usr/lib/libpangoxft-1.0.so)
+	@$(call install_link, pango, libpangoxft-1.0.so.0.300.2, /usr/lib/libpangoxft-1.0.so.0)
+	@$(call install_link, pango, libpangoxft-1.0.so.0.300.2, /usr/lib/libpangoxft-1.0.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, pango, 0, 0, 0644, \
 		$(PANGO12_DIR)/pango/.libs/libpangoft2-1.0.so.0.300.2, \
 		/usr/lib/libpangoft2-1.0.so.0.300.2)
-	@$(call install_link, libpangoft2-1.0.so.0.300.2, /lib/libpangoft2-1.0.so.0)
-	@$(call install_link, libpangoft2-1.0.so.0.300.2, /lib/libpangoft2-1.0.so)
+	@$(call install_link, pango, libpangoft2-1.0.so.0.300.2, /lib/libpangoft2-1.0.so.0)
+	@$(call install_link, pango, libpangoft2-1.0.so.0.300.2, /lib/libpangoft2-1.0.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, pango, 0, 0, 0644, \
 		$(PANGO12_DIR)/pango/.libs/pango-querymodules, \
 		/usr/bin/pango-querymodules)
 
@@ -154,13 +154,13 @@ $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps_default)
 	cp -a $(CROSS_LIB_DIR)/lib/pango $(ROOTDIR)/usr/lib
 
 	# FIXME: broken path; compare with ptxdist before 0.7.4
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, pango, 0, 0, 0644, \
 		$(ROOTDIR)/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules, 
 		/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules)
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, pango, 0, 0, 0644, \
 		$(PANGO12_DIR)/modules/basic/.libs/*.so, \
 		/usr/lib/pango/$(PANGO_MODULE_VERSION)/modules)
-	@$(call install_finish)
+	@$(call install_finish, pango)
 
 	@$(call touch, $@)
 

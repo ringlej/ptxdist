@@ -108,22 +108,22 @@ freetype_targetinstall: $(STATEDIR)/freetype.targetinstall
 $(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,freetype)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(FREETYPE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, freetype)
+	@$(call install_fixup, freetype,PACKAGE,freetype)
+	@$(call install_fixup, freetype,PRIORITY,optional)
+	@$(call install_fixup, freetype,VERSION,$(FREETYPE_VERSION))
+	@$(call install_fixup, freetype,SECTION,base)
+	@$(call install_fixup, freetype,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, freetype,DEPENDS,)
+	@$(call install_fixup, freetype,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, freetype, 0, 0, 0644, \
 		$(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.7, \
 		/usr/lib/libfreetype.so.6.3.7)
-	@$(call install_link, libfreetype.so.6.3.7, /usr/lib/libfreetype.so.6)		
-	@$(call install_link, libfreetype.so.6.3.7, /usr/lib/libfreetype.so)		
+	@$(call install_link, freetype, libfreetype.so.6.3.7, /usr/lib/libfreetype.so.6)		
+	@$(call install_link, freetype, libfreetype.so.6.3.7, /usr/lib/libfreetype.so)		
 
-	@$(call install_finish)
+	@$(call install_finish, freetype)
 
 	@$(call touch, $@)
 

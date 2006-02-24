@@ -106,18 +106,18 @@ xorg-lib-Xdamage_targetinstall: $(STATEDIR)/xorg-lib-Xdamage.targetinstall
 $(STATEDIR)/xorg-lib-Xdamage.targetinstall: $(xorg-lib-Xdamage_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xdamage)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XDAMAGE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xdamage)
+	@$(call install_fixup, xorg-lib-Xdamage,PACKAGE,xorg-lib-xdamage)
+	@$(call install_fixup, xorg-lib-Xdamage,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xdamage,VERSION,$(XORG_LIB_XDAMAGE_VERSION))
+	@$(call install_fixup, xorg-lib-Xdamage,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xdamage,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xdamage,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xdamage,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xdamage)
 
 	@$(call touch, $@)
 

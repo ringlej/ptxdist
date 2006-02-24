@@ -106,18 +106,18 @@ gdbserver_targetinstall: $(STATEDIR)/gdbserver.targetinstall
 $(STATEDIR)/gdbserver.targetinstall: $(gdbserver_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,gdbserver)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GDB_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, gdbserver)
+	@$(call install_fixup, gdbserver,PACKAGE,gdbserver)
+	@$(call install_fixup, gdbserver,PRIORITY,optional)
+	@$(call install_fixup, gdbserver,VERSION,$(GDB_VERSION))
+	@$(call install_fixup, gdbserver,SECTION,base)
+	@$(call install_fixup, gdbserver,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gdbserver,DEPENDS,)
+	@$(call install_fixup, gdbserver,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(GDBSERVER_BUILDDIR)/gdbserver, /usr/bin/gdbserver)
+	@$(call install_copy, gdbserver, 0, 0, 0755, $(GDBSERVER_BUILDDIR)/gdbserver, /usr/bin/gdbserver)
 
-	@$(call install_finish)
+	@$(call install_finish, gdbserver)
 
 	@$(call touch, $@)
 

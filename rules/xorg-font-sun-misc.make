@@ -106,21 +106,21 @@ xorg-font-sun-misc_targetinstall: $(STATEDIR)/xorg-font-sun-misc.targetinstall
 $(STATEDIR)/xorg-font-sun-misc.targetinstall: $(xorg-font-sun-misc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-font-sun-misc)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_FONT_SUN_MISC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-font-sun-misc)
+	@$(call install_fixup, xorg-font-sun-misc,PACKAGE,xorg-font-sun-misc)
+	@$(call install_fixup, xorg-font-sun-misc,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-sun-misc,VERSION,$(XORG_FONT_SUN_MISC_VERSION))
+	@$(call install_fixup, xorg-font-sun-misc,SECTION,base)
+	@$(call install_fixup, xorg-font-sun-misc,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-font-sun-misc,DEPENDS,)
+	@$(call install_fixup, xorg-font-sun-misc,DESCRIPTION,missing)
 
 	@cd $(XORG_FONT_SUN_MISC_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
+		$(call install_copy, xorg-font-sun-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
 	done
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-font-sun-misc)
 
 	@$(call touch, $@)
 

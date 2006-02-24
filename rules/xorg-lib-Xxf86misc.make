@@ -108,18 +108,18 @@ xorg-lib-Xxf86misc_targetinstall: $(STATEDIR)/xorg-lib-Xxf86misc.targetinstall
 $(STATEDIR)/xorg-lib-Xxf86misc.targetinstall: $(xorg-lib-Xxf86misc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xxf86misc)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XXF86MISC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xxf86misc)
+	@$(call install_fixup, xorg-lib-Xxf86misc,PACKAGE,xorg-lib-xxf86misc)
+	@$(call install_fixup, xorg-lib-Xxf86misc,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xxf86misc,VERSION,$(XORG_LIB_XXF86MISC_VERSION))
+	@$(call install_fixup, xorg-lib-Xxf86misc,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xxf86misc,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xxf86misc,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xxf86misc,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xxf86misc)
 
 	@$(call touch, $@)
 

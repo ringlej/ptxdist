@@ -106,16 +106,16 @@ xorg-proto-xinerama_targetinstall: $(STATEDIR)/xorg-proto-xinerama.targetinstall
 $(STATEDIR)/xorg-proto-xinerama.targetinstall: $(xorg-proto-xinerama_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-xinerama)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_XINERAMA_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-xinerama)
+	@$(call install_fixup, xorg-proto-xinerama,PACKAGE,xorg-proto-xinerama)
+	@$(call install_fixup, xorg-proto-xinerama,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-xinerama,VERSION,$(XORG_PROTO_XINERAMA_VERSION))
+	@$(call install_fixup, xorg-proto-xinerama,SECTION,base)
+	@$(call install_fixup, xorg-proto-xinerama,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-xinerama,DEPENDS,)
+	@$(call install_fixup, xorg-proto-xinerama,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-xinerama)
 
 	@$(call touch, $@)
 

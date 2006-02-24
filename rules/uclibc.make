@@ -80,53 +80,53 @@ uclibc_targetinstall: $(STATEDIR)/uclibc.targetinstall
 $(STATEDIR)/uclibc.targetinstall: $(uclibc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,uclibc)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(UCLIBC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, uclibc)
+	@$(call install_fixup, uclibc,PACKAGE,uclibc)
+	@$(call install_fixup, uclibc,PRIORITY,optional)
+	@$(call install_fixup, uclibc,VERSION,$(UCLIBC_VERSION))
+	@$(call install_fixup, uclibc,SECTION,base)
+	@$(call install_fixup, uclibc,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, uclibc,DEPENDS,)
+	@$(call install_fixup, uclibc,DESCRIPTION,missing)
 
 ifdef PTXCONF_UCLIBC_INSTALL
-	@$(call install_copy_toolchain_dl, /lib)
-	@$(call install_copy_toolchain_lib, libc.so, /lib)
+	@$(call install_copy_toolchain_dl, uclibc, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libc.so, /lib)
 	# FIXME: add links	
 
 ifdef PTXCONF_UCLIBC_CRYPT
-	@$(call install_copy_toolchain_lib, libcrypt.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libcrypt.so, /lib)
 endif
 
 ifdef PTXCONF_UCLIBC_DL
-	@$(call install_copy_toolchain_lib, libdl.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libdl.so, /lib)
 endif
 
 ifdef PTXCONF_UCLIBC_M
-	@$(call install_copy_toolchain_lib, libm.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libm.so, /lib)
 endif
 
 ifdef PTXCONF_UCLIBC_NSL
-	@$(call install_copy_toolchain_lib, libnsl.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libnsl.so, /lib)
 endif
 
 ifdef PTXCONF_UCLIBC_PTHREAD
-	@$(call install_copy_toolchain_lib, libpthread.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libpthread.so, /lib)
 ifdef PTXCONF_GDBSERVER
-	@$(call install_copy_toolchain_lib, libthread_db.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libthread_db.so, /lib)
 endif
 endif
 
 ifdef PTXCONF_UCLIBC_RESOLV
-	@$(call install_copy_toolchain_lib, libresolv.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libresolv.so, /lib)
 endif
 
 ifdef PTXCONF_UCLIBC_UTIL
-	@$(call install_copy_toolchain_lib, libutil.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libutil.so, /lib)
 endif
 
 endif
-	@$(call install_finish)
+	@$(call install_finish, uclibc)
 	
 	@$(call touch, $@)
 

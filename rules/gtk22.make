@@ -121,41 +121,41 @@ gtk22_targetinstall: $(STATEDIR)/gtk22.targetinstall
 $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,gtk22)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GTK22_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, gtk22)
+	@$(call install_fixup, gtk22,PACKAGE,gtk22)
+	@$(call install_fixup, gtk22,PRIORITY,optional)
+	@$(call install_fixup, gtk22,VERSION,$(GTK22_VERSION))
+	@$(call install_fixup, gtk22,SECTION,base)
+	@$(call install_fixup, gtk22,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gtk22,DEPENDS,)
+	@$(call install_fixup, gtk22,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk22, 0, 0, 0644, \
 		$(GTK22_DIR)/gtk/.libs/libgtk-x11-2.0.so.0.302.0, \
 		/usr/lib/libgtk-x11-2.0.so.0.302.0)
-	@$(call install_link, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so.0)
-	@$(call install_link, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so)
+	@$(call install_link, gtk22, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so.0)
+	@$(call install_link, gtk22, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so)
 	
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk22, 0, 0, 0644, \
 		$(GTK22_DIR)/gdk/.libs/libgdk-x11-2.0.so.0.302.0, \
 		/usr/lib/libgdk-x11-2.0.so.0.302.0)
-	@$(call install_link, libgdk-x11-2.0.so.0.302.0, /usr/lib/libgdk-x11-2.0.so.0)
-	@$(call install_link, libgdk-x11-2.0.so.0.302.0, /usr/lib/libgdk-x11-2.0.so)
+	@$(call install_link, gtk22, libgdk-x11-2.0.so.0.302.0, /usr/lib/libgdk-x11-2.0.so.0)
+	@$(call install_link, gtk22, libgdk-x11-2.0.so.0.302.0, /usr/lib/libgdk-x11-2.0.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk22, 0, 0, 0644, \
 		$(GTK22_DIR)/gdk-pixbuf/.libs/libgdk_pixbuf-2.0.so.0.302.0, \
 		/usr/lib/libgdk_pixbuf-2.0.so.0.302.0)
-	@$(call install_link, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so.0)
-	@$(call install_link, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so)
+	@$(call install_link, gtk22, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so.0)
+	@$(call install_link, gtk22, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so)
 	
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk22, 0, 0, 0644, \
 		$(GTK22_DIR)/gdk-pixbuf/.libs/gdk-pixbuf-query-loaders, \
 		/usr/bin/gdk-pixbuf-query-loaders)
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk22, 0, 0, 0644, \
 		$(GTK22_DIR)/gdk-pixbuf/.libs/libpixbufloader*so, \
 		/usr/lib/gdk-pixbuf-loaders/)
 
-	@$(call install_finish)
+	@$(call install_finish, gtk22)
 
 	@$(call touch, $@)
 

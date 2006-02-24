@@ -107,18 +107,18 @@ xorg-lib-Xxf86vm_targetinstall: $(STATEDIR)/xorg-lib-Xxf86vm.targetinstall
 $(STATEDIR)/xorg-lib-Xxf86vm.targetinstall: $(xorg-lib-Xxf86vm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xxf86vm)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XXF86VM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xxf86vm)
+	@$(call install_fixup, xorg-lib-Xxf86vm,PACKAGE,xorg-lib-xxf86vm)
+	@$(call install_fixup, xorg-lib-Xxf86vm,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xxf86vm,VERSION,$(XORG_LIB_XXF86VM_VERSION))
+	@$(call install_fixup, xorg-lib-Xxf86vm,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xxf86vm,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xxf86vm,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xxf86vm,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xxf86vm)
 
 	@$(call touch, $@)
 

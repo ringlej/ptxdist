@@ -106,28 +106,28 @@ xorg-lib-Xfont_targetinstall: $(STATEDIR)/xorg-lib-Xfont.targetinstall
 $(STATEDIR)/xorg-lib-Xfont.targetinstall: $(xorg-lib-Xfont_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xfont)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XFONT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xfont)
+	@$(call install_fixup, xorg-lib-Xfont,PACKAGE,xorg-lib-xfont)
+	@$(call install_fixup, xorg-lib-Xfont,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xfont,VERSION,$(XORG_LIB_XFONT_VERSION))
+	@$(call install_fixup, xorg-lib-Xfont,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xfont,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xfont,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xfont,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-Xfont, 0, 0, 0644, \
 		$(XORG_LIB_XFONT_DIR)/src/.libs/libXfont.so.1.4.1, \
 		$(XORG_LIBDIR)/libXfont.so.1.4.1)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xfont, \
 		libXfont.so.1.4.1, \
 		$(XORG_LIBDIR)/libXfont.so.1)
 	
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xfont, \
 		libXfont.so.1.4.1, \
 		$(XORG_LIBDIR)/libXfont.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xfont)
 
 	@$(call touch, $@)
 

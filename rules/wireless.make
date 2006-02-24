@@ -100,28 +100,28 @@ wireless_targetinstall: $(STATEDIR)/wireless.targetinstall
 $(STATEDIR)/wireless.targetinstall: $(wireless_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,wireless)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(WIRELESS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, wireless)
+	@$(call install_fixup, wireless,PACKAGE,wireless)
+	@$(call install_fixup, wireless,PRIORITY,optional)
+	@$(call install_fixup, wireless,VERSION,$(WIRELESS_VERSION))
+	@$(call install_fixup, wireless,SECTION,base)
+	@$(call install_fixup, wireless,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, wireless,DEPENDS,)
+	@$(call install_fixup, wireless,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwconfig, /usr/sbin/iwconfig)
-	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwlist, /usr/sbin/iwlist)
-	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwpriv, /usr/sbin/iwpriv)
-	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwspy, /usr/sbin/iwspy)
-	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwgetid, /usr/sbin/iwgetid)
-	@$(call install_copy, 0, 0, 0755, $(WIRELESS_DIR)/iwevent, /usr/sbin/iwevent)
+	@$(call install_copy, wireless, 0, 0, 0755, $(WIRELESS_DIR)/iwconfig, /usr/sbin/iwconfig)
+	@$(call install_copy, wireless, 0, 0, 0755, $(WIRELESS_DIR)/iwlist, /usr/sbin/iwlist)
+	@$(call install_copy, wireless, 0, 0, 0755, $(WIRELESS_DIR)/iwpriv, /usr/sbin/iwpriv)
+	@$(call install_copy, wireless, 0, 0, 0755, $(WIRELESS_DIR)/iwspy, /usr/sbin/iwspy)
+	@$(call install_copy, wireless, 0, 0, 0755, $(WIRELESS_DIR)/iwgetid, /usr/sbin/iwgetid)
+	@$(call install_copy, wireless, 0, 0, 0755, $(WIRELESS_DIR)/iwevent, /usr/sbin/iwevent)
 
 ifdef PTXCONF_WIRELESS_SHARED
-	@$(call install_copy, 0, 0, 0644, $(WIRELESS_DIR)/libiw.so.$(WIRELESS_VERSION), \
+	@$(call install_copy, wireless, 0, 0, 0644, $(WIRELESS_DIR)/libiw.so.$(WIRELESS_VERSION), \
 		/usr/lib/libiw.so.$(WIRELESS_VERSION))
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, wireless)
 	
 	@$(call touch, $@)
 # ----------------------------------------------------------------------------

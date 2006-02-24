@@ -106,18 +106,18 @@ xorg-font-encodings_targetinstall: $(STATEDIR)/xorg-font-encodings.targetinstall
 $(STATEDIR)/xorg-font-encodings.targetinstall: $(xorg-font-encodings_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-font-encodings)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_FONT_ENCODINGS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-font-encodings)
+	@$(call install_fixup, xorg-font-encodings,PACKAGE,xorg-font-encodings)
+	@$(call install_fixup, xorg-font-encodings,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-encodings,VERSION,$(XORG_FONT_ENCODINGS_VERSION))
+	@$(call install_fixup, xorg-font-encodings,SECTION,base)
+	@$(call install_fixup, xorg-font-encodings,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-font-encodings,DEPENDS,)
+	@$(call install_fixup, xorg-font-encodings,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-font-encodings)
 
 	@$(call touch, $@)
 

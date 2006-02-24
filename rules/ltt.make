@@ -111,28 +111,28 @@ ltt_targetinstall: $(STATEDIR)/ltt.targetinstall
 $(STATEDIR)/ltt.targetinstall: $(ltt_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,ltt)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LTT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, ltt)
+	@$(call install_fixup, ltt,PACKAGE,ltt)
+	@$(call install_fixup, ltt,PRIORITY,optional)
+	@$(call install_fixup, ltt,VERSION,$(LTT_VERSION))
+	@$(call install_fixup, ltt,SECTION,base)
+	@$(call install_fixup, ltt,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ltt,DEPENDS,)
+	@$(call install_fixup, ltt,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, ltt, 0, 0, 0755, \
 		$(LTT_BUILDDIR)/Daemon/tracedaemon, \
 		/usr/sbin/tracedaemon)
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, ltt, 0, 0, 0755, \
 		$(LTT_DIR)/createdev.sh, \
 		/usr/sbin/tracecreatedev, n)
 
-	@$(call install_copy, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/trace, /usr/sbin/trace, n)
-	@$(call install_copy, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/tracecore, /usr/sbin/tracecore, n)
-	@$(call install_copy, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/tracecpuid, /usr/sbin/tracecpuid, n)
-	@$(call install_copy, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/traceu, /usr/sbin/traceu, n)
+	@$(call install_copy, ltt, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/trace, /usr/sbin/trace, n)
+	@$(call install_copy, ltt, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/tracecore, /usr/sbin/tracecore, n)
+	@$(call install_copy, ltt, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/tracecpuid, /usr/sbin/tracecpuid, n)
+	@$(call install_copy, ltt, 0, 0, 0755, $(LTT_DIR)/Daemon/Scripts/traceu, /usr/sbin/traceu, n)
 
-	@$(call install_finish)
+	@$(call install_finish, ltt)
 
 	@$(call touch, $@)
 

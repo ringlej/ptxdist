@@ -108,20 +108,20 @@ portmap_targetinstall: $(STATEDIR)/portmap.targetinstall
 $(STATEDIR)/portmap.targetinstall: $(portmap_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,portmap)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PORTMAP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, portmap)
+	@$(call install_fixup, portmap,PACKAGE,portmap)
+	@$(call install_fixup, portmap,PRIORITY,optional)
+	@$(call install_fixup, portmap,VERSION,$(PORTMAP_VERSION))
+	@$(call install_fixup, portmap,SECTION,base)
+	@$(call install_fixup, portmap,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, portmap,DEPENDS,)
+	@$(call install_fixup, portmap,DESCRIPTION,missing)
 
 ifdef PTXCONF_PORTMAP_INSTALL_PORTMAPPER
 
-	@$(call install_copy, 0, 0, 0755, $(PORTMAP_DIR)/portmap, /sbin/portmap)
+	@$(call install_copy, portmap, 0, 0, 0755, $(PORTMAP_DIR)/portmap, /sbin/portmap)
 endif
-	@$(call install_finish)
+	@$(call install_finish, portmap)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

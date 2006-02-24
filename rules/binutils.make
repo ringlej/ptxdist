@@ -128,19 +128,19 @@ binutils_targetinstall: $(STATEDIR)/binutils.targetinstall
 $(STATEDIR)/binutils.targetinstall: $(binutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,binutils)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PTXCONF_BINUTILS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, binutils)
+	@$(call install_fixup, binutils,PACKAGE,binutils)
+	@$(call install_fixup, binutils,PRIORITY,optional)
+	@$(call install_fixup, binutils,VERSION,$(PTXCONF_BINUTILS_VERSION))
+	@$(call install_fixup, binutils,SECTION,base)
+	@$(call install_fixup, binutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, binutils,DEPENDS,)
+	@$(call install_fixup, binutils,DESCRIPTION,missing)
 
 	# FIXME: this will probably not work with the wildcard; fix when it breaks :-) 
-	@$(call install_copy, 0, 0, 0644, $(BINUTILS_BUILDDIR)/bfd/.libs/libbfd*.so, /usr/lib)
+	@$(call install_copy, binutils, 0, 0, 0644, $(BINUTILS_BUILDDIR)/bfd/.libs/libbfd*.so, /usr/lib)
 
-	@$(call install_finish)
+	@$(call install_finish, binutils)
 	
 	@$(call touch, $@)
 

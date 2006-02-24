@@ -114,24 +114,24 @@ pcmciautils_targetinstall: $(STATEDIR)/pcmciautils.targetinstall
 $(STATEDIR)/pcmciautils.targetinstall: $(pcmciautils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,pcmciautils)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PCMCIAUTILS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, pcmciautils)
+	@$(call install_fixup, pcmciautils,PACKAGE,pcmciautils)
+	@$(call install_fixup, pcmciautils,PRIORITY,optional)
+	@$(call install_fixup, pcmciautils,VERSION,$(PCMCIAUTILS_VERSION))
+	@$(call install_fixup, pcmciautils,SECTION,base)
+	@$(call install_fixup, pcmciautils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, pcmciautils,DEPENDS,)
+	@$(call install_fixup, pcmciautils,DESCRIPTION,missing)
 
 	# install-tools
-	@$(call install_copy, 0, 0, 0755, $(PCMCIAUTILS_DIR)/pccardctl, /sbin/pccardctl);
-	@$(call install_copy, 0, 0, 0755, $(PCMCIAUTILS_DIR)/pcmcia-check-broken-cis, \
+	@$(call install_copy, pcmciautils, 0, 0, 0755, $(PCMCIAUTILS_DIR)/pccardctl, /sbin/pccardctl);
+	@$(call install_copy, pcmciautils, 0, 0, 0755, $(PCMCIAUTILS_DIR)/pcmcia-check-broken-cis, \
 				/sbin/pcmcia-check-broken-cis);
 
 	# install-hotplug
-	@$(call install_copy, 0, 0, 0755, $(PCMCIAUTILS_DIR)/hotplug/pcmcia.agent, \
+	@$(call install_copy, pcmciautils, 0, 0, 0755, $(PCMCIAUTILS_DIR)/hotplug/pcmcia.agent, \
 				/etc/hotplug/pcmcia.agent, n);
-	@$(call install_copy, 0, 0, 0755, $(PCMCIAUTILS_DIR)/hotplug/pcmcia.rc, \
+	@$(call install_copy, pcmciautils, 0, 0, 0755, $(PCMCIAUTILS_DIR)/hotplug/pcmcia.rc, \
 				/etc/hotplug/pcmcia.rc, n);
 
 ifdef PTXCONF_PCMCIAUTILS_STARTUP
@@ -142,17 +142,17 @@ ifdef PTXCONF_PCMCIAUTILS_STARTUP
 	#$(INSTALL_DATA)  -D config/config.opts $(DESTDIR)$(pcmciaconfdir)/config.opts
 
 	# install-socket-hotplug
-	@$(call install_copy, 0, 0, 0755, $(PCMCIAUTILS_DIR)/hotplug/pcmcia_socket.agent, \
+	@$(call install_copy, pcmciautils, 0, 0, 0755, $(PCMCIAUTILS_DIR)/hotplug/pcmcia_socket.agent, \
 				/etc/hotplug/pcmcia_socket.agent, n);
-	@$(call install_copy, 0, 0, 0755, $(PCMCIAUTILS_DIR)/hotplug/pcmcia_socket.rc, \
+	@$(call install_copy, pcmciautils, 0, 0, 0755, $(PCMCIAUTILS_DIR)/hotplug/pcmcia_socket.rc, \
 				/etc/hotplug/pcmcia_socket.rc, n);
 
 	# install-socket-tools
-	@$(call install_copy, 0, 0, 0755, $(PCMCIAUTILS_DIR)/pcmcia-socket-startup, \
+	@$(call install_copy, pcmciautils, 0, 0, 0755, $(PCMCIAUTILS_DIR)/pcmcia-socket-startup, \
 				/sbin/pcmcia-socket-startup);
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, pcmciautils)
 
 	@$(call touch, $@)
 

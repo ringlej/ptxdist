@@ -102,19 +102,19 @@ gmp3_targetinstall: $(STATEDIR)/gmp3.targetinstall
 $(STATEDIR)/gmp3.targetinstall: $(gmp3_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,gmp3)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GMP3_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, gmp3)
+	@$(call install_fixup, gmp3,PACKAGE,gmp3)
+	@$(call install_fixup, gmp3,PRIORITY,optional)
+	@$(call install_fixup, gmp3,VERSION,$(GMP3_VERSION))
+	@$(call install_fixup, gmp3,SECTION,base)
+	@$(call install_fixup, gmp3,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gmp3,DEPENDS,)
+	@$(call install_fixup, gmp3,DESCRIPTION,missing)
 
 	# FIXME: RSC: check if wildcard copy works
-	@$(call install_copy, 0, 0, 0644, $(CROSS_LIB_DIR)/lib/libgmp.so*, /usr/lib/)
+	@$(call install_copy, gmp3, 0, 0, 0644, $(CROSS_LIB_DIR)/lib/libgmp.so*, /usr/lib/)
 
-	@$(call install_finish)
+	@$(call install_finish, gmp3)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -126,19 +126,19 @@ apache_targetinstall: $(STATEDIR)/apache.targetinstall
 $(STATEDIR)/apache.targetinstall: $(apache_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,apache)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(APACHE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Jiri Nesladek <nesladek\@2n.cz>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, apache)
+	@$(call install_fixup, apache,PACKAGE,apache)
+	@$(call install_fixup, apache,PRIORITY,optional)
+	@$(call install_fixup, apache,VERSION,$(APACHE_VERSION))
+	@$(call install_fixup, apache,SECTION,base)
+	@$(call install_fixup, apache,AUTHOR,"Jiri Nesladek <nesladek\@2n.cz>")
+	@$(call install_fixup, apache,DEPENDS,)
+	@$(call install_fixup, apache,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, /usr/lib/apache)
-	@$(call install_copy, 0, 0, 0755, $(APACHE_DIR)/src/httpd, /usr/sbin/httpd)
+	@$(call install_copy, apache, 0, 0, 0755, /usr/lib/apache)
+	@$(call install_copy, apache, 0, 0, 0755, $(APACHE_DIR)/src/httpd, /usr/sbin/httpd)
 
-	@$(call install_finish)
+	@$(call install_finish, apache)
 
 	@$(call touch, $@)
 

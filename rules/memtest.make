@@ -102,18 +102,18 @@ memtest_targetinstall: $(STATEDIR)/memtest.targetinstall
 $(STATEDIR)/memtest.targetinstall: $(memtest_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,memtest)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MEMTEST_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, memtest)
+	@$(call install_fixup, memtest,PACKAGE,memtest)
+	@$(call install_fixup, memtest,PRIORITY,optional)
+	@$(call install_fixup, memtest,VERSION,$(MEMTEST_VERSION))
+	@$(call install_fixup, memtest,SECTION,base)
+	@$(call install_fixup, memtest,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, memtest,DEPENDS,)
+	@$(call install_fixup, memtest,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(MEMTEST_DIR)/mtest, /usr/sbin/memtest)
+	@$(call install_copy, memtest, 0, 0, 0755, $(MEMTEST_DIR)/mtest, /usr/sbin/memtest)
 
-	@$(call install_finish)
+	@$(call install_finish, memtest)
 
 	@$(call touch, $@)
 

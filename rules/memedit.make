@@ -106,18 +106,18 @@ memedit_targetinstall: $(STATEDIR)/memedit.targetinstall
 $(STATEDIR)/memedit.targetinstall: $(memedit_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,memedit)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MEMEDIT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, memedit)
+	@$(call install_fixup, memedit,PACKAGE,memedit)
+	@$(call install_fixup, memedit,PRIORITY,optional)
+	@$(call install_fixup, memedit,VERSION,$(MEMEDIT_VERSION))
+	@$(call install_fixup, memedit,SECTION,base)
+	@$(call install_fixup, memedit,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, memedit,DEPENDS,)
+	@$(call install_fixup, memedit,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(MEMEDIT_DIR)/memedit, /bin/memedit)
+	@$(call install_copy, memedit, 0, 0, 0755, $(MEMEDIT_DIR)/memedit, /bin/memedit)
 
-	@$(call install_finish)
+	@$(call install_finish, memedit)
 
 	@$(call touch, $@)
 

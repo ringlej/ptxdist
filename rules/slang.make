@@ -106,22 +106,22 @@ slang_targetinstall: $(STATEDIR)/slang.targetinstall
 $(STATEDIR)/slang.targetinstall: $(slang_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,slang)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SLANG_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, slang)
+	@$(call install_fixup, slang,PACKAGE,slang)
+	@$(call install_fixup, slang,PRIORITY,optional)
+	@$(call install_fixup, slang,VERSION,$(SLANG_VERSION))
+	@$(call install_fixup, slang,SECTION,base)
+	@$(call install_fixup, slang,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, slang,DEPENDS,)
+	@$(call install_fixup, slang,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, slang, 0, 0, 0644, \
 		$(SLANG_DIR)/src/elfobjs/libslang.so.$(SLANG_VERSION), \
 		/usr/lib/libslang.so.$(SLANG_VERSION))
-	@$(call install_link, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so.1)
-	@$(call install_link, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so)
+	@$(call install_link, slang, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so.1)
+	@$(call install_link, slang, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so)
 
-	@$(call install_finish)
+	@$(call install_finish, slang)
 
 	@$(call touch, $@)
 

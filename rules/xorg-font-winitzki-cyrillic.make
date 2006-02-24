@@ -106,21 +106,21 @@ xorg-font-winitzki-cyrillic_targetinstall: $(STATEDIR)/xorg-font-winitzki-cyrill
 $(STATEDIR)/xorg-font-winitzki-cyrillic.targetinstall: $(xorg-font-winitzki-cyrillic_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-font-winitzki-cyrillic)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_FONT_WINITZKI_CYRILLIC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-font-winitzki-cyrillic)
+	@$(call install_fixup, xorg-font-winitzki-cyrillic,PACKAGE,xorg-font-winitzki-cyrillic)
+	@$(call install_fixup, xorg-font-winitzki-cyrillic,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-winitzki-cyrillic,VERSION,$(XORG_FONT_WINITZKI_CYRILLIC_VERSION))
+	@$(call install_fixup, xorg-font-winitzki-cyrillic,SECTION,base)
+	@$(call install_fixup, xorg-font-winitzki-cyrillic,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-font-winitzki-cyrillic,DEPENDS,)
+	@$(call install_fixup, xorg-font-winitzki-cyrillic,DESCRIPTION,missing)
 
 	@cd $(XORG_FONT_WINITZKI_CYRILLIC_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/cyrillic/$$file, n); \
+		$(call install_copy, xorg-font-winitzki-cyrillic, 0, 0, 0644, $$file, $(XORG_FONTDIR)/cyrillic/$$file, n); \
 	done
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-font-winitzki-cyrillic)
 
 	@$(call touch, $@)
 

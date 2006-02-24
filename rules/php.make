@@ -133,25 +133,25 @@ php_targetinstall: $(STATEDIR)/php.targetinstall
 $(STATEDIR)/php.targetinstall: $(php_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,php)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PHP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Jiri Nesladek <nesladek\@2n.cz>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, php)
+	@$(call install_fixup, php,PACKAGE,php)
+	@$(call install_fixup, php,PRIORITY,optional)
+	@$(call install_fixup, php,VERSION,$(PHP_VERSION))
+	@$(call install_fixup, php,SECTION,base)
+	@$(call install_fixup, php,AUTHOR,"Jiri Nesladek <nesladek\@2n.cz>")
+	@$(call install_fixup, php,DEPENDS,)
+	@$(call install_fixup, php,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, /usr/lib/php)
+	@$(call install_copy, php, 0, 0, 0755, /usr/lib/php)
 
 ifdef PTXCONF_PHP_APACHE
-	@$(call install_copy, 0, 0, 0644, $(PHP_DIR)/libs/libphp4.so, /usr/lib/apache/libphp4.so)
+	@$(call install_copy, php, 0, 0, 0644, $(PHP_DIR)/libs/libphp4.so, /usr/lib/apache/libphp4.so)
 endif
 ifdef PTXCONF_PHP_CLI
-	@$(call install_copy, 0, 0, 0755, $(PHP_DIR)/sapi/cli/php, /usr/bin/php)
+	@$(call install_copy, php, 0, 0, 0755, $(PHP_DIR)/sapi/cli/php, /usr/bin/php)
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, php)
 
 	@$(call touch, $@)
 

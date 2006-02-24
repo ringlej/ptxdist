@@ -106,18 +106,18 @@ xorg-app-xeyes_targetinstall: $(STATEDIR)/xorg-app-xeyes.targetinstall
 $(STATEDIR)/xorg-app-xeyes.targetinstall: $(xorg-app-xeyes_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-app-xeyes)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_APP_XEYES_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-app-xeyes)
+	@$(call install_fixup, xorg-app-xeyes,PACKAGE,xorg-app-xeyes)
+	@$(call install_fixup, xorg-app-xeyes,PRIORITY,optional)
+	@$(call install_fixup, xorg-app-xeyes,VERSION,$(XORG_APP_XEYES_VERSION))
+	@$(call install_fixup, xorg-app-xeyes,SECTION,base)
+	@$(call install_fixup, xorg-app-xeyes,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xorg-app-xeyes,DEPENDS,)
+	@$(call install_fixup, xorg-app-xeyes,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(XORG_APP_XEYES_DIR)/xeyes, $(XORG_PREFIX)/bin/xeyes)
+	@$(call install_copy, xorg-app-xeyes, 0, 0, 0755, $(XORG_APP_XEYES_DIR)/xeyes, $(XORG_PREFIX)/bin/xeyes)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-app-xeyes)
 
 	@$(call touch, $@)
 

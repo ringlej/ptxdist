@@ -106,18 +106,18 @@ xorg-lib-Xrandr_targetinstall: $(STATEDIR)/xorg-lib-Xrandr.targetinstall
 $(STATEDIR)/xorg-lib-Xrandr.targetinstall: $(xorg-lib-Xrandr_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xrandr)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XRANDR_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xrandr)
+	@$(call install_fixup, xorg-lib-Xrandr,PACKAGE,xorg-lib-xrandr)
+	@$(call install_fixup, xorg-lib-Xrandr,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xrandr,VERSION,$(XORG_LIB_XRANDR_VERSION))
+	@$(call install_fixup, xorg-lib-Xrandr,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xrandr,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xrandr,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xrandr,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xrandr)
 
 	@$(call touch, $@)
 

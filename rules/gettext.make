@@ -124,25 +124,25 @@ gettext_targetinstall: $(STATEDIR)/gettext.targetinstall
 $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,gettext)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GETTEXT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, gettext)
+	@$(call install_fixup, gettext,PACKAGE,gettext)
+	@$(call install_fixup, gettext,PRIORITY,optional)
+	@$(call install_fixup, gettext,VERSION,$(GETTEXT_VERSION))
+	@$(call install_fixup, gettext,SECTION,base)
+	@$(call install_fixup, gettext,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gettext,DEPENDS,)
+	@$(call install_fixup, gettext,DESCRIPTION,missing)
 	
 	cd $(GETTEXT_DIR)/gettext-runtime/intl/.libs && \
 		for file in `find . -type f -name 'lib*intl.so*'`; do \
-			$(call install_copy, 0, 0, 0644, $$file, /usr/lib/$$file, n) \
+			$(call install_copy, gettext, 0, 0, 0644, $$file, /usr/lib/$$file, n) \
 		done
 	cd $(GETTEXT_DIR)/gettext-runtime/intl/.libs && \
 		for file in `find . -type l -name 'lib*intl.so*'`; do \
-			$(call install_link, `readlink $$file`, /usr/lib/$$file) \
+			$(call install_link, gettext, `readlink $$file`, /usr/lib/$$file) \
 		done
 
-	@$(call install_finish)
+	@$(call install_finish, gettext)
 
 	@$(call touch, $@)
 

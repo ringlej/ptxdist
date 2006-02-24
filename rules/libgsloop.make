@@ -106,20 +106,20 @@ libgsloop_targetinstall: $(STATEDIR)/libgsloop.targetinstall
 $(STATEDIR)/libgsloop.targetinstall: $(libgsloop_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libgsloop)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBGSLOOP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libgsloop)
+	@$(call install_fixup, libgsloop,PACKAGE,libgsloop)
+	@$(call install_fixup, libgsloop,PRIORITY,optional)
+	@$(call install_fixup, libgsloop,VERSION,$(LIBGSLOOP_VERSION))
+	@$(call install_fixup, libgsloop,SECTION,base)
+	@$(call install_fixup, libgsloop,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libgsloop,DEPENDS,)
+	@$(call install_fixup, libgsloop,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(LIBGSLOOP_DIR)/src/.libs/libgsloop.so.1.1.0, /usr/lib/libgsloop.so.1.1.0)
-	@$(call install_link, libgsloop.so.1.1.0, /usr/lib/libgsloop.so.1)
-	@$(call install_link, libgsloop.so.1.1.0, /usr/lib/libgsloop.so)
+	@$(call install_copy, libgsloop, 0, 0, 0644, $(LIBGSLOOP_DIR)/src/.libs/libgsloop.so.1.1.0, /usr/lib/libgsloop.so.1.1.0)
+	@$(call install_link, libgsloop, libgsloop.so.1.1.0, /usr/lib/libgsloop.so.1)
+	@$(call install_link, libgsloop, libgsloop.so.1.1.0, /usr/lib/libgsloop.so)
 
-	@$(call install_finish)
+	@$(call install_finish, libgsloop)
 
 	@$(call touch, $@)
 

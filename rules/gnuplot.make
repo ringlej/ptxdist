@@ -175,18 +175,18 @@ gnuplot_targetinstall: $(STATEDIR)/gnuplot.targetinstall
 $(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,gnuplot)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GNUPLOT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, gnuplot)
+	@$(call install_fixup, gnuplot,PACKAGE,gnuplot)
+	@$(call install_fixup, gnuplot,PRIORITY,optional)
+	@$(call install_fixup, gnuplot,VERSION,$(GNUPLOT_VERSION))
+	@$(call install_fixup, gnuplot,SECTION,base)
+	@$(call install_fixup, gnuplot,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gnuplot,DEPENDS,)
+	@$(call install_fixup, gnuplot,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(GNUPLOT_DIR)/src/gnuplot, /usr/bin/gnuplot)
+	@$(call install_copy, gnuplot, 0, 0, 0755, $(GNUPLOT_DIR)/src/gnuplot, /usr/bin/gnuplot)
 
-	@$(call install_finish)
+	@$(call install_finish, gnuplot)
 
 	@$(call touch, $@)
 

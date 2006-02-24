@@ -106,21 +106,21 @@ xorg-font-cronyx-cyrillic_targetinstall: $(STATEDIR)/xorg-font-cronyx-cyrillic.t
 $(STATEDIR)/xorg-font-cronyx-cyrillic.targetinstall: $(xorg-font-cronyx-cyrillic_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-font-cronyx-cyrillic)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_FONT_CRONYX_CYRILLIC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-font-cronyx-cyrillic)
+	@$(call install_fixup, xorg-font-cronyx-cyrillic,PACKAGE,xorg-font-cronyx-cyrillic)
+	@$(call install_fixup, xorg-font-cronyx-cyrillic,PRIORITY,optional)
+	@$(call install_fixup, xorg-font-cronyx-cyrillic,VERSION,$(XORG_FONT_CRONYX_CYRILLIC_VERSION))
+	@$(call install_fixup, xorg-font-cronyx-cyrillic,SECTION,base)
+	@$(call install_fixup, xorg-font-cronyx-cyrillic,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-font-cronyx-cyrillic,DEPENDS,)
+	@$(call install_fixup, xorg-font-cronyx-cyrillic,DESCRIPTION,missing)
 
 	@cd $(XORG_FONT_CRONYX_CYRILLIC_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/cyrillic/$$file, n); \
+		$(call install_copy, xorg-font-cronyx-cyrillic, 0, 0, 0644, $$file, $(XORG_FONTDIR)/cyrillic/$$file, n); \
 	done
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-font-cronyx-cyrillic)
 
 	@$(call touch, $@)
 

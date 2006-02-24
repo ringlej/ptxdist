@@ -98,18 +98,18 @@ fbtest_targetinstall: $(STATEDIR)/fbtest.targetinstall
 $(STATEDIR)/fbtest.targetinstall: $(fbtest_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,fbtest)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(FBTEST_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, fbtest)
+	@$(call install_fixup, fbtest,PACKAGE,fbtest)
+	@$(call install_fixup, fbtest,PRIORITY,optional)
+	@$(call install_fixup, fbtest,VERSION,$(FBTEST_VERSION))
+	@$(call install_fixup, fbtest,SECTION,base)
+	@$(call install_fixup, fbtest,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, fbtest,DEPENDS,)
+	@$(call install_fixup, fbtest,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0755, $(FBTEST_DIR)/$(COMPILER_PREFIX)fbtest, /sbin/fbtest)
+	@$(call install_copy, fbtest, 0, 0, 0755, $(FBTEST_DIR)/$(COMPILER_PREFIX)fbtest, /sbin/fbtest)
 
-	@$(call install_finish)
+	@$(call install_finish, fbtest)
 
 	@$(call touch, $@)
 

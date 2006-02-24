@@ -129,43 +129,43 @@ util-linux_targetinstall: $(STATEDIR)/util-linux.targetinstall
 $(STATEDIR)/util-linux.targetinstall: $(util-linux_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,util-linux)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(UTIL-LINUX_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, util-linux)
+	@$(call install_fixup, util-linux,PACKAGE,util-linux)
+	@$(call install_fixup, util-linux,PRIORITY,optional)
+	@$(call install_fixup, util-linux,VERSION,$(UTIL-LINUX_VERSION))
+	@$(call install_fixup, util-linux,SECTION,base)
+	@$(call install_fixup, util-linux,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, util-linux,DEPENDS,)
+	@$(call install_fixup, util-linux,DESCRIPTION,missing)
 
 ifdef PTXCONF_UTLNX_MKSWAP
-	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/disk-utils/mkswap, /sbin/mkswap)
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/disk-utils/mkswap, /sbin/mkswap)
 endif
 ifdef PTXCONF_UTLNX_SWAPON
-	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/swapon, /sbin/swapon)
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/swapon, /sbin/swapon)
 endif
 ifdef PTXCONF_UTLNX_MOUNT
-	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/mount, /sbin/mount)
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/mount, /sbin/mount)
 endif
 ifdef PTXCONF_UTLNX_UMOUNT
-	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/umount, /sbin/umount)
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/umount, /sbin/umount)
 endif
 ifdef PTXCONF_UTLNX_IPCS
-	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/sys-utils/ipcs, /usr/bin/ipcs)
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/sys-utils/ipcs, /usr/bin/ipcs)
 endif
 ifdef PTXCONF_UTLNX_READPROFILE
-	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/sys-utils/readprofile, /usr/sbin/readprofile)
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/sys-utils/readprofile, /usr/sbin/readprofile)
 endif
 ifdef PTXCONF_UTLNX_FDISK
-	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/fdisk, /usr/sbin/fdisk)
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/fdisk, /usr/sbin/fdisk)
 endif
 ifdef PTXCONF_UTLNX_SFDISK
-	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/sfdisk, /usr/sbin/sfdisk)
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/sfdisk, /usr/sbin/sfdisk)
 endif
 ifdef PTXCONF_UTLNX_CFDISK
-	@$(call install_copy, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/cfdisk, /usr/sbin/cfdisk)
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/cfdisk, /usr/sbin/cfdisk)
 endif
-	@$(call install_finish)
+	@$(call install_finish, util-linux)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

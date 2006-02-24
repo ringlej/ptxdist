@@ -106,21 +106,21 @@ jvisu_targetinstall: $(STATEDIR)/jvisu.targetinstall
 $(STATEDIR)/jvisu.targetinstall: $(jvisu_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,jvisu)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(JVISU_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, jvisu)
+	@$(call install_fixup, jvisu,PACKAGE,jvisu)
+	@$(call install_fixup, jvisu,PRIORITY,optional)
+	@$(call install_fixup, jvisu,VERSION,$(JVISU_VERSION))
+	@$(call install_fixup, jvisu,SECTION,base)
+	@$(call install_fixup, jvisu,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, jvisu,DEPENDS,)
+	@$(call install_fixup, jvisu,DESCRIPTION,missing)
 
 ifdef PTXCONF_JVISU_APPLET
 	# User: www; Group: www
-	@$(call install_copy, 12, 102, 0644, $(JVISU_DIR)/jar/jvisu.jar, $(PTXCONF_JVISU_APPLET_PATH)/jvisu.jar, n)
+	@$(call install_copy, jvisu, 12, 102, 0644, $(JVISU_DIR)/jar/jvisu.jar, $(PTXCONF_JVISU_APPLET_PATH)/jvisu.jar, n)
 endif
 
-	@$(call install_finish)
+	@$(call install_finish, jvisu)
 
 	@$(call touch, $@)
 

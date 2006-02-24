@@ -107,19 +107,19 @@ chrony_targetinstall: $(STATEDIR)/chrony.targetinstall
 $(STATEDIR)/chrony.targetinstall: $(chrony_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,chrony)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(CHRONY_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, chrony)
+	@$(call install_fixup, chrony,PACKAGE,chrony)
+	@$(call install_fixup, chrony,PRIORITY,optional)
+	@$(call install_fixup, chrony,VERSION,$(CHRONY_VERSION))
+	@$(call install_fixup, chrony,SECTION,base)
+	@$(call install_fixup, chrony,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, chrony,DEPENDS,)
+	@$(call install_fixup, chrony,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(CHRONY_DIR)/chronyd, /usr/sbin/chronyd)
-	@$(call install_copy, 0, 0, 0755, $(CHRONY_DIR)/chronyc, /usr/bin/chronyc)
+	@$(call install_copy, chrony, 0, 0, 0755, $(CHRONY_DIR)/chronyd, /usr/sbin/chronyd)
+	@$(call install_copy, chrony, 0, 0, 0755, $(CHRONY_DIR)/chronyc, /usr/bin/chronyc)
 
-	@$(call install_finish)
+	@$(call install_finish, chrony)
 
 	@$(call touch, $@)
 

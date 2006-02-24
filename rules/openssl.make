@@ -157,25 +157,25 @@ openssl_targetinstall: $(STATEDIR)/openssl.targetinstall
 $(STATEDIR)/openssl.targetinstall: $(openssl_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,openssl)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(OPENSSL_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, openssl)
+	@$(call install_fixup, openssl,PACKAGE,openssl)
+	@$(call install_fixup, openssl,PRIORITY,optional)
+	@$(call install_fixup, openssl,VERSION,$(OPENSSL_VERSION))
+	@$(call install_fixup, openssl,SECTION,base)
+	@$(call install_fixup, openssl,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, openssl,DEPENDS,)
+	@$(call install_fixup, openssl,DESCRIPTION,missing)
 	
 ifdef PTXCONF_OPENSSL_SHARED
-	@$(call install_copy, 0, 0, 0644, $(OPENSSL_DIR)/libssl.so.0.9.7, /usr/lib/libssl.so.0.9.7)
-	@$(call install_link, libssl.so.0.9.7, /usr/lib/libssl.so.0)
-	@$(call install_link, libssl.so.0.9.7, /usr/lib/libssl.so)
+	@$(call install_copy, openssl, 0, 0, 0644, $(OPENSSL_DIR)/libssl.so.0.9.7, /usr/lib/libssl.so.0.9.7)
+	@$(call install_link, openssl, libssl.so.0.9.7, /usr/lib/libssl.so.0)
+	@$(call install_link, openssl, libssl.so.0.9.7, /usr/lib/libssl.so)
 
-	@$(call install_copy, 0, 0, 0644, $(OPENSSL_DIR)/libcrypto.so.0.9.7, /usr/lib/libcrypto.so.0.9.7)
-	@$(call install_link, libcrypto.so.0.9.7, /usr/lib/libcrypto.so.0)
-	@$(call install_link, libcrypto.so.0.9.7, /usr/lib/libcrypto.so)
+	@$(call install_copy, openssl, 0, 0, 0644, $(OPENSSL_DIR)/libcrypto.so.0.9.7, /usr/lib/libcrypto.so.0.9.7)
+	@$(call install_link, openssl, libcrypto.so.0.9.7, /usr/lib/libcrypto.so.0)
+	@$(call install_link, openssl, libcrypto.so.0.9.7, /usr/lib/libcrypto.so)
 endif
-	@$(call install_finish)
+	@$(call install_finish, openssl)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -101,55 +101,55 @@ udev_targetinstall: $(STATEDIR)/udev.targetinstall
 $(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,udev)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(UDEV_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, udev)
+	@$(call install_fixup, udev,PACKAGE,udev)
+	@$(call install_fixup, udev,PRIORITY,optional)
+	@$(call install_fixup, udev,VERSION,$(UDEV_VERSION))
+	@$(call install_fixup, udev,SECTION,base)
+	@$(call install_fixup, udev,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, udev,DEPENDS,)
+	@$(call install_fixup, udev,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/udev/udev.conf, /etc/udev/udev.conf, n)
+	@$(call install_copy, udev, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/udev/udev.conf, /etc/udev/udev.conf, n)
 ifdef PTXCONF_ROOTFS_ETC_INITD_UDEV
 ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE)),)
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE), /etc/init.d/udev, n)
+	@$(call install_copy, udev, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE), /etc/init.d/udev, n)
 else
-	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/udev, /etc/init.d/udev, n)
+	@$(call install_copy, udev, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/udev, /etc/init.d/udev, n)
 endif
 endif
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK),"")
-	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, ../init.d/udev, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK))
+	@$(call install_copy, udev, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, udev, ../init.d/udev, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK))
 endif
 
 ifdef PTXCONF_UDEV_UDEV
-	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udev, /sbin/udev)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev, /sbin/udev)
 endif
 ifdef PTXCONF_UDEV_UDEVD
-	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevd, /sbin/udevd)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevd, /sbin/udevd)
 endif
 ifdef PTXCONF_UDEV_INFO
-	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevinfo, /sbin/udevinfo)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevinfo, /sbin/udevinfo)
 endif
 ifdef PTXCONF_UDEV_SEND
-	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevsend, /sbin/udevsend)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevsend, /sbin/udevsend)
 endif
 ifdef PTXCONF_UDEV_START
-	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevstart, /sbin/udevstart)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevstart, /sbin/udevstart)
 endif
 ifdef PTXCONF_UDEV_TEST
-	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/udevtest, /sbin/udevtest)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevtest, /sbin/udevtest)
 endif
 
 ifdef PTXCONF_UDEV_FW_HELPER
-	@$(call install_copy, 0, 0, 0755, $(UDEV_DIR)/extras/firmware/firmware_helper, /sbin/firmware_helper)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/extras/firmware/firmware_helper, /sbin/firmware_helper)
 endif
 
-	@$(call install_node, 0, 0, 0644, c, 5, 1, /dev/console)
+	@$(call install_node, udev, 0, 0, 0644, c, 5, 1, /dev/console)
 
-	@$(call install_finish)
+	@$(call install_finish, udev)
 
 	@$(call touch, $@)
 

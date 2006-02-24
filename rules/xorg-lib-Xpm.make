@@ -106,18 +106,18 @@ xorg-lib-Xpm_targetinstall: $(STATEDIR)/xorg-lib-Xpm.targetinstall
 $(STATEDIR)/xorg-lib-Xpm.targetinstall: $(xorg-lib-Xpm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xpm)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XPM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xpm)
+	@$(call install_fixup, xorg-lib-Xpm,PACKAGE,xorg-lib-xpm)
+	@$(call install_fixup, xorg-lib-Xpm,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xpm,VERSION,$(XORG_LIB_XPM_VERSION))
+	@$(call install_fixup, xorg-lib-Xpm,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xpm,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xpm,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xpm,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xpm)
 
 	@$(call touch, $@)
 

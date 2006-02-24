@@ -120,18 +120,18 @@ sdl_image_targetinstall: $(STATEDIR)/sdl_image.targetinstall
 $(STATEDIR)/sdl_image.targetinstall: $(sdl_image_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,sdl_image)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SDL_IMAGE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, sdl_image)
+	@$(call install_fixup, sdl_image,PACKAGE,sdl_image)
+	@$(call install_fixup, sdl_image,PRIORITY,optional)
+	@$(call install_fixup, sdl_image,VERSION,$(SDL_IMAGE_VERSION))
+	@$(call install_fixup, sdl_image,SECTION,base)
+	@$(call install_fixup, sdl_image,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, sdl_image,DEPENDS,)
+	@$(call install_fixup, sdl_image,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(SDL_IMAGE_DIR)/foobar, /dev/null)
+	@$(call install_copy, sdl_image, 0, 0, 0755, $(SDL_IMAGE_DIR)/foobar, /dev/null)
 
-	@$(call install_finish)
+	@$(call install_finish, sdl_image)
 
 	@$(call touch, $@)
 

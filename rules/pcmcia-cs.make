@@ -119,42 +119,42 @@ pcmcia-cs_targetinstall: $(STATEDIR)/pcmcia-cs.targetinstall
 $(STATEDIR)/pcmcia-cs.targetinstall: $(pcmcia-cs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,pcmcia-cs)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PCMCIA-CS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, pcmcia-cs)
+	@$(call install_fixup, pcmcia-cs,PACKAGE,pcmcia-cs)
+	@$(call install_fixup, pcmcia-cs,PRIORITY,optional)
+	@$(call install_fixup, pcmcia-cs,VERSION,$(PCMCIA-CS_VERSION))
+	@$(call install_fixup, pcmcia-cs,SECTION,base)
+	@$(call install_fixup, pcmcia-cs,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, pcmcia-cs,DEPENDS,)
+	@$(call install_fixup, pcmcia-cs,DESCRIPTION,missing)
 
 ifdef PTXCONF_PCMCIA_TOOLS_CARDMGR
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/cardmgr, /sbin/cardmgr)
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/cardctl, /sbin/cardctl)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/cardmgr, /sbin/cardmgr)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/cardctl, /sbin/cardctl)
 endif
 
 ifdef PTXCONF_PCMCIA_TOOLS_MISC
 	# FIXME: There are more. Which ones are needed?
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ifport, /sbin/ifport)
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ifuser, /sbin/ifuser)
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ide_info, /sbin/ide_info)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ifport, /sbin/ifport)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ifuser, /sbin/ifuser)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ide_info, /sbin/ide_info)
 endif
 
 ifdef PTXCONF_PCMCIA_TOOLS_FTL
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ftl_format, /sbin/ftl_format)
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ftl_check, /sbin/ftl_check)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ftl_format, /sbin/ftl_format)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ftl_check, /sbin/ftl_check)
 endif
 
 ifdef PTXCONF_PCMCIA_TOOLS_DEBUG
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/dump_cis, /sbin/dump_cis)
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/pack_cis, /sbin/pack_cis)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/dump_cis, /sbin/dump_cis)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/pack_cis, /sbin/pack_cis)
 endif
 
 	# FIXME: Maybe we want to add an install option for  /etc/rc.d/rc.pcmcia
 	#        and all the stuff that goes into /etc/pcmcia
 	#        For now this is a task for vendortweaks.
 
-	@$(call install_finish)
+	@$(call install_finish, pcmcia-cs)
 
 	@$(call touch, $@)
 

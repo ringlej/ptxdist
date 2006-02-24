@@ -106,40 +106,40 @@ xorg-lib-Xmu_targetinstall: $(STATEDIR)/xorg-lib-Xmu.targetinstall
 $(STATEDIR)/xorg-lib-Xmu.targetinstall: $(xorg-lib-Xmu_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xmu)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XMU_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xmu)
+	@$(call install_fixup, xorg-lib-Xmu,PACKAGE,xorg-lib-xmu)
+	@$(call install_fixup, xorg-lib-Xmu,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xmu,VERSION,$(XORG_LIB_XMU_VERSION))
+	@$(call install_fixup, xorg-lib-Xmu,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xmu,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xmu,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xmu,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-Xmu, 0, 0, 0644, \
 		$(XORG_LIB_XMU_DIR)/src/.libs/libXmu.so.6.2.0, \
 		$(XORG_LIBDIR)/libXmu.so.6.2.0)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xmu, \
 		libXmu.so.6.2.0, \
 		$(XORG_LIBDIR)/libXmu.so.6)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xmu, \
 		libXmu.so.6.2.0, \
 		$(XORG_LIBDIR)/libXmu.so)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-Xmu, 0, 0, 0644, \
 		$(XORG_LIB_XMU_DIR)/src/.libs/libXmuu.so.1.0.0, \
 		$(XORG_LIBDIR)/libXmuu.so.1.0.0)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xmu, \
 		libXmuu.so.1.0.0, \
 		$(XORG_LIBDIR)/libXmuu.so.1)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-Xmu, \
 		libXmuu.so.1.0.0, \
 		$(XORG_LIBDIR)/libXmuu.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xmu)
 
 	@$(call touch, $@)
 

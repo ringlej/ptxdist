@@ -108,18 +108,18 @@ hexedit_targetinstall: $(STATEDIR)/hexedit.targetinstall
 $(STATEDIR)/hexedit.targetinstall: $(hexedit_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,hexedit)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(HEXEDIT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, hexedit)
+	@$(call install_fixup, hexedit,PACKAGE,hexedit)
+	@$(call install_fixup, hexedit,PRIORITY,optional)
+	@$(call install_fixup, hexedit,VERSION,$(HEXEDIT_VERSION))
+	@$(call install_fixup, hexedit,SECTION,base)
+	@$(call install_fixup, hexedit,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, hexedit,DEPENDS,)
+	@$(call install_fixup, hexedit,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(HEXEDIT_DIR)/hexedit, /usr/bin/hexedit)	
+	@$(call install_copy, hexedit, 0, 0, 0755, $(HEXEDIT_DIR)/hexedit, /usr/bin/hexedit)	
 
-	@$(call install_finish)
+	@$(call install_finish, hexedit)
 
 	@$(call touch, $@)
 

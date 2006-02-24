@@ -103,18 +103,18 @@ hdparm_targetinstall: $(STATEDIR)/hdparm.targetinstall
 $(STATEDIR)/hdparm.targetinstall: $(hdparm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,hdparm)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(HDPARM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, hdparm)
+	@$(call install_fixup, hdparm,PACKAGE,hdparm)
+	@$(call install_fixup, hdparm,PRIORITY,optional)
+	@$(call install_fixup, hdparm,VERSION,$(HDPARM_VERSION))
+	@$(call install_fixup, hdparm,SECTION,base)
+	@$(call install_fixup, hdparm,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, hdparm,DEPENDS,)
+	@$(call install_fixup, hdparm,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(HDPARM_DIR)/hdparm, /usr/bin/hdparm)
+	@$(call install_copy, hdparm, 0, 0, 0755, $(HDPARM_DIR)/hdparm, /usr/bin/hdparm)
 
-	@$(call install_finish)
+	@$(call install_finish, hdparm)
 
 	@$(call touch, $@)
 

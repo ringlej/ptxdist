@@ -106,17 +106,17 @@ xorg-lib-Xaw_targetinstall: $(STATEDIR)/xorg-lib-Xaw.targetinstall
 $(STATEDIR)/xorg-lib-Xaw.targetinstall: $(xorg-lib-Xaw_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xaw)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XAW_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xaw)
+	@$(call install_fixup, xorg-lib-Xaw,PACKAGE,xorg-lib-xaw)
+	@$(call install_fixup, xorg-lib-Xaw,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xaw,VERSION,$(XORG_LIB_XAW_VERSION))
+	@$(call install_fixup, xorg-lib-Xaw,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xaw,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xaw,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xaw,DESCRIPTION,missing)
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xaw)
 
 	@$(call touch, $@)
 

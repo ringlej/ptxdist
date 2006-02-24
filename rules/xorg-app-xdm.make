@@ -116,16 +116,16 @@ xorg-app-xdm_targetinstall: $(STATEDIR)/xorg-app-xdm.targetinstall
 $(STATEDIR)/xorg-app-xdm.targetinstall: $(xorg-app-xdm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-app-xdm)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_APP_XDM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-app-xdm)
+	@$(call install_fixup, xorg-app-xdm,PACKAGE,xorg-app-xdm)
+	@$(call install_fixup, xorg-app-xdm,PRIORITY,optional)
+	@$(call install_fixup, xorg-app-xdm,VERSION,$(XORG_APP_XDM_VERSION))
+	@$(call install_fixup, xorg-app-xdm,SECTION,base)
+	@$(call install_fixup, xorg-app-xdm,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-app-xdm,DEPENDS,)
+	@$(call install_fixup, xorg-app-xdm,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-app-xdm)
 
 	@$(call touch, $@)
 

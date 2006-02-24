@@ -106,18 +106,18 @@ xorg-app-xhost_targetinstall: $(STATEDIR)/xorg-app-xhost.targetinstall
 $(STATEDIR)/xorg-app-xhost.targetinstall: $(xorg-app-xhost_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-app-xhost)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_APP_XHOST_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-app-xhost)
+	@$(call install_fixup, xorg-app-xhost,PACKAGE,xorg-app-xhost)
+	@$(call install_fixup, xorg-app-xhost,PRIORITY,optional)
+	@$(call install_fixup, xorg-app-xhost,VERSION,$(XORG_APP_XHOST_VERSION))
+	@$(call install_fixup, xorg-app-xhost,SECTION,base)
+	@$(call install_fixup, xorg-app-xhost,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xorg-app-xhost,DEPENDS,)
+	@$(call install_fixup, xorg-app-xhost,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(XORG_APP_XHOST_DIR)/xhost, $(XORG_PREFIX)/bin/xhost)
+	@$(call install_copy, xorg-app-xhost, 0, 0, 0755, $(XORG_APP_XHOST_DIR)/xhost, $(XORG_PREFIX)/bin/xhost)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-app-xhost)
 
 	@$(call touch, $@)
 

@@ -106,18 +106,18 @@ xorg-lib-Xxf86dga_targetinstall: $(STATEDIR)/xorg-lib-Xxf86dga.targetinstall
 $(STATEDIR)/xorg-lib-Xxf86dga.targetinstall: $(xorg-lib-Xxf86dga_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xxf86dga)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XXF86DGA_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-Xxf86dga)
+	@$(call install_fixup, xorg-lib-Xxf86dga,PACKAGE,xorg-lib-xxf86dga)
+	@$(call install_fixup, xorg-lib-Xxf86dga,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-Xxf86dga,VERSION,$(XORG_LIB_XXF86DGA_VERSION))
+	@$(call install_fixup, xorg-lib-Xxf86dga,SECTION,base)
+	@$(call install_fixup, xorg-lib-Xxf86dga,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-Xxf86dga,DEPENDS,)
+	@$(call install_fixup, xorg-lib-Xxf86dga,DESCRIPTION,missing)
 
 # FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-Xxf86dga)
 
 	@$(call touch, $@)
 

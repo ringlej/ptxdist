@@ -111,18 +111,18 @@ openafs_targetinstall: $(STATEDIR)/openafs.targetinstall
 $(STATEDIR)/openafs.targetinstall: $(openafs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,openafs)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(OPENAFS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, openafs)
+	@$(call install_fixup, openafs,PACKAGE,openafs)
+	@$(call install_fixup, openafs,PRIORITY,optional)
+	@$(call install_fixup, openafs,VERSION,$(OPENAFS_VERSION))
+	@$(call install_fixup, openafs,SECTION,base)
+	@$(call install_fixup, openafs,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, openafs,DEPENDS,)
+	@$(call install_fixup, openafs,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0744, $(OPENAFS_DIR)/$(OPENAFS_SYS)/dest/root.client/usr/vice, /usr/bin/vice)
+	@$(call install_copy, openafs, 0, 0, 0744, $(OPENAFS_DIR)/$(OPENAFS_SYS)/dest/root.client/usr/vice, /usr/bin/vice)
 
-	@$(call install_finish)
+	@$(call install_finish, openafs)
 
 	@$(call touch, $@)
 

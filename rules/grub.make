@@ -163,20 +163,20 @@ grub_targetinstall: $(STATEDIR)/grub.targetinstall
 $(STATEDIR)/grub.targetinstall: $(grub_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,grub)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GRUB_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, grub)
+	@$(call install_fixup, grub,PACKAGE,grub)
+	@$(call install_fixup, grub,PRIORITY,optional)
+	@$(call install_fixup, grub,VERSION,$(GRUB_VERSION))
+	@$(call install_fixup, grub,SECTION,base)
+	@$(call install_fixup, grub,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, grub,DEPENDS,)
+	@$(call install_fixup, grub,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, $(GRUB_DIR)/stage1/stage1, /boot/grub/stage1)
-	@$(call install_copy, 0, 0, 0644, $(GRUB_DIR)/stage2/stage2, /boot/grub/stage2)
-	@$(call install_copy, 0, 0, 0755, $(GRUB_DIR)/grub/grub, /usr/sbin/grub)
+	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage1/stage1, /boot/grub/stage1)
+	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/stage2, /boot/grub/stage2)
+	@$(call install_copy, grub, 0, 0, 0755, $(GRUB_DIR)/grub/grub, /usr/sbin/grub)
 
-	@$(call install_finish)
+	@$(call install_finish, grub)
 
 	@$(call touch, $@)
 

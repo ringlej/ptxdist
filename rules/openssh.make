@@ -158,45 +158,45 @@ openssh_targetinstall: $(STATEDIR)/openssh.targetinstall
 $(STATEDIR)/openssh.targetinstall: $(openssh_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,openssh)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(OPENSSH_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, openssh)
+	@$(call install_fixup, openssh,PACKAGE,openssh)
+	@$(call install_fixup, openssh,PRIORITY,optional)
+	@$(call install_fixup, openssh,VERSION,$(OPENSSH_VERSION))
+	@$(call install_fixup, openssh,SECTION,base)
+	@$(call install_fixup, openssh,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, openssh,DEPENDS,)
+	@$(call install_fixup, openssh,DESCRIPTION,missing)
 	
 ifdef PTXCONF_OPENSSH_SSH
-	@$(call install_copy, 0, 0, 0644, $(OPENSSH_DIR)/ssh_config.out, /etc/ssh/ssh_config, n)
-	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/ssh, /usr/bin/ssh)
+	@$(call install_copy, openssh, 0, 0, 0644, $(OPENSSH_DIR)/ssh_config.out, /etc/ssh/ssh_config, n)
+	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/ssh, /usr/bin/ssh)
 endif
 
 ifdef PTXCONF_OPENSSH_SSHD
-	@$(call install_copy, 0, 0, 0644, $(OPENSSH_DIR)/moduli.out, /etc/ssh/moduli, n)
-	@$(call install_copy, 0, 0, 0644, $(OPENSSH_DIR)/sshd_config.out, /etc/ssh/sshd_config, n)
+	@$(call install_copy, openssh, 0, 0, 0644, $(OPENSSH_DIR)/moduli.out, /etc/ssh/moduli, n)
+	@$(call install_copy, openssh, 0, 0, 0644, $(OPENSSH_DIR)/sshd_config.out, /etc/ssh/sshd_config, n)
 	perl -p -i -e "s/#PermitRootLogin yes/PermitRootLogin yes/" \
 		$(ROOTDIR)/etc/ssh/sshd_config
 	perl -p -i -e "s/#PermitRootLogin yes/PermitRootLogin yes/" \
 		$(IMAGEDIR)/ipkg/etc/ssh/sshd_config
-	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/sshd, /usr/sbin/sshd)
+	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/sshd, /usr/sbin/sshd)
 endif
 
 ifdef PTXCONF_OPENSSH_SCP
-	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/scp, /usr/bin/scp)
+	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/scp, /usr/bin/scp)
 endif
 
 ifdef PTXCONF_OPENSSH_SFTP_SERVER
-	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/sftp-server, /usr/sbin/sftp-server)
+	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/sftp-server, /usr/sbin/sftp-server)
 endif
 
 ifdef PTXCONF_OPENSSH_KEYGEN
 	# FIXME: if this is the only file in this directory move it
 	# to somewhere else (patch, echo << EOF?) [RSC]
-	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/scripts/openssh-host-keygen.sh, /sbin/openssh-host-keygen.sh, n)
-	@$(call install_copy, 0, 0, 0755, $(OPENSSH_DIR)/ssh-keygen, /usr/bin/ssh-keygen)
+	@$(call install_copy, openssh, 0, 0, 0755, $(PTXDIST_TOPDIR)/scripts/openssh-host-keygen.sh, /sbin/openssh-host-keygen.sh, n)
+	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/ssh-keygen, /usr/bin/ssh-keygen)
 endif
-	@$(call install_finish)
+	@$(call install_finish, openssh)
 
 	@$(call touch, $@)
 

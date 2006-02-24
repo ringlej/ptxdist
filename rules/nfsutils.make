@@ -134,97 +134,97 @@ nfsutils_targetinstall: $(STATEDIR)/nfsutils.targetinstall
 $(STATEDIR)/nfsutils.targetinstall: $(STATEDIR)/nfsutils.install
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,nfsutils)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(NFSUTILS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, nfsutils)
+	@$(call install_fixup, nfsutils,PACKAGE,nfsutils)
+	@$(call install_fixup, nfsutils,PRIORITY,optional)
+	@$(call install_fixup, nfsutils,VERSION,$(NFSUTILS_VERSION))
+	@$(call install_fixup, nfsutils,SECTION,base)
+	@$(call install_fixup, nfsutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, nfsutils,DEPENDS,)
+	@$(call install_fixup, nfsutils,DESCRIPTION,missing)
 
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_CLIENTSCRIPT))
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/etc/nodist/nfs-client, /etc/init.d/nfs-client, n)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/etc/nodist/nfs-client, /etc/init.d/nfs-client, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_FUNCTIONSSCRIPT))
-	@$(call install_copy, 0, 0, 0644, $(NFSUTILS_DIR)/etc/nodist/nfs-functions, /etc/init.d/nfs-functions, n)
+	@$(call install_copy, nfsutils, 0, 0, 0644, $(NFSUTILS_DIR)/etc/nodist/nfs-functions, /etc/init.d/nfs-functions, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_SERVERSCRIPT))
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/etc/nodist/nfs-server, /etc/init.d/nfs-server, n)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/etc/nodist/nfs-server, /etc/init.d/nfs-server, n)
         endif
 
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_EXPORTFS))
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/exportfs/.libs/exportfs, /sbin/exportfs)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/exportfs/.libs/exportfs, /sbin/exportfs)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_LOCKD))
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/lockd/.libs/lockd, /sbin/lockd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/lockd/.libs/lockd, /sbin/lockd)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_MOUNTD))
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/mountd/.libs/mountd, /sbin/mountd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/mountd/.libs/mountd, /sbin/mountd)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NFSD))
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nfsd/.libs/nfsd, /sbin/nfsd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nfsd/.libs/nfsd, /sbin/nfsd)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NFSSTAT))
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nfsstat/.libs/nfsstat, /sbin/nfsstat)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nfsstat/.libs/nfsstat, /sbin/nfsstat)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSGRAPH))
 # don't strip, this is a shell script
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsgraph, /sbin/nhfsgraph, n)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsgraph, /sbin/nhfsgraph, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSNUMS))
 # don't strip, this is a shell script
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsnums, /sbin/nhfsnums, n)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsnums, /sbin/nhfsnums, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSRUN))
 # don't strip, this is a shell script
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsrun, /sbin/nhfsrun, n)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsrun, /sbin/nhfsrun, n)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_NHFSSTONE))
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/.libs/nhfsstone, /sbin/nhfsstone)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/.libs/nhfsstone, /sbin/nhfsstone)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_SHOWMOUNT))
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/showmount/.libs/showmount, /sbin/showmount)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/showmount/.libs/showmount, /sbin/showmount)
         endif
         ifeq (y, $(PTXCONF_NFSUTILS_INSTALL_STATD))
-	@$(call install_copy, 0, 0, 0755, $(NFSUTILS_DIR)/utils/statd/.libs/statd, /sbin/statd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/statd/.libs/statd, /sbin/statd)
         endif
 # copy necessary libs
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, nfsutils, 0, 0, 0644, \
 		$(NFSUTILS_DIR)/support/export/.libs/libexport.so.0.0.0, \
 		/usr/lib/libexport.so.0.0.0)
-	@$(call install_link, libexport.so.0.0.0, /usr/lib/libexport.so.0.0)
-	@$(call install_link, libexport.so.0.0.0, /usr/lib/libexport.so.0)
+	@$(call install_link, nfsutils, libexport.so.0.0.0, /usr/lib/libexport.so.0.0)
+	@$(call install_link, nfsutils, libexport.so.0.0.0, /usr/lib/libexport.so.0)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, nfsutils, 0, 0, 0644, \
 		$(NFSUTILS_DIR)/support/nfs/.libs/libnfs.so.0.0.0, \
 		/usr/lib/libnfs.so.0.0.0)
-	@$(call install_link, libnfs.so.0.0.0, /usr/lib/libnfs.so.0.0)
-	@$(call install_link, libnfs.so.0.0.0, /usr/lib/libnfs.so.0)
+	@$(call install_link, nfsutils, libnfs.so.0.0.0, /usr/lib/libnfs.so.0.0)
+	@$(call install_link, nfsutils, libnfs.so.0.0.0, /usr/lib/libnfs.so.0)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, nfsutils, 0, 0, 0644, \
 		$(NFSUTILS_DIR)/support/misc/.libs/libmisc.so.0.0.0, \
 		/usr/lib/libmisc.so.0.0.0)
-	@$(call install_link, libmisc.so.0.0.0, /usr/lib/libmisc.so.0.0)
-	@$(call install_link, libmisc.so.0.0.0, /usr/lib/libmisc.so.0)
+	@$(call install_link, nfsutils, libmisc.so.0.0.0, /usr/lib/libmisc.so.0.0)
+	@$(call install_link, nfsutils, libmisc.so.0.0.0, /usr/lib/libmisc.so.0)
 
 	mkdir -p $(NFSUTILS_DIR)/ptxdist_install_tmp
 	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/etab
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/ptxdist_install_tmp/etab, \
 		/var/lib/nfs/etab, n)
 
 	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/rmtab
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/ptxdist_install_tmp/rmtab, \
 		/var/lib/nfs/rmtab, n)
 
 	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/xtab
-	@$(call install_copy, 0, 0, 0755, \
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/ptxdist_install_tmp/xtab, \
 		/var/lib/nfs/xtab, n)
 
-	@$(call install_finish)
+	@$(call install_finish, nfsutils)
 
 	@$(call touch, $@)
 

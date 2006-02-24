@@ -93,31 +93,31 @@ utelnetd_targetinstall: $(STATEDIR)/utelnetd.targetinstall
 $(STATEDIR)/utelnetd.targetinstall: $(utelnetd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,utelnetd)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(UTELNETD_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, utelnetd)
+	@$(call install_fixup, utelnetd,PACKAGE,utelnetd)
+	@$(call install_fixup, utelnetd,PRIORITY,optional)
+	@$(call install_fixup, utelnetd,VERSION,$(UTELNETD_VERSION))
+	@$(call install_fixup, utelnetd,SECTION,base)
+	@$(call install_fixup, utelnetd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, utelnetd,DEPENDS,)
+	@$(call install_fixup, utelnetd,DESCRIPTION,missing)
 ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD
 ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD_DEFAULT 
-	@$(call install_copy, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/telnetd, /etc/init.d/telnetd, n)
+	@$(call install_copy, utelnetd, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/telnetd, /etc/init.d/telnetd, n)
 else
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER_FILE),"")
-	@$(call install_copy, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER_FILE), /etc/init.d/telnetd, n)
+	@$(call install_copy, utelnetd, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER_FILE), /etc/init.d/telnetd, n)
 endif
 endif
 endif
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
-	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, ../init.d/telnetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
+	@$(call install_copy, utelnetd, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, utelnetd, ../init.d/telnetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
 endif
 
-	@$(call install_copy, 0, 0, 0755, $(UTELNETD_DIR)/utelnetd, /sbin/utelnetd)
+	@$(call install_copy, utelnetd, 0, 0, 0755, $(UTELNETD_DIR)/utelnetd, /sbin/utelnetd)
 
-	@$(call install_finish)
+	@$(call install_finish, utelnetd)
 
 	@$(call touch, $@)
 

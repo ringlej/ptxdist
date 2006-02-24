@@ -123,26 +123,26 @@ madwifi_targetinstall: $(STATEDIR)/madwifi.targetinstall
 $(STATEDIR)/madwifi.targetinstall: $(madwifi_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,madwifi)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(MADWIFI_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, madwifi)
+	@$(call install_fixup, madwifi,PACKAGE,madwifi)
+	@$(call install_fixup, madwifi,PRIORITY,optional)
+	@$(call install_fixup, madwifi,VERSION,$(MADWIFI_VERSION))
+	@$(call install_fixup, madwifi,SECTION,base)
+	@$(call install_fixup, madwifi,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, madwifi,DEPENDS,)
+	@$(call install_fixup, madwifi,DESCRIPTION,missing)
 
 	# FIXME: ipkgize
 ifdef PTXCONF_KERNEL_INSTALL
 	cd $(MADWIFI_DIR) && $(MADWIFI_ENV) $(MADWIFI_PATH) $(MAKE) install
 endif
 ifdef PTXCONF_MADWIFI_TOOLS_ATHEROS_STATS
-	@$(call install_copy, 0, 0, 0555, $(MADWIFI_DIR)/tools/athstats, /usr/bin/athstats)
+	@$(call install_copy, madwifi, 0, 0, 0555, $(MADWIFI_DIR)/tools/athstats, /usr/bin/athstats)
 endif
 ifdef PTXCONF_MADWIFI_TOOLS_80211_STATS
-	@$(call install_copy, 0, 0, 0555, $(MADWIFI_DIR)/tools/80211stats, /usr/bin/80211stats)
+	@$(call install_copy, madwifi, 0, 0, 0555, $(MADWIFI_DIR)/tools/80211stats, /usr/bin/80211stats)
 endif
-	@$(call install_finish)
+	@$(call install_finish, madwifi)
 
 	@$(call touch, $@)
 

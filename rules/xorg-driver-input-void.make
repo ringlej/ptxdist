@@ -106,19 +106,19 @@ xorg-driver-input-void_targetinstall: $(STATEDIR)/xorg-driver-input-void.targeti
 $(STATEDIR)/xorg-driver-input-void.targetinstall: $(xorg-driver-input-void_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-driver-input-void)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_DRIVER_INPUT_VOID_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-driver-input-void)
+	@$(call install_fixup, xorg-driver-input-void,PACKAGE,xorg-driver-input-void)
+	@$(call install_fixup, xorg-driver-input-void,PRIORITY,optional)
+	@$(call install_fixup, xorg-driver-input-void,VERSION,$(XORG_DRIVER_INPUT_VOID_VERSION))
+	@$(call install_fixup, xorg-driver-input-void,SECTION,base)
+	@$(call install_fixup, xorg-driver-input-void,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-driver-input-void,DEPENDS,)
+	@$(call install_fixup, xorg-driver-input-void,DESCRIPTION,missing)
 
 #FIXME
 
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-driver-input-void)
 
 	@$(call touch, $@)
 

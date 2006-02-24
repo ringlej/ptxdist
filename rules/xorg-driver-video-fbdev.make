@@ -106,18 +106,18 @@ xorg-driver-video-fbdev_targetinstall: $(STATEDIR)/xorg-driver-video-fbdev.targe
 $(STATEDIR)/xorg-driver-video-fbdev.targetinstall: $(xorg-driver-video-fbdev_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-driver-video-fbdev)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_DRIVER_VIDEO_FBDEV_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-driver-video-fbdev)
+	@$(call install_fixup, xorg-driver-video-fbdev,PACKAGE,xorg-driver-video-fbdev)
+	@$(call install_fixup, xorg-driver-video-fbdev,PRIORITY,optional)
+	@$(call install_fixup, xorg-driver-video-fbdev,VERSION,$(XORG_DRIVER_VIDEO_FBDEV_VERSION))
+	@$(call install_fixup, xorg-driver-video-fbdev,SECTION,base)
+	@$(call install_fixup, xorg-driver-video-fbdev,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-driver-video-fbdev,DEPENDS,)
+	@$(call install_fixup, xorg-driver-video-fbdev,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(XORG_DRIVER_VIDEO_FBDEV_DIR)/src/.libs/fbdev_drv.so, /usr/lib/xorg/modules/fbdev_drv.so)
+	@$(call install_copy, xorg-driver-video-fbdev, 0, 0, 0755, $(XORG_DRIVER_VIDEO_FBDEV_DIR)/src/.libs/fbdev_drv.so, /usr/lib/xorg/modules/fbdev_drv.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-driver-video-fbdev)
 
 	@$(call touch, $@)
 

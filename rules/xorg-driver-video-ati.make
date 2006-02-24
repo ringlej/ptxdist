@@ -112,18 +112,18 @@ xorg-driver-video-ati_targetinstall: $(STATEDIR)/xorg-driver-video-ati.targetins
 $(STATEDIR)/xorg-driver-video-ati.targetinstall: $(xorg-driver-video-ati_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-driver-video-ati)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_DRIVER_VIDEO_ATI_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-driver-video-ati)
+	@$(call install_fixup, xorg-driver-video-ati,PACKAGE,xorg-driver-video-ati)
+	@$(call install_fixup, xorg-driver-video-ati,PRIORITY,optional)
+	@$(call install_fixup, xorg-driver-video-ati,VERSION,$(XORG_DRIVER_VIDEO_ATI_VERSION))
+	@$(call install_fixup, xorg-driver-video-ati,SECTION,base)
+	@$(call install_fixup, xorg-driver-video-ati,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-driver-video-ati,DEPENDS,)
+	@$(call install_fixup, xorg-driver-video-ati,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-driver-video-ati)
 
 	@$(call touch, $@)
 

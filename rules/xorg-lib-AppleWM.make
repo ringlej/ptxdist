@@ -108,18 +108,18 @@ xorg-lib-AppleWM_targetinstall: $(STATEDIR)/xorg-lib-AppleWM.targetinstall
 $(STATEDIR)/xorg-lib-AppleWM.targetinstall: $(xorg-lib-AppleWM_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-AppleWM)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_APPLEWM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-AppleWM)
+	@$(call install_fixup, xorg-lib-AppleWM,PACKAGE,xorg-lib-AppleWM)
+	@$(call install_fixup, xorg-lib-AppleWM,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-AppleWM,VERSION,$(XORG_LIB_APPLEWM_VERSION))
+	@$(call install_fixup, xorg-lib-AppleWM,SECTION,base)
+	@$(call install_fixup, xorg-lib-AppleWM,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-AppleWM,DEPENDS,)
+	@$(call install_fixup, xorg-lib-AppleWM,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-AppleWM)
 
 	@$(call touch, $@)
 

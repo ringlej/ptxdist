@@ -106,19 +106,19 @@ pnet_targetinstall: $(STATEDIR)/pnet.targetinstall
 $(STATEDIR)/pnet.targetinstall: $(pnet_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,pnet)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PNET_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Benedikt Spranger <b.spranger\@linutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, pnet)
+	@$(call install_fixup, pnet,PACKAGE,pnet)
+	@$(call install_fixup, pnet,PRIORITY,optional)
+	@$(call install_fixup, pnet,VERSION,$(PNET_VERSION))
+	@$(call install_fixup, pnet,SECTION,base)
+	@$(call install_fixup, pnet,AUTHOR,"Benedikt Spranger <b.spranger\@linutronix.de>")
+	@$(call install_fixup, pnet,DEPENDS,)
+	@$(call install_fixup, pnet,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(PNET_DIR)/engine/ilrun, /usr/bin/ilrun)
-	@$(call install_copy, 0, 0, 0755, $(PNET_DIR)/engine/ilverify, /usr/bin/ilverify)
+	@$(call install_copy, pnet, 0, 0, 0755, $(PNET_DIR)/engine/ilrun, /usr/bin/ilrun)
+	@$(call install_copy, pnet, 0, 0, 0755, $(PNET_DIR)/engine/ilverify, /usr/bin/ilverify)
 		
-	@$(call install_finish)
+	@$(call install_finish, pnet)
 
 	@$(call touch, $@)
 

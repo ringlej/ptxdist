@@ -118,31 +118,31 @@ glib12_targetinstall: $(STATEDIR)/glib12.targetinstall
 $(STATEDIR)/glib12.targetinstall: $(glib12_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,glib12)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GLIB12_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, glib12)
+	@$(call install_fixup, glib12,PACKAGE,glib12)
+	@$(call install_fixup, glib12,PRIORITY,optional)
+	@$(call install_fixup, glib12,VERSION,$(GLIB12_VERSION))
+	@$(call install_fixup, glib12,SECTION,base)
+	@$(call install_fixup, glib12,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, glib12,DEPENDS,)
+	@$(call install_fixup, glib12,DESCRIPTION,missing)
 
 	# glib
-	@$(call install_copy, 0, 0, 0644, $(GLIB12_DIR)/.libs/libglib-1.2.so.0.0.10, /usr/lib/libglib-1.2.so.0.0.10)
-	@$(call install_link, libglib-1.2.so.0.0.10, /usr/lib/libglib-1.2.so.0)
-	@$(call install_link, libglib-1.2.so.0.0.10, /usr/lib/libglib-1.2.so)
+	@$(call install_copy, glib12, 0, 0, 0644, $(GLIB12_DIR)/.libs/libglib-1.2.so.0.0.10, /usr/lib/libglib-1.2.so.0.0.10)
+	@$(call install_link, glib12, libglib-1.2.so.0.0.10, /usr/lib/libglib-1.2.so.0)
+	@$(call install_link, glib12, libglib-1.2.so.0.0.10, /usr/lib/libglib-1.2.so)
 
 	# gmodule
-	@$(call install_copy, 0, 0, 0644, $(GLIB12_DIR)/gmodule/.libs/libgmodule-1.2.so.0.0.10, /usr/lib/libgmodule-1.2.so.0.0.10)
-	@$(call install_link, libgmodule-1.2.so.0.0.10, /usr/lib/libgmodule-1.2.so.0)
-	@$(call install_link, libgmodule-1.2.so.0.0.10, /usr/lib/libgmodule-1.2.so)
+	@$(call install_copy, glib12, 0, 0, 0644, $(GLIB12_DIR)/gmodule/.libs/libgmodule-1.2.so.0.0.10, /usr/lib/libgmodule-1.2.so.0.0.10)
+	@$(call install_link, glib12, libgmodule-1.2.so.0.0.10, /usr/lib/libgmodule-1.2.so.0)
+	@$(call install_link, glib12, libgmodule-1.2.so.0.0.10, /usr/lib/libgmodule-1.2.so)
 
 	# gthread
-	@$(call install_copy, 0, 0, 0644, $(GLIB12_DIR)/gthread/.libs/libgthread-1.2.so.0.0.10, /usr/lib/libgthread-1.2.so.0.0.10)
-	@$(call install_link, libgthread-1.2.so.0.0.10 /usr/lib/libgthread-1.2.so.0)
-	@$(call install_link, libgthread-1.2.so.0.0.10 /usr/lib/libgthread-1.2.so)
+	@$(call install_copy, glib12, 0, 0, 0644, $(GLIB12_DIR)/gthread/.libs/libgthread-1.2.so.0.0.10, /usr/lib/libgthread-1.2.so.0.0.10)
+	@$(call install_link, glib12, libgthread-1.2.so.0.0.10 /usr/lib/libgthread-1.2.so.0)
+	@$(call install_link, glib12, libgthread-1.2.so.0.0.10 /usr/lib/libgthread-1.2.so)
 
-	@$(call install_finish)
+	@$(call install_finish, glib12)
 
 	@$(call touch, $@)
 

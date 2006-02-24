@@ -107,22 +107,22 @@ rawrec_targetinstall: $(STATEDIR)/rawrec.targetinstall
 $(STATEDIR)/rawrec.targetinstall: $(rawrec_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,rawrec)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(RAWREC_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, rawrec)
+	@$(call install_fixup, rawrec,PACKAGE,rawrec)
+	@$(call install_fixup, rawrec,PRIORITY,optional)
+	@$(call install_fixup, rawrec,VERSION,$(RAWREC_VERSION))
+	@$(call install_fixup, rawrec,SECTION,base)
+	@$(call install_fixup, rawrec,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, rawrec,DEPENDS,)
+	@$(call install_fixup, rawrec,DESCRIPTION,missing)
 
 ifdef PTXCONF_RAWREC_RAWREC
-	@$(call install_copy, 0, 0, 0755, $(RAWREC_DIR)/src/rawrec, /usr/bin/rawrec)
+	@$(call install_copy, rawrec, 0, 0, 0755, $(RAWREC_DIR)/src/rawrec, /usr/bin/rawrec)
 endif
 ifdef PTXCONF_RAWREC_RAWPLAY
-	@$(call install_copy, 0, 0, 0755, $(RAWREC_DIR)/src/rawplay, /usr/bin/rawplay)
+	@$(call install_copy, rawrec, 0, 0, 0755, $(RAWREC_DIR)/src/rawplay, /usr/bin/rawplay)
 endif
-	@$(call install_finish)
+	@$(call install_finish, rawrec)
 
 	@$(call touch, $@)
 

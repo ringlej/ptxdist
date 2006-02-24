@@ -106,16 +106,16 @@ xorg-proto-composite_targetinstall: $(STATEDIR)/xorg-proto-composite.targetinsta
 $(STATEDIR)/xorg-proto-composite.targetinstall: $(xorg-proto-composite_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-composite)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_COMPOSITE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-composite)
+	@$(call install_fixup, xorg-proto-composite,PACKAGE,xorg-proto-composite)
+	@$(call install_fixup, xorg-proto-composite,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-composite,VERSION,$(XORG_PROTO_COMPOSITE_VERSION))
+	@$(call install_fixup, xorg-proto-composite,SECTION,base)
+	@$(call install_fixup, xorg-proto-composite,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-composite,DEPENDS,)
+	@$(call install_fixup, xorg-proto-composite,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-composite)
 
 	@$(call touch, $@)
 

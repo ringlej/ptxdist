@@ -111,30 +111,30 @@ gtk1210_targetinstall: $(STATEDIR)/gtk1210.targetinstall
 $(STATEDIR)/gtk1210.targetinstall: $(gtk1210_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,gtk1210)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(GTK1210_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, gtk1210)
+	@$(call install_fixup, gtk1210,PACKAGE,gtk1210)
+	@$(call install_fixup, gtk1210,PRIORITY,optional)
+	@$(call install_fixup, gtk1210,VERSION,$(GTK1210_VERSION))
+	@$(call install_fixup, gtk1210,SECTION,base)
+	@$(call install_fixup, gtk1210,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gtk1210,DEPENDS,)
+	@$(call install_fixup, gtk1210,DESCRIPTION,missing)
 
 	# gdk
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk1210, 0, 0, 0644, \
 		$(GTK1210_DIR)/gdk/.libs/libgdk-1.2.so.0.9.1, \
 		/usr/lib/libgdk-1.2.so.0.9.1)
-	@$(call install_link, libgdk-1.2.so.0.9.1, /usr/lib/libgdk-1.2.so.0)
-	@$(call install_link, libgdk-1.2.so.0.9.1, /usr/lib/libgdk-1.2.so)
+	@$(call install_link, gtk1210, libgdk-1.2.so.0.9.1, /usr/lib/libgdk-1.2.so.0)
+	@$(call install_link, gtk1210, libgdk-1.2.so.0.9.1, /usr/lib/libgdk-1.2.so)
 
 	# gtk
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, gtk1210, 0, 0, 0644, \
 		$(GTK1210_DIR)/gtk/.libs/libgtk-1.2.so.0.9.1, \
 		/usr/lib/libgtk-1.2.so.0.9.1)
-	@$(call install_link, libgtk-1.2.so.0.9.1, /usr/lib/libgtk-1.2.so.0)
-	@$(call install_link, libgtk-1.2.so.0.9.1, /usr/lib/libgtk-1.2.so)
+	@$(call install_link, gtk1210, libgtk-1.2.so.0.9.1, /usr/lib/libgtk-1.2.so.0)
+	@$(call install_link, gtk1210, libgtk-1.2.so.0.9.1, /usr/lib/libgtk-1.2.so)
 
-	@$(call install_finish)
+	@$(call install_finish, gtk1210)
 
 	@$(call touch, $@)
 

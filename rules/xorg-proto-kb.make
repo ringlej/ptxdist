@@ -106,16 +106,16 @@ xorg-proto-kb_targetinstall: $(STATEDIR)/xorg-proto-kb.targetinstall
 $(STATEDIR)/xorg-proto-kb.targetinstall: $(xorg-proto-kb_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-proto-kb)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_PROTO_KB_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-proto-kb)
+	@$(call install_fixup, xorg-proto-kb,PACKAGE,xorg-proto-kb)
+	@$(call install_fixup, xorg-proto-kb,PRIORITY,optional)
+	@$(call install_fixup, xorg-proto-kb,VERSION,$(XORG_PROTO_KB_VERSION))
+	@$(call install_fixup, xorg-proto-kb,SECTION,base)
+	@$(call install_fixup, xorg-proto-kb,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, xorg-proto-kb,DEPENDS,)
+	@$(call install_fixup, xorg-proto-kb,DESCRIPTION,missing)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-proto-kb)
 
 	@$(call touch, $@)
 

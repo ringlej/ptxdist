@@ -114,23 +114,23 @@ liboop_targetinstall: $(STATEDIR)/liboop.targetinstall
 $(STATEDIR)/liboop.targetinstall: $(liboop_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,liboop)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBOOP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, liboop)
+	@$(call install_fixup, liboop,PACKAGE,liboop)
+	@$(call install_fixup, liboop,PRIORITY,optional)
+	@$(call install_fixup, liboop,VERSION,$(LIBOOP_VERSION))
+	@$(call install_fixup, liboop,SECTION,base)
+	@$(call install_fixup, liboop,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, liboop,DEPENDS,)
+	@$(call install_fixup, liboop,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, liboop, 0, 0, 0644, \
 		$(LIBOOP_DIR)/.libs/liboop.so.4.0.1, \
 		/usr/lib/liboop.so.4.0.1)
 
-	@$(call install_link, liboop.so.4.0.1, /usr/lib/liboop.so.4)
-	@$(call install_link, liboop.so.4.0.1, /usr/lib/liboop.so)
+	@$(call install_link, liboop, liboop.so.4.0.1, /usr/lib/liboop.so.4)
+	@$(call install_link, liboop, liboop.so.4.0.1, /usr/lib/liboop.so)
 
-	@$(call install_finish)
+	@$(call install_finish, liboop)
 
 	@$(call touch, $@)
 

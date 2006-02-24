@@ -108,18 +108,18 @@ xorg-lib-dmx_targetinstall: $(STATEDIR)/xorg-lib-dmx.targetinstall
 $(STATEDIR)/xorg-lib-dmx.targetinstall: $(xorg-lib-dmx_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-dmx)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_DMX_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-dmx)
+	@$(call install_fixup, xorg-lib-dmx,PACKAGE,xorg-lib-dmx)
+	@$(call install_fixup, xorg-lib-dmx,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-dmx,VERSION,$(XORG_LIB_DMX_VERSION))
+	@$(call install_fixup, xorg-lib-dmx,SECTION,base)
+	@$(call install_fixup, xorg-lib-dmx,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-dmx,DEPENDS,)
+	@$(call install_fixup, xorg-lib-dmx,DESCRIPTION,missing)
 
 # FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-dmx)
 
 	@$(call touch, $@)
 

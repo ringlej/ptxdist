@@ -112,67 +112,67 @@ sysvinit_targetinstall: $(STATEDIR)/sysvinit.targetinstall
 $(STATEDIR)/sysvinit.targetinstall: $(sysvinit_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,sysvinit)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(SYSVINIT_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Oscar Peredo <oscar\@exis.cl>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, sysvinit)
+	@$(call install_fixup, sysvinit,PACKAGE,sysvinit)
+	@$(call install_fixup, sysvinit,PRIORITY,optional)
+	@$(call install_fixup, sysvinit,VERSION,$(SYSVINIT_VERSION))
+	@$(call install_fixup, sysvinit,SECTION,base)
+	@$(call install_fixup, sysvinit,AUTHOR,"Oscar Peredo <oscar\@exis.cl>")
+	@$(call install_fixup, sysvinit,DEPENDS,)
+	@$(call install_fixup, sysvinit,DESCRIPTION,missing)
 
 ifdef PTXCONF_SYSVINIT_INIT
-	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/init, /sbin/init)
-	@$(call install_link, init, /sbin/telinit)
+	@$(call install_copy, sysvinit, 0, 0, 0755, $(SYSVINIT_DIR)/src/init, /sbin/init)
+	@$(call install_link, sysvinit, init, /sbin/telinit)
 endif
 ifdef PTXCONF_SYSVINIT_HALT
-	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/halt, /sbin/halt)
-	@$(call install_link, halt, /sbin/poweroff)
-	@$(call install_link, halt, /sbin/reboot)
+	@$(call install_copy, sysvinit, 0, 0, 0755, $(SYSVINIT_DIR)/src/halt, /sbin/halt)
+	@$(call install_link, sysvinit, halt, /sbin/poweroff)
+	@$(call install_link, sysvinit, halt, /sbin/reboot)
 endif
 ifdef PTXCONF_SYSVINIT_SHUTDOWN
-	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/shutdown, /sbin/shutdown)
+	@$(call install_copy, sysvinit, 0, 0, 0755, $(SYSVINIT_DIR)/src/shutdown, /sbin/shutdown)
 endif
 ifdef PTXCONF_SYSVINIT_RUNLEVEL
-	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/runlevel, /sbin/runlevel)
+	@$(call install_copy, sysvinit, 0, 0, 0755, $(SYSVINIT_DIR)/src/runlevel, /sbin/runlevel)
 endif
 ifdef PTXCONF_SYSVINIT_KILLALL5
-	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/killall5, /sbin/killall5)
+	@$(call install_copy, sysvinit, 0, 0, 0755, $(SYSVINIT_DIR)/src/killall5, /sbin/killall5)
 endif
 ifdef PTXCONF_SYSVINIT_SULOGIN
-	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/sulogin, /sbin/sulogin)
+	@$(call install_copy, sysvinit, 0, 0, 0755, $(SYSVINIT_DIR)/src/sulogin, /sbin/sulogin)
 endif
 ifdef PTXCONF_SYSVINIT_BOOTLOGD
-	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/bootlogd, /sbin/bootlogd)
+	@$(call install_copy, sysvinit, 0, 0, 0755, $(SYSVINIT_DIR)/src/bootlogd, /sbin/bootlogd)
 endif
 ifdef PTXCONF_SYSVINIT_WALL
-	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/wall, /usr/bin/wall)
+	@$(call install_copy, sysvinit, 0, 0, 0755, $(SYSVINIT_DIR)/src/wall, /usr/bin/wall)
 endif
 ifdef PTXCONF_SYSVINIT_LAST
-	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/last, /usr/bin/last)
+	@$(call install_copy, sysvinit, 0, 0, 0755, $(SYSVINIT_DIR)/src/last, /usr/bin/last)
 endif
 ifdef PTXCONF_SYSVINIT_MESG
-	@$(call install_copy, 0, 0, 0755, $(SYSVINIT_DIR)/src/mesg, /usr/bin/mesg)
+	@$(call install_copy, sysvinit, 0, 0, 0755, $(SYSVINIT_DIR)/src/mesg, /usr/bin/mesg)
 endif
 ifdef PTXCONF_SYSVINIT_BSDINIT
 	@$(call clean, $(BSDINIT_DIR))
 	@$(call get, $(BSDINIT_URL))
 	@$(call extract, $(BSDINIT_SOURCE))
-	@$(call install_copy, 0, 0, 0644, $(BSDINIT_DIR)/inittab, /etc/inittab, n)
-	@$(call install_copy, 0, 0, 0755, /etc/rc.d)
-	@$(call install_copy, 0, 0, 0754, $(BSDINIT_DIR)/rc.0, /etc/rc.d/rc.0, n)
-	@$(call install_copy, 0, 0, 0754, $(BSDINIT_DIR)/rc.1, /etc/rc.d/rc.1, n)
-	@$(call install_copy, 0, 0, 0754, $(BSDINIT_DIR)/rc.2, /etc/rc.d/rc.2, n)
-	@$(call install_copy, 0, 0, 0754, $(BSDINIT_DIR)/rc.5, /etc/rc.d/rc.5, n)
-	@$(call install_copy, 0, 0, 0754, $(BSDINIT_DIR)/rc.sysinit, /etc/rc.d/rc.sysinit, n) 
-	@$(call install_link, rc.2, /etc/rc.d/rc.3)
-	@$(call install_link, rc.2, /etc/rc.d/rc.4)
-	@$(call install_link, rc.0, /etc/rc.d/rc.6)
+	@$(call install_copy, sysvinit, 0, 0, 0644, $(BSDINIT_DIR)/inittab, /etc/inittab, n)
+	@$(call install_copy, sysvinit, 0, 0, 0755, /etc/rc.d)
+	@$(call install_copy, sysvinit, 0, 0, 0754, $(BSDINIT_DIR)/rc.0, /etc/rc.d/rc.0, n)
+	@$(call install_copy, sysvinit, 0, 0, 0754, $(BSDINIT_DIR)/rc.1, /etc/rc.d/rc.1, n)
+	@$(call install_copy, sysvinit, 0, 0, 0754, $(BSDINIT_DIR)/rc.2, /etc/rc.d/rc.2, n)
+	@$(call install_copy, sysvinit, 0, 0, 0754, $(BSDINIT_DIR)/rc.5, /etc/rc.d/rc.5, n)
+	@$(call install_copy, sysvinit, 0, 0, 0754, $(BSDINIT_DIR)/rc.sysinit, /etc/rc.d/rc.sysinit, n) 
+	@$(call install_link, sysvinit, rc.2, /etc/rc.d/rc.3)
+	@$(call install_link, sysvinit, rc.2, /etc/rc.d/rc.4)
+	@$(call install_link, sysvinit, rc.0, /etc/rc.d/rc.6)
 endif
 	# FIXME: RSC: this should be done by udev?
-	@$(call install_node, 0, 0, 0600, p, m, m, /dev/initctl)
+	@$(call install_node, sysvinit, 0, 0, 0600, p, m, m, /dev/initctl)
 
-	@$(call install_finish)
+	@$(call install_finish, sysvinit)
 
 	@$(call touch, $@)
 

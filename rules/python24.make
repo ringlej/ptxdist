@@ -113,14 +113,14 @@ python24_targetinstall: $(STATEDIR)/python24.targetinstall
 $(STATEDIR)/python24.targetinstall: $(python24_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,python24)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PYTHON24_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, python24)
+	@$(call install_fixup, python24,PACKAGE,python24)
+	@$(call install_fixup, python24,PRIORITY,optional)
+	@$(call install_fixup, python24,VERSION,$(PYTHON24_VERSION))
+	@$(call install_fixup, python24,SECTION,base)
+	@$(call install_fixup, python24,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, python24,DEPENDS,)
+	@$(call install_fixup, python24,DESCRIPTION,missing)
 
 	# FIXME: RSC: ipkgize in a cleaner way
 
@@ -164,7 +164,7 @@ $(STATEDIR)/python24.targetinstall: $(python24_targetinstall_deps_default)
 	rm -fr $(ROOTDIR)/usr/lib/python2.4/test
 	rm -fr $(IMAGEDIR)/ipkg/usr/lib/python2.4/test
 
-	@$(call install_finish)
+	@$(call install_finish, python24)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

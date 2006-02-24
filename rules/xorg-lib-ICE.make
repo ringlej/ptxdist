@@ -106,28 +106,28 @@ xorg-lib-ICE_targetinstall: $(STATEDIR)/xorg-lib-ICE.targetinstall
 $(STATEDIR)/xorg-lib-ICE.targetinstall: $(xorg-lib-ICE_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-ice)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_ICE_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-ICE)
+	@$(call install_fixup, xorg-lib-ICE,PACKAGE,xorg-lib-ice)
+	@$(call install_fixup, xorg-lib-ICE,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-ICE,VERSION,$(XORG_LIB_ICE_VERSION))
+	@$(call install_fixup, xorg-lib-ICE,SECTION,base)
+	@$(call install_fixup, xorg-lib-ICE,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-ICE,DEPENDS,)
+	@$(call install_fixup, xorg-lib-ICE,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-ICE, 0, 0, 0644, \
 		$(XORG_LIB_ICE_DIR)/src/.libs/libICE.so.6.3.0, \
 		$(XORG_LIBDIR)/libICE.so.6.3.0)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-ICE, \
 		libICE.so.6.3.0, \
 		$(XORG_LIBDIR)/libICE.so.6)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-ICE, \
 		libICE.so.6.3.0, \
 		$(XORG_LIBDIR)/libICE.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-ICE)
 
 	@$(call touch, $@)
 

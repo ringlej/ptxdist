@@ -106,28 +106,28 @@ xorg-lib-SM_targetinstall: $(STATEDIR)/xorg-lib-SM.targetinstall
 $(STATEDIR)/xorg-lib-SM.targetinstall: $(xorg-lib-SM_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-sm)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_SM_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-SM)
+	@$(call install_fixup, xorg-lib-SM,PACKAGE,xorg-lib-sm)
+	@$(call install_fixup, xorg-lib-SM,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-SM,VERSION,$(XORG_LIB_SM_VERSION))
+	@$(call install_fixup, xorg-lib-SM,SECTION,base)
+	@$(call install_fixup, xorg-lib-SM,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-SM,DEPENDS,)
+	@$(call install_fixup, xorg-lib-SM,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-SM, 0, 0, 0644, \
 		$(XORG_LIB_SM_DIR)/src/.libs/libSM.so.6.0.0, \
 		$(XORG_LIBDIR)/libSM.so.6.0.0)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-SM, \
 		libSM.so.6.0.0, \
 		$(XORG_LIBDIR)/libSM.so.6)
 
-	@$(call install_link, \
+	@$(call install_link, xorg-lib-SM, \
 		libSM.so.6.0.0, \
 		$(XORG_LIBDIR)/libSM.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-SM)
 
 	@$(call touch, $@)
 

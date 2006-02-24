@@ -128,19 +128,19 @@ ppp_targetinstall: $(STATEDIR)/ppp.targetinstall
 $(STATEDIR)/ppp.targetinstall: $(ppp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,ppp)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(PPP_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, ppp)
+	@$(call install_fixup, ppp,PACKAGE,ppp)
+	@$(call install_fixup, ppp,PRIORITY,optional)
+	@$(call install_fixup, ppp,VERSION,$(PPP_VERSION))
+	@$(call install_fixup, ppp,SECTION,base)
+	@$(call install_fixup, ppp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ppp,DEPENDS,)
+	@$(call install_fixup, ppp,DESCRIPTION,missing)
 	
-	@$(call install_copy, 0, 0, 0755, $(PPP_DIR)/pppd/pppd, /usr/sbin/pppd)
-	@$(call install_copy, 0, 0, 0755, $(PPP_DIR)/chat/chat, /usr/sbin/chat)
+	@$(call install_copy, ppp, 0, 0, 0755, $(PPP_DIR)/pppd/pppd, /usr/sbin/pppd)
+	@$(call install_copy, ppp, 0, 0, 0755, $(PPP_DIR)/chat/chat, /usr/sbin/chat)
 
-	@$(call install_finish)
+	@$(call install_finish, ppp)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

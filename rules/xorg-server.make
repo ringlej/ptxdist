@@ -336,42 +336,42 @@ xorg-server_targetinstall: $(STATEDIR)/xorg-server.targetinstall
 $(STATEDIR)/xorg-server.targetinstall: $(xorg-server_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-server)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_SERVER_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-server)
+	@$(call install_fixup, xorg-server,PACKAGE,xorg-server)
+	@$(call install_fixup, xorg-server,PRIORITY,optional)
+	@$(call install_fixup, xorg-server,VERSION,$(XORG_SERVER_VERSION))
+	@$(call install_fixup, xorg-server,SECTION,base)
+	@$(call install_fixup, xorg-server,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xorg-server,DEPENDS,)
+	@$(call install_fixup, xorg-server,DESCRIPTION,missing)
 
 ifdef PTXCONF_XORG_SERVER_XVFB
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/vfb/Xvfb, $(XORG_PREFIX)/bin/Xvfb)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/vfb/Xvfb, $(XORG_PREFIX)/bin/Xvfb)
 endif
 ifdef PTXCONF_XORG_SERVER_XORG
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/Xorg, $(XORG_PREFIX)/bin/Xorg)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/Xorg, $(XORG_PREFIX)/bin/Xorg)
 endif
 ifdef PTXCONF_XORG_SERVER_DMX
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/dmx/Xdmx, $(XORG_PREFIX)/bin/Xdmx)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/dmx/Xdmx, $(XORG_PREFIX)/bin/Xdmx)
 endif
 ifdef PTXCONF_XORG_SERVER_XNEST
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xnest/Xnest, $(XORG_PREFIX)/bin/Xnest)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xnest/Xnest, $(XORG_PREFIX)/bin/Xnest)
 endif
 ifdef PTXCONF_XORG_SERVER_XPRINT
 endif
 ifdef PTXCONF_XORG_SERVER_XWIN
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xwin/Xwin, $(XORG_PREFIX)/bin/Xwin)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xwin/Xwin, $(XORG_PREFIX)/bin/Xwin)
 endif
 ifdef PTXCONF_XORG_DRIVER_VIDEO_FBDEV
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/fbdevhw/.libs/libfbdevhw.so, $(XORG_PREFIX)/lib/xorg/modules/libfbdevhw.so)
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libfb.so, $(XORG_PREFIX)/lib/xorg/modules/libfb.so)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/fbdevhw/.libs/libfbdevhw.so, $(XORG_PREFIX)/lib/xorg/modules/libfbdevhw.so)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libfb.so, $(XORG_PREFIX)/lib/xorg/modules/libfb.so)
 endif
 
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libbitmap.so, $(XORG_PREFIX)/lib/xorg/modules/libbitmap.so)
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/scanpci/.libs/libpcidata.so, $(XORG_PREFIX)/lib/xorg/modules/libpcidata.so)
-	@$(call install_copy, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libshadow.so, $(XORG_PREFIX)/lib/xorg/modules/libshadow.so)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libbitmap.so, $(XORG_PREFIX)/lib/xorg/modules/libbitmap.so)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/scanpci/.libs/libpcidata.so, $(XORG_PREFIX)/lib/xorg/modules/libpcidata.so)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libshadow.so, $(XORG_PREFIX)/lib/xorg/modules/libshadow.so)
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-server)
 
 	@$(call touch, $@)
 

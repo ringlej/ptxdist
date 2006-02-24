@@ -306,22 +306,22 @@ libxml2_targetinstall: $(STATEDIR)/libxml2.targetinstall
 $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,libxml2)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(LIBXML2_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, libxml2)
+	@$(call install_fixup, libxml2,PACKAGE,libxml2)
+	@$(call install_fixup, libxml2,PRIORITY,optional)
+	@$(call install_fixup, libxml2,VERSION,$(LIBXML2_VERSION))
+	@$(call install_fixup, libxml2,SECTION,base)
+	@$(call install_fixup, libxml2,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libxml2,DEPENDS,)
+	@$(call install_fixup, libxml2,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0644, \
+	@$(call install_copy, libxml2, 0, 0, 0644, \
 		$(LIBXML2_DIR)/.libs/libxml2.so.2.6.19, \
 		/usr/lib/libxml2.so.2.6.19)
-	@$(call install_link, libxml2.so.2.6.19, /usr/lib/libxml2.so.2)
-	@$(call install_link, libxml2.so.2.6.19, /usr/lib/libxml2.so)
+	@$(call install_link, libxml2, libxml2.so.2.6.19, /usr/lib/libxml2.so.2)
+	@$(call install_link, libxml2, libxml2.so.2.6.19, /usr/lib/libxml2.so)
 
-	@$(call install_finish)
+	@$(call install_finish, libxml2)
 
 	@$(call touch, $@)
 

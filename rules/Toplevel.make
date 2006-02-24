@@ -98,6 +98,8 @@ all:
 include $(RULESDIR)/Rules.make
 include $(RULESDIR)/Version.make
 
+PROJECTRULES := $(wildcard $(PROJECTRULESDIR)/*.make)
+
 TMP_PROJECTRULES_IN = $(filter-out 			\
 		$(RULESDIR)/Virtual.make 		\
 		$(RULESDIR)/Rules.make 			\
@@ -266,6 +268,7 @@ images_deps += $(STATEDIR)/ipkg-push
 endif
 
 $(STATEDIR)/images: $(images_deps)
+	cat $(STATEDIR)/*.perms > $(IMAGEDIR)/permissions
 ifdef PTXCONF_IMAGE_TGZ
 	cd $(ROOTDIR); \
 	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions && \
@@ -543,7 +546,7 @@ rootclean: imagesclean
 	@rm -f $(STATEDIR)/*.targetinstall
 	@echo "done."	
 	@echo -n "cleaning permissions............. "
-	@rm -f $(IMAGEDIR)/permissions
+	@rm -f $(STATEDIR)/*.perms
 	@echo "done."
 	@echo
 

@@ -106,18 +106,18 @@ xorg-lib-xtrans_targetinstall: $(STATEDIR)/xorg-lib-xtrans.targetinstall
 $(STATEDIR)/xorg-lib-xtrans.targetinstall: $(xorg-lib-xtrans_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-xtrans)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(XORG_LIB_XTRANS_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xtrans)
+	@$(call install_fixup, xorg-lib-xtrans,PACKAGE,xorg-lib-xtrans)
+	@$(call install_fixup, xorg-lib-xtrans,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xtrans,VERSION,$(XORG_LIB_XTRANS_VERSION))
+	@$(call install_fixup, xorg-lib-xtrans,SECTION,base)
+	@$(call install_fixup, xorg-lib-xtrans,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xtrans,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xtrans,DESCRIPTION,missing)
 
 #FIXME
 
-	@$(call install_finish)
+	@$(call install_finish, xorg-lib-xtrans)
 
 	@$(call touch, $@)
 

@@ -106,33 +106,33 @@ tslib_targetinstall: $(STATEDIR)/tslib.targetinstall
 $(STATEDIR)/tslib.targetinstall: $(tslib_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,tslib)
-	@$(call install_fixup,PRIORITY,optional)
-	@$(call install_fixup,VERSION,$(TSLIB_VERSION))
-	@$(call install_fixup,SECTION,base)
-	@$(call install_fixup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,DEPENDS,)
-	@$(call install_fixup,DESCRIPTION,missing)
+	@$(call install_init, tslib)
+	@$(call install_fixup, tslib,PACKAGE,tslib)
+	@$(call install_fixup, tslib,PRIORITY,optional)
+	@$(call install_fixup, tslib,VERSION,$(TSLIB_VERSION))
+	@$(call install_fixup, tslib,SECTION,base)
+	@$(call install_fixup, tslib,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, tslib,DEPENDS,)
+	@$(call install_fixup, tslib,DESCRIPTION,missing)
 
-	@$(call install_copy, 0, 0, 0755, $(TSLIB_DIR)/src/.libs/libts-0.0.so.0.1.1, /lib/libts-0.0.so.0.1.1)
-	@$(call install_link, libts-0.0.so.0.1.1, /lib/libts.so)
-	@$(call install_link, libts-0.0.so.0.1.1, /lib/libts-0.0.so.0)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/src/.libs/libts-0.0.so.0.1.1, /lib/libts-0.0.so.0.1.1)
+	@$(call install_link, tslib, libts-0.0.so.0.1.1, /lib/libts.so)
+	@$(call install_link, tslib, libts-0.0.so.0.1.1, /lib/libts-0.0.so.0)
 
 ifdef PTXCONF_TSLIB_TS_CALIBRATE
-	@$(call install_copy, 0, 0, 0755, $(TSLIB_DIR)/tests/.libs/ts_calibrate, /usr/bin/ts_calibrate)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/tests/.libs/ts_calibrate, /usr/bin/ts_calibrate)
 endif
 ifdef PTXCONF_TSLIB_TS_TEST
-	@$(call install_copy, 0, 0, 0755, $(TSLIB_DIR)/tests/.libs/ts_test, /usr/bin/ts_test)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/tests/.libs/ts_test, /usr/bin/ts_test)
 endif
 
-	@$(call install_copy, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/input.so, /lib/ts/input.so)
-	@$(call install_copy, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/pthres.so, /lib/ts/pthres.so)
-	@$(call install_copy, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/variance.so, /lib/ts/variance.so)
-	@$(call install_copy, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/dejitter.so, /lib/ts/dejitter.so)
-	@$(call install_copy, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/linear.so, /lib/ts/linear.so)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/input.so, /lib/ts/input.so)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/pthres.so, /lib/ts/pthres.so)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/variance.so, /lib/ts/variance.so)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/dejitter.so, /lib/ts/dejitter.so)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/linear.so, /lib/ts/linear.so)
 	
-	@$(call install_finish)
+	@$(call install_finish, tslib)
 
 	@$(call touch, $@)
 
