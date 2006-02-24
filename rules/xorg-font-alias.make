@@ -115,7 +115,10 @@ $(STATEDIR)/xorg-font-alias.targetinstall: $(xorg-font-alias_targetinstall_deps_
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/100dpi/fonts.alias, $(XORG_FONTDIR)/100dpi/fonts.alias)
+	@$(call install_copy, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/75dpi/fonts.alias, $(XORG_FONTDIR)/75dpi/fonts.alias)
+	@$(call install_copy, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/cyrillic/fonts.alias, $(XORG_FONTDIR)/cyrillic/fonts.alias)
+	@$(call install_copy, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/misc/fonts.alias, $(XORG_FONTDIR)/misc/fonts.alias)
 
 	@$(call install_finish)
 
