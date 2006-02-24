@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xdamage.targetinstall: $(xorg-lib-Xdamage_targetinstall_dep
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xdamage)
+	@$(call install_fixup,PACKAGE,xorg-lib-xdamage)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XDAMAGE_VERSION))
 	@$(call install_fixup,SECTION,base)

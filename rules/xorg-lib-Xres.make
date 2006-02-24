@@ -109,7 +109,7 @@ $(STATEDIR)/xorg-lib-Xres.targetinstall: $(xorg-lib-Xres_targetinstall_deps_defa
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xres)
+	@$(call install_fixup,PACKAGE,xorg-lib-xres)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XRES_VERSION))
 	@$(call install_fixup,SECTION,base)

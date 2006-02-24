@@ -109,7 +109,7 @@ $(STATEDIR)/xorg-lib-Xv.targetinstall: $(xorg-lib-Xv_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xv)
+	@$(call install_fixup,PACKAGE,xorg-lib-xv)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XV_VERSION))
 	@$(call install_fixup,SECTION,base)

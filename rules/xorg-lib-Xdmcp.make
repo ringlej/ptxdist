@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xdmcp.targetinstall: $(xorg-lib-Xdmcp_targetinstall_deps_de
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xdmcp)
+	@$(call install_fixup,PACKAGE,xorg-lib-xdmcp)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XDMCP_VERSION))
 	@$(call install_fixup,SECTION,base)

@@ -109,7 +109,7 @@ $(STATEDIR)/xorg-lib-X11.targetinstall: $(xorg-lib-X11_targetinstall_deps_defaul
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-X11)
+	@$(call install_fixup,PACKAGE,xorg-lib-x11)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_X11_VERSION))
 	@$(call install_fixup,SECTION,base)

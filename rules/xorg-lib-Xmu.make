@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xmu.targetinstall: $(xorg-lib-Xmu_targetinstall_deps_defaul
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xmu)
+	@$(call install_fixup,PACKAGE,xorg-lib-xmu)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XMU_VERSION))
 	@$(call install_fixup,SECTION,base)

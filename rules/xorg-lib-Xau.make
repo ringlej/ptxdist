@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xau.targetinstall: $(xorg-lib-Xau_targetinstall_deps_defaul
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xau)
+	@$(call install_fixup,PACKAGE,xorg-lib-xau)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XAU_VERSION))
 	@$(call install_fixup,SECTION,base)

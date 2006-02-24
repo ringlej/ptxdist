@@ -109,7 +109,7 @@ $(STATEDIR)/xorg-lib-Xrender.targetinstall: $(xorg-lib-Xrender_targetinstall_dep
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xrender)
+	@$(call install_fixup,PACKAGE,xorg-lib-xrender)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XRENDER_VERSION))
 	@$(call install_fixup,SECTION,base)

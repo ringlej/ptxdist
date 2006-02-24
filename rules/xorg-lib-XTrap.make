@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-XTrap.targetinstall: $(xorg-lib-XTrap_targetinstall_deps_de
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-XTrap)
+	@$(call install_fixup,PACKAGE,xorg-lib-xtrap)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XTRAP_VERSION))
 	@$(call install_fixup,SECTION,base)

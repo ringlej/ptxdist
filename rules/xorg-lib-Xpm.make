@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xpm.targetinstall: $(xorg-lib-Xpm_targetinstall_deps_defaul
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xpm)
+	@$(call install_fixup,PACKAGE,xorg-lib-xpm)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XPM_VERSION))
 	@$(call install_fixup,SECTION,base)

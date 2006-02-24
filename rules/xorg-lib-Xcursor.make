@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xcursor.targetinstall: $(xorg-lib-Xcursor_targetinstall_dep
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xcursor)
+	@$(call install_fixup,PACKAGE,xorg-lib-xcursor)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XCURSOR_VERSION))
 	@$(call install_fixup,SECTION,base)

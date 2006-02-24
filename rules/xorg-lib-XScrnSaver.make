@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-XScrnSaver.targetinstall: $(xorg-lib-XScrnSaver_targetinsta
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-XScrnSaver)
+	@$(call install_fixup,PACKAGE,xorg-lib-xscrnsaver)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XSCRNSAVER_VERSION))
 	@$(call install_fixup,SECTION,base)

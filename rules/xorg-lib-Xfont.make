@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xfont.targetinstall: $(xorg-lib-Xfont_targetinstall_deps_de
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xfont)
+	@$(call install_fixup,PACKAGE,xorg-lib-xfont)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XFONT_VERSION))
 	@$(call install_fixup,SECTION,base)

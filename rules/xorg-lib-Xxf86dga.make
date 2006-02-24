@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xxf86dga.targetinstall: $(xorg-lib-Xxf86dga_targetinstall_d
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xxf86dga)
+	@$(call install_fixup,PACKAGE,xorg-lib-xxf86dga)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XXF86DGA_VERSION))
 	@$(call install_fixup,SECTION,base)

@@ -109,7 +109,7 @@ $(STATEDIR)/xorg-lib-Xfontcache.targetinstall: $(xorg-lib-Xfontcache_targetinsta
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xfontcache)
+	@$(call install_fixup,PACKAGE,xorg-lib-xfontcache)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XFONTCACHE_VERSION))
 	@$(call install_fixup,SECTION,base)

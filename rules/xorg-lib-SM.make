@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-SM.targetinstall: $(xorg-lib-SM_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-SM)
+	@$(call install_fixup,PACKAGE,xorg-lib-sm)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_SM_VERSION))
 	@$(call install_fixup,SECTION,base)

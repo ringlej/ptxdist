@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-XprintUtil.targetinstall: $(xorg-lib-XprintUtil_targetinsta
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-XprintUtil)
+	@$(call install_fixup,PACKAGE,xorg-lib-xprintutil)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XPRINTUTIL_VERSION))
 	@$(call install_fixup,SECTION,base)

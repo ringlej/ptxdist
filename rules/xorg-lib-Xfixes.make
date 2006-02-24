@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xfixes.targetinstall: $(xorg-lib-Xfixes_targetinstall_deps_
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xfixes)
+	@$(call install_fixup,PACKAGE,xorg-lib-xfixes)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XFIXES_VERSION))
 	@$(call install_fixup,SECTION,base)

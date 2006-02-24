@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xrandr.targetinstall: $(xorg-lib-Xrandr_targetinstall_deps_
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xrandr)
+	@$(call install_fixup,PACKAGE,xorg-lib-xrandr)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XRANDR_VERSION))
 	@$(call install_fixup,SECTION,base)

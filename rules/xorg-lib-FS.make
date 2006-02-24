@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-FS.targetinstall: $(xorg-lib-FS_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-FS)
+	@$(call install_fixup,PACKAGE,xorg-lib-fs)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_FS_VERSION))
 	@$(call install_fixup,SECTION,base)

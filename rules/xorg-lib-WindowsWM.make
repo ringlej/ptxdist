@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-WindowsWM.targetinstall: $(xorg-lib-WindowsWM_targetinstall
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-WindowsWM)
+	@$(call install_fixup,PACKAGE,xorg-lib-windowswm)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_WINDOWSWM_VERSION))
 	@$(call install_fixup,SECTION,base)

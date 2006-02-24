@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xtst.targetinstall: $(xorg-lib-Xtst_targetinstall_deps_defa
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xtst)
+	@$(call install_fixup,PACKAGE,xorg-lib-xtst)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XTST_VERSION))
 	@$(call install_fixup,SECTION,base)

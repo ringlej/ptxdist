@@ -109,7 +109,7 @@ $(STATEDIR)/xorg-lib-Xxf86misc.targetinstall: $(xorg-lib-Xxf86misc_targetinstall
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xxf86misc)
+	@$(call install_fixup,PACKAGE,xorg-lib-xxf86misc)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XXF86MISC_VERSION))
 	@$(call install_fixup,SECTION,base)

@@ -109,7 +109,7 @@ $(STATEDIR)/xorg-lib-Xi.targetinstall: $(xorg-lib-Xi_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xi)
+	@$(call install_fixup,PACKAGE,xorg-lib-xi)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XI_VERSION))
 	@$(call install_fixup,SECTION,base)

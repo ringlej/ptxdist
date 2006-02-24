@@ -109,7 +109,7 @@ $(STATEDIR)/xorg-lib-Xext.targetinstall: $(xorg-lib-Xext_targetinstall_deps_defa
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xext)
+	@$(call install_fixup,PACKAGE,xorg-lib-xext)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XEXT_VERSION))
 	@$(call install_fixup,SECTION,base)

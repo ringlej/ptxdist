@@ -109,7 +109,7 @@ $(STATEDIR)/xorg-lib-XvMC.targetinstall: $(xorg-lib-XvMC_targetinstall_deps_defa
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-XvMC)
+	@$(call install_fixup,PACKAGE,xorg-lib-xvmc)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XVMC_VERSION))
 	@$(call install_fixup,SECTION,base)

@@ -108,7 +108,7 @@ $(STATEDIR)/xorg-lib-Xxf86vm.targetinstall: $(xorg-lib-Xxf86vm_targetinstall_dep
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xxf86vm)
+	@$(call install_fixup,PACKAGE,xorg-lib-xxf86vm)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XXF86VM_VERSION))
 	@$(call install_fixup,SECTION,base)

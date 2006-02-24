@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xevie.targetinstall: $(xorg-lib-Xevie_targetinstall_deps_de
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xevie)
+	@$(call install_fixup,PACKAGE,xorg-lib-xevie)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XEVIE_VERSION))
 	@$(call install_fixup,SECTION,base)

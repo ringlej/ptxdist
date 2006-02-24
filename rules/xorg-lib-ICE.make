@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-ICE.targetinstall: $(xorg-lib-ICE_targetinstall_deps_defaul
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-ICE)
+	@$(call install_fixup,PACKAGE,xorg-lib-ice)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_ICE_VERSION))
 	@$(call install_fixup,SECTION,base)

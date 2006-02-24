@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xcomposite.targetinstall: $(xorg-lib-Xcomposite_targetinsta
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xcomposite)
+	@$(call install_fixup,PACKAGE,xorg-lib-xcomposite)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XCOMPOSITE_VERSION))
 	@$(call install_fixup,SECTION,base)

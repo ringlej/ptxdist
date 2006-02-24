@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-Xaw.targetinstall: $(xorg-lib-Xaw_targetinstall_deps_defaul
 	@$(call targetinfo, $@)
 
 	@$(call install_init,default)
-	@$(call install_fixup,PACKAGE,xorg-lib-Xaw)
+	@$(call install_fixup,PACKAGE,xorg-lib-xaw)
 	@$(call install_fixup,PRIORITY,optional)
 	@$(call install_fixup,VERSION,$(XORG_LIB_XAW_VERSION))
 	@$(call install_fixup,SECTION,base)
