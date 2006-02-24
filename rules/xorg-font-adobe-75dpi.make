@@ -117,7 +117,7 @@ $(STATEDIR)/xorg-font-adobe-75dpi.targetinstall: $(xorg-font-adobe-75dpi_targeti
 
 	@cd $(XORG_FONT_ADOBE_75DPI_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/75dpi/$$file, n); \
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/75dpi/$$file, n); \
 	done
 
 

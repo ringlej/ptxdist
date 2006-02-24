@@ -117,7 +117,7 @@ $(STATEDIR)/xorg-font-bh-100dpi.targetinstall: $(xorg-font-bh-100dpi_targetinsta
 
 	@cd $(XORG_FONT_BH_100DPI_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/100dpi/$$file, n); \
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/100dpi/$$file, n); \
 	done
 
 	@$(call install_finish)

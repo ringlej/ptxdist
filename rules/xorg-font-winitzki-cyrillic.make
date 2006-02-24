@@ -117,7 +117,7 @@ $(STATEDIR)/xorg-font-winitzki-cyrillic.targetinstall: $(xorg-font-winitzki-cyri
 
 	@cd $(XORG_FONT_WINITZKI_CYRILLIC_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/cyrillic/$$file, n); \
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/cyrillic/$$file, n); \
 	done
 
 	@$(call install_finish)

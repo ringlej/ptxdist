@@ -117,7 +117,7 @@ $(STATEDIR)/xorg-font-arabic-misc.targetinstall: $(xorg-font-arabic-misc_targeti
 
 	@cd $(XORG_FONT_ARABIC_MISC_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/misc/$$file, n); \
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
 	done
 
 	@$(call install_finish)

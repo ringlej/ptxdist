@@ -117,7 +117,7 @@ $(STATEDIR)/xorg-font-jis-misc.targetinstall: $(xorg-font-jis-misc_targetinstall
 
 	@cd $(XORG_FONT_JIS_MISC_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/misc/$$file, n); \
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
 	done
 
 	@$(call install_finish)

@@ -117,7 +117,7 @@ $(STATEDIR)/xorg-font-bitstream-speedo.targetinstall: $(xorg-font-bitstream-spee
 
 	@cd $(XORG_FONT_BITSTREAM_SPEEDO_DIR); \
 	for file in *.spd; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/Speedo/$$file, n); \
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/Speedo/$$file, n); \
 	done
 
 	@$(call install_finish)

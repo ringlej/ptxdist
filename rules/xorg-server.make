@@ -26,8 +26,11 @@ XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
 
 -include $(call package_depfile)
 
+# these are the defaults taken from the xorg server ./configure script
+# FIXME: perhaps make them configurable
 XORG_PREFIX = /usr
 XORG_LIBDIR = $(XORG_PREFIX)/lib
+XORG_FONTDIR = $(XORG_LIBDIR)/X11/fonts
 
 # ----------------------------------------------------------------------------
 # Get

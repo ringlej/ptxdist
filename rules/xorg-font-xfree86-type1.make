@@ -117,7 +117,7 @@ $(STATEDIR)/xorg-font-xfree86-type1.targetinstall: $(xorg-font-xfree86-type1_tar
 
 	@cd $(XORG_FONT_XFREE86_TYPE1_DIR); \
 	for file in *.pfa; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/Type1/$$file, n); \
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/Type1/$$file, n); \
 	done
 
 	@$(call install_finish)

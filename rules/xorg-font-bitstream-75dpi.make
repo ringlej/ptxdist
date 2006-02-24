@@ -117,7 +117,7 @@ $(STATEDIR)/xorg-font-bitstream-75dpi.targetinstall: $(xorg-font-bitstream-75dpi
 
 	@cd $(XORG_FONT_BITSTREAM_75DPI_DIR); \
 	for file in *.pcf.gz; do	\
-		$(call install_copy, 0, 0, 0644, $$file, $(XORG_PREFIX)/lib/X11/fonts/75dpi/$$file, n); \
+		$(call install_copy, 0, 0, 0644, $$file, $(XORG_FONTDIR)/75dpi/$$file, n); \
 	done
 
 	@$(call install_finish)
