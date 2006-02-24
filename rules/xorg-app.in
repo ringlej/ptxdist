@@ -5,4 +5,4 @@ menuconfig XORG_APP
 
 source "rules/xorg-app-xdm.in"
 source "rules/xorg-app-xhost.in"
-
+source "rules/xorg-app-xeyes.in"
