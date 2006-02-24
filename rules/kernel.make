@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002-2006 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -9,30 +9,39 @@
 # see the README file.
 #
 
-ifdef NATIVE
-PACKAGES-$(PTXCONF_KERNEL_HOST_COMPILE)   += kernel
-KERNEL_CONFIG	= $(PTXDIST_WORKSPACE)/kernelconfig.native
-KERNEL_DIR	= FIXME_TAKE_CARE_OF_EXTERNAL_KERNEL
-KERNEL_VERSION	= $(call remove_quotes,$(PTXCONF_KERNEL_NATIVE_VERSION))
-KERNEL_SERIES	= $(PTXDIST_WORKSPACE)/kernel-patches-native/$(PTXCONF_KERNEL_NATIVE_SERIES)
-else
+PACKAGES-$(PTXCONF_KERNEL_NATIVE_COMPILE) += kernel
 PACKAGES-$(PTXCONF_KERNEL_TARGET_COMPILE) += kernel
-KERNEL_CONFIG	= $(PTXDIST_WORKSPACE)/kernelconfig.target
-KERNEL_DIR	= $(BUILDDIR)/$(KERNEL)
-KERNEL_VERSION	= $(call remove_quotes,$(PTXCONF_KERNEL_TARGET_VERSION))
-KERNEL_SERIES	= $(PTXDIST_WORKSPACE)/kernel-patches-target/$(PTXCONF_KERNEL_TARGET_SERIES)
+
+ifdef NATIVE
+KERNEL_CONFIG		:= $(PTXDIST_WORKSPACE)/kernelconfig.native
+KERNEL_VERSION		:= $(call remove_quotes, $(PTXCONF_KERNEL_NATIVE_VERSION))
+KERNEL_VERSION_MAJOR	:= $(KERNEL_NATIVE_VERSION_MAJOR)
+KERNEL_VERSION_MINOR	:= $(KERNEL_NATIVE_VERSION_MINOR)
+KERNEL_SERIES		:= $(PTXDIST_WORKSPACE)/kernel-patches-native/$(PTXCONF_KERNEL_NATIVE_SERIES)
+else
+KERNEL_CONFIG		:= $(PTXDIST_WORKSPACE)/kernelconfig.target
+KERNEL_VERSION		:= $(call remove_quotes, $(PTXCONF_KERNEL_TARGET_VERSION))
+KERNEL_VERSION_MAJOR	:= $(KERNEL_TARGET_VERSION_MAJOR)
+KERNEL_VERSION_MINOR	:= $(KERNEL_TARGET_VERSION_MINOR)
+KERNEL_SERIES		:= $(PTXDIST_WORKSPACE)/kernel-patches-target/$(PTXCONF_KERNEL_TARGET_SERIES)
 endif
 
-KERNEL		= linux-$(KERNEL_VERSION)
-KERNEL_SUFFIX	= tar.bz2
-KERNEL_URL	= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX)
-KERNEL_SOURCE	= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
+KERNEL		:= linux-$(KERNEL_VERSION)
+KERNEL_SUFFIX	:= tar.bz2
+KERNEL_URL	:= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX)
+KERNEL_SOURCE	:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
+
+ifdef KERNEL_TARGET_EXTERNAL
+KERNEL_DIR	:= $(call remove_quotes, $(KERNEL_EXTERNAL_DIR))
+else
+KERNEL_DIR	:= $(BUILDDIR)/$(KERNEL)
+endif
 
 # FIXME: what's this?
 # Here we are installing kernel modules which are copied to proper place
 # later (after depmod is run). The real question is, What to do with external
 # kernel modules?
-KERNEL_INST_DIR	= $(BUILDDIR)/$(KERNEL)-install
+KERNEL_INST_DIR	:= $(BUILDDIR)/$(KERNEL)-install
 
 #
 # Some configuration stuff for the different kernel image formats
@@ -41,41 +50,43 @@ KERNEL_INST_DIR	= $(BUILDDIR)/$(KERNEL)-install
 # FIXME: there's probably a more intelligent solution than duplicating this
 
 ifdef PTXCONF_KERNEL_TARGET_IMAGE_Z
-KERNEL_TARGET		= zImage
-KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/zImage
+KERNEL_TARGET		:= zImage
+KERNEL_TARGET_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/zImage
 endif
 ifdef PTXCONF_KERNEL_TARGET_IMAGE_BZ
-KERNEL_TARGET		= bzImage
-KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/bzImage
+KERNEL_TARGET		:= bzImage
+KERNEL_TARGET_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/bzImage
 endif
 ifdef PTXCONF_KERNEL_TARGET_IMAGE_U
-KERNEL_TARGET		=  uImage
-KERNEL_TARGET_PATH	=  $(KERNEL_DIR)/uImage 
-KERNEL_TARGET_PATH	+= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/vmlinux.UBoot
-KERNEL_TARGET_PATH	+= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/uImage
+KERNEL_TARGET		:= uImage
+KERNEL_TARGET_PATH	:= \
+	$(KERNEL_DIR)/uImage \
+	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/vmlinux.UBoot \
+	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/uImage
 endif
 ifdef PTXCONF_KERNEL_TARGET_IMAGE_VMLINUX
-KERNEL_TARGET		= vmlinux
-KERNEL_TARGET_PATH	= $(KERNEL_DIR)/vmlinux
+KERNEL_TARGET		:= vmlinux
+KERNEL_TARGET_PATH	:= $(KERNEL_DIR)/vmlinux
 endif
 
 ifdef PTXCONF_KERNEL_NATIVE_IMAGE_Z
-KERNEL_TARGET		= zImage
-KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/zImage
+KERNEL_TARGET		:= zImage
+KERNEL_TARGET_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/zImage
 endif
 ifdef PTXCONF_KERNEL_NATIVE_IMAGE_BZ
-KERNEL_TARGET		= bzImage
-KERNEL_TARGET_PATH	= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/bzImage
+KERNEL_TARGET		:= bzImage
+KERNEL_TARGET_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/bzImage
 endif
 ifdef PTXCONF_KERNEL_NATIVE_IMAGE_U
-KERNEL_TARGET		=  uImage
-KERNEL_TARGET_PATH	=  $(KERNEL_DIR)/uImage 
-KERNEL_TARGET_PATH	+= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/vmlinux.UBoot
-KERNEL_TARGET_PATH	+= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/uImage
+KERNEL_TARGET		:= uImage
+KERNEL_TARGET_PATH	:= \
+	$(KERNEL_DIR)/uImage \
+	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/vmlinux.UBoot \
+	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/uImage
 endif
 ifdef PTXCONF_KERNEL_NATIVE_IMAGE_VMLINUX
-KERNEL_TARGET		= vmlinux
-KERNEL_TARGET_PATH	= $(KERNEL_DIR)/vmlinux
+KERNEL_TARGET		:= vmlinux
+KERNEL_TARGET_PATH	:= $(KERNEL_DIR)/vmlinux
 endif
 
 # ----------------------------------------------------------------------------
@@ -151,7 +162,7 @@ $(KERNEL_SOURCE):
 kernel_extract: $(STATEDIR)/kernel.extract
 
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
-kernel_extract_deps = $(STATEDIR)/kernel-base.extract
+kernel_extract_deps := $(STATEDIR)/kernel-base.extract
 endif
 
 $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
@@ -185,8 +196,10 @@ endif
 
 kernel_prepare: $(STATEDIR)/kernel.prepare
 
-kernel_prepare_deps =  $(STATEDIR)/virtual-xchain.install
-kernel_prepare_deps += $(STATEDIR)/kernel.extract
+kernel_prepare_deps = \
+	$(STATEDIR)/virtual-xchain.install \
+	$(STATEDIR)/kernel.extract
+
 ifeq ($(KERNEL_VERSION_MINOR), 4)
 kernel_prepare_deps += $(STATEDIR)/host-modutils.install
 else
@@ -196,16 +209,18 @@ ifdef PTXCONF_KLIBC
 kernel_prepare_deps += $(STATEDIR)/klibc.install
 endif
 
-KERNEL_PATH	=  PATH=$(CROSS_PATH)
-KERNEL_MAKEVARS =  HOSTCC=$(HOSTCC)
-KERNEL_MAKEVARS += $(PARALLELMFLAGS)
+KERNEL_PATH	:=  PATH=$(CROSS_PATH)
+KERNEL_MAKEVARS = \
+	HOSTCC=$(HOSTCC) \
+	$(PARALLELMFLAGS) \
+	ARCH=$(call remove_quotes,$(PTXCONF_ARCH)) \
+	CROSS_COMPILE=$(COMPILER_PREFIX)
+
 ifeq ($(KERNEL_VERSION_MINOR), 4)
 KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod.old)
 else
 KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/depmod)
 endif
-KERNEL_MAKEVARS	+= ARCH=$(call remove_quotes,$(PTXCONF_ARCH))
-KERNEL_MAKEVARS += CROSS_COMPILE=$(COMPILER_PREFIX)
 
 ifdef PTXCONF_KERNEL_TARGET_IMAGE_U
 KERNEL_MAKEVARS += MKIMAGE=$(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
@@ -221,18 +236,6 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
 
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
-	@echo "create symlinks in case we are here only to provide headers..."
-	@if [ -f $(KERNEL_CONFIG) ]; then	                        \
-		echo "Using kernel config file: $(KERNEL_CONFIG)"; 	\
-		install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config;	\
-	else								\
-		echo "ERROR: No such kernel config: $(KERNEL_CONFIG)";  \
-		exit 1;							\
-	fi
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) make include/linux/version.h $(KERNEL_MAKEVARS)
-	touch $(KERNEL_DIR)/include/linux/autoconf.h
-	ln -sf asm-$(PTXCONF_ARCH) $(KERNEL_DIR)/include/asm
-
 ifdef PTXCONF_KLIBC
 	# tell the kernel where our spec file for initramfs is
 	#
@@ -251,28 +254,10 @@ endif
 	@echo 
 	@echo "---------- make modules_prepare ----------"
 	@echo 
-	-cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
 else
 	@echo "PTXCONF_USE_EXTERNAL_KERNEL is set, proceeding"
 endif
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Modversions-Prepare
-# ----------------------------------------------------------------------------
-
-#
-# Some packages (like rtnet.) need modversions.h
-#
-# we build it only when needed cause it can be build only if kernel modules
-# are selected
-#
-$(STATEDIR)/kernel-modversions.prepare: $(STATEDIR)/kernel.prepare
-	@$(call targetinfo, $@)
-
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) make				\
-		$(KERNEL_DIR)/include/linux/modversions.h		\
-		$(KERNEL_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -319,9 +304,7 @@ $(STATEDIR)/kernel.install:
 
 kernel_targetinstall: $(STATEDIR)/kernel.targetinstall
 
-kernel_targetinstall_deps =  $(STATEDIR)/kernel.compile
-
-$(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps)
+$(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.compile
 	@$(call targetinfo, $@)
 
 ifdef  PTXCONF_KERNEL_TARGET_INSTALL

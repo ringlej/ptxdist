@@ -2,10 +2,6 @@
 # rules/kernel.in
 #
 
-# compatiblity stuff
-config DONT_COMPILE_KERNEL
-	bool
-
 # 
 # FIXME / TODO: 
 #
@@ -34,7 +30,7 @@ config KERNEL_TARGET_SERIES
 	  This entry specifies a patch series file which has to live in
 	  this directory: 
 
-		PTXDIST_WORKSPACE/kernel-patches-target
+		$PTXDIST_WORKSPACE/kernel-patches-target
 
 	  The series file contains lines with names of patch files which
 	  are then being applied to the kernel.  
@@ -43,8 +39,6 @@ config KERNEL_TARGET_COMPILE
 	bool
 	prompt "Compile Target Kernel"
 	depends on BUILD_USERLAND
-	default y if !DONT_COMPILE_KERNEL
-	default n if DONT_COMPILE_KERNEL
 	help
 	  Usually you want to compile your kernel. If not,
 	  deselect this option. 
@@ -130,7 +124,7 @@ config KERNEL_NATIVE_SERIES
 	  This entry specifies a patch series file which has to live in
 	  this directory: 
 
-		PTXDIST_WORKSPACE/kernel-patches-native
+		$PTXDIST_WORKSPACE/kernel-patches-native
 
 	  The series file contains lines with names of patch files which
 	  are then being applied to the kernel.  

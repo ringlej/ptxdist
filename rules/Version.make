@@ -9,24 +9,15 @@
 #
 
 ifdef PTXCONF_USE_EXTERNAL_KERNEL
-KERNEL_VERSION_MAJOR	:= $(shell sed -ne "s/^VERSION[ ]=[ ]//gp"      $(PTXCONF_KERNEL_DIR)/Makefile)
-KERNEL_VERSION_MINOR	:= $(shell sed -ne "s/^PATCHLEVEL[ ]=[ ]//gp"   $(PTXCONF_KERNEL_DIR)/Makefile)
-KERNEL_VERSION_MICRO	:= $(shell sed -ne "s/^SUBLEVEL[ ]=[ ]//gp"     $(PTXCONF_KERNEL_DIR)/Makefile)
-KERNEL_VERSION_EXTRA	:= $(shell sed -ne "s/^EXTRAVERSION[ ]=[ ]//gp" $(PTXCONF_KERNEL_DIR)/Makefile)
-#FIXME: extraversion
-KERNEL_VERSION		:= $(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR).$(KERNEL_VERSION_MICRO)
+KERNEL_TARGET_VERSION_MAJOR	:= $(shell sed -ne "s/^VERSION[ ]=[ ]//gp"      $(PTXCONF_KERNEL_DIR)/Makefile)
+KERNEL_TARGET_VERSION_MINOR	:= $(shell sed -ne "s/^PATCHLEVEL[ ]=[ ]//gp"   $(PTXCONF_KERNEL_DIR)/Makefile)
 else
-KERNEL_VERSION_MAJOR	:= $(shell echo $(PTXCONF_KERNEL_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/")
-KERNEL_VERSION_MINOR	:= $(shell echo $(PTXCONF_KERNEL_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\2/")
-KERNEL_VERSION_MICRO	:= $(shell echo $(PTXCONF_KERNEL_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\3/")
-KERNEL_VERSION		:= $(call remove_quotes,$(PTXCONF_KERNEL_VERSION))
+KERNEL_TARGET_VERSION_MAJOR	:= $(shell echo $(PTXCONF_KERNEL_TARGET_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\1/")
+KERNEL_TARGET_VERSION_MINOR	:= $(shell echo $(PTXCONF_KERNEL_TARGET_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\2/")
 endif
 
-KERNEL_NATIVE_VERSION_MAJOR	:= $(shell echo $(PTXCONF_KERNEL_NATIVE_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/")
-KERNEL_NATIVE_VERSION_MINOR	:= $(shell echo $(PTXCONF_KERNEL_NATIVE_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\2/")
-KERNEL_NATIVE_VERSION_MICRO	:= $(shell echo $(PTXCONF_KERNEL_NATIVE_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\3/")
-
-KERNEL_NATIVE_VERSION		:= $(KERNEL_NATIVE_VERSION_MAJOR).$(KERNEL_NATIVE_VERSION_MINOR).$(KERNEL_NATIVE_VERSION_MICRO)$(KERNEL_NATIVE_VERSION_EXTRA)
+KERNEL_NATIVE_VERSION_MAJOR	:= $(shell echo $(PTXCONF_KERNEL_NATIVE_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\1/")
+KERNEL_NATIVE_VERSION_MINOR	:= $(shell echo $(PTXCONF_KERNEL_NATIVE_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\2/")
 
 GCC_VERSION_MAJOR	:= $(shell echo $(PTXCONF_GCC_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/")
 GCC_VERSION_MINOR	:= $(shell echo $(PTXCONF_GCC_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\2/")
