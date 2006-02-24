@@ -295,6 +295,8 @@ endif
 XORG_SERVER_AUTOCONF += --disable-builddocs
 XORG_SERVER_AUTOCONF += --with-mesa-source=$(MESALIB_DIR)/
 
+XORG_SERVER_AUTOCONF += --localstatedir=/var/log
+
 $(STATEDIR)/xorg-server.prepare: $(xorg-server_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_SERVER_DIR)/config.cache)
