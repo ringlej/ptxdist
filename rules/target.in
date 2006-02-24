@@ -314,18 +314,6 @@ config CROSS_PREFIX
 	string
 	default "$(PTXCONF_PREFIX)"
 
-config ROOT
-	prompt "Prefix for \"targetinstall\" stage"
-	string
-	default "$(PTXDIST_WORKSPACE)/root"
-	help
-	  This directory is being used to install things during the "targetinstall"
-	  stage of PTXdist. It usually contains the root filesystem for the 
-	  embedded system.
-	  
-	  A sane default for this is $(PTXDIST_WORKSPACE)/root. Use this one unless you 
-	  do exactly know what you are doing. 
-
 comment "GNU Toolchain Identification String"
 
 config CROSSCHAIN_CHECK

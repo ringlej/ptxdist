@@ -15,7 +15,4 @@ quote="
 #
 # $1: variable
 #
-remove_quotes = $(subst $(quote),,$(1))
-
-
-
+remove_quotes = $(strip $(subst $(quote),,$(1)))
