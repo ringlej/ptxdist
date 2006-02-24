@@ -117,27 +117,27 @@ $(STATEDIR)/xorg-lib-Xmu.targetinstall: $(xorg-lib-Xmu_targetinstall_deps_defaul
 
 	@$(call install_copy, 0, 0, 0644, \
 		$(XORG_LIB_XMU_DIR)/src/.libs/libXmu.so.6.2.0, \
-		/usr/X11R6/lib/libXmu.so.6.2.0)
+		$(XORG_LIBDIR)/libXmu.so.6.2.0)
 
 	@$(call install_link, \
 		libXmu.so.6.2.0, \
-		/usr/X11R6/lib/libXmu.so.6)
+		$(XORG_LIBDIR)/libXmu.so.6)
 
 	@$(call install_link, \
 		libXmu.so.6.2.0, \
-		/usr/X11R6/lib/libXmu.so)
+		$(XORG_LIBDIR)/libXmu.so)
 
 	@$(call install_copy, 0, 0, 0644, \
 		$(XORG_LIB_XMU_DIR)/src/.libs/libXmuu.so.1.0.0, \
-		/usr/X11R6/lib/libXmuu.so.1.0.0)
+		$(XORG_LIBDIR)/libXmuu.so.1.0.0)
 
 	@$(call install_link, \
 		libXmuu.so.1.0.0, \
-		/usr/X11R6/lib/libXmuu.so.1)
+		$(XORG_LIBDIR)/libXmuu.so.1)
 
 	@$(call install_link, \
 		libXmuu.so.1.0.0, \
-		/usr/X11R6/lib/libXmuu.so)
+		$(XORG_LIBDIR)/libXmuu.so)
 
 	@$(call install_finish)
 

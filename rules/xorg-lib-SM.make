@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-SM.targetinstall: $(xorg-lib-SM_targetinstall_deps_default)
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, 0, 0, 0644, \
+		$(XORG_LIB_SM_DIR)/src/.libs/libSM.so.6.0.0, \
+		$(XORG_LIBDIR)/libSM.so.6.0.0)
+
+	@$(call install_link, \
+		libSM.so.6.0.0, \
+		$(XORG_LIBDIR)/libSM.so.6)
+
+	@$(call install_link, \
+		libSM.so.6.0.0, \
+		$(XORG_LIBDIR)/libSM.so)
 
 	@$(call install_finish)
 

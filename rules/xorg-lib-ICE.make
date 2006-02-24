@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-ICE.targetinstall: $(xorg-lib-ICE_targetinstall_deps_defaul
 	@$(call install_fixup,DEPENDS,)
 	@$(call install_fixup,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, 0, 0, 0644, \
+		$(XORG_LIB_ICE_DIR)/src/.libs/libICE.so.6.3.0, \
+		$(XORG_LIBDIR)/libICE.so.6.3.0)
+
+	@$(call install_link, \
+		libICE.so.6.3.0, \
+		$(XORG_LIBDIR)/libICE.so.6)
+
+	@$(call install_link, \
+		libICE.so.6.3.0, \
+		$(XORG_LIBDIR)/libICE.so)
 
 	@$(call install_finish)
 

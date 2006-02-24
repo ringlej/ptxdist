@@ -27,6 +27,7 @@ XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
 -include $(call package_depfile)
 
 XORG_PREFIX = /usr
+XORG_LIBDIR = $(XORG_PREFIX)/lib
 
 # ----------------------------------------------------------------------------
 # Get
