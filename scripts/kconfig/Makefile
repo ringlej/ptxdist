@@ -158,24 +158,30 @@ ifeq ($(gconf-target),1)
 	fi
 endif
 
-qconf: $(qconf_OBJ)
+# Needed for systems without gettext
+KBUILD_HAVE_NLS := $(shell \
+     if echo "\#include <libintl.h>" | $(CC) $(CFLAGS) -E - > /dev/null 2>&1 ; \
+     then echo yes ; \
+     else echo no ; fi)
+ifeq ($(KBUILD_HAVE_NLS),no)
+CFLAGS	+= -DKBUILD_NO_NLS
+endif
+
+qconf: $(qconf_OBJ) $(parse_OBJ)
 	$(CXX) $(LXXFLAGS) $^ -o $@
 
 gconf.o: gconf.c
 	$(CC) $(CFLAGS) $(GTKCFLAGS) -c $< -o $@
 
-gconf: $(gconf_OBJ)
+gconf: $(gconf_OBJ) $(parse_OBJ)
 	$(CC) $(LDFLAGS) $(GTKLDFLAGS) $^ -o $@
-
-libkconfig.so: $(parse_OBJ)
-	$(CC) -shared $^ -o $@
 
 lkc_defs.h: lkc_proto.h
 	sed < $< > $@ 's/P(\([^,]*\),.*/#define \1 (\*\1_p)/'
 
 clean:
 	rm -f $(OBJ) conf qconf mconf *.moc lex.* *.tab.? *.output
-	rm -f libkconfig.so lkc_defs.h gconf
+	rm -f lkc_defs.h gconf
 	rm -f .tmp_qtcheck .tmp_gtkcheck
 	rm -f *.o
 	rm -rf .ruby .python
@@ -219,7 +225,7 @@ install:
 	@echo "Please use KERNELSRC=<path/to/linux-kernel> to install"
 endif
 
-ruby: .ruby libkconfig.so .ruby/kconfig.so
+ruby: .ruby .ruby/kconfig.so
 
 .ruby:
 	mkdir .ruby
