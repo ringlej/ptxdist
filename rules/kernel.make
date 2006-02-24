@@ -327,10 +327,10 @@ ifdef  PTXCONF_KERNEL_TARGET_INSTALL
 
 	for i in $(KERNEL_TARGET_PATH); do 				\
 		if [ -f $$i ]; then					\
-			$(call install_copy, KERNEL, 0, 0, 0644, $$i, /boot/$(KERNEL_TARGET), n)\
+			$(call install_copy, kernel, 0, 0, 0644, $$i, /boot/$(KERNEL_TARGET), n)\
 		fi;							\
 	done
-	@$(call install_finish, KERNEL)
+	@$(call install_finish, kernel)
 endif
 ifdef PTXCONF_KERNEL_TARGET_INSTALL_MODULES
 	rm -fr $(KERNEL_INST_DIR)
@@ -349,7 +349,7 @@ ifdef PTXCONF_KERNEL_TARGET_INSTALL_MODULES
 
 	cd $(KERNEL_INST_DIR) &&					\
 		for file in `find . -type f | sed -e "s/\.\//\//g"`; do	\
-			$(call install_copy, KERNEL, 0, 0, 0664, $(KERNEL_INST_DIR)/$$file, $$file, n) \
+			$(call install_copy, kernel, 0, 0, 0664, $(KERNEL_INST_DIR)/$$file, $$file, n) \
 		done
 
 	rm -fr $(KERNEL_INST_DIR)
