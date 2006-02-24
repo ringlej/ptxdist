@@ -21,7 +21,7 @@ comment "----------------------------------"
 comment "Target Kernel"
 comment "----------------------------------"
 
-config KERNEL_VERSION 
+config KERNEL_TARGET_VERSION 
 	prompt "Target Kernel Version"
 	string
 	default "2.6.15"
