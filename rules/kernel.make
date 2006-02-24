@@ -236,6 +236,14 @@ $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
 
 ifndef PTXCONF_USE_EXTERNAL_KERNEL
+	@if [ -f $(KERNEL_CONFIG) ]; then                               \
+		echo "Using kernel config file: $(KERNEL_CONFIG)";      \
+		install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config;  \
+	else                                                            \
+		echo "ERROR: No such kernel config: $(KERNEL_CONFIG)";  \
+		exit 1;                                                 \
+	fi
+
 ifdef PTXCONF_KLIBC
 	# tell the kernel where our spec file for initramfs is
 	#
