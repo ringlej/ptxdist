@@ -17,12 +17,14 @@ PACKAGES-$(PTXCONF_CANUTILS) += canutils
 #
 # Paths and names
 #
-CANUTILS_VERSION	= 1.0.6
-CANUTILS		= canutils-$(CANUTILS_VERSION)
-CANUTILS_SUFFIX		= tar.bz2
-CANUTILS_URL		= http://www.pengutronix.de/software/socket-can/download/canutils/v1.0/$(CANUTILS).$(CANUTILS_SUFFIX)
-CANUTILS_SOURCE		= $(SRCDIR)/$(CANUTILS).$(CANUTILS_SUFFIX)
-CANUTILS_DIR		= $(BUILDDIR)/$(CANUTILS)
+CANUTILS_VERSION	:= $(call remove_quotes, $(PTXCONF_CANUTILS_VERSION))
+CANUTILS		:= canutils-$(CANUTILS_VERSION)
+CANUTILS_SUFFIX		:= tar.bz2
+CANUTILS_URL		= http://www.pengutronix.de/software/socket-can/download/canutils/v$(shell echo $(PTXCONF_CANUTILS_VERSION)|sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1.\2/")/$(CANUTILS).$(CANUTILS_SUFFIX)
+#CANUTILS_URL		:= http://www.pengutronix.de/software/socket-can/download/canutils/v1.1/$(CANUTILS).$(CANUTILS_SUFFIX)
+
+CANUTILS_SOURCE		:= $(SRCDIR)/$(CANUTILS).$(CANUTILS_SUFFIX)
+CANUTILS_DIR		:= $(BUILDDIR)/$(CANUTILS)
 
 -include $(call package_depfile)
 
@@ -59,13 +61,13 @@ $(STATEDIR)/canutils.extract: $(canutils_extract_deps_default)
 
 canutils_prepare: $(STATEDIR)/canutils.prepare
 
-CANUTILS_PATH	=  PATH=$(CROSS_PATH)
-CANUTILS_ENV 	=  $(CROSS_ENV)
+CANUTILS_PATH	:=  PATH=$(CROSS_PATH)
+CANUTILS_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-CANUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+CANUTILS_AUTOCONF :=  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/canutils.prepare: $(canutils_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -126,6 +128,9 @@ ifdef PTXCONF_CANUTILS_CANDUMP
 endif
 ifdef PTXCONF_CANUTILS_CANSEND
 	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/cansend,   /sbin/cansend)
+endif
+ifdef PTXCONF_CANUTILS_CANSEQUENCE
+	@$(call install_copy, 0, 0, 0755, $(CANUTILS_DIR)/src/cansequence, /sbin/cansequence)
 endif
 	@$(call install_finish)
 	@$(call touch, $@)

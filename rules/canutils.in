@@ -4,6 +4,12 @@ menuconfig CANUTILS
 	  The canutils package contains tools to configure 
 	  and test the Socket CAN framework
 
+config CANUTILS_VERSION
+	prompt "Version"
+	depends on CANUTILS
+	string
+	default "1.1.0"
+
 config CANUTILS_CANCONFIG
 	bool
 	depends on CANUTILS
@@ -31,4 +37,12 @@ config CANUTILS_CANSEND
 	prompt "cansend"
 	help
 	  A little utility to send canbus messages from command line
+
+config CANUTILS_CANSEQUENCE
+	bool
+	depends on CANUTILS
+	prompt "cansequence"
+	help
+	  A little utility to send canbus messages from command line
+	  with sequence numbers inside
 
