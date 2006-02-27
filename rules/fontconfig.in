@@ -1,5 +1,6 @@
-menuconfig FONTCONFIG22
-	bool "Fontconfig 2.2        "
+menuconfig FONTCONFIG
+	bool "Fontconfig            "
+	select FREETYPE
 	help
 	  Fontconfig is a font configuration and 
 	  customization library, which does not depend on 
