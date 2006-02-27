@@ -28,9 +28,10 @@ XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
 
 # these are the defaults taken from the xorg server ./configure script
 # FIXME: perhaps make them configurable
-XORG_PREFIX = /usr
-XORG_LIBDIR = $(XORG_PREFIX)/lib
+XORG_PREFIX  = /usr
+XORG_LIBDIR  = $(XORG_PREFIX)/lib
 XORG_FONTDIR = $(XORG_LIBDIR)/X11/fonts
+XORG_BINDIR  = /usr/bin
 
 # ----------------------------------------------------------------------------
 # Get
@@ -295,7 +296,7 @@ endif
 XORG_SERVER_AUTOCONF += --disable-builddocs
 XORG_SERVER_AUTOCONF += --with-mesa-source=$(MESALIB_DIR)/
 
-XORG_SERVER_AUTOCONF += --localstatedir=/var/log
+XORG_SERVER_AUTOCONF += --localstatedir=/var
 
 $(STATEDIR)/xorg-server.prepare: $(xorg-server_prepare_deps_default)
 	@$(call targetinfo, $@)
