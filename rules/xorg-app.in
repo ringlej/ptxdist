@@ -6,3 +6,5 @@ menuconfig XORG_APP
 source "rules/xorg-app-xdm.in"
 source "rules/xorg-app-xhost.in"
 source "rules/xorg-app-xeyes.in"
+source "rules/xorg-app-mkfontdir.in"
+source "rules/xorg-app-xsetroot.in"

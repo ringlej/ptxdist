@@ -179,10 +179,12 @@ source "rules/fltk.in"
 #source "rules/qte.in"
 source "rules/wxWindows.in"
 source "rules/realvnc.in"
+source "rules/xterm.in"
 
 comment "X Window Managers"
 source "rules/blackbox.in"
 source "rules/clementine.in"
+source "rules/pekwm.in"
 
 comment "Framebuffer"
 source "rules/fbtest.in"
