@@ -1,0 +1,101 @@
+# 
+# Submitted-By: Robert Schwebel, 2006-02-27
+# Committed-By: Robert Schwebel
+#
+# Error: 
+#
+# Programs don't link against libfreetype. 
+#
+# Description: 
+#
+# Needs to be fixed in a less tweaky way :-) 
+#
+# State:
+# 
+# unknown
+#
+
+diff -urN fontconfig-2.3.94/fc-cache/Makefile.in fontconfig-2.3.94-ptx/fc-cache/Makefile.in
+--- fontconfig-2.3.94/fc-cache/Makefile.in	2006-02-24 20:19:31.000000000 +0100
++++ fontconfig-2.3.94-ptx/fc-cache/Makefile.in	2006-02-27 22:58:17.000000000 +0100
+@@ -152,7 +152,7 @@
+ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+ LDFLAGS = @LDFLAGS@
+ LIBOBJS = @LIBOBJS@
+-LIBS = @LIBS@
++LIBS = @LIBS@ $(FREETYPE_LIBS)
+ LIBTOOL = @LIBTOOL@
+ LIBXML2_CFLAGS = @LIBXML2_CFLAGS@
+ LIBXML2_LIBS = @LIBXML2_LIBS@
+diff -urN fontconfig-2.3.94/fc-case/Makefile.in fontconfig-2.3.94-ptx/fc-case/Makefile.in
+--- fontconfig-2.3.94/fc-case/Makefile.in	2006-02-24 20:19:31.000000000 +0100
++++ fontconfig-2.3.94-ptx/fc-case/Makefile.in	2006-02-27 22:58:42.000000000 +0100
+@@ -149,7 +149,7 @@
+ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+ LDFLAGS = @LDFLAGS@
+ LIBOBJS = @LIBOBJS@
+-LIBS = @LIBS@
++LIBS = @LIBS@ $(FREETYPE_LIBS)
+ LIBTOOL = @LIBTOOL@
+ LIBXML2_CFLAGS = @LIBXML2_CFLAGS@
+ LIBXML2_LIBS = @LIBXML2_LIBS@
+diff -urN fontconfig-2.3.94/fc-cat/Makefile.in fontconfig-2.3.94-ptx/fc-cat/Makefile.in
+--- fontconfig-2.3.94/fc-cat/Makefile.in	2006-02-24 20:19:32.000000000 +0100
++++ fontconfig-2.3.94-ptx/fc-cat/Makefile.in	2006-02-27 22:58:58.000000000 +0100
+@@ -152,7 +152,7 @@
+ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+ LDFLAGS = @LDFLAGS@
+ LIBOBJS = @LIBOBJS@
+-LIBS = @LIBS@
++LIBS = @LIBS@ $(FREETYPE_LIBS)
+ LIBTOOL = @LIBTOOL@
+ LIBXML2_CFLAGS = @LIBXML2_CFLAGS@
+ LIBXML2_LIBS = @LIBXML2_LIBS@
+diff -urN fontconfig-2.3.94/fc-glyphname/Makefile.in fontconfig-2.3.94-ptx/fc-glyphname/Makefile.in
+--- fontconfig-2.3.94/fc-glyphname/Makefile.in	2006-02-24 20:19:32.000000000 +0100
++++ fontconfig-2.3.94-ptx/fc-glyphname/Makefile.in	2006-02-27 22:59:22.000000000 +0100
+@@ -149,7 +149,7 @@
+ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+ LDFLAGS = @LDFLAGS@
+ LIBOBJS = @LIBOBJS@
+-LIBS = @LIBS@
++LIBS = @LIBS@ $(FREETYPE_LIBS)
+ LIBTOOL = @LIBTOOL@
+ LIBXML2_CFLAGS = @LIBXML2_CFLAGS@
+ LIBXML2_LIBS = @LIBXML2_LIBS@
+diff -urN fontconfig-2.3.94/fc-lang/Makefile.in fontconfig-2.3.94-ptx/fc-lang/Makefile.in
+--- fontconfig-2.3.94/fc-lang/Makefile.in	2006-02-24 20:19:32.000000000 +0100
++++ fontconfig-2.3.94-ptx/fc-lang/Makefile.in	2006-02-27 22:59:39.000000000 +0100
+@@ -149,7 +149,7 @@
+ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+ LDFLAGS = @LDFLAGS@
+ LIBOBJS = @LIBOBJS@
+-LIBS = @LIBS@
++LIBS = @LIBS@ $(FREETYPE_LIBS)
+ LIBTOOL = @LIBTOOL@
+ LIBXML2_CFLAGS = @LIBXML2_CFLAGS@
+ LIBXML2_LIBS = @LIBXML2_LIBS@
+diff -urN fontconfig-2.3.94/fc-list/Makefile.in fontconfig-2.3.94-ptx/fc-list/Makefile.in
+--- fontconfig-2.3.94/fc-list/Makefile.in	2006-02-24 20:19:32.000000000 +0100
++++ fontconfig-2.3.94-ptx/fc-list/Makefile.in	2006-02-27 22:59:58.000000000 +0100
+@@ -152,7 +152,7 @@
+ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+ LDFLAGS = @LDFLAGS@
+ LIBOBJS = @LIBOBJS@
+-LIBS = @LIBS@
++LIBS = @LIBS@ $(FREETYPE_LIBS)
+ LIBTOOL = @LIBTOOL@
+ LIBXML2_CFLAGS = @LIBXML2_CFLAGS@
+ LIBXML2_LIBS = @LIBXML2_LIBS@
+diff -urN fontconfig-2.3.94/fc-match/Makefile.in fontconfig-2.3.94-ptx/fc-match/Makefile.in
+--- fontconfig-2.3.94/fc-match/Makefile.in	2006-02-24 20:19:32.000000000 +0100
++++ fontconfig-2.3.94-ptx/fc-match/Makefile.in	2006-02-27 23:00:15.000000000 +0100
+@@ -152,7 +152,7 @@
+ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+ LDFLAGS = @LDFLAGS@
+ LIBOBJS = @LIBOBJS@
+-LIBS = @LIBS@
++LIBS = @LIBS@ $(FREETYPE_LIBS)
+ LIBTOOL = @LIBTOOL@
+ LIBXML2_CFLAGS = @LIBXML2_CFLAGS@
+ LIBXML2_LIBS = @LIBXML2_LIBS@
