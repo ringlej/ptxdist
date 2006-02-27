@@ -61,7 +61,8 @@ betaftpd_prepare: $(STATEDIR)/betaftpd.prepare
 
 BETAFTPD_PATH	=  PATH=$(CROSS_PATH)
 BETAFTPD_ENV 	=  $(CROSS_ENV)
-BETAFTPD_ENV	+= CFLAGS='$(CROSS_CPPFLAGS) $(CROSS_CFLAGS)'
+# FIXME: rewrite make system with autoconf or throw away packet at all
+BETAFTPD_ENV	+= CFLAGS='$(CROSS_CPPFLAGS) $(CROSS_CFLAGS) -L$(SYSROOT)/usr/lib'
 
 #
 # autoconf
@@ -74,6 +75,11 @@ $(STATEDIR)/betaftpd.prepare: $(betaftpd_prepare_deps_default)
 	cd $(BETAFTPD_DIR) && \
 		$(BETAFTPD_PATH) $(BETAFTPD_ENV) \
 		./configure $(BETAFTPD_AUTOCONF)
+
+	# Tweak, Tweak ...
+	# betaftpd expects some uninstalled librn flags, so fake them
+	cp $(LIBRN_DIR)/include/rn_*.h $(BETAFTPD_DIR)/
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
