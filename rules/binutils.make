@@ -1,25 +1,28 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# Copyright (C) 2006 by Robert Schwebel
+#          
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
-# FIXME: RSC: this packet installs only libbfd; check what else we would need
-
-PACKAGES-$(PTXCONF_LIBBFD) += binutils
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_BINUTILS) += binutils
 
 #
-# Paths and names 
+# Paths and names
 #
-BINUTILS		= binutils-2.16.1
-BINUTILS_URL		= $(PTXCONF_SETUP_GNUMIRROR)/binutils/$(BINUTILS).tar.gz
-BINUTILS_SOURCE		= $(SRCDIR)/$(BINUTILS).tar.gz
-BINUTILS_DIR		= $(BUILDDIR)/$(BINUTILS)
-BINUTILS_BUILDDIR	= $(BINUTILS_DIR)-build
+BINUTILS_VERSION	:= 2.16.1
+BINUTILS		:= binutils-$(BINUTILS_VERSION)
+BINUTILS_SUFFIX		:= tar.bz2
+BINUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/binutils/$(BINUTILS).tar.gz
+BINUTILS_SOURCE		:= $(SRCDIR)/$(BINUTILS).$(BINUTILS_SUFFIX)
+BINUTILS_DIR		:= $(BUILDDIR)/$(BINUTILS)
 
 -include $(call package_depfile)
 
@@ -56,6 +59,12 @@ $(STATEDIR)/binutils.extract: $(binutils_extract_deps_default)
 
 binutils_prepare: $(STATEDIR)/binutils.prepare
 
+BINUTILS_PATH	:=  PATH=$(CROSS_PATH)
+BINUTILS_ENV 	:=  $(CROSS_ENV)
+
+#
+# autoconf
+#
 BINUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 BINUTILS_AUTOCONF += \
 	--target=$(PTXCONF_GNU_TARGET) \
@@ -66,15 +75,12 @@ BINUTILS_AUTOCONF += \
 	--enable-install-libiberty \
 	--disable-multilib
 
-BINUTILS_ENV	= $(CROSS_ENV)
-BINUTILS_PATH	= PATH=$(CROSS_PATH)
-
 $(STATEDIR)/binutils.prepare: $(binutils_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(BINUTILS_BUILDDIR))
-	mkdir -p $(BINUTILS_BUILDDIR)
-	cd $(BINUTILS_BUILDDIR) && $(BINUTILS_PATH) $(BINUTILS_ENV) \
-		$(BINUTILS_DIR)/configure $(BINUTILS_AUTOCONF)
+	@$(call clean, $(BINUTILS_DIR)/config.cache)
+	cd $(BINUTILS_DIR) && \
+		$(BINUTILS_PATH) $(BINUTILS_ENV) \
+		./configure $(BINUTILS_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -85,23 +91,16 @@ binutils_compile: $(STATEDIR)/binutils.compile
 
 $(STATEDIR)/binutils.compile: $(binutils_compile_deps_default)
 	@$(call targetinfo, $@)
-#
-# the libiberty part is compiled for the host system
-#
-# don't pass target CFLAGS to it, so override them and call the configure script
-#
-	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR) CFLAGS='' CXXFLAGS='' configure-build-libiberty
+	# the libiberty part is compiled for the host system
+	# don't pass target CFLAGS to it, so override them and call the configure script
+	$(BINUTILS_PATH) make -C $(BINUTILS_DIR) CFLAGS='' CXXFLAGS='' configure-build-libiberty
 
-#
-# the chew tool is needed later during installation, compile it now
-# else it will fail cause it gets target CFLAGS
-#
-	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR)/bfd/doc CFLAGS='' CXXFLAGS='' chew
+	# the chew tool is needed later during installation, compile it now
+	# else it will fail cause it gets target CFLAGS
+	$(BINUTILS_PATH) make -C $(BINUTILS_DIR)/bfd/doc CFLAGS='' CXXFLAGS='' chew
 
-#
-# now do the _real_ compiling :-)
-#
-	$(BINUTILS_PATH) make -C $(BINUTILS_BUILDDIR)
+	# now do the _real_ compiling :-)
+	$(BINUTILS_PATH) make -C $(BINUTILS_DIR)
 
 	@$(call touch, $@)
 
@@ -113,10 +112,8 @@ binutils_install: $(STATEDIR)/binutils.install
 
 $(STATEDIR)/binutils.install: $(binutils_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME: 
-	#@$(call install, BINUTILS)
-	cd $(BINUTILS_BUILDDIR)/bfd && \
-		$(BINUTILS_PATH) make DESTDIR=$(CROSS_LIB_DIR) prefix='' install 
+	# FIXME: do we have to set prefix='' (makevar)? 
+	@$(call install, BINUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -128,27 +125,29 @@ binutils_targetinstall: $(STATEDIR)/binutils.targetinstall
 $(STATEDIR)/binutils.targetinstall: $(binutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, binutils)
-	@$(call install_fixup, binutils,PACKAGE,binutils)
-	@$(call install_fixup, binutils,PRIORITY,optional)
-	@$(call install_fixup, binutils,VERSION,$(PTXCONF_BINUTILS_VERSION))
-	@$(call install_fixup, binutils,SECTION,base)
-	@$(call install_fixup, binutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup, binutils,DEPENDS,)
-	@$(call install_fixup, binutils,DESCRIPTION,missing)
+# 	@$(call install_init, binutils)
+# 	@$(call install_fixup,binutils,PACKAGE,binutils)
+# 	@$(call install_fixup,binutils,PRIORITY,optional)
+# 	@$(call install_fixup,binutils,VERSION,$(BINUTILS_VERSION))
+# 	@$(call install_fixup,binutils,SECTION,base)
+# 	@$(call install_fixup,binutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+# 	@$(call install_fixup,binutils,DEPENDS,)
+# 	@$(call install_fixup,binutils,DESCRIPTION,missing)
+# 
+# 	@$(call install_copy, binutils, 0, 0, 0755, $(BINUTILS_DIR)/foobar, /dev/null)
+# 
+# 	@$(call install_finish,binutils)
 
-	# FIXME: this will probably not work with the wildcard; fix when it breaks :-) 
-	@$(call install_copy, binutils, 0, 0, 0644, $(BINUTILS_BUILDDIR)/bfd/.libs/libbfd*.so, /usr/lib)
-
-	@$(call install_finish, binutils)
-	
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-binutils_clean: 
-	rm -rf $(STATEDIR)/binutils-* $(BINUTILS_DIR)
+binutils_clean:
+	rm -rf $(STATEDIR)/binutils.*
+	rm -rf $(IMAGEDIR)/binutils_*
+	rm -rf $(BINUTILS_DIR)
 
 # vim: syntax=make
+
