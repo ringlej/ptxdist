@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002-2006 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_ZLIB) += zlib
 #
 # Paths and names
 #
-ZLIB_VERSION		= 1.2.3
-ZLIB			= zlib-$(ZLIB_VERSION)
-ZLIB_URL 		= http://www.zlib.net/$(ZLIB).tar.gz
-ZLIB_SOURCE		= $(SRCDIR)/$(ZLIB).tar.gz
-ZLIB_DIR		= $(BUILDDIR)/$(ZLIB)
+ZLIB_VERSION	:= 1.2.3
+ZLIB		:= zlib-$(ZLIB_VERSION)
+ZLIB_URL 	:= http://www.zlib.net/$(ZLIB).tar.gz
+ZLIB_SOURCE	:= $(SRCDIR)/$(ZLIB).tar.gz
+ZLIB_DIR	:= $(BUILDDIR)/$(ZLIB)
 
 -include $(call package_depfile)
 
@@ -56,9 +56,9 @@ $(STATEDIR)/zlib.extract: $(zlib_extract_deps_default)
 
 zlib_prepare: $(STATEDIR)/zlib.prepare
 
-ZLIB_PATH	= PATH=$(CROSS_PATH)
-ZLIB_ENV	= $(subst CFLAGS,SGALFC,$(CROSS_ENV)) AR="$(CROSS_AR) rc"
-ZLIB_AUTOCONF	= --shared --prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+ZLIB_PATH	:= PATH=$(CROSS_PATH)
+ZLIB_ENV	:= $(subst CFLAGS,SGALFC,$(CROSS_ENV)) AR="$(CROSS_AR) rc"
+ZLIB_AUTOCONF	:= --shared --prefix=$(SYSROOT)
 
 $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -87,7 +87,7 @@ $(STATEDIR)/zlib.install: $(zlib_install_deps_default)
 	@$(call targetinfo, $@)
 	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 	cd $(ZLIB_DIR) && $(ZLIB_PATH) $(MAKE_INSTALL)
-	cp $(ZLIB_DIR)/libz.a $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/
+	cp $(ZLIB_DIR)/libz.a $(SYSROOT)/lib/
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
