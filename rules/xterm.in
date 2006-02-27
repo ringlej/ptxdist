@@ -1,0 +1,12 @@
+config XTERM
+	bool
+	select XORG_LIB_XAW
+	select XORG_LIB_XMU
+	select XORG_LIB_XEXT
+	select XORG_LIB_XT
+	select XORG_LIB_SM
+	select XORG_LIB_ICE
+	select XORG_LIB_X11
+	prompt "xterm"
+	help
+	  FIXME
