@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-Xpm.targetinstall: $(xorg-lib-Xpm_targetinstall_deps_defaul
 	@$(call install_fixup, xorg-lib-Xpm,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xpm,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xpm, 0, 0, 0644, \
+		$(XORG_LIB_XPM_DIR)/src/.libs/libXpm.so.4.11.0, \
+		$(XORG_LIBDIR)/libXpm.so.4.11.0)
+
+	@$(call install_link, xorg-lib-Xpm, \
+		libXpm.so.4.11.0, \
+		$(XORG_LIBDIR)/libXpm.so.4)
+
+	@$(call install_link, xorg-lib-Xpm, \
+		libXpm.so.4.11.0, \
+		$(XORG_LIBDIR)/libXpm.so)
 
 	@$(call install_finish, xorg-lib-Xpm)
 
