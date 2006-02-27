@@ -4,6 +4,7 @@ menuconfig BETAFTPD
 	bool
 	prompt "betaftpd            "
 	depends on BROKEN
+	select LIBRN
 	help
 	  BetaFTPD is an ftpd replacement for Unix/Linux. 
 	  
