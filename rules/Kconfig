@@ -193,7 +193,7 @@ source "rules/fbutils.in"
 comment "Other Stuff"
 source "rules/sdl.in"
 source "rules/libpng.in"
-source "rules/fontconfig22.in"
+source "rules/fontconfig.in"
 source "rules/tslib.in"
 
 comment "Old Xfree86 Stuff"
