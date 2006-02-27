@@ -3,6 +3,7 @@
 menuconfig HOST_BINUTILS
 	prompt "binutils"
 	bool
+	select HOST_FAKEROOT
 
 config HOST_BINUTILS_LIBBFD
 	bool
