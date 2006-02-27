@@ -2,7 +2,6 @@
 # $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#             Pengutronix <info@pengutronix.de>, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -51,6 +50,7 @@ $(STATEDIR)/freetype.extract: $(freetype_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FREETYPE_DIR))
 	@$(call extract, $(FREETYPE_SOURCE))
+	@$(call patchin, $(FREETYPE))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -60,8 +60,7 @@ $(STATEDIR)/freetype.extract: $(freetype_extract_deps_default)
 freetype_prepare: $(STATEDIR)/freetype.prepare
 
 FREETYPE_PATH	=  PATH=$(CROSS_PATH)
-FREETYPE_ENV 	=  $(CROSS_ENV)
-FREETYPE_ENV		+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
+FREETYPE_ENV 	=  
 
 #
 # autoconf
@@ -70,7 +69,6 @@ FREETYPE_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/freetype.prepare: $(freetype_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(FREETYPE_BUILDDIR))
 	cd $(FREETYPE_DIR) && \
 		$(FREETYPE_PATH) $(FREETYPE_ENV) \
 		./configure $(FREETYPE_AUTOCONF)
@@ -84,7 +82,9 @@ freetype_compile: $(STATEDIR)/freetype.compile
 
 $(STATEDIR)/freetype.compile: $(freetype_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(FREETYPE_DIR) $(FREETYPE_PATH) make
+	cd $(FREETYPE_DIR) && \
+		$(FREETYPE_PATH) $(FREETYPE_ENV) \
+		make $(FREETYPE_MAKEVARS)
 	chmod a+x $(FREETYPE_DIR)/builds/unix/freetype-config
 	@$(call touch, $@)
 
