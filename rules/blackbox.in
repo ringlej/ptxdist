@@ -1,8 +1,8 @@
 config BLACKBOX
 	bool
 	prompt "Blackbox Window-Manager"
-	depends on BROKEN
-	# FIXME: dependencies on X have to be added
+	select XORG_LIB_X11
+	select XORG_LIB_XFT
 	help
 	  The Debian Project describes Blackbox like this:
 	  
@@ -14,5 +14,3 @@ config BLACKBOX
 	  
 	  Written in c++
 
-comment "blackbox is broken, please send a patch"
-	depends on !BROKEN

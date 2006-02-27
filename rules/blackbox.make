@@ -50,6 +50,7 @@ $(STATEDIR)/blackbox.extract: $(blackbox_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BLACKBOX_DIR))
 	@$(call extract, $(BLACKBOX_SOURCE))
+	@$(call patchin, $(BLACKBOX))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -64,14 +65,8 @@ BLACKBOX_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BLACKBOX_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-BLACKBOX_AUTOCONF += -disable-nls
-
-BLACKBOX_AUTOCONF	+= --x-includes=/home/koan/ptxdist/ptxdist-testing/root/usr/X11R6/include
-BLACKBOX_AUTOCONF	+= --x-libraries=/home/koan/ptxdist/ptxdist-testing/root/usr/X11R6/lib
-
-#BLACKBOX_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11 \
-#BLACKBOX_AUTOCONF	+= --x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
+BLACKBOX_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
+BLACKBOX_AUTOCONF	+= --x-includes=$(SYSROOT)/usr/include
 
 $(STATEDIR)/blackbox.prepare: $(blackbox_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -89,7 +84,9 @@ blackbox_compile: $(STATEDIR)/blackbox.compile
 
 $(STATEDIR)/blackbox.compile: $(blackbox_compile_deps_default)
 	@$(call targetinfo, $@)
-	$(BLACKBOX_PATH) make -C $(BLACKBOX_DIR)
+	cd $(BLACKBOX_DIR) && \
+		$(BLACKBOX_PATH) $(BLACKBOX_ENV) \
+		make $(BLACKBOX_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
