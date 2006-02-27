@@ -3,7 +3,6 @@
 menuconfig BETAFTPD
 	bool
 	prompt "betaftpd            "
-	depends on BROKEN
 	select LIBRN
 	help
 	  BetaFTPD is an ftpd replacement for Unix/Linux. 
@@ -12,7 +11,4 @@ menuconfig BETAFTPD
 	  it is very small, the executable is about 20 kB uncompressed.
 	  
 	  http://betaftpd.sourceforge.net/
-
-comment "betaftpd is broken, please send a patch"
-	depends on !BROKEN
 
