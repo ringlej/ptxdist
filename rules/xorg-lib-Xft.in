@@ -1,6 +1,7 @@
 config XORG_LIB_XFT
 	bool
 	depends on XORG_LIB
+	select FREETYPE
 	prompt "libXft"
 	help
 	  FIXME
