@@ -1,6 +1,7 @@
+# -*-makefile-*-
 # $Id: template 2680 2005-05-27 10:29:43Z rsc $
 #
-# Copyright (C) 2005 by Robert Schwebel
+# Copyright (C) 2005-2006 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,12 +17,12 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 #
 # Paths and names
 #
-UDEV_VERSION	= 068
-UDEV		= udev-$(UDEV_VERSION)
-UDEV_SUFFIX	= tar.gz
-UDEV_URL	= http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
-UDEV_SOURCE	= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
-UDEV_DIR	= $(BUILDDIR)/$(UDEV)
+UDEV_VERSION	:= 068
+UDEV		:= udev-$(UDEV_VERSION)
+UDEV_SUFFIX	:= tar.gz
+UDEV_URL	:= http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
+UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
+UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
 
 -include $(call package_depfile)
 
@@ -58,8 +59,8 @@ $(STATEDIR)/udev.extract: $(udev_extract_deps_default)
 
 udev_prepare: $(STATEDIR)/udev.prepare
 
-UDEV_PATH	=  PATH=$(CROSS_PATH)
-UDEV_ENV 	=  $(CROSS_ENV)
+UDEV_PATH	:=  PATH=$(CROSS_PATH)
+UDEV_ENV 	:=  $(CROSS_ENV)
 UDEV_MAKEVARS	=  CROSS=$(COMPILER_PREFIX)
 
 ifdef PTXCONF_UDEV_FW_HELPER
