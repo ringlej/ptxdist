@@ -1,9 +1,7 @@
-menu	"Dropbear SSH-Server "
-
-config DROPBEAR
-	bool
+menuconfig DROPBEAR
+        bool
+	prompt "Dropbear SSH-Server "
 	select ZLIB
-	prompt "Dropbear SSH Server"
 	help
 	  dropbear is a SSH 2 server and client designed 
 	  to be small enough to be used in small memory 
@@ -15,7 +13,6 @@ config DROPBEAR
 	  and authentication agent forwarding.
  	
 	  http://matt.ucc.asn.au/dropbear/dropbear.html
-
 
 config DROPBEAR_DIS_ZLIB
 	bool
@@ -242,4 +239,3 @@ config DROPBEAR_SCP
 	help
 		This is dropbear's implementation of the scp utility. 
 
-endmenu
