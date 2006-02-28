@@ -57,8 +57,8 @@ $(STATEDIR)/zlib.extract: $(zlib_extract_deps_default)
 zlib_prepare: $(STATEDIR)/zlib.prepare
 
 ZLIB_PATH	:= PATH=$(CROSS_PATH)
-ZLIB_ENV	:= $(subst CFLAGS,SGALFC,$(CROSS_ENV)) AR="$(CROSS_AR) rc"
-ZLIB_AUTOCONF	:= --shared --prefix=$(SYSROOT)
+ZLIB_ENV	:= $(CROSS_ENV) AR="$(CROSS_AR) rc"
+ZLIB_AUTOCONF	:= --shared --prefix=/usr
 
 $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -73,8 +73,8 @@ zlib_compile: $(STATEDIR)/zlib.compile
 
 $(STATEDIR)/zlib.compile: $(zlib_compile_deps_default)
 	@$(call targetinfo, $@)
-	$(ZLIB_ENV) $(ZLIB_PATH) cd $(ZLIB_DIR) && make
-	$(ZLIB_ENV) $(ZLIB_PATH) cd $(ZLIB_DIR) && make libz.a
+	$(ZLIB_PATH) cd $(ZLIB_DIR) && make
+	$(ZLIB_PATH) cd $(ZLIB_DIR) && make libz.a
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -85,9 +85,8 @@ zlib_install: $(STATEDIR)/zlib.install
 
 $(STATEDIR)/zlib.install: $(zlib_install_deps_default)
 	@$(call targetinfo, $@)
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-	cd $(ZLIB_DIR) && $(ZLIB_PATH) $(MAKE_INSTALL)
-	cp $(ZLIB_DIR)/libz.a $(SYSROOT)/lib/
+	cd $(ZLIB_DIR) && $(ZLIB_PATH) make install prefix=$(SYSROOT)/usr
+	$(INSTALL) $(ZLIB_DIR)/libz.a $(SYSROOT)/usr/lib/libz.a
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
