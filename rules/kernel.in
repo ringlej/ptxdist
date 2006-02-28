@@ -89,7 +89,7 @@ config KERNEL_EXTERNAL_DIR
 	  Add a path to your external kernel here. The kernel must be
 	  configured. 
 
-config KERNEL_INSTALL
+config KERNEL_TARGET_INSTALL
 	bool
 	depends on BUILD_USERLAND
 	prompt "Install kernel into /boot on target"
