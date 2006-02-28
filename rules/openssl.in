@@ -1,7 +1,6 @@
-menu   "OpenSSL             "
-
-config OPENSSL
-	bool "OpenSSL support in various tools"
+menuconfig OPENSSL
+	prompt "OpenSSL             "
+	bool 
 	help
 	  FIXME: This item needs to be documented
 
@@ -12,4 +11,3 @@ config OPENSSL_SHARED
 	help
 	  FIXME: This item needs to be documented
 
-endmenu
