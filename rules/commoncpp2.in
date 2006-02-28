@@ -23,4 +23,5 @@ config COMMONCPP2_LIBXML2
 	bool
 	prompt "enable libxml2 parser"
 	depends on COMMONCPP2
+	select LIBXML2_PUSH
 
