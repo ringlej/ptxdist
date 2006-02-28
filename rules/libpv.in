@@ -4,22 +4,33 @@ menuconfig LIBPV
 	select LIBLIST
 	select LIBXMLCONFIG
 	help
-	  libpv.so is a library that implements a user space shared memory for 
+	  libpv.so is a library that implements a user space shared memory for
 	  automation applications. The shared memory is being described by an
 	  XML file, the backing store can live on any mmapable file, for example
-	  on a persistent storage or on a RAM disc. 
+	  on a persistent storage or on a RAM disc.
 
-	  The library has also an integrated JVisu socket server. 
+	  The library has also an integrated JVisu socket server.
 
 config LIBPV_EVENT
 	bool
 	prompt "event support"
 	depends on LIBPV
-	select LIBMQUEUE
 	help
 	  This switch enables support for the libpv event mechanism. If
 	  enabled it is possible to be notified when process variables have
-	  changed. 
+	  changed.
+
+config LIBPV_NEEDS_LIBMQUEUE
+	bool
+	prompt "Posix Message Queue support for kernel 2.6"
+	depends on LIBPV_EVENT
+	default n
+	select LIBMQUEUE
+	help
+	 Enable this switch if your glibc doesn't yet support the new Posix
+	 Message Queues the kernel 2.6 already supports. This is
+	 mostly the case on older glibc revisions prior 2.3.5. Newer
+	 glibc revisions supports this feature natively.
 
 config LIBPV_PVTOOL
 	bool
