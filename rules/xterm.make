@@ -19,10 +19,10 @@ PACKAGES-$(PTXCONF_XTERM) += xterm
 #
 XTERM_VERSION	:= 209
 XTERM		:= xterm-$(XTERM_VERSION)
-XTERM_SUFFIX		:= tgz
-XTERM_URL		:= ftp://invisible-island.net/xterm//$(XTERM).$(XTERM_SUFFIX)
-XTERM_SOURCE		:= $(SRCDIR)/$(XTERM).$(XTERM_SUFFIX)
-XTERM_DIR		:= $(BUILDDIR)/$(XTERM)
+XTERM_SUFFIX	:= tgz
+XTERM_URL	:= ftp://invisible-island.net/xterm//$(XTERM).$(XTERM_SUFFIX)
+XTERM_SOURCE	:= $(SRCDIR)/$(XTERM).$(XTERM_SUFFIX)
+XTERM_DIR	:= $(BUILDDIR)/$(XTERM)
 
 -include $(call package_depfile)
 
@@ -59,13 +59,15 @@ $(STATEDIR)/xterm.extract: $(xterm_extract_deps_default)
 
 xterm_prepare: $(STATEDIR)/xterm.prepare
 
-XTERM_PATH	:=  PATH=$(CROSS_PATH)
-XTERM_ENV 	:=  $(CROSS_ENV)
+XTERM_PATH	:= PATH=$(CROSS_PATH)
+XTERM_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XTERM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XTERM_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-freetype
 
 $(STATEDIR)/xterm.prepare: $(xterm_prepare_deps_default)
 	@$(call targetinfo, $@)
