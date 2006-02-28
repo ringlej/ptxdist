@@ -1,3 +1,4 @@
+# -*-makefile-*-
 #
 # $Id: Makefile 4495 2006-02-02 16:01:56Z rsc $
 #
@@ -81,10 +82,6 @@ VIRTUAL            =
 ifdef PREFIX
 PTXCONF_PREFIX=$(PREFIX)
 PREFIX=
-endif
-
-ifeq ($(PTXCONF_PREFIX),)
-PTXCONF_PREFIX=$(PTXDIST_WORKSPACE)/sysroot
 endif
 
 # ----------------------------------------------------------------------------
@@ -404,9 +401,10 @@ check_problematic_configs = 								\
 	fi;
 
 
-configdeps_deps := $(wildcard $(RULESDIR)/*.in) 
-configdeps_deps += $(wildcard $(PROJECTRULESDIR)/*.in)
-configdeps_deps += $(PTXDIST_WORKSPACE)/ptxconfig
+configdeps_deps := \
+	$(wildcard $(RULESDIR)/*.in)  \
+	$(wildcard $(PROJECTRULESDIR)/*.in) \
+	$(PTXDIST_WORKSPACE)/ptxconfig
 
 configdeps: $(STATEDIR)/configdeps
 
@@ -485,7 +483,7 @@ toolchains:
 	echo >> TOOLCHAINS;						\
 	echo stop: `date` >> TOOLCHAINS;				\
 	echo >> TOOLCHAINS;
-	
+
 #	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3       TOOLCHAINS;\
 #	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.4_glibc-2.3.5       TOOLCHAINS;\
 
