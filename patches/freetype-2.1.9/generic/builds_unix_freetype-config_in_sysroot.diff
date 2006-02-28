@@ -1,0 +1,28 @@
+#
+# Submitted-By: Marc Kleine-Budde, 2006-02-28
+# Committed-By: Marc Kleine-Budde
+#
+# Error:
+#
+# freetype-config is not $SYSROOT aware
+#
+# Description: 
+#
+# this patch adds $SYSROOT support to freetype-config
+#
+# State:
+# 
+# not commited, but should be :)
+#
+Index: freetype-2.1.9/builds/unix/freetype-config.in
+===================================================================
+--- freetype-2.1.9.orig/builds/unix/freetype-config.in
++++ freetype-2.1.9/builds/unix/freetype-config.in
+@@ -1,6 +1,6 @@
+ #! /bin/sh
+ 
+-prefix=@prefix@
++prefix=${SYSROOT}@prefix@
+ exec_prefix=@exec_prefix@
+ exec_prefix_set=no
+ includedir=@includedir@
