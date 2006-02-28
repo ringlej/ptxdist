@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBXML2) += libxml2
 #
 # Paths and names
 #
-LIBXML2_VERSION	= 2.6.19
-LIBXML2		= libxml2-$(LIBXML2_VERSION)
-LIBXML2_SUFFIX	= tar.gz
-LIBXML2_URL	= ftp://xmlsoft.org/$(LIBXML2).$(LIBXML2_SUFFIX)
-LIBXML2_SOURCE	= $(SRCDIR)/$(LIBXML2).$(LIBXML2_SUFFIX)
-LIBXML2_DIR	= $(BUILDDIR)/$(LIBXML2)
+LIBXML2_VERSION	:= 2.6.23
+LIBXML2		:= libxml2-$(LIBXML2_VERSION)
+LIBXML2_SUFFIX	:= tar.gz
+LIBXML2_URL	:= ftp://xmlsoft.org/$(LIBXML2).$(LIBXML2_SUFFIX)
+LIBXML2_SOURCE	:= $(SRCDIR)/$(LIBXML2).$(LIBXML2_SUFFIX)
+LIBXML2_DIR	:= $(BUILDDIR)/$(LIBXML2)
 
 -include $(call package_depfile)
 
@@ -62,7 +62,7 @@ libxml2_prepare: $(STATEDIR)/libxml2.prepare
 #
 # dependencies
 #
-LIBXML2_PATH	=  PATH=$(CROSS_PATH)
+LIBXML2_PATH	:=  PATH=$(CROSS_PATH)
 
 #
 # autoconf
@@ -113,8 +113,6 @@ endif
 
 ifdef PTXCONF_LIBXML2_HTML
 LIBXML2_AUTOCONF += --with-html
-LIBXML2_AUTOCONF += --with-html-dir=$(PTXCONF_LIBXML2_HTML_DIR)
-LIBXML2_AUTOCONF += --with-html-subdir=$(PTXCONF_LIBXML2_HTML_SUBDIR)
 else
 LIBXML2_AUTOCONF += --without-html
 endif
@@ -263,6 +261,12 @@ else
 LIBXML2_AUTOCONF += --without-modules
 endif
 
+ifdef PTXCONF_LIBXML2_ZLIB
+LIBXML2_AUTOCONF += --with-zlib=$(SYSROOT)/usr
+else
+LIBXML2_AUTOCONF += --without-zlib
+endif
+
 $(STATEDIR)/libxml2.prepare: $(libxml2_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXML2_DIR)/config.cache)
@@ -291,10 +295,7 @@ libxml2_install: $(STATEDIR)/libxml2.install
 $(STATEDIR)/libxml2.install: $(libxml2_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBXML2)
-	# FIXME: this probably has to be fixed upstream!
-	# libxml2 installs xml2-config to wrong path.
-	mkdir -p $(PTXCONF_PREFIX)/bin
-	install $(LIBXML2_DIR)/xml2-config $(PTXCONF_PREFIX)/bin/
+	install -D $(LIBXML2_DIR)/xml2-config $(PTXCONF_PREFIX)/bin/xml2-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -316,10 +317,10 @@ $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps_default)
 	@$(call install_fixup, libxml2,DESCRIPTION,missing)
 
 	@$(call install_copy, libxml2, 0, 0, 0644, \
-		$(LIBXML2_DIR)/.libs/libxml2.so.2.6.19, \
-		/usr/lib/libxml2.so.2.6.19)
-	@$(call install_link, libxml2, libxml2.so.2.6.19, /usr/lib/libxml2.so.2)
-	@$(call install_link, libxml2, libxml2.so.2.6.19, /usr/lib/libxml2.so)
+		$(LIBXML2_DIR)/.libs/libxml2.so.2.6.23, \
+		/usr/lib/libxml2.so.2.6.23)
+	@$(call install_link, libxml2, libxml2.so.2.6.23,  /usr/lib/libxml2.so.2)
+	@$(call install_link, libxml2, libxml2.so.2.6.23, /usr/lib/libxml2.so)
 
 	@$(call install_finish, libxml2)
 
