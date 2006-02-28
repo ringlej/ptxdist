@@ -3,6 +3,7 @@ config XORG_LIB_XFT
 	depends on XORG_LIB
 	select FREETYPE
 	select FONTCONFIG
+	select XORG_LIB_XRENDER
 	prompt "libXft"
 	help
 	  FIXME
