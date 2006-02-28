@@ -117,7 +117,17 @@ $(STATEDIR)/xorg-lib-Xv.targetinstall: $(xorg-lib-Xv_targetinstall_deps_default)
 	@$(call install_fixup, xorg-lib-Xv,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xv,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xv, 0, 0, 0644, \
+		$(XORG_LIB_XV_DIR)/src/.libs/libXv.so.1.0.0, \
+		$(XORG_LIBDIR)/libXv.so.1.0.0)
+
+	@$(call install_link, xorg-lib-Xv, \
+		libXv.so.1.0.0, \
+		$(XORG_LIBDIR)/libXv.so.1)
+
+	@$(call install_link, xorg-lib-Xv, \
+		libXv.so.1.0.0, \
+		$(XORG_LIBDIR)/libXv.so)
 
 	@$(call install_finish, xorg-lib-Xv)
 
