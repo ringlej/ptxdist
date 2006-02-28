@@ -2,6 +2,5 @@ config SDL_IMAGE
 	bool
 	depends on SDL
 	select SDL_LIB
-	default n
 	prompt "SDL Image 1.2.4"
 
