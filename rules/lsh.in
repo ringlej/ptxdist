@@ -1,12 +1,12 @@
-menu "LSH                 "
+# lsh configuration
 
-config LSH
+menuconfig LSH
+	prompt "LSH                 "
 	bool
 	select GMP4
 	select LIBOOP
-	prompt "LSH"
 	help
-	  FIXME: This item needs to be documented
+	  lsh is an SSH implementation. 
 
 config LSH_EXECUV
 	bool
@@ -50,4 +50,3 @@ config LSH_WRITEKEY
 	help
 	  FIXME: This item needs to be documented
 
-endmenu
