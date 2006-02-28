@@ -13,9 +13,6 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_UCLIBC) += uclibc
-ifdef PTXCONF_UCLIBC
-DYNAMIC_LINKER	=  /lib/ld-uClibc.so.0
-endif
 
 UCLIBC = uClibc-$(UCLIBC_VERSION)
 
@@ -127,7 +124,7 @@ endif
 
 endif
 	@$(call install_finish, uclibc)
-	
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
