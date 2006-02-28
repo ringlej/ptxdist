@@ -1,6 +1,7 @@
 menuconfig FONTCONFIG
 	bool "Fontconfig            "
 	select FREETYPE
+	select EXPAT
 	help
 	  Fontconfig is a font configuration and 
 	  customization library, which does not depend on 
