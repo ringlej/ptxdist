@@ -3,6 +3,7 @@ menuconfig LIBPV
 	prompt "libpv"
 	select LIBLIST
 	select LIBXMLCONFIG
+	select LIBMQUEUE if LIBPV_NEEDS_LIBMQUEUE
 	help
 	  libpv.so is a library that implements a user space shared memory for
 	  automation applications. The shared memory is being described by an
@@ -25,7 +26,6 @@ config LIBPV_NEEDS_LIBMQUEUE
 	prompt "Posix Message Queue support for kernel 2.6"
 	depends on LIBPV_EVENT
 	default n
-	select LIBMQUEUE
 	help
 	 Enable this switch if your glibc doesn't yet support the new Posix
 	 Message Queues the kernel 2.6 already supports. This is
