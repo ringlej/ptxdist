@@ -65,21 +65,20 @@ SDL_IMAGE_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-SDL_IMAGE_AUTOCONF := $(CROSS_AUTOCONF_USR)
-SDL_IMAGE_AUTOCONF += --with-sdl-prefix=$(CROSS_LIB_DIR)
-SDL_IMAGE_AUTOCONF += --disable-sdltest
-SDL_IMAGE_AUTOCONF += --enable-bmp
-SDL_IMAGE_AUTOCONF += --enable-gif
-SDL_IMAGE_AUTOCONF += --disable-jpg
-SDL_IMAGE_AUTOCONF += --enable-lbm
-SDL_IMAGE_AUTOCONF += --enable-pcx
-SDL_IMAGE_AUTOCONF += --enable-png
-SDL_IMAGE_AUTOCONF += --enable-pnm
-SDL_IMAGE_AUTOCONF += --enable-tga
-SDL_IMAGE_AUTOCONF += --disable-tif
-SDL_IMAGE_AUTOCONF += --disable-xcf
-SDL_IMAGE_AUTOCONF += --enable-xpm
-
+SDL_IMAGE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-sdltest \
+	--enable-bmp \
+	--enable-gif \
+	--disable-jpg \
+	--enable-lbm \
+	--enable-pcx \
+	--enable-png \
+	--enable-pnm \
+	--enable-tga \
+	--disable-tif \
+	--disable-xcf \
+	--enable-xpm
 
 $(STATEDIR)/sdl_image.prepare: $(sdl_image_prepare_deps_default)
 	@$(call targetinfo, $@)
