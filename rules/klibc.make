@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_KLIBC) += klibc
 #
 # Paths and names
 #
-KLIBC_VERSION	= 1.1.1
-KLIBC		= klibc-$(KLIBC_VERSION)
-KLIBC_SUFFIX		= tar.gz
-KLIBC_URL		= http://www.kernel.org/pub/linux/libs/klibc/$(KLIBC).$(KLIBC_SUFFIX)
-KLIBC_SOURCE		= $(SRCDIR)/$(KLIBC).$(KLIBC_SUFFIX)
-KLIBC_DIR		= $(BUILDDIR)/$(KLIBC)
+KLIBC_VERSION	:= 1.1.1
+KLIBC		:= klibc-$(KLIBC_VERSION)
+KLIBC_SUFFIX	:= tar.gz
+KLIBC_URL	:= http://www.kernel.org/pub/linux/libs/klibc/$(KLIBC).$(KLIBC_SUFFIX)
+KLIBC_SOURCE	:= $(SRCDIR)/$(KLIBC).$(KLIBC_SUFFIX)
+KLIBC_DIR	:= $(BUILDDIR)/$(KLIBC)
 
 -include $(call package_depfile)
 
@@ -59,9 +59,8 @@ $(STATEDIR)/klibc.extract: $(klibc_extract_deps_default)
 
 klibc_prepare: $(STATEDIR)/klibc.prepare
 
-KLIBC_PATH	=  PATH=$(CROSS_PATH)
-KLIBC_ENV 	=  $(CROSS_ENV)
-KLIBC_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
+KLIBC_PATH	:=  PATH=$(CROSS_PATH)
+KLIBC_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
@@ -77,8 +76,9 @@ $(STATEDIR)/klibc.prepare: $(klibc_prepare_deps_default)
 
 klibc_compile: $(STATEDIR)/klibc.compile
 
-klibc_compile_deps = $(klibc_compile_deps_default)
-klibc_compile_deps += $(STATEDIR)/kernel.prepare
+klibc_compile_deps := \
+	$(klibc_compile_deps_default) \
+	$(STATEDIR)/kernel.prepare
 
 $(STATEDIR)/klibc.compile: $(klibc_compile_deps)
 	@$(call targetinfo, $@)
