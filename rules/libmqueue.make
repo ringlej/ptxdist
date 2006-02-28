@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBMQUEUE) += libmqueue
 #
 # Paths and names
 #
-LIBMQUEUE_VERSION	= 4.41
-LIBMQUEUE		= libmqueue-$(LIBMQUEUE_VERSION)
-LIBMQUEUE_SUFFIX	= tar.gz
-LIBMQUEUE_URL		= http://www.geocities.com/wronski12/posix_ipc/$(LIBMQUEUE).$(LIBMQUEUE_SUFFIX)
-LIBMQUEUE_SOURCE	= $(SRCDIR)/$(LIBMQUEUE).$(LIBMQUEUE_SUFFIX)
-LIBMQUEUE_DIR		= $(BUILDDIR)/$(LIBMQUEUE)
+LIBMQUEUE_VERSION	:= 4.41
+LIBMQUEUE		:= libmqueue-$(LIBMQUEUE_VERSION)
+LIBMQUEUE_SUFFIX	:= tar.gz
+LIBMQUEUE_URL		:= http://www.geocities.com/wronski12/posix_ipc/$(LIBMQUEUE).$(LIBMQUEUE_SUFFIX)
+LIBMQUEUE_SOURCE	:= $(SRCDIR)/$(LIBMQUEUE).$(LIBMQUEUE_SUFFIX)
+LIBMQUEUE_DIR		:= $(BUILDDIR)/$(LIBMQUEUE)
 
 -include $(call package_depfile)
 
@@ -59,14 +59,13 @@ $(STATEDIR)/libmqueue.extract: $(libmqueue_extract_deps_default)
 
 libmqueue_prepare: $(STATEDIR)/libmqueue.prepare
 
-LIBMQUEUE_PATH	=  PATH=$(CROSS_PATH)
-LIBMQUEUE_ENV 	=  $(CROSS_ENV)
+LIBMQUEUE_PATH	:= PATH=$(CROSS_PATH)
+LIBMQUEUE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIBMQUEUE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-LIBMQUEUE_AUTOCONF += --prefix=$(CROSS_LIB_DIR)
+LIBMQUEUE_AUTOCONF :=  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/libmqueue.prepare: $(libmqueue_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -84,7 +83,7 @@ libmqueue_compile: $(STATEDIR)/libmqueue.compile
 
 $(STATEDIR)/libmqueue.compile: $(libmqueue_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LIBMQUEUE_DIR) && $(LIBMQUEUE_ENV) $(LIBMQUEUE_PATH) make
+	cd $(LIBMQUEUE_DIR) && $(LIBMQUEUE_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
