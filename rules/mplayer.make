@@ -60,20 +60,20 @@ $(STATEDIR)/mplayer.extract: $(mplayer_extract_deps_default)
 mplayer_prepare: $(STATEDIR)/mplayer.prepare
 
 MPLAYER_PATH	=  PATH=$(CROSS_PATH)
-MPLAYER_ENV 	=  $(CROSS_ENV)
-MPLAYER_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-
+MPLAYER_ENV 	= CFLAGS='-Wl,-rpath-link -Wl,$(strip $(SYSROOT))/usr/lib'
 #
 # autoconf
 #
 #MPLAYER_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
-MPLAYER_AUTOCONF =  --cc=$(PTXCONF_GNU_TARGET)-gcc
-MPLAYER_AUTOCONF += --as=$(PTXCONF_GNU_TARGET)-as
-MPLAYER_AUTOCONF += --host-cc=$(HOSTCC)
-MPLAYER_AUTOCONF += --target=$(PTXCONF_ARCH)
-MPLAYER_AUTOCONF += --disable-mencoder
-MPLAYER_AUTOCONF += --enable-fbdev
+MPLAYER_AUTOCONF =  --cc=$(PTXCONF_GNU_TARGET)-gcc \
+	--as=$(PTXCONF_GNU_TARGET)-as \
+	--host-cc=$(HOSTCC) \
+	--target=$(PTXCONF_ARCH) \
+	--disable-mencoder \
+	--enable-fbdev \
+	--with-x11incdir=$(SYSROOT)/usr/include \
+	--with-x11libdir=$(SYSROOT)/usr/lib
 
 $(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps_default)
 	@$(call targetinfo, $@)

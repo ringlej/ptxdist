@@ -1,6 +1,5 @@
 config MPLAYER
 	bool
-	depends on BROKEN
 	prompt "Compile mplayer"
 	help
 	  The Ultimate Movie Player For Linux
@@ -13,7 +12,4 @@ config MPLAYER
 	  but you can use SDL (and this way all drivers of SDL) 
 	  and some lowlevel card-specific drivers 
 	  (for Matrox/3dfx/SiS) too.
-	  
-comment "mplayer is broken, please send a patch"
-	depends on !BROKEN
 
