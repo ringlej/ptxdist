@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_FREETYPE) += freetype
 #
 # Paths and names
 #
-FREETYPE_VERSION	= 2.1.9
-FREETYPE		= freetype-$(FREETYPE_VERSION)
-FREETYPE_SUFFIX		= tar.gz
-FREETYPE_URL		= ftp://gd.tuwien.ac.at/publishing/freetype/freetype2/$(FREETYPE).$(FREETYPE_SUFFIX)
-FREETYPE_SOURCE		= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
-FREETYPE_DIR		= $(BUILDDIR)/$(FREETYPE)
+FREETYPE_VERSION	:= 2.1.9
+FREETYPE		:= freetype-$(FREETYPE_VERSION)
+FREETYPE_SUFFIX		:= tar.gz
+FREETYPE_URL		:= http://gd.tuwien.ac.at/publishing/freetype/freetype2/$(FREETYPE).$(FREETYPE_SUFFIX)
+FREETYPE_SOURCE		:= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
+FREETYPE_DIR		:= $(BUILDDIR)/$(FREETYPE)
 
 -include $(call package_depfile)
 
@@ -59,13 +59,13 @@ $(STATEDIR)/freetype.extract: $(freetype_extract_deps_default)
 
 freetype_prepare: $(STATEDIR)/freetype.prepare
 
-FREETYPE_PATH	=  PATH=$(CROSS_PATH)
-FREETYPE_ENV 	=  
+FREETYPE_PATH	:= PATH=$(CROSS_PATH)
+FREETYPE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-FREETYPE_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
+FREETYPE_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/freetype.prepare: $(freetype_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -83,9 +83,7 @@ freetype_compile: $(STATEDIR)/freetype.compile
 $(STATEDIR)/freetype.compile: $(freetype_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(FREETYPE_DIR) && \
-		$(FREETYPE_PATH) $(FREETYPE_ENV) \
-		make $(FREETYPE_MAKEVARS)
-	chmod a+x $(FREETYPE_DIR)/builds/unix/freetype-config
+		$(FREETYPE_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -97,6 +95,8 @@ freetype_install: $(STATEDIR)/freetype.install
 $(STATEDIR)/freetype.install: $(freetype_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, FREETYPE)
+	$(INSTALL) -m 755 -D $(FREETYPE_DIR)/builds/unix/freetype-config \
+		$(PTXCONF_PREFIX)/bin/freetype-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -116,7 +116,7 @@ $(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps_default)
 	@$(call install_fixup, freetype,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, freetype,DEPENDS,)
 	@$(call install_fixup, freetype,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, freetype, 0, 0, 0644, \
 		$(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.7, \
 		/usr/lib/libfreetype.so.6.3.7)
