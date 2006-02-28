@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBXSLT) += libxslt
 #
 # Paths and names
 #
-LIBXSLT_VERSION	= 1.1.14
+LIBXSLT_VERSION	= 1.1.15
 LIBXSLT		= libxslt-$(LIBXSLT_VERSION)
 LIBXSLT_SUFFIX	= tar.gz
 LIBXSLT_URL	= ftp://xmlsoft.org/$(LIBXSLT).$(LIBXSLT_SUFFIX)
