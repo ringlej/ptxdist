@@ -118,7 +118,17 @@ $(STATEDIR)/fontconfig.targetinstall: $(fontconfig_targetinstall_deps_default)
 	@$(call install_fixup,fontconfig,DEPENDS,)
 	@$(call install_fixup,fontconfig,DESCRIPTION,missing)
 
-	@$(call install_copy, fontconfig, 0, 0, 0755, $(FONTCONFIG_DIR)/foobar, /dev/null)
+	@$(call install_copy, fontconfig, 0, 0, 0644, \
+		$(FONTCONFIG_DIR)/src/.libs/libfontconfig.so.1.0.4, \
+		/usr/lib/libfontconfig.so.1.0.4)
+
+	@$(call install_link, fontconfig, \
+		libfontconfig.so.1.0.4, \
+		/usr/lib/libfontconfig.so.1)
+
+	@$(call install_link, fontconfig, \
+		libfontconfig.so.1.0.4, \
+		/usr/lib/libfontconfig.so)
 
 	@$(call install_finish,fontconfig)
 
