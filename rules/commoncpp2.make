@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_COMMONCPP2) += commoncpp2
 #
 # Paths and names
 #
-COMMONCPP2_VERSION	:= 1.3.22
+COMMONCPP2_VERSION	:= 1.3.24
 COMMONCPP2		:= commoncpp2-$(COMMONCPP2_VERSION)
 COMMONCPP2_SUFFIX	:= tar.gz
 COMMONCPP2_URL		:= $(PTXCONF_SETUP_SFMIRROR)/gnutelephony/$(COMMONCPP2).$(COMMONCPP2_SUFFIX)
@@ -91,7 +91,7 @@ commoncpp2_compile: $(STATEDIR)/commoncpp2.compile
 
 $(STATEDIR)/commoncpp2.compile: $(commoncpp2_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(COMMONCPP2_DIR) && $(COMMONCPP2_ENV) $(COMMONCPP2_PATH) make
+	cd $(COMMONCPP2_DIR) && $(COMMONCPP2_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -124,18 +124,18 @@ $(STATEDIR)/commoncpp2.targetinstall: $(commoncpp2_targetinstall_deps_default)
 	@$(call install_fixup, commoncpp2,DESCRIPTION,missing)
 
 	@$(call install_copy, commoncpp2, 0, 0, 0644, \
-		$(COMMONCPP2_DIR)/src/.libs/libccgnu2-1.3.so.1.0.18, \
-		/usr/lib/libccgnu2-1.3.so.1.0.18)
+		$(COMMONCPP2_DIR)/src/.libs/libccgnu2-1.3.so.1.0.20, \
+		/usr/lib/libccgnu2-1.3.so.1.0.20)
 
-	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.18, /usr/lib/libccgnu2-1.3.so.1)
-	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.18, /usr/lib/libccgnu2-1.3.so)
+	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.20, /usr/lib/libccgnu2-1.3.so.1)
+	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.20, /usr/lib/libccgnu2-1.3.so)
 
 	@$(call install_copy, commoncpp2, 0, 0, 0644, \
-		$(COMMONCPP2_DIR)/src/.libs/libccext2-1.3.so.1.0.18, \
-		/usr/lib/libccext2-1.3.so.1.0.18)
+		$(COMMONCPP2_DIR)/src/.libs/libccext2-1.3.so.1.0.20, \
+		/usr/lib/libccext2-1.3.so.1.0.20)
 
-	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.18, /usr/lib/libccext2-1.3.so.1)
-	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.18, /usr/lib/libccext2-1.3.so)
+	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.20, /usr/lib/libccext2-1.3.so.1)
+	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.20, /usr/lib/libccext2-1.3.so)
 
 	@$(call install_finish, commoncpp2)
 
