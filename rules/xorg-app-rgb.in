@@ -1,0 +1,7 @@
+config XORG_APP_RGB
+	bool
+	depends on XORG_APP
+	prompt "xorg rgb"
+	help
+	  FIXME
+
