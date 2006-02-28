@@ -116,7 +116,17 @@ $(STATEDIR)/xorg-lib-Xxf86vm.targetinstall: $(xorg-lib-Xxf86vm_targetinstall_dep
 	@$(call install_fixup, xorg-lib-Xxf86vm,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xxf86vm,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xxf86vm, 0, 0, 0644, \
+		$(XORG_LIB_XXF86VM_DIR)/src/.libs/libXxf86vm.so.1.0.0, \
+		$(XORG_LIBDIR)/libXxf86vm.so.1.0.0)
+
+	@$(call install_link, xorg-lib-Xxf86vm, \
+		libXxf86vm.so.1.0.0, \
+		$(XORG_LIBDIR)/libXxf86vm.so.1)
+
+	@$(call install_link, xorg-lib-Xxf86vm, \
+		libXxf86vm.so.1.0.0, \
+		$(XORG_LIBDIR)/libXxf86vm.so)
 
 	@$(call install_finish, xorg-lib-Xxf86vm)
 
