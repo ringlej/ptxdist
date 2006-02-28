@@ -66,9 +66,6 @@ FONTCONFIG_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 FONTCONFIG_AUTOCONF := $(CROSS_AUTOCONF_USR)
-# freetype-config is a shell script, so we can use the installed one
-FONTCONFIG_AUTOCONF += --with-freetype-config=$(SYSROOT)/usr/bin/freetype-config
-FONTCONFIG_AUTOCONF += --with-expat=$(SYSROOT)/usr
 
 $(STATEDIR)/fontconfig.prepare: $(fontconfig_prepare_deps_default)
 	@$(call targetinfo, $@)
