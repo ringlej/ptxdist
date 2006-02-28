@@ -16,7 +16,7 @@
 #
 PACKAGES-$(PTXCONF_GLIBC) += glibc
 
-GLIBC			= glibc-$(GLIBC_VERSION)
+GLIBC := glibc-$(GLIBC_VERSION)
 
 
 -include $(call package_depfile)
@@ -78,12 +78,6 @@ $(STATEDIR)/glibc.install: $(glibc_install_deps_default)
 
 glibc_targetinstall: $(STATEDIR)/glibc.targetinstall
 
-ifdef PTXCONF_GLIBC_DEBUG
-GLIBC_STRIP	= n
-else
-GLIBC_STRIP	= y
-endif
-
 $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
@@ -96,7 +90,7 @@ $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps_default)
 	@$(call install_fixup, glibc,DEPENDS,)
 	@$(call install_fixup, glibc,DESCRIPTION,missing)
 
-ifdef PTXCONF_GLIBC_INSTALL
+ifdef PTXCONF_GLIBC
 	@$(call install_copy_toolchain_dl, glibc, /lib, $(GLIBC_STRIP))
 endif
 
