@@ -6,7 +6,7 @@
 menuconfig LIBXML2
 	bool
 	prompt "libxml2                     "
-	select ZLIB
+	select ZLIB if LIBXML2_ZLIB
 	help
 	  FIXME: This item needs to be documented
 
@@ -81,22 +81,6 @@ config LIBXML2_HTML
 	prompt "HTML support"
 	help
 	  Add HTML support.
-
-config LIBXML2_HTML_DIR
-	string
-	default "/tmp"
-	depends on LIBXML2_HTML
-	prompt "HTML directory"
-	help
-	  Path to HTML base directory.
-
-config LIBXML2_HTML_SUBDIR
-	string
-	default "/tmp"
-	depends on LIBXML2_HTML
-	prompt "HTML sub directory"
-	help
-	  Directory used under HTML-dir.
 
 config LIBXML2_HTTP
 	bool
@@ -287,3 +271,8 @@ config LIBXML2_MODULES
 	help
 	  Dynamic Modules support.
 
+config LIBXML2_ZLIB
+	bool
+	default y
+	depends on LIBXML2
+	prompt "zlib (compression) support"
