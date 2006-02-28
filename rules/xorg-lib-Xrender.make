@@ -59,15 +59,15 @@ $(STATEDIR)/xorg-lib-Xrender.extract: $(xorg-lib-Xrender_extract_deps_default)
 
 xorg-lib-Xrender_prepare: $(STATEDIR)/xorg-lib-Xrender.prepare
 
-XORG_LIB_XRENDER_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XRENDER_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XRENDER_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XRENDER_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_LIB_XRENDER_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-XORG_LIB_XRENDER_AUTOCONF += --disable-malloc0returnsnull
+XORG_LIB_XRENDER_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-Xrender.prepare: $(xorg-lib-Xrender_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -117,7 +117,17 @@ $(STATEDIR)/xorg-lib-Xrender.targetinstall: $(xorg-lib-Xrender_targetinstall_dep
 	@$(call install_fixup, xorg-lib-Xrender,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xrender,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xrender, 0, 0, 0644, \
+		$(XORG_LIB_XRENDER_DIR)/src/.libs/libXrender.so.1.3.0, \
+		$(XORG_LIBDIR)/libXrender.so.1.3.0)
+
+	@$(call install_link, xorg-lib-Xrender, \
+		libXrender.so.1.3.0, \
+		$(XORG_LIBDIR)/libXrender.so.1)
+
+	@$(call install_link, xorg-lib-Xrender, \
+		libXrender.so.1.3.0, \
+		$(XORG_LIBDIR)/libXrender.so)
 
 	@$(call install_finish, xorg-lib-Xrender)
 
