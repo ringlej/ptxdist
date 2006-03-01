@@ -50,9 +50,8 @@ host-zlib_prepare: $(STATEDIR)/host-zlib.prepare
 # autoconf without automake :-(
 #
 
-HOST_ZLIB_AUTOCONF	=  --prefix=$(PTXCONF_HOST_PREFIX)/usr
-HOST_ZLIB_AUTOCOHF +=  --shared
-HOST_ZLIB_MAKEVARS	=  $(HOSTCC_ENV)
+HOST_ZLIB_AUTOCONF	:=  --prefix=$(PTXCONF_HOST_PREFIX)/usr
+HOST_ZLIB_MAKEVARS	:=  $(HOSTCC_ENV)
 
 $(STATEDIR)/host-zlib.prepare: $(host_zlib_prepare_deps_default)
 	@$(call targetinfo, $@)
