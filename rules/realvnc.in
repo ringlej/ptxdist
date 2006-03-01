@@ -1,5 +1,6 @@
 menuconfig REALVNC
 	bool "realvnc               "
+	depends on BROKEN
 
 config REALVNC_SERVER
 	bool
@@ -15,4 +16,6 @@ config REALVNC_CLIENT
 	help
 	  Install realvnc client
 
+comment "realvnc is broken, please send a patch"
+	depends on !BROKEN
 	
