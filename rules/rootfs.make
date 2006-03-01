@@ -280,13 +280,6 @@ endif
 	#
 	# Startup scripts in /etc/init.d
 	#
-ifdef PTXCONF_ROOTFS_ETC_INITD_INETD
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/inetd, /etc/init.d/inetd, n)
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK),"")
-	@$(call install_link, rootfs, /etc/init.d/inetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK))
-endif
-endif
-
 ifdef PTXCONF_ROOTFS_ETC_INITD
 
 	# Copy generic etc/init.d
@@ -295,6 +288,20 @@ ifdef PTXCONF_ROOTFS_ETC_INITD
 
 ifdef ROOTFS_ETC_INITD_LOGROTATE
 	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/logrotate, /etc/init.d/logrotate, n)
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_INETD
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/inetd, /etc/init.d/inetd, n)
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK),"")
+	@$(call install_link, rootfs, /etc/init.d/inetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK))
+endif
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_MODULES
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/modules, /etc/init.d/modules, n)
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_MODULES_LINK),"")
+	@$(call install_link, rootfs, /etc/init.d/modules, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_MODULES_LINK))
+endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_NETWORKING

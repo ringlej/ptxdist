@@ -420,6 +420,23 @@ config ROOTFS_ETC_INITD_LOGROTATE
 	help
 	  The /etc/init.d/logrotate script is a minimal logrotator.
 
+menuconfig ROOTFS_ETC_INITD_MODULES
+	depends on ROOTFS_ETC_INITD
+	bool
+	prompt "modules                   "
+	help
+	  When enabled, load all modules in /etc/modules
+
+	config ROOTFS_ETC_INITD_MODULES_LINK
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_MODULES
+		string
+		prompt "link name in /etc/rcS"
+		default "S01_modules"
+		help
+		  Set a link to with this name in /etc/rc.d which points to 
+		  /etc/init.d/modules. 
+
 menuconfig ROOTFS_ETC_INITD_NETWORKING
 	depends on ROOTFS_ETC_INITD
 	bool
@@ -436,7 +453,7 @@ menuconfig ROOTFS_ETC_INITD_NETWORKING
 		depends on ROOTFS_ETC_INITD_NETWORKING
 		string
 		prompt "link name in /etc/rcS"
-		default "S01_networking"
+		default "S02_networking"
 		help
 		  Set a link to with this name in /etc/rc.d which points to 
 		  /etc/init.d/networking. 
@@ -542,7 +559,7 @@ menuconfig ROOTFS_ETC_INITD_BANNER
 		depends on ROOTFS_ETC_INITD_BANNER
 		string
 		prompt "link name in /etc/rcS"
-		default "S02_banner"
+		default "S03_banner"
 		help
 		  Set a link to with this name in /etc/rc.d which points to
 		  /etc/init.d/banner.
