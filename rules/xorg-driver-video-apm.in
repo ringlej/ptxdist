@@ -8,3 +8,4 @@ config XORG_DRIVER_VIDEO_APM
 
 comment "driver-video-apm is broken, please send a patch"
 	depends on !BROKEN
+	depends on XORG_DRIVER_VIDEO

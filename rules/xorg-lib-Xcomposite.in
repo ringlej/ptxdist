@@ -8,3 +8,4 @@ config XORG_LIB_XCOMPOSITE
 
 comment "xcomposite is broken, please send a patch"
 	depends on !BROKEN
+	depends on XORG_LIB

@@ -12,3 +12,4 @@ config XORG_LIB_WINDOWSWM
 
 comment "windowswm is broken, please send a patch"
 	depends on !BROKEN
+	depends on XORG_LIB
