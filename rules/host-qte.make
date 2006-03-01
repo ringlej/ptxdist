@@ -61,32 +61,30 @@ HOST_QTE_ENV 	=  $(HOSTCC_ENV)
 #
 # qte does not use autoconf, but something that looks similar
 #
-HOST_QTE_CONF =  -prefix=$(PTXCONF_PREFIX)
-HOST_QTE_CONF += -platform=$(GNU_HOST)
-#
 # disable all we can - we need only uic
-#
-HOST_QTE_CONF += -disable styles
-HOST_QTE_CONF += -disable tools
-HOST_QTE_CONF += -disable kernel
-HOST_QTE_CONF += -disable widgets
-HOST_QTE_CONF += -disable dialogs
-HOST_QTE_CONF += -disable iconview
-HOST_QTE_CONF += -disable workspace
-HOST_QTE_CONF += -disable network
-HOST_QTE_CONF += -disable canvas
-HOST_QTE_CONF += -disable table
-HOST_QTE_CONF += -disable xml
-HOST_QTE_CONF += -disable opengl
-HOST_QTE_CONF += -disable sql
-HOST_QTE_CONF += -embedded x86
-HOST_QTE_CONF += -no-gif
-HOST_QTE_CONF += -qt-libpng
-HOST_QTE_CONF += -no-libjpeg
-HOST_QTE_CONF += -no-thread 
-HOST_QTE_CONF += -no-cups 
-HOST_QTE_CONF += -no-stl 
-QTE_AUTOCONF  += -no-qvfb 
+HOST_QTE_CONF := -prefix=$(PTXCONF_PREFIX) \
+	-platform=$(GNU_HOST) \
+	-disable styles \
+	-disable tools \
+	-disable kernel \
+	-disable widgets \
+	-disable dialogs \
+	-disable iconview \
+	-disable workspace \
+	-disable network \
+	-disable canvas \
+	-disable table \
+	-disable xml \
+	-disable opengl \
+	-disable sql \
+	-embedded x86 \
+	-no-gif \
+	-qt-libpng \
+	-no-libjpeg \
+	-no-thread \
+	-no-cups \
+	-no-stl \
+	-no-qvfb 
 
 $(STATEDIR)/host-qte.prepare: $(host-qte_prepare_deps_default)
 	@$(call targetinfo, $@)
