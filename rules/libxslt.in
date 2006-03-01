@@ -22,6 +22,7 @@ config LIBXSLT_CRYPTO
 	bool
 	prompt "Add crypto support to exslt"
 	depends on LIBXSLT
+	depends on BROKEN
 
 config LIBXSLT_PLUGINS
 	bool
