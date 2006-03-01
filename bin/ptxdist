@@ -469,7 +469,10 @@ while [ "$#" != "0" ]; do
 			echo
 			exit 0
 			;;
-	*)		shift; usage;;
+	*)		shift
+			usage
+			exit 0
+			;;
 	esac
 
 done
