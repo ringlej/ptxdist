@@ -1,6 +1,7 @@
 config XORG_LIB_FS
 	bool
 	depends on XORG_LIB
+	depends on BROKEN
 	prompt "libFS"
 	help
 	  FIXME
