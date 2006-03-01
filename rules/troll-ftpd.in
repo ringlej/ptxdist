@@ -3,11 +3,15 @@ menu	"Troll FTPD          "
 config TROLL-FTPD
 	bool
 	prompt "troll-ftpd"
+	depends on BROKEN
 	help
 	  Troll FTPD is a replacement for the Unix FTPD (and can also replace
 	  wu-ftpd and ProFTPD) and works only on linux.
 	  It is very small, secure, offers anonymous FTP and virtual hosting.
 	  Troll FTPD is developed by Arnt Gulbrandsen.
 	  (http://www.trolltech.com/download/ftpd.html)
+
+comment "trollftpd is broken, please send a patch"
+	depends on !BROKEN
 
 endmenu
