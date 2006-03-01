@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_UTLNX) += util-linux
+PACKAGES-$(PTXCONF_UTIL-LINUX) += util-linux
 
 #
 # Paths and names
@@ -21,7 +21,7 @@ UTIL-LINUX_VERSION	:= 2.12j
 UTIL-LINUX		:= util-linux-$(UTIL-LINUX_VERSION)
 UTIL-LINUX_SUFFIX	:= tar.gz
 UTIL-LINUX_URL		:= http://ftp.cwi.nl/aeb/util-linux/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
-UTIL-LINUX_SOURCE		:= $(SRCDIR)/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
+UTIL-LINUX_SOURCE	:= $(SRCDIR)/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
 UTIL-LINUX_DIR		:= $(BUILDDIR)/$(UTIL-LINUX)
 
 -include $(call package_depfile)
@@ -49,7 +49,7 @@ util-linux_extract: $(STATEDIR)/util-linux.extract
 $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTIL-LINUX_DIR))
-	@$(call extract, $(UTLNX_SOURCE))
+	@$(call extract, $(UTIL-LINUX_SOURCE))
 	@$(call patchin, $(UTIL-LINUX))
 
 	perl -i -p -e 's/^CPU=.*$$/CPU=$(PTXCONF_ARCH)/g' $(UTIL-LINUX_DIR)/MCONFIG
@@ -81,31 +81,31 @@ $(STATEDIR)/util-linux.compile: $(util-linux_compile_deps_default)
 	@$(call targetinfo, $@)
 
 	cd $(UTIL-LINUX_DIR)/lib && $(UTIL-LINUX_PATH) make all
-ifdef PTXCONF_UTLNX_MKSWAP
+ifdef PTXCONF_UTIL-LINUX_MKSWAP
 	cd $(UTIL-LINUX_DIR)/disk-utils && $(UTIL-LINUX_PATH) make mkswap
 endif
-ifdef PTXCONF_UTLNX_SWAPON
+ifdef PTXCONF_UTIL-LINUX_SWAPON
 	cd $(UTIL-LINUX_DIR)/mount && $(UTIL-LINUX_PATH) make swapon
 endif
-ifdef PTXCONF_UTLNX_MOUNT
+ifdef PTXCONF_UTIL-LINUX_MOUNT
 	cd $(UTIL-LINUX_DIR)/mount && $(UTIL-LINUX_PATH) make mount
 endif
-ifdef PTXCONF_UTLNX_UMOUNT
+ifdef PTXCONF_UTIL-LINUX_UMOUNT
 	cd $(UTIL-LINUX_DIR)/mount && $(UTIL-LINUX_PATH) make umount
 endif
-ifdef PTXCONF_UTLNX_IPCS
+ifdef PTXCONF_UTIL-LINUX_IPCS
 	cd $(UTIL-LINUX_DIR)/sys-utils && $(UTIL-LINUX_PATH) make ipcs
 endif
-ifdef PTXCONF_UTLNX_READPROFILE
+ifdef PTXCONF_UTIL-LINUX_READPROFILE
 	cd $(UTIL-LINUX_DIR)/sys-utils && $(UTIL-LINUX_PATH) make readprofile
 endif
-ifdef PTXCONF_UTLNX_FDISK
+ifdef PTXCONF_UTIL-LINUX_FDISK
 	cd $(UTIL-LINUX_DIR)/fdisk && $(UTIL_LINUX_PATH) make fdisk
 endif
-ifdef PTXCONF_UTLNX_SFDISK
+ifdef PTXCONF_UTIL-LINUX_SFDISK
 	cd $(UTIL-LINUX_DIR)/fdisk && $(UTIL_LINUX_PATH) make sfdisk
 endif
-ifdef PTXCONF_UTLNX_CFDISK
+ifdef PTXCONF_UTIL-LINUX_CFDISK
 	cd $(UTIL-LINUX_DIR)/fdisk && $(UTIL_LINUX_PATH) make cfdisk
 endif
 	@$(call touch, $@)
@@ -138,31 +138,31 @@ $(STATEDIR)/util-linux.targetinstall: $(util-linux_targetinstall_deps_default)
 	@$(call install_fixup, util-linux,DEPENDS,)
 	@$(call install_fixup, util-linux,DESCRIPTION,missing)
 
-ifdef PTXCONF_UTLNX_MKSWAP
+ifdef PTXCONF_UTIL-LINUX_MKSWAP
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/disk-utils/mkswap, /sbin/mkswap)
 endif
-ifdef PTXCONF_UTLNX_SWAPON
+ifdef PTXCONF_UTIL-LINUX_SWAPON
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/swapon, /sbin/swapon)
 endif
-ifdef PTXCONF_UTLNX_MOUNT
+ifdef PTXCONF_UTIL-LINUX_MOUNT
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/mount, /sbin/mount)
 endif
-ifdef PTXCONF_UTLNX_UMOUNT
+ifdef PTXCONF_UTIL-LINUX_UMOUNT
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/mount/umount, /sbin/umount)
 endif
-ifdef PTXCONF_UTLNX_IPCS
+ifdef PTXCONF_UTIL-LINUX_IPCS
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/sys-utils/ipcs, /usr/bin/ipcs)
 endif
-ifdef PTXCONF_UTLNX_READPROFILE
+ifdef PTXCONF_UTIL-LINUX_READPROFILE
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/sys-utils/readprofile, /usr/sbin/readprofile)
 endif
-ifdef PTXCONF_UTLNX_FDISK
+ifdef PTXCONF_UTIL-LINUX_FDISK
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/fdisk, /usr/sbin/fdisk)
 endif
-ifdef PTXCONF_UTLNX_SFDISK
+ifdef PTXCONF_UTIL-LINUX_SFDISK
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/sfdisk, /usr/sbin/sfdisk)
 endif
-ifdef PTXCONF_UTLNX_CFDISK
+ifdef PTXCONF_UTIL-LINUX_CFDISK
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL-LINUX_DIR)/fdisk/cfdisk, /usr/sbin/cfdisk)
 endif
 	@$(call install_finish, util-linux)
