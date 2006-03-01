@@ -1,6 +1,10 @@
 config XORG_LIB_XCURSOR
 	bool
 	depends on XORG_LIB
+	select XORG_LIB_XRENDER
+	select XORG_LIB_XFIXES
+	select XORG_LIB_X11
+	select XORG_PROTO_FIXES
 	prompt "libXcursor"
 	help
 	  FIXME

@@ -1,6 +1,10 @@
 config XORG_LIB_XCOMPOSITE
 	bool
+	depends on BROKEN
 	depends on XORG_LIB
 	prompt "libXcomposite"
 	help
 	  FIXME
+
+comment "xcomposite is broken, please send a patch"
+	depends on !BROKEN
