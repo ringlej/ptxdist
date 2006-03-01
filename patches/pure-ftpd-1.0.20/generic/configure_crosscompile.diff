@@ -1,19 +1,8 @@
-#
-# Submitted:
-#
-# Sascha Hauer <s.hauer@pengutronix.de>, 2005-08-31
-#
-# This patch sets some defaults for cross compiling and
-# removes the -fssa switch from CFLAGS, because man gcc says
-# that this option is not ready for production use and it
-# produces internal compiler errrors here
-#
-# unknown
-# 
-diff -urN pure-ftpd-1.0.20-orig/configure pure-ftpd-1.0.20/configure
---- pure-ftpd-1.0.20-orig/configure	2004-06-20 19:41:54.000000000 +0200
-+++ pure-ftpd-1.0.20/configure	2005-08-31 13:31:19.713234224 +0200
-@@ -18909,11 +18736,7 @@
+Index: pure-ftpd-1.0.20/configure
+===================================================================
+--- pure-ftpd-1.0.20.orig/configure
++++ pure-ftpd-1.0.20/configure
+@@ -18909,11 +18909,7 @@ rm -f conftest.err conftest.$ac_objext c
  echo "$as_me:$LINENO: checking whether snprintf is C99 conformant" >&5
  echo $ECHO_N "checking whether snprintf is C99 conformant... $ECHO_C" >&6
  if test "$cross_compiling" = yes; then
@@ -26,7 +15,7 @@ diff -urN pure-ftpd-1.0.20-orig/configure pure-ftpd-1.0.20/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -18983,11 +18806,10 @@
+@@ -18983,11 +18979,10 @@ fi
  echo "$as_me:$LINENO: checking whether getgroups 0 is sane" >&5
  echo $ECHO_N "checking whether getgroups 0 is sane... $ECHO_C" >&6
  if test "$cross_compiling" = yes; then
@@ -42,7 +31,7 @@ diff -urN pure-ftpd-1.0.20-orig/configure pure-ftpd-1.0.20/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -19051,11 +18873,13 @@
+@@ -19051,11 +19046,13 @@ fi
  echo "$as_me:$LINENO: checking whether realpath likes unreadable directories" >&5
  echo $ECHO_N "checking whether realpath likes unreadable directories... $ECHO_C" >&6
  if test "$cross_compiling" = yes; then
@@ -61,7 +50,7 @@ diff -urN pure-ftpd-1.0.20-orig/configure pure-ftpd-1.0.20/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -19157,11 +18981,9 @@
+@@ -19157,11 +19154,9 @@ fi
  echo "$as_me:$LINENO: checking whether you already have a standard MD5 implementation" >&5
  echo $ECHO_N "checking whether you already have a standard MD5 implementation... $ECHO_C" >&6
  if test "$cross_compiling" = yes; then
@@ -76,7 +65,7 @@ diff -urN pure-ftpd-1.0.20-orig/configure pure-ftpd-1.0.20/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -19226,11 +19048,9 @@
+@@ -19226,11 +19221,9 @@ fi
  echo "$as_me:$LINENO: checking whether you already have a standard SHA1 implementation" >&5
  echo $ECHO_N "checking whether you already have a standard SHA1 implementation... $ECHO_C" >&6
  if test "$cross_compiling" = yes; then
@@ -91,66 +80,3 @@ diff -urN pure-ftpd-1.0.20-orig/configure pure-ftpd-1.0.20/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-diff -urN pure-ftpd-1.0.20-orig/configure.ac pure-ftpd-1.0.20/configure.ac
---- pure-ftpd-1.0.20-orig/configure.ac	2004-06-20 19:41:27.000000000 +0200
-+++ pure-ftpd-1.0.20/configure.ac	2005-08-31 13:31:12.176380000 +0200
-@@ -349,7 +349,7 @@
-     AC_DEFINE(WITHOUT_ASCII)    
-     AC_DEFINE(NO_BANNER)
-     AC_DEFINE(BORING_MODE)
--    CFLAGS="$CFLAGS -Os -ftracer -fomit-frame-pointer -fssa -fgcse -falign-functions=2 -falign-jumps=2 -fno-unroll-loops "
-+    CFLAGS="$CFLAGS -Os -ftracer -fomit-frame-pointer -fgcse -falign-functions=2 -falign-jumps=2 -fno-unroll-loops "
-     LDFLAGS="$LDFLAGS -s "
-   fi ])
- 
-@@ -884,7 +884,7 @@
-     return 0;
- }
- ]])],[CONF_SNPRINTF_TYPE=`cat conftestval`
--],[],[])
-+],[],[CONF_SNPRINTF_TYPE=8])
- AC_MSG_RESULT(done)
- if test "x$CONF_SNPRINTF_TYPE" = "x" ; then
-   AC_MSG_WARN(your operating system doesn't implement snprintf)
-@@ -916,7 +916,9 @@
- AC_MSG_RESULT(yes)
- AC_DEFINE(SAFE_GETGROUPS_0,,[Define is getgroups(0, NULL) works on your system])
- ],[AC_MSG_RESULT(no)
--],[])
-+],[
-+AC_MSG_RESULT(no)
-+])
- 
- AC_MSG_CHECKING(whether realpath likes unreadable directories)
- AC_RUN_IFELSE([AC_LANG_SOURCE([[
-@@ -977,7 +979,9 @@
- [Define if realpath() works on unreadable directories])
- ],[AC_MSG_RESULT(no)
- AC_DEFINE(USE_BUILTIN_REALPATH)
--],[])
-+],[AC_MSG_RESULT(no)
-+AC_DEFINE(USE_BUILTIN_REALPATH)
-+])
- 
- AC_MSG_CHECKING(whether you already have a standard MD5 implementation)
- AC_RUN_IFELSE([AC_LANG_SOURCE([[
-@@ -1004,7 +1008,8 @@
- AC_DEFINE(USE_SYSTEM_CRYPT_MD5,,[Define if you already have standard
- MD5 functions])
- ],[AC_MSG_RESULT(no)
--],[])
-+],[AC_MSG_RESULT(no)
-+])
- 
- AC_MSG_CHECKING(whether you already have a standard SHA1 implementation)
- AC_RUN_IFELSE([AC_LANG_SOURCE([[
-@@ -1030,7 +1035,8 @@
- AC_DEFINE(USE_SYSTEM_CRYPT_SHA1,,[Define if you already have standard
- SHA1 functions])
- ],[AC_MSG_RESULT(no)
--],[])
-+],[AC_MSG_RESULT(no)
-+])
- 
- AC_MSG_CHECKING([whether we are inside a Virtuozzo virtual host])
- if test -d /proc/vz; then
