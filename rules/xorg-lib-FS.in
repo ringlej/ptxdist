@@ -5,3 +5,6 @@ config XORG_LIB_FS
 	prompt "libFS"
 	help
 	  FIXME
+
+comment "libfs is broken, please send a patch"
+	depends on !BROKEN
