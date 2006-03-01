@@ -1,6 +1,14 @@
 config XORG_LIB_WINDOWSWM
 	bool
+	depends on BROKEN
 	depends on XORG_LIB
+	depends on XORG_LIB_X11
+	depends on XORG_LIB_XEXT
+	depends on XORG_PROTO_XEXT
+	depends on XORG_PROTO_WINDOWSWM
 	prompt "libWindowsWM"
 	help
 	  FIXME
+
+comment "windowswm is broken, please send a patch"
+	depends on !BROKEN
