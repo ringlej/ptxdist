@@ -82,7 +82,7 @@ SDL_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--enable-alsa \
 	--disable-alsatest \
 	--enable-alsa-shared \
-	--enable-esd \
+	--disable-esd \
 	--disable-esdtest \
 	--enable-esd-shared \
 	--enable-arts \
