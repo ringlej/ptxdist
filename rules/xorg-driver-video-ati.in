@@ -1,6 +1,7 @@
 menuconfig XORG_DRIVER_VIDEO_ATI
 	bool
 	depends on XORG_DRIVER_VIDEO
+	depends on BROKEN
 	prompt "Ati"
 	help
 	  FIXME
@@ -16,3 +17,5 @@ config XORG_DRIVER_VIDEO_ATI_DRI
         help
           --enable-dri
 
+comment "driver-video-ati is broken, please send a patch"
+	depends on !BROKEN
