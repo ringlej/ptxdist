@@ -72,18 +72,25 @@ QTE_ENV		+= QTDIR=/opt
 #
 # autoconf
 #
-QTE_AUTOCONF	=  -prefix $(CROSS_LIB_DIR)
-
-QTE_AUTOCONF	+= -no-gif
-QTE_AUTOCONF	+= -qt-libpng
+QTE_AUTOCONF := -prefix $(CROSS_LIB_DIR) \
+	-release \
+	-no-g++-exceptions \
+	-depths 8,16 \
+	-no-qvfb \
+	-xplatform linux-ptxdist \
+	-embedded $(PTXCONF_ARCH) \
+	-disable-opengl \
+	-disable-sql \
+	-disable-workspace \
+	-no-gif \
+	-qt-libpng \
+	-no-cups
 
 ifdef PTXCONF_QTE_THREAD
 QTE_AUTOCONF	+= -thread 
 else
 QTE_AUTOCONF	+= -no-thread
 endif
-
-QTE_AUTOCONF	+= -no-cups
 
 ifdef PTXCONF_QTE_STL
 QTE_AUTOCONF	+= -stl
@@ -95,15 +102,6 @@ ifdef PTXCONF_QTE_QVFB
 QTE_AUTOCONF	+= -qvfb
 endif
 
-QTE_AUTOCONF	+= -release
-QTE_AUTOCONF	+= -no-g++-exceptions 
-QTE_AUTOCONF	+= -depths 8,16
-QTE_AUTOCONF	+= -no-qvfb 
-QTE_AUTOCONF	+= -xplatform linux-ptxdist
-QTE_AUTOCONF	+= -embedded $(PTXCONF_ARCH)
-QTE_AUTOCONF	+= -disable-opengl
-QTE_AUTOCONF	+= -disable-sql
-QTE_AUTOCONF	+= -disable-workspace
 ifdef PTXCONF_QTE_TSLIB
 QTE_AUTOCONF	+= -qt-mouse-tslib
 endif
