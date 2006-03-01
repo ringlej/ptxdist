@@ -19,9 +19,8 @@ PACKAGES-$(PTXCONF_PROFTPD) += proftpd
 #
 PROFTPD_VERSION		:= 1.3.0rc1
 PROFTPD			:= proftpd-$(PROFTPD_VERSION)
-PROFTPD_TARBALL		:= proftpd-$(PROFTPD_VERSION).$(PROFTPD_SUFFIX)
 PROFTPD_SUFFIX		:= tar.gz
-PROFTPD_URL		:= ftp://ftp.proftpd.org/distrib/source/$(PROFTPD_TARBALL)
+PROFTPD_URL		:= ftp://ftp.proftpd.org/distrib/source/proftpd-$(PROFTPD_VERSION).$(PROFTPD_SUFFIX)
 PROFTPD_SOURCE		:= $(SRCDIR)/$(PROFTPD_TARBALL)
 PROFTPD_DIR		:= $(BUILDDIR)/$(PROFTPD)
 
