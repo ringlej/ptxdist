@@ -66,8 +66,8 @@ BIND_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BIND_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-BIND_AUTOCONF += --with-randomdev=/dev/random
+BIND_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
+	--with-randomdev=/dev/random
 
 ifdef PTXCONF_BIND_THREADS
 BIND_AUTOCONF += --enable-threads
