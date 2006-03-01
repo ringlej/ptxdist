@@ -1,6 +1,6 @@
 menuconfig SDL
 	bool
-	prompt "SDL Support"
+	prompt "SDL                   "
 	help
 	  FIXME
 
