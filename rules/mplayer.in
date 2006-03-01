@@ -1,5 +1,6 @@
 config MPLAYER
 	bool
+	depends on BROKEN
 	prompt "Compile mplayer"
 	help
 	  The Ultimate Movie Player For Linux
@@ -13,3 +14,5 @@ config MPLAYER
 	  and some lowlevel card-specific drivers 
 	  (for Matrox/3dfx/SiS) too.
 
+comment "MPLAYER is broken, please send a patch"
+	depends on !BROKEN
