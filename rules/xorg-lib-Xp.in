@@ -8,3 +8,4 @@ config XORG_LIB_XP
 
 comment "libxp is broken, please send a patch"
 	depends on !BROKEN
+	depends on XORG_LIB

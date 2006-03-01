@@ -8,3 +8,4 @@ config XORG_LIB_XINERAMA
 
 comment "xinerama is broken, please send a patch"
 	depends on !BROKEN
+	depends on XORG_LIB
