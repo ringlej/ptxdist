@@ -1,5 +1,6 @@
 menuconfig SDL
 	bool
+	depends on BROKEN
 	prompt "SDL                   "
 	help
 	  FIXME
@@ -12,3 +13,6 @@ config SDL_LIB
 	  FIXME
 
 source "rules/sdl_image.in"
+
+comment "sdl is broken, please send a patch"
+	depends on !BROKEN
