@@ -59,8 +59,8 @@ $(STATEDIR)/klibc.extract: $(klibc_extract_deps_default)
 
 klibc_prepare: $(STATEDIR)/klibc.prepare
 
-KLIBC_PATH	:=  PATH=$(CROSS_PATH)
-KLIBC_ENV 	:=  $(CROSS_ENV)
+KLIBC_PATH	:= PATH=$(CROSS_PATH)
+KLIBC_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -173,7 +173,7 @@ ifdef PTXCONF_KLIBC_USER_SPEC
 	cat $(PTXDIST_WORKSPACE)/initramfs_spec | while read type target source rest; do	\
 		if [ "$$type" == "file" ]; then						\
 			if [ "$$(echo "$$source" | grep "^/")" == "" ]; then		\
-				source=$(PTXDIST_WORKSPACE)/$$source;				\
+				source=$(PTXDIST_WORKSPACE)/$$source;			\
 			fi;								\
 		fi;									\
 		echo "$$type $$target $$source $$rest" >> $(KLIBC_DIR)/initramfs_spec;	\
