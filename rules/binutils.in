@@ -1,8 +1,9 @@
 # binutils configuration
 
-config LIBBFD
+config BINUTILS
 	bool
-	prompt "libbfd (needed for profiling)"
+	prompt "binutils"
 	help
-	  The GNU binary utilities / GNU BFD library
+	  this is only here to provide libbfd. some packages
+	  like oprofile need this library
 
