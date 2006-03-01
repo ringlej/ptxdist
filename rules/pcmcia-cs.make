@@ -62,15 +62,16 @@ pcmcia-cs_prepare: $(STATEDIR)/pcmcia-cs.prepare
 PCMCIA-CS_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
 PCMCIA-CS_ENV 	=  $(CROSS_ENV)
 
-PCMCIA-CS_CONF	=  --noprompt
-PCMCIA-CS_CONF	+= --kernel=$(KERNEL_DIR)
-PCMCIA-CS_CONF	+= --target=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+PCMCIA-CS_CONF	=  --noprompt \
+	--kernel=$(KERNEL_DIR) \
+	--target=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
+	--moddir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/modules/$(KERNEL_VERSION) \
+	--arch=$(PTXCONF_ARCH) \
+	--ucc=$(COMPILER_PREFIX)gcc \
+	--kcc=$(COMPILER_PREFIX)gcc \
+	--ld=$(COMPILER_PREFIX)ld
+
 #PCMCIA-CS_CONF	+= --moddir=$(ROOTDIR)/lib/modules/$(KERNEL_VERSION)
-PCMCIA-CS_CONF	+= --moddir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/modules/$(KERNEL_VERSION)
-PCMCIA-CS_CONF	+= --arch=$(PTXCONF_ARCH)
-PCMCIA-CS_CONF	+= --ucc=$(COMPILER_PREFIX)gcc
-PCMCIA-CS_CONF	+= --kcc=$(COMPILER_PREFIX)gcc
-PCMCIA-CS_CONF	+= --ld=$(COMPILER_PREFIX)ld
 
 # FIXME: We could make the following optional as well in rules/pcmcia-cs.in
 PCMCIA-CS_CONF	+= --trust --nocardbus --nopnp --noapm --srctree --bsd
