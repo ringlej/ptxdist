@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_XVKBD) += xvkbd
 #
 # Paths and names
 #
-XVKBD_VERSION		:= 2.5a
-XVKBD			:= xvkbd-$(XVKBD_VERSION)
-XVKBD_SUFFIX		:= tar.gz
-XVKBD_URL		:= http://member.nifty.ne.jp/tsato/xvkbd/$(XVKBD).$(XVKBD_SUFFIX)
-XVKBD_SOURCE		:= $(SRCDIR)/$(XVKBD).$(XVKBD_SUFFIX)
-XVKBD_DIR		:= $(BUILDDIR)/$(XVKBD)
+XVKBD_VERSION		= 2.5a
+XVKBD			= xvkbd-$(XVKBD_VERSION)
+XVKBD_SUFFIX		= tar.gz
+XVKBD_URL		= http://member.nifty.ne.jp/tsato/xvkbd/$(XVKBD).$(XVKBD_SUFFIX)
+XVKBD_SOURCE		= $(SRCDIR)/$(XVKBD).$(XVKBD_SUFFIX)
+XVKBD_DIR		= $(BUILDDIR)/$(XVKBD)
 
 #include $(call package_depfile)
 

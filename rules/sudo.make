@@ -19,12 +19,12 @@ PACKAGES-$(PTXCONF_SUDO) += sudo
 #
 # Paths and names
 #
-SUDO_VERSION	:= 1.6.8
-SUDO		:= sudo-$(SUDO_VERSION)
-SUDO_SUFFIX	:= tar.gz
-SUDO_URL	:= http://www.courtesan.com/sudo/dist/$(SUDO).$(SUDO_SUFFIX)
-SUDO_SOURCE	:= $(SRCDIR)/$(SUDO).$(SUDO_SUFFIX)
-SUDO_DIR	:= $(BUILDDIR)/$(SUDO)
+SUDO_VERSION	= 1.6.8
+SUDO		= sudo-$(SUDO_VERSION)
+SUDO_SUFFIX	= tar.gz
+SUDO_URL	= http://www.courtesan.com/sudo/dist/$(SUDO).$(SUDO_SUFFIX)
+SUDO_SOURCE	= $(SRCDIR)/$(SUDO).$(SUDO_SUFFIX)
+SUDO_DIR	= $(BUILDDIR)/$(SUDO)
 
 -include $(call package_depfile)
 

@@ -18,11 +18,11 @@ PACKAGES-$(PTXCONF_OPENSSL) += openssl
 #
 # Paths and names 
 #
-OPENSSL_VERSION		:= 0.9.7g
-OPENSSL			:= openssl-$(OPENSSL_VERSION)
-OPENSSL_URL 		:= http://www.openssl.org/source/$(OPENSSL).tar.gz
-OPENSSL_SOURCE		:= $(SRCDIR)/$(OPENSSL).tar.gz
-OPENSSL_DIR 		:= $(BUILDDIR)/$(OPENSSL)
+OPENSSL_VERSION		= 0.9.7g
+OPENSSL			= openssl-$(OPENSSL_VERSION)
+OPENSSL_URL 		= http://www.openssl.org/source/$(OPENSSL).tar.gz
+OPENSSL_SOURCE		= $(SRCDIR)/$(OPENSSL).tar.gz
+OPENSSL_DIR 		= $(BUILDDIR)/$(OPENSSL)
 
 ifdef PTXCONF_ARM_ARCH_LE
 	THUD = linux-arm

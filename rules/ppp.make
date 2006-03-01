@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_PPP) += ppp
 #
 # Paths and names 
 #
-PPP_VERSION	:= 2.4.1
-PPP		:= ppp-$(PPP_VERSION)
-PPP_URL		:= ftp://ftp.samba.org/pub/ppp/$(PPP).tar.gz
-PPP_SOURCE	:= $(SRCDIR)/$(PPP).tar.gz
-PPP_DIR		:= $(BUILDDIR)/$(PPP)
+PPP_VERSION	= 2.4.1
+PPP		= ppp-$(PPP_VERSION)
+PPP_URL		= ftp://ftp.samba.org/pub/ppp/$(PPP).tar.gz
+PPP_SOURCE	= $(SRCDIR)/$(PPP).tar.gz
+PPP_DIR		= $(BUILDDIR)/$(PPP)
 
 -include $(call package_depfile)
 

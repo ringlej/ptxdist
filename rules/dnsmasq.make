@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_DNSMASQ) += dnsmasq
 #
 # Paths and names
 #
-DNSMASQ_VERSION		:= 2.24
-DNSMASQ			:= dnsmasq-$(DNSMASQ_VERSION)
-DNSMASQ_SUFFIX		:= tar.gz
-DNSMASQ_URL		:= http://www.thekelleys.org.uk/dnsmasq/$(DNSMASQ).$(DNSMASQ_SUFFIX)
-DNSMASQ_SOURCE		:= $(SRCDIR)/$(DNSMASQ).$(DNSMASQ_SUFFIX)
-DNSMASQ_DIR		:= $(BUILDDIR)/$(DNSMASQ)
+DNSMASQ_VERSION		= 2.24
+DNSMASQ			= dnsmasq-$(DNSMASQ_VERSION)
+DNSMASQ_SUFFIX		= tar.gz
+DNSMASQ_URL		= http://www.thekelleys.org.uk/dnsmasq/$(DNSMASQ).$(DNSMASQ_SUFFIX)
+DNSMASQ_SOURCE		= $(SRCDIR)/$(DNSMASQ).$(DNSMASQ_SUFFIX)
+DNSMASQ_DIR		= $(BUILDDIR)/$(DNSMASQ)
 
 -include $(call package_depfile)
 

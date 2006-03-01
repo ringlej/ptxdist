@@ -18,12 +18,12 @@ PACKAGES-$(PTXCONF_LIBRN) += librn
 #
 # Paths and names
 #
-LIBRN_VERSION	:= 0.5.1
-LIBRN		:= librn-$(LIBRN_VERSION)
-LIBRN_SUFFIX	:= tar.bz2
-LIBRN_URL	:= http://www.pengutronix.de/software/librn/download/$(LIBRN).$(LIBRN_SUFFIX)
-LIBRN_SOURCE	:= $(SRCDIR)/$(LIBRN).$(LIBRN_SUFFIX)
-LIBRN_DIR	:= $(BUILDDIR)/$(LIBRN)
+LIBRN_VERSION	= 0.5.1
+LIBRN		= librn-$(LIBRN_VERSION)
+LIBRN_SUFFIX	= tar.bz2
+LIBRN_URL	= http://www.pengutronix.de/software/librn/download/$(LIBRN).$(LIBRN_SUFFIX)
+LIBRN_SOURCE	= $(SRCDIR)/$(LIBRN).$(LIBRN_SUFFIX)
+LIBRN_DIR	= $(BUILDDIR)/$(LIBRN)
 
 -include $(call package_depfile)
 

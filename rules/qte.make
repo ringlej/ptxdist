@@ -19,16 +19,16 @@ PACKAGES-$(PTXCONF_QTE) += qte
 #
 # Paths and names
 #
-QTE_MAJOR	:= 3
-QTE_MINOR	:= 3
-QTE_MICRO	:= 4
-QTE_VERSION	:= $(QTE_MAJOR).$(QTE_MINOR).$(QTE_MICRO)
-QTE		:= qt-embedded-free-$(QTE_VERSION)
-QTE_SUFFIX	:= tar.gz
-QTE_URL		:= ftp://ftp.trolltech.com/qt/source/$(QTE).$(QTE_SUFFIX)
-QTE_SOURCE	:= $(SRCDIR)/$(QTE).$(QTE_SUFFIX)
-QTE_DIR		:= $(BUILDDIR)/$(QTE)
-QTDIR		:= $(BUILDDIR)/$(QTE)
+QTE_MAJOR	= 3
+QTE_MINOR	= 3
+QTE_MICRO	= 4
+QTE_VERSION	= $(QTE_MAJOR).$(QTE_MINOR).$(QTE_MICRO)
+QTE		= qt-embedded-free-$(QTE_VERSION)
+QTE_SUFFIX	= tar.gz
+QTE_URL		= ftp://ftp.trolltech.com/qt/source/$(QTE).$(QTE_SUFFIX)
+QTE_SOURCE	= $(SRCDIR)/$(QTE).$(QTE_SUFFIX)
+QTE_DIR		= $(BUILDDIR)/$(QTE)
+QTDIR		= $(BUILDDIR)/$(QTE)
 
 -include $(call package_depfile)
 

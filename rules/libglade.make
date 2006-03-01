@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBGLADE) += libglade
 #
 # Paths and names
 #
-LIBGLADE_VERSION	:= 2.3.2
-LIBGLADE		:= libglade-$(LIBGLADE_VERSION)
-LIBGLADE_SUFFIX		:= tar.bz2
-LIBGLADE_URL		:= ftp://ftp.gnome.org/pub/GNOME/sources/libglade/2.3/$(LIBGLADE).$(LIBGLADE_SUFFIX)
-LIBGLADE_SOURCE		:= $(SRCDIR)/$(LIBGLADE).$(LIBGLADE_SUFFIX)
-LIBGLADE_DIR		:= $(BUILDDIR)/$(LIBGLADE)
+LIBGLADE_VERSION	= 2.3.2
+LIBGLADE		= libglade-$(LIBGLADE_VERSION)
+LIBGLADE_SUFFIX		= tar.bz2
+LIBGLADE_URL		= ftp://ftp.gnome.org/pub/GNOME/sources/libglade/2.3/$(LIBGLADE).$(LIBGLADE_SUFFIX)
+LIBGLADE_SOURCE		= $(SRCDIR)/$(LIBGLADE).$(LIBGLADE_SUFFIX)
+LIBGLADE_DIR		= $(BUILDDIR)/$(LIBGLADE)
 
 -include $(call package_depfile)
 

@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_PNET) += pnet
 #
 # Paths and names
 #
-PNET_VERSION	:= 0.7.2
-PNET		:= pnet-$(PNET_VERSION)
-PNET_SUFFIX	:= tar.gz
-PNET_URL	:= http://www.southern-storm.com.au/download/$(PNET).$(PNET_SUFFIX)
-PNET_SOURCE	:= $(SRCDIR)/$(PNET).$(PNET_SUFFIX)
-PNET_DIR	:= $(BUILDDIR)/$(PNET)
+PNET_VERSION	= 0.7.2
+PNET		= pnet-$(PNET_VERSION)
+PNET_SUFFIX	= tar.gz
+PNET_URL	= http://www.southern-storm.com.au/download/$(PNET).$(PNET_SUFFIX)
+PNET_SOURCE	= $(SRCDIR)/$(PNET).$(PNET_SUFFIX)
+PNET_DIR	= $(BUILDDIR)/$(PNET)
 
 -include $(call package_depfile)
 

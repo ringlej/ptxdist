@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_MPLAYER) += mplayer
 #
 # Paths and names
 #
-MPLAYER_VERSION	:= 1.0pre7try2
-MPLAYER		:= MPlayer-$(MPLAYER_VERSION)
-MPLAYER_SUFFIX	:= tar.bz2
-MPLAYER_URL	:= http://ftp5.mplayerhq.hu/mplayer/releases/$(MPLAYER).$(MPLAYER_SUFFIX)
-MPLAYER_SOURCE	:= $(SRCDIR)/$(MPLAYER).$(MPLAYER_SUFFIX)
-MPLAYER_DIR	:= $(BUILDDIR)/$(MPLAYER)
+MPLAYER_VERSION	= 1.0pre7try2
+MPLAYER		= MPlayer-$(MPLAYER_VERSION)
+MPLAYER_SUFFIX	= tar.bz2
+MPLAYER_URL	= http://ftp5.mplayerhq.hu/mplayer/releases/$(MPLAYER).$(MPLAYER_SUFFIX)
+MPLAYER_SOURCE	= $(SRCDIR)/$(MPLAYER).$(MPLAYER_SUFFIX)
+MPLAYER_DIR	= $(BUILDDIR)/$(MPLAYER)
 
 -include $(call package_depfile)
 

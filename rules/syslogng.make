@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_SYSLOGNG) += syslogng
 #
 # Paths and names
 #
-SYSLOGNG_VERSION	:= 1.6.9
-SYSLOGNG		:= syslog-ng-$(SYSLOGNG_VERSION)
-SYSLOGNG_SUFFIX		:= tar.gz
-SYSLOGNG_URL		:= http://www.balabit.com/downloads/syslog-ng/1.6/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
-SYSLOGNG_SOURCE		:= $(SRCDIR)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
-SYSLOGNG_DIR		:= $(BUILDDIR)/$(SYSLOGNG)
+SYSLOGNG_VERSION	= 1.6.9
+SYSLOGNG		= syslog-ng-$(SYSLOGNG_VERSION)
+SYSLOGNG_SUFFIX		= tar.gz
+SYSLOGNG_URL		= http://www.balabit.com/downloads/syslog-ng/1.6/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
+SYSLOGNG_SOURCE		= $(SRCDIR)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
+SYSLOGNG_DIR		= $(BUILDDIR)/$(SYSLOGNG)
 
 -include $(call package_depfile)
 

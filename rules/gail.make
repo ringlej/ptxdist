@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_GAIL) += gail
 #
 # Paths and names
 #
-GAIL_VERSION	:= 1.5.5
-GAIL		:= gail-$(GAIL_VERSION)
-GAIL_SUFFIX	:= tar.bz2
-GAIL_URL	:= ftp://ftp.gnome.org/pub/GNOME/sources/gail/1.5/$(GAIL).$(GAIL_SUFFIX)
-GAIL_SOURCE	:= $(SRCDIR)/$(GAIL).$(GAIL_SUFFIX)
-GAIL_DIR	:= $(BUILDDIR)/$(GAIL)
+GAIL_VERSION	= 1.5.5
+GAIL		= gail-$(GAIL_VERSION)
+GAIL_SUFFIX	= tar.bz2
+GAIL_URL	= ftp://ftp.gnome.org/pub/GNOME/sources/gail/1.5/$(GAIL).$(GAIL_SUFFIX)
+GAIL_SOURCE	= $(SRCDIR)/$(GAIL).$(GAIL_SUFFIX)
+GAIL_DIR	= $(BUILDDIR)/$(GAIL)
 
 -include $(call package_depfile)
 

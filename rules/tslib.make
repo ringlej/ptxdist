@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_TSLIB) += tslib
 #
 # Paths and names
 #
-TSLIB_VERSION	:= 0.0.2
-TSLIB		:= tslib-$(TSLIB_VERSION)
-TSLIB_SUFFIX	:= tar.bz2
-TSLIB_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(TSLIB).$(TSLIB_SUFFIX)
-TSLIB_SOURCE	:= $(SRCDIR)/$(TSLIB).$(TSLIB_SUFFIX)
-TSLIB_DIR	:= $(BUILDDIR)/$(TSLIB)
+TSLIB_VERSION	= 0.0.2
+TSLIB		= tslib-$(TSLIB_VERSION)
+TSLIB_SUFFIX		= tar.bz2
+TSLIB_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(TSLIB).$(TSLIB_SUFFIX)
+TSLIB_SOURCE		= $(SRCDIR)/$(TSLIB).$(TSLIB_SUFFIX)
+TSLIB_DIR		= $(BUILDDIR)/$(TSLIB)
 
 -include $(call package_depfile)
 

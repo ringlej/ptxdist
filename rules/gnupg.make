@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_GNUPG) += gnupg
 #
 # Paths and names
 #
-GNUPG_VERSION	:= 1.4.1
-GNUPG		:= gnupg-$(GNUPG_VERSION)
-GNUPG_SUFFIX	:= tar.bz2
-GNUPG_URL	:= ftp://ftp.gnupg.org/gcrypt/gnupg/$(GNUPG).$(GNUPG_SUFFIX)
-GNUPG_SOURCE	:= $(SRCDIR)/$(GNUPG).$(GNUPG_SUFFIX)
-GNUPG_DIR	:= $(BUILDDIR)/$(GNUPG)
+GNUPG_VERSION	= 1.4.1
+GNUPG		= gnupg-$(GNUPG_VERSION)
+GNUPG_SUFFIX	= tar.bz2
+GNUPG_URL	= ftp://ftp.gnupg.org/gcrypt/gnupg/$(GNUPG).$(GNUPG_SUFFIX)
+GNUPG_SOURCE	= $(SRCDIR)/$(GNUPG).$(GNUPG_SUFFIX)
+GNUPG_DIR	= $(BUILDDIR)/$(GNUPG)
 
 -include $(call package_depfile)
 

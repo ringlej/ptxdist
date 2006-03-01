@@ -18,12 +18,12 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION		:= 3.2.8
-SQLITE			:= sqlite-$(SQLITE_VERSION)
-SQLITE_SUFFIX		:= tar.gz
-SQLITE_URL		:= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
-SQLITE_SOURCE		:= $(SRCDIR)/$(SQLITE).$(SQLITE_SUFFIX)
-SQLITE_DIR		:= $(BUILDDIR)/$(SQLITE)
+SQLITE_VERSION		= 3.2.8
+SQLITE			= sqlite-$(SQLITE_VERSION)
+SQLITE_SUFFIX		= tar.gz
+SQLITE_URL		= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
+SQLITE_SOURCE		= $(SRCDIR)/$(SQLITE).$(SQLITE_SUFFIX)
+SQLITE_DIR		= $(BUILDDIR)/$(SQLITE)
 
 -include $(call package_depfile)
 

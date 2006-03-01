@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_CLOCK) += clock
 #
 # Paths and names
 #
-CLOCK_VERSION		:= 1.5.1
-CLOCK			:= clock-$(CLOCK_VERSION)
-CLOCK_SUFFIX		:= tar.gz
-CLOCK_URL		:= http://ftp.linux.org.uk/pub/linux/people/alex/$(CLOCK).$(CLOCK_SUFFIX)
-CLOCK_SOURCE		:= $(SRCDIR)/$(CLOCK).$(CLOCK_SUFFIX)
-CLOCK_DIR		:= $(BUILDDIR)/$(CLOCK)
+CLOCK_VERSION		= 1.5.1
+CLOCK			= clock-$(CLOCK_VERSION)
+CLOCK_SUFFIX		= tar.gz
+CLOCK_URL		= http://ftp.linux.org.uk/pub/linux/people/alex/$(CLOCK).$(CLOCK_SUFFIX)
+CLOCK_SOURCE		= $(SRCDIR)/$(CLOCK).$(CLOCK_SUFFIX)
+CLOCK_DIR		= $(BUILDDIR)/$(CLOCK)
 
 -include $(call package_depfile)
 

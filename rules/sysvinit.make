@@ -18,16 +18,16 @@ PACKAGES-$(PTXCONF_SYSVINIT) += sysvinit
 #
 # Paths and names
 #
-SYSVINIT_VERSION	:= 2.86
-SYSVINIT		:= sysvinit-$(SYSVINIT_VERSION)
-SYSVINIT_SUFFIX		:= tar.gz
-SYSVINIT_URL		:= ftp://ftp.cistron.nl/pub/people/miquels/sysvinit/$(SYSVINIT).$(SYSVINIT_SUFFIX)
-SYSVINIT_SOURCE		:= $(SRCDIR)/$(SYSVINIT).$(SYSVINIT_SUFFIX)
-SYSVINIT_DIR		:= $(BUILDDIR)/$(SYSVINIT)
+SYSVINIT_VERSION	= 2.86
+SYSVINIT		= sysvinit-$(SYSVINIT_VERSION)
+SYSVINIT_SUFFIX		= tar.gz
+SYSVINIT_URL		= ftp://ftp.cistron.nl/pub/people/miquels/sysvinit/$(SYSVINIT).$(SYSVINIT_SUFFIX)
+SYSVINIT_SOURCE		= $(SRCDIR)/$(SYSVINIT).$(SYSVINIT_SUFFIX)
+SYSVINIT_DIR		= $(BUILDDIR)/$(SYSVINIT)
 
-BSDINIT_URL		:= http://www.exis.cl/ptxdist/bsdinit-1.0.tar.gz
-BSDINIT_SOURCE		:= $(SRCDIR)/bsdinit-1.0.tar.gz
-BSDINIT_DIR		:= $(BUILDDIR)/bsdinit-1.0
+BSDINIT_URL		= http://www.exis.cl/ptxdist/bsdinit-1.0.tar.gz
+BSDINIT_SOURCE		= $(SRCDIR)/bsdinit-1.0.tar.gz
+BSDINIT_DIR		= $(BUILDDIR)/bsdinit-1.0
 
 -include $(call package_depfile)
 

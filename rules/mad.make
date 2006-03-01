@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_MAD) += mad
 #
 # Paths and names
 #
-MAD_VERSION	:= 0.14.2b
-MAD		:= mad-$(MAD_VERSION)
-MAD_SUFFIX	:= tar.gz
-MAD_URL		:= ftp://ftp.mars.org/pub/mpeg/archive/$(MAD).$(MAD_SUFFIX)
-MAD_SOURCE	:= $(SRCDIR)/$(MAD).$(MAD_SUFFIX)
-MAD_DIR		:= $(BUILDDIR)/$(MAD)
+MAD_VERSION	= 0.14.2b
+MAD		= mad-$(MAD_VERSION)
+MAD_SUFFIX	= tar.gz
+MAD_URL		= ftp://ftp.mars.org/pub/mpeg/archive/$(MAD).$(MAD_SUFFIX)
+MAD_SOURCE	= $(SRCDIR)/$(MAD).$(MAD_SUFFIX)
+MAD_DIR		= $(BUILDDIR)/$(MAD)
 
 -include $(call package_depfile)
 

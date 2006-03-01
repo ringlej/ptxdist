@@ -16,12 +16,12 @@ PACKAGES-$(PTXCONF_CGICC) += cgicc
 #
 # Paths and names
 #
-CGICC_VERSION		:= 3.2.3
-CGICC			:= cgicc-$(CGICC_VERSION)
-CGICC_SUFFIX		:= tar.gz
-CGICC_URL		:= http://www.cgicc.org/files/$(CGICC).$(CGICC_SUFFIX)
-CGICC_SOURCE		:= $(SRCDIR)/$(CGICC).$(CGICC_SUFFIX)
-CGICC_DIR		:= $(BUILDDIR)/$(CGICC)
+CGICC_VERSION		= 3.2.3
+CGICC			= cgicc-$(CGICC_VERSION)
+CGICC_SUFFIX		= tar.gz
+CGICC_URL		= http://www.cgicc.org/files/$(CGICC).$(CGICC_SUFFIX)
+CGICC_SOURCE		= $(SRCDIR)/$(CGICC).$(CGICC_SUFFIX)
+CGICC_DIR		= $(BUILDDIR)/$(CGICC)
 
 -include $(call package_depfile)
 

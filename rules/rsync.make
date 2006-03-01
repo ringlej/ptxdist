@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_RSYNC) += rsync
 #
 # Paths and names
 #
-RSYNC_VERSION	:= 2.6.6
-RSYNC		:= rsync-$(RSYNC_VERSION)
-RSYNC_SUFFIX	:= tar.gz
-RSYNC_URL	:= http://samba.anu.edu.au/ftp/rsync/$(RSYNC).$(RSYNC_SUFFIX)
-RSYNC_SOURCE	:= $(SRCDIR)/$(RSYNC).$(RSYNC_SUFFIX)
-RSYNC_DIR	:= $(BUILDDIR)/$(RSYNC)
+RSYNC_VERSION	= 2.6.6
+RSYNC		= rsync-$(RSYNC_VERSION)
+RSYNC_SUFFIX	= tar.gz
+RSYNC_URL	= http://samba.anu.edu.au/ftp/rsync/$(RSYNC).$(RSYNC_SUFFIX)
+RSYNC_SOURCE	= $(SRCDIR)/$(RSYNC).$(RSYNC_SUFFIX)
+RSYNC_DIR	= $(BUILDDIR)/$(RSYNC)
 
 -include $(call package_depfile)
 

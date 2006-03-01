@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBART) += libart
 #
 # Paths and names
 #
-LIBART_VERSION		:= 2.3.16
-LIBART			:= libart_lgpl-$(LIBART_VERSION)
-LIBART_SUFFIX		:= tar.bz2
-LIBART_URL		:= ftp://ftp.gnome.org/pub/gnome/sources/libart_lgpl/2.3/$(LIBART).$(LIBART_SUFFIX)
-LIBART_SOURCE		:= $(SRCDIR)/$(LIBART).$(LIBART_SUFFIX)
-LIBART_DIR		:= $(BUILDDIR)/$(LIBART)
+LIBART_VERSION		= 2.3.16
+LIBART			= libart_lgpl-$(LIBART_VERSION)
+LIBART_SUFFIX		= tar.bz2
+LIBART_URL		= ftp://ftp.gnome.org/pub/gnome/sources/libart_lgpl/2.3/$(LIBART).$(LIBART_SUFFIX)
+LIBART_SOURCE		= $(SRCDIR)/$(LIBART).$(LIBART_SUFFIX)
+LIBART_DIR		= $(BUILDDIR)/$(LIBART)
 
 -include $(call package_depfile)
 

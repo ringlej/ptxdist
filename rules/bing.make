@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_BING) += bing
 #
 # Paths and names
 #
-BING_VERSION		:= 1.0.5
-BING			:= bing-$(BING_VERSION)
-BING_SUFFIX		:= tar.gz
-BING_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(BING).$(BING_SUFFIX)
-BING_SOURCE		:= $(SRCDIR)/$(BING).$(BING_SUFFIX)
-BING_DIR		:= $(BUILDDIR)/$(BING)
+BING_VERSION		= 1.0.5
+BING			= bing-$(BING_VERSION)
+BING_SUFFIX		= tar.gz
+BING_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(BING).$(BING_SUFFIX)
+BING_SOURCE		= $(SRCDIR)/$(BING).$(BING_SUFFIX)
+BING_DIR		= $(BUILDDIR)/$(BING)
 
 -include $(call package_depfile)
 

@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_JED) += jed
 #
 # Paths and names
 #
-JED_VERSION	:= 0.99-16
-JED		:= jed-$(JED_VERSION)
-JED_SUFFIX	:= tar.bz2
-JED_URL		:= ftp://space.mit.edu/pub/davis/jed/v0.99/$(JED).$(JED_SUFFIX)
-JED_SOURCE	:= $(SRCDIR)/$(JED).$(JED_SUFFIX)
-JED_DIR		:= $(BUILDDIR)/$(JED)
+JED_VERSION	= 0.99-16
+JED		= jed-$(JED_VERSION)
+JED_SUFFIX	= tar.bz2
+JED_URL		= ftp://space.mit.edu/pub/davis/jed/v0.99/$(JED).$(JED_SUFFIX)
+JED_SOURCE	= $(SRCDIR)/$(JED).$(JED_SUFFIX)
+JED_DIR		= $(BUILDDIR)/$(JED)
 
 -include $(call package_depfile)
 

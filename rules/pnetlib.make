@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_PNETLIB) += pnetlib
 #
 # Paths and names
 #
-PNETLIB_VERSION	:= 0.7.2
-PNETLIB		:= pnetlib-$(PNETLIB_VERSION)
-PNETLIB_SUFFIX	:= tar.gz
-PNETLIB_URL	:= http://www.southern-storm.com.au/download/$(PNETLIB).$(PNETLIB_SUFFIX)
-PNETLIB_SOURCE	:= $(SRCDIR)/$(PNETLIB).$(PNETLIB_SUFFIX)
-PNETLIB_DIR	:= $(BUILDDIR)/$(PNETLIB)
+PNETLIB_VERSION	= 0.7.2
+PNETLIB		= pnetlib-$(PNETLIB_VERSION)
+PNETLIB_SUFFIX	= tar.gz
+PNETLIB_URL	= http://www.southern-storm.com.au/download/$(PNETLIB).$(PNETLIB_SUFFIX)
+PNETLIB_SOURCE	= $(SRCDIR)/$(PNETLIB).$(PNETLIB_SUFFIX)
+PNETLIB_DIR	= $(BUILDDIR)/$(PNETLIB)
 
 -include $(call package_depfile)
 

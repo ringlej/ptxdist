@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_UTELNETD) += utelnetd
 #
 # Paths and names 
 #
-UTELNETD_VERSION		:= 0.1.6
-UTELNETD			:= utelnetd-$(UTELNETD_VERSION)
-UTELNETD_URL			:= http://www.pengutronix.de/software/utelnetd/$(UTELNETD).tar.gz
-UTELNETD_SOURCE			:= $(SRCDIR)/$(UTELNETD).tar.gz
-UTELNETD_DIR			:= $(BUILDDIR)/$(UTELNETD)
+UTELNETD_VERSION		= 0.1.6
+UTELNETD			= utelnetd-$(UTELNETD_VERSION)
+UTELNETD_URL			= http://www.pengutronix.de/software/utelnetd/$(UTELNETD).tar.gz
+UTELNETD_SOURCE			= $(SRCDIR)/$(UTELNETD).tar.gz
+UTELNETD_DIR			= $(BUILDDIR)/$(UTELNETD)
 
 -include $(call package_depfile)
 

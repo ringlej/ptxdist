@@ -16,12 +16,12 @@ PACKAGES-$(PTXCONF_WIRELESS) += wireless
 #
 # Paths and names 
 #
-WIRELESS_VERSION	:= 27
-WIRELESS		:= wireless_tools.$(WIRELESS_VERSION)
-WIRELESS_SUFFIX		:= tar.gz
-WIRELESS_URL		:= http://pcmcia-cs.sourceforge.net/ftp/contrib/$(WIRELESS).$(WIRELESS_SUFFIX)
-WIRELESS_SOURCE		:= $(SRCDIR)/$(WIRELESS).$(WIRELESS_SUFFIX)
-WIRELESS_DIR 		:= $(BUILDDIR)/$(WIRELESS)
+WIRELESS_VERSION	= 27
+WIRELESS		= wireless_tools.$(WIRELESS_VERSION)
+WIRELESS_SUFFIX		= tar.gz
+WIRELESS_URL		= http://pcmcia-cs.sourceforge.net/ftp/contrib/$(WIRELESS).$(WIRELESS_SUFFIX)
+WIRELESS_SOURCE		= $(SRCDIR)/$(WIRELESS).$(WIRELESS_SUFFIX)
+WIRELESS_DIR 		= $(BUILDDIR)/$(WIRELESS)
 
 -include $(call package_depfile)
 

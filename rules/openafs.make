@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_OPENAFS) += openafs
 #
 # Paths and names
 #
-OPENAFS_VERSION		:= 1.2.11
-OPENAFS			:= openafs-$(OPENAFS_VERSION)
-OPENAFS_SUFFIX		:= -src.tar.gz
-OPENAFS_URL		:= http://www.openafs.org/dl/openafs/1.2.11/$(OPENAFS)$(OPENAFS_SUFFIX)
-OPENAFS_SOURCE		:= $(SRCDIR)/$(OPENAFS)$(OPENAFS_SUFFIX)
-OPENAFS_DIR		:= $(BUILDDIR)/$(OPENAFS)
+OPENAFS_VERSION		= 1.2.11
+OPENAFS			= openafs-$(OPENAFS_VERSION)
+OPENAFS_SUFFIX		= -src.tar.gz
+OPENAFS_URL		= http://www.openafs.org/dl/openafs/1.2.11/$(OPENAFS)$(OPENAFS_SUFFIX)
+OPENAFS_SOURCE		= $(SRCDIR)/$(OPENAFS)$(OPENAFS_SUFFIX)
+OPENAFS_DIR		= $(BUILDDIR)/$(OPENAFS)
 
 -include $(call package_depfile)
 

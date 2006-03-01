@@ -19,12 +19,12 @@ PACKAGES-$(PTXCONF_LRZSZ) += lrzsz
 #
 # Paths and names
 #
-LRZSZ_VERSION	:= 0.12.20
-LRZSZ		:= lrzsz-$(LRZSZ_VERSION)
-LRZSZ_SUFFIX	:= tar.gz
-LRZSZ_URL	:= http://www.ohse.de/uwe/releases/$(LRZSZ).$(LRZSZ_SUFFIX)
-LRZSZ_SOURCE	:= $(SRCDIR)/$(LRZSZ).$(LRZSZ_SUFFIX)
-LRZSZ_DIR	:= $(BUILDDIR)/$(LRZSZ)
+LRZSZ_VERSION	= 0.12.20
+LRZSZ		= lrzsz-$(LRZSZ_VERSION)
+LRZSZ_SUFFIX	= tar.gz
+LRZSZ_URL	= http://www.ohse.de/uwe/releases/$(LRZSZ).$(LRZSZ_SUFFIX)
+LRZSZ_SOURCE	= $(SRCDIR)/$(LRZSZ).$(LRZSZ_SUFFIX)
+LRZSZ_DIR	= $(BUILDDIR)/$(LRZSZ)
 
 -include $(call package_depfile)
 

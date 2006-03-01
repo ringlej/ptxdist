@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_FBTEST) += fbtest
 #
 # Paths and names
 #
-FBTEST_VERSION	:= 20041102-1
-FBTEST		:= fbtest-$(FBTEST_VERSION)
-FBTEST_SUFFIX	:= tar.gz
-FBTEST_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBTEST).$(FBTEST_SUFFIX)
-FBTEST_SOURCE	:= $(SRCDIR)/$(FBTEST).$(FBTEST_SUFFIX)
-FBTEST_DIR	:= $(BUILDDIR)/$(FBTEST)
+FBTEST_VERSION	= 20041102-1
+FBTEST		= fbtest-$(FBTEST_VERSION)
+FBTEST_SUFFIX	= tar.gz
+FBTEST_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBTEST).$(FBTEST_SUFFIX)
+FBTEST_SOURCE	= $(SRCDIR)/$(FBTEST).$(FBTEST_SUFFIX)
+FBTEST_DIR	= $(BUILDDIR)/$(FBTEST)
 
 -include $(call package_depfile)
 

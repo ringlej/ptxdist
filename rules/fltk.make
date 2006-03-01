@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_FLTK) += fltk
 #
 # Paths and names
 #
-FLTK_VERSION	:= 1.1.6
-FLTK		:= fltk-$(FLTK_VERSION)
-FLTK_SUFFIX	:= source.tar.gz
-FLTK_URL	:= ftp://ftp.easysw.com/pub/fltk/$(FLTK_VERSION)/$(FLTK)-$(FLTK_SUFFIX)
-FLTK_SOURCE	:= $(SRCDIR)/$(FLTK)-$(FLTK_SUFFIX)
-FLTK_DIR	:= $(BUILDDIR)/$(FLTK)
+FLTK_VERSION	= 1.1.6
+FLTK		= fltk-$(FLTK_VERSION)
+FLTK_SUFFIX	= source.tar.gz
+FLTK_URL	= ftp://ftp.easysw.com/pub/fltk/$(FLTK_VERSION)/$(FLTK)-$(FLTK_SUFFIX)
+FLTK_SOURCE	= $(SRCDIR)/$(FLTK)-$(FLTK_SUFFIX)
+FLTK_DIR	= $(BUILDDIR)/$(FLTK)
 
 -include $(call package_depfile)
 

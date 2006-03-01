@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_GAWK) += gawk
 #
 # Paths and names
 #
-GAWK_VERSION		:= 3.1.5
-GAWK			:= gawk-$(GAWK_VERSION)
-GAWK_SUFFIX		:= tar.gz
-GAWK_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/gawk/$(GAWK).$(GAWK_SUFFIX)
-GAWK_SOURCE		:= $(SRCDIR)/$(GAWK).$(GAWK_SUFFIX)
-GAWK_DIR		:= $(BUILDDIR)/$(GAWK)
+GAWK_VERSION		= 3.1.5
+GAWK			= gawk-$(GAWK_VERSION)
+GAWK_SUFFIX		= tar.gz
+GAWK_URL		= $(PTXCONF_SETUP_GNUMIRROR)/gawk/$(GAWK).$(GAWK_SUFFIX)
+GAWK_SOURCE		= $(SRCDIR)/$(GAWK).$(GAWK_SUFFIX)
+GAWK_DIR		= $(BUILDDIR)/$(GAWK)
 
 -include $(call package_depfile)
 

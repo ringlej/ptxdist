@@ -17,13 +17,13 @@ PACKAGES-$(PTXCONF_APACHE) += apache
 #
 # Paths and names
 #
-APACHE_VERSION		:= 1.3.34
-APACHE			:= apache_$(APACHE_VERSION)
-APACHE_SUFFIX		:= tar.gz
-APACHE_URL		:= http://mirror.styx.cz/apache/httpd/$(APACHE).$(APACHE_SUFFIX)
-APACHE_PATCH_URL	:= file://$(LOCALPATCHDIR)
-APACHE_SOURCE		:= $(SRCDIR)/$(APACHE).$(APACHE_SUFFIX)
-APACHE_DIR		:= $(BUILDDIR)/$(APACHE)
+APACHE_VERSION		= 1.3.34
+APACHE			= apache_$(APACHE_VERSION)
+APACHE_SUFFIX		= tar.gz
+APACHE_URL		= http://mirror.styx.cz/apache/httpd/$(APACHE).$(APACHE_SUFFIX)
+APACHE_PATCH_URL	= file://$(LOCALPATCHDIR)
+APACHE_SOURCE		= $(SRCDIR)/$(APACHE).$(APACHE_SUFFIX)
+APACHE_DIR		= $(BUILDDIR)/$(APACHE)
 
 -include $(call package_depfile)
 

@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	:= 1.3.4
-IPTABLES		:= iptables-$(IPTABLES_VERSION)
-IPTABLES_SUFFIX		:= tar.bz2
-IPTABLES_URL		:= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
-IPTABLES_SOURCE		:= $(SRCDIR)/$(IPTABLES).$(IPTABLES_SUFFIX)
-IPTABLES_DIR		:= $(BUILDDIR)/$(IPTABLES)
+IPTABLES_VERSION	= 1.3.4
+IPTABLES		= iptables-$(IPTABLES_VERSION)
+IPTABLES_SUFFIX		= tar.bz2
+IPTABLES_URL		= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
+IPTABLES_SOURCE		= $(SRCDIR)/$(IPTABLES).$(IPTABLES_SUFFIX)
+IPTABLES_DIR		= $(BUILDDIR)/$(IPTABLES)
 
 -include $(call package_depfile)
 

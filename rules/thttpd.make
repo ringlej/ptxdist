@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_THTTPD) += thttpd
 #
 # Paths and names
 #
-THTTPD_VERSION	:= 2.25b
-THTTPD		:= thttpd-$(THTTPD_VERSION)
-THTTPD_SUFFIX	:= tar.gz
-THTTPD_URL	:= http://www.acme.com/software/thttpd/$(THTTPD).$(THTTPD_SUFFIX)
-THTTPD_SOURCE	:= $(SRCDIR)/$(THTTPD).$(THTTPD_SUFFIX)
-THTTPD_DIR	:= $(BUILDDIR)/$(THTTPD)
+THTTPD_VERSION	= 2.25b
+THTTPD		= thttpd-$(THTTPD_VERSION)
+THTTPD_SUFFIX	= tar.gz
+THTTPD_URL	= http://www.acme.com/software/thttpd/$(THTTPD).$(THTTPD_SUFFIX)
+THTTPD_SOURCE	= $(SRCDIR)/$(THTTPD).$(THTTPD_SUFFIX)
+THTTPD_DIR	= $(BUILDDIR)/$(THTTPD)
 
 -include $(call package_depfile)
 

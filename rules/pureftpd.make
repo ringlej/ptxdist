@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_PUREFTPD) += pureftpd
 #
 # Paths and names
 #
-PUREFTPD_VERSION	:= 1.0.20
-PUREFTPD		:= pure-ftpd-$(PUREFTPD_VERSION)
-PUREFTPD_SUFFIX		:= tar.bz2
-PUREFTPD_URL		:= ftp://ftp.pureftpd.org/pub/pure-ftpd/releases/$(PUREFTPD).$(PUREFTPD_SUFFIX)
-PUREFTPD_SOURCE		:= $(SRCDIR)/$(PUREFTPD).$(PUREFTPD_SUFFIX)
-PUREFTPD_DIR		:= $(BUILDDIR)/$(PUREFTPD)
+PUREFTPD_VERSION	= 1.0.20
+PUREFTPD		= pure-ftpd-$(PUREFTPD_VERSION)
+PUREFTPD_SUFFIX		= tar.bz2
+PUREFTPD_URL		= ftp://ftp.pureftpd.org/pub/pure-ftpd/releases/$(PUREFTPD).$(PUREFTPD_SUFFIX)
+PUREFTPD_SOURCE		= $(SRCDIR)/$(PUREFTPD).$(PUREFTPD_SUFFIX)
+PUREFTPD_DIR		= $(BUILDDIR)/$(PUREFTPD)
 
 -include $(call package_depfile)
 

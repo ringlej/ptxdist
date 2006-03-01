@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_PROFTPD) += proftpd
 #
 # Paths and names 
 #
-PROFTPD_VERSION		:= 1.3.0rc1
-PROFTPD			:= proftpd-$(PROFTPD_VERSION)
-PROFTPD_SUFFIX		:= tar.gz
-PROFTPD_URL		:= ftp://ftp.proftpd.org/distrib/source/proftpd-$(PROFTPD_VERSION).$(PROFTPD_SUFFIX)
-PROFTPD_SOURCE		:= $(SRCDIR)/$(PROFTPD).$(PROFTPD_SUFFIX)
-PROFTPD_DIR		:= $(BUILDDIR)/$(PROFTPD)
+PROFTPD_VERSION		= 1.3.0rc1
+PROFTPD			= proftpd-$(PROFTPD_VERSION)
+PROFTPD_SUFFIX		= tar.gz
+PROFTPD_URL		= ftp://ftp.proftpd.org/distrib/source/proftpd-$(PROFTPD_VERSION).$(PROFTPD_SUFFIX)
+PROFTPD_SOURCE		= $(SRCDIR)/$(PROFTPD).$(PROFTPD_SUFFIX)
+PROFTPD_DIR		= $(BUILDDIR)/$(PROFTPD)
 
 -include $(call package_depfile)
 

@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_NFSUTILS) += nfsutils
 #
 # Paths and names 
 #
-NFSUTILS_VERSION	:= 1.0.6-ptx4
-NFSUTILS		:= nfs-utils-$(NFSUTILS_VERSION)
-NFSUTILS_URL		:= http://www.pengutronix.de/software/nfs-utils/$(NFSUTILS).tar.gz
-NFSUTILS_SOURCE		:= $(SRCDIR)/$(NFSUTILS).tar.gz
-NFSUTILS_DIR		:= $(BUILDDIR)/$(NFSUTILS)
+NFSUTILS_VERSION	= 1.0.6-ptx4
+NFSUTILS		= nfs-utils-$(NFSUTILS_VERSION)
+NFSUTILS_URL		= http://www.pengutronix.de/software/nfs-utils/$(NFSUTILS).tar.gz
+NFSUTILS_SOURCE		= $(SRCDIR)/$(NFSUTILS).tar.gz
+NFSUTILS_DIR		= $(BUILDDIR)/$(NFSUTILS)
 
 -include $(call package_depfile)
 

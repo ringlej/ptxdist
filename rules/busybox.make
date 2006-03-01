@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION		:= 1.1.0
-BUSYBOX			:= busybox-$(BUSYBOX_VERSION)
-BUSYBOX_SUFFIX		:= tar.bz2
-BUSYBOX_URL		:= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
-BUSYBOX_SOURCE		:= $(SRCDIR)/$(BUSYBOX).$(BUSYBOX_SUFFIX)
-BUSYBOX_DIR		:= $(BUILDDIR)/$(BUSYBOX)
+BUSYBOX_VERSION		= 1.1.0
+BUSYBOX			= busybox-$(BUSYBOX_VERSION)
+BUSYBOX_SUFFIX		= tar.bz2
+BUSYBOX_URL		= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
+BUSYBOX_SOURCE		= $(SRCDIR)/$(BUSYBOX).$(BUSYBOX_SUFFIX)
+BUSYBOX_DIR		= $(BUILDDIR)/$(BUSYBOX)
 
 -include $(call package_depfile)
 

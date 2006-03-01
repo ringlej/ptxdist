@@ -19,13 +19,13 @@ PACKAGES-$(PTXCONF_RTNET) += rtnet
 #
 # Paths and names
 #
-RTNET_VERSION	:= 0.7.0
-RTNET		:= rtnet-$(RTNET_VERSION)
-RTNET_SUFFIX	:= tar.bz2
-RTNET_URL	:= http://www.rts.uni-hannover.de/rtnet/download/$(RTNET).$(RTNET_SUFFIX)
-RTNET_SOURCE	:= $(SRCDIR)/$(RTNET).$(RTNET_SUFFIX)
-RTNET_DIR	:= $(BUILDDIR)/$(RTNET)
-RTNET_MODULEDIR	:= $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)-adeos/kernel/drivers
+RTNET_VERSION	= 0.7.0
+RTNET		= rtnet-$(RTNET_VERSION)
+RTNET_SUFFIX	= tar.bz2
+RTNET_URL	= http://www.rts.uni-hannover.de/rtnet/download/$(RTNET).$(RTNET_SUFFIX)
+RTNET_SOURCE	= $(SRCDIR)/$(RTNET).$(RTNET_SUFFIX)
+RTNET_DIR	= $(BUILDDIR)/$(RTNET)
+RTNET_MODULEDIR	= $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)-adeos/kernel/drivers
 
 -include $(call package_depfile)
 

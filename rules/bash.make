@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_BASH) += bash
 #
 # Paths and names 
 #
-BASH_VERSION		:= 3.0
-BASH			:= bash-$(BASH_VERSION)
-BASH_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/bash/$(BASH).tar.gz 
-BASH_SOURCE		:= $(SRCDIR)/$(BASH).tar.gz
-BASH_DIR		:= $(BUILDDIR)/$(BASH)
+BASH_VERSION		= 3.0
+BASH			= bash-$(BASH_VERSION)
+BASH_URL		= $(PTXCONF_SETUP_GNUMIRROR)/bash/$(BASH).tar.gz 
+BASH_SOURCE		= $(SRCDIR)/$(BASH).tar.gz
+BASH_DIR		= $(BUILDDIR)/$(BASH)
 
 -include $(call package_depfile)
 
