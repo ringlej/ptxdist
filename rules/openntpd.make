@@ -64,16 +64,15 @@ OPENNTPD_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-OPENNTPD_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+OPENNTPD_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
+	--with-privsep-user=ntp \
+	--with-privsep-path=/var/run/ntp
 
 ifdef PTXCONF_OPENNTPD_ARC4RANDOM
 OPENNTPD_AUTOCONF += --with-builtin-arc4random
 else
 OPENNTPD_AUTOCONF += --without-builtin-arc4random
 endif
-
-OPENNTPD_AUTOCONF += --with-privsep-user=ntp
-OPENNTPD_AUTOCONF += --with-privsep-path=/var/run/ntp
 
 $(STATEDIR)/openntpd.prepare: $(openntpd_prepare_deps_default)
 	@$(call targetinfo, $@)
