@@ -1,5 +1,5 @@
-TODO for PTXdist 0.9 Series
-===========================
+TODO for PTXdist 0.10 Series
+============================
 
 [ ] audit project files for CROSS_AUTOCONF
 [ ] audit for CROSS_LIB_DIR, replace everything by SYSROOT/lib
@@ -9,6 +9,7 @@ TODO for PTXdist 0.9 Series
     calling shell. The same applies to lots of variables from
     Rules.make. 
 [ ] Write macros $(call compile) and $(call configure). 
+[ ] libxslt crypto support is broken
 
 Interesting packets
 -------------------
