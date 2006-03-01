@@ -64,10 +64,13 @@ FLTK_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-FLTK_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
-FLTK_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-FLTK_AUTOCONF	+= --x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-FLTK_AUTOCONF	+= --enable-shared 
+FLTK_AUTOCONF	=  $(CROSS_AUTOCONF_USR) \
+	--x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include \
+	--x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
+	--enable-shared \
+	--enable-localjpeg \
+	--enable-localzlib \
+	--enable-localpng
 
 ifdef PTXCONF_FLTK_THREADS
 FLTK_AUTOCONF  += --enable-threads
@@ -78,10 +81,6 @@ FLTK_AUTOCONF  += --enable-gl
 else
 FLTK_AUTOCONF  += --disable-gl
 endif
-
-FLTK_AUTOCONF  += --enable-localjpeg
-FLTK_AUTOCONF  += --enable-localzlib
-FLTK_AUTOCONF  += --enable-localpng
 
 ifdef PTXCONF_FLTK_XFT
 FLTK_AUTOCONF  += --enable-xft
