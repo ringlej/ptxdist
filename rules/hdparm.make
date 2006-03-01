@@ -91,7 +91,6 @@ hdparm_install: $(STATEDIR)/hdparm.install
 
 $(STATEDIR)/hdparm.install: $(hdparm_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, HDPARM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
