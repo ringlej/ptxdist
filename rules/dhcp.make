@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_DHCP) += dhcp
 #
 # Paths and names
 #
-DHCP_VERSION	= 3.0.3
-DHCP		= dhcp-$(DHCP_VERSION)
-DHCP_SUFFIX	= tar.gz
-DHCP_URL	= ftp://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX)
-DHCP_SOURCE	= $(SRCDIR)/$(DHCP).$(DHCP_SUFFIX)
-DHCP_DIR	= $(BUILDDIR)/$(DHCP)
+DHCP_VERSION	:= 3.0.3
+DHCP		:= dhcp-$(DHCP_VERSION)
+DHCP_SUFFIX	:= tar.gz
+DHCP_URL	:= ftp://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX)
+DHCP_SOURCE	:= $(SRCDIR)/$(DHCP).$(DHCP_SUFFIX)
+DHCP_DIR	:= $(BUILDDIR)/$(DHCP)
 
 -include $(call package_depfile)
 

@@ -18,12 +18,12 @@ PACKAGES-$(PTXCONF_MFIREBIRD) += mfirebird
 #
 # Paths and names
 #
-MFIREBIRD_VERSION		= 0.8
-MFIREBIRD			= firefox-source-$(MFIREBIRD_VERSION)
-MFIREBIRD_SUFFIX		= tar.bz2
-MFIREBIRD_URL			= ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$(MFIREBIRD_VERSION)/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
-MFIREBIRD_SOURCE		= $(SRCDIR)/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
-MFIREBIRD_DIR			= $(BUILDDIR)/$(MFIREBIRD)
+MFIREBIRD_VERSION		:= 0.8
+MFIREBIRD			:= firefox-source-$(MFIREBIRD_VERSION)
+MFIREBIRD_SUFFIX		:= tar.bz2
+MFIREBIRD_URL			:= ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$(MFIREBIRD_VERSION)/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
+MFIREBIRD_SOURCE		:= $(SRCDIR)/$(MFIREBIRD).$(MFIREBIRD_SUFFIX)
+MFIREBIRD_DIR			:= $(BUILDDIR)/$(MFIREBIRD)
 
 -include $(call package_depfile)
 

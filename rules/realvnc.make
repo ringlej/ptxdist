@@ -20,12 +20,12 @@ PACKAGES-$(PTXCONF_REALVNC) += realvnc
 #
 # Paths and names
 #
-REALVNC_VERSION		= 4.0
-REALVNC			= vnc-$(REALVNC_VERSION)-unixsrc
-REALVNC_SUFFIX		= tar.gz
-REALVNC_URL		= http://www.realvnc.com/dist/$(REALVNC).$(REALVNC_SUFFIX)
-REALVNC_SOURCE		= $(SRCDIR)/$(REALVNC).$(REALVNC_SUFFIX)
-REALVNC_DIR		= $(BUILDDIR)/$(REALVNC)
+REALVNC_VERSION		:= 4.0
+REALVNC			:= vnc-$(REALVNC_VERSION)-unixsrc
+REALVNC_SUFFIX		:= tar.gz
+REALVNC_URL		:= http://www.realvnc.com/dist/$(REALVNC).$(REALVNC_SUFFIX)
+REALVNC_SOURCE		:= $(SRCDIR)/$(REALVNC).$(REALVNC_SUFFIX)
+REALVNC_DIR		:= $(BUILDDIR)/$(REALVNC)
 
 -include $(call package_depfile)
 

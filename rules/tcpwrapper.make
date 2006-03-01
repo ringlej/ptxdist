@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_TCPWRAPPER) += tcpwrapper
 #
 # Paths and names 
 #
-TCPWRAPPER_VERSION		= 7.6
-TCPWRAPPER			= tcp_wrappers_$(TCPWRAPPER_VERSION)
-TCPWRAPPER_URL			= ftp://ftp.porcupine.org/pub/security/$(TCPWRAPPER).tar.gz
-TCPWRAPPER_SOURCE		= $(SRCDIR)/$(TCPWRAPPER).tar.gz
-TCPWRAPPER_DIR			= $(BUILDDIR)/$(TCPWRAPPER)
+TCPWRAPPER_VERSION		:= 7.6
+TCPWRAPPER			:= tcp_wrappers_$(TCPWRAPPER_VERSION)
+TCPWRAPPER_URL			:= ftp://ftp.porcupine.org/pub/security/$(TCPWRAPPER).tar.gz
+TCPWRAPPER_SOURCE		:= $(SRCDIR)/$(TCPWRAPPER).tar.gz
+TCPWRAPPER_DIR			:= $(BUILDDIR)/$(TCPWRAPPER)
 
 -include $(call package_depfile)
 

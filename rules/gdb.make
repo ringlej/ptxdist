@@ -18,13 +18,13 @@ PACKAGES-$(PTXCONF_GDB) += gdb
 #
 # Paths and names 
 #
-GDB_VERSION	= 6.3
-GDB		= gdb-$(GDB_VERSION)
-GDB_SUFFIX	= tar.bz2
-GDB_URL		= $(PTXCONF_SETUP_GNUMIRROR)/gdb/$(GDB).$(GDB_SUFFIX)
-GDB_SOURCE	= $(SRCDIR)/$(GDB).$(GDB_SUFFIX)
-GDB_DIR		= $(BUILDDIR)/$(GDB)
-GDB_BUILDDIR	= $(BUILDDIR)/$(GDB)-build
+GDB_VERSION	:= 6.3
+GDB		:= gdb-$(GDB_VERSION)
+GDB_SUFFIX	:= tar.bz2
+GDB_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/gdb/$(GDB).$(GDB_SUFFIX)
+GDB_SOURCE	:= $(SRCDIR)/$(GDB).$(GDB_SUFFIX)
+GDB_DIR		:= $(BUILDDIR)/$(GDB)
+GDB_BUILDDIR	:= $(BUILDDIR)/$(GDB)-build
 
 -include $(call package_depfile)
 

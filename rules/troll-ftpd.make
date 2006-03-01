@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_TROLL-FTPD) += troll-ftpd
 #
 # Paths and names
 #
-TROLL-FTPD_VERSION	= 1.28
-TROLL-FTPD		= troll-ftpd-$(TROLL-FTPD_VERSION)
-TROLL-FTPD_SUFFIX	= tar.gz
-TROLL-FTPD_URL		= ftp://ftp.trolltech.com/freebies/ftpd/$(TROLL-FTPD).$(TROLL-FTPD_SUFFIX)
-TROLL-FTPD_SOURCE	= $(SRCDIR)/$(TROLL-FTPD).$(TROLL-FTPD_SUFFIX)
-TROLL-FTPD_DIR		= $(BUILDDIR)/$(TROLL-FTPD)
+TROLL-FTPD_VERSION	:= 1.28
+TROLL-FTPD		:= troll-ftpd-$(TROLL-FTPD_VERSION)
+TROLL-FTPD_SUFFIX	:= tar.gz
+TROLL-FTPD_URL		:= ftp://ftp.trolltech.com/freebies/ftpd/$(TROLL-FTPD).$(TROLL-FTPD_SUFFIX)
+TROLL-FTPD_SOURCE	:= $(SRCDIR)/$(TROLL-FTPD).$(TROLL-FTPD_SUFFIX)
+TROLL-FTPD_DIR		:= $(BUILDDIR)/$(TROLL-FTPD)
 
 -include $(call package_depfile)
 

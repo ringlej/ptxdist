@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_PHP_APC) += php-apc
 #
 # Paths and names
 #
-PHP_APC_VERSION	= 2.0.4
-PHP_APC		= APC-$(PHP_APC_VERSION)
-PHP_APC_SUFFIX	= tgz
-PHP_APC_URL	= http://pecl.php.net/get/$(PHP_APC).$(PHP_APC_SUFFIX)
-PHP_APC_SOURCE	= $(SRCDIR)/$(PHP_APC).$(PHP_APC_SUFFIX)
-PHP_APC_DIR	= $(PHP_DIR)/ext/$(PHP_APC)
+PHP_APC_VERSION	:= 2.0.4
+PHP_APC		:= APC-$(PHP_APC_VERSION)
+PHP_APC_SUFFIX	:= tgz
+PHP_APC_URL	:= http://pecl.php.net/get/$(PHP_APC).$(PHP_APC_SUFFIX)
+PHP_APC_SOURCE	:= $(SRCDIR)/$(PHP_APC).$(PHP_APC_SUFFIX)
+PHP_APC_DIR	:= $(PHP_DIR)/ext/$(PHP_APC)
 
 -include $(call package_depfile)
 

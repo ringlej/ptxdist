@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBPV) += libpv
 #
 # Paths and names
 #
-LIBPV_VERSION	= 1.2.2
-LIBPV		= libpv-$(LIBPV_VERSION)
-LIBPV_SUFFIX	= tar.bz2
-LIBPV_URL	= http://www.pengutronix.de/software/libpv/download/$(LIBPV).$(LIBPV_SUFFIX)
-LIBPV_SOURCE	= $(SRCDIR)/$(LIBPV).$(LIBPV_SUFFIX)
-LIBPV_DIR	= $(BUILDDIR)/$(LIBPV)
+LIBPV_VERSION	:= 1.2.2
+LIBPV		:= libpv-$(LIBPV_VERSION)
+LIBPV_SUFFIX	:= tar.bz2
+LIBPV_URL	:= http://www.pengutronix.de/software/libpv/download/$(LIBPV).$(LIBPV_SUFFIX)
+LIBPV_SOURCE	:= $(SRCDIR)/$(LIBPV).$(LIBPV_SUFFIX)
+LIBPV_DIR	:= $(BUILDDIR)/$(LIBPV)
 
 -include $(call package_depfile)
 

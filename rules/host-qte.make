@@ -17,12 +17,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_QTE) += host-qte
 #
 # Paths and names
 #
-HOST_QTE_VERSION	= 3.3.4
-HOST_QTE		= qt-embedded-free-$(HOST_QTE_VERSION)
-HOST_QTE_SUFFIX		= tar.gz
-HOST_QTE_URL		= ftp://ftp.trolltech.com/qt/source/$(HOST_QTE).$(HOST_QTE_SUFFIX)
-HOST_QTE_SOURCE		= $(SRCDIR)/$(HOST_QTE).$(HOST_QTE_SUFFIX)
-HOST_QTE_DIR		= $(HOST_BUILDDIR)/$(HOST_QTE)
+HOST_QTE_VERSION	:= 3.3.4
+HOST_QTE		:= qt-embedded-free-$(HOST_QTE_VERSION)
+HOST_QTE_SUFFIX		:= tar.gz
+HOST_QTE_URL		:= ftp://ftp.trolltech.com/qt/source/$(HOST_QTE).$(HOST_QTE_SUFFIX)
+HOST_QTE_SOURCE		:= $(SRCDIR)/$(HOST_QTE).$(HOST_QTE_SUFFIX)
+HOST_QTE_DIR		:= $(HOST_BUILDDIR)/$(HOST_QTE)
 
 -include $(call package_depfile)
 

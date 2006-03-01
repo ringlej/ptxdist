@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBOOP) += liboop
 #
 # Paths and names
 #
-LIBOOP_VERSION	= 1.0
-LIBOOP		= liboop-$(LIBOOP_VERSION)
-LIBOOP_SUFFIX	= tar.bz2
-LIBOOP_URL	= http://download.ofb.net/liboop/$(LIBOOP).$(LIBOOP_SUFFIX)
-LIBOOP_SOURCE	= $(SRCDIR)/$(LIBOOP).$(LIBOOP_SUFFIX)
-LIBOOP_DIR	= $(BUILDDIR)/$(LIBOOP)
+LIBOOP_VERSION	:= 1.0
+LIBOOP		:= liboop-$(LIBOOP_VERSION)
+LIBOOP_SUFFIX	:= tar.bz2
+LIBOOP_URL	:= http://download.ofb.net/liboop/$(LIBOOP).$(LIBOOP_SUFFIX)
+LIBOOP_SOURCE	:= $(SRCDIR)/$(LIBOOP).$(LIBOOP_SUFFIX)
+LIBOOP_DIR	:= $(BUILDDIR)/$(LIBOOP)
 
 -include $(call package_depfile)
 

@@ -18,13 +18,13 @@ PACKAGES-$(PTXCONF_ATK) += atk
 #
 # Paths and names
 #
-ATK_VERSION	= 1.5.4
-ATK		= atk-$(ATK_VERSION)
-ATK_SUFFIX	= tar.gz
-ATK_URL		= ftp://ftp.gnome.org/pub/GNOME/sources/atk/1.5/$(ATK).$(ATK_SUFFIX)
-ATK_SOURCE	= $(SRCDIR)/$(ATK).$(ATK_SUFFIX)
-ATK_DIR		= $(BUILDDIR)/$(ATK)
-ATK_LIB_VERSION	= 501.3
+ATK_VERSION	:= 1.5.4
+ATK		:= atk-$(ATK_VERSION)
+ATK_SUFFIX	:= tar.gz
+ATK_URL		:= ftp://ftp.gnome.org/pub/GNOME/sources/atk/1.5/$(ATK).$(ATK_SUFFIX)
+ATK_SOURCE	:= $(SRCDIR)/$(ATK).$(ATK_SUFFIX)
+ATK_DIR		:= $(BUILDDIR)/$(ATK)
+ATK_LIB_VERSION	:= 501.3
 
 -include $(call package_depfile)
 

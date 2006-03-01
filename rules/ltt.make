@@ -17,14 +17,14 @@ PACKAGES-$(PTXCONF_LTT) += ltt
 #
 # Paths and names 
 #
-LTT_VERSION		= 0.9.5
-LTT			= TraceToolkit-$(LTT_VERSION)
-LTT_SUFFIX		= tgz
+LTT_VERSION		:= 0.9.5
+LTT			:= TraceToolkit-$(LTT_VERSION)
+LTT_SUFFIX		:= tgz
 # FIXME: beat upstream for "a" syntax...
-LTT_URL			= http://www.opersys.com/ftp/pub/LTT/$(LTT)a.$(LTT_SUFFIX)
-LTT_SOURCE		= $(SRCDIR)/$(LTT)a.$(LTT_SUFFIX)
-LTT_DIR			= $(BUILDDIR)/$(LTT)
-LTT_BUILDDIR		= $(BUILDDIR)/$(LTT)-build
+LTT_URL			:= http://www.opersys.com/ftp/pub/LTT/$(LTT)a.$(LTT_SUFFIX)
+LTT_SOURCE		:= $(SRCDIR)/$(LTT)a.$(LTT_SUFFIX)
+LTT_DIR			:= $(BUILDDIR)/$(LTT)
+LTT_BUILDDIR		:= $(BUILDDIR)/$(LTT)-build
 
 -include $(call package_depfile)
 

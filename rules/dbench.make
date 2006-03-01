@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_DBENCH) += dbench
 #
 # Paths and names
 #
-DBENCH_VERSION	= 3.03
-DBENCH		= dbench-$(DBENCH_VERSION)
-DBENCH_SUFFIX	= tar.gz
-DBENCH_URL	= http://samba.org/ftp/tridge/dbench/$(DBENCH).$(DBENCH_SUFFIX)
-DBENCH_SOURCE	= $(SRCDIR)/$(DBENCH).$(DBENCH_SUFFIX)
-DBENCH_DIR	= $(BUILDDIR)/$(DBENCH)
+DBENCH_VERSION	:= 3.03
+DBENCH		:= dbench-$(DBENCH_VERSION)
+DBENCH_SUFFIX	:= tar.gz
+DBENCH_URL	:= http://samba.org/ftp/tridge/dbench/$(DBENCH).$(DBENCH_SUFFIX)
+DBENCH_SOURCE	:= $(SRCDIR)/$(DBENCH).$(DBENCH_SUFFIX)
+DBENCH_DIR	:= $(BUILDDIR)/$(DBENCH)
 
 -include $(call package_depfile)
 

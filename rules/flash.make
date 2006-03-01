@@ -16,12 +16,12 @@ PACKAGES-$(PTXCONF_FLASH) += flash
 #
 # Paths and names 
 #
-FLASH_VERSION		= 0.9.5
-FLASH			= flash-$(FLASH_VERSION)
-FLASH_URL 		= http://www.netsoc.ucd.ie/flash/$(FLASH).tar.gz
-FLASH_SOURCE		= $(SRCDIR)/$(FLASH).tar.gz
-FLASH_DIR 		= $(BUILDDIR)/$(FLASH)
-FLASH_EXTRACT		= gzip -dc
+FLASH_VERSION		:= 0.9.5
+FLASH			:= flash-$(FLASH_VERSION)
+FLASH_URL 		:= http://www.netsoc.ucd.ie/flash/$(FLASH).tar.gz
+FLASH_SOURCE		:= $(SRCDIR)/$(FLASH).tar.gz
+FLASH_DIR 		:= $(BUILDDIR)/$(FLASH)
+FLASH_EXTRACT		:= gzip -dc
 
 # FIXME: RSC: convert this to use the patch repository; this is a bugfix patch!
 

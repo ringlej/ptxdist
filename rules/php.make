@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_PHP) += php
 #
 # Paths and names
 #
-PHP_VERSION	= 4.3.11
-PHP		= php-$(PHP_VERSION)
-PHP_SUFFIX	= tar.bz2
-PHP_URL		= http://de.php.net/get/$(PHP).$(PHP_SUFFIX)/from/this/mirror
-PHP_SOURCE	= $(SRCDIR)/$(PHP).$(PHP_SUFFIX)
-PHP_DIR		= $(BUILDDIR)/$(PHP)
+PHP_VERSION	:= 4.3.11
+PHP		:= php-$(PHP_VERSION)
+PHP_SUFFIX	:= tar.bz2
+PHP_URL		:= http://de.php.net/get/$(PHP).$(PHP_SUFFIX)/from/this/mirror
+PHP_SOURCE	:= $(SRCDIR)/$(PHP).$(PHP_SUFFIX)
+PHP_DIR		:= $(BUILDDIR)/$(PHP)
 
 -include $(call package_depfile)
 

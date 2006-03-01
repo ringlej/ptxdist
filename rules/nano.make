@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_NANO) += nano
 #
 # Paths and names
 #
-NANO_VERSION		= 1.2.4
-NANO			= nano-$(NANO_VERSION)
-NANO_SUFFIX		= tar.gz
-NANO_URL		= http://www.nano-editor.org/dist/v1.2/$(NANO).$(NANO_SUFFIX)
-NANO_SOURCE		= $(SRCDIR)/$(NANO).$(NANO_SUFFIX)
-NANO_DIR		= $(BUILDDIR)/$(NANO)
+NANO_VERSION		:= 1.2.4
+NANO			:= nano-$(NANO_VERSION)
+NANO_SUFFIX		:= tar.gz
+NANO_URL		:= http://www.nano-editor.org/dist/v1.2/$(NANO).$(NANO_SUFFIX)
+NANO_SOURCE		:= $(SRCDIR)/$(NANO).$(NANO_SUFFIX)
+NANO_DIR		:= $(BUILDDIR)/$(NANO)
 
 -include $(call package_depfile)
 

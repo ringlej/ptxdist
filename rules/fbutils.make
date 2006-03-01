@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_FBUTILS) += fbutils
 #
 # Paths and names
 #
-FBUTILS_VERSION	= 20041102-1
-FBUTILS		= fbutils-$(FBUTILS_VERSION)
-FBUTILS_SUFFIX	= tar.gz
-FBUTILS_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBUTILS).$(FBUTILS_SUFFIX)
-FBUTILS_SOURCE	= $(SRCDIR)/$(FBUTILS).$(FBUTILS_SUFFIX)
-FBUTILS_DIR	= $(BUILDDIR)/$(FBUTILS)
+FBUTILS_VERSION	:= 20041102-1
+FBUTILS		:= fbutils-$(FBUTILS_VERSION)
+FBUTILS_SUFFIX	:= tar.gz
+FBUTILS_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBUTILS).$(FBUTILS_SUFFIX)
+FBUTILS_SOURCE	:= $(SRCDIR)/$(FBUTILS).$(FBUTILS_SUFFIX)
+FBUTILS_DIR	:= $(BUILDDIR)/$(FBUTILS)
 
 -include $(call package_depfile)
 

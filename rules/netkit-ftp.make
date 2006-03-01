@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_NETKIT-FTP) += netkit-ftp
 #
 # Paths and names
 #
-NETKIT-FTP_VERSION	= 0.17
-NETKIT-FTP		= netkit-ftp-$(NETKIT-FTP_VERSION)
-NETKIT-FTP_SUFFIX	= tar.gz
-NETKIT-FTP_URL		= ftp://ftp.uk.linux.org/pub/linux/Networking/netkit//$(NETKIT-FTP).$(NETKIT-FTP_SUFFIX)
-NETKIT-FTP_SOURCE	= $(SRCDIR)/$(NETKIT-FTP).$(NETKIT-FTP_SUFFIX)
-NETKIT-FTP_DIR		= $(BUILDDIR)/$(NETKIT-FTP)
+NETKIT-FTP_VERSION	:= 0.17
+NETKIT-FTP		:= netkit-ftp-$(NETKIT-FTP_VERSION)
+NETKIT-FTP_SUFFIX	:= tar.gz
+NETKIT-FTP_URL		:= ftp://ftp.uk.linux.org/pub/linux/Networking/netkit//$(NETKIT-FTP).$(NETKIT-FTP_SUFFIX)
+NETKIT-FTP_SOURCE	:= $(SRCDIR)/$(NETKIT-FTP).$(NETKIT-FTP_SUFFIX)
+NETKIT-FTP_DIR		:= $(BUILDDIR)/$(NETKIT-FTP)
 
 -include $(call package_depfile)
 

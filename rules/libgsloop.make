@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBGSLOOP) += libgsloop
 #
 # Paths and names
 #
-LIBGSLOOP_VERSION	= 0.0.6
-LIBGSLOOP		= libgsloop-$(LIBGSLOOP_VERSION)
-LIBGSLOOP_SUFFIX	= tar.bz2
-LIBGSLOOP_URL		= http://www.pengutronix.de/software/libgsloop/download/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
-LIBGSLOOP_SOURCE	= $(SRCDIR)/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
-LIBGSLOOP_DIR		= $(BUILDDIR)/$(LIBGSLOOP)
+LIBGSLOOP_VERSION	:= 0.0.6
+LIBGSLOOP		:= libgsloop-$(LIBGSLOOP_VERSION)
+LIBGSLOOP_SUFFIX	:= tar.bz2
+LIBGSLOOP_URL		:= http://www.pengutronix.de/software/libgsloop/download/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
+LIBGSLOOP_SOURCE	:= $(SRCDIR)/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
+LIBGSLOOP_DIR		:= $(BUILDDIR)/$(LIBGSLOOP)
 
 -include $(call package_depfile)
 

@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_APACHE2) += apache2
 #
 # Paths and names
 #
-APACHE2_VERSION	= 2.0.55
-APACHE2		= httpd-$(APACHE2_VERSION)
-APACHE2_SUFFIX	= tar.bz2
-APACHE2_URL	= http://ftp.plusline.de/ftp.apache.org/httpd/$(APACHE2).$(APACHE2_SUFFIX)
-APACHE2_SOURCE	= $(SRCDIR)/$(APACHE2).$(APACHE2_SUFFIX)
-APACHE2_DIR	= $(BUILDDIR)/$(APACHE2)
+APACHE2_VERSION	:= 2.0.55
+APACHE2		:= httpd-$(APACHE2_VERSION)
+APACHE2_SUFFIX	:= tar.bz2
+APACHE2_URL	:= http://ftp.plusline.de/ftp.apache.org/httpd/$(APACHE2).$(APACHE2_SUFFIX)
+APACHE2_SOURCE	:= $(SRCDIR)/$(APACHE2).$(APACHE2_SUFFIX)
+APACHE2_DIR	:= $(BUILDDIR)/$(APACHE2)
 
 -include $(call package_depfile)
 

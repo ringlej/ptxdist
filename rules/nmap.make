@@ -24,12 +24,12 @@ endif
 #
 # Paths and names 
 #
-NMAP_VERSION		= 3.93
-NMAP			= nmap-$(NMAP_VERSION)
-NMAP_SUFFIX		= tgz
-NMAP_URL		= http://download.insecure.org/nmap/dist/$(NMAP).$(NMAP_SUFFIX)
-NMAP_SOURCE		= $(SRCDIR)/$(NMAP).$(NMAP_SUFFIX)
-NMAP_DIR		= $(BUILDDIR)/$(NMAP)
+NMAP_VERSION		:= 3.93
+NMAP			:= nmap-$(NMAP_VERSION)
+NMAP_SUFFIX		:= tgz
+NMAP_URL		:= http://download.insecure.org/nmap/dist/$(NMAP).$(NMAP_SUFFIX)
+NMAP_SOURCE		:= $(SRCDIR)/$(NMAP).$(NMAP_SUFFIX)
+NMAP_DIR		:= $(BUILDDIR)/$(NMAP)
 
 -include $(call package_depfile)
 

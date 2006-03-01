@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_DB41) += db41
 #
 # Paths and names
 #
-DB41_VERSION	= 4.1.25.NC
-DB41		= db-$(DB41_VERSION)
-DB41_SUFFIX	= tar.gz
-DB41_URL	= http://www.sleepycat.com/update/snapshot/$(DB41).$(DB41_SUFFIX)
-DB41_SOURCE	= $(SRCDIR)/$(DB41).$(DB41_SUFFIX)
-DB41_DIR	= $(BUILDDIR)/$(DB41)
+DB41_VERSION	:= 4.1.25.NC
+DB41		:= db-$(DB41_VERSION)
+DB41_SUFFIX	:= tar.gz
+DB41_URL	:= http://www.sleepycat.com/update/snapshot/$(DB41).$(DB41_SUFFIX)
+DB41_SOURCE	:= $(SRCDIR)/$(DB41).$(DB41_SUFFIX)
+DB41_DIR	:= $(BUILDDIR)/$(DB41)
 
 -include $(call package_depfile)
 

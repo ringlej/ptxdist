@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_OPENSSH) += openssh
 #
 # Paths and names 
 #
-OPENSSH_VERSION		= 3.9p1
-OPENSSH			= openssh-$(OPENSSH_VERSION)
-OPENSSH_URL 		= ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).tar.gz
-OPENSSH_SOURCE		= $(SRCDIR)/$(OPENSSH).tar.gz
-OPENSSH_DIR 		= $(BUILDDIR)/$(OPENSSH)
+OPENSSH_VERSION		:= 3.9p1
+OPENSSH			:= openssh-$(OPENSSH_VERSION)
+OPENSSH_URL 		:= ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).tar.gz
+OPENSSH_SOURCE		:= $(SRCDIR)/$(OPENSSH).tar.gz
+OPENSSH_DIR 		:= $(BUILDDIR)/$(OPENSSH)
 
 -include $(call package_depfile)
 

@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBNET) += libnet
 #
 # Paths and names
 #
-LIBNET_VERSION	= 1.1.3-RC-01
-LIBNET		= libnet-$(LIBNET_VERSION)
-LIBNET_SUFFIX	= tar.gz
-LIBNET_URL	= http://www.packetfactory.net/libnet/dist/$(LIBNET).$(LIBNET_SUFFIX)
-LIBNET_SOURCE	= $(SRCDIR)/$(LIBNET).$(LIBNET_SUFFIX)
-LIBNET_DIR	= $(BUILDDIR)/$(LIBNET)
+LIBNET_VERSION	:= 1.1.3-RC-01
+LIBNET		:= libnet-$(LIBNET_VERSION)
+LIBNET_SUFFIX	:= tar.gz
+LIBNET_URL	:= http://www.packetfactory.net/libnet/dist/$(LIBNET).$(LIBNET_SUFFIX)
+LIBNET_SOURCE	:= $(SRCDIR)/$(LIBNET).$(LIBNET_SUFFIX)
+LIBNET_DIR	:= $(BUILDDIR)/$(LIBNET)
 
 -include $(call package_depfile)
 

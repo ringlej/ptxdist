@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LSH) += lsh
 #
 # Paths and names
 #
-LSH_VERSION	= 2.0.1
-LSH		= lsh-$(LSH_VERSION)
-LSH_SUFFIX	= tar.gz
-LSH_URL		= http://www.lysator.liu.se/~nisse/archive/$(LSH).$(LSH_SUFFIX)
-LSH_SOURCE	= $(SRCDIR)/$(LSH).$(LSH_SUFFIX)
-LSH_DIR		= $(BUILDDIR)/$(LSH)
+LSH_VERSION	:= 2.0.1
+LSH		:= lsh-$(LSH_VERSION)
+LSH_SUFFIX	:= tar.gz
+LSH_URL		:= http://www.lysator.liu.se/~nisse/archive/$(LSH).$(LSH_SUFFIX)
+LSH_SOURCE	:= $(SRCDIR)/$(LSH).$(LSH_SUFFIX)
+LSH_DIR		:= $(BUILDDIR)/$(LSH)
 
 -include $(call package_depfile)
 

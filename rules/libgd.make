@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBGD) += libgd
 #
 # Paths and names
 #
-LIBGD_VERSION	= 2.0.15
-LIBGD		= gd-$(LIBGD_VERSION)
-LIBGD_SUFFIX	= tar.gz
-LIBGD_URL	= http://www.boutell.com/gd/http/$(LIBGD).$(LIBGD_SUFFIX)
-LIBGD_SOURCE	= $(SRCDIR)/$(LIBGD).$(LIBGD_SUFFIX)
-LIBGD_DIR	= $(BUILDDIR)/$(LIBGD)
+LIBGD_VERSION	:= 2.0.15
+LIBGD		:= gd-$(LIBGD_VERSION)
+LIBGD_SUFFIX	:= tar.gz
+LIBGD_URL	:= http://www.boutell.com/gd/http/$(LIBGD).$(LIBGD_SUFFIX)
+LIBGD_SOURCE	:= $(SRCDIR)/$(LIBGD).$(LIBGD_SUFFIX)
+LIBGD_DIR	:= $(BUILDDIR)/$(LIBGD)
 
 -include $(call package_depfile)
 

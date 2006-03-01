@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_DIALOG) += dialog
 #
 # Paths and names
 #
-DIALOG_VERSION		= 1.0-20041118
-DIALOG			= dialog-$(DIALOG_VERSION)
-DIALOG_SUFFIX		= tgz
-DIALOG_URL		= http://invisible-island.net/dialog/$(DIALOG).$(DIALOG_SUFFIX)
-DIALOG_SOURCE		= $(SRCDIR)/$(DIALOG).$(DIALOG_SUFFIX)
-DIALOG_DIR		= $(BUILDDIR)/$(DIALOG)
+DIALOG_VERSION		:= 1.0-20041118
+DIALOG			:= dialog-$(DIALOG_VERSION)
+DIALOG_SUFFIX		:= tgz
+DIALOG_URL		:= http://invisible-island.net/dialog/$(DIALOG).$(DIALOG_SUFFIX)
+DIALOG_SOURCE		:= $(SRCDIR)/$(DIALOG).$(DIALOG_SUFFIX)
+DIALOG_DIR		:= $(BUILDDIR)/$(DIALOG)
 
 -include $(call package_depfile)
 

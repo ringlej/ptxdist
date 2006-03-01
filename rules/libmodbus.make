@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBMODBUS) += libmodbus
 #
 # Paths and names
 #
-LIBMODBUS_VERSION	= 1.0.1
-LIBMODBUS		= libmodbus-$(LIBMODBUS_VERSION)
-LIBMODBUS_SUFFIX	= tar.gz
-LIBMODBUS_URL		= http://www.pengutronix.de/software/libmodbus/download/v1.0/$(LIBMODBUS).$(LIBMODBUS_SUFFIX)
-LIBMODBUS_SOURCE	= $(SRCDIR)/$(LIBMODBUS).$(LIBMODBUS_SUFFIX)
-LIBMODBUS_DIR		= $(BUILDDIR)/$(LIBMODBUS)
+LIBMODBUS_VERSION	:= 1.0.1
+LIBMODBUS		:= libmodbus-$(LIBMODBUS_VERSION)
+LIBMODBUS_SUFFIX	:= tar.gz
+LIBMODBUS_URL		:= http://www.pengutronix.de/software/libmodbus/download/v1.0/$(LIBMODBUS).$(LIBMODBUS_SUFFIX)
+LIBMODBUS_SOURCE	:= $(SRCDIR)/$(LIBMODBUS).$(LIBMODBUS_SUFFIX)
+LIBMODBUS_DIR		:= $(BUILDDIR)/$(LIBMODBUS)
 
 -include $(call package_depfile)
 

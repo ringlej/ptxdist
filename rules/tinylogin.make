@@ -19,11 +19,11 @@ PACKAGES-$(PTXCONF_TINYLOGIN) += tinylogin
 #
 # Paths and names 
 #
-TINYLOGIN_VERSION	= 1.4
-TINYLOGIN		= tinylogin-$(TINYLOGIN_VERSION).tar.bz2
-TINYLOGIN_URL		= http://tinylogin.busybox.net/downloads/$(TINYLOGIN).tar.bz2
-TINYLOGIN_SOURCE	= $(SRCDIR)/$(TINYLOGIN).tar.bz2
-TINYLOGIN_DIR		= $(BUILDDIR)/$(TINYLOGIN)
+TINYLOGIN_VERSION	:= 1.4
+TINYLOGIN		:= tinylogin-$(TINYLOGIN_VERSION).tar.bz2
+TINYLOGIN_URL		:= http://tinylogin.busybox.net/downloads/$(TINYLOGIN).tar.bz2
+TINYLOGIN_SOURCE	:= $(SRCDIR)/$(TINYLOGIN).tar.bz2
+TINYLOGIN_DIR		:= $(BUILDDIR)/$(TINYLOGIN)
 
 -include $(call package_depfile)
 

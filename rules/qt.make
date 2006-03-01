@@ -19,12 +19,12 @@ PACKAGES-$(PTXCONF_QT) += qt
 #
 # Paths and names
 #
-QT_VERSION	= 2.3.2
-QT		= qt-x11-$(QT_VERSION)
-QT_SUFFIX	= tar.gz
-QT_URL		= ftp://ftp.trolltech.com/qt/source/$(QT).$(QT_SUFFIX)
-QT_SOURCE	= $(SRCDIR)/$(QT).$(QT_SUFFIX)
-QT_DIR		= $(BUILDDIR)/qt-$(QT_VERSION)
+QT_VERSION	:= 2.3.2
+QT		:= qt-x11-$(QT_VERSION)
+QT_SUFFIX	:= tar.gz
+QT_URL		:= ftp://ftp.trolltech.com/qt/source/$(QT).$(QT_SUFFIX)
+QT_SOURCE	:= $(SRCDIR)/$(QT).$(QT_SUFFIX)
+QT_DIR		:= $(BUILDDIR)/qt-$(QT_VERSION)
 
 -include $(call package_depfile)
 

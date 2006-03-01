@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_EFAX) += efax
 #
 # Paths and names
 #
-EFAX_VERSION		= 0.9
-EFAX			= efax-$(EFAX_VERSION)
-EFAX_SUFFIX		= tar.gz
-EFAX_URL		= ftp://ftp.metalab.unc.edu/pub/Linux/apps/serialcomm/fax/$(EFAX).$(EFAX_SUFFIX)
-EFAX_SOURCE		= $(SRCDIR)/$(EFAX).$(EFAX_SUFFIX)
-EFAX_DIR		= $(BUILDDIR)/$(EFAX)
+EFAX_VERSION		:= 0.9
+EFAX			:= efax-$(EFAX_VERSION)
+EFAX_SUFFIX		:= tar.gz
+EFAX_URL		:= ftp://ftp.metalab.unc.edu/pub/Linux/apps/serialcomm/fax/$(EFAX).$(EFAX_SUFFIX)
+EFAX_SOURCE		:= $(SRCDIR)/$(EFAX).$(EFAX_SUFFIX)
+EFAX_DIR		:= $(BUILDDIR)/$(EFAX)
 
 -include $(call package_depfile)
 

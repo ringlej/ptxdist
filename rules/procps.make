@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_PROCPS) += procps
 #
 # Paths and names
 #
-PROCPS_VERSION	= 3.2.4
-PROCPS		= procps-$(PROCPS_VERSION)
-PROCPS_SUFFIX	= tar.gz
-PROCPS_URL	= http://procps.sourceforge.net/$(PROCPS).$(PROCPS_SUFFIX)
-PROCPS_SOURCE	= $(SRCDIR)/$(PROCPS).$(PROCPS_SUFFIX)
-PROCPS_DIR	= $(BUILDDIR)/$(PROCPS)
+PROCPS_VERSION	:= 3.2.4
+PROCPS		:= procps-$(PROCPS_VERSION)
+PROCPS_SUFFIX	:= tar.gz
+PROCPS_URL	:= http://procps.sourceforge.net/$(PROCPS).$(PROCPS_SUFFIX)
+PROCPS_SOURCE	:= $(SRCDIR)/$(PROCPS).$(PROCPS_SUFFIX)
+PROCPS_DIR	:= $(BUILDDIR)/$(PROCPS)
 
 -include $(call package_depfile)
 

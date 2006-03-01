@@ -17,13 +17,13 @@ PACKAGES-$(PTXCONF_PYTHON23) += python
 # Paths and names 
 #
 
-PYTHON_VERSION		= 2.3
-PYTHON			= Python-$(PYTHON_VERSION)
-PYTHON_SUFFIX		= tgz
-PYTHON_URL		= http://www.python.org/ftp/python/$(PYTHON_VERSION)/$(PYTHON).$(PYTHON_SUFFIX)
-PYTHON_SOURCE		= $(SRCDIR)/$(PYTHON).$(PYTHON_SUFFIX)
-PYTHON_DIR		= $(BUILDDIR)/$(PYTHON)
-PYTHON_BUILDDIR		= $(PYTHON_DIR)-build
+PYTHON_VERSION		:= 2.3
+PYTHON			:= Python-$(PYTHON_VERSION)
+PYTHON_SUFFIX		:= tgz
+PYTHON_URL		:= http://www.python.org/ftp/python/$(PYTHON_VERSION)/$(PYTHON).$(PYTHON_SUFFIX)
+PYTHON_SOURCE		:= $(SRCDIR)/$(PYTHON).$(PYTHON_SUFFIX)
+PYTHON_DIR		:= $(BUILDDIR)/$(PYTHON)
+PYTHON_BUILDDIR		:= $(PYTHON_DIR)-build
 
 -include $(call package_depfile)
 

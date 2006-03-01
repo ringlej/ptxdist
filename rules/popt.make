@@ -19,12 +19,12 @@ PACKAGES-$(PTXCONF_POPT) += popt
 #
 # Paths and names
 #
-POPT_VERSION	= 1.7
-POPT		= popt-$(POPT_VERSION)
-POPT_SUFFIX	= tar.gz
-POPT_URL	= ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.1.x/$(POPT).$(POPT_SUFFIX)
-POPT_SOURCE	= $(SRCDIR)/$(POPT).$(POPT_SUFFIX)
-POPT_DIR	= $(BUILDDIR)/$(POPT)
+POPT_VERSION	:= 1.7
+POPT		:= popt-$(POPT_VERSION)
+POPT_SUFFIX	:= tar.gz
+POPT_URL	:= ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.1.x/$(POPT).$(POPT_SUFFIX)
+POPT_SOURCE	:= $(SRCDIR)/$(POPT).$(POPT_SUFFIX)
+POPT_DIR	:= $(BUILDDIR)/$(POPT)
 
 -include $(call package_depfile)
 

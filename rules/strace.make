@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_STRACE) += strace
 #
 # Paths and names 
 #
-STRACE_VERSION		= 4.5.14
-STRACE			= strace-$(STRACE_VERSION)
-STRACE_URL		= $(PTXCONF_SETUP_SFMIRROR)/strace/$(STRACE).tar.bz2
-STRACE_SOURCE		= $(SRCDIR)/$(STRACE).tar.bz2
-STRACE_DIR		= $(BUILDDIR)/$(STRACE)
+STRACE_VERSION		:= 4.5.14
+STRACE			:= strace-$(STRACE_VERSION)
+STRACE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/strace/$(STRACE).tar.bz2
+STRACE_SOURCE		:= $(SRCDIR)/$(STRACE).tar.bz2
+STRACE_DIR		:= $(BUILDDIR)/$(STRACE)
 
 -include $(call package_depfile)
 

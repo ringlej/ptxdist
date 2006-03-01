@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_AT-SPI) += at-spi
 #
 # Paths and names
 #
-AT-SPI_VERSION	= 1.3.13
-AT-SPI		= at-spi-$(AT-SPI_VERSION)
-AT-SPI_SUFFIX	= tar.bz2
-AT-SPI_URL	= ftp://ftp.gnome.org/pub/GNOME/sources/at-spi/1.3/$(AT-SPI).$(AT-SPI_SUFFIX)
-AT-SPI_SOURCE	= $(SRCDIR)/$(AT-SPI).$(AT-SPI_SUFFIX)
-AT-SPI_DIR	= $(BUILDDIR)/$(AT-SPI)
+AT-SPI_VERSION	:= 1.3.13
+AT-SPI		:= at-spi-$(AT-SPI_VERSION)
+AT-SPI_SUFFIX	:= tar.bz2
+AT-SPI_URL	:= ftp://ftp.gnome.org/pub/GNOME/sources/at-spi/1.3/$(AT-SPI).$(AT-SPI_SUFFIX)
+AT-SPI_SOURCE	:= $(SRCDIR)/$(AT-SPI).$(AT-SPI_SUFFIX)
+AT-SPI_DIR	:= $(BUILDDIR)/$(AT-SPI)
 
 -include $(call package_depfile)
 

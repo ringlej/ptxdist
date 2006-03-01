@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_FLEX) += flex
 #
 # Paths and names
 #
-FLEX_VERSION	= 2.5.4
-FLEX		= flex-$(FLEX_VERSION)
-FLEX_SUFFIX	= tar.gz
-FLEX_URL	= $(PTXCONF_SETUP_GNUMIRROR)/non-gnu/flex/$(FLEX)a.$(FLEX_SUFFIX)
-FLEX_SOURCE	= $(SRCDIR)/$(FLEX)a.$(FLEX_SUFFIX)
-FLEX_DIR	= $(BUILDDIR)/$(FLEX)
+FLEX_VERSION	:= 2.5.4
+FLEX		:= flex-$(FLEX_VERSION)
+FLEX_SUFFIX	:= tar.gz
+FLEX_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/non-gnu/flex/$(FLEX)a.$(FLEX_SUFFIX)
+FLEX_SOURCE	:= $(SRCDIR)/$(FLEX)a.$(FLEX_SUFFIX)
+FLEX_DIR	:= $(BUILDDIR)/$(FLEX)
 
 -include $(call package_depfile)
 

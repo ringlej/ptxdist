@@ -17,13 +17,13 @@ PACKAGES-$(PTXCONF_MGETTY) += mgetty
 #
 # Paths and names
 #
-MGETTY_VERSION	= 1.1.30
-MGETTY_DATE	= Dec16
-MGETTY		= mgetty$(MGETTY_VERSION)
-MGETTY_SUFFIX	= tar.gz
-MGETTY_URL	= ftp://ftp.leo.org/historic/comp/os/unix/networking/mgetty/$(MGETTY)-$(MGETTY_DATE).$(MGETTY_SUFFIX)
-MGETTY_SOURCE	= $(SRCDIR)/$(MGETTY)-$(MGETTY_DATE).$(MGETTY_SUFFIX)
-MGETTY_DIR	= $(BUILDDIR)/mgetty-$(MGETTY_VERSION)
+MGETTY_VERSION	:= 1.1.30
+MGETTY_DATE	:= Dec16
+MGETTY		:= mgetty$(MGETTY_VERSION)
+MGETTY_SUFFIX	:= tar.gz
+MGETTY_URL	:= ftp://ftp.leo.org/historic/comp/os/unix/networking/mgetty/$(MGETTY)-$(MGETTY_DATE).$(MGETTY_SUFFIX)
+MGETTY_SOURCE	:= $(SRCDIR)/$(MGETTY)-$(MGETTY_DATE).$(MGETTY_SUFFIX)
+MGETTY_DIR	:= $(BUILDDIR)/mgetty-$(MGETTY_VERSION)
 
 -include $(call package_depfile)
 

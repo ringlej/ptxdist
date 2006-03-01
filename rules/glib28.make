@@ -18,12 +18,12 @@ PACKAGES-$(PTXCONF_GLIB28) += glib28
 #
 # Paths and names
 #
-GLIB28_VERSION		= 2.8.4
-GLIB28			= glib-$(GLIB28_VERSION)
-GLIB28_SUFFIX		= tar.gz
-GLIB28_URL		= ftp://ftp.gtk.org/pub/gtk/v2.8/$(GLIB28).$(GLIB28_SUFFIX)
-GLIB28_SOURCE		= $(SRCDIR)/$(GLIB28).$(GLIB28_SUFFIX)
-GLIB28_DIR		= $(BUILDDIR)/$(GLIB28)
+GLIB28_VERSION		:= 2.8.4
+GLIB28			:= glib-$(GLIB28_VERSION)
+GLIB28_SUFFIX		:= tar.gz
+GLIB28_URL		:= ftp://ftp.gtk.org/pub/gtk/v2.8/$(GLIB28).$(GLIB28_SUFFIX)
+GLIB28_SOURCE		:= $(SRCDIR)/$(GLIB28).$(GLIB28_SUFFIX)
+GLIB28_DIR		:= $(BUILDDIR)/$(GLIB28)
 
 -include $(call package_depfile)
 

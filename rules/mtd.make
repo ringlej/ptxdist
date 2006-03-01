@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_MTD_UTILS) += mtd
 #
 # Paths and names
 #
-MTD_VERSION	= 20040621-1
-MTD		= mtd-$(MTD_VERSION)
-MTD_SUFFIX	= tar.gz
-MTD_URL		= http://www.pengutronix.de/software/mtd-snapshots/$(MTD).$(MTD_SUFFIX)
-MTD_UTILS_SOURCE	= $(SRCDIR)/$(MTD).$(MTD_SUFFIX)
-MTD_DIR		= $(BUILDDIR)/$(MTD)
+MTD_VERSION	:= 20040621-1
+MTD		:= mtd-$(MTD_VERSION)
+MTD_SUFFIX	:= tar.gz
+MTD_URL		:= http://www.pengutronix.de/software/mtd-snapshots/$(MTD).$(MTD_SUFFIX)
+MTD_UTILS_SOURCE:= $(SRCDIR)/$(MTD).$(MTD_SUFFIX)
+MTD_DIR		:= $(BUILDDIR)/$(MTD)
 
 -include $(call package_depfile)
 

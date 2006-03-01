@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_TREECC) += treecc
 #
 # Paths and names
 #
-TREECC_VERSION	= 0.3.6
-TREECC		= treecc-$(TREECC_VERSION)
-TREECC_SUFFIX	= tar.gz
-TREECC_URL	= http://www.southern-storm.com.au/download/$(TREECC).$(TREECC_SUFFIX)
-TREECC_SOURCE	= $(SRCDIR)/$(TREECC).$(TREECC_SUFFIX)
-TREECC_DIR	= $(BUILDDIR)/$(TREECC)
+TREECC_VERSION	:= 0.3.6
+TREECC		:= treecc-$(TREECC_VERSION)
+TREECC_SUFFIX	:= tar.gz
+TREECC_URL	:= http://www.southern-storm.com.au/download/$(TREECC).$(TREECC_SUFFIX)
+TREECC_SOURCE	:= $(SRCDIR)/$(TREECC).$(TREECC_SUFFIX)
+TREECC_DIR	:= $(BUILDDIR)/$(TREECC)
 
 -include $(call package_depfile)
 

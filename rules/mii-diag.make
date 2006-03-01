@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_MII_DIAG) += mii-diag
 #
 # Paths and names
 #
-MII_DIAG_VERSION	= 2.09
-MII_DIAG		= mii-diag-$(MII_DIAG_VERSION).orig
-MII_DIAG_SUFFIX		= tar.gz
-MII_DIAG_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/m/mii-diag/mii-diag_$(MII_DIAG_VERSION).orig.$(MII_DIAG_SUFFIX)
-MII_DIAG_SOURCE		= $(SRCDIR)/mii-diag_$(MII_DIAG_VERSION).orig.$(MII_DIAG_SUFFIX)
-MII_DIAG_DIR		= $(BUILDDIR)/$(MII_DIAG)
+MII_DIAG_VERSION	:= 2.09
+MII_DIAG		:= mii-diag-$(MII_DIAG_VERSION).orig
+MII_DIAG_SUFFIX		:= tar.gz
+MII_DIAG_URL		:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/m/mii-diag/mii-diag_$(MII_DIAG_VERSION).orig.$(MII_DIAG_SUFFIX)
+MII_DIAG_SOURCE		:= $(SRCDIR)/mii-diag_$(MII_DIAG_VERSION).orig.$(MII_DIAG_SUFFIX)
+MII_DIAG_DIR		:= $(BUILDDIR)/$(MII_DIAG)
 
 -include $(call package_depfile)
 

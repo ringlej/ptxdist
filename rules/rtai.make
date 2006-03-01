@@ -20,18 +20,18 @@ PACKAGES-$(PTXCONF_RTAI) += rtai
 # Paths and names 
 #
 ifdef PTXCONF_RTAI_3_1_TEST4
-RTAI_VERSION		= 3.1-test4
+RTAI_VERSION		:= 3.1-test4
 else
-RTAI_VERSION		= please_port_me
+RTAI_VERSION		:= please_port_me
 endif
-RTAI			= rtai-$(RTAI_VERSION)
-RTAI_SUFFIX		= tar.bz2
-RTAI_URL		= http://www.aero.polimi.it/RTAI/$(RTAI).$(RTAI_SUFFIX)
-RTAI_SOURCE		= $(SRCDIR)/$(RTAI).$(RTAI_SUFFIX)
-RTAI_DIR		= $(BUILDDIR)/$(RTAI)
-RTAI_BUILDDIR		= $(BUILDDIR)/$(RTAI)-build
-RTAI_MODULEDIR		= $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)-adeos/kernel/drivers
-RTAI_PATCH		= $(RTAI_DIR)/patches/patch-$(KERNEL_VERSION)-$(RTAI_TECH)
+RTAI			:= rtai-$(RTAI_VERSION)
+RTAI_SUFFIX		:= tar.bz2
+RTAI_URL		:= http://www.aero.polimi.it/RTAI/$(RTAI).$(RTAI_SUFFIX)
+RTAI_SOURCE		:= $(SRCDIR)/$(RTAI).$(RTAI_SUFFIX)
+RTAI_DIR		:= $(BUILDDIR)/$(RTAI)
+RTAI_BUILDDIR		:= $(BUILDDIR)/$(RTAI)-build
+RTAI_MODULEDIR		:= $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)-adeos/kernel/drivers
+RTAI_PATCH		:= $(RTAI_DIR)/patches/patch-$(KERNEL_VERSION)-$(RTAI_TECH)
 
 -include $(call package_depfile)
 

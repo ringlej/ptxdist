@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_MEMTEST) += memtest
 #
 # Paths and names
 #
-MEMTEST_VERSION		= 0.0.4
-MEMTEST			= memtest-$(MEMTEST_VERSION)
-MEMTEST_SUFFIX		= tar.bz2
-MEMTEST_URL		= http://carpanta.dc.fi.udc.es/~quintela/memtest/$(MEMTEST).$(MEMTEST_SUFFIX)
-MEMTEST_SOURCE		= $(SRCDIR)/$(MEMTEST).$(MEMTEST_SUFFIX)
-MEMTEST_DIR		= $(BUILDDIR)/$(MEMTEST)
+MEMTEST_VERSION		:= 0.0.4
+MEMTEST			:= memtest-$(MEMTEST_VERSION)
+MEMTEST_SUFFIX		:= tar.bz2
+MEMTEST_URL		:= http://carpanta.dc.fi.udc.es/~quintela/memtest/$(MEMTEST).$(MEMTEST_SUFFIX)
+MEMTEST_SOURCE		:= $(SRCDIR)/$(MEMTEST).$(MEMTEST_SUFFIX)
+MEMTEST_DIR		:= $(BUILDDIR)/$(MEMTEST)
 
 -include $(call package_depfile)
 

@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_KONQ-E) += konq-e
 #
 # Paths and names
 #
-KONQ-E_VERSION		= snapshot-20030705
-KONQ-E			= konqueror-embedded-$(KONQ-E_VERSION)
-KONQ-E_SUFFIX		= tar.gz
-KONQ-E_URL		= http://devel-home.kde.org/~hausmann/snapshots/$(KONQ-E).$(KONQ-E_SUFFIX)
-KONQ-E_SOURCE		= $(SRCDIR)/$(KONQ-E).$(KONQ-E_SUFFIX)
-KONQ-E_DIR		= $(BUILDDIR)/$(KONQ-E)
+KONQ-E_VERSION		:= snapshot-20030705
+KONQ-E			:= konqueror-embedded-$(KONQ-E_VERSION)
+KONQ-E_SUFFIX		:= tar.gz
+KONQ-E_URL		:= http://devel-home.kde.org/~hausmann/snapshots/$(KONQ-E).$(KONQ-E_SUFFIX)
+KONQ-E_SOURCE		:= $(SRCDIR)/$(KONQ-E).$(KONQ-E_SUFFIX)
+KONQ-E_DIR		:= $(BUILDDIR)/$(KONQ-E)
 
 -include $(call package_depfile)
 

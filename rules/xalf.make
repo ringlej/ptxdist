@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_XALF) += xalf
 #
 # Paths and names
 #
-XALF_VERSION		= 0.12
-XALF			= xalf-$(XALF_VERSION)
-XALF_SUFFIX		= tgz
-XALF_URL		= http://www.lysator.liu.se/~astrand/projects/xalf/$(XALF).$(XALF_SUFFIX)
-XALF_SOURCE		= $(SRCDIR)/$(XALF).$(XALF_SUFFIX)
-XALF_DIR		= $(BUILDDIR)/$(XALF)
+XALF_VERSION		:= 0.12
+XALF			:= xalf-$(XALF_VERSION)
+XALF_SUFFIX		:= tgz
+XALF_URL		:= http://www.lysator.liu.se/~astrand/projects/xalf/$(XALF).$(XALF_SUFFIX)
+XALF_SOURCE		:= $(SRCDIR)/$(XALF).$(XALF_SUFFIX)
+XALF_DIR		:= $(BUILDDIR)/$(XALF)
 
 -include $(call package_depfile)
 

@@ -19,11 +19,11 @@ PACKAGES-$(PTXCONF_LILO) += lilo
 #
 # Paths and names 
 #
-LILO_VERSION	= 22.5.9
-LILO		= lilo-$(LILO_VERSION)
-LILO_URL	= http://home.san.rr.com/johninsd/pub/linux/lilo/obsolete/$(LILO).tar.gz
-LILO_SOURCE	= $(SRCDIR)/$(LILO).tar.gz
-LILO_DIR	= $(BUILDDIR)/$(LILO)
+LILO_VERSION	:= 22.5.9
+LILO		:= lilo-$(LILO_VERSION)
+LILO_URL	:= http://home.san.rr.com/johninsd/pub/linux/lilo/obsolete/$(LILO).tar.gz
+LILO_SOURCE	:= $(SRCDIR)/$(LILO).tar.gz
+LILO_DIR	:= $(BUILDDIR)/$(LILO)
 
 -include $(call package_depfile)
 

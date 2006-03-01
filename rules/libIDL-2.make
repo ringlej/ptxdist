@@ -20,12 +20,12 @@ PACKAGES-$(PTXCONF_LIBIDL-2) += libidl-2
 #
 # Paths and names
 #
-LIBIDL-2_VERSION	= 0.8.3
-LIBIDL-2		= libIDL-$(LIBIDL-2_VERSION)
-LIBIDL-2_SUFFIX		= tar.gz
-LIBIDL-2_URL		= http://ftp.gnome.org/pub/GNOME/sources/libIDL/0.8/$(LIBIDL-2).$(LIBIDL-2_SUFFIX)
-LIBIDL-2_SOURCE		= $(SRCDIR)/$(LIBIDL-2).$(LIBIDL-2_SUFFIX)
-LIBIDL-2_DIR		= $(BUILDDIR)/$(LIBIDL-2)
+LIBIDL-2_VERSION	:= 0.8.3
+LIBIDL-2		:= libIDL-$(LIBIDL-2_VERSION)
+LIBIDL-2_SUFFIX		:= tar.gz
+LIBIDL-2_URL		:= http://ftp.gnome.org/pub/GNOME/sources/libIDL/0.8/$(LIBIDL-2).$(LIBIDL-2_SUFFIX)
+LIBIDL-2_SOURCE		:= $(SRCDIR)/$(LIBIDL-2).$(LIBIDL-2_SUFFIX)
+LIBIDL-2_DIR		:= $(BUILDDIR)/$(LIBIDL-2)
 
 -include $(call package_depfile)
 

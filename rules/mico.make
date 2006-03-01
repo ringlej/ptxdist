@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_MICO) += mico
 #
 # Paths and names
 #
-MICO_VERSION	= 2.3.12RC3
-MICO		= mico-$(MICO_VERSION)
-MICO_SUFFIX	= tar.gz
-MICO_URL	= http://www.mico.org/snapshots/$(MICO).$(MICO_SUFFIX)
-MICO_SOURCE	= $(SRCDIR)/$(MICO).$(MICO_SUFFIX)
-MICO_DIR	= $(BUILDDIR)/$(MICO)
+MICO_VERSION	:= 2.3.12RC3
+MICO		:= mico-$(MICO_VERSION)
+MICO_SUFFIX	:= tar.gz
+MICO_URL	:= http://www.mico.org/snapshots/$(MICO).$(MICO_SUFFIX)
+MICO_SOURCE	:= $(SRCDIR)/$(MICO).$(MICO_SUFFIX)
+MICO_DIR	:= $(BUILDDIR)/$(MICO)
 
 -include $(call package_depfile)
 

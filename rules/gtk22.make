@@ -18,12 +18,12 @@ PACKAGES-$(PTXCONF_GTK22) += gtk22
 #
 # Paths and names
 #
-GTK22_VERSION		= 2.3.2
-GTK22			= gtk+-$(GTK22_VERSION)
-GTK22_SUFFIX		= tar.gz
-GTK22_URL		= ftp://ftp.gtk.org/pub/gtk/v2.3/$(GTK22).$(GTK22_SUFFIX)
-GTK22_SOURCE		= $(SRCDIR)/$(GTK22).$(GTK22_SUFFIX)
-GTK22_DIR		= $(BUILDDIR)/$(GTK22)
+GTK22_VERSION		:= 2.3.2
+GTK22			:= gtk+-$(GTK22_VERSION)
+GTK22_SUFFIX		:= tar.gz
+GTK22_URL		:= ftp://ftp.gtk.org/pub/gtk/v2.3/$(GTK22).$(GTK22_SUFFIX)
+GTK22_SOURCE		:= $(SRCDIR)/$(GTK22).$(GTK22_SUFFIX)
+GTK22_DIR		:= $(BUILDDIR)/$(GTK22)
 
 -include $(call package_depfile)
 

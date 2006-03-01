@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBLIST) += liblist
 #
 # Paths and names
 #
-LIBLIST_VERSION		= 1.0.3
-LIBLIST			= liblist-$(LIBLIST_VERSION)
-LIBLIST_SUFFIX		= tar.gz
-LIBLIST_URL		= http://www.pengutronix.de/software/liblist/download/$(LIBLIST).$(LIBLIST_SUFFIX)
-LIBLIST_SOURCE		= $(SRCDIR)/$(LIBLIST).$(LIBLIST_SUFFIX)
-LIBLIST_DIR		= $(BUILDDIR)/$(LIBLIST)
+LIBLIST_VERSION		:= 1.0.3
+LIBLIST			:= liblist-$(LIBLIST_VERSION)
+LIBLIST_SUFFIX		:= tar.gz
+LIBLIST_URL		:= http://www.pengutronix.de/software/liblist/download/$(LIBLIST).$(LIBLIST_SUFFIX)
+LIBLIST_SOURCE		:= $(SRCDIR)/$(LIBLIST).$(LIBLIST_SUFFIX)
+LIBLIST_DIR		:= $(BUILDDIR)/$(LIBLIST)
 
 -include $(call package_depfile)
 
