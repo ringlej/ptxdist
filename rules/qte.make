@@ -65,14 +65,19 @@ $(STATEDIR)/qte.extract: $(qte_extract_deps_default)
 
 qte_prepare: $(STATEDIR)/qte.prepare
 
-QTE_PATH	=  PATH=$(CROSS_PATH)
-# QTE_ENV 	=  $(CROSS_ENV)
-QTE_ENV		+= QTDIR=/opt
+QTE_PATH	:=  PATH=$(CROSS_PATH)
+QTE_ENV		:= QTDIR=/opt
 
 #
 # autoconf
 #
-QTE_AUTOCONF := -prefix $(CROSS_LIB_DIR) \
+QTE_AUTOCONF	= \
+	-prefix $(CROSS_LIB_DIR) \
+	-no-gif \
+	-qt-libpng \
+	\
+	-no-cups \
+	\
 	-release \
 	-no-g++-exceptions \
 	-depths 8,16 \
@@ -81,10 +86,7 @@ QTE_AUTOCONF := -prefix $(CROSS_LIB_DIR) \
 	-embedded $(PTXCONF_ARCH) \
 	-disable-opengl \
 	-disable-sql \
-	-disable-workspace \
-	-no-gif \
-	-qt-libpng \
-	-no-cups
+	-disable-workspace
 
 ifdef PTXCONF_QTE_THREAD
 QTE_AUTOCONF	+= -thread 
