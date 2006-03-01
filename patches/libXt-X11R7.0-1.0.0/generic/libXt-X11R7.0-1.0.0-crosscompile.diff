@@ -44,7 +44,7 @@ Index: libXt-X11R7.0-1.0.0/util/Makefile.am
  	string.list
  
 -makestrs_CFLAGS = $(XT_CFLAGS)
-+makestrs_CFLAGS=$(CFLAGS_FOR_BUILD)
++makestrs_CFLAGS=$(CFLAGS_FOR_BUILD) $(XT_CFLAGS)
 +makestrs_CPPLAGS=$(CPPFLAGS_FOR_BUILD)
 +makestrs_LDFLAGS=$(LDFLAGS_FOR_BUILD)
  makestrs_SOURCES = makestrs.c
@@ -98,7 +98,7 @@ Index: libXt-X11R7.0-1.0.0/util/Makefile.in
  $(appman_PRE)
  
 -makestrs_CFLAGS = $(XT_CFLAGS)
-+makestrs_CFLAGS = $(CFLAGS_FOR_BUILD)
++makestrs_CFLAGS = $(CFLAGS_FOR_BUILD) $(XT_CFLAGS)
 +makestrs_CPPLAGS = $(CPPFLAGS_FOR_BUILD)
 +makestrs_LDFLAGS = $(LDFLAGS_FOR_BUILD)
  makestrs_SOURCES = makestrs.c
