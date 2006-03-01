@@ -57,11 +57,11 @@ $(STATEDIR)/bash.extract: $(bash_extract_deps_default)
 
 bash_prepare: $(STATEDIR)/bash.prepare
 
-BASH_AUTOCONF	= $(CROSS_AUTOCONF_ROOT)
-BASH_AUTOCONF	+= --disable-sanity-checks
+BASH_AUTOCONF	= $(CROSS_AUTOCONF_ROOT) \
+	--disable-sanity-checks
 BASH_PATH	=  PATH=$(CROSS_PATH)
-BASH_ENV	=  $(CROSS_ENV)
-BASH_ENV	+= ac_cv_func_setvbuf_reversed=no bash_cv_have_mbstate_t=yes
+BASH_ENV	=  $(CROSS_ENV) \
+	ac_cv_func_setvbuf_reversed=no bash_cv_have_mbstate_t=yes
 
 # FIXME: "disable" does not compile with bash-2.05b (at least not on ARM)
 BASH_AUTOCONF	+= --enable-dparen-arithmetic
