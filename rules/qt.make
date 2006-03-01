@@ -71,22 +71,21 @@ QT_ENV	+= QTDIR=$(QT_DIR)
 #QT_AUTOCONF	+= --build=$(GNU_HOST)
 #QT_AUTOCONF	+= --host=$(PTXCONF_GNU_TARGET)
 
-QT_AUTOCONF	+= -gif
-QT_AUTOCONF	+= -qt-libpng
-QT_AUTOCONF	+= -no-jpeg 
-QT_AUTOCONF	+= -no-mng 
-QT_AUTOCONF	+= -no-thread 
-QT_AUTOCONF	+= -no-opengl 
-QT_AUTOCONF	+= -release
-QT_AUTOCONF	+= -shared 
-QT_AUTOCONF	+= -no-g++-exceptions 
-QT_AUTOCONF	+= -I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-QT_AUTOCONF	+= -R$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-QT_AUTOCONF	+= -L/usr/X11R6/lib
-QT_AUTOCONF	+= -depths 16
-#QT_AUTOCONF	+= -qconfig local 
-QT_AUTOCONF	+= -no-qvfb 
-QT_AUTOCONF	+= -xplatform linux-g++
+QT_AUTOCONF = -gif \
+	-qt-libpng \
+	-no-jpeg \
+	-no-mng \
+	-no-thread \
+	-no-opengl \
+	-release \
+	-shared \
+	-no-g++-exceptions \
+	-I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include \
+	-R$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
+	-L/usr/X11R6/lib \
+	-depths 16 \
+	-no-qvfb \
+	-xplatform linux-g++
 
 $(STATEDIR)/qt.prepare: $(qt_prepare_deps_default)
 	@$(call targetinfo, $@)
