@@ -33,7 +33,6 @@ config HOST_MKNBI
 comment "Other Host Tools"
 ##############################################################################
 
-source "rules/host-binutils.in"
 source "rules/host-flex.in"
 source "rules/host-mico.in"
 source "rules/host-pkg-config-wrapper.in"

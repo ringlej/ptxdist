@@ -3,7 +3,6 @@
 
 source "rules/cppunit.in"
 source "rules/gdb.in"
-source "rules/host-ksymoops.in"
 
 source "rules/ltt.in"
 source "rules/binutils.in"
