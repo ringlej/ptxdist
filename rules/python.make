@@ -63,14 +63,14 @@ python_prepare: $(STATEDIR)/python.prepare
 PYTHON_PATH	=  PATH=$(CROSS_PATH)
 PYTHON_ENV	=  $(CROSS_ENV)
 
-PYTHON_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-PYTHON_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
+PYTHON_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
+	--target=$(PTXCONF_GNU_TARGET)
 
 # FIXME: we probably need to port the host tool side of python
-PYTHON_MAKEVARS	=  HOSTPYTHON=python
-PYTHON_MAKEVARS	+= HOSTPGEN=pgen
-PYTHON_MAKEVARS	+= CROSS_COMPILE=yes
-PYTHON_MAKEVARS	+= DESTDIR=$(ROOTDIR)
+PYTHON_MAKEVARS	:=  HOSTPYTHON=python \
+	HOSTPGEN=pgen \
+	CROSS_COMPILE=yes \
+	DESTDIR=$(ROOTDIR)
 
 $(STATEDIR)/python.prepare: $(python_prepare_deps_default)
 	@$(call targetinfo, $@)
