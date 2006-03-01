@@ -3,6 +3,7 @@
 menuconfig SYSLOGNG
 	bool
 	prompt "syslog-ng           "
+	depends on BROKEN
 	help
 	  The next generation syslog daemon.
 
@@ -34,3 +35,5 @@ config SYSLOGNG_SPOOF_SOURCE
 	help
 	  FIXME: missing
 
+comment "syslog-ng is broken, please send a patch"
+	depends on !BROKEN
