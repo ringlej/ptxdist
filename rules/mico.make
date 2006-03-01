@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_MICO) += mico
 #
 # Paths and names
 #
-MICO_VERSION	= 2.3.12RC3
+MICO_VERSION	= 2.3.12
 MICO		= mico-$(MICO_VERSION)
 MICO_SUFFIX	= tar.gz
 MICO_URL	= http://www.mico.org/snapshots/$(MICO).$(MICO_SUFFIX)
