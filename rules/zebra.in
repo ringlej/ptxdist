@@ -3,6 +3,7 @@ menu    "GNU Zebra           "
 config ZEBRA
 	bool
 	prompt "GNU Zebra"
+	depends on BROKEN
 	help
 	  GNU Zebra is free software that manages TCP/IP based routing protocols. 
 	  It is released as part of the GNU Project, and it is distributed under 
@@ -16,5 +17,8 @@ config ZEBRA
 	  Zebra software offers true modularity.
 
 	  Zebra is unique in its design in that it has a process for each protocol.
+
+comment "zebra is broken, please send a patch"
+	depends on !BROKEN
 
 endmenu
