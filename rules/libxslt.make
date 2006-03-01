@@ -147,10 +147,10 @@ $(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps_default)
 
 ifdef PTXCONF_LIBXSLT_LIBXSLT
 	@$(call install_copy, libxslt, 0, 0, 0644, \
-		$(LIBXSLT_DIR)/libxslt/.libs/libxslt.so.1.1.14, \
-		/usr/lib/libxslt.so.1.1.14)
-	@$(call install_link, libxslt, libxslt.so.1.1.14, /usr/lib/libxslt.so.1)
-	@$(call install_link, libxslt, libxslt.so.1.1.14, /usr/lib/libxslt.so)
+		$(LIBXSLT_DIR)/libxslt/.libs/libxslt.so.1.1.15, \
+		/usr/lib/libxslt.so.1.1.15)
+	@$(call install_link, libxslt, libxslt.so.1.1.15, /usr/lib/libxslt.so.1)
+	@$(call install_link, libxslt, libxslt.so.1.1.15, /usr/lib/libxslt.so)
 endif
 
 ifdef PTXCONF_LIBXSLT_LIBEXSLT
