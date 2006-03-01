@@ -1,6 +1,10 @@
 config XORG_DRIVER_VIDEO_APM
 	bool
 	depends on XORG_DRIVER_VIDEO
+	depends on BROKEN
 	prompt "APM"
 	help
 	  FIXME
+
+comment "driver-video-apm is broken, please send a patch"
+	depends on !BROKEN
