@@ -61,15 +61,18 @@ $(STATEDIR)/e2fsprogs.extract: $(e2fsprogs_extract_deps_default)
 
 e2fsprogs_prepare: $(STATEDIR)/e2fsprogs.prepare
 
-E2FSPROGS_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
-E2FSPROGS_AUTOCONF	+= --enable-fsck
+E2FSPROGS_AUTOCONF	=  $(CROSS_AUTOCONF_USR) \
+	--enable-fsck
+
 ifndef NATIVE
-E2FSPROGS_AUTOCONF	+= --with-cc=$(COMPILER_PREFIX)gcc
-E2FSPROGS_AUTOCONF	+= --with-linker=$(COMPILER_PREFIX)ld
+E2FSPROGS_AUTOCONF	+= --with-cc=$(COMPILER_PREFIX)gcc \
+	--with-linker=$(COMPILER_PREFIX)ld
 endif
+
 E2FSPROGS_PATH		=  PATH=$(CROSS_PATH)
-E2FSPROGS_ENV		=  $(CROSS_ENV) 
-E2FSPROGS_ENV		+= BUILD_CC=$(HOSTCC)
+
+E2FSPROGS_ENV		=  $(CROSS_ENV) \
+	BUILD_CC=$(HOSTCC)
 
 $(STATEDIR)/e2fsprogs.prepare: $(e2fsprogs_prepare_deps_default)
 	@$(call targetinfo, $@)
