@@ -1,6 +1,5 @@
 menuconfig FLTK
 	bool "FLTK GUI Toolkit      "
-	select XFREE430
 	help
 	  FLTK, a LGPLed cross-platform graphical 
 	  user interface toolkit originally based on libForms.
