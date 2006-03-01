@@ -73,41 +73,38 @@ MFIREBIRD_ENV   += PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
 # autoconf
 #
 
-MFIREBIRD_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
+MFIREBIRD_AUTOCONF	=  $(CROSS_AUTOCONF_USR) \
+	--with-x=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6 \
+	--enable-default-toolkit=gtk2 \
+	--with-gtk-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
+	--with-glib-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
+	--disable-gtktest \
+	--disable-gdktest \
+	--disable-tests \
+	--disable-xinerama \
+	--disable-calendar \
+	--disable-mailnews \
+	--disable-ldap \
+	--disable-freetypetest \
+	--disable-xprint \
+	--enable-crypto \
+	--enable-accessability \
+	--enable-xfpe-components \
+	--disable-composer \
+	--enable-mathml \
+	--disable-svg \
+	--disable-activex \
+	--enable-extensions \
+	--without-system-nspr \
+	--enable-necko-disk-cache \
+	--enable-xft
 
-MFIREBIRD_AUTOCONF	+= --with-x=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6
-
-MFIREBIRD_AUTOCONF	+= --enable-default-toolkit=gtk2
-
-MFIREBIRD_AUTOCONF	+= --with-gtk-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-MFIREBIRD_AUTOCONF	+= --with-glib-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-MFIREBIRD_AUTOCONF	+= --disable-gtktest
-MFIREBIRD_AUTOCONF	+= --disable-gdktest
-
-MFIREBIRD_AUTOCONF	+= --disable-tests
 #MFIREBIRD_AUTOCONF	+= --disable-jsloader
 #MFIREBIRD_AUTOCONF	+= --disable-jsd
 #MFIREBIRD_AUTOCONF	+= --disable-oji
-MFIREBIRD_AUTOCONF	+= --disable-xinerama
-MFIREBIRD_AUTOCONF	+= --disable-calendar
-MFIREBIRD_AUTOCONF	+= --disable-mailnews
-MFIREBIRD_AUTOCONF	+= --disable-ldap
-MFIREBIRD_AUTOCONF	+= --disable-freetypetest
 #MFIREBIRD_AUTOCONF	+= --disable-postscript
-MFIREBIRD_AUTOCONF	+= --disable-xprint
-MFIREBIRD_AUTOCONF	+= --enable-crypto
-MFIREBIRD_AUTOCONF	+= --enable-accessability
-MFIREBIRD_AUTOCONF	+= --enable-xfpe-components
-##MFIREBIRD_AUTOCONF	+= --enable-single-profile
-MFIREBIRD_AUTOCONF	+= --disable-composer
-MFIREBIRD_AUTOCONF	+= --enable-mathml
-MFIREBIRD_AUTOCONF	+= --disable-svg
+#MFIREBIRD_AUTOCONF	+= --enable-single-profile
 #MFIREBIRD_AUTOCONF	+= --disable-installer
-MFIREBIRD_AUTOCONF	+= --disable-activex
-MFIREBIRD_AUTOCONF	+= --enable-extensions
-MFIREBIRD_AUTOCONF	+= --without-system-nspr
-MFIREBIRD_AUTOCONF	+= --enable-necko-disk-cache
-MFIREBIRD_AUTOCONF	+= --enable-xft
 
 
 
