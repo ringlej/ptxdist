@@ -147,8 +147,8 @@ $(STATEDIR)/qte.prepare: $(qte_prepare_deps_default)
 	@echo 'QMAKE_CXXFLAGS_YACC        = $$$$QMAKE_CFLAGS_YACC'	>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_CXXFLAGS_THREAD      = $$$$QMAKE_CFLAGS_THREAD'	>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 
-	@echo 'QMAKE_INCDIR               ='$(CROSS_LIB_DIR)/include    >> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
-	@echo 'QMAKE_LIBDIR               ='$(CROSS_LIB_DIR)/lib	>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
+	@echo 'QMAKE_INCDIR               ='$(SYSROOT)/include    	>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
+	@echo 'QMAKE_LIBDIR               ='$(SYSROOT)/lib		>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_INCDIR_X11           ='				>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_LIBDIR_X11           ='				>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_INCDIR_QT            = $(QTDIR)/include'		>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
