@@ -193,10 +193,6 @@ source "rules/libpng.in"
 source "rules/fontconfig.in"
 source "rules/tslib.in"
 
-comment "Old Xfree86 Stuff"
-source "rules/xfree430.in"
-endmenu
-
 menu "Scientific Apps             "
 depends on BUILD_USERLAND
 source "rules/gnuplot.in"
