@@ -65,21 +65,20 @@ ETHEREAL_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-ETHEREAL_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-
-ETHEREAL_AUTOCONF += --disable-usr-local
-ETHEREAL_AUTOCONF += --disable-threads
-ETHEREAL_AUTOCONF += --disable-profile-build
-ETHEREAL_AUTOCONF += --disable-gtktest
-ETHEREAL_AUTOCONF += --disable-glibtest
-ETHEREAL_AUTOCONF += --disable-editcap
-ETHEREAL_AUTOCONF += --disable-mergecap
-ETHEREAL_AUTOCONF += --disable-text2pcap
-ETHEREAL_AUTOCONF += --disable-idl2eth
-ETHEREAL_AUTOCONF += --disable-dftest
-ETHEREAL_AUTOCONF += --disable-randpkt
-ETHEREAL_AUTOCONF += --disable-ipv6
-ETHEREAL_AUTOCONF += --with-pcap=$(LIBPCAP_DIR)
+ETHEREAL_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
+	--disable-usr-local \
+	--disable-threads \
+	--disable-profile-build \
+	--disable-gtktest \
+	--disable-glibtest \
+	--disable-editcap \
+	--disable-mergecap \
+	--disable-text2pcap \
+	--disable-idl2eth \
+	--disable-dftest \
+	--disable-randpkt \
+	--disable-ipv6 \
+	--with-pcap=$(LIBPCAP_DIR)
 
 ifdef PTXCONF_ETHEREAL_ETHEREAL
 ETHEREAL_AUTOCONF += --enable-ethereal
