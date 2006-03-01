@@ -1,6 +1,10 @@
 config XORG_LIB_XINERAMA
 	bool
 	depends on XORG_LIB
+	depends on BROKEN
 	prompt "libXinerama"
 	help
 	  FIXME
+
+comment "xinerama is broken, please send a patch"
+	depends on !BROKEN
