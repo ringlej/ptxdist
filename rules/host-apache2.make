@@ -17,12 +17,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_APACHE2) += host-apache2
 #
 # Paths and names
 #
-HOST_APACHE2_VERSION	= 2.0.55
-HOST_APACHE2		= httpd-$(HOST_APACHE2_VERSION)
-HOST_APACHE2_SUFFIX	= tar.bz2
-HOST_APACHE2_URL	= http://ftp.plusline.de/ftp.apache.org/httpd/$(HOST_APACHE2).$(HOST_APACHE2_SUFFIX)
-HOST_APACHE2_SOURCE	= $(SRCDIR)/$(HOST_APACHE2).$(HOST_APACHE2_SUFFIX)
-HOST_APACHE2_DIR	= $(HOST_BUILDDIR)/$(HOST_APACHE2)
+HOST_APACHE2_VERSION	:= 2.0.55
+HOST_APACHE2		:= httpd-$(HOST_APACHE2_VERSION)
+HOST_APACHE2_SUFFIX	:= tar.bz2
+HOST_APACHE2_URL	:= http://ftp.plusline.de/ftp.apache.org/httpd/$(HOST_APACHE2).$(HOST_APACHE2_SUFFIX)
+HOST_APACHE2_SOURCE	:= $(SRCDIR)/$(HOST_APACHE2).$(HOST_APACHE2_SUFFIX)
+HOST_APACHE2_DIR	:= $(HOST_BUILDDIR)/$(HOST_APACHE2)
 
 -include $(call package_depfile)
 
@@ -55,13 +55,13 @@ $(STATEDIR)/host-apache2.extract: $(host-apache2_extract_deps_default)
 
 host-apache2_prepare: $(STATEDIR)/host-apache2.prepare
 
-HOST_APACHE2_PATH	=  PATH=$(HOST_PATH)
-HOST_APACHE2_ENV 	=  $(HOSTCC_ENV)
+HOST_APACHE2_PATH	:= PATH=$(HOST_PATH)
+HOST_APACHE2_ENV 	:= $(HOSTCC_ENV)
 
 #
 # autoconf
 #
-HOST_APACHE2_AUTOCONF =  $(HOST_AUTOCONF)
+HOST_APACHE2_AUTOCONF := $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-apache2.prepare: $(host-apache2_prepare_deps_default)
 	@$(call targetinfo, $@)
