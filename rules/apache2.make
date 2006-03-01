@@ -60,14 +60,13 @@ $(STATEDIR)/apache2.extract: $(apache2_extract_deps_default)
 apache2_prepare: $(STATEDIR)/apache2.prepare
 
 APACHE2_PATH	=  PATH=$(CROSS_PATH)
-APACHE2_ENV 	=  $(CROSS_ENV)
-APACHE2_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig
-
-# FIXME: find a real patch for these (fix configure script)
-APACHE2_ENV	+= ac_cv_sizeof_ssize_t=4
-APACHE2_ENV	+= ac_cv_sizeof_size_t=4
-APACHE2_ENV	+= apr_cv_process_shared_works=yes
-APACHE2_ENV	+= ac_cv_func_setpgrp_void=yes
+# FIXME: find a real patch for ac_* apr_* (fix configure script)
+APACHE2_ENV 	=  $(CROSS_ENV) \
+	PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig \
+	ac_cv_sizeof_ssize_t=4 \
+	ac_cv_sizeof_size_t=4 \
+	apr_cv_process_shared_works=yes \
+	ac_cv_func_setpgrp_void=yes
 
 #
 # autoconf
