@@ -65,15 +65,15 @@ BLUEZ_UTILS_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-BLUEZ_UTILS_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
-BLUEZ_UTILS_AUTOCONF	+= --with-bluez=$(BLUEZ_LIBS_DIR)
+BLUEZ_UTILS_AUTOCONF	=  $(CROSS_AUTOCONF_USR) \
+	--with-bluez=$(BLUEZ_LIBS_DIR)
 
 # FIXME: these incorrectly pull in /usr/include if selected
 # Discuss with mkl what the right upstream solution is and make a patch
-BLUEZ_UTILS_AUTOCONF	+= --without-alsa
-BLUEZ_UTILS_AUTOCONF	+= --without-fuse
-BLUEZ_UTILS_AUTOCONF	+= --without-openobex
-BLUEZ_UTILS_AUTOCONF	+= --without-usb
+BLUEZ_UTILS_AUTOCONF += --without-alsa \
+	--without-fuse \
+	--without-openobex \
+	--without-usb
 
 $(STATEDIR)/bluez-utils.prepare: $(bluez-utils_prepare_deps_default)
 	@$(call targetinfo, $@)
