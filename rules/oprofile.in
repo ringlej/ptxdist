@@ -1,6 +1,7 @@
 config OPROFILE
 	bool
-	depends on POPT && LIBBFD
+	select POPT
+	select BINUTILS
 	prompt "oprofile"
 	help
 	  system-wide profiler for Linux systems
