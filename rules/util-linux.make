@@ -21,7 +21,7 @@ UTIL-LINUX_VERSION	:= 2.12j
 UTIL-LINUX		:= util-linux-$(UTIL-LINUX_VERSION)
 UTIL-LINUX_SUFFIX	:= tar.gz
 UTIL-LINUX_URL		:= http://ftp.cwi.nl/aeb/util-linux/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
-UTLNX_SOURCE		:= $(SRCDIR)/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
+UTIL-LINUX_SOURCE		:= $(SRCDIR)/$(UTIL-LINUX).$(UTIL-LINUX_SUFFIX)
 UTIL-LINUX_DIR		:= $(BUILDDIR)/$(UTIL-LINUX)
 
 -include $(call package_depfile)
@@ -36,7 +36,7 @@ $(STATEDIR)/util-linux.get: $(util-linux_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(UTLNX_SOURCE):
+$(UTIL-LINUX_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(UTIL-LINUX_URL))
 
