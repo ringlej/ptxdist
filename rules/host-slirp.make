@@ -65,8 +65,8 @@ HOST_SLIRP_ENV 		=  $(HOSTCC_ENV)
 #
 # autoconf
 #
-HOST_SLIRP_AUTOCONF  = $(HOST_AUTOCONF)
-HOST_SLIRP_AUTOCONF += --prefix=$(PTXCONF_PREFIX)/usr
+HOST_SLIRP_AUTOCONF := $(HOST_AUTOCONF) \
+	--prefix=$(PTXCONF_PREFIX)/usr
 
 $(STATEDIR)/host-slirp.prepare: $(host-slirp_prepare_deps_default)
 	@$(call targetinfo, $@)
