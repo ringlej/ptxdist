@@ -55,11 +55,11 @@ config PROJECT
 	  PTXdist base package.
 
 	  You can specifiy an additional directory which is being searched
-	  for "local" projects with "make setup". The predefined path
+	  for "local" projects with "ptxdist setup". The predefined path
 	  for local projects is $(PTXDIST_TOPDIR)/local_projects.
 
 	  To find out which projects are available in the current tree,
-	  type "make configs".
+	  type "ptxdist projects".
 
 config PROJECT_VERSION
 	string
