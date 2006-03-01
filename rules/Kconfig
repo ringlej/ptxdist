@@ -192,6 +192,7 @@ source "rules/sdl.in"
 source "rules/libpng.in"
 source "rules/fontconfig.in"
 source "rules/tslib.in"
+endmenu
 
 menu "Scientific Apps             "
 depends on BUILD_USERLAND
