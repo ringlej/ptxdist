@@ -107,7 +107,6 @@ mplayer_install: $(STATEDIR)/mplayer.install
 
 $(STATEDIR)/mplayer.install: $(mplayer_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, MPLAYER)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
