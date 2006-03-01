@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_BINUTILS) += binutils
 BINUTILS_VERSION	:= 2.16.1
 BINUTILS		:= binutils-$(BINUTILS_VERSION)
 BINUTILS_SUFFIX		:= tar.bz2
-BINUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/binutils/$(BINUTILS).tar.gz
+BINUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/binutils/$(BINUTILS).$(BINUTILS_SUFFIX)
 BINUTILS_SOURCE		:= $(SRCDIR)/$(BINUTILS).$(BINUTILS_SUFFIX)
 BINUTILS_DIR		:= $(BUILDDIR)/$(BINUTILS)
 
@@ -65,8 +65,7 @@ BINUTILS_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-BINUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-BINUTILS_AUTOCONF += \
+BINUTILS_AUTOCONF :=  $(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--enable-targets=$(PTXCONF_GNU_TARGET) \
 	--disable-nls \
@@ -91,15 +90,7 @@ binutils_compile: $(STATEDIR)/binutils.compile
 
 $(STATEDIR)/binutils.compile: $(binutils_compile_deps_default)
 	@$(call targetinfo, $@)
-	# the libiberty part is compiled for the host system
-	# don't pass target CFLAGS to it, so override them and call the configure script
-	$(BINUTILS_PATH) make -C $(BINUTILS_DIR) CFLAGS='' CXXFLAGS='' configure-build-libiberty
 
-	# the chew tool is needed later during installation, compile it now
-	# else it will fail cause it gets target CFLAGS
-	$(BINUTILS_PATH) make -C $(BINUTILS_DIR)/bfd/doc CFLAGS='' CXXFLAGS='' chew
-
-	# now do the _real_ compiling :-)
 	$(BINUTILS_PATH) make -C $(BINUTILS_DIR)
 
 	@$(call touch, $@)
@@ -112,7 +103,6 @@ binutils_install: $(STATEDIR)/binutils.install
 
 $(STATEDIR)/binutils.install: $(binutils_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME: do we have to set prefix='' (makevar)? 
 	@$(call install, BINUTILS)
 	@$(call touch, $@)
 
@@ -124,20 +114,6 @@ binutils_targetinstall: $(STATEDIR)/binutils.targetinstall
 
 $(STATEDIR)/binutils.targetinstall: $(binutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-# 	@$(call install_init, binutils)
-# 	@$(call install_fixup,binutils,PACKAGE,binutils)
-# 	@$(call install_fixup,binutils,PRIORITY,optional)
-# 	@$(call install_fixup,binutils,VERSION,$(BINUTILS_VERSION))
-# 	@$(call install_fixup,binutils,SECTION,base)
-# 	@$(call install_fixup,binutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-# 	@$(call install_fixup,binutils,DEPENDS,)
-# 	@$(call install_fixup,binutils,DESCRIPTION,missing)
-# 
-# 	@$(call install_copy, binutils, 0, 0, 0755, $(BINUTILS_DIR)/foobar, /dev/null)
-# 
-# 	@$(call install_finish,binutils)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
