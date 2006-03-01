@@ -283,13 +283,13 @@ ifdef PTXCONF_NTP_NIST
 NTP_AUTOCONF += --enable-nist
 endif
 ifdef PTXCONF_NTP_CRYPTO
-NTP_AUTOCONF += --enable-crypto
-NTP_AUTOCONF += --with-openssl-libdir=$(OPENSSL_DIR)
-NTP_AUTOCONF += --with-openssl-incdir=$(OPENSSL_DIR)
+NTP_AUTOCONF += --enable-crypto \
+	--with-openssl-libdir=$(OPENSSL_DIR) \
+	--with-openssl-incdir=$(OPENSSL_DIR)
 else
-NTP_AUTOCONF += --disable-crypto
-NTP_AUTOCONF += --without-openssl-libdir
-NTP_AUTOCONF += --without-openssl-incdir
+NTP_AUTOCONF += --disable-crypto \
+	--without-openssl-libdir \
+	--without-openssl-incdir
 endif
 ifdef PTXCONF_NTP_SNTP
 NTP_AUTOCONF += --enable-sntp
