@@ -110,13 +110,6 @@ SHORT_HOST		:= `echo $(GNU_HOST) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
 #
 # CFLAGS / CXXFLAGS
 #
-# TARGET_CFLAGS and TARGET_CXXFLAGS are included from the architecture
-# depended config file that is specified in .config. So here we have to 
-# extend it with the stuff we need. 
-#
-# The option in the .config is called 'TARGET_CONFIG_FILE'
-#
-#
 
 # FIXME: this is not really consistent any more; we want the arch specific 
 #        stuff separate from other options, so we can do NATIVE builds. 
