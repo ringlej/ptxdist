@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_DATA_XBITMAPS) += xorg-data-xbitmaps
 XORG_DATA_XBITMAPS_VERSION	:= 1.0.1
 XORG_DATA_XBITMAPS		:= xbitmaps-X11R7.0-$(XORG_DATA_XBITMAPS_VERSION)
 XORG_DATA_XBITMAPS_SUFFIX	:= tar.bz2
-XORG_DATA_XBITMAPS_URL		:= http://ftp.x.org/pub/X11R7.0/src/data//$(XORG_DATA_XBITMAPS).$(XORG_DATA_XBITMAPS_SUFFIX)
+XORG_DATA_XBITMAPS_URL		:= http://ftp.x.org/pub/X11R7.0/src/data/$(XORG_DATA_XBITMAPS).$(XORG_DATA_XBITMAPS_SUFFIX)
 XORG_DATA_XBITMAPS_SOURCE	:= $(SRCDIR)/$(XORG_DATA_XBITMAPS).$(XORG_DATA_XBITMAPS_SUFFIX)
 XORG_DATA_XBITMAPS_DIR		:= $(BUILDDIR)/$(XORG_DATA_XBITMAPS)
 
@@ -105,20 +105,6 @@ xorg-data-xbitmaps_targetinstall: $(STATEDIR)/xorg-data-xbitmaps.targetinstall
 
 $(STATEDIR)/xorg-data-xbitmaps.targetinstall: $(xorg-data-xbitmaps_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-data-xbitmaps)
-	@$(call install_fixup,xorg-data-xbitmaps,PACKAGE,xorg-data-xbitmaps)
-	@$(call install_fixup,xorg-data-xbitmaps,PRIORITY,optional)
-	@$(call install_fixup,xorg-data-xbitmaps,VERSION,$(XORG_DATA_XBITMAPS_VERSION))
-	@$(call install_fixup,xorg-data-xbitmaps,SECTION,base)
-	@$(call install_fixup,xorg-data-xbitmaps,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,xorg-data-xbitmaps,DEPENDS,)
-	@$(call install_fixup,xorg-data-xbitmaps,DESCRIPTION,missing)
-
-	@$(call install_copy, xorg-data-xbitmaps, 0, 0, 0755, $(XORG_DATA_XBITMAPS_DIR)/foobar, /dev/null)
-
-	@$(call install_finish,xorg-data-xbitmaps)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
