@@ -81,7 +81,8 @@ XORG_SERVER_ENV		+=  ac_cv_file__usr_share_X11_sgml_defs_ent=no
 #
 # autoconf
 #
-XORG_SERVER_AUTOCONF := $(CROSS_AUTOCONF_USR)
+# don't put a := here! MESALIB_DIR won't get expanded then
+XORG_SERVER_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
 ifdef PTXCONF_XORG_SERVER_EXT_COMPOSITE
 XORG_SERVER_AUTOCONF += --enable-composite
@@ -294,7 +295,7 @@ XORG_SERVER_AUTOCONF += --disable-kbd_mode
 endif
 
 XORG_SERVER_AUTOCONF += --disable-builddocs
-XORG_SERVER_AUTOCONF += --with-mesa-source=$(MESALIB_DIR)/
+XORG_SERVER_AUTOCONF += --with-mesa-source=$(MESALIB_DIR)
 
 XORG_SERVER_AUTOCONF += --localstatedir=/var
 
