@@ -1,6 +1,5 @@
 config XORG_PROTO_XF86DRI
 	bool
-	depends on XORG_PROTO
 	prompt "xf86dri proto"
 	help
 	  FIXME

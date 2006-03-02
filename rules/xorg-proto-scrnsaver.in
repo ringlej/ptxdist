@@ -1,6 +1,5 @@
 config XORG_PROTO_SCRNSAVER
 	bool
-	depends on XORG_PROTO
 	prompt "scrnsaver proto"
 	help
 	  FIXME

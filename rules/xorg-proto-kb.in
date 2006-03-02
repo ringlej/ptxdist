@@ -1,6 +1,5 @@
 config XORG_PROTO_KB
 	bool
-	depends on XORG_PROTO
 	prompt "kb proto"
 	help
 	  FIXME

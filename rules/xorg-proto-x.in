@@ -1,6 +1,5 @@
 config XORG_PROTO_X
 	bool
-	depends on XORG_PROTO
 	prompt "x proto"
 	help
 	  FIXME

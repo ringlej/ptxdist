@@ -1,6 +1,5 @@
 config XORG_PROTO_XEXT
 	bool
-	depends on XORG_PROTO
 	prompt "xext proto"
 	help
 	  FIXME

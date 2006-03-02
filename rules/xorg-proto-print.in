@@ -1,6 +1,5 @@
 config XORG_PROTO_PRINT
 	bool
-	depends on XORG_PROTO
 	prompt "print proto"
 	help
 	  FIXME

@@ -1,6 +1,5 @@
 config XORG_PROTO_FONTS
 	bool
-	depends on XORG_PROTO
 	prompt "fonts proto"
 	help
 	  FIXME

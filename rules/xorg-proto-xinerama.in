@@ -1,6 +1,5 @@
 config XORG_PROTO_XINERAMA
 	bool
-	depends on XORG_PROTO
 	prompt "xinerama proto"
 	help
 	  FIXME

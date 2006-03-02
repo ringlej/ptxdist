@@ -1,6 +1,5 @@
 config XORG_PROTO_XF86DGA
 	bool
-	depends on XORG_PROTO
 	prompt "xf86dga proto"
 	help
 	  FIXME

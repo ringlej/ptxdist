@@ -1,6 +1,5 @@
 config XORG_PROTO_DAMAGE
 	bool
-	depends on XORG_PROTO
 	prompt "damage proto"
 	help
 	  FIXME

@@ -1,6 +1,5 @@
 config XORG_PROTO_DMX
 	bool
-	depends on XORG_PROTO
 	prompt "dmx proto"
 	help
 	  FIXME

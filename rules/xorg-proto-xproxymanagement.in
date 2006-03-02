@@ -1,6 +1,5 @@
 config XORG_PROTO_XPROXYMANAGEMENT
 	bool
-	depends on XORG_PROTO
 	prompt "xprosymanagement proto"
 	help
 	  FIXME

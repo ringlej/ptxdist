@@ -1,6 +1,5 @@
 config XORG_PROTO_XF86BIGFONT
 	bool
-	depends on XORG_PROTO
 	prompt "xf86bigfont proto"
 	help
 	  FIXME

@@ -1,6 +1,5 @@
 config XORG_PROTO_XCMISC
 	bool
-	depends on XORG_PROTO
 	prompt "xcmisc proto"
 	help
 	  FIXME
