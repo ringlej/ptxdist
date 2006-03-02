@@ -14,10 +14,6 @@
 
 virtual-xchain_install: $(STATEDIR)/virtual-xchain.install
 
-ifdef PTXCONF_CROSSTOOL
-virtual-xchain_install_deps	= $(STATEDIR)/crosstool.install
-endif 
-
 ifdef PTXCONF_HOST_FAKEROOT
 virtual-xchain_install_deps	+= $(STATEDIR)/host-fakeroot.install
 endif
@@ -31,7 +27,7 @@ virtual-xchain_install_deps	+= $(STATEDIR)/host-checkinstall.install
 endif
 
 ifdef PTXCONF_IMAGE_JFFS2
-virtual-xchain_install_deps	+=  $(STATEDIR)/host-mtd.install
+virtual-xchain_install_deps	+= $(STATEDIR)/host-mtd.install
 endif
 
 virtual-xchain_install_deps	+= $(STATEDIR)/host-pkg-config-wrapper.install
