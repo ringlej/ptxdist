@@ -14,7 +14,11 @@
 #
 # We provide this package
 #
+# bloody hack, I'm sorry (mkl)
+#
+ifndef CROSSTOOL
 PACKAGES-$(PTXCONF_GLIBC) += glibc
+endif
 
 GLIBC := glibc-$(GLIBC_VERSION)
 
