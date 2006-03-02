@@ -1,5 +1,6 @@
 config XORG_LIB_XPM
 	bool
 	prompt "libXpm"
+	select XORG_LIB_X11
 	help
 	  FIXME
