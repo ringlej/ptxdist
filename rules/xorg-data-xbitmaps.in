@@ -1,0 +1,6 @@
+config XORG_DATA_XBITMAPS
+	bool
+	prompt "xbitmaps"
+	help
+	  FIXME
+

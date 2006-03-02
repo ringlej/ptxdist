@@ -1,0 +1,7 @@
+# xorg data configuration
+
+menu "xorg data             "
+
+source "rules/xorg-data-xbitmaps.in"
+
+endmenu
