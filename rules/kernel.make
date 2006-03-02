@@ -251,18 +251,19 @@ ifdef PTXCONF_KLIBC
 	#        do depend on this
 	sed -ie 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(KLIBC_DIR)/initramfs_spec\",g' $(KERNEL_DIR)/.config
 endif
-	@echo 
+	@echo
 	@echo "------------- make oldconfig -------------"
 	@echo
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make oldconfig $(KERNEL_MAKEVARS)
-	@echo 
+	@echo
 	@echo "---------------- make dep ----------------"
-	@echo 
+	@echo
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make dep $(KERNEL_MAKEVARS)
-	@echo 
+	@echo
 	@echo "---------- make modules_prepare ----------"
-	@echo 
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
+	@echo
+# '-' is neccessary because modules_prepare fails on kernels < 2.6.6
+	-cd $(KERNEL_DIR) && $(KERNEL_PATH) make modules_prepare $(KERNEL_MAKEVARS)
 else
 	@echo "PTXCONF_USE_EXTERNAL_KERNEL is set, proceeding"
 endif
