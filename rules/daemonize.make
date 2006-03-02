@@ -94,7 +94,6 @@ daemonize_install: $(STATEDIR)/daemonize.install
 
 $(STATEDIR)/daemonize.install: $(daemonize_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, DAEMONIZE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
