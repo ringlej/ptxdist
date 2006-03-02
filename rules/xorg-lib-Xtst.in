@@ -1,6 +1,5 @@
 config XORG_LIB_XTST
 	bool
-	depends on XORG_LIB
 	prompt "libXtst"
 	help
 	  FIXME

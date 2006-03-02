@@ -1,6 +1,5 @@
 config XORG_LIB_XEVIE
 	bool
-	depends on XORG_LIB
 	depends on BROKEN
 	prompt "libXevie"
 	help
@@ -8,4 +7,3 @@ config XORG_LIB_XEVIE
 
 comment "xevie is broken, please send a patch"
 	depends on !BROKEN
-	depends on XORG_LIB

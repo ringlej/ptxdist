@@ -1,6 +1,5 @@
 config XORG_LIB_XMU
 	bool
-	depends on XORG_LIB
 	prompt "libXmu"
 	select XORG_LIB_XT
 	select XORG_LIB_XEXT

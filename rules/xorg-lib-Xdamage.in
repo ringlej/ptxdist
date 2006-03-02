@@ -1,6 +1,5 @@
 config XORG_LIB_XDAMAGE
 	bool
-	depends on XORG_LIB
 	prompt "libXdamage"
 	help
 	  FIXME

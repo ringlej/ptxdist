@@ -1,6 +1,5 @@
 config XORG_LIB_XEXT
 	bool
-	depends on XORG_LIB
 	prompt "libXext"
 	help
 	  FIXME

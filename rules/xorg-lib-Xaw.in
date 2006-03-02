@@ -1,6 +1,5 @@
 config XORG_LIB_XAW
 	bool
-	depends on XORG_LIB
 	select XORG_LIB_XPM
 	select XORG_PROTO_X
 	select XORG_LIB_XEXT

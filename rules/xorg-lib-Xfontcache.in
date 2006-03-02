@@ -1,6 +1,5 @@
 config XORG_LIB_XFONTCACHE
 	bool
-	depends on XORG_LIB
 	prompt "libXfontcache"
 	help
 	  FIXME

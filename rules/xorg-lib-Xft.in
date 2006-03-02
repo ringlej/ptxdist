@@ -1,6 +1,5 @@
 config XORG_LIB_XFT
 	bool
-	depends on XORG_LIB
 	select FREETYPE
 	select FONTCONFIG
 	select XORG_LIB_XRENDER

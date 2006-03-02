@@ -1,6 +1,5 @@
 config XORG_LIB_XPRINTUTIL
 	bool
-	depends on XORG_LIB
 	prompt "libXprintUtil"
 	help
 	  FIXME

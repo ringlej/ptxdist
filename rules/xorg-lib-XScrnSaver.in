@@ -1,6 +1,5 @@
 config XORG_LIB_XSCRNSAVER
 	bool
-	depends on XORG_LIB
 	prompt "libXScrnSaver"
 	help
 	  FIXME

@@ -1,6 +1,5 @@
 config XORG_LIB_X11
 	bool
-	depends on XORG_LIB
 	prompt "libX11"
 	select XORG_PROTO_XEXT
 	select XORG_LIB_XTRANS

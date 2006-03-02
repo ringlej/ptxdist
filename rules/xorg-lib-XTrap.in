@@ -1,6 +1,5 @@
 config XORG_LIB_XTRAP
 	bool
-	depends on XORG_LIB
 	prompt "libXTrap"
 	help
 	  FIXME

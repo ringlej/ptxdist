@@ -1,6 +1,5 @@
 config XORG_LIB_FONTENC
 	bool
-	depends on XORG_LIB
 	select ZLIB
 	select XORG_PROTO_X
 	prompt "libfontenc"

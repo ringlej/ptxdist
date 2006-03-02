@@ -1,6 +1,5 @@
 config XORG_LIB_XKBFILE
 	bool
-	depends on XORG_LIB
 	prompt "libxkbfile"
 	select XORG_LIB_X11
 	select XORG_PROTO_KB

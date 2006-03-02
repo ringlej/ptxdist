@@ -1,6 +1,5 @@
 config XORG_LIB_XKBUI
 	bool
-	depends on XORG_LIB
 	prompt "libxkbui"
 	help
 	  FIXME

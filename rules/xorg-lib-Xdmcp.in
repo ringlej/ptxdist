@@ -1,6 +1,5 @@
 config XORG_LIB_XDMCP
 	bool
-	depends on XORG_LIB
 	prompt "libXdmcp"
 	help
 	  FIXME

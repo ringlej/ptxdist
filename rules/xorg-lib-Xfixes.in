@@ -1,6 +1,5 @@
 config XORG_LIB_XFIXES
 	bool
-	depends on XORG_LIB
 	prompt "libXfixes"
 	help
 	  FIXME

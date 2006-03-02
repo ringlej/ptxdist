@@ -1,6 +1,5 @@
 config XORG_LIB_XXF86MISC
 	bool
-	depends on XORG_LIB
 	prompt "libXxf86misc"
 	help
 	  FIXME

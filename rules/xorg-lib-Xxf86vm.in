@@ -1,6 +1,5 @@
 config XORG_LIB_XXF86VM
 	bool
-	depends on XORG_LIB
 	prompt "libXxf86vm"
 	help
 	  FIXME
