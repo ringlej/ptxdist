@@ -160,18 +160,7 @@ endmenu
 menu "Graphics Libraries          "
 depends on BUILD_USERLAND
 
-comment "Xorg Infrastructure"
-source "rules/xorg-server.in"
-source "rules/xorg-driver.in"
-source "rules/xorg-proto.in"
-source "rules/xorg-lib.in"
-source "rules/xorg-app.in"
-source "rules/xorg-font.in"
-
-comment "Xorg Support Libraries"
-source "rules/freetype.in"
-source "rules/libdrm.in"
-source "rules/mesalib.in"
+source "rules/xorg.in"
 
 comment "X Applications"
 #source "rules/gtk22.in"

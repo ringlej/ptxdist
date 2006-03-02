@@ -1,0 +1,12 @@
+menu "Xorg                  "
+
+source "rules/xorg-server.in"
+source "rules/xorg-driver.in"
+source "rules/xorg-app.in"
+source "rules/xorg-font.in"
+source "rules/xorg-proto.in"
+source "rules/xorg-lib.in"
+source "rules/xorg-data.in"
+source "rules/xorg-support-libs.in"
+
+endmenu

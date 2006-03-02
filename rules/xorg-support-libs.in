@@ -1,0 +1,7 @@
+menu "Xorg Support Libraries"
+
+source "rules/freetype.in"
+source "rules/libdrm.in"
+source "rules/mesalib.in"
+
+endmenu
