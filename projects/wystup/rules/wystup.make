@@ -10,7 +10,18 @@
 # see the README file.
 #
 
-PACKAGES-y += wystup
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_WYSTUP) += wystup
+
+#
+# Paths and names
+#
+WYSTUP_VERSION	= 0.0.1
+WYSTUP		= wystup-$(WYSTUP_VERSION)
+
+-include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -19,30 +30,19 @@ PACKAGES-y += wystup
 wystup_targetinstall: $(STATEDIR)/wystup.targetinstall
 
 $(STATEDIR)/wystup.targetinstall:
-	@$(call targetinfo, vendor-tweaks.targetinstall)
+	@$(call targetinfo, $@)
 
-	# FIXME: use normal ipkg mechanism
+	@$(call install_init, wystup)
+	@$(call install_fixup,wystup,PACKAGE,wystup)
+	@$(call install_fixup,wystup,PRIORITY,optional)
+	@$(call install_fixup,wystup,VERSION,$(WYSTUP_VERSION))
+	@$(call install_fixup,wystup,SECTION,base)
+	@$(call install_fixup,wystup,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,wystup,DEPENDS,)
+	@$(call install_fixup,wystup,DESCRIPTION,missing)
 
-#	copy /etc template
-#	cp -a $(PROJECTDIR)/etc/. $(ROOTDIR)/etc
+	@$(call install_copy, wystup, 0, 0, 0755, $(PTXDIST_WORKSPACE)/projectroot/boot/grub/menu.lst, /boot/grub/menu.lst)
 
-#	make scripts executable
-	chmod 755 $(ROOTDIR)/etc/init.d/*
+	@$(call install_finish,wystup)
 
-	# create menu.lst for grub
-	install -d $(ROOTDIR)/boot
-	echo "timeout 30" > $(ROOTDIR)/boot/grub/menu.lst
-	echo "default 0" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "title \"Compact Flash\"" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
-	echo "kernel /boot/bzImage rw ide=nodma root=/dev/hdc1 ip=dhcp" >> $(ROOTDIR)/boot/grub/menu.lst
-#	echo "title \"NFS\"" >> $(ROOTDIR)/boot/grub/menu.lst
-#	echo "root (hd0,0)" >> $(ROOTDIR)/boot/grub/menu.lst
-#	echo "kernel /boot/bzImage ip=dhcp root=/dev/nfs" >> $(ROOTDIR)/boot/grub/menu.lst
-	# create some mountpoints
-	install -d $(ROOTDIR)/var/run
-	install -d $(ROOTDIR)/var/log
-	
-	touch $@
-
-# vim: syntax=make
+	@$(call touch, $@)
