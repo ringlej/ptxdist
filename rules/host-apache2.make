@@ -17,12 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_APACHE2) += host-apache2
 #
 # Paths and names
 #
-HOST_APACHE2_VERSION	:= 2.0.55
-HOST_APACHE2		:= httpd-$(HOST_APACHE2_VERSION)
-HOST_APACHE2_SUFFIX	:= tar.bz2
-HOST_APACHE2_URL	:= http://ftp.plusline.de/ftp.apache.org/httpd/$(HOST_APACHE2).$(HOST_APACHE2_SUFFIX)
-HOST_APACHE2_SOURCE	:= $(SRCDIR)/$(HOST_APACHE2).$(HOST_APACHE2_SUFFIX)
-HOST_APACHE2_DIR	:= $(HOST_BUILDDIR)/$(HOST_APACHE2)
+HOST_APACHE2_DIR	= $(HOST_BUILDDIR)/$(APACHE2)
 
 -include $(call package_depfile)
 
@@ -32,7 +27,7 @@ HOST_APACHE2_DIR	:= $(HOST_BUILDDIR)/$(HOST_APACHE2)
 
 host-apache2_get: $(STATEDIR)/host-apache2.get
 
-$(STATEDIR)/host-apache2.get: $(host-apache2_get_deps_default)
+$(STATEDIR)/host-apache2.get: $(STATEDIR)/apache2.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,8 +40,8 @@ host-apache2_extract: $(STATEDIR)/host-apache2.extract
 $(STATEDIR)/host-apache2.extract: $(host-apache2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_APACHE2_DIR))
-	@$(call extract, $(HOST_APACHE2_SOURCE), $(HOST_BUILDDIR))
-	@$(call patchin, $(HOST_APACHE2), $(HOST_APACHE2_DIR))
+	@$(call extract, $(APACHE2_SOURCE), $(HOST_BUILDDIR))
+	@$(call patchin, $(APACHE2), $(HOST_APACHE2_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

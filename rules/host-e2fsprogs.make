@@ -17,12 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_E2FSPROGS) += host-e2fsprogs
 #
 # Paths and names
 #
-HOST_E2FSPROGS_VERSION	= $(E2FSPROGS_VERSION)
-HOST_E2FSPROGS		= e2fsprogs-$(HOST_E2FSPROGS_VERSION)
-HOST_E2FSPROGS_SUFFIX	= tar.gz
-HOST_E2FSPROGS_URL	= $(PTXCONF_SETUP_SFMIRROR)/e2fsprogs/$(HOST_E2FSPROGS).$(HOST_E2FSPROGS_SUFFIX)
-HOST_E2FSPROGS_SOURCE	= $(SRCDIR)/$(HOST_E2FSPROGS).$(HOST_E2FSPROGS_SUFFIX)
-HOST_E2FSPROGS_DIR	= $(HOST_BUILDDIR)/$(HOST_E2FSPROGS)
+HOST_E2FSPROGS_DIR	= $(HOST_BUILDDIR)/$(E2FSPROGS)
 
 -include $(call package_depfile)
 
@@ -32,7 +27,7 @@ HOST_E2FSPROGS_DIR	= $(HOST_BUILDDIR)/$(HOST_E2FSPROGS)
 
 host-e2fsprogs_get: $(STATEDIR)/host-e2fsprogs.get
 
-$(STATEDIR)/host-e2fsprogs.get: $(host-e2fsprogs_get_deps_default)
+$(STATEDIR)/host-e2fsprogs.get: $(STATEDIR)/e2fsprogs.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,8 +40,8 @@ host-e2fsprogs_extract: $(STATEDIR)/host-e2fsprogs.extract
 $(STATEDIR)/host-e2fsprogs.extract: $(host-e2fsprogs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_E2FSPROGS_DIR))
-	@$(call extract, $(HOST_E2FSPROGS_SOURCE), $(HOST_BUILDDIR))
-	@$(call patchin, $(HOST_E2FSPROGS), $(HOST_E2FSPROGS_DIR))
+	@$(call extract, $(E2FSPROGS_SOURCE), $(HOST_BUILDDIR))
+	@$(call patchin, $(E2FSPROGS), $(HOST_E2FSPROGS_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
