@@ -94,7 +94,6 @@ xorg-font-isas-misc_install: $(STATEDIR)/xorg-font-isas-misc.install
 
 $(STATEDIR)/xorg-font-isas-misc.install: $(xorg-font-isas-misc_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_ISAS_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

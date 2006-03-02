@@ -94,7 +94,6 @@ xorg-font-ibm-type1_install: $(STATEDIR)/xorg-font-ibm-type1.install
 
 $(STATEDIR)/xorg-font-ibm-type1.install: $(xorg-font-ibm-type1_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_IBM_TYPE1)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

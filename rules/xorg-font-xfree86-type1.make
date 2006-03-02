@@ -94,7 +94,6 @@ xorg-font-xfree86-type1_install: $(STATEDIR)/xorg-font-xfree86-type1.install
 
 $(STATEDIR)/xorg-font-xfree86-type1.install: $(xorg-font-xfree86-type1_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_XFREE86_TYPE1)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

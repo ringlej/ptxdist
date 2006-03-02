@@ -94,7 +94,6 @@ xorg-font-adobe-utopia-type1_install: $(STATEDIR)/xorg-font-adobe-utopia-type1.i
 
 $(STATEDIR)/xorg-font-adobe-utopia-type1.install: $(xorg-font-adobe-utopia-type1_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_ADOBE_UTOPIA_TYPE1)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

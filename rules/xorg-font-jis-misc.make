@@ -94,7 +94,6 @@ xorg-font-jis-misc_install: $(STATEDIR)/xorg-font-jis-misc.install
 
 $(STATEDIR)/xorg-font-jis-misc.install: $(xorg-font-jis-misc_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_JIS_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

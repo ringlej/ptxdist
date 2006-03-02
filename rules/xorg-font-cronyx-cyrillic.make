@@ -94,7 +94,6 @@ xorg-font-cronyx-cyrillic_install: $(STATEDIR)/xorg-font-cronyx-cyrillic.install
 
 $(STATEDIR)/xorg-font-cronyx-cyrillic.install: $(xorg-font-cronyx-cyrillic_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_CRONYX_CYRILLIC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

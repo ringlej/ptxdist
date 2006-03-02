@@ -94,7 +94,6 @@ xorg-font-bitstream-speedo_install: $(STATEDIR)/xorg-font-bitstream-speedo.insta
 
 $(STATEDIR)/xorg-font-bitstream-speedo.install: $(xorg-font-bitstream-speedo_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_BITSTREAM_SPEEDO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

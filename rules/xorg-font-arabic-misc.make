@@ -94,7 +94,6 @@ xorg-font-arabic-misc_install: $(STATEDIR)/xorg-font-arabic-misc.install
 
 $(STATEDIR)/xorg-font-arabic-misc.install: $(xorg-font-arabic-misc_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_ARABIC_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

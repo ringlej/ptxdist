@@ -94,7 +94,6 @@ xorg-font-misc-cyrillic_install: $(STATEDIR)/xorg-font-misc-cyrillic.install
 
 $(STATEDIR)/xorg-font-misc-cyrillic.install: $(xorg-font-misc-cyrillic_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_MISC_CYRILLIC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

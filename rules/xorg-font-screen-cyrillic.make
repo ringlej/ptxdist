@@ -94,7 +94,6 @@ xorg-font-screen-cyrillic_install: $(STATEDIR)/xorg-font-screen-cyrillic.install
 
 $(STATEDIR)/xorg-font-screen-cyrillic.install: $(xorg-font-screen-cyrillic_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_SCREEN_CYRILLIC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

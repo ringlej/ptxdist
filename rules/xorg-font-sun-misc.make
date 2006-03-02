@@ -94,7 +94,6 @@ xorg-font-sun-misc_install: $(STATEDIR)/xorg-font-sun-misc.install
 
 $(STATEDIR)/xorg-font-sun-misc.install: $(xorg-font-sun-misc_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_SUN_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -94,7 +94,6 @@ xorg-font-sony-misc_install: $(STATEDIR)/xorg-font-sony-misc.install
 
 $(STATEDIR)/xorg-font-sony-misc.install: $(xorg-font-sony-misc_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_SONY_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -94,7 +94,6 @@ xorg-font-schumacher-misc_install: $(STATEDIR)/xorg-font-schumacher-misc.install
 
 $(STATEDIR)/xorg-font-schumacher-misc.install: $(xorg-font-schumacher-misc_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_SCHUMACHER_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

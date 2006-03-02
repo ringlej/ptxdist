@@ -94,7 +94,6 @@ xorg-font-bh-75dpi_install: $(STATEDIR)/xorg-font-bh-75dpi.install
 
 $(STATEDIR)/xorg-font-bh-75dpi.install: $(xorg-font-bh-75dpi_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_BH_75DPI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

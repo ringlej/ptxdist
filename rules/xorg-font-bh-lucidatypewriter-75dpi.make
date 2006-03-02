@@ -94,7 +94,6 @@ xorg-font-bh-lucidatypewriter-75dpi_install: $(STATEDIR)/xorg-font-bh-lucidatype
 
 $(STATEDIR)/xorg-font-bh-lucidatypewriter-75dpi.install: $(xorg-font-bh-lucidatypewriter-75dpi_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_BH_LUCIDATYPEWRITER_75DPI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

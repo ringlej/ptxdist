@@ -94,7 +94,6 @@ xorg-font-mutt-misc_install: $(STATEDIR)/xorg-font-mutt-misc.install
 
 $(STATEDIR)/xorg-font-mutt-misc.install: $(xorg-font-mutt-misc_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_MUTT_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

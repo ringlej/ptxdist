@@ -94,7 +94,6 @@ xorg-font-bitstream-type1_install: $(STATEDIR)/xorg-font-bitstream-type1.install
 
 $(STATEDIR)/xorg-font-bitstream-type1.install: $(xorg-font-bitstream-type1_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_BITSTREAM_TYPE1)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

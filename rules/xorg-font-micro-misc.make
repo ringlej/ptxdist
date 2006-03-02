@@ -94,7 +94,6 @@ xorg-font-micro-misc_install: $(STATEDIR)/xorg-font-micro-misc.install
 
 $(STATEDIR)/xorg-font-micro-misc.install: $(xorg-font-micro-misc_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_MICRO_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

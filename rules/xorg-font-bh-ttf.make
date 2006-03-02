@@ -94,7 +94,6 @@ xorg-font-bh-ttf_install: $(STATEDIR)/xorg-font-bh-ttf.install
 
 $(STATEDIR)/xorg-font-bh-ttf.install: $(xorg-font-bh-ttf_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_BH_TTF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

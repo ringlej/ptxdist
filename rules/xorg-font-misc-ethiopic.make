@@ -94,7 +94,6 @@ xorg-font-misc-ethiopic_install: $(STATEDIR)/xorg-font-misc-ethiopic.install
 
 $(STATEDIR)/xorg-font-misc-ethiopic.install: $(xorg-font-misc-ethiopic_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_MISC_ETHIOPIC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

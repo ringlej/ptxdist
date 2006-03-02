@@ -94,7 +94,6 @@ xorg-font-bitstream-100dpi_install: $(STATEDIR)/xorg-font-bitstream-100dpi.insta
 
 $(STATEDIR)/xorg-font-bitstream-100dpi.install: $(xorg-font-bitstream-100dpi_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_BITSTREAM_100DPI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

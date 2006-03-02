@@ -94,7 +94,6 @@ xorg-font-adobe-100dpi_install: $(STATEDIR)/xorg-font-adobe-100dpi.install
 
 $(STATEDIR)/xorg-font-adobe-100dpi.install: $(xorg-font-adobe-100dpi_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_ADOBE_100DPI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

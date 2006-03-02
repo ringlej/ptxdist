@@ -94,7 +94,6 @@ xorg-font-cursor-misc_install: $(STATEDIR)/xorg-font-cursor-misc.install
 
 $(STATEDIR)/xorg-font-cursor-misc.install: $(xorg-font-cursor-misc_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_CURSOR_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

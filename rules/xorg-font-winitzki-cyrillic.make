@@ -94,7 +94,6 @@ xorg-font-winitzki-cyrillic_install: $(STATEDIR)/xorg-font-winitzki-cyrillic.ins
 
 $(STATEDIR)/xorg-font-winitzki-cyrillic.install: $(xorg-font-winitzki-cyrillic_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_WINITZKI_CYRILLIC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

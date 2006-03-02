@@ -94,7 +94,6 @@ xorg-font-adobe-utopia-100dpi_install: $(STATEDIR)/xorg-font-adobe-utopia-100dpi
 
 $(STATEDIR)/xorg-font-adobe-utopia-100dpi.install: $(xorg-font-adobe-utopia-100dpi_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_ADOBE_UTOPIA_100DPI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

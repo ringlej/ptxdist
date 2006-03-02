@@ -94,7 +94,6 @@ xorg-font-misc-meltho_install: $(STATEDIR)/xorg-font-misc-meltho.install
 
 $(STATEDIR)/xorg-font-misc-meltho.install: $(xorg-font-misc-meltho_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_MISC_MELTHO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

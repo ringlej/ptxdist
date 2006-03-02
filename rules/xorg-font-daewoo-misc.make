@@ -94,7 +94,6 @@ xorg-font-daewoo-misc_install: $(STATEDIR)/xorg-font-daewoo-misc.install
 
 $(STATEDIR)/xorg-font-daewoo-misc.install: $(xorg-font-daewoo-misc_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_DAEWOO_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
