@@ -105,18 +105,6 @@ xorg-proto-print_targetinstall: $(STATEDIR)/xorg-proto-print.targetinstall
 
 $(STATEDIR)/xorg-proto-print.targetinstall: $(xorg-proto-print_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-print)
-	@$(call install_fixup, xorg-proto-print,PACKAGE,xorg-proto-print)
-	@$(call install_fixup, xorg-proto-print,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-print,VERSION,$(XORG_PROTO_PRINT_VERSION))
-	@$(call install_fixup, xorg-proto-print,SECTION,base)
-	@$(call install_fixup, xorg-proto-print,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-print,DEPENDS,)
-	@$(call install_fixup, xorg-proto-print,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-print)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

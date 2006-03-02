@@ -105,18 +105,6 @@ xorg-proto-dmx_targetinstall: $(STATEDIR)/xorg-proto-dmx.targetinstall
 
 $(STATEDIR)/xorg-proto-dmx.targetinstall: $(xorg-proto-dmx_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-dmx)
-	@$(call install_fixup, xorg-proto-dmx,PACKAGE,xorg-proto-dmx)
-	@$(call install_fixup, xorg-proto-dmx,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-dmx,VERSION,$(XORG_PROTO_DMX_VERSION))
-	@$(call install_fixup, xorg-proto-dmx,SECTION,base)
-	@$(call install_fixup, xorg-proto-dmx,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-dmx,DEPENDS,)
-	@$(call install_fixup, xorg-proto-dmx,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-dmx)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

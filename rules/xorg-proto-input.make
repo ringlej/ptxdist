@@ -105,18 +105,6 @@ xorg-proto-input_targetinstall: $(STATEDIR)/xorg-proto-input.targetinstall
 
 $(STATEDIR)/xorg-proto-input.targetinstall: $(xorg-proto-input_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-input)
-	@$(call install_fixup, xorg-proto-input,PACKAGE,xorg-proto-input)
-	@$(call install_fixup, xorg-proto-input,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-input,VERSION,$(XORG_PROTO_INPUT_VERSION))
-	@$(call install_fixup, xorg-proto-input,SECTION,base)
-	@$(call install_fixup, xorg-proto-input,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-input,DEPENDS,)
-	@$(call install_fixup, xorg-proto-input,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-input)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

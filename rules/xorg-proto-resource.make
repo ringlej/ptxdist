@@ -105,18 +105,6 @@ xorg-proto-resource_targetinstall: $(STATEDIR)/xorg-proto-resource.targetinstall
 
 $(STATEDIR)/xorg-proto-resource.targetinstall: $(xorg-proto-resource_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-resource)
-	@$(call install_fixup, xorg-proto-resource,PACKAGE,xorg-proto-resource)
-	@$(call install_fixup, xorg-proto-resource,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-resource,VERSION,$(XORG_PROTO_RESOURCE_VERSION))
-	@$(call install_fixup, xorg-proto-resource,SECTION,base)
-	@$(call install_fixup, xorg-proto-resource,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-resource,DEPENDS,)
-	@$(call install_fixup, xorg-proto-resource,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-resource)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

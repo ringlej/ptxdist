@@ -105,18 +105,6 @@ xorg-proto-xf86dri_targetinstall: $(STATEDIR)/xorg-proto-xf86dri.targetinstall
 
 $(STATEDIR)/xorg-proto-xf86dri.targetinstall: $(xorg-proto-xf86dri_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-xf86dri)
-	@$(call install_fixup, xorg-proto-xf86dri,PACKAGE,xorg-proto-xf86dri)
-	@$(call install_fixup, xorg-proto-xf86dri,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-xf86dri,VERSION,$(XORG_PROTO_XF86DRI_VERSION))
-	@$(call install_fixup, xorg-proto-xf86dri,SECTION,base)
-	@$(call install_fixup, xorg-proto-xf86dri,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-xf86dri,DEPENDS,)
-	@$(call install_fixup, xorg-proto-xf86dri,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-xf86dri)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

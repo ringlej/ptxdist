@@ -105,18 +105,6 @@ xorg-proto-xf86misc_targetinstall: $(STATEDIR)/xorg-proto-xf86misc.targetinstall
 
 $(STATEDIR)/xorg-proto-xf86misc.targetinstall: $(xorg-proto-xf86misc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-xf86misc)
-	@$(call install_fixup, xorg-proto-xf86misc,PACKAGE,xorg-proto-xf86misc)
-	@$(call install_fixup, xorg-proto-xf86misc,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-xf86misc,VERSION,$(XORG_PROTO_XF86MISC_VERSION))
-	@$(call install_fixup, xorg-proto-xf86misc,SECTION,base)
-	@$(call install_fixup, xorg-proto-xf86misc,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-xf86misc,DEPENDS,)
-	@$(call install_fixup, xorg-proto-xf86misc,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-xf86misc)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

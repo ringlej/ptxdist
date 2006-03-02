@@ -105,18 +105,6 @@ xorg-proto-xf86bigfont_targetinstall: $(STATEDIR)/xorg-proto-xf86bigfont.targeti
 
 $(STATEDIR)/xorg-proto-xf86bigfont.targetinstall: $(xorg-proto-xf86bigfont_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-xf86bigfont)
-	@$(call install_fixup, xorg-proto-xf86bigfont,PACKAGE,xorg-proto-xf86bigfont)
-	@$(call install_fixup, xorg-proto-xf86bigfont,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-xf86bigfont,VERSION,$(XORG_PROTO_XF86BIGFONT_VERSION))
-	@$(call install_fixup, xorg-proto-xf86bigfont,SECTION,base)
-	@$(call install_fixup, xorg-proto-xf86bigfont,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-xf86bigfont,DEPENDS,)
-	@$(call install_fixup, xorg-proto-xf86bigfont,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-xf86bigfont)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

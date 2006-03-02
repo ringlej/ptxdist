@@ -105,18 +105,6 @@ xorg-proto-bigreqs_targetinstall: $(STATEDIR)/xorg-proto-bigreqs.targetinstall
 
 $(STATEDIR)/xorg-proto-bigreqs.targetinstall: $(xorg-proto-bigreqs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-bigreqs)
-	@$(call install_fixup, xorg-proto-bigreqs,PACKAGE,xorg-proto-bigreqs)
-	@$(call install_fixup, xorg-proto-bigreqs,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-bigreqs,VERSION,$(XORG_PROTO_BIGREQS_VERSION))
-	@$(call install_fixup, xorg-proto-bigreqs,SECTION,base)
-	@$(call install_fixup, xorg-proto-bigreqs,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-bigreqs,DEPENDS,)
-	@$(call install_fixup, xorg-proto-bigreqs,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-bigreqs)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

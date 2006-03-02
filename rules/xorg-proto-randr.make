@@ -105,18 +105,6 @@ xorg-proto-randr_targetinstall: $(STATEDIR)/xorg-proto-randr.targetinstall
 
 $(STATEDIR)/xorg-proto-randr.targetinstall: $(xorg-proto-randr_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-randr)
-	@$(call install_fixup, xorg-proto-randr,PACKAGE,xorg-proto-randr)
-	@$(call install_fixup, xorg-proto-randr,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-randr,VERSION,$(XORG_PROTO_RANDR_VERSION))
-	@$(call install_fixup, xorg-proto-randr,SECTION,base)
-	@$(call install_fixup, xorg-proto-randr,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-randr,DEPENDS,)
-	@$(call install_fixup, xorg-proto-randr,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-randr)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

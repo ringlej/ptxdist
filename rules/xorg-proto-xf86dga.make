@@ -105,18 +105,6 @@ xorg-proto-xf86dga_targetinstall: $(STATEDIR)/xorg-proto-xf86dga.targetinstall
 
 $(STATEDIR)/xorg-proto-xf86dga.targetinstall: $(xorg-proto-xf86dga_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-xf86dga)
-	@$(call install_fixup, xorg-proto-xf86dga,PACKAGE,xorg-proto-xf86dga)
-	@$(call install_fixup, xorg-proto-xf86dga,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-xf86dga,VERSION,$(XORG_PROTO_XF86DGA_VERSION))
-	@$(call install_fixup, xorg-proto-xf86dga,SECTION,base)
-	@$(call install_fixup, xorg-proto-xf86dga,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-xf86dga,DEPENDS,)
-	@$(call install_fixup, xorg-proto-xf86dga,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-xf86dga)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

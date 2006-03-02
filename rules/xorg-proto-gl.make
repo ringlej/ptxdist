@@ -105,18 +105,6 @@ xorg-proto-gl_targetinstall: $(STATEDIR)/xorg-proto-gl.targetinstall
 
 $(STATEDIR)/xorg-proto-gl.targetinstall: $(xorg-proto-gl_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-gl)
-	@$(call install_fixup, xorg-proto-gl,PACKAGE,xorg-proto-gl)
-	@$(call install_fixup, xorg-proto-gl,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-gl,VERSION,$(XORG_PROTO_GL_VERSION))
-	@$(call install_fixup, xorg-proto-gl,SECTION,base)
-	@$(call install_fixup, xorg-proto-gl,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-gl,DEPENDS,)
-	@$(call install_fixup, xorg-proto-gl,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-gl)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

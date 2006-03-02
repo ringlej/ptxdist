@@ -105,18 +105,6 @@ xorg-proto-trap_targetinstall: $(STATEDIR)/xorg-proto-trap.targetinstall
 
 $(STATEDIR)/xorg-proto-trap.targetinstall: $(xorg-proto-trap_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-trap)
-	@$(call install_fixup, xorg-proto-trap,PACKAGE,xorg-proto-trap)
-	@$(call install_fixup, xorg-proto-trap,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-trap,VERSION,$(XORG_PROTO_TRAP_VERSION))
-	@$(call install_fixup, xorg-proto-trap,SECTION,base)
-	@$(call install_fixup, xorg-proto-trap,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-trap,DEPENDS,)
-	@$(call install_fixup, xorg-proto-trap,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-trap)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

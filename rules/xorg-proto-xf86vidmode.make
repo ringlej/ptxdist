@@ -105,18 +105,6 @@ xorg-proto-xf86vidmode_targetinstall: $(STATEDIR)/xorg-proto-xf86vidmode.targeti
 
 $(STATEDIR)/xorg-proto-xf86vidmode.targetinstall: $(xorg-proto-xf86vidmode_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xorg-proto-xf86vidmode)
-	@$(call install_fixup, xorg-proto-xf86vidmode,PACKAGE,xorg-proto-xf86vidmode)
-	@$(call install_fixup, xorg-proto-xf86vidmode,PRIORITY,optional)
-	@$(call install_fixup, xorg-proto-xf86vidmode,VERSION,$(XORG_PROTO_XF86VIDMODE_VERSION))
-	@$(call install_fixup, xorg-proto-xf86vidmode,SECTION,base)
-	@$(call install_fixup, xorg-proto-xf86vidmode,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
-	@$(call install_fixup, xorg-proto-xf86vidmode,DEPENDS,)
-	@$(call install_fixup, xorg-proto-xf86vidmode,DESCRIPTION,missing)
-
-	@$(call install_finish, xorg-proto-xf86vidmode)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
