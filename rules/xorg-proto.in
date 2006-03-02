@@ -1,7 +1,7 @@
 # xorg proto configuration
 
-menuconfig XORG_PROTO
-        bool "xorg proto libs       "
+menu "xorg proto            "
+
 
 source "rules/xorg-proto-applewm.in"
 source "rules/xorg-proto-bigreqs.in"
@@ -36,3 +36,4 @@ source "rules/xorg-proto-xinerama.in"
 source "rules/xorg-proto-xproxymanagement.in"
 source "rules/xorg-proto-trap.in"
 
+endmenu

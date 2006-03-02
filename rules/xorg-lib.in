@@ -1,7 +1,6 @@
 # xorg lib configuration
 
-menuconfig XORG_LIB
-	bool "xorg libs             "
+menu "xorg libs             "
 
 source "rules/xorg-lib-AppleWM.in"
 source "rules/xorg-lib-FS.in"
@@ -48,3 +47,4 @@ source "rules/xorg-lib-xkbfile.in"
 source "rules/xorg-lib-xkbui.in"
 source "rules/xorg-lib-xtrans.in"
 
+endmenu
