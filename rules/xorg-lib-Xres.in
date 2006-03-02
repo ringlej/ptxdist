@@ -1,5 +1,6 @@
 config XORG_LIB_XRES
 	bool
 	prompt "libXres"
+	select XORG_PROTO_RESOURCE
 	help
 	  FIXME

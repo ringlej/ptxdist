@@ -1,5 +1,10 @@
 config XORG_LIB_XTST
 	bool
 	prompt "libXtst"
+	select XORG_PROTO_RECORD
+	select XORG_PROTO_INPUT
+	select XORG_PROTO_XEXT
+	select XORG_LIB_X11
+	select XORG_LIB_XEXT
 	help
 	  FIXME

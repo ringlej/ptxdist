@@ -1,5 +1,10 @@
 config XORG_LIB_XXF86VM
 	bool
 	prompt "libXxf86vm"
+	select XORG_PROTO_X
+	select XOR_LIB_X11
+	select XOR_PROTO_XEXT
+	select XORG_LIB_XEXT
+	select XORG_PROTO_XF86VIDMODE
 	help
 	  FIXME
