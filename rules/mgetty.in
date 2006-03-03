@@ -12,7 +12,7 @@ config MGETTY_CONFIG
 	  FIXME: This item needs to be documented
 
 config MGETTY_INSTALL_CONFIG
-	prompt "Install default config files to $(ROOTDIR)/etc/mgetty+sendfax"
+	prompt "Install default config files to ${ROOTDIR}/etc/mgetty+sendfax"
 	bool
 	default y
 	depends on MGETTY
