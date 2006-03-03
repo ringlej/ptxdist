@@ -1,20 +1,24 @@
-config HOST_UTLNX_FDISK
+menuconfig HOST_UTIL_LINUX
+	bool
+	prompt "util-linux"
+
+config HOST_UTIL_LINUX_FDISK
 	bool
 	prompt "fdisk"
-	depends on UTLNX
+	depends on HOST_UTIL_LINUX
 	help
 	  FIXME: This item needs to be documented
 
-config HOST_UTLNX_CFDISK
+config HOST_UTIL_LINUX_CFDISK
 	bool
 	prompt "cfdisk"
-	depends on UTLNX
+	depends on HOST_UTIL_LINUX
 	help
 	  FIXME: This item needs to be documented
 
-config HOST_UTLNX_SFDISK
+config HOST_UTIL_LINUX_SFDISK
 	bool
 	prompt "sfdisk"
-	depends on UTLNX
+	depends on HOST_UTIL_LINUX
 	help
 	  FIXME: This item needs to be documented
