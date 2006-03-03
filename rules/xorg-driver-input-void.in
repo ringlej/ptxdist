@@ -1,6 +1,7 @@
 config XORG_DRIVER_INPUT_VOID
 	bool
 	depends on XORG_DRIVER_INPUT
+	select XORG_SERVER
 	prompt "void"
 	help
 	  FIXME

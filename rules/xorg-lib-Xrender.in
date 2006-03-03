@@ -2,5 +2,6 @@ config XORG_LIB_XRENDER
 	bool
 	prompt "libXrender"
 	select XORG_PROTO_RENDER
+	select XORG_LIB_X11
 	help
 	  FIXME

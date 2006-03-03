@@ -1,5 +1,6 @@
 config XORG_LIB_XDMCP
 	bool
 	prompt "libXdmcp"
+	select XORG_PROTO_X
 	help
 	  FIXME

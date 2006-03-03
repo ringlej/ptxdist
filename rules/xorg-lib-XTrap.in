@@ -1,5 +1,10 @@
 config XORG_LIB_XTRAP
 	bool
 	prompt "libXTrap"
+	select XORG_LIB_X11
+	select XORG_LIB_XT
+	select XORG_PROTO_TRAP
+	select XORG_LIB_XEXT
+	select XORG_PROTO_XEXT
 	help
 	  FIXME

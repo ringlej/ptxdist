@@ -2,5 +2,6 @@ config XORG_DRIVER_INPUT_KEYBOARD
 	bool
 	prompt "Keyboard"
 	depends on XORG_DRIVER_INPUT
+	select XORG_SERVER
 	help
 	  FIXME

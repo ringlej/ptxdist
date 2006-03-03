@@ -1,5 +1,10 @@
 config XORG_LIB_XVMC
 	bool
 	prompt "libXvMC"
+	select XORG_LIB_X11
+	select XORG_LIB_XEXT
+	select XORG_LIB_XV
+	select XORG_PROTO_XEXT
+	select XORG_PROTO_VIDEO
 	help
 	  FIXME

@@ -1,5 +1,6 @@
 config XORG_LIB_XFIXES
 	bool
 	prompt "libXfixes"
+	select XORG_LIB_X11
 	help
 	  FIXME

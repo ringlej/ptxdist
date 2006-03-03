@@ -1,5 +1,9 @@
 config XORG_LIB_XDAMAGE
 	bool
 	prompt "libXdamage"
+	select XORG_PROTO_DAMAGE
+	select XORG_PROTO_FIXES
+	select XORG_PROTO_XEXT
+	select XORG_LIB_XFIXES
 	help
 	  FIXME

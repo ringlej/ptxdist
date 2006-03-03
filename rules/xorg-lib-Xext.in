@@ -1,5 +1,9 @@
 config XORG_LIB_XEXT
 	bool
 	prompt "libXext"
+	select XORG_PROTO_X
+	select XORG_LIB_X11
+	select XORG_PROTO_XEXT
+	select XORG_LIB_XAU
 	help
 	  FIXME

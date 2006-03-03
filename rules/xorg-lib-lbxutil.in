@@ -3,5 +3,6 @@ config XORG_LIB_LBXUTIL
 	prompt "lbxutil"
 	select XORG_PROTO_XEXT
 	select XORG_PROTO_X
+	select ZLIB
 	help
 	  FIXME
