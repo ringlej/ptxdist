@@ -71,9 +71,9 @@ REALVNC_ENV 	=  $(CROSS_ENV)
 REALVNC_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
-REALVNC_AUTOCONF += --x-includes=$(CROSS_LIB_DIR)/include
-REALVNC_AUTOCONF += --x-libraries=$(CROSS_LIB_DIR)/lib
-REALVNC_AUTOCONF += --with-installed-zlib
+	--x-includes=$(CROSS_LIB_DIR)/include \
+	--x-libraries=$(CROSS_LIB_DIR)/lib \
+	--with-installed-zlib
 
 $(STATEDIR)/realvnc.prepare: $(realvnc_prepare_deps_default)
 	@$(call targetinfo, $@)
