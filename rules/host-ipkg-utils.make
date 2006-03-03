@@ -17,12 +17,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_IPKG_UTILS) += host-ipkg-utils
 #
 # Paths and names
 #
-HOST_IPKG_UTILS_VERSION	= 1.7
-HOST_IPKG_UTILS		= ipkg-utils-$(HOST_IPKG_UTILS_VERSION)
-HOST_IPKG_UTILS_SUFFIX	= tar.gz
-HOST_IPKG_UTILS_URL		= ftp://ftp.handhelds.org/packages/ipkg-utils/$(HOST_IPKG_UTILS).$(HOST_IPKG_UTILS_SUFFIX)
-HOST_IPKG_UTILS_SOURCE	= $(SRCDIR)/$(HOST_IPKG_UTILS).$(HOST_IPKG_UTILS_SUFFIX)
-HOST_IPKG_UTILS_DIR		= $(HOST_BUILDDIR)/$(HOST_IPKG_UTILS)
+HOST_IPKG_UTILS_VERSION	:= 1.7
+HOST_IPKG_UTILS		:= ipkg-utils-$(HOST_IPKG_UTILS_VERSION)
+HOST_IPKG_UTILS_SUFFIX	:= tar.gz
+HOST_IPKG_UTILS_URL	:= ftp://ftp.handhelds.org/packages/ipkg-utils/$(HOST_IPKG_UTILS).$(HOST_IPKG_UTILS_SUFFIX)
+HOST_IPKG_UTILS_SOURCE	:= $(SRCDIR)/$(HOST_IPKG_UTILS).$(HOST_IPKG_UTILS_SUFFIX)
+HOST_IPKG_UTILS_DIR	:= $(HOST_BUILDDIR)/$(HOST_IPKG_UTILS)
 
 -include $(call package_depfile)
 
@@ -63,8 +63,8 @@ $(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps_default)
 
 host-ipkg-utils_prepare: $(STATEDIR)/host-ipkg-utils.prepare
 
-HOST_IPKG_UTILS_PATH	=  PATH=$(CROSS_PATH)
-HOST_IPKG_UTILS_ENV 	=  $(CROSS_ENV)
+HOST_IPKG_UTILS_PATH	:=  PATH=$(CROSS_PATH)
+HOST_IPKG_UTILS_ENV 	:=  $(CROSS_ENV)
 
 $(STATEDIR)/host-ipkg-utils.prepare: $(host-ipkg-utils_prepare_deps_default)
 	@$(call targetinfo, $@)
