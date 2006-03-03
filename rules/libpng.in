@@ -1,5 +1,6 @@
 config LIBPNG
 	bool
 	prompt "libpng"
+	select ZLIB
 	help
 	  FIXME: This item needs to be documented
