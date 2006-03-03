@@ -4,6 +4,7 @@ config OPENSSH
 	bool
 	select ZLIB
 	select OPENSSL
+	depends on BROKEN
 	prompt "OpenSSH"
 	help
 	  FIXME: This item needs to be documented
@@ -41,3 +42,6 @@ config OPENSSH_KEYGEN
 	  FIXME: This item needs to be documented
 
 endmenu
+
+comment "OpenSSH is broken, please send a patch"
+        depends on !BROKEN
