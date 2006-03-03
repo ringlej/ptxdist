@@ -7,6 +7,7 @@ config XTERM
 	select XORG_LIB_SM
 	select XORG_LIB_ICE
 	select XORG_LIB_X11
+	select NCURSES
 	prompt "xterm"
 	help
 	  FIXME
