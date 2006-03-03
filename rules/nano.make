@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_NANO) += nano
 #
 # Paths and names
 #
-NANO_VERSION		= 1.2.4
+NANO_VERSION		= 1.3.10
 NANO			= nano-$(NANO_VERSION)
 NANO_SUFFIX		= tar.gz
-NANO_URL		= http://www.nano-editor.org/dist/v1.2/$(NANO).$(NANO_SUFFIX)
+NANO_URL		= http://www.nano-editor.org/dist/v1.3/$(NANO).$(NANO_SUFFIX)
 NANO_SOURCE		= $(SRCDIR)/$(NANO).$(NANO_SUFFIX)
 NANO_DIR		= $(BUILDDIR)/$(NANO)
 
@@ -94,7 +94,6 @@ nano_install: $(STATEDIR)/nano.install
 
 $(STATEDIR)/nano.install: $(nano_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME: put this into targetinstall? 
 	@$(call install, NANO)
 	@$(call touch, $@)
 
@@ -106,6 +105,19 @@ nano_targetinstall: $(STATEDIR)/nano.targetinstall
 
 $(STATEDIR)/nano.targetinstall: $(nano_targetinstall_deps_default)
 	@$(call targetinfo, $@)
+
+	@$(call install_init, nano)
+	@$(call install_fixup,nano,PACKAGE,nano)
+	@$(call install_fixup,nano,PRIORITY,optional)
+	@$(call install_fixup,nano,VERSION,$(NANO_VERSION))
+	@$(call install_fixup,nano,SECTION,base)
+	@$(call install_fixup,nano,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,nano,DEPENDS,)
+	@$(call install_fixup,nano,DESCRIPTION,missing)
+
+	@$(call install_copy, nano, 0, 0, 0755, $(NANO_DIR)/src/nano, /usr/bin/nano)
+	@$(call install_finish,nano)
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
