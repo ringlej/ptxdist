@@ -1,5 +1,6 @@
 menuconfig MTD_UTILS
 	bool "MTD Tools           "
+	select ZLIB
 	help
 	  FIXME: This item needs to be documented
 
