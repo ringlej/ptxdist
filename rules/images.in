@@ -22,8 +22,8 @@ config IMAGE_HD_CONF
 	help
 	  FIXME
 
-	  Usually your hd geometry file lives in $(PTXDIST_WORKSPACE), so enter
-	  something like "$(PTXDIST_WORKSPACE)/your-filename" here. 
+	  Usually your hd geometry file lives in ${PTXDIST_WORKSPACE}, so enter
+	  something like "${PTXDIST_WORKSPACE}/your-filename" here. 
 
 config IMAGE_IPKG
 	bool
@@ -34,14 +34,14 @@ config IMAGE_IPKG
 	select HOST_IPKG
 	help
 	  When this option is selected, the install_* macros build 
-	  ipkg packets in $(IMAGEDIR) for each software component. 
+	  ipkg packets in ${IMAGEDIR} for each software component. 
 
 config IMAGE_IPKG_IMAGE_FROM_REPOSITORY
 	bool
 	prompt "make images: use packets from repository"
 	help
-	  Usually 'make images' packages the files from $(IMAGEDIR)
-	  into $(IMAGEDIR)/root.[filesystem]. If this option is checked the 
+	  Usually 'make images' packages the files from ${IMAGEDIR}
+	  into ${IMAGEDIR}/root.[filesystem]. If this option is checked the 
 	  packet files from the IPKG update site (to be specified in 
 	  .ptxdistrc) are taken instead. 
 
@@ -56,12 +56,12 @@ config IMAGE_IPKG_EXTRA_ARGS
 
 config IMAGE_IPKG_ARCH
 	string
-	default "$(PTXCONF_ARCH)"
+	default "${PTXCONF_ARCH}"
 	prompt "Name for ipkg field 'Architecture:'"
 	depends on IMAGE_IPKG
 	help
 	  You can specify an architecture name for your ipkg packets here, e.g. 
-	  $(PTXCONF_PROJECT). Default is $(PTXCONF_ARCH). Another option would 
+	  ${PTXCONF_PROJECT}. Default is ${PTXCONF_ARCH}. Another option would 
 	  be to fix this to the PTXdist version you are using; think of 
 	  PTXdist being a distro development tool ("Build with ptxdist-0.8.15"). 
 
@@ -88,7 +88,7 @@ config IMAGE_JFFS2_EXTRA_ARGS
 	depends on IMAGE_JFFS2
 	help
 	  If needed you can add extra arguments for mkfs.jffs2 here
-	  (e.g. --devtable=$(PTXDIST_WORKSPACE)/device_table.txt)
+	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt)
 
 config IMAGE_UIMAGE
 	bool
@@ -138,7 +138,7 @@ config IMAGE_EXT2_EXTRA_ARGS
 	depends on IMAGE_EXT2
 	help
 	  If needed you can add extra arguments for genext2fs here
-	  (e.g. -U -r 0 -D=$(PTXDIST_WORKSPACE)/device_table.txt)
+	  (e.g. -U -r 0 -D=${PTXDIST_WORKSPACE}/device_table.txt)
 
 config IMAGE_EXT2_GZIP
 	bool
@@ -151,7 +151,7 @@ config IMAGE_MKNBI
 	bool
 	select HOST_MKNBI
 	depends on IMAGE_EXT2
-	prompt "Generate images/$(PROJECTNAME).{elf|nbi}"
+	prompt "Generate images/${PROJECTNAME}.{elf|nbi}"
 	help
 	  Generate an image suitable for netboot
 
@@ -172,7 +172,7 @@ endchoice
 
 config IMAGE_MKNBI_EXT_KERNEL
 	string
-	default "$(PTXCONF_KERNEL_DIR)/arch/i386/boot/bzImage"
+	default "${PTXCONF_KERNEL_DIR}/arch/i386/boot/bzImage"
 	prompt "Path to kernel image"
 	depends on IMAGE_MKNBI && USE_EXTERNAL_KERNEL
 

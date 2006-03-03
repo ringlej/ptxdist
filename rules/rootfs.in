@@ -379,7 +379,7 @@ config ROOTFS_ETC_INITD
 	select BB_CONFIG_RUN_PARTS      if BUSYBOX
 	help
 	  When enabled, this option copies the files from 
-	  $(PTXDIST_TOPDIR)/projects/generic/etc/init.d to the target root 
+	  ${PTXDIST_TOPDIR}/projects/generic/etc/init.d to the target root 
 	  filesystem. The files contain useful defaults for most projects, 
 	  so if you don't intend to use your completely self-made etc
 	  directory you should problably switch this on. 

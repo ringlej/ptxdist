@@ -288,38 +288,38 @@ comment "Paths & Directories"
 config PREFIX
 	prompt "Prefix for \"install\" stage"
 	string
-	default "$(PTXDIST_WORKSPACE)/local"
+	default "${PTXDIST_WORKSPACE}/local"
 	help
 	  This directory is being used to install things during the "install" 
 	  stage of PTXdist. It usually contains host tools and libraries which 
 	  are needed to link programs. 
 
-	  A sane default for this is $(PTXDIST_WORKSPACE)/local. Use this one 
+	  A sane default for this is ${PTXDIST_WORKSPACE}/local. Use this one 
 	  unless you do exactly know what you are doing. 
 
 	  PTXdist uses a sysroot/destdir mechanism, which means that packets
 	  are being installed with 
 	  
-	  	make install DESTDIR=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+	  	make install DESTDIR=${PTXCONF_PREFIX}/${PTXCONF_GNU_TARGET}
 
-	  All host tools are directly being installed to $(PTXCONF_PREFIX). 
+	  All host tools are directly being installed to ${PTXCONF_PREFIX}.
 
 config HOST_PREFIX
 	prompt "Prefix for host tools development environment"
 	string
-	default "$(PTXCONF_PREFIX)"
+	default "${PTXCONF_PREFIX}"
 
 config CROSS_PREFIX
 	prompt "Prefix for cross tools development environment"
 	string
-	default "$(PTXCONF_PREFIX)"
+	default "${PTXCONF_PREFIX}"
 
 comment "GNU Toolchain Identification String"
 
 config CROSSCHAIN_CHECK
 	string
 	prompt "Check for specific gcc version"
-	default "2.95.3"
+	default "4.0.2"
 	depends on BUILD_USERLAND
 	help
 	  PTXdist calls your cross compiler with -dumpversion and
@@ -373,7 +373,4 @@ config GNU_TARGET
 config COMPILER_PREFIX
 	string
 	prompt "Compiler Prefix"
-	default "$(PTXCONF_GNU_TARGET)-"
-
-
-
+	default "${PTXCONF_GNU_TARGET}-"

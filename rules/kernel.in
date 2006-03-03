@@ -173,7 +173,7 @@ choice
 		bool
 		prompt "hostfs"
 		help
-		  Using the hostfs method, $(ROOTDIR) is shared between
+		  Using the hostfs method, ${ROOTDIR} is shared between
 		  the host and the user mode linux machine.
 
 endchoice
