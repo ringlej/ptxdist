@@ -1120,8 +1120,9 @@ install_finish = 													\
 			rm -rf $(IMAGEDIR)/$$PACKET;									\
 			exit 0;												\
 		fi;													\
-		echo -n "install_finish: writing ipkg packet ... ";							\
+		echo -n "install_finish: creating package directory ... ";							\
 		(echo "pushd $(IMAGEDIR)/$$PACKET/ipkg;"; $(AWK) -F: $(DOPERMISSIONS) $(STATEDIR)/$$PACKET.perms; echo "popd;"; 	\
+		echo -n "echo \"install_finish: packaging ipkg packet ... \"";							\
 		echo "$(PTXCONF_HOST_PREFIX)/usr/bin/ipkg-build $(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/$$PACKET/ipkg $(IMAGEDIR)") |\
 			$(FAKEROOT) -- 2>&1;										\
 		rm -rf $(IMAGEDIR)/$$PACKET;										\
