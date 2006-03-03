@@ -1,6 +1,5 @@
 menuconfig SDL
 	bool
-	depends on BROKEN
 	prompt "SDL                   "
 	help
 	  FIXME
@@ -12,7 +11,18 @@ config SDL_LIB
 	help 
 	  FIXME
 
-source "rules/sdl_image.in"
+config SDL_VIDEO_X
+	bool
+	prompt "build SDL with X support"
+	depends on BROKEN
+	default no
+	depends on SDL
+	select XORG_LIB_X11
+	help
+	  FIXME
 
-comment "sdl is broken, please send a patch"
+comment "sdl with X is broken, please send a patch"
+	depends on SDL
 	depends on !BROKEN
+
+source "rules/sdl_image.in"

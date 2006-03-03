@@ -95,13 +95,6 @@ SDL_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-nanox-debug \
 	--disable-nanox-share-memory \
 	--disable-nanox-direct-fb \
-	--enable-video-x11 \
-	--enable-video-x11-vm \
-	--enable-dga \
-	--enable-video-x11-dgamouse \
-	--enable-video-x11-xv \
-	--enable-video-x11-xinerama \
-	--enable-video-x11-xme \
 	--enable-video-dga \
 	--disable-video-photon \
 	--disable-video-fbcon \
@@ -127,7 +120,21 @@ SDL_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-video-picogui \
 	--enable-sdl-dlopen \
 	--disable-atari-ldg \
-	--enable-rpath       
+	--enable-rpath
+
+ifdef PTXCONF_SDL_VIDEO_X
+SDL_LIB_AUTOCONF += \
+	--enable-video-x11 \
+	--enable-video-x11-vm \
+	--enable-dga \
+	--enable-video-x11-dgamouse \
+	--enable-video-x11-xv \
+	--enable-video-x11-xinerama \
+	--enable-video-x11-xme
+else
+SDL_LIB_AUTOCONF += \
+	--disable-video-x11
+endif
 
 $(STATEDIR)/sdl.prepare: $(sdl_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -177,7 +184,17 @@ $(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
 	@$(call install_fixup, sdl,DEPENDS,)
 	@$(call install_fixup, sdl,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, sdl, 0, 0, 0644, \
+		$(SDL_LIB_DIR)/src/.libs/libSDL-1.2.so.0.7.2, \
+		/usr/lib/libSDL-1.2.so.0.7.2)
+
+	@$(call install_link, sdl, \
+		libSDL-1.2.so.0.7.2, \
+		/usr/lib/libSDL-1.2.so.0)
+
+	@$(call install_link, sdl, \
+		libSDL-1.2.so.0.7.2, \
+		/usr/lib/libSDL-1.2.so)
 
 	@$(call install_finish, sdl)
 
