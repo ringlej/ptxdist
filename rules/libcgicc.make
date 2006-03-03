@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_CGICC) += cgicc
+PACKAGES-$(PTXCONF_CGICC) += libcgicc
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ CGICC_DIR		= $(BUILDDIR)/$(CGICC)
 # Get
 # ----------------------------------------------------------------------------
 
-cgicc_get: $(STATEDIR)/cgicc.get
+libcgicc_get: $(STATEDIR)/libcgicc.get
 
-$(STATEDIR)/cgicc.get: $(cgicc_get_deps_default)
+$(STATEDIR)/libcgicc.get: $(libcgicc_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(CGICC_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-cgicc_extract: $(STATEDIR)/cgicc.extract
+libcgicc_extract: $(STATEDIR)/libcgicc.extract
 
-$(STATEDIR)/cgicc.extract: $(cgicc_extract_deps_default)
+$(STATEDIR)/libcgicc.extract: $(libcgicc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CGICC_DIR))
 	@$(call extract, $(CGICC_SOURCE))
@@ -56,7 +56,7 @@ $(STATEDIR)/cgicc.extract: $(cgicc_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-cgicc_prepare: $(STATEDIR)/cgicc.prepare
+libcgicc_prepare: $(STATEDIR)/libcgicc.prepare
 
 CGICC_PATH	=  PATH=$(CROSS_PATH)
 CGICC_ENV 	=  $(CROSS_ENV)
@@ -66,7 +66,7 @@ CGICC_ENV 	=  $(CROSS_ENV)
 #
 CGICC_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/cgicc.prepare: $(cgicc_prepare_deps_default)
+$(STATEDIR)/libcgicc.prepare: $(libcgicc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CGICC_DIR)/config.cache)
 	cd $(CGICC_DIR) && \
@@ -78,9 +78,9 @@ $(STATEDIR)/cgicc.prepare: $(cgicc_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-cgicc_compile: $(STATEDIR)/cgicc.compile
+libcgicc_compile: $(STATEDIR)/libcgicc.compile
 
-$(STATEDIR)/cgicc.compile: $(cgicc_compile_deps_default)
+$(STATEDIR)/libcgicc.compile: $(libcgicc_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(CGICC_DIR) && $(CGICC_ENV) $(CGICC_PATH) make
 	@$(call touch, $@)
@@ -89,9 +89,9 @@ $(STATEDIR)/cgicc.compile: $(cgicc_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-cgicc_install: $(STATEDIR)/cgicc.install
+libcgicc_install: $(STATEDIR)/libcgicc.install
 
-$(STATEDIR)/cgicc.install: $(cgicc_install_deps_default)
+$(STATEDIR)/libcgicc.install: $(libcgicc_install_deps_default)
 	@$(call targetinfo, $@)
 	#@$(call install, CGICC)
 	@$(call touch, $@)
@@ -100,23 +100,25 @@ $(STATEDIR)/cgicc.install: $(cgicc_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-cgicc_targetinstall: $(STATEDIR)/cgicc.targetinstall
+libcgicc_targetinstall: $(STATEDIR)/libcgicc.targetinstall
 
-$(STATEDIR)/cgicc.targetinstall: $(cgicc_targetinstall_deps_default)
+$(STATEDIR)/libcgicc.targetinstall: $(libcgicc_targetinstall_deps_default)
 
 	@$(call targetinfo, $@)
-	@$(call install_init, cgicc)
-	@$(call install_fixup, cgicc,PACKAGE,cgicc)
-	@$(call install_fixup, cgicc,PRIORITY,optional)
-	@$(call install_fixup, cgicc,VERSION,$(CGICC_VERSION))
-	@$(call install_fixup, cgicc,SECTION,base)
-	@$(call install_fixup, cgicc,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup, cgicc,DEPENDS,)
-	@$(call install_fixup, cgicc,DESCRIPTION,missing)
+	@$(call install_init, libcgicc)
+	@$(call install_fixup, libcgicc,PACKAGE,cgicc)
+	@$(call install_fixup, libcgicc,PRIORITY,optional)
+	@$(call install_fixup, libcgicc,VERSION,$(CGICC_VERSION))
+	@$(call install_fixup, libcgicc,SECTION,base)
+	@$(call install_fixup, libcgicc,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libcgicc,DEPENDS,)
+	@$(call install_fixup, libcgicc,DESCRIPTION,missing)
 
-	@$(call copy_lib_root, libcgicc.so.1, /usr/lib)
+	@$(call install_copy, libcgicc, $(CGICC_DIR)/cgicc/libcgicc.so.5.0.1, /usr/lib/libcgicc.so.5.0.1)
+	@$(call install_link, libcgicc, libcgicc.so.5.0.1, /usr/lib/libcgicc.so.5)
+	@$(call install_link, libcgicc, libcgicc.so.5.0.1, /usr/lib/libcgicc.so)
 
-	@$(call install_finish, cgicc)
+	@$(call install_finish, libcgicc)
 
 	@$(call touch, $@)
 
@@ -124,8 +126,8 @@ $(STATEDIR)/cgicc.targetinstall: $(cgicc_targetinstall_deps_default)
 # Clean
 # ----------------------------------------------------------------------------
 
-cgicc_clean:
-	rm -rf $(STATEDIR)/cgicc.*
+libcgicc_clean:
+	rm -rf $(STATEDIR)/libcgicc.*
 	rm -rf $(CGICC_DIR)
 
 # vim: syntax=make
