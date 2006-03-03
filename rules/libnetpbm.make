@@ -99,6 +99,7 @@ libnetpbm_install: $(STATEDIR)/libnetpbm.install
 
 $(STATEDIR)/libnetpbm.install: $(libnetpbm_install_deps_default)
 	@$(call targetinfo, $@)
+	mkdir -p $(SYSROOT)/usr/lib
 	cp $(LIBNETPBM_DIR)/lib/libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so.10.31
 	ln -sf libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so.10
 	ln -sf libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so
