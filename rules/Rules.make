@@ -12,17 +12,14 @@
 
 # FIXME: cleanup 
 
-PTXUSER		= $(shell echo $$USER)
-GNU_BUILD	= $(shell $(PTXDIST_TOPDIR)/scripts/config.guess)
-GNU_HOST	= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
-DEP_OUTPUT	= depend.out
-DEP_TREE_PS	= deptree.ps
-DEP_TREE_A4_PS	= deptree-a4.ps
+GNU_BUILD	:= $(shell $(PTXDIST_TOPDIR)/scripts/config.guess)
+GNU_HOST	:= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
+DEP_OUTPUT	:= depend.out
+DEP_TREE_PS	:= deptree.ps
+DEP_TREE_A4_PS	:= deptree-a4.ps
 
-SUDO		= sudo
-HOSTCC		= gcc
-DOT		= dot
-SH		= /bin/sh
+HOSTCC		:= gcc
+DOT		:= dot
 # FIXME: disabled caching in wget. Make sure that all patches on the webserver
 #        have a version number and reenable caching
 WGET		= \
@@ -32,37 +29,30 @@ WGET		= \
 	$${ptx_http_proxy:+http_proxy=$${ptx_http_proxy}} \
 	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
 	wget --cache=off --passive-ftp
-MAKE		= make
-MAKE_INSTALL	= make install
-PATCH		= patch
-TAR		= tar
-GZIP		= gzip
-ZCAT		= zcat
-BZIP2		= bzip2
-BZCAT		= bzcat
-CAT		= cat
-RM		= rm
-MKDIR		= mkdir
-MKTEMP		= mktemp
-CD		= cd
-MV		= mv
-CP		= cp
-LN		= ln
-AWK		= awk
-PERL		= perl
-GREP		= grep
-INSTALL		= install
-PARALLELMFLAGS  = -j$(shell if [ -r /proc/cpuinfo ];			\
+PATCH		:= patch
+TAR		:= tar
+GZIP		:= gzip
+ZCAT		:= zcat
+BZIP2		:= bzip2
+BZCAT		:= bzcat
+CAT		:= cat
+MKTEMP		:= mktemp
+AWK		:= awk
+PERL		:= perl
+GREP		:= grep
+INSTALL		:= install
+PARALLELMFLAGS  := -j$(shell if [ -r /proc/cpuinfo ];			\
 	then echo `cat /proc/cpuinfo | grep 'processor' | wc -l`;	\
 		else echo 1;						\
 	fi)
 
-FAKEROOT	= $(PTXCONF_HOST_PREFIX)/bin/fakeroot
+FAKEROOT	:= $(PTXCONF_HOST_PREFIX)/bin/fakeroot
 
 ifdef PTXCONF_IMAGE_HOST_DEB
-CHECKINSTALL	=  INSTALLWATCH_PREFIX=$(PTXCONF_PREFIX)
-CHECKINSTALL	+= $(HOST_CHECKINSTALL_DIR)/checkinstall
-CHECKINSTALL	+= -D -y
+CHECKINSTALL	:= \
+	INSTALLWATCH_PREFIX=$(PTXCONF_PREFIX) \
+	$(HOST_CHECKINSTALL_DIR)/checkinstall \
+	-D -y
 else
 CHECKINSTALL	=
 endif
@@ -81,26 +71,17 @@ CROSS_LIB_DIR := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
 SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
 
 #
-# Use the masquerading method of invoking distcc if enabled
-#
-#
-ifdef PTXCONF_XCHAIN-DISTCC
-# FIXME: should also allow use of DISTCC for native stuff
-DISTCC_PATH_COLON := $(PTXCONF_PREFIX)/lib/distcc/bin:
-endif
-
-#
 # prepare the search path
 #
-CROSS_PATH := $(call remove_quotes,$(DISTCC_PATH_COLON)$(PTXCONF_PREFIX)/bin:$(DISTCC_PATH_COLON)$(PTXCONF_PREFIX)/usr/bin:$$PATH)
+CROSS_PATH := $(call remove_quotes,$(PTXCONF_PREFIX)/bin:$(PTXCONF_PREFIX)/usr/bin:$$PATH)
 HOST_PATH := $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:$$PATH
 
 #
 # same as PTXCONF_GNU_TARGET, but w/o -linux
 # e.g. i486 instead of i486-linux
 #
-SHORT_TARGET		:= `echo $(PTXCONF_GNU_TARGET) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
-SHORT_HOST		:= `echo $(GNU_HOST) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
+SHORT_TARGET := `echo $(PTXCONF_GNU_TARGET) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
+SHORT_HOST := `echo $(GNU_HOST) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
 
 
 # ----------------------------------------------------------------------------
@@ -111,42 +92,34 @@ SHORT_HOST		:= `echo $(GNU_HOST) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
 # CFLAGS / CXXFLAGS
 #
 
-# FIXME: this is not really consistent any more; we want the arch specific 
-#        stuff separate from other options, so we can do NATIVE builds. 
-
-ifdef NATIVE
-TARGET_CFLAGS		=
-TARGET_CXXFLAGS		=
-TARGET_CPPFLAGS		=
-TARGET_LDFLAGS		=
-endif
-TARGET_CFLAGS		+= $(PTXCONF_TARGET_EXTRA_CFLAGS)
-TARGET_CXXFLAGS		+= $(PTXCONF_TARGET_EXTRA_CXXFLAGS)
-TARGET_CPPFLAGS		+= $(PTXCONF_TARGET_EXTRA_CPPFLAGS)
-TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
-
-##
-## if we use an external crosschain set include and lib dirs correctly: 
-## 
-## - don't use system standard include paths
-## - find out the compiler's sysincludedir
-##
+#
+# if we use an external crosschain set include and lib dirs correctly: 
+# 
+# - don't use system standard include paths
+# - find out the compiler's sysincludedir
+#
 ifndef $(PTXCONF_CROSSTOOL)
-TARGET_CXXFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-TARGET_CXXFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/include
-TARGET_CPPFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-TARGET_CPPFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/include
-TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib 
-TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/lib -Wl,-rpath-link -Wl,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/lib
+CROSS_CXXFLAGS := \
+	-isystem $(SYSROOT)/include \
+	-isystem $(SYSROOT)/usr/include
+
+CROSS_CPPFLAGS := \
+	-isystem $(SYSROOT)/include \
+	-isystem $(SYSROOT)/usr/include
+
+CROSS_LDFLAGS := \
+	-L$(SYSROOT)/lib \
+	-L$(SYSROOT)/usr/lib \
+	-Wl,-rpath-link -Wl,$(SYSROOT)/usr/lib
 endif
 
-
+#
 # Environment variables for toolchain components
 #
 # FIXME: Consolidate a bit more
 #
 ifndef NATIVE
-COMPILER_PREFIX		:= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX))
+COMPILER_PREFIX		:= $(call remove_quotes, $(PTXCONF_COMPILER_PREFIX))
 endif
 CROSS_AR		:= $(COMPILER_PREFIX)ar
 CROSS_AS		:= $(COMPILER_PREFIX)as
@@ -169,44 +142,34 @@ CROSS_ENV_RANLIB	:= RANLIB=$(CROSS_RANLIB)
 CROSS_ENV_OBJCOPY	:= OBJCOPY=$(CROSS_OBJCOPY)
 CROSS_ENV_OBJDUMP	:= OBJDUMP=$(CROSS_OBJDUMP)
 CROSS_ENV_STRIP		:= STRIP=$(CROSS_STRIP)
-CROSS_ENV_CC_FOR_BUILD	:= CC_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
-CROSS_ENV_CPP_FOR_BUILD	:= CPP_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
-CROSS_ENV_LINK_FOR_BUILD:= LINK_FOR_BUILD=$(call remove_quotes,$(HOSTCC))
-
-# FIXME: check if we have to add quotes for grouping here
-
-CROSS_CFLAGS		= $(call remove_quotes,$(TARGET_CFLAGS))
-CROSS_CXXFLAGS		= $(call remove_quotes,$(TARGET_CXXFLAGS))
-CROSS_CPPFLAGS		= $(call remove_quotes,$(TARGET_CPPFLAGS))
-CROSS_LDFLAGS		= $(call remove_quotes,$(TARGET_LDFLAGS))
+CROSS_ENV_CC_FOR_BUILD	:= CC_FOR_BUILD=$(HOSTCC)
+CROSS_ENV_CPP_FOR_BUILD	:= CPP_FOR_BUILD=$(HOSTCC)
+CROSS_ENV_LINK_FOR_BUILD:= LINK_FOR_BUILD=$(HOSTCC)
 
 ifneq ('','$(strip $(CROSS_CFLAGS))')
-CROSS_ENV_CFLAGS		= CFLAGS='$(strip $(CROSS_CFLAGS))'
-CROSS_ENV_CFLAGS_FOR_TARGET	= CFLAGS_FOR_TARGET='$(strip $(CROSS_CFLAGS))'
+CROSS_ENV_CFLAGS		:= CFLAGS='$(strip $(CROSS_CFLAGS))'
+CROSS_ENV_CFLAGS_FOR_TARGET	:= CFLAGS_FOR_TARGET='$(strip $(CROSS_CFLAGS))'
 endif
 
 ifneq ('','$(strip $(CROSS_CXXFLAGS))')
-CROSS_ENV_CXXFLAGS		= CXXFLAGS='$(strip $(CROSS_CXXFLAGS))'
-CROSS_ENV_CXXFLAGS_FOR_TARGET	= CXXFLAGS_FOR_TARGET='$(strip $(CROSS_CXXFLAGS))'
+CROSS_ENV_CXXFLAGS		:= CXXFLAGS='$(strip $(CROSS_CXXFLAGS))'
+CROSS_ENV_CXXFLAGS_FOR_TARGET	:= CXXFLAGS_FOR_TARGET='$(strip $(CROSS_CXXFLAGS))'
 endif
 
 ifneq ('','$(strip $(CROSS_CPPFLAGS))')
-CROSS_ENV_CPPFLAGS		= CPPFLAGS='$(strip $(CROSS_CPPFLAGS))'
-CROSS_ENF_CPPFLAGS_FOR_TARGET	= CPPFLAGS_FOR_TARGET='$(strip $(CROSS_CPPFLAGS))'
+CROSS_ENV_CPPFLAGS		:= CPPFLAGS='$(strip $(CROSS_CPPFLAGS))'
+CROSS_ENF_CPPFLAGS_FOR_TARGET	:= CPPFLAGS_FOR_TARGET='$(strip $(CROSS_CPPFLAGS))'
 endif
 
 ifneq ('','$(strip $(CROSS_LDFLAGS))')
-CROSS_ENV_LDFLAGS		= LDFLAGS='$(strip $(CROSS_LDFLAGS))'
-CROSS_ENV_LDFLAGS_FOR_TARGET	= LDFLAGS_FOR_TARGET='$(strip $(CROSS_LDFLAGS))'
+CROSS_ENV_LDFLAGS		:= LDFLAGS='$(strip $(CROSS_LDFLAGS))'
+CROSS_ENV_LDFLAGS_FOR_TARGET	:= LDFLAGS_FOR_TARGET='$(strip $(CROSS_LDFLAGS))'
 endif
 
 # 
 # CROSS_ENV is the environment usually set for all configure and compile
 # calls in the packet makefiles. 
 #
-# The ac_cv_* variables are needed to tell configure scripts not to use
-# AC_TRY_RUN and run cross compiled things on the development host
-# 
 CROSS_ENV_PROGS := \
 	$(CROSS_ENV_AR) \
 	$(CROSS_ENV_AS) \
@@ -245,6 +208,10 @@ CROSS_ENV_FLAGS_FOR_TARGET := \
 	$(CROSS_ENV_CPPFLAGS_FOR_TARGET) \
 	$(CROSS_ENV_LDFLAGS_FOR_TARGET)
 
+#
+# The ac_cv_* variables are needed to tell configure scripts not to use
+# AC_TRY_RUN and run cross compiled things on the development host
+# 
 CROSS_ENV_AC := \
 	ac_cv_sizeof_long_long=8 \
 	ac_cv_sizeof_long_double=8 \
@@ -283,19 +250,7 @@ CROSS_AUTOCONF_ARCH := \
 CROSS_AUTOCONF_BROKEN_USR := \
 	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=$(SYSROOT))
 
-ifndef NATIVE
-
-CROSS_ENV := \
-	$(CROSS_ENV_PROGS) \
-	$(CROSS_ENV_FLAGS) \
-	$(CROSS_ENV_PKG_CONFIG) \
-	$(CROSS_ENV_AC) \
-	$(CROSS_ENV_DESTDIR)
-
-CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR) $(CROSS_AUTOCONF_ARCH)
-CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) $(CROSS_AUTOCONF_ARCH)
-
-else
+ifdef NATIVE
 
 CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
@@ -305,6 +260,22 @@ CROSS_ENV := \
 
 CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR) 
 CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) 
+
+else
+
+CROSS_ENV := \
+	$(CROSS_ENV_PROGS) \
+	$(CROSS_ENV_FLAGS) \
+	$(CROSS_ENV_PKG_CONFIG) \
+	$(CROSS_ENV_AC) \
+	$(CROSS_ENV_DESTDIR)
+
+CROSS_AUTOCONF_USR  := \
+	$(CROSS_AUTOCONF_SYSROOT_USR) \
+	$(CROSS_AUTOCONF_ARCH)
+CROSS_AUTOCONF_ROOT := \
+	$(CROSS_AUTOCONF_SYSROOT_ROOT) \
+	$(CROSS_AUTOCONF_ARCH)
 
 endif
 
@@ -323,8 +294,8 @@ HOST_AUTOCONF  := --prefix=$(PTXCONF_HOST_PREFIX)
 # fulfills the requirements for a configuration. 
 #
 compilercheck =											\
-	TOOLCHAIN="$(strip $(call remove_quotes, $(PTXCONF_BUILD_TOOLCHAIN)))";			\
-	NATIVE="$(strip $(call remove_quotes, $(NATIVE)))";					\
+	TOOLCHAIN="$(call remove_quotes, $(PTXCONF_BUILD_TOOLCHAIN))";				\
+	NATIVE="$(call remove_quotes, $(NATIVE))";						\
 												\
 	if test "$${TOOLCHAIN}" = "y" -o "$${NATIVE}" = "1" -o "$${NATIVE}" = "y"; then		\
 		echo > /dev/null;								\
@@ -424,9 +395,9 @@ targetinfo = 							\
 # $1: name of the target to be touched
 # 
 touch =								\
-	@mkdir -p $(shell dirname $1);				\
+	@mkdir -p `dirname $1`;					\
 	touch $1;						\
-	echo "Finished target $(shell basename $1)";
+	echo "Finished target `basename $1`";
 
 #
 # extract 
@@ -462,7 +433,7 @@ extract =							\
 		exit -1;					\
 		;;						\
 	esac;							\
-	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
+	[ -d $$DEST ] || mkdir -p $$DEST;			\
 	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
 	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
 	[ $$? -eq 0 ] || {					\
@@ -494,7 +465,7 @@ get =								\
 	fi;							\
 	SRC="$(strip $(2))";					\
 	SRC=$${SRC:-$(SRCDIR)};					\
-	[ -d $$SRC ] || $(MKDIR) -p $$SRC;			\
+	[ -d $$SRC ] || mkdir -p $$SRC;				\
 	case $$URL in 						\
 	http*)							\
 		$(WGET) -P $$SRC $$URL;				\
@@ -518,7 +489,7 @@ get =								\
 		;;						\
 	file*)							\
 		FILE="$$(echo $$URL | sed s-file://-/-g)";	\
-		$(CP) -av $$FILE $$SRC;				\
+		cp -av $$FILE $$SRC;				\
 		[ $$? -eq 0 ] || {				\
 			echo;					\
 			echo "Could not copy packet!";		\
@@ -608,17 +579,23 @@ else
 install = \
 	BUILDDIR="$($(strip $(1))_DIR)";				\
 	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
-	[ "$(strip $(3))" != "h" ] && DESTDIR="$(SYSROOT)";		\
 	mkdir -p $$DESTDIR;						\
-	cd $$BUILDDIR &&						\
-		echo "$($(strip $(1))_ENV)				\
-		$($(strip $(1))_PATH)					\
-		make install $(4)					\
-		$($(strip $(1))_MAKEVARS)				\
-		DESTDIR=$$DESTDIR;"					\
-		| $(FAKEROOT) --
+	if [ "$(strip $(3))" != "h"]; then				\
+		cd $$BUILDDIR &&					\
+			$($(strip $(1))_ENV)				\
+			$($(strip $(1))_PATH)				\
+			make install $(4)				\
+			$($(strip $(1))_MAKEVARS);			\
+	else								\
+		cd $$BUILDDIR &&					\
+			echo "$($(strip $(1))_ENV)			\
+			$($(strip $(1))_PATH)				\
+			make install $(4)				\
+			$($(strip $(1))_MAKEVARS)			\
+			DESTDIR=$(SYSROOT);"				\
+			| $(FAKEROOT) --;				\
+	fi
 endif
-
 
 #
 # clean
@@ -899,7 +876,7 @@ install_copy = 											\
 # $4: strip (y|n)	default is to strip
 #
 install_copy_toolchain_lib =									\
-	PACKET=$(strip $(1));									\
+	PACKET="$(strip $(1))";									\
 	LIB="$(strip $2)";									\
 	DST="$(strip $3)";									\
 	STRIP="$(strip $4)";									\
@@ -911,7 +888,7 @@ install_copy_toolchain_lib =									\
 		exit -1;									\
 	fi;											\
 												\
-	LIB="$(strip $2)";									\
+	LIB="$(strip $(2))";									\
 	for FILE in `find $${LIB_DIR} -maxdepth 1 -type l -name "$${LIB}*"`; do			\
 		LIB=`basename $${FILE}`;							\
 		while test -n "$${LIB}"; do							\
@@ -968,7 +945,7 @@ install_copy_toolchain_lib =									\
 # $3: strip (y|n)	default is to strip
 #
 install_copy_toolchain_dl =									\
-	PACKET=$(strip $(1));									\
+	PACKET="$(strip $(1))";									\
 	DST="$(strip $2)";									\
 	STRIP="$(strip $3)";									\
 												\
@@ -1043,10 +1020,10 @@ install_link =									\
 	rm -fr $(ROOTDIR)$$DST;							\
 	echo "install_link: src=$$SRC dst=$$DST "; 				\
 	mkdir -p `dirname $(ROOTDIR)$$DST`;					\
-	$(LN) -sf $$SRC $(ROOTDIR)$$DST; 					\
+	ln -sf $$SRC $(ROOTDIR)$$DST; 						\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
 		mkdir -p `dirname $(IMAGEDIR)/$$PACKET/ipkg$$DST`;		\
-		$(LN) -sf $$SRC $(IMAGEDIR)/$$PACKET/ipkg/$$DST;		\
+		ln -sf $$SRC $(IMAGEDIR)/$$PACKET/ipkg/$$DST;			\
 	fi
 
 #
@@ -1080,7 +1057,7 @@ install_node =				\
 	echo "  major=$$MAJ";		\
 	echo "  minor=$$MIN";		\
 	echo "  name=$$DEV";		\
-	mkdir -p $(IMAGEDIR)/$$PACKET;		\
+	mkdir -p $(IMAGEDIR)/$$PACKET;	\
 	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(STATEDIR)/$$PACKET.perms
 
 #
@@ -1155,7 +1132,7 @@ install_finish = 													\
 #  autogeneration of dependencies
 # ----------------------------------------------------
 
-package_depfile=\
+package_depfile = \
 	$(STATEDIR)/$(shell basename $(patsubst %.make,%.dep,$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))))
 
 # vim: syntax=make
