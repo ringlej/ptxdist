@@ -181,12 +181,12 @@ config KLIBC_USER_SPEC
 	prompt "parse project specific initramfs_spec"
 	help
 	  parse the spec file which is expected to live in 
-	  $(PTXDIST_WORKSPACE)/initramfs_spec. The format is the same as 
+	  ${PTXDIST_WORKSPACE}/initramfs_spec. The format is the same as 
 	  described in the kernelsource under 
 
 	  Documentation/early-userspace/README. 
 
 	  Files described in this file can either have an absolute or a relative path 
-	  (relative to $(PTXDIST_WORKSPACE)).
+	  (relative to ${PTXDIST_WORKSPACE}).
 
 endmenu
