@@ -2,12 +2,9 @@ menu    "nmap                "
 
 config NMAP
 	bool "nmap"
-	depends on BROKEN
+	select OPENSSL
 	help
 	  FIXME: This item needs to be documented
-
-comment "NMAP is broken, please send a patch"
-	depends on !BROKEN
 
 config NMAP_SERVICES
 	bool "Install nmap-services"
