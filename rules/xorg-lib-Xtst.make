@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-Xtst.targetinstall: $(xorg-lib-Xtst_targetinstall_deps_defa
 	@$(call install_fixup, xorg-lib-Xtst,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xtst,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xtst, 0, 0, 0644, \
+		$(XORG_LIB_XTST_DIR)/src/.libs/libXtst.so.6.1.0, \
+		$(XORG_LIBDIR)/libXtst.so.6.1.0)
+
+	@$(call install_link, xorg-lib-Xtst, \
+		libXtst.so.6.1.0, \
+		$(XORG_LIBDIR)/libXtst.so.6)
+
+	@$(call install_link, xorg-lib-Xtst, \
+		libXtst.so.6.1.0, \
+		$(XORG_LIBDIR)/libXtst.so)
 
 	@$(call install_finish, xorg-lib-Xtst)
 
