@@ -1,0 +1,27 @@
+diff -urN SDL-1.2.9-orig/sdl-config.in SDL-1.2.9/sdl-config.in
+--- SDL-1.2.9-orig/sdl-config.in	2004-02-11 08:09:11.000000000 +0100
++++ SDL-1.2.9/sdl-config.in	2006-03-04 22:06:09.000000000 +0100
+@@ -39,7 +39,7 @@
+       echo @SDL_VERSION@
+       ;;
+     --cflags)
+-      echo -I@includedir@/SDL @SDL_CFLAGS@
++      echo -I${SYSROOT}@includedir@/SDL @SDL_CFLAGS@
+ 
+       # The portable way of including SDL is #include "SDL.h"
+       #if test @includedir@ != /usr/include ; then
+@@ -51,12 +51,12 @@
+       #echo $includes -I@includedir@/SDL @SDL_CFLAGS@
+       ;;
+ @ENABLE_SHARED_TRUE@    --libs)
+-@ENABLE_SHARED_TRUE@      libdirs="-L@libdir@ @SDL_RLD_FLAGS@"
++@ENABLE_SHARED_TRUE@      libdirs="-L${SYSROOT}@libdir@ @SDL_RLD_FLAGS@"
+ @ENABLE_SHARED_TRUE@      echo $libdirs @SDL_LIBS@ @SHARED_SYSTEM_LIBS@
+ @ENABLE_SHARED_TRUE@      ;;
+ @ENABLE_STATIC_TRUE@@ENABLE_SHARED_TRUE@    --static-libs)
+ @ENABLE_STATIC_TRUE@@ENABLE_SHARED_FALSE@    --libs|--static-libs)
+-@ENABLE_STATIC_TRUE@      libdirs="-L@libdir@ @SDL_RLD_FLAGS@"
++@ENABLE_STATIC_TRUE@      libdirs="-L${SYSROOT}@libdir@ @SDL_RLD_FLAGS@"
+ @ENABLE_STATIC_TRUE@      echo $libdirs @SDL_STATIC_LIBS@ @STATIC_SYSTEM_LIBS@
+ @ENABLE_STATIC_TRUE@      ;;
+     *)
