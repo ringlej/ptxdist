@@ -24,10 +24,10 @@ endif
 #
 # Paths and names 
 #
-NMAP_VERSION		= 3.93
+NMAP_VERSION		= 4.01
 NMAP			= nmap-$(NMAP_VERSION)
-NMAP_SUFFIX		= tgz
-NMAP_URL		= http://download.insecure.org/nmap/dist/$(NMAP).$(NMAP_SUFFIX)
+NMAP_SUFFIX		= tar.bz2
+NMAP_URL		= http://freshmeat.net/redir/nmap/7202/url_bz2/$(NMAP).$(NMAP_SUFFIX)
 NMAP_SOURCE		= $(SRCDIR)/$(NMAP).$(NMAP_SUFFIX)
 NMAP_DIR		= $(BUILDDIR)/$(NMAP)
 
@@ -74,8 +74,8 @@ NMAP_ENV = \
 #
 # autoconf
 #
-NMAP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-NMAP_AUTOCONF += --with-pcap=linux 
+NMAP_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
+	--with-pcap=linux
 #
 # FIXME:
 #
@@ -102,10 +102,6 @@ nmap_compile: $(STATEDIR)/nmap.compile
 
 $(STATEDIR)/nmap.compile: $(nmap_compile_deps_default) 
 	@$(call targetinfo, $@)
-#
-# dftables is a tool that is run during make in the host system
-#
-	$(NMAP_PATH) make -C $(NMAP_DIR)/libpcre $(HOSTCC_ENV) CFLAGS='' CXXFLAGS='' dftables
 	$(NMAP_PATH) make -C $(NMAP_DIR) nmap
 	@$(call touch, $@)
 

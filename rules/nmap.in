@@ -3,6 +3,7 @@ menu    "nmap                "
 config NMAP
 	bool "nmap"
 	select OPENSSL
+	select PCRE
 	help
 	  FIXME: This item needs to be documented
 
