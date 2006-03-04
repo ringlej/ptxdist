@@ -25,11 +25,6 @@ SSMTP_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP_SRC)
 SSMTP_SOURCE		= $(SRCDIR)/$(SSMTP_SRC)
 SSMTP_DIR		= $(BUILDDIR)/ssmtp-$(SSMTP_VERSION)
 
-SSMTP_PATCH		= 5
-SSMTP_PATCH_SRC		= ssmtp_$(SSMTP_VERSION)-$(SSMTP_PATCH).diff.gz
-SSMTP_PATCH_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP_PATCH_SRC)
-SSMTP_PATCH_SOURCE	= $(SRCDIR)/$(SSMTP_PATCH_SRC)
-
 -include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
@@ -46,10 +41,6 @@ $(SSMTP_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, $(SSMTP_URL))
 
-$(SSMTP_PATCH_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, $(SSMTP_PATCH_URL))
-
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
@@ -60,7 +51,6 @@ $(STATEDIR)/ssmtp.extract: $(ssmtp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SSMTP_DIR))
 	@$(call extract, $(SSMTP_SOURCE))
-	cd $(SSMTP_DIR) && zcat $(SSMTP_PATCH_SOURCE) | patch -p1
 	@$(call patchin, $(SSMTP))
 	@$(call touch, $@)
 
@@ -110,7 +100,8 @@ ssmtp_compile: $(STATEDIR)/ssmtp.compile
 
 $(STATEDIR)/ssmtp.compile: $(ssmtp_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(SSMTP_DIR) && $(SSMTP_ENV) $(SSMTP_PATH) make
+	cd $(SSMTP_DIR) && \
+		$(SSMTP_ENV) $(SSMTP_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -135,10 +126,10 @@ ssmtp_targetinstall: $(STATEDIR)/ssmtp.targetinstall
 $(STATEDIR)/ssmtp.targetinstall: $(ssmtp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, ssmtp)
+	@$(call install_init,  ssmtp)
 	@$(call install_fixup, ssmtp,PACKAGE,ssmtp)
 	@$(call install_fixup, ssmtp,PRIORITY,optional)
-	@$(call install_fixup, ssmtp,VERSION,$(SSMTP_VERSION)-$(SSMTP_PATCH))
+	@$(call install_fixup, ssmtp,VERSION,$(SSMTP_VERSION))
 	@$(call install_fixup, ssmtp,SECTION,base)
 	@$(call install_fixup, ssmtp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ssmtp,DEPENDS,)
