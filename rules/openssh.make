@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_OPENSSH) += openssh
 #
 # Paths and names 
 #
-OPENSSH_VERSION		= 3.9p1
+OPENSSH_VERSION		= 4.3p2
 OPENSSH			= openssh-$(OPENSSH_VERSION)
 OPENSSH_URL 		= ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).tar.gz
 OPENSSH_SOURCE		= $(SRCDIR)/$(OPENSSH).tar.gz
@@ -51,16 +51,6 @@ $(STATEDIR)/openssh.extract: $(openssh_extract_deps_default)
 	@$(call extract, $(OPENSSH_SOURCE))
 	@$(call patchin, $(OPENSSH))
 
-	OPENSSL_VERSION_NUMBER="`sed -n -e 's/.*OPENSSL_VERSION_NUMBER.*0x[0]*\([0-9a-f]*\)L/\1/p' \
-		$(CROSS_LIB_DIR)/include/openssl/opensslv.h`" \
-	OPENSSL_VERSION_TEXT="`sed -n -e 's/.*OPENSSL_VERSION_TEXT.*"\(.*\)"/\1/p' \
-		$(CROSS_LIB_DIR)/include/openssl/opensslv.h`" && \
-	perl -i -p -e "s/ssl_library_ver=\"VERSION\"/ssl_library_ver=\"$$OPENSSL_VERSION_NUMBER ($$OPENSSL_VERSION_TEXT)\"/g" \
-		$(OPENSSH_DIR)/configure.ac && \
-	perl -i -p -e "s/ssl_header_ver=\"VERSION\"/ssl_header_ver=\"$$OPENSSL_VERSION_NUMBER ($$OPENSSL_VERSION_TEXT)\"/g" \
-		$(OPENSSH_DIR)/configure.ac
-
-	cd $(OPENSSH_DIR) && PATH=$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin:$$PATH autoconf
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -70,31 +60,10 @@ $(STATEDIR)/openssh.extract: $(openssh_extract_deps_default)
 openssh_prepare: $(STATEDIR)/openssh.prepare
 
 OPENSSH_PATH	= PATH=$(CROSS_PATH)
-#
+
 # openssh is a little F*CKED up, is won't compile without LD=gcc in environment
 # perhaps someone should fix this....
-#
-# powerpc-linux-ld -o ssh ssh.o readconf.o clientloop.o sshtty.o
-# sshconnect.o sshconnect1.o sshconnect2.o -L. -Lopenbsd-compat/ -lssh
-# -lopenbsd-compat -lutil -lz -lnsl -lcrypto -lcrypt
-# powerpc-linux-ld: warning: cannot find entry symbol _start;
-# defaulting to 10001ba8
-# ./libssh.a(packet.o): In function `set_newkeys':
-# /home/frogger/projects/ptxdist/ptxdist-ppc/build/openssh-3.7.1p2/packet.c:643:
-# undefined reference to `__ashldi3'
-# /home/frogger/projects/ptxdist/ptxdist-ppc/build/openssh-3.7.1p2/packet.c:643:
-# relocation truncated to fit: R_PPC_REL24 __ashldi3
-# make[1]: *** [ssh] Error 1
-#
-OPENSSH_ENV	= \
-	$(CROSS_ENV_AR) \
-	$(CORSS_ENV_AS) \
-	$(CROSS_ENV_CXX) \
-	$(CROSS_ENV_CC) \
-	$(CROSS_ENV_NM) \
-	$(CROSS_ENV_OBJCOPY) \
-	$(CROSS_ENV_RANLIB) \
-	$(CROSS_ENV_STRIP) \
+OPENSSH_ENV	= $(CROSS_ENV) \
 	LD=$(COMPILER_PREFIX)gcc
 
 #
@@ -103,9 +72,6 @@ OPENSSH_ENV	= \
 OPENSSH_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--libexecdir=/usr/sbin \
-	--libdir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
-	--with-ldflags=-L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
-	--with-cflags=-I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include \
 	--sysconfdir=/etc/ssh \
 	--with-privsep-path=/var/run/sshd \
 	--with-rand-helper=no \
@@ -116,10 +82,7 @@ OPENSSH_AUTOCONF = \
 	--disable-utmp \
 	--disable-utmpx \
 	--disable-wtmp \
-	--disable-wtmpx \
-	--with-zlib=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
-	--with-ssl-dir=$(CROSS_LIB_DIR)
-
+	--disable-wtmpx
 
 $(STATEDIR)/openssh.prepare: $(openssh_prepare_deps_default)
 	@$(call targetinfo, openssh.prepare)
