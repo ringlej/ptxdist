@@ -608,14 +608,15 @@ else
 install = \
 	BUILDDIR="$($(strip $(1))_DIR)";				\
 	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
-	mkdir -p $$DESTDIR;						\
-	if [ "$(strip $(3))" != "h"]; then				\
+	if [ "$(strip $(3))" = "h" ]; then				\
 		cd $$BUILDDIR &&					\
 			$($(strip $(1))_ENV)				\
 			$($(strip $(1))_PATH)				\
 			make install $(4)				\
-			$($(strip $(1))_MAKEVARS);			\
+			$($(strip $(1))_MAKEVARS)			\
+			DESTDIR=;					\
 	else								\
+		mkdir -p $(SYSROOT);					\
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
