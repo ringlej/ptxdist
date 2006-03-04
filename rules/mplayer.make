@@ -60,7 +60,7 @@ $(STATEDIR)/mplayer.extract: $(mplayer_extract_deps_default)
 mplayer_prepare: $(STATEDIR)/mplayer.prepare
 
 MPLAYER_PATH	=  PATH=$(CROSS_PATH)
-MPLAYER_ENV 	= CFLAGS='-Wl,-rpath-link -Wl,$(strip $(SYSROOT))/usr/lib'
+MPLAYER_ENV 	= CFLAGS='-Wl,-rpath-link -Wl,-L$(strip $(SYSROOT))/usr/lib'
 #
 # autoconf
 #
