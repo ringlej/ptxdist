@@ -1,0 +1,12 @@
+diff -urN ssmtp-2.61-orig/Makefile.in ssmtp-2.61/Makefile.in
+--- ssmtp-2.61-orig/Makefile.in	2006-03-04 23:19:04.000000000 +0100
++++ ssmtp-2.61/Makefile.in	2006-03-04 23:19:36.000000000 +0100
+@@ -79,7 +79,7 @@
+ 
+ # Binaries:
+ ssmtp: $(OBJS)
+-	$(CC) -o ssmtp $(OBJS) @LIBS@ $(CFLAGS)
++	$(CC) -o ssmtp $(OBJS) $(LDFLAGS) @LIBS@
+ 
+ .PHONY: clean
+ clean:
