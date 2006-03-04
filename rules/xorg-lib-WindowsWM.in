@@ -1,6 +1,5 @@
 config XORG_LIB_WINDOWSWM
 	bool
-	depends on BROKEN
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
 	select XORG_PROTO_XEXT
@@ -9,5 +8,3 @@ config XORG_LIB_WINDOWSWM
 	help
 	  FIXME
 
-comment "windowswm is broken, please send a patch"
-	depends on !BROKEN

@@ -1,10 +1,7 @@
 config XORG_LIB_FS
 	bool
-	depends on XORG_LIB && BROKEN
+	depends on XORG_LIB
 	prompt "libFS"
 	help
 	  FIXME
 
-comment "libfs is broken, please send a patch"
-	depends on !BROKEN
-	depends on XORG_LIB_FS
