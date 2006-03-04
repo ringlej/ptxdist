@@ -65,7 +65,8 @@ XORG_LIB_FS_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_FS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_FS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-FS.prepare: $(xorg-lib-FS_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -115,7 +116,17 @@ $(STATEDIR)/xorg-lib-FS.targetinstall: $(xorg-lib-FS_targetinstall_deps_default)
 	@$(call install_fixup, xorg-lib-FS,DEPENDS,)
 	@$(call install_fixup, xorg-lib-FS,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-FS, 0, 0, 0644, \
+		$(XORG_LIB_FS_DIR)/src/.libs/libFS.so.6.0.0, \
+		$(XORG_LIBDIR)/libFS.so.6.0.0)
+
+	@$(call install_link, xorg-lib-FS, \
+		libFS.so.6.0.0, \
+		$(XORG_LIBDIR)/libFS.so.6)
+
+	@$(call install_link, xorg-lib-FS, \
+		libFS.so.6.0.0, \
+		$(XORG_LIBDIR)/libFS.so)
 
 	@$(call install_finish, xorg-lib-FS)
 

@@ -65,7 +65,8 @@ XORG_LIB_XPRINTUTIL_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XPRINTUTIL_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XPRINTUTIL_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-XprintUtil.prepare: $(xorg-lib-XprintUtil_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -115,7 +116,17 @@ $(STATEDIR)/xorg-lib-XprintUtil.targetinstall: $(xorg-lib-XprintUtil_targetinsta
 	@$(call install_fixup, xorg-lib-XprintUtil,DEPENDS,)
 	@$(call install_fixup, xorg-lib-XprintUtil,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-XprintUtil, 0, 0, 0644, \
+		$(XORG_LIB_XPRINTUTIL_DIR)/src/.libs/libXprintUtil.so.1.0.0, \
+		$(XORG_LIBDIR)/libXprintUtil.so.1.0.0)
+
+	@$(call install_link, xorg-lib-XprintUtil, \
+		libXprintUtil.so.1.0.0, \
+		$(XORG_LIBDIR)/libXprintUtil.so.1)
+
+	@$(call install_link, xorg-lib-XprintUtil, \
+		libXprintUtil.so.1.0.0, \
+		$(XORG_LIBDIR)/libXprintUtil.so)
 
 	@$(call install_finish, xorg-lib-XprintUtil)
 

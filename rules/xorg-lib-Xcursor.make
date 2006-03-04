@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-Xcursor.targetinstall: $(xorg-lib-Xcursor_targetinstall_dep
 	@$(call install_fixup, xorg-lib-Xcursor,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xcursor,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xcursor, 0, 0, 0644, \
+		$(XORG_LIB_XCURSOR_DIR)/src/.libs/libXcursor.so.1.0.2, \
+		$(XORG_LIBDIR)/libXcursor.so.1.0.2)
+
+	@$(call install_link, xorg-lib-Xcursor, \
+		libXcursor.so.1.0.2, \
+		$(XORG_LIBDIR)/libXcursor.so.1)
+
+	@$(call install_link, xorg-lib-Xcursor, \
+		libXcursor.so.1.0.2, \
+		$(XORG_LIBDIR)/libXcursor.so)
 
 	@$(call install_finish, xorg-lib-Xcursor)
 

@@ -65,7 +65,8 @@ XORG_LIB_XP_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XP_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-Xp.prepare: $(xorg-lib-Xp_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -115,8 +116,17 @@ $(STATEDIR)/xorg-lib-Xp.targetinstall: $(xorg-lib-Xp_targetinstall_deps_default)
 	@$(call install_fixup, xorg-lib-Xp,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xp,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xp, 0, 0, 0644, \
+		$(XORG_LIB_XP_DIR)/src/.libs/libXp.so.6.2.0, \
+		$(XORG_LIBDIR)/libXp.so.6.2.0)
 
+	@$(call install_link, xorg-lib-Xp, \
+		libXp.so.6.2.0, \
+		$(XORG_LIBDIR)/libXp.so.6)
+
+	@$(call install_link, xorg-lib-Xp, \
+		libXp.so.6.2.0, \
+		$(XORG_LIBDIR)/libXp.so)
 
 	@$(call install_finish, xorg-lib-Xp)
 

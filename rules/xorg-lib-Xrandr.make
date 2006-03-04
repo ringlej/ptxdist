@@ -65,7 +65,8 @@ XORG_LIB_XRANDR_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XRANDR_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XRANDR_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-Xrandr.prepare: $(xorg-lib-Xrandr_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -115,7 +116,17 @@ $(STATEDIR)/xorg-lib-Xrandr.targetinstall: $(xorg-lib-Xrandr_targetinstall_deps_
 	@$(call install_fixup, xorg-lib-Xrandr,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xrandr,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xrandr, 0, 0, 0644, \
+		$(XORG_LIB_XRANDR_DIR)/src/.libs/libXrandr.so.2.0.0, \
+		$(XORG_LIBDIR)/libXrandr.so.2.0.0)
+
+	@$(call install_link, xorg-lib-Xrandr, \
+		libXrandr.so.2.0.0, \
+		$(XORG_LIBDIR)/libXrandr.so.2)
+
+	@$(call install_link, xorg-lib-Xrandr, \
+		libXrandr.so.2.0.0, \
+		$(XORG_LIBDIR)/libXrandr.so)
 
 	@$(call install_finish, xorg-lib-Xrandr)
 

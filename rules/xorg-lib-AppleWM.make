@@ -117,7 +117,17 @@ $(STATEDIR)/xorg-lib-AppleWM.targetinstall: $(xorg-lib-AppleWM_targetinstall_dep
 	@$(call install_fixup, xorg-lib-AppleWM,DEPENDS,)
 	@$(call install_fixup, xorg-lib-AppleWM,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-AppleWM, 0, 0, 0644, \
+		$(XORG_LIB_APPLEWM_DIR)/src/.libs/libAppleWM.so.7.0.0, \
+		$(XORG_LIBDIR)/libAppleWM.so.7.0.0)
+
+	@$(call install_link, xorg-lib-AppleWM, \
+		libAppleWM.so.7.0.0, \
+		$(XORG_LIBDIR)/libAppleWM.so.7)
+
+	@$(call install_link, xorg-lib-AppleWM, \
+		libAppleWM.so.7.0.0, \
+		$(XORG_LIBDIR)/libAppleWM.so)
 
 	@$(call install_finish, xorg-lib-AppleWM)
 

@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-Xcomposite.targetinstall: $(xorg-lib-Xcomposite_targetinsta
 	@$(call install_fixup, xorg-lib-Xcomposite,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xcomposite,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xcomposite, 0, 0, 0644, \
+		$(XORG_LIB_XCOMPOSITE_DIR)/src/.libs/libXcomposite.so.1.0.0, \
+		$(XORG_LIBDIR)/libXcomposite.so.1.0.0)
+
+	@$(call install_link, xorg-lib-Xcomposite, \
+		libXcomposite.so.1.0.0, \
+		$(XORG_LIBDIR)/libXcomposite.so.1)
+
+	@$(call install_link, xorg-lib-Xcomposite, \
+		libXcomposite.so.1.0.0, \
+		$(XORG_LIBDIR)/libXcomposite.so)
 
 	@$(call install_finish, xorg-lib-Xcomposite)
 

@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-Xfixes.targetinstall: $(xorg-lib-Xfixes_targetinstall_deps_
 	@$(call install_fixup, xorg-lib-Xfixes,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xfixes,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xfixes, 0, 0, 0644, \
+		$(XORG_LIB_XFIXES_DIR)/src/.libs/libXfixes.so.3.0.0, \
+		$(XORG_LIBDIR)/libXfixes.so.3.0.0)
+
+	@$(call install_link, xorg-lib-Xfixes, \
+		libXfixes.so.3.0.0, \
+		$(XORG_LIBDIR)/libXfixes.so.3)
+
+	@$(call install_link, xorg-lib-Xfixes, \
+		libXfixes.so.3.0.0, \
+		$(XORG_LIBDIR)/libXfixes.so)
 
 	@$(call install_finish, xorg-lib-Xfixes)
 

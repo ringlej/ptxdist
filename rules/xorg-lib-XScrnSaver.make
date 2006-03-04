@@ -65,7 +65,8 @@ XORG_LIB_XSCRNSAVER_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XSCRNSAVER_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XSCRNSAVER_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-XScrnSaver.prepare: $(xorg-lib-XScrnSaver_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -115,7 +116,17 @@ $(STATEDIR)/xorg-lib-XScrnSaver.targetinstall: $(xorg-lib-XScrnSaver_targetinsta
 	@$(call install_fixup, xorg-lib-XScrnSaver,DEPENDS,)
 	@$(call install_fixup, xorg-lib-XScrnSaver,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-XScrnSaver, 0, 0, 0644, \
+		$(XORG_LIB_XSCRNSAVER_DIR)/src/.libs/libXss.so.1.0.0, \
+		$(XORG_LIBDIR)/libXss.so.1.0.0)
+
+	@$(call install_link, xorg-lib-XScrnSaver, \
+		libXss.so.1.0.0, \
+		$(XORG_LIBDIR)/libXss.so.1)
+
+	@$(call install_link, xorg-lib-XScrnSaver, \
+		libXss.so.1.0.0, \
+		$(XORG_LIBDIR)/libXss.so)
 
 	@$(call install_finish, xorg-lib-XScrnSaver)
 

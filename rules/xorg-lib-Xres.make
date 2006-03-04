@@ -117,7 +117,17 @@ $(STATEDIR)/xorg-lib-Xres.targetinstall: $(xorg-lib-Xres_targetinstall_deps_defa
 	@$(call install_fixup, xorg-lib-Xres,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xres,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xres, 0, 0, 0644, \
+		$(XORG_LIB_XRES_DIR)/src/.libs/libXRes.so.1.0.0, \
+		$(XORG_LIBDIR)/libXRes.so.1.0.0)
+
+	@$(call install_link, xorg-lib-Xres, \
+		libXRes.so.1.0.0, \
+		$(XORG_LIBDIR)/libXRes.so.1)
+
+	@$(call install_link, xorg-lib-Xres, \
+		libXRes.so.1.0.0, \
+		$(XORG_LIBDIR)/libXRes.so)
 
 	@$(call install_finish, xorg-lib-Xres)
 

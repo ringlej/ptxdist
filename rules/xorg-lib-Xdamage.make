@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-Xdamage.targetinstall: $(xorg-lib-Xdamage_targetinstall_dep
 	@$(call install_fixup, xorg-lib-Xdamage,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xdamage,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xdamage, 0, 0, 0644, \
+		$(XORG_LIB_XDAMAGE_DIR)/src/.libs/libXdamage.so.1.0.0, \
+		$(XORG_LIBDIR)/libXdamage.so.1.0.0)
+
+	@$(call install_link, xorg-lib-Xdamage, \
+		libXdamage.so.1.0.0, \
+		$(XORG_LIBDIR)/libXdamage.so.1)
+
+	@$(call install_link, xorg-lib-Xdamage, \
+		libXdamage.so.1.0.0, \
+		$(XORG_LIBDIR)/libXdamage.so)
 
 	@$(call install_finish, xorg-lib-Xdamage)
 

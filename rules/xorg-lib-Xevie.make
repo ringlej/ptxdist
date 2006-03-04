@@ -65,7 +65,8 @@ XORG_LIB_XEVIE_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XEVIE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XEVIE_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-Xevie.prepare: $(xorg-lib-Xevie_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -115,7 +116,17 @@ $(STATEDIR)/xorg-lib-Xevie.targetinstall: $(xorg-lib-Xevie_targetinstall_deps_de
 	@$(call install_fixup, xorg-lib-Xevie,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xevie,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xevie, 0, 0, 0644, \
+		$(XORG_LIB_XEVIE_DIR)/src/.libs/libXevie.so.1.0.0, \
+		$(XORG_LIBDIR)/libXevie.so.1.0.0)
+
+	@$(call install_link, xorg-lib-Xevie, \
+		libXevie.so.1.0.0, \
+		$(XORG_LIBDIR)/libXevie.so.1)
+
+	@$(call install_link, xorg-lib-Xevie, \
+		libXevie.so.1.0.0, \
+		$(XORG_LIBDIR)/libXevie.so)
 
 	@$(call install_finish, xorg-lib-Xevie)
 

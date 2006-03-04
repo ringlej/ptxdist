@@ -65,7 +65,8 @@ XORG_LIB_WINDOWSWM_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_WINDOWSWM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_WINDOWSWM_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-WindowsWM.prepare: $(xorg-lib-WindowsWM_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -115,7 +116,17 @@ $(STATEDIR)/xorg-lib-WindowsWM.targetinstall: $(xorg-lib-WindowsWM_targetinstall
 	@$(call install_fixup, xorg-lib-WindowsWM,DEPENDS,)
 	@$(call install_fixup, xorg-lib-WindowsWM,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-WindowsWM, 0, 0, 0644, \
+		$(XORG_LIB_WINDOWSWM_DIR)/src/.libs/libWindowsWM.so.7.0.0, \
+		$(XORG_LIBDIR)/libWindowsWM.so.7.0.0)
+
+	@$(call install_link, xorg-lib-WindowsWM, \
+		libWindowsWM.so.7.0.0, \
+		$(XORG_LIBDIR)/libWindowsWM.so.7)
+
+	@$(call install_link, xorg-lib-WindowsWM, \
+		libWindowsWM.so.7.0.0, \
+		$(XORG_LIBDIR)/libWindowsWM.so)
 
 	@$(call install_finish, xorg-lib-WindowsWM)
 

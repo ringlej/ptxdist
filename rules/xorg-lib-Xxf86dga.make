@@ -65,7 +65,8 @@ XORG_LIB_XXF86DGA_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XXF86DGA_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XXF86DGA_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-Xxf86dga.prepare: $(xorg-lib-Xxf86dga_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -115,7 +116,18 @@ $(STATEDIR)/xorg-lib-Xxf86dga.targetinstall: $(xorg-lib-Xxf86dga_targetinstall_d
 	@$(call install_fixup, xorg-lib-Xxf86dga,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xxf86dga,DESCRIPTION,missing)
 
-# FIXME
+	@$(call install_copy, xorg-lib-Xxf86dga, 0, 0, 0644, \
+		$(XORG_LIB_XXF86DGA_DIR)/src/.libs/libXxf86dga.so.1.0.0, \
+		$(XORG_LIBDIR)/libXxf86dga.so.1.0.0)
+
+	@$(call install_link, xorg-lib-Xxf86dga, \
+		libXxf86dga.so.1.0.0, \
+		$(XORG_LIBDIR)/libXxf86dga.so.1)
+
+	@$(call install_link, xorg-lib-Xxf86dga, \
+		libXxf86dga.so.1.0.0, \
+		$(XORG_LIBDIR)/libXxf86dga.so)
+
 
 	@$(call install_finish, xorg-lib-Xxf86dga)
 

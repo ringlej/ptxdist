@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-xkbui.targetinstall: $(xorg-lib-xkbui_targetinstall_deps_de
 	@$(call install_fixup, xorg-lib-xkbui,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xkbui,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-xkbui, 0, 0, 0644, \
+		$(XORG_LIB_XKBUI_DIR)/src/.libs/libxkbui.so.1.0.0, \
+		$(XORG_LIBDIR)/libxkbui.so.1.0.0)
+
+	@$(call install_link, xorg-lib-xkbui, \
+		libxkbui.so.1.0.0, \
+		$(XORG_LIBDIR)/libxkbui.so.1)
+
+	@$(call install_link, xorg-lib-xkbui, \
+		libxkbui.so.1.0.0, \
+		$(XORG_LIBDIR)/libxkbui.so)
 
 	@$(call install_finish, xorg-lib-xkbui)
 

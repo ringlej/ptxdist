@@ -117,7 +117,17 @@ $(STATEDIR)/xorg-lib-Xi.targetinstall: $(xorg-lib-Xi_targetinstall_deps_default)
 	@$(call install_fixup, xorg-lib-Xi,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xi,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xi, 0, 0, 0644, \
+		$(XORG_LIB_XI_DIR)/src/.libs/libXi.so.6.0.0, \
+		$(XORG_LIBDIR)/libXi.so.6.0.0)
+
+	@$(call install_link, xorg-lib-Xi, \
+		libXi.so.6.0.0, \
+		$(XORG_LIBDIR)/libXi.so.6)
+
+	@$(call install_link, xorg-lib-Xi, \
+		libXi.so.6.0.0, \
+		$(XORG_LIBDIR)/libXi.so)
 
 	@$(call install_finish, xorg-lib-Xi)
 

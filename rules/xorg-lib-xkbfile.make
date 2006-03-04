@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-xkbfile.targetinstall: $(xorg-lib-xkbfile_targetinstall_dep
 	@$(call install_fixup, xorg-lib-xkbfile,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xkbfile,DESCRIPTION,missing)
 
-# FIXME
+	@$(call install_copy, xorg-lib-xkbfile, 0, 0, 0644, \
+		$(XORG_LIB_XKBFILE_DIR)/src/.libs/libxkbfile.so.1.0.0, \
+		$(XORG_LIBDIR)/libxkbfile.so.1.0.0)
+
+	@$(call install_link, xorg-lib-xkbfile, \
+		libxkbfile.so.1.0.0, \
+		$(XORG_LIBDIR)/libxkbfile.so.1)
+
+	@$(call install_link, xorg-lib-xkbfile, \
+		libxkbfile.so.1.0.0, \
+		$(XORG_LIBDIR)/libxkbfile.so)
 
 	@$(call install_finish, xorg-lib-xkbfile)
 

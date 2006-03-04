@@ -117,7 +117,17 @@ $(STATEDIR)/xorg-lib-Xfontcache.targetinstall: $(xorg-lib-Xfontcache_targetinsta
 	@$(call install_fixup, xorg-lib-Xfontcache,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xfontcache,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xfontcache, 0, 0, 0644, \
+		$(XORG_LIB_XFONTCACHE_DIR)/src/.libs/libXfontcache.so.1.0.0, \
+		$(XORG_LIBDIR)/libXfontcache.so.1.0.0)
+
+	@$(call install_link, xorg-lib-Xfontcache, \
+		libXfontcache.so.1.0.0, \
+		$(XORG_LIBDIR)/libXfontcache.so.1)
+
+	@$(call install_link, xorg-lib-Xfontcache, \
+		libXfontcache.so.1.0.0, \
+		$(XORG_LIBDIR)/libXfontcache.so)
 
 	@$(call install_finish, xorg-lib-Xfontcache)
 

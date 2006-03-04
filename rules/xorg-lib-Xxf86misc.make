@@ -117,7 +117,17 @@ $(STATEDIR)/xorg-lib-Xxf86misc.targetinstall: $(xorg-lib-Xxf86misc_targetinstall
 	@$(call install_fixup, xorg-lib-Xxf86misc,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xxf86misc,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-lib-Xxf86misc, 0, 0, 0644, \
+		$(XORG_LIB_XXF86MISC_DIR)/src/.libs/libXxf86misc.so.1.1.0, \
+		$(XORG_LIBDIR)/libXxf86misc.so.1.1.0)
+
+	@$(call install_link, xorg-lib-Xxf86misc, \
+		libXxf86misc.so.1.1.0, \
+		$(XORG_LIBDIR)/libXxf86misc.so.1)
+
+	@$(call install_link, xorg-lib-Xxf86misc, \
+		libXxf86misc.so.1.1.0, \
+		$(XORG_LIBDIR)/libXxf86misc.so)
 
 	@$(call install_finish, xorg-lib-Xxf86misc)
 

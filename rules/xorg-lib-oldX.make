@@ -65,7 +65,8 @@ XORG_LIB_OLDX_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_OLDX_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_OLDX_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-oldX.prepare: $(xorg-lib-oldX_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -115,8 +116,17 @@ $(STATEDIR)/xorg-lib-oldX.targetinstall: $(xorg-lib-oldX_targetinstall_deps_defa
 	@$(call install_fixup, xorg-lib-oldX,DEPENDS,)
 	@$(call install_fixup, xorg-lib-oldX,DESCRIPTION,missing)
 
-# FIXME
+	@$(call install_copy, xorg-lib-oldX, 0, 0, 0644, \
+		$(XORG_LIB_OLDX_DIR)/src/.libs/liboldX.so.6.0.0, \
+		$(XORG_LIBDIR)/liboldX.so.6.0.0)
 
+	@$(call install_link, xorg-lib-oldX, \
+		liboldX.so.6.0.0, \
+		$(XORG_LIBDIR)/liboldX.so.6)
+
+	@$(call install_link, xorg-lib-oldX, \
+		liboldX.so.6.0.0, \
+		$(XORG_LIBDIR)/liboldX.so)
 	@$(call install_finish, xorg-lib-oldX)
 
 	@$(call touch, $@)

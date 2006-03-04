@@ -65,7 +65,8 @@ XORG_LIB_XINERAMA_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XINERAMA_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XINERAMA_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-Xinerama.prepare: $(xorg-lib-Xinerama_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -114,8 +115,18 @@ $(STATEDIR)/xorg-lib-Xinerama.targetinstall: $(xorg-lib-Xinerama_targetinstall_d
 	@$(call install_fixup, xorg-lib-Xinerama,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-Xinerama,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xinerama,DESCRIPTION,missing)
-#FIXME
 
+	@$(call install_copy, xorg-lib-Xinerama, 0, 0, 0644, \
+		$(XORG_LIB_XINERAMA_DIR)/src/.libs/libXinerama.so.1.0.0, \
+		$(XORG_LIBDIR)/libXinerama.so.1.0.0)
+
+	@$(call install_link, xorg-lib-Xinerama, \
+		libXinerama.so.1.0.0, \
+		$(XORG_LIBDIR)/libXinerama.so.1)
+
+	@$(call install_link, xorg-lib-Xinerama, \
+		libXinerama.so.1.0.0, \
+		$(XORG_LIBDIR)/libXinerama.so)
 
 	@$(call install_finish, xorg-lib-Xinerama)
 
