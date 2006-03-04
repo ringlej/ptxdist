@@ -2,5 +2,8 @@ config XORG_LIB_XRANDR
 	bool
 	prompt "libXrandr"
 	select XORG_LIB_X11
+	select XORG_PROTO_RANDR
+	select XORG_LIB_XEXT
+	select XORG_LIB_XRENDER
 	help
 	  FIXME
