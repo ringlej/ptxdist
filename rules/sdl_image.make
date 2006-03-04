@@ -128,7 +128,7 @@ $(STATEDIR)/sdl_image.targetinstall: $(sdl_image_targetinstall_deps_default)
 	@$(call install_fixup, sdl_image,DEPENDS,)
 	@$(call install_fixup, sdl_image,DESCRIPTION,missing)
 
-	@$(call install_copy, sdl_image, 0, 0, 0755, $(SDL_IMAGE_DIR)/foobar, /dev/null)
+	@$(call install_copy, sdl_image, 0, 0, 0755, $(SDL_IMAGE_DIR)/showimage, /usr/bin/showimage)
 
 	@$(call install_finish, sdl_image)
 
