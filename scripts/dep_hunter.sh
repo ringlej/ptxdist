@@ -15,8 +15,11 @@
 packages=$(ptxdist print PACKAGES | grep "PACKAGES is" | sed "s/PACKAGES is \"\(.*\)\"$/\1/")
 
 for i in $packages; do
-	echo $i > logfile;
-	ptxdist clean
-	ptxdist install $i
-	mv logfile logfile-$i
+	# only build if logfile does not exist to be able to restart the script
+	if [ ! -f logfile-$i ]; then
+		echo $i > logfile;
+		ptxdist clean
+		ptxdist install $i
+		mv logfile logfile-$i
+	fi
 done
