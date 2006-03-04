@@ -16,6 +16,7 @@ config PHP_APACHE
 	bool
 	prompt "Build shared Apache 1.x module"
 	depends on PHP && APACHE
+	select APACHE
 	help
 	  FIXME: This item needs to be documented
 

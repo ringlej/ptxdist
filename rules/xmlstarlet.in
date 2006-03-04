@@ -1,6 +1,7 @@
 menuconfig XMLSTARLET
 	bool
 	select LIBXML2
+	select LIBXSLT
 	prompt "xmlstarlet          "
 	help
 	  XMLStarlet is a set of command line utilities (tools) which

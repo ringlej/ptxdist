@@ -1,5 +1,6 @@
 menuconfig REALVNC
 	bool "realvnc               "
+	select ZLIB
 	depends on BROKEN
 
 config REALVNC_SERVER
