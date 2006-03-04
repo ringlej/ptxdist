@@ -74,8 +74,9 @@ host-python24_compile: $(STATEDIR)/host-python24.compile
 
 $(STATEDIR)/host-python24.compile: $(host-python24_compile_deps_default)
 	@$(call targetinfo, $@)
+	# we use --prefix, so no destdir here
 	( \
-		export DESTDIR=$(PTXCONF_PREFIX); \
+		export DESTDIR="/"; \
 		cd $(HOST_PYTHON24_DIR) && \
 			$(HOST_PYTHON24_ENV) \
 			$(HOST_PYTHON24_PATH) \
