@@ -114,6 +114,7 @@ host-qte_install: $(STATEDIR)/host-qte.install
 
 $(STATEDIR)/host-qte.install: $(host-qte_install_deps_default)
 	@$(call targetinfo, $@)
+	mkdir -p $(PTXCONF_PREFIX)/bin
 	cp $(HOST_QTE_DIR)/bin/uic $(PTXCONF_PREFIX)/bin
 	@$(call touch, $@)
 
