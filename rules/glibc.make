@@ -16,7 +16,7 @@
 #
 # bloody hack, I'm sorry (mkl)
 #
-ifndef CROSSTOOL
+ifndef PTXCONF_CROSSTOOL
 PACKAGES-$(PTXCONF_GLIBC) += glibc
 endif
 
