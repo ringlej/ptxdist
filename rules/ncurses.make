@@ -140,7 +140,6 @@ ifdef PTXCONF_NCURSES_PANEL
 endif
 
 ifdef PTXCONF_NCURSES_TERMCAP
-	mkdir -p $(ROOTDIR)/usr/share/terminfo
 	@$(call install_copy, ncurses, 0, 0, 0644, $(SYSROOT)/usr/share/terminfo/x/xterm, /usr/share/terminfo/x/xterm, n);
 	@$(call install_copy, ncurses, 0, 0, 0644, $(SYSROOT)/usr/share/terminfo/x/xterm-color, /usr/share/terminfo/x/xterm-color, n);
 	@$(call install_copy, ncurses, 0, 0, 0644, $(SYSROOT)/usr/share/terminfo/x/xterm-xfree86, /usr/share/terminfo/x/xterm-xfree86, n);
