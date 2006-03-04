@@ -2,6 +2,10 @@ config XORG_LIB_XP
 	bool
 	depends on BROKEN
 	prompt "libXp"
+	select XORG_LIB_X11
+	select XORG_LIB_XEXT
+	select XORG_LIB_XAU
+	select XORG_PROTO_PRINT
 	help
 	  FIXME
 

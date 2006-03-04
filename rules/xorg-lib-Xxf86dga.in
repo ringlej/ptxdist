@@ -1,5 +1,8 @@
 config XORG_LIB_XXF86DGA
 	bool
 	prompt "libXxf86dga"
+	select XORG_LIB_X11
+	select XORG_LIB_XEXT
+	select XORG_PROTO_XF86DGA
 	help
 	  FIXME

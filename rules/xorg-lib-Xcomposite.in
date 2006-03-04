@@ -2,6 +2,11 @@ config XORG_LIB_XCOMPOSITE
 	bool
 	depends on BROKEN
 	prompt "libXcomposite"
+	select XORG_PROTO_COMPOSITE
+	select XORG_LIB_X11
+	select XORG_LIB_XFIXES
+	select XORG_LIB_XEXT
+	select XORG_PROTO_FIXES
 	help
 	  FIXME
 

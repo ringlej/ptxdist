@@ -2,6 +2,7 @@ config XORG_LIB_OLDX
 	bool
 	depends on BROKEN
 	prompt "liboldX"
+	select XORG_LIB_X11
 	help
 	  FIXME
 

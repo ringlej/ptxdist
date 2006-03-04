@@ -9,5 +9,6 @@ config XORG_LIB_X11
 	select XORG_PROTO_KB
 	select XORG_PROTO_INPUT
 	select XORG_PROTO_BIGREQS
+	select XORG_PROTO_X
 	help
 	  FIXME

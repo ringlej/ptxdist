@@ -1,5 +1,10 @@
 config XORG_LIB_XPRINTUTIL
 	bool
 	prompt "libXprintUtil"
+	select XORG_LIB_X11
+	select XORG_LIB_XT
+	select XORG_LIB_XAU
+	select XORG_PROTO_PRINT
+	select XORG_LIB_XP
 	help
 	  FIXME

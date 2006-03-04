@@ -2,6 +2,9 @@ config XORG_LIB_XINERAMA
 	bool
 	depends on BROKEN
 	prompt "libXinerama"
+	select XORG_LIB_X11
+	select XORG_LIB_XEXT
+	select XORG_PROTO_XINERAMA
 	help
 	  FIXME
 
