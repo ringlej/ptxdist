@@ -16,7 +16,7 @@
 #
 # State:
 # 
-# Unknown, should be submitted. 
+# 2006-03-05	Submitted to Balázs Scheidler <bazsi@balabit.hu> 
 #
 
 diff -urN syslog-ng-1.9.9-orig/src/cfg-lex.l syslog-ng-1.9.9/src/cfg-lex.l
