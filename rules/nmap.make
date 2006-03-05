@@ -15,13 +15,6 @@
 PACKAGES-$(PTXCONF_NMAP) += nmap
 
 #
-# We depend on this package
-#
-ifdef PTXCONF_NMAP
-PACKAGES += libpcap
-endif
-
-#
 # Paths and names 
 #
 NMAP_VERSION		= 4.01
