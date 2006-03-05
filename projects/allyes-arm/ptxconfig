@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.10.0-svn
-# Sun Mar  5 00:05:59 2006
+# Sun Mar  5 15:56:49 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -1361,6 +1361,7 @@ PTXCONF_DNSMASQ=y
 # ethewake            
 #
 PTXCONF_ETHERWAKE=y
+PTXCONF_EVENTLOG=y
 
 #
 # inetutils           
@@ -1593,10 +1594,11 @@ PTXCONF_NETKIT-FTP=y
 # rsync               
 #
 PTXCONF_RSYNC=y
-
-#
-# syslog-ng is broken, please send a patch
-#
+PTXCONF_SYSLOGNG=y
+PTXCONF_SYSLOGNG_SUNSTREAMS=y
+PTXCONF_SYSLOGNG_SUNDOOR=y
+PTXCONF_SYSLOGNG_TCPWRAPPER=y
+PTXCONF_SYSLOGNG_SPOOF_SOURCE=y
 PTXCONF_TCPDUMP=y
 PTXCONF_TCPDUMP_DISABLE_CRYPTO=y
 
