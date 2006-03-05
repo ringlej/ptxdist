@@ -210,6 +210,56 @@ menuconfig() {
 	echo
 }
 
+newpacket () {
+	
+	case $1 in 
+	host)	TEMPLATE=template-host ;;
+	target)	TEMPLATE=template ;;
+	cross)	TEMPLATE=template-cross ;;
+	*)	echo; echo "${PROMPT}error: illegal argument"; echo; exit 1 ;;
+	esac
+
+	echo
+	echo "${PROMPT}creating a new packet from ${TEMPLATE}:"
+	echo
+	echo -n "${PROMPT}enter packet name.......: "
+	read PACKET_NAME
+	echo -n "${PROMPT}enter version number....: "
+	read VERSION
+	echo -n "${PROMPT}enter URL of basedir....: "
+	read URL
+	echo -n "${PROMPT}enter packet author.....: "
+	read AUTHOR
+	echo -n "${PROMPT}enter suffix............: "
+	read SUFFIX
+	YEAR=`date +%Y`
+	packet=`echo $PACKET_NAME | tr "[A-Z]" "[a-z]"`
+	PACKET=`echo $PACKET_NAME | tr "[a-z]" "[A-Z]"`
+
+	if [ -f "${packet}.make" ]; then
+		echo
+		echo -n "${PROMPT}warning: ${packet}.make does already exist, overwrite? "
+		read overwrite
+		if [ "$overwrite" != "y" ]; then
+			echo "${PROMPT}aborted."
+			echo
+			exit 0
+		fi
+	fi
+	
+	sed \
+		-e "s~\@PACKET@~${PACKET}~g" \
+		-e "s~\@packet@~${packet}~g" \
+		-e "s~\@VERSION@~${VERSION}~g" \
+		-e "s~\@URL@~${URL}~g" \
+		-e "s~\@YEAR@~${YEAR}~g" \
+		-e "s~\@AUTHOR@~${AUTHOR}~g" \
+		-e "s~\@SUFFIX@~${SUFFIX}~g" \
+		${PTXDIST_TOPDIR}/rules/${TEMPLATE} \
+		> ${packet}.make
+	
+}
+
 oldconfig() {
 	echo
 
@@ -414,6 +464,21 @@ while [ "$#" != "0" ]; do
 				$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			;;
 	menuconfig)	shift; menuconfig;;
+	newpacket)	# test if we are in a rules dir
+			if [ "`basename \`pwd\``" != "rules" ]; then
+				echo
+				echo "${PROMPT}error: newpacket command only allowed in a rules dir"
+				echo
+				exit 1
+			fi
+			shift
+			case $1 in 
+			--target) newpacket target ;;
+			--host)   newpacket host   ;;
+			--cross)  newpacket cross  ;;
+			esac
+			exit $?
+			;;
 	oldconfig)	shift; oldconfig;;
 	prepare)	shift
 			make \
