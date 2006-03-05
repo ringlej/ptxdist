@@ -1,4 +1,4 @@
-config AT-SPI
+config AT_SPI
 	bool
 	depends on BROKEN
 	prompt "Assistive Technology Service Provider Interface"
@@ -8,7 +8,7 @@ config AT-SPI
  	  including the use of services, products, and information.
  	  Assistive access means that system infrastructure allows add-on
  	  assistive software to transparently provide specialized input and
- 	  output capabilities. This is a part of the GNOME Prokect.
+ 	  output capabilities. This is a part of the GNOME Project.
 
 comment "at-spi is broken, please send a patch"
 	depends on !BROKEN

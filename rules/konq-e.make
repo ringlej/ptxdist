@@ -12,17 +12,17 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_KONQ-E) += konq-e
+PACKAGES-$(PTXCONF_KONQ_E) += konq-e
 
 #
 # Paths and names
 #
-KONQ-E_VERSION		= snapshot-20030705
-KONQ-E			= konqueror-embedded-$(KONQ-E_VERSION)
-KONQ-E_SUFFIX		= tar.gz
-KONQ-E_URL		= http://devel-home.kde.org/~hausmann/snapshots/$(KONQ-E).$(KONQ-E_SUFFIX)
-KONQ-E_SOURCE		= $(SRCDIR)/$(KONQ-E).$(KONQ-E_SUFFIX)
-KONQ-E_DIR		= $(BUILDDIR)/$(KONQ-E)
+KONQ_E_VERSION		= snapshot-20030705
+KONQ_E			= konqueror-embedded-$(KONQ_E_VERSION)
+KONQ_E_SUFFIX		= tar.gz
+KONQ_E_URL		= http://devel-home.kde.org/~hausmann/snapshots/$(KONQ_E).$(KONQ_E_SUFFIX)
+KONQ_E_SOURCE		= $(SRCDIR)/$(KONQ_E).$(KONQ_E_SUFFIX)
+KONQ_E_DIR		= $(BUILDDIR)/$(KONQ_E)
 
 -include $(call package_depfile)
 
@@ -36,9 +36,9 @@ $(STATEDIR)/konq-e.get: $(konq-e_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(KONQ-E_SOURCE):
+$(KONQ_E_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(KONQ-E_URL))
+	@$(call get, $(KONQ_E_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,9 +48,9 @@ konq-e_extract: $(STATEDIR)/konq-e.extract
 
 $(STATEDIR)/konq-e.extract: $(konq-e_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(KONQ-E_DIR))
-	@$(call extract, $(KONQ-E_SOURCE))
-	@$(call patchin, $(KONQ-E))
+	@$(call clean, $(KONQ_E_DIR))
+	@$(call extract, $(KONQ_E_SOURCE))
+	@$(call patchin, $(KONQ_E))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -59,20 +59,20 @@ $(STATEDIR)/konq-e.extract: $(konq-e_extract_deps_default)
 
 konq-e_prepare: $(STATEDIR)/konq-e.prepare
 
-KONQ-E_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
-KONQ-E_ENV 	=  $(CROSS_ENV)
+KONQ_E_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+KONQ_E_ENV 	=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-KONQ-E_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+KONQ_E_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/konq-e.prepare: $(konq-e_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(KONQ-E_BUILDDIR))
-	cd $(KONQ-E_DIR) && \
-		$(KONQ-E_PATH) $(KONQ-E_ENV) \
-		./configure $(KONQ-E_AUTOCONF)
+	@$(call clean, $(KONQ_E_BUILDDIR))
+	cd $(KONQ_E_DIR) && \
+		$(KONQ_E_PATH) $(KONQ_E_ENV) \
+		./configure $(KONQ_E_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ konq-e_compile: $(STATEDIR)/konq-e.compile
 
 $(STATEDIR)/konq-e.compile: $(konq-e_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(KONQ-E_DIR) && $(KONQ-E_PATH) $(KONQ-E_ENV) make
+	cd $(KONQ_E_DIR) && $(KONQ_E_PATH) $(KONQ_E_ENV) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -95,7 +95,7 @@ konq-e_install: $(STATEDIR)/konq-e.install
 $(STATEDIR)/konq-e.install: $(konq-e_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME: RSC: shouldn't this be target-install? 
-	@$(call install, KONQ-E)
+	@$(call install, KONQ_E)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -114,6 +114,6 @@ $(STATEDIR)/konq-e.targetinstall: $(konq-e_targetinstall_deps_default)
 
 konq-e_clean:
 	rm -rf $(STATEDIR)/konq-e.*
-	rm -rf $(KONQ-E_DIR)
+	rm -rf $(KONQ_E_DIR)
 
 # vim: syntax=make

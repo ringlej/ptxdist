@@ -1,6 +1,6 @@
 menu "netkit-ftp          "
 
-config NETKIT-FTP
+config NETKIT_FTP
 	bool
 	prompt "Install the NetKit FTP client"
 	help 

@@ -1,4 +1,4 @@
-config LIBIDL-2
+config LIBIDL_2
 	bool
 	depends on BROKEN
 	prompt "LIBIDL-2"

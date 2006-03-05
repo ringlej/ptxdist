@@ -1,10 +1,10 @@
-config KONQ-E
+config KONQ_E
 	bool
 	depends on BROKEN
-	prompt "KONQ-E"
+	prompt "KONQ_E"
 	help
 	  FIXME: This item needs to be documented
 	
 
-comment "KONQ-E is broken, please send a patch"
+comment "KONQ_E is broken, please send a patch"
 	depends on !BROKEN

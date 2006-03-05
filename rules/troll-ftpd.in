@@ -1,6 +1,6 @@
 menu	"Troll FTPD          "
 
-config TROLL-FTPD
+config TROLL_FTPD
 	bool
 	prompt "troll-ftpd"
 	depends on BROKEN

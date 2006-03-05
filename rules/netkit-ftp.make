@@ -12,17 +12,17 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_NETKIT-FTP) += netkit-ftp
+PACKAGES-$(PTXCONF_NETKIT_FTP) += netkit-ftp
 
 #
 # Paths and names
 #
-NETKIT-FTP_VERSION	= 0.17
-NETKIT-FTP		= netkit-ftp-$(NETKIT-FTP_VERSION)
-NETKIT-FTP_SUFFIX	= tar.gz
-NETKIT-FTP_URL		= ftp://ftp.uk.linux.org/pub/linux/Networking/netkit//$(NETKIT-FTP).$(NETKIT-FTP_SUFFIX)
-NETKIT-FTP_SOURCE	= $(SRCDIR)/$(NETKIT-FTP).$(NETKIT-FTP_SUFFIX)
-NETKIT-FTP_DIR		= $(BUILDDIR)/$(NETKIT-FTP)
+NETKIT_FTP_VERSION	= 0.17
+NETKIT_FTP		= netkit-ftp-$(NETKIT_FTP_VERSION)
+NETKIT_FTP_SUFFIX	= tar.gz
+NETKIT_FTP_URL		= ftp://ftp.uk.linux.org/pub/linux/Networking/netkit//$(NETKIT_FTP).$(NETKIT_FTP_SUFFIX)
+NETKIT_FTP_SOURCE	= $(SRCDIR)/$(NETKIT_FTP).$(NETKIT_FTP_SUFFIX)
+NETKIT_FTP_DIR		= $(BUILDDIR)/$(NETKIT_FTP)
 
 -include $(call package_depfile)
 
@@ -36,9 +36,9 @@ $(STATEDIR)/netkit-ftp.get: $(netkit-ftp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(NETKIT-FTP_SOURCE):
+$(NETKIT_FTP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(NETKIT-FTP_URL))
+	@$(call get, $(NETKIT_FTP_URL))
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,9 +48,9 @@ netkit-ftp_extract: $(STATEDIR)/netkit-ftp.extract
 
 $(STATEDIR)/netkit-ftp.extract: $(netkit-ftp_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(NETKIT-FTP_DIR))
-	@$(call extract, $(NETKIT-FTP_SOURCE))
-	@$(call patchin, $(NETKIT-FTP))
+	@$(call clean, $(NETKIT_FTP_DIR))
+	@$(call extract, $(NETKIT_FTP_SOURCE))
+	@$(call patchin, $(NETKIT_FTP))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -59,32 +59,32 @@ $(STATEDIR)/netkit-ftp.extract: $(netkit-ftp_extract_deps_default)
 
 netkit-ftp_prepare: $(STATEDIR)/netkit-ftp.prepare
 
-NETKIT-FTP_PATH	=  PATH=$(CROSS_PATH)
-NETKIT-FTP_ENV 	=  $(CROSS_ENV)
+NETKIT_FTP_PATH	=  PATH=$(CROSS_PATH)
+NETKIT_FTP_ENV 	=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-NETKIT-FTP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+NETKIT_FTP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/netkit-ftp.prepare: $(netkit-ftp_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(NETKIT-FTP_DIR)/config.cache)
-	cd $(NETKIT-FTP_DIR) && \
-	echo "BINDIR=/usr/bin" > $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "MANDIR=/usr/man" >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "BINMODE=755" >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "MANMODE=644" >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "PREFIX=/usr" >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "EXECPREFIX=/usr" >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "INSTALLROOT=" >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo $(CROSS_ENV_CC) >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "CFLAGS=-O2 -Wall -W -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -Winline" >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "LDFLAGS=" >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "LIBS=" >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "LIBTERMCAP=-lncurses" >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "USE_GLIBC=1" >> $(NETKIT-FTP_DIR)/MCONFIG \
-	echo "USE_READLINE=0" >> $(NETKIT-FTP_DIR)/MCONFIG 
+	@$(call clean, $(NETKIT_FTP_DIR)/config.cache)
+	cd $(NETKIT_FTP_DIR) && \
+	echo "BINDIR=/usr/bin" > $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "MANDIR=/usr/man" >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "BINMODE=755" >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "MANMODE=644" >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "PREFIX=/usr" >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "EXECPREFIX=/usr" >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "INSTALLROOT=" >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo $(CROSS_ENV_CC) >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "CFLAGS=-O2 -Wall -W -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -Winline" >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "LDFLAGS=" >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "LIBS=" >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "LIBTERMCAP=-lncurses" >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "USE_GLIBC=1" >> $(NETKIT_FTP_DIR)/MCONFIG \
+	echo "USE_READLINE=0" >> $(NETKIT_FTP_DIR)/MCONFIG 
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -95,7 +95,7 @@ netkit-ftp_compile: $(STATEDIR)/netkit-ftp.compile
 
 $(STATEDIR)/netkit-ftp.compile: $(netkit-ftp_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(NETKIT-FTP_DIR) && $(NETKIT-FTP_ENV) $(NETKIT-FTP_PATH) make
+	cd $(NETKIT_FTP_DIR) && $(NETKIT_FTP_ENV) $(NETKIT_FTP_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -107,7 +107,7 @@ netkit-ftp_install: $(STATEDIR)/netkit-ftp.install
 $(STATEDIR)/netkit-ftp.install: $(netkit-ftp_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
-	# @$(call install, NETKIT-FTP)
+	# @$(call install, NETKIT_FTP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -122,13 +122,13 @@ $(STATEDIR)/netkit-ftp.targetinstall: $(netkit-ftp_targetinstall_deps_default)
 	@$(call install_init, netkit-ftp)
 	@$(call install_fixup, netkit-ftp,PACKAGE,netkit-ftp)
 	@$(call install_fixup, netkit-ftp,PRIORITY,optional)
-	@$(call install_fixup, netkit-ftp,VERSION,$(NETKIT-FTP_VERSION))
+	@$(call install_fixup, netkit-ftp,VERSION,$(NETKIT_FTP_VERSION))
 	@$(call install_fixup, netkit-ftp,SECTION,base)
 	@$(call install_fixup, netkit-ftp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, netkit-ftp,DEPENDS,libc)
 	@$(call install_fixup, netkit-ftp,DESCRIPTION,missing)
 
-	@$(call install_copy, netkit-ftp, 0, 0, 0755, $(NETKIT-FTP_DIR)/ftp/ftp, /bin/ftp)
+	@$(call install_copy, netkit-ftp, 0, 0, 0755, $(NETKIT_FTP_DIR)/ftp/ftp, /bin/ftp)
 
 	@$(call install_finish, netkit-ftp)
 
@@ -141,6 +141,6 @@ $(STATEDIR)/netkit-ftp.targetinstall: $(netkit-ftp_targetinstall_deps_default)
 netkit-ftp_clean:
 	rm -rf $(STATEDIR)/netkit-ftp.*
 	rm -rf $(IMAGEDIR)/netkit-ftp_*
-	rm -rf $(NETKIT-FTP_DIR)
+	rm -rf $(NETKIT_FTP_DIR)
 
 # vim: syntax=make
