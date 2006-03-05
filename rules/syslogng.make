@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_SYSLOGNG) += syslogng
 #
 # Paths and names
 #
-SYSLOGNG_VERSION	= 1.6.9
+SYSLOGNG_VERSION	= 1.9.9
 SYSLOGNG		= syslog-ng-$(SYSLOGNG_VERSION)
 SYSLOGNG_SUFFIX		= tar.gz
-SYSLOGNG_URL		= http://www.balabit.com/downloads/syslog-ng/1.6/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
+SYSLOGNG_URL		= http://www.balabit.com/downloads/syslog-ng/1.9/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
 SYSLOGNG_SOURCE		= $(SRCDIR)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
 SYSLOGNG_DIR		= $(BUILDDIR)/$(SYSLOGNG)
 
@@ -66,6 +66,10 @@ SYSLOGNG_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 SYSLOGNG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+
+# for glib
+SYSLOGNG_AUTOCONF += --enable-dynamic-linking
+
 ifdef $(PTXCONF_SYSLOGNG_SUNSTREAMS)
 SYSLOGNG_AUTOCONF += --enable-sun-streams
 else
