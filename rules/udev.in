@@ -43,7 +43,9 @@ config UDEV_SEND
 	bool "udevsend"
 	depends on UDEV
 	help
-	  FIXME: This item needs to be documented
+	  This is the command the kernel calls if a hotplug event
+	  occures (see /proc/sys/kernel/hotplug) to trigger the udev
+	  subsystem.
 
 config UDEV_START
 	bool "udevstart"
