@@ -4,7 +4,6 @@
 # 
 
 FULLARGS="$@"
-
 DEBUG=true
 
 #
@@ -122,15 +121,32 @@ done
 
 debug_out "Rules set to $rulesfiles"
 
-do_fixup(){
-    sed -n "s/PACKAGES-\$(PTXCONF_\(.*\)).*+=[[:space:]]\(.*\)/PACKAGE_\1 \2/p" $rulesfiles | while read package filename; do
-	eval $package=$filename echo ${!package}
+gen_rules() {
+    # FIXME: PACKAGES-y
+    if [ -e $PROJECTRULESDIR ]; then
+	grep -s "^.*PACKAGES-\$(PTXCONF_"
+
+}
+
+gen_maps(){
+    exec 5>${LABEL_TO_PACKAGE}
+    exec 6>${LABEL_TO_FILE}
+
+#    sed -n "s/.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]\)/PACKAGE_\1=\2/p" $rulesfiles >&5
+
+    for file in ${rulesfiles}; do
+	LABEL=`sed -n "s/.*PACKAGES-\\$(PTXCONF_\(.*\))[[:space:]]*+=.*/\1/p" $file`
     done
 
-    read
 
+    exec 6>/dev/null
+    exec 5>/dev/null
+}
+
+
+do_fixup(){
     la_IFS="$IFS"
-    IFS=:
+    IFS=":"
     cat $STATEDIR/configdeps | while read foo label deps; do
 	ptxconf_label=PTXCONF_${label}
 	if test "${!ptxconf_label}" = "y"; then
@@ -159,7 +175,13 @@ do_fixup(){
 # 	;;
 # esac
 
+LABEL_TO_PACKAGE=${STATEDIR}/label-to-package.map
+LABEL_TO_FILE=${STATEDIR}/label-to-file.map
+
 . ptxconfig
+
+gen_maps
+. ${LABEL_TO_PACKAGE}
 
 do_fixup
 
