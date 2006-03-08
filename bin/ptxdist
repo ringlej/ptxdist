@@ -112,7 +112,8 @@ Setup and Project Actions:
   oldconfig                      run 'make oldconfig' on ptxconfig file
 
   toolchain <path>               select this toolchain (path to binaries)
-
+  select <config>                if there is no ptxconfig file you can
+                                 select one of several configs to be used
 Build Actions:
 
   go                             start building the current project
@@ -515,6 +516,23 @@ while [ "$#" != "0" ]; do
 			;;
 			
 	projects)	shift; projects;;
+	select)		shift
+			if [ -f "ptxconfig" ]; then
+				echo
+				echo "${PROMPT}error: There already is a ptxconfig file."
+				echo "${PROMPT}error: If you really want to select another configuration,"
+				echo "${PROMPT}error: please move away the ptxconfig file first."
+				echo
+				exit 1
+			fi
+			echo
+			echo "${PROMPT}linking $1 to ptxconfig"
+			rm -f ptxconfig
+			ln -sf $1 ptxconfig
+			echo "${PROMPT}done."
+			echo
+			exit 0
+			;;
 	setup)		shift; setup;;
 	targetinstall)	shift
 			make \
