@@ -69,6 +69,27 @@ fi
 # use linked toolchain if available
 [ -d ".toolchain" ] && export PATH=`pwd`/.toolchain:$PATH
 
+# sanity check: we process only files which have been built with the
+# same PTXdist version!
+if [ -e "ptxconfig" ]; then
+	PTXCONF_CONFIG_VERSION=$(. ptxconfig && echo ${PTXCONF_CONFIG_VERSION})
+	if [ "${PTXCONF_CONFIG_VERSION}" != "${FULLVERSION}" ]; then
+
+		echo
+		echo "${PROMPT}error: Your ptxconfig file was built with another PTXdist version."
+		echo "${PROMPT}error: As this may result in a broken configuration it is recommended"
+		echo "${PROMPT}error: that you carefully review the config differences and change"
+		echo "${PROMPT}error: the variable PTXCONF_CONFIG_VERSION=\"${FULLVERSION}\" manually"
+		echo "${PROMPT}error: then, or change it first, run 'ptxdist oldconfig' and check"
+		echo "${PROMPT}error: if the result is what you expected."
+		echo
+		echo "${PROMPT}error: config file wants PTXCONF_CONFIG_VERSION \"${PTXCONF_CONFIG_VERSION}\""
+		echo "${PROMPT}error: ptxdist version is \"${FULLVERSION}\""
+		echo
+		exit 1
+	fi
+fi
+
 #
 # usage()
 #
