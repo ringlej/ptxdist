@@ -83,3 +83,8 @@ cat "${PTXDIST_TOPDIR}/Makefile.in" | \
 	sed -e "s,@VERSION@,\"${FULLVERSION}\",g" \
 	> ${PTXDIST_TOPDIR}/Makefile
 
+echo "creating rules/Kconfig"
+cat "${PTXDIST_TOPDIR}/rules/Kconfig.in" | \
+	sed -e "s,@VERSION@,${FULLVERSION},g" \
+	> ${PTXDIST_TOPDIR}/rules/Kconfig
+
