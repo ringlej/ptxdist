@@ -3,6 +3,10 @@
 # Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2002, 2003, 2004
 #
 
+config PTXDIST_VERSION
+	string
+	default "@VERSION@"
+
 comment "----------------------------------"
 
 menu "PTXdist Config, Architecture"
