@@ -293,7 +293,7 @@ oldconfig() {
 		exit 1
 	fi
 
-	echo "${PROMPT}oldconfig..."
+	echo "${PROMPT}silentoldconfig..."
 	tmpdir=`mktemp -d -t ptxdist.XXXXXX`
 
 	pushd $tmpdir > /dev/null
@@ -303,9 +303,9 @@ oldconfig() {
 	ln -sf ${PTXDIST_WORKSPACE} workspace
 	cp ${PTXDIST_WORKSPACE}/ptxconfig .config
 	if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
-		${PTXDIST_TOPDIR}/scripts/kconfig/conf -o ${PTXDIST_WORKSPACE}/Kconfig
+		${PTXDIST_TOPDIR}/scripts/kconfig/conf -s ${PTXDIST_WORKSPACE}/Kconfig
 	else
-		${PTXDIST_TOPDIR}/scripts/kconfig/conf -o config/Kconfig
+		${PTXDIST_TOPDIR}/scripts/kconfig/conf -s config/Kconfig
 	fi
 	echo "${PROMPT}saving ptxconfig"
 	cp .config ${PTXDIST_WORKSPACE}/ptxconfig
