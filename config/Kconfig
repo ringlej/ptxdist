@@ -72,4 +72,4 @@ config PROJECT_VERSION
 
 endmenu
 
-source "rules/Kconfig"
+source "rules/Kconfig.in"
