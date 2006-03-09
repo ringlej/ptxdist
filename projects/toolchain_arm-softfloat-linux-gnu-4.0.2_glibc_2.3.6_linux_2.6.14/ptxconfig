@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.0-svn
-# Tue Feb 28 00:45:26 2006
+# PTXdist version: 0.10.0
+# Thu Mar  9 21:21:03 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -17,6 +17,7 @@ PTXCONF_BUILD_TOOLCHAIN=y
 #
 PTXCONF_PROJECT="toolchain_arm-softfloat-linux-gnu-4.0.2_glibc_2.3.6_linux_2.6.14"
 PTXCONF_PROJECT_VERSION="-1"
+PTXCONF_CONFIGFILE_VERSION="0.10.0"
 
 #
 # ----------------------------------
@@ -90,15 +91,15 @@ PTXCONF_ARCH_USERSPACE="arm"
 #
 # Paths & Directories
 #
-PTXCONF_PREFIX="/opt/ptxdist-$(FULLVERSION)"
-PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
-PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
+PTXCONF_PREFIX="/opt/ptxdist-${FULLVERSION}"
+PTXCONF_HOST_PREFIX="${PTXCONF_PREFIX}"
+PTXCONF_CROSS_PREFIX="${PTXCONF_PREFIX}"
 
 #
 # GNU Toolchain Identification String
 #
 PTXCONF_GNU_TARGET="arm-softfloat-linux-gnu"
-PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
+PTXCONF_COMPILER_PREFIX="${PTXCONF_GNU_TARGET}-"
 
 #
 # Cross Compilation Tools     
@@ -133,14 +134,14 @@ PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
 # PTXCONF_CPPUNIT is not set
 # PTXCONF_GDBSERVER is not set
 # PTXCONF_GDB is not set
-# PTXCONF_HOST_KSYMOOPS is not set
 
 #
 # LTT is broken, please send a patch
 #
-# PTXCONF_LIBBFD is not set
+# PTXCONF_BINUTILS is not set
 # PTXCONF_MEMTEST is not set
 # PTXCONF_MEMTESTER is not set
+# PTXCONF_OPROFILE is not set
 # PTXCONF_STRACE is not set
 
 #
