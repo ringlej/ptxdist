@@ -184,7 +184,11 @@ Clean Actions:
   clean root                     cleanup root directory for target
   (clean project)                cleanup project specific packages
   (clean maintainer)             maintainerclean
-	
+
+Misc
+
+  --version                      print out ptxdist version
+
   (svn up)                       run "svn update" in topdir and project dir
   (svn stat)                     run "svn stat" in topdir and project dir
 
@@ -670,6 +674,9 @@ while [ "$#" != "0" ]; do
 			fi
 			ln -sf $1 .toolchain
 			echo
+			exit 0
+			;;
+	--version)	echo ${FULLVERSION}
 			exit 0
 			;;
 	*)		shift
