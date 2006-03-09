@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.0-svn
-# Thu Mar  9 16:19:19 2006
+# PTXdist version: 0.10.0
+# Thu Mar  9 21:23:24 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -15,9 +15,9 @@ PTXCONF_BUILD_TOOLCHAIN=y
 #
 # Project Name & Version      
 #
-PTXCONF_PROJECT="toolchain_powerpc-unknown-linux-gnu-4.0.2_glibc_2.3.6"
-PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
-PTXCONF_CONFIGFILE_VERSION="0.10.0-svn"
+PTXCONF_PROJECT="toolchain_powerpc-unknown-linux-gnu-4.0.2_glibc_2.3.6_linux_2.6.13"
+PTXCONF_PROJECT_VERSION="${PTXCONF_PROJECT}-1"
+PTXCONF_CONFIGFILE_VERSION="0.10.0"
 
 #
 # ----------------------------------
@@ -79,15 +79,15 @@ PTXCONF_ARCH_USERSPACE="powerpc"
 #
 # Paths & Directories
 #
-PTXCONF_PREFIX="/opt/ptxdist-$(FULLVERSION)"
-PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
-PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
+PTXCONF_PREFIX="/opt/ptxdist-${FULLVERSION}"
+PTXCONF_HOST_PREFIX="${PTXCONF_PREFIX}"
+PTXCONF_CROSS_PREFIX="${PTXCONF_PREFIX}"
 
 #
 # GNU Toolchain Identification String
 #
 PTXCONF_GNU_TARGET="powerpc-unknown-linux-gnu"
-PTXCONF_COMPILER_PREFIX="$(PTXCONF_GNU_TARGET)-"
+PTXCONF_COMPILER_PREFIX="${PTXCONF_GNU_TARGET}-"
 
 #
 # Cross Compilation Tools     
