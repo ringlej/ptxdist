@@ -448,7 +448,7 @@ config GLIBC_ZONEINFO_MST
 	prompt "MST"
 	depends on GLIBC_ZONEINFO
 
-config GLIBC_ZONEINFO_NZ-CHAT
+config GLIBC_ZONEINFO_NZ_CHAT
 	bool
 	prompt "NZ-CHAT"
 	depends on GLIBC_ZONEINFO
