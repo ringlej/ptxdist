@@ -172,6 +172,7 @@ Build Actions:
   install <package>              install host side components into sysroot/
   targetinstall <package>        install files for target into root/
   clean <package>                cleanup packet
+  autobuild                      search for "autobuild" scripts and run them
 
   images                         build images for target system
 
@@ -469,6 +470,21 @@ fi
 while [ "$#" != "0" ]; do 
 
 	case $1 in 
+	autobuild)	echo
+			echo "${PROMPT}running autobuild"
+			echo
+			AUTOBUILDS=$(find . -name "autobuild")
+			exec 5>CONFIGTEST
+			for i in $AUTOBUILDS; do 
+				pushd $(dirname $i)
+				./autobuild 
+				popd
+			done
+			echo
+			echo "${PROMPT}done"
+			echo
+			exit 0
+			;;
 	compile)	shift
 			if [ "$#" = "0" ]; then
 				echo "${PROMPT}error: add target you want to compile"
