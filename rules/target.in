@@ -369,8 +369,14 @@ config GNU_TARGET
 	default "hppa-uclibc-linux-gnu"         if ARCH_PARISC          && UCLIBC
 	default "sh3-uclibc-linux-gnu"          if SH_ARCH_SH3          && UCLIBC
 	default "sh4-uclibc-linux-gnu"          if SH_ARCH_SH4          && UCLIBC
+	help
+	 Defines the GNU target for your cross build
 
 config COMPILER_PREFIX
 	string
 	prompt "Compiler Prefix"
 	default "${PTXCONF_GNU_TARGET}-"
+	help
+	 This is the prefix used to create the correct cross compiler name. If the
+	 prefix is equal to the GNU Target you can use "${PTXCONF_GNU_TARGET}-" to
+	 use it.
