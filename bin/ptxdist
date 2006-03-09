@@ -91,7 +91,7 @@ if [ -e "ptxconfig" ]; then
 fi
 
 #
-# Check the existance of a ptxconfig file
+# Check for existence of a ptxconfig file
 # check_ptxconfig()
 
 check_ptxconfig() {
@@ -102,6 +102,36 @@ check_ptxconfig() {
 		echo "${PROMPT}error: there are more than one configurations like ptxconfig.*)"
 		echo "${PROMPT}error: select one of these with 'ptxdist select ptxconfig.<yourselection>'"
 		echo "${PROMPT}error: first."
+		echo
+		exit 1
+	fi
+}
+
+#
+# Check for defined compiler
+#
+check_compiler() {
+	C_COMPILER=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})-gcc
+	COMPILER_SHOULD_BE=$(. ptxconfig && echo ${PTXCONF_CROSSCHAIN_CHECK})
+	if [ -d ".toolchain" ]; then
+		COMPILER_PATH=`pwd`/.toolchain/$C_COMPILER
+	else
+		COMPILER_PATH=$C_COMPILER
+	fi
+
+	COMPILER_IS=$($COMPILER_PATH -dumpversion 2> /dev/null)
+
+	if [ -z "$COMPILER_IS" ]; then
+		echo
+		echo "${PROMPT}error: Compiler '$C_COMPILER' not found. Check PATH or"
+		echo "${PROMPT}error: use 'ptxdist toolchain <path/to/toolchain>'."
+		echo
+		exit 1
+	fi
+	if [ "$COMPILER_IS" != "$COMPILER_SHOULD_BE" ]; then
+		echo
+		echo "${PROMPT}error: Compiler version $COMPILER_SHOULD_BE expected,"
+		echo "${PROMPT}error: but $COMPILER_IS found."
 		echo
 		exit 1
 	fi
@@ -487,6 +517,7 @@ while [ "$#" != "0" ]; do
 			;;
 	go)		shift
 			check_ptxconfig
+			check_compiler
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				world PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -495,6 +526,7 @@ while [ "$#" != "0" ]; do
 	help|--help)	shift; usage; exit 0; ;;
 	images)		shift
 			check_ptxconfig
+			check_compiler
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				images PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -502,6 +534,7 @@ while [ "$#" != "0" ]; do
 			;;
 	install)	shift
 			check_ptxconfig
+			check_compiler
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_install PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -509,6 +542,7 @@ while [ "$#" != "0" ]; do
 			;;
 	make)		shift
 			check_ptxconfig
+			check_compiler
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -538,6 +572,7 @@ while [ "$#" != "0" ]; do
 			;;
 	prepare)	shift
 			check_ptxconfig
+			check_compiler
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_prepare PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -572,6 +607,7 @@ while [ "$#" != "0" ]; do
 	setup)		shift; setup;;
 	targetinstall)	shift
 			check_ptxconfig
+			check_compiler
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_targetinstall PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
