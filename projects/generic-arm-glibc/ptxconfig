@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.0-svn
-# Wed Mar  1 09:21:39 2006
+# PTXdist version: 0.10.0
+# Thu Mar  9 19:28:58 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -17,6 +17,7 @@ PTXCONF_BUILD_USERLAND=y
 #
 PTXCONF_PROJECT="generic-arm-glibc"
 PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
+PTXCONF_CONFIGFILE_VERSION="0.10.0"
 
 #
 # ----------------------------------
@@ -126,13 +127,13 @@ PTXCONF_HOST_IPKG_UTILS=y
 #
 PTXCONF_HOST_MODULE_INIT_TOOLS=y
 # PTXCONF_HOST_MODUTILS is not set
+# PTXCONF_HOST_UTIL_LINUX is not set
 # PTXCONF_HOST_UMKIMAGE is not set
 # PTXCONF_HOST_MKNBI is not set
 
 #
 # Other Host Tools
 #
-# PTXCONF_HOST_BINUTILS is not set
 
 #
 # HOST_FLEX254 is broken, please send a patch
@@ -154,14 +155,14 @@ PTXCONF_GDBSERVER=y
 PTXCONF_GDBSERVER_SHARED=y
 # PTXCONF_GDB is not set
 PTXCONF_GDB_THREAD_DEBUG=y
-# PTXCONF_HOST_KSYMOOPS is not set
 
 #
 # LTT is broken, please send a patch
 #
-# PTXCONF_LIBBFD is not set
+# PTXCONF_BINUTILS is not set
 # PTXCONF_MEMTEST is not set
 # PTXCONF_MEMTESTER is not set
+# PTXCONF_OPROFILE is not set
 PTXCONF_STRACE=y
 PTXCONF_STRACE_SHARED=y
 
@@ -264,6 +265,7 @@ PTXCONF_ROOTFS_ETC_INITD=y
 PTXCONF_ROOTFS_ETC_INITD_RCS=y
 # PTXCONF_ROOTFS_ETC_INITD_INETD is not set
 # PTXCONF_ROOTFS_ETC_INITD_LOGROTATE is not set
+# PTXCONF_ROOTFS_ETC_INITD_MODULES is not set
 PTXCONF_ROOTFS_ETC_INITD_NETWORKING=y
 PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK="S01_networking"
 PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES="$(PROJECTDIR)/etc/network/interfaces"
@@ -437,7 +439,7 @@ PTXCONF_GLIBC_ZONEINFO_EUROPE=y
 # PTXCONF_GLIBC_ZONEINFO_HONGKONG is not set
 # PTXCONF_GLIBC_ZONEINFO_JAMAICA is not set
 # PTXCONF_GLIBC_ZONEINFO_MST is not set
-# PTXCONF_GLIBC_ZONEINFO_NZ-CHAT is not set
+# PTXCONF_GLIBC_ZONEINFO_NZ_CHAT is not set
 # PTXCONF_GLIBC_ZONEINFO_SYSTEMV is not set
 # PTXCONF_GLIBC_ZONEINFO_UNIVERSAL is not set
 # PTXCONF_GCCLIBS is not set
@@ -1008,6 +1010,7 @@ PTXCONF_COREUTILS_CP=y
 PTXCONF_COREUTILS_DD=y
 PTXCONF_COREUTILS_MD5SUM=y
 # PTXCONF_COREUTILS_SEQ is not set
+# PTXCONF_DAEMONIZE is not set
 # PTXCONF_DIFFUTILS is not set
 # PTXCONF_SYSVINIT is not set
 PTXCONF_MODULE_INIT_TOOLS=y
@@ -1059,7 +1062,7 @@ PTXCONF_SYSFSUTILS=y
 PTXCONF_SYSFSUTILS_LIB=y
 PTXCONF_SYSFSUTILS_SYSTOOL=y
 # PTXCONF_SYSUTILS is not set
-# PTXCONF_UTLNX is not set
+# PTXCONF_UTIL_LINUX is not set
 
 #
 # clock is broken, please send a patch
@@ -1159,12 +1162,16 @@ PTXCONF_BING=y
 # ethewake            
 #
 # PTXCONF_ETHERWAKE is not set
+# PTXCONF_EVENTLOG is not set
 
 #
 # inetutils           
 #
 # PTXCONF_INETUTILS is not set
-# PTXCONF_CGICC is not set
+
+#
+# libcgicc is broken, please send a patch
+#
 
 #
 # libnet              
@@ -1204,10 +1211,7 @@ PTXCONF_NETCAT=y
 #
 # nmap                
 #
-
-#
-# NMAP is broken, please send a patch
-#
+# PTXCONF_NMAP is not set
 
 #
 # NTP                 
@@ -1250,7 +1254,7 @@ PTXCONF_NETCAT=y
 #
 # netkit-ftp          
 #
-# PTXCONF_NETKIT-FTP is not set
+# PTXCONF_NETKIT_FTP is not set
 
 #
 # rsync               
@@ -1267,7 +1271,10 @@ PTXCONF_NETCAT=y
 #
 # Troll FTPD          
 #
-# PTXCONF_TROLL-FTPD is not set
+
+#
+# trollftpd is broken, please send a patch
+#
 # PTXCONF_THTTPD is not set
 
 #
@@ -1288,7 +1295,10 @@ PTXCONF_UTELNETD=y
 #
 # GNU Zebra           
 #
-# PTXCONF_ZEBRA is not set
+
+#
+# zebra is broken, please send a patch
+#
 
 #
 # Realtime Networking 
@@ -1352,7 +1362,7 @@ PTXCONF_UTELNETD=y
 # PTXCONF_RAWREC is not set
 
 #
-# MPLAYER is broken, please send a patch
+# mplayer is broken, please send a patch, and sorry Sascha :-)
 #
 
 #
@@ -1371,10 +1381,7 @@ PTXCONF_FIGLET=y
 # jed is broken, please send a patch
 #
 # PTXCONF_JOE is not set
-
-#
-# nano is broken, please send a patch
-#
+# PTXCONF_NANO is not set
 
 #
 # System Libraries            
@@ -1401,6 +1408,11 @@ PTXCONF_NCURSES_TERMCAP=y
 # PTXCONF_READLINE is not set
 # PTXCONF_LIBRN is not set
 # PTXCONF_LIBGSLOOP is not set
+
+#
+# slang            
+#
+# PTXCONF_SLANG is not set
 # PTXCONF_SQLITE is not set
 PTXCONF_TERMCAP=y
 # PTXCONF_TERMCAP_TERMCAP is not set
@@ -1420,15 +1432,101 @@ PTXCONF_ZLIB=y
 #
 
 #
-# Xorg Infrastructure
+# Xorg                  
 #
 # PTXCONF_XORG_SERVER is not set
 # PTXCONF_XORG_DRIVER_INPUT is not set
 # PTXCONF_XORG_DRIVER_VIDEO is not set
-# PTXCONF_XORG_PROTO is not set
-# PTXCONF_XORG_LIB is not set
 # PTXCONF_XORG_APP is not set
 # PTXCONF_XORG_FONT is not set
+
+#
+# xorg proto            
+#
+# PTXCONF_XORG_PROTO_APPLEWM is not set
+# PTXCONF_XORG_PROTO_BIGREQS is not set
+# PTXCONF_XORG_PROTO_COMPOSITE is not set
+# PTXCONF_XORG_PROTO_DAMAGE is not set
+# PTXCONF_XORG_PROTO_DMX is not set
+# PTXCONF_XORG_PROTO_EVIEEXT is not set
+# PTXCONF_XORG_PROTO_FIXES is not set
+# PTXCONF_XORG_PROTO_FONTCACHE is not set
+# PTXCONF_XORG_PROTO_FONTS is not set
+# PTXCONF_XORG_PROTO_GL is not set
+# PTXCONF_XORG_PROTO_INPUT is not set
+# PTXCONF_XORG_PROTO_KB is not set
+# PTXCONF_XORG_PROTO_PRINT is not set
+# PTXCONF_XORG_PROTO_RANDR is not set
+# PTXCONF_XORG_PROTO_RECORD is not set
+# PTXCONF_XORG_PROTO_RENDER is not set
+# PTXCONF_XORG_PROTO_RESOURCE is not set
+# PTXCONF_XORG_PROTO_SCRNSAVER is not set
+# PTXCONF_XORG_PROTO_VIDEO is not set
+# PTXCONF_XORG_PROTO_WINDOWSWM is not set
+# PTXCONF_XORG_PROTO_X is not set
+# PTXCONF_XORG_PROTO_XCMISC is not set
+# PTXCONF_XORG_PROTO_XEXT is not set
+# PTXCONF_XORG_PROTO_XF86BIGFONT is not set
+# PTXCONF_XORG_PROTO_XF86DGA is not set
+# PTXCONF_XORG_PROTO_XF86DRI is not set
+# PTXCONF_XORG_PROTO_XF86MISC is not set
+# PTXCONF_XORG_PROTO_XF86RUSH is not set
+# PTXCONF_XORG_PROTO_XF86VIDMODE is not set
+# PTXCONF_XORG_PROTO_XINERAMA is not set
+# PTXCONF_XORG_PROTO_XPROXYMANAGEMENT is not set
+# PTXCONF_XORG_PROTO_TRAP is not set
+
+#
+# xorg libs             
+#
+# PTXCONF_XORG_LIB_APPLEWM is not set
+# PTXCONF_XORG_LIB_ICE is not set
+# PTXCONF_XORG_LIB_SM is not set
+# PTXCONF_XORG_LIB_WINDOWSWM is not set
+# PTXCONF_XORG_LIB_X11 is not set
+# PTXCONF_XORG_LIB_XSCRNSAVER is not set
+# PTXCONF_XORG_LIB_XTRAP is not set
+# PTXCONF_XORG_LIB_XAU is not set
+# PTXCONF_XORG_LIB_XAW is not set
+# PTXCONF_XORG_LIB_XCOMPOSITE is not set
+# PTXCONF_XORG_LIB_XCURSOR is not set
+# PTXCONF_XORG_LIB_XDAMAGE is not set
+# PTXCONF_XORG_LIB_XDMCP is not set
+# PTXCONF_XORG_LIB_XEVIE is not set
+# PTXCONF_XORG_LIB_XEXT is not set
+# PTXCONF_XORG_LIB_XFIXES is not set
+# PTXCONF_XORG_LIB_XFONT is not set
+# PTXCONF_XORG_LIB_XFONTCACHE is not set
+# PTXCONF_XORG_LIB_XFT is not set
+# PTXCONF_XORG_LIB_XI is not set
+# PTXCONF_XORG_LIB_XINERAMA is not set
+# PTXCONF_XORG_LIB_XMU is not set
+# PTXCONF_XORG_LIB_XP is not set
+# PTXCONF_XORG_LIB_XPM is not set
+# PTXCONF_XORG_LIB_XPRINTAPPUTIL is not set
+# PTXCONF_XORG_LIB_XPRINTUTIL is not set
+# PTXCONF_XORG_LIB_XRANDR is not set
+# PTXCONF_XORG_LIB_XRENDER is not set
+# PTXCONF_XORG_LIB_XRES is not set
+# PTXCONF_XORG_LIB_XT is not set
+# PTXCONF_XORG_LIB_XTST is not set
+# PTXCONF_XORG_LIB_XV is not set
+# PTXCONF_XORG_LIB_XVMC is not set
+# PTXCONF_XORG_LIB_XXF86DGA is not set
+# PTXCONF_XORG_LIB_XXF86MISC is not set
+# PTXCONF_XORG_LIB_XXF86VM is not set
+# PTXCONF_XORG_LIB_DMX is not set
+# PTXCONF_XORG_LIB_FONTENC is not set
+# PTXCONF_XORG_LIB_LBXUTIL is not set
+# PTXCONF_XORG_LIB_OLDX is not set
+# PTXCONF_XORG_LIB_XKBFILE is not set
+# PTXCONF_XORG_LIB_XKBUI is not set
+# PTXCONF_XORG_LIB_XTRANS is not set
+
+#
+# xorg data             
+#
+# PTXCONF_XORG_DATA_XBITMAPS is not set
 
 #
 # Xorg Support Libraries
@@ -1441,7 +1539,10 @@ PTXCONF_ZLIB=y
 # X Applications
 #
 # PTXCONF_FLTK is not set
-# PTXCONF_WXWINDOWS is not set
+
+#
+# wxWidgets is broken, please send a patch
+#
 
 #
 # realvnc is broken, please send a patch
@@ -1467,14 +1568,6 @@ PTXCONF_ZLIB=y
 # PTXCONF_LIBPNG is not set
 # PTXCONF_FONTCONFIG is not set
 # PTXCONF_TSLIB is not set
-
-#
-# Old Xfree86 Stuff
-#
-
-#
-# XFREE430 is broken, please send a patch
-#
 
 #
 # Scientific Apps             
