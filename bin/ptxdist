@@ -83,7 +83,7 @@ if [ -e "ptxconfig" ]; then
 		echo "${PROMPT}error: then, or change it first, run 'ptxdist oldconfig' and check"
 		echo "${PROMPT}error: if the result is what you expected."
 		echo
-		echo "${PROMPT}error: config file wants PTXCONF_CONFIGFILE_VERSION \"${PTXCONF_CONFIG_VERSION}\""
+		echo "${PROMPT}error: config file wants PTXCONF_CONFIGFILE_VERSION \"${PTXCONF_CONFIGFILE_VERSION}\""
 		echo "${PROMPT}error: ptxdist version is \"${FULLVERSION}\""
 		echo
 		exit 1
