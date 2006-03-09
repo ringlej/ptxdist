@@ -40,5 +40,20 @@ clean:
 	rm -f rules/Kconfig
 	rm -f .done
 
+dist:
+	PTXDIST_TOPDIR=$(pwd); \
+	tmpdir=`mktemp -d -t ptxdist.XXXXXX`; \
+	cp -a $$PTXDIST_TOPDIR $$tmpdir/ptxdist-$(version); \
+	find $$tmpdir/ptxdist-$(version) -name ".svn" | xargs rm -fr; \
+	cd $$tmpdir; \
+	tar -zcf ptxdist-$(version)-patches.tgz ptxdist-$(version)/patches; \
+	rm -fr ptxdist-$(version)/patches; \
+	tar -zcf ptxdist-$(version).tgz ptxdist-$(version); \
+	cd $$PTXDIST_TOPDIR; \
+	mv $$tmpdir/ptxdist-$(version).tgz .; \
+	mv $$tmpdir/ptxdist-$(version)-patches.tgz .; \
+	rm -fr $$tmpdir; \
+	ls -l ptxdist-*
+
 distclean: clean
 
