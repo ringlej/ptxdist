@@ -1,11 +1,11 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.0-svn
-# Thu Mar  9 13:26:55 2006
+# PTXdist version: 0.10.0
+# Thu Mar  9 19:39:05 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
-PTXCONF_CONFIGFILE_VERSION="0.10.0"
+
 #
 # ----------------------------------
 #
@@ -17,7 +17,7 @@ PTXCONF_BUILD_USERLAND=y
 #
 PTXCONF_PROJECT="generic-powerpc-glibc"
 PTXCONF_PROJECT_VERSION="${PTXCONF_PROJECT}-1"
-PTXCONF_CONFIGFILE_VERSION="0.10.0-svn"
+PTXCONF_CONFIGFILE_VERSION="0.10.0"
 
 #
 # ----------------------------------
@@ -430,7 +430,7 @@ PTXCONF_GLIBC_ZONEINFO_EUROPE=y
 # PTXCONF_GLIBC_ZONEINFO_HONGKONG is not set
 # PTXCONF_GLIBC_ZONEINFO_JAMAICA is not set
 # PTXCONF_GLIBC_ZONEINFO_MST is not set
-# PTXCONF_GLIBC_ZONEINFO_NZ-CHAT is not set
+# PTXCONF_GLIBC_ZONEINFO_NZ_CHAT is not set
 # PTXCONF_GLIBC_ZONEINFO_SYSTEMV is not set
 # PTXCONF_GLIBC_ZONEINFO_UNIVERSAL is not set
 PTXCONF_GCCLIBS=y
