@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.0-svn
-# Tue Feb 14 16:53:46 2006
+# PTXdist version: 0.10.0
+# Thu Mar  9 20:27:40 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -17,6 +17,7 @@ PTXCONF_BUILD_TOOLCHAIN=y
 #
 PTXCONF_PROJECT="toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5"
 PTXCONF_PROJECT_VERSION="-1"
+PTXCONF_CONFIGFILE_VERSION="0.10.0"
 
 #
 # ----------------------------------
@@ -93,7 +94,6 @@ PTXCONF_ARCH_USERSPACE="arm"
 PTXCONF_PREFIX="/opt/ptxdist-$(FULLVERSION)"
 PTXCONF_HOST_PREFIX="$(PTXCONF_PREFIX)"
 PTXCONF_CROSS_PREFIX="$(PTXCONF_PREFIX)"
-PTXCONF_ROOT=""
 
 #
 # GNU Toolchain Identification String
@@ -134,14 +134,14 @@ PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
 # PTXCONF_CPPUNIT is not set
 # PTXCONF_GDBSERVER is not set
 # PTXCONF_GDB is not set
-# PTXCONF_HOST_KSYMOOPS is not set
 
 #
 # LTT is broken, please send a patch
 #
-# PTXCONF_LIBBFD is not set
+# PTXCONF_BINUTILS is not set
 # PTXCONF_MEMTEST is not set
 # PTXCONF_MEMTESTER is not set
+# PTXCONF_OPROFILE is not set
 # PTXCONF_STRACE is not set
 
 #
@@ -167,8 +167,8 @@ PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
 #
 # ----------------------------------
 #
-PTXCONF_KERNEL_VERSION="2.6.8"
-PTXCONF_KERNEL_NATIVE_VERSION=""
+PTXCONF_KERNEL_TARGET_VERSION="2.6.15"
+PTXCONF_KERNEL_TARGET_SERIES="series"
 
 #
 # Native Kernel Options
