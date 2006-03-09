@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.10.0-svn
-# Fri Mar  3 21:00:06 2006
+# Thu Mar  9 13:26:55 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -17,6 +17,7 @@ PTXCONF_BUILD_USERLAND=y
 #
 PTXCONF_PROJECT="generic-powerpc-glibc"
 PTXCONF_PROJECT_VERSION="$(PTXCONF_PROJECT)-1"
+PTXCONF_CONFIGFILE_VERSION="0.10.0-svn"
 
 #
 # ----------------------------------
@@ -1108,10 +1109,7 @@ PTXCONF_UDEV_FW_HELPER=y
 #
 # OpenSSH             
 #
-
-#
-# OpenSSH is broken, please send a patch
-#
+# PTXCONF_OPENSSH is not set
 
 #
 # shorewall firewall  
@@ -1163,6 +1161,7 @@ PTXCONF_BING=y
 # ethewake            
 #
 # PTXCONF_ETHERWAKE is not set
+# PTXCONF_EVENTLOG is not set
 
 #
 # inetutils           
@@ -1254,16 +1253,13 @@ PTXCONF_NETCAT=y
 #
 # netkit-ftp          
 #
-# PTXCONF_NETKIT-FTP is not set
+# PTXCONF_NETKIT_FTP is not set
 
 #
 # rsync               
 #
 # PTXCONF_RSYNC is not set
-
-#
-# syslog-ng is broken, please send a patch
-#
+# PTXCONF_SYSLOGNG is not set
 # PTXCONF_TCPDUMP is not set
 
 #
@@ -1347,7 +1343,10 @@ PTXCONF_NETCAT=y
 # PTXCONF_MGETTY is not set
 # PTXCONF_POP3SPAM is not set
 # PTXCONF_SMTPCLIENT is not set
-# PTXCONF_SSMTP is not set
+
+#
+# ssmtp is broken, please send a patch
+#
 
 #
 # Applications                
@@ -1360,7 +1359,10 @@ PTXCONF_NETCAT=y
 # PTXCONF_MAD is not set
 # PTXCONF_SETMIXER is not set
 # PTXCONF_RAWREC is not set
-# PTXCONF_MPLAYER is not set
+
+#
+# mplayer is broken, please send a patch, and sorry Sascha :-)
+#
 
 #
 # Tools                       
@@ -1578,41 +1580,26 @@ PTXCONF_XORG_PROTO_TRAP=y
 # PTXCONF_XORG_LIB_APPLEWM is not set
 PTXCONF_XORG_LIB_ICE=y
 PTXCONF_XORG_LIB_SM=y
-
-#
-# windowswm is broken, please send a patch
-#
+# PTXCONF_XORG_LIB_WINDOWSWM is not set
 PTXCONF_XORG_LIB_X11=y
 # PTXCONF_XORG_LIB_XSCRNSAVER is not set
 # PTXCONF_XORG_LIB_XTRAP is not set
 PTXCONF_XORG_LIB_XAU=y
 PTXCONF_XORG_LIB_XAW=y
-
-#
-# xcomposite is broken, please send a patch
-#
+# PTXCONF_XORG_LIB_XCOMPOSITE is not set
 # PTXCONF_XORG_LIB_XCURSOR is not set
 # PTXCONF_XORG_LIB_XDAMAGE is not set
 PTXCONF_XORG_LIB_XDMCP=y
-
-#
-# xevie is broken, please send a patch
-#
+# PTXCONF_XORG_LIB_XEVIE is not set
 PTXCONF_XORG_LIB_XEXT=y
 # PTXCONF_XORG_LIB_XFIXES is not set
 PTXCONF_XORG_LIB_XFONT=y
 PTXCONF_XORG_LIB_XFONTCACHE=y
 # PTXCONF_XORG_LIB_XFT is not set
 PTXCONF_XORG_LIB_XI=y
-
-#
-# xinerama is broken, please send a patch
-#
+# PTXCONF_XORG_LIB_XINERAMA is not set
 PTXCONF_XORG_LIB_XMU=y
-
-#
-# libxp is broken, please send a patch
-#
+# PTXCONF_XORG_LIB_XP is not set
 PTXCONF_XORG_LIB_XPM=y
 # PTXCONF_XORG_LIB_XPRINTAPPUTIL is not set
 # PTXCONF_XORG_LIB_XPRINTUTIL is not set
@@ -1629,10 +1616,7 @@ PTXCONF_XORG_LIB_XXF86VM=y
 PTXCONF_XORG_LIB_DMX=y
 PTXCONF_XORG_LIB_FONTENC=y
 PTXCONF_XORG_LIB_LBXUTIL=y
-
-#
-# liboldx is broken, please send a patch
-#
+# PTXCONF_XORG_LIB_OLDX is not set
 PTXCONF_XORG_LIB_XKBFILE=y
 PTXCONF_XORG_LIB_XKBUI=y
 PTXCONF_XORG_LIB_XTRANS=y
