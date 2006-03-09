@@ -31,7 +31,7 @@ config NTP_DEBUGGING
 	help
 	  FIXME: This item needs to be documented
 
-config NTP_DST-MINUTES
+config NTP_DST_MINUTES
 	int
 	prompt "minutes per DST adjustment"
 	default 60
