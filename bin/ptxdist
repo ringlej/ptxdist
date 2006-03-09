@@ -189,6 +189,10 @@ clean() {
 	rm -fr state
 	echo "${PROMPT}removing logfile..."
 	rm -f logfile
+	if [ -h "ptxconfig" ]; then
+		echo "${PROMPT}removing ptxconfig link..."
+		rm ptxconfig
+	fi
 	echo "${PROMPT}done."
 	echo
 }
