@@ -91,6 +91,23 @@ if [ -e "ptxconfig" ]; then
 fi
 
 #
+# Check the existance of a ptxconfig file
+# check_ptxconfig()
+
+check_ptxconfig() {
+	if [ ! -e "ptxconfig" ]; then
+		echo
+		echo "${PROMPT}error: ptxconfig file is missing. Did you setup your project yet?"
+		echo "${PROMPT}error: To get a ptxconfig file clone a template project or (if"
+		echo "${PROMPT}error: there are more than one configurations like ptxconfig.*)"
+		echo "${PROMPT}error: select one of these with 'ptxdist select ptxconfig.<yourselection>'"
+		echo "${PROMPT}error: first."
+		echo
+		exit 1
+	fi
+}
+
+#
 # usage()
 #
 
@@ -427,6 +444,7 @@ while [ "$#" != "0" ]; do
 				echo "${PROMPT}error: add target you want to compile"
 				exit 1
 			fi
+			check_ptxconfig
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_compile PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -446,13 +464,15 @@ while [ "$#" != "0" ]; do
 			rm -fr logs
 			echo
 			;;
-	extract)	shift 
+	extract)	shift
+			check_ptxconfig
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_extract PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
 	get)		shift
+			check_ptxconfig
 			if [ "$#" = "0" ]; then
 				make \
 					$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
@@ -466,6 +486,7 @@ while [ "$#" != "0" ]; do
 			fi
 			;;
 	go)		shift
+			check_ptxconfig
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				world PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -473,23 +494,29 @@ while [ "$#" != "0" ]; do
 			;;
 	help|--help)	shift; usage; exit 0; ;;
 	images)		shift
+			check_ptxconfig
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				images PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
-	install)	shift 
+	install)	shift
+			check_ptxconfig
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_install PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
 	make)		shift
+			check_ptxconfig
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			;;
-	menuconfig)	shift; menuconfig;;
+	menuconfig)	shift
+			check_ptxconfig
+			menuconfig
+			;;
 	newpacket)	# test if we are in a rules dir
 			if [ "`basename \`pwd\``" != "rules" ]; then
 				echo
@@ -505,14 +532,19 @@ while [ "$#" != "0" ]; do
 			esac
 			exit $?
 			;;
-	oldconfig)	shift; oldconfig;;
+	oldconfig)	shift
+			check_ptxconfig
+			oldconfig
+			;;
 	prepare)	shift
+			check_ptxconfig
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_prepare PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
 	print)		shift
+			check_ptxconfig
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				print-$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -539,6 +571,7 @@ while [ "$#" != "0" ]; do
 			;;
 	setup)		shift; setup;;
 	targetinstall)	shift
+			check_ptxconfig
 			make \
 				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_targetinstall PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
