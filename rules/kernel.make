@@ -110,23 +110,16 @@ kernel_extract: $(STATEDIR)/kernel.extract
 
 $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
 	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-$(STATEDIR)/kernel-base.extract: $(STATEDIR)/kernel.get
-	@$(call targetinfo, $@)
 	@$(call clean, $(KERNEL_DIR))
 	@$(call extract, $(KERNEL_SOURCE))
+	@$(call touch, $@)
 
-#
-# kernels before 2.4.19 extract to "linux" instead of "linux-<version>"
-#
 ifeq (2.4.18,$(KERNEL_VERSION))
+	# kernels before 2.4.19 extract to "linux" instead of "linux-<version>"
 	mv $(BUILDDIR)/linux $(KERNEL_DIR)
 endif
 
-#
-# apply the patch series
-#
+	# apply the patch series
 	@if [ -e $(KERNEL_SERIES) ]; then \
 		$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh -s $(KERNEL_SERIES) -d $(KERNEL_DIR); \
 	fi
@@ -161,7 +154,7 @@ ifdef NATIVE
 KERNEL_MAKEVARS += ARCH=um
 else
 KERNEL_MAKEVARS += ARCH=$(call remove_quotes,$(PTXCONF_ARCH))
-CROSS_COMPILE=$(COMPILER_PREFIX)
+KERNEL_MAKEVARS += CROSS_COMPILE=$(COMPILER_PREFIX)
 endif
 
 
