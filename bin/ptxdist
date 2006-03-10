@@ -3,7 +3,7 @@
 #
 # TODO
 #
-# - add compilercheck 
+# - add compilercheck
 #
 # - split images out of Makefile; we should have a command "image jffs2"
 #   which starts a corresponding script in scripts/
@@ -41,7 +41,7 @@ fi
 
 libptxdist=${PTXDIST_TOPDIR}/scripts/libptxdist.sh
 
-if [ -e "$libptxdist" ]; then 
+if [ -e "$libptxdist" ]; then
 	. $libptxdist
 else
 	echo "${PROMPT}didn't find \$(PTXDIST_TOPDIR)/scripts/libptxdist.sh"
@@ -109,31 +109,35 @@ check_ptxconfig() {
 
 #
 # Check for defined compiler
+# This only should be done when we build userland (chicken egg problem)
 #
 check_compiler() {
-	C_COMPILER=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})-gcc
-	COMPILER_SHOULD_BE=$(. ptxconfig && echo ${PTXCONF_CROSSCHAIN_CHECK})
-	if [ -d ".toolchain" ]; then
-		COMPILER_PATH=`pwd`/.toolchain/$C_COMPILER
-	else
-		COMPILER_PATH=$C_COMPILER
-	fi
+	BUILD_WHAT=$(. ptxconfig && echo ${PTXCONF_BUILD_USERLAND})
+	if [ "$BUILD_WHAT" ]; then
+		C_COMPILER=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})-gcc
+		COMPILER_SHOULD_BE=$(. ptxconfig && echo ${PTXCONF_CROSSCHAIN_CHECK})
+		if [ -d ".toolchain" ]; then
+			COMPILER_PATH=`pwd`/.toolchain/$C_COMPILER
+		else
+			COMPILER_PATH=$C_COMPILER
+		fi
 
-	COMPILER_IS=$($COMPILER_PATH -dumpversion 2> /dev/null)
+		COMPILER_IS=$($COMPILER_PATH -dumpversion 2> /dev/null)
 
-	if [ -z "$COMPILER_IS" ]; then
-		echo
-		echo "${PROMPT}error: Compiler '$C_COMPILER' not found. Check PATH or"
-		echo "${PROMPT}error: use 'ptxdist toolchain <path/to/toolchain>'."
-		echo
-		exit 1
-	fi
-	if [ "$COMPILER_IS" != "$COMPILER_SHOULD_BE" ]; then
-		echo
-		echo "${PROMPT}error: Compiler version $COMPILER_SHOULD_BE expected,"
-		echo "${PROMPT}error: but $COMPILER_IS found."
-		echo
-		exit 1
+		if [ -z "$COMPILER_IS" ]; then
+			echo
+			echo "${PROMPT}error: Compiler '$C_COMPILER' not found. Check PATH or"
+			echo "${PROMPT}error: use 'ptxdist toolchain <path/to/toolchain>'."
+			echo
+			exit 1
+		fi
+		if [ "$COMPILER_IS" != "$COMPILER_SHOULD_BE" ]; then
+			echo
+			echo "${PROMPT}error: Compiler version $COMPILER_SHOULD_BE expected,"
+			echo "${PROMPT}error: but $COMPILER_IS found."
+			echo
+			exit 1
+		fi
 	fi
 }
 
@@ -442,10 +446,10 @@ clone() {
 	projects=`(for i in $projects $lprojects; do echo $i; done) | sort -u`
 	echo
 
-	for i in $projects; do 
+	for i in $projects; do
 		if [ "$1" = "$i" ]; then
 			echo "${PROMPT}cloning project $1 to $2"
-			if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ] && 
+			if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ] &&
 			   [ -d "${PTXCONF_SETUP_PROJECTDIR}/$1" ] ; then
 				cp -a ${PTXCONF_SETUP_PROJECTDIR}/$1 $2
 			else
@@ -471,17 +475,17 @@ if [ "$#" = "0" ]; then
 	exit 0
 fi
 
-while [ "$#" != "0" ]; do 
+while [ "$#" != "0" ]; do
 
-	case $1 in 
+	case $1 in
 	autobuild)	echo
 			echo "${PROMPT}running autobuild"
 			echo
 			AUTOBUILDS=$(find . -name "autobuild")
 			exec 5>CONFIGTEST
-			for i in $AUTOBUILDS; do 
+			for i in $AUTOBUILDS; do
 				pushd $(dirname $i)
-				./autobuild 
+				./autobuild
 				popd
 			done
 			echo
@@ -500,7 +504,7 @@ while [ "$#" != "0" ]; do
 				$1_compile PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
-	clean)		shift 
+	clean)		shift
 			clean $1
 			exit 0
 			;;
@@ -579,7 +583,7 @@ while [ "$#" != "0" ]; do
 				exit 1
 			fi
 			shift
-			case $1 in 
+			case $1 in
 			--target) newpacket target ;;
 			--host)   newpacket host   ;;
 			--cross)  newpacket cross  ;;
@@ -605,7 +609,7 @@ while [ "$#" != "0" ]; do
 				print-$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			shift
 			;;
-			
+
 	projects)	shift; projects;;
 	select)		shift
 			if [ -f "ptxconfig" ]; then
@@ -648,12 +652,12 @@ while [ "$#" != "0" ]; do
 				echo
 			else
 				echo
-				echo "${PROMPT}error: test $i not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"	
+				echo "${PROMPT}error: test $i not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
 				echo
 			fi
 			fi
 			exit 0
-			;;	
+			;;
 	toolchain)	shift
 			echo
 			if [ ! -d "$1" ]; then
