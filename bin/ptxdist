@@ -481,7 +481,7 @@ while [ "$#" != "0" ]; do
 			echo "${PROMPT}running autobuild"
 			echo
 			AUTOBUILDS=$(find . -name "autobuild")
-			exec 5>CONFIGTEST
+			exec 5>COMPILETEST
 			echo >&5
 			for i in $AUTOBUILDS; do
 				pushd $(dirname $i)
