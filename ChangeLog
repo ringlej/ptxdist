@@ -1,3 +1,38 @@
+2006-03-09 Robert Schwebel <r.schwebel@pengutronix.de
+
+	* release: released 0.10.0. 
+
+	There are too many features added & cleaned up in the 0.10.0
+	release than could be mentioned here. This release is basically
+	the last step before an 1.0 series; all functionality has been
+	moved to the 'ptxdist' frontend command now, so there is no need
+	to call 'make' directly any more.
+
+	PTXdist can now be installed, which means that the standard
+	configure && make && make install mechanics works, although the
+	configure script is no "real" autoconf script yet. We plan to
+	provide one. Several PTXdist versions can be installed in
+	parallel now and it should be packageble for distributions.
+
+	One serious bug in the release was already found, the toolchains
+	test for the crosscompiler version (chicken-and-egg). Expect a
+	0.10.1 release anytime soon, probably before you read this ;)
+
+	All project work is now done in a user- and project centric way.
+	You work on your project's "workspace" directory (equivalent to 
+	the out-of-tree directory in 0.9). 
+
+	Packet management has been much more streamlined. You always
+	need a .make _and_ .in file for each packet and packet names
+	must have a strong relation to their kconfig labels, like this: 
+
+		project-foo -> PROJECT_FOO
+
+	All "included" projects have been migrated to the new formats,
+	but not all of them have been tested extensively. Expect more
+	releases in the near future which restore the old auditing
+	mechanisms. 
+
 2006-02-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* trunk: opened 0.10 trunk. 
