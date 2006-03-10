@@ -14,6 +14,30 @@ menu "Kernel              "
 ##############################################################################
 
 comment "----------------------------------"
+comment "General Options"
+comment "----------------------------------"
+
+config KERNEL_INSTALL
+	bool
+	depends on BUILD_USERLAND
+	prompt "Install kernel into /boot"
+
+config KERNEL_INSTALL_MODULES
+	bool
+	depends on BUILD_USERLAND
+	prompt "Install modules into /lib/modules"
+
+config KERNEL_COMPILE
+	bool
+	prompt "Compile Kernel"
+	depends on BUILD_USERLAND
+	help
+	  Usually you want to compile your kernel. If not,
+	  deselect this option. 
+
+# ----------------------------------------------------------------------------
+
+comment "----------------------------------"
 comment "Target Kernel"
 comment "----------------------------------"
 
@@ -35,23 +59,16 @@ config KERNEL_TARGET_SERIES
 	  The series file contains lines with names of patch files which
 	  are then being applied to the kernel.  
 
-config KERNEL_TARGET_COMPILE
-	bool
-	prompt "Compile Target Kernel"
-	depends on BUILD_USERLAND
-	help
-	  Usually you want to compile your kernel. If not,
-	  deselect this option. 
-
 # ----------------------------------------------------------------------------
 
 comment "Target Kernel Options"
 	depends on BUILD_USERLAND
+	depends on KERNEL_COMPILE
 
 choice
 	prompt "Image Type"
 	default KERNEL_TARGET_IMAGE_BZ
-	depends on KERNEL_TARGET_COMPILE
+	depends on KERNEL_COMPILE
 
 config KERNEL_TARGET_IMAGE_BZ
 	bool
@@ -70,35 +87,6 @@ config KERNEL_TARGET_IMAGE_VMLINUX
 	bool
 	prompt "vmlinux"
 endchoice
-
-config KERNEL_TARGET_EXTERNAL
-	bool
-	prompt "External Kernel"
-	depends on BUILD_USERLAND
-	help
-	  Say yes if you intend to use an external already configured 
-	  kernel tree. You want this if you, for example, are currently
-	  working in a kernel tree and don't want to generate patches 
-	  for each and every PTXdist run. 
-
-config KERNEL_EXTERNAL_DIR
-	string
-	prompt "Path to external kernel source"
-	depends on KERNEL_TARGET_EXTERNAL
-	help
-	  Add a path to your external kernel here. The kernel must be
-	  configured. 
-
-config KERNEL_TARGET_INSTALL
-	bool
-	depends on BUILD_USERLAND
-	prompt "Install kernel into /boot on target"
-	select KERNEL_TARGET_INSTALL_MODULES if KERNEL_TARGET_COMPILE
-
-config KERNEL_TARGET_INSTALL_MODULES
-	bool
-	depends on BUILD_USERLAND
-	prompt "Install modules into /lib/modules on target"
 
 # ----------------------------------------------------------------------------
 
@@ -129,45 +117,14 @@ config KERNEL_NATIVE_SERIES
 	  The series file contains lines with names of patch files which
 	  are then being applied to the kernel.  
 
-config KERNEL_NATIVE_COMPILE
-	bool
-	prompt "Compile Native Kernel"
-	depends on BUILD_USERLAND
-	default Y
-	help
-	  FIXME
-
 # ----------------------------------------------------------------------------
 
 comment "Native Kernel Options"
-
-choice
-	prompt "Image Type"
-	default KERNEL_NATIVE_IMAGE_BZ
-	depends on KERNEL_NATIVE_COMPILE
-
-config KERNEL_NATIVE_IMAGE_BZ
-	bool
-	prompt "bzImage"
-	
-config KERNEL_NATIVE_IMAGE_Z
-	bool
-	prompt "zImage"
-
-config KERNEL_NATIVE_IMAGE_U
-	bool
-	prompt "uImage"
-
-config KERNEL_NATIVE_IMAGE_VMLINUX
-	bool
-	prompt "vmlinux"
-	select HOST_UMKIMAGE
-endchoice
-
+	depends on KERNEL_COMPILE
 
 choice
 	prompt "Root Filesystem Method"
-	depends on KERNEL_NATIVE_COMPILE
+	depends on KERNEL_COMPILE
 		
 	config KERNEL_NATIVE_ROOT_HOSTFS
 		bool
@@ -181,7 +138,7 @@ endchoice
 config KERNEL_NATIVE_CONSOLE_STDSERIAL
 	bool
 	prompt "map /dev/ttyS0 to stdio"
-	depends on KERNEL_NATIVE_COMPILE
+	depends on KERNEL_COMPILE
 	help
 	  This switch adds "ssl0=fd:0,fd:1" to the kernel command line,
 	  which forwards /dev/ttyS0 of the user mode linux vm to the
@@ -190,7 +147,7 @@ config KERNEL_NATIVE_CONSOLE_STDSERIAL
 config KERNEL_NATIVE_CMDLINE
 	string
 	prompt "kernel command line"
-	depends on KERNEL_NATIVE_COMPILE
+	depends on KERNEL_COMPILE
 	help
 	  Add your custom kernel commandline for the user mode linux 
 	  kernel here. 
