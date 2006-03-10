@@ -3,8 +3,6 @@
 #
 # TODO
 #
-# - add compilercheck
-#
 # - split images out of Makefile; we should have a command "image jffs2"
 #   which starts a corresponding script in scripts/
 #
@@ -69,9 +67,25 @@ fi
 # use linked toolchain if available
 [ -d ".toolchain" ] && export PATH=`pwd`/.toolchain:$PATH
 
-# sanity check: we process only files which have been built with the
-# same PTXdist version!
-if [ -e "ptxconfig" ]; then
+#
+# Check for existence of a ptxconfig file
+# check_ptxconfig()
+
+check_ptxconfig() {
+	if [ ! -e "ptxconfig" ]; then
+		echo
+		echo "${PROMPT}error: ptxconfig file is missing. Did you setup your project yet?"
+		echo "${PROMPT}error: To get a ptxconfig file clone a template project or (if"
+		echo "${PROMPT}error: there are more than one configurations like ptxconfig.*)"
+		echo "${PROMPT}error: select one of these with 'ptxdist select ptxconfig.<yourselection>'"
+		echo "${PROMPT}error: first."
+		echo
+		exit 1
+	fi
+
+	# sanity check: we process only files which have been built with the
+	# same PTXdist version!
+
 	PTXCONF_CONFIGFILE_VERSION=$(. ptxconfig && echo ${PTXCONF_CONFIGFILE_VERSION})
 	if [ "${PTXCONF_CONFIGFILE_VERSION}" != "${FULLVERSION}" ]; then
 
@@ -88,23 +102,6 @@ if [ -e "ptxconfig" ]; then
 		echo
 		exit 1
 	fi
-fi
-
-#
-# Check for existence of a ptxconfig file
-# check_ptxconfig()
-
-check_ptxconfig() {
-	if [ ! -e "ptxconfig" ]; then
-		echo
-		echo "${PROMPT}error: ptxconfig file is missing. Did you setup your project yet?"
-		echo "${PROMPT}error: To get a ptxconfig file clone a template project or (if"
-		echo "${PROMPT}error: there are more than one configurations like ptxconfig.*)"
-		echo "${PROMPT}error: select one of these with 'ptxdist select ptxconfig.<yourselection>'"
-		echo "${PROMPT}error: first."
-		echo
-		exit 1
-	fi
 }
 
 #
@@ -112,32 +109,34 @@ check_ptxconfig() {
 # This only should be done when we build userland (chicken egg problem)
 #
 check_compiler() {
-	BUILD_WHAT=$(. ptxconfig && echo ${PTXCONF_BUILD_USERLAND})
-	if [ "$BUILD_WHAT" ]; then
-		C_COMPILER=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})-gcc
-		COMPILER_SHOULD_BE=$(. ptxconfig && echo ${PTXCONF_CROSSCHAIN_CHECK})
-		if [ -d ".toolchain" ]; then
-			COMPILER_PATH=`pwd`/.toolchain/$C_COMPILER
-		else
-			COMPILER_PATH=$C_COMPILER
-		fi
 
-		COMPILER_IS=$($COMPILER_PATH -dumpversion 2> /dev/null)
+	BUILD_USERLAND=$(. ptxconfig && echo ${PTXCONF_BUILD_USERLAND})
+	[ "$BUILD_USERLAND" != "y" ] && return
+	[ "$NATIVE" != "" ] && return
 
-		if [ -z "$COMPILER_IS" ]; then
-			echo
-			echo "${PROMPT}error: Compiler '$C_COMPILER' not found. Check PATH or"
-			echo "${PROMPT}error: use 'ptxdist toolchain <path/to/toolchain>'."
-			echo
-			exit 1
-		fi
-		if [ "$COMPILER_IS" != "$COMPILER_SHOULD_BE" ]; then
-			echo
-			echo "${PROMPT}error: Compiler version $COMPILER_SHOULD_BE expected,"
-			echo "${PROMPT}error: but $COMPILER_IS found."
-			echo
-			exit 1
-		fi
+	C_COMPILER=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})-gcc
+	COMPILER_SHOULD_BE=$(. ptxconfig && echo ${PTXCONF_CROSSCHAIN_CHECK})
+	if [ -d ".toolchain" ]; then
+		COMPILER_PATH=`pwd`/.toolchain/$C_COMPILER
+	else
+		COMPILER_PATH=$C_COMPILER
+	fi
+
+	COMPILER_IS=$($COMPILER_PATH -dumpversion 2> /dev/null)
+
+	if [ -z "$COMPILER_IS" ]; then
+		echo
+		echo "${PROMPT}error: Compiler '$C_COMPILER' not found. Check PATH or"
+		echo "${PROMPT}error: use 'ptxdist toolchain <path/to/toolchain>'."
+		echo
+		exit 1
+	fi
+	if [ "$COMPILER_IS" != "$COMPILER_SHOULD_BE" ]; then
+		echo
+		echo "${PROMPT}error: Compiler version $COMPILER_SHOULD_BE expected,"
+		echo "${PROMPT}error: but $COMPILER_IS found."
+		echo
+		exit 1
 	fi
 }
 
