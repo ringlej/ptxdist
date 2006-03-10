@@ -1,3 +1,12 @@
+2006-03-10 Robert Schwebel <r.schwebel@pengutronix.de
+
+	* ptxdist: integrated autobuilder in ptxdist
+
+	* toolchains: fixed chicken-egg-problem while building
+	  toolchains
+
+	* ipkg: fixed ipkg build mechanism and image creation.
+
 2006-03-09 Robert Schwebel <r.schwebel@pengutronix.de
 
 	* release: released 0.10.0. 
