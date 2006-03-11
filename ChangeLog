@@ -1,3 +1,17 @@
+2006-03-11 Robert Schwebel <r.schwebel@pengutronix.de
+
+	* autobuild: The statistics functions have been moved to
+	  ptxdist, so the autobuild scripts do only contain the 
+	  call to the build process now. 
+
+	* ptxdistrc: $HOME/.ptxdistrc is now versioned, to avoid that
+	  people use old and incompatible ones. 
+
+	* ptxdistrc: We have a user configurable src directory again, 
+	  in .ptxdistrc.${FULLVERSION}. 
+
+	* projects: separated toolchains and example projects. 
+
 2006-03-10 Robert Schwebel <r.schwebel@pengutronix.de
 
 	* ptxdist: integrated autobuilder in ptxdist
