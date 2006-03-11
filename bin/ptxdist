@@ -12,6 +12,10 @@ PROMPT="ptxdist: "
 PTXDIST_WORKSPACE=$(pwd)
 DEBUG=
 
+# export this, so that children can call the master script, for example
+# to find out the version number
+export PTXDIST=$0
+
 if [ -L "$0" ]; then
 	PTXDIST_TOPDIR=$(cd $(dirname $(readlink $0))/.. && pwd)
 else
@@ -62,7 +66,7 @@ fi
 
 
 # source the user's .ptxdistrc
-[ -e "$HOME/.ptxdistrc" ] && . $HOME/.ptxdistrc
+[ -e "$HOME/.ptxdistrc.${FULLVERSION}" ] && .  $HOME/.ptxdistrc.${FULLVERSION}
 
 # use linked toolchain if available
 [ -d ".toolchain" ] && export PATH=`pwd`/.toolchain:$PATH
@@ -404,15 +408,15 @@ setup() {
 	# prepare everything to make kconfig see it's original environment
 	ln -sf ${PTXDIST_TOPDIR}/scripts
 	cp ${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default .config
-	if [ -f "$HOME/.ptxdistrc" ]; then
-		echo "using \$HOME/.ptxdistrc"
-		cp $HOME/.ptxdistrc .config
+	if [ -f "$HOME/.ptxdistrc.${FULLVERSION}" ]; then
+		echo "using \$HOME/.ptxdistrc.${FULLVERSION}"
+		cp $HOME/.ptxdistrc.${FULLVERSION} .config
 	fi
 
-	# store ~/.ptxdistrc	
+	# store ~/.ptxdistrc
 	${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_TOPDIR}/config/setup/Kconfig
-	echo "${PROMPT}saving \$HOME/.ptxdistrc"
-	cp .config $HOME/.ptxdistrc
+	echo "${PROMPT}saving \$HOME/.ptxdistrc.${FULLVERSION}"
+	cp .config $HOME/.ptxdistrc.${FULLVERSION}
 
 	popd > /dev/null
 	echo "${PROMPT}cleanup..."
