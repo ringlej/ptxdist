@@ -854,16 +854,16 @@ install_copy = 											\
 			$(INSTALL) -d $(IMAGEDIR)/$$PACKET/ipkg/$$SRC;				\
 			if [ $$? -ne 0 ]; then							\
 				echo "Error: install_copy failed!";				\
-				exit -1;							\
+				exit 1;								\
 			fi;									\
 		fi;										\
 		$(INSTALL) -m $$PER -d $(ROOTDIR)/$$SRC;					\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
-			exit -1;								\
+			exit 1;									\
 		fi;										\
 		mkdir -p $(IMAGEDIR)/$$PACKET;							\
-		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;		\
+		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;			\
 	else											\
 		echo "install_copy:";								\
 		echo "  src=$$SRC";								\
@@ -876,13 +876,13 @@ install_copy = 											\
 			$(INSTALL) -D $$SRC $(IMAGEDIR)/$$PACKET/ipkg/$$DST;			\
 			if [ $$? -ne 0 ]; then							\
 				echo "Error: install_copy failed!";				\
-				exit -1;							\
+				exit 1;								\
 			fi;									\
 		fi; 										\
 		$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR)$$DST;					\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
-			exit -1;								\
+			exit 1;									\
 		fi;										\
 		case "$$STRIP" in								\
 		(0 | n | no)									\
@@ -895,7 +895,7 @@ install_copy = 											\
 			;;									\
 		esac;										\
 		mkdir -p $(IMAGEDIR)/$$PACKET;							\
-		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;		\
+		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;			\
 	fi
 
 #

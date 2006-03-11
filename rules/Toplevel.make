@@ -54,7 +54,8 @@ ROOTDIR			:= $(PTXDIST_WORKSPACE)/root
 ifeq ($(PTXCONF_SETUP_SRCDIR),)
 SRCDIR			:= $(PTXDIST_WORKSPACE)/src
 else
-SRCDIR			:= $(PTXCONF_SETUP_SRCDIR)
+			# don't use := here!!!
+SRCDIR			= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
 endif
 
 export HOME PTXDIST_WORKSPACE PTXDIST_TOPDIR

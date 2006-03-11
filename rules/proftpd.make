@@ -139,11 +139,17 @@ $(STATEDIR)/proftpd.targetinstall: $(proftpd_targetinstall_deps_default)
 	@$(call install_fixup, proftpd,DEPENDS,)
 	@$(call install_fixup, proftpd,DESCRIPTION,missing)
 
-	@$(call install_copy, proftpd, 0, 0, 0755, $(PROFTPD_DIR)/proftpd, /usr/sbin/proftpd)
-	@$(call install_copy, proftpd, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/proftpd, /etc/init.d/proftpd, n)
+	@$(call install_copy, proftpd, 0, 0, 0755, \
+		$(PROFTPD_DIR)/proftpd, \
+		/usr/sbin/proftpd)
+	@$(call install_copy, proftpd, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/proftpd, \
+		/etc/init.d/proftpd, n)
 	
 ifdef $(PTXCONF_PROFTPD_DEFAULTCONFIG)	
-	@$(call install_copy, proftpd, 11, 101, 0644, $(PTXDIST_TOPDIR)/projects/generic/etc/proftpd.conf, /etc/proftpd.conf, n)
+	@$(call install_copy, proftpd, 11, 101, 0644, \
+		$(PTXDIST_TOPDIR)/projects-example/generic/etc/proftpd.conf, \
+		/etc/proftpd.conf, n)
 endif	
 
 	@$(call install_finish, proftpd)

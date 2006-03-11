@@ -103,7 +103,9 @@ $(STATEDIR)/utelnetd.targetinstall: $(utelnetd_targetinstall_deps_default)
 	@$(call install_fixup, utelnetd,DESCRIPTION,missing)
 ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD
 ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD_DEFAULT 
-	@$(call install_copy, utelnetd, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/telnetd, /etc/init.d/telnetd, n)
+	@$(call install_copy, utelnetd, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/telnetd, \
+		/etc/init.d/telnetd, n)
 else
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER_FILE),"")
 	@$(call install_copy, utelnetd, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER_FILE), /etc/init.d/telnetd, n)

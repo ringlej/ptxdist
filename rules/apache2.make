@@ -190,7 +190,7 @@ ifneq ($(PTXCONF_APACHE2_DOCUMENTROOT),"")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
 ifdef PTXCONF_APACHE2_DEFAULT_INDEX
 	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/projects/generic/index.html, \
+		$(PTXDIST_TOPDIR)/projects-example/generic/index.html, \
 		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html,n)
 endif
 endif
@@ -203,7 +203,7 @@ ifneq ($(PTXCONF_APACHE2_CONFIGDIR),"")
 		$(PTXCONF_APACHE2_CONFIGDIR)/magic,n)
 
 ifdef PTXCONF_APACHE2_DEFAULTCONFIG
-	cp $(PTXDIST_TOPDIR)/projects/generic/httpd.conf $(APACHE2_DIR)/httpd.conf
+	cp $(PTXDIST_TOPDIR)/projects-example/generic/httpd.conf $(APACHE2_DIR)/httpd.conf
 
 	# now replace our own options
 	perl -i -p -e "s,\@SERVERROOT@,\"$(PTXCONF_APACHE2_SERVERROOT)\",g" $(APACHE2_DIR)/httpd.conf
@@ -236,7 +236,7 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
 ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE)),)
 	@$(call install_copy, apache2, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE), /etc/init.d/httpd, n)
 else
-	@cp $(PTXDIST_TOPDIR)/projects/generic/etc/init.d/httpd $(APACHE2_DIR)/init_httpd
+	@cp $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/httpd $(APACHE2_DIR)/init_httpd
 	@perl -i -p -e "s,\@APACHECONFIG@,$(call remove_quotes,$(PTXCONF_APACHE2_CONFIGDIR))/httpd.conf,g" $(APACHE2_DIR)/init_httpd
 	@perl -i -p -e "s,\@LOGPATH@,$(call remove_quotes,$(PTXCONF_APACHE2_LOGDIR))/httpd.conf,g" $(APACHE2_DIR)/init_httpd
 	@$(call install_copy, apache2, 0, 0, 0755, $(APACHE2_DIR)/init_httpd, /etc/init.d/httpd, n)
@@ -258,7 +258,7 @@ endif
 # 		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/$$i,n); \
 # 	done
 # else
-# 	$(call install_copy, apache2, 12,102,0644,$(PTXDIST_TOPDIR)/projetcs/generic/index.html,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/index.html,n)
+# 	$(call install_copy, apache2, 12,102,0644,$(PTXDIST_TOPDIR)/projetcs-example/generic/index.html,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/index.html,n)
 # endif
 # 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin)
 # 	@$(call install_copy, apache2, 12,102,0644,$(APACHE2_DIR)/doc/cgi-examples/test-cgi,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin,n)

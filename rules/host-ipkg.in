@@ -5,7 +5,7 @@ config HOST_IPKG
 	  ipkg is used on the development host to install packets into 
 	  some directory. Example: 
 
-		ipkg-cl -o . --force-depends -f ../projects/generic/etc/ipkg.conf install foo.ipk
+		ipkg-cl -o . --force-depends -f ../projects-example/generic/etc/ipkg.conf install foo.ipk
 
 
 config HOST_IPKG_EXTRACT_TEST
