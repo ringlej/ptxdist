@@ -42,10 +42,10 @@ config SETUP_HTTP_PROXY
 		      
 endmenu
 
-menu "Projects        "
+menu "Source Directory"
 
-config SETUP_PROJECTDIR
-	prompt "Project Directory"
+config SETUP_SRCDIR
+	prompt "Source Directory "
 	string
 
 endmenu

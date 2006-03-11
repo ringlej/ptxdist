@@ -24,6 +24,13 @@
 
 include ${PTXDIST_TOPDIR}/scripts/ptxdistvars.sh
 
+# The .ptxdistrc contains the per-user settings
+
+ifneq ($(wildcard $(HOME)/.ptxdistrc.$(FULLVERSION)),)
+include $(HOME)/.ptxdistrc.$(FULLVERSION)
+else
+include $(PTXDIST_TOPDIR)/config/setup/ptxdistrc.default
+endif
 
 # ----------------------------------------------------------------------------
 # Some directory locations
@@ -43,7 +50,12 @@ HOST_BUILDDIR		:= $(PTXDIST_WORKSPACE)/build-host
 STATEDIR		:= $(PTXDIST_WORKSPACE)/state
 IMAGEDIR		:= $(PTXDIST_WORKSPACE)/images
 ROOTDIR			:= $(PTXDIST_WORKSPACE)/root
+
+ifeq ($(PTXCONF_SETUP_SRCDIR),)
 SRCDIR			:= $(PTXDIST_WORKSPACE)/src
+else
+SRCDIR			:= $(PTXCONF_SETUP_SRCDIR)
+endif
 
 export HOME PTXDIST_WORKSPACE PTXDIST_TOPDIR
 export PATCHDIR MISCDIR RULESDIR BUILDDIR CROSS_BUILDDIR 
@@ -51,14 +63,7 @@ export HOST_BUILDDIR STATEDIR IMAGEDIR ROOTDIR SRCDIR
 
 include $(RULESDIR)/Definitions.make
 
-ifneq ($(wildcard $(HOME)/.ptxdistrc),)
-include $(HOME)/.ptxdistrc
-else
-include $(PTXDIST_TOPDIR)/config/setup/ptxdistrc.default
-endif
-
 -include $(PTXDIST_WORKSPACE)/ptxconfig
-
 
 # ----------------------------------------------------------------------------
 # Packets for host, cross and target
