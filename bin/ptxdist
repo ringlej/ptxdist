@@ -225,7 +225,7 @@ clean() {
 	fi
 
 	if [ -n "$1" ]; then
-		make $MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_clean PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+		make $PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_clean PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
 		return
 	fi
 
@@ -485,6 +485,7 @@ while [ "$#" != "0" ]; do
 			echo "${PROMPT}running autobuild"
 			echo
 			AUTOBUILDS=$(find . -name "autobuild")
+			AUTOBUILD_TOPDIR=$(pwd)
 			exec 5>COMPILETEST
 			echo >&5
 			for i in $AUTOBUILDS; do
@@ -507,6 +508,9 @@ while [ "$#" != "0" ]; do
 				echo "result............: ${PTX_RETVAL}" >&5
 				echo >&5
 
+				[ -e "logfile" ] && mv logfile "${AUTOBUILD_TOPDIR}/`basename \`pwd\``.log"
+				[ "${PTX_RETVAL}" = "0" ] && ${PTXDIST} clean
+
 				popd
 			done
 			echo
@@ -521,7 +525,7 @@ while [ "$#" != "0" ]; do
 			fi
 			check_ptxconfig
 			make \
-				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_compile PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
@@ -530,7 +534,9 @@ while [ "$#" != "0" ]; do
 			exit 0
 			;;
 	clone)		shift; clone $1 $2; exit 0;;
-	-d|--debug)	shift; MAKEDBG="--debug=make"; ;;
+	-d|--debug)	shift
+			export PTXDIST_MAKE_DBG="--debug=make"
+			;;
 	distclean)	shift
 			clean
 			echo "${PROMPT}removing toolchain link..."
@@ -542,7 +548,7 @@ while [ "$#" != "0" ]; do
 	extract)	shift
 			check_ptxconfig
 			make \
-				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_extract PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
@@ -550,12 +556,12 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			if [ "$#" = "0" ]; then
 				make \
-					$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+					$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 					get PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 				exit $?
 			else
 				make \
-					$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+					$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 					$1_get PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 				exit $?
 			fi
@@ -564,7 +570,7 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_compiler
 			make \
-				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				world PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
@@ -573,7 +579,7 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_compiler
 			make \
-				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				images PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
@@ -581,7 +587,7 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_compiler
 			make \
-				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_install PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
@@ -589,7 +595,7 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_compiler
 			make \
-				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			;;
 	menuconfig)	shift
@@ -619,14 +625,14 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_compiler
 			make \
-				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_prepare PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
 	print)		shift
 			check_ptxconfig
 			make \
-				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				print-$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			shift
 			;;
@@ -654,7 +660,7 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_compiler
 			make \
-				$MAKEDBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_targetinstall PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			exit $?
 			;;
