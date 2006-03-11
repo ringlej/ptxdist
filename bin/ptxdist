@@ -527,7 +527,8 @@ while [ "$#" != "0" ]; do
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_compile PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
-			exit $?
+			check_pipe_status
+			exit 0
 			;;
 	clean)		shift
 			clean $1
@@ -550,7 +551,8 @@ while [ "$#" != "0" ]; do
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_extract PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
-			exit $?
+			check_pipe_status
+			exit 0
 			;;
 	get)		shift
 			check_ptxconfig
@@ -558,12 +560,14 @@ while [ "$#" != "0" ]; do
 				make \
 					$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 					get PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
-				exit $?
+				check_pipe_status
+				exit 0
 			else
 				make \
 					$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 					$1_get PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
-				exit $?
+				check_pipe_status
+				exit $0
 			fi
 			;;
 	go)		shift
@@ -572,7 +576,8 @@ while [ "$#" != "0" ]; do
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				world PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
-			exit $?
+			check_pipe_status
+			exit $0
 			;;
 	help|--help)	shift; usage; exit 0; ;;
 	images)		shift
@@ -581,7 +586,8 @@ while [ "$#" != "0" ]; do
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				images PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
-			exit $?
+			check_pipe_status
+			exit $0
 			;;
 	install)	shift
 			check_ptxconfig
@@ -589,7 +595,8 @@ while [ "$#" != "0" ]; do
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_install PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
-			exit $?
+			check_pipe_status
+			exit $0
 			;;
 	make)		shift
 			check_ptxconfig
@@ -597,6 +604,8 @@ while [ "$#" != "0" ]; do
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_pipe_status
+			exit 0
 			;;
 	menuconfig)	shift
 			check_ptxconfig
@@ -627,13 +636,15 @@ while [ "$#" != "0" ]; do
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_prepare PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
-			exit $?
+			check_pipe_status
+			exit 0
 			;;
 	print)		shift
 			check_ptxconfig
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				print-$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_pipe_status
 			shift
 			;;
 
@@ -668,7 +679,8 @@ while [ "$#" != "0" ]; do
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_targetinstall PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
-			exit $?
+			check_pipe_status
+			exit $0
 			;;
 	test)		shift
 			if [ -x "$PTXDIST_WORKSPACE/tests/$1" ]; then
