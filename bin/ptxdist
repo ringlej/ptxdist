@@ -383,7 +383,8 @@ projects() {
 	echo
 	echo "${PROMPT}searching for projects:"
 	echo "${PROMPT}scanning ${PTXDIST_TOPDIR}/projects..."
-	projects=`cd ${PTXDIST_TOPDIR}/projects && find . -maxdepth 1 -type d ! -name .svn ! -name .  -exec basename {} \;`
+	projects=`cd ${PTXDIST_TOPDIR}/projects-example && find . -maxdepth 1 -type d ! -name .svn ! -name .  -exec basename {} \;`
+	projects="$projects `cd ${PTXDIST_TOPDIR}/projects-toolchains && find . -maxdepth 1 -type d ! -name .svn ! -name .  -exec basename {} \;`"
 	echo -n "${PROMPT}scanning \${PTXCONF_SETUP_PROJECTDIR}..."
 	if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ]; then
 	lprojects=`cd ${PTXCONF_SETUP_PROJECTDIR} && find . -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;`
