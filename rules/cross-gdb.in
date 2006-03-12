@@ -1,5 +1,11 @@
+# configuration for cross-gdb
+
 config CROSS_GDB
 	bool "cross gdb"
+	# we have to build crosstool first, because crosstool cleans
+	# it's installation directory, which is where we install
+	# cross-gdb to...
+	select CROSSTOOL
 
 config CROSS_GDB_WRAPPERS
 	bool "cross gdb wrapper"
