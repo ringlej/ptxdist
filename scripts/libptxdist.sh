@@ -69,6 +69,18 @@ ptxd_warning() {
 
 
 #
+# check if a previously executed pipe returned an error
+#
+check_pipe_status() {
+	for i in  "${PIPESTATUS[@]}"; do [ $i -gt 0 ] && {
+		echo "An element in the pipe returned $i, bailing out"
+		exit $i
+	}
+	done
+} 
+
+
+#
 # split ipkg filename into it's parts
 #
 # input format: 
