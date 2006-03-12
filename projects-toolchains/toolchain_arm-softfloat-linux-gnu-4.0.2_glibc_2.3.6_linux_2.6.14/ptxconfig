@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.0
-# Thu Mar  9 21:21:03 2006
+# PTXdist version: 0.10.1-svn
+# Sun Mar 12 08:21:05 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -17,7 +17,7 @@ PTXCONF_BUILD_TOOLCHAIN=y
 #
 PTXCONF_PROJECT="toolchain_arm-softfloat-linux-gnu-4.0.2_glibc_2.3.6_linux_2.6.14"
 PTXCONF_PROJECT_VERSION="-1"
-PTXCONF_CONFIGFILE_VERSION="0.10.0"
+PTXCONF_CONFIGFILE_VERSION="0.10.1-svn"
 
 #
 # ----------------------------------
@@ -120,7 +120,8 @@ PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
 #
 # Cross Debugging Tools
 #
-# PTXCONF_CROSS_GDB is not set
+PTXCONF_CROSS_GDB=y
+# PTXCONF_CROSS_GDB_WRAPPERS is not set
 
 #
 # Other Tools
@@ -161,6 +162,18 @@ PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
 #
 
 #
+# General Options
+#
+
+#
+# ----------------------------------
+#
+
+#
+# ----------------------------------
+#
+
+#
 # Target Kernel
 #
 
@@ -169,10 +182,6 @@ PTXCONF_CROSSTOOL_KERNELCONFIG="arm.config"
 #
 PTXCONF_KERNEL_TARGET_VERSION="2.6.14"
 PTXCONF_KERNEL_TARGET_SERIES="series"
-
-#
-# Native Kernel Options
-#
 
 #
 # C Library           
