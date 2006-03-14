@@ -103,10 +103,10 @@ $(STATEDIR)/bootdisk.targetinstall: $(bootdisk_targetinstall_deps)
 	cat $(BOOTDISK_IMG).ext2 >> $(BOOTDISK_IMG)
 	
 	# write partition table
-	@if [ -f $(PTXDIST_TOPDIR)/config/bootdisk/$(PTXCONF_BOOTDISK_PART) ] ; then	\
+	@if [ -f $(PTXDIST_WORKSPACE)/$(PTXCONF_BOOTDISK_PART) ] ; then		\
 		$(PTXCONF_PREFIX)/sbin/sfdisk -H $(PTXCONF_BOOTDISK_HEAD)	\
 			-S $(PTXCONF_BOOTDISK_SECT) -f $(BOOTDISK_IMG) <	\
-	   		$(PTXDIST_TOPDIR)/config/bootdisk/$(PTXCONF_BOOTDISK_PART);	\
+	   		$(PTXDIST_WORKSPACE)/$(PTXCONF_BOOTDISK_PART);		\
 		echo "--------------------------------------------------------";\
 		echo "The call above may have produced strange warnings";	\
 		echo "But hey, you can trust PTXdist to have made it right :-)";\

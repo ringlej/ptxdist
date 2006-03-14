@@ -1,7 +1,0 @@
-# partition table of /dev/sda
-unit: sectors
-
-bootdisk/boot.img1 : start=      248, size=    27528, Id=83
-bootdisk/boot.img2 : start=    27776, size=    13640, Id=83
-bootdisk/boot.img3 : start=    41416, size=   458800, Id=83
-bootdisk/boot.img4 : start=        0, size=        0, Id= 0

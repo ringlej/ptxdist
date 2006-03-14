@@ -39,6 +39,6 @@ config BOOTDISK_SIZE
 	
 config BOOTDISK_PART
 	string
-	prompt "config file for sfdisk in $PTXDIST/config/bootdisk"
+	prompt "config file for sfdisk in $PTXDIST_WORKSPACE"
 	default ""
 	depends on BOOTDISK
