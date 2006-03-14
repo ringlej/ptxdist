@@ -194,6 +194,7 @@ Clean Actions:
 
 Misc
 
+  --native                       build with native compiler instead of cross
   --version                      print out ptxdist version
 
   (svn up)                       run "svn update" in topdir and project dir
@@ -203,8 +204,6 @@ Misc
 
 Environment:
 
-  NATIVE=1                       build with native compiler 
-			         instead of cross compiler
   PREFIX=<path>                  build into this directory, instead of
 			         building into PTXCONF_PREFIX from config
 
@@ -268,7 +267,7 @@ menuconfig() {
 	fi
 
 	echo "${PROMPT}menuconfig..."
-	tmpdir=`mktemp -d -t ptxdist.XXXXXX`
+	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
 
 	pushd $tmpdir > /dev/null
 	ln -sf ${PTXDIST_TOPDIR}/scripts
@@ -357,7 +356,7 @@ oldconfig() {
 	fi
 
 	echo "${PROMPT}silentoldconfig..."
-	tmpdir=`mktemp -d -t ptxdist.XXXXXX`
+	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
 
 	pushd $tmpdir > /dev/null
 	ln -sf ${PTXDIST_TOPDIR}/scripts
@@ -403,7 +402,7 @@ projects() {
 setup() {
 	echo
 	echo "${PROMPT}setup..."
-	tmpdir=`mktemp -d -t ptxdist.XXXXXX`
+	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
 	pushd $tmpdir > /dev/null
 
 	# prepare everything to make kconfig see it's original environment
@@ -619,6 +618,9 @@ while [ "$#" != "0" ]; do
 	menuconfig)	shift
 			check_ptxconfig
 			menuconfig
+			;;
+	--native)	shift
+			export NATIVE=1
 			;;
 	newpacket)	# test if we are in a rules dir
 			if [ "`basename \`pwd\``" != "rules" ]; then
