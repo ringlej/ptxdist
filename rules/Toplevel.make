@@ -420,7 +420,7 @@ $(STATEDIR)/configdeps: $(configdeps_deps)
 	@mkdir -p $(IMAGEDIR)
 	@mkdir -p $(STATEDIR)
 	@( \
-		tmpdir=`mktemp -d -t ptxdist.XXXXXX`; \
+		tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`; \
 		pushd $$tmpdir > /dev/null; \
 		\
 		ln -sf ${PTXDIST_TOPDIR}/scripts; \
