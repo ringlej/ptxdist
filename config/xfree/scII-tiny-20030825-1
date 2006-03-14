@@ -1,3 +1,0 @@
-#define KDriveXServer 		YES
-#define TinyXServer 		YES
-#define XchipsServer		YES
