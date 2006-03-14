@@ -42,7 +42,7 @@ clean:
 
 dist:
 	PTXDIST_TOPDIR=$(shell pwd); \
-	tmpdir=`mktemp -d -t ptxdist.XXXXXX`; \
+	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`; \
 	cp -a $$PTXDIST_TOPDIR $$tmpdir/ptxdist-$(version); \
 	cd $$tmpdir/ptxdist-$(version); make distclean; \
 	find $$tmpdir/ptxdist-$(version) -name ".svn" | xargs rm -fr; \
