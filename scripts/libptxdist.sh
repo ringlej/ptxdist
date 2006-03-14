@@ -258,7 +258,7 @@ ptxd_compile_test() {
 # Use at your own risk
 
 ptxd_generic_option_parser(){
-TMPDIR=`mktemp -d /tmp/ptxd_generic_option_parser.XXXXXX` || exit 1
+TMPDIR=`mktemp -d /tmp/ptxdist.XXXXXX` || exit 1
 INFILE=$TMPDIR/infile
 OUTFILE=$TMPDIR/outfile
 while read line ; do 

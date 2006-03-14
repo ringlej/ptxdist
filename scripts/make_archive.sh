@@ -90,7 +90,7 @@ ptxd_debug "-- Remove old Archives --"
 [ -e "$ARCHIVE_PATCHES" ] && rm -vf $ARCHIVE_PATCHES
 ptxd_debug "-- Prepare Packaging --"
 date > $LOCKFILE
-TMPDIR=`mktemp -d $BASE/ptxdist_make_archive.XXXXXX` || exit 1
+TMPDIR=`mktemp -d /tmp/ptxdist.XXXXXX` || exit 1
 cd $BASE || ptxd_exit "Could not enter $BASE" 1
 
 ptxd_debug "copy content to release directory $TMPDIR"
