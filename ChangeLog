@@ -1,7 +1,13 @@
+2006-03-14 Robert Schwebel <r.schwebel@pengutronix.de
+
+	* libezV24: added
+
 2006-03-12 Robert Schwebel <r.schwebel@pengutronix.de
 
 	* toolchains: fixed cross gdb paths to install into the same
 	  directory as the crosstool components.
+
+	* ptxdist clone: fixed; thanks to Erwin Rol for the bug report
 
 2006-03-11 Robert Schwebel <r.schwebel@pengutronix.de
 
