@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.0
-# Thu Mar  9 20:26:04 2006
+# PTXdist version: 0.10.1-svn
+# Tue Mar 14 11:27:59 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -134,7 +134,7 @@ PTXCONF_HOST_IPKG_UTILS=y
 PTXCONF_HOST_MODULE_INIT_TOOLS=y
 # PTXCONF_HOST_MODUTILS is not set
 # PTXCONF_HOST_UTIL_LINUX is not set
-# PTXCONF_HOST_UMKIMAGE is not set
+PTXCONF_HOST_UMKIMAGE=y
 # PTXCONF_HOST_MKNBI is not set
 
 #
@@ -322,6 +322,21 @@ PTXCONF_ROOTFS_ETC_VENDOR=""
 #
 
 #
+# General Options
+#
+
+#
+# ----------------------------------
+#
+PTXCONF_KERNEL_INSTALL=y
+PTXCONF_KERNEL_INSTALL_MODULES=y
+PTXCONF_KERNEL_COMPILE=y
+
+#
+# ----------------------------------
+#
+
+#
 # Target Kernel
 #
 
@@ -330,14 +345,14 @@ PTXCONF_ROOTFS_ETC_VENDOR=""
 #
 PTXCONF_KERNEL_TARGET_VERSION="2.6.15"
 PTXCONF_KERNEL_TARGET_SERIES="series"
-# PTXCONF_KERNEL_TARGET_COMPILE is not set
 
 #
 # Target Kernel Options
 #
-# PTXCONF_KERNEL_TARGET_EXTERNAL is not set
-# PTXCONF_KERNEL_TARGET_INSTALL is not set
-# PTXCONF_KERNEL_TARGET_INSTALL_MODULES is not set
+# PTXCONF_KERNEL_TARGET_IMAGE_BZ is not set
+# PTXCONF_KERNEL_TARGET_IMAGE_Z is not set
+PTXCONF_KERNEL_TARGET_IMAGE_U=y
+# PTXCONF_KERNEL_TARGET_IMAGE_VMLINUX is not set
 
 #
 # ----------------------------------
@@ -352,11 +367,13 @@ PTXCONF_KERNEL_TARGET_SERIES="series"
 #
 PTXCONF_KERNEL_NATIVE_VERSION="2.6.15"
 PTXCONF_KERNEL_NATIVE_SERIES="series"
-# PTXCONF_KERNEL_NATIVE_COMPILE is not set
 
 #
 # Native Kernel Options
 #
+PTXCONF_KERNEL_NATIVE_ROOT_HOSTFS=y
+PTXCONF_KERNEL_NATIVE_CONSOLE_STDSERIAL=y
+PTXCONF_KERNEL_NATIVE_CMDLINE=""
 
 #
 # klibc               
@@ -1325,6 +1342,7 @@ PTXCONF_HEXEDIT=y
 # PTXCONF_GETTEXT is not set
 # PTXCONF_GLIB28 is not set
 # PTXCONF_HRTIMERS_SUPPORT is not set
+# PTXCONF_LIBEZV24 is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBMQUEUE is not set
 # PTXCONF_LIBNETPBM is not set
