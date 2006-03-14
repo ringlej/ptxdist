@@ -61,4 +61,6 @@ deb:
 	dpkg-buildpackage -rfakeroot
 
 distclean: clean
+	rm -fr built-stamp
+	rm -fr debian/ptxdist
 
