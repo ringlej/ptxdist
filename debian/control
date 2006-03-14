@@ -1,0 +1,12 @@
+Source: ptxdist
+Section: devel
+Priority: optional
+Maintainer: Robert Schwebel <r.schwebel@pengutronix.de>
+Build-Depends: debhelper (>= 4.0.0), autotools-dev
+Standards-Version: 3.6.2
+
+Package: ptxdist
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: PTXdist is a build system for embedded system root filesystems. 
+
