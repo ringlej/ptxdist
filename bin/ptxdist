@@ -438,8 +438,10 @@ clone() {
 
 	echo
 	echo "${PROMPT}searching for projects:"
-	echo "${PROMPT}scanning ${PTXDIST_TOPDIR}/projects..."
-	projects=`cd ${PTXDIST_TOPDIR}/projects && find . -maxdepth 1 -type d ! -name .svn ! -name .  -exec basename {} \;`
+	echo "${PROMPT}scanning ${PTXDIST_TOPDIR}/projects-example..."
+	projects=`cd ${PTXDIST_TOPDIR}/projects-example && find . -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;`
+	echo "${PROMPT}scanning ${PTXDIST_TOPDIR}/projects-toolchains..."
+	projects="$projects `cd ${PTXDIST_TOPDIR}/projects-toolchains && find .  -maxdepth 1 -type d ! -name .svn ! -name .  -exec basename {} \;`"
 	echo -n "${PROMPT}scanning \${PTXCONF_SETUP_PROJECTDIR}..."
 	if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ]; then
 	lprojects=`cd ${PTXCONF_SETUP_PROJECTDIR} && find . -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;`
@@ -457,11 +459,19 @@ clone() {
 			   [ -d "${PTXCONF_SETUP_PROJECTDIR}/$1" ] ; then
 				cp -a ${PTXCONF_SETUP_PROJECTDIR}/$1 $2
 			else
-				cp -a ${PTXDIST_TOPDIR}/projects/$1 $2
+				if [ -d "${PTXDIST_TOPDIR}/projects-example/$1" ]; then
+					cp -a ${PTXDIST_TOPDIR}/projects-example/$1 $2
+					echo "${PROMPT}done."
+					echo
+					return 0
+				elif [ -d "${PTXDIST_TOPDIR}/projects-toolchain/$1" ]; then
+					cp -a ${PTXDIST_TOPDIR}/projects-toolchain/$1 $2
+					echo "${PROMPT}done."
+					echo
+					return 0
+				fi
+					
 			fi
-			echo "${PROMPT}done."
-			echo
-			return
 		fi
 	done
 
@@ -473,7 +483,6 @@ clone() {
 #
 # main()
 #
-
 if [ "$#" = "0" ]; then
 	usage
 	exit 0
