@@ -455,22 +455,21 @@ clone() {
 	for i in $projects; do
 		if [ "$1" = "$i" ]; then
 			echo "${PROMPT}cloning project $1 to $2"
-			if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ] &&
-			   [ -d "${PTXCONF_SETUP_PROJECTDIR}/$1" ] ; then
+			if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ] && [ -d "${PTXCONF_SETUP_PROJECTDIR}/$1" ] ; then
 				cp -a ${PTXCONF_SETUP_PROJECTDIR}/$1 $2
-			else
-				if [ -d "${PTXDIST_TOPDIR}/projects-example/$1" ]; then
-					cp -a ${PTXDIST_TOPDIR}/projects-example/$1 $2
-					echo "${PROMPT}done."
-					echo
-					return 0
-				elif [ -d "${PTXDIST_TOPDIR}/projects-toolchain/$1" ]; then
-					cp -a ${PTXDIST_TOPDIR}/projects-toolchain/$1 $2
-					echo "${PROMPT}done."
-					echo
-					return 0
-				fi
-					
+				echo "${PROMPT}done."
+				echo
+				return 0
+			elif [ -d "${PTXDIST_TOPDIR}/projects-example/$1" ]; then
+				cp -a ${PTXDIST_TOPDIR}/projects-example/$1 $2
+				echo "${PROMPT}done."
+				echo
+				return 0
+			elif [ -d "${PTXDIST_TOPDIR}/projects-toolchains/$1" ]; then
+				cp -a ${PTXDIST_TOPDIR}/projects-toolchains/$1 $2
+				echo "${PROMPT}done."
+				echo
+				return 0
 			fi
 		fi
 	done
