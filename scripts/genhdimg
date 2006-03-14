@@ -89,7 +89,7 @@ cat $IMAGEDIR/hd.img.loader $IMAGEDIR/root.ext2 > $IMAGEDIR/hd.img
 
 rm -f $IMAGEDIR/root.ext2 $IMAGEDIR/hd.img.loader
 
-TMPFILE=`mktemp`
+TMPFILE=`mktemp /tmp/ptxdist.XXXXXX`
 
 # generate a partition table
 sfdisk -x -C $CYLINDERS -H $HEADS -S $SECTORS $IMAGEDIR/hd.img << EOF
