@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.0
-# Thu Mar  9 19:52:36 2006
+# PTXdist version: 0.10.1-svn
+# Tue Mar 14 11:27:22 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -226,6 +226,21 @@ PTXCONF_HOST_PKG_CONFIG_WRAPPER=y
 #
 
 #
+# General Options
+#
+
+#
+# ----------------------------------
+#
+# PTXCONF_KERNEL_INSTALL is not set
+# PTXCONF_KERNEL_INSTALL_MODULES is not set
+# PTXCONF_KERNEL_COMPILE is not set
+
+#
+# ----------------------------------
+#
+
+#
 # Target Kernel
 #
 
@@ -234,14 +249,6 @@ PTXCONF_HOST_PKG_CONFIG_WRAPPER=y
 #
 PTXCONF_KERNEL_TARGET_VERSION="2.6.15"
 PTXCONF_KERNEL_TARGET_SERIES="series"
-# PTXCONF_KERNEL_TARGET_COMPILE is not set
-
-#
-# Target Kernel Options
-#
-# PTXCONF_KERNEL_TARGET_EXTERNAL is not set
-# PTXCONF_KERNEL_TARGET_INSTALL is not set
-# PTXCONF_KERNEL_TARGET_INSTALL_MODULES is not set
 
 #
 # ----------------------------------
@@ -256,11 +263,6 @@ PTXCONF_KERNEL_TARGET_SERIES="series"
 #
 PTXCONF_KERNEL_NATIVE_VERSION="2.6.15"
 PTXCONF_KERNEL_NATIVE_SERIES="series"
-# PTXCONF_KERNEL_NATIVE_COMPILE is not set
-
-#
-# Native Kernel Options
-#
 
 #
 # klibc               
@@ -1028,6 +1030,7 @@ PTXCONF_MODULE_INIT_TOOLS=y
 # PTXCONF_GETTEXT is not set
 # PTXCONF_GLIB28 is not set
 # PTXCONF_HRTIMERS_SUPPORT is not set
+# PTXCONF_LIBEZV24 is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBMQUEUE is not set
 # PTXCONF_LIBNETPBM is not set
