@@ -541,6 +541,7 @@ config ROOTFS_ETC_INITD_STARTUP
 
 menuconfig ROOTFS_ETC_INITD_BANNER
 	depends on ROOTFS_ETC_INITD
+	select FIGLET
 	bool
 	default y
 	prompt "banner                    "
