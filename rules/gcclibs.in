@@ -11,7 +11,6 @@ config GCCLIBS_CXX
 	bool "libstdc++"
 	depends on GCCLIBS
 	select GCCLIBS_GCC_S
-	select GCCLIBS_GCC_S_NOF if ARCH_PPC
 	select GLIBC_LIBM
 	help
 	  FIXME: This item needs to be documented
