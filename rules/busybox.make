@@ -146,7 +146,7 @@ ifdef PTXCONF_BB_CONFIG_VI
 	vimfile=`mktemp`; \
 	echo "#!/bin/sh" >> $$vimfile; \
 	echo "/bin/vi $*" >> $$vimfile; \
-	$(call install_copy, busybox, 0, 0, 0755, $$vimfile, /usr/bin/vim, ); \
+	$(call install_copy, busybox, 0, 0, 0755, $$vimfile, /usr/bin/vim,n); \
 	rm $$vimfile
 endif
 	@$(call install_finish, busybox)
