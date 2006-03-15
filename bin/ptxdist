@@ -145,6 +145,24 @@ check_compiler() {
 }
 
 #
+# Most install stages think that some standard directories are there, so
+# they are created here. 
+#
+check_dirs() {
+
+	if [ -z "$PREFIX" ]; then 
+		PTXCONF_PREFIX=$(. ptxconfig && echo ${PTXCONF_PREFIX})
+	else 
+		PTXCONF_PREFIX=$PREFIX
+	fi
+	PTXCONF_GNU_TARGET=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
+
+	for i in /lib /bin /sbin /usr /usr/lib /usr/bin /usr/sbin /usr/include; do
+		mkdir -p ${PTXCONF_PREFIX}${i} ${PTXCONF_PREFIX}/${PTXCONF_GNU_TARGET}/${i}
+	done
+}
+
+#
 # usage()
 #
 
@@ -249,10 +267,6 @@ clean() {
 	rm -fr state
 	echo "${PROMPT}removing logfile..."
 	rm -f logfile
-	if [ -h "ptxconfig" ]; then
-		echo "${PROMPT}removing ptxconfig link..."
-		rm ptxconfig
-	fi
 	echo "${PROMPT}done."
 	echo
 }
@@ -554,6 +568,10 @@ while [ "$#" != "0" ]; do
 			rm -f .toolchain
 			echo "${PROMPT}removing logs dir..."
 			rm -fr logs
+			if [ -h "ptxconfig" ]; then
+				echo "${PROMPT}removing ptxconfig link..."
+				rm ptxconfig
+			fi
 			echo
 			;;
 	extract)	shift
@@ -583,6 +601,7 @@ while [ "$#" != "0" ]; do
 	go)		shift
 			check_ptxconfig
 			check_compiler
+			check_dirs
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				world PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -593,6 +612,7 @@ while [ "$#" != "0" ]; do
 	images)		shift
 			check_ptxconfig
 			check_compiler
+			check_dirs
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				images PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -602,6 +622,7 @@ while [ "$#" != "0" ]; do
 	install)	shift
 			check_ptxconfig
 			check_compiler
+			check_dirs
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_install PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -611,6 +632,7 @@ while [ "$#" != "0" ]; do
 	make)		shift
 			check_ptxconfig
 			check_compiler
+			check_dirs
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -646,6 +668,7 @@ while [ "$#" != "0" ]; do
 	prepare)	shift
 			check_ptxconfig
 			check_compiler
+			check_dirs
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_prepare PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -665,6 +688,7 @@ while [ "$#" != "0" ]; do
 	run)		shift
 			check_ptxconfig
 			check_compiler
+			check_dirs
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				world PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -704,6 +728,7 @@ while [ "$#" != "0" ]; do
 	targetinstall)	shift
 			check_ptxconfig
 			check_compiler
+			check_dirs
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_targetinstall PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
