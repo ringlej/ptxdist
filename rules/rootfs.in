@@ -442,6 +442,7 @@ menuconfig ROOTFS_ETC_INITD_NETWORKING
 	bool
 	default y
 	prompt "networking                "
+	select BB_CONFIG_IFUPDOWN if BUSYBOX
 	select BB_CONFIG_FEATURE_IFUPDOWN_IP if BUSYBOX
 	help
 	  When enabled, this option installs the generic
