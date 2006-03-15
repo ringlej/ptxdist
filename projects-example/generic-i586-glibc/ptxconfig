@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.10.1-svn
-# Tue Mar 14 11:06:54 2006
+# Wed Mar 15 08:04:02 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -296,9 +296,9 @@ PTXCONF_ROOTFS_ETC_VENDOR=""
 #
 # ----------------------------------
 #
-# PTXCONF_KERNEL_INSTALL is not set
-# PTXCONF_KERNEL_INSTALL_MODULES is not set
-# PTXCONF_KERNEL_COMPILE is not set
+PTXCONF_KERNEL_INSTALL=y
+PTXCONF_KERNEL_INSTALL_MODULES=y
+PTXCONF_KERNEL_COMPILE=y
 
 #
 # ----------------------------------
@@ -315,6 +315,14 @@ PTXCONF_KERNEL_TARGET_VERSION="2.6.15"
 PTXCONF_KERNEL_TARGET_SERIES="series"
 
 #
+# Target Kernel Options
+#
+PTXCONF_KERNEL_TARGET_IMAGE_BZ=y
+# PTXCONF_KERNEL_TARGET_IMAGE_Z is not set
+# PTXCONF_KERNEL_TARGET_IMAGE_U is not set
+# PTXCONF_KERNEL_TARGET_IMAGE_VMLINUX is not set
+
+#
 # ----------------------------------
 #
 
@@ -327,6 +335,13 @@ PTXCONF_KERNEL_TARGET_SERIES="series"
 #
 PTXCONF_KERNEL_NATIVE_VERSION="2.6.15"
 PTXCONF_KERNEL_NATIVE_SERIES="series"
+
+#
+# Native Kernel Options
+#
+PTXCONF_KERNEL_NATIVE_ROOT_HOSTFS=y
+PTXCONF_KERNEL_NATIVE_CONSOLE_STDSERIAL=y
+PTXCONF_KERNEL_NATIVE_CMDLINE="root/boot/vmlinux root=/dev/root rootflags=${ROOTDIR} rootfstype=hostfs"
 
 #
 # klibc               
@@ -1202,7 +1217,7 @@ PTXCONF_UTELNETD=y
 #
 # Tools                       
 #
-# PTXCONF_FIGLET is not set
+PTXCONF_FIGLET=y
 # PTXCONF_MEMEDIT is not set
 # PTXCONF_MEMSTAT is not set
 
