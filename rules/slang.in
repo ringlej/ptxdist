@@ -1,11 +1,7 @@
-menu    "slang            "
-
-config SLANG
+menuconfig SLANG
 	bool
 	prompt "S-Lang                      "
 	help
 	  S-Lang is a C programmer's library that includes routines 
 	  for the rapid development of sophisticated, user friendly, 
 	  multi-platform applications.
-	
-endmenu
