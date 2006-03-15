@@ -114,8 +114,8 @@ TMP_PROJECTRULES_IN = $(filter-out 			\
 
 TMP_PROJECTRULES_FINAL = $(shell 			\
 	$(PTXDIST_TOPDIR)/scripts/select_projectrules 	\
-	"$(PTXDIST_TOPDIR)/rules" 			\
-	"$(PTXDIST_WORKSPACE)/rules"			\
+	"$(RULESDIR)" 					\
+	"$(PROJECTRULESDIR)"				\
 	"$(TMP_PROJECTRULES_IN)" 			\
 )
 
