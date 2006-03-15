@@ -148,9 +148,12 @@ config KERNEL_NATIVE_CMDLINE
 	string
 	prompt "kernel command line"
 	depends on KERNEL_COMPILE
+	default "root/boot/vmlinux root=/dev/root rootflags=${ROOTDIR} rootfstype=hostfs"
 	help
 	  Add your custom kernel commandline for the user mode linux 
-	  kernel here. 
+	  kernel here. A sane default for hostfs in PTXdist is 
+
+	  root/boot/vmlinux root=/dev/root rootflags=${ROOTDIR} rootfstype=hostfs 
 
 endmenu
 
