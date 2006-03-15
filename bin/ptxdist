@@ -194,6 +194,8 @@ Clean Actions:
 
 Misc
 
+  run                            start a previously built native image
+
   --native                       build with native compiler instead of cross
   --version                      print out ptxdist version
 
@@ -660,6 +662,21 @@ while [ "$#" != "0" ]; do
 			;;
 
 	projects)	shift; projects;;
+	run)		shift
+			check_ptxconfig
+			check_compiler
+			make \
+				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+				world PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_pipe_status
+			RUN_ROOTMETHOD=$(. ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_ROOT_HOSTFS})
+			RUN_CMDLINE=$(. ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_CMDLINE})
+			if [ -n "${RUN_ROOTMETHOD}" ]; then
+				RUN_CMDLINE="${RUN_CMDLINE} root=/dev/root rootflags=`pwd`/root rootfstype=hostfs"
+			fi
+			root/boot/vmlinux ${RUN_CMDLINE}
+			exit 0	
+			;;	
 	select)		shift
 			if [ ! -f "$1" ]; then
 				echo
