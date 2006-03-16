@@ -92,7 +92,11 @@ kernel_oldconfig: $(STATEDIR)/kernel.extract
 # Get
 # ----------------------------------------------------------------------------
 
+# FIXME: Use deps_default
+
 kernel_get: $(STATEDIR)/kernel.get
+
+kernel_get_deps = $(KERNEL_SOURCE)
 
 $(STATEDIR)/kernel.get: $(kernel_get_deps)
 	@$(call targetinfo, $@)
@@ -107,6 +111,8 @@ $(KERNEL_SOURCE):
 # ----------------------------------------------------------------------------
 
 kernel_extract: $(STATEDIR)/kernel.extract
+
+kernel_extract_deps = $(STATEDIR)/kernel.get
 
 $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
 	@$(call targetinfo, $@)
@@ -209,7 +215,6 @@ kernel_compile: $(STATEDIR)/kernel.compile
 
 kernel_compile_deps =  $(STATEDIR)/kernel.prepare
 
-# FIXME: remove this when we can use deps_default
 ifdef PTXCONF_KERNEL_IMAGE_U
 kernel_compile_deps += $(STATEDIR)/host-umkimage.install
 endif
