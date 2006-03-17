@@ -157,7 +157,12 @@ check_dirs() {
 	fi
 	PTXCONF_GNU_TARGET=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
 
-	for i in /lib /bin /sbin /usr /usr/lib /usr/bin /usr/sbin /usr/include; do
+	# And now we learn something new about shell: brace expansion.
+	# It saves 16 characters compared to what NORMAL people would write 
+	# here... unfortunately it discovers a bug in vim's syntax high-
+	# lighting :) Thans to Martin Neitzel who inspired this...
+
+	for i in {,/usr}/lib {,/usr}/{,s}bin /usr /usr/include; do
 		mkdir -p ${PTXCONF_PREFIX}${i} ${PTXCONF_PREFIX}/${PTXCONF_GNU_TARGET}/${i}
 	done
 }

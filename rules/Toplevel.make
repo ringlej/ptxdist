@@ -36,8 +36,8 @@ endif
 # Some directory locations
 # ----------------------------------------------------------------------------
 
-HOME			:= $(shell echo $$HOME)
-PTXDIST_WORKSPACE	:= $(shell pwd)
+HOME			= $(shell echo $$HOME)
+PTXDIST_WORKSPACE	= $(shell pwd)
 
 PATCHDIR		:= $(PTXDIST_TOPDIR)/patches
 MISCDIR			:= $(PTXDIST_TOPDIR)/misc
