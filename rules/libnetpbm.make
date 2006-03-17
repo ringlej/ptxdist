@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_LIBNETPBM) += libnetpbm
 LIBNETPBM_VERSION	= 10.31
 LIBNETPBM		= netpbm-$(LIBNETPBM_VERSION)
 LIBNETPBM_SUFFIX	= tgz
-LIBNETPBM_URL		= http://puzzle.dl.sourceforge.net/sourceforge/netpbm/$(LIBNETPBM).$(LIBNETPBM_SUFFIX)
+LIBNETPBM_URL		= $(PTXCONF_SETUP_SFMIRROR)/netpbm/$(LIBNETPBM).$(LIBNETPBM_SUFFIX)
 LIBNETPBM_SOURCE	= $(SRCDIR)/$(LIBNETPBM).$(LIBNETPBM_SUFFIX)
 LIBNETPBM_DIR		= $(BUILDDIR)/$(LIBNETPBM)
 
@@ -77,7 +77,7 @@ endif
 	sed -ie "s,^LD_FOR_BUILD.*,LD_FOR_BUILD=$(HOSTCC),g" $(LIBNETPBM_DIR)/Makefile.config
 	sed -ie "s,^CFLAGS_FOR_BUILD.*,CFLAGS_FOR_BUILD=,g" $(LIBNETPBM_DIR)/Makefile.config
 	echo "CFLAGS=$(CROSS_CFLAGS) $(CROSS_CPPFLAGS)" >> $(LIBNETPBM_DIR)/Makefile.config
-	
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
