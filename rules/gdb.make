@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_GDB) += gdb
 #
 # Paths and names 
 #
-GDB_VERSION	= 6.4
+GDB_VERSION	= 6.3
 GDB		= gdb-$(GDB_VERSION)
 GDB_SUFFIX	= tar.bz2
 GDB_URL		= $(PTXCONF_SETUP_GNUMIRROR)/gdb/$(GDB).$(GDB_SUFFIX)
@@ -88,7 +88,8 @@ endif
 GDB_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(call remove_quotes,$(PTXCONF_GNU_TARGET)) \
-	--enable-serial-configure
+	--enable-serial-configure \
+	--with-build-sysroot=$(SYSROOT)
 
 $(STATEDIR)/gdb.prepare: $(gdb_prepare_deps_default)
 	@$(call targetinfo, $@)
