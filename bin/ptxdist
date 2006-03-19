@@ -690,7 +690,7 @@ while [ "$#" != "0" ]; do
 				echo
 				echo "${PROMPT} configversionbump:"
 				echo
-				for i in $(find . -name "ptxconfig*"); do
+				for i in $(find . -name "ptxconfig*" | grep -v .svn); do
 					echo "${PROMPT} version fixup in $i..."
 					sed -i -e \
 						"s/PTXCONF_CONFIGFILE_VERSION=\".*\"/PTXCONF_CONFIGFILE_VERSION=\"${FULLVERSION}\"/g" \
