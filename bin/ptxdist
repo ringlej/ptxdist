@@ -108,6 +108,17 @@ check_ptxconfig() {
 	fi
 }
 
+check_kernelconfig() {
+	KERNELCONFIG="kernelconfig.target"
+	[ "$NATIVE" = 1 ] && KERNELCONFIG="kernelconfig.native"
+	if [ ! -f "$KERNELCONFIG" ]; then
+		echo
+		echo "${PROMPT}error: You don't have a $KERNELCONFIG file"
+		echo
+		exit 1
+	fi
+}
+
 #
 # Check for defined compiler
 # This only should be done when we build userland (chicken egg problem)
@@ -160,7 +171,7 @@ check_dirs() {
 	# And now we learn something new about shell: brace expansion.
 	# It saves 16 characters compared to what NORMAL people would write 
 	# here... unfortunately it discovers a bug in vim's syntax high-
-	# lighting :) Thans to Martin Neitzel who inspired this...
+	# lighting :) Thanks to Martin Neitzel who inspired this...
 
 	for i in {,/usr}/lib {,/usr}/{,s}bin /usr /usr/include; do
 		mkdir -p ${PTXCONF_PREFIX}${i} ${PTXCONF_PREFIX}/${PTXCONF_GNU_TARGET}/${i}
@@ -187,6 +198,7 @@ Setup and Project Actions:
 
   menuconfig                     configure the root filesystem
   oldconfig                      run 'make oldconfig' on ptxconfig file
+  kernelconfig                   configure the kernel
 
   toolchain <path>               select this toolchain (path to binaries)
   select <config>                if there is no ptxconfig file you can
@@ -313,6 +325,13 @@ menuconfig() {
 	echo "${PROMPT}cleanup..."
 	rm -fr $tmpdir
 	echo
+}
+
+kernelconfig () {
+	echo
+	make \
+		$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
+		kernel_menuconfig PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 
 }
 
 newpacket () {
@@ -633,6 +652,11 @@ while [ "$#" != "0" ]; do
 				$1_install PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
 			check_pipe_status
 			exit 0
+			;;
+	kernelconfig)	shift
+			check_ptxconfig
+			check_kernelconfig
+			kernelconfig
 			;;
 	make)		shift
 			check_ptxconfig

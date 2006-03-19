@@ -72,7 +72,18 @@ endif
 
 kernel_menuconfig: $(STATEDIR)/kernel.extract
 
+ifdef NATIVE
+	cp $(PTXDIST_WORKSPACE)/kernelconfig.native $(KERNEL_DIR)/.config
+else
+	cp $(PTXDIST_WORKSPACE)/kernelconfig.target $(KERNEL_DIR)/.config
+endif
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make menuconfig $(KERNEL_MAKEVARS)
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) make silentoldconfig $(KERNEL_MAKEVARS)
+ifdef NATIVE
+	cp $(KERNEL_DIR)/.config $(PTXDIST_WORKSPACE)/kernelconfig.native
+else
+	cp $(KERNEL_DIR)/.config $(PTXDIST_WORKSPACE)/kernelconfig.target
+endif
 	@if [ -f $(STATEDIR)/kernel.compile ]; then \
 		rm $(STATEDIR)/kernel.compile; \
 	fi
