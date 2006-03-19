@@ -3,6 +3,8 @@
 	* ptxdist: reanimated 'ptxdist kernelconfig'
 	* ptxdist: added 'ptxdist maintainer configversionbump'
 	* ptxdist: clone with tar and svn exclusion instead of cp
+	* gdb: fixed: source for cross-gdb was not fetched correctly. 
+	  The gdb version was updated to 6.4. 
 
 2006-03-14 Robert Schwebel <r.schwebel@pengutronix.de
 
