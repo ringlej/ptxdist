@@ -80,7 +80,7 @@ PORTMAP_ENV		= $(CROSS_ENV)
 PORTMAP_PATH		= PATH=$(CROSS_PATH)
 
 ifdef PTXCONF_TCPWRAPPER
-PORTMAP_MAKEVARS	= WRAP_DIR=$(CROSS_LIB_DIR)/lib
+PORTMAP_MAKEVARS	= WRAP_DIR=$(SYSROOT)/lib
 endif
 
 $(STATEDIR)/portmap.compile: $(portmap_compile_deps_default)

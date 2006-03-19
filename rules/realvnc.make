@@ -71,8 +71,8 @@ REALVNC_ENV 	=  $(CROSS_ENV)
 REALVNC_AUTOCONF = \
 	--build=$(GNU_HOST) \
 	--host=$(PTXCONF_GNU_TARGET) \
-	--x-includes=$(CROSS_LIB_DIR)/include \
-	--x-libraries=$(CROSS_LIB_DIR)/lib \
+	--x-includes=$(SYSROOT)/include \
+	--x-libraries=$(SYSROOT)/lib \
 	--with-installed-zlib
 
 $(STATEDIR)/realvnc.prepare: $(realvnc_prepare_deps_default)

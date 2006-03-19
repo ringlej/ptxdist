@@ -75,7 +75,7 @@ NMAP_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
 # nmap works only with openssh shared libs, dunnno why...
 #
 ifdef PTXCONF_OPENSSL_SHARED
-NMAP_AUTOCONF		+= --with-openssl=$(CROSS_LIB_DIR)
+NMAP_AUTOCONF		+= --with-openssl=$(SYSROOT)
 else
 NMAP_AUTOCONF		+= --without-openssl
 endif

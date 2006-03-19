@@ -72,7 +72,7 @@ QTE_ENV		:= QTDIR=/opt
 # autoconf
 #
 QTE_AUTOCONF	= \
-	-prefix $(CROSS_LIB_DIR) \
+	-prefix $(SYSROOT) \
 	-no-gif \
 	-qt-libpng \
 	\

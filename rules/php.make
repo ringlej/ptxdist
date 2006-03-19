@@ -78,7 +78,7 @@ ifndef PTXCONF_PHP_CLI
 PHP_AUTOCONF += --disable-cli
 endif
 ifdef PTXCONF_PHP_APACHE
-PHP_AUTOCONF += --with-apxs=$(CROSS_LIB_DIR)/bin/apxs
+PHP_AUTOCONF += --with-apxs=$(SYSROOT)/bin/apxs
 endif
 
 ifdef PTXCONF_VOICEBLUE_PHP_MODULE

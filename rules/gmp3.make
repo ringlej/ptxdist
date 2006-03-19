@@ -112,7 +112,7 @@ $(STATEDIR)/gmp3.targetinstall: $(gmp3_targetinstall_deps_default)
 	@$(call install_fixup, gmp3,DESCRIPTION,missing)
 
 	# FIXME: RSC: check if wildcard copy works
-	@$(call install_copy, gmp3, 0, 0, 0644, $(CROSS_LIB_DIR)/lib/libgmp.so*, /usr/lib/)
+	@$(call install_copy, gmp3, 0, 0, 0644, $(SYSROOT)/lib/libgmp.so*, /usr/lib/)
 
 	@$(call install_finish, gmp3)
 	@$(call touch, $@)

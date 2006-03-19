@@ -67,7 +67,7 @@ PCMCIAUTILS_ENV 	=  $(CROSS_ENV)
 # see http://www.kernel.org/pub/linux/utils/kernel/pcmcia/howto.html
 
 PCMCIAUTILS_MAKEVARS :=  ARCH=$(PTXCONF_ARCH) \
-	prefix=$(CROSS_LIB_DIR) \
+	prefix=$(SYSROOT) \
 	CROSS=$(COMPILER_PREFIX) \
 	GCCINCDIR=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/include
 

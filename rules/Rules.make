@@ -75,9 +75,8 @@ HOSTCC_ENV	= CC=$(HOSTCC)
 # ----------------------------------------------------------------------------
 
 #
-# CROSS_LIB_DIR	= the libs for the target system are installed into this dir
+# SYSROOT is the directory stuff is being installed into on the host
 #
-CROSS_LIB_DIR := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
 SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
 
 #
@@ -132,12 +131,12 @@ TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
 ## - find out the compiler's sysincludedir
 ##
 ifndef $(PTXCONF_CROSSTOOL)
-TARGET_CXXFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-TARGET_CXXFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/include
-TARGET_CPPFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-TARGET_CPPFLAGS		+= -isystem $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/include
-TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib 
-TARGET_LDFLAGS		+= -L$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/lib -Wl,-rpath-link -Wl,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/lib
+TARGET_CXXFLAGS		+= -isystem $(SYSROOT)/include
+TARGET_CXXFLAGS		+= -isystem $(SYSROOT)/usr/include
+TARGET_CPPFLAGS		+= -isystem $(SYSROOT)/include
+TARGET_CPPFLAGS		+= -isystem $(SYSROOT)/usr/include
+TARGET_LDFLAGS		+= -L$(SYSROOT)/lib 
+TARGET_LDFLAGS		+= -L$(SYSROOT)/usr/lib -Wl,-rpath-link -Wl,$(SYSROOT)/usr/lib
 endif
 
 
@@ -603,7 +602,7 @@ install = \
 		make install $(4) 					\
 		$($(strip $(1))_MAKEVARS)				\
 		DESTDIR=$$DESTDIR;					\
-	#dpkg-deb -x blablabla $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+	#dpkg-deb -x blablabla $(SYSROOT)
 else
 install = \
 	BUILDDIR="$($(strip $(1))_DIR)";				\

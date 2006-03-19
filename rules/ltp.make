@@ -91,7 +91,7 @@ ltp_install: $(STATEDIR)/ltp.install
 
 $(STATEDIR)/ltp.install: $(ltp_install_deps_default)
 	@$(call targetinfo, $@)
-	install -D $(LTP_DIR)/lib/libltp.a $(CROSS_LIB_DIR)/lib/libltp.a
+	install -D $(LTP_DIR)/lib/libltp.a $(SYSROOT)/lib/libltp.a
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

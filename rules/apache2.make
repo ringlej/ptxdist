@@ -62,7 +62,7 @@ apache2_prepare: $(STATEDIR)/apache2.prepare
 APACHE2_PATH	=  PATH=$(CROSS_PATH)
 # FIXME: find a real patch for ac_* apr_* (fix configure script)
 APACHE2_ENV 	=  $(CROSS_ENV) \
-	PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig \
+	PKG_CONFIG_PATH=$(SYSROOT)/lib/pkgconfig \
 	ac_cv_sizeof_ssize_t=4 \
 	ac_cv_sizeof_size_t=4 \
 	apr_cv_process_shared_works=yes \

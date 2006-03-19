@@ -121,7 +121,7 @@ $(STATEDIR)/openssl.compile: $(openssl_compile_deps_default)
 #
 # generate openssl.pc with correct path inside
 #
-	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) make INSTALLTOP=$(CROSS_LIB_DIR) openssl.pc
+	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) make INSTALLTOP=$(SYSROOT) openssl.pc
 	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) make $(OPENSSL_MAKEVARS)
 	@$(call touch, $@)
 
@@ -137,11 +137,11 @@ $(STATEDIR)/openssl.install: $(openssl_install_deps_default)
 # broken Makefile, generates dir with wrong permissions...
 # chmod 755 fixed that
 #
-	mkdir -p $(CROSS_LIB_DIR)/lib/pkgconfig
-	chmod 755 $(CROSS_LIB_DIR)/lib/pkgconfig
+	mkdir -p $(SYSROOT)/lib/pkgconfig
+	chmod 755 $(SYSROOT)/lib/pkgconfig
 	$(OPENSSL_PATH) make -C $(OPENSSL_DIR) install $(OPENSSL_MAKEVARS) \
-		INSTALL_PREFIX=$(CROSS_LIB_DIR) INSTALLTOP=''
-	chmod 755 $(CROSS_LIB_DIR)/lib/pkgconfig
+		INSTALL_PREFIX=$(SYSROOT) INSTALLTOP=''
+	chmod 755 $(SYSROOT)/lib/pkgconfig
 #
 # FIXME:
 # 	OPENSSL=${D}/usr/bin/openssl /usr/bin/perl tools/c_rehash ${D}/etc/ssl/certs

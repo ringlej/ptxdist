@@ -119,8 +119,8 @@ $(STATEDIR)/db41.targetinstall: $(db41_targetinstall_deps_default)
 	
 	# FIXME: RSC: the wildcard will probably break; fix when needed :-) 
 	# FIXME: RSC: use correct paths from the build directories
-	@$(call install_copy, db41, 0, 0, 0755, $(CROSS_LIB_DIR)/bin/db_*, /usr/bin/)
-	@$(call install_copy, db41, 0, 0, 0644, $(CROSS_LIB_DIR)/lib/libdb*.so*, /usr/lib/)
+	@$(call install_copy, db41, 0, 0, 0755, $(SYSROOT)/bin/db_*, /usr/bin/)
+	@$(call install_copy, db41, 0, 0, 0644, $(SYSROOT)/lib/libdb*.so*, /usr/lib/)
 
 	@$(call install_finish, db41)
 

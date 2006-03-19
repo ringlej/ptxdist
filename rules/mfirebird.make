@@ -67,7 +67,7 @@ MFIREBIRD_ENV	=  $(CROSS_ENV)
 MFIREBIRD_ENV	+= MOZILLA_OFFICIAL=1
 MFIREBIRD_ENV	+= BUILD_OFFICIAL=1
 MFIREBIRD_ENV	+= MOZ_PHOENIX=1
-MFIREBIRD_ENV   += PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
+MFIREBIRD_ENV   += PKG_CONFIG_PATH=$(SYSROOT)/lib/pkgconfig/
 
 #
 # autoconf
@@ -454,12 +454,12 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps_default)
 	@$(call install_copy, mfirebird, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libxpcom.so, /usr/lib/libxpcom.so)
 	@$(call install_copy, mfirebird, 0, 0, 0644, $(MFIREBIRD_DIR)/dist/lib/libxpcom_compat.so, /usr/lib/libxpcom_compat.so)
 
-#	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/components $(ROOTDIR)/usr/lib/mozilla-1.6
-#	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/chrome $(ROOTDIR)/usr/lib/mozilla-1.6
-#	cp -a $(CROSS_LIB_DIR)/lib/mozilla-1.6/res $(ROOTDIR)/usr/lib/mozilla-1.6
+#	cp -a $(SYSROOT)/lib/mozilla-1.6/components $(ROOTDIR)/usr/lib/mozilla-1.6
+#	cp -a $(SYSROOT)/lib/mozilla-1.6/chrome $(ROOTDIR)/usr/lib/mozilla-1.6
+#	cp -a $(SYSROOT)/lib/mozilla-1.6/res $(ROOTDIR)/usr/lib/mozilla-1.6
 
 # BSP: Quick and ... 
-	for file in $(CROSS_LIB_DIR)/lib/mozilla-1.6/*; do 			\
+	for file in $(SYSROOT)/lib/mozilla-1.6/*; do 			\
 		$(call install_copy, mfirebird, 0, 0, 0755, $$file, /usr/lib/)		\
 	done
 

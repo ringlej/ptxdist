@@ -151,7 +151,7 @@ $(STATEDIR)/pango12.targetinstall: $(pango12_targetinstall_deps_default)
 		/usr/bin/pango-querymodules)
 
 	# FIXME: ipkgize
-	cp -a $(CROSS_LIB_DIR)/lib/pango $(ROOTDIR)/usr/lib
+	cp -a $(SYSROOT)/lib/pango $(ROOTDIR)/usr/lib
 
 	# FIXME: broken path; compare with ptxdist before 0.7.4
 	@$(call install_copy, pango, 0, 0, 0644, \

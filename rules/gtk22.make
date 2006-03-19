@@ -62,7 +62,7 @@ gtk22_prepare: $(STATEDIR)/gtk22.prepare
 
 GTK22_PATH	=  PATH=$(CROSS_PATH)
 GTK22_ENV 	=  $(CROSS_ENV)
-GTK22_ENV	+= PKG_CONFIG_PATH=$(CROSS_LIB_DIR)/lib/pkgconfig/
+GTK22_ENV	+= PKG_CONFIG_PATH=$(SYSROOT)/lib/pkgconfig/
 GTK22_ENV	+= FREETYPE_CONFIG="pkg-config freetype2"
 #GTK22_ENV	+= CFLAGS=-I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 

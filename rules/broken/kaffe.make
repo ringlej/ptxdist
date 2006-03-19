@@ -243,7 +243,7 @@ ifdef PTXCONF_KAFFE_LINK_GMP
 # - during linking this lib against the kaffe-bin, it is passed to the linker
 # - we replace the shared library (-lgmp or libgmp.la) with the static one (/path/to/libgmp.a)
 #
-	perl -i -p -e 's,((\s-lgmp)|(\s.*libgmp.la)), $(CROSS_LIB_DIR)/lib/libgmp.a,' \
+	perl -i -p -e 's,((\s-lgmp)|(\s.*libgmp.la)), $(SYSROOT)/lib/libgmp.a,' \
 		$(KAFFE_BUILDDIR)/libraries/clib-cldc/native/libnative.la
 	$(KAFFE_PATH) make -C $(KAFFE_BUILDDIR) $(KAFFE_MAKEVARS)
 endif
