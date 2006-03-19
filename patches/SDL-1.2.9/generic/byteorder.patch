@@ -1,0 +1,38 @@
+#
+# Submitted-By: Erwin Rol Mar 19 2006
+# Committed-By: Erwin Rol
+#
+# Error:
+# Byte order selection on Linux
+#
+# Description:
+# Patch taken from Fedora Core 5 RPM
+#
+# State:
+# Unknown
+#
+
+Index: SDL-1.2.9/include/SDL_byteorder.h
+===================================================================
+--- SDL-1.2.9/include/SDL_byteorder.h	(revision 58)
++++ SDL-1.2.9/include/SDL_byteorder.h	(working copy)
+@@ -34,6 +34,12 @@
+ #define SDL_LIL_ENDIAN	1234
+ #define SDL_BIG_ENDIAN	4321
+ 
++
++#ifdef __linux__
++#include <endian.h>
++#define SDL_BYTEORDER __BYTE_ORDER
++#else
++
+ /* Pardon the mess, I'm trying to determine the endianness of this host.
+    I'm doing it by preprocessor defines rather than some sort of configure
+    script so that application code can use this too.  The "right" way would
+@@ -52,4 +58,6 @@
+ #define SDL_BYTEORDER	SDL_BIG_ENDIAN
+ #endif
+ 
++#endif /* __linux __ */
++
+ #endif /* _SDL_byteorder_h */

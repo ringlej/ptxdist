@@ -1,0 +1,7 @@
+config ALSA_UTILS
+	bool
+	prompt "Alsa Utils"
+	depends on BUILD_USERLAND
+	help
+	  FIXME: This item needs to be documented
+

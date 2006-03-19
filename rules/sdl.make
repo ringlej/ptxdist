@@ -65,76 +65,223 @@ SDL_LIB_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-SDL_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-debug \
-	--disable-strict-ansi \
-	--enable-audio \
-	--enable-video \
-	--enable-events \
-	--enable-joystick \
-	--enable-cdrom \
-	--enable-threads \
-	--enable-timers \
-	--enable-endian \
-	--enable-file \
-	--enable-cpuinfo \
-	--enable-oss \
-	--enable-alsa \
-	--disable-alsatest \
-	--enable-alsa-shared \
-	--disable-esd \
-	--disable-esdtest \
-	--enable-esd-shared \
-	--enable-arts \
-	--enable-arts-shared \
-	--enable-nas \
-	--enable-diskaudio \
-	--enable-mintaudio \
-	--enable-nasm \
-	--disable-video-nanox \
-	--disable-nanox-debug \
-	--disable-nanox-share-memory \
-	--disable-nanox-direct-fb \
-	--enable-video-dga \
-	--disable-video-photon \
-	--disable-video-fbcon \
-	--disable-video-directfb \
-	--disable-video-ps2gs \
-	--disable-video-ggi \
-	--disable-video-svga \
-	--disable-video-vgl \
-	--disable-video-aalib \
-	--disable-video-xbios \
-	--disable-video-gem \
-	--enable-video-dummy \
-	--enable-video-opengl \
-	--enable-osmesa-shared \
-	--enable-input-events \
-	--disable-pth \
-	--enable-pthreads \
-	--enable-pthread-sem \
-	--enable-sigaction \
-	--disable-stdio-redirect \
-	--disable-directx \
-	--disable-video-qtopia \
-	--disable-video-picogui \
-	--enable-sdl-dlopen \
-	--disable-atari-ldg \
-	--enable-rpath
-
-ifdef PTXCONF_SDL_VIDEO_X
-SDL_LIB_AUTOCONF += \
-	--enable-video-x11 \
-	--enable-video-x11-vm \
-	--enable-dga \
-	--enable-video-x11-dgamouse \
-	--enable-video-x11-xv \
-	--enable-video-x11-xinerama \
-	--enable-video-x11-xme
+SDL_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
+ifdef PTXCONF_SDL_SHARED
+SDL_LIB_AUTOCONF += --enable-shared
 else
-SDL_LIB_AUTOCONF += \
-	--disable-video-x11
+SDL_LIB_AUTOCONF += --disable-shared
 endif
+ifdef PTXCONF_SDL_STATIC
+SDL_LIB_AUTOCONF += --enable-static
+else
+SDL_LIB_AUTOCONF += --disable-static
+endif
+
+ifdef PTXCONF_SDL_AUDIO
+SDL_LIB_AUTOCONF += --enable-audio      
+
+ ifdef PTXCONF_SDL_OSS
+ SDL_LIB_AUTOCONF += --enable-oss
+ else
+ SDL_LIB_AUTOCONF += --disable-oss
+ endif
+
+ ifdef PTXCONF_SDL_ALSA
+ SDL_LIB_AUTOCONF += --enable-alsa     
+ SDL_LIB_AUTOCONF += --disable-alsatest 
+ #SDL_LIB_AUTOCONF += --with-alsa-prefix=PFX 
+ #SDL_LIB_AUTOCONF += --with-alsa-inc-prefix=PFX 
+  ifdef PTXCONF_SDL_ALSA_SHARED
+  SDL_LIB_AUTOCONF += --enable-alsa-shared  
+  else
+  SDL_LIB_AUTOCONF += --disable-alsa-shared
+  endif
+ else
+ SDL_LIB_AUTOCONF += --disable-alsa
+ endif
+
+ ifdef PTXCONF_SDL_ESD
+ SDL_LIB_AUTOCONF += --enable-esd   
+ SDL_LIB_AUTOCONF += --disable-esdtest
+ #SDL_LIB_AUTOCONF += --with-esd-prefix=PFX 
+ #SDL_LIB_AUTOCONF += --with-esd-exec-prefix=PFX 
+  ifdef PTXCONF_SDL_ESD_SHARED
+  SDL_LIB_AUTOCONF += --enable-esd-shared   
+  else
+  SDL_LIB_AUTOCONF += --disable-esd-shared
+  endif
+ else
+ SDL_LIB_AUTOCONF += --disable-esd
+ endif
+
+ ifdef PTXCONF_SDL_ARTS
+ SDL_LIB_AUTOCONF += --enable-arts         
+  ifdef PTXCONF_SDL_ARTS_SHARED
+  SDL_LIB_AUTOCONF += --enable-arts-shared  
+  else
+  SDL_LIB_AUTOCONF += --disable-arts-shared
+  endif
+ else
+ SDL_LIB_AUTOCONF += --disable-arts
+ endif
+
+ ifdef PTXCONF_SDL_NAS
+ SDL_LIB_AUTOCONF += --enable-nas       
+ else
+ SDL_LIB_AUTOCONF += --disable-nas
+ endif
+
+ ifdef PTXCONF_SDL_DISKAUDIO
+ SDL_LIB_AUTOCONF += --enable-diskaudio   
+ else
+ SDL_LIB_AUTOCONF += --disable-diskaudio
+ endif
+
+else
+DL_LIB_AUTOCONF += --disable-audio
+endif
+
+ifdef PTXCONF_SDL_VIDEO
+SDL_LIB_AUTOCONF += --enable-video  
+
+ ifdef PTXCONF_SDL_NANOX
+ SDL_LIB_AUTOCONF += --enable-video-nanox
+ SDL_LIB_AUTOCONF += --enable-nanox-debug
+ SDL_LIB_AUTOCONF += --enable-nanox-share-memory
+ SDL_LIB_AUTOCONF += --enable-nanox-direct-fb
+ else
+ SDL_LIB_AUTOCONF += --disable-video-nanox
+ endif
+
+ ifdef PTXCONF_SDL_XORG
+ SDL_LIB_AUTOCONF += --with-x              
+ SDL_LIB_AUTOCONF += --enable-video-x11   
+ SDL_LIB_AUTOCONF += --enable-video-x11-vm 
+ SDL_LIB_AUTOCONF += --enable-dga         
+ SDL_LIB_AUTOCONF += --enable-video-x11-dgamouse 
+ SDL_LIB_AUTOCONF += --enable-video-x11-xv  
+ SDL_LIB_AUTOCONF += --enable-video-x11-xinerama 
+ SDL_LIB_AUTOCONF += --enable-video-x11-xme 
+ SDL_LIB_AUTOCONF += --enable-video-dga    
+ else
+ SDL_LIB_AUTOCONF += --without-x
+ endif
+
+ ifdef PTXCONF_SDL_FBCON
+ SDL_LIB_AUTOCONF += --enable-video-fbcon 
+ else
+ SDL_LIB_AUTOCONF += --disable-video-fbcon
+ endif
+
+ ifdef PTXCONF_SDL_DIRECTFB
+ SDL_LIB_AUTOCONF += --enable-video-directfb 
+ else
+ SDL_LIB_AUTOCONF += --disable-video-directfb
+ endif
+
+ ifdef PTXCONF_SDL_AALIB
+ SDL_LIB_AUTOCONF += --enable-video-aalib 
+ else
+ SDL_LIB_AUTOCONF += --disable-video-aalib
+ endif
+
+ ifdef PTXCONF_SDL_OPENGL
+ SDL_LIB_AUTOCONF += --enable-video-opengl  
+ SDL_LIB_AUTOCONF += --enable-osmesa-shared 
+ else
+ SDL_LIB_AUTOCONF += --disable-video-opengl
+ endif
+
+ ifdef PTXCONF_SDL_QTOPIA
+ SDL_LIB_AUTOCONF += --enable-video-qtopia 
+ else
+ SDL_LIB_AUTOCONF += --disable-video-qtopia
+ endif
+
+else
+SDL_LIB_AUTOCONF += --disable-video 
+endif
+
+ifdef PTXCONF_SDL_EVENT
+SDL_LIB_AUTOCONF += --enable-events  
+else
+SDL_LIB_AUTOCONF += --disable-events
+endif
+
+ifdef PTXCONF_SDL_JOYSTICK
+SDL_LIB_AUTOCONF += --enable-joystick  
+else
+SDL_LIB_AUTOCONF += --disable-joystick
+endif
+
+ifdef PTXCONF_SDL_CDROM
+SDL_LIB_AUTOCONF += --enable-cdrom    
+else
+SDL_LIB_AUTOCONF += --disable-cdrom
+endif
+
+ifdef PTXCONF_SDL_THREADS
+SDL_LIB_AUTOCONF += --enable-threads  
+ ifdef PTXCONF_SDL_PTH
+ SDL_LIB_AUTOCONF += --enable-pth         
+ else
+ SDL_LIB_AUTOCONF += --disable-pth
+ endif
+else
+SDL_LIB_AUTOCONF += --disable-threads
+endif
+
+ifdef PTXCONF_SDL_TIMERS
+SDL_LIB_AUTOCONF += --enable-timers  
+else
+SDL_LIB_AUTOCONF += --disable-timers
+endif
+
+ifdef PTXCONF_SDL_ENDIAN
+SDL_LIB_AUTOCONF += --enable-endian 
+else
+SDL_LIB_AUTOCONF += --disable-endian
+endif
+
+ifdef PTXCONF_SDL_FILE
+SDL_LIB_AUTOCONF += --enable-file   
+else
+SDL_LIB_AUTOCONF += --disable-file
+endif
+
+ifdef PTXCONF_SDL_CPUINFO
+SDL_LIB_AUTOCONF += --enable-cpuinfo
+else
+SDL_LIB_AUTOCONF += --disable-cpuinfo
+endif
+
+ifdef PTXCONF_SDL_NASM
+SDL_LIB_AUTOCONF += --enable-nasm    
+else
+SDL_LIB_AUTOCONF += --disable-nasm
+endif
+
+SDL_LIB_AUTOCONF += --disable-debug
+SDL_LIB_AUTOCONF += --disable-strict-ansi
+SDL_LIB_AUTOCONF += --disable-video-ps2gs  
+SDL_LIB_AUTOCONF += --disable-video-ggi   
+SDL_LIB_AUTOCONF += --disable-video-svga 
+SDL_LIB_AUTOCONF += --disable-video-vgl 
+SDL_LIB_AUTOCONF += --disable-video-xbios 
+SDL_LIB_AUTOCONF += --disable-video-gem   
+SDL_LIB_AUTOCONF += --enable-video-dummy  
+SDL_LIB_AUTOCONF += --enable-pthreads    
+SDL_LIB_AUTOCONF += --enable-pthread-sem 
+SDL_LIB_AUTOCONF += --enable-sigaction   
+SDL_LIB_AUTOCONF += --disable-stdio-redirect
+SDL_LIB_AUTOCONF += --disable-directx      
+SDL_LIB_AUTOCONF += --disable-video-picogui
+SDL_LIB_AUTOCONF += --enable-sdl-dlopen   
+SDL_LIB_AUTOCONF += --disable-atari-ldg  
+SDL_LIB_AUTOCONF += --enable-rpath      
+SDL_LIB_AUTOCONF += --disable-mintaudio
+SDL_LIB_AUTOCONF += --disable-video-photon
+SDL_LIB_AUTOCONF += --enable-input-events
 
 $(STATEDIR)/sdl.prepare: $(sdl_prepare_deps_default)
 	@$(call targetinfo, $@)

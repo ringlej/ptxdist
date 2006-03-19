@@ -1,28 +1,237 @@
 menuconfig SDL
 	bool
 	prompt "SDL                   "
+	depends on BUILD_USERLAND
 	help
 	  FIXME
 
-config SDL_LIB
+menuconfig SDL_LIB
 	bool
 	prompt "SDL Base library"
 	depends on SDL
 	help 
 	  FIXME
 
-config SDL_VIDEO_X
+config SDL_NASM
+        bool
+        prompt "Use NASM"
+        depends on SDL_LIB
+        help
+          FIXME
+
+config SDL_SHARED
 	bool
-	prompt "build SDL with X support"
-	depends on BROKEN
-	default no
-	depends on SDL
-	select XORG_LIB_X11
-	help
+	prompt "Build Shared libraries"
+	depends on SDL_LIB
+	help 
 	  FIXME
 
-comment "sdl with X is broken, please send a patch"
-	depends on SDL
-	depends on !BROKEN
+config SDL_STATIC
+	bool
+	prompt "Build Static libraries"
+	depends on SDL_LIB
+	help 
+	  FIXME
+
+config SDL_TIMERS
+        bool
+        prompt "SDL Timers Support"
+        depends on SDL_LIB
+        help
+          FIXME
+
+config SDL_ENDIAN
+        bool
+        prompt "SDL Endian Support"
+        depends on SDL_LIB
+        help
+          FIXME
+
+config SDL_FILE
+        bool
+        prompt "SDL File Support"
+        depends on SDL_LIB
+        help
+          FIXME
+
+config SDL_CPUINFO
+        bool
+        prompt "SDL CPU Info Support"
+        depends on SDL_LIB
+        help
+          FIXME
+
+menuconfig SDL_AUDIO
+	bool
+	prompt "SDL Audio Support"
+	depends on SDL_LIB
+	help 
+	  FIXME
+
+config SDL_OSS
+        bool
+        prompt "SDL OSS Support"
+        depends on SDL_AUDIO
+        help
+          FIXME
+
+config SDL_ALSA
+        bool
+        prompt "SDL ALSA Support"
+        depends on SDL_AUDIO
+	select ALSA_LIB
+        help
+          FIXME
+
+config SDL_ALSA_SHARED
+        bool
+        prompt "SDL ALSA Shared library"
+        depends on SDL_AUDIO
+        depends on SDL_ALSA
+        help
+          FIXME
+
+config SDL_ESD
+        bool
+        prompt "SDL ESD Support"
+        depends on SDL_AUDIO
+        help
+          FIXME
+
+config SDL_ESD_SHARED
+        bool
+        prompt "SDL ESD Shared library"
+        depends on SDL_AUDIO
+        depends on SDL_ESD
+        help
+          FIXME
+
+config SDL_ARTS
+        bool
+        prompt "SDL Arts Support"
+        depends on SDL_AUDIO
+        help
+          FIXME
+
+config SDL_ARTS_SHARED
+        bool
+        prompt "SDL Arts Shared library"
+        depends on SDL_AUDIO
+        depends on SDL_ARTS
+        help
+          FIXME
+
+config SDL_NAS
+        bool
+        prompt "SDL NAS Support"
+        depends on SDL_AUDIO
+        help
+          FIXME
+
+config SDL_DISKAUDIO
+        bool
+        prompt "SDL Disk Audio Support"
+        depends on SDL_AUDIO
+        help
+          FIXME
+
+menuconfig SDL_VIDEO
+        bool
+        prompt "SDL Video Support"
+        depends on SDL_LIB
+        help
+          FIXME
+
+config SDL_NANOX
+        bool
+        prompt "NanoX Support"
+        depends on SDL_VIDEO
+        help
+          FIXME
+
+config SDL_XORG
+        bool
+        prompt "Xorg Support"
+        depends on SDL_VIDEO
+        select XORG_LIB_X11
+        select XORG_LIB_XT
+        select XORG_LIB_XV
+        select XORG_LIB_XVMC
+        select XORG_LIB_XINERAMA
+        help
+          FIXME
+
+config SDL_FBCON
+        bool
+        prompt "SDL Disk Audio Support"
+        depends on SDL_VIDEO
+        help
+          FIXME
+
+config SDL_DIRECTFB
+        bool
+        prompt "DirectFB Support"
+        depends on SDL_VIDEO
+        help
+          FIXME
+
+config SDL_AALIB
+        bool
+        prompt "AALib Support"
+        depends on SDL_VIDEO
+        help
+          FIXME
+
+config SDL_OPENGL
+        bool
+        prompt "OpenGL Support"
+        depends on SDL_VIDEO
+        help
+          FIXME
+
+config SDL_QTOPIA
+        bool
+        prompt "QTopia Support"
+        depends on SDL_VIDEO
+        help
+          FIXME
+
+config SDL_EVENT
+        bool
+        prompt "SDL Event Support"
+        depends on SDL_LIB
+        help
+          FIXME
+
+config SDL_JOYSTICK
+        bool
+        prompt "SDL Joystick Support"
+        depends on SDL_LIB
+        help
+          FIXME
+
+config SDL_CDROM
+        bool
+        prompt "SDL CDROM Support"
+        depends on SDL_LIB
+        help
+          FIXME
+
+
+menuconfig SDL_THREADS
+        bool
+        prompt "SDL Thread Support"
+        depends on SDL_LIB
+        help
+          FIXME
+
+config SDL_PTH
+        bool
+        prompt "PTH Support"
+        depends on SDL_THREADS
+        help
+          FIXME
 
 source "rules/sdl_image.in"
+
+
