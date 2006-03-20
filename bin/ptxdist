@@ -129,7 +129,7 @@ check_compiler() {
 	[ "$BUILD_USERLAND" != "y" ] && return
 	[ "$NATIVE" != "" ] && return
 
-	C_COMPILER=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})-gcc
+	C_COMPILER=$(. ptxconfig && echo ${PTXCONF_COMPILER_PREFIX})-gcc
 	COMPILER_SHOULD_BE=$(. ptxconfig && echo ${PTXCONF_CROSSCHAIN_CHECK})
 	if [ -d ".toolchain" ]; then
 		COMPILER_PATH=`pwd`/.toolchain/$C_COMPILER
