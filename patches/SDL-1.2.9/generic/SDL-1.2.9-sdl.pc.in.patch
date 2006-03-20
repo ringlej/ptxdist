@@ -1,0 +1,30 @@
+#
+# Submitted-By: Erwin Rol Mar 19 2006
+# Committed-By: Erwin Rol
+#
+# Error:
+# sdl-config causes problems with linking
+#
+# Description:
+# This patch adds a sdl.pc pkg-config support
+#
+# State:
+# Unknown
+#
+--- SDL-1.2.9/sdl.pc.in.orig	2006-03-20 12:37:52.000000000 +0100
++++ SDL-1.2.9/sdl.pc.in	2006-03-20 12:44:21.000000000 +0100
+@@ -0,0 +1,14 @@
++prefix=/usr
++exec_prefix=${prefix}
++libdir=${exec_prefix}/lib
++includedir=${prefix}/include/SDL
++
++Name: sdl
++Description: SDL 1.2.9 
++Version: 1.2.9
++Requires:
++Conflicts:
++Libs: -L${libdir} @SDL_LIBS@ @SHARED_SYSTEM_LIBS@
++Libs.private: @SDL_STATIC_LIBS@ @STATIC_SYSTEM_LIBS@
++Cflags: -I${includedir} @SDL_CFLAGS@
++
