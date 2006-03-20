@@ -1,3 +1,21 @@
+2006-03-21 Robert Schwebel <r.schwebel@pengutronix.de
+
+	* release: released 0.10.1
+
+2006-03-20 Robert Schwebel <r.schwebel@pengutronix.de
+
+	* overall: fixed various examples and configurations, updated to
+	  use the 0.10.1 version all over the place
+	* changelog: updated since 0.10.0
+	* ptxdist: compilercheck reanimated
+	* ptxdist: .ptxdistrc has now the version added, to avoid that
+	  incompatible versions are clashing.
+	* ptxdist: more checks for config files have been added
+	* ptxdist: native build works now with --native
+	* ptxdist: autobuild reanimated
+	* config/: obsolete stuff removed
+	* setup: default SF mirror changed
+
 2006-03-19 Robert Schwebel <r.schwebel@pengutronix.de
 
 	* ptxdist: reanimated 'ptxdist kernelconfig'

@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.1-svn
-# Tue Mar 14 11:29:45 2006
+# PTXdist version: 0.10.1
+# Mon Mar 20 16:00:49 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -17,7 +17,7 @@ PTXCONF_BUILD_USERLAND=y
 #
 PTXCONF_PROJECT="wystup"
 PTXCONF_PROJECT_VERSION="${PTXCONF_PROJECT}-1"
-PTXCONF_CONFIGFILE_VERSION="0.10.1-svn"
+PTXCONF_CONFIGFILE_VERSION="0.10.1"
 
 #
 # ----------------------------------
@@ -1415,6 +1415,7 @@ PTXCONF_GRUB_RTL8139=y
 #
 # mplayer is broken, please send a patch, and sorry Sascha :-)
 #
+# PTXCONF_ALSA_UTILS is not set
 
 #
 # Tools                       
@@ -1460,15 +1461,12 @@ PTXCONF_NCURSES_PANEL=y
 # PTXCONF_READLINE is not set
 # PTXCONF_LIBRN is not set
 # PTXCONF_LIBGSLOOP is not set
-
-#
-# slang            
-#
 # PTXCONF_SLANG is not set
 # PTXCONF_SQLITE is not set
 PTXCONF_TERMCAP=y
 # PTXCONF_TERMCAP_TERMCAP is not set
 PTXCONF_ZLIB=y
+# PTXCONF_ALSA_LIB is not set
 
 #
 # Middleware                  

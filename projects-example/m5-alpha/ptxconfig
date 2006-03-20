@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.1-svn
-# Tue Mar 14 11:27:22 2006
+# PTXdist version: 0.10.1
+# Mon Mar 20 16:00:02 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -17,7 +17,7 @@ PTXCONF_BUILD_USERLAND=y
 #
 PTXCONF_PROJECT="M5-alpha"
 PTXCONF_PROJECT_VERSION="${PTXCONF_PROJECT}-1"
-PTXCONF_CONFIGFILE_VERSION="0.10.1-svn"
+PTXCONF_CONFIGFILE_VERSION="0.10.1"
 
 #
 # ----------------------------------
@@ -1002,6 +1002,7 @@ PTXCONF_MODULE_INIT_TOOLS=y
 #
 # mplayer is broken, please send a patch, and sorry Sascha :-)
 #
+# PTXCONF_ALSA_UTILS is not set
 
 #
 # Tools                       
@@ -1043,15 +1044,12 @@ PTXCONF_MODULE_INIT_TOOLS=y
 # PTXCONF_READLINE is not set
 # PTXCONF_LIBRN is not set
 # PTXCONF_LIBGSLOOP is not set
-
-#
-# slang            
-#
 # PTXCONF_SLANG is not set
 # PTXCONF_SQLITE is not set
 PTXCONF_TERMCAP=y
 # PTXCONF_TERMCAP_TERMCAP is not set
 # PTXCONF_ZLIB is not set
+# PTXCONF_ALSA_LIB is not set
 
 #
 # Middleware                  
