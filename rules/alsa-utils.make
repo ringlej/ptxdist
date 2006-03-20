@@ -95,9 +95,6 @@ alsa-utils_install: $(STATEDIR)/alsa-utils.install
 $(STATEDIR)/alsa-utils.install: $(alsa-utils_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, ALSA_UTILS)
-	# install alsa-config in bin dir
-	mkdir -p $(PTXCONF_PREFIX)/bin
-	cp $(ALSA_UTILS_DIR)/alsa-config $(PTXCONF_PREFIX)/bin/
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
