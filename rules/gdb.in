@@ -31,12 +31,4 @@ choice
 		bool "ncurses"
 		help
 	  	  FIXME: This item needs to be documented
-endchoice        
-
-config GDB_THREAD_DEBUG
-	bool "enable Thread Debugging (i.e.: don't strip C-library)"
-	depends on GDB || GDBSERVER
-	default y
-	select GLIBC_DEBUG if GLIBC
-	help
-	  FIXME: This item needs to be documented
+endchoice
