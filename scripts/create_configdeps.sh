@@ -26,7 +26,6 @@ usage() {
     echo
     echo " Arguments:"
     echo
-    echo "  --action    defaults"
     echo "  --statedir  <dir>         PTX State Directory"
     echo "  --rulesdir  <dir>         PTX Rules Directory"
     echo "  --projectrulesdir <dir>   optional local Rules Directory"
@@ -55,57 +54,67 @@ while [ $# -gt 0 ]; do
     case "$1" in
 	--help) usage ;;
 	--action)
-	    check_argument $2  		
-	    if [ "$?" == "0" ] ; then 
-		ACTION="$2";      		
+	    check_argument $2
+	    if [ "$?" == "0" ] ; then
+		ACTION="$2";
 		shift 2 ;
-	    else	
+	    else
 		debug_out "skipping option $1";
 		shift 1 ;
 	    fi
 	    ;;
-	--statedir) 		
-	    check_argument $2  		
-	    if [ "$?" == "0" ] ; then 
-		STATEDIR="$2";      		
+	--statedir)
+	    check_argument $2
+	    if [ "$?" == "0" ] ; then
+		STATEDIR="$2";
 		shift 2 ;
-	    else	
+	    else
 		debug_out "skipping option $1";
 		shift 1 ;
 	    fi
 	    ;;
-	--rulesdir) 		
-	    check_argument $2  		
-	    if [ "$?" == "0" ] ; then 
-		RULESDIR="$2";      		
+	--rulesdir)
+	    check_argument $2
+	    if [ "$?" == "0" ] ; then
+		RULESDIR="$2";
 		shift 2 ;
-	    else	
+	    else
 		debug_out "skipping option $1";
 		shift 1 ;
 	    fi
 	    ;;
-	--projectrulesdir)  
-	    check_argument $2  		
-	    if [ "$?" == "0" ] ; then 
+	--projectrulesdir)
+	    check_argument $2
+	    if [ "$?" == "0" ] ; then
 		PROJECTRULESDIR="$2";      		
 		shift 2 ;
-	    else	
+	    else
 		debug_out "skipping option $1";
 		shift 1 ;
 	    fi
 	    ;;
-	--dependency-file)    	
+	--configdeps-file)
 	    check_argument $2  		
 	    if [ "$?" == "0" ] ; then 
 		OUTFILE="$2";      		
 		shift 2 ;
-	    else	
+	    else
 		debug_out "skipping option $1";
 		shift 1 ;
 	    fi
 	    ;;
-	*)  
-	    usage "unknown option $1" 
+	--ptxconfig)
+	    check_argument $2  		
+	    if [ "$?" == "0" ] ; then 
+		PTXCONFIG="$2";      		
+		shift 2 ;
+	    else
+		debug_out "skipping option $1";
+		shift 1 ;
+	    fi
+	    ;;
+	*)
+	    usage "unknown option $1"
 	    ;;
     esac
 done
@@ -118,28 +127,22 @@ done
 [ -z "$PROJECTRULESDIR" ] || rulesfiles="$PROJECTRULESDIR/*.make $rulesfiles"
 [ -z "$rulesfiles" ] && my_exit "Insufficient Arguments - Rules missing" 1
 [ -z "$STATEDIR" ] && my_exit "Insufficient Arguments State Directory missing" 1
+[ -z "PTXCONFIG" ] && my_exit "ptxconfig missing" 1
 
 debug_out "Rules set to $rulesfiles"
 
 gen_rules() {
     # FIXME: PACKAGES-y
-    if [ -e $PROJECTRULESDIR ]; then
-	grep -s "^.*PACKAGES-\$(PTXCONF_"
-
+#    if [ -e $PROJECTRULESDIR ]; then
+#	grep -s "^.*PACKAGES-\$(PTXCONF_"
+echo fo
 }
 
 gen_maps(){
     exec 5>${LABEL_TO_PACKAGE}
-    exec 6>${LABEL_TO_FILE}
 
-#    sed -n "s/.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]\)/PACKAGE_\1=\2/p" $rulesfiles >&5
+    sed -n "s/.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]\)/PACKAGE_\1=\2/p" $rulesfiles >&5
 
-    for file in ${rulesfiles}; do
-	LABEL=`sed -n "s/.*PACKAGES-\\$(PTXCONF_\(.*\))[[:space:]]*+=.*/\1/p" $file`
-    done
-
-
-    exec 6>/dev/null
     exec 5>/dev/null
 }
 
@@ -147,7 +150,7 @@ gen_maps(){
 do_fixup(){
     la_IFS="$IFS"
     IFS=":"
-    cat $STATEDIR/configdeps | while read foo label deps; do
+    cat $STATEDIR/configdeps.in | while read foo label deps; do
 	ptxconf_label=PTXCONF_${label}
 	if test "${!ptxconf_label}" = "y"; then
 	    echo -n "DEP:$label"
@@ -178,12 +181,14 @@ do_fixup(){
 LABEL_TO_PACKAGE=${STATEDIR}/label-to-package.map
 LABEL_TO_FILE=${STATEDIR}/label-to-file.map
 
-. ptxconfig
+. ${PTXCONFIG}
 
-gen_maps
-. ${LABEL_TO_PACKAGE}
+#gen_maps
+#. ${LABEL_TO_PACKAGE}
 
-do_fixup
+exec 5>${OUTFILE}
+do_fixup >&5
+exec 5>/dev/null
 
 # vim: syntax=sh
 # vim: tabstop=4
