@@ -434,9 +434,13 @@ $(STATEDIR)/configdeps: $(configdeps_deps)
 			MENU=config/Kconfig; \
 		fi; \
 		yes "" | ${PTXDIST_TOPDIR}/scripts/kconfig/conf -O \
-			$$MENU | grep -e "^DEP:.*:.*" \
-			2> /dev/null > $(STATEDIR)/configdeps; \
-		\
+			$$MENU > $(STATEDIR)/configdeps.in; \
+		${PTXDIST_TOPDIR}/scripts/create_configdeps.sh \
+			--rulesdir $(RULESDIR) \
+			`test -n "$(PROJECTRULESDIR)" && echo "--projectrulesdir $(PROJECTRULESDIR)"` \
+			--statedir $(STATEDIR) \
+			--configdeps-file $(STATEDIR)/configdeps \
+			--ptxconfig $(PTXDIST_WORKSPACE)/ptxconfig; \
 		popd > /dev/null; \
 		rm -fr $$tmpdir; \
 	)
