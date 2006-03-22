@@ -1,6 +1,8 @@
 TODO for PTXdist 0.10 Series
 ============================
 
+[ ] add sanity checks for all user configurable variables (especially
+    pathes)
 [ ] audit project files for CROSS_AUTOCONF
 [ ] Problem: When doing things like "PKG_CONFIG_PATH=bla something",
     something does not inherit the environment variable PKG_CONFIG_PATH. 
