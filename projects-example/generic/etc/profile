@@ -17,6 +17,7 @@ PS1=@PS1@
 PS2=@PS2@
 PS4=@PS4@
 
+alias vim='vi'
 alias ll='ls -l'
 alias ..='cd ..'
 alias ...='cd ../..'

@@ -141,14 +141,6 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps_default)
 	for file in `cat $(BUSYBOX_DIR)/busybox.links`; do	\
 		$(call install_link, busybox, /bin/busybox, $$file);	\
 	done
-
-ifdef PTXCONF_BB_CONFIG_VI
-	vimfile=`mktemp`; \
-	echo "#!/bin/sh" >> $$vimfile; \
-	echo "/bin/vi $*" >> $$vimfile; \
-	$(call install_copy, busybox, 0, 0, 0755, $$vimfile, /usr/bin/vim,n); \
-	rm $$vimfile
-endif
 	@$(call install_finish, busybox)
 
 	@$(call touch, $@)
