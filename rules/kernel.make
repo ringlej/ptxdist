@@ -129,7 +129,6 @@ $(STATEDIR)/kernel.extract: $(kernel_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KERNEL_DIR))
 	@$(call extract, $(KERNEL_SOURCE))
-	@$(call touch, $@)
 
 ifeq (2.4.18,$(KERNEL_VERSION))
 	# kernels before 2.4.19 extract to "linux" instead of "linux-<version>"
