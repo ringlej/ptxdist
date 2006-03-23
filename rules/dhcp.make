@@ -80,7 +80,7 @@ dhcp_compile: $(STATEDIR)/dhcp.compile
 
 $(STATEDIR)/dhcp.compile: $(dhcp_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(DHCP_DIR) && $(DHCP_PATH) make
+	cd $(DHCP_DIR) && $(DHCP_PATH) $(DHCP_ENV) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -111,8 +111,18 @@ $(STATEDIR)/dhcp.targetinstall: $(dhcp_targetinstall_deps_default)
 	@$(call install_fixup, dhcp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, dhcp,DEPENDS,)
 	@$(call install_fixup, dhcp,DESCRIPTION,missing)
-	
-	@$(call install_copy, dhcp, 0, 0, 0755, $(DHCP_DIR)/work.linux-2.2/server/dhcpd, /usr/sbin/dhcpd)
+
+ifdef PTXCONF_DHCP_SERVER
+	@$(call install_copy, dhcp, 0, 0, 0755, $(DHCP_DIR)/work.linux-2.2/server/dhcpd, /sbin/dhcpd)
+endif
+
+ifdef PTXCONF_DHCP_CLIENT
+	@$(call install_copy, dhcp, 0, 0, 0755, $(DHCP_DIR)/work.linux-2.2/client/dhclient, /sbin/dhclient)
+endif
+
+ifdef PTXCONF_DHCP_RELAY
+	@$(call install_copy, dhcp, 0, 0, 0755, $(DHCP_DIR)/work.linux-2.2/relay/dhcrelay, /sbin/dhcrelay)
+endif
 
 	@$(call install_finish, dhcp)
 

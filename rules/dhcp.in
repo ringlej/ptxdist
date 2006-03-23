@@ -1,8 +1,7 @@
-menu    "dhcp                "
-
-config DHCP
+menuconfig DHCP
 	bool
-	prompt "DHCP"
+	depends on BUILD_USERLAND
+	prompt "DHCP                "
 	help
 	  This is the DHCP server from version 3 of the Internet Software
 	  Consortium DHCP package. For more information visit the ISC web
@@ -15,4 +14,25 @@ config DHCP
  
  	  Multiple Ethernet Interfaces are supported by this DHCP package.
 
-endmenu
+
+config DHCP_SERVER
+	bool
+	depends on DHCP
+	prompt "DHCP Server dhcpd"
+	help
+		FIXME
+
+config DHCP_CLIENT
+        bool
+        depends on DHCP
+        prompt "DHCP Client dhclient"
+        help
+                FIXME
+
+config DHCP_RELAY
+        bool
+        depends on DHCP
+        prompt "DHCP Relay dhcrelay"
+        help
+                FIXME
+
