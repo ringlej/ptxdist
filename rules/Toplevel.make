@@ -281,15 +281,19 @@ ifdef PTXCONF_IMAGE_TGZ
 endif
 ifdef PTXCONF_IMAGE_JFFS2
 ifdef PTXCONF_IMAGE_IPKG
-	@imagesfrom=$(IMAGEDIR);								\
-	echo "Creating rootfs using packages from $$imagesfrom";			\
+	@imagesfrom=$(IMAGEDIR);							\
+	cp $(PTXDIST_TOPDIR)/projects-example/generic/etc/ipkg.conf $(IMAGEDIR)/ipkg.conf; \
+	sed -i -e "s,@SRC@,,g" $(IMAGEDIR)/ipkg.conf;					\
+	sed -i -e "s,@ARCH@,$(PTXCONF_ARCH),g" $(IMAGEDIR)/ipkg.conf;			\
+	echo "Creating rootfs using packages from $$imagesfrom";				\
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/make_image_root.sh 	\
 		-i $$imagesfrom								\
 		-r $(ROOTDIR)								\
 		-p $(IMAGEDIR)/permissions						\
 		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)					\
 		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)					\
-		-o $(IMAGEDIR)/root.jffs2
+		-o $(IMAGEDIR)/root.jffs2						\
+		-f $(IMAGEDIR)/ipkg.conf
 else
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/make_image_root.sh	\
 		-r $(ROOTDIR)								\

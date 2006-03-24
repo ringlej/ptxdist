@@ -19,6 +19,7 @@ usage() {
 	echo "  -e <eraseblocksize>   erase block size of the flash chips"
 	echo "  -j <jffs2_extra_args> additional arguments for mkfs.jffs2"
 	echo "  -o <outputfile>       JFFS2 output file"
+	echo "  -f <ipkgconfig>       use this ipkg config file"
 	echo
 	exit 0
 }
@@ -44,6 +45,7 @@ while [ $# -gt 0 ]; do
 		-e) ERASEBLOCKSIZE=$2;             shift 2 ;;
 		-j) JFFS2EXTRA=$2;                 shift 2 ;;
 		-o) OUTFILE=`ptxd_abspath $2`;     shift 2 ;;
+		-f) IPKGCONF=$2;                   shift 2 ;;
 		*)  usage "unknown option" ;;
   	esac
 done
@@ -90,7 +92,7 @@ cd $WORKDIR
 
 if [ -n "$IPKGDIR" ]; then
 	for archive in $IPKGDIR/*.ipk; do
-		ipkg-cl -f `ptxd_abspath $ROOTDIR/etc/ipkg.conf` -force-depends -o `pwd` install $archive 1> /dev/null
+		ipkg-cl -f $IPKGCONF -force-depends -o `pwd` install $archive 1> /dev/null
 	done
 fi
 
@@ -98,7 +100,7 @@ echo `awk -F: "$DOPERMISSIONS" $PERMISSIONS && echo "mkfs.jffs2 -d $WORKDIR --er
 
 if [ -n "$IPKGDIR" ]; then
 	echo "cleaning up workdir"
-	rm -fr $WORKDIR
+#	rm -fr $WORKDIR
 fi
 
 echo "finished:"
