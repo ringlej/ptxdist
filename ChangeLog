@@ -1,3 +1,21 @@
+2006-03-24 Robert Schwebel <r.schwebel@pengutronix.de
+
+	* busybox: made vim an alias to vi; patch by Sascha Hauer
+	* toplevel: added real autoconf support and some initial tests
+	  for things already mentioned in the todo list
+	* configdeps: improved configdep generation. Until now if you 
+	  had menuconfig entries and a sub-entry selected another
+	  packet, but the menuconfig itself was deselected, the
+	  configdeps magic incorrectly activated the selected package.
+	  Patch by Marc Kleine-Budde.
+	* xorg: fixed bug in x.org which broke CAN
+	* initng: initial support for initng; patch by Erwin Rol
+	* udhcp: fixed; patch by Erwin Rol
+	* makefiles: re-activated project specific patches, which have
+	  been broken in 0.10 until now. Patch by Sascha Hauer.
+	* udev: update from 0.68 to 0.88. Erwin Rol.
+	* Xaw: fixed dependency; patch by Erwin Rol.
+
 2006-03-21 Robert Schwebel <r.schwebel@pengutronix.de
 
 	* release: released 0.10.1

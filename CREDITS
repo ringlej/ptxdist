@@ -22,7 +22,7 @@ D: Developer
 
 N: Bjoern Buerger
 E: b.buerger@pengutronix.de
-D: Developer
+D: Maintainer
 S: Pengutronix
 S: Hannoversche Strasse 2
 S: 31134 Hildesheim
@@ -44,7 +44,7 @@ D: Developer
 N: Sascha Hauer 
 E: s.hauer@pengutronix.de
 W: http://www.pengutronix.de
-D: Developer
+D: Maintainer
 S: Pengutronix
 S: Hannoversche Strasse 2
 S: 31134 Hildesheim
@@ -83,6 +83,10 @@ N: Oscar Peredo
 E: oscar@exis.cl
 D: Developer
 
+N: Erwin Rol
+E: erwin@erwinrol.com
+D: Developer
+
 N: Ulf Samuelsson
 E: ulf@atmel.com
 D: Developer
@@ -98,7 +102,7 @@ D: Debugger, Head of Unlogical Code Department
 N: Robert Schwebel
 E: r.schwebel@pengutronix.de
 W: http://www.pengutronix.de
-D: Maintainer, Release Manager 
+D: Project Leader, Maintainer, Release Manager 
 S: Pengutronix
 S: Hannoversche Strasse 2
 S: 31134 Hildesheim
