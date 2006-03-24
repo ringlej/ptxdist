@@ -17,9 +17,9 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 #
 # Paths and names
 #
-UDEV_VERSION	:= 068
+UDEV_VERSION	:= 088
 UDEV		:= udev-$(UDEV_VERSION)
-UDEV_SUFFIX	:= tar.gz
+UDEV_SUFFIX	:= tar.bz2
 UDEV_URL	:= http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
 UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
 UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
@@ -61,7 +61,7 @@ udev_prepare: $(STATEDIR)/udev.prepare
 
 UDEV_PATH	:=  PATH=$(CROSS_PATH)
 UDEV_ENV 	:=  $(CROSS_ENV)
-UDEV_MAKEVARS	=  CROSS=$(COMPILER_PREFIX)
+UDEV_MAKEVARS	 =  CROSS_COMPILE=$(COMPILER_PREFIX)
 
 ifdef PTXCONF_UDEV_FW_HELPER
 UDEV_MAKEVARS	+=  EXTRAS=extras/firmware
