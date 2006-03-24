@@ -908,6 +908,26 @@ install_copy = 											\
 	fi
 
 #
+# install_replace
+#
+# Replace placeholder with value in a previously
+# installed file
+#
+# $1: label of the packet
+# $2: filename
+# $3: placeholder
+# $4: value
+#
+install_replace = \
+	PACKET=$(strip $(1));									\
+	FILE=$(strip $(2));									\
+	PLACEHOLDER=$(strip $(3));								\
+	VALUE=$(strip $(4));									\
+	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(IMAGEDIR)/$$PACKET/ipkg/$$FILE;			\
+	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(ROOTDIR)/$$FILE;				\
+	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(ROOTDIR_DEBUG)/$$FILE;
+
+#
 # install_copy_toolchain_lib
 #
 # $1: packet label
