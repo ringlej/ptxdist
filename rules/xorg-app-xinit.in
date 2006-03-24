@@ -1,0 +1,7 @@
+config XORG_APP_XINIT
+	bool
+	depends on XORG_APP
+	prompt "xorg xinit"
+	help
+	  FIXME
+
