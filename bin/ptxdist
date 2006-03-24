@@ -253,6 +253,7 @@ clean() {
 		echo
 		echo "${PROMPT}cleaning root directory..."
 		rm -fr root
+		rm -fr root-debug
 		echo "${PROMPT}cleaning targetinstall stages..."
 		rm -f state/*.targetinstall
 		echo "${PROMPT}done."
@@ -280,6 +281,7 @@ clean() {
 	rm -fr sysroot
 	echo "${PROMPT}removing root..."
 	rm -fr root
+	rm -fr root-debug
 	echo "${PROMPT}removing state..."
 	rm -fr state
 	echo "${PROMPT}removing logfile..."
