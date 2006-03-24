@@ -1,6 +1,6 @@
 # -*-makefile-*-
 check_dirs:
-	
+
 	@echo "running check_dirs..."
 
 #	# create some directories
@@ -9,5 +9,6 @@ check_dirs:
 	@mkdir -p $(HOST_BUILDDIR)
 	@mkdir -p $(IMAGEDIR)
 	@mkdir -p $(ROOTDIR)
+	@mkdir -p $(ROOTDIR_DEBUG)
 	@mkdir -p $(STATEDIR)
 
