@@ -387,6 +387,7 @@ $(STATEDIR)/initng.targetinstall: $(initng_targetinstall_deps_default)
 
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/runlevel/.libs/librunlevel.so, /usr/lib/initng/librunlevel.so)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/daemon/.libs/libdaemon.so, /usr/lib/initng/libdaemon.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/service/.libs/libservice.so, /usr/lib/initng/libservice.so)
 
 ifdef PTXDIST_INITNG_PID_FILETEST
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/daemon/test/.libs/test_pidfile, /usr/sbin/test_pidfile)
@@ -475,9 +476,6 @@ ifdef PTXCONF_INITNG_UNNEEDED
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/unneeded/.libs/libunneeded.so, /usr/lib/initng/libunneeded.so)
 endif
 
-ifdef PTXCONF_INITNG_SERVICE
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/service/.libs/libservice.so, /usr/lib/initng/libservice.so)
-endif
 
 ifdef PTXCONF_INITNG_IPARSER
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/iparser/.libs/libiparser.so, /usr/lib/initng/libiparser.so)
@@ -503,7 +501,7 @@ ifdef PTXCONF_INITNG_LOGFILE
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/logfile/.libs/liblogfile.so, /usr/lib/initng/liblogfile.so)
 endif
 
-ifdef PTXCONF_INITNG_STDCMD
+ifdef PTXCONF_INITNG_STCMD
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/stcmd/.libs/libstcmd.so, /usr/lib/initng/libstcmd.so)
 endif
 
