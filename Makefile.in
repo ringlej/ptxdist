@@ -65,7 +65,7 @@ deb:
 distclean: clean
 	rm -fr build-stamp
 	rm -fr debian/ptxdist
-	rm -fr config.log config.status autom4te.cache
+	rm -fr config.log config.status autom4te.cache scripts/ptxdistvars.sh
 
 maintainer-clean: distclean
 	rm -f configure
