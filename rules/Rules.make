@@ -861,6 +861,11 @@ install_copy = 											\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
+		$(INSTALL) -m $$PER -d $(ROOTDIR_DEBUG)/$$SRC;					\
+		if [ $$? -ne 0 ]; then								\
+			echo "Error: install_copy failed!";					\
+			exit 1;									\
+		fi;										\
 		mkdir -p $(IMAGEDIR)/$$PACKET;							\
 		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;			\
 	else											\
@@ -879,6 +884,11 @@ install_copy = 											\
 			fi;									\
 		fi; 										\
 		$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR)$$DST;					\
+		if [ $$? -ne 0 ]; then								\
+			echo "Error: install_copy failed!";					\
+			exit 1;									\
+		fi;										\
+		$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR_DEBUG)$$DST;				\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
@@ -925,16 +935,20 @@ install_copy_toolchain_lib =									\
 			echo "install_copy_toolchain_lib lib=$${LIB} dst=$${DST}";		\
 			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
 			mkdir -p $(ROOTDIR)$${DST};						\
+			rm -fr $(ROOTDIR_DEBUG)$${DST}/$${LIB};					\
+			mkdir -p $(ROOTDIR_DEBUG)$${DST};					\
 			if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
 				mkdir -p $(IMAGEDIR)/$$PACKET/ipkg/$${DST};			\
 			fi;									\
 			if test -h $${LIB_DIR}/$${LIB}; then					\
 				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/;			\
+				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR_DEBUG)$${DST}/;		\
 				if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then			\
 					cp -d $${LIB_DIR}/$${LIB} $(IMAGEDIR)/$$PACKET/ipkg/$${DST}/;	\
 				fi;								\
 			elif test -f $${LIB_DIR}/$${LIB}; then					\
 				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/$${LIB};	\
+				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR_DEBUG)$${DST}/$${LIB};	\
 				if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then			\
 					$(INSTALL) -D $${LIB_DIR}/$${LIB} $(IMAGEDIR)/$$PACKET/ipkg/$${DST}/$${LIB};\
 				fi; 								\
@@ -999,17 +1013,21 @@ install_copy_toolchain_dl =									\
 			echo "copy_toolchain_ld_root lib=$${LIB} dst=$${DST}";			\
 			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
 			mkdir -p $(ROOTDIR)$${DST};						\
+			rm -fr $(ROOTDIR_DEBUG)$${DST}/$${LIB};					\
+			mkdir -p $(ROOTDIR_DEBUG)$${DST};					\
 			if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
 				rm -fr $(IMAGEDIR)/$$PACKET/ipkg/$${DST}/$${LIB};		\
 				mkdir -p $(IMAGEDIR)/$$PACKET/ipkg/$${DST};			\
 			fi;									\
 			if test -h $${LIB_DIR}/$${LIB}; then					\
 				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/;			\
+				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR_DEBUG)$${DST}/;		\
 				if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then			\
 					cp -d $${LIB_DIR}/$${LIB} $(IMAGEDIR)/$$PACKET/ipkg/$${DST}/;	\
 				fi;								\
 			elif test -f $${LIB_DIR}/$${LIB}; then					\
 				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/$${LIB};	\
+				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR_DEBUG)$${DST}/$${LIB};	\
 				if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then			\
 					$(INSTALL) -D $${LIB_DIR}/$${LIB} $(IMAGEDIR)/$$PACKET/ipkg/$${DST}/$${LIB};\
 				fi;								\
@@ -1048,9 +1066,12 @@ install_link =									\
 	SRC=$(strip $(2));							\
 	DST=$(strip $(3));							\
 	rm -fr $(ROOTDIR)$$DST;							\
+	rm -fr $(ROOTDIR_DEBUG)$$DST;						\
 	echo "install_link: src=$$SRC dst=$$DST "; 				\
 	mkdir -p `dirname $(ROOTDIR)$$DST`;					\
+	mkdir -p `dirname $(ROOTDIR_DEBUG)$$DST`;				\
 	$(LN) -sf $$SRC $(ROOTDIR)$$DST; 					\
+	$(LN) -sf $$SRC $(ROOTDIR_DEBUG)$$DST; 					\
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then				\
 		mkdir -p `dirname $(IMAGEDIR)/$$PACKET/ipkg$$DST`;		\
 		$(LN) -sf $$SRC $(IMAGEDIR)/$$PACKET/ipkg/$$DST;		\
