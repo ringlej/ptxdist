@@ -48,7 +48,7 @@ dist:
 	cp -a $$PTXDIST_TOPDIR $$tmpdir/ptxdist-$(version); \
 	cd $$tmpdir/ptxdist-$(version); make distclean; \
 	find $$tmpdir/ptxdist-$(version) -name ".svn" | xargs rm -fr; \
-	rm $$tmpdir/ptxdist-$(version)/.done; \
+	rm -f $$tmpdir/ptxdist-$(version)/.done; \
 	cd $$tmpdir; \
 	tar -zcf ptxdist-$(version)-patches.tgz ptxdist-$(version)/patches; \
 	rm -fr ptxdist-$(version)/patches; \
