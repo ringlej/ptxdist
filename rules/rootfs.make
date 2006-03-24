@@ -174,13 +174,7 @@ ifdef PTXCONF_ROOTFS_GENERIC_GROUP
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_HOSTNAME
 	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/hostname,     /etc/hostname, n)
-
-	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME))"; \
-	if [ -n "$$x" ]; then \
-		echo $$x; \
-		perl -i -p -e "s,\@HOSTNAME@,$$x,g" $(ROOTDIR)/etc/hostname; \
-		perl -i -p -e "s,\@HOSTNAME@,$$x,g" $(IMAGEDIR)/ipkg/etc/hostname; \
-	fi
+	@$(call install_replace, rootfs, /etc/hostname, @HOSTNAME@,  $(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME)))
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_HOSTS
 	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/hosts,        /etc/hosts, n)
@@ -188,30 +182,13 @@ endif
 ifdef PTXCONF_ROOTFS_GENERIC_INITTAB
 	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/inittab,      /etc/inittab, n)
 
-	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE))"; \
-	if [ -n "$$x" ]; then \
-		echo $$x; \
-		perl -i -p -e "s,\@CONSOLE@,$$x,g" $(ROOTDIR)/etc/inittab; \
-		perl -i -p -e "s,\@CONSOLE@,$$x,g" $(IMAGEDIR)/ipkg/etc/inittab; \
-	fi
-	
-	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE_SPEED))"; \
-	if [ -n "$$x" ]; then \
-		echo $$x; \
-		perl -i -p -e "s,\@SPEED@,$$x,g" $(ROOTDIR)/etc/inittab; \
-		perl -i -p -e "s,\@SPEED@,$$x,g" $(IMAGEDIR)/ipkg/etc/inittab; \
-	fi
+	@$(call install_replace, rootfs, /etc/inittab, @CONSOLE@,  $(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE)))
+	@$(call install_replace, rootfs, /etc/inittab, @SPEED@,  $(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE_SPEED)))
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_IPKG_CONF
 	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
-	x="$(call remove_quotes,$(PTXCONF_ROOTFS_GENERIC_IPKG_CONF_URL))"; \
-	echo $$x; \
-	perl -i -p -e "s,\@SRC@,src $$x,g" $(ROOTDIR)/etc/ipkg.conf; \
-	perl -i -p -e "s,\@SRC@,src $$x,g" $(IMAGEDIR)/ipkg/etc/ipkg.conf; \
-	x="$(call remove_quotes,$(PTXCONF_ARCH))"; \
-	echo $$x; \
-	perl -i -p -e "s,\@ARCH@,$$x,g" $(ROOTDIR)/etc/ipkg.conf; \
-	perl -i -p -e "s,\@ARCH@,$$x,g" $(IMAGEDIR)/ipkg/etc/ipkg.conf;
+	@$(call install_replace, rootfs, /etc/ipkg.conf, @SRC@,  $(PTXCONF_ROOTFS_GENERIC_IPKG_CONF_URL))
+	@$(call install_replace, rootfs, /etc/ipkg.conf, @ARCH@,  $(PTXCONF_ARCH))
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_NSSWITCH
 	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/nsswitch.conf,/etc/nsswitch.conf, n)
@@ -221,21 +198,11 @@ ifdef PTXCONF_ROOTFS_GENERIC_PASSWD
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_PROFILE
 	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/profile,      /etc/profile, n)
-	
-	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_PS1))"; \
-	echo $$x; \
-	perl -i -p -e "s,\@PS1@,\"$$x\",g" $(ROOTDIR)/etc/profile; \
-	perl -i -p -e "s,\@PS1@,\"$$x\",g" $(IMAGEDIR)/ipkg/etc/profile; \
 
-	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_PS2))"; \
-	echo $$x; \
-	perl -i -p -e "s,\@PS2@,\"$$x\",g" $(ROOTDIR)/etc/profile; \
-	perl -i -p -e "s,\@PS2@,\"$$x\",g" $(IMAGEDIR)/ipkg/etc/profile; \
+	@$(call install_replace, rootfs, /etc/profile, @PS1@,  \"$(PTXCONF_ROOTFS_ETC_PS1)\" )
+	@$(call install_replace, rootfs, /etc/profile, @PS2@,  \"$(PTXCONF_ROOTFS_ETC_PS2)\" )
+	@$(call install_replace, rootfs, /etc/profile, @PS4@,  \"$(PTXCONF_ROOTFS_ETC_PS4)\" )
 
-	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_PS4))"; \
-	echo $$x; \
-	perl -i -p -e "s,\@PS4@,\"$$x\",g" $(ROOTDIR)/etc/profile; \
-	perl -i -p -e "s,\@PS4@,\"$$x\",g" $(IMAGEDIR)/ipkg/etc/profile;
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_PROTOCOLS
 	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/protocols,    /etc/protocols, n)
@@ -244,30 +211,16 @@ ifdef PTXCONF_ROOTFS_GENERIC_RESOLV
 	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/resolv.conf,  /etc/resolv.conf, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_INETD
-	inetdconf=`mktemp`; \
-	servicesfile=`mktemp`; \
-	cp $(PTXDIST_TOPDIR)/projects-example/generic/etc/inetd.conf $$inetdconf; \
-	cp $(PTXDIST_TOPDIR)/projects-example/generic/etc/services $$servicesfile; \
-	if [ "$(PTXCONF_INETUTILS_RSHD)" = "y" ]; then \
-		sed -ie "s,@RSHD@,shell stream tcp nowait root /usr/sbin/rshd,g" $$inetdconf; \
-		sed -ie "s,@RSHD@,shell 514/tcp cmd,g" $$servicesfile; \
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/inetd.conf, /etc/inetd.conf, n);
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/inetd.conf, /etc/services, n);
+
+	@if [ "$(PTXCONF_INETUTILS_RSHD)" = "y" ]; then \
+		$(call install_replace, rootfs, /etc/inetd.conf, @RSHD@, shell stream tcp nowait root /usr/sbin/rshd ) \
+		$(call install_replace, rootfs, /etc/services, @RSHD@, shell 514/tcp cmd ) \
 	else \
-		sed -ie "s,@RSHD@,,g" $$inetdconf; \
-		sed -ie "s,@RSHD@,,g" $$servicesfile; \
-	fi; \
-	if [ "$(PTXCONF_NTP)$(PTXCONF_CHRONY)" != "" ]; then \
-		sed -ie "s,@NTP@,ntp 123/tcp\nntp 123/udp,g" $$servicesfile; \
-	else \
-		sed -ie "s,@NTP@,,g" $$servicesfile; \
-	fi; \
-	echo "inetd.conf:"; \
-	cat $$inetdconf; \
-	echo "services:"; \
-	cat $$servicesfile; \
-	$(call install_copy, rootfs, 0, 0, 0644, $$inetdconf, /etc/inetd.conf, n); \
-	$(call install_copy, rootfs, 0, 0, 0644, $$servicesfile, /etc/services, n); \
-	rm -f $$inetdconf; \
-	rm -f $$servicesfile
+		$(call install_replace, rootfs, /etc/inetd.conf, @RSHD@, ) \
+		$(call install_replace, rootfs, /etc/services, @RSHD@, ) \
+	fi;
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_SHADOW
 	@$(call install_copy, rootfs, 0, 0, 0640, $(PTXDIST_TOPDIR)/projects-example/generic/etc/shadow,       /etc/shadow, n)
@@ -316,7 +269,7 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK),"")
 	@$(call install_link, rootfs, /etc/init.d/networking, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK))
 endif
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES),"")
-	$(call install_copy, rootfs, 0, 0, 0644, $(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES), /etc/network/interfaces, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES), /etc/network/interfaces, n)
 endif
 endif
 
@@ -329,10 +282,7 @@ endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
 	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/httpd,    /etc/init.d/httpd, n)
-	x="$(call remove_quotes,$(PTXCONF_APACHE2_CONFIGDIR))/httpd.conf"; \
-	echo $$x; \
-	perl -i -p -e "s,\@APACHECONFIG@,$$x,g" $(ROOTDIR)/etc/init.d/httpd; \
-	perl -i -p -e "s,\@APACHECONFIG@,$$x,g" $(IMAGEDIR)/ipkg/etc/init.d/httpd;
+	@$(call install_replace, rootfs, /etc/init.d/httpd, @APACHECONFIG@,  $(PTXCONF_APACHE2_CONFIGDIR) )
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
 	@$(call install_link, rootfs, /etc/init.d/httpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
@@ -351,22 +301,14 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_BANNER
 		$(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/banner, \
 		/etc/init.d/banner, n)
 
-	x="$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_VENDOR))"; \
-	perl -i -p -e "s,\@VENDOR@,$$x,g" $(ROOTDIR)/etc/init.d/banner; \
-	perl -i -p -e "s,\@VENDOR@,$$x,g" $(IMAGEDIR)/ipkg/etc/init.d/banner; \
+	@$(call install_replace, rootfs, /etc/init.d/banner, @VENDOR@,  $(PTXCONF_ROOTFS_ETC_VENDOR) )
+	@$(call install_replace, rootfs, /etc/init.d/banner, @VERSION@,  $(VERSION) )
+	@$(call install_replace, rootfs, /etc/init.d/banner, @PATCHLEVEL@,  $(PATCHLEVEL) )
+	@$(call install_replace, rootfs, /etc/init.d/banner, @SUBLEVEL@,  $(SUBLEVEL) )
+	@$(call install_replace, rootfs, /etc/init.d/banner, @PROJECT@,  $(PROJECT) )
+	@$(call install_replace, rootfs, /etc/init.d/banner, @EXTRAVERSION@,  $(EXTRAVERSION) )
+	@$(call install_replace, rootfs, /etc/init.d/banner, @DATE@, $(shell date -Iseconds) )
 
-	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@VERSION@,$(VERSION),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
-	perl -i -p -e "s,\@PATCHLEVEL@,$(PATCHLEVEL),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@PATCHLEVEL@,$(PATCHLEVEL),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
-	perl -i -p -e "s,\@SUBLEVEL@,$(SUBLEVEL),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@SUBLEVEL@,$(SUBLEVEL),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
-	perl -i -p -e "s,\@PROJECT@,$(PROJECT),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@PROJECT@,$(PROJECT),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
-	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@EXTRAVERSION@,$(EXTRAVERSION),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
-	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(ROOTDIR)/etc/init.d/banner
-	perl -i -p -e "s,\@DATE@,$(shell date -Iseconds),g" $(IMAGEDIR)/ipkg/etc/init.d/banner
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK),"")
 	@$(call install_link, rootfs, ../init.d/banner, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK))
 endif
