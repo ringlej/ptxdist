@@ -170,6 +170,8 @@ ifdef PTXCONF_GLIBC_GCONV_ISO8859_1
 	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-1.so, /lib, $(GLIBC_STRIP))
 	echo "module INTERNAL ISO-8859-1// ISO8859-1 1" \
 		>> $(ROOTDIR)/usr/lib/gconv/gconv-modules
+	echo "module INTERNAL ISO-8859-1// ISO8859-1 1" \
+		>> $(ROOTDIR_DEBUG)/usr/lib/gconv/gconv-modules
 	if [ "$(PTXCONF_IMAGE_IPKG)" != "" ]; then			\
 		echo "module INTERNAL ISO-8859-1// ISO8859-1 1" 	\
 			>> $(ROOTDIR)/usr/lib/gconv/gconv-modules;	\
