@@ -1,8 +1,11 @@
-TODO for PTXdist 0.10 Series
-============================
+TODO for PTXdist 0.10 Series - High Priority
+============================================
 
+[ ] add prerequisite checks to configure script; find out which
+    prerequisites we really need. 
+[ ] check if ${PTXCONF_PREFIX} can be written to and barf if not
 [ ] add sanity checks for all user configurable variables (especially
-    pathes)
+    paths)
 [ ] audit project files for CROSS_AUTOCONF
 [ ] Problem: When doing things like "PKG_CONFIG_PATH=bla something",
     something does not inherit the environment variable PKG_CONFIG_PATH. 
@@ -124,11 +127,6 @@ Current TODO List
 
 [ ] JBE: more help texts
 
-[ ] RSC: Test on SuSE 10.0: the following packets have to be installed:
-    - ncurses-dev
-    - bison
-    - ipkg for the host needs python distutils
-
 [ ] RSC: make projects doesn't find local_projects/something, if
     something is a softlink and not a directory.
 
@@ -137,8 +135,6 @@ Current TODO List
 [ ] RSC: Do ipkg stuff during make images
 
 [ ] RSC: in NATIVE=1 mode libpthread.so.0 is not copied; find out why
-
-[ ] RSC: write back .config after make menuconfig (with oldconfig applied)
 
 [ ] MKL: let get stages depend on the actual makefile
 
@@ -152,8 +148,6 @@ Current TODO List
 [ ] RSC:Invent a project_clean mechanism (workaround done)
 
 [ ] RSC:is "select GLIBC_DEBUG" in gdb.in necessary??
-
-[ ] RSC:check bash (doesn't compile according to Lisa Hsu)
 
 [ ] sandeep: add a script to setup a new project interactively
 
@@ -201,9 +195,7 @@ Current TODO List
 
 [ ] MKL: test betaftp, old breaks due to a patch from DKE
 
-[ ] MKL: test qte, wxwindows
-
-[ ] MKL: teach qte to crosscompile
+[ ] MKL: test wxwindows
 
 [ ] MKL: gawk fix prefix, due to hard coded path
 

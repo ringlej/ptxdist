@@ -5,7 +5,7 @@
 
 config CONFIGFILE_VERSION
 	string
-	default "@VERSION@"
+	default "@PACKAGE_VERSION@"
 
 comment "----------------------------------"
 

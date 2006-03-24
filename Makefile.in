@@ -1,16 +1,18 @@
-prefix=@PREFIX@
-topdir=@TOPDIR@
-instdir=@INSTDIR@
-version=@VERSION@
+prefix     := @prefix@
+abs_srcdir := @abs_srcdir@
+libdir     := ${prefix}/lib
+bindir     := ${prefix}/bin
+version    := @PACKAGE_VERSION@
+instdir    := ${libdir}/ptxdist-${version}
 
 all:
 	@echo "building lxdialog..."
-	cp ${topdir}/scripts/ptx-modifications/Makefile.lxdialog.ptx ${topdir}/scripts/lxdialog/Makefile
-	cd ${topdir}/scripts/lxdialog && make
+	cp ${abs_srcdir}/scripts/ptx-modifications/Makefile.lxdialog.ptx ${abs_srcdir}/scripts/lxdialog/Makefile
+	cd ${abs_srcdir}/scripts/lxdialog && make
 	@echo "building conf..."
-	cd ${topdir}/scripts/kconfig && make conf
+	cd ${abs_srcdir}/scripts/kconfig && make conf
 	@echo "building mconf..."
-	cd ${topdir}/scripts/kconfig && make mconf
+	cd ${abs_srcdir}/scripts/kconfig && make mconf
 	@echo "done."
 	@touch .done
 
@@ -21,7 +23,7 @@ install: all
 	@test -d ${DESTDIR}${instdir} || exit 1
 	@touch ${DESTDIR}${instdir} || exit 1 
 	@echo "installing PTXdist to ${DESTDIR}${prefix}/bin..."
-	tar -C ${topdir} -cf - --exclude .svn --exclude state --exclude debian . | tar -C ${DESTDIR}${instdir} -xvf -
+	tar -C ${abs_srcdir} -cf - --exclude .svn --exclude state --exclude debian . | tar -C ${DESTDIR}${instdir} -xvf -
 	@mkdir -p ${DESTDIR}${prefix}/bin
 	@rm -f ${DESTDIR}${prefix}/bin/ptxdist
 	@ln -sf ${instdir}/bin/ptxdist ${DESTDIR}${prefix}/bin/ptxdist-${version}
@@ -63,4 +65,8 @@ deb:
 distclean: clean
 	rm -fr build-stamp
 	rm -fr debian/ptxdist
+	rm -fr config.log config.status autom4te.cache
+
+maintainer-clean: distclean
+	rm -f configure
 
