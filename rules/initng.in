@@ -2,7 +2,7 @@ menuconfig INITNG
 	bool
 	depends on BUILD_USERLAND
 	select NCURSES
-	prompt "initng                   "
+	prompt "initng              "
 	help
 	  FIXME
 
