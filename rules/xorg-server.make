@@ -373,6 +373,8 @@ endif
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/scanpci/.libs/libpcidata.so, $(XORG_PREFIX)/lib/xorg/modules/libpcidata.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libshadow.so, $(XORG_PREFIX)/lib/xorg/modules/libshadow.so)
 
+	@$(call install_link, xorg-server, $(XORG_PREFIX)/bin/Xorg, /usr/bin/X)
+
 	@$(call install_finish, xorg-server)
 
 	@$(call touch, $@)
