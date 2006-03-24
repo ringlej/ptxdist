@@ -16,6 +16,8 @@
 	* udev: update from 0.68 to 0.88. Erwin Rol.
 	* Xaw: fixed dependency; patch by Erwin Rol.
 
+	* release: released 0.10.2
+
 2006-03-21 Robert Schwebel <r.schwebel@pengutronix.de
 
 	* release: released 0.10.1
