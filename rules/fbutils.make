@@ -85,7 +85,6 @@ fbutils_install: $(STATEDIR)/fbutils.install
 
 $(STATEDIR)/fbutils.install: $(fbutils_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, FBUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
