@@ -394,7 +394,8 @@ ifdef PTXDIST_INITNG_PID_FILETEST
 endif
 
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/src/.libs/initng, /sbin/initng)
-
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/tools/killalli5, /sbin/killalli5)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/tools/initng-segfault, /sbin/initng-segfault, n)
 ifdef PTXCONF_INITNG_NGCS
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngcs/.libs/libngcs.so, /usr/lib/initng/libngcs.so)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngcs/.libs/libngcs_common.so.0.0.0, /usr/lib/libngcs_common.so.0.0.0)
