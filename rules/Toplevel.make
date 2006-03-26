@@ -275,9 +275,7 @@ endif
 $(STATEDIR)/images: $(images_deps)
 	cat $(STATEDIR)/*.perms > $(IMAGEDIR)/permissions
 ifdef PTXCONF_IMAGE_TGZ
-	cd $(ROOTDIR); \
-	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions && \
-	echo "tar -zcvf $(IMAGEDIR)/root.tgz . ") | $(FAKEROOT) --
+	cd $(IMAGEDIR) && $(PTXDIST_TOPDIR)/scripts/make_image_tgz.sh $(ROOTDIR) permissions
 endif
 ifdef PTXCONF_IMAGE_JFFS2
 ifdef PTXCONF_IMAGE_IPKG
