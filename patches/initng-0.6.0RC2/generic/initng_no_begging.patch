@@ -11,8 +11,8 @@
 # State:
 # Unknown
 #
---- initng-0.6.0RC1/plugins/cpout/initng_colorprint_out.c.orig	2006-03-23 15:26:44.000000000 +0100
-+++ initng-0.6.0RC1/plugins/cpout/initng_colorprint_out.c	2006-03-23 15:27:20.000000000 +0100
+--- initng-0.6.0RC2/plugins/cpout/initng_colorprint_out.c.orig	2006-03-23 15:26:44.000000000 +0100
++++ initng-0.6.0RC2/plugins/cpout/initng_colorprint_out.c	2006-03-23 15:27:20.000000000 +0100
 @@ -405,11 +405,8 @@
      }
  
