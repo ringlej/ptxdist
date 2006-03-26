@@ -116,6 +116,8 @@ $(STATEDIR)/xorg-app-xinit.targetinstall: $(xorg-app-xinit_targetinstall_deps_de
 	@$(call install_fixup,xorg-app-xinit,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xinit, 0, 0, 0755, $(XORG_APP_XINIT_DIR)/xinit, $(XORG_PREFIX)/bin/xinit)
+	@$(call install_copy, xorg-app-xinit, 0, 0, 0755, $(XORG_APP_XINIT_DIR)/startx, $(XORG_PREFIX)/bin/startx, n)
+	@$(call install_copy, xorg-app-xinit, 0, 0, 0755, $(XORG_APP_XINIT_DIR)/xinitrc, $(XORG_PREFIX)/lib/X11/xinit/xinitrc, n)
 
 	@$(call install_finish,xorg-app-xinit)
 
