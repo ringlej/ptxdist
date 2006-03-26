@@ -94,7 +94,8 @@ mesalib_install: $(STATEDIR)/mesalib.install
 
 $(STATEDIR)/mesalib.install: $(mesalib_install_deps_default)
 	@$(call targetinfo, $@)
-	# we only need the source tree
+	# we need the include files 
+	cp -a $(MESALIB_DIR)/include/*  $(SYSROOT)/usr/include/
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
