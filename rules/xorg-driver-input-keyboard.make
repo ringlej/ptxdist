@@ -116,6 +116,7 @@ $(STATEDIR)/xorg-driver-input-keyboard.targetinstall: $(xorg-driver-input-keyboa
 	@$(call install_fixup, xorg-driver-input-keyboard,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-input-keyboard, 0, 0, 0755, $(XORG_DRIVER_INPUT_KEYBOARD_DIR)/src/.libs/keyboard_drv.so, /usr/lib/xorg/modules/keyboard_drv.so)
+	@$(call install_copy, xorg-driver-input-keyboard, 0, 0, 0755, $(XORG_DRIVER_INPUT_KEYBOARD_DIR)/src/.libs/kbd_drv.so, /usr/lib/xorg/modules/kbd_drv.so)
 
 	@$(call install_finish, xorg-driver-input-keyboard)
 
