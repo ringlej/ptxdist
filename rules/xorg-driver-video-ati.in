@@ -3,7 +3,6 @@
 menuconfig XORG_DRIVER_VIDEO_ATI
 	bool
 	depends on XORG_DRIVER_VIDEO
-	depends on BROKEN
 	select XORG_SERVER
 	select XORG_PROTO_X
 	select XORG_PROTO_FONTS
@@ -15,15 +14,16 @@ comment "X.org ATI Driver"
         depends on XORG_DRIVER_VIDEO_ATI
 
 config XORG_DRIVER_VIDEO_ATI_DRI
-        bool
-        depends on XORG_DRIVER_VIDEO_ATI
+	bool
+	depends on XORG_DRIVER_VIDEO_ATI
 	select LIBDRM
+	select MESALIB
+	select XORG_PROTO_GL
+	select XORG_SERVER_EXT_GLX
+	select XORG_SERVER_EXT_DRI
+	select XORG_PROTO_XF86DRI
         prompt "Enable DRI"
         help
           --enable-dri
-
-comment "driver-video-ati is broken, please send a patch"
-	depends on !BROKEN
-	depends on XORG_DRIVER_VIDEO
 
 
