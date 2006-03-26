@@ -115,7 +115,7 @@ $(STATEDIR)/xorg-driver-input-evdev.targetinstall: $(xorg-driver-input-evdev_tar
 	@$(call install_fixup, xorg-driver-input-evdev,DEPENDS,)
 	@$(call install_fixup, xorg-driver-input-evdev,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-driver-input-evdev, 0, 0, 0755, $(XORG_DRIVER_INPUT_EVDEV_DIR)/src/.libs/evdev_drv.so, /usr/lib/xorg/modules/evdev_drv.so)	
 
 	@$(call install_finish, xorg-driver-input-evdev)
 
