@@ -195,12 +195,12 @@ config INITNG_NGC2
 	help
 	  FIXME
 
-config INITNG_NGC4
-	bool
-	depends on INITNG
-	prompt "NGC4 Plugin"
-	help
-	  FIXME
+#config INITNG_NGC4
+#	bool
+#	depends on INITNG
+#	prompt "NGC4 Plugin"
+#	help
+#	  FIXME
 
 config INITNG_NGCS
 	bool

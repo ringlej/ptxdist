@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_INITNG) += initng
 #
 # Paths and names
 #
-INITNG_VERSION	:= 0.6.0RC2
+INITNG_VERSION	:= 0.6.0
 INITNG		:= initng-$(INITNG_VERSION)
 INITNG_SUFFIX	:= tar.bz2
 INITNG_URL	:= http://download.initng.thinktux.net/initng/v0.6/$(INITNG).$(INITNG_SUFFIX)
@@ -404,26 +404,27 @@ ifdef PTXCONF_INITNG_NGCS
 endif
 
 ifdef PTXCONF_INITNG_NGC2
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngc2/ngdc, /sbin/ngdc)
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngc2/ngc, /sbin/ngc)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngc2/.libs/libngc2.so, /usr/lib/initng/libngc2.so )
+#	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngc2/ngdc, /sbin/ngdc)
+#	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngc2/ngc, /sbin/ngc)
 
-	@$(call install_link, initng, ngc, /sbin/nghalt)
-	@$(call install_link, initng, ngc, /sbin/ngreboot)
-	@$(call install_link, initng, ngc, /sbin/ngrestart)
-	@$(call install_link, initng, ngc, /sbin/ngstart)
-	@$(call install_link, initng, ngc, /sbin/ngstatus)
-	@$(call install_link, initng, ngc, /sbin/ngstop)
-	@$(call install_link, initng, ngc, /sbin/ngzap)
+#	@$(call install_link, initng, ngc, /sbin/nghalt)
+#	@$(call install_link, initng, ngc, /sbin/ngreboot)
+#	@$(call install_link, initng, ngc, /sbin/ngrestart)
+#	@$(call install_link, initng, ngc, /sbin/ngstart)
+#	@$(call install_link, initng, ngc, /sbin/ngstatus)
+#	@$(call install_link, initng, ngc, /sbin/ngstop)
+#	@$(call install_link, initng, ngc, /sbin/ngzap)
 endif
 
-ifdef PTXCONF_INITNG_NGC4
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngc4/.libs/libngc4.so, /usr/lib/initng/libngc4.so)
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngc4/.libs/libngcclient.so.0.0.0, /usr/lib/libngcclient.so.0.0.0)
-	@$(call install_link, initng, libngcclient.so.0.0.0, /usr/lib/libngcclient.so.0)
-	@$(call install_link, initng, libngcclient.so.0.0.0, /usr/lib/libngcclient.so)
+#ifdef PTXCONF_INITNG_NGC4
+#	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngc4/.libs/libngc4.so, /usr/lib/initng/libngc4.so)
+#	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngc4/.libs/libngcclient.so.0.0.0, /usr/lib/libngcclient.so.0.0.0)
+#	@$(call install_link, initng, libngcclient.so.0.0.0, /usr/lib/libngcclient.so.0)
+#	@$(call install_link, initng, libngcclient.so.0.0.0, /usr/lib/libngcclient.so)
 
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngc4/.libs/ngc4, /sbin/ngc4)
-endif
+#	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/ngc4/.libs/ngc4, /sbin/ngc4)
+#endif
 
 ifdef PTXCONF_INITNG_NGE
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/plugins/nge/.libs/libngeclient.so, /usr/lib/libngeclient.so.0.0.0)
