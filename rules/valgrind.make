@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_VALGRIND) += valgrind
 #
 # Paths and names
 #
-VALGRIND_VERSION	= 2.4.0
+VALGRIND_VERSION	= 3.1.1
 VALGRIND		= valgrind-$(VALGRIND_VERSION)
 VALGRIND_SUFFIX		= tar.bz2
 VALGRIND_URL		= http://valgrind.org/downloads/$(VALGRIND).$(VALGRIND_SUFFIX)
@@ -101,11 +101,10 @@ valgrind_install: $(STATEDIR)/valgrind.install
 
 $(STATEDIR)/valgrind.install: $(valgrind_install_deps_default)
 	@$(call targetinfo, $@)
-
 	# FIXME: rsc: if --prefix=/, doesn't this install to / on the 
 	#             development host? 
-	# cd $(VALGRIND_DIR) && $(VALGRIND_PATH) $(MAKE_INSTALL)
-
+	#cd $(VALGRIND_DIR) && $(VALGRIND_PATH) $(MAKE_INSTALL) PREFIX=$(SYSROOT)
+	@$(call install, VALGRIND)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -126,25 +125,31 @@ $(STATEDIR)/valgrind.targetinstall: $(valgrind_targetinstall_deps_default)
 	@$(call install_fixup, valgrind,DEPENDS,)
 	@$(call install_fixup, valgrind,DESCRIPTION,missing)
 
-	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/coregrind/valgrind, /bin/valgrind)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/coregrind/stage2, /lib/valgrind/stage2)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/corecheck/vgskin_corecheck.so, /lib/valgrind/vgskin_corecheck.so)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/massif/vgskin_massif.so, /lib/valgrind/vgskin_massif.so)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/massif/vgpreload_massif.so, /lib/valgrind/vgpreload_massif.so)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/cachegrind/vgskin_cachegrind.so, /lib/valgrind/vgskin_cachegrind.so)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/none/vgskin_none.so, /lib/valgrind/vgskin_none.so)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/addrcheck/vgpreload_addrcheck.so, /lib/valgrind/vgpreload_addrcheck.so)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/addrcheck/vgskin_addrcheck.so, /lib/valgrind/vgskin_addrcheck.so)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/memcheck/vgpreload_memcheck.so, /lib/valgrind/vgpreload_memcheck.so)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/memcheck/vgskin_memcheck.so, /lib/valgrind/vgskin_memcheck.so)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/lackey/vgskin_lackey.so, /lib/valgrind/vgskin_lackey.so)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/coregrind/vg_inject.so, /lib/valgrind/vg_inject.so)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/default.supp, /lib/valgrind/default.supp)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/glibc-2.3.supp, /lib/valgrind/glibc-2.3.supp)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/glibc-2.2.supp, /lib/valgrind/glibc-2.2.supp)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/glibc-2.1.supp, /lib/valgrind/glibc-2.1.supp)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/xfree-4.supp, /lib/valgrind/xfree-4.supp)
-	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/xfree-3.supp, /lib/valgrind/xfree-3.supp)
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/coregrind/valgrind, /usr/bin/valgrind)
+
+	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/default.supp, /usr/lib/valgrind/default.supp)
+	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/glibc-2.3.supp, /usr/lib/valgrind/glibc-2.3.supp)
+	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/glibc-2.2.supp, /usr/lib/valgrind/glibc-2.2.supp)
+	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/glibc-2.4.supp, /usr/lib/valgrind/glibc-2.4.supp)
+	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/xfree-4.supp, /usr/lib/valgrind/xfree-4.supp)
+	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/xfree-3.supp, /usr/lib/valgrind/xfree-3.supp)
+
+	@$(call install_copy, valgrind, 0, 0, 0644, $(VALGRIND_DIR)/.in_place/hp2ps, /usr/lib/valgrind/hp2ps)
+
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/cachegrind, /usr/lib/valgrind/x86-linux/cachegrind)
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/helgrind, /usr/lib/valgrind/x86-linux/helgrind)
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/lackey, /usr/lib/valgrind/x86-linux/lackey)
+
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/coregrind/libcoregrind_x86_linux.a, /usr/lib/valgrind/x86-linux/libcoregrind.a)
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/VEX/libvex_x86_linux.a, /usr/lib/valgrind/x86-linux/libvex.a)
+	
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/massif, /usr/lib/valgrind/x86-linux/massif)
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/memcheck, /usr/lib/valgrind/x86-linux/memcheck)
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/none, /usr/lib/valgrind/x86-linux/none)
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/vgpreload_core.so, /usr/lib/valgrind/x86-linux/vgpreload_core.so)
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/vgpreload_helgrind.so, /usr/lib/valgrind/x86-linux/vgpreload_helgrind.so)
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/vgpreload_massif.so, /usr/lib/valgrind/x86-linux/vgpreload_massif.so)
+	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/vgpreload_memcheck.so, /usr/lib/valgrind/x86-linux/vgpreload_memcheck.so)
 
 	@$(call install_finish, valgrind)
 
