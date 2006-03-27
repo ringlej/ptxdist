@@ -1,0 +1,5 @@
+config LIBJPEG
+	bool
+	prompt "libjpeg"
+	help
+	  FIXME: This item needs to be documented

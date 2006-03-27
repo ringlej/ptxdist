@@ -190,6 +190,7 @@ source "rules/fbutils.in"
 comment "Other Stuff"
 source "rules/sdl.in"
 source "rules/libpng.in"
+source "rules/libjpeg.in"
 source "rules/fontconfig.in"
 source "rules/tslib.in"
 endmenu

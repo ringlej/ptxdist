@@ -1,0 +1,12 @@
+--- jpeg-6b/ltconfig.lr	2003-09-12 13:01:19.000000000 -0600
++++ jpeg-6b/ltconfig	2003-09-12 13:01:48.000000000 -0600
+@@ -769,7 +769,7 @@
+ 
+   if test "$ld_shlibs" = yes; then
+-    runpath_var=LD_RUN_PATH
+-    hardcode_libdir_flag_spec='${wl}--rpath ${wl}$libdir'
++    runpath_var=XXXLD_RUN_PATH
++    hardcode_libdir_flag_spec=''
+     export_dynamic_flag_spec='${wl}--export-dynamic'
+     whole_archive_flag_spec='${wl}--whole-archive$convenience ${wl}--no-whole-archive'
+   fi
