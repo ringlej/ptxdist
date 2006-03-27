@@ -12,8 +12,8 @@
 # State:
 # Unknown
 #
---- initng-0.6.0RC2/plugins/bash_launcher/initng_bash_launcher.c.orig	2006-03-23 11:43:20.000000000 +0100
-+++ initng-0.6.0RC2/plugins/bash_launcher/initng_bash_launcher.c	2006-03-23 11:48:16.000000000 +0100
+--- initng-0.6.0/plugins/bash_launcher/initng_bash_launcher.c.orig	2006-03-23 11:43:20.000000000 +0100
++++ initng-0.6.0/plugins/bash_launcher/initng_bash_launcher.c	2006-03-23 11:48:16.000000000 +0100
 @@ -99,10 +99,14 @@
  
      /* allocate, and fill the temp argv */
