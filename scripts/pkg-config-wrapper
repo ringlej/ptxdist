@@ -11,12 +11,11 @@ if [ \! "$SYSROOT" ]; then
 	exit 2
 fi
 
-#if [ ! "$PKG_CONFIG_LIBDIR" ]; then
-#    export PKG_CONFIG_LIBDIR=$SYSROOT/usr/pkgconfig/
-#fi
+if [ ! "$PKG_CONFIG_LIBDIR" ]; then
+    export PKG_CONFIG_LIBDIR=$SYSROOT/lib/pkgconfig:$SYSROOT/usr/lib/pkgconfig
+fi
 
 export PKG_CONFIG_LIBDIR
-export PKG_CONFIG_PATH
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
 
