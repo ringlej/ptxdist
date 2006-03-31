@@ -30,7 +30,6 @@ install: all
 	@ln -sf ${instdir}/bin/ptxdist ${DESTDIR}${prefix}/bin/ptxdist
 
 clean:
-	rm -f Makefile
 	rm -f scripts/lxdialog/lxdialog
 	rm -f scripts/lxdialog/Makefile
 	rm -f scripts/kconfig/conf
@@ -62,6 +61,7 @@ deb:
 	dpkg-buildpackage -rfakeroot
 
 distclean: clean
+	rm -fr Makefile
 	rm -fr build-stamp
 	rm -fr debian/ptxdist
 	rm -fr config.log config.status autom4te.cache scripts/ptxdistvars.sh
