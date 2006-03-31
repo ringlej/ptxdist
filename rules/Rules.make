@@ -253,6 +253,7 @@ CROSS_ENV_AC := \
 	ac_cv_func_setvbuf_reversed=no \
 	ac_cv_func_getrlimit=yes \
 	ac_cv_type_uintptr_t=yes \
+	ac_cv_func_posix_getpwuid_r=yes \
 	ac_cv_func_dcgettext=yes \
 	gt_cv_func_gettext_libintl=yes \
 	ac_cv_sysv_ipc=yes
