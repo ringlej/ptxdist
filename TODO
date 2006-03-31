@@ -54,6 +54,10 @@ Test suite components to be added
 Current TODO List
 =================
 
+[ ] ptxdist arch <arm|um|ppc|....>
+
+    Split build-target into build-${PTXCONF_ARCH}
+
 [ ] RSC: port XOrg 7.0
 
     Requirements, according to
