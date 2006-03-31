@@ -77,7 +77,7 @@ rootfs_targetinstall: $(STATEDIR)/rootfs.targetinstall
 $(STATEDIR)/rootfs.targetinstall: $(rootfs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, rootfs)
+	@$(call install_init,  rootfs)
 	@$(call install_fixup, rootfs,PACKAGE,rootfs)
 	@$(call install_fixup, rootfs,PRIORITY,optional)
 	@$(call install_fixup, rootfs,VERSION,$(ROOTFS_VERSION))
