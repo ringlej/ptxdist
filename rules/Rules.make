@@ -924,6 +924,24 @@ install_replace = \
 	FILE=$(strip $(2));									\
 	PLACEHOLDER=$(strip $(3));								\
 	VALUE=$(strip $(4));									\
+	if [ ! -f "$(IMAGEDIR)/$$PACKET/ipkg/$$FILE" ]; then 					\
+		echo;										\
+		echo "install_replace: error: file not found: $(IMAGEDIR)/$$PACKET/ipkg/$$FILE";\
+		echo;										\
+		exit 1;										\
+	fi;											\
+	if [ ! -f "$(ROOTDIR)/$$FILE" ]; then 							\
+		echo										\
+		echo "install_replace: error: file not found: $(ROOTDIR)/$$FILE";		\
+		echo;										\
+		exit 1;										\
+	fi;											\
+	if [ ! -f "$(ROOTDIR_DEBUG)/$$FILE" ]; then 						\
+		echo										\
+		echo "install_replace: error: file not found: $(ROOTDIR_DEBUG)/$$FILE";		\
+		echo;										\
+		exit 1;										\
+	fi;											\
 	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(IMAGEDIR)/$$PACKET/ipkg/$$FILE;			\
 	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(ROOTDIR)/$$FILE;				\
 	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(ROOTDIR_DEBUG)/$$FILE;
