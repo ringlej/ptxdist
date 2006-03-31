@@ -647,6 +647,7 @@ menuconfig ROOTFS_ETC_INITD_UDEV
 			depends on ROOTFS_ETC_INITD && ROOTFS_ETC_INITD_UDEV
 			bool
 			prompt "Use default udevd"
+			select UDEV_START
 			help
 			  A file from projects-example/generic/etc/init.d/udev will be used
 

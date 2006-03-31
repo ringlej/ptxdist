@@ -88,7 +88,7 @@ echo "mounting... ramfs at $udev_root"
 mount -n -t ramfs none $udev_root
 
 # propogate /udev from /sys
-echo "Creating initial udev device nodes:"
+echo "creating initial udev device nodes:"
 
 # You can use the shell scripts above by calling run_udev or execute udevstart
 # which does the same thing, but much faster by not using shell.  
@@ -104,5 +104,5 @@ echo /sbin/udevsend > /proc/sys/kernel/hotplug
 # We can only mount /dev/pts after initialising udev
 mount /dev/pts
 
-echo "udev startup is finished!"
+echo "udev startup is finished"
 exit 0
