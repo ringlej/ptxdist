@@ -1,0 +1,5 @@
+config PANGO
+	bool
+	prompt "pango"
+	select FONTCONFIG
+	select CAIRO
