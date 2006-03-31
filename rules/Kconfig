@@ -155,7 +155,7 @@ source "rules/sqlite.in"
 source "rules/termcap.in"
 source "rules/zlib.in"
 source "rules/alsa-lib.in"
-source "rules/gtk.in"
+source "rules/gtk-menu.in"
 endmenu
 
 menu "Middleware                  "
