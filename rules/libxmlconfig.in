@@ -1,6 +1,6 @@
-menuconfig LIBXMLCONFIG
+config LIBXMLCONFIG
 	bool
-	prompt "libxmlconfig                "
+	prompt "libxmlconfig"
 	select LIBXML2
 	select LIBLIST
 	help

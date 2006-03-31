@@ -1,4 +1,4 @@
-menuconfig THTTPD
+config THTTPD
 	bool
 	prompt "thttpd              "
 	help

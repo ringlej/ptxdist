@@ -1,8 +1,6 @@
-menu    "ethewake            "
-
 config ETHERWAKE
 	bool
-	prompt "etherwake"
+	prompt "ethewake            "
 	help
 	  A little tool to send magic Wake-on-LAN packets
  
@@ -15,4 +13,3 @@ config ETHERWAKE
 	  location over a network connection.
  	
 	  etherwake also supports WOL passwords.
-endmenu

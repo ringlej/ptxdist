@@ -1,8 +1,6 @@
-menu	"bing                "
-
 config BING
 	bool
-	prompt "bing"
+	prompt "bing                "
 	help
 	  Empirical stochastic bandwidth tester (bing)
 	  
@@ -17,6 +15,3 @@ config BING
 	  
 	  See also: 
  	  http://fgouget.free.fr/bing/bing_src-readme-1st.shtml
-	  
-
-endmenu
