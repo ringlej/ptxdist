@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_SYSFSUTILS) += sysfsutils
 #
 # Paths and names
 #
-SYSFSUTILS_VERSION	= 1.3.0
-SYSFSUTILS		= sysfsutils-$(SYSFSUTILS_VERSION)
-SYSFSUTILS_SUFFIX	= tar.gz
-SYSFSUTILS_URL		= $(PTXCONF_SETUP_SFMIRROR)/linux-diag/$(SYSFSUTILS).$(SYSFSUTILS_SUFFIX)
-SYSFSUTILS_SOURCE	= $(SRCDIR)/$(SYSFSUTILS).$(SYSFSUTILS_SUFFIX)
-SYSFSUTILS_DIR		= $(BUILDDIR)/$(SYSFSUTILS)
+SYSFSUTILS_VERSION	:= 2.0.0
+SYSFSUTILS		:= sysfsutils-$(SYSFSUTILS_VERSION)
+SYSFSUTILS_SUFFIX	:= tar.gz
+SYSFSUTILS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/linux-diag/$(SYSFSUTILS).$(SYSFSUTILS_SUFFIX)
+SYSFSUTILS_SOURCE	:= $(SRCDIR)/$(SYSFSUTILS).$(SYSFSUTILS_SUFFIX)
+SYSFSUTILS_DIR		:= $(BUILDDIR)/$(SYSFSUTILS)
 
 -include $(call package_depfile)
 
@@ -59,13 +59,13 @@ $(STATEDIR)/sysfsutils.extract: $(sysfsutils_extract_deps_default)
 
 sysfsutils_prepare: $(STATEDIR)/sysfsutils.prepare
 
-SYSFSUTILS_PATH	=  PATH=$(CROSS_PATH)
-SYSFSUTILS_ENV 	=  $(CROSS_ENV)
+SYSFSUTILS_PATH	:= PATH=$(CROSS_PATH)
+SYSFSUTILS_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-SYSFSUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+SYSFSUTILS_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/sysfsutils.prepare: $(sysfsutils_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -114,11 +114,11 @@ $(STATEDIR)/sysfsutils.targetinstall: $(sysfsutils_targetinstall_deps_default)
 	@$(call install_fixup, sysfsutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, sysfsutils,DEPENDS,)
 	@$(call install_fixup, sysfsutils,DESCRIPTION,missing)
-	
+
 ifdef PTXCONF_SYSFSUTILS_LIB
-	@$(call install_copy, sysfsutils, 0, 0, 0644, $(SYSFSUTILS_DIR)/lib/.libs/libsysfs.so.1.0.3, /lib/libsysfs.so.1.0.3)
-	@$(call install_link, sysfsutils, libsysfs.so.1.0.3, /lib/libsysfs.so.1)
-	@$(call install_link, sysfsutils, libsysfs.so.1.0.3, /lib/libsysfs.so)
+	@$(call install_copy, sysfsutils, 0, 0, 0644, $(SYSFSUTILS_DIR)/lib/.libs/libsysfs.so.2.0.0, /lib/libsysfs.so.2.0.0)
+	@$(call install_link, sysfsutils, libsysfs.so.2.0.0, /lib/libsysfs.so.2)
+	@$(call install_link, sysfsutils, libsysfs.so.2.0.0, /lib/libsysfs.so)
 endif
 ifdef PTXCONF_SYSFSUTILS_SYSTOOL
 	@$(call install_copy, sysfsutils, 0, 0, 0775, $(SYSFSUTILS_DIR)/cmd/systool, /bin/systool, n)
