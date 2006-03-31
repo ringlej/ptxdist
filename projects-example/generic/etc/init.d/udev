@@ -80,6 +80,7 @@ make_extra_nodes () {
 
 # don't use udev if sysfs is not mounted.
 if [ ! -d $sysfs_dir/block ]; then
+	echo "error: sysfs not mounted"
 	exit 1
 fi
 
