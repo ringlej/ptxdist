@@ -1,4 +1,4 @@
-menu "gtk and stuff"
+menu "GTK+ and friends            "
 
 source "rules/gtk28.in"
 source "rules/glib28.in"
