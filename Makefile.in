@@ -39,7 +39,6 @@ clean:
 	rm -f scripts/kconfig/lex.backup
 	rm -f scripts/kconfig/lkc_defs.h
 	rm -f scripts/kconfig/mconf
-	rm -f rules/Kconfig
 	rm -f .done
 
 dist:
