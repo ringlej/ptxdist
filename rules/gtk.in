@@ -1,0 +1,9 @@
+menu "gtk and stuff"
+
+source "rules/gtk28.in"
+source "rules/glib28.in"
+source "rules/atk.in"
+source "rules/pango.in"
+source "rules/cairo.in"
+
+endmenu

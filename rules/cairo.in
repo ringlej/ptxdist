@@ -1,0 +1,29 @@
+menuconfig CAIRO
+	bool
+	select XORG_LIB_XT if CAIRO_XLIB
+	select XORG_LIB_XRENDER if CAIRO_XLIB
+
+	select FONTCONFIG if CAIRO_FREETYPE
+	select FREETYPE if CAIRO_FREETYPE
+
+	select LIBPNG if CAIRO_PNG
+
+	prompt "cairo"
+
+config CAIRO_XLIB
+	bool
+	default y
+	depends on CAIRO
+	prompt "Xlib backend"
+
+config CAIRO_FREETYPE
+	bool
+	default y
+	depends on CAIRO
+	prompt "Freetype font backend"
+
+config CAIRO_PNG
+	bool
+	default y
+	depends on CAIRO
+	prompt "PNG support"

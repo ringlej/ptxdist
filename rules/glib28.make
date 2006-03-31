@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: glib28.make 3574 2005-12-27 11:46:41Z rsc $
+# $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -18,12 +18,12 @@ PACKAGES-$(PTXCONF_GLIB28) += glib28
 #
 # Paths and names
 #
-GLIB28_VERSION		= 2.8.4
-GLIB28			= glib-$(GLIB28_VERSION)
-GLIB28_SUFFIX		= tar.gz
-GLIB28_URL		= ftp://ftp.gtk.org/pub/gtk/v2.8/$(GLIB28).$(GLIB28_SUFFIX)
-GLIB28_SOURCE		= $(SRCDIR)/$(GLIB28).$(GLIB28_SUFFIX)
-GLIB28_DIR		= $(BUILDDIR)/$(GLIB28)
+GLIB28_VERSION	:= 2.8.6
+GLIB28		:= glib-$(GLIB28_VERSION)
+GLIB28_SUFFIX	:= tar.bz2
+GLIB28_URL	:= ftp://ftp.gtk.org/pub/gtk/v2.8/$(GLIB28).$(GLIB28_SUFFIX)
+GLIB28_SOURCE	:= $(SRCDIR)/$(GLIB28).$(GLIB28_SUFFIX)
+GLIB28_DIR	:= $(BUILDDIR)/$(GLIB28)
 
 -include $(call package_depfile)
 
@@ -51,6 +51,7 @@ $(STATEDIR)/glib28.extract: $(glib28_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB28_DIR))
 	@$(call extract, $(GLIB28_SOURCE))
+	@$(call patchin, $(GLIB28))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -59,28 +60,26 @@ $(STATEDIR)/glib28.extract: $(glib28_extract_deps_default)
 
 glib28_prepare: $(STATEDIR)/glib28.prepare
 
-GLIB28_PATH = PATH=$(CROSS_PATH)
-GLIB28_ENV = \
+GLIB28_PATH	:= PATH=$(CROSS_PATH)
+GLIB28_ENV 	:= \
 	$(CROSS_ENV) \
-	glib_cv_use_pid_surrogate=no \
-	ac_cv_func_posix_getpwuid_r=yes \
 	glib_cv_stack_grows=no
 
-ifdef $(PTXCONF_GLIBC_DL)
-GLIB28_ENV += glib_cv_uscore=yes
-else
-GLIB28_ENV += glib_cv_uscore=no
-endif
+#FIXME
+#ifdef $(PTXCONF_GLIBC_DL)
+#GLIB28_ENV	+= glib_cv_uscore=yes
+#else
+GLIB28_ENV	+= glib_cv_uscore=no
+#endif
 
 #
 # autoconf
 #
-GLIB28_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-GLIB28_AUTOCONF += --with-threads=posix
+GLIB28_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/glib28.prepare: $(glib28_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(GLIB28_BUILDDIR))
+	@$(call clean, $(GLIB28_DIR)/config.cache)
 	cd $(GLIB28_DIR) && \
 		$(GLIB28_PATH) $(GLIB28_ENV) \
 		./configure $(GLIB28_AUTOCONF)
@@ -92,11 +91,9 @@ $(STATEDIR)/glib28.prepare: $(glib28_prepare_deps_default)
 
 glib28_compile: $(STATEDIR)/glib28.compile
 
-glib28_compile_deps =  $(STATEDIR)/glib28.prepare
-
 $(STATEDIR)/glib28.compile: $(glib28_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(GLIB28_DIR) && $(GLIB28_PATH) $(GLIB28_ENV) make $(GLIB28_MAKEVARS)
+	cd $(GLIB28_DIR) && $(GLIB28_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -120,31 +117,31 @@ $(STATEDIR)/glib28.targetinstall: $(glib28_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init, glib28)
-	@$(call install_fixup, glib28,PACKAGE,glib28)
-	@$(call install_fixup, glib28,PRIORITY,optional)
-	@$(call install_fixup, glib28,VERSION,$(GLIB28_VERSION))
-	@$(call install_fixup, glib28,SECTION,base)
-	@$(call install_fixup, glib28,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup, glib28,DEPENDS,)
-	@$(call install_fixup, glib28,DESCRIPTION,missing)
+	@$(call install_fixup,glib28,PACKAGE,glib28)
+	@$(call install_fixup,glib28,PRIORITY,optional)
+	@$(call install_fixup,glib28,VERSION,$(GLIB28_VERSION))
+	@$(call install_fixup,glib28,SECTION,base)
+	@$(call install_fixup,glib28,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,glib28,DEPENDS,)
+	@$(call install_fixup,glib28,DESCRIPTION,missing)
 
-	@$(call install_copy, glib28, 0, 0, 0644, $(GLIB28_DIR)/glib/.libs/libglib-2.0.so.0.800.4, /usr/lib/libglib-2.0.so.0.800.4)
-	@$(call install_link, glib28, /usr/lib/libglib-2.0.so.0.800.4, /usr/lib/libglib-2.0.so.0)
-	@$(call install_link, glib28, /usr/lib/libglib-2.0.so.0.800.4, /usr/lib/libglib-2.0.so)
+	@$(call install_copy, glib28, 0, 0, 0644, $(GLIB28_DIR)/glib/.libs/libglib-2.0.so.0.800.6, /usr/lib/libglib-2.0.so.0.800.6)
+	@$(call install_link, glib28, libglib-2.0.so.0.800.6, /usr/lib/libglib-2.0.so.0)
+	@$(call install_link, glib28, libglib-2.0.so.0.800.6, /usr/lib/libglib-2.0.so)
 
-	@$(call install_copy, glib28, 0, 0, 0644, $(GLIB28_DIR)/gobject/.libs/libgobject-2.0.so.0.800.4, /usr/lib/libgobject-2.0.so.0.800.4)
-	@$(call install_link, glib28, /usr/lib/libgobject-2.0.so.0.800.4, /usr/lib/libgobject-2.0.so.0)
-	@$(call install_link, glib28, /usr/lib/libgobject-2.0.so.0.800.4, /usr/lib/libgobject-2.0.so)
+	@$(call install_copy, glib28, 0, 0, 0644, $(GLIB28_DIR)/gobject/.libs/libgobject-2.0.so.0.800.6, /usr/lib/libgobject-2.0.so.0.800.6)
+	@$(call install_link, glib28, libgobject-2.0.so.0.800.6, /usr/lib/libgobject-2.0.so.0)
+	@$(call install_link, glib28, libgobject-2.0.so.0.800.6, /usr/lib/libgobject-2.0.so)
 
-	@$(call install_copy, glib28, 0, 0, 0644, $(GLIB28_DIR)/gmodule/.libs/libgmodule-2.0.so.0.800.4, /usr/lib/libgmodule-2.0.so.0.800.4)
-	@$(call install_link, glib28, /usr/lib/libgmodule-2.0.so.0.800.4, /usr/lib/libgmodule-2.0.so.0)
-	@$(call install_link, glib28, /usr/lib/libgmodule-2.0.so.0.800.4, /usr/lib/libgmodule-2.0.so)
+	@$(call install_copy, glib28, 0, 0, 0644, $(GLIB28_DIR)/gmodule/.libs/libgmodule-2.0.so.0.800.6, /usr/lib/libgmodule-2.0.so.0.800.6)
+	@$(call install_link, glib28, libgmodule-2.0.so.0.800.6, /usr/lib/libgmodule-2.0.so.0)
+	@$(call install_link, glib28, libgmodule-2.0.so.0.800.6, /usr/lib/libgmodule-2.0.so)
 
-	@$(call install_copy, glib28, 0, 0, 0644, $(GLIB28_DIR)/gthread/.libs/libgthread-2.0.so.0.800.4, /usr/lib/libgthread-2.0.so.0.800.4)
-	@$(call install_link, glib28, /usr/lib/libgthread-2.0.so.0.800.4, /usr/lib/libgthread-2.0.so.0)
-	@$(call install_link, glib28, /usr/lib/libgthread-2.0.so.0.800.4, /usr/lib/libgthread-2.0.so)
+	@$(call install_copy, glib28, 0, 0, 0644, $(GLIB28_DIR)/gthread/.libs/libgthread-2.0.so.0.800.6, /usr/lib/libgthread-2.0.so.0.800.6)
+	@$(call install_link, glib28, libgthread-2.0.so.0.800.6, /usr/lib/libgthread-2.0.so.0)
+	@$(call install_link, glib28, libgthread-2.0.so.0.800.6, /usr/lib/libgthread-2.0.so)
 
-	@$(call install_finish, glib28)
+	@$(call install_finish,glib28)
 
 	@$(call touch, $@)
 
@@ -156,9 +153,5 @@ glib28_clean:
 	rm -rf $(STATEDIR)/glib28.*
 	rm -rf $(IMAGEDIR)/glib28_*
 	rm -rf $(GLIB28_DIR)
-	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/glib-2.0*.pc
-	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/gmodule-2.0*.pc
-	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/gobject-2.0*.pc
-	rm -f $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/share/pkg-config/gthread-2.0*.pc
 
 # vim: syntax=make
