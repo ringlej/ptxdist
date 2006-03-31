@@ -1,0 +1,24 @@
+diff -urN fontconfig-2.3.94-orig/configure fontconfig-2.3.94/configure
+--- fontconfig-2.3.94-orig/configure	2006-02-24 20:19:34.000000000 +0100
++++ fontconfig-2.3.94/configure	2006-02-27 22:25:21.000000000 +0100
+@@ -20640,17 +20640,17 @@
+ 		yes)
+ 			case "$expat" in
+ 			yes)
+-				EXPAT_LIBS="-lexpat"
++				EXPAT_LIBS="-Wl,-lexpat"
+ 				;;
+ 			*)
+-				EXPAT_LIBS="-L$expat/lib -lexpat"
++				EXPAT_LIBS="-L$expat/lib -Wl,-lexpat"
+ 				;;
+ 			esac
+ 			;;
+ 		no)
+ 			;;
+ 		*)
+-			EXPAT_LIBS="-L$expat_lib -lexpat"
++			EXPAT_LIBS="-L$expat_lib -Wl,-lexpat"
+ 			;;
+ 		esac
+ 
