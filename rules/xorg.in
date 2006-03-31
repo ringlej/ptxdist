@@ -1,5 +1,6 @@
 menu "Xorg                  "
 
+source "rules/xorg-options.in"
 source "rules/xorg-server.in"
 source "rules/xorg-driver.in"
 source "rules/xorg-app.in"

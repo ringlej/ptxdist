@@ -1,4 +1,4 @@
-config XORG_LIB_X11
+menuconfig XORG_LIB_X11
 	bool
 	prompt "libX11"
 	select XORG_PROTO_XEXT
@@ -10,6 +10,12 @@ config XORG_LIB_X11
 	select XORG_PROTO_INPUT
 	select XORG_PROTO_BIGREQS
 	select XORG_PROTO_X
-	select XORG_PROTO_XF86BIGFONT
+	select XORG_PROTO_XF86BIGFONT if XORG_LIB_X11_XF86BIGFONT
 	help
 	  FIXME
+
+config XORG_LIB_X11_XF86BIGFONT
+	bool
+	prompt "XF86BigFont extension support"
+	default y
+	depends on XORG_LIB_X11

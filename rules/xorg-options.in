@@ -1,0 +1,20 @@
+menu "overall X11 options   "
+
+config XORG_OPTIONS_TRANS_UNIX
+	bool
+	prompt "UNIX domain socket transport"
+	default y
+	depends on XORG_LIB_ICE
+
+config XORG_OPTIONS_TRANS_TCP
+	bool
+	prompt "TCP socket transport"
+	default y
+	depends on XORG_LIB_ICE
+
+config XORG_OPTIONS_TRANS_IPV6
+	bool
+	prompt "IPv6 support"
+	depends on XORG_LIB_ICE
+
+endmenu
