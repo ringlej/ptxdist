@@ -137,7 +137,7 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps_default)
 	rm -f $(BUSYBOX_DIR)/busybox.links
 	cd $(BUSYBOX_DIR) && $(MAKE) busybox.links
 
-	@$(call install_copy, busybox, 0, 0, 1555, $(BUSYBOX_DIR)/busybox, /bin/busybox)
+	@$(call install_copy, busybox, 0, 0, 755, $(BUSYBOX_DIR)/busybox, /bin/busybox)
 	for file in `cat $(BUSYBOX_DIR)/busybox.links`; do	\
 		$(call install_link, busybox, /bin/busybox, $$file);	\
 	done

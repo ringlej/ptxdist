@@ -1,6 +1,6 @@
 config HOST_IPKG_UTILS
 	bool
-	prompt "ipkg-utils"
+	# no prompt, policy is that we always need it
 	default y
 	help
 	  ipkg-utils let you build packages in the ipkg format. 

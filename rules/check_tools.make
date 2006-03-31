@@ -2,11 +2,8 @@
 
 check_tools_deps = \
 	check_dirs \
-	$(STATEDIR)/host-pkg-config-wrapper.install
-
-ifdef $(PTXCONF_IMAGE_IPKG)
-check_tools_deps += $(STATEDIR)/host-ipkg-utils.install
-endif
+	$(STATEDIR)/host-pkg-config-wrapper.install \
+	$(STATEDIR)/host-ipkg-utils.install
 
 check_tools: $(check_tools_deps)
 	@echo "running check_tools..."

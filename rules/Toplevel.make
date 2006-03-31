@@ -185,10 +185,8 @@ dep_tree: $(STATEDIR)/dep_tree
 
 $(STATEDIR)/dep_tree:
 ifndef NATIVE
-ifdef PTXCONF_IMAGE_IPKG
 	@echo "Launching ipkg-test"
 	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl $(PTXDIST_TOPDIR)/scripts/ipkg-test
-endif
 endif
 	@if dot -V 2> /dev/null; then \
 		echo "creating dependency graph..."; \
@@ -278,7 +276,6 @@ ifdef PTXCONF_IMAGE_TGZ
 	cd $(IMAGEDIR) && $(PTXDIST_TOPDIR)/scripts/make_image_tgz.sh $(ROOTDIR) permissions
 endif
 ifdef PTXCONF_IMAGE_JFFS2
-ifdef PTXCONF_IMAGE_IPKG
 	@imagesfrom=$(IMAGEDIR);							\
 	cp $(PTXDIST_TOPDIR)/projects-example/generic/etc/ipkg.conf $(IMAGEDIR)/ipkg.conf; \
 	sed -i -e "s,@SRC@,,g" $(IMAGEDIR)/ipkg.conf;					\
@@ -292,14 +289,6 @@ ifdef PTXCONF_IMAGE_IPKG
 		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)					\
 		-o $(IMAGEDIR)/root.jffs2						\
 		-f $(IMAGEDIR)/ipkg.conf
-else
-	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/make_image_root.sh	\
-		-r $(ROOTDIR)								\
-		-p $(IMAGEDIR)/permissions						\
-		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)					\
-		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)					\
-		-o $(IMAGEDIR)/root.jffs2
-endif
 endif
 ifdef PTXCONF_IMAGE_HD
 	$(PTXDIST_TOPDIR)/scripts/genhdimg \
