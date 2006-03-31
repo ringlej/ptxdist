@@ -117,9 +117,9 @@ $(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps_default)
 	@$(call install_fixup, expat,DEPENDS,)
 	@$(call install_fixup, expat,DESCRIPTION,missing)
 
-	@$(call install_copy, expat, 0, 0, 0644, $(EXPAT_DIR)/.libs/libexpat.so.0.5.0, /lib/libexpat.so.0.5.0)
-	@$(call install_link, expat, libexpat.so.0.5.0, /lib/libexpat.so.0)
-	@$(call install_link, expat, libexpat.so.0.5.0, /lib/libexpat.so)
+	@$(call install_copy, expat, 0, 0, 0644, $(EXPAT_DIR)/.libs/libexpat.so.0.5.0, /usr/lib/libexpat.so.0.5.0)
+	@$(call install_link, expat, libexpat.so.0.5.0, /usr/lib/libexpat.so.0)
+	@$(call install_link, expat, libexpat.so.0.5.0, /usr/lib/libexpat.so)
 
 	@$(call install_finish, expat)
 
