@@ -1,6 +1,5 @@
 menuconfig FBUTILS
 	bool
-	select GCCLIBS
 	select GCCLIBS_CXX
 	prompt "fbutils               "
 	help

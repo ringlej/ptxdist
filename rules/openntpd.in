@@ -1,8 +1,9 @@
-menu "OpenNTPD            "
+comment "OpenNTPD conflicts with NTP"
+	depends on NTP && OPENNTPD
 
-config OPENNTPD
+menuconfig OPENNTPD
 	bool             
-	prompt "OpenNTPD (Network Time Synchronisation Daemon)"             
+	prompt "OpenNTPD            "
 	help
 	  This will install the BSD Open NTPD Daemon
 	  OpenNTPD is a FREE, easy to use implementation of the 
@@ -13,12 +14,6 @@ config OPENNTPD
 
 # ----- Compile Options
 
-comment "Conflicts with NTP"
-	depends on NTP
-
-comment "Compile Options"
-	depends on OPENNTPD
-
 config  OPENNTPD_ARC4RANDOM
 	bool
 	prompt "Use builtin arc4random rather than OpenSSL's"
@@ -27,5 +22,3 @@ config  OPENNTPD_ARC4RANDOM
 	help
 	  Enabled by default - if unsure, say YES
 	  Say NO and install OpenSSL as alternative.
-
-endmenu

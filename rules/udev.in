@@ -1,5 +1,6 @@
-config UDEV
-	bool "udev"
+menuconfig UDEV
+	bool
+	prompt "udev                "
 
 config UDEV_UDEV
 	bool "udev"

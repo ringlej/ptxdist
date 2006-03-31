@@ -1,7 +1,6 @@
 config BONNIEXX
 	bool
 	prompt "bonnie++"
-	select GCCLIBS
 	select GCCLIBS_CXX
 	help
 	  Hard drive bottleneck testing benchmark suite

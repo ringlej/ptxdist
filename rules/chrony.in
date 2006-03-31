@@ -1,9 +1,7 @@
-menu "Chrony              "
-
 config CHRONY
 	bool             
 	select READLINE
-	prompt "Chrony (Alternative NTP Synchronisation Daemon)"             
+	prompt "Chrony              "
 	help
 	  FIXME: remove READLINE select when 1.21 works again.
 
@@ -18,5 +16,3 @@ config CHRONY
 	  various settings. 
 
 	  See http://chrony.sunsite.dk/ for details
-
-endmenu

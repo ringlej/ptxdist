@@ -1,6 +1,6 @@
 # betaftpd configuration
 
-menuconfig BETAFTPD
+config BETAFTPD
 	bool
 	prompt "betaftpd            "
 	select LIBRN

@@ -2,9 +2,7 @@
 # rules/gcclibs.in
 #
 
-menuconfig GCCLIBS
-	bool
-	prompt "GCC Libraries       "
+menu "GCC Libraries       "
 	depends on BUILD_USERLAND
 
 config GCCLIBS_CXX
@@ -27,3 +25,5 @@ config GCCLIBS_GCC_S_NOF
 	depends on ARCH_PPC
 	help
 	  FIXME: This item needs to be documented
+
+endmenu

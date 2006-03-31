@@ -1,8 +1,5 @@
-# eventlog configuration
-
-menuconfig EVENTLOG
+config EVENTLOG
 	bool
 	prompt "eventlog            "
 	help
-	  Part of syslog-ng. 
-
+	  Part of syslog-ng.

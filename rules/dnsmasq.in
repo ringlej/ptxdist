@@ -1,8 +1,6 @@
-menu    "dnsmasq             "
-
 config DNSMASQ
 	bool
-	prompt "dnsmasq"
+	prompt "dnsmasq             "
 	help
 	  A small caching DNS proxy and DHCP server.
 	  
@@ -15,6 +13,3 @@ config DNSMASQ
 	  with names configured either in each host or in a central 
 	  configuration file. Dnsmasq supports static and dynamic
  	  DHCP leases and BOOTP for network booting of diskless machines.
-
-
-endmenu

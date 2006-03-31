@@ -1,8 +1,8 @@
 # configuration for libezv24
 
-menuconfig LIBEZV24
+config LIBEZV24
 	bool
-	prompt "libezv24                    "
+	prompt "libezv24"
 	help
 	  The goal of this library is to provide an easy to use programming
 	  interface to the serial ports of the Linux system, native on Linux and

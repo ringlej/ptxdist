@@ -1,6 +1,6 @@
 # Apache 1 configuration
 
-menuconfig APACHE
+config APACHE
 	bool
 	prompt "Apache 1 HTTP Server"
 	select EXPAT

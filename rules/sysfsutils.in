@@ -4,6 +4,7 @@ menuconfig SYSFSUTILS
 config SYSFSUTILS_LIB
 	bool
 	prompt "install libsysfs"
+	default y
 	depends on SYSFSUTILS
 	help
 	  Sysfs is a virtual file system in Linux kernel 

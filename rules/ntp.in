@@ -1,18 +1,15 @@
-#
+comment "NTP conflicts with OpenNTPD"
+	depends on NTP && OPENNTPD
 
-menu "NTP                 "
-
-config NTP
+menuconfig NTP
 	bool             
-	prompt "NTP"             
+	prompt "NTP                 "
+	select OPENSSL if NTP_CRYPTO
 	help
 	  Build the standard NTP Daemon Process
 	  This conflicts with BSD openntpd. 	
 
 # ----- Compile Options 
-
-comment "Conflicts with OpenNTPd"
-	depends on OPENNTPD
 
 comment "Compile Options"
 	depends on NTP
@@ -163,12 +160,9 @@ config NTP_NIST
 config NTP_CRYPTO
 	bool
 	prompt "use openssl"
-	depends on NTP && OPENSSL
+	depends on NTP
 	help
 	  FIXME: This item needs to be documented
-
-comment "crypto needs openssl"
-	depends on !(NTP && OPENSSL) && NTP
 
 config NTP_SNTP
 	bool
@@ -219,5 +213,3 @@ config NTP_NTPQ
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
-
-endmenu

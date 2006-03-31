@@ -1,8 +1,6 @@
-menu	"inetutils           "
-
-config INETUTILS
+menuconfig INETUTILS
 	bool
-	prompt "inetutils"
+	prompt "inetutils           "
 	help
 	  FIXME: This item needs to be documented
 
@@ -53,5 +51,3 @@ config INETUTILS_SYSLOGD
 	depends on INETUTILS
 	help
 	  FIXME: This item needs to be documented
-
-endmenu

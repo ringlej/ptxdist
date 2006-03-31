@@ -1,10 +1,8 @@
-menu	"OpenSSH             "
-
-config OPENSSH
+menuconfig OPENSSH
 	bool
 	select ZLIB
 	select OPENSSL
-	prompt "OpenSSH"
+	prompt "OpenSSH             "
 	help
 	  FIXME: This item needs to be documented
 
@@ -39,6 +37,3 @@ config OPENSSH_KEYGEN
 	depends on OPENSSH
 	help
 	  FIXME: This item needs to be documented
-
-endmenu
-

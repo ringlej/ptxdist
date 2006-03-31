@@ -2,6 +2,7 @@ menuconfig TCPDUMP
 	bool
 	prompt "tcpdump             "
 	select LIBPCAP
+	select OPENSSL if TCPDUMP_DISABLE_CRYPTO
 	help
 	  Tcpdump  prints out the headers of packets on a network interface
 	  that match the boolean expression.  It can also be run with
@@ -11,9 +12,9 @@ menuconfig TCPDUMP
 	  a network interface.  In all cases, only packets that match
 	  expression will be processed by tcpdump.
 
-config TCPDUMP_DISABLE_CRYPTO
+config TCPDUMP_ENABLE_CRYPTO
 	bool
-	prompt "disable crypto support"
+	prompt "enable crypto support"
 	depends on TCPDUMP
 	help
 	  Select this, if you don't need support for

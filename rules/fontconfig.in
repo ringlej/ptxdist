@@ -1,4 +1,4 @@
-menuconfig FONTCONFIG
+config FONTCONFIG
 	bool "Fontconfig            "
 	select FREETYPE
 	select EXPAT
