@@ -59,16 +59,18 @@ $(STATEDIR)/libjpeg.extract: $(libjpeg_extract_deps_default)
 
 libjpeg_prepare: $(STATEDIR)/libjpeg.prepare
 
-LIBJPEG_PATH	:=  PATH=$(CROSS_PATH)
-LIBJPEG_ENV 	:=  $(CROSS_ENV)
-LIBJPEG_ENV	+= ac_cv_prog_cc_cross=yes
+LIBJPEG_PATH	:= PATH=$(CROSS_PATH)
+LIBJPEG_ENV 	:= \
+	$(CROSS_ENV) \
+	ac_cv_prog_cc_cross=yes
 
 #
 # autoconf
 #
-LIBJPEG_AUTOCONF := $(CROSS_AUTOCONF_USR)
-LIBJPEG_AUTOCONF += --enable-shared
-LIBJPEG_AUTOCONF += --enable-static
+LIBJPEG_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-shared \
+	--enable-static
 
 $(STATEDIR)/libjpeg.prepare: $(libjpeg_prepare_deps_default)
 	@$(call targetinfo, $@)
