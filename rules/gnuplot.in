@@ -3,6 +3,7 @@ menuconfig GNUPLOT
 	prompt "gnuplot"
 	select ZLIB
 	select LIBPNG if GNUPLOT_PNG
+	select XORG_LIB_XT if GNUPLOT_X
 	help
 	  A command-line driven interactive plotting program for 
 	  making 2D and 3D graphs from data and functions. 
@@ -16,12 +17,12 @@ menuconfig GNUPLOT
 
 config GNUPLOT_FITERRVARS
 	bool
-	prompt "Support for itting error variables"
+	prompt "Support for fitting error variables"
 	depends on GNUPLOT
 	help
 	  FIXME: This item needs to be documented
 
-config GNUPLOT_WITH_X
+config GNUPLOT_X
 	bool
 	prompt "X support"
 	depends on GNUPLOT
@@ -32,6 +33,7 @@ config GNUPLOT_PLOT
 	bool
 	prompt "use Unix plot library"
 	depends on GNUPLOT
+	depends on BROKEN
 	help
 	  FIXME: This item needs to be documented
 
@@ -46,13 +48,7 @@ config GNUPLOT_GD
 	bool
 	prompt "GD support"
 	depends on GNUPLOT
-	help
-	  FIXME: This item needs to be documented
-
-config GNUPLOT_GIF
-	bool
-	prompt "GIF support"
-	depends on GNUPLOT
+	depends on BROKEN
 	help
 	  FIXME: This item needs to be documented
 
@@ -60,6 +56,7 @@ config GNUPLOT_PDF
 	bool
 	prompt "PDF support"
 	depends on GNUPLOT
+	depends on BROKEN
 	help
 	  FIXME: This item needs to be documented
 

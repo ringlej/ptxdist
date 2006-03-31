@@ -123,12 +123,6 @@ else
 GNUPLOT_AUTOCONF += --without-gd
 endif
 
-ifdef PTXCONF_GNUPLOT_GIF
-GNUPLOT_AUTOCONF += --with-gif
-else
-GNUPLOT_AUTOCONF += --without-gif
-endif
-
 ifdef PTXCONF_GNUPLOT_PDF
 GNUPLOT_AUTOCONF += --with-pdf
 else
@@ -164,6 +158,7 @@ gnuplot_install: $(STATEDIR)/gnuplot.install
 
 $(STATEDIR)/gnuplot.install: $(gnuplot_install_deps_default)
 	@$(call targetinfo, $@)
+	@$(call install, GNUPLOT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -185,6 +180,10 @@ $(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps_default)
 	@$(call install_fixup, gnuplot,DESCRIPTION,missing)
 
 	@$(call install_copy, gnuplot, 0, 0, 0755, $(GNUPLOT_DIR)/src/gnuplot, /usr/bin/gnuplot)
+
+ifdef PTXCONF_GNUPLOT_X
+	@$(call install_copy, gnuplot, 0, 0, 0755, $(GNUPLOT_DIR)/src/gnuplot_x11, /usr/libexec/gnuplot/4.0/gnuplot_x11)
+endif
 
 	@$(call install_finish, gnuplot)
 
