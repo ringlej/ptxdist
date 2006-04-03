@@ -131,6 +131,7 @@ endmenu
 
 menu "System Libraries            "
 depends on BUILD_USERLAND
+source "rules/boost.in"
 source "rules/commoncpp2.in"
 source "rules/db41.in"
 source "rules/expat.in"
