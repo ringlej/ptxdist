@@ -2,6 +2,8 @@
 
 menuconfig BOOST
 	bool
+	# add cross compilation support ...
+	depends on BROKEN
 	prompt "Boost                       "
 	help
 
