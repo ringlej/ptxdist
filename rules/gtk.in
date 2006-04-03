@@ -1,0 +1,72 @@
+menuconfig GTK
+	bool
+	prompt "gtk+"
+	select GLIB
+	select ATK
+	select PANGO
+#	select LIBTIFF if GTK_LIBTIFF
+	select LIBPNG if GTK_LIBPNG
+	select LIBJPEG if GTK_LIBJPG
+	select XORG_LIB_XEXT if GTK_TARGET_X11
+	select XORG_LIB_XINERAMA if GTK_TARGET_X11_XINERAMA
+	select XORG_LIB_XRANDR if GTK_TARGET_X11_XRANDR
+	help	
+	The GTK+ is a multi-platform toolkit for creating graphical
+	user interfaces. Offering a complete set of widgets, the GTK+
+	is suitable for projects ranging from small one-off tools to complete
+	application suites.
+
+choice
+	prompt "gtk+ version"
+	depends on GTK
+	default GTK_28
+
+config GTK_28
+	bool
+	prompt "2.8.x"
+
+endchoice
+
+
+config GTK_LIBTIFF
+	bool
+	prompt "TIFF loader for gdk-pixbuf"
+	depends on GTK
+	default y
+
+config GTK_LIBJPEG
+	bool
+	prompt "JPEG loader for gdk-pixbuf"
+	depends on GTK
+	default y
+
+config GTK_LIBPNG
+	bool
+	prompt "PNG loader for gdk-pixbuf"
+	depends on GTK
+	default y
+
+
+choice
+	prompt "gdk-target"
+	depends on GTK
+
+config GTK_TARGET_X11
+	bool
+	prompt "gdk-target X11"
+	depends on GTK
+	select CAIRO_XLIB
+endchoice
+
+config GTK_TARGET_X11_XINERAMA
+	bool
+	prompt "Xinerama support"
+	depends on GTK
+	depends on GTK_TARGET_X11
+
+config GTK_TARGET_X11_XRANDR
+	bool
+	prompt "Xrandr support"
+	depends on GTK
+	depends on GTK_TARGET_X11
+

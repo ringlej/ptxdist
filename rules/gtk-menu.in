@@ -1,7 +1,7 @@
 menu "GTK+ and friends            "
 
-source "rules/gtk28.in"
-source "rules/glib28.in"
+source "rules/gtk.in"
+source "rules/glib.in"
 source "rules/atk.in"
 source "rules/pango.in"
 source "rules/cairo.in"
