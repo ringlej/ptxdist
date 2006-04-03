@@ -124,18 +124,18 @@ $(STATEDIR)/commoncpp2.targetinstall: $(commoncpp2_targetinstall_deps_default)
 	@$(call install_fixup, commoncpp2,DESCRIPTION,missing)
 
 	@$(call install_copy, commoncpp2, 0, 0, 0644, \
-		$(COMMONCPP2_DIR)/src/.libs/libccgnu2-1.3.so.1.0.20, \
-		/usr/lib/libccgnu2-1.3.so.1.0.20)
+		$(COMMONCPP2_DIR)/src/.libs/libccgnu2-1.3.so.1.0.21, \
+		/usr/lib/libccgnu2-1.3.so.1.0.21)
 
-	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.20, /usr/lib/libccgnu2-1.3.so.1)
-	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.20, /usr/lib/libccgnu2-1.3.so)
+	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.21, /usr/lib/libccgnu2-1.3.so.1)
+	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.21, /usr/lib/libccgnu2.so)
 
 	@$(call install_copy, commoncpp2, 0, 0, 0644, \
-		$(COMMONCPP2_DIR)/src/.libs/libccext2-1.3.so.1.0.20, \
-		/usr/lib/libccext2-1.3.so.1.0.20)
+		$(COMMONCPP2_DIR)/src/.libs/libccext2-1.3.so.1.0.21, \
+		/usr/lib/libccext2-1.3.so.1.0.21)
 
-	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.20, /usr/lib/libccext2-1.3.so.1)
-	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.20, /usr/lib/libccext2-1.3.so)
+	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.21, /usr/lib/libccext2-1.3.so.1)
+	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.21, /usr/lib/libccext2.so)
 
 	@$(call install_finish, commoncpp2)
 
