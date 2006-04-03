@@ -53,6 +53,8 @@ IMAGEDIR		:= $(PTXDIST_WORKSPACE)/images
 ROOTDIR			:= $(PTXDIST_WORKSPACE)/root
 ROOTDIR_DEBUG		:= $(PTXDIST_WORKSPACE)/root-debug
 
+include $(RULESDIR)/Definitions.make
+
 ifeq ($(call remove_quotes,$(PTXCONF_SETUP_SRCDIR)),)
 SRCDIR			:= $(PTXDIST_WORKSPACE)/src
 else
@@ -63,8 +65,6 @@ endif
 export HOME PTXDIST_WORKSPACE PTXDIST_TOPDIR
 export PATCHDIR MISCDIR RULESDIR BUILDDIR CROSS_BUILDDIR 
 export HOST_BUILDDIR STATEDIR IMAGEDIR ROOTDIR SRCDIR 
-
-include $(RULESDIR)/Definitions.make
 
 -include $(PTXDIST_WORKSPACE)/ptxconfig
 
