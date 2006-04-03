@@ -2,15 +2,11 @@
 # rules/klibc.in
 #
 
-##############################################################################
-menu "klibc               "
-	depends on BUILD_USERLAND
-##############################################################################
-
-config KLIBC
-	depends on KERNEL_2_6 && COMPILE_KERNEL
+menuconfig KLIBC
+	depends on KERNEL_COMPILE	
 	bool
-	prompt "build klibc"
+	prompt "klibc               "
+	depends on BUILD_USERLAND
 	help
 	  FIXME: This item needs to be documented
 
@@ -188,5 +184,3 @@ config KLIBC_USER_SPEC
 
 	  Files described in this file can either have an absolute or a relative path 
 	  (relative to ${PTXDIST_WORKSPACE}).
-
-endmenu
