@@ -4,7 +4,7 @@ menuconfig SYSLOGNG
 	bool
 	prompt "syslog-ng           "
 	select EVENTLOG
-	select GLIB28
+	select GLIB
 	help
 	  The next generation syslog daemon.
 

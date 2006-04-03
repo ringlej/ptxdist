@@ -7,7 +7,6 @@ menu "GCC Libraries       "
 
 config GCCLIBS_CXX
 	bool "libstdc++"
-	depends on GCCLIBS
 	select GCCLIBS_GCC_S
 	select GLIBC_LIBM
 	help
@@ -15,13 +14,11 @@ config GCCLIBS_CXX
 
 config GCCLIBS_GCC_S
 	bool "libgcc_s"
-	depends on GCCLIBS
 	help
 	  FIXME: This item needs to be documented
 
 config GCCLIBS_GCC_S_NOF
 	bool "libgcc_s_nof"
-	depends on GCCLIBS
 	depends on ARCH_PPC
 	help
 	  FIXME: This item needs to be documented
