@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_MPLAYER) += mplayer
 MPLAYER_VERSION	= 1.0pre7try2
 MPLAYER		= MPlayer-$(MPLAYER_VERSION)
 MPLAYER_SUFFIX	= tar.bz2
-MPLAYER_URL	= http://ftp5.mplayerhq.hu/mplayer/releases/$(MPLAYER).$(MPLAYER_SUFFIX)
+MPLAYER_URL	= http://www.mplayerhq.hu/MPlayer/releases/$(MPLAYER).$(MPLAYER_SUFFIX)
 MPLAYER_SOURCE	= $(SRCDIR)/$(MPLAYER).$(MPLAYER_SUFFIX)
 MPLAYER_DIR	= $(BUILDDIR)/$(MPLAYER)
 
