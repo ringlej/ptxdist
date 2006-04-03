@@ -8,6 +8,10 @@ MODULES_FILE=/etc/modules
 
 load_modules(){
 	# Loop over every line in /etc/modules.
+	if [ ! -f $MODULES_FILE ]; then
+		echo "no /etc/modules, exiting"
+		exit 0
+	fi
 	grep '^[^#]' $MODULES_FILE | \
 	while read module args; do
 		[ "$module" ] || continue
