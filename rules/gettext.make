@@ -135,11 +135,11 @@ $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps_default)
 	
 	cd $(GETTEXT_DIR)/gettext-runtime/intl/.libs && \
 		for file in `find . -type f -name 'lib*intl.so*'`; do \
-			$(call install_copy, gettext, 0, 0, 0644, $$file, /usr/lib/$$file, n) \
+			$(call install_copy, gettext, 0, 0, 0644, $$file, /usr/lib/$$file, n); \
 		done
 	cd $(GETTEXT_DIR)/gettext-runtime/intl/.libs && \
 		for file in `find . -type l -name 'lib*intl.so*'`; do \
-			$(call install_link, gettext, `readlink $$file`, /usr/lib/$$file) \
+			$(call install_link, gettext, `readlink $$file`, /usr/lib/$$file); \
 		done
 
 	@$(call install_finish, gettext)
