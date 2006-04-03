@@ -2,3 +2,6 @@
 
 echo "starting network interfaces..."
 ifup -a
+
+exit 0
+
