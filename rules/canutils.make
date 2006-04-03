@@ -21,7 +21,6 @@ CANUTILS_VERSION	:= $(call remove_quotes, $(PTXCONF_CANUTILS_VERSION))
 CANUTILS		:= canutils-$(CANUTILS_VERSION)
 CANUTILS_SUFFIX		:= tar.bz2
 CANUTILS_URL		= http://www.pengutronix.de/software/socket-can/download/canutils/v$(shell echo $(PTXCONF_CANUTILS_VERSION)|sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1.\2/")/$(CANUTILS).$(CANUTILS_SUFFIX)
-#CANUTILS_URL		:= http://www.pengutronix.de/software/socket-can/download/canutils/v1.1/$(CANUTILS).$(CANUTILS_SUFFIX)
 
 CANUTILS_SOURCE		:= $(SRCDIR)/$(CANUTILS).$(CANUTILS_SUFFIX)
 CANUTILS_DIR		:= $(BUILDDIR)/$(CANUTILS)
