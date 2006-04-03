@@ -53,7 +53,7 @@ IMAGEDIR		:= $(PTXDIST_WORKSPACE)/images
 ROOTDIR			:= $(PTXDIST_WORKSPACE)/root
 ROOTDIR_DEBUG		:= $(PTXDIST_WORKSPACE)/root-debug
 
-ifeq ($(PTXCONF_SETUP_SRCDIR),)
+ifeq ($(call remove_quotes,$(PTXCONF_SETUP_SRCDIR)),)
 SRCDIR			:= $(PTXDIST_WORKSPACE)/src
 else
 			# don't use := here!!!
