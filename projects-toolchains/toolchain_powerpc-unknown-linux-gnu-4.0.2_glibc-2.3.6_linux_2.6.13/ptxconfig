@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.1
-# Mon Mar 20 16:02:23 2006
+# PTXdist version: 0.10.2-svn
+# Mon Apr  3 12:43:56 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -17,7 +17,7 @@ PTXCONF_BUILD_TOOLCHAIN=y
 #
 PTXCONF_PROJECT="toolchain_powerpc-unknown-linux-gnu-4.0.2_glibc_2.3.6_linux_2.6.13"
 PTXCONF_PROJECT_VERSION="${PTXCONF_PROJECT}-1"
-PTXCONF_CONFIGFILE_VERSION="0.10.1"
+PTXCONF_CONFIGFILE_VERSION="0.10.2-svn"
 
 #
 # ----------------------------------
@@ -64,7 +64,7 @@ PTXCONF_OPT_PPC=y
 # PTXCONF_OPT_PARISC is not set
 # PTXCONF_OPT_SH3 is not set
 # PTXCONF_OPT_SH4 is not set
-PTXCONF_SOFTFLOAT=y
+# PTXCONF_SOFTFLOAT is not set
 
 #
 # Extra Toolchain Options
@@ -130,6 +130,7 @@ PTXCONF_CROSS_GDB=y
 # PTXCONF_MEMTEST is not set
 # PTXCONF_MEMTESTER is not set
 # PTXCONF_OPROFILE is not set
+# PTXCONF_LTRACE is not set
 # PTXCONF_STRACE is not set
 
 #
