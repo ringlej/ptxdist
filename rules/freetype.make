@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003-2006 by Robert Schwebel <r.schwebel@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_FREETYPE) += freetype
 #
 # Paths and names
 #
-FREETYPE_VERSION	:= 2.1.9
+FREETYPE_VERSION	:= 2.1.10
 FREETYPE		:= freetype-$(FREETYPE_VERSION)
 FREETYPE_SUFFIX		:= tar.gz
-FREETYPE_URL		:= http://gd.tuwien.ac.at/publishing/freetype/freetype2/$(FREETYPE).$(FREETYPE_SUFFIX)
+FREETYPE_URL		:= http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).$(FREETYPE_SUFFIX)
 FREETYPE_SOURCE		:= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
 FREETYPE_DIR		:= $(BUILDDIR)/$(FREETYPE)
 
@@ -118,10 +118,10 @@ $(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps_default)
 	@$(call install_fixup, freetype,DESCRIPTION,missing)
 
 	@$(call install_copy, freetype, 0, 0, 0644, \
-		$(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.7, \
-		/usr/lib/libfreetype.so.6.3.7)
-	@$(call install_link, freetype, libfreetype.so.6.3.7, /usr/lib/libfreetype.so.6)		
-	@$(call install_link, freetype, libfreetype.so.6.3.7, /usr/lib/libfreetype.so)		
+		$(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.8, \
+		/usr/lib/libfreetype.so.6.3.8)
+	@$(call install_link, freetype, libfreetype.so.6.3.8, /usr/lib/libfreetype.so.6)		
+	@$(call install_link, freetype, libfreetype.so.6.3.8, /usr/lib/libfreetype.so)		
 
 	@$(call install_finish, freetype)
 

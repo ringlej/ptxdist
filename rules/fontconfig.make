@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_FONTCONFIG) += fontconfig
 #
 # Paths and names
 #
-FONTCONFIG_VERSION	:= 2.3.94
+FONTCONFIG_VERSION	:= 2.3.2
 FONTCONFIG		:= fontconfig-$(FONTCONFIG_VERSION)
 FONTCONFIG_SUFFIX	:= tar.gz
 FONTCONFIG_URL		:= http://fontconfig.org/release/$(FONTCONFIG).$(FONTCONFIG_SUFFIX)
