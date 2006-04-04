@@ -16,17 +16,6 @@ menuconfig GTK
 	is suitable for projects ranging from small one-off tools to complete
 	application suites.
 
-choice
-	prompt "gtk+ version"
-	depends on GTK
-	default GTK_28
-
-config GTK_28
-	bool
-	prompt "2.8.x"
-
-endchoice
-
 
 config GTK_LIBTIFF
 	bool
@@ -46,17 +35,11 @@ config GTK_LIBPNG
 	depends on GTK
 	default y
 
-
-choice
-	prompt "gdk-target"
-	depends on GTK
-
 config GTK_TARGET_X11
 	bool
 	prompt "gdk-target X11"
 	depends on GTK
 	select CAIRO_XLIB
-endchoice
 
 config GTK_TARGET_X11_XINERAMA
 	bool

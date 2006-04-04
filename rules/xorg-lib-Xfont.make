@@ -122,7 +122,7 @@ $(STATEDIR)/xorg-lib-Xfont.targetinstall: $(xorg-lib-Xfont_targetinstall_deps_de
 	@$(call install_link, xorg-lib-Xfont, \
 		libXfont.so.1.4.1, \
 		$(XORG_LIBDIR)/libXfont.so.1)
-	
+
 	@$(call install_link, xorg-lib-Xfont, \
 		libXfont.so.1.4.1, \
 		$(XORG_LIBDIR)/libXfont.so)
