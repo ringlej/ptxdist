@@ -64,55 +64,9 @@ version of bash from ftp.gnu.org
 ])
 fi
 
-dnl
-dnl We need a reasonably new make
-dnl
-AC_ARG_WITH(make, AC_HELP_STRING(
-    [--with-make], [name of the GNU make executable to use (we need at least 3.80)]),
-    [
-	MAKE="$withval"
-	AC_SUBST(MAKE)
-	AC_MSG_NOTICE([Using make executable $MAKE])
-    ],[
-	AC_PATH_PROG(MAKE, make)
-    ])
-AC_MSG_CHECKING(wheather make is up to date)
-MAKE_VERSION=`echo 'all:;@echo $(MAKE_VERSION)' | $MAKE -f-`
-case "$MAKE_VERSION" in
-3.80|3.81rc*|3.81)
-	AC_MSG_RESULT(yes)
-	;;
-*)
-	AC_MSG_RESULT(no)
-	AC_MSG_ERROR(Please install at least GNU make 3.80. This system reported ${MAKE_VERSION}.)
-esac
-
-dnl
-dnl We need a reasonably new pkg-config
-dnl
-AC_ARG_WITH(pkg-config, AC_HELP_STRING(
-    [--with-pkg-config], [name of the pkg-config executable to use (we need at least 0.20)]),
-    [
-	PKG_CONFIG="$withval"
-	AC_SUBST(PKG_CONFIG)
-	AC_MSG_NOTICE([Using pkg-config executable $PKG_CONFIG])
-    ],[
-	AC_PATH_PROG(PKG_CONFIG, pkg-config)
-    ])
-AC_MSG_CHECKING(wheather pkg-config is up to date)
-PKG_CONFIG_VERSION=`$PKG_CONFIG --version`
-case "$PKG_CONFIG_VERSION" in
-0.20)
-	AC_MSG_RESULT(yes)
-	;;
-*)
-	AC_MSG_RESULT(no)
-	AC_MSG_ERROR(Please install at least pkg-config 0.20. This system reported version ${PKG_CONFIG_VERSION}.)
-esac
-
 dnl Check for sed
-dnl FIXME: we need sed >= 4.0 which supports inplace 
-dnl
+dnl FIXME: which version do we need and how do we find out if it
+dnl supports inplace?
 AC_ARG_WITH(sed, AC_HELP_STRING(
     [--with-sed], [name of the sed executable to use]),
     [
@@ -136,15 +90,6 @@ AC_ARG_WITH(awk, AC_HELP_STRING(
     ])
 
 dnl Test for awk features that may be mising?
-
-dnl Check for bunzip2
-AC_PATH_PROGS(bunzip2, bunzip2, , $PATH)
-
-dnl Check for gunzip
-AC_PATH_PROGS(gunzip, gunzip, , $PATH)
-
-dnl Check for readlink
-AC_PATH_PROGS(readlink, readlink, , $PATH)
 
 dnl Checks for mktemp (for creating temporary files and directories)
 AC_ARG_WITH(mktemp, AC_HELP_STRING(
