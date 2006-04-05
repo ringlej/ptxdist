@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.10.2-svn
-# Wed Mar 22 17:05:27 2006
+# Wed Apr  5 22:33:34 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -143,6 +143,7 @@ PTXCONF_CROSS_GDB=y
 # PTXCONF_MEMTEST is not set
 # PTXCONF_MEMTESTER is not set
 # PTXCONF_OPROFILE is not set
+# PTXCONF_LTRACE is not set
 # PTXCONF_STRACE is not set
 
 #
