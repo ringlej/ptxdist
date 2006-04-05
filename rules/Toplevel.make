@@ -185,8 +185,10 @@ dep_tree: $(STATEDIR)/dep_tree
 
 $(STATEDIR)/dep_tree:
 ifndef NATIVE
+ifndef PTXCONF_BUILD_TOOLCHAIN
 	@echo "Launching ipkg-test"
 	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) IPKG=$(PTXCONF_PREFIX)/bin/ipkg-cl $(PTXDIST_TOPDIR)/scripts/ipkg-test
+endif
 endif
 	@if dot -V 2> /dev/null; then \
 		echo "creating dependency graph..."; \
