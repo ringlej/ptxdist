@@ -1,9 +1,10 @@
 # -*-makefile-*-
 
-check_tools_deps = \
-	check_dirs \
-	$(STATEDIR)/host-pkg-config-wrapper.install \
-	$(STATEDIR)/host-ipkg-utils.install
+check_tools_deps =  check_dirs
+check_tools_deps += $(STATEDIR)/host-pkg-config-wrapper.install
+ifdef PTXCONF_BUILD_USERLAND
+check_tools_deps += $(STATEDIR)/host-ipkg-utils.install
+endif
 
 check_tools: $(check_tools_deps)
 	@echo "running check_tools..."
@@ -20,3 +21,4 @@ check_tools: $(check_tools_deps)
 
 #	# check if we have a toplevel ptxconfig file
 	$(call check_file_exists, $(PTXDIST_WORKSPACE)/ptxconfig)
+
