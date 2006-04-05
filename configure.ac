@@ -64,9 +64,10 @@ version of bash from ftp.gnu.org
 ])
 fi
 
+dnl
 dnl Check for sed
-dnl FIXME: which version do we need and how do we find out if it
-dnl supports inplace?
+dnl FIXME: we need sed >= 4.0 which supports inplace 
+dnl
 AC_ARG_WITH(sed, AC_HELP_STRING(
     [--with-sed], [name of the sed executable to use]),
     [
@@ -77,6 +78,15 @@ AC_ARG_WITH(sed, AC_HELP_STRING(
 	SED="sed"
 	AC_SUBST(SED)
     ])
+
+dnl Check for bunzip2
+AC_PATH_PROGS(bunzip2, bunzip2, , $PATH)
+
+dnl Check for gunzip
+AC_PATH_PROGS(gunzip, gunzip, , $PATH)
+
+dnl Check for readlink
+AC_PATH_PROGS(readlink, readlink, , $PATH)
 
 dnl Check for awk
 AC_ARG_WITH(awk, AC_HELP_STRING(
