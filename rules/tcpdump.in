@@ -16,6 +16,7 @@ config TCPDUMP_ENABLE_CRYPTO
 	bool
 	prompt "enable crypto support"
 	depends on TCPDUMP
+	depends on BROKEN
 	help
 	  Select this, if you don't need support for
 	  encryption (e.g. IPsec ESP packets)
