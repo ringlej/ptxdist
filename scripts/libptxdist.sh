@@ -73,7 +73,9 @@ ptxd_warning() {
 #
 check_pipe_status() {
 	for i in  "${PIPESTATUS[@]}"; do [ $i -gt 0 ] && {
-		echo "An element in the pipe returned $i, bailing out"
+		echo
+		echo "error: a command in the pipe returned $i, bailing out"
+		echo
 		exit $i
 	}
 	done

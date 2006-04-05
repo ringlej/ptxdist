@@ -4,7 +4,7 @@
 # 
 
 FULLARGS="$@"
-DEBUG=true
+# DEBUG=true
 
 #
 # helper functions

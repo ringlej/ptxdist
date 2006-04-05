@@ -178,6 +178,26 @@ check_dirs() {
 	done
 }
 
+check_native() {
+	[ -n "$NATIVE" ] && touch .build.native
+	[ -z "$NATIVE" ] && touch .build.cross
+	if [ -f ".build.native" ] && [ -f ".build.cross" ]; then
+		if [ -z "$NATIVE" ]; then
+			echo
+			echo "error: trying to crosscompile in a native tree"
+			echo
+			rm -f .build.cross
+			exit 1
+		else
+			echo
+			echo "error: trying to compile natively in a cross tree"
+			echo
+			rm -f .build.native
+			exit 1
+		fi
+	fi
+}
+
 #
 # usage()
 #
@@ -286,6 +306,8 @@ clean() {
 	rm -fr state
 	echo "${PROMPT}removing logfile..."
 	rm -f logfile
+	echo "${PROMPT}removing cross/native marker..."
+	rm -f .build.cross .build.native
 	echo "${PROMPT}done."
 	echo
 }
@@ -592,6 +614,7 @@ while [ "$#" != "0" ]; do
 				exit 1
 			fi
 			check_ptxconfig
+			check_native
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_compile PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -620,6 +643,7 @@ while [ "$#" != "0" ]; do
 			;;
 	extract)	shift
 			check_ptxconfig
+			check_native
 			make \
 				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
 				$1_extract PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
@@ -628,6 +652,7 @@ while [ "$#" != "0" ]; do
 			;;
 	get)		shift
 			check_ptxconfig
+			check_native
 			if [ "$#" = "0" ]; then
 				make \
 					$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
@@ -644,6 +669,7 @@ while [ "$#" != "0" ]; do
 			;;
 	go)		shift
 			check_ptxconfig
+			check_native
 			check_compiler
 			check_dirs
 			make \
@@ -655,6 +681,7 @@ while [ "$#" != "0" ]; do
 	help|--help)	shift; usage; exit 0; ;;
 	images)		shift
 			check_ptxconfig
+			check_native
 			check_compiler
 			check_dirs
 			make \
@@ -665,6 +692,7 @@ while [ "$#" != "0" ]; do
 			;;
 	install)	shift
 			check_ptxconfig
+			check_native
 			check_compiler
 			check_dirs
 			make \
@@ -675,6 +703,7 @@ while [ "$#" != "0" ]; do
 			;;
 	kernelconfig)	shift
 			check_ptxconfig
+			check_native
 			check_kernelconfig
 			kernelconfig
 			;;
@@ -710,6 +739,7 @@ while [ "$#" != "0" ]; do
 			;;
 	make)		shift
 			check_ptxconfig
+			check_native
 			check_compiler
 			check_dirs
 			make \
@@ -720,6 +750,7 @@ while [ "$#" != "0" ]; do
 			;;
 	menuconfig)	shift
 			check_ptxconfig
+			check_native
 			menuconfig
 			;;
 	--native)	shift
@@ -746,6 +777,7 @@ while [ "$#" != "0" ]; do
 			;;
 	prepare)	shift
 			check_ptxconfig
+			check_native
 			check_compiler
 			check_dirs
 			make \
@@ -766,6 +798,7 @@ while [ "$#" != "0" ]; do
 	projects)	shift; projects;;
 	run)		shift
 			check_ptxconfig
+			check_native
 			check_compiler
 			check_dirs
 			make \
@@ -806,6 +839,7 @@ while [ "$#" != "0" ]; do
 	setup)		shift; setup;;
 	targetinstall)	shift
 			check_ptxconfig
+			check_native
 			check_compiler
 			check_dirs
 			make \

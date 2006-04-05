@@ -88,6 +88,8 @@ libjpeg_compile: $(STATEDIR)/libjpeg.compile
 
 $(STATEDIR)/libjpeg.compile: $(libjpeg_compile_deps_default)
 	@$(call targetinfo, $@)
+	# libtool came from a patch, so we have to make it executable
+	chmod a+x $(LIBJPEG_DIR)/libtool
 	cd $(LIBJPEG_DIR) && $(LIBJPEG_PATH) make
 	@$(call touch, $@)
 
