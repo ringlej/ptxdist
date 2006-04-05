@@ -27,12 +27,15 @@ Index: freetype-2.1.10/builds/unix/freetype-config.in
  exec_prefix=@exec_prefix@
  exec_prefix_set=no
  includedir=@includedir@
-@@ -141,7 +141,7 @@ if test "$echo_libs" = "yes" ; then
+@@ -141,9 +141,9 @@ if test "$echo_libs" = "yes" ; then
    if test "$enable_shared" = "yes" ; then
      eval "rpath=\"$hardcode_libdir_flag_spec\""
    fi
 -  libs="-lfreetype @LIBZ@"
 +  libs="-Wl,-lfreetype @LIBZ@"
    if test "$libdir" != "/usr/lib" && test "$libdir" != "/usr/lib64"; then
-     echo -L$libdir $rpath $libs
+-    echo -L$libdir $rpath $libs
++    echo -L$libdir $libs
    else
+     echo $libs
+   fi
