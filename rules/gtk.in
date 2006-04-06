@@ -4,7 +4,7 @@ menuconfig GTK
 	select GLIB
 	select ATK
 	select PANGO
-#	select LIBTIFF if GTK_LIBTIFF
+	select LIBTIFF if GTK_LIBTIFF
 	select LIBPNG if GTK_LIBPNG
 	select LIBJPEG if GTK_LIBJPG
 	select XORG_LIB_XEXT if GTK_TARGET_X11
@@ -22,6 +22,7 @@ config GTK_LIBTIFF
 	bool
 	prompt "TIFF loader for gdk-pixbuf"
 	depends on GTK
+	depends on BROKEN
 	default y
 
 config GTK_LIBJPEG
@@ -34,6 +35,7 @@ config GTK_LIBPNG
 	bool
 	prompt "PNG loader for gdk-pixbuf"
 	depends on GTK
+	depends on BROKEN
 	default y
 
 config GTK_TARGET_X11
