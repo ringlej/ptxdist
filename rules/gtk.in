@@ -10,6 +10,7 @@ menuconfig GTK
 	select XORG_LIB_XEXT if GTK_TARGET_X11
 	select XORG_LIB_XINERAMA if GTK_TARGET_X11_XINERAMA
 	select XORG_LIB_XRANDR if GTK_TARGET_X11_XRANDR
+	depends on BROKEN
 	help	
 	The GTK+ is a multi-platform toolkit for creating graphical
 	user interfaces. Offering a complete set of widgets, the GTK+
