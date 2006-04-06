@@ -1,6 +1,6 @@
 config OPROFILE
 	bool
-	select POPT
+	select LIBPOPT
 	select BINUTILS
 	prompt "oprofile"
 	help

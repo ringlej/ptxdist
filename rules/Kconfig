@@ -110,13 +110,13 @@ endmenu
 
 menu "Applications                "
 depends on BUILD_USERLAND
+source "rules/alsa-utils.in"
 source "rules/flash.in"
 source "rules/gnupg.in"
 source "rules/mad.in"
+source "rules/mplayer.in"
 source "rules/setmixer.in"
 source "rules/rawrec.in"
-source "rules/mplayer.in"
-source "rules/alsa-utils.in"
 endmenu
 
 menu "Tools                       "
@@ -131,23 +131,26 @@ endmenu
 
 menu "System Libraries            "
 depends on BUILD_USERLAND
+source "rules/alsa-lib.in"
 source "rules/boost.in"
 source "rules/commoncpp2.in"
 source "rules/db41.in"
 source "rules/expat.in"
 source "rules/gettext.in"
 source "rules/hrtimers-support.in"
+
 source "rules/libelf.in"
 source "rules/libezv24.in"
 source "rules/liblist.in"
 source "rules/libmqueue.in"
 source "rules/libnetpbm.in"
+source "rules/libpopt.in"
 source "rules/libxml2.in"
 source "rules/libxmlconfig.in"
 source "rules/libxslt.in"
+
 source "rules/ncurses.in"
 source "rules/pcre.in"
-source "rules/popt.in"
 source "rules/readline.in"
 source "rules/librn.in"
 source "rules/libgsloop.in"
@@ -155,8 +158,6 @@ source "rules/slang.in"
 source "rules/sqlite.in"
 source "rules/termcap.in"
 source "rules/zlib.in"
-source "rules/alsa-lib.in"
-source "rules/gtk-menu.in"
 endmenu
 
 menu "Middleware                  "
@@ -171,6 +172,7 @@ depends on BUILD_USERLAND
 source "rules/xorg.in"
 
 comment "X Applications"
+source "rules/gtk-menu.in"
 #source "rules/gtk22.in"
 source "rules/fltk.in"
 #source "rules/qte.in"

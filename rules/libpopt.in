@@ -1,5 +1,5 @@
-config POPT
+config LIBPOPT
 	bool
-	prompt "popt"
+	prompt "libpopt"
 	help
 	  FIXME: This item needs to be documented
