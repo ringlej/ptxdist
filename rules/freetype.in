@@ -1,6 +1,7 @@
 config FREETYPE
 	bool
 	prompt "freetype"
+	select ZLIB
 	help
 	  The FreeType project is a team of volunteers who develop free,
  	  portable and high-quality software solutions for digital typography.
