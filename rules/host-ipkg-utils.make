@@ -63,8 +63,8 @@ $(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps_default)
 
 host-ipkg-utils_prepare: $(STATEDIR)/host-ipkg-utils.prepare
 
-HOST_IPKG_UTILS_PATH	:=  PATH=$(CROSS_PATH)
-HOST_IPKG_UTILS_ENV 	:=  $(CROSS_ENV)
+HOST_IPKG_UTILS_PATH	:= PATH=$(CROSS_PATH)
+HOST_IPKG_UTILS_ENV 	:= $(CROSS_ENV)
 
 $(STATEDIR)/host-ipkg-utils.prepare: $(host-ipkg-utils_prepare_deps_default)
 	@$(call targetinfo, $@)
