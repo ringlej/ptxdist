@@ -3,3 +3,4 @@ config PANGO
 	prompt "pango"
 	select FONTCONFIG
 	select CAIRO
+	depends on BROKEN
