@@ -6,6 +6,7 @@ menuconfig GRUB
 	  Grub - The GRand Unified Bootloader
 
 comment "grub is only available on x86"
+	depends on GRUB
 	depends on !ARCH_X86
 
 comment "Config Options"
@@ -24,6 +25,69 @@ config GRUB_PRESET_MENU
 	  Add a path to a file here which will be used as a 
 	  preset menu (for example for serial console support)
 
+config GRUB_GUNZIP
+	bool
+	prompt "enable decompression in Stage 2"
+	depends on GRUB
+	help
+	  enable decompression in Stage 2
+
+config GRUB_PACKET_RETRANSMISSION
+	bool
+	prompt "turn on packet retransmission"
+	depends on GRUB
+	help
+	  turn on packet retransmission
+
+config GRUB_PCI_DIRECT
+	bool
+	prompt "access PCI directly instead of using BIOS"
+	depends on GRUB
+	help
+	  access PCI directly instead of using BIOS
+
+config GRUB_DISKLESS
+	bool
+	prompt "enable diskless support"
+	depends on GRUB
+	help
+	  enable diskless support
+
+config GRUB_HERCULES
+	bool
+	prompt "hercules terminal support"
+	depends on GRUB
+	help
+	  enable hercules terminal support
+
+config GRUB_SERIAL
+	bool
+	prompt "serial terminal support"
+	depends on GRUB
+	help
+	  enable serial terminal support
+
+config GRUB_SERIAL_SPEED_SIMULATION
+	bool
+	prompt "simulate the slowness of a serial device"
+	depends on GRUB
+	help
+	  simulate the slowness of a serial device
+
+config GRUB_EXAMPLE_KERNEL
+	bool
+	prompt "build the example Multiboot kernel"
+	depends on GRUB
+	help
+	  build the example Multiboot kernel
+
+config GRUB_AUTO_LINUX_MEM_OPT
+	bool
+	prompt "pass Linux mem= option automatically"
+	depends on GRUB
+	help
+	  pass Linux mem= option automatically
+
 comment "File System Support"
 	depends on GRUB
 
@@ -32,66 +96,339 @@ config GRUB_FFS
 	prompt "ffs      filesystem"
 	depends on GRUB
 	help
-	  FIXME: This item needs to be documented
+	  FFS support in Stage 2
 
-config GRUB_MINIXFS
+config GRUB_MINIX
 	bool
 	prompt "minix    filesystem"
 	depends on GRUB
 	help
-	  FIXME: This item needs to be documented
+	  Minix fs support in Stage 2
 
 config GRUB_REISERFS
 	bool
 	prompt "reiser   filesystem"
 	depends on GRUB
 	help
-	  FIXME: This item needs to be documented
+	  ReiserFS support in Stage 2
 
 config GRUB_VSTAFS
 	bool
 	prompt "vstafs   filesystem"
 	depends on GRUB
 	help
-	  FIXME: This item needs to be documented
+	  VSTa FS support in Stage 2
 
 config GRUB_JFS
 	bool
 	prompt "jfs      filesystem"
 	depends on GRUB
 	help
-	  FIXME: This item needs to be documented
+	  IBM JFS support in Stage 2
 
 config GRUB_XFS
 	bool
 	prompt "xfs      filesystem"
 	depends on GRUB
 	help
-	  FIXME: This item needs to be documented
+	  SGI XFS support in Stage 2
+
+config GRUB_EXT2FS
+	bool
+	prompt "ext2fs   filesystem"
+	depends on GRUB
+	help
+	  ext2fs support in Stage 2
+
+config GRUB_FAT
+	bool
+	prompt "fat       filesystem"
+	depends on GRUB
+	help
+	  FAT support in Stage 2
+
+config GRUB_UFS2
+	bool
+	prompt "ufs2      filesystem"
+	depends on GRUB
+	help
+	  UFS2 support in Stage 2
+
+config GRUB_ISO9660
+	bool
+	prompt "iso9660   filesystem"
+	depends on GRUB
+	help
+	  ISO9660 support in Stage 2
 
 comment "Network Card Support"
 	depends on GRUB
 
-config GRUB_CS89X0
+menuconfig GRUB_3C503
 	bool
-	prompt "cs89x0   network driver"
+	prompt "3c503 network driver"
 	depends on GRUB
 	help
-	  FIXME: This item needs to be documented
+	  enable 3Com503 driver
+
+config GRUB_3C503_SHMEM
+	bool
+	prompt "use shared memory mode"
+	depends on GRUB_3C503
+	help
+	  use 3c503 shared memory mode
+
+config GRUB_3C503_AUI
+	bool
+	prompt "use AUI by deault"
+	depends on GRUB_3C503
+	help
+	  use AUI by default on 3c503 cards
+
+config GRUB_3C507
+	bool
+	prompt "3c507 network driver"
+	depends on GRUB
+	help
+	  enable 3Com507 driver
+
+config GRUB_3C509
+	bool
+	prompt "3c509  network driver"
+	depends on GRUB
+	help
+          enable 3Com509 driver
+
+config GRUB_3C529
+	bool
+	prompt "3c529  network driver"
+	depends on GRUB
+	help
+          enable 3Com529 driver
+
+config GRUB_3C595
+	bool
+	prompt "3c595 network driver"
+	depends on GRUB
+	help
+          enable 3Com595 driver
+
+config GRUB_3C90X
+	bool
+	prompt "3c90x network driver"
+	depends on GRUB
+	help
+          enable 3Com90x driver
+
+menuconfig GRUB_CS89X0
+	bool
+	prompt "cs89x0 network driver"
+	depends on GRUB
+	help
+	  enable CS89x0 driver
+
+config GRUB_CS_SCAN
+	string
+	prompt "probe for CS89x0 base address using LIST"
+	depends on GRUB_CS89X0
+	help
+	  probe for CS89x0 base address using LIST
+
+config GRUB_DAVICOM
+	bool
+	prompt "davicom  network driver"
+	depends on GRUB
+	help
+	  enable Davicom driver
+
+config GRUB_DEPCA
+	bool
+	prompt "depca network driver"
+	depends on GRUB
+	help
+	  enable DEPCA and EtherWORKS driver
+
+config GRUB_EEPRO
+	bool
+	prompt "eepro network driver"
+	depends on GRUB
+	help
+	  enable Etherexpress Pro/10 driver
 
 config GRUB_EEPRO100
 	bool
 	prompt "eepro100 network driver"
 	depends on GRUB
 	help
-	  Include support for the Intel eepro 10/100 series of network devices.
+	  enable Etherexpress Pro/100 driver
+
+config GRUB_EPIC100
+	bool
+	prompt "epic100 network driver"
+	depends on GRUB
+	help
+	  enable SMC 83c170 EPIC/100 driver
+
+menuconfig GRUB_SMC9000
+	bool
+	prompt "smc9000 network driver"
+	depends on GRUB
+	help
+	  enable SMC9000 driver
+
+config GRUB_SMC9000_SCAN
+	string
+	prompt "probe for SMC9000 I/O addresses using LIST"
+	depends on GRUB_SMC9000
+	help
+	  probe for SMC9000 I/O addresses using LIST
+
+config GRUB_EXOS205
+	bool
+	prompt "exos205 network driver"
+	depends on GRUB
+	help
+	  enable EXOS205 driver
+
+config GRUB_LANCE
+	bool
+	prompt "lance network driver"
+	depends on GRUB
+	help
+	  enable Lance PCI PCNet/32 driver
+
+menuconfig GRUB_NE
+	bool
+	prompt "ne network driver"
+	depends on GRUB
+	help
+	  enable NE1000/2000 ISA driver
+
+config GRUB_NE_SCAN
+	string
+	prompt "probe for NE base address using LIST"
+	depends on GRUB_NE
+	help
+	  probe for NE base address using LIST
+
+config GRUB_NE2100
+	bool
+	prompt "ne2100 network driver"
+	depends on GRUB
+	help
+	  enable Novell NE2100 driver
+
+config GRUB_NI5010
+	bool
+	prompt "ni5010 network driver"
+	depends on GRUB
+	help
+	  enable Racal-Interlan NI5010 driver
+
+config GRUB_NI5210
+	bool
+	prompt "ni5210 network driver"
+	depends on GRUB
+	help
+	  enable Racal-Interlan NI5210 driver
+
+config GRUB_NI6510
+	bool
+	prompt "ni6510 network driver"
+	depends on GRUB
+	help
+	  enable Racal-Interlan NI6510 driver
+
+config GRUB_NATSEMI
+	bool
+	prompt "natsemi network driver"
+	depends on GRUB
+	help
+	  enable NatSemi DP8381x driver
+
+config GRUB_NS8390
+	bool
+	prompt "ns8390 network driver"
+	depends on GRUB
+	help
+	  enable NE2000 PCI driver
+
+menuconfig GRUB_WD
+	bool
+	prompt "wd network driver"
+	depends on GRUB
+	help
+	  enable WD8003/8013, SMC8216/8416 driver
+
+config GRUB_WD_DEFAULT_MEM
+	string
+	prompt "set the default memory location"
+	depends on GRUB_WD
+	help
+	  set the default memory location for WD/SMC
+
+config GRUB_TULIP
+	bool
+	prompt "tulip network driver"
+	depends on GRUB
+	help
+	  enable Tulip driver
+
+config GRUB_OTULIP
+	bool
+	prompt "otulip network driver"
+	depends on GRUB
+	help
+	  enable old Tulip driver
 
 config GRUB_RTL8139
 	bool
 	prompt "Realtek  network driver"
 	depends on GRUB
 	help
-	  Include support for Realtek RTL8139 based nics.
+	  enable Realtek 8139 driver
+
+config GRUB_SIS900
+	bool
+	prompt "sis900 network driver"
+	depends on GRUB
+	help
+	  enable SIS 900 and SIS 7016 driver
+
+config GRUB_SK_G16
+	bool
+	prompt "sk-g16 network driver"
+	depends on GRUB
+	help
+	  enable Schneider and Koch G16 driver
+
+config GRUB_TIARA
+	bool
+	prompt "tiara network driver"
+	depends on GRUB
+	help
+	  enable Tiara driver
+
+config GRUB_VIA_RHINE
+	bool
+	prompt "via-rhine network driver"
+	depends on GRUB
+	help
+	  enable Rhine-I/II driver
+
+menuconfig GRUB_W89C840
+	bool
+	prompt "w89c840 network driver"
+	depends on GRUB
+	help
+	  enable Winbond W89c840, Compex RL100-ATX driver
+
+config GRUB_COMPEX_RL2000_FIX
+	bool
+	prompt "specify this if you have a Compex RL2000 PCI"
+	depends on GRUB_W89C840
+	help
+	  specify this if you have a Compex RL2000 PCI
 
 # FIXME
 # source "rules/bootdisk.in"
