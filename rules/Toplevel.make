@@ -444,15 +444,6 @@ $(STATEDIR)/configdeps: $(configdeps_deps)
 # Test
 # ----------------------------------------------------------------------------
 
-# config-test: 
-# 	@for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 	\
-# 		OUT=`basename $$i`;					\
-# 		$(call targetinfo,$$OUT);				\
-# 		cp $$i .config;						\
-# 		make oldconfig;						\
-# 		cp .config $$i;						\
-# 	done
-
 compile-test:
 	@echo 
 	@echo "compile-test is obsolete, run qa-autobuild target instead."
