@@ -228,7 +228,7 @@ ifdef PTXCONF_ROOTFS_GENERIC_SHADOW
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_UDHCPC
 	@$(call install_copy, rootfs, 0, 0, 0744, $(PTXDIST_TOPDIR)/projects-example/generic/etc/udhcpc.script,/etc/udhcpc.script, n)
-	# udhcp expects the script to be called /usr/share/udhcp/default.script, so we make a link
+	# udhcp expects the script to be called /usr/share/udhcpc/default.script, so we make a link
 	@$(call install_link, rootfs, /etc/udhcpc.script, /usr/share/udhcpc/default.script)
 endif
 
