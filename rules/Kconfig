@@ -71,6 +71,7 @@ source "rules/sysutils.in"
 source "rules/util-linux.in"
 source "rules/udev.in"
 source "rules/xmlstarlet.in"
+source "rules/pciutils.in"
 endmenu
 
 menu "Scripting Languages         "

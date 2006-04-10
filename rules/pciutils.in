@@ -1,0 +1,6 @@
+config PCIUTILS
+	bool
+	prompt "pciutils"
+	help
+	  FIXME: This item needs to be documented
+
