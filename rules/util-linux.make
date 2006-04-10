@@ -145,10 +145,10 @@ ifdef PTXCONF_UTIL_LINUX_SWAPON
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL_LINUX_DIR)/mount/swapon, /sbin/swapon)
 endif
 ifdef PTXCONF_UTIL_LINUX_MOUNT
-	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL_LINUX_DIR)/mount/mount, /sbin/mount)
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL_LINUX_DIR)/mount/mount, /bin/mount)
 endif
 ifdef PTXCONF_UTIL_LINUX_UMOUNT
-	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL_LINUX_DIR)/mount/umount, /sbin/umount)
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL_LINUX_DIR)/mount/umount, /bin/umount)
 endif
 ifdef PTXCONF_UTIL_LINUX_IPCS
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL_LINUX_DIR)/sys-utils/ipcs, /usr/bin/ipcs)
