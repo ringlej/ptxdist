@@ -63,8 +63,7 @@ GRUB_PATH	:= PATH=$(CROSS_PATH)
 # non-standard CFLAGS. We can unset them here as grub is compiled
 # standalone anyway (without Linux/glibc includes)
 
-GRUB_ENV	:= $(CROSS_ENV) 
-#CFLAGS=''
+GRUB_ENV	:= $(CROSS_ENV) CFLAGS=''
 
 GRUB_AUTOCONF :=  $(CROSS_AUTOCONF_USR)
 GRUB_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
