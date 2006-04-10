@@ -321,7 +321,8 @@ $(STATEDIR)/ntp.compile: $(ntp_compile_deps_default)
 	# trys to run it on the build machine - this is wrong... 
 	perl -i -p -e "s/^CC =/CC ?=/g" $(NTP_DIR)/ntpdc/Makefile
 	perl -i -p -e "s/^LDFLAGS =/LDFLAGS ?=/g" $(NTP_DIR)/ntpdc/Makefile
-	cd $(NTP_DIR)/ntpdc && CC=$(HOSTCC) LDFLAGS='' make ntpdc-layout 
+	perl -i -p -e "s/^CFLAGS =/CFLAGS ?=/g" $(NTP_DIR)/ntpdc/Makefile
+	cd $(NTP_DIR)/ntpdc && CC=$(HOSTCC) CFLAGS='' LDFLAGS='' make ntpdc-layout 
 
 	# now build the rest
 	cd $(NTP_DIR) && $(NTP_ENV) $(NTP_PATH) make
