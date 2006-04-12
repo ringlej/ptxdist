@@ -140,6 +140,7 @@ source "rules/expat.in"
 source "rules/gettext.in"
 source "rules/hrtimers-support.in"
 
+source "rules/libdaemon.in"
 source "rules/libelf.in"
 source "rules/libezv24.in"
 source "rules/liblist.in"

@@ -1,3 +1,7 @@
+2006-04-12 Robert Schwebel <r.schwebel@pengutronix.de
+
+	* libdaemon: added
+
 2006-03-24 Robert Schwebel <r.schwebel@pengutronix.de
 
 	* busybox: made vim an alias to vi; patch by Sascha Hauer
