@@ -65,53 +65,24 @@ BOOST_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-BOOST_AUTOCONF =  $(CROSS_AUTOCONF_BROKEN_USR)
-BOOST_AUTOCONF_LIBS=
-ifdef PTXCONF_BOOST_REGEXP
-BOOST_AUTOCONF_LIBS+=regexp,
-endif
-ifdef PTXCONF_BOOST_SIGNALS
-BOOST_AUTOCONF_LIBS+=signals,
-endif
-ifdef PTXCONF_BOOST_SERIALIZATION
-BOOST_AUTOCONF_LIBS+=serialization,
-endif
-ifdef PTXCONF_BOOST_THREAD
-BOOST_AUTOCONF_LIBS+=thread,
-endif
-ifdef PTXCONF_BOOST_PYTHON
-BOOST_AUTOCONF_LIBS+=python,
-endif
-ifdef PTXCONF_BOOST_FILESYSTEM
-BOOST_AUTOCONF_LIBS+=filesystem,
-endif
-ifdef PTXCONF_BOOST_WAVE
-BOOST_AUTOCONF_LIBS+=wave,
-endif
-ifdef PTXCONF_BOOST_DATE_TIME
-BOOST_AUTOCONF_LIBS+=date_time,
-endif
-ifdef PTXCONF_BOOST_IOSTREAMS
-BOOST_AUTOCONF_LIBS+=iostreams,
-endif
-ifdef PTXCONF_BOOST_TEST
-BOOST_AUTOCONF_LIBS+=test,
-endif
-ifdef PTXCONF_BOOST_PROGRAM_OPTIONS
-BOOST_AUTOCONF_LIBS+=program_options,
-endif
-ifdef PTXCONF_BOOST_GRAPH
-BOOST_AUTOCONF_LIBS+=graph,
-endif
-
-BOOST_AUTOCONF += --with-libraries=$(BOOST_AUTOCONF_LIBS)
+# ifdef PTXCONF_BOOST_REGEXP
+# ifdef PTXCONF_BOOST_SIGNALS
+# ifdef PTXCONF_BOOST_SERIALIZATION
+# ifdef PTXCONF_BOOST_THREAD
+# ifdef PTXCONF_BOOST_PYTHON
+# ifdef PTXCONF_BOOST_FILESYSTEM
+# ifdef PTXCONF_BOOST_WAVE
+# ifdef PTXCONF_BOOST_DATE_TIME
+# ifdef PTXCONF_BOOST_IOSTREAMS
+# ifdef PTXCONF_BOOST_TEST
+# ifdef PTXCONF_BOOST_PROGRAM_OPTIONS
+# ifdef PTXCONF_BOOST_GRAPH
 
 $(STATEDIR)/boost.prepare: $(boost_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BOOST_DIR)/config.cache)
-	cd $(BOOST_DIR) && \
-		$(BOOST_PATH) $(BOOST_ENV) \
-		./configure $(BOOST_AUTOCONF)
+	cd $(BOOST_DIR)/tools/build/jam_src && \
+		sh build.sh gcc && mv bin.*/bjam .
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -122,7 +93,12 @@ boost_compile: $(STATEDIR)/boost.compile
 
 $(STATEDIR)/boost.compile: $(boost_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(BOOST_DIR) && $(BOOST_PATH) make
+	cd $(BOOST_DIR) && \
+		tools/build/jam_src/bjam \
+			-d2 \
+			-sTOOLS=gcc \
+			-sGCC=$(CROSS_CC) \
+			-sGXX=$(CROSS_CXX)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -133,7 +109,7 @@ boost_install: $(STATEDIR)/boost.install
 
 $(STATEDIR)/boost.install: $(boost_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, BOOST)
+	#@$(call install, BOOST)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
