@@ -50,6 +50,7 @@ $(STATEDIR)/host-fakeroot.extract: $(host-fakeroot_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_FAKEROOT_DIR))
 	@$(call extract, $(HOST_FAKEROOT_SOURCE), $(HOST_BUILDDIR))
+	@$(call patchin, $(HOST_FAKEROOT),$(HOST_FAKEROOT_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -64,7 +65,9 @@ HOST_FAKEROOT_ENV 	=  $(HOSTCC_ENV)
 #
 # autoconf
 #
-HOST_FAKEROOT_AUTOCONF = $(HOST_AUTOCONF)
+HOST_FAKEROOT_AUTOCONF = \
+	$(HOST_AUTOCONF) \
+	--without-po4a
 
 $(STATEDIR)/host-fakeroot.prepare: $(host-fakeroot_prepare_deps_default)
 	@$(call targetinfo, $@)
