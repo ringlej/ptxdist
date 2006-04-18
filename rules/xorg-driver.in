@@ -6,6 +6,7 @@ menuconfig XORG_DRIVER_INPUT
 source "rules/xorg-driver-input-evdev.in"
 source "rules/xorg-driver-input-keyboard.in"
 source "rules/xorg-driver-input-mouse.in"
+source "rules/xorg-driver-input-tslib.in"
 source "rules/xorg-driver-input-void.in"
 
 menuconfig XORG_DRIVER_VIDEO
