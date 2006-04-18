@@ -1,8 +1,8 @@
-config XORG_DRIVER_INPUT_VOID
+config XORG_DRIVER_INPUT_TSLIB
 	bool
 	depends on XORG_DRIVER_INPUT
 	select XORG_SERVER
 	select TSLIB
-	prompt "void"
+	prompt "tslib"
 	help
 	  FIXME
