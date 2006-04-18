@@ -117,6 +117,7 @@
 	  Rol. 
 	* scripts: removed obsolete maintainance script.
 	* xorg-driver-input-tslib: added. Patch by Sascha Hauer.
+	* syslog-ng: updated to 0.10. 
 
 2006-04-12 Robert Schwebel <r.schwebel@pengutronix.de
 
