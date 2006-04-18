@@ -1,3 +1,123 @@
+2006-04-18 Robert Schwebel <r.schwebel@pengutronix.de
+
+	* ptxdist: we have a check now which makes sure that we don't
+	  mix native and non-native builds in one workspace
+	* patches: removed old apache-1.3.33 patches; patch by Marc
+	  Kleine-Budde.
+	* patches: ported common-cpp-1.3.24 patches to 1.3.25; patch by
+	  Marc Kleine-Budde.
+	* patches: new patches for directfb-0.9.24; patch by Erwin Rol.
+	* patches: ported from fontconfig-2.2.92 to 2.3.2; patch by
+	  Sascha Hauer. Removed 2.3.94 patches.
+	* patches: font-misc-misc-X11R7.0-1.0.0: make sysroot aware.
+	  Patch by Erwin Rol.
+	* patches: freetype-2.1.10: make sysroot aware; remove patches
+	  for 2.1.9. Patch by Marc Kleine-Budde. 
+	* patches: removed gdb-5.3 patches; patch by Marc Kleine-Budde.
+	* patches: init-ng-0.6.0: tweak bash-launcher to work with
+	  busybox shells. Patch by Erwin Rol.
+	* patches: init-ng-0.6.0: remove begging message; patch by Erwin
+	  Rol. 
+	* patches: init-ng-0.6.0: make mini-shell-script busybox shell
+	  aware. Patch by Erwin Rol.
+	* patches: init-ng: removed patches for 0.6.0-RC1. Patch by
+	  Erwin Rol. 
+	* patches: jpeg-6b
+	* patches: libxml2: remove config-in-sysroot patch.
+	* patches: libxslt-1.1.14
+	* patches: mplayer-1.0pre7try2: made gcc4 aware. Patch by Sascha
+	  Hauer. 
+	* patches: pcmciautils-0.0.6
+	* patches: sablevm-1.13: add "-Wl," tweak to configure.ac. Patch
+	  by Marc Kleine-Budde.
+	* patches: xf86-video-ati-X11R7.0-6.5.7.3: tweak runtime checks
+	  out of configure. Patch by Erwin Rol. 
+	* patches: xf86-video-ati-X11R7.0-6.5.7.3: fix some serious bugs
+	  in this ATI driver version. Patch by Erwin Rol.
+	* projects-example: allyes-arm: switch on init-ng, gtk, xinit,
+	  xf86bigfont, libxrandr, libjpeg
+	* generic /etc/init.d/modules: change to use /etc/modules only if 
+	  it does exist. Patch by Robert Schwebel.
+	* generic /etc/init.d/networking: exit with retval 0 if
+	  everything went fine. This avoids a useless warning. Patch by
+	  Robert Schwebel.
+	* generic /etc/init.d/udev: bail out wit useful error message if
+	  sysfs was not mounted. Patch by Robert Schwebel.
+	* atk: removed atk124 and add generic atk.
+	* bonniexx: fix dependencies.
+	* boost: added initial boost support. Patch by Robert Schwebel.
+	* busybox: changed /bin/busybox permissions from 1555 to 755.
+	* cairo: added initial support. Patch by Marc Kleine-Budde.
+	* canutils: autodetect version; Patch by Marc Kleine-Budde.
+	* check_tools: depend on host-pkg-config-wrapper for all
+	  non-toolchain targets. Patch by Robert Schwebel.
+	* commoncpp2: version updated from 1.3.24 to 1.3.25. Patch by
+	  Robert Schwebel and Marc Kleine-Budde.
+	* menues: several menues have been cleaned up.
+	* expat: moved libexpat from /lib into /usr/lib. Patch by Marc
+	  Kleine-Budde. 
+	* fontconfig: downgrade to 2.3.2. Patch by Sascha Hauer.
+	* freetype: added dependency on zlib. Version updated from 2.1.9
+	  to 2.1.10. 
+	* gettext: fixed missing ";". Patch by Robert Schwebel.
+	* glib28: removed and re-added as glib.
+	* glibc: removed bogus dependency on ipkg mechanism.
+	* gnuplot: fixed dependencies; added x11 variant. Patch by
+	  Sascha Hauer. 
+	* grub: added zillions of new config options. Patch by Erwin
+	  Rol.
+	* gtk: update; patch by Marc Kleine-Budde.
+	* host-ipkg: The ipkg bundling mechanism is now always on; this
+	  is a general policy change to make things easier. We know that
+	  the current ipkg implementation is braindamaged, but there is
+	  no alternative. Patch by Robert Schwebel. 
+	* init-ng: version update to 0.6.0. Patch by Erwin Rol.
+	* rules/Kconfig: removed generated version file into separate
+	  ptxdist-version.in(.in). So we don't have to re-run configure
+	  each time something changes in Kconfig. Patch by Marc
+	  Kleine-Budde.
+	* libdaemon: added. Patch by Robert Schwebel.
+	* libelf: added. Patch by Marc Kleine-Budde.
+	* libjpeg: added. Patch by Erwin Rol.
+	* libpopt: renamed from popt. Patch by Marc Kleine-Budde.
+	* libxslt: URL changed. 
+	* ltrace: added. Patch by Marc Kleine-Budde.
+	* mplayer: unbroken to make Sascha happy :-) Fixed URL.
+	* ntp: fix dependencies & menu.
+	* pango: update to 1.10.4 & renamed. Patch by Marc Kleine-Budde.
+	* pciutils: added. Patch by Erwin Rol.
+	* rootfs: select udev if configfile was switched on
+	* rootfs: fix client config file. Patch by Erwin Rol.
+	* Rules.make: host side ipkg is now mandatory, removed checks.
+	  Added sanity checks for install_replace macro which checks if
+	  a file does exist before changing.
+	* sysfsutils: made default-y. Updated from 1.3.0 to 2.0.0.
+	* tcpdump: fix crypto dependencies. Get --without-crypto option
+	  right. Patch by Marc Kleine-Budde.
+	* Toplevel.make: Remove bogus quotes from $(SRCDIR). Fix
+	  Definitions loading order. Fix conditionals for ipkg-test; due
+	  to the fact that host side ipkg is now mandatory we always
+	  have to run the test now if we build a userland (not for
+	  toolchain). Put tgz image creation into make_image_tgz.sh.
+	  Remove obsolete config-test.
+	* util-linux: put tools into /bin instead of /sbin. Patch by
+	  Erwin Rol.
+	* valgrind: updated from 2.4.0 to 3.1.1. Patch by Erwin Rol.
+	* xorg-app-xinit: added startx and xinitrc. Patch by Sascha
+	  Hauer. 
+	* xorg-driver-input-evdev: install evdev_drv.so; patch by Sascha
+	  Hauer. 
+	* xorg-driver-input-keyboard: fix installation.
+	* xorg-driver-video-ati: several fixes; patch by Erwin Rol.
+	* xorg-options: introduced. Patch by Erwin Rol.
+	* xf86bigfont extension: added. Patch by Erwin Rol.
+	* xorg-lib-xtrans: removed bogus installation candidates. 
+	  Patch by Erwin Rol.
+	* xorg-server: added gazillions of new options. Patch by Erwin
+	  Rol. 
+	* scripts: removed obsolete maintainance script.
+	* xorg-driver-input-tslib: added. Patch by Sascha Hauer.
+
 2006-04-12 Robert Schwebel <r.schwebel@pengutronix.de
 
 	* libdaemon: added
