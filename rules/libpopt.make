@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
+# Copyright (C) 2006 by Marc Kleine-Budde
 #          
 # See CREDITS for details about who has contributed to this project.
 #
