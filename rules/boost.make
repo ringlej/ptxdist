@@ -80,7 +80,6 @@ BOOST_ENV 	:=  $(CROSS_ENV)
 
 $(STATEDIR)/boost.prepare: $(boost_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(BOOST_DIR)/config.cache)
 	cd $(BOOST_DIR)/tools/build/jam_src && \
 		sh build.sh gcc && mv bin.*/bjam .
 	@$(call touch, $@)
@@ -95,11 +94,13 @@ $(STATEDIR)/boost.compile: $(boost_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BOOST_DIR) && \
 		tools/build/jam_src/bjam \
-			-d2 \
-			-sTOOLS=gcc \
-			-sGCC=$(CROSS_CC) \
-			-sGXX=$(CROSS_CXX)
+		-sTOOLS=gcc \
+		-sGCC=$(COMPILER_PREFIX)gcc \
+		-sGXX=$(COMPILER_PREFIX)g++
 	@$(call touch, $@)
+
+#		-sPYTHON_VERSION=2.3 \
+#		-sPYTHON_ROOT=/usr
 
 # ----------------------------------------------------------------------------
 # Install
