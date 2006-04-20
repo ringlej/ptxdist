@@ -341,6 +341,14 @@ config ROOTFS_GENERIC_RESOLV
 	help
 	  Install a generic /etc/resolv.conf file.
 
+config ROOTFS_GENERIC_SYSLOGNG
+	depends on SYSLOGNG
+	bool
+	prompt "/etc/syslog-ng.conf"
+	default y
+	help
+	  Install a generic /etc/syslog-ng.conf file.
+
 config ROOTFS_GENERIC_INETD
 	depends on ROOTFS
 	bool
