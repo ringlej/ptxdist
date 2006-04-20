@@ -35,9 +35,3 @@ config QTE_STL
 	help
 	  FIXME: This item needs to be documented
 
-config QTE_QVFB
-	bool
-	prompt "Build QT/E library with Q Virtual Framebuffer support"
-	depends on QTE
-	help
-	  FIXME: This item needs to be documented
