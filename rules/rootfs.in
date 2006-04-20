@@ -476,6 +476,28 @@ menuconfig ROOTFS_ETC_INITD_NETWORKING
 		help
 		  Copy this file to /etc/network/interfaces. 
 
+########################## Syslog-NG #########################################
+
+comment "syslog-ng: select syslog-ng"
+	depends on ROOTFS_ETC_INITD && !SYSLOGNG
+
+menuconfig ROOTFS_ETC_INITD_SYSLOGNG
+	depends on ROOTFS_ETC_INITD && SYSLOGNG
+	bool
+	default y
+	prompt "syslog-ng                 "
+	help
+	  The /etc/init.d/syslog-ng script lets you control the syslog-ng daemon.
+
+	config ROOTFS_ETC_INITD_SYSLOGNG_LINK
+		depends on ROOTFS_ETC_INITD_SYSLOGNG
+		string
+		prompt "link name in /etc/rc.d"
+		default "S08_syslog-ng"
+		help
+		  Set a link into /etc/rc.d which points to /etc/init.d/syslog-ng to
+		  start the syslog-ng daemon when system boots.
+
 ########################## Telnetd ##########################################
 
 comment "telnetd: select telnet"

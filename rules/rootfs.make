@@ -289,6 +289,13 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
 endif
 endif
 
+ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/syslog-ng, /etc/init.d/syslog-ng, n)
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK),"")
+	@$(call install_link, rootfs, /etc/init.d/syslog-ng, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK))
+endif
+endif
+
 ifdef PTXCONF_ROOTFS_ETC_INITD_STARTUP
 	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/startup,    /etc/init.d/startup, n)
 endif
