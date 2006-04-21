@@ -1,4 +1,10 @@
-2006-04-18 Robert Schwebel <r.schwebel@pengutronix.de
+2006-04-21 Robert Schwebel <r.schwebel@pengutronix.de>
+	   Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* configure.ac: re-add test for gzip, bzip2 etc. in a way that
+	  we break if these programs are not there; test for sed >= 4.x. 
+
+2006-04-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ptxdist: we have a check now which makes sure that we don't
 	  mix native and non-native builds in one workspace
@@ -123,11 +129,11 @@
 	* xorg-driver-input-tslib: added. Patch by Sascha Hauer.
 	* syslog-ng: updated to 0.10. 
 
-2006-04-12 Robert Schwebel <r.schwebel@pengutronix.de
+2006-04-12 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* libdaemon: added
 
-2006-03-24 Robert Schwebel <r.schwebel@pengutronix.de
+2006-03-24 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* busybox: made vim an alias to vi; patch by Sascha Hauer
 	* toplevel: added real autoconf support and some initial tests
@@ -147,11 +153,11 @@
 
 	* release: released 0.10.2
 
-2006-03-21 Robert Schwebel <r.schwebel@pengutronix.de
+2006-03-21 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* release: released 0.10.1
 
-2006-03-20 Robert Schwebel <r.schwebel@pengutronix.de
+2006-03-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* overall: fixed various examples and configurations, updated to
 	  use the 0.10.1 version all over the place
@@ -165,7 +171,7 @@
 	* config/: obsolete stuff removed
 	* setup: default SF mirror changed
 
-2006-03-19 Robert Schwebel <r.schwebel@pengutronix.de
+2006-03-19 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ptxdist: reanimated 'ptxdist kernelconfig'
 	* ptxdist: added 'ptxdist maintainer configversionbump'
@@ -173,19 +179,19 @@
 	* gdb: fixed: source for cross-gdb was not fetched correctly. 
 	  The gdb version was updated to 6.4. 
 
-2006-03-14 Robert Schwebel <r.schwebel@pengutronix.de
+2006-03-14 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* libezV24: added
 	* toplevel: debian packetized
 
-2006-03-12 Robert Schwebel <r.schwebel@pengutronix.de
+2006-03-12 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* toolchains: fixed cross gdb paths to install into the same
 	  directory as the crosstool components.
 
 	* ptxdist clone: fixed; thanks to Erwin Rol for the bug report
 
-2006-03-11 Robert Schwebel <r.schwebel@pengutronix.de
+2006-03-11 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* autobuild: The statistics functions have been moved to
 	  ptxdist, so the autobuild scripts do only contain the 
@@ -199,7 +205,7 @@
 
 	* projects: separated toolchains and example projects. 
 
-2006-03-10 Robert Schwebel <r.schwebel@pengutronix.de
+2006-03-10 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ptxdist: integrated autobuilder in ptxdist
 
@@ -208,7 +214,7 @@
 
 	* ipkg: fixed ipkg build mechanism and image creation.
 
-2006-03-09 Robert Schwebel <r.schwebel@pengutronix.de
+2006-03-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* release: released 0.10.0. 
 

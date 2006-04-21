@@ -64,70 +64,50 @@ version of bash from ftp.gnu.org
 ])
 fi
 
-dnl
-dnl Check for sed
-dnl FIXME: we need sed >= 4.0 which supports inplace 
-dnl
-AC_ARG_WITH(sed, AC_HELP_STRING(
-    [--with-sed], [name of the sed executable to use]),
-    [
-	SED="$withval"
-	AC_SUBST(SED)
-	AC_MSG_NOTICE([Using sed executable $SED])
-    ],[
-	SED="sed"
-	AC_SUBST(SED)
-    ])
+dnl Check for sed >= 4.0
+AC_PATH_PROGS( SED, sed, , $PATH)
+if test -z "$SED"; then
+	AC_MSG_ERROR([sed could not be found, please install])
+fi
+AC_MSG_CHECKING([sed version])
+SED_VERSION=`$SED --version | $SED -ne "s/.*version \([[0-9\.]]*\)/\1/p"`
+
+case "$SED_VERSION" in
+3.*) AC_MSG_ERROR([we need at least sed 4.x but found $SED_VERSION]) ;;
+4.*) ;;
+*)   AC_MSG_NOTICE([we need at least sed 4.x, you have $SED_VERSION and we try if it works ...]) ;;
+esac
+
+AC_MSG_RESULT([$SED_VERSION])
 
 dnl Check for bunzip2
-AC_PATH_PROGS(bunzip2, bunzip2, , $PATH)
+AC_PATH_PROGS( BUNZIP2, bunzip2, , $PATH)
+if test -z "$BUNZIP2"; then 
+	AC_MSG_ERROR([bunzip2 could not be found, please install])
+fi
 
 dnl Check for gunzip
-AC_PATH_PROGS(gunzip, gunzip, , $PATH)
+AC_PATH_PROGS( GUNZIP, gunzip, , $PATH)
+if test -z "$GUNZIP"; then
+	AC_MSG_ERROR([gunzip could not be found, please install])
+fi
 
 dnl Check for readlink
-AC_PATH_PROGS(readlink, readlink, , $PATH)
+AC_PATH_PROGS( READLINK, readlink, , $PATH)
+if test -z "$READLINK"; then
+	AC_MSG_ERROR([readlink could not be found, please install])
+fi
 
 dnl Check for awk
-AC_ARG_WITH(awk, AC_HELP_STRING(
-    [--with-awk], [name of the awk executable to use]),
-    [
-	AWK="$withval"
-	AC_SUBST(AWK)
-	AC_MSG_NOTICE([Using awk executable $AWK])
-    ],[
-	AC_PATH_PROGS(AWK, [gawk awk])
-    ])
+AC_PATH_PROGS( AWK, awk, , $PATH)
+if test -z "$AWK"; then
+	AC_MSG_ERROR([awk could not be found, please install])
+fi
 
-dnl Test for awk features that may be mising?
-
-dnl Checks for mktemp (for creating temporary files and directories)
-AC_ARG_WITH(mktemp, AC_HELP_STRING(
-    [--with-mktemp], [name of the mktemp executable to use (or 'none'
-		      to use a quilt internal mechanism)]),
-    [
-	MKTEMP="$withval"
-	AC_SUBST(MKTEMP)
-	AC_MSG_NOTICE([Using mktemp executable $MKTEMP])
-    ],[
-	AC_PATH_PROG(MKTEMP, mktemp)
-    ])
-if test -z "$MKTEMP" -o "$MKTEMP" = "none" ; then
-    MKTEMP=internal_mktemp
-else
-    AC_MSG_CHECKING(whether $MKTEMP -d works)
-    if tempdir=`$MKTEMP -d /tmp/$PACKAGE_NAME.XXXXXX 2>/dev/null` && \
-       rmdir "$tempdir" ; then
-	AC_MSG_RESULT(yes)
-    else
-	AC_MSG_RESULT(no)
-	AC_MSG_ERROR([
-'$MKTEMP -d' does not create temporary directories.
-If you don't have a version of mktemp that can create directories, you
-can specify '--with-mktemp=none' and $PACKAGE_NAME will use its own
-internal tempfile generation mechanism.
-])
-    fi
+dnl Check for mktemp
+AC_PATH_PROGS( MKTEMP, mktemp, , $PATH)
+if test -z "$MKTEMP"; then
+	AC_MSG_ERROR([mktemp could not be found, please install])
 fi
 
 dnl
