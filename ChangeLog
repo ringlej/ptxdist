@@ -8,7 +8,7 @@
 	  Marc Kleine-Budde.
 	* patches: new patches for directfb-0.9.24; patch by Erwin Rol.
 	* patches: ported from fontconfig-2.2.92 to 2.3.2; patch by
-	  Sascha Hauer. Removed 2.3.94 patches.
+	  Marc Kleine-Budde. Removed 2.3.94 patches.
 	* patches: font-misc-misc-X11R7.0-1.0.0: make sysroot aware.
 	  Patch by Erwin Rol.
 	* patches: freetype-2.1.10: make sysroot aware; remove patches
@@ -23,7 +23,8 @@
 	* patches: init-ng: removed patches for 0.6.0-RC1. Patch by
 	  Erwin Rol. 
 	* patches: jpeg-6b
-	* patches: libxml2: remove config-in-sysroot patch.
+	* patches: libxml2: moved config-in-sysroot patch to 
+	  xml2-config_in_sysroot.diff; patch by Marc Kleine-Budde.
 	* patches: libxslt-1.1.14
 	* patches: mplayer-1.0pre7try2: made gcc4 aware. Patch by Sascha
 	  Hauer. 
@@ -56,14 +57,16 @@
 	* menues: several menues have been cleaned up.
 	* expat: moved libexpat from /lib into /usr/lib. Patch by Marc
 	  Kleine-Budde. 
-	* fontconfig: downgrade to 2.3.2. Patch by Sascha Hauer.
+	* fontconfig: downgrade to 2.3.2, which is the latest stable
+	  version. Patch by Marc Kleine-Budde.
 	* freetype: added dependency on zlib. Version updated from 2.1.9
-	  to 2.1.10. 
+	  to 2.1.10. Marc Kleine-Budde.
 	* gettext: fixed missing ";". Patch by Robert Schwebel.
-	* glib28: removed and re-added as glib.
+	* glib28: removed and re-added as glib. Patch by Marc
+	  Kleine-Budde.
 	* glibc: removed bogus dependency on ipkg mechanism.
 	* gnuplot: fixed dependencies; added x11 variant. Patch by
-	  Sascha Hauer. 
+	  Marc Kleine-Budde. 
 	* grub: added zillions of new config options. Patch by Erwin
 	  Rol.
 	* gtk: update; patch by Marc Kleine-Budde.
@@ -83,7 +86,7 @@
 	* libxslt: URL changed. 
 	* ltrace: added. Patch by Marc Kleine-Budde.
 	* mplayer: unbroken to make Sascha happy :-) Fixed URL.
-	* ntp: fix dependencies & menu.
+	* ntp: fix dependencies & menu. Patch by Marc Kleine-Budde.
 	* pango: update to 1.10.4 & renamed. Patch by Marc Kleine-Budde.
 	* pciutils: added. Patch by Erwin Rol.
 	* rootfs: select udev if configfile was switched on
@@ -91,7 +94,8 @@
 	* Rules.make: host side ipkg is now mandatory, removed checks.
 	  Added sanity checks for install_replace macro which checks if
 	  a file does exist before changing.
-	* sysfsutils: made default-y. Updated from 1.3.0 to 2.0.0.
+	* sysfsutils: made default-y. Updated from 1.3.0 to 2.0.0. Patch
+	  by Marc Kleine-Budde.
 	* tcpdump: fix crypto dependencies. Get --without-crypto option
 	  right. Patch by Marc Kleine-Budde.
 	* Toplevel.make: Remove bogus quotes from $(SRCDIR). Fix
