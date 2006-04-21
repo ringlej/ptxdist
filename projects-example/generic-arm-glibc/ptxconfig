@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.1
-# Mon Mar 20 15:58:52 2006
+# PTXdist version: 0.10.3
+# Fri Apr 21 17:38:10 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -119,7 +119,7 @@ PTXCONF_COMPILER_PREFIX="${PTXCONF_GNU_TARGET}-"
 # Packaging Tools
 #
 PTXCONF_HOST_FAKEROOT=y
-# PTXCONF_HOST_IPKG is not set
+PTXCONF_HOST_IPKG=y
 PTXCONF_HOST_IPKG_UTILS=y
 
 #
@@ -162,6 +162,7 @@ PTXCONF_GDBSERVER_SHARED=y
 # PTXCONF_MEMTEST is not set
 # PTXCONF_MEMTESTER is not set
 # PTXCONF_OPROFILE is not set
+# PTXCONF_LTRACE is not set
 PTXCONF_STRACE=y
 PTXCONF_STRACE_SHARED=y
 
@@ -178,8 +179,9 @@ PTXCONF_STRACE_SHARED=y
 #
 # PTXCONF_IMAGE_TGZ is not set
 # PTXCONF_IMAGE_HD is not set
-# PTXCONF_IMAGE_IPKG is not set
 # PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY is not set
+PTXCONF_IMAGE_IPKG_EXTRA_ARGS=""
+PTXCONF_IMAGE_IPKG_ARCH="${PTXCONF_ARCH}"
 # PTXCONF_IMAGE_JFFS2 is not set
 # PTXCONF_IMAGE_UIMAGE is not set
 # PTXCONF_IMAGE_EXT2 is not set
@@ -268,6 +270,10 @@ PTXCONF_ROOTFS_ETC_INITD_RCS=y
 PTXCONF_ROOTFS_ETC_INITD_NETWORKING=y
 PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK="S01_networking"
 PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES="${PROJECTDIR}/etc/network/interfaces"
+
+#
+# syslog-ng: select syslog-ng
+#
 PTXCONF_ROOTFS_ETC_INITD_TELNETD=y
 PTXCONF_ROOTFS_ETC_INITD_TELNETD_DEFAULT=y
 # PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER is not set
@@ -343,10 +349,6 @@ PTXCONF_KERNEL_TARGET_SERIES="series"
 #
 PTXCONF_KERNEL_NATIVE_VERSION="2.6.15"
 PTXCONF_KERNEL_NATIVE_SERIES="series"
-
-#
-# klibc               
-#
 
 #
 # C Library           
@@ -443,7 +445,12 @@ PTXCONF_GLIBC_ZONEINFO_EUROPE=y
 # PTXCONF_GLIBC_ZONEINFO_NZ_CHAT is not set
 # PTXCONF_GLIBC_ZONEINFO_SYSTEMV is not set
 # PTXCONF_GLIBC_ZONEINFO_UNIVERSAL is not set
-# PTXCONF_GCCLIBS is not set
+
+#
+# GCC Libraries       
+#
+# PTXCONF_GCCLIBS_CXX is not set
+# PTXCONF_GCCLIBS_GCC_S is not set
 
 #
 # ----------------------------------
@@ -1018,6 +1025,7 @@ PTXCONF_COREUTILS_MD5SUM=y
 # PTXCONF_DAEMONIZE is not set
 # PTXCONF_DIFFUTILS is not set
 # PTXCONF_SYSVINIT is not set
+# PTXCONF_INITNG is not set
 PTXCONF_MODULE_INIT_TOOLS=y
 # PTXCONF_MODULE_INIT_TOOLS_INSMOD is not set
 # PTXCONF_MODULE_INIT_TOOLS_RMMOD is not set
@@ -1081,6 +1089,7 @@ PTXCONF_UDEV_START=y
 PTXCONF_UDEV_TEST=y
 PTXCONF_UDEV_FW_HELPER=y
 # PTXCONF_XMLSTARLET is not set
+# PTXCONF_PCIUTILS is not set
 
 #
 # Scripting Languages         
@@ -1118,10 +1127,6 @@ PTXCONF_UDEV_FW_HELPER=y
 # PTXCONF_IPTABLES is not set
 # PTXCONF_LSH is not set
 # PTXCONF_OPENSSL is not set
-
-#
-# OpenSSH             
-#
 # PTXCONF_OPENSSH is not set
 
 #
@@ -1136,49 +1141,17 @@ PTXCONF_UDEV_FW_HELPER=y
 # PTXCONF_APACHE2 is not set
 # PTXCONF_BETAFTPD is not set
 # PTXCONF_BIND is not set
-
-#
-# bing                
-#
 PTXCONF_BING=y
-
-#
-# Bridge Utils        
-#
 # PTXCONF_BRIDGE_UTILS is not set
-
-#
-# Chrony              
-#
 # PTXCONF_CHRONY is not set
-
-#
-# dhcp                
-#
 # PTXCONF_DHCP is not set
-
-#
-# dnsmasq             
-#
 # PTXCONF_DNSMASQ is not set
-
-#
-# ethereal            
-#
 
 #
 # ethereal is broken, please send a patch
 #
-
-#
-# ethewake            
-#
 # PTXCONF_ETHERWAKE is not set
 # PTXCONF_EVENTLOG is not set
-
-#
-# inetutils           
-#
 # PTXCONF_INETUTILS is not set
 
 #
@@ -1219,15 +1192,7 @@ PTXCONF_NETCAT=y
 #
 # install options
 #
-
-#
-# nmap                
-#
 # PTXCONF_NMAP is not set
-
-#
-# NTP                 
-#
 # PTXCONF_NTP is not set
 
 #
@@ -1246,10 +1211,6 @@ PTXCONF_NETCAT=y
 # openafs is broken, please send a patch
 #
 # PTXCONF_OPENAFS_1_2_11 is not set
-
-#
-# OpenNTPD            
-#
 # PTXCONF_OPENNTPD is not set
 
 #
@@ -1332,18 +1293,10 @@ PTXCONF_UTELNETD=y
 # DOSFSTOOLS are broken, please send a patch
 #
 # PTXCONF_E2FSPROGS is not set
-
-#
-# grub is only available on x86
-#
 # PTXCONF_HDPARM is not set
 # PTXCONF_IPKG is not set
 # PTXCONF_CRAMFS is not set
 # PTXCONF_BONNIEXX is not set
-
-#
-# liblockfile       
-#
 # PTXCONF_LIBLOCKFILE is not set
 
 #
@@ -1364,19 +1317,16 @@ PTXCONF_UTELNETD=y
 #
 # Applications                
 #
+# PTXCONF_ALSA_UTILS is not set
 
 #
 # FLASH is broken, please send a patch
 #
 # PTXCONF_GNUPG is not set
 # PTXCONF_MAD is not set
+# PTXCONF_MPLAYER is not set
 # PTXCONF_SETMIXER is not set
 # PTXCONF_RAWREC is not set
-
-#
-# mplayer is broken, please send a patch, and sorry Sascha :-)
-#
-# PTXCONF_ALSA_UTILS is not set
 
 #
 # Tools                       
@@ -1399,16 +1349,19 @@ PTXCONF_FIGLET=y
 #
 # System Libraries            
 #
+# PTXCONF_ALSA_LIB is not set
 # PTXCONF_COMMONCPP2 is not set
 # PTXCONF_DB is not set
 # PTXCONF_EXPAT is not set
 # PTXCONF_GETTEXT is not set
-# PTXCONF_GLIB28 is not set
 # PTXCONF_HRTIMERS_SUPPORT is not set
+# PTXCONF_LIBDAEMON is not set
+# PTXCONF_LIBELF is not set
 # PTXCONF_LIBEZV24 is not set
 # PTXCONF_LIBLIST is not set
 # PTXCONF_LIBMQUEUE is not set
 # PTXCONF_LIBNETPBM is not set
+# PTXCONF_LIBPOPT is not set
 # PTXCONF_LIBXML2 is not set
 # PTXCONF_LIBXMLCONFIG is not set
 # PTXCONF_LIBXSLT is not set
@@ -1418,7 +1371,6 @@ PTXCONF_NCURSES_TERMCAP=y
 # PTXCONF_NCURSES_MENU is not set
 # PTXCONF_NCURSES_PANEL is not set
 # PTXCONF_PCRE is not set
-# PTXCONF_POPT is not set
 # PTXCONF_READLINE is not set
 # PTXCONF_LIBRN is not set
 # PTXCONF_LIBGSLOOP is not set
@@ -1427,7 +1379,6 @@ PTXCONF_NCURSES_TERMCAP=y
 PTXCONF_TERMCAP=y
 # PTXCONF_TERMCAP_TERMCAP is not set
 PTXCONF_ZLIB=y
-# PTXCONF_ALSA_LIB is not set
 
 #
 # Middleware                  
@@ -1444,6 +1395,10 @@ PTXCONF_ZLIB=y
 
 #
 # Xorg                  
+#
+
+#
+# overall X11 options   
 #
 # PTXCONF_XORG_SERVER is not set
 # PTXCONF_XORG_DRIVER_INPUT is not set
@@ -1549,6 +1504,13 @@ PTXCONF_ZLIB=y
 #
 # X Applications
 #
+
+#
+# GTK+ and friends      
+#
+# PTXCONF_GLIB is not set
+# PTXCONF_ATK is not set
+# PTXCONF_CAIRO is not set
 # PTXCONF_FLTK is not set
 
 #
@@ -1577,6 +1539,7 @@ PTXCONF_ZLIB=y
 #
 # PTXCONF_SDL is not set
 # PTXCONF_LIBPNG is not set
+# PTXCONF_LIBJPEG is not set
 # PTXCONF_FONTCONFIG is not set
 # PTXCONF_TSLIB is not set
 
