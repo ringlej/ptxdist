@@ -28,7 +28,8 @@
 	  aware. Patch by Erwin Rol.
 	* patches: init-ng: removed patches for 0.6.0-RC1. Patch by
 	  Erwin Rol. 
-	* patches: jpeg-6b
+	* patches: jpeg-6b: grabbed from fedora core; patch by Erwin
+	  Rol.
 	* patches: libxml2: moved config-in-sysroot patch to 
 	  xml2-config_in_sysroot.diff; patch by Marc Kleine-Budde.
 	* patches: libxslt-1.1.14
