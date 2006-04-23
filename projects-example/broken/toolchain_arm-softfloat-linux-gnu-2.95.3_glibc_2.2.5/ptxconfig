@@ -17,7 +17,7 @@ PTXCONF_BUILD_TOOLCHAIN=y
 #
 PTXCONF_PROJECT="toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5"
 PTXCONF_PROJECT_VERSION="-1"
-PTXCONF_CONFIGFILE_VERSION="0.10.3"
+PTXCONF_CONFIGFILE_VERSION="0.10.svn"
 
 #
 # ----------------------------------
