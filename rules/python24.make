@@ -108,6 +108,8 @@ $(STATEDIR)/python24.install: $(python24_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
+PYTHON24_INST_TMP := $(PYTHON24_DIR)/install_temp
+
 python24_targetinstall: $(STATEDIR)/python24.targetinstall
 
 $(STATEDIR)/python24.targetinstall: $(python24_targetinstall_deps_default)
@@ -122,47 +124,36 @@ $(STATEDIR)/python24.targetinstall: $(python24_targetinstall_deps_default)
 	@$(call install_fixup, python24,DEPENDS,)
 	@$(call install_fixup, python24,DESCRIPTION,missing)
 
-	# FIXME: RSC: ipkgize in a cleaner way
+	rm -rf $(PYTHON24_INST_TMP)
+	mkdir -p $(PYTHON24_INST_TMP)
 
 	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
-		altbininstall DESTDIR=$(ROOTDIR)
-	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
-		altbininstall DESTDIR=$(IMAGEDIR)/ipkg
+		altbininstall DESTDIR=$(PYTHON24_INST_TMP)
 
 	umask 022 && \
 		$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
-		libinstall DESTDIR=$(ROOTDIR)
-	umask 022 && \
-		$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
-		libinstall DESTDIR=$(IMAGEDIR)/ipkg
+		libinstall DESTDIR=$(PYTHON24_INST_TMP)
 
 	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
-		libainstall DESTDIR=$(ROOTDIR)
-	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
-		libainstall DESTDIR=$(IMAGEDIR)/ipkg
+		libainstall DESTDIR=$(PYTHON24_INST_TMP)
 
 	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
-		sharedinstall DESTDIR=$(ROOTDIR)
-	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
-		sharedinstall DESTDIR=$(IMAGEDIR)/ipkg
+		sharedinstall DESTDIR=$(PYTHON24_INST_TMP)
 
 	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
-		oldsharedinstall DESTDIR=$(ROOTDIR)
-	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
-		oldsharedinstall DESTDIR=$(IMAGEDIR)/ipkg
-
-	$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)/usr/bin/python2.4
-	$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/ipkg/usr/bin/python2.4
+		oldsharedinstall DESTDIR=$(PYTHON24_INST_TMP)
 
 	# remove redundant files
-	find $(ROOTDIR)/usr/lib/python2.4 -name "*.py"  | xargs rm -f
-	find $(IMAGEDIR)/ipkg/usr/lib/python2.4 -name "*.py"  | xargs rm -f
-	find $(ROOTDIR)/usr/lib/python2.4 -name "*.pyo" | xargs rm -f
-	find $(IMAGEDIR)/ipkg/usr/lib/python2.4 -name "*.pyo" | xargs rm -f
-	rm -fr $(ROOTDIR)/usr/lib/python2.4/config
-	rm -fr $(IMAGEDIR)/ipkg/usr/lib/python2.4/config
-	rm -fr $(ROOTDIR)/usr/lib/python2.4/test
-	rm -fr $(IMAGEDIR)/ipkg/usr/lib/python2.4/test
+	find $(PYTHON24_INST_TMP)/usr/lib/python2.4 -name "*.py"  | xargs rm -f
+	find $(PYTHON24_INST_TMP)/usr/lib/python2.4 -name "*.pyo" | xargs rm -f
+	rm -fr $(PYTHON24_INST_TMP)/usr/lib/python2.4/config
+	rm -fr $(PYTHON24_INST_TMP)/usr/lib/python2.4/test
+
+	files=$$(cd $(PYTHON24_INST_TMP) && find -type f | sed "s/^\.//"); \
+	for i in $$files; do \
+		access=$$(stat -c "%a" $(PYTHON24_INST_TMP)$$i); \
+		$(call install_copy, python24, 0, 0, $$access, $(PYTHON24_INST_TMP)$$i, $$i); \
+	done
 
 	@$(call install_finish, python24)
 	@$(call touch, $@)
