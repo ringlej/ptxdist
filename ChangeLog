@@ -1,3 +1,7 @@
+2006-04-25 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* Makefile.in: improved make clean; patch by Ladislav Michl
+
 2006-04-23 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* release: released 0.10.3
