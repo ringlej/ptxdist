@@ -17,10 +17,9 @@
 # unknown
 #
 
-diff -urN mtd-20040621-1/util/Makefile mtd-20040621-1-cppflags/util/Makefile
---- mtd-20040621-1/util/Makefile	2004-05-28 12:51:10.000000000 +0200
-+++ mtd-20040621-1-cppflags/util/Makefile	2005-03-13 15:58:23.000000000 +0100
-@@ -21,7 +21,7 @@
+--- mtd-utils-1.0.0/Makefile.orig	2006-05-02 16:48:44.316560880 +0200
++++ mtd-utils-1.0.0/Makefile	2006-05-02 16:48:58.853350952 +0200
+@@ -24,7 +24,7 @@
  	$(CC) $(LDFLAGS) -g -o $@ $^
  
  %.o: %.c

@@ -1,3 +1,7 @@
+2006-05-02 Ladislav Michl <ladis@linux-mips.org>
+
+	* mtd: updated to mtd-utils-1.0.0
+
 2006-04-25 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* Makefile.in: improved make clean; patch by Ladislav Michl
@@ -1033,7 +1037,7 @@
 	* Makefile: Update version number
 	* busybox: Update to BB 1.0.0-pre7
 	* kernel: Finally fix feature patch stack mechanism. 
-          Should work now as expected...
+	  Should work now as expected...
 	* config/innokom.ptxconfig: Fixup configuration for ppp & patch
 	  stack
 	* config/innokom.ptxconfig: fix correct config file
@@ -1137,7 +1141,7 @@
 	* general: Execute dot only when available and avoid error otherwhise. 
 	* general: made root/ directory configurable
 	* general: introduced generic architecture support file in
-          config/arch/
+	  config/arch/
 	* configs: added configurations for roi-eics, scII-bmwm, scII-cameron;
 	  updated innokom configs
 	* toplevel make: added getclean target; fixes in archive mechanism
