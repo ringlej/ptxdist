@@ -368,40 +368,6 @@ endif
 # Configuration system
 # ----------------------------------------------------------------------------
 
-# FIXME: move this to a saner place, now that lxdialog is a host tool
-
-check_problematic_configs = 								\
-	$(call targetinfo,checking problematic configs);				\
-	echo "checking \$$PTXDIST_WORKSPACE/ptxconfig";					\
-	if [ -f "$(PTXDIST_WORKSPACE)/ptxconfig" ] &&					\
-	   [ -n "`grep "DONT_COMPILE_KERNEL" $(PTXDIST_WORKSPACE)/ptxconfig`" ]; then	\
-		echo;									\
-		echo "error: your ptxconfig file contains PTXCONF_DONT_COMPILE_KERNEL (obsolete)";\
-		echo "error: please set PTXCONF_COMPILE_KERNEL correctly and re-run!";	\
-		echo;									\
-		echo "example: old: '\# PTXCONF_DONT_COMPILE_KERNEL is not set'";	\
-		echo "         new: 'PTXCONF_COMPILE_KERNEL=y'";			\
-		echo "or:      old: 'PTXCONF_DONT_COMPILE_KERNEL=y'";			\
-		echo "         new: '\# PTXCONF_COMPILE_KERNEL is not set'";		\
-		echo;									\
-		echo "The PTXdist team apologizes for any inconvenience :-)";		\
-		echo;									\
-		exit 1;									\
-	fi;										\
-	echo -n "checking \$$PTXDIST_WORKSPACE/config/setup";				\
-	if [ -n "$(OUTOFTREE)" ] && [ ! -d "$(PTXDIST_WORKSPACE)/config/setup" ]; then	\
-		echo "-> out-of-tree build, creating setup dir";			\
-		rm -fr $(PTXDIST_WORKSPACE)/config/setup;				\
-		mkdir -p $(PTXDIST_WORKSPACE)/config; 					\
-		cp -a $(PTXDIST_TOPDIR)/config/setup $(PTXDIST_WORKSPACE)/config; 	\
-		for i in $(PTXDIST_TOPDIR)/config/uClibc* $(PTXDIST_TOPDIR)/config/busybox*; do \
-			ln -sf $$i $(PTXDIST_WORKSPACE)/config/`basename $$i`; 		\
-		done; 									\
-	else										\
-		echo;									\
-	fi;
-
-
 configdeps_deps := \
 	$(wildcard $(RULESDIR)/*.in)  \
 	$(wildcard $(PROJECTRULESDIR)/*.in) \
@@ -410,7 +376,6 @@ configdeps_deps := \
 configdeps: $(STATEDIR)/configdeps
 
 $(STATEDIR)/configdeps: $(configdeps_deps)
-	@$(call check_problematic_configs)
 	@$(call targetinfo,generating dependencies from kconfig)
 	@mkdir -p $(IMAGEDIR)
 	@mkdir -p $(STATEDIR)
