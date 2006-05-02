@@ -58,6 +58,7 @@ KERNEL_TARGET		:= uImage
 KERNEL_TARGET_PATH	:= \
 	$(KERNEL_DIR)/uImage \
 	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/vmlinux.UBoot \
+	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/uImage \
 	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/uImage
 endif
 ifdef PTXCONF_KERNEL_TARGET_IMAGE_VMLINUX
