@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_COREUTILS) += coreutils
 #
 # Paths and names 
 #
-COREUTILS_VERSION	= 5.2.1
-COREUTILS		= coreutils-$(COREUTILS_VERSION)
-COREUTILS_URL		= $(PTXCONF_SETUP_GNUMIRROR)/coreutils/$(COREUTILS).tar.bz2 
-COREUTILS_SOURCE	= $(SRCDIR)/$(COREUTILS).tar.bz2
-COREUTILS_DIR		= $(BUILDDIR)/$(COREUTILS)
+COREUTILS_VERSION	:= 5.2.1
+COREUTILS		:= coreutils-$(COREUTILS_VERSION)
+COREUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/coreutils/$(COREUTILS).tar.bz2 
+COREUTILS_SOURCE	:= $(SRCDIR)/$(COREUTILS).tar.bz2
+COREUTILS_DIR		:= $(BUILDDIR)/$(COREUTILS)
 
 -include $(call package_depfile)
 
@@ -57,12 +57,13 @@ $(STATEDIR)/coreutils.extract: $(coreutils_extract_deps_default)
 
 coreutils_prepare: $(STATEDIR)/coreutils.prepare
 
-COREUTILS_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
-COREUTILS_AUTOCONF	+= --target=$(PTXCONF_GNU_TARGET)
-COREUTILS_AUTOCONF	+= --disable-nls
+COREUTILS_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--target=$(PTXCONF_GNU_TARGET) \
+	--disable-nls
 
-COREUTILS_PATH		=  PATH=$(CROSS_PATH)
-COREUTILS_ENV		=  $(CROSS_ENV)
+COREUTILS_PATH	:=  PATH=$(CROSS_PATH)
+COREUTILS_ENV	:=  $(CROSS_ENV)
 
 #ifdef PTXCONF_COREUTILS_SHLIKE
 #COREUTILS_AUTOCONF	+= --enable-shell=sh
@@ -135,7 +136,7 @@ $(STATEDIR)/coreutils.targetinstall: $(coreutils_targetinstall_deps_default)
 	@$(call install_fixup, coreutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, coreutils,DEPENDS,)
 	@$(call install_fixup, coreutils,DESCRIPTION,missing)
-	
+
 ifdef PTXCONF_COREUTILS_CP
 	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/cp, /bin/cp)
 endif
@@ -143,7 +144,7 @@ ifdef PTXCONF_COREUTILS_DD
 	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/dd, /bin/dd)	
 endif
 ifdef PTXCONF_COREUTILS_MD5SUM
-	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/md5sum, /bin/md5sum)
+	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/md5sum, /usr/bin/md5sum)
 endif
 ifdef PTXCONF_COREUTILS_SEQ
 	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/seq, /usr/bin/seq)
