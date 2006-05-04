@@ -259,6 +259,9 @@ Misc
 
   test <testname>                run tests
 
+  newpacket <type>               create a new packet Makefile in a rules dir
+                                 type can be one of host, target, cross
+
 Environment:
 
   PREFIX=<path>                  build into this directory, instead of
@@ -364,7 +367,11 @@ newpacket () {
 	host)	TEMPLATE=template-host ;;
 	target)	TEMPLATE=template ;;
 	cross)	TEMPLATE=template-cross ;;
-	*)	echo; echo "${PROMPT}error: illegal argument"; echo; exit 1 ;;
+	*)	echo
+		echo "${PROMPT}error: illegal packet type: $1"
+		echo "must be one of host, target, cross"
+		echo
+		exit 1 ;;
 	esac
 
 	echo
@@ -764,11 +771,7 @@ while [ "$#" != "0" ]; do
 				exit 1
 			fi
 			shift
-			case $1 in
-			--target) newpacket target ;;
-			--host)   newpacket host   ;;
-			--cross)  newpacket cross  ;;
-			esac
+			newpacket "$1"
 			exit $?
 			;;
 	oldconfig)	shift
