@@ -17,7 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_MTD) += host-mtd
 #
 # Paths and names
 #
-HOST_MTD	= $(MTD)
+HOST_MTD	= $(MTD_UTILS)
 HOST_MTD_SOURCE	= $(MTD_UTILS_SOURCE)
 HOST_MTD_DIR	= $(HOST_BUILDDIR)/$(HOST_MTD)
 
@@ -43,7 +43,6 @@ $(STATEDIR)/host-mtd.extract: $(host-mtd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MTD_DIR))
 	@$(call extract, $(HOST_MTD_SOURCE), $(HOST_BUILDDIR))
-	@$(call patchin, $(HOST_MTD), $(HOST_MTD_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -70,16 +69,16 @@ host-mtd_compile: $(STATEDIR)/host-mtd.compile
 $(STATEDIR)/host-mtd.compile: $(host-mtd_compile_deps_default)
 	@$(call targetinfo, $@)
 ifdef PTXCONF_HOST_MTD_MKJFFS
-	cd $(HOST_MTD_DIR)/util && make mkfs.jffs $(HOST_MTD_MAKEVARS)
+	cd $(HOST_MTD_DIR) && make mkfs.jffs $(HOST_MTD_MAKEVARS)
 endif
 ifdef PTXCONF_HOST_MTD_MKJFFS2
-	cd $(HOST_MTD_DIR)/util && make mkfs.jffs2 $(HOST_MTD_MAKEVARS)
+	cd $(HOST_MTD_DIR) && make mkfs.jffs2 $(HOST_MTD_MAKEVARS)
 endif
 ifdef PTXCONF_HOST_MTD_JFFS_DUMP
-	cd $(HOST_MTD_DIR)/util && make jffs-dump $(HOST_MTD_MAKEVARS)
+	cd $(HOST_MTD_DIR) && make jffs-dump $(HOST_MTD_MAKEVARS)
 endif
 ifdef PTXCONF_HOST_MTD_JFFS2_DUMP
-	cd $(HOST_MTD_DIR)/util && make jffs2dump $(HOST_MTD_MAKEVARS)
+	cd $(HOST_MTD_DIR) && make jffs2dump $(HOST_MTD_MAKEVARS)
 endif
 	@$(call touch, $@)
 
@@ -94,16 +93,16 @@ $(STATEDIR)/host-mtd.install: $(host-mtd_install_deps_default)
 	mkdir -p $(PTXCONF_PREFIX)/bin
 
 ifdef PTXCONF_HOST_MTD_MKJFFS
-	install $(HOST_MTD_DIR)/util/mkfs.jffs $(PTXCONF_PREFIX)/bin
+	install $(HOST_MTD_DIR)/mkfs.jffs $(PTXCONF_PREFIX)/bin
 endif
 ifdef PTXCONF_HOST_MTD_MKJFFS2
-	install $(HOST_MTD_DIR)/util/mkfs.jffs2 $(PTXCONF_PREFIX)/bin
+	install $(HOST_MTD_DIR)/mkfs.jffs2 $(PTXCONF_PREFIX)/bin
 endif
 ifdef PTXCONF_HOST_MTD_JFFS_DUMP
-	install $(HOST_MTD_DIR)/util/jffs-dump $(PTXCONF_PREFIX)/bin
+	install $(HOST_MTD_DIR)/jffs-dump $(PTXCONF_PREFIX)/bin
 endif
 ifdef PTXCONF_HOST_MTD_JFFS2_DUMP
-	install $(HOST_MTD_DIR)/util/jffs2dump $(PTXCONF_PREFIX)/bin
+	install $(HOST_MTD_DIR)/jffs2dump $(PTXCONF_PREFIX)/bin
 endif
 	@$(call touch, $@)
 
