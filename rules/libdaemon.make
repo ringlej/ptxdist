@@ -65,7 +65,9 @@ LIBDAEMON_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-LIBDAEMON_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBDAEMON_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-lynx
 
 $(STATEDIR)/libdaemon.prepare: $(libdaemon_prepare_deps_default)
 	@$(call targetinfo, $@)
