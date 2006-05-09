@@ -1,6 +1,8 @@
 TODO for PTXdist 0.10 Series - High Priority
 ============================================
 
+[ ] modify macros to use FOOBAR instead of $(FOOBAR_DIR) etc.; see
+    install macro for example. 
 [ ] add prerequisite checks to configure script; find out which
     prerequisites we really need. 
 [ ] check if ${PTXCONF_PREFIX} can be written to and barf if not
