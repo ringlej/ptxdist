@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_NETCAT) += netcat
 #
 # Paths and names
 #
-NETCAT_VERSION		= 0.7.1
-NETCAT			= netcat-$(NETCAT_VERSION)
-NETCAT_SUFFIX		= tar.gz
-NETCAT_URL		= $(PTXCONF_SETUP_SFMIRROR)/netcat/$(NETCAT).$(NETCAT_SUFFIX)
-NETCAT_SOURCE		= $(SRCDIR)/$(NETCAT).$(NETCAT_SUFFIX)
-NETCAT_DIR		= $(BUILDDIR)/$(NETCAT)
+NETCAT_VERSION	:= 0.7.1
+NETCAT		:= netcat-$(NETCAT_VERSION)
+NETCAT_SUFFIX	:= tar.gz
+NETCAT_URL	:= $(PTXCONF_SETUP_SFMIRROR)/netcat/$(NETCAT).$(NETCAT_SUFFIX)
+NETCAT_SOURCE	:= $(SRCDIR)/$(NETCAT).$(NETCAT_SUFFIX)
+NETCAT_DIR	:= $(BUILDDIR)/$(NETCAT)
 
 -include $(call package_depfile)
 
@@ -59,13 +59,13 @@ $(STATEDIR)/netcat.extract: $(netcat_extract_deps_default)
 
 netcat_prepare: $(STATEDIR)/netcat.prepare
 
-NETCAT_PATH	=  PATH=$(CROSS_PATH)
-NETCAT_ENV 	=  $(CROSS_ENV)
+NETCAT_PATH	:= PATH=$(CROSS_PATH)
+NETCAT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-NETCAT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+NETCAT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 ifdef PTXCONF_NETCAT_OLD_HEXDUMP
 NETCAT_AUTOCONF += --enable-oldhexdump
@@ -125,7 +125,7 @@ $(STATEDIR)/netcat.targetinstall: $(netcat_targetinstall_deps_default)
 	@$(call install_fixup, netcat,VERSION,$(NETCAT_VERSION))
 	@$(call install_fixup, netcat,SECTION,base)
 	@$(call install_fixup, netcat,AUTHOR,"Bjoern Buerger <b.buerger\@pengutronix.de>")
-	@$(call install_fixup, netcat,DEPENDS,libc)
+	@$(call install_fixup, netcat,DEPENDS,)
 	@$(call install_fixup, netcat,DESCRIPTION,missing)
 
 	@$(call install_copy, netcat, 0, 0, 0755, $(NETCAT_DIR)/src/netcat, /bin/netcat)
