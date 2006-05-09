@@ -76,6 +76,3 @@ config UTIL_LINUX_READPROFILE
 	  third is the normalized  `load' of the procedure, calculated 
 	  as a ratio between the number of ticks and the length of the 
 	  procedure. The output is filled with blanks to ease readability.
-
-source "rules/clock.in"
-
