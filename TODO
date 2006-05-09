@@ -246,3 +246,5 @@ Current TODO List
 
 [ ] BBU: show required cross-tool, host-gcc and -glibc-versions (compilercheck)
 
+[ ] SHA: scripts/make_image_root.sh puts all ipkg packages from imagedir into the
+    resulting images, even those which are lying there from old builds
