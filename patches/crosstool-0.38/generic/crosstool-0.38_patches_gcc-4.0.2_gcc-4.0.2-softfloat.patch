@@ -2,7 +2,7 @@ Index: crosstool-0.38/patches/gcc-4.0.2/gentoo-gcc-4.0.2-softfloat.patch
 ===================================================================
 --- /dev/null
 +++ crosstool-0.38/patches/gcc-4.0.2/gentoo-gcc-4.0.2-softfloat.patch
-@@ -0,0 +1,94 @@
+@@ -0,0 +1,103 @@
 +The hunk for gcc/config/arm/t-linux comes from:
 +http://gcc.gnu.org/PR14352
 +
@@ -81,6 +81,15 @@ Index: crosstool-0.38/patches/gcc-4.0.2/gentoo-gcc-4.0.2-softfloat.patch
 + 
 + /* Provide a STARTFILE_SPEC appropriate for GNU/Linux.  Here we add
 +    the GNU/Linux magical crtbegin.o file (see crtstuff.c) which
++@@ -118,7 +122,7 @@
++ 
++ /* NWFPE always understands FPA instructions.  */
++ #undef  FPUTYPE_DEFAULT
++-#define FPUTYPE_DEFAULT FPUTYPE_FPA_EMU3
+++#define FPUTYPE_DEFAULT FPUTYPE_VFP
++ 
++ /* Call the function profiler with a given profile label.  */
++ #undef  ARM_FUNCTION_PROFILER
 +Index: gcc-4.0.2/gcc/config/arm/t-linux
 +===================================================================
 +--- gcc-4.0.2.orig/gcc/config/arm/t-linux
