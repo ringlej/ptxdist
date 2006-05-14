@@ -43,7 +43,7 @@ $(STATEDIR)/sysvinit.get: $(sysvinit_get_deps_default)
 
 $(SYSVINIT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SYSVINIT_URL))
+	@$(call get, SYSVINIT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -54,7 +54,7 @@ sysvinit_extract: $(STATEDIR)/sysvinit.extract
 $(STATEDIR)/sysvinit.extract: $(sysvinit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSVINIT_DIR))
-	@$(call extract, $(SYSVINIT_SOURCE))
+	@$(call extract, SYSVINIT)
 	@$(call patchin, $(SYSVINIT))
 	@$(call touch, $@)
 
@@ -156,8 +156,8 @@ ifdef PTXCONF_SYSVINIT_MESG
 endif
 ifdef PTXCONF_SYSVINIT_BSDINIT
 	@$(call clean, $(BSDINIT_DIR))
-	@$(call get, $(BSDINIT_URL))
-	@$(call extract, $(BSDINIT_SOURCE))
+	@$(call get, BSDINIT)
+	@$(call extract, BSDINIT)
 	@$(call install_copy, sysvinit, 0, 0, 0644, $(BSDINIT_DIR)/inittab, /etc/inittab, n)
 	@$(call install_copy, sysvinit, 0, 0, 0755, /etc/rc.d)
 	@$(call install_copy, sysvinit, 0, 0, 0754, $(BSDINIT_DIR)/rc.0, /etc/rc.d/rc.0, n)

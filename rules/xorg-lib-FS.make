@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-FS.get: $(xorg-lib-FS_get_deps_default)
 
 $(XORG_LIB_FS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_FS_URL))
+	@$(call get, XORG_LIB_FS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-FS_extract: $(STATEDIR)/xorg-lib-FS.extract
 $(STATEDIR)/xorg-lib-FS.extract: $(xorg-lib-FS_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_FS_DIR))
-	@$(call extract, $(XORG_LIB_FS_SOURCE))
+	@$(call extract, XORG_LIB_FS)
 	@$(call patchin, $(XORG_LIB_FS))
 	@$(call touch, $@)
 

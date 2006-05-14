@@ -37,7 +37,7 @@ $(STATEDIR)/pcmciautils.get: $(pcmciautils_get_deps_default)
 
 $(PCMCIAUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PCMCIAUTILS_URL))
+	@$(call get, PCMCIAUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,7 @@ pcmciautils_extract: $(STATEDIR)/pcmciautils.extract
 $(STATEDIR)/pcmciautils.extract: $(pcmciautils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCMCIAUTILS_DIR))
-	@$(call extract, $(PCMCIAUTILS_SOURCE))
+	@$(call extract, PCMCIAUTILS)
 	@$(call patchin, $(PCMCIAUTILS))
 	@$(call touch, $@)
 

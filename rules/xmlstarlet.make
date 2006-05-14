@@ -38,7 +38,7 @@ $(STATEDIR)/xmlstarlet.get: $(xmlstarlet_get_deps_default)
 
 $(XMLSTARLET_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XMLSTARLET_URL))
+	@$(call get, XMLSTARLET)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xmlstarlet_extract: $(STATEDIR)/xmlstarlet.extract
 $(STATEDIR)/xmlstarlet.extract: $(xmlstarlet_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XMLSTARLET_DIR))
-	@$(call extract, $(XMLSTARLET_SOURCE))
+	@$(call extract, XMLSTARLET)
 	@$(call patchin, $(XMLSTARLET))
 	@$(call touch, $@)
 

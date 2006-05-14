@@ -48,7 +48,7 @@ $(STATEDIR)/madwifi.get: $(madwifi_get_deps_default)
 
 $(MADWIFI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MADWIFI_URL))
+	@$(call get, MADWIFI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -59,7 +59,7 @@ madwifi_extract: $(STATEDIR)/madwifi.extract
 $(STATEDIR)/madwifi.extract: $(madwifi_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MADWIFI_DIR))
-	@$(call extract, $(MADWIFI_SOURCE))
+	@$(call extract, MADWIFI)
 	@$(call patchin, $(MADWIFI))
 	@$(call touch, $@)
 

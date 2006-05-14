@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-xproxymanagement.get: $(xorg-proto-xproxymanagement_get_d
 
 $(XORG_PROTO_XPROXYMANAGEMENT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_XPROXYMANAGEMENT_URL))
+	@$(call get, XORG_PROTO_XPROXYMANAGEMENT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-xproxymanagement_extract: $(STATEDIR)/xorg-proto-xproxymanagement.ext
 $(STATEDIR)/xorg-proto-xproxymanagement.extract: $(xorg-proto-xproxymanagement_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XPROXYMANAGEMENT_DIR))
-	@$(call extract, $(XORG_PROTO_XPROXYMANAGEMENT_SOURCE))
+	@$(call extract, XORG_PROTO_XPROXYMANAGEMENT)
 	@$(call patchin, $(XORG_PROTO_XPROXYMANAGEMENT))
 	@$(call touch, $@)
 

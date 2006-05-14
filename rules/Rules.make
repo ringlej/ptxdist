@@ -433,11 +433,11 @@ touch =								\
 #
 # Extract a source archive into a directory. 
 #
-# $1: filename to extract
+# $1: Packet label; we extract $1_SOURCE
 # $2: dir to extract into; if $2 is not given we extract to $(BUILDDIR)
 #
 extract =							\
-	PACKET="$(strip $(1))";					\
+	PACKET="$($(strip $(1))_SOURCE)";			\
 	if [ "$$PACKET" = "" ]; then				\
 		echo;						\
 		echo Error: empty parameter to \"extract\(\)\";	\
@@ -481,11 +481,11 @@ extract =							\
 # to handle different URLs; as wget is not able to transfer
 # file URLs this case is being handed over to cp.  
 #
-# $1: URL of the packet
+# $1: Packet Label; this macro gets $1_URL 
 # $2: source directory
 #
 get =								\
-	URL="$(strip $(1))";					\
+	URL="$($(strip $(1))_URL)";				\
 	if [ "$$URL" = "" ]; then				\
 		echo;						\
 		echo Error: empty parameter to \"get\(\)\";	\

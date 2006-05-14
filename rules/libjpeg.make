@@ -38,7 +38,7 @@ $(STATEDIR)/libjpeg.get: $(libjpeg_get_deps_default)
 
 $(LIBJPEG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBJPEG_URL))
+	@$(call get, LIBJPEG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libjpeg_extract: $(STATEDIR)/libjpeg.extract
 $(STATEDIR)/libjpeg.extract: $(libjpeg_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBJPEG_DIR))
-	@$(call extract, $(LIBJPEG_SOURCE))
+	@$(call extract, LIBJPEG)
 	@$(call patchin, $(LIBJPEG))
 	@$(call touch, $@)
 

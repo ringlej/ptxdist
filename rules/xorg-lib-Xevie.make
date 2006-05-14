@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xevie.get: $(xorg-lib-Xevie_get_deps_default)
 
 $(XORG_LIB_XEVIE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XEVIE_URL))
+	@$(call get, XORG_LIB_XEVIE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xevie_extract: $(STATEDIR)/xorg-lib-Xevie.extract
 $(STATEDIR)/xorg-lib-Xevie.extract: $(xorg-lib-Xevie_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XEVIE_DIR))
-	@$(call extract, $(XORG_LIB_XEVIE_SOURCE))
+	@$(call extract, XORG_LIB_XEVIE)
 	@$(call patchin, $(XORG_LIB_XEVIE))
 	@$(call touch, $@)
 

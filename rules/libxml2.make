@@ -38,7 +38,7 @@ $(STATEDIR)/libxml2.get: $(libxml2_get_deps_default)
 
 $(LIBXML2_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBXML2_URL))
+	@$(call get, LIBXML2)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libxml2_extract: $(STATEDIR)/libxml2.extract
 $(STATEDIR)/libxml2.extract: $(libxml2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXML2_DIR))
-	@$(call extract, $(LIBXML2_SOURCE))
+	@$(call extract, LIBXML2)
 	@$(call patchin, $(LIBXML2))
 	@$(call touch, $@)
 

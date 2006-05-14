@@ -39,7 +39,7 @@ $(STATEDIR)/expat.get: $(expat_get_deps_default)
 
 $(EXPAT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(EXPAT_URL))
+	@$(call get, EXPAT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ expat_extract: $(STATEDIR)/expat.extract
 $(STATEDIR)/expat.extract: $(expat_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EXPAT_DIR))
-	@$(call extract, $(EXPAT_SOURCE))
+	@$(call extract, EXPAT)
 	@$(call patchin, $(EXPAT))
 	@$(call touch, $@)
 

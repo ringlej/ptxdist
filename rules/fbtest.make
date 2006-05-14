@@ -38,7 +38,7 @@ $(STATEDIR)/fbtest.get: $(fbtest_get_deps_default)
 
 $(FBTEST_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(FBTEST_URL))
+	@$(call get, FBTEST)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ fbtest_extract: $(STATEDIR)/fbtest.extract
 $(STATEDIR)/fbtest.extract: $(fbtest_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FBTEST_DIR))
-	@$(call extract, $(FBTEST_SOURCE))
+	@$(call extract, FBTEST)
 	@$(call patchin, $(FBTEST))
 	@$(call touch, $@)
 

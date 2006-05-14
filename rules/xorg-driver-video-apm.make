@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-driver-video-apm.get: $(xorg-driver-video-apm_get_deps_default)
 
 $(XORG_DRIVER_VIDEO_APM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_DRIVER_VIDEO_APM_URL))
+	@$(call get, XORG_DRIVER_VIDEO_APM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-driver-video-apm_extract: $(STATEDIR)/xorg-driver-video-apm.extract
 $(STATEDIR)/xorg-driver-video-apm.extract: $(xorg-driver-video-apm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_VIDEO_APM_DIR))
-	@$(call extract, $(XORG_DRIVER_VIDEO_APM_SOURCE))
+	@$(call extract, XORG_DRIVER_VIDEO_APM)
 	@$(call patchin, $(XORG_DRIVER_VIDEO_APM))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-screen-cyrillic.get: $(xorg-font-screen-cyrillic_get_deps_
 
 $(XORG_FONT_SCREEN_CYRILLIC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_SCREEN_CYRILLIC_URL))
+	@$(call get, XORG_FONT_SCREEN_CYRILLIC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-screen-cyrillic_extract: $(STATEDIR)/xorg-font-screen-cyrillic.extract
 $(STATEDIR)/xorg-font-screen-cyrillic.extract: $(xorg-font-screen-cyrillic_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_SCREEN_CYRILLIC_DIR))
-	@$(call extract, $(XORG_FONT_SCREEN_CYRILLIC_SOURCE))
+	@$(call extract, XORG_FONT_SCREEN_CYRILLIC)
 	@$(call patchin, $(XORG_FONT_SCREEN_CYRILLIC))
 	@$(call touch, $@)
 

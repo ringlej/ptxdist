@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-driver-input-evdev.get: $(xorg-driver-input-evdev_get_deps_defa
 
 $(XORG_DRIVER_INPUT_EVDEV_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_DRIVER_INPUT_EVDEV_URL))
+	@$(call get, XORG_DRIVER_INPUT_EVDEV)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-driver-input-evdev_extract: $(STATEDIR)/xorg-driver-input-evdev.extract
 $(STATEDIR)/xorg-driver-input-evdev.extract: $(xorg-driver-input-evdev_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_INPUT_EVDEV_DIR))
-	@$(call extract, $(XORG_DRIVER_INPUT_EVDEV_SOURCE))
+	@$(call extract, XORG_DRIVER_INPUT_EVDEV)
 	@$(call patchin, $(XORG_DRIVER_INPUT_EVDEV))
 	@$(call touch, $@)
 

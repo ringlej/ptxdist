@@ -38,7 +38,7 @@ $(STATEDIR)/pcmcia-cs.get: $(pcmcia-cs_get_deps_default)
 
 $(PCMCIA-CS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PCMCIA-CS_URL))
+	@$(call get, PCMCIA-CS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ pcmcia-cs_extract: $(STATEDIR)/pcmcia-cs.extract
 $(STATEDIR)/pcmcia-cs.extract: $(pcmcia-cs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCMCIA-CS_DIR))
-	@$(call extract, $(PCMCIA-CS_SOURCE))
+	@$(call extract, PCMCIA-CS)
 	@$(call patchin, $(PCMCIA-CS))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/openafs.get: $(openafs_get_deps_default)
 
 $(OPENAFS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(OPENAFS_URL))
+	@$(call get, OPENAFS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ openafs_extract: $(STATEDIR)/openafs.extract
 $(STATEDIR)/openafs.extract: $(openafs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENAFS_DIR))
-	@$(call extract, $(OPENAFS_SOURCE))
+	@$(call extract, OPENAFS)
 	@$(call patchin, $(OPENAFS))
 	@$(call touch, $@)
 

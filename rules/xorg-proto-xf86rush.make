@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-xf86rush.get: $(xorg-proto-xf86rush_get_deps_default)
 
 $(XORG_PROTO_XF86RUSH_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_XF86RUSH_URL))
+	@$(call get, XORG_PROTO_XF86RUSH)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-xf86rush_extract: $(STATEDIR)/xorg-proto-xf86rush.extract
 $(STATEDIR)/xorg-proto-xf86rush.extract: $(xorg-proto-xf86rush_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XF86RUSH_DIR))
-	@$(call extract, $(XORG_PROTO_XF86RUSH_SOURCE))
+	@$(call extract, XORG_PROTO_XF86RUSH)
 	@$(call patchin, $(XORG_PROTO_XF86RUSH))
 	@$(call touch, $@)
 

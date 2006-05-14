@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-fonts.get: $(xorg-proto-fonts_get_deps_default)
 
 $(XORG_PROTO_FONTS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_FONTS_URL))
+	@$(call get, XORG_PROTO_FONTS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-fonts_extract: $(STATEDIR)/xorg-proto-fonts.extract
 $(STATEDIR)/xorg-proto-fonts.extract: $(xorg-proto-fonts_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_FONTS_DIR))
-	@$(call extract, $(XORG_PROTO_FONTS_SOURCE))
+	@$(call extract, XORG_PROTO_FONTS)
 	@$(call patchin, $(XORG_PROTO_FONTS))
 	@$(call touch, $@)
 

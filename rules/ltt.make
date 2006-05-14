@@ -40,7 +40,7 @@ $(STATEDIR)/ltt.get: $(ltt_get_deps_default)
 
 $(LTT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LTT_URL))
+	@$(call get, LTT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,7 +51,7 @@ ltt_extract: $(STATEDIR)/ltt.extract
 $(STATEDIR)/ltt.extract: $(ltt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LTT_DIR))
-	@$(call extract, $(LTT_SOURCE))
+	@$(call extract, LTT)
 	@$(call patchin, $(LTT))
 	@$(call touch, $@)
 

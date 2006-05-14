@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-bh-ttf.get: $(xorg-font-bh-ttf_get_deps_default)
 
 $(XORG_FONT_BH_TTF_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_BH_TTF_URL))
+	@$(call get, XORG_FONT_BH_TTF)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-bh-ttf_extract: $(STATEDIR)/xorg-font-bh-ttf.extract
 $(STATEDIR)/xorg-font-bh-ttf.extract: $(xorg-font-bh-ttf_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_BH_TTF_DIR))
-	@$(call extract, $(XORG_FONT_BH_TTF_SOURCE))
+	@$(call extract, XORG_FONT_BH_TTF)
 	@$(call patchin, $(XORG_FONT_BH_TTF))
 	@$(call touch, $@)
 

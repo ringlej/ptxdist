@@ -38,7 +38,7 @@ $(STATEDIR)/module-init-tools.get: $(module-init-tools_get_deps_default)
 
 $(MODULE_INIT_TOOLS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MODULE_INIT_TOOLS_URL))
+	@$(call get, MODULE_INIT_TOOLS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ module-init-tools_extract: $(STATEDIR)/module-init-tools.extract
 $(STATEDIR)/module-init-tools.extract: $(module-init-tools_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MODULE_INIT_TOOLS_DIR))
-	@$(call extract, $(MODULE_INIT_TOOLS_SOURCE))
+	@$(call extract, MODULE_INIT_TOOLS)
 	@$(call patchin, $(MODULE_INIT_TOOLS), $(MODULE_INIT_TOOLS_DIR))
 	@$(call touch, $@)
 

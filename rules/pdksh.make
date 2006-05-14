@@ -38,7 +38,7 @@ $(STATEDIR)/pdksh.get: $(pdksh_get_deps_default)
 
 $(PDKSH_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PDKSH_URL))
+	@$(call get, PDKSH)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ pdksh_extract: $(STATEDIR)/pdksh.extract
 $(STATEDIR)/pdksh.extract: $(pdksh_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PDKSH_DIR))
-	@$(call extract, $(PDKSH_SOURCE))
+	@$(call extract, PDKSH)
 	@$(call patchin, $(PDKSH))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-resource.get: $(xorg-proto-resource_get_deps_default)
 
 $(XORG_PROTO_RESOURCE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_RESOURCE_URL))
+	@$(call get, XORG_PROTO_RESOURCE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-resource_extract: $(STATEDIR)/xorg-proto-resource.extract
 $(STATEDIR)/xorg-proto-resource.extract: $(xorg-proto-resource_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_RESOURCE_DIR))
-	@$(call extract, $(XORG_PROTO_RESOURCE_SOURCE))
+	@$(call extract, XORG_PROTO_RESOURCE)
 	@$(call patchin, $(XORG_PROTO_RESOURCE))
 	@$(call touch, $@)
 

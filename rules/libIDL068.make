@@ -41,7 +41,7 @@ $(STATEDIR)/libidl068.get: $(libidl068_get_deps_default)
 
 $(LIBIDL068_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBIDL068_URL))
+	@$(call get, LIBIDL068)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -52,7 +52,7 @@ libidl068_extract: $(STATEDIR)/libidl068.extract
 $(STATEDIR)/libidl068.extract: $(libidl068_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBIDL068_DIR))
-	@$(call extract, $(LIBIDL068_SOURCE))
+	@$(call extract, LIBIDL068)
 	@$(call patchin, $(LIBIDL068))
 	@$(call touch, $@)
 

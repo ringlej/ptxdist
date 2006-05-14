@@ -38,7 +38,7 @@ $(STATEDIR)/libxmlconfig.get: $(libxmlconfig_get_deps_default)
 
 $(LIBXMLCONFIG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBXMLCONFIG_URL))
+	@$(call get, LIBXMLCONFIG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libxmlconfig_extract: $(STATEDIR)/libxmlconfig.extract
 $(STATEDIR)/libxmlconfig.extract: $(libxmlconfig_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXMLCONFIG_DIR))
-	@$(call extract, $(LIBXMLCONFIG_SOURCE))
+	@$(call extract, LIBXMLCONFIG)
 	@$(call patchin, $(LIBXMLCONFIG))
 	@$(call touch, $@)
 

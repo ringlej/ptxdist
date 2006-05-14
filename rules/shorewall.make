@@ -39,7 +39,7 @@ $(STATEDIR)/shorewall.get: $(shorewall_get_deps_default)
 
 $(SHOREWALL_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SHOREWALL_URL))
+	@$(call get, SHOREWALL)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ shorewall_extract: $(STATEDIR)/shorewall.extract
 $(STATEDIR)/shorewall.extract: $(shorewall_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SHOREWALL_DIR))
-	@$(call extract, $(SHOREWALL_SOURCE))
+	@$(call extract, SHOREWALL)
 	@$(call patchin, $(SHOREWALL))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/udev.get: $(udev_get_deps_default)
 
 $(UDEV_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(UDEV_URL))
+	@$(call get, UDEV)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ udev_extract: $(STATEDIR)/udev.extract
 $(STATEDIR)/udev.extract: $(udev_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UDEV_DIR))
-	@$(call extract, $(UDEV_SOURCE))
+	@$(call extract, UDEV)
 	@$(call patchin, $(UDEV))
 	@$(call touch, $@)
 

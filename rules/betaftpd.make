@@ -38,7 +38,7 @@ $(STATEDIR)/betaftpd.get: $(betaftpd_get_deps_default)
 
 $(BETAFTPD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BETAFTPD_URL))
+	@$(call get, BETAFTPD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ betaftpd_extract: $(STATEDIR)/betaftpd.extract
 $(STATEDIR)/betaftpd.extract: $(betaftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BETAFTPD_DIR))
-	@$(call extract, $(BETAFTPD_SOURCE))
+	@$(call extract, BETAFTPD)
 	@$(call patchin, $(BETAFTPD))
 	@$(call touch, $@)
 

@@ -39,7 +39,7 @@ $(STATEDIR)/canutils.get: $(canutils_get_deps_default)
 
 $(CANUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(CANUTILS_URL))
+	@$(call get, CANUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ canutils_extract: $(STATEDIR)/canutils.extract
 $(STATEDIR)/canutils.extract: $(canutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CANUTILS_DIR))
-	@$(call extract, $(CANUTILS_SOURCE))
+	@$(call extract, CANUTILS)
 	@$(call patchin, $(CANUTILS))
 	@$(call touch, $@)
 

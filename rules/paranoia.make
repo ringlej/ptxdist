@@ -38,7 +38,7 @@ $(STATEDIR)/paranoia.get: $(paranoia_get_deps_default)
 
 $(PARANOIA_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PARANOIA_URL))
+	@$(call get, PARANOIA)
 
 # ----------------------------------------------------------------------------
 # Extract

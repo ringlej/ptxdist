@@ -40,7 +40,7 @@ $(STATEDIR)/host-e2tools.get: $(host-e2tools_get_deps_default)
 
 $(HOST_E2TOOLS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOST_E2TOOLS_URL))
+	@$(call get, HOST_E2TOOLS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,7 +51,7 @@ host-e2tools_extract: $(STATEDIR)/host-e2tools.extract
 $(STATEDIR)/host-e2tools.extract: $(host-e2tools_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_E2TOOLS_DIR))
-	@$(call extract, $(HOST_E2TOOLS_SOURCE))
+	@$(call extract, HOST_E2TOOLS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

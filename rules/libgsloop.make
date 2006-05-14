@@ -38,7 +38,7 @@ $(STATEDIR)/libgsloop.get: $(libgsloop_get_deps_default)
 
 $(LIBGSLOOP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBGSLOOP_URL))
+	@$(call get, LIBGSLOOP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libgsloop_extract: $(STATEDIR)/libgsloop.extract
 $(STATEDIR)/libgsloop.extract: $(libgsloop_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGSLOOP_DIR))
-	@$(call extract, $(LIBGSLOOP_SOURCE))
+	@$(call extract, LIBGSLOOP)
 	@$(call patchin, $(LIBGSLOOP))
 	@$(call touch, $@)
 

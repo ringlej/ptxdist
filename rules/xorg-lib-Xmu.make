@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xmu.get: $(xorg-lib-Xmu_get_deps_default)
 
 $(XORG_LIB_XMU_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XMU_URL))
+	@$(call get, XORG_LIB_XMU)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xmu_extract: $(STATEDIR)/xorg-lib-Xmu.extract
 $(STATEDIR)/xorg-lib-Xmu.extract: $(xorg-lib-Xmu_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XMU_DIR))
-	@$(call extract, $(XORG_LIB_XMU_SOURCE))
+	@$(call extract, XORG_LIB_XMU)
 	@$(call patchin, $(XORG_LIB_XMU))
 	@$(call touch, $@)
 

@@ -39,7 +39,7 @@ $(STATEDIR)/apache.get: $(apache_get_deps_default)
 
 $(APACHE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(APACHE_URL))
+	@$(call get, APACHE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ apache_extract: $(STATEDIR)/apache.extract
 $(STATEDIR)/apache.extract: $(apache_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(APACHE_DIR))
-	@$(call extract, $(APACHE_SOURCE))
+	@$(call extract, APACHE)
 	@$(call patchin, $(APACHE))
 	@$(call touch, $@)
 

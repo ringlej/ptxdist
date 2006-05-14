@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xxf86vm.get: $(xorg-lib-Xxf86vm_get_deps_default)
 
 $(XORG_LIB_XXF86VM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XXF86VM_URL))
+	@$(call get, XORG_LIB_XXF86VM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xxf86vm_extract: $(STATEDIR)/xorg-lib-Xxf86vm.extract
 $(STATEDIR)/xorg-lib-Xxf86vm.extract: $(xorg-lib-Xxf86vm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XXF86VM_DIR))
-	@$(call extract, $(XORG_LIB_XXF86VM_SOURCE))
+	@$(call extract, XORG_LIB_XXF86VM)
 	@$(call patchin, $(XORG_LIB_XXF86VM))
 	@$(call touch, $@)
 

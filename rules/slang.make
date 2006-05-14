@@ -38,7 +38,7 @@ $(STATEDIR)/slang.get: $(slang_get_deps_default)
 
 $(SLANG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SLANG_URL))
+	@$(call get, SLANG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ slang_extract: $(STATEDIR)/slang.extract
 $(STATEDIR)/slang.extract: $(slang_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SLANG_DIR))
-	@$(call extract, $(SLANG_SOURCE))
+	@$(call extract, SLANG)
 	@$(call patchin, $(SLANG))
 	@$(call touch, $@)
 

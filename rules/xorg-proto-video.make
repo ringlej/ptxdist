@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-video.get: $(xorg-proto-video_get_deps_default)
 
 $(XORG_PROTO_VIDEO_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_VIDEO_URL))
+	@$(call get, XORG_PROTO_VIDEO)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-video_extract: $(STATEDIR)/xorg-proto-video.extract
 $(STATEDIR)/xorg-proto-video.extract: $(xorg-proto-video_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_VIDEO_DIR))
-	@$(call extract, $(XORG_PROTO_VIDEO_SOURCE))
+	@$(call extract, XORG_PROTO_VIDEO)
 	@$(call patchin, $(XORG_PROTO_VIDEO))
 	@$(call touch, $@)
 

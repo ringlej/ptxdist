@@ -38,7 +38,7 @@ $(STATEDIR)/libgd.get: $(libgd_get_deps_default)
 
 $(LIBGD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBGD_URL))
+	@$(call get, LIBGD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libgd_extract: $(STATEDIR)/libgd.extract
 $(STATEDIR)/libgd.extract: $(libgd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGD_DIR))
-	@$(call extract, $(LIBGD_SOURCE))
+	@$(call extract, LIBGD)
 	@$(call patchin, $(LIBGD))
 	@$(call touch, $@)
 

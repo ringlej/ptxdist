@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-app-mkfontdir.get: $(xorg-app-mkfontdir_get_deps_default)
 
 $(XORG_APP_MKFONTDIR_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_APP_MKFONTDIR_URL))
+	@$(call get, XORG_APP_MKFONTDIR)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-app-mkfontdir_extract: $(STATEDIR)/xorg-app-mkfontdir.extract
 $(STATEDIR)/xorg-app-mkfontdir.extract: $(xorg-app-mkfontdir_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_MKFONTDIR_DIR))
-	@$(call extract, $(XORG_APP_MKFONTDIR_SOURCE))
+	@$(call extract, XORG_APP_MKFONTDIR)
 	@$(call patchin, $(XORG_APP_MKFONTDIR))
 	@$(call touch, $@)
 

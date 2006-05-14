@@ -38,7 +38,7 @@ $(STATEDIR)/valgrind.get: $(valgrind_get_deps_default)
 
 $(VALGRIND_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(VALGRIND_URL))
+	@$(call get, VALGRIND)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ valgrind_extract: $(STATEDIR)/valgrind.extract
 $(STATEDIR)/valgrind.extract: $(valgrind_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(VALGRIND_DIR))
-	@$(call extract, $(VALGRIND_SOURCE))
+	@$(call extract, VALGRIND)
 	@$(call patchin, $(VALGRIND))
 	@$(call touch, $@)
 

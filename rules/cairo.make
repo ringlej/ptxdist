@@ -38,7 +38,7 @@ $(STATEDIR)/cairo.get: $(cairo_get_deps_default)
 
 $(CAIRO_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(CAIRO_URL))
+	@$(call get, CAIRO)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ cairo_extract: $(STATEDIR)/cairo.extract
 $(STATEDIR)/cairo.extract: $(cairo_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CAIRO_DIR))
-	@$(call extract, $(CAIRO_SOURCE))
+	@$(call extract, CAIRO)
 	@$(call patchin, $(CAIRO))
 	@$(call touch, $@)
 

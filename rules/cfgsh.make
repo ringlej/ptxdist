@@ -38,7 +38,7 @@ $(STATEDIR)/cfgsh.get: $(cfgsh_get_deps_default)
 
 $(CFGSH_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(CFGSH_URL))
+	@$(call get, CFGSH)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ cfgsh_extract: $(STATEDIR)/cfgsh.extract
 $(STATEDIR)/cfgsh.extract: $(cfgsh_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CFGSH_DIR))
-	@$(call extract, $(CFGSH_SOURCE))
+	@$(call extract, CFGSH)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-fontcache.get: $(xorg-proto-fontcache_get_deps_default)
 
 $(XORG_PROTO_FONTCACHE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_FONTCACHE_URL))
+	@$(call get, XORG_PROTO_FONTCACHE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-fontcache_extract: $(STATEDIR)/xorg-proto-fontcache.extract
 $(STATEDIR)/xorg-proto-fontcache.extract: $(xorg-proto-fontcache_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_FONTCACHE_DIR))
-	@$(call extract, $(XORG_PROTO_FONTCACHE_SOURCE))
+	@$(call extract, XORG_PROTO_FONTCACHE)
 	@$(call patchin, $(XORG_PROTO_FONTCACHE))
 	@$(call touch, $@)
 

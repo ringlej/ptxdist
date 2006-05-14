@@ -38,7 +38,7 @@ $(STATEDIR)/dialog.get: $(dialog_get_deps_default)
 
 $(DIALOG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(DIALOG_URL))
+	@$(call get, DIALOG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ dialog_extract: $(STATEDIR)/dialog.extract
 $(STATEDIR)/dialog.extract: $(dialog_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DIALOG_DIR))
-	@$(call extract, $(DIALOG_SOURCE))
+	@$(call extract, DIALOG)
 	@$(call patchin, $(DIALOG))
 	@$(call touch, $@)
 

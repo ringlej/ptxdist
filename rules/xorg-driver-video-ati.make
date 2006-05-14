@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-driver-video-ati.get: $(xorg-driver-video-ati_get_deps_default)
 
 $(XORG_DRIVER_VIDEO_ATI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_DRIVER_VIDEO_ATI_URL))
+	@$(call get, XORG_DRIVER_VIDEO_ATI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-driver-video-ati_extract: $(STATEDIR)/xorg-driver-video-ati.extract
 $(STATEDIR)/xorg-driver-video-ati.extract: $(xorg-driver-video-ati_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_VIDEO_ATI_DIR))
-	@$(call extract, $(XORG_DRIVER_VIDEO_ATI_SOURCE))
+	@$(call extract, XORG_DRIVER_VIDEO_ATI)
 	@$(call patchin, $(XORG_DRIVER_VIDEO_ATI))
 	@$(call touch, $@)
 

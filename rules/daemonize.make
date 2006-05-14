@@ -38,7 +38,7 @@ $(STATEDIR)/daemonize.get: $(daemonize_get_deps_default)
 
 $(DAEMONIZE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(DAEMONIZE_URL))
+	@$(call get, DAEMONIZE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ daemonize_extract: $(STATEDIR)/daemonize.extract
 $(STATEDIR)/daemonize.extract: $(daemonize_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DAEMONIZE_DIR))
-	@$(call extract, $(DAEMONIZE_SOURCE))
+	@$(call extract, DAEMONIZE)
 	@$(call patchin, $(DAEMONIZE))
 	@$(call touch, $@)
 

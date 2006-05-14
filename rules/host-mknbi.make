@@ -38,7 +38,7 @@ $(STATEDIR)/host-mknbi.get: $(host-mknbi_get_deps_default)
 
 $(HOST_MKNBI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOST_MKNBI_URL))
+	@$(call get, HOST_MKNBI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ host-mknbi_extract: $(STATEDIR)/host-mknbi.extract
 $(STATEDIR)/host-mknbi.extract: $(host-mknbi_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MKNBI_DIR))
-	@$(call extract, $(HOST_MKNBI_SOURCE), $(HOST_BUILDDIR))
+	@$(call extract, HOST_MKNBI, $(HOST_BUILDDIR))
 	@$(call patchin, $(HOST_MKNBI), $(HOST_MKNBI_DIR) )
 	@$(call touch, $@)
 

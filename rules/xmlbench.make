@@ -44,7 +44,7 @@ $(STATEDIR)/xmlbench.get: $(xmlbench_get_deps_default)
 
 $(XMLBENCH_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XMLBENCH_URL))
+	@$(call get, XMLBENCH)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -55,7 +55,7 @@ xmlbench_extract: $(STATEDIR)/xmlbench.extract
 $(STATEDIR)/xmlbench.extract: $(xmlbench_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XMLBENCH_DIR))
-	@$(call extract, $(XMLBENCH_SOURCE))
+	@$(call extract, XMLBENCH)
 	mv $(BUILDDIR)/xmlbench $(XMLBENCH_DIR)
 	@$(call patchin, $(XMLBENCH))
 	@$(call touch, $@)

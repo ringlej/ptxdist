@@ -41,7 +41,7 @@ $(STATEDIR)/rtnet.get: $(rtnet_get_deps_default)
 
 $(RTNET_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(RTNET_URL))
+	@$(call get, RTNET)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -52,7 +52,7 @@ rtnet_extract: $(STATEDIR)/rtnet.extract
 $(STATEDIR)/rtnet.extract: $(rtnet_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTNET_DIR))
-	@$(call extract, $(RTNET_SOURCE))
+	@$(call extract, RTNET)
 	@$(call patchin, $(RTNET))
 	@$(call touch, $@)
 

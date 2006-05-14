@@ -38,7 +38,7 @@ $(STATEDIR)/xvkbd.get: $(xvkbd_get_deps_default)
 
 $(XVKBD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XVKBD_URL))
+	@$(call get, XVKBD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xvkbd_extract: $(STATEDIR)/xvkbd.extract
 $(STATEDIR)/xvkbd.extract: $(xvkbd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XVKBD_DIR))
-	@$(call extract, $(XVKBD_SOURCE))
+	@$(call extract, XVKBD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

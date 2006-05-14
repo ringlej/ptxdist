@@ -38,7 +38,7 @@ $(STATEDIR)/mico.get: $(mico_get_deps_default)
 
 $(MICO_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MICO_URL))
+	@$(call get, MICO)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,7 +51,7 @@ $(STATEDIR)/mico.extract: $(mico_extract_deps_default)
 	rm -fr $(MICO_DIR)
 	mkdir -p $(BUILDDIR)
 	tmpdir=`mktemp -d`; \
-	$(call extract, $(MICO_SOURCE), $$tmpdir) \
+	$(call extract, MICO, $$tmpdir) \
 	mv $$tmpdir/mico $(MICO_DIR); \
 	rm -fr $$tmpdir
 	@$(call patchin, $(MICO))

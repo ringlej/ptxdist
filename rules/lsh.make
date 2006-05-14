@@ -38,7 +38,7 @@ $(STATEDIR)/lsh.get: $(lsh_get_deps_default)
 
 $(LSH_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LSH_URL))
+	@$(call get, LSH)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ lsh_extract: $(STATEDIR)/lsh.extract
 $(STATEDIR)/lsh.extract: $(lsh_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LSH_DIR))
-	@$(call extract, $(LSH_SOURCE))
+	@$(call extract, LSH)
 	@$(call patchin, $(LSH))
 	@$(call touch, $@)
 

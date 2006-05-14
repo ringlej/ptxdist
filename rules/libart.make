@@ -38,7 +38,7 @@ $(STATEDIR)/libart.get: $(libart_get_deps_default)
 
 $(LIBART_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBART_URL))
+	@$(call get, LIBART)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libart_extract: $(STATEDIR)/libart.extract
 $(STATEDIR)/libart.extract: $(libart_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBART_DIR))
-	@$(call extract, $(LIBART_SOURCE))
+	@$(call extract, LIBART)
 	@$(call patchin, $(LIBART))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xxf86misc.get: $(xorg-lib-Xxf86misc_get_deps_default)
 
 $(XORG_LIB_XXF86MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XXF86MISC_URL))
+	@$(call get, XORG_LIB_XXF86MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xxf86misc_extract: $(STATEDIR)/xorg-lib-Xxf86misc.extract
 $(STATEDIR)/xorg-lib-Xxf86misc.extract: $(xorg-lib-Xxf86misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XXF86MISC_DIR))
-	@$(call extract, $(XORG_LIB_XXF86MISC_SOURCE))
+	@$(call extract, XORG_LIB_XXF86MISC)
 	@$(call patchin, $(XORG_LIB_XXF86MISC))
 	@$(call touch, $@)
 

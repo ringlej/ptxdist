@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-adobe-75dpi.get: $(xorg-font-adobe-75dpi_get_deps_default)
 
 $(XORG_FONT_ADOBE_75DPI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_ADOBE_75DPI_URL))
+	@$(call get, XORG_FONT_ADOBE_75DPI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-adobe-75dpi_extract: $(STATEDIR)/xorg-font-adobe-75dpi.extract
 $(STATEDIR)/xorg-font-adobe-75dpi.extract: $(xorg-font-adobe-75dpi_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_ADOBE_75DPI_DIR))
-	@$(call extract, $(XORG_FONT_ADOBE_75DPI_SOURCE))
+	@$(call extract, XORG_FONT_ADOBE_75DPI)
 	@$(call patchin, $(XORG_FONT_ADOBE_75DPI))
 	@$(call touch, $@)
 

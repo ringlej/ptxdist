@@ -38,7 +38,7 @@ $(STATEDIR)/python24.get: $(python24_get_deps_default)
 
 $(PYTHON24_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PYTHON24_URL))
+	@$(call get, PYTHON24)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ python24_extract: $(STATEDIR)/python24.extract
 $(STATEDIR)/python24.extract: $(python24_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PYTHON24_DIR))
-	@$(call extract, $(PYTHON24_SOURCE))
+	@$(call extract, PYTHON24)
 	@$(call patchin, $(PYTHON24))
 	@$(call touch, $@)
 

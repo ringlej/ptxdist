@@ -38,7 +38,7 @@ $(STATEDIR)/clock.get: $(clock_get_deps_default)
 
 $(CLOCK_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(CLOCK_URL))
+	@$(call get, CLOCK)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ clock_extract: $(STATEDIR)/clock.extract
 $(STATEDIR)/clock.extract: $(clock_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CLOCK_DIR))
-	@$(call extract, $(CLOCK_SOURCE))
+	@$(call extract, CLOCK)
 	@$(call patchin, $(CLOCK))
 	@$(call touch, $@)
 

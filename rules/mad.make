@@ -38,7 +38,7 @@ $(STATEDIR)/mad.get: $(mad_get_deps_default)
 
 $(MAD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MAD_URL))
+	@$(call get, MAD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ mad_extract: $(STATEDIR)/mad.extract
 $(STATEDIR)/mad.extract: $(mad_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MAD_DIR))
-	@$(call extract, $(MAD_SOURCE))
+	@$(call extract, MAD)
 	@$(call patchin, $(MAD_SOURCE))
 	@$(call touch, $@)
 

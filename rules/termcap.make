@@ -38,7 +38,7 @@ $(STATEDIR)/termcap.get: $(termcap_get_deps_default)
 
 $(TERMCAP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(TERMCAP_URL))
+	@$(call get, TERMCAP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ termcap_extract: $(STATEDIR)/termcap.extract
 $(STATEDIR)/termcap.extract: $(termcap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TERMCAP_DIR))
-	@$(call extract, $(TERMCAP_SOURCE))
+	@$(call extract, TERMCAP)
 	@$(call patchin, $(TERMCAP))
 	@$(call touch, $@)
 

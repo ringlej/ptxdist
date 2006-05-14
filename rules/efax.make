@@ -38,7 +38,7 @@ $(STATEDIR)/efax.get: $(efax_get_deps_default)
 
 $(EFAX_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(EFAX_URL))
+	@$(call get, EFAX)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ efax_extract: $(STATEDIR)/efax.extract
 $(STATEDIR)/efax.extract: $(efax_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EFAX_DIR))
-	@$(call extract, $(EFAX_SOURCE))
+	@$(call extract, EFAX)
 	@$(call patchin, $(EFAX))
 	@$(call touch, $@)
 

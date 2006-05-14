@@ -38,7 +38,7 @@ $(STATEDIR)/netcat.get: $(netcat_get_deps_default)
 
 $(NETCAT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(NETCAT_URL))
+	@$(call get, NETCAT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ netcat_extract: $(STATEDIR)/netcat.extract
 $(STATEDIR)/netcat.extract: $(netcat_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NETCAT_DIR))
-	@$(call extract, $(NETCAT_SOURCE))
+	@$(call extract, NETCAT)
 	@$(call patchin, $(NETCAT))
 	@$(call touch, $@)
 

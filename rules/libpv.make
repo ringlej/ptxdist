@@ -38,7 +38,7 @@ $(STATEDIR)/libpv.get: $(libpv_get_deps_default)
 
 $(LIBPV_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBPV_URL))
+	@$(call get, LIBPV)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libpv_extract: $(STATEDIR)/libpv.extract
 $(STATEDIR)/libpv.extract: $(libpv_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPV_DIR))
-	@$(call extract, $(LIBPV_SOURCE))
+	@$(call extract, LIBPV)
 	@$(call patchin, $(LIBPV))
 	@$(call touch, $@)
 

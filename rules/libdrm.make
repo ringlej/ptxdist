@@ -38,7 +38,7 @@ $(STATEDIR)/libdrm.get: $(libdrm_get_deps_default)
 
 $(LIBDRM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBDRM_URL))
+	@$(call get, LIBDRM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libdrm_extract: $(STATEDIR)/libdrm.extract
 $(STATEDIR)/libdrm.extract: $(libdrm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBDRM_DIR))
-	@$(call extract, $(LIBDRM_SOURCE))
+	@$(call extract, LIBDRM)
 	@$(call patchin, $(LIBDRM))
 	@$(call touch, $@)
 

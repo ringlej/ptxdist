@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-cronyx-cyrillic.get: $(xorg-font-cronyx-cyrillic_get_deps_
 
 $(XORG_FONT_CRONYX_CYRILLIC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_CRONYX_CYRILLIC_URL))
+	@$(call get, XORG_FONT_CRONYX_CYRILLIC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-cronyx-cyrillic_extract: $(STATEDIR)/xorg-font-cronyx-cyrillic.extract
 $(STATEDIR)/xorg-font-cronyx-cyrillic.extract: $(xorg-font-cronyx-cyrillic_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_CRONYX_CYRILLIC_DIR))
-	@$(call extract, $(XORG_FONT_CRONYX_CYRILLIC_SOURCE))
+	@$(call extract, XORG_FONT_CRONYX_CYRILLIC)
 	@$(call patchin, $(XORG_FONT_CRONYX_CYRILLIC))
 	@$(call touch, $@)
 

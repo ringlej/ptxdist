@@ -38,7 +38,7 @@ $(STATEDIR)/ipkg.get: $(ipkg_get_deps_default)
 
 $(IPKG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(IPKG_URL))
+	@$(call get, IPKG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ ipkg_extract: $(STATEDIR)/ipkg.extract
 $(STATEDIR)/ipkg.extract: $(ipkg_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPKG_DIR))
-	@$(call extract, $(IPKG_SOURCE))
+	@$(call extract, IPKG)
 	@$(call patchin, $(IPKG))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-XScrnSaver.get: $(xorg-lib-XScrnSaver_get_deps_default)
 
 $(XORG_LIB_XSCRNSAVER_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XSCRNSAVER_URL))
+	@$(call get, XORG_LIB_XSCRNSAVER)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-XScrnSaver_extract: $(STATEDIR)/xorg-lib-XScrnSaver.extract
 $(STATEDIR)/xorg-lib-XScrnSaver.extract: $(xorg-lib-XScrnSaver_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XSCRNSAVER_DIR))
-	@$(call extract, $(XORG_LIB_XSCRNSAVER_SOURCE))
+	@$(call extract, XORG_LIB_XSCRNSAVER)
 	@$(call patchin, $(XORG_LIB_XSCRNSAVER))
 	@$(call touch, $@)
 

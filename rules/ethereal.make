@@ -38,7 +38,7 @@ $(STATEDIR)/ethereal.get: $(ethereal_get_deps_default)
 
 $(ETHEREAL_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(ETHEREAL_URL))
+	@$(call get, ETHEREAL)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ ethereal_extract: $(STATEDIR)/ethereal.extract
 $(STATEDIR)/ethereal.extract: $(ethereal_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ETHEREAL_DIR))
-	@$(call extract, $(ETHEREAL_SOURCE))
+	@$(call extract, ETHEREAL)
 	@$(call patchin, $(ETHEREAL))
 	@$(call touch, $@)
 

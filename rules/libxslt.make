@@ -38,7 +38,7 @@ $(STATEDIR)/libxslt.get: $(libxslt_get_deps_default)
 
 $(LIBXSLT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBXSLT_URL))
+	@$(call get, LIBXSLT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libxslt_extract: $(STATEDIR)/libxslt.extract
 $(STATEDIR)/libxslt.extract: $(libxslt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXSLT_DIR))
-	@$(call extract, $(LIBXSLT_SOURCE))
+	@$(call extract, LIBXSLT)
 	@$(call patchin, $(LIBXSLT))
 	@$(call touch, $@)
 

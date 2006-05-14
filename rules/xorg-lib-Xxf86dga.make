@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xxf86dga.get: $(xorg-lib-Xxf86dga_get_deps_default)
 
 $(XORG_LIB_XXF86DGA_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XXF86DGA_URL))
+	@$(call get, XORG_LIB_XXF86DGA)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xxf86dga_extract: $(STATEDIR)/xorg-lib-Xxf86dga.extract
 $(STATEDIR)/xorg-lib-Xxf86dga.extract: $(xorg-lib-Xxf86dga_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XXF86DGA_DIR))
-	@$(call extract, $(XORG_LIB_XXF86DGA_SOURCE))
+	@$(call extract, XORG_LIB_XXF86DGA)
 	@$(call patchin, $(XORG_LIB_XXF86DGA))
 	@$(call touch, $@)
 

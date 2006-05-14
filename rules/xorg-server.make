@@ -45,7 +45,7 @@ $(STATEDIR)/xorg-server.get: $(xorg-server_get_deps_default)
 
 $(XORG_SERVER_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_SERVER_URL))
+	@$(call get, XORG_SERVER)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -56,7 +56,7 @@ xorg-server_extract: $(STATEDIR)/xorg-server.extract
 $(STATEDIR)/xorg-server.extract: $(xorg-server_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_SERVER_DIR))
-	@$(call extract, $(XORG_SERVER_SOURCE))
+	@$(call extract, XORG_SERVER)
 	@$(call patchin, $(XORG_SERVER))
 	@$(call touch, $@)
 

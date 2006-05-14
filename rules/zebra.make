@@ -41,7 +41,7 @@ $(STATEDIR)/zebra.get: $(zebra_get_deps_default)
 
 $(ZEBRA_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(ZEBRA_URL))
+	@$(call get, ZEBRA)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -52,7 +52,7 @@ zebra_extract: $(STATEDIR)/zebra.extract
 $(STATEDIR)/zebra.extract: $(zebra_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ZEBRA_DIR))
-	@$(call extract, $(ZEBRA_SOURCE))
+	@$(call extract, ZEBRA)
 	@$(call patchin, $(ZEBRA))
 	@$(call touch, $@)
 

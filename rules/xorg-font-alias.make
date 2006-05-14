@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-alias.get: $(xorg-font-alias_get_deps_default)
 
 $(XORG_FONT_ALIAS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_ALIAS_URL))
+	@$(call get, XORG_FONT_ALIAS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-alias_extract: $(STATEDIR)/xorg-font-alias.extract
 $(STATEDIR)/xorg-font-alias.extract: $(xorg-font-alias_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_ALIAS_DIR))
-	@$(call extract, $(XORG_FONT_ALIAS_SOURCE))
+	@$(call extract, XORG_FONT_ALIAS)
 	@$(call patchin, $(XORG_FONT_ALIAS))
 	@$(call touch, $@)
 

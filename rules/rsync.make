@@ -38,7 +38,7 @@ $(STATEDIR)/rsync.get: $(rsync_get_deps_default)
 
 $(RSYNC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(RSYNC_URL))
+	@$(call get, RSYNC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ rsync_extract: $(STATEDIR)/rsync.extract
 $(STATEDIR)/rsync.extract: $(rsync_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RSYNC_DIR))
-	@$(call extract, $(RSYNC_SOURCE))
+	@$(call extract, RSYNC)
 	@$(call patchin, $(RSYNC))
 	@$(call touch, $@)
 

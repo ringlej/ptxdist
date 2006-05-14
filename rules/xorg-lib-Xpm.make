@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xpm.get: $(xorg-lib-Xpm_get_deps_default)
 
 $(XORG_LIB_XPM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XPM_URL))
+	@$(call get, XORG_LIB_XPM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xpm_extract: $(STATEDIR)/xorg-lib-Xpm.extract
 $(STATEDIR)/xorg-lib-Xpm.extract: $(xorg-lib-Xpm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XPM_DIR))
-	@$(call extract, $(XORG_LIB_XPM_SOURCE))
+	@$(call extract, XORG_LIB_XPM)
 	@$(call patchin, $(XORG_LIB_XPM))
 	@$(call touch, $@)
 

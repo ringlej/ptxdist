@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-daewoo-misc.get: $(xorg-font-daewoo-misc_get_deps_default)
 
 $(XORG_FONT_DAEWOO_MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_DAEWOO_MISC_URL))
+	@$(call get, XORG_FONT_DAEWOO_MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-daewoo-misc_extract: $(STATEDIR)/xorg-font-daewoo-misc.extract
 $(STATEDIR)/xorg-font-daewoo-misc.extract: $(xorg-font-daewoo-misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_DAEWOO_MISC_DIR))
-	@$(call extract, $(XORG_FONT_DAEWOO_MISC_SOURCE))
+	@$(call extract, XORG_FONT_DAEWOO_MISC)
 	@$(call patchin, $(XORG_FONT_DAEWOO_MISC))
 	@$(call touch, $@)
 

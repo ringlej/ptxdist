@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-randr.get: $(xorg-proto-randr_get_deps_default)
 
 $(XORG_PROTO_RANDR_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_RANDR_URL))
+	@$(call get, XORG_PROTO_RANDR)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-randr_extract: $(STATEDIR)/xorg-proto-randr.extract
 $(STATEDIR)/xorg-proto-randr.extract: $(xorg-proto-randr_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_RANDR_DIR))
-	@$(call extract, $(XORG_PROTO_RANDR_SOURCE))
+	@$(call extract, XORG_PROTO_RANDR)
 	@$(call patchin, $(XORG_PROTO_RANDR))
 	@$(call touch, $@)
 

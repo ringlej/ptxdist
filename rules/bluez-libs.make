@@ -38,7 +38,7 @@ $(STATEDIR)/bluez-libs.get: $(bluez-libs_get_deps_default)
 
 $(BLUEZ_LIBS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BLUEZ_LIBS_URL))
+	@$(call get, BLUEZ_LIBS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ bluez-libs_extract: $(STATEDIR)/bluez-libs.extract
 $(STATEDIR)/bluez-libs.extract: $(bluez-libs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BLUEZ_LIBS_DIR))
-	@$(call extract, $(BLUEZ_LIBS_SOURCE))
+	@$(call extract, BLUEZ_LIBS)
 	@$(call patchin, $(BLUEZ_LIBS))
 	@$(call touch, $@)
 

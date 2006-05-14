@@ -38,7 +38,7 @@ $(STATEDIR)/klibc.get: $(klibc_get_deps_default)
 
 $(KLIBC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(KLIBC_URL))
+	@$(call get, KLIBC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ klibc_extract: $(STATEDIR)/klibc.extract
 $(STATEDIR)/klibc.extract: $(klibc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KLIBC_DIR))
-	@$(call extract, $(KLIBC_SOURCE))
+	@$(call extract, KLIBC)
 	@$(call patchin, $(KLIBC))
 	@$(call touch, $@)
 

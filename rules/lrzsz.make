@@ -40,7 +40,7 @@ $(STATEDIR)/lrzsz.get: $(lrzsz_get_deps_default)
 
 $(LRZSZ_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LRZSZ_URL))
+	@$(call get, LRZSZ)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,7 +51,7 @@ lrzsz_extract: $(STATEDIR)/lrzsz.extract
 $(STATEDIR)/lrzsz.extract: $(lrzsz_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LRZSZ_DIR))
-	@$(call extract, $(LRZSZ_SOURCE))
+	@$(call extract, LRZSZ)
 	@$(call patchin, $(LRZSZ))
 	@$(call touch, $@)
 

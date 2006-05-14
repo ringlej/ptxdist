@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-driver-video-dummy.get: $(xorg-driver-video-dummy_get_deps_defa
 
 $(XORG_DRIVER_VIDEO_DUMMY_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_DRIVER_VIDEO_DUMMY_URL))
+	@$(call get, XORG_DRIVER_VIDEO_DUMMY)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-driver-video-dummy_extract: $(STATEDIR)/xorg-driver-video-dummy.extract
 $(STATEDIR)/xorg-driver-video-dummy.extract: $(xorg-driver-video-dummy_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_VIDEO_DUMMY_DIR))
-	@$(call extract, $(XORG_DRIVER_VIDEO_DUMMY_SOURCE))
+	@$(call extract, XORG_DRIVER_VIDEO_DUMMY)
 	@$(call patchin, $(XORG_DRIVER_VIDEO_DUMMY))
 	@$(call touch, $@)
 

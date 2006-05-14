@@ -38,7 +38,7 @@ $(STATEDIR)/pureftpd.get: $(pureftpd_get_deps_default)
 
 $(PUREFTPD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PUREFTPD_URL))
+	@$(call get, PUREFTPD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ pureftpd_extract: $(STATEDIR)/pureftpd.extract
 $(STATEDIR)/pureftpd.extract: $(pureftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PUREFTPD_DIR))
-	@$(call extract, $(PUREFTPD_SOURCE))
+	@$(call extract, PUREFTPD)
 	@$(call patchin, $(PUREFTPD))
 	@$(call touch, $@)
 

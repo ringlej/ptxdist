@@ -38,7 +38,7 @@ $(STATEDIR)/freetype.get: $(freetype_get_deps_default)
 
 $(FREETYPE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(FREETYPE_URL))
+	@$(call get, FREETYPE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ freetype_extract: $(STATEDIR)/freetype.extract
 $(STATEDIR)/freetype.extract: $(freetype_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FREETYPE_DIR))
-	@$(call extract, $(FREETYPE_SOURCE))
+	@$(call extract, FREETYPE)
 	@$(call patchin, $(FREETYPE))
 	@$(call touch, $@)
 

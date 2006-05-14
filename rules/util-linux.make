@@ -38,7 +38,7 @@ $(STATEDIR)/util-linux.get: $(util-linux_get_deps_default)
 
 $(UTIL_LINUX_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(UTIL_LINUX_URL))
+	@$(call get, UTIL_LINUX)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ util-linux_extract: $(STATEDIR)/util-linux.extract
 $(STATEDIR)/util-linux.extract: $(util-linux_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTIL_LINUX_DIR))
-	@$(call extract, $(UTIL_LINUX_SOURCE))
+	@$(call extract, UTIL_LINUX)
 	@$(call patchin, $(UTIL_LINUX))
 
 	perl -i -p -e 's/^CPU=.*$$/CPU=$(PTXCONF_ARCH)/g' $(UTIL_LINUX_DIR)/MCONFIG

@@ -38,7 +38,7 @@ $(STATEDIR)/nmap.get: $(nmap_get_deps_default)
 
 $(NMAP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(NMAP_URL))
+	@$(call get, NMAP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ nmap_extract: $(STATEDIR)/nmap.extract
 $(STATEDIR)/nmap.extract: $(nmap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NMAP_DIR))
-	@$(call extract, $(NMAP_SOURCE))
+	@$(call extract, NMAP)
 	@$(call patchin, $(NMAP))
 	@$(call touch, $@)
 

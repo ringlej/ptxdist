@@ -38,7 +38,7 @@ $(STATEDIR)/libglade.get: $(libglade_get_deps_default)
 
 $(LIBGLADE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBGLADE_URL))
+	@$(call get, LIBGLADE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libglade_extract: $(STATEDIR)/libglade.extract
 $(STATEDIR)/libglade.extract: $(libglade_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGLADE_DIR))
-	@$(call extract, $(LIBGLADE_SOURCE))
+	@$(call extract, LIBGLADE)
 	@$(call patchin, $(LIBGLADE))
 	@$(call touch, $@)
 

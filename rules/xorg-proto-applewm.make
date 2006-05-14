@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-applewm.get: $(xorg-proto-applewm_get_deps_default)
 
 $(XORG_PROTO_APPLEWM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_APPLEWM_URL))
+	@$(call get, XORG_PROTO_APPLEWM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-applewm_extract: $(STATEDIR)/xorg-proto-applewm.extract
 $(STATEDIR)/xorg-proto-applewm.extract: $(xorg-proto-applewm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_APPLEWM_DIR))
-	@$(call extract, $(XORG_PROTO_APPLEWM_SOURCE))
+	@$(call extract, XORG_PROTO_APPLEWM)
 	@$(call patchin, $(XORG_PROTO_APPLEWM))
 	@$(call touch, $@)
 

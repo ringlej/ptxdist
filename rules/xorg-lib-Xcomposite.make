@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xcomposite.get: $(xorg-lib-Xcomposite_get_deps_default)
 
 $(XORG_LIB_XCOMPOSITE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XCOMPOSITE_URL))
+	@$(call get, XORG_LIB_XCOMPOSITE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xcomposite_extract: $(STATEDIR)/xorg-lib-Xcomposite.extract
 $(STATEDIR)/xorg-lib-Xcomposite.extract: $(xorg-lib-Xcomposite_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XCOMPOSITE_DIR))
-	@$(call extract, $(XORG_LIB_XCOMPOSITE_SOURCE))
+	@$(call extract, XORG_LIB_XCOMPOSITE)
 	@$(call patchin, $(XORG_LIB_XCOMPOSITE))
 	@$(call touch, $@)
 

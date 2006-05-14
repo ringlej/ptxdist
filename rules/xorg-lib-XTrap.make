@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-XTrap.get: $(xorg-lib-XTrap_get_deps_default)
 
 $(XORG_LIB_XTRAP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XTRAP_URL))
+	@$(call get, XORG_LIB_XTRAP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-XTrap_extract: $(STATEDIR)/xorg-lib-XTrap.extract
 $(STATEDIR)/xorg-lib-XTrap.extract: $(xorg-lib-XTrap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XTRAP_DIR))
-	@$(call extract, $(XORG_LIB_XTRAP_SOURCE))
+	@$(call extract, XORG_LIB_XTRAP)
 	@$(call patchin, $(XORG_LIB_XTRAP))
 	@$(call touch, $@)
 

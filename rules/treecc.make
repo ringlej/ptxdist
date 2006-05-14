@@ -38,7 +38,7 @@ $(STATEDIR)/treecc.get: $(treecc_get_deps_default)
 
 $(TREECC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(TREECC_URL))
+	@$(call get, TREECC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ treecc_extract: $(STATEDIR)/treecc.extract
 $(STATEDIR)/treecc.extract: $(treecc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TREECC_DIR))
-	@$(call extract, $(TREECC_SOURCE))
+	@$(call extract, TREECC)
 	@$(call patchin, $(TREECC))
 	@$(call touch, $@)
 

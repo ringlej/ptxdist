@@ -38,7 +38,7 @@ $(STATEDIR)/mplayer.get: $(mplayer_get_deps_default)
 
 $(MPLAYER_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MPLAYER_URL))
+	@$(call get, MPLAYER)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ mplayer_extract: $(STATEDIR)/mplayer.extract
 $(STATEDIR)/mplayer.extract: $(mplayer_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MPLAYER_DIR))
-	@$(call extract, $(MPLAYER_SOURCE))
+	@$(call extract, MPLAYER)
 	@$(call patchin, $(MPLAYER))
 	@$(call touch, $@)
 

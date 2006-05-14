@@ -40,7 +40,7 @@ $(STATEDIR)/bridge-utils.get: $(bridge-utils_get_deps_default)
 
 $(BRIDGE_UTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BRIDGE_UTILS_URL))
+	@$(call get, BRIDGE_UTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,7 +51,7 @@ bridge-utils_extract: $(STATEDIR)/bridge-utils.extract
 $(STATEDIR)/bridge-utils.extract: $(bridge-utils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BRIDGE_UTILS_DIR))
-	@$(call extract, $(BRIDGE_UTILS_SOURCE))
+	@$(call extract, BRIDGE_UTILS)
 	@$(call patchin, $(BRIDGE_UTILS))
 	@$(call touch, $@)
 

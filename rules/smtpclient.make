@@ -38,7 +38,7 @@ $(STATEDIR)/smtpclient.get: $(smtpclient_get_deps_default)
 
 $(SMTPCLIENT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SMTPCLIENT_URL))
+	@$(call get, SMTPCLIENT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ smtpclient_extract: $(STATEDIR)/smtpclient.extract
 $(STATEDIR)/smtpclient.extract: $(smtpclient_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SMTPCLIENT_DIR))
-	@$(call extract, $(SMTPCLIENT_SOURCE))
+	@$(call extract, SMTPCLIENT)
 	@$(call patchin, $(SMTPCLIENT))
 	@$(call touch, $@)
 

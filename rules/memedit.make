@@ -38,7 +38,7 @@ $(STATEDIR)/memedit.get: $(memedit_get_deps_default)
 
 $(MEMEDIT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MEMEDIT_URL))
+	@$(call get, MEMEDIT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ memedit_extract: $(STATEDIR)/memedit.extract
 $(STATEDIR)/memedit.extract: $(memedit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMEDIT_DIR))
-	@$(call extract, $(MEMEDIT_SOURCE))
+	@$(call extract, MEMEDIT)
 	@$(call patchin, $(MEMEDIT))
 	@$(call touch, $@)
 

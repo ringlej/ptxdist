@@ -38,7 +38,7 @@ $(STATEDIR)/cyclictest.get: $(cyclictest_get_deps_default)
 
 $(CYCLICTEST_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(CYCLICTEST_URL))
+	@$(call get, CYCLICTEST)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ cyclictest_extract: $(STATEDIR)/cyclictest.extract
 $(STATEDIR)/cyclictest.extract: $(cyclictest_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CYCLICTEST_DIR))
-	@$(call extract, $(CYCLICTEST_SOURCE))
+	@$(call extract, CYCLICTEST)
 	@$(call patchin, $(CYCLICTEST))
 	# Well, we extract to...
 	mv $(BUILDDIR)/cyclictest $(CYCLICTEST_DIR)

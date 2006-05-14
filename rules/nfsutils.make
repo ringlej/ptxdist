@@ -36,7 +36,7 @@ $(STATEDIR)/nfsutils.get: $(NFSUTILS_SOURCE)
 
 $(NFSUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(NFSUTILS_URL))
+	@$(call get, NFSUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,7 +47,7 @@ nfsutils_extract: $(STATEDIR)/nfsutils.extract
 $(STATEDIR)/nfsutils.extract: $(nfsutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NFSUTILS_DIR))
-	@$(call extract, $(NFSUTILS_SOURCE))
+	@$(call extract, NFSUTILS)
 	@$(call patchin, $(NFSUTILS))
 #
 # regenerate configure script with new autoconf, to make cross compiling work

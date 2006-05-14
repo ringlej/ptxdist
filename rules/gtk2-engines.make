@@ -38,7 +38,7 @@ $(STATEDIR)/gtk2-engines.get: $(gtk2-engines_get_deps_default)
 
 $(GTK2-ENGINES_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GTK2-ENGINES_URL))
+	@$(call get, GTK2-ENGINES)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ gtk2-engines_extract: $(STATEDIR)/gtk2-engines.extract
 $(STATEDIR)/gtk2-engines.extract: $(gtk2-engines_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK2-ENGINES_DIR))
-	@$(call extract, $(GTK2-ENGINES_SOURCE))
+	@$(call extract, GTK2-ENGINES)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

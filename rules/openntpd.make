@@ -37,7 +37,7 @@ $(STATEDIR)/openntpd.get: $(openntpd_get_deps_default)
 
 $(OPENNTPD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(OPENNTPD_URL))
+	@$(call get, OPENNTPD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,7 @@ openntpd_extract: $(STATEDIR)/openntpd.extract
 $(STATEDIR)/openntpd.extract: $(openntpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENNTPD_DIR))
-	@$(call extract, $(OPENNTPD_SOURCE))
+	@$(call extract, OPENNTPD)
 	@$(call patchin, $(OPENNTPD))
 	@$(call touch, $@)
 

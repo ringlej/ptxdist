@@ -38,7 +38,7 @@ $(STATEDIR)/bind.get: $(bind_get_deps_default)
 
 $(BIND_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BIND_URL))
+	@$(call get, BIND)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ bind_extract: $(STATEDIR)/bind.extract
 $(STATEDIR)/bind.extract: $(bind_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BIND_DIR))
-	@$(call extract, $(BIND_SOURCE))
+	@$(call extract, BIND)
 	@$(call patchin, $(BIND))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/host-fakeroot.get: $(host-fakeroot_get_deps_default)
 
 $(HOST_FAKEROOT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOST_FAKEROOT_URL))
+	@$(call get, HOST_FAKEROOT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ host-fakeroot_extract: $(STATEDIR)/host-fakeroot.extract
 $(STATEDIR)/host-fakeroot.extract: $(host-fakeroot_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_FAKEROOT_DIR))
-	@$(call extract, $(HOST_FAKEROOT_SOURCE), $(HOST_BUILDDIR))
+	@$(call extract, HOST_FAKEROOT, $(HOST_BUILDDIR))
 	@$(call patchin, $(HOST_FAKEROOT),$(HOST_FAKEROOT_DIR))
 	@$(call touch, $@)
 

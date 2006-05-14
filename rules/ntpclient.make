@@ -30,7 +30,7 @@ $(STATEDIR)/ntpclient.get: $(ntpclient_get_deps_default)
 
 $(NTPCLIENT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(NTPCLIENT_URL))
+	@$(call get, NTPCLIENT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -41,7 +41,7 @@ ntpclient_extract: $(STATEDIR)/ntpclient.extract
 $(STATEDIR)/ntpclient.extract: $(ntpclient_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NTPCLIENT_DIR))
-	@$(call extract, $(NTPCLIENT_SOURCE))
+	@$(call extract, NTPCLIENT)
 	@$(call patchin, $(NTPCLIENT))
 	@$(call touch, $@)
 

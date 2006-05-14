@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-sony-misc.get: $(xorg-font-sony-misc_get_deps_default)
 
 $(XORG_FONT_SONY_MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_SONY_MISC_URL))
+	@$(call get, XORG_FONT_SONY_MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-sony-misc_extract: $(STATEDIR)/xorg-font-sony-misc.extract
 $(STATEDIR)/xorg-font-sony-misc.extract: $(xorg-font-sony-misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_SONY_MISC_DIR))
-	@$(call extract, $(XORG_FONT_SONY_MISC_SOURCE))
+	@$(call extract, XORG_FONT_SONY_MISC)
 	@$(call patchin, $(XORG_FONT_SONY_MISC))
 	@$(call touch, $@)
 

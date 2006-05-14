@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-xf86dga.get: $(xorg-proto-xf86dga_get_deps_default)
 
 $(XORG_PROTO_XF86DGA_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_XF86DGA_URL))
+	@$(call get, XORG_PROTO_XF86DGA)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-xf86dga_extract: $(STATEDIR)/xorg-proto-xf86dga.extract
 $(STATEDIR)/xorg-proto-xf86dga.extract: $(xorg-proto-xf86dga_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XF86DGA_DIR))
-	@$(call extract, $(XORG_PROTO_XF86DGA_SOURCE))
+	@$(call extract, XORG_PROTO_XF86DGA)
 	@$(call patchin, $(XORG_PROTO_XF86DGA))
 	@$(call touch, $@)
 

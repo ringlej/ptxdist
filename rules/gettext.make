@@ -41,7 +41,7 @@ $(STATEDIR)/gettext.get: $(gettext_get_deps_default)
 
 $(GETTEXT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GETTEXT_URL))
+	@$(call get, GETTEXT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -52,7 +52,7 @@ gettext_extract: $(STATEDIR)/gettext.extract
 $(STATEDIR)/gettext.extract: $(gettext_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GETTEXT_DIR))
-	@$(call extract, $(GETTEXT_SOURCE))
+	@$(call extract, GETTEXT)
 	@$(call patchin, $(GETTEXT))
 	@$(call touch, $@)
 

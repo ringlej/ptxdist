@@ -38,7 +38,7 @@ $(STATEDIR)/xterm.get: $(xterm_get_deps_default)
 
 $(XTERM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XTERM_URL))
+	@$(call get, XTERM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xterm_extract: $(STATEDIR)/xterm.extract
 $(STATEDIR)/xterm.extract: $(xterm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XTERM_DIR))
-	@$(call extract, $(XTERM_SOURCE))
+	@$(call extract, XTERM)
 	@$(call patchin, $(XTERM))
 	@$(call touch, $@)
 

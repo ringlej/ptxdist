@@ -47,7 +47,7 @@ $(STATEDIR)/rtai.get: $(rtai_get_deps_default)
 
 $(RTAI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(RTAI_URL))
+	@$(call get, RTAI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -58,7 +58,7 @@ rtai_extract: $(STATEDIR)/rtai.extract
 $(STATEDIR)/rtai.extract: $(rtai_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RTAI_DIR))
-	@$(call extract, $(RTAI_SOURCE))
+	@$(call extract, RTAI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

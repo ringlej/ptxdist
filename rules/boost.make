@@ -38,7 +38,7 @@ $(STATEDIR)/boost.get: $(boost_get_deps_default)
 
 $(BOOST_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BOOST_URL))
+	@$(call get, BOOST)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ boost_extract: $(STATEDIR)/boost.extract
 $(STATEDIR)/boost.extract: $(boost_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BOOST_DIR))
-	@$(call extract, $(BOOST_SOURCE))
+	@$(call extract, BOOST)
 	@$(call patchin, $(BOOST))
 	@$(call touch, $@)
 

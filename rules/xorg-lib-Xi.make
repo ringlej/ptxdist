@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xi.get: $(xorg-lib-Xi_get_deps_default)
 
 $(XORG_LIB_XI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XI_URL))
+	@$(call get, XORG_LIB_XI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xi_extract: $(STATEDIR)/xorg-lib-Xi.extract
 $(STATEDIR)/xorg-lib-Xi.extract: $(xorg-lib-Xi_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XI_DIR))
-	@$(call extract, $(XORG_LIB_XI_SOURCE))
+	@$(call extract, XORG_LIB_XI)
 	@$(call patchin, $(XORG_LIB_XI))
 	@$(call touch, $@)
 

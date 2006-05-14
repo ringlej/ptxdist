@@ -38,7 +38,7 @@ $(STATEDIR)/thttpd.get: $(thttpd_get_deps_default)
 
 $(THTTPD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(THTTPD_URL))
+	@$(call get, THTTPD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ thttpd_extract: $(STATEDIR)/thttpd.extract
 $(STATEDIR)/thttpd.extract: $(thttpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(THTTPD_DIR))
-	@$(call extract, $(THTTPD_SOURCE))
+	@$(call extract, THTTPD)
 	@$(call patchin, $(THTTPD))
 	@$(call touch, $@)
 

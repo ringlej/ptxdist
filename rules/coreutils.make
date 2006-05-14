@@ -36,7 +36,7 @@ $(STATEDIR)/coreutils.get: $(coreutils_get_deps_default)
 
 $(COREUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(COREUTILS_URL))
+	@$(call get, COREUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,7 +47,7 @@ coreutils_extract: $(STATEDIR)/coreutils.extract
 $(STATEDIR)/coreutils.extract: $(coreutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(COREUTILS_DIR))
-	@$(call extract, $(COREUTILS_SOURCE))
+	@$(call extract, COREUTILS)
 	@$(call patchin, $(COREUTILS))
 	@$(call touch, $@)
 

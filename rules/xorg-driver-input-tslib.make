@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-driver-input-tslib.get: $(xorg-driver-input-tslib_get_deps_defa
 
 $(XORG_DRIVER_INPUT_TSLIB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_DRIVER_INPUT_TSLIB_URL))
+	@$(call get, XORG_DRIVER_INPUT_TSLIB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-driver-input-tslib_extract: $(STATEDIR)/xorg-driver-input-tslib.extract
 $(STATEDIR)/xorg-driver-input-tslib.extract: $(xorg-driver-input-tslib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_INPUT_TSLIB_DIR))
-	@$(call extract, $(XORG_DRIVER_INPUT_TSLIB_SOURCE))
+	@$(call extract, XORG_DRIVER_INPUT_TSLIB)
 	@$(call patchin, $(XORG_DRIVER_INPUT_TSLIB))
 	@$(call touch, $@)
 

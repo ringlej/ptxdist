@@ -38,7 +38,7 @@ $(STATEDIR)/netkit-ftp.get: $(netkit-ftp_get_deps_default)
 
 $(NETKIT_FTP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(NETKIT_FTP_URL))
+	@$(call get, NETKIT_FTP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ netkit-ftp_extract: $(STATEDIR)/netkit-ftp.extract
 $(STATEDIR)/netkit-ftp.extract: $(netkit-ftp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NETKIT_FTP_DIR))
-	@$(call extract, $(NETKIT_FTP_SOURCE))
+	@$(call extract, NETKIT_FTP)
 	@$(call patchin, $(NETKIT_FTP))
 	@$(call touch, $@)
 

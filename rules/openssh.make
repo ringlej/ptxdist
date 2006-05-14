@@ -37,7 +37,7 @@ $(STATEDIR)/openssh.get: $(openssh_get_deps_default)
 
 $(OPENSSH_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(OPENSSH_URL))
+	@$(call get, OPENSSH)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,7 @@ openssh_extract: $(STATEDIR)/openssh.extract
 $(STATEDIR)/openssh.extract: $(openssh_extract_deps_default)
 	@$(call targetinfo, openssh.extract)
 	@$(call clean, $(OPENSSH_DIR))
-	@$(call extract, $(OPENSSH_SOURCE))
+	@$(call extract, OPENSSH)
 	@$(call patchin, $(OPENSSH))
 
 	@$(call touch, $@)

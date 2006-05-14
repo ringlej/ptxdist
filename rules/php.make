@@ -38,7 +38,7 @@ $(STATEDIR)/php.get: $(php_get_deps_default)
 
 $(PHP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PHP_URL))
+	@$(call get, PHP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ php_extract: $(STATEDIR)/php.extract
 $(STATEDIR)/php.extract: $(php_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP_DIR))
-	@$(call extract, $(PHP_SOURCE))
+	@$(call extract, PHP)
 	@$(call patchin, $(PHP))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/host-slirp.get: $(host-slirp_get_deps_default)
 
 $(HOST_SLIRP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOST_SLIRP_URL))
+	@$(call get, HOST_SLIRP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ host-slirp_extract: $(STATEDIR)/host-slirp.extract
 $(STATEDIR)/host-slirp.extract: $(host-slirp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_SLIRP_DIR))
-	@$(call extract, $(HOST_SLIRP_SOURCE), $(HOST_BUILDDIR))
+	@$(call extract, HOST_SLIRP, $(HOST_BUILDDIR))
 	@$(call patchin, $(HOST_SLIRP), $(HOST_SLIRP_DIR))
 	@$(call touch, $@)
 

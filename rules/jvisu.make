@@ -37,7 +37,7 @@ $(STATEDIR)/jvisu.get: $(jvisu_get_deps_default)
 
 $(JVISU_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(JVISU_URL))
+	@$(call get, JVISU)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,7 @@ jvisu_extract: $(STATEDIR)/jvisu.extract
 $(STATEDIR)/jvisu.extract: $(jvisu_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JVISU_DIR))
-	@$(call extract, $(JVISU_SOURCE))
+	@$(call extract, JVISU)
 	@$(call patchin, $(JVISU))
 
 	# FIXME: we cannot currently overwrite the JAVAPATH on the command line, 

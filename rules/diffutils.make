@@ -38,7 +38,7 @@ $(STATEDIR)/diffutils.get: $(diffutils_get_deps_default)
 
 $(DIFFUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(DIFFUTILS_URL))
+	@$(call get, DIFFUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ diffutils_extract: $(STATEDIR)/diffutils.extract
 $(STATEDIR)/diffutils.extract: $(diffutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DIFFUTILS_DIR))
-	@$(call extract, $(DIFFUTILS_SOURCE))
+	@$(call extract, DIFFUTILS)
 	@$(call patchin, $(DIFFUTILS))
 	@$(call touch, $@)
 

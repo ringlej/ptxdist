@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-app-xhost.get: $(xorg-app-xhost_get_deps_default)
 
 $(XORG_APP_XHOST_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_APP_XHOST_URL))
+	@$(call get, XORG_APP_XHOST)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-app-xhost_extract: $(STATEDIR)/xorg-app-xhost.extract
 $(STATEDIR)/xorg-app-xhost.extract: $(xorg-app-xhost_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_XHOST_DIR))
-	@$(call extract, $(XORG_APP_XHOST_SOURCE))
+	@$(call extract, XORG_APP_XHOST)
 	@$(call patchin, $(XORG_APP_XHOST))
 	@$(call touch, $@)
 

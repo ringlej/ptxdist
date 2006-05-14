@@ -38,7 +38,7 @@ $(STATEDIR)/db41.get: $(db41_get_deps_default)
 
 $(DB41_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(DB41_URL))
+	@$(call get, DB41)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ db41_extract: $(STATEDIR)/db41.extract
 $(STATEDIR)/db41.extract: $(db41_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DB41_DIR))
-	@$(call extract, $(DB41_SOURCE))
+	@$(call extract, DB41)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

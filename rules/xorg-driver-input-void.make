@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-driver-input-void.get: $(xorg-driver-input-void_get_deps_defaul
 
 $(XORG_DRIVER_INPUT_VOID_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_DRIVER_INPUT_VOID_URL))
+	@$(call get, XORG_DRIVER_INPUT_VOID)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-driver-input-void_extract: $(STATEDIR)/xorg-driver-input-void.extract
 $(STATEDIR)/xorg-driver-input-void.extract: $(xorg-driver-input-void_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_INPUT_VOID_DIR))
-	@$(call extract, $(XORG_DRIVER_INPUT_VOID_SOURCE))
+	@$(call extract, XORG_DRIVER_INPUT_VOID)
 	@$(call patchin, $(XORG_DRIVER_INPUT_VOID))
 	@$(call touch, $@)
 

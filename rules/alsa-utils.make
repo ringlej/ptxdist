@@ -38,7 +38,7 @@ $(STATEDIR)/alsa-utils.get: $(alsa-utils_get_deps_default)
 
 $(ALSA_UTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(ALSA_UTILS_URL))
+	@$(call get, ALSA_UTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ alsa-utils_extract: $(STATEDIR)/alsa-utils.extract
 $(STATEDIR)/alsa-utils.extract: $(alsa-utils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ALSA_UTILS_DIR))
-	@$(call extract, $(ALSA_UTILS_SOURCE))
+	@$(call extract, ALSA_UTILS)
 	@$(call patchin, $(ALSA_UTILS))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-fixes.get: $(xorg-proto-fixes_get_deps_default)
 
 $(XORG_PROTO_FIXES_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_FIXES_URL))
+	@$(call get, XORG_PROTO_FIXES)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-fixes_extract: $(STATEDIR)/xorg-proto-fixes.extract
 $(STATEDIR)/xorg-proto-fixes.extract: $(xorg-proto-fixes_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_FIXES_DIR))
-	@$(call extract, $(XORG_PROTO_FIXES_SOURCE))
+	@$(call extract, XORG_PROTO_FIXES)
 	@$(call patchin, $(XORG_PROTO_FIXES))
 	@$(call touch, $@)
 

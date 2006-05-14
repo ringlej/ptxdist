@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-xf86vidmode.get: $(xorg-proto-xf86vidmode_get_deps_defaul
 
 $(XORG_PROTO_XF86VIDMODE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_XF86VIDMODE_URL))
+	@$(call get, XORG_PROTO_XF86VIDMODE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-xf86vidmode_extract: $(STATEDIR)/xorg-proto-xf86vidmode.extract
 $(STATEDIR)/xorg-proto-xf86vidmode.extract: $(xorg-proto-xf86vidmode_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XF86VIDMODE_DIR))
-	@$(call extract, $(XORG_PROTO_XF86VIDMODE_SOURCE))
+	@$(call extract, XORG_PROTO_XF86VIDMODE)
 	@$(call patchin, $(XORG_PROTO_XF86VIDMODE))
 	@$(call touch, $@)
 

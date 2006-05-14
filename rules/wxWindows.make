@@ -41,7 +41,7 @@ $(STATEDIR)/wxWindows.get: $(wxWindows_get_deps_default)
 
 $(WXWINDOWS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(WXWINDOWS_URL))
+	@$(call get, WXWINDOWS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -52,7 +52,7 @@ wxWindows_extract: $(STATEDIR)/wxWindows.extract
 $(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WXWINDOWS_DIR))
-	@$(call extract, $(WXWINDOWS_SOURCE))
+	@$(call extract, WXWINDOWS)
 	@$(call patchin, $(WXWINDOWS))
 	@$(call touch, $@)
 

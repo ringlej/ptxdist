@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-dmx.get: $(xorg-lib-dmx_get_deps_default)
 
 $(XORG_LIB_DMX_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_DMX_URL))
+	@$(call get, XORG_LIB_DMX)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-dmx_extract: $(STATEDIR)/xorg-lib-dmx.extract
 $(STATEDIR)/xorg-lib-dmx.extract: $(xorg-lib-dmx_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_DMX_DIR))
-	@$(call extract, $(XORG_LIB_DMX_SOURCE))
+	@$(call extract, XORG_LIB_DMX)
 	@$(call patchin, $(XORG_LIB_DMX))
 	@$(call touch, $@)
 

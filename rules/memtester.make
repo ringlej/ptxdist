@@ -38,7 +38,7 @@ $(STATEDIR)/memtester.get: $(memtester_get_deps_default)
 
 $(MEMTESTER_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MEMTESTER_URL))
+	@$(call get, MEMTESTER)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ memtester_extract: $(STATEDIR)/memtester.extract
 $(STATEDIR)/memtester.extract: $(memtester_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMTESTER_DIR))
-	@$(call extract, $(MEMTESTER_SOURCE))
+	@$(call extract, MEMTESTER)
 	@$(call patchin, $(MEMTESTER))
 	@$(call touch, $@)
 

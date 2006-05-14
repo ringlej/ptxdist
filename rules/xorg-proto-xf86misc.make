@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-xf86misc.get: $(xorg-proto-xf86misc_get_deps_default)
 
 $(XORG_PROTO_XF86MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_XF86MISC_URL))
+	@$(call get, XORG_PROTO_XF86MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-xf86misc_extract: $(STATEDIR)/xorg-proto-xf86misc.extract
 $(STATEDIR)/xorg-proto-xf86misc.extract: $(xorg-proto-xf86misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XF86MISC_DIR))
-	@$(call extract, $(XORG_PROTO_XF86MISC_SOURCE))
+	@$(call extract, XORG_PROTO_XF86MISC)
 	@$(call patchin, $(XORG_PROTO_XF86MISC))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-windowswm.get: $(xorg-proto-windowswm_get_deps_default)
 
 $(XORG_PROTO_WINDOWSWM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_WINDOWSWM_URL))
+	@$(call get, XORG_PROTO_WINDOWSWM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-windowswm_extract: $(STATEDIR)/xorg-proto-windowswm.extract
 $(STATEDIR)/xorg-proto-windowswm.extract: $(xorg-proto-windowswm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_WINDOWSWM_DIR))
-	@$(call extract, $(XORG_PROTO_WINDOWSWM_SOURCE))
+	@$(call extract, XORG_PROTO_WINDOWSWM)
 	@$(call patchin, $(XORG_PROTO_WINDOWSWM))
 	@$(call touch, $@)
 

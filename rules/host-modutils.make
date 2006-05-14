@@ -38,7 +38,7 @@ $(STATEDIR)/host-modutils.get: $(host-modutils_get_deps_default)
 
 $(HOST_MODUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOST_MODUTILS_URL))
+	@$(call get, HOST_MODUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ host-modutils_extract: $(STATEDIR)/host-modutils.extract
 $(STATEDIR)/host-modutils.extract: $(host-modutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MODUTILS_DIR))
-	@$(call extract, $(HOST_MODUTILS_SOURCE), $(HOST_BUILDDIR))
+	@$(call extract, HOST_MODUTILS, $(HOST_BUILDDIR))
 	@$(call patchin, $(HOST_MODUTILS), $(HOST_MODUTILS_DIR))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-xf86dri.get: $(xorg-proto-xf86dri_get_deps_default)
 
 $(XORG_PROTO_XF86DRI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_XF86DRI_URL))
+	@$(call get, XORG_PROTO_XF86DRI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-xf86dri_extract: $(STATEDIR)/xorg-proto-xf86dri.extract
 $(STATEDIR)/xorg-proto-xf86dri.extract: $(xorg-proto-xf86dri_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XF86DRI_DIR))
-	@$(call extract, $(XORG_PROTO_XF86DRI_SOURCE))
+	@$(call extract, XORG_PROTO_XF86DRI)
 	@$(call patchin, $(XORG_PROTO_XF86DRI))
 	@$(call touch, $@)
 

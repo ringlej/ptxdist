@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-encodings.get: $(xorg-font-encodings_get_deps_default)
 
 $(XORG_FONT_ENCODINGS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_ENCODINGS_URL))
+	@$(call get, XORG_FONT_ENCODINGS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-encodings_extract: $(STATEDIR)/xorg-font-encodings.extract
 $(STATEDIR)/xorg-font-encodings.extract: $(xorg-font-encodings_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_ENCODINGS_DIR))
-	@$(call extract, $(XORG_FONT_ENCODINGS_SOURCE))
+	@$(call extract, XORG_FONT_ENCODINGS)
 	@$(call patchin, $(XORG_FONT_ENCODINGS))
 	@$(call touch, $@)
 

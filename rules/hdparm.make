@@ -38,7 +38,7 @@ $(STATEDIR)/hdparm.get: $(hdparm_get_deps_default)
 
 $(HDPARM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HDPARM_URL))
+	@$(call get, HDPARM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ hdparm_extract: $(STATEDIR)/hdparm.extract
 $(STATEDIR)/hdparm.extract: $(hdparm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HDPARM_DIR))
-	@$(call extract, $(HDPARM_SOURCE))
+	@$(call extract, HDPARM)
 	@$(call patchin, $(HDPARM))
 	@$(call touch, $@)
 

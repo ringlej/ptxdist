@@ -38,7 +38,7 @@ $(STATEDIR)/mtd.get: $(mtd_get_deps_default)
 
 $(MTD_UTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MTD_UTILS_URL))
+	@$(call get, MTD_UTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ mtd_extract: $(STATEDIR)/mtd.extract
 $(STATEDIR)/mtd.extract: $(mtd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MTD_UTILS_DIR))
-	@$(call extract, $(MTD_UTILS_SOURCE))
+	@$(call extract, MTD_UTILS)
 	@$(call patchin, $(MTD_UTILS))
 	@$(call touch, $@)
 

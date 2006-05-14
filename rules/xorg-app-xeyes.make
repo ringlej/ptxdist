@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-app-xeyes.get: $(xorg-app-xeyes_get_deps_default)
 
 $(XORG_APP_XEYES_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_APP_XEYES_URL))
+	@$(call get, XORG_APP_XEYES)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-app-xeyes_extract: $(STATEDIR)/xorg-app-xeyes.extract
 $(STATEDIR)/xorg-app-xeyes.extract: $(xorg-app-xeyes_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_XEYES_DIR))
-	@$(call extract, $(XORG_APP_XEYES_SOURCE))
+	@$(call extract, XORG_APP_XEYES)
 	@$(call patchin, $(XORG_APP_XEYES))
 	@$(call touch, $@)
 

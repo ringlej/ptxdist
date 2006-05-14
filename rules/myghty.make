@@ -38,7 +38,7 @@ $(STATEDIR)/myghty.get: $(myghty_get_deps_default)
 
 $(MYGHTY_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MYGHTY_URL))
+	@$(call get, MYGHTY)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ myghty_extract: $(STATEDIR)/myghty.extract
 $(STATEDIR)/myghty.extract: $(myghty_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MYGHTY_DIR))
-	@$(call extract, $(MYGHTY_SOURCE))
+	@$(call extract, MYGHTY)
 	@$(call patchin, $(MYGHTY))
 	@$(call touch, $@)
 

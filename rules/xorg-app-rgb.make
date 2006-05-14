@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-app-rgb.get: $(xorg-app-rgb_get_deps_default)
 
 $(XORG_APP_RGB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_APP_RGB_URL))
+	@$(call get, XORG_APP_RGB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-app-rgb_extract: $(STATEDIR)/xorg-app-rgb.extract
 $(STATEDIR)/xorg-app-rgb.extract: $(xorg-app-rgb_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_RGB_DIR))
-	@$(call extract, $(XORG_APP_RGB_SOURCE))
+	@$(call extract, XORG_APP_RGB)
 	@$(call patchin, $(XORG_APP_RGB))
 	@$(call touch, $@)
 

@@ -36,7 +36,7 @@ $(STATEDIR)/bash.get: $(bash_get_deps_default)
 
 $(BASH_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BASH_URL))
+	@$(call get, BASH)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,7 +47,7 @@ bash_extract: $(STATEDIR)/bash.extract
 $(STATEDIR)/bash.extract: $(bash_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean $(BASH_DIR))
-	@$(call extract, $(BASH_SOURCE))
+	@$(call extract, BASH)
 	@$(call patchin, $(BASH))
 	@$(call touch, $@)
 

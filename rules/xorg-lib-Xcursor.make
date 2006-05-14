@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xcursor.get: $(xorg-lib-Xcursor_get_deps_default)
 
 $(XORG_LIB_XCURSOR_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XCURSOR_URL))
+	@$(call get, XORG_LIB_XCURSOR)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xcursor_extract: $(STATEDIR)/xorg-lib-Xcursor.extract
 $(STATEDIR)/xorg-lib-Xcursor.extract: $(xorg-lib-Xcursor_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XCURSOR_DIR))
-	@$(call extract, $(XORG_LIB_XCURSOR_SOURCE))
+	@$(call extract, XORG_LIB_XCURSOR)
 	@$(call patchin, $(XORG_LIB_XCURSOR))
 	@$(call touch, $@)
 

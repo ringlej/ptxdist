@@ -38,7 +38,7 @@ $(STATEDIR)/fltk.get: $(fltk_get_deps_default)
 
 $(FLTK_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(FLTK_URL))
+	@$(call get, FLTK)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ fltk_extract: $(STATEDIR)/fltk.extract
 $(STATEDIR)/fltk.extract: $(fltk_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLTK_DIR))
-	@$(call extract, $(FLTK_SOURCE))
+	@$(call extract, FLTK)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

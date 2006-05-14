@@ -39,7 +39,7 @@ $(STATEDIR)/tinylogin.get: $(tinylogin_get_deps_default)
 
 $(TINYLOGIN_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(TINYLOGIN_URL))
+	@$(call get, TINYLOGIN)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ tinylogin_extract: $(STATEDIR)/tinylogin.extract
 $(STATEDIR)/tinylogin.extract: $(tinylogin_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TINYLOGIN_DIR))
-	@$(call extract, $(TINYLOGIN_SOURCE))
+	@$(call extract, TINYLOGIN)
 	@$(call patchin, $(TINYLOGIN))
 	@$(call touch, $@)
 

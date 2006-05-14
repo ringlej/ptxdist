@@ -38,7 +38,7 @@ $(STATEDIR)/oprofile.get: $(oprofile_get_deps_default)
 
 $(OPROFILE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(OPROFILE_URL))
+	@$(call get, OPROFILE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ oprofile_extract: $(STATEDIR)/oprofile.extract
 $(STATEDIR)/oprofile.extract: $(oprofile_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPROFILE_DIR))
-	@$(call extract, $(OPROFILE_SOURCE))
+	@$(call extract, OPROFILE)
 	@$(call patchin, $(OPROFILE))
 	@$(call touch, $@)
 

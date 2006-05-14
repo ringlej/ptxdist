@@ -38,7 +38,7 @@ $(STATEDIR)/gtk.get: $(gtk_get_deps_default)
 
 $(GTK_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GTK_URL))
+	@$(call get, GTK)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ gtk_extract: $(STATEDIR)/gtk.extract
 $(STATEDIR)/gtk.extract: $(gtk_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK_DIR))
-	@$(call extract, $(GTK_SOURCE))
+	@$(call extract, GTK)
 	@$(call patchin, $(GTK))
 	@$(call touch, $@)
 

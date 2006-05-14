@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-kb.get: $(xorg-proto-kb_get_deps_default)
 
 $(XORG_PROTO_KB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_KB_URL))
+	@$(call get, XORG_PROTO_KB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-kb_extract: $(STATEDIR)/xorg-proto-kb.extract
 $(STATEDIR)/xorg-proto-kb.extract: $(xorg-proto-kb_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_KB_DIR))
-	@$(call extract, $(XORG_PROTO_KB_SOURCE))
+	@$(call extract, XORG_PROTO_KB)
 	@$(call patchin, $(XORG_PROTO_KB))
 	@$(call touch, $@)
 

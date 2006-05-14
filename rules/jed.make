@@ -38,7 +38,7 @@ $(STATEDIR)/jed.get: $(jed_get_deps_default)
 
 $(JED_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(JED_URL))
+	@$(call get, JED)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ jed_extract: $(STATEDIR)/jed.extract
 $(STATEDIR)/jed.extract: $(jed_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JED_DIR))
-	@$(call extract, $(JED_SOURCE))
+	@$(call extract, JED)
 	@$(call patchin, $(JED))
 	@$(call touch, $@)
 

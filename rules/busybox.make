@@ -38,7 +38,7 @@ $(STATEDIR)/busybox.get: $(busybox_get_deps_default)
 
 $(BUSYBOX_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BUSYBOX_URL))
+	@$(call get, BUSYBOX)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ busybox_extract: $(STATEDIR)/busybox.extract
 $(STATEDIR)/busybox.extract: $(busybox_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BUSYBOX_DIR))
-	@$(call extract, $(BUSYBOX_SOURCE))
+	@$(call extract, BUSYBOX)
 	@$(call patchin, $(BUSYBOX))
 
 #	# fix: turn off debugging in init.c

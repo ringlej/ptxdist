@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-arabic-misc.get: $(xorg-font-arabic-misc_get_deps_default)
 
 $(XORG_FONT_ARABIC_MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_ARABIC_MISC_URL))
+	@$(call get, XORG_FONT_ARABIC_MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-arabic-misc_extract: $(STATEDIR)/xorg-font-arabic-misc.extract
 $(STATEDIR)/xorg-font-arabic-misc.extract: $(xorg-font-arabic-misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_ARABIC_MISC_DIR))
-	@$(call extract, $(XORG_FONT_ARABIC_MISC_SOURCE))
+	@$(call extract, XORG_FONT_ARABIC_MISC)
 	@$(call patchin, $(XORG_FONT_ARABIC_MISC))
 	@$(call touch, $@)
 

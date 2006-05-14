@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-render.get: $(xorg-proto-render_get_deps_default)
 
 $(XORG_PROTO_RENDER_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_RENDER_URL))
+	@$(call get, XORG_PROTO_RENDER)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-render_extract: $(STATEDIR)/xorg-proto-render.extract
 $(STATEDIR)/xorg-proto-render.extract: $(xorg-proto-render_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_RENDER_DIR))
-	@$(call extract, $(XORG_PROTO_RENDER_SOURCE))
+	@$(call extract, XORG_PROTO_RENDER)
 	@$(call patchin, $(XORG_PROTO_RENDER))
 	@$(call touch, $@)
 

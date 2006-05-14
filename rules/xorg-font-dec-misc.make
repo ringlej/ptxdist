@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-dec-misc.get: $(xorg-font-dec-misc_get_deps_default)
 
 $(XORG_FONT_DEC_MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_DEC_MISC_URL))
+	@$(call get, XORG_FONT_DEC_MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-dec-misc_extract: $(STATEDIR)/xorg-font-dec-misc.extract
 $(STATEDIR)/xorg-font-dec-misc.extract: $(xorg-font-dec-misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_DEC_MISC_DIR))
-	@$(call extract, $(XORG_FONT_DEC_MISC_SOURCE))
+	@$(call extract, XORG_FONT_DEC_MISC)
 	@$(call patchin, $(XORG_FONT_DEC_MISC))
 	@$(call touch, $@)
 

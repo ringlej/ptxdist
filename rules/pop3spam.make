@@ -38,7 +38,7 @@ $(STATEDIR)/pop3spam.get: $(pop3spam_get_deps_default)
 
 $(POP3SPAM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(POP3SPAM_URL))
+	@$(call get, POP3SPAM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ pop3spam_extract: $(STATEDIR)/pop3spam.extract
 $(STATEDIR)/pop3spam.extract: $(pop3spam_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(POP3SPAM_DIR))
-	@$(call extract, $(POP3SPAM_SOURCE))
+	@$(call extract, POP3SPAM)
 	@$(call patchin, $(POP3SPAM))
 	@$(call touch, $@)
 

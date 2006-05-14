@@ -39,7 +39,7 @@ $(STATEDIR)/glib.get: $(glib_get_deps_default)
 
 $(GLIB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GLIB_URL))
+	@$(call get, GLIB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ glib_extract: $(STATEDIR)/glib.extract
 $(STATEDIR)/glib.extract: $(glib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB_DIR))
-	@$(call extract, $(GLIB_SOURCE))
+	@$(call extract, GLIB)
 	@$(call patchin, $(GLIB))
 	@$(call touch, $@)
 

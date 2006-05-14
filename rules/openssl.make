@@ -66,7 +66,7 @@ $(STATEDIR)/openssl.get: $(openssl_get_deps_default)
 
 $(OPENSSL_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(OPENSSL_URL))
+	@$(call get, OPENSSL)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -77,7 +77,7 @@ openssl_extract: $(STATEDIR)/openssl.extract
 $(STATEDIR)/openssl.extract: $(openssl_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENSSL_DIR))
-	@$(call extract, $(OPENSSL_SOURCE))
+	@$(call extract, OPENSSL)
 	@$(call patchin, $(OPENSSL))
 	@$(call touch, $@)
 

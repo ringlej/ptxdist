@@ -38,7 +38,7 @@ $(STATEDIR)/ltp.get: $(ltp_get_deps_default)
 
 $(LTP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LTP_URL))
+	@$(call get, LTP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ ltp_extract: $(STATEDIR)/ltp.extract
 $(STATEDIR)/ltp.extract: $(ltp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LTP_DIR))
-	@$(call extract, $(LTP_SOURCE))
+	@$(call extract, LTP)
 	@$(call patchin, $(LTP))
 	@$(call touch, $@)
 

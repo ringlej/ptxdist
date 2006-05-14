@@ -38,7 +38,7 @@ $(STATEDIR)/initng.get: $(initng_get_deps_default)
 
 $(INITNG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(INITNG_URL))
+	@$(call get, INITNG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ initng_extract: $(STATEDIR)/initng.extract
 $(STATEDIR)/initng.extract: $(initng_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(INITNG_DIR))
-	@$(call extract, $(INITNG_SOURCE))
+	@$(call extract, INITNG)
 	@$(call patchin, $(INITNG))
 	@$(call touch, $@)
 

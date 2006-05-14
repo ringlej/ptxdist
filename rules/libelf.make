@@ -39,7 +39,7 @@ $(STATEDIR)/libelf.get: $(libelf_get_deps_default)
 
 $(LIBELF_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBELF_URL))
+	@$(call get, LIBELF)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ libelf_extract: $(STATEDIR)/libelf.extract
 $(STATEDIR)/libelf.extract: $(libelf_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBELF_DIR))
-	@$(call extract, $(LIBELF_SOURCE))
+	@$(call extract, LIBELF)
 	@$(call patchin, $(LIBELF))
 	@$(call touch, $@)
 

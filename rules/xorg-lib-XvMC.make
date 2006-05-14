@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-XvMC.get: $(xorg-lib-XvMC_get_deps_default)
 
 $(XORG_LIB_XVMC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XVMC_URL))
+	@$(call get, XORG_LIB_XVMC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-XvMC_extract: $(STATEDIR)/xorg-lib-XvMC.extract
 $(STATEDIR)/xorg-lib-XvMC.extract: $(xorg-lib-XvMC_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XVMC_DIR))
-	@$(call extract, $(XORG_LIB_XVMC_SOURCE))
+	@$(call extract, XORG_LIB_XVMC)
 	@$(call patchin, $(XORG_LIB_XVMC))
 	@$(call touch, $@)
 

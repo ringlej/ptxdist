@@ -38,7 +38,7 @@ $(STATEDIR)/konq-e.get: $(konq-e_get_deps_default)
 
 $(KONQ_E_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(KONQ_E_URL))
+	@$(call get, KONQ_E)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ konq-e_extract: $(STATEDIR)/konq-e.extract
 $(STATEDIR)/konq-e.extract: $(konq-e_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KONQ_E_DIR))
-	@$(call extract, $(KONQ_E_SOURCE))
+	@$(call extract, KONQ_E)
 	@$(call patchin, $(KONQ_E))
 	@$(call touch, $@)
 

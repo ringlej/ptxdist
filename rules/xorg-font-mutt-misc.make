@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-mutt-misc.get: $(xorg-font-mutt-misc_get_deps_default)
 
 $(XORG_FONT_MUTT_MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_MUTT_MISC_URL))
+	@$(call get, XORG_FONT_MUTT_MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-mutt-misc_extract: $(STATEDIR)/xorg-font-mutt-misc.extract
 $(STATEDIR)/xorg-font-mutt-misc.extract: $(xorg-font-mutt-misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_MUTT_MISC_DIR))
-	@$(call extract, $(XORG_FONT_MUTT_MISC_SOURCE))
+	@$(call extract, XORG_FONT_MUTT_MISC)
 	@$(call patchin, $(XORG_FONT_MUTT_MISC))
 	@$(call touch, $@)
 

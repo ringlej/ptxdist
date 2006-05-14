@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-WindowsWM.get: $(xorg-lib-WindowsWM_get_deps_default)
 
 $(XORG_LIB_WINDOWSWM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_WINDOWSWM_URL))
+	@$(call get, XORG_LIB_WINDOWSWM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-WindowsWM_extract: $(STATEDIR)/xorg-lib-WindowsWM.extract
 $(STATEDIR)/xorg-lib-WindowsWM.extract: $(xorg-lib-WindowsWM_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_WINDOWSWM_DIR))
-	@$(call extract, $(XORG_LIB_WINDOWSWM_SOURCE))
+	@$(call extract, XORG_LIB_WINDOWSWM)
 	@$(call patchin, $(XORG_LIB_WINDOWSWM))
 	@$(call touch, $@)
 

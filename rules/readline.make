@@ -38,7 +38,7 @@ $(STATEDIR)/readline.get: $(readline_get_deps_default)
 
 $(READLINE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(READLINE_URL))
+	@$(call get, READLINE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ readline_extract: $(STATEDIR)/readline.extract
 $(STATEDIR)/readline.extract: $(readline_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(READLINE_DIR))
-	@$(call extract, $(READLINE_SOURCE))
+	@$(call extract, READLINE)
 	@$(call patchin, $(READLINE))
 	@$(call touch, $@)
 

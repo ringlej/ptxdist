@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-isas-misc.get: $(xorg-font-isas-misc_get_deps_default)
 
 $(XORG_FONT_ISAS_MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_ISAS_MISC_URL))
+	@$(call get, XORG_FONT_ISAS_MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-isas-misc_extract: $(STATEDIR)/xorg-font-isas-misc.extract
 $(STATEDIR)/xorg-font-isas-misc.extract: $(xorg-font-isas-misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_ISAS_MISC_DIR))
-	@$(call extract, $(XORG_FONT_ISAS_MISC_SOURCE))
+	@$(call extract, XORG_FONT_ISAS_MISC)
 	@$(call patchin, $(XORG_FONT_ISAS_MISC))
 	@$(call touch, $@)
 

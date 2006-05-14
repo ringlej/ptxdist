@@ -38,7 +38,7 @@ $(STATEDIR)/etherwake.get: $(etherwake_get_deps_default)
 
 $(ETHERWAKE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(ETHERWAKE_URL))
+	@$(call get, ETHERWAKE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ etherwake_extract: $(STATEDIR)/etherwake.extract
 $(STATEDIR)/etherwake.extract: $(etherwake_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ETHERWAKE_DIR))
-	@$(call extract, $(ETHERWAKE_SOURCE))
+	@$(call extract, ETHERWAKE)
 	@$(call patchin, $(ETHERWAKE))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/liboop.get: $(liboop_get_deps_default)
 
 $(LIBOOP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBOOP_URL))
+	@$(call get, LIBOOP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ liboop_extract: $(STATEDIR)/liboop.extract
 $(STATEDIR)/liboop.extract: $(liboop_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBOOP_DIR))
-	@$(call extract, $(LIBOOP_SOURCE))
+	@$(call extract, LIBOOP)
 	@$(call patchin, $(LIBOOP))
 	@$(call touch, $@)
 

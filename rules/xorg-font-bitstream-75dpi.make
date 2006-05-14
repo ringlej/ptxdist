@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-bitstream-75dpi.get: $(xorg-font-bitstream-75dpi_get_deps_
 
 $(XORG_FONT_BITSTREAM_75DPI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_BITSTREAM_75DPI_URL))
+	@$(call get, XORG_FONT_BITSTREAM_75DPI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-bitstream-75dpi_extract: $(STATEDIR)/xorg-font-bitstream-75dpi.extract
 $(STATEDIR)/xorg-font-bitstream-75dpi.extract: $(xorg-font-bitstream-75dpi_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_BITSTREAM_75DPI_DIR))
-	@$(call extract, $(XORG_FONT_BITSTREAM_75DPI_SOURCE))
+	@$(call extract, XORG_FONT_BITSTREAM_75DPI)
 	@$(call patchin, $(XORG_FONT_BITSTREAM_75DPI))
 	@$(call touch, $@)
 

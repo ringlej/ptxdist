@@ -47,7 +47,7 @@ $(STATEDIR)/host-mico.extract: $(host-mico_extract_deps_default)
 	@$(call clean, $(HOST_MICO_DIR))
 	mkdir -p $(HOST_BUILDDIR)
 	tmpdir=`mktemp -d`; \
-	$(call extract, $(HOST_MICO_SOURCE), $$tmpdir) \
+	$(call extract, HOST_MICO, $$tmpdir) \
 	mv $$tmpdir/mico $(HOST_MICO_DIR); \
 	rm -fr $$tmpdir
 	@$(call patchin, $(HOST_MICO), $(HOST_MICO_DIR))

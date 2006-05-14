@@ -38,7 +38,7 @@ $(STATEDIR)/figlet.get: $(figlet_get_deps_default)
 
 $(FIGLET_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(FIGLET_URL))
+	@$(call get, FIGLET)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ figlet_extract: $(STATEDIR)/figlet.extract
 $(STATEDIR)/figlet.extract: $(figlet_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FIGLET_DIR))
-	@$(call extract, $(FIGLET_SOURCE))
+	@$(call extract, FIGLET)
 	@$(call patchin, $(FIGLET))
 	@$(call touch, $@)
 

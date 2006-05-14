@@ -38,7 +38,7 @@ $(STATEDIR)/setmixer.get: $(setmixer_get_deps_default)
 
 $(SETMIXER_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SETMIXER_URL))
+	@$(call get, SETMIXER)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ setmixer_extract: $(STATEDIR)/setmixer.extract
 $(STATEDIR)/setmixer.extract: $(setmixer_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SETMIXER_DIR))
-	@$(call extract, $(SETMIXER_SOURCE))
+	@$(call extract, SETMIXER)
 	@$(call patchin, $(SETMIXER),$(SETMIXER_DIR))
 	@$(call touch, $@)
 

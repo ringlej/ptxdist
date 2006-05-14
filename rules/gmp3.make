@@ -37,7 +37,7 @@ $(STATEDIR)/gmp3.get: $(gmp3_get_deps_default))
 
 $(GMP3_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GMP3_URL))
+	@$(call get, GMP3)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,7 @@ gmp3_extract: $(STATEDIR)/gmp3.extract
 $(STATEDIR)/gmp3.extract: $(gmp3_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GMP3_DIR))
-	@$(call extract, $(GMP3_SOURCE))
+	@$(call extract, GMP3)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

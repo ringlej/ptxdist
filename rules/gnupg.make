@@ -38,7 +38,7 @@ $(STATEDIR)/gnupg.get: $(gnupg_get_deps_default)
 
 $(GNUPG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GNUPG_URL))
+	@$(call get, GNUPG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ gnupg_extract: $(STATEDIR)/gnupg.extract
 $(STATEDIR)/gnupg.extract: $(gnupg_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GNUPG_DIR))
-	@$(call extract, $(GNUPG_SOURCE))
+	@$(call extract, GNUPG)
 	@$(call patchin, $(GNUPG))
 	@$(call touch, $@)
 

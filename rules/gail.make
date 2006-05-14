@@ -38,7 +38,7 @@ $(STATEDIR)/gail.get: $(gail_get_deps_default)
 
 $(GAIL_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GAIL_URL))
+	@$(call get, GAIL)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ gail_extract: $(STATEDIR)/gail.extract
 $(STATEDIR)/gail.extract: $(gail_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GAIL_DIR))
-	@$(call extract, $(GAIL_SOURCE))
+	@$(call extract, GAIL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

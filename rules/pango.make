@@ -40,7 +40,7 @@ $(STATEDIR)/pango.get: $(pango_get_deps_default)
 
 $(PANGO_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PANGO_URL))
+	@$(call get, PANGO)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,7 +51,7 @@ pango_extract: $(STATEDIR)/pango.extract
 $(STATEDIR)/pango.extract: $(pango_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PANGO_DIR))
-	@$(call extract, $(PANGO_SOURCE))
+	@$(call extract, PANGO)
 	@$(call patchin, $(PANGO))
 	@$(call touch, $@)
 

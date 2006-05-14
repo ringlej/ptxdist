@@ -38,7 +38,7 @@ $(STATEDIR)/nano.get: $(nano_get_deps_default)
 
 $(NANO_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(NANO_URL))
+	@$(call get, NANO)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ nano_extract: $(STATEDIR)/nano.extract
 $(STATEDIR)/nano.extract: $(nano_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NANO_DIR))
-	@$(call extract, $(NANO_SOURCE))
+	@$(call extract, NANO)
 	@$(call patchin, $(NANO))
 	@$(call touch, $@)
 

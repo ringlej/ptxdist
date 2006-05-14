@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xv.get: $(xorg-lib-Xv_get_deps_default)
 
 $(XORG_LIB_XV_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XV_URL))
+	@$(call get, XORG_LIB_XV)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xv_extract: $(STATEDIR)/xorg-lib-Xv.extract
 $(STATEDIR)/xorg-lib-Xv.extract: $(xorg-lib-Xv_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XV_DIR))
-	@$(call extract, $(XORG_LIB_XV_SOURCE))
+	@$(call extract, XORG_LIB_XV)
 	@$(call patchin, $(XORG_LIB_XV))
 	@$(call touch, $@)
 

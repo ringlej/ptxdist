@@ -38,7 +38,7 @@ $(STATEDIR)/tcpdump.get: $(tcpdump_get_deps_default)
 
 $(TCPDUMP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(TCPDUMP_URL))
+	@$(call get, TCPDUMP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ tcpdump_extract: $(STATEDIR)/tcpdump.extract
 $(STATEDIR)/tcpdump.extract: $(tcpdump_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TCPDUMP_DIR))
-	@$(call extract, $(TCPDUMP_SOURCE), $(BUILDDIR))
+	@$(call extract, TCPDUMP, $(BUILDDIR))
 	@$(call patchin, $(TCPDUMP))
 	@$(call touch, $@)
 

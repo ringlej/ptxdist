@@ -38,7 +38,7 @@ $(STATEDIR)/flex.get: $(flex_get_deps_default)
 
 $(FLEX_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(FLEX_URL))
+	@$(call get, FLEX)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ flex_extract: $(STATEDIR)/flex.extract
 $(STATEDIR)/flex.extract: $(flex_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLEX_DIR))
-	@$(call extract, $(FLEX_SOURCE))
+	@$(call extract, FLEX)
 	@$(call patchin, $(FLEX))
 	@$(call touch, $@)
 

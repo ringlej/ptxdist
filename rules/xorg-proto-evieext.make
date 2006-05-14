@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-evieext.get: $(xorg-proto-evieext_get_deps_default)
 
 $(XORG_PROTO_EVIEEXT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_EVIEEXT_URL))
+	@$(call get, XORG_PROTO_EVIEEXT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-evieext_extract: $(STATEDIR)/xorg-proto-evieext.extract
 $(STATEDIR)/xorg-proto-evieext.extract: $(xorg-proto-evieext_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_EVIEEXT_DIR))
-	@$(call extract, $(XORG_PROTO_EVIEEXT_SOURCE))
+	@$(call extract, XORG_PROTO_EVIEEXT)
 	@$(call patchin, $(XORG_PROTO_EVIEEXT))
 	@$(call touch, $@)
 

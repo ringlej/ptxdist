@@ -44,7 +44,7 @@ $(STATEDIR)/qte.get: $(qte_get_deps_default)
 
 $(QTE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(QTE_URL))
+	@$(call get, QTE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -55,7 +55,7 @@ qte_extract: $(STATEDIR)/qte.extract
 $(STATEDIR)/qte.extract: $(qte_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(QTE_DIR))
-	@$(call extract, $(QTE_SOURCE))
+	@$(call extract, QTE)
 	@$(call patchin, $(QTE))
 	@$(call touch, $@)
 

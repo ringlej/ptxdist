@@ -38,7 +38,7 @@ $(STATEDIR)/dbench.get: $(dbench_get_deps_default)
 
 $(DBENCH_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(DBENCH_URL))
+	@$(call get, DBENCH)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ dbench_extract: $(STATEDIR)/dbench.extract
 $(STATEDIR)/dbench.extract: $(dbench_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DBENCH_DIR))
-	@$(call extract, $(DBENCH_SOURCE))
+	@$(call extract, DBENCH)
 	@$(call patchin, $(DBENCH))
 	@$(call touch, $@)
 

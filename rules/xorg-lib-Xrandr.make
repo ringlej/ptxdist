@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xrandr.get: $(xorg-lib-Xrandr_get_deps_default)
 
 $(XORG_LIB_XRANDR_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XRANDR_URL))
+	@$(call get, XORG_LIB_XRANDR)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xrandr_extract: $(STATEDIR)/xorg-lib-Xrandr.extract
 $(STATEDIR)/xorg-lib-Xrandr.extract: $(xorg-lib-Xrandr_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRANDR_DIR))
-	@$(call extract, $(XORG_LIB_XRANDR_SOURCE))
+	@$(call extract, XORG_LIB_XRANDR)
 	@$(call patchin, $(XORG_LIB_XRANDR))
 	@$(call touch, $@)
 

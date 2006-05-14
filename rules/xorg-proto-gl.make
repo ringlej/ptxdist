@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-gl.get: $(xorg-proto-gl_get_deps_default)
 
 $(XORG_PROTO_GL_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_GL_URL))
+	@$(call get, XORG_PROTO_GL)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-gl_extract: $(STATEDIR)/xorg-proto-gl.extract
 $(STATEDIR)/xorg-proto-gl.extract: $(xorg-proto-gl_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_GL_DIR))
-	@$(call extract, $(XORG_PROTO_GL_SOURCE))
+	@$(call extract, XORG_PROTO_GL)
 	@$(call patchin, $(XORG_PROTO_GL))
 	@$(call touch, $@)
 

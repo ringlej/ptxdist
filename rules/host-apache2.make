@@ -40,7 +40,7 @@ host-apache2_extract: $(STATEDIR)/host-apache2.extract
 $(STATEDIR)/host-apache2.extract: $(host-apache2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_APACHE2_DIR))
-	@$(call extract, $(APACHE2_SOURCE), $(HOST_BUILDDIR))
+	@$(call extract, APACHE2, $(HOST_BUILDDIR))
 	@$(call patchin, $(APACHE2), $(HOST_APACHE2_DIR))
 	@$(call touch, $@)
 

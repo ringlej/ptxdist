@@ -38,7 +38,7 @@ $(STATEDIR)/sdl_image.get: $(sdl_image_get_deps_default)
 
 $(SDL_IMAGE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SDL_IMAGE_URL))
+	@$(call get, SDL_IMAGE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ sdl_image_extract: $(STATEDIR)/sdl_image.extract
 $(STATEDIR)/sdl_image.extract: $(sdl_image_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SDL_IMAGE_DIR))
-	@$(call extract, $(SDL_IMAGE_SOURCE))
+	@$(call extract, SDL_IMAGE)
 	@$(call patchin, $(SDL_IMAGE))
 	@$(call touch, $@)
 

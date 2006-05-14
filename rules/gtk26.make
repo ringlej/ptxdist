@@ -39,7 +39,7 @@ $(STATEDIR)/gtk26.get: $(gtk26_get_deps_default)
 
 $(GTK26_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GTK26_URL))
+	@$(call get, GTK26)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ gtk26_extract: $(STATEDIR)/gtk26.extract
 $(STATEDIR)/gtk26.extract: $(gtk26_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK26_DIR))
-	@$(call extract, $(GTK26_SOURCE))
+	@$(call extract, GTK26)
 	@$(call patchin, $(GTK26))
 	@$(call touch, $@)
 

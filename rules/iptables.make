@@ -38,7 +38,7 @@ $(STATEDIR)/iptables.get: $(iptables_get_deps_default)
 
 $(IPTABLES_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(IPTABLES_URL))
+	@$(call get, IPTABLES)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ iptables_extract: $(STATEDIR)/iptables.extract
 $(STATEDIR)/iptables.extract: $(iptables_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPTABLES_DIR))
-	@$(call extract, $(IPTABLES_SOURCE))
+	@$(call extract, IPTABLES)
 	@$(call patchin, $(IPTABLES))
 	@$(call touch, $@)
 

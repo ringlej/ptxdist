@@ -39,7 +39,7 @@ $(STATEDIR)/libpng.get: $(libpng_get_deps_default)
 
 $(LIBPNG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBPNG_URL))
+	@$(call get, LIBPNG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ libpng_extract: $(STATEDIR)/libpng.extract
 $(STATEDIR)/libpng.extract: $(libpng_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPNG_DIR))
-	@$(call extract, $(LIBPNG_SOURCE))
+	@$(call extract, LIBPNG)
 	@$(call patchin, $(LIBPNG))
 	@$(call touch, $@)
 

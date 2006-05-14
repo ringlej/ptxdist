@@ -38,7 +38,7 @@ $(STATEDIR)/@packet@.get: $(@packet@_get_deps_default)
 
 $(@PACKET@_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(@PACKET@_URL))
+	@$(call get, @PACKET@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ $(@PACKET@_SOURCE):
 $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
-	@$(call extract, $(@PACKET@_SOURCE), $(HOST_BUILDDIR))
+	@$(call extract, @PACKET@, $(HOST_BUILDDIR))
 	@$(call patchin, $(@PACKET@), $(@PACKET@_DIR))
 	@$(call touch, $@)
 

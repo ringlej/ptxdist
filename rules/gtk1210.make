@@ -39,7 +39,7 @@ $(STATEDIR)/gtk1210.get: $(gtk1210_get_deps_default)
 
 $(GTK1210_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GTK1210_URL))
+	@$(call get, GTK1210)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ gtk1210_extract: $(STATEDIR)/gtk1210.extract
 $(STATEDIR)/gtk1210.extract: $(gtk1210_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK1210_DIR))
-	@$(call extract, $(GTK1210_SOURCE))
+	@$(call extract, GTK1210)
 	@$(call patchin, $(GTK1210))
 	@$(call touch, $@)
 

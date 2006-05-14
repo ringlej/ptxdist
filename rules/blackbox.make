@@ -38,7 +38,7 @@ $(STATEDIR)/blackbox.get: $(blackbox_get_deps_default)
 
 $(BLACKBOX_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BLACKBOX_URL))
+	@$(call get, BLACKBOX)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ blackbox_extract: $(STATEDIR)/blackbox.extract
 $(STATEDIR)/blackbox.extract: $(blackbox_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BLACKBOX_DIR))
-	@$(call extract, $(BLACKBOX_SOURCE))
+	@$(call extract, BLACKBOX)
 	@$(call patchin, $(BLACKBOX))
 	@$(call touch, $@)
 

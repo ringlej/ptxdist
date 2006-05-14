@@ -37,7 +37,7 @@ $(STATEDIR)/strace.get: $(strace_get_deps_default)
 
 $(STRACE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(STRACE_URL))
+	@$(call get, STRACE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,7 @@ strace_extract: $(STATEDIR)/strace.extract
 $(STATEDIR)/strace.extract: $(strace_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(STRACE_DIR))
-	@$(call extract, $(STRACE_SOURCE))
+	@$(call extract, STRACE)
 	@$(call patchin, $(STRACE))
 	@$(call touch, $@)
 

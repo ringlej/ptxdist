@@ -38,7 +38,7 @@ $(STATEDIR)/pekwm.get: $(pekwm_get_deps_default)
 
 $(PEKWM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PEKWM_URL))
+	@$(call get, PEKWM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ pekwm_extract: $(STATEDIR)/pekwm.extract
 $(STATEDIR)/pekwm.extract: $(pekwm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PEKWM_DIR))
-	@$(call extract, $(PEKWM_SOURCE))
+	@$(call extract, PEKWM)
 	@$(call patchin, $(PEKWM))
 	@$(call touch, $@)
 

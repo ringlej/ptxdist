@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-xtrans.get: $(xorg-lib-xtrans_get_deps_default)
 
 $(XORG_LIB_XTRANS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XTRANS_URL))
+	@$(call get, XORG_LIB_XTRANS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-xtrans_extract: $(STATEDIR)/xorg-lib-xtrans.extract
 $(STATEDIR)/xorg-lib-xtrans.extract: $(xorg-lib-xtrans_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XTRANS_DIR))
-	@$(call extract, $(XORG_LIB_XTRANS_SOURCE))
+	@$(call extract, XORG_LIB_XTRANS)
 	@$(call patchin, $(XORG_LIB_XTRANS))
 	@$(call touch, $@)
 

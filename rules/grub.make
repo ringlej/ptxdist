@@ -36,7 +36,7 @@ $(STATEDIR)/grub.get: $(grub_get_deps_default)
 
 $(GRUB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GRUB_URL))
+	@$(call get, GRUB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,7 +47,7 @@ grub_extract: $(STATEDIR)/grub.extract
 $(STATEDIR)/grub.extract: $(grub_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GRUB_DIR))
-	@$(call extract, $(GRUB_SOURCE))
+	@$(call extract, GRUB)
 	@$(call patchin, $(GRUB))
 	@$(call touch, $@)
 

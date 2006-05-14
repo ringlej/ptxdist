@@ -38,7 +38,7 @@ $(STATEDIR)/wget.get: $(wget_get_deps_default)
 
 $(WGET_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(WGET_URL))
+	@$(call get, WGET)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ wget_extract: $(STATEDIR)/wget.extract
 $(STATEDIR)/wget.extract: $(wget_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WGET_DIR))
-	@$(call extract, $(WGET_SOURCE))
+	@$(call extract, WGET)
 	@$(call patchin, $(WGET_PACKET))
 	@$(call touch, $@)
 

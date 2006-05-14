@@ -38,7 +38,7 @@ $(STATEDIR)/binutils.get: $(binutils_get_deps_default)
 
 $(BINUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BINUTILS_URL))
+	@$(call get, BINUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ binutils_extract: $(STATEDIR)/binutils.extract
 $(STATEDIR)/binutils.extract: $(binutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BINUTILS_DIR))
-	@$(call extract, $(BINUTILS_SOURCE))
+	@$(call extract, BINUTILS)
 	@$(call patchin, $(BINUTILS))
 	@$(call touch, $@)
 

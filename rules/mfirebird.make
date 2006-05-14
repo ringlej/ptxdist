@@ -39,7 +39,7 @@ $(STATEDIR)/mfirebird.get: $(mfirebird_get_deps_default)
 
 $(MFIREBIRD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MFIREBIRD_URL))
+	@$(call get, MFIREBIRD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ mfirebird_extract: $(STATEDIR)/mfirebird.extract
 $(STATEDIR)/mfirebird.extract: $(mfirebird_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MFIREBIRD_DIR))
-	@$(call extract, $(MFIREBIRD_SOURCE))
+	@$(call extract, MFIREBIRD)
 	cd $(BUILDDIR) && mv mozilla $(MFIREBIRD)
 	@$(call patchin, $(MFIREBIRD))
 	@$(call touch, $@)

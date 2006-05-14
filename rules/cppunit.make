@@ -38,7 +38,7 @@ $(STATEDIR)/cppunit.get: $(cppunit_get_deps_default)
 
 $(CPPUNIT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(CPPUNIT_URL))
+	@$(call get, CPPUNIT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ cppunit_extract: $(STATEDIR)/cppunit.extract
 $(STATEDIR)/cppunit.extract: $(cppunit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CPPUNIT_DIR))
-	@$(call extract, $(CPPUNIT_SOURCE))
+	@$(call extract, CPPUNIT)
 	@$(call patchin, $(CPPUNIT))
 	@$(call touch, $@)
 

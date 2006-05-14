@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-winitzki-cyrillic.get: $(xorg-font-winitzki-cyrillic_get_d
 
 $(XORG_FONT_WINITZKI_CYRILLIC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_WINITZKI_CYRILLIC_URL))
+	@$(call get, XORG_FONT_WINITZKI_CYRILLIC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-winitzki-cyrillic_extract: $(STATEDIR)/xorg-font-winitzki-cyrillic.ext
 $(STATEDIR)/xorg-font-winitzki-cyrillic.extract: $(xorg-font-winitzki-cyrillic_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_WINITZKI_CYRILLIC_DIR))
-	@$(call extract, $(XORG_FONT_WINITZKI_CYRILLIC_SOURCE))
+	@$(call extract, XORG_FONT_WINITZKI_CYRILLIC)
 	@$(call patchin, $(XORG_FONT_WINITZKI_CYRILLIC))
 	@$(call touch, $@)
 

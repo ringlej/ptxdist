@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-xkbui.get: $(xorg-lib-xkbui_get_deps_default)
 
 $(XORG_LIB_XKBUI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XKBUI_URL))
+	@$(call get, XORG_LIB_XKBUI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-xkbui_extract: $(STATEDIR)/xorg-lib-xkbui.extract
 $(STATEDIR)/xorg-lib-xkbui.extract: $(xorg-lib-xkbui_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XKBUI_DIR))
-	@$(call extract, $(XORG_LIB_XKBUI_SOURCE))
+	@$(call extract, XORG_LIB_XKBUI)
 	@$(call patchin, $(XORG_LIB_XKBUI))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/penguzilla.get: $(penguzilla_get_deps_default)
 
 $(PENGUZILLA_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PENGUZILLA_URL))
+	@$(call get, PENGUZILLA)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ penguzilla_extract: $(STATEDIR)/penguzilla.extract
 $(STATEDIR)/penguzilla.extract: $(penguzilla_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PENGUZILLA_DIR))
-	@$(call extract, $(PENGUZILLA_SOURCE))
+	@$(call extract, PENGUZILLA)
 	@$(call patchin, $(PENGUZILLA))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/gnuplot.get: $(gnuplot_get_deps_default)
 
 $(GNUPLOT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GNUPLOT_URL))
+	@$(call get, GNUPLOT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ gnuplot_extract: $(STATEDIR)/gnuplot.extract
 $(STATEDIR)/gnuplot.extract: $(gnuplot_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GNUPLOT_DIR))
-	@$(call extract, $(GNUPLOT_SOURCE))
+	@$(call extract, GNUPLOT)
 	@$(call patchin, $(GNUPLOT))
 	@$(call touch, $@)
 

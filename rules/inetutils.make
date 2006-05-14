@@ -38,7 +38,7 @@ $(STATEDIR)/inetutils.get: $(inetutils_get_deps_default)
 
 $(INETUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(INETUTILS_URL))
+	@$(call get, INETUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ inetutils_extract: $(STATEDIR)/inetutils.extract
 $(STATEDIR)/inetutils.extract: $(inetutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(INETUTILS_DIR))
-	@$(call extract, $(INETUTILS_SOURCE))
+	@$(call extract, INETUTILS)
 	@$(call patchin, $(INETUTILS))
 	@$(call touch, $@)
 

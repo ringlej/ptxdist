@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-damage.get: $(xorg-proto-damage_get_deps_default)
 
 $(XORG_PROTO_DAMAGE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_DAMAGE_URL))
+	@$(call get, XORG_PROTO_DAMAGE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-damage_extract: $(STATEDIR)/xorg-proto-damage.extract
 $(STATEDIR)/xorg-proto-damage.extract: $(xorg-proto-damage_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_DAMAGE_DIR))
-	@$(call extract, $(XORG_PROTO_DAMAGE_SOURCE))
+	@$(call extract, XORG_PROTO_DAMAGE)
 	@$(call patchin, $(XORG_PROTO_DAMAGE))
 	@$(call touch, $@)
 

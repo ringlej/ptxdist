@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xft.get: $(xorg-lib-Xft_get_deps_default)
 
 $(XORG_LIB_XFT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XFT_URL))
+	@$(call get, XORG_LIB_XFT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xft_extract: $(STATEDIR)/xorg-lib-Xft.extract
 $(STATEDIR)/xorg-lib-Xft.extract: $(xorg-lib-Xft_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XFT_DIR))
-	@$(call extract, $(XORG_LIB_XFT_SOURCE))
+	@$(call extract, XORG_LIB_XFT)
 	@$(call patchin, $(XORG_LIB_XFT))
 	@$(call touch, $@)
 

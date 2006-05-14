@@ -38,7 +38,7 @@ $(STATEDIR)/pnetlib.get: $(pnetlib_get_deps_default)
 
 $(PNETLIB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PNETLIB_URL))
+	@$(call get, PNETLIB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ pnetlib_extract: $(STATEDIR)/pnetlib.extract
 $(STATEDIR)/pnetlib.extract: $(pnetlib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PNETLIB_DIR))
-	@$(call extract, $(PNETLIB_SOURCE))
+	@$(call extract, PNETLIB)
 	@$(call patchin, $(PNETLIB))
 	@$(call touch, $@)
 

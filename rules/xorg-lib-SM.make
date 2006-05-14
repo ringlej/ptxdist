@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-SM.get: $(xorg-lib-SM_get_deps_default)
 
 $(XORG_LIB_SM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_SM_URL))
+	@$(call get, XORG_LIB_SM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-SM_extract: $(STATEDIR)/xorg-lib-SM.extract
 $(STATEDIR)/xorg-lib-SM.extract: $(xorg-lib-SM_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_SM_DIR))
-	@$(call extract, $(XORG_LIB_SM_SOURCE))
+	@$(call extract, XORG_LIB_SM)
 	@$(call patchin, $(XORG_LIB_SM))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-schumacher-misc.get: $(xorg-font-schumacher-misc_get_deps_
 
 $(XORG_FONT_SCHUMACHER_MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_SCHUMACHER_MISC_URL))
+	@$(call get, XORG_FONT_SCHUMACHER_MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-schumacher-misc_extract: $(STATEDIR)/xorg-font-schumacher-misc.extract
 $(STATEDIR)/xorg-font-schumacher-misc.extract: $(xorg-font-schumacher-misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_SCHUMACHER_MISC_DIR))
-	@$(call extract, $(XORG_FONT_SCHUMACHER_MISC_SOURCE))
+	@$(call extract, XORG_FONT_SCHUMACHER_MISC)
 	@$(call patchin, $(XORG_FONT_SCHUMACHER_MISC))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-driver-video-fbdev.get: $(xorg-driver-video-fbdev_get_deps_defa
 
 $(XORG_DRIVER_VIDEO_FBDEV_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_DRIVER_VIDEO_FBDEV_URL))
+	@$(call get, XORG_DRIVER_VIDEO_FBDEV)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-driver-video-fbdev_extract: $(STATEDIR)/xorg-driver-video-fbdev.extract
 $(STATEDIR)/xorg-driver-video-fbdev.extract: $(xorg-driver-video-fbdev_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_VIDEO_FBDEV_DIR))
-	@$(call extract, $(XORG_DRIVER_VIDEO_FBDEV_SOURCE))
+	@$(call extract, XORG_DRIVER_VIDEO_FBDEV)
 	@$(call patchin, $(XORG_DRIVER_VIDEO_FBDEV))
 	@$(call touch, $@)
 

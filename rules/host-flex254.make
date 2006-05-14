@@ -40,7 +40,7 @@ host-flex254_extract: $(STATEDIR)/host-flex254.extract
 $(STATEDIR)/host-flex254.extract: $(host-flex254_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_FLEX254_DIR))
-	@$(call extract, $(FLEX_SOURCE), $(HOST_BUILDDIR))
+	@$(call extract, FLEX, $(HOST_BUILDDIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -38,7 +38,7 @@ $(STATEDIR)/hexedit.get: $(hexedit_get_deps_default)
 
 $(HEXEDIT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HEXEDIT_URL))
+	@$(call get, HEXEDIT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ hexedit_extract: $(STATEDIR)/hexedit.extract
 $(STATEDIR)/hexedit.extract: $(hexedit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HEXEDIT_DIR))
-	@$(call extract, $(HEXEDIT_SOURCE))
+	@$(call extract, HEXEDIT)
 	mv $(BUILDDIR)/hexedit $(HEXEDIT_DIR)
 	@$(call patchin, $(HEXEDIT))
 	@$(call touch, $@)

@@ -38,7 +38,7 @@ $(STATEDIR)/procps.get: $(procps_get_deps_default)
 
 $(PROCPS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PROCPS_URL))
+	@$(call get, PROCPS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ procps_extract: $(STATEDIR)/procps.extract
 $(STATEDIR)/procps.extract: $(procps_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PROCPS_DIR))
-	@$(call extract, $(PROCPS_SOURCE))
+	@$(call extract, PROCPS)
 	@$(call patchin, $(PROCPS))
 	@$(call touch, $@)
 

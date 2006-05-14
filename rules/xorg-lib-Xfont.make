@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xfont.get: $(xorg-lib-Xfont_get_deps_default)
 
 $(XORG_LIB_XFONT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XFONT_URL))
+	@$(call get, XORG_LIB_XFONT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xfont_extract: $(STATEDIR)/xorg-lib-Xfont.extract
 $(STATEDIR)/xorg-lib-Xfont.extract: $(xorg-lib-Xfont_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XFONT_DIR))
-	@$(call extract, $(XORG_LIB_XFONT_SOURCE))
+	@$(call extract, XORG_LIB_XFONT)
 	@$(call patchin, $(XORG_LIB_XFONT))
 	@$(call touch, $@)
 

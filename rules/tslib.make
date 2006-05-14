@@ -38,7 +38,7 @@ $(STATEDIR)/tslib.get: $(tslib_get_deps_default)
 
 $(TSLIB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(TSLIB_URL))
+	@$(call get, TSLIB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ tslib_extract: $(STATEDIR)/tslib.extract
 $(STATEDIR)/tslib.extract: $(tslib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TSLIB_DIR))
-	@$(call extract, $(TSLIB_SOURCE))
+	@$(call extract, TSLIB)
 	@$(call patchin, $(TSLIB))
 	@$(call touch, $@)
 

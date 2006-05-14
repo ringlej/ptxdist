@@ -38,7 +38,7 @@ $(STATEDIR)/syslogng.get: $(syslogng_get_deps_default)
 
 $(SYSLOGNG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SYSLOGNG_URL))
+	@$(call get, SYSLOGNG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ syslogng_extract: $(STATEDIR)/syslogng.extract
 $(STATEDIR)/syslogng.extract: $(syslogng_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSLOGNG_DIR))
-	@$(call extract, $(SYSLOGNG_SOURCE))
+	@$(call extract, SYSLOGNG)
 	@$(call patchin, $(SYSLOGNG))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-bh-lucidatypewriter-100dpi.get: $(xorg-font-bh-lucidatypew
 
 $(XORG_FONT_BH_LUCIDATYPEWRITER_100DPI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_BH_LUCIDATYPEWRITER_100DPI_URL))
+	@$(call get, XORG_FONT_BH_LUCIDATYPEWRITER_100DPI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-bh-lucidatypewriter-100dpi_extract: $(STATEDIR)/xorg-font-bh-lucidatyp
 $(STATEDIR)/xorg-font-bh-lucidatypewriter-100dpi.extract: $(xorg-font-bh-lucidatypewriter-100dpi_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_BH_LUCIDATYPEWRITER_100DPI_DIR))
-	@$(call extract, $(XORG_FONT_BH_LUCIDATYPEWRITER_100DPI_SOURCE))
+	@$(call extract, XORG_FONT_BH_LUCIDATYPEWRITER_100DPI)
 	@$(call patchin, $(XORG_FONT_BH_LUCIDATYPEWRITER_100DPI))
 	@$(call touch, $@)
 

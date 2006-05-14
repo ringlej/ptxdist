@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xp.get: $(xorg-lib-Xp_get_deps_default)
 
 $(XORG_LIB_XP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XP_URL))
+	@$(call get, XORG_LIB_XP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xp_extract: $(STATEDIR)/xorg-lib-Xp.extract
 $(STATEDIR)/xorg-lib-Xp.extract: $(xorg-lib-Xp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XP_DIR))
-	@$(call extract, $(XORG_LIB_XP_SOURCE))
+	@$(call extract, XORG_LIB_XP)
 	@$(call patchin, $(XORG_LIB_XP))
 	@$(call touch, $@)
 

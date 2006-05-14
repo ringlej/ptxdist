@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xres.get: $(xorg-lib-Xres_get_deps_default)
 
 $(XORG_LIB_XRES_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XRES_URL))
+	@$(call get, XORG_LIB_XRES)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xres_extract: $(STATEDIR)/xorg-lib-Xres.extract
 $(STATEDIR)/xorg-lib-Xres.extract: $(xorg-lib-Xres_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRES_DIR))
-	@$(call extract, $(XORG_LIB_XRES_SOURCE))
+	@$(call extract, XORG_LIB_XRES)
 	@$(call patchin, $(XORG_LIB_XRES))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/schedutils.get: $(schedutils_get_deps_default)
 
 $(SCHEDUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SCHEDUTILS_URL))
+	@$(call get, SCHEDUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ schedutils_extract: $(STATEDIR)/schedutils.extract
 $(STATEDIR)/schedutils.extract: $(schedutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SCHEDUTILS_DIR))
-	@$(call extract, $(SCHEDUTILS_SOURCE))
+	@$(call extract, SCHEDUTILS)
 	@$(call patchin, $(SCHEDUTILS))
 	@$(call touch, $@)
 

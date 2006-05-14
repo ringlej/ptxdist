@@ -38,7 +38,7 @@ $(STATEDIR)/sysutils.get: $(sysutils_get_deps_default)
 
 $(SYSUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SYSUTILS_URL))
+	@$(call get, SYSUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ sysutils_extract: $(STATEDIR)/sysutils.extract
 $(STATEDIR)/sysutils.extract: $(sysutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSUTILS_DIR))
-	@$(call extract, $(SYSUTILS_SOURCE))
+	@$(call extract, SYSUTILS)
 	@$(call patchin, $(SYSUTILS))
 	@$(call touch, $@)
 

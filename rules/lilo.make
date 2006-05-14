@@ -39,7 +39,7 @@ $(STATEDIR)/lilo.get: $(lilo_get_deps_default)
 
 $(LILO_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LILO_URL))
+	@$(call get, LILO)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ lilo_extract: $(STATEDIR)/lilo.extract
 $(STATEDIR)/lilo.extract: $(lilo_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LILO_DIR))
-	@$(call extract, $(LILO_SOURCE))
+	@$(call extract, LILO)
 	@$(call patchin, $(LILO))
 	@$(call touch, $@)
 

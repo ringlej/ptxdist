@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-scrnsaver.get: $(xorg-proto-scrnsaver_get_deps_default)
 
 $(XORG_PROTO_SCRNSAVER_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_SCRNSAVER_URL))
+	@$(call get, XORG_PROTO_SCRNSAVER)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-scrnsaver_extract: $(STATEDIR)/xorg-proto-scrnsaver.extract
 $(STATEDIR)/xorg-proto-scrnsaver.extract: $(xorg-proto-scrnsaver_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_SCRNSAVER_DIR))
-	@$(call extract, $(XORG_PROTO_SCRNSAVER_SOURCE))
+	@$(call extract, XORG_PROTO_SCRNSAVER)
 	@$(call patchin, $(XORG_PROTO_SCRNSAVER))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-lbxutil.get: $(xorg-lib-lbxutil_get_deps_default)
 
 $(XORG_LIB_LBXUTIL_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_LBXUTIL_URL))
+	@$(call get, XORG_LIB_LBXUTIL)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-lbxutil_extract: $(STATEDIR)/xorg-lib-lbxutil.extract
 $(STATEDIR)/xorg-lib-lbxutil.extract: $(xorg-lib-lbxutil_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_LBXUTIL_DIR))
-	@$(call extract, $(XORG_LIB_LBXUTIL_SOURCE))
+	@$(call extract, XORG_LIB_LBXUTIL)
 	@$(call patchin, $(XORG_LIB_LBXUTIL))
 	@$(call touch, $@)
 

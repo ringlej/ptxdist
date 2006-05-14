@@ -38,7 +38,7 @@ $(STATEDIR)/pnet.get: $(pnet_get_deps_default)
 
 $(PNET_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PNET_URL))
+	@$(call get, PNET)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ pnet_extract: $(STATEDIR)/pnet.extract
 $(STATEDIR)/pnet.extract: $(pnet_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PNET_DIR))
-	@$(call extract, $(PNET_SOURCE))
+	@$(call extract, PNET)
 	@$(call patchin, $(PNET))
 	@$(call touch, $@)
 

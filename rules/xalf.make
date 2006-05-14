@@ -38,7 +38,7 @@ $(STATEDIR)/xalf.get: $(xalf_get_deps_default)
 
 $(XALF_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XALF_URL))
+	@$(call get, XALF)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xalf_extract: $(STATEDIR)/xalf.extract
 $(STATEDIR)/xalf.extract: $(xalf_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XALF_DIR))
-	@$(call extract, $(XALF_SOURCE))
+	@$(call extract, XALF)
 	@$(call patchin, $(XALF))
 	@$(call touch, $@)
 

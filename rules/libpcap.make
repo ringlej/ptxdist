@@ -38,7 +38,7 @@ $(STATEDIR)/libpcap.get: $(libpcap_get_deps_default)
 
 $(LIBPCAP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBPCAP_URL))
+	@$(call get, LIBPCAP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libpcap_extract: $(STATEDIR)/libpcap.extract
 $(STATEDIR)/libpcap.extract: $(libpcap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPCAP_DIR))
-	@$(call extract, $(LIBPCAP_SOURCE))
+	@$(call extract, LIBPCAP)
 	@$(call patchin, $(LIBPCAP))
 	@$(call touch, $@)
 

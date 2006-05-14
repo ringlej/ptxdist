@@ -37,7 +37,7 @@ $(STATEDIR)/wireless.get: $(wireless_get_deps_default)
 
 $(WIRELESS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(WIRELESS_URL))
+	@$(call get, WIRELESS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,7 @@ wireless_extract: $(STATEDIR)/wireless.extract
 $(STATEDIR)/wireless.extract: $(wireless_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WIRELESS_DIR))
-	@$(call extract, $(WIRELESS_SOURCE))
+	@$(call extract, WIRELESS)
 	@$(call patchin, $(WIRELESS))
 	@$(call touch, $@)
 

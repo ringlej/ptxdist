@@ -38,7 +38,7 @@ $(STATEDIR)/liblist.get: $(liblist_get_deps_default)
 
 $(LIBLIST_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBLIST_URL))
+	@$(call get, LIBLIST)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ liblist_extract: $(STATEDIR)/liblist.extract
 $(STATEDIR)/liblist.extract: $(liblist_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBLIST_DIR))
-	@$(call extract, $(LIBLIST_SOURCE))
+	@$(call extract, LIBLIST)
 	@$(call patchin, $(LIBLIST))
 	@$(call touch, $@)
 

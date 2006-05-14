@@ -38,7 +38,7 @@ $(STATEDIR)/memstat.get: $(memstat_get_deps_default)
 
 $(MEMSTAT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MEMSTAT_URL))
+	@$(call get, MEMSTAT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ memstat_extract: $(STATEDIR)/memstat.extract
 $(STATEDIR)/memstat.extract: $(memstat_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMSTAT_DIR))
-	@$(call extract, $(MEMSTAT_SOURCE))
+	@$(call extract, MEMSTAT)
 	@$(call patchin, memstat-$(MEMSTAT_VERSION))
 	@$(call touch, $@)
 

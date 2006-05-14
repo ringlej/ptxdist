@@ -38,7 +38,7 @@ $(STATEDIR)/host-checkinstall.get: $(host-checkinstall_get_deps_default)
 
 $(HOST_CHECKINSTALL_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOST_CHECKINSTALL_URL))
+	@$(call get, HOST_CHECKINSTALL)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ host-checkinstall_extract: $(STATEDIR)/host-checkinstall.extract
 $(STATEDIR)/host-checkinstall.extract: $(host-checkinstall_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_CHECKINSTALL_DIR))
-	@$(call extract, $(HOST_CHECKINSTALL_SOURCE), $(HOST_BUILDDIR))
+	@$(call extract, HOST_CHECKINSTALL, $(HOST_BUILDDIR))
 	@$(call patchin, $(HOST_CHECKINSTALL), $(HOST_CHECKINSTALL_DIR))
 	@$(call touch, $@)
 

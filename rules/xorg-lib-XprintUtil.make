@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-XprintUtil.get: $(xorg-lib-XprintUtil_get_deps_default)
 
 $(XORG_LIB_XPRINTUTIL_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XPRINTUTIL_URL))
+	@$(call get, XORG_LIB_XPRINTUTIL)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-XprintUtil_extract: $(STATEDIR)/xorg-lib-XprintUtil.extract
 $(STATEDIR)/xorg-lib-XprintUtil.extract: $(xorg-lib-XprintUtil_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XPRINTUTIL_DIR))
-	@$(call extract, $(XORG_LIB_XPRINTUTIL_SOURCE))
+	@$(call extract, XORG_LIB_XPRINTUTIL)
 	@$(call patchin, $(XORG_LIB_XPRINTUTIL))
 	@$(call touch, $@)
 

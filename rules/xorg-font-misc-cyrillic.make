@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-misc-cyrillic.get: $(xorg-font-misc-cyrillic_get_deps_defa
 
 $(XORG_FONT_MISC_CYRILLIC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_MISC_CYRILLIC_URL))
+	@$(call get, XORG_FONT_MISC_CYRILLIC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-misc-cyrillic_extract: $(STATEDIR)/xorg-font-misc-cyrillic.extract
 $(STATEDIR)/xorg-font-misc-cyrillic.extract: $(xorg-font-misc-cyrillic_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_MISC_CYRILLIC_DIR))
-	@$(call extract, $(XORG_FONT_MISC_CYRILLIC_SOURCE))
+	@$(call extract, XORG_FONT_MISC_CYRILLIC)
 	@$(call patchin, $(XORG_FONT_MISC_CYRILLIC))
 	@$(call touch, $@)
 

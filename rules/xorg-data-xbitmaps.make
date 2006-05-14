@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-data-xbitmaps.get: $(xorg-data-xbitmaps_get_deps_default)
 
 $(XORG_DATA_XBITMAPS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_DATA_XBITMAPS_URL))
+	@$(call get, XORG_DATA_XBITMAPS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-data-xbitmaps_extract: $(STATEDIR)/xorg-data-xbitmaps.extract
 $(STATEDIR)/xorg-data-xbitmaps.extract: $(xorg-data-xbitmaps_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DATA_XBITMAPS_DIR))
-	@$(call extract, $(XORG_DATA_XBITMAPS_SOURCE))
+	@$(call extract, XORG_DATA_XBITMAPS)
 	@$(call patchin, $(XORG_DATA_XBITMAPS))
 	@$(call touch, $@)
 

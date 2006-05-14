@@ -38,7 +38,7 @@ $(STATEDIR)/dnsmasq.get: $(dnsmasq_get_deps_default)
 
 $(DNSMASQ_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(DNSMASQ_URL))
+	@$(call get, DNSMASQ)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ dnsmasq_extract: $(STATEDIR)/dnsmasq.extract
 $(STATEDIR)/dnsmasq.extract: $(dnsmasq_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DNSMASQ_DIR))
-	@$(call extract, $(DNSMASQ_SOURCE))
+	@$(call extract, DNSMASQ)
 	@$(call patchin, $(DNSMASQ))
 	@$(call touch, $@)
 

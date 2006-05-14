@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-composite.get: $(xorg-proto-composite_get_deps_default)
 
 $(XORG_PROTO_COMPOSITE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_COMPOSITE_URL))
+	@$(call get, XORG_PROTO_COMPOSITE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-composite_extract: $(STATEDIR)/xorg-proto-composite.extract
 $(STATEDIR)/xorg-proto-composite.extract: $(xorg-proto-composite_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_COMPOSITE_DIR))
-	@$(call extract, $(XORG_PROTO_COMPOSITE_SOURCE))
+	@$(call extract, XORG_PROTO_COMPOSITE)
 	@$(call patchin, $(XORG_PROTO_COMPOSITE))
 	@$(call touch, $@)
 

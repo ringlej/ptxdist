@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xinerama.get: $(xorg-lib-Xinerama_get_deps_default)
 
 $(XORG_LIB_XINERAMA_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XINERAMA_URL))
+	@$(call get, XORG_LIB_XINERAMA)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xinerama_extract: $(STATEDIR)/xorg-lib-Xinerama.extract
 $(STATEDIR)/xorg-lib-Xinerama.extract: $(xorg-lib-Xinerama_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XINERAMA_DIR))
-	@$(call extract, $(XORG_LIB_XINERAMA_SOURCE))
+	@$(call extract, XORG_LIB_XINERAMA)
 	@$(call patchin, $(XORG_LIB_XINERAMA))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-ICE.get: $(xorg-lib-ICE_get_deps_default)
 
 $(XORG_LIB_ICE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_ICE_URL))
+	@$(call get, XORG_LIB_ICE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-ICE_extract: $(STATEDIR)/xorg-lib-ICE.extract
 $(STATEDIR)/xorg-lib-ICE.extract: $(xorg-lib-ICE_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_ICE_DIR))
-	@$(call extract, $(XORG_LIB_ICE_SOURCE))
+	@$(call extract, XORG_LIB_ICE)
 	@$(call patchin, $(XORG_LIB_ICE))
 	@$(call touch, $@)
 

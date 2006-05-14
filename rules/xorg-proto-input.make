@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-input.get: $(xorg-proto-input_get_deps_default)
 
 $(XORG_PROTO_INPUT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_INPUT_URL))
+	@$(call get, XORG_PROTO_INPUT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-input_extract: $(STATEDIR)/xorg-proto-input.extract
 $(STATEDIR)/xorg-proto-input.extract: $(xorg-proto-input_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_INPUT_DIR))
-	@$(call extract, $(XORG_PROTO_INPUT_SOURCE))
+	@$(call extract, XORG_PROTO_INPUT)
 	@$(call patchin, $(XORG_PROTO_INPUT))
 	@$(call touch, $@)
 

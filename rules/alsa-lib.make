@@ -38,7 +38,7 @@ $(STATEDIR)/alsa-lib.get: $(alsa-lib_get_deps_default)
 
 $(ALSA_LIB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(ALSA_LIB_URL))
+	@$(call get, ALSA_LIB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ alsa-lib_extract: $(STATEDIR)/alsa-lib.extract
 $(STATEDIR)/alsa-lib.extract: $(alsa-lib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ALSA_LIB_DIR))
-	@$(call extract, $(ALSA_LIB_SOURCE))
+	@$(call extract, ALSA_LIB)
 	@$(call patchin, $(ALSA_LIB))
 	@$(call touch, $@)
 

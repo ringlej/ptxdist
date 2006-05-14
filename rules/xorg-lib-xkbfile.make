@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-xkbfile.get: $(xorg-lib-xkbfile_get_deps_default)
 
 $(XORG_LIB_XKBFILE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XKBFILE_URL))
+	@$(call get, XORG_LIB_XKBFILE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-xkbfile_extract: $(STATEDIR)/xorg-lib-xkbfile.extract
 $(STATEDIR)/xorg-lib-xkbfile.extract: $(xorg-lib-xkbfile_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XKBFILE_DIR))
-	@$(call extract, $(XORG_LIB_XKBFILE_SOURCE))
+	@$(call extract, XORG_LIB_XKBFILE)
 	@$(call patchin, $(XORG_LIB_XKBFILE))
 	@$(call touch, $@)
 

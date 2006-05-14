@@ -38,7 +38,7 @@ $(STATEDIR)/host-ipkg-utils.get: $(host-ipkg-utils_get_deps_default)
 
 $(HOST_IPKG_UTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOST_IPKG_UTILS_URL))
+	@$(call get, HOST_IPKG_UTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ host-ipkg-utils_extract: $(STATEDIR)/host-ipkg-utils.extract
 $(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_IPKG_UTILS_DIR))
-	@$(call extract, $(HOST_IPKG_UTILS_SOURCE), $(HOST_BUILDDIR))
+	@$(call extract, HOST_IPKG_UTILS, $(HOST_BUILDDIR))
 	@$(call patchin, $(HOST_IPKG_UTILS), $(HOST_IPKG_UTILS_DIR))
 	perl -i -p -e "s,^PREFIX=(.*),PREFIX=$(PTXCONF_HOST_PREFIX)/usr,g" \
 		$(HOST_IPKG_UTILS_DIR)/Makefile

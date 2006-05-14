@@ -38,7 +38,7 @@ $(STATEDIR)/setserial.get: $(setserial_get_deps_default)
 
 $(SETSERIAL_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SETSERIAL_URL))
+	@$(call get, SETSERIAL)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ setserial_extract: $(STATEDIR)/setserial.extract
 $(STATEDIR)/setserial.extract: $(setserial_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SETSERIAL_DIR))
-	@$(call extract, $(SETSERIAL_SOURCE))
+	@$(call extract, SETSERIAL)
 	@$(call patchin, $(SETSERIAL))
 	@$(call touch, $@)
 

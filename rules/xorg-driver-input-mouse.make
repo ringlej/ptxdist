@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-driver-input-mouse.get: $(xorg-driver-input-mouse_get_deps_defa
 
 $(XORG_DRIVER_INPUT_MOUSE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_DRIVER_INPUT_MOUSE_URL))
+	@$(call get, XORG_DRIVER_INPUT_MOUSE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-driver-input-mouse_extract: $(STATEDIR)/xorg-driver-input-mouse.extract
 $(STATEDIR)/xorg-driver-input-mouse.extract: $(xorg-driver-input-mouse_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_INPUT_MOUSE_DIR))
-	@$(call extract, $(XORG_DRIVER_INPUT_MOUSE_SOURCE))
+	@$(call extract, XORG_DRIVER_INPUT_MOUSE)
 	@$(call patchin, $(XORG_DRIVER_INPUT_MOUSE))
 	@$(call touch, $@)
 

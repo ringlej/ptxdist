@@ -38,7 +38,7 @@ $(STATEDIR)/sdl.get: $(sdl_get_deps_default)
 
 $(SDL_LIB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SDL_LIB_URL))
+	@$(call get, SDL_LIB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ sdl_extract: $(STATEDIR)/sdl.extract
 $(STATEDIR)/sdl.extract: $(sdl_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SDL_LIB_DIR))
-	@$(call extract, $(SDL_LIB_SOURCE))
+	@$(call extract, SDL_LIB)
 	@$(call patchin, $(SDL_LIB))
 	@$(call touch, $@)
 

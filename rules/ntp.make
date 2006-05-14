@@ -38,7 +38,7 @@ $(STATEDIR)/ntp.get: $(ntp_get_deps_default)
 
 $(NTP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(NTP_URL))
+	@$(call get, NTP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ ntp_extract: $(STATEDIR)/ntp.extract
 $(STATEDIR)/ntp.extract: $(ntp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NTP_DIR))
-	@$(call extract, $(NTP_SOURCE))
+	@$(call extract, NTP)
 	@$(call patchin, $(NTP))
 	@$(call touch, $@)
 

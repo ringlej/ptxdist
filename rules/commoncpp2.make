@@ -38,7 +38,7 @@ $(STATEDIR)/commoncpp2.get: $(commoncpp2_get_deps_default)
 
 $(COMMONCPP2_SOURCE): 
 	@$(call targetinfo, $@)
-	@$(call get, $(COMMONCPP2_URL))
+	@$(call get, COMMONCPP2)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ commoncpp2_extract: $(STATEDIR)/commoncpp2.extract
 $(STATEDIR)/commoncpp2.extract: $(commoncpp2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(COMMONCPP2_DIR))
-	@$(call extract, $(COMMONCPP2_SOURCE))
+	@$(call extract, COMMONCPP2)
 	@$(call patchin, $(COMMONCPP2))
 	@$(call touch, $@)
 

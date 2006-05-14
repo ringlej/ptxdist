@@ -37,7 +37,7 @@ $(STATEDIR)/host-umkimage.get: $(host-umkimage_get_deps_default)
 
 $(HOST_UMKIMAGE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HOST_UMKIMAGE_URL))
+	@$(call get, HOST_UMKIMAGE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,7 @@ host-umkimage_extract: $(STATEDIR)/host-umkimage.extract
 $(STATEDIR)/host-umkimage.extract: $(host-umkimage_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_UMKIMAGE_DIR))
-	@$(call extract, $(HOST_UMKIMAGE_SOURCE), $(HOST_BUILDDIR))
+	@$(call extract, HOST_UMKIMAGE, $(HOST_BUILDDIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

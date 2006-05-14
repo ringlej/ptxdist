@@ -40,7 +40,7 @@ $(STATEDIR)/gdb.get: $(gdb_get_deps_default)
 
 $(GDB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GDB_URL))
+	@$(call get, GDB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,7 +51,7 @@ gdb_extract: $(STATEDIR)/gdb.extract
 $(STATEDIR)/gdb.extract: $(gdb_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GDB_DIR))
-	@$(call extract, $(GDB_SOURCE))
+	@$(call extract, GDB)
 	@$(call patchin, $(GDB))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-misc-meltho.get: $(xorg-font-misc-meltho_get_deps_default)
 
 $(XORG_FONT_MISC_MELTHO_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_MISC_MELTHO_URL))
+	@$(call get, XORG_FONT_MISC_MELTHO)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-misc-meltho_extract: $(STATEDIR)/xorg-font-misc-meltho.extract
 $(STATEDIR)/xorg-font-misc-meltho.extract: $(xorg-font-misc-meltho_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_MISC_MELTHO_DIR))
-	@$(call extract, $(XORG_FONT_MISC_MELTHO_SOURCE))
+	@$(call extract, XORG_FONT_MISC_MELTHO)
 	@$(call patchin, $(XORG_FONT_MISC_MELTHO))
 	@$(call touch, $@)
 

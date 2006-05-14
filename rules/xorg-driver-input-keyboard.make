@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-driver-input-keyboard.get: $(xorg-driver-input-keyboard_get_dep
 
 $(XORG_DRIVER_INPUT_KEYBOARD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_DRIVER_INPUT_KEYBOARD_URL))
+	@$(call get, XORG_DRIVER_INPUT_KEYBOARD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-driver-input-keyboard_extract: $(STATEDIR)/xorg-driver-input-keyboard.extra
 $(STATEDIR)/xorg-driver-input-keyboard.extract: $(xorg-driver-input-keyboard_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_INPUT_KEYBOARD_DIR))
-	@$(call extract, $(XORG_DRIVER_INPUT_KEYBOARD_SOURCE))
+	@$(call extract, XORG_DRIVER_INPUT_KEYBOARD)
 	@$(call patchin, $(XORG_DRIVER_INPUT_KEYBOARD))
 	@$(call touch, $@)
 

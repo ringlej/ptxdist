@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xau.get: $(xorg-lib-Xau_get_deps_default)
 
 $(XORG_LIB_XAU_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XAU_URL))
+	@$(call get, XORG_LIB_XAU)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xau_extract: $(STATEDIR)/xorg-lib-Xau.extract
 $(STATEDIR)/xorg-lib-Xau.extract: $(xorg-lib-Xau_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XAU_DIR))
-	@$(call extract, $(XORG_LIB_XAU_SOURCE))
+	@$(call extract, XORG_LIB_XAU)
 	@$(call patchin, $(XORG_LIB_XAU))
 	@$(call touch, $@)
 

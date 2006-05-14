@@ -38,7 +38,7 @@ $(STATEDIR)/eventlog.get: $(eventlog_get_deps_default)
 
 $(EVENTLOG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(EVENTLOG_URL))
+	@$(call get, EVENTLOG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ eventlog_extract: $(STATEDIR)/eventlog.extract
 $(STATEDIR)/eventlog.extract: $(eventlog_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EVENTLOG_DIR))
-	@$(call extract, $(EVENTLOG_SOURCE))
+	@$(call extract, EVENTLOG)
 	@$(call patchin, $(EVENTLOG))
 	@$(call touch, $@)
 

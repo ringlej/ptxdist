@@ -38,7 +38,7 @@ $(STATEDIR)/bonniexx.get: $(bonniexx_get_deps_default)
 
 $(BONNIEXX_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BONNIEXX_URL))
+	@$(call get, BONNIEXX)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ bonniexx_extract: $(STATEDIR)/bonniexx.extract
 $(STATEDIR)/bonniexx.extract: $(bonniexx_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BONNIEXX_DIR))
-	@$(call extract, $(BONNIEXX_SOURCE))
+	@$(call extract, BONNIEXX)
 	@$(call patchin, $(BONNIEXX))
 	@$(call touch, $@)
 

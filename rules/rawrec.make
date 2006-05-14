@@ -38,7 +38,7 @@ $(STATEDIR)/rawrec.get: $(rawrec_get_deps_default)
 
 $(RAWREC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(RAWREC_URL))
+	@$(call get, RAWREC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ rawrec_extract: $(STATEDIR)/rawrec.extract
 $(STATEDIR)/rawrec.extract: $(rawrec_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RAWREC_DIR))
-	@$(call extract, $(RAWREC_SOURCE))
+	@$(call extract, RAWREC)
 	@$(call patchin, $(RAWREC))
 	@$(call touch, $@)
 

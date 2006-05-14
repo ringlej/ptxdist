@@ -38,7 +38,7 @@ $(STATEDIR)/dhcp.get: $(dhcp_get_deps_default)
 
 $(DHCP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(DHCP_URL))
+	@$(call get, DHCP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ dhcp_extract: $(STATEDIR)/dhcp.extract
 $(STATEDIR)/dhcp.extract: $(dhcp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DHCP_DIR))
-	@$(call extract, $(DHCP_SOURCE))
+	@$(call extract, DHCP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

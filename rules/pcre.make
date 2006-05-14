@@ -39,7 +39,7 @@ $(STATEDIR)/pcre.get: $(pcre_get_deps_default)
 
 $(PCRE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PCRE_URL))
+	@$(call get, PCRE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ pcre_extract: $(STATEDIR)/pcre.extract
 $(STATEDIR)/pcre.extract: $(pcre_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCRE_DIR))
-	@$(call extract, $(PCRE_SOURCE))
+	@$(call extract, PCRE)
 	@$(call patchin, $(PCRE))
 	@$(call touch, $@)
 

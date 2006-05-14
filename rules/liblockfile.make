@@ -38,7 +38,7 @@ $(STATEDIR)/liblockfile.get: $(liblockfile_get_deps_default)
 
 $(LIBLOCKFILE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBLOCKFILE_URL))
+	@$(call get, LIBLOCKFILE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ liblockfile_extract: $(STATEDIR)/liblockfile.extract
 $(STATEDIR)/liblockfile.extract: $(liblockfile_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBLOCKFILE_DIR))
-	@$(call extract, $(LIBLOCKFILE_SOURCE))
+	@$(call extract, LIBLOCKFILE)
 	@$(call patchin, $(LIBLOCKFILE))
 	@$(call touch, $@)
 

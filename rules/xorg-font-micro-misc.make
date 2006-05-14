@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-micro-misc.get: $(xorg-font-micro-misc_get_deps_default)
 
 $(XORG_FONT_MICRO_MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_MICRO_MISC_URL))
+	@$(call get, XORG_FONT_MICRO_MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-micro-misc_extract: $(STATEDIR)/xorg-font-micro-misc.extract
 $(STATEDIR)/xorg-font-micro-misc.extract: $(xorg-font-micro-misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_MICRO_MISC_DIR))
-	@$(call extract, $(XORG_FONT_MICRO_MISC_SOURCE))
+	@$(call extract, XORG_FONT_MICRO_MISC)
 	@$(call patchin, $(XORG_FONT_MICRO_MISC))
 	@$(call touch, $@)
 

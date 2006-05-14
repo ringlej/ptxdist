@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-xinerama.get: $(xorg-proto-xinerama_get_deps_default)
 
 $(XORG_PROTO_XINERAMA_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_XINERAMA_URL))
+	@$(call get, XORG_PROTO_XINERAMA)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-xinerama_extract: $(STATEDIR)/xorg-proto-xinerama.extract
 $(STATEDIR)/xorg-proto-xinerama.extract: $(xorg-proto-xinerama_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XINERAMA_DIR))
-	@$(call extract, $(XORG_PROTO_XINERAMA_SOURCE))
+	@$(call extract, XORG_PROTO_XINERAMA)
 	@$(call patchin, $(XORG_PROTO_XINERAMA))
 	@$(call touch, $@)
 

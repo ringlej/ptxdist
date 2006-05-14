@@ -38,7 +38,7 @@ $(STATEDIR)/fbutils.get: $(fbutils_get_deps_default)
 
 $(FBUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(FBUTILS_URL))
+	@$(call get, FBUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ fbutils_extract: $(STATEDIR)/fbutils.extract
 $(STATEDIR)/fbutils.extract: $(fbutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FBUTILS_DIR))
-	@$(call extract, $(FBUTILS_SOURCE))
+	@$(call extract, FBUTILS)
 	@$(call patchin, $(FBUTILS))
 	@$(call touch, $@)
 

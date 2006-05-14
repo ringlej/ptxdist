@@ -37,7 +37,7 @@ $(STATEDIR)/gmp4.get: $(gmp4_get_deps_default)
 
 $(GMP4_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GMP4_URL))
+	@$(call get, GMP4)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,7 @@ gmp4_extract: $(STATEDIR)/gmp4.extract
 $(STATEDIR)/gmp4.extract: $(gmp4_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GMP4_DIR))
-	@$(call extract, $(GMP4_SOURCE))
+	@$(call extract, GMP4)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

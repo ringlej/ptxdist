@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-bitstream-speedo.get: $(xorg-font-bitstream-speedo_get_dep
 
 $(XORG_FONT_BITSTREAM_SPEEDO_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_BITSTREAM_SPEEDO_URL))
+	@$(call get, XORG_FONT_BITSTREAM_SPEEDO)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-bitstream-speedo_extract: $(STATEDIR)/xorg-font-bitstream-speedo.extra
 $(STATEDIR)/xorg-font-bitstream-speedo.extract: $(xorg-font-bitstream-speedo_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_BITSTREAM_SPEEDO_DIR))
-	@$(call extract, $(XORG_FONT_BITSTREAM_SPEEDO_SOURCE))
+	@$(call extract, XORG_FONT_BITSTREAM_SPEEDO)
 	@$(call patchin, $(XORG_FONT_BITSTREAM_SPEEDO))
 	@$(call touch, $@)
 

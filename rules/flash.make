@@ -44,7 +44,7 @@ $(STATEDIR)/flash.get: $(flash_get_deps_default)
 
 $(FLASH_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(FLASH_URL))
+	@$(call get, FLASH)
 
 # ----------------------------------------------------------------------------
 # Extract

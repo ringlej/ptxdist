@@ -38,7 +38,7 @@ $(STATEDIR)/hrtimers-support.get: $(hrtimers-support_get_deps_default)
 
 $(HRTIMERS_SUPPORT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(HRTIMERS_SUPPORT_URL))
+	@$(call get, HRTIMERS_SUPPORT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ hrtimers-support_extract: $(STATEDIR)/hrtimers-support.extract
 $(STATEDIR)/hrtimers-support.extract: $(hrtimers-support_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HRTIMERS_SUPPORT_DIR))
-	@$(call extract, $(HRTIMERS_SUPPORT_SOURCE))
+	@$(call extract, HRTIMERS_SUPPORT)
 	@$(call patchin, $(HRTIMERS_SUPPORT))
 	@$(call touch, $@)
 

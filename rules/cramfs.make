@@ -40,7 +40,7 @@ $(STATEDIR)/cramfs.get: $(cramfs_get_deps_default)
 
 $(CRAMFS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(CRAMFS_URL))
+	@$(call get, CRAMFS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,7 +51,7 @@ cramfs_extract: $(STATEDIR)/cramfs.extract
 $(STATEDIR)/cramfs.extract: $(cramfs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CRAMFS_DIR))
-	@$(call extract, $(CRAMFS_SOURCE))
+	@$(call extract, CRAMFS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

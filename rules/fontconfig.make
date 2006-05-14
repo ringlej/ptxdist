@@ -38,7 +38,7 @@ $(STATEDIR)/fontconfig.get: $(fontconfig_get_deps_default)
 
 $(FONTCONFIG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(FONTCONFIG_URL))
+	@$(call get, FONTCONFIG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ fontconfig_extract: $(STATEDIR)/fontconfig.extract
 $(STATEDIR)/fontconfig.extract: $(fontconfig_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FONTCONFIG_DIR))
-	@$(call extract, $(FONTCONFIG_SOURCE))
+	@$(call extract, FONTCONFIG)
 	@$(call patchin, $(FONTCONFIG))
 	@$(call touch, $@)
 
@@ -60,12 +60,16 @@ $(STATEDIR)/fontconfig.extract: $(fontconfig_extract_deps_default)
 fontconfig_prepare: $(STATEDIR)/fontconfig.prepare
 
 FONTCONFIG_PATH	:=  PATH=$(CROSS_PATH)
-FONTCONFIG_ENV 	:=  $(CROSS_ENV)
+FONTCONFIG_ENV 	:=  \
+	$(CROSS_ENV) \
+	ac_cv_prog_HASDOCBOOK=no
 
 #
 # autoconf
 #
-FONTCONFIG_AUTOCONF := $(CROSS_AUTOCONF_USR)
+FONTCONFIG_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-docs
 
 $(STATEDIR)/fontconfig.prepare: $(fontconfig_prepare_deps_default)
 	@$(call targetinfo, $@)

@@ -38,7 +38,7 @@ $(STATEDIR)/troll-ftpd.get: $(troll-ftpd_get_deps_default)
 
 $(TROLL_FTPD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(TROLL_FTPD_URL))
+	@$(call get, TROLL_FTPD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ troll-ftpd_extract: $(STATEDIR)/troll-ftpd.extract
 $(STATEDIR)/troll-ftpd.extract: $(troll-ftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TROLL_FTPD_DIR))
-	@$(call extract, $(TROLL_FTPD_SOURCE))
+	@$(call extract, TROLL_FTPD)
 	@$(call patchin, $(TROLL_FTPD))
 	@$(call touch, $@)
 

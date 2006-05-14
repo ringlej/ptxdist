@@ -40,7 +40,7 @@ $(STATEDIR)/sudo.get: $(sudo_get_deps_default)
 
 $(SUDO_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(SUDO_URL))
+	@$(call get, SUDO)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,7 +51,7 @@ sudo_extract: $(STATEDIR)/sudo.extract
 $(STATEDIR)/sudo.extract: $(sudo_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SUDO_DIR))
-	@$(call extract, $(SUDO_SOURCE))
+	@$(call extract, SUDO)
 	@$(call patchin, $(SUDO))
 	@$(call touch, $@)
 

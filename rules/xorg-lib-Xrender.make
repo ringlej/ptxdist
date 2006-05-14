@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xrender.get: $(xorg-lib-Xrender_get_deps_default)
 
 $(XORG_LIB_XRENDER_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XRENDER_URL))
+	@$(call get, XORG_LIB_XRENDER)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xrender_extract: $(STATEDIR)/xorg-lib-Xrender.extract
 $(STATEDIR)/xorg-lib-Xrender.extract: $(xorg-lib-Xrender_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRENDER_DIR))
-	@$(call extract, $(XORG_LIB_XRENDER_SOURCE))
+	@$(call extract, XORG_LIB_XRENDER)
 	@$(call patchin, $(XORG_LIB_XRENDER))
 	@$(call touch, $@)
 

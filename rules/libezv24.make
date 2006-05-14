@@ -38,7 +38,7 @@ $(STATEDIR)/libezv24.get: $(libezv24_get_deps_default)
 
 $(LIBEZV24_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBEZV24_URL))
+	@$(call get, LIBEZV24)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libezv24_extract: $(STATEDIR)/libezv24.extract
 $(STATEDIR)/libezv24.extract: $(libezv24_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBEZV24_DIR))
-	@$(call extract, $(LIBEZV24_SOURCE))
+	@$(call extract, LIBEZV24)
 	@$(call patchin, $(LIBEZV24))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-misc-ethiopic.get: $(xorg-font-misc-ethiopic_get_deps_defa
 
 $(XORG_FONT_MISC_ETHIOPIC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_MISC_ETHIOPIC_URL))
+	@$(call get, XORG_FONT_MISC_ETHIOPIC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-misc-ethiopic_extract: $(STATEDIR)/xorg-font-misc-ethiopic.extract
 $(STATEDIR)/xorg-font-misc-ethiopic.extract: $(xorg-font-misc-ethiopic_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_MISC_ETHIOPIC_DIR))
-	@$(call extract, $(XORG_FONT_MISC_ETHIOPIC_SOURCE))
+	@$(call extract, XORG_FONT_MISC_ETHIOPIC)
 	@$(call patchin, $(XORG_FONT_MISC_ETHIOPIC))
 	@$(call touch, $@)
 

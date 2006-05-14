@@ -38,7 +38,7 @@ $(STATEDIR)/gawk.get: $(gawk_get_deps_default)
 
 $(GAWK_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(GAWK_URL))
+	@$(call get, GAWK)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ gawk_extract: $(STATEDIR)/gawk.extract
 $(STATEDIR)/gawk.extract: $(gawk_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GAWK_DIR))
-	@$(call extract, $(GAWK_SOURCE))
+	@$(call extract, GAWK)
 	@$(call patchin, $(GAWK))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-bitstream-type1.get: $(xorg-font-bitstream-type1_get_deps_
 
 $(XORG_FONT_BITSTREAM_TYPE1_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_BITSTREAM_TYPE1_URL))
+	@$(call get, XORG_FONT_BITSTREAM_TYPE1)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-bitstream-type1_extract: $(STATEDIR)/xorg-font-bitstream-type1.extract
 $(STATEDIR)/xorg-font-bitstream-type1.extract: $(xorg-font-bitstream-type1_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_BITSTREAM_TYPE1_DIR))
-	@$(call extract, $(XORG_FONT_BITSTREAM_TYPE1_SOURCE))
+	@$(call extract, XORG_FONT_BITSTREAM_TYPE1)
 	@$(call patchin, $(XORG_FONT_BITSTREAM_TYPE1))
 	@$(call touch, $@)
 

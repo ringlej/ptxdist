@@ -38,7 +38,7 @@ $(STATEDIR)/chrony.get: $(chrony_get_deps_default)
 
 $(CHRONY_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(CHRONY_URL))
+	@$(call get, CHRONY)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ chrony_extract: $(STATEDIR)/chrony.extract
 $(STATEDIR)/chrony.extract: $(chrony_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CHRONY_DIR))
-	@$(call extract, $(CHRONY_SOURCE))
+	@$(call extract, CHRONY)
 	@$(call patchin, $(CHRONY))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-AppleWM.get: $(xorg-lib-AppleWM_get_deps_default)
 
 $(XORG_LIB_APPLEWM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_APPLEWM_URL))
+	@$(call get, XORG_LIB_APPLEWM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-AppleWM_extract: $(STATEDIR)/xorg-lib-AppleWM.extract
 $(STATEDIR)/xorg-lib-AppleWM.extract: $(xorg-lib-AppleWM_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_APPLEWM_DIR))
-	@$(call extract, $(XORG_LIB_APPLEWM_SOURCE))
+	@$(call extract, XORG_LIB_APPLEWM)
 	@$(call patchin, $(XORG_LIB_APPLEWM))
 	@$(call touch, $@)
 

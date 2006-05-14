@@ -39,7 +39,7 @@ $(STATEDIR)/ltrace.get: $(ltrace_get_deps_default)
 
 $(LTRACE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LTRACE_URL))
+	@$(call get, LTRACE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ ltrace_extract: $(STATEDIR)/ltrace.extract
 $(STATEDIR)/ltrace.extract: $(ltrace_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LTRACE_DIR))
-	@$(call extract, $(LTRACE_SOURCE))
+	@$(call extract, LTRACE)
 	@$(call patchin, $(LTRACE))
 	@$(call touch, $@)
 

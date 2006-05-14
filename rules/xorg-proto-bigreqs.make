@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-bigreqs.get: $(xorg-proto-bigreqs_get_deps_default)
 
 $(XORG_PROTO_BIGREQS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_BIGREQS_URL))
+	@$(call get, XORG_PROTO_BIGREQS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-bigreqs_extract: $(STATEDIR)/xorg-proto-bigreqs.extract
 $(STATEDIR)/xorg-proto-bigreqs.extract: $(xorg-proto-bigreqs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_BIGREQS_DIR))
-	@$(call extract, $(XORG_PROTO_BIGREQS_SOURCE))
+	@$(call extract, XORG_PROTO_BIGREQS)
 	@$(call patchin, $(XORG_PROTO_BIGREQS))
 	@$(call touch, $@)
 

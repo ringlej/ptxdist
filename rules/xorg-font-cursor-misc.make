@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-cursor-misc.get: $(xorg-font-cursor-misc_get_deps_default)
 
 $(XORG_FONT_CURSOR_MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_CURSOR_MISC_URL))
+	@$(call get, XORG_FONT_CURSOR_MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-cursor-misc_extract: $(STATEDIR)/xorg-font-cursor-misc.extract
 $(STATEDIR)/xorg-font-cursor-misc.extract: $(xorg-font-cursor-misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_CURSOR_MISC_DIR))
-	@$(call extract, $(XORG_FONT_CURSOR_MISC_SOURCE))
+	@$(call extract, XORG_FONT_CURSOR_MISC)
 	@$(call patchin, $(XORG_FONT_CURSOR_MISC))
 	@$(call touch, $@)
 

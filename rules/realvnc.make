@@ -41,7 +41,7 @@ $(STATEDIR)/realvnc.get: $(realvnc_get_deps_default)
 
 $(REALVNC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(REALVNC_URL))
+	@$(call get, REALVNC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -52,7 +52,7 @@ realvnc_extract: $(STATEDIR)/realvnc.extract
 $(STATEDIR)/realvnc.extract: $(realvnc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(REALVNC_DIR))
-	@$(call extract, $(REALVNC_SOURCE))
+	@$(call extract, REALVNC)
 	@$(call patchin, $(REALVNC))
 	@$(call touch, $@)
 

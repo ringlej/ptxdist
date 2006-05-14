@@ -38,7 +38,7 @@ $(STATEDIR)/php-apc.get: $(php-apc_get_deps_default)
 
 $(PHP_APC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PHP_APC_URL))
+	@$(call get, PHP_APC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ php-apc_extract: $(STATEDIR)/php-apc.extract
 $(STATEDIR)/php-apc.extract: $(php-apc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP_APC_DIR))
-	@$(call extract, $(PHP_APC_SOURCE), $(PHP_DIR)/ext)
+	@$(call extract, PHP_APC, $(PHP_DIR)/ext)
 	@$(call patchin, $(PHP_APC))
 	@$(call touch, $@)
 

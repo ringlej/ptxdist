@@ -36,7 +36,7 @@ $(STATEDIR)/utelnetd.get: $(utelnetd_get_deps_default)
 
 $(UTELNETD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(UTELNETD_URL))
+	@$(call get, UTELNETD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,7 +47,7 @@ utelnetd_extract: $(STATEDIR)/utelnetd.extract
 $(STATEDIR)/utelnetd.extract: $(utelnetd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTELNETS_DIR))
-	@$(call extract, $(UTELNETD_SOURCE))
+	@$(call extract, UTELNETD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

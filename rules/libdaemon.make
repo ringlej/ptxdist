@@ -38,7 +38,7 @@ $(STATEDIR)/libdaemon.get: $(libdaemon_get_deps_default)
 
 $(LIBDAEMON_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBDAEMON_URL))
+	@$(call get, LIBDAEMON)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libdaemon_extract: $(STATEDIR)/libdaemon.extract
 $(STATEDIR)/libdaemon.extract: $(libdaemon_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBDAEMON_DIR))
-	@$(call extract, $(LIBDAEMON_SOURCE))
+	@$(call extract, LIBDAEMON)
 	@$(call patchin, $(LIBDAEMON))
 	@$(call touch, $@)
 

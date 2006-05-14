@@ -41,7 +41,7 @@ $(STATEDIR)/mesalib.get: $(mesalib_get_deps_default)
 
 $(MESALIB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MESALIB_URL))
+	@$(call get, MESALIB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -52,7 +52,7 @@ mesalib_extract: $(STATEDIR)/mesalib.extract
 $(STATEDIR)/mesalib.extract: $(mesalib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MESALIB_DIR))
-	@$(call extract, $(MESALIB_SOURCE))
+	@$(call extract, MESALIB)
 	@$(call patchin, $(MESALIB))
 	@$(call touch, $@)
 

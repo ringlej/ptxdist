@@ -38,7 +38,7 @@ $(STATEDIR)/libgnomecanvas.get: $(libgnomecanvas_get_deps_default)
 
 $(LIBGNOMECANVAS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(LIBGNOMECANVAS_URL))
+	@$(call get, LIBGNOMECANVAS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ libgnomecanvas_extract: $(STATEDIR)/libgnomecanvas.extract
 $(STATEDIR)/libgnomecanvas.extract: $(libgnomecanvas_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGNOMECANVAS_DIR))
-	@$(call extract, $(LIBGNOMECANVAS_SOURCE))
+	@$(call extract, LIBGNOMECANVAS)
 	@$(call patchin, $(LIBGNOMECANVAS))
 	@$(call touch, $@)
 

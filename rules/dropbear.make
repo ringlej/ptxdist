@@ -39,7 +39,7 @@ $(STATEDIR)/dropbear.get: $(dropbear_get_deps_default)
 
 $(DROPBEAR_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(DROPBEAR_URL))
+	@$(call get, DROPBEAR)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -50,7 +50,7 @@ dropbear_extract: $(STATEDIR)/dropbear.extract
 $(STATEDIR)/dropbear.extract: $(dropbear_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DROPBEAR_DIR))
-	@$(call extract, $(DROPBEAR_SOURCE))
+	@$(call extract, DROPBEAR)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

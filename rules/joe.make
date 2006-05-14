@@ -37,7 +37,7 @@ $(STATEDIR)/joe.get: $(joe_get_deps_default)
 
 $(JOE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(JOE_URL))
+	@$(call get, JOE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,7 +48,7 @@ joe_extract: $(STATEDIR)/joe.extract
 $(STATEDIR)/joe.extract: $(joe_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JOE_DIR))
-	@$(call extract, $(JOE_SOURCE))
+	@$(call extract, JOE)
 	@$(call patchin, $(JOE))
 	@$(call touch, $@)
 

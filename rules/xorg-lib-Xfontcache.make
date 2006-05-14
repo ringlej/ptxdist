@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xfontcache.get: $(xorg-lib-Xfontcache_get_deps_default)
 
 $(XORG_LIB_XFONTCACHE_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XFONTCACHE_URL))
+	@$(call get, XORG_LIB_XFONTCACHE)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xfontcache_extract: $(STATEDIR)/xorg-lib-Xfontcache.extract
 $(STATEDIR)/xorg-lib-Xfontcache.extract: $(xorg-lib-Xfontcache_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XFONTCACHE_DIR))
-	@$(call extract, $(XORG_LIB_XFONTCACHE_SOURCE))
+	@$(call extract, XORG_LIB_XFONTCACHE)
 	@$(call patchin, $(XORG_LIB_XFONTCACHE))
 	@$(call touch, $@)
 

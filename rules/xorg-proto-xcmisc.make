@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-xcmisc.get: $(xorg-proto-xcmisc_get_deps_default)
 
 $(XORG_PROTO_XCMISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_XCMISC_URL))
+	@$(call get, XORG_PROTO_XCMISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-xcmisc_extract: $(STATEDIR)/xorg-proto-xcmisc.extract
 $(STATEDIR)/xorg-proto-xcmisc.extract: $(xorg-proto-xcmisc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XCMISC_DIR))
-	@$(call extract, $(XORG_PROTO_XCMISC_SOURCE))
+	@$(call extract, XORG_PROTO_XCMISC)
 	@$(call patchin, $(XORG_PROTO_XCMISC))
 	@$(call touch, $@)
 

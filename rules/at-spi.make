@@ -38,7 +38,7 @@ $(STATEDIR)/at-spi.get: $(at-spi_get_deps_deps)
 
 $(AT_SPI_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(AT_SPI_URL))
+	@$(call get, AT_SPI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ at-spi_extract: $(STATEDIR)/at-spi.extract
 $(STATEDIR)/at-spi.extract: $(at-spi_extract_deps_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(AT_SPI_DIR))
-	@$(call extract, $(AT_SPI_SOURCE))
+	@$(call extract, AT_SPI)
 	@$(call patchin, $(AT_SPI))
 	@$(call touch, $@)
 

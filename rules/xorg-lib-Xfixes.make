@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xfixes.get: $(xorg-lib-Xfixes_get_deps_default)
 
 $(XORG_LIB_XFIXES_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XFIXES_URL))
+	@$(call get, XORG_LIB_XFIXES)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xfixes_extract: $(STATEDIR)/xorg-lib-Xfixes.extract
 $(STATEDIR)/xorg-lib-Xfixes.extract: $(xorg-lib-Xfixes_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XFIXES_DIR))
-	@$(call extract, $(XORG_LIB_XFIXES_SOURCE))
+	@$(call extract, XORG_LIB_XFIXES)
 	@$(call patchin, $(XORG_LIB_XFIXES))
 	@$(call touch, $@)
 

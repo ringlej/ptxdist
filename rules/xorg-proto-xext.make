@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-xext.get: $(xorg-proto-xext_get_deps_default)
 
 $(XORG_PROTO_XEXT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_XEXT_URL))
+	@$(call get, XORG_PROTO_XEXT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-xext_extract: $(STATEDIR)/xorg-proto-xext.extract
 $(STATEDIR)/xorg-proto-xext.extract: $(xorg-proto-xext_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XEXT_DIR))
-	@$(call extract, $(XORG_PROTO_XEXT_SOURCE))
+	@$(call extract, XORG_PROTO_XEXT)
 	@$(call patchin, $(XORG_PROTO_XEXT))
 	@$(call touch, $@)
 

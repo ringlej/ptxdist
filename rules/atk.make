@@ -40,7 +40,7 @@ $(STATEDIR)/atk.get: $(atk_get_deps_default)
 
 $(ATK_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(ATK_URL))
+	@$(call get, ATK)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,7 +51,7 @@ atk_extract: $(STATEDIR)/atk.extract
 $(STATEDIR)/atk.extract: $(atk_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ATK_DIR))
-	@$(call extract, $(ATK_SOURCE))
+	@$(call extract, ATK)
 	@$(call patchin, $(ATK))
 	@$(call touch, $@)
 

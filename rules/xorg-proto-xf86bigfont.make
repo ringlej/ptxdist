@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-xf86bigfont.get: $(xorg-proto-xf86bigfont_get_deps_defaul
 
 $(XORG_PROTO_XF86BIGFONT_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_XF86BIGFONT_URL))
+	@$(call get, XORG_PROTO_XF86BIGFONT)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-xf86bigfont_extract: $(STATEDIR)/xorg-proto-xf86bigfont.extract
 $(STATEDIR)/xorg-proto-xf86bigfont.extract: $(xorg-proto-xf86bigfont_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XF86BIGFONT_DIR))
-	@$(call extract, $(XORG_PROTO_XF86BIGFONT_SOURCE))
+	@$(call extract, XORG_PROTO_XF86BIGFONT)
 	@$(call patchin, $(XORG_PROTO_XF86BIGFONT))
 	@$(call touch, $@)
 

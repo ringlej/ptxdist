@@ -40,7 +40,7 @@ $(STATEDIR)/omniorb.get: $(omniorb_get_deps_default)
 
 $(OMNIORB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(OMNIORB_URL))
+	@$(call get, OMNIORB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -51,7 +51,7 @@ omniorb_extract: $(STATEDIR)/omniorb.extract
 $(STATEDIR)/omniorb.extract: $(omniorb_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OMNIORB_DIR))
-	@$(call extract, $(OMNIORB_SOURCE))
+	@$(call extract, OMNIORB)
 	@$(call patchin, $(OMNIORB))
 	@$(call touch, $@)
 

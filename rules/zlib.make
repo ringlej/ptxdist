@@ -36,7 +36,7 @@ $(STATEDIR)/zlib.get: $(zlib_get_deps_default)
 
 $(ZLIB_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(ZLIB_URL))
+	@$(call get, ZLIB)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -47,7 +47,7 @@ zlib_extract: $(STATEDIR)/zlib.extract
 $(STATEDIR)/zlib.extract: $(zlib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ZLIB_DIR))
-	@$(call extract, $(ZLIB_SOURCE))
+	@$(call extract, ZLIB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

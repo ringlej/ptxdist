@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-app-xdm.get: $(xorg-app-xdm_get_deps_default)
 
 $(XORG_APP_XDM_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_APP_XDM_URL))
+	@$(call get, XORG_APP_XDM)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-app-xdm_extract: $(STATEDIR)/xorg-app-xdm.extract
 $(STATEDIR)/xorg-app-xdm.extract: $(xorg-app-xdm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_XDM_DIR))
-	@$(call extract, $(XORG_APP_XDM_SOURCE))
+	@$(call extract, XORG_APP_XDM)
 	@$(call patchin, $(XORG_APP_XDM))
 	@$(call touch, $@)
 

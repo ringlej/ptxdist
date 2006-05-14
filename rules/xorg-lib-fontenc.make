@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-fontenc.get: $(xorg-lib-fontenc_get_deps_default)
 
 $(XORG_LIB_FONTENC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_FONTENC_URL))
+	@$(call get, XORG_LIB_FONTENC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-fontenc_extract: $(STATEDIR)/xorg-lib-fontenc.extract
 $(STATEDIR)/xorg-lib-fontenc.extract: $(xorg-lib-fontenc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_FONTENC_DIR))
-	@$(call extract, $(XORG_LIB_FONTENC_SOURCE))
+	@$(call extract, XORG_LIB_FONTENC)
 	@$(call patchin, $(XORG_LIB_FONTENC))
 	@$(call touch, $@)
 

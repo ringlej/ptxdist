@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-font-sun-misc.get: $(xorg-font-sun-misc_get_deps_default)
 
 $(XORG_FONT_SUN_MISC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_FONT_SUN_MISC_URL))
+	@$(call get, XORG_FONT_SUN_MISC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-font-sun-misc_extract: $(STATEDIR)/xorg-font-sun-misc.extract
 $(STATEDIR)/xorg-font-sun-misc.extract: $(xorg-font-sun-misc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_SUN_MISC_DIR))
-	@$(call extract, $(XORG_FONT_SUN_MISC_SOURCE))
+	@$(call extract, XORG_FONT_SUN_MISC)
 	@$(call patchin, $(XORG_FONT_SUN_MISC))
 	@$(call touch, $@)
 

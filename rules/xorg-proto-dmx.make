@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-dmx.get: $(xorg-proto-dmx_get_deps_default)
 
 $(XORG_PROTO_DMX_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_DMX_URL))
+	@$(call get, XORG_PROTO_DMX)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-dmx_extract: $(STATEDIR)/xorg-proto-dmx.extract
 $(STATEDIR)/xorg-proto-dmx.extract: $(xorg-proto-dmx_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_DMX_DIR))
-	@$(call extract, $(XORG_PROTO_DMX_SOURCE))
+	@$(call extract, XORG_PROTO_DMX)
 	@$(call patchin, $(XORG_PROTO_DMX))
 	@$(call touch, $@)
 

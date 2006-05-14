@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xaw.get: $(xorg-lib-Xaw_get_deps_default)
 
 $(XORG_LIB_XAW_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XAW_URL))
+	@$(call get, XORG_LIB_XAW)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xaw_extract: $(STATEDIR)/xorg-lib-Xaw.extract
 $(STATEDIR)/xorg-lib-Xaw.extract: $(xorg-lib-Xaw_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XAW_DIR))
-	@$(call extract, $(XORG_LIB_XAW_SOURCE))
+	@$(call extract, XORG_LIB_XAW)
 	@$(call patchin, $(XORG_LIB_XAW))
 	@$(call touch, $@)
 

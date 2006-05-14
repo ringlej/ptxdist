@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xtst.get: $(xorg-lib-Xtst_get_deps_default)
 
 $(XORG_LIB_XTST_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XTST_URL))
+	@$(call get, XORG_LIB_XTST)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xtst_extract: $(STATEDIR)/xorg-lib-Xtst.extract
 $(STATEDIR)/xorg-lib-Xtst.extract: $(xorg-lib-Xtst_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XTST_DIR))
-	@$(call extract, $(XORG_LIB_XTST_SOURCE))
+	@$(call extract, XORG_LIB_XTST)
 	@$(call patchin, $(XORG_LIB_XTST))
 	@$(call touch, $@)
 

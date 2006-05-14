@@ -38,7 +38,7 @@ $(STATEDIR)/pciutils.get: $(pciutils_get_deps_default)
 
 $(PCIUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PCIUTILS_URL))
+	@$(call get, PCIUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ pciutils_extract: $(STATEDIR)/pciutils.extract
 $(STATEDIR)/pciutils.extract: $(pciutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCIUTILS_DIR))
-	@$(call extract, $(PCIUTILS_SOURCE))
+	@$(call extract, PCIUTILS)
 	@$(call patchin, $(PCIUTILS))
 	@$(call touch, $@)
 

@@ -38,7 +38,7 @@ $(STATEDIR)/proftpd.get: $(proftpd_get_deps_default)
 
 $(PROFTPD_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(PROFTPD_URL))
+	@$(call get, PROFTPD)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ proftpd_extract: $(STATEDIR)/proftpd.extract
 $(STATEDIR)/proftpd.extract: $(proftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PROFTPD_DIR))
-	@$(call extract, $(PROFTPD_SOURCE))
+	@$(call extract, PROFTPD)
 	@$(call patchin, $(PROFTPD))
 	@$(call touch, $@)
 

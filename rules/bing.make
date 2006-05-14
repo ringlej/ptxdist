@@ -38,7 +38,7 @@ $(STATEDIR)/bing.get: $(bing_get_deps_default)
 
 $(BING_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(BING_URL))
+	@$(call get, BING)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ bing_extract: $(STATEDIR)/bing.extract
 $(STATEDIR)/bing.extract: $(bing_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BING_DIR))
-	@$(call extract, $(BING_SOURCE))
+	@$(call extract, BING)
 	@$(call patchin, $(BING))
 	@$(call touch, $@)
 

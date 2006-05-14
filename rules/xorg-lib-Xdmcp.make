@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-lib-Xdmcp.get: $(xorg-lib-Xdmcp_get_deps_default)
 
 $(XORG_LIB_XDMCP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_LIB_XDMCP_URL))
+	@$(call get, XORG_LIB_XDMCP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-lib-Xdmcp_extract: $(STATEDIR)/xorg-lib-Xdmcp.extract
 $(STATEDIR)/xorg-lib-Xdmcp.extract: $(xorg-lib-Xdmcp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XDMCP_DIR))
-	@$(call extract, $(XORG_LIB_XDMCP_SOURCE))
+	@$(call extract, XORG_LIB_XDMCP)
 	@$(call patchin, $(XORG_LIB_XDMCP))
 	@$(call touch, $@)
 

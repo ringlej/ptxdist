@@ -38,7 +38,7 @@ $(STATEDIR)/xorg-proto-trap.get: $(xorg-proto-trap_get_deps_default)
 
 $(XORG_PROTO_TRAP_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(XORG_PROTO_TRAP_URL))
+	@$(call get, XORG_PROTO_TRAP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ xorg-proto-trap_extract: $(STATEDIR)/xorg-proto-trap.extract
 $(STATEDIR)/xorg-proto-trap.extract: $(xorg-proto-trap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_TRAP_DIR))
-	@$(call extract, $(XORG_PROTO_TRAP_SOURCE))
+	@$(call extract, XORG_PROTO_TRAP)
 	@$(call patchin, $(XORG_PROTO_TRAP))
 	@$(call touch, $@)
 

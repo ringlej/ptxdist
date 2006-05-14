@@ -38,7 +38,7 @@ $(STATEDIR)/mii-diag.get: $(mii-diag_get_deps_default)
 
 $(MII_DIAG_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MII_DIAG_URL))
+	@$(call get, MII_DIAG)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +49,7 @@ mii-diag_extract: $(STATEDIR)/mii-diag.extract
 $(STATEDIR)/mii-diag.extract: $(mii-diag_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MII_DIAG_DIR))
-	@$(call extract, $(MII_DIAG_SOURCE))
+	@$(call extract, MII_DIAG)
 	@$(call patchin, $(MII_DIAG))
 	@$(call touch, $@)
 
