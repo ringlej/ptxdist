@@ -629,6 +629,7 @@ while [ "$#" != "0" ]; do
 			exit 0
 			;;
 	clean)		shift
+			check_ptxconfig
 			clean $1
 			exit 0
 			;;
@@ -637,6 +638,7 @@ while [ "$#" != "0" ]; do
 			export PTXDIST_MAKE_DBG="--debug=make"
 			;;
 	distclean)	shift
+			check_ptxconfig
 			clean
 			echo "${PROMPT}removing toolchain link..."
 			rm -f .toolchain
