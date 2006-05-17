@@ -1,8 +1,6 @@
-menu	"ppp                 "
-
-config PPP
+menuconfig PPP
 	bool
-	prompt "ppp"
+	prompt "ppp                 "
 	help
 	  FIXME: This item needs to be documented
 
@@ -41,4 +39,3 @@ config PPP_MULTILINK
 	help
 	  FIXME: This item needs to be documented
 
-endmenu

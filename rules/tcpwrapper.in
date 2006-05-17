@@ -1,8 +1,6 @@
-menu	"tcpwrapper          "
-
-config	TCPWRAPPER
+menuconfig	TCPWRAPPER
 	bool
-	prompt "tcpwrapper"
+	prompt "tcpwrapper          "
 	help
 	  FIXME: This item needs to be documented
 
@@ -13,4 +11,3 @@ config	TCPWRAPPER_INSTALL_TCPD
 	help
 	  FIXME: This item needs to be documented
 
-endmenu

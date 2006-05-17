@@ -1,5 +1,3 @@
-menu 	"shorewall firewall  "
-
 config SHOREWALL
 	bool
 	prompt "shorewall firewall scripts"
@@ -21,4 +19,3 @@ config SHOREWALL
 	  * Support for IPSEC, GRE and IPIP Tunnels.
 	  * Limited support for Traffic Control/Shaping
 
-endmenu

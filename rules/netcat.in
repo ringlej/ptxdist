@@ -1,8 +1,6 @@
-menu    "netcat              "
-
-config NETCAT
+menuconfig NETCAT
 	bool
-	prompt "GNU netcat"
+	prompt "netcat              "
 	help
 	  This is the GNU Flavour of the "netcat" utility. 
 	  
@@ -50,4 +48,3 @@ config  NETCAT_OLD_TELNET
 	help
 	  Disabled by default - if unsure, say NO
 
-endmenu

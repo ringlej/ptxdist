@@ -1,12 +1,9 @@
-menu "netkit-ftp          "
-
 config NETKIT_FTP
 	bool
-	prompt "Install the NetKit FTP client"
+	prompt "NetKit FTP client"
 	help 
 	  This is the ftp client from netkit 
 	  See http://freshmeat.net/projects/netkit/ for details.
 
 	  License: BSD License (original)
 
-endmenu
