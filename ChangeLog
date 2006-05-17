@@ -1,5 +1,7 @@
 2006-05-17 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* menues: made menuconfigs without content a simple config;
+	  patch by Steven Scholz. 
 	* ptxdist: check if we are on a workspace for clean and
 	  distclean commands. 
 	* pelts: added Pengutronix Embedded Linux Test Suite
