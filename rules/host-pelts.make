@@ -98,8 +98,12 @@ $(STATEDIR)/host-pelts.install: $(host-pelts_install_deps_default)
 	@echo
 	@if [ -d "$(PTXDIST_WORKSPACE)/testsuite" ]; then \
 		for tool in `find $(PTXCONF_PREFIX)/lib/$(HOST-PELTS)/testsuite -maxdepth 1 -mindepth 1 -type d`; do \
-			echo "`basename $$tool`"; \
-			ln -sf $$tool $(PTXDIST_WORKSPACE)/testsuite/; \
+			if [ ! -e "$(PTXDIST_WORKSPACE)/testsuite/`basename $$tool`" ]; then \
+				echo "`basename $$tool`"; \
+				ln -sf $$tool $(PTXDIST_WORKSPACE)/testsuite/; \
+			else \
+				echo "`basename $$tool` (omitted)"; \
+			fi; \
 		done; \
 	fi
 	@echo
