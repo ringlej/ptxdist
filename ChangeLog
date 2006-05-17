@@ -2,6 +2,7 @@
 
 	* ptxdist: check if we are on a workspace for clean and
 	  distclean commands. 
+	* pelts: added Pengutronix Embedded Linux Test Suite
 
 2006-05-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
