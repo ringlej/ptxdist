@@ -1,0 +1,6 @@
+config HOST_PELTS
+	bool
+	prompt "pelts"
+	help
+	  Pengutronix Embedded Linux Test Suite
+	

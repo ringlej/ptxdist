@@ -215,6 +215,7 @@ endmenu
 
 menu "Test Suites                 "
 depends on BUILD_USERLAND
+source "rules/host-pelts.in"
 source "rules/tests.in"
 endmenu
 
