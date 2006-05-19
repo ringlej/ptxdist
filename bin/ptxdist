@@ -72,6 +72,37 @@ fi
 [ -d ".toolchain" ] && export PATH=`pwd`/.toolchain:$PATH
 
 #
+# board setup
+#
+boardsetup() {
+	echo
+	echo "${PROMPT}boardsetup..."
+
+	if [ ! -e "${PTXDIST_WORKSPACE}/boardsetup/boardsetup" ] ||
+	   [ ! -e "${PTXDIST_WORKSPACE}/boardsetup/Kconfig" ]; then
+		echo "error: boardsetup/boardsetup or boardsetup/Kconfig missing"
+		echo
+		exit 1
+	fi
+
+	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
+	pushd $tmpdir > /dev/null
+
+	# prepare everything to make kconfig see it's original environment
+	ln -sf ${PTXDIST_TOPDIR}/scripts
+	cp ${PTXDIST_WORKSPACE}/boardsetup/boardsetup .config
+
+	# store boardsetup
+	${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_WORKSPACE}/boardsetup/Kconfig
+	echo "${PROMPT}saving \$PTXDIST_WORKSPACE/boardsetup/boardsetup"
+	cp .config ${PTXDIST_WORKSPACE}/boardsetup/boardsetup
+
+	popd > /dev/null
+	echo "${PROMPT}cleanup..."
+	rm -fr $tmpdir
+}
+
+#
 # Check for existence of a ptxconfig file
 # check_ptxconfig()
 
@@ -212,6 +243,7 @@ PTXdist `printf "%-24s" ${FULLVERSION}` Build System for Embedded Linux Systems
 Setup and Project Actions:
 
   setup                          setup per-user preferences
+  boardsetup                     setup per-board preferences
 
   projects                       show available projects
   clone <from> <to>              create a new project, cloned from <from>. 
@@ -614,6 +646,8 @@ while [ "$#" != "0" ]; do
 			echo "${PROMPT}done"
 			echo
 			exit 0
+			;;
+	boardsetup)	shift; boardsetup
 			;;
 	compile)	shift
 			if [ "$#" = "0" ]; then
