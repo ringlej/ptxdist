@@ -890,11 +890,11 @@ while [ "$#" != "0" ]; do
 	test)		shift
 			if [ -x "$PTXDIST_WORKSPACE/tests/$1" ]; then
 				echo
-				$PTXDIST_WORKSPACE/tests/$1
+				$PTXDIST_WORKSPACE/tests/$1 > ${PTXDIST_WORKSPACE}/test.log
 				echo
 			else if [ -x "$PTXDIST_TOPDIR/tests/$1" ]; then
 				echo
-				$PTXDIST_TOPDIR/tests/$1
+				$PTXDIST_TOPDIR/tests/$1 > ${PTXDIST_WORKSPACE}/test.log
 				echo
 			else
 				echo
