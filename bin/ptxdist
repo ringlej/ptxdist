@@ -123,7 +123,6 @@ check_ptxconfig() {
 
 	PTXCONF_CONFIGFILE_VERSION=$(. ptxconfig && echo ${PTXCONF_CONFIGFILE_VERSION})
 	if [ "${PTXCONF_CONFIGFILE_VERSION}" != "${FULLVERSION}" ]; then
-
 		echo
 		echo "${PROMPT}error: Your ptxconfig file was built with another PTXdist version."
 		echo "${PROMPT}error: As this may result in a broken configuration it is recommended"
