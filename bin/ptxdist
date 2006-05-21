@@ -839,8 +839,9 @@ while [ "$#" != "0" ]; do
 			check_pipe_status
 			shift
 			;;
-
-	projects)	shift; projects;;
+	projects)	shift
+			projects
+			;;
 	run)		shift
 			check_ptxconfig
 			check_native
