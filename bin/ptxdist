@@ -189,21 +189,22 @@ check_compiler() {
 # they are created here. 
 #
 check_dirs() {
+	local ptxconf_prefix ptxconf_gnu_target
 
-	if [ -z "$PREFIX" ]; then 
-		PTXCONF_PREFIX=$(. ptxconfig && echo ${PTXCONF_PREFIX})
+	if [ -z "$PREFIX" ]; then
+		ptxconf_prefix=$(. ptxconfig && echo ${PTXCONF_PREFIX})
 	else 
-		PTXCONF_PREFIX=$PREFIX
+		ptxconf_prefix=$PREFIX
 	fi
-	PTXCONF_GNU_TARGET=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
+	ptxconf_gnu_target=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
 
 	# And now we learn something new about shell: brace expansion.
 	# It saves 16 characters compared to what NORMAL people would write 
 	# here... unfortunately it discovers a bug in vim's syntax high-
-	# lighting :) Thanks to Martin Neitzel who inspired this...
-
-	for i in {,/usr}/lib {,/usr}/{,s}bin /usr /usr/include; do
-		mkdir -p ${PTXCONF_PREFIX}${i} ${PTXCONF_PREFIX}/${PTXCONF_GNU_TARGET}/${i}
+	# lighting :) Thanks to Martin Neitzel who inspired this...(rsc)
+	# it's even possible to do it shorter (mkl)
+	for i in {,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}; do
+		mkdir -p ${ptxconf_prefix}/{,${ptxconf_gnu_target}/}${i}
 	done
 }
 
