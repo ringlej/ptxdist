@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.3
-# Fri Apr 21 17:36:57 2006
+# PTXdist version: 0.10.svn
+# Sun May 21 12:52:27 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -1028,6 +1028,10 @@ PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP=y
 # Debugging Options
 #
 # PTXCONF_BB_CONFIG_DEBUG is not set
+
+#
+# clock is broken, please send a patch
+#
 PTXCONF_COREUTILS=y
 PTXCONF_COREUTILS_CP=y
 PTXCONF_COREUTILS_DD=y
@@ -1162,10 +1166,6 @@ PTXCONF_UTIL_LINUX_MOUNT=y
 PTXCONF_UTIL_LINUX_UMOUNT=y
 PTXCONF_UTIL_LINUX_IPCS=y
 PTXCONF_UTIL_LINUX_READPROFILE=y
-
-#
-# clock is broken, please send a patch
-#
 PTXCONF_UDEV=y
 PTXCONF_UDEV_UDEV=y
 PTXCONF_UDEV_UDEVD=y
@@ -1356,10 +1356,6 @@ PTXCONF_OPENSSH_SSHD=y
 PTXCONF_OPENSSH_SCP=y
 PTXCONF_OPENSSH_SFTP_SERVER=y
 PTXCONF_OPENSSH_KEYGEN=y
-
-#
-# shorewall firewall  
-#
 PTXCONF_SHOREWALL=y
 
 #
@@ -1410,25 +1406,9 @@ PTXCONF_INETUTILS_SYSLOGD=y
 #
 # libcgicc is broken, please send a patch
 #
-
-#
-# libnet              
-#
 PTXCONF_LIBNET=y
-
-#
-# libpcap             
-#
 PTXCONF_LIBPCAP=y
-
-#
-# mii-diag            
-#
 PTXCONF_MII_DIAG=y
-
-#
-# netcat              
-#
 PTXCONF_NETCAT=y
 PTXCONF_NETCAT_OLD_HEXDUMP=y
 PTXCONF_NETCAT_OLD_TELNET=y
@@ -1547,10 +1527,6 @@ PTXCONF_NTP_ZYFER=y
 # PTXCONF_NTP_NTPQ is not set
 
 #
-# ntpclient           
-#
-
-#
 # ntpclient is broken, please send a patch
 #
 
@@ -1572,10 +1548,6 @@ PTXCONF_OPENNTPD_ARC4RANDOM=y
 #
 # portmap is broken, please send a patch
 #
-
-#
-# ppp                 
-#
 PTXCONF_PPP=y
 PTXCONF_PPP_MS_CHAP=y
 PTXCONF_PPP_SHADOW=y
@@ -1592,15 +1564,7 @@ PTXCONF_PUREFTPD=y
 PTXCONF_PUREFTPD_UPLOADSCRIPT=y
 PTXCONF_PUREFTPD_VIRTUALHOSTS=y
 PTXCONF_PUREFTPD_DIRALIASES=y
-
-#
-# netkit-ftp          
-#
 # PTXCONF_NETKIT_FTP is not set
-
-#
-# rsync               
-#
 PTXCONF_RSYNC=y
 PTXCONF_SYSLOGNG=y
 PTXCONF_SYSLOGNG_SUNSTREAMS=y
@@ -1608,30 +1572,14 @@ PTXCONF_SYSLOGNG_SUNDOOR=y
 PTXCONF_SYSLOGNG_TCPWRAPPER=y
 PTXCONF_SYSLOGNG_SPOOF_SOURCE=y
 PTXCONF_TCPDUMP=y
-
-#
-# tcpwrapper          
-#
 PTXCONF_TCPWRAPPER=y
 PTXCONF_TCPWRAPPER_INSTALL_TCPD=y
-
-#
-# Troll FTPD          
-#
 
 #
 # trollftpd is broken, please send a patch
 #
 PTXCONF_THTTPD=y
-
-#
-# utelnetd            
-#
 PTXCONF_UTELNETD=y
-
-#
-# wget                
-#
 PTXCONF_WGET=y
 
 #
@@ -1639,10 +1587,6 @@ PTXCONF_WGET=y
 #
 PTXCONF_WIRELESS=y
 PTXCONF_WIRELESS_SHARED=y
-
-#
-# GNU Zebra           
-#
 
 #
 # zebra is broken, please send a patch
@@ -2174,6 +2118,7 @@ PTXCONF_LIBPV_PVTOOL=y
 #
 # Test Suites                 
 #
+# PTXCONF_HOST_PELTS is not set
 PTXCONF_TESTSUITE_DIR="/usr/lib/testsuites"
 PTXCONF_DBENCH=y
 
