@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-print.extract: $(xorg-proto-print_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_PRINT_DIR))
 	@$(call extract, XORG_PROTO_PRINT)
-	@$(call patchin, $(XORG_PROTO_PRINT))
+	@$(call patchin, XORG_PROTO_PRINT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

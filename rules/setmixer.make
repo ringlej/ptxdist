@@ -50,7 +50,7 @@ $(STATEDIR)/setmixer.extract: $(setmixer_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SETMIXER_DIR))
 	@$(call extract, SETMIXER)
-	@$(call patchin, $(SETMIXER),$(SETMIXER_DIR))
+	@$(call patchin, SETMIXER,$(SETMIXER_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

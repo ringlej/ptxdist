@@ -50,7 +50,7 @@ $(STATEDIR)/tcpdump.extract: $(tcpdump_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TCPDUMP_DIR))
 	@$(call extract, TCPDUMP, $(BUILDDIR))
-	@$(call patchin, $(TCPDUMP))
+	@$(call patchin, TCPDUMP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

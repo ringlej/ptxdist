@@ -431,13 +431,17 @@ touch =								\
 #
 # extract 
 #
-# Extract a source archive into a directory. 
+# Extract a source archive into a directory. This stage is 
+# skipped if $1_URL points to a local directory instead of
+# an archive or online URL. 
 #
 # $1: Packet label; we extract $1_SOURCE
 # $2: dir to extract into; if $2 is not given we extract to $(BUILDDIR)
 #
 extract =							\
 	PACKET="$($(strip $(1))_SOURCE)";			\
+	PACKETDIR="$($(strip $(1))_DIR)";			\
+	URL="$($(strip $(1))_URL)";				\
 	if [ "$$PACKET" = "" ]; then				\
 		echo;						\
 		echo Error: empty parameter to \"extract\(\)\";	\
@@ -446,6 +450,18 @@ extract =							\
 	fi;							\
 	DEST="$(strip $(2))";					\
 	DEST=$${DEST:-$(BUILDDIR)};				\
+	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
+								\
+	case $$URL in						\
+	file*)							\
+		THING="$$(echo $$URL | sed s-file://-/-g)";	\
+		if [ -d "$$THING" ]; then			\
+			echo "local directory instead of tar file, linking build dir"; \
+			ln -sf $$THING $$PACKETDIR; 		\
+			exit 0; 				\
+		fi; 						\
+	esac; 							\
+								\
 	echo "extract: archive=$$PACKET";			\
 	echo "extract: dest=$$DEST";				\
 	case "$$PACKET" in					\
@@ -462,7 +478,6 @@ extract =							\
 		exit -1;					\
 		;;						\
 	esac;							\
-	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
 	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
 	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
 	[ $$? -eq 0 ] || {					\
@@ -472,7 +487,6 @@ extract =							\
 		echo;						\
 		exit -1;					\
 	};
-
 
 #
 # get
@@ -517,15 +531,24 @@ get =								\
 			};					\
 		;;						\
 	file*)							\
-		FILE="$$(echo $$URL | sed s-file://-/-g)";	\
-		$(CP) -av $$FILE $$SRC;				\
-		[ $$? -eq 0 ] || {				\
-			echo;					\
-			echo "Could not copy packet!";		\
-			echo "File: $$FILE";			\
-			echo;					\
-			exit -1;				\
+		THING="$$(echo $$URL | sed s-file://-/-g)";	\
+		if [ -f "$$THING" ]; then			\
+			echo "local archive, copying"; 		\
+			$(CP) -av $$FILE $$SRC;			\
+			[ $$? -eq 0 ] || {			\
+				echo;				\
+				echo "Could not copy packet!";	\
+				echo "File: $$FILE";		\
+				echo;				\
+				exit -1;			\
 			};					\
+		elif [ -d "$$THING" ]; then			\
+			echo "local directory instead of tar file, skipping get";	\
+			[ -e $@ ] || touch $@; 			\
+		else						\
+			echo "don't know about $$THING"; 	\
+			exit 1;					\
+		fi; 						\
 		;;						\
 	*)							\
 		echo;						\
@@ -720,15 +743,26 @@ disable_sh =						\
 # patchin
 # 
 # Go into a directory and apply all patches from there into a
-# sourcetree. 
+# sourcetree. This macro skips if $1 points to a local directory.
 #
-# $1: $(PACKET_NAME) -> identifier
+# $1: packet label; $($(1)_NAME) -> identifier
 # $2: path to source tree 
 #     if this parameter is omitted, the path will be derived
 #     from the packet name
 #
 patchin =									\
-	PACKET_NAME="$(strip $(1))";						\
+	PACKET_NAME="$($(strip $(1)))"; 					\
+	URL="$($(strip $(1))_URL)";						\
+										\
+	case $$URL in								\
+	file*)									\
+		THING="$$(echo $$URL | sed s-file://-/-g)";			\
+		if [ -d "$$THING" ]; then					\
+			echo "local directory instead of tar file, skipping patch"; \
+			exit 0; 						\
+		fi; 								\
+	esac; 									\
+										\
 	echo "patchin: packet=$$PACKET_NAME";					\
 	if [ "$$PACKET_NAME" = "" ]; then					\
 		echo;								\

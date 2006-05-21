@@ -38,6 +38,7 @@ $(STATEDIR)/host-zlib.extract: $(host_zlib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_ZLIB_BUILDDIR))
 	@$(call extract, ZLIB, $(HOST_BUILDDIR))
+	@$(call patchin, ZLIB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-ibm-type1.extract: $(xorg-font-ibm-type1_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_IBM_TYPE1_DIR))
 	@$(call extract, XORG_FONT_IBM_TYPE1)
-	@$(call patchin, $(XORG_FONT_IBM_TYPE1))
+	@$(call patchin, XORG_FONT_IBM_TYPE1)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

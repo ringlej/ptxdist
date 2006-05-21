@@ -51,7 +51,7 @@ $(STATEDIR)/pcre.extract: $(pcre_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCRE_DIR))
 	@$(call extract, PCRE)
-	@$(call patchin, $(PCRE))
+	@$(call patchin, PCRE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/sdl.extract: $(sdl_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SDL_LIB_DIR))
 	@$(call extract, SDL_LIB)
-	@$(call patchin, $(SDL_LIB))
+	@$(call patchin, SDL_LIB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

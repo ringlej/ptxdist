@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-screen-cyrillic.extract: $(xorg-font-screen-cyrillic_extra
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_SCREEN_CYRILLIC_DIR))
 	@$(call extract, XORG_FONT_SCREEN_CYRILLIC)
-	@$(call patchin, $(XORG_FONT_SCREEN_CYRILLIC))
+	@$(call patchin, XORG_FONT_SCREEN_CYRILLIC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -51,7 +51,7 @@ $(STATEDIR)/librn.extract: $(librn_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBRN_DIR))
 	@$(call extract, LIBRN)
-	@$(call patchin, $(LIBRN))
+	@$(call patchin, LIBRN)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

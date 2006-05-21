@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-mutt-misc.extract: $(xorg-font-mutt-misc_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_MUTT_MISC_DIR))
 	@$(call extract, XORG_FONT_MUTT_MISC)
-	@$(call patchin, $(XORG_FONT_MUTT_MISC))
+	@$(call patchin, XORG_FONT_MUTT_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

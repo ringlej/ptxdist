@@ -50,7 +50,7 @@ $(STATEDIR)/ipkg.extract: $(ipkg_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPKG_DIR))
 	@$(call extract, IPKG)
-	@$(call patchin, $(IPKG))
+	@$(call patchin, IPKG)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

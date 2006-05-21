@@ -50,7 +50,7 @@ $(STATEDIR)/gnupg.extract: $(gnupg_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GNUPG_DIR))
 	@$(call extract, GNUPG)
-	@$(call patchin, $(GNUPG))
+	@$(call patchin, GNUPG)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

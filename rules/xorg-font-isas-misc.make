@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-isas-misc.extract: $(xorg-font-isas-misc_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_ISAS_MISC_DIR))
 	@$(call extract, XORG_FONT_ISAS_MISC)
-	@$(call patchin, $(XORG_FONT_ISAS_MISC))
+	@$(call patchin, XORG_FONT_ISAS_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

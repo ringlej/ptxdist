@@ -50,7 +50,7 @@ $(STATEDIR)/libxslt.extract: $(libxslt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXSLT_DIR))
 	@$(call extract, LIBXSLT)
-	@$(call patchin, $(LIBXSLT))
+	@$(call patchin, LIBXSLT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

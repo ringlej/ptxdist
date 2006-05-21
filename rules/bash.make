@@ -48,7 +48,7 @@ $(STATEDIR)/bash.extract: $(bash_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean $(BASH_DIR))
 	@$(call extract, BASH)
-	@$(call patchin, $(BASH))
+	@$(call patchin, BASH)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

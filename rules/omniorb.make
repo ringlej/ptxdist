@@ -52,7 +52,7 @@ $(STATEDIR)/omniorb.extract: $(omniorb_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OMNIORB_DIR))
 	@$(call extract, OMNIORB)
-	@$(call patchin, $(OMNIORB))
+	@$(call patchin, OMNIORB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

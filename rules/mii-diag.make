@@ -50,7 +50,7 @@ $(STATEDIR)/mii-diag.extract: $(mii-diag_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MII_DIAG_DIR))
 	@$(call extract, MII_DIAG)
-	@$(call patchin, $(MII_DIAG))
+	@$(call patchin, MII_DIAG)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

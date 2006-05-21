@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-driver-video-ati.extract: $(xorg-driver-video-ati_extract_deps_
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_VIDEO_ATI_DIR))
 	@$(call extract, XORG_DRIVER_VIDEO_ATI)
-	@$(call patchin, $(XORG_DRIVER_VIDEO_ATI))
+	@$(call patchin, XORG_DRIVER_VIDEO_ATI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

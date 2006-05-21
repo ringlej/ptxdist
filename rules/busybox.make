@@ -50,7 +50,7 @@ $(STATEDIR)/busybox.extract: $(busybox_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BUSYBOX_DIR))
 	@$(call extract, BUSYBOX)
-	@$(call patchin, $(BUSYBOX))
+	@$(call patchin, BUSYBOX)
 
 #	# fix: turn off debugging in init.c
 	perl -i -p -e 's/^#define DEBUG_INIT/#undef DEBUG_INIT/g' $(BUSYBOX_DIR)/init/init.c

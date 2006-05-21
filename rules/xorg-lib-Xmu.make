@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xmu.extract: $(xorg-lib-Xmu_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XMU_DIR))
 	@$(call extract, XORG_LIB_XMU)
-	@$(call patchin, $(XORG_LIB_XMU))
+	@$(call patchin, XORG_LIB_XMU)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

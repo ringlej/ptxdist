@@ -41,7 +41,7 @@ $(STATEDIR)/host-python24.extract: $(host-python24_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_PYTHON24_DIR))
 	@$(call extract, PYTHON24, $(HOST_BUILDDIR))
-	@$(call patchin, $(PYTHON24), $(HOST_PYTHON24_DIR))
+	@$(call patchin, PYTHON24, $(HOST_PYTHON24_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

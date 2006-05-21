@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-xtrans.extract: $(xorg-lib-xtrans_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XTRANS_DIR))
 	@$(call extract, XORG_LIB_XTRANS)
-	@$(call patchin, $(XORG_LIB_XTRANS))
+	@$(call patchin, XORG_LIB_XTRANS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

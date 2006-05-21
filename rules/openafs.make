@@ -50,7 +50,7 @@ $(STATEDIR)/openafs.extract: $(openafs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENAFS_DIR))
 	@$(call extract, OPENAFS)
-	@$(call patchin, $(OPENAFS))
+	@$(call patchin, OPENAFS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

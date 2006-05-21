@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-xproxymanagement.extract: $(xorg-proto-xproxymanagement_e
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XPROXYMANAGEMENT_DIR))
 	@$(call extract, XORG_PROTO_XPROXYMANAGEMENT)
-	@$(call patchin, $(XORG_PROTO_XPROXYMANAGEMENT))
+	@$(call patchin, XORG_PROTO_XPROXYMANAGEMENT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

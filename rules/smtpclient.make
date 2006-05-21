@@ -50,7 +50,7 @@ $(STATEDIR)/smtpclient.extract: $(smtpclient_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SMTPCLIENT_DIR))
 	@$(call extract, SMTPCLIENT)
-	@$(call patchin, $(SMTPCLIENT))
+	@$(call patchin, SMTPCLIENT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -57,7 +57,7 @@ $(STATEDIR)/xmlbench.extract: $(xmlbench_extract_deps_default)
 	@$(call clean, $(XMLBENCH_DIR))
 	@$(call extract, XMLBENCH)
 	mv $(BUILDDIR)/xmlbench $(XMLBENCH_DIR)
-	@$(call patchin, $(XMLBENCH))
+	@$(call patchin, XMLBENCH)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

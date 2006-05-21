@@ -50,7 +50,7 @@ $(STATEDIR)/libdrm.extract: $(libdrm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBDRM_DIR))
 	@$(call extract, LIBDRM)
-	@$(call patchin, $(LIBDRM))
+	@$(call patchin, LIBDRM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

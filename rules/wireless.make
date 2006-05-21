@@ -49,7 +49,7 @@ $(STATEDIR)/wireless.extract: $(wireless_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WIRELESS_DIR))
 	@$(call extract, WIRELESS)
-	@$(call patchin, $(WIRELESS))
+	@$(call patchin, WIRELESS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

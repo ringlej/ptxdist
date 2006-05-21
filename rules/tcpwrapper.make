@@ -49,7 +49,7 @@ $(STATEDIR)/tcpwrapper.extract: $(tcpwrapper_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TCPWRAPPER_DIR))
 	@$(call extract, TCPWRAPPER)
-	@$(call patchin, $(TCPWRAPPER))
+	@$(call patchin, TCPWRAPPER)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

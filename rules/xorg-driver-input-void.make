@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-driver-input-void.extract: $(xorg-driver-input-void_extract_dep
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_INPUT_VOID_DIR))
 	@$(call extract, XORG_DRIVER_INPUT_VOID)
-	@$(call patchin, $(XORG_DRIVER_INPUT_VOID))
+	@$(call patchin, XORG_DRIVER_INPUT_VOID)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

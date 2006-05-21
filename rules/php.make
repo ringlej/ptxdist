@@ -50,7 +50,7 @@ $(STATEDIR)/php.extract: $(php_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP_DIR))
 	@$(call extract, PHP)
-	@$(call patchin, $(PHP))
+	@$(call patchin, PHP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

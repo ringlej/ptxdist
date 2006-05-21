@@ -52,7 +52,7 @@ $(STATEDIR)/lrzsz.extract: $(lrzsz_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LRZSZ_DIR))
 	@$(call extract, LRZSZ)
-	@$(call patchin, $(LRZSZ))
+	@$(call patchin, LRZSZ)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

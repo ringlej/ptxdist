@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-cursor-misc.extract: $(xorg-font-cursor-misc_extract_deps_
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_CURSOR_MISC_DIR))
 	@$(call extract, XORG_FONT_CURSOR_MISC)
-	@$(call patchin, $(XORG_FONT_CURSOR_MISC))
+	@$(call patchin, XORG_FONT_CURSOR_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

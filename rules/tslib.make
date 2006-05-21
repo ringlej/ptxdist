@@ -50,7 +50,7 @@ $(STATEDIR)/tslib.extract: $(tslib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TSLIB_DIR))
 	@$(call extract, TSLIB)
-	@$(call patchin, $(TSLIB))
+	@$(call patchin, TSLIB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

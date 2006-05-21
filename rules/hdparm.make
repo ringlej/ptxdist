@@ -50,7 +50,7 @@ $(STATEDIR)/hdparm.extract: $(hdparm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HDPARM_DIR))
 	@$(call extract, HDPARM)
-	@$(call patchin, $(HDPARM))
+	@$(call patchin, HDPARM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

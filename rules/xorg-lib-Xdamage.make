@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xdamage.extract: $(xorg-lib-Xdamage_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XDAMAGE_DIR))
 	@$(call extract, XORG_LIB_XDAMAGE)
-	@$(call patchin, $(XORG_LIB_XDAMAGE))
+	@$(call patchin, XORG_LIB_XDAMAGE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

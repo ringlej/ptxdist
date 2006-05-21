@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-schumacher-misc.extract: $(xorg-font-schumacher-misc_extra
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_SCHUMACHER_MISC_DIR))
 	@$(call extract, XORG_FONT_SCHUMACHER_MISC)
-	@$(call patchin, $(XORG_FONT_SCHUMACHER_MISC))
+	@$(call patchin, XORG_FONT_SCHUMACHER_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

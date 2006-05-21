@@ -50,7 +50,7 @@ $(STATEDIR)/freetype.extract: $(freetype_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FREETYPE_DIR))
 	@$(call extract, FREETYPE)
-	@$(call patchin, $(FREETYPE))
+	@$(call patchin, FREETYPE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

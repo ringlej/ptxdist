@@ -50,7 +50,7 @@ $(STATEDIR)/eventlog.extract: $(eventlog_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EVENTLOG_DIR))
 	@$(call extract, EVENTLOG)
-	@$(call patchin, $(EVENTLOG))
+	@$(call patchin, EVENTLOG)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

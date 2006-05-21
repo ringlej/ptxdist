@@ -50,7 +50,7 @@ $(STATEDIR)/pekwm.extract: $(pekwm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PEKWM_DIR))
 	@$(call extract, PEKWM)
-	@$(call patchin, $(PEKWM))
+	@$(call patchin, PEKWM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

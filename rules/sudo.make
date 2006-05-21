@@ -52,7 +52,7 @@ $(STATEDIR)/sudo.extract: $(sudo_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SUDO_DIR))
 	@$(call extract, SUDO)
-	@$(call patchin, $(SUDO))
+	@$(call patchin, SUDO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

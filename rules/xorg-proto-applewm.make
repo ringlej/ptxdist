@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-applewm.extract: $(xorg-proto-applewm_extract_deps_defaul
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_APPLEWM_DIR))
 	@$(call extract, XORG_PROTO_APPLEWM)
-	@$(call patchin, $(XORG_PROTO_APPLEWM))
+	@$(call patchin, XORG_PROTO_APPLEWM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

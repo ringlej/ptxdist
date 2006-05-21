@@ -50,7 +50,7 @@ $(STATEDIR)/fontconfig.extract: $(fontconfig_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FONTCONFIG_DIR))
 	@$(call extract, FONTCONFIG)
-	@$(call patchin, $(FONTCONFIG))
+	@$(call patchin, FONTCONFIG)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

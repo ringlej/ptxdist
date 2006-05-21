@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-xinerama.extract: $(xorg-proto-xinerama_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XINERAMA_DIR))
 	@$(call extract, XORG_PROTO_XINERAMA)
-	@$(call patchin, $(XORG_PROTO_XINERAMA))
+	@$(call patchin, XORG_PROTO_XINERAMA)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

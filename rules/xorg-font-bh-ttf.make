@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-bh-ttf.extract: $(xorg-font-bh-ttf_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_BH_TTF_DIR))
 	@$(call extract, XORG_FONT_BH_TTF)
-	@$(call patchin, $(XORG_FONT_BH_TTF))
+	@$(call patchin, XORG_FONT_BH_TTF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

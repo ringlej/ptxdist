@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-driver-video-fbdev.extract: $(xorg-driver-video-fbdev_extract_d
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_VIDEO_FBDEV_DIR))
 	@$(call extract, XORG_DRIVER_VIDEO_FBDEV)
-	@$(call patchin, $(XORG_DRIVER_VIDEO_FBDEV))
+	@$(call patchin, XORG_DRIVER_VIDEO_FBDEV)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

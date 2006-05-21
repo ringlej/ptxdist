@@ -50,7 +50,7 @@ $(STATEDIR)/libpcap.extract: $(libpcap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPCAP_DIR))
 	@$(call extract, LIBPCAP)
-	@$(call patchin, $(LIBPCAP))
+	@$(call patchin, LIBPCAP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

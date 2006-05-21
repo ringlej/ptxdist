@@ -50,7 +50,7 @@ $(STATEDIR)/flex.extract: $(flex_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLEX_DIR))
 	@$(call extract, FLEX)
-	@$(call patchin, $(FLEX))
+	@$(call patchin, FLEX)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

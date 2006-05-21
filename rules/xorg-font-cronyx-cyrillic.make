@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-cronyx-cyrillic.extract: $(xorg-font-cronyx-cyrillic_extra
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_CRONYX_CYRILLIC_DIR))
 	@$(call extract, XORG_FONT_CRONYX_CYRILLIC)
-	@$(call patchin, $(XORG_FONT_CRONYX_CYRILLIC))
+	@$(call patchin, XORG_FONT_CRONYX_CYRILLIC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

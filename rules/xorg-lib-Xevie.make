@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xevie.extract: $(xorg-lib-Xevie_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XEVIE_DIR))
 	@$(call extract, XORG_LIB_XEVIE)
-	@$(call patchin, $(XORG_LIB_XEVIE))
+	@$(call patchin, XORG_LIB_XEVIE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

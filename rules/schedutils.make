@@ -50,7 +50,7 @@ $(STATEDIR)/schedutils.extract: $(schedutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SCHEDUTILS_DIR))
 	@$(call extract, SCHEDUTILS)
-	@$(call patchin, $(SCHEDUTILS))
+	@$(call patchin, SCHEDUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

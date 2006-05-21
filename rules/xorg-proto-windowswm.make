@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-windowswm.extract: $(xorg-proto-windowswm_extract_deps_de
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_WINDOWSWM_DIR))
 	@$(call extract, XORG_PROTO_WINDOWSWM)
-	@$(call patchin, $(XORG_PROTO_WINDOWSWM))
+	@$(call patchin, XORG_PROTO_WINDOWSWM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -49,7 +49,7 @@ $(STATEDIR)/ppp.extract: $(ppp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PPP_DIR))
 	@$(call extract, PPP)
-	@$(call patchin, $(PPP))
+	@$(call patchin, PPP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

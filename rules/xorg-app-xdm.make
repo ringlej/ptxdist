@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-app-xdm.extract: $(xorg-app-xdm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_XDM_DIR))
 	@$(call extract, XORG_APP_XDM)
-	@$(call patchin, $(XORG_APP_XDM))
+	@$(call patchin, XORG_APP_XDM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

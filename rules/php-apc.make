@@ -50,7 +50,7 @@ $(STATEDIR)/php-apc.extract: $(php-apc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP_APC_DIR))
 	@$(call extract, PHP_APC, $(PHP_DIR)/ext)
-	@$(call patchin, $(PHP_APC))
+	@$(call patchin, PHP_APC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

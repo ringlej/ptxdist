@@ -50,7 +50,7 @@ $(STATEDIR)/procps.extract: $(procps_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PROCPS_DIR))
 	@$(call extract, PROCPS)
-	@$(call patchin, $(PROCPS))
+	@$(call patchin, PROCPS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -52,7 +52,7 @@ $(STATEDIR)/qt.extract: $(qt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(QT_DIR))
 	@$(call extract, QT)
-	@$(call patchin, $(QT_SOURCE))
+	@$(call patchin, QT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

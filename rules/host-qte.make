@@ -46,7 +46,7 @@ $(STATEDIR)/host-qte.extract: $(host-qte_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_QTE_DIR))
 	@$(call extract, HOST_QTE, $(HOST_BUILDDIR))
-	@$(call patchin, $(HOST_QTE), $(HOST_QTE_DIR))
+	@$(call patchin, HOST_QTE, $(HOST_QTE_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

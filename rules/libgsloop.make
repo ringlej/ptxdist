@@ -50,7 +50,7 @@ $(STATEDIR)/libgsloop.extract: $(libgsloop_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGSLOOP_DIR))
 	@$(call extract, LIBGSLOOP)
-	@$(call patchin, $(LIBGSLOOP))
+	@$(call patchin, LIBGSLOOP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

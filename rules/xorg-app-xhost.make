@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-app-xhost.extract: $(xorg-app-xhost_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_XHOST_DIR))
 	@$(call extract, XORG_APP_XHOST)
-	@$(call patchin, $(XORG_APP_XHOST))
+	@$(call patchin, XORG_APP_XHOST)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

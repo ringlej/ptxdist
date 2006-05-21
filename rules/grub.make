@@ -48,7 +48,7 @@ $(STATEDIR)/grub.extract: $(grub_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GRUB_DIR))
 	@$(call extract, GRUB)
-	@$(call patchin, $(GRUB))
+	@$(call patchin, GRUB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

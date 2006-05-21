@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-XScrnSaver.extract: $(xorg-lib-XScrnSaver_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XSCRNSAVER_DIR))
 	@$(call extract, XORG_LIB_XSCRNSAVER)
-	@$(call patchin, $(XORG_LIB_XSCRNSAVER))
+	@$(call patchin, XORG_LIB_XSCRNSAVER)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-driver-video-apm.extract: $(xorg-driver-video-apm_extract_deps_
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_VIDEO_APM_DIR))
 	@$(call extract, XORG_DRIVER_VIDEO_APM)
-	@$(call patchin, $(XORG_DRIVER_VIDEO_APM))
+	@$(call patchin, XORG_DRIVER_VIDEO_APM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

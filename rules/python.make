@@ -51,7 +51,7 @@ $(STATEDIR)/python.extract: $(python_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PYTHON_DIR))
 	@$(call extract, PYTHON)
-	@$(call patchin, $(PYTHON))
+	@$(call patchin, PYTHON)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

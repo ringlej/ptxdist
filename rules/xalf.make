@@ -50,7 +50,7 @@ $(STATEDIR)/xalf.extract: $(xalf_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XALF_DIR))
 	@$(call extract, XALF)
-	@$(call patchin, $(XALF))
+	@$(call patchin, XALF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

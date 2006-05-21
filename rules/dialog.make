@@ -50,7 +50,7 @@ $(STATEDIR)/dialog.extract: $(dialog_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DIALOG_DIR))
 	@$(call extract, DIALOG)
-	@$(call patchin, $(DIALOG))
+	@$(call patchin, DIALOG)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

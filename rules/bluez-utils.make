@@ -50,7 +50,7 @@ $(STATEDIR)/bluez-utils.extract: $(bluez-utils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BLUEZ_UTILS_DIR))
 	@$(call extract, BLUEZ_UTILS)
-	@$(call patchin, $(BLUEZ_UTILS))
+	@$(call patchin, BLUEZ_UTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

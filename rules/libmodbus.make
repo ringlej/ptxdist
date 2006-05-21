@@ -50,7 +50,7 @@ $(STATEDIR)/libmodbus.extract: $(libmodbus_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBMODBUS_DIR))
 	@$(call extract, LIBMODBUS)
-	@$(call patchin, $(LIBMODBUS))
+	@$(call patchin, LIBMODBUS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/termcap.extract: $(termcap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TERMCAP_DIR))
 	@$(call extract, TERMCAP)
-	@$(call patchin, $(TERMCAP))
+	@$(call patchin, TERMCAP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

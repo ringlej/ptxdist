@@ -50,7 +50,7 @@ $(STATEDIR)/oprofile.extract: $(oprofile_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPROFILE_DIR))
 	@$(call extract, OPROFILE)
-	@$(call patchin, $(OPROFILE))
+	@$(call patchin, OPROFILE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xxf86misc.extract: $(xorg-lib-Xxf86misc_extract_deps_defaul
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XXF86MISC_DIR))
 	@$(call extract, XORG_LIB_XXF86MISC)
-	@$(call patchin, $(XORG_LIB_XXF86MISC))
+	@$(call patchin, XORG_LIB_XXF86MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

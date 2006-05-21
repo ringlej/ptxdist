@@ -50,7 +50,7 @@ $(STATEDIR)/dbench.extract: $(dbench_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DBENCH_DIR))
 	@$(call extract, DBENCH)
-	@$(call patchin, $(DBENCH))
+	@$(call patchin, DBENCH)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

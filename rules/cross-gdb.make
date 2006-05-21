@@ -46,7 +46,7 @@ $(STATEDIR)/cross-gdb.extract: $(cross-gdb_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_GDB_DIR))
 	@$(call extract, CROSS_GDB, $(CROSS_BUILDDIR))
-	@$(call patchin, $(CROSS_GDB), $(CROSS_GDB_DIR))
+	@$(call patchin, CROSS_GDB, $(CROSS_GDB_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

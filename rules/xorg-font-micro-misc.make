@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-micro-misc.extract: $(xorg-font-micro-misc_extract_deps_de
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_MICRO_MISC_DIR))
 	@$(call extract, XORG_FONT_MICRO_MISC)
-	@$(call patchin, $(XORG_FONT_MICRO_MISC))
+	@$(call patchin, XORG_FONT_MICRO_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

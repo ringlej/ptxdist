@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-adobe-utopia-type1.extract: $(xorg-font-adobe-utopia-type1
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_ADOBE_UTOPIA_TYPE1_DIR))
 	@$(call extract, XORG_FONT_ADOBE_UTOPIA_TYPE1)
-	@$(call patchin, $(XORG_FONT_ADOBE_UTOPIA_TYPE1))
+	@$(call patchin, XORG_FONT_ADOBE_UTOPIA_TYPE1)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

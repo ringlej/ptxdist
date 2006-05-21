@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-driver-input-mouse.extract: $(xorg-driver-input-mouse_extract_d
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_INPUT_MOUSE_DIR))
 	@$(call extract, XORG_DRIVER_INPUT_MOUSE)
-	@$(call patchin, $(XORG_DRIVER_INPUT_MOUSE))
+	@$(call patchin, XORG_DRIVER_INPUT_MOUSE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

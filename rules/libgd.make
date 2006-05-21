@@ -50,7 +50,7 @@ $(STATEDIR)/libgd.extract: $(libgd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGD_DIR))
 	@$(call extract, LIBGD)
-	@$(call patchin, $(LIBGD))
+	@$(call patchin, LIBGD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

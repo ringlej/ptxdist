@@ -50,7 +50,7 @@ $(STATEDIR)/klibc.extract: $(klibc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KLIBC_DIR))
 	@$(call extract, KLIBC)
-	@$(call patchin, $(KLIBC))
+	@$(call patchin, KLIBC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

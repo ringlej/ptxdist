@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-trap.extract: $(xorg-proto-trap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_TRAP_DIR))
 	@$(call extract, XORG_PROTO_TRAP)
-	@$(call patchin, $(XORG_PROTO_TRAP))
+	@$(call patchin, XORG_PROTO_TRAP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

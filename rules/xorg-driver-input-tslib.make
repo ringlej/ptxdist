@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-driver-input-tslib.extract: $(xorg-driver-input-tslib_extract_d
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_INPUT_TSLIB_DIR))
 	@$(call extract, XORG_DRIVER_INPUT_TSLIB)
-	@$(call patchin, $(XORG_DRIVER_INPUT_TSLIB))
+	@$(call patchin, XORG_DRIVER_INPUT_TSLIB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

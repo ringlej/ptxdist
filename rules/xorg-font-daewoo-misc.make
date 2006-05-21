@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-daewoo-misc.extract: $(xorg-font-daewoo-misc_extract_deps_
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_DAEWOO_MISC_DIR))
 	@$(call extract, XORG_FONT_DAEWOO_MISC)
-	@$(call patchin, $(XORG_FONT_DAEWOO_MISC))
+	@$(call patchin, XORG_FONT_DAEWOO_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

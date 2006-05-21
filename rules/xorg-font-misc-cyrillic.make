@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-misc-cyrillic.extract: $(xorg-font-misc-cyrillic_extract_d
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_MISC_CYRILLIC_DIR))
 	@$(call extract, XORG_FONT_MISC_CYRILLIC)
-	@$(call patchin, $(XORG_FONT_MISC_CYRILLIC))
+	@$(call patchin, XORG_FONT_MISC_CYRILLIC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

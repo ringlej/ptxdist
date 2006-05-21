@@ -50,7 +50,7 @@ $(STATEDIR)/bing.extract: $(bing_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BING_DIR))
 	@$(call extract, BING)
-	@$(call patchin, $(BING))
+	@$(call patchin, BING)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

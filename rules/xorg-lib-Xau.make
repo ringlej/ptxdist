@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xau.extract: $(xorg-lib-Xau_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XAU_DIR))
 	@$(call extract, XORG_LIB_XAU)
-	@$(call patchin, $(XORG_LIB_XAU))
+	@$(call patchin, XORG_LIB_XAU)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

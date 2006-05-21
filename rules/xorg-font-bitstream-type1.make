@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-bitstream-type1.extract: $(xorg-font-bitstream-type1_extra
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_BITSTREAM_TYPE1_DIR))
 	@$(call extract, XORG_FONT_BITSTREAM_TYPE1)
-	@$(call patchin, $(XORG_FONT_BITSTREAM_TYPE1))
+	@$(call patchin, XORG_FONT_BITSTREAM_TYPE1)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

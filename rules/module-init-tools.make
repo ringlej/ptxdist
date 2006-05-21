@@ -50,7 +50,7 @@ $(STATEDIR)/module-init-tools.extract: $(module-init-tools_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MODULE_INIT_TOOLS_DIR))
 	@$(call extract, MODULE_INIT_TOOLS)
-	@$(call patchin, $(MODULE_INIT_TOOLS), $(MODULE_INIT_TOOLS_DIR))
+	@$(call patchin, MODULE_INIT_TOOLS, $(MODULE_INIT_TOOLS_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

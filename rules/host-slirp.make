@@ -50,7 +50,7 @@ $(STATEDIR)/host-slirp.extract: $(host-slirp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_SLIRP_DIR))
 	@$(call extract, HOST_SLIRP, $(HOST_BUILDDIR))
-	@$(call patchin, $(HOST_SLIRP), $(HOST_SLIRP_DIR))
+	@$(call patchin, HOST_SLIRP, $(HOST_SLIRP_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

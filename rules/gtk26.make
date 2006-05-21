@@ -51,7 +51,7 @@ $(STATEDIR)/gtk26.extract: $(gtk26_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK26_DIR))
 	@$(call extract, GTK26)
-	@$(call patchin, $(GTK26))
+	@$(call patchin, GTK26)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

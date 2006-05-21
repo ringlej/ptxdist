@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-encodings.extract: $(xorg-font-encodings_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_ENCODINGS_DIR))
 	@$(call extract, XORG_FONT_ENCODINGS)
-	@$(call patchin, $(XORG_FONT_ENCODINGS))
+	@$(call patchin, XORG_FONT_ENCODINGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

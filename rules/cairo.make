@@ -50,7 +50,7 @@ $(STATEDIR)/cairo.extract: $(cairo_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CAIRO_DIR))
 	@$(call extract, CAIRO)
-	@$(call patchin, $(CAIRO))
+	@$(call patchin, CAIRO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

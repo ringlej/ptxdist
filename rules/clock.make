@@ -50,7 +50,7 @@ $(STATEDIR)/clock.extract: $(clock_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CLOCK_DIR))
 	@$(call extract, CLOCK)
-	@$(call patchin, $(CLOCK))
+	@$(call patchin, CLOCK)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

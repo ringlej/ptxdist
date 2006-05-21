@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-app-xinit.extract: $(xorg-app-xinit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_XINIT_DIR))
 	@$(call extract, XORG_APP_XINIT)
-	@$(call patchin, $(XORG_APP_XINIT))
+	@$(call patchin, XORG_APP_XINIT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

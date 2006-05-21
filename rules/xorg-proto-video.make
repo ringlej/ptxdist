@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-video.extract: $(xorg-proto-video_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_VIDEO_DIR))
 	@$(call extract, XORG_PROTO_VIDEO)
-	@$(call patchin, $(XORG_PROTO_VIDEO))
+	@$(call patchin, XORG_PROTO_VIDEO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

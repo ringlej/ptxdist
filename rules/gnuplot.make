@@ -50,7 +50,7 @@ $(STATEDIR)/gnuplot.extract: $(gnuplot_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GNUPLOT_DIR))
 	@$(call extract, GNUPLOT)
-	@$(call patchin, $(GNUPLOT))
+	@$(call patchin, GNUPLOT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

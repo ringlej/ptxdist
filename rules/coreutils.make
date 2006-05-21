@@ -48,7 +48,7 @@ $(STATEDIR)/coreutils.extract: $(coreutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(COREUTILS_DIR))
 	@$(call extract, COREUTILS)
-	@$(call patchin, $(COREUTILS))
+	@$(call patchin, COREUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

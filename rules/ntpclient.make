@@ -42,7 +42,7 @@ $(STATEDIR)/ntpclient.extract: $(ntpclient_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NTPCLIENT_DIR))
 	@$(call extract, NTPCLIENT)
-	@$(call patchin, $(NTPCLIENT))
+	@$(call patchin, NTPCLIENT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

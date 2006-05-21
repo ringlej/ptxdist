@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-bitstream-100dpi.extract: $(xorg-font-bitstream-100dpi_ext
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_BITSTREAM_100DPI_DIR))
 	@$(call extract, XORG_FONT_BITSTREAM_100DPI)
-	@$(call patchin, $(XORG_FONT_BITSTREAM_100DPI))
+	@$(call patchin, XORG_FONT_BITSTREAM_100DPI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

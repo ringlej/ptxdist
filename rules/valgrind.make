@@ -50,7 +50,7 @@ $(STATEDIR)/valgrind.extract: $(valgrind_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(VALGRIND_DIR))
 	@$(call extract, VALGRIND)
-	@$(call patchin, $(VALGRIND))
+	@$(call patchin, VALGRIND)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

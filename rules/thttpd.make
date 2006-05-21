@@ -50,7 +50,7 @@ $(STATEDIR)/thttpd.extract: $(thttpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(THTTPD_DIR))
 	@$(call extract, THTTPD)
-	@$(call patchin, $(THTTPD))
+	@$(call patchin, THTTPD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

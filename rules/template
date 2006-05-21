@@ -38,7 +38,7 @@ $(STATEDIR)/@packet@.get: $(@packet@_get_deps_default)
 
 $(@PACKET@_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(@PACKET@_URL))
+	@$(call get, @PACKET@)
 
 # ----------------------------------------------------------------------------
 # Extract

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-sun-misc.extract: $(xorg-font-sun-misc_extract_deps_defaul
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_SUN_MISC_DIR))
 	@$(call extract, XORG_FONT_SUN_MISC)
-	@$(call patchin, $(XORG_FONT_SUN_MISC))
+	@$(call patchin, XORG_FONT_SUN_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

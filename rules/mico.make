@@ -54,7 +54,7 @@ $(STATEDIR)/mico.extract: $(mico_extract_deps_default)
 	$(call extract, MICO, $$tmpdir) \
 	mv $$tmpdir/mico $(MICO_DIR); \
 	rm -fr $$tmpdir
-	@$(call patchin, $(MICO))
+	@$(call patchin, MICO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -51,7 +51,7 @@ $(STATEDIR)/libnet.extract: $(libnet_extract_deps_default)
 	@$(call clean, $(LIBNET_DIR))
 	@$(call extract, LIBNET)
 	mv $(BUILDDIR)/libnet $(LIBNET_DIR)
-	@$(call patchin, $(LIBNET), $(LIBNET_DIR))
+	@$(call patchin, LIBNET, $(LIBNET_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

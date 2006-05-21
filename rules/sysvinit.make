@@ -55,7 +55,7 @@ $(STATEDIR)/sysvinit.extract: $(sysvinit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSVINIT_DIR))
 	@$(call extract, SYSVINIT)
-	@$(call patchin, $(SYSVINIT))
+	@$(call patchin, SYSVINIT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

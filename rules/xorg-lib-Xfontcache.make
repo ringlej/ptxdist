@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xfontcache.extract: $(xorg-lib-Xfontcache_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XFONTCACHE_DIR))
 	@$(call extract, XORG_LIB_XFONTCACHE)
-	@$(call patchin, $(XORG_LIB_XFONTCACHE))
+	@$(call patchin, XORG_LIB_XFONTCACHE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

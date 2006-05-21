@@ -52,7 +52,7 @@ $(STATEDIR)/bridge-utils.extract: $(bridge-utils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BRIDGE_UTILS_DIR))
 	@$(call extract, BRIDGE_UTILS)
-	@$(call patchin, $(BRIDGE_UTILS))
+	@$(call patchin, BRIDGE_UTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

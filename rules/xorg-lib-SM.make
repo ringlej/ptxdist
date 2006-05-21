@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-SM.extract: $(xorg-lib-SM_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_SM_DIR))
 	@$(call extract, XORG_LIB_SM)
-	@$(call patchin, $(XORG_LIB_SM))
+	@$(call patchin, XORG_LIB_SM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

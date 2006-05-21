@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-fixes.extract: $(xorg-proto-fixes_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_FIXES_DIR))
 	@$(call extract, XORG_PROTO_FIXES)
-	@$(call patchin, $(XORG_PROTO_FIXES))
+	@$(call patchin, XORG_PROTO_FIXES)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

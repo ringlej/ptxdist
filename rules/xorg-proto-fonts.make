@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-fonts.extract: $(xorg-proto-fonts_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_FONTS_DIR))
 	@$(call extract, XORG_PROTO_FONTS)
-	@$(call patchin, $(XORG_PROTO_FONTS))
+	@$(call patchin, XORG_PROTO_FONTS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

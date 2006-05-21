@@ -53,7 +53,7 @@ $(STATEDIR)/mesalib.extract: $(mesalib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MESALIB_DIR))
 	@$(call extract, MESALIB)
-	@$(call patchin, $(MESALIB))
+	@$(call patchin, MESALIB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

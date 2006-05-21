@@ -49,7 +49,7 @@ $(STATEDIR)/libcgicc.extract: $(libcgicc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CGICC_DIR))
 	@$(call extract, CGICC)
-	@$(call patchin, $(CGICC))
+	@$(call patchin, CGICC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

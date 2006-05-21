@@ -49,7 +49,7 @@ $(STATEDIR)/pcmciautils.extract: $(pcmciautils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCMCIAUTILS_DIR))
 	@$(call extract, PCMCIAUTILS)
-	@$(call patchin, $(PCMCIAUTILS))
+	@$(call patchin, PCMCIAUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

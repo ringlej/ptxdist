@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-input.extract: $(xorg-proto-input_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_INPUT_DIR))
 	@$(call extract, XORG_PROTO_INPUT)
-	@$(call patchin, $(XORG_PROTO_INPUT))
+	@$(call patchin, XORG_PROTO_INPUT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

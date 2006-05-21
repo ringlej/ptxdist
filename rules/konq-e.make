@@ -50,7 +50,7 @@ $(STATEDIR)/konq-e.extract: $(konq-e_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KONQ_E_DIR))
 	@$(call extract, KONQ_E)
-	@$(call patchin, $(KONQ_E))
+	@$(call patchin, KONQ_E)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

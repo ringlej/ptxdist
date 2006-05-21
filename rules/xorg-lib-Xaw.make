@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xaw.extract: $(xorg-lib-Xaw_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XAW_DIR))
 	@$(call extract, XORG_LIB_XAW)
-	@$(call patchin, $(XORG_LIB_XAW))
+	@$(call patchin, XORG_LIB_XAW)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

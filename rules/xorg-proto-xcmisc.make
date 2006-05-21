@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-xcmisc.extract: $(xorg-proto-xcmisc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XCMISC_DIR))
 	@$(call extract, XORG_PROTO_XCMISC)
-	@$(call patchin, $(XORG_PROTO_XCMISC))
+	@$(call patchin, XORG_PROTO_XCMISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-XprintUtil.extract: $(xorg-lib-XprintUtil_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XPRINTUTIL_DIR))
 	@$(call extract, XORG_LIB_XPRINTUTIL)
-	@$(call patchin, $(XORG_LIB_XPRINTUTIL))
+	@$(call patchin, XORG_LIB_XPRINTUTIL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

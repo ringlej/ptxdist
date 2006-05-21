@@ -50,7 +50,7 @@ $(STATEDIR)/syslogng.extract: $(syslogng_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSLOGNG_DIR))
 	@$(call extract, SYSLOGNG)
-	@$(call patchin, $(SYSLOGNG))
+	@$(call patchin, SYSLOGNG)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

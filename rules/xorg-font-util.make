@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-util.extract: $(xorg-font-util_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_UTIL_DIR))
 	@$(call extract, XORG_FONT_UTIL)
-	@$(call patchin, $(XORG_FONT_UTIL))
+	@$(call patchin, XORG_FONT_UTIL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/cyclictest.extract: $(cyclictest_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CYCLICTEST_DIR))
 	@$(call extract, CYCLICTEST)
-	@$(call patchin, $(CYCLICTEST))
+	@$(call patchin, CYCLICTEST)
 	# Well, we extract to...
 	mv $(BUILDDIR)/cyclictest $(CYCLICTEST_DIR)
 	@$(call touch, $@)

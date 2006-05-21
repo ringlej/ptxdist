@@ -50,7 +50,7 @@ $(STATEDIR)/etherwake.extract: $(etherwake_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ETHERWAKE_DIR))
 	@$(call extract, ETHERWAKE)
-	@$(call patchin, $(ETHERWAKE))
+	@$(call patchin, ETHERWAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

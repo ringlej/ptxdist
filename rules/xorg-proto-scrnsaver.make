@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-scrnsaver.extract: $(xorg-proto-scrnsaver_extract_deps_de
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_SCRNSAVER_DIR))
 	@$(call extract, XORG_PROTO_SCRNSAVER)
-	@$(call patchin, $(XORG_PROTO_SCRNSAVER))
+	@$(call patchin, XORG_PROTO_SCRNSAVER)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

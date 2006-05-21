@@ -50,7 +50,7 @@ $(STATEDIR)/libdaemon.extract: $(libdaemon_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBDAEMON_DIR))
 	@$(call extract, LIBDAEMON)
-	@$(call patchin, $(LIBDAEMON))
+	@$(call patchin, LIBDAEMON)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

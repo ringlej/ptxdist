@@ -50,7 +50,7 @@ $(STATEDIR)/iptables.extract: $(iptables_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPTABLES_DIR))
 	@$(call extract, IPTABLES)
-	@$(call patchin, $(IPTABLES))
+	@$(call patchin, IPTABLES)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

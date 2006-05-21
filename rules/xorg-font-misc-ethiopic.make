@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-misc-ethiopic.extract: $(xorg-font-misc-ethiopic_extract_d
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_MISC_ETHIOPIC_DIR))
 	@$(call extract, XORG_FONT_MISC_ETHIOPIC)
-	@$(call patchin, $(XORG_FONT_MISC_ETHIOPIC))
+	@$(call patchin, XORG_FONT_MISC_ETHIOPIC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

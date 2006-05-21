@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-WindowsWM.extract: $(xorg-lib-WindowsWM_extract_deps_defaul
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_WINDOWSWM_DIR))
 	@$(call extract, XORG_LIB_WINDOWSWM)
-	@$(call patchin, $(XORG_LIB_WINDOWSWM))
+	@$(call patchin, XORG_LIB_WINDOWSWM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-randr.extract: $(xorg-proto-randr_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_RANDR_DIR))
 	@$(call extract, XORG_PROTO_RANDR)
-	@$(call patchin, $(XORG_PROTO_RANDR))
+	@$(call patchin, XORG_PROTO_RANDR)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

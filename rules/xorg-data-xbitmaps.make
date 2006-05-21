@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-data-xbitmaps.extract: $(xorg-data-xbitmaps_extract_deps_defaul
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DATA_XBITMAPS_DIR))
 	@$(call extract, XORG_DATA_XBITMAPS)
-	@$(call patchin, $(XORG_DATA_XBITMAPS))
+	@$(call patchin, XORG_DATA_XBITMAPS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

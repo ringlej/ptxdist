@@ -53,7 +53,7 @@ $(STATEDIR)/dosfstools.extract: $(dosfstools_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DOSFSTOOLS_DIR))
 	@$(call extract, DOSFSTOOLS)
-	@$(call patchin, $(DOSFSTOOLS))
+	@$(call patchin, DOSFSTOOLS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/liboop.extract: $(liboop_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBOOP_DIR))
 	@$(call extract, LIBOOP)
-	@$(call patchin, $(LIBOOP))
+	@$(call patchin, LIBOOP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

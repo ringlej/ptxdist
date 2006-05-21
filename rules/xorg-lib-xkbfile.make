@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-xkbfile.extract: $(xorg-lib-xkbfile_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XKBFILE_DIR))
 	@$(call extract, XORG_LIB_XKBFILE)
-	@$(call patchin, $(XORG_LIB_XKBFILE))
+	@$(call patchin, XORG_LIB_XKBFILE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

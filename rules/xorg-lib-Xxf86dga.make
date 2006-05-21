@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xxf86dga.extract: $(xorg-lib-Xxf86dga_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XXF86DGA_DIR))
 	@$(call extract, XORG_LIB_XXF86DGA)
-	@$(call patchin, $(XORG_LIB_XXF86DGA))
+	@$(call patchin, XORG_LIB_XXF86DGA)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

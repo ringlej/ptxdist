@@ -50,7 +50,7 @@ $(STATEDIR)/sdl_image.extract: $(sdl_image_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SDL_IMAGE_DIR))
 	@$(call extract, SDL_IMAGE)
-	@$(call patchin, $(SDL_IMAGE))
+	@$(call patchin, SDL_IMAGE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

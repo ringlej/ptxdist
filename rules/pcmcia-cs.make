@@ -50,7 +50,7 @@ $(STATEDIR)/pcmcia-cs.extract: $(pcmcia-cs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCMCIA-CS_DIR))
 	@$(call extract, PCMCIA-CS)
-	@$(call patchin, $(PCMCIA-CS))
+	@$(call patchin, PCMCIA-CS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

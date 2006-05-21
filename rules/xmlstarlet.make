@@ -50,7 +50,7 @@ $(STATEDIR)/xmlstarlet.extract: $(xmlstarlet_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XMLSTARLET_DIR))
 	@$(call extract, XMLSTARLET)
-	@$(call patchin, $(XMLSTARLET))
+	@$(call patchin, XMLSTARLET)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -18,9 +18,9 @@ PACKAGES-$(PTXCONF_MEMSTAT) += memstat
 # Paths and names
 #
 MEMSTAT_VERSION	= 0.4
-MEMSTAT		= memstat_$(MEMSTAT_VERSION)
+MEMSTAT		= memstat-$(MEMSTAT_VERSION)
 MEMSTAT_SUFFIX	= tar.gz
-MEMSTAT_URL	= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/m/memstat/$(MEMSTAT).$(MEMSTAT_SUFFIX)
+MEMSTAT_URL	= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/m/memstat/memstat_$(MEMSTAT_VERSION).$(MEMSTAT_SUFFIX)
 MEMSTAT_SOURCE	= $(SRCDIR)/$(MEMSTAT).$(MEMSTAT_SUFFIX)
 MEMSTAT_DIR	= $(BUILDDIR)/memstat-$(MEMSTAT_VERSION)
 
@@ -50,7 +50,7 @@ $(STATEDIR)/memstat.extract: $(memstat_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMSTAT_DIR))
 	@$(call extract, MEMSTAT)
-	@$(call patchin, memstat-$(MEMSTAT_VERSION))
+	@$(call patchin, MEMSTAT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

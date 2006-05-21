@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-xf86bigfont.extract: $(xorg-proto-xf86bigfont_extract_dep
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XF86BIGFONT_DIR))
 	@$(call extract, XORG_PROTO_XF86BIGFONT)
-	@$(call patchin, $(XORG_PROTO_XF86BIGFONT))
+	@$(call patchin, XORG_PROTO_XF86BIGFONT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

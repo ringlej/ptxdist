@@ -50,7 +50,7 @@ $(STATEDIR)/at-spi.extract: $(at-spi_extract_deps_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(AT_SPI_DIR))
 	@$(call extract, AT_SPI)
-	@$(call patchin, $(AT_SPI))
+	@$(call patchin, AT_SPI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

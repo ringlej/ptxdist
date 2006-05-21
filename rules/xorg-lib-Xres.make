@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xres.extract: $(xorg-lib-Xres_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRES_DIR))
 	@$(call extract, XORG_LIB_XRES)
-	@$(call patchin, $(XORG_LIB_XRES))
+	@$(call patchin, XORG_LIB_XRES)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-bh-100dpi.extract: $(xorg-font-bh-100dpi_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_BH_100DPI_DIR))
 	@$(call extract, XORG_FONT_BH_100DPI)
-	@$(call patchin, $(XORG_FONT_BH_100DPI))
+	@$(call patchin, XORG_FONT_BH_100DPI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

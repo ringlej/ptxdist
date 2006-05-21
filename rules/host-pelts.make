@@ -50,7 +50,7 @@ $(STATEDIR)/host-pelts.extract: $(host-pelts_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST-PELTS_DIR))
 	@$(call extract, HOST-PELTS, $(HOST_BUILDDIR))
-	@$(call patchin, $(HOST-PELTS), $(HOST-PELTS_DIR))
+	@$(call patchin, HOST-PELTS, $(HOST-PELTS_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

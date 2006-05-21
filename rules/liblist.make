@@ -50,7 +50,7 @@ $(STATEDIR)/liblist.extract: $(liblist_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBLIST_DIR))
 	@$(call extract, LIBLIST)
-	@$(call patchin, $(LIBLIST))
+	@$(call patchin, LIBLIST)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

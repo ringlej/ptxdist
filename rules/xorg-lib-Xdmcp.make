@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xdmcp.extract: $(xorg-lib-Xdmcp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XDMCP_DIR))
 	@$(call extract, XORG_LIB_XDMCP)
-	@$(call patchin, $(XORG_LIB_XDMCP))
+	@$(call patchin, XORG_LIB_XDMCP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

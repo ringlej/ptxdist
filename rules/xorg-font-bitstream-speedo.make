@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-bitstream-speedo.extract: $(xorg-font-bitstream-speedo_ext
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_BITSTREAM_SPEEDO_DIR))
 	@$(call extract, XORG_FONT_BITSTREAM_SPEEDO)
-	@$(call patchin, $(XORG_FONT_BITSTREAM_SPEEDO))
+	@$(call patchin, XORG_FONT_BITSTREAM_SPEEDO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

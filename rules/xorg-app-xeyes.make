@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-app-xeyes.extract: $(xorg-app-xeyes_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_XEYES_DIR))
 	@$(call extract, XORG_APP_XEYES)
-	@$(call patchin, $(XORG_APP_XEYES))
+	@$(call patchin, XORG_APP_XEYES)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

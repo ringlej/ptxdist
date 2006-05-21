@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xcursor.extract: $(xorg-lib-Xcursor_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XCURSOR_DIR))
 	@$(call extract, XORG_LIB_XCURSOR)
-	@$(call patchin, $(XORG_LIB_XCURSOR))
+	@$(call patchin, XORG_LIB_XCURSOR)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

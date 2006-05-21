@@ -51,7 +51,7 @@ $(STATEDIR)/gtk22.extract: $(gtk22_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK22_DIR))
 	@$(call extract, GTK22)
-	@$(call patchin, $(GTK22))
+	@$(call patchin, GTK22)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -49,7 +49,7 @@ $(STATEDIR)/host-module-init-tools.extract: $(host-module-init-tools_extract_dep
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MODULE_INIT_TOOLS_DIR))
 	@$(call extract, MODULE_INIT_TOOLS, $(HOST_BUILDDIR))
-	@$(call patchin, $(MODULE_INIT_TOOLS), $(HOST_MODULE_INIT_TOOLS_DIR))
+	@$(call patchin, MODULE_INIT_TOOLS, $(HOST_MODULE_INIT_TOOLS_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

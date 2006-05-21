@@ -50,7 +50,7 @@ $(STATEDIR)/boost.extract: $(boost_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BOOST_DIR))
 	@$(call extract, BOOST)
-	@$(call patchin, $(BOOST))
+	@$(call patchin, BOOST)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

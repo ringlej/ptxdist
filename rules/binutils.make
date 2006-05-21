@@ -50,7 +50,7 @@ $(STATEDIR)/binutils.extract: $(binutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BINUTILS_DIR))
 	@$(call extract, BINUTILS)
-	@$(call patchin, $(BINUTILS))
+	@$(call patchin, BINUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

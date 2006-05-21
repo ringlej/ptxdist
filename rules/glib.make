@@ -51,7 +51,7 @@ $(STATEDIR)/glib.extract: $(glib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB_DIR))
 	@$(call extract, GLIB)
-	@$(call patchin, $(GLIB))
+	@$(call patchin, GLIB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -48,6 +48,7 @@ $(STATEDIR)/zlib.extract: $(zlib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ZLIB_DIR))
 	@$(call extract, ZLIB)
+	@$(call patchin, ZLIB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

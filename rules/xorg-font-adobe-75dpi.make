@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-adobe-75dpi.extract: $(xorg-font-adobe-75dpi_extract_deps_
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_ADOBE_75DPI_DIR))
 	@$(call extract, XORG_FONT_ADOBE_75DPI)
-	@$(call patchin, $(XORG_FONT_ADOBE_75DPI))
+	@$(call patchin, XORG_FONT_ADOBE_75DPI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

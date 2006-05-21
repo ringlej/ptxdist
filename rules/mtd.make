@@ -50,7 +50,7 @@ $(STATEDIR)/mtd.extract: $(mtd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MTD_UTILS_DIR))
 	@$(call extract, MTD_UTILS)
-	@$(call patchin, $(MTD_UTILS))
+	@$(call patchin, MTD_UTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

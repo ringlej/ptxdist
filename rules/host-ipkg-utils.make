@@ -50,7 +50,7 @@ $(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_IPKG_UTILS_DIR))
 	@$(call extract, HOST_IPKG_UTILS, $(HOST_BUILDDIR))
-	@$(call patchin, $(HOST_IPKG_UTILS), $(HOST_IPKG_UTILS_DIR))
+	@$(call patchin, HOST_IPKG_UTILS, $(HOST_IPKG_UTILS_DIR))
 	perl -i -p -e "s,^PREFIX=(.*),PREFIX=$(PTXCONF_HOST_PREFIX)/usr,g" \
 		$(HOST_IPKG_UTILS_DIR)/Makefile
 	perl -i -p -e "s,^	python setup.py install,	python setup.py install --prefix=$(PTXCONF_HOST_PREFIX)/usr,g" \

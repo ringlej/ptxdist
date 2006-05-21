@@ -50,7 +50,7 @@ $(STATEDIR)/commoncpp2.extract: $(commoncpp2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(COMMONCPP2_DIR))
 	@$(call extract, COMMONCPP2)
-	@$(call patchin, $(COMMONCPP2))
+	@$(call patchin, COMMONCPP2)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

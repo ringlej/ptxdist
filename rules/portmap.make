@@ -47,7 +47,7 @@ $(STATEDIR)/portmap.extract: $(portmap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PORTMAP_DIR))
 	@$(call extract, PORTMAP)
-	@$(call patchin, $(PORTMAP))
+	@$(call patchin, PORTMAP)
 #	apply some fixes
 	@$(call disable_sh, $(PORTMAP_DIR)/Makefile, HOSTS_ACCESS)
 	@$(call disable_sh, $(PORTMAP_DIR)/Makefile, CHECK_PORT)

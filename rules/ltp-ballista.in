@@ -11,3 +11,4 @@ menuconfig LTP_BALLISTA
 
 comment "Ballista is broken, please send a patch"
 	depends on !BROKEN
+	depends on LTP

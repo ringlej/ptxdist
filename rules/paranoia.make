@@ -51,7 +51,7 @@ $(STATEDIR)/paranoia.extract: $(paranoia_extract_deps_default)
 	@$(call clean, $(PARANOIA_DIR))
 	mkdir $(PARANOIA_DIR)
 	cp $(PARANOIA_SRC) $(PARANOIA_DIR)
-	@$(call patchin, $(PARANOIA))
+	@$(call patchin, PARANOIA)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

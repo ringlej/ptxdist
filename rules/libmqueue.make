@@ -50,7 +50,7 @@ $(STATEDIR)/libmqueue.extract: $(libmqueue_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBMQUEUE_DIR))
 	@$(call extract, LIBMQUEUE)
-	@$(call patchin, $(LIBMQUEUE))
+	@$(call patchin, LIBMQUEUE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

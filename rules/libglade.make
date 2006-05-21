@@ -50,7 +50,7 @@ $(STATEDIR)/libglade.extract: $(libglade_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGLADE_DIR))
 	@$(call extract, LIBGLADE)
-	@$(call patchin, $(LIBGLADE))
+	@$(call patchin, LIBGLADE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

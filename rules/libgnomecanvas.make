@@ -50,7 +50,7 @@ $(STATEDIR)/libgnomecanvas.extract: $(libgnomecanvas_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGNOMECANVAS_DIR))
 	@$(call extract, LIBGNOMECANVAS)
-	@$(call patchin, $(LIBGNOMECANVAS))
+	@$(call patchin, LIBGNOMECANVAS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

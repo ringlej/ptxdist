@@ -50,7 +50,7 @@ $(STATEDIR)/diffutils.extract: $(diffutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DIFFUTILS_DIR))
 	@$(call extract, DIFFUTILS)
-	@$(call patchin, $(DIFFUTILS))
+	@$(call patchin, DIFFUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

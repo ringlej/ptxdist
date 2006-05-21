@@ -78,7 +78,7 @@ $(STATEDIR)/openssl.extract: $(openssl_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPENSSL_DIR))
 	@$(call extract, OPENSSL)
-	@$(call patchin, $(OPENSSL))
+	@$(call patchin, OPENSSL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

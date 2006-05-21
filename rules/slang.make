@@ -50,7 +50,7 @@ $(STATEDIR)/slang.extract: $(slang_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SLANG_DIR))
 	@$(call extract, SLANG)
-	@$(call patchin, $(SLANG))
+	@$(call patchin, SLANG)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

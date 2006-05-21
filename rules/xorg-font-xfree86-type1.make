@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-xfree86-type1.extract: $(xorg-font-xfree86-type1_extract_d
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_XFREE86_TYPE1_DIR))
 	@$(call extract, XORG_FONT_XFREE86_TYPE1)
-	@$(call patchin, $(XORG_FONT_XFREE86_TYPE1))
+	@$(call patchin, XORG_FONT_XFREE86_TYPE1)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xft.extract: $(xorg-lib-Xft_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XFT_DIR))
 	@$(call extract, XORG_LIB_XFT)
-	@$(call patchin, $(XORG_LIB_XFT))
+	@$(call patchin, XORG_LIB_XFT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

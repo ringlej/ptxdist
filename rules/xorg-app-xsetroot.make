@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-app-xsetroot.extract: $(xorg-app-xsetroot_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_XSETROOT_DIR))
 	@$(call extract, XORG_APP_XSETROOT)
-	@$(call patchin, $(XORG_APP_XSETROOT))
+	@$(call patchin, XORG_APP_XSETROOT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

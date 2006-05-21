@@ -50,7 +50,7 @@ $(STATEDIR)/rsync.extract: $(rsync_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RSYNC_DIR))
 	@$(call extract, RSYNC)
-	@$(call patchin, $(RSYNC))
+	@$(call patchin, RSYNC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

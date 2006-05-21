@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-xf86misc.extract: $(xorg-proto-xf86misc_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XF86MISC_DIR))
 	@$(call extract, XORG_PROTO_XF86MISC)
-	@$(call patchin, $(XORG_PROTO_XF86MISC))
+	@$(call patchin, XORG_PROTO_XF86MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

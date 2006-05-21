@@ -50,7 +50,7 @@ $(STATEDIR)/netcat.extract: $(netcat_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NETCAT_DIR))
 	@$(call extract, NETCAT)
-	@$(call patchin, $(NETCAT))
+	@$(call patchin, NETCAT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

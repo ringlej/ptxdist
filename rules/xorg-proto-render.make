@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-render.extract: $(xorg-proto-render_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_RENDER_DIR))
 	@$(call extract, XORG_PROTO_RENDER)
-	@$(call patchin, $(XORG_PROTO_RENDER))
+	@$(call patchin, XORG_PROTO_RENDER)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/gawk.extract: $(gawk_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GAWK_DIR))
 	@$(call extract, GAWK)
-	@$(call patchin, $(GAWK))
+	@$(call patchin, GAWK)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/chrony.extract: $(chrony_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CHRONY_DIR))
 	@$(call extract, CHRONY)
-	@$(call patchin, $(CHRONY))
+	@$(call patchin, CHRONY)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

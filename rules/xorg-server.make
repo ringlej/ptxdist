@@ -57,7 +57,7 @@ $(STATEDIR)/xorg-server.extract: $(xorg-server_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_SERVER_DIR))
 	@$(call extract, XORG_SERVER)
-	@$(call patchin, $(XORG_SERVER))
+	@$(call patchin, XORG_SERVER)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-bigreqs.extract: $(xorg-proto-bigreqs_extract_deps_defaul
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_BIGREQS_DIR))
 	@$(call extract, XORG_PROTO_BIGREQS)
-	@$(call patchin, $(XORG_PROTO_BIGREQS))
+	@$(call patchin, XORG_PROTO_BIGREQS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

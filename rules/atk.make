@@ -52,7 +52,7 @@ $(STATEDIR)/atk.extract: $(atk_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ATK_DIR))
 	@$(call extract, ATK)
-	@$(call patchin, $(ATK))
+	@$(call patchin, ATK)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -49,7 +49,7 @@ $(STATEDIR)/jvisu.extract: $(jvisu_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JVISU_DIR))
 	@$(call extract, JVISU)
-	@$(call patchin, $(JVISU))
+	@$(call patchin, JVISU)
 
 	# FIXME: we cannot currently overwrite the JAVAPATH on the command line, 
 	# so we tweak it here in a way that it works at least with Debian

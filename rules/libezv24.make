@@ -50,7 +50,7 @@ $(STATEDIR)/libezv24.extract: $(libezv24_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBEZV24_DIR))
 	@$(call extract, LIBEZV24)
-	@$(call patchin, $(LIBEZV24))
+	@$(call patchin, LIBEZV24)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -51,7 +51,7 @@ $(STATEDIR)/expat.extract: $(expat_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EXPAT_DIR))
 	@$(call extract, EXPAT)
-	@$(call patchin, $(EXPAT))
+	@$(call patchin, EXPAT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

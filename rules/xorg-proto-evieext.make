@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-evieext.extract: $(xorg-proto-evieext_extract_deps_defaul
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_EVIEEXT_DIR))
 	@$(call extract, XORG_PROTO_EVIEEXT)
-	@$(call patchin, $(XORG_PROTO_EVIEEXT))
+	@$(call patchin, XORG_PROTO_EVIEEXT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

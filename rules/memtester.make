@@ -50,7 +50,7 @@ $(STATEDIR)/memtester.extract: $(memtester_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMTESTER_DIR))
 	@$(call extract, MEMTESTER)
-	@$(call patchin, $(MEMTESTER))
+	@$(call patchin, MEMTESTER)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

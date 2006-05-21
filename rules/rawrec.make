@@ -50,7 +50,7 @@ $(STATEDIR)/rawrec.extract: $(rawrec_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(RAWREC_DIR))
 	@$(call extract, RAWREC)
-	@$(call patchin, $(RAWREC))
+	@$(call patchin, RAWREC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

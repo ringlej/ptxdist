@@ -53,7 +53,7 @@ $(STATEDIR)/libidl-2.extract: $(libidl-2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBIDL_2_DIR))
 	@$(call extract, LIBIDL_2)
-	@$(call patchin, $(LIBIDL_2))
+	@$(call patchin, LIBIDL_2)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

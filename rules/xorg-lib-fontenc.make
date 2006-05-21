@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-fontenc.extract: $(xorg-lib-fontenc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_FONTENC_DIR))
 	@$(call extract, XORG_LIB_FONTENC)
-	@$(call patchin, $(XORG_LIB_FONTENC))
+	@$(call patchin, XORG_LIB_FONTENC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/pop3spam.extract: $(pop3spam_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(POP3SPAM_DIR))
 	@$(call extract, POP3SPAM)
-	@$(call patchin, $(POP3SPAM))
+	@$(call patchin, POP3SPAM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

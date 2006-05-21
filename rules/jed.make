@@ -50,7 +50,7 @@ $(STATEDIR)/jed.extract: $(jed_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JED_DIR))
 	@$(call extract, JED)
-	@$(call patchin, $(JED))
+	@$(call patchin, JED)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/ethereal.extract: $(ethereal_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ETHEREAL_DIR))
 	@$(call extract, ETHEREAL)
-	@$(call patchin, $(ETHEREAL))
+	@$(call patchin, ETHEREAL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

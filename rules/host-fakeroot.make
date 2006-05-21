@@ -50,7 +50,7 @@ $(STATEDIR)/host-fakeroot.extract: $(host-fakeroot_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_FAKEROOT_DIR))
 	@$(call extract, HOST_FAKEROOT, $(HOST_BUILDDIR))
-	@$(call patchin, $(HOST_FAKEROOT),$(HOST_FAKEROOT_DIR))
+	@$(call patchin, HOST_FAKEROOT,$(HOST_FAKEROOT_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

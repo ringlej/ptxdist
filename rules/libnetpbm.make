@@ -50,7 +50,7 @@ $(STATEDIR)/libnetpbm.extract: $(libnetpbm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBNETPBM_DIR))
 	@$(call extract, LIBNETPBM)
-	@$(call patchin, $(LIBNETPBM))
+	@$(call patchin, LIBNETPBM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

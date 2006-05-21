@@ -8,3 +8,4 @@ menuconfig LTP_COMMANDS
 
 comment "LTP_COMMANDS is broken, please send a patch"
 	depends on !BROKEN
+	depends on LTP

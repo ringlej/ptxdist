@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xp.extract: $(xorg-lib-Xp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XP_DIR))
 	@$(call extract, XORG_LIB_XP)
-	@$(call patchin, $(XORG_LIB_XP))
+	@$(call patchin, XORG_LIB_XP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

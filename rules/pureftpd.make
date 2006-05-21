@@ -50,7 +50,7 @@ $(STATEDIR)/pureftpd.extract: $(pureftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PUREFTPD_DIR))
 	@$(call extract, PUREFTPD)
-	@$(call patchin, $(PUREFTPD))
+	@$(call patchin, PUREFTPD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

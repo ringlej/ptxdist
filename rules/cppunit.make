@@ -50,7 +50,7 @@ $(STATEDIR)/cppunit.extract: $(cppunit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CPPUNIT_DIR))
 	@$(call extract, CPPUNIT)
-	@$(call patchin, $(CPPUNIT))
+	@$(call patchin, CPPUNIT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

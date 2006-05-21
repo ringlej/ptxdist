@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-adobe-utopia-75dpi.extract: $(xorg-font-adobe-utopia-75dpi
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_ADOBE_UTOPIA_75DPI_DIR))
 	@$(call extract, XORG_FONT_ADOBE_UTOPIA_75DPI)
-	@$(call patchin, $(XORG_FONT_ADOBE_UTOPIA_75DPI))
+	@$(call patchin, XORG_FONT_ADOBE_UTOPIA_75DPI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

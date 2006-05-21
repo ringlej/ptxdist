@@ -50,7 +50,7 @@ $(STATEDIR)/daemonize.extract: $(daemonize_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DAEMONIZE_DIR))
 	@$(call extract, DAEMONIZE)
-	@$(call patchin, $(DAEMONIZE))
+	@$(call patchin, DAEMONIZE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -51,7 +51,7 @@ $(STATEDIR)/sqlite.extract: $(sqlite_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SQLITE_DIR))
 	@$(call extract, SQLITE)
-	@$(call patchin, $(SQLITE))
+	@$(call patchin, SQLITE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/mad.extract: $(mad_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MAD_DIR))
 	@$(call extract, MAD)
-	@$(call patchin, $(MAD_SOURCE))
+	@$(call patchin, MAD_SOURCE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

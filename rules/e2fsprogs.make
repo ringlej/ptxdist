@@ -51,7 +51,7 @@ $(STATEDIR)/e2fsprogs.extract: $(e2fsprogs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(E2FSPROGS_DIR))
 	@$(call extract, E2FSPROGS)
-	@$(call patchin, $(E2FSPROGS))
+	@$(call patchin, E2FSPROGS)
 	chmod +w $(E2FSPROGS_DIR)/po/*.po
 	@$(call touch, $@)
 

@@ -51,7 +51,7 @@ $(STATEDIR)/tinylogin.extract: $(tinylogin_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TINYLOGIN_DIR))
 	@$(call extract, TINYLOGIN)
-	@$(call patchin, $(TINYLOGIN))
+	@$(call patchin, TINYLOGIN)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-XvMC.extract: $(xorg-lib-XvMC_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XVMC_DIR))
 	@$(call extract, XORG_LIB_XVMC)
-	@$(call patchin, $(XORG_LIB_XVMC))
+	@$(call patchin, XORG_LIB_XVMC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

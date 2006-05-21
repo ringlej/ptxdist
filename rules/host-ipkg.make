@@ -47,7 +47,7 @@ $(STATEDIR)/host-ipkg.extract: $(host-ipkg_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_IPKG_DIR))
 	@$(call extract, HOST_IPKG, $(HOST_BUILDDIR))
-	@$(call patchin, $(HOST_IPKG), $(HOST_IPKG_DIR))
+	@$(call patchin, HOST_IPKG, $(HOST_IPKG_DIR))
 
 	@$(call touch, $@)
 

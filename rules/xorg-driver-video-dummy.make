@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-driver-video-dummy.extract: $(xorg-driver-video-dummy_extract_d
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_VIDEO_DUMMY_DIR))
 	@$(call extract, XORG_DRIVER_VIDEO_DUMMY)
-	@$(call patchin, $(XORG_DRIVER_VIDEO_DUMMY))
+	@$(call patchin, XORG_DRIVER_VIDEO_DUMMY)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

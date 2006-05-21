@@ -50,7 +50,7 @@ $(STATEDIR)/hrtimers-support.extract: $(hrtimers-support_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HRTIMERS_SUPPORT_DIR))
 	@$(call extract, HRTIMERS_SUPPORT)
-	@$(call patchin, $(HRTIMERS_SUPPORT))
+	@$(call patchin, HRTIMERS_SUPPORT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

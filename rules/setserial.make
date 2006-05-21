@@ -50,7 +50,7 @@ $(STATEDIR)/setserial.extract: $(setserial_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SETSERIAL_DIR))
 	@$(call extract, SETSERIAL)
-	@$(call patchin, $(SETSERIAL))
+	@$(call patchin, SETSERIAL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/dnsmasq.extract: $(dnsmasq_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DNSMASQ_DIR))
 	@$(call extract, DNSMASQ)
-	@$(call patchin, $(DNSMASQ))
+	@$(call patchin, DNSMASQ)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

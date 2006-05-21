@@ -51,7 +51,7 @@ $(STATEDIR)/mgetty.extract: $(mgetty_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MGETTY_DIR))
 	@$(call extract, MGETTY)
-	@$(call patchin, $(MGETTY), $(MGETTY_DIR))
+	@$(call patchin, MGETTY, $(MGETTY_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

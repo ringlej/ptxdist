@@ -51,7 +51,7 @@ $(STATEDIR)/host-genext2fs.extract: $(host-genext2fs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_GENEXT2FS_DIR))
 	@$(call extract, HOST_GENEXT2FS,$(HOST_BUILDDIR))
-	@$(call patchin, $(HOST_GENEXT2FS),$(HOST_GENEXT2FS_DIR))
+	@$(call patchin, HOST_GENEXT2FS,$(HOST_GENEXT2FS_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

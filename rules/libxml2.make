@@ -50,7 +50,7 @@ $(STATEDIR)/libxml2.extract: $(libxml2_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBXML2_DIR))
 	@$(call extract, LIBXML2)
-	@$(call patchin, $(LIBXML2))
+	@$(call patchin, LIBXML2)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

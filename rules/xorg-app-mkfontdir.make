@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-app-mkfontdir.extract: $(xorg-app-mkfontdir_extract_deps_defaul
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_MKFONTDIR_DIR))
 	@$(call extract, XORG_APP_MKFONTDIR)
-	@$(call patchin, $(XORG_APP_MKFONTDIR))
+	@$(call patchin, XORG_APP_MKFONTDIR)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

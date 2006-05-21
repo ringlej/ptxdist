@@ -50,7 +50,7 @@ $(STATEDIR)/troll-ftpd.extract: $(troll-ftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TROLL_FTPD_DIR))
 	@$(call extract, TROLL_FTPD)
-	@$(call patchin, $(TROLL_FTPD))
+	@$(call patchin, TROLL_FTPD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

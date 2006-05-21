@@ -50,7 +50,7 @@ $(STATEDIR)/myghty.extract: $(myghty_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MYGHTY_DIR))
 	@$(call extract, MYGHTY)
-	@$(call patchin, $(MYGHTY))
+	@$(call patchin, MYGHTY)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

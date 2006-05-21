@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-record.extract: $(xorg-proto-record_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_RECORD_DIR))
 	@$(call extract, XORG_PROTO_RECORD)
-	@$(call patchin, $(XORG_PROTO_RECORD))
+	@$(call patchin, XORG_PROTO_RECORD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

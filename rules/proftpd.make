@@ -50,7 +50,7 @@ $(STATEDIR)/proftpd.extract: $(proftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PROFTPD_DIR))
 	@$(call extract, PROFTPD)
-	@$(call patchin, $(PROFTPD))
+	@$(call patchin, PROFTPD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

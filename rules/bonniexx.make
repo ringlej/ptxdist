@@ -50,7 +50,7 @@ $(STATEDIR)/bonniexx.extract: $(bonniexx_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BONNIEXX_DIR))
 	@$(call extract, BONNIEXX)
-	@$(call patchin, $(BONNIEXX))
+	@$(call patchin, BONNIEXX)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

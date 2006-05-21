@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-bh-lucidatypewriter-75dpi.extract: $(xorg-font-bh-lucidaty
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_BH_LUCIDATYPEWRITER_75DPI_DIR))
 	@$(call extract, XORG_FONT_BH_LUCIDATYPEWRITER_75DPI)
-	@$(call patchin, $(XORG_FONT_BH_LUCIDATYPEWRITER_75DPI))
+	@$(call patchin, XORG_FONT_BH_LUCIDATYPEWRITER_75DPI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

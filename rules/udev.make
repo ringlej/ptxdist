@@ -50,7 +50,7 @@ $(STATEDIR)/udev.extract: $(udev_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UDEV_DIR))
 	@$(call extract, UDEV)
-	@$(call patchin, $(UDEV))
+	@$(call patchin, UDEV)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

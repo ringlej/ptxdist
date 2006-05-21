@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-FS.extract: $(xorg-lib-FS_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_FS_DIR))
 	@$(call extract, XORG_LIB_FS)
-	@$(call patchin, $(XORG_LIB_FS))
+	@$(call patchin, XORG_LIB_FS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

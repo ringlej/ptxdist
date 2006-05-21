@@ -49,7 +49,7 @@ $(STATEDIR)/strace.extract: $(strace_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(STRACE_DIR))
 	@$(call extract, STRACE)
-	@$(call patchin, $(STRACE))
+	@$(call patchin, STRACE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

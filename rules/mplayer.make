@@ -50,7 +50,7 @@ $(STATEDIR)/mplayer.extract: $(mplayer_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MPLAYER_DIR))
 	@$(call extract, MPLAYER)
-	@$(call patchin, $(MPLAYER))
+	@$(call patchin, MPLAYER)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/libart.extract: $(libart_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBART_DIR))
 	@$(call extract, LIBART)
-	@$(call patchin, $(LIBART))
+	@$(call patchin, LIBART)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

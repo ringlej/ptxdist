@@ -51,7 +51,7 @@ $(STATEDIR)/lilo.extract: $(lilo_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LILO_DIR))
 	@$(call extract, LILO)
-	@$(call patchin, $(LILO))
+	@$(call patchin, LILO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

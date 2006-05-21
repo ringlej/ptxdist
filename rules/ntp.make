@@ -50,7 +50,7 @@ $(STATEDIR)/ntp.extract: $(ntp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NTP_DIR))
 	@$(call extract, NTP)
-	@$(call patchin, $(NTP))
+	@$(call patchin, NTP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

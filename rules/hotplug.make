@@ -50,7 +50,7 @@ $(STATEDIR)/hotplug.extract: $(hotplug_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOTPLUG_DIR))
 	@$(call extract, HOTPLUG)
-	@$(call patchin, $(HOTPLUG))
+	@$(call patchin, HOTPLUG)
 
 	perl -i -p -e "s,/bin/bash,/bin/sh,g" $(HOTPLUG_DIR)/etc/hotplug.d/default/default.hotplug
 

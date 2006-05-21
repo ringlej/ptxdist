@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-xf86dri.extract: $(xorg-proto-xf86dri_extract_deps_defaul
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XF86DRI_DIR))
 	@$(call extract, XORG_PROTO_XF86DRI)
-	@$(call patchin, $(XORG_PROTO_XF86DRI))
+	@$(call patchin, XORG_PROTO_XF86DRI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

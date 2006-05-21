@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-arabic-misc.extract: $(xorg-font-arabic-misc_extract_deps_
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_ARABIC_MISC_DIR))
 	@$(call extract, XORG_FONT_ARABIC_MISC)
-	@$(call patchin, $(XORG_FONT_ARABIC_MISC))
+	@$(call patchin, XORG_FONT_ARABIC_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/libpv.extract: $(libpv_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPV_DIR))
 	@$(call extract, LIBPV)
-	@$(call patchin, $(LIBPV))
+	@$(call patchin, LIBPV)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-dmx.extract: $(xorg-lib-dmx_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_DMX_DIR))
 	@$(call extract, XORG_LIB_DMX)
-	@$(call patchin, $(XORG_LIB_DMX))
+	@$(call patchin, XORG_LIB_DMX)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

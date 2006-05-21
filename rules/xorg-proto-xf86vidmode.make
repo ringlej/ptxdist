@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-xf86vidmode.extract: $(xorg-proto-xf86vidmode_extract_dep
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XF86VIDMODE_DIR))
 	@$(call extract, XORG_PROTO_XF86VIDMODE)
-	@$(call patchin, $(XORG_PROTO_XF86VIDMODE))
+	@$(call patchin, XORG_PROTO_XF86VIDMODE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

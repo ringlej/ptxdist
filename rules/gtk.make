@@ -50,7 +50,7 @@ $(STATEDIR)/gtk.extract: $(gtk_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK_DIR))
 	@$(call extract, GTK)
-	@$(call patchin, $(GTK))
+	@$(call patchin, GTK)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

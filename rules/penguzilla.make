@@ -50,7 +50,7 @@ $(STATEDIR)/penguzilla.extract: $(penguzilla_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PENGUZILLA_DIR))
 	@$(call extract, PENGUZILLA)
-	@$(call patchin, $(PENGUZILLA))
+	@$(call patchin, PENGUZILLA)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/sysutils.extract: $(sysutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SYSUTILS_DIR))
 	@$(call extract, SYSUTILS)
-	@$(call patchin, $(SYSUTILS))
+	@$(call patchin, SYSUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

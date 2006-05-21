@@ -45,7 +45,7 @@ $(STATEDIR)/host-termcap.extract: $(host-termcap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_TERMCAP_DIR))
 	@$(call extract, TERMCAP, $(HOST_BUILDDIR))
-	@$(call patchin, $(HOST_TERMCAP), $(HOST_TERMCAP_DIR))
+	@$(call patchin, HOST_TERMCAP, $(HOST_TERMCAP_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

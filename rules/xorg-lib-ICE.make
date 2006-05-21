@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-ICE.extract: $(xorg-lib-ICE_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_ICE_DIR))
 	@$(call extract, XORG_LIB_ICE)
-	@$(call patchin, $(XORG_LIB_ICE))
+	@$(call patchin, XORG_LIB_ICE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

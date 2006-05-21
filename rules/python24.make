@@ -50,7 +50,7 @@ $(STATEDIR)/python24.extract: $(python24_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PYTHON24_DIR))
 	@$(call extract, PYTHON24)
-	@$(call patchin, $(PYTHON24))
+	@$(call patchin, PYTHON24)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

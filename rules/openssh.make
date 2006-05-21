@@ -49,7 +49,7 @@ $(STATEDIR)/openssh.extract: $(openssh_extract_deps_default)
 	@$(call targetinfo, openssh.extract)
 	@$(call clean, $(OPENSSH_DIR))
 	@$(call extract, OPENSSH)
-	@$(call patchin, $(OPENSSH))
+	@$(call patchin, OPENSSH)
 
 	@$(call touch, $@)
 

@@ -50,7 +50,7 @@ $(STATEDIR)/xterm.extract: $(xterm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XTERM_DIR))
 	@$(call extract, XTERM)
-	@$(call patchin, $(XTERM))
+	@$(call patchin, XTERM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/pdksh.extract: $(pdksh_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PDKSH_DIR))
 	@$(call extract, PDKSH)
-	@$(call patchin, $(PDKSH))
+	@$(call patchin, PDKSH)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

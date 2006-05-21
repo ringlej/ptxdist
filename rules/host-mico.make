@@ -50,7 +50,7 @@ $(STATEDIR)/host-mico.extract: $(host-mico_extract_deps_default)
 	$(call extract, HOST_MICO, $$tmpdir) \
 	mv $$tmpdir/mico $(HOST_MICO_DIR); \
 	rm -fr $$tmpdir
-	@$(call patchin, $(HOST_MICO), $(HOST_MICO_DIR))
+	@$(call patchin, HOST_MICO, $(HOST_MICO_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

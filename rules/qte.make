@@ -56,7 +56,7 @@ $(STATEDIR)/qte.extract: $(qte_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(QTE_DIR))
 	@$(call extract, QTE)
-	@$(call patchin, $(QTE))
+	@$(call patchin, QTE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

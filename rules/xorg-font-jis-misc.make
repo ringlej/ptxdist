@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-jis-misc.extract: $(xorg-font-jis-misc_extract_deps_defaul
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_JIS_MISC_DIR))
 	@$(call extract, XORG_FONT_JIS_MISC)
-	@$(call patchin, $(XORG_FONT_JIS_MISC))
+	@$(call patchin, XORG_FONT_JIS_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

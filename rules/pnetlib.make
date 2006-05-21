@@ -50,7 +50,7 @@ $(STATEDIR)/pnetlib.extract: $(pnetlib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PNETLIB_DIR))
 	@$(call extract, PNETLIB)
-	@$(call patchin, $(PNETLIB))
+	@$(call patchin, PNETLIB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

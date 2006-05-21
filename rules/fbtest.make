@@ -50,7 +50,7 @@ $(STATEDIR)/fbtest.extract: $(fbtest_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FBTEST_DIR))
 	@$(call extract, FBTEST)
-	@$(call patchin, $(FBTEST))
+	@$(call patchin, FBTEST)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

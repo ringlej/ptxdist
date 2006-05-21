@@ -56,7 +56,7 @@ $(STATEDIR)/flash.extract: $(flash_extract_deps_default)
 	@$(call targetinfo, $@)
 	$(FLASH_EXTRACT) $(FLASH_SOURCE) | $(TAR) -C $(BUILDDIR) -xf -
 	cd $(FLASH_DIR) && patch -p1 < $(FLASH_PATCH_SOURCE)
-	@$(call patchin, $(FLASH), $(FLASH_DIR))
+	@$(call patchin, FLASH, $(FLASH_DIR))
 	@$(call touch, $@)
 
 

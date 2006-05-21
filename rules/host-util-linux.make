@@ -39,7 +39,7 @@ $(STATEDIR)/host-util-linux.extract: $(host-util-linux_extract_deps)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTIL_LINUX_DIR))
 	@$(call extract, UTIL_LINUX, $(HOST_BUILDDIR))
-	@$(call patchin, $(UTIL_LINUX),$(HOST_UTIL_LINUX_DIR))
+	@$(call patchin, UTIL_LINUX,$(HOST_UTIL_LINUX_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

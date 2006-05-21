@@ -52,7 +52,7 @@ $(STATEDIR)/mfirebird.extract: $(mfirebird_extract_deps_default)
 	@$(call clean, $(MFIREBIRD_DIR))
 	@$(call extract, MFIREBIRD)
 	cd $(BUILDDIR) && mv mozilla $(MFIREBIRD)
-	@$(call patchin, $(MFIREBIRD))
+	@$(call patchin, MFIREBIRD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

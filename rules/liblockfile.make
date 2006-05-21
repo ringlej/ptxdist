@@ -50,7 +50,7 @@ $(STATEDIR)/liblockfile.extract: $(liblockfile_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBLOCKFILE_DIR))
 	@$(call extract, LIBLOCKFILE)
-	@$(call patchin, $(LIBLOCKFILE))
+	@$(call patchin, LIBLOCKFILE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

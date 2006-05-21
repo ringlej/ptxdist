@@ -50,7 +50,7 @@ $(STATEDIR)/alsa-utils.extract: $(alsa-utils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(ALSA_UTILS_DIR))
 	@$(call extract, ALSA_UTILS)
-	@$(call patchin, $(ALSA_UTILS))
+	@$(call patchin, ALSA_UTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

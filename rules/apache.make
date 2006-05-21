@@ -51,7 +51,7 @@ $(STATEDIR)/apache.extract: $(apache_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(APACHE_DIR))
 	@$(call extract, APACHE)
-	@$(call patchin, $(APACHE))
+	@$(call patchin, APACHE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

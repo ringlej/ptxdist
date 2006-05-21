@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-xf86rush.extract: $(xorg-proto-xf86rush_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_XF86RUSH_DIR))
 	@$(call extract, XORG_PROTO_XF86RUSH)
-	@$(call patchin, $(XORG_PROTO_XF86RUSH))
+	@$(call patchin, XORG_PROTO_XF86RUSH)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

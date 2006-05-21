@@ -52,7 +52,7 @@ $(STATEDIR)/ltt.extract: $(ltt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LTT_DIR))
 	@$(call extract, LTT)
-	@$(call patchin, $(LTT))
+	@$(call patchin, LTT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

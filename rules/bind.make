@@ -50,7 +50,7 @@ $(STATEDIR)/bind.extract: $(bind_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BIND_DIR))
 	@$(call extract, BIND)
-	@$(call patchin, $(BIND))
+	@$(call patchin, BIND)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

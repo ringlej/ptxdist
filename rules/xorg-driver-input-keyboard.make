@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-driver-input-keyboard.extract: $(xorg-driver-input-keyboard_ext
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_INPUT_KEYBOARD_DIR))
 	@$(call extract, XORG_DRIVER_INPUT_KEYBOARD)
-	@$(call patchin, $(XORG_DRIVER_INPUT_KEYBOARD))
+	@$(call patchin, XORG_DRIVER_INPUT_KEYBOARD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

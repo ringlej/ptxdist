@@ -52,7 +52,7 @@ $(STATEDIR)/gdb.extract: $(gdb_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GDB_DIR))
 	@$(call extract, GDB)
-	@$(call patchin, $(GDB))
+	@$(call patchin, GDB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-dmx.extract: $(xorg-proto-dmx_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_DMX_DIR))
 	@$(call extract, XORG_PROTO_DMX)
-	@$(call patchin, $(XORG_PROTO_DMX))
+	@$(call patchin, XORG_PROTO_DMX)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

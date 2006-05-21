@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-composite.extract: $(xorg-proto-composite_extract_deps_de
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_COMPOSITE_DIR))
 	@$(call extract, XORG_PROTO_COMPOSITE)
-	@$(call patchin, $(XORG_PROTO_COMPOSITE))
+	@$(call patchin, XORG_PROTO_COMPOSITE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

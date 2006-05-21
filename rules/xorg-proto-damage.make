@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-damage.extract: $(xorg-proto-damage_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_DAMAGE_DIR))
 	@$(call extract, XORG_PROTO_DAMAGE)
-	@$(call patchin, $(XORG_PROTO_DAMAGE))
+	@$(call patchin, XORG_PROTO_DAMAGE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

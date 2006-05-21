@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-xkbui.extract: $(xorg-lib-xkbui_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XKBUI_DIR))
 	@$(call extract, XORG_LIB_XKBUI)
-	@$(call patchin, $(XORG_LIB_XKBUI))
+	@$(call patchin, XORG_LIB_XKBUI)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

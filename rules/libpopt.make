@@ -51,7 +51,7 @@ $(STATEDIR)/libpopt.extract: $(libpopt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPOPT_DIR))
 	@$(call extract, LIBPOPT)
-	@$(call patchin, $(LIBPOPT))
+	@$(call patchin, LIBPOPT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

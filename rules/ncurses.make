@@ -49,7 +49,7 @@ $(STATEDIR)/ncurses.extract: $(ncurses_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NCURSES_DIR))
 	@$(call extract, NCURSES)
-	@$(call patchin, $(NCURSES))
+	@$(call patchin, NCURSES)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

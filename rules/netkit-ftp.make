@@ -50,7 +50,7 @@ $(STATEDIR)/netkit-ftp.extract: $(netkit-ftp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NETKIT_FTP_DIR))
 	@$(call extract, NETKIT_FTP)
-	@$(call patchin, $(NETKIT_FTP))
+	@$(call patchin, NETKIT_FTP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

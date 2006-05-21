@@ -55,7 +55,7 @@ $(STATEDIR)/crosstool.extract: $(crosstool_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSSTOOL_DIR))
 	@$(call extract, CROSSTOOL, $(CROSS_BUILDDIR))
-	@$(call patchin, $(CROSSTOOL),$(CROSSTOOL_DIR))
+	@$(call patchin, CROSSTOOL,$(CROSSTOOL_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

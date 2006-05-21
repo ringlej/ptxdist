@@ -51,7 +51,7 @@ $(STATEDIR)/libelf.extract: $(libelf_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBELF_DIR))
 	@$(call extract, LIBELF)
-	@$(call patchin, $(LIBELF))
+	@$(call patchin, LIBELF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

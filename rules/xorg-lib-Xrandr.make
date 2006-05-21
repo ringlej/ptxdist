@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xrandr.extract: $(xorg-lib-Xrandr_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRANDR_DIR))
 	@$(call extract, XORG_LIB_XRANDR)
-	@$(call patchin, $(XORG_LIB_XRANDR))
+	@$(call patchin, XORG_LIB_XRANDR)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

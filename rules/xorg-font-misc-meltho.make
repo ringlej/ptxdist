@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-misc-meltho.extract: $(xorg-font-misc-meltho_extract_deps_
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_MISC_MELTHO_DIR))
 	@$(call extract, XORG_FONT_MISC_MELTHO)
-	@$(call patchin, $(XORG_FONT_MISC_MELTHO))
+	@$(call patchin, XORG_FONT_MISC_MELTHO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

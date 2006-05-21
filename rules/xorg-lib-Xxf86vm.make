@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xxf86vm.extract: $(xorg-lib-Xxf86vm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XXF86VM_DIR))
 	@$(call extract, XORG_LIB_XXF86VM)
-	@$(call patchin, $(XORG_LIB_XXF86VM))
+	@$(call patchin, XORG_LIB_XXF86VM)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

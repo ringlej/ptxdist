@@ -50,7 +50,7 @@ $(STATEDIR)/blackbox.extract: $(blackbox_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BLACKBOX_DIR))
 	@$(call extract, BLACKBOX)
-	@$(call patchin, $(BLACKBOX))
+	@$(call patchin, BLACKBOX)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ $(STATEDIR)/lsh.extract: $(lsh_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LSH_DIR))
 	@$(call extract, LSH)
-	@$(call patchin, $(LSH))
+	@$(call patchin, LSH)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

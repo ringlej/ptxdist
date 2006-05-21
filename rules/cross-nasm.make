@@ -51,7 +51,7 @@ $(STATEDIR)/cross-nasm.extract: $(cross-nasm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CROSS_NASM_DIR))
 	@$(call extract, CROSS_NASM, $(CROSS_BUILDDIR))
-	@$(call patchin, $(CROSS_NASM), $(CROSS_NASM_DIR))
+	@$(call patchin, CROSS_NASM, $(CROSS_NASM_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

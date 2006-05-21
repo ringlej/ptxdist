@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-proto-fontcache.extract: $(xorg-proto-fontcache_extract_deps_de
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_PROTO_FONTCACHE_DIR))
 	@$(call extract, XORG_PROTO_FONTCACHE)
-	@$(call patchin, $(XORG_PROTO_FONTCACHE))
+	@$(call patchin, XORG_PROTO_FONTCACHE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

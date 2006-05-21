@@ -50,7 +50,7 @@ $(STATEDIR)/fbutils.extract: $(fbutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FBUTILS_DIR))
 	@$(call extract, FBUTILS)
-	@$(call patchin, $(FBUTILS))
+	@$(call patchin, FBUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -51,7 +51,7 @@ $(STATEDIR)/canutils.extract: $(canutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CANUTILS_DIR))
 	@$(call extract, CANUTILS)
-	@$(call patchin, $(CANUTILS))
+	@$(call patchin, CANUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

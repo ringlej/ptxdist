@@ -50,7 +50,7 @@ $(STATEDIR)/initng.extract: $(initng_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(INITNG_DIR))
 	@$(call extract, INITNG)
-	@$(call patchin, $(INITNG))
+	@$(call patchin, INITNG)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

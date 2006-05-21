@@ -50,6 +50,7 @@ $(STATEDIR)/gtk2-engines.extract: $(gtk2-engines_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GTK2-ENGINES_DIR))
 	@$(call extract, GTK2-ENGINES)
+	@$(call patchin, GTK2-ENGINES)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

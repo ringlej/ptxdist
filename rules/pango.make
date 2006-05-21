@@ -52,7 +52,7 @@ $(STATEDIR)/pango.extract: $(pango_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PANGO_DIR))
 	@$(call extract, PANGO)
-	@$(call patchin, $(PANGO))
+	@$(call patchin, PANGO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

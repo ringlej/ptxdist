@@ -50,7 +50,7 @@ $(STATEDIR)/host-modutils.extract: $(host-modutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MODUTILS_DIR))
 	@$(call extract, HOST_MODUTILS, $(HOST_BUILDDIR))
-	@$(call patchin, $(HOST_MODUTILS), $(HOST_MODUTILS_DIR))
+	@$(call patchin, HOST_MODUTILS, $(HOST_MODUTILS_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

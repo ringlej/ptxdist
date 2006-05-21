@@ -50,7 +50,7 @@ $(STATEDIR)/betaftpd.extract: $(betaftpd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(BETAFTPD_DIR))
 	@$(call extract, BETAFTPD)
-	@$(call patchin, $(BETAFTPD))
+	@$(call patchin, BETAFTPD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

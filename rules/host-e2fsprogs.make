@@ -41,7 +41,7 @@ $(STATEDIR)/host-e2fsprogs.extract: $(host-e2fsprogs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_E2FSPROGS_DIR))
 	@$(call extract, E2FSPROGS, $(HOST_BUILDDIR))
-	@$(call patchin, $(E2FSPROGS), $(HOST_E2FSPROGS_DIR))
+	@$(call patchin, E2FSPROGS, $(HOST_E2FSPROGS_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

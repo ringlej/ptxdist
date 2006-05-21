@@ -49,7 +49,7 @@ $(STATEDIR)/joe.extract: $(joe_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(JOE_DIR))
 	@$(call extract, JOE)
-	@$(call patchin, $(JOE))
+	@$(call patchin, JOE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

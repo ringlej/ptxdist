@@ -50,7 +50,7 @@ $(STATEDIR)/nano.extract: $(nano_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NANO_DIR))
 	@$(call extract, NANO)
-	@$(call patchin, $(NANO))
+	@$(call patchin, NANO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

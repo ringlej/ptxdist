@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xfixes.extract: $(xorg-lib-Xfixes_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XFIXES_DIR))
 	@$(call extract, XORG_LIB_XFIXES)
-	@$(call patchin, $(XORG_LIB_XFIXES))
+	@$(call patchin, XORG_LIB_XFIXES)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

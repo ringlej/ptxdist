@@ -50,7 +50,7 @@ $(STATEDIR)/treecc.extract: $(treecc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(TREECC_DIR))
 	@$(call extract, TREECC)
-	@$(call patchin, $(TREECC))
+	@$(call patchin, TREECC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

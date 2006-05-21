@@ -51,7 +51,7 @@ $(STATEDIR)/ssmtp.extract: $(ssmtp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SSMTP_DIR))
 	@$(call extract, SSMTP)
-	@$(call patchin, $(SSMTP))
+	@$(call patchin, SSMTP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

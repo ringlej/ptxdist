@@ -50,7 +50,7 @@ $(STATEDIR)/figlet.extract: $(figlet_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FIGLET_DIR))
 	@$(call extract, FIGLET)
-	@$(call patchin, $(FIGLET))
+	@$(call patchin, FIGLET)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

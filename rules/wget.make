@@ -50,7 +50,7 @@ $(STATEDIR)/wget.extract: $(wget_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WGET_DIR))
 	@$(call extract, WGET)
-	@$(call patchin, $(WGET_PACKET))
+	@$(call patchin, WGET)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

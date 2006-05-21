@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-Xcomposite.extract: $(xorg-lib-Xcomposite_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XCOMPOSITE_DIR))
 	@$(call extract, XORG_LIB_XCOMPOSITE)
-	@$(call patchin, $(XORG_LIB_XCOMPOSITE))
+	@$(call patchin, XORG_LIB_XCOMPOSITE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

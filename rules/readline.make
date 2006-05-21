@@ -50,7 +50,7 @@ $(STATEDIR)/readline.extract: $(readline_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(READLINE_DIR))
 	@$(call extract, READLINE)
-	@$(call patchin, $(READLINE))
+	@$(call patchin, READLINE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

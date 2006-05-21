@@ -50,7 +50,7 @@ $(STATEDIR)/memedit.extract: $(memedit_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MEMEDIT_DIR))
 	@$(call extract, MEMEDIT)
-	@$(call patchin, $(MEMEDIT))
+	@$(call patchin, MEMEDIT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

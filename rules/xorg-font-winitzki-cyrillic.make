@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-winitzki-cyrillic.extract: $(xorg-font-winitzki-cyrillic_e
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_WINITZKI_CYRILLIC_DIR))
 	@$(call extract, XORG_FONT_WINITZKI_CYRILLIC)
-	@$(call patchin, $(XORG_FONT_WINITZKI_CYRILLIC))
+	@$(call patchin, XORG_FONT_WINITZKI_CYRILLIC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

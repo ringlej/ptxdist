@@ -50,7 +50,7 @@ $(STATEDIR)/efax.extract: $(efax_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(EFAX_DIR))
 	@$(call extract, EFAX)
-	@$(call patchin, $(EFAX))
+	@$(call patchin, EFAX)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

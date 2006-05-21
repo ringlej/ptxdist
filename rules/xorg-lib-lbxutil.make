@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-lib-lbxutil.extract: $(xorg-lib-lbxutil_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_LBXUTIL_DIR))
 	@$(call extract, XORG_LIB_LBXUTIL)
-	@$(call patchin, $(XORG_LIB_LBXUTIL))
+	@$(call patchin, XORG_LIB_LBXUTIL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

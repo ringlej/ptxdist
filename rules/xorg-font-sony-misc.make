@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-font-sony-misc.extract: $(xorg-font-sony-misc_extract_deps_defa
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_FONT_SONY_MISC_DIR))
 	@$(call extract, XORG_FONT_SONY_MISC)
-	@$(call patchin, $(XORG_FONT_SONY_MISC))
+	@$(call patchin, XORG_FONT_SONY_MISC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

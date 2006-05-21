@@ -50,7 +50,7 @@ $(STATEDIR)/nmap.extract: $(nmap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(NMAP_DIR))
 	@$(call extract, NMAP)
-	@$(call patchin, $(NMAP))
+	@$(call patchin, NMAP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

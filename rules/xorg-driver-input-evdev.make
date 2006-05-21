@@ -50,7 +50,7 @@ $(STATEDIR)/xorg-driver-input-evdev.extract: $(xorg-driver-input-evdev_extract_d
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_DRIVER_INPUT_EVDEV_DIR))
 	@$(call extract, XORG_DRIVER_INPUT_EVDEV)
-	@$(call patchin, $(XORG_DRIVER_INPUT_EVDEV))
+	@$(call patchin, XORG_DRIVER_INPUT_EVDEV)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

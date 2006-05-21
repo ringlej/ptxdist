@@ -50,7 +50,7 @@ $(STATEDIR)/pciutils.extract: $(pciutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PCIUTILS_DIR))
 	@$(call extract, PCIUTILS)
-	@$(call patchin, $(PCIUTILS))
+	@$(call patchin, PCIUTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

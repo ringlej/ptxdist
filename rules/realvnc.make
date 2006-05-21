@@ -53,7 +53,7 @@ $(STATEDIR)/realvnc.extract: $(realvnc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(REALVNC_DIR))
 	@$(call extract, REALVNC)
-	@$(call patchin, $(REALVNC))
+	@$(call patchin, REALVNC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
