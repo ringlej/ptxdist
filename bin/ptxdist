@@ -14,15 +14,15 @@ DEBUG=
 
 # export this, so that children can call the master script, for example
 # to find out the version number
-export PTXDIST=$0
+PTXDIST=${BASH_SOURCE[0]}
 
-if [ -L "$0" ]; then
-	PTXDIST_TOPDIR=$(cd $(dirname $(readlink $0))/.. && pwd)
+if [ -L "$PTXDIST" ]; then
+	PTXDIST_TOPDIR=$(cd $(dirname $(readlink $PTXDIST))/.. && pwd)
 else
-	PTXDIST_TOPDIR=$(cd $(dirname $0)/.. && pwd)
+	PTXDIST_TOPDIR=$(cd $(dirname $PTXDIST)/.. && pwd)
 fi
 
-export PTXDIST_WORKSPACE PTXDIST_TOPDIR
+export PTXDIST PTXDIST_WORKSPACE PTXDIST_TOPDIR
 
 
 #
