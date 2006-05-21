@@ -69,7 +69,7 @@ fi
 [ -e "$HOME/.ptxdistrc.${FULLVERSION}" ] && . $HOME/.ptxdistrc.${FULLVERSION}
 
 # use linked toolchain if available
-[ -d ".toolchain" ] && export PATH=`pwd`/.toolchain:$PATH
+[ -d ".toolchain" ] && export PATH=${PTXDIST_WORKSPACE}/.toolchain:$PATH
 
 #
 # board setup
