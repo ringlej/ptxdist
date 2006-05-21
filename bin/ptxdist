@@ -139,11 +139,16 @@ check_ptxconfig() {
 }
 
 check_kernelconfig() {
-	KERNELCONFIG="kernelconfig.target"
-	[ "$NATIVE" = 1 ] && KERNELCONFIG="kernelconfig.native"
-	if [ ! -f "$KERNELCONFIG" ]; then
+	local kernelconfig
+
+	if [ "$NATIVE" = "1" ]; then
+		kernelconfig="kernelconfig.native"
+	else
+		kernelconfig="kernelconfig.target"
+	fi
+	if [ ! -e "$kernelconfig" ]; then
 		echo
-		echo "${PROMPT}error: You don't have a $KERNELCONFIG file"
+		echo "${PROMPT}error: You don't have a $kernelconfig file"
 		echo
 		exit 1
 	fi
