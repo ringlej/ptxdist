@@ -36,34 +36,21 @@ if [ ! -e ${PTXDIST_TOPDIR}/.done ]; then
 	exit 1
 fi
 
-
 #
-# we need the PTXdist shell library
+# we need the version definitions
 #
-
-libptxdist=${PTXDIST_TOPDIR}/scripts/libptxdist.sh
-
-if [ -e "$libptxdist" ]; then
-	. $libptxdist
-else
-	echo "${PROMPT}didn't find \$(PTXDIST_TOPDIR)/scripts/libptxdist.sh"
-	exit 1
-fi
-
-
-#
-# we need the static variable definitions
-#
-
-ptxdistvars=${PTXDIST_TOPDIR}/scripts/ptxdistvars.sh
-
-if [ -e "$ptxdistvars" ]; then
-	. $ptxdistvars
-else
-	echo "${PROMPT}didn't find \$(PTXDIST_TOPDIR)/scripts/ptxdistvars.sh"
-	exit 1
-fi
-
+for file in \
+	scripts/libptxdist.sh \
+	scripts/ptxdist_version.sh \
+	scripts/ptxdist_vars.sh \
+; do
+	if test -e ${PTXDIST_TOPDIR}/$file; then
+		. ${PTXDIST_TOPDIR}/$file
+	else
+		echo "${PROMPT}didn't find \$(PTXDIST_TOPDIR)/$file"
+		exit 1
+	fi
+done
 
 # source the user's .ptxdistrc
 [ -e "$HOME/.ptxdistrc.${FULLVERSION}" ] && . $HOME/.ptxdistrc.${FULLVERSION}

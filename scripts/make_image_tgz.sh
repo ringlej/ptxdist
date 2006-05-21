@@ -13,7 +13,7 @@ rootdir=$1
 here=`pwd`
 
 . ${scriptdir}/libptxdist.sh
-. ${scriptdir}/ptxdistvars.sh
+. ${scriptdir}/ptxdist_version.sh
 
 # sanity checks
 [ -d "$1" ] || ptxd_exit "first argument has to be a directory" 1

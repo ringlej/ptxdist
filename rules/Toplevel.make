@@ -22,7 +22,7 @@
 # toplevel installation directory. So we first source the static
 # definitions to inherit everything the ptxdist shellscript know: 
 
-include ${PTXDIST_TOPDIR}/scripts/ptxdistvars.sh
+include ${PTXDIST_TOPDIR}/scripts/ptxdist_version.sh
 
 # The .ptxdistrc contains the per-user settings
 

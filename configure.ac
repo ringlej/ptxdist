@@ -264,7 +264,11 @@ AC_SUBST(VERSION_EXTRA_SEP)
 AC_SUBST(VERSION_EXTRA)
 
 AC_MSG_RESULT([])
-AC_CONFIG_FILES(Makefile scripts/ptxdistvars.sh rules/ptxdist-version.in)
+AC_CONFIG_FILES( \
+	Makefile \
+	scripts/ptxdist_version.sh \
+	rules/ptxdist-version.in \
+)
 AC_OUTPUT
 AC_MSG_RESULT([])
 
