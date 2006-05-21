@@ -394,11 +394,12 @@ kernelconfig () {
 }
 
 newpacket () {
+	local template
 	
 	case $1 in 
-	host)	TEMPLATE=template-host ;;
-	target)	TEMPLATE=template ;;
-	cross)	TEMPLATE=template-cross ;;
+	host)	template=template-host ;;
+	target)	template=template ;;
+	cross)	template=template-cross ;;
 	*)	echo
 		echo "${PROMPT}error: illegal packet type: $1"
 		echo "must be one of host, target, cross"
@@ -407,7 +408,7 @@ newpacket () {
 	esac
 
 	echo
-	echo "${PROMPT}creating a new packet from ${TEMPLATE}:"
+	echo "${PROMPT}creating a new packet from ${template}:"
 	echo
 	echo -n "${PROMPT}enter packet name.......: "
 	read PACKET_NAME
@@ -442,7 +443,7 @@ newpacket () {
 		-e "s~\@YEAR@~${YEAR}~g" \
 		-e "s~\@AUTHOR@~${AUTHOR}~g" \
 		-e "s~\@SUFFIX@~${SUFFIX}~g" \
-		${PTXDIST_TOPDIR}/rules/${TEMPLATE} \
+		${PTXDIST_TOPDIR}/rules/${template} \
 		> ${packet}.make
 	
 }
