@@ -75,6 +75,8 @@ fi
 # board setup
 #
 boardsetup() {
+	local tmpdir
+
 	echo
 	echo "${PROMPT}boardsetup..."
 
@@ -504,6 +506,8 @@ projects() {
 }
 
 setup() {
+	local tmpdir
+
 	echo
 	echo "${PROMPT}setup..."
 	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
@@ -528,6 +532,7 @@ setup() {
 }
 
 clone() {
+	local projects lprojects
 
 	if [ -z "$1" ]; then usage; exit 1; fi
 	if [ -z "$2" ]; then usage; exit 1; fi
