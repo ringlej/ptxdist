@@ -231,7 +231,6 @@ check_native() {
 #
 # usage()
 #
-
 usage() {
 cat << EOF
 
