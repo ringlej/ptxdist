@@ -743,77 +743,61 @@ disable_sh =						\
 # patchin
 # 
 # Go into a directory and apply all patches from there into a
-# sourcetree. This macro skips if $1 points to a local directory.
+# sourcetree. if a series file exists in that directory the
+# patches from the series file are used instead of all patches.
+# This macro skips if $1 points to a local directory.
 #
 # $1: packet label; $($(1)_NAME) -> identifier
 # $2: path to source tree 
 #     if this parameter is omitted, the path will be derived
 #     from the packet name
 #
-patchin =									\
-	PACKET_NAME="$($(strip $(1)))"; 					\
-	URL="$($(strip $(1))_URL)";						\
-										\
-	case $$URL in								\
-	file*)									\
-		THING="$$(echo $$URL | sed s-file://-/-g)";			\
-		if [ -d "$$THING" ]; then					\
-			echo "local directory instead of tar file, skipping patch"; \
-			exit 0; 						\
-		fi; 								\
-	esac; 									\
-										\
-	echo "patchin: packet=$$PACKET_NAME";					\
-	if [ "$$PACKET_NAME" = "" ]; then					\
-		echo;								\
-		echo Error: empty parameter to \"patchin\(\)\";			\
-		echo;								\
-		exit -1;							\
-	fi;									\
-	PACKET_DIR="$(strip $(2))";						\
-	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};			\
-	echo "patchin: dir=$$PACKET_DIR";					\
-	for PATCH_NAME in							\
-	    $(PATCHDIR)/$$PACKET_NAME/generic/*.diff				\
-	    $(PATCHDIR)/$$PACKET_NAME/generic/*.patch				\
-	    $(PATCHDIR)/$$PACKET_NAME/generic/*.gz				\
-	    $(PATCHDIR)/$$PACKET_NAME/generic/*.bz2				\
-	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff			\
-	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch			\
-	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz			\
-	    $(PATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2			\
-	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.diff			\
-	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.patch			\
-	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.gz			\
-	    $(PROJECTPATCHDIR)/$$PACKET_NAME/generic/*.bz2			\
-	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.diff		\
-	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.patch		\
-	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.gz		\
-	    $(PROJECTPATCHDIR)/$$PACKET_NAME/$(PTXCONF_ARCH)/*.bz2;		\
-	    do									\
-		if [ -f $$PATCH_NAME ]; then					\
-			case `basename $$PATCH_NAME` in				\
-			*.gz)							\
-				CAT=$(ZCAT)					\
-				;;						\
-			*.bz2)							\
-				CAT=$(BZCAT)					\
-				;;						\
-			*.diff|diff*|*.patch|patch*)				\
-				CAT=$(CAT)					\
-				;;						\
-			*)							\
-				echo;						\
-				echo Unknown patch format, cannot apply!;	\
-				echo;						\
-				exit -1;					\
-				;;						\
-			esac;							\
-			echo "patchin: name=$$PATCH_NAME ...";			\
-			$$CAT $$PATCH_NAME | $(PATCH) -Np1 -d $$PACKET_DIR || exit -1;	\
-		fi;								\
-	    done
-
+patchin =										\
+	PACKET_NAME="$($(strip $(1)))"; 						\
+	URL="$($(strip $(1))_URL)";							\
+											\
+	case $$URL in									\
+	file*)										\
+		THING="$$(echo $$URL | sed s-file://-/-g)";				\
+		if [ -d "$$THING" ]; then						\
+			echo "local directory instead of tar file, skipping patch"; 	\
+			exit 0; 							\
+		fi; 									\
+	esac; 										\
+											\
+	echo "PATCHIN: packet=$$PACKET_NAME";						\
+	if [ "$$PACKET_NAME" = "" ]; then						\
+		echo;									\
+		echo Error: empty parameter to \"patchin\(\)\";				\
+		echo;									\
+		exit -1;								\
+	fi;										\
+	PACKET_DIR="$(strip $(2))";							\
+	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};				\
+	echo "PATCHIN: dir=$$PACKET_DIR";						\
+											\
+	patch_dirs="$(PROJECTPATCHDIR)/$$PACKET_NAME/generic				\
+	            $(PATCHDIR)/$$PACKET_NAME/generic";					\
+											\
+	for dir in $$patch_dirs; do							\
+		if [ -d $$dir ]; then							\
+			patch_dir=$$dir;						\
+			break;								\
+		fi;									\
+	done;										\
+											\
+	if [ -z "$$patch_dir" ]; then							\
+		echo "PATCHIN: no patches for $$PACKET_NAME available";			\
+		exit 0;									\
+	fi;										\
+											\
+	if [ -f "$$patch_dir/series" ]; then						\
+		$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh -s "$$patch_dir/series" \
+			-d $$PACKET_DIR;						\
+	else										\
+		$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh	-p "$$patch_dir"	\
+			-d $$PACKET_DIR	;						\
+	fi
 
 #
 # patch_apply
