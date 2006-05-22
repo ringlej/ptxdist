@@ -61,7 +61,7 @@ setmixer_prepare: $(STATEDIR)/setmixer.prepare
 
 SETMIXER_PATH		=  PATH=$(CROSS_PATH)
 SETMIXER_ENV 		=  $(CROSS_ENV)
-SETMIXER_MAKEVARS	=  CC=$(PTXCONF_GNU_TARGET)-gcc 
+SETMIXER_MAKEVARS	=  CC=$(COMPILER_PREFIX)gcc 
 
 $(STATEDIR)/setmixer.prepare: $(setmixer_prepare_deps_default)
 	@$(call targetinfo, $@)
