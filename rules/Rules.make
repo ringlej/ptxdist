@@ -800,46 +800,6 @@ patchin =										\
 	fi
 
 #
-# patch_apply
-# 
-# Apply a patch to a directory. 
-#
-# $1: the name of the patch to apply
-# $2: apply patch to that directory
-#
-patch_apply =								\
-	PATCH_NAME="$(strip $(1))";					\
-	if [ "$$PATCH_NAME" = "" ]; then				\
-		echo;							\
-		echo Error: empty parameter to \"patch_apply\(\)\";	\
-		echo;							\
-		exit -1;						\
-	fi;								\
-	PACKET_DIR="$(strip $(2))";					\
-	if [ -f $$PATCH_NAME ]; then					\
-		case `basename $$PATCH_NAME` in				\
-		*.gz)							\
-			CAT=$(ZCAT)					\
-			;;						\
-		*.bz2)							\
-			CAT=$(BZCAT)					\
-			;;						\
-		*.diff|diff*|*.patch|patch*)				\
-			CAT=$(CAT)					\
-			;;						\
-		*)							\
-			echo;						\
-			echo Unknown patch format, cannot apply!;	\
-			echo;						\
-			exit -1;					\
-			;;						\
-		esac;							\
-		echo "patchin' $$PATCH_NAME ...";			\
-		$$CAT $$PATCH_NAME | $(PATCH) -Np1 -d $$PACKET_DIR || exit -1;	\
-	fi;								\
-	true;
-
-#
 # install_copy
 # 
 # Installs a file with user/group ownership and permissions via
