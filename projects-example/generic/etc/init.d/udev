@@ -101,6 +101,10 @@ make_extra_nodes
 
 echo /sbin/udevsend > /proc/sys/kernel/hotplug
 
+if [ -f "$udevd" ]; then
+	$udevd &
+fi
+
 # We can only mount /dev/pts after initialising udev
 mount /dev/pts
 
