@@ -67,6 +67,7 @@ BLACKBOX_ENV 	=  $(CROSS_ENV)
 #
 BLACKBOX_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 BLACKBOX_AUTOCONF	+= --x-includes=$(SYSROOT)/usr/include
+BLACKBOX_AUTOCONF	+= --x-libraries=$(SYSROOT)/usr/lib
 
 $(STATEDIR)/blackbox.prepare: $(blackbox_prepare_deps_default)
 	@$(call targetinfo, $@)
