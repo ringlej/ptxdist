@@ -13,7 +13,7 @@ menuconfig SDL
 	help
 	  FIXME
 
-menuconfig SDL_LIB
+menuconfig SDL
 	bool
 	prompt "SDL Base library"
 	depends on SDL
@@ -23,56 +23,56 @@ menuconfig SDL_LIB
 config SDL_NASM
         bool
         prompt "Use NASM"
-        depends on SDL_LIB
+        depends on SDL
         help
           FIXME
 
 config SDL_SHARED
 	bool
 	prompt "Build Shared libraries"
-	depends on SDL_LIB
+	depends on SDL
 	help 
 	  FIXME
 
 config SDL_STATIC
 	bool
 	prompt "Build Static libraries"
-	depends on SDL_LIB
+	depends on SDL
 	help 
 	  FIXME
 
 config SDL_TIMERS
         bool
         prompt "SDL Timers Support"
-        depends on SDL_LIB
+        depends on SDL
         help
           FIXME
 
 config SDL_ENDIAN
         bool
         prompt "SDL Endian Support"
-        depends on SDL_LIB
+        depends on SDL
         help
           FIXME
 
 config SDL_FILE
         bool
         prompt "SDL File Support"
-        depends on SDL_LIB
+        depends on SDL
         help
           FIXME
 
 config SDL_CPUINFO
         bool
         prompt "SDL CPU Info Support"
-        depends on SDL_LIB
+        depends on SDL
         help
           FIXME
 
 menuconfig SDL_AUDIO
 	bool
 	prompt "SDL Audio Support"
-	depends on SDL_LIB
+	depends on SDL
 	help 
 	  FIXME
 
@@ -146,7 +146,7 @@ config SDL_DISKAUDIO
 menuconfig SDL_VIDEO
         bool
         prompt "SDL Video Support"
-        depends on SDL_LIB
+        depends on SDL
         help
           FIXME
 
@@ -207,21 +207,21 @@ config SDL_QTOPIA
 config SDL_EVENT
         bool
         prompt "SDL Event Support"
-        depends on SDL_LIB
+        depends on SDL
         help
           FIXME
 
 config SDL_JOYSTICK
         bool
         prompt "SDL Joystick Support"
-        depends on SDL_LIB
+        depends on SDL
         help
           FIXME
 
 config SDL_CDROM
         bool
         prompt "SDL CDROM Support"
-        depends on SDL_LIB
+        depends on SDL
         help
           FIXME
 
@@ -229,7 +229,7 @@ config SDL_CDROM
 menuconfig SDL_THREADS
         bool
         prompt "SDL Thread Support"
-        depends on SDL_LIB
+        depends on SDL
         help
           FIXME
 
