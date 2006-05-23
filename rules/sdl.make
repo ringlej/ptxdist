@@ -283,23 +283,7 @@ SDL_AUTOCONF += --disable-mintaudio
 SDL_AUTOCONF += --disable-video-photon
 SDL_AUTOCONF += --enable-input-events
 
-#
-# FIXME
-# the dependency generator doesn't work for conditional selects yet
-#
-sdl_prepare_deps  = $(STATEDIR)/sdl.extract
-ifdef PTXCONF_SDL_ALSA
-sdl_prepare_deps += $(STATEDIR)/alsa-lib.install
-endif
-ifdef PTXCONF_SDL_XORG
-sdl_prepare_deps += $(STATEDIR)/xorg-lib-X11.install
-sdl_prepare_deps += $(STATEDIR)/xorg-lib-Xt.install
-sdl_prepare_deps += $(STATEDIR)/xorg-lib-Xv.install
-sdl_prepare_deps += $(STATEDIR)/xorg-lib-XvMC.install
-sdl_prepare_deps += $(STATEDIR)/xorg-lib-Xinerama.install
-endif
-
-$(STATEDIR)/sdl.prepare: $(sdl_prepare_deps)
+$(STATEDIR)/sdl.prepare: $(sdl_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SDL_DIR)/config.cache)
 	cd $(SDL_DIR) && \
@@ -338,24 +322,7 @@ $(STATEDIR)/sdl.install: $(sdl_install_deps_default)
 
 sdl_targetinstall: $(STATEDIR)/sdl.targetinstall
 
-#
-# FIXME
-# the dependency generator doesn't work for conditional selects yet
-#
-sdl_targetinstall_deps  = $(STATEDIR)/sdl.install
-ifdef PTXCONF_SDL_ALSA
-sdl_targetinstall_deps += $(STATEDIR)/alsa-lib.targetinstall
-endif
-ifdef PTXCONF_SDL_XORG
-sdl_targettargetinstall_deps += $(STATEDIR)/xorg-lib-X11.targetinstall
-sdl_targettargetinstall_deps += $(STATEDIR)/xorg-lib-Xt.targetinstall
-sdl_targettargetinstall_deps += $(STATEDIR)/xorg-lib-Xv.targetinstall
-sdl_targettargetinstall_deps += $(STATEDIR)/xorg-lib-XvMC.targetinstall
-sdl_targettargetinstall_deps += $(STATEDIR)/xorg-lib-Xinerama.targetinstall
-endif
-
-
-$(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps)
+$(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init, sdl)
