@@ -94,7 +94,6 @@ pciutils_install: $(STATEDIR)/pciutils.install
 
 $(STATEDIR)/pciutils.install: $(pciutils_install_deps_default)
 	@$(call targetinfo, $@)
-	cd $(PCIUTILS_DIR) && $(PCIUTILS_PATH) make install PREFIX=$(SYSROOT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
