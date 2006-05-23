@@ -115,7 +115,17 @@ $(STATEDIR)/xorg-lib-lbxutil.targetinstall: $(xorg-lib-lbxutil_targetinstall_dep
 	@$(call install_fixup, xorg-lib-lbxutil,DEPENDS,)
 	@$(call install_fixup, xorg-lib-lbxutil,DESCRIPTION,missing)
 
-# FIXME
+	@$(call install_copy, xorg-lib-lbxutil, 0, 0, 0644, \
+		$(XORG_LIB_LBXUTIL_DIR)/src/.libs/liblbxutil.so.1.0.0, \
+		$(XORG_LIBDIR)/liblbxutil.so.1.0.0)
+
+	@$(call install_link, xorg-lib-lbxutil, \
+		liblbxutil.so.1.0.0, \
+		$(XORG_LIBDIR)/liblbxutil.so.1)
+
+	@$(call install_link, xorg-lib-lbxutil, \
+		liblbxutil.so.1.0.0, \
+		$(XORG_LIBDIR)/liblbxutil.so)
 
 	@$(call install_finish, xorg-lib-lbxutil)
 
