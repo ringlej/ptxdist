@@ -340,6 +340,7 @@ $(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
 	@$(call install_fixup, sdl,DEPENDS,)
 	@$(call install_fixup, sdl,DESCRIPTION,missing)
 
+ifdef PTXCONF_SDL_SHARED
 	@$(call install_copy, sdl, 0, 0, 0644, \
 		$(SDL_DIR)/src/.libs/libSDL-1.2.so.0.7.2, \
 		/usr/lib/libSDL-1.2.so.0.7.2)
@@ -351,6 +352,7 @@ $(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
 	@$(call install_link, sdl, \
 		libSDL-1.2.so.0.7.2, \
 		/usr/lib/libSDL-1.2.so)
+endif
 
 	@$(call install_finish, sdl)
 
