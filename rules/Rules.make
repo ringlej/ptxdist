@@ -69,6 +69,15 @@ endif
 
 HOSTCC_ENV	= CC=$(HOSTCC)
 
+CHECK_PIPE_STATUS = \
+	for i in  "$${PIPESTATUS[@]}"; do [ $$i -gt 0 ] && {			\
+		echo;								\
+		echo "error: a command in the pipe returned $$i, bailing out";	\
+		echo;								\
+		exit $$i;							\
+	}									\
+	done;									\
+	true;
 
 # ----------------------------------------------------------------------------
 # Paths and other stuff
@@ -480,13 +489,7 @@ extract =							\
 	esac;							\
 	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
 	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
-	[ $$? -eq 0 ] || {					\
-		echo;						\
-		echo "Could not extract packet!";		\
-		echo "File: $$PACKET";				\
-		echo;						\
-		exit -1;					\
-	};
+	$(CHECK_PIPE_STATUS)
 
 #
 # get
