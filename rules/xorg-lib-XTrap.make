@@ -117,7 +117,7 @@ $(STATEDIR)/xorg-lib-XTrap.targetinstall: $(xorg-lib-XTrap_targetinstall_deps_de
 
 	@$(call install_copy, xorg-lib-XTrap, 0, 0, 0644, \
 		$(XORG_LIB_XTRAP_DIR)/src/.libs/libXTrap.so.6.4.0, \
-		$(XORG_LIBDIR)/libXTrap.so.6.0.0)
+		$(XORG_LIBDIR)/libXTrap.so.6.4.0)
 
 	@$(call install_link, xorg-lib-XTrap, \
 		libXTrap.so.6.4.0, \
