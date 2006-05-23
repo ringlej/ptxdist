@@ -13,13 +13,6 @@ menuconfig SDL
 	help
 	  FIXME
 
-menuconfig SDL
-	bool
-	prompt "SDL Base library"
-	depends on SDL
-	help 
-	  FIXME
-
 config SDL_NASM
         bool
         prompt "Use NASM"
