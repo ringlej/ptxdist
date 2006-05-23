@@ -20,9 +20,9 @@ PACKAGES-$(PTXCONF_SDL) += sdl
 SDL_VERSION	:= 1.2.9
 SDL		:= SDL-$(SDL_VERSION)
 SDL_SUFFIX	:= tar.gz
-SDL_URL	:= http://www.libsdl.org/release//$(SDL).$(SDL_SUFFIX)
+SDL_URL		:= http://www.libsdl.org/release//$(SDL).$(SDL_SUFFIX)
 SDL_SOURCE	:= $(SRCDIR)/$(SDL).$(SDL_SUFFIX)
-SDL_DIR	:= $(BUILDDIR)/$(SDL)
+SDL_DIR		:= $(BUILDDIR)/$(SDL)
 
 -include $(call package_depfile)
 
