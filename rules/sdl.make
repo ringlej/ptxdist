@@ -197,11 +197,7 @@ SDL_AUTOCONF += --enable-video
  SDL_AUTOCONF += --disable-video-opengl
  endif
 
- ifdef PTXCONF_SDL_QTOPIA
- SDL_AUTOCONF += --enable-video-qtopia 
- else
  SDL_AUTOCONF += --disable-video-qtopia
- endif
 
 else
 SDL_AUTOCONF += --disable-video 

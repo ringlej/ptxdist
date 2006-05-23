@@ -185,13 +185,6 @@ config SDL_OPENGL
         help
           FIXME
 
-config SDL_QTOPIA
-        bool
-        prompt "QTopia Support"
-        depends on SDL_VIDEO
-        help
-          FIXME
-
 config SDL_EVENT
         bool
         prompt "SDL Event Support"
