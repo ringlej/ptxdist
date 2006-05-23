@@ -145,24 +145,28 @@ ifdef PTXCONF_SDL_VIDEO
 SDL_AUTOCONF += --enable-video  
 
  ifdef PTXCONF_SDL_NANOX
- SDL_AUTOCONF += --enable-video-nanox
- SDL_AUTOCONF += --enable-nanox-debug
- SDL_AUTOCONF += --enable-nanox-share-memory
- SDL_AUTOCONF += --enable-nanox-direct-fb
+ SDL_AUTOCONF += \
+	--enable-video-nanox \
+	--enable-nanox-debug \
+	--enable-nanox-share-memory \
+	--enable-nanox-direct-fb
  else
  SDL_AUTOCONF += --disable-video-nanox
  endif
 
  ifdef PTXCONF_SDL_XORG
- SDL_AUTOCONF += --with-x              
- SDL_AUTOCONF += --enable-video-x11   
- SDL_AUTOCONF += --enable-video-x11-vm 
- SDL_AUTOCONF += --enable-dga         
- SDL_AUTOCONF += --enable-video-x11-dgamouse 
- SDL_AUTOCONF += --enable-video-x11-xv  
- SDL_AUTOCONF += --enable-video-x11-xinerama 
- SDL_AUTOCONF += --enable-video-x11-xme 
- SDL_AUTOCONF += --enable-video-dga    
+ SDL_AUTOCONF += \
+	--with-x \
+	--enable-video-x11 \
+	--enable-video-x11-vm \
+	--enable-dga \
+	--enable-video-x11-dgamouse \
+	--enable-video-x11-xv \
+	--enable-video-x11-xinerama \
+	--enable-video-x11-xme \
+	--enable-video-dga \
+	--x-includes=$(SYSROOT)/usr/include \
+	--x-libraries=$(SYSROOT)/usr/lib
  else
  SDL_AUTOCONF += --without-x
  endif
@@ -186,8 +190,9 @@ SDL_AUTOCONF += --enable-video
  endif
 
  ifdef PTXCONF_SDL_OPENGL
- SDL_AUTOCONF += --enable-video-opengl  
- SDL_AUTOCONF += --enable-osmesa-shared 
+ SDL_AUTOCONF += \
+	--enable-video-opengl \
+	--enable-osmesa-shared
  else
  SDL_AUTOCONF += --disable-video-opengl
  endif
@@ -261,27 +266,28 @@ else
 SDL_AUTOCONF += --disable-nasm
 endif
 
-SDL_AUTOCONF += --disable-debug
-SDL_AUTOCONF += --disable-strict-ansi
-SDL_AUTOCONF += --disable-video-ps2gs  
-SDL_AUTOCONF += --disable-video-ggi   
-SDL_AUTOCONF += --disable-video-svga 
-SDL_AUTOCONF += --disable-video-vgl 
-SDL_AUTOCONF += --disable-video-xbios 
-SDL_AUTOCONF += --disable-video-gem   
-SDL_AUTOCONF += --enable-video-dummy  
-SDL_AUTOCONF += --enable-pthreads    
-SDL_AUTOCONF += --enable-pthread-sem 
-SDL_AUTOCONF += --enable-sigaction   
-SDL_AUTOCONF += --disable-stdio-redirect
-SDL_AUTOCONF += --disable-directx      
-SDL_AUTOCONF += --disable-video-picogui
-SDL_AUTOCONF += --enable-sdl-dlopen   
-SDL_AUTOCONF += --disable-atari-ldg  
-SDL_AUTOCONF += --enable-rpath      
-SDL_AUTOCONF += --disable-mintaudio
-SDL_AUTOCONF += --disable-video-photon
-SDL_AUTOCONF += --enable-input-events
+SDL_AUTOCONF += \
+	--disable-debug \
+	--disable-strict-ansi \
+	--disable-video-ps2gs \
+	--disable-video-ggi \
+	--disable-video-svga \
+	--disable-video-vgl \
+	--disable-video-xbios \
+	--disable-video-gem \
+	--enable-video-dummy \
+	--enable-pthreads \
+	--enable-pthread-sem \
+	--enable-sigaction \
+	--disable-stdio-redirect \
+	--disable-directx \
+	--disable-video-picogui \
+	--enable-sdl-dlopen \
+	--disable-atari-ldg \
+	--enable-rpath \
+	--disable-mintaudio \
+	--disable-video-photon \
+	--enable-input-events
 
 $(STATEDIR)/sdl.prepare: $(sdl_prepare_deps_default)
 	@$(call targetinfo, $@)
