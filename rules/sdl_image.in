@@ -1,6 +1,5 @@
 config SDL_IMAGE
 	bool
-	depends on SDL
-	select SDL_LIB
+	select SDL
 	prompt "SDL Image 1.2.4"
 
