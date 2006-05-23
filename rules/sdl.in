@@ -161,11 +161,6 @@ config SDL_XORG
         bool
         prompt "Xorg Support"
         depends on SDL_VIDEO
-        select XORG_LIB_X11
-        select XORG_LIB_XT
-        select XORG_LIB_XV
-        select XORG_LIB_XVMC
-        select XORG_LIB_XINERAMA
         help
           FIXME
 
