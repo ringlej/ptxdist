@@ -1,6 +1,10 @@
 TODO for PTXdist 0.10 Series - High Priority
 ============================================
 
+[ ] mol: ptxdist commands behave differently for arguments which exceed
+    the "current" command; some continue parsing and some exit.
+[ ] mol: add possibility to 'ptxdist print' more than one variable in
+    one make call
 [ ] modify macros to use FOOBAR instead of $(FOOBAR_DIR) etc.; see
     install macro for example. 
 [ ] add prerequisite checks to configure script; find out which
