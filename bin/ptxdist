@@ -14,7 +14,7 @@ DEBUG=
 
 # export this, so that children can call the master script, for example
 # to find out the version number
-PTXDIST=${BASH_SOURCE[0]}
+PTXDIST=$0
 
 if [ -L "$PTXDIST" ]; then
 	PTXDIST_TOPDIR=$(cd $(dirname $(readlink $PTXDIST))/.. && pwd)
