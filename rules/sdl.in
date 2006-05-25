@@ -96,6 +96,7 @@ config SDL_ESD
         bool
         prompt "SDL ESD Support"
         depends on SDL_AUDIO
+	depends on BROKEN
         help
           FIXME
 
@@ -147,6 +148,7 @@ config SDL_NANOX
         bool
         prompt "NanoX Support"
         depends on SDL_VIDEO
+	depends on BROKEN
         help
           FIXME
 
