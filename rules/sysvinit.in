@@ -1,5 +1,9 @@
 menuconfig SYSVINIT
 	bool "SysVInit            "
+	depends on BROKEN
+
+comment "sysvinit is broken, please send a patch"
+	depends on !BROKEN
 
 config SYSVINIT_INIT  
 	bool
