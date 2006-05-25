@@ -1,6 +1,7 @@
 config XORG_FONT_BH_100DPI
 	bool
 	depends on XORG_FONT
+	depends on BROKEN
 	select XORG_FONT_UTIL
 	prompt "BH 100dpi"
 	help
