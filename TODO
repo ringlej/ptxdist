@@ -61,6 +61,8 @@ Test suite components to be added
 Current TODO List
 =================
 
+[ ] port scripts/mkprefix to non-perl
+
 [ ] ptxdist arch <arm|um|ppc|....>
 
     Split build-target into build-${PTXCONF_ARCH}
