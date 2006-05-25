@@ -301,7 +301,7 @@ sdl_compile: $(STATEDIR)/sdl.compile
 
 $(STATEDIR)/sdl.compile: $(sdl_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(SDL_DIR) && $(SDL_PATH) make
+	cd $(SDL_DIR) && $(SDL_ENV) $(SDL_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
