@@ -225,7 +225,7 @@ $(STATEDIR)/bash.targetinstall: $(bash_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init, bash)
-	@$(call install_fixup, bash,PACKAGE,BASH)
+	@$(call install_fixup, bash,PACKAGE,bash)
 	@$(call install_fixup, bash,PRIORITY,optional)
 	@$(call install_fixup, bash,VERSION,$(BASH_VERSION))
 	@$(call install_fixup, bash,SECTION,base)
