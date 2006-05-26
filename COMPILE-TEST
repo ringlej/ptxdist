@@ -1,80 +1,49 @@
-Automatic Compilation Test
---------------------------
 
-start: So Nov 13 20:42:35 CET 2005
+config............: h7202
+date..............: Fri May 26 10:47:23 CEST 2006
+user..............: rsc@isonoe
+buildtime.........: 0h7m0s
+result............: 0
 
-config...: abbcc-viac3
-date.....: So Nov 13 20:42:35 CET 2005
-user.....: rsc@himalia
-buildtime: 0h7m41s
-result...: 0
+config............: generic-i586-glibc
+date..............: Fri May 26 10:55:28 CEST 2006
+user..............: rsc@isonoe
+buildtime.........: 0h6m0s
+result............: 0
 
-config...: i586-generic-glibc
-date.....: So Nov 13 20:50:25 CET 2005
-user.....: rsc@himalia
-buildtime: 0h4m54s
-result...: 0
+config............: allyes-arm
+date..............: Fri May 26 11:02:30 CEST 2006
+user..............: rsc@isonoe
+buildtime.........: 2h5m0s
+result............: 0
 
-config...: frako
-date.....: So Nov 13 20:55:28 CET 2005
-user.....: rsc@himalia
-buildtime: 0h14m20s
-result...: 0
+config............: generic-powerpc-glibc
+date..............: Fri May 26 13:11:24 CEST 2006
+user..............: rsc@isonoe
+buildtime.........: 0h11m0s
+result............: 0
 
-config...: visbox
-date.....: So Nov 13 21:09:57 CET 2005
-user.....: rsc@himalia
-buildtime: 0h12m34s
-result...: 0
+config............: generic-arm-glibc
+date..............: Fri May 26 13:22:49 CEST 2006
+user..............: rsc@isonoe
+buildtime.........: 0h7m0s
+result............: 0
 
-config...: rayonic-i586
-date.....: So Nov 13 21:22:40 CET 2005
-user.....: rsc@himalia
-buildtime: 0h9m27s
-result...: 0
+config............: ssv_pnp2110_eva1
+date..............: Fri May 26 13:30:14 CEST 2006
+user..............: rsc@isonoe
+buildtime.........: 0h16m0s
+result............: 0
 
-config...: innokom-2.4-2.95
-date.....: So Nov 13 21:32:16 CET 2005
-user.....: rsc@himalia
-buildtime: 0h6m21s
-result...: 0
+config............: visbox
+date..............: Fri May 26 13:47:07 CEST 2006
+user..............: rsc@isonoe
+buildtime.........: 0h24m0s
+result............: 0
 
-config...: innokom-2.4-3.3.3
-date.....: So Nov 13 21:38:45 CET 2005
-user.....: rsc@himalia
-buildtime: 0h6m57s
-result...: 0
-
-config...: mx1fs2
-date.....: So Nov 13 21:45:50 CET 2005
-user.....: rsc@himalia
-buildtime: 0h5m7s
-result...: 0
-
-config...: pii_nge
-date.....: So Nov 13 21:51:06 CET 2005
-user.....: rsc@himalia
-buildtime: 0h33m27s
-result...: 0
-
-config...: ssv_pnp2110_eva1
-date.....: So Nov 13 22:25:07 CET 2005
-user.....: rsc@himalia
-buildtime: 0h23m34s
-result...: 0
-
-config...: eb8245
-date.....: So Nov 13 22:48:55 CET 2005
-user.....: rsc@himalia
-buildtime: 0h2m23s
-result...: 0
-
-config...: cameron-efco
-date.....: So Nov 13 22:51:27 CET 2005
-user.....: rsc@himalia
-buildtime: 0h13m43s
-result...: 0
-
-
-stop: So Nov 13 23:05:22 CET 2005
+config............: wystup
+date..............: Fri May 26 14:12:20 CEST 2006
+user..............: rsc@isonoe
+buildtime.........: 0h19m0s
+result............: 0
 
