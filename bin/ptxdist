@@ -631,7 +631,7 @@ while [ "$#" != "0" ]; do
 				echo >&5
 
 				[ -e "logfile" ] && mv logfile "${AUTOBUILD_TOPDIR}/`basename \`pwd\``.log"
-				[ "${PTX_RETVAL}" = "0" ] && ${PTXDIST} clean
+				[ "${PTX_RETVAL}" = "0" ] && ${PTXDIST} distclean
 
 				popd
 			done
