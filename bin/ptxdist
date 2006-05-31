@@ -337,6 +337,27 @@ clean() {
 	echo
 }
 
+drop() {
+	local statefile
+	if [ "$2" = "" ]; then
+		statefile="$1"
+	else
+		statefile="$1.$2"
+	fi
+
+	echo
+	if [ -e ${STATEDIR}/${statefile} ]; then
+		rm -f ${STATEDIR}/${statefile}
+		echo "droping ${statefile}"
+		echo
+		exit 0
+	else
+		echo "stage ${statefile} isn't built, so we cannot drop it"
+		echo
+		exit 1
+	fi
+}
+
 menuconfig() {
 	echo
 
@@ -680,17 +701,7 @@ while [ "$#" != "0" ]; do
 			;;
 	drop)		shift
 			check_ptxconfig
-			echo
-			if [ -e ${STATEDIR}/$1 ]; then
-				rm -f ${STATEDIR}/$1
-				echo "droping $1"
-				echo
-				exit 0
-			else
-				echo "stage $1 isn't built, so we cannot drop it"
-				echo
-				exit 1
-			fi
+			drop $1 $2
 			;;
 	extract)	shift
 			check_ptxconfig
