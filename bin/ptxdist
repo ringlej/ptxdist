@@ -254,6 +254,7 @@ Build Actions:
   targetinstall <package>        install files for target into root/
   clean <package>                cleanup packet
   autobuild                      search for "autobuild" scripts and run them
+  drop <package>.<stage>         mark a stage of a packet as unbuilt
 
   images                         build images for target system
 
@@ -676,6 +677,20 @@ while [ "$#" != "0" ]; do
 				rm ptxconfig
 			fi
 			echo
+			;;
+	drop)		shift
+			check_ptxconfig
+			echo
+			if [ -e ${STATEDIR}/$1 ]; then
+				rm -f ${STATEDIR}/$1
+				echo "droping $1"
+				echo
+				exit 0
+			else
+				echo "stage $1 isn't built, so we cannot drop it"
+				echo
+				exit 1
+			fi
 			;;
 	extract)	shift
 			check_ptxconfig
