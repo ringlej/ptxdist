@@ -12,17 +12,19 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_@PACKET@) += @packet@
+
+#
+HOST_PACKAGES-$(PTXCONF_HOST_@PACKET@) += host-@packet@
 
 #
 # Paths and names
 #
-@PACKET@_VERSION	= @VERSION@
-@PACKET@		= @packet@-$(@PACKET@_VERSION)
-@PACKET@_SUFFIX		= @SUFFIX@
-@PACKET@_URL		= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_SOURCE		= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_DIR		= $(HOST_BUILDDIR)/$(@PACKET@)
+HOST_@PACKET@_VERSION	= @VERSION@
+HOST_@PACKET@		= @packet@-$(HOST_@PACKET@_VERSION)
+HOST_@PACKET@_SUFFIX	= @SUFFIX@
+HOST_@PACKET@_URL	= @URL@/$(HOST_@PACKET@).$(HOST_@PACKET@_SUFFIX)
+HOST_@PACKET@_SOURCE	= $(SRCDIR)/$(HOST_@PACKET@).$(HOST_@PACKET@_SUFFIX)
+HOST_@PACKET@_DIR	= $(HOST_BUILDDIR)/$(@PACKET@)
 
 -include $(call package_depfile)
 
@@ -30,79 +32,80 @@ HOST_PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 # Get
 # ----------------------------------------------------------------------------
 
-@packet@_get: $(STATEDIR)/@packet@.get
+host-@packet@_get: $(STATEDIR)/host-@packet@.get
 
-$(STATEDIR)/@packet@.get: $(@packet@_get_deps_default)
+$(STATEDIR)/host-@packet@.get: $(host-@packet@_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
 $(@PACKET@_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, @PACKET@)
+	@$(call get, HOST_@PACKET@)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-@packet@_extract: $(STATEDIR)/@packet@.extract
+host-@packet@_extract: $(STATEDIR)/host-@packet@.extract
 
-$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
+$(STATEDIR)/host-@packet@.extract: $(host-@packet@_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(@PACKET@_DIR))
-	@$(call extract, @PACKET@, $(HOST_BUILDDIR))
-	@$(call patchin, @PACKET@, $(@PACKET@_DIR))
+	@$(call clean, $(HOST_@PACKET@_DIR))
+	@$(call extract, HOST_@PACKET@, $(HOST_BUILDDIR))
+	@$(call patchin, HOST_@PACKET@, $(HOST_@PACKET@_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-@packet@_prepare: $(STATEDIR)/@packet@.prepare
+host-@packet@_prepare: $(STATEDIR)/host-@packet@.prepare
 
-@PACKET@_PATH	=  PATH=$(HOST_PATH)
-@PACKET@_ENV 	=  $(HOSTCC_ENV)
+HOST_@PACKET@_PATH	=  PATH=$(HOST_PATH)
+HOST_@PACKET@_ENV 	=  $(HOSTCC_ENV)
 
 #
 # autoconf
 #
-@PACKET@_AUTOCONF =  $(HOST_AUTOCONF)
+HOST_@PACKET@_AUTOCONF =  $(HOST_AUTOCONF)
 
-$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
+$(STATEDIR)/host-@packet@.prepare: $(host-@packet@_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(@PACKET@_DIR)/config.cache)
-	cd $(@PACKET@_DIR) && \
-		$(@PACKET@_PATH) $(@PACKET@_ENV) \
-		./configure $(@PACKET@_AUTOCONF)
+	@$(call clean, $(HOST_@PACKET@_DIR)/config.cache)
+	cd $(HOST_@PACKET@_DIR) && \
+		$(HOST_@PACKET@_PATH) $(HOST_@PACKET@_ENV) \
+		./configure $(HOST_@PACKET@_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-@packet@_compile: $(STATEDIR)/@packet@.compile
+host-@packet@_compile: $(STATEDIR)/host-@packet@.compile
 
-$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
+
+$(STATEDIR)/host-@packet@.compile: $(host-@packet@_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make
+	cd $(HOST_@PACKET@_DIR) && $(HOST_@PACKET@_ENV) $(HOST_@PACKET@_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-@packet@_install: $(STATEDIR)/@packet@.install
+host-@packet@_install: $(STATEDIR)/host-@packet@.install
 
-$(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
+$(STATEDIR)/host-@packet@.install: $(host-@packet@_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, @PACKET@,,h)
+	@$(call install, HOST_@PACKET@,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-@packet@_clean:
-	rm -rf $(STATEDIR)/@packet@.*
-	rm -rf $(@PACKET@_DIR)
+host-@packet@_clean:
+	rm -rf $(STATEDIR)/host-@packet@.*
+	rm -rf $(HOST_@PACKET@_DIR)
 
 # vim: syntax=make
