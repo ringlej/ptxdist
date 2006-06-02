@@ -21,6 +21,7 @@ DEP_TREE_A4_PS	= deptree-a4.ps
 
 SUDO		= sudo
 HOSTCC		= gcc
+HOSTCXX		= g++
 DOT		= dot
 SH		= /bin/sh
 # FIXME: disabled caching in wget. Make sure that all patches on the webserver
@@ -68,6 +69,7 @@ CHECKINSTALL	=
 endif
 
 HOSTCC_ENV	= CC=$(HOSTCC)
+HOSTCXX_ENV	= CXX=$(HOSTCXX)
 
 CHECK_PIPE_STATUS = \
 	for i in  "$${PIPESTATUS[@]}"; do [ $$i -gt 0 ] && {			\
