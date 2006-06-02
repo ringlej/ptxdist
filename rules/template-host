@@ -50,7 +50,7 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
 	@$(call extract, @PACKET@, $(HOST_BUILDDIR))
-	@$(call patchin, $(@PACKET@), $(@PACKET@_DIR))
+	@$(call patchin, @PACKET@, $(@PACKET@_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
