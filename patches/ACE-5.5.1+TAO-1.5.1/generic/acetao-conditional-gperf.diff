@@ -18,7 +18,7 @@
 #
 # State:
 # 
-# unknown, to be submitted
+# submitted, will probably be added to 5.5.3
 #
 
 diff -urN ACE-5.5.1+TAO-1.5.1-orig/apps/Makefile.am ACE-5.5.1+TAO-1.5.1-ptx/apps/Makefile.am
