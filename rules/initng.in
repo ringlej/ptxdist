@@ -6,6 +6,13 @@ menuconfig INITNG
 	help
 	  FIXME
 
+config INITNG_WITH_BUSYBOX
+	bool
+	depends on INITNG
+	prompt "Allow busybox as shell"
+	help
+	  FIXME
+
 config INITNG_INSTALL_INIT
 	bool
 	depends on INITNG
@@ -24,6 +31,13 @@ config INITNG_DEBUG
 	bool
 	depends on INITNG
 	prompt "Enable Debug Support"
+	help
+	  FIXME
+
+config INITNG_FORCE_NOCOLOR
+	bool
+	depends on INITNG
+	prompt "Force No Color"
 	help
 	  FIXME
 
@@ -69,17 +83,17 @@ config INITNG_CPOUT
 	help
 	  FIXME
 
-config INITNG_CRON
-	bool
-	depends on INITNG
-	prompt "Cron Plugin"
-	help
-	  FIXME
-
 config INITNG_CRITICAL
 	bool
 	depends on INITNG
 	prompt "Critical Plugin"
+	help
+	  FIXME
+
+config INITNG_CTRLALTDEL
+	bool
+	depends on INITNG
+	prompt "Ctrl-Alt-Del Plugin"
 	help
 	  FIXME
 
@@ -90,10 +104,17 @@ config INITNG_DAEMON_CLEAN
 	help
 	  FIXME
 
-config INITNG_DLLAUNCH
+config INITNG_DBUS_EVENT
 	bool
 	depends on INITNG
-	prompt "Dllaunch Plugin"
+	prompt "DBUS pluging"
+	help
+	  FIXME
+
+config INITNG_DEBUG_COMMANDS
+	bool
+	depends on INITNG
+	prompt "Debug Commands Plugin"
 	help
 	  FIXME
 
@@ -111,6 +132,13 @@ config INITNG_FIND
 	help
 	  FIXME
 
+config INITNG_FMON
+	bool
+	depends on INITNG
+	prompt "File Monitoring Plugin"
+	help
+	  FIXME
+
 config INITNG_FSTAT
 	bool
 	depends on INITNG
@@ -122,6 +150,13 @@ config INITNG_HISTORY
 	bool
 	depends on INITNG
 	prompt "History Plugin"
+	help
+	  FIXME
+
+config INITNG_IDLEPROBE
+	bool
+	depends on INITNG
+	prompt "Idle Probe plugin"
 	help
 	  FIXME
 
@@ -160,10 +195,24 @@ config INITNG_LIMIT
 	help
 	  FIXME
 
+config INITNG_LOCKFILE
+	bool
+	depends on INITNG
+	prompt "Lock file plugin"
+	help
+	  FIXME
+
 config INITNG_LOGFILE
 	bool
 	depends on INITNG
 	prompt "Logfile Plugin"
+	help
+	  FIXME
+
+config INITNG_NETDEV
+	bool
+	depends on INITNG
+	prompt "Network Dev"
 	help
 	  FIXME
 
@@ -174,33 +223,12 @@ config INITNG_NETPROBE
 	help
 	  FIXME
 
-config INITNG_MOUNTPROBE
+config INITNG_NGC4
 	bool
 	depends on INITNG
-	prompt "Mount Probe Plugin"
+	prompt "NGC4 Plugin"
 	help
 	  FIXME
-
-config INITNG_IDLEPROBE
-	bool
-	depends on INITNG
-	prompt "Idle Probe Plugin"
-	help
-	  FIXME
-
-config INITNG_NGC2
-	bool
-	depends on INITNG
-	prompt "NGC2 Plugin"
-	help
-	  FIXME
-
-#config INITNG_NGC4
-#	bool
-#	depends on INITNG
-#	prompt "NGC4 Plugin"
-#	help
-#	  FIXME
 
 config INITNG_NGCS
 	bool
@@ -223,10 +251,10 @@ config INITNG_PAUSE
 	help
 	  FIXME
 
-config INITNG_PIDFILE_TEST
+config INITNG_PROVIDE
 	bool
 	depends on INITNG
-	prompt "PID Test File"
+	prompt "Provide Plugin"
 	help
 	  FIXME
 
@@ -255,13 +283,6 @@ config INITNG_SIMPLE_LAUNCHER
 	bool
 	depends on INITNG
 	prompt "Simple Launcher Plugin"
-	help
-	  FIXME
-
-config INITNG_USPLASH
-	bool
-	depends on INITNG
-	prompt "Usplash Plugin"
 	help
 	  FIXME
 
@@ -297,6 +318,13 @@ config INITNG_SYSLOG
 	bool
 	depends on INITNG
 	prompt "Syslog Plugin"
+	help
+	  FIXME
+
+config INITNG_SYSREQ
+	bool
+	depends on INITNG
+	prompt "SysRq plugin"
 	help
 	  FIXME
 
