@@ -39,7 +39,7 @@ endif
 ifdef PTXCONF_ARCH_X86
 	THUD = linux-i386
 endif
-ifdef PTXCONF_OPT_i586
+ifdef PTXCONF_OPT_I586
 	THUD = linux-i386-i586
 endif
 ifdef PTXCONF_OPT_I686
