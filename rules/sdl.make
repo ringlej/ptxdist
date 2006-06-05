@@ -138,7 +138,7 @@ SDL_AUTOCONF += --enable-audio
  endif
 
 else
-DL_LIB_AUTOCONF += --disable-audio
+SDL_LIB_AUTOCONF += --disable-audio
 endif
 
 ifdef PTXCONF_SDL_VIDEO
