@@ -7,8 +7,6 @@ TODO for PTXdist 0.10 Series - High Priority
     one make call
 [ ] modify macros to use FOOBAR instead of $(FOOBAR_DIR) etc.; see
     install macro for example. 
-[ ] add prerequisite checks to configure script; find out which
-    prerequisites we really need. 
 [ ] check if ${PTXCONF_PREFIX} can be written to and barf if not
 [ ] add sanity checks for all user configurable variables (especially
     paths)
@@ -254,3 +252,9 @@ Current TODO List
 
 [ ] SHA: scripts/make_image_root.sh puts all ipkg packages from imagedir into the
     resulting images, even those which are lying there from old builds
+
+DONE
+----
+
+[x] add prerequisite checks to configure script; find out which
+    prerequisites we really need. 
