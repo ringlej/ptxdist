@@ -29,7 +29,7 @@
  	autogen.sh	\
 -	strip_fPIC.sh
 +	strip_fPIC.sh	\
-+	live.pc.in
++	sdl.pc.in
  
  # M4 macro file for inclusion with autoconf
  m4datadir = $(datadir)/aclocal
