@@ -10,6 +10,54 @@ DOPERMISSIONS='{ if ($1 == "f") printf("chmod %s .%s; chown %s.%s .%s;\n", $5, $
 
 
 #
+# $1	copy_back; "true" copies the .config file back to ptxdist
+# $2	function that is called
+# $#	all other parameters are given to $2
+#
+ptxd_kconfig() {
+	local tmpdir fun copy_back
+
+	copy_back="${1}"
+	fun="${2}"
+	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
+
+	# search for kconfig
+	if [ -z "${PTXDIST_KCONFIG}" ]; then
+		if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
+			PTXDIST_KCONFIG="${PTXDIST_WORKSPACE}/Kconfig"
+		else
+			PTXDIST_KCONFIG="config/Kconfig"
+		fi
+	fi
+
+	pushd $tmpdir > /dev/null
+	ln -sf ${PTXDIST_TOPDIR}/scripts
+	ln -sf ${PTXDIST_TOPDIR}/rules
+	ln -sf ${PTXDIST_TOPDIR}/config
+	ln -sf ${PTXDIST_WORKSPACE} workspace
+	cp ${PTXDIST_WORKSPACE}/ptxconfig .config
+
+	shift 2 # call ${fun} with the remaining arguments
+
+	if ${fun} $* && [ "${copy_back}" = "true" ]; then
+		cp .config ${PTXDIST_WORKSPACE}/ptxconfig
+	fi
+
+	popd > /dev/null
+	rm -fr $tmpdir
+}
+
+
+#
+#
+#
+ptxd_make() {
+	make $PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make PTXDIST_TOPDIR=${PTXDIST_TOPDIR} $*
+}
+
+
+
+#
 # convert a relative or absolute path into an absolute path
 #
 ptxd_abspath() {
@@ -245,7 +293,7 @@ ptxd_compile_test() {
 	make distclean
 
 	cd ${OLD_DIR}
-}	
+}
 
 
 #
