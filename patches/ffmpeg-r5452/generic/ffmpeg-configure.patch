@@ -1,3 +1,22 @@
+#
+# Submitted-By: Erwin Rol, Jun 5 2006
+# Committed-By: Erwin Rol
+#
+# Error:
+#
+# When crosscompiling the configure script genereates 
+# a compiler name that looks like 
+# <prefix>-<prefix>-gcc instead of <prefix>-gcc
+#
+# Description:
+# 
+# Simply remove the cross_preifx from the check functions
+# since cc already has the prefix attached.
+#
+# State:
+#
+# Unknown
+#
 --- ffmpeg-r5452/configure.orig	2006-06-05 15:09:17.000000000 +0200
 +++ ffmpeg-r5452/configure	2006-06-05 15:09:32.000000000 +0200
 @@ -129,12 +129,12 @@
