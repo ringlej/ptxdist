@@ -8,13 +8,8 @@
 # see the README file.
 #
 
-ifdef PTXCONF_USE_EXTERNAL_KERNEL
-KERNEL_TARGET_VERSION_MAJOR	:= $(shell sed -ne "s/^VERSION[ ]=[ ]//gp"      $(PTXCONF_KERNEL_DIR)/Makefile)
-KERNEL_TARGET_VERSION_MINOR	:= $(shell sed -ne "s/^PATCHLEVEL[ ]=[ ]//gp"   $(PTXCONF_KERNEL_DIR)/Makefile)
-else
 KERNEL_TARGET_VERSION_MAJOR	:= $(shell echo $(PTXCONF_KERNEL_TARGET_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\1/")
 KERNEL_TARGET_VERSION_MINOR	:= $(shell echo $(PTXCONF_KERNEL_TARGET_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\2/")
-endif
 
 KERNEL_NATIVE_VERSION_MAJOR	:= $(shell echo $(PTXCONF_KERNEL_NATIVE_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\1/")
 KERNEL_NATIVE_VERSION_MINOR	:= $(shell echo $(PTXCONF_KERNEL_NATIVE_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\2/")
