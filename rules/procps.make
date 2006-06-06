@@ -144,13 +144,13 @@ ifdef PTXCONF_PROCPS_SYSCTL
 	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/sysctl, /sbin/sysctl)
 endif
 ifdef PTXCONF_PROCPS_PS
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/ps/ps, /sbin/ps)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/ps/ps, /usr/bin/ps)
 endif
 ifdef PTXCONF_PROCPS_W
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/w, /sbin/w)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/w, /usr/bin/w)
 endif
 ifdef PTXCONF_PROCPS_PGREP
-	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/pgrep, /sbin/pgrep)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/pgrep, /usr/bin/pgrep)
 endif
 	@$(call install_finish, procps)
 	@$(call touch, $@)
