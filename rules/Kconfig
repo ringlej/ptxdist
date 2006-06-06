@@ -120,6 +120,7 @@ source "rules/mad.in"
 source "rules/mplayer.in"
 source "rules/setmixer.in"
 source "rules/rawrec.in"
+source "rules/mc.in"
 source "rules/ffmpeg.in"
 endmenu
 

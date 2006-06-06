@@ -1,0 +1,8 @@
+config MC
+	bool
+	select GLIB
+	select NCURSES
+	prompt "midnight commander"
+	help
+	  midnight commander is a ncurses based file manager
+
