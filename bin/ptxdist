@@ -379,14 +379,21 @@ menuconfig() {
 	ln -sf ${PTXDIST_WORKSPACE} workspace
 	cp ${PTXDIST_WORKSPACE}/ptxconfig .config
 	if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
-		${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_WORKSPACE}/Kconfig
-		echo "${PROMPT}silentoldconfig..."
-		${PTXDIST_TOPDIR}/scripts/kconfig/conf -s ${PTXDIST_WORKSPACE}/Kconfig
+		ptxconfig=${PTXDIST_WORKSPACE}/Kconfig
 	else
-		${PTXDIST_TOPDIR}/scripts/kconfig/mconf config/Kconfig
-		echo "${PROMPT}silentoldconfig..."
-		${PTXDIST_TOPDIR}/scripts/kconfig/conf -s config/Kconfig
+		ptxconfig=config/Kconfig
 	fi
+
+	${PTXDIST_TOPDIR}/scripts/kconfig/mconf "$ptxconfig"
+	diff -q ${PTXDIST_WORKSPACE}/ptxconfig .config > /dev/null
+	if [ "$?" == 0 ]; then
+		echo "no changes in ptxconfig. not saving"
+		rm -fr $tmpdir
+		return
+	fi
+
+	echo "${PROMPT}silentoldconfig..."
+	${PTXDIST_TOPDIR}/scripts/kconfig/conf -s "$ptxconfig"
 
 	echo "${PROMPT}saving ptxconfig"
 	cp .config ${PTXDIST_WORKSPACE}/ptxconfig
