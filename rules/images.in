@@ -161,7 +161,7 @@ config IMAGE_MKNBI_EXT_KERNEL
 	string
 	default "${PTXCONF_KERNEL_DIR}/arch/i386/boot/bzImage"
 	prompt "Path to kernel image"
-	depends on IMAGE_MKNBI && USE_EXTERNAL_KERNEL
+	depends on IMAGE_MKNBI
 
 config IMAGE_MKNBI_APPEND
 	string

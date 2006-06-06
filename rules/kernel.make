@@ -313,9 +313,7 @@ endif
 # ----------------------------------------------------------------------------
 
 kernel_clean:
-ifndef PTXCONF_USE_EXTERNAL_KERNEL
 	rm -rf $(KERNEL_DIR)
-endif
 	rm -f $(STATEDIR)/kernel.*
 
 # vim: syntax=make
