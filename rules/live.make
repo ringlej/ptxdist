@@ -118,43 +118,43 @@ $(STATEDIR)/live.targetinstall: $(live_targetinstall_deps_default)
 	@$(call install_fixup, live,DESCRIPTION,missing)
 
 	@$(call install_copy, live, 0, 0, 0644, \
-		$(LIVE_LIB_DIR)/BasicUsageEnvironment/.libs/libBasicUsageEnvironment.so.6.3.17, \
-		/usr/lib/libBasicUsageEnvironment.so.6.3.17, n)
+		$(LIVE_LIB_DIR)/BasicUsageEnvironment/.libs/libBasicUsageEnvironment.so.6.5.17, \
+		/usr/lib/libBasicUsageEnvironment.so.6.5.17, n)
 	@$(call install_link, live, \
-		libBasicUsageEnvironment.so.6.3.17, \
+		libBasicUsageEnvironment.so.6.5.17, \
 		/usr/lib/libBasicUsageEnvironment.so.6)
 	@$(call install_link, live, \
-		libBasicUsageEnvironment.so.6.3.17, \
+		libBasicUsageEnvironment.so.6.5.17, \
 		/usr/lib/libBasicUsageEnvironment.so)
 
 	@$(call install_copy, live, 0, 0, 0644, \
-		$(LIVE_LIB_DIR)/groupsock/.libs/libgroupsock.so.6.3.17, \
-		/usr/lib/libgroupsock.so.6.3.17, n)
+		$(LIVE_LIB_DIR)/groupsock/.libs/libgroupsock.so.6.5.17, \
+		/usr/lib/libgroupsock.so.6.5.17, n)
 	@$(call install_link, live, \
-		libgroupsock.so.6.3.17, \
+		libgroupsock.so.6.5.17, \
 		/usr/lib/libgroupsock.so.6)
 	@$(call install_link, live, \
-		libgroupsock.so.6.3.17, \
+		libgroupsock.so.6.5.17, \
 		/usr/lib/libgroupsock.so)
 
 	@$(call install_copy, live, 0, 0, 0644, \
-		$(LIVE_LIB_DIR)/liveMedia/.libs/libliveMedia.so.6.3.17, \
-		/usr/lib/libliveMedia.so.6.3.17, n)
+		$(LIVE_LIB_DIR)/liveMedia/.libs/libliveMedia.so.6.5.17, \
+		/usr/lib/libliveMedia.so.6.5.17, n)
 	@$(call install_link, live, \
-		libliveMedia.so.6.3.17, \
+		libliveMedia.so.6.5.17, \
 		/usr/lib/libliveMedia.so.6)
 	@$(call install_link, live, \
-		libliveMedia.so.6.3.17, \
+		libliveMedia.so.6.5.17, \
 		/usr/lib/libliveMedia.so)
 
 	@$(call install_copy, live, 0, 0, 0644, \
-		$(LIVE_LIB_DIR)/UsageEnvironment/.libs/libUsageEnvironment.so.6.3.17, \
-		/usr/lib/libUsageEnvironment.so.6.3.17, n)
+		$(LIVE_LIB_DIR)/UsageEnvironment/.libs/libUsageEnvironment.so.6.5.17, \
+		/usr/lib/libUsageEnvironment.so.6.5.17, n)
 	@$(call install_link, live, \
-		libUsageEnvironment.so.6.3.17, \
+		libUsageEnvironment.so.6.5.17, \
 		/usr/lib/libUsageEnvironment.so.6)
 	@$(call install_link, live, \
-		libUsageEnvironment.so.6.3.17, \
+		libUsageEnvironment.so.6.5.17, \
 		/usr/lib/libUsageEnvironment.so)
 
 	@$(call install_finish, live)
