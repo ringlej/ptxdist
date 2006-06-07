@@ -164,6 +164,7 @@ source "rules/slang.in"
 source "rules/sqlite.in"
 source "rules/termcap.in"
 source "rules/zlib.in"
+source "rules/live.in"
 endmenu
 
 menu "Middleware                  "
