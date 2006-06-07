@@ -451,8 +451,10 @@ $(STATEDIR)/initng.targetinstall: $(initng_targetinstall_deps_default)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/tools/killalli5, /sbin/killalli5)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/tools/itool, /sbin/itool)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/tools/itype, /sbin/itype)
+ifdef PTXCONF_INITNG_INSTALL_INIT
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/tools/mountpoint, /sbin/mountpoint)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/tools/sulogin, /sbin/sulogin)
+endif
 ifdef PTXCONF_INITNG_NGCS
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngcs/libngcs.so, /usr/lib/initng/libngcs.so)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngcs/libngcs_common.so.0.0.0, /usr/lib/libngcs_common.so.0.0.0)
