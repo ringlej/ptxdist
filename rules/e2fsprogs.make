@@ -96,7 +96,7 @@ e2fsprogs_install: $(STATEDIR)/e2fsprogs.install
 
 $(STATEDIR)/e2fsprogs.install: $(e2fsprogs_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, E2FSPROGS,,install-libs)
+	@$(call install, E2FSPROGS,,,install-libs)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
