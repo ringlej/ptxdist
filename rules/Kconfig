@@ -97,6 +97,7 @@ source "rules/lilo.in"
 source "rules/cramfs.in"
 source "rules/bonniexx.in"
 source "rules/liblockfile.in"
+source "rules/unionfs.in"
 endmenu
 
 menu "Communication Utilities     "
