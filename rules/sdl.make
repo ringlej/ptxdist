@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_SDL) += sdl
 #
 # Paths and names
 #
-SDL_VERSION	:= 1.2.9
+SDL_VERSION	:= 1.2.10
 SDL		:= SDL-$(SDL_VERSION)
 SDL_SUFFIX	:= tar.gz
 SDL_URL		:= http://www.libsdl.org/release//$(SDL).$(SDL_SUFFIX)
@@ -338,15 +338,15 @@ $(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
 
 ifdef PTXCONF_SDL_SHARED
 	@$(call install_copy, sdl, 0, 0, 0644, \
-		$(SDL_DIR)/src/.libs/libSDL-1.2.so.0.7.2, \
+		$(SDL_DIR)/build/.libs/libSDL-1.2.so.0.7.3, \
 		/usr/lib/libSDL-1.2.so.0.7.2)
 
 	@$(call install_link, sdl, \
-		libSDL-1.2.so.0.7.2, \
+		libSDL-1.2.so.0.7.3, \
 		/usr/lib/libSDL-1.2.so.0)
 
 	@$(call install_link, sdl, \
-		libSDL-1.2.so.0.7.2, \
+		libSDL-1.2.so.0.7.3, \
 		/usr/lib/libSDL-1.2.so)
 endif
 
