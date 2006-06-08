@@ -7,11 +7,11 @@
 +includedir=${prefix}/include/SDL
 +
 +Name: sdl
-+Description: SDL 1.2.10 
-+Version: 1.2.10
++Description: SDL @SDL_VERSION@ 
++Version: @SDL_VERSION@
 +Requires:
 +Conflicts:
-+Libs: -L${libdir} @SDL_LIBS@ @SHARED_SYSTEM_LIBS@
-+Libs.private: @SDL_STATIC_LIBS@ @STATIC_SYSTEM_LIBS@
++Libs: -L${libdir} @SDL_RLD_FLAGS@ @SDL_LIBS@ 
++Libs.private: @SDL_RLD_FLAGS@ @SDL_STATIC_LIBS@ 
 +Cflags: -I${includedir} @SDL_CFLAGS@
 +

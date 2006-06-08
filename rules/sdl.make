@@ -316,6 +316,9 @@ $(STATEDIR)/sdl.install: $(sdl_install_deps_default)
 	# install sdl-config in bin dir
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	cp $(SDL_DIR)/sdl-config $(PTXCONF_PREFIX)/bin/
+	# install sdl.pc package config file
+	mkdir -p $(SYSROOT)/usr/lib/pkgconfig/
+	cp $(SDL_DIR)/sdl.pc $(SYSROOT)/usr/lib/pkgconfig/
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
