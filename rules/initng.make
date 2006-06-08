@@ -65,7 +65,10 @@ INITNG_ENV 	:=  $(CROSS_ENV)
 #
 # CMake options
 #
-INITNG_CMAKE	:= 
+INITNG_CMAKE	:= \
+	-DCMAKE_SKIP_RPATH=ON \
+	-DCMAKE_USE_RELATIVE_PATHS=OFF \
+	-DCMAKE_VERBOSE_MAKEFILE=ON
 #INITNG_CMAKE	+= -DCMAKE_AR=$(CROSS_AR)
 #INITNG_CMAKE	+= -DCMAKE_CXX_COMPILER=$(CROSS_CXX)
 #INITNG_CMAKE	+= -DCMAKE_CXX_FLAGS="$(CROSS_CPPFLAGS) $(CROSS_CXXFLAGS)"
@@ -96,9 +99,6 @@ INITNG_CMAKE	:=
 #INITNG_CMAKE	+= -DCMAKE_SHARED_LINKER_FLAGS_MINSIZE=""
 #INITNG_CMAKE	+= -DCMAKE_SHARED_LINKER_FLAGS_RELEASE=""
 #INITNG_CMAKE	+= -DCMAKE_SHARED_LINKER_FLAGS_RELWITH=""
-INITNG_CMAKE	+= -DCMAKE_SKIP_RPATH=ON
-INITNG_CMAKE	+= -DCMAKE_USE_RELATIVE_PATHS=OFF
-INITNG_CMAKE	+= -DCMAKE_VERBOSE_MAKEFILE=ON
 
 ifdef PTXCONF_INITNG_WITH_BUSYBOX
 INITNG_CMAKE += -DWITH_BUSYBOX=ON
@@ -384,12 +384,7 @@ else
 INITNG_CMAKE += -DBUILD_UNEEDED=OFF
 endif
 
-
-# FIXME automatic dependencies seem to be really broken 
-initng_prepare_deps  = $(STATEDIR)/initng.extract
-initng_prepare_deps += $(STATEDIR)/ncurses.install
-
-$(STATEDIR)/initng.prepare: $(initng_prepare_deps)
+$(STATEDIR)/initng.prepare: $(initng_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(INITNG_DIR)/config.cache)
 	mkdir -p $(INITNG_DIR)/build/
@@ -475,7 +470,7 @@ ifdef PTXCONF_INITNG_NGE
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/nge/libngeclient.so, /usr/lib/libngeclient.so.0.0.0)
 	@$(call install_link, initng, libngeclient.so.0.0.0, /usr/lib/libngeclient.so.0)
 	@$(call install_link, initng, libngeclient.so.0.0.0, /usr/lib/libngeclient.so)
-	
+
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/nge/libnge.so, /usr/lib/initng/libnge.so)
 
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/nge/nge, /sbin/nge)
