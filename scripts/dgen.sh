@@ -56,14 +56,18 @@ gen_configdeps_map() {
 #
 gen_rulesfiles_all() {
     (
-	find ${PROJECTRULESDIR} \
-	    -mindepth 1 -maxdepth 1 -name "*.make";
-	find ${RULESDIR} \
-	    -mindepth 1 -maxdepth 1 -name "*.make" \
-	    `find ${PROJECTRULESDIR} \
+	if test -d ${PROJECTRULESDIR}; then
+	    find ${PROJECTRULESDIR} \
+		-mindepth 1 -maxdepth 1 -name "*.make";
+	    find ${RULESDIR} \
 		-mindepth 1 -maxdepth 1 -name "*.make" \
-		-printf "! -name %f "` \
-	    \! -name "Toplevel.make"
+		`find ${PROJECTRULESDIR} \
+		-mindepth 1 -maxdepth 1 -name "*.make" \
+		-printf "! -name %f "`
+	else 
+	    find ${RULESDIR} \
+		-mindepth 1 -maxdepth 1 -name "*.make"
+	fi
     ) > ${RULESFILES_ALL}
 
     sed -e "s/\(.*\)/include \1/" ${RULESFILES_ALL} > ${RULESFILES_ALL_MAKE}
