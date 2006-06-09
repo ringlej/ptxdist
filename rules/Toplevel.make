@@ -190,9 +190,6 @@ cross-prepare: check_tools $(CROSS_PACKAGES_PREPARE)
 cross-compile: check_tools $(CROSS_PACKAGES_COMPILE)
 cross-install: check_tools $(CROSS_PACKAGES_INSTALL)
 
-# Robert-is-faster-typing-than-thinking shortcut
-owrld: world
-
 #
 # Things which have to be done before _any_ suffix rule is executed
 # (especially PTXDIST_PATH handling)
