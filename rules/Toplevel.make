@@ -39,21 +39,9 @@ endif
 HOME			= $(shell echo $$HOME)
 PTXDIST_WORKSPACE	= $(shell pwd)
 
-PATCHDIR		:= $(PTXDIST_TOPDIR)/patches
-MISCDIR			:= $(PTXDIST_TOPDIR)/misc
-RULESDIR		:= $(PTXDIST_TOPDIR)/rules
+include $(PTXDIST_TOPDIR)/scripts/ptxdist_vars.sh
 
-PROJECTPATCHDIR		:= $(PTXDIST_WORKSPACE)/patches
-PROJECTRULESDIR		:= $(PTXDIST_WORKSPACE)/rules
-BUILDDIR		:= $(PTXDIST_WORKSPACE)/build-target
-CROSS_BUILDDIR		:= $(PTXDIST_WORKSPACE)/build-cross
-HOST_BUILDDIR		:= $(PTXDIST_WORKSPACE)/build-host
-STATEDIR		:= $(PTXDIST_WORKSPACE)/state
-IMAGEDIR		:= $(PTXDIST_WORKSPACE)/images
-ROOTDIR			:= $(PTXDIST_WORKSPACE)/root
-ROOTDIR_DEBUG		:= $(PTXDIST_WORKSPACE)/root-debug
-
-include $(RULESDIR)/Definitions.make
+include $(RULESDIR)/other/Definitions.make
 
 ifeq ($(call remove_quotes,$(PTXCONF_SETUP_SRCDIR)),)
 SRCDIR			:= $(PTXDIST_WORKSPACE)/src
@@ -62,9 +50,9 @@ else
 SRCDIR			= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
 endif
 
-export HOME PTXDIST_WORKSPACE PTXDIST_TOPDIR
-export PATCHDIR MISCDIR RULESDIR BUILDDIR CROSS_BUILDDIR 
-export HOST_BUILDDIR STATEDIR IMAGEDIR ROOTDIR SRCDIR 
+#export HOME PTXDIST_WORKSPACE PTXDIST_TOPDIR
+#export PATCHDIR RULESDIR BUILDDIR CROSS_BUILDDIR 
+#export HOST_BUILDDIR STATEDIR IMAGEDIR ROOTDIR SRCDIR 
 
 -include $(PTXDIST_WORKSPACE)/ptxconfig
 
@@ -100,37 +88,20 @@ all:
 	@echo "ptxdist: error: please use ptxdist instead of calling make directly."
 	@exit 1
 
-include $(RULESDIR)/Rules.make
-include $(RULESDIR)/Version.make
+include $(wildcard $(PRERULESDIR)/*.make)
+include $(PACKAGE_DEP)
+include $(RULESFILES_MAKE)
+include $(wildcard $(POSTRULESDIR)/*.make)
 
-PROJECTRULES := $(wildcard $(PROJECTRULESDIR)/*.make)
+PACKAGES		:= $(PACKAGES-y)
+CROSS_PACKAGES		:= $(CROSS_PACKAGES-y)
+HOST_PACKAGES		:= $(HOST_PACKAGES-y)
+VIRTUAL			:= $(VIRTUAL-y)
 
-TMP_PROJECTRULES_IN = $(filter-out 			\
-		$(RULESDIR)/Virtual.make 		\
-		$(RULESDIR)/Rules.make 			\
-		$(RULESDIR)/Version.make 		\
-		$(RULESDIR)/Definitions.make		\
-		$(RULESDIR)/Toplevel.make,		\
-		$(wildcard $(RULESDIR)/*.make)		\
-) $(PROJECTRULES)
-
-TMP_PROJECTRULES_FINAL = $(shell 			\
-	$(PTXDIST_TOPDIR)/scripts/select_projectrules 	\
-	"$(RULESDIR)" 					\
-	"$(PROJECTRULESDIR)"				\
-	"$(TMP_PROJECTRULES_IN)" 			\
-)
-
-include $(TMP_PROJECTRULES_FINAL)
-
-include $(RULESDIR)/Virtual.make
-
-PACKAGES = $(PACKAGES-y)
-CROSS_PACKAGES = $(CROSS_PACKAGES-y)
-HOST_PACKAGES = $(HOST_PACKAGES-y)
-VIRTUAL = $(VIRTUAL-y)
-
-ALL_PACKAGES = $(PACKAGES-y) $(PACKAGES-) $(CROSS_PACKAGES) $(CROSS_PACKAGES-) $(HOST_PACKAGES) $(HOST_PACKAGES-)
+ALL_PACKAGES		:= \
+	$(PACKAGES-y) $(PACKAGES-) \
+	$(CROSS_PACKAGES) $(CROSS_PACKAGES-) \
+	$(HOST_PACKAGES) $(HOST_PACKAGES-)
 
 # ----------------------------------------------------------------------------
 # Install targets 
