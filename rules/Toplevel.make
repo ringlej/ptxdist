@@ -329,54 +329,8 @@ else
 endif
 
 # ----------------------------------------------------------------------------
-# Configuration system
-# ----------------------------------------------------------------------------
-
-configdeps_deps := \
-	$(wildcard $(RULESDIR)/*.in)  \
-	$(wildcard $(PROJECTRULESDIR)/*.in) \
-	$(PTXDIST_WORKSPACE)/ptxconfig
-
-configdeps: $(STATEDIR)/configdeps
-
-$(STATEDIR)/configdeps: $(configdeps_deps)
-	@$(call targetinfo,generating dependencies from kconfig)
-	@mkdir -p $(IMAGEDIR)
-	@mkdir -p $(STATEDIR)
-	@( \
-		tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`; \
-		pushd $$tmpdir > /dev/null; \
-		\
-		ln -sf ${PTXDIST_TOPDIR}/scripts; \
-		ln -sf ${PTXDIST_TOPDIR}/rules; \
-		ln -sf ${PTXDIST_TOPDIR}/config; \
-		ln -sf ${PTXDIST_WORKSPACE} workspace; \
-		cp ${PTXDIST_WORKSPACE}/ptxconfig .config; \
-		if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then \
-			MENU=${PTXDIST_WORKSPACE}/Kconfig; \
-		else \
-			MENU=config/Kconfig; \
-		fi; \
-		yes "" | ${PTXDIST_TOPDIR}/scripts/kconfig/conf -O \
-			$$MENU > $(STATEDIR)/configdeps.in; \
-		${PTXDIST_TOPDIR}/scripts/create_configdeps.sh \
-			--rulesdir $(RULESDIR) \
-			`test -n "$(PROJECTRULESDIR)" && echo "--projectrulesdir $(PROJECTRULESDIR)"` \
-			--statedir $(STATEDIR) \
-			--configdeps-file $(STATEDIR)/configdeps \
-			--ptxconfig $(PTXDIST_WORKSPACE)/ptxconfig; \
-		popd > /dev/null; \
-		rm -fr $$tmpdir; \
-	)
-
-# ----------------------------------------------------------------------------
 # Test
 # ----------------------------------------------------------------------------
-
-compile-test:
-	@echo 
-	@echo "compile-test is obsolete, run qa-autobuild target instead."
-	@echo
 
 ipkg-test: world
 	@$(call targetinfo,ipkg-test)
