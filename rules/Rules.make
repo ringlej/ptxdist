@@ -1169,7 +1169,4 @@ install_finish = 													\
 #  autogeneration of dependencies
 # ----------------------------------------------------
 
-package_depfile=\
-	$(STATEDIR)/$(shell basename $(patsubst %.make,%.dep,$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))))
-
 # vim: syntax=make
