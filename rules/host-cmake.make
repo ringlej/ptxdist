@@ -59,7 +59,7 @@ $(STATEDIR)/host-cmake.extract: $(host-cmake_extract_deps_default)
 host-cmake_prepare: $(STATEDIR)/host-cmake.prepare
 
 HOST_CMAKE_PATH	:= PATH=$(HOST_PATH)
-HOST_CMAKE_ENV 	:= $(HOSTCC_ENV) $(HOSTCXX_ENV)
+HOST_CMAKE_ENV 	:= $(HOST_ENV)
 
 #
 # autoconf
