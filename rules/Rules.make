@@ -310,7 +310,7 @@ CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT)
 
 endif
 
-HOST_AUTOCONF  := --prefix=$(PTXCONF_HOST_PREFIX)
+HOST_AUTOCONF  := $(call remove_quotes,--prefix=$(PTXCONF_HOST_PREFIX))
 
 # ----------------------------------------------------------------------------
 # Convenience macros
