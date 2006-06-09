@@ -173,7 +173,7 @@ gen_packages_dep() {
 #ALL_MAKE	:= $(wildcard $(RULESDIR)/*.make) $(wildcard $(PROJECTRULESDIR)/*.make)
 #ALL_IN		:= $(wildcard $(RULESDIR)/*.in) $(wildcard $(PROJECTRULESDIR)/*.in)
 
-if test \! -e ; then
+if test \! -e ${STATEDIR}; then
     mkdir ${STATEDIR}
 fi
 
