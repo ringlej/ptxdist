@@ -9,7 +9,7 @@
 #
 
 PROMPT="ptxdist: "
-PTXDIST_WORKSPACE=$(pwd)
+PTXDIST_WORKSPACE=`pwd`
 DEBUG=
 
 # export this, so that children can call the master script, for example
@@ -37,7 +37,9 @@ if [ ! -e ${PTXDIST_TOPDIR}/.done ]; then
 fi
 
 #
+# we need the PTXdist shell library
 # we need the version definitions
+# we need the static variable definitions
 #
 for file in \
 	scripts/libptxdist.sh \
@@ -94,7 +96,7 @@ boardsetup() {
 #
 # Check for existence of a ptxconfig file
 # check_ptxconfig()
-
+#
 check_ptxconfig() {
 	if [ ! -e "ptxconfig" ]; then
 		echo
@@ -172,6 +174,15 @@ check_compiler() {
 		exit 1
 	fi
 }
+
+
+#
+# checks if the dependencies are allright (make for the poor)
+#
+check_deps() {
+	${DGENDIR}/dgen.sh
+}
+
 
 #
 # Most install stages think that some standard directories are there, so
@@ -291,7 +302,6 @@ EOF
 }
 
 clean() {
-
 	if [ "$1" = "root" ]; then
 		echo
 		echo "${PROMPT}cleaning root directory..."
@@ -305,7 +315,7 @@ clean() {
 	fi
 
 	if [ -n "$1" ]; then
-		make $PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make $1_clean PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
+		ptxd_make $1_clean
 		return
 	fi
 
@@ -358,50 +368,16 @@ drop() {
 	fi
 }
 
-menuconfig() {
-	echo
-
-	# check if this is a PTXdist project dir
-	if [ -z "$(find . -maxdepth 1 -name "ptxconfig" | grep -v .svn)" ]; then
-		echo "${PROMPT}error: no ptxconfig file found."
-		echo "${PROMPT}error: check if this is a PTXdist project directory"
-		echo
-		exit 1
-	fi
-
+menuconfig_action() {
+#	local ret
 	echo "${PROMPT}menuconfig..."
-	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
-
-	pushd $tmpdir > /dev/null
-	ln -sf ${PTXDIST_TOPDIR}/scripts
-	ln -sf ${PTXDIST_TOPDIR}/rules
-	ln -sf ${PTXDIST_TOPDIR}/config
-	ln -sf ${PTXDIST_WORKSPACE} workspace
-	cp ${PTXDIST_WORKSPACE}/ptxconfig .config
-	if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
-		ptxconfig=${PTXDIST_WORKSPACE}/Kconfig
-	else
-		ptxconfig=config/Kconfig
-	fi
-
-	${PTXDIST_TOPDIR}/scripts/kconfig/mconf "$ptxconfig"
-	diff -q ${PTXDIST_WORKSPACE}/ptxconfig .config > /dev/null
-	if [ "$?" == 0 ]; then
-		echo "no changes in ptxconfig. not saving"
-		rm -fr $tmpdir
-		return
-	fi
-
-	echo "${PROMPT}silentoldconfig..."
-	${PTXDIST_TOPDIR}/scripts/kconfig/conf -s "$ptxconfig"
-
-	echo "${PROMPT}saving ptxconfig"
-	cp .config ${PTXDIST_WORKSPACE}/ptxconfig
-
-	popd > /dev/null
-	echo "${PROMPT}cleanup..."
-	rm -fr $tmpdir
-	echo
+	${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_KCONFIG}
+#	ret=$?
+#	if [ $ret -ne 0 ]; then
+#		return $ret
+#	fi
+#	echo "${PROMPT}silentoldconfig..."
+#	${PTXDIST_TOPDIR}/scripts/kconfig/conf -s ${PTXDIST_KCONFIG}
 }
 
 kernelconfig () {
@@ -467,38 +443,8 @@ newpacket () {
 
 }
 
-oldconfig() {
-	echo
-
-	# check if this is a PTXdist project dir
-	if [ -z "$(find . -maxdepth 1 -name "ptxconfig" | grep -v .svn)" ]; then
-		echo "${PROMPT}error: no ptxconfig file found."
-		echo "${PROMPT}error: check if this is a PTXdist project directory"
-		echo
-		exit 1
-	fi
-
-	echo "${PROMPT}silentoldconfig..."
-	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
-
-	pushd $tmpdir > /dev/null
-	ln -sf ${PTXDIST_TOPDIR}/scripts
-	ln -sf ${PTXDIST_TOPDIR}/rules
-	ln -sf ${PTXDIST_TOPDIR}/config
-	ln -sf ${PTXDIST_WORKSPACE} workspace
-	cp ${PTXDIST_WORKSPACE}/ptxconfig .config
-	if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
-		${PTXDIST_TOPDIR}/scripts/kconfig/conf -s ${PTXDIST_WORKSPACE}/Kconfig
-	else
-		${PTXDIST_TOPDIR}/scripts/kconfig/conf -s config/Kconfig
-	fi
-	echo "${PROMPT}saving ptxconfig"
-	cp .config ${PTXDIST_WORKSPACE}/ptxconfig
-
-	popd > /dev/null
-	echo "${PROMPT}cleanup..."
-	rm -fr $tmpdir
-	echo
+oldconfig_action() {
+	${PTXDIST_TOPDIR}/scripts/kconfig/conf -s ${PTXDIST_KCONFIG}
 }
 
 projects() {
@@ -673,15 +619,16 @@ while [ "$#" != "0" ]; do
 	boardsetup)	shift; boardsetup
 			;;
 	compile)	shift
-			if [ "$#" = "0" ]; then
+			if [ $# -eq 0 ]; then
 				echo "${PROMPT}error: add target you want to compile"
 				exit 1
 			fi
 			check_ptxconfig
 			check_native
-			make \
-				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-				$1_compile PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_compiler
+			check_dirs
+			check_deps
+			ptxd_make $1_compile 2>&1 | tee -a logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -714,25 +661,21 @@ while [ "$#" != "0" ]; do
 	extract)	shift
 			check_ptxconfig
 			check_native
-			make \
-				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-				$1_extract PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_deps
+			ptxd_make $1_extract 2>&1 | tee -a logfile
 			check_pipe_status
 			exit 0
 			;;
 	get)		shift
 			check_ptxconfig
 			check_native
-			if [ "$#" = "0" ]; then
-				make \
-					$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-					get PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_deps
+			if [ $# -eq 0 ]; then
+				ptxd_make get 2>&1 | tee -a logfile
 				check_pipe_status
 				exit 0
 			else
-				make \
-					$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-					$1_get PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+				ptxd_make $1_get 2>&1 | tee -a logfile
 				check_pipe_status
 				exit 0
 			fi
@@ -742,9 +685,8 @@ while [ "$#" != "0" ]; do
 			check_native
 			check_compiler
 			check_dirs
-			make \
-				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-				world PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_deps
+			ptxd_make world 2>&1 | tee -a logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -754,9 +696,8 @@ while [ "$#" != "0" ]; do
 			check_native
 			check_compiler
 			check_dirs
-			make \
-				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-				images PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_deps
+			ptxd_make images 2>&1 | tee -a logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -765,9 +706,8 @@ while [ "$#" != "0" ]; do
 			check_native
 			check_compiler
 			check_dirs
-			make \
-				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-				$1_install PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_deps
+			ptxd_make $1_install 2>&1 | tee -a logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -775,7 +715,8 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_native
 			check_kernelconfig
-			kernelconfig
+			check_deps
+			ptxd_make kernel_menuconfig
 			;;
 	maintainer)	shift
 			if [ "$#" = "0" ]; then
@@ -812,16 +753,15 @@ while [ "$#" != "0" ]; do
 			check_native
 			check_compiler
 			check_dirs
-			make \
-				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-				$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_deps
+			ptxd_make $1 2>&1 | tee -a logfile
 			check_pipe_status
 			exit 0
 			;;
 	menuconfig)	shift
 			check_ptxconfig
 			check_native
-			menuconfig
+			ptxd_kconfig true menuconfig_action
 			;;
 	--native)	shift
 			export NATIVE=1
@@ -839,24 +779,22 @@ while [ "$#" != "0" ]; do
 			;;
 	oldconfig)	shift
 			check_ptxconfig
-			oldconfig
+			ptxd_kconfig true oldconfig_action
 			;;
 	prepare)	shift
 			check_ptxconfig
 			check_native
 			check_compiler
 			check_dirs
-			make \
-				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-				$1_prepare PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_deps
+			ptxd_make $1_prepare 2>&1 | tee -a logfile
 			check_pipe_status
 			exit 0
 			;;
 	print)		shift
 			check_ptxconfig
-			make \
-				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-				print-$1 PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_deps
+			ptxd_make print-$1 2>&1 | tee -a logfile
 			check_pipe_status
 			shift
 			;;
@@ -868,9 +806,7 @@ while [ "$#" != "0" ]; do
 			check_native
 			check_compiler
 			check_dirs
-			make \
-				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-				world PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			ptxd_make world 2>&1 | tee -a logfile
 			check_pipe_status
 			RUN_ROOTMETHOD=$(. ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_ROOT_HOSTFS})
 			RUN_CMDLINE=$(. ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_CMDLINE})
@@ -909,9 +845,8 @@ while [ "$#" != "0" ]; do
 			check_native
 			check_compiler
 			check_dirs
-			make \
-				$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-				$1_targetinstall PTXDIST_TOPDIR=${PTXDIST_TOPDIR} 2>&1 | tee -a logfile
+			check_deps
+			ptxd_make $1_targetinstall 2>&1 | tee -a logfile
 			check_pipe_status
 			exit 0
 			;;
