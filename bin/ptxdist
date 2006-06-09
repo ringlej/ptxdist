@@ -380,13 +380,6 @@ menuconfig_action() {
 #	${PTXDIST_TOPDIR}/scripts/kconfig/conf -s ${PTXDIST_KCONFIG}
 }
 
-kernelconfig () {
-	echo
-	make \
-		$PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/Toplevel.make \
-		kernel_menuconfig PTXDIST_TOPDIR=${PTXDIST_TOPDIR}
-}
-
 newpacket () {
 	local template
 
@@ -416,6 +409,7 @@ newpacket () {
 	echo -n "${PROMPT}enter suffix............: "
 	read SUFFIX
 	YEAR=`date +%Y`
+	PACKET_NAME="`echo | tr - _`"
 	packet=`echo $PACKET_NAME | tr "[A-Z]" "[a-z]"`
 	PACKET=`echo $PACKET_NAME | tr "[a-z]" "[A-Z]"`
 
