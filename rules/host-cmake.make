@@ -17,12 +17,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_CMAKE) += host-cmake
 #
 # Paths and names
 #
-HOST_CMAKE_VERSION	= 2.4.2
-HOST_CMAKE		= cmake-$(HOST_CMAKE_VERSION)
-HOST_CMAKE_SUFFIX	= tar.gz
-HOST_CMAKE_URL		= http://www.cmake.org/files/v2.4/$(HOST_CMAKE).$(HOST_CMAKE_SUFFIX)
-HOST_CMAKE_SOURCE	= $(SRCDIR)/$(HOST_CMAKE).$(HOST_CMAKE_SUFFIX)
-HOST_CMAKE_DIR		= $(HOST_BUILDDIR)/$(HOST_CMAKE)
+HOST_CMAKE_VERSION	:= 2.4.2
+HOST_CMAKE		:= cmake-$(HOST_CMAKE_VERSION)
+HOST_CMAKE_SUFFIX	:= tar.gz
+HOST_CMAKE_URL		:= http://www.cmake.org/files/v2.4/$(HOST_CMAKE).$(HOST_CMAKE_SUFFIX)
+HOST_CMAKE_SOURCE	:= $(SRCDIR)/$(HOST_CMAKE).$(HOST_CMAKE_SUFFIX)
+HOST_CMAKE_DIR		:= $(HOST_BUILDDIR)/$(HOST_CMAKE)
 
 -include $(call package_depfile)
 
@@ -59,13 +59,13 @@ $(STATEDIR)/host-cmake.extract: $(host-cmake_extract_deps_default)
 
 host-cmake_prepare: $(STATEDIR)/host-cmake.prepare
 
-HOST_CMAKE_PATH	=  PATH=$(HOST_PATH)
-HOST_CMAKE_ENV 	=  $(HOSTCC_ENV) $(HOSTCXX_ENV)
+HOST_CMAKE_PATH	:= PATH=$(HOST_PATH)
+HOST_CMAKE_ENV 	:= $(HOSTCC_ENV) $(HOSTCXX_ENV)
 
 #
 # autoconf
 #
-HOST_CMAKE_AUTOCONF =  $(HOST_AUTOCONF)
+HOST_CMAKE_AUTOCONF := $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-cmake.prepare: $(host-cmake_prepare_deps_default)
 	@$(call targetinfo, $@)
