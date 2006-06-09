@@ -22,8 +22,6 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 @PACKET@_SOURCE		= $(SRCDIR)/$(@PACKET@)
 @PACKET@_DIR		= $(BUILDDIR)/$(@PACKET@)
 
--include $(call package_depfile)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

@@ -26,8 +26,6 @@ HOST_@PACKET@_URL	= @URL@/$(HOST_@PACKET@).$(HOST_@PACKET@_SUFFIX)
 HOST_@PACKET@_SOURCE	= $(SRCDIR)/$(HOST_@PACKET@).$(HOST_@PACKET@_SUFFIX)
 HOST_@PACKET@_DIR	= $(HOST_BUILDDIR)/$(@PACKET@)
 
--include $(call package_depfile)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
