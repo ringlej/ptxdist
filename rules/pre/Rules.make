@@ -68,8 +68,11 @@ else
 CHECKINSTALL	=
 endif
 
-HOSTCC_ENV	= CC=$(HOSTCC)
-HOSTCXX_ENV	= CXX=$(HOSTCXX)
+HOSTCC_ENV	:= CC=$(HOSTCC)
+HOSTCXX_ENV	:= CXX=$(HOSTCXX)
+HOST_ENV	:= \
+	$(HOSTCC_ENV) \
+	$(HOSTCXX_ENV)
 
 CHECK_PIPE_STATUS = \
 	for i in  "$${PIPESTATUS[@]}"; do [ $$i -gt 0 ] && {			\
