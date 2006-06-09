@@ -3,7 +3,7 @@ comment "Target Architecture Options"
 choice
 	prompt "CPU Architecture "
 	help
-	  Specify which processor architecture you want to compile for. 
+	  Specify which processor architecture you want to compile for.
 
 	config ARCH_ALPHA
 		bool "ALPHA"
@@ -24,15 +24,15 @@ choice
 	config ARCH_X86
 		bool "X86"
 		help
-		  This is support for the Intel x86 architecture.
+		  This is support for the Intel x86 architecture also called ia32.
 
 	config ARCH_PPC
 		bool "PPC"
 
 	config ARCH_M68K
 		bool "m68k"
-		help 
-		  This is support for the Motorola/Freescale M68k architecture. 
+		help
+		  This is support for the Motorola/Freescale M68k architecture.
 
 	config ARCH_SPARC
 		bool "SPARC"
@@ -59,8 +59,8 @@ choice
 	prompt "ARM Family Variant"
 		depends on ARCH_ARM || ARCH_ARM_NOMMU
 		help
-		  The ARM processor architecture has a variety of flavours. 
-		  Please chose one. 
+		  The ARM processor architecture has a variety of flavours.
+		  Please chose one.
 
 	config ARM_ARCH_ATMEL
 		bool "atmel (little endian)"
@@ -89,11 +89,11 @@ choice
 	config ARM_ARCH_NETX
 		bool "netX (little endian)"
 		depends on ARCH_ARM
-		
+
 	config ARM_ARCH_OMAP
 		bool "OMAP (little endian)"
 		depends on ARCH_ARM
-		
+
 	config ARM_ARCH_PXA
 		bool "pxa (little endian)"
 		depends on ARCH_ARM
@@ -125,7 +125,7 @@ config ARM_ARCH_LE
 	bool
 	default y if ARM_ARCH_PXA || ARM_ARCH_SA1100 || ARM_ARCH_NETARM || ARM_ARCH_ATMEL || ARM_ARCH_IMX || ARM_ARCH_AT91RM9200 || ARM_ARCH_OMAP
 
-choice 
+choice
 	prompt "MIPS architecture"
 	depends on ARCH_MIPS
 
@@ -160,15 +160,45 @@ choice
 	config OPT_I386
 		bool "386"
 		depends on ARCH_X86
+		help
+		  The compiler will generate code for i386 CPUs as default. This code will
+		  run on almost all x86/ia32 processors.
+
 	config OPT_I486
 		bool "486"
 		depends on ARCH_X86
+		help
+		  The compiler will generate code for i486 CPUs as default. This code will run
+		  on almost all x86/ia32 processors, but not on i386!
+
 	config OPT_I586
 		bool "586"
 		depends on ARCH_X86
+		help
+		  The compiler will generate code for i586 class CPUs as default (Pentium).
+		  This code will run on almost all x86/ia32 processors, but not on i386 and i486!
+
 	config OPT_I686
 		bool "686"
 		depends on ARCH_X86
+		help
+		  The compiler will generate code for i686 class CPUs as default (Pentium Pro).
+		  This code will run on almost all x86/ia32 processors, but not on i386, i486 and pentium!
+
+	config OPT_P2
+		bool "Pentium II"
+		depends on ARCH_X86
+		help
+		  The compiler will generate code for Pentium II CPUs as default.
+		  This code will run on Pentium II and above CPUs.
+
+  	config OPT_P3M
+		bool "Pentium III/M"
+		depends on ARCH_X86
+		help
+		  The compiler will generate code for Pentium III and Pentium M CPUs as default.
+		  This code will run on Pentium III and above CPUs. Note: A Pentium M is a successor
+		  of Pentium III (Pentium 4 is a dead end)
 
 	config OPT_PPC
 		bool "generic PPC"

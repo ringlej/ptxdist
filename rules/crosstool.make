@@ -69,7 +69,7 @@ CROSSTOOL_PATH	=  PATH=$(CROSS_PATH)
 # Configuration
 #
 
-# FIXME: where do we get this from? 
+# FIXME: where do we get this from?
 CROSSTOOL_TARGET_CFLAGS		=  -O
 
 # BSP: I like --with-cpu=strongarm on my x86...
@@ -81,12 +81,67 @@ ifdef PTXCONF_OPT_PPC405
 CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-cpu=405 --enable-cxx-flags=-mcpu=405"
 CROSSTOOL_TARGET_CFLAGS		= "-O -mcpu=405"
 endif
+#
+# Note: It make sense to consider the default target CPU also on x86
+# Most of the time the default is i386, not a good choice for
+# Pentium class CPUs.
+# add configure switches "--with-arch=" and "--with-tune="
+# "--with-arch=" comprises "--with-tune=" with the same value until otherwise given
+# A good compromise could be "--with-arch=i486 --with-tune=i686"
+#
+# Possible values could be:
+# i386
+# i486
+# i586
+# i686
+# pentium (=i586)
+# pentium-mmx
+# pentiumpro (=i686)
+# pentium2
+# pentium3
+# pentium4
+# k6
+# k6-2
+# k6-3
+# athlon
+# athlon-tbird
+# athlon-4
+# athlon-xp
+# athlon-mp
+#
+ifdef PTXCONF_ARCH_X86
+ifdef OPT_I386
+# this is the default, if no "--with-arch" was given
+CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=i386"
+endif
+
+ifdef OPT_I586
+CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=i586"
+endif
+
+ifdef OPT_I486
+CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=i486"
+endif
+
+ifdef OPT_I686
+CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=i686"
+endif
+
+ifdef OPT_P2
+CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=pentium2"
+endif
+
+ifdef OPT_P3M
+CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=pentium3"
+endif
+
+endif
 
 CROSSTOOL_GCCLANG		=  c
 ifdef PTXCONF_CROSSTOOL_GCCLANG_CC
 CROSSTOOL_GCCLANG		+= ,c++
 endif
-CROSSTOOL_GCCLANG		:= $(subst $(quote),,$(CROSSTOOL_GCCLANG)) 
+CROSSTOOL_GCCLANG		:= $(subst $(quote),,$(CROSSTOOL_GCCLANG))
 CROSSTOOL_GCCLANG		:= `echo $(CROSSTOOL_GCCLANG) | perl -p -e 's/\s//g'`
 
 ifdef PTXCONF_SOFTFLOAT
