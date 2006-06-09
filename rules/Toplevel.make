@@ -90,7 +90,7 @@ all:
 
 include $(wildcard $(PRERULESDIR)/*.make)
 include $(PACKAGE_DEP)
-include $(RULESFILES_MAKE_ALL)
+include $(RULESFILES_ALL_MAKE)
 include $(wildcard $(POSTRULESDIR)/*.make)
 
 PACKAGES		:= $(PACKAGES-y)
