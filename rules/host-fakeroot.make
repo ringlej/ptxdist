@@ -59,7 +59,7 @@ $(STATEDIR)/host-fakeroot.extract: $(host-fakeroot_extract_deps_default)
 host-fakeroot_prepare: $(STATEDIR)/host-fakeroot.prepare
 
 HOST_FAKEROOT_PATH	=  PATH=$(HOST_PATH)
-HOST_FAKEROOT_ENV 	=  $(HOSTCC_ENV)
+HOST_FAKEROOT_ENV 	=  $(HOST_ENV)
 
 #
 # autoconf
