@@ -36,8 +36,8 @@ endif
 # Some directory locations
 # ----------------------------------------------------------------------------
 
-HOME			= $(shell echo $$HOME)
-PTXDIST_WORKSPACE	= $(shell pwd)
+HOME			:= $(shell echo $$HOME)
+PTXDIST_WORKSPACE	:= $(shell pwd)
 
 include $(PTXDIST_TOPDIR)/scripts/ptxdist_vars.sh
 
@@ -62,13 +62,13 @@ endif
 
 # clean these variables (they may be set from earlier runs during recursion)
 
-PACKAGES           =
-PACKAGES-y         =
-CROSS_PACKAGES     =
-CROSS_PACKAGES-y   =
-HOST_PACKAGES      =
-HOST_PACKAGES-y    =
-VIRTUAL            =
+PACKAGES		:=
+PACKAGES-y		:=
+CROSS_PACKAGES		:=
+CROSS_PACKAGES-y	:=
+HOST_PACKAGES		:=
+HOST_PACKAGES-y		:=
+VIRTUAL			:=
 
 
 # ----------------------------------------------------------------------------
@@ -76,8 +76,8 @@ VIRTUAL            =
 # ----------------------------------------------------------------------------
 
 ifdef PREFIX
-PTXCONF_PREFIX=$(PREFIX)
-PREFIX=
+PTXCONF_PREFIX	:= $(PREFIX)
+PREFIX		:=
 endif
 
 # ----------------------------------------------------------------------------
@@ -174,21 +174,21 @@ dep_world: $(HOST_PACKAGES_INSTALL) \
 	   $(PACKAGES_TARGETINSTALL)
 	@echo $@ : $^ | sed  -e 's/\([^ ]*\)_\([^_]*\)/\1.\2/g' >> $(DEP_OUTPUT)
 
-world: check_tools dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
+world: dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
 
-host-tools:    check_tools dep_output_clean $(HOST_PACKAGES_INSTALL)  dep_tree
-host-get:      check_tools getclean $(HOST_PACKAGES_GET) 
-host-extract:  check_tools $(HOST_PACKAGES_EXTRACT)
-host-prepare:  check_tools $(HOST_PACKAGES_PREPARE)
-host-compile:  check_tools $(HOST_PACKAGES_COMPILE)
-host-install:  check_tools $(HOST_PACKAGES_INSTALL)
+host-tools:    dep_output_clean $(HOST_PACKAGES_INSTALL) dep_tree
+host-get:      getclean $(HOST_PACKAGES_GET) 
+host-extract:  $(HOST_PACKAGES_EXTRACT)
+host-prepare:  $(HOST_PACKAGES_PREPARE)
+host-compile:  $(HOST_PACKAGES_COMPILE)
+host-install:  $(HOST_PACKAGES_INSTALL)
 
-cross-tools:   check_tools dep_output_clean $(CROSS_PACKAGES_INSTALL)  dep_tree
-cross-get:     check_tools getclean $(CROSS_PACKAGES_GET) 
-cross-extract: check_tools $(CROSS_PACKAGES_EXTRACT)
-cross-prepare: check_tools $(CROSS_PACKAGES_PREPARE)
-cross-compile: check_tools $(CROSS_PACKAGES_COMPILE)
-cross-install: check_tools $(CROSS_PACKAGES_INSTALL)
+cross-tools:   dep_output_clean $(CROSS_PACKAGES_INSTALL) dep_tree
+cross-get:     getclean $(CROSS_PACKAGES_GET) 
+cross-extract: $(CROSS_PACKAGES_EXTRACT)
+cross-prepare: $(CROSS_PACKAGES_PREPARE)
+cross-compile: $(CROSS_PACKAGES_COMPILE)
+cross-install: $(CROSS_PACKAGES_INSTALL)
 
 #
 # Things which have to be done before _any_ suffix rule is executed
