@@ -50,13 +50,13 @@ $(STATEDIR)/host-e2fsprogs.extract: $(host-e2fsprogs_extract_deps_default)
 
 host-e2fsprogs_prepare: $(STATEDIR)/host-e2fsprogs.prepare
 
-HOST_E2FSPROGS_PATH	=  PATH=$(HOST_PATH)
-HOST_E2FSPROGS_ENV 	=  $(HOSTCC_ENV)
+HOST_E2FSPROGS_PATH	:= PATH=$(HOST_PATH)
+HOST_E2FSPROGS_ENV 	:= $(HOSTCC_ENV)
 
 #
 # autoconf
 #
-HOST_E2FSPROGS_AUTOCONF =  $(HOST_AUTOCONF)
+HOST_E2FSPROGS_AUTOCONF := $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-e2fsprogs.prepare: $(host-e2fsprogs_prepare_deps_default)
 	@$(call targetinfo, $@)
