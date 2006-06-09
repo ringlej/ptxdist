@@ -19,12 +19,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_@PACKET@) += host-@packet@
 #
 # Paths and names
 #
-HOST_@PACKET@_VERSION	= @VERSION@
-HOST_@PACKET@		= @packet@-$(HOST_@PACKET@_VERSION)
-HOST_@PACKET@_SUFFIX	= @SUFFIX@
-HOST_@PACKET@_URL	= @URL@/$(HOST_@PACKET@).$(HOST_@PACKET@_SUFFIX)
-HOST_@PACKET@_SOURCE	= $(SRCDIR)/$(HOST_@PACKET@).$(HOST_@PACKET@_SUFFIX)
-HOST_@PACKET@_DIR	= $(HOST_BUILDDIR)/$(@PACKET@)
+HOST_@PACKET@_VERSION	:= @VERSION@
+HOST_@PACKET@		:= @packet@-$(HOST_@PACKET@_VERSION)
+HOST_@PACKET@_SUFFIX	:= @SUFFIX@
+HOST_@PACKET@_URL	:= @URL@/$(HOST_@PACKET@).$(HOST_@PACKET@_SUFFIX)
+HOST_@PACKET@_SOURCE	:= $(SRCDIR)/$(HOST_@PACKET@).$(HOST_@PACKET@_SUFFIX)
+HOST_@PACKET@_DIR	:= $(HOST_BUILDDIR)/$(@PACKET@)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -59,13 +59,13 @@ $(STATEDIR)/host-@packet@.extract: $(host-@packet@_extract_deps_default)
 
 host-@packet@_prepare: $(STATEDIR)/host-@packet@.prepare
 
-HOST_@PACKET@_PATH	=  PATH=$(HOST_PATH)
-HOST_@PACKET@_ENV 	=  $(HOSTCC_ENV)
+HOST_@PACKET@_PATH	:= PATH=$(HOST_PATH)
+HOST_@PACKET@_ENV 	:= $(HOST_ENV)
 
 #
 # autoconf
 #
-HOST_@PACKET@_AUTOCONF =  $(HOST_AUTOCONF)
+HOST_@PACKET@_AUTOCONF	:= $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-@packet@.prepare: $(host-@packet@_prepare_deps_default)
 	@$(call targetinfo, $@)
