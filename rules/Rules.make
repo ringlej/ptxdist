@@ -91,18 +91,9 @@ CHECK_PIPE_STATUS = \
 SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
 
 #
-# Use the masquerading method of invoking distcc if enabled
-#
-#
-ifdef PTXCONF_XCHAIN-DISTCC
-# FIXME: should also allow use of DISTCC for native stuff
-DISTCC_PATH_COLON := $(PTXCONF_PREFIX)/lib/distcc/bin:
-endif
-
-#
 # prepare the search path
 #
-CROSS_PATH := $(call remove_quotes,$(DISTCC_PATH_COLON)$(PTXCONF_PREFIX)/bin:$(DISTCC_PATH_COLON)$(PTXCONF_PREFIX)/usr/bin:$$PATH)
+CROSS_PATH := $(call remove_quotes,$(PTXCONF_PREFIX)/bin:$(PTXCONF_PREFIX)/usr/bin:$$PATH)
 HOST_PATH := $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:$$PATH
 
 #
