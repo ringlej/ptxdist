@@ -84,7 +84,7 @@ hotplug_install: $(STATEDIR)/hotplug.install
 
 $(STATEDIR)/hotplug.install: $(hotplug_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, HOTPLUG,,,prefix=$(PTXCONF_PREFIX))
+	@$(call install, HOTPLUG,,,prefix=$(SYSROOT))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
