@@ -592,19 +592,6 @@ print-%:
 	@echo "$* is \"$($*)\""
 
 # ----------------------------------------------------------------------------
-# Autogenerate Dependencies
-# ----------------------------------------------------------------------------
-
-%.dep: $(STATEDIR)/configdeps
-	@$(PTXDIST_TOPDIR)/scripts/create_dependencies.sh \
-		--action defaults \
-		--rulesdir $(RULESDIR) \
-		`test -n "$(PROJECTRULESDIR)" && echo "--projectrulesdir $(PROJECTRULESDIR)"` \
-		--imagedir $(IMAGEDIR) \
-		--statedir $(STATEDIR) \
-		--dependency-file $@
-
-# ----------------------------------------------------------------------------
 
 .PHONY: dep_output_clean dep_tree dep_world before_config
 
