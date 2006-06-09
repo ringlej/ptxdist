@@ -24,7 +24,6 @@ XORG_FONT_BH_LUCIDATYPEWRITER_100DPI_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/
 XORG_FONT_BH_LUCIDATYPEWRITER_100DPI_SOURCE	:= $(SRCDIR)/$(XORG_FONT_BH_LUCIDATYPEWRITER_100DPI).$(XORG_FONT_BH_LUCIDATYPEWRITER_100DPI_SUFFIX)
 XORG_FONT_BH_LUCIDATYPEWRITER_100DPI_DIR	:= $(BUILDDIR)/$(XORG_FONT_BH_LUCIDATYPEWRITER_100DPI)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

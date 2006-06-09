@@ -24,7 +24,6 @@ LIBGSLOOP_URL		= http://www.pengutronix.de/software/libgsloop/download/$(LIBGSLO
 LIBGSLOOP_SOURCE	= $(SRCDIR)/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
 LIBGSLOOP_DIR		= $(BUILDDIR)/$(LIBGSLOOP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

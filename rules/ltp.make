@@ -24,7 +24,6 @@ LTP_URL		= http://mesh.dl.sourceforge.net/sourceforge/ltp/$(LTP).$(LTP_SUFFIX)
 LTP_SOURCE	= $(SRCDIR)/$(LTP).$(LTP_SUFFIX)
 LTP_DIR		= $(BUILDDIR)/$(LTP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

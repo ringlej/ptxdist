@@ -24,7 +24,6 @@ PHP_URL		= http://de.php.net/get/$(PHP).$(PHP_SUFFIX)/from/this/mirror
 PHP_SOURCE	= $(SRCDIR)/$(PHP).$(PHP_SUFFIX)
 PHP_DIR		= $(BUILDDIR)/$(PHP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

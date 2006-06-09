@@ -24,7 +24,6 @@ XORG_LIB_XDMCP_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XOR
 XORG_LIB_XDMCP_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XDMCP).$(XORG_LIB_XDMCP_SUFFIX)
 XORG_LIB_XDMCP_DIR	:= $(BUILDDIR)/$(XORG_LIB_XDMCP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

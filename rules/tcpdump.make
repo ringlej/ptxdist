@@ -24,7 +24,6 @@ TCPDUMP_URL	:= ftp://ftp.gwdg.de/pub/misc/tcpdump/beta/$(TCPDUMP)-096.$(TCPDUMP_
 TCPDUMP_SOURCE	:= $(SRCDIR)/$(TCPDUMP)-096.$(TCPDUMP_SUFFIX)
 TCPDUMP_DIR	:= $(BUILDDIR)/$(TCPDUMP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

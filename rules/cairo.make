@@ -24,7 +24,6 @@ CAIRO_URL	:= http://cairographics.org/releases/$(CAIRO).$(CAIRO_SUFFIX)
 CAIRO_SOURCE	:= $(SRCDIR)/$(CAIRO).$(CAIRO_SUFFIX)
 CAIRO_DIR	:= $(BUILDDIR)/$(CAIRO)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

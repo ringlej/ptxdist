@@ -24,7 +24,6 @@ APACHE2_URL	= http://ftp.plusline.de/ftp.apache.org/httpd/$(APACHE2).$(APACHE2_S
 APACHE2_SOURCE	= $(SRCDIR)/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_DIR	= $(BUILDDIR)/$(APACHE2)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

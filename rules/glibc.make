@@ -23,7 +23,6 @@ endif
 GLIBC := glibc-$(GLIBC_VERSION)
 
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

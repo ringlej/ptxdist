@@ -24,7 +24,6 @@ FINDUTILS_URL		:= http://ftp.gnu.org/gnu/findutils//$(FINDUTILS).$(FINDUTILS_SUF
 FINDUTILS_SOURCE	:= $(SRCDIR)/$(FINDUTILS).$(FINDUTILS_SUFFIX)
 FINDUTILS_DIR		:= $(BUILDDIR)/$(FINDUTILS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

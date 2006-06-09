@@ -24,7 +24,6 @@ HEXEDIT_URL	= http://merd.net/pixel/$(HEXEDIT).$(HEXEDIT_SUFFIX)
 HEXEDIT_SOURCE	= $(SRCDIR)/$(HEXEDIT).$(HEXEDIT_SUFFIX)
 HEXEDIT_DIR	= $(BUILDDIR)/$(HEXEDIT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

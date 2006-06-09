@@ -24,7 +24,6 @@ SLANG_URL	= ftp://space.mit.edu/pub/davis/slang/v1.4/$(SLANG).$(SLANG_SUFFIX)
 SLANG_SOURCE	= $(SRCDIR)/$(SLANG).$(SLANG_SUFFIX)
 SLANG_DIR	= $(BUILDDIR)/$(SLANG)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

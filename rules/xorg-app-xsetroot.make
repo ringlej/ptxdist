@@ -24,7 +24,6 @@ XORG_APP_XSETROOT_URL		:= http://ftp.x.org/pub/X11R7.0/src/app//$(XORG_APP_XSETR
 XORG_APP_XSETROOT_SOURCE	:= $(SRCDIR)/$(XORG_APP_XSETROOT).$(XORG_APP_XSETROOT_SUFFIX)
 XORG_APP_XSETROOT_DIR		:= $(BUILDDIR)/$(XORG_APP_XSETROOT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,6 @@ XORG_LIB_XVMC_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG
 XORG_LIB_XVMC_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XVMC).$(XORG_LIB_XVMC_SUFFIX)
 XORG_LIB_XVMC_DIR	:= $(BUILDDIR)/$(XORG_LIB_XVMC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

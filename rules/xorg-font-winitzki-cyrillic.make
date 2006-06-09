@@ -24,7 +24,6 @@ XORG_FONT_WINITZKI_CYRILLIC_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/
 XORG_FONT_WINITZKI_CYRILLIC_SOURCE	:= $(SRCDIR)/$(XORG_FONT_WINITZKI_CYRILLIC).$(XORG_FONT_WINITZKI_CYRILLIC_SUFFIX)
 XORG_FONT_WINITZKI_CYRILLIC_DIR		:= $(BUILDDIR)/$(XORG_FONT_WINITZKI_CYRILLIC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

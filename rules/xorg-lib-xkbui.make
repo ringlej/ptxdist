@@ -24,7 +24,6 @@ XORG_LIB_XKBUI_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib/$(XORG
 XORG_LIB_XKBUI_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XKBUI).$(XORG_LIB_XKBUI_SUFFIX)
 XORG_LIB_XKBUI_DIR	:= $(BUILDDIR)/$(XORG_LIB_XKBUI)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

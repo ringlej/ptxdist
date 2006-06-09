@@ -24,7 +24,6 @@ XORG_FONT_UTIL_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/font//$(XO
 XORG_FONT_UTIL_SOURCE	:= $(SRCDIR)/$(XORG_FONT_UTIL).$(XORG_FONT_UTIL_SUFFIX)
 XORG_FONT_UTIL_DIR	:= $(BUILDDIR)/$(XORG_FONT_UTIL)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

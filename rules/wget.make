@@ -24,7 +24,6 @@ WGET_URL	= $(PTXCONF_SETUP_GNUMIRROR)/wget/$(WGET_PACKET).$(WGET_SUFFIX)
 WGET_SOURCE	= $(SRCDIR)/$(WGET_PACKET).$(WGET_SUFFIX)
 WGET_DIR	= $(BUILDDIR)/$(WGET_PACKET)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

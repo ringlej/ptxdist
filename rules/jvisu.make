@@ -23,7 +23,6 @@ JVISU_URL	= http://www.jvisu.com/download/archive/$(JVISU).$(JVISU_SUFFIX)
 JVISU_SOURCE	= $(SRCDIR)/$(JVISU).$(JVISU_SUFFIX)
 JVISU_DIR	= $(BUILDDIR)/$(JVISU)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

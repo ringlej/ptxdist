@@ -24,7 +24,6 @@ XORG_DRIVER_INPUT_KEYBOARD_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/s
 XORG_DRIVER_INPUT_KEYBOARD_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_INPUT_KEYBOARD).$(XORG_DRIVER_INPUT_KEYBOARD_SUFFIX)
 XORG_DRIVER_INPUT_KEYBOARD_DIR		:= $(BUILDDIR)/$(XORG_DRIVER_INPUT_KEYBOARD)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

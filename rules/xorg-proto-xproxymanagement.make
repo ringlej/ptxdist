@@ -24,7 +24,6 @@ XORG_PROTO_XPROXYMANAGEMENT_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/
 XORG_PROTO_XPROXYMANAGEMENT_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XPROXYMANAGEMENT).$(XORG_PROTO_XPROXYMANAGEMENT_SUFFIX)
 XORG_PROTO_XPROXYMANAGEMENT_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XPROXYMANAGEMENT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

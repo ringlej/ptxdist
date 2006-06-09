@@ -25,7 +25,6 @@ PYTHON_SOURCE		= $(SRCDIR)/$(PYTHON).$(PYTHON_SUFFIX)
 PYTHON_DIR		= $(BUILDDIR)/$(PYTHON)
 PYTHON_BUILDDIR		= $(PYTHON_DIR)-build
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

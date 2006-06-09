@@ -24,7 +24,6 @@ PEKWM_URL	:= http://pekwm.org/files/$(PEKWM).$(PEKWM_SUFFIX)
 PEKWM_SOURCE	:= $(SRCDIR)/$(PEKWM).$(PEKWM_SUFFIX)
 PEKWM_DIR	:= $(BUILDDIR)/$(PEKWM)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

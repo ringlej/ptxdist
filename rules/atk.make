@@ -26,7 +26,6 @@ ATK_URL		:= ftp://ftp.gtk.org/pub/gtk/v2.8/$(ATK).$(ATK_SUFFIX)
 ATK_SOURCE	:= $(SRCDIR)/$(ATK).$(ATK_SUFFIX)
 ATK_DIR		:= $(BUILDDIR)/$(ATK)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

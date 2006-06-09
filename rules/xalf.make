@@ -24,7 +24,6 @@ XALF_URL		= http://www.lysator.liu.se/~astrand/projects/xalf/$(XALF).$(XALF_SUFF
 XALF_SOURCE		= $(SRCDIR)/$(XALF).$(XALF_SUFFIX)
 XALF_DIR		= $(BUILDDIR)/$(XALF)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

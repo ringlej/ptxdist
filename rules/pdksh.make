@@ -24,7 +24,6 @@ PDKSH_URL		= ftp://ftp.cs.mun.ca/pub/pdksh/$(PDKSH).tar.gz
 PDKSH_SOURCE		= $(SRCDIR)/$(PDKSH).tar.gz
 PDKSH_DIR		= $(BUILDDIR)/$(PDKSH)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

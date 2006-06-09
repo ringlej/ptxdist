@@ -24,7 +24,6 @@ XORG_APP_XHOST_URL	:= http://ftp.x.org/pub/X11R7.0/src/app/$(XORG_APP_XHOST).$(X
 XORG_APP_XHOST_SOURCE	:= $(SRCDIR)/$(XORG_APP_XHOST).$(XORG_APP_XHOST_SUFFIX)
 XORG_APP_XHOST_DIR	:= $(BUILDDIR)/$(XORG_APP_XHOST)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

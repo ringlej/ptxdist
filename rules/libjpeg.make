@@ -24,7 +24,6 @@ LIBJPEG_URL	:= http://www.ijg.org/files/jpegsrc.v6b.$(LIBJPEG_SUFFIX)
 LIBJPEG_SOURCE	:= $(SRCDIR)/jpegsrc.v6b.$(LIBJPEG_SUFFIX)
 LIBJPEG_DIR	:= $(BUILDDIR)/$(LIBJPEG)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

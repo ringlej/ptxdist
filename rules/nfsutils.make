@@ -22,7 +22,6 @@ NFSUTILS_URL		= http://www.pengutronix.de/software/nfs-utils/$(NFSUTILS).tar.gz
 NFSUTILS_SOURCE		= $(SRCDIR)/$(NFSUTILS).tar.gz
 NFSUTILS_DIR		= $(BUILDDIR)/$(NFSUTILS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

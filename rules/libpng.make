@@ -25,7 +25,6 @@ LIBPNG_URL	:= $(PTXCONF_SETUP_SFMIRROR)/libpng/$(LIBPNG).$(LIBPNG_SUFFIX)
 LIBPNG_SOURCE	:= $(SRCDIR)/$(LIBPNG).$(LIBPNG_SUFFIX)
 LIBPNG_DIR	:= $(BUILDDIR)/$(LIBPNG)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

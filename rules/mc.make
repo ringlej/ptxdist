@@ -24,7 +24,6 @@ MC_URL		:= http://someurl.de//$(MC).$(MC_SUFFIX)
 MC_SOURCE	:= $(SRCDIR)/$(MC).$(MC_SUFFIX)
 MC_DIR		:= $(BUILDDIR)/$(MC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

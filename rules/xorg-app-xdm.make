@@ -24,7 +24,6 @@ XORG_APP_XDM_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/app//$(XORG_
 XORG_APP_XDM_SOURCE	:= $(SRCDIR)/$(XORG_APP_XDM).$(XORG_APP_XDM_SUFFIX)
 XORG_APP_XDM_DIR	:= $(BUILDDIR)/$(XORG_APP_XDM)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

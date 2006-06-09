@@ -24,7 +24,6 @@ DB41_URL	= http://www.sleepycat.com/update/snapshot/$(DB41).$(DB41_SUFFIX)
 DB41_SOURCE	= $(SRCDIR)/$(DB41).$(DB41_SUFFIX)
 DB41_DIR	= $(BUILDDIR)/$(DB41)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

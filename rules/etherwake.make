@@ -24,7 +24,6 @@ ETHERWAKE_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/e/etherwake/etherwake_$(ET
 ETHERWAKE_SOURCE	= $(SRCDIR)/etherwake_$(ETHERWAKE_VERSION).orig.$(ETHERWAKE_SUFFIX)
 ETHERWAKE_DIR		= $(BUILDDIR)/$(ETHERWAKE)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

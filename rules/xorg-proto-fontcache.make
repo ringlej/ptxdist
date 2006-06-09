@@ -24,7 +24,6 @@ XORG_PROTO_FONTCACHE_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/prot
 XORG_PROTO_FONTCACHE_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_FONTCACHE).$(XORG_PROTO_FONTCACHE_SUFFIX)
 XORG_PROTO_FONTCACHE_DIR	:= $(BUILDDIR)/$(XORG_PROTO_FONTCACHE)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

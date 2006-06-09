@@ -24,7 +24,6 @@ XORG_FONT_MISC_MELTHO_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/fon
 XORG_FONT_MISC_MELTHO_SOURCE	:= $(SRCDIR)/$(XORG_FONT_MISC_MELTHO).$(XORG_FONT_MISC_MELTHO_SUFFIX)
 XORG_FONT_MISC_MELTHO_DIR	:= $(BUILDDIR)/$(XORG_FONT_MISC_MELTHO)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

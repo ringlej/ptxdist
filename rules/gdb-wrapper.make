@@ -17,7 +17,6 @@
 #
 PACKAGES-$(PTXCONF_GDB_WRAPPER) += gdb-wrapper
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

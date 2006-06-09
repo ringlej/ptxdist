@@ -24,7 +24,6 @@ QTOPIA_URL		:= ftp://ftp.trolltech.com/qt/source/$(QTOPIA).$(QTOPIA_SUFFIX)
 QTOPIA_SOURCE		:= $(SRCDIR)/$(QTOPIA).$(QTOPIA_SUFFIX)
 QTOPIA_DIR		:= $(BUILDDIR)/$(QTOPIA)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

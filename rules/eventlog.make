@@ -24,7 +24,6 @@ EVENTLOG_URL		= http://www.balabit.com/downloads/syslog-ng/1.9/src/$(EVENTLOG).$
 EVENTLOG_SOURCE		= $(SRCDIR)/$(EVENTLOG).$(EVENTLOG_SUFFIX)
 EVENTLOG_DIR		= $(BUILDDIR)/$(EVENTLOG)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

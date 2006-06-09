@@ -24,7 +24,6 @@ LIBDAEMON_URL		:= http://0pointer.de/lennart/projects/libdaemon/$(LIBDAEMON).$(L
 LIBDAEMON_SOURCE	:= $(SRCDIR)/$(LIBDAEMON).$(LIBDAEMON_SUFFIX)
 LIBDAEMON_DIR		:= $(BUILDDIR)/$(LIBDAEMON)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

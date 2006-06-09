@@ -24,7 +24,6 @@ UTIL_LINUX_URL		= http://ftp.cwi.nl/aeb/util-linux/$(UTIL_LINUX).$(UTIL_LINUX_SU
 UTIL_LINUX_SOURCE	= $(SRCDIR)/$(UTIL_LINUX).$(UTIL_LINUX_SUFFIX)
 UTIL_LINUX_DIR		= $(BUILDDIR)/$(UTIL_LINUX)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

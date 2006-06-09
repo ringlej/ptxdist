@@ -16,7 +16,6 @@
 #
 PACKAGES-$(PTXCONF_GCCLIBS) += gcclibs
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

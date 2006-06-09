@@ -24,7 +24,6 @@ XORG_LIB_LBXUTIL_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(
 XORG_LIB_LBXUTIL_SOURCE		:= $(SRCDIR)/$(XORG_LIB_LBXUTIL).$(XORG_LIB_LBXUTIL_SUFFIX)
 XORG_LIB_LBXUTIL_DIR		:= $(BUILDDIR)/$(XORG_LIB_LBXUTIL)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

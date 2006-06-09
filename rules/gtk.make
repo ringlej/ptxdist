@@ -24,7 +24,6 @@ GTK_URL		:= ftp://ftp.gtk.org/pub/gtk/v2.8/$(GTK).$(GTK_SUFFIX)
 GTK_SOURCE	:= $(SRCDIR)/$(GTK).$(GTK_SUFFIX)
 GTK_DIR		:= $(BUILDDIR)/$(GTK)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,6 @@ XORG_FONT_BITSTREAM_SPEEDO_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/s
 XORG_FONT_BITSTREAM_SPEEDO_SOURCE	:= $(SRCDIR)/$(XORG_FONT_BITSTREAM_SPEEDO).$(XORG_FONT_BITSTREAM_SPEEDO_SUFFIX)
 XORG_FONT_BITSTREAM_SPEEDO_DIR		:= $(BUILDDIR)/$(XORG_FONT_BITSTREAM_SPEEDO)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

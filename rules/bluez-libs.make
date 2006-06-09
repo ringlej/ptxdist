@@ -24,7 +24,6 @@ BLUEZ_LIBS_URL		= http://bluez.sf.net/download/$(BLUEZ_LIBS).$(BLUEZ_LIBS_SUFFIX
 BLUEZ_LIBS_SOURCE	= $(SRCDIR)/$(BLUEZ_LIBS).$(BLUEZ_LIBS_SUFFIX)
 BLUEZ_LIBS_DIR		= $(BUILDDIR)/$(BLUEZ_LIBS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

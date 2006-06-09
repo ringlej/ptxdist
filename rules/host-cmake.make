@@ -24,7 +24,6 @@ HOST_CMAKE_URL		:= http://www.cmake.org/files/v2.4/$(HOST_CMAKE).$(HOST_CMAKE_SU
 HOST_CMAKE_SOURCE	:= $(SRCDIR)/$(HOST_CMAKE).$(HOST_CMAKE_SUFFIX)
 HOST_CMAKE_DIR		:= $(HOST_BUILDDIR)/$(HOST_CMAKE)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

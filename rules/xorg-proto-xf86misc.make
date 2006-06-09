@@ -24,7 +24,6 @@ XORG_PROTO_XF86MISC_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/prot
 XORG_PROTO_XF86MISC_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86MISC).$(XORG_PROTO_XF86MISC_SUFFIX)
 XORG_PROTO_XF86MISC_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XF86MISC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

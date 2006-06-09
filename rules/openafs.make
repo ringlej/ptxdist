@@ -24,7 +24,6 @@ OPENAFS_URL		= http://www.openafs.org/dl/openafs/1.2.11/$(OPENAFS)$(OPENAFS_SUFF
 OPENAFS_SOURCE		= $(SRCDIR)/$(OPENAFS)$(OPENAFS_SUFFIX)
 OPENAFS_DIR		= $(BUILDDIR)/$(OPENAFS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

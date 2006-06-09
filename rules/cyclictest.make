@@ -24,7 +24,6 @@ CYCLICTEST_URL		= http://www.tglx.de/projects/misc/cyclictest/$(CYCLICTEST).$(CY
 CYCLICTEST_SOURCE	= $(SRCDIR)/$(CYCLICTEST).$(CYCLICTEST_SUFFIX)
 CYCLICTEST_DIR		= $(BUILDDIR)/$(CYCLICTEST)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

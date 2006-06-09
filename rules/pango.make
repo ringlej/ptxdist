@@ -26,7 +26,6 @@ PANGO_URL	:= ftp://ftp.gtk.org/pub/gtk/v2.8/$(PANGO).$(PANGO_SUFFIX)
 PANGO_SOURCE	:= $(SRCDIR)/$(PANGO).$(PANGO_SUFFIX)
 PANGO_DIR	:= $(BUILDDIR)/$(PANGO)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

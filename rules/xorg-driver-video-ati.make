@@ -24,7 +24,6 @@ XORG_DRIVER_VIDEO_ATI_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/dri
 XORG_DRIVER_VIDEO_ATI_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_ATI).$(XORG_DRIVER_VIDEO_ATI_SUFFIX)
 XORG_DRIVER_VIDEO_ATI_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_ATI)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

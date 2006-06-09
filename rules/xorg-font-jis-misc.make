@@ -24,7 +24,6 @@ XORG_FONT_JIS_MISC_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/font/
 XORG_FONT_JIS_MISC_SOURCE	:= $(SRCDIR)/$(XORG_FONT_JIS_MISC).$(XORG_FONT_JIS_MISC_SUFFIX)
 XORG_FONT_JIS_MISC_DIR		:= $(BUILDDIR)/$(XORG_FONT_JIS_MISC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

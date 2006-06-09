@@ -24,7 +24,6 @@ FIGLET_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FIGLET)
 FIGLET_SOURCE		= $(SRCDIR)/$(FIGLET).$(FIGLET_SUFFIX)
 FIGLET_DIR		= $(BUILDDIR)/$(FIGLET)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

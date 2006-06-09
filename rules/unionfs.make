@@ -31,7 +31,6 @@ endif
 UNIONFS_SOURCE	:= $(SRCDIR)/$(UNIONFS).$(UNIONFS_SUFFIX)
 UNIONFS_DIR	:= $(BUILDDIR)/$(UNIONFS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

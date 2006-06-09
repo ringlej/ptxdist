@@ -24,7 +24,6 @@ XORG_PROTO_PRINT_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$(
 XORG_PROTO_PRINT_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_PRINT).$(XORG_PROTO_PRINT_SUFFIX)
 XORG_PROTO_PRINT_DIR	:= $(BUILDDIR)/$(XORG_PROTO_PRINT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

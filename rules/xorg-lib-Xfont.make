@@ -24,7 +24,6 @@ XORG_LIB_XFONT_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XOR
 XORG_LIB_XFONT_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XFONT).$(XORG_LIB_XFONT_SUFFIX)
 XORG_LIB_XFONT_DIR	:= $(BUILDDIR)/$(XORG_LIB_XFONT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

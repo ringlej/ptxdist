@@ -24,7 +24,6 @@ XORG_APP_RGB_URL	:= http://ftp.x.org/pub/X11R7.0/src/app/$(XORG_APP_RGB).$(XORG_
 XORG_APP_RGB_SOURCE	:= $(SRCDIR)/$(XORG_APP_RGB).$(XORG_APP_RGB_SUFFIX)
 XORG_APP_RGB_DIR	:= $(BUILDDIR)/$(XORG_APP_RGB)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

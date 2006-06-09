@@ -24,7 +24,6 @@ FREETYPE_URL		:= http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).
 FREETYPE_SOURCE		:= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
 FREETYPE_DIR		:= $(BUILDDIR)/$(FREETYPE)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

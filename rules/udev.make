@@ -24,7 +24,6 @@ UDEV_URL	:= http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_
 UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
 UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

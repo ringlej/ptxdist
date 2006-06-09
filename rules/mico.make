@@ -24,7 +24,6 @@ MICO_URL	= http://www.mico.org/snapshots/$(MICO).$(MICO_SUFFIX)
 MICO_SOURCE	= $(SRCDIR)/$(MICO).$(MICO_SUFFIX)
 MICO_DIR	= $(BUILDDIR)/$(MICO)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

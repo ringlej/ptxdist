@@ -16,7 +16,6 @@ PACKAGES-$(PTXCONF_UCLIBC) += uclibc
 
 UCLIBC = uClibc-$(UCLIBC_VERSION)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

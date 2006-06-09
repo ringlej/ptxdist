@@ -24,7 +24,6 @@ ALSA_LIB_URL		:= ftp://ftp.alsa-project.org/pub/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFI
 ALSA_LIB_SOURCE		:= $(SRCDIR)/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
 ALSA_LIB_DIR		:= $(BUILDDIR)/$(ALSA_LIB)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

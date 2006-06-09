@@ -24,7 +24,6 @@ XORG_FONT_IBM_TYPE1_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/font
 XORG_FONT_IBM_TYPE1_SOURCE	:= $(SRCDIR)/$(XORG_FONT_IBM_TYPE1).$(XORG_FONT_IBM_TYPE1_SUFFIX)
 XORG_FONT_IBM_TYPE1_DIR		:= $(BUILDDIR)/$(XORG_FONT_IBM_TYPE1)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,6 @@ XORG_LIB_ICE_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_
 XORG_LIB_ICE_SOURCE	:= $(SRCDIR)/$(XORG_LIB_ICE).$(XORG_LIB_ICE_SUFFIX)
 XORG_LIB_ICE_DIR	:= $(BUILDDIR)/$(XORG_LIB_ICE)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

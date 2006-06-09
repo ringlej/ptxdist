@@ -24,7 +24,6 @@ XORG_DRIVER_VIDEO_APM_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/dri
 XORG_DRIVER_VIDEO_APM_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_APM).$(XORG_DRIVER_VIDEO_APM_SUFFIX)
 XORG_DRIVER_VIDEO_APM_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_APM)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

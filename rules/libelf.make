@@ -25,7 +25,6 @@ LIBELF_URL	:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/libe/libelf/$(LIBELF_TARBALL)
 LIBELF_SOURCE	:= $(SRCDIR)/$(LIBELF_TARBALL)
 LIBELF_DIR	:= $(BUILDDIR)/$(LIBELF)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

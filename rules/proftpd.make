@@ -24,7 +24,6 @@ PROFTPD_URL		= ftp://ftp.proftpd.org/distrib/source/proftpd-$(PROFTPD_VERSION).$
 PROFTPD_SOURCE		= $(SRCDIR)/$(PROFTPD).$(PROFTPD_SUFFIX)
 PROFTPD_DIR		= $(BUILDDIR)/$(PROFTPD)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

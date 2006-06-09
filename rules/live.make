@@ -24,7 +24,6 @@ LIVE_LIB_URL		:= http://www.live555.com/liveMedia/public/$(LIVE_LIB).$(LIVE_LIB_
 LIVE_LIB_SOURCE		:= $(SRCDIR)/$(LIVE_LIB).$(LIVE_LIB_SUFFIX)
 LIVE_LIB_DIR		:= $(BUILDDIR)/live
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

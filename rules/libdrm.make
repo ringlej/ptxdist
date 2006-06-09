@@ -24,7 +24,6 @@ LIBDRM_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/extras/$(LIBDRM).$
 LIBDRM_SOURCE	:= $(SRCDIR)/$(LIBDRM).$(LIBDRM_SUFFIX)
 LIBDRM_DIR	:= $(BUILDDIR)/$(LIBDRM)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

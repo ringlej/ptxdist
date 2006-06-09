@@ -25,7 +25,6 @@ HOST_GENEXT2FS_URL	= $(PTXCONF_SETUP_SFMIRROR)/genext2fs/$(HOST_GENEXT2FS).$(HOS
 HOST_GENEXT2FS_SOURCE	= $(SRCDIR)/$(HOST_GENEXT2FS).$(HOST_GENEXT2FS_SUFFIX)
 HOST_GENEXT2FS_DIR	= $(HOST_BUILDDIR)/$(HOST_GENEXT2FS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

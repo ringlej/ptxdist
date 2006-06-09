@@ -24,7 +24,6 @@ PYTHON24_URL		= http://www.python.org/ftp/python/$(PYTHON24_VERSION)/$(PYTHON24)
 PYTHON24_SOURCE		= $(SRCDIR)/$(PYTHON24).$(PYTHON24_SUFFIX)
 PYTHON24_DIR		= $(BUILDDIR)/$(PYTHON24)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,6 @@ FFMPEG_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FFMPEG)
 FFMPEG_SOURCE	:= $(SRCDIR)/$(FFMPEG).$(FFMPEG_SUFFIX)
 FFMPEG_DIR	:= $(BUILDDIR)/$(FFMPEG)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

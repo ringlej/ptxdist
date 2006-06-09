@@ -24,7 +24,6 @@ DAEMONIZE_URL		= http://www.clapper.org/software/daemonize/$(DAEMONIZE).$(DAEMON
 DAEMONIZE_SOURCE	= $(SRCDIR)/$(DAEMONIZE).$(DAEMONIZE_SUFFIX)
 DAEMONIZE_DIR		= $(BUILDDIR)/$(DAEMONIZE)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

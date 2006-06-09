@@ -24,7 +24,6 @@ HOST_PELTS_URL		:= http://www.pengutronix.de/software/pelts/download/v1.0/$(HOST
 HOST_PELTS_SOURCE	:= $(SRCDIR)/$(HOST_PELTS).$(HOST_PELTS_SUFFIX)
 HOST_PELTS_DIR		:= $(HOST_BUILDDIR)/$(HOST_PELTS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

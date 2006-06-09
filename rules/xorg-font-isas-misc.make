@@ -24,7 +24,6 @@ XORG_FONT_ISAS_MISC_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/font
 XORG_FONT_ISAS_MISC_SOURCE	:= $(SRCDIR)/$(XORG_FONT_ISAS_MISC).$(XORG_FONT_ISAS_MISC_SUFFIX)
 XORG_FONT_ISAS_MISC_DIR		:= $(BUILDDIR)/$(XORG_FONT_ISAS_MISC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

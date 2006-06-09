@@ -24,7 +24,6 @@ XORG_APP_XINIT_URL	:= http://ftp.x.org/pub/X11R7.0/src/app/$(XORG_APP_XINIT).$(X
 XORG_APP_XINIT_SOURCE	:= $(SRCDIR)/$(XORG_APP_XINIT).$(XORG_APP_XINIT_SUFFIX)
 XORG_APP_XINIT_DIR	:= $(BUILDDIR)/$(XORG_APP_XINIT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

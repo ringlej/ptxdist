@@ -24,7 +24,6 @@ XORG_LIB_XT_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_
 XORG_LIB_XT_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XT).$(XORG_LIB_XT_SUFFIX)
 XORG_LIB_XT_DIR		:= $(BUILDDIR)/$(XORG_LIB_XT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

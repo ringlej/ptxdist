@@ -26,7 +26,6 @@ SUDO_URL	= http://www.courtesan.com/sudo/dist/$(SUDO).$(SUDO_SUFFIX)
 SUDO_SOURCE	= $(SRCDIR)/$(SUDO).$(SUDO_SUFFIX)
 SUDO_DIR	= $(BUILDDIR)/$(SUDO)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

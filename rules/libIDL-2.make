@@ -27,7 +27,6 @@ LIBIDL_2_URL		= http://ftp.gnome.org/pub/GNOME/sources/libIDL/0.8/$(LIBIDL_2).$(
 LIBIDL_2_SOURCE		= $(SRCDIR)/$(LIBIDL_2).$(LIBIDL_2_SUFFIX)
 LIBIDL_2_DIR		= $(BUILDDIR)/$(LIBIDL_2)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

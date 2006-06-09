@@ -24,7 +24,6 @@ PENGUZILLA_URL		= http://metis.pengutronix.de/$(PENGUZILLA).$(PENGUZILLA_SUFFIX)
 PENGUZILLA_SOURCE	= $(SRCDIR)/$(PENGUZILLA).$(PENGUZILLA_SUFFIX)
 PENGUZILLA_DIR		= $(BUILDDIR)/$(PENGUZILLA)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

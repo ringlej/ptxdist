@@ -24,7 +24,6 @@ VALGRIND_URL		= http://valgrind.org/downloads/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_SOURCE		= $(SRCDIR)/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_DIR		= $(BUILDDIR)/$(VALGRIND)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

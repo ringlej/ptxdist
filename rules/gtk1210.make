@@ -25,7 +25,6 @@ GTK1210_URL		= ftp://ftp.gtk.org/pub/gtk/v1.2/$(GTK1210).$(GTK1210_SUFFIX)
 GTK1210_SOURCE		= $(SRCDIR)/$(GTK1210).$(GTK1210_SUFFIX)
 GTK1210_DIR		= $(BUILDDIR)/$(GTK1210)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

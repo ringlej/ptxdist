@@ -24,7 +24,6 @@ XORG_FONT_ALIAS_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/font//$(X
 XORG_FONT_ALIAS_SOURCE	:= $(SRCDIR)/$(XORG_FONT_ALIAS).$(XORG_FONT_ALIAS_SUFFIX)
 XORG_FONT_ALIAS_DIR	:= $(BUILDDIR)/$(XORG_FONT_ALIAS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

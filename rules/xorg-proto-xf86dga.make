@@ -24,7 +24,6 @@ XORG_PROTO_XF86DGA_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto
 XORG_PROTO_XF86DGA_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86DGA).$(XORG_PROTO_XF86DGA_SUFFIX)
 XORG_PROTO_XF86DGA_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XF86DGA)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

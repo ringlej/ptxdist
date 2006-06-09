@@ -24,7 +24,6 @@ MODULE_INIT_TOOLS_URL		= http://www.kernel.org/pub/linux/utils/kernel/module-ini
 MODULE_INIT_TOOLS_SOURCE	= $(SRCDIR)/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX)
 MODULE_INIT_TOOLS_DIR		= $(BUILDDIR)/$(MODULE_INIT_TOOLS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

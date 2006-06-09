@@ -24,7 +24,6 @@ XTERM_URL	:= ftp://invisible-island.net/xterm//$(XTERM).$(XTERM_SUFFIX)
 XTERM_SOURCE	:= $(SRCDIR)/$(XTERM).$(XTERM_SUFFIX)
 XTERM_DIR	:= $(BUILDDIR)/$(XTERM)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

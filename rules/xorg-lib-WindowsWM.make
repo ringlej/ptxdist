@@ -24,7 +24,6 @@ XORG_LIB_WINDOWSWM_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//
 XORG_LIB_WINDOWSWM_SOURCE	:= $(SRCDIR)/$(XORG_LIB_WINDOWSWM).$(XORG_LIB_WINDOWSWM_SUFFIX)
 XORG_LIB_WINDOWSWM_DIR		:= $(BUILDDIR)/$(XORG_LIB_WINDOWSWM)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

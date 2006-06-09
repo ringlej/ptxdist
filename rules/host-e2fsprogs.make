@@ -19,7 +19,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_E2FSPROGS) += host-e2fsprogs
 #
 HOST_E2FSPROGS_DIR	= $(HOST_BUILDDIR)/$(E2FSPROGS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

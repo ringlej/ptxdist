@@ -24,7 +24,6 @@ TERMCAP_URL	= $(PTXCONF_SETUP_GNUMIRROR)/termcap/$(TERMCAP).$(TERMCAP_SUFFIX)
 TERMCAP_SOURCE	= $(SRCDIR)/$(TERMCAP).$(TERMCAP_SUFFIX)
 TERMCAP_DIR	= $(BUILDDIR)/$(TERMCAP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

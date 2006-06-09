@@ -24,7 +24,6 @@ XORG_DRIVER_VIDEO_FBDEV_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/d
 XORG_DRIVER_VIDEO_FBDEV_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_FBDEV).$(XORG_DRIVER_VIDEO_FBDEV_SUFFIX)
 XORG_DRIVER_VIDEO_FBDEV_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_FBDEV)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

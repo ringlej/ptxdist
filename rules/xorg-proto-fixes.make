@@ -24,7 +24,6 @@ XORG_PROTO_FIXES_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$
 XORG_PROTO_FIXES_SOURCE		:= $(SRCDIR)/$(XORG_PROTO_FIXES).$(XORG_PROTO_FIXES_SUFFIX)
 XORG_PROTO_FIXES_DIR		:= $(BUILDDIR)/$(XORG_PROTO_FIXES)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

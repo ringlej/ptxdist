@@ -24,7 +24,6 @@ XORG_FONT_CRONYX_CYRILLIC_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/sr
 XORG_FONT_CRONYX_CYRILLIC_SOURCE		:= $(SRCDIR)/$(XORG_FONT_CRONYX_CYRILLIC).$(XORG_FONT_CRONYX_CYRILLIC_SUFFIX)
 XORG_FONT_CRONYX_CYRILLIC_DIR		:= $(BUILDDIR)/$(XORG_FONT_CRONYX_CYRILLIC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

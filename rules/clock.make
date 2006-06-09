@@ -24,7 +24,6 @@ CLOCK_URL		= http://ftp.linux.org.uk/pub/linux/people/alex/$(CLOCK).$(CLOCK_SUFF
 CLOCK_SOURCE		= $(SRCDIR)/$(CLOCK).$(CLOCK_SUFFIX)
 CLOCK_DIR		= $(BUILDDIR)/$(CLOCK)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

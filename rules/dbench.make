@@ -24,7 +24,6 @@ DBENCH_URL	= http://samba.org/ftp/tridge/dbench/$(DBENCH).$(DBENCH_SUFFIX)
 DBENCH_SOURCE	= $(SRCDIR)/$(DBENCH).$(DBENCH_SUFFIX)
 DBENCH_DIR	= $(BUILDDIR)/$(DBENCH)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

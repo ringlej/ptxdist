@@ -24,7 +24,6 @@ XORG_LIB_XMU_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_
 XORG_LIB_XMU_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XMU).$(XORG_LIB_XMU_SUFFIX)
 XORG_LIB_XMU_DIR	:= $(BUILDDIR)/$(XORG_LIB_XMU)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

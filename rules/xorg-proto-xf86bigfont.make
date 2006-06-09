@@ -24,7 +24,6 @@ XORG_PROTO_XF86BIGFONT_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/pr
 XORG_PROTO_XF86BIGFONT_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86BIGFONT).$(XORG_PROTO_XF86BIGFONT_SUFFIX)
 XORG_PROTO_XF86BIGFONT_DIR	:= $(BUILDDIR)/$(XORG_PROTO_XF86BIGFONT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

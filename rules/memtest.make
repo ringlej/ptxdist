@@ -24,7 +24,6 @@ MEMTEST_URL		= http://carpanta.dc.fi.udc.es/~quintela/memtest/$(MEMTEST).$(MEMTE
 MEMTEST_SOURCE		= $(SRCDIR)/$(MEMTEST).$(MEMTEST_SUFFIX)
 MEMTEST_DIR		= $(BUILDDIR)/$(MEMTEST)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

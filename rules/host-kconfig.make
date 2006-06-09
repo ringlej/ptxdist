@@ -21,7 +21,6 @@ HOST_KCONFIG_VERSION	:= 2.6.14
 HOST_KCONFIG		:= kconfig-$(HOST_KCONFIG_VERSION)
 
 # This package is special: it is needed to create the dependencies!
-# So we don't use -include $(call package_depfile) here.
 
 # ----------------------------------------------------------------------------
 # Get

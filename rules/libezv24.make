@@ -24,7 +24,6 @@ LIBEZV24_URL		:= http://www.pengutronix.de/software/misc/$(LIBEZV24).$(LIBEZV24_
 LIBEZV24_SOURCE		:= $(SRCDIR)/$(LIBEZV24).$(LIBEZV24_SUFFIX)
 LIBEZV24_DIR		:= $(BUILDDIR)/$(LIBEZV24)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

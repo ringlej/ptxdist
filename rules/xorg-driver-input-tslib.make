@@ -24,7 +24,6 @@ XORG_DRIVER_INPUT_TSLIB_URL	:= http://www.pengutronix.de/software/ptxdist/tempor
 XORG_DRIVER_INPUT_TSLIB_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_INPUT_TSLIB).$(XORG_DRIVER_INPUT_TSLIB_SUFFIX)
 XORG_DRIVER_INPUT_TSLIB_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_INPUT_TSLIB)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

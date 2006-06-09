@@ -24,7 +24,6 @@ XORG_PROTO_XEXT_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$(X
 XORG_PROTO_XEXT_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XEXT).$(XORG_PROTO_XEXT_SUFFIX)
 XORG_PROTO_XEXT_DIR	:= $(BUILDDIR)/$(XORG_PROTO_XEXT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

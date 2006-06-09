@@ -22,7 +22,6 @@ COREUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/coreutils/$(COREUTILS).tar.bz2
 COREUTILS_SOURCE	:= $(SRCDIR)/$(COREUTILS).tar.bz2
 COREUTILS_DIR		:= $(BUILDDIR)/$(COREUTILS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,6 @@ XORG_DRIVER_INPUT_VOID_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/dr
 XORG_DRIVER_INPUT_VOID_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_INPUT_VOID).$(XORG_DRIVER_INPUT_VOID_SUFFIX)
 XORG_DRIVER_INPUT_VOID_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_INPUT_VOID)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

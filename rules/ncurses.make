@@ -23,7 +23,6 @@ NCURSES_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/ncurses/$(NCURSES).$(NCURSES_SUFFIX)
 NCURSES_SOURCE	:= $(SRCDIR)/$(NCURSES).$(NCURSES_SUFFIX)
 NCURSES_DIR	:= $(BUILDDIR)/$(NCURSES)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

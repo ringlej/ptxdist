@@ -24,7 +24,6 @@ MPLAYER_URL	= http://www.mplayerhq.hu/MPlayer/releases/$(MPLAYER).$(MPLAYER_SUFF
 MPLAYER_SOURCE	= $(SRCDIR)/$(MPLAYER).$(MPLAYER_SUFFIX)
 MPLAYER_DIR	= $(BUILDDIR)/$(MPLAYER)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

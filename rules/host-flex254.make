@@ -19,7 +19,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_FLEX254) += host-flex254
 #
 HOST_FLEX254_DIR	= $(HOST_BUILDDIR)/$(FLEX)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

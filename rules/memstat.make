@@ -24,7 +24,6 @@ MEMSTAT_URL	= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/m/memstat/memstat_$(MEMSTAT_V
 MEMSTAT_SOURCE	= $(SRCDIR)/memstat_$(MEMSTAT_VERSION).$(MEMSTAT_SUFFIX)
 MEMSTAT_DIR	= $(BUILDDIR)/memstat-$(MEMSTAT_VERSION)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

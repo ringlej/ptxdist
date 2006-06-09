@@ -24,7 +24,6 @@ XORG_PROTO_XCMISC_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/
 XORG_PROTO_XCMISC_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XCMISC).$(XORG_PROTO_XCMISC_SUFFIX)
 XORG_PROTO_XCMISC_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XCMISC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

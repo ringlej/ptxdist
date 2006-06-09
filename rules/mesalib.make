@@ -27,7 +27,6 @@ MESALIB_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/extras//$(MESALIB
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
 MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,6 @@ XORG_PROTO_TRAP_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$(X
 XORG_PROTO_TRAP_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_TRAP).$(XORG_PROTO_TRAP_SUFFIX)
 XORG_PROTO_TRAP_DIR	:= $(BUILDDIR)/$(XORG_PROTO_TRAP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

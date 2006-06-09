@@ -24,7 +24,6 @@ XORG_LIB_APPLEWM_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(
 XORG_LIB_APPLEWM_SOURCE		:= $(SRCDIR)/$(XORG_LIB_APPLEWM).$(XORG_LIB_APPLEWM_SUFFIX)
 XORG_LIB_APPLEWM_DIR		:= $(BUILDDIR)/$(XORG_LIB_APPLEWM)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

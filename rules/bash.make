@@ -22,7 +22,6 @@ BASH_URL		= $(PTXCONF_SETUP_GNUMIRROR)/bash/$(BASH).tar.gz
 BASH_SOURCE		= $(SRCDIR)/$(BASH).tar.gz
 BASH_DIR		= $(BUILDDIR)/$(BASH)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

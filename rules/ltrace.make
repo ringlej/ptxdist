@@ -25,7 +25,6 @@ LTRACE_URL	:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/l/ltrace/$(LTRACE_TARBALL)
 LTRACE_SOURCE	:= $(SRCDIR)/$(LTRACE_TARBALL)
 LTRACE_DIR	:= $(BUILDDIR)/$(LTRACE)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

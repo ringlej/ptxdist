@@ -24,7 +24,6 @@ BINUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/binutils/$(BINUTILS).$(BINUTILS_SUFF
 BINUTILS_SOURCE		:= $(SRCDIR)/$(BINUTILS).$(BINUTILS_SUFFIX)
 BINUTILS_DIR		:= $(BUILDDIR)/$(BINUTILS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

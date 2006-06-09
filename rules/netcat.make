@@ -24,7 +24,6 @@ NETCAT_URL	:= $(PTXCONF_SETUP_SFMIRROR)/netcat/$(NETCAT).$(NETCAT_SUFFIX)
 NETCAT_SOURCE	:= $(SRCDIR)/$(NETCAT).$(NETCAT_SUFFIX)
 NETCAT_DIR	:= $(BUILDDIR)/$(NETCAT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

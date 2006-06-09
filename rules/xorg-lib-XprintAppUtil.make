@@ -24,7 +24,6 @@ XORG_LIB_XPRINTAPPUTIL_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/li
 XORG_LIB_XPRINTAPPUTIL_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XPRINTAPPUTIL).$(XORG_LIB_XPRINTAPPUTIL_SUFFIX)
 XORG_LIB_XPRINTAPPUTIL_DIR	:= $(BUILDDIR)/$(XORG_LIB_XPRINTAPPUTIL)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

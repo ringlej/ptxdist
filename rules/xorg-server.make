@@ -24,7 +24,6 @@ XORG_SERVER_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/xserver/$(XO
 XORG_SERVER_SOURCE	:= $(SRCDIR)/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
 XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
 
--include $(call package_depfile)
 
 # these are the defaults taken from the xorg server ./configure script
 # FIXME: perhaps make them configurable

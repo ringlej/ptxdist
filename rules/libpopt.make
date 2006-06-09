@@ -25,7 +25,6 @@ LIBPOPT_URL	:= ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.1.x/$(LIBPOPT).$(LIBPOPT_SUF
 LIBPOPT_SOURCE	:= $(SRCDIR)/$(LIBPOPT).$(LIBPOPT_SUFFIX)
 LIBPOPT_DIR	:= $(BUILDDIR)/$(LIBPOPT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

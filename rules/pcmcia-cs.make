@@ -24,7 +24,6 @@ PCMCIA-CS_URL		= $(PTXCONF_SETUP_SFMIRROR)/pcmcia-cs/$(PCMCIA-CS).$(PCMCIA-CS_SU
 PCMCIA-CS_SOURCE	= $(SRCDIR)/$(PCMCIA-CS).$(PCMCIA-CS_SUFFIX)
 PCMCIA-CS_DIR		= $(BUILDDIR)/$(PCMCIA-CS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

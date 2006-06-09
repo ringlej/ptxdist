@@ -24,7 +24,6 @@ INITNG_URL	:= http://download.initng.org/initng/v0.6/$(INITNG).$(INITNG_SUFFIX)
 INITNG_SOURCE	:= $(SRCDIR)/$(INITNG).$(INITNG_SUFFIX)
 INITNG_DIR	:= $(BUILDDIR)/$(INITNG)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

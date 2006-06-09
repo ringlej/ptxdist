@@ -25,7 +25,6 @@ LILO_URL	= http://home.san.rr.com/johninsd/pub/linux/lilo/obsolete/$(LILO).tar.g
 LILO_SOURCE	= $(SRCDIR)/$(LILO).tar.gz
 LILO_DIR	= $(BUILDDIR)/$(LILO)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

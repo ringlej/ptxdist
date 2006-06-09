@@ -24,7 +24,6 @@ XORG_APP_XEYES_URL	:= http://ftp.x.org/pub/X11R7.0/src/app//$(XORG_APP_XEYES).$(
 XORG_APP_XEYES_SOURCE	:= $(SRCDIR)/$(XORG_APP_XEYES).$(XORG_APP_XEYES_SUFFIX)
 XORG_APP_XEYES_DIR	:= $(BUILDDIR)/$(XORG_APP_XEYES)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

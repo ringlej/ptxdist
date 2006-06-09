@@ -24,7 +24,6 @@ RSYNC_URL	= http://samba.anu.edu.au/ftp/rsync/$(RSYNC).$(RSYNC_SUFFIX)
 RSYNC_SOURCE	= $(SRCDIR)/$(RSYNC).$(RSYNC_SUFFIX)
 RSYNC_DIR	= $(BUILDDIR)/$(RSYNC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

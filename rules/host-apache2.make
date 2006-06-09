@@ -19,7 +19,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_APACHE2) += host-apache2
 #
 HOST_APACHE2_DIR	= $(HOST_BUILDDIR)/$(APACHE2)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

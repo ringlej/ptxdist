@@ -24,7 +24,6 @@ HRTIMERS_SUPPORT_URL		:= $(PTXCONF_SETUP_SFMIRROR)/high-res-timers/$(HRTIMERS_SU
 HRTIMERS_SUPPORT_SOURCE		:= $(SRCDIR)/$(HRTIMERS_SUPPORT).$(HRTIMERS_SUPPORT_SUFFIX)
 HRTIMERS_SUPPORT_DIR		:= $(BUILDDIR)/$(HRTIMERS_SUPPORT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

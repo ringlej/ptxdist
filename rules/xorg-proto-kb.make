@@ -24,7 +24,6 @@ XORG_PROTO_KB_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$(XOR
 XORG_PROTO_KB_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_KB).$(XORG_PROTO_KB_SUFFIX)
 XORG_PROTO_KB_DIR	:= $(BUILDDIR)/$(XORG_PROTO_KB)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

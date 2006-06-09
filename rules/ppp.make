@@ -23,7 +23,6 @@ PPP_URL		= ftp://ftp.samba.org/pub/ppp/$(PPP).tar.gz
 PPP_SOURCE	= $(SRCDIR)/$(PPP).tar.gz
 PPP_DIR		= $(BUILDDIR)/$(PPP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

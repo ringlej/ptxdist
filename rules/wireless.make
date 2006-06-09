@@ -23,7 +23,6 @@ WIRELESS_URL		= http://pcmcia-cs.sourceforge.net/ftp/contrib/$(WIRELESS).$(WIREL
 WIRELESS_SOURCE		= $(SRCDIR)/$(WIRELESS).$(WIRELESS_SUFFIX)
 WIRELESS_DIR 		= $(BUILDDIR)/$(WIRELESS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,6 @@ PNETLIB_URL	= http://www.southern-storm.com.au/download/$(PNETLIB).$(PNETLIB_SUF
 PNETLIB_SOURCE	= $(SRCDIR)/$(PNETLIB).$(PNETLIB_SUFFIX)
 PNETLIB_DIR	= $(BUILDDIR)/$(PNETLIB)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

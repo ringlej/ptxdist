@@ -24,7 +24,6 @@ XORG_FONT_MISC_ETHIOPIC_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/f
 XORG_FONT_MISC_ETHIOPIC_SOURCE	:= $(SRCDIR)/$(XORG_FONT_MISC_ETHIOPIC).$(XORG_FONT_MISC_ETHIOPIC_SUFFIX)
 XORG_FONT_MISC_ETHIOPIC_DIR	:= $(BUILDDIR)/$(XORG_FONT_MISC_ETHIOPIC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

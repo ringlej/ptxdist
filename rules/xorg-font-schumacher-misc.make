@@ -24,7 +24,6 @@ XORG_FONT_SCHUMACHER_MISC_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/sr
 XORG_FONT_SCHUMACHER_MISC_SOURCE	:= $(SRCDIR)/$(XORG_FONT_SCHUMACHER_MISC).$(XORG_FONT_SCHUMACHER_MISC_SUFFIX)
 XORG_FONT_SCHUMACHER_MISC_DIR		:= $(BUILDDIR)/$(XORG_FONT_SCHUMACHER_MISC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

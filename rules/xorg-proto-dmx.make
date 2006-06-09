@@ -24,7 +24,6 @@ XORG_PROTO_DMX_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$(XO
 XORG_PROTO_DMX_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_DMX).$(XORG_PROTO_DMX_SUFFIX)
 XORG_PROTO_DMX_DIR	:= $(BUILDDIR)/$(XORG_PROTO_DMX)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

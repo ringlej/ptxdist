@@ -24,7 +24,6 @@ XORG_PROTO_APPLEWM_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto
 XORG_PROTO_APPLEWM_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_APPLEWM).$(XORG_PROTO_APPLEWM_SUFFIX)
 XORG_PROTO_APPLEWM_DIR		:= $(BUILDDIR)/$(XORG_PROTO_APPLEWM)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

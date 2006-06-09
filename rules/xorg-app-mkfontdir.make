@@ -24,7 +24,6 @@ XORG_APP_MKFONTDIR_URL		:= http://ftp.x.org/pub/X11R7.0/src/app/$(XORG_APP_MKFON
 XORG_APP_MKFONTDIR_SOURCE	:= $(SRCDIR)/$(XORG_APP_MKFONTDIR).$(XORG_APP_MKFONTDIR_SUFFIX)
 XORG_APP_MKFONTDIR_DIR		:= $(BUILDDIR)/$(XORG_APP_MKFONTDIR)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

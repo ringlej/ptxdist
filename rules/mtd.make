@@ -24,7 +24,6 @@ MTD_UTILS_URL		= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS_
 MTD_UTILS_SOURCE	= $(SRCDIR)/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_DIR		= $(BUILDDIR)/$(MTD_UTILS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

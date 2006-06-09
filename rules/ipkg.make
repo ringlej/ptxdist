@@ -24,7 +24,6 @@ IPKG_URL		= http://handhelds.org/download/packages/ipkg/$(IPKG).$(IPKG_SUFFIX)
 IPKG_SOURCE		= $(SRCDIR)/$(IPKG).$(IPKG_SUFFIX)
 IPKG_DIR		= $(BUILDDIR)/$(IPKG)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

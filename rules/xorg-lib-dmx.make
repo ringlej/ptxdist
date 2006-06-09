@@ -24,7 +24,6 @@ XORG_LIB_DMX_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_
 XORG_LIB_DMX_SOURCE	:= $(SRCDIR)/$(XORG_LIB_DMX).$(XORG_LIB_DMX_SUFFIX)
 XORG_LIB_DMX_DIR	:= $(BUILDDIR)/$(XORG_LIB_DMX)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

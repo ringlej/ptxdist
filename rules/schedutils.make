@@ -24,7 +24,6 @@ SCHEDUTILS_URL		:= http://rlove.org/schedutils//$(SCHEDUTILS).$(SCHEDUTILS_SUFFI
 SCHEDUTILS_SOURCE		:= $(SRCDIR)/$(SCHEDUTILS).$(SCHEDUTILS_SUFFIX)
 SCHEDUTILS_DIR		:= $(BUILDDIR)/$(SCHEDUTILS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

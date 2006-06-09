@@ -24,7 +24,6 @@ COMMONCPP2_URL		:= $(PTXCONF_SETUP_SFMIRROR)/gnutelephony/$(COMMONCPP2).$(COMMON
 COMMONCPP2_SOURCE	:= $(SRCDIR)/$(COMMONCPP2).$(COMMONCPP2_SUFFIX)
 COMMONCPP2_DIR		:= $(BUILDDIR)/$(COMMONCPP2)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

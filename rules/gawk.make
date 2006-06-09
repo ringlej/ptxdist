@@ -24,7 +24,6 @@ GAWK_URL		= $(PTXCONF_SETUP_GNUMIRROR)/gawk/$(GAWK).$(GAWK_SUFFIX)
 GAWK_SOURCE		= $(SRCDIR)/$(GAWK).$(GAWK_SUFFIX)
 GAWK_DIR		= $(BUILDDIR)/$(GAWK)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

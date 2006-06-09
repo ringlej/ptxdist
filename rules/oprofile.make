@@ -24,7 +24,6 @@ OPROFILE_URL		= $(PTXCONF_SETUP_SFMIRROR)/oprofile/$(OPROFILE).$(OPROFILE_SUFFIX
 OPROFILE_SOURCE		= $(SRCDIR)/$(OPROFILE).$(OPROFILE_SUFFIX)
 OPROFILE_DIR		= $(BUILDDIR)/$(OPROFILE)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

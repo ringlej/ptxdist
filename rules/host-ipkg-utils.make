@@ -24,7 +24,6 @@ HOST_IPKG_UTILS_URL	:= ftp://ftp.handhelds.org/packages/ipkg-utils/$(HOST_IPKG_U
 HOST_IPKG_UTILS_SOURCE	:= $(SRCDIR)/$(HOST_IPKG_UTILS).$(HOST_IPKG_UTILS_SUFFIX)
 HOST_IPKG_UTILS_DIR	:= $(HOST_BUILDDIR)/$(HOST_IPKG_UTILS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

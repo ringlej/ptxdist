@@ -24,7 +24,6 @@ LIBMODBUS_URL		= http://www.pengutronix.de/software/libmodbus/download/v1.0/$(LI
 LIBMODBUS_SOURCE	= $(SRCDIR)/$(LIBMODBUS).$(LIBMODBUS_SUFFIX)
 LIBMODBUS_DIR		= $(BUILDDIR)/$(LIBMODBUS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

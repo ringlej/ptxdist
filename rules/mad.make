@@ -24,7 +24,6 @@ MAD_URL		= ftp://ftp.mars.org/pub/mpeg/archive/$(MAD).$(MAD_SUFFIX)
 MAD_SOURCE	= $(SRCDIR)/$(MAD).$(MAD_SUFFIX)
 MAD_DIR		= $(BUILDDIR)/$(MAD)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

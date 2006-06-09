@@ -24,7 +24,6 @@ BIND_URL	= ftp://ftp.isc.org/isc/bind9/$(BIND_VERSION)/$(BIND).$(BIND_SUFFIX)
 BIND_SOURCE	= $(SRCDIR)/$(BIND).$(BIND_SUFFIX)
 BIND_DIR	= $(BUILDDIR)/$(BIND)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

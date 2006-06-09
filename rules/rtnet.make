@@ -27,7 +27,6 @@ RTNET_SOURCE	= $(SRCDIR)/$(RTNET).$(RTNET_SUFFIX)
 RTNET_DIR	= $(BUILDDIR)/$(RTNET)
 RTNET_MODULEDIR	= $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)-adeos/kernel/drivers
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

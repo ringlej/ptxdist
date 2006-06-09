@@ -25,7 +25,6 @@ CROSS_NASM_URL		:= $(PTXCONF_SETUP_SFMIRROR)/nasm/$(CROSS_NASM).$(CROSS_NASM_SUF
 CROSS_NASM_SOURCE	:= $(SRCDIR)/$(CROSS_NASM).$(CROSS_NASM_SUFFIX)
 CROSS_NASM_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_NASM)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

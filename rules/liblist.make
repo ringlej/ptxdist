@@ -24,7 +24,6 @@ LIBLIST_URL		= http://www.pengutronix.de/software/liblist/download/$(LIBLIST).$(
 LIBLIST_SOURCE		= $(SRCDIR)/$(LIBLIST).$(LIBLIST_SUFFIX)
 LIBLIST_DIR		= $(BUILDDIR)/$(LIBLIST)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,6 @@ HOST_FAKEROOT_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/fak
 HOST_FAKEROOT_SOURCE	= $(SRCDIR)/fakeroot_$(HOST_FAKEROOT_VERSION).$(HOST_FAKEROOT_SUFFIX)
 HOST_FAKEROOT_DIR	= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

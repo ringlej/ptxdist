@@ -24,7 +24,6 @@ PCIUTILS_URL		:= ftp://ftp.kernel.org/pub/software/utils/pciutils/$(PCIUTILS).$(
 PCIUTILS_SOURCE		:= $(SRCDIR)/$(PCIUTILS).$(PCIUTILS_SUFFIX)
 PCIUTILS_DIR		:= $(BUILDDIR)/$(PCIUTILS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,6 @@ E2FSPROGS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_S
 E2FSPROGS_SOURCE	:= $(SRCDIR)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
 E2FSPROGS_DIR		:= $(BUILDDIR)/$(E2FSPROGS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

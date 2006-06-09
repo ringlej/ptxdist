@@ -24,7 +24,6 @@ HOST_SLIRP_URL		= $(PTXCONF_SETUP_SFMIRROR)/slirp/$(HOST_SLIRP).$(HOST_SLIRP_SUF
 HOST_SLIRP_SOURCE	= $(SRCDIR)/$(HOST_SLIRP).$(HOST_SLIRP_SUFFIX)
 HOST_SLIRP_DIR		= $(HOST_BUILDDIR)/$(HOST_SLIRP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,6 @@ XORG_LIB_XRES_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG
 XORG_LIB_XRES_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XRES).$(XORG_LIB_XRES_SUFFIX)
 XORG_LIB_XRES_DIR	:= $(BUILDDIR)/$(XORG_LIB_XRES)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

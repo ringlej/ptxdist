@@ -24,7 +24,6 @@ XORG_PROTO_XINERAMA_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/prot
 XORG_PROTO_XINERAMA_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XINERAMA).$(XORG_PROTO_XINERAMA_SUFFIX)
 XORG_PROTO_XINERAMA_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XINERAMA)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

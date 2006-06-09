@@ -24,7 +24,6 @@ LIBPCAP_URL	:= http://www.tcpdump.org/release/$(LIBPCAP).$(LIBPCAP_SUFFIX)
 LIBPCAP_SOURCE	:= $(SRCDIR)/$(LIBPCAP).$(LIBPCAP_SUFFIX)
 LIBPCAP_DIR	:= $(BUILDDIR)/$(LIBPCAP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

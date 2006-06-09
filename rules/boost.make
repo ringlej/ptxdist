@@ -24,7 +24,6 @@ BOOST_URL	:= $(PTXCONF_SETUP_SFMIRROR)/boost/$(BOOST).$(BOOST_SUFFIX)
 BOOST_SOURCE	:= $(SRCDIR)/$(BOOST).$(BOOST_SUFFIX)
 BOOST_DIR	:= $(BUILDDIR)/$(BOOST)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

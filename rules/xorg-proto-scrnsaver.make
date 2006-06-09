@@ -24,7 +24,6 @@ XORG_PROTO_SCRNSAVER_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/prot
 XORG_PROTO_SCRNSAVER_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_SCRNSAVER).$(XORG_PROTO_SCRNSAVER_SUFFIX)
 XORG_PROTO_SCRNSAVER_DIR	:= $(BUILDDIR)/$(XORG_PROTO_SCRNSAVER)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

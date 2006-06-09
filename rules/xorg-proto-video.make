@@ -24,7 +24,6 @@ XORG_PROTO_VIDEO_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$(
 XORG_PROTO_VIDEO_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_VIDEO).$(XORG_PROTO_VIDEO_SUFFIX)
 XORG_PROTO_VIDEO_DIR	:= $(BUILDDIR)/$(XORG_PROTO_VIDEO)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

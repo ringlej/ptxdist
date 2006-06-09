@@ -24,7 +24,6 @@ NMAP_URL		= http://freshmeat.net/redir/nmap/7202/url_bz2/$(NMAP).$(NMAP_SUFFIX)
 NMAP_SOURCE		= $(SRCDIR)/$(NMAP).$(NMAP_SUFFIX)
 NMAP_DIR		= $(BUILDDIR)/$(NMAP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

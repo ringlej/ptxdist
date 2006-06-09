@@ -24,7 +24,6 @@ BLUEZ_UTILS_URL		= http://bluez.sf.net/download/$(BLUEZ_UTILS).$(BLUEZ_UTILS_SUF
 BLUEZ_UTILS_SOURCE	= $(SRCDIR)/$(BLUEZ_UTILS).$(BLUEZ_UTILS_SUFFIX)
 BLUEZ_UTILS_DIR		= $(BUILDDIR)/$(BLUEZ_UTILS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

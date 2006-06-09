@@ -24,7 +24,6 @@ KONQ_E_URL		= http://devel-home.kde.org/~hausmann/snapshots/$(KONQ_E).$(KONQ_E_S
 KONQ_E_SOURCE		= $(SRCDIR)/$(KONQ_E).$(KONQ_E_SUFFIX)
 KONQ_E_DIR		= $(BUILDDIR)/$(KONQ_E)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

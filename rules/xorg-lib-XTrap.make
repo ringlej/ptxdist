@@ -24,7 +24,6 @@ XORG_LIB_XTRAP_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XOR
 XORG_LIB_XTRAP_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XTRAP).$(XORG_LIB_XTRAP_SUFFIX)
 XORG_LIB_XTRAP_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTRAP)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

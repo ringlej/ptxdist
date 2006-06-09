@@ -24,7 +24,6 @@ XORG_PROTO_RENDER_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/
 XORG_PROTO_RENDER_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_RENDER).$(XORG_PROTO_RENDER_SUFFIX)
 XORG_PROTO_RENDER_DIR		:= $(BUILDDIR)/$(XORG_PROTO_RENDER)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

@@ -24,7 +24,6 @@ CHRONY_URL	:= http://chrony.sunsite.dk/download/$(CHRONY).$(CHRONY_SUFFIX)
 CHRONY_SOURCE	:= $(SRCDIR)/$(CHRONY).$(CHRONY_SUFFIX)
 CHRONY_DIR	:= $(BUILDDIR)/$(CHRONY)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

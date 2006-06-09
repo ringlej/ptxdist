@@ -24,7 +24,6 @@ FLTK_URL	= ftp://ftp.easysw.com/pub/fltk/$(FLTK_VERSION)/$(FLTK)-$(FLTK_SUFFIX)
 FLTK_SOURCE	= $(SRCDIR)/$(FLTK)-$(FLTK_SUFFIX)
 FLTK_DIR	= $(BUILDDIR)/$(FLTK)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

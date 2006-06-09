@@ -24,7 +24,6 @@ FONTCONFIG_URL		:= http://fontconfig.org/release/$(FONTCONFIG).$(FONTCONFIG_SUFF
 FONTCONFIG_SOURCE	:= $(SRCDIR)/$(FONTCONFIG).$(FONTCONFIG_SUFFIX)
 FONTCONFIG_DIR		:= $(BUILDDIR)/$(FONTCONFIG)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

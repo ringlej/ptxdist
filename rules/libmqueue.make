@@ -24,7 +24,6 @@ LIBMQUEUE_URL		:= http://www.geocities.com/wronski12/posix_ipc/$(LIBMQUEUE).$(LI
 LIBMQUEUE_SOURCE	:= $(SRCDIR)/$(LIBMQUEUE).$(LIBMQUEUE_SUFFIX)
 LIBMQUEUE_DIR		:= $(BUILDDIR)/$(LIBMQUEUE)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

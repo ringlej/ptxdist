@@ -24,7 +24,6 @@ XORG_PROTO_XF86VIDMODE_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/pr
 XORG_PROTO_XF86VIDMODE_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86VIDMODE).$(XORG_PROTO_XF86VIDMODE_SUFFIX)
 XORG_PROTO_XF86VIDMODE_DIR	:= $(BUILDDIR)/$(XORG_PROTO_XF86VIDMODE)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

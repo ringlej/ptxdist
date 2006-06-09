@@ -24,7 +24,6 @@ XORG_LIB_XRANDR_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XO
 XORG_LIB_XRANDR_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XRANDR).$(XORG_LIB_XRANDR_SUFFIX)
 XORG_LIB_XRANDR_DIR	:= $(BUILDDIR)/$(XORG_LIB_XRANDR)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

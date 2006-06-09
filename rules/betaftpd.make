@@ -24,7 +24,6 @@ BETAFTPD_URL		= $(PTXCONF_SETUP_SFMIRROR)/betaftpd/$(BETAFTPD).$(BETAFTPD_SUFFIX
 BETAFTPD_SOURCE		= $(SRCDIR)/$(BETAFTPD).$(BETAFTPD_SUFFIX)
 BETAFTPD_DIR		= $(BUILDDIR)/$(BETAFTPD)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

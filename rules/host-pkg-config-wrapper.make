@@ -22,7 +22,6 @@ HOST_PKG_CONFIG_WRAPPER		= pkg-config-wrapper-$(HOST_PKG_CONFIG_WRAPPER_VERSION)
 HOST_PKG_CONFIG_WRAPPER_SUFFIX	= 
 HOST_PKG_CONFIG_WRAPPER_DIR	= $(HOST_BUILDDIR)/$(HOST_PKG_CONFIG_WRAPPER)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

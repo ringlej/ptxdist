@@ -24,7 +24,6 @@ HOST_MICO_URL		= $(MICO_URL)
 HOST_MICO_SOURCE	= $(SRCDIR)/$(HOST_MICO).$(HOST_MICO_SUFFIX)
 HOST_MICO_DIR		= $(HOST_BUILDDIR)/$(HOST_MICO)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

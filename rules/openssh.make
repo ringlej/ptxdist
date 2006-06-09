@@ -23,7 +23,6 @@ OPENSSH_URL 		= ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).ta
 OPENSSH_SOURCE		= $(SRCDIR)/$(OPENSSH).tar.gz
 OPENSSH_DIR 		= $(BUILDDIR)/$(OPENSSH)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

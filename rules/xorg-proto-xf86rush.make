@@ -24,7 +24,6 @@ XORG_PROTO_XF86RUSH_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/prot
 XORG_PROTO_XF86RUSH_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86RUSH).$(XORG_PROTO_XF86RUSH_SUFFIX)
 XORG_PROTO_XF86RUSH_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XF86RUSH)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

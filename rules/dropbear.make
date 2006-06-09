@@ -25,7 +25,6 @@ DROPBEAR_URL			= http://matt.ucc.asn.au/dropbear/releases/$(DROPBEAR).$(DROPBEAR
 DROPBEAR_SOURCE			= $(SRCDIR)/$(DROPBEAR).$(DROPBEAR_SUFFIX)
 DROPBEAR_DIR			= $(BUILDDIR)/$(DROPBEAR)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

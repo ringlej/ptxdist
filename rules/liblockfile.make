@@ -24,7 +24,6 @@ LIBLOCKFILE_URL		:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/libl/liblockfile/$(LIBL
 LIBLOCKFILE_SOURCE	:= $(SRCDIR)/$(LIBLOCKFILE).$(LIBLOCKFILE_SUFFIX)
 LIBLOCKFILE_DIR		:= $(BUILDDIR)/liblockfile-$(LIBLOCKFILE_VERSION)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

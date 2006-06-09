@@ -24,7 +24,6 @@ XORG_FONT_BH_LUCIDATYPEWRITER_75DPI_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/
 XORG_FONT_BH_LUCIDATYPEWRITER_75DPI_SOURCE	:= $(SRCDIR)/$(XORG_FONT_BH_LUCIDATYPEWRITER_75DPI).$(XORG_FONT_BH_LUCIDATYPEWRITER_75DPI_SUFFIX)
 XORG_FONT_BH_LUCIDATYPEWRITER_75DPI_DIR		:= $(BUILDDIR)/$(XORG_FONT_BH_LUCIDATYPEWRITER_75DPI)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

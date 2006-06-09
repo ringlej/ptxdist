@@ -24,7 +24,6 @@ XORG_PROTO_FONTS_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto/$
 XORG_PROTO_FONTS_SOURCE		:= $(SRCDIR)/$(XORG_PROTO_FONTS).$(XORG_PROTO_FONTS_SUFFIX)
 XORG_PROTO_FONTS_DIR		:= $(BUILDDIR)/$(XORG_PROTO_FONTS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

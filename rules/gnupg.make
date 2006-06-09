@@ -24,7 +24,6 @@ GNUPG_URL	= ftp://ftp.gnupg.org/gcrypt/gnupg/$(GNUPG).$(GNUPG_SUFFIX)
 GNUPG_SOURCE	= $(SRCDIR)/$(GNUPG).$(GNUPG_SUFFIX)
 GNUPG_DIR	= $(BUILDDIR)/$(GNUPG)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

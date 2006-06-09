@@ -25,7 +25,6 @@ SSMTP_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP_SRC)
 SSMTP_SOURCE		= $(SRCDIR)/$(SSMTP_SRC)
 SSMTP_DIR		= $(BUILDDIR)/ssmtp-$(SSMTP_VERSION)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

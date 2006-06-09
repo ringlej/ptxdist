@@ -24,7 +24,6 @@ CPPUNIT_URL	= $(PTXCONF_SETUP_SFMIRROR)/cppunit/$(CPPUNIT).$(CPPUNIT_SUFFIX)
 CPPUNIT_SOURCE	= $(SRCDIR)/$(CPPUNIT).$(CPPUNIT_SUFFIX)
 CPPUNIT_DIR	= $(BUILDDIR)/$(CPPUNIT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

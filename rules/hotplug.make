@@ -24,7 +24,6 @@ HOTPLUG_URL		= $(PTXCONF_SETUP_SFMIRROR)/linux-hotplug/$(HOTPLUG).$(HOTPLUG_SUFF
 HOTPLUG_SOURCE		= $(SRCDIR)/$(HOTPLUG).$(HOTPLUG_SUFFIX)
 HOTPLUG_DIR		= $(BUILDDIR)/$(HOTPLUG)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

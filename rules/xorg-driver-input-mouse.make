@@ -24,7 +24,6 @@ XORG_DRIVER_INPUT_MOUSE_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/d
 XORG_DRIVER_INPUT_MOUSE_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_INPUT_MOUSE).$(XORG_DRIVER_INPUT_MOUSE_SUFFIX)
 XORG_DRIVER_INPUT_MOUSE_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_INPUT_MOUSE)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

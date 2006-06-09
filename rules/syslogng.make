@@ -24,7 +24,6 @@ SYSLOGNG_URL		= http://www.balabit.com/downloads/syslog-ng/1.9/src/$(SYSLOGNG).$
 SYSLOGNG_SOURCE		= $(SRCDIR)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
 SYSLOGNG_DIR		= $(BUILDDIR)/$(SYSLOGNG)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

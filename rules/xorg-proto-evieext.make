@@ -24,7 +24,6 @@ XORG_PROTO_EVIEEXT_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/proto
 XORG_PROTO_EVIEEXT_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_EVIEEXT).$(XORG_PROTO_EVIEEXT_SUFFIX)
 XORG_PROTO_EVIEEXT_DIR		:= $(BUILDDIR)/$(XORG_PROTO_EVIEEXT)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

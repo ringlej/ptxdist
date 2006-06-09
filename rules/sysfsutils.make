@@ -24,7 +24,6 @@ SYSFSUTILS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/linux-diag/$(SYSFSUTILS).$(SYSFSUTI
 SYSFSUTILS_SOURCE	:= $(SRCDIR)/$(SYSFSUTILS).$(SYSFSUTILS_SUFFIX)
 SYSFSUTILS_DIR		:= $(BUILDDIR)/$(SYSFSUTILS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

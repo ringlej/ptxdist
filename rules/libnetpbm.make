@@ -24,7 +24,6 @@ LIBNETPBM_URL		= $(PTXCONF_SETUP_SFMIRROR)/netpbm/$(LIBNETPBM).$(LIBNETPBM_SUFFI
 LIBNETPBM_SOURCE	= $(SRCDIR)/$(LIBNETPBM).$(LIBNETPBM_SUFFIX)
 LIBNETPBM_DIR		= $(BUILDDIR)/$(LIBNETPBM)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

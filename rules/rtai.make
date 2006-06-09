@@ -33,7 +33,6 @@ RTAI_BUILDDIR		= $(BUILDDIR)/$(RTAI)-build
 RTAI_MODULEDIR		= $(ROOTDIR)/lib/modules/$(KERNEL_VERSION)-adeos/kernel/drivers
 RTAI_PATCH		= $(RTAI_DIR)/patches/patch-$(KERNEL_VERSION)-$(RTAI_TECH)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

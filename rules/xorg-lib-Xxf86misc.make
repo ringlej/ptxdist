@@ -24,7 +24,6 @@ XORG_LIB_XXF86MISC_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//
 XORG_LIB_XXF86MISC_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XXF86MISC).$(XORG_LIB_XXF86MISC_SUFFIX)
 XORG_LIB_XXF86MISC_DIR		:= $(BUILDDIR)/$(XORG_LIB_XXF86MISC)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

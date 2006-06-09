@@ -19,7 +19,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_PYTHON24) += host-python24
 #
 HOST_PYTHON24_DIR	= $(HOST_BUILDDIR)/$(PYTHON24)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

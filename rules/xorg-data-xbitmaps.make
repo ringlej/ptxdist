@@ -24,7 +24,6 @@ XORG_DATA_XBITMAPS_URL		:= http://ftp.x.org/pub/X11R7.0/src/data/$(XORG_DATA_XBI
 XORG_DATA_XBITMAPS_SOURCE	:= $(SRCDIR)/$(XORG_DATA_XBITMAPS).$(XORG_DATA_XBITMAPS_SUFFIX)
 XORG_DATA_XBITMAPS_DIR		:= $(BUILDDIR)/$(XORG_DATA_XBITMAPS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get

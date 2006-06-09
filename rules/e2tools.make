@@ -26,7 +26,6 @@ HOST_E2TOOLS_URL	= http://home.earthlink.net/~k_sheff/sw/e2tools/$(HOST_E2TOOLS)
 HOST_E2TOOLS_SOURCE	= $(SRCDIR)/$(HOST_E2TOOLS).$(HOST_E2TOOLS_SUFFIX)
 HOST_E2TOOLS_DIR	= $(BUILDDIR)/$(E2TOOLS)
 
--include $(call package_depfile)
 
 # ----------------------------------------------------------------------------
 # Get
