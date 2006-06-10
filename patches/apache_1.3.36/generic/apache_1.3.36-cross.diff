@@ -1,7 +1,8 @@
-diff -urN apache_1.3.34/src/main/Makefile.tmpl apache_1.3.34-ptx/src/main/Makefile.tmpl
---- apache_1.3.34/src/main/Makefile.tmpl	2004-11-24 20:10:19.000000000 +0100
-+++ apache_1.3.34-ptx/src/main/Makefile.tmpl	2006-01-03 11:25:23.000000000 +0100
-@@ -32,14 +32,14 @@
+Index: src/main/Makefile.tmpl
+===================================================================
+--- a/src/main/Makefile.tmpl.orig
++++ b/src/main/Makefile.tmpl
+@@ -32,14 +32,14 @@ distclean: clean
  uri_delims.h: gen_uri_delims
  	./gen_uri_delims >uri_delims.h
  
@@ -20,10 +21,11 @@ diff -urN apache_1.3.34/src/main/Makefile.tmpl apache_1.3.34-ptx/src/main/Makefi
  
  # We really don't expect end users to use this rule.  It works only with
  # gcc, and rebuilds Makefile.tmpl.  You have to re-run Configure after
-diff -urN apache_1.3.34/src/support/apxs.pl apache_1.3.34-ptx/src/support/apxs.pl
---- apache_1.3.34/src/support/apxs.pl	2004-11-24 20:10:19.000000000 +0100
-+++ apache_1.3.34-ptx/src/support/apxs.pl	2006-01-03 11:25:23.000000000 +0100
-@@ -190,13 +190,13 @@
+Index: src/support/apxs.pl
+===================================================================
+--- a/src/support/apxs.pl.orig
++++ b/src/support/apxs.pl
+@@ -190,13 +190,13 @@ if (not -x "$CFG_SBINDIR/$CFG_TARGET") {
      print STDERR "apxs:Error: $CFG_SBINDIR/$CFG_TARGET not found or not executable\n";
      exit(1);
  }
