@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# find out which version of busybox we have; this is taken from the name
+# of this directory
+
+bb_version=$(echo $(basename $(pwd)) | sed -e "s/busybox-//g")
+
+#
+# first extract all configuration files from the original source tree
+#
+
+for cfgfile in $(find ../../build-target/busybox*/ -name "Config.in"); do 
+	new_cfgfile=$(echo $cfgfile | sed -e "s~../../build-target/busybox-${bb_version}~\.~g")
+	dir=$(echo $new_cfgfile | sed -e "s~Config\.in~~g")
+	mkdir -p $dir
+	../../scripts/mkprefix -v -p BB_ < $cfgfile > $new_cfgfile
+done
+
+#
+# fix some entries 
+# 
+
+echo "---------------------------------------------------------------------\n";
+echo "Fixing some stuff...\n";
+echo "---------------------------------------------------------------------\n";
+
+for cfgfile in $(find . -name "Config.in"); do 
+
+	sed -i -e "s/^source \(.*\)/source config\/busybox-${bb_version}\/\1/g" $cfgfile
+	sed -i -e "s/^mainmenu \(.*$\)/# mainmenu \1/g" $cfgfile
+	sed -i -e "s/^\(menu .*\)$/\1\n  depends on BUSYBOX/g" $cfgfile
+
+done
+

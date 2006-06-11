@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION		= 1.1.0
+BUSYBOX_VERSION		= 1.1.3
 BUSYBOX			= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX		= tar.bz2
 BUSYBOX_URL		= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
@@ -50,10 +50,6 @@ $(STATEDIR)/busybox.extract: $(busybox_extract_deps_default)
 	@$(call clean, $(BUSYBOX_DIR))
 	@$(call extract, BUSYBOX)
 	@$(call patchin, BUSYBOX)
-
-#	# fix: turn off debugging in init.c
-	perl -i -p -e 's/^#define DEBUG_INIT/#undef DEBUG_INIT/g' $(BUSYBOX_DIR)/init/init.c
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
