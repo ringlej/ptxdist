@@ -9,8 +9,6 @@
 # see the README file.
 #
 
-# FIXME: RSC: ipkgize
-
 #
 # We provide this package
 #
@@ -19,7 +17,7 @@ PACKAGES-$(PTXCONF_BRIDGE_UTILS) += bridge-utils
 #
 # Paths and names
 #
-BRIDGE_UTILS_VERSION	= 1.0.4
+BRIDGE_UTILS_VERSION	= 1.1
 BRIDGE_UTILS		= bridge-utils-$(BRIDGE_UTILS_VERSION)
 BRIDGE_UTILS_SUFFIX	= tar.gz
 BRIDGE_UTILS_URL	= $(PTXCONF_SETUP_SFMIRROR)/bridge/$(BRIDGE_UTILS).$(BRIDGE_UTILS_SUFFIX)
@@ -95,8 +93,7 @@ bridge-utils_install: $(STATEDIR)/bridge-utils.install
 
 $(STATEDIR)/bridge-utils.install: $(bridge-utils_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME
-	#@$(call install, APACHE2)
+	@$(call install, BRIDGE_UTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -107,7 +104,17 @@ bridge-utils_targetinstall: $(STATEDIR)/bridge-utils.targetinstall
 
 $(STATEDIR)/bridge-utils.targetinstall: $(bridge-utils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-	cd $(BRIDGE_UTILS_DIR) && $(BRIDGE_UTILS_ENV) $(BRIDGE_UTILS_PATH) make prefix=$(ROOTDIR) install
+
+	@$(call install_init,   bridge-utils)
+	@$(call install_fixup,  bridge-utils,PACKAGE,bridge-utils)
+	@$(call install_fixup,  bridge-utils,PRIORITY,optional)
+	@$(call install_fixup,  bridge-utils,VERSION,$(BRIDGE_UTILS_VERSION))
+	@$(call install_fixup,  bridge-utils,SECTION,base)
+	@$(call install_fixup,  bridge-utils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,  bridge-utils,DEPENDS,)
+	@$(call install_fixup,  bridge-utils,DESCRIPTION,missing)
+	@$(call install_copy,   bridge-utils, 0, 0, 0755, $(BRIDGE_UTILS_DIR)/brctl/brctl, /usr/sbin/brctl)
+	@$(call install_finish, bridge-utils)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
