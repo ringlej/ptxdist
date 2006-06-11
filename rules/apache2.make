@@ -128,7 +128,6 @@ apache2_install: $(STATEDIR)/apache2.install
 
 $(STATEDIR)/apache2.install: $(apache2_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, APACHE2)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
