@@ -112,8 +112,6 @@ bind_install: $(STATEDIR)/bind.install
 
 $(STATEDIR)/bind.install: $(bind_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME: RSC: is it right that we only install and do not targetinstall? 
-	@$(call install, BIND)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -124,6 +122,7 @@ bind_targetinstall: $(STATEDIR)/bind.targetinstall
 
 $(STATEDIR)/bind.targetinstall: $(bind_targetinstall_deps_default)
 	@$(call targetinfo, $@)
+	# FIXME: do something here ...
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
