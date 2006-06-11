@@ -1,8 +1,8 @@
 config CYCLICTEST
 	bool
-	prompt "CYCLICTEST    "
+	prompt "cyclictest    "
 	help
-	  CYCLICTEST is a testprogram for high resolution timers
+	  cyclictest is a testprogram for high resolution timers.
 	  
 	  See also: http://www.tglx.de/projects/misc/cyclictest/
 

@@ -221,6 +221,7 @@ endmenu
 
 menu "Test Suites                 "
 depends on BUILD_USERLAND
+source "rules/cyclictest.in"
 source "rules/host-pelts.in"
 source "rules/tests.in"
 endmenu
@@ -229,7 +230,6 @@ menu "Broken or orphaned Packages "
 depends on BROKEN
 source "rules/at-spi.in"
 source "rules/cfgsh.in"
-source "rules/cyclictest.in"
 source "rules/dialog.in"
 source "rules/e2tools.in"
 source "rules/flex.in"
