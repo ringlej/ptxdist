@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_ALSA_UTILS) += alsa-utils
 #
 # Paths and names
 #
-ALSA_UTILS_VERSION	:= 1.0.10
+ALSA_UTILS_VERSION	:= 1.0.11
 ALSA_UTILS		:= alsa-utils-$(ALSA_UTILS_VERSION)
 ALSA_UTILS_SUFFIX	:= tar.bz2
 ALSA_UTILS_URL		:= ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX)
@@ -93,7 +93,6 @@ alsa-utils_install: $(STATEDIR)/alsa-utils.install
 
 $(STATEDIR)/alsa-utils.install: $(alsa-utils_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, ALSA_UTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
