@@ -110,28 +110,28 @@ endif
 # athlon-mp
 #
 ifdef PTXCONF_ARCH_X86
-ifdef OPT_I386
+ifdef PTXCONF_OPT_I386
 # this is the default, if no "--with-arch" was given
 CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=i386"
 endif
 
-ifdef OPT_I586
-CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=i586"
-endif
-
-ifdef OPT_I486
+ifdef PTXCONF_OPT_I486
 CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=i486"
 endif
 
-ifdef OPT_I686
+ifdef PTXCONF_OPT_I586
+CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=i586"
+endif
+
+ifdef PTXCONF_OPT_I686
 CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=i686"
 endif
 
-ifdef OPT_P2
+ifdef PTXCONF_OPT_P2
 CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=pentium2"
 endif
 
-ifdef OPT_P3M
+ifdef PTXCONF_OPT_P3M
 CROSSTOOL_GCC_EXTRA_CONFIG	= "--with-arch=pentium3"
 endif
 
@@ -159,7 +159,7 @@ endif
 endif
 
 #
-# Environment 
+# Environment
 #
 CROSSTOOL_ENV	=  export ptx_http_proxy=$(PTXCONF_SETUP_HTTP_PROXY); \
 	export ptx_ftp_proxy=$(PTXCONF_SETUP_FTP_PROXY); \
