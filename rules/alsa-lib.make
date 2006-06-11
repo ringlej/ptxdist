@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_ALSA_LIB) += alsa-lib
 #
 # Paths and names
 #
-ALSA_LIB_VERSION	:= 1.0.10
+ALSA_LIB_VERSION	:= 1.0.11
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
 ALSA_LIB_SUFFIX		:= tar.bz2
 ALSA_LIB_URL		:= ftp://ftp.alsa-project.org/pub/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
