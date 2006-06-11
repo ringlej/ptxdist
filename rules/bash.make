@@ -211,7 +211,6 @@ bash_install: $(STATEDIR)/bash.install
 
 $(STATEDIR)/bash.install: $(bash_install_deps_default)
 	@$(call targetinfo, $@)
-	#@$(call install, BASH)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
