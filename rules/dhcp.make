@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_DHCP) += dhcp
 #
 # Paths and names
 #
-DHCP_VERSION	= 3.0.3
+DHCP_VERSION	= 3.0.4
 DHCP		= dhcp-$(DHCP_VERSION)
 DHCP_SUFFIX	= tar.gz
 DHCP_URL	= ftp://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX)
