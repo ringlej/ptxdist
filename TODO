@@ -62,6 +62,8 @@ Test suite components to be added
 Current TODO List
 =================
 
+[ ] bump bluez-utils/libs to 3.0 (needs dbus)
+
 [ ] port scripts/mkprefix to non-perl
 
 [ ] ptxdist arch <arm|um|ppc|....>
