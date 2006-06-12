@@ -12,13 +12,13 @@
 PACKAGES-$(PTXCONF_KERNEL_COMPILE) += kernel
 
 ifdef NATIVE
-KERNEL_CONFIG		:= $(PTXDIST_WORKSPACE)/kernelconfig.native
+KERNEL_CONFIG		:= $(PTXDIST_WORKSPACE)/$(call remove_quotes, $(PTXCONF_KERNEL_NATIVE_CONFIG))
 KERNEL_VERSION		:= $(call remove_quotes, $(PTXCONF_KERNEL_NATIVE_VERSION))
 KERNEL_VERSION_MAJOR	:= $(KERNEL_NATIVE_VERSION_MAJOR)
 KERNEL_VERSION_MINOR	:= $(KERNEL_NATIVE_VERSION_MINOR)
 KERNEL_SERIES		:= $(PTXDIST_WORKSPACE)/kernel-patches-native/$(PTXCONF_KERNEL_NATIVE_SERIES)
 else
-KERNEL_CONFIG		:= $(PTXDIST_WORKSPACE)/kernelconfig.target
+KERNEL_CONFIG		:= $(PTXDIST_WORKSPACE)/$(call remove_quotes, $(PTXCONF_KERNEL_TARGET_CONFIG))
 KERNEL_VERSION		:= $(call remove_quotes, $(PTXCONF_KERNEL_TARGET_VERSION))
 KERNEL_VERSION_MAJOR	:= $(KERNEL_TARGET_VERSION_MAJOR)
 KERNEL_VERSION_MINOR	:= $(KERNEL_TARGET_VERSION_MINOR)
@@ -73,18 +73,10 @@ endif
 
 kernel_menuconfig: $(STATEDIR)/kernel.extract
 
-ifdef NATIVE
-	cp $(PTXDIST_WORKSPACE)/kernelconfig.native $(KERNEL_DIR)/.config
-else
-	cp $(PTXDIST_WORKSPACE)/kernelconfig.target $(KERNEL_DIR)/.config
-endif
+	cp $(KERNEL_CONFIG) $(KERNEL_DIR)/.config
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make menuconfig $(KERNEL_MAKEVARS)
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make silentoldconfig $(KERNEL_MAKEVARS)
-ifdef NATIVE
-	cp $(KERNEL_DIR)/.config $(PTXDIST_WORKSPACE)/kernelconfig.native
-else
-	cp $(KERNEL_DIR)/.config $(PTXDIST_WORKSPACE)/kernelconfig.target
-endif
+	cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG)
 	@if [ -f $(STATEDIR)/kernel.compile ]; then \
 		rm $(STATEDIR)/kernel.compile; \
 	fi

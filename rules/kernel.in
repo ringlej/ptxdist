@@ -59,6 +59,13 @@ config KERNEL_TARGET_SERIES
 	  The series file contains lines with names of patch files which
 	  are then being applied to the kernel.  
 
+config KERNEL_TARGET_CONFIG
+	prompt "target kernel config file"
+	string
+	default "kernelconfig.target"
+	help
+	  tris entry specifies the .config file used to compile your kernel
+
 # ----------------------------------------------------------------------------
 
 comment "Target Kernel Options"
@@ -116,6 +123,13 @@ config KERNEL_NATIVE_SERIES
 
 	  The series file contains lines with names of patch files which
 	  are then being applied to the kernel.  
+
+config KERNEL_NATIVE_CONFIG
+	prompt "native kernel config file"
+	string
+	default "kernelconfig.native"
+	help
+	  tris entry specifies the .config file used to compile your kernel
 
 # ----------------------------------------------------------------------------
 
