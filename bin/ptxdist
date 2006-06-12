@@ -197,28 +197,45 @@ check_dirs() {
 		ptxconf_prefix=$PREFIX
 	fi
 
-	testfile=${ptxconf_prefix}/.secret-world-domination-project
-	touch ${testfile} 2> /dev/null
-	if test $? -eq 1; then
-		echo
-		echo "error: ${ptxconf_prefix} does not exists and cannot be created!"
-		echo "       please create that dir with write permissions for you"
-		echo
-		read -t 5 -p "press enter to use sudo to create it"
-		if test $? -eq 1; then
+	if test -d ${ptxconf_prefix}; then
+	    	testfile=${ptxconf_prefix}/.secret-world-domination-project
+		touch ${testfile} 2> /dev/null
+		if test $? -ne 0; then
 			echo
-			exit 1
+			echo "error: \"${ptxconf_prefix}\""
+			echo "       does exists, but is not writeabel."
+			echo "       Change the permission and try again."
+			echo
+			read -t 5 -p "press enter to let sudo to the job!"
+			if test $? -ne 0; then
+				echo
+				exit 1
+			fi
+			echo
+			echo sudo chown $UID ${ptxconf_prefix}
+			sudo chown $UID ${ptxconf_prefix}
 		fi
-		echo
-		echo sudo mkdir -p ${ptxconf_prefix}
-		sudo mkdir -p ${ptxconf_prefix}
-		echo
-		echo sudo chown $UID ${ptxconf_prefix}
-		sudo chown $UID ${ptxconf_prefix}
-		echo
-		echo Thanks
+	else
+		mkdir -p ${ptxconf_prefix} 2> /dev/null
+		if test $? -ne 0; then
+			echo
+			echo "error: \"${ptxconf_prefix}\""
+			echo "       does not exists and cannot be created!"
+			echo "       Please create that dir with write permissions for you."
+			echo
+			read -t 5 -p "press enter to let sudo do that job!"
+			if test $? -ne 0; then
+				echo
+				exit 1
+			fi
+			echo
+			echo sudo mkdir -p ${ptxconf_prefix}
+			sudo mkdir -p ${ptxconf_prefix}
+			echo
+			echo sudo chown $UID ${ptxconf_prefix}
+			sudo chown $UID ${ptxconf_prefix}
+		fi
 	fi
-	rm -f ${testfile}
 
 	ptxconf_gnu_target=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
 
@@ -433,7 +450,7 @@ newpacket () {
 	echo -n "${PROMPT}enter suffix............: "
 	read SUFFIX
 	YEAR=`date +%Y`
-	PACKET_NAME="`echo | tr - _`"
+	PACKET_NAME="`echo $PACKET_NAME| tr - _`"
 	packet=`echo $PACKET_NAME | tr "[A-Z]" "[a-z]"`
 	PACKET=`echo $PACKET_NAME | tr "[a-z]" "[A-Z]"`
 
