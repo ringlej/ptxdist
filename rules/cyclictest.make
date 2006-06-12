@@ -95,7 +95,6 @@ cyclictest_install: $(STATEDIR)/cyclictest.install
 
 $(STATEDIR)/cyclictest.install: $(cyclictest_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, CYCLICTEST)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -116,7 +115,7 @@ $(STATEDIR)/cyclictest.targetinstall: $(cyclictest_targetinstall_deps_default)
 	@$(call install_fixup, cyclictest,DEPENDS,)
 	@$(call install_fixup, cyclictest,DESCRIPTION,missing)
 
-	@$(call install_copy, cyclictest, 0, 0, 0755, $(CYCLICTEST_DIR)/foobar, /dev/null)
+	@$(call install_copy, cyclictest, 0, 0, 0755, $(CYCLICTEST_DIR)/cyclictest, /usr/bin/cyclictest)
 
 	@$(call install_finish, cyclictest)
 
