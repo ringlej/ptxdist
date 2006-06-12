@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.10.svn
-# Sun Jun 11 22:32:17 2006
+# Mon Jun 12 08:12:01 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -2063,6 +2063,7 @@ PTXCONF_LIBPV_PVTOOL=y
 #
 # Test Suites                 
 #
+PTXCONF_CYCLICTEST=y
 # PTXCONF_HOST_PELTS is not set
 PTXCONF_TESTSUITE_DIR="/usr/lib/testsuites"
 PTXCONF_DBENCH=y
