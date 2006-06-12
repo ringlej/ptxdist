@@ -189,13 +189,37 @@ check_deps() {
 # they are created here. 
 #
 check_dirs() {
-	local ptxconf_prefix ptxconf_gnu_target
+	local ptxconf_prefix ptxconf_gnu_target testfile
 
 	if [ -z "$PREFIX" ]; then
 		ptxconf_prefix=$(. ptxconfig && echo ${PTXCONF_PREFIX})
 	else 
 		ptxconf_prefix=$PREFIX
 	fi
+
+	testfile=${ptxconf_prefix}/.secret-world-domination-project
+	touch ${testfile} 2> /dev/null
+	if test $? -eq 1; then
+		echo
+		echo "error: ${ptxconf_prefix} does not exists and cannot be created!"
+		echo "       please create that dir with write permissions for you"
+		echo
+		read -t 5 -p "press enter to use sudo to create it"
+		if test $? -eq 1; then
+			echo
+			exit 1
+		fi
+		echo
+		echo sudo mkdir -p ${ptxconf_prefix}
+		sudo mkdir -p ${ptxconf_prefix}
+		echo
+		echo sudo chown $UID ${ptxconf_prefix}
+		sudo chown $UID ${ptxconf_prefix}
+		echo
+		echo Thanks
+	fi
+	rm -f ${testfile}
+
 	ptxconf_gnu_target=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
 
 	# And now we learn something new about shell: brace expansion.
