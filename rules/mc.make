@@ -37,7 +37,7 @@ $(STATEDIR)/mc.get: $(mc_get_deps_default)
 
 $(MC_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, $(MC_URL))
+	@$(call get, MC)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,8 +48,8 @@ mc_extract: $(STATEDIR)/mc.extract
 $(STATEDIR)/mc.extract: $(mc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MC_DIR))
-	@$(call extract, $(MC_SOURCE))
-	@$(call patchin, $(MC))
+	@$(call extract, MC)
+	@$(call patchin, MC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
