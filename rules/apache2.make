@@ -153,16 +153,16 @@ $(STATEDIR)/apache2.targetinstall: $(apache2_targetinstall_deps_default)
 
 	# and some needed shared libraries
 	@$(call install_copy, apache2, 0, 0, 0644, \
-		$(APACHE2_DIR)/srclib/apr-util/.libs/libaprutil-0.so.0.9.7, \
-		/usr/lib/libaprutil-0.so.0.9.7)
-	@$(call install_link, apache2, libaprutil-0.so.0.9.7, /usr/lib/libaprutil-0.so.0.9)
-	@$(call install_link, apache2, libaprutil-0.so.0.9.7, /usr/lib/libaprutil-0.so.0)
+		$(APACHE2_DIR)/srclib/apr-util/.libs/libaprutil-0.so.0.9.12, \
+		/usr/lib/libaprutil-0.so.0.9.12)
+	@$(call install_link, apache2, libaprutil-0.so.0.9.12, /usr/lib/libaprutil-0.so.0.9)
+	@$(call install_link, apache2, libaprutil-0.so.0.9.12, /usr/lib/libaprutil-0.so.0)
 
 	@$(call install_copy, apache2, 0, 0, 0644, \
-		$(APACHE2_DIR)/srclib/apr/.libs/libapr-0.so.0.9.7, \
-		/usr/lib/libapr-0.so.0.9.7)
-	@$(call install_link, apache2, libapr-0.so.0.9.7, /usr/lib/libapr-0.so.0.9)
-	@$(call install_link, apache2, libapr-0.so.0.9.7, /usr/lib/libapr-0.so.0)
+		$(APACHE2_DIR)/srclib/apr/.libs/libapr-0.so.0.9.12, \
+		/usr/lib/libapr-0.so.0.9.12)
+	@$(call install_link, apache2, libapr-0.so.0.9.12, /usr/lib/libapr-0.so.0.9)
+	@$(call install_link, apache2, libapr-0.so.0.9.12, /usr/lib/libapr-0.so.0)
 
 ifneq ($(PTXCONF_APACHE2_SERVERROOT),"")
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT))
