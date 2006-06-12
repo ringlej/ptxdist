@@ -94,7 +94,6 @@ mc_install: $(STATEDIR)/mc.install
 
 $(STATEDIR)/mc.install: $(mc_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, MC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
