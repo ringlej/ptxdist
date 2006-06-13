@@ -270,6 +270,8 @@ ifdef PTXCONF_DROPBEAR_SCP
 	@$(call install_copy, dropbear, 0, 0, 0755, $(DROPBEAR_DIR)/scp, /usr/bin/scp)
 endif
 
+	@$(call install_copy, dropbear, 0, 0, 0755, /etc/dropbear)
+
 	@$(call install_finish, dropbear)
 
 	@$(call touch, $@)
