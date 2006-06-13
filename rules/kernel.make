@@ -16,13 +16,15 @@ KERNEL_CONFIG		:= $(PTXDIST_WORKSPACE)/$(call remove_quotes, $(PTXCONF_KERNEL_NA
 KERNEL_VERSION		:= $(call remove_quotes, $(PTXCONF_KERNEL_NATIVE_VERSION))
 KERNEL_VERSION_MAJOR	:= $(KERNEL_NATIVE_VERSION_MAJOR)
 KERNEL_VERSION_MINOR	:= $(KERNEL_NATIVE_VERSION_MINOR)
-KERNEL_SERIES		:= $(PTXDIST_WORKSPACE)/kernel-patches-native/$(PTXCONF_KERNEL_NATIVE_SERIES)
+KERNEL_SERIESFILE	:= $(call remove_quotes, $(PTXCONF_KERNEL_NATIVE_SERIES))
+KERNEL_SERIES		:= $(PTXDIST_WORKSPACE)/kernel-patches-native/$(KERNEL_SERIESFILE)
 else
 KERNEL_CONFIG		:= $(PTXDIST_WORKSPACE)/$(call remove_quotes, $(PTXCONF_KERNEL_TARGET_CONFIG))
 KERNEL_VERSION		:= $(call remove_quotes, $(PTXCONF_KERNEL_TARGET_VERSION))
 KERNEL_VERSION_MAJOR	:= $(KERNEL_TARGET_VERSION_MAJOR)
 KERNEL_VERSION_MINOR	:= $(KERNEL_TARGET_VERSION_MINOR)
-KERNEL_SERIES		:= $(PTXDIST_WORKSPACE)/kernel-patches-target/$(PTXCONF_KERNEL_TARGET_SERIES)
+KERNEL_SERIESFILE	:= $(call remove_quotes, $(PTXCONF_KERNEL_TARGET_SERIES))
+KERNEL_SERIES		:= $(PTXDIST_WORKSPACE)/kernel-patches-target/$(KERNEL_SERIESFILE)
 endif
 
 KERNEL		:= linux-$(KERNEL_VERSION)
@@ -129,9 +131,14 @@ ifeq (2.4.18,$(KERNEL_VERSION))
 	mv $(BUILDDIR)/linux $(KERNEL_DIR)
 endif
 
-	# apply the patch series
-	@if [ -e $(KERNEL_SERIES) ]; then \
-		$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh -s $(KERNEL_SERIES) -d $(KERNEL_DIR); \
+# apply the patch series
+	@if [ -n "$(KERNEL_SERIESFILE)" ]; then \
+		if [ -e $(KERNEL_SERIES) ]; then \
+			$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh -s $(KERNEL_SERIES) -d $(KERNEL_DIR); \
+		else \
+			echo "the series file $(KERNEL_SERIES) does not exist."; \
+			exit 1; \
+		fi; \
 	fi
 
 	@$(call touch, $@)
