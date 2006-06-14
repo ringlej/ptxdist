@@ -69,8 +69,7 @@ boardsetup() {
 	echo
 	echo "${PROMPT}boardsetup..."
 
-	if [ ! -e "${PTXDIST_WORKSPACE}/boardsetup/boardsetup" ] ||
-	   [ ! -e "${PTXDIST_WORKSPACE}/boardsetup/Kconfig" ]; then
+	if [ ! -e "${PTXDIST_WORKSPACE}/boardsetup/Kconfig" ]; then
 		echo "error: boardsetup/boardsetup or boardsetup/Kconfig missing"
 		echo
 		exit 1
