@@ -1,12 +1,5 @@
-# -----
-
-menu	"nfsutils            "
-
-comment "compile options"
-
-config	NFSUTILS
-	bool
-	prompt "nfsutils"
+menuconfig NFSUTILS
+	bool "nfsutils            "
 
 config	NFSUTILS_V3
 	bool
@@ -32,21 +25,22 @@ config	NFSUTILS_WITH_TCPWRAPPERS
 # -----
 
 comment "install options"
-
-config	NFSUTILS_INSTALL_CLIENTSCRIPT
-	bool
-	prompt "Install /etc/init.d/nfs-client"
 	depends on NFSUTILS
 
-config	NFSUTILS_INSTALL_FUNCTIONSSCRIPT
-	bool
-	prompt "Install /etc/init.d/nfs-functions"
-	depends on NFSUTILS
+#config	NFSUTILS_INSTALL_CLIENTSCRIPT
+#	bool
+#	prompt "Install /etc/init.d/nfs-client"
+#	depends on NFSUTILS
 
-config	NFSUTILS_INSTALL_SERVERSCRIPT
-	bool
-	prompt "Install /etc/init.d/nfs-server"
-	depends on NFSUTILS
+#config	NFSUTILS_INSTALL_FUNCTIONSSCRIPT
+#	bool
+#	prompt "Install /etc/init.d/nfs-functions"
+#	depends on NFSUTILS
+
+#config	NFSUTILS_INSTALL_SERVERSCRIPT
+#	bool
+#	prompt "Install /etc/init.d/nfs-server"
+#	depends on NFSUTILS
 
 config	NFSUTILS_INSTALL_EXPORTFS
 	bool
@@ -102,5 +96,3 @@ config  NFSUTILS_INSTALL_STATD
 	bool
 	prompt "Install /sbin/statd"
 	depends on NFSUTILS
-
-endmenu
