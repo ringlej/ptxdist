@@ -36,7 +36,7 @@ $(STATEDIR)/host-@packet@.get: $(host-@packet@_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(@PACKET@_SOURCE):
+$(HOST_@PACKET@_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, HOST_@PACKET@)
 
