@@ -44,7 +44,7 @@ diff -urN ACE-5.5.1+TAO-1.5.1-orig/TAO/configure.ac ACE-5.5.1+TAO-1.5.1/TAO/conf
 +	"" | y | ye | yes | n | no)
 +		AC_MSG_ERROR([You must supply an argument to --with-tao_idl]) ;;
 +	esac;
-+	TAO_IDL="${withval}"
++	TAO_IDL="ACE_ROOT=\$(ACE_ROOT) TAO_ROOT=\$(TAO_ROOT) ${withval}"
 +	],
 +	TAO_IDL='ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl'
 +)
