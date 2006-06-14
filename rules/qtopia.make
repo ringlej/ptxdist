@@ -60,7 +60,6 @@ $(STATEDIR)/qtopia.extract: $(qtopia_extract_deps_default)
 qtopia_prepare: $(STATEDIR)/qtopia.prepare
 
 QTOPIA_PATH	:= PATH=$(CROSS_PATH)
-#QTOPIA_ENV 	:= QTDIR=/opt QPEDIR=/opt
 QTOPIA_MAKEVARS	:= INSTALL_ROOT=$(SYSROOT)
 
 #
