@@ -59,14 +59,15 @@ $(STATEDIR)/qtopia.extract: $(qtopia_extract_deps_default)
 
 qtopia_prepare: $(STATEDIR)/qtopia.prepare
 
-QTOPIA_PATH	:=  PATH=$(CROSS_PATH)
-QTOPIA_ENV 	:=  QTDIR=/opt QPEDIR=/opt
+QTOPIA_PATH	:= PATH=$(CROSS_PATH)
+#QTOPIA_ENV 	:= QTDIR=/opt QPEDIR=/opt
+QTOPIA_MAKEVARS	:= INSTALL_ROOT=$(SYSROOT)
 
 #
 # autoconf
 #
-QTOPIA_AUTOCONF = \
-	-prefix $(SYSROOT) \
+QTOPIA_AUTOCONF := \
+	-prefix /usr \
 	-no-gif \
 	-qt-libpng \
 	-no-cups \
@@ -77,7 +78,8 @@ QTOPIA_AUTOCONF = \
 	-embedded ptxdist \
 	-I$(SYSROOT)/include \
 	-L$(SYSROOT)/lib \
-	-release
+	-release \
+	-verbose
 
 ifdef PTXCONF_QTOPIA_STL
 QTOPIA_AUTOCONF	+= -stl
@@ -94,8 +96,6 @@ QTOPIA_AUTOCONF	+= -shared
 else
 QTOPIA_AUTOCONF	+= -static
 endif
-
-QTOPIA_AUTOCONF	+= -verbose
 
 $(STATEDIR)/qtopia.prepare: $(qtopia_prepare_deps_default)
 	@$(call targetinfo, $@)
