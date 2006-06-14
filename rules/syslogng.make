@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_SYSLOGNG) += syslogng
 #
 # Paths and names
 #
-SYSLOGNG_VERSION	= 1.9.10
-SYSLOGNG		= syslog-ng-$(SYSLOGNG_VERSION)
-SYSLOGNG_SUFFIX		= tar.gz
-SYSLOGNG_URL		= http://www.balabit.com/downloads/syslog-ng/1.9/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
-SYSLOGNG_SOURCE		= $(SRCDIR)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
-SYSLOGNG_DIR		= $(BUILDDIR)/$(SYSLOGNG)
+SYSLOGNG_VERSION	:= 1.9.11
+SYSLOGNG		:= syslog-ng-$(SYSLOGNG_VERSION)
+SYSLOGNG_SUFFIX		:= tar.gz
+SYSLOGNG_URL		:= http://www.balabit.com/downloads/syslog-ng/1.9/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
+SYSLOGNG_SOURCE		:= $(SRCDIR)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
+SYSLOGNG_DIR		:= $(BUILDDIR)/$(SYSLOGNG)
 
 
 # ----------------------------------------------------------------------------
@@ -58,32 +58,34 @@ $(STATEDIR)/syslogng.extract: $(syslogng_extract_deps_default)
 
 syslogng_prepare: $(STATEDIR)/syslogng.prepare
 
-SYSLOGNG_PATH	=  PATH=$(CROSS_PATH)
-SYSLOGNG_ENV 	=  $(CROSS_ENV)
+SYSLOGNG_PATH	:= PATH=$(CROSS_PATH)
+SYSLOGNG_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-SYSLOGNG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-
-# for glib
-SYSLOGNG_AUTOCONF += --enable-dynamic-linking
+SYSLOGNG_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-dynamic-linking
 
 ifdef $(PTXCONF_SYSLOGNG_SUNSTREAMS)
 SYSLOGNG_AUTOCONF += --enable-sun-streams
 else
 SYSLOGNG_AUTOCONF += --disable-sun-streams
 endif
+
 ifdef $(PTXCONF_SYSLOGNG_SUNDOOR)
 SYSLOGNG_AUTOCONF += --enable-sun-door
 else
 SYSLOGNG_AUTOCONF += --disable-sun-door
 endif
+
 ifdef $(PTXCONF_SYSLOGNG_TCPWRAPPER)
 SYSLOGNG_AUTOCONF += --enable-tcp-wrapper
 else
 SYSLOGNG_AUTOCONF += --disable-tcp-wrapper
 endif
+
 ifdef $(PTXCONF_SYSLOGNG_SPOOF_SOURCE)
 SYSLOGNG_AUTOCONF += --enable-spoof-source
 else
@@ -106,7 +108,7 @@ syslogng_compile: $(STATEDIR)/syslogng.compile
 
 $(STATEDIR)/syslogng.compile: $(syslogng_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(SYSLOGNG_DIR) && $(SYSLOGNG_ENV) $(SYSLOGNG_PATH) make
+	cd $(SYSLOGNG_DIR) && $(SYSLOGNG_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
