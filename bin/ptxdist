@@ -422,7 +422,7 @@ menuconfig_action() {
 }
 
 newpacket () {
-	local template
+	local template packetfile
 
 	case $1 in
 	host)	template=template-host ;;
@@ -453,10 +453,17 @@ newpacket () {
 	PACKET_NAME="`echo $PACKET_NAME| tr - _`"
 	packet=`echo $PACKET_NAME | tr "[A-Z]" "[a-z]"`
 	PACKET=`echo $PACKET_NAME | tr "[a-z]" "[A-Z]"`
+	
+	case $1 in
+	host)	packetfile=host-${packet}.make ;;
+	target)	packetfile=${packet}.make ;;
+	cross)	packetfile=cross-${packet}.make ;;
+	source)	packetfile=${packet}.make ;;
+	esac
 
-	if [ -f "${packet}.make" ]; then
+	if [ -f "${packetfile}" ]; then
 		echo
-		echo -n "${PROMPT}warning: ${packet}.make does already exist, overwrite? "
+		echo -n "${PROMPT}warning: ${packetfile} does already exist, overwrite? "
 		read overwrite
 		if [ "$overwrite" != "y" ]; then
 			echo "${PROMPT}aborted."
@@ -474,7 +481,7 @@ newpacket () {
 		-e "s~\@AUTHOR@~${AUTHOR}~g" \
 		-e "s~\@SUFFIX@~${SUFFIX}~g" \
 		${PTXDIST_TOPDIR}/rules/${template} \
-		> ${packet}.make
+		> ${packetfile}
 
 }
 
