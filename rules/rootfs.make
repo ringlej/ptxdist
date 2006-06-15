@@ -249,14 +249,14 @@ endif
 ifdef PTXCONF_ROOTFS_ETC_INITD_INETD
 	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/inetd, /etc/init.d/inetd, n)
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK),"")
-	@$(call install_link, rootfs, /etc/init.d/inetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK))
+	@$(call install_link, rootfs, ../init.d/inetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK))
 endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_MODULES
 	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/modules, /etc/init.d/modules, n)
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_MODULES_LINK),"")
-	@$(call install_link, rootfs, /etc/init.d/modules, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_MODULES_LINK))
+	@$(call install_link, rootfs, ../init.d/modules, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_MODULES_LINK))
 endif
 endif
 
@@ -267,7 +267,7 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_NETWORKING
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/network/if-post-down.d)
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/network/if-pre-up.d)
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK),"")
-	@$(call install_link, rootfs, /etc/init.d/networking, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK))
+	@$(call install_link, rootfs, ../init.d/networking, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK))
 endif
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES),"")
 	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES), /etc/network/interfaces, n)
@@ -277,7 +277,7 @@ endif
 ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD
 	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/telnetd,    /etc/init.d/telnetd, n)
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
-	@$(call install_link, rootfs, /etc/init.d/telnetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
+	@$(call install_link, rootfs, ../init.d/telnetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
 endif
 endif
 
@@ -286,7 +286,7 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
 	@$(call install_replace, rootfs, /etc/init.d/httpd, @APACHECONFIG@,  $(PTXCONF_APACHE2_CONFIGDIR) )
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
-	@$(call install_link, rootfs, /etc/init.d/httpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
+	@$(call install_link, rootfs, ../init.d/httpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
 endif
 endif
 
@@ -294,14 +294,14 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_DROPBEAR
 	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/dropbear,    /etc/init.d/dropbear, n)
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK),"")
-	@$(call install_link, rootfs, /etc/init.d/dropbear, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK))
+	@$(call install_link, rootfs, ../init.d/dropbear, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK))
 endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG
 	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/syslog-ng, /etc/init.d/syslog-ng, n)
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK),"")
-	@$(call install_link, rootfs, /etc/init.d/syslog-ng, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK))
+	@$(call install_link, rootfs, ../init.d/syslog-ng, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK))
 endif
 endif
 
