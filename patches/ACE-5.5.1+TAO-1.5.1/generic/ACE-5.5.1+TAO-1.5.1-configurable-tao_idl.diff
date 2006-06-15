@@ -1,28 +1,46 @@
-#
-# Submitted-By: Robert Schwebel, 2006-06-14
-# Committed-By: Robert Schwebel
-#
-# Error:
-#
-# ../../../../../TAO_IDL/tao_idl: line 105: /home/rsc/svn/oselas/bsp/pengutronix/generic/OSELAS.BSP-Pengutronix-VisboxDFB-trunk/build-target/ACE-5.5.1+TAO-1.5.1/build/TAO/TAO_IDL/.libs/lt-tao_idl: cannot execute binary file
-# ../../../../../TAO_IDL/tao_idl: line 105: /home/rsc/svn/oselas/bsp/pengutronix/generic/OSELAS.BSP-Pengutronix-VisboxDFB-trunk/build-target/ACE-5.5.1+TAO-1.5.1/build/TAO/TAO_IDL/.libs/lt-tao_idl: Success
-# make[7]: *** [Test-stamp] Error 1
-#
-# Description:
-#
-# All TAO programs which use tao_idl try to call the tao_idl which is
-# being built during the compilation; if you cross compile, tao_idl and
-# the libACE it is being built against are for the 'host' architecture,
-# so this doesn't work.
-#
-# This patch adds a switch "--with-tao_idl=/some/path/tao_idl ..." which
-# can be used to specify that an external tao_idl shall be used, in the
-# case described above one for the 'build' architecture.
-#
-# State:
-# 
-# unreported, submit
-#
+ACE VERSION: 5.5.1
+
+HOST MACHINE and OPERATING SYSTEM:
+
+        Linux isonoe 2.6.17-rc6 #1 PREEMPT Sat Jun 10 18:15:12 CEST 2006 i686 GNU/Linux
+
+TARGET MACHINE and OPERATING SYSTEM, if different from HOST:
+COMPILER NAME AND VERSION (AND PATCHLEVEL):
+
+        arm-softfloat-linux-gnu-gcc, 4.0.2 (toolchain built with PTXdist 0.10.3)                                                       
+
+AREA/CLASS/EXAMPLE AFFECTED:
+
+        build system, autotools based
+
+SYNOPSIS:                                                                                                                              
+
+        We are using the autotools based build process (taken from the
+        ACE+TAO beta kit). The tao_idl compiler is built against the same
+	libACE which is in our case cross compiled for the ARM; although
+	we could fix the Makefile.am to use CC_FOR_BUILT, we would still
+	need a libACE for the build machine. So there is no other way than
+	building libACE & tao_idl in a separate off-tree directory, which
+	works perfectly.
+
+	The TAO examples/tests assume that the tao_idl to be used comes 
+	from the same tree, which is not true in the above scenario.
+
+DESCRIPTION:
+
+	The patch below deletes the hard coded paths to the tao_idl from
+	the Makefile.am files and introduces a new toplevel option 
+	"--with-tao_idl=<path>". If not used, the build system behaves
+	the same way as before. In the cross case, <path> can be set to
+	the absolute path to the tao_idl for the build machine. The switch
+	can be given to the toplevel configure script (in ACE_wrappers)
+	and is automagically being handled down to TAO's configure script
+	by standard autotool magic.
+
+	With this fix we are able to successfully crosscompile the 
+	ACE+TAO kit for ARM. 
+ 
+SAMPLE FIX/WORKAROUND:
 
 diff -urN ACE-5.5.1+TAO-1.5.1-orig/TAO/configure.ac ACE-5.5.1+TAO-1.5.1/TAO/configure.ac
 --- ACE-5.5.1+TAO-1.5.1-orig/TAO/configure.ac	2006-01-27 04:58:44.000000000 +0100
