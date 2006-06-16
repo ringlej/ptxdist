@@ -64,7 +64,7 @@ COMMONCPP2_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-COMMONCPP2_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+COMMONCPP2_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 ifndef PTXCONF_COMMONCPP2_LIBZ
 COMMONCPP2_AUTOCONF += --without-compression
@@ -102,6 +102,7 @@ commoncpp2_install: $(STATEDIR)/commoncpp2.install
 $(STATEDIR)/commoncpp2.install: $(commoncpp2_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, COMMONCPP2)
+	install -m755 -D $(COMMONCPP2_DIR)/src/ccgnu2-config $(PTXCONF_HOST_PREFIX)/bin/ccgnu2-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
