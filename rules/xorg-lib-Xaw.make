@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_LIB_XAW) += xorg-lib-Xaw
 #
 # Paths and names
 #
-XORG_LIB_XAW_VERSION	:= 1.0.2
-XORG_LIB_XAW		:= libXaw-X11R7.1-$(XORG_LIB_XAW_VERSION)
+XORG_LIB_XAW_VERSION	:= 1.0.1
+XORG_LIB_XAW		:= libXaw-X11R7.0-$(XORG_LIB_XAW_VERSION)
 XORG_LIB_XAW_SUFFIX	:= tar.bz2
-XORG_LIB_XAW_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/lib/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
+XORG_LIB_XAW_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
 XORG_LIB_XAW_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
 XORG_LIB_XAW_DIR	:= $(BUILDDIR)/$(XORG_LIB_XAW)
 
@@ -114,53 +114,37 @@ $(STATEDIR)/xorg-lib-Xaw.targetinstall: $(xorg-lib-Xaw_targetinstall_deps_defaul
 	@$(call install_fixup, xorg-lib-Xaw,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xaw,DESCRIPTION,missing)
 
-	#@$(call install_copy, xorg-lib-Xaw, 0, 0, 0644, \
-	#	$(XORG_LIB_XAW_DIR)/src/.libs/libXaw6.so.6.0.1, \
-	#	$(XORG_LIBDIR)/libXaw6.so.6.0.1)
+	@$(call install_copy, xorg-lib-Xaw, 0, 0, 0644, \
+		$(XORG_LIB_XAW_DIR)/src/.libs/libXaw6.so.6.0.1, \
+		$(XORG_LIBDIR)/libXaw6.so.6.0.1)
 
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw6.so.6.0.1, \
-	#	$(XORG_LIBDIR)/libXaw6.so.6)
+	@$(call install_link, xorg-lib-Xaw, \
+		libXaw6.so.6.0.1, \
+		$(XORG_LIBDIR)/libXaw6.so.6)
 
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw6.so.6.0.1, \
-	#	$(XORG_LIBDIR)/libXaw6.so)
+	@$(call install_link, xorg-lib-Xaw, \
+		libXaw6.so.6.0.1, \
+		$(XORG_LIBDIR)/libXaw6.so)
 
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw6.so.6.0.1, \
-	#	$(XORG_LIBDIR)/libXaw.so.6)
-
-	#@$(call install_copy, xorg-lib-Xaw, 0, 0, 0644, \
-	#	$(XORG_LIB_XAW_DIR)/src/.libs/libXaw7.so.7.0.0, \
-	#	$(XORG_LIBDIR)/libXaw7.so.7.0.0)
-
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw7.so.7.0.0, \
-	#	$(XORG_LIBDIR)/libXaw7.so.7)
-
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw7.so.7.0.0, \
-	#	$(XORG_LIBDIR)/libXaw7.so)
-
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw7.so.7.0.0, \
-	#	$(XORG_LIBDIR)/libXaw.so.7)
+	@$(call install_link, xorg-lib-Xaw, \
+		libXaw6.so.6.0.1, \
+		$(XORG_LIBDIR)/libXaw.so.6)
 
 	@$(call install_copy, xorg-lib-Xaw, 0, 0, 0644, \
-		$(XORG_LIB_XAW_DIR)/src/.libs/libXaw8.so.8.0.0, \
-		$(XORG_LIBDIR)/libXaw8.so.8.0.0)
+		$(XORG_LIB_XAW_DIR)/src/.libs/libXaw7.so.7.0.0, \
+		$(XORG_LIBDIR)/libXaw7.so.7.0.0)
 
 	@$(call install_link, xorg-lib-Xaw, \
-		libXaw8.so.8.0.0, \
-		$(XORG_LIBDIR)/libXaw8.so.8)
+		libXaw7.so.7.0.0, \
+		$(XORG_LIBDIR)/libXaw7.so.7)
 
 	@$(call install_link, xorg-lib-Xaw, \
-		libXaw8.so.8.0.0, \
-		$(XORG_LIBDIR)/libXaw8.so)
+		libXaw7.so.7.0.0, \
+		$(XORG_LIBDIR)/libXaw7.so)
 
 	@$(call install_link, xorg-lib-Xaw, \
-		libXaw8.so.8.0.0, \
-		$(XORG_LIBDIR)/libXaw.so.8)
+		libXaw7.so.7.0.0, \
+		$(XORG_LIBDIR)/libXaw.so.7)
 
 	@$(call install_finish, xorg-lib-Xaw)
 
