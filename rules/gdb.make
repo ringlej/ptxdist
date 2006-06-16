@@ -33,7 +33,7 @@ GDB_BUILDDIR	= $(BUILDDIR)/$(GDB)-build
 
 gdb_get: $(STATEDIR)/gdb.get
 
-$(STATEDIR)/gdb.get: $(gdb_get_deps_default)
+$(STATEDIR)/gdb.get: $(gdb_get_deps_default) $(GDB_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
