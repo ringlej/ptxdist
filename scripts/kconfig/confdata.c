@@ -85,7 +85,8 @@ int conf_read(const char *name)
 			name = conf_expand_value(name);
 			in = zconf_fopen(name);
 			if (in) {
-				printf(_("#\n"
+				printf(_("\n"
+					 "#\n"
 				         "# using defaults found in %s\n"
 				         "#\n"), name);
 				break;

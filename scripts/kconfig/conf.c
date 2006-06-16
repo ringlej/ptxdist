@@ -496,7 +496,7 @@ int main(int ac, char **av)
 			input_mode = ask_new;
 			break;
 		case 'O':
-			input_mode = ask_new;
+			input_mode = ask_silent;
 			dep_output = 1;
 			break;
 		case 's':
