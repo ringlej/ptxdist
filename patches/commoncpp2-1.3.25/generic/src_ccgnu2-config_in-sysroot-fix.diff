@@ -1,0 +1,55 @@
+Index: commoncpp2-1.3.25/src/ccgnu2-config.in
+===================================================================
+--- commoncpp2-1.3.25.orig/src/ccgnu2-config.in	2005-04-24 00:08:17.000000000 +0200
++++ commoncpp2-1.3.25/src/ccgnu2-config.in	2006-06-16 11:00:06.599454429 +0200
+@@ -17,11 +17,11 @@
+ ccstd="@XML_LIBS@ @ZSTREAM_LIBS@"
+ prefix="@prefix@"
+ exec_prefix="@exec_prefix@"
+-libdir="-L@libdir@"
++libdir="-L${SYSROOT}@libdir@"
+ 
+ includedir="@includedir@"
+ ccincludedir="@ccincludedir@"
+-incpath="-I${ccincludedir}"
++incpath="-I${SYSROOT}${ccincludedir}"
+ 
+ usage()
+ {
+@@ -49,7 +49,7 @@
+ while test $# -gt 0 ; do
+ 	case "$1" in
+ 	--prefix)
+-		echo @prefix@
++		echo ${SYSROOT}@prefix@
+ 		;;
+ 	--version)
+ 		echo @VERSION@
+@@ -58,22 +58,22 @@
+ 		echo $incpath $ccflags
+ 		;;
+ 	--libs | --gnulibs)
+-		echo $libdir -lccgnu2 $ccload $cclink
++		echo $libdir -Wl,-lccgnu2 $ccload $cclink
+ 		;;
+ 	--cclibs)
+ 		echo $cclink
+ 		;;
+ 	--iolibs)
+-		echo $libdir -lccgnu2 $ccload $cclink
++		echo $libdir -Wl,-lccgnu2 $ccload $cclink
+ 		;;
+ 	--stdlibs)
+-		echo $libdir -lccext2 -lccgnu2 $ccstd $ccload $cclink
++		echo $libdir -Wl,-lccext2 -Wl,-lccgnu2 $ccstd $ccload $cclink
+ 		;;
+ 	--extlibs)
+-		echo -lccext2 $ccstd
++		echo -Wl,-lccext2 $ccstd
+ 		;;
+ 	--includes)
+-		echo -I$includedir -I$ccincludedir
++		echo -I${SYSROOT}$includedir -I${SYSROOT}$ccincludedir
+ 		;;
+ 	--dyn | --dso)
+ 		echo $ost_cv_dynloader
