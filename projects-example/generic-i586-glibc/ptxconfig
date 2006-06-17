@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.3
-# Fri Apr 21 17:38:23 2006
+# PTXdist version: 0.10.svn
+# Sat Jun 17 13:29:56 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -52,6 +52,8 @@ PTXCONF_OPT_I386=y
 # PTXCONF_OPT_I486 is not set
 # PTXCONF_OPT_I586 is not set
 # PTXCONF_OPT_I686 is not set
+# PTXCONF_OPT_P2 is not set
+# PTXCONF_OPT_P3M is not set
 # PTXCONF_OPT_PPC is not set
 # PTXCONF_OPT_PPC405 is not set
 # PTXCONF_OPT_PPC604 is not set
@@ -126,6 +128,7 @@ PTXCONF_HOST_MODULE_INIT_TOOLS=y
 PTXCONF_HOST_PKG_CONFIG_WRAPPER=y
 # PTXCONF_HOST_QTE is not set
 # PTXCONF_HOST_SLIRP is not set
+# PTXCONF_HOST_CMAKE is not set
 
 #
 # Scripting Languages
@@ -272,6 +275,10 @@ PTXCONF_ROOTFS_ETC_VENDOR=""
 #
 
 #
+# dropbear: select dropbear
+#
+
+#
 # udev: select udev
 #
 
@@ -319,6 +326,7 @@ PTXCONF_KERNEL_COMPILE=y
 #
 PTXCONF_KERNEL_TARGET_VERSION="2.6.15"
 PTXCONF_KERNEL_TARGET_SERIES="series"
+PTXCONF_KERNEL_TARGET_CONFIG="kernelconfig.target"
 
 #
 # Target Kernel Options
@@ -341,6 +349,7 @@ PTXCONF_KERNEL_TARGET_IMAGE_BZ=y
 #
 PTXCONF_KERNEL_NATIVE_VERSION="2.6.15"
 PTXCONF_KERNEL_NATIVE_SERIES="series"
+PTXCONF_KERNEL_NATIVE_CONFIG="kernelconfig.native"
 
 #
 # Native Kernel Options
@@ -411,6 +420,10 @@ PTXCONF_BUSYBOX=y
 PTXCONF_BB_HAVE_DOT_CONFIG=y
 
 #
+# Busybox Settings
+#
+
+#
 # General Configuration
 #
 # PTXCONF_BB_CONFIG_FEATURE_BUFFERS_USE_MALLOC is not set
@@ -431,11 +444,18 @@ PTXCONF_BB_CONFIG_FEATURE_SUID_CONFIG_QUIET=y
 # Build Options
 #
 # PTXCONF_BB_CONFIG_STATIC is not set
+# PTXCONF_BB_CONFIG_DISABLE_SHARED is not set
 # PTXCONF_BB_CONFIG_LFS is not set
 PTXCONF_BB_USING_CROSS_COMPILER=y
 PTXCONF_BB_CROSS_COMPILER_PREFIX="i386-linux-"
 PTXCONF_BB_EXTRA_CFLAGS_OPTIONS=""
-PTXCONF_BB_CONFIG_FEATURE_SUSv2=y
+# PTXCONF_BB_CONFIG_BUILD_AT_ONCE is not set
+
+#
+# Debugging Options
+#
+# PTXCONF_BB_CONFIG_DEBUG is not set
+PTXCONF_BB_CONFIG_DEBUG_YANK_SUSv2=y
 
 #
 # Installation Options
@@ -445,6 +465,15 @@ PTXCONF_BB_CONFIG_INSTALL_APPLET_SYMLINKS=y
 # PTXCONF_BB_CONFIG_INSTALL_APPLET_HARDLINKS is not set
 # PTXCONF_BB_CONFIG_INSTALL_APPLET_DONT is not set
 PTXCONF_BB_PREFIX="./_install"
+
+#
+# Busybox Library Tuning
+#
+PTXCONF_BB_CONFIG_MD5_SIZE_VS_SPEED=2
+
+#
+# Applets
+#
 
 #
 # Archival Utilities
@@ -461,6 +490,7 @@ PTXCONF_BB_CONFIG_GZIP=y
 PTXCONF_BB_CONFIG_TAR=y
 PTXCONF_BB_CONFIG_FEATURE_TAR_CREATE=y
 PTXCONF_BB_CONFIG_FEATURE_TAR_BZIP2=y
+# PTXCONF_BB_CONFIG_FEATURE_TAR_LZMA is not set
 # PTXCONF_BB_CONFIG_FEATURE_TAR_FROM is not set
 PTXCONF_BB_CONFIG_FEATURE_TAR_GZIP=y
 # PTXCONF_BB_CONFIG_FEATURE_TAR_COMPRESS is not set
@@ -468,6 +498,7 @@ PTXCONF_BB_CONFIG_FEATURE_TAR_GZIP=y
 PTXCONF_BB_CONFIG_FEATURE_TAR_GNU_EXTENSIONS=y
 # PTXCONF_BB_CONFIG_FEATURE_TAR_LONG_OPTIONS is not set
 PTXCONF_BB_CONFIG_UNCOMPRESS=y
+# PTXCONF_BB_CONFIG_UNLZMA is not set
 # PTXCONF_BB_CONFIG_UNZIP is not set
 
 #
@@ -501,6 +532,7 @@ PTXCONF_BB_CONFIG_ECHO=y
 PTXCONF_BB_CONFIG_FEATURE_FANCY_ECHO=y
 # PTXCONF_BB_CONFIG_ENV is not set
 PTXCONF_BB_CONFIG_EXPR=y
+# PTXCONF_BB_CONFIG_EXPR_MATH_SUPPORT_64 is not set
 PTXCONF_BB_CONFIG_FALSE=y
 # PTXCONF_BB_CONFIG_FOLD is not set
 # PTXCONF_BB_CONFIG_HEAD is not set
@@ -544,10 +576,6 @@ PTXCONF_BB_CONFIG_SYNC=y
 # PTXCONF_BB_CONFIG_TAIL is not set
 # PTXCONF_BB_CONFIG_TEE is not set
 PTXCONF_BB_CONFIG_TEST=y
-
-#
-# test (forced enabled for use with shell)
-#
 # PTXCONF_BB_CONFIG_FEATURE_TEST_64 is not set
 PTXCONF_BB_CONFIG_TOUCH=y
 # PTXCONF_BB_CONFIG_TR is not set
@@ -570,7 +598,7 @@ PTXCONF_BB_CONFIG_YES=y
 PTXCONF_BB_CONFIG_FEATURE_PRESERVE_HARDLINKS=y
 
 #
-# Common options for ls and more
+# Common options for ls, more and telnet
 #
 # PTXCONF_BB_CONFIG_FEATURE_AUTOWIDTH is not set
 
@@ -602,16 +630,6 @@ PTXCONF_BB_CONFIG_RESET=y
 PTXCONF_BB_CONFIG_RUN_PARTS=y
 # PTXCONF_BB_CONFIG_START_STOP_DAEMON is not set
 PTXCONF_BB_CONFIG_WHICH=y
-
-#
-# Linux Ext2 FS Progs
-#
-# PTXCONF_BB_CONFIG_CHATTR is not set
-# PTXCONF_BB_CONFIG_E2FSCK is not set
-# PTXCONF_BB_CONFIG_FSCK is not set
-# PTXCONF_BB_CONFIG_LSATTR is not set
-# PTXCONF_BB_CONFIG_MKE2FS is not set
-# PTXCONF_BB_CONFIG_TUNE2FS is not set
 
 #
 # Editors
@@ -647,14 +665,12 @@ PTXCONF_BB_CONFIG_FEATURE_GREP_CONTEXT=y
 #
 PTXCONF_BB_CONFIG_INIT=y
 PTXCONF_BB_CONFIG_FEATURE_USE_INITTAB=y
-# PTXCONF_BB_CONFIG_FEATURE_INITRD is not set
-# PTXCONF_BB_CONFIG_FEATURE_INIT_COREDUMPS is not set
 # PTXCONF_BB_CONFIG_FEATURE_INIT_SCTTY is not set
 # PTXCONF_BB_CONFIG_FEATURE_EXTRA_QUIET is not set
+# PTXCONF_BB_CONFIG_FEATURE_INIT_COREDUMPS is not set
+# PTXCONF_BB_CONFIG_FEATURE_INITRD is not set
 PTXCONF_BB_CONFIG_HALT=y
 PTXCONF_BB_CONFIG_MESG=y
-# PTXCONF_BB_CONFIG_POWEROFF is not set
-PTXCONF_BB_CONFIG_REBOOT=y
 
 #
 # Login/Password Management Utilities
@@ -677,27 +693,14 @@ PTXCONF_BB_CONFIG_PASSWD=y
 # PTXCONF_BB_CONFIG_VLOCK is not set
 
 #
-# Miscellaneous Utilities
+# Linux Ext2 FS Progs
 #
-# PTXCONF_BB_CONFIG_ADJTIMEX is not set
-# PTXCONF_BB_CONFIG_BBCONFIG is not set
-# PTXCONF_BB_CONFIG_CROND is not set
-# PTXCONF_BB_CONFIG_CRONTAB is not set
-# PTXCONF_BB_CONFIG_DC is not set
-# PTXCONF_BB_CONFIG_DEVFSD is not set
-# PTXCONF_BB_CONFIG_EJECT is not set
-# PTXCONF_BB_CONFIG_LAST is not set
-# PTXCONF_BB_CONFIG_LESS is not set
-# PTXCONF_BB_CONFIG_HDPARM is not set
-# PTXCONF_BB_CONFIG_MAKEDEVS is not set
-# PTXCONF_BB_CONFIG_MOUNTPOINT is not set
-# PTXCONF_BB_CONFIG_MT is not set
-# PTXCONF_BB_BB_APPLET_RUNLEVEL is not set
-# PTXCONF_BB_CONFIG_RX is not set
-# PTXCONF_BB_CONFIG_STRINGS is not set
-# PTXCONF_BB_CONFIG_SETSID is not set
-# PTXCONF_BB_CONFIG_TIME is not set
-PTXCONF_BB_CONFIG_WATCHDOG=y
+# PTXCONF_BB_CONFIG_CHATTR is not set
+# PTXCONF_BB_CONFIG_E2FSCK is not set
+# PTXCONF_BB_CONFIG_FSCK is not set
+# PTXCONF_BB_CONFIG_LSATTR is not set
+# PTXCONF_BB_CONFIG_MKE2FS is not set
+# PTXCONF_BB_CONFIG_TUNE2FS is not set
 
 #
 # Linux Module Utilities
@@ -722,10 +725,83 @@ PTXCONF_BB_CONFIG_FEATURE_2_4_MODULES=y
 PTXCONF_BB_CONFIG_FEATURE_QUERY_MODULE_INTERFACE=y
 
 #
+# Linux System Utilities
+#
+PTXCONF_BB_CONFIG_DMESG=y
+# PTXCONF_BB_CONFIG_FBSET is not set
+# PTXCONF_BB_CONFIG_FDFLUSH is not set
+# PTXCONF_BB_CONFIG_FDFORMAT is not set
+PTXCONF_BB_CONFIG_FDISK=y
+PTXCONF_BB_FDISK_SUPPORT_LARGE_DISKS=y
+PTXCONF_BB_CONFIG_FEATURE_FDISK_WRITABLE=y
+# PTXCONF_BB_CONFIG_FEATURE_AIX_LABEL is not set
+# PTXCONF_BB_CONFIG_FEATURE_SGI_LABEL is not set
+# PTXCONF_BB_CONFIG_FEATURE_SUN_LABEL is not set
+# PTXCONF_BB_CONFIG_FEATURE_OSF_LABEL is not set
+PTXCONF_BB_CONFIG_FEATURE_FDISK_ADVANCED=y
+# PTXCONF_BB_CONFIG_FREERAMDISK is not set
+PTXCONF_BB_CONFIG_FSCK_MINIX=y
+# PTXCONF_BB_CONFIG_MKFS_MINIX is not set
+
+#
+# Minix filesystem support
+#
+PTXCONF_BB_CONFIG_FEATURE_MINIX2=y
+# PTXCONF_BB_CONFIG_GETOPT is not set
+# PTXCONF_BB_CONFIG_HEXDUMP is not set
+# PTXCONF_BB_CONFIG_HWCLOCK is not set
+# PTXCONF_BB_CONFIG_IPCRM is not set
+# PTXCONF_BB_CONFIG_IPCS is not set
+# PTXCONF_BB_CONFIG_LOSETUP is not set
+# PTXCONF_BB_CONFIG_MDEV is not set
+# PTXCONF_BB_CONFIG_MKSWAP is not set
+# PTXCONF_BB_CONFIG_MORE is not set
+PTXCONF_BB_CONFIG_MOUNT=y
+# PTXCONF_BB_CONFIG_FEATURE_MOUNT_NFS is not set
+# PTXCONF_BB_CONFIG_PIVOT_ROOT is not set
+# PTXCONF_BB_CONFIG_RDATE is not set
+# PTXCONF_BB_CONFIG_READPROFILE is not set
+# PTXCONF_BB_CONFIG_SETARCH is not set
+# PTXCONF_BB_CONFIG_SWAPONOFF is not set
+# PTXCONF_BB_CONFIG_SWITCH_ROOT is not set
+PTXCONF_BB_CONFIG_UMOUNT=y
+# PTXCONF_BB_CONFIG_FEATURE_UMOUNT_ALL is not set
+
+#
+# Common options for mount/umount
+#
+# PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP is not set
+# PTXCONF_BB_CONFIG_FEATURE_MTAB_SUPPORT is not set
+
+#
+# Miscellaneous Utilities
+#
+# PTXCONF_BB_CONFIG_ADJTIMEX is not set
+# PTXCONF_BB_CONFIG_BBCONFIG is not set
+# PTXCONF_BB_CONFIG_CROND is not set
+# PTXCONF_BB_CONFIG_CRONTAB is not set
+# PTXCONF_BB_CONFIG_DC is not set
+# PTXCONF_BB_CONFIG_DEVFSD is not set
+# PTXCONF_BB_CONFIG_EJECT is not set
+# PTXCONF_BB_CONFIG_LAST is not set
+# PTXCONF_BB_CONFIG_LESS is not set
+# PTXCONF_BB_CONFIG_HDPARM is not set
+# PTXCONF_BB_CONFIG_MAKEDEVS is not set
+# PTXCONF_BB_CONFIG_MOUNTPOINT is not set
+# PTXCONF_BB_CONFIG_MT is not set
+# PTXCONF_BB_CONFIG_RUNLEVEL is not set
+# PTXCONF_BB_CONFIG_RX is not set
+# PTXCONF_BB_CONFIG_STRINGS is not set
+# PTXCONF_BB_CONFIG_SETSID is not set
+# PTXCONF_BB_CONFIG_TIME is not set
+PTXCONF_BB_CONFIG_WATCHDOG=y
+
+#
 # Networking Utilities
 #
 # PTXCONF_BB_CONFIG_FEATURE_IPV6 is not set
 # PTXCONF_BB_CONFIG_ARPING is not set
+# PTXCONF_BB_CONFIG_DNSD is not set
 # PTXCONF_BB_CONFIG_ETHER_WAKE is not set
 # PTXCONF_BB_CONFIG_FAKEIDENTD is not set
 # PTXCONF_BB_CONFIG_FTPGET is not set
@@ -855,60 +931,16 @@ PTXCONF_BB_CONFIG_KLOGD=y
 PTXCONF_BB_CONFIG_LOGGER=y
 
 #
-# Linux System Utilities
+# clock is broken, please send a patch
 #
-PTXCONF_BB_CONFIG_DMESG=y
-# PTXCONF_BB_CONFIG_FBSET is not set
-# PTXCONF_BB_CONFIG_FDFLUSH is not set
-# PTXCONF_BB_CONFIG_FDFORMAT is not set
-PTXCONF_BB_CONFIG_FDISK=y
-PTXCONF_BB_FDISK_SUPPORT_LARGE_DISKS=y
-PTXCONF_BB_CONFIG_FEATURE_FDISK_WRITABLE=y
-# PTXCONF_BB_CONFIG_FEATURE_AIX_LABEL is not set
-# PTXCONF_BB_CONFIG_FEATURE_SGI_LABEL is not set
-# PTXCONF_BB_CONFIG_FEATURE_SUN_LABEL is not set
-# PTXCONF_BB_CONFIG_FEATURE_OSF_LABEL is not set
-PTXCONF_BB_CONFIG_FEATURE_FDISK_ADVANCED=y
-# PTXCONF_BB_CONFIG_FREERAMDISK is not set
-PTXCONF_BB_CONFIG_FSCK_MINIX=y
-# PTXCONF_BB_CONFIG_MKFS_MINIX is not set
-
-#
-# Minix filesystem support
-#
-PTXCONF_BB_CONFIG_FEATURE_MINIX2=y
-# PTXCONF_BB_CONFIG_GETOPT is not set
-# PTXCONF_BB_CONFIG_HEXDUMP is not set
-# PTXCONF_BB_CONFIG_HWCLOCK is not set
-# PTXCONF_BB_CONFIG_IPCRM is not set
-# PTXCONF_BB_CONFIG_IPCS is not set
-# PTXCONF_BB_CONFIG_LOSETUP is not set
-# PTXCONF_BB_CONFIG_MDEV is not set
-# PTXCONF_BB_CONFIG_MKSWAP is not set
-# PTXCONF_BB_CONFIG_MORE is not set
-# PTXCONF_BB_CONFIG_PIVOT_ROOT is not set
-# PTXCONF_BB_CONFIG_SWITCH_ROOT is not set
-# PTXCONF_BB_CONFIG_RDATE is not set
-# PTXCONF_BB_CONFIG_READPROFILE is not set
-# PTXCONF_BB_CONFIG_SWAPONOFF is not set
-PTXCONF_BB_CONFIG_MOUNT=y
-# PTXCONF_BB_CONFIG_FEATURE_MOUNT_NFS is not set
-PTXCONF_BB_CONFIG_UMOUNT=y
-
-#
-# Common options for mount/umount
-#
-# PTXCONF_BB_CONFIG_FEATURE_MOUNT_LOOP is not set
-# PTXCONF_BB_CONFIG_FEATURE_MTAB_SUPPORT is not set
-
-#
-# Debugging Options
-#
-# PTXCONF_BB_CONFIG_DEBUG is not set
 # PTXCONF_COREUTILS is not set
 # PTXCONF_DAEMONIZE is not set
 # PTXCONF_DIFFUTILS is not set
-# PTXCONF_SYSVINIT is not set
+# PTXCONF_FINDUTILS is not set
+
+#
+# sysvinit is broken, please send a patch
+#
 # PTXCONF_INITNG is not set
 PTXCONF_MODULE_INIT_TOOLS=y
 # PTXCONF_MODULE_INIT_TOOLS_INSMOD is not set
@@ -929,10 +961,6 @@ PTXCONF_MODULE_INIT_TOOLS=y
 # PTXCONF_SYSFSUTILS is not set
 # PTXCONF_SYSUTILS is not set
 # PTXCONF_UTIL_LINUX is not set
-
-#
-# clock is broken, please send a patch
-#
 # PTXCONF_UDEV is not set
 # PTXCONF_XMLSTARLET is not set
 # PTXCONF_PCIUTILS is not set
@@ -974,10 +1002,6 @@ PTXCONF_MODULE_INIT_TOOLS=y
 # PTXCONF_LSH is not set
 # PTXCONF_OPENSSL is not set
 # PTXCONF_OPENSSH is not set
-
-#
-# shorewall firewall  
-#
 # PTXCONF_SHOREWALL is not set
 
 #
@@ -1003,44 +1027,15 @@ PTXCONF_MODULE_INIT_TOOLS=y
 #
 # libcgicc is broken, please send a patch
 #
-
-#
-# libnet              
-#
 # PTXCONF_LIBNET is not set
-
-#
-# libpcap             
-#
 # PTXCONF_LIBPCAP is not set
-
-#
-# mii-diag            
-#
 # PTXCONF_MII_DIAG is not set
-
-#
-# netcat              
-#
 # PTXCONF_NETCAT is not set
-
-#
-# nfsutils            
-#
-
-#
-# compile options
-#
 # PTXCONF_NFSUTILS is not set
-
-#
-# install options
-#
 # PTXCONF_NMAP is not set
-# PTXCONF_NTP is not set
 
 #
-# ntpclient           
+# ntp is broken, please send a patch
 #
 
 #
@@ -1060,58 +1055,26 @@ PTXCONF_MODULE_INIT_TOOLS=y
 #
 # portmap is broken, please send a patch
 #
-
-#
-# ppp                 
-#
 # PTXCONF_PPP is not set
 # PTXCONF_PROFTPD is not set
 # PTXCONF_PUREFTPD is not set
-
-#
-# netkit-ftp          
-#
 # PTXCONF_NETKIT_FTP is not set
-
-#
-# rsync               
-#
 # PTXCONF_RSYNC is not set
 # PTXCONF_SYSLOGNG is not set
 # PTXCONF_TCPDUMP is not set
-
-#
-# tcpwrapper          
-#
 # PTXCONF_TCPWRAPPER is not set
-
-#
-# Troll FTPD          
-#
 
 #
 # trollftpd is broken, please send a patch
 #
 # PTXCONF_THTTPD is not set
-
-#
-# utelnetd            
-#
 PTXCONF_UTELNETD=y
-
-#
-# wget                
-#
 # PTXCONF_WGET is not set
 
 #
 # Wireless Tools      
 #
 # PTXCONF_WIRELESS is not set
-
-#
-# GNU Zebra           
-#
 
 #
 # zebra is broken, please send a patch
@@ -1144,6 +1107,7 @@ PTXCONF_UTELNETD=y
 # PTXCONF_CRAMFS is not set
 # PTXCONF_BONNIEXX is not set
 # PTXCONF_LIBLOCKFILE is not set
+# PTXCONF_UNIONFS is not set
 
 #
 # Communication Utilities     
@@ -1173,6 +1137,8 @@ PTXCONF_UTELNETD=y
 # PTXCONF_MPLAYER is not set
 # PTXCONF_SETMIXER is not set
 # PTXCONF_RAWREC is not set
+# PTXCONF_MC is not set
+# PTXCONF_FFMPEG is not set
 
 #
 # Tools                       
@@ -1221,6 +1187,7 @@ PTXCONF_FIGLET=y
 PTXCONF_TERMCAP=y
 # PTXCONF_TERMCAP_TERMCAP is not set
 # PTXCONF_ZLIB is not set
+# PTXCONF_LIVE_LIB is not set
 
 #
 # Middleware                  
@@ -1367,7 +1334,10 @@ PTXCONF_TERMCAP=y
 #
 # X Window Managers
 #
-# PTXCONF_BLACKBOX is not set
+
+#
+# blackbox is broken, please send a patch
+#
 # PTXCONF_PEKWM is not set
 
 #
@@ -1380,10 +1350,12 @@ PTXCONF_TERMCAP=y
 # Other Stuff
 #
 # PTXCONF_SDL is not set
+# PTXCONF_SDL_IMAGE is not set
 # PTXCONF_LIBPNG is not set
 # PTXCONF_LIBJPEG is not set
 # PTXCONF_FONTCONFIG is not set
 # PTXCONF_TSLIB is not set
+# PTXCONF_QTOPIA is not set
 
 #
 # Scientific Apps             
@@ -1402,17 +1374,11 @@ PTXCONF_TERMCAP=y
 #
 # Test Suites                 
 #
+# PTXCONF_CYCLICTEST is not set
+# PTXCONF_HOST_PELTS is not set
 PTXCONF_TESTSUITE_DIR="/usr/lib/testsuites"
 # PTXCONF_DBENCH is not set
 # PTXCONF_LTP is not set
-
-#
-# Ballista is broken, please send a patch
-#
-
-#
-# LTP_COMMANDS is broken, please send a patch
-#
 
 #
 # xmlbench is broken, please send a patch
