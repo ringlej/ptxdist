@@ -131,7 +131,7 @@ ifeq (2.4.18,$(KERNEL_VERSION))
 	mv $(BUILDDIR)/linux $(KERNEL_DIR)
 endif
 
-# apply the patch series
+	# apply the patch series
 	@if [ -n "$(KERNEL_SERIESFILE)" ]; then \
 		if [ -e $(KERNEL_SERIES) ]; then \
 			$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh -s $(KERNEL_SERIES) -d $(KERNEL_DIR); \
