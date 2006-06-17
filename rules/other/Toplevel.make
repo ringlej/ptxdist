@@ -17,6 +17,10 @@
 #   take care of toolchain requirements
 #
 
+# make sure bash is used to execute commands from makefiles
+
+SHELL=bash
+export SHELL
 
 # This makefile is called with PTXDIST_TOPDIR set to the PTXdist
 # toplevel installation directory. So we first source the static

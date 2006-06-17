@@ -5,14 +5,18 @@ bindir     := ${prefix}/bin
 version    := @PACKAGE_VERSION@
 instdir    := ${libdir}/ptxdist-${version}
 
+# make sure we use bash, even if the user has some other standard shell
+SHELL=bash
+export SHELL
+
 all:
 	@echo "building lxdialog..."
 	cp ${abs_srcdir}/scripts/ptx-modifications/Makefile.lxdialog.ptx ${abs_srcdir}/scripts/lxdialog/Makefile
-	cd ${abs_srcdir}/scripts/lxdialog && make
+	cd ${abs_srcdir}/scripts/lxdialog && ${MAKE}
 	@echo "building conf..."
-	cd ${abs_srcdir}/scripts/kconfig && make conf
+	cd ${abs_srcdir}/scripts/kconfig && ${MAKE} conf
 	@echo "building mconf..."
-	cd ${abs_srcdir}/scripts/kconfig && make mconf
+	cd ${abs_srcdir}/scripts/kconfig && ${MAKE} mconf
 	@echo "done."
 	@touch .done
 
@@ -30,16 +34,16 @@ install: all
 	@ln -sf ${instdir}/bin/ptxdist ${DESTDIR}${prefix}/bin/ptxdist
 
 clean:
-	@test ! -f ${abs_srcdir}/scripts/lxdialog/Makefile || (cd ${abs_srcdir}/scripts/lxdialog && make clean)                        
+	@test ! -f ${abs_srcdir}/scripts/lxdialog/Makefile || (cd ${abs_srcdir}/scripts/lxdialog && ${MAKE} clean)                        
 	@rm -f ${abs_srcdir}/scripts/lxdialog/Makefile                                                                                 
-	@cd ${abs_srcdir}/scripts/kconfig && make clean                                                                                
+	@cd ${abs_srcdir}/scripts/kconfig && ${MAKE} clean                                                                                
 	@rm -f .done                                                                                                                   
 
 dist:
 	PTXDIST_TOPDIR=$(shell pwd); \
 	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`; \
 	cp -a $$PTXDIST_TOPDIR $$tmpdir/ptxdist-$(version); \
-	cd $$tmpdir/ptxdist-$(version); make distclean; \
+	cd $$tmpdir/ptxdist-$(version); ${MAKE} distclean; \
 	find $$tmpdir/ptxdist-$(version) -name ".svn" | xargs rm -fr; \
 	rm -f $$tmpdir/ptxdist-$(version)/.done; \
 	cd $$tmpdir; \

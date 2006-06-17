@@ -237,7 +237,7 @@ ruby: .ruby .ruby/kconfig.so
 	cd .ruby; ruby ../extconf.rb
 
 .ruby/kconfig.so: .ruby/kconfig_wrap.c .ruby/Makefile
-	make -C .ruby
+	${MAKE} -C .ruby
 
 
 PYTHON_INCLUDE=$(shell python -c "import sys; print '-I'+sys.prefix+'/include/python'+sys.version[:3]")
