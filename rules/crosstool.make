@@ -223,6 +223,7 @@ endif
 	(	cd $(CROSSTOOL_DIR); 					\
 		set -ex; 						\
 		mkdir -p $(call remove_quotes,$(PTXCONF_PREFIX)); 	\
+		unset LD_LIBRARY_PATH;					\
 		$(CROSSTOOL_ENV) sh $(CROSSTOOL_DIR)/all.sh --notest; 	\
 		echo "done" 						\
 		exit 1;							\
