@@ -1,5 +1,6 @@
 menuconfig UTIL_LINUX
 	bool "util-linux          "
+	select NCURSES if UTIL_LINUX_CFDISK
 
 config UTIL_LINUX_FDISK
 	bool
@@ -20,7 +21,7 @@ config UTIL_LINUX_CFDISK
 	bool
 	prompt "cfdisk"
 	depends on UTIL_LINUX
-	depends on NCURSES
+	select NCURSES
 	help
 	  cfdisk is a curses based program for partitioning any hard disk drive.
 	  
