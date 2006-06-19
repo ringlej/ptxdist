@@ -150,6 +150,7 @@ config INITNG_FSTAT
 config INITNG_HISTORY
 	bool
 	depends on INITNG
+	depends on INITNG_NGC4
 	prompt "History Plugin"
 	help
 	  FIXME

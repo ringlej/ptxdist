@@ -70,6 +70,11 @@ config SETUP_GNUMIRROR
         default "ftp://ftp.informatik.rwth-aachen.de/pub/gnu"
         prompt "GNU.org Mirror"
 
+config SETUP_XORGMIRROR
+        string
+        default "ftp://ftp.freedesktop.org/pub/xorg"
+        prompt "x.org Mirror"
+
 endmenu
 
 menu "IPKG Repository "

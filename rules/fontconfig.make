@@ -66,7 +66,7 @@ FONTCONFIG_ENV 	:=  \
 #
 # autoconf
 #
-FONTCONFIG_AUTOCONF = \
+FONTCONFIG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-docs
 

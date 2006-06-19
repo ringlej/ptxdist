@@ -432,13 +432,13 @@ $(STATEDIR)/initng.targetinstall: $(initng_targetinstall_deps_default)
 	@$(call install_fixup,initng,DEPENDS,)
 	@$(call install_fixup,initng,DESCRIPTION,missing)
 
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/src/libinitng.so.0.0.0, /usr/lib/libinitng.so.0.0.0)
-	@$(call install_link, initng, libinitng.so.0.0.0, /usr/lib/libinitng.so.0)
-	@$(call install_link, initng, libinitng.so.0.0.0, /usr/lib/libinitng.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/src/libinitng.so.0.0.0, /lib/libinitng.so.0.0.0)
+	@$(call install_link, initng, libinitng.so.0.0.0, /lib/libinitng.so.0)
+	@$(call install_link, initng, libinitng.so.0.0.0, /lib/libinitng.so)
 
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/runlevel/librunlevel.so, /usr/lib/initng/librunlevel.so)
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/daemon/libdaemon.so, /usr/lib/initng/libdaemon.so)
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/service/libservice.so, /usr/lib/initng/libservice.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/runlevel/librunlevel.so, /lib/initng/librunlevel.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/daemon/libdaemon.so, /lib/initng/libdaemon.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/service/libservice.so, /lib/initng/libservice.so)
 
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/src/initng, /sbin/initng)
 
@@ -450,183 +450,183 @@ ifdef PTXCONF_INITNG_INSTALL_INIT
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/tools/sulogin, /sbin/sulogin)
 endif
 ifdef PTXCONF_INITNG_NGCS
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngcs/libngcs.so, /usr/lib/initng/libngcs.so)
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngcs/libngcs_common.so.0.0.0, /usr/lib/libngcs_common.so.0.0.0)
-	@$(call install_link, initng, libngcs_common.so.0.0.0, /usr/lib/libngcs_common.so.0)
-	@$(call install_link, initng, libngcs_common.so.0.0.0, /usr/lib/libngcs_common.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngcs/libngcs.so, /lib/initng/libngcs.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngcs/libngcs_common.so.0.0.0, /lib/libngcs_common.so.0.0.0)
+	@$(call install_link, initng, libngcs_common.so.0.0.0, /lib/libngcs_common.so.0)
+	@$(call install_link, initng, libngcs_common.so.0.0.0, /lib/libngcs_common.so)
 endif
 
 ifdef PTXCONF_INITNG_NGC4
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngc4/libngc4.so, /usr/lib/initng/libngc4.so)
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngc4/libngcclient.so.0.0.0, /usr/lib/libngcclient.so.0.0.0)
-	@$(call install_link, initng, libngcclient.so.0.0.0, /usr/lib/libngcclient.so.0)
-	@$(call install_link, initng, libngcclient.so.0.0.0, /usr/lib/libngcclient.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngc4/libngc4.so, /lib/initng/libngc4.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngc4/libngcclient.so.0.0.0, /lib/libngcclient.so.0.0.0)
+	@$(call install_link, initng, libngcclient.so.0.0.0, /lib/libngcclient.so.0)
+	@$(call install_link, initng, libngcclient.so.0.0.0, /lib/libngcclient.so)
 
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngc4/ngc, /sbin/ngc)
 endif
 
 ifdef PTXCONF_INITNG_NGE
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/nge/libngeclient.so, /usr/lib/libngeclient.so.0.0.0)
-	@$(call install_link, initng, libngeclient.so.0.0.0, /usr/lib/libngeclient.so.0)
-	@$(call install_link, initng, libngeclient.so.0.0.0, /usr/lib/libngeclient.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/nge/libngeclient.so, /lib/libngeclient.so.0.0.0)
+	@$(call install_link, initng, libngeclient.so.0.0.0, /lib/libngeclient.so.0)
+	@$(call install_link, initng, libngeclient.so.0.0.0, /lib/libngeclient.so)
 
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/nge/libnge.so, /usr/lib/initng/libnge.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/nge/libnge.so, /lib/initng/libnge.so)
 
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/nge/nge, /sbin/nge)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/nge/nge_raw, /sbin/nge_raw)
 endif
 
 ifdef PTXCONF_INITNG_RELOAD
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/reload/libreload.so, /usr/lib/initng/libreload.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/reload/libreload.so, /lib/initng/libreload.so)
 endif
 
 ifdef PTXCONF_INITNG_CONFLICT
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/conflict/libconflict.so, /usr/lib/initng/libconflict.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/conflict/libconflict.so, /lib/initng/libconflict.so)
 endif
 
 ifdef PTXCONF_INITNG_FSTAT
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/fstat/libfstat.so, /usr/lib/initng/libfstat.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/fstat/libfstat.so, /lib/initng/libfstat.so)
 endif
 
 ifdef PTXCONF_INITNG_FMON
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/fmon/libfmon.so, /usr/lib/initng/libfmon.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/fmon/libfmon.so, /lib/initng/libfmon.so)
 endif
 
 ifdef PTXCONF_INITNG_PAUSE
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/pause/libpause.so, /usr/lib/initng/libpause.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/pause/libpause.so, /lib/initng/libpause.so)
 endif
 
 ifdef PTXCONF_INITNG_SUID
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/suid/libsuid.so, /usr/lib/initng/libsuid.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/suid/libsuid.so, /lib/initng/libsuid.so)
 endif
 
 ifdef PTXCONF_INITNG_INTERACTIVE
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/interactive/libinteractive.so, /usr/lib/initng/libinteractive.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/interactive/libinteractive.so, /lib/initng/libinteractive.so)
 endif
 
 ifdef PTXCONF_INITNG_INITCTL
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/initctl/libinitctl.so, /usr/lib/initng/libinitctl.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/initctl/libinitctl.so, /lib/initng/libinitctl.so)
 endif
 
 ifdef PTXCONF_INITNG_CHROOT
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/chroot/libchroot.so, /usr/lib/initng/libchroot.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/chroot/libchroot.so, /lib/initng/libchroot.so)
 endif
 
 ifdef PTXCONF_INITNG_FIND
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/find/libfind.so, /usr/lib/initng/libfind.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/find/libfind.so, /lib/initng/libfind.so)
 endif
 
 ifdef PTXCONF_INITNG_UNNEEDED
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/unneeded/libunneeded.so, /usr/lib/initng/libunneeded.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/unneeded/libunneeded.so, /lib/initng/libunneeded.so)
 endif
 
 
 ifdef PTXCONF_INITNG_IPARSER
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/iparser/libiparser.so, /usr/lib/initng/libiparser.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/iparser/libiparser.so, /lib/initng/libiparser.so)
 endif
 
 ifdef PTXCONF_INITNG_ALSO
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/also/libalso.so, /usr/lib/initng/libalso.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/also/libalso.so, /lib/initng/libalso.so)
 endif
 
 ifdef PTXCONF_INITNG_SIMPLE_LAUNCHER
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/simple_launcher/libsimplelauncher.so, /usr/lib/initng/libsimplelauncher.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/simple_launcher/libsimplelauncher.so, /lib/initng/libsimplelauncher.so)
 endif
 
 ifdef PTXCONF_INITNG_LOGFILE
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/logfile/liblogfile.so, /usr/lib/initng/liblogfile.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/logfile/liblogfile.so, /lib/initng/liblogfile.so)
 endif
 
 ifdef PTXCONF_INITNG_STCMD
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/stcmd/libstcmd.so, /usr/lib/initng/libstcmd.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/stcmd/libstcmd.so, /lib/initng/libstcmd.so)
 endif
 
 ifdef PTXCONF_INITNG_RENICE
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/renice/librenice.so, /usr/lib/initng/librenice.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/renice/librenice.so, /lib/initng/librenice.so)
 endif
 
 ifdef PTXCONF_INITNG_CHDIR
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/chdir/libchdir.so, /usr/lib/initng/libchdir.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/chdir/libchdir.so, /lib/initng/libchdir.so)
 endif
 
 ifdef PTXCONF_INITNG_DAEMON_CLEAN
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/daemon_clean/libdaemon_clean.so, /usr/lib/initng/libdaemon_clean.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/daemon_clean/libdaemon_clean.so, /lib/initng/libdaemon_clean.so)
 endif
 
 ifdef PTXCONF_INITNG_HISTORY
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/history/libhistory.so, /usr/lib/initng/libhistory.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/history/libhistory.so, /lib/initng/libhistory.so)
 endif
 
 ifdef PTXCONF_INITNG_RLPARSER
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/rlparser/librlparser.so, /usr/lib/initng/librlparser.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/rlparser/librlparser.so, /lib/initng/librlparser.so)
 endif
 
 ifdef PTXCONF_INITNG_STDOUT
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/stdout/libstdout.so, /usr/lib/initng/libstdout.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/stdout/libstdout.so, /lib/initng/libstdout.so)
 endif
 
 ifdef PTXCONF_INITNG_BASH_LAUNCHER
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/bash_launcher/libbashlaunch.so, /usr/lib/initng/libbashlaunch.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/bash_launcher/libbashlaunch.so, /lib/initng/libbashlaunch.so)
 endif
 
 ifdef PTXCONF_INITNG_NETPROBE
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/netprobe/libnetprobe.so, /usr/lib/initng/libnetprobe.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/netprobe/libnetprobe.so, /lib/initng/libnetprobe.so)
 endif
 
 ifdef PTXCONF_INITNG_NETDEV
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/netdev/libnetdev.so, /usr/lib/initng/libnetdev.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/netdev/libnetdev.so, /lib/initng/libnetdev.so)
 endif
 
 ifdef PTXCONF_INITNG_SYSLOG
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/syslog/libsyslog.so, /usr/lib/initng/libsyslog.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/syslog/libsyslog.so, /lib/initng/libsyslog.so)
 endif
 
 ifdef PTXCONF_INITNG_SYSRQ
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/sysrq/libsysrq.so, /usr/lib/initng/libsysrq.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/sysrq/libsysrq.so, /lib/initng/libsysrq.so)
 endif
 
 ifdef PTXCONF_INITNG_IDLEPROBE
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/idleprobe/libidleprobe.so, /usr/lib/initng/libidleprobe.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/idleprobe/libidleprobe.so, /lib/initng/libidleprobe.so)
 endif
 
 ifdef PTXCONF_INITNG_LAST
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/last/liblast.so, /usr/lib/initng/liblast.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/last/liblast.so, /lib/initng/liblast.so)
 endif
 
 ifdef PTXCONF_INITNG_CPOUT
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/cpout/libcpout.so, /usr/lib/initng/libcpout.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/cpout/libcpout.so, /lib/initng/libcpout.so)
 endif
 
 ifdef PTXCONF_INITNG_SYNCRON
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/syncron/libsyncron.so, /usr/lib/initng/libsyncron.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/syncron/libsyncron.so, /lib/initng/libsyncron.so)
 endif
 
 ifdef PTXCONF_INITNG_ENVPARSER
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/envparser/libenvparser.so, /usr/lib/initng/libenvparser.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/envparser/libenvparser.so, /lib/initng/libenvparser.so)
 endif
 
 ifdef PTXCONF_INITNG_LIMIT
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/limit/liblimit.so, /usr/lib/initng/liblimit.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/limit/liblimit.so, /lib/initng/liblimit.so)
 endif
 
 ifdef PTXCONF_INITNG_PROVIDE
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/provide/libprovide.so, /usr/lib/initng/libprovide.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/provide/libprovide.so, /lib/initng/libprovide.so)
 endif
 
 ifdef PTXCONF_INITNG_CTRLALTDEL
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ctrlaltdel/libctrlaltdel.so, /usr/lib/initng/libctrlaltdel.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ctrlaltdel/libctrlaltdel.so, /lib/initng/libctrlaltdel.so)
 endif
 
 ifdef PTXCONF_INITNG_DBUS_EVENT
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/dbus_event/libdbus_event.so, /usr/lib/initng/libdbus_event.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/dbus_event/libdbus_event.so, /lib/initng/libdbus_event.so)
 endif
 
 ifdef PTXCONF_INITNG_DEBUG_COMMANDS
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/debug_commands/libdebug_commands.so, /usr/lib/initng/libdebug_commands.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/debug_commands/libdebug_commands.so, /lib/initng/libdebug_commands.so)
 endif
 
 ifdef PTXCONF_INITNG_CRITICAL
-	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/critical/libcritical.so, /usr/lib/initng/libcritical.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/critical/libcritical.so, /lib/initng/libcritical.so)
 endif
 	@$(call install_finish,initng)
 

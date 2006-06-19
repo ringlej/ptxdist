@@ -64,7 +64,7 @@ TSLIB_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-TSLIB_AUTOCONF =  $(CROSS_AUTOCONF_ROOT)
+TSLIB_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/tslib.prepare: $(tslib_prepare_deps_default)
 	@$(call targetinfo, $@)
