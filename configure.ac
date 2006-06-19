@@ -24,7 +24,12 @@ AC_CHECK_HEADER(
 	AC_MSG_ERROR([Cannot find ncurses.h. Please install the ncurses development packet.])
 )
 
+AC_PROG_LEX
+AC_PROG_AWK
+AC_PROG_EGREP
 AC_PROG_INSTALL
+AC_PROG_YACC
+PKG_PROG_PKG_CONFIG
 
 AC_SYS_INTERPRETER
 if test "$interpval" != yes ; then
@@ -132,28 +137,6 @@ if test "`$PYTHON -c "import distutils" 2> /dev/null && echo yes`" = "yes"; then
 else
 	AC_MSG_RESULT(no)
 	AC_MSG_ERROR(Please install the Python distutils package)
-fi
-
-
-dnl
-dnl Check for bison
-dnl
-AC_ARG_WITH(bison, AC_HELP_STRING(
-    [--with-bison], [name of the bison executable to use]),
-    [
-	BISON="$withval"
-	AC_SUBST(BISON)
-	AC_MSG_NOTICE([Using bison executable $BISON])
-    ],[
-	BISON="bison"
-	AC_SUBST(BISON)
-    ])
-AC_MSG_CHECKING(for $BISON)
-if test "`type $BISON 2>&1 > /dev/null && echo yes`" = "yes"; then
-	AC_MSG_RESULT(yes)
-else
-	AC_MSG_RESULT(no)
-	AC_MSG_ERROR(Please install bison.)
 fi
 
 
