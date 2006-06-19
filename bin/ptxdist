@@ -132,9 +132,9 @@ check_kernelconfig() {
 	local kernelconfig
 
 	if [ "$NATIVE" = "1" ]; then
-		kernelconfig="kernelconfig.native"
+		kernelconfig=$(. ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_CONFIG})
 	else
-		kernelconfig="kernelconfig.target"
+		kernelconfig=$(. ptxconfig && echo ${PTXCONF_KERNEL_TARGET_CONFIG})
 	fi
 	if [ ! -e "$kernelconfig" ]; then
 		echo
