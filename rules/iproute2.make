@@ -61,7 +61,7 @@ iproute2_prepare: $(STATEDIR)/iproute2.prepare
 
 IPROUTE2_PATH	:=  PATH=$(CROSS_PATH)
 IPROUTE2_ENV 	:=  $(CROSS_ENV)
-IPROUTE2_MAKEVARS = $(call remove_quotes, $(CROSS_ENV_CC) CFLAGS='$(CROSS_CPPFLAGS) -D_GNU_SOURCE -O2 -Wstrict-prototypes -Wall -I../include -DRESOLVE_HOSTNAMES' LDFLAGS='$(CROSS_LDFLAGS) -L../lib -lnetlink -lutil' )
+IPROUTE2_MAKEVARS = $(call remove_quotes, $(CROSS_ENV_CC) CFLAGS='$(CROSS_CPPFLAGS) -D_GNU_SOURCE -O2 -Wstrict-prototypes -Wall -I../include -DRESOLVE_HOSTNAMES' LDFLAGS='$(CROSS_LDFLAGS) -L../lib -lnetlink -lutil' DBM_INCLUDE=$(SYSROOT)/usr/include)
 
 #
 # autoconf
@@ -93,7 +93,6 @@ iproute2_install: $(STATEDIR)/iproute2.install
 
 $(STATEDIR)/iproute2.install: $(iproute2_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, IPROUTE2)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -146,39 +145,39 @@ $(STATEDIR)/iproute2.targetinstall: $(iproute2_targetinstall_deps_default)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/normal.dist, \
-		/usr/lib/tc/normal.dist )
+		/usr/lib/tc/normal.dist,n)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/pareto.dist, \
-		/usr/lib/tc/pareto.dist )
+		/usr/lib/tc/pareto.dist,n)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/paretonormal.dist, \
-		/usr/lib/tc/paretonormal.dist )
+		/usr/lib/tc/paretonormal.dist,n)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/ematch_map, \
-		/etc/iproute2/ematch_map)
+		/etc/iproute2/ematch_map,n)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_dsfield, \
-		/etc/iproute2/rt_dsfield)
+		/etc/iproute2/rt_dsfield,n)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_protos, \
-		/etc/iproute2/rt_protos)
+		/etc/iproute2/rt_protos,n)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_realms, \
-		/etc/iproute2/rt_realms)
+		/etc/iproute2/rt_realms,n)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_scopes, \
-		/etc/iproute2/rt_scopes)
+		/etc/iproute2/rt_scopes,n)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_tables, \
-		/etc/iproute2/rt_tables)
+		/etc/iproute2/rt_tables,n)
 
 	@$(call install_finish,iproute2)
 
