@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_DRIVER_VIDEO_APM) += xorg-driver-video-apm
 #
 # Paths and names
 #
-XORG_DRIVER_VIDEO_APM_VERSION	:= 1.0.1.5
-XORG_DRIVER_VIDEO_APM		:= xf86-video-apm-X11R7.0-$(XORG_DRIVER_VIDEO_APM_VERSION)
+XORG_DRIVER_VIDEO_APM_VERSION	:= 1.1.1
+XORG_DRIVER_VIDEO_APM		:= xf86-video-apm-X11R7.1-$(XORG_DRIVER_VIDEO_APM_VERSION)
 XORG_DRIVER_VIDEO_APM_SUFFIX	:= tar.bz2
-XORG_DRIVER_VIDEO_APM_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/driver//$(XORG_DRIVER_VIDEO_APM).$(XORG_DRIVER_VIDEO_APM_SUFFIX)
+XORG_DRIVER_VIDEO_APM_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/driver/$(XORG_DRIVER_VIDEO_APM).$(XORG_DRIVER_VIDEO_APM_SUFFIX)
 XORG_DRIVER_VIDEO_APM_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_APM).$(XORG_DRIVER_VIDEO_APM_SUFFIX)
 XORG_DRIVER_VIDEO_APM_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_APM)
 
@@ -114,7 +114,9 @@ $(STATEDIR)/xorg-driver-video-apm.targetinstall: $(xorg-driver-video-apm_targeti
 	@$(call install_fixup, xorg-driver-video-apm,DEPENDS,)
 	@$(call install_fixup, xorg-driver-video-apm,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-driver-video-apm, 0, 0, 0755, \
+		$(XORG_DRIVER_VIDEO_APM_DIR)/src/.libs/apm_drv.so, \
+		/usr/lib/xorg/modules/apm_drv.so)
 
 	@$(call install_finish, xorg-driver-video-apm)
 

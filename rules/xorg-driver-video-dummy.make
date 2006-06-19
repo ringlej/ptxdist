@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_DRIVER_VIDEO_DUMMY) += xorg-driver-video-dummy
 #
 # Paths and names
 #
-XORG_DRIVER_VIDEO_DUMMY_VERSION	:= 0.1.0.5
-XORG_DRIVER_VIDEO_DUMMY		:= xf86-video-dummy-X11R7.0-$(XORG_DRIVER_VIDEO_DUMMY_VERSION)
+XORG_DRIVER_VIDEO_DUMMY_VERSION	:= 0.2.0
+XORG_DRIVER_VIDEO_DUMMY		:= xf86-video-dummy-X11R7.1-$(XORG_DRIVER_VIDEO_DUMMY_VERSION)
 XORG_DRIVER_VIDEO_DUMMY_SUFFIX	:= tar.bz2
-XORG_DRIVER_VIDEO_DUMMY_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/driver//$(XORG_DRIVER_VIDEO_DUMMY).$(XORG_DRIVER_VIDEO_DUMMY_SUFFIX)
+XORG_DRIVER_VIDEO_DUMMY_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/driver/$(XORG_DRIVER_VIDEO_DUMMY).$(XORG_DRIVER_VIDEO_DUMMY_SUFFIX)
 XORG_DRIVER_VIDEO_DUMMY_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_DUMMY).$(XORG_DRIVER_VIDEO_DUMMY_SUFFIX)
 XORG_DRIVER_VIDEO_DUMMY_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_DUMMY)
 
@@ -114,7 +114,7 @@ $(STATEDIR)/xorg-driver-video-dummy.targetinstall: $(xorg-driver-video-dummy_tar
 	@$(call install_fixup, xorg-driver-video-dummy,DEPENDS,)
 	@$(call install_fixup, xorg-driver-video-dummy,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, xorg-driver-video-dummy, 0, 0, 0755, $(XORG_DRIVER_VIDEO_DUMMY_DIR)/src/.libs/dummy_drv.so, /usr/lib/xorg/modules/dummy_drv.so)
 
 	@$(call install_finish, xorg-driver-video-dummy)
 

@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_LIB_XKBFILE) += xorg-lib-xkbfile
 #
 # Paths and names
 #
-XORG_LIB_XKBFILE_VERSION	:= 1.0.1
-XORG_LIB_XKBFILE		:= libxkbfile-X11R7.0-$(XORG_LIB_XKBFILE_VERSION)
+XORG_LIB_XKBFILE_VERSION	:= 1.0.3
+XORG_LIB_XKBFILE		:= libxkbfile-X11R7.1-$(XORG_LIB_XKBFILE_VERSION)
 XORG_LIB_XKBFILE_SUFFIX		:= tar.bz2
-XORG_LIB_XKBFILE_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_LIB_XKBFILE).$(XORG_LIB_XKBFILE_SUFFIX)
+XORG_LIB_XKBFILE_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/lib/$(XORG_LIB_XKBFILE).$(XORG_LIB_XKBFILE_SUFFIX)
 XORG_LIB_XKBFILE_SOURCE		:= $(SRCDIR)/$(XORG_LIB_XKBFILE).$(XORG_LIB_XKBFILE_SUFFIX)
 XORG_LIB_XKBFILE_DIR		:= $(BUILDDIR)/$(XORG_LIB_XKBFILE)
 
@@ -115,15 +115,15 @@ $(STATEDIR)/xorg-lib-xkbfile.targetinstall: $(xorg-lib-xkbfile_targetinstall_dep
 	@$(call install_fixup, xorg-lib-xkbfile,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xkbfile, 0, 0, 0644, \
-		$(XORG_LIB_XKBFILE_DIR)/src/.libs/libxkbfile.so.1.0.0, \
-		$(XORG_LIBDIR)/libxkbfile.so.1.0.0)
+		$(XORG_LIB_XKBFILE_DIR)/src/.libs/libxkbfile.so.1.0.2, \
+		$(XORG_LIBDIR)/libxkbfile.so.1.0.2)
 
 	@$(call install_link, xorg-lib-xkbfile, \
-		libxkbfile.so.1.0.0, \
+		libxkbfile.so.1.0.2, \
 		$(XORG_LIBDIR)/libxkbfile.so.1)
 
 	@$(call install_link, xorg-lib-xkbfile, \
-		libxkbfile.so.1.0.0, \
+		libxkbfile.so.1.0.2, \
 		$(XORG_LIBDIR)/libxkbfile.so)
 
 	@$(call install_finish, xorg-lib-xkbfile)

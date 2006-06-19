@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_LIB_XFIXES) += xorg-lib-Xfixes
 #
 # Paths and names
 #
-XORG_LIB_XFIXES_VERSION	:= 3.0.1.2
-XORG_LIB_XFIXES		:= libXfixes-X11R7.0-$(XORG_LIB_XFIXES_VERSION)
+XORG_LIB_XFIXES_VERSION	:= 4.0.1
+XORG_LIB_XFIXES		:= libXfixes-X11R7.1-$(XORG_LIB_XFIXES_VERSION)
 XORG_LIB_XFIXES_SUFFIX	:= tar.bz2
-XORG_LIB_XFIXES_URL	:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/lib//$(XORG_LIB_XFIXES).$(XORG_LIB_XFIXES_SUFFIX)
+XORG_LIB_XFIXES_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/lib/$(XORG_LIB_XFIXES).$(XORG_LIB_XFIXES_SUFFIX)
 XORG_LIB_XFIXES_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XFIXES).$(XORG_LIB_XFIXES_SUFFIX)
 XORG_LIB_XFIXES_DIR	:= $(BUILDDIR)/$(XORG_LIB_XFIXES)
 
@@ -115,15 +115,15 @@ $(STATEDIR)/xorg-lib-Xfixes.targetinstall: $(xorg-lib-Xfixes_targetinstall_deps_
 	@$(call install_fixup, xorg-lib-Xfixes,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-Xfixes, 0, 0, 0644, \
-		$(XORG_LIB_XFIXES_DIR)/src/.libs/libXfixes.so.3.0.0, \
-		$(XORG_LIBDIR)/libXfixes.so.3.0.0)
+		$(XORG_LIB_XFIXES_DIR)/src/.libs/libXfixes.so.3.1.0, \
+		$(XORG_LIBDIR)/libXfixes.so.3.1.0)
 
 	@$(call install_link, xorg-lib-Xfixes, \
-		libXfixes.so.3.0.0, \
+		libXfixes.so.3.1.0, \
 		$(XORG_LIBDIR)/libXfixes.so.3)
 
 	@$(call install_link, xorg-lib-Xfixes, \
-		libXfixes.so.3.0.0, \
+		libXfixes.so.3.1.0, \
 		$(XORG_LIBDIR)/libXfixes.so)
 
 	@$(call install_finish, xorg-lib-Xfixes)

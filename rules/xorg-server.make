@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_SERVER) += xorg-server
 #
 # Paths and names
 #
-XORG_SERVER_VERSION	:= 1.0.1
-XORG_SERVER		:= xorg-server-X11R7.0-$(XORG_SERVER_VERSION)
+XORG_SERVER_VERSION	:= 1.1.0
+XORG_SERVER		:= xorg-server-X11R7.1-$(XORG_SERVER_VERSION)
 XORG_SERVER_SUFFIX	:= tar.bz2
-XORG_SERVER_URL		:= ftp://ftp.gwdg.de/pub/x11/x.org/pub/X11R7.0/src/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
+XORG_SERVER_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
 XORG_SERVER_SOURCE	:= $(SRCDIR)/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
 XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
 
@@ -368,7 +368,7 @@ ifdef PTXCONF_XORG_DRIVER_VIDEO
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/fbdevhw/.libs/libfbdevhw.so, $(XORG_PREFIX)/lib/xorg/modules/libfbdevhw.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libafb.so, $(XORG_PREFIX)/lib/xorg/modules/libafb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb16.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb16.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb24.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb24.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb24.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb24.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb32.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb32.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/ddc/.libs/libddc.so, $(XORG_PREFIX)/lib/xorg/modules/libddc.so)
@@ -376,7 +376,7 @@ ifdef PTXCONF_XORG_DRIVER_VIDEO
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libfb.so, $(XORG_PREFIX)/lib/xorg/modules/libfb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/libi2c.so, $(XORG_PREFIX)/lib/xorg/modules/libi2c.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/int10/.libs/libint10.so, $(XORG_PREFIX)/lib/xorg/modules/libint10.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/liblayer.so, $(XORG_PREFIX)/lib/xorg/modules/liblayer.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/liblayer.so, $(XORG_PREFIX)/lib/xorg/modules/liblayer.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libmfb.so, $(XORG_PREFIX)/lib/xorg/modules/libmfb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/scanpci/.libs/libpcidata.so, $(XORG_PREFIX)/lib/xorg/modules/libpcidata.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/rac/.libs/librac.so, $(XORG_PREFIX)/lib/xorg/modules/librac.so)
@@ -391,7 +391,7 @@ ifdef PTXCONF_XORG_DRIVER_VIDEO
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/xf4bpp/.libs/libxf4bpp.so, $(XORG_PREFIX)/lib/xorg/modules/libxf4bpp.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/xf8_16bpp/.libs/libxf8_16bpp.so, $(XORG_PREFIX)/lib/xorg/modules/libxf8_16bpp.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/xf8_32bpp/.libs/libxf8_32bpp.so, $(XORG_PREFIX)/lib/xorg/modules/libxf8_32bpp.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/xf8_32wid/.libs/libxf8_32wid.so, $(XORG_PREFIX)/lib/xorg/modules/libxf8_32wid.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/xf8_32wid/.libs/libxf8_32wid.so, $(XORG_PREFIX)/lib/xorg/modules/libxf8_32wid.so)
 endif
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/extmod/.libs/libextmod.so ,/usr/lib/xorg/modules/extensions/libextmod.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libdbe.so ,/usr/lib/xorg/modules/extensions/libdbe.so)

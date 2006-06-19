@@ -1,0 +1,34 @@
+# configuration for xorg-driver-video-i810
+
+menuconfig XORG_DRIVER_VIDEO_I810
+	bool
+	depends on XORG_DRIVER_VIDEO
+	select XORG_SERVER
+	select XORG_PROTO_X
+	select XORG_PROTO_FONTS
+	select XORG_LIB_XVMC
+	select XORG_PROTO_FONTS
+	select XORG_PROTO_RANDR
+	select XORG_PROTO_RENDER
+	select XORG_PROTO_XEXT
+	select XORG_LIB_X11
+	prompt "Intel i810"
+	help
+	  FIXME
+
+comment "X.org Intel i810 Driver"
+        depends on XORG_DRIVER_VIDEO_I810
+
+config XORG_DRIVER_VIDEO_I810_DRI
+	bool
+	depends on XORG_DRIVER_VIDEO_I810
+	select LIBDRM
+	select MESALIB
+	select XORG_PROTO_GL
+	select XORG_SERVER_EXT_GLX
+	select XORG_SERVER_EXT_DRI
+	select XORG_PROTO_XF86DRI
+        prompt "Enable DRI"
+        help
+          --enable-dri
+
