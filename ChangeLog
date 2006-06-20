@@ -1,3 +1,7 @@
+2006-06-20 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* sysutil: URL fixed; patch by Randall Loomis
+
 2006-05-19 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ptxdist: added 'ptxdist boardsetup'
