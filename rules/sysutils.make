@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_SYSUTILS) += sysutils
 SYSUTILS_VERSION	= 0.1.0
 SYSUTILS		= sysutils-$(SYSUTILS_VERSION)
 SYSUTILS_SUFFIX		= tar.gz
-SYSUTILS_URL		= http://www.de.kernel.org/pub/linux/utils/kernel/hotplug/$(SYSUTILS).$(SYSUTILS_SUFFIX)
+SYSUTILS_URL		= http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(SYSUTILS).$(SYSUTILS_SUFFIX)
 SYSUTILS_SOURCE		= $(SRCDIR)/$(SYSUTILS).$(SYSUTILS_SUFFIX)
 SYSUTILS_DIR		= $(BUILDDIR)/$(SYSUTILS)
 
