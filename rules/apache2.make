@@ -65,6 +65,7 @@ APACHE2_ENV 	=  $(CROSS_ENV) \
 	ac_cv_sizeof_ssize_t=4 \
 	ac_cv_sizeof_size_t=4 \
 	apr_cv_process_shared_works=yes \
+	apr_cv_mutex_robust_shared=no \
 	ac_cv_func_setpgrp_void=yes
 
 #
