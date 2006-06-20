@@ -93,6 +93,8 @@ CHECK_PIPE_STATUS = \
 #
 SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
 
+export SYSROOT
+
 #
 # prepare the search path
 #
