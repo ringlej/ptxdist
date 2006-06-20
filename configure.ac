@@ -24,12 +24,24 @@ AC_CHECK_HEADER(
 	AC_MSG_ERROR([Cannot find ncurses.h. Please install the ncurses development packet.])
 )
 
-AC_PROG_LEX
 AC_PROG_AWK
 AC_PROG_EGREP
 AC_PROG_INSTALL
+
+AC_PROG_LEX
+if test -z "${LEX}"; then
+   AC_MSG_ERROR([(f)lex could not be found, please install])
+fi
+
 AC_PROG_YACC
+if test -z "${YACC}"; then
+   AC_MSG_ERROR([yacc/bison could not be found, please install])
+fi
+
 PKG_PROG_PKG_CONFIG
+if test -z "${PKG_CONFIG}"; then
+   AC_MSG_ERROR([pkg-config could not be found, please install])
+fi
 
 AC_SYS_INTERPRETER
 if test "$interpval" != yes ; then
