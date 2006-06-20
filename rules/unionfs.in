@@ -1,5 +1,6 @@
 menuconfig UNIONFS
 	bool "unionfs             "
+	depends on BROKEN
 	select KERNEL_COMPILE
 	select E2FSPROGS
 	help
@@ -29,3 +30,6 @@ config UNIONFS_UNIONCTL
 	bool
 	depends on UNIONFS
 	prompt "unionctl"
+
+comment "unionfs is broken, please send a patch"
+	depends on !BROKEN
