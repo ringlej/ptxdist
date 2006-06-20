@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.10.svn
-# Mon Jun 19 18:19:57 2006
+# Tue Jun 20 12:01:10 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -350,8 +350,8 @@ PTXCONF_KERNEL_COMPILE=y
 #
 # ----------------------------------
 #
-PTXCONF_KERNEL_TARGET_VERSION="2.6.15"
-PTXCONF_KERNEL_TARGET_SERIES="series"
+PTXCONF_KERNEL_TARGET_VERSION="2.6.17"
+PTXCONF_KERNEL_TARGET_SERIES=""
 PTXCONF_KERNEL_TARGET_CONFIG="kernelconfig.target"
 
 #
