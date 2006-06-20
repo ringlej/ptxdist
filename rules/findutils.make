@@ -37,7 +37,7 @@ $(STATEDIR)/findutils.get: $(findutils_get_deps_default)
 
 $(FINDUTILS_SOURCE):
 	@$(call targetinfo, $@)
-	@$(call get, FINDUTILS_URL)
+	@$(call get, FINDUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
