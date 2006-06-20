@@ -17,116 +17,10 @@
 # idea how to do it correctly. 
 #
 
-diff -urN httpd-2.0.55/srclib/apr-util/apu-config.in httpd-2.0.55-ptx/srclib/apr-util/apu-config.in
---- httpd-2.0.55/srclib/apr-util/apu-config.in	2005-02-04 21:39:09.000000000 +0100
-+++ httpd-2.0.55-ptx/srclib/apr-util/apu-config.in	2006-02-27 16:27:08.000000000 +0100
-@@ -80,7 +80,7 @@
- if test "$location" = "installed"; then
-     LA_FILE="$libdir/lib${APRUTIL_LIBNAME}.la"
- 
--    LIBS=`echo "$LIBS" | sed -e "s $APU_BUILD_DIR/xml/expat $prefix g" -e "s $prefix/lib/libexpat.la -lexpat g"`
-+    LIBS=`echo "$LIBS" | sed -e "s $APU_BUILD_DIR/xml/expat $prefix g" -e "s $prefix/lib/libexpat.la -Wl,-lexpat g"`
-     LDFLAGS=`echo "$LDFLAGS" | sed -e "s $APU_BUILD_DIR/xml/expat $prefix g"`
-     INCLUDES=`echo "$INCLUDES" | sed -e "s $APU_BUILD_DIR/xml/expat $prefix g" -e "s -I$prefix/lib  g"`
- else
-diff -urN httpd-2.0.55/srclib/apr-util/build/apu-conf.m4 httpd-2.0.55-ptx/srclib/apr-util/build/apu-conf.m4
---- httpd-2.0.55/srclib/apr-util/build/apu-conf.m4	2004-12-17 17:11:46.000000000 +0100
-+++ httpd-2.0.55-ptx/srclib/apr-util/build/apu-conf.m4	2006-02-27 16:25:37.000000000 +0100
-@@ -48,21 +48,21 @@
-     dnl Expat 1.95.* distribution
-     expat_include_dir="$1/lib"
-     expat_ldflags="-L$1/lib"
--    expat_libs="-lexpat"
-+    expat_libs="-Wl,-lexpat"
-     expat_libtool="$1/lib/libexpat.la"
-   elif test -r "$1/include/expat.h" -a \
-     -r "$1/lib/libexpat.la"; then
-     dnl Expat 1.95.* installation (with libtool)
-     expat_include_dir="$1/include"
-     expat_ldflags="-L$1/lib"
--    expat_libs="-lexpat"
-+    expat_libs="-Wl,-lexpat"
-     expat_libtool="$1/lib/libexpat.la"
-   elif test -r "$1/include/expat.h" -a \
-     -r "$1/lib64/libexpat.la"; then
-     dnl Expat 1.95.* installation on certain 64-bit platforms (with libtool)
-     expat_include_dir="$1/include"
-     expat_ldflags="-L$1/lib64"
--    expat_libs="-lexpat"
-+    expat_libs="-Wl,-lexpat"
-     expat_libtool="$1/lib64/libexpat.la"
-   elif test -r "$1/include/expat.h" -a \
-     -r "$1/lib/libexpat.a"; then
-@@ -70,12 +70,12 @@
-     dnl FreeBSD textproc/expat2
-     expat_include_dir="$1/include"
-     expat_ldflags="-L$1/lib"
--    expat_libs="-lexpat"
-+    expat_libs="-Wl,-lexpat"
-   elif test -r "$1/xmlparse.h"; then
-     dnl maybe an expat-lite. use this dir for both includes and libs
-     expat_include_dir="$1"
-     expat_ldflags="-L$1"
--    expat_libs="-lexpat"
-+    expat_libs="-Wl,-lexpat"
-     expat_libtool="$1/libexpat.la"
-     expat_old=yes
-   elif test -r "$1/include/xmlparse.h" -a \
-@@ -83,14 +83,14 @@
-     dnl previously installed expat
-     expat_include_dir="$1/include"
-     expat_ldflags="-L$1/lib"
--    expat_libs="-lexpat"
-+    expat_libs="-Wl,-lexpat"
-     expat_old=yes
-   elif test -r "$1/include/xml/xmlparse.h" -a \
-        -r "$1/lib/xml/libexpat.a"; then
-     dnl previously installed expat
-     expat_include_dir="$1/include/xml"
-     expat_ldflags="-L$1/lib"
--    expat_libs="-lexpat"
-+    expat_libs="-Wl,-lexpat"
-     expat_old=yes
-   elif test -r "$1/include/xmltok/xmlparse.h"; then
-     dnl Debian distribution
-@@ -103,13 +103,13 @@
-     dnl FreeBSD textproc/expat package
-     expat_include_dir="$1/include/xml"
-     expat_ldflags="-L$1/lib"
--    expat_libs="-lexpat"
-+    expat_libs="-Wl,-lexpat"
-     expat_old=yes
-   elif test -r "$1/xmlparse/xmlparse.h"; then
-     dnl Expat 1.0 or 1.1 source directory
-     expat_include_dir="$1/xmlparse"
-     expat_ldflags="-L$1"
--    expat_libs="-lexpat"
-+    expat_libs="-Wl,-lexpat"
-     expat_old=yes
-   fi
-   dnl ### test for installed Expat 1.95.* distros
-@@ -175,7 +175,7 @@
-   APR_SUBDIR_CONFIG($bundled_subdir, [--prefix=$prefix --exec-prefix=$exec_prefix --libdir=$libdir --includedir=$includedir --bindir=$bindir])
-   expat_include_dir=$top_builddir/$bundled_subdir/lib
-   expat_ldflags="-L$top_builddir/$bundled_subdir/lib"
--  expat_libs="-lexpat"
-+  expat_libs="-Wl,-lexpat"
-   expat_libtool=$top_builddir/$bundled_subdir/lib/libexpat.la
-   APR_XML_SUBDIRS="`echo $bundled_subdir | sed -e 's%xml/%%'`"
-   APR_ADDTO(APRUTIL_EXPORT_LIBS, [$expat_libtool])
-@@ -187,7 +187,7 @@
-   APR_SUBDIR_CONFIG($bundled_subdir, [--prefix=$prefix --exec-prefix=$exec_prefix --libdir=$libdir --includedir=$includedir --bindir=$bindir])
-   expat_include_dir=$top_builddir/$bundled_subdir/lib
-   expat_ldflags="-L$top_builddir/$bundled_subdir/lib"
--  expat_libs="-lexpat"
-+  expat_libs="-Wl,-lexpat"
-   expat_libtool=$top_builddir/$bundled_subdir/lib/libexpat.la
-   APR_XML_SUBDIRS="`echo $bundled_subdir | sed -e 's%xml/%%'`"
-   APR_ADDTO(APRUTIL_EXPORT_LIBS, [$expat_libtool])
-diff -urN httpd-2.0.55/srclib/apr-util/configure httpd-2.0.55-ptx/srclib/apr-util/configure
---- httpd-2.0.55/srclib/apr-util/configure	2005-10-10 03:34:26.000000000 +0200
-+++ httpd-2.0.55-ptx/srclib/apr-util/configure	2006-02-27 16:26:52.000000000 +0100
-@@ -38149,42 +38149,42 @@
+diff -urN httpd-2.0.58-orig/srclib/apr-util/configure httpd-2.0.58/srclib/apr-util/configure
+--- httpd-2.0.58-orig/srclib/apr-util/configure	2006-04-24 20:30:34.000000000 +0200
++++ httpd-2.0.58/srclib/apr-util/configure	2006-06-20 11:08:08.000000000 +0200
+@@ -25040,42 +25040,42 @@
    if test -r "$abs_expatdir/lib/expat.h.in"; then
          expat_include_dir="$abs_expatdir/lib"
      expat_ldflags="-L$abs_expatdir/lib"
@@ -176,7 +70,7 @@ diff -urN httpd-2.0.55/srclib/apr-util/configure httpd-2.0.55-ptx/srclib/apr-uti
      expat_old=yes
    elif test -r "$abs_expatdir/include/xmltok/xmlparse.h"; then
          expat_include_dir="$abs_expatdir/include/xmltok"
-@@ -38195,12 +38195,12 @@
+@@ -25086,12 +25086,12 @@
         -r "$abs_expatdir/lib/libexpat.a"; then
          expat_include_dir="$abs_expatdir/include/xml"
      expat_ldflags="-L$abs_expatdir/lib"
@@ -191,7 +85,72 @@ diff -urN httpd-2.0.55/srclib/apr-util/configure httpd-2.0.55-ptx/srclib/apr-uti
      expat_old=yes
    fi
  
-@@ -38232,42 +38232,42 @@
+@@ -25114,42 +25114,42 @@
+   if test -r "$abs_expatdir/lib/expat.h.in"; then
+         expat_include_dir="$abs_expatdir/lib"
+     expat_ldflags="-L$abs_expatdir/lib"
+-    expat_libs="-lexpat"
++    expat_libs="-Wl,-lexpat"
+     expat_libtool="$abs_expatdir/lib/libexpat.la"
+   elif test -r "$abs_expatdir/include/expat.h" -a \
+     -r "$abs_expatdir/lib/libexpat.la"; then
+         expat_include_dir="$abs_expatdir/include"
+     expat_ldflags="-L$abs_expatdir/lib"
+-    expat_libs="-lexpat"
++    expat_libs="-Wl,-lexpat"
+     expat_libtool="$abs_expatdir/lib/libexpat.la"
+   elif test -r "$abs_expatdir/include/expat.h" -a \
+     -r "$abs_expatdir/lib64/libexpat.la"; then
+         expat_include_dir="$abs_expatdir/include"
+     expat_ldflags="-L$abs_expatdir/lib64"
+-    expat_libs="-lexpat"
++    expat_libs="-Wl,-lexpat"
+     expat_libtool="$abs_expatdir/lib64/libexpat.la"
+   elif test -r "$abs_expatdir/include/expat.h" -a \
+     -r "$abs_expatdir/lib/libexpat.a"; then
+             expat_include_dir="$abs_expatdir/include"
+     expat_ldflags="-L$abs_expatdir/lib"
+-    expat_libs="-lexpat"
++    expat_libs="-Wl,-lexpat"
+   elif test -r "$abs_expatdir/xmlparse.h"; then
+         expat_include_dir="$abs_expatdir"
+     expat_ldflags="-L$abs_expatdir"
+-    expat_libs="-lexpat"
++    expat_libs="-Wl,-lexpat"
+     expat_libtool="$abs_expatdir/libexpat.la"
+     expat_old=yes
+   elif test -r "$abs_expatdir/include/xmlparse.h" -a \
+        -r "$abs_expatdir/lib/libexpat.a"; then
+         expat_include_dir="$abs_expatdir/include"
+     expat_ldflags="-L$abs_expatdir/lib"
+-    expat_libs="-lexpat"
++    expat_libs="-Wl,-lexpat"
+     expat_old=yes
+   elif test -r "$abs_expatdir/include/xml/xmlparse.h" -a \
+        -r "$abs_expatdir/lib/xml/libexpat.a"; then
+         expat_include_dir="$abs_expatdir/include/xml"
+     expat_ldflags="-L$abs_expatdir/lib"
+-    expat_libs="-lexpat"
++    expat_libs="-Wl,-lexpat"
+     expat_old=yes
+   elif test -r "$abs_expatdir/include/xmltok/xmlparse.h"; then
+         expat_include_dir="$abs_expatdir/include/xmltok"
+@@ -25160,12 +25160,12 @@
+        -r "$abs_expatdir/lib/libexpat.a"; then
+         expat_include_dir="$abs_expatdir/include/xml"
+     expat_ldflags="-L$abs_expatdir/lib"
+-    expat_libs="-lexpat"
++    expat_libs="-Wl,-lexpat"
+     expat_old=yes
+   elif test -r "$abs_expatdir/xmlparse/xmlparse.h"; then
+         expat_include_dir="$abs_expatdir/xmlparse"
+     expat_ldflags="-L$abs_expatdir"
+-    expat_libs="-lexpat"
++    expat_libs="-Wl,-lexpat"
+     expat_old=yes
+   fi
+ 
+@@ -25197,42 +25197,42 @@
    if test -r "$d/lib/expat.h.in"; then
          expat_include_dir="$d/lib"
      expat_ldflags="-L$d/lib"
@@ -241,7 +200,7 @@ diff -urN httpd-2.0.55/srclib/apr-util/configure httpd-2.0.55-ptx/srclib/apr-uti
      expat_old=yes
    elif test -r "$d/include/xmltok/xmlparse.h"; then
          expat_include_dir="$d/include/xmltok"
-@@ -38278,12 +38278,12 @@
+@@ -25243,12 +25243,12 @@
         -r "$d/lib/libexpat.a"; then
          expat_include_dir="$d/include/xml"
      expat_ldflags="-L$d/lib"
@@ -256,7 +215,7 @@ diff -urN httpd-2.0.55/srclib/apr-util/configure httpd-2.0.55-ptx/srclib/apr-uti
      expat_old=yes
    fi
  
-@@ -38433,7 +38433,7 @@
+@@ -25398,7 +25398,7 @@
  
    expat_include_dir=$top_builddir/$bundled_subdir/lib
    expat_ldflags="-L$top_builddir/$bundled_subdir/lib"
@@ -265,7 +224,7 @@ diff -urN httpd-2.0.55/srclib/apr-util/configure httpd-2.0.55-ptx/srclib/apr-uti
    expat_libtool=$top_builddir/$bundled_subdir/lib/libexpat.la
    APR_XML_SUBDIRS="`echo $bundled_subdir | sed -e 's%xml/%%'`"
  
-@@ -38570,7 +38570,7 @@
+@@ -25535,7 +25535,7 @@
  
    expat_include_dir=$top_builddir/$bundled_subdir/lib
    expat_ldflags="-L$top_builddir/$bundled_subdir/lib"
