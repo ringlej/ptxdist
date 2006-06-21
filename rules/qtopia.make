@@ -76,7 +76,9 @@ QTOPIA_AUTOCONF := \
 	-no-qvfb \
 	-embedded ptxdist \
 	-I$(SYSROOT)/include \
+	-I$(SYSROOT)/usr/include \
 	-L$(SYSROOT)/lib \
+	-L$(SYSROOT)/usr/lib \
 	-release \
 	-verbose
 

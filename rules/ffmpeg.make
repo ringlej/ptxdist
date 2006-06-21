@@ -8,7 +8,7 @@
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
-
+# 
 #
 # We provide this package
 #
@@ -105,64 +105,84 @@ ifdef PTXCONF_ARCH_X86
 endif
 
 ifdef PTXCONF_ARCH_ALPHA
- FFMPEG_AUTOCONF += --disable-altivec
- FFMPEG_AUTOCONF += --disable-mmx
- FFMPEG_AUTOCONF += --disable-iwmmxt
+FFMPEG_AUTOCONF += \
+        --cpu=alpha \
+        --disable-altivec \
+        --disable-mmx \
+        --disable-iwmmxt
 endif
 
 ifdef PTXCONF_ARCH_ARM
- FFMPEG_AUTOCONF += --disable-altivec
- FFMPEG_AUTOCONF += --disable-mmx
- FFMPEG_AUTOCONF += --disable-iwmmxt
+FFMPEG_AUTOCONF += \
+	--cpu=armv4l \
+	--disable-altivec \
+ 	--disable-mmx \
+	--disable-iwmmxt
 endif
 
 ifdef PTXCONF_ARCH_ARM_NOMMU
- FFMPEG_AUTOCONF += --disable-altivec
- FFMPEG_AUTOCONF += --disable-mmx
- FFMPEG_AUTOCONF += --disable-iwmmxt
+FFMPEG_AUTOCONF += \
+	--cpu=armv4l \
+	--disable-altivec \
+	--disable-mmx \
+	--disable-iwmmxt
 endif
 
 ifdef PTXCONF_ARCH_PPC 
- FFMPEG_AUTOCONF += --disable-altivec
- FFMPEG_AUTOCONF += --disable-mmx
- FFMPEG_AUTOCONF += --disable-iwmmxt
+FFMPEG_AUTOCONF += \
+	--cpu=powerpc \
+	--disable-altivec \
+	--disable-mmx \
+	--disable-iwmmxt
 # FFMPEG_AUTOCONF += --powerpc-perf-enable
 endif
 
 ifdef PTXCONF_ARCH_M68K
- FFMPEG_AUTOCONF += --disable-altivec
- FFMPEG_AUTOCONF += --disable-mmx
- FFMPEG_AUTOCONF += --disable-iwmmxt
+FFMPEG_AUTOCONF += \
+	--cpu=m68k \
+	--disable-altivec \
+	--disable-mmx \
+	--disable-iwmmxt
 endif
 
 ifdef PTXCONF_ARCH_SPARC
- FFMPEG_AUTOCONF += --disable-altivec
- FFMPEG_AUTOCONF += --disable-mmx
- FFMPEG_AUTOCONF += --disable-iwmmxt
+FFMPEG_AUTOCONF += \
+	--cpu=sparc \
+ 	--disable-altivec \
+	--disable-mmx \
+	--disable-iwmmxt
 endif
 
 ifdef PTXCONF_ARCH_MIPS
- FFMPEG_AUTOCONF += --disable-altivec
- FFMPEG_AUTOCONF += --disable-mmx
- FFMPEG_AUTOCONF += --disable-iwmmxt
+FFMPEG_AUTOCONF += \
+	--cpu=armv4l \
+	--disable-altivec \
+	--disable-mmx \
+	--disable-iwmmxt
 endif
 
 ifdef PTXCONF_ARCH_CRIS
- FFMPEG_AUTOCONF += --disable-altivec
- FFMPEG_AUTOCONF += --disable-mmx
- FFMPEG_AUTOCONF += --disable-iwmmxt
+FFMPEG_AUTOCONF += \
+	--cpu=cris \
+	--disable-altivec \
+	--disable-mmx \
+	--disable-iwmmxt
 endif
 
 ifdef PTXCONF_ARCH_PARISC
- FFMPEG_AUTOCONF += --disable-altivec
- FFMPEG_AUTOCONF += --disable-mmx
- FFMPEG_AUTOCONF += --disable-iwmmxt
+FFMPEG_AUTOCONF += \
+	--cpu=parisc \
+	--disable-altivec \
+	--disable-mmx \
+	--disable-iwmmxt
 endif
 
 ifdef PTXCONF_ARCH_SH
- FFMPEG_AUTOCONF += --disable-altivec
- FFMPEG_AUTOCONF += --disable-mmx
- FFMPEG_AUTOCONF += --disable-iwmmxt
+FFMPEG_AUTOCONF += \
+	--cpu=sh4 \
+	--disable-altivec \
+	--disable-mmx \
+	--disable-iwmmxt
 endif
 
 ifdef PTXCONF_FFMPEG_SHARED
