@@ -1,7 +1,27 @@
-Only in xf86-video-apm-X11R7.1-1.1.1/: autom4te.cache
-diff -u xf86-video-apm-X11R7.1-1.1.1.orig/configure xf86-video-apm-X11R7.1-1.1.1/configure
+#
+# Submitted-By: Erwin Rol, 2006-06-11
+# Committed-By: Luotao Fu
+#
+# Error:
+#
+# XORG_CHECK_LINUXDOC uses AC_CHECK_FILE which is not
+# crosscompile aware.
+# Includes Systemheader direcotry which is not 
+# crosscompile aware.
+#
+# Description:
+#
+# short-circuit BUILD_LINUXDOC to false
+# add ${SYSROOT} manually to INCLUDEs in configure
+#
+# State:
+#
+# not mentioned upstream
+#
+
+
 --- xf86-video-apm-X11R7.1-1.1.1.orig/configure	2006-05-23 05:29:00.000000000 +0200
-+++ xf86-video-apm-X11R7.1-1.1.1/configure	2006-06-11 12:57:26.000000000 +0200
++++ xf86-video-apm-X11R7.1-1.1.1/configure	2006-06-21 10:27:24.912755890 +0200
 @@ -465,7 +465,7 @@
  # include <unistd.h>
  #endif"
@@ -11,6 +31,51 @@ diff -u xf86-video-apm-X11R7.1-1.1.1.orig/configure xf86-video-apm-X11R7.1-1.1.1
  ac_subst_files=''
  
  # Initialize some variables set by options.
+@@ -19514,7 +19514,7 @@
+ # Checks for extensions
+ 
+ 	SAVE_CFLAGS="$CFLAGS"
+-	CFLAGS="$CFLAGS -I`pkg-config --variable=sdkdir xorg-server`"
++	CFLAGS="$CFLAGS -I${SYSROOT}`pkg-config --variable=sdkdir xorg-server`"
+ 	cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -19576,7 +19576,7 @@
+ 
+ 
+ 	SAVE_CFLAGS="$CFLAGS"
+-	CFLAGS="$CFLAGS -I`pkg-config --variable=sdkdir xorg-server`"
++	CFLAGS="$CFLAGS -I${SYSROOT}`pkg-config --variable=sdkdir xorg-server`"
+ 	cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -19638,7 +19638,7 @@
+ 
+ 
+ 	SAVE_CFLAGS="$CFLAGS"
+-	CFLAGS="$CFLAGS -I`pkg-config --variable=sdkdir xorg-server`"
++	CFLAGS="$CFLAGS -I${SYSROOT}`pkg-config --variable=sdkdir xorg-server`"
+ 	cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -19700,7 +19700,7 @@
+ 
+ 
+ 	SAVE_CFLAGS="$CFLAGS"
+-	CFLAGS="$CFLAGS -I`pkg-config --variable=sdkdir xorg-server`"
++	CFLAGS="$CFLAGS -I${SYSROOT}`pkg-config --variable=sdkdir xorg-server`"
+ 	cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -20063,7 +20063,7 @@
+ 
+ 
+ CFLAGS="$CFLAGS $XORG_CFLAGS $XF86RUSH_CFLAGS"' -I$(top_srcdir)/src'
+-INCLUDES="$XORG_INCS -I${sdkdir} $XF86RUSH_INCS "'-I$(top_srcdir)/src -I$(prefix)/include'
++INCLUDES="$XORG_INCS -I${sdkdir} $XF86RUSH_INCS "'-I$(top_srcdir)/src -I${SYSROOT}$(prefix)/include'
+ 
+ 
+ 
 @@ -20356,124 +20356,10 @@
  	fi
  
@@ -213,9 +278,17 @@ diff -u xf86-video-apm-X11R7.1-1.1.1.orig/configure xf86-video-apm-X11R7.1-1.1.1
  s,@LIBOBJS@,$LIBOBJS,;t t
  s,@LTLIBOBJS@,$LTLIBOBJS,;t t
  CEOF
-diff -u xf86-video-apm-X11R7.1-1.1.1.orig/configure.ac xf86-video-apm-X11R7.1-1.1.1/configure.ac
 --- xf86-video-apm-X11R7.1-1.1.1.orig/configure.ac	2006-04-08 03:14:51.000000000 +0200
-+++ xf86-video-apm-X11R7.1-1.1.1/configure.ac	2006-06-11 12:57:18.000000000 +0200
++++ xf86-video-apm-X11R7.1-1.1.1/configure.ac	2006-06-21 10:32:23.844154804 +0200
+@@ -63,7 +63,7 @@
+ AC_SUBST([XF86RUSH_CFLAGS])
+ 
+ CFLAGS="$CFLAGS $XORG_CFLAGS $XF86RUSH_CFLAGS"' -I$(top_srcdir)/src'
+-INCLUDES="$XORG_INCS -I${sdkdir} $XF86RUSH_INCS "'-I$(top_srcdir)/src -I$(prefix)/include'
++INCLUDES="$XORG_INCS -I${sdkdir} $XF86RUSH_INCS "'-I$(top_srcdir)/src -I${SYSROOT}$(prefix)/include'
+ AC_SUBST([CFLAGS])
+ AC_SUBST([INCLUDES])
+ 
 @@ -78,7 +78,8 @@
  XORG_MANPAGE_SECTIONS
  XORG_RELEASE_VERSION
@@ -226,5 +299,3 @@ diff -u xf86-video-apm-X11R7.1-1.1.1.orig/configure.ac xf86-video-apm-X11R7.1-1.
  
  AC_OUTPUT([
  	Makefile
-Common subdirectories: xf86-video-apm-X11R7.1-1.1.1.orig/man and xf86-video-apm-X11R7.1-1.1.1/man
-Common subdirectories: xf86-video-apm-X11R7.1-1.1.1.orig/src and xf86-video-apm-X11R7.1-1.1.1/src

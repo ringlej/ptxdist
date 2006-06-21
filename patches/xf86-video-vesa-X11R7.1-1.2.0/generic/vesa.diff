@@ -1,0 +1,67 @@
+#
+# Submitted-By: Luotao Fu, 2006-06-21
+# Committed-By: Luotao Fu
+#
+# Error:
+#
+# Includes Systemheader direcotry which is not
+# crosscompile aware.
+#
+# Description:
+#
+# add ${SYSROOT} manually to INCLUDEs in configure
+#
+# State:
+#
+# not mentioned upstream
+#
+
+--- xf86-video-vesa-X11R7.1-1.2.0.orig/configure	2006-05-22 15:59:51.000000000 +0200
++++ xf86-video-vesa-X11R7.1-1.2.0/configure	2006-06-21 11:00:27.279117106 +0200
+@@ -19502,7 +19502,7 @@
+ # Checks for extensions
+ 
+ 	SAVE_CFLAGS="$CFLAGS"
+-	CFLAGS="$CFLAGS -I`pkg-config --variable=sdkdir xorg-server`"
++	CFLAGS="$CFLAGS -I${SYSROOT}`pkg-config --variable=sdkdir xorg-server`"
+ 	cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -19564,7 +19564,7 @@
+ 
+ 
+ 	SAVE_CFLAGS="$CFLAGS"
+-	CFLAGS="$CFLAGS -I`pkg-config --variable=sdkdir xorg-server`"
++	CFLAGS="$CFLAGS -I${SYSROOT}`pkg-config --variable=sdkdir xorg-server`"
+ 	cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -19626,7 +19626,7 @@
+ 
+ 
+ 	SAVE_CFLAGS="$CFLAGS"
+-	CFLAGS="$CFLAGS -I`pkg-config --variable=sdkdir xorg-server`"
++	CFLAGS="$CFLAGS -I${SYSROOT}`pkg-config --variable=sdkdir xorg-server`"
+ 	cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -19907,7 +19907,7 @@
+ sdkdir=$(pkg-config --variable=sdkdir xorg-server)
+ 
+ CFLAGS="$CFLAGS $XORG_CFLAGS "' -I$(top_srcdir)/src'
+-INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src -I$(prefix)/include'
++INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src -I${SYSROOT}$(prefix)/include'
+ 
+ 
+ 
+--- xf86-video-vesa-X11R7.1-1.2.0.orig/configure.ac	2006-05-19 21:10:12.000000000 +0200
++++ xf86-video-vesa-X11R7.1-1.2.0/configure.ac	2006-06-21 11:02:32.160781855 +0200
+@@ -57,7 +57,7 @@
+ sdkdir=$(pkg-config --variable=sdkdir xorg-server)
+ 
+ CFLAGS="$CFLAGS $XORG_CFLAGS "' -I$(top_srcdir)/src'
+-INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src -I$(prefix)/include'
++INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src -I${SYSROOT}$(prefix)/include'
+ AC_SUBST([CFLAGS])
+ AC_SUBST([INCLUDES])
+ 
