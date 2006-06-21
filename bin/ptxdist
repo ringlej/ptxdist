@@ -472,13 +472,13 @@ newpacket () {
 	fi
 
 	sed \
-		-e "s~\@PACKET@~${PACKET}~g" \
-		-e "s~\@packet@~${packet}~g" \
-		-e "s~\@VERSION@~${VERSION}~g" \
-		-e "s~\@URL@~${URL}~g" \
-		-e "s~\@YEAR@~${YEAR}~g" \
-		-e "s~\@AUTHOR@~${AUTHOR}~g" \
-		-e "s~\@SUFFIX@~${SUFFIX}~g" \
+		-e "s,\@PACKET@,${PACKET},g" \
+		-e "s,\@packet@,${packet},g" \
+		-e "s,\@VERSION@,${VERSION},g" \
+		-e "s,\@URL@,${URL},g" \
+		-e "s,\@YEAR@,${YEAR},g" \
+		-e "s,\@AUTHOR@,${AUTHOR},g" \
+		-e "s,\@SUFFIX@,${SUFFIX},g" \
 		${PTXDIST_TOPDIR}/rules/${template} \
 		> ${packetfile}
 
