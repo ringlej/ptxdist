@@ -3,6 +3,7 @@
 menuconfig XORG_DRIVER_VIDEO_ATI
 	bool
 	depends on XORG_DRIVER_VIDEO
+	depends on ARCH_X86 || ARCH_POWERPC
 	select XORG_SERVER
 	select XORG_PROTO_X
 	select XORG_PROTO_FONTS
