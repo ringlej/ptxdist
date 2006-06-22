@@ -24,8 +24,6 @@ DB44_URL	= http://downloads.sleepycat.com/$(DB44).$(DB44_SUFFIX)
 DB44_SOURCE	= $(SRCDIR)/$(DB44).$(DB44_SUFFIX)
 DB44_DIR	= $(BUILDDIR)/$(DB44)
 
--include $(call package_depfile)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

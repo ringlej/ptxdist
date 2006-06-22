@@ -24,8 +24,6 @@ XORG_DRIVER_VIDEO_V4L_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/driver/$(XO
 XORG_DRIVER_VIDEO_V4L_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_V4L).$(XORG_DRIVER_VIDEO_V4L_SUFFIX)
 XORG_DRIVER_VIDEO_V4L_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_V4L)
 
--include $(call package_depfile)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

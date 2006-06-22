@@ -24,8 +24,6 @@ XORG_DRIVER_VIDEO_I810_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/driver/$(X
 XORG_DRIVER_VIDEO_I810_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_I810).$(XORG_DRIVER_VIDEO_I810_SUFFIX)
 XORG_DRIVER_VIDEO_I810_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_I810)
 
--include $(call package_depfile)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

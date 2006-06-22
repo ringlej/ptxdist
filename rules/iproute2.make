@@ -24,8 +24,6 @@ IPROUTE2_URL		:= http://developer.osdl.org/dev/iproute2/download/$(IPROUTE2).$(I
 IPROUTE2_SOURCE		:= $(SRCDIR)/$(IPROUTE2).$(IPROUTE2_SUFFIX)
 IPROUTE2_DIR		:= $(BUILDDIR)/$(IPROUTE2)
 
--include $(call package_depfile)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

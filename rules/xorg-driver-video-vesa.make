@@ -24,8 +24,6 @@ XORG_DRIVER_VIDEO_VESA_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/driver/$(X
 XORG_DRIVER_VIDEO_VESA_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_VIDEO_VESA).$(XORG_DRIVER_VIDEO_VESA_SUFFIX)
 XORG_DRIVER_VIDEO_VESA_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_VESA)
 
--include $(call package_depfile)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

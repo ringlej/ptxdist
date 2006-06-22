@@ -24,8 +24,6 @@ XVKBD_URL		= http://member.nifty.ne.jp/tsato/xvkbd/$(XVKBD).$(XVKBD_SUFFIX)
 XVKBD_SOURCE		= $(SRCDIR)/$(XVKBD).$(XVKBD_SUFFIX)
 XVKBD_DIR		= $(BUILDDIR)/$(XVKBD)
 
-#include $(call package_depfile)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
