@@ -63,7 +63,6 @@ $(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps_default)
 host-ipkg-utils_prepare: $(STATEDIR)/host-ipkg-utils.prepare
 
 HOST_IPKG_UTILS_PATH	:= PATH=$(CROSS_PATH)
-HOST_IPKG_UTILS_ENV 	:= $(CROSS_ENV)
 
 $(STATEDIR)/host-ipkg-utils.prepare: $(host-ipkg-utils_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -92,7 +91,6 @@ $(STATEDIR)/host-ipkg-utils.install: $(host-ipkg-utils_install_deps_default)
 	# ipkg.py is forgotten by MAKE_INSTALL, so we copy it manually
 	# FIXME: this should probably be fixed upstream
 	@$(call install, HOST_IPKG_UTILS,,h)
-	mkdir -p $(PTXCONF_HOST_PREFIX)/usr/bin
 	cp -f $(HOST_IPKG_UTILS_DIR)/ipkg.py $(PTXCONF_HOST_PREFIX)/usr/bin/
 	@$(call touch, $@)
 
