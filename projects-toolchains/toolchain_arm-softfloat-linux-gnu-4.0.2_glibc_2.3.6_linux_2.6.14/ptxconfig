@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.3
-# Fri Apr 21 17:40:58 2006
+# PTXdist version: 0.10.svn
+# Thu Jun 22 09:39:27 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -64,6 +64,8 @@ PTXCONF_OPT_ARM=y
 # PTXCONF_OPT_I486 is not set
 # PTXCONF_OPT_I586 is not set
 # PTXCONF_OPT_I686 is not set
+# PTXCONF_OPT_P2 is not set
+# PTXCONF_OPT_P3M is not set
 # PTXCONF_OPT_PPC is not set
 # PTXCONF_OPT_PPC405 is not set
 # PTXCONF_OPT_PPC604 is not set
@@ -183,6 +185,8 @@ PTXCONF_CROSS_GDB=y
 #
 PTXCONF_KERNEL_TARGET_VERSION="2.6.14"
 PTXCONF_KERNEL_TARGET_SERIES="series"
+PTXCONF_KERNEL_TARGET_CONFIG="kernelconfig.target"
+PTXCONF_KERNEL_NATIVE_CONFIG="kernelconfig.native"
 
 #
 # C Library           
