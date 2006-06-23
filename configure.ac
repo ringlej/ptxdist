@@ -38,11 +38,6 @@ if test -z "${YACC}"; then
    AC_MSG_ERROR([yacc/bison could not be found, please install])
 fi
 
-PKG_PROG_PKG_CONFIG
-if test -z "${PKG_CONFIG}"; then
-   AC_MSG_ERROR([pkg-config could not be found, please install])
-fi
-
 AC_SYS_INTERPRETER
 if test "$interpval" != yes ; then
 	AC_MSG_WARN([no
@@ -98,33 +93,39 @@ esac
 AC_MSG_RESULT([$SED_VERSION])
 
 dnl Check for bunzip2
-AC_PATH_PROGS( BUNZIP2, bunzip2, , $PATH)
+AC_PATH_PROGS(BUNZIP2, bunzip2, , $PATH)
 if test -z "$BUNZIP2"; then 
 	AC_MSG_ERROR([bunzip2 could not be found, please install])
 fi
 
 dnl Check for gunzip
-AC_PATH_PROGS( GUNZIP, gunzip, , $PATH)
+AC_PATH_PROGS(GUNZIP, gunzip, , $PATH)
 if test -z "$GUNZIP"; then
 	AC_MSG_ERROR([gunzip could not be found, please install])
 fi
 
 dnl Check for readlink
-AC_PATH_PROGS( READLINK, readlink, , $PATH)
+AC_PATH_PROGS(READLINK, readlink, , $PATH)
 if test -z "$READLINK"; then
 	AC_MSG_ERROR([readlink could not be found, please install])
 fi
 
 dnl Check for awk
-AC_PATH_PROGS( AWK, awk, , $PATH)
+AC_PATH_PROGS(AWK, awk, , $PATH)
 if test -z "$AWK"; then
 	AC_MSG_ERROR([awk could not be found, please install])
 fi
 
 dnl Check for mktemp
-AC_PATH_PROGS( MKTEMP, mktemp, , $PATH)
+AC_PATH_PROGS(MKTEMP, mktemp, , $PATH)
 if test -z "$MKTEMP"; then
 	AC_MSG_ERROR([mktemp could not be found, please install])
+fi
+
+dnl Check for pkgconfig
+AC_PATH_PROGS(PKG_CONFIG, pkg-config, , $PATH)
+if test -z "${PKG_CONFIG}"; then
+	AC_MSG_ERROR([pkg-config could not be found, please install])
 fi
 
 dnl
