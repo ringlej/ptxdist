@@ -61,12 +61,12 @@ libxml2_prepare: $(STATEDIR)/libxml2.prepare
 #
 # dependencies
 #
-LIBXML2_PATH	:=  PATH=$(CROSS_PATH)
+LIBXML2_PATH	:= PATH=$(CROSS_PATH)
 
 #
 # autoconf
 #
-LIBXML2_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+LIBXML2_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 ifdef PTXCONF_LIBXML2_C14N
 LIBXML2_AUTOCONF += --with-c14n
