@@ -409,15 +409,8 @@ drop() {
 }
 
 menuconfig_action() {
-#	local ret
 	echo "${PROMPT}menuconfig..."
 	${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_KCONFIG}
-#	ret=$?
-#	if [ $ret -ne 0 ]; then
-#		return $ret
-#	fi
-#	echo "${PROMPT}silentoldconfig..."
-#	${PTXDIST_TOPDIR}/scripts/kconfig/conf -s ${PTXDIST_KCONFIG}
 }
 
 newpacket () {
@@ -675,6 +668,7 @@ while [ "$#" != "0" ]; do
 			;;
 	clean)		shift
 			check_ptxconfig
+			check_deps
 			clean $1
 			exit 0
 			;;
