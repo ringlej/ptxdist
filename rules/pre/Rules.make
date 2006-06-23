@@ -405,12 +405,10 @@ check_file_exists = 				\
 # to perform compile or prepare stages. 
 # 
 # $1: name of the target to be printed out
-# $2: normally empty; if "n", don't run compilercheck (FIXME: obsolete)
 #
 targetinfo = 							\
 	echo;							\
 	TG=`echo $(1) | sed -e "s,/.*/,,g"`; 			\
-	NOCHECK=$(strip $(2));					\
 	LINE=`echo target: $$TG |sed -e "s/./-/g"`;		\
 	echo $$LINE;						\
 	echo target: $$TG;					\
