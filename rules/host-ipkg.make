@@ -56,13 +56,13 @@ $(STATEDIR)/host-ipkg.extract: $(host-ipkg_extract_deps_default)
 
 host-ipkg_prepare: $(STATEDIR)/host-ipkg.prepare
 
-HOST_IPKG_PATH	= PATH=$(HOST_PATH)
-HOST_IPKG_ENV 	= $(HOSTCC_ENV)
+HOST_IPKG_PATH	:= PATH=$(HOST_PATH)
+HOST_IPKG_ENV	:= $(HOSTCC_ENV)
 
 #
 # autoconf
 #
-HOST_IPKG_AUTOCONF  = $(HOST_AUTOCONF)
+HOST_IPKG_AUTOCONF := $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-ipkg.prepare: $(host-ipkg_prepare_deps_default)
 	@$(call targetinfo, $@)

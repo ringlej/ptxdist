@@ -58,13 +58,13 @@ $(STATEDIR)/host-fakeroot.extract: $(host-fakeroot_extract_deps_default)
 
 host-fakeroot_prepare: $(STATEDIR)/host-fakeroot.prepare
 
-HOST_FAKEROOT_PATH	=  PATH=$(HOST_PATH)
-HOST_FAKEROOT_ENV 	=  $(HOST_ENV)
+HOST_FAKEROOT_PATH	:= PATH=$(HOST_PATH)
+HOST_FAKEROOT_ENV 	:= $(HOST_ENV)
 
 #
 # autoconf
 #
-HOST_FAKEROOT_AUTOCONF = \
+HOST_FAKEROOT_AUTOCONF:= \
 	$(HOST_AUTOCONF) \
 	--without-po4a
 
