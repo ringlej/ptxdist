@@ -18,13 +18,24 @@ config ROOTFS_DEV
 	help
 	  FIXME: This item needs to be documented
 
+config ROOTFS_DEV_INITIAL
+	depends on ROOTFS_DEV
+	bool
+	prompt "create initial device nodes"
+	default y
+	help
+	  install /dev/null, /dev/zero and /dev/console device nodes.
+	  udev needs at least these nodes to startup. If you use udev
+	  say yes here
+
 config ROOTFS_DEV_PTS
 	depends on ROOTFS_DEV
 	bool
 	prompt "/dev/pts"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  create /dev/pts directory on target. This one is not needed
+	  if you use udev, because udev cares for it.
 
 config ROOTFS_HOME
 	depends on ROOTFS

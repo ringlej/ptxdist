@@ -147,8 +147,6 @@ ifdef PTXCONF_UDEV_FW_HELPER
 	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/extras/firmware/firmware_helper, /sbin/firmware_helper)
 endif
 
-	@$(call install_node, udev, 0, 0, 0644, c, 5, 1, /dev/console)
-
 	@$(call install_finish, udev)
 
 	@$(call touch, $@)

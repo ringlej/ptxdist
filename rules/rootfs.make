@@ -95,6 +95,11 @@ endif
 ifdef PTXCONF_ROOTFS_DEV_PTS
 	@$(call install_copy, rootfs, 0, 0, 0755, /dev/pts)
 endif
+ifdef PTXCONF_ROOTFS_DEV_INITIAL
+	@$(call install_node, rootfs, 0, 0, 0644, c, 1, 3, /dev/null)
+	@$(call install_node, rootfs, 0, 0, 0644, c, 1, 5, /dev/zero)
+	@$(call install_node, rootfs, 0, 0, 0600, c, 5, 1, /dev/console)
+endif
 ifdef PTXCONF_ROOTFS_HOME
 	@$(call install_copy, rootfs, 0, 0, 2775, /home)
 endif
@@ -295,6 +300,14 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_DROPBEAR
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK),"")
 	@$(call install_link, rootfs, ../init.d/dropbear, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK))
+endif
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_SSHD
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/sshd,    /etc/init.d/sshd, n)
+
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SSHD_LINK),"")
+	@$(call install_link, rootfs, ../init.d/sshd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SSHD_LINK))
 endif
 endif
 
