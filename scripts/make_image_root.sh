@@ -102,7 +102,7 @@ echo `awk -F: "$DOPERMISSIONS" $PERMISSIONS && echo "mkfs.jffs2 -d $WORKDIR --er
 
 if [ -n "$IPKGDIR" ]; then
 	echo "cleaning up workdir"
-#	rm -fr $WORKDIR
+	rm -fr $WORKDIR
 fi
 
 echo "finished:"
