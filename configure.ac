@@ -42,7 +42,7 @@ AC_SYS_INTERPRETER
 if test "$interpval" != yes ; then
 	AC_MSG_WARN([no
 
-bash scripts may not be invoked correctly due to problems with your 
+bash scripts may not be invoked correctly due to problems with your
 systems implementation of #! being either broken or non-existant.
 ])
 fi
@@ -94,7 +94,7 @@ AC_MSG_RESULT([$SED_VERSION])
 
 dnl Check for bunzip2
 AC_PATH_PROGS(BUNZIP2, bunzip2, , $PATH)
-if test -z "$BUNZIP2"; then 
+if test -z "$BUNZIP2"; then
 	AC_MSG_ERROR([bunzip2 could not be found, please install])
 fi
 
@@ -191,6 +191,8 @@ have a more recent version of patch then you can supply its path with the
 else
 	AC_MSG_RESULT(yes)
 fi
+
+dnl Check also for perl-5.8.6, ncurses-5.4, tar-1.15.1, wget-1.10.2, gcc-3.x on host, expect, kermit for pelts
 
 dnl Check for rpmbuild (v4) vs. rpm (v3)
 dnl AC_PATH_PROGS(RPMBUILD, [rpmbuild rpm])
