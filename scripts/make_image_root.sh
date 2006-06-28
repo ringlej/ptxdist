@@ -92,7 +92,9 @@ cd $WORKDIR
 
 if [ -n "$IPKGDIR" ]; then
 	for archive in $IPKGDIR/*.ipk; do
-		ipkg-cl -f $IPKGCONF -force-depends -o `pwd` install $archive 1> /dev/null
+		# "Cannot create node" messages are ok here (nodes are handled with the permissions file)
+		#  do not confuse the user with these error messages
+		ipkg-cl -f $IPKGCONF -force-depends -o `pwd` install $archive 2>&1 1>/dev/null | grep -v "Cannot create node"
 	done
 fi
 
