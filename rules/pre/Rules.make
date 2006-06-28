@@ -1135,6 +1135,7 @@ install_init =										\
 	PACKET=$(strip $(1));								\
 	echo "install_init: preparing for image creation...";				\
 	rm -fr $(IMAGEDIR)/$$PACKET/*;							\
+	rm -f $(STATEDIR)/$$PACKET.perms;						\
 	mkdir -p $(IMAGEDIR)/$$PACKET/ipkg/CONTROL; 					\
 	cp -f $(RULESDIR)/default.ipkg $(IMAGEDIR)/$$PACKET/ipkg/CONTROL/control;	\
 	if [ -z $(PTXCONF_IMAGE_IPKG_ARCH) ]; then					\
