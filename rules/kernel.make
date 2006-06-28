@@ -251,7 +251,7 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 
 kernel_install: $(STATEDIR)/kernel.install
 
-$(STATEDIR)/kernel.install:
+$(STATEDIR)/kernel.install: $(kernel_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
