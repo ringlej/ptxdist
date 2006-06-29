@@ -1,26 +1,27 @@
 TODO for PTXdist 0.10 Series - High Priority
 ============================================
 
-[ ] ero: add -mcpu=... to PTXCONF_TARGET_EXTRA_CPPFLAGS, to let host tools 
-    definitely barf if they are accidently being built with the target 
+[ ] ero: add -mcpu=... to PTXCONF_TARGET_EXTRA_CPPFLAGS, to let host tools
+    definitely barf if they are accidently being built with the target
     compiler.
 [ ] mol: ptxdist commands behave differently for arguments which exceed
     the "current" command; some continue parsing and some exit.
 [ ] mol: add possibility to 'ptxdist print' more than one variable in
     one make call
 [ ] modify macros to use FOOBAR instead of $(FOOBAR_DIR) etc.; see
-    install macro for example. 
+    install macro for example.
 [ ] check if ${PTXCONF_PREFIX} can be written to and barf if not
 [ ] add sanity checks for all user configurable variables (especially
     paths)
 [ ] audit project files for CROSS_AUTOCONF
 [ ] Problem: When doing things like "PKG_CONFIG_PATH=bla something",
-    something does not inherit the environment variable PKG_CONFIG_PATH. 
-    To achieve this properly, we need to export these variables to the 
+    something does not inherit the environment variable PKG_CONFIG_PATH.
+    To achieve this properly, we need to export these variables to the
     calling shell. The same applies to lots of variables from
-    Rules.make. 
-[ ] Write macros $(call compile) and $(call configure). 
+    Rules.make.
+[ ] Write macros $(call compile) and $(call configure).
 [ ] libxslt crypto support is broken
+[ ] add menu entry for user local config files in /etc
 
 Interesting packets
 -------------------
