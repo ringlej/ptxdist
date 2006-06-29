@@ -2,7 +2,7 @@
 # $Id: template 3079 2005-09-02 18:09:51Z rsc $
 #
 # Copyright (C) 2005 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -114,9 +114,9 @@ $(STATEDIR)/tslib.targetinstall: $(tslib_targetinstall_deps_default)
 	@$(call install_fixup, tslib,DEPENDS,)
 	@$(call install_fixup, tslib,DESCRIPTION,missing)
 
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/src/.libs/libts-0.0.so.0.1.1, /lib/libts-0.0.so.0.1.1)
-	@$(call install_link, tslib, libts-0.0.so.0.1.1, /lib/libts.so)
-	@$(call install_link, tslib, libts-0.0.so.0.1.1, /lib/libts-0.0.so.0)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/src/.libs/libts-0.0.so.0.1.1, /usr/lib/libts-0.0.so.0.1.1)
+	@$(call install_link, tslib, libts-0.0.so.0.1.1, /usr/lib/libts.so)
+	@$(call install_link, tslib, libts-0.0.so.0.1.1, /usr/lib/libts-0.0.so.0)
 
 ifdef PTXCONF_TSLIB_TS_CALIBRATE
 	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/tests/.libs/ts_calibrate, /usr/bin/ts_calibrate)
@@ -125,12 +125,12 @@ ifdef PTXCONF_TSLIB_TS_TEST
 	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/tests/.libs/ts_test, /usr/bin/ts_test)
 endif
 
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/input.so, /lib/ts/input.so)
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/pthres.so, /lib/ts/pthres.so)
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/variance.so, /lib/ts/variance.so)
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/dejitter.so, /lib/ts/dejitter.so)
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/linear.so, /lib/ts/linear.so)
-	
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/input.so, /usr/lib/ts/input.so)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/pthres.so, /usr/lib/ts/pthres.so)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/variance.so, /usr/lib/ts/variance.so)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/dejitter.so, /usr/lib/ts/dejitter.so)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/linear.so, /usr/lib/ts/linear.so)
+
 	@$(call install_finish, tslib)
 
 	@$(call touch, $@)
