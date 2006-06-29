@@ -5,7 +5,6 @@
 #
 
 export PATH="$PATH:/usr/bin:/bin:/sbin"
-export TSLIB_TSDEVICE=/dev/event0
 
 #umask 022
 
