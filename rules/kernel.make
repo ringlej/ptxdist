@@ -278,6 +278,7 @@ ifdef  PTXCONF_KERNEL_INSTALL
 		if [ -f $$i ]; then					\
 			$(call install_copy, kernel, 0, 0, 0644, $$i, /boot/$(KERNEL_TARGET), n); \
 			chmod a+x $(ROOTDIR)/boot/$(KERNEL_TARGET);	\
+			install -D $$i $(IMAGEDIR)/linuximage;		\
 		fi;							\
 	done
 	@$(call install_finish, kernel)
