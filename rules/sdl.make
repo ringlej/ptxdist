@@ -341,7 +341,7 @@ $(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
 ifdef PTXCONF_SDL_SHARED
 	@$(call install_copy, sdl, 0, 0, 0644, \
 		$(SDL_DIR)/build/.libs/libSDL-1.2.so.0.7.3, \
-		/usr/lib/libSDL-1.2.so.0.7.2)
+		/usr/lib/libSDL-1.2.so.0.7.3)
 
 	@$(call install_link, sdl, \
 		libSDL-1.2.so.0.7.3, \
