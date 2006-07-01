@@ -1,5 +1,5 @@
 2006-07-01 Robert Schwebel <r.schwebel@pengutronix.de>
-
+	* autobuilder: fixed mechanism for multiple subprojects
 	* moved ptxdist-0.10-trunk to ptxdist-trunk
 
 2006-07-01 Robert Schwebel <r.schwebel@pengutronix.de>
