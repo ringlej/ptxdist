@@ -1,5 +1,9 @@
 2006-07-01 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* moved ptxdist-0.10-trunk to ptxdist-trunk
+
+2006-07-01 Robert Schwebel <r.schwebel@pengutronix.de>
+
 	* release: released 0.10.4
 
 2006-06-30 Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
