@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 0.10.svn
-# Thu Jun 22 09:39:49 2006
+# Fri Jun 23 09:54:10 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -171,7 +171,7 @@ PTXCONF_CROSS_GDB=y
 # ----------------------------------
 #
 PTXCONF_KERNEL_TARGET_VERSION="2.6.13"
-PTXCONF_KERNEL_TARGET_SERIES="series"
+PTXCONF_KERNEL_TARGET_SERIES=""
 PTXCONF_KERNEL_TARGET_CONFIG="kernelconfig.target"
 PTXCONF_KERNEL_NATIVE_CONFIG="kernelconfig.native"
 

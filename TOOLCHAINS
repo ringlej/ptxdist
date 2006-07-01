@@ -1,19 +1,19 @@
 
-config............: toolchain_i586-unknown-linux-gnu-4.0.2_glibc_2.3.6_linux_2.6.14
-date..............: Thu May 25 20:28:03 CEST 2006
-user..............: rsc@isonoe
-buildtime.........: 0h49m0s
-result............: 0
-
 config............: toolchain_powerpc-unknown-linux-gnu-4.0.2_glibc-2.3.6_linux_2.6.13
-date..............: Thu May 25 21:18:49 CEST 2006
+date..............: Fri Jun 30 23:31:59 CEST 2006
 user..............: rsc@isonoe
-buildtime.........: 0h57m0s
+buildtime.........: 0h56m0s
 result............: 0
 
-config............: toolchain_arm-softfloat-linux-gnu-4.0.2_glibc_2.3.6_linux_2.6.14
-date..............: Thu May 25 22:17:10 CEST 2006
+config............: toolchain_arm-softfloat-linux-gnu-4.0.2_glibc_2.3.6_linux_2.6.17
+date..............: Sat Jul  1 00:29:25 CEST 2006
 user..............: rsc@isonoe
-buildtime.........: 0h45m0s
+buildtime.........: 0h44m0s
+result............: 0
+
+config............: toolchain_i586-unknown-linux-gnu-4.0.2_glibc_2.3.6_linux_2.6.17
+date..............: Sat Jul  1 01:14:32 CEST 2006
+user..............: rsc@isonoe
+buildtime.........: 0h48m0s
 result............: 0
 

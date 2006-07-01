@@ -1,0 +1,5 @@
+config PELTS_TESTS
+        bool
+        prompt "pelts tests"
+        help
+          Pengutronix Embedded Linux Test Suite binary test programs

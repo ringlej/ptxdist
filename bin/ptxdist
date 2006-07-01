@@ -616,7 +616,7 @@ while [ "$#" != "0" ]; do
 	autobuild)	echo
 			echo "${PROMPT}running autobuild"
 			echo
-			AUTOBUILDS=$(find . -name "autobuild")
+			AUTOBUILDS=$(find . -name "autobuild*")
 			AUTOBUILD_TOPDIR=$(pwd)
 			exec 5>COMPILETEST
 			echo >&5
@@ -650,7 +650,9 @@ while [ "$#" != "0" ]; do
 			echo
 			exit 0
 			;;
-	boardsetup)	shift; boardsetup
+	boardsetup)	shift
+			check_ptxconfig
+			boardsetup
 			;;
 	compile)	shift
 			if [ $# -eq 0 ]; then
@@ -759,6 +761,7 @@ while [ "$#" != "0" ]; do
 				echo "${PROMPT} commands:"
 				echo
 				echo "${PROMPT} configversionbump"
+				echo "${PROMPT} alloldconfig"
 				echo
 				exit 0
 			fi
@@ -772,6 +775,18 @@ while [ "$#" != "0" ]; do
 					sed -i -e \
 						"s/PTXCONF_CONFIGFILE_VERSION=\".*\"/PTXCONF_CONFIGFILE_VERSION=\"${FULLVERSION}\"/g" \
 						$i
+				done
+				;;
+			alloldconfig)
+				echo
+				echo "${PROMPT} alloldconfig:"
+				echo
+				for i in $(find . -name "autobuild" | grep -v .svn); do
+					i_dir=$(dirname $i)
+					echo i=$i i_dir=$i_dir
+					pushd $i_dir
+					ptxdist oldconfig
+					popd
 				done
 				;;
 			*)

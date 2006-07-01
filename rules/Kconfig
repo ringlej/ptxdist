@@ -224,6 +224,7 @@ menu "Test Suites                 "
 depends on BUILD_USERLAND
 source "rules/cyclictest.in"
 source "rules/host-pelts.in"
+source "rules/pelts_tests.in"
 source "rules/tests.in"
 endmenu
 

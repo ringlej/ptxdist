@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.svn
-# Sat Jun 17 14:21:22 2006
+# PTXdist version: 0.10.4
+# Fri Jun 30 23:24:24 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -195,6 +195,7 @@ PTXCONF_IMAGE_IPKG_ARCH="${PTXCONF_ARCH}"
 #
 PTXCONF_ROOTFS=y
 PTXCONF_ROOTFS_DEV=y
+PTXCONF_ROOTFS_DEV_INITIAL=y
 PTXCONF_ROOTFS_DEV_PTS=y
 PTXCONF_ROOTFS_HOME=y
 # PTXCONF_ROOTFS_MEDIA is not set
@@ -984,6 +985,7 @@ PTXCONF_MODULE_INIT_TOOLS=y
 #
 # PTXCONF_DROPBEAR is not set
 # PTXCONF_IPTABLES is not set
+# PTXCONF_IPROUTE2 is not set
 # PTXCONF_LSH is not set
 # PTXCONF_OPENSSL is not set
 # PTXCONF_OPENSSH is not set
@@ -1092,7 +1094,10 @@ PTXCONF_UTELNETD=y
 # PTXCONF_CRAMFS is not set
 # PTXCONF_BONNIEXX is not set
 # PTXCONF_LIBLOCKFILE is not set
-# PTXCONF_UNIONFS is not set
+
+#
+# unionfs is broken, please send a patch
+#
 
 #
 # Communication Utilities     
@@ -1123,7 +1128,6 @@ PTXCONF_UTELNETD=y
 # PTXCONF_SETMIXER is not set
 # PTXCONF_RAWREC is not set
 # PTXCONF_MC is not set
-# PTXCONF_FFMPEG is not set
 
 #
 # Tools                       
@@ -1149,6 +1153,7 @@ PTXCONF_FIGLET=y
 # PTXCONF_ALSA_LIB is not set
 # PTXCONF_COMMONCPP2 is not set
 # PTXCONF_DB is not set
+# PTXCONF_DB44 is not set
 # PTXCONF_EXPAT is not set
 # PTXCONF_GETTEXT is not set
 # PTXCONF_HRTIMERS_SUPPORT is not set
@@ -1252,13 +1257,14 @@ PTXCONF_XORG_DRIVER_INPUT=y
 # PTXCONF_XORG_DRIVER_INPUT_TSLIB is not set
 # PTXCONF_XORG_DRIVER_INPUT_VOID is not set
 PTXCONF_XORG_DRIVER_VIDEO=y
-
-#
-# driver-video-apm is broken, please send a patch
-#
+# PTXCONF_XORG_DRIVER_VIDEO_APM is not set
 # PTXCONF_XORG_DRIVER_VIDEO_ATI is not set
 # PTXCONF_XORG_DRIVER_VIDEO_DUMMY is not set
 # PTXCONF_XORG_DRIVER_VIDEO_FBDEV is not set
+# PTXCONF_XORG_DRIVER_VIDEO_I810 is not set
+# PTXCONF_XORG_DRIVER_VIDEO_V4L is not set
+# PTXCONF_XORG_DRIVER_VIDEO_VGA is not set
+# PTXCONF_XORG_DRIVER_VIDEO_VESA is not set
 # PTXCONF_XORG_APP is not set
 # PTXCONF_XORG_FONT is not set
 
@@ -1424,6 +1430,7 @@ PTXCONF_MESALIB=y
 #
 # PTXCONF_CYCLICTEST is not set
 # PTXCONF_HOST_PELTS is not set
+# PTXCONF_PELTS_TESTS is not set
 PTXCONF_TESTSUITE_DIR="/usr/lib/testsuites"
 # PTXCONF_DBENCH is not set
 # PTXCONF_LTP is not set

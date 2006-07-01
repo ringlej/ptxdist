@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.svn
-# Sat Jun 17 14:20:49 2006
+# PTXdist version: 0.10.4
+# Fri Jun 30 23:24:22 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -202,6 +202,7 @@ PTXCONF_IMAGE_IPKG_ARCH="${PTXCONF_ARCH}"
 #
 PTXCONF_ROOTFS=y
 PTXCONF_ROOTFS_DEV=y
+PTXCONF_ROOTFS_DEV_INITIAL=y
 PTXCONF_ROOTFS_DEV_PTS=y
 PTXCONF_ROOTFS_HOME=y
 # PTXCONF_ROOTFS_MEDIA is not set
@@ -1142,6 +1143,7 @@ PTXCONF_UDEV_FW_HELPER=y
 #
 # PTXCONF_DROPBEAR is not set
 # PTXCONF_IPTABLES is not set
+# PTXCONF_IPROUTE2 is not set
 # PTXCONF_LSH is not set
 # PTXCONF_OPENSSL is not set
 # PTXCONF_OPENSSH is not set
@@ -1250,7 +1252,10 @@ PTXCONF_NETCAT=y
 # PTXCONF_CRAMFS is not set
 # PTXCONF_BONNIEXX is not set
 # PTXCONF_LIBLOCKFILE is not set
-# PTXCONF_UNIONFS is not set
+
+#
+# unionfs is broken, please send a patch
+#
 
 #
 # Communication Utilities     
@@ -1281,7 +1286,6 @@ PTXCONF_NETCAT=y
 # PTXCONF_SETMIXER is not set
 # PTXCONF_RAWREC is not set
 # PTXCONF_MC is not set
-# PTXCONF_FFMPEG is not set
 
 #
 # Tools                       
@@ -1307,6 +1311,7 @@ PTXCONF_HEXEDIT=y
 # PTXCONF_ALSA_LIB is not set
 # PTXCONF_COMMONCPP2 is not set
 # PTXCONF_DB is not set
+# PTXCONF_DB44 is not set
 # PTXCONF_EXPAT is not set
 # PTXCONF_GETTEXT is not set
 # PTXCONF_HRTIMERS_SUPPORT is not set
@@ -1524,6 +1529,7 @@ PTXCONF_ZLIB=y
 #
 # PTXCONF_CYCLICTEST is not set
 # PTXCONF_HOST_PELTS is not set
+# PTXCONF_PELTS_TESTS is not set
 PTXCONF_TESTSUITE_DIR="/usr/lib/testsuites"
 # PTXCONF_DBENCH is not set
 # PTXCONF_LTP is not set

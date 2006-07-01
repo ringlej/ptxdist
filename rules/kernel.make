@@ -226,7 +226,7 @@ kernel_compile: $(STATEDIR)/kernel.compile
 
 kernel_compile_deps =  $(STATEDIR)/kernel.prepare
 
-ifdef PTXCONF_KERNEL_IMAGE_U
+ifdef PTXCONF_KERNEL_TARGET_IMAGE_U
 kernel_compile_deps += $(STATEDIR)/host-umkimage.install
 endif
 

@@ -1,8 +1,10 @@
 TODO for PTXdist 0.10 Series - High Priority
 ============================================
 
-[ ] ero: add -mcpu=... to PTXCONF_TARGET_EXTRA_CPPFLAGS, to let host tools
-    definitely barf if they are accidently being built with the target
+[ ] rsc: ChangeLog automatism:
+    http://www.simios.org/node/266?PHPSESSID=a736cf6396ad789e0148d9690761e733
+[ ] ero: add -mcpu=... to PTXCONF_TARGET_EXTRA_CPPFLAGS, to let host tools 
+    definitely barf if they are accidently being built with the target 
     compiler.
 [ ] mol: ptxdist commands behave differently for arguments which exceed
     the "current" command; some continue parsing and some exit.
