@@ -1,0 +1,20 @@
+This information should help to easily migrate projects from
+any older ptxdist revisions to the current release.
+
+Migrate a configuration from any other revision
+ - open the ptxconfig file with your favorite editor and navigate to the
+   variable definition PTXCONF_CONFIGFILE_VERSION
+ - replace the revision definition by the current ptxdist revision you like to work
+   with. You will get the current ptxdist revision be entering:
+     $ ptxdist --version
+
+Migrate a configuration from prior 0.10.1:
+ To reuse a 0.10.0 configuration file two things have to change
+ in this configuration file:
+  - change/add the variable PTXCONF_CONFIGFILE_VERSION to this
+    configuration file like described in migrate from any other
+    revision.
+  - replace any $(VARIABLE) (=parentheses) occurence by ${VARIABLE} (=curly brackets)
+
+You should examine carefully the resulting configuration. Due to variable name changes
+or packet version updates the old configuration may fail or misses something.
