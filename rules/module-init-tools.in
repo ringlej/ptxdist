@@ -10,23 +10,32 @@ menuconfig MODULE_INIT_TOOLS
 config MODULE_INIT_TOOLS_INSMOD
 	bool
 	prompt "Install insmod on target"
-	depends on MODULE_INIT_TOOLS
+	depends on MODULE_INIT_TOOLS && !BB_CONFIG_INSMOD
 	help
 	  FIXME: This item needs to be documented
+
+comment "Busybox' insmod is selected!"
+	depends on MODULE_INIT_TOOLS && BB_CONFIG_INSMOD
 
 config MODULE_INIT_TOOLS_RMMOD
 	bool
 	prompt "Install rmmod on target"
-	depends on MODULE_INIT_TOOLS
+	depends on MODULE_INIT_TOOLS && !BB_CONFIG_RMMOD
 	help
 	  FIXME: This item needs to be documented
+
+comment "Busybox' rmmod is selected!"
+	depends on MODULE_INIT_TOOLS && BB_CONFIG_RMMOD
 
 config MODULE_INIT_TOOLS_LSMOD
 	bool
 	prompt "Install lsmod on target"
-	depends on MODULE_INIT_TOOLS
+	depends on MODULE_INIT_TOOLS && !BB_CONFIG_LSMOD
 	help
 	  FIXME: This item needs to be documented
+
+comment "Busybox' lsmod is selected!"
+	depends on MODULE_INIT_TOOLS && BB_CONFIG_LSMOD
 
 config MODULE_INIT_TOOLS_MODINFO
 	bool
@@ -38,9 +47,12 @@ config MODULE_INIT_TOOLS_MODINFO
 config MODULE_INIT_TOOLS_MODPROBE
 	bool
 	prompt "Install modprobe on target"
-	depends on MODULE_INIT_TOOLS
+	depends on MODULE_INIT_TOOLS && !BB_CONFIG_MODPROBE
 	help
 	  FIXME: This item needs to be documented
+
+comment "Busybox' modprobe is selected!"
+	depends on MODULE_INIT_TOOLS && BB_CONFIG_MODPROBE
 
 config MODULE_INIT_TOOLS_DEPMOD
 	bool
