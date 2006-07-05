@@ -1,12 +1,39 @@
 TODO for PTXdist 0.10 Series - High Priority
 ============================================
 
+[ ] we seem to need python2.3-dev, reported by Marco Cavallini:
+
+-------------------------------
+target: host-ipkg-utils.install
+-------------------------------
+
+mkdir -p ""/home/koan/ptxtest/generic_test/local""/usr/bin
+# ipkg.py is forgotten by MAKE_INSTALL, so we copy it manually
+# FIXME: this should probably be fixed upstream
+make[1]: Entering directory
+`/home/koan/ptxtest/generic_test/build-host/ipkg-utils-1.7'
+cp ipkg-build ipkg-deb-unbuild ipkg-unbuild ipkg-compare-versions
+ipkg-upload /home/koan/ptxtest/generic_test/local/usr/bin
+python setup.py install --prefix=/home/koan/ptxtest/generic_test/local/usr
+/usr/lib/python2.3/distutils/dist.py:213: UserWarning: 'licence'
+distribution option is deprecated; use 'license'
+  warnings.warn(msg)
+running install
+error: invalid Python installation: unable to open
+/usr/lib/python2.3/config/Makefile (No such file or directory)
+make[1]: *** [install] Error 1
+make[1]: Leaving directory
+`/home/koan/ptxtest/generic_test/build-host/ipkg-utils-1.7'
+make: ***
+[/home/koan/ptxtest/generic_test/state/host-ipkg-utils.install] Error 2
+
+
 [ ] jbe: if ipkg building crashes, PTXdist doesn't break. rsc: see
     pipeline error fixing in scripts/libptxdist.sh
 [ ] rsc: ChangeLog automatism:
     http://www.simios.org/node/266?PHPSESSID=a736cf6396ad789e0148d9690761e733
-[ ] ero: add -mcpu=... to PTXCONF_TARGET_EXTRA_CPPFLAGS, to let host tools 
-    definitely barf if they are accidently being built with the target 
+[ ] ero: add -mcpu=... to PTXCONF_TARGET_EXTRA_CPPFLAGS, to let host tools
+    definitely barf if they are accidently being built with the target
     compiler.
 [ ] mol: ptxdist commands behave differently for arguments which exceed
     the "current" command; some continue parsing and some exit.
