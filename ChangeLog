@@ -1,4 +1,9 @@
+2006-07-05 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* configs: PROJECTDIR -> PTXDIST_WORKSPACE; patch by Graeme Brown
+
 2006-07-01 Robert Schwebel <r.schwebel@pengutronix.de>
+
 	* autobuilder: fixed mechanism for multiple subprojects
 	* moved ptxdist-0.10-trunk to ptxdist-trunk
 
