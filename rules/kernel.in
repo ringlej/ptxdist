@@ -49,7 +49,7 @@ config KERNEL_TARGET_VERSION
 config KERNEL_TARGET_SERIES
 	prompt "Patch Series File"
 	string
-	default "series"
+	default ""
 	help
 	  This entry specifies a patch series file which has to live in
 	  this directory: 
