@@ -160,15 +160,6 @@ Current TODO List
 [ ] JBE:  Make target "qconfig" starts target "oldconfig", even if
     the configuration was aborted! Target "menuconfig" doesn't
 
-[ ] Toolchain selection
-    JBE:  add an identifier to a (central) toolchain (in "make setup").
-    It should be possible to use more than one toolchain in a local
-    ptxdist folder (for different targets/projects). So the idetifier
-    selects the right toolchain for this project. This identifier
-    simplifies the toolchain selection. There could be a central
-    folder in the system with all informations (and identifiers)
-    about any available toolchain installed on this system.
-
 [ ] Startup Documentation
     JBE: add documentation to start from scratch with "make setup"
     this menu should provide the toolchain, all pathes to everything
@@ -297,3 +288,14 @@ DONE
 
 [x] add prerequisite checks to configure script; find out which
     prerequisites we really need. 
+
+[x] Toolchain selection
+    JBE:  add an identifier to a (central) toolchain (in "make setup").
+    It should be possible to use more than one toolchain in a local
+    ptxdist folder (for different targets/projects). So the idetifier
+    selects the right toolchain for this project. This identifier
+    simplifies the toolchain selection. There could be a central
+    folder in the system with all informations (and identifiers)
+    about any available toolchain installed on this system.
+	 --> done: "ptxdist toolchain path" per project
+
