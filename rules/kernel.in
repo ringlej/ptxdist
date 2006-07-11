@@ -80,19 +80,33 @@ choice
 config KERNEL_TARGET_IMAGE_BZ
 	bool
 	prompt "bzImage"
+	help
+	 This usually is the target to be used on ia32 platforms. It
+	 is not limited in size (to be more precise: Limited up to 4MiB).
 	
 config KERNEL_TARGET_IMAGE_Z
 	bool
 	prompt "zImage"
+	help
+	 This usually is the target to be used on ia32 platforms, it
+	 is the older format and limited to about 500k in size due to
+	 low memory size restrictions.
 
 config KERNEL_TARGET_IMAGE_U
 	bool
 	prompt "uImage"
 	select HOST_UMKIMAGE
+	help
+	 This is the target for most non ia32 platforms like PowerPC
+	 and ARM architectures. Its a compressed image with additional
+	 embedded information.
 
 config KERNEL_TARGET_IMAGE_VMLINUX
 	bool
 	prompt "vmlinux"
+	help
+	 This is the target to get the kernel image as an ELF. Mostly
+	 used for debugging purposes.
 endchoice
 
 # ----------------------------------------------------------------------------
