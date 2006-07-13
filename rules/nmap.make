@@ -15,9 +15,9 @@
 PACKAGES-$(PTXCONF_NMAP) += nmap
 
 #
-# Paths and names 
+# Paths and names
 #
-NMAP_VERSION		= 4.01
+NMAP_VERSION		= 4.11
 NMAP			= nmap-$(NMAP_VERSION)
 NMAP_SUFFIX		= tar.bz2
 NMAP_URL		= http://freshmeat.net/redir/nmap/7202/url_bz2/$(NMAP).$(NMAP_SUFFIX)
