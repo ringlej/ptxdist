@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by wschmitt@envicomp.de
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_RSYNC) += rsync
 #
 # Paths and names
 #
-RSYNC_VERSION	= 2.6.6
+RSYNC_VERSION	= 2.6.8
 RSYNC		= rsync-$(RSYNC_VERSION)
 RSYNC_SUFFIX	= tar.gz
 RSYNC_URL	= http://samba.anu.edu.au/ftp/rsync/$(RSYNC).$(RSYNC_SUFFIX)
