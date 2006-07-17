@@ -219,10 +219,10 @@ ifdef PTXCONF_APACHE2_DEFAULTCONFIG
 		$(APACHE2_DIR)/httpd.conf, \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,n)
 else
-ifneq ($(PTXCONF_APACHE2_USERCONFIG), "")
+ifneq ($(PTXCONF_APACHE2_USER_CONFIG), "")
 	@echo "installing user config file..."
 	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(PTXCONF_APACHE2_USERCONFIG), \
+		$(PTXCONF_APACHE2_USER_CONFIG), \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,n)
 endif
 endif
