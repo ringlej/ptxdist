@@ -25,9 +25,7 @@ config HOST_UMKIMAGE
 	bool
 	prompt "mkimage: U-Boot kernel image creation"
 
-config HOST_MKNBI
-	bool
-	prompt "mknbi: make etherboot image"
+source "rules/host-mknbi.in"
 
 ##############################################################################
 comment "Other Host Tools"

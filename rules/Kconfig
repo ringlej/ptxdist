@@ -245,7 +245,6 @@ source "rules/gtk1210.in"
 # please check why they are not included anywhere...
 source "rules/host-apache2.in"
 source "rules/host-checkinstall.in"
-source "rules/host-mknbi.in"
 source "rules/host-modutils.in"
 source "rules/host-termcap.in"
 source "rules/host-umkimage.in"

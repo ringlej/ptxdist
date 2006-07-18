@@ -1,7 +1,7 @@
 config HOST_MKNBI
 	bool
-	depends on BROKEN
-	prompt "HOST_MKNBI"
+	select HOST_FAKEROOT
+	prompt "mknbi: make etherboot image"
 	help
 	  With mknbi you can create tagged images for Etherboot. 
 	  Tagged images are data files, which contain the 
@@ -12,5 +12,3 @@ config HOST_MKNBI
 	  These tagged images are downloaded and understood 
 	  by Etherboot and Netboot during the boot process.
 
-comment "HOST_MKNBI is broken, please send a patch"
-	depends on !BROKEN
