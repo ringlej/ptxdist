@@ -1,6 +1,5 @@
 menuconfig DOSFSTOOLS
 	bool "dosfstools          "
-	depends on BROKEN
 
 config DOSFSTOOLS_MKDOSFS
 	bool
@@ -29,7 +28,4 @@ config DOSFSTOOLS_DOSFSCK
 	depends on DOSFSTOOLS
 	help
 	  This is the DOSFS / VFAT Filesystem Checker
-
-comment "DOSFSTOOLS are broken, please send a patch"
-	depends on !BROKEN
 
