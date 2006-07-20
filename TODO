@@ -56,7 +56,8 @@ make: ***
 
 Interesting packets
 -------------------
-
+[ ] RSC: http://www.nongnu.org/failmalloc/
+[ ] RSC: http://stapgui.sourceforge.net
 [ ] RSC: http://home.eol.ca/~parkw/index.html
 [ ] RSC: http://podgorny.cz/moin/UnionFsFuse
 [ ] RSC: http://perso.wanadoo.fr/sebastien.godard/
@@ -86,7 +87,7 @@ Test suite components to be added
 [ ] RSC: add regression tests from crosstool
 [ ] RSC: look at Herbert Poetzl's cross test stuff:
        	 20040224182505.GA25038@MAIL.13thfloor.at
-         Update: seems to have disappeared. 
+         Update: seems to have disappeared.
 [ ] RSC: look at Linux Kernel Headers project:
     http://ep09.pld-linux.org/~mmazur/linux-libc-headers/
 [ ] RSC: audit for LSB compatiblity; are there any handable tests for
@@ -95,6 +96,8 @@ Test suite components to be added
 
 Current TODO List
 =================
+
+[ ] JBE: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=27363
 
 [ ] bump bluez-utils/libs to 3.0 (needs dbus)
 
@@ -109,7 +112,7 @@ Current TODO List
     Requirements, according to
     http://xorg.freedesktop.org/wiki/ModularDevelopersGuide
 
-	[x] pkg-config > 0.18 
+	[x] pkg-config > 0.18
 	[ ] write test in configure to check for >0.18!
 	[x] expat 1.95.8
 	[x] freetype 1.2.9
@@ -119,18 +122,18 @@ Current TODO List
 	[x] zlib 1.2.3
 	[x] mesa 6.4.1
 
-    Things noticed during xorg port: 
+    Things noticed during xorg port:
 
 	[ ] address PTXCONF_XORG_SERVER_QUIRKS by sane upstream patching
-	[ ] check ac_cv_* variables - they are problably not really 
+	[ ] check ac_cv_* variables - they are problably not really
 	    needed, at least not all of them.
 
 [ ] Tree Structure
     RSC: Find sane place for generic files from projects/generic
     ERO: Make subdirectories, e.g. for x.org stuff. Might use symlinks
-    to avoid changing the scripts. 
+    to avoid changing the scripts.
     SHA: push make and in files into subdirs, add patches to that dirs
-    as well. 
+    as well.
 
 [ ] Menu Structure
     JBE: Use menuconfig instead of menu + configs whereever possible.
@@ -146,7 +149,7 @@ Current TODO List
     programs in this group.
     RSC: Please let's stay with alphabetic sorting in the menues. You
     don't find programs any more otherwhise. If the structure is not
-    clear enough we should clean it up. 
+    clear enough we should clean it up.
 
 [ ] Graphical Configurator
     JBE:  For a graphical configurator instead of the ncurses one:
@@ -155,7 +158,7 @@ Current TODO List
     Same with ncurses (menuconfig), or the user has to be forced
     to install the development libraries for ncurses
     RSC: good idea, but only for customer packets. Maybe this will
-    become obsolete when we have a good Eclipse based configurator. 
+    become obsolete when we have a good Eclipse based configurator.
 
 [ ] JBE:  Make target "qconfig" starts target "oldconfig", even if
     the configuration was aborted! Target "menuconfig" doesn't
@@ -198,21 +201,21 @@ Current TODO List
 [ ] RSC: audit bash for configure/menu entry consistency
 
 [ ] RSC: bing outputs strange large numbers when being compiled for ARM
-    :-) Add test suite for floating point. 
+    :-) Add test suite for floating point.
 
 [ ] RSC: port LTT-ng
 
 [ ] RSC: Mozilla has still problems with cross compilation. See the
-    following Bugzilla entries for possible solutions: 
+    following Bugzilla entries for possible solutions:
     http://bugzilla.mozilla.org/show_bug.cgi?id=104541
-    http://bugzilla.mozilla.org/show_bug.cgi?id=172651 
+    http://bugzilla.mozilla.org/show_bug.cgi?id=172651
 
 [ ] RSC: add some useful statistics at the end of build (root size, image
     size etc.).
 
 [ ] RSC: fix busybox extract script to support "select CONFIG_foo"
 
-[ ] RSC: make MTDutils release and, by the way, fix build process. 
+[ ] RSC: make MTDutils release and, by the way, fix build process.
     This "override" mechanism in the Makefile seems to be broken.
     MKL: mtdutils buildprocess fixed, splitted into 2 seperate file
     mtd.make and xchain-mtd.make 'override' seems to be working
@@ -244,36 +247,36 @@ Current TODO List
 
 [ ] MKL: tweak wireless to xcompile
 
-[ ] RSC: you currently need gdk-pixbuf-csource on the host       
+[ ] RSC: you currently need gdk-pixbuf-csource on the host
 
 [ ] RSC: pango has a patch which has to be verified (GLIB_CFLAGS)
 
 [ ] RSC: you currently need libXcursor.so.* and xcursorgen on the
     development host
 
-[ ] RSC: replace bootdisk build mechanism by genext2fs; mke2fs is able 
+[ ] RSC: replace bootdisk build mechanism by genext2fs; mke2fs is able
     to reserve N blocks at the beginning of the image!
 
 [ ] KUB: busybox/ash job control is broken
 
-[ ] RSC: add checksums for download 
+[ ] RSC: add checksums for download
 
 [ ] RSC: restructure config file layout
 
-[ ] RSC: add a test: if #!/bin/sh scripts return 
+[ ] RSC: add a test: if #!/bin/sh scripts return
     "/bin/sh: bad interpreter: Permission denied"
-    tell the user to look if his filesystem was monted 
+    tell the user to look if his filesystem was monted
     with the "exec" option
 
 [ ] RSC: check for uImage targets: have to depend on vmlinux, not on
-    zImage. 
+    zImage.
 
-[ ] LGR: concept for debug levels: strip, -g, -S 
+[ ] LGR: concept for debug levels: strip, -g, -S
 
-[ ] LGR: key infrastructure: integrate signing, activate this only 
-    when running the release cycle. 
+[ ] LGR: key infrastructure: integrate signing, activate this only
+    when running the release cycle.
 
-[ ] BBU: Implement scheme for alternative download-URLs as 
+[ ] BBU: Implement scheme for alternative download-URLs as
     fallback (e.g. mirrors)
 
 [ ] BBU: rsync URLs
@@ -287,7 +290,7 @@ DONE
 ----
 
 [x] add prerequisite checks to configure script; find out which
-    prerequisites we really need. 
+    prerequisites we really need.
 
 [x] Toolchain selection
     JBE:  add an identifier to a (central) toolchain (in "make setup").
