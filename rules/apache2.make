@@ -58,10 +58,9 @@ $(STATEDIR)/apache2.extract: $(apache2_extract_deps_default)
 
 apache2_prepare: $(STATEDIR)/apache2.prepare
 
-APACHE2_PATH	=  PATH=$(CROSS_PATH)
+APACHE2_PATH	:=  PATH=$(CROSS_PATH)
 # FIXME: find a real patch for ac_* apr_* (fix configure script)
-APACHE2_ENV 	=  $(CROSS_ENV) \
-	PKG_CONFIG_PATH=$(SYSROOT)/lib/pkgconfig \
+APACHE2_ENV 	:=  $(CROSS_ENV) \
 	ac_cv_sizeof_ssize_t=4 \
 	ac_cv_sizeof_size_t=4 \
 	apr_cv_process_shared_works=yes \
@@ -134,6 +133,14 @@ apache2_install: $(STATEDIR)/apache2.install
 
 $(STATEDIR)/apache2.install: $(apache2_install_deps_default)
 	@$(call targetinfo, $@)
+	@$(call install, APACHE2)
+	sed -i -e "s~\([ =\"]\)\(/usr\)~\1$(SYSROOT)\2~g" \
+		$(SYSROOT)/usr/build/apr_rules.mk \
+		$(SYSROOT)/usr/build/config.nice \
+		$(SYSROOT)/usr/build/config_vars.mk \
+		$(SYSROOT)/usr/bin/apr-config \
+		$(SYSROOT)/usr/bin/apu-config \
+		$(SYSROOT)/usr/bin/apxs
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
