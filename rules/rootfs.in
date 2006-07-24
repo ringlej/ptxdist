@@ -444,7 +444,8 @@ menuconfig ROOTFS_ETC_INITD_MODULES
 	bool
 	prompt "modules                   "
 	help
-	  When enabled, load all modules in /etc/modules
+	  When enabled, load all modules in /etc/modules. This requires
+	  one type of the tool "grep"
 
 	config ROOTFS_ETC_INITD_MODULES_LINK
 		depends on ROOTFS_ETC_INITD
