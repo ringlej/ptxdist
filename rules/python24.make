@@ -58,15 +58,18 @@ $(STATEDIR)/python24.extract: $(python24_extract_deps_default)
 
 python24_prepare: $(STATEDIR)/python24.prepare
 
-PYTHON24_PATH		=  PATH=$(CROSS_PATH)
-PYTHON24_ENV		=  $(CROSS_ENV)
+PYTHON24_PATH		:= PATH=$(CROSS_PATH)
+PYTHON24_ENV		:= $(CROSS_ENV)
 
-PYTHON24_AUTOCONF 	=  $(CROSS_AUTOCONF_USR)
-PYTHON24_AUTOCONF 	+= --target=$(PTXCONF_GNU_TARGET)
+PYTHON24_AUTOCONF	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--target=$(PTXCONF_GNU_TARGET) \
+	--enable-shared
 
-PYTHON24_MAKEVARS	=  HOSTPYTHON=$(PTXCONF_PREFIX)/bin/python
-PYTHON24_MAKEVARS	+= HOSTPGEN=$(HOST_PYTHON24_DIR)/Parser/pgen
-PYTHON24_MAKEVARS	+= CROSS_COMPILE=yes
+PYTHON24_MAKEVARS	:= \
+	HOSTPYTHON=$(PTXCONF_PREFIX)/bin/python \
+	HOSTPGEN=$(HOST_PYTHON24_DIR)/Parser/pgen \
+	CROSS_COMPILE=yes
 
 $(STATEDIR)/python24.prepare: $(python24_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -101,6 +104,22 @@ python24_install: $(STATEDIR)/python24.install
 
 $(STATEDIR)/python24.install: $(python24_install_deps_default)
 	@$(call targetinfo, $@)
+
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
+		altbininstall DESTDIR=$(SYSROOT)
+
+	umask 022 && \
+		$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
+		libinstall DESTDIR=$(SYSROOT)
+
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
+		libainstall DESTDIR=$(SYSROOT)
+
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
+		sharedinstall DESTDIR=$(SYSROOT)
+
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
+		oldsharedinstall DESTDIR=$(SYSROOT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
