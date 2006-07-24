@@ -71,7 +71,12 @@ APACHE2_ENV 	=  $(CROSS_ENV) \
 #
 # autoconf
 #
-APACHE2_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+APACHE2_AUTOCONF = $(CROSS_AUTOCONF_USR)
+
+# FIXME
+# --without-apxs $(CROSS_AUTOCONF_USR)
+# --with-python \
+# --with-python-src=$(PYTHON24_DIR) \
 
 $(STATEDIR)/apache2.prepare: $(apache2_prepare_deps_default)
 	@$(call targetinfo, $@)
