@@ -49,13 +49,13 @@ $(STATEDIR)/host-python24.extract: $(host-python24_extract_deps_default)
 
 host-python24_prepare: $(STATEDIR)/host-python24.prepare
 
-HOST_PYTHON24_PATH	=  PATH=$(HOST_PATH)
-HOST_PYTHON24_ENV 	=  $(HOSTCC_ENV)
+HOST_PYTHON24_PATH	:= PATH=$(HOST_PATH)
+HOST_PYTHON24_ENV 	:= $(HOST_ENV)
 
 #
 # autoconf
 #
-HOST_PYTHON24_AUTOCONF =  $(HOST_AUTOCONF)
+HOST_PYTHON24_AUTOCONF := $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-python24.prepare: $(host-python24_prepare_deps_default)
 	@$(call targetinfo, $@)
