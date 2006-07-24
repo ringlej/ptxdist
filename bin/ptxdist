@@ -398,7 +398,7 @@ drop() {
 	echo
 	if [ -e ${STATEDIR}/${statefile} ]; then
 		rm -f ${STATEDIR}/${statefile}
-		echo "droping ${statefile}"
+		echo "dropping ${statefile}"
 		echo
 		exit 0
 	else
