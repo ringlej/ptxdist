@@ -81,7 +81,6 @@ $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
 
 $(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, @PACKET@)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
