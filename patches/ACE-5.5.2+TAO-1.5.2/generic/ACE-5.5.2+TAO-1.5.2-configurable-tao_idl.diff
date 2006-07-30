@@ -1,0 +1,1646 @@
+diff -urN ACE_wrappers.orig/TAO/configure.ac ACE_wrappers/TAO/configure.ac
+--- ACE_wrappers.orig/TAO/configure.ac	2006-06-10 07:05:48.000000000 +0200
++++ ACE_wrappers/TAO/configure.ac	2006-07-13 19:12:20.000000000 +0200
+@@ -181,6 +181,25 @@
+ TAO_ENABLE_EXAMPLES
+ TAO_ENABLE_TESTS
+ 
++AC_MSG_CHECKING([for tao_idl command])
++AC_ARG_WITH(tao_idl,
++	AS_HELP_STRING(
++		[--with-tao_idl=PATH],
++		[Where to find a non-standard tao_idl; this option can
++		for example be used to find a build-side tao_idl while
++		cross compiling. If not set we take that one from the
++		packet.]
++	),
++	[case "${withval}" in
++	"" | y | ye | yes | n | no)
++		AC_MSG_ERROR([You must supply an argument to --with-tao_idl]) ;;
++	esac;
++	TAO_IDL="ACE_ROOT=\$(ACE_ROOT) TAO_ROOT=\$(TAO_ROOT) ${withval}"
++	],
++	TAO_IDL='ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl'
++)
++AC_MSG_RESULT([$TAO_IDL])
++AC_SUBST(TAO_IDL)
+ 
+ dnl
+ dnl SECTION 16: AC_CONFIG_FILES([FILE...])
+diff -urN ACE_wrappers.orig/TAO/docs/tutorials/Quoter/AMI/Makefile.am ACE_wrappers/TAO/docs/tutorials/Quoter/AMI/Makefile.am
+--- ACE_wrappers.orig/TAO/docs/tutorials/Quoter/AMI/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/docs/tutorials/Quoter/AMI/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/docs/tutorials/Quoter/Event_Service/Makefile.am ACE_wrappers/TAO/docs/tutorials/Quoter/Event_Service/Makefile.am
+--- ACE_wrappers.orig/TAO/docs/tutorials/Quoter/Event_Service/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/docs/tutorials/Quoter/Event_Service/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/docs/tutorials/Quoter/idl/Makefile.am ACE_wrappers/TAO/docs/tutorials/Quoter/idl/Makefile.am
+--- ACE_wrappers.orig/TAO/docs/tutorials/Quoter/idl/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/docs/tutorials/Quoter/idl/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/docs/tutorials/Quoter/On_Demand_Activation/Makefile.am ACE_wrappers/TAO/docs/tutorials/Quoter/On_Demand_Activation/Makefile.am
+--- ACE_wrappers.orig/TAO/docs/tutorials/Quoter/On_Demand_Activation/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/docs/tutorials/Quoter/On_Demand_Activation/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/docs/tutorials/Quoter/RT_Event_Service/Makefile.am ACE_wrappers/TAO/docs/tutorials/Quoter/RT_Event_Service/Makefile.am
+--- ACE_wrappers.orig/TAO/docs/tutorials/Quoter/RT_Event_Service/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/docs/tutorials/Quoter/RT_Event_Service/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Advanced/ch_3/Makefile.am ACE_wrappers/TAO/examples/Advanced/ch_3/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Advanced/ch_3/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Advanced/ch_3/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/AMH/Sink_Server/Makefile.am ACE_wrappers/TAO/examples/AMH/Sink_Server/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/AMH/Sink_Server/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/AMH/Sink_Server/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/AMI/FL_Callback/Makefile.am ACE_wrappers/TAO/examples/AMI/FL_Callback/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/AMI/FL_Callback/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/AMI/FL_Callback/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Buffered_AMI/Makefile.am ACE_wrappers/TAO/examples/Buffered_AMI/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Buffered_AMI/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Buffered_AMI/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Buffered_Oneways/Makefile.am ACE_wrappers/TAO/examples/Buffered_Oneways/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Buffered_Oneways/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Buffered_Oneways/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Callback_Quoter/Makefile.am ACE_wrappers/TAO/examples/Callback_Quoter/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Callback_Quoter/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Callback_Quoter/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Content_Server/AMI_Iterator/Makefile.am ACE_wrappers/TAO/examples/Content_Server/AMI_Iterator/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Content_Server/AMI_Iterator/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Content_Server/AMI_Iterator/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Content_Server/AMI_Observer/Makefile.am ACE_wrappers/TAO/examples/Content_Server/AMI_Observer/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Content_Server/AMI_Observer/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Content_Server/AMI_Observer/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Content_Server/SMI_Iterator/Makefile.am ACE_wrappers/TAO/examples/Content_Server/SMI_Iterator/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Content_Server/SMI_Iterator/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Content_Server/SMI_Iterator/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool/Makefile.am ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool2/Makefile.am ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool2/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool2/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool2/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool3/Makefile.am ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool3/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool3/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool3/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool4/Makefile.am ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool4/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool4/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool4/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool5/Makefile.am ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool5/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool5/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool5/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool6/Makefile.am ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool6/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/CSD_Strategy/ThreadPool6/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/CSD_Strategy/ThreadPool6/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Event_Comm/Makefile.am ACE_wrappers/TAO/examples/Event_Comm/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Event_Comm/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Event_Comm/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/ior_corbaloc/Makefile.am ACE_wrappers/TAO/examples/ior_corbaloc/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/ior_corbaloc/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/examples/ior_corbaloc/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Kokyu_dsrt_schedulers/fp_example/Makefile.am ACE_wrappers/TAO/examples/Kokyu_dsrt_schedulers/fp_example/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Kokyu_dsrt_schedulers/fp_example/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Kokyu_dsrt_schedulers/fp_example/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Kokyu_dsrt_schedulers/Makefile.am ACE_wrappers/TAO/examples/Kokyu_dsrt_schedulers/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Kokyu_dsrt_schedulers/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Kokyu_dsrt_schedulers/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Kokyu_dsrt_schedulers/mif_example/Makefile.am ACE_wrappers/TAO/examples/Kokyu_dsrt_schedulers/mif_example/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Kokyu_dsrt_schedulers/mif_example/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Kokyu_dsrt_schedulers/mif_example/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Kokyu_dsrt_schedulers/muf_example/Makefile.am ACE_wrappers/TAO/examples/Kokyu_dsrt_schedulers/muf_example/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Kokyu_dsrt_schedulers/muf_example/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Kokyu_dsrt_schedulers/muf_example/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Load_Balancing/Makefile.am ACE_wrappers/TAO/examples/Load_Balancing/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Load_Balancing/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Load_Balancing/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Load_Balancing_persistent/Makefile.am ACE_wrappers/TAO/examples/Load_Balancing_persistent/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Load_Balancing_persistent/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Load_Balancing_persistent/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Logging/Makefile.am ACE_wrappers/TAO/examples/Logging/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Logging/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Logging/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/mfc/Makefile.am ACE_wrappers/TAO/examples/mfc/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/mfc/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/examples/mfc/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/OBV/Typed_Events/Makefile.am ACE_wrappers/TAO/examples/OBV/Typed_Events/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/OBV/Typed_Events/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/OBV/Typed_Events/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Persistent_Grid/Makefile.am ACE_wrappers/TAO/examples/Persistent_Grid/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Persistent_Grid/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Persistent_Grid/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/PluggableUDP/tests/Basic/Makefile.am ACE_wrappers/TAO/examples/PluggableUDP/tests/Basic/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/PluggableUDP/tests/Basic/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/PluggableUDP/tests/Basic/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/PluggableUDP/tests/Performance/Makefile.am ACE_wrappers/TAO/examples/PluggableUDP/tests/Performance/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/PluggableUDP/tests/Performance/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/PluggableUDP/tests/Performance/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/PluggableUDP/tests/SimplePerformance/Makefile.am ACE_wrappers/TAO/examples/PluggableUDP/tests/SimplePerformance/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/PluggableUDP/tests/SimplePerformance/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/PluggableUDP/tests/SimplePerformance/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/POA/Default_Servant/Makefile.am ACE_wrappers/TAO/examples/POA/Default_Servant/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/POA/Default_Servant/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/POA/Default_Servant/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/POA/DSI/Makefile.am ACE_wrappers/TAO/examples/POA/DSI/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/POA/DSI/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/POA/DSI/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/POA/Forwarding/Makefile.am ACE_wrappers/TAO/examples/POA/Forwarding/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/POA/Forwarding/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/POA/Forwarding/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/POA/Generic_Servant/Makefile.am ACE_wrappers/TAO/examples/POA/Generic_Servant/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/POA/Generic_Servant/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/POA/Generic_Servant/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/POA/TIE/Makefile.am ACE_wrappers/TAO/examples/POA/TIE/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/POA/TIE/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/POA/TIE/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Quoter/Makefile.am ACE_wrappers/TAO/examples/Quoter/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Quoter/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Quoter/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/RTCORBA/Activity/Makefile.am ACE_wrappers/TAO/examples/RTCORBA/Activity/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/RTCORBA/Activity/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/RTCORBA/Activity/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/RTScheduling/Fixed_Priority_Scheduler/Makefile.am ACE_wrappers/TAO/examples/RTScheduling/Fixed_Priority_Scheduler/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/RTScheduling/Fixed_Priority_Scheduler/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/RTScheduling/Fixed_Priority_Scheduler/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/RTScheduling/MIF_Scheduler/Makefile.am ACE_wrappers/TAO/examples/RTScheduling/MIF_Scheduler/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/RTScheduling/MIF_Scheduler/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/RTScheduling/MIF_Scheduler/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Simple/bank/Makefile.am ACE_wrappers/TAO/examples/Simple/bank/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Simple/bank/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Simple/bank/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Simple/chat/Makefile.am ACE_wrappers/TAO/examples/Simple/chat/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Simple/chat/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Simple/chat/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Simple/echo/Makefile.am ACE_wrappers/TAO/examples/Simple/echo/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Simple/echo/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Simple/echo/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Simple/grid/Makefile.am ACE_wrappers/TAO/examples/Simple/grid/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Simple/grid/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Simple/grid/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Simple/time/Makefile.am ACE_wrappers/TAO/examples/Simple/time/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Simple/time/Makefile.am	2006-06-10 06:36:12.000000000 +0200
++++ ACE_wrappers/TAO/examples/Simple/time/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Simple/time-date/Makefile.am ACE_wrappers/TAO/examples/Simple/time-date/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Simple/time-date/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/examples/Simple/time-date/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/Simulator/Event_Supplier/Makefile.am ACE_wrappers/TAO/examples/Simulator/Event_Supplier/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/Simulator/Event_Supplier/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/examples/Simulator/Event_Supplier/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/examples/TypeCode_Creation/Makefile.am ACE_wrappers/TAO/examples/TypeCode_Creation/Makefile.am
+--- ACE_wrappers.orig/TAO/examples/TypeCode_Creation/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/examples/TypeCode_Creation/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/interop-tests/wchar/Makefile.am ACE_wrappers/TAO/interop-tests/wchar/Makefile.am
+--- ACE_wrappers.orig/TAO/interop-tests/wchar/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/interop-tests/wchar/Makefile.am	2006-07-13 19:12:20.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/examples/CosEC/Factory/Makefile.am ACE_wrappers/TAO/orbsvcs/examples/CosEC/Factory/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/examples/CosEC/Factory/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/examples/CosEC/Factory/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/examples/CosEC/TypedSimple/Makefile.am ACE_wrappers/TAO/orbsvcs/examples/CosEC/TypedSimple/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/examples/CosEC/TypedSimple/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/examples/CosEC/TypedSimple/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/examples/FaultTolerance/RolyPoly/Makefile.am ACE_wrappers/TAO/orbsvcs/examples/FaultTolerance/RolyPoly/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/examples/FaultTolerance/RolyPoly/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/examples/FaultTolerance/RolyPoly/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/examples/ImR/Advanced/Makefile.am ACE_wrappers/TAO/orbsvcs/examples/ImR/Advanced/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/examples/ImR/Advanced/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/examples/ImR/Advanced/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/examples/ImR/Combined_Service/Makefile.am ACE_wrappers/TAO/orbsvcs/examples/ImR/Combined_Service/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/examples/ImR/Combined_Service/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/examples/ImR/Combined_Service/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/examples/LoadBalancing/Makefile.am ACE_wrappers/TAO/orbsvcs/examples/LoadBalancing/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/examples/LoadBalancing/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/examples/LoadBalancing/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/examples/ORT/Makefile.am ACE_wrappers/TAO/orbsvcs/examples/ORT/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/examples/ORT/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/examples/ORT/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/examples/Security/Send_File/Makefile.am ACE_wrappers/TAO/orbsvcs/examples/Security/Send_File/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/examples/Security/Send_File/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/examples/Security/Send_File/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/ImplRepo_Service/Makefile.am ACE_wrappers/TAO/orbsvcs/ImplRepo_Service/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/ImplRepo_Service/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/ImplRepo_Service/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/orbsvcs/Makefile.am ACE_wrappers/TAO/orbsvcs/orbsvcs/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/orbsvcs/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/orbsvcs/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -14,7 +14,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/performance-tests/LoadBalancing/LBPerf/RPS/Makefile.am ACE_wrappers/TAO/orbsvcs/performance-tests/LoadBalancing/LBPerf/RPS/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/performance-tests/LoadBalancing/LBPerf/RPS/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/performance-tests/LoadBalancing/LBPerf/RPS/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/performance-tests/RTEvent/lib/Makefile.am ACE_wrappers/TAO/orbsvcs/performance-tests/RTEvent/lib/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/performance-tests/RTEvent/lib/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/performance-tests/RTEvent/lib/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/performance-tests/RTEvent/RTCORBA_Baseline/Makefile.am ACE_wrappers/TAO/orbsvcs/performance-tests/RTEvent/RTCORBA_Baseline/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/performance-tests/RTEvent/RTCORBA_Baseline/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/performance-tests/RTEvent/RTCORBA_Baseline/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/performance-tests/RTEvent/RTCORBA_Callback/Makefile.am ACE_wrappers/TAO/orbsvcs/performance-tests/RTEvent/RTCORBA_Callback/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/performance-tests/RTEvent/RTCORBA_Callback/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/performance-tests/RTEvent/RTCORBA_Callback/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/BiDir_CORBALOC/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/BiDir_CORBALOC/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/BiDir_CORBALOC/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/BiDir_CORBALOC/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_1395_Regression/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Bug_1395_Regression/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_1395_Regression/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Bug_1395_Regression/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_2247_Regression/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Bug_2247_Regression/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_2247_Regression/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Bug_2247_Regression/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_2248_Regression/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Bug_2248_Regression/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_2248_Regression/Makefile.am	2006-04-21 16:32:31.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Bug_2248_Regression/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_2285_Regression/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Bug_2285_Regression/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_2285_Regression/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Bug_2285_Regression/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_2287_Regression/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Bug_2287_Regression/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_2287_Regression/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Bug_2287_Regression/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_2316_Regression/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Bug_2316_Regression/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Bug_2316_Regression/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Bug_2316_Regression/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/EC_Custom_Marshal/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/EC_Custom_Marshal/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/EC_Custom_Marshal/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/EC_Custom_Marshal/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/FaultTolerance/GroupRef_Manipulation/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/FaultTolerance/GroupRef_Manipulation/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/FaultTolerance/GroupRef_Manipulation/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/FaultTolerance/GroupRef_Manipulation/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/FaultTolerance/IOGR/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/FaultTolerance/IOGR/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/FaultTolerance/IOGR/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/FaultTolerance/IOGR/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/FT_App/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/FT_App/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/FT_App/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/FT_App/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/HTIOP/AMI/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/HTIOP/AMI/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/HTIOP/AMI/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/HTIOP/AMI/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/HTIOP/BiDirectional/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/HTIOP/BiDirectional/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/HTIOP/BiDirectional/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/HTIOP/BiDirectional/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/HTIOP/Hello/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/HTIOP/Hello/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/HTIOP/Hello/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/HTIOP/Hello/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/ImplRepo/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/ImplRepo/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/ImplRepo/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/ImplRepo/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/ImplRepo/scale/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/ImplRepo/scale/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/ImplRepo/scale/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/ImplRepo/scale/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/InterfaceRepo/Application_Test/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/InterfaceRepo/Application_Test/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/InterfaceRepo/Application_Test/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/InterfaceRepo/Application_Test/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Interoperable_Naming/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Interoperable_Naming/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Interoperable_Naming/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Interoperable_Naming/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/ior_corbaname/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/ior_corbaname/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/ior_corbaname/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/ior_corbaname/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/IOR_MCast/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/IOR_MCast/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/IOR_MCast/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/IOR_MCast/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Application_Controlled/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Application_Controlled/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Application_Controlled/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Application_Controlled/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Infrastructure_Controlled/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Infrastructure_Controlled/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Infrastructure_Controlled/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Infrastructure_Controlled/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Manage_Object_Group/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Manage_Object_Group/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Manage_Object_Group/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/LoadBalancing/GenericFactory/Manage_Object_Group/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Miop/McastHello/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Miop/McastHello/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Miop/McastHello/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Miop/McastHello/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Blocking/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Notify/Blocking/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Blocking/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Notify/Blocking/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Discarding/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Notify/Discarding/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Discarding/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Notify/Discarding/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/lib/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Notify/lib/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/lib/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Notify/lib/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/MT_Dispatching/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Notify/MT_Dispatching/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/MT_Dispatching/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Notify/MT_Dispatching/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Ordering/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Notify/Ordering/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Ordering/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Notify/Ordering/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/performance-tests/Filter/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Notify/performance-tests/Filter/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/performance-tests/Filter/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Notify/performance-tests/Filter/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Sequence_Multi_ETCL_Filter/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Notify/Sequence_Multi_ETCL_Filter/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Sequence_Multi_ETCL_Filter/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Notify/Sequence_Multi_ETCL_Filter/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Sequence_Multi_Filter/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Notify/Sequence_Multi_Filter/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Sequence_Multi_Filter/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Notify/Sequence_Multi_Filter/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Structured_Filter/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Notify/Structured_Filter/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Structured_Filter/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Notify/Structured_Filter/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Structured_Multi_Filter/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Notify/Structured_Multi_Filter/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Notify/Structured_Multi_Filter/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Notify/Structured_Multi_Filter/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Redundant_Naming/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Redundant_Naming/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Redundant_Naming/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Redundant_Naming/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Security/BiDirectional/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Security/BiDirectional/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Security/BiDirectional/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Security/BiDirectional/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Security/Big_Request/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Security/Big_Request/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Security/Big_Request/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Security/Big_Request/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Security/Callback/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Security/Callback/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Security/Callback/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Security/Callback/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Security/Crash_Test/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Security/Crash_Test/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Security/Crash_Test/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Security/Crash_Test/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Security/MT_IIOP_SSL/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Security/MT_IIOP_SSL/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Security/MT_IIOP_SSL/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Security/MT_IIOP_SSL/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Security/MT_SSLIOP/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Security/MT_SSLIOP/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Security/MT_SSLIOP/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Security/MT_SSLIOP/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Security/Secure_Invocation/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Security/Secure_Invocation/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Security/Secure_Invocation/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Security/Secure_Invocation/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Security/ssliop_corbaloc/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Security/ssliop_corbaloc/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Security/ssliop_corbaloc/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Security/ssliop_corbaloc/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Simple_Naming/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Simple_Naming/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Simple_Naming/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Simple_Naming/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/orbsvcs/tests/Trading/Makefile.am ACE_wrappers/TAO/orbsvcs/tests/Trading/Makefile.am
+--- ACE_wrappers.orig/TAO/orbsvcs/tests/Trading/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/orbsvcs/tests/Trading/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Anyop/Makefile.am ACE_wrappers/TAO/performance-tests/Anyop/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Anyop/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Anyop/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Callback/Makefile.am ACE_wrappers/TAO/performance-tests/Callback/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Callback/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Callback/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/CSD_Strategy/TestInf/Makefile.am ACE_wrappers/TAO/performance-tests/CSD_Strategy/TestInf/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/CSD_Strategy/TestInf/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/CSD_Strategy/TestInf/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/CSD_Strategy/TestServant/Makefile.am ACE_wrappers/TAO/performance-tests/CSD_Strategy/TestServant/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/CSD_Strategy/TestServant/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/CSD_Strategy/TestServant/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Cubit/TAO/DII_Cubit/Makefile.am ACE_wrappers/TAO/performance-tests/Cubit/TAO/DII_Cubit/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Cubit/TAO/DII_Cubit/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Cubit/TAO/DII_Cubit/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Cubit/TAO/IDL_Cubit/Makefile.am ACE_wrappers/TAO/performance-tests/Cubit/TAO/IDL_Cubit/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Cubit/TAO/IDL_Cubit/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Cubit/TAO/IDL_Cubit/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Cubit/TAO/MT_Cubit/Makefile.am ACE_wrappers/TAO/performance-tests/Cubit/TAO/MT_Cubit/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Cubit/TAO/MT_Cubit/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Cubit/TAO/MT_Cubit/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Latency/AMH_Single_Threaded/Makefile.am ACE_wrappers/TAO/performance-tests/Latency/AMH_Single_Threaded/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Latency/AMH_Single_Threaded/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Latency/AMH_Single_Threaded/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Latency/AMI/Makefile.am ACE_wrappers/TAO/performance-tests/Latency/AMI/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Latency/AMI/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Latency/AMI/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Latency/Collocation/Makefile.am ACE_wrappers/TAO/performance-tests/Latency/Collocation/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Latency/Collocation/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Latency/Collocation/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Latency/Deferred/Makefile.am ACE_wrappers/TAO/performance-tests/Latency/Deferred/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Latency/Deferred/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Latency/Deferred/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Latency/DII/Makefile.am ACE_wrappers/TAO/performance-tests/Latency/DII/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Latency/DII/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Latency/DII/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Latency/DSI/Makefile.am ACE_wrappers/TAO/performance-tests/Latency/DSI/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Latency/DSI/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Latency/DSI/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Latency/Single_Threaded/Makefile.am ACE_wrappers/TAO/performance-tests/Latency/Single_Threaded/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Latency/Single_Threaded/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Latency/Single_Threaded/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Latency/Thread_Per_Connection/Makefile.am ACE_wrappers/TAO/performance-tests/Latency/Thread_Per_Connection/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Latency/Thread_Per_Connection/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Latency/Thread_Per_Connection/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Latency/Thread_Pool/Makefile.am ACE_wrappers/TAO/performance-tests/Latency/Thread_Pool/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Latency/Thread_Pool/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Latency/Thread_Pool/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Memory/IORsize/Makefile.am ACE_wrappers/TAO/performance-tests/Memory/IORsize/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Memory/IORsize/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Memory/IORsize/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Memory/Single_Threaded/Makefile.am ACE_wrappers/TAO/performance-tests/Memory/Single_Threaded/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Memory/Single_Threaded/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Memory/Single_Threaded/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Pluggable/Makefile.am ACE_wrappers/TAO/performance-tests/Pluggable/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Pluggable/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Pluggable/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/POA/Demux/Makefile.am ACE_wrappers/TAO/performance-tests/POA/Demux/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/POA/Demux/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/POA/Demux/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/POA/Implicit_Activation/Makefile.am ACE_wrappers/TAO/performance-tests/POA/Implicit_Activation/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/POA/Implicit_Activation/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/POA/Implicit_Activation/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/POA/Object_Creation_And_Registration/Makefile.am ACE_wrappers/TAO/performance-tests/POA/Object_Creation_And_Registration/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/POA/Object_Creation_And_Registration/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/POA/Object_Creation_And_Registration/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Protocols/Makefile.am ACE_wrappers/TAO/performance-tests/Protocols/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Protocols/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Protocols/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/RTCorba/Multiple_Endpoints/Common/Makefile.am ACE_wrappers/TAO/performance-tests/RTCorba/Multiple_Endpoints/Common/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/RTCorba/Multiple_Endpoints/Common/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/RTCorba/Multiple_Endpoints/Common/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/RTCorba/Oneways/Reliable/Makefile.am ACE_wrappers/TAO/performance-tests/RTCorba/Oneways/Reliable/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/RTCorba/Oneways/Reliable/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/RTCorba/Oneways/Reliable/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/RTCorba/Thread_Pool/Makefile.am ACE_wrappers/TAO/performance-tests/RTCorba/Thread_Pool/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/RTCorba/Thread_Pool/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/RTCorba/Thread_Pool/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/AMH_Single_Threaded/Makefile.am ACE_wrappers/TAO/performance-tests/Sequence_Latency/AMH_Single_Threaded/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/AMH_Single_Threaded/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Sequence_Latency/AMH_Single_Threaded/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/AMI/Makefile.am ACE_wrappers/TAO/performance-tests/Sequence_Latency/AMI/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/AMI/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Sequence_Latency/AMI/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/Deferred/Makefile.am ACE_wrappers/TAO/performance-tests/Sequence_Latency/Deferred/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/Deferred/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Sequence_Latency/Deferred/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/DII/Makefile.am ACE_wrappers/TAO/performance-tests/Sequence_Latency/DII/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/DII/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Sequence_Latency/DII/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/DSI/Makefile.am ACE_wrappers/TAO/performance-tests/Sequence_Latency/DSI/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/DSI/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Sequence_Latency/DSI/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/Single_Threaded/Makefile.am ACE_wrappers/TAO/performance-tests/Sequence_Latency/Single_Threaded/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/Single_Threaded/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Sequence_Latency/Single_Threaded/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/Thread_Per_Connection/Makefile.am ACE_wrappers/TAO/performance-tests/Sequence_Latency/Thread_Per_Connection/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/Thread_Per_Connection/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Sequence_Latency/Thread_Per_Connection/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/Thread_Pool/Makefile.am ACE_wrappers/TAO/performance-tests/Sequence_Latency/Thread_Pool/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Sequence_Latency/Thread_Pool/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Sequence_Latency/Thread_Pool/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)
+diff -urN ACE_wrappers.orig/TAO/performance-tests/Throughput/Makefile.am ACE_wrappers/TAO/performance-tests/Throughput/Makefile.am
+--- ACE_wrappers.orig/TAO/performance-tests/Throughput/Makefile.am	2006-06-10 06:36:13.000000000 +0200
++++ ACE_wrappers/TAO/performance-tests/Throughput/Makefile.am	2006-07-13 19:12:21.000000000 +0200
+@@ -11,7 +11,6 @@
+ ACE_BUILDDIR = $(top_builddir)/..
+ ACE_ROOT = $(top_srcdir)/..
+ TAO_BUILDDIR = $(top_builddir)
+-TAO_IDL = ACE_ROOT=$(ACE_ROOT) TAO_ROOT=$(TAO_ROOT) $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDL_DEP = $(TAO_BUILDDIR)/TAO_IDL/tao_idl
+ TAO_IDLFLAGS = -Ge 1 -Wb,pre_include=ace/pre.h -Wb,post_include=ace/post.h -I$(TAO_ROOT) -I$(srcdir) -g $(ACE_BUILDDIR)/apps/gperf/src/gperf
+ TAO_ROOT = $(top_srcdir)

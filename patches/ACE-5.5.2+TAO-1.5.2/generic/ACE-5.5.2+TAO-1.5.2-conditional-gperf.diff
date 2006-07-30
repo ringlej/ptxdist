@@ -1,0 +1,34 @@
+#
+# Submitted-By: Robert Schwebel, 2006-07-30
+# Committed-By: Robert Schwebel
+#
+# Error:
+#
+# Although the ACE/TAO kit was configured with --disable-gperf, it is
+# being built.
+#
+# Description:
+#
+# A previous patch against x.5.1 fixed the problem that the Makefile.am
+# in apps includeds the gperf subdirectory unconditionally; it should do
+# it according to the result of COMPILE_GPERF. The patch fixed the
+# Makefile.am and was merged in x.5.1.
+#
+# However, this bit was missed during the merge.
+#
+# State:
+#
+# submitted
+#
+
+diff -urN ACE-5.5.2+TAO-1.5.2-orig/apps/Makefile.am ACE-5.5.2+TAO-1.5.2/apps/Makefile.am
+--- ACE-5.5.2+TAO-1.5.2-orig/apps/Makefile.am	2006-06-20 22:27:41.000000000 +0200
++++ ACE-5.5.2+TAO-1.5.2/apps/Makefile.am	2006-07-30 21:59:00.000000000 +0200
+@@ -20,7 +20,6 @@
+         JAWS2 \
+         JAWS3 \
+         drwho \
+-        gperf \
+         mkcsregdb \
+         soreduce \
+         $(OPTDIRS)
