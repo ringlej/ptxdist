@@ -1,0 +1,50 @@
+ACE VERSION: 5.5.2
+TAO VERSION: 1.5.2
+
+HOST MACHINE and OPERATING SYSTEM:
+
+        Linux isonoe 2.6.17 #1 PREEMPT Sun Jun 18 14:08:38 CEST 2006 i686 GNU/Linux
+
+TARGET MACHINE and OPERATING SYSTEM, if different from HOST:
+
+COMPILER NAME AND VERSION (AND PATCHLEVEL):
+
+        arm-softfloat-linux-gnu-gcc, 4.0.2 (toolchain built with PTXdist 0.10.4)
+
+AREA/CLASS/EXAMPLE AFFECTED:
+
+        build system, autotools based
+
+SYNOPSIS:
+
+        [...]
+        make[3]: Leaving directory
+        `[...]ACE-5.5.2+TAO-1.5.2/build/protocols/examples'
+        Making all in tests
+        /bin/sh: line 17: cd: tests: No such file or directory
+        make[2]: *** [all-recursive] Error 1
+
+DESCRIPTION:
+
+        In x.5.2, the protocols/ directory got a new subdirectory tests/.
+	The Makefile.am included the tests/ directory unconditionally,
+	although it is only been configured for BUILD_TESTS.
+
+        The patch below fixes this.
+
+SAMPLE FIX/WORKAROUND:
+
+--- ACE-5.5.2+TAO-1.5.2-orig/protocols/Makefile.am	2006-06-20 22:27:42.000000000 +0200
++++ ACE-5.5.2+TAO-1.5.2/protocols/Makefile.am	2006-07-31 00:10:52.000000000 +0200
+@@ -10,6 +10,9 @@
+ 
+ SUBDIRS = \
+         ace \
+-        examples \
+-        tests
++        examples
++
++if BUILD_TESTS
++SUBDIRS += tests
++endif
+ 
