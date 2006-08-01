@@ -1,4 +1,4 @@
 ACE-5.5.2+TAO-1.5.2-conditional-gperf.diff
 ACE-5.5.2+TAO-1.5.2-configurable-tao_idl.diff
 ACE-5.5.2+TAO-1.5.2-protocols-tests.diff
-ACE-5.5.2+TAO-1.5.2-autogen.diff.bz2
+ACE-5.5.2+TAO-1.5.2-autoreconf.diff.bz2
