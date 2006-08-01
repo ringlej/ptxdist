@@ -137,6 +137,26 @@ $(STATEDIR)/alsa-lib.targetinstall: $(alsa-lib_targetinstall_deps_default)
 	@$(call install_copy, alsa-lib, \
 		0, 0, 0755, $(ALSA_LIB_DIR)/modules/mixer/simple/.libs/smixer-hda.so, \
 		/lib/alsa-lib/smixer/smixer-hda.so )
+	
+	@$(call install_copy, alsa-lib, \
+		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/alsa.conf, \
+		/usr/share/alsa/alsa.conf, n)
+	
+	@$(call install_copy, alsa-lib, \
+		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/pcm/default.conf, \
+		/usr/share/alsa/pcm/default.conf, n)
+
+	@$(call install_copy, alsa-lib, \
+		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/cards/aliases.conf, \
+		/usr/share/alsa/cards/aliases.conf, n)
+
+	@$(call install_copy, alsa-lib, \
+		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/pcm/dmix.conf, \
+		/usr/share/alsa/pcm/dmix.conf, n)
+
+	@$(call install_copy, alsa-lib, \
+		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/pcm/dsnoop.conf, \
+		/usr/share/alsa/pcm/dsnoop.conf, n)	
 
 	@$(call install_finish, alsa)
 

@@ -113,18 +113,20 @@ $(STATEDIR)/alsa-utils.targetinstall: $(alsa-utils_targetinstall_deps_default)
 	@$(call install_fixup, alsa-utils, DEPENDS,)
 	@$(call install_fixup, alsa-utils, DESCRIPTION, missing)
 
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/alsactl/alsactl, /sbin/alsactl );
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/alsamixer/alsamixer, /sbin/alsamixer );
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/amidi/amidi, /sbin/amidi );
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/amixer/amixer, /sbin/amixer );
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/aplay/aplay, /sbin/aplay);
+	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/alsactl/alsactl, /usr/sbin/alsactl)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/alsamixer/alsamixer, /usr/bin/alsamixer)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/amidi/amidi, /usr/bin/amidi)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/amixer/amixer, /usr/bin/amixer)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/aplay/aplay, /usr/bin/aplay)
 	# link arecord aplay
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/iecset/iecset, /sbin/iecset );
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aconnect/aconnect, /sbin/aconnect );
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aplaymidi/aplaymidi, /sbin/aplaymidi);
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aplaymidi/arecordmidi, /sbin/arecordmidi);
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aseqdump/aseqdump, /sbin/aseqdump );
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aseqnet/aseqnet, /sbin/aseqnet );
+	@$(call install_link, alsa-utils, aplay, /usr/bin/arecord)
+	
+	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/iecset/iecset, /usr/bin/iecset)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aconnect/aconnect, /usr/bin/aconnect)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aplaymidi/aplaymidi, /usr/bin/aplaymidi)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aplaymidi/arecordmidi, /usr/bin/arecordmidi)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aseqdump/aseqdump, /usr/bin/aseqdump)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aseqnet/aseqnet, /usr/bin/aseqnet)
 
 	@$(call install_finish, alsa)
 
