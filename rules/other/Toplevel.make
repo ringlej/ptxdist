@@ -93,9 +93,17 @@ all:
 	@exit 1
 
 include $(wildcard $(PRERULESDIR)/*.make)
+
+ifneq ($(wildcard $(PROJECTPRERULESDIR)/*.make),)
+include $(wildcard $(PROJECTPRERULESDIR)/*.make)
+endif
+
 include $(PACKAGE_DEP)
 include $(RULESFILES_ALL_MAKE)
-#include $(wildcard $(POSTRULESDIR)/*.make)
+
+ifneq ($(wildcard $(POSTRULESDIR)/*.make),)
+include $(wildcard $(POSTRULESDIR)/*.make)
+endif
 
 PACKAGES		:= $(PACKAGES-y)
 CROSS_PACKAGES		:= $(CROSS_PACKAGES-y)
