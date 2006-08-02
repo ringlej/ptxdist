@@ -128,7 +128,7 @@ $(STATEDIR)/alsa-utils.targetinstall: $(alsa-utils_targetinstall_deps_default)
 	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aseqdump/aseqdump, /usr/bin/aseqdump)
 	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aseqnet/aseqnet, /usr/bin/aseqnet)
 
-	@$(call install_finish, alsa)
+	@$(call install_finish, alsa-utils)
 
 	@$(call touch, $@)
 

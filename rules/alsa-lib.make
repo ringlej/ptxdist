@@ -158,7 +158,7 @@ $(STATEDIR)/alsa-lib.targetinstall: $(alsa-lib_targetinstall_deps_default)
 		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/pcm/dsnoop.conf, \
 		/usr/share/alsa/pcm/dsnoop.conf, n)	
 
-	@$(call install_finish, alsa)
+	@$(call install_finish, alsa-lib)
 
 	@$(call touch, $@)
 
