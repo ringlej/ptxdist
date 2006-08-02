@@ -109,7 +109,7 @@ $(STATEDIR)/i915resolution.targetinstall: $(i915resolution_targetinstall_deps_de
 	@$(call install_fixup,i915resolution,DEPENDS,)
 	@$(call install_fixup,i915resolution,DESCRIPTION,missing)
 
-	@$(call install_copy, i915resolution, 0, 0, 0755, $(I915RESOLUTION_DIR)/915resolution, /sbin/915resolution)
+	@$(call install_copy, i915resolution, 0, 0, 0755, $(I915RESOLUTION_DIR)/915resolution, /usr/sbin/915resolution)
 
 	@$(call install_finish,i915resolution)
 
