@@ -1,0 +1,6 @@
+config I915RESOLUTION
+	bool
+	prompt "i915resolution"
+	help
+	  FIXME
+

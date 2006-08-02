@@ -204,6 +204,7 @@ source "rules/libjpeg.in"
 source "rules/fontconfig.in"
 source "rules/tslib.in"
 source "rules/qtopia.in"
+source "rules/i915resolution.in"
 endmenu
 
 menu "Scientific Apps             "
