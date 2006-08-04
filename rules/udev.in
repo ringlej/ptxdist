@@ -46,7 +46,8 @@ config UDEV_SEND
 	help
 	  This is the command the kernel calls if a hotplug event
 	  occures (see /proc/sys/kernel/hotplug) to trigger the udev
-	  subsystem.
+	  subsystem. Its only required for older kernels to achieve
+	  their hotplug mechanism.
 
 config UDEV_START
 	bool "udevstart"
