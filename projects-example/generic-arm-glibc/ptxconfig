@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.4
-# Fri Jun 30 23:24:22 2006
+# PTXdist version: 0.10.svn
+# Sun Aug  6 20:40:34 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -114,7 +114,9 @@ PTXCONF_COMPILER_PREFIX="${PTXCONF_GNU_TARGET}-"
 # Filesystem Manipulation Tools
 #
 # PTXCONF_HOST_GENEXT2FS is not set
-# PTXCONF_HOST_E2FSPROGS is not set
+PTXCONF_HOST_E2FSPROGS=y
+# PTXCONF_HOST_E2FSPROGS_TUNE2FS is not set
+# PTXCONF_HOST_E2FSPROGS_RESIZE2FS is not set
 # PTXCONF_HOST_MTD is not set
 
 #
@@ -273,7 +275,7 @@ PTXCONF_ROOTFS_ETC_INITD_RCS=y
 # PTXCONF_ROOTFS_ETC_INITD_MODULES is not set
 PTXCONF_ROOTFS_ETC_INITD_NETWORKING=y
 PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK="S01_networking"
-PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES="${PROJECTDIR}/etc/network/interfaces"
+PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES="${PTXDIST_WORKSPACE}/projectroot/etc/network/interfaces"
 
 #
 # syslog-ng: select syslog-ng
@@ -1058,11 +1060,23 @@ PTXCONF_COREUTILS_MD5SUM=y
 #
 # PTXCONF_INITNG is not set
 PTXCONF_MODULE_INIT_TOOLS=y
-# PTXCONF_MODULE_INIT_TOOLS_INSMOD is not set
-# PTXCONF_MODULE_INIT_TOOLS_RMMOD is not set
-# PTXCONF_MODULE_INIT_TOOLS_LSMOD is not set
+
+#
+# Busybox' insmod is selected!
+#
+
+#
+# Busybox' rmmod is selected!
+#
+
+#
+# Busybox' lsmod is selected!
+#
 # PTXCONF_MODULE_INIT_TOOLS_MODINFO is not set
-# PTXCONF_MODULE_INIT_TOOLS_MODPROBE is not set
+
+#
+# Busybox' modprobe is selected!
+#
 # PTXCONF_MODULE_INIT_TOOLS_DEPMOD is not set
 PTXCONF_GAWK=y
 PTXCONF_HOTPLUG=y
@@ -1251,10 +1265,7 @@ PTXCONF_UTELNETD=y
 #
 # Disk and File Utilities     
 #
-
-#
-# DOSFSTOOLS are broken, please send a patch
-#
+# PTXCONF_DOSFSTOOLS is not set
 # PTXCONF_E2FSPROGS is not set
 # PTXCONF_HDPARM is not set
 # PTXCONF_IPKG is not set
@@ -1521,6 +1532,7 @@ PTXCONF_ZLIB=y
 # PTXCONF_FONTCONFIG is not set
 # PTXCONF_TSLIB is not set
 # PTXCONF_QTOPIA is not set
+# PTXCONF_I915RESOLUTION is not set
 
 #
 # Scientific Apps             

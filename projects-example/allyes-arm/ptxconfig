@@ -32,7 +32,7 @@ PTXCONF_CONFIGFILE_VERSION="0.10.svn"
 #
 PTXCONF_EXPERIMENTAL=y
 PTXCONF_EXPERIMENTAL_MORE=y
-# PTXCONF_BROKEN is not set
+PTXCONF_BROKEN=y
 
 #
 # Target Architecture Options
@@ -142,10 +142,7 @@ PTXCONF_HOST_UMKIMAGE=y
 #
 # Other Host Tools
 #
-
-#
-# HOST_FLEX254 is broken, please send a patch
-#
+# PTXCONF_HOST_FLEX254 is not set
 PTXCONF_HOST_PKG_CONFIG_WRAPPER=y
 # PTXCONF_HOST_QTE is not set
 # PTXCONF_HOST_SLIRP is not set
@@ -166,10 +163,7 @@ PTXCONF_GDB=y
 PTXCONF_GDB_SHARED=y
 PTXCONF_GDB_TERMCAP=y
 # PTXCONF_GDB_NCURSES is not set
-
-#
-# LTT is broken, please send a patch
-#
+# PTXCONF_LTT is not set
 # PTXCONF_BINUTILS is not set
 PTXCONF_MEMTEST=y
 PTXCONF_MEMTESTER=y
@@ -285,7 +279,7 @@ PTXCONF_ROOTFS_ETC_INITD_LOGROTATE=y
 # PTXCONF_ROOTFS_ETC_INITD_MODULES is not set
 PTXCONF_ROOTFS_ETC_INITD_NETWORKING=y
 PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK="S01_networking"
-PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES="${PROJECTDIR}/etc/network/interfaces"
+PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES="${PTXDIST_WORKSPACE}/projectroot/etc/network/interfaces"
 PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG=y
 PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK="S08_syslog-ng"
 PTXCONF_ROOTFS_ETC_INITD_TELNETD=y
@@ -1051,10 +1045,7 @@ PTXCONF_BB_CONFIG_FEATURE_SH_FANCY_PROMPT=y
 #
 # PTXCONF_BB_CONFIG_SYSLOGD is not set
 PTXCONF_BB_CONFIG_LOGGER=y
-
-#
-# clock is broken, please send a patch
-#
+# PTXCONF_CLOCK is not set
 PTXCONF_COREUTILS=y
 PTXCONF_COREUTILS_CP=y
 PTXCONF_COREUTILS_DD=y
@@ -1075,10 +1066,7 @@ PTXCONF_FINDUTILS=y
 #
 # busy box' xargs is selected!
 #
-
-#
-# sysvinit is broken, please send a patch
-#
+# PTXCONF_SYSVINIT is not set
 # PTXCONF_INITNG is not set
 PTXCONF_MODULE_INIT_TOOLS=y
 PTXCONF_MODULE_INIT_TOOLS_INSMOD=y
@@ -1120,10 +1108,7 @@ PTXCONF_MTD_MKJFFS=y
 PTXCONF_MTD_MKJFFS2=y
 PTXCONF_PCMCIAUTILS=y
 PTXCONF_PCMCIAUTILS_STARTUP=y
-
-#
-# pdksh is broken, please send a patch
-#
+# PTXCONF_PDKSH is not set
 PTXCONF_PROCPS=y
 PTXCONF_PROCPS_TOP=y
 PTXCONF_PROCPS_SLABTOP=y
@@ -1169,18 +1154,8 @@ PTXCONF_XMLSTARLET=y
 #
 # Scripting Languages
 #
-
-#
-# PHP is broken, please send a patch
-#
-
-#
-# php-apc is broken, please send a patch
-#
-
-#
-# python23 is broken, please send a patch
-#
+# PTXCONF_PHP is not set
+# PTXCONF_PYTHON23 is not set
 PTXCONF_PYTHON24=y
 
 #
@@ -1374,10 +1349,7 @@ PTXCONF_DHCP_SERVER=y
 PTXCONF_DHCP_CLIENT=y
 PTXCONF_DHCP_RELAY=y
 PTXCONF_DNSMASQ=y
-
-#
-# ethereal is broken, please send a patch
-#
+# PTXCONF_ETHEREAL is not set
 PTXCONF_ETHERWAKE=y
 PTXCONF_EVENTLOG=y
 PTXCONF_INETUTILS=y
@@ -1388,10 +1360,7 @@ PTXCONF_INETUTILS_RLOGIND=y
 PTXCONF_INETUTILS_RSH=y
 PTXCONF_INETUTILS_RSHD=y
 PTXCONF_INETUTILS_SYSLOGD=y
-
-#
-# libcgicc is broken, please send a patch
-#
+# PTXCONF_CGICC is not set
 PTXCONF_LIBNET=y
 PTXCONF_LIBPCAP=y
 PTXCONF_MII_DIAG=y
@@ -1420,29 +1389,17 @@ PTXCONF_NFSUTILS_INSTALL_SHOWMOUNT=y
 PTXCONF_NFSUTILS_INSTALL_STATD=y
 PTXCONF_NMAP=y
 PTXCONF_NMAP_SERVICES=y
-
-#
-# ntp is broken, please send a patch
-#
-
-#
-# ntpclient is broken, please send a patch
-#
+# PTXCONF_NTP is not set
+# PTXCONF_NTPCLIENT is not set
 
 #
 # OpenAFS             
 #
-
-#
-# openafs is broken, please send a patch
-#
+# PTXCONF_OPENAFS is not set
 # PTXCONF_OPENAFS_1_2_11 is not set
 PTXCONF_OPENNTPD=y
 PTXCONF_OPENNTPD_ARC4RANDOM=y
-
-#
-# portmap is broken, please send a patch
-#
+# PTXCONF_PORTMAP is not set
 PTXCONF_PPP=y
 PTXCONF_PPP_MS_CHAP=y
 PTXCONF_PPP_SHADOW=y
@@ -1467,12 +1424,10 @@ PTXCONF_SYSLOGNG_SUNDOOR=y
 PTXCONF_SYSLOGNG_TCPWRAPPER=y
 PTXCONF_SYSLOGNG_SPOOF_SOURCE=y
 PTXCONF_TCPDUMP=y
+# PTXCONF_TCPDUMP_ENABLE_CRYPTO is not set
 PTXCONF_TCPWRAPPER=y
 PTXCONF_TCPWRAPPER_INSTALL_TCPD=y
-
-#
-# trollftpd is broken, please send a patch
-#
+# PTXCONF_TROLL_FTPD is not set
 PTXCONF_THTTPD=y
 PTXCONF_UTELNETD=y
 PTXCONF_WGET=y
@@ -1482,10 +1437,7 @@ PTXCONF_WGET=y
 #
 PTXCONF_WIRELESS=y
 PTXCONF_WIRELESS_SHARED=y
-
-#
-# zebra is broken, please send a patch
-#
+# PTXCONF_ZEBRA is not set
 
 #
 # Realtime Networking 
@@ -1519,10 +1471,7 @@ PTXCONF_IPKG_HASH_TEST=y
 PTXCONF_CRAMFS=y
 PTXCONF_BONNIEXX=y
 # PTXCONF_LIBLOCKFILE is not set
-
-#
-# unionfs is broken, please send a patch
-#
+# PTXCONF_UNIONFS is not set
 
 #
 # Communication Utilities     
@@ -1547,19 +1496,13 @@ PTXCONF_SENDFAX_SPOOL=y
 PTXCONF_MGETTY_CALLBACK=y
 PTXCONF_POP3SPAM=y
 PTXCONF_SMTPCLIENT=y
-
-#
-# ssmtp is broken, please send a patch
-#
+# PTXCONF_SSMTP is not set
 
 #
 # Applications                
 #
 PTXCONF_ALSA_UTILS=y
-
-#
-# FLASH is broken, please send a patch
-#
+# PTXCONF_FLASH is not set
 PTXCONF_GNUPG=y
 PTXCONF_MAD=y
 PTXCONF_MPLAYER=y
@@ -1568,10 +1511,7 @@ PTXCONF_RAWREC=y
 PTXCONF_RAWREC_RAWREC=y
 PTXCONF_RAWREC_RAWPLAY=y
 PTXCONF_MC=y
-
-#
-# ffmpeg not supported by strongARM
-#
+# PTXCONF_FFMPEG is not set
 
 #
 # Tools                       
@@ -1584,10 +1524,7 @@ PTXCONF_MEMSTAT=y
 # Editors                     
 #
 PTXCONF_HEXEDIT=y
-
-#
-# jed is broken, please send a patch
-#
+# PTXCONF_JED is not set
 PTXCONF_JOE=y
 PTXCONF_NANO=y
 
@@ -1595,6 +1532,7 @@ PTXCONF_NANO=y
 # System Libraries            
 #
 PTXCONF_ALSA_LIB=y
+# PTXCONF_BOOST is not set
 PTXCONF_COMMONCPP2=y
 # PTXCONF_COMMONCPP2_LIBZ is not set
 # PTXCONF_COMMONCPP2_LIBXML2 is not set
@@ -1654,6 +1592,7 @@ PTXCONF_LIBXSLT=y
 #
 # Compile Options
 #
+# PTXCONF_LIBXSLT_CRYPTO is not set
 PTXCONF_LIBXSLT_PLUGINS=y
 PTXCONF_LIBXSLT_DEBUG=y
 
@@ -1686,10 +1625,7 @@ PTXCONF_LIVE_LIB=y
 #
 # Middleware                  
 #
-
-#
-# omniorb is broken, please send a patch
-#
+# PTXCONF_OMNIORB is not set
 # PTXCONF_MICO is not set
 
 #
@@ -1716,6 +1652,7 @@ PTXCONF_XORG_SERVER_XORG=y
 PTXCONF_XORG_SERVER_DMX=y
 PTXCONF_XORG_SERVER_XVFB=y
 PTXCONF_XORG_SERVER_XNEST=y
+# PTXCONF_XORG_SERVER_XWIN is not set
 PTXCONF_XORG_SERVER_XPRINT=y
 
 #
@@ -1776,10 +1713,17 @@ PTXCONF_XORG_APP_XINIT=y
 PTXCONF_XORG_APP_XSETROOT=y
 PTXCONF_XORG_APP_RGB=y
 PTXCONF_XORG_FONT=y
+# PTXCONF_XORG_FONT_ADOBE_100DPI is not set
+# PTXCONF_XORG_FONT_ADOBE_75DPI is not set
+# PTXCONF_XORG_FONT_ADOBE_UTOPIA_100DPI is not set
+# PTXCONF_XORG_FONT_ADOBE_UTOPIA_75DPI is not set
 PTXCONF_XORG_FONT_ADOBE_UTOPIA_TYPE1=y
 PTXCONF_XORG_FONT_ALIAS=y
 PTXCONF_XORG_FONT_ARABIC_MISC=y
+# PTXCONF_XORG_FONT_BH_100DPI is not set
+# PTXCONF_XORG_FONT_BH_75DPI is not set
 PTXCONF_XORG_FONT_BH_LUCIDATYPEDRITER_100DPI=y
+# PTXCONF_XORG_FONT_BH_LUCIDATYPEWRITER_75DPI is not set
 PTXCONF_XORG_FONT_BH_TTF=y
 PTXCONF_XORG_FONT_BITSTREAM_100DPI=y
 PTXCONF_XORG_FONT_BITSTREAM_75DPI=y
@@ -1799,6 +1743,7 @@ PTXCONF_XORG_FONT_MISC_ETHIOPIC=y
 PTXCONF_XORG_FONT_MISC_MELTHO=y
 PTXCONF_XORG_FONT_MISC_MISC=y
 PTXCONF_XORG_FONT_MUTT_MISC=y
+# PTXCONF_XORG_FONT_SCHUMACHER_MISC is not set
 PTXCONF_XORG_FONT_SCREEN_CYRILLIC=y
 PTXCONF_XORG_FONT_SONY_MISC=y
 PTXCONF_XORG_FONT_SUN_MISC=y
@@ -1909,30 +1854,23 @@ PTXCONF_MESALIB=y
 #
 # GTK+ and friends      
 #
+# PTXCONF_GTK is not set
 PTXCONF_GLIB=y
 PTXCONF_ATK=y
+# PTXCONF_PANGO is not set
 PTXCONF_CAIRO=y
 PTXCONF_CAIRO_XLIB=y
 PTXCONF_CAIRO_FREETYPE=y
 PTXCONF_CAIRO_PNG=y
 # PTXCONF_FLTK is not set
-
-#
-# wxWidgets is broken, please send a patch
-#
-
-#
-# realvnc is broken, please send a patch
-#
+# PTXCONF_WXWINDOWS is not set
+# PTXCONF_REALVNC is not set
 # PTXCONF_XTERM is not set
 
 #
 # X Window Managers
 #
-
-#
-# blackbox is broken, please send a patch
-#
+# PTXCONF_BLACKBOX is not set
 # PTXCONF_PEKWM is not set
 
 #
@@ -1968,7 +1906,10 @@ PTXCONF_TSLIB_TS_TEST=y
 PTXCONF_GNUPLOT=y
 PTXCONF_GNUPLOT_FITERRVARS=y
 PTXCONF_GNUPLOT_X=y
+# PTXCONF_GNUPLOT_PLOT is not set
 PTXCONF_GNUPLOT_PNG=y
+# PTXCONF_GNUPLOT_GD is not set
+# PTXCONF_GNUPLOT_PDF is not set
 PTXCONF_LIBMODBUS=y
 PTXCONF_LIBPV=y
 PTXCONF_LIBPV_EVENT=y
@@ -1998,14 +1939,8 @@ PTXCONF_DBENCH_DBENCH=y
 PTXCONF_DBENCH_TBENCH=y
 PTXCONF_DBENCH_TBENCH_SERVER=y
 PTXCONF_LTP=y
-
-#
-# Ballista is broken, please send a patch
-#
-
-#
-# LTP_COMMANDS is broken, please send a patch
-#
+# PTXCONF_LTP_BALLISTA is not set
+# PTXCONF_LTP_COMMANDS is not set
 PTXCONF_LTP_KERNEL=y
 PTXCONF_LTP_KERNEL_FS=y
 PTXCONF_LTP_KERNEL_FS_DOIO=y
@@ -2029,10 +1964,35 @@ PTXCONF_LTP_MISC_MATH=y
 PTXCONF_LTP_MISC_MATH_ABS=y
 PTXCONF_LTP_MISC_MATH_ATOF=y
 PTXCONF_LTP_MISC_MATH_FLOAT=y
+# PTXCONF_XMLBENCH is not set
 
 #
-# xmlbench is broken, please send a patch
+# Broken or orphaned Packages 
 #
+# PTXCONF_AT_SPI is not set
+# PTXCONF_CFGSH is not set
+# PTXCONF_DIALOG is not set
+# PTXCONF_E2TOOLS is not set
+# PTXCONF_FLEX is not set
+# PTXCONF_XALF is not set
+# PTXCONF_DOTGNU is not set
+# PTXCONF_GAIL is not set
+# PTXCONF_GMP3 is not set
 PTXCONF_GMP4=y
+# PTXCONF_GTK1210 is not set
 PTXCONF_HOST_APACHE2=y
+# PTXCONF_HOST_IMAGE_DEB is not set
+# PTXCONF_HOST_TERMCAP is not set
+# PTXCONF_HOST_ZLIB is not set
+# PTXCONF_KONQ_E is not set
+# PTXCONF_LIBART is not set
+# PTXCONF_LIBGD is not set
+# PTXCONF_LIBGLADE is not set
+# PTXCONF_LIBGNOMECANVAS is not set
+# PTXCONF_LIBIDL_2 is not set
 PTXCONF_LIBOOP=y
+# PTXCONF_PARANOIA is not set
+# PTXCONF_QTE is not set
+# PTXCONF_SUDO is not set
+# PTXCONF_TINYLOGIN is not set
+# PTXCONF_XVKBD is not set
