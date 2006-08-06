@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,16 +17,21 @@ HOST_PACKAGES-$(PTXCONF_HOST_E2FSPROGS) += host-e2fsprogs
 #
 # Paths and names
 #
-HOST_E2FSPROGS_DIR	= $(HOST_BUILDDIR)/$(E2FSPROGS)
+HOST_E2FSPROGS_VERSION	=  $(E2FSPROGS_VERSION)
+HOST_E2FSPROGS		:= e2fsprogs-$(HOST_E2FSPROGS_VERSION)
+HOST_E2FSPROGS_SUFFIX	:= tar.gz
+HOST_E2FSPROGS_URL	:= $(PTXCONF_SETUP_SFMIRROR)/e2fsprogs/$(HOST_E2FSPROGS).$(HOST_E2FSPROGS_SUFFIX)
+HOST_E2FSPROGS_SOURCE	:= $(SRCDIR)/$(HOST_E2FSPROGS).$(HOST_E2FSPROGS_SUFFIX)
+HOST_E2FSPROGS_DIR	:= $(HOST_BUILDDIR)/$(HOST_E2FSPROGS)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-host-e2fsprogs_get: $(STATEDIR)/host-e2fsprogs.get
+host-e2fsprogs_get:	$(STATEDIR)/host-e2fsprogs.get
 
-$(STATEDIR)/host-e2fsprogs.get: $(STATEDIR)/e2fsprogs.get
+$(STATEDIR)/host-e2fsprogs.get:	$(host-e2fsprogs_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
