@@ -1,5 +1,12 @@
 2006-07-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* host-e2fsprogs: made host-e2fsprogs' get stage working; patch
+	  by Randall Loomis.
+	* glibc: removed PTXCONF_GLIBC_DEBUG, as it never worked. Patch
+	  by Randall Loomis.
+
+2006-07-13 Robert Schwebel <r.schwebel@pengutronix.de>
+
 	* nmap: version bumped (4.01 -> 4.11); patch by Chuck Robey
 	* rsync: version bumped (2.6.6 -> 2.6.8); patch by Chuck Robey
 
