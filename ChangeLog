@@ -4,6 +4,8 @@
 	  by Randall Loomis.
 	* glibc: removed PTXCONF_GLIBC_DEBUG, as it never worked. Patch
 	  by Randall Loomis.
+	* etc: fixed path to etc/network/interfaces; patch by Steven
+	  Scholz
 
 2006-07-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
