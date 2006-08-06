@@ -1,6 +1,10 @@
-ODO for PTXdist 0.10 Series - High Priority
+TODO for PTXdist 0.10 Series - High Priority
 ============================================
 
+[ ] if a packet is not selected, it's dependencies are not generated. If
+    you kick a stage then, the dependend stages are not executed.
+    Solution: generate the stages as well, so we get an error in that
+    case.
 [ ] we seem to need python2.3-dev, reported by Marco Cavallini:
 
 -------------------------------
