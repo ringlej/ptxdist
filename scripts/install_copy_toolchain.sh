@@ -13,7 +13,9 @@ get_lib_path() {
 
     lib="${1}"
 
+    # ask the compiler for the lib
     lib_path="`${CC} -print-file-name=${lib}`"
+    # let the shell canonicalized the path
     lib_dir="`cd ${lib_path%/${lib}} && echo $PWD`"
 
     if test \! -d "${lib_dir}"; then
@@ -28,15 +30,27 @@ get_lib_path() {
 #
 # $1: lib_path: canonicalized path to lib
 #
+# The work is done here!
+# - look at the filename given us, if it's a link then
+#   copy it (do not deref, i.e. preserve the link)
+# - feed the target of the link recursive into this function
+# - if we encounter a regular file, copy it
+#   (if it's not a linker script)
+# - look into the linker scripts and copy only the _shared_
+#   libs mentioned there
+# - one more thing: if we find a tls lib (e.g. in the /lib/tls subdir)
+#   we use it
+#
 ptxd_install_lib() {
-    local lib_path lib lib_dir sysroot prefix script_lib tmp tls_lib dir
+    local lib_path lib lib_dir sysroot prefix prefix script_lib tmp tls_lib dir
 
     lib_path="${1}"
 
     while true; do
-	lib="${lib_path##*/}"
-	lib_dir="${lib_path%/${lib}}"
+	lib="${lib_path##*/}"			# the pure library filename "libxxx.so"
+	lib_dir="${lib_path%/${lib}}"		# abs path to that lib
 
+	# try to identify sysroot part of that path
 	for prefix in "/usr/lib/tls" "/usr/lib" "/lib/tls" "/lib"; do
 	    tmp="${lib_dir%${prefix}}"
 	    if test "${lib_dir}" != "${tmp}"; then
@@ -45,16 +59,31 @@ ptxd_install_lib() {
 	done
 	sysroot="${lib_dir%${prefix}}"
 
+	# if the user has given us a $prefix use it
+	prefix=${dest:-${prefix}}
+
 	# is there a tls variant of the lib? (e.g. native build on debian)
 	tls_lib="${lib_dir}/tls/${lib}"
 	if test -e "${tls_lib}"; then
 	    echo "tls - ${tls_lib}"
 	    ptxd_install_lib "${tls_lib}"
-	
-	elif test -h "${lib_path}"; then	# link
+	    return 0
+	fi
+
+	# remove existing libs
+	for dir in \
+	    "${ROOTDIR}" \
+	    "${ROOTDIR_DEBUG}"; do
+
+	    tmp="${dir}${prefix}/${lib}"
+	    test -e "{tmp}" && rm -rf "${tmp}"
+	done
+
+	# do sth. with that found lib, action depends on file type (link or regular)
+	if test -h "${lib_path}"; then		# link
 	    echo "link - ${lib_path}"
 
-	    # now install that link into the root and ipkg dir
+	    # now install that link into the root and ipkg dirs
 	    for dir in \
 		"${ROOTDIR}" \
 		"${ROOTDIR_DEBUG}" \
@@ -64,8 +93,10 @@ ptxd_install_lib() {
 		cp -d "${lib_path}" "${dir}${prefix}/${lib}"
 	    done
 
-	    lib_path="`readlink \"${lib_path}\"`" || ( echo broken link; exit -1 )
+	    # now do the same thing for the target of the link
+	    lib_path="`readlink \"${lib_path}\"`" || ( echo broken link; exit 1 )
 
+	    # deal with relative and absolute links
 	    case "${lib_path}" in
 		/*)
 		    # nix
@@ -82,7 +113,7 @@ ptxd_install_lib() {
 		echo "script - ${lib_path}"
 		# 
 		# the libs are in the GROUP line
-		# strip all braces and install all shared libs ( *.so*)
+		# strip all braces and install all shared libs ( *.so*), irnore "GROUP" and static libs
 		#
 		for script_lib in `sed -n -e "/GROUP/s/[()]//gp" "${lib_path}"`; do
 		    case "${script_lib}" in
@@ -101,10 +132,14 @@ ptxd_install_lib() {
 		for dir in \
 		    "${ROOTDIR}" \
 		    "${ROOTDIR_DEBUG}" \
-		    "${IMAGEDIR}/${packet}/ipkg/"; do
+		    "${IMAGEDIR}/${packet}/ipkg"; do
 
 		  install -D "${lib_path}" "${dir}${prefix}/${lib}"
 		done
+
+		${STRIP} ${ROOTDIR}${prefix}/${lib}
+		${STRIP} ${IMAGEDIR}/${packet}/ipkg${prefix}/${lib}
+		echo "f:${prefix}/${lib}:0:0:755" >> ${STATEDIR}/${packet}.perms
 	    fi
 	else
 	    echo "error: found ${lib_path}, but neither file nor link"
