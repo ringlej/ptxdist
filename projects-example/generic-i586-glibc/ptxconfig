@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist version: 0.10.4
-# Fri Jun 30 23:24:22 2006
+# PTXdist version: 0.10.svn
+# Mon Aug  7 11:44:00 2006
 #
 PTXCONF_MODULES=y
 PTXCONF_PTXCONF=y
@@ -325,7 +325,7 @@ PTXCONF_KERNEL_COMPILE=y
 #
 # ----------------------------------
 #
-PTXCONF_KERNEL_TARGET_VERSION="2.6.15"
+PTXCONF_KERNEL_TARGET_VERSION="2.6.17"
 PTXCONF_KERNEL_TARGET_SERIES=""
 PTXCONF_KERNEL_TARGET_CONFIG="kernelconfig.target"
 
@@ -348,8 +348,8 @@ PTXCONF_KERNEL_TARGET_IMAGE_BZ=y
 #
 # ----------------------------------
 #
-PTXCONF_KERNEL_NATIVE_VERSION="2.6.15"
-PTXCONF_KERNEL_NATIVE_SERIES="series"
+PTXCONF_KERNEL_NATIVE_VERSION="2.6.17"
+PTXCONF_KERNEL_NATIVE_SERIES=""
 PTXCONF_KERNEL_NATIVE_CONFIG="kernelconfig.native"
 
 #
@@ -357,7 +357,7 @@ PTXCONF_KERNEL_NATIVE_CONFIG="kernelconfig.native"
 #
 PTXCONF_KERNEL_NATIVE_ROOT_HOSTFS=y
 PTXCONF_KERNEL_NATIVE_CONSOLE_STDSERIAL=y
-PTXCONF_KERNEL_NATIVE_CMDLINE="root/boot/vmlinux root=/dev/root rootflags=${ROOTDIR} rootfstype=hostfs"
+PTXCONF_KERNEL_NATIVE_CMDLINE="root=/dev/root rootflags=${ROOTDIR} eth0=daemon rootfstype=hostfs"
 # PTXCONF_KLIBC is not set
 
 #
@@ -370,7 +370,6 @@ PTXCONF_GLIBC=y
 # C Library options
 #
 PTXCONF_GLIBC_VERSION="2.3.6"
-# PTXCONF_GLIBC_DEBUG is not set
 
 #
 # Install options
@@ -944,11 +943,23 @@ PTXCONF_BB_CONFIG_LOGGER=y
 #
 # PTXCONF_INITNG is not set
 PTXCONF_MODULE_INIT_TOOLS=y
-# PTXCONF_MODULE_INIT_TOOLS_INSMOD is not set
-# PTXCONF_MODULE_INIT_TOOLS_RMMOD is not set
-# PTXCONF_MODULE_INIT_TOOLS_LSMOD is not set
+
+#
+# Busybox' insmod is selected!
+#
+
+#
+# Busybox' rmmod is selected!
+#
+
+#
+# Busybox' lsmod is selected!
+#
 # PTXCONF_MODULE_INIT_TOOLS_MODINFO is not set
-# PTXCONF_MODULE_INIT_TOOLS_MODPROBE is not set
+
+#
+# Busybox' modprobe is selected!
+#
 # PTXCONF_MODULE_INIT_TOOLS_DEPMOD is not set
 # PTXCONF_GAWK is not set
 # PTXCONF_HOTPLUG is not set
@@ -1097,10 +1108,7 @@ PTXCONF_UTELNETD=y
 #
 # Disk and File Utilities     
 #
-
-#
-# DOSFSTOOLS are broken, please send a patch
-#
+# PTXCONF_DOSFSTOOLS is not set
 # PTXCONF_E2FSPROGS is not set
 # PTXCONF_GRUB is not set
 # PTXCONF_HDPARM is not set
@@ -1361,6 +1369,7 @@ PTXCONF_TERMCAP=y
 # PTXCONF_FONTCONFIG is not set
 # PTXCONF_TSLIB is not set
 # PTXCONF_QTOPIA is not set
+# PTXCONF_I915RESOLUTION is not set
 
 #
 # Scientific Apps             
