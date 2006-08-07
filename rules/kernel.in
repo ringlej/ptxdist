@@ -2,8 +2,8 @@
 # rules/kernel.in
 #
 
-# 
-# FIXME / TODO: 
+#
+# FIXME / TODO:
 #
 # select HOST_MODUTILS for 2.4 kernels
 # select HOST_MODULE_INIT_TOOLS for 2.6 kernels
@@ -33,7 +33,7 @@ config KERNEL_COMPILE
 	depends on BUILD_USERLAND
 	help
 	  Usually you want to compile your kernel. If not,
-	  deselect this option. 
+	  deselect this option.
 
 # ----------------------------------------------------------------------------
 
@@ -41,7 +41,7 @@ comment "----------------------------------"
 comment "Target Kernel"
 comment "----------------------------------"
 
-config KERNEL_TARGET_VERSION 
+config KERNEL_TARGET_VERSION
 	prompt "Target Kernel Version"
 	string
 	default "2.6.15"
@@ -52,12 +52,12 @@ config KERNEL_TARGET_SERIES
 	default ""
 	help
 	  This entry specifies a patch series file which has to live in
-	  this directory: 
+	  this directory:
 
 		$PTXDIST_WORKSPACE/kernel-patches-target
 
 	  The series file contains lines with names of patch files which
-	  are then being applied to the kernel.  
+	  are then being applied to the kernel.
 
 config KERNEL_TARGET_CONFIG
 	prompt "target kernel config file"
@@ -83,7 +83,7 @@ config KERNEL_TARGET_IMAGE_BZ
 	help
 	 This usually is the target to be used on ia32 platforms. It
 	 is not limited in size (to be more precise: Limited up to 4MiB).
-	
+
 config KERNEL_TARGET_IMAGE_Z
 	bool
 	prompt "zImage"
@@ -118,7 +118,7 @@ depends on BUILD_USERLAND
 comment "----------------------------------"
 depends on BUILD_USERLAND
 
-config KERNEL_NATIVE_VERSION 
+config KERNEL_NATIVE_VERSION
 	prompt "Native Kernel Version"
 	string
 	depends on BUILD_USERLAND
@@ -131,12 +131,12 @@ config KERNEL_NATIVE_SERIES
 	depends on BUILD_USERLAND
 	help
 	  This entry specifies a patch series file which has to live in
-	  this directory: 
+	  this directory:
 
 		$PTXDIST_WORKSPACE/kernel-patches-native
 
 	  The series file contains lines with names of patch files which
-	  are then being applied to the kernel.  
+	  are then being applied to the kernel.
 
 config KERNEL_NATIVE_CONFIG
 	prompt "native kernel config file"
@@ -153,7 +153,7 @@ comment "Native Kernel Options"
 choice
 	prompt "Root Filesystem Method"
 	depends on KERNEL_COMPILE
-		
+
 	config KERNEL_NATIVE_ROOT_HOSTFS
 		bool
 		prompt "hostfs"
@@ -170,7 +170,7 @@ config KERNEL_NATIVE_CONSOLE_STDSERIAL
 	help
 	  This switch adds "ssl0=fd:0,fd:1" to the kernel command line,
 	  which forwards /dev/ttyS0 of the user mode linux vm to the
-	  host's stdin/stdout. 
+	  host's stdin/stdout.
 
 config KERNEL_NATIVE_CMDLINE
 	string
@@ -178,10 +178,10 @@ config KERNEL_NATIVE_CMDLINE
 	depends on KERNEL_COMPILE
 	default "root/boot/vmlinux root=/dev/root rootflags=${ROOTDIR} rootfstype=hostfs"
 	help
-	  Add your custom kernel commandline for the user mode linux 
-	  kernel here. A sane default for hostfs in PTXdist is 
+	  Add your custom kernel commandline for the user mode linux
+	  kernel here. A sane default for hostfs in PTXdist is
 
-	  root/boot/vmlinux root=/dev/root rootflags=${ROOTDIR} rootfstype=hostfs 
+	  root/boot/vmlinux root=/dev/root rootflags=${ROOTDIR} rootfstype=hostfs
 
 endmenu
 
