@@ -856,6 +856,7 @@ while [ "$#" != "0" ]; do
 			check_native
 			check_compiler
 			check_dirs
+			check_deps
 			ptxd_make world 2>&1 | tee -a logfile
 			check_pipe_status
 			RUN_ROOTMETHOD=$(. ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_ROOT_HOSTFS})
@@ -863,9 +864,9 @@ while [ "$#" != "0" ]; do
 			if [ -n "${RUN_ROOTMETHOD}" ]; then
 				RUN_CMDLINE="${RUN_CMDLINE} root=/dev/root rootflags=`pwd`/root rootfstype=hostfs"
 			fi
-			root/boot/vmlinux ${RUN_CMDLINE}
-			exit 0	
-			;;	
+			${PTXDIST_WORKSPACE}/images/linuximage ${RUN_CMDLINE}
+			exit 0
+			;;
 	select)		shift
 			if [ ! -f "$1" ]; then
 				echo
