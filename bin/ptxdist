@@ -810,7 +810,6 @@ while [ "$#" != "0" ]; do
 			;;
 	menuconfig)	shift
 			check_ptxconfig
-			check_native
 			ptxd_kconfig true menuconfig_action
 			;;
 	--native)	shift
