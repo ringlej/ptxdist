@@ -4,9 +4,10 @@
 # off the corner...
 #
 
-comma=,
-space= 
-quote="
+comma:=,
+nullstring:=
+space:= $(nullstring) # end of the linespace=
+quote:="
 
 #
 # remove_quotes
