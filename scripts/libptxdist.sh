@@ -61,6 +61,7 @@ ptxd_make() {
 # convert a relative or absolute path into an absolute path
 #
 ptxd_abspath() {
+	local DN
 	if [ "$#" != "1" ]; then
 		echo "usage: ptxd_abspath <path>"
 		exit 1
