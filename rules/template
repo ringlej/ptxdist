@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 # Paths and names
 #
 @PACKET@_VERSION	:= @VERSION@
-@PACKET@		:= @packet@-$(@PACKET@_VERSION)
+@PACKET@		:= @packet_filename@-$(@PACKET@_VERSION)
 @PACKET@_SUFFIX		:= @SUFFIX@
 @PACKET@_URL		:= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
 @PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
@@ -57,8 +57,8 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
 
 @packet@_prepare: $(STATEDIR)/@packet@.prepare
 
-@PACKET@_PATH	:=  PATH=$(CROSS_PATH)
-@PACKET@_ENV 	:=  $(CROSS_ENV)
+@PACKET@_PATH	:= PATH=$(CROSS_PATH)
+@PACKET@_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf

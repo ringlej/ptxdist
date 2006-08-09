@@ -414,14 +414,13 @@ menuconfig_action() {
 }
 
 newpacket () {
-	local template packetfile
+	local packet_name version url author year suffix overwrite \
+	    template prefix packet_filename packet_name packet PACKET filename
 
 	case $1 in
-	host)	template=template-host ;;
-	target)	template=template ;;
-	cross)	template=template-cross ;;
-	source)	template=template-src ;;
-	*)	echo
+	    host|target|cross|source)
+		;;
+	    *)	echo
 		echo "${PROMPT}error: illegal packet type: $1"
 		echo "must be one of host, target, cross, source"
 		echo
@@ -429,33 +428,54 @@ newpacket () {
 	esac
 
 	echo
-	echo "${PROMPT}creating a new packet from ${template}:"
+	echo "${PROMPT}creating a new packet:"
 	echo
 	echo -n "${PROMPT}enter packet name.......: "
-	read PACKET_NAME
+	read packet_name
 	echo -n "${PROMPT}enter version number....: "
-	read VERSION
+	read version
 	echo -n "${PROMPT}enter URL of basedir....: "
-	read URL
+	read url
 	echo -n "${PROMPT}enter packet author.....: "
-	read AUTHOR
+	read author
 	echo -n "${PROMPT}enter suffix............: "
-	read SUFFIX
-	YEAR=`date +%Y`
-	PACKET_NAME="`echo $PACKET_NAME| tr - _`"
-	packet=`echo $PACKET_NAME | tr "[A-Z]" "[a-z]"`
-	PACKET=`echo $PACKET_NAME | tr "[a-z]" "[A-Z]"`
-	
+	read suffix
+
+
 	case $1 in
-	host)	packetfile=host-${packet}.make ;;
-	target)	packetfile=${packet}.make ;;
-	cross)	packetfile=cross-${packet}.make ;;
-	source)	packetfile=${packet}.make ;;
+	    target)
+		template=template
+		prefix=
+		;;
+	    host)
+		template=template-host
+		prefix=host-
+		;;
+	    cross)
+		template=template-cross
+		prefix=cross-
+		;;
+	    source)
+		template=template-src
+		prefix=
+		;;
 	esac
 
-	if [ -f "${packetfile}" ]; then
+	packet_filename="${packet_name}"
+	packet_name="`echo ${packet_name} | tr - _`"
+
+	packet="`echo ${packet_name} | tr \"[A-Z]\" \"[a-z]\"`"
+	packet="${prefix}${packet}"
+	PACKET="`echo ${packet_name} | tr \"[a-z]\" \"[A-Z]\"`"
+	PACKET="`echo ${prefix} | tr \"[a-z-]\" \"[A-Z_]\"`${PACKET}"
+
+	year=`date +%Y`
+
+	filename="${prefix}${packet_filename}.make"
+	
+	if [ -f "${filename}" ]; then
 		echo
-		echo -n "${PROMPT}warning: ${packetfile} does already exist, overwrite? "
+		echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? "
 		read overwrite
 		if [ "$overwrite" != "y" ]; then
 			echo "${PROMPT}aborted."
@@ -465,15 +485,16 @@ newpacket () {
 	fi
 
 	sed \
+		-e "s,\@packet_filename@,${packet_filename},g" \
 		-e "s,\@PACKET@,${PACKET},g" \
 		-e "s,\@packet@,${packet},g" \
-		-e "s,\@VERSION@,${VERSION},g" \
-		-e "s,\@URL@,${URL},g" \
-		-e "s,\@YEAR@,${YEAR},g" \
-		-e "s,\@AUTHOR@,${AUTHOR},g" \
-		-e "s,\@SUFFIX@,${SUFFIX},g" \
-		${PTXDIST_TOPDIR}/rules/${template} \
-		> ${packetfile}
+		-e "s,\@VERSION@,${version},g" \
+		-e "s,\@URL@,${url},g" \
+		-e "s,\@YEAR@,${year},g" \
+		-e "s,\@AUTHOR@,${author},g" \
+		-e "s,\@SUFFIX@,${suffix},g" \
+		${RULESDIR}/${template} \
+		> ${filename}
 
 }
 

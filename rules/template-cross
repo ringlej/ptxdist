@@ -17,12 +17,12 @@ CROSS_PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 #
 # Paths and names
 #
-@PACKET@_VERSION	= @MAJOR@.@MINOR@.@MICRO@
-@PACKET@		= @packet_name@-$(@PACKET@_VERSION)
-@PACKET@_SUFFIX		= @SUFFIX@
-@PACKET@_URL		= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_SOURCE		= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_DIR		= $(CROSS_BUILDDIR)/$(@PACKET@)
+@PACKET@_VERSION	:= @VERSION@
+@PACKET@		:= @packet_filename@-$(@PACKET@_VERSION)
+@PACKET@_SUFFIX		:= @SUFFIX@
+@PACKET@_URL		:= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
+@PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
+@PACKET@_DIR		:= $(CROSS_BUILDDIR)/$(@PACKET@)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -57,16 +57,17 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
 
 @packet@_prepare: $(STATEDIR)/@packet@.prepare
 
-@PACKET@_PATH	=  PATH=$(CROSS_PATH)
-@PACKET@_ENV 	=  $(HOSTCC_ENV)
+@PACKET@_PATH	:= PATH=$(CROSS_PATH)
+@PACKET@_ENV 	:= $(HOST_ENV)
 
 #
 # autoconf
 #
-@PACKET@_AUTOCONF =  --prefix=$(PTXCONF_PREFIX)
-@PACKET@_AUTOCONF += --build=$(GNU_HOST)
-@PACKET@_AUTOCONF += --host=$(GNU_HOST)
-@PACKET@_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
+@PACKET@_AUTOCONF := \
+	--prefix=$(PTXCONF_PREFIX) \
+	--build=$(GNU_HOST) \
+	--host=$(GNU_HOST) \
+	--target=$(PTXCONF_GNU_TARGET)
 
 $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -84,7 +85,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
 
 $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make
+	cd $(@PACKET@_DIR) && $(@PACKET@_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -92,8 +93,6 @@ $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
 # ----------------------------------------------------------------------------
 
 @packet@_install: $(STATEDIR)/@packet@.install
-
-@packet@_install_deps = $(@packet@_install_deps_default)
 
 $(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 	@$(call targetinfo, $@)
@@ -106,6 +105,7 @@ $(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 
 @packet@_clean:
 	rm -rf $(STATEDIR)/@packet@.*
+	rm -rf $(IMAGEDIR)/@packet@_*
 	rm -rf $(@PACKET@_DIR)
 
 # vim: syntax=make
