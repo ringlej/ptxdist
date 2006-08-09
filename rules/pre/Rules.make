@@ -20,7 +20,7 @@ DEP_TREE_PS	= deptree.ps
 DEP_TREE_A4_PS	= deptree-a4.ps
 
 SUDO		= sudo
-HOSTCC		= gcc
+HOSTCC		= gcc-4.1
 HOSTCXX		= g++
 DOT		= dot
 SH		= /bin/sh
@@ -795,10 +795,10 @@ patchin =										\
 	fi;										\
 											\
 	if [ -f "$$patch_dir/series" ]; then						\
-		$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh -s "$$patch_dir/series" \
+		$(SCRIPTSDIR)/apply_patch_series.sh -s "$$patch_dir/series"		\
 			-d $$PACKET_DIR;						\
 	else										\
-		$(PTXDIST_TOPDIR)/scripts/apply_patch_series.sh	-p "$$patch_dir"	\
+		$(SCRIPTSDIR)/apply_patch_series.sh -p "$$patch_dir"			\
 			-d $$PACKET_DIR	;						\
 	fi
 
@@ -934,58 +934,9 @@ install_copy_toolchain_lib =									\
 	LIB="$(strip $2)";									\
 	DST="$(strip $3)";									\
 	STRIP="$(strip $4)";									\
-												\
-	LIB_DIR=`$(CROSS_CC) -print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
-												\
-	if test \! -d "$${LIB_DIR}"; then							\
-		echo "install_copy_toolchain_lib: $${LIB_DIR} not found";			\
-		exit -1;									\
-	fi;											\
-												\
-	LIB="$(strip $2)";									\
-	for FILE in `find $${LIB_DIR} -maxdepth 1 -type l -name "$${LIB}*"`; do			\
-		LIB=`basename $${FILE}`;							\
-		while test -n "$${LIB}"; do							\
-			echo "install_copy_toolchain_lib lib=$${LIB} dst=$${DST}";		\
-			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
-			mkdir -p $(ROOTDIR)$${DST};						\
-			rm -fr $(ROOTDIR_DEBUG)$${DST}/$${LIB};					\
-			mkdir -p $(ROOTDIR_DEBUG)$${DST};					\
-			mkdir -p $(IMAGEDIR)/$$PACKET/ipkg/$${DST};				\
-			if test -h $${LIB_DIR}/$${LIB}; then					\
-				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/;			\
-				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR_DEBUG)$${DST}/;		\
-				cp -d $${LIB_DIR}/$${LIB} $(IMAGEDIR)/$$PACKET/ipkg/$${DST}/;	\
-			elif test -f $${LIB_DIR}/$${LIB}; then					\
-				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/$${LIB};	\
-				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR_DEBUG)$${DST}/$${LIB};	\
-				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(IMAGEDIR)/$$PACKET/ipkg/$${DST}/$${LIB};\
-				case "$${STRIP}" in						\
-				0 | n | no)							\
-					;;							\
-				*)								\
-					$(CROSS_STRIP) $(ROOTDIR)$${DST}/$${LIB};		\
-					$(CROSS_STRIP) $(IMAGEDIR)/$$PACKET/ipkg/$${DST}/$${LIB};\
-					;;							\
-				esac;								\
-				mkdir -p $(IMAGEDIR)/$$PACKET;					\
-				echo "f:$${DST}/$${LIB}:0:0:755" >> $(STATEDIR)/$$PACKET.perms;	\
-			else									\
-				echo "error: found $${LIB}, but no file or link";		\
-				echo;								\
-				exit -1;							\
-			fi;									\
-			LIB="`readlink $${LIB_DIR}/$${LIB} | sed s,^\\\\.,$${LIB_DIR}/\.,`";	\
-			if [ -n "$$LIB" ]; then							\
-				if [ "`dirname $$LIB`" != "." ]; then				\
-					LIB_DIR=`dirname $$LIB`;				\
-				fi;								\
-				LIB=`basename $$LIB`;						\
-			fi;									\
-		done;										\
-	done;											\
-												\
-	echo -n
+	test "$${DST}" != "" && DST="-d $${DST}";						\
+	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)							\
+		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -l "$${LIB}" $${DST} -s "$${STRIP}"
 
 #
 # install_copy_toolchain_dl

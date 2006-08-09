@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2004 by Robert Schwebel
 #                       Marc Kleine-Budde <kleine-budde@gmx.de>
-#               2005 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix
+#               2005, 2006 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix
 #          
 # See CREDITS for details about who has contributed to this project.
 #

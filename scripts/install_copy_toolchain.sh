@@ -62,13 +62,14 @@ ptxd_install_lib() {
 	# if the user has given us a $prefix use it
 	prefix=${dest:-${prefix}}
 
+# disabled cause tls is bad for UML
 	# is there a tls variant of the lib? (e.g. native build on debian)
-	tls_lib="${lib_dir}/tls/${lib}"
-	if test -e "${tls_lib}"; then
-	    echo "tls - ${tls_lib}"
-	    ptxd_install_lib "${tls_lib}"
-	    return 0
-	fi
+#	tls_lib="${lib_dir}/tls/${lib}"
+#	if test -e "${tls_lib}"; then
+#	    echo "tls - ${tls_lib}"
+#	    ptxd_install_lib "${tls_lib}"
+#	    return 0
+#	fi
 
 	# remove existing libs
 	for dir in \

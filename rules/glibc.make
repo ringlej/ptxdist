@@ -94,71 +94,71 @@ $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps_default)
 	@$(call install_fixup, glibc,DESCRIPTION,missing)
 
 ifdef PTXCONF_GLIBC
-	@$(call install_copy_toolchain_dl, glibc, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_dl, glibc, /lib)
 endif
 
 ifdef PTXCONF_GLIBC_LIBC
-	@$(call install_copy_toolchain_lib, glibc, libc.so.6, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libc.so.6)
 endif
 
 ifdef PTXCONF_GLIBC_PTHREAD
-	@$(call install_copy_toolchain_lib, glibc, libpthread.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libpthread.so)
 endif
 
 ifdef PTXCONF_GLIBC_THREAD_DB
-	@$(call install_copy_toolchain_lib, glibc, libthread_db.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libthread_db.so)
 endif
 
 ifdef PTXCONF_GLIBC_LIBRT
-	@$(call install_copy_toolchain_lib, glibc, librt.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, librt.so)
 endif
 
 ifdef PTXCONF_GLIBC_DL
-	@$(call install_copy_toolchain_lib, glibc, libdl.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libdl.so)
 endif
 
 ifdef PTXCONF_GLIBC_CRYPT
-	@$(call install_copy_toolchain_lib, glibc, libcrypt.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libcrypt.so)
 endif
 
 ifdef PTXCONF_GLIBC_UTIL
-	@$(call install_copy_toolchain_lib, glibc, libutil.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libutil.so)
 endif
 
 ifdef PTXCONF_GLIBC_LIBM
-	@$(call install_copy_toolchain_lib, glibc, libm.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libm.so)
 endif
 
 ifdef PTXCONF_GLIBC_NSS_DNS
-	@$(call install_copy_toolchain_lib, glibc, libnss_dns.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libnss_dns.so)
 endif
 
 ifdef PTXCONF_GLIBC_NSS_FILES
-	@$(call install_copy_toolchain_lib, glibc, libnss_files.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libnss_files.so)
 endif
 
 ifdef PTXCONF_GLIBC_NSS_HESIOD
-	@$(call install_copy_toolchain_lib, glibc, libnss_hesiod.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libnss_hesiod.so)
 endif
 
 ifdef PTXCONF_GLIBC_NSS_NIS
-	@$(call install_copy_toolchain_lib, glibc, libnss_nis.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libnss_nis.so)
 endif
 
 ifdef PTXCONF_GLIBC_NSS_NISPLUS
-	@$(call install_copy_toolchain_lib, glibc, libnss_nisplus.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libnss_nisplus.so)
 endif
 
 ifdef PTXCONF_GLIBC_NSS_COMPAT
-	@$(call install_copy_toolchain_lib, glibc, libnss_compat.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libnss_compat.so)
 endif
 
 ifdef PTXCONF_GLIBC_RESOLV
-	@$(call install_copy_toolchain_lib, glibc, libresolv.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libresolv.so)
 endif
 
 ifdef PTXCONF_GLIBC_NSL
-	@$(call install_copy_toolchain_lib, glibc, libnsl.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, libnsl.so)
 endif
 
 ifdef PTXCONF_GLIBC_GCONV
@@ -166,7 +166,7 @@ ifdef PTXCONF_GLIBC_GCONV
 endif
 
 ifdef PTXCONF_GLIBC_GCONV_ISO8859_1
-	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-1.so, /lib, $(GLIBC_STRIP))
+	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-1.so, /lib)
 	echo "module INTERNAL ISO-8859-1// ISO8859-1 1" \
 		>> $(ROOTDIR)/usr/lib/gconv/gconv-modules
 	echo "module INTERNAL ISO-8859-1// ISO8859-1 1" \
@@ -177,10 +177,9 @@ endif
 
 # Zonefiles
 	@$(call install_copy, glibc, 0, 0, 0755, /usr/share/zoneinfo)
-	for target in $(GLIBC_ZONEFILES-y); do 				\
+	@for target in $(GLIBC_ZONEFILES-y); do 				\
 		$(call install_copy, glibc, 0, 0, 0644, $(GLIBC_ZONEDIR)/zoneinfo/$$target, /usr/share/zoneinfo/$$target)	\
 	done;
-
 	@$(call install_finish, glibc)
 
 	@$(call touch, $@)
