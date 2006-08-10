@@ -288,6 +288,7 @@ else
 	# but in this case we do not need a kernel ipkg
 	for i in $(KERNEL_TARGET_PATH); do	\
 		if [ -f $$i ]; then					\
+			[ ! -d $(IMAGEDIR) ] && mkdir $(IMAGEDIR);\
 			cp $$i $(IMAGEDIR)/linuximage;\
 		fi;										\
 	done
