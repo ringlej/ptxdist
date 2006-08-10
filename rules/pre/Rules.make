@@ -641,8 +641,8 @@ install = \
 			make install $(4)				\
 			$($(strip $(1))_MAKEVARS)			\
 			DESTDIR=;					\
+		$(CHECK_PIPE_STATUS)					\
 	else								\
-		mkdir -p $(SYSROOT);					\
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
@@ -650,7 +650,16 @@ install = \
 			$($(strip $(1))_MAKEVARS)			\
 			DESTDIR=$(SYSROOT);"				\
 			| $(FAKEROOT) --;				\
-       fi
+		$(CHECK_PIPE_STATUS)					\
+	fi;								\
+	for DIR in /lib /usr/lib; do					\
+		for FILE in `find $${SYSROOT}/$${DIR}/ -name "*.la"`; do	\
+			if test -e $${FILE}; then			\
+				sed -i -e "/dependency_libs/s:\( \)\($${DIR}\):\1$${SYSROOT}\2:g"	\
+					-e "/libdir/s:\(libdir='\)\($${DIR}\):\1$${SYSROOT}\2:g;" $$FILE;	\
+			fi;						\
+		done;							\
+	done
 endif
 
 
@@ -664,13 +673,6 @@ clean =								\
 	if [ -e $$DIR ]; then					\
 		$(RM) -rf $$DIR;				\
 	fi
-
-# 	if [ "$$DIR" = "" ]; then				\
-# 		echo;						\
-# 		echo Error: empty parameter to \"clean\(\)\";	\
-# 		echo;						\
-# 		exit -1;					\
-# 	fi;							\
 
 
 #
