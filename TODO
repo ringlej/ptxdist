@@ -1,6 +1,16 @@
 TODO for PTXdist 0.10 Series - High Priority
 ============================================
 
+[ ] Start a "Global Patch Repository Unification Project". Potential
+    members:
+
+    	* PTXdist
+	* T2
+	* OpenEmbedded
+	  http://www.openembedded.org/repo/org.openembedded.dev/packages/
+	* Gentoo
+	* Debian
+
 [ ] if a packet is not selected, it's dependencies are not generated. If
     you kick a stage then, the dependend stages are not executed.
     Solution: generate the stages as well, so we get an error in that
