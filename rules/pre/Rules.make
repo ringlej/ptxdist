@@ -20,7 +20,7 @@ DEP_TREE_PS	= deptree.ps
 DEP_TREE_A4_PS	= deptree-a4.ps
 
 SUDO		= sudo
-HOSTCC		= gcc-4.1
+HOSTCC		= gcc
 HOSTCXX		= g++
 DOT		= dot
 SH		= /bin/sh
