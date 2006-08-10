@@ -26,6 +26,7 @@ config HOST_UMKIMAGE
 	prompt "mkimage: U-Boot kernel image creation"
 
 source "rules/host-mknbi.in"
+source "rules/host-mkelfImage.in"
 
 ##############################################################################
 comment "Other Host Tools"

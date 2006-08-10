@@ -1,0 +1,30 @@
+--- mkelfImage-2.7-orig/linux-i386/convert_params.c	2006-03-28 01:44:59.000000000 +0200
++++ mkelfImage-2.7/linux-i386/convert_params.c	2006-05-30 22:28:39.000000000 +0200
+@@ -962,22 +962,22 @@
+ 			return head;
+ 		}
+ 	};
+-	return 0;
++	return (void*)-1;
+ }
+ 
+ static int find_lb_table(struct param_info *info)
+ {
+ 	struct lb_header *head;
+-	head = 0;
+-	if (!head) {
++	head = (void*)-1;
++	if (head == (void*)-1) {
+ 		/* First try at address 0 */
+ 		head = __find_lb_table((void *)0x00000, (void *)0x1000);
+ 	}
+-	if (!head) {
++	if (head == (void*)-1) {
+ 		/* Then try at address 0xf0000 */
+ 		head = __find_lb_table((void *)0xf0000, (void *)0x100000);
+ 	}
+-	if (head) {
++	if (head != (void*)-1) {
+ 		info->has_linuxbios = 1;
+ 		info->lb_table = head;
+ 		return 1;

@@ -1,0 +1,15 @@
+config HOST_MKELFIMAGE
+	bool
+	select HOST_FAKEROOT
+	prompt "mkelfImage: make etherboot image for LinuxBIOS"
+	help
+	  With mkelfImage you can create elf images from kernel
+	  files to be downloaded by Etherboot for LinuxBIOS. 
+	  Tagged images are data files, which contain the 
+	  necessary files for booting up (kernel+root for 
+	  linux, kernel+minifs for dos, ...) bundled together 
+	  with a special format.
+ 	  
+	  These tagged images are downloaded and understood 
+	  by Etherboot and can handle LinuxBIOS restrictions
+	  
