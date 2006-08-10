@@ -68,7 +68,7 @@ ptxd_install_lib() {
 #	if test -e "${tls_lib}"; then
 #	    echo "tls - ${tls_lib}"
 #	    ptxd_install_lib "${tls_lib}"
-#	    return 0
+#	    return $?	
 #	fi
 
 	# remove existing libs
@@ -117,10 +117,15 @@ ptxd_install_lib() {
 		# strip all braces and install all shared libs ( *.so*), irnore "GROUP" and static libs
 		#
 		for script_lib in `sed -n -e "/GROUP/s/[()]//gp" "${lib_path}"`; do
-		    case "${script_lib}" in
+		    # deal with relative and absolute libs
+		    case "${script_lib}" in 
+			/*.so*)
+			    echo "in script - ${script_lib}"
+			    ptxd_install_lib "${sysroot}/${script_lib}" || return $?
+			    ;;
 			*.so*)
 			    echo "in script - ${script_lib}"
-			    ptxd_install_lib "${sysroot}/${script_lib}"
+			    ptxd_install_lib "${lib_dir}/${script_lib}" || return $?
 			    ;;
 			*)
 			    ;;
@@ -173,4 +178,4 @@ while getopts "p:l:d:s::" opt; do
 done
 
 get_lib_path "${lib}" || exit $?
-ptxd_install_lib "${lib_path}"
+ptxd_install_lib "${lib_path}" || exit $?
