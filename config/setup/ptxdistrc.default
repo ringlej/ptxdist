@@ -26,7 +26,7 @@ PTXCONF_SETUP_PROJECTDIR=""
 #
 PTXCONF_SETUP_DEBMIRROR="http://ftp.de.debian.org/debian"
 PTXCONF_SETUP_SFMIRROR="http://surfnet.dl.sourceforge.net/sourceforge"
-PTXCONF_SETUP_GNUMIRROR="ftp://ftp.informatik.rwth-aachen.de/pub/gnu"
+PTXCONF_SETUP_GNUMIRROR="http://ftp.belnet.be/mirror/ftp.gnu.org/gnu"
 PTXCONF_SETUP_XORGMIRROR="http://ftp.gwdg.de/pub/x11/x.org/pub"
 #
 # IPKG Repository 
