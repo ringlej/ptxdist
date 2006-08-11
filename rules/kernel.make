@@ -282,17 +282,16 @@ ifdef  PTXCONF_KERNEL_INSTALL
 		fi;							\
 	done
 	@$(call install_finish, kernel)
-else
+endif
 	# we _always_ need the kernel in the image dir
 	# to be in sync with documentation!
 	# but in this case we do not need a kernel ipkg
 	for i in $(KERNEL_TARGET_PATH); do	\
 		if [ -f $$i ]; then					\
-			[ ! -d $(IMAGEDIR) ] && mkdir $(IMAGEDIR);\
-			cp $$i $(IMAGEDIR)/linuximage;\
-		fi;										\
+			install -D $$i $(IMAGEDIR)/linuximage;		\
+		fi;							\
 	done
-endif
+
 ifdef PTXCONF_KERNEL_INSTALL_MODULES
 	rm -fr $(KERNEL_INST_DIR)
 
