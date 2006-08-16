@@ -100,7 +100,7 @@ libjpeg_install: $(STATEDIR)/libjpeg.install
 
 $(STATEDIR)/libjpeg.install: $(libjpeg_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME make install is broken @$(call install, LIBJPEG)
+	@$(call install, LIBJPEG)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
