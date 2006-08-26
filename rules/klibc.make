@@ -79,109 +79,135 @@ klibc_compile_deps := \
 	$(klibc_compile_deps_default) \
 	$(STATEDIR)/kernel.prepare
 #
-# INSTALLROOT whats it?
-#
+# INSTALLROOT where to install the executables
+# CROSS_COMPILE define the crosscompiler to use
+# ARCH define the target architecture
+# KLIBCKERNELSRC where the kernel sources are located
+#  (needed to use its build infrastructure)
+# KLIBCKERNELOBJ don't know
+
+# Note: To get verbose output
+# while compiling and installing
+# uncomment the following:
+# KLIBC_VERBOSE=V=1
+
+KLIBC_MAKE_PARAM := ARCH=$(PTXCONF_ARCH) \
+ CROSS_COMPILE=$(COMPILER_PREFIX) \
+ KLIBCKERNELSRC=$(KERNEL_DIR)/ \
+ KLIBCKERNELOBJ=$(KERNEL_DIR)/ \
+ INSTALLROOT=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+
 $(STATEDIR)/klibc.compile: $(klibc_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(KLIBC_DIR) && make V=1 ARCH=$(PTXCONF_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) KLIBCKERNELSRC=$(KERNEL_DIR)/ KLIBCKERNELOBJ=$(KERNEL_DIR)/ INSTALLROOT=$(PTXCONF_PREFIX)
+	cd $(KLIBC_DIR) && make $(KLIBC_MAKE_PARAM) $(KLIBC_VERBOSE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
+# this won't generate any files here for the target. All selected files will
+# later be part of the kernel image itself (initramfs). Instead only a control
+# file will be generated and all parts of the klibc get installed into
+# $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/lib/klibc.
+# To link applications against klibc, use the "klcc" wrapper instead of the
+# cross compiler. klcc will be build here and uses the $(COMPILER_PREFIX).
+# While kernel building the klibc files will be fetched from their build location!
 # ----------------------------------------------------------------------------
-
+#
 klibc_install: $(STATEDIR)/klibc.install
 
 #
-# where the klibc install target installs the target binaries
-# 
-PTXCONF_KLIBC_BINSRC := $(KLIBC_DIR)/usr
+# where the klibc "install" target installs the target binaries
 #
-# FIXME: Maybe its better to use the files from their build directory
-#        instead using the ones from the installed place
+KLIBC_BINSRC := $(KLIBC_DIR)/usr
+# where to store the file info
+KLIBC_CONTROL := $(KLIBC_DIR)/initramfs_spec
+
 #
 $(STATEDIR)/klibc.install: $(klibc_install_deps_default)
 	@$(call targetinfo, $@)
 
-	echo "dir /dev/ 755 0 0" > $(KLIBC_DIR)/initramfs_spec
-	echo "dir /proc/ 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
-	echo "dir /sys/ 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
-	echo "dir /bin/ 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
-	echo "dir /lib/ 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
-	echo "nod /dev/console 644 0 0 c 5 1" >> $(KLIBC_DIR)/initramfs_spec
-	echo "nod /dev/loop0 644 0 0 b 7 0" >> $(KLIBC_DIR)/initramfs_spec
-ifdef PTXCONF_KLIBC_KINIT_STATIC
-	echo "file /bin/kinit $(PTXCONF_KLIBC_BINSRC)/bin/kinit 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+	echo "dir /dev/ 755 0 0" > $(KLIBC_CONTROL)
+	echo "dir /proc/ 755 0 0" >> $(KLIBC_CONTROL)
+	echo "dir /sys/ 755 0 0" >> $(KLIBC_CONTROL)
+	echo "dir /bin/ 755 0 0" >> $(KLIBC_CONTROL)
+	echo "nod /dev/console 644 0 0 c 5 1" >> $(KLIBC_CONTROL)
+	echo "nod /dev/loop0 644 0 0 b 7 0" >> $(KLIBC_CONTROL)
+#
+# select the static parts first
+#
+ifdef PTXCONF_KLIBC_STATIC_CAT
+	echo "file /bin/cat $(KLIBC_BINSRC)/utils/static/cat 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_SH
-	echo "file /bin/sh $(PTXCONF_KLIBC_BINSRC)/bin/sh 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_CHROOT
+	echo "file /bin/chroot $(KLIBC_BINSRC)/utils/static/chroot 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_SHARED
-	echo "file /usr/lib/libc.so $(PTXCONF_KLIBC_BINSRC)/lib/libc.so 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_DD
+	echo "file /bin/dd $(KLIBC_BINSRC)/utils/static/dd 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_CAT
-	echo "file /bin/cat $(PTXCONF_KLIBC_BINSRC)/$(PTXCONF_GNU_TARGET)/usr/lib/klibc/bin/cat 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_FALSE
+	echo "file /bin/false $(KLIBC_BINSRC)/utils/static/false 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_INSMOD
-	echo "file /bin/insmod $(KLIBC_DIR)/utils/static/insmod 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_INSMOD
+	echo "file /bin/insmod $(KLIBC_BINSRC)/utils/static/insmod 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_MOUNT
-	echo "file /bin/mount $(KLIBC_DIR)/utils/static/mount 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_LN
+	echo "file /bin/ln $(KLIBC_BINSRC)/utils/static/ln 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_DD
-	echo "file /bin/dd $(KLIBC_DIR)/utils/static/dd 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_MINIPS
+	echo "file /bin/minips $(KLIBC_BINSRC)/utils/static/minips 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_CHROOT
-	echo "file /bin/chroot $(KLIBC_DIR)/utils/static/chroot 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_MKDIR
+	echo "file /bin/mkdir $(KLIBC_BINSRC)/utils/static/mkdir 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_FALSE
-	echo "file /bin/false $(KLIBC_DIR)/utils/static/false 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_MKFIFO
+	echo "file /bin/mkfifo $(KLIBC_BINSRC)/utils/static/mkfifo 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_FSTYPE
-	echo "file /bin/fstype $(KLIBC_DIR)/utils/static/fstype 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_MOUNT
+	echo "file /bin/mount $(KLIBC_BINSRC)/utils/static/mount 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_LN
-	echo "file /bin/ln $(KLIBC_DIR)/utils/static/ln 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_NUKE
+	echo "file /bin/nuke $(KLIBC_BINSRC)/utils/static/nuke 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_MINIPS
-	echo "file /bin/minips $(KLIBC_DIR)/utils/static/minips 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_PIVOT_ROOT
+	echo "file /bin/pivot_root $(KLIBC_BINSRC)/utils/static/pivot_root 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_MKDIR
-	echo "file /bin/mkdir $(KLIBC_DIR)/utils/static/mkdir 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_SLEEP
+	echo "file /bin/sleep $(KLIBC_BINSRC)/utils/static/sleep 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_MKFIFO
-	echo "file /bin/mkfifo $(KLIBC_DIR)/utils/static/mkfifo 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_TRUE
+	echo "file /bin/true $(KLIBC_BINSRC)/utils/static/true 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_NUKE
-	echo "file /bin/nuke $(KLIBC_DIR)/utils/static/nuke 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_UMOUNT
+	echo "file /bin/umount $(KLIBC_BINSRC)/utils/static/umount 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_PIVOT_ROOT
-	echo "file /bin/pivot_root $(KLIBC_DIR)/utils/static/pivot_root 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_STATIC_UNAME
+	echo "file /bin/uname $(KLIBC_BINSRC)/utils/static/uname 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_PRINTF
-	echo "file /bin/printf $(KLIBC_DIR)/utils/static/printf 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+
+#
+# select the dynamics
+# FIXME: Untested and not fully supported yet!
+#
+ifdef PTXCONF_KLIBC_DYNAMIC_LIB
+	echo "dir /lib/ 755 0 0" >> $(KLIBC_CONTROL)
+	echo "file /lib/klibc.so $(KLIBC_BINSRC)/utils/klibc/klibc.so 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_RUN_INIT
-	echo "file /bin/run-init $(KLIBC_DIR)/utils/static/run-init 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_SHARED_CAT
+	echo "file /bin/cat $(KLIBC_BINSRC)/utils/shared/cat 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_SLEEP
-	echo "file /bin/sleep $(KLIBC_DIR)/utils/static/sleep 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
-endif
-ifdef PTXCONF_KLIBC_TRUE
-	echo "file /bin/true $(KLIBC_DIR)/utils/static/true 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
-endif
-ifdef PTXCONF_KLIBC_UMOUNT
-	echo "file /bin/umount $(KLIBC_DIR)/utils/static/umount 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
-endif
-ifdef PTXCONF_KLIBC_UNAME
-	echo "file /bin/uname $(KLIBC_DIR)/utils/static/uname 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
-endif
-ifdef PTXCONF_KLIBC_NFSMOUNT
-	echo "file /bin/nfsmount $(KLIBC_DIR)/nfsmount/static/nfsmount 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
-endif
+
+# FIXME: add remaining possible commands
+
+#
+# add the link when enabled
+#
 ifneq ($(call remove_quotes,$(PTXCONF_KLIBC_INIT)),)
-	echo "slink /init $(PTXCONF_KLIBC_INIT) 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+	echo "slink /init $(PTXCONF_KLIBC_INIT) 755 0 0" >> $(KLIBC_CONTROL)
 endif
+#
+# adding user specific files to the list
+# Note: files without a leading '/' get a prefix path of the current project
+#
 ifdef PTXCONF_KLIBC_USER_SPEC
 	cat $(PTXDIST_WORKSPACE)/initramfs_spec | while read type target source rest; do	\
 		if [ "$$type" == "file" ]; then						\
@@ -189,12 +215,18 @@ ifdef PTXCONF_KLIBC_USER_SPEC
 				source=$(PTXDIST_WORKSPACE)/$$source;			\
 			fi;								\
 		fi;									\
-		echo "$$type $$target $$source $$rest" >> $(KLIBC_DIR)/initramfs_spec;	\
+		echo "$$type $$target $$source $$rest" >> $(KLIBC_CONTROL);	\
 	done
 endif
-
+#
+# install the compiler wrapper to be used to link programs against klibc
+#
 	install $(KLIBC_DIR)/klcc/klcc $(PTXCONF_PREFIX)/bin/klcc
-	cd $(KLIBC_DIR) && make V=1 ARCH=$(PTXCONF_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) KLIBCKERNELSRC=$(KERNEL_DIR)/ KLIBCKERNELOBJ=$(KERNEL_DIR)/ INSTALLROOT=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) install
+#
+# install a few commands to the local architecture directory
+# but important is the klibc.a only to link programs against it
+#
+	cd $(KLIBC_DIR) && make  $(KLIBC_MAKE_PARAM) $(KLIBC_VERBOSE) install
 
 	@$(call touch, $@)
 
@@ -216,5 +248,7 @@ klibc_clean:
 	rm -rf $(STATEDIR)/klibc.*
 	rm -rf $(IMAGEDIR)/klibc_*
 	rm -rf $(KLIBC_DIR)
+	rm -rf $(INSTALLROOT)/usr/lib/klibc
+	rm -rf $(PTXCONF_PREFIX)/bin/klcc
 
 # vim: syntax=make
