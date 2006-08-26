@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_KLIBC) += klibc
 #
 # Paths and names
 #
-KLIBC_VERSION	:= 1.1.1
+KLIBC_VERSION	:= 1.4
 KLIBC		:= klibc-$(KLIBC_VERSION)
 KLIBC_SUFFIX	:= tar.gz
 KLIBC_URL	:= http://www.kernel.org/pub/linux/libs/klibc/$(KLIBC).$(KLIBC_SUFFIX)
@@ -78,10 +78,12 @@ klibc_compile: $(STATEDIR)/klibc.compile
 klibc_compile_deps := \
 	$(klibc_compile_deps_default) \
 	$(STATEDIR)/kernel.prepare
-
+#
+# INSTALLROOT whats it?
+#
 $(STATEDIR)/klibc.compile: $(klibc_compile_deps)
 	@$(call targetinfo, $@)
-	cd $(KLIBC_DIR) && make ARCH=$(PTXCONF_ARCH) CROSS=$(COMPILER_PREFIX) KRNLSRC=$(KERNEL_DIR) prefix=$(PTXCONF_PREFIX)
+	cd $(KLIBC_DIR) && make V=1 ARCH=$(PTXCONF_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) KLIBCKERNELSRC=$(KERNEL_DIR)/ KLIBCKERNELOBJ=$(KERNEL_DIR)/ INSTALLROOT=$(PTXCONF_PREFIX)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -90,6 +92,14 @@ $(STATEDIR)/klibc.compile: $(klibc_compile_deps)
 
 klibc_install: $(STATEDIR)/klibc.install
 
+#
+# where the klibc install target installs the target binaries
+# 
+PTXCONF_KLIBC_BINSRC := $(KLIBC_DIR)/usr
+#
+# FIXME: Maybe its better to use the files from their build directory
+#        instead using the ones from the installed place
+#
 $(STATEDIR)/klibc.install: $(klibc_install_deps_default)
 	@$(call targetinfo, $@)
 
@@ -97,16 +107,20 @@ $(STATEDIR)/klibc.install: $(klibc_install_deps_default)
 	echo "dir /proc/ 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
 	echo "dir /sys/ 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
 	echo "dir /bin/ 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+	echo "dir /lib/ 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
 	echo "nod /dev/console 644 0 0 c 5 1" >> $(KLIBC_DIR)/initramfs_spec
 	echo "nod /dev/loop0 644 0 0 b 7 0" >> $(KLIBC_DIR)/initramfs_spec
-ifdef PTXCONF_KLIBC_KINIT
-	echo "file /bin/kinit $(KLIBC_DIR)/kinit/kinit 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+ifdef PTXCONF_KLIBC_KINIT_STATIC
+	echo "file /bin/kinit $(PTXCONF_KLIBC_BINSRC)/bin/kinit 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
 endif
 ifdef PTXCONF_KLIBC_SH
-	echo "file /bin/sh $(KLIBC_DIR)/ash/sh 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+	echo "file /bin/sh $(PTXCONF_KLIBC_BINSRC)/bin/sh 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+endif
+ifdef PTXCONF_KLIBC_SHARED
+	echo "file /usr/lib/libc.so $(PTXCONF_KLIBC_BINSRC)/lib/libc.so 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
 endif
 ifdef PTXCONF_KLIBC_CAT
-	echo "file /bin/cat $(KLIBC_DIR)/utils/static/cat 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
+	echo "file /bin/cat $(PTXCONF_KLIBC_BINSRC)/$(PTXCONF_GNU_TARGET)/usr/lib/klibc/bin/cat 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
 endif
 ifdef PTXCONF_KLIBC_INSMOD
 	echo "file /bin/insmod $(KLIBC_DIR)/utils/static/insmod 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
@@ -165,7 +179,7 @@ endif
 ifdef PTXCONF_KLIBC_NFSMOUNT
 	echo "file /bin/nfsmount $(KLIBC_DIR)/nfsmount/static/nfsmount 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
 endif
-ifdef PTXCONF_KLIBC_INIT
+ifneq ($(call remove_quotes,$(PTXCONF_KLIBC_INIT)),)
 	echo "slink /init $(PTXCONF_KLIBC_INIT) 755 0 0" >> $(KLIBC_DIR)/initramfs_spec
 endif
 ifdef PTXCONF_KLIBC_USER_SPEC
@@ -179,8 +193,8 @@ ifdef PTXCONF_KLIBC_USER_SPEC
 	done
 endif
 
-	install $(KLIBC_DIR)/$(COMPILER_PREFIX)klcc $(PTXCONF_PREFIX)/bin/$(COMPILER_PREFIX)klcc
-	cd $(KLIBC_DIR) && make ARCH=$(PTXCONF_ARCH) CROSS=$(COMPILER_PREFIX) KRNLSRC=$(KERNEL_DIR) prefix=$(PTXCONF_PREFIX) install
+	install $(KLIBC_DIR)/klcc/klcc $(PTXCONF_PREFIX)/bin/klcc
+	cd $(KLIBC_DIR) && make V=1 ARCH=$(PTXCONF_ARCH) CROSS_COMPILE=$(COMPILER_PREFIX) KLIBCKERNELSRC=$(KERNEL_DIR)/ KLIBCKERNELOBJ=$(KERNEL_DIR)/ INSTALLROOT=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) install
 
 	@$(call touch, $@)
 
