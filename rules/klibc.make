@@ -89,9 +89,9 @@ klibc_compile_deps := \
 # Note: To get verbose output
 # while compiling and installing
 # uncomment the following:
-# KLIBC_VERBOSE=V=1
+KLIBC_VERBOSE=V=1
 
-KLIBC_MAKE_PARAM := ARCH=$(PTXCONF_ARCH) \
+KLIBC_MAKE_PARAM = ARCH=$(PTXCONF_ARCH) \
  CROSS_COMPILE=$(COMPILER_PREFIX) \
  KLIBCKERNELSRC=$(KERNEL_DIR)/ \
  KLIBCKERNELOBJ=$(KERNEL_DIR)/ \
