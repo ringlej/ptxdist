@@ -70,6 +70,10 @@ make: ***
 [ ] Write macros $(call compile) and $(call configure).
 [ ] libxslt crypto support is broken
 [ ] add menu entry for user local config files in /etc
+[ ] image build mechanism tries to access data and infos from already
+    disabled targets! (if they where enabled before). It does so
+    unless a manually delete of the remaining and (now) useless targets
+    in "state/"
 
 Interesting packets
 -------------------
