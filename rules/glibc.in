@@ -45,14 +45,30 @@ config GLIBC_LIBRT
 	depends on GLIBC_INSTALL
 	prompt "Install librt on the target"
 	help
-	  FIXME: This item needs to be documented
+	  Functions in this library provide most of the interfaces specified by the POSIX.1b Realtime Extension
 
 config GLIBC_DL
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libdl on the target"
 	help
-	  FIXME: This item needs to be documented
+	  libdl.so is a dynamic linking library that is generally of use only for
+	  porting applications. If you are porting a BeOS application that requires
+	  dlopen, dlclose, dlerror, dlsym, dladdr, or dlfcn.h, then you can use this
+	  library.
+	  
+	  libdl.so is a wrapper to the add-on functions with the semantics of the dl
+	  (dynamic linking) library. This is used for finding shared objects at run
+	  time. If the items are not found the program can continue to run.
+	   
+	  It is extremely similar to the add-on mechanism in BeOS with some semantics
+	  changes. If you are developing your own app, you almost definitely want to
+	  use add-ons unless you are already familiar with libdl. In this case you may
+	  be disappointed since it is possible that I have implemented part of it wrong.
+	     
+	  If you want your application to have cross platform compatibility with this
+	  functionality you should probably use libtool instead. It is much more cross
+	  platform compatible than dlopen, etc. It also supports BeOS. See related links.
 
 config GLIBC_CRYPT
 	bool
@@ -66,7 +82,7 @@ config GLIBC_UTIL
 	depends on GLIBC_INSTALL
 	prompt "Install libutil on the target"
 	help
-	  FIXME: This item needs to be documented
+	  Contains code for "standard" functions used in many different Unix utilities.
 
 config GLIBC_LIBM
 	bool
@@ -81,14 +97,15 @@ config GLIBC_NSS_DNS
 	prompt "Install libnss_dns"
 	select GLIBC_RESOLV
 	help
-	  FIXME: This item needs to be documented
+	  Contains functions for name resolution to ip addresses and vice versa
 
 config GLIBC_NSS_FILES
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install libnss_files"
 	help
-	  FIXME: This item needs to be documented
+	  Contains functions to access some vitale system control files (for login
+	  for example)
 
 config GLIBC_NSS_HESIOD
 	bool
