@@ -42,7 +42,7 @@ get_lib_path() {
 #   we use it
 #
 ptxd_install_lib() {
-    local lib_path lib lib_dir sysroot prefix prefix script_lib tmp tls_lib dir
+    local lib_path lib lib_dir sysroot prefix prefix script_lib tmp tls_lib dir v_full lib_v_major
 
     lib_path="${1}"
 
@@ -60,7 +60,7 @@ ptxd_install_lib() {
 	sysroot="${lib_dir%${prefix}}"
 
 	# if the user has given us a $prefix use it
-	prefix=${dest:-${prefix}}
+	prefix="${dest:-${prefix}}"
 
 # disabled cause tls is bad for UML
 	# is there a tls variant of the lib? (e.g. native build on debian)
@@ -77,7 +77,7 @@ ptxd_install_lib() {
 	    "${ROOTDIR_DEBUG}"; do
 
 	    tmp="${dir}${prefix}/${lib}"
-	    test -e "{tmp}" && rm -rf "${tmp}"
+	    test -e "${tmp}" && rm -rf "${tmp}"
 	done
 
 	# do sth. with that found lib, action depends on file type (link or regular)
@@ -114,7 +114,7 @@ ptxd_install_lib() {
 		echo "script - ${lib_path}"
 		# 
 		# the libs are in the GROUP line
-		# strip all braces and install all shared libs ( *.so*), irnore "GROUP" and static libs
+		# strip all braces and install all shared libs ( *.so*), ignore "GROUP" and static libs
 		#
 		for script_lib in `sed -n -e "/GROUP/s/[()]//gp" "${lib_path}"`; do
 		    # deal with relative and absolute libs
@@ -143,9 +143,31 @@ ptxd_install_lib() {
 		  install -D "${lib_path}" "${dir}${prefix}/${lib}"
 		done
 
-		${STRIP} ${ROOTDIR}${prefix}/${lib}
-		${STRIP} ${IMAGEDIR}/${packet}/ipkg${prefix}/${lib}
-		echo "f:${prefix}/${lib}:0:0:755" >> ${STATEDIR}/${packet}.perms
+		${STRIP} "${ROOTDIR}${prefix}/${lib}"
+		${STRIP} "${IMAGEDIR}/${packet}/ipkg${prefix}/${lib}"
+		echo "f:${prefix}/${lib}:0:0:755" >> "${STATEDIR}/${packet}.perms"
+
+		# now create some links to that lib
+		# e.g. libstdc++.so.6 -> libstdc++.so.6.6.6
+
+		# the fullversion (6.6.6)
+		v_full="${lib#*.so.}"
+		# library name with major version (libstdc++.so.6)
+		lib_v_major="${lib%${v_full}}${v_full%%.*}"
+
+		if test "${lib_v_major}" != "${lib}"; then		    
+		    echo "extra link - ${prefix}/${lib_v_major}"
+
+		    for dir in \
+			"${ROOTDIR}" \
+			"${ROOTDIR_DEBUG}" \
+			"${IMAGEDIR}/${packet}/ipkg"; do
+
+		      if test \! -e "${ROOTDIR}${prefix}/${lib_v_major}"; then
+			  ln -sf "${lib}" "${dir}${prefix}/${lib_v_major}"
+		      fi
+		    done
+		fi
 	    fi
 	else
 	    echo "error: found ${lib_path}, but neither file nor link"
