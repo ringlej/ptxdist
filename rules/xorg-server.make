@@ -365,7 +365,7 @@ ifdef PTXCONF_XORG_SERVER_XWIN
 endif
 
 ifdef PTXCONF_XORG_DRIVER_VIDEO
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/fbdevhw/.libs/libfbdevhw.so, $(XORG_PREFIX)/lib/xorg/modules/libfbdevhw.so)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/fbdevhw/.libs/libfbdevhw.so, $(XORG_PREFIX)/lib/xorg/modules/linux/libfbdevhw.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libafb.so, $(XORG_PREFIX)/lib/xorg/modules/libafb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb16.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb16.so)
 #	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb24.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb24.so)
@@ -449,6 +449,8 @@ ifdef PTXCONF_XORG_SERVER_EXT_GLX
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_DRI
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dri/.libs/libdri.so, /usr/lib/xorg/modules/extensions/libdri.so)
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/os-support/drm/.libs/libdrm.so, /usr/lib/xorg/modules/linux/libdrm.so)
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
