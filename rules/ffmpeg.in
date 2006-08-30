@@ -300,13 +300,6 @@ config FFMPEG_ZLIB
         help
           FIXME
 
-config FFMPEG_LZO
-        bool
-        depends on FFMPEG
-        prompt "lzo support"
-        help
-          FIXME
-
 config FFMPEG_SIMPLE_IDCT
         bool
         depends on FFMPEG

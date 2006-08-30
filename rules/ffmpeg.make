@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_FFMPEG) += ffmpeg
 #
 # Paths and names
 #
-FFMPEG_VERSION	:= r5452
+FFMPEG_VERSION	:= r6104
 FFMPEG		:= ffmpeg-$(FFMPEG_VERSION)
 FFMPEG_SUFFIX	:= tar.bz2
 FFMPEG_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FFMPEG).$(FFMPEG_SUFFIX)
@@ -101,6 +101,14 @@ ifdef PTXCONF_ARCH_X86
  ifdef PTXCONF_OPT_I686
   FFMPEG_AUTOCONF += --cpu=i686
   FFMPEG_AUTOCONF += --tune=i686
+ endif
+ ifdef PTXCONF_OPT_PII
+  FFMPEG_AUTOCONF += --cpu=i686
+  FFMPEG_AUTOCONF += --tune=pentium2
+ endif
+ ifdef PTXCONF_OPT_P3M
+  FFMPEG_AUTOCONF += --cpu=i686
+  FFMPEG_AUTOCONF += --tune=pentium3
  endif
 endif
 
@@ -339,10 +347,6 @@ endif
 
 ifndef PTXCONF_FFMPEG_ZLIB
 FFMPEG_AUTOCONF += --disable-zlib      
-endif
-
-ifndef PTXCONF_FFMPEG_LZO
-FFMPEG_AUTOCONF += --disable-lzo        
 endif
 
 ifndef PTXCONF_FFMPEG_SIMPLE_IDCT
