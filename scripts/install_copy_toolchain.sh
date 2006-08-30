@@ -155,7 +155,8 @@ ptxd_install_lib() {
 		# library name with major version (libstdc++.so.6)
 		lib_v_major="${lib%${v_full}}${v_full%%.*}"
 
-		if test "${lib_v_major}" != "${lib}"; then		    
+		if test "${v_full}" != "${lib}" -a \
+		    "${lib_v_major}" != "${lib}"; then		    
 		    echo "extra link - ${prefix}/${lib_v_major}"
 
 		    for dir in \
