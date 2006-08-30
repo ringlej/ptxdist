@@ -1,16 +1,15 @@
 menuconfig PORTMAP
 	bool
-	depends on BROKEN
 	prompt "portmapper          "
 	help
-	  FIXME: This item needs to be documented
+	  Portmap is a server that converts RPC program numbers into DARPA protocol
+	  port numbers.  It must be running in order to make RPC calls.
+
+	  Its needed for at least NFS service
 
 config	PORTMAP_INSTALL_PORTMAPPER
 	bool
 	depends on PORTMAP
 	prompt "Install /sbin/portmap"
 	help
-	  FIXME: This item needs to be documented
-
-comment "portmap is broken, please send a patch"
-	depends on !BROKEN
+	  Install the portmapper into /sbin/portmap
