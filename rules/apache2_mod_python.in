@@ -1,0 +1,11 @@
+# Apache 2 mod_python configuration
+
+config APACHE2_MOD_PYTHON
+	bool
+	prompt "Python Module for Apache 2.x"
+	depends on APACHE2
+	select HOST_APACHE2
+	select PYTHON24
+	help
+	 This module adds the python script language to the server
+	 to support dynamic website generation

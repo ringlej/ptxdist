@@ -103,3 +103,14 @@ config APACHE2_LOGDIR
 	help
 	  Apache's logfile directory. 
 
+comment "----------------------------------"
+	depends on APACHE2
+
+comment "Apache 2 Modules"
+	depends on APACHE2
+
+comment "----------------------------------"
+	depends on APACHE2
+
+source "rules/apache2_mod_python.in"
+
