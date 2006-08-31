@@ -1,0 +1,33 @@
+Index: mod_python-3.2.8/configure
+===================================================================
+--- mod_python-3.2.8.orig/configure
++++ mod_python-3.2.8/configure
+@@ -2708,6 +2708,7 @@ else
+   # check Apache version
+   echo "$as_me:$LINENO: checking Apache version" >&5
+ echo $ECHO_N "checking Apache version... $ECHO_C" >&6
++  if test "x$cross_compiling" = "xno"; then
+   HTTPD="`${APXS} -q SBINDIR`/`${APXS} -q TARGET`"
+   ver=`$HTTPD -v | awk '/version/ {print $3}' | awk -F/ '{print $2}'`
+   echo "$as_me:$LINENO: result: $ver" >&5
+@@ -2733,6 +2734,11 @@ echo $ECHO_N "checking for Apache includ
+   AP_INCLUDES="-I`${APXS} -q INCLUDEDIR`"
+   echo "$as_me:$LINENO: result: $AP_INCLUDES" >&5
+ echo "${ECHO_T}$AP_INCLUDES" >&6
++  else
++    { echo "$as_me:$LINENO: result: cross_compiling, assuming recent new version..." >&5
++echo "${ECHO_T}cross_compiling, assuming recent new version..." >&6; }
++  fi
++
+ 
+     if test "`uname`" = "SunOS"; then
+     echo "$as_me:$LINENO: checking for gcc on Solaris possible missing _eprintf problem" >&5
+@@ -3035,7 +3041,7 @@ MOD_PYTHON_SO="`pwd`/src/mod_python.so"
+ # get the mod_python version
+ 
+ MP_VERSION=`awk '/MPV_STRING/ {print $3}' src/include/mpversion.h`
+-MP_VERSION=`echo $MP_VERSION | sed s/\\"//g`
++MP_VERSION=`echo $MP_VERSION | sed s/\"//g`
+ 
+ # get --with-python-src. The python src is required to generate the documentation
+ # It is not required to compile or install mod_python itself

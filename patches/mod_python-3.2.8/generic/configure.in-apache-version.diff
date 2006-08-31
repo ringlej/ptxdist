@@ -1,0 +1,32 @@
+Index: mod_python-3.2.8/configure.in
+===================================================================
+--- mod_python-3.2.8.orig/configure.in
++++ mod_python-3.2.8/configure.in
+@@ -108,6 +108,7 @@ else
+ 
+   # check Apache version
+   AC_MSG_CHECKING(Apache version)
++  if test "x$cross_compiling" = "xno"; then
+   HTTPD="`${APXS} -q SBINDIR`/`${APXS} -q TARGET`"
+   ver=`$HTTPD -v | awk '/version/ {print $3}' | awk -F/ '{print $2}'`
+   AC_MSG_RESULT($ver)
+@@ -126,7 +127,9 @@ else
+   AC_MSG_CHECKING([for Apache include directory])
+   AP_INCLUDES="-I`${APXS} -q INCLUDEDIR`"
+   AC_MSG_RESULT($AP_INCLUDES)
+-
++  else
++    AC_MSG_RESULT([cross_compiling, assuming recent new version...])
++  fi
+   dnl Small hack to work around _eprintf.o problem on Solaris
+   if test "`uname`" = "SunOS"; then
+     AC_MSG_CHECKING([for gcc on Solaris possible missing _eprintf problem])
+@@ -287,7 +290,7 @@ MOD_PYTHON_SO="`pwd`/src/mod_python.so"
+ # get the mod_python version
+ AC_SUBST(MP_VERSION)
+ MP_VERSION=`awk '/MPV_STRING/ {print $3}' src/include/mpversion.h`
+-MP_VERSION=`echo $MP_VERSION | sed s/\\"//g`                                      
++MP_VERSION=`echo $MP_VERSION | sed s/\"//g`                                      
+ 
+ # get --with-python-src. The python src is required to generate the documentation
+ # It is not required to compile or install mod_python itself
