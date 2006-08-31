@@ -1,0 +1,35 @@
+Index: support/apxs.in
+===================================================================
+--- a/support/apxs.in.orig
++++ b/support/apxs.in
+@@ -199,18 +199,18 @@ if ($0 =~ m:support/apxs$:) {
+     ($httpd = $0) =~ s:support/apxs$::;
+ }
+ 
+-unless (-x "$httpd") {
+-	error("$httpd not found or not executable");
+-	exit 1;
+-}
+-
+-unless (grep /mod_so/, `. $envvars && $httpd -l`) {
+-    error("Sorry, no shared object support for Apache");
+-    error("available under your platform. Make sure");
+-    error("the Apache module mod_so is compiled into");
+-    error("your server binary `$httpd'.");
+-    exit 1;
+-}
++#unless (-x "$httpd") {
++#	error("$httpd not found or not executable");
++#	exit 1;
++#}
++
++#unless (grep /mod_so/, `. $envvars && $httpd -l`) {
++#    error("Sorry, no shared object support for Apache");
++#    error("available under your platform. Make sure");
++#    error("the Apache module mod_so is compiled into");
++#    error("your server binary `$httpd'.");
++#    exit 1;
++#}
+ 
+ sub get_config_vars{
+     my ($file, $rh_config) = @_;
