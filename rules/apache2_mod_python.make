@@ -109,17 +109,27 @@ apache2_mod_python_targetinstall: $(STATEDIR)/apache2_mod_python.targetinstall
 $(STATEDIR)/apache2_mod_python.targetinstall: $(apache2_mod_python_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, apache2_mod_python)
-	@$(call install_fixup, apache2_mod_python,PACKAGE,apache2_mod_python)
+	@$(call install_init,  apache2_mod_python)
+	@$(call install_fixup, apache2_mod_python,PACKAGE,apache2-mod-python)
 	@$(call install_fixup, apache2_mod_python,PRIORITY,optional)
 	@$(call install_fixup, apache2_mod_python,VERSION,$(APACHE2_MOD_PYTHON_VERSION))
 	@$(call install_fixup, apache2_mod_python,SECTION,base)
 	@$(call install_fixup, apache2_mod_python,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, apache2_mod_python,DEPENDS,)
 	@$(call install_fixup, apache2_mod_python,DESCRIPTION,missing)
-#
-# TODO
-#
+
+	@$(call install_copy,  apache2_mod_python, 0, 0, 0644, \
+		$(APACHE2_MOD_PYTHON_DIR)/src/.libs/mod_python.so, \
+		/usr/share/apache2/libexec/mod_python.so)
+
+	@$(call install_copy,  apache2_mod_python, 0, 0, 0755, \
+		/usr/lib/python2.4/mod_python)
+
+	cd $(APACHE2_MOD_PYTHON_DIR)/lib/python/mod_python && \
+	for i in *; do \
+		@$(call install_copy, apache2_mod_python, 0, 0, 0644, $$i, /usr/lib/python2.4/mod_python/$$i); \
+	done
+
 	@$(call install_finish, apache2_mod_python)
 
 	@$(call touch, $@)
