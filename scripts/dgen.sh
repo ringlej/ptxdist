@@ -16,14 +16,6 @@ MAP_ALL=${STATEDIR}/map_all.sh
 CONFIGDEPS=${STATEDIR}/configdeps
 CONFIGDEPS_MAP=${CONFIGDEPS}_map.sh
 
-#
-# 
-#
-ptxd_is_newer() {
-    echo foo
-    read
-}
-
 
 #
 #
