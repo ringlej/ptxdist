@@ -1,0 +1,22 @@
+Fix location of killall in the examples. (Closes: #189243)
+
+--- /home/pm/deb/logrotate/logrotate-3.7/logrotate.8	2004-02-11 21:18:23.000000000 +0000
++++ logrotate-3.7/logrotate.8	2004-02-11 21:18:54.000000000 +0000
+@@ -83,7 +83,7 @@
+     rotate 5
+     weekly
+     postrotate
+-        /sbin/killall -HUP syslogd
++        /usr/bin/killall -HUP syslogd
+     endscript
+ }
+ 
+@@ -93,7 +93,7 @@
+     size=100k
+     sharedscripts
+     postrotate
+-        /sbin/killall -HUP httpd
++        /usr/bin/killall -HUP httpd
+     endscript
+ }
+ 

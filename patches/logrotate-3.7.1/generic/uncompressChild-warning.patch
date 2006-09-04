@@ -1,0 +1,13 @@
+Index: logrotate-3.7.1/logrotate.c
+===================================================================
+--- logrotate-3.7.1.orig/logrotate.c	2006-04-08 22:58:51.000000000 +0100
++++ logrotate-3.7.1/logrotate.c	2006-04-08 23:01:00.459602124 +0100
+@@ -209,7 +209,7 @@
+ static int mailLog(char * logFile, char * mailCommand, char * uncompressCommand, 
+ 		   char * address, char * subject) {
+     int mailInput;
+-    pid_t mailChild, uncompressChild;
++    pid_t mailChild, uncompressChild=-1;
+     int mailStatus, uncompressStatus;
+     int uncompressPipe[2];
+     char * mailArgv[] = { mailCommand, "-s", subject, address, NULL };

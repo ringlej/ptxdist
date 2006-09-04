@@ -1,0 +1,16 @@
+Fix the markup on the "mail" part of the manpage (Closes: #300644)
+
+
+Index: logrotate-3.7.1/logrotate.8
+===================================================================
+--- logrotate-3.7.1.orig/logrotate.8	2006-04-08 21:14:56.187543069 +0100
++++ logrotate-3.7.1/logrotate.8	2006-04-08 21:16:19.525257240 +0100
+@@ -45,7 +45,7 @@
+ correctly.
+ 
+ .TP
+-\fB-m\R, \B-\-mail <command>\fR
++\fB-m\fR, \fB-\-mail <command>\fR
+ Tells \fBlogrotate\fR which command to use when mailing logs. This
+ command should accept two arguments: 1) the subject of the message, and
+ 2) the recipient. The command must then read a message on standard input

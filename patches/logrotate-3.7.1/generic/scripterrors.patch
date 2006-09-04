@@ -1,0 +1,28 @@
+Give error messages identifying log file on script errors
+(Closes: #122691, #195790, #222050, #306020)
+
+Index: logrotate-3.7.1/logrotate.c
+===================================================================
+--- logrotate-3.7.1.orig/logrotate.c	2006-04-08 21:03:38.961646055 +0100
++++ logrotate-3.7.1/logrotate.c	2006-04-08 21:05:20.850933782 +0100
+@@ -770,8 +770,8 @@
+         if (log->pre && !(log->flags & LOG_FLAG_SHAREDSCRIPTS)) {
+             message(MESS_DEBUG, "running prerotate script\n");
+             if (runScript(log->files[logNum], log->pre)) {
+-                message(MESS_ERROR, "error running prerotate script, "
+-			"leaving old log in place\n");
++                message(MESS_ERROR, "error running prerotate script for %s, "
++			"leaving old log in place\n", log->files[logNum]);
+                 hasErrors = 1;
+ 	    }
+         }
+@@ -853,7 +853,8 @@
+ 	    !(log->flags & LOG_FLAG_SHAREDSCRIPTS)) {
+             message(MESS_DEBUG, "running postrotate script\n");
+             if (runScript(log->files[logNum], log->post)) {
+-                message(MESS_ERROR, "error running postrotate script\n");
++                message(MESS_ERROR, "error running postrotate script for %s\n",
++			log->files[logNum]);
+                 hasErrors = 1;
+ 	    }
+         }

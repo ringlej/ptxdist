@@ -1,0 +1,24 @@
+Fix locations of STATEFILE and DEFAULT_MAIL_COMMAND for Debian.
+
+
+Index: logrotate-3.7.1/config.h
+===================================================================
+--- logrotate-3.7.1.orig/config.h	2006-04-08 20:26:13.052651364 +0100
++++ logrotate-3.7.1/config.h	2006-04-08 20:51:24.180005096 +0100
+@@ -20,7 +20,7 @@
+  * Default settings for Linux - leave these last.
+  */
+ #ifndef DEFAULT_MAIL_COMMAND
+-    #define DEFAULT_MAIL_COMMAND "/bin/mail"
++    #define DEFAULT_MAIL_COMMAND "/usr/bin/mail"
+ #endif
+ 
+ #ifndef COMPRESS_COMMAND
+@@ -36,6 +36,6 @@
+ #endif
+ 
+ #ifndef STATEFILE
+-    #define STATEFILE "/var/lib/logrotate.status"
++    #define STATEFILE "/var/lib/logrotate/status"
+ #endif
+ 

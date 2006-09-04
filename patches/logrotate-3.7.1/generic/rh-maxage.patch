@@ -1,0 +1,108 @@
+Enhance logrotate with "maxage".
+From upstream RedHat patch.
+
+Index: logrotate-3.7.1/logrotate.c
+===================================================================
+--- logrotate-3.7.1.orig/logrotate.c	2006-04-08 20:38:58.277761983 +0100
++++ logrotate-3.7.1/logrotate.c	2006-04-08 20:38:58.314755223 +0100
+@@ -640,7 +640,10 @@
+ 	     * the date in their name */
+ 	    for (i = 0; i < globResult.gl_pathc; i++) {
+ 		if( !stat((globResult.gl_pathv)[i],&fst_buf) ) {
+-		    if (i <= ((int)globResult.gl_pathc - rotateCount)) {
++		    if ((i <= ((int)globResult.gl_pathc - rotateCount)) 
++			|| ((log->rotateAge > 0)
++			    && (((nowSecs - fst_buf.st_mtime)/60/60/24)
++				> log->rotateAge))) {
+ 			if ( mail_out != -1 ) {
+ 			    if (!hasErrors && log->logAddress) {
+ 				char * mailFilename = (globResult.gl_pathv)[mail_out];
+@@ -670,6 +673,22 @@
+ 	globfree(&globResult);
+ 	free(glob_pattern);
+     } else {
++	if ( log->rotateAge ) {
++	    struct stat fst_buf;
++	    for (i=1; i <= rotateCount; i++) {
++		sprintf(oldName, "%s/%s.%d%s%s", dirName, baseName,
++			rotateCount + 1, fileext, compext);
++		if(!stat(oldName,&fst_buf)
++		    && (((nowSecs - fst_buf.st_mtime)/60/60/24)
++			> log->rotateAge)) {
++		    char * mailFilename = (globResult.gl_pathv)[i];
++		    if (!hasErrors && log->logAddress)
++			hasErrors = mailLogWrapper(mailFilename, mailCommand, logNum, log);
++		    if (!hasErrors)
++			hasErrors = removeLogFile(mailFilename);
++		}
++	    }
++	}
+ 
+     sprintf(oldName, "%s/%s.%d%s%s", dirName, baseName,
+             logStart + rotateCount, fileext, compext);
+@@ -1188,7 +1207,9 @@
+ 
+ int main(int argc, const char ** argv) {
+     logInfo defConfig = { NULL, NULL, 0, NULL, ROT_SIZE, 
+-			  /* threshHold */ 1024 * 1024, 0,
++			  /* threshHold */ 1024 * 1024,
++			  /* rotateCount */ 0,
++			  /* rotateAge */ 0,
+ 			  /* log start */ -1,
+ 			  /* pre, post */ NULL, NULL,
+ 			  /* first, last */ NULL, NULL,
+Index: logrotate-3.7.1/logrotate.h
+===================================================================
+--- logrotate-3.7.1.orig/logrotate.h	2006-04-08 20:38:58.274762531 +0100
++++ logrotate-3.7.1/logrotate.h	2006-04-08 20:38:58.315755040 +0100
+@@ -35,6 +35,7 @@
+     enum { ROT_DAYS, ROT_WEEKLY, ROT_MONTHLY, ROT_SIZE, ROT_FORCE } criterium;
+     unsigned int threshhold;
+     int rotateCount;
++    int rotateAge;
+     int logStart;
+     char * pre, * post, * first, * last;
+     char * logAddress;
+Index: logrotate-3.7.1/config.c
+===================================================================
+--- logrotate-3.7.1.orig/config.c	2006-04-08 20:38:58.279761617 +0100
++++ logrotate-3.7.1/config.c	2006-04-08 20:38:58.317754675 +0100
+@@ -678,6 +678,21 @@
+ 		    }
+ 		    *endtag = oldchar, start = endtag;
+ 		}
++	    } else if (!strcmp(start, "maxage")) {
++		*endtag = oldchar, start = endtag;
++
++		if (!isolateValue(configFile, lineNum, "maxage count", &start,
++				  &endtag)) {
++		    oldchar = *endtag, *endtag = '\0';
++
++		    newlog->rotateAge = strtoul(start, &chptr, 0);
++		    if (*chptr || newlog->rotateAge < 0) {
++			message(MESS_ERROR, "%s:%d bad maximum age '%s'\n",
++				configFile, lineNum, start);
++			return 1;
++		    }
++		    *endtag = oldchar, start = endtag;
++		}
+ 	    } else if (!strcmp(start, "errors")) {
+ 		message(MESS_DEBUG, "%s: %d: the errors directive is deprecated and no longer used.\n",
+ 			configFile, lineNum);
+Index: logrotate-3.7.1/logrotate.8
+===================================================================
+--- logrotate-3.7.1.orig/logrotate.8	2006-04-08 20:38:58.280761435 +0100
++++ logrotate-3.7.1/logrotate.8	2006-04-08 20:38:58.318754492 +0100
+@@ -251,6 +251,12 @@
+ instead of the just-rotated file (this is the default).
+ 
+ .TP
++\fBmaxage\fR \fIcount\fR
++Remove rotated logs older than <count> days. The age is only checked
++if the logfile is to be rotated. The files are mailed to the
++configured address if \fBmaillast\fR and \fBmail\fR are configured.
++
++.TP
+ \fBmissingok\fR
+ If the log file is missing, go on to the next one without issuing an error
+ message. See also \fBnomissingok\fR.

@@ -1,0 +1,16 @@
+Fix typo in the lastaction section of the manpage. It refers to itself 
+rather than to firstaction.
+
+Index: logrotate-3.7.1/logrotate.8
+===================================================================
+--- logrotate-3.7.1.orig/logrotate.8	2006-04-08 21:11:37.760424103 +0100
++++ logrotate-3.7.1/logrotate.8	2006-04-08 21:13:28.917607025 +0100
+@@ -359,7 +359,7 @@
+ must appear on lines by themselves) are executed once after all log
+ files that match the wildcarded pattern are rotated, after postrotate script
+ is run and only if at least one log is rotated. These directives may only
+-appear inside a log file definition. See also \fBlastaction\fR.
++appear inside a log file definition. See also \fBfirstaction\fR.
+ 
+ .TP
+ \fBrotate \fIcount\fR
