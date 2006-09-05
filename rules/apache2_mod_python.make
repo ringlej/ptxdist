@@ -127,7 +127,7 @@ $(STATEDIR)/apache2_mod_python.targetinstall: $(apache2_mod_python_targetinstall
 
 	cd $(APACHE2_MOD_PYTHON_DIR)/lib/python/mod_python && \
 	for i in *; do \
-		@$(call install_copy, apache2_mod_python, 0, 0, 0644, $$i, /usr/lib/python2.4/mod_python/$$i); \
+		$(call install_copy, apache2_mod_python, 0, 0, 0644, $$i, /usr/lib/python2.4/mod_python/$$i,n); \
 	done
 
 	@$(call install_finish, apache2_mod_python)
@@ -141,6 +141,6 @@ $(STATEDIR)/apache2_mod_python.targetinstall: $(apache2_mod_python_targetinstall
 apache2_mod_python_clean:
 	rm -rf $(STATEDIR)/apache2_mod_python.*
 	rm -rf $(IMAGEDIR)/apache2_mod_python_*
-	rm -rf $(APACHE2_DIR)
+	rm -rf $(APACHE2_MOD_PYTHON_DIR)
 
 # vim: syntax=make
