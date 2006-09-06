@@ -35,12 +35,12 @@ ptxd_kconfig() {
 	ln -sf ${PTXDIST_TOPDIR}/rules
 	ln -sf ${PTXDIST_TOPDIR}/config
 	ln -sf ${PTXDIST_WORKSPACE} workspace
-	cp ${PTXDIST_WORKSPACE}/ptxconfig .config
+	cp $(readlink -f ${PTXDIST_WORKSPACE}/ptxconfig) .config
 
 	shift 2 # call ${fun} with the remaining arguments
 
 	if ${fun} $* && [ "${copy_back}" = "true" ]; then
-		cp .config ${PTXDIST_WORKSPACE}/ptxconfig
+		cp .config $(readlink -f ${PTXDIST_WORKSPACE}/ptxconfig)
 	fi
 
 	popd > /dev/null
