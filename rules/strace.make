@@ -1,9 +1,9 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
-# Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# Copyright (C) 2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
+# Copyright (C) 2003-2006 by Pengutronix e.K., Hildesheim, Germany
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -15,13 +15,14 @@
 PACKAGES-$(PTXCONF_STRACE) += strace
 
 #
-# Paths and names 
+# Paths and names
 #
-STRACE_VERSION		= 4.5.14
-STRACE			= strace-$(STRACE_VERSION)
-STRACE_URL		= $(PTXCONF_SETUP_SFMIRROR)/strace/$(STRACE).tar.bz2
-STRACE_SOURCE		= $(SRCDIR)/$(STRACE).tar.bz2
-STRACE_DIR		= $(BUILDDIR)/$(STRACE)
+STRACE_VERSION		:= 4.5.14-20060810
+STRACE			:= strace-$(STRACE_VERSION)
+#STRACE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/strace/$(STRACE).tar.bz2
+STRACE_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(STRACE).tar.bz2
+STRACE_SOURCE		:= $(SRCDIR)/$(STRACE).tar.bz2
+STRACE_DIR		:= $(BUILDDIR)/$(STRACE)
 
 
 # ----------------------------------------------------------------------------
@@ -57,15 +58,15 @@ $(STATEDIR)/strace.extract: $(strace_extract_deps_default)
 
 strace_prepare: $(STATEDIR)/strace.prepare
 
-STRACE_PATH	=  PATH=$(CROSS_PATH)
-STRACE_ENV	=  $(CROSS_ENV)
+STRACE_PATH	:= PATH=$(CROSS_PATH)
+STRACE_ENV	:= $(CROSS_ENV)
 
 ifndef PTXCONF_STRACE_SHARED
-STRACE_ENV	=  LDFLAGS=-static
+STRACE_ENV	+=  LDFLAGS=-static
 endif
 
-STRACE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-STRACE_AUTOCONF	+= \
+STRACE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-sanity-checks
 
@@ -125,7 +126,7 @@ $(STATEDIR)/strace.targetinstall: $(strace_targetinstall_deps_default)
 # Clean
 # ----------------------------------------------------------------------------
 
-strace_clean: 
+strace_clean:
 	rm -rf $(STATEDIR)/strace.* $(STRACE_DIR)
 
 # vim: syntax=make
