@@ -10,6 +10,18 @@ DOPERMISSIONS='{ if ($1 == "f") printf("chmod %s .%s; chown %s.%s .%s;\n", $5, $
 
 
 #
+# We are really BAD :-)
+#
+# This makes it possible to use $(shell <shell code>) in ptxconfig
+# files; if interpreted by make, it simply works, if interpreted by the
+# shell it is replaced by the <shell code>
+#
+shell() {
+	$*
+}
+
+
+#
 # $1	copy_back; "true" copies the .config file back to ptxdist
 # $2	function that is called
 # $#	all other parameters are given to $2

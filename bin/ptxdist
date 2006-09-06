@@ -114,10 +114,6 @@ check_ptxconfig() {
 		echo
 		exit 1
 	fi
-
-	# tweak project version into ptxconfig file
-	local project_default="$(basename $(pwd))"
-	sed -i -e "s|^PTXCONF_PROJECT_DEFAULT=.*$|PTXCONF_PROJECT_DEFAULT=\"${project_default}\"|g" $(readlink -f ptxconfig)
 }
 
 check_kernelconfig() {

@@ -46,17 +46,13 @@ menu "Project Name & Version      "
 
 config PROJECT
 	string
-	prompt "Custom Project Name "
+	prompt "Project Name        "
 	help
 	  Name of this project; each PTXdist "Project" specifies a unique
 	  configuration for an embedded Linux project.
 
 	  Usually you don't have to set this config option; change it
 	  only if you want to have some non-default name.
-
-# to be replaced automatically by ptxdist
-config PROJECT_DEFAULT
-	string
 
 endmenu
 
