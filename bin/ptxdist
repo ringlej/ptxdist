@@ -17,7 +17,7 @@ DEBUG=
 PTXDIST=$0
 
 if [ -L "$PTXDIST" ]; then
-	PTXDIST_TOPDIR=$(cd $(dirname $(readlink $PTXDIST))/.. && pwd)
+	PTXDIST_TOPDIR=$(cd $(dirname $(readlink -f $PTXDIST))/.. && pwd)
 else
 	PTXDIST_TOPDIR=$(cd $(dirname $PTXDIST)/.. && pwd)
 fi
@@ -99,11 +99,7 @@ boardsetup() {
 check_ptxconfig() {
 	if [ ! -e "ptxconfig" ]; then
 		echo
-		echo "${PROMPT}error: ptxconfig file is missing. Did you setup your project yet?"
-		echo "${PROMPT}error: To get a ptxconfig file clone a template project or (if"
-		echo "${PROMPT}error: there are more than one configurations like ptxconfig.*)"
-		echo "${PROMPT}error: select one of these with 'ptxdist select ptxconfig.<yourselection>'"
-		echo "${PROMPT}error: first."
+		echo "${PROMPT}error: ptxconfig file is missing"
 		echo
 		exit 1
 	fi
@@ -114,18 +110,14 @@ check_ptxconfig() {
 	PTXCONF_CONFIGFILE_VERSION=$(. ptxconfig && echo ${PTXCONF_CONFIGFILE_VERSION})
 	if [ "${PTXCONF_CONFIGFILE_VERSION}" != "${FULLVERSION}" ]; then
 		echo
-		echo "${PROMPT}error: Your ptxconfig file was built with another PTXdist version."
-		echo "${PROMPT}error: As this may result in a broken configuration it is recommended"
-		echo "${PROMPT}error: that you carefully review the config differences and change"
-		echo "${PROMPT}error: the variable PTXCONF_CONFIGFILE_VERSION=\"${FULLVERSION}\" manually"
-		echo "${PROMPT}error: then, or change it first, run 'ptxdist oldconfig' and check"
-		echo "${PROMPT}error: if the result is what you expected."
-		echo
-		echo "${PROMPT}error: config file wants PTXCONF_CONFIGFILE_VERSION \"${PTXCONF_CONFIGFILE_VERSION}\""
-		echo "${PROMPT}error: ptxdist version is \"${FULLVERSION}\""
+		echo "${PROMPT}error: trying to build ptxdist \"${PTXCONF_CONFIGFILE_VERSION}\" project with \"${FULLVERSION}\""
 		echo
 		exit 1
 	fi
+
+	# tweak project version into ptxconfig file
+	local project_default="$(basename $(pwd))"
+	sed -i -e "s|^PTXCONF_PROJECT_DEFAULT=.*$|PTXCONF_PROJECT_DEFAULT=\"${project_default}\"|g" $(readlink -f ptxconfig)
 }
 
 check_kernelconfig() {

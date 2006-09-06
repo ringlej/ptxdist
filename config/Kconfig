@@ -46,29 +46,17 @@ menu "Project Name & Version      "
 
 config PROJECT
 	string
-	prompt "Project Name "
+	prompt "Custom Project Name "
 	help
 	  Name of this project; each PTXdist "Project" specifies a unique
-	  configuration for an embedded Linux project. A project constists
-	  of one directory in $(PROJECTDIR), which is usually to be found
-	  in $(PTXDIST_TOPDIR)/projects when being delivered with the
-	  PTXdist base package.
+	  configuration for an embedded Linux project.
 
-	  You can specifiy an additional directory which is being searched
-	  for "local" projects with "ptxdist setup". The predefined path
-	  for local projects is $(PTXDIST_TOPDIR)/local_projects.
+	  Usually you don't have to set this config option; change it
+	  only if you want to have some non-default name.
 
-	  To find out which projects are available in the current tree,
-	  type "ptxdist projects".
-
-config PROJECT_VERSION
+# to be replaced automatically by ptxdist
+config PROJECT_DEFAULT
 	string
-	prompt "Project Version   "
-	default "$(PTXCONF_PROJECT)-1"
-	help
-	  The Project Version can be used to differentiate between
-	  several sub versions which belong ontop of one PTXdist
-	  version.
 
 endmenu
 
