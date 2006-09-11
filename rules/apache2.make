@@ -192,9 +192,20 @@ ifneq ($(PTXCONF_APACHE2_SERVERROOT),"")
 	for i in *.gif *.png; do \
 		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i,n); \
 	done
+#
+# install some generic definitions into the directory where
+# the server's root is
+# -> mime.types: Definition of mime-type, their names and extensions
+# -> magic: Definitions to detect the mime-type without extensions
+#
+	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/conf)
+	@$(call install_copy, apache2, 12, 102, 0644, \
+		$(APACHE2_DIR)/docs/conf/magic, \
+		$(PTXCONF_APACHE2_SERVERROOT)/conf/magic,n)
 	@$(call install_copy, apache2, 12, 102, 0644, \
 		$(APACHE2_DIR)/docs/conf/mime.types, \
 		$(PTXCONF_APACHE2_SERVERROOT)/conf/mime.types,n)
+
 endif
 
 ifneq ($(PTXCONF_APACHE2_DOCUMENTROOT),"")
@@ -208,11 +219,10 @@ endif
 
 ifneq ($(PTXCONF_APACHE2_CONFIGDIR),"")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_CONFIGDIR))
-
-	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(APACHE2_DIR)/docs/conf/magic, \
-		$(PTXCONF_APACHE2_CONFIGDIR)/magic,n)
-
+#
+# generate a default config file
+# Replace special markers with their designated values
+#
 ifdef PTXCONF_APACHE2_DEFAULTCONFIG
 	cp $(PTXDIST_TOPDIR)/projects-example/generic/httpd.conf $(APACHE2_DIR)/httpd.conf
 
@@ -231,6 +241,9 @@ ifdef PTXCONF_APACHE2_DEFAULTCONFIG
 		$(APACHE2_DIR)/httpd.conf, \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,n)
 else
+#
+# use users configuration instead
+#
 ifneq ($(PTXCONF_APACHE2_USER_CONFIG), "")
 	@echo "installing user config file..."
 	@$(call install_copy, apache2, 12, 102, 0644, \
@@ -239,7 +252,9 @@ ifneq ($(PTXCONF_APACHE2_USER_CONFIG), "")
 endif
 endif
 endif
-
+#
+# create the log dir if defined
+#
 ifneq ($(PTXCONF_APACHE2_LOGDIR),"")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_LOGDIR))
 endif
@@ -247,10 +262,10 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
 ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE)),)
 	@$(call install_copy, apache2, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE), /etc/init.d/httpd, n)
 else
-	@cp $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/httpd $(APACHE2_DIR)/init_httpd
-	@perl -i -p -e "s,\@APACHECONFIG@,$(call remove_quotes,$(PTXCONF_APACHE2_CONFIGDIR))/httpd.conf,g" $(APACHE2_DIR)/init_httpd
-	@perl -i -p -e "s,\@LOGPATH@,$(call remove_quotes,$(PTXCONF_APACHE2_LOGDIR))/httpd.conf,g" $(APACHE2_DIR)/init_httpd
-	@$(call install_copy, apache2, 0, 0, 0755, $(APACHE2_DIR)/init_httpd, /etc/init.d/httpd, n)
+	cp $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/httpd $(APACHE2_DIR)/init_httpd
+	perl -i -p -e "s,\@APACHECONFIG@,$(call remove_quotes,$(PTXCONF_APACHE2_CONFIGDIR))/httpd.conf,g" $(APACHE2_DIR)/init_httpd
+	perl -i -p -e "s,\@LOGPATH@,$(call remove_quotes,$(PTXCONF_APACHE2_LOGDIR)),g" $(APACHE2_DIR)/init_httpd
+	$(call install_copy, apache2, 0, 0, 0755, $(APACHE2_DIR)/init_httpd, /etc/init.d/httpd, n)
 endif
 endif
 
