@@ -73,7 +73,7 @@ egrep -v "^[[:space:]]*#" | egrep -v "^[[:space:]]*$" | while read patchfile pat
 		;;
 	esac;
 	echo "applying $abspatch"
-	if [ $patchpara ];then
+	if [ $patchpara ] && [ `echo $patchpara | egrep '\-p[0-9]+'` ] ;then
 		$CAT "$abspatch" | patch $patchpara || exit 1
 	else
 		$CAT "$abspatch" | patch -p1 || exit 1
