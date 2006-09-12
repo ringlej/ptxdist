@@ -55,7 +55,7 @@ pushd "$TARGET" || exit 1
 		cd $PATCHESPATH && find  -name "*.patch" -or -name "*.diff" -or -name "*.gz" -or -name "*.bz2"
 	fi
 } |
-egrep -v "^[[:space:]]*#" | egrep -v "^[[:space:]]*$" | while read patchfile unused; do
+egrep -v "^[[:space:]]*#" | egrep -v "^[[:space:]]*$" | while read patchfile patchpara; do
 	abspatch="$PATCHESPATH"/"$patchfile"
 	if [ ! -e "$abspatch" ]; then
 		echo "patch $abspatch does not exist. aborting"
@@ -73,7 +73,11 @@ egrep -v "^[[:space:]]*#" | egrep -v "^[[:space:]]*$" | while read patchfile unu
 		;;
 	esac;
 	echo "applying $abspatch"
-	$CAT "$abspatch" | patch -p1 || exit 1
+	if [ $patchpara ];then
+		$CAT "$abspatch" | patch $patchpara || exit 1
+	else
+		$CAT "$abspatch" | patch -p1 || exit 1
+	fi
 done
 
 if [ "$?" != 0 ]; then
