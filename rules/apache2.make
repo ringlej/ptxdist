@@ -224,22 +224,27 @@ ifneq ($(PTXCONF_APACHE2_CONFIGDIR),"")
 # Replace special markers with their designated values
 #
 ifdef PTXCONF_APACHE2_DEFAULTCONFIG
-	cp $(PTXDIST_TOPDIR)/projects-example/generic/httpd.conf $(APACHE2_DIR)/httpd.conf
-
-	# now replace our own options
-	perl -i -p -e "s,\@SERVERROOT@,\"$(PTXCONF_APACHE2_SERVERROOT)\",g" $(APACHE2_DIR)/httpd.conf
-	perl -i -p -e "s,\@DOCUMENTROOT@,\"$(PTXCONF_APACHE2_DOCUMENTROOT)\",g" $(APACHE2_DIR)/httpd.conf
-	perl -i -p -e "s,\@CONFIGDIR@,\"$(PTXCONF_APACHE2_CONFIGDIR)\",g" $(APACHE2_DIR)/httpd.conf
-	perl -i -p -e "s,\@LOGPATH@,$(PTXCONF_APACHE2_LOGDIR),g" $(APACHE2_DIR)/httpd.conf
-	perl -i -p -e "s,\@PIDFILE@,/var/run/apache2.pid,g" $(APACHE2_DIR)/httpd.conf
-	perl -i -p -e "s,\@LISTEN@,$(PTXCONF_APACHE2_LISTEN),g" $(APACHE2_DIR)/httpd.conf
-	perl -i -p -e "s,\@SERVERADMIN@,$(PTXCONF_APACHE2_SERVERADMIN),g" $(APACHE2_DIR)/httpd.conf
-	perl -i -p -e "s,\@SERVERNAME@,$(PTXCONF_APACHE2_SERVERNAME),g" $(APACHE2_DIR)/httpd.conf
-
-	@echo "installing default config file..."
 	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(APACHE2_DIR)/httpd.conf, \
-		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,n)
+		$(PTXDIST_TOPDIR)/projects-example/generic/httpd.con, \
+		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, n)
+	@echo "installing apache's default config file..."
+# modify placeholders with data from configuration
+	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
+		@SERVERROOT@, $(PTXCONF_APACHE2_SERVERROOT) )
+	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
+		@DOCUMENTROOT@, $(PTXCONF_APACHE2_DOCUMENTROO) )
+	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
+		@CONFIGDIR@, $(PTXCONF_APACHE2_CONFIGDIR) )
+	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
+		@LOGPATH@, $(PTXCONF_APACHE2_LOGDIR) )
+	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
+		@PIDFILE@, $(/var/run/apache2.pid) )
+	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
+		@LISTEN@, $(PTXCONF_APACHE2_LISTEN) )
+	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
+		@SERVERADMIN@, $(PTXCONF_APACHE2_SERVERADMIN) )
+	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
+		@SERVERNAME@, $(PTXCONF_APACHE2_SERVERNAME) )
 else
 #
 # use users configuration instead
@@ -253,25 +258,35 @@ endif
 endif
 endif
 #
-# create the log dir if defined
+# create the log dir if enabled
 #
 ifneq ($(PTXCONF_APACHE2_LOGDIR),"")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_LOGDIR))
 endif
+#
+# create init script and link to launch at startup
+#
 ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
 ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE)),)
-	@$(call install_copy, apache2, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE), /etc/init.d/httpd, n)
+# users own file without modifications
+	@$(call install_copy, apache2, 0, 0, 0755, \
+		$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE), \
+		/etc/init.d/httpd, n)
 else
-	cp $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/httpd $(APACHE2_DIR)/init_httpd
-	perl -i -p -e "s,\@APACHECONFIG@,$(call remove_quotes,$(PTXCONF_APACHE2_CONFIGDIR))/httpd.conf,g" $(APACHE2_DIR)/init_httpd
-	perl -i -p -e "s,\@LOGPATH@,$(call remove_quotes,$(PTXCONF_APACHE2_LOGDIR)),g" $(APACHE2_DIR)/init_httpd
-	$(call install_copy, apache2, 0, 0, 0755, $(APACHE2_DIR)/init_httpd, /etc/init.d/httpd, n)
+# generic script with path modifications
+	@$(call install_copy, apache2, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/httpd, \
+		/etc/init.d/httpd, n)
+	@$(call install_replace, apache2, /etc/init.d/httpd, \
+		@APACHECONFIG@,  $(PTXCONF_APACHE2_CONFIGDIR) )
+	@$(call install_replace, apache2, /etc/init.d/httpd, \
+		@LOGPATH@,  $(PTXCONF_APACHE2_LOGDIR) )
 endif
-endif
-
+# install link to launch automatically if enabled
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
-	@$(call install_copy, apache2, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, apache2, ../init.d/httpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
+	@$(call install_link, apache2, ../init.d/httpd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
+endif
 endif
 
 # #

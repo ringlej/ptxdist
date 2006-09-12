@@ -286,15 +286,6 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
 endif
 endif
 
-ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/httpd,    /etc/init.d/httpd, n)
-	@$(call install_replace, rootfs, /etc/init.d/httpd, @APACHECONFIG@,  $(PTXCONF_APACHE2_CONFIGDIR) )
-
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
-	@$(call install_link, rootfs, ../init.d/httpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
-endif
-endif
-
 ifdef PTXCONF_ROOTFS_ETC_INITD_DROPBEAR
 	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/dropbear,    /etc/init.d/dropbear, n)
 
