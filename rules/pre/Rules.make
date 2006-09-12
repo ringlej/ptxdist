@@ -750,6 +750,8 @@ disable_sh =						\
 # Go into a directory and apply all patches from there into a
 # sourcetree. if a series file exists in that directory the
 # patches from the series file are used instead of all patches.
+# if the variable PTXCONF_$(PACKET_LABEL)_SERIES exists, the
+# series file from this variable is used instead of "series"
 # This macro skips if $1 points to a local directory.
 #
 # $1: packet label; $($(1)_NAME) -> identifier
@@ -796,8 +798,18 @@ patchin =										\
 		exit 0;									\
 	fi;										\
 											\
-	if [ -f "$$patch_dir/series" ]; then						\
-		$(SCRIPTSDIR)/apply_patch_series.sh -s "$$patch_dir/series"		\
+	PACKET_SERIES="$(PTXCONF_$(strip $(1))_SERIES)";				\
+	if [ -n "$$PACKET_SERIES" -a ! -f "$$patch_dir/$$PACKET_SERIES" ]; then		\
+		echo -n "Series file for $$PACKET_NAME given, but series file ";	\
+		echo "\"$$patch_dir/$$PACKET_SERIES\" does not exist";			\
+		exit -1;								\
+	fi;										\
+	if [ -z "$$PACKET_SERIES" ]; then						\
+		PACKET_SERIES="$$patch_dir/series";					\
+	fi;										\
+											\
+	if [ -f "$$PACKET_SERIES" ]; then						\
+		$(SCRIPTSDIR)/apply_patch_series.sh -s "$$PACKET_SERIES"		\
 			-d $$PACKET_DIR;						\
 	else										\
 		$(SCRIPTSDIR)/apply_patch_series.sh -p "$$patch_dir"			\
