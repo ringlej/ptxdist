@@ -805,11 +805,12 @@ patchin =										\
 		exit -1;								\
 	fi;										\
 	if [ -z "$$PACKET_SERIES" ]; then						\
-		PACKET_SERIES="$$patch_dir/series";					\
+		PACKET_SERIES="series";							\
 	fi;										\
 											\
-	if [ -f "$$PACKET_SERIES" ]; then						\
-		$(SCRIPTSDIR)/apply_patch_series.sh -s "$$PACKET_SERIES"		\
+	if [ -f "$$patch_dir/$$PACKET_SERIES" ]; then					\
+		echo "PATCHIN: using series file $$patch_dir/$$PACKET_SERIES";		\
+		$(SCRIPTSDIR)/apply_patch_series.sh -s "$$patch_dir/$$PACKET_SERIES"	\
 			-d $$PACKET_DIR;						\
 	else										\
 		$(SCRIPTSDIR)/apply_patch_series.sh -p "$$patch_dir"			\
