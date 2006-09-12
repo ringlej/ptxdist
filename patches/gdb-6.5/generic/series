@@ -1,2 +1,2 @@
-Makefile_in_cppflags.diff -p0
-Makefile_in_ldflags.diff -p0
+Makefile_in_cppflags.diff
+Makefile_in_ldflags.diff
