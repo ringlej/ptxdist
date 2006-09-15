@@ -48,46 +48,65 @@ config KLIBC_SH
 	  FIXME: This item needs to be documented
 
 config KLIBC_STATIC_CAT
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_CAT
 	bool
 	prompt "cat"
 	help
 	  This is a statically linked "cat" command. It gets installed into /bin/cat
 
+comment "busy box' cat is selected!"
+        depends on BB_CONFIG_CAT && KLIBC
+
 config KLIBC_STATIC_CHROOT
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_CHROOT
 	bool
 	prompt "chroot"
 	help
 	  This is a statically linked "chroot" command. It gets installed into /bin/chroot
 
+comment "busy box' chroot is selected!"
+	depends on BB_CONFIG_CHROOT && KLIBC
+
+
 config KLIBC_STATIC_DD
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_DD
 	bool
 	prompt "dd"
 	help
 	  This is a statically linked "dd" command. It gets installed into /bin/dd
 
+comment "busy box' dd is selected!"
+	depends on BB_CONFIG_DD && KLIBC
+
 config KLIBC_STATIC_FALSE
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_FALSE
 	bool
 	prompt "false"
 	help
 	  This is a statically linked "false" command. It gets installed into /bin/false
 
+comment "busy box' false is selected!"
+	depends on BB_CONFIG_FALSE && KLIBC
+
 config KLIBC_STATIC_INSMOD
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_INSMOD
 	bool
 	prompt "insmod"
 	help
 	  This is a statically linked "insmod" command. It gets installed into /bin/insmod
 
+comment "busy box' insmod is selected!"
+	depends on BB_CONFIG_INSMOD && KLIBC
+
 config KLIBC_STATIC_LN
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_LN
 	bool
 	prompt "ln"
 	help
 	  This is a statically linked "ln" command. It gets installed into /bin/ln
+
+comment "busy box' ln is selected!"
+	depends on BB_CONFIG_LN && KLIBC
 
 config KLIBC_STATIC_MINIPS
 	depends on KLIBC
@@ -97,25 +116,34 @@ config KLIBC_STATIC_MINIPS
 	  This is a statically linked "minips" command. It gets installed into /bin/minips
 
 config KLIBC_STATIC_MKDIR
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_MKDIR
 	bool
 	prompt "mkdir"
 	help
 	  This is a statically linked "mkdir" command. It gets installed into /bin/mkdir
 
+comment "busy box' mkdir is selected!"
+	depends on BB_CONFIG_MKDIR && KLIBC
+
 config KLIBC_STATIC_MKFIFO
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_MKFIFO
 	bool
 	prompt "mkfifo"
 	help
 	  This is a statically linked "mkfifo" command. It gets installed into /bin/mkfifo
 
+comment "busy box' mkfifo is selected!"
+	depends on BB_CONFIG_MKFIFO && KLIBC
+
 config KLIBC_STATIC_MOUNT
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_MOUNT
 	bool
 	prompt "mount"
 	help
 	  This is a statically linked "mount" command. It gets installed into /bin/mount
+
+comment "busy box' mount is selected!"
+	depends on BB_CONFIG_MOUNT && KLIBC
 
 config KLIBC_STATIC_NUKE
 	depends on KLIBC
@@ -132,32 +160,45 @@ config KLIBC_STATIC_PIVOT_ROOT
 	  This is a statically linked "pivot_root" command. It gets installed into /bin/pivot_root
 
 config KLIBC_STATIC_SLEEP
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_SLEEP
 	bool
 	prompt "sleep"
 	help
 	  This is a statically linked "sleep" command. It gets installed into /bin/sleep
 
+comment "busy box' sleep is selected!"
+	depends on BB_CONFIG_SLEEP && KLIBC
+
 config KLIBC_STATIC_TRUE
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_TRUE
 	bool
 	prompt "true"
 	help
 	  This is a statically linked "true" command. It gets installed into /bin/true
 
+comment "busy box' true is selected!"
+	depends on BB_CONFIG_TRUE && KLIBC
+
 config KLIBC_STATIC_UMOUNT
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_UMOUNT
 	bool
 	prompt "umount"
 	help
 	  This is a statically linked "umount" command. It gets installed into /bin/umount
 
+comment "busy box' umount is selected!"
+	depends on BB_CONFIG_UMOUNT && KLIBC
+
 config KLIBC_STATIC_UNAME
-	depends on KLIBC
+	depends on KLIBC && !BB_CONFIG_UNAME
 	bool
 	prompt "uname"
 	help
 	  This is a statically linked "uname" command. It gets installed into /bin/uname
+
+comment "busy box' uname is selected!"
+	depends on BB_CONFIG_UNAME && KLIBC
+
 #
 # dynamic part
 #
@@ -177,10 +218,13 @@ config KLIBC_DYNAMIC_LIB
 comment "Static cat command is selected!"
 	depends on KLIBC_STATIC_CAT && KLIBC_DYNAMIC_LIB
 
+comment "busy box' cat is selected!"
+	depends on !KLIBC_STATIC_CAT && BB_CONFIG_CAT && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_CAT
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_CAT
+	depends on !KLIBC_STATIC_CAT && !BB_CONFIG_CAT
 	bool
 	prompt "cat"
 	help
@@ -190,10 +234,13 @@ config KLIBC_SHARED_CAT
 comment "Static chroot command is selected!"
 	depends on KLIBC_STATIC_CHROOT && KLIBC_DYNAMIC_LIB
 
+comment "busy box' chroot is selected!"
+	depends on !KLIBC_STATIC_CHROOT && BB_CONFIG_CHROOT && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_CHROOT
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_CHROOT
+	depends on !KLIBC_STATIC_CHROOT && !BB_CONFIG_CHROOT
 	bool
 	prompt "chroot"
 	help
@@ -203,10 +250,13 @@ config KLIBC_SHARED_CHROOT
 comment "Static dd command is selected!"
 	depends on KLIBC_STATIC_DD && KLIBC_DYNAMIC_LIB
 
+comment "busy box' dd is selected!"
+	depends on !KLIBC_STATIC_DD && BB_CONFIG_DD && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_DD
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_DD
+	depends on !KLIBC_STATIC_DD && !BB_CONFIG_DD
 	bool
 	prompt "dd"
 	help
@@ -216,10 +266,13 @@ config KLIBC_SHARED_DD
 comment "Static false command is selected!"
 	depends on KLIBC_STATIC_FALSE && KLIBC_DYNAMIC_LIB
 
+comment "busy box' false is selected!"
+	depends on !KLIBC_STATIC_FALSE && BB_CONFIG_FALSE && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_FALSE
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_FALSE
+	depends on !KLIBC_STATIC_FALSE && !BB_CONFIG_FALSE
 	bool
 	prompt "false"
 	help
@@ -229,10 +282,13 @@ config KLIBC_SHARED_FALSE
 comment "Static insmod command is selected!"
 	depends on KLIBC_STATIC_INSMOD && KLIBC_DYNAMIC_LIB
 
+comment "busy box' insmod is selected!"
+	depends on !KLIBC_STATIC_INSMOD && BB_CONFIG_INSMOD && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_INSMOD
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_INSMOD
+	depends on !KLIBC_STATIC_INSMOD && !BB_CONFIG_INSMOD
 	bool
 	prompt "insmod"
 	help
@@ -242,10 +298,13 @@ config KLIBC_SHARED_INSMOD
 comment "Static ln command is selected!"
 	depends on KLIBC_STATIC_LN && KLIBC_DYNAMIC_LIB
 
+comment "busy box' ln is selected!"
+	depends on !KLIBC_STATIC_LN && BB_CONFIG_LN && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_LN
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_LN
+	depends on !KLIBC_STATIC_LN && !BB_CONFIG_LN
 	bool
 	prompt "ln"
 	help
@@ -268,10 +327,13 @@ config KLIBC_SHARED_MINIPS
 comment "Static mkdir command is selected!"
 	depends on KLIBC_STATIC_MKDIR && KLIBC_DYNAMIC_LIB
 
+comment "busy box' mkdir is selected!"
+	depends on !KLIBC_STATIC_MKDIR && BB_CONFIG_MKDIR && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_MKDIR
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_MKDIR
+	depends on !KLIBC_STATIC_MKDIR && !BB_CONFIG_MKDIR
 	bool
 	prompt "mkdir"
 	help
@@ -281,10 +343,13 @@ config KLIBC_SHARED_MKDIR
 comment "Static mkfifo command is selected!"
 	depends on KLIBC_STATIC_MKFIFO && KLIBC_DYNAMIC_LIB
 
+comment "busy box' mkfifo is selected!"
+	depends on !KLIBC_STATIC_MKFIFO && BB_CONFIG_MKFIFO && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_MKFIFO
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_MKFIFO
+	depends on !KLIBC_STATIC_MKFIFO && !BB_CONFIG_MKFIFO
 	bool
 	prompt "mkfifo"
 	help
@@ -294,10 +359,13 @@ config KLIBC_SHARED_MKFIFO
 comment "Static mount command is selected!"
 	depends on KLIBC_STATIC_MOUNT && KLIBC_DYNAMIC_LIB
 
+comment "busy box' mount is selected!"
+	depends on !KLIBC_STATIC_MOUNT && BB_CONFIG_MOUNT && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_MOUNT
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_MOUNT
+	depends on !KLIBC_STATIC_MOUNT && !BB_CONFIG_MOUNT
 	bool
 	prompt "mount"
 	help
@@ -333,10 +401,13 @@ config KLIBC_SHARED_PIVOT_ROOT
 comment "Static sleep command is selected!"
 	depends on KLIBC_STATIC_SLEEP && KLIBC_DYNAMIC_LIB
 
+comment "busy box' sleep is selected!"
+	depends on !KLIBC_STATIC_SLEEP && BB_CONFIG_SLEEP && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_SLEEP
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_SLEEP
+	depends on !KLIBC_STATIC_SLEEP && !BB_CONFIG_SLEEP
 	bool
 	prompt "sleep"
 	help
@@ -346,10 +417,13 @@ config KLIBC_SHARED_SLEEP
 comment "Static true command is selected!"
 	depends on KLIBC_STATIC_TRUE && KLIBC_DYNAMIC_LIB
 
+comment "busy box' true is selected!"
+	depends on !KLIBC_STATIC_TRUE && BB_CONFIG_TRUE && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_TRUE
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_TRUE
+	depends on !KLIBC_STATIC_TRUE && !BB_CONFIG_TRUE
 	bool
 	prompt "true"
 	help
@@ -359,10 +433,13 @@ config KLIBC_SHARED_TRUE
 comment "Static umount command is selected!"
 	depends on KLIBC_STATIC_UMOUNT && KLIBC_DYNAMIC_LIB
 
+comment "busy box' umount is selected!"
+	depends on !KLIBC_STATIC_UMOUNT && BB_CONFIG_UMOUNT && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_UMOUNT
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_UMOUNT
+	depends on !KLIBC_STATIC_UMOUNT && !BB_CONFIG_UMOUNT
 	bool
 	prompt "umount"
 	help
@@ -372,10 +449,13 @@ config KLIBC_SHARED_UMOUNT
 comment "Static uname command is selected!"
 	depends on KLIBC_STATIC_UNAME && KLIBC_DYNAMIC_LIB
 
+comment "busy box' uname is selected!"
+	depends on !KLIBC_STATIC_UNAME && BB_CONFIG_UNAME && KLIBC_DYNAMIC_LIB
+
 config KLIBC_SHARED_UNAME
 	depends on KLIBC
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_UNAME
+	depends on !KLIBC_STATIC_UNAME && !BB_CONFIG_UNAME
 	bool
 	prompt "uname"
 	help
