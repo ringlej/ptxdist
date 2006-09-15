@@ -58,7 +58,11 @@ config IMAGE_JFFS2
 	select HOST_MTD
 	prompt "Generate images/root.jffs2"
 	help
-	  Build a jffs2 image of the root filesystem
+	  Build a jffs2 image of the root filesystem. This image can be stored
+	  linearly into target's flash device at the start of the desired
+	  partition. You should erase the whole partition first if the image
+	  is smaller than partition's size. If not, garbage data in the remaining
+	  space could confuse the filesystem driver.
 
 config IMAGE_JFFS2_BLOCKSIZE
 	int
@@ -66,7 +70,9 @@ config IMAGE_JFFS2_BLOCKSIZE
 	prompt "Erase Block Size"
 	depends on IMAGE_JFFS2
 	help
-	  FIXME: This item needs to be documented
+	  Enter here the size of each (sector) block in target's flash device.
+	  The image must use the same blocksize as the real JFFS2 filesystem
+	  running on the target.
 
 config IMAGE_JFFS2_EXTRA_ARGS
 	string
@@ -75,7 +81,8 @@ config IMAGE_JFFS2_EXTRA_ARGS
 	depends on IMAGE_JFFS2
 	help
 	  If needed you can add extra arguments for mkfs.jffs2 here
-	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt)
+	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt or
+	  -b to create a big endian filesystem on a little endian host)
 
 config IMAGE_UIMAGE
 	bool
