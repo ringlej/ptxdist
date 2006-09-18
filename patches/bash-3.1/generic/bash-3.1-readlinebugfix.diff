@@ -1,3 +1,21 @@
+#
+# Submitted-By: Luotao Fu, 2006-09-18
+# Committed-By: Luotao Fu
+#
+# Error:
+#
+# Bash compilation fails at variables.c 
+#
+# Description:
+#
+# winsize_assignment is only declared while READLINE is set, however the ifdef 
+# is missing on one place before referencing this variable, which causes 
+# compilation error. Added ifdef here to fix it
+#
+# State:
+# 
+# FIXED
+#
 Index: bash-3.1/variables.c
 ===================================================================
 --- bash-3.1.orig/variables.c
