@@ -4,4 +4,9 @@ config XORG_LIB_XRENDER
 	select XORG_PROTO_RENDER
 	select XORG_LIB_X11
 	help
-	  FIXME
+	  The X Render Extension adds support for alpha-blended icons, anti-aliased
+	  fonts and drawing primitives, as well as true-color animated mouse cursors
+	  to the X window system.
+	  This library is recommeded if you want to run terminals with anti-aliased
+	  fonts. Without this library on the terminal (=server) side everything gets
+	  rendered on the client side (=host), with a very bad perfomrmance.

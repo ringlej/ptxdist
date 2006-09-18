@@ -5,4 +5,8 @@ config XORG_LIB_XFT
 	select XORG_LIB_XRENDER
 	prompt "libXft"
 	help
-	  FIXME
+	  This library is the X Font Library 2.x. (previous versions are called
+	  X Freetype Library). It supports client-side font rendering so it draws
+	  fonts independend from the X server side. The X server should support
+	  the X render extension to speed up rendering on the server side. Without
+	  this extension on X server side rendering will be very slow.
