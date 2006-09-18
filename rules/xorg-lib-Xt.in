@@ -6,4 +6,4 @@ config XORG_LIB_XT
 	select XORG_PROTO_X
 	select XORG_PROTO_KB
 	help
-	  FIXME
+	  X Toolkit Library

@@ -6,4 +6,4 @@ config XORG_LIB_XRES
 	select XORG_LIB_XEXT
 	select XORG_PROTO_XEXT
 	help
-	  FIXME
+	  X-Resource extension client library

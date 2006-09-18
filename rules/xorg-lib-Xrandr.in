@@ -6,4 +6,4 @@ config XORG_LIB_XRANDR
 	select XORG_LIB_XEXT
 	select XORG_LIB_XRENDER
 	help
-	  FIXME
+	  X Resize, Rotate and Reflection extension.
