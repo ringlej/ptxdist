@@ -7,5 +7,9 @@ config XORG_LIB_XCOMPOSITE
 	select XORG_LIB_XEXT
 	select XORG_PROTO_FIXES
 	help
-	  FIXME
-
+	 The X Composite extension adds support for translucent windows and
+	 non-rectangular windows with anti-aliased edges to the X window system.
+	 It also makes the content of obscured windows available to for example
+	 desktop pagers, and provides backing store which eliminates flicker. It also
+	 makes it possible for a composition manager to draw dynamic effects on the
+	 screen, such as window drop shadows. 

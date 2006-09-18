@@ -10,3 +10,6 @@ config XORG_LIB_XFT
 	  fonts independend from the X server side. The X server should support
 	  the X render extension to speed up rendering on the server side. Without
 	  this extension on X server side rendering will be very slow.
+	  The Xft library works in combination with the fontconfig and freetype2
+	  libraries to provide an interface for applications to draw anti-aliased
+	  text.

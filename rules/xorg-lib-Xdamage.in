@@ -6,4 +6,6 @@ config XORG_LIB_XDAMAGE
 	select XORG_PROTO_XEXT
 	select XORG_LIB_XFIXES
 	help
-	  FIXME
+	 The X Damage Extension provides notifications to applications when the content
+	 of the screen or individual windows changes as a result of applications
+	 drawing on them.

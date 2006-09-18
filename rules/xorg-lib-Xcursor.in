@@ -6,4 +6,7 @@ config XORG_LIB_XCURSOR
 	select XORG_PROTO_FIXES
 	prompt "libXcursor"
 	help
-	  FIXME
+	 The Xcursor library provides support for colored and animated cursor themes.
+	 This library is included by default, but can also be installed as a
+	 standalone library and used with any X server. For full functionality the X
+	 server must support Xrender
