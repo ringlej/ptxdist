@@ -271,14 +271,16 @@ config XORG_SERVER_EXT_DRI
 	depends on XORG_SERVER
 	prompt "DRI extension"
 	help
-	  --enable-dri
+	  --enable-dri - Support for Direct Rendering Infrastructure. Used for
+	  3D animation
 
 config XORG_SERVER_EXT_XINERAMA
 	bool
 	depends on XORG_SERVER
 	prompt "Xinerama extension"
 	help
-	  --enable-xinerama
+	  --enable-xinerama - Support for more than one screen, but handled
+	  as one screen
 
 config XORG_SERVER_EXT_XF86VIDMODE
 	bool
@@ -355,5 +357,5 @@ config XORG_SERVER_EXT_DBE
 	depends on XORG_SERVER
 	prompt "DBE extension"
 	help
-	  --enable-dbe
+	  --enable-dbe - Double Buffer Extension for graphic accelaration
 
