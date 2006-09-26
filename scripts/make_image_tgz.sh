@@ -21,7 +21,7 @@ here=`pwd`
 
 echo
 echo "${PROMPT}: packing tgz archive..."
-(cd ${rootdir} && awk -F: "${DOPERMISSIONS}" ${here}/$2 && echo "tar -zcvf ${here}/root.tgz . ") | fakeroot --
+cd ${rootdir}; (awk -F: "${DOPERMISSIONS}" ${here}/$2 && echo "tar -zcvf ${here}/root.tgz . ") | fakeroot --
 echo "${PROMPT}: done."
 echo
 
