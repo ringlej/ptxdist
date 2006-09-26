@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: php4.make,v 1.1 2006/09/26 12:11:10 michl Exp $
+# $Id: php4.make,v 1.3 2006/09/26 18:29:22 michl Exp $
 #
 # Copyright (C) 2005 by Jiri Nesladek
 #          
@@ -135,10 +135,10 @@ $(STATEDIR)/php4.targetinstall: $(php4_targetinstall_deps_default)
 	@$(call install_fixup, php4,DEPENDS,)
 	@$(call install_fixup, php4,DESCRIPTION,missing)
 
-	@$(call install_copy, php4, 0, 0, 0755, /usr/lib/php)
+	@$(call install_copy, php4, 0, 0, 0755, /usr/lib/php4)
 
-ifdef PTXCONF_PHP4_APACHE
-	@$(call install_copy, php4, 0, 0, 0644, $(PHP4_DIR)/libs/libphp4.so, /usr/lib/apache/libphp4.so)
+ifdef PTXCONF_APACHE2_MOD_PHP4
+	@$(call install_copy, php4, 0, 0, 0644, $(PHP4_DIR)/libs/libphp4.so, /usr/lib/apache2/libphp4.so)
 endif
 ifdef PTXCONF_PHP4_CLI
 	@$(call install_copy, php4, 0, 0, 0755, $(PHP4_DIR)/sapi/cli/php, /usr/bin/php)
