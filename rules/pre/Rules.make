@@ -286,7 +286,7 @@ CROSS_AUTOCONF_SYSROOT_USR := \
 	$(call remove_quotes,--prefix=/usr --sysconfdir=/etc)
 
 CROSS_AUTOCONF_SYSROOT_ROOT := \
-	$(call remove_quotes,-prefix=/)
+	$(call remove_quotes,--prefix=/)
 
 CROSS_AUTOCONF_ARCH := \
 	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
