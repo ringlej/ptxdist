@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: apache2.make,v 1.8 2006/09/26 12:11:10 michl Exp $
+# $Id: apache2.make,v 1.9 2006/09/26 20:45:08 michl Exp $
 #
 # Copyright (C) 2005 by Robert Schwebel
 #          
@@ -73,6 +73,16 @@ APACHE2_ENV 	:=  $(CROSS_ENV) \
 APACHE2_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-so
+
+ifdef PTXCONF_APACHE2_MPM_PREFORK
+APACHE2_AUTOCONF += --with-mpm=prefork
+endif
+ifdef PTXCONF_APACHE2_MPM_PERCHILD
+APACHE2_AUTOCONF += --with-mpm=perchild
+endif
+ifdef PTXCONF_APACHE2_MPM_WORKER
+APACHE2_AUTOCONF += --with-mpm=worker
+endif
 
 # FIXME
 # --without-apxs $(CROSS_AUTOCONF_USR)

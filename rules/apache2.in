@@ -11,6 +11,29 @@ menuconfig APACHE2
 	  improvements, such as threading, a new API, IPv6 support, 
 	  request/response filtering, and more.
 
+choice
+	depends on APACHE2
+	prompt "Multi Process Model"
+
+	config APACHE2_MPM_PREFORK
+		bool "prefork"
+		help
+		  Multi Process Model with preforking (Apache 1.3)
+
+	config APACHE2_MPM_PERCHILD
+		bool "perchild"
+		help
+		  Multi Process Model with threading.
+		  Constant number of processes, variable number of threads,
+		  each child process can have a different uid/gid.
+
+	config APACHE2_MPM_WORKER
+		bool "worker"
+		help
+		  Multi Process model with threads.
+		  One acceptor thread, multiple worker threads.
+endchoice
+
 config APACHE2_DEFAULTCONFIG
 	prompt "install default config file"
 	bool
