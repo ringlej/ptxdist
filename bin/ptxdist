@@ -173,14 +173,14 @@ check_deps() {
 
 #
 # Most install stages think that some standard directories are there, so
-# they are created here. 
+# they are created here.
 #
 check_dirs() {
 	local ptxconf_prefix ptxconf_gnu_target testfile
 
 	if [ -z "$PREFIX" ]; then
 		ptxconf_prefix=$(. ptxconfig && echo ${PTXCONF_PREFIX})
-	else 
+	else
 		ptxconf_prefix=$PREFIX
 	fi
 
@@ -227,7 +227,7 @@ check_dirs() {
 	ptxconf_gnu_target=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
 
 	# And now we learn something new about shell: brace expansion.
-	# It saves 16 characters compared to what NORMAL people would write 
+	# It saves 16 characters compared to what NORMAL people would write
 	# here... unfortunately it discovers a bug in vim's syntax high-
 	# lighting :) Thanks to Martin Neitzel who inspired this...(rsc)
 	# it's even possible to do it shorter (mkl)
@@ -272,7 +272,7 @@ Setup and Project Actions:
   boardsetup                     setup per-board preferences
 
   projects                       show available projects
-  clone <from> <to>              create a new project, cloned from <from>. 
+  clone <from> <to>              create a new project, cloned from <from>.
 
   menuconfig                     configure the root filesystem
   oldconfig                      run 'make oldconfig' on ptxconfig file
@@ -406,11 +406,11 @@ newpacket () {
 	    template prefix packet_filename packet_name packet PACKET filename
 
 	case $1 in
-	    host|target|cross|source)
+	    host|target|cross|source|kernel_driver)
 		;;
 	    *)	echo
 		echo "${PROMPT}error: illegal packet type: $1"
-		echo "must be one of host, target, cross, source"
+		echo "must be one of host, target, cross, source, kernel_driver"
 		echo
 		exit 1 ;;
 	esac
@@ -447,6 +447,10 @@ newpacket () {
 		template=template-src
 		prefix=
 		;;
+	    kernel_driver)
+		template=template-driver
+		prefix=
+		;;
 	esac
 
 	packet_filename="${packet_name}"
@@ -460,10 +464,10 @@ newpacket () {
 	year=`date +%Y`
 
 	filename="${prefix}${packet_filename}.make"
-	
+
 	if [ -f "${filename}" ]; then
 		echo
-		echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? "
+		echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? [y/n]"
 		read overwrite
 		if [ "$overwrite" != "y" ]; then
 			echo "${PROMPT}aborted."
