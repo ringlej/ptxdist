@@ -18,7 +18,6 @@ source "rules/shorewall.in"
 comment "Networking Apps"
 ##############################################################################
 
-source "rules/apache.in"
 source "rules/apache2.in"
 source "rules/betaftpd.in"
 source "rules/bind.in"
