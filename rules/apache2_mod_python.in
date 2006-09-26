@@ -2,7 +2,7 @@
 
 config APACHE2_MOD_PYTHON
 	bool
-	prompt "Python Module for Apache 2.x"
+	prompt "Python Module for Apache 2"
 	depends on APACHE2
 	select HOST_APACHE2
 	select PYTHON24

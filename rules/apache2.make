@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: template 2922 2005-07-11 19:17:53Z rsc $
+# $Id: apache2.make,v 1.8 2006/09/26 12:11:10 michl Exp $
 #
 # Copyright (C) 2005 by Robert Schwebel
 #          
@@ -70,7 +70,9 @@ APACHE2_ENV 	:=  $(CROSS_ENV) \
 #
 # autoconf
 #
-APACHE2_AUTOCONF = $(CROSS_AUTOCONF_USR)
+APACHE2_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-so
 
 # FIXME
 # --without-apxs $(CROSS_AUTOCONF_USR)
@@ -225,7 +227,7 @@ ifneq ($(PTXCONF_APACHE2_CONFIGDIR),"")
 #
 ifdef PTXCONF_APACHE2_DEFAULTCONFIG
 	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/httpd.con, \
+		$(PTXDIST_TOPDIR)/projects-example/generic/httpd.conf, \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, n)
 	@echo "installing apache's default config file..."
 # modify placeholders with data from configuration

@@ -1,0 +1,16 @@
+config PHP4
+	bool
+	prompt "PHP4"
+	help
+	  PHP stands for "PHP: Hypertext Preprocessor" (indeed, the first word
+	  of the acronym is the acronym). It is an HTML-embedded scripting
+	  language with the goal to allow web developers to write dynamically
+	  generated pages quickly.
+
+config PHP4_CLI
+	bool
+	prompt "Build CLI version of PHP4"
+	depends on PHP4
+	help
+	  FIXME: This item needs to be documented
+

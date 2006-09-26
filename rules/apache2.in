@@ -112,5 +112,14 @@ comment "Apache 2 Modules"
 comment "----------------------------------"
 	depends on APACHE2
 
+config APACHE2_MOD_PHP4
+	bool
+	prompt "PHP4 Module for Apache 2"
+	depends on APACHE2
+	select PHP4
+	help
+	 This module adds the PHP4 script language to the server
+	 to support dynamic website generation
+
 source "rules/apache2_mod_python.in"
 
