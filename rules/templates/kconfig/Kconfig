@@ -1,0 +1,20 @@
+#
+# Kconfig: Main menu structure definition
+# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005
+#
+
+# first of all include toplevel Kconfig file as default
+
+source "config/Kconfig"
+
+# TODO: add any additional menuconfig file below this line.
+# use the "workspace" keyword to start the path always in
+# the active project. Examples:
+#
+# -> "workspace/rules/my_extension.in" uses "rules/my_extension.in"
+#    in the active project.
+# -> "rules/my_extension.in" uses "rules/my_extension.in" in
+#    PtxDist's installation directory.
+# -> "/path/to/a/file/my_extension.in" uses this file at its
+#    absolute path.
+#

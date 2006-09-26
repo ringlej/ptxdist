@@ -1,0 +1,129 @@
+# -*-makefile-*-
+# $Id$
+#
+# Copyright (C) @YEAR@ by @AUTHOR@
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_@PACKET@) += @packet@
+
+#
+# Paths and names and versions
+#
+@PACKET@		= @packet_filename@
+@PACKET@_VERSION	= @VERSION@
+@PACKET@_URL		= @URL@/$(@PACKET@)
+@PACKET@_SOURCE		= $(SRCDIR)/$(@PACKET@)
+@PACKET@_DIR		= $(BUILDDIR)/$(@PACKET@)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+@packet@_get: $(STATEDIR)/@packet@.get
+
+$(STATEDIR)/@packet@.get: $(@packet@_get_deps_default)
+	@$(call targetinfo, $@)
+	@$(call touch, $@)
+
+$(@PACKET@_SOURCE):
+	@$(call targetinfo, $@)
+	@$(call get, @PACKET@)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+@packet@_extract: $(STATEDIR)/@packet@.extract
+
+$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
+	@$(call targetinfo, $@)
+	@$(call clean, $(@PACKET@_DIR))
+	@$(call extract, @PACKET@)
+	@$(call patchin, @PACKET@)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+@packet@_prepare: $(STATEDIR)/@packet@.prepare
+
+@PACKET@_PATH	=  PATH=$(CROSS_PATH)
+@PACKET@_ENV 	=  $(CROSS_ENV)
+
+$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
+	@$(call targetinfo, $@)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+@packet@_compile: $(STATEDIR)/@packet@.compile
+
+$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
+	@$(call targetinfo, $@)
+	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make \
+		KERNELDIR=$(KERNEL_DIR) $(KERNEL_MAKEVARS)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+@packet@_install: $(STATEDIR)/@packet@.install
+
+$(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
+	@$(call targetinfo, $@)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+@packet@_targetinstall: $(STATEDIR)/@packet@.targetinstall
+
+$(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps_default)
+	@$(call targetinfo, $@)
+
+	@$(call install_init, @packet_filename@)
+	@$(call install_fixup,@packet_filename@,PACKAGE,@packet_filename@)
+	@$(call install_fixup,@packet_filename@,PRIORITY,optional)
+	@$(call install_fixup,@packet_filename@,VERSION,$(@PACKET@_VERSION))
+	@$(call install_fixup,@packet_filename@,SECTION,base)
+	@$(call install_fixup,@packet_filename@,AUTHOR,"@AUTHOR@")
+	@$(call install_fixup,@packet_filename@,DEPENDS,)
+	@$(call install_fixup,@packet_filename@,DESCRIPTION,missing)
+#
+# TODO: Add here all files that should be copied to the target
+# This example here installs the template module into targets /lib/modules
+# directory
+# Note: This is not the correct location to install kernel modules. Modify this
+#       line to meet the full path on your target
+#
+	@$(call install_copy, @packet_filename@, 0, 0, 0644, \
+ 		$(@PACKET@_DIR)/@packet_filename@.ko, \
+		/lib/modules/@packet_filename@.ko)
+
+# Note: Add everything to install above this line!
+	@$(call install_finish,@packet_filename@)
+
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+@packet@_clean:
+	rm -rf $(STATEDIR)/@packet@.*
+	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make clean
+
+# vim: syntax=make
