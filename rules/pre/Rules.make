@@ -468,7 +468,16 @@ extract =							\
 			echo "local directory instead of tar file, linking build dir"; \
 			ln -sf $$THING $$PACKETDIR; 		\
 			exit 0; 				\
+		else						\
+			THING="$$(echo $$URL | sed s-file://-./-g)";	\
+			if [ -d "$$THING" ]; then		\
+				THING="$$(echo $$URL | sed s-file://-../-g)";	\
+				echo "local project directory instead of tar file, linking build dir"; \
+				ln -sf $$THING $$PACKETDIR; 	\
+				exit 0; 			\
+			fi;					\
 		fi; 						\
+		;;						\
 	esac; 							\
 								\
 	echo "extract: archive=$$PACKET";			\
@@ -549,8 +558,14 @@ get =								\
 			echo "local directory instead of tar file, skipping get";	\
 			[ -e $@ ] || touch $@; 			\
 		else						\
-			echo "don't know about $$THING"; 	\
-			exit 1;					\
+			THING="$$(echo $$URL | sed s-file://-./-g)";	\
+			if [ -d "$$THING" ]; then		\
+				echo "local project directory instead of tar file, skipping get";	\
+				[ -e $@ ] || touch $@; 		\
+			else					\
+				echo "don't know about $$THING"; \
+				exit 1;				\
+			fi;					\
 		fi; 						\
 		;;						\
 	*)							\
