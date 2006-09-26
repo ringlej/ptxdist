@@ -113,8 +113,8 @@ $(STATEDIR)/php4.install: $(php4_install_deps_default)
 		$(PHP4_ENV) $(PHP4_PATH) \
 		make install-build install-headers install-programs \
 		INSTALL_ROOT=$(SYSROOT)
-	install -m 755 -D $(PHP4_DIR)/scripts/php4-config $(PTXCONF_PREFIX)/bin/php4-config
-	install -m 755 -D $(PHP4_DIR)/scripts/php4ize $(PTXCONF_PREFIX)/bin/php4ize
+	install -m 755 -D $(PHP4_DIR)/scripts/php-config $(PTXCONF_PREFIX)/bin/php-config
+	install -m 755 -D $(PHP4_DIR)/scripts/phpize $(PTXCONF_PREFIX)/bin/phpize
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -135,13 +135,13 @@ $(STATEDIR)/php4.targetinstall: $(php4_targetinstall_deps_default)
 	@$(call install_fixup, php4,DEPENDS,)
 	@$(call install_fixup, php4,DESCRIPTION,missing)
 
-	@$(call install_copy, php4, 0, 0, 0755, /usr/lib/php4)
+	@$(call install_copy, php4, 0, 0, 0755, /usr/lib/php)
 
 ifdef PTXCONF_PHP4_APACHE
-	@$(call install_copy, php4, 0, 0, 0644, $(PHP4_DIR)/libs/libphp44.so, /usr/lib/apache/libphp44.so)
+	@$(call install_copy, php4, 0, 0, 0644, $(PHP4_DIR)/libs/libphp4.so, /usr/lib/apache/libphp4.so)
 endif
 ifdef PTXCONF_PHP4_CLI
-	@$(call install_copy, php4, 0, 0, 0755, $(PHP4_DIR)/sapi/cli/php4, /usr/bin/php4)
+	@$(call install_copy, php4, 0, 0, 0755, $(PHP4_DIR)/sapi/cli/php, /usr/bin/php)
 endif
 
 	@$(call install_finish, php4)
