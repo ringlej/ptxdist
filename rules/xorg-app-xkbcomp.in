@@ -1,0 +1,12 @@
+config XORG_APP_XKBCOMP
+	bool
+	depends on XORG_APP
+	depends on XORG_KEYBOARD_MAPPING_SUPPORT
+	prompt "xorg xkbcomp"
+	select XORG_DATA_XKBDATA
+	default n
+	help
+	  Compiles XKB keyboard descriptions. This tool is needed
+	  to load new keyboard mappings into a running X server.
+	  If you have trouble to configure a special keyboard mapping, enable
+	  this tool for your target.

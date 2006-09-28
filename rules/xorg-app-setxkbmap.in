@@ -1,0 +1,16 @@
+config XORG_APP_SETXKBMAP
+	bool
+	depends on XORG_APP
+	depends on XORG_KEYBOARD_MAPPING_SUPPORT
+	prompt "xorg setxkbmap"
+	select XORG_APP_XKBCOMP
+	default n
+	help
+	  This tool is needed to load new keyboard mappings into a running
+	  X server. It can be run locally or remotly. If you are going to build
+	  a tiny terminal X server only, there is *no* need for this tool on the
+	  target. In this case only xkbcomp is required if you have trouble to
+	  configure a special keyboard mapping.
+	  For a full blown X server setxkbmap can be usefull, but is not
+	  required for keyboard setup. It can be done by xorg.conf configuration
+	  and xkbcomp only at X server's startup.
