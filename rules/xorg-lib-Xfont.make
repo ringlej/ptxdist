@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -65,6 +65,31 @@ XORG_LIB_XFONT_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 XORG_LIB_XFONT_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
+XORG_LIB_XFONT_AUTOCONF	+= --enable-unix-transport
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-unix-transport
+endif
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
+XORG_LIB_XFONT_AUTOCONF	+= --enable-tcp-transport
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-tcp-transport
+endif
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
+XORG_LIB_XFONT_AUTOCONF	+= --enable-IPv6
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-IPv6
+endif
+
+ifdef PTXCONF_FREETYPE
+XORG_LIB_XFONT_AUTOCONF	+= --enable-freetype
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-freetype
+endif
+
 
 $(STATEDIR)/xorg-lib-Xfont.prepare: $(xorg-lib-Xfont_prepare_deps_default)
 	@$(call targetinfo, $@)
