@@ -190,10 +190,10 @@ check_dirs() {
 		if test $? -ne 0; then
 			echo
 			echo "error: \"${ptxconf_prefix}\""
-			echo "       does exists, but is not writeabel."
-			echo "       Change the permission and try again."
+			echo "       does exist, but is not writeable."
+			echo "       Change the permissions and try again."
 			echo
-			read -t 5 -p "press enter to let sudo to the job!"
+			read -t 5 -p "press enter to let sudo do the job!"
 			if test $? -ne 0; then
 				echo
 				exit 1
@@ -207,7 +207,7 @@ check_dirs() {
 		if test $? -ne 0; then
 			echo
 			echo "error: \"${ptxconf_prefix}\""
-			echo "       does not exists and cannot be created!"
+			echo "       does not exist and cannot be created!"
 			echo "       Please create that dir with write permissions for you."
 			echo
 			read -t 5 -p "press enter to let sudo do that job!"
