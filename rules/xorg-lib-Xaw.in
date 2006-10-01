@@ -9,4 +9,4 @@ config XORG_LIB_XAW
 	select XORG_LIB_XP
 	prompt "libXaw"
 	help
-	  FIXME
+	  Xaw is the X Athena Widget Set.
