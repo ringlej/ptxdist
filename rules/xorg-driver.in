@@ -20,4 +20,4 @@ source "rules/xorg-driver-video-i810.in"
 source "rules/xorg-driver-video-v4l.in"
 source "rules/xorg-driver-video-vga.in"
 source "rules/xorg-driver-video-vesa.in"
-
+source "rules/xorg-driver-video-nsc.in"

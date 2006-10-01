@@ -1,0 +1,15 @@
+# configuration for xorg-driver-video-nsc
+
+config XORG_DRIVER_VIDEO_NSC
+	bool
+	depends on XORG_DRIVER_VIDEO
+	select XORG_SERVER
+	select XORG_SERVER_XORG
+#	select XORG_PROTO_X
+	prompt "Geode graphic support"
+	help
+	  The nsc driver is a driver for National Semiconductors GEODE processor
+	  family (now AMD). It uses the DURANGO kit provided by National
+	  Semiconductor.
+	  The driver is accelerated, and provides support for the following
+	  framebuffer depths: 8, 16 and 24.
