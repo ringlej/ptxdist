@@ -2,4 +2,4 @@ config XORG_PROTO_KB
 	bool
 	prompt "kb proto"
 	help
-	  FIXME
+	  KB extension headers
