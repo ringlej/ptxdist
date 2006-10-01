@@ -3,4 +3,4 @@ config XORG_LIB_XAU
 	select XORG_PROTO_X
 	prompt "libXau"
 	help
-	  FIXME
+	  A Sample Authorization Protocol for X for basic authorization.
