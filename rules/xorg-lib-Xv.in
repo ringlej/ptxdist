@@ -1,3 +1,7 @@
+# xv.pc says:
+# Requires: xproto videoproto
+# Requires.private: x11 xext
+#
 config XORG_LIB_XV
 	bool
 	prompt "libXv"
@@ -6,4 +10,4 @@ config XORG_LIB_XV
 	select XORG_PROTO_XEXT
 	select XORG_PROTO_VIDEO
 	help
-	  FIXME
+	  The Xv Library
