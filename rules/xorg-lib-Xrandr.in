@@ -2,8 +2,9 @@ config XORG_LIB_XRANDR
 	bool
 	prompt "libXrandr"
 	select XORG_LIB_X11
-	select XORG_PROTO_RANDR
 	select XORG_LIB_XEXT
 	select XORG_LIB_XRENDER
+	select XORG_PROTO_RANDR
 	help
-	  X Resize, Rotate and Reflection extension.
+	  X Resize, Rotate and Reflection extension. This extension libray let
+	  you change resolution and colour depth at X server's runtime.
