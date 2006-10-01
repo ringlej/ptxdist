@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_APP_XDM) += xorg-app-xdm
 XORG_APP_XDM_VERSION	:= 1.0.4
 XORG_APP_XDM		:= xdm-X11R7.1-$(XORG_APP_XDM_VERSION)
 XORG_APP_XDM_SUFFIX	:= tar.bz2
-XORG_APP_XDM_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/app//$(XORG_APP_XDM).$(XORG_APP_XDM_SUFFIX)
+XORG_APP_XDM_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/app/$(XORG_APP_XDM).$(XORG_APP_XDM_SUFFIX)
 XORG_APP_XDM_SOURCE	:= $(SRCDIR)/$(XORG_APP_XDM).$(XORG_APP_XDM_SUFFIX)
 XORG_APP_XDM_DIR	:= $(BUILDDIR)/$(XORG_APP_XDM)
 
@@ -65,15 +65,38 @@ XORG_APP_XDM_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 XORG_APP_XDM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
 XORG_APP_XDM_AUTOCONF += --enable-unix-transport
+else
+XORG_APP_XDM_AUTOCONF += --disable-unix-transport
+endif
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
 XORG_APP_XDM_AUTOCONF += --enable-tcp-transport
+else
+XORG_APP_XDM_AUTOCONF += --disable-tcp-transport
+endif
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
 XORG_APP_XDM_AUTOCONF += --enable-IPv6
+else
+XORG_APP_XDM_AUTOCONF += --disable-IPv6
+endif
+
+ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
 XORG_APP_XDM_AUTOCONF += --enable-secure-rpc
-XORG_APP_XDM_AUTOCONF += --enable-xpm-logos
-XORG_APP_XDM_AUTOCONF += --disable-xprint		# FIXME 
-XORG_APP_XDM_AUTOCONF += --enable-dynamic-greeter
-XORG_APP_XDM_AUTOCONF += --without-pam			# FXIME
-XORG_APP_XDM_AUTOCONF += --with-random-device=/dev/urandom
+else
+XORG_APP_XDM_AUTOCONF += --disable-secure-rpc
+endif
+
+XORG_APP_XDM_AUTOCONF += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+XORG_APP_XDM_AUTOCONF += --with-random-device=$(XORG_APP_XDM_DEV_RANDOM)
+
+XORG_APP_XDM_AUTOCONF += --enable-xpm-logos	# Display xpm logos in greeter
+XORG_APP_XDM_AUTOCONF += --disable-xprint	# FIXME XPrint support
+XORG_APP_XDM_AUTOCONF += --enable-dynamic-greeter # Build greeter as dynamically loaded shared object
+XORG_APP_XDM_AUTOCONF += --without-pam		# FXIME
 
 
 $(STATEDIR)/xorg-app-xdm.prepare: $(xorg-app-xdm_prepare_deps_default)

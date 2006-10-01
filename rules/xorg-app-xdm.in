@@ -6,5 +6,13 @@ config XORG_APP_XDM
 	select XORG_LIB_XMU
 	select XORG_LIB_XAW
 	help
-	  FIXME
+	  XDM is the graphical login manager
 
+config XORG_APP_XDM_DEV_RANDOM
+	string
+	depends on XORG_APP_XDM
+	prompt "Random device for XDM"
+	default "/dev/urandom"
+	help
+	  Select a device for random numbers. Note: /dev/random can block
+	  a read, so it can also block XDM!
