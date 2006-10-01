@@ -2,4 +2,4 @@ config XORG_PROTO_INPUT
 	bool
 	prompt "input proto"
 	help
-	  FIXME
+	  Input extension headers
