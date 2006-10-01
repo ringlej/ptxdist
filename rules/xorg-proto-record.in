@@ -2,4 +2,4 @@ config XORG_PROTO_RECORD
 	bool
 	prompt "record proto"
 	help
-	  FIXME
+	  Record extension headers
