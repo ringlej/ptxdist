@@ -40,6 +40,7 @@ config XORG_LIB_XFONT_FONTSERVER
 	prompt "Support font server connections"
 	help
 	  This will support connections to font server.
+	  FIXME: xorg server fails when font server connections are disabled.
 
 config XORG_LIB_XFONT_TYPE1_FONTS
 	depends on XORG_LIB_XFONT
