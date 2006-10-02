@@ -7,4 +7,4 @@ config XORG_APP_XEYES
 	select XORG_LIB_ICE
 	prompt "xorg xeyes"
 	help
-	  FIXME
+	  Nice gimmic. Two eyes are following the mouse cursor....
