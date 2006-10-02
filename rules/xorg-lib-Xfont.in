@@ -14,7 +14,8 @@ menuconfig XORG_LIB_XFONT
 	select XORG_LIB_XTRANS if XORG_LIB_XFONT_FONTSERVER
 	prompt "libXfont              "
 	help
-	  X font Library
+	  X font Library. At least one file based font support must be enabled
+	  to make the xorg server (part dix) happy.
 
 config XORG_LIB_XFONT_FREETYPE
 	depends on XORG_LIB_XFONT
@@ -91,7 +92,7 @@ config XORG_LIB_XFONT_SNF_FONTS
 config XORG_LIB_XFONT_BUILTIN_FONTS
 	depends on XORG_LIB_XFONT
 	bool
-	default n
+	default y
 	prompt "Support builtin fonts"
 	help
 	  Builtins (gzipped pcf format in .text segment)
