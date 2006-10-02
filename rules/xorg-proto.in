@@ -1,6 +1,6 @@
 # xorg proto configuration
 
-menu "xorg proto            "
+menu "xorg prototypes       "
 
 
 source "rules/xorg-proto-applewm.in"
