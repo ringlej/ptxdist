@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,7 +64,14 @@ XORG_LIB_XAU_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XAU_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XAU_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking
+
+ifdef PTXCONF_XORG_LIB_XAU_THREAD
+XORG_LIB_XAU_AUTOCONF += --enable-xthreads
+else
+XORG_LIB_XAU_AUTOCONF += --disable-xthreads
+endif
 
 $(STATEDIR)/xorg-lib-Xau.prepare: $(xorg-lib-Xau_prepare_deps_default)
 	@$(call targetinfo, $@)

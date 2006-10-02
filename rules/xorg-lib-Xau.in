@@ -1,6 +1,14 @@
-config XORG_LIB_XAU
+menuconfig XORG_LIB_XAU
 	bool
 	select XORG_PROTO_X
-	prompt "libXau"
+	prompt "libXau                "
 	help
 	  A Sample Authorization Protocol for X for basic authorization.
+
+config XORG_LIB_XAU_THREAD
+	depends on XORG_LIB_XAU
+	bool
+	default y
+	prompt "Build libXau with thread support"
+	help
+	  libXau support for Multithreading
