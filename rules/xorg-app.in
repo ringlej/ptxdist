@@ -1,4 +1,4 @@
-# xorg proto configuration
+# xorg application configuration
 
 menuconfig XORG_APP
         bool "xorg applications     "
