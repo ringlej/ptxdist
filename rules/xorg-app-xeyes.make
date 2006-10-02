@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_APP_XEYES) += xorg-app-xeyes
 XORG_APP_XEYES_VERSION	:= 1.0.1
 XORG_APP_XEYES		:= xeyes-X11R7.0-$(XORG_APP_XEYES_VERSION)
 XORG_APP_XEYES_SUFFIX	:= tar.bz2
-XORG_APP_XEYES_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/app//$(XORG_APP_XEYES).$(XORG_APP_XEYES_SUFFIX)
+XORG_APP_XEYES_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/app/$(XORG_APP_XEYES).$(XORG_APP_XEYES_SUFFIX)
 XORG_APP_XEYES_SOURCE	:= $(SRCDIR)/$(XORG_APP_XEYES).$(XORG_APP_XEYES_SUFFIX)
 XORG_APP_XEYES_DIR	:= $(BUILDDIR)/$(XORG_APP_XEYES)
 
@@ -64,7 +64,9 @@ XORG_APP_XEYES_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_APP_XEYES_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_APP_XEYES_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 $(STATEDIR)/xorg-app-xeyes.prepare: $(xorg-app-xeyes_prepare_deps_default)
 	@$(call targetinfo, $@)
