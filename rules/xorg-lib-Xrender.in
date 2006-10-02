@@ -10,4 +10,4 @@ config XORG_LIB_XRENDER
 	  This library is recommeded if you want to run terminals with anti-aliased
 	  fonts. Without this library on the terminal (=server) side everything gets
 	  rendered on the client side (=host), with a very bad performance.
-	  See lib-Xfont for further details.
+	  See lib-Xft for further details.
