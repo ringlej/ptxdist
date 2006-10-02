@@ -1,11 +1,12 @@
 # configuration for xorg-driver-video-nsc
-
+# this driver is only a module to be used in
+# the main xorg server
+#
 config XORG_DRIVER_VIDEO_NSC
 	bool
 	depends on XORG_DRIVER_VIDEO
 	select XORG_SERVER
 	select XORG_SERVER_XORG
-#	select XORG_PROTO_X
 	prompt "Geode graphic support"
 	help
 	  The nsc driver is a driver for National Semiconductors GEODE processor
@@ -13,3 +14,9 @@ config XORG_DRIVER_VIDEO_NSC
 	  Semiconductor.
 	  The driver is accelerated, and provides support for the following
 	  framebuffer depths: 8, 16 and 24.
+	  Use this driver within the xorg configuration as:
+	   Section "Device"
+	    Identifier "devname"
+	    Driver "nsc"
+	    ...
+	   EndSection
