@@ -4,4 +4,4 @@ config XORG_LIB_ICE
 	select XORG_PROTO_X
 	select XORG_LIB_XTRANS
 	help
-	  FIXME
+	  X Inter Client Exchange Library
