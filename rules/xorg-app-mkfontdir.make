@@ -2,7 +2,7 @@
 # $Id: template 4761 2006-02-24 17:35:57Z sha $
 #
 # Copyright (C) 2006 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,7 +64,8 @@ XORG_APP_MKFONTDIR_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_APP_MKFONTDIR_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_APP_MKFONTDIR_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 $(STATEDIR)/xorg-app-mkfontdir.prepare: $(xorg-app-mkfontdir_prepare_deps_default)
 	@$(call targetinfo, $@)
