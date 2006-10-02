@@ -35,10 +35,10 @@ choice
 endchoice
 
 config APACHE2_DEFAULTCONFIG
-	prompt "install default config file"
+	prompt "Default config file"
 	bool
 	depends on APACHE2
-	default Y
+	default y
 	help
 	  This uses a generic configuration file for your apache. There is
 	  nothing special in it, so you should check it before using.
@@ -84,17 +84,38 @@ comment "Directories"
 config APACHE2_SERVERROOT
 	depends on APACHE2
 	string
-	prompt "serverroot directory"
+	prompt "ServerRoot directory"
 	default "/usr/share/apache2"
 	help
 	  This directory defines apache's serverroot where the icons are 
 	  located.
 
+config APACHE2_PUBLICDOMAINICONS
+	bool "Public Domain Icons"
+	depends on APACHE2 && APACHE2_SERVERROOT != ""
+	default y
+	help
+          These icons were originally made for Mosaic for X and have been
+          included in the NCSA httpd and Apache server distributions in the
+          past. They are in the public domain and may be freely included in
+	  any application. The originals were done by Kevin Hughes
+          (kevinh@kevcom.com).
+ 
+config APACHE2_CUSTOMERRORS
+	bool "Multi Language Custom Error Documents"
+	depends on APACHE2 && APACHE2_SERVERROOT != ""
+	default y
+	help
+	  Install HTTP error messages in multiple languages. If the preferred
+	  language of a client is available it is selected automatically via
+	  the MultiViews feature. This feature is enabled by default via the
+	  Options, Language and ErrorDocument directives.
+
 config APACHE2_DOCUMENTROOT
 	depends on APACHE2
 	string
 	default "/var/www"
-	prompt "documentroot directory"
+	prompt "DocumentRoot directory"
 	help
 	  Apache's docroot is very empty if you don't add some
 	  files. Later you can connect to your target, but you
@@ -102,10 +123,10 @@ config APACHE2_DOCUMENTROOT
 	  is provided). 
 
 config APACHE2_DEFAULT_INDEX
-	depends on APACHE2
+	depends on APACHE2 && APACHE2_DOCUMENTROOT != ""
 	bool
-	default Y
-	prompt "install default index.html"
+	default y
+	prompt "Default index.html"
 	help
 	  Install a demo HTML file, from project/generic/index.html. 
 
@@ -113,7 +134,7 @@ config APACHE2_CONFIGDIR
 	depends on APACHE2
 	string
 	default "/etc/apache2"
-	prompt "config directory"
+	prompt "Config directory"
 	help
 	  Apache's configuration directory (httpd.conf, mime.types etc. are
 	  searched here).  
@@ -122,7 +143,7 @@ config APACHE2_LOGDIR
 	depends on APACHE2
 	string
 	default "/var/log/apache2"
-	prompt "logfile directory"
+	prompt "Logfile directory"
 	help
 	  Apache's logfile directory. 
 
