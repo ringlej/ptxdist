@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,7 +64,26 @@ XORG_LIB_XAW_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XAW_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XAW_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking
+
+ifdef PTXCONF_XORG_LIB_XAW_V6
+XORG_LIB_XAW_AUTOCONF += --enable-xaw6
+else
+XORG_LIB_XAW_AUTOCONF += --disable-xaw6
+endif
+
+ifdef PTXCONF_XORG_LIB_XAW_V7
+XORG_LIB_XAW_AUTOCONF += --enable-xaw7
+else
+XORG_LIB_XAW_AUTOCONF += --disable-xaw7
+endif
+
+ifdef PTXCONF_XORG_LIB_XAW_V8
+XORG_LIB_XAW_AUTOCONF += --enable-xaw8
+else
+XORG_LIB_XAW_AUTOCONF += --disable-xaw8
+endif
 
 $(STATEDIR)/xorg-lib-Xaw.prepare: $(xorg-lib-Xaw_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -114,38 +133,43 @@ $(STATEDIR)/xorg-lib-Xaw.targetinstall: $(xorg-lib-Xaw_targetinstall_deps_defaul
 	@$(call install_fixup, xorg-lib-Xaw,DEPENDS,)
 	@$(call install_fixup, xorg-lib-Xaw,DESCRIPTION,missing)
 
-	#@$(call install_copy, xorg-lib-Xaw, 0, 0, 0644, \
-	#	$(XORG_LIB_XAW_DIR)/src/.libs/libXaw6.so.6.0.1, \
-	#	$(XORG_LIBDIR)/libXaw6.so.6.0.1)
+ifdef PTXCONF_XORG_LIB_XAW_V6
+	@$(call install_copy, xorg-lib-Xaw, 0, 0, 0644, \
+		$(XORG_LIB_XAW_DIR)/src/.libs/libXaw6.so.6.0.1, \
+		$(XORG_LIBDIR)/libXaw6.so.6.0.1)
 
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw6.so.6.0.1, \
-	#	$(XORG_LIBDIR)/libXaw6.so.6)
+	@$(call install_link, xorg-lib-Xaw, \
+		libXaw6.so.6.0.1, \
+		$(XORG_LIBDIR)/libXaw6.so.6)
 
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw6.so.6.0.1, \
-	#	$(XORG_LIBDIR)/libXaw6.so)
+	@$(call install_link, xorg-lib-Xaw, \
+		libXaw6.so.6.0.1, \
+		$(XORG_LIBDIR)/libXaw6.so)
 
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw6.so.6.0.1, \
-	#	$(XORG_LIBDIR)/libXaw.so.6)
+	@$(call install_link, xorg-lib-Xaw, \
+		libXaw6.so.6.0.1, \
+		$(XORG_LIBDIR)/libXaw.so.6)
+endif
 
-	#@$(call install_copy, xorg-lib-Xaw, 0, 0, 0644, \
-	#	$(XORG_LIB_XAW_DIR)/src/.libs/libXaw7.so.7.0.0, \
-	#	$(XORG_LIBDIR)/libXaw7.so.7.0.0)
+ifdef PTXCONF_XORG_LIB_XAW_V7
+	@$(call install_copy, xorg-lib-Xaw, 0, 0, 0644, \
+		$(XORG_LIB_XAW_DIR)/src/.libs/libXaw7.so.7.0.0, \
+		$(XORG_LIBDIR)/libXaw7.so.7.0.0)
 
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw7.so.7.0.0, \
-	#	$(XORG_LIBDIR)/libXaw7.so.7)
+	@$(call install_link, xorg-lib-Xaw, \
+		libXaw7.so.7.0.0, \
+		$(XORG_LIBDIR)/libXaw7.so.7)
 
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw7.so.7.0.0, \
-	#	$(XORG_LIBDIR)/libXaw7.so)
+	@$(call install_link, xorg-lib-Xaw, \
+		libXaw7.so.7.0.0, \
+		$(XORG_LIBDIR)/libXaw7.so)
 
-	#@$(call install_link, xorg-lib-Xaw, \
-	#	libXaw7.so.7.0.0, \
-	#	$(XORG_LIBDIR)/libXaw.so.7)
+	@$(call install_link, xorg-lib-Xaw, \
+		libXaw7.so.7.0.0, \
+		$(XORG_LIBDIR)/libXaw.so.7)
+endif
 
+ifdef PTXCONF_XORG_LIB_XAW_V8
 	@$(call install_copy, xorg-lib-Xaw, 0, 0, 0644, \
 		$(XORG_LIB_XAW_DIR)/src/.libs/libXaw8.so.8.0.0, \
 		$(XORG_LIBDIR)/libXaw8.so.8.0.0)
@@ -161,7 +185,7 @@ $(STATEDIR)/xorg-lib-Xaw.targetinstall: $(xorg-lib-Xaw_targetinstall_deps_defaul
 	@$(call install_link, xorg-lib-Xaw, \
 		libXaw8.so.8.0.0, \
 		$(XORG_LIBDIR)/libXaw.so.8)
-
+endif
 	@$(call install_finish, xorg-lib-Xaw)
 
 	@$(call touch, $@)
