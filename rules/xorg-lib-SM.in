@@ -4,4 +4,4 @@ config XORG_LIB_SM
 	select XORG_LIB_ICE
 	select XORG_PROTO_X
 	help
-	  FIXME
+	  X Session Management Library
