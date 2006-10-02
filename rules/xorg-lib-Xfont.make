@@ -83,13 +83,69 @@ XORG_LIB_XFONT_AUTOCONF	+= --enable-IPv6
 else
 XORG_LIB_XFONT_AUTOCONF	+= --disable-IPv6
 endif
-
+#
+# Use the global switch here to support freetype when
+# its present in the system
+#
 ifdef PTXCONF_FREETYPE
 XORG_LIB_XFONT_AUTOCONF	+= --enable-freetype
 else
 XORG_LIB_XFONT_AUTOCONF	+= --disable-freetype
 endif
 
+ifdef PTXCONF_XORG_LIB_XFONT_FONTCACHE
+XORG_LIB_XFONT_AUTOCONF	+= --enable-fontcache
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-fontcache
+endif
+
+ifdef PTXCONF_XORG_LIB_XFONT_FONTSERVER
+XORG_LIB_XFONT_AUTOCONF	+= --enable-fc
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-fc
+endif
+
+ifdef PTXCONF_XORG_LIB_XFONT_TYPE1_FONTS
+XORG_LIB_XFONT_AUTOCONF	+= --enable-type1
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-type1
+endif
+
+ifdef PTXCONF_XORG_LIB_XFONT_CID_FONTS
+XORG_LIB_XFONT_AUTOCONF	+= --enable-cid
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-cid
+endif
+
+ifdef PTXCONF_XORG_LIB_XFONT_SPEEDO_FONTS
+XORG_LIB_XFONT_AUTOCONF	+= --enable-speedo
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-speedo
+endif
+
+ifdef PTXCONF_XORG_LIB_XFONT_PCF_FONTS
+XORG_LIB_XFONT_AUTOCONF	+= --enable-pcfformat
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-pcfformat
+endif
+
+ifdef PTXCONF_XORG_LIB_XFONT_BDF_FONTS
+XORG_LIB_XFONT_AUTOCONF	+= --enable-bdfformat
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-bdfformat
+endif
+
+ifdef PTXCONF_XORG_LIB_XFONT_SNF_FONTS
+XORG_LIB_XFONT_AUTOCONF	+= --enable-snfformat
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-snfformat
+endif
+
+ifdef PTXCONF_XORG_LIB_XFONT_BUILTIN_FONTS
+XORG_LIB_XFONT_AUTOCONF	+= --enable-builtins
+else
+XORG_LIB_XFONT_AUTOCONF	+= --disable-builtins
+endif
 
 $(STATEDIR)/xorg-lib-Xfont.prepare: $(xorg-lib-Xfont_prepare_deps_default)
 	@$(call targetinfo, $@)

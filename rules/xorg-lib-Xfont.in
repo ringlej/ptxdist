@@ -1,13 +1,97 @@
-config XORG_LIB_XFONT
+# These are always required:
+# Requires: xproto fontsproto
+# Requires.private: fontenc
+# Libs.private: -lz -lm
+
+menuconfig XORG_LIB_XFONT
 	bool
-	select FREETYPE
-	select ZLIB
-	select XORG_LIB_FONTENC
-	select XORG_PROTO_FONTCACHE
 	select XORG_PROTO_X
-	select XORG_LIB_XTRANS
 	select XORG_PROTO_FONTS
 	select XORG_LIB_FONTENC
-	prompt "libXfont"
+	select ZLIB
+	select FREETYPE if XORG_LIB_XFONT_FREETYPE
+	select XORG_PROTO_FONTCACHE if XORG_LIB_XFONT_FONTCACHE
+	select XORG_LIB_XTRANS if XORG_LIB_XFONT_FONTSERVER
+	prompt "libXfont              "
 	help
-	  FIXME
+	  X font Library
+
+config XORG_LIB_XFONT_FREETYPE
+	depends on XORG_LIB_XFONT
+	bool
+	default n
+	prompt "Use freetype as rendering library"
+	help
+	  This will enable freetype 2.x library.
+
+config XORG_LIB_XFONT_FONTCACHE
+	depends on XORG_LIB_XFONT
+	bool
+	default n
+	prompt "Use fontcache"
+	help
+	 This will enable fontcache support
+
+config XORG_LIB_XFONT_FONTSERVER
+	depends on XORG_LIB_XFONT
+	bool
+	default n
+	prompt "Support font server connections"
+	help
+	  This will support connections to font server.
+
+config XORG_LIB_XFONT_TYPE1_FONTS
+	depends on XORG_LIB_XFONT
+	bool
+	default n
+	prompt "Support type1 fonts"
+	help
+	  Enable Type 1 fonts in this X server.
+
+config XORG_LIB_XFONT_CID_FONTS
+	depends on XORG_LIB_XFONT
+	bool
+	default n
+	prompt "Support CID fonts"
+	help
+	  Enable CID fonts in this X server.
+
+config XORG_LIB_XFONT_SPEEDO_FONTS
+	depends on XORG_LIB_XFONT
+	bool
+	default n
+	prompt "Support Speedo fonts"
+	help
+	  Enable Speedo fonts in this X server.
+
+config XORG_LIB_XFONT_PCF_FONTS
+	depends on XORG_LIB_XFONT
+	bool
+	default n
+	prompt "Support pcf format fonts"
+	help
+	  Enable pcf format fonts in this X server.
+
+config XORG_LIB_XFONT_BDF_FONTS
+	depends on XORG_LIB_XFONT
+	bool
+	default n
+	prompt "Support bdf format fonts"
+	help
+	  Enable bdf format fonts in this X server.
+
+config XORG_LIB_XFONT_SNF_FONTS
+	depends on XORG_LIB_XFONT
+	bool
+	default n
+	prompt "Support snf format fonts"
+	help
+	  Enable snf format fonts in this X server.
+
+config XORG_LIB_XFONT_BUILTIN_FONTS
+	depends on XORG_LIB_XFONT
+	bool
+	default n
+	prompt "Support builtin fonts"
+	help
+	  Builtins (gzipped pcf format in .text segment)
