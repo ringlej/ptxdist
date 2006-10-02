@@ -64,8 +64,7 @@ XORG_DRIVER_VIDEO_NSC_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 XORG_DRIVER_VIDEO_NSC_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking \
-	--with-xorg-module-dir=$(XORG_DEFAULT_DATA_DIR)/X11/modules
+	--disable-dependency-tracking
 
 $(STATEDIR)/xorg-driver-video-nsc.prepare: $(xorg-driver-video-nsc_prepare_deps_default)
 	@$(call targetinfo, $@)
