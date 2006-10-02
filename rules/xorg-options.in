@@ -75,21 +75,4 @@ config XORG_OPTIONS_TRANS_IPV6
 	  feature here due to the target environment does not support it (its
 	  useless in this case)
 
-config XORG_SERVER_OPT_SECURE_RPC
-	bool
-	prompt "secure RPC"
-	default n
-	help
-	  FIXME
-
-config XORG_SERVER_EXT_DRI
-	bool
-	prompt "Support for DRI"
-	default n
-	help
-	  Enable support for the Direct Rendering Infrastructure to get 3D
-	  accelerations support. This is meaningless if you do not have DRI
-	  support in your kernel for you hardware.
-	  Currently the build scripts needs DRI disabled when crosscompiling.
-
 endmenu
