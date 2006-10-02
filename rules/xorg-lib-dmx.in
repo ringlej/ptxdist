@@ -2,8 +2,9 @@ config XORG_LIB_DMX
 	bool
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
-	select XORG_PROTO_XEXT
 	select XORG_PROTO_DMX
 	prompt "libdmx"
 	help
-	  FIXME
+	  X Window System DMX (Distributed Multihead X) extension. The DMX
+	  extension provides support for communication with and control of
+	  Xdmx server.

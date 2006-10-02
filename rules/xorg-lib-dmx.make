@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,9 +64,9 @@ XORG_LIB_DMX_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_DMX_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-XORG_LIB_DMX_AUTOCONF += --disable-malloc0returnsnull
+XORG_LIB_DMX_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull \
+	--disable-dependency-tracking
 
 $(STATEDIR)/xorg-lib-dmx.prepare: $(xorg-lib-dmx_prepare_deps_default)
 	@$(call targetinfo, $@)
