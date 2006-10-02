@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,7 +64,33 @@ XORG_APP_XHOST_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_APP_XHOST_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_APP_XHOST_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
+XORG_APP_XHOST_AUTOCONF += --enable-unix-transport
+else
+XORG_APP_XHOST_AUTOCONF += --disable-unix-transport
+endif
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
+XORG_APP_XHOST_AUTOCONF += --enable-tcp-transport
+else
+XORG_APP_XHOST_AUTOCONF += --disable-tcp-transport
+endif
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
+XORG_APP_XHOST_AUTOCONF += --enable-IPv6
+else
+XORG_APP_XHOST_AUTOCONF += --disable-IPv6
+endif
+
+ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
+XORG_APP_XHOST_AUTOCONF += --enable-secure-rpc
+else
+XORG_APP_XHOST_AUTOCONF += --disable-secure-rpc
+endif
 
 $(STATEDIR)/xorg-app-xhost.prepare: $(xorg-app-xhost_prepare_deps_default)
 	@$(call targetinfo, $@)
