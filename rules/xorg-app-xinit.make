@@ -2,7 +2,7 @@
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,8 +64,21 @@ XORG_APP_XINIT_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_APP_XINIT_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
+XORG_APP_XINIT_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+#
+# what else is required?
+#
+# --with-xrdb=XRDB        Path to xrdb
+# --with-xmodmap=XMODMAP  Path to xmodmap
+# --with-twm=TWM          Path to twm
+# --with-xclock=XCLOCK    Path to xclock
+# --with-xterm=XTERM      Path to xterm
+# --with-xserver=XSERVER  Path to default X server
+# --with-xauth=XAUTH      Path to xauth
+# --with-xinit=XINIT      Path to xinit
+#
 $(STATEDIR)/xorg-app-xinit.prepare: $(xorg-app-xinit_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_APP_XINIT_DIR)/config.cache)
