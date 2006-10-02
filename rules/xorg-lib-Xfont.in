@@ -95,4 +95,6 @@ config XORG_LIB_XFONT_BUILTIN_FONTS
 	default y
 	prompt "Support builtin fonts"
 	help
-	  Builtins (gzipped pcf format in .text segment)
+	  Builtins (gzipped pcf format in .text segment). Enable this font type
+	  if you don't have any fonts on you target nor a font server in your
+	  network.
