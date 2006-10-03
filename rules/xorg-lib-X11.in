@@ -1,21 +1,41 @@
 menuconfig XORG_LIB_X11
 	bool
-	prompt "libX11"
+	prompt "libX11                "
+# always required:
+	select XORG_PROTO_X
+	select XORG_LIB_XAU
+	select XORG_PROTO_BIGREQS	# FIXME Why always?
 	select XORG_PROTO_XEXT
 	select XORG_LIB_XTRANS
-	select XORG_LIB_XAU
 	select XORG_PROTO_XCMISC
-	select XORG_LIB_XDMCP
-	select XORG_PROTO_KB
-	select XORG_PROTO_INPUT
-	select XORG_PROTO_BIGREQS
-	select XORG_PROTO_X
+	select XORG_LIB_XDMCP	# FIXME Why always?
+# required on demand
+	select XORG_PROTO_KB if XORG_APP_XKBCOMP
+	select XORG_PROTO_INPUT if XORG_APP_XKBCOMP
 	select XORG_PROTO_XF86BIGFONT if XORG_LIB_X11_XF86BIGFONT
+	help
+	  This is the main X library
+
+config XORG_LIB_X11_XF86BIGFONT
+	depends on XORG_LIB_X11
+	bool
+	prompt "XF86BigFont extension support"
+	default n
 	help
 	  FIXME
 
-config XORG_LIB_X11_XF86BIGFONT
-	bool
-	prompt "XF86BigFont extension support"
-	default y
+config XORG_LIB_X11_i18n
 	depends on XORG_LIB_X11
+	bool
+	prompt "Loadable i18n module support"
+	default n
+	help
+	  FIXME
+
+config XORG_LIB_X11_CURSOR
+	depends on XORG_LIB_X11
+	bool
+	prompt "loadable xcursor library support"
+	default n
+	help
+	  FIXME

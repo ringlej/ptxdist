@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -66,7 +66,10 @@ XORG_LIB_X11_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_X11_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-malloc0returnsnull
+	--disable-malloc0returnsnull --disable-dependency-tracking \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
+	--disable-dependency-tracking \
+	--disable-man-pages
 
 ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
 XORG_LIB_X11_AUTOCONF	+= --enable-unix-transport
@@ -85,7 +88,45 @@ XORG_LIB_X11_AUTOCONF	+= --enable-ipv6
 else
 XORG_LIB_X11_AUTOCONF	+= --disable-ipv6
 endif
+#
+# feature is marked as experimental if disabled!
+#
+ifdef PTXCONF_XORG_APP_XKBCOMP
+XORG_LIB_X11_AUTOCONF	+= --enable-xkb
+else
+XORG_LIB_X11_AUTOCONF	+= --disable-xkb
+endif
 
+ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
+XORG_LIB_X11_AUTOCONF	+= --enable-secure-rpc
+else
+XORG_LIB_X11_AUTOCONF	+= --disable-secure-rpc
+endif
+
+ifdef PTXCONF_XORG_LIB_X11_XF86BIGFONT
+XORG_LIB_X11_AUTOCONF	+= --enable-xf86bigfont
+else
+XORG_LIB_X11_AUTOCONF	+= --disable-xf86bigfont
+endif
+
+ifdef PTXCONF_XORG_LIB_X11_I18N
+XORG_LIB_X11_AUTOCONF	+= --enable-loadable-i18n
+else
+XORG_LIB_X11_AUTOCONF	+= --disable-loadable-i18n
+endif
+
+ifdef PTXCONF_XORG_LIB_X11_CURSOR
+XORG_LIB_X11_AUTOCONF	+= --disable-loadable-xcursor
+else
+XORG_LIB_X11_AUTOCONF	+= --disable-loadable-xcursor
+endif
+
+# missing configure switches:
+# --disable-xthreads      Disable Xlib support for Multithreading
+# --disable-xcms          Disable Xlib support for CMS *EXPERIMENTAL*
+# --disable-xlocale       Disable Xlib locale implementation *EXPERIMENTAL*
+# --enable-xlocaledir     Enable XLOCALEDIR environment variable support
+#
 $(STATEDIR)/xorg-lib-X11.prepare: $(xorg-lib-X11_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_X11_DIR)/config.cache)
