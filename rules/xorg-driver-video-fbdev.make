@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -62,6 +62,14 @@ XORG_DRIVER_VIDEO_FBDEV_PATH	:=  PATH=$(CROSS_PATH)
 XORG_DRIVER_VIDEO_FBDEV_ENV 	:=  $(CROSS_ENV)
 
 #
+# configure searches for X servers settings. They are in "xorg-server.h"
+# in the local arch in usr/include/xorg. Expand the path to let configure
+# find it (its testprogram only includes <xorg-server.h>)
+#
+XORG_DRIVER_VIDEO_FBDEV_PTFH=$(call remove_quotes, \
+	${PTXCONF_PREFIX}/${PTXCONF_GNU_TARGET})
+
+#
 # autoconf
 #
 XORG_DRIVER_VIDEO_FBDEV_AUTOCONF := $(CROSS_AUTOCONF_USR)
@@ -71,6 +79,7 @@ $(STATEDIR)/xorg-driver-video-fbdev.prepare: $(xorg-driver-video-fbdev_prepare_d
 	@$(call clean, $(XORG_DRIVER_VIDEO_FBDEV_DIR)/config.cache)
 	cd $(XORG_DRIVER_VIDEO_FBDEV_DIR) && \
 		$(XORG_DRIVER_VIDEO_FBDEV_PATH) $(XORG_DRIVER_VIDEO_FBDEV_ENV) \
+		CFLAGS="-I ${XORG_DRIVER_VIDEO_FBDEV_PTFH}/usr/include/xorg" \
 		./configure $(XORG_DRIVER_VIDEO_FBDEV_AUTOCONF)
 	@$(call touch, $@)
 
