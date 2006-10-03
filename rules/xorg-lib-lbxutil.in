@@ -5,4 +5,4 @@ config XORG_LIB_LBXUTIL
 	select XORG_PROTO_X
 	select ZLIB
 	help
-	  FIXME
+	  LBX Utilities
