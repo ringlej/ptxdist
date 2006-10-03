@@ -3,4 +3,4 @@ config XORG_LIB_XDMCP
 	prompt "libXdmcp"
 	select XORG_PROTO_X
 	help
-	  FIXME
+	  X Display Manager Control Protocol library
