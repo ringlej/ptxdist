@@ -1,29 +1,36 @@
 menu "overall X11 options   "
 
-choice
-	prompt "Select type of X environment"
-
-config XORG_SMALL_TERMINAL
-	bool
-	prompt "A tiny terminal X"
-	help
-	  Select this if you want an X environment for small terminals only.
-	  This server type does only the presentation of data, the clients are
-	  running on other machines.
-	  It does not support 3D features, and if the X extensions are enabled
-	  there is no need for any local font rendering, nor for local fonts.
-
-config XORG_FULL_BLOWN
-	bool
-	prompt "A full blown X"
-	help
-	  Select this type if you want to run a full blown X server on a
-	  powerful target. For this type of target the X server and the X
-	  clients are running on the same machine. This type supports 3D
-	  features, but needs all the nice libraries to fontrendering, TTF
-	  support, fonts et all.
-
-endchoice
+# disabled, its incomplete
+#
+#choice
+#	prompt "Select type of X environment"
+#config XORG_NO_PREFERENCE
+#	bool
+#	prompt "No preference"
+#	help
+#	  Select this, if you want to combine X serrver's features by your own
+#
+#config XORG_SMALL_TERMINAL
+#	bool
+#	prompt "A tiny terminal X"
+#	help
+#	  Select this if you want an X environment for small terminals only.
+#	  This server type does only the presentation of data, the clients are
+#	  running on other machines.
+#	  It does not support 3D features, and if the X extensions are enabled
+#	  there is no need for any local font rendering, nor for local fonts.
+#
+#config XORG_FULL_BLOWN
+#	bool
+#	prompt "A full blown X"
+#	help
+#	  Select this type if you want to run a full blown X server on a
+#	  powerful target. For this type of target the X server and the X
+#	  clients are running on the same machine. This type supports 3D
+#	  features, but needs all the nice libraries to fontrendering, TTF
+#	  support, fonts et all.
+#
+#endchoice
 
 config XORG_KEYBOARD_MAPPING_SUPPORT
 	bool
@@ -41,12 +48,12 @@ config XORG_KEYBOARD_MAPPING_SUPPORT
 config XORG_DEFAULT_DATA_DIR
 	string
 	prompt "Default location for X' data files"
-	default "/usr/share"
+	default "/usr/lib"
 	help
 	  Define here the default path, where X searches for its data files
 	  (fonts, configurations, keyboard mappings, etc.). X adds an "X11"
-	  postfix to this path. So /usr/share as a default path will result in
-	  /usr/share/X11 with additional subdirectories for all the data files.
+	  postfix to this path. So /usr/lib as a default path will result in
+	  /usr/lib/X11 with additional subdirectories for all the data files.
 
 config XORG_OPTIONS_TRANS_UNIX
 	bool
