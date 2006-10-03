@@ -78,10 +78,15 @@ else
 XORG_LIB_XFONT_AUTOCONF	+= --disable-tcp-transport
 endif
 
+#
+# don't trust "./configure --help" for correct switches
+# Here its says "--disable-IPv6" would disable IPv6
+# But the configure script itself tests on --disable-ipv6!
+#
 ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
-XORG_LIB_XFONT_AUTOCONF	+= --enable-IPv6
+XORG_LIB_XFONT_AUTOCONF	+= --enable-ipv6
 else
-XORG_LIB_XFONT_AUTOCONF	+= --disable-IPv6
+XORG_LIB_XFONT_AUTOCONF	+= --disable-ipv6
 endif
 #
 # Use the global switch here to support freetype when
