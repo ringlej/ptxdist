@@ -4,4 +4,4 @@ config XORG_LIB_XKBFILE
 	select XORG_LIB_X11
 	select XORG_PROTO_KB
 	help
-	  FIXME
+	  The xkbfile Library
