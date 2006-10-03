@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,7 +64,8 @@ XORG_LIB_XDMCP_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XDMCP_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XDMCP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking
 
 $(STATEDIR)/xorg-lib-Xdmcp.prepare: $(xorg-lib-Xdmcp_prepare_deps_default)
 	@$(call targetinfo, $@)
