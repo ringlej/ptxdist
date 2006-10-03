@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,10 +64,16 @@ XORG_LIB_XT_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XT_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XT_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull \
+	--disable-install-makestrs \
+	--disable-dependency-tracking
 
-XORG_LIB_XT_AUTOCONF += --disable-malloc0returnsnull
-XORG_LIB_XT_AUTOCONF += --disable-install-makestrs
+ifdef PTXCONF_XORG_KEYBOARD_MAPPING_SUPPORT
+XORG_LIB_XT_AUTOCONF += --enable-xkb
+else
+XORG_LIB_XT_AUTOCONF += --disable-xkb
+endif
 
 $(STATEDIR)/xorg-lib-Xt.prepare: $(xorg-lib-Xt_prepare_deps_default)
 	@$(call targetinfo, $@)
