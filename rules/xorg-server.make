@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -77,11 +77,27 @@ XORG_SERVER_ENV		+=  ac_cv_sys_linker_h=yes
 # should disable this as well (it is sgml documentation stuff)
 XORG_SERVER_ENV		+=  ac_cv_file__usr_share_X11_sgml_defs_ent=no
 
+# FIXME: not all processors upports MTRR. Geode GX1 not for example. But it
+# is a 586 clone. configure decides always to support mtrr!
+# XORG_SERVER_ENV		+= ac_cv_asm_mtrr_h=no
+
 #
 # autoconf
 #
 # don't put a := here! MESALIB_DIR won't get expanded then
-XORG_SERVER_AUTOCONF = $(CROSS_AUTOCONF_USR)
+XORG_SERVER_AUTOCONF = $(CROSS_AUTOCONF_USR) \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
+	--disable-dependency-tracking \
+	--localstatedir=/var \
+	--disable-builddocs
+
+
+
+ifdef XORG_LIB_X11_XF86BIGFONT
+XORG_SERVER_AUTOCONF += --enable-xf86bigfont
+else
+XORG_SERVER_AUTOCONF += --disable-xf86bigfont
+endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_COMPOSITE
 XORG_SERVER_AUTOCONF += --enable-composite
@@ -159,6 +175,9 @@ ifdef PTXCONF_XORG_SERVER_EXT_DRI
 XORG_SERVER_AUTOCONF += --enable-dri
 else
 XORG_SERVER_AUTOCONF += --disable-dri
+# if DRI is disabled we do not have AGP
+# FIXME: right var?
+XORG_SERVER_ENV		+= ac_cv_header_linux_agpgart_h=no
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
@@ -233,6 +252,14 @@ else
 XORG_SERVER_AUTOCONF += --disable-dbe
 endif
 
+ifdef PTXCONF_FREETYPE
+XORG_SERVER_AUTOCONF += --enable-freetype
+else
+XORG_SERVER_AUTOCONF += --disable-freetype
+endif
+#
+# what kind of server to be built
+#
 ifdef PTXCONF_XORG_SERVER_XORG
 XORG_SERVER_AUTOCONF += --enable-xorg
 else
@@ -261,6 +288,12 @@ ifdef PTXCONF_XORG_SERVER_XWIN
 XORG_SERVER_AUTOCONF += --enable-xwin
 else
 XORG_SERVER_AUTOCONF += --disable-xwin
+endif
+
+ifdef PTXCONF_XORG_SERVER_XEPHYR
+XORG_SERVER_AUTOCONF += --enable-xephyr
+else
+XORG_SERVER_AUTOCONF += --disable-xephyr
 endif
 
 ifdef PTXCONF_XORG_SERVER_XPRINT
@@ -293,11 +326,40 @@ else
 XORG_SERVER_AUTOCONF += --disable-kbd_mode
 endif
 
-XORG_SERVER_AUTOCONF += --disable-builddocs
+ifdef PTXCONF_MESALIB
 XORG_SERVER_AUTOCONF += --with-mesa-source=$(MESALIB_DIR)
+endif
 
-XORG_SERVER_AUTOCONF += --localstatedir=/var
+ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
+XORG_SERVER_AUTOCONF += --enable-ipv6
+else
+XORG_SERVER_AUTOCONF += --disable-ipv6
+endif
 
+# FIXME: to be checked
+XORG_SERVER_AUTOCONF += --disable-int10 --enable-dpms --enable-xinput
+
+#
+# unhandled yet
+#
+# --with-fontdir=/my/path/to/my/fonts
+# Default is: FONTDIR="${libdir}/X11/fonts"
+#
+# --with-default-font-path=path1,path2,path3
+# Default is: DEFAULT_FONT_PATH="${FONTDIR}/misc/,${FONTDIR}/TTF/,\
+# ${FONTDIR}/OTF, ${FONTDIR}/Type1/,${FONTDIR}/CID/,${FONTDIR}/100dpi/,\
+# ${FONTDIR}/75dpi/"
+# FIXME: should be overwritten for small X-Servers!
+#
+# --with-xkb-path=/path/to/my/mappings
+# Default is: XKBPATH="${datadir}/X11/xkb"
+#
+# --with-xkb-output=/path/to/my/compiled/mappings
+# Default is: XKBOUTPUT="compiled" (results in $XKBPATH/$XKBOUTPUT)
+#
+# --with-rgb-path=/path/to/my/rgb-settings
+# Default is: RGBPATH="${datadir}/X11/rgb"
+#
 $(STATEDIR)/xorg-server.prepare: $(xorg-server_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_SERVER_DIR)/config.cache)

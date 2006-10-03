@@ -1,65 +1,114 @@
 # xorg server configuration
-
+#
+# Note: Some of the listed dependencies are hardcoded in the configure script
+# see configure script line 26250
+#
+# REQUIRED_MODULES="randrproto renderproto fixesproto >= 4.0 damageproto xcmiscproto xextproto xproto \
+#     xtrans xf86miscproto xf86vidmodeproto xf86bigfontproto scrnsaverproto >= 1.1 bigreqsproto \
+#     resourceproto fontsproto inputproto xf86dgaproto"
+# REQUIRED_LIBS="xfont xau fontenc"
+#
 menuconfig XORG_SERVER
 	bool "xorg server           "
+
+# Always required:
+	select XORG_LIB_X11
+	select XORG_LIB_XAW
+	select XORG_LIB_XAU
+
+	select XORG_LIB_XTRANS
 	select XORG_PROTO_RANDR
+
 	select XORG_PROTO_RENDER
+	select XORG_LIB_XRENDER
+
 	select XORG_PROTO_FIXES
 	select XORG_PROTO_DAMAGE
 	select XORG_PROTO_XCMISC
 	select XORG_PROTO_XEXT
 	select XORG_PROTO_X
 	select XORG_PROTO_XF86MISC
+# test	select XORG_LIB_XXF86MISC
+	select XORG_PROTO_BIGREQS
 	select XORG_PROTO_XF86VIDMODE
 	select XORG_PROTO_XF86BIGFONT
-	select XORG_PROTO_SCRNSAVER
-	select XORG_PROTO_BIGREQS
-	select XORG_PROTO_RESOURCE
+	select XORG_LIB_FONTENC
+	select XORG_LIB_XFONT
+# test	select XORG_LIB_XXF86VM
+#
+# Required on demand
+
+	select XORG_LIB_XRES if XORG_SERVER_EXT_XRES
+
+# FIXME: required?
+	select XORG_LIB_XSCRNSAVER if XORG_SERVER_EXT_SCREENSAVER
+
 	select XORG_PROTO_FONTS
 	select XORG_PROTO_INPUT
-	select XORG_PROTO_XF86DGA
-	select XORG_PROTO_XF86DRI
-	select XORG_PROTO_GL
-	select XORG_PROTO_VIDEO
-	select XORG_PROTO_COMPOSITE
-	select XORG_PROTO_TRAP
-	select XORG_PROTO_RECORD
-	select XORG_PROTO_XINERAMA
-	select XORG_PROTO_EVIEEXT
-	select XORG_PROTO_FONTCACHE
-	select XORG_PROTO_PRINT
-	select XORG_LIB_XTRANS
-	select XORG_LIB_XDMCP
-	select XORG_LIB_XKBFILE
-	select XORG_LIB_XFONT
-	select XORG_LIB_XRENDER
 	select XORG_LIB_XI
-	select XORG_LIB_XV
-	select XORG_LIB_LBXUTIL
-	select XORG_LIB_XAU
-	select XORG_LIB_FONTENC
+	select XORG_LIB_LBXUTIL if XORG_SERVER_EXT_LBX
 	select XORG_LIB_XFONTCACHE
 	select XORG_LIB_XT
 	select XORG_LIB_XMU
-	select XORG_LIB_DMX
-	select XORG_LIB_XAW
 	select XORG_LIB_XTST
-	select XORG_LIB_XRES
-	select XORG_LIB_X11
 	select XORG_LIB_XEXT
-	select XORG_LIB_XKBUI
-	select XORG_LIB_XXF86MISC
-	select XORG_LIB_XXF86VM
-	select LIBDRM
-	select MESALIB
+	select XORG_PROTO_FONTCACHE
+	select XORG_PROTO_PRINT
+
+	select XORG_PROTO_XF86DRI if XORG_SERVER_EXT_DRI
+
+	select XORG_PROTO_GL if XORG_SERVER_EXT_GLX
+
+#	select XORG_PROTO_XV
+	select XORG_LIB_XV if XORG_SERVER_EXT_XV
+
+	select XORG_LIB_XCOMPOSITE if XORG_SERVER_EXT_COMPOSITE
+#	select XORG_PROTO_COMPOSITE if XORG_SERVER_EXT_COMPOSITE
+
+	select XORG_LIB_XTRAP if XORG_SERVER_EXT_XTRAP
+#	select XORG_PROTO_TRAP if XORG_SERVER_EXT_XTRAP
+
+	select XORG_PROTO_RECORD if XORG_SERVER_EXT_RECORD
+
+	select XORG_LIB_XKBFILE if XORG_KEYBOARD_MAPPING_SUPPORT
+# FIXME: required?
+	select XORG_LIB_XKBUI if XORG_KEYBOARD_MAPPING_SUPPORT
+
+	select XORG_PROTO_XINERAMA if XORG_SERVER_EXT_XINERAMA
+
+	select XORG_PROTO_EVIEEXT if XORG_SERVER_EXT_XEVIE
+
+	select XORG_LIB_XDMCP if XORG_SERVER_EXT_XDMCP
+
+# configure checks for dmx-proto when checking XDMCP. Why?
+	select XORG_PROTO_DMX if XORG_SERVER_EXT_XDMCP
+
+	select XORG_LIB_DMX if XORG_SERVER_DMX
+
+# FIXME seems not to work
+# FIXME: There are some configurations where its required. Bit when?
+#	select LIBDRM
+#	select MESALIB
 	select GCCLIBS_GCC_S
 
 
-	# FIXME: if not enabled, we get this one: 
-	# record.c:46:38: X11/extensions/recordstr.h: No such file or directory
-	select XORG_PROTO_RECORD if XORG_SERVER_QUIRKS
+# always! Why?
+	select XORG_PROTO_SCRNSAVER if XORG_SERVER_QUIRKS
+# always! Why?
+	select XORG_PROTO_RESOURCE if XORG_SERVER_QUIRKS
+# always! Why?
+	select XORG_PROTO_XF86DGA if XORG_SERVER_QUIRKS
+# always! Why?
+	select XORG_PROTO_VIDEO if XORG_SERVER_QUIRKS
 
-	# FIXME: if not enabled, we get this one: 
+	# FIXME: if not enabled, we get this one:
+	# record.c:46:38: X11/extensions/recordstr.h: No such file or directory
+#	select XORG_PROTO_RECORD if XORG_SERVER_QUIRKS
+
+	# FIXME: if not enabled, we get this one:
+	# seems an error. Without DBE its definition will be omitted
+	# (in os/utils.c), but it will always be used in
+	# hw/xfree86/dixmods/dbemodule.c!
 	# dbemodule.c:17: error: `noDbeExtension' undeclared here (not in a function)
 	select XORG_SERVER_EXT_DBE if XORG_SERVER_QUIRKS
 
@@ -69,13 +118,13 @@ menuconfig XORG_SERVER
 	# FIXME: same problem as above
 	select XORG_SERVER_EXT_XV if XORG_SERVER_QUIRKS
 
+	# FIXME: xorg fails in dix subdirectory if no file based font is enabled
+	# so at least one must be enabled
+#	select XORG_LIB_XFONT_PCF_FONTS if XORG_SERVER_QUIRKS
 
-# configure wants to have these
-# randrproto renderproto fixesproto damageproto xcmiscproto xextproto
-# xproto xtrans xf86miscproto xf86vidmodeproto xf86bigfontproto
-# scrnsaverproto bigreqsproto resourceproto fontsproto inputproto
-# xf86dgaproto xkbfile xfont xau fontenc
-
+	# FIXME: xorg fails in dix subdirectory if no connection to font servers
+	# are enabled.
+	select XORG_LIB_XFONT_FONTSERVER if XORG_SERVER_QUIRKS
 
 config XORG_SERVER_QUIRKS
 	bool
@@ -85,48 +134,50 @@ config XORG_SERVER_QUIRKS
 	help
 	  This option turns on some additional dependencies between the
 	  xorg server and the libraries. These dependencies should not
-	  be there, it is just for showing where currently things with 
-	  the build system do not work as expected. 
+	  be there, it is just for showing where currently things with
+	  the build system do not work as expected.
 
 # ----------------------------------------------------------------------------
 
-comment "X.org Servers"
+comment " *** X.org Servers ***"
 	depends on XORG_SERVER
 
 config XORG_SERVER_XORG
 	bool
 	depends on XORG_SERVER
-	prompt "Xorg server"
+	prompt "X.org main server"
 	help
-	  --enable-xorg
+	  This is the main server to be used for the other video drivers
 
 config XORG_SERVER_DMX
 	bool
 	depends on XORG_SERVER
-	prompt "DMX server"
+	prompt "X.org DMX server"
 	help
-	  --enable-dmx
+	  Distributed Multi-head X server. Xdmx is a proxy X server that uses
+	  one or more other X servers as its display devices.
 
 config XORG_SERVER_XVFB
 	bool
 	depends on XORG_SERVER
-	prompt "Xvfb server"
+	prompt "X.org Xvfb server"
 	help
 	  --enable-xvfb
 
 config XORG_SERVER_XNEST
 	bool
 	depends on XORG_SERVER
-	prompt "Xnest server"
+	prompt "X.org Xnest server"
 	help
-	  --enable-xnest
+	  A X server working on a running X server. Disadvantage is Xnest
+	  supports only features the running X server itself supports.
 
 config XORG_SERVER_XWIN
 	bool
 	depends on BROKEN && XORG_SERVER
-	prompt "XWin server"
+	prompt "X.org XWin server"
 	help
-	  --enable-xwin
+	  X Server for the Cygwin environment on Microsoft Windows
 
 config XORG_SERVER_XPRINT
 	bool
@@ -135,227 +186,241 @@ config XORG_SERVER_XPRINT
 	help
 	  --enable-xprint
 
+config XORG_SERVER_XEPHYR
+	bool
+	depends on XORG_SERVER
+	prompt "kdrive's XEPHYR"
+	help
+	  This server is working on top of a running X server. But instead of
+	  Xnest this kind of server supports all new features (extensions). It
+	  doesn't depend on the features of the underlying X server.
+
 # ----------------------------------------------------------------------------
 
-comment "X.org Options"
+comment "*** X.org Options ***"
 	depends on XORG_SERVER
 
 config XORG_SERVER_OPT_INSTALL_SETUID
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "Install Xorg server as owned by root with setupd bit"
 	help
 	  --enable-install-setuid
 
 config XORG_SERVER_OPT_SECURE_RPC
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "secure RPC"
+	default n
 	help
-	  --enable-secure-rpc
+	  FIXME
 
 config XORG_SERVER_OPT_XORGCFG
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "build xorgcfg GUI config utility"
+	default n
 	help
 	  --enable-xorgcfg
 
 config XORG_SERVER_OPT_KBD_MODE
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "build kbd_mode utility"
 	help
 	  --enable-kbd_mode
 
 # ----------------------------------------------------------------------------
 
-comment "X.org Extensions"
+comment "*** X.org Extensions ***"
 	depends on XORG_SERVER
 
 config XORG_SERVER_EXT_COMPOSITE
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "composite extension"
 	default y
 	help
-	  --enable-composite 
+	  --enable-composite
 
 config XORG_SERVER_EXT_SHM
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "SHM extension"
 	default y
 	help
-	  --enable-shm
+	  --enable-shm Support for Shared Memoy
 
 config XORG_SERVER_EXT_XRES
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "XRes extension"
 	default y
 	help
 	  --enable-xres
 
 config XORG_SERVER_EXT_XTRAP
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "XTrap extension"
 	default y
 	help
 	  --enable-xtrap
 
 config XORG_SERVER_EXT_RECORD
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "Record extension"
 	default y
 	help
 	  --enable-record
 
 config XORG_SERVER_EXT_XV
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "Xv extension"
 	default y
 	help
 	  --enable-xv
 
 config XORG_SERVER_EXT_XVMC
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "XvMC extension"
 	default y
 	help
 	  --enable-xvmc
 
 config XORG_SERVER_EXT_DGA
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "DGA extension"
 	default y
 	help
 	  --enable-dga
 
 config XORG_SERVER_EXT_SCREENSAVER
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "ScreenSaver extension"
 	default y
 	help
 	  --enable-screensaver
 
 config XORG_SERVER_EXT_XDMCP
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "XDMCP extension"
 	help
 	  --enable-xdmcp
 
 config XORG_SERVER_EXT_XDMCP_AUTH_1
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "XDM-Auth-1 extension"
 	help
 	  --enable-xdmcp
 
 config XORG_SERVER_EXT_GLX
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "GLX extension"
 	help
 	  --enable-glx
 
 config XORG_SERVER_EXT_DRI
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "DRI extension"
+	default n
 	help
-	  --enable-dri - Support for Direct Rendering Infrastructure. Used for
-	  3D animation
+	  Enable support for the Direct Rendering Infrastructure to get 3D
+	  accelerations support. This is meaningless if you don't have DRI
+	  support in your kernel for your hardware.
+	  Currently the build scripts needs DRI disabled when crosscompiling,
+	  else they try to detect the DRI hardware on your host.
 
 config XORG_SERVER_EXT_XINERAMA
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "Xinerama extension"
 	help
 	  --enable-xinerama - Support for more than one screen, but handled
 	  as one screen
 
 config XORG_SERVER_EXT_XF86VIDMODE
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "XF86VidMode extension"
 	help
 	  --enable-xf86vidmode
 
 config XORG_SERVER_EXT_XF86MISC
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "XF86Misc extension"
 	help
 	  --enable-xf86misc
 
 config XORG_SERVER_EXT_XCSECURITY
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "Security extension"
 	help
 	  --enable-xcsecurity
 
 config XORG_SERVER_EXT_XEVIE
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "XEvIE extension"
 	help
 	  --enable-xevie
 
 config XORG_SERVER_EXT_LBX
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "LBX extension"
 	help
 	  --enable-lbx
 
 config XORG_SERVER_EXT_APPGROUP
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "XC-APPGROUP extension"
 	help
 	  --enable-appgroup
 
 config XORG_SERVER_EXT_CUP
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "TOG-CUP extension"
 	help
 	  --enable-cup
 
 config XORG_SERVER_EXT_EVI
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "Extended-Visual-Information extension"
 	help
 	  --enable-evi
 
 config XORG_SERVER_EXT_MULTIBUFFER
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "Multibuffer extension"
 	help
 	  --enable-multibuffer
 
 config XORG_SERVER_EXT_FONTCACHE
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "FontCache extension"
 	help
 	  --enable-fontcache
 
 config XORG_SERVER_EXT_DBE
-	bool
 	depends on XORG_SERVER
+	bool
 	prompt "DBE extension"
 	help
 	  --enable-dbe - Double Buffer Extension for graphic accelaration
-
