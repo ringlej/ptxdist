@@ -213,7 +213,7 @@ config XORG_SERVER_OPT_SECURE_RPC
 	prompt "secure RPC"
 	default n
 	help
-	  FIXME
+	  Use secure RPC authentication (SUN-DES-1)
 
 config XORG_SERVER_OPT_XORGCFG
 	depends on XORG_SERVER
@@ -229,6 +229,34 @@ config XORG_SERVER_OPT_KBD_MODE
 	prompt "build kbd_mode utility"
 	help
 	  --enable-kbd_mode
+
+menuconfig XORG_SERVER_INT10_HANDLING
+	depends on XORG_SERVER
+	bool
+	prompt "Select int10 handling       "
+	help
+	  Disabling this entry uses configure's default
+
+config XORG_SERVER_INT10_VM86
+	depends on XORG_SERVER_INT10_HANDLING
+	bool
+	prompt "Use VM86"
+	help
+	  Using VM86 for int10
+
+config XORG_SERVER_INT10_X86EMU
+	depends on XORG_SERVER_INT10_HANDLING
+	bool
+	prompt "Use x86emu"
+	help
+	  Using x86emu for int10
+
+config XORG_SERVER_INT10_STUB
+	depends on XORG_SERVER_INT10_HANDLING
+	bool
+	prompt "Use stub"
+	help
+	  Using stub for int10
 
 # ----------------------------------------------------------------------------
 
@@ -249,7 +277,7 @@ config XORG_SERVER_EXT_SHM
 	prompt "SHM extension"
 	default y
 	help
-	  --enable-shm Support for Shared Memoy
+	  --enable-shm Support for MIT Shared Memoy
 
 config XORG_SERVER_EXT_XRES
 	depends on XORG_SERVER
@@ -424,3 +452,10 @@ config XORG_SERVER_EXT_DBE
 	prompt "DBE extension"
 	help
 	  --enable-dbe - Double Buffer Extension for graphic accelaration
+
+config XORG_SERVER_EXT_DPMS
+	depends on XORG_SERVER
+	bool
+	prompt "DPMS extension"
+	help
+	  Display Power Management Service to control the display monitor

@@ -70,6 +70,12 @@ XORG_LIB_X11_AUTOCONF := \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
 	--disable-dependency-tracking \
 	--disable-man-pages
+#
+# FIXME
+# Bug alert: Check all switches if they do what be intended. Some --enable-...
+# switches will disable the feature! Maybe it depends on the default value.
+# I'm not sure....
+#
 
 ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
 XORG_LIB_X11_AUTOCONF	+= --enable-unix-transport

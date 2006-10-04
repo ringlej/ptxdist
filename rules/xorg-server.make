@@ -91,6 +91,38 @@ XORG_SERVER_AUTOCONF = $(CROSS_AUTOCONF_USR) \
 	--localstatedir=/var \
 	--disable-builddocs
 
+#
+# FIXME
+# Bug alert: Check all switches if they do what be intended. Some --enable-...
+# switches will disable the feature! Maybe it depends on the default value.
+# I'm not sure....
+#
+
+# Don't trust "./configure --help". It does not show
+# that it follows --disable-ipv6. But it does. Take
+# always a look into the configure script itself!
+#
+ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
+XORG_SERVER_AUTOCONF += --enable-ipv6
+else
+XORG_SERVER_AUTOCONF += --disable-ipv6
+endif
+#
+# same as above
+#
+ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
+XORG_SERVER_AUTOCONF	+= --enable-unix-transport
+else
+XORG_SERVER_AUTOCONF	+= --disable-unix-transport
+endif
+#
+# same as above
+#
+ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
+XORG_SERVER_AUTOCONF	+= --enable-tcp-transport
+else
+XORG_SERVER_AUTOCONF	+= --disable-tcp-transport
+endif
 
 
 ifdef XORG_LIB_X11_XF86BIGFONT
@@ -99,78 +131,91 @@ else
 XORG_SERVER_AUTOCONF += --disable-xf86bigfont
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_COMPOSITE
 XORG_SERVER_AUTOCONF += --enable-composite
 else
 XORG_SERVER_AUTOCONF += --disable-composite
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_SHM
 XORG_SERVER_AUTOCONF += --enable-shm
 else
 XORG_SERVER_AUTOCONF += --disable-shm
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XRES
 XORG_SERVER_AUTOCONF += --enable-xres
 else
 XORG_SERVER_AUTOCONF += --disable-xres
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XTRAP
 XORG_SERVER_AUTOCONF += --enable-xtrap
 else
 XORG_SERVER_AUTOCONF += --disable-xtrap
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_RECORD
 XORG_SERVER_AUTOCONF += --enable-record
 else
 XORG_SERVER_AUTOCONF += --disable-record
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XV
 XORG_SERVER_AUTOCONF += --enable-xv
 else
 XORG_SERVER_AUTOCONF += --disable-xv
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XVMC
 XORG_SERVER_AUTOCONF += --enable-xvmc
 else
 XORG_SERVER_AUTOCONF += --disable-xvmc
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_DGA
 XORG_SERVER_AUTOCONF += --enable-dga
 else
 XORG_SERVER_AUTOCONF += --disable-dga
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_SCREENSAVER
 XORG_SERVER_AUTOCONF += --enable-screensaver
 else
 XORG_SERVER_AUTOCONF += --disable-screensaver
 endif
 
+# default is auto
 ifdef PTXCONF_XORG_SERVER_EXT_XDMCP
 XORG_SERVER_AUTOCONF += --enable-xdmcp
 else
 XORG_SERVER_AUTOCONF += --disable-xdmcp
 endif
 
+# default is auto
 ifdef PTXCONF_XORG_SERVER_EXT_XDMCP_AUTH_1
 XORG_SERVER_AUTOCONF += --enable-xdmcp-auth-1
 else
 XORG_SERVER_AUTOCONF += --disable-xdmcp-auth-1
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_GLX
 XORG_SERVER_AUTOCONF += --enable-glx
 else
 XORG_SERVER_AUTOCONF += --disable-glx
 endif
 
+# default is auto
 ifdef PTXCONF_XORG_SERVER_EXT_DRI
 XORG_SERVER_AUTOCONF += --enable-dri
 else
@@ -180,78 +225,91 @@ XORG_SERVER_AUTOCONF += --disable-dri
 XORG_SERVER_ENV		+= ac_cv_header_linux_agpgart_h=no
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
 XORG_SERVER_AUTOCONF += --enable-xinerama
 else
 XORG_SERVER_AUTOCONF += --disable-xinerama
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XF86VIDMODE
-XORG_SERVER_AUTOCONF += --enable-xf86vidmode
+#XORG_SERVER_AUTOCONF += --enable-xf86vidmode
 else
 XORG_SERVER_AUTOCONF += --disable-xf86vidmode
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XF86MISC
-XORG_SERVER_AUTOCONF += --enable-xf86misc
+#XORG_SERVER_AUTOCONF += --enable-xf86misc
 else
 XORG_SERVER_AUTOCONF += --disable-xf86misc
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XCSECURITY
 XORG_SERVER_AUTOCONF += --enable-xcsecurity
 else
 XORG_SERVER_AUTOCONF += --disable-xcsecurity
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XEVIE
 XORG_SERVER_AUTOCONF += --enable-xevie
 else
 XORG_SERVER_AUTOCONF += --disable-xevie
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_LBX
 XORG_SERVER_AUTOCONF += --enable-lbx
 else
 XORG_SERVER_AUTOCONF += --disable-lbx
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_APPGROUP
 XORG_SERVER_AUTOCONF += --enable-appgroup
 else
 XORG_SERVER_AUTOCONF += --disable-appgroup
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_CUP
 XORG_SERVER_AUTOCONF += --enable-cup
 else
 XORG_SERVER_AUTOCONF += --disable-cup
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_EVI
 XORG_SERVER_AUTOCONF += --enable-evi
 else
 XORG_SERVER_AUTOCONF += --disable-evi
 endif
 
+# default is disabled
 ifdef PTXCONF_XORG_SERVER_EXT_MULTIBUFFER
 XORG_SERVER_AUTOCONF += --enable-multibuffer
 else
 XORG_SERVER_AUTOCONF += --disable-multibuffer
 endif
 
+# default is disabled
 ifdef PTXCONF_XORG_SERVER_EXT_FONTCACHE
 XORG_SERVER_AUTOCONF += --enable-fontcache
 else
 XORG_SERVER_AUTOCONF += --disable-fontcache
 endif
 
+# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_DBE
 XORG_SERVER_AUTOCONF += --enable-dbe
 else
 XORG_SERVER_AUTOCONF += --disable-dbe
 endif
 
+# default is enabled
 ifdef PTXCONF_FREETYPE
 XORG_SERVER_AUTOCONF += --enable-freetype
 else
@@ -330,15 +388,26 @@ ifdef PTXCONF_MESALIB
 XORG_SERVER_AUTOCONF += --with-mesa-source=$(MESALIB_DIR)
 endif
 
-ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
-XORG_SERVER_AUTOCONF += --enable-ipv6
-else
-XORG_SERVER_AUTOCONF += --disable-ipv6
+# default is on
+# Note: A given "--enable-dpms" disables it!
+ifndef PTXCONF_XORG_SERVER_EXT_DPMS
+XORG_SERVER_AUTOCONF += --disable-dpms
 endif
 
-# FIXME: to be checked
-XORG_SERVER_AUTOCONF += --disable-int10 --enable-dpms --enable-xinput
+ifdef PTXCONF_XORG_SERVER_INT10_VM86
+XORG_SERVER_AUTOCONF += --with-int10=vm86
+endif
 
+ifdef PTXCONF_XORG_SERVER_INT10_X86EMU
+XORG_SERVER_AUTOCONF += --with-int10=x86emu
+endif
+
+ifdef PTXCONF_XORG_SERVER_INT10_VM86
+XORG_SERVER_AUTOCONF += --with-int10=stub
+endif
+
+# FIXME: What does it *really* mean?
+#XORG_SERVER_AUTOCONF += --disable-xinput
 #
 # unhandled yet
 #
@@ -462,6 +531,7 @@ endif
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libfreetype.so ,/usr/lib/xorg/modules/fonts/libfreetype.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libtype1.so ,/usr/lib/xorg/modules/fonts/libtype1.so)
 
+# FIXME: Should be included on demand only
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/bt829_drv.so ,/usr/lib/xorg/modules/multimedia/bt829_drv.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/tda8425_drv.so ,/usr/lib/xorg/modules/multimedia/tda8425_drv.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/tda9850_drv.so ,/usr/lib/xorg/modules/multimedia/tda9850_drv.so)
