@@ -117,7 +117,9 @@ $(STATEDIR)/xorg-app-rgb.targetinstall: $(xorg-app-rgb_targetinstall_deps_defaul
 	@$(call install_fixup,xorg-app-rgb,DEPENDS,)
 	@$(call install_fixup,xorg-app-rgb,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-app-rgb, 0, 0, 0644, $(XORG_APP_RGB_DIR)/rgb.txt, $(XORG_PREFIX)/share/X11/rgb.txt)
+	@$(call install_copy, xorg-app-rgb, 0, 0, 0644, \
+		$(XORG_APP_RGB_DIR)/rgb.txt, \
+		$(PTXCONF_XORG_DEFAULT_DATA_DIR)/X11/rgb.txt)
 
 	@$(call install_finish,xorg-app-rgb)
 
