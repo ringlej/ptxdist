@@ -91,13 +91,6 @@ XORG_SERVER_AUTOCONF = $(CROSS_AUTOCONF_USR) \
 	--localstatedir=/var \
 	--disable-builddocs
 
-#
-# FIXME
-# Bug alert: Check all switches if they do what be intended. Some --enable-...
-# switches will disable the feature! Maybe it depends on the default value.
-# I'm not sure....
-#
-
 # Don't trust "./configure --help". It does not show
 # that it follows --disable-ipv6. But it does. Take
 # always a look into the configure script itself!
@@ -234,14 +227,14 @@ endif
 
 # default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XF86VIDMODE
-#XORG_SERVER_AUTOCONF += --enable-xf86vidmode
+XORG_SERVER_AUTOCONF += --enable-xf86vidmode
 else
 XORG_SERVER_AUTOCONF += --disable-xf86vidmode
 endif
 
 # default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XF86MISC
-#XORG_SERVER_AUTOCONF += --enable-xf86misc
+XORG_SERVER_AUTOCONF += --enable-xf86misc
 else
 XORG_SERVER_AUTOCONF += --disable-xf86misc
 endif
@@ -390,8 +383,15 @@ endif
 
 # default is on
 # Note: A given "--enable-dpms" disables it!
+# There is an error in the configure script.
+# --enable-dpms and --disable-dpms both are setting the wrong variable
+# So its disabled by default. Only if no switch is given, DPMS will be enabled
+# Its fixed in the git version, so in the next release it should handle correctly
+#
 ifndef PTXCONF_XORG_SERVER_EXT_DPMS
 XORG_SERVER_AUTOCONF += --disable-dpms
+#else
+#XORG_SERVER_AUTOCONF += --enable-dpms # FIXME workaround!
 endif
 
 ifdef PTXCONF_XORG_SERVER_INT10_VM86
