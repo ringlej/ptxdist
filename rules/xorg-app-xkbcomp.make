@@ -65,8 +65,8 @@ XORG_APP_XKBCOMP_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 
-XORG_APP_XKBCOMP_AUTOCONF := $(CROSS_AUTOCONF_USR)
-XORG_APP_XKBCOMP_AUTOCONF := --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+XORG_APP_XKBCOMP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 $(STATEDIR)/xorg-app-xkbcomp.prepare: $(xorg-app-xkbcomp_prepare_deps_default)
 	@$(call targetinfo, $@)
