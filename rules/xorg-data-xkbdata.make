@@ -65,14 +65,12 @@ XORG_DATA_XKBDATA_PATH	:=  PATH=$(CROSS_PATH)
 XORG_DATA_XKBDATA_ENV 	:=  $(CROSS_ENV)
 
 #
-# define where to install all data files
-#
-XORG_DATA_XKBDATA_AUTOCONF := --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
-
-#
 # autoconf
 #
-XORG_DATA_XKBDATA_AUTOCONF := $(CROSS_AUTOCONF_USR)
+# define where to install all data files
+#
+XORG_DATA_XKBDATA_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 $(STATEDIR)/xorg-data-xkbdata.prepare: $(xorg-data-xkbdata_prepare_deps_default)
 	@$(call targetinfo, $@)

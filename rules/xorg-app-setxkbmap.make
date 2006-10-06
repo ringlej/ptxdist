@@ -65,8 +65,8 @@ XORG_APP_SETXKBMAP_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 
-XORG_APP_SETXKBMAP_AUTOCONF := $(CROSS_AUTOCONF_USR)
-XORG_APP_SETXKBMAP_AUTOCONF := --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+XORG_APP_SETXKBMAP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 $(STATEDIR)/xorg-app-setxkbmap.prepare: $(xorg-app-setxkbmap_prepare_deps_default)
 	@$(call targetinfo, $@)
