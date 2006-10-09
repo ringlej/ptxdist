@@ -9,9 +9,9 @@ menuconfig XORG_LIB_X11
 	select XORG_LIB_XTRANS
 	select XORG_PROTO_XCMISC
 	select XORG_LIB_XDMCP	# FIXME Why always?
+	select XORG_PROTO_KB
+	select XORG_PROTO_INPUT
 # required on demand
-	select XORG_PROTO_KB if XORG_APP_XKBCOMP
-	select XORG_PROTO_INPUT if XORG_APP_XKBCOMP
 	select XORG_PROTO_XF86BIGFONT if XORG_LIB_X11_XF86BIGFONT
 	help
 	  This is the main X library
