@@ -124,6 +124,7 @@ source "rules/setmixer.in"
 source "rules/rawrec.in"
 source "rules/mc.in"
 source "rules/ffmpeg.in"
+source "rules/kaffe.in"
 endmenu
 
 menu "Tools                       "

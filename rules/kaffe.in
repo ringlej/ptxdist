@@ -1,0 +1,49 @@
+menuconfig KAFFE
+	prompt "kaffe"
+	bool
+	help
+	  needs to be written
+	select HOST_KAFFE
+
+choice
+	prompt "java compiler"
+	depends on KAFFE
+	default KAFFE_JAVAC_ECJ
+
+config KAFFE_JAVAC_ECJ
+	bool "ecj"
+
+config KAFFE_JAVAC_JIKES
+	bool "jikes"
+
+endchoice
+
+choice
+	prompt "java engine"
+	depends on KAFFE
+	default KAFFE_ENGINE_INTERPRETER
+
+config KAFFE_ENGINE_INTERPRETER
+	bool "interpreter"
+
+config KAFFE_ENGINE_JIT
+	bool "jit"
+
+config KAFFE_ENGINE_JIT3
+	bool "jit3"
+
+endchoice
+
+config KAFFE_STATIC
+	prompt "build a static kaffe"
+	depends on KAFFE
+	bool
+
+config KAFFE_DEBUG
+	prompt "build a kaffe with debugging symbols"
+	depends on KAFFE
+	bool
+
+config HOST_KAFFE
+	bool
+	depends on KAFFE
