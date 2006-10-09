@@ -70,9 +70,40 @@ MPLAYER_AUTOCONF =  --cc=$(PTXCONF_GNU_TARGET)-gcc \
 	--host-cc=$(HOSTCC) \
 	--target=$(PTXCONF_ARCH) \
 	--disable-mencoder \
-	--enable-fbdev \
 	--with-x11incdir=$(SYSROOT)/usr/include \
-	--with-x11libdir=$(SYSROOT)/usr/lib
+	--with-x11libdir=$(SYSROOT)/usr/lib \
+	--with-extraincdir=$(SYSROOT)/usr/include \
+	--with-extralibdir=$(SYSROOT)/usr/lib
+
+ifdef MPLAYER_V4L2
+MPLAYER_AUTOCONF += --enable-tv-v4l2
+else
+MPLAYER_AUTOCONF += --disable-tv-v4l2
+endif
+
+ifdef MPLAYER_VO_JPEG
+MPLAYER_AUTOCONF += --enable-jpeg
+else
+MPLAYER_AUTOCONF += --disable-jpeg
+endif
+
+ifdef MPLAYER_VO_XV
+MPLAYER_AUTOCONF += --enable-xv
+else
+MPLAYER_AUTOCONF += --disable-xv
+endif
+
+ifdef MPLAYER_VO_X11
+MPLAYER_AUTOCONF += --enable-x11
+else
+MPLAYER_AUTOCONF += --disable-x11
+endif
+
+ifdef MPLAYER_VO_FBDEV
+MPLAYER_AUTOCONF += --enable-fbdev
+else
+MPLAYER_AUTOCONF += --disable-fbdev
+endif
 
 $(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps_default)
 	@$(call targetinfo, $@)

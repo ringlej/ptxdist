@@ -1,5 +1,8 @@
-config MPLAYER
+menuconfig MPLAYER
 	bool
+	select LIBJPEG if MPLAYER_VO_JPEG
+	select XORG_LIB_XV if MPLAYER_VO_XV
+	select XORG_LIB_X11 if MPLAYER_VO_X11
 	prompt "Compile mplayer"
 	help
 	  The Ultimate Movie Player For Linux
@@ -13,3 +16,27 @@ config MPLAYER
 	  and some lowlevel card-specific drivers 
 	  (for Matrox/3dfx/SiS) too.
 
+config MPLAYER_V4L2
+	bool
+	prompt "enable v4l2 support for mplayer"
+	depends on MPLAYER
+
+config MPLAYER_VO_JPEG
+	bool
+	prompt "enable jpeg output support for mplayer"
+	depends on MPLAYER
+
+config MPLAYER_VO_XV
+	bool
+	prompt "enable Xvideo output support for mplayer"
+	depends on MPLAYER
+
+config MPLAYER_VO_X11
+	bool
+	prompt "enable X11 output support for mplayer"
+	depends on MPLAYER
+
+config MPLAYER_VO_FBDEV
+	bool
+	prompt "enable framebuffer output support for mplayer"
+	depends on MPLAYER
