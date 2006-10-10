@@ -1,6 +1,5 @@
 config NTPCLIENT
 	bool
-	depends on BROKEN
 	prompt "ntpclient"
 	help
 	  ntpclient is a small and efficient client to the NTP protocol.
@@ -16,9 +15,5 @@ config NTPCLIENT
 	  and may be freely used and copied according to the terms of the 
 	  GNU General Public License, version 2. 
 
-	  See http://doolittle.faludi.com/ntpclient/ for details.
-
-# last time I tried the server with the source was unreachable
-comment "ntpclient is broken, please send a patch"
-	depends on !BROKEN
+	  See http://doolittle.icarus.com/ntpclient/ for details.
 
