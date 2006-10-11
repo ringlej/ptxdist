@@ -1,3 +1,21 @@
+#
+# Submitted-By: Luotao Fu, 2006-10-11
+# Committed-By: Luotao Fu
+#
+# Error:
+#
+# Compilation fails if the bancomm interface is enabled in the configuration 
+#
+# Description:
+#
+# wrong variable type of debug, the struct refclockproc contanins only nsec,
+# instead of usec as used in the bancomm interface code.
+#
+# State:
+#
+# fixed, will be commited to the developer soon
+#
+
 Index: ntp-4.2.2p3/ntpd/refclock_bancomm.c
 ===================================================================
 --- ntp-4.2.2p3.orig/ntpd/refclock_bancomm.c
