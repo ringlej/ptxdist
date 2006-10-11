@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_NTP) += ntp
 #
 # Paths and names
 #
-NTP_VERSION	= 4.2.0
+NTP_VERSION	= 4.2.2p3
 NTP		= ntp-$(NTP_VERSION)
 NTP_SUFFIX	= tar.gz
 NTP_URL		= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/$(NTP).$(NTP_SUFFIX)

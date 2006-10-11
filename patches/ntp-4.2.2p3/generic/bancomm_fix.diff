@@ -1,0 +1,37 @@
+Index: ntp-4.2.2p3/ntpd/refclock_bancomm.c
+===================================================================
+--- ntp-4.2.2p3.orig/ntpd/refclock_bancomm.c
++++ ntp-4.2.2p3/ntpd/refclock_bancomm.c
+@@ -42,6 +42,7 @@
+ #include <stdio.h>
+ #include <syslog.h>
+ #include <ctype.h>
++#include <sys/ioctl.h>
+ 
+ /*  STUFF BY RES */
+ struct btfp_time                /* Structure for reading 5 time words   */
+@@ -99,7 +100,7 @@ extern u_long current_time;     /* curre
+ /*
+  * Imported from ntpd module
+  */
+-extern int debug;               /* global debug flag */
++extern volatile int debug;               /* global debug flag */
+ 
+ /*
+  * VME unit control structure.
+@@ -292,13 +293,13 @@ vme_poll(
+ 	pp->hour =   tptr->hr;
+ 	pp->minute =  tptr->mn;
+ 	pp->second =  tptr->sec;
+-	pp->usec =   tptr->frac;	
++	pp->nsec =   1000*tptr->frac;
+ 
+ #ifdef DEBUG
+ 	if (debug)
+ 	    printf("pp: %3d %02d:%02d:%02d.%06ld %1x\n",
+ 		   pp->day, pp->hour, pp->minute, pp->second,
+-		   pp->usec, tptr->status);
++		   pp->nsec, tptr->status);
+ #endif
+ 	if (tptr->status ) {       /*  Status 0 is locked to ref., 1 is not */
+ 		refclock_report(peer, CEVNT_BADREPLY);

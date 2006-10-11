@@ -189,6 +189,10 @@ config NTP_TPRO
 	bool
 	prompt "KSI/Odetics TPRO/S GPS receiver/IRIG interface"
 	depends on NTP_ALL_CLOCKS
+	depends on BROKEN
+
+comment "KSI/Odetics TPRO/S GPS receiver/IRIG interface is broken, please send a patch"
+	depends on !BROKEN
 
 config NTP_TRAK
 	bool
@@ -205,6 +209,10 @@ config NTP_TT560
 	bool
 	prompt "TrueTime 560 IRIG-B decoder"
 	depends on NTP_ALL_CLOCKS
+	depends on BROKEN
+
+	comment "TrueTime 560 IRIG-B decoder is broken, please send a patch"
+		depends on !BROKEN
 
 config NTP_ULINK
 	bool
