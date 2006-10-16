@@ -10,7 +10,6 @@
 #
 menuconfig XORG_SERVER
 	bool "xorg server           "
-
 # Always required:
 	select XORG_LIB_X11
 	select XORG_LIB_XAW
@@ -28,21 +27,25 @@ menuconfig XORG_SERVER
 	select XORG_PROTO_XEXT
 	select XORG_PROTO_X
 	select XORG_PROTO_XF86MISC
-	select XORG_LIB_XXF86MISC if XORG_SERVER_EXT_XF86MISC
 	select XORG_PROTO_BIGREQS
 	select XORG_PROTO_XF86VIDMODE
 	select XORG_PROTO_XF86BIGFONT
 	select XORG_LIB_FONTENC
 	select XORG_LIB_XFONT
-	select XORG_LIB_XXF86VM if XORG_SERVER_EXT_XV
 #
 # Required on demand
+#
+	select XORG_LIB_XXF86VM if XORG_SERVER_EXT_XV
 
 	select XORG_LIB_XRES if XORG_SERVER_EXT_XRES
 
+	select XORG_LIB_XP if XORG_SERVER_XPRINT
+
+	select XORG_LIB_XXF86MISC if XORG_SERVER_EXT_XF86MISC
+#
 # FIXME: required?
 	select XORG_LIB_XSCRNSAVER if XORG_SERVER_EXT_SCREENSAVER
-
+#
 	select XORG_PROTO_FONTS
 	select XORG_PROTO_INPUT
 	select XORG_LIB_XI
@@ -54,7 +57,7 @@ menuconfig XORG_SERVER
 	select XORG_LIB_XEXT
 	select XORG_PROTO_FONTCACHE
 	select XORG_PROTO_PRINT
-
+#
 	select XORG_PROTO_XF86DRI if XORG_SERVER_EXT_DRI
 #
 # when OpenGL is enabled, MesaLib is required
@@ -62,18 +65,18 @@ menuconfig XORG_SERVER
 	select XORG_PROTO_GL if XORG_SERVER_EXT_GLX
 	select MESALIB if XORG_PROTO_GL
 	select LIBDRM if XORG_PROTO_GL
-
+#
 #	select XORG_PROTO_XV
 	select XORG_LIB_XV if XORG_SERVER_EXT_XV
-
+#
 	select XORG_LIB_XCOMPOSITE if XORG_SERVER_EXT_COMPOSITE
 #	select XORG_PROTO_COMPOSITE if XORG_SERVER_EXT_COMPOSITE
-
+#
 	select XORG_LIB_XTRAP if XORG_SERVER_EXT_XTRAP
 #	select XORG_PROTO_TRAP if XORG_SERVER_EXT_XTRAP
-
+#
 	select XORG_PROTO_RECORD if XORG_SERVER_EXT_RECORD
-
+#
 	select XORG_LIB_XKBFILE if XORG_KEYBOARD_MAPPING_SUPPORT
 # FIXME: required?
 	select XORG_LIB_XKBUI if XORG_KEYBOARD_MAPPING_SUPPORT
@@ -176,10 +179,15 @@ config XORG_SERVER_XNEST
 
 config XORG_SERVER_XWIN
 	bool
-	depends on BROKEN && XORG_SERVER
+	depends on XORG_SERVER
+	depends on BROKEN
 	prompt "X.org XWin server"
 	help
 	  X Server for the Cygwin environment on Microsoft Windows
+
+comment "X.org XWin server is broken"
+	depends on XORG_SERVER
+	depends on !BROKEN
 
 config XORG_SERVER_XPRINT
 	bool
@@ -187,9 +195,11 @@ config XORG_SERVER_XPRINT
 	depends on BROKEN
 	prompt "Xprint server and extension"
 	help
-	  --enable-xprint
+	  Support the Xprint extension on this server. This lets application
+	  render to a non to non-display devices. Currently broken.
 
 comment "Xprint is broken"
+	depends on XORG_SERVER
 	depends on !BROKEN
 
 config XORG_SERVER_XEPHYR
