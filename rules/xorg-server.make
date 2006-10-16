@@ -86,10 +86,15 @@ XORG_SERVER_ENV		+=  ac_cv_file__usr_share_X11_sgml_defs_ent=no
 #
 # don't put a := here! MESALIB_DIR won't get expanded then
 XORG_SERVER_AUTOCONF = $(CROSS_AUTOCONF_USR) \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
 	--disable-dependency-tracking \
 	--localstatedir=/var \
 	--disable-builddocs
+#
+# if no value is given ignore the "--datadir" switch
+#
+ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
+	XORG_SERVER_AUTOCONF += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+endif
 
 # Don't trust "./configure --help". It does not show
 # that it follows --disable-ipv6. But it does. Take

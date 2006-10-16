@@ -66,8 +66,13 @@ XORG_APP_XINIT_ENV 	:=  $(CROSS_ENV)
 #
 XORG_APP_XINIT_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 #
+# if no value is given ignore the "--datadir" switch
+#
+ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
+	XORG_APP_XINIT_AUTOCONF += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+endif
+
 # what else is required?
 #
 # --with-xrdb=XRDB        Path to xrdb

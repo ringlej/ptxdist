@@ -67,9 +67,14 @@ XORG_LIB_X11_ENV 	:=  $(CROSS_ENV)
 XORG_LIB_X11_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-malloc0returnsnull --disable-dependency-tracking \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
 	--disable-dependency-tracking \
 	--disable-man-pages
+#
+# if no value is given ignore the "--datadir" switch
+#
+ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
+	XORG_LIB_X11_AUTOCONF   += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+endif
 
 ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
 XORG_LIB_X11_AUTOCONF	+= --enable-unix-transport
