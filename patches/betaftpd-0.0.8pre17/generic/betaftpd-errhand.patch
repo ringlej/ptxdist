@@ -1,16 +1,8 @@
---- /dev/null   2002-09-13 15:08:32.000000000 -0700
-+++ 0711/ChangeLog.errhand      2003-07-11 13:42:58.000000000 -0700
-@@ -0,0 +1,6 @@
-+2003 07 11 11:52
-+       Dan Kegel (dkegel@ixiacom.com) Rohan Chitradurga (rohan@ixiacom.com)
-+
-+       * This corrects the errors concerning numeric by propagating the
-+       * error values occuring in numeric in order to avoid writing
-+       * to freed memory.
-diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
---- betaftpd-0.0.8pre17/cmds.c	Sat Sep 30 15:42:50 2000
-+++ betaftpd-new/cmds.c	Sat Jun 21 15:12:54 2003
-@@ -234,8 +234,7 @@
+Index: cmds.c
+===================================================================
+--- cmds.c.orig
++++ cmds.c
+@@ -234,8 +234,7 @@ int do_chdir(struct conn * const c, cons
  
  #if WANT_NONROOT
  	if (nr_check_permission(c->uid, temp, 1, 1, NULL) == -1) {
@@ -20,7 +12,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	}
  #endif
  
-@@ -247,11 +246,10 @@
+@@ -247,11 +246,10 @@ int do_chdir(struct conn * const c, cons
  	}
  
  	if (strncmp(chd, c->root_dir, strlen(c->root_dir)) != 0) {
@@ -34,7 +26,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -268,12 +266,13 @@
+@@ -268,12 +266,13 @@ int cmd_user(struct conn * const c)
  		strcpy(c->username, "ftp");
  	}
         	if (strcasecmp(c->username, "ftp") == 0) {
@@ -50,7 +42,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	return 1;
  }
  
-@@ -334,14 +333,15 @@
+@@ -334,14 +333,15 @@ int cmd_pass(struct conn * const c)
  		c->auth = 0;
  	}
  	if (c->auth == 0) {
@@ -68,7 +60,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	return 1;
  }
  
-@@ -358,8 +358,7 @@
+@@ -358,8 +358,7 @@ int cmd_pass(struct conn * const c)
   */
  int cmd_acct(struct conn * const c)
  {
@@ -78,7 +70,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -377,8 +376,7 @@
+@@ -377,8 +376,7 @@ int cmd_port(struct conn * const c)
  	struct sockaddr_in sin;
      
  	if ((c->transfer != NULL) && (c->transfer->state >= 4)) {
@@ -88,7 +80,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	}
  
  	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-@@ -389,7 +387,7 @@
+@@ -389,7 +387,7 @@ int cmd_port(struct conn * const c)
  
  	i = sscanf(c->recv_buf, "%3hu,%3hu,%3hu,%3hu,%3hu,%3hu", &a0, &a1, &a2, &a3, &p0, &p1);
  	if (i < 6) {
@@ -97,7 +89,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	} else {
  		const int one = 1;
  		int tmp;
-@@ -400,7 +398,8 @@
+@@ -400,7 +398,8 @@ int cmd_port(struct conn * const c)
  		TRAP_ERROR(err == -1, 500, return 1);
  		sin.sin_port = FTP_PORT - 1;
  
@@ -107,7 +99,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  
  		/* note that bind() might well fail, so we don't error check */
  #if !WANT_NONROOT
-@@ -442,8 +441,7 @@
+@@ -442,8 +441,7 @@ int cmd_pasv(struct conn * const c)
  	struct sockaddr_in addr;
  
  	if ((c->transfer != NULL) && (c->transfer->state >= 4)) {
@@ -117,7 +109,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	}
  	destroy_ftran(c->transfer);
  
-@@ -473,14 +471,13 @@
+@@ -473,14 +471,13 @@ int cmd_pasv(struct conn * const c)
  	TRAP_ERROR(err == -1, 500, return 1);
  	f->state = 1;
  
@@ -133,7 +125,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -497,7 +494,7 @@
+@@ -497,7 +494,7 @@ int cmd_pwd(struct conn * const c)
  
  	cdir = do_pwd(c, temp, c->curr_dir);
  	if (cdir != NULL) {
@@ -142,7 +134,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	}
  	return 1;
  }
-@@ -535,8 +532,7 @@
+@@ -535,8 +532,7 @@ char *do_pwd(struct conn * const c, char
   */
  int cmd_cwd(struct conn * const c)
  {
@@ -152,7 +144,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -551,8 +547,7 @@
+@@ -551,8 +547,7 @@ int cmd_cwd(struct conn * const c)
   */
  int cmd_cdup(struct conn * const c)
  {
@@ -162,7 +154,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -561,25 +556,28 @@
+@@ -561,25 +556,28 @@ int cmd_cdup(struct conn * const c)
   *		space and have clearer code). Mostly, it just uses do_chdir(),
   *		and sees where that takes us. It adds a trailing slash if needed.
   */
@@ -204,7 +196,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -590,8 +588,7 @@
+@@ -590,8 +588,7 @@ void cmd_cwd_internal(struct conn * cons
  int cmd_rest(struct conn * const c)
  {
  	c->rest_pos = abs(atoi(c->recv_buf));
@@ -214,7 +206,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -603,29 +600,35 @@
+@@ -603,29 +600,35 @@ int cmd_rest(struct conn * const c)
   */
  int cmd_retr(struct conn * const c)
  {
@@ -256,7 +248,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  		destroy_ftran(f);
  	} else if (f->local_file == -2) {
  		f->local_file = -1;
-@@ -636,7 +639,7 @@
+@@ -636,7 +639,7 @@ int cmd_retr(struct conn * const c)
  #endif
  		prepare_for_transfer(f);
  	}
@@ -265,7 +257,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  #if WANT_UPLOAD
-@@ -646,8 +649,7 @@
+@@ -646,8 +649,7 @@ int cmd_retr(struct conn * const c)
   */
  int cmd_stor(struct conn * const c)
  {
@@ -275,7 +267,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -656,40 +658,43 @@
+@@ -656,40 +658,43 @@ int cmd_stor(struct conn * const c)
   */
  int cmd_appe(struct conn * const c)
  {
@@ -328,7 +320,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	} else if (f->local_file == -2) {
  		f->local_file = -1;
  	} else {
-@@ -700,6 +705,7 @@
+@@ -700,6 +705,7 @@ void do_store(struct conn * const c, con
  #endif
  	        prepare_for_transfer(f);
  	}
@@ -336,7 +328,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  #endif /* WANT_UPLOAD */
  
-@@ -718,18 +724,19 @@
+@@ -718,18 +724,19 @@ int cmd_size(struct conn * const c)
  {
  #if WANT_ASCII
  	if (c->ascii_mode) {
@@ -361,7 +353,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	}
  }
  
-@@ -740,16 +747,18 @@
+@@ -740,16 +747,18 @@ int cmd_size(struct conn * const c)
   */
  int cmd_mdtm(struct conn * const c)
  {
@@ -383,7 +375,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -759,11 +768,11 @@
+@@ -759,11 +768,11 @@ int cmd_mdtm(struct conn * const c)
  int cmd_abor(struct conn * const c)
  {
  	if (c->transfer != NULL) {
@@ -398,7 +390,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -771,11 +780,13 @@
+@@ -771,11 +780,13 @@ int cmd_abor(struct conn * const c)
   */
  int cmd_dele(struct conn * const c)
  {
@@ -415,7 +407,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -783,9 +794,12 @@
+@@ -783,9 +794,12 @@ int cmd_dele(struct conn * const c)
   */
  int cmd_rnfr(struct conn * const c)
  {
@@ -429,7 +421,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  
  	c->rename_from[0] = '\0';
  	if (fname == NULL) return 1;
-@@ -796,8 +810,7 @@
+@@ -796,8 +810,7 @@ int cmd_rnfr(struct conn * const c)
  	/* Just check that the file exists. */
  	TRAP_ERROR(lstat(c->rename_from, &buf) == -1, 550, c->rename_from[0] = '\0'; return 1);
  
@@ -439,7 +431,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -805,19 +818,20 @@
+@@ -805,19 +818,20 @@ int cmd_rnfr(struct conn * const c)
   */
  int cmd_rnto(struct conn * const c)
  {
@@ -465,7 +457,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -836,9 +850,12 @@
+@@ -836,9 +850,12 @@ int cmd_rnto(struct conn * const c)
   */
  int cmd_mkd(struct conn * const c)
  {
@@ -479,7 +471,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  
  	TRAP_ERROR(fname == NULL || mkdir(fname, 0755) == -1, 550, return 1);
  
-@@ -853,8 +870,7 @@
+@@ -853,8 +870,7 @@ int cmd_mkd(struct conn * const c)
  			temp2[++j] = '"';
  		}
  	}
@@ -489,7 +481,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -863,11 +879,13 @@
+@@ -863,11 +879,13 @@ int cmd_mkd(struct conn * const c)
   */
  int cmd_rmd(struct conn * const c)
  {
@@ -506,7 +498,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -883,8 +901,7 @@
+@@ -883,8 +901,7 @@ int cmd_rmd(struct conn * const c)
   */
  int cmd_allo(struct conn * const c)
  {
@@ -516,7 +508,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -947,7 +964,7 @@
+@@ -947,7 +964,7 @@ int cmd_stat(struct conn * const c)
  		return 0;
  	}
  #else
@@ -525,7 +517,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  #endif
  	return 1;
  }
-@@ -1107,8 +1124,7 @@
+@@ -1107,8 +1124,7 @@ int cmd_list(struct conn * const c)
  	lo.long_listing = 1;
  	lo.classify = 0;
  
@@ -535,7 +527,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -1126,8 +1142,7 @@
+@@ -1126,8 +1142,7 @@ int cmd_nlst(struct conn * const c)
  	lo.long_listing = 0;
  	lo.classify = 0;
  
@@ -545,7 +537,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -1138,9 +1153,9 @@
+@@ -1138,9 +1153,9 @@ int cmd_nlst(struct conn * const c)
   *		If the directory listing cache is enabled, the cache
   *		is checked first, to see if we still have a valid entry.
   */
@@ -557,7 +549,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	char *ptr;
  #if HAVE_MMAP
  	int size;
-@@ -1155,11 +1170,11 @@
+@@ -1155,11 +1170,11 @@ void do_listing(struct conn * const c, s
  #warning No nonroot checking for list_core() yet
  #endif
  
@@ -573,7 +565,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  
  #if WANT_DCACHE
  	getcwd(cwd, 256);
-@@ -1181,24 +1196,30 @@
+@@ -1181,24 +1196,30 @@ void do_listing(struct conn * const c, s
  			f->pos = 0;
  
  			prepare_for_transfer(f);
@@ -610,7 +602,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  
  #if WANT_DCACHE
  	populate_dcache(f, cwd, ptr, lo);
-@@ -1208,6 +1229,7 @@
+@@ -1208,6 +1229,7 @@ void do_listing(struct conn * const c, s
  	f->pos = 0;
  #endif
  	prepare_for_transfer(f);
@@ -618,7 +610,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -1216,7 +1238,7 @@
+@@ -1216,7 +1238,7 @@ void do_listing(struct conn * const c, s
   *		a pattern). Note that c is needed for TRAP_ERROR.
   */
  int get_num_files(struct conn * const c, const char * const pathname,
@@ -627,7 +619,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  {
  	int num_files;
  	glob_t pglob;
-@@ -1228,14 +1250,16 @@
+@@ -1228,14 +1250,16 @@ int get_num_files(struct conn * const c,
  	switch (glob(pathname, 0, NULL, &pglob)) {
  #ifdef GLOB_NOMATCH
  	case GLOB_NOMATCH:
@@ -646,7 +638,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	}
  
  	if (lo->recursive) {
-@@ -1247,8 +1271,10 @@
+@@ -1247,8 +1271,10 @@ int get_num_files(struct conn * const c,
  			lstat(temp, &buf);
  			if (S_ISDIR(buf.st_mode)) {
  				chdir(temp);
@@ -658,7 +650,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  			}
  		}
  	}
-@@ -1274,7 +1300,8 @@
+@@ -1274,7 +1300,8 @@ int get_num_files(struct conn * const c,
   *		This function is rather long.
   */
  int list_core(struct conn * const c, const char * const pathname,
@@ -668,7 +660,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  #if HAVE_MMAP
  		, const int size, int pos
  #endif
-@@ -1284,6 +1311,9 @@
+@@ -1284,6 +1311,9 @@ int list_core(struct conn * const c, con
  	glob_t pglob;
  	struct ftran * const f = c->transfer;
  
@@ -678,7 +670,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
          /*
           * glob() fails to set errno correctly, so we simply guess on
           * `permission denied'... The others are far less likely to happen.
-@@ -1295,7 +1325,7 @@
+@@ -1295,7 +1325,7 @@ int list_core(struct conn * const c, con
  #endif
                  break;		/* note: break, not return */
          default:
@@ -687,7 +679,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  #if HAVE_MMAP
  		return pos;
  #else
-@@ -1389,11 +1419,13 @@
+@@ -1389,11 +1419,13 @@ int list_core(struct conn * const c, con
  				}
  
  				chdir(temp);
@@ -702,7 +694,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  			}
  		}
  	}
-@@ -1418,8 +1450,7 @@
+@@ -1418,8 +1450,7 @@ int list_core(struct conn * const c, con
   */
  int cmd_noop(struct conn * const c)
  {
@@ -712,7 +704,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -1427,8 +1458,7 @@
+@@ -1427,8 +1458,7 @@ int cmd_noop(struct conn * const c)
   */
  int cmd_syst(struct conn * const c)
  {
@@ -722,7 +714,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -1440,16 +1470,17 @@
+@@ -1440,16 +1470,17 @@ int cmd_type(struct conn * const c)
  	c->recv_buf[0] &= (255-32);	/* convert to upper case */
  	if (c->recv_buf[0] == 'A') {
  		c->ascii_mode = 1;
@@ -744,7 +736,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	return 1;
  }
  
-@@ -1460,10 +1491,11 @@
+@@ -1460,10 +1491,11 @@ int cmd_mode(struct conn * const c)
  {
   	c->recv_buf[0] &= (255-32);	/* convert to upper case */
  	if (c->recv_buf[0] == 'S') {
@@ -758,7 +750,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	return 1;
  }
  
-@@ -1474,10 +1506,11 @@
+@@ -1474,10 +1506,11 @@ int cmd_stru(struct conn * const c)
  {
  	c->recv_buf[0] &= (255-32);	/* convert to upper case */
  	if (c->recv_buf[0] == 'F') {
@@ -772,7 +764,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	return 1;
  }
  
-@@ -1500,8 +1533,7 @@
+@@ -1500,8 +1533,7 @@ int cmd_stru(struct conn * const c)
   */
  int cmd_help(struct conn * const c)
  {
@@ -782,7 +774,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -1510,8 +1542,8 @@
+@@ -1510,8 +1542,8 @@ int cmd_help(struct conn * const c)
   */
  int cmd_quit(struct conn * const c)
  {
@@ -793,7 +785,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	return 0;
  }
  
-@@ -1535,9 +1567,7 @@
+@@ -1535,9 +1567,7 @@ int cmd_rein(struct conn * const c)
  #endif
  
  	time(&(c->last_transfer));
@@ -804,7 +796,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  #if DOING_PROFILING
-@@ -1594,7 +1624,8 @@
+@@ -1594,7 +1624,8 @@ void parse_command(struct conn *c)
  		if ((cmlen >= (strlen(h->cmd_name) + h->add_cmlen)) &&
  		    (strncasecmp(c->recv_buf, h->cmd_name, strlen(h->cmd_name)) == 0)) {
  			if (c->auth < h->min_auth) {
@@ -814,7 +806,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  				while (c->recv_buf[0] != '\n') remove_bytes(c, 1);
  			} else {
  				char schar;
-@@ -1630,8 +1661,8 @@
+@@ -1630,8 +1661,8 @@ void parse_command(struct conn *c)
  		}
  	} while ((++h)->callback != NULL);
  
@@ -825,7 +817,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-@@ -1707,8 +1738,12 @@
+@@ -1707,8 +1738,12 @@ char decode_mode(mode_t mode) {
   *		Note that `path' will be _changed_, and used as a return pointer
   *		base. Do not attempt to free the result from this function --
   *		if you need to, free path instead.
@@ -839,7 +831,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  {
  	char *ptr = NULL;
  
-@@ -1719,13 +1754,13 @@
+@@ -1719,13 +1754,13 @@ char *translate_path(struct conn * const
  	if (ptr != NULL) {
  		char save_char = ptr[0];
  		ptr[0] = 0;
@@ -857,7 +849,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  		ptr = path;
  	}
  	return ptr;
-@@ -1743,6 +1778,10 @@
+@@ -1743,6 +1778,10 @@ char *translate_path(struct conn * const
   *		filename:	OUT
   *		flags:		IN
   *		check_perm:	IN
@@ -868,7 +860,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
   */
  int do_openfile(struct conn * const c, char * const path,
  		char * const filename, const int flags
-@@ -1753,6 +1792,7 @@
+@@ -1753,6 +1792,7 @@ int do_openfile(struct conn * const c, c
  {
  	char *ptr;
  	struct stat buf;
@@ -876,7 +868,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  
  #if WANT_NONROOT
  	if (nr_check_permission(c->uid, path, check_permission, 0, NULL) == -1) {
-@@ -1760,15 +1800,22 @@
+@@ -1760,15 +1800,22 @@ int do_openfile(struct conn * const c, c
  	}
  #endif
  
@@ -902,7 +894,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  			return -2;
   		}
  #if WANT_UPLOAD
-@@ -1804,8 +1851,7 @@
+@@ -1804,8 +1851,7 @@ int prepare_for_listing(struct conn * co
  #endif
  
  	if ((f == NULL) || ((f->state != 1) && (f->state != 3))) {
@@ -912,7 +904,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	}
  
  	/*
-@@ -1847,8 +1893,11 @@
+@@ -1847,8 +1893,11 @@ int prepare_for_listing(struct conn * co
  	/* then we chdir to the dir in fptr (if any) */
  	tmp = fptr ? strrchr(fptr, '/') : NULL;
  	if (tmp != NULL) {
@@ -925,7 +917,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  		fptr = tmp + 1;
  	} else {
  		/* current directory */
-@@ -1871,8 +1920,7 @@
+@@ -1871,8 +1920,7 @@ int prepare_for_listing(struct conn * co
  #if WANT_NONROOT
  	getcwd(chd, 512);
  	if (nr_check_permission(c->uid, chd, 4, 1, NULL) == -1) {
@@ -935,7 +927,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  	}
  #endif
  
-@@ -1895,7 +1943,7 @@
+@@ -1895,7 +1943,7 @@ int prepare_for_listing(struct conn * co
  	f->upload = 0;
  #endif
  
@@ -944,10 +936,11 @@ diff -ur betaftpd-0.0.8pre17/cmds.c betaftpd-new/cmds.c
  }
  
  /*
-diff -ur betaftpd-0.0.8pre17/cmds.h betaftpd-new/cmds.h
---- betaftpd-0.0.8pre17/cmds.h	Sat Sep 30 15:42:50 2000
-+++ betaftpd-new/cmds.h	Sat Jun 21 08:33:10 2003
-@@ -97,11 +97,11 @@
+Index: cmds.h
+===================================================================
+--- cmds.h.orig
++++ cmds.h
+@@ -97,11 +97,11 @@ CMD_PROTO(appe);
  CMD_PROTO(exit);	
  #endif
  
@@ -961,7 +954,7 @@ diff -ur betaftpd-0.0.8pre17/cmds.h betaftpd-new/cmds.h
  int do_openfile(struct conn * const c, char * const path,
  		char * const filename, const int flags
  #if WANT_NONROOT
-@@ -110,11 +110,12 @@
+@@ -110,11 +110,12 @@ int do_openfile(struct conn * const c, c
  );
  int prepare_for_listing(struct conn * const c, char ** const ptr,
  			struct list_options * const lo);
@@ -977,10 +970,11 @@ diff -ur betaftpd-0.0.8pre17/cmds.h betaftpd-new/cmds.h
  #if HAVE_MMAP
  		, const int size, int pos
  #endif
-diff -ur betaftpd-0.0.8pre17/ftpd.c betaftpd-new/ftpd.c
---- betaftpd-0.0.8pre17/ftpd.c	Sat Sep 30 15:42:50 2000
-+++ betaftpd-new/ftpd.c	Sat Jun 21 09:19:24 2003
-@@ -359,6 +359,9 @@
+Index: ftpd.c
+===================================================================
+--- ftpd.c.orig
++++ ftpd.c
+@@ -359,6 +359,9 @@ struct conn *alloc_new_conn(const int so
  
  	if (c == NULL) return c;
  
@@ -990,7 +984,7 @@ diff -ur betaftpd-0.0.8pre17/ftpd.c betaftpd-new/ftpd.c
  	if (sock != -1) {
  		ioctl(sock, FIONBIO, &one);
  		if (add_fd(sock, POLLIN) != 0) {
-@@ -414,11 +417,9 @@
+@@ -414,11 +417,9 @@ struct ftran *alloc_new_ftran(const int 
  	struct ftran *f = (struct ftran *)(malloc(sizeof(struct ftran)));
  
  	if (f == NULL) return f;
@@ -1005,7 +999,7 @@ diff -ur betaftpd-0.0.8pre17/ftpd.c betaftpd-new/ftpd.c
  		add_to_linked_list((struct list_element *)first_ftran,
  				   (struct list_element *)f);
  	}
-@@ -565,17 +566,19 @@
+@@ -565,17 +566,19 @@ int process_all_clients(const fd_set * c
  
  		/* overrun = disconnect */
  		if (c->buf_len + bytes_avail > 254) {
@@ -1027,7 +1021,7 @@ diff -ur betaftpd-0.0.8pre17/ftpd.c betaftpd-new/ftpd.c
  	}
  	return checked_through;
  }
-@@ -660,7 +663,8 @@
+@@ -660,7 +663,8 @@ int process_all_sendfiles(fd_set * const
  			if (do_download(f)) continue;
  
  		/* do_{upload,download} returned 0, the transfer is complete */
@@ -1037,7 +1031,7 @@ diff -ur betaftpd-0.0.8pre17/ftpd.c betaftpd-new/ftpd.c
                  time(&(f->owner->last_transfer));
  
  #if WANT_XFERLOG
-@@ -1090,10 +1094,12 @@
+@@ -1090,10 +1094,12 @@ void accept_new_client(int * const serve
  		struct conn * const c = alloc_new_conn(tempsock);
  		num_err = 0;
  		if (c != NULL) {
@@ -1052,7 +1046,7 @@ diff -ur betaftpd-0.0.8pre17/ftpd.c betaftpd-new/ftpd.c
  		}
  	}
  }
-@@ -1136,8 +1142,8 @@
+@@ -1136,8 +1142,8 @@ void time_out_sockets()
  		if ((c->transfer == NULL || c->transfer->state != 5) &&
  		    (now - c->last_transfer > TIMEOUT_SECS)) {
  			/* RFC violation? */
@@ -1063,7 +1057,7 @@ diff -ur betaftpd-0.0.8pre17/ftpd.c betaftpd-new/ftpd.c
  		}
  	}
  }
-@@ -1165,8 +1171,11 @@
+@@ -1165,8 +1171,11 @@ void remove_bytes(struct conn * const c,
   *		you can use this command much the same way as you
   *		would use a printf() (with all the normal %s, %d,
   *		etc.), since it actually uses printf() internally.
@@ -1076,7 +1070,7 @@ diff -ur betaftpd-0.0.8pre17/ftpd.c betaftpd-new/ftpd.c
  {
  	char buf[256], fmt[256];
  	va_list args;
-@@ -1181,7 +1190,9 @@
+@@ -1181,7 +1190,9 @@ void numeric(struct conn * const c, cons
  	err = send(c->sock, buf, i, 0);
  	if (err == -1 && errno == EPIPE) {
  		destroy_conn(c);
@@ -1086,7 +1080,7 @@ diff -ur betaftpd-0.0.8pre17/ftpd.c betaftpd-new/ftpd.c
  }
  
  /*
-@@ -1277,7 +1288,8 @@
+@@ -1277,7 +1288,8 @@ void init_file_transfer(struct ftran * c
  	
  	if (f->dir_listing) {
  		/* include size? */
@@ -1096,7 +1090,7 @@ diff -ur betaftpd-0.0.8pre17/ftpd.c betaftpd-new/ftpd.c
  	} else {
  		/*
  		 * slightly kludged -- perhaps we should kill the second arm,
-@@ -1290,20 +1302,24 @@
+@@ -1290,20 +1302,24 @@ void init_file_transfer(struct ftran * c
  			|| f->upload
  #endif /* WANT_UPLOAD */
  		) {
@@ -1127,10 +1121,11 @@ diff -ur betaftpd-0.0.8pre17/ftpd.c betaftpd-new/ftpd.c
  #endif /* !WANT_ASCII */
  	}
  
-diff -ur betaftpd-0.0.8pre17/ftpd.h betaftpd-new/ftpd.h
---- betaftpd-0.0.8pre17/ftpd.h	Sat Jun 21 09:18:33 2003
-+++ betaftpd-new/ftpd.h	Fri Jun 20 16:25:27 2003
-@@ -203,7 +203,7 @@
+Index: ftpd.h
+===================================================================
+--- ftpd.h.orig
++++ ftpd.h
+@@ -203,7 +203,7 @@ void accept_new_client(int * const serve
  void time_out_sockets();
  
  void remove_bytes(struct conn * const c, const int i);
@@ -1139,3 +1134,14 @@ diff -ur betaftpd-0.0.8pre17/ftpd.h betaftpd-new/ftpd.h
  void init_file_transfer(struct ftran * const f);
  int create_server_socket();
  
+Index: ChangeLog.errhand
+===================================================================
+--- /dev/null
++++ ChangeLog.errhand
+@@ -0,0 +1,6 @@
++2003 07 11 11:52
++       Dan Kegel (dkegel@ixiacom.com) Rohan Chitradurga (rohan@ixiacom.com)
++
++       * This corrects the errors concerning numeric by propagating the
++       * error values occuring in numeric in order to avoid writing
++       * to freed memory.

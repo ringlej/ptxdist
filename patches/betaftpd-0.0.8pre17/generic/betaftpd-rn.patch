@@ -1,6 +1,8 @@
---- betaftpd-0.0.8pre17orig/cmds.c	2003-10-29 17:33:30.000000000 -0800
-+++ betaftpd-0.0.8pre17/cmds.c	2003-10-29 17:34:20.000000000 -0800
-@@ -136,69 +136,63 @@
+Index: cmds.c
+===================================================================
+--- cmds.c.orig
++++ cmds.c
+@@ -136,69 +136,63 @@ extern struct conn *first_conn;
  extern struct dcache *first_dcache;
  #endif
  
@@ -110,7 +112,7 @@
  };
  
  /*
-@@ -266,10 +260,10 @@
+@@ -266,10 +260,10 @@ int cmd_user(struct conn * const c)
  		strcpy(c->username, "ftp");
  	}
         	if (strcasecmp(c->username, "ftp") == 0) {
@@ -123,7 +125,7 @@
  		return numeric(c, 331, "Password required for %s.", c->username);
  	}
  	/*notreached*/
-@@ -301,38 +295,38 @@
+@@ -301,38 +295,38 @@ int cmd_pass(struct conn * const c)
  #endif
         	
  	if (p == NULL) {
@@ -170,7 +172,7 @@
  		return numeric(c, 530, "Login incorrect.");
  	} else {
  #if WANT_MESSAGE
-@@ -375,7 +369,7 @@
+@@ -375,7 +369,7 @@ int cmd_port(struct conn * const c)
  	struct ftran *f;
  	struct sockaddr_in sin;
      
@@ -179,7 +181,7 @@
  		return numeric(c, 500, "Sorry, only one transfer at a time.");
  	}
  
-@@ -384,6 +378,8 @@
+@@ -384,6 +378,8 @@ int cmd_port(struct conn * const c)
  
  	destroy_ftran(c->transfer);
  	c->transfer = f = alloc_new_ftran(sock, c);
@@ -188,7 +190,7 @@
  
  	i = sscanf(c->recv_buf, "%3hu,%3hu,%3hu,%3hu,%3hu,%3hu", &a0, &a1, &a2, &a3, &p0, &p1);
  	if (i < 6) {
-@@ -421,10 +417,7 @@
+@@ -421,10 +417,7 @@ int cmd_port(struct conn * const c)
  			((unsigned char)(p0) << 8) +
  			((unsigned char)(p1)     ));
  		f->sock = sock;
@@ -200,7 +202,7 @@
  	}
  	return 1;
  }
-@@ -440,19 +433,26 @@
+@@ -440,19 +433,26 @@ int cmd_pasv(struct conn * const c)
  	unsigned int one = 1;
  	struct sockaddr_in addr;
  
@@ -232,7 +234,7 @@
  
  	/* setup socket */
  	tmp = sizeof(addr);
-@@ -469,7 +469,6 @@
+@@ -469,7 +469,6 @@ int cmd_pasv(struct conn * const c)
  
  	err = listen(f->sock, 1);
  	TRAP_ERROR(err == -1, 500, return 1);
@@ -240,7 +242,7 @@
  
  	return numeric(c, 227, "Entering passive mode (%u,%u,%u,%u,%u,%u)",
  		(htonl(addr.sin_addr.s_addr) & 0xff000000) >> 24,
-@@ -604,7 +603,7 @@
+@@ -604,7 +603,7 @@ int cmd_retr(struct conn * const c)
  	int fd;
  	struct ftran *f = c->transfer;
  
@@ -249,7 +251,7 @@
  		return numeric(c, 425, "No data connection set up; please use PASV or PORT.");
  	}
  
-@@ -670,7 +669,7 @@
+@@ -670,7 +669,7 @@ int do_store(struct conn * const c, cons
  	struct ftran *f = c->transfer;
  	int fd;
  
@@ -258,7 +260,7 @@
  		return numeric(c, 425, "No data connection set up; please use PASV or PORT.");
  	}
  
-@@ -912,24 +911,6 @@
+@@ -912,24 +911,6 @@ int cmd_allo(struct conn * const c)
   *		Note that we need to bypass numeric(), to get a multi-line
   *		reply.
   */
@@ -283,7 +285,7 @@
  
  int cmd_stat(struct conn * const c)
  { 
-@@ -950,11 +931,11 @@
+@@ -950,11 +931,11 @@ int cmd_stat(struct conn * const c)
  			    "     Data connection state: %s\r\n"
  			    "211 End of status\r\n",
  				inet_ntoa(((struct sockaddr_in *)(&(c->addr)))->sin_addr),
@@ -297,7 +299,7 @@
  
  	i = strlen(buf);
  
-@@ -1174,7 +1155,7 @@
+@@ -1174,7 +1155,7 @@ int do_listing(struct conn * const c, st
  	if (status == -1)
  		destroy_ftran(c->transfer);
  	if (status != 1)
@@ -306,7 +308,7 @@
  
  #if WANT_DCACHE
  	getcwd(cwd, 256);
-@@ -1204,9 +1185,11 @@
+@@ -1204,9 +1185,11 @@ int do_listing(struct conn * const c, st
  #if HAVE_MMAP
  	{
  		int num_files = get_num_files(c, ptr, lo, &status);
@@ -321,7 +323,7 @@
  		size = num_files * 160;
  		f->file_data = malloc(size + 1);
  		TRAP_ERROR(f->file_data == NULL, 550, return -1);
-@@ -1219,7 +1202,7 @@
+@@ -1219,7 +1202,7 @@ int do_listing(struct conn * const c, st
  	if (status == -1)
  		destroy_ftran(c->transfer);
  	if (status != 1)
@@ -330,7 +332,7 @@
  
  #if WANT_DCACHE
  	populate_dcache(f, cwd, ptr, lo);
-@@ -1419,10 +1402,14 @@
+@@ -1419,10 +1402,14 @@ int list_core(struct conn * const c, con
  				}
  
  				chdir(temp);
@@ -347,7 +349,7 @@
  				chdir("..");
  				if (*pstatus != 1)
  					return 0;	/* caller will destroy_ftran if *pstatus is -1 */
-@@ -1556,8 +1543,8 @@
+@@ -1556,8 +1543,8 @@ int cmd_quit(struct conn * const c)
  int cmd_rein(struct conn * const c)
  {
  	destroy_ftran(c->transfer);
@@ -358,7 +360,7 @@
  	/* equals: strcpy(c->curr_dir, "/") ; strcpy(c->last_cmd, ""); */
  	c->curr_dir[0] = '/';
  #if WANT_FULLSCREEN
-@@ -1585,6 +1572,7 @@
+@@ -1585,6 +1572,7 @@ void cmd_exit(struct conn * const c)
  {
  	while (first_conn->next_conn)
  		destroy_conn(first_conn->next_conn);
@@ -366,7 +368,7 @@
  	exit(0);
  }
  #endif
-@@ -1597,13 +1585,17 @@
+@@ -1597,13 +1585,17 @@ void cmd_exit(struct conn * const c)
   *
   *		To me, this command seems optimizable, but I'm not really
   *		sure where :-)
@@ -387,7 +389,7 @@
  
  	/* strip any leading non-ASCII characters (including CR/LFs) */
  	while (c->buf_len > 0 && (c->recv_buf[0] < 'a' || c->recv_buf[0] > 'z')
-@@ -1613,7 +1605,8 @@
+@@ -1613,7 +1605,8 @@ void parse_command(struct conn *c)
  
  	/* scan, searching for CR or LF */	
  	cmlen = strcspn(c->recv_buf, "\r\n");
@@ -397,7 +399,7 @@
  
  #if WANT_FULLSCREEN
  	strncpy(c->last_cmd, c->recv_buf, cmlen);
-@@ -1625,7 +1618,7 @@
+@@ -1625,7 +1618,7 @@ void parse_command(struct conn *c)
  		    (strncasecmp(c->recv_buf, h->cmd_name, strlen(h->cmd_name)) == 0)) {
  			if (c->auth < h->min_auth) {
  				if (!numeric(c, 503, "Please login with USER and PASS."))
@@ -406,7 +408,7 @@
  				while (c->recv_buf[0] != '\n') remove_bytes(c, 1);
  			} else {
  				char schar;
-@@ -1649,7 +1642,8 @@
+@@ -1649,7 +1642,8 @@ void parse_command(struct conn *c)
  				c->recv_buf[cmlen] = 0;
  
  				/* result of zero means the connection is freed */
@@ -416,7 +418,7 @@
  					c->recv_buf[cmlen] = schar;
  #if !WANT_NONROOT
  					if (h->do_setuid) seteuid(getuid());
-@@ -1657,7 +1651,7 @@
+@@ -1657,7 +1651,7 @@ void parse_command(struct conn *c)
  					remove_bytes(c, cmlen);
  				}
  			}
@@ -425,7 +427,7 @@
  		}
  	} while ((++h)->callback != NULL);
  
-@@ -1673,8 +1667,10 @@
+@@ -1673,8 +1667,10 @@ void parse_command(struct conn *c)
   *		nonroot notice: prepare_for_transfer() assumes all access
   *		checks are already done.
   */
@@ -437,7 +439,7 @@
  #if WANT_NONROOT
  #warning No nonroot checking for prepare_for_transfer() yet
  #endif
-@@ -1694,14 +1690,29 @@
+@@ -1694,14 +1690,29 @@ void prepare_for_transfer(struct ftran *
  	}
  #endif
  	
@@ -472,7 +474,7 @@
  }
  
  /*
-@@ -1850,8 +1861,9 @@
+@@ -1850,8 +1861,9 @@ int prepare_for_listing(struct conn * co
  #warning No nonroot checking for prepare_for_listing() yet
  #endif
  
@@ -484,8 +486,10 @@
  	}
  
  	/*
---- betaftpd-0.0.8pre17orig/cmds.h	2003-10-29 17:33:30.000000000 -0800
-+++ betaftpd-0.0.8pre17/cmds.h	2003-10-29 17:34:20.000000000 -0800
+Index: cmds.h
+===================================================================
+--- cmds.h.orig
++++ cmds.h
 @@ -35,6 +35,7 @@
   *		If TRAP_ERROR_DEBUG is defined, some extra debugging info is
   *		sent. Don't enable this for a normal server, it could be a
@@ -494,7 +498,7 @@
   */
  #undef TRAP_ERROR_DEBUG
  /* #define TRAP_ERROR_DEBUG 1 */
-@@ -98,8 +99,8 @@
+@@ -98,8 +99,8 @@ CMD_PROTO(exit);	
  #endif
  
  int cmd_cwd_internal(struct conn * const c, const char * const newd);
@@ -505,7 +509,7 @@
  char decode_mode(mode_t mode);
  char *translate_path(struct conn * const c, char * const path, int *pstatus);
  int do_openfile(struct conn * const c, char * const path,
-@@ -121,7 +122,7 @@
+@@ -121,7 +122,7 @@ int list_core(struct conn * const c, con
  #endif
  );
  char classify(const mode_t mode);
@@ -514,8 +518,10 @@
  char *do_pwd(struct conn * const c, char * const retbuf, const char * const dir);
  
  #ifndef HAVE_POLL
---- betaftpd-0.0.8pre17orig/ftpd.c	2003-10-29 17:33:30.000000000 -0800
-+++ betaftpd-0.0.8pre17/ftpd.c	2003-10-29 17:35:00.000000000 -0800
+Index: ftpd.c
+===================================================================
+--- ftpd.c.orig
++++ ftpd.c
 @@ -13,6 +13,7 @@
      You should have received a copy of the GNU General Public License
      along with this program; if not, write to the Free Software
@@ -538,7 +544,7 @@
  /*
   * <linux/socket.h> does not export this to glibc2 systems, and it isn't
   * always defined anywhere else.
-@@ -177,18 +185,12 @@
+@@ -177,18 +185,12 @@ struct ftran *first_ftran = NULL;
  struct dcache *first_dcache = NULL;
  #endif
  
@@ -561,7 +567,7 @@
  
  #if WANT_XFERLOG
  FILE *xferlog = NULL;
-@@ -198,6 +200,7 @@
+@@ -198,6 +200,7 @@ FILE *xferlog = NULL;
  int sendfile_supported = 1;
  #endif
  
@@ -569,7 +575,7 @@
  /*
   * This variable specifies if it's soon time to check for timed out
   * clients, and timed out directory listing cache entries. It is
-@@ -249,56 +252,50 @@
+@@ -249,56 +252,50 @@ int vsnprintf(char *str, size_t n, const
  }
  #endif
  
@@ -669,7 +675,7 @@
  }
  
  #if 0
-@@ -334,6 +331,18 @@
+@@ -334,6 +331,18 @@ void add_to_linked_list(struct list_elem
          }
  }
  
@@ -688,7 +694,7 @@
  /*
   * remove_from_linked_list():
   *		Removes an element (conn, ftran or dcache) from its linked list,
-@@ -343,7 +352,7 @@
+@@ -343,7 +352,7 @@ void remove_from_linked_list(struct list
  {
  	if (elem->prev != NULL) elem->prev->next = elem->next;
  	if (elem->next != NULL) elem->next->prev = elem->prev;
@@ -697,7 +703,7 @@
  }
  
  /*
-@@ -360,14 +369,20 @@
+@@ -360,14 +369,20 @@ struct conn *alloc_new_conn(const int so
  	if (c == NULL) return c;
  
  	c->prev_conn = NULL;
@@ -720,7 +726,7 @@
  			return NULL;
  		}
  
-@@ -379,9 +394,6 @@
+@@ -379,9 +394,6 @@ struct conn *alloc_new_conn(const int so
  		c->prev_conn = NULL;
  	}
  
@@ -730,7 +736,7 @@
  #if WANT_ASCII
  	c->ascii_mode = 0;
  #endif
-@@ -429,9 +441,12 @@
+@@ -429,9 +441,12 @@ struct ftran *alloc_new_ftran(const int 
  #endif
  	f->owner = (struct conn * const)c;
  	f->sock = sock;
@@ -746,7 +752,7 @@
  #if WANT_DCACHE
  	f->dir_cache = NULL;
  #endif
-@@ -445,12 +460,16 @@
+@@ -445,12 +460,16 @@ struct ftran *alloc_new_ftran(const int 
   *		Destroy a control connection, remove it from the linked
   *		list, and clean up after it.
   */
@@ -765,7 +771,7 @@
  	remove_from_linked_list((struct list_element *)c);
  }
  
-@@ -467,15 +486,22 @@
+@@ -467,15 +486,22 @@ void destroy_conn(struct conn * const c)
   *		If you wonder why I check for `defined(SOL_TCP)' and don't
   *		provide an alternative, see the comments on init_file_transfer().
   */
@@ -791,7 +797,7 @@
  
  #if WANT_DCACHE
  	if (f->dir_cache) {
-@@ -504,188 +530,255 @@
+@@ -504,188 +530,255 @@ void destroy_ftran(struct ftran * const 
  
  	f->owner->transfer = NULL;
  
@@ -1178,7 +1184,7 @@
  	int size;
  #if WANT_ASCII
  	/* keep buffer size small in ascii transfers 
-@@ -714,26 +807,39 @@
+@@ -714,26 +807,39 @@ int do_upload(struct ftran *f)
  		size = ascii_uploadfilter(upload_buf, size);
  	}
  #endif
@@ -1230,7 +1236,7 @@
  
  #if !HAVE_MMAP
  	char buf[MAX_BLOCK_SIZE];
-@@ -749,8 +855,8 @@
+@@ -749,8 +855,8 @@ int do_download(struct ftran *f)
  	 * Here we use a rather simplified sending `algorithm',
  	 * leaving most of the quirks to the system calls.
  	 */
@@ -1240,7 +1246,7 @@
  		size = f->size - f->pos;
  
  		if (size > f->block_size) size = f->block_size;
-@@ -758,30 +864,39 @@
+@@ -758,30 +864,39 @@ int do_download(struct ftran *f)
  
  #ifdef TCP_CORK
  		if (size != f->block_size) {
@@ -1287,7 +1293,7 @@
  #if WANT_ASCII
  	if (f->ascii_mode == 1) {
  		bytes_to_send = ascii_downloadfilter(sendfrom_buf,
-@@ -790,27 +905,35 @@
+@@ -790,27 +905,35 @@ int do_download(struct ftran *f)
         	}
  #endif /* WANT_ASCII */
  
@@ -1336,7 +1342,7 @@
  }
  
  #if WANT_XFERLOG
-@@ -875,40 +998,31 @@
+@@ -875,40 +998,31 @@ void screw_clients()
  int main(void)
  {
  	int server_sock;
@@ -1387,7 +1393,7 @@
  	server_sock = create_server_socket();
  
  #if WANT_FULLSCREEN
-@@ -916,6 +1030,7 @@
+@@ -916,6 +1030,7 @@ int main(void)
  #endif
  
  	/* init dummy first connection */
@@ -1395,7 +1401,7 @@
  	first_conn = alloc_new_conn(-1);
  	first_ftran = alloc_new_ftran(0, NULL);
  #if WANT_DCACHE
-@@ -968,102 +1083,42 @@
+@@ -968,102 +1083,42 @@ int main(void)
  		if (errno == ENOSYS) sendfile_supported = 0;
  	}
  #endif
@@ -1519,7 +1525,7 @@
  		}
  	}
  }
-@@ -1073,32 +1128,42 @@
+@@ -1073,32 +1128,42 @@ int main(void)
   *		Open a socket for the new client, say hello and put it in
   *		among the others.
   */
@@ -1579,7 +1585,7 @@
  			}
  		}
  	}
-@@ -1139,7 +1204,7 @@
+@@ -1139,7 +1204,7 @@ void time_out_sockets()
  	        c = next;
  	        next = c->next_conn;
  
@@ -1588,7 +1594,7 @@
  		    (now - c->last_transfer > TIMEOUT_SECS)) {
  			/* RFC violation? */
  			if (numeric(c, 421, "Timeout (%u minutes): Closing control connection.", TIMEOUT_SECS/60))
-@@ -1188,6 +1253,7 @@
+@@ -1188,6 +1253,7 @@ int numeric(struct conn * const c, const
  	va_end(args);
  
  	err = send(c->sock, buf, i, 0);
@@ -1596,7 +1602,7 @@
  	if (err == -1 && errno == EPIPE) {
  		destroy_conn(c);
  		return 0;
-@@ -1220,14 +1286,16 @@
+@@ -1220,14 +1286,16 @@ void init_file_transfer(struct ftran * c
  	struct conn * const c = f->owner;
  	const int mode = IPTOS_THROUGHPUT, zero = 0, one = 1;
  	struct stat buf;
@@ -1615,7 +1621,7 @@
  #endif
  #else
  	/* should these pointers be freed afterwards? */
-@@ -1249,7 +1317,6 @@
+@@ -1249,7 +1317,6 @@ void init_file_transfer(struct ftran * c
  #if WANT_ASCII
  		f->ascii_mode = f->owner->ascii_mode;
  #endif
@@ -1623,7 +1629,7 @@
  		/* find the preferred block size */
  		f->block_size = MAX_BLOCK_SIZE;
  		if (fstat(f->local_file, &buf) != -1 &&
-@@ -1258,38 +1325,17 @@
+@@ -1258,38 +1325,17 @@ void init_file_transfer(struct ftran * c
  		}
  	}
  
@@ -1664,7 +1670,7 @@
  	} else {
  		/*
  		 * slightly kludged -- perhaps we should kill the second arm,
-@@ -1356,6 +1402,29 @@
+@@ -1356,6 +1402,29 @@ void init_file_transfer(struct ftran * c
  #else /* !HAVE_MMAP */
  	lseek(f->local_file, f->owner->rest_pos, SEEK_SET);
  #endif
@@ -1694,7 +1700,7 @@
  }
  
  /*
-@@ -1369,7 +1438,7 @@
+@@ -1369,7 +1438,7 @@ int create_server_socket()
  	const unsigned int one = 1;
  	struct sockaddr_in addr;
  	int err;
@@ -1703,7 +1709,7 @@
  	/*
  	 * In the `perfect' world, if an address was in use, we could
  	 * just wait for the kernel to clear everything up, and everybody
-@@ -1379,7 +1448,6 @@
+@@ -1379,7 +1448,6 @@ int create_server_socket()
  	 * up right away... hence this option.
  	 */
  	setsockopt(server_sock, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
@@ -1711,7 +1717,7 @@
  
  	addr.sin_family = AF_INET;
  	addr.sin_addr.s_addr = INADDR_ANY;
-@@ -1402,11 +1470,12 @@
+@@ -1402,11 +1470,12 @@ int create_server_socket()
  	        }
  	} while (err == -1);
  
@@ -1728,9 +1734,11 @@
  		return -1;
  	}
  
---- betaftpd-0.0.8pre17orig/ftpd.h	2003-10-29 17:33:30.000000000 -0800
-+++ betaftpd-0.0.8pre17/ftpd.h	2003-10-29 17:34:20.000000000 -0800
-@@ -96,6 +98,16 @@
+Index: ftpd.h
+===================================================================
+--- ftpd.h.orig
++++ ftpd.h
+@@ -101,6 +101,16 @@ struct list_element {
  	/* structure specific data here */
  };
  
@@ -1747,7 +1755,7 @@
  /* doubly linked list of active connections */
  struct conn {
  	struct conn *prev_conn;
-@@ -112,7 +124,7 @@
+@@ -117,7 +127,7 @@ struct conn {
  	char rename_from[256];
  
  	int buf_len;
@@ -1756,7 +1764,7 @@
  
  	char username[17];
  
-@@ -130,19 +142,40 @@
+@@ -135,19 +145,40 @@ struct conn {
  	time_t last_transfer;
  };
  
@@ -1803,7 +1811,7 @@
  				 */
  	struct sockaddr_in sin;
  	int sock;
-@@ -171,6 +204,11 @@
+@@ -176,6 +207,11 @@ struct ftran {
  #endif
  };
  
@@ -1815,22 +1823,14 @@
  void add_to_linked_list(struct list_element * const first,
                          struct list_element * const elem);
  void remove_from_linked_list(struct list_element * const elem);
-@@ -179,31 +217,31 @@
+@@ -184,31 +220,31 @@ struct conn *alloc_new_conn(const int so
  struct ftran *alloc_new_ftran(const int sock, const struct conn * const c);
  
  int add_fd(const int fd, const int events);
 -void del_fd(const int fd);
--
+ 
 -void destroy_conn(struct conn * const c);
 -void destroy_ftran(struct ftran * const f);
- 
--#if HAVE_POLL
--int process_all_clients(const int num_ac);
--int process_all_sendfiles(const int num_ac);
--#else
--int process_all_clients(const fd_set * const active_clients, const int num_ac);
--int process_all_sendfiles(fd_set * const active_clients, const int num_ac);
--#endif
 +void _destroy_conn(struct conn * const c);
 +#define destroy_conn(c) do { if (c) DPRINT("destroy_conn(c %p, fd %d)\n",c,c->sock); _destroy_conn(c); } while(0)
 +void _destroy_ftran(struct ftran * const f);
@@ -1843,6 +1843,14 @@
 +int ftran_data_ioready(rn_pollevent_t *);
 +int accept_new_client(rn_pollevent_t *);
  
+-#if HAVE_POLL
+-int process_all_clients(const int num_ac);
+-int process_all_sendfiles(const int num_ac);
+-#else
+-int process_all_clients(const fd_set * const active_clients, const int num_ac);
+-int process_all_sendfiles(fd_set * const active_clients, const int num_ac);
+-#endif
+-
 -int do_upload(struct ftran *f);
 -int do_download(struct ftran *f);
 +enum ftran_ioresult do_upload(struct ftran *f);
@@ -1861,16 +1869,18 @@
  void init_file_transfer(struct ftran * const f);
  int create_server_socket();
  
-@@ -216,4 +254,6 @@
+@@ -221,4 +257,6 @@ void dump_file(struct conn * const c, co
  void list_readmes(struct conn * const c);
  #endif
  
 +extern rn_t  rns;
 +extern pid_t own_pid;
  #endif
---- betaftpd-0.0.8pre17orig/nonroot.c	2000-09-30 15:42:50.000000000 -0700
-+++ betaftpd-0.0.8pre17/nonroot.c	2003-10-29 17:34:20.000000000 -0800
-@@ -67,7 +67,7 @@
+Index: nonroot.c
+===================================================================
+--- nonroot.c.orig
++++ nonroot.c
+@@ -67,7 +67,7 @@ struct users {
  
  /* we will add cacheing of both users and rights LATER :-) */
  
@@ -1879,7 +1889,7 @@
  	        char * const homedir, char * const rootdir,
  		const char * const password) 
  {
-@@ -75,7 +75,7 @@
+@@ -75,7 +75,7 @@ int nr_userinfo(const char * const usern
  	char this_username[256];
  	char real_password[256];
  
@@ -1888,7 +1898,7 @@
  
  	/* 
  	 * ignores gids atm, we may want to change that in the future
-@@ -93,14 +93,14 @@
+@@ -93,14 +93,14 @@ int nr_userinfo(const char * const usern
  		printf("rdir = %s\nEND\n", rootdir);
  
  		if (strcmp(real_password, crypt(password, real_password)) == 0) {
@@ -1906,8 +1916,10 @@
  }
  
  /*
---- betaftpd-0.0.8pre17orig/nonroot.h	2000-09-30 15:42:50.000000000 -0700
-+++ betaftpd-0.0.8pre17/nonroot.h	2003-10-29 17:34:20.000000000 -0800
+Index: nonroot.h
+===================================================================
+--- nonroot.h.orig
++++ nonroot.h
 @@ -18,7 +18,7 @@
  #ifndef _NONROOT_H
  #define _NONROOT_H 1

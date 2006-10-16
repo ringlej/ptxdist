@@ -1,0 +1,4 @@
+betaftpd-errhand.patch -p0
+betaftpd-rn2.patch -p0
+betaftpd-rn.patch -p0
+paste.patch -p0
