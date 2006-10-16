@@ -56,8 +56,12 @@ menuconfig XORG_SERVER
 	select XORG_PROTO_PRINT
 
 	select XORG_PROTO_XF86DRI if XORG_SERVER_EXT_DRI
-
+#
+# when OpenGL is enabled, MesaLib is required
+#
 	select XORG_PROTO_GL if XORG_SERVER_EXT_GLX
+	select MESALIB if XORG_PROTO_GL
+	select LIBDRM if XORG_PROTO_GL
 
 #	select XORG_PROTO_XV
 	select XORG_LIB_XV if XORG_SERVER_EXT_XV
@@ -87,8 +91,6 @@ menuconfig XORG_SERVER
 
 # FIXME seems not to work
 # FIXME: There are some configurations where its required. Bit when?
-#	select LIBDRM
-#	select MESALIB
 	select GCCLIBS_GCC_S
 
 
