@@ -184,9 +184,13 @@ config XORG_SERVER_XWIN
 config XORG_SERVER_XPRINT
 	bool
 	depends on XORG_SERVER
+	depends on BROKEN
 	prompt "Xprint server and extension"
 	help
 	  --enable-xprint
+
+comment "Xprint is broken"
+	depends on !BROKEN
 
 config XORG_SERVER_XEPHYR
 	bool
