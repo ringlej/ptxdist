@@ -24,7 +24,7 @@ CYCLICTEST_SUFFIX	= tar.bz2
 # Note: Top of tree at "http://www.tglx.de/projects/misc/cyclictest"
 # all other at "http://www.tglx.de/projects/misc/cyclictest/archive/"
 #
-CYCLICTEST_URL		= http://www.tglx.de/projects/misc/cyclictest/archive/$(CYCLICTEST).$(CYCLICTEST_SUFFIX)
+CYCLICTEST_URL		= http://www.tglx.de/projects/misc/cyclictest/$(CYCLICTEST).$(CYCLICTEST_SUFFIX)
 CYCLICTEST_SOURCE	= $(SRCDIR)/$(CYCLICTEST).$(CYCLICTEST_SUFFIX)
 CYCLICTEST_DIR		= $(BUILDDIR)/$(CYCLICTEST)
 
