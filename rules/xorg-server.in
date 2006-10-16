@@ -329,7 +329,10 @@ config XORG_SERVER_EXT_XV
 	prompt "Xv extension"
 	default y
 	help
-	  --enable-xv
+	  The Xv extension provides support for video adaptors attached to an X
+	  display. It takes the approach that a display may have one or more
+	  video adaptors, each of which has one or more ports through which
+	  independent video streams pass
 
 config XORG_SERVER_EXT_XVMC
 	depends on XORG_SERVER
