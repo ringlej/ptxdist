@@ -16,14 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_MKNBI) += host-mknbi
 #
 # Paths and names
 #
-HOST_MKNBI_VERSION		= 1.4.4
-HOST_MKNBI			= mknbi-$(HOST_MKNBI_VERSION)
-HOST_MKNBI_SUFFIX		= tar.gz
-HOST_MKNBI_URL		= $(PTXCONF_SETUP_SFMIRROR)/etherboot/$(HOST_MKNBI).$(HOST_MKNBI_SUFFIX)
-HOST_MKNBI_SOURCE		= $(SRCDIR)/$(HOST_MKNBI).$(HOST_MKNBI_SUFFIX)
-HOST_MKNBI_DIR		= $(HOST_BUILDDIR)/$(HOST_MKNBI)
-HOST_MKNBI_FLAGS 		= BUILD_ROOT=$(PTXCONF_PREFIX)
-
+HOST_MKNBI	= $(MKNBI)
+HOST_MKNBI_DIR	= $(HOST_BUILDDIR)/$(HOST_MKNBI)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,13 +25,9 @@ HOST_MKNBI_FLAGS 		= BUILD_ROOT=$(PTXCONF_PREFIX)
 
 host-mknbi_get: $(STATEDIR)/host-mknbi.get
 
-$(STATEDIR)/host-mknbi.get: $(host-mknbi_get_deps_default)
+$(STATEDIR)/host-mknbi.get: $(STATEDIR)/mknbi.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
-$(HOST_MKNBI_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, HOST_MKNBI)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,8 +38,8 @@ host-mknbi_extract: $(STATEDIR)/host-mknbi.extract
 $(STATEDIR)/host-mknbi.extract: $(host-mknbi_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MKNBI_DIR))
-	@$(call extract, HOST_MKNBI, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_MKNBI, $(HOST_MKNBI_DIR))
+	@$(call extract, MKNBI, $(HOST_BUILDDIR))
+	@$(call patchin, MKNBI, $(HOST_MKNBI_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

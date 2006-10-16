@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -18,7 +18,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_MTD) += host-mtd
 # Paths and names
 #
 HOST_MTD	= $(MTD_UTILS)
-HOST_MTD_SOURCE	= $(MTD_UTILS_SOURCE)
 HOST_MTD_DIR	= $(HOST_BUILDDIR)/$(HOST_MTD)
 
 
@@ -28,7 +27,7 @@ HOST_MTD_DIR	= $(HOST_BUILDDIR)/$(HOST_MTD)
 
 host-mtd_get: $(STATEDIR)/host-mtd.get
 
-$(STATEDIR)/host-mtd.get: $(host-mtd_get_deps_default) $(STATEDIR)/mtd.get
+$(STATEDIR)/host-mtd.get: $(STATEDIR)/mtd.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -41,7 +40,7 @@ host-mtd_extract: $(STATEDIR)/host-mtd.extract
 $(STATEDIR)/host-mtd.extract: $(host-mtd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MTD_DIR))
-	@$(call extract, HOST_MTD, $(HOST_BUILDDIR))
+	@$(call extract, MTD, $(HOST_BUILDDIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

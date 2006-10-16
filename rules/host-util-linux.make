@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -15,7 +15,8 @@
 
 HOST_PACKAGES-$(PTXCONF_HOST_UTIL_LINUX) += host-util-linux
 
-HOST_UTIL_LINUX_DIR	= $(HOST_BUILDDIR)/$(UTIL_LINUX)
+HOST_UTIL_LINUX		= $(UTIL_LINUX)
+HOST_UTIL_LINUX_DIR	= $(HOST_BUILDDIR)/$(HOST_UTIL_LINUX)
 
 
 # ----------------------------------------------------------------------------

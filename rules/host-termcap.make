@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_TERMCAP) += host-termcap
 #
 # Paths and names
 #
-HOST_TERMCAP_VERSION	= 1.3.1
-HOST_TERMCAP		= termcap-$(HOST_TERMCAP_VERSION)
-HOST_TERMCAP_SUFFIX	= tar.gz
-HOST_TERMCAP_URL	= $(PTXCONF_SETUP_GNUMIRROR)/termcap/$(TERMCAP).$(TERMCAP_SUFFIX)
+HOST_TERMCAP		= $(TERMCAP)
 HOST_TERMCAP_DIR	= $(HOST_BUILDDIR)/$(HOST_TERMCAP)
 
 
@@ -30,7 +27,7 @@ HOST_TERMCAP_DIR	= $(HOST_BUILDDIR)/$(HOST_TERMCAP)
 
 host-termcap_get: $(STATEDIR)/host-termcap.get
 
-$(STATEDIR)/host-termcap.get: $(host-termcap_get_deps_default)
+$(STATEDIR)/host-termcap.get: $(STATEDIR)/termcap.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +41,7 @@ $(STATEDIR)/host-termcap.extract: $(host-termcap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_TERMCAP_DIR))
 	@$(call extract, TERMCAP, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_TERMCAP, $(HOST_TERMCAP_DIR))
+	@$(call patchin, TERMCAP, $(HOST_TERMCAP_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

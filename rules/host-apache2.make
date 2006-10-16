@@ -17,7 +17,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_APACHE2) += host-apache2
 #
 # Paths and names
 #
-HOST_APACHE2_DIR	= $(HOST_BUILDDIR)/$(APACHE2)
+HOST_APACHE2		= $(APACHE2)
+HOST_APACHE2_DIR	= $(HOST_BUILDDIR)/$(HOST_APACHE2)
 
 
 # ----------------------------------------------------------------------------

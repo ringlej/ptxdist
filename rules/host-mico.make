@@ -17,13 +17,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_MICO) += host-mico
 #
 # Paths and names
 #
-HOST_MICO_VERSION	= $(MICO_VERSION)
 HOST_MICO		= $(MICO)
-HOST_MICO_SUFFIX	= $(MICO_SUFFIX)
-HOST_MICO_URL		= $(MICO_URL)
-HOST_MICO_SOURCE	= $(SRCDIR)/$(HOST_MICO).$(HOST_MICO_SUFFIX)
 HOST_MICO_DIR		= $(HOST_BUILDDIR)/$(HOST_MICO)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,7 +26,7 @@ HOST_MICO_DIR		= $(HOST_BUILDDIR)/$(HOST_MICO)
 
 host-mico_get: $(STATEDIR)/host-mico.get
 
-$(STATEDIR)/host-mico.get: $(host-mico_get_deps_default)
+$(STATEDIR)/host-mico.get: $(STATEDIR)/mico.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,10 +41,10 @@ $(STATEDIR)/host-mico.extract: $(host-mico_extract_deps_default)
 	@$(call clean, $(HOST_MICO_DIR))
 	mkdir -p $(HOST_BUILDDIR)
 	tmpdir=`mktemp -d`; \
-	$(call extract, HOST_MICO, $$tmpdir) \
+	$(call extract, MICO, $$tmpdir) \
 	mv $$tmpdir/mico $(HOST_MICO_DIR); \
 	rm -fr $$tmpdir
-	@$(call patchin, HOST_MICO, $(HOST_MICO_DIR))
+	@$(call patchin, MICO, $(HOST_MICO_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

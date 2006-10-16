@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,13 +17,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_IMAGE_DEB) += host-checkinstall
 #
 # Paths and names
 #
-HOST_CHECKINSTALL_VERSION	= 1.6.0
-HOST_CHECKINSTALL		= checkinstall-$(HOST_CHECKINSTALL_VERSION)
-HOST_CHECKINSTALL_SUFFIX	= tgz
-HOST_CHECKINSTALL_URL		= http://checkinstall.izto.org/files/source/$(HOST_CHECKINSTALL).$(HOST_CHECKINSTALL_SUFFIX)
-HOST_CHECKINSTALL_SOURCE	= $(SRCDIR)/$(HOST_CHECKINSTALL).$(HOST_CHECKINSTALL_SUFFIX)
+HOST_CHECKINSTALL		= $(CHECKINSTALL)
 HOST_CHECKINSTALL_DIR		= $(HOST_BUILDDIR)/$(HOST_CHECKINSTALL)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,7 +26,7 @@ HOST_CHECKINSTALL_DIR		= $(HOST_BUILDDIR)/$(HOST_CHECKINSTALL)
 
 host-checkinstall_get: $(STATEDIR)/host-checkinstall.get
 
-$(STATEDIR)/host-checkinstall.get: $(host-checkinstall_get_deps_default)
+$(STATEDIR)/host-checkinstall.get: $(STATEDIR)/checkinstall.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +43,8 @@ host-checkinstall_extract: $(STATEDIR)/host-checkinstall.extract
 $(STATEDIR)/host-checkinstall.extract: $(host-checkinstall_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_CHECKINSTALL_DIR))
-	@$(call extract, HOST_CHECKINSTALL, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_CHECKINSTALL, $(HOST_CHECKINSTALL_DIR))
+	@$(call extract, CHECKINSTALL, $(HOST_BUILDDIR))
+	@$(call patchin, CHECKINSTALL, $(HOST_CHECKINSTALL_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

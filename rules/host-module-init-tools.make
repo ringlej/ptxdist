@@ -2,7 +2,7 @@
 # $Id: kernel.make 2486 2005-04-19 12:18:08Z mkl $
 #
 # Copyright (C) 2005 Ladislav Michl <ladis@linux-mips.org>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,9 +17,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_MODULE_INIT_TOOLS) += host-module-init-tools
 #
 # Paths and names
 #
-HOST_MODULE_INIT_TOOLS_DIR		= $(HOST_BUILDDIR)/$(MODULE_INIT_TOOLS)
-
-
+HOST_MODULE_INIT_TOOLS		= $(MODULE_INIT_TOOLS)
+HOST_MODULE_INIT_TOOLS_DIR	= $(HOST_BUILDDIR)/$(HOST_MODULE_INIT_TOOLS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -28,11 +27,11 @@ HOST_MODULE_INIT_TOOLS_DIR		= $(HOST_BUILDDIR)/$(MODULE_INIT_TOOLS)
 host-module-init-tools_get: $(STATEDIR)/host-module-init-tools.get
 
 #
-# FIXME: This Package is probably totally broken - this dependency definition 
-#        is only a quick-fix to make it compile again. Please review this 
+# FIXME: This Package is probably totally broken - this dependency definition
+#        is only a quick-fix to make it compile again. Please review this
 #        makefile and make it a real cross- (?) or host- (?) package
 #
-host-module-init-tools_get_deps = $(host-module-init-tools_get_deps_default) $(STATEDIR)/module-init-tools.get
+host-module-init-tools_get_deps = $(STATEDIR)/module-init-tools.get
 
 $(STATEDIR)/host-module-init-tools.get: $(host-module-init-tools_get_deps)
 	@$(call targetinfo, $@)
@@ -57,7 +56,7 @@ $(STATEDIR)/host-module-init-tools.extract: $(host-module-init-tools_extract_dep
 
 host-module-init-tools_prepare: $(STATEDIR)/host-module-init-tools.prepare
 
-HOST_MODULE_INIT_TOOLS_PATH	= PATH=$(CROSS_PATH) 
+HOST_MODULE_INIT_TOOLS_PATH	= PATH=$(CROSS_PATH)
 HOST_MODULE_INIT_TOOLS_ENV 	= $(HOSTCC_ENV)
 HOST_MODULE_INIT_TOOLS_MAKEVARS	= MAN5=''
 HOST_MODULE_INIT_TOOLS_AUTOCONF = $(HOST_AUTOCONF)

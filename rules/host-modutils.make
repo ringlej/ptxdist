@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,11 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_MODUTILS) += host-modutils
 #
 # Paths and names
 #
-HOST_MODUTILS_VERSION	= 2.4.27
-HOST_MODUTILS		= modutils-$(HOST_MODUTILS_VERSION)
-HOST_MODUTILS_SUFFIX	= tar.bz2
-HOST_MODUTILS_URL	= http://www.kernel.org/pub/linux/utils/kernel/modutils/v2.4/$(HOST_MODUTILS).$(HOST_MODUTILS_SUFFIX)
-HOST_MODUTILS_SOURCE	= $(SRCDIR)/$(HOST_MODUTILS).$(HOST_MODUTILS_SUFFIX)
+HOST_MODUTILS		= $(MODUTILS)
 HOST_MODUTILS_DIR	= $(HOST_BUILDDIR)/$(HOST_MODUTILS)
 
 
@@ -31,13 +27,9 @@ HOST_MODUTILS_DIR	= $(HOST_BUILDDIR)/$(HOST_MODUTILS)
 
 host-modutils_get: $(STATEDIR)/host-modutils.get
 
-$(STATEDIR)/host-modutils.get: $(host-modutils_get_deps_default)
+$(STATEDIR)/host-modutils.get: $(STATEDIR)/modutils.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
-$(HOST_MODUTILS_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, HOST_MODUTILS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,8 +40,8 @@ host-modutils_extract: $(STATEDIR)/host-modutils.extract
 $(STATEDIR)/host-modutils.extract: $(host-modutils_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MODUTILS_DIR))
-	@$(call extract, HOST_MODUTILS, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_MODUTILS, $(HOST_MODUTILS_DIR))
+	@$(call extract, MODUTILS, $(HOST_BUILDDIR))
+	@$(call patchin, MODUTILS, $(HOST_MODUTILS_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

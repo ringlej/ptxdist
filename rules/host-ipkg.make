@@ -2,7 +2,7 @@
 # $Id:$
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -18,13 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_IPKG) += host-ipkg
 # Paths and names
 #
 
-HOST_IPKG_VERSION	= 0.99.157
-HOST_IPKG		= ipkg-$(HOST_IPKG_VERSION)
-HOST_IPKG_SUFFIX	= tar.gz
-HOST_IPKG_URL		= http://handhelds.org/download/packages/ipkg/$(HOST_IPKG).$(HOST_IPKG_SUFFIX)
-HOST_IPKG_SOURCE	= $(SRCDIR)/$(HOST_IPKG).$(HOST_IPKG_SUFFIX)
-HOST_IPKG_DIR		= $(HOST_BUILDDIR)/$(HOST_IPKG)
-
+HOST_IPKG	= $(IPKG)
+HOST_IPKG_DIR	= $(HOST_BUILDDIR)/$(HOST_IPKG)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -32,7 +27,7 @@ HOST_IPKG_DIR		= $(HOST_BUILDDIR)/$(HOST_IPKG)
 
 host-ipkg_get: $(STATEDIR)/host-ipkg.get
 
-$(STATEDIR)/host-ipkg.get: $(host-ipkg_get_deps_default)
+$(STATEDIR)/host-ipkg.get: $(STATEDIR)/ipkg.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -42,11 +37,11 @@ $(STATEDIR)/host-ipkg.get: $(host-ipkg_get_deps_default)
 
 host-ipkg_extract: $(STATEDIR)/host-ipkg.extract
 
-$(STATEDIR)/host-ipkg.extract: $(host-ipkg_extract_deps_default)
+$(STATEDIR)/host-ipkg.extract: $(STATEDIR)/ipkg.get
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_IPKG_DIR))
-	@$(call extract, HOST_IPKG, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_IPKG, $(HOST_IPKG_DIR))
+	@$(call extract, IPKG, $(HOST_BUILDDIR))
+	@$(call patchin, IPKG, $(HOST_IPKG_DIR))
 
 	@$(call touch, $@)
 

@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,12 +17,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_SLIRP) += host-slirp
 #
 # Paths and names
 #
-HOST_SLIRP_VERSION	= 1.0.16
-HOST_SLIRP		= slirp-$(HOST_SLIRP_VERSION)
-HOST_SLIRP_SUFFIX	= tar.gz
-HOST_SLIRP_URL		= $(PTXCONF_SETUP_SFMIRROR)/slirp/$(HOST_SLIRP).$(HOST_SLIRP_SUFFIX)
-HOST_SLIRP_SOURCE	= $(SRCDIR)/$(HOST_SLIRP).$(HOST_SLIRP_SUFFIX)
-HOST_SLIRP_DIR		= $(HOST_BUILDDIR)/$(HOST_SLIRP)
+HOST_SLIRP	= $(SLIRP)
+HOST_SLIRP_DIR	= $(HOST_BUILDDIR)/$(HOST_SLIRP)
 
 
 # ----------------------------------------------------------------------------
@@ -31,13 +27,9 @@ HOST_SLIRP_DIR		= $(HOST_BUILDDIR)/$(HOST_SLIRP)
 
 host-slirp_get: $(STATEDIR)/host-slirp.get
 
-$(STATEDIR)/host-slirp.get: $(host-slirp_get_deps_default)
+$(STATEDIR)/host-slirp.get: $(STATEDIR)/slirp.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
-$(HOST_SLIRP_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, HOST_SLIRP)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -48,8 +40,8 @@ host-slirp_extract: $(STATEDIR)/host-slirp.extract
 $(STATEDIR)/host-slirp.extract: $(host-slirp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_SLIRP_DIR))
-	@$(call extract, HOST_SLIRP, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_SLIRP, $(HOST_SLIRP_DIR))
+	@$(call extract, SLIRP, $(HOST_BUILDDIR))
+	@$(call patchin, SLIRP, $(HOST_SLIRP_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

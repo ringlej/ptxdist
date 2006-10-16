@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2005 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,13 +17,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QTE) += host-qte
 #
 # Paths and names
 #
-HOST_QTE_VERSION	= 3.3.4
-HOST_QTE		= qt-embedded-free-$(HOST_QTE_VERSION)
-HOST_QTE_SUFFIX		= tar.gz
-HOST_QTE_URL		= ftp://ftp.trolltech.com/qt/source/$(HOST_QTE).$(HOST_QTE_SUFFIX)
-HOST_QTE_SOURCE		= $(SRCDIR)/$(HOST_QTE).$(HOST_QTE_SUFFIX)
-HOST_QTE_DIR		= $(HOST_BUILDDIR)/$(HOST_QTE)
-
+HOST_QTE	= $(QTE)
+HOST_QTE_DIR	= $(HOST_BUILDDIR)/$(HOST_QTE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,7 +26,7 @@ HOST_QTE_DIR		= $(HOST_BUILDDIR)/$(HOST_QTE)
 
 host-qte_get: $(STATEDIR)/host-qte.get
 
-$(STATEDIR)/host-qte.get: $(host-qte_get_deps_default_default)
+$(STATEDIR)/host-qte.get: $(STATEDIR)/qte.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,8 +39,8 @@ host-qte_extract: $(STATEDIR)/host-qte.extract
 $(STATEDIR)/host-qte.extract: $(host-qte_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_QTE_DIR))
-	@$(call extract, HOST_QTE, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_QTE, $(HOST_QTE_DIR))
+	@$(call extract, QTE, $(HOST_BUILDDIR))
+	@$(call patchin, QTE, $(HOST_QTE_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -83,7 +78,7 @@ HOST_QTE_CONF := -prefix=$(PTXCONF_PREFIX) \
 	-no-thread \
 	-no-cups \
 	-no-stl \
-	-no-qvfb 
+	-no-qvfb
 
 $(STATEDIR)/host-qte.prepare: $(host-qte_prepare_deps_default)
 	@$(call targetinfo, $@)

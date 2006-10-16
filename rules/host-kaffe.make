@@ -19,12 +19,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_KAFFE) += host-kaffe
 #
 # Paths and names
 #
-HOST_KAFFE_VERSION	:= 1.1.7
-HOST_KAFFE		:= kaffe-$(HOST_KAFFE_VERSION)
-HOST_KAFFE_SUFFIX	:= tar.bz2
-#HOST_KAFFE_URL		:= nfoiew/$(HOST_KAFFE).$(HOST_KAFFE_SUFFIX)
-HOST_KAFFE_SOURCE	:= $(SRCDIR)/$(HOST_KAFFE).$(HOST_KAFFE_SUFFIX)
-HOST_KAFFE_DIR		:= $(HOST_BUILDDIR)/$(HOST_KAFFE)
+HOST_KAFFE		= $(KAFFE)
+HOST_KAFFE_DIR		= $(HOST_BUILDDIR)/$(HOST_KAFFE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -35,7 +31,7 @@ host-kaffe_get: $(STATEDIR)/host-kaffe.get
 #
 # We are depending on the same packet than target's kaffe
 #
-$(STATEDIR)/host-kaffe.get: $(host-kaffe_get_deps_default) $(STATEDIR)/kaffe.get
+$(STATEDIR)/host-kaffe.get: $(STATEDIR)/kaffe.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,8 +44,8 @@ host-kaffe_extract: $(STATEDIR)/host-kaffe.extract
 $(STATEDIR)/host-kaffe.extract: $(host-kaffe_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_KAFFE_DIR))
-	@$(call extract, HOST_KAFFE, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_KAFFE, $(HOST_KAFFE_DIR))
+	@$(call extract, KAFFE, $(HOST_BUILDDIR))
+	@$(call patchin, KAFFE, $(HOST_KAFFE_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

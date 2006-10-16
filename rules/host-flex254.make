@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2005 Ladislav Michl <ladis@linux-mips.org>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -26,7 +26,7 @@ HOST_FLEX254_DIR	= $(HOST_BUILDDIR)/$(FLEX)
 
 host-flex254_get: $(STATEDIR)/host-flex254.get
 
-$(STATEDIR)/host-flex254.get: $(host-flex254_get_deps_default)
+$(STATEDIR)/host-flex254.get: $(STATE)/flex254.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

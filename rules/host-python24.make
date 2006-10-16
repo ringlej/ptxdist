@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_PYTHON24) += host-python24
 #
 # Paths and names
 #
-HOST_PYTHON24_DIR	= $(HOST_BUILDDIR)/$(PYTHON24)
+HOST_PYTHON24		= $(PYTHON24)
+HOST_PYTHON24_DIR	= $(HOST_BUILDDIR)/$(HOST_PYTHON24)
 
 
 # ----------------------------------------------------------------------------

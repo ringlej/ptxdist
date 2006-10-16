@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -19,12 +19,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_PELTS) += host-pelts
 #
 # Paths and names
 #
-HOST_PELTS_VERSION	:= 1.0.6
-HOST_PELTS		:= pelts-$(HOST_PELTS_VERSION)
-HOST_PELTS_SUFFIX	:= tar.bz2
-HOST_PELTS_URL		:= http://www.pengutronix.de/software/pelts/download/v1/$(HOST_PELTS).$(HOST_PELTS_SUFFIX)
-HOST_PELTS_SOURCE	:= $(SRCDIR)/$(HOST_PELTS).$(HOST_PELTS_SUFFIX)
-HOST_PELTS_DIR		:= $(HOST_BUILDDIR)/$(HOST_PELTS)
+HOST_PELTS		= $(PELTS)
+HOST_PELTS_DIR		= $(HOST_BUILDDIR)/$(HOST_PELTS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -32,13 +28,9 @@ HOST_PELTS_DIR		:= $(HOST_BUILDDIR)/$(HOST_PELTS)
 
 host-pelts_get: $(STATEDIR)/host-pelts.get
 
-$(STATEDIR)/host-pelts.get: $(host-pelts_get_deps_default)
+$(STATEDIR)/host-pelts.get: $(STATEDIR)/pelts.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
-$(HOST_PELTS_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, HOST_PELTS)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -49,7 +41,7 @@ host-pelts_extract: $(STATEDIR)/host-pelts.extract
 $(STATEDIR)/host-pelts.extract: $(host-pelts_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_PELTS_DIR))
-	@$(call extract, HOST_PELTS, $(HOST_BUILDDIR))
+	@$(call extract, PELTS, $(HOST_BUILDDIR))
 	@$(call patchin, HOST_PELTS, $(HOST_PELTS_DIR))
 	@$(call touch, $@)
 
