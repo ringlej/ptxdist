@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,7 +64,26 @@ XORG_LIB_XMU_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XMU_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XMU_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
+XORG_LIB_XMU_AUTOCONF	+= --enable-ipv6
+else
+XORG_LIB_XMU_AUTOCONF	+= --disable-ipv6
+endif
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
+XORG_LIB_XMU_AUTOCONF	+= --enable-unix-transport
+else
+XORG_LIB_XMU_AUTOCONF	+= --disable-unix-transport
+endif
+
+ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
+XORG_LIB_XMU_AUTOCONF	+= --enable-tcp-transport
+else
+XORG_LIB_XMU_AUTOCONF	+= --disable-tcp-transport
+endif
 
 $(STATEDIR)/xorg-lib-Xmu.prepare: $(xorg-lib-Xmu_prepare_deps_default)
 	@$(call targetinfo, $@)
