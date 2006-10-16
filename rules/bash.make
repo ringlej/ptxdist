@@ -60,7 +60,8 @@ BASH_AUTOCONF	= $(CROSS_AUTOCONF_ROOT) \
 	--disable-sanity-checks
 BASH_PATH	=  PATH=$(CROSS_PATH)
 BASH_ENV	=  $(CROSS_ENV) \
-	ac_cv_func_setvbuf_reversed=no bash_cv_have_mbstate_t=yes
+	ac_cv_func_setvbuf_reversed=no \
+	bash_cv_have_mbstate_t=yes
 
 # FIXME: "disable" does not compile with bash-2.05b (at least not on ARM)
 BASH_AUTOCONF	+= --enable-dparen-arithmetic
@@ -184,6 +185,8 @@ else
 BASH_AUTOCONF	+= --disable-static-link
 endif
 
+# on Linux, we always want the glibc malloc
+BASH_AUTOCONF	+= --with-bash-malloc=no
 
 $(STATEDIR)/bash.prepare: $(bash_prepare_deps_default)
 	@$(call targetinfo, $@)
