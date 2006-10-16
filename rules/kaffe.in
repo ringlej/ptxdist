@@ -1,9 +1,11 @@
 menuconfig KAFFE
 	prompt "kaffe"
 	bool
-	help
-	  needs to be written
 	select HOST_KAFFE
+	help
+	  This packet needs an already installed Eclipse Java Compiler on the
+	  host to be built successfully. A standard JAVA environment (for example
+	  the jdk from sun) does not work.
 
 choice
 	prompt "java compiler"
