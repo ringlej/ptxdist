@@ -6,4 +6,5 @@ config XORG_LIB_XP
 	select XORG_LIB_XAU
 	select XORG_PROTO_PRINT
 	help
-	  FIXME
+	  libXp - X Print Client Library: libXp provides public APIs to allow
+	  client applications to render to non-display devices.
