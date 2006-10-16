@@ -28,13 +28,13 @@ menuconfig XORG_SERVER
 	select XORG_PROTO_XEXT
 	select XORG_PROTO_X
 	select XORG_PROTO_XF86MISC
-# test	select XORG_LIB_XXF86MISC
+	select XORG_LIB_XXF86MISC if XORG_SERVER_EXT_XF86MISC
 	select XORG_PROTO_BIGREQS
 	select XORG_PROTO_XF86VIDMODE
 	select XORG_PROTO_XF86BIGFONT
 	select XORG_LIB_FONTENC
 	select XORG_LIB_XFONT
-# test	select XORG_LIB_XXF86VM
+	select XORG_LIB_XXF86VM if XORG_SERVER_EXT_XV
 #
 # Required on demand
 
@@ -238,6 +238,9 @@ menuconfig XORG_SERVER_INT10_HANDLING
 	prompt "Select int10 handling       "
 	help
 	  Disabling this entry uses configure's default
+choice
+	prompt "Select handling method"
+	depends on XORG_SERVER_INT10_HANDLING
 
 config XORG_SERVER_INT10_VM86
 	depends on XORG_SERVER_INT10_HANDLING
@@ -259,6 +262,7 @@ config XORG_SERVER_INT10_STUB
 	prompt "Use stub"
 	help
 	  Using stub for int10
+endchoice
 
 # ----------------------------------------------------------------------------
 
