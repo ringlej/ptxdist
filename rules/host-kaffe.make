@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -22,9 +22,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_KAFFE) += host-kaffe
 HOST_KAFFE_VERSION	:= 1.1.7
 HOST_KAFFE		:= kaffe-$(HOST_KAFFE_VERSION)
 HOST_KAFFE_SUFFIX	:= tar.bz2
-HOST_KAFFE_URL	:= nfoiew/$(HOST_KAFFE).$(HOST_KAFFE_SUFFIX)
+#HOST_KAFFE_URL		:= nfoiew/$(HOST_KAFFE).$(HOST_KAFFE_SUFFIX)
 HOST_KAFFE_SOURCE	:= $(SRCDIR)/$(HOST_KAFFE).$(HOST_KAFFE_SUFFIX)
-HOST_KAFFE_DIR	:= $(HOST_BUILDDIR)/$(HOST_KAFFE)
+HOST_KAFFE_DIR		:= $(HOST_BUILDDIR)/$(HOST_KAFFE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -32,13 +32,12 @@ HOST_KAFFE_DIR	:= $(HOST_BUILDDIR)/$(HOST_KAFFE)
 
 host-kaffe_get: $(STATEDIR)/host-kaffe.get
 
-$(STATEDIR)/host-kaffe.get: $(host-kaffe_get_deps_default)
+#
+# We are depending on the same packet than target's kaffe
+#
+$(STATEDIR)/host-kaffe.get: $(host-kaffe_get_deps_default) $(STATEDIR)/kaffe.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
-$(HOST_KAFFE_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, HOST_KAFFE)
 
 # ----------------------------------------------------------------------------
 # Extract
