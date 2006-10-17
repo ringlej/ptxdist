@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -322,10 +322,12 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_BANNER
 		/etc/init.d/banner, n)
 
 	@$(call install_replace, rootfs, /etc/init.d/banner, @VENDOR@,  $(PTXCONF_ROOTFS_ETC_VENDOR) )
+	@$(call install_replace, rootfs, /etc/init.d/banner, @PROJECT@,  $(PTXCONF_PROJECT) )
+	@$(call install_replace, rootfs, /etc/init.d/banner, @PRJVERSION@,  $(PTXCONF_PROJECT_VERSION) )
 	@$(call install_replace, rootfs, /etc/init.d/banner, @VERSION@,  $(VERSION) )
+	@$(call install_replace, rootfs, /etc/init.d/banner, @PTXDIST@,  $(PROJECT) )
 	@$(call install_replace, rootfs, /etc/init.d/banner, @PATCHLEVEL@,  $(PATCHLEVEL) )
 	@$(call install_replace, rootfs, /etc/init.d/banner, @SUBLEVEL@,  $(SUBLEVEL) )
-	@$(call install_replace, rootfs, /etc/init.d/banner, @PROJECT@,  $(PROJECT) )
 	@$(call install_replace, rootfs, /etc/init.d/banner, @EXTRAVERSION@,  $(EXTRAVERSION) )
 	@$(call install_replace, rootfs, /etc/init.d/banner, @DATE@, $(shell date -Iseconds) )
 
@@ -344,7 +346,7 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-rootfs_clean: 
+rootfs_clean:
 	rm -rf $(STATEDIR)/rootfs.* $(ROOTFS_DIR)
 	rm -rf $(IMAGEDIR)/rootfs_*
 

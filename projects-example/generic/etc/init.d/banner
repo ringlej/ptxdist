@@ -7,8 +7,8 @@
 #
 
 echo
-echo "@PROJECT@-@VERSION@.@PATCHLEVEL@.@SUBLEVEL@@EXTRAVERSION@ (@DATE@)"
-echo 
+echo "@PROJECT@@PRJVERSION@ (@PTXDIST@-@VERSION@.@PATCHLEVEL@.@SUBLEVEL@@EXTRAVERSION@/@DATE@)"
+echo
 host=`/bin/hostname`
 /usr/sbin/figlet -f /usr/share/figlet/standard "@VENDOR@$host"
 echo
