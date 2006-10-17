@@ -1,3 +1,7 @@
+2006-10-17 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* util-linux: update to 2.13-pre7
+
 2006-07-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* host-e2fsprogs: made host-e2fsprogs' get stage working; patch

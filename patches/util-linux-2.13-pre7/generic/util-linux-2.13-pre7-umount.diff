@@ -1,0 +1,59 @@
+#
+# Submitted-By: Robert Schwebel, 2006-10-17
+# Committed-By: Robert Schwebel
+#
+# Error:
+#
+# FIXME: add error description here
+#
+# Description:
+#
+# Kernels newer than 2.6.18 seem to have a different method to directly
+# call syscalls, this seems to be the right fix for them. Nevertheless,
+# this should probably be made dependend on the actual kernel version to
+# be found on the target system.
+#
+# State:
+#
+# unfixed as of 2.13-pre7
+#
+
+diff -urN util-linux-2.13-pre7/mount/umount.c util-linux-2.13-pre7-ptx/mount/umount.c
+--- util-linux-2.13-pre7/mount/umount.c	2005-09-23 21:55:55.000000000 +0200
++++ util-linux-2.13-pre7-ptx/mount/umount.c	2006-10-16 22:17:48.000000000 +0200
+@@ -29,28 +29,24 @@
+ #include "nfsmount.h"
+ #include <arpa/inet.h>
+ 
++#include <sys/syscall.h>
++
+ #if defined(MNT_FORCE) && !defined(__sparc__) && !defined(__arm__)
+ /* Interesting ... it seems libc knows about MNT_FORCE and presumably
+    about umount2 as well -- need not do anything */
+ #else /* MNT_FORCE */
+ 
+-/* Does the present kernel source know about umount2? */
+-#include <linux/unistd.h>
+-#ifdef __NR_umount2
+-
+-static int umount2(const char *path, int flags);
+-
+-_syscall2(int, umount2, const char *, path, int, flags);
+-
+-#else /* __NR_umount2 */
+-
++#ifdef SYS_umount2
++#define umount2(path, flags) \
++    syscall(SYS_umount2, path, flags)
++#else
+ static int
+ umount2(const char *path, int flags) {
+ 	fprintf(stderr, _("umount: compiled without support for -f\n"));
+ 	errno = ENOSYS;
+ 	return -1;
+ }
+-#endif /* __NR_umount2 */
++#endif
+ 
+ #if !defined(MNT_FORCE)
+ /* dare not try to include <linux/mount.h> -- lots of errors */
