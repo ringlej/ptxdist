@@ -40,7 +40,7 @@ host-mtd_extract: $(STATEDIR)/host-mtd.extract
 $(STATEDIR)/host-mtd.extract: $(host-mtd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MTD_DIR))
-	@$(call extract, MTD, $(HOST_BUILDDIR))
+	@$(call extract, MTD_UTILS, $(HOST_BUILDDIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
