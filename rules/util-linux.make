@@ -160,18 +160,3 @@ util-linux_clean:
 	rm -rf $(UTIL_LINUX_DIR)
 
 # vim: syntax=make
-
-	@$(call install_finish, util-linux)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-util-linux_clean:
-	rm -rf $(STATEDIR)/util-linux.*
-	rm -rf $(IMAGEDIR)/util-linux_*
-	rm -rf $(UTIL_LINUX_DIR)
-
-# vim: syntax=make
-
