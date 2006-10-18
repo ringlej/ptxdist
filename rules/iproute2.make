@@ -2,7 +2,7 @@
 # $Id: template 5616 2006-06-02 13:50:47Z rsc $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
