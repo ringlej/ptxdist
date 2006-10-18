@@ -327,42 +327,6 @@ HOST_AUTOCONF  := $(call remove_quotes,--prefix=$(PTXCONF_HOST_PREFIX))
 
 
 #
-# compilercheck
-#
-# Test if a given compiler has the right version, as specified in
-# PTXCONF_CROSSCHAIN_CHECK. This lets you test if an external compiler
-# fulfills the requirements for a configuration. 
-#
-compilercheck =											\
-	TOOLCHAIN="$(strip $(call remove_quotes, $(PTXCONF_BUILD_TOOLCHAIN)))";			\
-	NATIVE="$(strip $(call remove_quotes, $(NATIVE)))";					\
-												\
-	if test "$${TOOLCHAIN}" = "y" -o "$${NATIVE}" = "1" -o "$${NATIVE}" = "y"; then		\
-		echo > /dev/null;								\
-	else											\
-		echo -n "compiler check...";							\
-		if test \! -x "`which $(CROSS_CC)`"; then					\
-			echo;									\
-			echo;									\
-			echo "No compiler installed!";						\
-			echo "Specified: $(CROSS_CC)";						\
-			echo;									\
-			exit -1;								\
-		fi;										\
-		if test "$(PTXCONF_CROSSCHAIN_CHECK)" != `$(CROSS_CC) -dumpversion`; then	\
-			echo;									\
-			echo;									\
-			echo "Please use the specified compiler!";				\
-			echo;									\
-			echo "Specified: $(PTXCONF_CROSSCHAIN_CHECK)";				\
-			echo "Found:     "`$(CROSS_CC) -dumpversion`;				\
-			echo;									\
-			exit -1;								\
-		fi;										\
-		echo "ok";									\
-	fi;
-
-#
 # check_prog_exists
 #
 # $1: Find out if this program does exist. If not, execution stops
