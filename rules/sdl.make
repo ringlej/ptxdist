@@ -314,7 +314,8 @@ $(STATEDIR)/sdl.install: $(sdl_install_deps_default)
 	@$(call install, SDL)
 	# install sdl-config in bin dir
 	mkdir -p $(PTXCONF_PREFIX)/bin
-	cp $(SDL_DIR)/sdl-config $(PTXCONF_PREFIX)/bin/
+	cp $(SDL_DIR)/sdl-config $(PTXCONF_PREFIX)/bin/sdl-config
+	chmod a+x $(PTXCONF_PREFIX)/bin/sdl-config
 	# install sdl.pc package config file
 	mkdir -p $(SYSROOT)/usr/lib/pkgconfig/
 	cp $(SDL_DIR)/sdl.pc $(SYSROOT)/usr/lib/pkgconfig/

@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -66,6 +66,7 @@ SDL_IMAGE_ENV 	:=  $(CROSS_ENV)
 #
 SDL_IMAGE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--with-sdl-prefix=$(PTXCONF_PREFIX) \
 	--disable-sdltest \
 	--enable-bmp \
 	--enable-gif \
@@ -119,7 +120,7 @@ $(STATEDIR)/sdl_image.targetinstall: $(sdl_image_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init, sdl_image)
-	@$(call install_fixup, sdl_image,PACKAGE,sdl_image)
+	@$(call install_fixup, sdl_image,PACKAGE,sdl-image)
 	@$(call install_fixup, sdl_image,PRIORITY,optional)
 	@$(call install_fixup, sdl_image,VERSION,$(SDL_IMAGE_VERSION))
 	@$(call install_fixup, sdl_image,SECTION,base)
@@ -127,7 +128,7 @@ $(STATEDIR)/sdl_image.targetinstall: $(sdl_image_targetinstall_deps_default)
 	@$(call install_fixup, sdl_image,DEPENDS,)
 	@$(call install_fixup, sdl_image,DESCRIPTION,missing)
 
-	@$(call install_copy, sdl_image, 0, 0, 0755, $(SDL_IMAGE_DIR)/showimage, /usr/bin/showimage)
+	@$(call install_copy, sdl_image, 0, 0, 0755, $(SDL_IMAGE_DIR)/showimage, /usr/bin/showimage,n)
 
 	@$(call install_finish, sdl_image)
 
