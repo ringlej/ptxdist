@@ -6,17 +6,21 @@ config UTIL_LINUX_FDISK
 	bool
 	prompt "fdisk"
 	depends on UTIL_LINUX
+	depends on !BB_CONFIG_FDISK
 	help
 	  fdisk - Partition table manipulator for Linux
+
+comment "busy box' fdisk is selected!"
+	depends on UTIL_LINUX && BB_CONFIG_FDISK
 
 config UTIL_LINUX_SFDISK
 	bool
 	prompt "sfdisk"
 	depends on UTIL_LINUX
 	help
-	  sfdisk - Partition table manipulator for Linux, 
+	  sfdisk - Partition table manipulator for Linux,
 	  scriptable for unattended partitioning
-	  
+
 config UTIL_LINUX_CFDISK
 	bool
 	prompt "cfdisk"
@@ -24,56 +28,80 @@ config UTIL_LINUX_CFDISK
 	select NCURSES
 	help
 	  cfdisk is a curses based program for partitioning any hard disk drive.
-	  
+
 config UTIL_LINUX_MKSWAP
 	bool
 	prompt "mkswap"
 	depends on UTIL_LINUX
+	depends on !BB_CONFIG_MKSWAP
 	help
 	  mkswap sets up a Linux swap area on a device or in a file.
-	  
+
+comment "busy box' mkswap is selected!"
+	depends on UTIL_LINUX && BB_CONFIG_MKSWAP
+
 config UTIL_LINUX_SWAPON
 	bool
 	prompt "swapon"
 	depends on UTIL_LINUX
+	depends on !BB_CONFIG_SWAPONOFF
 	help
 	  Swapon is used to specify devices on which paging and swapping are to take place.
+
+comment "busy box' swapon is selected!"
+	depends on UTIL_LINUX && BB_CONFIG_SWAPONOFF
 
 config UTIL_LINUX_MOUNT
 	bool
 	prompt "mount"
 	depends on UTIL_LINUX
+	depends on !BB_CONFIG_MOUNT
 	help
-	  The mount command serves to attach the file system 
-	  found on some device to the big file tree. 
+	  The mount command serves to attach the file system
+	  found on some device to the big file tree.
+
+comment "busy box' mount is selected!"
+	depends on UTIL_LINUX && BB_CONFIG_MOUNT
 
 config UTIL_LINUX_UMOUNT
 	bool
 	prompt "umount"
 	depends on UTIL_LINUX
+	depends on !BB_CONFIG_UMOUNT
 	help
-	  The mount(8) command serves to attach the file system 
-	  found on some device to the big file tree. 
+	  The mount(8) command serves to attach the file system
+	  found on some device to the big file tree.
 	  Conversely, the umount(8) command will detach it again.
+
+comment "busy box' umount is selected!"
+	depends on UTIL_LINUX && BB_CONFIG_UMOUNT
 
 config UTIL_LINUX_IPCS
 	bool
 	prompt "ipcs"
 	depends on UTIL_LINUX
+	depends on !BB_CONFIG_IPCS
 	help
-	  ipcs provides information on the ipc facilities 
+	  ipcs provides information on the ipc facilities
 	  for which the calling process has read acccess.
+
+comment "busy box' ipcs is selected!"
+	depends on UTIL_LINUX && BB_CONFIG_IPCS
 
 config UTIL_LINUX_READPROFILE
 	bool
 	prompt "readprofile"
 	depends on UTIL_LINUX
+	depends on !BB_CONFIG_READPROFILE
 	help
-	  The readprofile command uses the /proc/profile information 
-	  to print ascii data on standard output.  The output is 
-	  organized in three columns: the first is the number of 
-	  clock ticks, the second is the name of the C function 
-	  in the kernel where those many ticks occurred, and the 
-	  third is the normalized  `load' of the procedure, calculated 
-	  as a ratio between the number of ticks and the length of the 
+	  The readprofile command uses the /proc/profile information
+	  to print ascii data on standard output.  The output is
+	  organized in three columns: the first is the number of
+	  clock ticks, the second is the name of the C function
+	  in the kernel where those many ticks occurred, and the
+	  third is the normalized  `load' of the procedure, calculated
+	  as a ratio between the number of ticks and the length of the
 	  procedure. The output is filled with blanks to ease readability.
+
+comment "busy box' readprofile is selected!"
+	depends on UTIL_LINUX && BB_CONFIG_READPROFILE
