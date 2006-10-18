@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_FLTK) += fltk
 #
 # Paths and names
 #
-FLTK_VERSION	= 1.1.6
-FLTK		= fltk-$(FLTK_VERSION)
-FLTK_SUFFIX	= source.tar.gz
-FLTK_URL	= ftp://ftp.easysw.com/pub/fltk/$(FLTK_VERSION)/$(FLTK)-$(FLTK_SUFFIX)
-FLTK_SOURCE	= $(SRCDIR)/$(FLTK)-$(FLTK_SUFFIX)
-FLTK_DIR	= $(BUILDDIR)/$(FLTK)
+FLTK_VERSION	:= 1.1.6
+FLTK		:= fltk-$(FLTK_VERSION)
+FLTK_SUFFIX	:= source.tar.bz2
+FLTK_URL	:= ftp://ftp.rz.tu-bs.de/pub/mirror/ftp.easysw.com/ftp/pub/fltk/$(FLTK_VERSION)/$(FLTK)-$(FLTK_SUFFIX)
+FLTK_SOURCE	:= $(SRCDIR)/$(FLTK)-$(FLTK_SUFFIX)
+FLTK_DIR	:= $(BUILDDIR)/$(FLTK)
 
 
 # ----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ $(STATEDIR)/fltk.extract: $(fltk_extract_deps_default)
 
 fltk_prepare: $(STATEDIR)/fltk.prepare
 
-FLTK_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+FLTK_PATH	=  PATH=$(CROSS_PATH)
 FLTK_ENV 	=  $(CROSS_ENV)
 
 #
@@ -141,18 +141,19 @@ $(STATEDIR)/fltk.targetinstall: $(fltk_targetinstall_deps_default)
 	@$(call install_fixup, fltk,DESCRIPTION,missing)
 
 	@$(call install_copy, fltk, 0, 0, 0644, \
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk.so.1.1, \
+		$(FLTK_DIR)/src/libfltk.so.1.1, \
 		/usr/lib/libfltk.so.1.1)
 	@$(call install_copy, fltk, 0, 0, 0644, \
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk_forms.so.1.1, \
+		$(FLTK_DIR)/src/libfltk_forms.so.1.1, \
 		/usr/lib/libfltk_forms.so.1.1)
-	@$(call install_copy, fltk, 0, 0, 0644, \
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libfltk_images.so.1.1, \
-		/usr/lib/libfltk_images.so.1.1)
+#	FIXME: only static?
+#	@$(call install_copy, fltk, 0, 0, 0644, \
+#		$(FLTK_DIR)/src/libfltk_images.so.1.1, \
+#		/usr/lib/libfltk_images.so.1.1)
 	@$(call install_link, fltk, libfltk.so.1.1, /usr/lib/libfltk.so)
 	@$(call install_link, fltk, libfltk_forms.so.1.1, /usr/lib/libfltk_forms.so)
-	@$(call install_link, fltk, libfltk_images.so.1.1, /usr/lib/libfltk_images.so)
-	
+#	@$(call install_link, fltk, libfltk_images.so.1.1, /usr/lib/libfltk_images.so)
+
 	@$(call install_finish, fltk)
 
 	@$(call touch, $@)
