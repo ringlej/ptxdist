@@ -1,31 +1,24 @@
-#
-# Submitted-By: Robert Schwebel, 2006-10-17
-# Committed-By: Robert Schwebel
-#
-# Error:
-#
-# FIXME: add error description here
-#
-# Description:
-#
-# Kernels newer than 2.6.18 seem to have a different method to directly
-# call syscalls, this seems to be the right fix for them. Nevertheless,
-# this should probably be made dependend on the actual kernel version to
-# be found on the target system.
-#
-# State:
-#
-# unfixed as of 2.13-pre7
-#
-
-diff -urN util-linux-2.13-pre7/mount/umount.c util-linux-2.13-pre7-ptx/mount/umount.c
---- util-linux-2.13-pre7/mount/umount.c	2005-09-23 21:55:55.000000000 +0200
-+++ util-linux-2.13-pre7-ptx/mount/umount.c	2006-10-16 22:17:48.000000000 +0200
-@@ -29,28 +29,24 @@
+Index: configure.ac
+===================================================================
+--- configure.ac.orig
++++ configure.ac
+@@ -45,6 +45,7 @@ AC_CHECK_FUNCS(updwtmp)
+ AC_FUNC_FSEEKO
+ AC_CHECK_FUNCS(lchown)
+ AC_CHECK_FUNCS(rpmatch)
++AC_CHECK_FUNCS(umount2)
+ 
+ 
+ AC_CHECK_LIB(uuid, uuid_is_null)
+Index: mount/umount.c
+===================================================================
+--- mount/umount.c.orig
++++ mount/umount.c
+@@ -29,28 +29,21 @@
  #include "nfsmount.h"
  #include <arpa/inet.h>
  
-+#include <sys/syscall.h>
++#include <config.h>
 +
  #if defined(MNT_FORCE) && !defined(__sparc__) && !defined(__arm__)
  /* Interesting ... it seems libc knows about MNT_FORCE and presumably
@@ -42,10 +35,7 @@ diff -urN util-linux-2.13-pre7/mount/umount.c util-linux-2.13-pre7-ptx/mount/umo
 -
 -#else /* __NR_umount2 */
 -
-+#ifdef SYS_umount2
-+#define umount2(path, flags) \
-+    syscall(SYS_umount2, path, flags)
-+#else
++#if !defined(HAVE_UMOUNT2)
  static int
  umount2(const char *path, int flags) {
  	fprintf(stderr, _("umount: compiled without support for -f\n"));
@@ -57,3 +47,15 @@ diff -urN util-linux-2.13-pre7/mount/umount.c util-linux-2.13-pre7-ptx/mount/umo
  
  #if !defined(MNT_FORCE)
  /* dare not try to include <linux/mount.h> -- lots of errors */
+Index: mount/Makefile.am
+===================================================================
+--- mount/Makefile.am.orig
++++ mount/Makefile.am
+@@ -1,6 +1,6 @@
+ include $(top_srcdir)/config/include-Makefile.am
+ 
+-AM_CPPFLAGS += -DHAVE_NFS
++AM_CPPFLAGS += -DHAVE_NFS -I$(top_srcdir)
+ 
+ bin_PROGRAMS = mount umount
+ sbin_PROGRAMS = losetup swapon
