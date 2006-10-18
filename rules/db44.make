@@ -2,7 +2,7 @@
 # $Id: db41.make 5497 2006-05-14 14:27:39Z rsc $
 #
 # Copyright (C) 2003 by Werner Schmitt mail2ws@gmx.de
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -56,7 +56,7 @@ $(STATEDIR)/db44.extract: $(db44_extract_deps_default)
 
 db44_prepare: $(STATEDIR)/db44.prepare
 
-DB44_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+DB44_PATH	=  PATH=$(CROSS_PATH)
 DB44_ENV 	=  $(CROSS_ENV)
 
 #
