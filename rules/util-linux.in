@@ -1,4 +1,5 @@
 menuconfig UTIL_LINUX
+
 	bool "util-linux          "
 	select NCURSES if UTIL_LINUX_CFDISK
 
@@ -105,3 +106,4 @@ config UTIL_LINUX_READPROFILE
 
 comment "busy box' readprofile is selected!"
 	depends on UTIL_LINUX && BB_CONFIG_READPROFILE
+
