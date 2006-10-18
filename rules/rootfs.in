@@ -676,7 +676,7 @@ menuconfig ROOTFS_ETC_INITD_DROPBEAR
 	depends on ROOTFS_ETC_INITD && DROPBEAR
 	bool
 	default y
-	prompt "dropbear                    "
+	prompt "dropbear                  "
 	help
 	  The /etc/init.d/dropbear script lets you control the dropbear daemon.
 
