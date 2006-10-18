@@ -45,7 +45,7 @@ make[1]: Leaving directory
 make: ***
 [/home/koan/ptxtest/generic_test/state/host-ipkg-utils.install] Error 2
 
-
+[ ] jbe: timezone files installation doesn't work as expected
 [ ] jbe: if ipkg building crashes, PTXdist doesn't break. rsc: see
     pipeline error fixing in scripts/libptxdist.sh
 [ ] rsc: ChangeLog automatism:
