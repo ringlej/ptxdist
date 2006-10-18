@@ -67,6 +67,7 @@ LIBXSLT_ENV 	=  $(CROSS_ENV)
 LIBXSLT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 LIBXSLT_AUTOCONF += --with-libxml-libs-prefix=$(SYSROOT)/usr/lib
 LIBXSLT_AUTOCONF += --with-libxml-include-prefix=$(SYSROOT)/usr/include 
+LIBXSLT_AUTOCONF += --without-python
 
 ifdef PTXCONF_LIBXSLT_CRYPTO
 	LIBXSLT_AUTOCONF += --with-crypto
