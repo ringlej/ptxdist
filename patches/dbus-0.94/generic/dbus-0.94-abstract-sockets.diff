@@ -1,0 +1,44 @@
+#
+# Submitted-By: Robert Schwebel, 2006-10-19
+# Committed-By: Robert Schwebel
+#
+# Error:
+#
+# checking abstract socket namespace... configure: error: cannot run test program while cross compiling
+#
+# Description:
+#
+# configure tries to check for abstract sockets, even if it was
+# explicitly specified on the command line. This breaks cross
+# compilation.
+#
+# State:
+#
+# unknown
+#
+
+diff -urN dbus-0.94/configure.in dbus-0.94-ptx/configure.in
+--- dbus-0.94/configure.in	2006-10-14 19:27:49.000000000 +0200
++++ dbus-0.94-ptx/configure.in	2006-10-19 11:40:18.000000000 +0200
+@@ -650,6 +650,7 @@
+ 
+ #### Abstract sockets
+ 
++if test x$enable_abstract_sockets = xauto; then
+ AC_MSG_CHECKING(abstract socket namespace)
+ AC_LANG_PUSH(C)
+ AC_RUN_IFELSE([AC_LANG_PROGRAM(
+@@ -692,11 +693,10 @@
+               [have_abstract_sockets=no])
+ AC_LANG_POP(C)
+ AC_MSG_RESULT($have_abstract_sockets)
++fi
+ 
+ if test x$enable_abstract_sockets = xyes; then
+-    if test x$have_abstract_sockets = xno; then
+-	AC_MSG_ERROR([Abstract sockets explicitly required, and support not detected.])
+-    fi
++   have_abstract_sockets=yes;
+ fi
+ 
+ if test x$enable_abstract_sockets = xno; then

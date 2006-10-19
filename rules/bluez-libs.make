@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BLUEZ_LIBS) += bluez-libs
 #
 # Paths and names
 #
-BLUEZ_LIBS_VERSION	= 2.25
+BLUEZ_LIBS_VERSION	= 3.7
 BLUEZ_LIBS		= bluez-libs-$(BLUEZ_LIBS_VERSION)
 BLUEZ_LIBS_SUFFIX	= tar.gz
 BLUEZ_LIBS_URL		= http://bluez.sf.net/download/$(BLUEZ_LIBS).$(BLUEZ_LIBS_SUFFIX)

@@ -1,0 +1,64 @@
+menuconfig DBUS
+	bool
+	prompt "dbus"
+	help
+	  D-Bus is a message bus system, a simple way for applications
+	  to talk to one another. For details see the project homepage:
+
+	  http://www.freedesktop.org/wiki/Software_2fdbus
+
+choice
+	prompt "xml library"
+	depends on DBUS
+
+	config DBUS_XML_EXPAT
+		bool
+		prompt "expat"
+
+	config DBUS_XML_LIBXML2
+		bool
+		prompt "libxml2"
+endchoice
+
+#   --enable-tests          enable unit test code
+#   --enable-ansi           enable -ansi -pedantic gcc flags
+#   --enable-verbose-mode   support verbose debug mode
+#   --enable-asserts        include assertion checks
+#   --enable-checks         include sanity checks on public API
+#   --enable-xml-docs       build XML documentation (requires xmlto)
+#   --enable-doxygen-docs   build DOXYGEN documentation (requires Doxygen)
+#   --enable-gcov           compile with coverage profiling instrumentation (gcc
+#                           only)
+#   --enable-abstract-sockets
+#                           use abstract socket namespace (linux only)
+#   --enable-selinux        build with SELinux support
+#   --enable-dnotify        build with dnotify support (linux only)
+#   --enable-kqueue         build with kqueue support
+#   --enable-console-owner-file
+#                           enable console owner file
+#   --enable-shared[=PKGS]
+#                           build shared libraries [default=yes]
+#   --enable-static[=PKGS]
+#                           build static libraries [default=yes]
+#   --enable-fast-install[=PKGS]
+#                           optimize for fast installation [default=yes]
+#   --with-xml=libxml/expat XML library to use
+#   --with-init-scripts=redhat
+#                           Style of init scripts to install
+#   --with-session-socket-dir=dirname
+#                           Where to put sockets for the per-login-session
+#                           message bus
+#   --with-test-socket-dir=dirname
+#                           Where to put sockets for make check
+#   --with-system-pid-file=pidfile
+#                           PID file for systemwide daemon
+#   --with-system-socket=filename
+#                           UNIX domain socket for systemwide daemon
+#   --with-console-auth-dir=dirname
+#                           directory to check for console ownerhip
+#   --with-console-owner-file=filename
+#                           file whose owner determines current console owner
+#   --with-dbus-user=<user> User for running the DBUS daemon (messagebus)
+#   --with-dbus-daemondir=dirname
+#                           Directory for installing the DBUS daemon
+#   --with-x                use the X Window System

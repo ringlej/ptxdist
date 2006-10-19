@@ -173,6 +173,7 @@ endmenu
 
 menu "Middleware                  "
 depends on BUILD_USERLAND
+source "rules/dbus.in"
 source "rules/omniorb.in"
 source "rules/mico.in"
 endmenu
