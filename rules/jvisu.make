@@ -1,7 +1,7 @@
 # $Id$
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -16,12 +16,12 @@ PACKAGES-$(PTXCONF_JVISU) += jvisu
 #
 # Paths and names
 #
-JVISU_VERSION	= 1.0.0
-JVISU		= JVisu-$(JVISU_VERSION)
-JVISU_SUFFIX	= tgz
-JVISU_URL	= http://www.jvisu.com/download/archive/$(JVISU).$(JVISU_SUFFIX)
-JVISU_SOURCE	= $(SRCDIR)/$(JVISU).$(JVISU_SUFFIX)
-JVISU_DIR	= $(BUILDDIR)/$(JVISU)
+JVISU_VERSION	:= 1.0.0
+JVISU		:= JVisu-$(JVISU_VERSION)
+JVISU_SUFFIX	:= tgz
+JVISU_URL	:= http://www.pengutronix.de/software/jvisu/download/archive/$(JVISU).$(JVISU_SUFFIX)
+JVISU_SOURCE	:= $(SRCDIR)/$(JVISU).$(JVISU_SUFFIX)
+JVISU_DIR	:= $(BUILDDIR)/$(JVISU)
 
 
 # ----------------------------------------------------------------------------
@@ -50,9 +50,9 @@ $(STATEDIR)/jvisu.extract: $(jvisu_extract_deps_default)
 	@$(call extract, JVISU)
 	@$(call patchin, JVISU)
 
-	# FIXME: we cannot currently overwrite the JAVAPATH on the command line, 
+	# FIXME: we cannot currently overwrite the JAVAPATH on the command line,
 	# so we tweak it here in a way that it works at least with Debian
-	perl -i -p -e "s,^JAVAPATH=.*,JAVAPATH=$(PTXCONF_SETUP_JAVA_SDK),g" $(JVISU_DIR)/build.properties
+	sed -i -e "s,^JAVAPATH=.*$$,JAVAPATH=$(PTXCONF_SETUP_JAVA_SDK),g" $(JVISU_DIR)/build.properties
 
 	@$(call touch, $@)
 
@@ -93,7 +93,6 @@ jvisu_install: $(STATEDIR)/jvisu.install
 
 $(STATEDIR)/jvisu.install: $(jvisu_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, JVISU)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
