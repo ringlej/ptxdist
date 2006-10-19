@@ -3,6 +3,7 @@ config BLUEZ_UTILS
 	prompt "bluez-utils"
 	depends on BLUEZ
 	select BLUEZ_LIBS
+	select DBUS
 	help
 	  For details about this project see the homepage on 
 
