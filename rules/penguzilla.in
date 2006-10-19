@@ -1,6 +1,6 @@
 config PENGUZILLA
 	bool
 	prompt "Penguzilla                  "
+	depends on EXPERIMENTAL
 	help
 	  FIXME: This item needs to be documented
-	  
