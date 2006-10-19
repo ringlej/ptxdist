@@ -6,7 +6,7 @@
 #
 # XORG_CHECK_LINUXDOC uses AC_CHECK_FILE which is not
 # crosscompile aware.
-# Includes Systemheader direcotry which is not 
+# Includes Systemheader direcotry which is not
 # crosscompile aware.
 #
 # Description:
@@ -16,10 +16,30 @@
 #
 # State:
 #
-# not mentioned upstream
+# not for upstream
 #
 
-
+--- xf86-video-apm-X11R7.1-1.1.1.orig/configure.ac	2006-04-08 03:14:51.000000000 +0200
++++ xf86-video-apm-X11R7.1-1.1.1/configure.ac	2006-06-21 10:32:23.844154804 +0200
+@@ -63,7 +63,7 @@
+ AC_SUBST([XF86RUSH_CFLAGS])
+ 
+ CFLAGS="$CFLAGS $XORG_CFLAGS $XF86RUSH_CFLAGS"' -I$(top_srcdir)/src'
+-INCLUDES="$XORG_INCS -I${sdkdir} $XF86RUSH_INCS "'-I$(top_srcdir)/src -I$(prefix)/include'
++INCLUDES="$XORG_INCS -I${SYSROOT}${sdkdir} $XF86RUSH_INCS "'-I$(top_srcdir)/src '"-I${SYSROOT}$(prefix)/include"
+ AC_SUBST([CFLAGS])
+ AC_SUBST([INCLUDES])
+ 
+@@ -78,7 +78,8 @@
+ XORG_MANPAGE_SECTIONS
+ XORG_RELEASE_VERSION
+ 
+-XORG_CHECK_LINUXDOC
++#XORG_CHECK_LINUXDOC
++AM_CONDITIONAL(BUILD_LINUXDOC, false)
+ 
+ AC_OUTPUT([
+ 	Makefile
 --- xf86-video-apm-X11R7.1-1.1.1.orig/configure	2006-05-23 05:29:00.000000000 +0200
 +++ xf86-video-apm-X11R7.1-1.1.1/configure	2006-06-21 10:27:24.912755890 +0200
 @@ -465,7 +465,7 @@
@@ -72,7 +92,7 @@
  
  CFLAGS="$CFLAGS $XORG_CFLAGS $XF86RUSH_CFLAGS"' -I$(top_srcdir)/src'
 -INCLUDES="$XORG_INCS -I${sdkdir} $XF86RUSH_INCS "'-I$(top_srcdir)/src -I$(prefix)/include'
-+INCLUDES="$XORG_INCS -I${sdkdir} $XF86RUSH_INCS "'-I$(top_srcdir)/src -I${SYSROOT}$(prefix)/include'
++INCLUDES="$XORG_INCS -I${SYSROOT}${sdkdir} $XF86RUSH_INCS "'-I$(top_srcdir)/src '"-I${SYSROOT}$(prefix)/include"
  
  
  
@@ -278,24 +298,3 @@
  s,@LIBOBJS@,$LIBOBJS,;t t
  s,@LTLIBOBJS@,$LTLIBOBJS,;t t
  CEOF
---- xf86-video-apm-X11R7.1-1.1.1.orig/configure.ac	2006-04-08 03:14:51.000000000 +0200
-+++ xf86-video-apm-X11R7.1-1.1.1/configure.ac	2006-06-21 10:32:23.844154804 +0200
-@@ -63,7 +63,7 @@
- AC_SUBST([XF86RUSH_CFLAGS])
- 
- CFLAGS="$CFLAGS $XORG_CFLAGS $XF86RUSH_CFLAGS"' -I$(top_srcdir)/src'
--INCLUDES="$XORG_INCS -I${sdkdir} $XF86RUSH_INCS "'-I$(top_srcdir)/src -I$(prefix)/include'
-+INCLUDES="$XORG_INCS -I${sdkdir} $XF86RUSH_INCS "'-I$(top_srcdir)/src -I${SYSROOT}$(prefix)/include'
- AC_SUBST([CFLAGS])
- AC_SUBST([INCLUDES])
- 
-@@ -78,7 +78,8 @@
- XORG_MANPAGE_SECTIONS
- XORG_RELEASE_VERSION
- 
--XORG_CHECK_LINUXDOC
-+#XORG_CHECK_LINUXDOC
-+AM_CONDITIONAL(BUILD_LINUXDOC, false)
- 
- AC_OUTPUT([
- 	Makefile
