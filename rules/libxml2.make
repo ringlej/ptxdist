@@ -58,15 +58,14 @@ $(STATEDIR)/libxml2.extract: $(libxml2_extract_deps_default)
 
 libxml2_prepare: $(STATEDIR)/libxml2.prepare
 
-#
-# dependencies
-#
 LIBXML2_PATH	:= PATH=$(CROSS_PATH)
 
 #
 # autoconf
 #
 LIBXML2_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+LIBXML2_AUTOCONF += --oldincludedir=$(SYSROOT)/usr/include
 
 ifdef PTXCONF_LIBXML2_C14N
 LIBXML2_AUTOCONF += --with-c14n
@@ -171,9 +170,9 @@ LIBXML2_AUTOCONF += --without-push
 endif
 
 ifdef PTXCONF_LIBXML2_PYTHON
-LIBXML2_AUTOCONF += --with-python
+LIBXML2_AUTOCONF += --with-python=$(PTXCONF_PREFIX)
 else
-LIBXML2_AUTOCONF += --without-python
+LIBXML2_AUTOCONF += --with-python=no
 endif
 
 ifdef PTXCONF_LIBXML2_READER
