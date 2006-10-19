@@ -1,5 +1,6 @@
 menuconfig MFIREBIRD
 	bool
+	depends on EXPERIMENTAL
 	prompt "Mozilla Firefox             "
 	help
 	  FIXME: This item needs to be documented
@@ -47,84 +48,84 @@ config MFIREBIRD_XFT
 #	bool
 #	prompt "Postscript support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_XPRINT
 #	bool
 #	prompt "XPrint support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_CRYPTO
 #	bool
 #	prompt "Crypto support (PSM)"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_JSD
 #	bool
 #	prompt "JavaScript debug library"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_OJI
 #	bool
 #	prompt "Open JVM Integration support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_XINERAMA
 #	bool
 #	prompt "Xinerama support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_CTL
 #	bool
 #	prompt "Thai Complex Script support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_ACCESSABILITY
 #	bool
 #	prompt "Accessability support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_XPFE_COMP
 #	bool
 #	prompt "xpfe components"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_XPINSTALL
 #	bool
 #	prompt "xpinstall support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_SINGLE_PROFILE
 #	bool
 #	prompt "Single profile support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_JSLOADER
 #	bool
 #	prompt "xpcom js loader support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_NATIVE_UCONV
 #	bool
 #	prompt "Iconv support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_PLAINTEXT
 #	bool
 #	prompt "Plaintext editor only"
 #	depends on MFIREBIRD
-	
+
 config MFIREBIRD_COMPOSER
 	bool
 	prompt "Composer"
 	depends on MFIREBIRD
 	help
 	  FIXME: This item needs to be documented
-	
+
 #config MFIREBIRD_EXTENSIONS
 #	bool
 #	prompt "Enable extensions"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_IMAGE_DECODERS
 #	bool
 #	prompt "Select Image Decoders"
@@ -134,7 +135,7 @@ config MFIREBIRD_COMPOSER
 #	bool
 #	prompt "  mod1"
 #	depends on MFIREBIRD_IMAGE_DECODERS
-	
+
 #config MFIREBIRD_IMAGE_DECODERS_MOD2
 #	bool
 #	prompt "  mod2"
@@ -144,37 +145,37 @@ config MFIREBIRD_COMPOSER
 #	bool
 #	prompt "MathML support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_SVG
 #	bool
 #	prompt "SVG support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_INSTALLER
 #	bool
 #	prompt "Installer support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_LEAKY
 #	bool
 #	prompt "Build leaky memory tool"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_XPCTOOLS
 #	bool
 #	prompt "Build JS profiling tool"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_TESTS
 #	bool
 #	prompt "Build test libraries & programs"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_XPCOM_LEA
 #	bool
 #	prompt "Use Lea malloc in xpcom"
 #	depends on MFIREBIRD
-	
+
 config MFIREBIRD_DEBUG
 	bool
 	prompt "Build with debug info"
@@ -194,52 +195,52 @@ config MFIREBIRD_OPTIMIZE
 #	bool
 #	prompt "Boehm Garbage Collector"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_LOGGING
 #	bool
 #	prompt "Logging"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_CRASH_ASSERT
 #	bool
 #	prompt "Crash on assert"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_TIMELINE
 #	bool
 #	prompt "Timeline services"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_XTERM_UPDATE
 #	bool
 #	prompt "Update XTERM titles with current command"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_SHARED
 #	bool
 #	prompt "Build internal shared libraries"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_COMPONENTLIB
 #	bool
 #	prompt "Build shared library containing all of the components"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_XUL
 #	bool
 #	prompt "XUL support"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_PROFILE_SHARING
 #	bool
 #	prompt "Enable profile sharing"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_PROFILE_LOCKING
 #	bool
 #	prompt "Enable profile locking"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_NECKO_PROTOCOLS
 #	bool
 #	prompt "Enable these protocol handlers"
@@ -259,9 +260,9 @@ config MFIREBIRD_OPTIMIZE
 #	bool
 #	prompt "Enable necko disk cache"
 #	depends on MFIREBIRD
-	
+
 #config MFIREBIRD_NECKO_SMALLBUF
 #	bool
 #	prompt "Minimize size of necko's I/O buffers"
 #	depends on MFIREBIRD
-	
+
