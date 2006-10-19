@@ -2,7 +2,7 @@
 # $Id: template 4230 2006-01-17 10:58:03Z bbu $
 #
 # Copyright (C) 2006 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_MICO) += mico
 MICO_VERSION	= 2.3.12
 MICO		= mico-$(MICO_VERSION)
 MICO_SUFFIX	= tar.gz
-MICO_URL	= http://www.mico.org/snapshots/$(MICO).$(MICO_SUFFIX)
+MICO_URL	= http://www.mico.org/$(MICO).$(MICO_SUFFIX)
 MICO_SOURCE	= $(SRCDIR)/$(MICO).$(MICO_SUFFIX)
 MICO_DIR	= $(BUILDDIR)/$(MICO)
 
