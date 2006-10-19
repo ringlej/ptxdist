@@ -59,7 +59,7 @@ $(STATEDIR)/xorg-driver-video-dummy.extract: $(xorg-driver-video-dummy_extract_d
 xorg-driver-video-dummy_prepare: $(STATEDIR)/xorg-driver-video-dummy.prepare
 
 XORG_DRIVER_VIDEO_DUMMY_PATH	:=  PATH=$(CROSS_PATH)
-XORG_DRIVER_VIDEO_DUMMY_ENV 	:=  $(CROSS_ENV)
+XORG_DRIVER_VIDEO_DUMMY_ENV 	:=  $(CROSS_ENV) PKG_SYSROOT=$(SYSROOT)
 
 #
 # autoconf
