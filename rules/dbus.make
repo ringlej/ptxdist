@@ -67,16 +67,7 @@ DBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-abstract-sockets=yes
 
-# doesn't work automatically in this case
-dbus_prepare_deps =  $(dbus_prepare_deps_default)
-ifdef PTXCONF_DBUS_XML_EXPAT
-dbus_prepare_deps += $(STATEDIR)/expat.install
-endif
-ifdef PTXCONF_DBUS_XML_LIBXML2
-dbus_prepare_deps += $(STATEDIR)/libxml2.install
-endif
-
-$(STATEDIR)/dbus.prepare: $(dbus_prepare_deps)
+$(STATEDIR)/dbus.prepare: $(dbus_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DBUS_DIR)/config.cache)
 	cd $(DBUS_DIR) && \
@@ -112,15 +103,7 @@ $(STATEDIR)/dbus.install: $(dbus_install_deps_default)
 
 dbus_targetinstall: $(STATEDIR)/dbus.targetinstall
 
-dbus_targetinstall_deps =  $(dbus_targetinstall_deps_default)
-ifdef PTXCONF_DBUS_XML_EXPAT
-dbus_targetinstall_deps += $(STATEDIR)/expat.targetinstall
-endif
-ifdef PTXCONF_DBUS_XML_LIBXML2
-dbus_targetinstall_deps += $(STATEDIR)/libxml2.targetinstall
-endif
-
-$(STATEDIR)/dbus.targetinstall: $(dbus_targetinstall_deps)
+$(STATEDIR)/dbus.targetinstall: $(dbus_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init, dbus)
