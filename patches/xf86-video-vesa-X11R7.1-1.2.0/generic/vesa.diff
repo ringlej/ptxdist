@@ -16,6 +16,17 @@
 # not mentioned upstream
 #
 
+--- xf86-video-vesa-X11R7.1-1.2.0.orig/configure.ac	2006-05-19 21:10:12.000000000 +0200
++++ xf86-video-vesa-X11R7.1-1.2.0/configure.ac	2006-06-21 11:02:32.160781855 +0200
+@@ -57,7 +57,7 @@
+ sdkdir=$(pkg-config --variable=sdkdir xorg-server)
+ 
+ CFLAGS="$CFLAGS $XORG_CFLAGS "' -I$(top_srcdir)/src'
+-INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src -I$(prefix)/include'
++INCLUDES="$XORG_INCS -I${SYSROOT}${sdkdir} "'-I$(top_srcdir)/src '"-I${SYSROOT}$(prefix)/include"
+ AC_SUBST([CFLAGS])
+ AC_SUBST([INCLUDES])
+ 
 --- xf86-video-vesa-X11R7.1-1.2.0.orig/configure	2006-05-22 15:59:51.000000000 +0200
 +++ xf86-video-vesa-X11R7.1-1.2.0/configure	2006-06-21 11:00:27.279117106 +0200
 @@ -19502,7 +19502,7 @@
@@ -50,18 +61,7 @@
  
  CFLAGS="$CFLAGS $XORG_CFLAGS "' -I$(top_srcdir)/src'
 -INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src -I$(prefix)/include'
-+INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src -I${SYSROOT}$(prefix)/include'
++INCLUDES="$XORG_INCS -I${SYSROOT}${sdkdir} "'-I$(top_srcdir)/src '"-I${SYSROOT}$(prefix)/include"
  
  
- 
---- xf86-video-vesa-X11R7.1-1.2.0.orig/configure.ac	2006-05-19 21:10:12.000000000 +0200
-+++ xf86-video-vesa-X11R7.1-1.2.0/configure.ac	2006-06-21 11:02:32.160781855 +0200
-@@ -57,7 +57,7 @@
- sdkdir=$(pkg-config --variable=sdkdir xorg-server)
- 
- CFLAGS="$CFLAGS $XORG_CFLAGS "' -I$(top_srcdir)/src'
--INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src -I$(prefix)/include'
-+INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src -I${SYSROOT}$(prefix)/include'
- AC_SUBST([CFLAGS])
- AC_SUBST([INCLUDES])
  
