@@ -1,3 +1,8 @@
+2006-10-20 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* dbus: added (rsc) and added some patches to fix the
+	configuration, by Roland Hostettler
+
 2006-10-17 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* util-linux: update to 2.13-pre7

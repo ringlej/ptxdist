@@ -65,7 +65,8 @@ DBUS_ENV 	:= $(CROSS_ENV)
 #
 DBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-abstract-sockets=yes
+	--enable-abstract-sockets=yes \
+	--localstatedir=/var
 
 $(STATEDIR)/dbus.prepare: $(dbus_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -115,27 +116,19 @@ $(STATEDIR)/dbus.targetinstall: $(dbus_targetinstall_deps_default)
 	@$(call install_fixup,dbus,DEPENDS,)
 	@$(call install_fixup,dbus,DESCRIPTION,missing)
 
-	@$(call install_copy, dbus, 0, 0, 0644, \
-		$(DBUS_DIR)/dbus/.libs/libdbus-1.so.3.2.0, \
-		/usr/lib/libdbus-1.so.3.2.0)
-	@$(call install_link, dbus, libdbus-1.so.3.2.0, /usr/lib/libdbos-1.so.3)
-	@$(call install_link, dbus, libdbus-1.so.3.2.0, /usr/lib/libdbos-1.so)
+	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/bus/dbus-daemon, /usr/bin/dbus-daemon)
+	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/tools/dbus-cleanup-sockets, /usr/bin/dbus-cleanup-sockets)
+	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/tools/dbus-launch, /usr/bin/dbus-launch)
+	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/tools/.libs/dbus-monitor, /usr/bin/dbus-monitor)
+	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/tools/.libs/dbus-send, /usr/bin/dbus-send)
+	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/tools/.libs/dbus-uuidgen, /usr/bin/dbus-uuidgen)
 
-	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/dbus-send, \
-		/usr/bin/dbus-send)
+	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/dbus/.libs/libdbus-1.so.3.2.0, /usr/lib/libdbus-1.so.3.2.0)
+	@$(call install_link, dbus, libdbus-1.so.3.2.0, /usr/lib/libdbus-1.so.3)
+	@$(call install_link, dbus, libdbus-1.so.3.2.0, /usr/lib/libdbus-1.so)
 
-	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/dbus-launch, \
-		/usr/bin/dbus-launch)
-
-	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/dbus-cleanup-sockets, \
-		/usr/bin/dbus-cleanup-sockets)
-
-	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/dbus-uuidgen, \
-		/usr/bin/dbus-uuidgen)
+	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/system.conf, /etc/dbus-1/system.conf)
+	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/session.conf, /etc/dbus-1/session.conf)
 
 	@$(call install_finish,dbus)
 

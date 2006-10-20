@@ -1,2 +1,3 @@
 dbus-0.94-abstract-sockets.diff
 dbus-0.94-reconf.diff.bz2
+dbus-0.94-config.diff
