@@ -1,0 +1,38 @@
+menuconfig WIRESHARK
+	bool
+	default n
+	prompt "wireshark           "
+	select LIBPCAP
+	select GLIB
+	help
+	  Wireshark is a network traffic analyzer for Unix
+	  and Unix-like operating systems. It is a tool used
+	  to capture packets off the wire. Wireshark decodes
+	  numerous protocols (too many to list).
+
+config WIRESHARK_TSHARK
+	bool
+	default y
+	prompt "Text based wireshark"
+	depends on WIRESHARK
+	help
+	  This is the textmode version of wireshark
+
+# FIXME:
+#config WIRESHARK_WIRESHARK
+#	bool
+#	default n
+#	prompt "graphical wireshark"
+#	depends on WIRESHARK
+#	help
+#	  This is the graphical version of wireshark
+#
+# FIXME: Not tested yet
+#config WIRESHARK_IPV6
+#	bool
+#	default n
+#	depends on WIRESHARK
+#	prompt "support ipv6"
+#	help
+#	  Activate this to support ipv6 in wireshark
+#
