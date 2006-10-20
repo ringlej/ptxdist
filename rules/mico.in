@@ -176,13 +176,6 @@ config MICO_WIRELESS_ACCESS
 comment "Other Features"
 	depends on MICO
 
-config MICO_MINI_STL
-	bool
-	prompt "Use MICO supplied STL"
-	depends on MICO
-	help
-	  FIXME: This feature needs documentation.
-
 config MICO_REPO
 	bool
 	prompt "Use gcc's template repository"
@@ -213,9 +206,14 @@ config MICO_LIBMICOAUX
 config MICO_LIBMICOCOSS
 	bool
 	depends on MICO
+	depends on BROKEN
 	prompt "libmicocoss"
 	help
 	  Install libmicocoss.so on target.
+
+comment "libmicocoss is broken, please send a patch"
+	depends on MICO
+	depends on !BROKEN
 
 config MICO_LIBMICOIR
 	bool

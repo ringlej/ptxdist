@@ -73,6 +73,9 @@ MICO_AUTOCONF += --with-mico=$(PTXCONF_PREFIX)
 # FIXME: this should be fixed upstream
 MICO_AUTOCONF += --prefix=$(SYSROOT)
 
+# doesn't work anyway
+MICO_AUTOCONF += --disable-mini-stl
+
 ifdef PTXCONF_MICO_THREAD
 MICO_AUTOCONF += --enable-threads
 else
@@ -134,11 +137,13 @@ MICO_AUTOCONF += --enable-time
 else
 MICO_AUTOCONF += --disable-time
 endif
-ifdef PTXCONF_MICO_SERVICE_LIFECYCLE
-MICO_AUTOCONF += --enable-life
-else
+# FIXME: lifecycle service doesn't compile with 2.3.12
+#ifdef PTXCONF_MICO_SERVICE_LIFECYCLE
+#MICO_AUTOCONF += --enable-life
+#else
+#MICO_AUTOCONF += --disable-life
+#endif
 MICO_AUTOCONF += --disable-life
-endif
 ifdef PTXCONF_MICO_SERVICE_EXTERNALISATION
 MICO_AUTOCONF += --enable-externalize
 else
@@ -163,11 +168,6 @@ ifdef PTXCONF_MICO_WIRELESS_ACCESS
 MICO_AUTOCONF += --enable-wireless-access
 else
 MICO_AUTOCONF += --disable-wireless-access
-endif
-ifdef PTXCONF_MICO_MINI_STL
-MICO_AUTOCONF += --enable-mini-stl
-else
-MICO_AUTOCONF += --disable-mini-stl
 endif
 ifdef PTXCONF_MICO_REPO
 MICO_AUTOCONF += --enable-repo
