@@ -2,7 +2,7 @@
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -114,7 +114,7 @@ qtopia_compile: $(STATEDIR)/qtopia.compile
 
 $(STATEDIR)/qtopia.compile: $(qtopia_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(QTOPIA_DIR) && $(QTOPIA_PATH) make
+	cd $(QTOPIA_DIR) && $(QTOPIA_PATH) make sub-src-all-ordered $(QTOPIA_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -125,7 +125,7 @@ qtopia_install: $(STATEDIR)/qtopia.install
 
 $(STATEDIR)/qtopia.install: $(qtopia_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, QTOPIA)
+	cd $(QTOPIA_DIR) && $(QTOPIA_PATH) make sub-src-install_subtargets-ordered $(QTOPIA_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -167,9 +167,10 @@ ifdef PTXCONF_QTOPIA_SHARED
 	@$(call install_link, qtopia, libQtSvg.so.4.1.1, /usr/lib/libQtSvg.so.4.1)
 	@$(call install_link, qtopia, libQtSvg.so.4.1.1, /usr/lib/libQtSvg.so.4)
 
-	@$(call install_copy, qtopia, 0, 0, 0755, $(QTOPIA_DIR)/lib/libQtTest.so.4.1.1, /usr/lib/libQtTest.so.4.1.1 )
-	@$(call install_link, qtopia, libQtTest.so.4.1.1, /usr/lib/libQtTest.so.4.1)
-	@$(call install_link, qtopia, libQtTest.so.4.1.1, /usr/lib/libQtTest.so.4)
+#	FIXME: should be made configurable, we don't build tests right now
+#	@$(call install_copy, qtopia, 0, 0, 0755, $(QTOPIA_DIR)/lib/libQtTest.so.4.1.1, /usr/lib/libQtTest.so.4.1.1 )
+#	@$(call install_link, qtopia, libQtTest.so.4.1.1, /usr/lib/libQtTest.so.4.1)
+#	@$(call install_link, qtopia, libQtTest.so.4.1.1, /usr/lib/libQtTest.so.4)
 
 	@$(call install_copy, qtopia, 0, 0, 0755, $(QTOPIA_DIR)/lib/libQtXml.so.4.1.1, /usr/lib/libQtXml.so.4.1.1 )
 	@$(call install_link, qtopia, libQtXml.so.4.1.1, /usr/lib/libQtXml.so.4.1)
