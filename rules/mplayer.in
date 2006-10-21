@@ -3,17 +3,17 @@ menuconfig MPLAYER
 	select LIBJPEG if MPLAYER_VO_JPEG
 	select XORG_LIB_XV if MPLAYER_VO_XV
 	select XORG_LIB_X11 if MPLAYER_VO_X11
-	prompt "Compile mplayer"
+	prompt "mplayer             "
 	help
 	  The Ultimate Movie Player For Linux
- 
- 	  It plays most mpeg, avi and asf files, supported by many 
-	  native and win32 DLL codecs. You can watch VCD, DVD and 
-	  even DivX movies too. The other big feature of mplayer 
-	  is the wide range of supported output drivers. 
-	  It works with X11, Xv, DGA, OpenGL, SVGAlib, fbdev, 
-	  but you can use SDL (and this way all drivers of SDL) 
-	  and some lowlevel card-specific drivers 
+
+ 	  It plays most mpeg, avi and asf files, supported by many
+	  native and win32 DLL codecs. You can watch VCD, DVD and
+	  even DivX movies too. The other big feature of mplayer
+	  is the wide range of supported output drivers.
+	  It works with X11, Xv, DGA, OpenGL, SVGAlib, fbdev,
+	  but you can use SDL (and this way all drivers of SDL)
+	  and some lowlevel card-specific drivers
 	  (for Matrox/3dfx/SiS) too.
 
 config MPLAYER_V4L2
