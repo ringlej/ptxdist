@@ -6,15 +6,26 @@ menuconfig INETUTILS
 
 config INETUTILS_INETD
 	bool
+	depends on !BB_CONFIG_INETD
 	prompt "inetd"
 	depends on INETUTILS
+	help
+	  This is the network super daemon. It open network connection for
+	  various other programs and start them if a connection request occures.
+
+comment "busy box' inetd is selected!"
+	depends on INETUTILS && BB_CONFIG_INETD
 
 config INETUTILS_PING
 	bool
+	depends on !BB_CONFIG_PING
 	prompt "ping"
 	depends on INETUTILS
 	help
 	  FIXME: This item needs to be documented
+
+comment "busy box' ping is selected!"
+	depends on INETUTILS && BB_CONFIG_PING
 
 config INETUTILS_RCP
 	bool
