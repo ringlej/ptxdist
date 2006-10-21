@@ -1,5 +1,5 @@
 menuconfig KAFFE
-	prompt "kaffe"
+	prompt "kaffe               "
 	bool
 	select HOST_KAFFE
 	help
