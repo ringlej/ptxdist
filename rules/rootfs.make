@@ -214,18 +214,104 @@ endif
 ifdef PTXCONF_ROOTFS_GENERIC_RESOLV
 	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/resolv.conf,  /etc/resolv.conf, n)
 endif
+###########################################################################################
 ifdef PTXCONF_ROOTFS_GENERIC_INETD
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/inetd.conf, /etc/inetd.conf, n);
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/inetd.conf, /etc/services, n);
-
-	@if [ "$(PTXCONF_INETUTILS_RSHD)" = "y" ]; then \
-		$(call install_replace, rootfs, /etc/inetd.conf, @RSHD@, shell stream tcp nowait root /usr/sbin/rshd ) \
-		$(call install_replace, rootfs, /etc/services, @RSHD@, shell 514/tcp cmd ) \
-	else \
-		$(call install_replace, rootfs, /etc/inetd.conf, @RSHD@, ) \
-		$(call install_replace, rootfs, /etc/services, @RSHD@, ) \
-	fi;
+# does the user wants a generic file?
+	$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_TOPDIR)/projects-example/generic/etc/inetd.conf, \
+		/etc/inetd.conf, n )
+	@$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_TOPDIR)/projects-example/generic/etc/services, \
+		/etc/services, n )
+#
+# Replace all markers if service is enabled
+# or delete markers if service is disabled
+################################
+# add rshd if enabled
+#
+ifdef PTXCONF_INETUTILS_RSHD
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@RSHD@, shell stream tcp nowait root /usr/sbin/rshd )
+	@$(call install_replace, rootfs, /etc/services, @RSHD@, "shell 514/tcp cmd" )
+else
+	@$(call install_replace, rootfs, /etc/inetd.conf, @RSHD@, )
+	@$(call install_replace, rootfs, /etc/services, @RSHD@, )
 endif
+################################
+# add NTP if enabled
+#
+ifdef PTXCONF_INETUTILS_NTP
+# FIXME: What to start ntp with inted?
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@NTP@, "" )
+	@$(call install_replace, rootfs, /etc/services, @NTP@, "ntp 123/tcp" )
+else
+	@$(call install_replace, rootfs, /etc/inetd.conf, @NTP@, )
+	@$(call install_replace, rootfs, /etc/services, @NTP@, )
+endif
+################################
+# add cvs if enabled
+#
+ifdef PTXCONF_CVS_INETD_SERVER
+ifneq ($(PTXCONF_CVS_INETD_STRING),"")
+# add user defined string to start the cvs server into inetd.conf
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@CVSD@, $(PTXCONF_CVS_INETD_STRING) )
+else
+# add default string to start the cvs server into inetd.conf
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@CVSD@, "cvs stream tcp nowait root /usr/bin/cvs cvsd -f @ROOT@ pserver" )
+endif
+ifneq ($(PTXCONF_CVS_SERVER_REPOSITORY),"")
+# add info about repository's root
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@ROOT@, "--allow-root=$(PTXCONF_CVS_SERVER_REPOSITORY)" )
+else
+# use cvs' default if not otherwise specified
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@ROOT@, )
+endif
+# add cvs service
+	$(call install_replace, rootfs, /etc/services, @CVSD@, "cvspserver 2401/tcp")
+else
+# remove all cvs entries if this service is not enabled
+	@$(call install_replace, rootfs, /etc/inetd.conf, @CVSD@, )
+	@$(call install_replace, rootfs, /etc/services, @CVSD@, )
+endif
+################################
+# add rsync if enabled
+#
+ifdef PTXCONF_RSYNC_INETD_SERVER
+ifneq ($(PTXCONF_RSYNC_INETD_STRING),"")
+# add user defined string to start rsync server into inetd.conf
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@RSYNCD@, $(PTXCONF_RSYNC_INETD_STRING) )
+else
+# add default string to start the rsync server into inetd.conf
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@RSYNCD@, "rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon @CONFIG@" )
+endif
+ifneq ($(PTXCONF_RSYNC_CONFIG_FILE),"")
+# add path and name of config file
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@CONFIG@, "--config=$(PTXCONF_RSYNC_CONFIG_FILE)" )
+else
+# use rpath' default if not otherwise specified
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@CONFIG@, )
+endif
+# add rsync service
+	$(call install_replace, rootfs, /etc/services, @RSYNCD@, "rsync 873/tcp" )
+else
+# remove all cvs entries if this service is not enabled
+	@$(call install_replace, rootfs, /etc/inetd.conf, @RSYNCD@, )
+	@$(call install_replace, rootfs, /etc/services, @RSYNCD@, )
+endif
+
+#
+###########################################################################################
+endif
+
 ifdef PTXCONF_ROOTFS_GENERIC_SHADOW
 	@$(call install_copy, rootfs, 0, 0, 0640, $(PTXDIST_TOPDIR)/projects-example/generic/etc/shadow,       /etc/shadow, n)
 	@$(call install_copy, rootfs, 0, 0, 0600, $(PTXDIST_TOPDIR)/projects-example/generic/etc/shadow-,      /etc/shadow-, n)
