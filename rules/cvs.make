@@ -165,7 +165,9 @@ $(STATEDIR)/cvs.targetinstall: $(cvs_targetinstall_deps_default)
 	@$(call install_fixup,cvs,DESCRIPTION,missing)
 
 ifdef PTXCONF_CVS_INETD_SERVER
-	@$(call install_copy, cvs, 0, 0, 0755, /srv/cvsroot)
+ifneq ($(call remove_quotes,$(PTXCONF_CVS_SERVER_REPOSITORY)),)
+	@$(call install_copy, cvs, 0, 0, 0755, $(PTXCONF_CVS_SERVER_REPOSITORY))
+endif
 endif
 	@$(call install_copy, cvs, 0, 0, 0755, $(CVS_DIR)/src/cvs, /usr/bin/cvs)
 
