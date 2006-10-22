@@ -1,0 +1,122 @@
+# CVS client/server
+
+menuconfig CVS
+	bool
+	prompt "cvs                 "
+	help
+	  CVS is the Concurrent Versions System. This is a version control system
+	  useful for projects using a central repository to hold files and then
+	  track all changes made to those files.
+
+comment "cvs build options   ---"
+	depends on CVS
+
+config CVS_NDBM
+	bool
+	depends on CVS
+	default y
+	prompt "use built in ndbm"
+	help
+	  Use the NDBM library distributed with CVS rather than attempting to use a
+	  system NDBM library. Note: Disabling this may not work
+
+config CVS_CLIENT
+	bool
+	depends on CVS
+	default n
+	prompt "Build cvs client"
+	help
+	  Include code for running as a remote client
+
+config CVS_PSSWRD_CLIENT
+	bool
+	depends on CVS
+	depends on CVS_CLIENT
+	default n
+	prompt "Support password authenticated client"
+	help
+	  Enable pserver as a remote access method in the CVS client
+
+config CVS_SERVER
+	bool
+	depends on CVS
+	default y
+	prompt "Build cvs server"
+	help
+	  Include code for running as a server
+
+config CVS_FLOW_CONTROL
+	bool
+	depends on CVS
+	depends on CVS_SERVER
+	default y
+	prompt "Enable server flow control"
+	help
+	  If you are working with a large remote repository and a 'cvs checkout' is
+	  swamping your network and memory, define these to enable flow control. You
+	  may optionally pass a low water mark in bytes and a high water mark in
+	  bytes, separated by commas. (default is enabled 1M,2M)
+
+config CVS_ENCRYPTION
+	bool
+	depends on CVS
+	depends on CVS_SERVER
+	default n
+	prompt "Enable encryption"
+	help
+	  Enable encryption support
+
+config CVS_ROOTCOMMIT
+	bool
+	depends on CVS
+	depends on CVS_SERVER
+	default n
+	prompt "Allow root commits"
+	help
+	  Allow the root user to commit files
+
+comment "cvs runtime options   ---"
+	depends on CVS
+
+
+config CVS_SERVER_REPOSITORY
+	string
+	depends on CVS
+	depends on CVS_SERVER
+	prompt "cvs server's repository"
+	default "/srv/cvsroot"
+	help
+	  This will be cvs server's root repository (given to cvs as --allow-root=...)
+
+config CVS_INETD_SERVER
+	bool
+	default y
+	depends on CVS
+	depends on CVS_SERVER
+	prompt "Start from inetd"
+	help
+	  This installs a startup configuration for cvs from inetd. It adds to
+	  the /etc/inetd.conf a line like this:
+	   cvs stream tcp nowait root /usr/bin/cvs -f cvsd --allow-root=/srv/cvsroot pserver
+	  Note: You must enable one of the two possible inet daemons: There is
+	  one embedded in busybox and one in packet inetutils.
+
+config CVS_INETD_STRING
+	string
+	depends on CVS
+	depends on CVS_SERVER
+	depends on CVS_INETD_SERVER
+	prompt "inetd service entry"
+	default "cvs stream tcp nowait root /usr/bin/cvs cvsd -f @ROOT@ pserver"
+	help
+	  This string is added to inetd's configuration /etc/inetd.conf. @ROOT@
+	  in this string will be replaced by repositorie's root
+
+config CVS_STANDALONE_SERVER
+	bool
+	default n
+	depends on CVS
+	depends on CVS_SERVER
+	prompt "Start standalone"
+	help
+	  This installs a startup script to run cvs standalone

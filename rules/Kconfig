@@ -125,6 +125,7 @@ source "rules/rawrec.in"
 source "rules/mc.in"
 source "rules/ffmpeg.in"
 source "rules/kaffe.in"
+source "rules/cvs.in"
 endmenu
 
 menu "Tools                       "
@@ -246,7 +247,7 @@ source "rules/gail.in"
 source "rules/gmp3.in"
 source "rules/gmp4.in"
 source "rules/gtk1210.in"
-# these host in-files are probably not broken, 
+# these host in-files are probably not broken,
 # please check why they are not included anywhere...
 source "rules/host-apache2.in"
 source "rules/host-checkinstall.in"
