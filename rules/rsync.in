@@ -1,9 +1,120 @@
-config RSYNC   
+menuconfig RSYNC
 	bool
-	prompt "rsync"
+	prompt "rsync               "
+	select OPENSSH_SSH
 	help
-	  rsync  is  a program that behaves in much the same way 
-	  that rcp does, but has many more options and uses the 
-	  rsync remote-update protocol to greatly speed up file 
-	  transfers when the destination file is being updated.
+	  rsync is a program that behaves in much the same way that rcp does,
+	  but has many more options and uses the rsync remote-update protocol to
+	  greatly speed up file transfers when the destination file is being
+	  updated.
+
+comment "rsync build options   ---"
+	depends on RSYNC
+
+config RSYNC_IPV6
+	bool
+	depends on RSYNC
+	default n
+	prompt "Support IPV6"
+	help
+	  This switch enables IPV6 support in rsync
+
+config RSYNC_LARGE_FILE
+	bool
+	depends on RSYNC
+	default y
+	prompt "Large file support"
+	help
+	  Support for large files
+
+choice
+
+prompt "Kind of rsyncd.conf file"
+depends on RSYNC
+default RSYNC_CONFIG_FILE_DEFAULT
+
+config RSYNC_CONFIG_FILE_DEFAULT
+	bool
+	prompt "Use default"
+	help
+	  The file from projects-example/generic/etc/rsyncd.conf will be used.
+	  Its a very good idea to start with this default file and save a
+	  customised version into your project, because the generic file is
+	  really useless. You can use it if you select "Use your own" after that.
+
+config RSYNC_CONFIG_FILE_USER
+	bool
+	prompt "Use your own"
+	help
+	  Select this and you can enter a path and filename to your own
+	  rsyncd.conf file. This enables additional menu entries for an
+	  authentication file.
+
+endchoice
+
+config RSYNC_CONFIG_FILE_PATH
+	depends on RSYNC
+	depends on RSYNC_CONFIG_FILE_USER
+	prompt "Path and name of your own rsyncd.conf file"
+	string
+	default ""
+	help
+	  Enter a local path and filename to be used as configuration file on
+	  your target.
+
+config RSYNC_AUTH_FILE_PATH
+	depends on RSYNC
+	depends on RSYNC_CONFIG_FILE_USER
+	prompt "Path and name of your own secrets file"
+	string
+	default ""
+	help
+	  Enter a local path and filename to be used as a secrets file on
+	  your target. As a starting point you can use the
+	  projects-example/generic/etc/rsyncd.secrets file. Leave this entry
+	  empty if you do not want to use authentication.
+
+comment "rsync runtime options   ---"
+	depends on RSYNC
+
+config RSYNC_CONFIG_FILE
+	string
+	depends on RSYNC
+	default "/etc/rsyncd.conf"
+	prompt "Configuration file at runtime"
+	help
+	  Set configuration file for rsync server to given path
+
+config RSYNC_AUTH_FILE
+	depends on RSYNC
+	depends on RSYNC_CONFIG_FILE_USER
+	prompt "Path and name of your own secrets file"
+	string
+	default "/etc/rsyncd.secrets"
+	help
+	  Set secrets path and filename on your target. If the source above was
+	  left empty, this entry will not be used.
+
+config RSYNC_INETD_SERVER
+	bool
+	default y
+	depends on RSYNC
+	prompt "Start from inetd"
+	help
+	  This installs a startup configuration for rsync from inetd. It adds to
+	  the /etc/inetd.conf a line like this:
+	   rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon @CONFIG@
+	  Note: You must enable one of the two possible inet daemons: There is
+	  one embedded in busybox and one in packet inetutils.
+
+config RSYNC_INETD_STRING
+	string
+	depends on RSYNC
+	depends on RSYNC_INETD_SERVER
+	prompt "inetd service entry"
+	default "rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon @CONFIG@"
+	help
+	  This string is added to inetd's configuration /etc/inetd.conf. @CONFIG@
+	  in this string will be replaced with the --config option, and the
+	  path given above for configuration
 
