@@ -14,6 +14,20 @@ PACKAGE_RELEASE=1
 AC_SUBST(PACKAGE_RELEASE)
 
 dnl
+dnl Check if the user has extracted the patches archive
+dnl
+
+AC_MSG_CHECKING(for ptxdist patches)
+if test -d `dirname $0`/patches
+then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([install the ptxdist-patches archive into the same directory as ptxdist.],[1])
+fi
+
+
+dnl
 dnl Check header files, mostly for lxdialog & kconfig
 dnl
 
