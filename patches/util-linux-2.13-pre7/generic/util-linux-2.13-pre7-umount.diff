@@ -1,7 +1,7 @@
-Index: configure.ac
+Index: util-linux-2.13-pre7/configure.ac
 ===================================================================
---- configure.ac.orig
-+++ configure.ac
+--- util-linux-2.13-pre7.orig/configure.ac
++++ util-linux-2.13-pre7/configure.ac
 @@ -45,6 +45,7 @@ AC_CHECK_FUNCS(updwtmp)
  AC_FUNC_FSEEKO
  AC_CHECK_FUNCS(lchown)
@@ -10,10 +10,10 @@ Index: configure.ac
  
  
  AC_CHECK_LIB(uuid, uuid_is_null)
-Index: mount/umount.c
+Index: util-linux-2.13-pre7/mount/umount.c
 ===================================================================
---- mount/umount.c.orig
-+++ mount/umount.c
+--- util-linux-2.13-pre7.orig/mount/umount.c
++++ util-linux-2.13-pre7/mount/umount.c
 @@ -29,28 +29,21 @@
  #include "nfsmount.h"
  #include <arpa/inet.h>
@@ -47,10 +47,10 @@ Index: mount/umount.c
  
  #if !defined(MNT_FORCE)
  /* dare not try to include <linux/mount.h> -- lots of errors */
-Index: mount/Makefile.am
+Index: util-linux-2.13-pre7/mount/Makefile.am
 ===================================================================
---- mount/Makefile.am.orig
-+++ mount/Makefile.am
+--- util-linux-2.13-pre7.orig/mount/Makefile.am
++++ util-linux-2.13-pre7/mount/Makefile.am
 @@ -1,6 +1,6 @@
  include $(top_srcdir)/config/include-Makefile.am
  
