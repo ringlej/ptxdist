@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -15,7 +15,7 @@
 PACKAGES-$(PTXCONF_PROFTPD) += proftpd
 
 #
-# Paths and names 
+# Paths and names
 #
 PROFTPD_VERSION		= 1.3.0rc1
 PROFTPD			= proftpd-$(PROFTPD_VERSION)
@@ -142,14 +142,14 @@ $(STATEDIR)/proftpd.targetinstall: $(proftpd_targetinstall_deps_default)
 		$(PROFTPD_DIR)/proftpd, \
 		/usr/sbin/proftpd)
 	@$(call install_copy, proftpd, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/proftpd, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/proftpd, \
 		/etc/init.d/proftpd, n)
-	
-ifdef $(PTXCONF_PROFTPD_DEFAULTCONFIG)	
+
+ifdef $(PTXCONF_PROFTPD_DEFAULTCONFIG)
 	@$(call install_copy, proftpd, 11, 101, 0644, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/etc/proftpd.conf, \
+		$(PTXDIST_TOPDIR)/generic/etc/proftpd.conf, \
 		/etc/proftpd.conf, n)
-endif	
+endif
 
 	@$(call install_finish, proftpd)
 
@@ -159,7 +159,7 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-proftpd_clean: 
+proftpd_clean:
 	rm -rf $(STATEDIR)/proftpd.* $(PROFTPD_DIR)
 	rm -rf $(IMAGEDIR)/proftpd_*
 

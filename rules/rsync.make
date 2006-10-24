@@ -138,12 +138,12 @@ $(STATEDIR)/rsync.targetinstall: $(rsync_targetinstall_deps_default)
 ifdef PTXCONF_RSYNC_CONFIG_FILE_DEFAULT
 ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)),)
 	@$(call install_copy, rsync, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/etc/rsyncd.conf, \
+		$(PTXDIST_TOPDIR)/generic/etc/rsyncd.conf, \
 		$(PTXCONF_RSYNC_CONFIG_FILE) )
 else
 # use default
 	@$(call install_copy, rsync, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/etc/rsyncd.conf, \
+		$(PTXDIST_TOPDIR)/generic/etc/rsyncd.conf, \
 		/etc/rsyncd.conf)
 endif
 endif

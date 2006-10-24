@@ -118,7 +118,7 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_THTTPD
 ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_USER_FILE)),)
 	@$(call install_copy, thttpd, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_THTTPD_USER_FILE), /etc/init.d/thttpd, n)
 else
-	@$(call install_copy, thttpd, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/thttpd, /etc/init.d/thttpd, n)
+	@$(call install_copy, thttpd, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/thttpd, /etc/init.d/thttpd, n)
 endif
 endif
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK),"")
@@ -126,7 +126,7 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK),"")
 	@$(call install_link, thttpd, ../init.d/thttpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK))
 endif
 	@$(call install_copy, thttpd, 12, 102, 0755, /var/www)
-	@$(call install_copy, thttpd, 12, 102, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/thttpd.html, /var/www/index.html, n)
+	@$(call install_copy, thttpd, 12, 102, 0644, $(PTXDIST_TOPDIR)/generic/thttpd.html, /var/www/index.html, n)
 
 	@$(call install_finish, thttpd)
 	@$(call touch, $@)

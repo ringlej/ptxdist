@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -14,9 +14,9 @@
 PACKAGES-$(PTXCONF_UTELNETD) += utelnetd
 
 #
-# Paths and names 
+# Paths and names
 #
-UTELNETD_VERSION		= 0.1.6
+UTELNETD_VERSION		= 0.1.9
 UTELNETD			= utelnetd-$(UTELNETD_VERSION)
 UTELNETD_URL			= http://www.pengutronix.de/software/utelnetd/$(UTELNETD).tar.gz
 UTELNETD_SOURCE			= $(SRCDIR)/$(UTELNETD).tar.gz
@@ -101,9 +101,9 @@ $(STATEDIR)/utelnetd.targetinstall: $(utelnetd_targetinstall_deps_default)
 	@$(call install_fixup, utelnetd,DEPENDS,)
 	@$(call install_fixup, utelnetd,DESCRIPTION,missing)
 ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD
-ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD_DEFAULT 
+ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD_DEFAULT
 	@$(call install_copy, utelnetd, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/telnetd, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/telnetd, \
 		/etc/init.d/telnetd, n)
 else
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER_FILE),"")
@@ -126,7 +126,7 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-utelnetd_clean: 
+utelnetd_clean:
 	rm -rf $(STATEDIR)/utelnetd.* $(UTELNETD_DIR)
 
 # vim: syntax=make

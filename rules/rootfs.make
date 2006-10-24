@@ -165,7 +165,7 @@ endif
 	#
 
 ifdef PTXCONF_ROOTFS_GENERIC_FSTAB
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/fstab, /etc/fstab, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/fstab, /etc/fstab, n)
 endif
 
 ifdef PTXCONF_ROOTFS_GENERIC_MTAB
@@ -173,35 +173,35 @@ ifdef PTXCONF_ROOTFS_GENERIC_MTAB
 endif
 
 ifdef PTXCONF_ROOTFS_GENERIC_GROUP
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/group,        /etc/group, n)
-	@$(call install_copy, rootfs, 0, 0, 0640, $(PTXDIST_TOPDIR)/projects-example/generic/etc/gshadow,      /etc/gshadow, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/group,        /etc/group, n)
+	@$(call install_copy, rootfs, 0, 0, 0640, $(PTXDIST_TOPDIR)/generic/etc/gshadow,      /etc/gshadow, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_HOSTNAME
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/hostname,     /etc/hostname, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/hostname,     /etc/hostname, n)
 	@$(call install_replace, rootfs, /etc/hostname, @HOSTNAME@,  $(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME)))
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_HOSTS
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/hosts,        /etc/hosts, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/hosts,        /etc/hosts, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_INITTAB
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/inittab,      /etc/inittab, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/inittab,      /etc/inittab, n)
 
 	@$(call install_replace, rootfs, /etc/inittab, @CONSOLE@,  $(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE)))
 	@$(call install_replace, rootfs, /etc/inittab, @SPEED@,  $(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE_SPEED)))
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_IPKG_CONF
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
 	@$(call install_replace, rootfs, /etc/ipkg.conf, @SRC@,  $(PTXCONF_ROOTFS_GENERIC_IPKG_CONF_URL))
 	@$(call install_replace, rootfs, /etc/ipkg.conf, @ARCH@,  $(PTXCONF_ARCH))
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_NSSWITCH
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/nsswitch.conf,/etc/nsswitch.conf, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/nsswitch.conf,/etc/nsswitch.conf, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_PASSWD
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/passwd,       /etc/passwd, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/passwd,       /etc/passwd, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_PROFILE
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/profile,      /etc/profile, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/profile,      /etc/profile, n)
 
 	@$(call install_replace, rootfs, /etc/profile, @PS1@,  \"$(PTXCONF_ROOTFS_ETC_PS1)\" )
 	@$(call install_replace, rootfs, /etc/profile, @PS2@,  \"$(PTXCONF_ROOTFS_ETC_PS2)\" )
@@ -209,19 +209,19 @@ ifdef PTXCONF_ROOTFS_GENERIC_PROFILE
 
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_PROTOCOLS
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/protocols,    /etc/protocols, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/protocols,    /etc/protocols, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_RESOLV
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/projects-example/generic/etc/resolv.conf,  /etc/resolv.conf, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/resolv.conf,  /etc/resolv.conf, n)
 endif
 ###########################################################################################
 ifdef PTXCONF_ROOTFS_GENERIC_INETD
 # does the user wants a generic file?
 	$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/etc/inetd.conf, \
+		$(PTXDIST_TOPDIR)/generic/etc/inetd.conf, \
 		/etc/inetd.conf, n )
 	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/etc/services, \
+		$(PTXDIST_TOPDIR)/generic/etc/services, \
 		/etc/services, n )
 #
 # Replace all markers if service is enabled
@@ -313,11 +313,11 @@ endif
 endif
 
 ifdef PTXCONF_ROOTFS_GENERIC_SHADOW
-	@$(call install_copy, rootfs, 0, 0, 0640, $(PTXDIST_TOPDIR)/projects-example/generic/etc/shadow,       /etc/shadow, n)
-	@$(call install_copy, rootfs, 0, 0, 0600, $(PTXDIST_TOPDIR)/projects-example/generic/etc/shadow-,      /etc/shadow-, n)
+	@$(call install_copy, rootfs, 0, 0, 0640, $(PTXDIST_TOPDIR)/generic/etc/shadow,       /etc/shadow, n)
+	@$(call install_copy, rootfs, 0, 0, 0600, $(PTXDIST_TOPDIR)/generic/etc/shadow-,      /etc/shadow-, n)
 endif
 ifdef PTXCONF_ROOTFS_GENERIC_UDHCPC
-	@$(call install_copy, rootfs, 0, 0, 0744, $(PTXDIST_TOPDIR)/projects-example/generic/etc/udhcpc.script,/etc/udhcpc.script, n)
+	@$(call install_copy, rootfs, 0, 0, 0744, $(PTXDIST_TOPDIR)/generic/etc/udhcpc.script,/etc/udhcpc.script, n)
 	# udhcp expects the script to be called /usr/share/udhcpc/default.script, so we make a link
 	@$(call install_link, rootfs, /etc/udhcpc.script, /usr/share/udhcpc/default.script)
 endif
@@ -330,29 +330,29 @@ ifdef PTXCONF_ROOTFS_ETC_INITD
 	# Copy generic etc/init.d
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/init.d)
 ifdef PTXCONF_ROOTFS_ETC_INITD_RCS
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/rcS,        /etc/init.d/rcS, n)
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/rcS,        /etc/init.d/rcS, n)
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_LOGROTATE
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/logrotate, /etc/init.d/logrotate, n)
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/logrotate, /etc/init.d/logrotate, n)
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_INETD
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/inetd, /etc/init.d/inetd, n)
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/inetd, /etc/init.d/inetd, n)
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK),"")
 	@$(call install_link, rootfs, ../init.d/inetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK))
 endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_MODULES
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/modules, /etc/init.d/modules, n)
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/modules, /etc/init.d/modules, n)
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_MODULES_LINK),"")
 	@$(call install_link, rootfs, ../init.d/modules, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_MODULES_LINK))
 endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_NETWORKING
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/networking, /etc/init.d/networking, n)
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/networking, /etc/init.d/networking, n)
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/network/if-down.d)
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/network/if-up.d)
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/network/if-post-down.d)
@@ -366,14 +366,14 @@ endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/telnetd,    /etc/init.d/telnetd, n)
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/telnetd,    /etc/init.d/telnetd, n)
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
 	@$(call install_link, rootfs, ../init.d/telnetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
 endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_DROPBEAR
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/dropbear,    /etc/init.d/dropbear, n)
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/dropbear,    /etc/init.d/dropbear, n)
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK),"")
 	@$(call install_link, rootfs, ../init.d/dropbear, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK))
@@ -381,7 +381,7 @@ endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_SSHD
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/sshd,    /etc/init.d/sshd, n)
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/sshd,    /etc/init.d/sshd, n)
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SSHD_LINK),"")
 	@$(call install_link, rootfs, ../init.d/sshd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SSHD_LINK))
@@ -389,14 +389,14 @@ endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/syslog-ng, /etc/init.d/syslog-ng, n)
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/syslog-ng, /etc/init.d/syslog-ng, n)
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK),"")
 	@$(call install_link, rootfs, ../init.d/syslog-ng, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK))
 endif
 endif
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_STARTUP
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/startup,    /etc/init.d/startup, n)
+	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/startup,    /etc/init.d/startup, n)
 endif
 
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/rc.d)
@@ -404,7 +404,7 @@ endif
 ifdef PTXCONF_ROOTFS_ETC_INITD_BANNER
 
 	@$(call install_copy, rootfs, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/banner, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/banner, \
 		/etc/init.d/banner, n)
 
 	@$(call install_replace, rootfs, /etc/init.d/banner, @VENDOR@,  $(PTXCONF_ROOTFS_ETC_VENDOR) )

@@ -3,8 +3,8 @@ config HOST_IPKG
 	default y
 	# no prompt, policy is that we always need it
 	help
-	  ipkg is used on the development host to install packets into 
-	  some directory. Example: 
+	  ipkg is used on the development host to install packets into
+	  some directory. Example:
 
-		ipkg-cl -o . --force-depends -f ../projects-example/generic/etc/ipkg.conf install foo.ipk
+		ipkg-cl -o . --force-depends -f ../generic/etc/ipkg.conf install foo.ipk
 

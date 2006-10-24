@@ -249,7 +249,7 @@ ifdef PTXCONF_IMAGE_TGZ
 endif
 ifdef PTXCONF_IMAGE_JFFS2
 	@imagesfrom=$(IMAGEDIR);							\
-	cp $(PTXDIST_TOPDIR)/projects-example/generic/etc/ipkg.conf $(IMAGEDIR)/ipkg.conf; \
+	cp $(PTXDIST_TOPDIR)/generic/etc/ipkg.conf $(IMAGEDIR)/ipkg.conf; \
 	sed -i -e "s,@SRC@,,g" $(IMAGEDIR)/ipkg.conf;					\
 	sed -i -e "s,@ARCH@,$(PTXCONF_ARCH),g" $(IMAGEDIR)/ipkg.conf;			\
 	echo "Creating rootfs using packages from $$imagesfrom";				\

@@ -160,7 +160,7 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD
 ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER_FILE)),)
 	@$(call install_copy, pureftpd, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER_FILE), /etc/init.d/pure-ftpd, n)
 else
-	@$(call install_copy, pureftpd, 0, 0, 0755, $(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/pure-ftpd, /etc/init.d/pure-ftpd, n)
+	@$(call install_copy, pureftpd, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/pure-ftpd, /etc/init.d/pure-ftpd, n)
 endif
 endif
 

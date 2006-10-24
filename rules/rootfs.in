@@ -398,7 +398,7 @@ config ROOTFS_ETC_INITD
 	select BB_CONFIG_RUN_PARTS      if BUSYBOX
 	help
 	  When enabled, this option copies the files from 
-	  ${PTXDIST_TOPDIR}/projects-example/generic/etc/init.d to the target root 
+	  ${PTXDIST_TOPDIR}/generic/etc/init.d to the target root 
 	  filesystem. The files contain useful defaults for most projects, 
 	  so if you don't intend to use your completely self-made etc
 	  directory you should problably switch this on. 
@@ -538,7 +538,7 @@ menuconfig ROOTFS_ETC_INITD_TELNETD
 			bool
 			prompt "Use default telnetd"
 			help
-			  A file from projects-example/generic/etc/init.d/telnetd will be used
+			  A file from generic/etc/init.d/telnetd will be used
 
 		config ROOTFS_ETC_INITD_TELNETD_USER
 			depends on ROOTFS_ETC_INITD_TELNETD
@@ -639,7 +639,7 @@ menuconfig ROOTFS_ETC_INITD_HTTPD
 			bool
 			prompt "Use default httpd"
 			help
-			  A file from projects-example/generic/etc/init.d/httpd will be used.
+			  A file from generic/etc/init.d/httpd will be used.
 
 		config ROOTFS_ETC_INITD_HTTPD_USER
 			bool
@@ -689,7 +689,7 @@ menuconfig ROOTFS_ETC_INITD_DROPBEAR
 			bool
 			prompt "Use default dropbear"
 			help
-			  A file from projects-example/generic/etc/init.d/dropbear will be used.
+			  A file from generic/etc/init.d/dropbear will be used.
 
 		config ROOTFS_ETC_INITD_DROPBEAR_USER
 			bool
@@ -742,7 +742,7 @@ menuconfig ROOTFS_ETC_INITD_UDEV
 			prompt "Use default udevd"
 			select UDEV_START
 			help
-			  A file from projects-example/generic/etc/init.d/udev will be used
+			  A file from generic/etc/init.d/udev will be used
 
 		config ROOTFS_ETC_INITD_UDEV_USER
 			depends on ROOTFS_ETC_INITD && ROOTFS_ETC_INITD_UDEV
@@ -794,7 +794,7 @@ menuconfig ROOTFS_ETC_INITD_PUREFTPD
 			bool
 			prompt "Use default pure-ftpd"
 			help
-			  A file from projects-example/generic/etc/init.d/pure-ftpd will be used.
+			  A file from generic/etc/init.d/pure-ftpd will be used.
 
 		config ROOTFS_ETC_INITD_PUREFTPD_USER
 			bool
@@ -844,7 +844,7 @@ menuconfig ROOTFS_ETC_INITD_THTTPD
 			bool
 			prompt "Use default thttpd script"
 			help
-			  The file from projects-example/generic/etc/init.d/thttpd will be used.
+			  The file from generic/etc/init.d/thttpd will be used.
 
 		config ROOTFS_ETC_INITD_THTTPD_USER
 			bool

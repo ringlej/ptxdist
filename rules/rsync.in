@@ -37,7 +37,7 @@ config RSYNC_CONFIG_FILE_DEFAULT
 	bool
 	prompt "Use default"
 	help
-	  The file from projects-example/generic/etc/rsyncd.conf will be used.
+	  The file from generic/etc/rsyncd.conf will be used.
 	  Its a very good idea to start with this default file and save a
 	  customised version into your project, because the generic file is
 	  really useless. You can use it if you select "Use your own" after that.
@@ -71,7 +71,7 @@ config RSYNC_AUTH_FILE_PATH
 	help
 	  Enter a local path and filename to be used as a secrets file on
 	  your target. As a starting point you can use the
-	  projects-example/generic/etc/rsyncd.secrets file. Leave this entry
+	  generic/etc/rsyncd.secrets file. Leave this entry
 	  empty if you do not want to use authentication.
 
 comment "rsync runtime options   ---"

@@ -144,7 +144,7 @@ $(STATEDIR)/syslogng.targetinstall: $(syslogng_targetinstall_deps_default)
 
 ifdef PTXCONF_ROOTFS_GENERIC_SYSLOGNG
 	@$(call install_copy, syslogng, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/etc/syslog-ng.conf, \
+		$(PTXDIST_TOPDIR)/generic/etc/syslog-ng.conf, \
 		/etc/syslog-ng.conf)
 endif
 	@$(call install_finish, syslogng)

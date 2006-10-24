@@ -2,7 +2,7 @@
 # $Id: apache2.make,v 1.10 2006/10/02 08:38:47 michl Exp $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -99,7 +99,7 @@ $(STATEDIR)/apache2.prepare: $(apache2_prepare_deps_default)
 	#
 	# Tweak, Tweak ...
 	#
-	# The original object files are also used for other binaries, so 
+	# The original object files are also used for other binaries, so
 	# we generate a dummy dependency here
 	#
 	perl -i -p -e "s/^gen_test_char_OBJECTS =.*$$/gen_test_char_OBJECTS = dummy.lo/g" $(APACHE2_DIR)/server/Makefile
@@ -238,7 +238,7 @@ ifneq ($(PTXCONF_APACHE2_DOCUMENTROOT),"")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
 ifdef PTXCONF_APACHE2_DEFAULT_INDEX
 	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/index.html, \
+		$(PTXDIST_TOPDIR)/generic/index.html, \
 		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html,n)
 endif
 endif
@@ -251,7 +251,7 @@ ifneq ($(PTXCONF_APACHE2_CONFIGDIR),"")
 #
 ifdef PTXCONF_APACHE2_DEFAULTCONFIG
 	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/httpd.conf, \
+		$(PTXDIST_TOPDIR)/generic/httpd.conf, \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, n)
 	@echo "installing apache's default config file..."
 # modify placeholders with data from configuration
@@ -301,7 +301,7 @@ ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE)),)
 else
 # generic script with path modifications
 	@$(call install_copy, apache2, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/etc/init.d/httpd, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/httpd, \
 		/etc/init.d/httpd, n)
 	@$(call install_replace, apache2, /etc/init.d/httpd, \
 		@APACHECONFIG@,  $(PTXCONF_APACHE2_CONFIGDIR) )

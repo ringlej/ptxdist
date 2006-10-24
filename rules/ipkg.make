@@ -121,7 +121,7 @@ $(STATEDIR)/ipkg.targetinstall: $(ipkg_targetinstall_deps_default)
 ifdef PTXCONF_IPKG_LOG_WRAPPER
 	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg-cl)
 	@$(call install_copy, ipkg, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/projects-example/generic/bin/ipkg_log_wrapper, \
+		$(PTXDIST_TOPDIR)/generic/bin/ipkg_log_wrapper, \
 		/usr/bin/ipkg, n)
 else
 	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg)
