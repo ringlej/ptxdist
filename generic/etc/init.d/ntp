@@ -1,0 +1,77 @@
+#!/bin/sh
+# 
+# This is a ntp init.d script which ist called by init(1) with [start|stop] as argument
+# PII ntp config 
+# Wed May 25 14:36:31 CEST 2005
+
+PATH=/sbin:/bin:/usr/bin
+BINARY=/usr/sbin/ntpd
+PIDFILE="/var/run/ntpd.pid"
+
+case "`basename $0`" in 
+	ntp-client)
+		CONFIG="/etc/ntp-client.conf"
+		;;
+	ntp-server)
+		CONFIG="/etc/ntp-server.conf"
+		;;
+	*)
+		echo "script has to be ntp-client or ntp-server"
+		exit 1
+		;;
+esac
+
+HARD=false
+
+# --- nothing to change after this line ---
+
+test -f $BINARY || { echo "$BINARY not found" >&2 ; exit 0; }
+
+start_proc() {
+	echo -n "Starting NTP server: ntpd ..."
+	test -f "$PIDFILE" && { echo "pid-file exists" >&2 ; exit 0; }
+	$BINARY -p $PIDFILE -c $CONFIG
+	echo "DONE"
+}
+
+stop_proc() {
+	echo -n "Stopping NTP server: ntpd ..."
+	test -f "$PIDFILE"
+	case $? in
+		0)
+			kill `cat $PIDFILE` && rm -f $PIDFILE
+			;;
+		*)
+			if [ "$HARD" = "true" ] ; then killall ntpd; fi
+			;;
+	esac
+	echo "DONE"
+}
+
+
+case "$1" in
+        start)
+        	start_proc
+		;;
+	stop)	
+		stop_proc
+		;;
+        restart|force-reload)
+                echo -n "Restarting NTP server: ntpd... "
+                stop_proc
+		sleep 2
+                start_proc
+		echo "done."
+                ;;
+        reload)
+                echo "Not supported" >&2
+                exit 1
+                ;;
+        *)
+                echo "Usage: $0 {start|stop|restart|force-reload}"
+                exit 1
+                ;;
+esac
+
+exit 0
+

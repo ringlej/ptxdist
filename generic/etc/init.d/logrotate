@@ -1,0 +1,54 @@
+#!/bin/sh
+
+#
+# /etc/init.d/logrotate - Minimal Log Rotator for /var/log/*.{log,err} 
+#
+
+PREFIX="logrotate: "
+LOGDIR="/var/log/"
+MAXFILES="8"
+PATTERNS="*.err *.log"
+
+my_exit(){
+echo "${PREFIX}${1}"
+exit $2
+}
+
+logrotate(){
+	cd $LOGDIR
+	# Rotate Backups for *.log and *.err.files
+	for filename in $PATTERNS; do
+		echo "${PREFIX}rotation for $filename ... "
+		for i in `seq $MAXFILES -1 1` ; do
+  			if [ -e "$filename.$i" ]
+			then
+    			f=$i; let f++
+    				mv -f $filename.$i $filename.$f
+  			fi
+		done
+		[ -e "$filename" ] && mv  -f $filename $filename.1
+	done
+}
+
+#
+# Main
+#
+
+[ -d "$LOGDIR" ] || my_exit "Logdir $LOGDIR missing" 1
+
+case $1 in 
+
+	start)
+		echo "${PREFIX}Starting subsystem"
+		logrotate
+		;;
+	stop)
+		echo "${PREFIX}Stopping subsystem"
+		logrotate
+		;;
+	*)
+		echo "Usage: $0 [start|stop]"
+		;;
+esac
+
+

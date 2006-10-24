@@ -1,0 +1,15 @@
+/etc root.root 0755
+/etc/ptx_permissions.unconfigured root.root 0644
+/etc/boottime.kmap root.root 0644
+/etc/fstab root.root 0644
+/etc/group root.root 0644
+/etc/gshadow root.root 0640
+/etc/hostname root.root 0644
+/etc/hosts root.root 0644
+/etc/init.d root.root 0755
+/etc/inittab root.root 0644
+/etc/passwd root.root 0644
+/etc/profile root.root 0644
+/etc/resolv.conf root.root 0644
+/etc/shadow root.root 0640
+/etc/shadow- root.root 0640

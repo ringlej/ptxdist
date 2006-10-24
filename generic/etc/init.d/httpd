@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# /etc/init.d/httpd
+#
+# $Id:$
+#
+
+NAME=apache2
+#
+# This is an workaround, if the path targets into a ramfs
+#
+mkdir -p @LOGPATH@
+
+case "$1" in
+    start)
+            echo -n "${PREFIX}Starting $NAME: "
+	    /usr/sbin/apache2 -f @APACHECONFIG@ -k start
+            echo "Done"
+        ;;
+
+    stop)
+            echo -n "${PREFIX}Stopping $NAME: "
+	    /usr/sbin/apache2 -f @APACHECONFIG@ -k stop
+            echo "Done"
+        ;;
+
+    reload)
+            echo -n "${PREFIX}Restarting $NAME: "
+	    /usr/sbin/apache2 -f @APACHECONFIG@ -k restart
+            echo "Done"
+        ;;
+
+    *)
+        echo "Usage: /etc/init.d/$NAME {start|stop|restart"
+        exit 1
+        ;;
+esac
+

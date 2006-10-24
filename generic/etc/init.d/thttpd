@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# thttpd
+#
+
+PREFIX="thttpd: "
+THISFILE=$0
+DOCUMENTROOT="/var/www"
+thttpd="/usr/sbin/thttpd"
+PIDFILE="/var/run/thttpd.pid"
+LOGFILE="/var/log/thttpd.log"
+		
+usage() {
+	echo "${PREFIX}usage: $THISFILE [start|stop]"
+}
+
+case $1 in 
+
+	start)
+		echo "${PREFIX} starting"
+		if [ -e "$PIDFILE" ]; then 
+			echo "${PREFIX} warning: another thttpd seems to be running, trying to kill it"
+			kill -9 `cat $PIDFILE`
+			rm -f $PIDFILE
+		fi
+		$thttpd -d $DOCUMENTROOT -u www -nor -nos -p 80 -c '**.cgi' -i $PIDFILE -l $LOGFILE
+		if [ "$?" != "0" ]; then 
+			echo "${PREFIX} error, could not start server"
+			rm -f $PIDFILE
+		else 
+			echo "${PREFIX} done"
+		fi
+		;;
+
+	stop)
+		echo "${PREFIX} stopping"
+		kill -USR1 `cat $PIDFILE`
+		rm -f $PIDFILE
+		echo "${PREFIX} done"
+		;;
+
+	*)
+
+		usage
+		exit 1
+		;;
+
+esac
+

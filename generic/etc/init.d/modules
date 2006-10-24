@@ -1,0 +1,42 @@
+#!/bin/sh
+
+#
+# /etc/init.d/modules - load modules in /etc/modules
+#
+
+MODULES_FILE=/etc/modules
+
+load_modules(){
+	# Loop over every line in /etc/modules.
+	if [ ! -f $MODULES_FILE ]; then
+		echo "no /etc/modules, exiting"
+		exit 0
+	fi
+	grep '^[^#]' $MODULES_FILE | \
+	while read module args; do
+		[ "$module" ] || continue
+		if [ "$VERBOSE" != no ]; then
+			echo "    $module"
+			modprobe $module $args || true
+		else
+			modprobe $module $args > /dev/null 2>&1 || true
+		fi
+	done
+}
+
+#
+# Main
+#
+
+case $1 in
+
+	start)
+		echo "${PREFIX}loading modules"
+		load_modules
+		;;
+	stop)
+		;;
+	*)
+		echo "Usage: $0 [start|stop]"
+		;;
+esac
