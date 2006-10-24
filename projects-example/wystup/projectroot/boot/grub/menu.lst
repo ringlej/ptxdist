@@ -1,5 +1,0 @@
-timeout 30
-default 0
-title "Compact Flash"
-root (hd0,0)
-kernel /boot/bzImage rw ide=nodma root=/dev/hdc1 ip=dhcp

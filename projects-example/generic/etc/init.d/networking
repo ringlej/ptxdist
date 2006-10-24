@@ -1,7 +1,0 @@
-#!/bin/sh
-
-echo "starting network interfaces..."
-ifup -a
-
-exit 0
-

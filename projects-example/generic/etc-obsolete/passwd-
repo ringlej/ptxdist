@@ -1,7 +1,0 @@
-root::0:0:root:/root:/bin/sh
-daemon::1:1:daemon:/usr/sbin:/bin/sh
-bin::2:2:bin:/bin:/bin/sh
-sys::3:3:sys:/dev:/bin/sh
-sync::4:100:sync:/bin:/bin/sync
-nobody::65534:65534:nobody:/tmp:/bin/sh
-measure::500:100:Measuring User:/home/measure:/bin/sh

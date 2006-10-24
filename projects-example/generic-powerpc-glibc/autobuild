@@ -1,5 +1,0 @@
-#!/bin/bash
-
-ptxdist toolchain /opt/ptxdist-`${PTXDIST:=ptxdist} --version`/gcc-4.0.2-glibc-2.3.6/powerpc-unknown-linux-gnu/bin
-ptxdist go
-

@@ -1,5 +1,0 @@
-#! /bin/sh
-
-[ -x /home/startup ] && /home/startup
-
-exit 0
