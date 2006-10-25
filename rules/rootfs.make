@@ -217,7 +217,7 @@ endif
 ###########################################################################################
 ifdef PTXCONF_ROOTFS_GENERIC_INETD
 # does the user wants a generic file?
-	$(call install_copy, rootfs, 0, 0, 0644, \
+	@$(call install_copy, rootfs, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/inetd.conf, \
 		/etc/inetd.conf, n )
 	@$(call install_copy, rootfs, 0, 0, 0644, \
@@ -272,7 +272,7 @@ else
 		@ROOT@, )
 endif
 # add cvs service
-	$(call install_replace, rootfs, /etc/services, @CVSD@, "cvspserver 2401/tcp")
+	@$(call install_replace, rootfs, /etc/services, @CVSD@, "cvspserver 2401/tcp")
 else
 # remove all cvs entries if this service is not enabled
 	@$(call install_replace, rootfs, /etc/inetd.conf, @CVSD@, )
@@ -301,11 +301,28 @@ else
 		@CONFIG@, )
 endif
 # add rsync service
-	$(call install_replace, rootfs, /etc/services, @RSYNCD@, "rsync 873/tcp" )
+	@$(call install_replace, rootfs, /etc/services, @RSYNCD@, "rsync 873/tcp" )
 else
 # remove all cvs entries if this service is not enabled
 	@$(call install_replace, rootfs, /etc/inetd.conf, @RSYNCD@, )
 	@$(call install_replace, rootfs, /etc/services, @RSYNCD@, )
+endif
+################################
+# add famd if enabled
+#
+ifdef PTXCONF_FAM_INETD_SERVER
+ifneq ($(PTXCONF_FAM_INETD_STRING),"")
+# add user defined string to start famd server into inetd.conf
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@FAMD@, $(PTXCONF_FAM_INETD_STRING) )
+else
+# add default string to start the rsync server into inetd.conf
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@FAMD@, "sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf" )
+endif
+else
+# remove all famd entries if this service is not enabled
+	@$(call install_replace, rootfs, /etc/inetd.conf, @FAMD@, )
 endif
 
 #

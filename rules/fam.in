@@ -1,0 +1,62 @@
+# fam File Alteration Monitor
+
+menuconfig FAM
+	bool
+	prompt "famd                "
+	select PORTMAP
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
+	help
+	  FAM (File Alteration Monitor) is a server which tracks changes to the
+	  filesystem and relays these changes to interested applications. Its
+	  efficiency comes from consolidating the polling for all applications
+	  or, with kernel support, from obtaining kernel notifications of file
+	  system changes. This also works for network filesystems, if the remote
+	  host also runs a fam daemon.
+
+	  This version is patched so it uses kernel's DNOTIFY feature. Ensure this
+	  feature is enabled in the kernel (search for symbol CONFIG_DNOTIFY)
+
+	  This daemon requires portmap to spread its service.
+
+config FAM_LIBRARY
+	bool
+	default n
+	prompt "Install libfam"
+	depends on FAM
+	help
+	  If there is an application that is linked against libfam check this
+	  entry to install this library also on the target
+
+comment "cvs runtime options   ---"
+	depends on FAM
+
+config FAM_DEFAULT_CONF
+	bool
+	default y
+	prompt "Use default config file"
+	depends on FAM
+	help
+	  This installs fam distribution's fam.conf file. Its almost generic and
+	  usable.
+
+config FAM_INETD_SERVER
+	bool
+	default y
+	depends on FAM
+	prompt "Start from inetd"
+	help
+	  This installs a startup configuration for famd from inetd. It adds to
+	  the /etc/inetd.conf a line like this:
+	   sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf
+	  Note: You must enable one of the two possible inet daemons: There is
+	  one embedded in busybox and one in packet inetutils.
+
+config FAM_INETD_STRING
+	string
+	depends on FAM
+	depends on FAM_INETD_SERVER
+	prompt "inetd service entry"
+	default "sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf"
+	help
+	  This string is added to inetd's configuration /etc/inetd.conf.

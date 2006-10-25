@@ -99,6 +99,7 @@ source "rules/cramfs.in"
 source "rules/bonniexx.in"
 source "rules/liblockfile.in"
 source "rules/unionfs.in"
+source "rules/fam.in"
 endmenu
 
 menu "Communication Utilities     "
