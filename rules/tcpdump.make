@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_TCPDUMP) += tcpdump
 #
 # Paths and names
 #
-TCPDUMP_VERSION	:= 3.9.1
+TCPDUMP_VERSION	:= 3.9.5
 TCPDUMP		:= tcpdump-$(TCPDUMP_VERSION)
 TCPDUMP_SUFFIX	:= tar.gz
-TCPDUMP_URL	:= ftp://ftp.gwdg.de/pub/misc/tcpdump/beta/$(TCPDUMP)-096.$(TCPDUMP_SUFFIX)
-TCPDUMP_SOURCE	:= $(SRCDIR)/$(TCPDUMP)-096.$(TCPDUMP_SUFFIX)
+TCPDUMP_URL	:= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX)
+TCPDUMP_SOURCE	:= $(SRCDIR)/$(TCPDUMP).$(TCPDUMP_SUFFIX)
 TCPDUMP_DIR	:= $(BUILDDIR)/$(TCPDUMP)
 
 
@@ -68,8 +68,24 @@ TCPDUMP_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR)
 
+# FIXME: Unsupported switches yet
+#  --with-user=USERNAME    drop privileges by default to USERNAME
+#  --with-chroot=DIRECTORY when dropping privileges, chroot to DIRECTORY
+
 ifndef PTXCONF_TCPDUMP_ENABLE_CRYPTO
 TCPDUMP_AUTOCONF += --without-crypto
+endif
+
+ifdef PTXCONF_TCPDUMP_SMB
+TCPDUMP_AUTOCONF += --enable-smb
+else
+TCPDUMP_AUTOCONF += --disable-smb
+endif
+
+ifdef PTXCONF_TCPDUMP_IPV6
+TCPDUMP_AUTOCONF += --enable-ipv6
+else
+TCPDUMP_AUTOCONF += --disable-ipv6
 endif
 
 $(STATEDIR)/tcpdump.prepare: $(tcpdump_prepare_deps_default)

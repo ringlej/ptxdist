@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBPCAP) += libpcap
 #
 # Paths and names
 #
-LIBPCAP_VERSION	:= 0.8.3
+LIBPCAP_VERSION	:= 0.9.5
 LIBPCAP		:= libpcap-$(LIBPCAP_VERSION)
 LIBPCAP_SUFFIX	:= tar.gz
 LIBPCAP_URL	:= http://www.tcpdump.org/release/$(LIBPCAP).$(LIBPCAP_SUFFIX)
@@ -70,6 +70,20 @@ LIBPCAP_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-pcap=linux
 
+# FIXME: Missing switches
+# --disable-protochain disable \"protochain\" insn
+# --enable-optimizer-dbg  build optimizer debugging code
+# --enable-yydebug build parser debugging code
+# --with-dag  include Endace DAG support
+# --with-septel include Septel support
+#
+
+ifdef PTXCONF_LIBPCAP_IPV6
+LIBPCAP_AUTOCONF += --enable-ipv6
+else
+LIBPCAP_AUTOCONF += --disable-ipv6
+endif
+
 $(STATEDIR)/libpcap.prepare: $(libpcap_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBPCAP_BUILDDIR))
@@ -87,7 +101,7 @@ libpcap_compile: $(STATEDIR)/libpcap.compile
 $(STATEDIR)/libpcap.compile: $(libpcap_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LIBPCAP_DIR) && \
-		$(LIBPCAP_ENV) $(LIBPCAP_PATH) $(LIBPCAP_PATH) make 
+		$(LIBPCAP_ENV) $(LIBPCAP_PATH) $(LIBPCAP_PATH) make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
