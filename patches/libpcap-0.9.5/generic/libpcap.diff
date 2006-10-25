@@ -1,0 +1,335 @@
+Index: gencode.c
+===================================================================
+--- a/gencode.c.orig
++++ b/gencode.c
+@@ -1141,6 +1141,15 @@ init_linktype(p)
+ 		off_nl_nosnap = 44;	/* XXX - what does it do with 802.3 packets? */
+ 		return;
+
++	case DLT_LINUX_CAN:
++		/*
++		 * Currently, only raw "link[N:M]" filtering is supported.
++		 */
++		off_linktype = -1;
++		off_nl = -1;
++		off_nl_nosnap = -1;
++		return;
++
+ 	case DLT_PFLOG:
+ 		off_linktype = 0;
+ 		/* XXX read this from pf.h? */
+@@ -2354,6 +2363,12 @@ gen_linktype(proto)
+
+ 	case DLT_LINUX_LAPD:
+ 		bpf_error("LAPD link-layer type filtering not implemented");
++		break;
++
++	case DLT_LINUX_CAN:
++	        bpf_error("CAN link-layer type filtering not implemented");
++		break;
++
+ 	}
+
+ 	/*
+Index: pcap-bpf.h
+===================================================================
+--- a/pcap-bpf.h.orig
++++ b/pcap-bpf.h
+@@ -643,6 +643,7 @@ struct bpf_version {
+  */
+ #define DLT_CAN20B              190
+
++#define DLT_LINUX_CAN           191
+
+ /*
+  * The instruction encodings.
+Index: pcap.c
+===================================================================
+--- a/pcap.c.orig
++++ b/pcap.c
+@@ -356,34 +356,35 @@ static struct dlt_choice dlt_choices[] =
+ 	DLT_CHOICE(DLT_LINUX_IRDA, "Linux IrDA"),
+ 	DLT_CHOICE(DLT_LINUX_LAPD, "Linux vISDN LAPD"),
+ 	DLT_CHOICE(DLT_IEEE802_11_RADIO_AVS, "802.11 plus AVS radio information header"),
+-        DLT_CHOICE(DLT_SYMANTEC_FIREWALL, "Symantec Firewall"),
+-        DLT_CHOICE(DLT_JUNIPER_ATM1, "Juniper ATM1 PIC"),
+-        DLT_CHOICE(DLT_JUNIPER_ATM2, "Juniper ATM2 PIC"),
+-        DLT_CHOICE(DLT_JUNIPER_MLPPP, "Juniper Multi-Link PPP"),
+- 	DLT_CHOICE(DLT_PPP_PPPD, "PPP for pppd, with direction flag"),
+- 	DLT_CHOICE(DLT_JUNIPER_PPPOE, "Juniper PPPoE"),
+- 	DLT_CHOICE(DLT_JUNIPER_PPPOE_ATM, "Juniper PPPoE/ATM"),
+- 	DLT_CHOICE(DLT_GPRS_LLC, "GPRS LLC"),
+- 	DLT_CHOICE(DLT_GPF_T, "GPF-T"),
+- 	DLT_CHOICE(DLT_GPF_F, "GPF-F"),
+- 	DLT_CHOICE(DLT_JUNIPER_PIC_PEER, "Juniper PIC Peer"),
+- 	DLT_CHOICE(DLT_JUNIPER_MLFR, "Juniper Multi-Link Frame Relay"),
++	DLT_CHOICE(DLT_SYMANTEC_FIREWALL, "Symantec Firewall"),
++	DLT_CHOICE(DLT_JUNIPER_ATM1, "Juniper ATM1 PIC"),
++	DLT_CHOICE(DLT_JUNIPER_ATM2, "Juniper ATM2 PIC"),
++	DLT_CHOICE(DLT_JUNIPER_MLPPP, "Juniper Multi-Link PPP"),
++	DLT_CHOICE(DLT_PPP_PPPD, "PPP for pppd, with direction flag"),
++	DLT_CHOICE(DLT_JUNIPER_PPPOE, "Juniper PPPoE"),
++	DLT_CHOICE(DLT_JUNIPER_PPPOE_ATM, "Juniper PPPoE/ATM"),
++	DLT_CHOICE(DLT_GPRS_LLC, "GPRS LLC"),
++	DLT_CHOICE(DLT_GPF_T, "GPF-T"),
++	DLT_CHOICE(DLT_GPF_F, "GPF-F"),
++	DLT_CHOICE(DLT_JUNIPER_PIC_PEER, "Juniper PIC Peer"),
++	DLT_CHOICE(DLT_JUNIPER_MLFR, "Juniper Multi-Link Frame Relay"),
+ 	DLT_CHOICE(DLT_ERF_ETH,	"Ethernet with Endace ERF header"),
+ 	DLT_CHOICE(DLT_ERF_POS, "Packet-over-SONET with Endace ERF header"),
+-        DLT_CHOICE(DLT_JUNIPER_GGSN, "Juniper GGSN PIC"),
+-        DLT_CHOICE(DLT_JUNIPER_ES, "Juniper Encryption Services PIC"),
+-        DLT_CHOICE(DLT_JUNIPER_MONITOR, "Juniper Passive Monitor PIC"),
+-        DLT_CHOICE(DLT_JUNIPER_SERVICES, "Juniper Advanced Services PIC"),
+- 	DLT_CHOICE(DLT_JUNIPER_MFR, "Juniper FRF.16 Frame Relay"),
+- 	DLT_CHOICE(DLT_JUNIPER_ETHER, "Juniper Ethernet"),
+- 	DLT_CHOICE(DLT_JUNIPER_PPP, "Juniper PPP"),
+- 	DLT_CHOICE(DLT_JUNIPER_FRELAY, "Juniper Frame Relay"),
+- 	DLT_CHOICE(DLT_JUNIPER_CHDLC, "Juniper C-HDLC"),
++	DLT_CHOICE(DLT_JUNIPER_GGSN, "Juniper GGSN PIC"),
++	DLT_CHOICE(DLT_JUNIPER_ES, "Juniper Encryption Services PIC"),
++	DLT_CHOICE(DLT_JUNIPER_MONITOR, "Juniper Passive Monitor PIC"),
++	DLT_CHOICE(DLT_JUNIPER_SERVICES, "Juniper Advanced Services PIC"),
++	DLT_CHOICE(DLT_JUNIPER_MFR, "Juniper FRF.16 Frame Relay"),
++	DLT_CHOICE(DLT_JUNIPER_ETHER, "Juniper Ethernet"),
++	DLT_CHOICE(DLT_JUNIPER_PPP, "Juniper PPP"),
++	DLT_CHOICE(DLT_JUNIPER_FRELAY, "Juniper Frame Relay"),
++	DLT_CHOICE(DLT_JUNIPER_CHDLC, "Juniper C-HDLC"),
+ 	DLT_CHOICE(DLT_MFR, "FRF.16 Frame Relay"),
+- 	DLT_CHOICE(DLT_JUNIPER_VP, "Juniper Voice PIC"),
+- 	DLT_CHOICE(DLT_A429, "Arinc 429"),
+- 	DLT_CHOICE(DLT_CAN20B, "Controller Area Network (CAN) v. 2.0B"),
+-    DLT_CHOICE(DLT_A653_ICM, "Arinc 653 Interpartition Communication"),
++	DLT_CHOICE(DLT_JUNIPER_VP, "Juniper Voice PIC"),
++	DLT_CHOICE(DLT_A429, "Arinc 429"),
++	DLT_CHOICE(DLT_CAN20B, "Controller Area Network (CAN) v. 2.0B"),
++	DLT_CHOICE(DLT_A653_ICM, "Arinc 653 Interpartition Communication"),
++	DLT_CHOICE(DLT_LINUX_CAN, "Linux CAN"),
+ 	DLT_CHOICE_SENTINEL
+ };
+
+Index: pcap-linux.c
+===================================================================
+--- a/pcap-linux.c.orig
++++ b/pcap-linux.c
+@@ -1230,56 +1230,58 @@ static void map_arphrd_to_dlt(pcap_t *ha
+ 		handle->linktype = DLT_PRISM_HEADER;
+ 		break;
+
+-#ifndef ARPHRD_IEEE80211_RADIOTAP /* new */
+-#define ARPHRD_IEEE80211_RADIOTAP 803
+-#endif
+-	case ARPHRD_IEEE80211_RADIOTAP:
+-		handle->linktype = DLT_IEEE802_11_RADIO;
+-		break;
+-
+-	case ARPHRD_PPP:
+-		/*
+-		 * Some PPP code in the kernel supplies no link-layer
+-		 * header whatsoever to PF_PACKET sockets; other PPP
+-		 * code supplies PPP link-layer headers ("syncppp.c");
+-		 * some PPP code might supply random link-layer
+-		 * headers (PPP over ISDN - there's code in Ethereal,
+-		 * for example, to cope with PPP-over-ISDN captures
+-		 * with which the Ethereal developers have had to cope,
+-		 * heuristically trying to determine which of the
+-		 * oddball link-layer headers particular packets have).
+-		 *
+-		 * As such, we just punt, and run all PPP interfaces
+-		 * in cooked mode, if we can; otherwise, we just treat
+-		 * it as DLT_RAW, for now - if somebody needs to capture,
+-		 * on a 2.0[.x] kernel, on PPP devices that supply a
+-		 * link-layer header, they'll have to add code here to
+-		 * map to the appropriate DLT_ type (possibly adding a
+-		 * new DLT_ type, if necessary).
+-		 */
+-		if (cooked_ok)
+-			handle->linktype = DLT_LINUX_SLL;
+-		else {
+-			/*
+-			 * XXX - handle ISDN types here?  We can't fall
+-			 * back on cooked sockets, so we'd have to
+-			 * figure out from the device name what type of
+-			 * link-layer encapsulation it's using, and map
+-			 * that to an appropriate DLT_ value, meaning
+-			 * we'd map "isdnN" devices to DLT_RAW (they
+-			 * supply raw IP packets with no link-layer
+-			 * header) and "isdY" devices to a new DLT_I4L_IP
+-			 * type that has only an Ethernet packet type as
+-			 * a link-layer header.
+-			 *
+-			 * But sometimes we seem to get random crap
+-			 * in the link-layer header when capturing on
+-			 * ISDN devices....
+-			 */
+-			handle->linktype = DLT_RAW;
+-		}
+-		break;
+-
++//
++// FIXME: we use this for CAN, due to historical reasons
++//#ifndef ARPHRD_IEEE80211_RADIOTAP /* new */
++//#define ARPHRD_IEEE80211_RADIOTAP 803
++//#endif
++//	case ARPHRD_IEEE80211_RADIOTAP:
++//		handle->linktype = DLT_IEEE802_11_RADIO;
++//		break;
++//
++//	case ARPHRD_PPP:
++//		/*
++//		 * Some PPP code in the kernel supplies no link-layer
++//		 * header whatsoever to PF_PACKET sockets; other PPP
++//		 * code supplies PPP link-layer headers ("syncppp.c");
++//		 * some PPP code might supply random link-layer
++//		 * headers (PPP over ISDN - there's code in Ethereal,
++//		 * for example, to cope with PPP-over-ISDN captures
++//		 * with which the Ethereal developers have had to cope,
++//		 * heuristically trying to determine which of the
++//		 * oddball link-layer headers particular packets have).
++//		 *
++//		 * As such, we just punt, and run all PPP interfaces
++//		 * in cooked mode, if we can; otherwise, we just treat
++//		 * it as DLT_RAW, for now - if somebody needs to capture,
++//		 * on a 2.0[.x] kernel, on PPP devices that supply a
++//		 * link-layer header, they'll have to add code here to
++//		 * map to the appropriate DLT_ type (possibly adding a
++//		 * new DLT_ type, if necessary).
++//		 */
++//		if (cooked_ok)
++//			handle->linktype = DLT_LINUX_SLL;
++//		else {
++//			/*
++//			 * XXX - handle ISDN types here?  We can't fall
++//			 * back on cooked sockets, so we'd have to
++//			 * figure out from the device name what type of
++//			 * link-layer encapsulation it's using, and map
++//			 * that to an appropriate DLT_ value, meaning
++//			 * we'd map "isdnN" devices to DLT_RAW (they
++//			 * supply raw IP packets with no link-layer
++//			 * header) and "isdY" devices to a new DLT_I4L_IP
++//			 * type that has only an Ethernet packet type as
++//			 * a link-layer header.
++//			 *
++//			 * But sometimes we seem to get random crap
++//			 * in the link-layer header when capturing on
++//			 * ISDN devices....
++//			 */
++//			handle->linktype = DLT_RAW;
++//		}
++//		break;
++//
+ #ifndef ARPHRD_CISCO
+ #define ARPHRD_CISCO 513 /* previously ARPHRD_HDLC */
+ #endif
+@@ -1370,6 +1372,13 @@ static void map_arphrd_to_dlt(pcap_t *ha
+ 		handle->linktype = DLT_LINUX_LAPD;
+ 		break;
+
++#ifndef ARPHRD_CAN
++#define ARPHRD_CAN 804
++#endif
++	case ARPHRD_CAN:
++		handle->linktype = DLT_LINUX_CAN;
++		break;
++
+ 	default:
+ 		handle->linktype = -1;
+ 		break;
+@@ -1451,6 +1460,7 @@ live_open_new(pcap_t *handle, const char
+ 			if (handle->linktype == -1 ||
+ 			    handle->linktype == DLT_LINUX_SLL ||
+ 			    handle->linktype == DLT_LINUX_IRDA ||
++			    handle->linktype == DLT_LINUX_CAN ||
+ 			    handle->linktype == DLT_LINUX_LAPD ||
+ 			    (handle->linktype == DLT_EN10MB &&
+ 			     (strncmp("isdn", device, 4) == 0 ||
+@@ -1505,8 +1515,9 @@ live_open_new(pcap_t *handle, const char
+ 				}
+ 				/* IrDA capture is not a real "cooked" capture,
+ 				 * it's IrLAP frames, not IP packets. */
+-				if (handle->linktype != DLT_LINUX_IRDA &&
+-			    		handle->linktype != DLT_LINUX_LAPD)
++				if ((handle->linktype != DLT_LINUX_IRDA) &&
++					(handle->linktype != DLT_LINUX_LAPD) &&
++					(handle->linktype != DLT_LINUX_CAN))
+ 					handle->linktype = DLT_LINUX_SLL;
+ 			}
+
+Index: savefile.c
+===================================================================
+--- a/savefile.c.orig
++++ b/savefile.c
+@@ -407,7 +407,13 @@ static const char rcsid[] _U_ =
+  * http://www.endace.com/support/EndaceRecordFormat.pdf) in front of
+  * the link-layer header.
+  */
+-#define LINKTYPE_ERF_ETH	175	/* Ethernet */
++/*
++ * FIXME: uggly hack... until we have an official number we stay with
++ * the one we started with.
++ */
++//#define LINKTYPE_ERF_ETH	175	/* Ethernet */
++
++#define LINKTYPE_LINUX_CAN	175
+ #define LINKTYPE_ERF_POS	176	/* Packet-over-SONET */
+
+ /*
+@@ -658,35 +664,39 @@ static struct linktype_map {
+ 	{ DLT_GCOM_SERIAL,	LINKTYPE_GCOM_SERIAL },
+
+         /* Juniper-internal chassis encapsulation */
+-        { DLT_JUNIPER_PIC_PEER, LINKTYPE_JUNIPER_PIC_PEER },
++	{ DLT_JUNIPER_PIC_PEER, LINKTYPE_JUNIPER_PIC_PEER },
+
+ 	/* Endace types */
+-	{ DLT_ERF_ETH,		LINKTYPE_ERF_ETH },
++// FIXME: disabled because we misuse it for CAN
++//	{ DLT_ERF_ETH,		LINKTYPE_ERF_ETH },
+ 	{ DLT_ERF_POS,		LINKTYPE_ERF_POS },
+
+ 	/* viSDN LAPD */
+ 	{ DLT_LINUX_LAPD,	LINKTYPE_LINUX_LAPD },
+
+-        /* Juniper meta-information before Ether, PPP, Frame Relay, C-HDLC Frames */
+-        { DLT_JUNIPER_ETHER, LINKTYPE_JUNIPER_ETHER },
+-        { DLT_JUNIPER_PPP, LINKTYPE_JUNIPER_PPP },
+-        { DLT_JUNIPER_FRELAY, LINKTYPE_JUNIPER_FRELAY },
+-        { DLT_JUNIPER_CHDLC, LINKTYPE_JUNIPER_CHDLC },
+-
+-        /* Multi Link Frame Relay (FRF.16) */
+-        { DLT_MFR,              LINKTYPE_MFR },
+-
+-        /* Juniper Voice PIC */
+-        { DLT_JUNIPER_VP,       LINKTYPE_JUNIPER_VP },
++	/* Juniper meta-information before Ether, PPP, Frame Relay, C-HDLC Frames */
++	{ DLT_JUNIPER_ETHER, LINKTYPE_JUNIPER_ETHER },
++	{ DLT_JUNIPER_PPP, LINKTYPE_JUNIPER_PPP },
++	{ DLT_JUNIPER_FRELAY, LINKTYPE_JUNIPER_FRELAY },
++	{ DLT_JUNIPER_CHDLC, LINKTYPE_JUNIPER_CHDLC },
++
++	/* Multi Link Frame Relay (FRF.16) */
++	{ DLT_MFR,              LINKTYPE_MFR },
+
+-		/* Controller Area Network (CAN) v2.0B */
+-		{ DLT_A429,				LINKTYPE_A429 },
++	/* Juniper Voice PIC */
++	{ DLT_JUNIPER_VP,       LINKTYPE_JUNIPER_VP },
+
+-		/* Controller Area Network (CAN) v2.0B */
+-		{ DLT_CAN20B,				LINKTYPE_CAN20B },
++	/* Controller Area Network (CAN) v2.0B */
++	{ DLT_A429,				LINKTYPE_A429 },
+
+-		/* Arinc 653 Interpartition Communication messages */
+-		{ DLT_A653_ICM,         LINKTYPE_A653_ICM },
++	/* Controller Area Network (CAN) v2.0B */
++	{ DLT_CAN20B,				LINKTYPE_CAN20B },
++
++	/* Arinc 653 Interpartition Communication messages */
++	{ DLT_A653_ICM,         LINKTYPE_A653_ICM },
++
++	/* Socket CAN */
++	{ DLT_LINUX_CAN,	LINKTYPE_LINUX_CAN },
+
+ 	{ -1,			-1 }
+ };
