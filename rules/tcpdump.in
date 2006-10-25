@@ -20,3 +20,22 @@ config TCPDUMP_ENABLE_CRYPTO
 	help
 	  Select this, if you don't need support for
 	  encryption (e.g. IPsec ESP packets)
+
+config TCPDUMP_SMB
+	bool
+	prompt "enable possibly-buggy SMB printer"
+	default y
+	depends on TCPDUMP
+	help
+	  Notes from configure, when this entry is checked:
+	   The SMB printer may have exploitable buffer overflows!!!
+
+config TCPDUMP_IPV6
+	bool
+	depends on TCPDUMP
+	select LIBPCAP_IPV6
+	default no
+	prompt "enable ipv6 (with ipv4) support"
+	help
+	  Enable this if you require ipv6 support. This also requires ipv6
+	  support in libpcap (already done if you check this entry)
