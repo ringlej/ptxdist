@@ -1,19 +1,19 @@
-config HOST_E2FSPROGS
+menuconfig HOST_E2FSPROGS
 	bool
-	prompt "e2fsprogs"
+	prompt "e2fsprogs               "
 	help
 	  Useful Hosttools for management of ext2 and ext3 filesystems
-	
+
 config HOST_E2FSPROGS_TUNE2FS
 	bool
-	prompt "Install tune2fs"
+	prompt "tune2fs"
 	depends on HOST_E2FSPROGS
 	help
 	  Tune2fs can read and set various aspects of a ext2/3 filesystem
 
 config HOST_E2FSPROGS_RESIZE2FS
 	bool
-	prompt "Install resize2fs"
+	prompt "resize2fs"
 	depends on HOST_E2FSPROGS
 	help
 	  Resize2fs can be used to resize an ext2/3 filesystem offline

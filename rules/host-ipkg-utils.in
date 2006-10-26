@@ -3,5 +3,5 @@ config HOST_IPKG_UTILS
 	# no prompt, policy is that we always need it
 	default y if BUILD_USERLAND
 	help
-	  ipkg-utils let you build packages in the ipkg format. 
+	  ipkg-utils let you build packages in the ipkg format.
 

@@ -253,7 +253,6 @@ source "rules/gtk1210.in"
 source "rules/host-apache2.in"
 source "rules/host-checkinstall.in"
 source "rules/host-termcap.in"
-source "rules/host-umkimage.in"
 source "rules/host-zlib.in"
 # ---
 source "rules/konq-e.in"

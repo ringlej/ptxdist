@@ -1,14 +1,14 @@
 config HOST_MKNBI
 	bool
 	select HOST_FAKEROOT
-	prompt "mknbi: make etherboot image"
+	prompt "mknbi"
 	help
-	  With mknbi you can create tagged images for Etherboot. 
-	  Tagged images are data files, which contain the 
-	  necessary files for booting up (kernel+root for 
-	  linux, kernel+minifs for dos, ...) bundled together 
+	  With mknbi you can create tagged images for Etherboot.
+	  Tagged images are data files, which contain the
+	  necessary files for booting up (kernel+root for
+	  linux, kernel+minifs for dos, ...) bundled together
 	  with a special format.
- 	  
-	  These tagged images are downloaded and understood 
+
+	  These tagged images are downloaded and understood
 	  by Etherboot and Netboot during the boot process.
 

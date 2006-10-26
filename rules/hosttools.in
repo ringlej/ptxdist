@@ -6,9 +6,10 @@ source "rules/host-genext2fs.in"
 source "rules/host-e2fsprogs.in"
 source "rules/host-mtd.in"
 
-comment "------------------------------"
-comment "Packaging Tools               "
-comment "------------------------------"
+#comment "------------------------------"
+#comment "Packaging Tools               "
+#comment "------------------------------"
+# No header - all packaging tools have no prompt
 
 source "rules/host-fakeroot.in"
 source "rules/host-ipkg.in"
@@ -21,11 +22,7 @@ comment "------------------------------"
 source "rules/host-module-init-tools.in"
 source "rules/host-modutils.in"
 source "rules/host-util-linux.in"
-
-config HOST_UMKIMAGE
-	bool
-	prompt "mkimage: U-Boot kernel image creation"
-
+source "rules/host-umkimage.in"
 source "rules/host-mknbi.in"
 source "rules/host-mkelfImage.in"
 

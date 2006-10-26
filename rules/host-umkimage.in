@@ -1,7 +1,6 @@
 config HOST_UMKIMAGE
 	bool
-	depends on BROKEN
-	prompt "HOST_UMKIMAGE [BROKEN]"
+	prompt "uboot mkimage"
 	help
 	  FIXME: This item needs to be documented
 

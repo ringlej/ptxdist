@@ -1,5 +1,5 @@
-config HOST_MTD
-	bool "MTD Utilities"
+menuconfig HOST_MTD
+	bool "mtd utils               "
 	help
 	  FIXME: This item needs to be documented
 
