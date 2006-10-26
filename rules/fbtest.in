@@ -1,5 +1,6 @@
 config FBTEST
 	bool
+	depends on BROKEN
 	prompt "fbtest"
 	select LIBNETPBM
 	help

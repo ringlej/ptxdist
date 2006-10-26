@@ -1,8 +1,10 @@
 config HRTIMERS_SUPPORT
 	bool
+	depends on BROKEN
+	# probably not needed any more with > glibc-2.5
 	prompt "hrtimers-support"
 	help
 	  This is the support library for the High Resolution Timer
-	  project. More details can be found on 
+	  project. More details can be found on
 
 		http://sourceforge.net/projects/high-res-timers/
