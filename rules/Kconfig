@@ -5,50 +5,50 @@
 
 source "rules/ptxdist-version.in"
 
-comment "----------------------------------"
+comment "------------------------------------"
 
-menu "PTXdist Config, Architecture"
+menu "PTXdist Config, Architecture  "
 source "rules/experimental.in"
 source "rules/target.in"
 endmenu
 
-menu "Cross Compilation Tools     "
+menu "Cross Compilation Tools       "
 depends on BUILD_TOOLCHAIN
 source "rules/crosstool.in"
 endmenu
 
-menu "Host Side Tools             "
+menu "Host Side Tools               "
 depends on BUILD_USERLAND
 source "rules/hosttools.in"
 endmenu
 
-menu "Debugging Tools             "
+menu "Debugging Tools               "
 source "rules/debug.in"
 endmenu
 
-comment "----------------------------------"
+comment "------------------------------------"
 
-menu "Image Creation Options      "
+menu "Image Creation Options        "
 depends on BUILD_USERLAND
 source "rules/images.in"
 endmenu
 
-menu "Root Filesystem             "
+menu "Root Filesystem               "
 depends on BUILD_USERLAND
 source "rules/rootfs.in"
 endmenu
 
-menu "Core (Kernel, C-Library)    "
+menu "Core (Kernel, C-Library)      "
 source "rules/kernel.in"
 source "rules/klibc.in"
 source "rules/libc.in"
 source "rules/gcclibs.in"
 endmenu
 
-comment "----------------------------------"
+comment "------------------------------------"
 depends on BUILD_USERLAND
 
-menu "Shell & Console Tools       "
+menu "Shell & Console Tools         "
 depends on BUILD_USERLAND
 source "rules/bash.in"
 source "rules/busybox.in"
@@ -76,17 +76,17 @@ source "rules/xmlstarlet.in"
 source "rules/pciutils.in"
 endmenu
 
-menu "Scripting Languages         "
+menu "Scripting Languages           "
 depends on BUILD_USERLAND
 source "rules/scriptlanguages.in"
 endmenu
 
-menu "Networking Tools            "
+menu "Networking Tools              "
 depends on BUILD_USERLAND
 source "rules/networking.in"
 endmenu
 
-menu "Disk and File Utilities     "
+menu "Disk and File Utilities       "
 depends on BUILD_USERLAND
 source "rules/dosfstools.in"
 source "rules/e2fsprogs.in"
@@ -102,7 +102,7 @@ source "rules/unionfs.in"
 source "rules/fam.in"
 endmenu
 
-menu "Communication Utilities     "
+menu "Communication Utilities       "
 depends on BUILD_USERLAND
 source "rules/bluez.in"
 source "rules/canutils.in"
@@ -114,7 +114,7 @@ source "rules/smtpclient.in"
 source "rules/ssmtp.in"
 endmenu
 
-menu "Applications                "
+menu "Applications                  "
 depends on BUILD_USERLAND
 source "rules/alsa-utils.in"
 source "rules/flash.in"
@@ -129,17 +129,17 @@ source "rules/kaffe.in"
 source "rules/cvs.in"
 endmenu
 
-menu "Tools                       "
+menu "Tools                         "
 depends on BUILD_USERLAND
 source "rules/tools.in"
 endmenu
 
-menu "Editors                     "
+menu "Editors                       "
 depends on BUILD_USERLAND
 source "rules/editors.in"
 endmenu
 
-menu "System Libraries            "
+menu "System Libraries              "
 depends on BUILD_USERLAND
 source "rules/alsa-lib.in"
 source "rules/boost.in"
@@ -173,14 +173,14 @@ source "rules/zlib.in"
 source "rules/live.in"
 endmenu
 
-menu "Middleware                  "
+menu "Middleware                    "
 depends on BUILD_USERLAND
 source "rules/dbus.in"
 source "rules/omniorb.in"
 source "rules/mico.in"
 endmenu
 
-menu "Graphics Libraries          "
+menu "Graphics Libraries            "
 depends on BUILD_USERLAND
 
 source "rules/xorg.in"
@@ -213,21 +213,21 @@ source "rules/i855resolution.in"
 source "rules/i915resolution.in"
 endmenu
 
-menu "Scientific Apps             "
+menu "Scientific Apps               "
 depends on BUILD_USERLAND
 source "rules/gnuplot.in"
 source "rules/libmodbus.in"
 source "rules/libpv.in"
 endmenu
 
-menu "Web Applications            "
+menu "Web Applications              "
 depends on BUILD_USERLAND
 source "rules/mfirebird.in"
 source "rules/penguzilla.in"
 source "rules/jvisu.in"
 endmenu
 
-menu "Test Suites                 "
+menu "Test Suites                   "
 depends on BUILD_USERLAND
 source "rules/cyclictest.in"
 source "rules/host-pelts.in"
@@ -235,7 +235,7 @@ source "rules/pelts_tests.in"
 source "rules/tests.in"
 endmenu
 
-menu "Broken or orphaned Packages "
+menu "Broken or orphaned Packages   "
 depends on BROKEN
 source "rules/at-spi.in"
 source "rules/cfgsh.in"
@@ -252,7 +252,6 @@ source "rules/gtk1210.in"
 # please check why they are not included anywhere...
 source "rules/host-apache2.in"
 source "rules/host-checkinstall.in"
-source "rules/host-modutils.in"
 source "rules/host-termcap.in"
 source "rules/host-umkimage.in"
 source "rules/host-zlib.in"
