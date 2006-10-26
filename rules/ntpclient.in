@@ -5,15 +5,15 @@ config NTPCLIENT
 	  ntpclient is a small and efficient client to the NTP protocol.
 
 	  Description by Larry Doolittle:
-	  ntpclient is an NTP (RFC-1305) client for unix-alike computers. 
-       	  Its functionality is a small subset of xntpd, but IMHO performs 
-	  better (or at least has the potential to function better) within 
-	  that limited scope. Since it is much smaller than xntpd, it is 
+	  ntpclient is an NTP (RFC-1305) client for unix-alike computers.
+       	  Its functionality is a small subset of xntpd, but IMHO performs
+	  better (or at least has the potential to function better) within
+	  that limited scope. Since it is much smaller than xntpd, it is
 	  also more relevant for embedded computers.
 
-	  ntpclient is Copyright 1997, 1999, 2000, 2003 Larry Doolittle, 
-	  and may be freely used and copied according to the terms of the 
-	  GNU General Public License, version 2. 
+	  ntpclient is Copyright 1997, 1999, 2000, 2003 Larry Doolittle,
+	  and may be freely used and copied according to the terms of the
+	  GNU General Public License, version 2.
 
 	  See http://doolittle.icarus.com/ntpclient/ for details.
 
