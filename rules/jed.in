@@ -1,22 +1,20 @@
 config JED
 	bool
-	prompt "jed"
+	prompt "jed [BROKEN]"
 	depends on BROKEN
 	# tries to execute stuff which is cross compiled
 	help
-	  JED - An editor for programmers 
- 
+	  JED - An editor for programmers
+
  	  Jed offers:
 	  Extensible in a language resembling C. Completely customizable.
-	  Capable of read GNU info files from within JED's info browser. 
+	  Capable of read GNU info files from within JED's info browser.
 	  A variety of programming modes (with syntax highlighting) are
-	  available including Pascal, Java, Perl, C, C++, FORTRAN, TeX, 
-	  HTML,	SH, IDL, DCL, NROFF, PostScript, Basic. Folding support. 
-	  Edit TeX files with AUC-TeX style editing (BiBTeX support too). 
-	  Rectangular cut/paste; regular expressions; incremental searches; 
-	  search replace across multiple files; multiple windows; multiple 
-	  buffers; shell modes; directory editor (dired); mail; rmail; 
+	  available including Pascal, Java, Perl, C, C++, FORTRAN, TeX,
+	  HTML,	SH, IDL, DCL, NROFF, PostScript, Basic. Folding support.
+	  Edit TeX files with AUC-TeX style editing (BiBTeX support too).
+	  Rectangular cut/paste; regular expressions; incremental searches;
+	  search replace across multiple files; multiple windows; multiple
+	  buffers; shell modes; directory editor (dired); mail; rmail;
 	  ispell; and much more.
 
-comment "jed is broken, please send a patch"
-	depends on !BROKEN

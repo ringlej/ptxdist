@@ -3,23 +3,21 @@ menuconfig CFGSH
 	depends on BROKEN
 	select NCURSES
 	select READLINE
-	prompt "cfgsh               "
+	prompt "cfgsh [BROKEN]      "
 	help
-	  cfgsh, the Configuration Shell utility, is a small utility 
-	  meant to be used for he configuration of embedded systems. 
-	  The idea is that for embedded systems the 'normal' way of 
-	  configuring a GNU/Linux host is simply non sentient - the 
-	  entire notion of an administrator that edits the system startup 
-	  scripts simply does not fit the an embedded device that by 
-	  definition is supposed to function with little or no 
+	  cfgsh, the Configuration Shell utility, is a small utility
+	  meant to be used for he configuration of embedded systems.
+	  The idea is that for embedded systems the 'normal' way of
+	  configuring a GNU/Linux host is simply non sentient - the
+	  entire notion of an administrator that edits the system startup
+	  scripts simply does not fit the an embedded device that by
+	  definition is supposed to function with little or no
 	  knowledgeable person intervention.
 
-	  cfgsh is meant to replace the normal combination of utilities 
-	  such ifconfig, route and friends, together with the startup 
-	  scripts and configuration files that use them with a single 
-	  program and configuration file that will implement the same 
-	  functionality in a manner more consistent with the embedded 
+	  cfgsh is meant to replace the normal combination of utilities
+	  such ifconfig, route and friends, together with the startup
+	  scripts and configuration files that use them with a single
+	  program and configuration file that will implement the same
+	  functionality in a manner more consistent with the embedded
 	  system world.
 
-comment "cfgsh is broken, please send a patch"
-	depends on !BROKEN

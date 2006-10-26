@@ -1,10 +1,7 @@
 config LIBGNOMECANVAS
 	bool
 	depends on BROKEN
-	prompt "LIBGNOMECANVAS"
+	prompt "libgnomecanvas [BROKEN]"
 	help
 	  FIXME: This item needs to be documented
-	
 
-comment "LIBGNOMECANVAS is broken, please send a patch"
-	depends on !BROKEN

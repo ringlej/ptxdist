@@ -1,7 +1,7 @@
 config AT_SPI
 	bool
 	depends on BROKEN
-	prompt "Assistive Technology Service Provider Interface"
+	prompt "Assistive Technology Service Provider Interface [BROKEN]"
 	help
 	  Providing accessibility means removing barriers that prevent people
  	  with disabilities from participating in substantial life activities,
@@ -10,5 +10,3 @@ config AT_SPI
  	  assistive software to transparently provide specialized input and
  	  output capabilities. This is a part of the GNOME Project.
 
-comment "at-spi is broken, please send a patch"
-	depends on !BROKEN

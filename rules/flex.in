@@ -1,7 +1,7 @@
 config FLEX
 	bool
 	depends on BROKEN
-	prompt "FLEX"
+	prompt "flex [BROKEN]"
 	help
 	  FLEX is a tool for generating scanners: programs which
 	  recognized lexical patterns in text. flex reads the given
@@ -16,5 +16,3 @@ config FLEX
 	  expressions. Whenever it finds one, it executes the
 	  corresponding C code.
 
-comment "FLEX is broken, please send a patch"
-	depends on !BROKEN

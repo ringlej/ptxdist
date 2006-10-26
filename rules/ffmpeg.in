@@ -1,3 +1,5 @@
+# FIXME
+
 comment "ffmpeg not supported by strongARM"
 	depends on ARCH_ARM && !BROKEN
 

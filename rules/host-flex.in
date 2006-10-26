@@ -1,12 +1,7 @@
-# FIXME: This Package is broken ... no make file found
-
 config HOST_FLEX254
 	bool
-	prompt "flex 2.5.4"
+	prompt "flex 2.5.4 [BROKEN]"
 	depends on BROKEN
 	help
 	  FIXME: This item needs to be documented
 
-
-comment "HOST_FLEX254 is broken, please send a patch"
-	depends on !BROKEN

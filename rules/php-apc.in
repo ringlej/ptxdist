@@ -1,8 +1,6 @@
 config PHP_APC
 	bool
 	depends on BROKEN
-	prompt "Build Alternative PHP-cache"
+	prompt "php apc [BROKEN]"
 	depends PHP
 
-comment "php-apc is broken, please send a patch"
-	depends on !BROKEN

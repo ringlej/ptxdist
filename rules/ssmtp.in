@@ -1,5 +1,5 @@
 menuconfig SSMTP
-	bool "ssmtp               "
+	bool "ssmtp [BROKEN]      "
 	depends on BROKEN
 	select OPENSSL
 	help
@@ -35,5 +35,3 @@ config SSMTP_MD5AUTH
 	help
 	  FIXME: This item needs to be documented
 
-comment "ssmtp is broken, please send a patch"
-	depends on !BROKEN

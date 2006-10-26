@@ -1,10 +1,7 @@
 config LIBIDL068
 	bool
 	depends on BROKEN
-	prompt "LIBIDL068"
+	prompt "libidl 0.68 [BROKEN]"
 	help
 	  FIXME: This item needs to be documented
-	
 
-comment "LIBIDL068 is broken, please send a patch"
-	depends on !BROKEN

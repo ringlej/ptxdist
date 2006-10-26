@@ -1,7 +1,7 @@
 config E2TOOLS
 	bool
 	depends on BROKEN
-	prompt "E2TOOLS - Ext2 Filesystem Tools"
+	prompt "e2tools [BROKEN]"
 	help
 	  E2tools is a simple set of GPL'ed utilities to read, write,
 	  and manipulate files in an ext2/ext3 filesystem. These
@@ -23,5 +23,3 @@ config E2TOOLS
 	  list files/directories: e2ls
 	  output the last part of a file: e2tail
 
-comment "E2TOOLS is broken, please send a patch"
-	depends on !BROKEN

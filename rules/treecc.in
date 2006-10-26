@@ -1,10 +1,8 @@
 config TREECC
 	bool
-	depends on DOTGNU && BROKEN
-	prompt "treecc"
+	depends on DOTGNU
+	depends on BROKEN
+	prompt "treecc [BROKEN]"
 	help
 	  FIXME: This item needs to be documented
-
-comment "treecc is broken, please send a patch"
-	depends on !BROKEN
 

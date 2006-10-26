@@ -37,27 +37,19 @@ config MICO_CCM
 config MICO_COSS
 	bool
 	default y
-	prompt "use MICO COSS"
+	prompt "use MICO COSS [BROKEN]"
 	depends on MICO
 	depends on BROKEN
 	help
 	  FIXME: This feature needs documentation.
-
-comment "MICO COSS is broken, please send a patch"
-	depends on MICO
-	depends on !BROKEN
 
 config MICO_CSL2
 	bool
-	prompt "CORBASec Level 2"
+	prompt "CORBASec Level 2 [BROKEN]"
 	depends on MICO
 	depends on BROKEN
 	help
 	  FIXME: This feature needs documentation.
-
-comment "CORBASec Level 2 is broken, please send a patch"
-	depends on MICO
-	depends on !BROKEN
 
 config MICO_CSIV2
 	bool
@@ -110,15 +102,11 @@ config MICO_SERVICE_PROPERTY
 
 config MICO_SERVICE_TRADER
 	bool
-	prompt "Trading Service"
+	prompt "Trading Service [BROKEN]"
 	depends on MICO
 	depends on BROKEN
 	help
 	  FIXME: This feature needs documentation.
-
-comment "MICO Trading Service is broken, please send a patch"
-	depends on MICO
-	depends on !BROKEN
 
 config MICO_SERVICE_TIME
 	bool
@@ -207,13 +195,9 @@ config MICO_LIBMICOCOSS
 	bool
 	depends on MICO
 	depends on BROKEN
-	prompt "libmicocoss"
+	prompt "libmicocoss [BROKEN]"
 	help
 	  Install libmicocoss.so on target.
-
-comment "libmicocoss is broken, please send a patch"
-	depends on MICO
-	depends on !BROKEN
 
 config MICO_LIBMICOIR
 	bool

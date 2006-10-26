@@ -1,35 +1,33 @@
 menuconfig PDKSH
-	bool "Pdksh               "
+	bool
+	prompt "pdksh [BROKEN]      "
 	depends on BROKEN
 	help
 	  FIXME: This item needs to be documented
 
 config PDKSH_SHLIKE
-	bool	
-	prompt "Enable minimal sh like configuration"
+	bool
+	prompt "Enable minimal sh like configuration [BROKEN]"
 	depends on PDKSH && broken
 	help
 	  FIXME: This item needs to be documented
 
-comment "shell=sh is broken, please send a patch"
-	depends on !BROKEN && PDKSH
-
 config PDKSH_POSIX
-	bool	
+	bool
 	prompt "Enable POSIX behaviour"
 	depends on PDKSH
 	help
 	  FIXME: This item needs to be documented
 
 config PDKSH_EMACS
-	bool	
+	bool
 	prompt "Enable emacs style line editing"
 	depends on PDKSH
 	help
 	  FIXME: This item needs to be documented
 
 config PDKSH_VI
-	bool	
+	bool
 	prompt "Enable vi style line editing"
 	depends on PDKSH
 	help
@@ -55,7 +53,4 @@ config PDKSH_BRACE_EXPAND
 	depends on PDKSH
 	help
 	  FIXME: This item needs to be documented
-
-comment "pdksh is broken, please send a patch"
-	depends on !BROKEN
 

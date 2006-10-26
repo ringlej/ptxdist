@@ -1,18 +1,16 @@
 config GMP3
 	bool
 	depends on BROKEN
-	prompt "GMP3"
+	prompt "gmp3 [BROKEN]"
 	help
 	  Multiprecision arithmetic library
- 
+
  	  GNU MP is a programmer's library for arbitrary precision
  	  arithmetic (ie, a bignum package).  It can operate on signed
  	  integer, rational, and floating point numeric types.
- 	  
-	  It has a rich set of functions, and the functions have 
+
+	  It has a rich set of functions, and the functions have
 	  a regular interface.
- 	
+
 	  	The home page is http://www.swox.com/gmp
 
-comment "GMP3 is broken, please send a patch"
-	depends on !BROKEN

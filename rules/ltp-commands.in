@@ -1,11 +1,8 @@
 menuconfig LTP_COMMANDS
 	bool
-	prompt "Commands            "
+	prompt "Commands [BROKEN]   "
 	depends on LTP
 	depends on BROKEN
 	help
-	  Test user land commands. 
+	  Test user land commands.
 
-comment "LTP_COMMANDS is broken, please send a patch"
-	depends on !BROKEN
-	depends on LTP

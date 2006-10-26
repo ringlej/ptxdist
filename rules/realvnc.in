@@ -1,5 +1,5 @@
 menuconfig REALVNC
-	bool "realvnc               "
+	bool "realvnc [BROKEN]      "
 	select ZLIB
 	depends on BROKEN
 
@@ -17,6 +17,3 @@ config REALVNC_CLIENT
 	help
 	  Install realvnc client
 
-comment "realvnc is broken, please send a patch"
-	depends on !BROKEN
-	

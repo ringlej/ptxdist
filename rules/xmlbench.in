@@ -1,8 +1,5 @@
 menuconfig XMLBENCH
 	depends on BROKEN
 	bool
-	prompt "xmlbench"
-
-comment "xmlbench is broken, please send a patch"
-	depends on !BROKEN
+	prompt "xmlbench [BROKEN]"
 

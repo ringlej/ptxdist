@@ -1,10 +1,8 @@
 config FLASH
 	bool
 	select NCURSES
-	prompt "flash"
+	prompt "flash [BROKEN]"
 	depends on BROKEN
 	help
 	  FIXME: This item needs to be documented
 
-comment "FLASH is broken, please send a patch"
-	depends on !BROKEN

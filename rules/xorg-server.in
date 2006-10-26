@@ -181,26 +181,18 @@ config XORG_SERVER_XWIN
 	bool
 	depends on XORG_SERVER
 	depends on BROKEN
-	prompt "X.org XWin server"
+	prompt "X.org XWin server [BROKEN]"
 	help
 	  X Server for the Cygwin environment on Microsoft Windows
-
-comment "X.org XWin server is broken"
-	depends on XORG_SERVER
-	depends on !BROKEN
 
 config XORG_SERVER_XPRINT
 	bool
 	depends on XORG_SERVER
 	depends on BROKEN
-	prompt "Xprint server and extension"
+	prompt "Xprint server and extension [BROKEN]"
 	help
 	  Support the Xprint extension on this server. This lets application
 	  render to a non to non-display devices. Currently broken.
-
-comment "Xprint is broken"
-	depends on XORG_SERVER
-	depends on !BROKEN
 
 config XORG_SERVER_XEPHYR
 	bool

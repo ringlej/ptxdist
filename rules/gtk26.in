@@ -1,10 +1,7 @@
 config GTK26
 	bool
 	depends on BROKEN
-	prompt "GTK26"
+	prompt "gtk 2.6 [BROKEN]"
 	help
 	  FIXME: This item needs to be documented
-	
 
-comment "GTK26 is broken, please send a patch"
-	depends on !BROKEN

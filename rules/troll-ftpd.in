@@ -1,6 +1,6 @@
 config TROLL_FTPD
 	bool
-	prompt "troll-ftpd"
+	prompt "troll-ftpd [BROKEN]"
 	depends on BROKEN
 	help
 	  Troll FTPD is a replacement for the Unix FTPD (and can also replace
@@ -8,7 +8,4 @@ config TROLL_FTPD
 	  It is very small, secure, offers anonymous FTP and virtual hosting.
 	  Troll FTPD is developed by Arnt Gulbrandsen.
 	  (http://www.trolltech.com/download/ftpd.html)
-
-comment "trollftpd is broken, please send a patch"
-	depends on !BROKEN
 

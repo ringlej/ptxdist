@@ -1,14 +1,11 @@
 config HOST_APACHE2
 	bool
 	depends on BROKEN
-	prompt "HOST_APACHE2"
+	prompt "HOST_APACHE2 [BROKEN]"
 	help
-	  This is the host-package for Apache v2, which is 
-	  the next generation of the Apache web server. 
-	  
-	  This version - a total rewrite - introduces many new 
-	  improvements, such as threading, a new API, IPv6 support, 
-	  request/response filtering, and more.
+	  This is the host-package for Apache v2, which is
+	  the next generation of the Apache web server.
 
-comment "HOST_APACHE2 is broken, please send a patch"
-	depends on !BROKEN
+	  This version - a total rewrite - introduces many new
+	  improvements, such as threading, a new API, IPv6 support,
+	  request/response filtering, and more.

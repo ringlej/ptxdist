@@ -1,16 +1,14 @@
 config GAIL
 	bool
 	depends on BROKEN
-	prompt "GAIL"
+	prompt "gail [BROKEN]"
 	help
 	  GNOME Accessibility Implementation Library
-	  
-	  Gail implements ATK interfaces for GTK+ widgets 
-	  which are dynamically loadable at runtime by a 
+
+	  Gail implements ATK interfaces for GTK+ widgets
+	  which are dynamically loadable at runtime by a
 	  GTK+ application. Once loaded, those parts of
- 	  an application that use standard GTK+ widgets 
-	  will have a basic level of accessibility, 
+ 	  an application that use standard GTK+ widgets
+	  will have a basic level of accessibility,
 	  without the need to modify the application at all.
 
-comment "GAIL is broken, please send a patch"
-	depends on !BROKEN

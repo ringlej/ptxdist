@@ -1,5 +1,5 @@
 menuconfig WXWINDOWS
-	bool "wxWidgets             "
+	bool "wxWidgets [BROKEN]    "
 	depends on BROKEN
 	help
 	  wxWindows Cross-platform C++ GUI toolkit
@@ -21,5 +21,3 @@ config WXWINDOWS_X11_CONFIG
 	help
 	  FIXME: This item needs to be documented
 
-comment "wxWidgets is broken, please send a patch"
-	depends on !BROKEN

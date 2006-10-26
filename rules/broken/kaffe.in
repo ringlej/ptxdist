@@ -1,6 +1,5 @@
 menuconfig KAFFE
 	bool "Kaffe"
-	depends on BROKEN
 
 comment	"Target Options"
 	depends on KAFFE
@@ -33,7 +32,7 @@ comment	"Target Options"
 		config KAFFE_THREAD_J
 			bool unix-jthreads
 	endchoice
-	
+
 	choice
 		prompt "API"
 		default KAFFE_API_SE
@@ -72,7 +71,7 @@ comment	"Target Options"
 		depends on KAFFE
 		help
 			Works only with Sun's javac.
-############################################################################# 
+#############################################################################
 comment	"Debugging Options"
 	depends on KAFFE
 
@@ -105,7 +104,7 @@ comment	"Debugging Options"
 		default n
 		prompt "Gather statistics on vm execution"
 		depends on KAFFE
-############################################################################## 
+##############################################################################
 comment	"Features"
 	depends on KAFFE
 
@@ -189,7 +188,7 @@ comment	"Features"
 		depends on KAFFE_API_CLDC
 		depends on KAFFE
 
-############################################################################## 
+##############################################################################
 comment	"Linking options"
 	depends on KAFFE
 
@@ -223,6 +222,3 @@ comment	"Linking options"
 		default y if KAFFE_API_SE && !KAFFE_FEAT_JAVAMATH || \
 			KAFFE_FEAT_CLDC_GMP && !(KAFFE_LINK_GMP || KAFFE_LINK_BIN)
 		depends on KAFFE
-
-comment "kaffe is broken, please send a patch"
-	depends on !BROKEN

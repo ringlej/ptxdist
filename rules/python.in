@@ -1,13 +1,10 @@
 config PYTHON23
 	bool
 	depends on BROKEN
-	prompt "Python 2.3"
+	prompt "python 2.3 [BROKEN]"
 	depends on GLIBC_DL || UCLIBC_DL
 	select GLIBC_UTIL if GLIBC
 	select GCCLIBS_CXX
 	help
 	  FIXME: This item needs to be documented
-
-comment "python23 is broken, please send a patch"
-	depends on !BROKEN
 

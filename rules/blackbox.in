@@ -1,19 +1,17 @@
 config BLACKBOX
 	bool
-	prompt "Blackbox Window-Manager"
+	prompt "blackbox window manager [BROKEN]"
 	depends on BROKEN
 	select XORG_LIB_X11
 	select XORG_LIB_XFT
 	help
 	  The Debian Project describes Blackbox like this:
-	  
+
 	  This is a window manager for X.  It is similar in many respects to
-	  such popular packages as Window Maker, Enlightenment, and FVWM2.  
-	  You might be interested in this package if you are tired of window 
-	  managers that are a heavy drain on your system resources, but you 
+	  such popular packages as Window Maker, Enlightenment, and FVWM2.
+	  You might be interested in this package if you are tired of window
+	  managers that are a heavy drain on your system resources, but you
 	  still want an attractive and modern-looking interface. [...]
-	  
+
 	  Written in c++
 
-comment "blackbox is broken, please send a patch"
-	depends on !BROKEN

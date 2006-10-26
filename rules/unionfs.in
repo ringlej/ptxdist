@@ -1,5 +1,5 @@
 menuconfig UNIONFS
-	bool "unionfs             "
+	bool "unionfs [BROKEN]    "
 	depends on BROKEN
 	select KERNEL_COMPILE
 	select E2FSPROGS
@@ -14,7 +14,7 @@ config UNIONFS_SNAPSHOT
 	bool
 	depends on UNIONFS
 	prompt "uses snapshot"
-	
+
 config UNIONFS_VERSION
 	string
 	depends on UNIONFS_SNAPSHOT
@@ -31,5 +31,3 @@ config UNIONFS_UNIONCTL
 	depends on UNIONFS
 	prompt "unionctl"
 
-comment "unionfs is broken, please send a patch"
-	depends on !BROKEN

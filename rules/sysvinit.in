@@ -1,11 +1,8 @@
 menuconfig SYSVINIT
-	bool "SysVInit            "
+	bool "SysVInit [BROKEN]   "
 	depends on BROKEN
 
-comment "sysvinit is broken, please send a patch"
-	depends on !BROKEN
-
-config SYSVINIT_INIT  
+config SYSVINIT_INIT
 	bool
 	prompt "init"
 	depends on SYSVINIT
@@ -82,5 +79,5 @@ config SYSVINIT_BSDINIT
 	help
 	  It installs different script to configuration of runlevel supported in init.
 	  These script use BSD style init, described in
-	  http://www.linuxfromscratch.org/hints/downloads/files/bsd-init.txt 
+	  http://www.linuxfromscratch.org/hints/downloads/files/bsd-init.txt
 
