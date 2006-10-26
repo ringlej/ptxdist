@@ -98,8 +98,8 @@ export SYSROOT
 #
 # prepare the search path
 #
-CROSS_PATH := $(call remove_quotes,$(PTXCONF_PREFIX)/bin:$(PTXCONF_PREFIX)/usr/bin:$$PATH)
-HOST_PATH := $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:$$PATH
+CROSS_PATH := $(call remove_quotes,$(PTXCONF_PREFIX)/bin:$(PTXCONF_PREFIX)/usr/bin:"$$PATH")
+HOST_PATH := $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:"$$PATH"
 
 #
 # same as PTXCONF_GNU_TARGET, but w/o -linux
@@ -161,6 +161,7 @@ CROSS_NM		:= $(COMPILER_PREFIX)nm
 CROSS_CC		:= $(COMPILER_PREFIX)gcc
 CROSS_CXX		:= $(COMPILER_PREFIX)g++
 CROSS_RANLIB		:= $(COMPILER_PREFIX)ranlib
+CROSS_READELF		:= $(COMPILER_PREFIX)readelf
 CROSS_OBJCOPY		:= $(COMPILER_PREFIX)objcopy
 CROSS_OBJDUMP		:= $(COMPILER_PREFIX)objdump
 CROSS_STRIP		:= $(COMPILER_PREFIX)strip
