@@ -1,22 +1,22 @@
-##############################################################################
-comment "Filesystem Manipulation Tools"
-##############################################################################
+comment "------------------------------"
+comment "Filesystem Manipulation Tools "
+comment "------------------------------"
 
 source "rules/host-genext2fs.in"
 source "rules/host-e2fsprogs.in"
 source "rules/host-mtd.in"
 
-##############################################################################
-comment "Packaging Tools"
-##############################################################################
+comment "------------------------------"
+comment "Packaging Tools               "
+comment "------------------------------"
 
 source "rules/host-fakeroot.in"
 source "rules/host-ipkg.in"
 source "rules/host-ipkg-utils.in"
 
-##############################################################################
-comment "Kernel Tools"
-##############################################################################
+comment "------------------------------"
+comment "Kernel Tools                  "
+comment "------------------------------"
 
 source "rules/host-module-init-tools.in"
 source "rules/host-modutils.in"
@@ -29,9 +29,9 @@ config HOST_UMKIMAGE
 source "rules/host-mknbi.in"
 source "rules/host-mkelfImage.in"
 
-##############################################################################
-comment "Other Host Tools"
-##############################################################################
+comment "------------------------------"
+comment "Other Host Tools              "
+comment "------------------------------"
 
 source "rules/host-flex.in"
 source "rules/host-mico.in"
@@ -40,9 +40,9 @@ source "rules/host-qte.in"
 source "rules/host-slirp.in"
 source "rules/host-cmake.in"
 
-##############################################################################
-comment "Scripting Languages"
-##############################################################################
+comment "------------------------------"
+comment "Scripting Languages           "
+comment "------------------------------"
 
 source "rules/host-python24.in"
 
