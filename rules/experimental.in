@@ -1,25 +1,25 @@
-comment "Code maturity       "
+comment "Code Maturity                 "
 
 config EXPERIMENTAL
 	bool "Support experimental Stuff"
 	help
-	  Some options in PTXdist are considered to be experimental. 
-	  Well, if I tell you the truth, *all* options are experimental, 
-	  but the ones marked with PTXCONF_EXPERIMENTAL are *officially* 
-	  being marked as experimental. 
+	  Some options in PTXdist are considered to be experimental.
+	  Well, if I tell you the truth, *all* options are experimental,
+	  but the ones marked with PTXCONF_EXPERIMENTAL are *officially*
+	  being marked as experimental.
 
 config EXPERIMENTAL_MORE
 	bool "Support even more experimental Stuff"
 	depends on EXPERIMENTAL
 	help
-	  If you thought that PTXCONF_EXPERIMENTAL was stuff you shouldn't 
-	  try, packets being marked with PTXCONF_EXPERIMENTAL_MORE is 
-	  definitely not for people who do not want to live on the 
-	  bleeding edge. 
+	  If you thought that PTXCONF_EXPERIMENTAL was stuff you shouldn't
+	  try, packets being marked with PTXCONF_EXPERIMENTAL_MORE is
+	  definitely not for people who do not want to live on the
+	  bleeding edge.
 
 config BROKEN
 	bool "Support packets known to be broken"
 	depends on EXPERIMENTAL
 	help
 	  If this option is checked, even packets are activated which
-	  are known to be broken. 
+	  are known to be broken.

@@ -7,10 +7,3 @@ config HOST_MODULE_INIT_TOOLS
 	  and removing kernel modules for Linux (versions 2.5.48 and
 	  above).
 
-config HOST_MODUTILS
-	bool
-	prompt "Modutils"
-	select HOST_FLEX254
-	help
-	  Modutils is the old set of programs for handling kernel modules. 
-
