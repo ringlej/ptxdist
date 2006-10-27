@@ -1,3 +1,20 @@
+#
+# Submitted-By: Robert Schwebel, 2006-10-27
+# Committed-By: Robert Schwebel
+#
+# Error:
+#
+# Wireshark tries to run host-built files on the build machine.
+#
+# Description:
+#
+# http://bugs.wireshark.org/bugzilla/show_bug.cgi?id=1185
+#
+# State:
+# 
+# Filed a bugzilla entry, see above.
+#
+
 Index: Makefile.am
 ===================================================================
 --- a/Makefile.am.orig
