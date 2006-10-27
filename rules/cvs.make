@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_CVS) += cvs
 CVS_VERSION	:= 1.11.22
 CVS		:= cvs-$(CVS_VERSION)
 CVS_SUFFIX	:= tar.bz2
-CVS_URL		:= ftp://ftp.gnu.org/non-gnu/cvs/source/stable/$(VS_VERSION)/$(CVS).$(CVS_SUFFIX)
+CVS_URL		:= ftp://ftp.gnu.org/non-gnu/cvs/source/stable/$(CVS_VERSION)/$(CVS).$(CVS_SUFFIX)
 CVS_SOURCE	:= $(SRCDIR)/$(CVS).$(CVS_SUFFIX)
 CVS_DIR		:= $(BUILDDIR)/$(CVS)
 
