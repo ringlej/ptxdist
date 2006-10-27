@@ -3,7 +3,7 @@ ifneq ($(KERNELRELEASE),)
 	obj-m  := module-template.o
 else
  # Normal Makefile
-all::
+modules::
 	$(MAKE) -C $(KERNELDIR) M=`pwd` $@
 endif
 
