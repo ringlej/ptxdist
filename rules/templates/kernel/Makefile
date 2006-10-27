@@ -4,6 +4,6 @@ ifneq ($(KERNELRELEASE),)
 else
  # Normal Makefile
 all::
-	$(MAKE) -C $(KERNELDIR) M=`pwd`
+	$(MAKE) -C $(KERNELDIR) M=`pwd` $@
 endif
 
