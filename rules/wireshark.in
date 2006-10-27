@@ -13,7 +13,7 @@ menuconfig WIRESHARK
 config WIRESHARK_TSHARK
 	bool
 	default y
-	prompt "Text based wireshark"
+	prompt "tshark"
 	depends on WIRESHARK
 	help
 	  This is the textmode version of wireshark
@@ -22,7 +22,7 @@ config WIRESHARK_TSHARK
 #config WIRESHARK_WIRESHARK
 #	bool
 #	default n
-#	prompt "graphical wireshark"
+#	prompt "wireshark"
 #	depends on WIRESHARK
 #	help
 #	  This is the graphical version of wireshark
