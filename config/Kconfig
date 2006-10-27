@@ -16,7 +16,7 @@ config PTXCONF
 	help
 	  This is the Pengutronix Distribution Build System.
 
-comment "----------------------------------"
+comment "------------------------------------"
 
 # Deprecation Process:
 #
@@ -49,17 +49,25 @@ comment "----------------------------------"
 #
 #endchoice
 
-menu "Project Name & Version      "
+menu "Project Name & Version        "
+
+comment "Project Name & Version        "
 
 config PROJECT
 	string
-	prompt "Project Name        "
+	prompt "project name        "
 	help
 	  Name of this project; each PTXdist "Project" specifies a unique
 	  configuration for an embedded Linux project.
 
 	  Usually you don't have to set this config option; change it
 	  only if you want to have some non-default name.
+
+config PROJECT_VERSION
+	string
+	prompt "project version     "
+	help
+	  Version of this project.
 
 endmenu
 
