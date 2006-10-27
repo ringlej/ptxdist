@@ -3,7 +3,7 @@ comment "------ module_template stuff ------"
 config MODULE_TEMPLATE
 	bool
 	prompt "build module_template"
-	depends on KERNEL_COMPILE
+	select KERNEL_COMPILE
 	default y
 	help
 	  Enable this extry to build the template kernel
@@ -12,5 +12,3 @@ config MODULE_TEMPLATE
 	  depends on KERNEL_COMPILE. And the kernel configuration
 	  must support modules at all.
 
-comment "enable kernel building to build the template driver"
-	depends on !KERNEL_COMPILE
