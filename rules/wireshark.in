@@ -1,5 +1,8 @@
 menuconfig WIRESHARK
 	bool
+	depends on BROKEN
+	# incorrectly runs libgnutls-config from the host while trying
+	# to find out where tls is
 	default n
 	prompt "wireshark           "
 	select LIBPCAP
