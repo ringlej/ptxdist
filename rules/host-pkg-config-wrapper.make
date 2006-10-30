@@ -70,8 +70,8 @@ host-pkg-config-wrapper_install: $(STATEDIR)/host-pkg-config-wrapper.install
 
 $(STATEDIR)/host-pkg-config-wrapper.install: $(host-pkg-config-wrapper_install_deps_default)
 	@$(call targetinfo,$@)
-	install -m755 -D $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_HOST_PREFIX)/bin/pkg-config
-	install -m755 -D $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_HOST_PREFIX)/bin/$(COMPILER_PREFIX)pkg-config
+	install -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_HOST_PREFIX)/bin/pkg-config
+	install -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_HOST_PREFIX)/bin/$(COMPILER_PREFIX)pkg-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
