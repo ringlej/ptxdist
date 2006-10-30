@@ -283,7 +283,7 @@ else
 	AC_MSG_RESULT(yes)
 fi
 
-dnl Cehck for kermit for pelts
+dnl Check for kermit for pelts
 
 dnl Check for rpmbuild (v4) vs. rpm (v3)
 dnl AC_PATH_PROGS(RPMBUILD, [rpmbuild rpm])
