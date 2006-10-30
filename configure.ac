@@ -38,20 +38,6 @@ AC_CHECK_HEADER(
 	AC_MSG_ERROR([Cannot find ncurses.h. Please install the ncurses development packet.])
 )
 
-AC_PROG_AWK
-AC_PROG_EGREP
-AC_PROG_INSTALL
-
-AC_PROG_LEX
-if test -z "${LEX}"; then
-   AC_MSG_ERROR([(f)lex could not be found, please install])
-fi
-
-AC_PROG_YACC
-if test -z "${YACC}"; then
-   AC_MSG_ERROR([yacc/bison could not be found, please install])
-fi
-
 AC_SYS_INTERPRETER
 if test "$interpval" != yes ; then
 	AC_MSG_WARN([no
@@ -90,57 +76,148 @@ version of bash from ftp.gnu.org
 ])
 fi
 
+
 dnl Check for sed >= 4.0
-AC_PATH_PROGS( SED, sed, , $PATH)
+AC_PATH_PROGS(SED, sed,, $PATH)
 if test -z "$SED"; then
 	AC_MSG_ERROR([sed could not be found, please install])
 fi
+
 AC_MSG_CHECKING([sed version])
-SED_VERSION=`$SED --version | $SED -ne "s/.*version \([[0-9\.]]*\)/\1/p"`
-
+SED_VERSION=`$SED --version 2>/dev/null | $SED -ne "s/.*version \([[0-9\.]]*\)/\1/p"`
 case "$SED_VERSION" in
-3.*) AC_MSG_ERROR([we need at least sed 4.x but found $SED_VERSION]) ;;
+3.*) AC_MSG_ERROR([we need at least GNU sed 4.x but found $SED_VERSION]) ;;
 4.*) ;;
-*)   AC_MSG_NOTICE([we need at least sed 4.x, you have $SED_VERSION and we try if it works ...]) ;;
+*)   AC_MSG_ERROR([we need at least GNU sed 4.x]) ;;
 esac
-
 AC_MSG_RESULT([$SED_VERSION])
 
+dnl Check for egrep
+AC_PROG_EGREP
+
+dnl Check for install
+AC_PROG_INSTALL
+if test -z "${INSTALL}"; then
+	AC_MSG_ERROR([install could not be found, please install e.g.: GNU coreutils])
+fi
+
+dnl Check for gcc
+AC_PROG_CC
+if test -z "$CC"; then
+	AC_MSG_ERROR([gcc could not be found, please install])
+fi
+
+dnl Check for awk
+AC_PROG_AWK
+AC_MSG_CHECKING([awk version])
+AWK_VERSION=`$AWK --version 2>/dev/null | $SED -ne "s/GNU [[Aa]]wk \([[0-9\.]]*\)/\1/p"`
+case "$AWK_VERSION" in
+"") AC_MSG_ERROR([we need GNU awk]) ;;
+*)  ;;
+esac
+AC_MSG_RESULT([$AWK_VERSION])
+
+
+dnl Check for lex
+AC_PROG_LEX
+if test -z "${LEX}"; then
+   AC_MSG_ERROR([(f)lex could not be found, please install])
+fi
+
+dnl Check for yacc
+AC_PROG_YACC
+if test -z "${YACC}"; then
+   AC_MSG_ERROR([yacc/bison could not be found, please install])
+fi
+
 dnl Check for bunzip2
-AC_PATH_PROGS(BUNZIP2, bunzip2, , $PATH)
+AC_PATH_PROGS(BUNZIP2, bunzip2,, $PATH)
 if test -z "$BUNZIP2"; then
 	AC_MSG_ERROR([bunzip2 could not be found, please install])
 fi
 
 dnl Check for gunzip
-AC_PATH_PROGS(GUNZIP, gunzip, , $PATH)
+AC_PATH_PROGS(GUNZIP, gunzip,, $PATH)
 if test -z "$GUNZIP"; then
 	AC_MSG_ERROR([gunzip could not be found, please install])
 fi
 
 dnl Check for readlink
-AC_PATH_PROGS(READLINK, readlink, , $PATH)
+AC_PATH_PROGS(READLINK, readlink,, $PATH)
 if test -z "$READLINK"; then
 	AC_MSG_ERROR([readlink could not be found, please install])
 fi
 
-dnl Check for awk
-AC_PATH_PROGS(AWK, awk, , $PATH)
-if test -z "$AWK"; then
-	AC_MSG_ERROR([awk could not be found, please install])
-fi
-
 dnl Check for mktemp
-AC_PATH_PROGS(MKTEMP, mktemp, , $PATH)
+AC_PATH_PROGS(MKTEMP, mktemp,, $PATH)
 if test -z "$MKTEMP"; then
 	AC_MSG_ERROR([mktemp could not be found, please install])
 fi
 
-dnl Check for pkgconfig
-AC_PATH_PROGS(PKG_CONFIG, pkg-config, , $PATH)
+dnl Check for pkg-config
+AC_PATH_PROGS(PKG_CONFIG, pkg-config,, $PATH)
 if test -z "${PKG_CONFIG}"; then
 	AC_MSG_ERROR([pkg-config could not be found, please install])
 fi
+
+dnl Check for wget
+AC_PATH_PROGS(WGET, wget,, $PATH)
+if test -z "$WGET"; then
+	AC_MSG_ERROR([wget could not be found, please install])
+fi 
+
+dnl Check for tar
+AC_PATH_PROGS(TAR, tar,, $PATH)
+if test -z "$TAR"; then
+	AC_MSG_ERROR([tar could not be found, please install])
+fi
+
+dnl Check for dirname
+AC_PATH_PROGS(DIRNAME, dirname,, $PATH)
+if test -z "$DIRNAME"; then
+	AC_MSG_ERROR([dirname could not be found, please install])
+fi
+
+dnl Check for cat
+AC_PATH_PROGS(CAT, cat,, $PATH)
+if test -z "$CAT"; then
+	AC_MSG_ERROR([cat could not be found, please install])
+fi
+
+dnl Check for find
+AC_PATH_PROGS(FIND, find,, $PATH)
+if test -z "$FIND"; then
+	AC_MSG_ERROR([find could not be found, please install])
+fi
+
+AC_MSG_CHECKING([find version])
+FIND_VERSION=`$FIND --version 2>/dev/null | $SED -ne "s/.*version \([[0-9\.]]*\)/\1/p"`
+case "$FIND_VERSION" in
+4.*) ;;
+*)   AC_MSG_ERROR([we need at least GNU find 4.x]) ;;
+esac
+AC_MSG_RESULT([$FIND_VERSION])
+
+dnl Check for sort
+AC_PATH_PROGS(SORT, sort,, $PATH)
+if test -z "$SORT"; then
+	AC_MSG_ERROR([sort could not be found, please install])
+fi
+
+dnl Check for perl
+AC_PATH_PROGS(PERL, perl,, $PATH)
+if test -z "$PERL"; then
+	AC_MSG_ERROR([perl could not be found, please install])
+fi
+
+dnl Check for expect
+AC_PATH_PROGS(EXPECT, expect,, $PATH)
+if test -z "$EXPECT"; then
+	AC_MSG_ERROR([expect could not be found, please install])
+fi
+
+dnl Check for gcc
+AC_PATH_PROGS(GCC, gcc,, $PATH)
 
 dnl
 dnl Checks for python, needed for ipkg-utils
@@ -206,49 +283,16 @@ else
 	AC_MSG_RESULT(yes)
 fi
 
-dnl Check also for perl-5.8.6, ncurses-5.4, tar-1.15.1, wget-1.10.2, gcc-3.x on host, expect, kermit for pelts
+dnl Cehck for kermit for pelts
 
 dnl Check for rpmbuild (v4) vs. rpm (v3)
 dnl AC_PATH_PROGS(RPMBUILD, [rpmbuild rpm])
 dnl AC_SUBST(RPMBUILD)
 
-AC_MSG_CHECKING([for dirname])
-if test "`type dirname 2>&1 > /dev/null && echo yes`" = "yes"; then
-	AC_MSG_RESULT(yes)
-else
-	AC_MSG_RESULT(no)
-	AC_MSG_ERROR(Please install dirname.)
-fi
-
-AC_MSG_CHECKING([for cat])
-if test "`type cat 2>&1 > /dev/null && echo yes`" = "yes"; then
-	AC_MSG_RESULT(yes)
-else
-	AC_MSG_RESULT(no)
-	AC_MSG_ERROR(Please install cat.)
-fi
-
-AC_MSG_CHECKING([for find])
-if test "`type find 2>&1 > /dev/null && echo yes`" = "yes"; then
-	AC_MSG_RESULT(yes)
-else
-	AC_MSG_RESULT(no)
-	AC_MSG_ERROR(Please install find.)
-fi
-
-AC_MSG_CHECKING([for sort])
-if test "`type sort 2>&1 > /dev/null && echo yes`" = "yes"; then
-	AC_MSG_RESULT(yes)
-else
-	AC_MSG_RESULT(no)
-	AC_MSG_ERROR(Please install sort.)
-fi
-
 
 dnl
 dnl versions
 dnl
-
 VERSION_MAJOR=` echo "$PACKAGE_VERSION" | \
 	sed -e "s/-/./g" | \
 	(IFS=. read VERSION_MAJOR VERSION_MINOR VERSION_MICRO VERSION_EXTRA; echo $VERSION_MAJOR)`
