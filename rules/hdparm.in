@@ -1,7 +1,10 @@
 config HDPARM
 	bool "hdparm              "
+	depends on !BB_CONFIG_HDPARM
 	help
 	  hdparm - get/set ATA drive parameters under Linux
 
 	  See http://sourceforge.net/projects/hdparm/ for details. 
 
+comment "Busybox' hdparm is selected"
+	depends on BB_CONFIG_HDPARM
