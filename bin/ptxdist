@@ -499,19 +499,18 @@ oldconfig_action() {
 }
 
 projects() {
+	local ifs_old projects projectdir
 	echo
 	echo "${PROMPT}searching for projects:"
-	echo "${PROMPT}scanning ${PTXDIST_TOPDIR}/projects..."
-	projects=`cd ${PTXDIST_TOPDIR}/projects-example && find . -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;`
-	projects="$projects `cd ${PTXDIST_TOPDIR}/projects-toolchains && find . -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;`"
-	echo -n "${PROMPT}scanning \${PTXCONF_SETUP_PROJECTDIR}..."
-	if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ]; then
-	lprojects=`cd ${PTXCONF_SETUP_PROJECTDIR} && find . -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;`
-	echo
-	else
-	echo "not found"
-	fi
-	projects=`(for i in $projects $lprojects; do echo $i; done) | sort -u`
+	ifs_old=$IFS
+	IFS=:
+	projects=
+	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
+		echo "${PROMPT}scanning ${projectdir}..."
+		projects="$projects $(cd ${projectdir} && find .  -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;)"
+	done
+	IFS=$ifs_old
+	projects=$(echo $projects | sort -u)
 	echo
 	echo "---------------------- Available PTXdist Projects: ----------------------------"
 	for i in $projects; do echo $i; done
@@ -545,8 +544,9 @@ setup() {
 	rm -fr $tmpdir
 }
 
+
 clone() {
-	local projects lprojects
+	local ifs_old projectdir
 
 	if [ -z "$1" ]; then usage; exit 1; fi
 	if [ -z "$2" ]; then usage; exit 1; fi
@@ -558,61 +558,26 @@ clone() {
 		exit 1
 	fi
 
-	echo
-	echo "${PROMPT}searching for projects:"
-	echo "${PROMPT}scanning ${PTXDIST_TOPDIR}/projects-example..."
-	projects=`cd ${PTXDIST_TOPDIR}/projects-example && find . -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;`
-	echo "${PROMPT}scanning ${PTXDIST_TOPDIR}/projects-toolchains..."
-	projects="$projects `cd ${PTXDIST_TOPDIR}/projects-toolchains && find .  -maxdepth 1 -type d ! -name .svn ! -name .  -exec basename {} \;`"
-	echo -n "${PROMPT}scanning \${PTXCONF_SETUP_PROJECTDIR}..."
-	if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ]; then
-	lprojects=`cd ${PTXCONF_SETUP_PROJECTDIR} && find . -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;`
-	echo
-	else
-	echo "not found"
-	fi
-	projects=`(for i in $projects $lprojects; do echo $i; done) | sort -u`
-	echo
+	ifs_old=$IFS
+	IFS=:
 
-	for i in $projects; do
-		if [ "$1" = "$i" ]; then
-			echo "${PROMPT}cloning project $1 to $2"
+	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
 
-			if [ -d "${PTXCONF_SETUP_PROJECTDIR}" ] && [ -d "${PTXCONF_SETUP_PROJECTDIR}/$1" ] ; then
+		echo "${PROMPT}scanning $projectdir..."
 
-				mkdir -p $2
-				tar -C ${PTXCONF_SETUP_PROJECTDIR}/$1 -cf - \
-				    --exclude .svn --exclude state --exclude debian . | \
-				    tar -C $2 -xvf -
+		if [ -d "${projectdir}/$1" ] ; then
 
-				echo "${PROMPT}done."
-				echo
-				return 0
+			mkdir -p $2
+			tar -C ${projectdir}/$1 -cf - \
+			    --exclude .svn --exclude state --exclude debian . | \
+			    tar -C $2 -xvf -
 
-			elif [ -d "${PTXDIST_TOPDIR}/projects-example/$1" ]; then
-
-				mkdir -p $2
-				tar -C ${PTXDIST_TOPDIR}/projects-example/$1 -cf - \
-				    --exclude .svn --exclude state --exclude debian . | \
-				    tar -C $2 -xvf -
-
-				echo "${PROMPT}done."
-				echo
-				return 0
-
-			elif [ -d "${PTXDIST_TOPDIR}/projects-toolchains/$1" ]; then
-
-				mkdir -p $2
-				tar -C ${PTXDIST_TOPDIR}/projects-toolchains/$1 -cf - \
-				    --exclude .svn --exclude state --exclude debian . | \
-				    tar -C $2 -xvf -
-
-				echo "${PROMPT}done."
-				echo
-				return 0
-			fi
+			echo "${PROMPT}done."
+			echo
+			return 0
 		fi
 	done
+	IFS=$ifs_old
 
 	echo "${PROMPT}project $1 is to be cloned, but could not be found"
 	echo
