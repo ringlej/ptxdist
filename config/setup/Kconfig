@@ -18,14 +18,14 @@ config SETUP_PTXCONF
 
 comment "PTXDIST Setup Menu"
 
-menu "Proxies         "
+menu "Proxies           "
 
 config SETUP_FTP_PROXY
 	prompt "FTP Proxy"
 	string
 	default ""
 	help
-	  If you have to use a proxy for FTP transfers, please add the 
+	  If you have to use a proxy for FTP transfers, please add the
 	  proxy URL here. Example:
 
 	              http://your.proxy.org:80
@@ -35,14 +35,28 @@ config SETUP_HTTP_PROXY
 	string
 	default ""
 	help
-	  If you have to use a proxy for HTTP transfers, please add the 
+	  If you have to use a proxy for HTTP transfers, please add the
 	  proxy URL here. Example:
 
 	              http://your.proxy.org:80
-		      
+
 endmenu
 
-menu "Source Directory"
+menu "Project Searchpath"
+
+config SETUP_PROJECTPATH
+	prompt "Project Searchpath "
+	string
+	default "${PTXDIST_TOPDIR}/projects"
+	help
+	  This path is used to search for project templates when
+	  running 'ptxdist projects'. You can clone the projects
+	  specified in this path with 'ptxdist clone'. The path
+	  is a : separated list.
+
+endmenu
+
+menu "Source Directory  "
 
 config SETUP_SRCDIR
 	prompt "Source Directory "
@@ -50,7 +64,7 @@ config SETUP_SRCDIR
 
 endmenu
 
-menu "Mirrors         "
+menu "Mirrors           "
 
 config SETUP_DEBMIRROR
         string
@@ -77,7 +91,7 @@ config SETUP_XORGMIRROR
 
 endmenu
 
-menu "IPKG Repository "
+menu "IPKG Repository   "
 
 config SETUP_IPKG_REPOSITORY
 	string
@@ -87,12 +101,12 @@ config SETUP_IPKG_REPOSITORY
 	  PTXdist can be used to update an IPKG server which is
 	  accessable via a mounted path. Run 'make ipkg-push'
 	  to push the packets from $IMAGEDIR to the server dir
-	  which is specified here. 
+	  which is specified here.
 
-	  FIXME: add mechanism to use other transports than cp. 
+	  FIXME: add mechanism to use other transports than cp.
 endmenu
 
-menu "Java SDK        "
+menu "Java SDK          "
 
 config SETUP_JAVA_SDK
 	string
@@ -101,7 +115,7 @@ config SETUP_JAVA_SDK
 	help
 	  Specify the path to your Java SDK; this is needed if Java
 	  programs are being compiled by PTXdist, for example
-	  if you have selected JVisu. 
+	  if you have selected JVisu.
 
 endmenu
 
