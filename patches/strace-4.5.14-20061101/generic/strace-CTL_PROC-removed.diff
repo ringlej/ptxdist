@@ -1,0 +1,22 @@
+CTL_PROC seems to have been removed in 2.6.18:
+http://www.kernel.org/git/?p=linux/kernel/git/torvalds/linux-2.6.git;a=commit;h=eab03ac7bd3e0da99eb9dc068772a85a5e3f3577
+
+Maybe the CTL_PROC line below should be completely removed instead of using
+ifdef.... This fixes the FTBFS anyway.
+
+diff -ur strace-4.5.14/system.c strace-4.5.14-fixed/system.c
+--- strace-4.5.14/system.c      2006-01-12 22:21:06.000000000 +0100
++++ strace-4.5.14-fixed/system.c        2006-10-16 23:19:49.000000000 +0200
+@@ -1578,7 +1578,9 @@
+	{ CTL_KERN, "CTL_KERN" },
+	{ CTL_VM, "CTL_VM" },
+	{ CTL_NET, "CTL_NET" },
++#ifdef CTL_PROC
+	{ CTL_PROC, "CTL_PROC" },
++#endif
+	{ CTL_FS, "CTL_FS" },
+	{ CTL_DEBUG, "CTL_DEBUG" },
+	{ CTL_DEV, "CTL_DEV" },
+	{ CTL_DEV, "CTL_DEV" },
+
+
