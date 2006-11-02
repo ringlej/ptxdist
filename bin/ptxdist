@@ -253,7 +253,7 @@ check_dirs() {
 			echo
 			echo "error: \"${i}\""
 			echo "       is not a case sensitive filesystem."
-			echo "       Please move your project to a casesen sitive one"
+			echo "       Please move your project to a case sensitive one"
 			echo
 			exit 1
 		fi
