@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIVE_LIB) += live
 #
 # Paths and names
 #
-LIVE_LIB_VERSION	:= 2006.05.17
+LIVE_LIB_VERSION	:= 2006.10.27
 LIVE_LIB		:= live.$(LIVE_LIB_VERSION)
 LIVE_LIB_SUFFIX		:= tar.gz
 LIVE_LIB_URL		:= http://www.live555.com/liveMedia/public/$(LIVE_LIB).$(LIVE_LIB_SUFFIX)
@@ -64,7 +64,7 @@ LIVE_LIB_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-LIVE_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR) 
+LIVE_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
 #LIVE_LIB_AUTOCONF += --disable-static
 #LIVE_LIB_AUTOCONF += --enable-shared
 
@@ -167,6 +167,6 @@ $(STATEDIR)/live.targetinstall: $(live_targetinstall_deps_default)
 live_clean:
 	rm -rf $(STATEDIR)/live.*
 	rm -rf $(IMAGEDIR)/live_*
-	rm -rf $(LIVE_DIR)	
+	rm -rf $(LIVE_DIR)
 
 # vim: syntax=make
