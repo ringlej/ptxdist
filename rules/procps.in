@@ -41,7 +41,9 @@ config PROCPS_PS
 	depends on PROCPS
 	depends on !BB_CONFIG_PS
 	help
-	  FIXME: This item needs to be documented
+	  ps stands for process status. With this command you
+	  analyse current states of all processes running on
+	  the system
 
 comment "ps is disabled by busybox ps"
 	depends on PROCPS
