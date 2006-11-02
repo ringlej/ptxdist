@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -113,20 +113,35 @@ $(STATEDIR)/thttpd.targetinstall: $(thttpd_targetinstall_deps_default)
 	@$(call install_fixup, thttpd,DEPENDS,)
 	@$(call install_fixup, thttpd,DESCRIPTION,missing)
 
-	@$(call install_copy, thttpd, 0, 0, 0755, $(THTTPD_DIR)/thttpd, /usr/sbin/thttpd)
+	@$(call install_copy, thttpd, 0, 0, 0755, $(THTTPD_DIR)/thttpd, \
+		/usr/sbin/thttpd)
 ifdef PTXCONF_ROOTFS_ETC_INITD_THTTPD
-ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_USER_FILE)),)
-	@$(call install_copy, thttpd, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_THTTPD_USER_FILE), /etc/init.d/thttpd, n)
-else
-	@$(call install_copy, thttpd, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/thttpd, /etc/init.d/thttpd, n)
+ifdef PTXCONF_THTTPD_ETC_INITD_GENERIC
+	@$(call install_copy, thttpd, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/thttpd, \
+		/etc/init.d/thttpd, n)
+endif
+ifdef PTXCONF_THTTPD_ETC_INITD_USER
+	@$(call install_copy, thttpd, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/thttpd, \
+		/etc/init.d/thttpd, n)
 endif
 endif
+#
+# FIXME: Is this packet the right location for the link?
+#
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK),"")
 	@$(call install_copy, thttpd, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, thttpd, ../init.d/thttpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK))
+	@$(call install_link, thttpd, ../init.d/thttpd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK))
 endif
+
+ifdef PTXCONF_THTTPD_GENERIC_SITE
 	@$(call install_copy, thttpd, 12, 102, 0755, /var/www)
-	@$(call install_copy, thttpd, 12, 102, 0644, $(PTXDIST_TOPDIR)/generic/thttpd.html, /var/www/index.html, n)
+	@$(call install_copy, thttpd, 12, 102, 0644, \
+		$(PTXDIST_TOPDIR)/generic/thttpd.html, \
+		/var/www/index.html, n)
+endif
 
 	@$(call install_finish, thttpd)
 	@$(call touch, $@)

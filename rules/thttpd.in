@@ -1,13 +1,56 @@
-config THTTPD
+menuconfig THTTPD
 	bool
 	prompt "thttpd              "
 	help
-	  thttpd (thin httpd) is a small, fast secure webserver. 
-	  
-	  It features CGI support, URL-traffic-based throttling 
-	  and basic authentication. thttpd has a very small memory 
-	  footprint as it only forks itself in order to execute 
-	  CGI scripts. It is designed to be as fast as fully 
-	  featured web-servers and it performs extremely well 
+	  thttpd (thin httpd) is a small, fast secure webserver.
+
+	  It features CGI support, URL-traffic-based throttling
+	  and basic authentication. thttpd has a very small memory
+	  footprint as it only forks itself in order to execute
+	  CGI scripts. It is designed to be as fast as fully
+	  featured web-servers and it performs extremely well
 	  under high load.
+
+	comment "thttpd runtime options  ---"
+	depends on THTTPD
+
+	config ROOTFS_ETC_INITD_THTTPD
+		depends on THTTPD
+		bool
+		default y
+		prompt "Install startup script      "
+		help
+		  The /etc/init.d/thttpd script lets you control the udevd daemon.
+
+		choice
+			prompt "Kind of startup script"
+			depends on ROOTFS_ETC_INITD_THTTPD
+			default THTTPD_ETC_INITD_GENERIC
+
+			config THTTPD_ETC_INITD_GENERIC
+				bool
+				prompt "Use generic thttpd script"
+				help
+				  Installs a generic /etc/init.d/thttpd startup
+				  script. The file from
+				  <ptxdist-install>/generic/etc/init.d/thttpd
+				  will be used.
+
+			config THTTPD_ETC_INITD_USER
+				bool
+				prompt "User defined"
+				help
+				  This uses a user defined thttpd. PTXdist uses
+				  file projectroot/etc/init.d/thttpd in your
+				  local project
+
+		endchoice
+
+	config THTTPD_GENERIC_SITE
+		depends on THTTPD
+		bool
+		default y
+		prompt "Populate a generic website"
+		help
+		  This install a generic website into /var/www/index.html
 
