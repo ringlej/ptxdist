@@ -15,6 +15,10 @@ get_lib_path() {
 
     # ask the compiler for the lib
     lib_path="`${CC} -print-file-name=${lib}`"
+    if test "${lib_path}" = "${lib}"; then
+	echo "install_copy_toolchain_lib: ${lib} not found"
+	return -1
+    fi
     # let the shell canonicalized the path
     lib_dir="`cd ${lib_path%/${lib}} && echo $PWD`"
 
@@ -164,7 +168,7 @@ ptxd_install_lib() {
 			"${ROOTDIR_DEBUG}" \
 			"${IMAGEDIR}/${packet}/ipkg"; do
 
-		      if test \! -e "${ROOTDIR}${prefix}/${lib_v_major}"; then
+		      if test \! -e "${dir}${prefix}/${lib_v_major}"; then
 			  ln -sf "${lib}" "${dir}${prefix}/${lib_v_major}"
 		      fi
 		    done
