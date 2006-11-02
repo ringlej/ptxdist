@@ -225,6 +225,22 @@ check_dirs() {
 		fi
 	fi
 
+	ptxconf_gnu_target=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
+
+	# And now we learn something new about shell: brace expansion.
+	# It saves 16 characters compared to what NORMAL people would write
+	# here... unfortunately it discovers a bug in vim's syntax high-
+	# lighting :) Thanks to Martin Neitzel who inspired this...(rsc)
+	# it's even possible to do it shorter (mkl)
+	for i in {,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}; do
+		mkdir -p ${ptxconf_prefix}/{,${ptxconf_gnu_target}/}${i}
+	done
+
+	for i in ${BUILDDIR} ${CROSS_BUILDDIR} ${HOST_BUILDDIR} \
+		${STATEDIR} ${IMAGEDIR} ${ROOTDIR} ${ROOTDIR_DEBUG}; do
+		mkdir -p ${i}
+	done
+
 	for i in ${BUILDDIR} ${CROSS_BUILDDIR} ${HOST_BUILDDIR}; do
 		testfile_lower=${i}/.secret-world-domination-project
 		testfile_upper=${i}/.Secret-World-Domination-Project
@@ -243,22 +259,6 @@ check_dirs() {
 		fi
 
 		rm ${testfile_lower} ${testfile_upper}
-	done
-
-	ptxconf_gnu_target=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
-
-	# And now we learn something new about shell: brace expansion.
-	# It saves 16 characters compared to what NORMAL people would write
-	# here... unfortunately it discovers a bug in vim's syntax high-
-	# lighting :) Thanks to Martin Neitzel who inspired this...(rsc)
-	# it's even possible to do it shorter (mkl)
-	for i in {,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}; do
-		mkdir -p ${ptxconf_prefix}/{,${ptxconf_gnu_target}/}${i}
-	done
-
-	for i in ${BUILDDIR} ${CROSS_BUILDDIR} ${HOST_BUILDDIR} \
-		${STATEDIR} ${IMAGEDIR} ${ROOTDIR} ${ROOTDIR_DEBUG}; do
-		mkdir -p ${i}
 	done
 }
 
