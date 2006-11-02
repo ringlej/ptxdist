@@ -98,8 +98,8 @@ export SYSROOT
 #
 # prepare the search path
 #
-CROSS_PATH := $(call remove_quotes,$(PTXCONF_PREFIX)/bin:$(PTXCONF_PREFIX)/usr/bin:"$$PATH")
-HOST_PATH := $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:"$$PATH"
+CROSS_PATH := $(call remove_quotes,$(PTXCONF_PREFIX)/bin:$(PTXCONF_PREFIX))/usr/bin:$$PATH
+HOST_PATH := $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:$$PATH
 
 #
 # same as PTXCONF_GNU_TARGET, but w/o -linux
