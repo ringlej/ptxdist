@@ -176,7 +176,7 @@ check_deps() {
 # they are created here.
 #
 check_dirs() {
-	local ptxconf_prefix ptxconf_gnu_target testfile
+	local ptxconf_prefix ptxconf_gnu_target testfile testfile_upper testfile_lower i
 
 	if [ -z "$PREFIX" ]; then
 		ptxconf_prefix=$(. ptxconfig && echo ${PTXCONF_PREFIX})
@@ -202,6 +202,7 @@ check_dirs() {
 			echo sudo chown $UID ${ptxconf_prefix}
 			sudo chown $UID ${ptxconf_prefix}
 		fi
+		rm ${testfile}
 	else
 		mkdir -p ${ptxconf_prefix} 2> /dev/null
 		if test $? -ne 0; then
@@ -224,6 +225,26 @@ check_dirs() {
 		fi
 	fi
 
+	for i in ${BUILDDIR} ${CROSS_BUILDDIR} ${HOST_BUILDDIR}; do
+		testfile_lower=${i}/.secret-world-domination-project
+		testfile_upper=${i}/.Secret-World-Domination-Project
+
+		echo lower > ${testfile_lower}
+		echo upper > ${testfile_upper}
+
+		if test "`cat ${testfile_lower}`" != "lower" -o \
+		    "`cat ${testfile_upper}`" != "upper"; then
+			echo
+			echo "error: \"${i}\""
+			echo "       is not a case sensitive filesystem."
+			echo "       Please move your project to a casesen sitive one"
+			echo
+			exit 1
+		fi
+
+		rm ${testfile_lower} ${testfile_upper}
+	done
+
 	ptxconf_gnu_target=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
 
 	# And now we learn something new about shell: brace expansion.
@@ -235,7 +256,8 @@ check_dirs() {
 		mkdir -p ${ptxconf_prefix}/{,${ptxconf_gnu_target}/}${i}
 	done
 
-	for i in ${BUILDDIR} ${CROSS_BUILDDIR} ${HOST_BUILDDIR} ${STATEDIR} ${IMAGEDIR} ${ROOTDIR} ${ROOTDIR_DEBUG}; do
+	for i in ${BUILDDIR} ${CROSS_BUILDDIR} ${HOST_BUILDDIR} \
+		${STATEDIR} ${IMAGEDIR} ${ROOTDIR} ${ROOTDIR_DEBUG}; do
 		mkdir -p ${i}
 	done
 }
