@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,9 @@ PACKAGES-$(PTXCONF_LIBNET) += libnet
 LIBNET_VERSION	= 1.1.3-RC-01
 LIBNET		= libnet-$(LIBNET_VERSION)
 LIBNET_SUFFIX	= tar.gz
-LIBNET_URL	= http://www.packetfactory.net/libnet/dist/$(LIBNET).$(LIBNET_SUFFIX)
+LIBNET_URL     = http://www.pengutronix.de/software/ptxdist/temporary-src/$(LIBNET).$(LIBNET_SUFFIX)
+# (temprary?) offline, 20061103
+#LIBNET_URL	= http://www.packetfactory.net/libnet/dist/$(LIBNET).$(LIBNET_SUFFIX)
 LIBNET_SOURCE	= $(SRCDIR)/$(LIBNET).$(LIBNET_SUFFIX)
 LIBNET_DIR	= $(BUILDDIR)/$(LIBNET)
 
@@ -107,7 +109,7 @@ libnet_targetinstall: $(STATEDIR)/libnet.targetinstall
 
 $(STATEDIR)/libnet.targetinstall: $(libnet_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME: nothing to do? 
+	# FIXME: nothing to do?
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
