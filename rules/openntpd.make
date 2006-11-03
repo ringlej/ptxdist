@@ -1,7 +1,7 @@
 # $Id: template 2680 2005-05-27 10:29:43Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_OPENNTPD) += openntpd
 OPENNTPD_VERSION	= 3.7p1
 OPENNTPD		= openntpd-$(OPENNTPD_VERSION)
 OPENNTPD_SUFFIX		= tar.gz
-OPENNTPD_URL		= ftp://ftp.de.openbsd.org/pub/unix/OpenBSD/OpenNTPD/$(OPENNTPD).$(OPENNTPD_SUFFIX)
+OPENNTPD_URL		= ftp://ftp.de.openbsd.org/pub/OpenBSD/OpenNTPD/$(OPENNTPD).$(OPENNTPD_SUFFIX)
 OPENNTPD_SOURCE		= $(SRCDIR)/$(OPENNTPD).$(OPENNTPD_SUFFIX)
 OPENNTPD_DIR		= $(BUILDDIR)/$(OPENNTPD)
 
@@ -100,7 +100,7 @@ openntpd_install: $(STATEDIR)/openntpd.install
 
 $(STATEDIR)/openntpd.install: $(openntpd_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME: does not work because of install -s 
+	# FIXME: does not work because of install -s
 	# @$(call install, OPENNTPD)
 	@$(call touch, $@)
 
