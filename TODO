@@ -1,24 +1,16 @@
-TODO for PTXdist 0.10 Series - High Priority
-============================================
+TODO for 0.10.5
+===============
 
+[ ] audit 'get' stage
+[ ] test OSELAS.Crosstool
 [ ] util-linux: re-calls automake during compile
 [ ] unbreak host-zlib; it is necessary for host-umkimage if there is no
     zlib devel packet installed on the host.
+[ ] update ChangeLog
 
-[ ] Start a "Global Patch Repository Unification Project". Potential
-    members:
+TODO for PTXdist 0.10 Series - High Priority
+============================================
 
-    	* PTXdist
-	* T2
-	* OpenEmbedded
-	  http://www.openembedded.org/repo/org.openembedded.dev/packages/
-	* Gentoo
-	* Debian
-
-[ ] if a packet is not selected, it's dependencies are not generated. If
-    you kick a stage then, the dependend stages are not executed.
-    Solution: generate the stages as well, so we get an error in that
-    case.
 [ ] we seem to need python2.3-dev, reported by Marco Cavallini:
 
 -------------------------------
@@ -45,6 +37,21 @@ make[1]: Leaving directory
 make: ***
 [/home/koan/ptxtest/generic_test/state/host-ipkg-utils.install] Error 2
 
+[ ] if a packet is not selected, it's dependencies are not generated. If
+    you kick a stage then, the dependend stages are not executed.
+    Solution: generate the stages as well, so we get an error in that
+    case.
+
+[ ] Start a "Global Patch Repository Unification Project". Potential
+    members:
+
+    	* PTXdist
+	* T2
+	* OpenEmbedded
+	  http://www.openembedded.org/repo/org.openembedded.dev/packages/
+	* Gentoo
+	* Debian
+
 [ ] jbe: timezone files installation doesn't work as expected
 [ ] jbe: if ipkg building crashes, PTXdist doesn't break. rsc: see
     pipeline error fixing in scripts/libptxdist.sh
@@ -57,8 +64,6 @@ make: ***
     the "current" command; some continue parsing and some exit.
 [ ] mol: add possibility to 'ptxdist print' more than one variable in
     one make call
-[ ] modify macros to use FOOBAR instead of $(FOOBAR_DIR) etc.; see
-    install macro for example.
 [ ] check if ${PTXCONF_PREFIX} can be written to and barf if not
 [ ] add sanity checks for all user configurable variables (especially
     paths)
