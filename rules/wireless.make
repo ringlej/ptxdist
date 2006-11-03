@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -14,9 +14,9 @@
 PACKAGES-$(PTXCONF_WIRELESS) += wireless
 
 #
-# Paths and names 
+# Paths and names
 #
-WIRELESS_VERSION	= 27
+WIRELESS_VERSION	= 28
 WIRELESS		= wireless_tools.$(WIRELESS_VERSION)
 WIRELESS_SUFFIX		= tar.gz
 WIRELESS_URL		= http://pcmcia-cs.sourceforge.net/ftp/contrib/$(WIRELESS).$(WIRELESS_SUFFIX)
@@ -75,7 +75,7 @@ WIRELESS_ENV 	=  $(CROSS_ENV)
 
 wireless_compile: $(STATEDIR)/wireless.compile
 
-$(STATEDIR)/wireless.compile: $(wireless_compile_deps_default) 
+$(STATEDIR)/wireless.compile: $(wireless_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(WIRELESS_DIR) && $(WIRELESS_PATH) $(WIRELESS_ENV) make CC=${CROSS_CC}
 	@$(call touch, $@)
@@ -121,15 +121,15 @@ ifdef PTXCONF_WIRELESS_SHARED
 endif
 
 	@$(call install_finish, wireless)
-	
+
 	@$(call touch, $@)
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-wireless_clean: 
-	rm -rf $(STATEDIR)/wireless.* 
-	rm -rf $(IMAGEDIR)/wireless_* 
+wireless_clean:
+	rm -rf $(STATEDIR)/wireless.*
+	rm -rf $(IMAGEDIR)/wireless_*
 	rm -rf $(WIRELESS_DIR)
 
 # vim: syntax=make
