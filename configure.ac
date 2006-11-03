@@ -120,12 +120,14 @@ AC_MSG_RESULT([$AWK_VERSION])
 
 dnl Check for lex
 AC_PROG_LEX
+AC_PATH_PROGS(LEX, ${LEX},, $PATH)
 if test -z "${LEX}"; then
    AC_MSG_ERROR([(f)lex could not be found, please install])
 fi
 
 dnl Check for yacc
 AC_PROG_YACC
+AC_PATH_PROGS(YACC, ${YACC},, $PATH)
 if test -z "${YACC}"; then
    AC_MSG_ERROR([yacc/bison could not be found, please install])
 fi
@@ -214,6 +216,12 @@ dnl Check for expect
 AC_PATH_PROGS(EXPECT, expect,, $PATH)
 if test -z "$EXPECT"; then
 	AC_MSG_ERROR([expect could not be found, please install])
+fi
+
+dnl Check for make
+AC_PATH_PROGS(MAKE, gmake gnumake make,, $PATH)
+if test -z "$MAKE"; then
+	AC_MSG_ERROR([make could not be found, please install])
 fi
 
 dnl Check for gcc
