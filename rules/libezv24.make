@@ -2,7 +2,7 @@
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_LIBEZV24) += libezv24
 LIBEZV24_VERSION	:= 0.1.1-ptx2
 LIBEZV24		:= libezv24-$(LIBEZV24_VERSION)
 LIBEZV24_SUFFIX		:= tar.bz2
-LIBEZV24_URL		:= http://www.pengutronix.de/software/misc/$(LIBEZV24).$(LIBEZV24_SUFFIX)
+LIBEZV24_URL		:= http://www.pengutronix.de/software/misc/download/$(LIBEZV24).$(LIBEZV24_SUFFIX)
 LIBEZV24_SOURCE		:= $(SRCDIR)/$(LIBEZV24).$(LIBEZV24_SUFFIX)
 LIBEZV24_DIR		:= $(BUILDDIR)/$(LIBEZV24)
 
@@ -120,7 +120,7 @@ $(STATEDIR)/libezv24.targetinstall: $(libezv24_targetinstall_deps_default)
 
 	@$(call install_link, libezv24, \
 		libezV24.so.0.0.0, /usr/lib/libezV24.so.0)
-	
+
 	@$(call install_link, libezv24, \
 		libezV24.so.0.0.0, /usr/lib/libezV24.so)
 
