@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBXML2) += libxml2
 #
 # Paths and names
 #
-LIBXML2_VERSION	:= 2.6.23
+LIBXML2_VERSION	:= 2.6.27
 LIBXML2		:= libxml2-$(LIBXML2_VERSION)
 LIBXML2_SUFFIX	:= tar.gz
 LIBXML2_URL	:= ftp://xmlsoft.org/libxml2/$(LIBXML2).$(LIBXML2_SUFFIX)
@@ -315,10 +315,10 @@ $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps_default)
 	@$(call install_fixup, libxml2,DESCRIPTION,missing)
 
 	@$(call install_copy, libxml2, 0, 0, 0644, \
-		$(LIBXML2_DIR)/.libs/libxml2.so.2.6.23, \
-		/usr/lib/libxml2.so.2.6.23)
-	@$(call install_link, libxml2, libxml2.so.2.6.23,  /usr/lib/libxml2.so.2)
-	@$(call install_link, libxml2, libxml2.so.2.6.23, /usr/lib/libxml2.so)
+		$(LIBXML2_DIR)/.libs/libxml2.so.2.6.27, \
+		/usr/lib/libxml2.so.2.6.27)
+	@$(call install_link, libxml2, libxml2.so.2.6.27,  /usr/lib/libxml2.so.2)
+	@$(call install_link, libxml2, libxml2.so.2.6.27, /usr/lib/libxml2.so)
 
 	@$(call install_finish, libxml2)
 
