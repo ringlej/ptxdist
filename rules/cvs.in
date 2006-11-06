@@ -75,30 +75,43 @@ config CVS_ROOTCOMMIT
 	help
 	  Allow the root user to commit files
 
-comment "cvs runtime options   ---"
+comment "runtime options   ---"
 	depends on CVS
 
 config CVS_SERVER_REPOSITORY
 	string
 	depends on CVS
 	depends on CVS_SERVER
-	prompt "cvs server's repository"
+	prompt "cvs' repository"
 	default "/srv/cvsroot"
 	help
 	  This will be cvs server's root repository (given to cvs as --allow-root=...)
 
-config CVS_INETD_SERVER
-	bool
-	default y
+choice
+	prompt "Kind of startup"
 	depends on CVS
 	depends on CVS_SERVER
-	prompt "Start from inetd"
-	help
-	  This installs a startup configuration for cvs from inetd. It adds to
-	  the /etc/inetd.conf a line like this:
-	   cvs stream tcp nowait root /usr/bin/cvs cvsd -f --allow-root=/srv/cvsroot pserver
-	  Note: You must enable one of the two possible inet daemons: There is
-	  one embedded in busybox and one in packet inetutils.
+
+	config CVS_INETD_SERVER
+		bool
+		prompt "inetd driven"
+		help
+		 cvs server will be started on demand from inetd. This installs
+		 a startup configuration for cvs from inetd. It adds to the
+		 /etc/inetd.conf a line like this:
+		 cvs stream tcp nowait root /usr/bin/cvs cvsd -f --allow-root=/srv/cvsroot pserver
+		 Note: You must enable one of the two possible inet daemons:
+		 There is one embedded in busybox and one in packet inetutils.
+
+	config CVS_STARTUP_TYPE_STANDALONE
+		bool
+		prompt "standalone"
+		help
+		  This installs cvs startup script /etc/init.d/cvs. With this
+		  script the cvs server will be started at system startup and
+		  waits for connections
+
+endchoice
 
 config CVS_INETD_STRING
 	string
@@ -109,13 +122,27 @@ config CVS_INETD_STRING
 	default "cvs stream tcp nowait root /usr/bin/cvs cvsd -f @ROOT@ pserver"
 	help
 	  This string is added to inetd's configuration /etc/inetd.conf. @ROOT@
-	  in this string will be replaced by repositorie's root
+	  in this string will be replaced by repository's root
 
-config CVS_STANDALONE_SERVER
-	bool
-	default n
+choice
+	prompt "Kind of startup script"
+	default ROOTFS_ETC_INITD_CVS_DEFAULT
 	depends on CVS
-	depends on CVS_SERVER
-	prompt "Start standalone"
-	help
-	  This installs a startup script to run cvs standalone
+	depends on CVS_STARTUP_TYPE_STANDALONE
+
+	config ROOTFS_ETC_INITD_CVS_DEFAULT
+		bool
+		prompt "Use generic"
+		help
+		  Installs a generic /etc/init.d/cvs startup script.
+		  See <ptxdist-install>/generic/etc/init.d/cvs
+
+	config ROOTFS_ETC_INITD_CVS_USER
+		bool
+		prompt "User defined"
+		help
+		  This uses a user defined cvs startup script. PTXdist
+		  uses files projectroot/etc/init.d/cvs in your local
+		  project
+
+endchoice

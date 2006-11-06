@@ -123,3 +123,13 @@ config ROOTFS_ETC_INITD_PUREFTPD_LINK
 	  Set a link into /etc/rc.d which points to /etc/init.d/pure-ftpd to
 	  start pure ftp daemon when system starts.
 
+############################## cvs ############################################
+
+config ROOTFS_ETC_INITD_CVS_LINK
+	depends on CVS_STARTUP_TYPE_STANDALONE
+	string
+	prompt "cvs link name"
+	default "S13_cvs"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/cvs to
+	  start cvs as a standalone service when system starts.

@@ -169,6 +169,32 @@ ifneq ($(call remove_quotes,$(PTXCONF_CVS_SERVER_REPOSITORY)),)
 	@$(call install_copy, cvs, 0, 0, 0755, $(PTXCONF_CVS_SERVER_REPOSITORY))
 endif
 endif
+#
+# Install the startup script on request only
+#
+ifdef PTXCONF_CVS_STARTUP_TYPE_STANDALONE
+ifdef PTXCONF_ROOTFS_ETC_INITD_CVS_DEFAULT
+# install the generic one
+	@$(call install_copy, cvs, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/cvs, \
+		/etc/init.d/cvs, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_CVS_USER
+# install users one
+	@$(call install_copy, cvs, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/cvs, \
+		/etc/init.d/cvs, n)
+endif
+endif
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_CVS_LINK),"")
+	@$(call install_copy, cvs, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, cvs, ../init.d/cvs, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_CVS_LINK))
+endif
+
 	@$(call install_copy, cvs, 0, 0, 0755, $(CVS_DIR)/src/cvs, /usr/bin/cvs)
 
 	@$(call install_finish,cvs)
