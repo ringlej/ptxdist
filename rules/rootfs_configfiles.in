@@ -1,0 +1,561 @@
+#
+# This menu part let the user select configuration files
+# as needed.
+#
+
+comment "----------------------------------"
+comment "Populate config files"
+comment "----------------------------------"
+
+#
+# /etc/passwd
+#
+menuconfig ROOTFS_PASSWD
+	depends on ROOTFS
+	bool
+	prompt "/etc/passwd                 "
+	default y
+	help
+	  Installs a /etc/passwd file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/passwd"
+		depends on ROOTFS_PASSWD
+		default ROOTFS_GENERIC_PASSWD
+
+		config ROOTFS_GENERIC_PASSWD
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/passwd file. This file does
+			  not offer any security, the root login is without a
+			  password. So don't use it in a network environment
+			  which is available to the outside.
+			  See <ptxdist-install>/generic/passwd
+
+		config ROOTFS_USER_PASSWD
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined passwd. PTXdist uses file
+			  projectroot/etc/passwd in your local project
+	endchoice
+
+#
+# /etc/shadow
+#
+
+#
+# /etc/shadow, /etc/shadow-
+#
+menuconfig ROOTFS_SHADOW
+	depends on ROOTFS
+	bool
+	prompt "/etc/shadow, /etc/shadow-   "
+	default y
+	help
+	  Installs a /etc/shadow and /etc/shadow- file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/shadow|shadow-"
+		depends on ROOTFS_SHADOW
+		default ROOTFS_GENERIC_SHADOW
+
+		config ROOTFS_GENERIC_SHADOW
+			bool
+			prompt "Use generic"
+			help
+			  Install a generic /etc/shadow and /etc/shadow- file.
+			  See <ptxdist-install>/generic/shadow|shadow-
+
+		config ROOTFS_USER_SHADOW
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined shadow|shadow-. PTXdist uses
+			  files projectroot/etc/shadow|shadow- in your local
+			  project
+	endchoice
+
+#
+# /etc/group, /etc/gshadow
+#
+menuconfig ROOTFS_GROUP
+	depends on ROOTFS
+	bool
+	prompt "/etc/group, /etc/gshadow    "
+	default y
+	help
+	  Installs a /etc/group and /etc/gshadow file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/group|gshadow"
+		depends on ROOTFS_GROUP
+		default ROOTFS_GENERIC_GROUP
+
+		config ROOTFS_GENERIC_GROUP
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/group and /etc/gshadow file.
+			  See <ptxdist-install>/generic/group|gshadow
+
+		config ROOTFS_USER_GROUP
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined group|gshadow. PTXdist uses files
+			  projectroot/etc/group|gshadow in your local project
+	endchoice
+
+#
+# /etc/fstab
+#
+menuconfig ROOTFS_FSTAB
+	depends on ROOTFS
+	bool
+	prompt "/etc/fstab                  "
+	default y
+	help
+	  Installs a /etc/fstab file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/fstab"
+		depends on ROOTFS_FSTAB
+		default ROOTFS_GENERIC_FSTAB
+
+		config ROOTFS_GENERIC_FSTAB
+			bool
+			prompt "Use generic"
+			help
+			  This uses a generic fstab for this project. See
+			  <ptxdist-install>/generic/fstab
+
+		config ROOTFS_USER_FSTAB
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined fstab. PTXdist uses file
+			  projectroot/etc/fstab in your local project
+	endchoice
+
+#
+# /etc/mtab
+#
+menuconfig ROOTFS_MTAB
+	depends on ROOTFS
+	bool
+	prompt "/etc/mtab                   "
+	default y
+	help
+	  Installs a /etc/mtab file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/mtab"
+		depends on ROOTFS_MTAB
+		default ROOTFS_GENERIC_MTAB
+
+		config ROOTFS_GENERIC_MTAB
+			bool
+			prompt "Use generic"
+			help
+			  Installs a link to /proc/mounts as /etc/mtab. Some tools
+			  like those from the e2fs-tools suite need this file to
+			  function properly. However, it is a good idea to keep this
+			  file around, since a real /etc/mtab would have to be
+			  read-write to be accurate, which is not a good idea in
+			  embedded environments with ro-mounted rootfs.
+
+		config ROOTFS_USER_MTAB
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined fstab. PTXdist uses file
+			  projectroot/etc/mtab in your local project
+	endchoice
+
+#
+# /etc/hostname
+#
+menuconfig ROOTFS_GENERIC_HOSTNAME
+	depends on ROOTFS
+	bool
+	prompt "/etc/hostname               "
+	default y
+	help
+	  Installs a generic /etc/hostname file.
+
+	config ROOTFS_ETC_HOSTNAME
+		depends on ROOTFS_GENERIC_HOSTNAME
+		string
+		default ptx
+		prompt "set hostname in /etc/hostname"
+
+#
+# /etc/hosts
+#
+menuconfig ROOTFS_HOSTS
+	depends on ROOTFS
+	bool
+	prompt "/etc/hosts                  "
+	default y
+	help
+	  Installs a /etc/hosts file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/hosts"
+		depends on ROOTFS_HOSTS
+		default ROOTFS_GENERIC_HOSTS
+
+		config ROOTFS_GENERIC_HOSTS
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/hosts file.
+			  See <ptxdist-install>/generic/hosts
+
+		config ROOTFS_USER_HOSTS
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/hosts. PTXdist uses file
+			  projectroot/etc/hosts in your local project
+
+	endchoice
+
+#
+# /etc/inittab
+#
+menuconfig ROOTFS_INITTAB
+	depends on ROOTFS
+	select BB_CONFIG_GETTY if BUSYBOX
+	bool
+	prompt "/etc/inittab                "
+	default y
+	help
+	  Installs a /etc/inittab file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/inittab"
+		depends on ROOTFS_INITTAB
+		default ROOTFS_GENERIC_INITTAB
+
+		config ROOTFS_GENERIC_INITTAB
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/inittab file.
+			  See <ptxdist-install>/generic/inittab
+
+		config ROOTFS_USER_INITTAB
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/inittab. PTXdist uses file
+			  projectroot/etc/inittab in your local project.
+			  Note: The placeholders @SPEED@ and @CONSOLE@ will be
+			  replaced before installing with the values below.
+			  See <ptxdist-install>/generic/inittab how to use them.
+	endchoice
+
+	config ROOTFS_ETC_CONSOLE
+		depends on ROOTFS_INITTAB
+		string
+		default "/dev/tts/0"
+		prompt "start getty on this console"
+		help
+		  This string will be used wherever the placeholder @CONSOLE@ in
+		  the source file for /etc/inittab occures.
+
+	config ROOTFS_ETC_CONSOLE_SPEED
+		depends on ROOTFS_INITTAB
+		string
+		default "115200"
+		prompt "getty baudrate"
+		help
+		  This string will be used wherever the placeholder @SPEED@ in
+		  the source file for /etc/inittab occures.
+
+#
+# /etc/nsswitch
+#
+menuconfig ROOTFS_NSSWITCH
+	depends on ROOTFS
+	bool
+	prompt "/etc/nsswitch.conf          "
+	default y
+	help
+	  Installs a /etc/nsswitch.conf file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/nsswitch.conf"
+		depends on ROOTFS_NSSWITCH
+		default ROOTFS_GENERIC_NSSWITCH
+
+		config ROOTFS_GENERIC_NSSWITCH
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/nsswitch.conf file.
+			  See <ptxdist-install>/generic/nsswitch.conf
+
+		config ROOTFS_USER_NSSWITCH
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/nsswitch.conf. PTXdist
+			  uses file projectroot/etc/nsswitch.conf in your local
+			  project
+	endchoice
+
+#
+# /etc/profile
+#
+menuconfig ROOTFS_PROFILE
+	depends on ROOTFS
+	bool
+	prompt "/etc/profile                "
+	default y
+	help
+	  Installs a generic /etc/profile file.
+
+	choice
+		prompt "Kind of /etc/profile"
+		depends on ROOTFS_PROFILE
+		default ROOTFS_GENERIC_PROFILE
+
+		config ROOTFS_GENERIC_PROFILE
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/profile file.
+			  See <ptxdist-install>/generic/profile
+
+		config ROOTFS_USER_PROFILE
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/profile. PTXdist
+			  uses file projectroot/etc/profile in your local
+			  project. If you are using the placeholders @PS1@,
+			  @PS2@, and @PS3@ they will be replaced by the string
+			  settings below.
+
+	endchoice
+
+	config ROOTFS_ETC_PS1
+		depends on ROOTFS_PROFILE
+		string
+		default "\\u@\\h:\\w"
+		prompt "set PS1 in /etc/profile"
+
+	config ROOTFS_ETC_PS2
+		depends on ROOTFS_PROFILE
+		string
+		default ""
+		prompt "set PS2 in /etc/profile"
+
+	config ROOTFS_ETC_PS4
+		depends on ROOTFS_PROFILE
+		string
+		default ""
+		prompt "set PS4 in /etc/profile"
+
+#
+# /etc/protocols
+#
+menuconfig ROOTFS_PROTOCOLS
+	depends on ROOTFS
+	bool
+	prompt "/etc/protocols              "
+	default y
+	help
+	  Installs a /etc/protocols file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/protocols"
+		depends on ROOTFS_PROTOCOLS
+		default ROOTFS_GENERIC_PROTOCOLS
+
+		config ROOTFS_GENERIC_PROTOCOLS
+			bool
+			prompt "Use generic"
+			help
+			  Install a generic /etc/protocols file. See
+			  <ptxdist-install>/generic/protocols.
+
+		config ROOTFS_USER_PROTOCOLS
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/protocols. PTXdist
+			  uses file projectroot/etc/protocols in your local
+			  project.
+
+	endchoice
+
+#
+# /etc/resolv.conf
+#
+menuconfig ROOTFS_RESOLV
+	depends on ROOTFS
+	bool
+	prompt "/etc/resolv.conf            "
+	default y
+	help
+	  Installs a /etc/resolv.conf file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/resolv.conf"
+		depends on ROOTFS_RESOLV
+		default ROOTFS_GENERIC_RESOLV
+
+		config ROOTFS_GENERIC_RESOLV
+			bool
+			prompt "Use generic"
+			help
+			  Install a generic /etc/resolv.conf file. See
+			  <ptxdist-install>/generic/resolv.conf.
+
+		config ROOTFS_USER_RESOLV
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/resolv.conf. PTXdist
+			  uses file projectroot/etc/resolv.conf in your local
+			  project.
+
+	endchoice
+
+#
+# /etc/inetd.conf
+#
+menuconfig ROOTFS_INETD
+	depends on ROOTFS
+	depends on BB_CONFIG_INETD
+	bool
+	prompt "/etc/inetd.conf             "
+	default y
+	help
+	  Installs a /etc/inetd.conf file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/inetd.conf"
+		depends on ROOTFS_INETD
+		default ROOTFS_GENERIC_INETD
+
+		config ROOTFS_GENERIC_INETD
+			bool
+			prompt "Use generic"
+			help
+			  Install a generic /etc/inetd.conf file. See
+			  <ptxdist-install>/generic/inetd.conf. But there are
+			  mostly placeholders in. It depends on the selections
+			  you made, what placeholders expand to a valid value.
+			  Not selected tools expand their placeholder to empty
+			  space.
+
+		config ROOTFS_USER_INETD
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/inetd.conf. PTXdist
+			  uses file projectroot/etc/inetd.conf in your local
+			  project. You can also use the placeholders from the
+			  generic part if you want.
+
+	endchoice
+
+#
+# /etc/syslog-ng.conf
+#
+menuconfig ROOTFS_SYSLOGNG
+	depends on SYSLOGNG
+	depends on ROOTFS
+	bool
+	prompt "/etc/syslog-ng.conf         "
+	default y
+	help
+	  Installs a /etc/syslog-ng.conf file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/syslog-ng.conf"
+		depends on ROOTFS_SYSLOGNG
+		default ROOTFS_GENERIC_SYSLOGNG
+
+		config ROOTFS_GENERIC_SYSLOGNG
+			bool
+			prompt "Use generic"
+			help
+			  Install a generic /etc/syslog-ng.conf file. See
+			  <ptxdist-install>/generic/syslog-ng.conf.
+
+		config ROOTFS_USER_SYSLOGNG
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/syslog-ng.conf. PTXdist
+			  uses file projectroot/etc/syslog-ng.conf in your local
+			  project.
+
+	endchoice
+
+#
+# /etc/udhcpc.script
+#
+menuconfig ROOTFS_UDHCPC
+	depends on ROOTFS
+	depends on BB_CONFIG_UDHCPC
+	select ROOTFS_RESOLV
+	select BB_CONFIG_IFCONFIG
+	bool
+	prompt "/etc/udhcpc.script          "
+	default y
+	help
+	  Installs a /etc/udhcpc.script file from a selectable source.
+	  You have checked busybox' udhcpc feature. It accepts the -s file or
+	  --script=file option. So this /etc/udhcpc.script will be run at dhcp
+	  events.
+
+	choice
+		prompt "Kind of /etc/udhcpc.script"
+		depends on ROOTFS_UDHCPC
+		default ROOTFS_GENERIC_UDHCPC
+
+		config ROOTFS_GENERIC_UDHCPC
+			bool
+			prompt "Use generic"
+			help
+			  Install a generic /etc/udhcpc.script file. See
+			  <ptxdist-install>/generic/udhcpc.script.
+
+		config ROOTFS_USER_UDHCPC
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/udhcpc.script. PTXdist
+			  uses file projectroot/etc/udhcpc.script in your local
+			  project.
+
+	endchoice
+
+#
+# /etc/ipkg.conf
+#
+config ROOTFS_GENERIC_IPKG_CONF
+	depends on ROOTFS
+	depends on IMAGE_IPKG
+	bool
+	prompt "/etc/ipkg.conf              "
+	help
+	  Installs a generic /etc/ipkg.conf file.
+
+	config ROOTFS_GENERIC_IPKG_CONF_URL
+		depends on ROOTFS_GENERIC_IPKG_CONF
+		string
+		prompt "IPKG Update Site URL"
+		default "http://some/path"
+		help
+		  This path is put into the /etc/ipkg.conf file and specifies
+		  where to find an IPKG packet feed.
+

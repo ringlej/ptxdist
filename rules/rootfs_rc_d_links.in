@@ -1,0 +1,125 @@
+comment "----------------------------------"
+comment "Populate Startup Links in /etc/rc.d"
+comment "----------------------------------"
+
+########################## udev support  ##########################################
+
+config ROOTFS_ETC_INITD_UDEV_LINK
+	depends on ROOTFS_ETC_INITD_UDEV
+	string
+	prompt "udev link name"
+	default "S00_udev"
+	help
+	  Set a link to with this name in /etc/rc.d which points to
+	  /etc/init.d/udev.
+
+########################### Modules #########################################
+
+config ROOTFS_ETC_INITD_MODULES_LINK
+	depends on ROOTFS_ETC_INITD_MODULES
+	string
+	prompt "modules link name"
+	default "S01_modules"
+	help
+	  Set a link to with this name in /etc/rc.d which points to
+	  /etc/init.d/modules.
+
+############################ inetd #########################################
+
+config ROOTFS_ETC_INITD_INETD_LINK
+	depends on ROOTFS_ETC_INITD_INETD
+	string
+	prompt "inted link name"
+	default "S11_inetd"
+	help
+	  Set a link to with this name in /etc/rc.d which points to
+	  /etc/init.d/inetd.
+
+########################## Networking ########################################
+
+config ROOTFS_ETC_INITD_NETWORKING_LINK
+	depends on ROOTFS_ETC_INITD_NETWORKING
+	string
+	prompt "network link name"
+	default "S02_networking"
+	help
+	  Set a link to with this name in /etc/rc.d which points to
+	  /etc/init.d/networking.
+
+########################## Syslog-NG #########################################
+
+config ROOTFS_ETC_INITD_SYSLOGNG_LINK
+	depends on ROOTFS_ETC_INITD_SYSLOGNG
+	string
+	prompt "syslog-ng link name"
+	default "S08_syslog-ng"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/syslog-ng to
+	  start the syslog-ng daemon when system boots.
+
+########################## Telnetd ##########################################
+
+config ROOTFS_ETC_INITD_TELNETD_LINK
+	depends on ROOTFS_ETC_INITD_TELNETD
+	string
+	prompt "telnetd link name"
+	default "S07_telnetd"
+	help
+	  Set a link to with this name in /etc/rc.d which points to
+	  /etc/init.d/telnetd.
+
+########################## Banner ##########################################
+
+config ROOTFS_ETC_INITD_BANNER_LINK
+	depends on ROOTFS_ETC_INITD_BANNER
+	string
+	prompt "banner link name"
+	default "S03_banner"
+	help
+	  Set a link to with this name in /etc/rc.d which points to
+	  /etc/init.d/banner.
+
+########################## thin httpd  ##########################################
+
+config ROOTFS_ETC_INITD_THTTPD_LINK
+	depends on THTTPD
+	string
+	prompt "thttpd link name"
+	default "S10_thttpd"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/thttpd to
+	  start thin http daemon when system starts.
+
+########################## Apache 2 ##########################################
+
+config ROOTFS_ETC_INITD_HTTPD_LINK
+	depends on ROOTFS_ETC_INITD_HTTPD
+	string
+	prompt "apache link name in /etc/rc.d"
+	default "S08_httpd"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/httpd to
+	  start apache when system boots.
+
+########################## Dropbear ##########################################
+
+config ROOTFS_ETC_INITD_DROPBEAR_LINK
+	depends on ROOTFS_ETC_INITD_DROPBEAR
+	string
+	prompt "dropbear link name"
+	default "S08_dropbear"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/dropbear to
+	  start dropbear when system boots.
+
+########################## pureftpd  ##########################################
+
+config ROOTFS_ETC_INITD_PUREFTPD_LINK
+	depends on ROOTFS_ETC_INITD_PUREFTPD
+	string
+	prompt "pureftpd link name"
+	default "S09_pureftpd"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/pure-ftpd to
+	  start pure ftp daemon when system starts.
+

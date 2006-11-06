@@ -1,0 +1,282 @@
+comment "----------------------------------"
+comment "Populate Start Scripts in /etc/init.d"
+comment "----------------------------------"
+
+config ROOTFS_ETC_INITD
+	depends on ROOTFS
+	bool
+	prompt "Generic Scripts for /etc/init.d"
+	default y
+	select BB_CONFIG_RUN_PARTS      if BUSYBOX
+	help
+	  When enabled, this option copies the files from
+	  ${PTXDIST_TOPDIR}/generic/etc/init.d to the target root
+	  filesystem. The files contain useful defaults for most projects,
+	  so if you don't intend to use your completely self-made etc
+	  directory you should problably switch this on.
+
+config ROOTFS_ETC_INITD_RCS
+	bool
+	prompt "rcS"
+	depends on ROOTFS_ETC_INITD
+	default y
+	help
+	  The /etc/init.d/rcS script is started by init in /etc/inittab.
+	  Its main purpose is to run the other init scripts by calling
+	  run-parts.
+
+config ROOTFS_ETC_INITD_INETD
+	depends on ROOTFS_ETC_INITD
+	bool
+	prompt "inetd"
+	select INETUTILS_INETD
+	help
+	  When enabled, this option installs the generic /etc/init.d/inetd
+	  file. This script starts your internet super server (inetd).
+
+config ROOTFS_ETC_INITD_LOGROTATE
+	bool
+	prompt "minimal logrotate"
+	depends on ROOTFS_ETC_INITD
+	help
+	  The /etc/init.d/logrotate script is a minimal logrotator.
+
+config ROOTFS_ETC_INITD_MODULES
+	depends on ROOTFS_ETC_INITD
+	bool
+	prompt "modules"
+	help
+	  When enabled, load all modules in /etc/modules. This requires
+	  one type of the tool "grep" (from Busybox or paket procps)
+
+menuconfig ROOTFS_ETC_INITD_NETWORKING
+	depends on ROOTFS_ETC_INITD
+	bool
+	default y
+	prompt "networking                "
+	select BB_CONFIG_IFUPDOWN if BUSYBOX
+	select BB_CONFIG_FEATURE_IFUPDOWN_IP if BUSYBOX
+	help
+	  When enabled, this option installs the generic
+	  /etc/init.d/networking file. This script starts
+	  your network interfaces by calling ifup -a
+
+	config ROOTFS_ETC_INITD_NETWORKING_INTERFACES
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_NETWORKING
+		string
+		prompt "/etc/network/interfaces file"
+		default "${PTXDIST_WORKSPACE}/projectroot/etc/network/interfaces"
+		help
+		  Copy this file to /etc/network/interfaces.
+
+########################## Syslog-NG #########################################
+
+config ROOTFS_ETC_INITD_SYSLOGNG
+	depends on ROOTFS_ETC_INITD && SYSLOGNG
+	bool
+	default y
+	prompt "syslog-ng"
+	help
+	  The /etc/init.d/syslog-ng script lets you control the syslog-ng daemon.
+
+########################## Telnetd ##########################################
+
+menuconfig ROOTFS_ETC_INITD_TELNETD
+	depends on ROOTFS_ETC_INITD
+	depends on (UTELNETD || BB_CONFIG_TELNETD)
+	bool
+	default y
+	prompt "telnetd                   "
+	help
+	  The /etc/init.d/telnetd script starts up your telnet
+	  demon. Depending on your configuration utelnetd or telnetd
+	  is started.
+
+	choice
+		prompt "Kind of startup script"
+		default ROOTFS_ETC_INITD_TELNETD_DEFAULT
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_TELNETD
+
+		config ROOTFS_ETC_INITD_TELNETD_DEFAULT
+			depends on ROOTFS_ETC_INITD_TELNETD
+			bool
+			prompt "Use default telnetd"
+			help
+			  A file from generic/etc/init.d/telnetd will be used
+
+		config ROOTFS_ETC_INITD_TELNETD_USER
+			depends on ROOTFS_ETC_INITD_TELNETD
+			bool
+			prompt "Use your own telnetd script"
+			help
+			  Select this, then you can enter a path and filename to your
+			  own httpd startup script
+	endchoice
+
+	config ROOTFS_ETC_INITD_TELNETD_USER_FILE
+		depends on ROOTFS_ETC_INITD_TELNETD
+		depends on ROOTFS_ETC_INITD_TELNETD_USER
+		prompt "Path and name of your own telnetd to be used"
+		string
+		default ""
+		help
+		  Enter a path and filename to be used as telnetd script on your target
+
+########################## User startup script ##############################
+
+# FIXME: RSC: needed somewhere? Shold be done by project specific stuff
+# if needed.
+
+config ROOTFS_ETC_INITD_STARTUP
+	depends on ROOTFS_ETC_INITD
+	bool
+	prompt "startup"
+	help
+	  This script runs /home/startup if it exists and is
+	  executable
+
+########################## Banner ##########################################
+
+menuconfig ROOTFS_ETC_INITD_BANNER
+	depends on ROOTFS_ETC_INITD
+	select FIGLET
+	bool
+	default y
+	prompt "banner                    "
+	help
+	  This Option adds a specific vendor string to
+	  the script which displays a nifty ptxdist
+	   _
+	  | |__   __ _ _ __  _ __   ___ _ __
+	  | '_ \ / _` | '_ \| '_ \ / _ \ '__|
+	  | |_) | (_| | | | | | | |  __/ |
+	  |_.__/ \__,_|_| |_|_| |_|\___|_|
+	  page with the hostname and other stuff at
+	  startup.
+
+	config ROOTFS_ETC_VENDOR
+		depends on ROOTFS_ETC_INITD_BANNER
+		string
+		prompt "vendorname in /etc/init.d/banner"
+		help
+		  Type in here your favorite vendorname. It gets displayed
+		  whenever your system starts.
+
+########################## Apache 2 ##########################################
+
+menuconfig ROOTFS_ETC_INITD_HTTPD
+	depends on ROOTFS_ETC_INITD && APACHE2
+	bool
+	default y
+	prompt "apache                    "
+	help
+	  The /etc/init.d/httpd script lets you control the apache daemon.
+
+	choice
+		prompt "Kind of startup scrict"
+		depends on ROOTFS_ETC_INITD_HTTPD
+		default ROOTFS_ETC_INITD_HTTPD_DEFAULT
+
+		config ROOTFS_ETC_INITD_HTTPD_DEFAULT
+			bool
+			prompt "Use default httpd"
+			help
+			  A file from generic/etc/init.d/httpd will be used.
+
+		config ROOTFS_ETC_INITD_HTTPD_USER
+			bool
+			prompt "Use your own httpd file"
+			help
+			  Select this, then you can enter a path and filename to your
+			  own httpd startup script.
+	endchoice
+
+	config ROOTFS_ETC_INITD_HTTPD_USER_FILE
+		depends on ROOTFS_ETC_INITD_HTTPD
+		depends on ROOTFS_ETC_INITD_HTTPD_USER
+		prompt "Path and name of your own httpd to be used"
+		string
+		default ""
+		help
+		  Enter a path and filename to be used as httpd script on your target.
+
+########################## Dropbear ##########################################
+
+menuconfig ROOTFS_ETC_INITD_DROPBEAR
+	depends on ROOTFS_ETC_INITD && DROPBEAR
+	bool
+	default y
+	prompt "dropbear                  "
+	help
+	  The /etc/init.d/dropbear script lets you control the dropbear daemon.
+
+	choice
+		prompt "Kind of startup scrict"
+		depends on ROOTFS_ETC_INITD_DROPBEAR
+		default ROOTFS_ETC_INITD_DROPBEAR_DEFAULT
+
+		config ROOTFS_ETC_INITD_DROPBEAR_DEFAULT
+			bool
+			prompt "Use default dropbear"
+			help
+			  A file from generic/etc/init.d/dropbear will be used.
+
+		config ROOTFS_ETC_INITD_DROPBEAR_USER
+			bool
+			prompt "Use your own dropbear file"
+			help
+			  Select this, then you can enter a path and filename to your
+			  own dropbear startup script.
+	endchoice
+
+	config ROOTFS_ETC_INITD_DROPBEAR_USER_FILE
+		depends on ROOTFS_ETC_INITD_DROPBEAR
+		depends on ROOTFS_ETC_INITD_DROPBEAR_USER
+		prompt "Path and name of your own dropbear to be used"
+		string
+		default ""
+		help
+		  Enter a path and filename to be used as dropbear script on your target.
+
+########################## pureftpd  ##########################################
+
+menuconfig ROOTFS_ETC_INITD_PUREFTPD
+	depends on ROOTFS_ETC_INITD && PUREFTPD
+	bool
+	default y
+	prompt "purefptd                  "
+	help
+	  The /etc/init.d/pure-ftpd script lets you control the pure ftp daemon.
+
+	choice
+		prompt "Kind of startup scrict"
+		depends on ROOTFS_ETC_INITD_PUREFTPD
+		default ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
+
+		config ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
+			bool
+			prompt "Use default pure-ftpd"
+			help
+			  A file from generic/etc/init.d/pure-ftpd will be used.
+
+		config ROOTFS_ETC_INITD_PUREFTPD_USER
+			bool
+			prompt "Use your own pure-ftpd file"
+			help
+			  Select this, then you can enter a path and filename to your
+			  own pure-ftpd startup script.
+	endchoice
+
+	config ROOTFS_ETC_INITD_PUREFTPD_USER_FILE
+		depends on ROOTFS_ETC_INITD_PUREFTPD
+		depends on ROOTFS_ETC_INITD_PUREFTPD_USER
+		prompt "Path and name of your own pure-ftpd to be used"
+		string
+		default ""
+		help
+		  Enter a path and filename to be used as pure-ftpd script on your target.
+
+
+########################## ? ##########################################

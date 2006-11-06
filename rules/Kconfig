@@ -36,6 +36,9 @@ endmenu
 menu "Root Filesystem               "
 depends on BUILD_USERLAND
 source "rules/rootfs.in"
+source "rules/rootfs_init_d_files.in"
+source "rules/rootfs_rc_d_links.in"
+source "rules/rootfs_configfiles.in"
 endmenu
 
 menu "Core (Kernel, C-Library)      "
