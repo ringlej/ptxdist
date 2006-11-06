@@ -100,23 +100,36 @@ $(STATEDIR)/utelnetd.targetinstall: $(utelnetd_targetinstall_deps_default)
 	@$(call install_fixup, utelnetd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, utelnetd,DEPENDS,)
 	@$(call install_fixup, utelnetd,DESCRIPTION,missing)
-ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD
-ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD_DEFAULT
+#
+# Install the startup script on request only
+#
+ifdef PTXCONF_ROOTFS_ETC_INITD_UTELNETD
+ifdef PTXCONF_ROOTFS_ETC_INITD_UTELNETD_DEFAULT
+# install the generic one
 	@$(call install_copy, utelnetd, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/telnetd, \
 		/etc/init.d/telnetd, n)
-else
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER_FILE),"")
-	@$(call install_copy, utelnetd, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_TELNETD_USER_FILE), /etc/init.d/telnetd, n)
 endif
-endif
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
-	@$(call install_copy, utelnetd, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, utelnetd, ../init.d/telnetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
+ifdef PTXCONF_ROOTFS_ETC_INITD_UTELNETD_USER
+# install users one
+	@$(call install_copy, udev, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/utelnetd, \
+		/etc/init.d/telnetd, n)
 endif
 endif
 
-	@$(call install_copy, utelnetd, 0, 0, 0755, $(UTELNETD_DIR)/utelnetd, /sbin/utelnetd)
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
+	@$(call install_copy, utelnetd, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, utelnetd, ../init.d/telnetd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
+endif
+endif
+
+	@$(call install_copy, utelnetd, 0, 0, 0755, $(UTELNETD_DIR)/utelnetd, \
+		/sbin/utelnetd)
 
 	@$(call install_finish, utelnetd)
 

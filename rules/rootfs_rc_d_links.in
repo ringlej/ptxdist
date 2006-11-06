@@ -60,7 +60,7 @@ config ROOTFS_ETC_INITD_SYSLOGNG_LINK
 ########################## Telnetd ##########################################
 
 config ROOTFS_ETC_INITD_TELNETD_LINK
-	depends on ROOTFS_ETC_INITD_TELNETD
+	depends on ROOTFS_ETC_INITD_TELNETD || ROOTFS_ETC_INITD_UTELNETD
 	string
 	prompt "telnetd link name"
 	default "S07_telnetd"

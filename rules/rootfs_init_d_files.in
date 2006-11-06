@@ -84,7 +84,7 @@ config ROOTFS_ETC_INITD_SYSLOGNG
 
 menuconfig ROOTFS_ETC_INITD_TELNETD
 	depends on ROOTFS_ETC_INITD
-	depends on (UTELNETD || BB_CONFIG_TELNETD)
+	depends on BB_CONFIG_TELNETD
 	bool
 	default y
 	prompt "telnetd                   "
