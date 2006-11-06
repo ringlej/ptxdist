@@ -65,8 +65,8 @@ menuconfig ROOTFS_SHADOW
 			bool
 			prompt "Use generic"
 			help
-			  Install a generic /etc/shadow and /etc/shadow- file.
-			  See <ptxdist-install>/generic/shadow|shadow-
+			  Installs a generic /etc/shadow and /etc/shadow- file.
+			  See <ptxdist-install>/generic/etc/shadow|shadow-
 
 		config ROOTFS_USER_SHADOW
 			bool
