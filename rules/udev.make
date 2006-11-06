@@ -110,41 +110,68 @@ $(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps_default)
 	@$(call install_fixup, udev,DEPENDS,)
 	@$(call install_fixup, udev,DESCRIPTION,missing)
 
-	@$(call install_copy, udev, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/udev/udev.conf, /etc/udev/udev.conf, n)
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/udev/udev.conf, \
+		/etc/udev/udev.conf, n)
+
+#
+# Install the startup script on request only
+#
 ifdef PTXCONF_ROOTFS_ETC_INITD_UDEV
-ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE)),)
-	@$(call install_copy, udev, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_UDEV_USER_FILE), /etc/init.d/udev, n)
-else
-	@$(call install_copy, udev, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/udev, /etc/init.d/udev, n)
+ifdef PTXCONF_ROOTFS_ETC_INITD_UDEV_DEFAULT
+# install the generic one
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/udev, \
+		/etc/init.d/udev, n)
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_UDEV_USER
+# install users one
+	@$(call install_copy, udev, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/udev, \
+		/etc/init.d/udev, n)
 endif
 endif
 
+#
+# FIXME: Is this packet the right location for the link?
+#
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK),"")
 	@$(call install_copy, udev, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, udev, ../init.d/udev, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK))
+	@$(call install_link, udev, ../init.d/udev, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK))
 endif
 
 ifdef PTXCONF_UDEV_UDEV
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev, /sbin/udev)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev, \
+		/sbin/udev)
 endif
 ifdef PTXCONF_UDEV_UDEVD
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevd, /sbin/udevd)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevd, \
+		/sbin/udevd)
 endif
 ifdef PTXCONF_UDEV_INFO
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevinfo, /sbin/udevinfo)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevinfo, \
+		/sbin/udevinfo)
 endif
 ifdef PTXCONF_UDEV_SEND
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevsend, /sbin/udevsend)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevsend, \
+		/sbin/udevsend)
 endif
 ifdef PTXCONF_UDEV_START
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevstart, /sbin/udevstart)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevstart, \
+		/sbin/udevstart)
 endif
 ifdef PTXCONF_UDEV_TEST
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevtest, /sbin/udevtest)
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/udevtest, \
+		/sbin/udevtest)
 endif
 
 ifdef PTXCONF_UDEV_FW_HELPER
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/extras/firmware/firmware_helper, /sbin/firmware_helper)
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/firmware/firmware_helper, \
+		/sbin/firmware_helper)
 endif
 
 	@$(call install_finish, udev)

@@ -6,38 +6,38 @@ config UDEV_UDEV
 	bool "udev"
 	depends on UDEV
 	help
-	  udev provides a dynamic device directory containing only 
-	  the files for actually present devices. It creates or 
-	  removes device node files in the /dev directory, or it 
+	  udev provides a dynamic device directory containing only
+	  the files for actually present devices. It creates or
+	  removes device node files in the /dev directory, or it
 	  renames network interfaces.
 
-       	  Usually udev runs as udevd(8) and receives uevents directly 
+	  Usually udev runs as udevd(8) and receives uevents directly
 	  from the kernel if a device is added or removed form the system.
 
-       	  If udev receives a device event, it matches its configured 
-	  rules against the available device attributes provided in 
-	  sysfs to identify the device. Rules that match, may provide 
-	  additional device information or specify a device node name 
-	  and multiple symlink names and instruct udev to run 
+	  If udev receives a device event, it matches its configured
+	  rules against the available device attributes provided in
+	  sysfs to identify the device. Rules that match, may provide
+	  additional device information or specify a device node name
+	  and multiple symlink names and instruct udev to run
 	  additional programs as part of the device event handling.
 
 config UDEV_UDEVD
 	bool "udevd"
 	depends on UDEV
 	help
-	  udevd listens to kernel uevents and passes the incoming 
-	  events to udev. It ensures the right event order and 
-	  takes care, that events for child devices are delayed 
+	  udevd listens to kernel uevents and passes the incoming
+	  events to udev. It ensures the right event order and
+	  takes care, that events for child devices are delayed
 	  until the parent has finished the device handling.
 
 config UDEV_INFO
 	bool "udevinfo"
 	depends on UDEV
 	help
-	  udevinfo queries the udev database for device 
-	  information stored in the udev database. It 
-	  can also query the properties of a device from 
-	  its sysfs representation to help creating udev 
+	  udevinfo queries the udev database for device
+	  information stored in the udev database. It
+	  can also query the properties of a device from
+	  its sysfs representation to help creating udev
 	  rules that match this device.
 
 config UDEV_SEND
@@ -59,8 +59,8 @@ config UDEV_TEST
 	bool "udevtest"
 	depends on UDEV
 	help
-	  udevtest simulates a udev run for the given device 
-	  and prints out the name of the node udev would have 
+	  udevtest simulates a udev run for the given device
+	  and prints out the name of the node udev would have
 	  created, or the name of the network interface, that
 	  would have been renamend.
 
@@ -69,3 +69,37 @@ config UDEV_FW_HELPER
 	depends on UDEV
 	help
 	  FIXME: This item needs to be documented
+
+comment "runtime options  ---"
+	depends on UDEV
+
+config ROOTFS_ETC_INITD_UDEV
+	depends on UDEV
+	bool
+	default y
+	prompt "Install startup script      "
+	help
+	  The /etc/init.d/udev script lets you control the udevd daemon.
+
+	choice
+		prompt "Kind of startup scrict"
+		default ROOTFS_ETC_INITD_UDEV_DEFAULT
+		depends on ROOTFS_ETC_INITD_UDEV
+
+		config ROOTFS_ETC_INITD_UDEV_DEFAULT
+			bool
+			prompt "Use generic"
+			select UDEV_START
+			help
+			  Installs a generic /etc/init.d/udev startup script.
+			  See <ptxdist-install>/generic/etc/init.d/udev
+
+		config ROOTFS_ETC_INITD_UDEV_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined udev startup script. PTXdist
+			  uses files projectroot/etc/init.d/udev in your local
+			  project
+
+	endchoice
