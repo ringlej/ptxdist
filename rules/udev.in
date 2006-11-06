@@ -82,7 +82,7 @@ config ROOTFS_ETC_INITD_UDEV
 	  The /etc/init.d/udev script lets you control the udevd daemon.
 
 	choice
-		prompt "Kind of startup scrict"
+		prompt "Kind of startup script"
 		default ROOTFS_ETC_INITD_UDEV_DEFAULT
 		depends on ROOTFS_ETC_INITD_UDEV
 
