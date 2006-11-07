@@ -67,11 +67,11 @@ PUREFTPD_ENV	+= ac_cv_func_snprintf=yes
 #
 PUREFTPD_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking \
 	--with-standalone \
 	--without-inetd \
 	--without-ascii \
 	--with-banner \
-	--with-minimal \
 	--without-pam \
 	--without-cookie \
 	--without-throttling \
@@ -89,7 +89,12 @@ PUREFTPD_AUTOCONF = \
 	--without-mysql \
 	--without-pgsql \
 	--without-privsep \
-	--without-tls \
+	--without-tls
+#
+# FIXME: configure probes host's /dev/urandom and /dev/random
+# instead of target's one
+#
+# Can --with-probe-random-dev solve this?
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 PUREFTPD_AUTOCONF += --with-uploadscript
@@ -102,9 +107,19 @@ else
 PUREFTPD_AUTOCONF += --without-virtualhosts
 endif
 ifdef PTXCONF_PUREFTPD_DIRALIASES
-PUREFTPD_AUTOCONF += --with-diraliases 
+PUREFTPD_AUTOCONF += --with-diraliases
 else
 PUREFTPD_AUTOCONF += --without-diraliases
+endif
+ifdef PTXCONF_PUREFTPD_MINIMAL
+PUREFTPD_AUTOCONF += --with-minimal
+else
+PUREFTPD_AUTOCONF += --without-minimal
+endif
+ifdef PTXCONF_PUREFTPD_SHRINK_MORE
+PUREFTPD_AUTOCONF += --without-globbing
+else
+PUREFTPD_AUTOCONF += --with-globbing
 endif
 
 $(STATEDIR)/pureftpd.prepare: $(pureftpd_prepare_deps_default)
@@ -155,24 +170,36 @@ $(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps_default)
 	@$(call install_fixup, pureftpd,DEPENDS,)
 	@$(call install_fixup, pureftpd,DESCRIPTION,missing)
 
-	@$(call install_copy, pureftpd, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-ftpd, /usr/sbin/pure-ftpd)
-ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD
-ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER_FILE)),)
-	@$(call install_copy, pureftpd, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER_FILE), /etc/init.d/pure-ftpd, n)
-else
-	@$(call install_copy, pureftpd, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/pure-ftpd, /etc/init.d/pure-ftpd, n)
-endif
-endif
-
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_LINK),"")
-	@$(call install_copy, pureftpd, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, pureftpd, ../init.d/pure-ftpd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_LINK))
-endif
+	@$(call install_copy, pureftpd, 0, 0, 0755, \
+		$(PUREFTPD_DIR)/src/pure-ftpd, \
+		/usr/sbin/pure-ftpd)
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
-	@$(call install_copy, pureftpd, 0, 0, 0755, $(PUREFTPD_DIR)/src/pure-uploadscript, /usr/sbin/pure-uploadscript, n)
+	@$(call install_copy, pureftpd, 0, 0, 0755, \
+		$(PUREFTPD_DIR)/src/pure-uploadscript, \
+		/usr/sbin/pure-uploadscript, n)
 endif
 
+ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD
+ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER_FILE)),)
+	@$(call install_copy, pureftpd, 0, 0, 0755, \
+		$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER_FILE), \
+		/etc/init.d/pure-ftpd, n)
+else
+	@$(call install_copy, pureftpd, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/pure-ftpd, \
+		/etc/init.d/pure-ftpd, n)
+endif
+endif
+
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_LINK),"")
+	@$(call install_copy, pureftpd, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, pureftpd, ../init.d/pure-ftpd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_LINK))
+endif
 
 	@$(call install_finish, pureftpd)
 

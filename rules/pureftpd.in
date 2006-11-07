@@ -2,12 +2,12 @@ menuconfig PUREFTPD
 	bool
 	prompt "pureftpd            "
 	help
-	  Pure-FTPd is a fast, production-quality, standards-conformant 
-	  FTP server based upon Troll-FTPd. Features include chrooted 
-	  home directories, virtual domains, built-in 'ls', anti-warez 
-	  system, configurable ports for passive downloads, FXP protocol, 
-	  bandwidth throttling, ratios, fortune files, Apache-like log 
-	  files, fast standalone mode, atomic uploads, text / HTML / 
+	  Pure-FTPd is a fast, production-quality, standards-conformant
+	  FTP server based upon Troll-FTPd. Features include chrooted
+	  home directories, virtual domains, built-in 'ls', anti-warez
+	  system, configurable ports for passive downloads, FXP protocol,
+	  bandwidth throttling, ratios, fortune files, Apache-like log
+	  files, fast standalone mode, atomic uploads, text / HTML /
 	  XML real-time status report, virtual users, virtual quotas,
  	  privilege separation, SSL/TLS and more.
 
@@ -15,19 +15,47 @@ config PUREFTPD_UPLOADSCRIPT
 	bool
 	prompt "support upload scripts"
 	depends on PUREFTPD
-	help 
+	help
 	  Allow running an external script after an upload
 
 config PUREFTPD_VIRTUALHOSTS
 	bool
 	prompt "virtual hosts"
 	depends on PUREFTPD
-	help 
+	help
 	  Handle virtual servers on different IP addresses
 
 config PUREFTPD_DIRALIASES
 	bool
 	prompt "directory aliases"
 	depends on PUREFTPD
-	help 
+	help
 	  Enable directory aliases
+
+config PUREFTPD_MINIMAL
+	bool
+	prompt "minimal ftpd"
+	depends on PUREFTPD
+	default y
+	help
+	  To efficiently use features of modern FTP clients, Pure-FTPd implements
+	  the basics of the FTP protocol, with many extensions (SITE IDLE,
+	  SITE CHMOD, MLSD, ...) . Using this switch, these extensions won't be
+	  compiled in. Also, there will be no standalone server, no lookup for
+	  user/group names, no humor and no ASCII support. But the executable
+	  file size will be smaller than in a default installation. Regular
+	  expressions are still working.
+
+config PUREFTPD_SHRINK_MORE
+	bool
+	depends on PUREFTPD
+	depends on PUREFTPD_MINIMAL
+	default n
+	prompt "shrink more"
+	help
+	  If you still want to reduce the size, use also this switch and don't
+	  include the globbing code. It reduces the memory footprint but regular
+	  expressions won't work any more (things like 'ls *.rpm').
+	  But note: Globbing is a nice feature and for Windows clients most of
+	  time required!
+
