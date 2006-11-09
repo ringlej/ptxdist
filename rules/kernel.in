@@ -6,7 +6,7 @@
 # FIXME / TODO:
 #
 # select HOST_MODUTILS for 2.4 kernels
-# select HOST_MODULE_INIT_TOOLS for 2.6 kernels
+# omitted. No more support for 2.4. kernels.
 #
 
 ##############################################################################
@@ -25,6 +25,7 @@ config KERNEL_INSTALL
 config KERNEL_INSTALL_MODULES
 	bool
 	depends on BUILD_USERLAND
+	select HOST_MODULE_INIT_TOOLS
 	prompt "Install modules into /lib/modules"
 
 config KERNEL_COMPILE
@@ -44,7 +45,7 @@ comment "----------------------------------"
 config KERNEL_TARGET_VERSION
 	prompt "Target Kernel Version"
 	string
-	default "2.6.15"
+	default "2.6.18"
 
 config KERNEL_TARGET_SERIES
 	prompt "Patch Series File"

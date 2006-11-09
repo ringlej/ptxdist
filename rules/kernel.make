@@ -153,11 +153,6 @@ kernel_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/kernel.extract
 
-ifeq ($(KERNEL_VERSION_MINOR), 4)
-kernel_prepare_deps += $(STATEDIR)/host-modutils.install
-else
-kernel_prepare_deps += $(STATEDIR)/host-module-init-tools.install
-endif
 ifdef PTXCONF_KLIBC
 kernel_prepare_deps += $(STATEDIR)/klibc.install
 endif
@@ -234,6 +229,13 @@ ifdef PTXCONF_KLIBC
 kernel_compile_deps += $(STATEDIR)/klibc.install
 endif
 
+#
+# build modules only on request
+#
+ifdef PTXCONF_KERNEL_INSTALL_MODULES
+MODULE_TARGET = modules
+endif
+
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	@$(call targetinfo, $@)
 
@@ -242,7 +244,7 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps)
 	echo '$(call remove_quotes,$(PTXCONF_PREFIX))/bin/u-boot-mkimage "$$@"' >> $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	chmod +x $(PTXCONF_PREFIX)/bin/u-boot-mkimage.sh
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make \
-		$(KERNEL_TARGET) modules $(KERNEL_MAKEVARS)
+		$(KERNEL_TARGET) $(MODULE_TARGET) $(KERNEL_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
