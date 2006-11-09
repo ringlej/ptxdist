@@ -1120,6 +1120,60 @@ install_finish = 													\
 	rm -rf $(IMAGEDIR)/$$PACKET;										\
 	echo "done.";
 
+#
+# install_autoinstall
+# 
+# Installs a file with user/group ownership and permissions via
+# fakeroot. 
+#
+# $1: packet label
+# $2: UID
+# $3: GID
+# $4: permissions (octal)
+# $5: source (for files); directory (for directories)
+# $6: destination (for files); empty (for directories). Prefixed with $(ROOTDIR), 
+#     so it needs to have a leading /
+# $7: strip (for files; y|n); default is to strip
+#
+install_autoinstall = 										\
+	PACKET=$(strip $(1));									\
+	PACKNAME=$(strip $(2));								\
+	OWN=$(strip $(3));									\
+	GRP=$(strip $(4));									\
+	PER=$(strip $(5));									\
+	SRC=$(strip $(6));									\
+	DST=$(strip $(7));									\
+	STRIP="$(strip $(8))";									\
+	echo "install_autoinstall:";								\
+	echo "  src=$$SRC";								\
+	echo "  dst=$$DST";								\
+	echo "  owner=$$OWN";								\
+	echo "  group=$$GRP";								\
+	echo "  permissions=$$PER"; 							\
+	case "$$STRIP" in								\
+	(0 | n | no)									\
+		STRIPFLAG="";								\
+		;;									\
+	(*)										\
+		STRIPFLAG="-i $(CROSS_STRIP)"; 						\
+		;;									\
+	esac;										\
+	$(SCRIPTSDIR)/make_targetinstall.sh -p "$$SRC" -o $$OWN -g $$GRP -r $$PER -n $$PACKET -f $$PACKNAME -t "$(PTXDIST_WORKSPACE)/build-target" -d "$(IMAGEDIR)/$$PACKET/ipkg" $$STRIPFLAG;			\
+	if [ $$? -ne 0 ]; then								\
+		echo "Error: install_autoinstall failed!";				\
+		exit 1;									\
+	fi;										\
+	$(SCRIPTSDIR)/make_targetinstall.sh -p "$$SRC" -o $$OWN -g $$GRP -r $$PER -n $$PACKET -f $$PACKNAME -t "$(PTXDIST_WORKSPACE)/build-target" -d "$(ROOTDIR)" -s $(STATEDIR) $$STRIPFLAG;			\
+	if [ $$? -ne 0 ]; then								\
+		echo "Error: install_autoinstall failed!";				\
+		exit 1;									\
+	fi;										\
+	$(SCRIPTSDIR)/make_targetinstall.sh -p "$$SRC" -o $$OWN -g $$GRP -r $$PER -n $$PACKET -f $$PACKNAME -t "$(PTXDIST_WORKSPACE)/build-target" -d $(ROOTDIR_DEBUG);						\
+	if [ $$? -ne 0 ]; then								\
+		echo "Error: install_autoinstall failed!";				\
+		exit 1;									\
+	fi;										\
+	mkdir -p $(IMAGEDIR)/$$PACKET;							\
 
 # ----------------------------------------------------
 #  autogeneration of dependencies
