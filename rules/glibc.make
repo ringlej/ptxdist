@@ -5,7 +5,7 @@
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 #
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -21,7 +21,6 @@ PACKAGES-$(PTXCONF_GLIBC) += glibc
 endif
 
 GLIBC := glibc-$(GLIBC_VERSION)
-
 
 
 # ----------------------------------------------------------------------------
@@ -83,6 +82,13 @@ glibc_targetinstall: $(STATEDIR)/glibc.targetinstall
 
 $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
+#
+# Hack Alert:
+# Do not install anything if the user
+# do not wants it. GLIBC_INSTALL should disable
+# the whole packet instead of the ipkg only....
+#
+ifdef PTXCONF_GLIBC_INSTALL
 
 	@$(call install_init, glibc)
 	@$(call install_fixup, glibc,PACKAGE,glibc)
@@ -181,6 +187,7 @@ endif
 		$(call install_copy, glibc, 0, 0, 0644, $(GLIBC_ZONEDIR)/zoneinfo/$$target, /usr/share/zoneinfo/$$target)	\
 	done;
 	@$(call install_finish, glibc)
+endif
 
 	@$(call touch, $@)
 
@@ -188,7 +195,7 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-glibc_clean: 
+glibc_clean:
 	-rm -rf $(STATEDIR)/glibc*
 
 # vim: syntax=make
