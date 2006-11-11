@@ -133,7 +133,9 @@ $(STATEDIR)/rsync.targetinstall: $(rsync_targetinstall_deps_default)
 	@$(call install_fixup, rsync,DEPENDS,)
 	@$(call install_fixup, rsync,DESCRIPTION,missing)
 
-	@$(call install_copy, rsync, 0, 0, 0755, $(RSYNC_DIR)/rsync, /usr/bin/rsync)
+	@$(call install_copy, rsync, 0, 0, 0755, \
+		$(RSYNC_DIR)/rsync, \
+		/usr/bin/rsync)
 
 ifdef PTXCONF_RSYNC_CONFIG_FILE_DEFAULT
 ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)),)
@@ -146,41 +148,55 @@ else
 		$(PTXDIST_TOPDIR)/generic/etc/rsyncd.conf, \
 		/etc/rsyncd.conf)
 endif
+	@$(call install_copy, rsync, 0, 0, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/rsyncd.secrets, \
+		/etc/rsyncd.secrets )
 endif
 
 ifdef PTXCONF_RSYNC_CONFIG_FILE_USER
-ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE_PATH)),)
 ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)),)
 	@$(call install_copy, rsync, 0, 0, 0644, \
-		$(PTXCONF_RSYNC_CONFIG_FILE_PATH), \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/rsyncd.conf, \
 		$(PTXCONF_RSYNC_CONFIG_FILE) )
 else
 # use as default
 	@$(call install_copy, rsync, 0, 0, 0644, \
-		$(PTXCONF_RSYNC_CONFIG_FILE_PATH), \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/rsyncd.conf, \
 		/etc/rsyncd.conf)
 endif
-else
-# error when user file is selected but no path given!
-ERROR-MISSING PATH!
+	@$(call install_copy, rsync, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/rsyncd.secrets, \
+		/etc/rsyncd.secrets )
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_AUTH_FILE_PATH)),)
-ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_AUTH_FILE)),)
-	@$(call install_copy, rsync, 0, 0, 0600, \
-		$(PTXCONF_RSYNC_AUTH_FILE_PATH), \
-		$(PTXCONF_RSYNC_AUTH_FILE) )
-else
-# use as default
-	@$(call install_copy, rsync, 0, 0, 0600, \
-		$(PTXCONF_RSYNC_AUTH_FILE_PATH), \
-		/etc/rsyncd.secrets)
+ifdef PTXCONF_RSYNC_STARTUP_TYPE_STANDALONE
+ifdef PTXCONF_ROOTFS_ETC_INITD_RSYNC_DEFAULT
+# install generic one
+	@$(call install_copy, rsync, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/rsyncd, \
+		/etc/init.d/rsyncd, n)
 endif
-else
-# error when user file is selected but no path given!
-ERROR-MISSING PATH!
+ifdef PTXCONF_ROOTFS_ETC_INITD_RSYNC_USER
+# install users one
+	@$(call install_copy, rsync, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/rsyncd, \
+		/etc/init.d/rsyncd, n)
+endif
+# replace the @CONFIG@ with path and name of the configfile
+ifneq ($(PTXCONF_RSYNC_CONFIG_FILE),"")
+	@$(call install_replace, rsync, /etc/init.d/rsyncd, \
+		@CONFIG@, \
+		"--config=$(PTXCONF_RSYNC_CONFIG_FILE)" )
+endif
 endif
 
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_RSYNC_LINK),"")
+	@$(call install_copy, rsync, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, rsync, ../init.d/rsync, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_RSYNC_LINK))
 endif
 
 	@$(call install_finish, rsync)

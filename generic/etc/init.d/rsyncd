@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# rsync
+#
+case $1 in
+
+	start)
+		echo "rsyncd starting"
+		/usr/rsync --daemon @CONFIG@
+		;;
+
+esac
+

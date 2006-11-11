@@ -8,7 +8,7 @@ menuconfig RSYNC
 	  greatly speed up file transfers when the destination file is being
 	  updated.
 
-comment "rsync build options   ---"
+comment "build options   ---"
 	depends on RSYNC
 
 config RSYNC_IPV6
@@ -27,85 +27,91 @@ config RSYNC_LARGE_FILE
 	help
 	  Support for large files
 
-choice
-
-prompt "Kind of rsyncd.conf file"
-depends on RSYNC
-default RSYNC_CONFIG_FILE_DEFAULT
-
-config RSYNC_CONFIG_FILE_DEFAULT
-	bool
-	prompt "Use default"
-	help
-	  The file from generic/etc/rsyncd.conf will be used.
-	  Its a very good idea to start with this default file and save a
-	  customised version into your project, because the generic file is
-	  really useless. You can use it if you select "Use your own" after that.
-
-config RSYNC_CONFIG_FILE_USER
-	bool
-	prompt "Use your own"
-	help
-	  Select this and you can enter a path and filename to your own
-	  rsyncd.conf file. This enables additional menu entries for an
-	  authentication file.
-
-endchoice
-
-config RSYNC_CONFIG_FILE_PATH
-	depends on RSYNC
-	depends on RSYNC_CONFIG_FILE_USER
-	prompt "Path and name of your own rsyncd.conf file"
-	string
-	default ""
-	help
-	  Enter a local path and filename to be used as configuration file on
-	  your target.
-
-config RSYNC_AUTH_FILE_PATH
-	depends on RSYNC
-	depends on RSYNC_CONFIG_FILE_USER
-	prompt "Path and name of your own secrets file"
-	string
-	default ""
-	help
-	  Enter a local path and filename to be used as a secrets file on
-	  your target. As a starting point you can use the
-	  generic/etc/rsyncd.secrets file. Leave this entry
-	  empty if you do not want to use authentication.
-
-comment "rsync runtime options   ---"
-	depends on RSYNC
-
 config RSYNC_CONFIG_FILE
 	string
 	depends on RSYNC
 	default "/etc/rsyncd.conf"
 	prompt "Configuration file at runtime"
 	help
-	  Set configuration file for rsync server to given path
+	  Set configuration file for rsync server to given path on your target
 
-config RSYNC_AUTH_FILE
+comment "runtime options   ---"
 	depends on RSYNC
-	depends on RSYNC_CONFIG_FILE_USER
-	prompt "Path and name of your own secrets file"
-	string
-	default "/etc/rsyncd.secrets"
-	help
-	  Set secrets path and filename on your target. If the source above was
-	  left empty, this entry will not be used.
 
-config RSYNC_INETD_SERVER
+choice
+
+prompt "Kind of rsyncd.conf/rsyncd.secrets file"
+depends on RSYNC
+default RSYNC_CONFIG_FILE_DEFAULT
+
+config RSYNC_CONFIG_FILE_DEFAULT
 	bool
-	default y
-	depends on RSYNC
-	prompt "Start from inetd"
+	prompt "Use generic"
 	help
-	  This installs a startup configuration for rsync from inetd. It adds to
-	  the /etc/inetd.conf a line like this:
-	   rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon @CONFIG@
-	  Note: You must enable one of the two possible inet daemons: There is
-	  one embedded in busybox and one in packet inetutils.
+	  The files from generic/etc/rsyncd.conf|rsyncd.secrets will be used.
+	  Its a very good idea to start with this default files and save a
+	  customised version into your project, because the generic files are
+	  really useless. You can use your own version if you select
+	  "User defined" here.
+
+config RSYNC_CONFIG_FILE_USER
+	bool
+	prompt "User defined"
+	help
+	  The files from <project>/projectroot/etc/rsyncd.conf|rsyncd.secrets
+	  will be used.
+
+endchoice
+
+choice
+	prompt "Kind of startup"
+	depends on RSYNC
+	default RSYNC_INETD_SERVER
+
+	config RSYNC_INETD_SERVER
+		bool
+		prompt "inetd driven"
+		help
+		  This installs a startup configuration for rsync from inetd. It adds to
+		  the /etc/inetd.conf a line like this:
+		  rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon @CONFIG@
+		  Note: You must enable one of the two possible inet daemons: There is
+		  one embedded in busybox and one in packet inetutils.
+
+	config RSYNC_STARTUP_TYPE_STANDALONE
+		bool
+		prompt "standalone"
+		help
+		  This installs rsync startup script /etc/init.d/rsyncd. With this
+		  script the rsync server will be started at system startup and
+		  waits for connections
+
+endchoice
+
+choice
+	prompt "Kind of startup script"
+	depends on RSYNC
+	depends on RSYNC_STARTUP_TYPE_STANDALONE
+	default ROOTFS_ETC_INITD_RSYNC_DEFAULT
+
+	config ROOTFS_ETC_INITD_RSYNC_DEFAULT
+		bool
+		prompt "Use generic"
+		help
+		  Installs a generic /etc/init.d/rsyncd startup script.
+		  See <ptxdist-install>/generic/etc/init.d/rsyncd
+
+	config ROOTFS_ETC_INITD_RSYNC_USER
+		bool
+		prompt "User defined"
+		help
+		  This uses a user defined rsync startup script. PTXdist
+		  uses files projectroot/etc/init.d/rsyncd in your local
+		  project. You should use "@CONFIG@" in your script.
+		  This gets replaced by "--config=" and the path to the config
+		  file given above.
+
+endchoice
 
 config RSYNC_INETD_STRING
 	string
