@@ -167,3 +167,15 @@ config ROOTFS_ETC_INITD_PORTMAP_LINK
 	help
 	  Set a link into /etc/rc.d which points to /etc/init.d/portmapd to
 	  start portmap as a standalone service when system starts.
+
+
+############################## fam ##########################################
+
+config ROOTFS_ETC_INITD_FAM_LINK
+	depends on FAM_STARTUP_TYPE_STANDALONE
+	string
+	prompt "fam link name"
+	default "S15_famd"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/famd to
+	  start fam as a standalone service when system starts.

@@ -2,7 +2,7 @@
 
 menuconfig FAM
 	bool
-	prompt "famd                "
+	prompt "fam                 "
 	select PORTMAP
 	select GCCLIBS_CXX
 	select GCCLIBS_GCC_S
@@ -28,7 +28,7 @@ config FAM_LIBRARY
 	  If there is an application that is linked against libfam check this
 	  entry to install this library also on the target
 
-comment "cvs runtime options   ---"
+comment "runtime options   ---"
 	depends on FAM
 
 config FAM_DEFAULT_CONF
@@ -40,17 +40,30 @@ config FAM_DEFAULT_CONF
 	  This installs fam distribution's fam.conf file. Its almost generic and
 	  usable.
 
-config FAM_INETD_SERVER
-	bool
-	default y
+choice
+	prompt "Kind of startup"
+	default FAM_STARTUP_TYPE_STANDALONE
 	depends on FAM
-	prompt "Start from inetd"
-	help
-	  This installs a startup configuration for famd from inetd. It adds to
-	  the /etc/inetd.conf a line like this:
-	   sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf
-	  Note: You must enable one of the two possible inet daemons: There is
-	  one embedded in busybox and one in packet inetutils.
+
+	config FAM_INETD_SERVER
+		bool
+		prompt "inetd driven"
+		help
+		  This installs a startup configuration for famd from inetd. It adds to
+		  the /etc/inetd.conf a line like this:
+		   sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf
+		  Note: You must enable one of the two possible inet daemons: There is
+		  one embedded in busybox and one in packet inetutils.
+
+	config FAM_STARTUP_TYPE_STANDALONE
+		bool
+		prompt "standalone"
+		help
+		  This installs a startup script into /etc/init.d/portmapd. With
+		  this script portmap will be started at system startup and waits
+		  for connections
+
+endchoice
 
 config FAM_INETD_STRING
 	string
@@ -60,3 +73,26 @@ config FAM_INETD_STRING
 	default "sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf"
 	help
 	  This string is added to inetd's configuration /etc/inetd.conf.
+
+choice
+	prompt "Kind of startup script"
+	default ROOTFS_ETC_INITD_FAM_DEFAULT
+	depends on FAM
+	depends on FAM_STARTUP_TYPE_STANDALONE
+
+	config ROOTFS_ETC_INITD_FAM_DEFAULT
+		bool
+		prompt "Use generic"
+		help
+		  Installs a generic /etc/init.d/famd startup script.
+		  See <ptxdist-install>/generic/etc/init.d/famd
+
+	config ROOTFS_ETC_INITD_FAM_USER
+		bool
+		prompt "User defined"
+		help
+		  This uses a user defined fam startup script. PTXdist
+		  uses files projectroot/etc/init.d/famd in your local
+		  project
+
+endchoice

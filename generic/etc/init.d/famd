@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# famd
+#
+case $1 in
+
+	start)
+		echo "famd starting"
+		/usr/sbin/famd -c /etc/fam.conf
+		;;
+
+esac
+

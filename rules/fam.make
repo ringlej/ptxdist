@@ -129,6 +129,30 @@ ifdef PTXCONF_FAM_LIBRARY
 	@$(call install_link, fam, /usr/lib/libfam.so.0.0.0, \
 		/usr/lib/libfam.so)
 endif
+
+ifdef PTXCONF_FAM_STARTUP_TYPE_STANDALONE
+ifdef PTXCONF_ROOTFS_ETC_INITD_FAM_DEFAULT
+# install the generic one
+	@$(call install_copy, fam, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/famd, \
+		/etc/init.d/famd, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_FAM_USER
+# install users one
+	@$(call install_copy, fam, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/famd, \
+		/etc/init.d/famd, n)
+endif
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_FAM_LINK),"")
+	@$(call install_copy, portmap, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, portmap, ../init.d/famd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_FAM_LINK))
+endif
+endif
+
 	@$(call install_finish,fam)
 
 	@$(call touch, $@)
