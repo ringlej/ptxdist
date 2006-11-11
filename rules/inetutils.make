@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation (www.ixiacom.com)
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -86,12 +86,12 @@ $(STATEDIR)/inetutils.compile: $(inetutils_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(INETUTILS_PATH) make -C $(INETUTILS_DIR)/libinetutils
 
-# First the libraries: 
+# First the libraries:
 ifdef PTXCONF_INETUTILS_PING
 	cd $(INETUTILS_DIR)/libicmp && $(INETUTILS_PATH) make
 endif
 
-# Now the tools: 
+# Now the tools:
 ifdef PTXCONF_INETUTILS_INETD
 	cd $(INETUTILS_DIR)/inetd && $(INETUTILS_PATH) make
 endif
@@ -144,26 +144,60 @@ $(STATEDIR)/inetutils.targetinstall: $(inetutils_targetinstall_deps_default)
 	@$(call install_fixup, inetutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_INETUTILS_INETD
-	@$(call install_copy, inetutils, 0, 0, 0755, $(INETUTILS_DIR)/inetd/inetd, /usr/sbin/inetd)
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		$(INETUTILS_DIR)/inetd/inetd, /usr/sbin/inetd)
 endif
 ifdef PTXCONF_INETUTILS_PING
-	@$(call install_copy, inetutils, 0, 0, 0755, $(INETUTILS_DIR)/ping/ping, /bin/ping)
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		$(INETUTILS_DIR)/ping/ping, /bin/ping)
 endif
 ifdef PTXCONF_INETUTILS_RCP
-	@$(call install_copy, inetutils, 0, 0, 0755, $(INETUTILS_DIR)/rcp/rcp, /usr/bin/rcp)
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		$(INETUTILS_DIR)/rcp/rcp, /usr/bin/rcp)
 endif
 ifdef PTXCONF_INETUTILS_RLOGIND
-	@$(call install_copy, inetutils, 0, 0, 0755, $(INETUTILS_DIR)/rlogind/rlogind, /usr/sbin/rlogind)
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		$(INETUTILS_DIR)/rlogind/rlogind, /usr/sbin/rlogind)
 endif
 ifdef PTXCONF_INETUTILS_RSH
-	@$(call install_copy, inetutils, 0, 0, 0755, $(INETUTILS_DIR)/rsh/rsh, /usr/bin/rsh)
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		$(INETUTILS_DIR)/rsh/rsh, /usr/bin/rsh)
 endif
 ifdef PTXCONF_INETUTILS_RSHD
-	@$(call install_copy, inetutils, 0, 0, 0755, $(INETUTILS_DIR)/rshd/rshd, /usr/sbin/rshd)
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		$(INETUTILS_DIR)/rshd/rshd, /usr/sbin/rshd)
 endif
 ifdef PTXCONF_INETUTILS_SYSLOGD
-	@$(call install_copy, inetutils, 0, 0, 0755, $(INETUTILS_DIR)/syslogd/syslogd, /sbin/syslogd)
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		$(INETUTILS_DIR)/syslogd/syslogd, /sbin/syslogd)
 endif
+#
+# Install the startup script on request only
+#
+ifdef PTXCONF_INETUTILS_ETC_INITD_INETD
+ifdef PTXCONF_INETUTILS_ETC_INITD_INETD_DEFAULT
+# install the generic one
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/inetd, \
+		/etc/init.d/inetd, n)
+endif
+
+ifdef PTXCONF_INETUTILS_ETC_INITD_INETD_USER
+# install users one
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/inetd, \
+		/etc/init.d/inetd, n)
+endif
+endif
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK),"")
+	@$(call install_copy, inetutils, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, inetutils, ../init.d/inetd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK))
+endif
+
 	@$(call install_finish, inetutils)
 
 	@$(call touch, $@)
