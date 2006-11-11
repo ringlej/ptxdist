@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -61,6 +61,10 @@ dnsmasq_prepare: $(STATEDIR)/dnsmasq.prepare
 DNSMASQ_PATH	=  PATH=$(CROSS_PATH)
 DNSMASQ_ENV 	=  $(CROSS_ENV)
 
+#
+# FIXME: Probably a source of problems while cross compiling:
+# dnsmasq does not use autotools.
+#
 $(STATEDIR)/dnsmasq.prepare: $(dnsmasq_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -69,11 +73,21 @@ $(STATEDIR)/dnsmasq.prepare: $(dnsmasq_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
+#
+# install dnsmasq into /sbin (default is /usr/local/sbin)
+#
+DNSMASQ_MAKEVARS=PREFIX=/
+
 dnsmasq_compile: $(STATEDIR)/dnsmasq.compile
 
 $(STATEDIR)/dnsmasq.compile: $(dnsmasq_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(DNSMASQ_DIR) && $(DNSMASQ_PATH) $(DNSMASQ_ENV) make $(DNSMASQ_MAKEVARS)
+#
+# Target "all" builds a non i18n aware dnsmasq, "all-i18n" a
+# i18n aware dnsmasq. Currently the non i18n aware version is built
+#
+
+	cd $(DNSMASQ_DIR) && $(DNSMASQ_PATH) $(DNSMASQ_ENV) make $(DNSMASQ_MAKEVARS) all
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -104,11 +118,49 @@ $(STATEDIR)/dnsmasq.targetinstall: $(dnsmasq_targetinstall_deps_default)
 	@$(call install_fixup, dnsmasq,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, dnsmasq,DEPENDS,)
 	@$(call install_fixup, dnsmasq,DESCRIPTION,missing)
-	
-	@$(call install_copy, dnsmasq, 0, 0, 0755, $(DNSMASQ_DIR)/src/dnsmasq, /sbin/dnsmasq)
+
+	@$(call install_copy, dnsmasq, 0, 0, 0755, \
+		$(DNSMASQ_DIR)/src/dnsmasq, \
+		/sbin/dnsmasq)
+#
+# Install the startup script on request only
+#
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_DNSMASQ_DEFAULT
+# install the generic one
+	@$(call install_copy, dnsmasq, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/dnsmasq, \
+		/etc/init.d/dnsmasq, n)
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_DNSMASQ_USER
+# install users one
+	@$(call install_copy, dnsmasq, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/dnsmasq, \
+		/etc/init.d/dnsmasq, n)
+endif
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DNSMASQ_LINK),"")
+	@$(call install_copy, dnsmasq, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, dnsmasq, ../init.d/dnsmasq, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DNSMASQ_LINK))
+endif
+
+ifdef PTXCONF_DNSMASQ_ETC_DEFAULT
+	@$(call install_copy, dnsmasq, 0, 0, 0644, \
+		$(DNSMASQ_DIR)/dnsmasq.conf.example, \
+		/etc/dnsmasq.conf)
+endif
+ifdef PTXCONF_DNSMASQ_ETC_USER
+	@$(call install_copy, dnsmasq, 0, 0, 0644, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/dnsmasq.conf, \
+		/etc/dnsmasq.conf)
+endif
 
 	@$(call install_finish, dnsmasq)
-	
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
