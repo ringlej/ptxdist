@@ -42,10 +42,6 @@ menuconfig ROOTFS_PASSWD
 	endchoice
 
 #
-# /etc/shadow
-#
-
-#
 # /etc/shadow, /etc/shadow-
 #
 menuconfig ROOTFS_SHADOW
@@ -157,7 +153,7 @@ menuconfig ROOTFS_MTAB
 
 		config ROOTFS_GENERIC_MTAB
 			bool
-			prompt "Use generic"
+			prompt "Use link"
 			help
 			  Installs a link to /proc/mounts as /etc/mtab. Some tools
 			  like those from the e2fs-tools suite need this file to
@@ -383,6 +379,9 @@ menuconfig ROOTFS_PROTOCOLS
 			help
 			  Install a generic /etc/protocols file. See
 			  <ptxdist-install>/generic/protocols.
+			  Note: This will provide only the required
+			  entries. If you need a full blown protocols,
+			  use your own.
 
 		config ROOTFS_USER_PROTOCOLS
 			bool
@@ -462,7 +461,7 @@ menuconfig ROOTFS_INETD
 			  This uses a user defined /etc/inetd.conf. PTXdist
 			  uses file projectroot/etc/inetd.conf in your local
 			  project. You can also use the placeholders from the
-			  generic part if you want.
+			  generic part if you like.
 
 	endchoice
 

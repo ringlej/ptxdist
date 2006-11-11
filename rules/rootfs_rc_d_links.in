@@ -27,7 +27,7 @@ config ROOTFS_ETC_INITD_MODULES_LINK
 ############################ inetd #########################################
 
 config ROOTFS_ETC_INITD_INETD_LINK
-	depends on ROOTFS_ETC_INITD_INETD
+	depends on ROOTFS_ETC_INITD_INETD || INETUTILS_ETC_INITD_INETD
 	string
 	prompt "inted link name"
 	default "S11_inetd"
@@ -133,3 +133,25 @@ config ROOTFS_ETC_INITD_CVS_LINK
 	help
 	  Set a link into /etc/rc.d which points to /etc/init.d/cvs to
 	  start cvs as a standalone service when system starts.
+
+############################ rsync #########################################
+
+config ROOTFS_ETC_INITD_RSYNC_LINK
+	depends on RSYNC_STARTUP_TYPE_STANDALONE
+	string
+	prompt "rsync link name"
+	default "S14_rsync"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/rsync to
+	  start rsync as a standalone service when system starts.
+
+############################ dnsmasq #########################################
+
+config ROOTFS_ETC_INITD_DNSMASQ_LINK
+	depends on DNSMASQ_STARTUP_TYPE_STANDALONE
+	string
+	prompt "dnsmasq link name"
+	default "S10_dnsmasq"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/dnsmasq to
+	  start dnsmasq as a standalone service when system starts.

@@ -25,14 +25,16 @@ config ROOTFS_ETC_INITD_RCS
 	  Its main purpose is to run the other init scripts by calling
 	  run-parts.
 
+# initd startscript is for busysbox only
 config ROOTFS_ETC_INITD_INETD
 	depends on ROOTFS_ETC_INITD
+	depends on BB_CONFIG_INETD
 	bool
 	prompt "inetd"
-	select INETUTILS_INETD
 	help
 	  When enabled, this option installs the generic /etc/init.d/inetd
 	  file. This script starts your internet super server (inetd).
+	  This is for Busybox' inetd only.
 
 config ROOTFS_ETC_INITD_LOGROTATE
 	bool
@@ -85,6 +87,7 @@ config ROOTFS_ETC_INITD_SYSLOGNG
 menuconfig ROOTFS_ETC_INITD_TELNETD
 	depends on ROOTFS_ETC_INITD
 	depends on BB_CONFIG_TELNETD
+	depends on !BB_CONFIG_FEATURE_TELNETD_INETD
 	bool
 	default y
 	prompt "telnetd                   "
@@ -102,27 +105,20 @@ menuconfig ROOTFS_ETC_INITD_TELNETD
 		config ROOTFS_ETC_INITD_TELNETD_DEFAULT
 			depends on ROOTFS_ETC_INITD_TELNETD
 			bool
-			prompt "Use default telnetd"
+			prompt "Use generic"
 			help
-			  A file from generic/etc/init.d/telnetd will be used
+			  Installs a generic /etc/init.d/telnetd startup script.
+			  See <ptxdist-install>/generic/etc/init.d/telnetd
 
 		config ROOTFS_ETC_INITD_TELNETD_USER
 			depends on ROOTFS_ETC_INITD_TELNETD
 			bool
-			prompt "Use your own telnetd script"
+			prompt "User defined"
 			help
-			  Select this, then you can enter a path and filename to your
-			  own httpd startup script
+			  This uses a user defined telnetd startup script.
+			  PTXdist uses files projectroot/etc/init.d/telnetd in
+			  your local project
 	endchoice
-
-	config ROOTFS_ETC_INITD_TELNETD_USER_FILE
-		depends on ROOTFS_ETC_INITD_TELNETD
-		depends on ROOTFS_ETC_INITD_TELNETD_USER
-		prompt "Path and name of your own telnetd to be used"
-		string
-		default ""
-		help
-		  Enter a path and filename to be used as telnetd script on your target
 
 ########################## User startup script ##############################
 

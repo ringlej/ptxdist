@@ -70,11 +70,28 @@ $(STATEDIR)/rootfs.install: $(rootfs_install_deps_default)
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-rootfs_targetinstall: $(STATEDIR)/rootfs.targetinstall
-
-$(STATEDIR)/rootfs.targetinstall: $(rootfs_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+#
+# Note: For easier maintainance this target was divided into
+# four parts:
+# 1) start of ipkg
+# 2) population of rootfs directory structure
+# 3) population of standard configuration files
+# 3) generation of inetd configuration
+# 4) population of startscripts for packets without this feature
+# 5) finishing of ipkg
+# Some of this parts are defined here, some in dedicated files.
+#
+# This part populates the standard configuration files
+include ${PTXDIST_TOPDIR}/rules/rootfs_configfiles.inc
+# This part generates the inetd configuration
+include ${PTXDIST_TOPDIR}/rules/rootfs_inetd.inc
+# This part populates some useful scripts into /etc/init.d
+include ${PTXDIST_TOPDIR}/rules/rootfs_init_d.inc
+#
+# Subtarget to create this ipkg
+#
+rootfs_sub_start_ipkg:
+	@$(call targetinfo, rootfs_targetinstall)
 
 	@$(call install_init,  rootfs)
 	@$(call install_fixup, rootfs,PACKAGE,rootfs)
@@ -85,9 +102,11 @@ $(STATEDIR)/rootfs.targetinstall: $(rootfs_targetinstall_deps_default)
 	@$(call install_fixup, rootfs,DEPENDS,)
 	@$(call install_fixup, rootfs,DESCRIPTION,missing)
 
-	#
-	# root filesystem population
-	#
+# ---------------------------------------------------------
+#
+# Subtarget to create rootfs' directory structure
+#
+rootfs_sub_populate_structure:
 
 ifdef PTXCONF_ROOTFS_DEV
 	@$(call install_copy, rootfs, 0, 0, 0755, /dev)
@@ -159,287 +178,16 @@ endif
 ifdef PTXCONF_ROOTFS_VAR_LOCK
 	@$(call install_copy, rootfs, 0, 0, 0755, /var/lock)
 endif
+# ---------------------------------------------------------
 
-	#
-	# Files in /etc directory
-	#
+rootfs_targetinstall: $(STATEDIR)/rootfs.targetinstall
 
-ifdef PTXCONF_ROOTFS_GENERIC_FSTAB
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/fstab, /etc/fstab, n)
-endif
-
-ifdef PTXCONF_ROOTFS_GENERIC_MTAB
-	@$(call install_link, rootfs, /proc/mounts, /etc/mtab)
-endif
-
-ifdef PTXCONF_ROOTFS_GENERIC_GROUP
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/group,        /etc/group, n)
-	@$(call install_copy, rootfs, 0, 0, 0640, $(PTXDIST_TOPDIR)/generic/etc/gshadow,      /etc/gshadow, n)
-endif
-ifdef PTXCONF_ROOTFS_GENERIC_HOSTNAME
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/hostname,     /etc/hostname, n)
-	@$(call install_replace, rootfs, /etc/hostname, @HOSTNAME@,  $(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME)))
-endif
-ifdef PTXCONF_ROOTFS_GENERIC_HOSTS
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/hosts,        /etc/hosts, n)
-endif
-ifdef PTXCONF_ROOTFS_GENERIC_INITTAB
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/inittab,      /etc/inittab, n)
-
-	@$(call install_replace, rootfs, /etc/inittab, @CONSOLE@,  $(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE)))
-	@$(call install_replace, rootfs, /etc/inittab, @SPEED@,  $(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE_SPEED)))
-endif
-ifdef PTXCONF_ROOTFS_GENERIC_IPKG_CONF
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
-	@$(call install_replace, rootfs, /etc/ipkg.conf, @SRC@,  $(PTXCONF_ROOTFS_GENERIC_IPKG_CONF_URL))
-	@$(call install_replace, rootfs, /etc/ipkg.conf, @ARCH@,  $(PTXCONF_ARCH))
-endif
-ifdef PTXCONF_ROOTFS_GENERIC_NSSWITCH
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/nsswitch.conf,/etc/nsswitch.conf, n)
-endif
-ifdef PTXCONF_ROOTFS_GENERIC_PASSWD
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/passwd,       /etc/passwd, n)
-endif
-ifdef PTXCONF_ROOTFS_GENERIC_PROFILE
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/profile,      /etc/profile, n)
-
-	@$(call install_replace, rootfs, /etc/profile, @PS1@,  \"$(PTXCONF_ROOTFS_ETC_PS1)\" )
-	@$(call install_replace, rootfs, /etc/profile, @PS2@,  \"$(PTXCONF_ROOTFS_ETC_PS2)\" )
-	@$(call install_replace, rootfs, /etc/profile, @PS4@,  \"$(PTXCONF_ROOTFS_ETC_PS4)\" )
-
-endif
-ifdef PTXCONF_ROOTFS_GENERIC_PROTOCOLS
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/protocols,    /etc/protocols, n)
-endif
-ifdef PTXCONF_ROOTFS_GENERIC_RESOLV
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/resolv.conf,  /etc/resolv.conf, n)
-endif
-###########################################################################################
-ifdef PTXCONF_ROOTFS_GENERIC_INETD
-# does the user wants a generic file?
-	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/inetd.conf, \
-		/etc/inetd.conf, n )
-	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/services, \
-		/etc/services, n )
-#
-# Replace all markers if service is enabled
-# or delete markers if service is disabled
-################################
-# add rshd if enabled
-#
-ifdef PTXCONF_INETUTILS_RSHD
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@RSHD@, shell stream tcp nowait root /usr/sbin/rshd )
-	@$(call install_replace, rootfs, /etc/services, @RSHD@, "shell 514/tcp cmd" )
-else
-	@$(call install_replace, rootfs, /etc/inetd.conf, @RSHD@, )
-	@$(call install_replace, rootfs, /etc/services, @RSHD@, )
-endif
-################################
-# add NTP if enabled
-#
-ifdef PTXCONF_INETUTILS_NTP
-# FIXME: What to start ntp with inted?
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@NTP@, "" )
-	@$(call install_replace, rootfs, /etc/services, @NTP@, "ntp 123/tcp" )
-else
-	@$(call install_replace, rootfs, /etc/inetd.conf, @NTP@, )
-	@$(call install_replace, rootfs, /etc/services, @NTP@, )
-endif
-################################
-# add cvs if enabled
-#
-ifdef PTXCONF_CVS_INETD_SERVER
-ifneq ($(PTXCONF_CVS_INETD_STRING),"")
-# add user defined string to start the cvs server into inetd.conf
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@CVSD@, $(PTXCONF_CVS_INETD_STRING) )
-else
-# add default string to start the cvs server into inetd.conf
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@CVSD@, "cvs stream tcp nowait root /usr/bin/cvs cvsd -f @ROOT@ pserver" )
-endif
-ifneq ($(PTXCONF_CVS_SERVER_REPOSITORY),"")
-# add info about repository's root
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@ROOT@, "--allow-root=$(PTXCONF_CVS_SERVER_REPOSITORY)" )
-else
-# use cvs' default if not otherwise specified
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@ROOT@, )
-endif
-# add cvs service
-	@$(call install_replace, rootfs, /etc/services, @CVSD@, "cvspserver 2401/tcp")
-else
-# remove all cvs entries if this service is not enabled
-	@$(call install_replace, rootfs, /etc/inetd.conf, @CVSD@, )
-	@$(call install_replace, rootfs, /etc/services, @CVSD@, )
-endif
-################################
-# add rsync if enabled
-#
-ifdef PTXCONF_RSYNC_INETD_SERVER
-ifneq ($(PTXCONF_RSYNC_INETD_STRING),"")
-# add user defined string to start rsync server into inetd.conf
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@RSYNCD@, $(PTXCONF_RSYNC_INETD_STRING) )
-else
-# add default string to start the rsync server into inetd.conf
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@RSYNCD@, "rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon @CONFIG@" )
-endif
-ifneq ($(PTXCONF_RSYNC_CONFIG_FILE),"")
-# add path and name of config file
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@CONFIG@, "--config=$(PTXCONF_RSYNC_CONFIG_FILE)" )
-else
-# use rpath' default if not otherwise specified
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@CONFIG@, )
-endif
-# add rsync service
-	@$(call install_replace, rootfs, /etc/services, @RSYNCD@, "rsync 873/tcp" )
-else
-# remove all cvs entries if this service is not enabled
-	@$(call install_replace, rootfs, /etc/inetd.conf, @RSYNCD@, )
-	@$(call install_replace, rootfs, /etc/services, @RSYNCD@, )
-endif
-################################
-# add famd if enabled
-#
-ifdef PTXCONF_FAM_INETD_SERVER
-ifneq ($(PTXCONF_FAM_INETD_STRING),"")
-# add user defined string to start famd server into inetd.conf
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@FAMD@, $(PTXCONF_FAM_INETD_STRING) )
-else
-# add default string to start the rsync server into inetd.conf
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@FAMD@, "sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf" )
-endif
-else
-# remove all famd entries if this service is not enabled
-	@$(call install_replace, rootfs, /etc/inetd.conf, @FAMD@, )
-endif
-
-#
-###########################################################################################
-endif
-
-ifdef PTXCONF_ROOTFS_GENERIC_SHADOW
-	@$(call install_copy, rootfs, 0, 0, 0640, $(PTXDIST_TOPDIR)/generic/etc/shadow,       /etc/shadow, n)
-	@$(call install_copy, rootfs, 0, 0, 0600, $(PTXDIST_TOPDIR)/generic/etc/shadow-,      /etc/shadow-, n)
-endif
-ifdef PTXCONF_ROOTFS_GENERIC_UDHCPC
-	@$(call install_copy, rootfs, 0, 0, 0744, $(PTXDIST_TOPDIR)/generic/etc/udhcpc.script,/etc/udhcpc.script, n)
-	# udhcp expects the script to be called /usr/share/udhcpc/default.script, so we make a link
-	@$(call install_link, rootfs, /etc/udhcpc.script, /usr/share/udhcpc/default.script)
-endif
-
-	#
-	# Startup scripts in /etc/init.d
-	#
-ifdef PTXCONF_ROOTFS_ETC_INITD
-
-	# Copy generic etc/init.d
-	@$(call install_copy, rootfs, 0, 0, 0755, /etc/init.d)
-ifdef PTXCONF_ROOTFS_ETC_INITD_RCS
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/rcS,        /etc/init.d/rcS, n)
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_LOGROTATE
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/logrotate, /etc/init.d/logrotate, n)
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_INETD
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/inetd, /etc/init.d/inetd, n)
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK),"")
-	@$(call install_link, rootfs, ../init.d/inetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK))
-endif
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_MODULES
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/modules, /etc/init.d/modules, n)
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_MODULES_LINK),"")
-	@$(call install_link, rootfs, ../init.d/modules, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_MODULES_LINK))
-endif
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_NETWORKING
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/networking, /etc/init.d/networking, n)
-	@$(call install_copy, rootfs, 0, 0, 0755, /etc/network/if-down.d)
-	@$(call install_copy, rootfs, 0, 0, 0755, /etc/network/if-up.d)
-	@$(call install_copy, rootfs, 0, 0, 0755, /etc/network/if-post-down.d)
-	@$(call install_copy, rootfs, 0, 0, 0755, /etc/network/if-pre-up.d)
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK),"")
-	@$(call install_link, rootfs, ../init.d/networking, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_LINK))
-endif
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES),"")
-	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXCONF_ROOTFS_ETC_INITD_NETWORKING_INTERFACES), /etc/network/interfaces, n)
-endif
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/telnetd,    /etc/init.d/telnetd, n)
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
-	@$(call install_link, rootfs, ../init.d/telnetd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
-endif
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_DROPBEAR
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/dropbear,    /etc/init.d/dropbear, n)
-
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK),"")
-	@$(call install_link, rootfs, ../init.d/dropbear, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK))
-endif
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_SSHD
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/sshd,    /etc/init.d/sshd, n)
-
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SSHD_LINK),"")
-	@$(call install_link, rootfs, ../init.d/sshd, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SSHD_LINK))
-endif
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/syslog-ng, /etc/init.d/syslog-ng, n)
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK),"")
-	@$(call install_link, rootfs, ../init.d/syslog-ng, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK))
-endif
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_STARTUP
-	@$(call install_copy, rootfs, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/startup,    /etc/init.d/startup, n)
-endif
-
-	@$(call install_copy, rootfs, 0, 0, 0755, /etc/rc.d)
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_BANNER
-
-	@$(call install_copy, rootfs, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/banner, \
-		/etc/init.d/banner, n)
-
-	@$(call install_replace, rootfs, /etc/init.d/banner, @VENDOR@,  $(PTXCONF_ROOTFS_ETC_VENDOR) )
-	@$(call install_replace, rootfs, /etc/init.d/banner, @PROJECT@,  $(PTXCONF_PROJECT) )
-	@$(call install_replace, rootfs, /etc/init.d/banner, @PRJVERSION@,  $(PTXCONF_PROJECT_VERSION) )
-	@$(call install_replace, rootfs, /etc/init.d/banner, @VERSION@,  $(VERSION) )
-	@$(call install_replace, rootfs, /etc/init.d/banner, @PTXDIST@,  $(PROJECT) )
-	@$(call install_replace, rootfs, /etc/init.d/banner, @PATCHLEVEL@,  $(PATCHLEVEL) )
-	@$(call install_replace, rootfs, /etc/init.d/banner, @SUBLEVEL@,  $(SUBLEVEL) )
-	@$(call install_replace, rootfs, /etc/init.d/banner, @EXTRAVERSION@,  $(EXTRAVERSION) )
-	@$(call install_replace, rootfs, /etc/init.d/banner, @DATE@, $(shell date -Iseconds) )
-
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK),"")
-	@$(call install_link, rootfs, ../init.d/banner, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK))
-endif
-endif
-
-endif
+$(STATEDIR)/rootfs.targetinstall: $(rootfs_targetinstall_deps_default) \
+	rootfs_sub_start_ipkg \
+	rootfs_sub_populate_structure \
+	populate_config_files \
+	populate_inetd_conf \
+	populate_init.d_scripts
 
 	@$(call install_finish, rootfs)
 
