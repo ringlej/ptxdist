@@ -1,9 +1,18 @@
 config HOST_MODULE_INIT_TOOLS
 	bool
 	prompt "Module Init Tools"
-	select MODULE_INIT_TOOLS
+	select MODULE_INIT_TOOLS if HOST_MODULE_INIT_TOOLS_FORCES_TARGET_TOOLS
 	help
 	  This package contains a set of programs for loading, inserting
 	  and removing kernel modules for Linux (versions 2.5.48 and
 	  above).
 
+config HOST_MODULE_INIT_TOOLS_FORCES_TARGET_TOOLS
+	bool
+	prompt "Force for target"
+	depends on HOST_MODULE_INIT_TOOLS
+	default y
+	help
+	  This forces building the module init packet for the
+	  target. Uncheck this switch if you want to use busybox'
+	  kernel module tools instead.
