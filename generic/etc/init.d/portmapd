@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# portmap
+#
+case $1 in
+
+	start)
+		echo "portmap starting"
+		/sbin/portmap
+		;;
+
+esac

@@ -155,3 +155,15 @@ config ROOTFS_ETC_INITD_DNSMASQ_LINK
 	help
 	  Set a link into /etc/rc.d which points to /etc/init.d/dnsmasq to
 	  start dnsmasq as a standalone service when system starts.
+
+
+############################ portmap #########################################
+
+config ROOTFS_ETC_INITD_PORTMAP_LINK
+	depends on PORTMAP_STARTUP_TYPE_STANDALONE
+	string
+	prompt "portmap link name"
+	default "S11_portmapd"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/portmapd to
+	  start portmap as a standalone service when system starts.

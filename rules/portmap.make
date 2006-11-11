@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id:$
+# $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -14,7 +14,7 @@
 PACKAGES-$(PTXCONF_PORTMAP) += portmap
 
 #
-# Paths and names 
+# Paths and names
 #
 PORTMAP_VERSION := 5beta
 PORTMAP		:= portmap_$(PORTMAP_VERSION)
@@ -115,9 +115,32 @@ $(STATEDIR)/portmap.targetinstall: $(portmap_targetinstall_deps_default)
 	@$(call install_fixup, portmap,DESCRIPTION,missing)
 
 ifdef PTXCONF_PORTMAP_INSTALL_PORTMAPPER
-
-	@$(call install_copy, portmap, 0, 0, 0755, $(PORTMAP_DIR)/portmap, /sbin/portmap)
+	@$(call install_copy, portmap, 0, 0, 0755, $(PORTMAP_DIR)/portmap, \
+		/sbin/portmap)
 endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_PORTMAP_DEFAULT
+# install the generic one
+	@$(call install_copy, portmap, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/portmapd, \
+		/etc/init.d/portmapd, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_PORTMAP_USER
+# install users one
+	@$(call install_copy, portmap, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/portmapd, \
+		/etc/init.d/portmapd, n)
+endif
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_PORTMAP_LINK),"")
+	@$(call install_copy, portmap, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, portmap, ../init.d/portmapd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_PORTMAP_LINK))
+endif
+
+
 	@$(call install_finish, portmap)
 	@$(call touch, $@)
 
@@ -125,9 +148,9 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-portmap_clean: 
-	rm -rf $(STATEDIR)/portmap.* 
-	rm -rf $(IMAGEDIR)/portmap_* 
+portmap_clean:
+	rm -rf $(STATEDIR)/portmap.*
+	rm -rf $(IMAGEDIR)/portmap_*
 	rm -rf $(PORTMAP_DIR)
 
 # vim: syntax=make

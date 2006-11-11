@@ -161,7 +161,7 @@ ifdef PTXCONF_BB_CONFIG_FEATURE_TELNETD_INETD
 # add default string to start the telnetd from busybox into inetd.conf
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
 		@TELNETD@, \
-		"telnet stream  tcp wait root /usr/sbin/famd famd -c /etc/fam.conf" )
+		"telnet stream  tcp wait root /sbin/telnetd" )
 
 	@$(call install_replace, rootfs, \
 		/etc/services, \
@@ -169,11 +169,30 @@ ifdef PTXCONF_BB_CONFIG_FEATURE_TELNETD_INETD
 		"telnet 23/tcp" )
 endif
 
+################################
+# add portmap  if enabled
+#
+ifdef PORTMAP_INETD_SERVER
+ifneq ($(PTXCONF_PORTMAP_INETD_STRING),"")
+# add default string to start the portmap into inetd.conf
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@PORTMAPD@, \
+		"portmap stream tcp nowait root /sbin/portmap portmap" )
+else
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@PORTMAPD@, $(PTXCONF_PORTMAP_INETD_STRING) )
+endif
+	@$(call install_replace, rootfs, \
+		/etc/services, \
+		@PORTMAPD@, \
+		"sunrpc 111/tcp\nsunrpc 111/udp" )
+endif
+
 #
 ###########################################################################################
 endif
 
-# telnet from Busybox, utelnet, thttpd, pureftpd, portmapper???, nfs-utils???,
+# telnet from Busybox, utelnet, thttpd, pureftpd, nfs-utils???,
 # famd????,
 
 # does the user wants his own file?

@@ -11,6 +11,68 @@ menuconfig PORTMAP
 config	PORTMAP_INSTALL_PORTMAPPER
 	bool
 	depends on PORTMAP
+	default y
 	prompt "Install /sbin/portmap"
 	help
 	  Install the portmapper into /sbin/portmap
+
+comment "runtime options   ---"
+	depends on PORTMAP
+
+choice
+	prompt "Kind of startup"
+	default PORTMAP_STARTUP_TYPE_STANDALONE
+	depends on PORTMAP
+
+	config PORTMAP_INETD_SERVER
+		bool
+		prompt "inetd driven"
+		help
+		 portmap will be started on demand from inetd. This installs
+		 a startup configuration for portmap from inetd. It adds to the
+		 /etc/inetd.conf a line like this:
+		 portmap stream tcp nowait root /sbin/portmap portmap
+		 Note: You must enable one of the two possible inet daemons:
+		 There is one embedded in busybox and one in packet inetutils.
+
+	config PORTMAP_STARTUP_TYPE_STANDALONE
+		bool
+		prompt "standalone"
+		help
+		  This installs a startup script into /etc/init.d/portmapd. With
+		  this script portmap will be started at system startup and waits
+		  for connections
+
+endchoice
+
+config PORTMAP_INETD_STRING
+	string
+	depends on PORTMAP
+	depends on PORTMAP_INETD_SERVER
+	prompt "inetd service entry"
+	default "portmap stream tcp nowait root /sbin/portmap portmap"
+	help
+	  This string is added to inetd's configuration /etc/inetd.conf.
+
+choice
+	prompt "Kind of startup script"
+	default ROOTFS_ETC_INITD_PORTMAP_DEFAULT
+	depends on PORTMAP
+	depends on PORTMAP_STARTUP_TYPE_STANDALONE
+
+	config ROOTFS_ETC_INITD_PORTMAP_DEFAULT
+		bool
+		prompt "Use generic"
+		help
+		  Installs a generic /etc/init.d/portmapd startup script.
+		  See <ptxdist-install>/generic/etc/init.d/portmapd
+
+	config ROOTFS_ETC_INITD_PORTMAP_USER
+		bool
+		prompt "User defined"
+		help
+		  This uses a user defined portmap startup script. PTXdist
+		  uses files projectroot/etc/init.d/portmapd in your local
+		  project
+
+endchoice
