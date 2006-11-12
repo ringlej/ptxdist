@@ -170,6 +170,7 @@ endif
 endif
 
 ifdef PTXCONF_RSYNC_STARTUP_TYPE_STANDALONE
+# provide everything for standalone mode
 ifdef PTXCONF_ROOTFS_ETC_INITD_RSYNC_DEFAULT
 # install generic one
 	@$(call install_copy, rsync, 0, 0, 0755, \
@@ -188,15 +189,14 @@ ifneq ($(PTXCONF_RSYNC_CONFIG_FILE),"")
 		@CONFIG@, \
 		"--config=$(PTXCONF_RSYNC_CONFIG_FILE)" )
 endif
-endif
-
 #
 # FIXME: Is this packet the right location for the link?
 #
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_RSYNC_LINK),"")
 	@$(call install_copy, rsync, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, rsync, ../init.d/rsync, \
+	@$(call install_link, rsync, ../init.d/rsyncd, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_RSYNC_LINK))
+endif
 endif
 
 	@$(call install_finish, rsync)
