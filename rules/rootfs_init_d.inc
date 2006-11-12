@@ -17,7 +17,7 @@
 #
 # "populate_init.d_scripts" is a subtarget. See rootfs.make for use
 #
-populate_init.d_scripts:
+populate_init_d_scripts:
 
 # generate the directories first
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/init.d)
