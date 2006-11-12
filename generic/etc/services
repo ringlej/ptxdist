@@ -7,4 +7,5 @@
 @RSYNCD@
 @TELNETD@
 @PORTMAPD@
+@DNSD@
 

@@ -69,7 +69,7 @@ config DNSMASQ_INETD_STRING
 	depends on DNSMASQ
 	depends on DNSMASQ_INETD_SERVER
 	prompt "inetd service entry"
-	default "dns stream tcp nowait root /usr/bin/dnsmasq dnsmasq"
+	default "domain stream tcp nowait root /usr/bin/dnsmasq domain"
 	help
 	  This string is added to inetd's configuration /etc/inetd.conf.
 

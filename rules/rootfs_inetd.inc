@@ -19,7 +19,7 @@
 populate_inetd_conf:
 
 ifdef PTXCONF_ROOTFS_INETD
-# /etc/inetd
+# /etc/inetd.conf
 ifdef PTXCONF_ROOTFS_GENERIC_INETD
 	@$(call install_copy, rootfs, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/inetd.conf, \
@@ -62,7 +62,7 @@ ifdef PTXCONF_INETUTILS_NTP
 		@NTP@, "" )
 	@$(call install_replace, rootfs, /etc/services, \
 		@NTP@, \
-		"ntp 123/tcp" )
+		"ntp 123/tcp\nntp 123/udp" )
 else
 	@$(call install_replace, rootfs, /etc/inetd.conf, @NTP@, )
 	@$(call install_replace, rootfs, /etc/services, @NTP@, )
@@ -95,7 +95,7 @@ endif
 	@$(call install_replace, rootfs, \
 		/etc/services, \
 		@CVSD@, \
-		"cvspserver 2401/tcp")
+		"cvspserver 2401/tcp\ncvspserver 2401/udp")
 else
 # remove all cvs entries if this service is not enabled
 	@$(call install_replace, rootfs, /etc/inetd.conf, @CVSD@, )
@@ -128,7 +128,7 @@ endif
 	@$(call install_replace, rootfs, \
 		/etc/services, \
 		@RSYNCD@, \
-		"rsync 873/tcp" )
+		"rsync 873/tcp\nrsync 873/udp" )
 else
 # remove all cvs entries if this service is not enabled
 	@$(call install_replace, rootfs, /etc/inetd.conf, @RSYNCD@, )
@@ -166,7 +166,7 @@ ifdef PTXCONF_BB_CONFIG_FEATURE_TELNETD_INETD
 	@$(call install_replace, rootfs, \
 		/etc/services, \
 		@TELNETD@, \
-		"telnet 23/tcp" )
+		"telnet 23/tcp\ntelnet 23/udp" )
 else
 # remove all telnetd entries if this service is not enabled
 	@$(call install_replace, rootfs, /etc/inetd.conf, @TELNETD@, )
@@ -174,17 +174,17 @@ else
 endif
 
 ################################
-# add portmap  if enabled
+# add portmap if enabled
 #
-ifdef PORTMAP_INETD_SERVER
+ifdef PTXCONF_PORTMAP_INETD_SERVER
 ifneq ($(PTXCONF_PORTMAP_INETD_STRING),"")
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@PORTMAPD@, $(PTXCONF_PORTMAP_INETD_STRING) )
+else
 # add default string to start the portmap into inetd.conf
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
 		@PORTMAPD@, \
 		"portmap stream tcp nowait root /sbin/portmap portmap" )
-else
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@PORTMAPD@, $(PTXCONF_PORTMAP_INETD_STRING) )
 endif
 	@$(call install_replace, rootfs, \
 		/etc/services, \
@@ -197,11 +197,34 @@ else
 
 endif
 
+################################
+# add dnsmasq if enabled
+#
+ifdef PTXCONF_DNSMASQ_INETD_SERVER
+ifneq ($(PTXCONF_DNSMASQ_INETD_STRING),"")
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@DNSD@, \
+		$(PTXCONF_DNSMASQ_INETD_STRING) )
+else
+# add default string to start the dnsmasq into inetd.conf
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@DNSD@, \
+		"domain stream tcp nowait root /usr/bin/dnsmasq domain" )
+endif
+# add dns service
+	@$(call install_replace, rootfs, \
+		/etc/services, \
+		@DNSD@, \
+		"domain 53/tcp\ndomain 53/udp" )
+else
+# remove all dnsmasq entries if this service is not enabled
+	@$(call install_replace, rootfs, /etc/inetd.conf, @DNSD@, )
+	@$(call install_replace, rootfs, /etc/services, @DNSD@, )
+endif
 #
 ###########################################################################################
 endif
 
-# telnet from Busybox, utelnet, thttpd, pureftpd, nfs-utils???,
-# famd????,
+# utelnet, thttpd, pureftpd, nfs-utils???,
 
 # does the user wants his own file?
