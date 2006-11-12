@@ -185,7 +185,6 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_CVS_USER
 		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/cvs, \
 		/etc/init.d/cvs, n)
 endif
-endif
 #
 # FIXME: Is this packet the right location for the link?
 #
@@ -193,6 +192,7 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_CVS_LINK),"")
 	@$(call install_copy, cvs, 0, 0, 0755, /etc/rc.d)
 	@$(call install_link, cvs, ../init.d/cvs, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_CVS_LINK))
+endif
 endif
 
 	@$(call install_copy, cvs, 0, 0, 0755, $(CVS_DIR)/src/cvs, /usr/bin/cvs)
