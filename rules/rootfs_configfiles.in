@@ -431,7 +431,7 @@ menuconfig ROOTFS_RESOLV
 #
 menuconfig ROOTFS_INETD
 	depends on ROOTFS
-	depends on BB_CONFIG_INETD
+	depends on BB_CONFIG_INETD || INETUTILS_INETD
 	bool
 	prompt "/etc/inetd.conf             "
 	default y
