@@ -167,6 +167,10 @@ ifdef PTXCONF_BB_CONFIG_FEATURE_TELNETD_INETD
 		/etc/services, \
 		@TELNETD1@, \
 		"telnet 23/tcp" )
+else
+# remove all telnetd entries if this service is not enabled
+	@$(call install_replace, rootfs, /etc/inetd.conf, @TELNETD@, )
+	@$(call install_replace, rootfs, /etc/services, @TELNETD@, )
 endif
 
 ################################
@@ -186,6 +190,11 @@ endif
 		/etc/services, \
 		@PORTMAPD@, \
 		"sunrpc 111/tcp\nsunrpc 111/udp" )
+else
+# remove all portmapd entries if this service is not enabled
+	@$(call install_replace, rootfs, /etc/inetd.conf, @PORTMAPD@, )
+	@$(call install_replace, rootfs, /etc/services, @PORTMAPD@, )
+
 endif
 
 #
