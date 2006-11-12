@@ -122,10 +122,9 @@ $(STATEDIR)/dnsmasq.targetinstall: $(dnsmasq_targetinstall_deps_default)
 	@$(call install_copy, dnsmasq, 0, 0, 0755, \
 		$(DNSMASQ_DIR)/src/dnsmasq, \
 		/sbin/dnsmasq)
-#
-# Install the startup script on request only
-#
 
+ifdef PTXCONF_DNSMASQ_STARTUP_TYPE_STANDALONE
+# provide everything for standalone mode
 ifdef PTXCONF_ROOTFS_ETC_INITD_DNSMASQ_DEFAULT
 # install the generic one
 	@$(call install_copy, dnsmasq, 0, 0, 0755, \
@@ -146,6 +145,7 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DNSMASQ_LINK),"")
 	@$(call install_copy, dnsmasq, 0, 0, 0755, /etc/rc.d)
 	@$(call install_link, dnsmasq, ../init.d/dnsmasq, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DNSMASQ_LINK))
+endif
 endif
 
 ifdef PTXCONF_DNSMASQ_ETC_DEFAULT

@@ -119,6 +119,8 @@ ifdef PTXCONF_PORTMAP_INSTALL_PORTMAPPER
 		/sbin/portmap)
 endif
 
+ifdef PTXCONF_PORTMAP_STARTUP_TYPE_STANDALONE
+# provide everything for standalone mode
 ifdef PTXCONF_ROOTFS_ETC_INITD_PORTMAP_DEFAULT
 # install the generic one
 	@$(call install_copy, portmap, 0, 0, 0755, \
@@ -139,7 +141,7 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_PORTMAP_LINK),"")
 	@$(call install_link, portmap, ../init.d/portmapd, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_PORTMAP_LINK))
 endif
-
+endif
 
 	@$(call install_finish, portmap)
 	@$(call touch, $@)

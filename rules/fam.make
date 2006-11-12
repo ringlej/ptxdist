@@ -131,6 +131,7 @@ ifdef PTXCONF_FAM_LIBRARY
 endif
 
 ifdef PTXCONF_FAM_STARTUP_TYPE_STANDALONE
+# provide everything for standalone mode
 ifdef PTXCONF_ROOTFS_ETC_INITD_FAM_DEFAULT
 # install the generic one
 	@$(call install_copy, fam, 0, 0, 0755, \
