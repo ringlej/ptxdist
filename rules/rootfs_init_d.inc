@@ -18,6 +18,7 @@
 # "populate_init.d_scripts" is a subtarget. See rootfs.make for use
 #
 populate_init.d_scripts:
+
 # generate the directories first
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/init.d)
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/rc.d)
@@ -84,6 +85,7 @@ endif
 # telnetd from other packets are useing their own startscript
 #
 ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD
+# provide everything for standalone mode
 ifdef PTXCONF_ROOTFS_ETC_INITD_TELNETD_DEFAULT
 # use the generic one
 	@$(call install_copy, rootfs, 0, 0, 0755, \
@@ -175,9 +177,5 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK),"")
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_BANNER_LINK))
 endif
 endif
-
-	@$(call install_finish, rootfs)
-
-	@$(call touch, $@)
 
 # vim: syntax=make
