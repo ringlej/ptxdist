@@ -188,7 +188,6 @@ ifdef PTXCONF_INETUTILS_ETC_INITD_INETD_USER
 		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/inetd, \
 		/etc/init.d/inetd, n)
 endif
-endif
 #
 # FIXME: Is this packet the right location for the link?
 #
@@ -196,6 +195,7 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK),"")
 	@$(call install_copy, inetutils, 0, 0, 0755, /etc/rc.d)
 	@$(call install_link, inetutils, ../init.d/inetd, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK))
+endif
 endif
 
 	@$(call install_finish, inetutils)
