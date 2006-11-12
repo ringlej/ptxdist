@@ -500,6 +500,19 @@ menuconfig ROOTFS_SYSLOGNG
 	endchoice
 
 #
+# /etc/modules
+#
+config ROOTFS_ETC_MODULES
+	depends on ROOTFS
+	depends on ROOTFS_ETC_INITD_MODULES
+	bool
+	prompt "project's /etc/modules"
+	default n
+	help
+	  Installs a /etc/modules file from projectroot/etc/modules in
+	  your local project.
+
+#
 # /etc/udhcpc.script
 #
 menuconfig ROOTFS_UDHCPC

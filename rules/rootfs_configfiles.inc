@@ -238,7 +238,16 @@ ifdef PTXCONF_ROOTFS_USERS_RESOLV
 endif
 endif
 
+# ----------------------------------
 
+ifdef PTXCONF_ROOTFS_ETC_MODULES
+# /etc/modules
+	@$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/modules, \
+		/etc/modules, n)
+endif
+
+# ----------------------------------
 
 ifdef PTXCONF_ROOTFS_GENERIC_IPKG_CONF
 	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
