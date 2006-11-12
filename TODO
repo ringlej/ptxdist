@@ -8,6 +8,7 @@ TODO for 0.10.5
     zlib devel packet installed on the host.
 [ ] update ChangeLog
 [ ] omitting glibc installation should be possible, first hack attempt done
+[ ] creating links into non existent directories fails, but does not break the build!
 
 TODO for PTXdist 0.10 Series - High Priority
 ============================================
