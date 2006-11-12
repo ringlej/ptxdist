@@ -165,7 +165,7 @@ ifdef PTXCONF_BB_CONFIG_FEATURE_TELNETD_INETD
 
 	@$(call install_replace, rootfs, \
 		/etc/services, \
-		@TELNETD1@, \
+		@TELNETD@, \
 		"telnet 23/tcp" )
 else
 # remove all telnetd entries if this service is not enabled
