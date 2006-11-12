@@ -131,8 +131,6 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_UDEV_USER
 		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/udev, \
 		/etc/init.d/udev, n)
 endif
-endif
-
 #
 # FIXME: Is this packet the right location for the link?
 #
@@ -140,6 +138,7 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK),"")
 	@$(call install_copy, udev, 0, 0, 0755, /etc/rc.d)
 	@$(call install_link, udev, ../init.d/udev, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK))
+endif
 endif
 
 ifdef PTXCONF_UDEV_UDEV
