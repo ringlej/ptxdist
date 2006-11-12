@@ -185,9 +185,9 @@ rootfs_targetinstall: $(STATEDIR)/rootfs.targetinstall
 $(STATEDIR)/rootfs.targetinstall: $(rootfs_targetinstall_deps_default) \
 	rootfs_sub_start_ipkg \
 	rootfs_sub_populate_structure \
+	populate_init.d_scripts \
 	populate_config_files \
-	populate_inetd_conf \
-	populate_init.d_scripts
+	populate_inetd_conf
 
 	@$(call install_finish, rootfs)
 
