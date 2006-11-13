@@ -16,7 +16,7 @@
 #
 # "populate_inetd_conf" is a subtarget. See rootfs.make for use
 #
-populate_inetd_conf:
+$(STATEDIR)/rootfs.sub_populate_inetd_conf:
 
 ifdef PTXCONF_ROOTFS_INETD
 # /etc/inetd.conf

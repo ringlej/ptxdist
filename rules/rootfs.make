@@ -90,7 +90,8 @@ include ${PTXDIST_TOPDIR}/rules/rootfs_init_d.inc
 #
 # Subtarget to create this ipkg
 #
-rootfs_sub_start_ipkg:
+$(STATEDIR)/rootfs.sub_start_ipkg:
+
 	@$(call targetinfo, rootfs_targetinstall)
 
 	@$(call install_init,  rootfs)
@@ -106,7 +107,7 @@ rootfs_sub_start_ipkg:
 #
 # Subtarget to create rootfs' directory structure
 #
-rootfs_sub_populate_structure:
+$(STATEDIR)/rootfs.sub_populate_structure:
 
 ifdef PTXCONF_ROOTFS_DEV
 	@$(call install_copy, rootfs, 0, 0, 0755, /dev)
@@ -178,19 +179,26 @@ endif
 ifdef PTXCONF_ROOTFS_VAR_LOCK
 	@$(call install_copy, rootfs, 0, 0, 0755, /var/lock)
 endif
+
 # ---------------------------------------------------------
 
 rootfs_targetinstall: $(STATEDIR)/rootfs.targetinstall
 
 $(STATEDIR)/rootfs.targetinstall: $(rootfs_targetinstall_deps_default) \
-	rootfs_sub_start_ipkg \
-	rootfs_sub_populate_structure \
-	populate_init_d_scripts \
-	populate_config_files \
-	populate_inetd_conf
+	$(STATEDIR)/rootfs.sub_start_ipkg \
+	$(STATEDIR)/rootfs.sub_populate_structure \
+	$(STATEDIR)/rootfs.sub_populate_init_d_scripts \
+	$(STATEDIR)/rootfs.sub_populate_config_files \
+	$(STATEDIR)/rootfs.sub_populate_inetd_conf
 
 	@$(call install_finish, rootfs)
 
+# Everything seems all right. So mark all as successfully done
+	@$(call touch, $(STATEDIR)/rootfs.sub_start_ipkg)
+	@$(call touch, $(STATEDIR)/rootfs.sub_populate_structure)
+	@$(call touch, $(STATEDIR)/rootfs.sub_populate_init_d_scripts)
+	@$(call touch, $(STATEDIR)/rootfs.sub_populate_config_files)
+	@$(call touch, $(STATEDIR)/rootfs.sub_populate_inetd_conf)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

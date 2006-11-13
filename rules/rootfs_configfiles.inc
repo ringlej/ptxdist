@@ -18,7 +18,7 @@
 #
 # "populate_config_files" is a subtarget. See rootfs.make for use
 #
-populate_config_files:
+$(STATEDIR)/rootfs.sub_populate_config_files:
 
 ifdef PTXCONF_ROOTFS_PASSWD
 # /etc/passwd
