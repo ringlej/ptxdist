@@ -1,7 +1,15 @@
-config SCREEN
+menuconfig SCREEN
 	bool
-	prompt "screen"
+	prompt "screen              "
 	select NCURSES
 	help
 	  Screen is a full-screen window manager that multiplexes a physical
 	  terminal between several processes, typically interactive shells.
+
+config SCREEN_CONFIG_FILE
+	depends on SCREEN
+	string
+	prompt "file for /etc/screenrc"
+	default "${PTXDIST_TOPDIR}/generic/etc/screenrc"
+	help
+	  which file to install as /etc/screenrc

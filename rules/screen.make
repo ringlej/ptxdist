@@ -63,7 +63,8 @@ SCREEN_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-SCREEN_AUTOCONF := $(CROSS_AUTOCONF_USR)
+SCREEN_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--with-sys-screenrc=/etc/screenrc
 
 $(STATEDIR)/screen.prepare: $(screen_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -114,6 +115,10 @@ $(STATEDIR)/screen.targetinstall: $(screen_targetinstall_deps_default)
 	@$(call install_fixup,screen,DESCRIPTION,missing)
 
 	@$(call install_copy, screen, 0, 0, 0755, $(SCREEN_DIR)/screen, /usr/bin/screen)
+
+	@if [ -n "$(PTXCONF_SCREEN_CONFIG_FILE)" ]; then \
+		$(call install_copy, screen, 0, 0, 0755, $(PTXCONF_SCREEN_CONFIG_FILE), /etc/screenrc); \
+	fi
 
 	@$(call install_finish,screen)
 
