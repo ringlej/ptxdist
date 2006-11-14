@@ -65,7 +65,8 @@ XORG_APP_MKFONTDIR_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 XORG_APP_MKFONTDIR_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	--disable-dependency-tracking \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 $(STATEDIR)/xorg-app-mkfontdir.prepare: $(xorg-app-mkfontdir_prepare_deps_default)
 	@$(call targetinfo, $@)
