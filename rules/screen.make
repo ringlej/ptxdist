@@ -117,7 +117,7 @@ $(STATEDIR)/screen.targetinstall: $(screen_targetinstall_deps_default)
 	@$(call install_copy, screen, 0, 0, 0755, $(SCREEN_DIR)/screen, /usr/bin/screen)
 
 	@if [ -n "$(PTXCONF_SCREEN_CONFIG_FILE)" ]; then \
-		$(call install_copy, screen, 0, 0, 0755, $(PTXCONF_SCREEN_CONFIG_FILE), /etc/screenrc); \
+		$(call install_copy, screen, 0, 0, 0755, $(PTXCONF_SCREEN_CONFIG_FILE), /etc/screenrc, n); \
 	fi
 
 	@$(call install_finish,screen)
