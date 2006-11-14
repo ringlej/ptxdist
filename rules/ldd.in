@@ -1,0 +1,5 @@
+config LDD
+	bool
+	prompt "ldd"
+	help
+	  ldd prints shared library dependencies of object files
