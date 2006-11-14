@@ -96,7 +96,7 @@ endif
 #
 # feature is marked as experimental if disabled!
 #
-ifdef PTXCONF_XORG_APP_XKBCOMP
+ifdef PTXCONF_XORG_LIB_X11_XKB
 XORG_LIB_X11_AUTOCONF	+= --enable-xkb
 else
 XORG_LIB_X11_AUTOCONF	+= --disable-xkb

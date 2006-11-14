@@ -1,7 +1,9 @@
 config XORG_LIB_XKBFILE
 	bool
 	prompt "libxkbfile"
+	select XORG_LIB_X11_XKB
 	select XORG_LIB_X11
 	select XORG_PROTO_KB
 	help
 	  The xkbfile Library
+

@@ -39,3 +39,13 @@ config XORG_LIB_X11_CURSOR
 	default n
 	help
 	  FIXME
+
+config XORG_LIB_X11_XKB
+	depends on XORG_LIB_X11
+	bool
+	prompt "XKB Support"
+	default n
+	help
+         This adds the keyboard extension support to the base library. Various
+         applications handling keyboards need it.
+

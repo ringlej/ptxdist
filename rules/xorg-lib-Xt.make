@@ -69,7 +69,7 @@ XORG_LIB_XT_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-install-makestrs \
 	--disable-dependency-tracking
 
-ifdef PTXCONF_XORG_KEYBOARD_MAPPING_SUPPORT
+ifdef PTXCONF_XORG_LIB_X11_XKB
 XORG_LIB_XT_AUTOCONF += --enable-xkb
 else
 XORG_LIB_XT_AUTOCONF += --disable-xkb

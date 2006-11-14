@@ -1,4 +1,4 @@
-N: David R Bacon 
+N: David R Bacon
 E: dbacon@cis.ksu.edu
 D: Developer
 
@@ -14,7 +14,7 @@ S: Germany
 N: Milan-Dinkar Bobde
 E: bobde@usc.edu
 D: Developer
-S: Ixia Corp. 
+S: Ixia Corp.
 
 N: Alessio Igor Bogani
 E: abogani@texware.it
@@ -41,7 +41,7 @@ N: Vince Chen
 E: chen@glimmerglass.com
 D: Developer
 
-N: Sascha Hauer 
+N: Sascha Hauer
 E: s.hauer@pengutronix.de
 W: http://www.pengutronix.de
 D: Maintainer
@@ -70,7 +70,7 @@ D: Developer
 N: Dan Kegel
 E: dank@kegel.com
 D: Developer
-S: Ixia Corp. 
+S: Ixia Corp.
 
 N: Shahar Livne
 E: livnes@gmail.com
@@ -83,7 +83,7 @@ D: Developer
 N: Jiri Nesladek
 D: Developer
 
-N: Oscar Peredo 
+N: Oscar Peredo
 E: oscar@exis.cl
 D: Developer
 
@@ -99,7 +99,7 @@ N: Ulf Samuelsson
 E: ulf@atmel.com
 D: Developer
 
-N: Werner Schmitt 
+N: Werner Schmitt
 E: mail2ws@gmx.de
 D: Developer
 
@@ -110,7 +110,7 @@ D: Debugger, Head of Unlogical Code Department
 N: Robert Schwebel
 E: r.schwebel@pengutronix.de
 W: http://www.pengutronix.de
-D: Project Leader, Maintainer, Release Manager 
+D: Project Leader, Maintainer, Release Manager
 S: Pengutronix
 S: Hannoversche Strasse 2
 S: 31134 Hildesheim
@@ -128,7 +128,7 @@ N: Rex Tsai
 E: chihchun@debian.org.tw
 D: Developer
 
-N: David Updegraff 
+N: David Updegraff
 E: dave@cray.com
 D: Developer
 
@@ -140,7 +140,18 @@ N: Mike Wakerly
 E: mike.wakerly@gmail.com
 D: Developer
 
-N: Gilad Ben-Yossef 
+N: Gilad Ben-Yossef
 E: gilad@codefidence.com
 D: Developer
 
+N: Juergen Beisert
+E: j.beisert@pengutronix.de
+W: http://www.pengutronix.de
+D: Maintainer
+S: Pengutronix
+S: Hannoversche Strasse 2
+S: 31134 Hildesheim
+S: Germany
+
+N: Gilbert Forkel
+E: gilbert@ulixes.erlangen.ccc.de

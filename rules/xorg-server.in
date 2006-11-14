@@ -225,6 +225,9 @@ config XORG_SERVER_OPT_SECURE_RPC
 
 config XORG_SERVER_OPT_XORGCFG
 	depends on XORG_SERVER
+	select XORG_LIB_XKBUI
+	select XORG_LIB_XXF86MISC
+	select XORG_LIB_XAW_V7
 	bool
 	prompt "build xorgcfg GUI config utility"
 	default n
