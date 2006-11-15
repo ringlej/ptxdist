@@ -71,7 +71,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
 
 $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make \
+	cd $(@PACKET@_DIR) && $(KERNEL_PATH) make \
 		KERNELDIR=$(KERNEL_DIR) $(KERNEL_MAKEVARS)
 	@$(call touch, $@)
 
