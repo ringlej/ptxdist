@@ -151,18 +151,18 @@ ifdef PTXCONF_ROOTFS_GENERIC_INITTAB
 	@$(call install_copy, rootfs, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/inittab, \
 		/etc/inittab, n)
-	@$(call install_replace, rootfs, /etc/inittab, \
-		@CONSOLE@, \
-		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE)))
-	@$(call install_replace, rootfs, /etc/inittab, \
-		@SPEED@, \
-		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE_SPEED)))
 endif
 ifdef PTXCONF_ROOTFS_USER_INITTAB
 	@$(call install_copy, rootfs, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/inittab, \
 		/etc/inittab, n)
 endif
+	@$(call install_replace, rootfs, /etc/inittab, \
+		@CONSOLE@, \
+		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE)))
+	@$(call install_replace, rootfs, /etc/inittab, \
+		@SPEED@, \
+		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE_SPEED)))
 endif
 
 # ----------------------------------
