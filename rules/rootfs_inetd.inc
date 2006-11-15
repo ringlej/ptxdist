@@ -161,7 +161,7 @@ ifdef PTXCONF_BB_CONFIG_FEATURE_TELNETD_INETD
 # add default string to start the telnetd from busybox into inetd.conf
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
 		@TELNETD@, \
-		"telnet stream  tcp wait root /sbin/telnetd" )
+		"telnet stream  tcp wait root /usr/sbin/telnetd" )
 
 	@$(call install_replace, rootfs, \
 		/etc/services, \
