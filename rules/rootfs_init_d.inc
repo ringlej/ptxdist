@@ -105,6 +105,31 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
 endif
 endif
 
+#
+# syslogd/klogd's script is here, because the busybox entry does not provide it
+# syslogd/klogd from other packets are useing their own startscript
+#
+ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGD_KLOGD
+# provide everything for standalone mode
+ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGD_KLOGD_DEFAULT
+# use the generic one
+	@$(call install_copy, rootfs, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/syslogd, \
+		/etc/init.d/syslogd, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGD_KLOGD_USER
+# user defined one
+	@$(call install_copy, rootfs, 0, 0, 0755, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/syslogd, \
+		/etc/init.d/syslogd, n)
+endif
+
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SYSLOGD_KLOGD_LINK),"")
+	@$(call install_link, rootfs, ../init.d/syslogd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SYSLOGD_KLOGD_LINK))
+endif
+endif
+
 # FIXME: Move this into dropbear's packet!
 ifdef PTXCONF_ROOTFS_ETC_INITD_DROPBEAR
 	@$(call install_copy, rootfs, 0, 0, 0755, \

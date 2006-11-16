@@ -82,7 +82,7 @@ config ROOTFS_ETC_INITD_SYSLOGNG
 	help
 	  The /etc/init.d/syslog-ng script lets you control the syslog-ng daemon.
 
-########################## Telnetd ##########################################
+########################## Telnetd from Busysbox ############################
 
 menuconfig ROOTFS_ETC_INITD_TELNETD
 	depends on ROOTFS_ETC_INITD
@@ -92,8 +92,8 @@ menuconfig ROOTFS_ETC_INITD_TELNETD
 	default y
 	prompt "telnetd                   "
 	help
-	  The /etc/init.d/telnetd script starts up your telnet
-	  demon. Depending on your configuration utelnetd or telnetd
+	  The /etc/init.d/telnetd script starts up your busybox based telnetd
+	  daemon. Depending on your configuration utelnetd or telnetd
 	  is started.
 
 	choice
@@ -103,7 +103,6 @@ menuconfig ROOTFS_ETC_INITD_TELNETD
 		depends on ROOTFS_ETC_INITD_TELNETD
 
 		config ROOTFS_ETC_INITD_TELNETD_DEFAULT
-			depends on ROOTFS_ETC_INITD_TELNETD
 			bool
 			prompt "Use generic"
 			help
@@ -111,12 +110,45 @@ menuconfig ROOTFS_ETC_INITD_TELNETD
 			  See <ptxdist-install>/generic/etc/init.d/telnetd
 
 		config ROOTFS_ETC_INITD_TELNETD_USER
-			depends on ROOTFS_ETC_INITD_TELNETD
 			bool
 			prompt "User defined"
 			help
 			  This uses a user defined telnetd startup script.
-			  PTXdist uses files projectroot/etc/init.d/telnetd in
+			  PTXdist uses file projectroot/etc/init.d/telnetd in
+			  your local project
+	endchoice
+
+######################## syslogd/klogd from Busysbox ##########################
+
+menuconfig ROOTFS_ETC_INITD_SYSLOGD_KLOGD
+	depends on ROOTFS_ETC_INITD
+	depends on BB_CONFIG_SYSLOGD
+	bool
+	prompt "syslogd                   "
+	help
+	  The /etc/init.d/syslogd script starts up your busybox based
+	  syslogd/klogd daemon. Depending on your configuration also klogd will
+	  be started.
+
+	choice
+		prompt "Kind of startup script"
+		default ROOTFS_ETC_INITD_SYSLOGD_KLOGD_DEFAULT
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_SYSLOGD_KLOGD
+
+		config ROOTFS_ETC_INITD_SYSLOGD_KLOGD_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/init.d/syslogd startup script.
+			  See <ptxdist-install>/generic/etc/init.d/syslogd
+
+		config ROOTFS_ETC_INITD_SYSLOGD_KLOGD_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined syslogd startup script.
+			  PTXdist uses file projectroot/etc/init.d/syslogd in
 			  your local project
 	endchoice
 

@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# syslogd/klogd
+#
+# klogd is an option
+KLOGD=/sbin/klogd
+
+case $1 in
+
+	start)
+		echo "syslogd starting"
+		/sbin/syslogd
+		if [ -e "$KLOGD" ]; then
+			echo "klogd starting"
+			$KLOGD
+		fi
+		;;
+
+esac
