@@ -306,5 +306,33 @@ menuconfig ROOTFS_ETC_INITD_PUREFTPD
 		help
 		  Enter a path and filename to be used as pure-ftpd script on your target.
 
+########################## crond ##########################################
+# this is for busybox' crond only
+#
+menuconfig ROOTFS_ETC_INITD_CROND
+	depends on ROOTFS_ETC_INITD && BB_CONFIG_CROND
+	bool
+	default y
+	prompt "crond                     "
+	help
+	  The /etc/init.d/crond script lets you control busybox' crond daemon.
 
-########################## ? ##########################################
+	choice
+		prompt "Kind of startup scrict"
+		depends on ROOTFS_ETC_INITD_CROND
+		default ROOTFS_ETC_INITD_CROND_DEFAULT
+
+		config ROOTFS_ETC_INITD_CROND_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  A file from generic/etc/init.d/crond will be used.
+
+		config ROOTFS_ETC_INITD_CROND_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined crond startup script.
+			  PTXdist uses file projectroot/etc/init.d/crond in
+			  your local project
+	endchoice

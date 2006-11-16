@@ -194,7 +194,7 @@ config ROOTFS_ETC_INITD_FAM_LINK
 	  start fam as a standalone service when system starts. Keep this entry
 	  empty if you do not want to start this service automatically.
 
-############################ syslog/klogd ###################################
+############################ syslogd/klogd ###################################
 
 config ROOTFS_ETC_INITD_SYSLOGD_KLOGD_LINK
 	depends on ROOTFS_ETC_INITD_SYSLOGD_KLOGD
@@ -204,4 +204,16 @@ config ROOTFS_ETC_INITD_SYSLOGD_KLOGD_LINK
 	help
 	  Set a link into /etc/rc.d which points to /etc/init.d/syslogd to
 	  start syslogd/klogd when system starts. Keep this entry empty if
+	  you do not want to start this service automatically.
+
+################################ crond #######################################
+
+config ROOTFS_ETC_INITD_CROND_LINK
+	depends on ROOTFS_ETC_INITD_CROND
+	string
+	prompt "crond link name"
+	default "S17_crondd"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/crond to
+	  start crond when system starts. Keep this entry empty if
 	  you do not want to start this service automatically.

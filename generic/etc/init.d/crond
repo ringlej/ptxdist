@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# crond
+#
+case $1 in
+
+	start)
+		echo "crond starting"
+		/sbin/crond
+		;;
+
+esac
+
