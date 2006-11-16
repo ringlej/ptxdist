@@ -6,7 +6,7 @@ case $1 in
 
 	start)
 		echo "rsyncd starting"
-		/usr/rsync --daemon @CONFIG@
+		/usr/bin/rsync --daemon @CONFIG@
 		;;
 
 esac
