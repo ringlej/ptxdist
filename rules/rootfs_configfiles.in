@@ -173,7 +173,7 @@ menuconfig ROOTFS_MTAB
 #
 # /etc/hostname
 #
-menuconfig ROOTFS_GENERIC_HOSTNAME
+menuconfig ROOTFS_HOSTNAME
 	depends on ROOTFS
 	bool
 	prompt "/etc/hostname               "
@@ -181,7 +181,29 @@ menuconfig ROOTFS_GENERIC_HOSTNAME
 	help
 	  Installs a generic /etc/hostname file.
 
+	choice
+		prompt "Kind of /etc/hostname"
+		depends on ROOTFS_HOSTNAME
+		default ROOTFS_GENERIC_HOSTNAME
+
+		config ROOTFS_GENERIC_HOSTNAME
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/hostname file.
+			  See <ptxdist-install>/generic/hostname
+
+		config PTXCONF_ROOTFS_USER_HOSTNAME
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/hostname. PTXdist uses
+			  file projectroot/etc/hostname in your local project
+
+	endchoice
+
 	config ROOTFS_ETC_HOSTNAME
+		depends on ROOTFS_HOSTNAME
 		depends on ROOTFS_GENERIC_HOSTNAME
 		string
 		default ptx
