@@ -224,6 +224,12 @@ if test -z "$MAKE"; then
 	AC_MSG_ERROR([make could not be found, please install])
 fi
 
+dnl Check for file
+AC_PATH_PROGS(FILE, file,, $PATH)
+if test -z "$FILE"; then
+	AC_MSG_ERROR([file could not be found, please install])
+fi
+
 dnl Check for gcc
 AC_PATH_PROGS(GCC, gcc,, $PATH)
 
