@@ -14,6 +14,7 @@ TODO for PTXdist 0.10 Series - High Priority
 ============================================
 
 [ ] we seem to need python2.3-dev, reported by Marco Cavallini:
+[ ] pureftp's configure runs twice and needs host's autotools!
 
 -------------------------------
 target: host-ipkg-utils.install

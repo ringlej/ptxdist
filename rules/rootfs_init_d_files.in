@@ -268,44 +268,6 @@ menuconfig ROOTFS_ETC_INITD_DROPBEAR
 		help
 		  Enter a path and filename to be used as dropbear script on your target.
 
-########################## pureftpd  ##########################################
-
-menuconfig ROOTFS_ETC_INITD_PUREFTPD
-	depends on ROOTFS_ETC_INITD && PUREFTPD
-	bool
-	default y
-	prompt "purefptd                  "
-	help
-	  The /etc/init.d/pure-ftpd script lets you control the pure ftp daemon.
-
-	choice
-		prompt "Kind of startup scrict"
-		depends on ROOTFS_ETC_INITD_PUREFTPD
-		default ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
-
-		config ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
-			bool
-			prompt "Use default pure-ftpd"
-			help
-			  A file from generic/etc/init.d/pure-ftpd will be used.
-
-		config ROOTFS_ETC_INITD_PUREFTPD_USER
-			bool
-			prompt "Use your own pure-ftpd file"
-			help
-			  Select this, then you can enter a path and filename to your
-			  own pure-ftpd startup script.
-	endchoice
-
-	config ROOTFS_ETC_INITD_PUREFTPD_USER_FILE
-		depends on ROOTFS_ETC_INITD_PUREFTPD
-		depends on ROOTFS_ETC_INITD_PUREFTPD_USER
-		prompt "Path and name of your own pure-ftpd to be used"
-		string
-		default ""
-		help
-		  Enter a path and filename to be used as pure-ftpd script on your target.
-
 ########################## crond ##########################################
 # this is for busybox' crond only
 #
