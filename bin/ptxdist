@@ -149,7 +149,7 @@ check_uid() {
 #
 check_path() {
 	case "${PATH}" in
-		.*)
+		.:*)
 			echo
 			echo "${PROMPT}\".\" in your \$PATH detected, please remove it!"
 			echo
