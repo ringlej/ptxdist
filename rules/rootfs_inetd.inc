@@ -79,7 +79,7 @@ else
 # add default string to start the cvs server into inetd.conf
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
 		@CVSD@, \
-		"cvs stream tcp nowait root /usr/bin/cvs cvsd -f @ROOT@ pserver" )
+		"cvspserver stream tcp nowait root /usr/bin/cvs cvsd -f @ROOT@ pserver" )
 endif
 ifneq ($(PTXCONF_CVS_SERVER_REPOSITORY),"")
 # add info about repository's root
@@ -184,7 +184,7 @@ else
 # add default string to start the portmap into inetd.conf
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
 		@PORTMAPD@, \
-		"portmap stream tcp nowait root /sbin/portmap portmap" )
+		"sunrpc stream tcp nowait root /sbin/portmap portmap" )
 endif
 	@$(call install_replace, rootfs, \
 		/etc/services, \
