@@ -145,6 +145,23 @@ check_uid() {
 }
 
 #
+#
+#
+check_path() {
+	case "${PATH}" in
+		.*)
+			echo
+			echo "${PROMPT}\".\" in your \$PATH detected, please remove it!"
+			echo
+			exit 1
+			;;
+		*)
+			;;
+	esac
+}
+
+
+#
 # Check for defined compiler
 # This only should be done when we build userland (chicken egg problem)
 #
@@ -627,6 +644,7 @@ if [ "$#" = "0" ]; then
 fi
 
 check_uid
+check_path
 
 while [ "$#" != "0" ]; do
 
