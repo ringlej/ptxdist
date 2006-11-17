@@ -183,8 +183,10 @@ endif
 
 # Zonefiles
 	@$(call install_copy, glibc, 0, 0, 0755, /usr/share/zoneinfo)
-	@for target in $(GLIBC_ZONEFILES-y); do 				\
-		$(call install_copy, glibc, 0, 0, 0644, $(GLIBC_ZONEDIR)/zoneinfo/$$target, /usr/share/zoneinfo/$$target)	\
+	@for target in $(GLIBC_ZONEFILES-y); do \
+		$(call install_copy, glibc, 0, 0, 0644, \
+		$(GLIBC_ZONEDIR)/zoneinfo/$$target, \
+		/usr/share/zoneinfo/$$target) \
 	done;
 	@$(call install_finish, glibc)
 endif
