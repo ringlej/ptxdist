@@ -153,10 +153,6 @@ kernel_prepare_deps = \
 	$(STATEDIR)/virtual-xchain.install \
 	$(STATEDIR)/kernel.extract
 
-ifdef PTXCONF_KLIBC
-kernel_prepare_deps += $(STATEDIR)/klibc.install
-endif
-
 KERNEL_PATH	:=  PATH=$(CROSS_PATH)
 KERNEL_MAKEVARS = \
 	HOSTCC=$(HOSTCC) \
