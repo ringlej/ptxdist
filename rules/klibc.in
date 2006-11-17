@@ -34,79 +34,61 @@ config KLIBC_KINIT
 	prompt "kinit"
 	default y
 	help
-	  It will be installed into /bin/kinit and is intended to configure the network
+	  It will be installed into /kinit and is intended to configure the network
 	  and mounting NFS based filesystems. It will be controlled by the standard kernel
 	  command line, anything else in /arch.cmd and anything else after a -- parameter.
 	  All three parts gets combined into one parameter list and will be used for
 	  configuration.
 
-config KLIBC_SH
+config KLIBC_STATIC_DASH
 	depends on KLIBC
 	bool
-	prompt "sh"
+	prompt "dash"
 	help
-	  FIXME: This item needs to be documented
+	  install a minimum shell (dash) under /bin/sh
 
 config KLIBC_STATIC_CAT
-	depends on KLIBC && !BB_CONFIG_CAT
+	depends on KLIBC
 	bool
 	prompt "cat"
 	help
 	  This is a statically linked "cat" command. It gets installed into /bin/cat
 
-comment "busy box' cat is selected!"
-        depends on BB_CONFIG_CAT && KLIBC
-
 config KLIBC_STATIC_CHROOT
-	depends on KLIBC && !BB_CONFIG_CHROOT
+	depends on KLIBC
 	bool
 	prompt "chroot"
 	help
 	  This is a statically linked "chroot" command. It gets installed into /bin/chroot
 
-comment "busy box' chroot is selected!"
-	depends on BB_CONFIG_CHROOT && KLIBC
-
 
 config KLIBC_STATIC_DD
-	depends on KLIBC && !BB_CONFIG_DD
+	depends on KLIBC
 	bool
 	prompt "dd"
 	help
 	  This is a statically linked "dd" command. It gets installed into /bin/dd
 
-comment "busy box' dd is selected!"
-	depends on BB_CONFIG_DD && KLIBC
-
 config KLIBC_STATIC_FALSE
-	depends on KLIBC && !BB_CONFIG_FALSE
+	depends on KLIBC
 	bool
 	prompt "false"
 	help
 	  This is a statically linked "false" command. It gets installed into /bin/false
 
-comment "busy box' false is selected!"
-	depends on BB_CONFIG_FALSE && KLIBC
-
 config KLIBC_STATIC_INSMOD
-	depends on KLIBC && !BB_CONFIG_INSMOD
+	depends on KLIBC
 	bool
 	prompt "insmod"
 	help
 	  This is a statically linked "insmod" command. It gets installed into /bin/insmod
 
-comment "busy box' insmod is selected!"
-	depends on BB_CONFIG_INSMOD && KLIBC
-
 config KLIBC_STATIC_LN
-	depends on KLIBC && !BB_CONFIG_LN
+	depends on KLIBC
 	bool
 	prompt "ln"
 	help
 	  This is a statically linked "ln" command. It gets installed into /bin/ln
-
-comment "busy box' ln is selected!"
-	depends on BB_CONFIG_LN && KLIBC
 
 config KLIBC_STATIC_MINIPS
 	depends on KLIBC
@@ -116,34 +98,25 @@ config KLIBC_STATIC_MINIPS
 	  This is a statically linked "minips" command. It gets installed into /bin/minips
 
 config KLIBC_STATIC_MKDIR
-	depends on KLIBC && !BB_CONFIG_MKDIR
+	depends on KLIBC
 	bool
 	prompt "mkdir"
 	help
 	  This is a statically linked "mkdir" command. It gets installed into /bin/mkdir
 
-comment "busy box' mkdir is selected!"
-	depends on BB_CONFIG_MKDIR && KLIBC
-
 config KLIBC_STATIC_MKFIFO
-	depends on KLIBC && !BB_CONFIG_MKFIFO
+	depends on KLIBC
 	bool
 	prompt "mkfifo"
 	help
 	  This is a statically linked "mkfifo" command. It gets installed into /bin/mkfifo
 
-comment "busy box' mkfifo is selected!"
-	depends on BB_CONFIG_MKFIFO && KLIBC
-
 config KLIBC_STATIC_MOUNT
-	depends on KLIBC && !BB_CONFIG_MOUNT
+	depends on KLIBC
 	bool
 	prompt "mount"
 	help
 	  This is a statically linked "mount" command. It gets installed into /bin/mount
-
-comment "busy box' mount is selected!"
-	depends on BB_CONFIG_MOUNT && KLIBC
 
 config KLIBC_STATIC_NUKE
 	depends on KLIBC
@@ -160,44 +133,32 @@ config KLIBC_STATIC_PIVOT_ROOT
 	  This is a statically linked "pivot_root" command. It gets installed into /bin/pivot_root
 
 config KLIBC_STATIC_SLEEP
-	depends on KLIBC && !BB_CONFIG_SLEEP
+	depends on KLIBC
 	bool
 	prompt "sleep"
 	help
 	  This is a statically linked "sleep" command. It gets installed into /bin/sleep
 
-comment "busy box' sleep is selected!"
-	depends on BB_CONFIG_SLEEP && KLIBC
-
 config KLIBC_STATIC_TRUE
-	depends on KLIBC && !BB_CONFIG_TRUE
+	depends on KLIBC
 	bool
 	prompt "true"
 	help
 	  This is a statically linked "true" command. It gets installed into /bin/true
 
-comment "busy box' true is selected!"
-	depends on BB_CONFIG_TRUE && KLIBC
-
 config KLIBC_STATIC_UMOUNT
-	depends on KLIBC && !BB_CONFIG_UMOUNT
+	depends on KLIBC
 	bool
 	prompt "umount"
 	help
 	  This is a statically linked "umount" command. It gets installed into /bin/umount
 
-comment "busy box' umount is selected!"
-	depends on BB_CONFIG_UMOUNT && KLIBC
-
 config KLIBC_STATIC_UNAME
-	depends on KLIBC && !BB_CONFIG_UNAME
+	depends on KLIBC
 	bool
 	prompt "uname"
 	help
 	  This is a statically linked "uname" command. It gets installed into /bin/uname
-
-comment "busy box' uname is selected!"
-	depends on BB_CONFIG_UNAME && KLIBC
 
 #
 # dynamic part

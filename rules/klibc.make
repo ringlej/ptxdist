@@ -17,13 +17,16 @@ PACKAGES-$(PTXCONF_KLIBC) += klibc
 #
 # Paths and names
 #
-KLIBC_VERSION	:= 1.4
+KLIBC_VERSION	:= 1.4.30
 KLIBC		:= klibc-$(KLIBC_VERSION)
 KLIBC_SUFFIX	:= tar.gz
-KLIBC_URL	:= http://www.kernel.org/pub/linux/libs/klibc/$(KLIBC).$(KLIBC_SUFFIX)
+KLIBC_URL	:= http://www.kernel.org/pub/linux/libs/klibc/Testing/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_SOURCE	:= $(SRCDIR)/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_DIR	:= $(BUILDDIR)/$(KLIBC)
 
+ifdef PTXCONF_KLIBC
+$(STATEDIR)/kernel.compile: $(STATEDIR)/klibc.install
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -99,6 +102,8 @@ KLIBC_MAKE_PARAM = ARCH=$(PTXCONF_ARCH) \
 
 $(STATEDIR)/klibc.compile: $(klibc_compile_deps)
 	@$(call targetinfo, $@)
+	rm -f $(KLIBC_DIR)/.config
+	ln -sf $(KERNEL_DIR) $(KLIBC_DIR)/linux
 	cd $(KLIBC_DIR) && make $(KLIBC_MAKE_PARAM) $(KLIBC_VERBOSE)
 	@$(call touch, $@)
 
@@ -184,6 +189,14 @@ ifdef PTXCONF_KLIBC_STATIC_UNAME
 	echo "file /bin/uname $(KLIBC_BINSRC)/utils/static/uname 755 0 0" >> $(KLIBC_CONTROL)
 endif
 
+ifdef PTXCONF_KLIBC_STATIC_DASH
+	echo "file /bin/sh $(KLIBC_BINSRC)/dash/sh 755 0 0" >> $(KLIBC_CONTROL)
+endif
+
+ifdef PTXCONF_KLIBC_KINIT
+	echo "file /kinit $(KLIBC_BINSRC)/kinit/kinit 755 0 0" >> $(KLIBC_CONTROL)
+endif
+
 #
 # select the dynamics
 # FIXME: Untested and not fully supported yet!
@@ -193,7 +206,7 @@ ifdef PTXCONF_KLIBC_DYNAMIC_LIB
 	echo "file /lib/klibc.so $(KLIBC_BINSRC)/utils/klibc/klibc.so 755 0 0" >> $(KLIBC_CONTROL)
 endif
 ifdef PTXCONF_KLIBC_SHARED_CAT
-	echo "file /bin/cat $(KLIBC_BINSRC)/utils/shared/cat 755 0 0" >> $(KLIBC_CONTROL)
+	echo "file /bin/sh $(KLIBC_BINSRC)/usr/dash/sh 755 0 0" >> $(KLIBC_CONTROL)
 endif
 
 # FIXME: add remaining possible commands
@@ -228,6 +241,16 @@ endif
 #
 	cd $(KLIBC_DIR) && make  $(KLIBC_MAKE_PARAM) $(KLIBC_VERBOSE) install
 
+#
+# set CONFIG_INITRAMFS_SOURCE in the kernel config to the previously generated spec file
+#
+	sed -i "s^CONFIG_INITRAMFS_SOURCE=.*^CONFIG_INITRAMFS_SOURCE=\"$(KLIBC_CONTROL)\"^" $(KERNEL_DIR)/.config
+
+#
+# make sure the kernel regenerates the initramfs image
+#
+	rm -f $(KERNEL_DIR)/usr/initramfs_data.cpio.gz
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -248,7 +271,6 @@ klibc_clean:
 	rm -rf $(STATEDIR)/klibc.*
 	rm -rf $(IMAGEDIR)/klibc_*
 	rm -rf $(KLIBC_DIR)
-	rm -rf $(INSTALLROOT)/usr/lib/klibc
 	rm -rf $(PTXCONF_PREFIX)/bin/klcc
 
 # vim: syntax=make
