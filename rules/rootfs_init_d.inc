@@ -149,7 +149,7 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_CROND_USER
 endif
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_CROND_LINK),"")
-	@$(call install_link, rootfs, ../init.d/crondd, \
+	@$(call install_link, rootfs, ../init.d/crond, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_CROND_LINK))
 endif
 endif
