@@ -212,7 +212,7 @@ config ROOTFS_ETC_INITD_CROND_LINK
 	depends on ROOTFS_ETC_INITD_CROND
 	string
 	prompt "crond link name"
-	default "S17_crondd"
+	default "S17_crond"
 	help
 	  Set a link into /etc/rc.d which points to /etc/init.d/crond to
 	  start crond when system starts. Keep this entry empty if
