@@ -6,7 +6,7 @@ case $1 in
 
 	start)
 		echo "crond starting"
-		/sbin/crond
+		/usr/sbin/crond
 		;;
 
 esac
