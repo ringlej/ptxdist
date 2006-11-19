@@ -593,3 +593,18 @@ config ROOTFS_GENERIC_IPKG_CONF
 		  This path is put into the /etc/ipkg.conf file and specifies
 		  where to find an IPKG packet feed.
 
+#
+# for Busybox' crond only
+# /var/spool/cron/crontabs/
+# /etc/crond.conf
+#
+config ROOTFS_USERS_CROND_CONF
+	depends on ROOTFS
+	depends on ROOTFS_ETC_INITD_CROND
+	default n
+	bool
+	prompt "project's crond configuration"
+	help
+	  Install /var/spool/cron/crontabs/root from projectroot/crond/root and
+	  /etc/cron/daily from projectroot/crond/daily
+

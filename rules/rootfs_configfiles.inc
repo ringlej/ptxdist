@@ -260,5 +260,20 @@ ifdef PTXCONF_ROOTFS_GENERIC_UDHCPC
 	@$(call install_link, rootfs, /etc/udhcpc.script, /usr/share/udhcpc/default.script)
 endif
 
+# ----------------------------------
+
+ifdef PTXCONF_ROOTFS_USERS_CROND_CONF
+	@$(call install_copy, rootfs, 0, 0, 0755, /etc/cron)
+	@$(call install_copy, rootfs, 0, 0, 0755, /var/spool/cron/crontabs/)
+
+	@$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/crond/root, \
+		/var/spool/cron/crontabs/root, n)
+
+	@$(call install_copy, rootfs, 0, 0, 0755, \
+		$(PTXDIST_WORKSPACE)/projectroot/crond/daily, \
+		/etc/cron/daily, n)
+endif
+
 # vim: syntax=make
 
