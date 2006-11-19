@@ -47,7 +47,7 @@ choice
 		 dnsmasq will be started on demand from inetd. This installs
 		 a startup configuration for dnsmasq from inetd. It adds to the
 		 /etc/inetd.conf a line like this:
-		 dns stream tcp nowait root /usr/bin/dnsmasq dnsmasq
+		 domain stream tcp nowait root /sbin/dnsmasq domain
 		 Note: You must enable one of the two possible inet daemons:
 		 There is one embedded in busybox and one in packet inetutils.
 		 Note: If you want to use dnsmasq's DHCP feature, you can't
@@ -69,7 +69,7 @@ config DNSMASQ_INETD_STRING
 	depends on DNSMASQ
 	depends on DNSMASQ_INETD_SERVER
 	prompt "inetd service entry"
-	default "domain stream tcp nowait root /usr/bin/dnsmasq domain"
+	default "domain stream tcp nowait root /sbin/dnsmasq domain"
 	help
 	  This string is added to inetd's configuration /etc/inetd.conf.
 
