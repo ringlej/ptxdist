@@ -50,7 +50,7 @@ config PORTMAP_INETD_STRING
 	depends on PORTMAP
 	depends on PORTMAP_INETD_SERVER
 	prompt "inetd service entry"
-	default "portmap stream tcp nowait root /sbin/portmap portmap"
+	default "sunrpc stream tcp nowait root /sbin/portmap portmap"
 	help
 	  This string is added to inetd's configuration /etc/inetd.conf.
 

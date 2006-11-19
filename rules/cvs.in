@@ -119,7 +119,7 @@ config CVS_INETD_STRING
 	depends on CVS_SERVER
 	depends on CVS_INETD_SERVER
 	prompt "inetd service entry"
-	default "cvs stream tcp nowait root /usr/bin/cvs cvsd -f @ROOT@ pserver"
+	default "cvspserver stream tcp nowait root /usr/bin/cvs cvsd -f @ROOT@ pserver"
 	help
 	  This string is added to inetd's configuration /etc/inetd.conf. @ROOT@
 	  in this string will be replaced by repository's root
