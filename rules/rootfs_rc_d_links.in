@@ -217,3 +217,16 @@ config ROOTFS_ETC_INITD_CROND_LINK
 	  Set a link into /etc/rc.d which points to /etc/init.d/crond to
 	  start crond when system starts. Keep this entry empty if
 	  you do not want to start this service automatically.
+
+################################ nfs #######################################
+
+config ROOTFS_ETC_INITD_NFS_LINK
+	depends on ROOTFS_ETC_INITD_NFS_DEFAULT || ROOTFS_ETC_INITD_NFS_DEFAULT
+	string
+	prompt "nfsd link name"
+	default "S06_nfsd"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/nfsd to
+	  start nfs server when system starts. Keep this entry empty if
+	  you do not want to start this service automatically.
+

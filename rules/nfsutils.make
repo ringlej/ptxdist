@@ -2,7 +2,7 @@
 # $Id: template 5709 2006-06-09 13:55:00Z mkl $
 #
 # Copyright (C) 2003-2006 by Pengutronix e.K., Hildesheim, Germany
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -155,23 +155,33 @@ $(STATEDIR)/nfsutils.targetinstall: $(nfsutils_targetinstall_deps_default)
 #endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_EXPORTFS
-	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/exportfs/exportfs, /usr/sbin/exportfs)
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/utils/exportfs/exportfs, \
+		/usr/sbin/exportfs)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_LOCKD
-	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/lockd/lockd, /sbin/rpc.lockd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/utils/lockd/lockd, \
+		/sbin/rpc.lockd)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_MOUNTD
-	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/mountd/mountd, /usr/sbin/mountd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/utils/mountd/mountd, \
+		/usr/sbin/mountd)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_NFSD
-	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nfsd/nfsd, /usr/sbin/rpc.nfsd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/utils/nfsd/nfsd, \
+		/usr/sbin/rpc.nfsd)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_NFSSTAT
-	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nfsstat/nfsstat, /usr/sbin/nfsstat)
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/utils/nfsstat/nfsstat, \
+		/usr/sbin/nfsstat)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_NHFSGRAPH
@@ -195,7 +205,9 @@ ifdef PTXCONF_NFSUTILS_INSTALL_SHOWMOUNT
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_STATD
-	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/statd/statd, /sbin/rpc.statd)
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/utils/statd/statd,\
+		/usr/sbin/rpc.statd)
 endif
 
 	mkdir -p $(NFSUTILS_DIR)/ptxdist_install_tmp
@@ -225,6 +237,34 @@ endif
 
 	@$(call install_copy, nfsutils, 65534, 0, 0700, \
 		/var/lib/nfs/sm.bak)
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_NFS_DEFAULT
+# install the generic one
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/nfsd, \
+		/etc/init.d/nfsd, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_NFS_USER
+# install users one
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/nfsd, \
+		/etc/init.d/nfsd, n)
+endif
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NFS_LINK),"")
+	@$(call install_copy, nfsutils, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, nfsutils, ../init.d/nfsd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_NFS_LINK))
+endif
+
+ifdef PTXCONF_NFSUTILS_INSTALL_USER_EXPORTS
+# install user defined exportfs
+	@$(call install_copy, nfsutils, 0, 0, 0644, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/exports, \
+		/etc/exports, n)
+endif
 
 	@$(call install_finish, nfsutils)
 

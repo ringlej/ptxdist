@@ -14,7 +14,7 @@ config	NFSUTILS_SECURE_STATD
 config	NFSUTILS_RQUOTAD
 	bool
 	prompt "Enable rquotad"
-	depends on NFSUTILS	
+	depends on NFSUTILS
 
 config	NFSUTILS_WITH_TCPWRAPPERS
 	bool
@@ -96,3 +96,41 @@ config  NFSUTILS_INSTALL_STATD
 	bool
 	prompt "Install /sbin/statd"
 	depends on NFSUTILS
+
+# -----
+
+comment "runtime options"
+	depends on NFSUTILS
+
+choice
+	prompt "Kind of startup script"
+	default ROOTFS_ETC_INITD_NFS_DEFAULT
+	depends on NFSUTILS
+
+	config ROOTFS_ETC_INITD_NFS_DEFAULT
+		bool
+		prompt "Use generic"
+		help
+		  Installs a generic /etc/init.d/nfsd startup script.
+		  See <ptxdist-install>/generic/etc/init.d/nfsd
+
+	config ROOTFS_ETC_INITD_NFS_USER
+		bool
+		prompt "User defined"
+		help
+		  This uses a user defined nfsd startup script. PTXdist
+		  uses files projectroot/etc/init.d/nfsd in your local
+		  project
+
+endchoice
+
+config NFSUTILS_INSTALL_USER_EXPORTS
+	depends on NFSUTILS
+	default n
+	bool
+	prompt "Install user's /etc/exports"
+	help
+	  This installs a user defined /etc/exports. PTXdist
+	  uses files projectroot/etc/exports in your local
+	  project
+
