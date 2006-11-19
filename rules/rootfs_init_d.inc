@@ -33,7 +33,7 @@ endif
 # FIXME provide also a user defined file!
 ifdef PTXCONF_ROOTFS_ETC_INITD_LOGROTATE
 	@$(call install_copy, rootfs, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/logrotate,
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/logrotate, \
 		/etc/init.d/logrotate, n)
 endif
 
