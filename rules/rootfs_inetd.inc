@@ -209,7 +209,7 @@ else
 # add default string to start the dnsmasq into inetd.conf
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
 		@DNSD@, \
-		"domain stream tcp nowait root /usr/bin/dnsmasq domain" )
+		"domain stream tcp nowait root /sbin/dnsmasq domain" )
 endif
 # add dns service
 	@$(call install_replace, rootfs, \
