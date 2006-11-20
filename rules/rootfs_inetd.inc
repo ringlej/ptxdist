@@ -57,7 +57,7 @@ endif
 # add NTP if enabled
 #
 ifdef PTXCONF_INETUTILS_NTP
-# FIXME: Whats needed to start ntp with inted?
+# FIXME: What's needed to start ntp with inetd?
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
 		@NTP@, "" )
 	@$(call install_replace, rootfs, /etc/services, \
