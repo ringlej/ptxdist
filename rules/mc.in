@@ -2,6 +2,7 @@ config MC
 	bool
 	select GLIB
 	select NCURSES
+	select GLIBC_NSL
 	prompt "midnight commander"
 	help
 	  midnight commander is a ncurses based file manager
