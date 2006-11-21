@@ -513,11 +513,11 @@ get =								\
 		THING="$$(echo $$URL | sed s-file://-/-g)";	\
 		if [ -f "$$THING" ]; then			\
 			echo "local archive, copying"; 		\
-			$(CP) -av $$FILE $$SRC;			\
+			$(CP) -av $$THING $$SRC;		\
 			[ $$? -eq 0 ] || {			\
 				echo;				\
 				echo "Could not copy packet!";	\
-				echo "File: $$FILE";		\
+				echo "File: $$THING";		\
 				echo;				\
 				exit -1;			\
 			};					\
