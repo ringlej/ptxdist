@@ -200,6 +200,14 @@ config LIBXML2_SCHEMAS
 	help
 	  Add Relay-NG and experimental Schemas support
 
+config LIBXML2_SCHEMATRON
+	bool
+	default y
+	depends on LIBXML2
+	prompt "Schematron Support"
+	help
+	  Add Schematron support
+
 config LIBXML2_THREADS
 	bool
 	default y
@@ -276,3 +284,4 @@ config LIBXML2_ZLIB
 	default y
 	depends on LIBXML2
 	prompt "zlib (compression) support"
+

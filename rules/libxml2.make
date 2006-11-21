@@ -205,6 +205,12 @@ else
 LIBXML2_AUTOCONF += --without-schemas
 endif
 
+ifdef PTXCONF_LIBXML2_SCHEMATRON
+LIBXML2_AUTOCONF += --with-schematron
+else
+LIBXML2_AUTOCONF += --without-schematron
+endif
+
 ifdef PTXCONF_LIBXML2_THREADS
 LIBXML2_AUTOCONF += --with-threads
 else
