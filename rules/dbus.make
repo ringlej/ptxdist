@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 0.94
+DBUS_VERSION	:= 1.0.0
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -57,8 +57,11 @@ $(STATEDIR)/dbus.extract: $(dbus_extract_deps_default)
 
 dbus_prepare: $(STATEDIR)/dbus.prepare
 
-DBUS_PATH	:= PATH=$(CROSS_PATH)
-DBUS_ENV 	:= $(CROSS_ENV)
+DBUS_PATH := PATH=$(CROSS_PATH)
+
+DBUS_ENV := \
+	$(CROSS_ENV) \
+	ac_cv_have_abstract_sockets=yes
 
 #
 # autoconf
@@ -66,7 +69,8 @@ DBUS_ENV 	:= $(CROSS_ENV)
 DBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-abstract-sockets=yes \
-	--localstatedir=/var
+	--localstatedir=/var \
+	--with-dbus-user=$(PTXCONF_DBUS_USER)
 
 $(STATEDIR)/dbus.prepare: $(dbus_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -127,8 +131,53 @@ $(STATEDIR)/dbus.targetinstall: $(dbus_targetinstall_deps_default)
 	@$(call install_link, dbus, libdbus-1.so.3.2.0, /usr/lib/libdbus-1.so.3)
 	@$(call install_link, dbus, libdbus-1.so.3.2.0, /usr/lib/libdbus-1.so)
 
-	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/system.conf, /etc/dbus-1/system.conf)
-	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/session.conf, /etc/dbus-1/session.conf)
+	#
+	# create system.d and event.d directories, which are used by the configuration and startup files
+	#
+	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/system.d/)
+	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/event.d/)
+
+	#
+	# use the default config file
+	#
+ifdef PTXCONF_DBUS_DEFAULTCONFIG
+	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/system.conf, /etc/dbus-1/system.conf,n)
+	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/session.conf, /etc/dbus-1/session.conf,n)
+else
+
+	#
+	# use users configuration instead
+	#
+ifdef PTXCONF_DBUS_USER_SYSTEM_CONFIG
+ifneq ($(PTXCONF_DBUS_USER_SYSTEM_CONFIG), "")
+	@echo "installing user system config file..."
+	@$(call install_copy, dbus, 12, 102, 0644, $(PTXCONF_DBUS_USER_SYSTEM_CONFIG), /etc/dbus-1/system.conf,n)
+endif
+ifneq ($(PTXCONF_DBUS_USER_SESSION_CONFIG), "")
+	@echo "installing user session config file..."
+	@$(call install_copy, dbus, 12, 102, 0644, $(PTXCONF_DBUS_USER_SESSION_CONFIG), /etc/dbus-1/session.conf,n)
+endif
+endif
+endif
+
+	#
+	# create init script and link to launch at startup
+	#
+ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS
+ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_DBUS_USER_FILE)),)
+	@$(call install_copy, dbus, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_DBUS_USER_FILE), /etc/init.d/dbus, n)
+
+else
+	@$(call install_copy, dbus, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/dbus, /etc/init.d/dbus, n)
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK),"")
+	@$(call install_copy, dbus, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, dbus, ../init.d/dbus, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK))
+endif
+endif
+endif
 
 	@$(call install_finish,dbus)
 
