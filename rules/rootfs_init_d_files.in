@@ -1,6 +1,6 @@
-comment "----------------------------------"
-comment "Populate Start Scripts in /etc/init.d"
-comment "----------------------------------"
+# ----------------------------------------------------------------------------
+menu "start scripts (/etc/init.d)   "
+# ----------------------------------------------------------------------------
 
 config ROOTFS_ETC_INITD
 	depends on ROOTFS
@@ -298,3 +298,5 @@ menuconfig ROOTFS_ETC_INITD_CROND
 			  PTXdist uses file projectroot/etc/init.d/crond in
 			  your local project
 	endchoice
+
+endmenu

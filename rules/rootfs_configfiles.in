@@ -1,11 +1,6 @@
-#
-# This menu part let the user select configuration files
-# as needed.
-#
-
-comment "----------------------------------"
-comment "Populate config files"
-comment "----------------------------------"
+# ----------------------------------------------------------------------------
+menu "config files                  "
+# ----------------------------------------------------------------------------
 
 #
 # /etc/passwd
@@ -608,3 +603,4 @@ config ROOTFS_USERS_CROND_CONF
 	  Install /var/spool/cron/crontabs/root from projectroot/crond/root and
 	  /etc/cron/daily from projectroot/crond/daily
 
+endmenu

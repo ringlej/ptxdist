@@ -1,6 +1,6 @@
-comment "----------------------------------"
-comment "Populate Rootfs"
-comment "----------------------------------"
+# ----------------------------------------------------------------------------
+menu "populate rootfs               "
+# ----------------------------------------------------------------------------
 
 config ROOTFS
 	bool
@@ -198,3 +198,4 @@ config ROOTFS_VAR_LOCK
 	  Unless you want to mount a tmpfs on /var you should
 	  say yes here.
 
+endmenu
