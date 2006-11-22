@@ -249,7 +249,7 @@ ifdef PTXCONF_IMAGE_TGZ
 endif
 ifdef PTXCONF_IMAGE_JFFS2
 	@imagesfrom=$(IMAGEDIR);							\
-	cp $(PTXDIST_TOPDIR)/generic/etc/ipkg.conf $(IMAGEDIR)/ipkg.conf; \
+	cp $(PTXDIST_TOPDIR)/generic/etc/ipkg.conf $(IMAGEDIR)/ipkg.conf;		\
 	sed -i -e "s,@SRC@,,g" $(IMAGEDIR)/ipkg.conf;					\
 	sed -i -e "s,@ARCH@,$(PTXCONF_ARCH),g" $(IMAGEDIR)/ipkg.conf;			\
 	echo "Creating rootfs using packages from $$imagesfrom";				\
@@ -262,28 +262,29 @@ ifdef PTXCONF_IMAGE_JFFS2
 		-o $(IMAGEDIR)/root.jffs2						\
 		-f $(IMAGEDIR)/ipkg.conf
 endif
-ifdef PTXCONF_IMAGE_HD
-	$(PTXDIST_TOPDIR)/scripts/genhdimg \
-	-m $(GRUB_DIR)/stage1/stage1 \
-	-n $(GRUB_DIR)/stage2/stage2 \
-	-r $(ROOTDIR) \
-	-i images \
-	-f $(PTXCONF_IMAGE_HD_CONF)
-endif
 ifdef PTXCONF_IMAGE_EXT2
-	cd $(ROOTDIR); \
-	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions && \
-	( \
-		echo -n "$(PTXCONF_HOST_PREFIX)/bin/genext2fs "; \
-		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) "; \
-		echo -n "$(PTXCONF_IMAGE_EXT2_EXTRA_ARGS) "; \
-		echo -n "-d $(ROOTDIR) "; \
-		echo "$(IMAGEDIR)/root.ext2" ) \
+	cd $(ROOTDIR);									\
+	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&				\
+	(										\
+		echo -n "$(PTXCONF_HOST_PREFIX)/bin/genext2fs ";			\
+		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) ";				\
+		echo -n "$(PTXCONF_IMAGE_EXT2_EXTRA_ARGS) ";				\
+		echo -n "-d $(ROOTDIR) ";						\
+		echo "$(IMAGEDIR)/root.ext2" )						\
 	) | $(FAKEROOT) --
+endif
+ifdef PTXCONF_IMAGE_HD
+	echo "Creating hdimg using $(IMAGEDIR)/root.ext2";				\
+	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg		\
+	-m $(GRUB_DIR)/stage1/stage1							\
+	-n $(GRUB_DIR)/stage2/stage2							\
+	-o images/hd.img								\
+	-i images/root.ext2								\
+	-p $(PTXCONF_IMAGE_EXT2_SIZE)
 endif
 ifdef PTXCONF_IMAGE_EXT2_GZIP
 	rm -f $(IMAGEDIR)/root.ext2.gz
-	gzip -v9 $(IMAGEDIR)/root.ext2
+	cat $(IMAGEDIR)/root.ext2 | gzip -v9 > $(IMAGEDIR)/root.ext2.gz
 endif
 ifdef PTXCONF_IMAGE_UIMAGE
 	$(PTXCONF_PREFIX)/bin/u-boot-mkimage \
