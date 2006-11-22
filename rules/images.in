@@ -11,19 +11,10 @@ config IMAGE_TGZ
 
 config IMAGE_HD
 	bool
+	select IMAGE_EXT2
 	prompt "Generate images/hd.img"
 	help
 	  Build a harddisk root image
-
-config IMAGE_HD_CONF
-	string
-	prompt "Geometry file for hd image"
-	depends on IMAGE_HD
-	help
-	  FIXME
-
-	  Usually your hd geometry file lives in ${PTXDIST_WORKSPACE}, so enter
-	  something like "${PTXDIST_WORKSPACE}/your-filename" here. 
 
 config IMAGE_IPKG_IMAGE_FROM_REPOSITORY
 	bool
@@ -113,14 +104,14 @@ config IMAGE_UIMAGE_EXTRA_ARGS
 config IMAGE_EXT2
 	bool
 	select HOST_GENEXT2FS
-	prompt "Generate images/root.ext2 (initrd)"
+	prompt "Generate images/root.ext2"
 	help
-	  Build an ext2 image of the root filesystem that can be used as an initrd
+	  Build an ext2 image of the root filesystem
 
 config IMAGE_EXT2_SIZE
 	int
-	default -1
-	prompt "Size in blocks"
+	default 20480
+	prompt "Size in kilobytes"
 	depends on IMAGE_EXT2
 	help
 	  FIXME: This item needs to be documented
