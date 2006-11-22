@@ -12,6 +12,15 @@ comment "grub is only available on x86"
 comment "Config Options"
 	depends on GRUB
 
+config GRUB_MENU_LST
+	string
+	prompt "menu.lst to install"
+	default "${PTXDIST_WORKSPACE}/projectroot/boot/grub/menu.lst"
+	depends on GRUB
+	help
+	  Set this to the file you wish to install as
+	  /boot/grub/menu.lst
+
 config GRUB_MD5
 	bool
 	prompt "md5 passwords"

@@ -474,6 +474,10 @@ $(STATEDIR)/grub.targetinstall: $(grub_targetinstall_deps_default)
 	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage1/stage1, /boot/grub/stage1, n)
 	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/stage2, /boot/grub/stage2, n)
 
+	@if [ -n $(PTXCONF_GRUB_MENU_LST) ]; then \
+		$(call install_copy, grub, 0, 0, 0644, $(PTXCONF_GRUB_MENU_LST), /boot/grub/menu.lst, n) \
+	fi
+
 ifdef PTXCONF_GRUB_ISO9660
 	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/iso9660_stage1_5, /boot/grub/iso9660_stage1_5, n)
 	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/stage2_eltorito, /boot/grub/stage2_eltorito, n)
