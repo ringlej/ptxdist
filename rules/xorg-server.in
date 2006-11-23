@@ -316,7 +316,8 @@ config XORG_SERVER_EXT_RECORD
 	prompt "Record extension"
 	default y
 	help
-	  --enable-record
+	  --enable-record, The record module adds record extension to capture 
+	  events that are associated with recording and playback user actions
 
 config XORG_SERVER_EXT_XV
 	depends on XORG_SERVER
@@ -469,7 +470,8 @@ config XORG_SERVER_EXT_DBE
 	bool
 	prompt "DBE extension"
 	help
-	  --enable-dbe - Double Buffer Extension for graphic accelaration
+	  --enable-dbe - Double Buffer Extension for graphic accelaration,
+	  Required for flicker free and smooth animations
 
 config XORG_SERVER_EXT_DPMS
 	depends on XORG_SERVER
