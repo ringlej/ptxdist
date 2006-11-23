@@ -1,0 +1,13 @@
+Index: font-adobe-utopia-100dpi-X11R7.0-1.0.1/configure
+===================================================================
+--- font-adobe-utopia-100dpi-X11R7.0-1.0.1.orig/configure
++++ font-adobe-utopia-100dpi-X11R7.0-1.0.1/configure
+@@ -2168,7 +2168,7 @@ else
+ echo "${ECHO_T}yes" >&6
+ 	:
+ fi
+-MAPFILES_PATH=$(pkg-config --variable=mapdir fontutil)
++MAPFILES_PATH=$SYSROOT/$(pkg-config --variable=mapdir fontutil)
+ 
+ 
+ 
