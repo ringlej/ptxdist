@@ -143,6 +143,12 @@ gen_packages_dep() {
     exec 5>${RULESFILES}
     exec 6>${RULESFILES_MAKE}
 
+    sed -ne "s/^# PTXCONF_\(.*\) is not set/\1/p" ${PTXCONFIG} | while read label; do
+	package=PACKAGE_${label}
+	if test -n "${!package}"; then
+	    echo "${!package}_get_deps_default = \$(${label}_SOURCE)" >&3
+	fi
+    done
     sed -ne "s/^PTXCONF_\(.*\)=y/\1/p" ${PTXCONFIG} | while read label; do
 	package=PACKAGE_${label}
 	if test -n "${!package}"; then
