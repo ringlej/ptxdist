@@ -54,7 +54,7 @@ gen_rulesfiles_all() {
     (
 	if test -d ${REAL_PROJECTRULESDIR}; then
 	    find ${REAL_PROJECTRULESDIR} \
-		-mindepth 1 -maxdepth 1 -name "*.make"
+		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
 	    find ${RULESDIR} \
 		-mindepth 1 -maxdepth 1 -name "*.make" \
 		`find ${REAL_PROJECTRULESDIR} \
@@ -62,7 +62,7 @@ gen_rulesfiles_all() {
 		-printf "! -name %f "`
 	else 
 	    find ${RULESDIR} \
-		-mindepth 1 -maxdepth 1 -name "*.make"
+		-mindepth 1 -maxdepth 1 -name "*.make"-a \! -path "*#*"
 	fi
     ) > ${RULESFILES_ALL}
 
