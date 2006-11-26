@@ -198,4 +198,6 @@ config ROOTFS_VAR_LOCK
 	  Unless you want to mount a tmpfs on /var you should
 	  say yes here.
 
+# ----------------------------------------------------------------------------
+
 endmenu

@@ -43,6 +43,68 @@ config DBUS_X
 	help
 	  Enable this option to build dbus with support for X.
 
+config ROOTFS_DBUS_SYSTEM_CONF
+	depends on DBUS
+	bool
+	prompt "/etc/dbus-1/system.conf"
+	default y
+	help
+	  Installs a /etc/dbus-1/system.conf file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/dbus-1/system.conf"
+		depends on ROOTFS_DBUS_SYSTEM_CONF
+		default ROOTFS_GENERIC_DBUS_SYSTEM_CONF
+
+		config ROOTFS_GENERIC_DBUS_SYSTEM_CONF
+			bool
+			prompt "Use generic"
+			help
+			  This uses the generic configuration file for your dbus which is
+			  shipped with the sources. This configuration is likely to fail
+			  because it is thought for a desktop PC.
+
+		config ROOTFS_USER_DBUS_SYSTEM_CONF
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/dbus-1/system.conf. PTXdist
+			  uses file projectroot/etc/dbus-1/system.conf in your local
+			  project.
+
+	endchoice
+
+config ROOTFS_DBUS_SESSION_CONF
+	depends on DBUS
+	bool
+	prompt "/etc/dbus-1/session.conf"
+	default y
+	help
+	  Installs a /etc/dbus-1/session.conf file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/dbus-1/session.conf"
+		depends on ROOTFS_DBUS_SESSION_CONF
+		default ROOTFS_GENERIC_DBUS_SESSION_CONF
+
+		config ROOTFS_GENERIC_DBUS_SESSION_CONF
+			bool
+			prompt "Use generic"
+			help
+	  	  This uses the generic configuration file for your dbus which is
+				shipped with the sources. This configuration is likely to fail
+				because it is thought for a desktop PC.
+
+		config ROOTFS_USER_DBUS_SESSION_CONF
+			bool
+			prompt "User defined"
+			help
+				This uses a user defined /etc/dbus-1/session.conf. PTXdist
+				uses file projectroot/etc/dbus-1/session.conf in your local
+				project.
+
+	endchoice
+
 #   --enable-tests          enable unit test code
 #   --enable-ansi           enable -ansi -pedantic gcc flags
 #   --enable-verbose-mode   support verbose debug mode
@@ -84,3 +146,31 @@ config DBUS_X
 #   --with-dbus-daemondir=dirname
 #                           Directory for installing the DBUS daemon
 #   --with-x                use the X Window System
+
+config DBUS_INSTALL_STARTUP_SCRIPT
+	bool
+	prompt "Install startup script"
+	depends on DBUS
+	help
+	  This installs a startup script for dbus from a selectable source
+
+	choice
+		prompt "Kind of startup script"
+		depends DBUS_INSTALL_STARTUP_SCRIPT
+		default ROOTFS_ETC_INITD_DBUS_GENERIC
+
+		config ROOTFS_ETC_INITD_DBUS_GENERIC
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/init.d/dbus startup script.
+			  See <ptxdist-install>/generic/etc/init.d/dbus
+
+		config ROOTFS_ETC_INITD_DBUS_USER
+			bool
+			prompt "User defined"
+			help
+			This uses a user defined /etc/init.d/dbus. PTXdist uses
+			file projectroot/etc/init.d/dbus in your local project.
+
+	endchoice

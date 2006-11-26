@@ -128,14 +128,23 @@ $(STATEDIR)/dbus.targetinstall: $(dbus_targetinstall_deps_default)
 	@$(call install_fixup,dbus,DEPENDS,)
 	@$(call install_fixup,dbus,DESCRIPTION,missing)
 
-	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/bus/dbus-daemon, /usr/bin/dbus-daemon)
-	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/tools/dbus-cleanup-sockets, /usr/bin/dbus-cleanup-sockets)
-	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/tools/dbus-launch, /usr/bin/dbus-launch)
-	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/tools/.libs/dbus-monitor, /usr/bin/dbus-monitor)
-	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/tools/.libs/dbus-send, /usr/bin/dbus-send)
-	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/tools/.libs/dbus-uuidgen, /usr/bin/dbus-uuidgen)
+	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/bus/dbus-daemon, \
+		/usr/bin/dbus-daemon)
+	@$(call install_copy, dbus, 0, 0, 0755, \
+		$(DBUS_DIR)/tools/dbus-cleanup-sockets, \
+		/usr/bin/dbus-cleanup-sockets)
+	@$(call install_copy, dbus, 0, 0, 0755, \
+		$(DBUS_DIR)/tools/dbus-launch, /usr/bin/dbus-launch)
+	@$(call install_copy, dbus, 0, 0, 0755, \
+		$(DBUS_DIR)/tools/.libs/dbus-monitor, /usr/bin/dbus-monitor)
+	@$(call install_copy, dbus, 0, 0, 0755, \
+		$(DBUS_DIR)/tools/.libs/dbus-send, /usr/bin/dbus-send)
+	@$(call install_copy, dbus, 0, 0, 0755, \
+		$(DBUS_DIR)/tools/.libs/dbus-uuidgen, /usr/bin/dbus-uuidgen)
 
-	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/dbus/.libs/libdbus-1.so.3.2.0, /usr/lib/libdbus-1.so.3.2.0)
+	@$(call install_copy, dbus, 0, 0, 0644, \
+		$(DBUS_DIR)/dbus/.libs/libdbus-1.so.3.2.0, \
+		/usr/lib/libdbus-1.so.3.2.0)
 	@$(call install_link, dbus, libdbus-1.so.3.2.0, /usr/lib/libdbus-1.so.3)
 	@$(call install_link, dbus, libdbus-1.so.3.2.0, /usr/lib/libdbus-1.so)
 
@@ -149,7 +158,8 @@ $(STATEDIR)/dbus.targetinstall: $(dbus_targetinstall_deps_default)
 	# use the default /etc/dbus-1/system.conf config file
 	#
 ifdef PTXCONF_ROOTFS_GENERIC_DBUS_SYSTEM_CONF
-	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/system.conf, /etc/dbus-1/system.conf,n)
+	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/system.conf, \
+		/etc/dbus-1/system.conf,n)
 endif
 
 	#
@@ -157,14 +167,17 @@ endif
 	#
 ifdef PTXCONF_ROOTFS_USER_DBUS_SYSTEM_CONF
 	@echo "installing user system config file..."
-	@$(call install_copy, dbus, 0, 0, 0644, $(PTXDIST_WORKSPACE)/projectroot/etc/dbus-1/system.conf, /etc/dbus-1/system.conf,n)
+	@$(call install_copy, dbus, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/dbus-1/system.conf, \
+		/etc/dbus-1/system.conf,n)
 endif
 
 	#
 	# use the default /etc/dbus-1/session.conf config file
 	#
 ifdef PTXCONF_ROOTFS_GENERIC_DBUS_SESSION_CONF
-	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/session.conf, /etc/dbus-1/session.conf,n)
+	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/session.conf, \
+		/etc/dbus-1/session.conf,n)
 endif
 
 	#
@@ -172,21 +185,27 @@ endif
 	#
 ifdef PTXCONF_ROOTFS_USER_DBUS_SESSION_CONF
 	@echo "installing user session config file..."
-	@$(call install_copy, dbus, 0, 0, 0644, $(PTXDIST_WORKSPACE)/projectroot/etc/dbus-1/session.conf, /etc/dbus-1/session.conf,n)
+	@$(call install_copy, dbus, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/dbus-1/session.conf, \
+		/etc/dbus-1/session.conf,n)
 endif
 
+ifdef PTXCONF_DBUS_INSTALL_STARTUP_SCRIPT
 	#
 	# use the generic startup script in /etc/init.d/dbus
 	#
 ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS_GENERIC
-	@$(call install_copy, dbus, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/dbus, /etc/init.d/dbus, n)
+	@$(call install_copy, dbus, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/dbus, \
+		/etc/init.d/dbus, n)
 endif
-
 	#
 	# use the user's startup script in /etc/init.d/dbus from projectroot/etc/init.d/dbus
 	#
 ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS_USER
-	@$(call install_copy, dbus, 0, 0, 0755, $(PTXDIST_WORKSPACE)/projectroot/etc/init.d/dbus, /etc/init.d/dbus,n)
+	@$(call install_copy, dbus, 0, 0, 0755, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/dbus, \
+		/etc/init.d/dbus,n)
 endif
 
 	#
@@ -195,7 +214,9 @@ endif
 ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK),"")
 	@$(call install_copy, dbus, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, dbus, ../init.d/dbus, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK))
+	@$(call install_link, dbus, ../init.d/dbus, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK))
+endif
 endif
 endif
 

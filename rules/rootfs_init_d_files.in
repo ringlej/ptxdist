@@ -299,37 +299,6 @@ menuconfig ROOTFS_ETC_INITD_CROND
 			  your local project
 	endchoice
 
-######################## D-Bus ############################################
-
-menuconfig ROOTFS_ETC_INITD_DBUS
-	depends on ROOTFS_ETC_INITD
-	depends on DBUS
-	bool
-	prompt "dbus                        "
-	default y
-	help
-	  The /etc/init.d/dbus script starts up your D-Bus daemon (system bus).
-
-	choice
-		prompt "Kind of startup script"
-		depends on ROOTFS_ETC_INITD_DBUS
-		default ROOTFS_ETC_INITD_DBUS_GENERIC
-
-		config ROOTFS_ETC_INITD_DBUS_GENERIC
-			bool
-			prompt "Use generic"
-			help
-	  		  This uses the generic configuration file for your dbus which is
-			  shipped with the sources. This configuration is likely to fail
-			  because it is thought for a desktop PC.
-
-		config ROOTFS_ETC_INITD_DBUS_USER
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined /etc/init.d/dbus. PTXdist uses
-			  file projectroot/etc/init.d/dbus in your local project.
-
-	endchoice
+# ----------------------------------------------------------------------------
 
 endmenu
