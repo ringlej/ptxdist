@@ -73,10 +73,10 @@ MFIREBIRD_ENV   += PKG_CONFIG_PATH=$(SYSROOT)/lib/pkgconfig/
 #
 
 MFIREBIRD_AUTOCONF	=  $(CROSS_AUTOCONF_USR) \
-	--with-x=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6 \
+	--with-x=$(SYSROOT)/usr/X11R6 \
 	--enable-default-toolkit=gtk2 \
-	--with-gtk-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
-	--with-glib-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
+	--with-gtk-prefix=$(SYSROOT) \
+	--with-glib-prefix=$(SYSROOT) \
 	--disable-gtktest \
 	--disable-gdktest \
 	--disable-tests \

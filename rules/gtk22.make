@@ -69,7 +69,7 @@ GTK22_ENV	+= FREETYPE_CONFIG="pkg-config freetype2"
 # autoconf
 #
 GTK22_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
-GTK22_AUTOCONF	+= --with-x=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/X11R6
+GTK22_AUTOCONF	+= --with-x=$(SYSROOT)/usr/X11R6
 # FIXME
 GTK22_AUTOCONF	+= --without-libtiff
 GTK22_AUTOCONF	+= --without-libjpeg
