@@ -62,6 +62,9 @@ DBUS_PATH := PATH=$(CROSS_PATH)
 DBUS_ENV := \
 	$(CROSS_ENV) \
 	ac_cv_have_abstract_sockets=yes
+ifdef PTXCONF_DBUS_X
+DBUS_ENV += ac_cv_have_x="have_x=yes ac_x_includes=$(SYSROOT)/usr/X11R6/include ac_x_libraries=$(SYSROOT)/usr/X11R6/lib"
+endif
 
 #
 # autoconf
@@ -71,6 +74,11 @@ DBUS_AUTOCONF := \
 	--enable-abstract-sockets=yes \
 	--localstatedir=/var \
 	--with-dbus-user=$(PTXCONF_DBUS_USER)
+ifdef PTXCONF_DBUS_X
+DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr/X11R6
+else
+DBUS_AUTOCONF += --without-x
+endif
 
 $(STATEDIR)/dbus.prepare: $(dbus_prepare_deps_default)
 	@$(call targetinfo, $@)

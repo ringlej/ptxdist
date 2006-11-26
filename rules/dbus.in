@@ -5,6 +5,7 @@ menuconfig DBUS
 	prompt "dbus"
 	select EXPAT if DBUS_XML_EXPAT
 	select LIBXML2 if DBUS_XML_LIBXML2
+	select XORG_LIB_X11 if DBUS_X
 	help
 	  D-Bus is a message bus system, a simple way for applications
 	  to talk to one another. For details see the project homepage:
@@ -34,6 +35,13 @@ config DBUS_USER
 	  standard configuration has only root, so if you want to use
 	  the dbus default user "messagebus" you have to create a
 	  related user yourself.
+
+config DBUS_X
+	depends on DBUS
+	bool
+	prompt "enable X support"
+	help
+	  Enable this option to build dbus with support for X.
 
 #   --enable-tests          enable unit test code
 #   --enable-ansi           enable -ansi -pedantic gcc flags
