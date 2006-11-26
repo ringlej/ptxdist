@@ -192,4 +192,14 @@ config ROOTFS_ETC_INITD_NFS_LINK
 	  start nfs server when system starts. Keep this entry empty if
 	  you do not want to start this service automatically.
 
+config ROOTFS_ETC_INITD_DBUS_LINK
+	depends on ROOTFS_ETC_INITD_DBUS_GENERIC || ROOTFS_ETC_INITD_DBUS_USER
+	string
+	prompt "dbus link name"
+	default "S18_dbus"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/dbus to
+	  start dbus when system starts. Keep this entry empty if
+	  you do not want to start this service automatically.
+
 endmenu

@@ -603,4 +603,74 @@ config ROOTFS_USERS_CROND_CONF
 	  Install /var/spool/cron/crontabs/root from projectroot/crond/root and
 	  /etc/cron/daily from projectroot/crond/daily
 
+#
+# /etc/dbus-1/system.conf
+#
+menuconfig ROOTFS_DBUS_SYSTEM_CONF
+	depends on ROOTFS
+	depends on DBUS
+	bool
+	prompt "/etc/dbus-1/system.conf     "
+	default y
+	help
+	  Installs a /etc/dbus-1/system.conf file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/dbus-1/system.conf"
+		depends on ROOTFS_DBUS_SYSTEM_CONF
+		default ROOTFS_GENERIC_DBUS_SYSTEM_CONF
+
+		config ROOTFS_GENERIC_DBUS_SYSTEM_CONF
+			bool
+			prompt "Use generic"
+			help
+			  This uses the generic configuration file for your dbus which is
+			  shipped with the sources. This configuration is likely to fail
+			  because it is thought for a desktop PC.
+
+		config ROOTFS_USER_DBUS_SYSTEM_CONF
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/dbus-1/system.conf. PTXdist
+			  uses file projectroot/etc/dbus-1/system.conf in your local
+			  project.
+
+	endchoice
+
+#
+# /etc/dbus-1/session.conf
+#
+menuconfig ROOTFS_DBUS_SESSION_CONF
+	depends on ROOTFS
+	depends on DBUS
+	bool
+	prompt "/etc/dbus-1/session.conf    "
+	default y
+	help
+	  Installs a /etc/dbus-1/session.conf file from a selectable source.
+
+	choice
+		prompt "Kind of /etc/dbus-1/system.conf"
+		depends on ROOTFS_DBUS_SESSION_CONF
+		default ROOTFS_GENERIC_DBUS_SESSION_CONF
+
+		config ROOTFS_GENERIC_DBUS_SESSION_CONF
+			bool
+			prompt "Use generic"
+			help
+	  	  This uses the generic configuration file for your dbus which is
+				shipped with the sources. This configuration is likely to fail
+				because it is thought for a desktop PC.
+
+		config ROOTFS_USER_DBUS_SESSION_CONF
+			bool
+			prompt "User defined"
+			help
+				This uses a user defined /etc/dbus-1/session.conf. PTXdist
+				uses file projectroot/etc/dbus-1/session.conf in your local
+				project.
+
+	endchoice
+
 endmenu

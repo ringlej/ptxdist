@@ -1,3 +1,5 @@
+# dbus configuration
+
 menuconfig DBUS
 	bool
 	prompt "dbus"
@@ -21,6 +23,17 @@ choice
 		bool
 		prompt "libxml2"
 endchoice
+
+config DBUS_USER
+	depends on DBUS
+	string
+	prompt "user for running the dbus daemon"
+	default "messagebus"
+	help
+	  Enter the user name to run the D-Bus daemon with. The PTXdist
+	  standard configuration has only root, so if you want to use
+	  the dbus default user "messagebus" you have to create a
+	  related user yourself.
 
 #   --enable-tests          enable unit test code
 #   --enable-ansi           enable -ansi -pedantic gcc flags
@@ -60,7 +73,6 @@ endchoice
 #                           directory to check for console ownerhip
 #   --with-console-owner-file=filename
 #                           file whose owner determines current console owner
-#   --with-dbus-user=<user> User for running the DBUS daemon (messagebus)
 #   --with-dbus-daemondir=dirname
 #                           Directory for installing the DBUS daemon
 #   --with-x                use the X Window System

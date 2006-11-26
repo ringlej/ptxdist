@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
+# $Id$
 #
-# Copyright (C) 2006 by Robert Schwebel
+# Copyright (C) 2006 by Roland Hostettler
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -116,7 +116,7 @@ $(STATEDIR)/dbus.targetinstall: $(dbus_targetinstall_deps_default)
 	@$(call install_fixup,dbus,PRIORITY,optional)
 	@$(call install_fixup,dbus,VERSION,$(DBUS_VERSION))
 	@$(call install_fixup,dbus,SECTION,base)
-	@$(call install_fixup,dbus,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,dbus,AUTHOR,"Roland Hostettler <r.hostettler\@gmx.ch>")
 	@$(call install_fixup,dbus,DEPENDS,)
 	@$(call install_fixup,dbus,DESCRIPTION,missing)
 
@@ -138,44 +138,56 @@ $(STATEDIR)/dbus.targetinstall: $(dbus_targetinstall_deps_default)
 	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/event.d/)
 
 	#
-	# use the default config file
+	# use the default /etc/dbus-1/system.conf config file
 	#
-ifdef PTXCONF_DBUS_DEFAULTCONFIG
+ifdef PTXCONF_ROOTFS_GENERIC_DBUS_SYSTEM_CONF
 	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/system.conf, /etc/dbus-1/system.conf,n)
-	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/session.conf, /etc/dbus-1/session.conf,n)
-else
+endif
 
 	#
-	# use users configuration instead
+	# use the users /etc/dbus-1/system.conf config file from projectroot/etc/dbus-1/system.conf
 	#
-ifdef PTXCONF_DBUS_USER_SYSTEM_CONFIG
-ifneq ($(PTXCONF_DBUS_USER_SYSTEM_CONFIG), "")
+ifdef PTXCONF_ROOTFS_USER_DBUS_SYSTEM_CONF
 	@echo "installing user system config file..."
-	@$(call install_copy, dbus, 12, 102, 0644, $(PTXCONF_DBUS_USER_SYSTEM_CONFIG), /etc/dbus-1/system.conf,n)
+	@$(call install_copy, dbus, 0, 0, 0644, $(PTXDIST_WORKSPACE)/projectroot/etc/dbus-1/system.conf, /etc/dbus-1/system.conf,n)
 endif
-ifneq ($(PTXCONF_DBUS_USER_SESSION_CONFIG), "")
+
+	#
+	# use the default /etc/dbus-1/session.conf config file
+	#
+ifdef PTXCONF_ROOTFS_GENERIC_DBUS_SESSION_CONF
+	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/session.conf, /etc/dbus-1/session.conf,n)
+endif
+
+	#
+	# use the user's /etc/dbus-1/session.conf config file from projectroot/etc/dbus-1/session.conf
+	#
+ifdef PTXCONF_ROOTFS_USER_DBUS_SESSION_CONF
 	@echo "installing user session config file..."
-	@$(call install_copy, dbus, 12, 102, 0644, $(PTXCONF_DBUS_USER_SESSION_CONFIG), /etc/dbus-1/session.conf,n)
-endif
-endif
+	@$(call install_copy, dbus, 0, 0, 0644, $(PTXDIST_WORKSPACE)/projectroot/etc/dbus-1/session.conf, /etc/dbus-1/session.conf,n)
 endif
 
 	#
-	# create init script and link to launch at startup
+	# use the generic startup script in /etc/init.d/dbus
 	#
-ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS
-ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_DBUS_USER_FILE)),)
-	@$(call install_copy, dbus, 0, 0, 0755, $(PTXCONF_ROOTFS_ETC_INITD_DBUS_USER_FILE), /etc/init.d/dbus, n)
-
-else
+ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS_GENERIC
 	@$(call install_copy, dbus, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/dbus, /etc/init.d/dbus, n)
 endif
 
+	#
+	# use the user's startup script in /etc/init.d/dbus from projectroot/etc/init.d/dbus
+	#
+ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS_USER
+	@$(call install_copy, dbus, 0, 0, 0755, $(PTXDIST_WORKSPACE)/projectroot/etc/init.d/dbus, /etc/init.d/dbus,n)
+endif
+
+	#
+	# create a link in /etc/rc.d/ to /etc/init.d/dbus
+	#
 ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK),"")
 	@$(call install_copy, dbus, 0, 0, 0755, /etc/rc.d)
 	@$(call install_link, dbus, ../init.d/dbus, /etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK))
-endif
 endif
 endif
 
