@@ -1,12 +1,13 @@
 TODO for 0.10.5
 ===============
 
-[ ] Our current host tools use their target counterparts for getting the
+[ ] ssh: server start scripts are missing
+[ ] ssh: key gen mechanics needed
+[x] Our current host tools use their target counterparts for getting the
     sources; if the target counterpart is not selected, the dependencies
     are not created correctly! Test: switch off ipkg but activate
     host-ipkg.
-
-[ ] audit 'get' stage
+[x] audit 'get' stage
 [ ] test OSELAS.Crosstool
 [ ] util-linux: re-calls automake during compile
 [ ] unbreak host-zlib; it is necessary for host-umkimage if there is no
