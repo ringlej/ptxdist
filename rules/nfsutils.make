@@ -95,6 +95,12 @@ else
 NFSUTILS_AUTOCONF += --without-tcpwrappers
 endif
 
+ifdef PTXCONF_NFSUTILS_RPCUSER_UID
+NFSUTILS_AUTOCONF += --with-statduser=rpcuser
+endif
+ifdef PTXCONF_NFSUTILS_NOBODY_UID
+NFSUTILS_AUTOCONF += --with-statduser=nobody
+endif
 
 $(STATEDIR)/nfsutils.prepare: $(nfsutils_prepare_deps_default)
 	@$(call targetinfo, $@)
