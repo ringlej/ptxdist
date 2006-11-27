@@ -199,10 +199,6 @@ endif
 	@echo
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) make oldconfig $(KERNEL_MAKEVARS)
 	@echo
-	@echo "---------------- make dep ----------------"
-	@echo
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) make dep $(KERNEL_MAKEVARS)
-	@echo
 	@echo "---------- make modules_prepare ----------"
 	@echo
 	# '-' is neccessary because modules_prepare fails on kernels < 2.6.6
