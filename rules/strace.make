@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_STRACE) += strace
 #
 # Paths and names
 #
-STRACE_VERSION		:= 4.5.14-20060810
+STRACE_VERSION		:= 4.5.14-20061101
 STRACE			:= strace-$(STRACE_VERSION)
 #STRACE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/strace/$(STRACE).tar.bz2
 STRACE_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(STRACE).tar.bz2
