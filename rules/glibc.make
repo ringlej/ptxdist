@@ -169,16 +169,15 @@ endif
 
 ifdef PTXCONF_GLIBC_GCONV
 	@$(call install_copy, glibc, 0, 0, 0755, /usr/lib/gconv)
+	@$(call install_copy_toolchain_lib, glibc, gconv/gconv-modules, /usr/lib/gconv)
 endif
 
 ifdef PTXCONF_GLIBC_GCONV_ISO8859_1
-	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-1.so, /lib)
-	echo "module INTERNAL ISO-8859-1// ISO8859-1 1" \
-		>> $(ROOTDIR)/usr/lib/gconv/gconv-modules
-	echo "module INTERNAL ISO-8859-1// ISO8859-1 1" \
-		>> $(ROOTDIR_DEBUG)/usr/lib/gconv/gconv-modules
-	echo "module INTERNAL ISO-8859-1// ISO8859-1 1" 	\
-		>> $(ROOTDIR)/usr/lib/gconv/gconv-modules
+	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-1.so, /usr/lib/gconv)
+endif
+
+ifdef PTXCONF_GLIBC_GCONV_ISO8859_15
+	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-15.so, /usr/lib/gconv)
 endif
 
 # Zonefiles

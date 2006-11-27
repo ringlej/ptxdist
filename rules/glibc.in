@@ -161,16 +161,28 @@ config GLIBC_GCONV
 	bool
 	depends on GLIBC_INSTALL
 	prompt "Install gconv libraries"
-	depends on GLIBC 
+	depends on GLIBC
 	help
-	  FIXME: This item needs to be documented
+	  The gconv-modules extend the glibc, they are used by 
+	  several programs to convert the local codepages.
 
 config GLIBC_GCONV_ISO8859_1
 	bool
 	prompt "  ISO8859-1"
-	depends on GLIBC_GCONV 
+	depends on GLIBC_GCONV
 	help
-	  FIXME: This item needs to be documented
+	  install the iso8859-1 (Latin Alphabet No.1) encoding module 
+	  into gconv, this should be ok for most west and north european
+	  languages.
+
+config GLIBC_GCONV_ISO8859_15
+	bool
+	prompt "  ISO8859-15"
+	depends on GLIBC_GCONV
+	help
+	  install the iso8859-15 (Latin Alphabet No.9) encoding module
+	  into gconv, this one contains french ligatures and the euro
+	  symbol
 
 # -----
 
