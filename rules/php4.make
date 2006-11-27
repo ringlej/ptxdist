@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: php4.make,v 1.3 2006/09/26 18:29:22 michl Exp $
+# $Id: php4.make,v 1.6 2006/11/27 13:29:50 michl Exp $
 #
 # Copyright (C) 2005 by Jiri Nesladek
 #          
@@ -72,10 +72,15 @@ PHP4_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--with-config-file-path=/etc \
 	--with-expat-dir=$(SYSROOT) \
-	--disable-all
+	--disable-all \
+	--disable-cgi \
+	--with-pcre-regex
 
 ifndef PTXCONF_PHP4_CLI
 PHP4_AUTOCONF += --disable-cli
+endif
+ifndef PTXCONF_PHP4_ZTS
+PHP4_AUTOCONF += --enable-experimental-zts
 endif
 ifdef PTXCONF_APACHE2_MOD_PHP4
 PHP4_AUTOCONF += --with-apxs2=$(SYSROOT)/usr/bin/apxs

@@ -7,6 +7,14 @@ config PHP4
 	  language with the goal to allow web developers to write dynamically
 	  generated pages quickly.
 
+config PHP4_ZTS
+	bool
+	prompt "Zend Thread Safety"
+	depends on PHP4
+	help
+	  Zend Thread Safety (ZTS) is required for a multithreaded version
+	  of Apache. Not all extensions might be available.
+
 config PHP4_CLI
 	bool
 	prompt "Build CLI version of PHP4"
