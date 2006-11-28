@@ -270,7 +270,8 @@ CROSS_ENV_AC := \
 	ac_cv_func_posix_getpwuid_r=yes \
 	ac_cv_func_dcgettext=yes \
 	gt_cv_func_gettext_libintl=yes \
-	ac_cv_sysv_ipc=yes
+	ac_cv_sysv_ipc=yes \
+	ac_cv_c_bigendian=no
 
 CROSS_ENV_DESTDIR := \
 	DESTDIR=$(SYSROOT)
@@ -879,6 +880,56 @@ install_copy = 											\
 		mkdir -p $(IMAGEDIR)/$$PACKET;							\
 		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;			\
 	fi
+
+#
+# install_alternative
+# 
+# Installs a file with user/group ownership and permissions via
+# fakeroot.
+#
+# This macro first looks in $(PTXDIST_WORKSPACE)/source for the file to copy and then
+# in $(PTXDIST_TOPDIR)/generic/source and installs the file under $(ROOTDIR)/source
+#
+# $1: packet label
+# $2: UID
+# $3: GID
+# $4: permissions (octal)
+# $5: source file
+#
+install_alternative =									\
+	PACKET=$(strip $(1));								\
+	OWN=$(strip $(2));								\
+	GRP=$(strip $(3));								\
+	PER=$(strip $(4));								\
+	FILE=$(strip $(5));								\
+	if [ -f $(PTXDIST_WORKSPACE)/projectroot$$FILE ]; then				\
+		SRC=$(PTXDIST_WORKSPACE)/projectroot$$FILE;				\
+	else										\
+		SRC=$(PTXDIST_TOPDIR)/generic$$FILE;					\
+	fi;										\
+	echo "install_alternative:";							\
+	echo "  installing $$FILE from $$SRC";						\
+	echo "  owner=$$OWN";								\
+	echo "  group=$$GRP";								\
+	echo "  permissions=$$PER"; 							\
+	rm -fr $(IMAGEDIR)/$$PACKET/ipkg/$$FILE; 					\
+	$(INSTALL) -D $$SRC $(IMAGEDIR)/$$PACKET/ipkg/$$FILE;				\
+	if [ $$? -ne 0 ]; then								\
+		echo "Error: install_alternative failed!";				\
+		exit 1;									\
+	fi;										\
+	$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR)$$FILE;					\
+	if [ $$? -ne 0 ]; then								\
+		echo "Error: install_alternative failed!";				\
+		exit 1;									\
+	fi;										\
+	$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR_DEBUG)$$FILE;				\
+	if [ $$? -ne 0 ]; then								\
+		echo "Error: install_alternative failed!";				\
+		exit 1;									\
+	fi;										\
+	mkdir -p $(IMAGEDIR)/$$PACKET;							\
+	echo "f:$$FILE:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;
 
 #
 # install_replace
