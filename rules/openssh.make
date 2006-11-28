@@ -162,9 +162,6 @@ ifdef PTXCONF_OPENSSH_SFTP_SERVER
 endif
 
 ifdef PTXCONF_OPENSSH_KEYGEN
-	# FIXME: if this is the only file in this directory move it
-	# to somewhere else (patch, echo << EOF?) [RSC]
-	@$(call install_copy, openssh, 0, 0, 0755, $(PTXDIST_TOPDIR)/scripts/openssh-host-keygen.sh, /sbin/openssh-host-keygen.sh, n)
 	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/ssh-keygen, /usr/bin/ssh-keygen)
 endif
 	@$(call install_finish, openssh)
