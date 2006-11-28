@@ -189,10 +189,13 @@ config GLIBC_GCONV_ISO8859_15
 comment "Timezone Files"
 	depends on GLIBC_INSTALL
 
+comment "glibc zoneinfo is BROKEN"
+	depends on GLIBC_INSTALL && !BROKEN
+
 config GLIBC_ZONEINFO
 	bool
 	prompt "Install zoneinfo files"
-	depends on GLIBC_INSTALL
+	depends on GLIBC_INSTALL && BROKEN
 	help
 	  FIXME: This item needs to be documented
 
@@ -485,3 +488,15 @@ config GLIBC_ZONEINFO_UNIVERSAL
 	bool
 	prompt "Universal"
 	depends on GLIBC_ZONEINFO
+
+comment "misc executeables"
+
+config GLIBC_LOCALE
+	bool
+	prompt "locale"
+	depends on GLIBC_INSTALL
+
+config GLIBC_LOCALEDEF
+	bool
+	prompt "localedef"
+	depends on GLIBC_INSTALL

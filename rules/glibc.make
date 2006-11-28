@@ -180,13 +180,24 @@ ifdef PTXCONF_GLIBC_GCONV_ISO8859_15
 	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-15.so, /usr/lib/gconv)
 endif
 
-# Zonefiles
-	@$(call install_copy, glibc, 0, 0, 0755, /usr/share/zoneinfo)
-	@for target in $(GLIBC_ZONEFILES-y); do \
-		$(call install_copy, glibc, 0, 0, 0644, \
-		$(GLIBC_ZONEDIR)/zoneinfo/$$target, \
-		/usr/share/zoneinfo/$$target) \
-	done;
+
+ifdef PTXCONF_GLIBC_LOCALE
+	@$(call install_copy_toolchain_other, glibc, bin/locale)
+endif
+
+ifdef PTXCONF_GLIBC_LOCALEDEF
+	@$(call install_copy_toolchain_other, glibc, bin/localedef)
+endif
+
+
+
+# Zonefiles are BROKEN
+# 	@$(call install_copy, glibc, 0, 0, 0755, /usr/share/zoneinfo)
+# 	@for target in $(GLIBC_ZONEFILES-y); do \
+# 		$(call install_copy, glibc, 0, 0, 0644, \
+# 		$(GLIBC_ZONEDIR)/zoneinfo/$$target, \
+# 		/usr/share/zoneinfo/$$target) \
+# 	done;
 	@$(call install_finish, glibc)
 endif
 
