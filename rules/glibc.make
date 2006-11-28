@@ -190,6 +190,7 @@ ifdef PTXCONF_GLIBC_LOCALEDEF
 endif
 
 
+#	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/ISO-8859-15.gz,,n)
 
 # Zonefiles are BROKEN
 # 	@$(call install_copy, glibc, 0, 0, 0755, /usr/share/zoneinfo)
