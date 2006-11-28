@@ -8,26 +8,26 @@
 #
 # out: $lib_path
 #
-get_lib_path() {
-    local lib lib_dir
+ptxd_get_lib_path() {
+    local lib lib_dir lib_path
 
     lib="${1}"
 
     # ask the compiler for the lib
     lib_path="`${CC} -print-file-name=${lib}`"
     if test "${lib_path}" = "${lib}"; then
-	echo "install_copy_toolchain_lib: ${lib} not found"
+	echo "install_copy_toolchain_lib: ${lib} not found" >&2
 	return -1
     fi
     # let the shell canonicalized the path
     lib_dir="`cd ${lib_path%/${lib}} && echo $PWD`"
 
     if test \! -d "${lib_dir}"; then
-	echo "install_copy_toolchain_lib: ${lib_dir} not found"
+	echo "install_copy_toolchain_lib: ${lib_dir} not found" >&2
 	return -1
     fi
 
-    lib_path="${lib_dir}/${lib}"
+    echo "${lib_dir}/${lib}"
 }
 
 
@@ -45,10 +45,12 @@ get_lib_path() {
 # - one more thing: if we find a tls lib (e.g. in the /lib/tls subdir)
 #   we use it
 #
-ptxd_install_lib() {
+ptxd_install_toolchain_lib() {
     local lib_path lib lib_dir sysroot prefix prefix script_lib tmp tls_lib dir v_full lib_v_major
+    local args packet dest strip
 
-    lib_path="${1}"
+    eval "${@}"
+    eval "${args}"
 
     while true; do
 	lib="${lib_path##*/}"			# the pure library filename "libxxx.so"
@@ -71,8 +73,8 @@ ptxd_install_lib() {
 #	tls_lib="${lib_dir}/tls/${lib}"
 #	if test -e "${tls_lib}"; then
 #	    echo "tls - ${tls_lib}"
-#	    ptxd_install_lib "${tls_lib}"
-#	    return $?	
+#	    ptxd_install_toolchain_lib "${tls_lib}"
+#	    return $?
 #	fi
 
 	# remove existing libs
@@ -99,7 +101,7 @@ ptxd_install_lib() {
 	    done
 
 	    # now do the same thing for the target of the link
-	    lib_path="`readlink \"${lib_path}\"`" || ( echo broken link; exit 1 )
+	    lib_path="`readlink \"${lib_path}\"`" || ( echo "broken link" >&2; exit 1 )
 
 	    # deal with relative and absolute links
 	    case "${lib_path}" in
@@ -116,20 +118,20 @@ ptxd_install_lib() {
 	    # is this a linker script?
 	    if grep "GNU ld script" "${lib_path}" 1>/dev/null 2>&1; then
 		echo "script - ${lib_path}"
-		# 
+		#
 		# the libs are in the GROUP line
 		# strip all braces and install all shared libs ( *.so*), ignore "GROUP" and static libs
 		#
 		for script_lib in `sed -n -e "/GROUP/s/[()]//gp" "${lib_path}"`; do
 		    # deal with relative and absolute libs
-		    case "${script_lib}" in 
+		    case "${script_lib}" in
 			/*.so*)
 			    echo "in script - ${script_lib}"
-			    ptxd_install_lib "${sysroot}/${script_lib}" || return $?
+			    ptxd_install_toolchain_lib "args=\"${args}\"" "lib_path=\"${sysroot}/${script_lib}\"" || return $?
 			    ;;
 			*.so*)
 			    echo "in script - ${script_lib}"
-			    ptxd_install_lib "${lib_dir}/${script_lib}" || return $?
+			    ptxd_install_toolchain_lib "args=\"${args}\"" "lib_path=\"${lib_dir}/${script_lib}\"" || return $?
 			    ;;
 			*)
 			    ;;
@@ -138,7 +140,7 @@ ptxd_install_lib() {
 	    else
 		# ordinary shared lib, just copy it
 		echo "lib - ${lib_path}"
-		
+
 		for dir in \
 		    "${ROOTDIR}" \
 		    "${ROOTDIR_DEBUG}" \
@@ -147,8 +149,10 @@ ptxd_install_lib() {
 		  install -D "${lib_path}" "${dir}${prefix}/${lib}"
 		done
 
-		${STRIP} "${ROOTDIR}${prefix}/${lib}"
-		${STRIP} "${IMAGEDIR}/${packet}/ipkg${prefix}/${lib}"
+		if "${strip}"; then
+		    ${STRIP} "${ROOTDIR}${prefix}/${lib}"
+		    ${STRIP} "${IMAGEDIR}/${packet}/ipkg${prefix}/${lib}"
+		fi
 		echo "f:${prefix}/${lib}:0:0:755" >> "${STATEDIR}/${packet}.perms"
 
 		# now create some links to that lib
@@ -160,7 +164,7 @@ ptxd_install_lib() {
 		lib_v_major="${lib%${v_full}}${v_full%%.*}"
 
 		if test "${v_full}" != "${lib}" -a \
-		    "${lib_v_major}" != "${lib}"; then		    
+		    "${lib_v_major}" != "${lib}"; then
 		    echo "extra link - ${prefix}/${lib_v_major}"
 
 		    for dir in \
@@ -175,7 +179,7 @@ ptxd_install_lib() {
 		fi
 	    fi
 	else
-	    echo "error: found ${lib_path}, but neither file nor link"
+	    echo "error: found ${lib_path}, but neither file nor link" 2>&1
 	    return -1
 	fi
 
@@ -184,25 +188,125 @@ ptxd_install_lib() {
 }
 
 
+_ptxd_get_sysroot_usr_by_sysroot() {
+    local sysroot
+
+    sysroot="`echo 'int main(void){return 0;}' | \
+	${CC} -x c -o /dev/null -v - 2>&1 | \
+	sed -ne \"/.*collect2.*/s,.*--sysroot=\([^[:space:]]*\).*,\1,p\"`"
+
+    test -n "${sysroot}" || return 1
+
+    echo "`ptxd_abspath ${sysroot}/usr`"
+}
+
+
+_ptxd_get_sysroot_usr_by_progname() {
+    local prog_name
+
+    prog_name="`${CC} -print-prog-name=gcc`"
+    case "${prog_name}" in
+	/*)
+	    prog_name="`ptxd_abspath ${prog_name%/bin/gcc}`"
+	    ;;
+	*)
+	    if test "${NATIVE}" = "1"; then
+		prog_name="/usr"
+	    else
+		return 1
+	    fi
+	    ;;
+    esac
+
+    echo "${prog_name}"
+}
+
+
+ptxd_get_sysroot_usr() {
+    local sysroot_usr
+
+    sysroot_usr="`_ptxd_get_sysroot_usr_by_sysroot`" ||
+    sysroot_usr="`_ptxd_get_sysroot_usr_by_progname`" ||
+    ( echo "unable to identify your SYSROOT, giving up"; return $? )
+
+    echo "${sysroot_usr}"
+}
+
+
+ptxd_install_toolchain_usr() {
+    local sysroot_usr usr usr_src usr_perm
+
+    eval "${@}"
+
+    sysroot_usr="`ptxd_get_sysroot_usr`" || return $?
+
+    usr_src="${sysroot_usr}/${usr}"
+    if test \! -e "${usr_src}"; then
+	echo "file ${usr} not found"
+	return 1
+    fi
+
+    eval `stat -c"usr_perm=%a" "${usr_src}"`
+    usr_dst="/usr/${usr}"
+
+    echo "usr - ${usr_src}"
+
+    for dir in \
+	"${ROOTDIR}" \
+	"${ROOTDIR_DEBUG}" \
+	"${IMAGEDIR}/${packet}/ipkg"; do
+
+      install -D "${usr_src}" "${dir}${usr_dst}"
+    done
+
+    if "${strip}"; then
+	${STRIP} "${ROOTDIR}${usr_dst}"
+	${STRIP} "${IMAGEDIR}/${packet}/ipkg${usr_dst}"
+    fi
+    echo "f:${usr_dst}:0:0:${usr_perm}" >> "${STATEDIR}/${packet}.perms"
+}
+
+
+ptxd_install_copy_toolchain() {
+    local args opt lib usr
+
+    while getopts "p:l:u:d:s::" opt; do
+	case "${opt}" in
+	    p)
+		args="${args} packet=\"${OPTARG}\""
+		;;
+	    l)
+		lib="${OPTARG}"
+		;;
+	    u)
+		usr="${OPTARG}"
+		;;
+	    d)
+		args="${args} dest=\"${OPTARG}\""
+		;;
+	    s)
+		case "${OPTARG}" in
+		    y|yes|1|true|"")
+			args="${args} strip=true"
+			;;
+		    *)
+			args="${args} strip=false"
+			;;
+		esac
+		;;
+	esac
+    done
+
+    if test -n "${lib}"; then
+	lib_path="`ptxd_get_lib_path \"${lib}\"`" || return $?
+	ptxd_install_toolchain_lib "args=\"${args}"\" "lib_path=${lib_path}" || return $?
+    elif test -n "${usr}"; then
+	ptxd_install_toolchain_usr "${args}" "usr=${usr}" || return $?
+    fi
+}
+
+
 #
 # main()
 #
-while getopts "p:l:d:s::" opt; do
-    case "${opt}" in
-	p)
-	    packet="${OPTARG}"
-	    ;;
-	l)
-	    lib="${OPTARG}"
-	    ;;
-	d)
-	    dest="${OPTARG}"
-	    ;;
-	s)
-	    strip="${OPTARG}"
-	    ;;
-    esac
-done
-
-get_lib_path "${lib}" || exit $?
-ptxd_install_lib "${lib_path}" || exit $?
+ptxd_install_copy_toolchain "${@}"
