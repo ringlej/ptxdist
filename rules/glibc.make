@@ -182,11 +182,11 @@ endif
 
 
 ifdef PTXCONF_GLIBC_LOCALE
-	@$(call install_copy_toolchain_other, glibc, bin/locale)
+	@$(call install_copy_toolchain_usr, glibc, bin/locale)
 endif
 
 ifdef PTXCONF_GLIBC_LOCALEDEF
-	@$(call install_copy_toolchain_other, glibc, bin/localedef)
+	@$(call install_copy_toolchain_usr, glibc, bin/localedef)
 endif
 
 

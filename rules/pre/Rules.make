@@ -993,14 +993,14 @@ install_copy_toolchain_lib =									\
 # $3: destination
 # $4: strip (y|n)	default is to strip
 #
-install_copy_toolchain_other =									\
+install_copy_toolchain_usr =									\
 	PACKET=$(strip $(1));									\
 	LIB="$(strip $2)";									\
 	DST="$(strip $3)";									\
 	STRIP="$(strip $4)";									\
 	test "$${DST}" != "" && DST="-d $${DST}";						\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)							\
-		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -o "$${LIB}" $${DST} -s "$${STRIP}"
+		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -u "$${LIB}" $${DST} -s "$${STRIP}"
 
 #
 # install_copy_toolchain_dl
