@@ -51,4 +51,5 @@ genpart -b 0 -s 0 -m >> $IMAGEFILE
 cat $STAGE2 /dev/zero | dd bs=512 count=299 >> $IMAGEFILE
 
 # append the ext2 image padded to PARTSIZE blocks
-cat $FSIMAGE /dev/zero | dd bs=512 count=$(($PARTSIZE - 300)) >> $IMAGEFILE
+cat $FSIMAGE /dev/zero | dd bs=512 count=$PARTSIZE >> $IMAGEFILE
+
