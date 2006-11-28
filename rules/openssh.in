@@ -4,36 +4,49 @@ menuconfig OPENSSH
 	select OPENSSL
 	prompt "OpenSSH             "
 	help
-	  FIXME: This item needs to be documented
+	  ssh (Secure Shell) is a program for logging into a remote machine and
+	  for executing commands on a remote machine. It provides secure
+	  encrypted communications between two untrusted hosts over an insecure
+	  network.  X11 connections and arbitrary TCP/IP ports can also be
+	  forwarded over the secure channel. It is intended as a replacement
+	  for rlogin, rsh and rcp, and can be used to provide applications with
+	  a secure communication channel.
 
 config OPENSSH_SSH
 	bool "Install ssh (client)"
 	depends on OPENSSH
 	help
-	  FIXME: This item needs to be documented
+	  Install the client program (ssh) on the target
 
 config OPENSSH_SSHD
 	bool "Install sshd (server)"
 	default y
 	depends on OPENSSH
 	help
-	  FIXME: This item needs to be documented
+	  Install the openSSH server program (sshd) on the
+	  target
+
+config ROOTFS_ETC_INITD_OPENSSH
+	depends on OPENSSH_SSHD
+	bool
+	default y
+	prompt "Install startup script      "
 
 config OPENSSH_SCP
 	bool "Install scp"
 	depends on OPENSSH
 	help
-	  FIXME: This item needs to be documented
+	  Install the secure copy program (scp) on the target
 
 config OPENSSH_SFTP_SERVER
 	bool "Install sftp-server"
 	depends on OPENSSH
 	help
-	  FIXME: This item needs to be documented
+	  Install the secure ftp program (sftp) on the target
 
 config OPENSSH_KEYGEN
 	bool "Install ssh-keygen"
 	default y
 	depends on OPENSSH
 	help
-	  FIXME: This item needs to be documented
+	  Install ssh-keygen on the target

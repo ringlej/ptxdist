@@ -128,20 +128,29 @@ $(STATEDIR)/openssh.targetinstall: $(openssh_targetinstall_deps_default)
 	@$(call install_fixup, openssh,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, openssh,DEPENDS,)
 	@$(call install_fixup, openssh,DESCRIPTION,missing)
-	
+
 ifdef PTXCONF_OPENSSH_SSH
-	@$(call install_copy, openssh, 0, 0, 0644, $(OPENSSH_DIR)/ssh_config.out, /etc/ssh/ssh_config, n)
+	@$(call install_alternative, openssh, 0, 0, 0644, /etc/ssh/ssh_config)
 	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/ssh, /usr/bin/ssh)
 endif
 
 ifdef PTXCONF_OPENSSH_SSHD
 	@$(call install_copy, openssh, 0, 0, 0644, $(OPENSSH_DIR)/moduli.out, /etc/ssh/moduli, n)
-	@$(call install_copy, openssh, 0, 0, 0644, $(OPENSSH_DIR)/sshd_config.out, /etc/ssh/sshd_config, n)
-	perl -p -i -e "s/#PermitRootLogin yes/PermitRootLogin yes/" \
-		$(ROOTDIR)/etc/ssh/sshd_config
-	perl -p -i -e "s/#PermitRootLogin yes/PermitRootLogin yes/" \
-		$(IMAGEDIR)/ipkg/etc/ssh/sshd_config
+	@$(call install_alternative, openssh, 0, 0, 0644, /etc/ssh/sshd_config)
 	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/sshd, /usr/sbin/sshd)
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_OPENSSH
+	@$(call install_alternative, openssh, 0, 0, 0755, /etc/init.d/openssh)
+endif
+
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_OPENSSH_LINK),"")
+	@$(call install_copy, openssh, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, openssh, ../init.d/openssh, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_OPENSSH_LINK))
 endif
 
 ifdef PTXCONF_OPENSSH_SCP
