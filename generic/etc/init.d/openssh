@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/sbin/sshd
+NAME=sshd
+DESC="openssh server"
+PIDFILE=/var/run/sshd.pid
+set -e
+
+OPENSSH_RSAKEY_DEFAULT=/etc/ssh/ssh_host_rsa_key
+OPENSSH_DSAKEY_DEFAULT=/etc/ssh/ssh_host_dsa_key
+
+test -n "$OPENSSH_RSAKEY" || \
+  OPENSSH_RSAKEY=$OPENSSH_RSAKEY_DEFAULT
+test -n "$OPENSSH_DSAKEY" || \
+  OPENSSH_DSAKEY=$OPENSSH_DSAKEY_DEFAULT
+test -n "$OPENSSH_KEYTYPES" || \
+  OPENSSH_KEYTYPES="rsa dsa"
+
+gen_keys() {
+for t in $OPENSSH_KEYTYPES; do
+  case $t in
+    rsa)
+        test -f $OPENSSH_RSAKEY || ssh-keygen -t rsa -f $OPENSSH_RSAKEY -N ""
+	;;
+    dsa)
+        test -f $OPENSSH_DSAKEY || ssh-keygen -t dsa -f $OPENSSH_DSAKEY -N ""
+	;;
+  esac
+done
+}
+
+case "$1" in
+  start)
+	mkdir -p /var/run/sshd
+	echo -n "Starting $DESC: "
+	gen_keys
+	start-stop-daemon -S -x "$DAEMON" -p $PIDFILE
+	echo "$NAME."
+	;;
+  stop)
+	echo -n "Stopping $DESC: "
+	start-stop-daemon -K -p $PIDFILE
+	echo "$NAME."
+	;;
+  restart|force-reload)
+	echo -n "Restarting $DESC: "
+	start-stop-daemon -K -x "$DAEMON" -p $PIDFILE
+	sleep 1
+	start-stop-daemon -S -x "$DAEMON" -p $PIDFILE
+	echo "$NAME."
+	;;
+  *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
