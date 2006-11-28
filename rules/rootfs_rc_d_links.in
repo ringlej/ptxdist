@@ -102,6 +102,16 @@ config ROOTFS_ETC_INITD_DROPBEAR_LINK
 	  start dropbear when system boots. Keep this entry empty if
 	  you do not want to start this service automatically.
 
+config ROOTFS_ETC_INITD_OPENSSH_LINK
+	depends on ROOTFS_ETC_INITD_OPENSSH
+	string
+	prompt "openssh link name"
+	default "S08_openssh"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/openssh to
+	  start openssh when system boots. Keep this entry empty if
+	  you do not want to start this service automatically.
+
 config ROOTFS_ETC_INITD_PUREFTPD_LINK
 	depends on ROOTFS_ETC_INITD_PUREFTPD
 	string
