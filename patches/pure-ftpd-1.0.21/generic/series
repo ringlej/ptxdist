@@ -14,4 +14,4 @@ configure-md5-cacheable.diff
 configure_ac-sha1-cacheable.diff
 configure-sha1-cacheable.diff
 configure_ac-virtuozzo-cacheable.diff
-configure-svirtuozzo-cacheable.diff
+configure-virtuozzo-cacheable.diff
