@@ -1,0 +1,65 @@
+Index: pure-ftpd-1.0.21/configure
+===================================================================
+--- pure-ftpd-1.0.21.orig/configure
++++ pure-ftpd-1.0.21/configure
+@@ -21618,12 +21618,12 @@ fi
+ 
+ echo "$as_me:$LINENO: checking whether you already have a standard MD5 implementation" >&5
+ echo $ECHO_N "checking whether you already have a standard MD5 implementation... $ECHO_C" >&6
++if test "${ac_cv_use_system_crypt_md5+set}" = set; then
++  echo $ECHO_N "(cached) $ECHO_C" >&6
++else
++
+ if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
++  ac_cv_use_system_crypt_md5="no (cross compiling)"
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -21663,14 +21663,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_l
+   ac_status=$?
+   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+   (exit $ac_status); }; }; then
+-
+-echo "$as_me:$LINENO: result: yes" >&5
+-echo "${ECHO_T}yes" >&6
+-
+-cat >>confdefs.h <<\_ACEOF
+-#define USE_SYSTEM_CRYPT_MD5
+-_ACEOF
+-
++  ac_cv_use_system_crypt_md5=yes
+ 
+ else
+   echo "$as_me: program exited with status $ac_status" >&5
+@@ -21678,13 +21671,24 @@ echo "$as_me: failed program was:" >&5
+ sed 's/^/| /' conftest.$ac_ext >&5
+ 
+ ( exit $ac_status )
+-echo "$as_me:$LINENO: result: no" >&5
+-echo "${ECHO_T}no" >&6
++ac_cv_use_system_crypt_md5=no
+ 
+ fi
+ rm -f core *.core gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+ fi
+ 
++fi
++echo "$as_me:$LINENO: result: $ac_cv_use_system_crypt_md5" >&5
++echo "${ECHO_T}$ac_cv_use_system_crypt_md5" >&6
++if test "x$ac_cv_use_system_crypt_md5" = xyes
++then
++
++cat >>confdefs.h <<\_ACEOF
++#define USE_SYSTEM_CRYPT_MD5
++_ACEOF
++
++fi
++
+ echo "$as_me:$LINENO: checking whether you already have a standard SHA1 implementation" >&5
+ echo $ECHO_N "checking whether you already have a standard SHA1 implementation... $ECHO_C" >&6
+ if test "$cross_compiling" = yes; then

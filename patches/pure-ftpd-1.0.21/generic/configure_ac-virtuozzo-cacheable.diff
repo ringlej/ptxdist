@@ -1,0 +1,28 @@
+Index: pure-ftpd-1.0.21/configure.ac
+===================================================================
+--- pure-ftpd-1.0.21.orig/configure.ac
++++ pure-ftpd-1.0.21/configure.ac
+@@ -1091,13 +1091,19 @@ then
+ SHA1 functions])
+ fi
+ 
+-AC_MSG_CHECKING([whether we are inside a Virtuozzo virtual host])
++AC_CACHE_CHECK([whether we are inside a Virtuozzo virtual host],
++  [ac_cv_virtuozzo],
++[
+ if test -d /proc/vz; then
+-  AC_MSG_RESULT(yes)
++  ac_cv_virtuozzo=yes
++else
++  ac_cv_virtuozzo=no
++fi
++])
++if test "x$ac_cv_virtuozzo" = xyes
++then
+   AC_DEFINE(VIRTUOZZO,,[Define if you are inside a Virtuozzo virtual
+ host])
+-else
+-  AC_MSG_RESULT(no)
+ fi
+ 
+ AC_MSG_CHECKING(default TCP send buffer size)

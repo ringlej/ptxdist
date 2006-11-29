@@ -1,0 +1,36 @@
+Index: pure-ftpd-1.0.21/configure
+===================================================================
+--- pure-ftpd-1.0.21.orig/configure
++++ pure-ftpd-1.0.21/configure
+@@ -21758,17 +21758,26 @@ fi
+ 
+ echo "$as_me:$LINENO: checking whether we are inside a Virtuozzo virtual host" >&5
+ echo $ECHO_N "checking whether we are inside a Virtuozzo virtual host... $ECHO_C" >&6
++if test "${ac_cv_virtuozzo+set}" = set; then
++  echo $ECHO_N "(cached) $ECHO_C" >&6
++else
++
+ if test -d /proc/vz; then
+-  echo "$as_me:$LINENO: result: yes" >&5
+-echo "${ECHO_T}yes" >&6
++  ac_cv_virtuozzo=yes
++else
++  ac_cv_virtuozzo=no
++fi
++
++fi
++echo "$as_me:$LINENO: result: $ac_cv_virtuozzo" >&5
++echo "${ECHO_T}$ac_cv_virtuozzo" >&6
++if test "x$ac_cv_virtuozzo" = xyes
++then
+ 
+ cat >>confdefs.h <<\_ACEOF
+ #define VIRTUOZZO
+ _ACEOF
+ 
+-else
+-  echo "$as_me:$LINENO: result: no" >&5
+-echo "${ECHO_T}no" >&6
+ fi
+ 
+ echo "$as_me:$LINENO: checking default TCP send buffer size" >&5
