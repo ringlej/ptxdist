@@ -213,26 +213,7 @@ check_dirs() {
 		ptxconf_prefix=$PREFIX
 	fi
 
-	if test -d ${ptxconf_prefix}; then
-	    	testfile=${ptxconf_prefix}/.secret-world-domination-project
-		touch ${testfile} 2> /dev/null
-		if test $? -ne 0; then
-			echo
-			echo "error: \"${ptxconf_prefix}\""
-			echo "       does exist, but is not writeable."
-			echo "       Change the permissions and try again."
-			echo
-			read -t 5 -p "press enter to let sudo do the job!"
-			if test $? -ne 0; then
-				echo
-				exit 1
-			fi
-			echo
-			echo sudo chown $UID ${ptxconf_prefix}
-			sudo chown $UID ${ptxconf_prefix}
-		fi
-		rm ${testfile}
-	else
+	if test \! -d ${ptxconf_prefix}; then
 		mkdir -p ${ptxconf_prefix} 2> /dev/null
 		if test $? -ne 0; then
 			echo
@@ -253,6 +234,35 @@ check_dirs() {
 			sudo chown $UID ${ptxconf_prefix}
 		fi
 	fi
+
+    	testfile=${ptxconf_prefix}/.secret-world-domination-project
+	touch ${testfile} 2> /dev/null
+	if test $? -ne 0; then
+		echo
+		echo "error: \"${ptxconf_prefix}\""
+		echo "       does exist, but is not writeable."
+		echo "       Change the permissions and try again."
+		echo
+		read -t 5 -p "press enter to let sudo do the job!"
+		if test $? -ne 0; then
+			echo
+			exit 1
+		fi
+		echo
+		echo sudo chown $UID ${ptxconf_prefix}
+		sudo chown $UID ${ptxconf_prefix}
+		echo sudo chmod u+w ${ptxconf_prefix}
+		sudo chmod u+w ${ptxconf_prefix}
+
+		touch ${testfile} 2> /dev/null
+		if test $? -ne 0; then
+			echo
+			echo "error: cannot make \"${ptxconf_prefix}\" writeable, giving up"
+			echo
+			exit 1
+		fi
+	fi
+	rm ${testfile}
 
 	ptxconf_gnu_target=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
 
