@@ -1,8 +1,19 @@
+#
+# Committed-By: Marc Kleine-Budde <mkl@pengutronix.de>, 2006-11-29
+#
+# Error:
+#
+# check for realpath is not cross aware, make it cacheable and added cross default value
+#
+# State:
+#
+# should be commited
+#
 Index: pure-ftpd-1.0.21/configure.ac
 ===================================================================
 --- pure-ftpd-1.0.21.orig/configure.ac
 +++ pure-ftpd-1.0.21/configure.ac
-@@ -961,7 +961,9 @@ then
+@@ -979,7 +979,9 @@ then
    AC_DEFINE(SAFE_GETGROUPS_0,,[Define is getgroups(0, NULL) works on your system])
  fi
  
@@ -13,7 +24,7 @@ Index: pure-ftpd-1.0.21/configure.ac
  AC_RUN_IFELSE([AC_LANG_SOURCE([[
  #include <stdio.h>
  #ifdef STDC_HEADERS
-@@ -1014,13 +1016,17 @@ int main(void)
+@@ -1032,13 +1034,17 @@ int main(void)
      
      return 0;    
  }

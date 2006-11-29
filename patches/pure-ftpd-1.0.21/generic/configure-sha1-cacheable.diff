@@ -1,8 +1,19 @@
+#
+# Committed-By: Marc Kleine-Budde <mkl@pengutronix.de>, 2006-11-29
+#
+# Error:
+#
+# check for SHA1 is not cross aware, make it cacheable and added cross default value
+#
+# State:
+#
+# do not commit, this fixes a generated file
+#
 Index: pure-ftpd-1.0.21/configure
 ===================================================================
 --- pure-ftpd-1.0.21.orig/configure
 +++ pure-ftpd-1.0.21/configure
-@@ -21677,7 +21677,6 @@ fi
+@@ -21695,7 +21695,6 @@ fi
  rm -f core *.core gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
  fi
  
@@ -10,7 +21,7 @@ Index: pure-ftpd-1.0.21/configure
  echo "$as_me:$LINENO: result: $ac_cv_use_system_crypt_md5" >&5
  echo "${ECHO_T}$ac_cv_use_system_crypt_md5" >&6
  if test "x$ac_cv_use_system_crypt_md5" = xyes
-@@ -21692,11 +21691,7 @@ fi
+@@ -21710,11 +21709,7 @@ fi
  echo "$as_me:$LINENO: checking whether you already have a standard SHA1 implementation" >&5
  echo $ECHO_N "checking whether you already have a standard SHA1 implementation... $ECHO_C" >&6
  if test "$cross_compiling" = yes; then
@@ -23,7 +34,7 @@ Index: pure-ftpd-1.0.21/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -21735,14 +21730,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_l
+@@ -21753,14 +21748,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_l
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
@@ -39,7 +50,7 @@ Index: pure-ftpd-1.0.21/configure
  
  else
    echo "$as_me: program exited with status $ac_status" >&5
-@@ -21750,13 +21738,24 @@ echo "$as_me: failed program was:" >&5
+@@ -21768,13 +21756,24 @@ echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
  ( exit $ac_status )

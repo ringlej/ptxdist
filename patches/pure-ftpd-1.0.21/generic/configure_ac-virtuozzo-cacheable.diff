@@ -1,8 +1,19 @@
+#
+# Committed-By: Marc Kleine-Budde <mkl@pengutronix.de>, 2006-11-29
+#
+# Error:
+#
+# check for Virtuozzo is not cross aware, make it cacheable and added cross default value
+#
+# State:
+#
+# should be commited
+#
 Index: pure-ftpd-1.0.21/configure.ac
 ===================================================================
 --- pure-ftpd-1.0.21.orig/configure.ac
 +++ pure-ftpd-1.0.21/configure.ac
-@@ -1091,13 +1091,19 @@ then
+@@ -1109,13 +1109,19 @@ then
  SHA1 functions])
  fi
  

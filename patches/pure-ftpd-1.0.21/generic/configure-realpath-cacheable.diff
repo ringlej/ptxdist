@@ -1,8 +1,19 @@
+#
+# Committed-By: Marc Kleine-Budde <mkl@pengutronix.de>, 2006-11-29
+#
+# Error:
+#
+# check for realpath is not cross aware, make it cacheable and added cross default value
+#
+# State:
+#
+# do not commit, this fixes a generated file
+#
 Index: pure-ftpd-1.0.21/configure
 ===================================================================
 --- pure-ftpd-1.0.21.orig/configure
 +++ pure-ftpd-1.0.21/configure
-@@ -21506,12 +21506,12 @@ fi
+@@ -21524,12 +21524,12 @@ fi
  
  echo "$as_me:$LINENO: checking whether realpath likes unreadable directories" >&5
  echo $ECHO_N "checking whether realpath likes unreadable directories... $ECHO_C" >&6
@@ -20,7 +31,7 @@ Index: pure-ftpd-1.0.21/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -21584,14 +21584,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_l
+@@ -21602,14 +21602,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_l
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
@@ -36,7 +47,7 @@ Index: pure-ftpd-1.0.21/configure
  
  else
    echo "$as_me: program exited with status $ac_status" >&5
-@@ -21599,16 +21592,29 @@ echo "$as_me: failed program was:" >&5
+@@ -21617,16 +21610,29 @@ echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
  ( exit $ac_status )

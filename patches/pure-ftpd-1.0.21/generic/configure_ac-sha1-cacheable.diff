@@ -1,8 +1,19 @@
+#
+# Committed-By: Marc Kleine-Budde <mkl@pengutronix.de>, 2006-11-29
+#
+# Error:
+#
+# check for SHA1 is not cross aware, make it cacheable and added cross default value
+#
+# State:
+#
+# should be commited
+#
 Index: pure-ftpd-1.0.21/configure.ac
 ===================================================================
 --- pure-ftpd-1.0.21.orig/configure.ac
 +++ pure-ftpd-1.0.21/configure.ac
-@@ -1060,7 +1060,9 @@ then
+@@ -1078,7 +1078,9 @@ then
  MD5 functions])
  fi
  
@@ -13,7 +24,7 @@ Index: pure-ftpd-1.0.21/configure.ac
  AC_RUN_IFELSE([AC_LANG_SOURCE([[
  #include <stdio.h>
  #include <string.h>
-@@ -1079,12 +1081,15 @@ int main(void)
+@@ -1097,12 +1099,15 @@ int main(void)
      
      return strcasecmp(b, "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3");
  }

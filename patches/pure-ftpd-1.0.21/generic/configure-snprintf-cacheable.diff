@@ -1,8 +1,19 @@
+#
+# Committed-By: Marc Kleine-Budde <mkl@pengutronix.de>, 2006-11-29
+#
+# Error:
+#
+# check for snprintf is not cross aware, make it cacheable and added cross default value
+#
+# State:
+#
+# do not commit, this fixes a generated file
+#
 Index: pure-ftpd-1.0.21/configure
 ===================================================================
 --- pure-ftpd-1.0.21.orig/configure
 +++ pure-ftpd-1.0.21/configure
-@@ -21358,12 +21358,12 @@ rm -f conftest.err conftest.$ac_objext c
+@@ -21376,12 +21376,12 @@ rm -f conftest.err conftest.$ac_objext c
  
  echo "$as_me:$LINENO: checking whether snprintf is C99 conformant" >&5
  echo $ECHO_N "checking whether snprintf is C99 conformant... $ECHO_C" >&6
@@ -20,7 +31,7 @@ Index: pure-ftpd-1.0.21/configure
  else
    cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -21406,7 +21406,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_l
+@@ -21424,7 +21424,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_l
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
@@ -29,7 +40,7 @@ Index: pure-ftpd-1.0.21/configure
  
  else
    echo "$as_me: program exited with status $ac_status" >&5
-@@ -21416,15 +21416,17 @@ sed 's/^/| /' conftest.$ac_ext >&5
+@@ -21434,15 +21434,17 @@ sed 's/^/| /' conftest.$ac_ext >&5
  fi
  rm -f core *.core gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
  fi

@@ -1,8 +1,19 @@
+#
+# Committed-By: Marc Kleine-Budde <mkl@pengutronix.de>, 2006-11-29
+#
+# Error:
+#
+# check for snprintf is not cross aware, make it cacheable and added cross default value
+#
+# State:
+#
+# should be commited
+#
 Index: pure-ftpd-1.0.21/configure.ac
 ===================================================================
 --- pure-ftpd-1.0.21.orig/configure.ac
 +++ pure-ftpd-1.0.21/configure.ac
-@@ -896,7 +896,9 @@ for (;;) {
+@@ -914,7 +914,9 @@ for (;;) {
    AC_MSG_RESULT(no)
  ])  
  
@@ -13,7 +24,7 @@ Index: pure-ftpd-1.0.21/configure.ac
  AC_RUN_IFELSE([AC_LANG_SOURCE([[
  #include <stdio.h>
  #ifdef STDC_HEADERS
-@@ -919,13 +921,13 @@ int main(void)
+@@ -937,13 +939,13 @@ int main(void)
          (int) snprintf(buf, sizeof buf, "12345678"));
      return 0;
  }

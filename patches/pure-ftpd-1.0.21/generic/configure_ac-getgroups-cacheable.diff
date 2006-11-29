@@ -1,8 +1,19 @@
+#
+# Committed-By: Marc Kleine-Budde <mkl@pengutronix.de>, 2006-11-29
+#
+# Error:
+#
+# check for getgroups is not cross aware, make it cacheable and added cross default value
+#
+# State:
+#
+# should be commited
+#
 Index: pure-ftpd-1.0.21/configure.ac
 ===================================================================
 --- pure-ftpd-1.0.21.orig/configure.ac
 +++ pure-ftpd-1.0.21/configure.ac
-@@ -931,7 +931,9 @@ else
+@@ -949,7 +949,9 @@ else
  fi
  
  
@@ -13,7 +24,7 @@ Index: pure-ftpd-1.0.21/configure.ac
  AC_RUN_IFELSE([AC_LANG_SOURCE([[
  #include <stdio.h>
  #ifdef STDC_HEADERS
-@@ -950,11 +952,14 @@ int main(void)
+@@ -968,11 +970,14 @@ int main(void)
  {
      return getgroups(0, NULL) <= 0;
  }
