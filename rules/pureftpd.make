@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id: template 2922 2005-07-11 19:17:53Z rsc $
+# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
-# Copyright (C) 2005 by Robert Schwebel
-#
+# Copyright (C) 2006 by Robert Schwebel
+#          
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,13 +17,12 @@ PACKAGES-$(PTXCONF_PUREFTPD) += pureftpd
 #
 # Paths and names
 #
-PUREFTPD_VERSION	= 1.0.20
-PUREFTPD		= pure-ftpd-$(PUREFTPD_VERSION)
-PUREFTPD_SUFFIX		= tar.bz2
-PUREFTPD_URL		= ftp://ftp.pureftpd.org/pub/pure-ftpd/releases/$(PUREFTPD).$(PUREFTPD_SUFFIX)
-PUREFTPD_SOURCE		= $(SRCDIR)/$(PUREFTPD).$(PUREFTPD_SUFFIX)
-PUREFTPD_DIR		= $(BUILDDIR)/$(PUREFTPD)
-
+PUREFTPD_VERSION	:= 1.0.21
+PUREFTPD		:= pure-ftpd-$(PUREFTPD_VERSION)
+PUREFTPD_SUFFIX		:= tar.bz2
+PUREFTPD_URL		:= ftp://ftp.pureftpd.org/pub/pure-ftpd/releases/$(PUREFTPD).$(PUREFTPD_SUFFIX)
+PUREFTPD_SOURCE		:= $(SRCDIR)/$(PUREFTPD).$(PUREFTPD_SUFFIX)
+PUREFTPD_DIR		:= $(BUILDDIR)/$(PUREFTPD)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -58,15 +57,14 @@ $(STATEDIR)/pureftpd.extract: $(pureftpd_extract_deps_default)
 
 pureftpd_prepare: $(STATEDIR)/pureftpd.prepare
 
-PUREFTPD_PATH	=  PATH=$(CROSS_PATH)
-PUREFTPD_ENV 	=  $(CROSS_ENV)
-PUREFTPD_ENV	+= ac_cv_func_snprintf=yes
+PUREFTPD_PATH	:= PATH=$(CROSS_PATH)
+PUREFTPD_ENV 	:= $(CROSS_ENV) \
+	ac_cv_snprintf_type=8
 
 #
 # autoconf
 #
-PUREFTPD_AUTOCONF = \
-	$(CROSS_AUTOCONF_USR) \
+PUREFTPD_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking \
 	--with-standalone \
 	--without-inetd \
@@ -88,8 +86,8 @@ PUREFTPD_AUTOCONF = \
 	--without-ldap \
 	--without-mysql \
 	--without-pgsql \
-	--without-privsep \
-	--without-tls
+	--without-privsep
+
 #
 # FIXME: configure probes host's /dev/urandom and /dev/random
 # instead of target's one
@@ -101,21 +99,25 @@ PUREFTPD_AUTOCONF += --with-uploadscript
 else
 PUREFTPD_AUTOCONF += --without-uploadscript
 endif
+
 ifdef PTXCONF_PUREFTPD_VIRTUALHOSTS
 PUREFTPD_AUTOCONF += --with-virtualhosts
 else
 PUREFTPD_AUTOCONF += --without-virtualhosts
 endif
+
 ifdef PTXCONF_PUREFTPD_DIRALIASES
 PUREFTPD_AUTOCONF += --with-diraliases
 else
 PUREFTPD_AUTOCONF += --without-diraliases
 endif
+
 ifdef PTXCONF_PUREFTPD_MINIMAL
 PUREFTPD_AUTOCONF += --with-minimal
 else
 PUREFTPD_AUTOCONF += --without-minimal
 endif
+
 ifdef PTXCONF_PUREFTPD_SHRINK_MORE
 PUREFTPD_AUTOCONF += --without-globbing
 else
@@ -138,7 +140,7 @@ pureftpd_compile: $(STATEDIR)/pureftpd.compile
 
 $(STATEDIR)/pureftpd.compile: $(pureftpd_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(PUREFTPD_DIR) && $(PUREFTPD_ENV) $(PUREFTPD_PATH) make
+	cd $(PUREFTPD_DIR) && $(PUREFTPD_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -162,13 +164,13 @@ $(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init, pureftpd)
-	@$(call install_fixup, pureftpd,PACKAGE,pureftpd)
-	@$(call install_fixup, pureftpd,PRIORITY,optional)
-	@$(call install_fixup, pureftpd,VERSION,$(PUREFTPD_VERSION))
-	@$(call install_fixup, pureftpd,SECTION,base)
-	@$(call install_fixup, pureftpd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup, pureftpd,DEPENDS,)
-	@$(call install_fixup, pureftpd,DESCRIPTION,missing)
+	@$(call install_fixup,pureftpd,PACKAGE,pureftpd)
+	@$(call install_fixup,pureftpd,PRIORITY,optional)
+	@$(call install_fixup,pureftpd,VERSION,$(PUREFTPD_VERSION))
+	@$(call install_fixup,pureftpd,SECTION,base)
+	@$(call install_fixup,pureftpd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,pureftpd,DEPENDS,)
+	@$(call install_fixup,pureftpd,DESCRIPTION,missing)
 
 	@$(call install_copy, pureftpd, 0, 0, 0755, \
 		$(PUREFTPD_DIR)/src/pure-ftpd, \
@@ -210,7 +212,8 @@ ifdef PTXCONF_PUREFTPD_ETC_CONFIG
 		/etc/pure-ftpd.defaults, n)
 endif
 
-	@$(call install_finish, pureftpd)
+	@$(call install_finish,pureftpd)
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
