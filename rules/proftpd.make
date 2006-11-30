@@ -145,7 +145,7 @@ $(STATEDIR)/proftpd.targetinstall: $(proftpd_targetinstall_deps_default)
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/proftpd, \
 		/etc/init.d/proftpd, n)
 
-ifdef $(PTXCONF_PROFTPD_DEFAULTCONFIG)
+ifdef PTXCONF_PROFTPD_DEFAULTCONFIG
 	@$(call install_copy, proftpd, 11, 101, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/proftpd.conf, \
 		/etc/proftpd.conf, n)
