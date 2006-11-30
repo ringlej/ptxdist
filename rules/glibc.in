@@ -153,9 +153,51 @@ config GLIBC_NSL
 	depends on GLIBC_INSTALL
 	prompt "Install libnsl"
 	help
-	  FIXME: This item needs to be documented
+	  Functions in this library provide routines  that  provide  a
+	  transport-level  interface to networking services like i.E. 
+	  nis(+)
 
 # -----
+comment "I18N Files"
+
+config GLIBC_I18N_BIN
+	bool
+	depends on GLIBC_INSTALL
+	prompt "Install locale utilities"
+	depends on GLIBC
+	help
+	  install the locale utilities
+
+config GLIBC_I18N_BIN_LOCALE
+	bool
+	prompt "locale"
+	depends on GLIBC_I18N_BIN
+	help
+	  The locale program writes information about the current
+	  locale environment, or all locales, to standard output.
+
+
+config GLIBC_I18N_BIN_LOCALEDEF
+	bool
+	prompt "localedef"
+	depends on GLIBC_I18N_BIN
+	help
+	  The  localedef  program reads the indicated charmap and
+	  input files, compiles them to a binary form quickly usable
+	  by the locale functions in the C library, and add it to
+	  /usr/lib/locale/locale-archive
+
+config GLIBC_I18N_DATA
+	bool
+	depends on GLIBC_INSTALL
+	prompt "Install i18n locales and charmaps"
+	depends on GLIBC
+	depends on broken
+	help
+	  installs i18n locale and charmap files to the system. 
+	  to use these datafiles you will have to generate a locale
+	  locale-archive with the program localedef. For more details
+	  see documentation in glibc source
 
 config GLIBC_GCONV
 	bool
@@ -491,12 +533,4 @@ config GLIBC_ZONEINFO_UNIVERSAL
 
 comment "misc executeables"
 
-config GLIBC_LOCALE
-	bool
-	prompt "locale"
-	depends on GLIBC_INSTALL
 
-config GLIBC_LOCALEDEF
-	bool
-	prompt "localedef"
-	depends on GLIBC_INSTALL

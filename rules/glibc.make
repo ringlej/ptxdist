@@ -181,11 +181,11 @@ ifdef PTXCONF_GLIBC_GCONV_ISO8859_15
 endif
 
 
-ifdef PTXCONF_GLIBC_LOCALE
+ifdef PTXCONF_GLIBC_I18N_BIN_LOCALE
 	@$(call install_copy_toolchain_usr, glibc, bin/locale)
 endif
 
-ifdef PTXCONF_GLIBC_LOCALEDEF
+ifdef PTXCONF_GLIBC_I18N_BIN_LOCALEDEF
 	@$(call install_copy_toolchain_usr, glibc, bin/localedef)
 endif
 
