@@ -113,7 +113,7 @@ $(STATEDIR)/xorg-app-xrdb.targetinstall: $(xorg-app-xrdb_targetinstall_deps_defa
 	@$(call install_fixup,xorg-app-xrdb,DEPENDS,)
 	@$(call install_fixup,xorg-app-xrdb,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-app-xrdb, 0, 0, 0755, $(XORG_APP_XRDB_DIR)/xrdb, $(XORG_PREFIX)/bin/xeyes)
+	@$(call install_copy, xorg-app-xrdb, 0, 0, 0755, $(XORG_APP_XRDB_DIR)/xrdb, $(XORG_PREFIX)/bin/xrdb)
 
 	@$(call install_finish,xorg-app-xrdb)
 
