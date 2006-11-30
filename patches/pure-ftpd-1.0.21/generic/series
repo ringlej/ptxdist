@@ -1,3 +1,5 @@
+configure_ac_remove-fssa.diff
+configure_remove-fssa.diff
 configure_ac-remove-includes.diff
 configure-remove-includes.diff
 

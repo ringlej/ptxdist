@@ -13,7 +13,7 @@ Index: pure-ftpd-1.0.21/configure
 ===================================================================
 --- pure-ftpd-1.0.21.orig/configure
 +++ pure-ftpd-1.0.21/configure
-@@ -21758,17 +21758,26 @@ fi
+@@ -21776,17 +21776,26 @@ fi
  
  echo "$as_me:$LINENO: checking whether we are inside a Virtuozzo virtual host" >&5
  echo $ECHO_N "checking whether we are inside a Virtuozzo virtual host... $ECHO_C" >&6
