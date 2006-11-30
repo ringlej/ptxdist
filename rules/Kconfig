@@ -17,6 +17,11 @@ depends on BUILD_TOOLCHAIN
 source "rules/crosstool.in"
 endmenu
 
+menu "Cross Compilation Tools       "
+depends on BUILD_USERLAND
+source "rules/crosstools.in"
+endmenu
+
 menu "Host Side Tools               "
 depends on BUILD_USERLAND
 source "rules/hosttools.in"
