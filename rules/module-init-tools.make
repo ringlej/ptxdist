@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: kernel.make 2486 2005-04-19 12:18:08Z mkl $
+# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2005 Ladislav Michl <ladis@linux-mips.org>
+#               2006 by Marc Kleine-Budde <mkl@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,13 +18,12 @@ PACKAGES-$(PTXCONF_MODULE_INIT_TOOLS) += module-init-tools
 #
 # Paths and names
 #
-MODULE_INIT_TOOLS_VERSION	= 3.2.2
-MODULE_INIT_TOOLS		= module-init-tools-$(MODULE_INIT_TOOLS_VERSION)
-MODULE_INIT_TOOLS_SUFFIX	= tar.bz2
-MODULE_INIT_TOOLS_URL		= http://www.kernel.org/pub/linux/utils/kernel/module-init-tools/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX)
-MODULE_INIT_TOOLS_SOURCE	= $(SRCDIR)/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX)
-MODULE_INIT_TOOLS_DIR		= $(BUILDDIR)/$(MODULE_INIT_TOOLS)
-
+MODULE_INIT_TOOLS_VERSION	:= 3.3-pre1
+MODULE_INIT_TOOLS		:= module-init-tools-$(MODULE_INIT_TOOLS_VERSION)
+MODULE_INIT_TOOLS_SUFFIX	:= tar.bz2
+MODULE_INIT_TOOLS_URL		:= http://www.kernel.org/pub/linux/utils/kernel/module-init-tools/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX)
+MODULE_INIT_TOOLS_SOURCE	:= $(SRCDIR)/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX)
+MODULE_INIT_TOOLS_DIR		:= $(BUILDDIR)/$(MODULE_INIT_TOOLS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -49,7 +49,7 @@ $(STATEDIR)/module-init-tools.extract: $(module-init-tools_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(MODULE_INIT_TOOLS_DIR))
 	@$(call extract, MODULE_INIT_TOOLS)
-	@$(call patchin, MODULE_INIT_TOOLS, $(MODULE_INIT_TOOLS_DIR))
+	@$(call patchin, MODULE_INIT_TOOLS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -58,13 +58,17 @@ $(STATEDIR)/module-init-tools.extract: $(module-init-tools_extract_deps_default)
 
 module-init-tools_prepare: $(STATEDIR)/module-init-tools.prepare
 
-MODULE_INIT_TOOLS_PATH		= PATH=$(CROSS_PATH) 
-MODULE_INIT_TOOLS_ENV		= $(CROSS_ENV) CFLAGS="$$CFLAGS -DCONFIG_NO_BACKWARDS_COMPAT"
-MODULE_INIT_TOOLS_MAKEVARS	= MAN5=''
-MODULE_INIT_TOOLS_AUTOCONF	= $(CROSS_AUTOCONF_USR)
+MODULE_INIT_TOOLS_PATH	:= PATH=$(CROSS_PATH)
+MODULE_INIT_TOOLS_ENV 	:= $(CROSS_ENV)
+
+#
+# autoconf
+#
+MODULE_INIT_TOOLS_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/module-init-tools.prepare: $(module-init-tools_prepare_deps_default)
 	@$(call targetinfo, $@)
+	@$(call clean, $(MODULE_INIT_TOOLS_DIR)/config.cache)
 	cd $(MODULE_INIT_TOOLS_DIR) && \
 		$(MODULE_INIT_TOOLS_PATH) $(MODULE_INIT_TOOLS_ENV) \
 		./configure $(MODULE_INIT_TOOLS_AUTOCONF)
@@ -78,8 +82,7 @@ module-init-tools_compile: $(STATEDIR)/module-init-tools.compile
 
 $(STATEDIR)/module-init-tools.compile: $(module-init-tools_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(MODULE_INIT_TOOLS_DIR) && \
-		$(MODULE_INIT_TOOLS_PATH) make $(MODULE_INIT_TOOLS_MAKEVARS)
+	cd $(MODULE_INIT_TOOLS_DIR) && $(MODULE_INIT_TOOLS_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -90,6 +93,7 @@ module-init-tools_install: $(STATEDIR)/module-init-tools.install
 
 $(STATEDIR)/module-init-tools.install: $(module-init-tools_install_deps_default)
 	@$(call targetinfo, $@)
+	@$(call install, MODULE_INIT_TOOLS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
