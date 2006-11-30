@@ -169,7 +169,7 @@ endif
 ifeq ($(KERNEL_VERSION_MINOR), 4)
 KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod.old)
 else
-KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/depmod)
+KERNEL_MAKEVARS += DEPMOD=$(call remove_quotes,$(PTXCONF_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod)
 endif
 
 ifdef PTXCONF_KERNEL_TARGET_IMAGE_U
