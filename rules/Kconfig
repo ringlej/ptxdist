@@ -201,6 +201,7 @@ source "rules/fltk.in"
 source "rules/wxWindows.in"
 source "rules/realvnc.in"
 source "rules/xterm.in"
+source "rules/hpanel.in"
 
 comment "X Window Managers"
 source "rules/blackbox.in"
