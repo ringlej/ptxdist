@@ -20,7 +20,6 @@ comment "------------------------------"
 comment "Kernel Tools                  "
 comment "------------------------------"
 
-source "rules/host-module-init-tools.in"
 source "rules/host-modutils.in"
 source "rules/host-util-linux.in"
 source "rules/host-umkimage.in"

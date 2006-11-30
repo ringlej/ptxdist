@@ -25,7 +25,7 @@ config KERNEL_INSTALL
 config KERNEL_INSTALL_MODULES
 	bool
 	depends on BUILD_USERLAND
-	select HOST_MODULE_INIT_TOOLS
+	select CROSS_MODULE_INIT_TOOLS
 	prompt "Install modules into /lib/modules"
 
 config KERNEL_COMPILE
