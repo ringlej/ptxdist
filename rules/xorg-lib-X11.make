@@ -192,9 +192,63 @@ $(STATEDIR)/xorg-lib-X11.targetinstall: $(xorg-lib-X11_targetinstall_deps_defaul
 		libX11.so.6.2.0, \
 		$(XORG_LIBDIR)/libX11.so)
 
+ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0755, /usr/lib/X11/locale)
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/locale.alias, \
+		/usr/lib/X11/locale/locale.alias,n)
+
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/locale.dir, \
+		/usr/lib/X11/locale/locale.dir,n)
+
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0755, /usr/lib/X11/locale/C)
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/C/Compose, \
+		/usr/lib/X11/locale/C/Compose,n)
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/C/XI18N_OBJS, \
+		/usr/lib/X11/locale/C/XI18N_OBJS,n)
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/C/XLC_LOCALE, \
+		/usr/lib/X11/locale/C/XLC_LOCALE,n)
 	@$(call install_finish, xorg-lib-X11)
 
 	@$(call touch, $@)
+
+endif
+
+ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_8859_1
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0755, /usr/lib/X11/locale/iso8859-1)
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/iso8859-1/Compose, \
+		/usr/lib/X11/locale/iso8859-1/Compose,n)
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/iso8859-1/XI18N_OBJS, \
+		/usr/lib/X11/locale/iso8859-1/XI18N_OBJS,n)
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/iso8859-1/XLC_LOCALE, \
+		/usr/lib/X11/locale/iso8859-1/XLC_LOCALE,n)
+	@$(call install_finish, xorg-lib-X11)
+
+	@$(call touch, $@)
+endif
+
+ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_8859_15
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0755, /usr/lib/X11/locale/iso8859-15)
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/iso8859-15/Compose, \
+		/usr/lib/X11/locale/iso8859-15/Compose,n)
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/iso8859-15/XI18N_OBJS, \
+		/usr/lib/X11/locale/iso8859-15/XI18N_OBJS,n)
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/iso8859-15/XLC_LOCALE, \
+		/usr/lib/X11/locale/iso8859-15/XLC_LOCALE,n)
+	@$(call install_finish, xorg-lib-X11)
+
+	@$(call touch, $@)
+endif
 
 # ----------------------------------------------------------------------------
 # Clean

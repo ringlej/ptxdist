@@ -46,6 +46,30 @@ config XORG_LIB_X11_XKB
 	prompt "XKB Support"
 	default n
 	help
-         This adds the keyboard extension support to the base library. Various
-         applications handling keyboards need it.
+	  This adds the keyboard extension support to the base library. Various
+	  applications handling keyboards need it.
+
+config XORG_LIB_X11_INSTALL_LOCALE
+	depends on XORG_LIB_X11
+	bool
+	prompt "install locale files"
+	default y
+	help
+	  installs locale files to the target, will take about 2,5MB diskspace
+
+config XORG_LIB_X11_INSTALL_LOCALE_8859_1
+	depends on XORG_LIB_X11_INSTALL_LOCALE
+	bool
+	prompt "  install iso8859-1 localepacket"
+	default y
+	help
+	  install iso8859-1(latin alphabet No.1) locale files.
+
+config XORG_LIB_X11_INSTALL_LOCALE_8859_15
+	depends on XORG_LIB_X11_INSTALL_LOCALE
+	bool
+	prompt "  install iso8859-15 localepacket"
+	default y
+	help
+	  install iso8859-15(latin alphabet No.9) locale files.
 
