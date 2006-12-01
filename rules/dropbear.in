@@ -213,6 +213,9 @@ config DROPBEAR_DROPBEAR
 	prompt "Install dropbear SSH server"
 	default y
 	depends on DROPBEAR
+	select DROPBEAR_DROPBEAR_KEY
+	select DROPBEAR_RSA
+	select DROPBEAR_DSS
 	help
 	  FIXME: This item should be documented in detail
 
