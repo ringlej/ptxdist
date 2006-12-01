@@ -71,6 +71,9 @@ NFSUTILS_AUTOCONF := \
 	--disable-nfsv4 \
 	--disable-gss
 
+# don't trust the default value. Set it as we use it here
+NFSUTILS_AUTOCONF += --with-statedir=/var/lib/nfs
+
 ifdef PTXCONF_NFSUTILS_V3
 NFSUTILS_AUTOCONF += --enable-nfsv3
 else
@@ -96,10 +99,10 @@ NFSUTILS_AUTOCONF += --without-tcpwrappers
 endif
 
 ifdef PTXCONF_NFSUTILS_RPCUSER_UID
-NFSUTILS_AUTOCONF += --with-statduser=rpcuser
+NFSUTILS_AUTOCONF += --with-statduser=65534
 endif
 ifdef PTXCONF_NFSUTILS_NOBODY_UID
-NFSUTILS_AUTOCONF += --with-statduser=nobody
+NFSUTILS_AUTOCONF += --with-statduser=99
 endif
 
 $(STATEDIR)/nfsutils.prepare: $(nfsutils_prepare_deps_default)
