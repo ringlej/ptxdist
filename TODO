@@ -133,7 +133,7 @@ Test suite components to be added
 Current TODO List
 =================
 
-[ ] JBE: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=27363
+[?] JBE: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=27363
 
 [ ] bump bluez-utils/libs to 3.0 (needs dbus)
 
@@ -170,11 +170,6 @@ Current TODO List
     to avoid changing the scripts.
     SHA: push make and in files into subdirs, add patches to that dirs
     as well.
-
-[ ] Menu Structure
-    JBE: Use menuconfig instead of menu + configs whereever possible.
-    It looks nicer in "menuconfig" and its much better supported when using
-    "xconfig"
 
 [ ] Program Name Sorting
     JBE: Sort program entries in "Shell & Console Tools" and other menus by
@@ -324,6 +319,13 @@ Current TODO List
 
 DONE
 ----
+
+[x] Menu Structure
+    JBE: Use menuconfig instead of menu + configs whereever possible.
+    It looks nicer in "menuconfig" and its much better supported when using
+    "xconfig"
+
+[x] ptxdist should reject working as ROOT
 
 [x] add prerequisite checks to configure script; find out which
     prerequisites we really need.
