@@ -15,6 +15,9 @@ TODO for 0.10.5
 [ ] update ChangeLog
 [ ] omitting glibc installation should be possible, first hack attempt done
 [ ] creating links into non existent directories fails, but does not break the build!
+[ ] discuss UID of user "nobody" and GID of "nogroup"
+[ ] discuss UID of user "rpcuser"
+[ ] discuss UIDs and GIDs of other important system users
 
 TODO for PTXdist 0.10 Series - High Priority
 ============================================
