@@ -68,25 +68,25 @@ SYSLOGNG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-dynamic-linking
 
-ifdef $(PTXCONF_SYSLOGNG_SUNSTREAMS)
+ifdef PTXCONF_SYSLOGNG_SUNSTREAMS
 SYSLOGNG_AUTOCONF += --enable-sun-streams
 else
 SYSLOGNG_AUTOCONF += --disable-sun-streams
 endif
 
-ifdef $(PTXCONF_SYSLOGNG_SUNDOOR)
+ifdef PTXCONF_SYSLOGNG_SUNDOOR
 SYSLOGNG_AUTOCONF += --enable-sun-door
 else
 SYSLOGNG_AUTOCONF += --disable-sun-door
 endif
 
-ifdef $(PTXCONF_SYSLOGNG_TCPWRAPPER)
+ifdef PTXCONF_SYSLOGNG_TCPWRAPPER
 SYSLOGNG_AUTOCONF += --enable-tcp-wrapper
 else
 SYSLOGNG_AUTOCONF += --disable-tcp-wrapper
 endif
 
-ifdef $(PTXCONF_SYSLOGNG_SPOOF_SOURCE)
+ifdef PTXCONF_SYSLOGNG_SPOOF_SOURCE
 SYSLOGNG_AUTOCONF += --enable-spoof-source
 else
 SYSLOGNG_AUTOCONF += --disable-spoof-source
