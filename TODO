@@ -3,6 +3,7 @@ TODO for 0.10.5
 
 [ ] ssh: server start scripts are missing
 [ ] ssh: key gen mechanics needed
+[ ] dbus needs user messagebus -> /etc/passwd
 [x] Our current host tools use their target counterparts for getting the
     sources; if the target counterpart is not selected, the dependencies
     are not created correctly! Test: switch off ipkg but activate
