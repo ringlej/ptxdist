@@ -192,7 +192,7 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
 endif
 ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER
 # install users one
-	@$(call install_copy, cvs, 0, 0, 0755, \
+	@$(call install_copy, pureftpd, 0, 0, 0755, \
 		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/pure-ftpd, \
 		/etc/init.d/pure-ftpd, n)
 endif
