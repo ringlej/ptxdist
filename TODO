@@ -95,6 +95,8 @@ make: ***
 
 Interesting packets
 -------------------
+
+[ ] RSC: http://htop.sourceforge.net/
 [ ] RSC: http://cryptmount.sourceforge.net/
 [ ] RSC: http://www.nongnu.org/failmalloc/
 [ ] RSC: http://stapgui.sourceforge.net
