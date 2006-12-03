@@ -212,6 +212,16 @@ config ROOTFS_ETC_INITD_DBUS_LINK
 	  start dbus when system starts. Keep this entry empty if
 	  you do not want to start this service automatically.
 
+config ROOTFS_ETC_INITD_NTPCLIENT_LINK
+	depends on ROOTFS_ETC_INITD_NTPCLIENT_DEFAULT || ROOTFS_ETC_INITD_NTPCLIENT_USER
+	string
+	prompt "ntpclient link name"
+	default "S19_ntpclient"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/ntpclient to
+	  start ntpclientd when system starts. Keep this entry empty if
+	  you do not want to start this service automatically.
+
 # ----------------------------------------------------------------------------
 
 endmenu

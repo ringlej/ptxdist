@@ -63,9 +63,16 @@ $(STATEDIR)/ntpclient.prepare: $(ntpclient_prepare_deps_default)
 
 ntpclient_compile: $(STATEDIR)/ntpclient.compile
 
+ifdef PTXCONF_NTPCLIENT_BUILD_NTPCLIENT
+NTPCLIENT_TARGETS += ntpclient
+endif
+ifdef PTXCONF_NTPCLIENT_BUILD_ADJTIMEX
+NTPCLIENT_TARGETS += adjtimex
+endif
+
 $(STATEDIR)/ntpclient.compile: $(ntpclient_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(NTPCLIENT_DIR) && $(NTPCLIENT_ENV) $(NTPCLIENT_PATH) make
+	cd $(NTPCLIENT_DIR) && $(NTPCLIENT_ENV) $(NTPCLIENT_PATH) make $(NTPCLIENT_TARGETS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -94,7 +101,45 @@ $(STATEDIR)/ntpclient.targetinstall: $(ntpclient_targetinstall_deps_default)
 	@$(call install_fixup, ntpclient,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ntpclient,DEPENDS,)
 	@$(call install_fixup, ntpclient,DESCRIPTION,missing)
-	@$(call install_copy, ntpclient, 0, 0, 0755, $(NTPCLIENT_DIR)/ntpclient, /usr/sbin/ntpclient)
+ifdef PTXCONF_NTPCLIENT_BUILD_NTPCLIENT
+	@$(call install_copy, ntpclient, 0, 0, 0755, \
+		$(NTPCLIENT_DIR)/ntpclient, /usr/sbin/ntpclient)
+endif
+ifdef PTXCONF_NTPCLIENT_BUILD_ADJTIMEX
+	@$(call install_copy, ntpclient, 0, 0, 0755, \
+		$(NTPCLIENT_DIR)/adjtimex, /sbin/adjtimex)
+endif
+
+ifdef PTXCONF_NTPCLIENT_INSTALL_STARTSCRIPT
+ifdef PTXCONF_ROOTFS_ETC_INITD_NTPCLIENT_DEFAULT
+# install the generic one
+	@$(call install_copy, ntpclient, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/ntpclient, \
+		/etc/init.d/ntpclient, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_NTPCLIENT_USER
+# install users one
+	@$(call install_copy, ntpclient, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/ntpclient, \
+		/etc/init.d/ntpclient, n)
+endif
+# replace the @HOST@ with name of NTP server
+ifneq ($(PTXCONF_NTPCLIENT_NTPSERVER_NAME),"")
+	@$(call install_replace, ntpclient, /etc/init.d/ntpclient, \
+		@HOST@, \
+		"$(PTXCONF_NTPCLIENT_NTPSERVER_NAME)" )
+endif
+
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NTPCLIENT_LINK),"")
+	@$(call install_copy, ntpclient, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, ntpclient, ../init.d/ntpclient, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_NTPCLIENT_LINK))
+endif
+endif
+
 	@$(call install_finish, ntpclient)
 	@$(call touch, $@)
 

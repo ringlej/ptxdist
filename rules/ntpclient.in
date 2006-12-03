@@ -1,12 +1,13 @@
-config NTPCLIENT
+menuconfig NTPCLIENT
 	bool
-	prompt "ntpclient"
+	prompt "ntpclient           "
+	default n
 	help
 	  ntpclient is a small and efficient client to the NTP protocol.
 
 	  Description by Larry Doolittle:
 	  ntpclient is an NTP (RFC-1305) client for unix-alike computers.
-       	  Its functionality is a small subset of xntpd, but IMHO performs
+	  Its functionality is a small subset of xntpd, but IMHO performs
 	  better (or at least has the potential to function better) within
 	  that limited scope. Since it is much smaller than xntpd, it is
 	  also more relevant for embedded computers.
@@ -17,3 +18,70 @@ config NTPCLIENT
 
 	  See http://doolittle.icarus.com/ntpclient/ for details.
 
+comment "build options   ---"
+	depends on NTPCLIENT
+
+config NTPCLIENT_BUILD_NTPCLIENT
+	bool
+	prompt "ntpclient"
+	default y
+	depends on NTPCLIENT
+	help
+	  Builds the ntpclient binary
+
+config NTPCLIENT_BUILD_ADJTIMEX
+	bool
+	depends on NTPCLIENT
+	depends on !BB_CONFIG_ADJTIMEX
+	prompt "adjtimex"
+	default y
+	help
+	  Builds the adjtimex binary to control system time
+
+comment "Busybox' adjtimex is in use"
+	depends on NTPCLIENT
+	depends on BB_CONFIG_ADJTIMEX
+
+comment "runtime options   ---"
+	depends on NTPCLIENT
+
+config NTPCLIENT_INSTALL_STARTSCRIPT
+	depends on NTPCLIENT
+	bool
+	prompt "Install start script"
+	default y
+	help
+	  Enable this extry to let PTXdist install a startup script
+
+choice
+	prompt "Kind of startup script"
+	default ROOTFS_ETC_INITD_NTPCLIENT_DEFAULT
+	depends on NTPCLIENT
+	depends on NTPCLIENT_INSTALL_STARTSCRIPT
+
+	config ROOTFS_ETC_INITD_NTPCLIENT_DEFAULT
+		bool
+		prompt "Use generic"
+		help
+		  Installs a generic /etc/init.d/ntpclient startup script.
+		  See <ptxdist-install>/generic/etc/init.d/ntpclient
+
+	config ROOTFS_ETC_INITD_NTPCLIENT_USER
+		bool
+		prompt "User defined"
+		help
+		  This uses a user defined ntclient startup script. PTXdist
+		  uses files projectroot/etc/init.d/ntpclient in your local
+		  project
+
+endchoice
+
+config NTPCLIENT_NTPSERVER_NAME
+	depends on NTPCLIENT
+	depends on NTPCLIENT_INSTALL_STARTSCRIPT
+	string
+	prompt "NTP server name"
+	default ""
+	help
+	  This will replace the string @HOST@ in the startup script to the given name.
+	  ntpclient will connect this host to read the current time.
