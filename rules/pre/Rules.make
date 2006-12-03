@@ -54,7 +54,7 @@ PERL		= perl
 GREP		= grep
 INSTALL		= install
 PARALLELMFLAGS  ?= -j$(shell if [ -r /proc/cpuinfo ];				\
-	then echo $$(( `cat /proc/cpuinfo | grep 'processor' | wc -l` * 2 ));	\
+	then echo $$(( `cat /proc/cpuinfo | grep -e '^processor' | wc -l` * 2 ));	\
 		else echo 1;							\
 	fi)
 
