@@ -305,19 +305,6 @@ endif
 endif
 
 # -----------------------------------------------------------------------------
-# FIXME: Move this into SSH's packet!
-ifdef PTXCONF_ROOTFS_ETC_INITD_SSHD
-	@$(call install_copy, rootfs, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/sshd, \
-		/etc/init.d/sshd, n)
-
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SSHD_LINK),"")
-	@$(call install_link, rootfs, ../init.d/sshd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SSHD_LINK))
-endif
-endif
-
-# -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_ETC_INITD_STARTUP
 	@$(call install_copy, rootfs, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/startup, \
