@@ -531,6 +531,3 @@ config GLIBC_ZONEINFO_UNIVERSAL
 	prompt "Universal"
 	depends on GLIBC_ZONEINFO
 
-comment "misc executeables"
-
-
