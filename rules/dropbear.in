@@ -204,8 +204,7 @@ config DROPBEAR_PUBKEY
 	help
 	  FIXME: This item should be documented in detail
 
-
-comment "installation options"
+comment "installation options   ---"
 	depends on DROPBEAR
 
 config DROPBEAR_DROPBEAR
@@ -224,21 +223,53 @@ config DROPBEAR_DROPBEAR_KEY
 	prompt "Install dropbearkey"
 	depends on DROPBEAR
 	help
-		This programm is used to generate the host key(s).
-		Select this, if you want this program on your target platform.
+	  This programm is used to generate the host key(s).
+	  Select this, if you want this program on your target platform.
 
 config DROPBEAR_DROPBEAR_CONVERT
 	bool
 	prompt "Install dropbearconvert"
 	depends on DROPBEAR
 	help
-		With this utility you can convert ssh hostkeys from openssh to dropbear formt.
-		Select this, if you want this program on your target platform.
+	  With this utility you can convert ssh hostkeys from openssh to dropbear formt.
+	  Select this, if you want this program on your target platform.
 
 config DROPBEAR_SCP
 	bool
 	prompt	"Install dropbear's scp"
 	depends on DROPBEAR
 	help
-		This is dropbear's implementation of the scp utility. 
+	  This is dropbear's implementation of the scp utility.
 
+comment "runtime options   ---"
+	depends on DROPBEAR
+
+config ROOTFS_ETC_INITD_DROPBEAR
+	depends on DROPBEAR
+	bool
+	default y
+	prompt "Install startup script"
+	help
+	  The /etc/init.d/dropbear script lets you control the dropbear daemon.
+
+	choice
+		prompt "Kind of startup script"
+		depends on ROOTFS_ETC_INITD_DROPBEAR
+		default ROOTFS_ETC_INITD_DROPBEAR_DEFAULT
+
+		config ROOTFS_ETC_INITD_DROPBEAR_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/init.d/dropbear startup script.
+			  See <ptxdist-install>/generic/etc/init.d/dropbear
+
+		config ROOTFS_ETC_INITD_DROPBEAR_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined dropbear startup script. PTXdist
+			  uses files projectroot/etc/init.d/dropbear in your local
+			  project
+
+	endchoice

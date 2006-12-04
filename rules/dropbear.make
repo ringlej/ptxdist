@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -255,19 +255,45 @@ $(STATEDIR)/dropbear.targetinstall: $(dropbear_targetinstall_deps_default)
 	@$(call install_fixup, dropbear,DESCRIPTION,missing)
 
 ifdef PTXCONF_DROPBEAR_DROPBEAR
-	@$(call install_copy, dropbear, 0, 0, 0755, $(DROPBEAR_DIR)/dropbear, /usr/sbin/dropbear)
+	@$(call install_copy, dropbear, 0, 0, 0755, \
+		$(DROPBEAR_DIR)/dropbear, /usr/sbin/dropbear)
 endif
 
 ifdef PTXCONF_DROPBEAR_DROPBEAR_KEY
-	@$(call install_copy, dropbear, 0, 0, 0755, $(DROPBEAR_DIR)/dropbearkey, /usr/sbin/dropbearkey)
+	@$(call install_copy, dropbear, 0, 0, 0755, \
+		$(DROPBEAR_DIR)/dropbearkey, /usr/sbin/dropbearkey)
 endif
 
 ifdef PTXCONF_DROPBEAR_DROPBEAR_CONVERT
-	@$(call install_copy, dropbear, 0, 0, 0755, $(DROPBEAR_DIR)/dropbearconvert, /usr/sbin/dropbearconvert)
+	@$(call install_copy, dropbear, 0, 0, 0755, \
+		$(DROPBEAR_DIR)/dropbearconvert, /usr/sbin/dropbearconvert)
 endif
 
 ifdef PTXCONF_DROPBEAR_SCP
-	@$(call install_copy, dropbear, 0, 0, 0755, $(DROPBEAR_DIR)/scp, /usr/bin/scp)
+	@$(call install_copy, dropbear, 0, 0, 0755, \
+		$(DROPBEAR_DIR)/scp, /usr/bin/scp)
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_INITD_DROPBEAR
+ifdef PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_DEFAULT
+# install generic one
+	@$(call install_copy, dropbear, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/dropbear, \
+		/etc/init.d/dropbear, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_USER
+# install users one
+	@$(call install_copy, dropbear, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/dropbear, \
+		/etc/init.d/dropbear, n)
+endif
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK),"")
+	@$(call install_link, dropbear, ../init.d/dropbear, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK))
+endif
 endif
 
 	@$(call install_copy, dropbear, 0, 0, 0755, /etc/dropbear)

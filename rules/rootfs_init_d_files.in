@@ -230,44 +230,6 @@ menuconfig ROOTFS_ETC_INITD_HTTPD
 		help
 		  Enter a path and filename to be used as httpd script on your target.
 
-########################## Dropbear ##########################################
-
-menuconfig ROOTFS_ETC_INITD_DROPBEAR
-	depends on ROOTFS_ETC_INITD && DROPBEAR
-	bool
-	default y
-	prompt "dropbear                  "
-	help
-	  The /etc/init.d/dropbear script lets you control the dropbear daemon.
-
-	choice
-		prompt "Kind of startup script"
-		depends on ROOTFS_ETC_INITD_DROPBEAR
-		default ROOTFS_ETC_INITD_DROPBEAR_DEFAULT
-
-		config ROOTFS_ETC_INITD_DROPBEAR_DEFAULT
-			bool
-			prompt "Use default dropbear"
-			help
-			  A file from generic/etc/init.d/dropbear will be used.
-
-		config ROOTFS_ETC_INITD_DROPBEAR_USER
-			bool
-			prompt "Use your own dropbear file"
-			help
-			  Select this, then you can enter a path and filename to your
-			  own dropbear startup script.
-	endchoice
-
-	config ROOTFS_ETC_INITD_DROPBEAR_USER_FILE
-		depends on ROOTFS_ETC_INITD_DROPBEAR
-		depends on ROOTFS_ETC_INITD_DROPBEAR_USER
-		prompt "Path and name of your own dropbear to be used"
-		string
-		default ""
-		help
-		  Enter a path and filename to be used as dropbear script on your target.
-
 ########################## crond ##########################################
 # this is for busybox' crond only
 #

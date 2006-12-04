@@ -305,19 +305,6 @@ endif
 endif
 
 # -----------------------------------------------------------------------------
-# FIXME: Move this into dropbear's packet!
-ifdef PTXCONF_ROOTFS_ETC_INITD_DROPBEAR
-	@$(call install_copy, rootfs, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/dropbear, \
-		/etc/init.d/dropbear, n)
-
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK),"")
-	@$(call install_link, rootfs, ../init.d/dropbear, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK))
-endif
-endif
-
-# -----------------------------------------------------------------------------
 # FIXME: Move this into SSH's packet!
 ifdef PTXCONF_ROOTFS_ETC_INITD_SSHD
 	@$(call install_copy, rootfs, 0, 0, 0755, \
