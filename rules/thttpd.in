@@ -32,7 +32,7 @@ menuconfig THTTPD
 
 			config THTTPD_ETC_INITD_GENERIC
 				bool
-				prompt "Use generic thttpd script"
+				prompt "Use generic"
 				help
 				  Installs a generic /etc/init.d/thttpd startup
 				  script. The file from
