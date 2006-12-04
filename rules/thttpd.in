@@ -11,16 +11,19 @@ menuconfig THTTPD
 	  featured web-servers and it performs extremely well
 	  under high load.
 
-	comment "thttpd runtime options  ---"
+	comment "runtime options  ---"
 	depends on THTTPD
-
+#
+# FIXME: Can thttpd also started by inetd like busybox' one?
+# If yes, add a choice here for this startup option
+#
 	config ROOTFS_ETC_INITD_THTTPD
 		depends on THTTPD
 		bool
 		default y
-		prompt "Install startup script      "
+		prompt "Install startup script"
 		help
-		  The /etc/init.d/thttpd script lets you control the udevd daemon.
+		  The /etc/init.d/thttpd script lets you control the thttpd daemon.
 
 		choice
 			prompt "Kind of startup script"
@@ -53,4 +56,5 @@ menuconfig THTTPD
 		prompt "Populate a generic website"
 		help
 		  This install a generic website into /var/www/index.html
+		  from <ptxdist-install>/generic/thttpd.html
 
