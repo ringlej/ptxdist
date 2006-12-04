@@ -222,6 +222,16 @@ config ROOTFS_ETC_INITD_NTPCLIENT_LINK
 	  start ntpclientd when system starts. Keep this entry empty if
 	  you do not want to start this service automatically.
 
+config ROOTFS_ETC_INITD_TIMEKEEPER_LINK
+	depends on ROOTFS_ETC_INITD_HWCLOCK
+	string
+	prompt "timekeeper link name"
+	default "S20_timekeeper"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/timekeerper to
+	  sync the system with an internal real time clock when it starts up.
+	  Keep this entry empty if you want to sync manually.
+
 # ----------------------------------------------------------------------------
 
 endmenu

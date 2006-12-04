@@ -1,0 +1,21 @@
+#!/bin/sh
+# setup current system time from local buffered time source
+#
+CLOCKREADER=/sbin/hwclock
+SETSYSTEMOPT=-s
+SETHARDOPT=-w
+OPT4ALL=-u
+
+case "$1" in
+	start)
+		$CLOCKREADER $OPT4ALL $SETSYSTEMOPT
+		;;
+	stop)
+		$CLOCKREADER $OPT4ALL $SETHARDOPT
+		;;
+	*)
+		echo "Usage: $0 {start|stop}"
+		exit 1
+		;;
+esac
+exit 0

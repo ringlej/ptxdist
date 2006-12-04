@@ -305,6 +305,29 @@ endif
 endif
 
 # -----------------------------------------------------------------------------
+# timekeepers script is here, because the busybox entry does not provide it
+#
+ifdef PTXCONF_ROOTFS_ETC_INITD_HWCLOCK
+ifdef PTXCONF_ROOTFS_ETC_INITD_HWCLOCK_DEFAULT
+# use the generic one
+	@$(call install_copy, rootfs, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/timekeeping, \
+		/etc/init.d/timekeeping, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_HWCLOCK_USER
+# user defined one
+	@$(call install_copy, rootfs, 0, 0, 0755, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/timekeeping, \
+		/etc/init.d/timekeeping, n)
+endif
+
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TIMEKEEPER_LINK),"")
+	@$(call install_link, rootfs, ../init.d/timekeeping, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TIMEKEEPER_LINK))
+endif
+endif
+
+# -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_ETC_INITD_STARTUP
 	@$(call install_copy, rootfs, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/startup, \

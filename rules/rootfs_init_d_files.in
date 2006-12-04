@@ -142,6 +142,39 @@ menuconfig ROOTFS_ETC_INITD_SYSLOGD_KLOGD
 			  your local project
 	endchoice
 
+######################## hwclock from Busysbox ##########################
+
+menuconfig ROOTFS_ETC_INITD_HWCLOCK
+	depends on ROOTFS_ETC_INITD
+	depends on BB_CONFIG_HWCLOCK
+	bool
+	prompt "timekeeper                "
+	help
+	  The /etc/init.d/timekeeper script syncs the target with an internal
+	  real time clock at startup
+
+	choice
+		prompt "Kind of startup script"
+		default ROOTFS_ETC_INITD_HWCLOCK_DEFAULT
+		depends on ROOTFS_ETC_INITD
+		depends on ROOTFS_ETC_INITD_HWCLOCK
+
+		config ROOTFS_ETC_INITD_HWCLOCK_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/init.d/timekeeper script.
+			  See <ptxdist-install>/generic/etc/init.d/timekeeper
+
+		config ROOTFS_ETC_INITD_HWCLOCK_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined timekeeper script.
+			  PTXdist uses file projectroot/etc/init.d/timepeeper in
+			  your local project
+	endchoice
+
 ########################## User startup script ##############################
 
 # FIXME: RSC: needed somewhere? Shold be done by project specific stuff
