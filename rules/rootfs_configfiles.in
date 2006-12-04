@@ -483,40 +483,6 @@ menuconfig ROOTFS_INETD
 	endchoice
 
 #
-# /etc/syslog-ng.conf
-#
-menuconfig ROOTFS_SYSLOGNG
-	depends on SYSLOGNG
-	depends on ROOTFS
-	bool
-	prompt "/etc/syslog-ng.conf         "
-	default y
-	help
-	  Installs a /etc/syslog-ng.conf file from a selectable source.
-
-	choice
-		prompt "Kind of /etc/syslog-ng.conf"
-		depends on ROOTFS_SYSLOGNG
-		default ROOTFS_GENERIC_SYSLOGNG
-
-		config ROOTFS_GENERIC_SYSLOGNG
-			bool
-			prompt "Use generic"
-			help
-			  Install a generic /etc/syslog-ng.conf file. See
-			  <ptxdist-install>/generic/syslog-ng.conf.
-
-		config ROOTFS_USER_SYSLOGNG
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined /etc/syslog-ng.conf. PTXdist
-			  uses file projectroot/etc/syslog-ng.conf in your local
-			  project.
-
-	endchoice
-
-#
 # /etc/modules
 #
 config ROOTFS_ETC_MODULES
