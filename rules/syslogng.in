@@ -13,7 +13,7 @@ config SYSLOGNG_SUNSTREAMS
 	depends on SYSLOGNG
 	prompt "sun streams support"
 	help
-	  Support for Sun STREAMS. 
+	  Support for Sun STREAMS.
 
 config SYSLOGNG_SUNDOOR
 	bool
@@ -27,7 +27,7 @@ config SYSLOGNG_TCPWRAPPER
 	depends on SYSLOGNG
 	prompt "tcpwrapper support"
 	help
-	  Support /etc/hosts.deny and /etc/hosts.allow. 
+	  Support /etc/hosts.deny and /etc/hosts.allow.
 
 config SYSLOGNG_SPOOF_SOURCE
 	bool
@@ -36,3 +36,65 @@ config SYSLOGNG_SPOOF_SOURCE
 	help
 	  FIXME: missing
 
+comment "runtime options   ---"
+	depends on SYSLOGNG
+
+config ROOTFS_ETC_SYSLOGNG_CONFIG
+	depends on SYSLOGNG
+	bool
+	default y
+	prompt "Install configuration file"
+	help
+	  Installs a /etc/syslog-ng.conf from a selectable source.
+
+	choice
+		prompt "Kind of configuration file"
+		depends on ROOTFS_ETC_SYSLOGNG_CONFIG
+		default ROOTFS_ETC_SYSLOGNG_CONFIG_DEFAULT
+
+		config ROOTFS_ETC_SYSLOGNG_CONFIG_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/syslog-ng.conf.
+			  See <ptxdist-install>/generic/etc/syslog-ng.conf
+
+		config ROOTFS_ETC_SYSLOGNG_CONFIG_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined syslog-ng.conf file. PTXdist
+			  uses file projectroot/etc/syslog-ng.conf in your local
+			  project
+
+	endchoice
+
+config ROOTFS_ETC_INITD_SYSLOGNG_STARTSCRIPT
+	depends on SYSLOGNG
+	bool
+	default y
+	prompt "Install startup script"
+	help
+	  The /etc/init.d/syslog-ng script lets you control the syslog-ng daemon.
+
+	choice
+		prompt "Kind of startup script"
+		depends on ROOTFS_ETC_INITD_SYSLOGNG_STARTSCRIPT
+		default ROOTFS_ETC_INITD_SYSLOGNG_DEFAULT
+
+		config ROOTFS_ETC_INITD_SYSLOGNG_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/init.d/syslog-ng startup script.
+			  See <ptxdist-install>/generic/etc/init.d/syslog-ng
+
+		config ROOTFS_ETC_INITD_SYSLOGNG_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined syslog-ng startup script. PTXdist
+			  uses file projectroot/etc/init.d/syslog-ng in your local
+			  project
+
+	endchoice

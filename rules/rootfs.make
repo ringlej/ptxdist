@@ -318,18 +318,6 @@ endif
 endif
 
 # -----------------------------------------------------------------------------
-# FIXME: Move this into syslogng's packet!
-ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG
-	@$(call install_copy, rootfs, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/syslog-ng, \
-		/etc/init.d/syslog-ng, n)
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK),"")
-	@$(call install_link, rootfs, ../init.d/syslog-ng, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK))
-endif
-endif
-
-# -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_ETC_INITD_STARTUP
 	@$(call install_copy, rootfs, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/startup, \

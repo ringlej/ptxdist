@@ -2,7 +2,7 @@
 # $Id: template 4453 2006-01-29 13:28:16Z rsc $
 #
 # Copyright (C) 2006 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -140,12 +140,45 @@ $(STATEDIR)/syslogng.targetinstall: $(syslogng_targetinstall_deps_default)
 	@$(call install_fixup, syslogng,DEPENDS,)
 	@$(call install_fixup, syslogng,DESCRIPTION,missing)
 
-	@$(call install_copy, syslogng, 0, 0, 0755, $(SYSLOGNG_DIR)/src/syslog-ng, /sbin/syslog-ng)
+	@$(call install_copy, syslogng, 0, 0, 0755, \
+		$(SYSLOGNG_DIR)/src/syslog-ng, /sbin/syslog-ng)
 
-ifdef PTXCONF_ROOTFS_GENERIC_SYSLOGNG
+ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_STARTSCRIPT
+ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_DEFAULT
+# install the generic one
+	@$(call install_copy, syslogng, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/syslog-ng, \
+		/etc/init.d/syslog-ng, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_USER
+# install users one
+	@$(call install_copy, syslogng, 0, 0, 0755, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/syslog-ng, \
+		/etc/init.d/syslog-ng, n)
+endif
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK),"")
+	@$(call install_copy, syslogng, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, syslogng, ../init.d/syslog-ng, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK))
+endif
+endif
+
+ifdef PTXCONF_ROOTFS_ETC_SYSLOGNG_CONFIG
+ifdef PTXCONF_ROOTFS_ETC_SYSLOGNG_CONFIG_DEFAULT
+# install the generic one
 	@$(call install_copy, syslogng, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/syslog-ng.conf, \
 		/etc/syslog-ng.conf)
+endif
+ifdef PTXCONF_ROOTFS_ETC_SYSLOGNG_CONFIG_USER
+# install users one
+	@$(call install_copy, syslogng, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/generic/etc/syslog-ng.conf, \
+		/etc/syslog-ng.conf)
+endif
 endif
 	@$(call install_finish, syslogng)
 

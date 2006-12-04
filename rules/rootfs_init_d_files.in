@@ -72,16 +72,6 @@ menuconfig ROOTFS_ETC_INITD_NETWORKING
 		help
 		  Copy this file to /etc/network/interfaces.
 
-########################## Syslog-NG #########################################
-
-config ROOTFS_ETC_INITD_SYSLOGNG
-	depends on ROOTFS_ETC_INITD && SYSLOGNG
-	bool
-	default y
-	prompt "syslog-ng"
-	help
-	  The /etc/init.d/syslog-ng script lets you control the syslog-ng daemon.
-
 ########################## Telnetd from Busysbox ############################
 
 menuconfig ROOTFS_ETC_INITD_TELNETD
