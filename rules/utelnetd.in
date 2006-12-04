@@ -3,7 +3,7 @@ menuconfig UTELNETD
 	bool
 	prompt "utelnetd            "
 	help
-	  FIXME: This item needs to be documented
+	  utelnet is a very small telnetd implementation.
 
 comment "runtime options   ---"
 	depends on UTELNETD
@@ -12,7 +12,7 @@ config ROOTFS_ETC_INITD_UTELNETD
 	depends on UTELNETD
 	bool
 	default y
-	prompt "Install startup script      "
+	prompt "Install startup script"
 	help
 	  The /etc/init.d/telnetd script lets you control the telnetd daemon.
 
@@ -34,6 +34,7 @@ config ROOTFS_ETC_INITD_UTELNETD
 			help
 			  This uses a user defined telnetd startup script. PTXdist
 			  uses files projectroot/etc/init.d/utelnetd in your local
-			  project. Note: the leading 'u' in utelnetd! But it will
+			  project. Note the leading 'u' in utelnetd! But it will
 			  be copied to /etc/init.d/telnetd without 'u'!
+
 	endchoice
