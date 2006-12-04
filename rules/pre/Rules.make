@@ -732,6 +732,8 @@ disable_sh =						\
 # Go into a directory and apply all patches from there into a
 # sourcetree. if a series file exists in that directory the
 # patches from the series file are used instead of all patches.
+# If parameter $3 is given, this series file will be used,
+# not a derived one.
 # if the variable PTXCONF_$(PACKET_LABEL)_SERIES exists, the
 # series file from this variable is used instead of "series"
 # This macro skips if $1 points to a local directory.
@@ -740,10 +742,12 @@ disable_sh =						\
 # $2: path to source tree 
 #     if this parameter is omitted, the path will be derived
 #     from the packet name
+# $3: abs path to series file
 #
 patchin =										\
 	PACKET_NAME="$($(strip $(1)))"; 						\
 	URL="$($(strip $(1))_URL)";							\
+	ABS_SERIES_FILE="$(strip $(3))";						\
 											\
 	case $$URL in									\
 	file*)										\
@@ -765,6 +769,13 @@ patchin =										\
 	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};				\
 	echo "PATCHIN: dir=$$PACKET_DIR";						\
 											\
+	if test -n "$${ABS_SERIES_FILE}"; then						\
+		if [ ! -e "$${ABS_SERIES_FILE}" ]; then					\
+			echo -n "Series file for $$PACKET_NAME given, but series file ";\
+			echo "\"$${ABS_SERIES_FILE}\" does not exist";			\
+		exit -1;								\
+		fi;									\
+	else										\
 	patch_dirs="$(PROJECTPATCHDIR)/$$PACKET_NAME/generic				\
 	            $(PATCHDIR)/$$PACKET_NAME/generic";					\
 											\
@@ -789,10 +800,12 @@ patchin =										\
 	if [ -z "$$PACKET_SERIES" ]; then						\
 		PACKET_SERIES="series";							\
 	fi;										\
+	ABS_SERIES_FILE="$$patch_dir/$$PACKET_SERIES";					\
+	fi;										\
 											\
-	if [ -f "$$patch_dir/$$PACKET_SERIES" ]; then					\
-		echo "PATCHIN: using series file $$patch_dir/$$PACKET_SERIES";		\
-		$(SCRIPTSDIR)/apply_patch_series.sh -s "$$patch_dir/$$PACKET_SERIES"	\
+	if [ -f "$${ABS_SERIES_FILE}" ]; then						\
+		echo "PATCHIN: using series file $${ABS_SERIES_FILE}";			\
+		$(SCRIPTSDIR)/apply_patch_series.sh -s "$${ABS_SERIES_FILE}"		\
 			-d $$PACKET_DIR;						\
 	else										\
 		$(SCRIPTSDIR)/apply_patch_series.sh -p "$$patch_dir"			\
