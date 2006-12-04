@@ -49,6 +49,10 @@ config PUREFTPD_MINIMAL
 	  file size will be smaller than in a default installation. Regular
 	  expressions are still working.
 
+# FIXME: Check if this is true: pure-ftpd cannot be started standalone when a minimal
+# server was built. Seems not yet. If yes, disable standalone script, when a minimal
+# server was built!
+
 config PUREFTPD_SHRINK_MORE
 	bool
 	depends on PUREFTPD
