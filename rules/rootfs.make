@@ -159,7 +159,9 @@ endif
 ifdef PTXCONF_ROOTFS_VAR_LOCK
 	@$(call install_copy, rootfs, 0, 0, 0755, /var/lock)
 endif
-
+ifdef PTXCONF_ROOTFS_VAR_LIB
+	@$(call install_copy, rootfs, 0, 0, 0755, /var/lib)
+endif
 # -----------------------------------------------------------------------------
 # This part installs startscrips into /etc/init.d and links into /etc/rc.d
 # -----------------------------------------------------------------------------
