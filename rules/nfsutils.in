@@ -121,6 +121,9 @@ config  NFSUTILS_INSTALL_STATD
 	bool
 	prompt "Install /sbin/statd"
 	depends on NFSUTILS
+# this feature needs /var/lib
+	select ROOTFS_VAR
+	select ROOTFS_VAR_LIB
 
 # -----
 
