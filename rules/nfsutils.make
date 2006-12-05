@@ -99,11 +99,13 @@ NFSUTILS_AUTOCONF += --without-tcpwrappers
 endif
 
 ifdef PTXCONF_NFSUTILS_RPCUSER_UID
-NFSUTILS_AUTOCONF += --with-statduser=65534
+NFSUTILS_RPCUSER_UID := 65534
 endif
 ifdef PTXCONF_NFSUTILS_NOBODY_UID
-NFSUTILS_AUTOCONF += --with-statduser=99
+NFSUTILS_RPCUSER_UID := 99
 endif
+
+NFSUTILS_AUTOCONF += --with-statduser=$(NFSUTILS_RPCUSER_UID)
 
 $(STATEDIR)/nfsutils.prepare: $(nfsutils_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -194,23 +196,29 @@ ifdef PTXCONF_NFSUTILS_INSTALL_NFSSTAT
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_NHFSGRAPH
-	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsgraph, /usr/sbin/nhfsgraph, n)
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/utils/nhfsstone/nhfsgraph, \
+		/usr/sbin/nhfsgraph, n)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_NHFSNUMS
-	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsnums, /usr/sbin/nhfsnums, n)
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/utils/nhfsstone/nhfsnums, /usr/sbin/nhfsnums, n)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_NHFSRUN
-	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsrun, /usr/sbin/nhfsrun, n)
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/utils/nhfsstone/nhfsrun, /usr/sbin/nhfsrun, n)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_NHFSSTONE
-	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/nhfsstone/nhfsstone, /usr/sbin/nhfsstone)
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/utils/nhfsstone/nhfsstone, /usr/sbin/nhfsstone)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_SHOWMOUNT
-	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/utils/showmount/showmount, /sbin/showmount)
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		$(NFSUTILS_DIR)/utils/showmount/showmount, /sbin/showmount)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_STATD
@@ -218,6 +226,13 @@ ifdef PTXCONF_NFSUTILS_INSTALL_STATD
 		$(NFSUTILS_DIR)/utils/statd/statd,\
 		/usr/sbin/rpc.statd)
 endif
+
+# create the /var/lib/nfs folder
+# for locking this folder must be persistent on server side!
+# Do not use tmpfs or any other non persistent filesystem.
+#
+	@$(call install_copy, nfsutils, 0, 0, 0755, \
+		/var/lib/nfs)
 
 	mkdir -p $(NFSUTILS_DIR)/ptxdist_install_tmp
 
@@ -237,14 +252,14 @@ endif
 		/var/lib/nfs/xtab, n)
 
 	touch $(NFSUTILS_DIR)/ptxdist_install_tmp/state
-	@$(call install_copy, nfsutils, 65534, 0, 0600, \
+	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0600, \
 		$(NFSUTILS_DIR)/ptxdist_install_tmp/xtab, \
 		/var/lib/nfs/xtab, n)
 
-	@$(call install_copy, nfsutils, 65534, 0, 0700, \
+	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0700, \
 		/var/lib/nfs/sm)
 
-	@$(call install_copy, nfsutils, 65534, 0, 0700, \
+	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0700, \
 		/var/lib/nfs/sm.bak)
 
 ifdef PTXCONF_ROOTFS_ETC_INITD_NFS_DEFAULT
