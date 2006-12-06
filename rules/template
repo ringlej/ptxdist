@@ -105,17 +105,17 @@ $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
 	@$(call install_init, @packet@)
-	@$(call install_fixup,@packet@,PACKAGE,@packet@)
-	@$(call install_fixup,@packet@,PRIORITY,optional)
-	@$(call install_fixup,@packet@,VERSION,$(@PACKET@_VERSION))
-	@$(call install_fixup,@packet@,SECTION,base)
-	@$(call install_fixup,@packet@,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,@packet@,DEPENDS,)
-	@$(call install_fixup,@packet@,DESCRIPTION,missing)
+	@$(call install_fixup, @packet@,PACKAGE,@packetdash@)
+	@$(call install_fixup, @packet@,PRIORITY,optional)
+	@$(call install_fixup, @packet@,VERSION,$(@PACKET@_VERSION))
+	@$(call install_fixup, @packet@,SECTION,base)
+	@$(call install_fixup, @packet@,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, @packet@,DEPENDS,)
+	@$(call install_fixup, @packet@,DESCRIPTION,missing)
 
 	@$(call install_copy, @packet@, 0, 0, 0755, $(@PACKET@_DIR)/foobar, /dev/null)
 
-	@$(call install_finish,@packet@)
+	@$(call install_finish, @packet@)
 
 	@$(call touch, $@)
 
