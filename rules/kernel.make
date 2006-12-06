@@ -147,7 +147,7 @@ kernel_compile: $(STATEDIR)/kernel.compile
 $(STATEDIR)/kernel.compile: $(kernel_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
-		$(KERNEL_MAKEVARS) $(KERNEL_TARGET) $(PTXCONF_KERNEL_MODULES_BUILD)
+		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
