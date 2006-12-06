@@ -64,10 +64,6 @@ klibc_prepare: $(STATEDIR)/klibc.prepare
 KLIBC_PATH	:= PATH=$(CROSS_PATH)
 KLIBC_ENV 	:= $(CROSS_ENV)
 
-#
-# autoconf
-#
-
 $(STATEDIR)/klibc.prepare: $(klibc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -78,33 +74,19 @@ $(STATEDIR)/klibc.prepare: $(klibc_prepare_deps_default)
 
 klibc_compile: $(STATEDIR)/klibc.compile
 
-klibc_compile_deps := \
-	$(klibc_compile_deps_default) \
-	$(STATEDIR)/kernel.prepare
-#
-# INSTALLROOT where to install the executables
 # CROSS_COMPILE define the crosscompiler to use
-# ARCH define the target architecture
-# KLIBCKERNELSRC where the kernel sources are located
-#  (needed to use its build infrastructure)
-# KLIBCKERNELOBJ don't know
+# KLIBCARCH define the target architecture
+# INSTALLROOT where to install the executables
+KLIBC_MAKEVARS := \
+	KLIBCARCH=$(PTXCONF_ARCH) \
+	CROSS_COMPILE=$(COMPILER_PREFIX) \
+	INSTALLROOT=$(SYSROOT)
 
-# Note: To get verbose output
-# while compiling and installing
-# uncomment the following:
-KLIBC_VERBOSE=V=1
-
-KLIBC_MAKE_PARAM = ARCH=$(PTXCONF_ARCH) \
- CROSS_COMPILE=$(COMPILER_PREFIX) \
- KLIBCKERNELSRC=$(KERNEL_DIR)/ \
- KLIBCKERNELOBJ=$(KERNEL_DIR)/ \
- INSTALLROOT=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
-
-$(STATEDIR)/klibc.compile: $(klibc_compile_deps)
+$(STATEDIR)/klibc.compile: $(klibc_compile_deps_default) $(STATEDIR)/kernel.prepare
 	@$(call targetinfo, $@)
 	rm -f $(KLIBC_DIR)/.config
 	ln -sf $(KERNEL_DIR) $(KLIBC_DIR)/linux
-	cd $(KLIBC_DIR) && make $(KLIBC_MAKE_PARAM) $(KLIBC_VERBOSE)
+	cd $(KLIBC_DIR) && $(MAKE) $(KLIBC_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -228,7 +210,7 @@ ifdef PTXCONF_KLIBC_USER_SPEC
 				source=$(PTXDIST_WORKSPACE)/$$source;			\
 			fi;								\
 		fi;									\
-		echo "$$type $$target $$source $$rest" >> $(KLIBC_CONTROL);	\
+		echo "$$type $$target $$source $$rest" >> $(KLIBC_CONTROL);		\
 	done
 endif
 #
@@ -239,12 +221,7 @@ endif
 # install a few commands to the local architecture directory
 # but important is the klibc.a only to link programs against it
 #
-	cd $(KLIBC_DIR) && make  $(KLIBC_MAKE_PARAM) $(KLIBC_VERBOSE) install
-
-#
-# set CONFIG_INITRAMFS_SOURCE in the kernel config to the previously generated spec file
-#
-	sed -i "s^CONFIG_INITRAMFS_SOURCE=.*^CONFIG_INITRAMFS_SOURCE=\"$(KLIBC_CONTROL)\"^" $(KERNEL_DIR)/.config
+	cd $(KLIBC_DIR) && $(MAKE) $(KLIBC_MAKEVARS) install
 
 #
 # make sure the kernel regenerates the initramfs image
