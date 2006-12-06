@@ -17,11 +17,15 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 #
 # Paths and names and versions
 #
-@PACKET@		= @packet_filename@
-@PACKET@_VERSION	= @VERSION@
-@PACKET@_URL		= @URL@/$(@PACKET@)
-@PACKET@_SOURCE		= $(SRCDIR)/$(@PACKET@)
-@PACKET@_DIR		= $(BUILDDIR)/$(@PACKET@)
+@PACKET@		:= @packet_filename@
+@PACKET@_VERSION	:= @VERSION@
+@PACKET@_URL		:= @URL@/$(@PACKET@)
+@PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@)
+@PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
+
+ifdef PTXCONF_@PACKET@
+$(STATEDIR)/kernel.targetinstall.post: $(STATEDIR)/@packet@.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -56,8 +60,8 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
 
 @packet@_prepare: $(STATEDIR)/@packet@.prepare
 
-@PACKET@_PATH	=  PATH=$(CROSS_PATH)
-@PACKET@_ENV 	=  $(CROSS_ENV)
+@PACKET@_PATH	:= PATH=$(CROSS_PATH)
+@PACKET@_ENV 	:= $(CROSS_ENV)
 
 $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -71,8 +75,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
 
 $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(@PACKET@_DIR) && $(KERNEL_PATH) make \
-		KERNELDIR=$(KERNEL_DIR) $(KERNEL_MAKEVARS)
+	cd $(@PACKET@_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -93,29 +96,7 @@ $(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 
 $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, @packet_filename@)
-	@$(call install_fixup,@packet_filename@,PACKAGE,@packet_filename@)
-	@$(call install_fixup,@packet_filename@,PRIORITY,optional)
-	@$(call install_fixup,@packet_filename@,VERSION,$(@PACKET@_VERSION))
-	@$(call install_fixup,@packet_filename@,SECTION,base)
-	@$(call install_fixup,@packet_filename@,AUTHOR,"@AUTHOR@")
-	@$(call install_fixup,@packet_filename@,DEPENDS,)
-	@$(call install_fixup,@packet_filename@,DESCRIPTION,missing)
-#
-# TODO: Add here all files that should be copied to the target
-# This example here installs the template module into targets /lib/modules
-# directory
-# Note: This is not the correct location to install kernel modules. Modify this
-#       line to meet the full path on your target
-#
-	@$(call install_copy, @packet_filename@, 0, 0, 0644, \
- 		$(@PACKET@_DIR)/@packet_filename@.ko, \
-		/lib/modules/@packet_filename@.ko)
-
-# Note: Add everything to install above this line!
-	@$(call install_finish,@packet_filename@)
-
+	cd $(@PACKET@_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) modules_install
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -124,6 +105,6 @@ $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps_default)
 
 @packet@_clean:
 	rm -rf $(STATEDIR)/@packet@.*
-	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make clean
+	cd $(@PACKET@_DIR) && $(KERNEL_ENV) $(KERNEL_PATH) $(MAKE) clean
 
 # vim: syntax=make

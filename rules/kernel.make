@@ -92,7 +92,7 @@ $(STATEDIR)/kernel.extract: $(kernel_extract_deps_default)
 kernel_prepare: $(STATEDIR)/kernel.prepare
 
 KERNEL_PATH	:= PATH=$(CROSS_PATH)
-KERNEL_ENV 	:= $(CROSS_ENV)
+KERNEL_ENV 	:=
 KERNEL_MAKEVARS := \
 	$(PARALLELMFLAGS) \
 	HOSTCC=$(HOSTCC) \
