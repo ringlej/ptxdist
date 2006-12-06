@@ -3,10 +3,9 @@
 #
 
 menuconfig KLIBC
-	depends on KERNEL_COMPILE
 	bool
+	depends on KERNEL
 	prompt "klibc               "
-	depends on BUILD_USERLAND
 	help
 	  This feature contains a collection of programs that are linked against
 	  klibc. These duplicate some of the functionality of a regular Linux
