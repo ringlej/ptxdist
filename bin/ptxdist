@@ -442,7 +442,7 @@ clean() {
 
 drop() {
 	local statefile
-	if [ "$2" = "" ]; then
+	if [ -z "$2" ]; then
 		statefile="$1"
 	else
 		statefile="$1.$2"
@@ -468,7 +468,7 @@ menuconfig_action() {
 
 newpacket () {
 	local packet_name version url author year suffix overwrite \
-	    template prefix packet_filename packet_name packet PACKET filename
+	    template prefix packet_filename packet_name packet PACKET packetdash filename
 
 	case $1 in
 	    host|target|cross|source|kernel_driver)
@@ -519,11 +519,11 @@ newpacket () {
 	esac
 
 	packet_filename="${packet_name}"
-	packet_name="`echo ${packet_name} | tr - _`"
 
 	packet="`echo ${packet_name} | tr \"[A-Z]\" \"[a-z]\"`"
 	packet="${prefix}${packet}"
-	PACKET="`echo ${packet_name} | tr \"[a-z]\" \"[A-Z]\"`"
+	packetdash="`echo ${packet} | tr \"[_]\" \"[-]\"`"
+	PACKET="`echo ${packet_name} | tr \"[a-z-]\" \"[A-Z_]\"`"
 	PACKET="`echo ${prefix} | tr \"[a-z-]\" \"[A-Z_]\"`${PACKET}"
 
 	year=`date +%Y`
@@ -545,6 +545,7 @@ newpacket () {
 		-e "s,\@packet_filename@,${packet_filename},g" \
 		-e "s,\@PACKET@,${PACKET},g" \
 		-e "s,\@packet@,${packet},g" \
+		-e "s,\@packetdash@,${packetdash},g" \
 		-e "s,\@VERSION@,${version},g" \
 		-e "s,\@URL@,${url},g" \
 		-e "s,\@YEAR@,${year},g" \
@@ -799,6 +800,8 @@ while [ "$#" != "0" ]; do
 			check_kernelconfig
 			check_deps
 			ptxd_make kernel_menuconfig
+			check_pipe_status
+			exit 0
 			;;
 	maintainer)	shift
 			if [ "$#" = "0" ]; then
@@ -855,7 +858,16 @@ while [ "$#" != "0" ]; do
 			;;
 	menuconfig)	shift
 			check_ptxconfig
-			ptxd_kconfig true menuconfig_action
+			if test $# -eq 0; then
+				ptxd_kconfig true menuconfig_action
+			else
+				check_native
+				check_kernelconfig
+				check_deps
+				ptxd_make $1_menuconfig
+			fi
+			check_pipe_status
+			exit 0
 			;;
 	--native)	shift
 			export NATIVE=1
@@ -873,7 +885,15 @@ while [ "$#" != "0" ]; do
 			;;
 	oldconfig)	shift
 			check_ptxconfig
-			ptxd_kconfig true oldconfig_action
+			if test $# -eq 0; then
+				ptxd_kconfig true oldconfig_action
+			else
+				check_native
+				check_kernelconfig
+				check_deps
+				ptxd_make $1_oldconfig
+			fi
+			exit $?
 			;;
 	prepare)	shift
 			check_ptxconfig
