@@ -517,7 +517,7 @@ ifdef PTXCONF_ROOTFS_GENERIC_NSSWITCH
 		$(PTXDIST_TOPDIR)/generic/etc/nsswitch.conf, \
 		/etc/nsswitch.conf, n)
 endif
-ifdef PTXCONF_ROOTFS_USERS_NSSWITCH
+ifdef PTXCONF_ROOTFS_USER_NSSWITCH
 	@$(call install_copy, rootfs, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/nsswitch.conf, \
 		/etc/nsswitch.conf, n)
@@ -532,7 +532,7 @@ ifdef PTXCONF_ROOTFS_GENERIC_PROFILE
 		$(PTXDIST_TOPDIR)/generic/etc/profile, \
 		/etc/profile, n)
 endif
-ifdef PTXCONF_ROOTFS_USERS_PROFILE
+ifdef PTXCONF_ROOTFS_USER_PROFILE
 	@$(call install_copy, rootfs, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/profile, \
 		/etc/profile, n)
@@ -571,7 +571,7 @@ ifdef PTXCONF_ROOTFS_GENERIC_RESOLV
 		$(PTXDIST_TOPDIR)/generic/etc/resolv.conf, \
 		/etc/resolv.conf, n)
 endif
-ifdef PTXCONF_ROOTFS_USERS_RESOLV
+ifdef PTXCONF_ROOTFS_USER_RESOLV
 	@$(call install_copy, rootfs, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/resolv.conf, \
 		/etc/resolv.conf, n)

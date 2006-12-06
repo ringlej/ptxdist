@@ -188,7 +188,7 @@ menuconfig ROOTFS_HOSTNAME
 			  Installs a generic /etc/hostname file.
 			  See <ptxdist-install>/generic/hostname
 
-		config PTXCONF_ROOTFS_USER_HOSTNAME
+		config ROOTFS_USER_HOSTNAME
 			bool
 			prompt "User defined"
 			help
