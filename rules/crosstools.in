@@ -1,1 +1,6 @@
 source "rules/cross-module-init-tools.in"
+
+config CROSS_NASM
+	bool
+	prompt "x86 NASM"
+	depends on ARCH_X86

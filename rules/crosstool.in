@@ -30,11 +30,11 @@ choice
 		prompt "0.32"
 endchoice
 	
-config GCC_VERSION
+config CROSSTOOL_GCC_VERSION
 	prompt "GCC Version"
-		string
-		depends on CROSSTOOL
-		default "4.0.2"
+	string
+	depends on CROSSTOOL
+	default "4.0.2"
 
 config CROSSTOOL_GCCLANG_CC
 	depends on CROSSTOOL
@@ -42,18 +42,17 @@ config CROSSTOOL_GCCLANG_CC
 	prompt "C++ language support for gcc"
 	default y
 
-config GCC_MULTILIB
-	bool
-	prompt "build gcc with multilib support"
-	depends on CROSSTOOL
-	help
-	  FIXME: is this working and being used? [RSC]
-
-config BINUTILS_VERSION
+config CROSSTOOL_BINUTILS_VERSION
 	string
 	prompt "binutils Version"
 	depends on CROSSTOOL
 	default "2.16.1"
+
+config CROSSTOOL_KERNEL_VERSION
+	string
+	prompt "kernel Version"
+	depends on CROSSTOOL
+	default "2.6.18"
 
 config CROSSTOOL_KERNELCONFIG
 	string
@@ -77,29 +76,4 @@ config CROSSTOOL_KERNELCONFIG
 #	default "sh4.config"
 #	default "sparc64.config"
 
-##############################################################################
-comment "Cross Debugging Tools"
-##############################################################################
-
 source "rules/cross-gdb.in"
-
-##############################################################################
-comment "Other Tools"
-##############################################################################
-
-config XCHAIN-DISTCC
-	bool
-	prompt "distcc"
-
-config CROSS_NASM
-	bool
-	prompt "x86 NASM"
-	depends on ARCH_X86
-
-config XCHAIN-SCONS
-	bool
-	prompt "scons"
-	help
-	  Requires Python-1.6 or later and Python distutils on the Host,
-	  these tools are not (yet) part of ptxdist
-
