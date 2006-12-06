@@ -1,6 +1,7 @@
 # -*-makefile-*-
+# $Id$
 #
-# Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003-2006 by Pengutronix e.K., Hildesheim, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,13 +17,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_UMKIMAGE) += host-umkimage
 #
 # Paths and names
 #
-HOST_UMKIMAGE_VERSION	= 1.1.2
-HOST_UMKIMAGE		= u-boot-mkimage-$(HOST_UMKIMAGE_VERSION)
-HOST_UMKIMAGE_SUFFIX	= tar.gz
-HOST_UMKIMAGE_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOST_UMKIMAGE).$(HOST_UMKIMAGE_SUFFIX)
-HOST_UMKIMAGE_SOURCE	= $(SRCDIR)/$(HOST_UMKIMAGE).$(HOST_UMKIMAGE_SUFFIX)
-HOST_UMKIMAGE_DIR	= $(HOST_BUILDDIR)/$(HOST_UMKIMAGE)
-
+HOST_UMKIMAGE_VERSION	:= 1.1.6
+HOST_UMKIMAGE		:= u-boot-mkimage-$(HOST_UMKIMAGE_VERSION)
+HOST_UMKIMAGE_SUFFIX	:= tar.bz2
+HOST_UMKIMAGE_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOST_UMKIMAGE).$(HOST_UMKIMAGE_SUFFIX)
+HOST_UMKIMAGE_SOURCE	:= $(SRCDIR)/$(HOST_UMKIMAGE).$(HOST_UMKIMAGE_SUFFIX)
+HOST_UMKIMAGE_DIR	:= $(HOST_BUILDDIR)/$(HOST_UMKIMAGE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -48,6 +48,7 @@ $(STATEDIR)/host-umkimage.extract: $(host-umkimage_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_UMKIMAGE_DIR))
 	@$(call extract, HOST_UMKIMAGE, $(HOST_BUILDDIR))
+	@$(call patchin, HOST_UMKIMAGE, $(HOST_UMKIMAGE_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -56,11 +57,12 @@ $(STATEDIR)/host-umkimage.extract: $(host-umkimage_extract_deps_default)
 
 host-umkimage_prepare: $(STATEDIR)/host-umkimage.prepare
 
-HOST_UMKIMAGE_MAKEVARS	= CC=$(HOSTCC)
-HOST_UMKIMAGE_ENV	= CFLAGS=-I$(PTXCONF_PREFIX)/include
+HOST_UMKIMAGE_PATH	:= PATH=$(HOST_PATH)
+HOST_UMKIMAGE_ENV 	:= $(HOST_ENV)
 
 $(STATEDIR)/host-umkimage.prepare: $(host-umkimage_prepare_deps_default)
 	@$(call targetinfo, $@)
+	cd $(HOST_UMKIMAGE_DIR) && $(HOST_UMKIMAGE_PATH) $(MAKE) clean
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -71,7 +73,7 @@ host-umkimage_compile: $(STATEDIR)/host-umkimage.compile
 
 $(STATEDIR)/host-umkimage.compile: $(host-umkimage_compile_deps_default)
 	@$(call targetinfo, $@)
-	$(HOST_UMKIMAGE_ENV) make -C $(HOST_UMKIMAGE_DIR) $(HOST_UMKIMAGE_MAKEVARS)
+	cd $(HOST_UMKIMAGE_DIR) && $(HOST_UMKIMAGE_PATH) $(HOST_UMKIMAGE_ENV) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -82,18 +84,7 @@ host-umkimage_install: $(STATEDIR)/host-umkimage.install
 
 $(STATEDIR)/host-umkimage.install: $(host-umkimage_install_deps_default)
 	@$(call targetinfo, $@)
-	mkdir -p $(PTXCONF_HOST_PREFIX)/bin
-	install $(HOST_UMKIMAGE_DIR)/mkimage $(PTXCONF_HOST_PREFIX)/bin/u-boot-mkimage
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-host-umkimage_targetinstall: $(STATEDIR)/host-umkimage.targetinstall
-
-$(STATEDIR)/host-umkimage.targetinstall: $(host-umkimage_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+	install $(HOST_UMKIMAGE_DIR)/mkimage $(PTXCONF_HOST_PREFIX)/bin/mkimage
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
