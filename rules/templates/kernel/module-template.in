@@ -3,12 +3,11 @@ comment "------ module_template stuff ------"
 config MODULE_TEMPLATE
 	bool
 	prompt "build module_template"
-	select KERNEL_COMPILE
 	default y
+	select KERNEL
 	help
 	  Enable this extry to build the template kernel
 	  driver. Note: To build this template driver the
 	  kernel must be already build. Thats why this target
-	  depends on KERNEL_COMPILE. And the kernel configuration
+	  depends on KERNEL. And the kernel configuration
 	  must support modules at all.
-
