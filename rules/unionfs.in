@@ -1,7 +1,7 @@
 menuconfig UNIONFS
 	bool "unionfs [BROKEN]    "
 	depends on BROKEN
-	select KERNEL_COMPILE
+	select KERNEL
 	select E2FSPROGS
 	help
 	The unionfs driver provides a unification file system for the
