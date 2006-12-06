@@ -47,22 +47,18 @@ gen_configdeps_map() {
 # $(RULESFILES_MAKE): $(RULESFILES)
 #
 gen_rulesfiles_all() {
-    # PROJECTRULESDIR might be a softlink, so follow it
-    local REAL_PROJECTRULESDIR
-    REAL_PROJECTRULESDIR=$(readlink -f ${PROJECTRULESDIR})
-
-    (
-	if test -d ${REAL_PROJECTRULESDIR}; then
-	    find ${REAL_PROJECTRULESDIR} \
+   (
+	if test -d ${PROJECTRULESDIR}; then
+	    find ${PROJECTRULESDIR}/ \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
-	    find ${RULESDIR} \
-		-mindepth 1 -maxdepth 1 -name "*.make" \
-		`find ${REAL_PROJECTRULESDIR} \
-		-mindepth 1 -maxdepth 1 -name "*.make" \
+	    find ${RULESDIR}/ \
+		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" \
+		`find ${PROJECTRULESDIR}/ \
+		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" \
 		-printf "! -name %f "`
 	else 
-	    find ${RULESDIR} \
-		-mindepth 1 -maxdepth 1 -name "*.make"-a \! -path "*#*"
+	    find ${RULESDIR}/ \
+		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
 	fi
     ) > ${RULESFILES_ALL}
 
