@@ -47,8 +47,9 @@ source "rules/rootfs_configfiles.in"
 endmenu
 
 menu "Core (Kernel, C-Library)      "
-source "rules/kernel.in"
+depends on BUILD_USERLAND
 source "rules/klibc.in"
+source "rules/kernel.in"
 source "rules/libc.in"
 source "rules/gcclibs.in"
 endmenu
