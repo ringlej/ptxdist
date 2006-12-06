@@ -196,7 +196,7 @@ endif
 
 ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	if test -e $(KERNEL_DIR_INSTALL); then \
-		rm -rf $(KERNEL_DIR_INSTALL);
+		rm -rf $(KERNEL_DIR_INSTALL); \
 	fi
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
 		$(KERNEL_MAKEVARS) modules_install
