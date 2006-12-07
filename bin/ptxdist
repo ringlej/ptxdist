@@ -166,12 +166,41 @@ check_path() {
 # This only should be done when we build userland (chicken egg problem)
 #
 check_compiler() {
-	local build_userland compiler compiler_should_be compiler_is
+	local build_userland compiler vendor_should vendor_is vendor_def compiler_should_be compiler_is
 
 	build_userland=$(. ptxconfig && echo ${PTXCONF_BUILD_USERLAND})
 	[ "$build_userland" != "y" -o "$NATIVE" != "" ] && return
-
+#
+# Three things should be checked
+# 1) Correct compiler name
+# 2) Correct vendor if the vendor string is given
+# 3) Correct compiler version if a specific compiler version is given
+#
 	compiler=$(. ptxconfig && echo ${PTXCONF_COMPILER_PREFIX})gcc
+	vendor_should=$(. ptxconfig && echo ${PTXCONF_CROSSCHAIN_VENDOR})
+	if [ ! -z "$vendor_should" ]; then
+	# yea! Vendor is specified in the project. So check for
+	# toolchain vendor identification file
+		vendor_def=$(type -p tcn_vendor)
+		if [ -z "$vendor_def" ]; then
+			echo
+			echo "${PROMPT}error: Cannot check toolchain vendor. If this is all right,"
+			echo "${PROMPT}error: leave 'check for specific toolchain vendor' empty!"
+			echo
+			exit 1
+		else
+		# both vendor strings are present. Check them
+			vendor_is=$(. $vendor_def && echo ${PTXCONF_PROJECT})
+			if [ "$vendor_is" != "$vendor_should" ]; then
+				echo
+				echo "${PROMPT}error: Wrong toolchain vendor. Cannot continue! Vendor is <$vendor_is>,"
+				echo "${PROMPT}error: but should be <$vendor_should> to build this project!"
+				echo
+				exit 1
+			fi
+		fi
+	fi
+
 	compiler_should_be=$(. ptxconfig && echo ${PTXCONF_CROSSCHAIN_CHECK})
 	compiler_is=$($compiler -dumpversion 2> /dev/null)
 

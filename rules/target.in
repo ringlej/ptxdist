@@ -251,7 +251,7 @@ config SOFTFLOAT
 	depends on ARCH_ARM || ARCH_PPC
 	help
 	  Set this option if you want to let the toolchain replace the
-	  floating point instructions by emulation code. 
+	  floating point instructions by emulation code.
 
 comment "Extra Toolchain Options"
 
@@ -259,25 +259,25 @@ config TARGET_EXTRA_CPPFLAGS
 	string
 	prompt "Extra CPPFLAGS (cpp)"
 	help
-	  Extra options for the C preprocessor. 
+	  Extra options for the C preprocessor.
 
 config TARGET_EXTRA_CFLAGS
 	string
 	prompt "Extra CFLAGS (c)"
 	help
-	  Extra options for the C compiler. 
+	  Extra options for the C compiler.
 
 config TARGET_EXTRA_CXXFLAGS
 	string
 	prompt "Extra CXXFLAGS (c++)"
 	help
-	  Extra options for the C++ compiler. 
+	  Extra options for the C++ compiler.
 
 config TARGET_EXTRA_LDFLAGS
 	string
 	prompt "Extra LDFLAGS (ld)"
 	help
-	  Extra options for the linker. 
+	  Extra options for the linker.
 
 config ARCH_NOMMU
 	bool
@@ -320,16 +320,16 @@ config PREFIX
 	string
 	default "${PTXDIST_WORKSPACE}/local"
 	help
-	  This directory is being used to install things during the "install" 
-	  stage of PTXdist. It usually contains host tools and libraries which 
-	  are needed to link programs. 
+	  This directory is being used to install things during the "install"
+	  stage of PTXdist. It usually contains host tools and libraries which
+	  are needed to link programs.
 
-	  A sane default for this is ${PTXDIST_WORKSPACE}/local. Use this one 
-	  unless you do exactly know what you are doing. 
+	  A sane default for this is ${PTXDIST_WORKSPACE}/local. Use this one
+	  unless you do exactly know what you are doing.
 
 	  PTXdist uses a sysroot/destdir mechanism, which means that packets
-	  are being installed with 
-	  
+	  are being installed with
+
 	  	make install DESTDIR=${PTXCONF_PREFIX}/${PTXCONF_GNU_TARGET}
 
 	  All host tools are directly being installed to ${PTXCONF_PREFIX}.
@@ -346,6 +346,21 @@ config CROSS_PREFIX
 
 comment "GNU Toolchain Identification String"
 
+config CROSSCHAIN_VENDOR
+	string
+	prompt "Check for specific toolchain vendor"
+	default ""
+	depends on BUILD_USERLAND
+	help
+	  Add here an unique vendor string to ensure this project will
+	  be build with the correct toolchain.
+	  Leave this entry empty to omit this check.
+	  To use this feature add a file called 'tcn_vendor' to the bin/ folder of
+	  your toolchain. This file should contain at least one variable definition:
+	  PTXCONF_PROJECT="insert-vendor-string-here"
+	  The string defined here will be checked against the string defined in
+	  PTXCONF_PROJECT in file 'tcn_vendor' from the toolchain.
+
 config CROSSCHAIN_CHECK
 	string
 	prompt "Check for specific gcc version"
@@ -354,8 +369,8 @@ config CROSSCHAIN_CHECK
 	help
 	  PTXdist calls your cross compiler with -dumpversion and
 	  compares the output with this string. This should help
-	  to avoid compilation with the wrong compiler version 
-	  when you use your own external toolchain. 
+	  to avoid compilation with the wrong compiler version
+	  when you use your own external toolchain.
 
 config GNU_TARGET
 	string
