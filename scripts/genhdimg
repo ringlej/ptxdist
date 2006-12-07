@@ -1,6 +1,11 @@
 #!/bin/bash
 
-# Create a bootable harddisk (or compact flash) image
+# Create a bootable harddisk (or compact flash) image from
+# a partition definition given from command line
+#
+# (C) 2006 Pengutronix
+#
+
 
 Usage() {
 cat <<-EOF
@@ -12,11 +17,38 @@ Usage: `basename "$0"` OPTIONS <svn rep>
     -n <stafe2>     path to grub stage2
     -o <hdimg file> resulting hd image
     -i <img file>   filesystem image
-    -p <size>       partition size in kilobytes
+    -p <def>       partition definition (can be given multiple times)
+    
+    A partition definition has the form
+    start_sector:end_sector:partition_type:[imagefile]
 EOF
 }
 
-while getopts "hm:n:i:o:p:" OPT
+# usage: pad from to blocks
+#        cat $from to $to and pad the output to $blocks * 512 bytes
+pad() {
+	from="$1"
+	to="$2"
+	blocks="$3"
+
+	if [ ! -f "$from" ]; then
+		echo "$from does not exist"
+		exit 1
+	fi
+
+	fromsize=$(stat --printf "%s" "$from")
+
+	if [ $(($fromsize)) -gt $(($blocks * 512)) ]; then
+		echo "warning: $from truncated. Need $fromsize bytes, but have only $size!"
+	fi
+
+	cat $from /dev/zero | dd bs=512 count=$(($blocks)) >> "$to" 2>/dev/null
+}
+
+
+partcount=0
+
+while getopts "hm:n:o:p:" OPT
 do
     case "$OPT" in
         h)  Usage
@@ -28,28 +60,87 @@ do
 	    ;;
 	o)  IMAGEFILE="$OPTARG"
 	    ;;
-	i)  FSIMAGE="$OPTARG"
-	    ;;
-	p)  PARTSIZE=$(($OPTARG * 2))
+	p)  partcount=$(($partcount + 1))
+	    PART[$partcount]="$OPTARG"
 	    ;;
     esac
 done
 
-# get the first 446 bytes of stage1
-dd if=$STAGE1 bs=446 count=1 > $IMAGEFILE
+if [ "$partcount" == 0 ]; then
+	echo "need at least one partition definition"
+	exit 1
+fi
 
-# append a partition table to it.
-# We leave space of 299 blocks to
-# the first partition to put stage2 into
-# this space
-genpart -c -b 300 -s $PARTSIZE >> $IMAGEFILE
-genpart -b 0 -s 0 >> $IMAGEFILE
-genpart -b 0 -s 0 >> $IMAGEFILE
-genpart -b 0 -s 0 -m >> $IMAGEFILE
+if [ "$partcount" -gt 4 ]; then
+	echo "a maximum of four partitions is allowed"
+	exit 1
+fi
 
-# append stage2 padded to 299 blocks
-cat $STAGE2 /dev/zero | dd bs=512 count=299 >> $IMAGEFILE
+if [ -z "$IMAGEFILE" ]; then
+	echo "no output image file given"
+	exit 1
+fi
 
-# append the ext2 image padded to PARTSIZE blocks
-cat $FSIMAGE /dev/zero | dd bs=512 count=$PARTSIZE >> $IMAGEFILE
+IMAGETMP=$(mktemp)
 
+# get the first 446 bytes of grub stage1 or from /dev/zero
+if [ -n "$STAGE1" ]; then
+	echo "using stage1 file $STAGE1"
+	if [ ! -r "$STAGE1" ]; then
+		echo "cannot open stage1 file $STAGE1"
+		exit 1
+	fi
+
+	dd if="$STAGE1" bs=446 count=1 > $IMAGEFILE 2>/dev/null
+else
+	dd if=/dev/zero bs=446 count=1 > $IMAGEFILE 2>/dev/null
+fi
+
+# add offset to first partition and fill it with grub stage2 if given
+offset=$(( $(echo ${PART[1]} | awk -F: '{print $1}') - 1))
+if [ -n "$STAGE2" ]; then
+	echo "using stage2 file $STAGE2"
+	if [ ! -r "$STAGE2" ]; then
+		echo "cannot open stage2 file $STAGE2"
+		exit 1
+	fi
+	pad "$STAGE2" "$IMAGETMP" $(($offset))
+else
+	cat /dev/zero | dd bs=512 count=$offset > "$IMAGETMP" 2>/dev/null
+fi
+
+# append the partitions
+
+# mark the first partition bootable
+extraarg="-c"
+
+for i in $(seq 4); do
+	pstart=$(( $(echo ${PART[$i]} | awk -F: '{print $1}') ))
+	pend=$(( $(echo ${PART[$i]} | awk -F: '{print $2}') ))
+	ptype=$(( $(echo ${PART[$i]} | awk -F: '{print $3}') ))
+	pimage=$(echo ${PART[$i]} | awk -F: '{print $4}')
+	psize=$(($pend - $pstart + 1))
+		
+	if [ $i -gt $partcount ]; then
+		psize=0
+	fi
+
+	echo "Generating partition $i (start=$pstart, size=$psize type=$ptype)"
+
+	# add 0x55aa magic to last partition in table
+	if [ $i == 4 ]; then
+		extraarg="-m"
+	fi
+
+	genpart $extraarg -b $pstart -s $psize -t $ptype >> $IMAGEFILE
+
+	if [ -n "$pimage" ]; then
+		echo "Initializing partition $i with $pimage"
+		pad "$pimage" "$IMAGETMP" $(($psize))
+	fi
+
+	extraarg=""
+done
+
+cat $IMAGETMP >> $IMAGEFILE
+rm -f $IMAGETMP
