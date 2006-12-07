@@ -16,34 +16,34 @@ config IMAGE_HD
 	help
 	  General
 	  -------
-	  
+
 	  Build a harddisk root image. The image will contain a partition table
 	  which you can define with the following entries. Note that the resulting
 	  partition table does not have CHS entries but only LBA entries, so
 	  you need to switch your (x86-) Bios to LBA. Also note that fdisk will
 	  complain about inconsistent CHS/LBA entries. You can ignore these warnings.
 	  The ptxdist image will be put into the first partition.
-	  
+
 	  Partition sizes
 	  ---------------
-	  
+
 	  You can define a partition by giving the first and the last sector of
 	  each partition. Sectors are units of 512 bytes. The first sector (sector 0)
 	  is reserved for the MBR and the partition table.
 	  Sectors can be given either decimal or in hex prefixed with 0x.
 	  Beware that a 256MB flash card does not have exactly 256 * 1024 * 2 sectors
 	  but slightly less.
-	  
+
 	  Partition types
 	  ---------------
-	  
+
 	  You can give the partition types as a decimal or hex (prefixed with 0x) value
 	  See at the output of "sfdisk -T" for a list of valid types. No extended
 	  partitions are supported at the moment.
-	  
+
 	  grub
 	  ----
-	  
+
 	  If you select grub in your config, it will be installed on the image and thus
 	  give a bootable image for x86 PCs. The grub stage2 file will be installed right
 	  after the MBR before the first partition, so you need to leave a hole before the
@@ -60,7 +60,7 @@ config IMAGE_HD_PART1_START
 	prompt "partition 1 start sector"
 	help
 	  see Generate images/hd.img
-	
+
 config IMAGE_HD_PART1_END
 	string
 	depends on IMAGE_HD
@@ -71,6 +71,7 @@ config IMAGE_HD_PART1_END
 config IMAGE_HD_PART1_TYPE
 	string
 	default "0x83"
+	depends on IMAGE_HD_PART1
 	prompt "partition 1 type"
 	help
 	  see Generate images/hd.img
@@ -86,7 +87,7 @@ config IMAGE_HD_PART2_START
 	prompt "partition 2 start sector"
 	help
 	  see Generate images/hd.img
-	
+
 config IMAGE_HD_PART2_END
 	string
 	depends on IMAGE_HD_PART2
@@ -113,7 +114,7 @@ config IMAGE_HD_PART3_START
 	prompt "partition 3 start sector"
 	help
 	  see Generate images/hd.img
-	
+
 config IMAGE_HD_PART3_END
 	string
 	depends on IMAGE_HD_PART3
@@ -140,7 +141,7 @@ config IMAGE_HD_PART4_START
 	prompt "partition 4 start sector"
 	help
 	  see Generate images/hd.img
-	
+
 config IMAGE_HD_PART4_END
 	string
 	depends on IMAGE_HD_PART4
@@ -161,9 +162,9 @@ config IMAGE_IPKG_IMAGE_FROM_REPOSITORY
 	prompt "make images: use packets from repository"
 	help
 	  Usually 'make images' packages the files from ${IMAGEDIR}
-	  into ${IMAGEDIR}/root.[filesystem]. If this option is checked the 
-	  packet files from the IPKG update site (to be specified in 
-	  .ptxdistrc) are taken instead. 
+	  into ${IMAGEDIR}/root.[filesystem]. If this option is checked the
+	  packet files from the IPKG update site (to be specified in
+	  .ptxdistrc) are taken instead.
 
 config IMAGE_IPKG_EXTRA_ARGS
 	string
@@ -178,10 +179,10 @@ config IMAGE_IPKG_ARCH
 	default "${PTXCONF_ARCH}"
 	prompt "Name for ipkg field 'Architecture:'"
 	help
-	  You can specify an architecture name for your ipkg packets here, e.g. 
-	  ${PTXCONF_PROJECT}. Default is ${PTXCONF_ARCH}. Another option would 
-	  be to fix this to the PTXdist version you are using; think of 
-	  PTXdist being a distro development tool ("Build with ptxdist-0.8.15"). 
+	  You can specify an architecture name for your ipkg packets here, e.g.
+	  ${PTXCONF_PROJECT}. Default is ${PTXCONF_ARCH}. Another option would
+	  be to fix this to the PTXdist version you are using; think of
+	  PTXdist being a distro development tool ("Build with ptxdist-0.8.15").
 
 config IMAGE_JFFS2
 	bool
@@ -320,6 +321,6 @@ config IMAGE_HOST_DEB
 	help
 	  Usually the host side code is being installed during the
 	  "install" stages with "make install". If this option is
-	  checked, Debian .deb packets are created. 
+	  checked, Debian .deb packets are created.
 
 
