@@ -130,6 +130,34 @@ $(STATEDIR)/fontconfig.targetinstall: $(fontconfig_targetinstall_deps_default)
 		libfontconfig.so.1.0.4, \
 		/usr/lib/libfontconfig.so)
 
+ifdef FONTCONFIG_CONFS
+	@$(call install_copy, fontconfig, 0, 0, 0644, \
+		$(FONTCONFIG_DIR)/fonts.conf, \
+		/etc/fonts/fonts.conf,n)
+
+	@$(call install_copy, fontconfig, 0, 0, 0644, \
+		$(FONTCONFIG_DIR)/conf.d/sub-pixel.conf, \
+		/etc/fonts/conf.d/subpixel.conf,n)
+
+	@$(call install_copy, fontconfig, 0, 0, 0644, \
+		$(FONTCONFIG_DIR)/conf.d/autohint.conf, \
+		/etc/fonts/conf.d/autohint.conf,n)
+endif
+
+ifdef FONTCONFIG_UTILS
+	@$(call install_copy, fontconfig, 0, 0, 0755, \
+		$(FONTCONFIG_DIR)/fc-cache/.libs/fc-cache, \
+		/usr/bin/fc-cache)
+
+	@$(call install_copy, fontconfig, 0, 0, 0755, \
+		$(FONTCONFIG_DIR)/fc-list/.libs/fc-list, \
+		/usr/bin/fc-list)
+
+	@$(call install_copy, fontconfig, 0, 0, 0755, \
+		$(FONTCONFIG_DIR)/fc-match/.libs/fc-match, \
+		/usr/bin/fc-match)
+endif
+
 	@$(call install_finish,fontconfig)
 
 	@$(call touch, $@)
