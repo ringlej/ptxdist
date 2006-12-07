@@ -1,3 +1,14 @@
+2006-12-06 Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* kernel: better support for externel kernel modules
+	Automatically intergration into the regular kernel module ipkg
+
+2006-12-06 Juergen Beisert <j.beisert@pengutronix.de>
+
+	* rootfs: clean up menu, consistent way to select any startup-script
+	and config files. Move other entries into the package they belong
+	to
+
 2006-10-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* dbus: added (rsc) and added some patches to fix the
