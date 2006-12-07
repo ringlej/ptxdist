@@ -9,6 +9,12 @@ menuconfig KERNEL
 	select HOST_UMKIMAGE if KERNEL_IMAGE_U
 	prompt "linux kernel        "
 
+comment "--------- Target's kernel ----------"
+	depends on KERNEL
+
+comment "build options   ---"
+	depends on KERNEL
+
 config KERNEL_VERSION
 	prompt "linux kernel Version"
 	depends on KERNEL
@@ -37,7 +43,10 @@ config KERNEL_CONFIG
 	help
 	  tris entry specifies the .config file used to compile your kernel
 
-comment "--- install options ---"
+config KERNEL_MODULES
+	bool
+	default y
+	prompt "build kernel-modules"
 	depends on KERNEL
 
 choice
@@ -76,15 +85,12 @@ config KERNEL_IMAGE_VMLINUX
 	 used for debugging purposes.
 endchoice
 
+comment "install options   ---"
+	depends on KERNEL
+
 config KERNEL_INSTALL
 	bool
 	prompt "install kernel into /boot"
-	depends on KERNEL
-
-config KERNEL_MODULES
-	bool
-	default y
-	prompt "build kernel-modules"
 	depends on KERNEL
 
 config KERNEL_MODULES_INSTALL
@@ -107,9 +113,10 @@ config KERNEL_MODULES_BUILD
 	default "modules" if KERNEL_MODULES_INSTALL
 	default "" if ! KERNEL_MODULES_INSTALL
 
+comment "--------- Emulation kernel ---------"
+	depends on KERNEL
 
-
-menu "emulation options"
+menu  "emulation options             "
 	depends on KERNEL
 
 config KERNEL_NATIVE_VERSION
