@@ -8,7 +8,7 @@ menuconfig CVS
 	  useful for projects using a central repository to hold files and then
 	  track all changes made to those files.
 
-comment "cvs build options   ---"
+comment "build options   ---"
 	depends on CVS
 
 config CVS_NDBM
