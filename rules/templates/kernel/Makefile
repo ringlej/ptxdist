@@ -1,11 +1,17 @@
-ifneq ($(KERNELRELEASE),)
-# kbuild part of makefile
-	obj-m  := module-template.o
+ifeq ($(PTX_KERNEL_DIR),)
+
+all:
+	@echo "please export PTX_KERNEL_DIR"
+
+clean:
+	rm -rf module-template.ko *.kmod *.mod.c .*.cmd Module.symvers .tmp_versions
 
 else
-# Normal Makefile
+
 PWD	:= $(shell pwd)
+obj-m  := module-template.o
 
 modules modules_install clean:
-	$(MAKE) -C $(PTX_KERNEL_DIR) M=$(PWD) $@
+	$(MAKE) -C $(PTX_KERNEL_DIR) M=$(PTX_PWD) V=$(V) $@
+
 endif
