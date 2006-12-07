@@ -73,6 +73,36 @@ config UDEV_FW_HELPER
 comment "runtime options  ---"
 	depends on UDEV
 
+config ROOTFS_ETC_UDEV_CONF
+	depends on UDEV
+	bool
+	default y
+	prompt "Install udev.conf"
+	help
+	  Installs /etc/udev/udev.conf from a selectable source
+
+	choice
+		prompt "Kind of udev.conf"
+		default ROOTFS_ETC_UDEV_CONF_DEFAULT
+		depends on ROOTFS_ETC_UDEV_CONF
+
+		config ROOTFS_ETC_UDEV_CONF_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/udev/udev.conf file.
+			  See <ptxdist-install>/generic/etc/udev/udev.conf
+
+		config ROOTFS_ETC_UDEV_CONF_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined udev.conf file. PTXdist
+			  uses files projectroot/etc/udev/udev.conf in your
+			  local project
+
+	endchoice
+
 config ROOTFS_ETC_INITD_UDEV
 	depends on UDEV
 	bool

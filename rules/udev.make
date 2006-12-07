@@ -110,10 +110,23 @@ $(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps_default)
 	@$(call install_fixup, udev,DEPENDS,)
 	@$(call install_fixup, udev,DESCRIPTION,missing)
 
+#
+# Install a configuration on demand only
+#
+ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF
+ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_DEFAULT
+# use generic
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/udev/udev.conf, \
 		/etc/udev/udev.conf, n)
-
+endif
+ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_USER
+# user defined
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/udev.conf, \
+		/etc/udev/udev.conf, n)
+endif
+endif
 #
 # Install the startup script on request only
 #
