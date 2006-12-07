@@ -16,5 +16,14 @@ Migrate a configuration from prior 0.10.1:
     revision.
   - replace any $(VARIABLE) (=parentheses) occurence by ${VARIABLE} (=curly brackets)
 
+Migrate a configuration from prior 0.10.5:
+ Kernel configuration variables names are changed. So every 0.10.4 project
+ needs to be reconfigured, if user specific values are in use:
+ - kernel version
+ - kernel patch control file name
+ - kernel configuration file name
+ If the defaults are in use, no modification is required. A "ptxdist oldconfig" does
+ the job.
+
 You should examine carefully the resulting configuration. Due to variable name changes
 or packet version updates the old configuration may fail or misses something.
