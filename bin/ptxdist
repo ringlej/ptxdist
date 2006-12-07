@@ -182,7 +182,7 @@ check_compiler() {
 	if [ ! -z "$vendor_should" ]; then
 	# yea! Vendor is specified in the project. So check for
 	# toolchain vendor identification file
-		vendor_def=$(type -p tcn_vendor)
+		vendor_def=$(type -p ptxconfig)
 		if [ -z "$vendor_def" ]; then
 			echo
 			echo "${PROMPT}error: Cannot check toolchain vendor. If this is all right,"

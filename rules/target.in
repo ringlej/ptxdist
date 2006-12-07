@@ -355,11 +355,11 @@ config CROSSCHAIN_VENDOR
 	  Add here an unique vendor string to ensure this project will
 	  be build with the correct toolchain.
 	  Leave this entry empty to omit this check.
-	  To use this feature add a file called 'tcn_vendor' to the bin/ folder of
+	  To use this feature add a file called 'ptxconfig' to the bin/ folder of
 	  your toolchain. This file should contain at least one variable definition:
 	  PTXCONF_PROJECT="insert-vendor-string-here"
 	  The string defined here will be checked against the string defined in
-	  PTXCONF_PROJECT in file 'tcn_vendor' from the toolchain.
+	  PTXCONF_PROJECT in file 'ptxconfig' from the toolchain.
 
 config CROSSCHAIN_CHECK
 	string
