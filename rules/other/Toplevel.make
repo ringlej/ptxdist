@@ -242,6 +242,23 @@ ifdef PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY
 images_deps += $(STATEDIR)/ipkg-push
 endif
 
+ifdef PTXCONF_IMAGE_HD_PART1
+	GENHDIMARGS = "-p $(PTXCONF_IMAGE_HD_PART1_START):$(PTXCONF_IMAGE_HD_PART1_END):$(PTXCONF_IMAGE_HD_PART1_TYPE):$(IMAGEDIR)/root.ext2 "
+endif
+ifdef PTXCONF_IMAGE_HD_PART2
+	GENHDIMARGS += "-p $(PTXCONF_IMAGE_HD_PART2_START):$(PTXCONF_IMAGE_HD_PART2_END):$(PTXCONF_IMAGE_HD_PART2_TYPE): "
+endif
+ifdef PTXCONF_IMAGE_HD_PART3
+	GENHDIMARGS += "-p $(PTXCONF_IMAGE_HD_PART3_START):$(PTXCONF_IMAGE_HD_PART3_END):$(PTXCONF_IMAGE_HD_PART3_TYPE): "
+endif
+ifdef PTXCONF_IMAGE_HD_PART4
+	GENHDIMARGS += "-p $(PTXCONF_IMAGE_HD_PART4_START):$(PTXCONF_IMAGE_HD_PART4_END):$(PTXCONF_IMAGE_HD_PART4_TYPE): "
+endif
+ifdef PTXCONF_GRUB
+	GENHDIMARGS += "-m $(GRUB_DIR)/stage1/stage1 "
+	GENHDIMARGS += "-n $(GRUB_DIR)/stage2/stage2 "
+endif
+
 $(STATEDIR)/images: $(images_deps)
 	cat $(STATEDIR)/*.perms > $(IMAGEDIR)/permissions
 ifdef PTXCONF_IMAGE_TGZ
@@ -273,14 +290,13 @@ ifdef PTXCONF_IMAGE_EXT2
 		echo "$(IMAGEDIR)/root.ext2" )						\
 	) | $(FAKEROOT) --
 endif
+
 ifdef PTXCONF_IMAGE_HD
+
 	echo "Creating hdimg using $(IMAGEDIR)/root.ext2";				\
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg		\
-	-m $(GRUB_DIR)/stage1/stage1							\
-	-n $(GRUB_DIR)/stage2/stage2							\
 	-o images/hd.img								\
-	-i images/root.ext2								\
-	-p $(PTXCONF_IMAGE_EXT2_SIZE)
+	$(GENHDIMARGS)
 endif
 ifdef PTXCONF_IMAGE_EXT2_GZIP
 	rm -f $(IMAGEDIR)/root.ext2.gz
