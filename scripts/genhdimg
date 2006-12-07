@@ -39,7 +39,7 @@ pad() {
 	fromsize=$(stat --printf "%s" "$from")
 
 	if [ $(($fromsize)) -gt $(($blocks * 512)) ]; then
-		echo "warning: $from truncated. Need $fromsize bytes, but have only $size!"
+		echo "warning: $from truncated. Need $fromsize bytes, but have only $(($blocks * 512))!"
 	fi
 
 	cat $from /dev/zero | dd bs=512 count=$(($blocks)) >> "$to" 2>/dev/null
