@@ -215,44 +215,6 @@ menuconfig ROOTFS_ETC_INITD_BANNER
 		  Type in here your favorite vendorname. It gets displayed
 		  whenever your system starts.
 
-########################## Apache 2 ##########################################
-
-menuconfig ROOTFS_ETC_INITD_HTTPD
-	depends on ROOTFS_ETC_INITD && APACHE2
-	bool
-	default y
-	prompt "apache                    "
-	help
-	  The /etc/init.d/httpd script lets you control the apache daemon.
-
-	choice
-		prompt "Kind of startup scrict"
-		depends on ROOTFS_ETC_INITD_HTTPD
-		default ROOTFS_ETC_INITD_HTTPD_DEFAULT
-
-		config ROOTFS_ETC_INITD_HTTPD_DEFAULT
-			bool
-			prompt "Use default httpd"
-			help
-			  A file from generic/etc/init.d/httpd will be used.
-
-		config ROOTFS_ETC_INITD_HTTPD_USER
-			bool
-			prompt "Use your own httpd file"
-			help
-			  Select this, then you can enter a path and filename to your
-			  own httpd startup script.
-	endchoice
-
-	config ROOTFS_ETC_INITD_HTTPD_USER_FILE
-		depends on ROOTFS_ETC_INITD_HTTPD
-		depends on ROOTFS_ETC_INITD_HTTPD_USER
-		prompt "Path and name of your own httpd to be used"
-		string
-		default ""
-		help
-		  Enter a path and filename to be used as httpd script on your target.
-
 ########################## crond ##########################################
 # this is for busybox' crond only
 #

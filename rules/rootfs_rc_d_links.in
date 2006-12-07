@@ -85,7 +85,7 @@ config ROOTFS_ETC_INITD_THTTPD_LINK
 config ROOTFS_ETC_INITD_HTTPD_LINK
 	depends on ROOTFS_ETC_INITD_HTTPD
 	string
-	prompt "apache link name in /etc/rc.d"
+	prompt "apache link name"
 	default "S08_httpd"
 	help
 	  Set a link into /etc/rc.d which points to /etc/init.d/httpd to

@@ -245,15 +245,22 @@ endif
 
 ifneq ($(PTXCONF_APACHE2_CONFIGDIR),"")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_CONFIGDIR))
+# ---------------------------
+# generate a config file
 #
-# generate a default config file
-# Replace special markers with their designated values
-#
+ifdef PTXCONF_APACHE2_INSTALL_CONFIG
 ifdef PTXCONF_APACHE2_DEFAULTCONFIG
+# use generic one
 	@$(call install_copy, apache2, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/httpd.conf, \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, n)
-	@echo "installing apache's default config file..."
+endif
+ifdef PTXCONF_APACHE2_USERCONFIG
+# users one
+	@$(call install_copy, apache2, 12, 102, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/httpd.conf, \
+		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, n)
+endif
 # modify placeholders with data from configuration
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
 		@SERVERROOT@, $(PTXCONF_APACHE2_SERVERROOT) )
@@ -271,43 +278,38 @@ ifdef PTXCONF_APACHE2_DEFAULTCONFIG
 		@SERVERADMIN@, $(PTXCONF_APACHE2_SERVERADMIN) )
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
 		@SERVERNAME@, $(PTXCONF_APACHE2_SERVERNAME) )
-else
-#
-# use users configuration instead
-#
-ifneq ($(PTXCONF_APACHE2_USER_CONFIG), "")
-	@echo "installing user config file..."
-	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(PTXCONF_APACHE2_USER_CONFIG), \
-		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf,n)
 endif
 endif
-endif
-#
+
+
+# ---------------------------
 # create the log dir if enabled
 #
 ifneq ($(PTXCONF_APACHE2_LOGDIR),"")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_LOGDIR))
 endif
-#
-# create init script and link to launch at startup
+
+# ---------------------------
+# install startup script on demand
 #
 ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
-ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE)),)
-# users own file without modifications
-	@$(call install_copy, apache2, 0, 0, 0755, \
-		$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER_FILE), \
-		/etc/init.d/httpd, n)
-else
+ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD_DEFAULT
 # generic script with path modifications
 	@$(call install_copy, apache2, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/httpd, \
 		/etc/init.d/httpd, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER
+# users one
+	@$(call install_copy, apache2, 0, 0, 0755, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/httpd, \
+		/etc/init.d/httpd, n)
+endif
+# replace some placeholders
 	@$(call install_replace, apache2, /etc/init.d/httpd, \
 		@APACHECONFIG@,  $(PTXCONF_APACHE2_CONFIGDIR) )
 	@$(call install_replace, apache2, /etc/init.d/httpd, \
 		@LOGPATH@,  $(PTXCONF_APACHE2_LOGDIR) )
-endif
 # install link to launch automatically if enabled
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
 	@$(call install_link, apache2, ../init.d/httpd, \

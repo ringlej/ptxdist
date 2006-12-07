@@ -6,10 +6,13 @@ menuconfig APACHE2
 	select GLIBC_LIBRT
 	select HOST_APACHE2
 	help
-	  Apache v2 is the next generation of the Apache web server. 
-	  This version - a total rewrite - introduces many new 
-	  improvements, such as threading, a new API, IPv6 support, 
+	  Apache v2 is the next generation of the Apache web server.
+	  This version - a total rewrite - introduces many new
+	  improvements, such as threading, a new API, IPv6 support,
 	  request/response filtering, and more.
+
+comment "build options   ---"
+	depends on APACHE2
 
 choice
 	depends on APACHE2
@@ -34,51 +37,7 @@ choice
 		  One acceptor thread, multiple worker threads.
 endchoice
 
-config APACHE2_DEFAULTCONFIG
-	prompt "Default config file"
-	bool
-	depends on APACHE2
-	default y
-	help
-	  This uses a generic configuration file for your apache. There is
-	  nothing special in it, so you should check it before using.
-
-config APACHE2_LISTEN
-	depends on APACHE2_DEFAULTCONFIG
-	string
-	default "0.0.0.0:80"
-	prompt "LISTEN"
-	help
-	  LISTEN entry in httpd.conf; this entry must contain a server
-	  name or IP and a port, for example "0.0.0.0:80" to listen
-	  on all interfaces.  
-
-config APACHE2_SERVERNAME
-	depends on APACHE2_DEFAULTCONFIG
-	string
-	default "localhost"
-	prompt "SERVERNAME"
-	help
-	  SERVERNAME entry in httpd.conf
-
-config APACHE2_SERVERADMIN
-	depends on APACHE2_DEFAULTCONFIG
-	string
-	default "foo\@bar"
-	prompt "SERVERADMIN"
-	help
-	  SERVERADMIN entry in httpd.conf
-
-config APACHE2_USER_CONFIG
-	depends on APACHE2 && !APACHE2_DEFAULTCONFIG
-	string
-	prompt "Your own apache configurations file"
-	default ""
-	help
-	  Enter path to your own configuration file that should be
-	  used by apache on your target.
-
-comment "Directories"
+comment "runtime options   ---"
 	depends on APACHE2
 
 config APACHE2_SERVERROOT
@@ -87,8 +46,135 @@ config APACHE2_SERVERROOT
 	prompt "ServerRoot directory"
 	default "/usr/share/apache2"
 	help
-	  This directory defines apache's serverroot where the icons are 
+	  This directory defines apache's serverroot where the icons are
 	  located.
+
+menuconfig ROOTFS_ETC_INITD_HTTPD
+	depends on APACHE2
+	bool
+	default y
+	prompt "Install startup script"
+	help
+	  The /etc/init.d/httpd script lets you control the apache daemon.
+
+	choice
+		prompt "Kind of startup script"
+		depends on ROOTFS_ETC_INITD_HTTPD
+		default ROOTFS_ETC_INITD_HTTPD_DEFAULT
+
+		config ROOTFS_ETC_INITD_HTTPD_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  Install a generic /etc/init.d/httpd file.
+			  See <ptxdist-install>/generic/etc/init.d/httpd
+
+		config ROOTFS_ETC_INITD_HTTPD_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined httpd startup script. PTXdist
+			  uses file projectroot/etc/init.d/httpd in your local
+			  project
+	endchoice
+
+config APACHE2_INSTALL_CONFIG
+	depends on APACHE2
+	bool
+	default y
+	prompt "Install httpd.conf"
+	help
+	  Install a $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf from a selectable
+	  source.
+
+	choice
+		prompt "Kind of httpd.conf"
+		depends on APACHE2_INSTALL_CONFIG
+		default APACHE2_DEFAULTCONFIG
+
+		config APACHE2_DEFAULTCONFIG
+			bool
+			prompt "Use generic"
+			help
+			  Install a generic httpd.conf file.
+			  See <ptxdist-install>/generic/etc/httpd.conf
+
+		config APACHE2_USERCONFIG
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined httpd.conf startup script.
+			  PTXdist uses file projectroot/httpd.conf in your
+			  local project
+	endchoice
+
+config APACHE2_LISTEN
+	depends on APACHE2_INSTALL_CONFIG
+	string
+	default "0.0.0.0:80"
+	prompt "LISTEN"
+	help
+	  LISTEN entry in httpd.conf; this entry must contain a server
+	  name or IP and a port, for example "0.0.0.0:80" to listen
+	  on all interfaces.
+
+config APACHE2_SERVERNAME
+	depends on APACHE2_INSTALL_CONFIG
+	string
+	default "localhost"
+	prompt "SERVERNAME"
+	help
+	  SERVERNAME entry in httpd.conf
+
+config APACHE2_SERVERADMIN
+	depends on APACHE2_INSTALL_CONFIG
+	string
+	default "foo\@bar"
+	prompt "SERVERADMIN"
+	help
+	  SERVERADMIN entry in httpd.conf
+
+comment "Directories   ---"
+	depends on APACHE2
+
+config APACHE2_CONFIGDIR
+	depends on APACHE2
+	string
+	default "/etc/apache2"
+	prompt "Config directory"
+	help
+	  Apache's configuration directory (httpd.conf, mime.types etc. are
+	  searched here).
+
+config APACHE2_LOGDIR
+	depends on APACHE2
+	string
+	default "/var/log/apache2"
+	prompt "Logfile directory"
+	help
+	  Apache's logfile directory.
+
+config APACHE2_DOCUMENTROOT
+	depends on APACHE2
+	string
+	default "/var/www"
+	prompt "DocumentRoot directory"
+	help
+	  Apache's docroot is very empty if you don't add some
+	  files. Later you can connect to your target, but you
+	  will see nothing special (only an very small html page
+	  is provided).
+
+config APACHE2_DEFAULT_INDEX
+	depends on APACHE2 && APACHE2_DOCUMENTROOT != ""
+	bool
+	default y
+	prompt "Default index.html"
+	help
+	  Install a demo HTML file, from project/generic/index.html.
+
+comment "Misc   ---"
+	depends on APACHE2
 
 config APACHE2_PUBLICDOMAINICONS
 	bool "Public Domain Icons"
@@ -100,7 +186,7 @@ config APACHE2_PUBLICDOMAINICONS
           past. They are in the public domain and may be freely included in
 	  any application. The originals were done by Kevin Hughes
           (kevinh@kevcom.com).
- 
+
 config APACHE2_CUSTOMERRORS
 	bool "Multi Language Custom Error Documents"
 	depends on APACHE2 && APACHE2_SERVERROOT != ""
@@ -110,42 +196,6 @@ config APACHE2_CUSTOMERRORS
 	  language of a client is available it is selected automatically via
 	  the MultiViews feature. This feature is enabled by default via the
 	  Options, Language and ErrorDocument directives.
-
-config APACHE2_DOCUMENTROOT
-	depends on APACHE2
-	string
-	default "/var/www"
-	prompt "DocumentRoot directory"
-	help
-	  Apache's docroot is very empty if you don't add some
-	  files. Later you can connect to your target, but you
-	  will see nothing special (only an very small html page
-	  is provided). 
-
-config APACHE2_DEFAULT_INDEX
-	depends on APACHE2 && APACHE2_DOCUMENTROOT != ""
-	bool
-	default y
-	prompt "Default index.html"
-	help
-	  Install a demo HTML file, from project/generic/index.html. 
-
-config APACHE2_CONFIGDIR
-	depends on APACHE2
-	string
-	default "/etc/apache2"
-	prompt "Config directory"
-	help
-	  Apache's configuration directory (httpd.conf, mime.types etc. are
-	  searched here).  
-
-config APACHE2_LOGDIR
-	depends on APACHE2
-	string
-	default "/var/log/apache2"
-	prompt "Logfile directory"
-	help
-	  Apache's logfile directory. 
 
 comment "----------------------------------"
 	depends on APACHE2
