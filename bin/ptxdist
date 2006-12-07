@@ -97,6 +97,7 @@ boardsetup() {
 # check_ptxconfig()
 #
 check_ptxconfig() {
+
 	if [ ! -e "ptxconfig" ]; then
 		echo
 		echo "${PROMPT}error: ptxconfig file is missing"
@@ -107,7 +108,7 @@ check_ptxconfig() {
 	# sanity check: we process only files which have been built with the
 	# same PTXdist version!
 
-	PTXCONF_CONFIGFILE_VERSION=$(. ptxconfig && echo ${PTXCONF_CONFIGFILE_VERSION})
+	PTXCONF_CONFIGFILE_VERSION=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_CONFIGFILE_VERSION})
 	if [ "${PTXCONF_CONFIGFILE_VERSION}" != "${FULLVERSION}" ]; then
 		echo
 		echo "${PROMPT}error: trying to build ptxdist \"${PTXCONF_CONFIGFILE_VERSION}\" project with \"${FULLVERSION}\""
@@ -120,9 +121,9 @@ check_kernelconfig() {
 	local kernelconfig
 
 	if [ "$NATIVE" = "1" ]; then
-		kernelconfig=$(. ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_CONFIG})
+		kernelconfig=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_CONFIG})
 	else
-		kernelconfig=$(. ptxconfig && echo ${PTXCONF_KERNEL_CONFIG})
+		kernelconfig=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_KERNEL_CONFIG})
 	fi
 	if [ ! -e "$kernelconfig" ]; then
 		echo
@@ -168,7 +169,7 @@ check_path() {
 check_compiler() {
 	local build_userland compiler vendor_should vendor_is vendor_def compiler_should_be compiler_is
 
-	build_userland=$(. ptxconfig && echo ${PTXCONF_BUILD_USERLAND})
+	build_userland=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_BUILD_USERLAND})
 	[ "$build_userland" != "y" -o "$NATIVE" != "" ] && return
 #
 # Three things should be checked
@@ -176,8 +177,8 @@ check_compiler() {
 # 2) Correct vendor if the vendor string is given
 # 3) Correct compiler version if a specific compiler version is given
 #
-	compiler=$(. ptxconfig && echo ${PTXCONF_COMPILER_PREFIX})gcc
-	vendor_should=$(. ptxconfig && echo ${PTXCONF_CROSSCHAIN_VENDOR})
+	compiler=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_COMPILER_PREFIX})gcc
+	vendor_should=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_CROSSCHAIN_VENDOR})
 	if [ ! -z "$vendor_should" ]; then
 	# yea! Vendor is specified in the project. So check for
 	# toolchain vendor identification file
@@ -201,7 +202,7 @@ check_compiler() {
 		fi
 	fi
 
-	compiler_should_be=$(. ptxconfig && echo ${PTXCONF_CROSSCHAIN_CHECK})
+	compiler_should_be=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_CROSSCHAIN_CHECK})
 	compiler_is=$($compiler -dumpversion 2> /dev/null)
 
 	if [ -z "$compiler_is" ]; then
@@ -237,7 +238,7 @@ check_dirs() {
 	local ptxconf_prefix ptxconf_gnu_target testfile testfile_upper testfile_lower i
 
 	if [ -z "$PREFIX" ]; then
-		ptxconf_prefix=$(. ptxconfig && echo ${PTXCONF_PREFIX})
+		ptxconf_prefix=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_PREFIX})
 	else
 		ptxconf_prefix=$PREFIX
 	fi
@@ -293,7 +294,7 @@ check_dirs() {
 	fi
 	rm ${testfile}
 
-	ptxconf_gnu_target=$(. ptxconfig && echo ${PTXCONF_GNU_TARGET})
+	ptxconf_gnu_target=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_GNU_TARGET})
 
 	# And now we learn something new about shell: brace expansion.
 	# It saves 16 characters compared to what NORMAL people would write
@@ -961,8 +962,8 @@ while [ "$#" != "0" ]; do
 			check_deps
 			ptxd_make world 2>&1 | tee -a logfile
 			check_pipe_status
-			RUN_ROOTMETHOD=$(. ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_ROOT_HOSTFS})
-			RUN_CMDLINE=$(. ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_CMDLINE})
+			RUN_ROOTMETHOD=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_ROOT_HOSTFS})
+			RUN_CMDLINE=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_CMDLINE})
 			if [ -n "${RUN_ROOTMETHOD}" ]; then
 				RUN_CMDLINE="${RUN_CMDLINE} root=/dev/root rootflags=`pwd`/root rootfstype=hostfs"
 			fi
