@@ -836,61 +836,26 @@ install_copy = 											\
 	DST=$(strip $(6));									\
 	STRIP="$(strip $(7))";									\
 	if [ -z "$(6)" ]; then									\
-		echo "install_copy:";								\
-		echo "  dir=$$SRC";								\
-		echo "  owner=$$OWN";								\
-		echo "  group=$$GRP";								\
-		echo "  permissions=$$PER";							\
-		$(INSTALL) -d $(IMAGEDIR)/$$PACKET/ipkg/$$SRC;					\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
-		fi;										\
-		$(INSTALL) -m $$PER -d $(ROOTDIR)/$$SRC;					\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
-		fi;										\
-		$(INSTALL) -m $$PER -d $(ROOTDIR_DEBUG)/$$SRC;					\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
-		fi;										\
-		mkdir -p $(IMAGEDIR)/$$PACKET;							\
-		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;			\
+		$(SCRIPTSDIR)/install_copy.sh							\
+				--packet $$PACKET						\
+				--uid $$OWN							\
+				--gid $$GRP							\
+				--mode $$PER							\
+				--dest $$SRC;							\
 	else											\
-		echo "install_copy:";								\
-		echo "  src=$$SRC";								\
-		echo "  dst=$$DST";								\
-		echo "  owner=$$OWN";								\
-		echo "  group=$$GRP";								\
-		echo "  permissions=$$PER"; 							\
-		rm -fr $(IMAGEDIR)/$$PACKET/ipkg/$$DST; 					\
-		$(INSTALL) -D $$SRC $(IMAGEDIR)/$$PACKET/ipkg/$$DST;				\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
+		if [ "$$STRIP" == n ]; then							\
+			STRIPARG="--nostrip";							\
+		else										\
+			STRIPARG="--strip";							\
 		fi;										\
-		$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR)$$DST;					\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
-		fi;										\
-		$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR_DEBUG)$$DST;				\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
-		fi;										\
-		case "$$STRIP" in								\
-		(0 | n | no)									\
-			;;									\
-		(*)										\
-			$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/$$PACKET/ipkg/$$DST;	\
-			$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
-			;;									\
-		esac;										\
-		mkdir -p $(IMAGEDIR)/$$PACKET;							\
-		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;			\
+		CROSS_STRIP=$(CROSS_STRIP) $(SCRIPTSDIR)/install_copy.sh			\
+				--packet $$PACKET						\
+				--uid $$OWN							\
+				--gid $$GRP							\
+				--mode $$PER							\
+				--dest $$DST							\
+				--source $$SRC							\
+				$$STRIPARG;							\
 	fi
 
 #
