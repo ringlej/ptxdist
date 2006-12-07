@@ -22,6 +22,7 @@ Migrate a configuration from prior 0.10.5:
  - kernel version
  - kernel patch control file name
  - kernel configuration file name
+ - kernel image type to build
  If the defaults are in use, no modification is required. A "ptxdist oldconfig" does
  the job.
 
