@@ -1,3 +1,12 @@
+2006-12-07 Juergen Beisert <j.beisert@pengutronix.de>
+
+	* build system: ptxdist now also checks for s specific
+	toolchain vendor on demand. So every project now can force
+	the use of:
+	 - a specific toolchain vendor (name)
+	 - a specific toolchain (prefix name)
+	 - a specific toolchain version (compiler version)
+
 2006-12-06 Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
 
 	* kernel: better support for externel kernel modules
@@ -132,15 +141,15 @@
 2006-05-17 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* menues: made menuconfigs without content a simple config;
-	  patch by Steven Scholz. 
+	  patch by Steven Scholz.
 	* ptxdist: check if we are on a workspace for clean and
-	  distclean commands. 
+	  distclean commands.
 	* pelts: added Pengutronix Embedded Linux Test Suite
 
 2006-05-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* host-util-linux: added missing touch; patch by Patrick
-	  Zwahlen. 
+	  Zwahlen.
 
 2006-05-02 Ladislav Michl <ladis@linux-mips.org>
 
@@ -158,7 +167,7 @@
 	   Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
 
 	* configure.ac: re-add test for gzip, bzip2 etc. in a way that
-	  we break if these programs are not there; test for sed >= 4.x. 
+	  we break if these programs are not there; test for sed >= 4.x.
 
 2006-04-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -174,33 +183,33 @@
 	* patches: font-misc-misc-X11R7.0-1.0.0: make sysroot aware.
 	  Patch by Erwin Rol.
 	* patches: freetype-2.1.10: make sysroot aware; remove patches
-	  for 2.1.9. Patch by Marc Kleine-Budde. 
+	  for 2.1.9. Patch by Marc Kleine-Budde.
 	* patches: removed gdb-5.3 patches; patch by Marc Kleine-Budde.
 	* patches: init-ng-0.6.0: tweak bash-launcher to work with
 	  busybox shells. Patch by Erwin Rol.
 	* patches: init-ng-0.6.0: remove begging message; patch by Erwin
-	  Rol. 
+	  Rol.
 	* patches: init-ng-0.6.0: make mini-shell-script busybox shell
 	  aware. Patch by Erwin Rol.
 	* patches: init-ng: removed patches for 0.6.0-RC1. Patch by
-	  Erwin Rol. 
+	  Erwin Rol.
 	* patches: jpeg-6b: grabbed from fedora core; patch by Erwin
 	  Rol.
-	* patches: libxml2: moved config-in-sysroot patch to 
+	* patches: libxml2: moved config-in-sysroot patch to
 	  xml2-config_in_sysroot.diff; patch by Marc Kleine-Budde.
 	* patches: libxslt-1.1.14
 	* patches: mplayer-1.0pre7try2: made gcc4 aware. Patch by Sascha
-	  Hauer. 
+	  Hauer.
 	* patches: pcmciautils-0.0.6
 	* patches: sablevm-1.13: add "-Wl," tweak to configure.ac. Patch
 	  by Marc Kleine-Budde.
 	* patches: xf86-video-ati-X11R7.0-6.5.7.3: tweak runtime checks
-	  out of configure. Patch by Erwin Rol. 
+	  out of configure. Patch by Erwin Rol.
 	* patches: xf86-video-ati-X11R7.0-6.5.7.3: fix some serious bugs
 	  in this ATI driver version. Patch by Erwin Rol.
 	* projects-example: allyes-arm: switch on init-ng, gtk, xinit,
 	  xf86bigfont, libxrandr, libjpeg
-	* generic /etc/init.d/modules: change to use /etc/modules only if 
+	* generic /etc/init.d/modules: change to use /etc/modules only if
 	  it does exist. Patch by Robert Schwebel.
 	* generic /etc/init.d/networking: exit with retval 0 if
 	  everything went fine. This avoids a useless warning. Patch by
@@ -219,7 +228,7 @@
 	  Robert Schwebel and Marc Kleine-Budde.
 	* menues: several menues have been cleaned up.
 	* expat: moved libexpat from /lib into /usr/lib. Patch by Marc
-	  Kleine-Budde. 
+	  Kleine-Budde.
 	* fontconfig: downgrade to 2.3.2, which is the latest stable
 	  version. Patch by Marc Kleine-Budde.
 	* freetype: added dependency on zlib. Version updated from 2.1.9
@@ -229,14 +238,14 @@
 	  Kleine-Budde.
 	* glibc: removed bogus dependency on ipkg mechanism.
 	* gnuplot: fixed dependencies; added x11 variant. Patch by
-	  Marc Kleine-Budde. 
+	  Marc Kleine-Budde.
 	* grub: added zillions of new config options. Patch by Erwin
 	  Rol.
 	* gtk: update; patch by Marc Kleine-Budde.
 	* host-ipkg: The ipkg bundling mechanism is now always on; this
 	  is a general policy change to make things easier. We know that
 	  the current ipkg implementation is braindamaged, but there is
-	  no alternative. Patch by Robert Schwebel. 
+	  no alternative. Patch by Robert Schwebel.
 	* init-ng: version update to 0.6.0. Patch by Erwin Rol.
 	* rules/Kconfig: removed generated version file into separate
 	  ptxdist-version.in(.in). So we don't have to re-run configure
@@ -246,7 +255,7 @@
 	* libelf: added. Patch by Marc Kleine-Budde.
 	* libjpeg: added. Patch by Erwin Rol.
 	* libpopt: renamed from popt. Patch by Marc Kleine-Budde.
-	* libxslt: URL changed. 
+	* libxslt: URL changed.
 	* ltrace: added. Patch by Marc Kleine-Budde.
 	* mplayer: unbroken to make Sascha happy :-) Fixed URL.
 	* ntp: fix dependencies & menu. Patch by Marc Kleine-Budde.
@@ -271,20 +280,20 @@
 	  Erwin Rol.
 	* valgrind: updated from 2.4.0 to 3.1.1. Patch by Erwin Rol.
 	* xorg-app-xinit: added startx and xinitrc. Patch by Sascha
-	  Hauer. 
+	  Hauer.
 	* xorg-driver-input-evdev: install evdev_drv.so; patch by Sascha
-	  Hauer. 
+	  Hauer.
 	* xorg-driver-input-keyboard: fix installation.
 	* xorg-driver-video-ati: several fixes; patch by Erwin Rol.
 	* xorg-options: introduced. Patch by Erwin Rol.
 	* xf86bigfont extension: added. Patch by Erwin Rol.
-	* xorg-lib-xtrans: removed bogus installation candidates. 
+	* xorg-lib-xtrans: removed bogus installation candidates.
 	  Patch by Erwin Rol.
 	* xorg-server: added gazillions of new options. Patch by Erwin
-	  Rol. 
+	  Rol.
 	* scripts: removed obsolete maintainance script.
 	* xorg-driver-input-tslib: added. Patch by Sascha Hauer.
-	* syslog-ng: updated to 0.10. 
+	* syslog-ng: updated to 0.10.
 
 2006-04-12 Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -295,7 +304,7 @@
 	* busybox: made vim an alias to vi; patch by Sascha Hauer
 	* toplevel: added real autoconf support and some initial tests
 	  for things already mentioned in the todo list
-	* configdeps: improved configdep generation. Until now if you 
+	* configdeps: improved configdep generation. Until now if you
 	  had menuconfig entries and a sub-entry selected another
 	  packet, but the menuconfig itself was deselected, the
 	  configdeps magic incorrectly activated the selected package.
@@ -333,8 +342,8 @@
 	* ptxdist: reanimated 'ptxdist kernelconfig'
 	* ptxdist: added 'ptxdist maintainer configversionbump'
 	* ptxdist: clone with tar and svn exclusion instead of cp
-	* gdb: fixed: source for cross-gdb was not fetched correctly. 
-	  The gdb version was updated to 6.4. 
+	* gdb: fixed: source for cross-gdb was not fetched correctly.
+	  The gdb version was updated to 6.4.
 
 2006-03-14 Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -351,16 +360,16 @@
 2006-03-11 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* autobuild: The statistics functions have been moved to
-	  ptxdist, so the autobuild scripts do only contain the 
-	  call to the build process now. 
+	  ptxdist, so the autobuild scripts do only contain the
+	  call to the build process now.
 
 	* ptxdistrc: $HOME/.ptxdistrc is now versioned, to avoid that
-	  people use old and incompatible ones. 
+	  people use old and incompatible ones.
 
-	* ptxdistrc: We have a user configurable src directory again, 
-	  in .ptxdistrc.${FULLVERSION}. 
+	* ptxdistrc: We have a user configurable src directory again,
+	  in .ptxdistrc.${FULLVERSION}.
 
-	* projects: separated toolchains and example projects. 
+	* projects: separated toolchains and example projects.
 
 2006-03-10 Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -373,7 +382,7 @@
 
 2006-03-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* release: released 0.10.0. 
+	* release: released 0.10.0.
 
 	There are too many features added & cleaned up in the 0.10.0
 	release than could be mentioned here. This release is basically
@@ -392,23 +401,23 @@
 	0.10.1 release anytime soon, probably before you read this ;)
 
 	All project work is now done in a user- and project centric way.
-	You work on your project's "workspace" directory (equivalent to 
-	the out-of-tree directory in 0.9). 
+	You work on your project's "workspace" directory (equivalent to
+	the out-of-tree directory in 0.9).
 
 	Packet management has been much more streamlined. You always
 	need a .make _and_ .in file for each packet and packet names
-	must have a strong relation to their kconfig labels, like this: 
+	must have a strong relation to their kconfig labels, like this:
 
 		project-foo -> PROJECT_FOO
 
 	All "included" projects have been migrated to the new formats,
 	but not all of them have been tested extensively. Expect more
 	releases in the near future which restore the old auditing
-	mechanisms. 
+	mechanisms.
 
 2006-02-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* trunk: opened 0.10 trunk. 
+	* trunk: opened 0.10 trunk.
 
 	The even/odd version number scheme turned out to be too unflexible; it
 	is impossible to tell people that, once they have reached a stable
@@ -419,13 +428,13 @@
 	series when the projects require it.
 
 	The autogenerated dependencies introduced in 0.9 have turned out to be
-	working fairly well, it's just a little bit annoying that the creation 
-	is triggered too often and takes too much time on slow machines. So 
-	the main goal for the 0.10 series is to write a PTXdist wrapper script 
-	which does what you did with 'make <action>' before, like 
-	'ptxdist <action'.  This gives us more possibilities (think of 
-	'ptxdist copy <existing_project> <new_project>') without adding more 
-	ifdef hell to the toplevel makefile. In fact, one of the reasons for 
+	working fairly well, it's just a little bit annoying that the creation
+	is triggered too often and takes too much time on slow machines. So
+	the main goal for the 0.10 series is to write a PTXdist wrapper script
+	which does what you did with 'make <action>' before, like
+	'ptxdist <action'.  This gives us more possibilities (think of
+	'ptxdist copy <existing_project> <new_project>') without adding more
+	ifdef hell to the toplevel makefile. In fact, one of the reasons for
 	doing this is to cleanup the toplevel makefile which has growin
 	into a shell script triggering machine over the time. Additionally, the
 	projectdir layout will improve over the 0.10 series, to make it
@@ -441,7 +450,7 @@
 
 2006-01-30 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* mico: added support for MICO. 
+	* mico: added support for MICO.
 
 2006-01-26 Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -452,7 +461,7 @@
 2006-01-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* overall: merged destdir branch into 0.9-trunk
-	  kernel: replaced DONT_COMPILE_KERNEL by 
+	  kernel: replaced DONT_COMPILE_KERNEL by
 	  COMPILE_KERNEL
 
 2005-12-28 Robert Schwebel <r.schwebel@pengutronix.de>
@@ -460,11 +469,11 @@
 	* trunk: migrated destdir branch to new 0.9 trunk
 	  The tree is now using destdir/sysroot as it's standard
 	  mechanism. It doesn't work in all places, but it's the
-	  way to go for the future. 
+	  way to go for the future.
 
 2005-12-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* Rules: remove some bogus mkdir $(IMAGEDIR)s; 
+	* Rules: remove some bogus mkdir $(IMAGEDIR)s;
 	  Patch by Ladislav Michl
 
 	* bash: fixed PATH; patch by Vince Chen
@@ -478,14 +487,14 @@
 2005-11-30 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* overall: re-unified TOPDIR and PTXDISTDIR to become
-	  PTXDIST_DIR now. 
-	* makefiles: out-of-tree builds should work now; just 
+	  PTXDIST_DIR now.
+	* makefiles: out-of-tree builds should work now; just
 	  make an empty directory, link the PTXdist toplevel
 	  Makefile there and do everything you want. This feature
 	  probably needs more testing, but it's a beginning.
 	* kconfig/lxdialog: migrated to be hosttools, but still
-	  with the strange effect that they need to be in 
-	  scripts/* seen from the Makefile. 
+	  with the strange effect that they need to be in
+	  scripts/* seen from the Makefile.
 
 2005-11-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -519,8 +528,8 @@
 
 2005-10-21 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* mknbi: added mknbi support; patch by Mike Wakerly. 
-	
+	* mknbi: added mknbi support; patch by Mike Wakerly.
+
 2005-10-08 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* epoll: removed rules/epoll.in, seems to be obsolete.
@@ -540,16 +549,16 @@
 2005-09-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* Makefile: more makefile cleanups. New policy: everything is
-	  now built in a "workspace"; usually nothing changes, but if 
-	  you set PTXDISTWORKSPACE we build there. (UPDDATE: this is 
+	  now built in a "workspace"; usually nothing changes, but if
+	  you set PTXDISTWORKSPACE we build there. (UPDDATE: this is
 	  PTXDIST_WORKSPACE in more recent versions)
 	* paths: moved local_patches to patches; as the patch repository
 	  is now in the SVN repository there's no need to copy patches
 	  around. Policy: look for patches in $(TOPDIR)/patches and in
-	  $(PROJECTDIR)/patches. 
+	  $(PROJECTDIR)/patches.
 	* toolchains: added gcc 3.3.3 glibc 2.3.2 toolchain
 	  for x86, corresponding to arm. Debian is broken at the moment.
-	  
+
 
 2005-09-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -559,7 +568,7 @@
 2005-09-26 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* dotgnu: added initial support; patch by Benedikt Spranger
-	* busybox: added patch to make gcc 4.x happy; patch by 
+	* busybox: added patch to make gcc 4.x happy; patch by
 	  Benedikt Spranger
 	* coreutils: added get_patches; patch by Benedikt Spranger
 	* grub: update from 0.95 to 0.97; patch by Benedikt Spranger
@@ -599,16 +608,16 @@
 
 2005-08-04 Bjoern Buerger <b.buerger@pengutronix.de>
 
-	* busybox: added patch to reduce compile time 
+	* busybox: added patch to reduce compile time
 	   	   patch submitted by Steven Scholz
-	
+
 	* util-linux: fix install of mount, add option for umount
 		      patch by Steven Scholz
 
 	* host-mtd: fixed build of jffs2dump util; patch by Gary Thomas
 
 	* rawrec: added; patch by Christian Gagneraud
-	
+
 2005-08-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* rootfs: add mechanism for /media mountpoints
@@ -618,7 +627,7 @@
 	* iptables: fixed install stage; patch by Alexandre Bastos
 	* netkit-ftp: added; patch by Gilad Ben-Yossef
 	* cfgsh: added; patch by Gilad Ben-Yossef
-	
+
 2005-07-27 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* release: released 0.7.6
@@ -628,14 +637,14 @@
 	* busybox: (udhcpc) reordered config; patch by Steven Scholz
 
 2005-07-26 Bjoern Buerger <b.buerger@pengutronix.de>
-	
+
 	* ntpclient: added; patch by David Updegraff
 
 2005-07-22 Bjoern Buerger <b.buerger@pengutronix.de>
 
 	* busybox: (udhcpc) make busybox udhcpc.script optional;
 		   patch by Steven Scholz + some helptext
-		   
+
 	* minor documentation fixes
 
 2005-07-22 Robert Schwebel <r.schwebel@pengutronix.de>
@@ -644,7 +653,7 @@
 
 2005-07-21 Bjoern Buerger <b.buerger@pengutronix.de>
 
-	* busybox: (udhcpc) install fix; patch by  Brian Murphy 
+	* busybox: (udhcpc) install fix; patch by  Brian Murphy
 
 2005-07-19 Bjoern Buerger <b.buerger@pengutronix.de>
 
@@ -653,18 +662,18 @@
 2005-07-16 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ncurese: fixed install names for forms; patch by
-	  Steven Scholz. 
-	* tcpwrapper: There is a needless builtin dependency 
-	  in Portmap_4 for tcpwrapper. Which at the very 
-	  least causes excess downloads&compiles. This 
-	  patch by David Updegraff detects whether 
+	  Steven Scholz.
+	* tcpwrapper: There is a needless builtin dependency
+	  in Portmap_4 for tcpwrapper. Which at the very
+	  least causes excess downloads&compiles. This
+	  patch by David Updegraff detects whether
 	  tcpwrapper was infact explicitly selected or not
 	  and deals with it.
-	* udev: fixed PTXCONF_ macros. Patch by David Updegraff. 
+	* udev: fixed PTXCONF_ macros. Patch by David Updegraff.
 	* host/cross: fix host paths; patch by Ladislav Michl
-	* kernel: use find instead of ls to find files; patch 
+	* kernel: use find instead of ls to find files; patch
 	  by Ladislav Michl
-	* Virtual.make: add hosttool-mtd if we want to build a 
+	* Virtual.make: add hosttool-mtd if we want to build a
 	  jffs2 root image; patch by Steven Scholz
 
 2005-07-14 Bjoern Buerger <b.buerger@pengutronix.de>
@@ -677,24 +686,24 @@
 	* patches: moved primary patch repository into $(TOPDIR)/local_patches
 
 2005-07-13 Bjoern Buerger <b.buerger@pengutronix.de>
-	
+
 	* libxslt: added missing configure options
 	  fixed libxml2-prefix
 
-	* host-tools: switched HOSTTOOLS to HOST_PACKAGES; 
-	  patch by Ladislav Michl 
+	* host-tools: switched HOSTTOOLS to HOST_PACKAGES;
+	  patch by Ladislav Michl
 
 2005-07-12 Bjoern Buerger <b.buerger@pengutronix.de>
-	
+
 	* e2fsprogs: update to 1.38, documentaion fixup
 	  tune2fs, findfs, e2label added to install stage.
-	
+
 2005-07-11 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* libxml2: several typos fixed; missing options added
 	* libxslt: added
 	* xmlstarlet: added
-	
+
 2005-07-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* libnet: removed bogus -C; patch by Oscar Peredo P.
@@ -731,7 +740,7 @@
 	  previously have been marked by some FIXMEs. Patch by Steven
 	  Scholz. UPDATE: patch reverted (rsc); this new version tries
 	  to install .list and .control files on host side paths inside
-	  the root directory. 
+	  the root directory.
 	* ipkg-push: install ipkg.py which was missing; patch by Steven
 	  Scholz.
 	* ipkg-push: "wc -w" will never return "1" but "      1".
@@ -757,18 +766,18 @@
 
 2005-06-21 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* kernel: split kernel and modules into two ipkgs, make 
-	  external kernel installable remove unnecessary compile 
+	* kernel: split kernel and modules into two ipkgs, make
+	  external kernel installable remove unnecessary compile
 	  step when DONT_COMPILE_KERNEL is selected; patch by
 	  Steven Scholz
 
-	* scripts: use old style syntax for mktemp; patch by 
+	* scripts: use old style syntax for mktemp; patch by
 	  Steven Scholz, modified by Robert Schwebel
 
 	* joe: added; patch by Oscar Peredo P.
 
-	* Rules.make: if you have relative, cross-directory symlinks in                                                                  
-	  your target library area, 'make install' will fail: 
+	* Rules.make: if you have relative, cross-directory symlinks in
+	  your target library area, 'make install' will fail:
 	  - LIB_DIR=`dirname $$LIB`;
 	  + LIB_DIR=`dirname $${LIB_DIR}/$$LIB`;
 	  Patch by Oscar Peredo P. and David Updegraff
@@ -779,18 +788,18 @@
 	  for the target HOSTTOOL_IPKG must be selected when IMAGE_IPKG is
 	  selected. Patch by Steven Scholz
 
-	* Rules.make: remove old _root macros; patch by Ladislav Michl. 
+	* Rules.make: remove old _root macros; patch by Ladislav Michl.
 
 2005-06-18 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* jffs2: fixed macro names; patch by Steven Scholz 
+	* jffs2: fixed macro names; patch by Steven Scholz
 
 2005-06-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* pcmcia-cs: update and fix of targetinstall rules; patch 
+	* pcmcia-cs: update and fix of targetinstall rules; patch
 	  by Steven Scholz
 	* makefile: added svn-stat and svn-up targets
-	* Kconfig: restructured menues 
+	* Kconfig: restructured menues
 
 2005-06-10 Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -801,7 +810,7 @@
 
 	* inetutils: added "real" syslogd
 	* release: released 0.7.5
-	
+
 2005-06-05 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* e2fsprogs: fix hosttools vs. hosttool; patch by Christian
@@ -814,12 +823,12 @@
 2005-06-01 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* dosfstools: added; patch by Steven Scholz
-	* NATIVE: use COMPILER_PREFIX instead of 
+	* NATIVE: use COMPILER_PREFIX instead of
 	  PTXCONF_COMPILER_PREFIX
 
 2005-05-30 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* overall: replaced all HOSTTOOLS by HOSTTOOL; 
+	* overall: replaced all HOSTTOOLS by HOSTTOOL;
 	  patch by Steven Scholz
 	* memedit: update to 0.6
 	* ltp: added more test menus
@@ -841,10 +850,10 @@
 
 	* ltp: initial LTP support
 	* glibc: install libc.so.6 instead of libc.so; this does
-	  also work with the NATIVE method. 
+	  also work with the NATIVE method.
 	* ntp: remove duplicate ntpdc
 	* proftpd: update to 1.3.0rc1; patch didn't work
-	  with new NATIVE mechanism; fixed. 
+	  with new NATIVE mechanism; fixed.
 	* gdb: select glibc libs only if GLIBC_INSTALL
 	* memedit: use default autoconf variables
 	* util-linux: update to 2.12j
@@ -852,14 +861,14 @@
 	  from freshly created packets
 	* ipkgs: version number is now fixed against PTXdist version;
 	  this is necessary because changing options results in
-	  different ipkg packets. We now have a project revision 
-	  number as well, which does also go into the ipkg packet. 
+	  different ipkg packets. We now have a project revision
+	  number as well, which does also go into the ipkg packet.
 	* ntp: added ntpd, tools
 	* Kconfig: added mechanism for tests
 
 2005-05-19 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* grub: fixed installation of grub binary; 
+	* grub: fixed installation of grub binary;
 	  patch by Shahar Livne
 
 2005-05-18 Robert Schwebel <r.schwebel@pengutronix.de>
@@ -888,7 +897,7 @@
 
 2005-05-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* Makefile: added missing jffs2 extra args; patch 
+	* Makefile: added missing jffs2 extra args; patch
 	  by Steven Scholz
 	* Makefile: fixed output on images clean
 	* Rules.make: sanity check for local patch URLs
@@ -898,12 +907,12 @@
 	* uclibc, crosstool: ported to crosstool 0.32 and fixed
 	  the remaining problems. uClibc does now also use the
 	  mechanism from glibc which directly copies the C library
-	  from the toolchain to the target. 
+	  from the toolchain to the target.
 
 2005-05-05 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ssmtp: added packet; patch by Steven Scholz
-	* Makefiles: sets the KERNEL_VERSION_xxx variables even 
+	* Makefiles: sets the KERNEL_VERSION_xxx variables even
 	  when anexternal kernel is used; patch by Steven Scholz
 	* openssl: update to 0.9.7g (RSC); fixed configure
 	  option for i686 (patch by Oscar Peredo)
@@ -913,14 +922,14 @@
 	* coreutils: added patchin; patch by Benedikt Spranger
 	* hosttool-ipkg: typo; patch by Steven Scholz
 	* bonnie++: path fix; patch by Steven Scholz
-	* rootfs: added configurable arch for ipkgs; patch 
+	* rootfs: added configurable arch for ipkgs; patch
 	  by Steven Scholz
 	* Makefile: added documentation for make images; patch
 	  by Thibaut Varene
-	* apache, php: added support for apache and PHP; patch by 
+	* apache, php: added support for apache and PHP; patch by
 	  Jiri Nesladek
 	* fltk: fixed wildcard install; patch by Steven Scholz
-	* troll-ftpd: fixed typo; patch by Pauli Anttila 
+	* troll-ftpd: fixed typo; patch by Pauli Anttila
 	  and Ladislav Michl
 	* mgetty: fixed path; patch by Pauli Anttila and Ladislav Michl
 	* modutils: fixed URL; patch by Pauli Anttila and Ladislav Michl
@@ -939,14 +948,14 @@
 
 2005-04-26 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* ipkgized: gcclibs, strace, utelnetd, zlib, 
+	* ipkgized: gcclibs, strace, utelnetd, zlib,
 	  tcpdump, sysutils
-	* xchain: removed obsolete kernel xchain stuff; 
+	* xchain: removed obsolete kernel xchain stuff;
 	  patch by Ladislav Michl
 	* smtpclient: fixed permissions; patch by Ladislav Michl
 	* hotplug: fixed permissions for directories
 	* gnupg: added; patch by Jiri Nesladek
-	
+
 2005-04-25 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* freetype: freetype214 is now freetype (patch by Steven Scholz)
@@ -954,7 +963,7 @@
 2005-04-24 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ipkg: converted rest of the packets which already used
-	  copy_root & friends. 
+	  copy_root & friends.
 	* glibc: ipkgized; converted macros for toolchain copy
 	* proftpd: moved config from rootfs to proftpd packet
 
@@ -964,10 +973,10 @@
 	  ipkg-build to use tar instead of ar and more. Patch by Steven
 	  Scholz
 	* sqlite: ipkgized; patch by Ladislav Michl
-	* Makefile: changed PROJECT_RULES into PROJECTRULES (typo); 
+	* Makefile: changed PROJECT_RULES into PROJECTRULES (typo);
 	  patch by Ladislav Michl
 	* fltk: config option for fluid cross compilation; patch by
-	  Steven Scholz. 
+	  Steven Scholz.
 	* Rules.make: whitespace cleanup; patch by Ladislav Michl
 	* freetype: removed unnecessary dependencies; patch
 	  by Steven Scholz
@@ -986,23 +995,23 @@
 
 2005-04-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* makefile: added support for local rules 
+	* makefile: added support for local rules
 
 2005-04-13 Gary Thomas <gary@mlbassoc.com>
 
 	* check_version: fixed macro to work even for fedora and other
-	  uggly distributions.  
+	  uggly distributions.
 
-2005-04-12 Ladislav Michl <ladis@linux-mips.org> 
+2005-04-12 Ladislav Michl <ladis@linux-mips.org>
 
 	* flex: added for host
 	* makefile: fix missing bits of support for custom menues
 
 2005-04-12 Gary Thomas <gary@mlbassoc.com>
 
-	* rules/[mtd,lilo,xfree430,netcat,hosttool-e2fsprogs,e2fsprogs].make: 
-	  Clear up distinction between toolchain triplet (PTXCONF_GNU_TARGET) 
-	  and compiler prefix (PTXCONF_COMPILER_PREFIX) as they are not 
+	* rules/[mtd,lilo,xfree430,netcat,hosttool-e2fsprogs,e2fsprogs].make:
+	  Clear up distinction between toolchain triplet (PTXCONF_GNU_TARGET)
+	  and compiler prefix (PTXCONF_COMPILER_PREFIX) as they are not
 	  always related 1-1.
 
 2005-04-11 Ladislav Michl <ladis@linux-mips.org>>
@@ -1011,13 +1020,13 @@
 
 2005-04-08 Gary Thomas  <gary@mlbassoc.com>
 
-	* rules/bridge-utils.in: 
-	* rules/bridge-utils.make: 
+	* rules/bridge-utils.in:
+	* rules/bridge-utils.make:
 	* rules/networking.in: Add bridge-utils package.
 	* rules/rsync.make: Upgrade to latest [available] package.
-	* rules/util-linux.in: 
+	* rules/util-linux.in:
 	* rules/util-linux.make:
-	* local_patches/util-linux+cfdisk.patch:          
+	* local_patches/util-linux+cfdisk.patch:
 	  Support building sfdisk, cfdisk for target.
 
 2005-04-08 Robert Schwebel <r.schwebel@pengutronix.de>
@@ -1027,7 +1036,7 @@
 
 2005-04-06 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* setup: add proxy support to 'make setup'. 
+	* setup: add proxy support to 'make setup'.
 
 2005-03-28 Gary Thomas  <gary@mlbassoc.com>
 
@@ -1043,24 +1052,24 @@
 
 2005-03-21 Sascha Hauer <s.hauer@pengutronix.de>
 
-	* configs: the PS1 prompt somehow gets mangled from time 
+	* configs: the PS1 prompt somehow gets mangled from time
 	  to time. We cannot reproduce when it happens, but fix
-	  it for the release. 
+	  it for the release.
 
 2005-03-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* setup: we now use ~/.ptxdistrc
 	* module-init-tools: added variant for hosttools; the
 	  kernel tries to depmod the modules, but at least on
-	  debian depmod claims that the modules are for the 
+	  debian depmod claims that the modules are for the
 	  wrong architecture.
 
 2005-03-19 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* offline building: we have a new mechanism for offline 
+	* offline building: we have a new mechanism for offline
 	  building now. Site configurations, like where the sources
 	  directory, patches and feature patches can be found, are
-	  now configurable via 'make setup' and a .setup file. 
+	  now configurable via 'make setup' and a .setup file.
 	  Note that the default paths are now $(TOPDIR)/local_src,
 	  $(TOPDIR)/local_patches and $(TOPDIR)/local_featurepatches
 	* bootdisk: moved content of bootdisk/ into images/
@@ -1068,11 +1077,11 @@
 
 2005-03-13 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* dropbear: fixed make environment; thanks to 
-	  Manfred Gruber for showing up the problem. 
+	* dropbear: fixed make environment; thanks to
+	  Manfred Gruber for showing up the problem.
 	* mtd-utils: fixed missing CPPFLAGS
 	* Makefile: fixed bogus error messages
-	* crosstool: added support for gcc-3.4.3 and 
+	* crosstool: added support for gcc-3.4.3 and
 	  glibc-2.3.4 into crosstool patches
 
 2005-03-11 Sascha Hauer <s.hauer@pengutronix.de>
@@ -1085,11 +1094,11 @@
 
 2005-02-28 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* images: added support for UBoot ramdisk images; patch 
+	* images: added support for UBoot ramdisk images; patch
 	  by Steven Scholz
 	* efax: path fix; patch by Steven Scholz
 	* mgetty+sendfax: moved to communication utilities; patch
-	  by Steven Scholz. 
+	  by Steven Scholz.
 
 2005-02-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -1105,11 +1114,11 @@
 
 2005-01-31 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* libexpat: update to 1.95.8, patch by Benedikt Spranger 
+	* libexpat: update to 1.95.8, patch by Benedikt Spranger
 	* freetype: update to 2.1.9, patch by Benedikt Spranger
 	* glibc: fixed NPTL config dependencies; patch by Benedikt Spranger
 	* glibc: support for 2.3.4; patch by Bendikt Spranger
-	* libxml2: build without python support by default; patch 
+	* libxml2: build without python support by default; patch
 	  by Benedikt Spranger
 	* netcat: new URL; patch by Benedikt Spranger
 	* module-init-tools: added; patch by Ladislav Michl
@@ -1117,15 +1126,15 @@
 
 2005-01-20 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* jffs2: make adding extra arguments to mkfs.jffs2 
+	* jffs2: make adding extra arguments to mkfs.jffs2
 	  possible (patch by Steven Scholz)
 	* mgetty: install callback as suid root (patch
-	  by Steven Scholz) 
-	* source options: add unified path for programs 
-	  hosted on debian mirrors. Patch by Thibaut Varene. 
+	  by Steven Scholz)
+	* source options: add unified path for programs
+	  hosted on debian mirrors. Patch by Thibaut Varene.
 	* kconfig/lxdialog: updated to version from 2.6.10;
 	  kconfig has a unified prefix (PTXCONF_) macro now.
-	  Patch by Thibaut Varene. 
+	  Patch by Thibaut Varene.
 	* arm0815: added generic arm project (Benedikt Spranger)
 	* bash: update to 3.0 (Benedikt Spranger)
 	* glibc: support for NPTL and TLS (Benedikt Spranger)
@@ -1134,10 +1143,10 @@
 2005-01-11 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* cuckoo-test: remove false positives for terminfo files
-	* make xconfig: fixed and works now. 
+	* make xconfig: fixed and works now.
 	* fakeroot: update to 1.2.2
 	* memedit: renamed fpgaedit to memedit
-	* Decided that we need a ChangeLog again :-) 
+	* Decided that we need a ChangeLog again :-)
 	* scripts/collect-sources.sh: fixes to make this script work (MKL)
 	* CVS directory magic: not needed any more on SVN
 	* fs2: image creation done by default mechanism
@@ -1175,12 +1184,12 @@
 	* innokom: udhcpd.conf, init.d/usbnet: Add udhcp config
 	  options and USB net start script.
 	* dhcp.make: update to later version, but still does not
-	  crosscompile. 
+	  crosscompile.
 	* innokom/inittab: Add USB network port.
 	* config/innokom.ptxconfig: Enable udhcpd.
 	* Makefile: Update version number
 	* busybox: Update to BB 1.0.0-pre7
-	* kernel: Finally fix feature patch stack mechanism. 
+	* kernel: Finally fix feature patch stack mechanism.
 	  Should work now as expected...
 	* config/innokom.ptxconfig: Fixup configuration for ppp & patch
 	  stack
@@ -1195,7 +1204,7 @@
 	  point support
 	* penguzilla: some bug fixes (BSP)
 	* xchain-gcc: made softfloat and multilib configurable options,
-	  necessary if you want to build 3.3.2 toolchain for targets 
+	  necessary if you want to build 3.3.2 toolchain for targets
 	  without FPU; added gcc-3.3.2 support for x86 target; added new
 	  standard target for building a gcc-2.95.3 standalone toolchain
 	* grub: added reiserfs tweak; some bugfixing; more network chips
@@ -1212,9 +1221,9 @@
 	* general: lots of added packages all over the place
 	* general: added 'configs' target
 	* general: audited supported configurations
-	* uclibc: removed for now; it did not configure and 
-	  compile cleanly. Will be re-added after the problems 
-	  have been fixed. 
+	* uclibc: removed for now; it did not configure and
+	  compile cleanly. Will be re-added after the problems
+	  have been fixed.
 
 	* 0.5.0 released
 
@@ -1224,19 +1233,19 @@
 
 2003-10-23 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* 0.4.0 released: this is the same as 0.3.25, but starts 
-	  a new stable series. Next step is that we merge the 
-	  feature-branch into cvs head and open up a new series. 
+	* 0.4.0 released: this is the same as 0.3.25, but starts
+	  a new stable series. Next step is that we merge the
+	  feature-branch into cvs head and open up a new series.
 
 2003-10-09 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* glibc: tweaked xchain to not install target binaries in crosschain
-	  bin directory (thanks to Kai-Uwe Bloem, Auerswald. 
+	  bin directory (thanks to Kai-Uwe Bloem, Auerswald.
 	* 0.3.25 released
 
 2003-10-07 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* etc: moved innokom directory to new scheme 
+	* etc: moved innokom directory to new scheme
 	  without time stamp (not necessary any more)
 
 2003-10-07 Kai-Uwe Bloem <linux-development@auerswald.de>
@@ -1246,33 +1255,33 @@
 
 2003-10-xx Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* nmap: Fix nmap to care for the PTXCONF_OPENSSL 
+	* nmap: Fix nmap to care for the PTXCONF_OPENSSL
 	  switch. (Milan Bobde, Ixia)
 
 2003-09-25 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* Documentation: added attempt of a documentation dir
-	* Toplevel Makefile: fixed "dot" detecttion (thanks 
-	  to Dan Kegel) 
-	* pcmcia-cs: added initial support, although untested. 
-	* inetutils: added. (Milan Bobde, Ixia) 
+	* Toplevel Makefile: fixed "dot" detecttion (thanks
+	  to Dan Kegel)
+	* pcmcia-cs: added initial support, although untested.
+	* inetutils: added. (Milan Bobde, Ixia)
 	* general: lots of new handy macros (Marc Kleine-Budde)
-	* genext2fs: added, untested. (Milan Bobde, Ixia) 
+	* genext2fs: added, untested. (Milan Bobde, Ixia)
 	* ltt: fixed cross compilation (Kai-Uwe Bloem, Auerswald)
 
 2003-09-19 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* Rules.make: fixed get_patches. 
+	* Rules.make: fixed get_patches.
 	  Kai-Uwe Bloem <linux-development@auerswald.de>
-	* rootdir: replaced platform dependend links in rootdir by new 
+	* rootdir: replaced platform dependend links in rootdir by new
 	  mechanism: run a per-platform makefile (rules/vendor-tweaks/*)
 	  which is configurable. Idea by Kai-Uwe Bloem, Implementation
 	  Robert Schwebel
 	* ltt: changed visualizer to be compiled for host; fix by
-	  Kai-Uwe Bloem. 
+	  Kai-Uwe Bloem.
 
 2003-09-18 Robert Schwebel <r.schwebel@pengutronix.de>
-	* forgotten topics for 0.3.24 changelog (sorry 'bout that): 
+	* forgotten topics for 0.3.24 changelog (sorry 'bout that):
 	* pdksh: added;  Kai-Uwe Bloem <linux-development@auerswald.de>
 	* ltt: added; Kai-Uwe Bloem
 	* gdb/gdbserver: Kai-Uwe Bloem
@@ -1282,7 +1291,7 @@
 	* patch system: added generic patch system which gets patches
 	  from a web repository; inserted all of Dan Kegel's patches
 	* ltt: added support for Linux Trace Toolkit
-	* general: Execute dot only when available and avoid error otherwhise. 
+	* general: Execute dot only when available and avoid error otherwhise.
 	* general: made root/ directory configurable
 	* general: introduced generic architecture support file in
 	  config/arch/
@@ -1296,7 +1305,7 @@
 	* mtd: added mkjffs2 tools
 	* libnet: added support for libnet
 	* mips: support for big and little endian
-	* busybox: update to 1.00-pre3; configuration allows multiple bbs now. 
+	* busybox: update to 1.00-pre3; configuration allows multiple bbs now.
 	* XFree86: added
 	* Mozilla-Firebird: added
 	* NEWPACKET: added script to support creation of new rules files
@@ -1315,9 +1324,9 @@
 	* Config: i386-generic-glibc configuration added
 	* rayonic config: use GNU libio (workaround for _G_config.h not
 	  being found under uncontrolled conditions...)
-	* Makefile: .rtaiconfig added, also to distclean; bootimage removal 
-	  fixed; logfile removal fixed. 
-	* rules/bootdisk.make: fixed Rayonic bootdisk to work again. 
+	* Makefile: .rtaiconfig added, also to distclean; bootimage removal
+	  fixed; logfile removal fixed.
+	* rules/bootdisk.make: fixed Rayonic bootdisk to work again.
 	* rules/zebra.make; rules/wireless.make; rules/flash.make added
 
 2003-06-24 Kai-Uwe Bloem <linux-development@auerswald.de>
@@ -1337,7 +1346,7 @@
 	* e2fsprogs.make: target clean cleans now builddir
 	* grub.make: the crosscompiler is now used
 	* grub.make: fix typo: --disable-enable-cs89x0
-	
+
 2003-04-25 Marc Kleine-Budde <kleine-budde@gmx.de>
 	* xchain-kernel.make: introduced xchain_kernel_extact_deps, only
 	depending on MTD if wanted (saves us downloding MTD if not needed)
@@ -1409,8 +1418,8 @@
 2003-04-03 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* openssh/openssl: added configuration option
-	* x86: configuration re-tested; minor bugs fixed for portmap, 
-	  glibc, mtdtools etc., to make this configuration compile again. 
+	* x86: configuration re-tested; minor bugs fixed for portmap,
+	  glibc, mtdtools etc., to make this configuration compile again.
 	* general: 0.3.21 released
 
 2003-03-15 Robert Schwebel <r.schwebel@pengutronix.de>
@@ -1432,7 +1441,7 @@
 
 2003-03-04  Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* rules: fix for .get dependencies, introduced get target 
+	* rules: fix for .get dependencies, introduced get target
 	* general: 0.3.18 finalized
 
 2003-03-04  Robert Schwebel <r.schwebel@pengutronix.de>
@@ -1444,15 +1453,15 @@
 2003-03-02  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* config system: updated to the linux-2.5.63 version of kconfig and
-	  lxdialog. Fixed missing 'make clean' for lxdialog. 
+	  lxdialog. Fixed missing 'make clean' for lxdialog.
 	* kernel: new config options for choosing which kernel image format
-	  shall be used. The kernel can now optionally be installed on the 
-	  target system (e.g. for jffs partitions). 
+	  shall be used. The kernel can now optionally be installed on the
+	  target system (e.g. for jffs partitions).
 	* kernel: split kernel package into kernel and xchain-kernel. This
 	  avoids that the complete toolchain is recompiled when you change
-	  something for the kernel (like patching it with RTAI). 
+	  something for the kernel (like patching it with RTAI).
 	* mtd: added package for MTD CVS snapshots, including the MTD user
-	  space utilities. 
+	  space utilities.
 	* general: 0.3.16 finalized
 
 2003-02-17  Robert Schwebel <r.schwebel@pengutronix.de>
@@ -1465,34 +1474,34 @@
 2003-01-28  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* openssl,openssh: added initial support (untested)
-	* busybox: fixed configuration for strange register dump problem. 
-	  XScale environment can be compiled now. 
+	* busybox: fixed configuration for strange register dump problem.
+	  XScale environment can be compiled now.
 	* general: 0.3.14 finalized
 
 
 2003-01-14  Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* busybox: kconfig transition finished. This should work now. 
-	
+	* busybox: kconfig transition finished. This should work now.
+
 	* general: 0.3.13 finalized
 
 2003-01-11  Robert Schwebel <r.schwebel@pengutronix.de>
-	
-	* busybox: busybox-0.61.pre-ptx3 added, based on CVS snapshot 
-	  from 2002/12/10. This version of busybox is based on kconfig, 
-	  so it is possible to integrate this into our config system again.  
 
-	* general: 0.3.12 finalized; this is an intermediate release; don't 
-	  use it for production systems. 
+	* busybox: busybox-0.61.pre-ptx3 added, based on CVS snapshot
+	  from 2002/12/10. This version of busybox is based on kconfig,
+	  so it is possible to integrate this into our config system again.
+
+	* general: 0.3.12 finalized; this is an intermediate release; don't
+	  use it for production systems.
 
 2002-11-16  Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* general: fixed everything to make it work with the new 
+	* general: fixed everything to make it work with the new
 	  configuration system
 
-	* config system: ported to use the latest version from linux-2.5.47. 
+	* config system: ported to use the latest version from linux-2.5.47.
 	  I assume this will be the way to go in the future, as lkc doesn't
-	  seem to be supported as a separate package any more. 
+	  seem to be supported as a separate package any more.
 
 	* config system: fixed .config load bug
 
@@ -1509,18 +1518,18 @@
 
 	* ptxflash: /tmp and /home directory added
 
-	* general: 0.3.9 finalized. 
+	* general: 0.3.9 finalized.
 
 
 2002-10-13  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* glibc: now we install libnss_* to the target, which (surprise!) was
-	the reason why proftpd didn't want to let our users login until now. 
+	the reason why proftpd didn't want to let our users login until now.
 
-	* general: 0.3.8 finalized. 
+	* general: 0.3.8 finalized.
 
 2002-10-12  Robert Schwebel <r.schwebel@pengutronix.de>
-	
+
 	* proftpd: added to the distribution.
 
 	* glibc: support for glibc-2.2.3 added
@@ -1531,62 +1540,62 @@
 
 	* menuconfig: bug fixed: use correct config file as default
 
-	* lsh: key generation for target does work now. 
+	* lsh: key generation for target does work now.
 
-	* glibc: option for libm installation added. 
+	* glibc: option for libm installation added.
 
 	* general: bugfixing; 0.3.6 finalized.
 
 2002-10-04  Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* ptxflash: Utility to make a self contained bootstrap; 
+	* ptxflash: Utility to make a self contained bootstrap;
 	this is currently highly specific to the MOPSlcd4 board...
 
-	* grub: GNU GRUB can now be installed; you can choose to 
+	* grub: GNU GRUB can now be installed; you can choose to
 	build a bootdisk for the target system in $PTXDIST/bootdisk.
 
-	* e2fsprog: integrated, so we have mke2fs now. Has to be 
+	* e2fsprog: integrated, so we have mke2fs now. Has to be
 	better configurable.
 
 	* Makefile: rootclean target re-introduced.
 
-	* rtai: RTAI is now integrated. Needs more testing. 
+	* rtai: RTAI is now integrated. Needs more testing.
 
 	* config system: version number fixed. The archive target gives a
-	warning now, we should change this to a permanent fix. 
+	warning now, we should change this to a permanent fix.
 
-	* lsh: lsh added. This requires packets for zlib, libgmp, 
-	liboop and nettle which have been installed. 
+	* lsh: lsh added. This requires packets for zlib, libgmp,
+	liboop and nettle which have been installed.
 
 2002-09-30  Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* busybox: works now for ARM. The route applet has a bug and 
-	cannot be compiled, but this is an upstream problem. 
+	* busybox: works now for ARM. The route applet has a bug and
+	cannot be compiled, but this is an upstream problem.
 
 	* toolchain: first release with a working toolchain! gcc stage
 	two is now able to compile kernel 2.4.18, busybox 0.61-pre-ptx1
 	and glibc-2.2.5.
 
-	* general: 0.3.4 finalized.  
+	* general: 0.3.4 finalized.
 
 2002-09-26  Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* busybox: added a makefile for busybox, currently only for an 
+	* busybox: added a makefile for busybox, currently only for an
 	unstable version from CVS. This will be changed to stable once
-	Erik Andersen has made a release. 
+	Erik Andersen has made a release.
 
 	* x86 port: backported makefiles to support compilation for a x86 based
-	target system. 
+	target system.
 
-	* toolchain: the cross toolchain does still have major bugs 
-	concerning the compiled in paths. 
+	* toolchain: the cross toolchain does still have major bugs
+	concerning the compiled in paths.
 
 
 2002-09-20  Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* general: several bugs fixed which prevented the system from being 
-	compiled without having a toolchain right from the beginning. 
+	* general: several bugs fixed which prevented the system from being
+	compiled without having a toolchain right from the beginning.
 
 	* general: 0.3.2 finalized. This is the first version which has all
-	the infrastructure for making a complete cross toolchain for ARM. 
+	the infrastructure for making a complete cross toolchain for ARM.
 
