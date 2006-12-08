@@ -1,3 +1,9 @@
+2006-12-08 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* general: lots of fixes all over the place, I'll promise to
+	  make a better ChangeLog next time :-)
+	* release: released 0.10.5
+
 2006-12-07 Juergen Beisert <j.beisert@pengutronix.de>
 
 	* build system: ptxdist now also checks for s specific
