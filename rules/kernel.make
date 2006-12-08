@@ -29,24 +29,29 @@ KERNEL_SERIES		:= $(PTXDIST_WORKSPACE)/kernel-patches$(KERNEL_style)/$(PTXCONF_K
 
 KERNEL_DIR_INSTALL	:= $(BUILDDIR)/$(KERNEL)-install
 
+ifdef PTXCONF_KERNEL_ARCH_POWERPC
+KERNEL_ARCH		:= powerpc
+else
+KERNEL_ARCH		:= $(PTXCONF_ARCH)
+endif
 
 #
 # Some configuration stuff for the different kernel image formats
 #
 ifdef PTXCONF_KERNEL_IMAGE_Z
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/zImage
+KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/zImage
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_BZ
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/bzImage
+KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/bzImage
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_U
 KERNEL_IMAGE_PATH	:= \
 	$(KERNEL_DIR)/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH)/boot/images/vmlinux.UBoot
+	$(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/uImage \
+	$(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/images/uImage \
+	$(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/images/vmlinux.UBoot
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_VMLINUX
@@ -105,7 +110,7 @@ KERNEL_MAKEVARS += ARCH=um
 KERNEL_IMAGE	:= vmlinuz
 else
 KERNEL_MAKEVARS += \
-	ARCH=$(PTXCONF_ARCH) \
+	ARCH=$(KERNEL_ARCH) \
 	CROSS_COMPILE=$(COMPILER_PREFIX)
 KERNEL_IMAGE	:= $(PTXCONF_KERNEL_IMAGE)
 endif

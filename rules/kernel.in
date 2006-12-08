@@ -21,6 +21,23 @@ config KERNEL_VERSION
 	string
 	default "2.6.19"
 
+choice
+	prompt "kernel architecture (ppc/powerpc)"
+	depends on ARCH_PPC
+	help
+	  In current 2.6 kernels powerpc is supported in two
+	  different architectures. ppc is the old one and currently
+	  gets merged into powerpc.
+
+	config KERNEL_ARCH_PPC
+		bool
+		prompt "PPC"
+
+	config KERNEL_ARCH_POWERPC
+		bool
+		prompt "POWERPC"
+endchoice
+
 config KERNEL_SERIES
 	prompt "Patch Series File"
 	depends on KERNEL
