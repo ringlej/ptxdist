@@ -4,6 +4,9 @@ menuconfig INETUTILS
 	help
 	  FIXME: This item needs to be documented
 
+comment "build options   ---"
+	depends on INETUTILS
+
 config INETUTILS_INETD
 	bool
 	depends on !BB_CONFIG_INETD
@@ -22,7 +25,7 @@ config INETUTILS_PING
 	prompt "ping"
 	depends on INETUTILS
 	help
-	  FIXME: This item needs to be documented
+	  Ping is a small tool to check if another host is alive in the network
 
 comment "busy box' ping is selected!"
 	depends on INETUTILS && BB_CONFIG_PING
@@ -63,6 +66,15 @@ config INETUTILS_SYSLOGD
 	help
 	  FIXME: This item needs to be documented
 
+config INETUTILS_TFTPD
+	bool
+	prompt "tftpd"
+	depends on INETUTILS
+	help
+	  TFTPD is a ftp daemon to be used for diskless clients. Most bootloader
+	  using the Trivisal File Transfer Protocol to load their OS image. Note:
+	  There is no authentication!
+
 comment "runtime options  ---"
 	depends on INETUTILS
 
@@ -96,3 +108,73 @@ config INETUTILS_ETC_INITD_INETD
 			  project
 
 	endchoice
+
+config INETUTILS_TFTPD_BASE_DIR
+	string
+	depends on INETUTILS
+	depends on INETUTILS_TFTPD
+	prompt "tftpd base directory"
+	default "/tftpboot"
+	help
+	  This string is added to tftpd's command parameters. Placeholder @ROOT@
+	  in all startup options will be replaced by the string given here
+
+choice
+	prompt "Kind of tftpd startup"
+	depends on INETUTILS
+	depends on INETUTILS_TFTPD
+	default INETUTILS_TFTPD_STARTUP_TYPE_INETD
+
+	config INETUTILS_TFTPD_STARTUP_TYPE_INETD
+		bool
+		prompt "inetd driven"
+		help
+		 tftp server will be started on demand from inetd. This installs
+		 a startup configuration for tftpd from inetd. It adds to the
+		 /etc/inetd.conf a line like this:
+		 tftp stream udp wait nobody /sbin/tftpd tftpd -l @ROOT@
+		 Note: You must enable one of the two possible inet daemons:
+		 There is one embedded in busybox and one in this packet.
+
+	config INETUTILS_TFTPD_STARTUP_TYPE_STANDALONE
+		bool
+		prompt "standalone"
+		help
+		  This installs tftpd startup script /etc/init.d/tftpd. With this
+		  script the tftpd server will be started at system startup and
+		  waits for connections
+
+endchoice
+
+config INETUTILS_TFTPD_STRING
+	string
+	depends on INETUTILS
+	depends on INETUTILS_TFTPD_STARTUP_TYPE_INETD
+	prompt "inetd service entry"
+	default "tftp stream udp wait nobody /sbin/tftpd tftpd -l @ROOT@"
+	help
+	  This string is added to inetd's configuration /etc/inetd.conf. @ROOT@
+	  in this string will be replaced by tftpd exported directory
+
+choice
+	prompt "Kind of startup script"
+	depends on INETUTILS
+	depends on INETUTILS_TFTPD_STARTUP_TYPE_STANDALONE
+	default INETUTILS_ETC_INITD_TFTPD_DEFAULT
+
+	config INETUTILS_ETC_INITD_TFTPD_DEFAULT
+		bool
+		prompt "Use generic"
+		help
+			Installs a generic /etc/init.d/tftpd startup script.
+			See <ptxdist-install>/generic/etc/init.d/tftpd
+
+	config INETUTILS_ETC_INITD_TFTPD_USER
+		bool
+		prompt "User defined"
+		help
+			This uses a user defined tftpd startup script. PTXdist
+			uses files projectroot/etc/init.d/tftpd in your local
+			project
+
+endchoice

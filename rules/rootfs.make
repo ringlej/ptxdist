@@ -832,8 +832,37 @@ else
 	@$(call install_replace, rootfs, /etc/inetd.conf, @DNSD@, )
 	@$(call install_replace, rootfs, /etc/services, @DNSD@, )
 endif
+# -----------------------------------------------------------------------------
+# add tftpd if enabled
 #
-# FIXME: utelnet, thttpd, pureftpd, nfs-utils???,
+ifdef PTXCONF_INETUTILS_TFTPD
+ifneq ($(PTXCONF_INETUTILS_TFTPD_STRING),"")
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@TFTPD@, \
+		$(PTXCONF_INETUTILS_TFTPD_STRING) )
+else
+# add default string to start the tftpd into inetd.conf
+	@$(call install_replace, rootfs, /etc/inetd.conf, \
+		@TFTPD@, \
+		"tftp stream udp wait nobody /sbin/tftpd tftpd -l @ROOT@" )
+endif
+# replace the base dir on demand
+ifneq ($(PTXCONF_INETUTILS_TFTPD_BASE_DIR),"")
+	@$(call install_replace, rootfs, \
+		/etc/inetd.conf, \
+		@ROOT@, \
+		$(PTXCONF_INETUTILS_TFTPD_BASE_DIR) )
+endif
+# add tftp service
+	@$(call install_replace, rootfs, \
+		/etc/services, \
+		@TFTPD@, \
+		"tftp 69/udp" )
+else
+# remove all tftp entries if this service is not enabled
+	@$(call install_replace, rootfs, /etc/inetd.conf, @TFTPD@, )
+	@$(call install_replace, rootfs, /etc/services, @TFTPD@, )
+endif
 endif
 # -----------------------------------------------------------------------------
 	@$(call install_finish, rootfs)

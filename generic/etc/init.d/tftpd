@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# tftpd
+#
+case $1 in
+
+	start)
+		echo "tftpd starting"
+		/sbin/tftpd -l @ROOT@
+		;;
+
+esac
+

@@ -67,7 +67,78 @@ INETUTILS_ENV 	=  $(CROSS_ENV)
 INETUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
 	--with-PATH-CP=/bin/cp \
 	--localstatedir=/var \
-	--sysconfdir=/etc
+	--sysconfdir=/etc \
+	--disable-ftpd \
+	--disable-rexecd \
+	--disable-talkd \
+	--disable-telnetd \
+	--disable-telnet \
+	--disable-uucpd \
+	--disable-ftp \
+	--disable-rlogin \
+	--disable-logger \
+	--disable-talk \
+	--disable-tftp \
+	--disable-whois \
+	--disable-ifconfig \
+	--disable-dependency-tracking
+# FIXME: Unhandled options:
+# --enable-encryption
+# --enable-authentication
+# --disable-libls
+# --disable-ncurses
+# --with-krb[4|5]
+# --with-wrap
+# --with-pam
+
+# build only when enabled (speed up)
+ifdef PTXCONF_INETUTILS_INETD
+INETUTILS_AUTOCONF += --enable-inetd
+else
+INETUTILS_AUTOCONF += --disable-inetd
+endif
+
+ifdef PTXCONF_INETUTILS_PING
+INETUTILS_AUTOCONF += --enable-ping
+else
+INETUTILS_AUTOCONF += --disable-ping
+endif
+
+ifdef PTXCONF_INETUTILS_RCP
+INETUTILS_AUTOCONF += --enable-rcp
+else
+INETUTILS_AUTOCONF += --disable-rcp
+endif
+
+ifdef PTXCONF_INETUTILS_RLOGIND
+INETUTILS_AUTOCONF += --enable-rlogind
+else
+INETUTILS_AUTOCONF += --disable-rlogind
+endif
+
+ifdef PTXCONF_INETUTILS_RSH
+INETUTILS_AUTOCONF += --enable-rsh
+else
+INETUTILS_AUTOCONF += --disable-rsh
+endif
+
+ifdef PTXCONF_INETUTILS_RSHD
+INETUTILS_AUTOCONF += --enable-rshd
+else
+INETUTILS_AUTOCONF += --disable-rshd
+endif
+
+ifdef PTXCONF_INETUTILS_SYSLOGD
+INETUTILS_AUTOCONF += --enable-syslogd
+else
+INETUTILS_AUTOCONF += --disable-syslogd
+endif
+
+ifdef PTXCONF_INETUTILS_TFTPD
+INETUTILS_AUTOCONF += --enable-tftpd
+else
+INETUTILS_AUTOCONF += --disable-tftpd
+endif
 
 $(STATEDIR)/inetutils.prepare: $(inetutils_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -112,6 +183,10 @@ ifdef PTXCONF_INETUTILS_RSHD
 endif
 ifdef PTXCONF_INETUTILS_SYSLOGD
 	cd $(INETUTILS_DIR)/syslogd && $(INETUTILS_PATH) make
+endif
+
+ifdef PTXCONF_INETUTILS_TFTPD
+	cd $(INETUTILS_DIR)/tftpd && $(INETUTILS_PATH) make
 endif
 	@$(call touch, $@)
 
@@ -171,8 +246,50 @@ ifdef PTXCONF_INETUTILS_SYSLOGD
 	@$(call install_copy, inetutils, 0, 0, 0755, \
 		$(INETUTILS_DIR)/syslogd/syslogd, /sbin/syslogd)
 endif
+ifdef PTXCONF_INETUTILS_TFTPD
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		$(INETUTILS_DIR)/tftpd/tftpd, /sbin/tftpd)
+# create the base dir
+ifneq ($(PTXCONF_INETUTILS_TFTPD_BASE_DIR),"")
+	@$(call install_copy, inetutils, 99, 0, 0755, \
+		$(PTXCONF_INETUTILS_TFTPD_BASE_DIR) )
+endif
+endif
 #
-# Install the startup script on request only
+# Install the startup script for tftpd on request only
+#
+ifdef PTXCONF_INETUTILS_TFTPD_STARTUP_TYPE_STANDALONE
+ifdef PTXCONF_INETUTILS_ETC_INITD_TFTPD_DEFAULT
+# install the generic one
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/tftpd, \
+		/etc/init.d/tftpd, n)
+endif
+ifdef PTXCONF_INETUTILS_ETC_INITD_TFTPD_USER
+# install users one
+	@$(call install_copy, inetutils, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/tftpd, \
+		/etc/init.d/tftpd, n)
+endif
+# replace the base dir on demand
+ifneq ($(PTXCONF_INETUTILS_TFTPD_BASE_DIR),"")
+	@$(call install_replace, inetutils, \
+		/etc/init.d/tftpd, \
+		@ROOT@, \
+		$(PTXCONF_INETUTILS_TFTPD_BASE_DIR) )
+endif
+#
+# FIXME: Is this packet the right location for the link?
+#
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TFTPD_LINK),"")
+	@$(call install_copy, inetutils, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, inetutils, ../init.d/tftpd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TFTPD_LINK))
+endif
+endif
+
+#
+# Install the startup for inetd script on request only
 #
 ifdef PTXCONF_INETUTILS_ETC_INITD_INETD
 ifdef PTXCONF_INETUTILS_ETC_INITD_INETD_DEFAULT
