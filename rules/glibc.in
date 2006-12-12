@@ -170,7 +170,7 @@ config GLIBC_I18N_BIN
 
 config GLIBC_I18N_BIN_LOCALE
 	bool
-	prompt "locale"
+	prompt "  locale"
 	depends on GLIBC_I18N_BIN
 	help
 	  The locale program writes information about the current
@@ -179,7 +179,7 @@ config GLIBC_I18N_BIN_LOCALE
 
 config GLIBC_I18N_BIN_LOCALEDEF
 	bool
-	prompt "localedef"
+	prompt "  localedef"
 	depends on GLIBC_I18N_BIN
 	help
 	  The  localedef  program reads the indicated charmap and
@@ -192,12 +192,29 @@ config GLIBC_I18N_DATA
 	depends on GLIBC_INSTALL
 	prompt "Install i18n locales and charmaps"
 	depends on GLIBC
-	depends on broken
+	default y
 	help
 	  installs i18n locale and charmap files to the system. 
 	  to use these datafiles you will have to generate a locale
 	  locale-archive with the program localedef. For more details
 	  see documentation in glibc source
+
+config GLIBC_I18N_DATA_DEF
+	bool
+	prompt "  standard i18n datasets"
+	depends on GLIBC_I18N_DATA
+	default y
+	help
+	  this installs default datasets. including English and German locale 
+	  and charmaps.
+
+config GLIBC_I18N_DATA_ZH
+	bool
+	prompt "  chinese datasets"
+	depends on GLIBC_I18N_DATA
+	help
+	  this installs chinese locales and charmaps, including all charactersets,
+	  will add about 800KB to the system.
 
 config GLIBC_GCONV
 	bool

@@ -189,9 +189,28 @@ ifdef PTXCONF_GLIBC_I18N_BIN_LOCALEDEF
 	@$(call install_copy_toolchain_usr, glibc, bin/localedef)
 endif
 
+ifdef PTXCONF_GLIBC_I18N_DATA_DEF
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/ISO-8859-1.gz,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/ISO-8859-15.gz,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/ANSI_X3.110-1983.gz,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/ANSI_X3.4-1968.gz,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/de_DE,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/de_DE@euro,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/en_GB,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/en_US,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/i18n,,n)
+endif
 
-#	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/ISO-8859-15.gz,,n)
-
+ifdef PTXCONF_GLIBC_I18N_DATA_ZH
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/GB2312.gz,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/GB18030.gz,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/GB_1988-80.gz,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/GBK.gz,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/zh_CN,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/zh_HK,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/zh_SG,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/zh_TW,,n)
+endif
 # Zonefiles are BROKEN
 # 	@$(call install_copy, glibc, 0, 0, 0755, /usr/share/zoneinfo)
 # 	@for target in $(GLIBC_ZONEFILES-y); do \
