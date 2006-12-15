@@ -1,7 +1,10 @@
 config XORG_FONT_BITSTREAM_TYPE1
 	bool
-	depends on XORG_FONT
+	depends on XORG_FONT_SCALABLE
 	select XORG_FONT_UTIL
+	default y
 	prompt "Bitstream type1"
 	help
-	  FIXME
+	  This package contains the type1 version of Bitstream 
+	  Courier and Charter. Type1 fonts have XLFD and are
+	  scalable. They are needed for ghostscript.

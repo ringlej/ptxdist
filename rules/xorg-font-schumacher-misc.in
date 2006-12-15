@@ -2,6 +2,7 @@ config XORG_FONT_SCHUMACHER_MISC
 	bool
 	depends on XORG_FONT
 	depends on BROKEN
+	select HOST_BDFTOPCF
 	select XORG_FONT_UTIL
 	prompt "Schumacher misc"
 	help

@@ -1,6 +1,7 @@
 config XORG_FONT_JIS_MISC
 	bool
-	depends on XORG_FONT
+	depends on XORG_FONT_BASE
+	select HOST_BDFTOPCF
 	select XORG_FONT_UTIL
 	prompt "Jis misc"
 	help

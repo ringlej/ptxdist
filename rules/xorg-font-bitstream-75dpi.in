@@ -1,7 +1,8 @@
 config XORG_FONT_BITSTREAM_75DPI
 	bool
-	depends on XORG_FONT
+	depends on XORG_FONT_75DPI
 	select XORG_FONT_UTIL
 	prompt "Bitstream 75dpi"
 	help
-	  FIXME
+	  This package contains Bitstream fonts in the ISO 10646-1,
+	  ISO 8859-1 and ISO 8859-15 encodings

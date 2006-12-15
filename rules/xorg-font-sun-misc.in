@@ -1,6 +1,7 @@
 config XORG_FONT_SUN_MISC
 	bool
 	depends on XORG_FONT
+	select HOST_BDFTOPCF
 	select XORG_FONT_UTIL
 	prompt "Sun misc"
 	help

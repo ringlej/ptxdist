@@ -1,6 +1,6 @@
 config XORG_FONT_WINITZKI_CYRILLIC
 	bool
-	depends on XORG_FONT
+	depends on XORG_FONT_INTL
 	select XORG_FONT_UTIL
 	prompt "Winitzki cyrillic"
 	help

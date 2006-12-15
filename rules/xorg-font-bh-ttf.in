@@ -1,7 +1,8 @@
 config XORG_FONT_BH_TTF
 	bool
-	depends on XORG_FONT
+	depends on XORG_FONT_TTF
 	select XORG_FONT_UTIL
+	default y
 	prompt "BH ttf"
 	help
-	  FIXME
+	  contains truetype fonts provided by xorg

@@ -114,7 +114,12 @@ $(STATEDIR)/xorg-font-encodings.targetinstall: $(xorg-font-encodings_targetinsta
 	@$(call install_fixup, xorg-font-encodings,DEPENDS,)
 	@$(call install_fixup, xorg-font-encodings,DESCRIPTION,missing)
 
-#FIXME
+	@cd $(XORG_FONT_ENCODINGS_DIR); \
+	for file in *.enc.gz; do	\
+		$(call install_copy, xorg-font-encodings, 0, 0, 0644, $$file, $(XORG_FONTDIR)/encodings/$$file, n); \
+	done
+
+	@$(call install_copy, xorg-font-encodings, 0, 0, 0644, $(XORG_FONT_ENCODINGS_DIR)/encodings.dir, $(XORG_FONTDIR)/encodings/encodings.dir, n)
 
 	@$(call install_finish, xorg-font-encodings)
 

@@ -1,8 +1,10 @@
 config XORG_FONT_BH_100DPI
 	bool
-	depends on XORG_FONT
-	depends on BROKEN
+	depends on XORG_FONT_100DPI
+	select HOST_BDFTOPCF
+	select HOST_UCSTOANY
 	select XORG_FONT_UTIL
 	prompt "BH 100dpi"
 	help
-	  FIXME
+	  This package contains BH fonts in the ISO 10646-1,
+	  ISO 8859-1 and ISO 8859-15 encodings

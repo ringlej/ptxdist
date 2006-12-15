@@ -1,7 +1,12 @@
 config XORG_FONT_MISC_MISC
 	bool
-	depends on XORG_FONT
+	depends on XORG_FONT_BASE
+	select HOST_BDFTOPCF
 	select XORG_FONT_UTIL
+	default y
 	prompt "misc misc"
 	help
-	  FIXME
+	  These are most fundamental fonts in misc section.
+	  You might most probably want it.
+	  This package contains fonts in the ISO 10646-1,
+	  ISO 8859-1 and ISO 8859-15 encodings

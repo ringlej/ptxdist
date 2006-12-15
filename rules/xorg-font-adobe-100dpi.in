@@ -1,8 +1,15 @@
 config XORG_FONT_ADOBE_100DPI
 	bool
-	depends on XORG_FONT
+	depends on XORG_FONT_100DPI
+	select HOST_BDFTOPCF
 	select XORG_FONT_UTIL
+	default y
 	prompt "Adobe 100dpi"
 	help
-	  FIXME
+	  xfonts-100dpi provides a set of bitmapped fonts at 
+	  100 dots per inch. In most cases it is desirable 
+	  to have the X font server (xfs) and/or an X server 
+	  installed to make the fonts available to X clients.
+	  This package contains only fonts in the ISO 10646-1 
+	  ,ISO 8859-1 and ISO 8859-15 encodings
 

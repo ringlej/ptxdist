@@ -1,7 +1,9 @@
 config XORG_FONT_CURSOR_MISC
 	bool
-	depends on XORG_FONT
+	depends on XORG_FONT_BASE
+	select HOST_BDFTOPCF
 	select XORG_FONT_UTIL
+	default y
 	prompt "Cursor misc"
 	help
-	  FIXME
+	  essential font package, you migh most probably want it.

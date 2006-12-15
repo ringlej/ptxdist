@@ -1,7 +1,8 @@
 config XORG_FONT_MISC_MELTHO
 	bool
-	depends on XORG_FONT
+	depends on XORG_FONT_INTL
+	select HOST_BDFTOPCF
 	select XORG_FONT_UTIL
 	prompt "misc. Meltho"
 	help
-	  FIXME
+	  contains syriac unicode-compliant opentype fonts
