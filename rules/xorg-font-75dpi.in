@@ -1,0 +1,8 @@
+menuconfig XORG_FONT_75DPI               
+        bool "xorg 75 dpi fonts         "
+
+source "rules/xorg-font-adobe-75dpi.in"
+source "rules/xorg-font-adobe-utopia-75dpi.in"
+source "rules/xorg-font-bh-75dpi.in"
+source "rules/xorg-font-bh-lucidatypewriter-75dpi.in"
+source "rules/xorg-font-bitstream-75dpi.in"

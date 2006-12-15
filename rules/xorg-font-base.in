@@ -1,0 +1,16 @@
+menuconfig XORG_FONT_BASE 
+        bool "xorg base fonts         "
+
+source "rules/xorg-font-misc-misc.in"
+source "rules/xorg-font-cursor-misc.in"
+source "rules/xorg-font-daewoo-misc.in"
+source "rules/xorg-font-dec-misc.in"
+source "rules/xorg-font-encodings.in"
+source "rules/xorg-font-isas-misc.in"
+source "rules/xorg-font-jis-misc.in"
+source "rules/xorg-font-micro-misc.in"
+source "rules/xorg-font-mutt-misc.in"
+source "rules/xorg-font-schumacher-misc.in"
+source "rules/xorg-font-sony-misc.in"
+source "rules/xorg-font-sun-misc.in"
+
