@@ -43,3 +43,7 @@ comment "------------------------------"
 
 source "rules/host-python24.in"
 
+# automatically selected host tools
+
+source "rules/host-bdftopcf.in"
+source "rules/host-ucstoany.in"
