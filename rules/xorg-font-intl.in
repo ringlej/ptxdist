@@ -1,0 +1,63 @@
+menuconfig XORG_FONT_INTL
+        bool "international fonts for X        "
+
+comment "chinese and other asian fonts"
+	depends on XORG_FONT_INTL
+
+config XORG_FONT_INTL_CHIN
+	bool
+	prompt "chinese fonts"
+	depends on XORG_FONT_INTL
+	help
+	  This package includes some GB2312, GB8565-88, BIG5 (ETen), and SiSheng
+	  Chinese fonts. You will need the fonts if you plan to view, print or author
+	  documents written in Chinese and using any of the encodings mentioned above.
+
+config XORG_FONT_INTL_CHIN_BIG
+	bool
+	prompt "chinese fonts (big size)"
+	depends on XORG_FONT_INTL_CHIN
+	help
+	  This package contains two GB coded fonts in big size
+
+config XORG_FONT_INTL_JAP
+	bool
+	prompt "japanese fonts"
+	depends on XORG_FONT_INTL
+	help
+	  This package includes some JISX0208.1990, JISX0208.1978, JISX0212.1990 
+	  (HojoKanji), JISX0208.1983, and JISX0201 (Roman & Kana) Japanese fonts. You
+	  will need the fonts if you plan to view, print or author documents using 
+	  the Japanese language and any of the encodings specified above.
+
+
+
+config XORG_FONT_INTL_JAP_BIG
+	bool
+	prompt "Japanese fonts (big size)"
+	depends on XORG_FONT_INTL_JAP
+	help
+	  This package contains two JISX coded fonts in big size
+
+
+config XORG_FONT_INTL_ASIAN
+	bool
+	prompt "other asian languages"
+	depends on XORG_FONT_INTL
+	help
+	  This package includes fonts in thai, vietnamese, inian, lao and several
+	  further asian languages.
+
+comment "cyrillic fonts"
+	depends on XORG_FONT_INTL
+source "rules/xorg-font-misc-cyrillic.in"
+source "rules/xorg-font-cronyx-cyrillic.in"
+source "rules/xorg-font-screen-cyrillic.in"
+source "rules/xorg-font-winitzki-cyrillic.in"
+
+comment "other language fonts    "
+	depends on XORG_FONT_INTL
+source "rules/xorg-font-arabic-misc.in"
+source "rules/xorg-font-misc-ethiopic.in"
+source "rules/xorg-font-misc-meltho.in"
+
