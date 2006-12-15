@@ -114,9 +114,27 @@ $(STATEDIR)/xorg-font-misc-misc.targetinstall: $(xorg-font-misc-misc_targetinsta
 	@$(call install_fixup, xorg-font-misc-misc,DESCRIPTION,missing)
 
 	@cd $(XORG_FONT_MISC_MISC_DIR); \
-	for file in *.pcf.gz; do	\
-		$(call install_copy, xorg-font-misc-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
-	done
+	for file in `find . -name "*.pcf.gz" -a \! -name "*ISO8859*"`; do	\
+		if [ -e $$file ]; then \
+			$(call install_copy, xorg-font-misc-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
+		fi; \
+	done;
+
+	@cd $(XORG_FONT_MISC_MISC_DIR); \
+	for file in *{ISO8859-15,ISO8859-1,ISO8859-16,ISO8859-11}.pcf.gz; do \
+		if [ -e $$file ]; then \
+			$(call install_copy, xorg-font-misc-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
+		fi; \
+	done;
+
+ifdef PTXCONF_XORG_FONT_MISC_MISC_TRANS
+	@cd $(XORG_FONT_MISC_MISC_DIR); \
+	for file in *{ISO8859-2,-ISO8859-3,ISO8859-4,ISO8859-9,ISO8859-10,ISO8859-13,ISO8859-14}.pcf.gz; do \
+		if [ -e $$file ]; then \
+			$(call install_copy, xorg-font-misc-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
+		fi; \
+	done;
+endif
 
 	@$(call install_finish, xorg-font-misc-misc)
 

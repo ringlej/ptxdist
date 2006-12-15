@@ -114,9 +114,27 @@ $(STATEDIR)/xorg-font-adobe-75dpi.targetinstall: $(xorg-font-adobe-75dpi_targeti
 	@$(call install_fixup, xorg-font-adobe-75dpi,DESCRIPTION,missing)
 
 	@cd $(XORG_FONT_ADOBE_75DPI_DIR); \
-	for file in *.pcf.gz; do	\
-		$(call install_copy, xorg-font-adobe-75dpi, 0, 0, 0644, $$file, $(XORG_FONTDIR)/75dpi/$$file, n); \
-	done
+	for file in `find . -name "*.pcf.gz" -a \! -name "*ISO8859*"`; do	\
+		if [ -e $$file ]; then \
+			$(call install_copy, xorg-font-adobe-75dpi, 0, 0, 0644, $$file, $(XORG_FONTDIR)/75dpi/$$file, n); \
+		fi; \
+	done;
+
+	@cd $(XORG_FONT_ADOBE_75DPI_DIR); \
+	for file in *{ISO8859-15,ISO8859-1}.pcf.gz; do \
+		if [ -e $$file ]; then \
+			$(call install_copy, xorg-font-adobe-75dpi, 0, 0, 0644, $$file, $(XORG_FONTDIR)/75dpi/$$file, n); \
+		fi; \
+	done;
+
+ifdef PTXCONF_XORG_FONT_ADOBE_75DPI_TRANS
+	@cd $(XORG_FONT_ADOBE_75DPI_DIR); \
+	for file in *{ISO8859-2,ISO8859-3,ISO8859-4,ISO8859-9,ISO8859-10,ISO8859-13,ISO8859-14}.pcf.gz; do \
+		if [ -e $$file ]; then \
+			$(call install_copy, xorg-font-adobe-75dpi, 0, 0, 0644, $$file, $(XORG_FONTDIR)/75dpi/$$file, n); \
+		fi; \
+	done;
+endif
 
 
 	@$(call install_finish, xorg-font-adobe-75dpi)

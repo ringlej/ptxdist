@@ -113,7 +113,12 @@ $(STATEDIR)/xorg-font-bh-ttf.targetinstall: $(xorg-font-bh-ttf_targetinstall_dep
 	@$(call install_fixup, xorg-font-bh-ttf,DEPENDS,)
 	@$(call install_fixup, xorg-font-bh-ttf,DESCRIPTION,missing)
 
-#FIXME
+	@cd $(XORG_FONT_BH_TTF_DIR); \
+	for file in *.ttf; do \
+		if [ -e $$file ]; then \
+			$(call install_copy, xorg-font-bh-ttf, 0, 0, 0644, $$file, $(XORG_FONTDIR)/truetype/$$file, n); \
+		fi; \
+	done;
 
 	@$(call install_finish, xorg-font-bh-ttf)
 
