@@ -15,19 +15,31 @@ case "$1" in
     start)
             echo -n "${PREFIX}Starting $NAME: "
 	    /usr/sbin/apache2 -f @APACHECONFIG@ -k start
-            echo "Done"
+	    if [ $? = 0 ]; then
+                echo "Done"
+            else
+	        echo "Failed"
+            fi
         ;;
 
     stop)
             echo -n "${PREFIX}Stopping $NAME: "
 	    /usr/sbin/apache2 -f @APACHECONFIG@ -k stop
-            echo "Done"
+	    if [ $? = 0 ]; then
+                echo "Done"
+            else
+	        echo "Failed"
+            fi
         ;;
 
     reload)
             echo -n "${PREFIX}Restarting $NAME: "
 	    /usr/sbin/apache2 -f @APACHECONFIG@ -k restart
-            echo "Done"
+	    if [ $? = 0 ]; then
+                echo "Done"
+            else
+	        echo "Failed"
+            fi
         ;;
 
     *)
