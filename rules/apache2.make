@@ -271,7 +271,7 @@ endif
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
 		@LOGPATH@, $(PTXCONF_APACHE2_LOGDIR) )
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
-		@PIDFILE@, $(/var/run/apache2.pid) )
+		@PIDFILE@, /var/run/apache2.pid )
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
 		@LISTEN@, $(PTXCONF_APACHE2_LISTEN) )
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
