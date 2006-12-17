@@ -2,6 +2,8 @@ TODO for 0.10.6
 ===============
 [ ] if no patches are required for the kernel, it should not depend on
     kernel-patches-target/
+[ ] make DHCP client useful on the target. Currently only the binary
+    will be built and copied, but does not work on the target
 
 TODO for 0.10.5
 ===============
