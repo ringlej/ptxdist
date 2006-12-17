@@ -265,7 +265,7 @@ endif
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
 		@SERVERROOT@, $(PTXCONF_APACHE2_SERVERROOT) )
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
-		@DOCUMENTROOT@, $(PTXCONF_APACHE2_DOCUMENTROO) )
+		@DOCUMENTROOT@, $(PTXCONF_APACHE2_DOCUMENTROOT) )
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
 		@CONFIGDIR@, $(PTXCONF_APACHE2_CONFIGDIR) )
 	@$(call install_replace, apache2, $(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
