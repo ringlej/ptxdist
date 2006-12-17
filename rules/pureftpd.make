@@ -2,7 +2,7 @@
 # $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -207,9 +207,9 @@ endif
 endif
 
 ifdef PTXCONF_PUREFTPD_ETC_CONFIG
-	@$(call install_copy, pureftpd, 0, 0, 0755, \
+	@$(call install_copy, pureftpd, 0, 0, 0644, \
 		${PTXDIST_WORKSPACE}/projectroot/etc/pure-ftpd.conf, \
-		/etc/pure-ftpd.defaults, n)
+		/etc/pure-ftpd.conf, n)
 endif
 
 	@$(call install_finish,pureftpd)
