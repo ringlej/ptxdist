@@ -4,6 +4,7 @@ TODO for 0.10.6
     kernel-patches-target/
 [ ] make DHCP client useful on the target. Currently only the binary
     will be built and copied, but does not work on the target
+[ ] update DHCP tp 3.0.5 or correct path to 3.0.4
 
 TODO for 0.10.5
 ===============
