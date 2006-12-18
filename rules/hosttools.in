@@ -47,5 +47,3 @@ source "rules/host-python24.in"
 
 source "rules/host-bdftopcf.in"
 source "rules/host-ucstoany.in"
-source "rules/host-mkfontdir.in"
-source "rules/host-mkfontscale.in"
