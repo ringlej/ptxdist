@@ -1,0 +1,4 @@
+config HOST_MKFONTDIR
+	default y
+	select HOST_MKFONTSCALE
+	bool
