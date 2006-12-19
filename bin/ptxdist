@@ -169,8 +169,9 @@ check_path() {
 check_compiler() {
 	local build_userland compiler vendor_should vendor_is vendor_def compiler_should compiler_is
 
-	build_userland=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_BUILD_USERLAND})
-	[ "$build_userland" != "y" -o "$NATIVE" != "" ] && return
+	build_toolchain=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_BUILD_TOOLCHAIN})
+
+	[ -n "$build_toolchain" -o "$NATIVE" != "" ] && return
 #
 # Three things should be checked
 # 1) Correct compiler name
