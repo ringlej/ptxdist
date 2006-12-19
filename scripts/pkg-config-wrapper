@@ -1,24 +1,50 @@
-#!/bin/sh
+#!/bin/bash
 
 PKGCONFIG=/usr/bin/pkg-config
 
-if [ \! "$SYSROOT" ]; then
-	echo >&2
-	echo >&2
-	echo "pkg-config: missing \$SYSROOT environment variable" >&2
-	echo >&2
-	echo >&2
-	exit 2
+check_pipe_status() {
+    for i in  "${PIPESTATUS[@]}"; do
+	if test $i -ne 0; then
+	    exit $i
+	fi
+    done
+} 
+
+if test -z "${SYSROOT}"; then
+    (
+	echo
+	echo
+	echo "pkg-config: missing \$SYSROOT environment variable"
+	echo
+	echo
+    ) >2
+    exit 1
 fi
 
-if [ ! "$PKG_CONFIG_LIBDIR" ]; then
-    export PKG_CONFIG_LIBDIR=$SYSROOT/lib/pkgconfig:$SYSROOT/usr/lib/pkgconfig
-fi
-
-export PKG_CONFIG_LIBDIR
+export PKG_CONFIG_LIBDIR=${SYSROOT}/lib/pkgconfig:${SYSROOT}/usr/lib/pkgconfig
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
 
+found_var=false
+for ((i = 1; i <= ${#}; i++)); do
+    case "${!i}" in
+	--variable*)
+	    found_var=true
+	    ;;
+	*)
+	    ;;
+    esac
+done
+
+
+if ${found_var}; then
+#
+# if someone asks for a variable, if it looks like a path (starting with /)
+# prefix it with sysroot
+#
+    ${PKGCONFIG} "${@}" |
+    sed -e "s~^/~${SYSROOT}/~"
+else
 #
 # 1) protect already given sysroot
 # 2) add sysroot symbol to all absolute paths
@@ -26,11 +52,11 @@ export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
 # 4) libtool isn't correctly DESTDIR/SYSROOT aware, it replaces -lfoo by
 #    paths leading to host libraries; using -Wl,-lfoo seems to work. 
 # 
+    ${PKGCONFIG} "${@}" |
+    sed -e "s~\-L/*${SYSROOT}/*~-L=/~g; s~\-I/*${SYSROOT}/*~-I=/~g;" \
+	-e "s~\-L/~-L=/~g; s~\-I/~-I=/~g;"                       \
+	-e "s~\-L\=~-L${SYSROOT}~g; s~\-I\=~-I${SYSROOT}~g;"         \
+	-e "s~[\t ]\-l~ -Wl,-l~g;"
+fi    
 
-OUTPUT=`$PKGCONFIG $*` || exit $?
-
-echo -n $OUTPUT |
-	sed -e "s~\-L/*$SYSROOT/*~-L=/~g; s~\-I/*$SYSROOT/*~-I=/~g;" \
-	    -e "s~\-L/~-L=/~g; s~\-I/~-I=/~g;"                       \
-	    -e "s~\-L\=~-L$SYSROOT~g; s~\-I\=~-I$SYSROOT~g;"         \
-	    -e "s~[\t ]\-l~ -Wl,-l~g;"
+check_pipe_status
