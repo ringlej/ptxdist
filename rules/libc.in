@@ -1,33 +1,5 @@
-#
-# rules/libc.in
-#
-# This is a Meta - Includefile
-#
-
 menu "C Library           "
 
-choice
-	prompt "Which C library do you want to use?"
-	default GLIBC
-
-	config GLIBC
-		bool
- 		prompt "GLIBC"
- 		depends on !ARCH_NOMMU
-    
-	config UCLIBC
-		bool
- 		prompt "uClibc"
-endchoice
-
-comment "C Library options"
-
-if GLIBC
 source "rules/glibc.in"
-endif
-
-if UCLIBC
-source "rules/uclibc.in"
-endif
 
 endmenu

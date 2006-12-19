@@ -1,6 +1,5 @@
 config ALSA_LIB
 	bool
-	depends on BUILD_USERLAND
 	prompt "Alsa Libaries"
 	help
 	  FIXME: This item needs to be documented

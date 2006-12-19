@@ -3,7 +3,6 @@
 menuconfig SDL
 	bool
 	prompt "SDL                   "
-	depends on BUILD_USERLAND
 	select ALSA_LIB if SDL_ALSA
         select XORG_LIB_X11 if SDL_X11
         select XORG_LIB_XT if SDL_X11

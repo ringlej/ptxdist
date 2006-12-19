@@ -1,26 +1,20 @@
+menuconfig GLIBC
+	bool
+	default y
+	prompt glibc
+
 config GLIBC_VERSION
 	prompt "glibc Version"
 	string
 	default "2.3.6"
 	depends on GLIBC
 
-# ----------
-
 comment	"Install options"
-	depends on BUILD_USERLAND
-
-config GLIBC_INSTALL
-	bool
-	depends on BUILD_USERLAND
-	default y if !CROSSTOOL
-	default n if CROSSTOOL
-	prompt "Install glibc libraries on the target"
-	help
-	  FIXME: This item needs to be documented
+	depends on GLIBC
 
 config GLIBC_LIBC
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	default y
 	prompt "Install libc on the target"
 	help
@@ -28,28 +22,28 @@ config GLIBC_LIBC
 
 config GLIBC_PTHREAD
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libpthread on the target"
 	help
 	  FIXME: This item needs to be documented
 
 config GLIBC_THREAD_DB
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libthread_db on the target"
 	help
 	  FIXME: This item needs to be documented
 
 config GLIBC_LIBRT
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install librt on the target"
 	help
 	  Functions in this library provide most of the interfaces specified by the POSIX.1b Realtime Extension
 
 config GLIBC_DL
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libdl on the target"
 	help
 	  libdl.so is a dynamic linking library that is generally of use only for
@@ -72,28 +66,28 @@ config GLIBC_DL
 
 config GLIBC_CRYPT
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libcrypt on the target"
 	help
 	  FIXME: This item needs to be documented
 
 config GLIBC_UTIL
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libutil on the target"
 	help
 	  Contains code for "standard" functions used in many different Unix utilities.
 
 config GLIBC_LIBM
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libm on the target"
 	help
 	  FIXME: This item needs to be documented
 
 config GLIBC_NSS_DNS
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libnss_dns"
 	select GLIBC_RESOLV
 	help
@@ -101,7 +95,7 @@ config GLIBC_NSS_DNS
 
 config GLIBC_NSS_FILES
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libnss_files"
 	help
 	  Contains functions to access some vitale system control files (for login
@@ -109,7 +103,7 @@ config GLIBC_NSS_FILES
 
 config GLIBC_NSS_HESIOD
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libnss_hesiod"
 	select GLIBC_RESOLV
 	select GLIBC_NSS_FILES
@@ -118,7 +112,7 @@ config GLIBC_NSS_HESIOD
 
 config GLIBC_NSS_NIS
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libnss_nis"
 	select GLIBC_NSL
 	select GLIBC_NSS_FILES
@@ -127,7 +121,7 @@ config GLIBC_NSS_NIS
 
 config GLIBC_NSS_NISPLUS
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libnss_nisplus"
 	select GLIBC_NSL
 	help
@@ -135,7 +129,7 @@ config GLIBC_NSS_NISPLUS
 
 config GLIBC_NSS_COMPAT
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libnss_compat"
 	select GLIBC_NSL
 	help
@@ -143,28 +137,27 @@ config GLIBC_NSS_COMPAT
 
 config GLIBC_RESOLV
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libresolv"
 	help
 	  FIXME: This item needs to be documented
 
 config GLIBC_NSL
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install libnsl"
 	help
 	  Functions in this library provide routines  that  provide  a
 	  transport-level  interface to networking services like i.E. 
 	  nis(+)
 
-# -----
-comment "I18N Files"
+menu "I18N"
+	depends on GLIBC
 
 config GLIBC_I18N_BIN
 	bool
-	depends on GLIBC_INSTALL
-	prompt "Install locale utilities"
 	depends on GLIBC
+	prompt "Install locale utilities"
 	help
 	  install the locale utilities
 
@@ -189,7 +182,7 @@ config GLIBC_I18N_BIN_LOCALEDEF
 
 config GLIBC_I18N_DATA
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install i18n locales and charmaps"
 	depends on GLIBC
 	default y
@@ -218,7 +211,7 @@ config GLIBC_I18N_DATA_ZH
 
 config GLIBC_GCONV
 	bool
-	depends on GLIBC_INSTALL
+	depends on GLIBC
 	prompt "Install gconv libraries"
 	depends on GLIBC
 	help
@@ -243,18 +236,20 @@ config GLIBC_GCONV_ISO8859_15
 	  into gconv, this one contains french ligatures and the euro
 	  symbol
 
+endmenu
+
 # -----
 
 comment "Timezone Files"
-	depends on GLIBC_INSTALL
+	depends on GLIBC && BROKEN
 
 comment "glibc zoneinfo is BROKEN"
-	depends on GLIBC_INSTALL && !BROKEN
+	depends on GLIBC && !BROKEN
 
 config GLIBC_ZONEINFO
 	bool
 	prompt "Install zoneinfo files"
-	depends on GLIBC_INSTALL && BROKEN
+	depends on GLIBC && BROKEN
 	help
 	  FIXME: This item needs to be documented
 

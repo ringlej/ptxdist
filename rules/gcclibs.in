@@ -3,7 +3,6 @@
 #
 
 menu "GCC Libraries       "
-	depends on BUILD_USERLAND
 
 config GCCLIBS
 	bool
@@ -19,13 +18,6 @@ config GCCLIBS_CXX
 config GCCLIBS_GCC_S
 	bool "libgcc_s"
 	select GCCLIBS
-	help
-	  FIXME: This item needs to be documented
-
-config GCCLIBS_GCC_S_NOF
-	bool "libgcc_s_nof"
-	select GCCLIBS
-	depends on ARCH_PPC
 	help
 	  FIXME: This item needs to be documented
 

@@ -337,12 +337,12 @@ config PREFIX
 config HOST_PREFIX
 	prompt "Prefix for host tools development environment"
 	string
-	default "${PTXCONF_PREFIX}"
+	default "${PTXCONF_PREFIX}-host"
 
 config CROSS_PREFIX
 	prompt "Prefix for cross tools development environment"
 	string
-	default "${PTXCONF_PREFIX}"
+	default "${PTXCONF_PREFIX}-cross"
 
 comment "GNU Toolchain Identification String"
 
@@ -350,7 +350,6 @@ config CROSSCHAIN_VENDOR
 	string
 	prompt "Check for specific toolchain vendor"
 	default ""
-	depends on BUILD_USERLAND
 	help
 	  Add here an unique vendor string to ensure this project will
 	  be build with the correct toolchain.
@@ -365,7 +364,6 @@ config CROSSCHAIN_CHECK
 	string
 	prompt "Check for specific gcc version"
 	default "4.0.2"
-	depends on BUILD_USERLAND
 	help
 	  PTXdist calls your cross compiler with -dumpversion and
 	  compares the output with this string. This should help

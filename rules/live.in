@@ -1,6 +1,5 @@
 config LIVE_LIB
 	bool
-	depends on BUILD_USERLAND
 	prompt "LIVE                   "
 	help
 	  FIXME

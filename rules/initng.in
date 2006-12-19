@@ -1,6 +1,5 @@
 menuconfig INITNG
 	bool
-	depends on BUILD_USERLAND
 	select HOST_CMAKE
 	select NCURSES
 	prompt "initng              "

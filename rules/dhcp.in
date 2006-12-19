@@ -1,6 +1,5 @@
 menuconfig DHCP
 	bool
-	depends on BUILD_USERLAND
 	prompt "DHCP                "
 	help
 	  This is the DHCP server from version 3 of the Internet Software

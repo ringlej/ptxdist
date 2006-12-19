@@ -1,7 +1,6 @@
 config ALSA_UTILS
 	bool
 	prompt "Alsa Utils"
-	depends on BUILD_USERLAND
 	select NCURSES
 	select ALSA_LIB
 	help
