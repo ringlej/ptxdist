@@ -77,13 +77,6 @@ glibc_targetinstall: $(STATEDIR)/glibc.targetinstall
 
 $(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-#
-# Hack Alert:
-# Do not install anything if the user
-# do not wants it. GLIBC_INSTALL should disable
-# the whole packet instead of the ipkg only....
-#
-ifdef PTXCONF_GLIBC_INSTALL
 
 	@$(call install_init, glibc)
 	@$(call install_fixup, glibc,PACKAGE,glibc)
@@ -214,7 +207,6 @@ endif
 # 		/usr/share/zoneinfo/$$target) \
 # 	done;
 	@$(call install_finish, glibc)
-endif
 
 	@$(call touch, $@)
 
