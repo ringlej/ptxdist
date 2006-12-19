@@ -19,7 +19,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_PKG_CONFIG_WRAPPER) += host-pkg-config-wrapper
 #
 HOST_PKG_CONFIG_WRAPPER_VERSION	:= 1.0.0
 HOST_PKG_CONFIG_WRAPPER		:= pkg-config-wrapper-$(HOST_PKG_CONFIG_WRAPPER_VERSION)
-HOST_PKG_CONFIG_WRAPPER_DIR	:= $(HOST_BUILDDIR)/$(HOST_PKG_CONFIG_WRAPPER)
 
 
 # ----------------------------------------------------------------------------
@@ -70,8 +69,8 @@ host-pkg-config-wrapper_install: $(STATEDIR)/host-pkg-config-wrapper.install
 
 $(STATEDIR)/host-pkg-config-wrapper.install: $(host-pkg-config-wrapper_install_deps_default)
 	@$(call targetinfo,$@)
-	install -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_HOST_PREFIX)/bin/pkg-config
-	install -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_HOST_PREFIX)/bin/$(COMPILER_PREFIX)pkg-config
+	install -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_CROSS_PREFIX)/bin/pkg-config
+	install -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_CROSS_PREFIX)/bin/$(COMPILER_PREFIX)pkg-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
