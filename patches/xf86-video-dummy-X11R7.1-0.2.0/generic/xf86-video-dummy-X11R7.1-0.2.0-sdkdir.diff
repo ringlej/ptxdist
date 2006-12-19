@@ -1,0 +1,43 @@
+#
+# Submitted-By: Robert Schwebel, 2006-10-19
+# Committed-By: Robert Schwebel
+#
+# Error:
+#
+# -
+#
+# Description:
+#
+# $PREFIX is put to the include path, this is not cross-aware,
+# add SYSROOT as prefix
+#
+# State:
+#
+#
+
+Index: xf86-video-dummy-X11R7.1-0.2.0/configure.ac
+===================================================================
+--- xf86-video-dummy-X11R7.1-0.2.0.orig/configure.ac
++++ xf86-video-dummy-X11R7.1-0.2.0/configure.ac
+@@ -58,7 +58,7 @@ PKG_CHECK_MODULES(XORG, [xorg-server >= 
+ sdkdir=$(pkg-config --variable=sdkdir xorg-server)
+ 
+ CFLAGS="$CFLAGS $XORG_CFLAGS "' -I$(top_srcdir)/src'
+-INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src -I$(prefix)/include'
++INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src '"-I${SYSROOT}"'$(prefix)/include'
+ AC_SUBST([CFLAGS])
+ AC_SUBST([INCLUDES])
+ 
+Index: xf86-video-dummy-X11R7.1-0.2.0/configure
+===================================================================
+--- xf86-video-dummy-X11R7.1-0.2.0.orig/configure
++++ xf86-video-dummy-X11R7.1-0.2.0/configure
+@@ -19969,7 +19969,7 @@ fi
+ sdkdir=$(pkg-config --variable=sdkdir xorg-server)
+ 
+ CFLAGS="$CFLAGS $XORG_CFLAGS "' -I$(top_srcdir)/src'
+-INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src -I$(prefix)/include'
++INCLUDES="$XORG_INCS -I${sdkdir} "'-I$(top_srcdir)/src '"-I${SYSROOT}"'$(prefix)/include'
+ 
+ 
+ 
