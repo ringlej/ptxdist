@@ -58,7 +58,7 @@ $(STATEDIR)/konq-e.extract: $(konq-e_extract_deps_default)
 
 konq-e_prepare: $(STATEDIR)/konq-e.prepare
 
-KONQ_E_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+KONQ_E_PATH	=  PATH=$(CROSS_PATH)
 KONQ_E_ENV 	=  $(CROSS_ENV)
 
 #
