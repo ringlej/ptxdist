@@ -58,16 +58,8 @@ $(STATEDIR)/xorg-driver-video-nsc.extract: $(xorg-driver-video-nsc_extract_deps_
 xorg-driver-video-nsc_prepare: $(STATEDIR)/xorg-driver-video-nsc.prepare
 
 XORG_DRIVER_VIDEO_NSC_PATH	:=  PATH=$(CROSS_PATH)
-
 XORG_DRIVER_VIDEO_NSC_ENV 	:=  $(CROSS_ENV)
 
-#
-# configure searches for X servers settings. They are in "xorg-server.h"
-# in the local arch in usr/include/xorg. Expand the path to let configure
-# find it (its testprogram only includes <xorg-server.h>)
-#
-XORG_DRIVER_VIDEO_NST_PTFH=$(call remove_quotes, \
-	${PTXCONF_PREFIX}/${PTXCONF_GNU_TARGET})
 #
 # autoconf
 #
@@ -79,7 +71,6 @@ $(STATEDIR)/xorg-driver-video-nsc.prepare: $(xorg-driver-video-nsc_prepare_deps_
 	@$(call clean, $(XORG_DRIVER_VIDEO_NSC_DIR)/config.cache)
 	cd $(XORG_DRIVER_VIDEO_NSC_DIR) && \
 		$(XORG_DRIVER_VIDEO_NSC_PATH) $(XORG_DRIVER_VIDEO_NSC_ENV) \
-		CFLAGS="-I ${XORG_DRIVER_VIDEO_NST_PTFH}/usr/include/xorg" \
 		./configure $(XORG_DRIVER_VIDEO_NSC_AUTOCONF)
 	@$(call touch, $@)
 
