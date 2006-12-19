@@ -85,9 +85,8 @@ $(STATEDIR)/cramfs.install: $(cramfs_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	# @$(call install, CRAMFS)
-	install -d $(PTXCONF_PREFIX)/bin
-	cp $(CRAMFS_DIR)/mkcramfs $(PTXCONF_PREFIX)/bin
-	cp $(CRAMFS_DIR)/cramfsck $(PTXCONF_PREFIX)/bin
+	cp $(CRAMFS_DIR)/mkcramfs $(PTXCONF_HOST_PREFIX)/bin
+	cp $(CRAMFS_DIR)/cramfsck $(PTXCONF_HOST_PREFIX)/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
