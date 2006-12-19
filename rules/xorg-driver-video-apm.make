@@ -58,8 +58,10 @@ $(STATEDIR)/xorg-driver-video-apm.extract: $(xorg-driver-video-apm_extract_deps_
 
 xorg-driver-video-apm_prepare: $(STATEDIR)/xorg-driver-video-apm.prepare
 
-XORG_DRIVER_VIDEO_APM_PATH	:=  PATH=$(CROSS_PATH)
-XORG_DRIVER_VIDEO_APM_ENV 	:=  $(CROSS_ENV)
+XORG_DRIVER_VIDEO_APM_PATH	:= PATH=$(CROSS_PATH)
+XORG_DRIVER_VIDEO_APM_ENV 	:= \
+	$(CROSS_ENV) \
+	ac_cv_file__usr_share_X11_sgml_defs_ent=no
 
 #
 # autoconf
