@@ -93,10 +93,6 @@ ifdef PTXCONF_GCCLIBS_GCC_S
 	@$(call install_copy_toolchain_lib, gcclibs, libgcc_s.so, /lib)
 endif
 
-ifdef PTXCONF_GCCLIBS_GCC_S_NOF
-	@$(call install_copy_toolchain_lib, gcclibs, libgcc_s_nof.so, /lib)
-endif
-
 	@$(call install_finish, gcclibs)
 
 	@$(call touch, $@)
