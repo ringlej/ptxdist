@@ -17,3 +17,5 @@ quote:="
 # $1: variable
 #
 remove_quotes = $(strip $(subst $(quote),,$(1)))
+
+tr_sh = $(strip $(shell echo $(1) | sed 'y%*+%pp%;s%[^_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789]%_%g'))
