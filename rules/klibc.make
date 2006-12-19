@@ -94,7 +94,7 @@ $(STATEDIR)/klibc.compile: $(klibc_compile_deps_default) $(STATEDIR)/kernel.prep
 # this won't generate any files here for the target. All selected files will
 # later be part of the kernel image itself (initramfs). Instead only a control
 # file will be generated and all parts of the klibc get installed into
-# $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/usr/lib/klibc.
+# $(SYSROOT)/usr/lib/klibc.
 # To link applications against klibc, use the "klcc" wrapper instead of the
 # cross compiler. klcc will be build here and uses the $(COMPILER_PREFIX).
 # While kernel building the klibc files will be fetched from their build location!
@@ -216,7 +216,7 @@ endif
 #
 # install the compiler wrapper to be used to link programs against klibc
 #
-	install $(KLIBC_DIR)/klcc/klcc $(PTXCONF_PREFIX)/bin/klcc
+	install $(KLIBC_DIR)/klcc/klcc $(PTXCONF_CROSS_PREFIX)/bin/klcc
 #
 # install a few commands to the local architecture directory
 # but important is the klibc.a only to link programs against it
@@ -248,6 +248,6 @@ klibc_clean:
 	rm -rf $(STATEDIR)/klibc.*
 	rm -rf $(IMAGEDIR)/klibc_*
 	rm -rf $(KLIBC_DIR)
-	rm -rf $(PTXCONF_PREFIX)/bin/klcc
+	rm -rf $(PTXCONF_CROSS_PREFIX)/bin/klcc
 
 # vim: syntax=make
