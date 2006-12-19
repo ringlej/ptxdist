@@ -60,7 +60,7 @@ $(STATEDIR)/qt.extract: $(qt_extract_deps_default)
 
 qt_prepare: $(STATEDIR)/qt.prepare
 
-QT_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+QT_PATH	=  PATH=$(CROSS_PATH)
 QT_ENV 	=  $(CROSS_ENV)
 QT_ENV	+= QTDIR=$(QT_DIR)
 
@@ -79,8 +79,8 @@ QT_AUTOCONF = -gif \
 	-release \
 	-shared \
 	-no-g++-exceptions \
-	-I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include \
-	-R$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
+	-I$(SYSROOT)/include \
+	-R$(SYSROOT)/usr/lib \
 	-L/usr/X11R6/lib \
 	-depths 16 \
 	-no-qvfb \
