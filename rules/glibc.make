@@ -14,14 +14,9 @@
 #
 # We provide this package
 #
-# bloody hack, I'm sorry (mkl)
-#
-ifndef PTXCONF_CROSSTOOL
 PACKAGES-$(PTXCONF_GLIBC) += glibc
-endif
 
 GLIBC := glibc-$(GLIBC_VERSION)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -169,7 +164,7 @@ endif
 
 ifdef PTXCONF_GLIBC_GCONV
 	@$(call install_copy, glibc, 0, 0, 0755, /usr/lib/gconv)
-	@$(call install_copy_toolchain_lib, glibc, gconv/gconv-modules, /usr/lib/gconv)
+	@$(call install_copy_toolchain_lib, glibc, gconv/gconv-modules, /usr/lib/gconv, n)
 endif
 
 ifdef PTXCONF_GLIBC_GCONV_ISO8859_1
