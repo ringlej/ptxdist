@@ -57,8 +57,10 @@ $(STATEDIR)/xorg-driver-video-i810.extract: $(xorg-driver-video-i810_extract_dep
 
 xorg-driver-video-i810_prepare: $(STATEDIR)/xorg-driver-video-i810.prepare
 
-XORG_DRIVER_VIDEO_I810_PATH	:=  PATH=$(CROSS_PATH)
-XORG_DRIVER_VIDEO_I810_ENV 	:=  $(CROSS_ENV)
+XORG_DRIVER_VIDEO_I810_PATH	:= PATH=$(CROSS_PATH)
+XORG_DRIVER_VIDEO_I810_ENV 	:= \
+	$(CROSS_ENV) \
+	ac_cv_file__usr_share_X11_sgml_defs_ent=no
 
 #
 # autoconf
@@ -67,8 +69,16 @@ XORG_DRIVER_VIDEO_I810_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 ifdef PTXCONF_XORG_DRIVER_VIDEO_I810_DRI
 XORG_DRIVER_VIDEO_I810_AUTOCONF += --enable-dri
+XORG_DRIVER_VIDEO_I810_ENV += \
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/dri.h)=yes \
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/sarea.h)=yes \
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/dristruct.h)=yes
 else
 XORG_DRIVER_VIDEO_I810_AUTOCONF += --disable-dri
+XORG_DRIVER_VIDEO_I810_ENV += \
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/dri.h)=no \
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/sarea.h)=no \
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/dristruct.h)=no
 endif
 
 $(STATEDIR)/xorg-driver-video-i810.prepare: $(xorg-driver-video-i810_prepare_deps_default)
