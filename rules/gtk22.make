@@ -63,7 +63,6 @@ GTK22_PATH	=  PATH=$(CROSS_PATH)
 GTK22_ENV 	=  $(CROSS_ENV)
 GTK22_ENV	+= PKG_CONFIG_PATH=$(SYSROOT)/lib/pkgconfig/
 GTK22_ENV	+= FREETYPE_CONFIG="pkg-config freetype2"
-#GTK22_ENV	+= CFLAGS=-I$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
 
 #
 # autoconf
@@ -84,9 +83,9 @@ $(STATEDIR)/gtk22.prepare: $(gtk22_prepare_deps_default)
 
 	# Tweak alert! gdk-pixbuf-csource leaks in when being available 
 	# on the host... so don't compile demos at all. 
-	
+
 	perl -i -p -e 's/^SRC_SUBDIRS =(.*) demos (.*)$$/SRC_SUBDIRS = $$1 $$2/g' $(GTK22_DIR)/Makefile
-	 
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -134,7 +133,7 @@ $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps_default)
 		/usr/lib/libgtk-x11-2.0.so.0.302.0)
 	@$(call install_link, gtk22, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so.0)
 	@$(call install_link, gtk22, libgtk-x11-2.0.so.0.302.0, /usr/lib/libgtk-x11-2.0.so)
-	
+
 	@$(call install_copy, gtk22, 0, 0, 0644, \
 		$(GTK22_DIR)/gdk/.libs/libgdk-x11-2.0.so.0.302.0, \
 		/usr/lib/libgdk-x11-2.0.so.0.302.0)
@@ -146,7 +145,7 @@ $(STATEDIR)/gtk22.targetinstall: $(gtk22_targetinstall_deps_default)
 		/usr/lib/libgdk_pixbuf-2.0.so.0.302.0)
 	@$(call install_link, gtk22, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so.0)
 	@$(call install_link, gtk22, libgdk_pixbuf-2.0.so.0.302.0, /usr/lib/libgdk_pixbuf-2.0.so)
-	
+
 	@$(call install_copy, gtk22, 0, 0, 0644, \
 		$(GTK22_DIR)/gdk-pixbuf/.libs/gdk-pixbuf-query-loaders, \
 		/usr/bin/gdk-pixbuf-query-loaders)
