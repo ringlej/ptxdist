@@ -29,29 +29,23 @@ KERNEL_SERIES		:= $(PTXDIST_WORKSPACE)/kernel-patches$(KERNEL_style)/$(PTXCONF_K
 
 KERNEL_DIR_INSTALL	:= $(BUILDDIR)/$(KERNEL)-install
 
-ifdef PTXCONF_KERNEL_ARCH_POWERPC
-KERNEL_ARCH		:= powerpc
-else
-KERNEL_ARCH		:= $(PTXCONF_ARCH)
-endif
-
 #
 # Some configuration stuff for the different kernel image formats
 #
 ifdef PTXCONF_KERNEL_IMAGE_Z
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/zImage
+KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH)/boot/zImage
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_BZ
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/bzImage
+KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH)/boot/bzImage
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_U
 KERNEL_IMAGE_PATH	:= \
 	$(KERNEL_DIR)/uImage \
-	$(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/uImage \
-	$(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/images/uImage \
-	$(KERNEL_DIR)/arch/$(KERNEL_ARCH)/boot/images/vmlinux.UBoot
+	$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH)/boot/uImage \
+	$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH)/boot/images/uImage \
+	$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH)/boot/images/vmlinux.UBoot
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_VMLINUX
@@ -87,7 +81,9 @@ $(STATEDIR)/kernel.extract: $(kernel_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KERNEL_DIR))
 	@$(call extract, KERNEL)
+ifneq ($(KERNEL_SERIES),"")
 	@$(call patchin, KERNEL,,$(KERNEL_SERIES))
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -110,10 +106,19 @@ KERNEL_MAKEVARS += ARCH=um
 KERNEL_IMAGE	:= vmlinuz
 else
 KERNEL_MAKEVARS += \
-	ARCH=$(KERNEL_ARCH) \
+	ARCH=$(PTXCONF_KERNEL_ARCH) \
 	CROSS_COMPILE=$(COMPILER_PREFIX)
 KERNEL_IMAGE	:= $(PTXCONF_KERNEL_IMAGE)
 endif
+
+$(KERNEL_CONFIG):
+	@echo
+	@echo "*************************************************************************"
+	@echo "**** Please generate a kernelconfig with \"ptxdist menuconfig kernel\" ****"
+	@echo "*************************************************************************"
+	@echo
+	@echo
+	@exit 1
 
 $(STATEDIR)/kernel.prepare: $(kernel_prepare_deps_default) $(KERNEL_CONFIG)
 	@$(call targetinfo, $@)
@@ -136,10 +141,6 @@ endif
 		$(KERNEL_MAKEVARS) oldconfig
 
 	cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG)
-
-# '-' is neccessary because modules_prepare fails on kernels < 2.6.6
-	-cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
-		$(KERNEL_MAKEVARS) modules_prepare
 
 	@$(call touch, $@)
 
@@ -251,7 +252,9 @@ kernel_clean:
 # ----------------------------------------------------------------------------
 
 kernel_oldconfig kernel_menuconfig: $(STATEDIR)/kernel.extract
-	@cp $(KERNEL_CONFIG) $(KERNEL_DIR)/.config
+	@if test -e $(KERNEL_CONFIG); then \
+		cp $(KERNEL_CONFIG) $(KERNEL_DIR)/.config; \
+	fi
 	@cd $(KERNEL_DIR) && \
 		$(KERNEL_PATH) $(MAKE) $(KERNEL_MAKEVARS) $(subst kernel_,,$@)
 	@if cmp -s $(KERNEL_DIR)/.config $(KERNEL_CONFIG); then \

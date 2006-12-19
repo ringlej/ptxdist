@@ -23,7 +23,9 @@ config KERNEL_VERSION
 
 choice
 	prompt "kernel architecture (ppc/powerpc)"
+	depends on KERNEL
 	depends on ARCH_PPC
+	default KERNEL_ARCH_POWERPC
 	help
 	  In current 2.6 kernels powerpc is supported in two
 	  different architectures. ppc is the old one and currently
@@ -31,12 +33,30 @@ choice
 
 	config KERNEL_ARCH_PPC
 		bool
-		prompt "PPC"
+		prompt "ppc"
 
 	config KERNEL_ARCH_POWERPC
 		bool
-		prompt "POWERPC"
+		prompt "powerpc"
 endchoice
+
+config KERNEL_ARCH
+	depends on KERNEL
+	string
+	default "arm"			if ARCH_ARM
+	default "armnommu"		if ARCH_ARM_NOMMU
+	default "alpha"			if ARCH_ALPHA
+	default "i386"			if ARCH_X86
+	default "m68k"			if ARCH_M68K
+	default "sparc"			if ARCH_SPARC
+	default "mips"			if ARCH_MIPS
+	default "mips"			if ARCH_MIPSEL
+	default "cris"			if ARCH_CRIS
+	default "parisc"		if ARCH_PARISC
+	default "sh"			if ARCH_SH
+
+	default "ppc"			if KERNEL_ARCH_PPC
+	default "powerpc"		if KERNEL_ARCH_POWERPC
 
 config KERNEL_SERIES
 	prompt "Patch Series File"
@@ -115,6 +135,7 @@ config KERNEL_MODULES_INSTALL
 	default y
 	prompt "Install modules into /lib/modules"
 	depends on KERNEL
+	depends on KERNEL_MODULES
 
 config KERNEL_IMAGE
 	depends on KERNEL
@@ -126,9 +147,9 @@ config KERNEL_IMAGE
 
 config KERNEL_MODULES_BUILD
 	depends on KERNEL
+	depends on KERNEL_MODULES
 	string
-	default "modules" if KERNEL_MODULES_INSTALL
-	default "" if ! KERNEL_MODULES_INSTALL
+	default "modules"
 
 comment "--------- Emulation kernel ---------"
 	depends on KERNEL
