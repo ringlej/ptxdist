@@ -18,7 +18,7 @@ ifdef PTXCONF_HOST_FAKEROOT
 virtual-xchain_install_deps	+= $(STATEDIR)/host-fakeroot.install
 endif
 
-ifdef PTXCONF_BUILD_USERLAND
+ifdef PTXCONFB_HOST_IPKG_UTILS
 virtual-xchain_install_deps	+= $(STATEDIR)/host-ipkg-utils.install
 endif
 
