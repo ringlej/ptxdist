@@ -18,37 +18,6 @@ config PTXCONF
 
 comment "------------------------------------"
 
-# Deprecation Process:
-#
-# PTXdist will only build userland in the future, as it is now possible
-# to build toolchains using a separate PTXdist project. We leave this
-# code here until we've checked that the crosstool project works.
-
-#choice
-#	prompt "Build...        "
-#	default BUILD_USERLAND
-#	help
-#	  Select here what you want to build today. See specific help in the submenu.
-#
-	config BUILD_USERLAND
-		bool
-		default y
-#		prompt "Userland "
-#		help
-#		  Select this menu if you want to build your userland programs, e.g.
-#		  applications, shells etc. This requires a ready-to-use toolchain
-#		  (compiler, assembler, linker and the base runtime environment)
-#
-#	config BUILD_TOOLCHAIN
-#		bool
-#		prompt "Toolchain"
-#		help
-#		  Select this menu if you want to build a toolchain and the base runtime
-#		  environment. This is the opposite of building "Userland". Building
-#		  userland application requires this step first.
-#
-#endchoice
-
 menu "Project Name & Version        "
 
 comment "Project Name & Version        "
