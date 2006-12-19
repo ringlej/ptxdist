@@ -58,7 +58,7 @@ $(STATEDIR)/penguzilla.extract: $(penguzilla_extract_deps_default)
 
 penguzilla_prepare: $(STATEDIR)/penguzilla.prepare
 
-PENGUZILLA_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+PENGUZILLA_PATH	=  PATH=$(CROSS_PATH)
 PENGUZILLA_ENV 	=  $(CROSS_ENV)
 
 #
@@ -66,7 +66,7 @@ PENGUZILLA_ENV 	=  $(CROSS_ENV)
 #
 PENGUZILLA_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 PENGUZILLA_AUTOCONF	+= --with-mozilla=$(MFIREBIRD_DIR)
-PENGUZILLA_AUTOCONF	+= --with-gtk-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+PENGUZILLA_AUTOCONF	+= --with-gtk-prefix=$(SYSROOT)
 
 $(STATEDIR)/penguzilla.prepare: $(penguzilla_prepare_deps_default)
 	@$(call targetinfo, $@)
