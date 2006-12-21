@@ -3,6 +3,8 @@ config ALSA_UTILS
 	prompt "Alsa Utils"
 	select NCURSES
 	select ALSA_LIB
+	select GLIBC_PTHREAD
 	help
-	  FIXME: This item needs to be documented
-
+	  Some utils to handle the Advanced Linux Sound Architecture.
+	  With this utils you can control your sound device, playing and
+	  recording sounds.
