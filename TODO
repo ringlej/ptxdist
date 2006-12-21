@@ -5,6 +5,9 @@ TODO for 0.10.6
 [ ] make DHCP client useful on the target. Currently only the binary
     will be built and copied, but does not work on the target
 [ ] update DHCP tp 3.0.5 or correct path to 3.0.4
+[ ] fakeroot-the-hosttool seems not to be found - reported by wrap. It
+    looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
+    into the path somehow. Ask mkl.
 
 TODO for 0.10.5
 ===============
