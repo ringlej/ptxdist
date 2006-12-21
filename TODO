@@ -1,10 +1,15 @@
 TODO for 0.10.6
 ===============
+[ ] correct the ouput of "ptxdist menuconfig" when configuration is finished.
+    The output of
+    *** End of configuration.
+    *** Execute 'make' to build the project or try 'make help'.
+    is outdated...
 [ ] if no patches are required for the kernel, it should not depend on
     kernel-patches-target/
-[ ] make DHCP client useful on the target. Currently only the binary
+[x] make DHCP client useful on the target. Currently only the binary
     will be built and copied, but does not work on the target
-[ ] update DHCP tp 3.0.5 or correct path to 3.0.4
+[x] update DHCP tp 3.0.5 or correct path to 3.0.4
 [ ] fakeroot-the-hosttool seems not to be found - reported by wrap. It
     looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
     into the path somehow. Ask mkl.
