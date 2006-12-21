@@ -5,12 +5,12 @@ menuconfig DHCP
 	  This is the DHCP server from version 3 of the Internet Software
 	  Consortium DHCP package. For more information visit the ISC web
  	  site at http://www.isc.org.
-  	
-	  Dynamic Host Configuration Protocol (DHCP) is a protocol like 
-	  BOOTP (actually dhcpd includes much of the functionality of 
-	  BOOTPD!). It assigns IP addresses to clients based on lease 
-	  times. 
- 
+
+	  Dynamic Host Configuration Protocol (DHCP) is a protocol like
+	  BOOTP (actually dhcpd includes much of the functionality of
+	  BOOTPD!). It assigns IP addresses to clients based on lease
+	  times.
+
  	  Multiple Ethernet Interfaces are supported by this DHCP package.
 
 
@@ -22,16 +22,47 @@ config DHCP_SERVER
 		FIXME
 
 config DHCP_CLIENT
-        bool
-        depends on DHCP
-        prompt "DHCP Client dhclient"
-        help
-                FIXME
+	bool
+	depends on DHCP
+	prompt "DHCP Client dhclient"
+	help
+	  This is a client process to provide the system it runs on
+	  with an IP adress. It also handles a lease refresh if it
+	  expires.
+
+config DHCP_CLIENT_CONFIG
+	bool
+	depends on DHCP_CLIENT
+	prompt "Install /etc/dhclient.conf"
+	help
+	  PTXdist installs a /etc/dhclient.conf from a selectable source.
+
+choice
+	prompt "Kind of dhclient.conf"
+	default DHCP_CLIENT_CONFIG_DEFAULT
+	depends on DHCP_CLIENT_CONFIG
+
+	config DHCP_CLIENT_CONFIG_DEFAULT
+		bool
+		prompt "Use generic"
+		help
+		  Installs a generic /etc/dhclient.conf from the dhcp package.
+		  See <build-target/dhcp-?.?.?/client/dhclient.conf
+
+	config DHCP_CLIENT_CONFIG_USER
+		bool
+		prompt "User defined"
+		help
+		  This uses a user defined /etc/dhclient.conf file. PTXdist
+		  uses files projectroot/etc/dhclient.conf in your local
+		  project
+
+endchoice
 
 config DHCP_RELAY
-        bool
-        depends on DHCP
-        prompt "DHCP Relay dhcrelay"
-        help
-                FIXME
+	bool
+	depends on DHCP
+	prompt "DHCP Relay dhcrelay"
+	help
+	 FIXME
 

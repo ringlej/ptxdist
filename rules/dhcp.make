@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_DHCP) += dhcp
 #
 # Paths and names
 #
-DHCP_VERSION	= 3.0.4
+DHCP_VERSION	= 3.0.5
 DHCP		= dhcp-$(DHCP_VERSION)
 DHCP_SUFFIX	= tar.gz
 DHCP_URL	= ftp://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX)
@@ -112,11 +112,26 @@ $(STATEDIR)/dhcp.targetinstall: $(dhcp_targetinstall_deps_default)
 	@$(call install_fixup, dhcp,DESCRIPTION,missing)
 
 ifdef PTXCONF_DHCP_SERVER
-	@$(call install_copy, dhcp, 0, 0, 0755, $(DHCP_DIR)/work.linux-2.2/server/dhcpd, /sbin/dhcpd)
+	@$(call install_copy, dhcp, 0, 0, 0755, \
+		$(DHCP_DIR)/work.linux-2.2/server/dhcpd, /sbin/dhcpd)
 endif
 
 ifdef PTXCONF_DHCP_CLIENT
-	@$(call install_copy, dhcp, 0, 0, 0755, $(DHCP_DIR)/work.linux-2.2/client/dhclient, /sbin/dhclient)
+	@$(call install_copy, dhcp, 0, 0, 0755, \
+		$(DHCP_DIR)/work.linux-2.2/client/dhclient, /sbin/dhclient)
+	@$(call install_copy, dhcp, 0, 0, 0755, /var/state/dhcp )
+
+ifdef PTXCONF_DHCP_CLIENT_CONFIG_DEFAULT
+	@$(call install_copy, dhcp, 0, 0, 0755, \
+		$(DHCP_DIR)/client/dhclient.conf, /etc/dhclient.conf, n)
+endif
+ifdef PTXCONF_DHCP_CLIENT_CONFIG_USER
+	@$(call install_copy, dhcp, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/dhclient.conf, \
+		/etc/dhclient.conf, n)
+endif
+	@$(call install_copy, dhcp, 0, 0, 0755, \
+		$(DHCP_DIR)/client/scripts/linux, /sbin/dhclient-script, n)
 endif
 
 ifdef PTXCONF_DHCP_RELAY
