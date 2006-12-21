@@ -5,7 +5,7 @@
 
 all: my_executable
 
-CFLAGS=-Werror -Wall
+CFLAGS=-Werror -Wall -Wsign-compare
 
 my_executable: my_source.c
 
