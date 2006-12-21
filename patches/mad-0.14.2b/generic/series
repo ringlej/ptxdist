@@ -1,0 +1,3 @@
+configure.patch -p0
+libmad_configure.patch -p0
+
