@@ -608,7 +608,7 @@ ifdef PTXCONF_ROOTFS_GENERIC_UDHCPC
 endif
 
 # -----------------------------------------------------------------------------
-ifdef PTXCONF_ROOTFS_USERS_CROND_CONF
+ifdef PTXCONF_ROOTFS_USER_CROND_CONF
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/cron)
 	@$(call install_copy, rootfs, 0, 0, 0755, /var/spool/cron/crontabs/)
 
@@ -635,7 +635,7 @@ ifdef PTXCONF_ROOTFS_GENERIC_INETD
 		$(PTXDIST_TOPDIR)/generic/etc/services, \
 		/etc/services, n )
 endif
-ifdef PTXCONF_ROOTFS_USERS_INETD
+ifdef PTXCONF_ROOTFS_USER_INETD
 	@$(call install_copy, rootfs, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/inetd.conf, \
 		/etc/inetd.conf, n )

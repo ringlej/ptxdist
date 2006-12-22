@@ -559,7 +559,7 @@ config ROOTFS_GENERIC_IPKG_CONF
 # /var/spool/cron/crontabs/
 # /etc/crond.conf
 #
-config ROOTFS_USERS_CROND_CONF
+config ROOTFS_USER_CROND_CONF
 	depends on ROOTFS
 	depends on ROOTFS_ETC_INITD_CROND
 	default n
