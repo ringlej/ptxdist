@@ -1,5 +1,7 @@
 TODO for 0.10.6
 ===============
+[ ] why does fam-2.7.0 always tries to run the autotools? It fails on most
+    modern systems
 [ ] correct the ouput of "ptxdist menuconfig" when configuration is finished.
     The output of
     *** End of configuration.
