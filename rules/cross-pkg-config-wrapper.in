@@ -1,0 +1,6 @@
+config CROSS_PKG_CONFIG_WRAPPER
+	bool
+	default y
+	help
+	  This is a wrapper for pkg-config which has at least
+	  a bit of support for sysroot/destdir.

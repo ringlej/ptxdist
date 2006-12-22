@@ -30,7 +30,9 @@ ifdef PTXCONF_IMAGE_JFFS2
 virtual-xchain_install_deps	+= $(STATEDIR)/host-mtd.install
 endif
 
-virtual-xchain_install_deps	+= $(STATEDIR)/host-pkg-config-wrapper.install
+ifdef PTXCONF_CROSS_PKG_CONFIG_WRAPPER
+virtual-xchain_install_deps	+= $(STATEDIR)/cross-pkg-config-wrapper.install
+endif
 
 $(STATEDIR)/virtual-xchain.install: $(virtual-xchain_install_deps)
 	@$(call targetinfo, $@)

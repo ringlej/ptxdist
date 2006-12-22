@@ -1,6 +1,0 @@
-config HOST_PKG_CONFIG_WRAPPER
-	bool
-	default y
-	help
-	  This is a wrapper for pkg-config which has proper support for
-	  sysroot/destdir.

@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -12,22 +12,21 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOST_PKG_CONFIG_WRAPPER) += host-pkg-config-wrapper
+CROSS_PACKAGES-$(PTXCONF_CROSS_PKG_CONFIG_WRAPPER) += cross-pkg-config-wrapper
 
 #
 # Paths and names
 #
-HOST_PKG_CONFIG_WRAPPER_VERSION	:= 1.0.0
-HOST_PKG_CONFIG_WRAPPER		:= pkg-config-wrapper-$(HOST_PKG_CONFIG_WRAPPER_VERSION)
-
+CROSS_PKG_CONFIG_WRAPPER_VERSION	:= 1.0.0
+CROSS_PKG_CONFIG_WRAPPER		:= pkg-config-wrapper-$(CROSS_PKG_CONFIG_WRAPPER_VERSION)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-host-pkg-config-wrapper_get: $(STATEDIR)/host-pkg-config-wrapper.get
+cross-pkg-config-wrapper_get: $(STATEDIR)/cross-pkg-config-wrapper.get
 
-$(STATEDIR)/host-pkg-config-wrapper.get: $(host-pkg-config-wrapper_get_deps_default)
+$(STATEDIR)/cross-pkg-config-wrapper.get: $(cross-pkg-config-wrapper_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -35,9 +34,9 @@ $(STATEDIR)/host-pkg-config-wrapper.get: $(host-pkg-config-wrapper_get_deps_defa
 # Extract
 # ----------------------------------------------------------------------------
 
-host-pkg-config-wrapper_extract: $(STATEDIR)/host-pkg-config-wrapper.extract
+cross-pkg-config-wrapper_extract: $(STATEDIR)/cross-pkg-config-wrapper.extract
 
-$(STATEDIR)/host-pkg-config-wrapper.extract: $(host-pkg-config-wrapper_extract_deps_default)
+$(STATEDIR)/cross-pkg-config-wrapper.extract: $(cross-pkg-config-wrapper_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,9 +44,9 @@ $(STATEDIR)/host-pkg-config-wrapper.extract: $(host-pkg-config-wrapper_extract_d
 # Prepare
 # ----------------------------------------------------------------------------
 
-host-pkg-config-wrapper_prepare: $(STATEDIR)/host-pkg-config-wrapper.prepare
+cross-pkg-config-wrapper_prepare: $(STATEDIR)/cross-pkg-config-wrapper.prepare
 
-$(STATEDIR)/host-pkg-config-wrapper.prepare: $(host-pkg-config-wrapper_prepare_deps_default)
+$(STATEDIR)/cross-pkg-config-wrapper.prepare: $(cross-pkg-config-wrapper_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -55,9 +54,9 @@ $(STATEDIR)/host-pkg-config-wrapper.prepare: $(host-pkg-config-wrapper_prepare_d
 # Compile
 # ----------------------------------------------------------------------------
 
-host-pkg-config-wrapper_compile: $(STATEDIR)/host-pkg-config-wrapper.compile
+cross-pkg-config-wrapper_compile: $(STATEDIR)/cross-pkg-config-wrapper.compile
 
-$(STATEDIR)/host-pkg-config-wrapper.compile: $(host-pkg-config-wrapper_compile_deps_default)
+$(STATEDIR)/cross-pkg-config-wrapper.compile: $(cross-pkg-config-wrapper_compile_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -65,24 +64,21 @@ $(STATEDIR)/host-pkg-config-wrapper.compile: $(host-pkg-config-wrapper_compile_d
 # Install
 # ----------------------------------------------------------------------------
 
-host-pkg-config-wrapper_install: $(STATEDIR)/host-pkg-config-wrapper.install
+cross-pkg-config-wrapper_install: $(STATEDIR)/cross-pkg-config-wrapper.install
 
-$(STATEDIR)/host-pkg-config-wrapper.install: $(host-pkg-config-wrapper_install_deps_default)
-	@$(call targetinfo,$@)
+$(STATEDIR)/cross-pkg-config-wrapper.install: $(cross-pkg-config-wrapper_install_deps_default)
+	@$(call targetinfo, $@)
 	install -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_CROSS_PREFIX)/bin/pkg-config
 	install -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_CROSS_PREFIX)/bin/$(COMPILER_PREFIX)pkg-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
-# targetinstall
-# ----------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-host-pkg-config-wrapper_clean:
-	rm -rf $(STATEDIR)/host-pkg-config-wrapper.*
-	rm -rf $(HOST_PKG_CONFIG_WRAPPER_DIR)
+cross-pkg-config-wrapper_clean:
+	rm -rf $(STATEDIR)/cross-pkg-config-wrapper.*
+	rm -rf $(IMAGEDIR)/cross-pkg-config-wrapper_*
+	rm -rf $(CROSS_PKG_CONFIG_WRAPPER_DIR)
 
 # vim: syntax=make
