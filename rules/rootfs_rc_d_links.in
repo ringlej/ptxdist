@@ -43,7 +43,7 @@ config ROOTFS_ETC_INITD_NETWORKING_LINK
 	  start this service automatically.
 
 config ROOTFS_ETC_INITD_SYSLOGNG_LINK
-	depends on ROOTFS_ETC_INITD_SYSLOGNG
+	depends on ROOTFS_ETC_INITD_SYSLOGNG_STARTSCRIPT
 	string
 	prompt "syslog-ng link name"
 	default "S08_syslog-ng"

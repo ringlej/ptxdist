@@ -159,7 +159,7 @@ endif
 #
 # FIXME: Is this packet the right location for the link?
 #
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK),"")
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK),"")
 	@$(call install_copy, syslogng, 0, 0, 0755, /etc/rc.d)
 	@$(call install_link, syslogng, ../init.d/syslog-ng, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DROPBEAR_LINK))
