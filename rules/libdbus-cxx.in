@@ -1,0 +1,7 @@
+config LIBDBUS_CXX
+	bool
+	prompt "dbus c++ bindings             "
+	select DBUS
+	help
+	  This library offers C++ bindings for dbus.
+

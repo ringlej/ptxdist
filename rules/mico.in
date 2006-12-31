@@ -3,7 +3,7 @@
 menuconfig MICO
 	bool
 	select HOST_MICO
-	prompt "mico"
+	prompt "mico                          "
 	help
 	  MICO is a CORBA ORB. See http://www.mico.com for details.
 
