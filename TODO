@@ -25,6 +25,7 @@ TODO for 0.10.6
     into the path somehow. Ask mkl.
 [ ] rsc: merge mkl's host/cross/target-pkg-config fixes. We need this to
     have a proper x.org and host-dbus.
+[ ] rsc: fix 'ptxdist newpacket host'
 
 TODO for 0.10.5
 ===============
