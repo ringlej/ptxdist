@@ -2,6 +2,7 @@
 
 menuconfig FAM
 	bool
+	depends on BROKEN
 	prompt "fam                 "
 	select PORTMAP
 	select GCCLIBS_CXX
