@@ -23,6 +23,8 @@ TODO for 0.10.6
 [ ] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
     looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
     into the path somehow. Ask mkl.
+[ ] rsc: merge mkl's host/cross/target-pkg-config fixes. We need this to
+    have a proper x.org and host-dbus.
 
 TODO for 0.10.5
 ===============
