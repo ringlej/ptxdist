@@ -1,23 +1,26 @@
 TODO for 0.10.6
 ===============
-[ ] replacing an *.make file for project use is easy. But how to replace a *.in file?
-[ ] udev needs rules to control permissions on device nodes
-[ ] remove generic /etc/resolv.conf or fill it with vital information!
-[ ] if any kind of /etc/resolv.conf is selected a different nsswitch.conf than the
+
+[ ] jbe: replacing an *.make file for project use is easy. But how to replace a *.in file?
+[ ] jbe: udev needs rules to control permissions on device nodes
+[ ] jbe: remove generic /etc/resolv.conf or fill it with vital information!
+[ ] jbe: if any kind of /etc/resolv.conf is selected a different nsswitch.conf than the
     current generic must be used. Otherwise resolv.conf will never be used
-[x] why does fam-2.7.0 always tries to run the autotools? It fails on most
-    modern systems -> mark as broken
-[ ] correct the ouput of "ptxdist menuconfig" when configuration is finished.
+[x] jbe: why does fam-2.7.0 always try to run the autotools? It fails on most
+    modern systems -> mark as broken. rsc: real fix: find out why and fix.
+[ ] jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
     The output of
     *** End of configuration.
     *** Execute 'make' to build the project or try 'make help'.
     is outdated...
-[ ] if no patches are required for the kernel, it should not depend on
+    rsc: while doing this, update to a recent kconfig version, with
+    saner colours instead of this unreadable yellow.
+[ ] jbe: if no patches are required for the kernel, it should not depend on
     kernel-patches-target/
-[x] make DHCP client useful on the target. Currently only the binary
+[x] jbe: make DHCP client useful on the target. Currently only the binary
     will be built and copied, but does not work on the target
-[x] update DHCP tp 3.0.5 or correct path to 3.0.4
-[ ] fakeroot-the-hosttool seems not to be found - reported by wrap. It
+[x] jbe: update DHCP tp 3.0.5 or correct path to 3.0.4
+[ ] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
     looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
     into the path somehow. Ask mkl.
 
