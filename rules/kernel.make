@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2002-2006 by Pengutronix e.K., Hildesheim, Germany
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -103,7 +103,7 @@ KERNEL_MAKEVARS := \
 
 ifdef NATIVE
 KERNEL_MAKEVARS += ARCH=um
-KERNEL_IMAGE	:= vmlinuz
+KERNEL_IMAGE	:= vmlinux
 else
 KERNEL_MAKEVARS += \
 	ARCH=$(PTXCONF_KERNEL_ARCH) \
