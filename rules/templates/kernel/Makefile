@@ -12,6 +12,6 @@ PWD	:= $(shell pwd)
 obj-m  := module-template.o
 
 modules modules_install clean:
-	$(MAKE) -C $(PTX_KERNEL_DIR) M=$(PTX_PWD) V=$(V) $@
+	$(MAKE) -C $(PTX_KERNEL_DIR) M=$(PWD) V=$(V) $@
 
 endif
