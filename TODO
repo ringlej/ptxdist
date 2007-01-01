@@ -1,7 +1,12 @@
 TODO for 0.10.6
 ===============
-[ ] why does fam-2.7.0 always tries to run the autotools? It fails on most
-    modern systems
+[ ] replacing an *.make file for project use is easy. But how to replace a *.in file?
+[ ] udev needs rules to control permissions on device nodes
+[ ] remove generic /etc/resolv.conf or fill it with vital information!
+[ ] if any kind of /etc/resolv.conf is selected a different nsswitch.conf than the
+    current generic must be used. Otherwise resolv.conf will never be used
+[x] why does fam-2.7.0 always tries to run the autotools? It fails on most
+    modern systems -> mark as broken
 [ ] correct the ouput of "ptxdist menuconfig" when configuration is finished.
     The output of
     *** End of configuration.
