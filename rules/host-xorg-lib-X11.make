@@ -73,7 +73,10 @@ host-xorg-lib-x11_compile: $(STATEDIR)/host-xorg-lib-x11.compile
 
 $(STATEDIR)/host-xorg-lib-x11.compile: $(host-xorg-lib-x11_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_XORG_LIB_X11_DIR) && $(HOST_XORG_LIB_X11_PATH) $(MAKE) $(PARALLELMFLAGS)
+	# FIXME: CC_FOR_BUILD is a hack because of our broken patch; the
+	# real solution is to modify the patch to use CC_FOR_BUILD only
+	# when $cross_compiling is set. See nfsutils for example (rsc)
+	cd $(HOST_XORG_LIB_X11_DIR) && $(HOST_XORG_LIB_X11_PATH) $(MAKE) $(PARALLELMFLAGS) CC_FOR_BUILD=$(HOSTCC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
