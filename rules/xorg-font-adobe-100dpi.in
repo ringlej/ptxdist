@@ -1,8 +1,11 @@
 config XORG_FONT_ADOBE_100DPI
 	bool
 	depends on XORG_FONT_100DPI
-	select HOST_BDFTOPCF
 	select XORG_FONT_UTIL
+	select HOST_XORG_APP_MKFONTDIR
+	select HOST_XORG_APP_MKFONTSCALE
+	select HOST_XORG_APP_BDFTOPCF
+	select HOST_XORG_FONT_UTIL
 	default y
 	prompt "Adobe 100dpi"
 	help
