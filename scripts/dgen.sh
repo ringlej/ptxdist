@@ -56,7 +56,7 @@ gen_rulesfiles_all() {
 		`find ${PROJECTRULESDIR}/ \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" \
 		-printf "! -name %f "`
-	else 
+	else
 	    find ${RULESDIR}/ \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
 	fi
@@ -82,15 +82,15 @@ gen_map_all() {
 # $#: deps
 #
 do_package_dep() {
-    local package label prepare_dep targetinstall_dep dep ptxconf_dep dep_package  
+    local package label prepare_dep targetinstall_dep dep ptxconf_dep dep_package
 
     package=${1}
     label=${2}
 
-    echo "${package}_get_deps_default = \$(${label}_SOURCE)"
-    echo "${package}_extract_deps_default := \$(STATEDIR)/${package}.get"
-    echo "${package}_compile_deps_default := \$(STATEDIR)/${package}.prepare"	
-    echo "${package}_install_deps_default := \$(STATEDIR)/${package}.compile"
+    echo "\$(STATEDIR)/${package}.get: \$(${label}_SOURCE)"
+    echo "\$(STATEDIR)/${package}.extract: \$(STATEDIR)/${package}.get \$(${label}_DIR)/.ptx-extract"
+    echo "\$(STATEDIR)/${package}.compile: \$(STATEDIR)/${package}.prepare"
+    echo "\$(STATEDIR)/${package}.install: \$(STATEDIR)/${package}.compile"
 
     prepare_dep="\$(STATEDIR)/${package}.extract"
     targetinstall_dep="\$(STATEDIR)/${package}.install"
@@ -115,13 +115,13 @@ do_package_dep() {
 
     case ${package} in
 	host-*|cross-*|crosstool*)
-	    echo "${package}_prepare_deps_default := ${prepare_dep}"
+	    echo "\$(STATEDIR)/${package}.prepare: ${prepare_dep}"
 	    ;;
 	*)
-	    echo "${package}_prepare_deps_default := ${prepare_dep} \$(STATEDIR)/virtual-xchain.install"
+	    echo "\$(STATEDIR)/${package}.prepare: ${prepare_dep} \$(STATEDIR)/virtual-xchain.install"
 	    ;;
     esac
-    echo "${package}_targetinstall_deps_default := ${targetinstall_dep}"
+    echo "\$(STATEDIR)/${package}.targetinstall: ${targetinstall_dep}"
 }
 
 
@@ -134,22 +134,23 @@ gen_packages_dep() {
     la_IFS="$IFS"
     IFS=":"
 
-    exec 3>${PACKAGE_DEP}
-    exec 4>${PACKAGE_URL}
+    exec 3>${PACKAGE_DEP_PRE}
+    exec 4>${PACKAGE_DEP_POST}
     exec 5>${RULESFILES}
     exec 6>${RULESFILES_MAKE}
 
     sed -ne "s/^# PTXCONF_\(.*\) is not set/\1/p" ${PTXCONFIG} | while read label; do
 	package=PACKAGE_${label}
 	if test -n "${!package}"; then
-	    echo "${!package}_get_deps_default = \$(${label}_SOURCE)" >&3
+	    echo "\$(STATEDIR)/${!package}.get: \$(${label}_SOURCE)" >&4
 	fi
     done
+
     sed -ne "s/^PTXCONF_\(.*\)=y/\1/p" ${PTXCONFIG} | while read label; do
 	package=PACKAGE_${label}
 	if test -n "${!package}"; then
 	    deps=DEP_${label}
-	    do_package_dep ${!package} ${label} ${!deps} >&3
+	    do_package_dep ${!package} ${label} ${!deps} >&4
 
 	    filename=FILENAME_${label}
 	    echo ${!filename} >&5
@@ -171,9 +172,6 @@ gen_packages_dep() {
 #
 
 . ${PTXCONFIG}
-
-#ALL_MAKE	:= $(wildcard $(RULESDIR)/*.make) $(wildcard $(PROJECTRULESDIR)/*.make)
-#ALL_IN		:= $(wildcard $(RULESDIR)/*.in) $(wildcard $(PROJECTRULESDIR)/*.in)
 
 if test \! -e ${STATEDIR}; then
     mkdir ${STATEDIR}
