@@ -33,8 +33,7 @@ WGET		= \
 	$${ptx_http_proxy:+http_proxy=$${ptx_http_proxy}} \
 	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
 	wget --cache=off --passive-ftp
-MAKE		= make
-MAKE_INSTALL	= make install
+MAKE_INSTALL	= $(MAKE) install
 PATCH		= patch
 TAR		= tar
 GZIP		= gzip
@@ -68,12 +67,6 @@ else
 CHECKINSTALL	=
 endif
 
-HOSTCC_ENV	:= CC=$(HOSTCC)
-HOSTCXX_ENV	:= CXX=$(HOSTCXX)
-HOST_ENV	:= \
-	$(HOSTCC_ENV) \
-	$(HOSTCXX_ENV)
-
 CHECK_PIPE_STATUS = \
 	for i in  "$${PIPESTATUS[@]}"; do [ $$i -gt 0 ] && {			\
 		echo;								\
@@ -93,13 +86,10 @@ CHECK_PIPE_STATUS = \
 #
 SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
 
-export SYSROOT
-
 #
 # prepare the search path
 #
-CROSS_PATH := $(call remove_quotes,$(PTXCONF_PREFIX)/bin:$(PTXCONF_PREFIX))/usr/bin:$$PATH
-HOST_PATH := $(call remove_quotes,$(PTXCONF_HOST_PREFIX))/bin:$$PATH
+CROSS_PATH := $(PTX_PREFIX_CROSS)/bin:$(PTX_PREFIX_CROSS)/sbin:$(PTX_PREFIX_HOST)/bin:$(PTX_PREFIX_HOST)/sbin:$$PATH
 
 #
 # same as PTXCONF_GNU_TARGET, but w/o -linux
@@ -321,50 +311,40 @@ CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT)
 
 endif
 
-HOST_AUTOCONF  := $(call remove_quotes,--prefix=$(PTXCONF_HOST_PREFIX))
+
+
+# ----------------------------------------------------------------------------
+# HOST stuff
+# ----------------------------------------------------------------------------
+
+# FIXME: obsolete (mkl)
+HOSTCC_ENV	:= CC=$(HOSTCC)
+HOSTCXX_ENV	:= CXX=$(HOSTCXX)
+
+HOST_PATH	:= $(PTX_PREFIX_HOST)/bin:$(PTX_PREFIX_HOST)/sbin:$$PATH
+
+HOST_CPPFLAGS	:= -I$(PTX_PREFIX_HOST)/include
+HOST_LDFLAGS	:= -L$(PTX_PREFIX_HOST)/lib -Wl,-rpath -Wl,$(PTX_PREFIX_HOST)/lib
+
+HOST_ENV_CC		:= CC="$(HOSTCC)"
+HOST_ENV_CXX		:= CXX="$(HOSTCXX)"
+HOST_ENV_CPPFLAGS	:= CPPFLAGS="$(HOST_CPPFLAGS)"
+HOST_ENV_LDFLAGS	:= LDFLAGS="$(HOST_LDFLAGS)"
+HOST_ENV_PKG_CONFIG	:= PKG_CONFIG_LIBDIR="$(PTX_PREFIX_HOST)/lib/pkgconfig"
+
+HOST_ENV	:= \
+	$(HOST_ENV_CC) \
+	$(HOST_ENV_CXX) \
+	$(HOST_ENV_CPPFLAGS) \
+	$(HOST_ENV_LDFLAGS) \
+	$(HOST_ENV_PKG_CONFIG)
+
+
+HOST_AUTOCONF  := --prefix=$(PTX_PREFIX_HOST)
 
 # ----------------------------------------------------------------------------
 # Convenience macros
 # ----------------------------------------------------------------------------
-
-
-#
-# check_prog_exists
-#
-# $1: Find out if this program does exist. If not, execution stops
-#     with an error message. 
-#
-check_prog_exists = 				\
-	@if [ ! -x `which $(1)` ]; then		\
-		echo "$(1) not found";		\
-		echo "please install $(1)"; 	\
-		exit -1;			\
-	fi;
-
-
-#
-# check_prog_version
-#
-# $1: Call program with args $2 (-V, ...) and extract version number from the output;
-#     the result is compared to the first argument. 
-#
-check_prog_version = 				\
-	@if [ "`$(1) $(2) | $(AWK) 'BEGIN {count = 0;} {count += match($$0,"$(3)");} END {print $$count;}'`" == "0" ]; then \
-		echo "need $(1) version $(3)";	\
-		echo "please install";		\
-		exit -1;			\
-	fi;
-
-#
-# check_file_exists
-#
-# $1: Test if a file exists and exit with an error message if not. 
-#
-check_file_exists = 				\
-	@if [ ! -e $(1) ]; then			\
-		echo "$(1) not found";		\
-		exit -1;			\
-	fi;
 
 
 #
@@ -399,7 +379,6 @@ targetinfo = 							\
 # $1: name of the target to be touched
 # 
 touch =								\
-	@mkdir -p $(shell dirname $1);				\
 	touch $1;						\
 	echo "Finished target $(shell basename $1)";
 
@@ -417,14 +396,17 @@ extract =							\
 	PACKET="$($(strip $(1))_SOURCE)";			\
 	PACKETDIR="$($(strip $(1))_DIR)";			\
 	URL="$($(strip $(1))_URL)";				\
+	DEST="$(strip $(2))";					\
+	DEST="$${DEST:-$(BUILDDIR)}";				\
+	DOTEXTRACT="$(strip $(2))";				\
+	DOTEXTRACT="$${DOTEXTRACT:+$${DEST}/$($(strip $(1)))/.ptx-extract}";	\
+	DOTEXTRACT="$${DOTEXTRACT:-$${PACKETDIR}/.ptx-extract}";\
 	if [ "$$PACKET" = "" ]; then				\
 		echo;						\
 		echo Error: empty parameter to \"extract\(\)\";	\
 		echo;						\
 		exit -1;					\
 	fi;							\
-	DEST="$(strip $(2))";					\
-	DEST=$${DEST:-$(BUILDDIR)};				\
 	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
 								\
 	case $$URL in						\
@@ -433,6 +415,7 @@ extract =							\
 		if [ -d "$$THING" ]; then			\
 			echo "local directory instead of tar file, linking build dir"; \
 			ln -sf $$THING $$PACKETDIR; 		\
+			touch $${DOTEXTRACT};			\
 			exit 0; 				\
 		else						\
 			THING="$$(echo $$URL | sed s-file://-./-g)";	\
@@ -440,6 +423,7 @@ extract =							\
 				THING="$$(echo $$URL | sed s-file://-../-g)";	\
 				echo "local project directory instead of tar file, linking build dir"; \
 				ln -sf $$THING $$PACKETDIR; 	\
+				touch $${DOTEXTRACT};		\
 				exit 0; 			\
 			fi;					\
 		fi; 						\
@@ -464,7 +448,9 @@ extract =							\
 	esac;							\
 	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
 	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
-	$(CHECK_PIPE_STATUS)
+	$(CHECK_PIPE_STATUS)					\
+	touch $${DOTEXTRACT}
+
 
 #
 # get
@@ -634,10 +620,10 @@ install = \
 		$(CHECK_PIPE_STATUS)					\
 	fi;								\
 	for DIR in /lib /usr/lib; do					\
-		for FILE in `find $${SYSROOT}/$${DIR}/ -name "*.la"`; do	\
+		for FILE in `find $(SYSROOT)/$${DIR}/ -name "*.la"`; do	\
 			if test -e $${FILE}; then			\
-				sed -i -e "/dependency_libs/s:\( \)\($${DIR}\):\1$${SYSROOT}\2:g"	\
-					-e "/libdir/s:\(libdir='\)\($${DIR}\):\1$${SYSROOT}\2:g;" $$FILE;	\
+				sed -i -e "/dependency_libs/s:\( \)\($${DIR}\):\1$(SYSROOT)\2:g"	\
+					-e "/libdir/s:\(libdir='\)\($${DIR}\):\1$(SYSROOT)\2:g;" $$FILE;	\
 			fi;						\
 		done;							\
 	done
@@ -1194,7 +1180,7 @@ install_finish = 													\
 	(echo "pushd $(IMAGEDIR)/$$PACKET/ipkg;";								\
 	$(AWK) -F: $(DOPERMISSIONS) $(STATEDIR)/$$PACKET.perms; echo "popd;"; 					\
 	echo -n "echo \"install_finish: packaging ipkg packet ... \"; ";					\
-	echo -n "$(PTXCONF_HOST_PREFIX)/usr/bin/ipkg-build "; 							\
+	echo -n "$(PTXCONF_HOST_PREFIX)/bin/ipkg-build "; 							\
 	echo    "$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/$$PACKET/ipkg $(IMAGEDIR)") |$(FAKEROOT) -- 2>&1;	\
 	rm -rf $(IMAGEDIR)/$$PACKET;										\
 	echo "done.";
