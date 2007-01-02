@@ -1,7 +1,6 @@
 config XORG_FONT_BITSTREAM_SPEEDO
 	bool
 	depends on XORG_FONT_SCALABLE
-	select XORG_FONT_UTIL
 	prompt "Bitstream speedo"
 	help
 	  This package contains the Speedo version of Bitstream 
