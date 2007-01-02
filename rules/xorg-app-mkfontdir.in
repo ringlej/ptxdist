@@ -1,8 +1,6 @@
 config XORG_APP_MKFONTDIR
 	bool
 	depends on XORG_APP
-	select XORG_LIB_FONTENC
-	select FREETYPE
 	prompt "xorg mkfontdir"
 	help
 	  Create an index of scalable font files for X
