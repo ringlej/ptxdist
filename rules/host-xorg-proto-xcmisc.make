@@ -12,21 +12,20 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOST_XORG_PROTO_XCMISC) += host-proto-xorg-xcmisc
+HOST_PACKAGES-$(PTXCONF_HOST_XORG_PROTO_XCMISC) += host-xorg-proto-xcmisc
 
 #
 # Paths and names
 #
-HOST_XORG_PROTO_XCMISC		= $(XORG_PROTO_XCMISC)
-HOST_XORG_PROTO_XCMISC_DIR	= $(HOST_BUILDDIR)/$(HOST_XORG_PROTO_XCMISC)
+HOST_XORG_PROTO_XCMISC_DIR	= $(HOST_BUILDDIR)/$(XORG_PROTO_XCMISC)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-xcmisc_get: $(STATEDIR)/host-proto-xorg-xcmisc.get
+host-xorg-proto-xcmisc_get: $(STATEDIR)/host-xorg-proto-xcmisc.get
 
-$(STATEDIR)/host-proto-xorg-xcmisc.get: $(STATEDIR)/xorg-proto-xext.get
+$(STATEDIR)/host-xorg-proto-xcmisc.get: $(STATEDIR)/xorg-proto-xcmisc.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -34,9 +33,9 @@ $(STATEDIR)/host-proto-xorg-xcmisc.get: $(STATEDIR)/xorg-proto-xext.get
 # Extract
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-xcmisc_extract: $(STATEDIR)/host-proto-xorg-xcmisc.extract
+host-xorg-proto-xcmisc_extract: $(STATEDIR)/host-xorg-proto-xcmisc.extract
 
-$(STATEDIR)/host-proto-xorg-xcmisc.extract: $(host-proto-xorg-xcmisc_extract_deps_default)
+$(STATEDIR)/host-xorg-proto-xcmisc.extract: $(host-xorg-proto-xcmisc_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_XORG_PROTO_XCMISC_DIR))
 	@$(call extract, XORG_PROTO_XCMISC, $(HOST_BUILDDIR))
@@ -47,7 +46,7 @@ $(STATEDIR)/host-proto-xorg-xcmisc.extract: $(host-proto-xorg-xcmisc_extract_dep
 # Prepare
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-xcmisc_prepare: $(STATEDIR)/host-proto-xorg-xcmisc.prepare
+host-xorg-proto-xcmisc_prepare: $(STATEDIR)/host-xorg-proto-xcmisc.prepare
 
 HOST_XORG_PROTO_XCMISC_PATH	:= PATH=$(HOST_PATH)
 HOST_XORG_PROTO_XCMISC_ENV 	:= $(HOST_ENV)
@@ -57,7 +56,7 @@ HOST_XORG_PROTO_XCMISC_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_PROTO_XCMISC_AUTOCONF	:= $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-proto-xorg-xcmisc.prepare: $(host-proto-xorg-xcmisc_prepare_deps_default)
+$(STATEDIR)/host-xorg-proto-xcmisc.prepare: $(host-xorg-proto-xcmisc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_XORG_PROTO_XCMISC_DIR)/config.cache)
 	cd $(HOST_XORG_PROTO_XCMISC_DIR) && \
@@ -69,9 +68,9 @@ $(STATEDIR)/host-proto-xorg-xcmisc.prepare: $(host-proto-xorg-xcmisc_prepare_dep
 # Compile
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-xcmisc_compile: $(STATEDIR)/host-proto-xorg-xcmisc.compile
+host-xorg-proto-xcmisc_compile: $(STATEDIR)/host-xorg-proto-xcmisc.compile
 
-$(STATEDIR)/host-proto-xorg-xcmisc.compile: $(host-proto-xorg-xcmisc_compile_deps_default)
+$(STATEDIR)/host-xorg-proto-xcmisc.compile: $(host-xorg-proto-xcmisc_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_XORG_PROTO_XCMISC_DIR) && $(HOST_XORG_PROTO_XCMISC_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -80,9 +79,9 @@ $(STATEDIR)/host-proto-xorg-xcmisc.compile: $(host-proto-xorg-xcmisc_compile_dep
 # Install
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-xcmisc_install: $(STATEDIR)/host-proto-xorg-xcmisc.install
+host-xorg-proto-xcmisc_install: $(STATEDIR)/host-xorg-proto-xcmisc.install
 
-$(STATEDIR)/host-proto-xorg-xcmisc.install: $(host-proto-xorg-xcmisc_install_deps_default)
+$(STATEDIR)/host-xorg-proto-xcmisc.install: $(host-xorg-proto-xcmisc_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HOST_XORG_PROTO_XCMISC,,h)
 	@$(call touch, $@)
@@ -91,8 +90,8 @@ $(STATEDIR)/host-proto-xorg-xcmisc.install: $(host-proto-xorg-xcmisc_install_dep
 # Clean
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-xcmisc_clean:
-	rm -rf $(STATEDIR)/host-proto-xorg-xcmisc.*
+host-xorg-proto-xcmisc_clean:
+	rm -rf $(STATEDIR)/host-xorg-proto-xcmisc.*
 	rm -rf $(HOST_XORG_PROTO_XCMISC_DIR)
 
 # vim: syntax=make
