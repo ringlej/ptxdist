@@ -186,8 +186,7 @@ config IMAGE_IPKG_ARCH
 
 config IMAGE_JFFS2
 	bool
-	select HOST_MTD_MKJFFS2
-	select HOST_MTD
+	select HOST_MTD_UTILS
 	prompt "Generate images/root.jffs2"
 	help
 	  Build a jffs2 image of the root filesystem. This image can be stored
