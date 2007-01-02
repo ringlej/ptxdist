@@ -16,6 +16,7 @@ PACKAGES-$(PTXCONF_LDD) += ldd
 
 # This is the version from the glibc we have stolen from
 LDD_VERSION	:= 2.3.6
+LDD_DIR		:= $(BUILDDIR)/ldd
 
 # ----------------------------------------------------------------------------
 # Get
