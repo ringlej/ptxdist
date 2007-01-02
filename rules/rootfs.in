@@ -32,7 +32,7 @@ config ROOTFS_DEV_PTS
 	depends on ROOTFS_DEV
 	bool
 	prompt "/dev/pts"
-	default y
+	default n
 	help
 	  create /dev/pts directory on target. This one is not needed
 	  if you use udev, because udev cares for it.
