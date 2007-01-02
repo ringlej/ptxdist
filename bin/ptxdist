@@ -108,7 +108,7 @@ check_ptxconfig() {
 	# sanity check: we process only files which have been built with the
 	# same PTXdist version!
 
-	PTXCONF_CONFIGFILE_VERSION=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_CONFIGFILE_VERSION})
+	PTXCONF_CONFIGFILE_VERSION=$(. ${PTXCONFIG} && echo ${PTXCONF_CONFIGFILE_VERSION})
 	if [ "${PTXCONF_CONFIGFILE_VERSION}" != "${FULLVERSION}" ]; then
 		echo
 		echo "${PROMPT}error: trying to build ptxdist \"${PTXCONF_CONFIGFILE_VERSION}\" project with \"${FULLVERSION}\""
@@ -121,9 +121,9 @@ check_kernelconfig() {
 	local kernelconfig
 
 	if [ "$NATIVE" = "1" ]; then
-		kernelconfig=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_CONFIG})
+		kernelconfig=$(. ${PTXCONFIG} && echo ${PTXCONF_KERNEL_NATIVE_CONFIG})
 	else
-		kernelconfig=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_KERNEL_CONFIG})
+		kernelconfig=$(. ${PTXCONFIG} && echo ${PTXCONF_KERNEL_CONFIG})
 	fi
 	if [ ! -e "$kernelconfig" ]; then
 		echo
@@ -169,7 +169,7 @@ check_path() {
 check_compiler() {
 	local build_userland compiler vendor_should vendor_is vendor_def compiler_should compiler_is
 
-	build_toolchain=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_BUILD_TOOLCHAIN})
+	build_toolchain=$(. ${PTXCONFIG} && echo ${PTXCONF_BUILD_TOOLCHAIN})
 
 	[ -n "$build_toolchain" -o "$NATIVE" != "" ] && return
 #
@@ -178,8 +178,8 @@ check_compiler() {
 # 2) Correct vendor if the vendor string is given
 # 3) Correct compiler version if a specific compiler version is given
 #
-	compiler=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_COMPILER_PREFIX})gcc
-	vendor_should=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_CROSSCHAIN_VENDOR})
+	compiler=$(. ${PTXCONFIG} && echo ${PTXCONF_COMPILER_PREFIX})gcc
+	vendor_should=$(. ${PTXCONFIG} && echo ${PTXCONF_CROSSCHAIN_VENDOR})
 	if [ ! -z "$vendor_should" ]; then
 	# yea! Vendor is specified in the project. So check for
 	# toolchain vendor identification file
@@ -203,7 +203,7 @@ check_compiler() {
 		fi
 	fi
 
-	compiler_should=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_CROSSCHAIN_CHECK})
+	compiler_should=$(. ${PTXCONFIG} && echo ${PTXCONF_CROSSCHAIN_CHECK})
 	compiler_is=$($compiler -dumpversion 2> /dev/null)
 
 	if [ -z "$compiler_is" ]; then
@@ -231,21 +231,17 @@ check_deps() {
 }
 
 
-#
-# Most install stages think that some standard directories are there, so
-# they are created here.
-#
-check_dirs() {
-	local ptxconf_prefix ptxconf_gnu_target testfile testfile_upper testfile_lower i
+check_dirs_prefix() {
+	local prefix testfile
 
-	if [ -z "$PREFIX" ]; then
-		ptxconf_prefix=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_PREFIX})
-	else
-		ptxconf_prefix=$PREFIX
+	prefix="${1}"
+
+	if test -z "${prefix}"; then
+		return
 	fi
 
-	if test \! -d ${ptxconf_prefix}; then
-		mkdir -p ${ptxconf_prefix} 2> /dev/null
+	if test \! -d ${prefix}; then
+		mkdir -p ${prefix} 2> /dev/null
 		if test $? -ne 0; then
 			echo
 			echo "error: \"${ptxconf_prefix}\""
@@ -258,15 +254,15 @@ check_dirs() {
 				exit 1
 			fi
 			echo
-			echo sudo mkdir -p ${ptxconf_prefix}
-			sudo mkdir -p ${ptxconf_prefix}
+			echo sudo mkdir -p ${prefix}
+			sudo mkdir -p ${prefix}
 			echo
-			echo sudo chown $UID ${ptxconf_prefix}
-			sudo chown $UID ${ptxconf_prefix}
+			echo sudo chown $UID ${prefix}
+			sudo chown $UID ${prefix}
 		fi
 	fi
 
-    	testfile=${ptxconf_prefix}/.secret-world-domination-project
+    	testfile=${prefix}/.secret-world-domination-project
 	touch ${testfile} 2> /dev/null
 	if test $? -ne 0; then
 		echo
@@ -280,10 +276,10 @@ check_dirs() {
 			exit 1
 		fi
 		echo
-		echo sudo chown $UID ${ptxconf_prefix}
-		sudo chown $UID ${ptxconf_prefix}
-		echo sudo chmod u+w ${ptxconf_prefix}
-		sudo chmod u+w ${ptxconf_prefix}
+		echo sudo chown $UID ${prefix}
+		sudo chown $UID ${prefix}
+		echo sudo chmod u+w ${prefix}
+		sudo chmod u+w ${prefix}
 
 		touch ${testfile} 2> /dev/null
 		if test $? -ne 0; then
@@ -293,19 +289,40 @@ check_dirs() {
 			exit 1
 		fi
 	fi
+
 	rm ${testfile}
 
-	ptxconf_gnu_target=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_GNU_TARGET})
+	mkdir -p ${prefix}/{{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}}
+}
 
-	# And now we learn something new about shell: brace expansion.
-	# It saves 16 characters compared to what NORMAL people would write
-	# here... unfortunately it discovers a bug in vim's syntax high-
-	# lighting :) Thanks to Martin Neitzel who inspired this...(rsc)
-	# it's even possible to do it shorter (mkl)
-	for i in {,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}; do
-		mkdir -p ${ptxconf_prefix}/{,${ptxconf_gnu_target}/}${i}
+
+#
+# Most install stages think that some standard directories are there, so
+# they are created here.
+#
+check_dirs() {
+	local ptxconf_prefix ptxconf_prefix_host ptxconf_prefix_cross dir
+	local ptxconf_gnu_target testfile_upper testfile_lower i
+
+# prefix
+	if [ -z "$PREFIX" ]; then
+		ptxconf_prefix="$(. ${PTXCONFIG} && echo ${PTXCONF_PREFIX})"
+	else
+		ptxconf_prefix="${PREFIX}"
+	fi
+
+	ptxconf_prefix_host="$(. ${PTXCONFIG} && echo ${PTXCONF_HOST_PREFIX})"
+	ptxconf_prefix_cross="$(. ${PTXCONFIG} && echo ${PTXCONF_CROSS_PREFIX})"
+
+	for dir in "${ptxconf_prefix_host}" "${ptxconf_prefix_cross}"; do
+		check_dirs_prefix "${dir}"
 	done
 
+# sysroot
+	ptxconf_gnu_target=$(. ${PTXCONFIG} && echo ${PTXCONF_GNU_TARGET})
+	mkdir -p ${ptxconf_prefix}/${ptxconf_gnu_target}/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
+
+# builddirs
 	for i in ${BUILDDIR} ${CROSS_BUILDDIR} ${HOST_BUILDDIR} \
 		${STATEDIR} ${IMAGEDIR} ${ROOTDIR} ${ROOTDIR_DEBUG}; do
 		mkdir -p ${i}
@@ -508,16 +525,19 @@ menuconfig_action() {
 
 newpacket () {
 	local packet_name version url author year suffix overwrite \
-	    template prefix packet_filename packet_name packet PACKET packetdash filename
+	    template packet_filename packet_name packet PACKET packetdash filename \
+	    class CLASS autoconf_class
 
 	case $1 in
-	    host|target|cross|source|kernel_driver)
+	    target|host|host-existing-target|cross|cross-existing-target|source|kernel_driver)
 		;;
 	    *)	echo
 		echo "${PROMPT}error: illegal packet type: $1"
-		echo "must be one of host, target, cross, source, kernel_driver"
+		echo "must be one of host, host-existing-target, target,"
+		echo "cross, cross-existing-target, source, kernel_driver"
 		echo
-		exit 1 ;;
+		exit 1
+		;;
 	esac
 
 	echo
@@ -538,37 +558,51 @@ newpacket () {
 	case $1 in
 	    target)
 		template=template
-		prefix=
+		class=
+		autoconf_class=
 		;;
 	    host)
-		template=template-host
-		prefix=host-
+		template=template-class
+		class=host-
+		autoconf_class=HOST_
 		;;
 	    cross)
-		template=template-cross
-		prefix=cross-
+		template=template-class
+		class=cross-
+		autoconf_class=HOST_CROSS_
+		;;
+	    host-existing-target)
+		template=template-class-existing-target
+		class=host-
+		autoconf_class=HOST_
+		;;
+	    cross-existing-target)
+		template=template-class-existing-target
+		class=cross-
+		autoconf_class=HOST_CROSS_
 		;;
 	    source)
 		template=template-src
-		prefix=
+		class=
+		autoconf_class=
 		;;
 	    kernel_driver)
 		template=template-driver
-		prefix=
+		class=
+		autoconf_class=
 		;;
 	esac
 
 	packet_filename="${packet_name}"
 
 	packet="`echo ${packet_name} | tr \"[A-Z]\" \"[a-z]\"`"
-	packet="${prefix}${packet}"
 	packetdash="`echo ${packet} | tr \"[_]\" \"[-]\"`"
 	PACKET="`echo ${packet_name} | tr \"[a-z-]\" \"[A-Z_]\"`"
-	PACKET="`echo ${prefix} | tr \"[a-z-]\" \"[A-Z_]\"`${PACKET}"
+	CLASS="`echo ${class} | tr \"[a-z-]\" \"[A-Z_]\"`"
 
 	year=`date +%Y`
 
-	filename="${prefix}${packet_filename}.make"
+	filename="${class}${packet_filename}.make"
 
 	if [ -f "${filename}" ]; then
 		echo
@@ -586,6 +620,9 @@ newpacket () {
 		-e "s,\@PACKET@,${PACKET},g" \
 		-e "s,\@packet@,${packet},g" \
 		-e "s,\@packetdash@,${packetdash},g" \
+		-e "s,\@class@,${class},g" \
+		-e "s,\@CLASS@,${CLASS},g" \
+		-e "s,\@AUTOCONF_CLASS@,${autoconf_class},g" \
 		-e "s,\@VERSION@,${version},g" \
 		-e "s,\@URL@,${url},g" \
 		-e "s,\@YEAR@,${year},g" \
@@ -761,7 +798,10 @@ while [ "$#" != "0" ]; do
 			clean $1
 			exit 0
 			;;
-	clone)		shift; clone $1 $2; exit 0;;
+	clone)		shift;
+			clone $1 $2
+			exit 0
+			;;
 	-d|--debug)	shift
 			export PTXDIST_MAKE_DBG="--debug=make"
 			;;
@@ -770,7 +810,7 @@ while [ "$#" != "0" ]; do
 			echo "${PROMPT}removing toolchain link..."
 			rm -f .toolchain
 			echo "${PROMPT}removing logs dir..."
-			rm -fr logs
+			rm -fr logfile
 			if [ -h "ptxconfig" ]; then
 				echo "${PROMPT}removing ptxconfig link..."
 				rm ptxconfig
@@ -960,8 +1000,8 @@ while [ "$#" != "0" ]; do
 			check_deps
 			ptxd_make world 2>&1 | tee -a logfile
 			check_pipe_status
-			RUN_ROOTMETHOD=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_ROOT_HOSTFS})
-			RUN_CMDLINE=$(. ${PTXDIST_WORKSPACE}/ptxconfig && echo ${PTXCONF_KERNEL_NATIVE_CMDLINE})
+			RUN_ROOTMETHOD=$(. ${PTXCONFIG} && echo ${PTXCONF_KERNEL_NATIVE_ROOT_HOSTFS})
+			RUN_CMDLINE=$(. ${PTXCONFIG} && echo ${PTXCONF_KERNEL_NATIVE_CMDLINE})
 			if [ -n "${RUN_ROOTMETHOD}" ]; then
 				RUN_CMDLINE="${RUN_CMDLINE} root=/dev/root rootflags=`pwd`/root rootfstype=hostfs"
 			fi
@@ -975,7 +1015,7 @@ while [ "$#" != "0" ]; do
 				echo
 				exit 1
 			fi
-			if [ -f "ptxconfig" ]; then
+			if [ -f "${PTXCONFIG}" ]; then
 				echo
 				echo "${PROMPT}error: There already is a ptxconfig file."
 				echo "${PROMPT}error: If you really want to select another configuration,"
