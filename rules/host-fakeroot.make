@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,13 +17,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_FAKEROOT) += host-fakeroot
 #
 # Paths and names
 #
-HOST_FAKEROOT_VERSION	= 1.5.1
-HOST_FAKEROOT		= fakeroot-$(HOST_FAKEROOT_VERSION)
-HOST_FAKEROOT_SUFFIX	= tar.gz
-HOST_FAKEROOT_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/fakeroot_$(HOST_FAKEROOT_VERSION).$(HOST_FAKEROOT_SUFFIX)
-HOST_FAKEROOT_SOURCE	= $(SRCDIR)/fakeroot_$(HOST_FAKEROOT_VERSION).$(HOST_FAKEROOT_SUFFIX)
-HOST_FAKEROOT_DIR	= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
-
+HOST_FAKEROOT_VERSION	:= 1.5.1
+HOST_FAKEROOT		:= fakeroot-$(HOST_FAKEROOT_VERSION)
+HOST_FAKEROOT_SUFFIX	:= tar.gz
+HOST_FAKEROOT_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/fakeroot_$(HOST_FAKEROOT_VERSION).$(HOST_FAKEROOT_SUFFIX)
+HOST_FAKEROOT_SOURCE	:= $(SRCDIR)/fakeroot_$(HOST_FAKEROOT_VERSION).$(HOST_FAKEROOT_SUFFIX)
+HOST_FAKEROOT_DIR	:= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -49,7 +48,7 @@ $(STATEDIR)/host-fakeroot.extract: $(host-fakeroot_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_FAKEROOT_DIR))
 	@$(call extract, HOST_FAKEROOT, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_FAKEROOT,$(HOST_FAKEROOT_DIR))
+	@$(call patchin, HOST_FAKEROOT, $(HOST_FAKEROOT_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -64,7 +63,7 @@ HOST_FAKEROOT_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-HOST_FAKEROOT_AUTOCONF:= \
+HOST_FAKEROOT_AUTOCONF	:= \
 	$(HOST_AUTOCONF) \
 	--without-po4a
 
@@ -84,7 +83,7 @@ host-fakeroot_compile: $(STATEDIR)/host-fakeroot.compile
 
 $(STATEDIR)/host-fakeroot.compile: $(host-fakeroot_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_FAKEROOT_DIR) && $(HOST_FAKEROOT_PATH) make
+	cd $(HOST_FAKEROOT_DIR) && $(HOST_FAKEROOT_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -95,19 +94,7 @@ host-fakeroot_install: $(STATEDIR)/host-fakeroot.install
 
 $(STATEDIR)/host-fakeroot.install: $(host-fakeroot_install_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_FAKEROOT_DIR) &&					\
-		$(HOST_FAKEROOT_ENV) $(HOST_FAKEROOT_PATH) 		\
-		make install $(HOST_FAKEROOT_MAKEVARS)			
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-host-fakeroot_targetinstall: $(STATEDIR)/host-fakeroot.targetinstall
-
-$(STATEDIR)/host-fakeroot.targetinstall: $(host-fakeroot_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+	@$(call install, HOST_FAKEROOT,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
