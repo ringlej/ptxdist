@@ -1,0 +1,4 @@
+config HOST_LIBDBUS_CXX
+	bool
+	select HOST_DBUS
+

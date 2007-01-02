@@ -1,0 +1,3 @@
+config HOST_EXPAT
+	bool
+

@@ -1,0 +1,4 @@
+config HOST_DBUS
+	bool
+	select HOST_EXPAT
+

@@ -45,4 +45,7 @@ source "rules/host-python24.in"
 # automatically selected host tools
 
 source "rules/host-bdftopcf.in"
+source "rules/host-dbus.in"
+source "rules/host-expat.in"
+source "rules/host-libdbus-cxx.in"
 source "rules/host-ucstoany.in"
