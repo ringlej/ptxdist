@@ -1,6 +1,9 @@
 #!/bin/bash
 
-PKGCONFIG=/usr/bin/pkg-config
+#declare -a PKG_CONFIGS
+
+PKG_CONFIG_ARRAY=(`type -a -P pkg-config`)
+PKG_CONFIG="${PKG_CONFIG_ARRAY[1]}"
 
 check_pipe_status() {
     for i in  "${PIPESTATUS[@]}"; do
@@ -17,7 +20,7 @@ if test -z "${SYSROOT}"; then
 	echo "pkg-config: missing \$SYSROOT environment variable"
 	echo
 	echo
-    ) >2
+    ) >&2
     exit 1
 fi
 
@@ -42,7 +45,7 @@ if ${found_var}; then
 # if someone asks for a variable, if it looks like a path (starting with /)
 # prefix it with sysroot
 #
-    ${PKGCONFIG} "${@}" |
+    ${PKG_CONFIG} "${@}" |
     sed -e "s~^/~${SYSROOT}/~"
 else
 #
@@ -52,7 +55,7 @@ else
 # 4) libtool isn't correctly DESTDIR/SYSROOT aware, it replaces -lfoo by
 #    paths leading to host libraries; using -Wl,-lfoo seems to work. 
 # 
-    ${PKGCONFIG} "${@}" |
+    ${PKG_CONFIG} "${@}" |
     sed -e "s~\-L/*${SYSROOT}/*~-L=/~g; s~\-I/*${SYSROOT}/*~-I=/~g;" \
 	-e "s~\-L/~-L=/~g; s~\-I/~-I=/~g;"                       \
 	-e "s~\-L\=~-L${SYSROOT}~g; s~\-I\=~-I${SYSROOT}~g;"         \
