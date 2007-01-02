@@ -5,6 +5,7 @@ menuconfig UDEV
 config UDEV_UDEV
 	bool "udev"
 	depends on UDEV
+	default y
 	help
 	  udev provides a dynamic device directory containing only
 	  the files for actually present devices. It creates or
@@ -12,7 +13,7 @@ config UDEV_UDEV
 	  renames network interfaces.
 
 	  Usually udev runs as udevd(8) and receives uevents directly
-	  from the kernel if a device is added or removed form the system.
+	  from the kernel if a device is added or removed from the system.
 
 	  If udev receives a device event, it matches its configured
 	  rules against the available device attributes provided in
@@ -24,6 +25,7 @@ config UDEV_UDEV
 config UDEV_UDEVD
 	bool "udevd"
 	depends on UDEV
+	default y
 	help
 	  udevd listens to kernel uevents and passes the incoming
 	  events to udev. It ensures the right event order and
@@ -33,6 +35,7 @@ config UDEV_UDEVD
 config UDEV_INFO
 	bool "udevinfo"
 	depends on UDEV
+	default n
 	help
 	  udevinfo queries the udev database for device
 	  information stored in the udev database. It
@@ -43,6 +46,7 @@ config UDEV_INFO
 config UDEV_SEND
 	bool "udevsend"
 	depends on UDEV
+	default y
 	help
 	  This is the command the kernel calls if a hotplug event
 	  occures (see /proc/sys/kernel/hotplug) to trigger the udev
@@ -52,21 +56,44 @@ config UDEV_SEND
 config UDEV_START
 	bool "udevstart"
 	depends on UDEV
+	default y
 	help
-	  FIXME: This item needs to be documented
+	  Populates initial device directory. udevstart scans the kernel exported
+	  device information available in sysfs for devices which require a device
+	  node to operate and creates the node using the specified udev rules.
+	  udevstart is used to create the initial device directory after system bootup.
 
 config UDEV_TEST
 	bool "udevtest"
 	depends on UDEV
+	default n
 	help
 	  udevtest simulates a udev run for the given device
 	  and prints out the name of the node udev would have
 	  created, or the name of the network interface, that
 	  would have been renamend.
+#
+# for version 0.96 and above only
+#config UDEV_TRIGGER
+#	bool "udevtrigger"
+#	depends on UDEV
+#	default n
+#	help
+#	   Trigger kernel device uevents to replay missing events at system
+#	   coldplug. Its part of the udev mechanism to startup
+#
+#config UDEV_SETTLE
+#	bool "udevsettle"
+#	depends on UDEV
+#	default n
+#	help
+#	  Waits watching the udev event queue and exits if all current events
+#	  are handled. Its part of the udev mechanism to startup
 
 config UDEV_FW_HELPER
 	bool "firmware helper"
 	depends on UDEV
+	default n
 	help
 	  FIXME: This item needs to be documented
 
@@ -98,10 +125,28 @@ config ROOTFS_ETC_UDEV_CONF
 			prompt "User defined"
 			help
 			  This uses a user defined udev.conf file. PTXdist
-			  uses files projectroot/etc/udev/udev.conf in your
-			  local project
+			  uses file projectroot/etc/udev/udev.conf in your
+			  local project.
+			  Note: If you locate the *.rules path to another
+			  location than /etc/udev/rules.d, you must install any
+			  udev rules by your own.
 
 	endchoice
+
+config ROOTFS_ETC_UDEV_USER_RULES
+	bool
+	depends on UDEV
+	default n
+	prompt "Install user defined rules"
+	help
+	  This will install all user defined udev *.rules files from the active
+	  project. PTXdist expects the files in projectroot/etc/udev/rules.d
+	  and will install them into /etc/udev/rules.d on the target.
+	  Note: PTXdist comes without any generic udev rules. So all devices
+	  are owned by root only. If you need special permission control you must
+	  add some udev rules to create device nodes with correct permissions.
+	  There are some rule files in the udev packet. Refer
+	  "build-target/udev-???/etc/udev" to check if they meet your requirements.
 
 config ROOTFS_ETC_INITD_UDEV
 	depends on UDEV

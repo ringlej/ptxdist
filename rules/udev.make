@@ -116,16 +116,34 @@ $(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps_default)
 ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF
 ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_DEFAULT
 # use generic
-	@$(call install_copy, udev, 0, 0, 0755, \
+	@$(call install_copy, udev, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/udev/udev.conf, \
 		/etc/udev/udev.conf, n)
 endif
 ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_USER
 # user defined
-	@$(call install_copy, udev, 0, 0, 0755, \
+	@$(call install_copy, udev, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/udev.conf, \
 		/etc/udev/udev.conf, n)
 endif
+endif
+#
+# install all user defined rule files
+#
+ifdef PTXCONF_ROOTFS_ETC_UDEV_USER_RULES
+# create the rules directory as currently stated in the generic config
+# FIXME: if the user defines a different directory in his own udev.conf
+#        this will fail!
+#
+	@$(call install_copy, udev, 0, 0, 0755, \
+		/etc/udev/rules.d)
+# copy *all* *.rules files into targets rule directory
+#
+	@cd $(PTXDIST_WORKSPACE)/projectroot/etc/udev/rules.d; \
+	for i in *.rules; do \
+		$(call install_copy, udev, 0, 0, 0644, $$i, \
+			/etc/udev/rules.d/$$i,n); \
+	done;
 endif
 #
 # Install the startup script on request only
@@ -175,9 +193,16 @@ ifdef PTXCONF_UDEV_START
 		/sbin/udevstart)
 endif
 ifdef PTXCONF_UDEV_TEST
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/udevtest, \
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevtest, \
 		/sbin/udevtest)
+endif
+ifdef PTXCONF_UDEV_TRIGGER
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevtrigger, \
+		/sbin/udevtrigger)
+endif
+ifdef PTXCONF_UDEV_SETTLE
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevsettle, \
+		/sbin/udevsettle)
 endif
 
 ifdef PTXCONF_UDEV_FW_HELPER
