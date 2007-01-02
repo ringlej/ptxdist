@@ -1,8 +1,8 @@
-# evil hack to break dependencies, so that we can put the transcode 
+# evil hack to break dependencies, so that we can put the transcode
 # menu under menuconfig
-comment "invisible line" 
+comment "invisible line"
 	depends on BROKEN
-menu "xorg 75 dpi fonts(transcoded)         "
+menu "xorg 75 dpi fonts (transcoded)"
 	depends on XORG_FONT_75DPI
 
 config XORG_FONT_ADOBE_75DPI_TRANS
@@ -12,11 +12,11 @@ config XORG_FONT_ADOBE_75DPI_TRANS
 	help
 	  xfonts-75dpi provides a set of bitmapped fonts
 	  at 75 dots per inch. In most cases it is desirable
-	  to have the X font server (xfs) and/or an X server 
+	  to have the X font server (xfs) and/or an X server
 	  installed to make the fonts available to X clients.
 	  This package contains only fonts in the ISO 10646-1,
 	  ISO 8859-1 and ISO 8859-15 encodings
-	  This package contains fonts in several ISO 8859 
+	  This package contains fonts in several ISO 8859
 	  encodings: -2, -3, -4, -9, -10, -13 and -14.
 
 config XORG_FONT_ADOBE_UTOPIA_75DPI_TRANS
@@ -25,11 +25,11 @@ config XORG_FONT_ADOBE_UTOPIA_75DPI_TRANS
 	select HOST_XORG_APP_BDFTOPCF
 	prompt "Adobe Utopia 75dpi transcoded"
 	help
-	  adobe utopia fonts, containing Utopia Regular, 
+	  adobe utopia fonts, containing Utopia Regular,
 	  Utopia Italic, Utopia Bold and Utopia Bold Italic.
 	  This package contains only fonts in the ISO 10646-1,
 	  ISO 8859-1 and ISO 8859-15 encodings.
-	  This package contains fonts in several ISO 8859 
+	  This package contains fonts in several ISO 8859
 	  encodings: -2, -3, -4, -9, -10, -13 and -14.
 config XORG_FONT_BH_75DPI_TRANS
 	bool

@@ -2,7 +2,7 @@ config XORG_FONT_ALIAS
 	bool
 	select XORG_FONT_UTIL
 	default y
-	prompt "Alias"
+	prompt "Alias                         "
 	help
 	  defines alias names for fonts. This is an essential
 	  package, you migh most probably want it.

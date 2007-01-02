@@ -1,5 +1,5 @@
-menuconfig XORG_FONT_SCALABLE               
-        bool "xorg scalable fonts         "
+menuconfig XORG_FONT_SCALABLE
+        bool "xorg scalable fonts           "
 
 source "rules/xorg-font-bitstream-speedo.in"
 source "rules/xorg-font-bitstream-type1.in"

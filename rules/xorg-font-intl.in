@@ -1,5 +1,5 @@
 menuconfig XORG_FONT_INTL
-        bool "international fonts for X        "
+        bool "international fonts for X     "
 
 comment "chinese and other asian fonts"
 	depends on XORG_FONT_INTL
@@ -25,9 +25,9 @@ config XORG_FONT_INTL_JAP
 	prompt "japanese fonts"
 	depends on XORG_FONT_INTL
 	help
-	  This package includes some JISX0208.1990, JISX0208.1978, JISX0212.1990 
+	  This package includes some JISX0208.1990, JISX0208.1978, JISX0212.1990
 	  (HojoKanji), JISX0208.1983, and JISX0201 (Roman & Kana) Japanese fonts. You
-	  will need the fonts if you plan to view, print or author documents using 
+	  will need the fonts if you plan to view, print or author documents using
 	  the Japanese language and any of the encodings specified above.
 
 

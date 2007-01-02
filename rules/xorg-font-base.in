@@ -1,5 +1,5 @@
-menuconfig XORG_FONT_BASE 
-        bool "xorg base fonts         "
+menuconfig XORG_FONT_BASE
+        bool "xorg base fonts               "
 
 source "rules/xorg-font-misc-misc.in"
 source "rules/xorg-font-cursor-misc.in"

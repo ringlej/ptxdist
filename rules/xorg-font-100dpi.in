@@ -1,5 +1,5 @@
 menuconfig XORG_FONT_100DPI
-        bool "xorg 100 dpi fonts         "
+        bool "xorg 100 dpi fonts            "
 
 source "rules/xorg-font-adobe-100dpi.in"
 source "rules/xorg-font-adobe-utopia-100dpi.in"

@@ -1,5 +1,5 @@
 config XORG_FONT_UTIL
 	bool
-	prompt "Util"
+	prompt "Util                          "
 	help
 	  FIXME
