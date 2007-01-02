@@ -30,6 +30,8 @@ TODO for 0.10.6
 [ ] rsc: check if we can update mtd-utils from 1.0.0 to 1.0.1; mkl has
     already prepared the patches; find out why the revision number was
     not bumped.
+[ ] rsc: find out why mkl added this new dependency mechanism which
+    searches for ${${LABEL}_DIR}/.ptx-extract.
 
 TODO for 0.10.5
 ===============
