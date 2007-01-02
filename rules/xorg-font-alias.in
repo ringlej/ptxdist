@@ -1,6 +1,5 @@
 config XORG_FONT_ALIAS
 	bool
-	depends on XORG_FONT_UTILS_ALIAS
 	select XORG_FONT_UTIL
 	default y
 	prompt "Alias"
