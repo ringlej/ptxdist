@@ -1,0 +1,106 @@
+# -*-makefile-*-
+# $Id$
+#
+# Copyright (C) @YEAR@ by @AUTHOR@
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+@CLASS@PACKAGES-$(PTXCONF_@CLASS@@PACKET@) += @class@@packet@
+
+#
+# Paths and names
+#
+@CLASS@@PACKET@_VERSION	:= @VERSION@
+@CLASS@@PACKET@		:= @packet_filename@-$(@CLASS@@PACKET@_VERSION)
+@CLASS@@PACKET@_SUFFIX	:= @SUFFIX@
+@CLASS@@PACKET@_URL	:= @URL@/$(@CLASS@@PACKET@).$(@CLASS@@PACKET@_SUFFIX)
+@CLASS@@PACKET@_SOURCE	:= $(SRCDIR)/$(@CLASS@@PACKET@).$(@CLASS@@PACKET@_SUFFIX)
+@CLASS@@PACKET@_DIR	:= $(@CLASS@BUILDDIR)/$(@CLASS@@PACKET@)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+@class@@packet@_get: $(STATEDIR)/@class@@packet@.get
+
+$(STATEDIR)/@class@@packet@.get: $(@class@@packet@_get_deps_default)
+	@$(call targetinfo, $@)
+	@$(call touch, $@)
+
+$(@CLASS@@PACKET@_SOURCE):
+	@$(call targetinfo, $@)
+	@$(call get, @CLASS@@PACKET@)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+@class@@packet@_extract: $(STATEDIR)/@class@@packet@.extract
+
+$(STATEDIR)/@class@@packet@.extract: $(@class@@packet@_extract_deps_default)
+	@$(call targetinfo, $@)
+	@$(call clean, $(@CLASS@@PACKET@_DIR))
+	@$(call extract, @CLASS@@PACKET@, $(@CLASS@BUILDDIR))
+	@$(call patchin, @CLASS@@PACKET@, $(@CLASS@@PACKET@_DIR))
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+@class@@packet@_prepare: $(STATEDIR)/@class@@packet@.prepare
+
+@CLASS@@PACKET@_PATH	:= PATH=$(@CLASS@PATH)
+@CLASS@@PACKET@_ENV 	:= $(@CLASS@ENV)
+
+#
+# autoconf
+#
+@CLASS@@PACKET@_AUTOCONF	:= $(@AUTOCONF_CLASS@AUTOCONF)
+
+$(STATEDIR)/@class@@packet@.prepare: $(@class@@packet@_prepare_deps_default)
+	@$(call targetinfo, $@)
+	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
+	cd $(@CLASS@@PACKET@_DIR) && \
+		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
+		./configure $(@CLASS@@PACKET@_AUTOCONF)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+@class@@packet@_compile: $(STATEDIR)/@class@@packet@.compile
+
+$(STATEDIR)/@class@@packet@.compile: $(@class@@packet@_compile_deps_default)
+	@$(call targetinfo, $@)
+	cd $(@CLASS@@PACKET@_DIR) && $(@CLASS@@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+@class@@packet@_install: $(STATEDIR)/@class@@packet@.install
+
+$(STATEDIR)/@class@@packet@.install: $(@class@@packet@_install_deps_default)
+	@$(call targetinfo, $@)
+	@$(call install, @CLASS@@PACKET@,,h)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+@class@@packet@_clean:
+	rm -rf $(STATEDIR)/@class@@packet@.*
+	rm -rf $(@CLASS@@PACKET@_DIR)
+
+# vim: syntax=make

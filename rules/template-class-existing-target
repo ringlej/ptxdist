@@ -12,95 +12,86 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_@PACKET@) += @packet@
+@CLASS@PACKAGES-$(PTXCONF_@CLASS@@PACKET@) += @class@@packet@
 
 #
 # Paths and names
 #
-@PACKET@_VERSION	:= @VERSION@
-@PACKET@		:= @packet_filename@-$(@PACKET@_VERSION)
-@PACKET@_SUFFIX		:= @SUFFIX@
-@PACKET@_URL		:= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_DIR		:= $(HOST_BUILDDIR)/$(@PACKET@)
+@CLASS@@PACKET@_DIR	= $(@CLASS@BUILDDIR)/$(@PACKET@)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-@packet@_get: $(STATEDIR)/@packet@.get
+@class@@packet@_get: $(STATEDIR)/@class@@packet@.get
 
-$(STATEDIR)/@packet@.get: $(@packet@_get_deps_default)
+$(STATEDIR)/@class@@packet@.get: $(STATEDIR)/@packet@.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
-$(@PACKET@_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, @PACKET@)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-@packet@_extract: $(STATEDIR)/@packet@.extract
+@class@@packet@_extract: $(STATEDIR)/@class@@packet@.extract
 
-$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
+$(STATEDIR)/@class@@packet@.extract: $(@class@@packet@_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(@PACKET@_DIR))
-	@$(call extract, @PACKET@, $(HOST_BUILDDIR))
-	@$(call patchin, @PACKET@, $(@PACKET@_DIR))
+	@$(call clean, $(@CLASS@@PACKET@_DIR))
+	@$(call extract, @PACKET@, $(@CLASS@BUILDDIR))
+	@$(call patchin, @PACKET@, $(@CLASS@@PACKET@_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-@packet@_prepare: $(STATEDIR)/@packet@.prepare
+@class@@packet@_prepare: $(STATEDIR)/@class@@packet@.prepare
 
-@PACKET@_PATH	:= PATH=$(HOST_PATH)
-@PACKET@_ENV 	:= $(HOST_ENV)
+@CLASS@@PACKET@_PATH	:= PATH=$(@CLASS@PATH)
+@CLASS@@PACKET@_ENV 	:= $(@CLASS@ENV)
 
 #
 # autoconf
 #
-@PACKET@_AUTOCONF	:= $(HOST_AUTOCONF)
+@CLASS@@PACKET@_AUTOCONF	:= $(@AUTOCONF_CLASS@AUTOCONF)
 
-$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
+$(STATEDIR)/@class@@packet@.prepare: $(@class@@packet@_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(@PACKET@_DIR)/config.cache)
-	cd $(@PACKET@_DIR) && \
-		$(@PACKET@_PATH) $(@PACKET@_ENV) \
-		./configure $(@PACKET@_AUTOCONF)
+	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
+	cd $(@CLASS@@PACKET@_DIR) && \
+		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
+		./configure $(@CLASS@@PACKET@_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-@packet@_compile: $(STATEDIR)/@packet@.compile
+@class@@packet@_compile: $(STATEDIR)/@class@@packet@.compile
 
-$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
+$(STATEDIR)/@class@@packet@.compile: $(@class@@packet@_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(@PACKET@_DIR) && $(@PACKET@_PATH) $(MAKE)
+	cd $(@CLASS@@PACKET@_DIR) && $(@CLASS@@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-@packet@_install: $(STATEDIR)/@packet@.install
+@class@@packet@_install: $(STATEDIR)/@class@@packet@.install
 
-$(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
+$(STATEDIR)/@class@@packet@.install: $(@class@@packet@_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, @PACKET@,,h)
+	@$(call install, @CLASS@@PACKET@,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-@packet@_clean:
-	rm -rf $(STATEDIR)/@packet@.*
-	rm -rf $(@PACKET@_DIR)
+@class@@packet@_clean:
+	rm -rf $(STATEDIR)/@class@@packet@.*
+	rm -rf $(@CLASS@@PACKET@_DIR)
 
 # vim: syntax=make
