@@ -15,6 +15,11 @@
 #
 # not reported upstream
 #
+# This patch is broken: it should use CC_FOR_BUILD only if
+# crosscompiling; at the moment it breaks if CC_FOR_BUILD is not set and
+# we build for the host. See nfsutils for an example how to solve it
+# correctly. (MKL, RSC)
+#
 
 diff -r -u libX11-X11R7.1-1.0.1.orig/src/util/Makefile.am libX11-X11R7.1-1.0.1/src/util/Makefile.am
 --- libX11-X11R7.1-1.0.1.orig/src/util/Makefile.am	2006-06-14 13:33:44.152294000 +0200
