@@ -1,0 +1,2 @@
+config HOST_FREETYPE
+	bool

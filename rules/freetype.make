@@ -82,7 +82,7 @@ freetype_compile: $(STATEDIR)/freetype.compile
 $(STATEDIR)/freetype.compile: $(freetype_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(FREETYPE_DIR) && \
-		$(FREETYPE_PATH) make
+		$(FREETYPE_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
