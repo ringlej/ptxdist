@@ -1,7 +1,6 @@
 config XORG_FONT_MUTT_MISC
 	bool
 	depends on XORG_FONT
-	select XORG_FONT_UTIL
 	prompt "Mutt misc"
 	help
 	  FIXME
