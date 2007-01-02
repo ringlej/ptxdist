@@ -16,6 +16,7 @@
 #
 PACKAGES-$(PTXCONF_GCCLIBS) += gcclibs
 
+GCCLIBS_DIR             = $(BUILDDIR)/gcclibs
 
 # ----------------------------------------------------------------------------
 # Get
