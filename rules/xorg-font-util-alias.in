@@ -1,5 +1,6 @@
-menuconfig XORG_FONT_UTILS_ALIAS
-        bool "xorg font utils and aliases        "
+menu "xorg font utils and aliases        "
 
 source "rules/xorg-font-util.in"
 source "rules/xorg-font-alias.in"
+
+endmenu
