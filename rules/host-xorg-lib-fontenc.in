@@ -1,3 +1,5 @@
 config HOST_XORG_LIB_FONTENC
 	bool
 	select HOST_ZLIB
+	select HOST_XORG_PROTO_X
+	select HOST_FREETYPE
