@@ -140,7 +140,7 @@ $(STATEDIR)/xorg-font-intl.targetinstall: $(xorg-font-intl_targetinstall_deps_de
 	@cd $(XORG_FONT_INTL_DIR); \
 	for file in *.pcf.gz; do \
 		if [ -e $$file ];then \
-			$(call install_copy, xorg-font-intl, 0, 0, 0644, $$file, $(XORG_FONT_DIR)/misc/$$file, n); \
+			$(call install_copy, xorg-font-intl, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
 		fi; \
 	done;
 
