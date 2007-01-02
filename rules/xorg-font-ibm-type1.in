@@ -1,7 +1,6 @@
 config XORG_FONT_IBM_TYPE1
 	bool
 	depends on XORG_FONT_SCALABLE
-	select XORG_FONT_UTIL
 	prompt "IBM type1"
 	help
 	  scalable IBM type1 fonts, as used on OS/2 systems. 
