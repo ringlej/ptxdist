@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_LIBDBUS_CXX) += libdbus-cxx
 LIBDBUS_CXX_VERSION	:= 0.5.0
 LIBDBUS_CXX		:= libdbus-c++-$(LIBDBUS_CXX_VERSION)
 LIBDBUS_CXX_SUFFIX	:= tar.gz
-LIBDBUS_CXX_URL		:= /$(LIBDBUS_CXX).$(LIBDBUS_CXX_SUFFIX)
+LIBDBUS_CXX_URL		:= FIXME/$(LIBDBUS_CXX).$(LIBDBUS_CXX_SUFFIX)
 LIBDBUS_CXX_SOURCE	:= $(SRCDIR)/$(LIBDBUS_CXX).$(LIBDBUS_CXX_SUFFIX)
 LIBDBUS_CXX_DIR		:= $(BUILDDIR)/$(LIBDBUS_CXX)
 
@@ -57,13 +57,19 @@ $(STATEDIR)/libdbus-cxx.extract: $(libdbus-cxx_extract_deps_default)
 
 libdbus-cxx_prepare: $(STATEDIR)/libdbus-cxx.prepare
 
-LIBDBUS_CXX_PATH	:= PATH=$(CROSS_PATH)
-LIBDBUS_CXX_ENV 	:= $(CROSS_ENV)
+LIBDBUS_CXX_PATH := \
+	PATH=$(CROSS_PATH)
+
+LIBDBUS_CXX_ENV	:= \
+	$(CROSS_ENV) \
+	CXX_FOR_BUILD=$(HOSTCXX)
 
 #
 # autoconf
 #
-LIBDBUS_CXX_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBDBUS_CXX_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--with-build-libdbus-cxx=$(HOST_LIBDBUS_CXX_DIR)
 
 $(STATEDIR)/libdbus-cxx.prepare: $(libdbus-cxx_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -113,7 +119,11 @@ $(STATEDIR)/libdbus-cxx.targetinstall: $(libdbus-cxx_targetinstall_deps_default)
 	@$(call install_fixup, libdbus-cxx,DEPENDS,)
 	@$(call install_fixup, libdbus-cxx,DESCRIPTION,missing)
 
-	@$(call install_copy, libdbus-cxx, 0, 0, 0755, $(LIBDBUS_CXX_DIR)/foobar, /dev/null)
+	@$(call install_copy, libdbus-cxx, 0, 0, 0755, \
+		$(LIBDBUS_CXX_DIR)/src/.libs/libdbus-c++-1.so.0.0.0, \
+		/usr/lib/libdbus-c++-1.so.0.0.0)
+	@$(call install_link, libdbus-cxx, libdbus-c++-1.so.0.0.0, /usr/lib/libdbus-c++-1.so.0)
+	@$(call install_link, libdbus-cxx, libdbus-c++-1.so.0.0.0, /usr/lib/libdbus-c++-1.so)
 
 	@$(call install_finish, libdbus-cxx)
 
