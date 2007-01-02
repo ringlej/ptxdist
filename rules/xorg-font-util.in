@@ -1,6 +1,5 @@
 config XORG_FONT_UTIL
 	bool
-	depends on XORG_FONT_UTILS_ALIAS
 	prompt "Util"
 	help
 	  FIXME
