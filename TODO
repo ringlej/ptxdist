@@ -1,6 +1,7 @@
 TODO for 0.10.6
 ===============
-
+[ ] jbe: discuss removing of the /dev/pts menuentry. With udev it makes no sense, without
+    udev it does not help
 [ ] jbe: replacing an *.make file for project use is easy. But how to replace a *.in file?
 [ ] jbe: udev needs rules to control permissions on device nodes
 [ ] jbe: remove generic /etc/resolv.conf or fill it with vital information!
