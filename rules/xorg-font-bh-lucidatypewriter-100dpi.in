@@ -1,9 +1,8 @@
 config XORG_FONT_BH_LUCIDATYPEWRITER_100DPI
 	bool
 	depends on XORG_FONT_100DPI
-	select HOST_BDFTOPCF
-	select HOST_UCSTOANY
-	select XORG_FONT_UTIL
+	select HOST_XORG_APP_BDFTOPCF
+	select HOST_XORG_FONT_UTIL
 	prompt "BH Lucida Typewriter 100dpi"
 	help
 	  This package contains Lucida fonts in the ISO 10646-1,
