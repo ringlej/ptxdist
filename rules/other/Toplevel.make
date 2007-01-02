@@ -50,7 +50,7 @@ include $(RULESDIR)/other/Definitions.make
 ifeq ($(call remove_quotes,$(PTXCONF_SETUP_SRCDIR)),)
 SRCDIR			:= $(PTXDIST_WORKSPACE)/src
 else
-			# don't use := here!!!
+#			  don't use := here!!!
 SRCDIR			= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
 endif
 
@@ -92,14 +92,16 @@ all:
 	@echo "ptxdist: error: please use ptxdist instead of calling make directly."
 	@exit 1
 
+include $(RULESDIR)/other/Namespace.make
 include $(wildcard $(PRERULESDIR)/*.make)
 
 ifneq ($(wildcard $(PROJECTPRERULESDIR)/*.make),)
 include $(wildcard $(PROJECTPRERULESDIR)/*.make)
 endif
 
-include $(PACKAGE_DEP)
+include $(PACKAGE_DEP_PRE)
 include $(RULESFILES_ALL_MAKE)
+include $(PACKAGE_DEP_POST)
 
 ifneq ($(wildcard $(POSTRULESDIR)/*.make),)
 include $(wildcard $(POSTRULESDIR)/*.make)
