@@ -22,7 +22,7 @@ config XORG_FONT_ADOBE_75DPI_TRANS
 config XORG_FONT_ADOBE_UTOPIA_75DPI_TRANS
 	bool
 	depends on XORG_FONT_75DPI
-	select HOST_BDFTOPCF
+	select HOST_XORG_APP_BDFTOPCF
 	prompt "Adobe Utopia 75dpi transcoded"
 	help
 	  adobe utopia fonts, containing Utopia Regular, 
@@ -34,7 +34,7 @@ config XORG_FONT_ADOBE_UTOPIA_75DPI_TRANS
 config XORG_FONT_BH_75DPI_TRANS
 	bool
 	depends on XORG_75DPI
-	select HOST_BDFTOPCF
+	select HOST_XORG_APP_BDFTOPCF
 	prompt "BH 75dpi transcoded"
 	help
 	  This package contains fonts in several ISO 8859
@@ -43,7 +43,7 @@ config XORG_FONT_BH_75DPI_TRANS
 config XORG_FONT_BH_LUCIDATYPEWRITER_75DPI_TRANS
 	bool
 	depends on XORG_FONT_75DPI
-	select HOST_BDFTOPCF
+	select HOST_XORG_APP_BDFTOPCF
 	prompt "BH Lucida Typewriter 75dpi transcoded"
 	help
 	  This package contains fonts in several ISO 8859
