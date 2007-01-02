@@ -11,3 +11,70 @@ Index: kaffe-1.1.7/config/arm/linux/md.c
  		    "swi " __sys1(__ARM_NR_cacheflush) "\n"
  		    : /* no return value */
  		    : "r" ((long)start), "r" ((long)end)
+Index: kaffe-1.1.7/libraries/clib/native/java_lang_VMDouble.c
+===================================================================
+--- kaffe-1.1.7.orig/libraries/clib/native/java_lang_VMDouble.c
++++ kaffe-1.1.7/libraries/clib/native/java_lang_VMDouble.c
+@@ -42,6 +42,7 @@ exception statement from your version. *
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
++#include <endian.h>
+ 
+ #include "mprec.h"
+ #include "fdlibm.h"
+@@ -55,6 +56,18 @@ static jdouble NEGATIVE_INFINITY;
+ static jdouble POSITIVE_INFINITY;
+ static jdouble NaN;
+ 
++#ifdef __FLOAT_WORD_ORDER != __BYTE_ORDER
++#define dtoh(_d) \
++     (((_d & 0x00000000ffffffffLL) << 32) | \
++      ((_d & 0xffffffff00000000LL) >> 32 ))
++#define htod(_d) \
++     (((_d & 0x00000000ffffffffLL) << 32) | \
++      ((_d & 0xffffffff00000000LL) >> 32 ))
++#else
++#define dtoh(_d) (_d)
++#define htod(_d) (_d)
++#endif
++
+ /*
+  * Class:     java_lang_VMDouble
+  * Method:    initIDs
+@@ -119,13 +132,13 @@ Java_java_lang_VMDouble_doubleToLongBits
+   jlong e, f;
+   val.d = doubleValue;
+ 
+-  e = val.j & 0x7ff0000000000000LL;
+-  f = val.j & 0x000fffffffffffffLL;
++  e = dtoh(val.j) & 0x7ff0000000000000LL;
++  f = dtoh(val.j) & 0x000fffffffffffffLL;
+ 
+   if (e == 0x7ff0000000000000LL && f != 0L)
+-    val.j = 0x7ff8000000000000LL;
++    val.j = htod(0x7ff8000000000000LL);
+ 
+-  return val.j;
++  return dtoh(val.j);
+ }
+ 
+ /*
+@@ -140,7 +153,7 @@ Java_java_lang_VMDouble_doubleToRawLongB
+ {
+   jvalue val;
+   val.d = doubleValue;
+-  return val.j;
++  return dtoh(val.j);
+ }
+ 
+ /*
+@@ -154,7 +167,7 @@ Java_java_lang_VMDouble_longBitsToDouble
+    jclass cls __attribute__ ((__unused__)), jlong longValue)
+ {
+   jvalue val;
+-  val.j = longValue;
++  val.j = htod(longValue);
+   return val.d;
+ }
+ 
