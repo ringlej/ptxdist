@@ -175,7 +175,7 @@ $(STATEDIR)/dep_tree:
 	else \
 		echo "Install 'dot' from graphviz packet if you want to have a nice dependency tree"; \
 	fi
-	$(call touch, $@)
+	@$(call touch, $@)
 
 dep_world: $(HOST_PACKAGES_INSTALL) \
 	   $(CROSS_PACKAGES_INSTALL) \
