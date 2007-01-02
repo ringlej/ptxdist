@@ -4,132 +4,133 @@ menuconfig MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_FLASH_ERASE
+config MTD_UTILS_FLASH_ERASE
 	bool
 	prompt "flash_erase"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_FLASH_ERASEALL
+config MTD_UTILS_FLASH_ERASEALL
 	bool
 	prompt "flash_eraseall"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_FLASH_INFO
+config MTD_UTILS_FLASH_INFO
 	bool
 	prompt "flash_info"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_FLASH_LOCK
+config MTD_UTILS_FLASH_LOCK
 	bool
 	prompt "flash_lock"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_FLASH_UNLOCK
+config MTD_UTILS_FLASH_UNLOCK
 	bool
 	prompt "flash_unlock"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_FLASHCP
+config MTD_UTILS_FLASHCP
 	bool
 	prompt "flashcp"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_FTL_CHECK
+config MTD_UTILS_FTL_CHECK
 	bool
 	prompt "ftl_check"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_FTL_FORMAT
+config MTD_UTILS_FTL_FORMAT
 	bool
 	prompt "ftl_format"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_JFFS_DUMP
+config MTD_UTILS_JFFS_DUMP
 	bool
 	prompt "jffs_dump"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_JFFS2_DUMP
+config MTD_UTILS_JFFS2_DUMP
 	bool
 	prompt "jffs2_dump"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-# currently broken as of 2004-06-21
-#config MTD_JFFS2READER
-#	bool
-#	prompt "jffs2reader"
-#	depends on MTD_UTILS
+config MTD_UTILS_JFFS2READER
+	bool
+	prompt "jffs2reader"
+	depends on MTD_UTILS
+	help
+	  FIXME: This item needs to be documented
 
-config MTD_JITTERTEST
+config MTD_UTILS_JITTERTEST
 	bool
 	prompt "jittertest"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_MTDDEBUG
+config MTD_UTILS_MTDDEBUG
 	bool
 	prompt "mtd_debug"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_NANDDUMP
+config MTD_UTILS_NANDDUMP
 	bool
 	prompt "nanddump"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_NANDWRITE
+config MTD_UTILS_NANDWRITE
 	bool
 	prompt "nandwrite"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_NFTL_FORMAT
+config MTD_UTILS_NFTL_FORMAT
 	bool
 	prompt "nftl_format"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_NFTLDUMP
+config MTD_UTILS_NFTLDUMP
 	bool
 	prompt "nftldump"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_MKJFFS
+config MTD_UTILS_MKJFFS
 	bool
 	prompt "mkfs.jffs"
 	depends on MTD_UTILS
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_MKJFFS2
+config MTD_UTILS_MKJFFS2
 	bool
 	prompt "mkfs.jffs2"
 	depends on MTD_UTILS

@@ -1,0 +1,32 @@
+# 
+# Submitted-By: Robert Schwebel, 2005-03-13
+# Committed-By: Robert Schwebel
+#
+# Error: 
+#
+# MTD utilities forget to use the preprocessor flags; as we feed in
+# special include directories via -isystem in PTXdist this is not used
+# and crashes. 
+#
+# Description: 
+#
+# no public discussion about this topic yet. 
+#
+# State:
+# 
+# unknown
+#
+
+Index: mtd-utils-1.0.1/Makefile
+===================================================================
+--- mtd-utils-1.0.1.orig/Makefile
++++ mtd-utils-1.0.1/Makefile
+@@ -34,7 +34,7 @@ SYMLINKS =
+ 
+ $(BUILDDIR)/%.o: %.c
+ 	mkdir -p $(BUILDDIR)
+-	$(CC) $(CFLAGS) -g -c -o $@ $< -g -Wp,-MD,$(BUILDDIR)/.$(<F).dep
++	$(CC) $(CFLAGS) $(CPPFLAGS) -g -c -o $@ $< -g -Wp,-MD,$(BUILDDIR)/.$(<F).dep
+ 
+ .SUFFIXES:
+ 

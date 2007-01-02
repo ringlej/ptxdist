@@ -17,9 +17,25 @@
 # unknown
 #
 
---- mtd-utils-1.0.0/Makefile.orig	2006-05-02 16:48:44.316560880 +0200
-+++ mtd-utils-1.0.0/Makefile	2006-05-02 16:48:58.853350952 +0200
-@@ -24,7 +24,7 @@
+Index: mtd-utils-1.0.0/Makefile
+===================================================================
+--- mtd-utils-1.0.0.orig/Makefile
++++ mtd-utils-1.0.0/Makefile
+@@ -3,9 +3,10 @@
+ 
+ # $Id: Makefile,v 1.60 2005/11/07 11:15:09 gleixner Exp $
+ 
+-SBINDIR=/usr/sbin
+-MANDIR=/usr/man
+-INCLUDEDIR=/usr/include
++PREFIX=/usr
++SBINDIR=$(PREFIX)/sbin
++MANDIR=$(PREFIX)/share/man
++INCLUDEDIR=$(PREFIX)/include
+ #CROSS=arm-linux-
+ CC := $(CROSS)gcc
+ CFLAGS := -I./include -O2 -Wall
+@@ -24,7 +25,7 @@ SYMLINKS =
  	$(CC) $(LDFLAGS) -g -o $@ $^
  
  %.o: %.c

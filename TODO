@@ -26,6 +26,9 @@ TODO for 0.10.6
 [ ] rsc: merge mkl's host/cross/target-pkg-config fixes. We need this to
     have a proper x.org and host-dbus.
 [ ] rsc: fix 'ptxdist newpacket host'
+[ ] rsc: check if we can update mtd-utils from 1.0.0 to 1.0.1; mkl has
+    already prepared the patches; find out why the revision number was
+    not bumped.
 
 TODO for 0.10.5
 ===============
