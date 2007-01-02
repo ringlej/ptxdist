@@ -130,7 +130,7 @@ $(STATEDIR)/fontconfig.targetinstall: $(fontconfig_targetinstall_deps_default)
 		libfontconfig.so.1.0.4, \
 		/usr/lib/libfontconfig.so)
 
-ifdef FONTCONFIG_CONFS
+ifdef PTXCONF_FONTCONFIG_CONFS
 	@$(call install_copy, fontconfig, 0, 0, 0644, \
 		$(FONTCONFIG_DIR)/fonts.conf, \
 		/etc/fonts/fonts.conf,n)
@@ -144,7 +144,7 @@ ifdef FONTCONFIG_CONFS
 		/etc/fonts/conf.d/autohint.conf,n)
 endif
 
-ifdef FONTCONFIG_UTILS
+ifdef PTXCONF_FONTCONFIG_UTILS
 	@$(call install_copy, fontconfig, 0, 0, 0755, \
 		$(FONTCONFIG_DIR)/fc-cache/.libs/fc-cache, \
 		/usr/bin/fc-cache)
