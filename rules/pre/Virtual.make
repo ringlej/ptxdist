@@ -18,7 +18,7 @@ ifdef PTXCONF_HOST_FAKEROOT
 virtual-xchain_install_deps	+= $(STATEDIR)/host-fakeroot.install
 endif
 
-ifdef PTXCONFB_HOST_IPKG_UTILS
+ifdef PTXCONF_HOST_IPKG_UTILS
 virtual-xchain_install_deps	+= $(STATEDIR)/host-ipkg-utils.install
 endif
 
@@ -27,7 +27,7 @@ virtual-xchain_install_deps	+= $(STATEDIR)/host-checkinstall.install
 endif
 
 ifdef PTXCONF_IMAGE_JFFS2
-virtual-xchain_install_deps	+= $(STATEDIR)/host-mtd.install
+virtual-xchain_install_deps	+= $(STATEDIR)/host-mtd-utils.install
 endif
 
 ifdef PTXCONF_CROSS_PKG_CONFIG_WRAPPER
