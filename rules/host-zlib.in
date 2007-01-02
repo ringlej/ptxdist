@@ -1,6 +1,2 @@
 config HOST_ZLIB
 	bool
-	depends on BROKEN
-	prompt "host zlib [BROKEN]"
-	help
-	  FIXME: This item needs to be documented

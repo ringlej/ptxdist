@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2002-2006 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -16,12 +17,12 @@ PACKAGES-$(PTXCONF_ZLIB) += zlib
 #
 # Paths and names
 #
-ZLIB_VERSION	:= 1.2.3
+ZLIB_VERSION	:= 1.2.3-ptx2
 ZLIB		:= zlib-$(ZLIB_VERSION)
-ZLIB_URL 	:= http://www.zlib.net/$(ZLIB).tar.gz
-ZLIB_SOURCE	:= $(SRCDIR)/$(ZLIB).tar.gz
+ZLIB_SUFFIX	:= tar.bz2
+ZLIB_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(ZLIB).$(ZLIB_SUFFIX)
+ZLIB_SOURCE	:= $(SRCDIR)/$(ZLIB).$(ZLIB_SUFFIX)
 ZLIB_DIR	:= $(BUILDDIR)/$(ZLIB)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -57,12 +58,19 @@ $(STATEDIR)/zlib.extract: $(zlib_extract_deps_default)
 zlib_prepare: $(STATEDIR)/zlib.prepare
 
 ZLIB_PATH	:= PATH=$(CROSS_PATH)
-ZLIB_ENV	:= $(CROSS_ENV) AR="$(CROSS_AR) rc"
-ZLIB_AUTOCONF	:= --shared --prefix=/usr
+ZLIB_ENV 	:= $(CROSS_ENV)
+
+#
+# autoconf
+#
+ZLIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps_default)
 	@$(call targetinfo, $@)
-	cd $(ZLIB_DIR) && $(ZLIB_ENV) $(ZLIB_PATH) ./configure $(ZLIB_AUTOCONF)
+	@$(call clean, $(ZLIB_DIR)/config.cache)
+	cd $(ZLIB_DIR) && \
+		$(ZLIB_PATH) $(ZLIB_ENV) \
+		./configure $(ZLIB_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -73,8 +81,7 @@ zlib_compile: $(STATEDIR)/zlib.compile
 
 $(STATEDIR)/zlib.compile: $(zlib_compile_deps_default)
 	@$(call targetinfo, $@)
-	$(ZLIB_PATH) cd $(ZLIB_DIR) && make
-	$(ZLIB_PATH) cd $(ZLIB_DIR) && make libz.a
+	cd $(ZLIB_DIR) && $(ZLIB_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -85,8 +92,7 @@ zlib_install: $(STATEDIR)/zlib.install
 
 $(STATEDIR)/zlib.install: $(zlib_install_deps_default)
 	@$(call targetinfo, $@)
-	cd $(ZLIB_DIR) && $(ZLIB_PATH) make install prefix=$(SYSROOT)/usr
-	$(INSTALL) $(ZLIB_DIR)/libz.a $(SYSROOT)/usr/lib/libz.a
+	@$(call install, ZLIB)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -107,9 +113,8 @@ $(STATEDIR)/zlib.targetinstall: $(zlib_targetinstall_deps_default)
 	@$(call install_fixup, zlib,DEPENDS,)
 	@$(call install_fixup, zlib,DESCRIPTION,missing)
 
-	@$(call install_copy, zlib, 0, 0, 0644, $(ZLIB_DIR)/libz.so.1.2.3, /usr/lib/libz.so.1.2.3)
-	@$(call install_link, zlib, libz.so.1.2.3, /usr/lib/libz.so.1)
-	@$(call install_link, zlib, libz.so.1.2.3, /usr/lib/libz.so)
+	@$(call install_copy, zlib, 0, 0, 0644, $(ZLIB_DIR)/.libs/libz-1.2.3-ptx2.so, /usr/lib/libz-1.2.3-ptx2.so)
+	@$(call install_link, zlib, libz-1.2.3-ptx2.so, /usr/lib/libz.so)
 
 	@$(call install_finish, zlib)
 

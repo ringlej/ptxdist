@@ -1,22 +1,23 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2006 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
 
-
+#
+# We provide this package
+#
 HOST_PACKAGES-$(PTXCONF_HOST_ZLIB) += host-zlib
 
 #
 # Paths and names
 #
-HOST_ZLIB		= $(ZLIB)
-HOST_ZLIB_BUILDDIR	= $(HOST_BUILDDIR)/$(HOST_ZLIB)
-
+HOST_ZLIB_DIR	= $(HOST_BUILDDIR)/$(ZLIB)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -34,11 +35,11 @@ $(STATEDIR)/host-zlib.get: $(STATEDIR)/zlib.get
 
 host-zlib_extract: $(STATEDIR)/host-zlib.extract
 
-$(STATEDIR)/host-zlib.extract: $(host_zlib_extract_deps_default)
+$(STATEDIR)/host-zlib.extract: $(host-zlib_extract_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_ZLIB_BUILDDIR))
+	@$(call clean, $(HOST_ZLIB_DIR))
 	@$(call extract, ZLIB, $(HOST_BUILDDIR))
-	@$(call patchin, ZLIB)
+	@$(call patchin, ZLIB, $(HOST_ZLIB_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -47,16 +48,19 @@ $(STATEDIR)/host-zlib.extract: $(host_zlib_extract_deps_default)
 
 host-zlib_prepare: $(STATEDIR)/host-zlib.prepare
 
-#
-# autoconf without automake :-(
-#
+HOST_ZLIB_PATH	:= PATH=$(HOST_PATH)
+HOST_ZLIB_ENV 	:= $(HOST_ENV)
 
-HOST_ZLIB_AUTOCONF	:=  --prefix=$(PTXCONF_HOST_PREFIX)/usr
-HOST_ZLIB_MAKEVARS	:=  $(HOSTCC_ENV)
+#
+# autoconf
+#
+HOST_ZLIB_AUTOCONF	:= $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-zlib.prepare: $(host_zlib_prepare_deps_default)
+$(STATEDIR)/host-zlib.prepare: $(host-zlib_prepare_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_ZLIB_BUILDDIR) && \
+	@$(call clean, $(HOST_ZLIB_DIR)/config.cache)
+	cd $(HOST_ZLIB_DIR) && \
+		$(HOST_ZLIB_PATH) $(HOST_ZLIB_ENV) \
 		./configure $(HOST_ZLIB_AUTOCONF)
 	@$(call touch, $@)
 
@@ -66,9 +70,9 @@ $(STATEDIR)/host-zlib.prepare: $(host_zlib_prepare_deps_default)
 
 host-zlib_compile: $(STATEDIR)/host-zlib.compile
 
-$(STATEDIR)/host-zlib.compile: $(host_zlib_compile_deps_default)
+$(STATEDIR)/host-zlib.compile: $(host-zlib_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_ZLIB_BUILDDIR) && make $(HOST_ZLIB_MAKEVARS)
+	cd $(HOST_ZLIB_DIR) && $(HOST_ZLIB_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -77,19 +81,9 @@ $(STATEDIR)/host-zlib.compile: $(host_zlib_compile_deps_default)
 
 host-zlib_install: $(STATEDIR)/host-zlib.install
 
-$(STATEDIR)/host-zlib.install: $(host_zlib_install_deps_default)
+$(STATEDIR)/host-zlib.install: $(host-zlib_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, HOST_ZLIB, $(HOST_ZLIB_BUILDDIR),h)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-host-zlib_targetinstall: $(STATEDIR)/host-zlib.targetinstall
-
-$(STATEDIR)/host-zlib.targetinstall: $(host_zlib_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+	@$(call install, HOST_ZLIB,,h)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -98,6 +92,6 @@ $(STATEDIR)/host-zlib.targetinstall: $(host_zlib_targetinstall_deps_default)
 
 host-zlib_clean:
 	rm -rf $(STATEDIR)/host-zlib.*
-	rm -rf $(HOST_ZLIB_BUILDDIR)
+	rm -rf $(HOST_ZLIB_DIR)
 
 # vim: syntax=make
