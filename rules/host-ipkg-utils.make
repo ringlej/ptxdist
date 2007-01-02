@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: template 2224 2005-01-20 15:19:18Z rsc $
+# $Id$
 #
 # Copyright (C) 2005 by Robert Schwebel
 #
@@ -17,13 +17,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_IPKG_UTILS) += host-ipkg-utils
 #
 # Paths and names
 #
-HOST_IPKG_UTILS_VERSION	:= 1.7
+HOST_IPKG_UTILS_VERSION	:= 050831
 HOST_IPKG_UTILS		:= ipkg-utils-$(HOST_IPKG_UTILS_VERSION)
 HOST_IPKG_UTILS_SUFFIX	:= tar.gz
 HOST_IPKG_UTILS_URL	:= http://www.handhelds.org/download/packages/ipkg-utils/$(HOST_IPKG_UTILS).$(HOST_IPKG_UTILS_SUFFIX)
 HOST_IPKG_UTILS_SOURCE	:= $(SRCDIR)/$(HOST_IPKG_UTILS).$(HOST_IPKG_UTILS_SUFFIX)
 HOST_IPKG_UTILS_DIR	:= $(HOST_BUILDDIR)/$(HOST_IPKG_UTILS)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -50,10 +49,6 @@ $(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps_default)
 	@$(call clean, $(HOST_IPKG_UTILS_DIR))
 	@$(call extract, HOST_IPKG_UTILS, $(HOST_BUILDDIR))
 	@$(call patchin, HOST_IPKG_UTILS, $(HOST_IPKG_UTILS_DIR))
-	perl -i -p -e "s,^PREFIX=(.*),PREFIX=$(PTXCONF_HOST_PREFIX)/usr,g" \
-		$(HOST_IPKG_UTILS_DIR)/Makefile
-	perl -i -p -e "s,^	python setup.py install,	python setup.py install --prefix=$(PTXCONF_HOST_PREFIX)/usr,g" \
-		$(HOST_IPKG_UTILS_DIR)/Makefile
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -62,7 +57,9 @@ $(STATEDIR)/host-ipkg-utils.extract: $(host-ipkg-utils_extract_deps_default)
 
 host-ipkg-utils_prepare: $(STATEDIR)/host-ipkg-utils.prepare
 
-HOST_IPKG_UTILS_PATH	:= PATH=$(CROSS_PATH)
+HOST_IPKG_UTILS_PATH	:= PATH=$(HOST_PATH)
+HOST_IPKG_UTILS_ENV 	:= $(HOST_ENV)
+HOST_IPKG_UTILS_MAKEVARS := PREFIX=$(PTX_PREFIX_HOST)
 
 $(STATEDIR)/host-ipkg-utils.prepare: $(host-ipkg-utils_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -76,7 +73,7 @@ host-ipkg-utils_compile: $(STATEDIR)/host-ipkg-utils.compile
 
 $(STATEDIR)/host-ipkg-utils.compile: $(host-ipkg-utils_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_IPKG_UTILS_DIR) && $(HOST_IPKG_UTILS_ENV) $(HOST_IPKG_UTILS_PATH) make
+	cd $(HOST_IPKG_UTILS_DIR) && $(HOST_IPKG_UTILS_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -87,21 +84,7 @@ host-ipkg-utils_install: $(STATEDIR)/host-ipkg-utils.install
 
 $(STATEDIR)/host-ipkg-utils.install: $(host-ipkg-utils_install_deps_default)
 	@$(call targetinfo, $@)
-	mkdir -p $(PTXCONF_HOST_PREFIX)/usr/bin
-	# ipkg.py is forgotten by MAKE_INSTALL, so we copy it manually
-	# FIXME: this should probably be fixed upstream
 	@$(call install, HOST_IPKG_UTILS,,h)
-	cp -f $(HOST_IPKG_UTILS_DIR)/ipkg.py $(PTXCONF_HOST_PREFIX)/usr/bin/
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Target-Install
-# ----------------------------------------------------------------------------
-
-host-ipkg-utils_targetinstall: $(STATEDIR)/host-ipkg-utils.targetinstall
-
-$(STATEDIR)/host-ipkg-utils.targetinstall: $(host-ipkg-utils_targetinstall_deps_default)
-	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
