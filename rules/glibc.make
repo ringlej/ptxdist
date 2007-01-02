@@ -16,7 +16,8 @@
 #
 PACKAGES-$(PTXCONF_GLIBC) += glibc
 
-GLIBC := glibc-$(GLIBC_VERSION)
+GLIBC 		:= glibc-$(GLIBC_VERSION)
+GLIBC_DIR	:= $(BUILDDIR)/glibc
 
 # ----------------------------------------------------------------------------
 # Get
