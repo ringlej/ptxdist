@@ -1,0 +1,2 @@
+config HOST_XORG_PROTO_X
+	bool
