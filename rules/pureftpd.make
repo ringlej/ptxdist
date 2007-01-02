@@ -207,9 +207,15 @@ endif
 endif
 
 ifdef PTXCONF_PUREFTPD_ETC_CONFIG
+ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
+	@$(call install_copy, pureftpd, 0, 0, 0644, \
+		${PTXDIST_TOPDIR}/generic/etc/pure-ftpd.conf, \
+		/etc/pure-ftpd.conf, n)
+else
 	@$(call install_copy, pureftpd, 0, 0, 0644, \
 		${PTXDIST_WORKSPACE}/projectroot/etc/pure-ftpd.conf, \
 		/etc/pure-ftpd.conf, n)
+endif
 endif
 
 	@$(call install_finish,pureftpd)
