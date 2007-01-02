@@ -11,7 +11,7 @@ check_pipe_status() {
 	    exit $i
 	fi
     done
-} 
+}
 
 if test -z "${SYSROOT}"; then
     (
@@ -53,13 +53,13 @@ else
 # 2) add sysroot symbol to all absolute paths
 # 3) replace sysroot sign to sysroot path
 # 4) libtool isn't correctly DESTDIR/SYSROOT aware, it replaces -lfoo by
-#    paths leading to host libraries; using -Wl,-lfoo seems to work. 
-# 
+#    paths leading to host libraries; using -Wl,-lfoo seems to work.
+#
     ${PKG_CONFIG} "${@}" |
     sed -e "s~\-L/*${SYSROOT}/*~-L=/~g; s~\-I/*${SYSROOT}/*~-I=/~g;" \
 	-e "s~\-L/~-L=/~g; s~\-I/~-I=/~g;"                       \
 	-e "s~\-L\=~-L${SYSROOT}~g; s~\-I\=~-I${SYSROOT}~g;"         \
 	-e "s~[\t ]\-l~ -Wl,-l~g;"
-fi    
+fi
 
 check_pipe_status
