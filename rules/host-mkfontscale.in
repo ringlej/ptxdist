@@ -1,3 +1,0 @@
-config HOST_MKFONTSCALE
-	select HOST_FREETYPE
-	bool
