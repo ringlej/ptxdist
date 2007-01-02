@@ -1,0 +1,4 @@
+# first of all include toplevel Kconfig file as default
+source "config/Kconfig"
+# then include the new rules file
+source "workspace/rules/module-template.in"
