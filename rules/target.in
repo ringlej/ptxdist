@@ -332,15 +332,11 @@ config PREFIX
 
 	  	make install DESTDIR=${PTXCONF_PREFIX}/${PTXCONF_GNU_TARGET}
 
-	  All host tools are directly being installed to ${PTXCONF_PREFIX}.
-
 config HOST_PREFIX
-	prompt "Prefix for host tools development environment"
 	string
 	default "${PTXCONF_PREFIX}-host"
 
 config CROSS_PREFIX
-	prompt "Prefix for cross tools development environment"
 	string
 	default "${PTXCONF_PREFIX}-cross"
 
