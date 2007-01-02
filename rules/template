@@ -81,7 +81,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
 
 $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(@PACKET@_DIR) && $(@PACKET@_PATH) $(MAKE)
+	cd $(@PACKET@_DIR) && $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
