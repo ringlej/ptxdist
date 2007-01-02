@@ -2,6 +2,14 @@
 
 menuconfig CVS
 	bool
+	default n
+#
+# cvs brings its own libz, but the current
+# ptxdist patch remove it.
+#
+	select ZLIB
+	select GLIBC_CRYPT
+	select GLIBC_NSL
 	prompt "cvs                 "
 	help
 	  CVS is the Concurrent Versions System. This is a version control system
@@ -75,6 +83,39 @@ config CVS_ROOTCOMMIT
 	help
 	  Allow the root user to commit files
 
+comment "install options   ---"
+	depends on CVS
+
+config CVS_SERVER_POPULATE_CVSROOT
+	bool
+	depends on CVS
+	depends on CVS_SERVER
+	prompt "Populate CVSROOT files"
+	default n
+	help
+	  This will install a list of files into target's cvs repository. These files
+	  are supporting files; they do not have to exist for cvs to operate, but they
+	  allow you to make cvs operation more flexible.
+	  Here is the list of files cvs can run on some events:
+	  - commitinfo
+	  - cvsignore
+	  - cvswrappers
+	  - editinfo
+	  - history
+	  - loginfo
+	  - modules
+	  - rcsinfo
+	  - taginfo
+	  and for general configuration:
+	  - config
+	  - passwd
+	  - readers
+	  - writers
+	  PTXdist will copy these files from the active project from projectroot/cvsroot/
+	  into target's file system. Only existing files in projectroot/cvsroot/ will be
+	  copied to /srv/cvsroot/CVSROOT/ (or anywhere you locate the repository). To use
+	  this feature do not leave "cvs' repository" entry empty!
+
 comment "runtime options   ---"
 	depends on CVS
 
@@ -85,7 +126,8 @@ config CVS_SERVER_REPOSITORY
 	prompt "cvs' repository"
 	default "/srv/cvsroot"
 	help
-	  This will be cvs server's root repository (given to cvs as --allow-root=...)
+	  This will be cvs server's root repository (given to cvs as --allow-root=...).
+	  You must give a path here to use the "Populate CVSROOT files" feature.
 
 choice
 	prompt "Kind of startup"

@@ -110,8 +110,16 @@ else
 	CVS_AUTOCONF += --disable-rootcommit
 endif
 
+#
+# if we are sure we have a tmp/ directory we
+# forward cvs to use it
+# If not, cvs probes at runtime
+#
+ifdef PTXCONF_ROOTFS_TMP
+	CVS_AUTOCONF += --with-tmpdir=/tmp
+endif
+
 # missing switches yet
-# --with-tmpdir
 # --with-rsh
 # --with-umask
 # --with-cvs-admin-group=GROUP
@@ -150,6 +158,13 @@ $(STATEDIR)/cvs.install: $(cvs_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
+#
+# This is a list of files cvs will call
+# when specific actions occure
+#
+CVS_CVSROOT_FILES := commitinfo cvsignore cvswrappers editinfo history loginfo \
+	modules rcsinfo taginfo
+
 cvs_targetinstall: $(STATEDIR)/cvs.targetinstall
 
 $(STATEDIR)/cvs.targetinstall: $(cvs_targetinstall_deps_default)
@@ -167,6 +182,29 @@ $(STATEDIR)/cvs.targetinstall: $(cvs_targetinstall_deps_default)
 ifdef PTXCONF_CVS_INETD_SERVER
 ifneq ($(call remove_quotes,$(PTXCONF_CVS_SERVER_REPOSITORY)),)
 	@$(call install_copy, cvs, 0, 0, 0755, $(PTXCONF_CVS_SERVER_REPOSITORY))
+
+#
+# install only existing files
+#
+ifdef PTXCONF_CVS_SERVER_POPULATE_CVSROOT
+	@$(call install_copy, cvs, 0, 0, 0750, \
+		$(PTXCONF_CVS_SERVER_REPOSITORY)/CVSROOT)
+	@for i in ${CVS_CVSROOT_FILES}; do \
+		if [ -f $(PTXDIST_WORKSPACE)/projectroot/cvsroot/$$i ]; then \
+			$(call install_copy, cvs, 0, 0,0750, \
+				${PTXDIST_WORKSPACE}/projectroot/cvsroot/$$i, \
+				$(PTXCONF_CVS_SERVER_REPOSITORY)/CVSROOT/$$i,n); \
+		fi; \
+	done;
+
+	@for i in config passwd readers writers; do \
+		if [ -f $(PTXDIST_WORKSPACE)/projectroot/cvsroot/$$i ]; then \
+			$(call install_copy, cvs, 0, 0,0640, \
+				${PTXDIST_WORKSPACE}/projectroot/cvsroot/$$i, \
+				$(PTXCONF_CVS_SERVER_REPOSITORY)/CVSROOT/$$i,n); \
+		fi; \
+	done;
+endif
 endif
 endif
 #

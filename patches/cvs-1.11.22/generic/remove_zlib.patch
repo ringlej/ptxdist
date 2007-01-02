@@ -1,0 +1,56 @@
+--- cvs-1.11.22/Makefile.in.orig
++++ cvs-1.11.22/Makefile.in
+@@ -53,7 +53,7 @@
+ 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
+ 	$(srcdir)/cvs.spec.in $(top_srcdir)/configure \
+ 	$(top_srcdir)/emx/Makefile.in $(top_srcdir)/os2/Makefile.in \
+-	$(top_srcdir)/zlib/Makefile.in AUTHORS COPYING COPYING.LIB \
++	AUTHORS COPYING COPYING.LIB \
+ 	ChangeLog INSTALL NEWS TODO compile depcomp install-sh \
+ 	mdate-sh missing mkinstalldirs ylwrap
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+@@ -65,7 +65,7 @@
+  configure.lineno configure.status.lineno
+ mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+ CONFIG_HEADER = config.h
+-CONFIG_CLEAN_FILES = cvs.spec emx/Makefile os2/Makefile zlib/Makefile
++CONFIG_CLEAN_FILES = cvs.spec emx/Makefile os2/Makefile
+ SOURCES =
+ DIST_SOURCES =
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+@@ -184,7 +184,7 @@
+ 
+ # Unix source subdirs, where we'll want to run lint and etags:
+ # This is a legacy variable from b4 Automake
+-USOURCE_SUBDIRS = lib zlib diff src
++USOURCE_SUBDIRS = lib diff src
+ # All other subdirs:
+ SUBDIRS = $(USOURCE_SUBDIRS) man doc contrib tools \
+ 	windows-NT os2 emx vms
+@@ -256,7 +256,7 @@
+ stamp-h1: $(srcdir)/config.h.in $(top_builddir)/config.status
+ 	@rm -f stamp-h1
+ 	cd $(top_builddir) && $(SHELL) ./config.status config.h
+-$(srcdir)/config.h.in: @MAINTAINER_MODE_TRUE@ $(am__configure_deps) 
++$(srcdir)/config.h.in: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
+ 	cd $(top_srcdir) && $(AUTOHEADER)
+ 	rm -f stamp-h1
+ 	touch $@
+@@ -269,8 +269,6 @@
+ 	cd $(top_builddir) && $(SHELL) ./config.status $@
+ os2/Makefile: $(top_builddir)/config.status $(top_srcdir)/os2/Makefile.in
+ 	cd $(top_builddir) && $(SHELL) ./config.status $@
+-zlib/Makefile: $(top_builddir)/config.status $(top_srcdir)/zlib/Makefile.in
+-	cd $(top_builddir) && $(SHELL) ./config.status $@
+ uninstall-info-am:
+ 
+ # This directory's subdirectories are mostly independent; you can cd
+@@ -408,7 +406,7 @@
+ distdir: $(DISTFILES)
+ 	$(am__remove_distdir)
+ 	mkdir $(distdir)
+-	$(mkdir_p) $(distdir)/. $(distdir)/contrib $(distdir)/doc $(distdir)/emx $(distdir)/lib $(distdir)/os2 $(distdir)/src $(distdir)/windows-NT $(distdir)/zlib
++	$(mkdir_p) $(distdir)/. $(distdir)/contrib $(distdir)/doc $(distdir)/emx $(distdir)/lib $(distdir)/os2 $(distdir)/src $(distdir)/windows-NT
+ 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
+ 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
+ 	list='$(DISTFILES)'; for file in $$list; do \
