@@ -1,0 +1,2 @@
+config HOST_PKG_CONFIG
+	bool
