@@ -1,7 +1,6 @@
 config XORG_FONT_ENCODINGS
 	bool
 	depends on XORG_FONT_BASE
-	select XORG_FONT_UTIL
 	prompt "encodings"
 	help
 	  contains encoding files used by fontenc layer to 
