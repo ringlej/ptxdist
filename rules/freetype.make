@@ -94,8 +94,6 @@ freetype_install: $(STATEDIR)/freetype.install
 $(STATEDIR)/freetype.install: $(freetype_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, FREETYPE)
-	$(INSTALL) -m 755 -D $(FREETYPE_DIR)/builds/unix/freetype-config \
-		$(PTXCONF_PREFIX)/bin/freetype-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
