@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_LIB_XFONT) += xorg-lib-xfont
 #
 # Paths and names
 #
-XORG_LIB_XFONT_VERSION	:= 1.1.0
-XORG_LIB_XFONT		:= libXfont-X11R7.1-$(XORG_LIB_XFONT_VERSION)
+XORG_LIB_XFONT_VERSION	:= 1.2.6
+XORG_LIB_XFONT		:= libXfont-$(XORG_LIB_XFONT_VERSION)
 XORG_LIB_XFONT_SUFFIX	:= tar.bz2
-XORG_LIB_XFONT_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/lib/$(XORG_LIB_XFONT).$(XORG_LIB_XFONT_SUFFIX)
+XORG_LIB_XFONT_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_XFONT).$(XORG_LIB_XFONT_SUFFIX)
 XORG_LIB_XFONT_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XFONT).$(XORG_LIB_XFONT_SUFFIX)
 XORG_LIB_XFONT_DIR	:= $(BUILDDIR)/$(XORG_LIB_XFONT)
 
@@ -168,7 +168,7 @@ xorg-lib-xfont_compile: $(STATEDIR)/xorg-lib-xfont.compile
 
 $(STATEDIR)/xorg-lib-xfont.compile: $(xorg-lib-xfont_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XFONT_DIR) && $(XORG_LIB_XFONT_PATH) make
+	cd $(XORG_LIB_XFONT_DIR) && $(XORG_LIB_XFONT_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

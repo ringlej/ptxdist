@@ -59,8 +59,6 @@ HOST_XORG_LIB_XFONT_AUTOCONF := \
 	--disable-freetype \
 	--disable-fontcache
 
-#	--disable-fc
-
 $(STATEDIR)/host-xorg-lib-xfont.prepare: $(host-xorg-lib-xfont_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_XORG_LIB_XFONT_DIR)/config.cache)
