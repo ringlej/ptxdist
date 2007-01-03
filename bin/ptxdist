@@ -432,7 +432,10 @@ Misc
   test <testname>                run tests
 
   newpacket <type>               create a new packet Makefile in a rules dir
-                                 type can be one of host, target, cross
+                                 type can be one of:
+                                 target, host, host-existing-target,
+                                 cross, cross-existing-target, source,
+                                 kernel_driver, simple
 
 Environment:
 
@@ -533,7 +536,7 @@ newpacket () {
 	    class CLASS autoconf_class
 
 	case $1 in
-	    target|host|host-existing-target|cross|cross-existing-target|source|kernel_driver)
+	    target|host|host-existing-target|cross|cross-existing-target|source|kernel_driver|simple)
 		;;
 	    *)	echo
 		echo "${PROMPT}error: illegal packet type: $1"
@@ -592,6 +595,11 @@ newpacket () {
 		;;
 	    kernel_driver)
 		template=template-driver
+		class=
+		autoconf_class=
+		;;
+	    simple)
+		template=template-file
 		class=
 		autoconf_class=
 		;;
