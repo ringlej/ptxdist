@@ -70,6 +70,7 @@ FONTCONFIG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-docs \
 	--with-cache-dir=/var/cache/fontconfig \
+	--with-default-fonts=$(XORG_FONTDIR) \
 	--with-arch=$(PTXCONF_ARCH)
 
 $(STATEDIR)/fontconfig.prepare: $(fontconfig_prepare_deps_default)
@@ -121,15 +122,15 @@ $(STATEDIR)/fontconfig.targetinstall: $(fontconfig_targetinstall_deps_default)
 	@$(call install_fixup,fontconfig,DESCRIPTION,missing)
 
 	@$(call install_copy, fontconfig, 0, 0, 0644, \
-		$(FONTCONFIG_DIR)/src/.libs/libfontconfig.so.1.0.4, \
-		/usr/lib/libfontconfig.so.1.0.4)
+		$(FONTCONFIG_DIR)/src/.libs/libfontconfig.so.1.2.0, \
+		/usr/lib/libfontconfig.so.1.2.0)
 
 	@$(call install_link, fontconfig, \
-		libfontconfig.so.1.0.4, \
+		libfontconfig.so.1.2.0, \
 		/usr/lib/libfontconfig.so.1)
 
 	@$(call install_link, fontconfig, \
-		libfontconfig.so.1.0.4, \
+		libfontconfig.so.1.2.0, \
 		/usr/lib/libfontconfig.so)
 
 ifdef PTXCONF_FONTCONFIG_CONFS
@@ -137,13 +138,13 @@ ifdef PTXCONF_FONTCONFIG_CONFS
 		$(FONTCONFIG_DIR)/fonts.conf, \
 		/etc/fonts/fonts.conf,n)
 
-	@$(call install_copy, fontconfig, 0, 0, 0644, \
-		$(FONTCONFIG_DIR)/conf.d/sub-pixel.conf, \
-		/etc/fonts/conf.d/subpixel.conf,n)
+# 	@$(call install_copy, fontconfig, 0, 0, 0644, \
+# 		$(FONTCONFIG_DIR)/conf.d/sub-pixel.conf, \
+# 		/etc/fonts/conf.d/subpixel.conf,n)
 
-	@$(call install_copy, fontconfig, 0, 0, 0644, \
-		$(FONTCONFIG_DIR)/conf.d/autohint.conf, \
-		/etc/fonts/conf.d/autohint.conf,n)
+# 	@$(call install_copy, fontconfig, 0, 0, 0644, \
+# 		$(FONTCONFIG_DIR)/conf.d/autohint.conf, \
+# 		/etc/fonts/conf.d/autohint.conf,n)
 endif
 
 ifdef PTXCONF_FONTCONFIG_UTILS
