@@ -444,7 +444,7 @@ EOF
 
 clean() {
 	local dir bdir
-	local ptxconf_prefix, ptxconf_host_prefix, ptxconf_cross_prefix
+	local ptxconf_prefix ptxconf_host_prefix ptxconf_cross_prefix
 
 	if [ "$1" = "root" ]; then
 		echo
