@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_FONTCONFIG) += fontconfig
 #
 # Paths and names
 #
-FONTCONFIG_VERSION	:= 2.3.2
+FONTCONFIG_VERSION	:= 2.4.2
 FONTCONFIG		:= fontconfig-$(FONTCONFIG_VERSION)
 FONTCONFIG_SUFFIX	:= tar.gz
 FONTCONFIG_URL		:= http://fontconfig.org/release/$(FONTCONFIG).$(FONTCONFIG_SUFFIX)
@@ -69,7 +69,8 @@ FONTCONFIG_ENV 	:=  \
 FONTCONFIG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-docs \
-	--with-freetype-config="pkg-config freetype2"
+	--with-cache-dir=/var/cache/fontconfig \
+	--with-arch=$(PTXCONF_ARCH)
 
 $(STATEDIR)/fontconfig.prepare: $(fontconfig_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -87,7 +88,7 @@ fontconfig_compile: $(STATEDIR)/fontconfig.compile
 
 $(STATEDIR)/fontconfig.compile: $(fontconfig_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(FONTCONFIG_DIR) && $(FONTCONFIG_PATH) make
+	cd $(FONTCONFIG_DIR) && $(FONTCONFIG_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
