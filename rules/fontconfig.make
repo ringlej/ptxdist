@@ -2,7 +2,7 @@
 # $Id: template 4761 2006-02-24 17:35:57Z sha $
 #
 # Copyright (C) 2006 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -68,7 +68,8 @@ FONTCONFIG_ENV 	:=  \
 #
 FONTCONFIG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-docs
+	--disable-docs \
+	--with-freetype-config="pkg-config freetype2"
 
 $(STATEDIR)/fontconfig.prepare: $(fontconfig_prepare_deps_default)
 	@$(call targetinfo, $@)
