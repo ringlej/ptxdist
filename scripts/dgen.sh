@@ -88,7 +88,7 @@ do_package_dep() {
     label=${2}
 
     echo "\$(STATEDIR)/${package}.get: \$(${label}_SOURCE)"
-    echo "\$(STATEDIR)/${package}.extract: \$(STATEDIR)/${package}.get \$(${label}_DIR)/.ptx-extract"
+    echo "\$(STATEDIR)/${package}.extract: \$(STATEDIR)/${package}.get"
     echo "\$(STATEDIR)/${package}.compile: \$(STATEDIR)/${package}.prepare"
     echo "\$(STATEDIR)/${package}.install: \$(STATEDIR)/${package}.compile"
 

@@ -398,9 +398,6 @@ extract =							\
 	URL="$($(strip $(1))_URL)";				\
 	DEST="$(strip $(2))";					\
 	DEST="$${DEST:-$(BUILDDIR)}";				\
-	DOTEXTRACT="$(strip $(2))";				\
-	DOTEXTRACT="$${DOTEXTRACT:+$${DEST}/$($(strip $(1)))/.ptx-extract}";	\
-	DOTEXTRACT="$${DOTEXTRACT:-$${PACKETDIR}/.ptx-extract}";\
 	if [ "$$PACKET" = "" ]; then				\
 		echo;						\
 		echo Error: empty parameter to \"extract\(\)\";	\
@@ -415,7 +412,6 @@ extract =							\
 		if [ -d "$$THING" ]; then			\
 			echo "local directory instead of tar file, linking build dir"; \
 			ln -sf $$THING $$PACKETDIR; 		\
-			touch $${DOTEXTRACT};			\
 			exit 0; 				\
 		else						\
 			THING="$$(echo $$URL | sed s-file://-./-g)";	\
@@ -423,7 +419,6 @@ extract =							\
 				THING="$$(echo $$URL | sed s-file://-../-g)";	\
 				echo "local project directory instead of tar file, linking build dir"; \
 				ln -sf $$THING $$PACKETDIR; 	\
-				touch $${DOTEXTRACT};		\
 				exit 0; 			\
 			fi;					\
 		fi; 						\
@@ -448,8 +443,7 @@ extract =							\
 	esac;							\
 	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
 	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
-	$(CHECK_PIPE_STATUS)					\
-	touch $${DOTEXTRACT}
+	$(CHECK_PIPE_STATUS)
 
 
 #
