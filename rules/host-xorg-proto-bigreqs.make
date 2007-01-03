@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2007 by Robert Schwebel
+# Copyright (C) 2007 by 
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -12,21 +12,20 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOST_XORG_PROTO_BIGREQS) += host-proto-xorg-bigreqs
+HOST_PACKAGES-$(PTXCONF_HOST_XORG_PROTO_BIGREQS) += host-xorg-proto-bigreqs
 
 #
 # Paths and names
 #
-HOST_XORG_PROTO_BIGREQS		= $(XORG_PROTO_BIGREQS)
-HOST_XORG_PROTO_BIGREQS_DIR	= $(HOST_BUILDDIR)/$(HOST_XORG_PROTO_BIGREQS)
+HOST_XORG_PROTO_BIGREQS_DIR	= $(HOST_BUILDDIR)/$(XORG_PROTO_BIGREQS)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-bigreqs_get: $(STATEDIR)/host-proto-xorg-bigreqs.get
+host-xorg-proto-bigreqs_get: $(STATEDIR)/host-xorg-proto-bigreqs.get
 
-$(STATEDIR)/host-proto-xorg-bigreqs.get: $(STATEDIR)/xorg-proto-xext.get
+$(STATEDIR)/host-xorg-proto-bigreqs.get: $(STATEDIR)/xorg-proto-bigreqs.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -34,9 +33,9 @@ $(STATEDIR)/host-proto-xorg-bigreqs.get: $(STATEDIR)/xorg-proto-xext.get
 # Extract
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-bigreqs_extract: $(STATEDIR)/host-proto-xorg-bigreqs.extract
+host-xorg-proto-bigreqs_extract: $(STATEDIR)/host-xorg-proto-bigreqs.extract
 
-$(STATEDIR)/host-proto-xorg-bigreqs.extract: $(host-proto-xorg-bigreqs_extract_deps_default)
+$(STATEDIR)/host-xorg-proto-bigreqs.extract: $(host-xorg-proto-bigreqs_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_XORG_PROTO_BIGREQS_DIR))
 	@$(call extract, XORG_PROTO_BIGREQS, $(HOST_BUILDDIR))
@@ -47,7 +46,7 @@ $(STATEDIR)/host-proto-xorg-bigreqs.extract: $(host-proto-xorg-bigreqs_extract_d
 # Prepare
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-bigreqs_prepare: $(STATEDIR)/host-proto-xorg-bigreqs.prepare
+host-xorg-proto-bigreqs_prepare: $(STATEDIR)/host-xorg-proto-bigreqs.prepare
 
 HOST_XORG_PROTO_BIGREQS_PATH	:= PATH=$(HOST_PATH)
 HOST_XORG_PROTO_BIGREQS_ENV 	:= $(HOST_ENV)
@@ -57,7 +56,7 @@ HOST_XORG_PROTO_BIGREQS_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_PROTO_BIGREQS_AUTOCONF	:= $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-proto-xorg-bigreqs.prepare: $(host-proto-xorg-bigreqs_prepare_deps_default)
+$(STATEDIR)/host-xorg-proto-bigreqs.prepare: $(host-xorg-proto-bigreqs_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_XORG_PROTO_BIGREQS_DIR)/config.cache)
 	cd $(HOST_XORG_PROTO_BIGREQS_DIR) && \
@@ -69,9 +68,9 @@ $(STATEDIR)/host-proto-xorg-bigreqs.prepare: $(host-proto-xorg-bigreqs_prepare_d
 # Compile
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-bigreqs_compile: $(STATEDIR)/host-proto-xorg-bigreqs.compile
+host-xorg-proto-bigreqs_compile: $(STATEDIR)/host-xorg-proto-bigreqs.compile
 
-$(STATEDIR)/host-proto-xorg-bigreqs.compile: $(host-proto-xorg-bigreqs_compile_deps_default)
+$(STATEDIR)/host-xorg-proto-bigreqs.compile: $(host-xorg-proto-bigreqs_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_XORG_PROTO_BIGREQS_DIR) && $(HOST_XORG_PROTO_BIGREQS_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -80,9 +79,9 @@ $(STATEDIR)/host-proto-xorg-bigreqs.compile: $(host-proto-xorg-bigreqs_compile_d
 # Install
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-bigreqs_install: $(STATEDIR)/host-proto-xorg-bigreqs.install
+host-xorg-proto-bigreqs_install: $(STATEDIR)/host-xorg-proto-bigreqs.install
 
-$(STATEDIR)/host-proto-xorg-bigreqs.install: $(host-proto-xorg-bigreqs_install_deps_default)
+$(STATEDIR)/host-xorg-proto-bigreqs.install: $(host-xorg-proto-bigreqs_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HOST_XORG_PROTO_BIGREQS,,h)
 	@$(call touch, $@)
@@ -91,8 +90,8 @@ $(STATEDIR)/host-proto-xorg-bigreqs.install: $(host-proto-xorg-bigreqs_install_d
 # Clean
 # ----------------------------------------------------------------------------
 
-host-proto-xorg-bigreqs_clean:
-	rm -rf $(STATEDIR)/host-proto-xorg-bigreqs.*
+host-xorg-proto-bigreqs_clean:
+	rm -rf $(STATEDIR)/host-xorg-proto-bigreqs.*
 	rm -rf $(HOST_XORG_PROTO_BIGREQS_DIR)
 
 # vim: syntax=make
