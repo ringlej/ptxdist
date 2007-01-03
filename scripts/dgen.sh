@@ -114,11 +114,14 @@ do_package_dep() {
     done
 
     case ${package} in
-	host-*|cross-*|crosstool*)
+	host-pkg-config)
 	    echo "\$(STATEDIR)/${package}.prepare: ${prepare_dep}"
 	    ;;
+	host-*|cross-*|crosstool*)
+	    echo "\$(STATEDIR)/${package}.prepare: ${prepare_dep} \$(STATEDIR)/virtual-host-tools.install"
+	    ;;
 	*)
-	    echo "\$(STATEDIR)/${package}.prepare: ${prepare_dep} \$(STATEDIR)/virtual-xchain.install"
+	    echo "\$(STATEDIR)/${package}.prepare: ${prepare_dep} \$(STATEDIR)/virtual-cross-tools.install"
 	    ;;
     esac
     echo "\$(STATEDIR)/${package}.targetinstall: ${targetinstall_dep}"
