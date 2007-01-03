@@ -1,0 +1,31 @@
+#
+# Submitted-By: Robert Schwebel, 2007-01-03
+# Committed-By: Robert Schwebel
+#
+# Error:
+#
+# Lots of undefined FT_* macros.
+#
+# Description:
+#
+# The -I order is so that the wrong ftconfig.h is found (there's another
+# one) Change it so that it points to the intended file.
+#
+# State:
+#
+# Not reported yet.
+#
+
+Index: builds/unix/unix-cc.in
+===================================================================
+--- a/builds/unix/unix-cc.in.orig
++++ b/builds/unix/unix-cc.in
+@@ -72,7 +72,7 @@ T := -o$(space)
+ #   We use our own FreeType configuration file.
+ #
+ CPPFLAGS := @CPPFLAGS@
+-CFLAGS   := -c @XX_CFLAGS@ @CFLAGS@ -DFT_CONFIG_CONFIG_H="<ftconfig.h>"
++CFLAGS   := -c @XX_CFLAGS@ @CFLAGS@ -DFT_CONFIG_CONFIG_H="<freetype/config/ftconfig.h>"
+ 
+ # ANSIFLAGS: Put there the flags used to make your compiler ANSI-compliant.
+ #
