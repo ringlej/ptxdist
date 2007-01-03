@@ -1,5 +1,4 @@
 config XORG_PROTO_INPUT
 	bool
-	prompt "input proto"
 	help
 	  Input extension headers

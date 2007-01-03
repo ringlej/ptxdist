@@ -1,5 +1,4 @@
 config XORG_PROTO_RECORD
 	bool
-	prompt "record proto"
 	help
 	  Record extension headers

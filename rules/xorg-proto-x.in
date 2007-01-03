@@ -1,5 +1,4 @@
 config XORG_PROTO_X
 	bool
-	prompt "x proto"
 	help
 	  FIXME

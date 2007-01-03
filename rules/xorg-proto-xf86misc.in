@@ -1,5 +1,4 @@
 config XORG_PROTO_XF86MISC
 	bool
-	prompt "xf86misc proto"
 	help
 	  FIXME

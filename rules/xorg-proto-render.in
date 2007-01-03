@@ -1,5 +1,4 @@
 config XORG_PROTO_RENDER
 	bool
-	prompt "render proto"
 	help
 	  FIXME

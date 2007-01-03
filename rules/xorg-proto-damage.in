@@ -1,5 +1,4 @@
 config XORG_PROTO_DAMAGE
 	bool
-	prompt "damage proto"
 	help
 	  FIXME

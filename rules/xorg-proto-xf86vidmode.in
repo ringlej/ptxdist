@@ -1,5 +1,4 @@
 config XORG_PROTO_XF86VIDMODE
 	bool
-	prompt "xf86vidmode proto"
 	help
 	  FIXME

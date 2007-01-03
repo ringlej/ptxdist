@@ -1,5 +1,4 @@
 config XORG_PROTO_WINDOWSWM
 	bool
-	prompt "windowswm proto"
 	help
 	  FIXME

@@ -1,5 +1,4 @@
 config XORG_PROTO_FONTCACHE
 	bool
-	prompt "fontcache proto"
 	help
 	  FIXME

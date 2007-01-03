@@ -1,5 +1,4 @@
 config XORG_PROTO_RANDR
 	bool
-	prompt "randr proto"
 	help
 	  FIXME

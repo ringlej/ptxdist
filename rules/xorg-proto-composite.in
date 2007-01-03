@@ -1,5 +1,4 @@
 config XORG_PROTO_COMPOSITE
 	bool
-	prompt "composite proto"
 	help
 	  FIXME

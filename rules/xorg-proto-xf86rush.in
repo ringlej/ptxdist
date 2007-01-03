@@ -1,5 +1,4 @@
 config XORG_PROTO_XF86RUSH
 	bool
-	prompt "xf86rush proto"
 	help
 	  FIXME

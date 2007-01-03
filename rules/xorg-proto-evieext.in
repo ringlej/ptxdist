@@ -1,5 +1,4 @@
 config XORG_PROTO_EVIEEXT
 	bool
-	prompt "evieext"
 	help
 	  FIXME

@@ -1,5 +1,4 @@
 config XORG_PROTO_KB
 	bool
-	prompt "kb proto"
 	help
 	  KB extension headers

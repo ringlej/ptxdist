@@ -1,5 +1,4 @@
 config XORG_PROTO_FONTS
 	bool
-	prompt "fonts proto"
 	help
 	  Fonts extension headers

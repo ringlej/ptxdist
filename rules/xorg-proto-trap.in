@@ -1,5 +1,4 @@
 config XORG_PROTO_TRAP
 	bool
-	prompt "trap proto"
 	help
 	  FIXME

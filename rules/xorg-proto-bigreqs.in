@@ -1,5 +1,4 @@
 config XORG_PROTO_BIGREQS
 	bool
-	prompt "bigreqsproto proto"
 	help
 	  BigReqs extension headers

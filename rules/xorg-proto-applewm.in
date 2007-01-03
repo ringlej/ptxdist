@@ -1,5 +1,4 @@
 config XORG_PROTO_APPLEWM
 	bool
-	prompt "applewm proto"
 	help
 	  FIXME
