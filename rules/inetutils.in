@@ -132,7 +132,7 @@ choice
 		 tftp server will be started on demand from inetd. This installs
 		 a startup configuration for tftpd from inetd. It adds to the
 		 /etc/inetd.conf a line like this:
-		 tftp stream udp wait nobody /sbin/tftpd tftpd -l @ROOT@
+		 tftp dgram udp wait nobody /sbin/tftpd tftpd -l @ROOT@
 		 Note: You must enable one of the two possible inet daemons:
 		 There is one embedded in busybox and one in this packet.
 
@@ -151,7 +151,7 @@ config INETUTILS_TFTPD_STRING
 	depends on INETUTILS
 	depends on INETUTILS_TFTPD_STARTUP_TYPE_INETD
 	prompt "inetd service entry"
-	default "tftp stream udp wait nobody /sbin/tftpd tftpd -l @ROOT@"
+	default "tftp dgram udp wait nobody /sbin/tftpd tftpd -l @ROOT@"
 	help
 	  This string is added to inetd's configuration /etc/inetd.conf. @ROOT@
 	  in this string will be replaced by tftpd exported directory

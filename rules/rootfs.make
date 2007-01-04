@@ -598,7 +598,7 @@ endif
 
 # -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_GENERIC_UDHCPC
-	@$(call install_copy, rootfs, 0, 0, 0744, \
+	@$(call install_copy, rootfs, 0, 0, 0754, \
 		$(PTXDIST_TOPDIR)/generic/etc/udhcpc.script, \
 		/etc/udhcpc.script, n)
 # udhcp expects the script to be called /usr/share/udhcpc/default.script,
@@ -844,7 +844,7 @@ else
 # add default string to start the tftpd into inetd.conf
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
 		@TFTPD@, \
-		"tftp stream udp wait nobody /sbin/tftpd tftpd -l @ROOT@" )
+		"tftp dgram udp wait nobody /sbin/tftpd tftpd -l @ROOT@" )
 endif
 # replace the base dir on demand
 ifneq ($(PTXCONF_INETUTILS_TFTPD_BASE_DIR),"")
