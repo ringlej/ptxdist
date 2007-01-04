@@ -115,7 +115,9 @@ $(STATEDIR)/xorg-app-mkfontscale.targetinstall: $(xorg-app-mkfontscale_targetins
 	@$(call install_fixup, xorg-app-mkfontscale,DEPENDS,)
 	@$(call install_fixup, xorg-app-mkfontscale,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-app-mkfontscale, 0, 0, 0755, $(XORG_APP_MKFONTSCALE_DIR)/foobar, /dev/null)
+	@$(call install_copy, xorg-app-mkfontscale, 0, 0, 0755, \
+		$(XORG_APP_MKFONTSCALE_DIR)/mkfontscale, \
+		/usr/bin/mkfontscale)
 
 	@$(call install_finish, xorg-app-mkfontscale)
 

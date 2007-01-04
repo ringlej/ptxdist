@@ -115,7 +115,9 @@ $(STATEDIR)/xorg-app-mkfontdir.targetinstall: $(xorg-app-mkfontdir_targetinstall
 	@$(call install_fixup, xorg-app-mkfontdir,DEPENDS,)
 	@$(call install_fixup, xorg-app-mkfontdir,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-app-mkfontdir, 0, 0, 0755, $(XORG_APP_MKFONTDIR_DIR)/foobar, /dev/null)
+	@$(call install_copy, xorg-app-mkfontdir, 0, 0, 0755, \
+		$(XORG_APP_MKFONTDIR_DIR)/mkfontdir, \
+		/usr/bin/mkfontdir)
 
 	@$(call install_finish, xorg-app-mkfontdir)
 
