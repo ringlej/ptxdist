@@ -60,7 +60,7 @@ config XORG_LIB_X11_INSTALL_LOCALE
 config XORG_LIB_X11_INSTALL_LOCALE_8859_1
 	depends on XORG_LIB_X11_INSTALL_LOCALE
 	bool
-	prompt "  install iso8859-1 localepacket"
+	prompt "  install iso8859-1 locale packet"
 	default y
 	help
 	  install iso8859-1(latin alphabet No.1) locale files.
@@ -68,8 +68,34 @@ config XORG_LIB_X11_INSTALL_LOCALE_8859_1
 config XORG_LIB_X11_INSTALL_LOCALE_8859_15
 	depends on XORG_LIB_X11_INSTALL_LOCALE
 	bool
-	prompt "  install iso8859-15 localepacket"
+	prompt "  install iso8859-15 locale packet"
 	default y
 	help
 	  install iso8859-15(latin alphabet No.9) locale files.
 
+menu "  Chinese locale packets"
+	depends on XORG_LIB_X11_INSTALL_LOCALE
+
+config XORG_LIB_X11_INSTALL_LOCALE_CHN_MAIN
+	depends on XORG_LIB_X11_INSTALL_LOCALE
+	bool
+	prompt "  install chinese locales packet (mainland)"
+	help
+	  install chinese locale files, including gb2303, gb18030 and utf8
+
+config XORG_LIB_X11_INSTALL_LOCALE_CHN_HK
+	depends on XORG_LIB_X11_INSTALL_LOCALE
+	bool
+	prompt "  install chinese locale packet (Hongkong)"
+	help
+	  install chinese locale files, including big5 and big5hkcks as used
+	  in Honkong.
+
+config XORG_LIB_X11_INSTALL_LOCALE_CHN_TW
+	depends on XORG_LIB_X11_INSTALL_LOCALE
+	bool
+	prompt "  install chinese locale packet (Hongkong)"
+	help
+	  install chinese locale files, including big5 and big5hkcks as used
+	  in Taiwan.
+endmenu

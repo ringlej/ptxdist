@@ -212,9 +212,6 @@ ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE
 	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
 		$(XORG_LIB_X11_DIR)/nls/C/XLC_LOCALE, \
 		/usr/lib/X11/locale/C/XLC_LOCALE,n)
-	@$(call install_finish, xorg-lib-X11)
-
-	@$(call touch, $@)
 
 endif
 
@@ -229,9 +226,6 @@ ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_8859_1
 	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
 		$(XORG_LIB_X11_DIR)/nls/iso8859-1/XLC_LOCALE, \
 		/usr/lib/X11/locale/iso8859-1/XLC_LOCALE,n)
-	@$(call install_finish, xorg-lib-X11)
-
-	@$(call touch, $@)
 endif
 
 ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_8859_15
@@ -245,10 +239,63 @@ ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_8859_15
 	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
 		$(XORG_LIB_X11_DIR)/nls/iso8859-15/XLC_LOCALE, \
 		/usr/lib/X11/locale/iso8859-15/XLC_LOCALE,n)
+endif
+
+ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_CHN_MAIN
+	@cd $(XORG_LIB_X11_DIR)/nls; \
+	for file in `find . -name "*zh_CN*" -type d`; do \
+		echo "scanning $$file"; \
+		if [ -d $$file ]; then \
+			$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+				$(XORG_LIB_X11_DIR)/nls/$$file/Compose, \
+				/usr/lib/X11/locale/$$file/Compose,n); \
+			$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+				$(XORG_LIB_X11_DIR)/nls/$$file/XI18N_OBJS, \
+				/usr/lib/X11/locale/$$file/XI18N_OBJS,n); \
+			$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+				$(XORG_LIB_X11_DIR)/nls/$$file/XLC_LOCALE, \
+				/usr/lib/X11/locale/$$file/XLC_LOCALE,n); \
+		fi; \
+	done;
+endif
+
+ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_CHN_HK
+	@cd $(XORG_LIB_X11_DIR)/nls; \
+	for file in `find . -name "*zh_HK*" -type d`; do \
+		if [ -d $$file ]; then \
+			$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+				$(XORG_LIB_X11_DIR)/nls/$$file/Compose, \
+				/usr/lib/X11/locale/$$file/Compose,n); \
+			$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+				$(XORG_LIB_X11_DIR)/nls/$$file/XI18N_OBJS, \
+				/usr/lib/X11/locale/$$file/XI18N_OBJS,n); \
+			$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+				$(XORG_LIB_X11_DIR)/nls/$$file/XLC_LOCALE, \
+				/usr/lib/X11/locale/$$file/XLC_LOCALE,n); \
+		fi; \
+	done;
+endif
+
+ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE_CHN_TW
+	@cd $(XORG_LIB_X11_DIR)/nls; \
+	for file in `find . -name "*zh_TW*" -type d`; do \
+		if [ -d $$file ]; then \
+			$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+				$(XORG_LIB_X11_DIR)/nls/$$file/Compose, \
+				/usr/lib/X11/locale/$$file/Compose,n); \
+			$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+				$(XORG_LIB_X11_DIR)/nls/$$file/XI18N_OBJS, \
+				/usr/lib/X11/locale/$$file/XI18N_OBJS,n); \
+			$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+				$(XORG_LIB_X11_DIR)/nls/$$file/XLC_LOCALE, \
+				/usr/lib/X11/locale/$$file/XLC_LOCALE,n); \
+		fi; \
+	done;
+endif
+
 	@$(call install_finish, xorg-lib-X11)
 
 	@$(call touch, $@)
-endif
 
 # ----------------------------------------------------------------------------
 # Clean
