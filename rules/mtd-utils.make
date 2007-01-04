@@ -131,15 +131,12 @@ endif
 ifdef PTXCONF_MTD_UTILS_FTL_FORMAT
 	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_DIR)/ftl_format, /sbin/ftl_format)
 endif
-ifdef PTXCONF_MTD_UTILS_JFFS_DUMP
-	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_DIR)/jffs-dump, /sbin/jffs-dump)
-endif
 ifdef PTXCONF_MTD_UTILS_JFFS2_DUMP
 	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_DIR)/jffs2dump, /sbin/jffs2dump)
 endif
-ifdef PTXCONF_MTD_UTILS_JFFS2READER
-	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_DIR)/jffs2reader, /sbin/jffs2reader)
-endif
+#ifdef PTXCONF_MTD_UTILS_JFFS2READER
+#	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_DIR)/jffs2reader, /sbin/jffs2reader)
+#endif
 ifdef PTXCONF_MTD_UTILS_MTDDEBUG
 	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_DIR)/mtd_debug, /sbin/mtd_debug)
 endif

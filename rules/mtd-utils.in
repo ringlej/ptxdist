@@ -60,13 +60,6 @@ config MTD_UTILS_FTL_FORMAT
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_UTILS_JFFS_DUMP
-	bool
-	prompt "jffs_dump"
-	depends on MTD_UTILS
-	help
-	  FIXME: This item needs to be documented
-
 config MTD_UTILS_JFFS2_DUMP
 	bool
 	prompt "jffs2_dump"
@@ -74,12 +67,12 @@ config MTD_UTILS_JFFS2_DUMP
 	help
 	  FIXME: This item needs to be documented
 
-config MTD_UTILS_JFFS2READER
-	bool
-	prompt "jffs2reader"
-	depends on MTD_UTILS
-	help
-	  FIXME: This item needs to be documented
+#config MTD_UTILS_JFFS2READER
+#	bool
+#	prompt "jffs2reader"
+#	depends on MTD_UTILS
+#	help
+#	  FIXME: This item needs to be documented
 
 config MTD_UTILS_JITTERTEST
 	bool
