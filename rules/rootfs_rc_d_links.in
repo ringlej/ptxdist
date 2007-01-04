@@ -232,16 +232,6 @@ config ROOTFS_ETC_INITD_TIMEKEEPER_LINK
 	  sync the system with an internal real time clock when it starts up.
 	  Keep this entry empty if you want to sync manually.
 
-config ROOTFS_ETC_INITD_TFTPD_LINK
-	depends on INETUTILS_TFTPD_STARTUP_TYPE_STANDALONE
-	string
-	prompt "tftpd link name"
-	default "S21_tftpd"
-	help
-	  Set a link into /etc/rc.d which points to /etc/init.d/tftpd to
-	  start tftpd when system starts. Keep this entry empty if
-	  you do not want to start this service automatically.
-
 # ----------------------------------------------------------------------------
 
 endmenu

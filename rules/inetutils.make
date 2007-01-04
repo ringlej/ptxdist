@@ -256,39 +256,6 @@ ifneq ($(PTXCONF_INETUTILS_TFTPD_BASE_DIR),"")
 endif
 endif
 #
-# Install the startup script for tftpd on request only
-#
-ifdef PTXCONF_INETUTILS_TFTPD_STARTUP_TYPE_STANDALONE
-ifdef PTXCONF_INETUTILS_ETC_INITD_TFTPD_DEFAULT
-# install the generic one
-	@$(call install_copy, inetutils, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/tftpd, \
-		/etc/init.d/tftpd, n)
-endif
-ifdef PTXCONF_INETUTILS_ETC_INITD_TFTPD_USER
-# install users one
-	@$(call install_copy, inetutils, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/tftpd, \
-		/etc/init.d/tftpd, n)
-endif
-# replace the base dir on demand
-ifneq ($(PTXCONF_INETUTILS_TFTPD_BASE_DIR),"")
-	@$(call install_replace, inetutils, \
-		/etc/init.d/tftpd, \
-		@ROOT@, \
-		$(PTXCONF_INETUTILS_TFTPD_BASE_DIR) )
-endif
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TFTPD_LINK),"")
-	@$(call install_copy, inetutils, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, inetutils, ../init.d/tftpd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TFTPD_LINK))
-endif
-endif
-
-#
 # Install the startup for inetd script on request only
 #
 ifdef PTXCONF_INETUTILS_ETC_INITD_INETD
