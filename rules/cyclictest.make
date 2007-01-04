@@ -2,7 +2,7 @@
 # $Id: template 3345 2005-11-14 17:14:19Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -53,9 +53,9 @@ $(STATEDIR)/cyclictest.extract: $(cyclictest_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CYCLICTEST_DIR))
 	@$(call extract, CYCLICTEST)
-	@$(call patchin, CYCLICTEST)
 	# Well, we extract to...
 	mv $(BUILDDIR)/cyclictest $(CYCLICTEST_DIR)
+	@$(call patchin, CYCLICTEST)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
