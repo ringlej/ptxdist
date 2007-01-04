@@ -87,7 +87,6 @@ mtd-utils_install: $(STATEDIR)/mtd-utils.install
 
 $(STATEDIR)/mtd-utils.install: $(mtd-utils_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, MTD_UTILS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
