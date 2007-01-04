@@ -2,7 +2,7 @@
 # $Id: python.make 3172 2005-09-28 15:01:53Z rsc $
 #
 # Copyright (C) 2003 by David R Bacon
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -14,7 +14,7 @@
 PACKAGES-$(PTXCONF_PYTHON24) += python24
 
 #
-# Paths and names 
+# Paths and names
 #
 
 PYTHON24_VERSION	= 2.4.2
@@ -67,7 +67,7 @@ PYTHON24_AUTOCONF	:= \
 	--enable-shared
 
 PYTHON24_MAKEVARS	:= \
-	HOSTPYTHON=$(PTXCONF_PREFIX)/bin/python \
+	HOSTPYTHON=$(PTXCONF_HOST_PREFIX)/bin/python \
 	HOSTPGEN=$(HOST_PYTHON24_DIR)/Parser/pgen \
 	CROSS_COMPILE=yes
 
@@ -180,7 +180,7 @@ $(STATEDIR)/python24.targetinstall: $(python24_targetinstall_deps_default)
 # Clean
 # ----------------------------------------------------------------------------
 
-python24_clean: 
+python24_clean:
 	rm -rf $(STATEDIR)/python24.*
 	rm -rf $(IMAGEDIR)/python24_*
 	rm -fr $(PYTHON24_DIR)
