@@ -1,9 +1,9 @@
-# evil hack to break dependencies, so that we can put the transcode 
+# evil hack to break dependencies, so that we can put the transcode
 # menu under menuconfig
-comment "invisible line" 
+comment "invisible line"
 	depends on BROKEN
 
-menu "xorg base fonts(transcoded)         "
+menu "xorg base fonts(transcoded)   "
 	depends on XORG_FONT_BASE
 
 config XORG_FONT_MISC_MISC_TRANS
