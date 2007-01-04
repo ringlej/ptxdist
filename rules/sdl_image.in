@@ -1,5 +1,7 @@
 config SDL_IMAGE
 	bool
+	depends on BROKEN
+	# Does not compile with armv4t compiler; needs sdl.h, which is SDL.h
 	select SDL
-	prompt "SDL Image 1.2.4"
+	prompt "SDL Image"
 
