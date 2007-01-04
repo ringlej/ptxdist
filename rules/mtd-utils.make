@@ -59,7 +59,10 @@ mtd-utils_prepare: $(STATEDIR)/mtd-utils.prepare
 
 MTD_UTILS_PATH		:= PATH=$(CROSS_PATH)
 MTD_UTILS_ENV 		:= $(CROSS_ENV)
-MTD_UTILS_MAKEVARS	:= CROSS=$(COMPILER_PREFIX)
+MTD_UTILS_MAKEVARS	:= \
+	CROSS="$(COMPILER_PREFIX)" \
+	CPPFLAGS="$(CROSS_CPPFLAGS)" \
+	LDFLAGS="$(CROSS_LDFLAGS)"
 
 $(STATEDIR)/mtd-utils.prepare: $(mtd-utils_prepare_deps_default)
 	@$(call targetinfo, $@)
