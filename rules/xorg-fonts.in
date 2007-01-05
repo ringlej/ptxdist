@@ -1,7 +1,7 @@
 config XORG_FONTS
 	depends on MENU_XORG_FONTS
 	bool
-#	select XORG_FONT_UTIL
+	select XORG_FONT_UTIL
 	select XORG_FONT_ALIAS
 	select HOST_XORG_APP_MKFONTDIR
 	select HOST_XORG_APP_MKFONTSCALE
