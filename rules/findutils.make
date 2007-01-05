@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_FINDUTILS) += findutils
 FINDUTILS_VERSION	:= 4.2.23
 FINDUTILS		:= findutils-$(FINDUTILS_VERSION)
 FINDUTILS_SUFFIX	:= tar.gz
-FINDUTILS_URL		:= http://ftp.gnu.org/gnu/findutils//$(FINDUTILS).$(FINDUTILS_SUFFIX)
+FINDUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/findutils/$(FINDUTILS).$(FINDUTILS_SUFFIX)
 FINDUTILS_SOURCE	:= $(SRCDIR)/$(FINDUTILS).$(FINDUTILS_SUFFIX)
 FINDUTILS_DIR		:= $(BUILDDIR)/$(FINDUTILS)
 
@@ -90,7 +90,7 @@ findutils_compile: $(STATEDIR)/findutils.compile
 
 $(STATEDIR)/findutils.compile: $(findutils_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(FINDUTILS_DIR) && $(FINDUTILS_ENV) $(FINDUTILS_PATH) make
+	cd $(FINDUTILS_DIR) && $(FINDUTILS_ENV) $(FINDUTILS_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
