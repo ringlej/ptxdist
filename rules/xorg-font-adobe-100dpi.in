@@ -1,7 +1,6 @@
 config XORG_FONT_ADOBE_100DPI
 	bool
 	select XORG_FONTS
-	default y
 	prompt "Adobe 100dpi"
 	help
 	  xfonts-100dpi provides a set of bitmapped fonts at 
