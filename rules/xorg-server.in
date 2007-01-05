@@ -246,7 +246,10 @@ menuconfig XORG_SERVER_INT10_HANDLING
 	bool
 	prompt "Select int10 handling       "
 	help
-	  Disabling this entry uses configure's default
+	  Disabling this entry uses configure's default. This extension can be
+	  used for closed graphic chips. The video BIOS will be called to manipulate
+	  things in the device.
+
 choice
 	prompt "Select handling method"
 	depends on XORG_SERVER_INT10_HANDLING
@@ -256,21 +259,24 @@ config XORG_SERVER_INT10_VM86
 	bool
 	prompt "Use VM86"
 	help
-	  Using VM86 for int10
+	  Using VM86 for int10. To be used on a real x86 platform with a BIOS.
 
 config XORG_SERVER_INT10_X86EMU
 	depends on XORG_SERVER_INT10_HANDLING
 	bool
 	prompt "Use x86emu"
 	help
-	  Using x86emu for int10
+	  Using x86emu for int10. To be used in a environment that emulates an
+	  x86.
 
 config XORG_SERVER_INT10_STUB
 	depends on XORG_SERVER_INT10_HANDLING
 	bool
 	prompt "Use stub"
 	help
-	  Using stub for int10
+	  Using stub for int10. To be used if the environment is not a x86 and
+	  does not provide an x86 emulator.
+
 endchoice
 
 # ----------------------------------------------------------------------------
@@ -316,7 +322,7 @@ config XORG_SERVER_EXT_RECORD
 	prompt "Record extension"
 	default y
 	help
-	  --enable-record, The record module adds record extension to capture 
+	  --enable-record, The record module adds record extension to capture
 	  events that are associated with recording and playback user actions
 
 config XORG_SERVER_EXT_XV
@@ -344,7 +350,9 @@ config XORG_SERVER_EXT_DGA
 	prompt "DGA extension"
 	default y
 	help
-	  --enable-dga
+	 DGA (Direct Access Graphics mode) is a feature of XFree86 that allows
+	 the program to access directly to video memory on the graphics card.
+	 DGA supports the double flickering.
 
 config XORG_SERVER_EXT_SCREENSAVER
 	depends on XORG_SERVER
