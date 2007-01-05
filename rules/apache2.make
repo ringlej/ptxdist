@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_APACHE2) += apache2
 #
 # Paths and names
 #
-APACHE2_VERSION	= 2.0.58
-APACHE2		= httpd-$(APACHE2_VERSION)
-APACHE2_SUFFIX	= tar.bz2
-APACHE2_URL	= http://ftp.uni-erlangen.de/pub/mirrors/apache/httpd/$(APACHE2).$(APACHE2_SUFFIX)
-APACHE2_SOURCE	= $(SRCDIR)/$(APACHE2).$(APACHE2_SUFFIX)
-APACHE2_DIR	= $(BUILDDIR)/$(APACHE2)
+APACHE2_VERSION	:= 2.0.58
+APACHE2		:= httpd-$(APACHE2_VERSION)
+APACHE2_SUFFIX	:= tar.bz2
+APACHE2_URL	:= http://ftp.uni-erlangen.de/pub/mirrors/apache/httpd/$(APACHE2).$(APACHE2_SUFFIX)
+APACHE2_SOURCE	:= $(SRCDIR)/$(APACHE2).$(APACHE2_SUFFIX)
+APACHE2_DIR	:= $(BUILDDIR)/$(APACHE2)
 
 
 # ----------------------------------------------------------------------------
@@ -70,7 +70,7 @@ APACHE2_ENV 	:=  $(CROSS_ENV) \
 #
 # autoconf
 #
-APACHE2_AUTOCONF = \
+APACHE2_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-so
 
@@ -321,7 +321,7 @@ endif
 # # create apache's default serverroot
 # #
 # ifneq ($(PTXCONF_ROOTFS_HTTPD_SERVERROOT),"")
-# ifdef ROOTFS_HTTPD_USER_DOC
+# ifdef PTXCONF_ROOTFS_HTTPD_USER_DOC
 # 	@cd $(PTXCONF_ROOTFS_HTTPD_USER_DOC_PATH); \
 # 	for i in *.html *.gif *.png; do \
 # 		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/$$i,n); \
