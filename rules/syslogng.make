@@ -66,20 +66,24 @@ SYSLOGNG_ENV 	:= $(CROSS_ENV)
 #
 SYSLOGNG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-dynamic-linking
-
-ifdef PTXCONF_SYSLOGNG_SUNSTREAMS
-SYSLOGNG_AUTOCONF += --enable-sun-streams
-else
-SYSLOGNG_AUTOCONF += --disable-sun-streams
-endif
-
-ifdef PTXCONF_SYSLOGNG_SUNDOOR
-SYSLOGNG_AUTOCONF += --enable-sun-door
-else
-SYSLOGNG_AUTOCONF += --disable-sun-door
-endif
-
+	--enable-dynamic-linking \
+	--disable-dependency-tracking \
+	--disable-debug \
+	--enable-ipv6 \
+	--disable-sun-streams \
+	--disable-sun-door
+#
+# FIXME:
+# --enable-ipv6: disabling ipv6 is broken, fails in
+#	src/afinet.c:303: undefined reference to `g_sockaddr_inet6_new'
+#	src/afinet.c:304: undefined reference to `g_sockaddr_inet6_new'
+#	src/afinet.c:246: undefined reference to `g_sockaddr_inet6_new'
+#
+# --disable-sun-streams: feature broken. Depends on some header files
+#      configure detects as missing, but sources includes them
+# --disable-sun-door: feature broken. Depends on some header files
+#      configure detects as missing, but sources includes them
+#
 ifdef PTXCONF_SYSLOGNG_TCPWRAPPER
 SYSLOGNG_AUTOCONF += --enable-tcp-wrapper
 else

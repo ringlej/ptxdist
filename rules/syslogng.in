@@ -8,19 +8,27 @@ menuconfig SYSLOGNG
 	help
 	  The next generation syslog daemon.
 
-config SYSLOGNG_SUNSTREAMS
-	bool
-	depends on SYSLOGNG
-	prompt "sun streams support"
-	help
-	  Support for Sun STREAMS.
-
-config SYSLOGNG_SUNDOOR
-	bool
-	depends on SYSLOGNG
-	prompt "sun door support"
-	help
-	  Support for Sun door
+# disabled. Feature implementations are broken
+#config SYSLOGNG_SUPPORT_IPV6
+#	bool
+#	depends on SYSLOGNG
+#	prompt "Support ipv6"
+#	help
+#	  Enable ipv6 support, otherwise ipv4 is supported only
+#
+#config SYSLOGNG_SUNSTREAMS
+#	bool
+#	depends on SYSLOGNG
+#	prompt "sun streams support"
+#	help
+#	  Support for Sun STREAMS.
+#
+#config SYSLOGNG_SUNDOOR
+#	bool
+#	depends on SYSLOGNG
+#	prompt "sun door support"
+#	help
+#	  Support for Sun door
 
 config SYSLOGNG_TCPWRAPPER
 	bool
