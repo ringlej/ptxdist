@@ -1,0 +1,58 @@
+#
+# Submitted-By: Robert Schwebel, 2007-01-05
+# Committed-By: Robert Schwebel
+#
+# Error:
+#
+# make[2]: Entering directory `.../fbutils-20041102-1/fbcmap'
+# arm-v4t-linux-gnueabi-g++ -Wall -I../include -O2  -M -E *.C > .depend
+# arm-v4t-linux-gnueabi-g++ -Wall -I../include -O2  -c fbcmap.C -o fbcmap.o
+# fbcmap.C: In function 'int main(int, char**)':
+# fbcmap.C:118: error: expected primary-expression before '?' token
+#
+# Description:
+#
+# Seems like the GNU extension ">?" for MAX isn't supported any more
+#
+# State:
+#
+# no idea where to find upstream
+#
+
+diff -urN fbutils-20041102-1/fbcmap/fbcmap.C fbutils-20041102-1-ptx1/fbcmap/fbcmap.C
+--- fbutils-20041102-1/fbcmap/fbcmap.C	2007-01-05 11:47:22.000000000 +0100
++++ fbutils-20041102-1-ptx1/fbcmap/fbcmap.C	2007-01-05 11:45:07.000000000 +0100
+@@ -13,6 +13,12 @@
+ #include "framebuffer.h"
+ #include "util.h"
+ 
++#ifndef MAX
++#define MAX(a, b) ((a > b) ? a : b)
++#endif
++#ifndef MIN
++#define MIN(a, b) ((a < b) ? a : b)
++#endif
+ 
+ bool Opt_version = false;
+ bool Opt_verbose = false;
+@@ -115,8 +121,9 @@
+ 	    break;
+ 
+ 	case FB_VISUAL_DIRECTCOLOR:
+-	    numcolorcells = 1<<(var.red.length >? var.green.length >?
+-				var.blue.length);
++//	    numcolorcells = 1<<(var.red.length >? var.green.length >?
++//				var.blue.length);
++	    numcolorcells = 1<<(MAX(MAX(var.red.length,var.green.length),var.blue.length));
+ 	    break;
+ 
+ 	case FB_VISUAL_PSEUDOCOLOR:
+@@ -145,7 +152,7 @@
+ 	}
+ 	cmap.Set(fb);
+     } else if (!strcmp(Opt_command, "vga")) {
+-	u_int len = cmap.len <? 16;
++	u_int len = MIN(cmap.len,16);
+ 	memcpy(cmap.red, VGA_Red, len*sizeof(*cmap.red));
+ 	memcpy(cmap.green, VGA_Green, len*sizeof(*cmap.green));
+ 	memcpy(cmap.blue, VGA_Blue, len*sizeof(*cmap.blue));
