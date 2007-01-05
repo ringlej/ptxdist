@@ -1,6 +1,7 @@
 config XORG_FONT_BH_LUCIDATYPEWRITER_75DPI
 	bool
 	select XORG_FONTS
+	depends on XORG_FONT_75DPI
 	prompt "BH Lucida Typewriter 75dpi"
 	help
 	  This package contains fonts in the ISO 10646-1,

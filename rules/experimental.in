@@ -23,3 +23,6 @@ config BROKEN
 	help
 	  If this option is checked, even packets are activated which
 	  are known to be broken.
+
+config INVISIBLE
+	bool

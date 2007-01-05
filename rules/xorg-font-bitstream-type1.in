@@ -1,6 +1,8 @@
 config XORG_FONT_BITSTREAM_TYPE1
 	bool
 	select XORG_FONTS
+	depends on XORG_FONT_SCALEABLE
+	default y
 	prompt "Bitstream type1"
 	help
 	  This package contains the type1 version of Bitstream 

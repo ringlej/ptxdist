@@ -1,6 +1,7 @@
 config XORG_FONT_BITSTREAM_100DPI
 	bool
 	select XORG_FONTS
+	depends on XORG_FONT_100DPI
 	prompt "Bitstream 100dpi"
 	help
 	  This package contains Bitstream fonts in the ISO 10646-1,

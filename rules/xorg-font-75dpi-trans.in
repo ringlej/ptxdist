@@ -1,5 +1,10 @@
+comment ""
+	depends on MENU_XORG_FONTS
+	depends on INVISIBLE
+
 menu "xorg 75 dpi fonts (transcoded)"
 	depends on MENU_XORG_FONTS
+	depends on XORG_FONT_75DPI
 
 config XORG_FONT_ADOBE_75DPI_TRANS
 	bool

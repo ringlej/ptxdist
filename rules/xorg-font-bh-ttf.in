@@ -1,6 +1,8 @@
 config XORG_FONT_BH_TTF
 	bool
 	select XORG_FONTS
+	depends on XORG_FONT_SCALEABLE
+	default y
 	prompt "BH ttf"
 	help
 	  contains truetype fonts provided by xorg

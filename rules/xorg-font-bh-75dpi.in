@@ -1,6 +1,7 @@
 config XORG_FONT_BH_75DPI
 	bool
 	select XORG_FONTS
+	depends on XORG_FONT_75DPI
 	prompt "BH 75dpi"
 	help
 	  This package contains BH fonts in the ISO 10646-1,

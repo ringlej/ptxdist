@@ -1,5 +1,7 @@
-menu "xorg scalable fonts           "
+menuconfig XORG_FONT_SCALEABLE
 	depends on MENU_XORG_FONTS
+	bool
+	prompt "xorg scalable fonts           "
 
 source "rules/xorg-font-adobe-utopia-type1.in"
 source "rules/xorg-font-bitstream-speedo.in"
@@ -7,5 +9,3 @@ source "rules/xorg-font-bitstream-type1.in"
 source "rules/xorg-font-bh-ttf.in"
 source "rules/xorg-font-ibm-type1.in"
 source "rules/xorg-font-xfree86-type1.in"
-
-endmenu

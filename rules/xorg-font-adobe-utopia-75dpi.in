@@ -1,6 +1,7 @@
 config XORG_FONT_ADOBE_UTOPIA_75DPI
 	bool
 	select XORG_FONTS
+	depends on XORG_FONT_75DPI
 	prompt "Adobe Utopia 75dpi"
 	help
 	  adobe utopia fonts, containing Utopia Regular, 

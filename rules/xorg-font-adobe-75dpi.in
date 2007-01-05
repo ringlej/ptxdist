@@ -1,5 +1,7 @@
 config XORG_FONT_ADOBE_75DPI
 	bool
+	default y
+	depends on XORG_FONT_75DPI
 	select XORG_FONTS
 	prompt "Adobe 75dpi"
 	help
