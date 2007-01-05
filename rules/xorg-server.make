@@ -115,7 +115,7 @@ XORG_SERVER_AUTOCONF	+= --disable-tcp-transport
 endif
 
 
-ifdef XORG_LIB_X11_XF86BIGFONT
+ifdef PTXCONF_XORG_LIB_X11_XF86BIGFONT
 XORG_SERVER_AUTOCONF += --enable-xf86bigfont
 else
 XORG_SERVER_AUTOCONF += --disable-xf86bigfont
