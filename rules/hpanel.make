@@ -2,7 +2,7 @@
 # $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Luotao Fu <lfu@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -74,7 +74,7 @@ $(STATEDIR)/hpanel.prepare: $(hpanel_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 # evil hacks due to the stupid make file of the software author
- 
+
 HPANEL_MAKEVARS = \
         CC=$(COMPILER_PREFIX)gcc \
 	CFLAGS='-O2 `pkg-config --cflags xft` `pkg-config --cflags xpm` -DCLOCK -v' \
@@ -84,7 +84,7 @@ hpanel_compile: $(STATEDIR)/hpanel.compile
 
 $(STATEDIR)/hpanel.compile: $(hpanel_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HPANEL_DIR) && $(HPANEL_PATH) $(MAKE) $(HPANEL_MAKEVARS)
+	cd $(HPANEL_DIR) && $(HPANEL_PATH) $(MAKE) $(CROSS_ENV) $(HPANEL_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
