@@ -1,4 +1,5 @@
 menu "xorg base fonts               "
+	depends on MENU_XORG_FONTS
 
 source "rules/xorg-font-misc-misc.in"
 source "rules/xorg-font-cursor-misc.in"

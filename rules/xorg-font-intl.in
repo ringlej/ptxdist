@@ -1,4 +1,5 @@
 menu "international fonts for X     "
+	depends on MENU_XORG_FONTS
 
 menuconfig XORG_FONT_INTL
 	bool

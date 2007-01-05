@@ -1,4 +1,5 @@
 menu "xorg 75 dpi fonts             "
+	depends on MENU_XORG_FONTS
 
 source "rules/xorg-font-adobe-75dpi.in"
 source "rules/xorg-font-adobe-utopia-75dpi.in"

@@ -1,4 +1,5 @@
 menu "xorg base fonts(transcoded)   "
+	depends on MENU_XORG_FONTS
 
 config XORG_FONT_MISC_MISC_TRANS
 	bool

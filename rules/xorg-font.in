@@ -1,8 +1,10 @@
 # xorg proto configuration
 
-menu "xorg fonts            "
-
 source "rules/xorg-fonts.in"
+
+menuconfig MENU_XORG_FONTS
+	bool
+	prompt "xorg fonts            "
 
 source "rules/xorg-font-util-alias.in"
 source "rules/xorg-font-base.in"
@@ -13,5 +15,3 @@ source "rules/xorg-font-75dpi.in"
 source "rules/xorg-font-75dpi-trans.in"
 source "rules/xorg-font-scalable.in"
 source "rules/xorg-font-intl.in"
-
-endmenu

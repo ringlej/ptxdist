@@ -1,4 +1,5 @@
 menu "xorg 75 dpi fonts (transcoded)"
+	depends on MENU_XORG_FONTS
 
 config XORG_FONT_ADOBE_75DPI_TRANS
 	bool

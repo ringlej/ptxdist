@@ -1,4 +1,5 @@
 menu "xorg scalable fonts           "
+	depends on MENU_XORG_FONTS
 
 source "rules/xorg-font-adobe-utopia-type1.in"
 source "rules/xorg-font-bitstream-speedo.in"
