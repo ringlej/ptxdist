@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_MPLAYER) += mplayer
 #
 # Paths and names
 #
-MPLAYER_VERSION	= 1.0pre7try2
-MPLAYER		= MPlayer-$(MPLAYER_VERSION)
-MPLAYER_SUFFIX	= tar.bz2
-MPLAYER_URL	= http://www.mplayerhq.hu/MPlayer/releases/$(MPLAYER).$(MPLAYER_SUFFIX)
-MPLAYER_SOURCE	= $(SRCDIR)/$(MPLAYER).$(MPLAYER_SUFFIX)
-MPLAYER_DIR	= $(BUILDDIR)/$(MPLAYER)
+MPLAYER_VERSION	:= 1.0pre7try2
+MPLAYER		:= MPlayer-$(MPLAYER_VERSION)
+MPLAYER_SUFFIX	:= tar.bz2
+MPLAYER_URL	:= http://www.mplayerhq.hu/MPlayer/releases/$(MPLAYER).$(MPLAYER_SUFFIX)
+MPLAYER_SOURCE	:= $(SRCDIR)/$(MPLAYER).$(MPLAYER_SUFFIX)
+MPLAYER_DIR	:= $(BUILDDIR)/$(MPLAYER)
 
 
 # ----------------------------------------------------------------------------
@@ -58,14 +58,14 @@ $(STATEDIR)/mplayer.extract: $(mplayer_extract_deps_default)
 
 mplayer_prepare: $(STATEDIR)/mplayer.prepare
 
-MPLAYER_PATH	=  PATH=$(CROSS_PATH)
-MPLAYER_ENV 	= CFLAGS='-Wl,-rpath-link -Wl,-L$(strip $(SYSROOT))/usr/lib'
+MPLAYER_PATH	:= PATH=$(CROSS_PATH)
+MPLAYER_ENV 	:= CFLAGS='-Wl,-rpath-link -Wl,-L$(strip $(SYSROOT))/usr/lib'
+
 #
 # autoconf
 #
-#MPLAYER_AUTOCONF = $(CROSS_AUTOCONF_USR)
-
-MPLAYER_AUTOCONF =  --cc=$(PTXCONF_GNU_TARGET)-gcc \
+MPLAYER_AUTOCONF :=\
+	--cc=$(PTXCONF_GNU_TARGET)-gcc \
 	--as=$(PTXCONF_GNU_TARGET)-as \
 	--host-cc=$(HOSTCC) \
 	--target=$(PTXCONF_ARCH) \
@@ -75,31 +75,31 @@ MPLAYER_AUTOCONF =  --cc=$(PTXCONF_GNU_TARGET)-gcc \
 	--with-extraincdir=$(SYSROOT)/usr/include \
 	--with-extralibdir=$(SYSROOT)/usr/lib
 
-ifdef MPLAYER_V4L2
+ifdef PTXCONF_MPLAYER_V4L2
 MPLAYER_AUTOCONF += --enable-tv-v4l2
 else
 MPLAYER_AUTOCONF += --disable-tv-v4l2
 endif
 
-ifdef MPLAYER_VO_JPEG
+ifdef PTXCONF_MPLAYER_VO_JPEG
 MPLAYER_AUTOCONF += --enable-jpeg
 else
 MPLAYER_AUTOCONF += --disable-jpeg
 endif
 
-ifdef MPLAYER_VO_XV
+ifdef PTXCONF_MPLAYER_VO_XV
 MPLAYER_AUTOCONF += --enable-xv
 else
 MPLAYER_AUTOCONF += --disable-xv
 endif
 
-ifdef MPLAYER_VO_X11
+ifdef PTXCONF_MPLAYER_VO_X11
 MPLAYER_AUTOCONF += --enable-x11
 else
 MPLAYER_AUTOCONF += --disable-x11
 endif
 
-ifdef MPLAYER_VO_FBDEV
+ifdef PTXCONF_MPLAYER_VO_FBDEV
 MPLAYER_AUTOCONF += --enable-fbdev
 else
 MPLAYER_AUTOCONF += --disable-fbdev
@@ -126,7 +126,7 @@ mplayer_compile: $(STATEDIR)/mplayer.compile
 
 $(STATEDIR)/mplayer.compile: $(mplayer_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(MPLAYER_DIR) && $(MPLAYER_ENV) $(MPLAYER_PATH) make
+	cd $(MPLAYER_DIR) && $(MPLAYER_ENV) $(MPLAYER_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
