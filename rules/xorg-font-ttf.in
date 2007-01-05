@@ -1,4 +1,0 @@
-menuconfig XORG_FONT_TTF
-        bool "true type fonts               "
-
-source "rules/xorg-font-bh-ttf.in"
