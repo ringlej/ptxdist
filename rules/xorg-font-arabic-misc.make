@@ -20,10 +20,13 @@ PACKAGES-$(PTXCONF_XORG_FONT_ARABIC_MISC) += xorg-font-arabic-misc
 XORG_FONT_ARABIC_MISC_VERSION	:= 1.0.0
 XORG_FONT_ARABIC_MISC		:= font-arabic-misc-X11R7.0-$(XORG_FONT_ARABIC_MISC_VERSION)
 XORG_FONT_ARABIC_MISC_SUFFIX	:= tar.bz2
-XORG_FONT_ARABIC_MISC_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font//$(XORG_FONT_ARABIC_MISC).$(XORG_FONT_ARABIC_MISC_SUFFIX)
+XORG_FONT_ARABIC_MISC_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font/$(XORG_FONT_ARABIC_MISC).$(XORG_FONT_ARABIC_MISC_SUFFIX)
 XORG_FONT_ARABIC_MISC_SOURCE	:= $(SRCDIR)/$(XORG_FONT_ARABIC_MISC).$(XORG_FONT_ARABIC_MISC_SUFFIX)
 XORG_FONT_ARABIC_MISC_DIR	:= $(BUILDDIR)/$(XORG_FONT_ARABIC_MISC)
 
+ifdef PTXCONF_XORG_FONT_ARABIC_MISC
+$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-arabic-misc.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -64,7 +67,9 @@ XORG_FONT_ARABIC_MISC_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_FONT_ARABIC_MISC_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_FONT_ARABIC_MISC_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-fontdir=$(XORG_FONTDIR)/misc
 
 $(STATEDIR)/xorg-font-arabic-misc.prepare: $(xorg-font-arabic-misc_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -82,7 +87,7 @@ xorg-font-arabic-misc_compile: $(STATEDIR)/xorg-font-arabic-misc.compile
 
 $(STATEDIR)/xorg-font-arabic-misc.compile: $(xorg-font-arabic-misc_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_FONT_ARABIC_MISC_DIR) && $(XORG_FONT_ARABIC_MISC_PATH) make
+	cd $(XORG_FONT_ARABIC_MISC_DIR) && $(XORG_FONT_ARABIC_MISC_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -104,21 +109,14 @@ xorg-font-arabic-misc_targetinstall: $(STATEDIR)/xorg-font-arabic-misc.targetins
 $(STATEDIR)/xorg-font-arabic-misc.targetinstall: $(xorg-font-arabic-misc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-font-arabic-misc)
-	@$(call install_fixup, xorg-font-arabic-misc,PACKAGE,xorg-font-arabic-misc)
-	@$(call install_fixup, xorg-font-arabic-misc,PRIORITY,optional)
-	@$(call install_fixup, xorg-font-arabic-misc,VERSION,$(XORG_FONT_ARABIC_MISC_VERSION))
-	@$(call install_fixup, xorg-font-arabic-misc,SECTION,base)
-	@$(call install_fixup, xorg-font-arabic-misc,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-font-arabic-misc,DEPENDS,)
-	@$(call install_fixup, xorg-font-arabic-misc,DESCRIPTION,missing)
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/misc
 
-	@cd $(XORG_FONT_ARABIC_MISC_DIR); \
-	for file in *.pcf.gz; do	\
-		$(call install_copy, xorg-font-arabic-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
+	@find $(XORG_FONT_ARABIC_MISC_DIR) \
+		-name "*.pcf.gz" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/misc; \
 	done
-
-	@$(call install_finish, xorg-font-arabic-misc)
 
 	@$(call touch, $@)
 

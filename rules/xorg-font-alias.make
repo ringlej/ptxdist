@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_FONT_ALIAS) += xorg-font-alias
 XORG_FONT_ALIAS_VERSION	:= 1.0.1
 XORG_FONT_ALIAS		:= font-alias-X11R7.0-$(XORG_FONT_ALIAS_VERSION)
 XORG_FONT_ALIAS_SUFFIX	:= tar.bz2
-XORG_FONT_ALIAS_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font//$(XORG_FONT_ALIAS).$(XORG_FONT_ALIAS_SUFFIX)
+XORG_FONT_ALIAS_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font/$(XORG_FONT_ALIAS).$(XORG_FONT_ALIAS_SUFFIX)
 XORG_FONT_ALIAS_SOURCE	:= $(SRCDIR)/$(XORG_FONT_ALIAS).$(XORG_FONT_ALIAS_SUFFIX)
 XORG_FONT_ALIAS_DIR	:= $(BUILDDIR)/$(XORG_FONT_ALIAS)
 
@@ -64,7 +64,9 @@ XORG_FONT_ALIAS_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_FONT_ALIAS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_FONT_ALIAS_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-top-fontdir=$(XORG_FONTDIR)
 
 $(STATEDIR)/xorg-font-alias.prepare: $(xorg-font-alias_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -82,7 +84,7 @@ xorg-font-alias_compile: $(STATEDIR)/xorg-font-alias.compile
 
 $(STATEDIR)/xorg-font-alias.compile: $(xorg-font-alias_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_FONT_ALIAS_DIR) && $(XORG_FONT_ALIAS_PATH) make
+	cd $(XORG_FONT_ALIAS_DIR) && $(XORG_FONT_ALIAS_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -114,10 +116,10 @@ $(STATEDIR)/xorg-font-alias.targetinstall: $(xorg-font-alias_targetinstall_deps_
 	@$(call install_fixup, xorg-font-alias,DEPENDS,)
 	@$(call install_fixup, xorg-font-alias,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/100dpi/fonts.alias, $(XORG_FONTDIR)/100dpi/fonts.alias)
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/75dpi/fonts.alias, $(XORG_FONTDIR)/75dpi/fonts.alias)
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/cyrillic/fonts.alias, $(XORG_FONTDIR)/cyrillic/fonts.alias)
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/misc/fonts.alias, $(XORG_FONTDIR)/misc/fonts.alias)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/100dpi/fonts.alias, $(XORG_FONTDIR)/100dpi/fonts.alias, n)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/75dpi/fonts.alias, $(XORG_FONTDIR)/75dpi/fonts.alias, n)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/cyrillic/fonts.alias, $(XORG_FONTDIR)/cyrillic/fonts.alias, n)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/misc/fonts.alias, $(XORG_FONTDIR)/misc/fonts.alias, n)
 
 	@$(call install_finish, xorg-font-alias)
 

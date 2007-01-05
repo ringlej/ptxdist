@@ -1,8 +1,7 @@
 config XORG_FONT_ADOBE_75DPI
 	bool
-	depends on XORG_FONT_75DPI
-	select HOST_XORG_APP_BDFTOPCF
 	default y
+	select XORG_FONTS
 	prompt "Adobe 75dpi"
 	help
 	  xfonts-75dpi provides a set of bitmapped fonts

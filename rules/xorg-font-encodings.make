@@ -20,10 +20,13 @@ PACKAGES-$(PTXCONF_XORG_FONT_ENCODINGS) += xorg-font-encodings
 XORG_FONT_ENCODINGS_VERSION	:= 1.0.0
 XORG_FONT_ENCODINGS		:= encodings-X11R7.0-$(XORG_FONT_ENCODINGS_VERSION)
 XORG_FONT_ENCODINGS_SUFFIX	:= tar.bz2
-XORG_FONT_ENCODINGS_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font//$(XORG_FONT_ENCODINGS).$(XORG_FONT_ENCODINGS_SUFFIX)
+XORG_FONT_ENCODINGS_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font/$(XORG_FONT_ENCODINGS).$(XORG_FONT_ENCODINGS_SUFFIX)
 XORG_FONT_ENCODINGS_SOURCE	:= $(SRCDIR)/$(XORG_FONT_ENCODINGS).$(XORG_FONT_ENCODINGS_SUFFIX)
 XORG_FONT_ENCODINGS_DIR		:= $(BUILDDIR)/$(XORG_FONT_ENCODINGS)
 
+ifdef PTXCONF_XORG_FONT_ENCODINGS
+$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-encodings.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -58,13 +61,15 @@ $(STATEDIR)/xorg-font-encodings.extract: $(xorg-font-encodings_extract_deps_defa
 
 xorg-font-encodings_prepare: $(STATEDIR)/xorg-font-encodings.prepare
 
-XORG_FONT_ENCODINGS_PATH	:=  PATH=$(CROSS_PATH)
-XORG_FONT_ENCODINGS_ENV 	:=  $(CROSS_ENV)
+XORG_FONT_ENCODINGS_PATH	:= PATH=$(CROSS_PATH)
+XORG_FONT_ENCODINGS_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XORG_FONT_ENCODINGS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_FONT_ENCODINGS_AUTOCONF := 
+	$(CROSS_AUTOCONF_USR) \
+	--with-encodingsdir=$(XORG_FONTDIR)/encodings
 
 $(STATEDIR)/xorg-font-encodings.prepare: $(xorg-font-encodings_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -82,7 +87,7 @@ xorg-font-encodings_compile: $(STATEDIR)/xorg-font-encodings.compile
 
 $(STATEDIR)/xorg-font-encodings.compile: $(xorg-font-encodings_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_FONT_ENCODINGS_DIR) && $(XORG_FONT_ENCODINGS_PATH) make
+	cd $(XORG_FONT_ENCODINGS_DIR) && $(XORG_FONT_ENCODINGS_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -105,23 +110,17 @@ xorg-font-encodings_targetinstall: $(STATEDIR)/xorg-font-encodings.targetinstall
 $(STATEDIR)/xorg-font-encodings.targetinstall: $(xorg-font-encodings_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-font-encodings)
-	@$(call install_fixup, xorg-font-encodings,PACKAGE,xorg-font-encodings)
-	@$(call install_fixup, xorg-font-encodings,PRIORITY,optional)
-	@$(call install_fixup, xorg-font-encodings,VERSION,$(XORG_FONT_ENCODINGS_VERSION))
-	@$(call install_fixup, xorg-font-encodings,SECTION,base)
-	@$(call install_fixup, xorg-font-encodings,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-font-encodings,DEPENDS,)
-	@$(call install_fixup, xorg-font-encodings,DESCRIPTION,missing)
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/encodings
 
-	@cd $(XORG_FONT_ENCODINGS_DIR); \
-	for file in *.enc.gz; do	\
-		$(call install_copy, xorg-font-encodings, 0, 0, 0644, $$file, $(XORG_FONTDIR)/encodings/$$file, n); \
+# FIXME: handle encodings/large
+
+	@find $(XORG_FONT_ENCODINGS_DIR) \
+		-maxdepth 1 \
+		-name "*.enc.gz" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/encodings; \
 	done
-
-	@$(call install_copy, xorg-font-encodings, 0, 0, 0644, $(XORG_FONT_ENCODINGS_DIR)/encodings.dir, $(XORG_FONTDIR)/encodings/encodings.dir, n)
-
-	@$(call install_finish, xorg-font-encodings)
 
 	@$(call touch, $@)
 

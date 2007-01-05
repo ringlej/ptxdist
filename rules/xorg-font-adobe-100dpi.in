@@ -1,11 +1,6 @@
 config XORG_FONT_ADOBE_100DPI
 	bool
-	depends on XORG_FONT_100DPI
-	select XORG_FONT_UTIL
-	select HOST_XORG_APP_MKFONTDIR
-	select HOST_XORG_APP_MKFONTSCALE
-	select HOST_XORG_APP_BDFTOPCF
-	select HOST_XORG_FONT_UTIL
+	select XORG_FONTS
 	default y
 	prompt "Adobe 100dpi"
 	help
@@ -13,6 +8,6 @@ config XORG_FONT_ADOBE_100DPI
 	  100 dots per inch. In most cases it is desirable 
 	  to have the X font server (xfs) and/or an X server 
 	  installed to make the fonts available to X clients.
-	  This package contains only fonts in the ISO 10646-1 
-	  ,ISO 8859-1 and ISO 8859-15 encodings
+	  This package contains only fonts in the ISO 10646-1,
+	  ISO 8859-1 and ISO 8859-15 encodings
 

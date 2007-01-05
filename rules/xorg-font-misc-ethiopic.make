@@ -20,10 +20,13 @@ PACKAGES-$(PTXCONF_XORG_FONT_MISC_ETHIOPIC) += xorg-font-misc-ethiopic
 XORG_FONT_MISC_ETHIOPIC_VERSION	:= 1.0.0
 XORG_FONT_MISC_ETHIOPIC		:= font-misc-ethiopic-X11R7.0-$(XORG_FONT_MISC_ETHIOPIC_VERSION)
 XORG_FONT_MISC_ETHIOPIC_SUFFIX	:= tar.bz2
-XORG_FONT_MISC_ETHIOPIC_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font//$(XORG_FONT_MISC_ETHIOPIC).$(XORG_FONT_MISC_ETHIOPIC_SUFFIX)
+XORG_FONT_MISC_ETHIOPIC_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font/$(XORG_FONT_MISC_ETHIOPIC).$(XORG_FONT_MISC_ETHIOPIC_SUFFIX)
 XORG_FONT_MISC_ETHIOPIC_SOURCE	:= $(SRCDIR)/$(XORG_FONT_MISC_ETHIOPIC).$(XORG_FONT_MISC_ETHIOPIC_SUFFIX)
 XORG_FONT_MISC_ETHIOPIC_DIR	:= $(BUILDDIR)/$(XORG_FONT_MISC_ETHIOPIC)
 
+ifdef PTXCONF_XORG_FONT_MISC_ETHIOPIC
+$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-misc-ethiopic.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -64,7 +67,10 @@ XORG_FONT_MISC_ETHIOPIC_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_FONT_MISC_ETHIOPIC_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_FONT_MISC_ETHIOPIC_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-ttf-fontdir=$(XORG_FONTDIR)/truetype \
+	--with-otf-fontdir=$(XORG_FONTDIR)/opentype
 
 $(STATEDIR)/xorg-font-misc-ethiopic.prepare: $(xorg-font-misc-ethiopic_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -82,7 +88,7 @@ xorg-font-misc-ethiopic_compile: $(STATEDIR)/xorg-font-misc-ethiopic.compile
 
 $(STATEDIR)/xorg-font-misc-ethiopic.compile: $(xorg-font-misc-ethiopic_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_FONT_MISC_ETHIOPIC_DIR) && $(XORG_FONT_MISC_ETHIOPIC_PATH) make
+	cd $(XORG_FONT_MISC_ETHIOPIC_DIR) && $(XORG_FONT_MISC_ETHIOPIC_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -104,21 +110,22 @@ xorg-font-misc-ethiopic_targetinstall: $(STATEDIR)/xorg-font-misc-ethiopic.targe
 $(STATEDIR)/xorg-font-misc-ethiopic.targetinstall: $(xorg-font-misc-ethiopic_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-font-misc-ethiopic)
-	@$(call install_fixup, xorg-font-misc-ethiopic,PACKAGE,xorg-font-misc-ethiopic)
-	@$(call install_fixup, xorg-font-misc-ethiopic,PRIORITY,optional)
-	@$(call install_fixup, xorg-font-misc-ethiopic,VERSION,$(XORG_FONT_MISC_ETHIOPIC_VERSION))
-	@$(call install_fixup, xorg-font-misc-ethiopic,SECTION,base)
-	@$(call install_fixup, xorg-font-misc-ethiopic,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-font-misc-ethiopic,DEPENDS,)
-	@$(call install_fixup, xorg-font-misc-ethiopic,DESCRIPTION,missing)
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/opentype
 
-	@cd $(XORG_FONT_MISC_ETHIOPIC_DIR); \
-	for file in *.otf *.ttf; do	\
-		$(call install_copy, xorg-font-misc-ethiopic, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
+	@find $(XORG_FONT_MISC_ETHIOPIC_DIR) \
+		-name "*.ttf" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
 	done
 
-	@$(call install_finish, xorg-font-misc-ethiopic)
+	@find $(XORG_FONT_MISC_ETHIOPIC_DIR) \
+		-name "*.otf" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/opentype; \
+	done
 
 	@$(call touch, $@)
 

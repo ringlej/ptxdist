@@ -1,8 +1,6 @@
 config XORG_FONT_BH_100DPI
 	bool
-	depends on XORG_FONT_100DPI
-	select HOST_XORG_APP_BDFTOPCF
-	select HOST_XORG_FONT_UTIL
+	select XORG_FONTS
 	prompt "BH 100dpi"
 	help
 	  This package contains BH fonts in the ISO 10646-1,

@@ -82,7 +82,7 @@ xorg-font-util_compile: $(STATEDIR)/xorg-font-util.compile
 
 $(STATEDIR)/xorg-font-util.compile: $(xorg-font-util_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_FONT_UTIL_DIR) && $(XORG_FONT_UTIL_PATH) make
+	cd $(XORG_FONT_UTIL_DIR) && $(XORG_FONT_UTIL_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

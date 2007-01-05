@@ -20,10 +20,13 @@ PACKAGES-$(PTXCONF_XORG_FONT_SCHUMACHER_MISC) += xorg-font-schumacher-misc
 XORG_FONT_SCHUMACHER_MISC_VERSION	:= 1.0.0
 XORG_FONT_SCHUMACHER_MISC		:= font-schumacher-misc-X11R7.0-$(XORG_FONT_SCHUMACHER_MISC_VERSION)
 XORG_FONT_SCHUMACHER_MISC_SUFFIX	:= tar.bz2
-XORG_FONT_SCHUMACHER_MISC_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font//$(XORG_FONT_SCHUMACHER_MISC).$(XORG_FONT_SCHUMACHER_MISC_SUFFIX)
+XORG_FONT_SCHUMACHER_MISC_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font/$(XORG_FONT_SCHUMACHER_MISC).$(XORG_FONT_SCHUMACHER_MISC_SUFFIX)
 XORG_FONT_SCHUMACHER_MISC_SOURCE	:= $(SRCDIR)/$(XORG_FONT_SCHUMACHER_MISC).$(XORG_FONT_SCHUMACHER_MISC_SUFFIX)
 XORG_FONT_SCHUMACHER_MISC_DIR		:= $(BUILDDIR)/$(XORG_FONT_SCHUMACHER_MISC)
 
+ifdef PTXCONF_XORG_FONT_SCHUMACHER_MISC
+$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-schumacher-misc.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -82,7 +85,7 @@ xorg-font-schumacher-misc_compile: $(STATEDIR)/xorg-font-schumacher-misc.compile
 
 $(STATEDIR)/xorg-font-schumacher-misc.compile: $(xorg-font-schumacher-misc_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_FONT_SCHUMACHER_MISC_DIR) && $(XORG_FONT_SCHUMACHER_MISC_PATH) make
+	cd $(XORG_FONT_SCHUMACHER_MISC_DIR) && $(XORG_FONT_SCHUMACHER_MISC_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -104,21 +107,38 @@ xorg-font-schumacher-misc_targetinstall: $(STATEDIR)/xorg-font-schumacher-misc.t
 $(STATEDIR)/xorg-font-schumacher-misc.targetinstall: $(xorg-font-schumacher-misc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-font-schumacher-misc)
-	@$(call install_fixup, xorg-font-schumacher-misc,PACKAGE,xorg-font-schumacher-misc)
-	@$(call install_fixup, xorg-font-schumacher-misc,PRIORITY,optional)
-	@$(call install_fixup, xorg-font-schumacher-misc,VERSION,$(XORG_FONT_SCHUMACHER_MISC_VERSION))
-	@$(call install_fixup, xorg-font-schumacher-misc,SECTION,base)
-	@$(call install_fixup, xorg-font-schumacher-misc,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-font-schumacher-misc,DEPENDS,)
-	@$(call install_fixup, xorg-font-schumacher-misc,DESCRIPTION,missing)
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/misc
 
-	@cd $(XORG_FONT_SCHUMACHER_MISC_DIR); \
-	for file in *.pcf.gz; do	\
-		$(call install_copy, xorg-font-schumacher-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
+	@find $(XORG_FONT_SCHUMACHER_MISC_DIR) \
+		-name "*.pcf.gz" -a \! -name "*ISO8859*" -a \! -name "*KOI*" \
+		-o -name "*ISO8859-1.pcf.gz" \
+		-o -name "*ISO8859-15.pcf.gz" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/misc; \
 	done
 
-	@$(call install_finish, xorg-font-schumacher-misc)
+# FIXME: care about KOI fonts
+
+ifdef PTXCONF_XORG_FONT_SCHUMACHER_MISC_TRANS
+	@find $(XORG_FONT_SCHUMACHER_MISC_DIR) \
+		-name "*ISO8859-2.pcf.gz" \
+		-o -name "*ISO8859-3.pcf.gz" \
+		-o -name "*ISO8859-4.pcf.gz" \
+		-o -name "*ISO8859-5.pcf.gz" \
+		-o -name "*ISO8859-6.pcf.gz" \
+		-o -name "*ISO8859-7.pcf.gz" \
+		-o -name "*ISO8859-8.pcf.gz" \
+		-o -name "*ISO8859-9.pcf.gz" \
+		-o -name "*ISO8859-10.pcf.gz" \
+		-o -name "*ISO8859-13.pcf.gz" \
+		-o -name "*ISO8859-14.pcf.gz" \
+		-o -name "*ISO8859-16.pcf.gz" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/misc; \
+	done
+endif
 
 	@$(call touch, $@)
 

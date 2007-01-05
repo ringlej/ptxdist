@@ -20,10 +20,13 @@ PACKAGES-$(PTXCONF_XORG_FONT_BH_TTF) += xorg-font-bh-ttf
 XORG_FONT_BH_TTF_VERSION	:= 1.0.0
 XORG_FONT_BH_TTF		:= font-bh-ttf-X11R7.0-$(XORG_FONT_BH_TTF_VERSION)
 XORG_FONT_BH_TTF_SUFFIX		:= tar.bz2
-XORG_FONT_BH_TTF_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font//$(XORG_FONT_BH_TTF).$(XORG_FONT_BH_TTF_SUFFIX)
+XORG_FONT_BH_TTF_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font/$(XORG_FONT_BH_TTF).$(XORG_FONT_BH_TTF_SUFFIX)
 XORG_FONT_BH_TTF_SOURCE		:= $(SRCDIR)/$(XORG_FONT_BH_TTF).$(XORG_FONT_BH_TTF_SUFFIX)
 XORG_FONT_BH_TTF_DIR		:= $(BUILDDIR)/$(XORG_FONT_BH_TTF)
 
+ifdef PTXCONF_XORG_FONT_BH_TTF
+$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-bh-ttf.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -64,7 +67,9 @@ XORG_FONT_BH_TTF_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_FONT_BH_TTF_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_FONT_BH_TTF_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-fontdir=$(XORG_FONTDIR)/truetype
 
 $(STATEDIR)/xorg-font-bh-ttf.prepare: $(xorg-font-bh-ttf_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -82,7 +87,7 @@ xorg-font-bh-ttf_compile: $(STATEDIR)/xorg-font-bh-ttf.compile
 
 $(STATEDIR)/xorg-font-bh-ttf.compile: $(xorg-font-bh-ttf_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_FONT_BH_TTF_DIR) && $(XORG_FONT_BH_TTF_PATH) make
+	cd $(XORG_FONT_BH_TTF_DIR) && $(XORG_FONT_BH_TTF_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -104,23 +109,14 @@ xorg-font-bh-ttf_targetinstall: $(STATEDIR)/xorg-font-bh-ttf.targetinstall
 $(STATEDIR)/xorg-font-bh-ttf.targetinstall: $(xorg-font-bh-ttf_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-font-bh-ttf)
-	@$(call install_fixup, xorg-font-bh-ttf,PACKAGE,xorg-font-bh-ttf)
-	@$(call install_fixup, xorg-font-bh-ttf,PRIORITY,optional)
-	@$(call install_fixup, xorg-font-bh-ttf,VERSION,$(XORG_FONT_BH_TTF_VERSION))
-	@$(call install_fixup, xorg-font-bh-ttf,SECTION,base)
-	@$(call install_fixup, xorg-font-bh-ttf,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-font-bh-ttf,DEPENDS,)
-	@$(call install_fixup, xorg-font-bh-ttf,DESCRIPTION,missing)
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
 
-	@cd $(XORG_FONT_BH_TTF_DIR); \
-	for file in *.ttf; do \
-		if [ -e $$file ]; then \
-			$(call install_copy, xorg-font-bh-ttf, 0, 0, 0644, $$file, $(XORG_FONTDIR)/truetype/$$file, n); \
-		fi; \
-	done;
-
-	@$(call install_finish, xorg-font-bh-ttf)
+	@find $(XORG_FONT_BH_TTF_DIR) \
+		-name "*.ttf" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
+	done
 
 	@$(call touch, $@)
 

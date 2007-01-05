@@ -20,10 +20,13 @@ PACKAGES-$(PTXCONF_XORG_FONT_BITSTREAM_75DPI) += xorg-font-bitstream-75dpi
 XORG_FONT_BITSTREAM_75DPI_VERSION	:= 1.0.0
 XORG_FONT_BITSTREAM_75DPI		:= font-bitstream-75dpi-X11R7.0-$(XORG_FONT_BITSTREAM_75DPI_VERSION)
 XORG_FONT_BITSTREAM_75DPI_SUFFIX	:= tar.bz2
-XORG_FONT_BITSTREAM_75DPI_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font//$(XORG_FONT_BITSTREAM_75DPI).$(XORG_FONT_BITSTREAM_75DPI_SUFFIX)
+XORG_FONT_BITSTREAM_75DPI_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font/$(XORG_FONT_BITSTREAM_75DPI).$(XORG_FONT_BITSTREAM_75DPI_SUFFIX)
 XORG_FONT_BITSTREAM_75DPI_SOURCE	:= $(SRCDIR)/$(XORG_FONT_BITSTREAM_75DPI).$(XORG_FONT_BITSTREAM_75DPI_SUFFIX)
 XORG_FONT_BITSTREAM_75DPI_DIR		:= $(BUILDDIR)/$(XORG_FONT_BITSTREAM_75DPI)
 
+ifdef PTXCONF_XORG_FONT_BITSTREAM_75DPI
+$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-bitstream-75dpi.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -64,7 +67,10 @@ XORG_FONT_BITSTREAM_75DPI_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_FONT_BITSTREAM_75DPI_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_FONT_BITSTREAM_75DPI_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-fontdir=$(XORG_FONTDIR)/75dpi
+
 
 $(STATEDIR)/xorg-font-bitstream-75dpi.prepare: $(xorg-font-bitstream-75dpi_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -82,7 +88,7 @@ xorg-font-bitstream-75dpi_compile: $(STATEDIR)/xorg-font-bitstream-75dpi.compile
 
 $(STATEDIR)/xorg-font-bitstream-75dpi.compile: $(xorg-font-bitstream-75dpi_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_FONT_BITSTREAM_75DPI_DIR) && $(XORG_FONT_BITSTREAM_75DPI_PATH) make
+	cd $(XORG_FONT_BITSTREAM_75DPI_DIR) && $(XORG_FONT_BITSTREAM_75DPI_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -104,39 +110,14 @@ xorg-font-bitstream-75dpi_targetinstall: $(STATEDIR)/xorg-font-bitstream-75dpi.t
 $(STATEDIR)/xorg-font-bitstream-75dpi.targetinstall: $(xorg-font-bitstream-75dpi_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-font-bitstream-75dpi)
-	@$(call install_fixup, xorg-font-bitstream-75dpi,PACKAGE,xorg-font-bitstream-75dpi)
-	@$(call install_fixup, xorg-font-bitstream-75dpi,PRIORITY,optional)
-	@$(call install_fixup, xorg-font-bitstream-75dpi,VERSION,$(XORG_FONT_BITSTREAM_75DPI_VERSION))
-	@$(call install_fixup, xorg-font-bitstream-75dpi,SECTION,base)
-	@$(call install_fixup, xorg-font-bitstream-75dpi,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-font-bitstream-75dpi,DEPENDS,)
-	@$(call install_fixup, xorg-font-bitstream-75dpi,DESCRIPTION,missing)
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/75dpi
 
-	@cd $(XORG_FONT_BITSTREAM_75DPI_DIR); \
-	for file in `find . -name "*.pcf.gz" -a \! -name "*ISO8859*"`; do	\
-		if [ -e $$file ]; then \
-			$(call install_copy, xorg-font-bitstream-75dpi, 0, 0, 0644, $$file, $(XORG_FONTDIR)/75dpi/$$file, n); \
-		fi; \
-	done;
-
-	@cd $(XORG_FONT_BITSTREAM_75DPI_DIR); \
-	for file in *{ISO8859-15,ISO8859-1}.pcf.gz; do \
-		if [ -e $$file ];then \
-			$(call install_copy, xorg-font-bitstream-75dpi, 0, 0, 0644, $$file, $(XORG_FONTDIR)/75dpi/$$file, n); \
-		fi; \
-	done;
-
-ifdef PTXCONF_XORG_FONT_BITSTREAM_75DPI_TRANS
-	@cd $(XORG_FONT_BITSTREAM_75DPI_DIR); \
-	for file in *{ISO8859-2,ISO8859-3,ISO8859-4,ISO8859-9,ISO8859-10,ISO8859-13,ISO8859-14}.pcf.gz; do \
-		if [ -e $$file ]; then \
-			$(call install_copy, xorg-font-bitstream-75dpi, 0, 0, 0644, $$file, $(XORG_FONTDIR)/75dpi/$$file, n); \
-		fi; \
-	done;
-endif
-
-	@$(call install_finish, xorg-font-bitstream-75dpi)
+	@find $(XORG_FONT_BITSTREAM_75DPI_DIR) \
+		-name "*.pcf.gz" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/75dpi; \
+	done
 
 	@$(call touch, $@)
 

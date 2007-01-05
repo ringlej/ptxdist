@@ -1,7 +1,6 @@
 config XORG_FONT_DAEWOO_MISC
 	bool
-	depends on XORG_FONT_BASE
-	select HOST_XORG_APP_BDFTOPCF
+	select XORG_FONTS
 	prompt "Daewoo misc"
 	help
 	  FIXME

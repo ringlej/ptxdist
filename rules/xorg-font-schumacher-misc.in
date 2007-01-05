@@ -1,8 +1,6 @@
 config XORG_FONT_SCHUMACHER_MISC
 	bool
-	depends on XORG_FONT
-	depends on BROKEN
-	select HOST_XORG_APP_BDFTOPCF
+	select XORG_FONTS
 	prompt "Schumacher misc"
 	help
 	  FIXME

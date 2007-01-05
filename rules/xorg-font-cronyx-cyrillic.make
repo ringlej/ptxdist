@@ -20,10 +20,13 @@ PACKAGES-$(PTXCONF_XORG_FONT_CRONYX_CYRILLIC) += xorg-font-cronyx-cyrillic
 XORG_FONT_CRONYX_CYRILLIC_VERSION	:= 1.0.0
 XORG_FONT_CRONYX_CYRILLIC		:= font-cronyx-cyrillic-X11R7.0-$(XORG_FONT_CRONYX_CYRILLIC_VERSION)
 XORG_FONT_CRONYX_CYRILLIC_SUFFIX	:= tar.bz2
-XORG_FONT_CRONYX_CYRILLIC_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font//$(XORG_FONT_CRONYX_CYRILLIC).$(XORG_FONT_CRONYX_CYRILLIC_SUFFIX)
+XORG_FONT_CRONYX_CYRILLIC_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font/$(XORG_FONT_CRONYX_CYRILLIC).$(XORG_FONT_CRONYX_CYRILLIC_SUFFIX)
 XORG_FONT_CRONYX_CYRILLIC_SOURCE	:= $(SRCDIR)/$(XORG_FONT_CRONYX_CYRILLIC).$(XORG_FONT_CRONYX_CYRILLIC_SUFFIX)
 XORG_FONT_CRONYX_CYRILLIC_DIR		:= $(BUILDDIR)/$(XORG_FONT_CRONYX_CYRILLIC)
 
+ifdef PTXCONF_XORG_FONT_CRONYX_CYRILLIC
+$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-cronyx-cyrillic.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -64,7 +67,9 @@ XORG_FONT_CRONYX_CYRILLIC_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_FONT_CRONYX_CYRILLIC_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_FONT_CRONYX_CYRILLIC_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-fontdir=$(XORG_FONTDIR)/cyrillic
 
 $(STATEDIR)/xorg-font-cronyx-cyrillic.prepare: $(xorg-font-cronyx-cyrillic_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -82,7 +87,7 @@ xorg-font-cronyx-cyrillic_compile: $(STATEDIR)/xorg-font-cronyx-cyrillic.compile
 
 $(STATEDIR)/xorg-font-cronyx-cyrillic.compile: $(xorg-font-cronyx-cyrillic_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_FONT_CRONYX_CYRILLIC_DIR) && $(XORG_FONT_CRONYX_CYRILLIC_PATH) make
+	cd $(XORG_FONT_CRONYX_CYRILLIC_DIR) && $(XORG_FONT_CRONYX_CYRILLIC_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -104,21 +109,14 @@ xorg-font-cronyx-cyrillic_targetinstall: $(STATEDIR)/xorg-font-cronyx-cyrillic.t
 $(STATEDIR)/xorg-font-cronyx-cyrillic.targetinstall: $(xorg-font-cronyx-cyrillic_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-font-cronyx-cyrillic)
-	@$(call install_fixup, xorg-font-cronyx-cyrillic,PACKAGE,xorg-font-cronyx-cyrillic)
-	@$(call install_fixup, xorg-font-cronyx-cyrillic,PRIORITY,optional)
-	@$(call install_fixup, xorg-font-cronyx-cyrillic,VERSION,$(XORG_FONT_CRONYX_CYRILLIC_VERSION))
-	@$(call install_fixup, xorg-font-cronyx-cyrillic,SECTION,base)
-	@$(call install_fixup, xorg-font-cronyx-cyrillic,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-font-cronyx-cyrillic,DEPENDS,)
-	@$(call install_fixup, xorg-font-cronyx-cyrillic,DESCRIPTION,missing)
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/cyrillic
 
-	@cd $(XORG_FONT_CRONYX_CYRILLIC_DIR); \
-	for file in *.pcf.gz; do	\
-		$(call install_copy, xorg-font-cronyx-cyrillic, 0, 0, 0644, $$file, $(XORG_FONTDIR)/cyrillic/$$file, n); \
+	@find $(XORG_FONT_CRONYX_CYRILLIC_DIR) \
+		-name "*.pcf.gz" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/cyrillic; \
 	done
-
-	@$(call install_finish, xorg-font-cronyx-cyrillic)
 
 	@$(call touch, $@)
 

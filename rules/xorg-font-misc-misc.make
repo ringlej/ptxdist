@@ -20,10 +20,13 @@ PACKAGES-$(PTXCONF_XORG_FONT_MISC_MISC) += xorg-font-misc-misc
 XORG_FONT_MISC_MISC_VERSION	:= 1.0.0
 XORG_FONT_MISC_MISC		:= font-misc-misc-X11R7.0-$(XORG_FONT_MISC_MISC_VERSION)
 XORG_FONT_MISC_MISC_SUFFIX	:= tar.bz2
-XORG_FONT_MISC_MISC_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font//$(XORG_FONT_MISC_MISC).$(XORG_FONT_MISC_MISC_SUFFIX)
+XORG_FONT_MISC_MISC_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font/$(XORG_FONT_MISC_MISC).$(XORG_FONT_MISC_MISC_SUFFIX)
 XORG_FONT_MISC_MISC_SOURCE	:= $(SRCDIR)/$(XORG_FONT_MISC_MISC).$(XORG_FONT_MISC_MISC_SUFFIX)
 XORG_FONT_MISC_MISC_DIR		:= $(BUILDDIR)/$(XORG_FONT_MISC_MISC)
 
+ifdef PTXCONF_XORG_FONT_MISC_MISC
+$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-misc-misc.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -64,7 +67,9 @@ XORG_FONT_MISC_MISC_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_FONT_MISC_MISC_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_FONT_MISC_MISC_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-fontdir=$(XORG_FONTDIR)/misc
 
 $(STATEDIR)/xorg-font-misc-misc.prepare: $(xorg-font-misc-misc_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -82,7 +87,7 @@ xorg-font-misc-misc_compile: $(STATEDIR)/xorg-font-misc-misc.compile
 
 $(STATEDIR)/xorg-font-misc-misc.compile: $(xorg-font-misc-misc_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_FONT_MISC_MISC_DIR) && $(XORG_FONT_MISC_MISC_PATH) make
+	cd $(XORG_FONT_MISC_MISC_DIR) && $(XORG_FONT_MISC_MISC_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -104,39 +109,38 @@ xorg-font-misc-misc_targetinstall: $(STATEDIR)/xorg-font-misc-misc.targetinstall
 $(STATEDIR)/xorg-font-misc-misc.targetinstall: $(xorg-font-misc-misc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-font-misc-misc)
-	@$(call install_fixup, xorg-font-misc-misc,PACKAGE,xorg-font-misc-misc)
-	@$(call install_fixup, xorg-font-misc-misc,PRIORITY,optional)
-	@$(call install_fixup, xorg-font-misc-misc,VERSION,$(XORG_FONT_MISC_MISC_VERSION))
-	@$(call install_fixup, xorg-font-misc-misc,SECTION,base)
-	@$(call install_fixup, xorg-font-misc-misc,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-font-misc-misc,DEPENDS,)
-	@$(call install_fixup, xorg-font-misc-misc,DESCRIPTION,missing)
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/misc
 
-	@cd $(XORG_FONT_MISC_MISC_DIR); \
-	for file in `find . -name "*.pcf.gz" -a \! -name "*ISO8859*"`; do	\
-		if [ -e $$file ]; then \
-			$(call install_copy, xorg-font-misc-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
-		fi; \
-	done;
+	@find $(XORG_FONT_MISC_MISC_DIR) \
+		-name "*.pcf.gz" -a \! -name "*ISO8859*" -a \! -name "*KOI*" \
+		-o -name "*ISO8859-1.pcf.gz" \
+		-o -name "*ISO8859-15.pcf.gz" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/misc; \
+	done
 
-	@cd $(XORG_FONT_MISC_MISC_DIR); \
-	for file in *{ISO8859-15,ISO8859-1,ISO8859-16,ISO8859-11}.pcf.gz; do \
-		if [ -e $$file ]; then \
-			$(call install_copy, xorg-font-misc-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
-		fi; \
-	done;
+# FIXME: care about KOI fonts
 
 ifdef PTXCONF_XORG_FONT_MISC_MISC_TRANS
-	@cd $(XORG_FONT_MISC_MISC_DIR); \
-	for file in *{ISO8859-2,-ISO8859-3,ISO8859-4,ISO8859-9,ISO8859-10,ISO8859-13,ISO8859-14}.pcf.gz; do \
-		if [ -e $$file ]; then \
-			$(call install_copy, xorg-font-misc-misc, 0, 0, 0644, $$file, $(XORG_FONTDIR)/misc/$$file, n); \
-		fi; \
-	done;
+	@find $(XORG_FONT_MISC_MISC_DIR) \
+		-name "*ISO8859-2.pcf.gz" \
+		-o -name "*ISO8859-3.pcf.gz" \
+		-o -name "*ISO8859-4.pcf.gz" \
+		-o -name "*ISO8859-5.pcf.gz" \
+		-o -name "*ISO8859-6.pcf.gz" \
+		-o -name "*ISO8859-7.pcf.gz" \
+		-o -name "*ISO8859-8.pcf.gz" \
+		-o -name "*ISO8859-9.pcf.gz" \
+		-o -name "*ISO8859-10.pcf.gz" \
+		-o -name "*ISO8859-13.pcf.gz" \
+		-o -name "*ISO8859-14.pcf.gz" \
+		-o -name "*ISO8859-16.pcf.gz" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/misc; \
+	done
 endif
-
-	@$(call install_finish, xorg-font-misc-misc)
 
 	@$(call touch, $@)
 

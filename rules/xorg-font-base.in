@@ -1,5 +1,4 @@
-menuconfig XORG_FONT_BASE
-        bool "xorg base fonts               "
+menu "xorg base fonts               "
 
 source "rules/xorg-font-misc-misc.in"
 source "rules/xorg-font-cursor-misc.in"
@@ -14,3 +13,4 @@ source "rules/xorg-font-schumacher-misc.in"
 source "rules/xorg-font-sony-misc.in"
 source "rules/xorg-font-sun-misc.in"
 
+endmenu

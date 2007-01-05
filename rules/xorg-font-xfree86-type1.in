@@ -1,6 +1,6 @@
 config XORG_FONT_XFREE86_TYPE1
 	bool
-	depends on XORG_FONT_SCALABLE
+	select XORG_FONTS
 	prompt "Xfree86 type1"
 	help
 	  scalable font of old style xfree86 cursor

@@ -1,10 +1,4 @@
-# evil hack to break dependencies, so that we can put the transcode
-# menu under menuconfig
-comment "invisible line"
-	depends on BROKEN
-
 menu "xorg base fonts(transcoded)   "
-	depends on XORG_FONT_BASE
 
 config XORG_FONT_MISC_MISC_TRANS
 	bool
@@ -13,6 +7,15 @@ config XORG_FONT_MISC_MISC_TRANS
 	help
 	  These are most fundamental fonts in misc section.
 	  You might most probably want it.
+	  This package contains fonts in several ISO 8859
+	  encodings: -2, -3, -4, -9, -10, -13 and -14.
+
+config XORG_FONT_SCHUMACHER_MISC_TRANS
+	bool
+	depends on XORG_FONT_SCHUMACHER_MISC
+	select XORG_FONTS
+	prompt "Schumacher misc transcoded"
+	help
 	  This package contains fonts in several ISO 8859
 	  encodings: -2, -3, -4, -9, -10, -13 and -14.
 

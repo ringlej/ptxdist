@@ -20,10 +20,13 @@ PACKAGES-$(PTXCONF_XORG_FONT_ADOBE_UTOPIA_100DPI) += xorg-font-adobe-utopia-100d
 XORG_FONT_ADOBE_UTOPIA_100DPI_VERSION	:= 1.0.1
 XORG_FONT_ADOBE_UTOPIA_100DPI		:= font-adobe-utopia-100dpi-X11R7.0-$(XORG_FONT_ADOBE_UTOPIA_100DPI_VERSION)
 XORG_FONT_ADOBE_UTOPIA_100DPI_SUFFIX	:= tar.bz2
-XORG_FONT_ADOBE_UTOPIA_100DPI_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font//$(XORG_FONT_ADOBE_UTOPIA_100DPI).$(XORG_FONT_ADOBE_UTOPIA_100DPI_SUFFIX)
+XORG_FONT_ADOBE_UTOPIA_100DPI_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font/$(XORG_FONT_ADOBE_UTOPIA_100DPI).$(XORG_FONT_ADOBE_UTOPIA_100DPI_SUFFIX)
 XORG_FONT_ADOBE_UTOPIA_100DPI_SOURCE	:= $(SRCDIR)/$(XORG_FONT_ADOBE_UTOPIA_100DPI).$(XORG_FONT_ADOBE_UTOPIA_100DPI_SUFFIX)
 XORG_FONT_ADOBE_UTOPIA_100DPI_DIR	:= $(BUILDDIR)/$(XORG_FONT_ADOBE_UTOPIA_100DPI)
 
+ifdef PTXCONF_XORG_FONT_ADOBE_UTOPIA_100DPI
+$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-adobe-utopia-100dpi.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -64,7 +67,10 @@ XORG_FONT_ADOBE_UTOPIA_100DPI_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_FONT_ADOBE_UTOPIA_100DPI_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_FONT_ADOBE_UTOPIA_100DPI_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-fontdir=$(XORG_FONTDIR)/100dpi
+
 
 $(STATEDIR)/xorg-font-adobe-utopia-100dpi.prepare: $(xorg-font-adobe-utopia-100dpi_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -82,7 +88,7 @@ xorg-font-adobe-utopia-100dpi_compile: $(STATEDIR)/xorg-font-adobe-utopia-100dpi
 
 $(STATEDIR)/xorg-font-adobe-utopia-100dpi.compile: $(xorg-font-adobe-utopia-100dpi_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_FONT_ADOBE_UTOPIA_100DPI_DIR) && $(XORG_FONT_ADOBE_UTOPIA_100DPI_PATH) make
+	cd $(XORG_FONT_ADOBE_UTOPIA_100DPI_DIR) && $(XORG_FONT_ADOBE_UTOPIA_100DPI_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -104,39 +110,31 @@ xorg-font-adobe-utopia-100dpi_targetinstall: $(STATEDIR)/xorg-font-adobe-utopia-
 $(STATEDIR)/xorg-font-adobe-utopia-100dpi.targetinstall: $(xorg-font-adobe-utopia-100dpi_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-font-adobe-utopia-100dpi)
-	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,PACKAGE,xorg-font-adobe-utopia-100dpi)
-	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,PRIORITY,optional)
-	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,VERSION,$(XORG_FONT_ADOBE_UTOPIA_100DPI_VERSION))
-	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,SECTION,base)
-	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,DEPENDS,)
-	@$(call install_fixup, xorg-font-adobe-utopia-100dpi,DESCRIPTION,missing)
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/100dpi
 
 	@cd $(XORG_FONT_ADOBE_UTOPIA_100DPI_DIR); \
-	for file in `find . -name "*.pcf.gz" -a \! -name "*ISO8859*"`; do	\
-		if [ -e $$file ]; then \
-			$(call install_copy, xorg-font-adobe-utopia-100dpi, 0, 0, 0644, $$file, $(XORG_FONTDIR)/100dpi/$$file, n); \
-		fi; \
-	done;
-
-	@cd $(XORG_FONT_ADOBE_UTOPIA_100DPI_DIR); \
-	for file in *{ISO8859-15,ISO8859-1}.pcf.gz; do \
-		if [ -e $$file ]; then \
-			$(call install_copy, xorg-font-adobe-utopia-100dpi, 0, 0, 0644, $$file, $(XORG_FONTDIR)/100dpi/$$file, n); \
-		fi; \
-	done;
+	find . -name "*.pcf.gz" -a \! -name "*ISO8859*" \
+		-o -name "*ISO8859-1.pcf.gz" \
+		-o -name "*ISO8859-15.pcf.gz" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/100dpi; \
+	done
 
 ifdef PTXCONF_XORG_FONT_ADOBE_UTOPIA_100DPI_TRANS
 	@cd $(XORG_FONT_ADOBE_UTOPIA_100DPI_DIR); \
-	for file in *{ISO8859-2,ISO8859-3,ISO8859-4,ISO8859-9,ISO8859-10,ISO8859-13,ISO8859-14}.pcf.gz; do \
-		if [ -e $$file ]; then \
-			$(call install_copy, xorg-font-adobe-utopia-100dpi, 0, 0, 0644, $$file, $(XORG_FONTDIR)/100dpi/$$file, n); \
-		fi; \
-	done;
+	find . -name "*ISO8859-2.pcf.gz" \
+		-o -name "*ISO8859-3.pcf.gz" \
+		-o -name "*ISO8859-4.pcf.gz" \
+		-o -name "*ISO8859-9.pcf.gz" \
+		-o -name "*ISO8859-10.pcf.gz" \
+		-o -name "*ISO8859-13.pcf.gz" \
+		-o -name "*ISO8859-14.pcf.gz" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/100dpi; \
+	done
 endif
-
-	@$(call install_finish, xorg-font-adobe-utopia-100dpi)
 
 	@$(call touch, $@)
 

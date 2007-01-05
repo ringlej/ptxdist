@@ -1,7 +1,6 @@
 config XORG_FONT_MISC_ETHIOPIC
 	bool
-	depends on XORG_FONT_INTL
-	select HOST_XORG_APP_BDFTOPCF
+	select XORG_FONTS
 	prompt "misc. Ethiopic"
 	help
 	  contains opentype ethiopic fonts.

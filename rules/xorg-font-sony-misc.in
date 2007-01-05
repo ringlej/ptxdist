@@ -1,7 +1,6 @@
 config XORG_FONT_SONY_MISC
 	bool
-	depends on XORG_FONT
-	select HOST_XORG_APP_BDFTOPCF
+	select XORG_FONTS
 	prompt "Sony misc"
 	help
 	  FIXME

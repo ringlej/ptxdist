@@ -2,6 +2,8 @@
 
 menu "xorg fonts            "
 
+source "rules/xorg-fonts.in"
+
 source "rules/xorg-font-util-alias.in"
 source "rules/xorg-font-base.in"
 source "rules/xorg-font-base-trans.in"
@@ -10,7 +12,6 @@ source "rules/xorg-font-100dpi-trans.in"
 source "rules/xorg-font-75dpi.in"
 source "rules/xorg-font-75dpi-trans.in"
 source "rules/xorg-font-scalable.in"
-source "rules/xorg-font-ttf.in"
 source "rules/xorg-font-intl.in"
 
 endmenu

@@ -1,41 +1,30 @@
-# evil hack to break dependencies, so that we can put the transcode
-# menu under menuconfig
-comment "invisible line"
-	depends on BROKEN
 menu "xorg 100 dpi fonts(transcoded)"
-	depends on XORG_FONT_100DPI
 
 config XORG_FONT_ADOBE_100DPI_TRANS
 	bool
-	depends on XORG_FONT_100DPI
+	depends on XORG_FONT_ADOBE_100DPI
 	prompt "Adobe 100dpi transcoded"
 	help
 	  xfonts-100dpi provides a set of bitmapped fonts
 	  at 100 dots per inch. In most cases it is desirable
 	  to have the X font server (xfs) and/or an X server
 	  installed to make the fonts available to X clients.
-	  This package contains only fonts in the ISO 10646-1,
-	  ISO 8859-1 and ISO 8859-15 encodings
 	  This package contains fonts in several ISO 8859
 	  encodings: -2, -3, -4, -9, -10, -13 and -14.
 
 config XORG_FONT_ADOBE_UTOPIA_100DPI_TRANS
 	bool
-	depends on XORG_FONT_100DPI
-	select HOST_XORG_APP_BDFTOPCF
+	depends on XORG_FONT_ADOBE_UTOPIA_100DPI
 	prompt "Adobe Utopia 100dpi transcoded"
 	help
 	  adobe utopia fonts, containing Utopia Regular,
 	  Utopia Italic, Utopia Bold and Utopia Bold Italic.
-	  This package contains only fonts in the ISO 10646-1,
-	  ISO 8859-1 and ISO 8859-15 encodings.
 	  This package contains fonts in several ISO 8859
 	  encodings: -2, -3, -4, -9, -10, -13 and -14.
 
 config XORG_FONT_BH_100DPI_TRANS
 	bool
-	depends on XORG_100DPI
-	select HOST_XORG_APP_BDFTOPCF
+	depends on XORG_FONT_BH_100DPI
 	prompt "BH 100dpi transcoded"
 	help
 	  This package contains fonts in several ISO 8859
@@ -43,17 +32,8 @@ config XORG_FONT_BH_100DPI_TRANS
 
 config XORG_FONT_BH_LUCIDATYPEWRITER_100DPI_TRANS
 	bool
-	depends on XORG_FONT_100DPI
-	select HOST_XORG_APP_BDFTOPCF
+	depends on XORG_FONT_BH_LUCIDATYPEWRITER_100DPI
 	prompt "BH Lucida Typewriter 100dpi transcoded"
-	help
-	  This package contains fonts in several ISO 8859
-	  encodings: -2, -3, -4, -9, -10, -13 and -14.
-
-config XORG_FONT_BITSTREAM_100DPI_TRANS
-	bool
-	depends on XORG_FONT_100DPI
-	prompt "Bitstream 100dpi transcoded"
 	help
 	  This package contains fonts in several ISO 8859
 	  encodings: -2, -3, -4, -9, -10, -13 and -14.

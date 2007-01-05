@@ -20,10 +20,13 @@ PACKAGES-$(PTXCONF_XORG_FONT_BITSTREAM_SPEEDO) += xorg-font-bitstream-speedo
 XORG_FONT_BITSTREAM_SPEEDO_VERSION	:= 1.0.0
 XORG_FONT_BITSTREAM_SPEEDO		:= font-bitstream-speedo-X11R7.0-$(XORG_FONT_BITSTREAM_SPEEDO_VERSION)
 XORG_FONT_BITSTREAM_SPEEDO_SUFFIX	:= tar.bz2
-XORG_FONT_BITSTREAM_SPEEDO_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font//$(XORG_FONT_BITSTREAM_SPEEDO).$(XORG_FONT_BITSTREAM_SPEEDO_SUFFIX)
+XORG_FONT_BITSTREAM_SPEEDO_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/font/$(XORG_FONT_BITSTREAM_SPEEDO).$(XORG_FONT_BITSTREAM_SPEEDO_SUFFIX)
 XORG_FONT_BITSTREAM_SPEEDO_SOURCE	:= $(SRCDIR)/$(XORG_FONT_BITSTREAM_SPEEDO).$(XORG_FONT_BITSTREAM_SPEEDO_SUFFIX)
 XORG_FONT_BITSTREAM_SPEEDO_DIR		:= $(BUILDDIR)/$(XORG_FONT_BITSTREAM_SPEEDO)
 
+ifdef PTXCONF_XORG_FONT_BITSTREAM_SPEEDO
+$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-bitstream-speedo.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -64,7 +67,9 @@ XORG_FONT_BITSTREAM_SPEEDO_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_FONT_BITSTREAM_SPEEDO_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_FONT_BITSTREAM_SPEEDO_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-fontdir=$(XORG_FONTDIR)/Speedo
 
 $(STATEDIR)/xorg-font-bitstream-speedo.prepare: $(xorg-font-bitstream-speedo_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -104,21 +109,15 @@ xorg-font-bitstream-speedo_targetinstall: $(STATEDIR)/xorg-font-bitstream-speedo
 $(STATEDIR)/xorg-font-bitstream-speedo.targetinstall: $(xorg-font-bitstream-speedo_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-font-bitstream-speedo)
-	@$(call install_fixup, xorg-font-bitstream-speedo,PACKAGE,xorg-font-bitstream-speedo)
-	@$(call install_fixup, xorg-font-bitstream-speedo,PRIORITY,optional)
-	@$(call install_fixup, xorg-font-bitstream-speedo,VERSION,$(XORG_FONT_BITSTREAM_SPEEDO_VERSION))
-	@$(call install_fixup, xorg-font-bitstream-speedo,SECTION,base)
-	@$(call install_fixup, xorg-font-bitstream-speedo,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-font-bitstream-speedo,DEPENDS,)
-	@$(call install_fixup, xorg-font-bitstream-speedo,DESCRIPTION,missing)
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/Speedo
 
-	@cd $(XORG_FONT_BITSTREAM_SPEEDO_DIR); \
-	for file in *.spd; do	\
-		$(call install_copy, xorg-font-bitstream-speedo, 0, 0, 0644, $$file, $(XORG_FONTDIR)/Speedo/$$file, n); \
+	@find $(XORG_FONT_BITSTREAM_SPEEDO_DIR) \
+		-name "*.spd" \
+		-o -name "fonts.scale" \
+		| \
+		while read file; do \
+		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/Speedo; \
 	done
-
-	@$(call install_finish, xorg-font-bitstream-speedo)
 
 	@$(call touch, $@)
 
