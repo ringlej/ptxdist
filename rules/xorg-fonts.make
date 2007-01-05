@@ -116,16 +116,22 @@ $(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-fonts.install
 
 # FIXME: add fc-cache?
 
-# 	@$(call install_init, xorg-fonts)
-# 	@$(call install_fixup, xorg-fonts,PACKAGE,xorg-fonts)
-# 	@$(call install_fixup, xorg-fonts,PRIORITY,optional)
-# 	@$(call install_fixup, xorg-fonts,VERSION,$(XORG_FONTS_VERSION))
-# 	@$(call install_fixup, xorg-fonts,SECTION,base)
-# 	@$(call install_fixup, xorg-fonts,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-# 	@$(call install_fixup, xorg-fonts,DEPENDS,)
-# 	@$(call install_fixup, xorg-fonts,DESCRIPTION,missing)
+	@$(call install_init, xorg-fonts)
+	@$(call install_fixup, xorg-fonts,PACKAGE,xorg-fonts)
+	@$(call install_fixup, xorg-fonts,PRIORITY,optional)
+	@$(call install_fixup, xorg-fonts,VERSION,$(XORG_FONTS_VERSION))
+	@$(call install_fixup, xorg-fonts,SECTION,base)
+	@$(call install_fixup, xorg-fonts,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xorg-fonts,DEPENDS,)
+	@$(call install_fixup, xorg-fonts,DESCRIPTION,missing)
 
-# 	@$(call install_finish, xorg-fonts)
+	@cd $(XORG_FONTS_DIR_INSTALL); \
+	find . -type f | while read file; do \
+		echo $${file}; \
+		$(call install_copy, xorg-fonts, 0, 0, 0644, $$file, $(XORG_FONTDIR)/$$file, n); \
+	done
+
+	@$(call install_finish, xorg-fonts)
 
 	@$(call touch, $@)
 
