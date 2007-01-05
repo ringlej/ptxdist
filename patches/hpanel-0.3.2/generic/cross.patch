@@ -1,0 +1,37 @@
+Subject: Patches the Makefile to be able to cross compile
+From: j.beisert@pengutronix.de
+
+The original makefile assumes fixed pathes to libraries and
+include files. This patch replace them with calls to pkg_config.
+It keeps the debug info in the executable until installing
+and uses make's built in rules.
+
+Signed-off-by:
+	j.beisert@pengutronix.de
+
+--- a/Makefile
++++ b/Makefile
+@@ -1,13 +1,14 @@
+-CC=cc
+-CFLAGS= -O2 -I/usr/X11R6/include -DHAVE_XPM -DXFT -DCLOCK
+-LDFLAGS= -L/usr/X11R6/lib -lX11 -lXpm -lXft
++.PHONY: install clean
++
++CFLAGS=-O2 -g `pkg-config --cflags xft` `pkg-config --cflags xpm` -DCLOCK
++LDFLAGS=`pkg-config --libs xft` `pkg-config --libs xpm`
+ PROGNAME=hpanel
+
+-$(PROGNAME): Makefile hpanel.c hpanel.h icon.xpm
+-	$(CC) $(CFLAGS) $(LDFLAGS) hpanel.c -o $(PROGNAME)
+-	@ls -l $(PROGNAME)
+-	strip $(PROGNAME)
+-	@ls -l $(PROGNAME)
++$(PROGNAME): hpanel.c
+
+ install:
+-	install $(PROGNAME) /usr/local/bin
++	install --strip $(PROGNAME) /usr/local/bin
++
++clean:
++	@rm -f $(PROGNAME)
++

@@ -73,11 +73,10 @@ $(STATEDIR)/hpanel.prepare: $(hpanel_prepare_deps_default)
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
-# evil hacks due to the stupid make file of the software author
+# overwrite some vars in the makefile
 
 HPANEL_MAKEVARS = \
         CC=$(COMPILER_PREFIX)gcc \
-	CFLAGS='-O2 `pkg-config --cflags xft` `pkg-config --cflags xpm` -DCLOCK -v' \
 	LDFLAGS='`pkg-config --libs xft` `pkg-config --libs xpm` $(CROSS_LDFLAGS)'
 
 hpanel_compile: $(STATEDIR)/hpanel.compile
@@ -115,7 +114,7 @@ $(STATEDIR)/hpanel.targetinstall: $(hpanel_targetinstall_deps_default)
 	@$(call install_fixup,hpanel,DEPENDS,)
 	@$(call install_fixup,hpanel,DESCRIPTION,missing)
 
-	@$(call install_copy, hpanel, 0, 0, 0755, $(HPANEL_DIR)/hpanel, /usr/bin/hpanel)
+	@$(call install_copy, hpanel, 0, 0, 0755, $(HPANEL_DIR)/hpanel, /usr/bin/hpanel,y)
 
 	@$(call install_finish,hpanel)
 
