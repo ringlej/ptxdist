@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_LIBDBUS_CXX) += libdbus-cxx
 #
 # Paths and names
 #
-LIBDBUS_CXX_VERSION	:= 0.5.0
+LIBDBUS_CXX_VERSION	:= r9139
 LIBDBUS_CXX		:= libdbus-c++-$(LIBDBUS_CXX_VERSION)
 LIBDBUS_CXX_SUFFIX	:= tar.gz
-LIBDBUS_CXX_URL		:= FIXME/$(LIBDBUS_CXX).$(LIBDBUS_CXX_SUFFIX)
+LIBDBUS_CXX_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LIBDBUS_CXX).$(LIBDBUS_CXX_SUFFIX)
 LIBDBUS_CXX_SOURCE	:= $(SRCDIR)/$(LIBDBUS_CXX).$(LIBDBUS_CXX_SUFFIX)
 LIBDBUS_CXX_DIR		:= $(BUILDDIR)/$(LIBDBUS_CXX)
 
@@ -87,7 +87,7 @@ libdbus-cxx_compile: $(STATEDIR)/libdbus-cxx.compile
 
 $(STATEDIR)/libdbus-cxx.compile: $(libdbus-cxx_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LIBDBUS_CXX_DIR) && $(LIBDBUS_CXX_PATH) $(MAKE)
+	cd $(LIBDBUS_CXX_DIR) && $(LIBDBUS_CXX_PATH) $(LIBDBUS_CXX_ENV) $(MAKE) $(LIBDBUS_CXX_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
