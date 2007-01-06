@@ -1,0 +1,447 @@
+# mysql config
+
+menuconfig MYSQL
+	bool
+	prompt "mysql                         "
+	select TERMCAP
+	select HOST_MYSQL
+	select ZLIB
+
+choice
+	prompt "default charset    "
+	depends on MYSQL
+
+	config MYSQL_DEFAULT_CHARSET_ARMSCII8
+		bool
+		prompt "armscii8"
+
+	config MYSQL_DEFAULT_CHARSET_ASCII
+		bool
+		prompt "ascii   "
+
+	config MYSQL_DEFAULT_CHARSET_BIG5
+		bool
+		prompt "big5    "
+
+	config MYSQL_DEFAULT_CHARSET_CP1250
+		bool
+		prompt "cp1250  "
+
+	config MYSQL_DEFAULT_CHARSET_CP1251
+		bool
+		prompt "cp1251  "
+
+	config MYSQL_DEFAULT_CHARSET_CP1256
+		bool
+		prompt "cp1256  "
+
+	config MYSQL_DEFAULT_CHARSET_CP1257
+		bool
+		prompt "cp1257  "
+
+	config MYSQL_DEFAULT_CHARSET_CP850
+		bool
+		prompt "cp850   "
+
+	config MYSQL_DEFAULT_CHARSET_CP852
+		bool
+		prompt "cp852   "
+
+	config MYSQL_DEFAULT_CHARSET_CP866
+		bool
+		prompt "cp866   "
+
+	config MYSQL_DEFAULT_CHARSET_CP932
+		bool
+		prompt "cp932   "
+
+	config MYSQL_DEFAULT_CHARSET_DEC8
+		bool
+		prompt "dec8    "
+
+	config MYSQL_DEFAULT_CHARSET_EUCJPMS
+		bool
+		prompt "eucjpms "
+
+	config MYSQL_DEFAULT_CHARSET_EUCR
+		bool
+		prompt "eucr    "
+
+	config MYSQL_DEFAULT_CHARSET_GB2312
+		bool
+		prompt "gb2312  "
+
+	config MYSQL_DEFAULT_CHARSET_GBK
+		bool
+		prompt "gbk     "
+
+	config MYSQL_DEFAULT_CHARSET_GEOSTD8
+		bool
+		prompt "geostd8 "
+
+	config MYSQL_DEFAULT_CHARSET_GREEK
+		bool
+		prompt "greek   "
+
+	config MYSQL_DEFAULT_CHARSET_HEBREW
+		bool
+		prompt "hebrew  "
+
+	config MYSQL_DEFAULT_CHARSET_HP8
+		bool
+		prompt "hp8     "
+
+	config MYSQL_DEFAULT_CHARSET_KEYBCS2
+		bool
+		prompt "keybcs2 "
+
+	config MYSQL_DEFAULT_CHARSET_KOI8R
+		bool
+		prompt "koi8r   "
+
+	config MYSQL_DEFAULT_CHARSET_KOI8U
+		bool
+		prompt "koi8u   "
+
+	config MYSQL_DEFAULT_CHARSET_LATIN1
+		bool
+		prompt "latin1  "
+
+	config MYSQL_DEFAULT_CHARSET_LATIN2
+		bool
+		prompt "latin2  "
+
+	config MYSQL_DEFAULT_CHARSET_LATIN5
+		bool
+		prompt "latin5  "
+
+	config MYSQL_DEFAULT_CHARSET_LATIN7
+		bool
+		prompt "latin7  "
+
+	config MYSQL_DEFAULT_CHARSET_MACCE
+		bool
+		prompt "macce   "
+
+	config MYSQL_DEFAULT_CHARSET_MACROMAN
+		bool
+		prompt "macroman"
+
+	config MYSQL_DEFAULT_CHARSET_SJIS
+		bool
+		prompt "sjis    "
+
+	config MYSQL_DEFAULT_CHARSET_UCS2
+		bool
+		prompt "ucs2    "
+
+	config MYSQL_DEFAULT_CHARSET_UJIS
+		bool
+		prompt "ujis    "
+
+	config MYSQL_DEFAULT_CHARSET_UTF8
+		bool
+		prompt "utf8    "
+endchoice
+
+choice
+	prompt "extra charsets     "
+	depends on MYSQL
+
+	config MYSQL_EXTRA_CHARSETS_NONE
+		bool
+		prompt "none    "
+
+	config MYSQL_EXTRA_CHARSETS_COMPLEX
+		bool
+		prompt "complex "
+
+	config MYSQL_EXTRA_CHARSETS_ALL
+		bool
+		prompt "all     "
+
+	config MYSQL_EXTRA_CHARSETS_LIST
+		bool
+		prompt "list    "
+endchoice
+
+menuconfig MYSQL_EXTRA_CHARSETS
+	bool
+	prompt "select extra charsets         "
+	depends on MYSQL
+	depends on MYSQL_EXTRA_CHARSETS_LIST
+
+	config MYSQL_EXTRA_CHARSETS_ARMSCII8
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "armscii8"
+
+	config MYSQL_EXTRA_CHARSETS_ASCII
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "ascii   "
+
+	config MYSQL_EXTRA_CHARSETS_BIG5
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "big5    "
+
+	config MYSQL_EXTRA_CHARSETS_CP1250
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "cp1250  "
+
+	config MYSQL_EXTRA_CHARSETS_CP1251
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "cp1251  "
+
+	config MYSQL_EXTRA_CHARSETS_CP1256
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "cp1256  "
+
+	config MYSQL_EXTRA_CHARSETS_CP1257
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "cp1257  "
+
+	config MYSQL_EXTRA_CHARSETS_CP850
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "cp850   "
+
+	config MYSQL_EXTRA_CHARSETS_CP852
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "cp852   "
+
+	config MYSQL_EXTRA_CHARSETS_CP866
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "cp866   "
+
+	config MYSQL_EXTRA_CHARSETS_CP932
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "cp932   "
+
+	config MYSQL_EXTRA_CHARSETS_DEC8
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "dec8    "
+
+	config MYSQL_EXTRA_CHARSETS_EUCJPMS
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "eucjpms "
+
+	config MYSQL_EXTRA_CHARSETS_EUCR
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "eucr    "
+
+	config MYSQL_EXTRA_CHARSETS_GB2312
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "gb2312  "
+
+	config MYSQL_EXTRA_CHARSETS_GBK
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "gbk     "
+
+	config MYSQL_EXTRA_CHARSETS_GEOSTD8
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "geostd8 "
+
+	config MYSQL_EXTRA_CHARSETS_GREEK
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "greek   "
+
+	config MYSQL_EXTRA_CHARSETS_HEBREW
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "hebrew  "
+
+	config MYSQL_EXTRA_CHARSETS_HP8
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "hp8     "
+
+	config MYSQL_EXTRA_CHARSETS_KEYBCS2
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "keybcs2 "
+
+	config MYSQL_EXTRA_CHARSETS_KOI8R
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "koi8r   "
+
+	config MYSQL_EXTRA_CHARSETS_KOI8U
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "koi8u   "
+
+	config MYSQL_EXTRA_CHARSETS_LATIN1
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "latin1  "
+
+	config MYSQL_EXTRA_CHARSETS_LATIN2
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "latin2  "
+
+	config MYSQL_EXTRA_CHARSETS_LATIN5
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "latin5  "
+
+	config MYSQL_EXTRA_CHARSETS_LATIN7
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "latin7  "
+
+	config MYSQL_EXTRA_CHARSETS_MACCE
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "macce   "
+
+	config MYSQL_EXTRA_CHARSETS_MACROMAN
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "macroman"
+
+	config MYSQL_EXTRA_CHARSETS_SJIS
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "sjis    "
+
+	config MYSQL_EXTRA_CHARSETS_UCS2
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "ucs2    "
+
+	config MYSQL_EXTRA_CHARSETS_UJIS
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "ujis    "
+
+	config MYSQL_EXTRA_CHARSETS_UTF8
+		bool
+		depends on MYSQL_EXTRA_CHARSETS
+		prompt "utf8    "
+
+config MYSQL_UCA
+	bool
+	depends on MYSQL
+	prompt "build national unicode collations"
+
+config MYSQL_SOCKET_PATH
+	string
+	depends on MYSQL
+	prompt "unix domain socket path"
+	default "/var/run/"
+
+config MYSQL_TCP_PORT
+	string
+	depends on MYSQL
+	prompt "tcp port number"
+	default "3306"
+	help
+	  Specify the TCP port number for MySQL; default is 3306.
+
+#  --with-mysqld-user=username
+#                          What user the mysqld daemon shall be run as.
+#  --with-libwrap=DIR      Compile in libwrap (tcp_wrappers) support
+#  --with-pstack           Use the pstack backtrace library
+
+config MYSQL_WITHOUT_SERVER
+	bool
+	depends on MYSQL
+	prompt "build only client"
+
+config MYSQL_WITH_EMBEDDED_SERVER
+	bool
+	depends on MYSQL
+	prompt "libmysqld"
+
+config MYSQL_QUERY_CACHE
+	bool
+	depends on MYSQL
+	prompt "query cache"
+
+#  --without-geometry      Do not build geometry-related parts.
+#  --with-embedded-privilege-control
+#                          Build parts to check user's privileges.
+#			  Only affects embedded library.
+#  --without-extra-tools   Skip building utilites in the tools directory.
+#  --with-mysqlmanager     Build the mysqlmanager binary: yes/no (default:
+#                          build if server is built.)
+#  --with-openssl=DIR    Include the OpenSSL support
+#
+#  --with-openssl-includes=DIR
+#                          Find OpenSSL headers in DIR
+#
+#  --with-openssl-libs=DIR
+#                          Find OpenSSL libraries in DIR
+#  --with-yassl          Include the yaSSL support
+#  --without-docs          Skip building of the documentation.
+#  --without-man          Skip building of the man pages.
+#  --without-bench         Skip building of the benchmark suite.
+#  --without-readline      Use system readline instead of bundled copy.
+#  --without-libedit       Use system libedit instead of bundled copy.
+#  --with-build-mysql      For cross compilation: path to mysql which was
+#                          compiled for the 'build' system.
+#
+#  --with-big-tables       Support tables with more than 4 G rows even on 32 bit platforms
+#
+#  --with-max-indexes=\#      Sets the maximum number of indexes per table, default 64
+#
+#  --with-berkeley-db=DIR
+#                          Use BerkeleyDB located in DIR
+#
+#  --with-berkeley-db-includes=DIR
+#                          Find Berkeley DB headers in DIR
+#
+#  --with-berkeley-db-libs=DIR
+#                          Find Berkeley DB libraries in DIR
+#
+#  --without-innodb        Do not include the InnoDB table handler
+#
+#  --with-example-storage-engine
+#                          Enable the Example Storage Engine
+#
+#  --with-archive-storage-engine
+#                          Enable the Archive Storage Engine
+#
+#  --with-csv-storage-engine
+#                          Enable the CSV Storage Engine
+#
+#  --with-blackhole-storage-engine
+#                          Enable the Blackhole Storage Engine
+#
+#  --with-ndbcluster        Include the NDB Cluster table handler
+#  --with-ndb-sci=DIR      Provide MySQL with a custom location of sci library.
+#                          Given DIR, sci library is assumed to be in $DIR/lib
+#                          and header files in $DIR/include.
+#
+#  --with-ndb-test       Include the NDB Cluster ndbapi test programs
+#
+#  --with-ndb-docs       Include the NDB Cluster ndbapi and mgmapi documentation
+#
+#  --with-ndb-port       Port for NDB Cluster management server
+#
+#  --with-ndb-port-base  Base port for NDB Cluster transporters
+#
+#  --without-ndb-debug   Disable special ndb debug features
+#  --with-ndb-ccflags=CFLAGS
+#                          Extra CFLAGS for ndb compile
+#
+#  --with-federated-storage-engine
+#                        Enable the MySQL Federated Storage Engine
+#

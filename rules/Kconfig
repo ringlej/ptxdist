@@ -155,6 +155,7 @@ source "rules/libxmlconfig.in"
 source "rules/libxslt.in"
 
 source "rules/live.in"
+source "rules/mysql.in"
 source "rules/ncurses.in"
 source "rules/pcre.in"
 source "rules/readline.in"

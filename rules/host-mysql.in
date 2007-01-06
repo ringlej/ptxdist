@@ -1,0 +1,3 @@
+config HOST_MYSQL
+	bool
+	select TERMCAP
