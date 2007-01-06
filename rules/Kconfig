@@ -207,6 +207,7 @@ source "rules/i915resolution.in"
 endmenu
 
 menu "Scientific Apps               "
+source "rules/fftw.in"
 source "rules/gnuplot.in"
 source "rules/libmodbus.in"
 source "rules/libpv.in"

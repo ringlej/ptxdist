@@ -1,0 +1,55 @@
+# libfftw configuration
+
+menuconfig FFTW
+	bool
+	prompt "fftw                          "
+	help
+	  FFTW is a C subroutine library for computing the discrete
+	  Fourier transform (DFT) in one or more dimensions, of
+	  arbitrary input size, and of both real and complex data (as
+	  well as of even/odd data, i.e. the discrete cosine/sine
+	  transforms or DCT/DST).
+
+	  For details, see http://www.fftw.org
+
+
+#   --enable-fma            enable optimizations for machines with fused
+#                           multiply-add
+#   --enable-debug          compile fftw with extra runtime checks for debugging
+#   --enable-debug-malloc   enable malloc debugging version
+#   --enable-debug-alignment
+#                           enable alignment debugging hacks
+#   --enable-single         compile fftw in single precision
+#   --enable-float          synonym for --enable-single
+#   --enable-long-double    compile fftw in long-double precision
+#   --enable-k7             enable AMD K7 optimizations, including 3dNow!
+#   --enable-sse            enable SSE optimizations
+#   --enable-sse2           enable SSE2 optimizations
+#   --enable-altivec        enable Altivec optimizations
+#   --disable-dependency-tracking  speeds up one-time build
+#   --enable-dependency-tracking   do not reject slow dependency extractors
+#   --enable-static[=PKGS]  build static libraries [default=yes]
+#   --enable-fast-install[=PKGS]
+#                           optimize for fast installation [default=yes]
+#   --disable-libtool-lock  avoid locking (might break parallel builds)
+#   --enable-portable-binary
+#                           disable compiler optimizations that would produce
+#                           unportable binaries
+#   --disable-fortran       don't include fortran-callable wrappers
+#   --enable-threads        compile FFTW SMP threads library
+#
+# Optional Packages:
+#   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
+#   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+#   --with-slow-timer       use low-precision timers (SLOW)
+#   --with-our-malloc16     use our 16-byte aligned malloc (helpful for Win32)
+#   --with-windows-f77-mangling
+#                           use common Win32 Fortran interface styles
+#   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
+#   --with-pic              try to use only PIC/non-PIC objects [default=use
+#                           both]
+#   --with-tags[=TAGS]      include additional configurations [automatic]
+#   --with-gcc-arch=<arch>  use architecture <arch> for gcc -march/-mtune,
+#                           instead of guessing
+#   --with-openmp           use OpenMP directives instead of a threads library
+#   --with-combined-threads combine threads into main libfftw3
