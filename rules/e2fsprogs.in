@@ -1,8 +1,8 @@
 menuconfig E2FSPROGS
-	bool "e2fsprogs           "
+	bool "e2fsprogs                     "
 	help
-	 The e2fsprogs package provides the filesystem utilities for use 
-	 with the ext2 filesystem. It also supports the ext3 filesystem 
+	 The e2fsprogs package provides the filesystem utilities for use
+	 with the ext2 filesystem. It also supports the ext3 filesystem
 	 with journaling support.
 
 config E2FSPROGS_MKFS
@@ -12,7 +12,7 @@ config E2FSPROGS_MKFS
 	depends on E2FSPROGS
 	depends on !BB_CONFIG_MKE2FS
 	help
-	 This installs /sbin/mke2fs, the filesystem builder for 
+	 This installs /sbin/mke2fs, the filesystem builder for
 	 ext2 and ext3
 
 comment "Busybox' mke2fs is selected"
@@ -25,8 +25,8 @@ config E2FSPROGS_E2FSCK
 	default y
 	depends on E2FSPROGS
 	depends on !BB_CONFIG_E2FSCK
-	help 
-	 This will install /sbin/e2fsck, the filesystem 
+	help
+	 This will install /sbin/e2fsck, the filesystem
 	 checking and recovery tool for ext2 and ext3.
 
 comment "Busybox' e2fsck is selected"
@@ -38,17 +38,17 @@ config E2FSPROGS_TUNE2FS
 	prompt "Install tune2fs, findfs, e2label"
 	depends on E2FSPROGS
 	depends on !BB_CONFIG_TUNE2FS
-	help	
+	help
 	 This will install /sbin/tune2fs, /sbin/findfs, /sbin/e2label
-	 to your target. Please note, that all thre share the same 
+	 to your target. Please note, that all thre share the same
 	 binary (tune2fs).
-	 
+
 	 tune2fs lets you modify various aspects of your ext2 oder ext3
-	 filesystem. See tune2fs --help for details. 
-	 
+	 filesystem. See tune2fs --help for details.
+
 	 findfs will find any filesystem identified by a filesystem-label
 	 or UUID and return the name of the corresponding device node.
-	 
+
 	 e2label can display and edit ext2 and ext3 filesystem labels.
 
 comment "Busybox' tune2fs is selected"

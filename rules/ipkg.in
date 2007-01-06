@@ -1,5 +1,5 @@
 menuconfig IPKG
-	bool "ipkg                "
+	bool "ipkg                          "
 	help
 	  FIXME: This item needs to be documented
 
@@ -8,7 +8,7 @@ config IPKG_EXTRACT_TEST
 	prompt "ipkg_extract_test"
 	depends on IPKG
 	help
-	  Unfortunately, nobody knows what this program is being used for. 
+	  Unfortunately, nobody knows what this program is being used for.
 	  FIXME: This item needs to be documented
 
 config IPKG_HASH_TEST
@@ -16,7 +16,7 @@ config IPKG_HASH_TEST
 	prompt "ipkg_hash_test"
 	depends on IPKG
 	help
-	  Unfortunately, nobody knows what this program is being used for. 
+	  Unfortunately, nobody knows what this program is being used for.
 	  FIXME: This item needs to be documented
 
 config IPKG_LOG_WRAPPER
@@ -24,5 +24,5 @@ config IPKG_LOG_WRAPPER
 	prompt "use ipkg log wrapper"
 	depends on IPKG
 	help
-	  If selected, ipkg will be installed with a wrapper script 
+	  If selected, ipkg will be installed with a wrapper script
 	  which provides basic logging facilities

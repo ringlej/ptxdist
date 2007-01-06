@@ -1,5 +1,5 @@
 menuconfig DOSFSTOOLS
-	bool "dosfstools          "
+	bool "dosfstools                    "
 
 config DOSFSTOOLS_MKDOSFS
 	bool
