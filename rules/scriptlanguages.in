@@ -1,6 +1,7 @@
 comment "Scripting Languages"
 
 source "rules/php4.in"
+source "rules/php5.in"
 source "rules/php-apc.in"
 source "rules/python.in"
 source "rules/python24.in"
