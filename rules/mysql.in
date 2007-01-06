@@ -2,7 +2,7 @@
 
 menuconfig MYSQL
 	bool
-	prompt "mysql                         "
+	prompt "mysql                       "
 	select TERMCAP
 	select HOST_MYSQL
 	select ZLIB
