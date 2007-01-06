@@ -1,0 +1,100 @@
+# samba configuration
+
+menuconfig SAMBA
+	bool
+	prompt "samba                         "
+	help
+	  Samba is an Open Source/Free Software suite that has, since
+	  1992, provided file and print services to all manner of
+	  SMB/CIFS clients, including the numerous versions of Microsoft
+	  Windows operating systems. Samba is freely available under the
+	  GNU General Public License
+
+	  See http://www.samba.org for details.
+
+# Optional Features:
+#   --enable-static=PKGS    build static libraries default=no
+#   --enable-shared=PKGS    build shared libraries default=yes
+#   --enable-pie            Turn on pie support if available (default=yes)
+#   --enable-debug          Turn on compiler debugging information (default=no)
+#   --enable-socket-wrapper         Turn on socket wrapper library (default=no)
+#   --enable-developer      Turn on developer warnings and debugging (default=no)
+#   --enable-krb5developer  Turn on developer warnings and debugging, except -Wstrict-prototypes (default=no)
+#   --enable-dmalloc        Enable heap debugging default=no
+
+	config SAMBA_CUPS
+		bool
+		depends on SAMBA
+		prompt "cups support"
+		help
+		  Turn on CUPS support
+
+#   --enable-iprint         Turn on iPrint support (default=yes if cups is yes)
+#
+# Optional Packages:
+#   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
+#   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+#   --with-fhs              Use FHS-compliant paths (default=no)
+#   --with-privatedir=DIR   Where to put smbpasswd ($ac_default_prefix/private)
+#   --with-rootsbindir=DIR  Which directory to use for root sbin ($ac_default_prefix/sbin)
+#   --with-lockdir=DIR      Where to put lock files ($ac_default_prefix/var/locks)
+#   --with-piddir=DIR       Where to put pid files ($ac_default_prefix/var/locks)
+#   --with-swatdir=DIR      Where to put SWAT files ($ac_default_prefix/swat)
+#   --with-configdir=DIR    Where to put configuration files ($libdir)
+#   --with-logfilebase=DIR  Where to put log files ($VARDIR)
+#   --with-libdir=DIR       Where to put libdir ($libdir)
+#   --with-pammodulesdir=DIR  Which directory to use for PAM modules ($ac_default_prefix/$libdir/security)
+#   --with-mandir=DIR       Where to put man pages ($mandir)
+#   --with-cfenc=HEADERDIR  Use internal CoreFoundation encoding API
+# 			  for optimization (Mac OS X/Darwin only)
+#   --with-selftest-prefix=DIR    The prefix where make test will be runned ($selftest_prefix)
+#   --with-smbtorture4-path=PATH    The path to a samba4 smbtorture for make test (none)
+#   --with-profiling-data   Include gathering source code profile information (default=no)
+#   --with-readline=DIR     Look for readline include/libs in DIR (default=auto)
+#   --with-libiconv=BASEDIR Use libiconv in BASEDIR/lib and BASEDIR/include (default=auto)
+#   --with-smbwrapper       Include SMB wrapper support (default=no)
+#   --with-afs              Include AFS clear-text auth support (default=no)
+#   --with-fake-kaserver    Include AFS fake-kaserver support (default=no)
+#   --with-vfs-afsacl       Include AFS to NT ACL mapping module (default=no)
+#   --with-dce-dfs          Include DCE/DFS clear-text auth support (default=no)
+#   --with-ldap             LDAP support (default yes)
+#   --with-ads              Active Directory support (default auto)
+#   --with-krb5=base-dir    Locate Kerberos 5 support (default=/usr)
+#   --with-automount        Include automount support (default=no)
+#   --with-smbmount         Include smbmount (Linux only) support (default=no)
+#   --with-cifsmount        Include mount.cifs and umount.cifs (Linux only) support (default=yes)
+#   --with-pam              Include PAM support (default=no)
+#   --with-pam_smbpass      Build PAM module for authenticating against passdb backends (default=no)
+#   --with-nisplus-home     Include NISPLUS_HOME support (default=no)
+#   --with-syslog           Include experimental SYSLOG support (default=no)
+#   --with-quotas           Include disk-quota support (default=no)
+#   --with-sys-quotas       Include lib/sysquotas.c support (default=auto)
+#   --with-utmp             Include utmp accounting (default, if supported by OS)
+#   --with-libmsrpc         Build the libmsrpc shared library (default=yes if shared libs supported)
+#   --with-libsmbclient     Build the libsmbclient shared library (default=yes if shared libs supported)
+#   --with-libsmbsharemodes     Build the libsmbsharemodes shared library (default=yes if shared libs supported)
+#   --with-spinlocks        Use spin locks instead of fcntl locks (default=no)
+#   --with-cluster-support  Enable cluster extensions (default=no)
+#   --with-acl-support      Include ACL support (default=no)
+#   --with-aio-support      Include asynchronous io support (default=no)
+#   --with-sendfile-support Check for sendfile support (default=yes)
+#   --with-winbind          Build winbind (default, if supported by OS)
+#   --with-included-popt    use bundled popt library, not from system
+#   --with-included-iniparser    use bundled iniparser library, not from system
+#   --with-python=PYTHONNAME  build Python libraries
+#   --with-static-modules=MODULES  Comma-seperated list of names of modules to statically link in
+#   --with-shared-modules=MODULES  Comma-seperated list of names of modules to build shared
+
+	config SAMBA_SMBD
+		bool
+		depends on SAMBA
+		prompt "install smbd"
+		help
+		  Install smbd daemon on target.
+
+	config SAMBA_NMBD
+		bool
+		depends on SAMBA
+		prompt "install nmbd"
+		help
+		  Install nmbd daemon on target.
