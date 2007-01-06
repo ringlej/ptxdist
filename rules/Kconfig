@@ -83,19 +83,19 @@ source "rules/networking.in"
 endmenu
 
 menu "Disk and File Utilities       "
+source "rules/bonniexx.in"
+source "rules/cramfs.in"
 source "rules/dosfstools.in"
 source "rules/e2fsprogs.in"
+source "rules/fam.in"
 source "rules/grub.in"
 source "rules/hdparm.in"
 source "rules/ipkg.in"
+source "rules/liblockfile.in"
 source "rules/lilo.in"
 source "rules/logrotate.in"
 source "rules/samba.in"
-source "rules/cramfs.in"
-source "rules/bonniexx.in"
-source "rules/liblockfile.in"
 source "rules/unionfs.in"
-source "rules/fam.in"
 endmenu
 
 menu "Communication Utilities       "
