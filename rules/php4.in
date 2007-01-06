@@ -1,6 +1,6 @@
-config PHP4
+menuconfig PHP4
 	bool
-	prompt "PHP4"
+	prompt "php4                          "
 	help
 	  PHP stands for "PHP: Hypertext Preprocessor" (indeed, the first word
 	  of the acronym is the acronym). It is an HTML-embedded scripting
