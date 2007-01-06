@@ -1,6 +1,6 @@
 menuconfig LIBPV
 	bool
-	prompt "libpv"
+	prompt "libpv                         "
 	select LIBLIST
 	select LIBXMLCONFIG
 	select LIBMQUEUE if LIBPV_NEEDS_LIBMQUEUE

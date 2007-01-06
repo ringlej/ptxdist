@@ -1,11 +1,11 @@
 menuconfig LIBMODBUS
 	bool
-	prompt "libmodbus"
+	prompt "libmodbus                     "
 	help
-	  libmodbus is a library that implements the Modbus/TCP protocol. 
+	  libmodbus is a library that implements the Modbus/TCP protocol.
 
 	  See
 		http://www.pengutronix.de/software/libmodbus/download/v1.0/
 
-	  for details about this project. 
+	  for details about this project.
 
