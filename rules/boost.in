@@ -1,0 +1,546 @@
+# boost configuration
+
+menuconfig BOOST
+	bool
+	prompt "boost                         "
+	help
+
+	  Boost provides free peer-reviewed portable C++ source libraries.  The
+	  project emphasizes libraries that work well with the C++ Standard
+	  Library.  Boost libraries are intended to be widely useful, and usable
+	  across a broad spectrum of applications. The Boost license encourages
+	  both commercial and non-commercial use.
+
+	  The boost team aims to establish "existing practice" and provide
+	  reference implementations so that Boost libraries are suitable for
+	  eventual standardization. Ten Boost libraries are already included in
+	  the C++ Standards Committee's Library Technical Report ( TR1) as a step
+	  toward becoming part of a future C++ Standard. More Boost libraries are
+	  proposed for the upcoming TR2.
+
+	  For details see the project homepage:
+
+		http://www.boost.org/
+
+# config BOOST_ALGORIGHM
+# 	bool
+# 	depends on BOOST
+# 	prompt "algorithm"
+#
+# config BOOST_ANY
+# 	bool
+# 	depends on BOOST
+# 	prompt "any"
+#
+# config BOOST_ARRAY
+# 	bool
+# 	depends on BOOST
+# 	prompt "array"
+#
+# config BOOST_ASSIGN
+# 	bool
+# 	depends on BOOST
+# 	prompt "assign"
+#
+# config BOOST_BIND
+# 	bool
+# 	depends on BOOST
+# 	prompt "bind"
+#
+# config BOOST_COMPATIBILITY
+# 	bool
+# 	depends on BOOST
+# 	prompt "compatibility"
+# 	help
+# 	  Bootst  library.
+#
+# compose
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# concept_check
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# config
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# conversion
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# crc
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# date_time
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# detail
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# disjoint_sets
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# dynamic_bitset
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# expected_results.xml
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+
+config BOOST_FILESYSTEM
+	bool
+	depends on BOOST
+	prompt "filesystem"
+	help
+	  Bootst filesystem library.
+
+# format
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# function
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# functional
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# graph
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+#
+# integer
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# io
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# iostreams
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# iterator
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# lambda
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# libraries.htm
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# logic
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# maintainers.txt
+# math
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# mem_fn
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# mpl
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# multi_array
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# multi_index
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# numeric
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# optional
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# parameter
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# platform_maintainers.txt
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# pool
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# preprocessor
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# program_options
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# property_map
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# ptr_container
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# python
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# random
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# range
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# rational
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# regex
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# serialization
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# signals
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# smart_ptr
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# spirit
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# static_assert
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# test
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# thread
+
+config BOOST_THREAD
+	bool
+	depends on BOOST
+	prompt "thread"
+	help
+	  Portable C++ multi-threading library.
+
+# timer
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# tokenizer
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# tuple
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# type_traits
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# utility
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# variant
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+# wave
+# config BOOST_
+# 	bool
+# 	depends on BOOST
+# 	prompt ""
+# 	help
+# 	  Bootst  library.
+
+
+# -----
+
+config BOOST_REGEX
+	bool
+	depends on BOOST
+	prompt "regex"
+	help
+	  Bootst regex library.
+
+# config BOOST_SIGNALS
+# 	bool
+# 	depends on BOOST
+# 	prompt "signals"
+# 	help
+# 	  Bootst signals library.
+#
+# config BOOST_SERIALIZATION
+# 	bool
+# 	depends on BOOST
+# 	prompt "serialization"
+# 	help
+# 	  Bootst serialization library.
+#
+# config BOOST_THREAD
+# 	bool
+# 	depends on BOOST
+# 	prompt "thread"
+# 	help
+# 	  Bootst thread library.
+#
+# config BOOST_PYTHON
+# 	bool
+# 	depends on BOOST
+# 	prompt "python bindings"
+# 	help
+# 	  Bootst python library.
+#
+# config BOOST_FILESYSTEM
+# 	bool
+# 	depends on BOOST
+# 	prompt "filesystem"
+# 	help
+# 	  Bootst filesystem library.
+#
+# config BOOST_WAVE
+# 	bool
+# 	depends on BOOST
+# 	prompt "wave"
+# 	help
+# 	  Bootst wave library.
+#
+# config BOOST_DATE_TIME
+# 	bool
+# 	depends on BOOST
+# 	prompt "date_time"
+# 	help
+# 	  Bootst regexp library.
+#
+# config BOOST_IOSTREAMS
+# 	bool
+# 	depends on BOOST
+# 	prompt "iostreams"
+# 	help
+# 	  Bootst regexp library.
+#
+# config BOOST_TEST
+# 	bool
+# 	depends on BOOST
+# 	prompt "test"
+# 	help
+# 	  Bootst test library.
+#
+# config BOOST_PROGRAM_OPTIONS
+# 	bool
+# 	depends on BOOST
+# 	prompt "program options"
+# 	help
+# 	  Bootst regexp library.
+#
+# config BOOST_GRAPH
+# 	bool
+# 	depends on BOOST
+# 	prompt "graph"
+# 	help
+# 	  Bootst regexp library.
+#
