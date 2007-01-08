@@ -53,6 +53,38 @@ TODO for 0.10.6
     already prepared the patches; find out why the revision number was
     not bumped.
 
+[ ] ssh: server start scripts are missing
+
+[ ] ssh: key gen mechanics needed
+
+[ ] dbus needs user messagebus -> /etc/passwd; jbe: needs other user,
+    non-root; add this user to /etc/passwd. Debian has a user called
+    "messagebus", we should do it the same way. Define a sane UID (ask
+    jbe)
+
+[ ] rsc: audit if 'ptxdist get' fetches all packets correctly
+
+[ ] rsc: after release: update OSELAS.Toolchain and OSELAS.Crosstool to
+    use this version.
+
+[ ] util-linux: re-calls automake during compile; audit the logfile of
+    AllYesArm for autotool calls
+
+[ ] unbreak host-zlib; it is necessary for host-umkimage if there is no
+    zlib devel packet installed on the host.
+
+[ ] update ChangeLog
+
+[ ] omitting glibc installation should be possible, first hack attempt done
+
+[ ] creating links into non existent directories fails, but does not break the build!
+
+[ ] discuss UID of user "nobody" and GID of "nogroup"
+
+[ ] discuss UID of user "rpcuser"
+
+[ ] discuss UIDs and GIDs of other important system users
+
 [x] rsc: find out why mkl added this new dependency mechanism which
     searches for ${${LABEL}_DIR}/.ptx-extract.
 
@@ -64,31 +96,8 @@ TODO for 0.10.6
 
 [x] jbe: update DHCP tp 3.0.5 or correct path to 3.0.4
 
-
-TODO for 0.10.5
+TODO for 0.10.x
 ===============
-
-[ ] ssh: server start scripts are missing
-[ ] ssh: key gen mechanics needed
-[ ] dbus needs user messagebus -> /etc/passwd
-[x] Our current host tools use their target counterparts for getting the
-    sources; if the target counterpart is not selected, the dependencies
-    are not created correctly! Test: switch off ipkg but activate
-    host-ipkg.
-[x] audit 'get' stage
-[ ] test OSELAS.Crosstool
-[ ] util-linux: re-calls automake during compile
-[ ] unbreak host-zlib; it is necessary for host-umkimage if there is no
-    zlib devel packet installed on the host.
-[ ] update ChangeLog
-[ ] omitting glibc installation should be possible, first hack attempt done
-[ ] creating links into non existent directories fails, but does not break the build!
-[ ] discuss UID of user "nobody" and GID of "nogroup"
-[ ] discuss UID of user "rpcuser"
-[ ] discuss UIDs and GIDs of other important system users
-
-TODO for PTXdist 0.10 Series - High Priority
-============================================
 
 [ ] jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
     The output of
@@ -97,14 +106,21 @@ TODO for PTXdist 0.10 Series - High Priority
     is outdated...
     rsc: while doing this, update to a recent kconfig version, with
     saner colours instead of this unreadable yellow.
+
 [ ] jbe: why does fam-2.7.0 always try to run the autotools? It fails on most
     modern systems -> mark as broken. rsc: real fix: find out why and fix.
+
 [ ] jbe: replacing an *.make file for project use is easy. But how to
     replace a *.in file? rsc: no 0.10.6 issue, defer
+
 [ ] we seem to need python2.3-dev, reported by Marco Cavallini:
+
 [ ] pureftp's configure runs twice and needs host's autotools!
+
 [ ] Profiling support (kernel and userspace)
     best with host visualisation
+
+[ ] jbe: more help texts
 
 -------------------------------
 target: host-ipkg-utils.install
@@ -145,29 +161,42 @@ make: ***
 	* Gentoo
 	* Debian
 [ ] jbe: timezone files installation doesn't work as expected
+
 [ ] jbe: if ipkg building crashes, PTXdist doesn't break. rsc: see
     pipeline error fixing in scripts/libptxdist.sh
+
 [ ] rsc: ChangeLog automatism:
     http://www.simios.org/node/266?PHPSESSID=a736cf6396ad789e0148d9690761e733
+
 [ ] ero: add -mcpu=... to PTXCONF_TARGET_EXTRA_CPPFLAGS, to let host tools
     definitely barf if they are accidently being built with the target
     compiler.
+
 [ ] mol: ptxdist commands behave differently for arguments which exceed
     the "current" command; some continue parsing and some exit.
+
 [ ] mol: add possibility to 'ptxdist print' more than one variable in
     one make call
+
 [ ] check if ${PTXCONF_PREFIX} can be written to and barf if not
+
 [ ] add sanity checks for all user configurable variables (especially
     paths)
+
 [ ] audit project files for CROSS_AUTOCONF
+
 [ ] Problem: When doing things like "PKG_CONFIG_PATH=bla something",
     something does not inherit the environment variable PKG_CONFIG_PATH.
     To achieve this properly, we need to export these variables to the
     calling shell. The same applies to lots of variables from
     Rules.make.
+
 [ ] Write macros $(call compile) and $(call configure).
+
 [ ] libxslt crypto support is broken
+
 [ ] add menu entry for user local config files in /etc
+
 [ ] image build mechanism tries to access data and infos from already
     disabled targets! (if they where enabled before). It does so
     unless a manually delete of the remaining and (now) useless targets
@@ -216,8 +245,8 @@ Test suite components to be added
     checking compliance?
 [ ] RSC: have a look at http://asic-linux.com.mx/~izto/checkinstall/
 
-Current TODO List
-=================
+Old TODOs
+=========
 
 [?] JBE: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=27363
 
@@ -228,27 +257,6 @@ Current TODO List
 [ ] ptxdist arch <arm|um|ppc|....>
 
     Split build-target into build-${PTXCONF_ARCH}
-
-[ ] RSC: port XOrg 7.0
-
-    Requirements, according to
-    http://xorg.freedesktop.org/wiki/ModularDevelopersGuide
-
-	[x] pkg-config > 0.18
-	[ ] write test in configure to check for >0.18!
-	[x] expat 1.95.8
-	[x] freetype 1.2.9
-	[x] fontconfig-2.2.3 recommendet, we have 2.2.99 (latest 2.2)
-	[x] libpng 1.2.8
-	[x] libdrm 2.0
-	[x] zlib 1.2.3
-	[x] mesa 6.4.1
-
-    Things noticed during xorg port:
-
-	[ ] address PTXCONF_XORG_SERVER_QUIRKS by sane upstream patching
-	[ ] check ac_cv_* variables - they are problably not really
-	    needed, at least not all of them.
 
 [ ] Tree Structure
     RSC: Find sane place for generic files from projects/generic
@@ -285,8 +293,6 @@ Current TODO List
     this menu should provide the toolchain, all pathes to everything
     (also to a prebuilt toochain). All other targets should be project
     specific.
-
-[ ] JBE: more help texts
 
 [ ] RSC: make projects doesn't find local_projects/something, if
     something is a softlink and not a directory.
@@ -405,6 +411,13 @@ Current TODO List
 
 DONE
 ----
+
+[x] Our current host tools use their target counterparts for getting the
+    sources; if the target counterpart is not selected, the dependencies
+    are not created correctly! Test: switch off ipkg but activate
+    host-ipkg.
+
+[x] audit 'get' stage
 
 [x] Menu Structure
     JBE: Use menuconfig instead of menu + configs whereever possible.
