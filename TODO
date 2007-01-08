@@ -1,8 +1,8 @@
 TODO for 0.10.6
 ===============
 
-[ ] jbe: reduce directory count on top level, combine build-* and local-* into a shared subdir
-    rsc: we've agreed on this variant:
+[ ] jbe: reduce directory count on top level, combine build-* and
+    local-* into a shared subdir rsc: we've agreed on this variant:
 
     	build-host/
 	build-target/
@@ -24,15 +24,20 @@ TODO for 0.10.6
 
     IMHO these must be fixed to be proper host tools.
 
-[ ] jbe: discuss removing of the /dev/pts menuentry. With udev it makes no sense, without
-    udev it does not help
-[ ] jbe: replacing an *.make file for project use is easy. But how to replace a *.in file?
-[ ] jbe: udev needs rules to control permissions on device nodes
-[ ] jbe: remove generic /etc/resolv.conf or fill it with vital information!
-[ ] jbe: if any kind of /etc/resolv.conf is selected a different nsswitch.conf than the
-    current generic must be used. Otherwise resolv.conf will never be used
-[x] jbe: why does fam-2.7.0 always try to run the autotools? It fails on most
-    modern systems -> mark as broken. rsc: real fix: find out why and fix.
+[ ] jbe: discuss removing of the /dev/pts menuentry. With udev it makes
+    no sense, without udev it does not help. rsc: go ahead and remove
+    it.
+
+[ ] jbe: udev needs rules to control permissions on device nodes; jbe
+    currently writes docs for this.
+
+[ ] jbe/rsc: /etc/resolv.conf and /etc/nsswitch.conf:
+    Make a switch to select between "no resolv.conf" and "custom
+    resolv.conf" (adapt names to other conf file name conventions). Then
+    either have no resolv.conf at all (use /etc/hosts only), or generate
+    resolv.conf from 'ptxdist boardsetup' information and generate a
+    sane nsswitch.conf.
+
 [ ] jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
     The output of
     *** End of configuration.
@@ -40,6 +45,7 @@ TODO for 0.10.6
     is outdated...
     rsc: while doing this, update to a recent kconfig version, with
     saner colours instead of this unreadable yellow.
+
 [ ] jbe: if no patches are required for the kernel, it should not depend on
     kernel-patches-target/
 [x] jbe: make DHCP client useful on the target. Currently only the binary
@@ -82,6 +88,10 @@ TODO for 0.10.5
 TODO for PTXdist 0.10 Series - High Priority
 ============================================
 
+[ ] jbe: why does fam-2.7.0 always try to run the autotools? It fails on most
+    modern systems -> mark as broken. rsc: real fix: find out why and fix.
+[ ] jbe: replacing an *.make file for project use is easy. But how to
+    replace a *.in file? rsc: no 0.10.6 issue, defer
 [ ] we seem to need python2.3-dev, reported by Marco Cavallini:
 [ ] pureftp's configure runs twice and needs host's autotools!
 [ ] Profiling support (kernel and userspace)
