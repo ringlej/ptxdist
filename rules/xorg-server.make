@@ -442,7 +442,7 @@ xorg-server_compile: $(STATEDIR)/xorg-server.compile
 
 $(STATEDIR)/xorg-server.compile: $(xorg-server_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_SERVER_DIR) && $(XORG_SERVER_PATH) make
+	cd $(XORG_SERVER_DIR) && $(XORG_SERVER_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
