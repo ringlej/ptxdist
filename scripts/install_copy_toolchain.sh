@@ -233,6 +233,13 @@ ptxd_get_sysroot_usr() {
 }
 
 
+#
+# $@:
+#     usr=<what to copy>
+#     packet=<packet>
+#     dest=<dest in sysroot>
+#     strip=<true or false>
+#
 ptxd_install_toolchain_usr() {
     local sysroot_usr usr usr_src usr_perm
 
@@ -240,30 +247,30 @@ ptxd_install_toolchain_usr() {
 
     sysroot_usr="`ptxd_get_sysroot_usr`" || return $?
 
-    usr_src="${sysroot_usr}/${usr}"
-    if test \! -e "${usr_src}"; then
+    if test -z "`find ${sysroot_usr} -path "${sysroot_usr}/${usr}" -a \! -type d`"; then
 	echo "file ${usr} not found"
-	return 1
     fi
 
-    eval `stat -c"usr_perm=%a" "${usr_src}"`
-    usr_dst="/usr/${usr}"
+    find ${sysroot_usr} -path "${sysroot_usr}/${usr}" -a \! -type d | while read usr_src; do
+	eval `stat -c"usr_perm=%a" "${usr_src}"`
+	usr_dst="/usr${usr_src#${sysroot_usr}}"
 
-    echo "usr - ${usr_src}"
+	echo "usr - ${usr_dst}"
 
-    for dir in \
-	"${ROOTDIR}" \
-	"${ROOTDIR_DEBUG}" \
-	"${IMAGEDIR}/${packet}/ipkg"; do
+	for dir in \
+	    "${ROOTDIR}" \
+	    "${ROOTDIR_DEBUG}" \
+	    "${IMAGEDIR}/${packet}/ipkg"; do
 
-      install -D "${usr_src}" "${dir}${usr_dst}"
+	  install -m "${usr_perm}" -D "${usr_src}" "${dir}${usr_dst}"
+	done
+
+	if "${strip}"; then
+	    ${STRIP} "${ROOTDIR}${usr_dst}"
+	    ${STRIP} "${IMAGEDIR}/${packet}/ipkg${usr_dst}"
+	fi
+	echo "f:${usr_dst}:0:0:${usr_perm}" >> "${STATEDIR}/${packet}.perms"
     done
-
-    if "${strip}"; then
-	${STRIP} "${ROOTDIR}${usr_dst}"
-	${STRIP} "${IMAGEDIR}/${packet}/ipkg${usr_dst}"
-    fi
-    echo "f:${usr_dst}:0:0:${usr_perm}" >> "${STATEDIR}/${packet}.perms"
 }
 
 
