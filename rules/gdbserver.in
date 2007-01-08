@@ -1,4 +1,4 @@
-config GDBSERVER
+menuconfig GDBSERVER
 	bool "gdbserver"
 	help
 	  GDBSERVER is a program that allows you to run GDB on a

@@ -1,6 +1,6 @@
 config DAEMONIZE
 	bool 
-	prompt "daemonize           "
+	prompt "daemonize"
 	help
 	  Daemonize is a trivial utility that runs a command as a Unix
 	  daemon. See the project homepage for details: 
