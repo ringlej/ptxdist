@@ -1,5 +1,6 @@
 TODO for 0.10.6
 ===============
+
 [ ] jbe: reduce directory count on top level, combine build-* and local-* into a shared subdir
 [ ] jbe: discuss removing of the /dev/pts menuentry. With udev it makes no sense, without
     udev it does not help
