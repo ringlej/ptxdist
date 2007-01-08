@@ -43,6 +43,7 @@ source "rules/host-python24.in"
 
 # automatically selected host tools
 
+source "rules/host-apache2.in"
 source "rules/host-dbus.in"
 source "rules/host-expat.in"
 source "rules/host-freetype.in"
