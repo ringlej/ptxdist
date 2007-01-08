@@ -1,8 +1,8 @@
-menuconfig XMLSTARLET
+config XMLSTARLET
 	bool
 	select LIBXML2
 	select LIBXSLT
-	prompt "xmlstarlet          "
+	prompt "xmlstarlet"
 	help
 	  XMLStarlet is a set of command line utilities (tools) which
 	  can be used to transform, query, validate, and edit XML documents and

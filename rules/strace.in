@@ -1,4 +1,4 @@
-config STRACE
+menuconfig STRACE
 	bool
 	prompt "strace"
 	help
