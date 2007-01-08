@@ -1,7 +1,0 @@
-config HOST_TERMCAP
-	bool
-	depends on BROKEN
-	prompt "HOST_TERMCAP [BROKEN]"
-	help
-	  FIXME: This item needs to be documented
-

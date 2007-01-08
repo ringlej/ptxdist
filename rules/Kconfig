@@ -243,9 +243,7 @@ source "rules/gmp4.in"
 source "rules/gtk1210.in"
 # these host in-files are probably not broken,
 # please check why they are not included anywhere...
-source "rules/host-apache2.in"
 source "rules/host-checkinstall.in"
-source "rules/host-termcap.in"
 # ---
 source "rules/konq-e.in"
 source "rules/libart.in"
