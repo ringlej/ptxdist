@@ -66,7 +66,7 @@ XORG_LIB_X11_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_X11_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-malloc0returnsnull --disable-dependency-tracking \
+	--disable-malloc0returnsnull \
 	--disable-dependency-tracking \
 	--disable-man-pages
 #
@@ -148,7 +148,7 @@ xorg-lib-X11_compile: $(STATEDIR)/xorg-lib-X11.compile
 
 $(STATEDIR)/xorg-lib-X11.compile: $(xorg-lib-X11_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_X11_DIR) && $(XORG_LIB_X11_PATH) $(XORG_LIB_X11_ENV) make
+	cd $(XORG_LIB_X11_DIR) && $(XORG_LIB_X11_PATH) $(XORG_LIB_X11_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
