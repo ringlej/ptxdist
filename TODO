@@ -38,16 +38,9 @@ TODO for 0.10.6
     resolv.conf from 'ptxdist boardsetup' information and generate a
     sane nsswitch.conf.
 
-[ ] jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
-    The output of
-    *** End of configuration.
-    *** Execute 'make' to build the project or try 'make help'.
-    is outdated...
-    rsc: while doing this, update to a recent kconfig version, with
-    saner colours instead of this unreadable yellow.
-
 [ ] jbe: if no patches are required for the kernel, it should not depend on
     kernel-patches-target/
+
 [x] jbe: make DHCP client useful on the target. Currently only the binary
     will be built and copied, but does not work on the target
 [x] jbe: update DHCP tp 3.0.5 or correct path to 3.0.4
@@ -88,6 +81,13 @@ TODO for 0.10.5
 TODO for PTXdist 0.10 Series - High Priority
 ============================================
 
+[ ] jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
+    The output of
+    *** End of configuration.
+    *** Execute 'make' to build the project or try 'make help'.
+    is outdated...
+    rsc: while doing this, update to a recent kconfig version, with
+    saner colours instead of this unreadable yellow.
 [ ] jbe: why does fam-2.7.0 always try to run the autotools? It fails on most
     modern systems -> mark as broken. rsc: real fix: find out why and fix.
 [ ] jbe: replacing an *.make file for project use is easy. But how to
