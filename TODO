@@ -41,20 +41,29 @@ TODO for 0.10.6
 [ ] jbe: if no patches are required for the kernel, it should not depend on
     kernel-patches-target/
 
-[x] jbe: make DHCP client useful on the target. Currently only the binary
-    will be built and copied, but does not work on the target
-[x] jbe: update DHCP tp 3.0.5 or correct path to 3.0.4
 [ ] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
     looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
     into the path somehow. Ask mkl.
-[ ] rsc: merge mkl's host/cross/target-pkg-config fixes. We need this to
-    have a proper x.org and host-dbus.
-[ ] rsc: fix 'ptxdist newpacket host'
+
+[ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
+    this "class" mechanism and make sure it produces sane output. Check
+    with mkl.
+
 [ ] rsc: check if we can update mtd-utils from 1.0.0 to 1.0.1; mkl has
     already prepared the patches; find out why the revision number was
     not bumped.
-[ ] rsc: find out why mkl added this new dependency mechanism which
+
+[x] rsc: find out why mkl added this new dependency mechanism which
     searches for ${${LABEL}_DIR}/.ptx-extract.
+
+[x] rsc: merge mkl's host/cross/target-pkg-config fixes. We need this to
+    have a proper x.org and host-dbus.
+
+[x] jbe: make DHCP client useful on the target. Currently only the binary
+    will be built and copied, but does not work on the target
+
+[x] jbe: update DHCP tp 3.0.5 or correct path to 3.0.4
+
 
 TODO for 0.10.5
 ===============
