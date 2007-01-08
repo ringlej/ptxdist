@@ -1,6 +1,7 @@
 menuconfig PHP4
 	bool
 	prompt "php4                          "
+	select APACHE2
 	help
 	  PHP stands for "PHP: Hypertext Preprocessor" (indeed, the first word
 	  of the acronym is the acronym). It is an HTML-embedded scripting
@@ -21,4 +22,13 @@ config PHP4_CLI
 	depends on PHP4
 	help
 	  FIXME: This item needs to be documented
+
+config PHP4_MOD_APACHE2
+	bool
+	prompt "PHP4 Module for Apache 2"
+	select APACHE2
+	depends on PHP4
+	help
+	 This module adds the PHP4 script language to the server
+	 to support dynamic website generation
 

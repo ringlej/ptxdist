@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_PHP4) += php4
 #
 # Paths and names
 #
-PHP4_VERSION	= 4.4.4
-PHP4		= php-$(PHP4_VERSION)
-PHP4_SUFFIX	= tar.bz2
-PHP4_URL	= http://de.php.net/get/$(PHP4).$(PHP4_SUFFIX)/from/this/mirror
-PHP4_SOURCE	= $(SRCDIR)/$(PHP4).$(PHP4_SUFFIX)
-PHP4_DIR	= $(BUILDDIR)/$(PHP4)
+PHP4_VERSION	:= 4.4.4
+PHP4		:= php-$(PHP4_VERSION)
+PHP4_SUFFIX	:= tar.bz2
+PHP4_URL	:= http://de.php.net/get/$(PHP4).$(PHP4_SUFFIX)/from/this/mirror
+PHP4_SOURCE	:= $(SRCDIR)/$(PHP4).$(PHP4_SUFFIX)
+PHP4_DIR	:= $(BUILDDIR)/$(PHP4)
 
 
 # ----------------------------------------------------------------------------
@@ -58,8 +58,8 @@ $(STATEDIR)/php4.extract: $(php4_extract_deps_default)
 
 php4_prepare: $(STATEDIR)/php4.prepare
 
-PHP4_PATH = PATH=$(CROSS_PATH)
-PHP4_ENV = \
+PHP4_PATH := PATH=$(CROSS_PATH)
+PHP4_ENV := \
 	$(CROSS_ENV) \
 	ac_cv_func_fopencookie=no \
 	ac_cv_func_getaddrinfo=yes \
@@ -68,7 +68,7 @@ PHP4_ENV = \
 #
 # autoconf
 #
-PHP4_AUTOCONF = \
+PHP4_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-config-file-path=/etc \
 	--with-expat-dir=$(SYSROOT) \
@@ -79,10 +79,12 @@ PHP4_AUTOCONF = \
 ifndef PTXCONF_PHP4_CLI
 PHP4_AUTOCONF += --disable-cli
 endif
+
 ifndef PTXCONF_PHP4_ZTS
 PHP4_AUTOCONF += --enable-experimental-zts
 endif
-ifdef PTXCONF_APACHE2_MOD_PHP4
+
+ifdef PTXCONF_PHP4_MOD_APACHE2
 PHP4_AUTOCONF += --with-apxs2=$(SYSROOT)/usr/bin/apxs
 endif
 
@@ -90,7 +92,7 @@ $(STATEDIR)/php4.prepare: $(php4_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP4_DIR)/config.cache)
 	cd $(PHP4_DIR) && \
- 		$(PHP4_PATH) $(PHP4_ENV) \
+		$(PHP4_PATH) $(PHP4_ENV) \
 		./configure $(PHP4_AUTOCONF)
 	@$(call touch, $@)
 
@@ -102,7 +104,7 @@ php4_compile: $(STATEDIR)/php4.compile
 
 $(STATEDIR)/php4.compile: $(php4_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(PHP4_DIR) && $(PHP4_ENV) $(PHP4_PATH) make
+	cd $(PHP4_DIR) && $(PHP4_ENV) $(PHP4_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -113,13 +115,9 @@ php4_install: $(STATEDIR)/php4.install
 
 $(STATEDIR)/php4.install: $(php4_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME
-	cd $(PHP4_DIR) && \
-		$(PHP4_ENV) $(PHP4_PATH) \
-		make install-build install-headers install-programs \
-		INSTALL_ROOT=$(SYSROOT)
-	install -m 755 -D $(PHP4_DIR)/scripts/php-config $(PTXCONF_PREFIX)/bin/php-config
-	install -m 755 -D $(PHP4_DIR)/scripts/phpize $(PTXCONF_PREFIX)/bin/phpize
+	@$(call install, PHP4,,,INSTALL_ROOT=$(SYSROOT))
+	install -m 755 -D $(PHP4_DIR)/scripts/php-config $(PTXCONF_CROSS_PREFIX)/bin/php-config
+	install -m 755 -D $(PHP4_DIR)/scripts/phpize $(PTXCONF_CROSS_PREFIX)/bin/phpize
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
