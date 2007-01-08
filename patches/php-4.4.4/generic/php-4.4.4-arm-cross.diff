@@ -1,6 +1,12 @@
---- ptxdist/Zend/zend_strtod.c	2005-02-17 05:45:22.000000000 +0100
-+++ ptxdist/Zend/zend_strtod.c	2005-04-08 13:17:49.877528861 +0200
-@@ -129,7 +129,8 @@
+---
+ Zend/zend_strtod.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Index: php-4.4.4/Zend/zend_strtod.c
+===================================================================
+--- php-4.4.4.orig/Zend/zend_strtod.c
++++ php-4.4.4/Zend/zend_strtod.c
+@@ -129,7 +129,8 @@ typedef unsigned long int uint32_t;
   * byte and word endianness. The byte order is still little endian
   * but the word order is big endian.
   */
