@@ -94,7 +94,7 @@ config XORG_LIB_X11_INSTALL_LOCALE_CHN_HK
 config XORG_LIB_X11_INSTALL_LOCALE_CHN_TW
 	depends on XORG_LIB_X11_INSTALL_LOCALE
 	bool
-	prompt "  install chinese locale packet (Hongkong)"
+	prompt "  install chinese locale packet (Taiwan)"
 	help
 	  install chinese locale files, including big5 and big5hkcks as used
 	  in Taiwan.
