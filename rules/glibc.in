@@ -151,90 +151,56 @@ config GLIBC_NSL
 	  transport-level  interface to networking services like i.E. 
 	  nis(+)
 
-menu "I18N"
-	depends on GLIBC
-
-config GLIBC_I18N_BIN
-	bool
-	depends on GLIBC
-	prompt "Install locale utilities"
-	help
-	  install the locale utilities
-
 config GLIBC_I18N_BIN_LOCALE
 	bool
-	prompt "  locale"
-	depends on GLIBC_I18N_BIN
+	prompt "Install locale"
+	depends on GLIBC
 	help
 	  The locale program writes information about the current
 	  locale environment, or all locales, to standard output.
 
-
 config GLIBC_I18N_BIN_LOCALEDEF
 	bool
-	prompt "  localedef"
-	depends on GLIBC_I18N_BIN
+	prompt "Install localedef"
+	depends on GLIBC
 	help
 	  The  localedef  program reads the indicated charmap and
 	  input files, compiles them to a binary form quickly usable
 	  by the locale functions in the C library, and add it to
 	  /usr/lib/locale/locale-archive
 
-config GLIBC_I18N_DATA
+config GLIBC_I18N_RAWDATA
 	bool
-	depends on GLIBC
 	prompt "Install i18n locales and charmaps"
+	depends on GLIBC_I18N_BIN_LOCALEDEF
+	help
+	  With the i18n datasets you can generate new locales in running
+	  system. This will, however, increase the installation size 
+	  unneccessarily if you don't want to change your system locale
+	  often. Hence we recommend to use the "System locale" option in 
+	  ptxdist to determine locales while building the system.
+
+
+menu "Install gconv libraries"
+	depends on GLIBC
+
+config GLIBC_GCONV_DEF
+	bool
+	prompt "  default gconv modules"
 	depends on GLIBC
 	default y
 	help
-	  installs i18n locale and charmap files to the system. 
-	  to use these datafiles you will have to generate a locale
-	  locale-archive with the program localedef. For more details
-	  see documentation in glibc source
+	  install the iso8859-1 (Latin Alphabet No.1) and the iso8859-15 (Latin 
+	  Alphabet No.9) encoding modules into gconv, this should be ok for most
+	  western languages
 
-config GLIBC_I18N_DATA_DEF
+config GLIBC_GCONV_ZH
 	bool
-	prompt "  standard i18n datasets"
-	depends on GLIBC_I18N_DATA
-	default y
-	help
-	  this installs default datasets. including English and German locale 
-	  and charmaps.
-
-config GLIBC_I18N_DATA_ZH
-	bool
-	prompt "  chinese datasets"
-	depends on GLIBC_I18N_DATA
-	help
-	  this installs chinese locales and charmaps, including all charactersets,
-	  will add about 800KB to the system.
-
-config GLIBC_GCONV
-	bool
-	depends on GLIBC
-	prompt "Install gconv libraries"
+	prompt "  gconv modules for chinese language"
 	depends on GLIBC
 	help
-	  The gconv-modules extend the glibc, they are used by 
-	  several programs to convert the local codepages.
-
-config GLIBC_GCONV_ISO8859_1
-	bool
-	prompt "  ISO8859-1"
-	depends on GLIBC_GCONV
-	help
-	  install the iso8859-1 (Latin Alphabet No.1) encoding module 
-	  into gconv, this should be ok for most west and north european
-	  languages.
-
-config GLIBC_GCONV_ISO8859_15
-	bool
-	prompt "  ISO8859-15"
-	depends on GLIBC_GCONV
-	help
-	  install the iso8859-15 (Latin Alphabet No.9) encoding module
-	  into gconv, this one contains french ligatures and the euro
-	  symbol
+	  install the gconv modules for chinese language, including BIG5, GB2312
+	  and GB18030
 
 endmenu
 
