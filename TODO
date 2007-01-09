@@ -8,6 +8,8 @@ TODO for 0.10.6
 	make: Ungültige Option -- L
 	make: Ungültige Option -- /
 
+	Seems the install macro emits: make [...] CFLAGS=""" LDFLAGS=""" [...]
+
 [ ] jbe: reduce directory count on top level, combine build-* and
     local-* into a shared subdir rsc: we've agreed on this variant:
 
