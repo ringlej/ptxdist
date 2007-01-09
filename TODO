@@ -34,9 +34,6 @@ TODO for 0.10.6
     resolv.conf from 'ptxdist boardsetup' information and generate a
     sane nsswitch.conf."
 
-[ ] jbe: if no patches are required for the kernel, it should not depend on
-    kernel-patches-target/
-
 [ ] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
     looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
     into the path somehow. Ask mkl.

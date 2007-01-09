@@ -81,7 +81,7 @@ $(STATEDIR)/kernel.extract: $(kernel_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KERNEL_DIR))
 	@$(call extract, KERNEL)
-ifneq ($(KERNEL_SERIES),"")
+ifneq ($(PTXCONF_KERNEL_SERIES),"")
 	@$(call patchin, KERNEL,,$(KERNEL_SERIES))
 endif
 	@$(call touch, $@)
