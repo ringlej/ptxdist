@@ -2,7 +2,8 @@ menuconfig PROCPS
 	bool "procps              "
 	select NCURSES
 	help
-	  FIXME: This item needs to be documented
+	  The procps package contains a set of system utilities that provide
+	   system information.
 
 config PROCPS_TOP
 	bool
