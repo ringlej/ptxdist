@@ -1,5 +1,8 @@
 TODO for 0.10.6
 ===============
+[ ] jbe: ptxdist images fails for jffs2 fileimage creation
+	it seems local-host/sbin is not in the PATH
+
 [ ] jbe: procps.install stage fails with:
 	make: Ungültige Option -- y
 	make: Ungültige Option -- y
