@@ -65,6 +65,10 @@ LIBICONV_ENV 	:=  $(CROSS_ENV)
 #
 LIBICONV_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+ifdef PTXCONF_LIBICONV_EXTRA_ENCODINGS
+	LIBICONV_AUTOCONF += --enable-extra-encodings
+endif
+
 $(STATEDIR)/libiconv.prepare: $(libiconv_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBICONV_DIR)/config.cache)
