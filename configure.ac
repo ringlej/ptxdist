@@ -117,6 +117,23 @@ case "$AWK_VERSION" in
 esac
 AC_MSG_RESULT([$AWK_VERSION])
 
+# FIXME: we might want localedef as hosttool later
+dnl Check for localedef >= 2.2.0
+AC_PATH_PROGS(LOCALEDEF, localedef,, $PATH)
+if test -z "$LOCALEDEF"; then
+	AC_MSG_ERROR([localedef could not be found, please install])
+fi
+
+AC_MSG_CHECKING([localedef version])
+LOCALEDEF_VERSION=`$LOCALEDEF --version 2>/dev/null | $SED -ne "s/.*libc. \([[0-9\.]]*\)/\1/p"`
+case "$LOCALEDEF_VERSION" in
+2.0.*) AC_MSG_ERROR([we need at least GNU localedef 2.2.x but found $LOCALDEF_VERSION]) ;;
+2.1.*) AC_MSG_ERROR([we need at least GNU localedef 2.2.x but found $LOCALDEF_VERSION]) ;;
+2.2.*) ;;
+2.3.*) ;;
+*)   AC_MSG_ERROR([we need at least GNU localedef 2.2.x]) ;;
+esac
+AC_MSG_RESULT([$LOCALEDEF_VERSION])
 
 dnl Check for lex
 AC_PROG_LEX
