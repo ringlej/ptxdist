@@ -13,6 +13,7 @@ config LOCALES_EN_US
 	bool
 	prompt "en_US (ISO8859-1)"
 	depends on LOCALES
+	default y
 	help
 	  American English language support.
 
