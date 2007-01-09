@@ -316,4 +316,6 @@ ptxd_install_copy_toolchain() {
 #
 # main()
 #
-ptxd_install_copy_toolchain "${@}"
+# FIXME: ugly hack to use this script as library as well
+#
+[ `basename $0` != "make_locale.sh" ] && { echo running, $# $0; ptxd_install_copy_toolchain "${@}"; }

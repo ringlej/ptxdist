@@ -42,6 +42,7 @@ source "rules/klibc.in"
 source "rules/kernel.in"
 source "rules/libc.in"
 source "rules/gcclibs.in"
+source "rules/locales.in"
 endmenu
 
 comment "------------------------------------"

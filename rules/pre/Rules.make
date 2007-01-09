@@ -383,6 +383,27 @@ touch =								\
 	echo "Finished target $(shell basename $1)";
 
 #
+# add_locale 
+#
+# add locale support to locales-archive, if not exist, a new locale 
+# archive will be created automaticly
+#
+# $1: localename: localename (i.E. zh_CN or zh_CN.GBK)
+# $2: localedef; locale definition file (i.E. de_DE or de_DE@euro)
+# $3: charmap; charachter encoding map (i.E. ISO-8859-1)
+# $4: prefix; installation prefix for locales-archive
+# 
+#
+add_locale =							\
+	LOCALE_NAME=$(strip $(1));				\
+	LOCALE_DEF=$(strip $(2));				\
+	CHARMAP=$(strip $(3));					\
+	PREF=$(strip $(4));					\
+	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)			\
+	$(SCRIPTSDIR)/make_locale.sh 				\
+		-f $$CHARMAP -i $$LOCALE_DEF -p $$PREF -n $$LOCALE_NAME
+
+#
 # extract 
 #
 # Extract a source archive into a directory. This stage is 
@@ -444,7 +465,6 @@ extract =							\
 	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
 	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
 	$(CHECK_PIPE_STATUS)
-
 
 #
 # get
