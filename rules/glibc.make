@@ -15,10 +15,10 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_GLIBC) += glibc
-
+GLIBC_VERSION	:= 1.0
 GLIBC 		:= glibc-$(GLIBC_VERSION)
 GLIBC_DIR	:= $(BUILDDIR)/glibc
-
+LOCALE_GENERATE_DIR	:= $(GLIBC_DIR)-gen
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -169,7 +169,6 @@ ifdef PTXCONF_GLIBC_GCONV_ISO8859_15
 	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-15.so, /usr/lib/gconv)
 endif
 
-
 ifdef PTXCONF_GLIBC_I18N_BIN_LOCALE
 	@$(call install_copy_toolchain_usr, glibc, bin/locale)
 endif
@@ -178,28 +177,16 @@ ifdef PTXCONF_GLIBC_I18N_BIN_LOCALEDEF
 	@$(call install_copy_toolchain_usr, glibc, bin/localedef)
 endif
 
-ifdef PTXCONF_GLIBC_I18N_DATA_DEF
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/ISO-8859-1.gz,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/ISO-8859-15.gz,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/ANSI_X3.110-1983.gz,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/ANSI_X3.4-1968.gz,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/de_DE,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/de_DE@euro,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/en_GB,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/en_US,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/i18n,,n)
+ifdef PTXCONF_GLIBC_I18N_RAWDATA
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/*,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/*,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/locale/locale.alias,,n)
 endif
 
-ifdef PTXCONF_GLIBC_I18N_DATA_ZH
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/GB2312.gz,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/GB18030.gz,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/GB_1988-80.gz,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/GBK.gz,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/zh_CN,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/zh_HK,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/zh_SG,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/zh_TW,,n)
+ifdef PTXCONF_LOCALES
+	@$(call install_copy_toolchain_usr, glibc, share/locale/locale.alias,,n)
 endif
+
 # Zonefiles are BROKEN
 # 	@$(call install_copy, glibc, 0, 0, 0755, /usr/share/zoneinfo)
 # 	@for target in $(GLIBC_ZONEFILES-y); do \
