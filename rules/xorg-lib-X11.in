@@ -51,14 +51,17 @@ config XORG_LIB_X11_XKB
 
 config XORG_LIB_X11_INSTALL_LOCALE
 	depends on XORG_LIB_X11
+	depends on LOCALES
 	bool
-	prompt "install locale files"
+	prompt "XLOCALE Support"
 	default y
 	help
-	  installs locale files to the target, will take about 2,5MB diskspace
+	  add XLOCALE Support, you will need this one if you have localized X
+	  applications.
 
 config XORG_LIB_X11_INSTALL_LOCALE_8859_1
 	depends on XORG_LIB_X11_INSTALL_LOCALE
+	depends on LOCALES_EN_US || LOCALES_EN_GB || LOCALES_DE_DE
 	bool
 	prompt "  install iso8859-1 locale packet"
 	default y
@@ -67,6 +70,7 @@ config XORG_LIB_X11_INSTALL_LOCALE_8859_1
 
 config XORG_LIB_X11_INSTALL_LOCALE_8859_15
 	depends on XORG_LIB_X11_INSTALL_LOCALE
+	depends on LOCALES_EN_GB_EURO || LOCALES_DE_DE_EURO
 	bool
 	prompt "  install iso8859-15 locale packet"
 	default y
@@ -78,6 +82,7 @@ menu "  Chinese locale packets"
 
 config XORG_LIB_X11_INSTALL_LOCALE_CHN_MAIN
 	depends on XORG_LIB_X11_INSTALL_LOCALE
+	depends on LOCALES_ZH_CN
 	bool
 	prompt "  install chinese locales packet (mainland)"
 	help
@@ -85,6 +90,7 @@ config XORG_LIB_X11_INSTALL_LOCALE_CHN_MAIN
 
 config XORG_LIB_X11_INSTALL_LOCALE_CHN_HK
 	depends on XORG_LIB_X11_INSTALL_LOCALE
+	depends on LOCALES_ZH_HK
 	bool
 	prompt "  install chinese locale packet (Hongkong)"
 	help
@@ -93,6 +99,7 @@ config XORG_LIB_X11_INSTALL_LOCALE_CHN_HK
 
 config XORG_LIB_X11_INSTALL_LOCALE_CHN_TW
 	depends on XORG_LIB_X11_INSTALL_LOCALE
+	depends on LOCALES_ZH_TW
 	bool
 	prompt "  install chinese locale packet (Taiwan)"
 	help
