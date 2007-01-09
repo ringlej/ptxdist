@@ -28,11 +28,11 @@ TODO for 0.10.6
     currently writes docs for this.
 
 [ ] jbe/rsc: /etc/resolv.conf and /etc/nsswitch.conf:
-    Make a switch to select between "no resolv.conf" and "custom
-    resolv.conf" (adapt names to other conf file name conventions). Then
-    either have no resolv.conf at all (use /etc/hosts only), or generate
+    Find a solution to generate DNS configuration files from other sources
+    like boardsetup (I have no clue what this means).
+    "Then either have no resolv.conf at all (use /etc/hosts only), or generate
     resolv.conf from 'ptxdist boardsetup' information and generate a
-    sane nsswitch.conf.
+    sane nsswitch.conf."
 
 [ ] jbe: if no patches are required for the kernel, it should not depend on
     kernel-patches-target/
