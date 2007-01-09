@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 #
 # Paths and names
 #
-UDEV_VERSION	:= 088
+UDEV_VERSION	:= 103
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
 UDEV_URL	:= http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
@@ -63,7 +63,20 @@ UDEV_ENV 	:=  $(CROSS_ENV)
 UDEV_MAKEVARS	 =  CROSS_COMPILE=$(COMPILER_PREFIX)
 
 ifdef PTXCONF_UDEV_FW_HELPER
-UDEV_MAKEVARS	+=  EXTRAS=extras/firmware
+UDEV_TOOLVAR	+=  extras/firmware
+endif
+ifdef PTXCONF_UDEV_USB_ID
+UDEV_TOOLVAR	+=  extras/usb_id
+endif
+ifdef PTXCONF_UDEV_ENABLE_SYSLOG
+UDEV_SYSLOGVAR	= USE_LOG=true
+else
+UDEV_SYSLOGVAR	= USE_LOG=false
+endif
+ifdef PTXCONF_UDEV_ENABLE_DEBUG
+UDEV_DEBUGMSG	= DEBUG=true
+else
+UDEV_DEBUGMSG	= DEBUG=false
 endif
 
 $(STATEDIR)/udev.prepare: $(udev_prepare_deps_default)
@@ -79,7 +92,8 @@ udev_compile: $(STATEDIR)/udev.compile
 
 $(STATEDIR)/udev.compile: $(udev_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(UDEV_DIR) && $(UDEV_ENV) $(UDEV_PATH) make $(UDEV_MAKEVARS)
+	cd $(UDEV_DIR) && $(UDEV_ENV) $(UDEV_PATH) make EXTRAS="$(UDEV_TOOLVAR)" \
+		$(UDEV_SYSLOGVAR) $(UDEV_DEBUGMSG) $(UDEV_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -184,10 +198,6 @@ ifdef PTXCONF_UDEV_INFO
 	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevinfo, \
 		/sbin/udevinfo)
 endif
-ifdef PTXCONF_UDEV_SEND
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevsend, \
-		/sbin/udevsend)
-endif
 ifdef PTXCONF_UDEV_START
 	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevstart, \
 		/sbin/udevstart)
@@ -204,11 +214,23 @@ ifdef PTXCONF_UDEV_SETTLE
 	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevsettle, \
 		/sbin/udevsettle)
 endif
-
+ifdef PTXCONF_UDEV_CONTROL
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevcontrol, \
+		/sbin/udevcontrol)
+endif
+ifdef PTXCONF_UDEV_MONITOR
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevmonitor, \
+		/sbin/udevmonitor)
+endif
+ifdef PTXCONF_UDEV_USB_ID
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/usb_id/usb_id, \
+		/sbin/usbid)
+endif
 ifdef PTXCONF_UDEV_FW_HELPER
 	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/firmware/firmware_helper, \
-		/sbin/firmware_helper)
+		$(UDEV_DIR)/extras/firmware/firmware.sh, \
+		/sbin/firmware.sh,n)
 endif
 
 	@$(call install_finish, udev)

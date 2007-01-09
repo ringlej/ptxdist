@@ -1,70 +1,38 @@
 #! /bin/sh
 #
-# start_udev
+# udev start script
 #
-# script to initialize /dev by using udev.
+# script to populate dev/ by using udev.
 #
 # Copyright (C) 2004 Greg Kroah-Hartman <greg@kroah.com>
 #
 # Released under the GPL v2 only.
 #
-# This needs to be run at the earliest possible point in the boot 
-# process.
+# This needs to be run at the earliest possible point in the boot
+# process. But it could be a good idea to run the syslogd first, due
+# to udev uses it for logging (if enabled).
 #
 # Based on the udev init.d script
 #
-# Thanks go out to the Gentoo developers for proving 
+# Thanks go out to the Gentoo developers for proving
 # that this is possible to do.
 #
 # Yes, it's very verbose, feel free to turn off all of the echo calls,
 # they were there to make me feel better that everything was working
 # properly during development...
 #
+# 2007 updated to udev 103 by Juergen Beisert <j.beisert@pengutronix.de>
 
 . /etc/udev/udev.conf
 
-prog=udev
 sysfs_dir=/sys
-bin=/sbin/udev
 udevd=/sbin/udevd
-
-run_udev () {
-	export ACTION=add
-
-	# handle block devices and their partitions
-	for i in ${sysfs_dir}/block/*; do
-		# add each drive
-		export DEVPATH=${i#${sysfs_dir}}
-		echo "$DEVPATH"
-		$bin block
-
-		# add each partition, on each device
-		for j in $i/*; do
-			if [ -f $j/dev ]; then
-				export DEVPATH=${j#${sysfs_dir}}
-				echo "$DEVPATH"
-				$bin block
-			fi
-		done
-	done
-	# all other device classes
-	for i in ${sysfs_dir}/class/*; do
-		for j in $i/*; do
-			if [ -f $j/dev ]; then
-				export DEVPATH=${j#${sysfs_dir}}
-				CLASS=`echo ${i#${sysfs_dir}} | \
-					cut --delimiter='/' --fields=3-`
-				echo "$DEVPATH"
-				$bin $CLASS
-			fi
-		done
-	done
-	return 0
-}
+udevt=/sbin/udevtrigger
+udevs=/sbin/udevsettle
 
 make_extra_nodes () {
 	# there are a few things that sysfs does not export for us.
-	# these things go here (and remember to remove them in 
+	# these things go here (and remember to remove them in
 	# remove_extra_nodes()
 	#
 	# Thanks to Gentoo for the initial list of these.
@@ -79,34 +47,34 @@ make_extra_nodes () {
 }
 
 # don't use udev if sysfs is not mounted.
-if [ ! -d $sysfs_dir/block ]; then
+if [ ! -d $sysfs_dir/kernel ]; then
 	echo "error: sysfs not mounted"
 	exit 1
 fi
 
-echo "mounting... ramfs at $udev_root"
-mount -n -t ramfs none $udev_root
-
-# propogate /udev from /sys
-echo "creating initial udev device nodes:"
-
-# You can use the shell scripts above by calling run_udev or execute udevstart
-# which does the same thing, but much faster by not using shell.  
-#  only comment out one of the following lines.
-#run_udev
-/sbin/udevstart
-
-echo "making extra nodes"
+# The reason we don't write to mtab is because we don't ever
+# want /dev to be unavailable (such as by `umount -a').
+echo "mounting... tmpfs at $udev_root"
+mount -n -t tmpfs tmpfs $udev_root -o mode=755
+# Udev handles uevents itself, so we don't need to have
+# the kernel call out to any binary in response to them
+echo > /proc/sys/kernel/hotplug
+echo "creating static nodes"
 make_extra_nodes
-
-echo /sbin/udevsend > /proc/sys/kernel/hotplug
-
-if [ -f "$udevd" ]; then
-	$udevd &
-fi
-
+# Start the udev daemon to continually
+# watch for, and act on, uevents
+$udevd --daemon
+echo -n "creating initial udev device nodes..."
+# Now traverse sys/ in order to "coldplug"
+# devices that have already been discovered
+$udevt
+# Now wait for udevd to process
+# the uevents we triggered
+$udevs --timeout=10
+echo "done"
 # We can only mount /dev/pts after initialising udev
-mount /dev/pts
-
+if [ -d "/dev/pts" ]; then
+	mount /dev/pts
+fi
 echo "udev startup is finished"
 exit 0
