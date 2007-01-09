@@ -92,9 +92,6 @@ $(STATEDIR)/rootfs.targetinstall: $(rootfs_targetinstall_deps_default)
 ifdef PTXCONF_ROOTFS_DEV
 	@$(call install_copy, rootfs, 0, 0, 0755, /dev)
 endif
-ifdef PTXCONF_ROOTFS_DEV_PTS
-	@$(call install_copy, rootfs, 0, 0, 0755, /dev/pts)
-endif
 ifdef PTXCONF_ROOTFS_DEV_INITIAL
 	@$(call install_node, rootfs, 0, 0, 0644, c, 1, 3, /dev/null)
 	@$(call install_node, rootfs, 0, 0, 0644, c, 1, 5, /dev/zero)
@@ -566,16 +563,9 @@ endif
 # -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_RESOLV
 # /etc/resolv
-ifdef PTXCONF_ROOTFS_GENERIC_RESOLV
-	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/resolv.conf, \
-		/etc/resolv.conf, n)
-endif
-ifdef PTXCONF_ROOTFS_USER_RESOLV
 	@$(call install_copy, rootfs, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/resolv.conf, \
 		/etc/resolv.conf, n)
-endif
 endif
 
 # -----------------------------------------------------------------------------

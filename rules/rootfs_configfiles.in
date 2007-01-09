@@ -309,8 +309,11 @@ menuconfig ROOTFS_NSSWITCH
 			bool
 			prompt "Use generic"
 			help
-			  Installs a generic /etc/nsswitch.conf file.
-			  See <ptxdist-install>/generic/nsswitch.conf
+			  Installs a generic /etc/nsswitch.conf file. See
+			  <ptxdist-install>/generic/nsswitch.conf.
+			  Note: This file only supports local name resolution. It
+			  does not use any DNS service, so it makes no sense to
+			  use a /etc/resolv.conf if this generic file is in use.
 
 		config ROOTFS_USER_NSSWITCH
 			bool
@@ -318,8 +321,25 @@ menuconfig ROOTFS_NSSWITCH
 			help
 			  This uses a user defined /etc/nsswitch.conf. PTXdist
 			  uses file projectroot/etc/nsswitch.conf in your local
-			  project
+			  project. Refer "man nsswitch.conf" how to create a
+			  specific file to achive your requirements.
 	endchoice
+
+#
+# /etc/resolv.conf
+# This file makes only sense when:
+#  - dns is activated in nsswitch.conf (our generic one does not so)
+#  - the network DNS is known
+#
+config ROOTFS_RESOLV
+	depends on ROOTFS
+	depends on ROOTFS_USER_NSSWITCH
+	bool
+	prompt "project's /etc/resolv.conf"
+	help
+	  Installs a /etc/resolv.conf file from projectroot/etc/resolv.conf in
+	  your local project. Refer "man resolv.conf" how to create a specific
+	  file to achive your requirements.
 
 #
 # /etc/profile
@@ -406,39 +426,6 @@ menuconfig ROOTFS_PROTOCOLS
 			help
 			  This uses a user defined /etc/protocols. PTXdist
 			  uses file projectroot/etc/protocols in your local
-			  project.
-
-	endchoice
-
-#
-# /etc/resolv.conf
-#
-menuconfig ROOTFS_RESOLV
-	depends on ROOTFS
-	bool
-	prompt "/etc/resolv.conf            "
-	default y
-	help
-	  Installs a /etc/resolv.conf file from a selectable source.
-
-	choice
-		prompt "Kind of /etc/resolv.conf"
-		depends on ROOTFS_RESOLV
-		default ROOTFS_GENERIC_RESOLV
-
-		config ROOTFS_GENERIC_RESOLV
-			bool
-			prompt "Use generic"
-			help
-			  Install a generic /etc/resolv.conf file. See
-			  <ptxdist-install>/generic/resolv.conf.
-
-		config ROOTFS_USER_RESOLV
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined /etc/resolv.conf. PTXdist
-			  uses file projectroot/etc/resolv.conf in your local
 			  project.
 
 	endchoice
