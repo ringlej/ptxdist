@@ -8,7 +8,10 @@ config ROOTFS
 	default y
 	select BB_CONFIG_FEATURE_SHADOWPASSWDS if BUSYBOX
 	help
-	  FIXME: This item needs to be documented
+	  In order to support a standard root filesystem some subdirectories are
+	  mandatory. They will be created by ptxdist automatically. Some
+	  other directories are may be required on demand. This menu entry here
+	  gives you the ability to create them.
 
 config ROOTFS_DEV
 	depends on ROOTFS
@@ -16,7 +19,9 @@ config ROOTFS_DEV
 	prompt "/dev"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  This directory contains system's device nodes. This is a common
+	  location and name. For example udev depends on the existance of this
+	  directory
 
 config ROOTFS_DEV_INITIAL
 	depends on ROOTFS_DEV
@@ -28,21 +33,15 @@ config ROOTFS_DEV_INITIAL
 	  udev needs at least these nodes to startup. If you use udev
 	  say yes here
 
-config ROOTFS_DEV_PTS
-	depends on ROOTFS_DEV
-	bool
-	prompt "/dev/pts"
-	help
-	  create /dev/pts directory on target. This one is not needed
-	  if you use udev, because udev cares for it.
-
 config ROOTFS_HOME
 	depends on ROOTFS
 	bool
 	prompt "/home"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  home/ is a common location to store users private data. As ptxdist does
+	  not support users out of the box, its up to yourself to create
+	  additional subdirectories here and also provide the permission info.
 
 # Media Mountpoints
 
@@ -129,7 +128,8 @@ config ROOTFS_MNT
 	prompt "/mnt"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  This is a common directory to temporarely mount external media. Its
+	  always a good idea to select this entry.
 
 config ROOTFS_PROC
 	depends on ROOTFS
