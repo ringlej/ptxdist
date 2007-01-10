@@ -129,10 +129,7 @@ LOCALEDEF_VERSION=`$LOCALEDEF --version 2>/dev/null | $SED -ne "s/.*libc. \([[0-
 case "$LOCALEDEF_VERSION" in
 2.0.*) AC_MSG_ERROR([we need at least GNU localedef 2.2.x but found $LOCALEDEF_VERSION]) ;;
 2.1.*) AC_MSG_ERROR([we need at least GNU localedef 2.2.x but found $LOCALEDEF_VERSION]) ;;
-2.2.*) ;;
-2.3.*) ;;
-2.4.*) ;;
-2.5.*) ;;
+2.[23456789]*) ;;
 *)   AC_MSG_ERROR([we need at least GNU localedef 2.2.x]) ;;
 esac
 AC_MSG_RESULT([$LOCALEDEF_VERSION])
