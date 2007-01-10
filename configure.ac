@@ -131,6 +131,8 @@ case "$LOCALEDEF_VERSION" in
 2.1.*) AC_MSG_ERROR([we need at least GNU localedef 2.2.x but found $LOCALEDEF_VERSION]) ;;
 2.2.*) ;;
 2.3.*) ;;
+2.4.*) ;;
+2.5.*) ;;
 *)   AC_MSG_ERROR([we need at least GNU localedef 2.2.x]) ;;
 esac
 AC_MSG_RESULT([$LOCALEDEF_VERSION])
