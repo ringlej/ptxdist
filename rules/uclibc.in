@@ -1,9 +1,6 @@
-# FIXME: This is broken. We read Config.in from 0.9.27 while
-#        the uclibc version is configurable.
-
-source "config/uClibc-0.9.27/extra/Configs/Config.in"
-
-comment "Install options"
+menuconfig UCLIBC
+	bool
+	prompt "uClibc"
 
 config UCLIBC_VERSION
 	prompt "uClibc Version"
@@ -11,59 +8,61 @@ config UCLIBC_VERSION
 	default "0.9.27"
 	depends on UCLIBC
 
-config UCLIBC_INSTALL
+comment	"Install options"
+	depends on UCLIBC
+
+config UCLIBC_LIBC
 	bool
-	default y if !CROSSTOOL
-	default n if CROSSTOOL
-	prompt "Install uClibc libraries on the target"
+	depends on UCLIBC
+	prompt "Install uClibc on the target"
 	help
 	  FIXME: This item needs to be documented
 
 config UCLIBC_CRYPT
 	bool
-	depends on UCLIBC_INSTALL
+	depends on UCLIBC_LIBC
 	prompt "Install libcrypt on the target"
 	help
 	  FIXME: This item needs to be documented
 
 config UCLIBC_DL
 	bool
-	depends on UCLIBC_INSTALL
+	depends on UCLIBC_LIBC
 	prompt "Install libdl on the target"
 	help
 	  FIXME: This item needs to be documented
 
 config UCLIBC_M
 	bool
-	depends on UCLIBC_INSTALL
+	depends on UCLIBC_LIBC
 	prompt "Install libm on the target"
 	help
 	  FIXME: This item needs to be documented
 
 config UCLIBC_NSL
 	bool
-	depends on UCLIBC_INSTALL
+	depends on UCLIBC_LIBC
 	prompt "Install libnsl on the target"
 	help
 	  FIXME: This item needs to be documented
 
 config UCLIBC_PTHREAD
 	bool
-	depends on UCLIBC_INSTALL
+	depends on UCLIBC_LIBC
 	prompt "Install libpthread on the target"
 	help
 	  FIXME: This item needs to be documented
 
 config UCLIBC_RESOLV
 	bool
-	depends on UCLIBC_INSTALL
+	depends on UCLIBC_LIBC
 	prompt "Install libresolv on the target"
 	help
 	  FIXME: This item needs to be documented
 
 config UCLIBC_UTIL
 	bool
-	depends on UCLIBC_INSTALL
+	depends on UCLIBC_LIBC
 	prompt "Install libutil on the target"
 	help
 	  FIXME: This item needs to be documented

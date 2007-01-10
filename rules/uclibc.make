@@ -14,8 +14,8 @@
 #
 PACKAGES-$(PTXCONF_UCLIBC) += uclibc
 
-UCLIBC = uClibc-$(UCLIBC_VERSION)
-
+UCLIBC_VERSION	:= 1.0
+UCLIBC		:= uClibc-$(UCLIBC_VERSION)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -85,10 +85,13 @@ $(STATEDIR)/uclibc.targetinstall: $(uclibc_targetinstall_deps_default)
 	@$(call install_fixup, uclibc,DEPENDS,)
 	@$(call install_fixup, uclibc,DESCRIPTION,missing)
 
-ifdef PTXCONF_UCLIBC_INSTALL
+ifdef PTXCONF_UCLIBC
 	@$(call install_copy_toolchain_dl, uclibc, /lib)
+endif
+
+ifdef PTXCONF_UCLIBC_LIBC
 	@$(call install_copy_toolchain_lib, uclibc, libc.so, /lib)
-	# FIXME: add links	
+endif
 
 ifdef PTXCONF_UCLIBC_CRYPT
 	@$(call install_copy_toolchain_lib, uclibc, libcrypt.so, /lib)
@@ -120,8 +123,6 @@ endif
 ifdef PTXCONF_UCLIBC_UTIL
 	@$(call install_copy_toolchain_lib, uclibc, libutil.so, /lib)
 endif
-
-endif
 	@$(call install_finish, uclibc)
 
 	@$(call touch, $@)
@@ -133,6 +134,5 @@ endif
 uclibc_clean: 
 	rm -rf $(STATEDIR)/uclibc.*
 	rm -rf $(IMAGEDIR)/uclibc_*
-	rm -rf $(UCLIBC_DIR)
 
 # vim: syntax=make
