@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: php4.make,v 1.6 2006/11/27 13:29:50 michl Exp $
+# $Id: php4.make,v 1.7 2007/01/10 09:32:53 michl Exp $
 #
 # Copyright (C) 2005 by Jiri Nesladek
 #          
@@ -116,8 +116,6 @@ php4_install: $(STATEDIR)/php4.install
 $(STATEDIR)/php4.install: $(php4_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, PHP4,,,INSTALL_ROOT=$(SYSROOT))
-	install -m 755 -D $(PHP4_DIR)/scripts/php-config $(PTXCONF_CROSS_PREFIX)/bin/php-config
-	install -m 755 -D $(PHP4_DIR)/scripts/phpize $(PTXCONF_CROSS_PREFIX)/bin/phpize
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

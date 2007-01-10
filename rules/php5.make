@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
+# $Id: php5.make,v 1.1 2007/01/08 08:28:01 michl Exp $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #
@@ -310,8 +310,6 @@ $(STATEDIR)/php5.install: $(php5_install_deps_default)
 		$(PHP5_ENV) $(PHP5_PATH) \
 		make install-build install-headers install-programs \
 		INSTALL_ROOT=$(SYSROOT)
-	install -m 755 -D $(PHP5_DIR)/scripts/php-config $(PTXCONF_PREFIX)/bin/php-config
-	install -m 755 -D $(PHP5_DIR)/scripts/phpize $(PTXCONF_PREFIX)/bin/phpize
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
