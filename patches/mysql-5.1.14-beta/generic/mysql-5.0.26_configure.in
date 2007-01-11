@@ -1,0 +1,133 @@
+Index: configure.in
+===================================================================
+--- configure.in.orig
++++ configure.in
+@@ -77,6 +77,7 @@ BASE_MACHINE_TYPE=$MACHINE_TYPE
+ case $MACHINE_TYPE in
+   i?86) BASE_MACHINE_TYPE=i386 ;;
+ esac
++AC_SUBST(CC_FOR_BUILD)
+ 
+ # Save some variables and the command line options for mysqlbug
+ SAVE_ASFLAGS="$ASFLAGS"
+@@ -230,33 +231,46 @@ case $SYSTEM_TYPE in
+     AC_DEFINE(SPRINTF_RETURNS_INT, [1]) AC_MSG_RESULT("int")
+     ;;
+   *)
+-AC_TRY_RUN([
+-  int main()
+-    {
+-      char* s = "hello";
+-      char buf[6];
+-      if((int)sprintf(buf, s) == strlen(s))
+-	return 0;
+-      
+-      return -1;
+-     }
+-   ],
+-   [AC_DEFINE(SPRINTF_RETURNS_INT, [1], [POSIX sprintf])
+-   AC_MSG_RESULT("int")],
+-   [AC_TRY_RUN([
+- int main()
+-   {
+-     char* s = "hello";
+-     char buf[6];
+-     if((char*)sprintf(buf,s) == buf + strlen(s))
+-       return 0;
+-     return -1;
+-   }           ],
+-               [AC_DEFINE(SPRINTF_RETURNS_PTR, [1], [Broken sprintf])
+-                AC_MSG_RESULT("ptr")],
+-               [AC_DEFINE(SPRINTF_RETURNS_GARBAGE, [1], [Broken sprintf])
+-                AC_MSG_RESULT("garbage")])
+-   ])
++  AC_RUN_IFELSE([
++    int main()
++      {
++        char* s = "hello";
++        char buf[6];
++        if((int)sprintf(buf, s) == strlen(s))
++  	  return 0;
++        return -1;
++       }
++    ],
++    [
++      AC_DEFINE(SPRINTF_RETURNS_INT, [1], [POSIX sprintf])
++      AC_MSG_RESULT("int")
++    ],
++    [
++      AC_TRY_RUN([
++        int main()
++          {
++            char* s = "hello";
++            char buf[6];
++            if((char*)sprintf(buf,s) == buf + strlen(s))
++              return 0;
++            return -1;
++          }
++      ],
++      [
++        AC_DEFINE(SPRINTF_RETURNS_PTR, [1], [Broken sprintf])
++        AC_MSG_RESULT("ptr")
++      ],
++      [
++        AC_DEFINE(SPRINTF_RETURNS_GARBAGE, [1], [Broken sprintf])
++        AC_MSG_RESULT("garbage")
++      ]
++      )
++    ],
++    [
++      AC_DEFINE(SPRINTF_RETURNS_INT, [1], [POSIX sprintf])
++      AC_MSG_RESULT("crosscompiling - assuming int")
++    ]
++    )
+     ;;
+ esac
+ 
+@@ -1487,14 +1501,6 @@ case "$with_mysqld_ldflags " in
+ esac
+ 
+ 
+-# System characteristics
+-case $SYSTEM_TYPE in
+-  *netware*) ;;
+-  *)
+-AC_SYS_RESTARTABLE_SYSCALLS
+-    ;;
+-esac
+-
+ # Build optimized or debug version ?
+ # First check for gcc and g++
+ if test "$ac_cv_prog_gcc" = "yes"
+@@ -1749,16 +1755,6 @@ MYSQL_TIMESPEC_TS
+ MYSQL_TZNAME
+ # Do the c++ compiler have a bool type
+ MYSQL_CXX_BOOL
+-# Check some common bugs with gcc 2.8.# on sparc
+-if ! ( expr "$SYSTEM_TYPE" : ".*netware.*" > /dev/null ); then
+-MYSQL_CHECK_LONGLONG_TO_FLOAT
+-if test "$ac_cv_conv_longlong_to_float" != "yes"
+-then
+-  AC_MSG_ERROR([Your compiler cannot convert a longlong value to a float!
+-If you are using gcc 2.8.# you should upgrade to egcs 1.0.3 or newer and try
+-again]);
+-fi
+-fi
+ AC_CHECK_TYPES([sigset_t, off_t], [], [], [#include <sys/types.h>])
+ AC_CHECK_TYPES([size_t], [], [], [#include <stdio.h>])
+ AC_CHECK_TYPES([u_int32_t])
+@@ -2154,6 +2150,14 @@ AC_MSG_RESULT("$netinet_inc")
+ # Check for requested features
+ #--------------------------------------------------------------------
+ 
++AC_ARG_WITH(build-mysql,
++    AS_HELP_STRING([--with-build-mysql],[For cross compilation: path to
++    mysql which was compiled for the 'build' system.]),
++    [ BUILD_MYSQL_DIR=${withval} ],
++    [ BUILD_MYSQL_DIR="\$(top_builddir)" ]
++)
++AC_SUBST(BUILD_MYSQL_DIR)
++
+ MYSQL_CHECK_BIG_TABLES
+ MYSQL_CHECK_MAX_INDEXES
+ MYSQL_CHECK_REPLICATION
