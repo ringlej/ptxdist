@@ -26,6 +26,7 @@ menuconfig SAMBA
 		bool
 		depends on SAMBA
 		prompt "cups support"
+		depends on BROKEN
 		help
 		  Turn on CUPS support
 
