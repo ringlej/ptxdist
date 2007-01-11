@@ -2,6 +2,10 @@ menuconfig GLIBC
 	bool
 	default y
 	prompt glibc
+	help
+	  This menu entry lets you select components from the standard
+	  C library called glibc. It depends on the system what components are
+	  required.
 
 config GLIBC_VERSION
 	prompt "glibc Version"
@@ -25,21 +29,26 @@ config GLIBC_PTHREAD
 	depends on GLIBC
 	prompt "Install libpthread on the target"
 	help
-	  FIXME: This item needs to be documented
+	  If at least one application on the target uses threads when executed
+	  this library will be required.
 
 config GLIBC_THREAD_DB
 	bool
 	depends on GLIBC
 	prompt "Install libthread_db on the target"
 	help
-	  FIXME: This item needs to be documented
+	  If at least one application on the target uses threads when executed
+	  and you are going to debug this application (also remotely!), this
+	  library will be required. You can omit this library, if you never
+	  intend to debug multithread application on your target.
 
 config GLIBC_LIBRT
 	bool
 	depends on GLIBC
 	prompt "Install librt on the target"
 	help
-	  Functions in this library provide most of the interfaces specified by the POSIX.1b Realtime Extension
+	  Functions in this library provide most of the interfaces specified by
+	  the POSIX.1b Realtime Extension
 
 config GLIBC_DL
 	bool
@@ -50,16 +59,16 @@ config GLIBC_DL
 	  porting applications. If you are porting a BeOS application that requires
 	  dlopen, dlclose, dlerror, dlsym, dladdr, or dlfcn.h, then you can use this
 	  library.
-	  
+
 	  libdl.so is a wrapper to the add-on functions with the semantics of the dl
 	  (dynamic linking) library. This is used for finding shared objects at run
 	  time. If the items are not found the program can continue to run.
-	   
+
 	  It is extremely similar to the add-on mechanism in BeOS with some semantics
 	  changes. If you are developing your own app, you almost definitely want to
 	  use add-ons unless you are already familiar with libdl. In this case you may
 	  be disappointed since it is possible that I have implemented part of it wrong.
-	     
+
 	  If you want your application to have cross platform compatibility with this
 	  functionality you should probably use libtool instead. It is much more cross
 	  platform compatible than dlopen, etc. It also supports BeOS. See related links.
@@ -76,14 +85,16 @@ config GLIBC_UTIL
 	depends on GLIBC
 	prompt "Install libutil on the target"
 	help
-	  Contains code for "standard" functions used in many different Unix utilities.
+	  Contains code for "standard" functions used in many different Unix
+	  utilities.
 
 config GLIBC_LIBM
 	bool
 	depends on GLIBC
 	prompt "Install libm on the target"
 	help
-	  FIXME: This item needs to be documented
+	  If at least one application on your target does any kind of math
+	  calculation, you should install this library.
 
 config GLIBC_NSS_DNS
 	bool
@@ -98,8 +109,8 @@ config GLIBC_NSS_FILES
 	depends on GLIBC
 	prompt "Install libnss_files"
 	help
-	  Contains functions to access some vitale system control files (for login
-	  for example)
+	  Contains functions to access some vitale system control files (for
+	  login for example)
 
 config GLIBC_NSS_HESIOD
 	bool
@@ -140,15 +151,20 @@ config GLIBC_RESOLV
 	depends on GLIBC
 	prompt "Install libresolv"
 	help
-	  FIXME: This item needs to be documented
+	  This library is required for creating, sending, and interpreting
+	  packets to and from the internet domain name service. This library
+	  needs some file for configuration: /etc/nsswitch.conf and /etc/resolv.conf.
+	  Refer man pages for both files and how to setup them. To use any kind
+	  of DNS, you must provide your own /etc/nsswitch.conf and
+	  /etc/resolv.conf files. See menu "Root Filesystem -> config files -> /etc/nsswitch.conf"
 
 config GLIBC_NSL
 	bool
 	depends on GLIBC
 	prompt "Install libnsl"
 	help
-	  Functions in this library provide routines  that  provide  a
-	  transport-level  interface to networking services like i.E. 
+	  Functions in this library provide routines that provide a
+	  transport-level interface to networking services like i.E.
 	  nis(+)
 
 config GLIBC_I18N_BIN_LOCALE
@@ -175,11 +191,10 @@ config GLIBC_I18N_RAWDATA
 	depends on GLIBC_I18N_BIN_LOCALEDEF
 	help
 	  With the i18n datasets you can generate new locales in running
-	  system. This will, however, increase the installation size 
+	  system. This will, however, increase the installation size
 	  unneccessarily if you don't want to change your system locale
-	  often. Hence we recommend to use the "System locale" option in 
+	  often. Hence we recommend to use the "System locale" option in
 	  ptxdist to determine locales while building the system.
-
 
 menu "Install gconv libraries"
 	depends on GLIBC
@@ -190,7 +205,7 @@ config GLIBC_GCONV_DEF
 	depends on GLIBC
 	default y
 	help
-	  install the iso8859-1 (Latin Alphabet No.1) and the iso8859-15 (Latin 
+	  install the iso8859-1 (Latin Alphabet No.1) and the iso8859-15 (Latin
 	  Alphabet No.9) encoding modules into gconv, this should be ok for most
 	  western languages
 
