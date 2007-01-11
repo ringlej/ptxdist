@@ -3,7 +3,11 @@ TODO for 0.10.6
 [ ] jbe: ptxdist images fails for jffs2 fileimage creation
 	it seems local-host/sbin is not in the PATH
 
-[ ] jbe: procps.install stage fails with:
+[ ] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
+    looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
+    into the path somehow. Ask mkl.
+
+[x] jbe: procps.install stage fails with:
 	make: Ungültige Option -- y
 	make: Ungültige Option -- y
 	make: Ungültige Option -- L
@@ -23,30 +27,15 @@ TODO for 0.10.6
 	local-target/
 	local-cross/
 
-[ ] rsc: Check why these programs still are in local/bin instead of
-    local-host/bin:
-
-	rsc@isonoe:$ ls -l local/bin/
-	total 20
-	-rwxr-xr-x 1 rsc ptx 2159 Jan  3 18:33 libpng-config
-	-rwxr-xr-x 1 rsc ptx 1977 Jan  3 18:52 xml2-config
-	-rwxr-xr-x 1 rsc ptx 2331 Jan  4 09:49 xslt-config
-
-    IMHO these must be fixed to be proper host tools.
-
-[ ] jbe: udev needs rules to control permissions on device nodes; jbe
+[x] jbe: udev needs rules to control permissions on device nodes; jbe
     currently writes docs for this.
 
-[ ] jbe/rsc: /etc/resolv.conf and /etc/nsswitch.conf:
+[.] jbe/rsc: /etc/resolv.conf and /etc/nsswitch.conf:
     Find a solution to generate DNS configuration files from other sources
     like boardsetup (I have no clue what this means).
     "Then either have no resolv.conf at all (use /etc/hosts only), or generate
     resolv.conf from 'ptxdist boardsetup' information and generate a
     sane nsswitch.conf."
-
-[ ] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
-    looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
-    into the path somehow. Ask mkl.
 
 [ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
     this "class" mechanism and make sure it produces sane output. Check
@@ -56,11 +45,11 @@ TODO for 0.10.6
     already prepared the patches; find out why the revision number was
     not bumped.
 
-[ ] ssh: server start scripts are missing
+[x] ssh: server start scripts are missing
 
 [ ] ssh: key gen mechanics needed
 
-[ ] dbus needs user messagebus -> /etc/passwd; jbe: needs other user,
+[x] dbus needs user messagebus -> /etc/passwd; jbe: needs other user,
     non-root; add this user to /etc/passwd. Debian has a user called
     "messagebus", we should do it the same way. Define a sane UID (ask
     jbe)
