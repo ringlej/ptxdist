@@ -89,7 +89,7 @@ xorg-lib-Xau_compile: $(STATEDIR)/xorg-lib-Xau.compile
 
 $(STATEDIR)/xorg-lib-Xau.compile: $(xorg-lib-Xau_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XAU_DIR) && $(XORG_LIB_XAU_PATH) make
+	cd $(XORG_LIB_XAU_DIR) && $(XORG_LIB_XAU_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
