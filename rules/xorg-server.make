@@ -58,16 +58,9 @@ $(STATEDIR)/xorg-server.extract: $(xorg-server_extract_deps_default)
 xorg-server_prepare: $(STATEDIR)/xorg-server.prepare
 
 XORG_SERVER_PATH	:=  PATH=$(CROSS_PATH)
-XORG_SERVER_ENV 	:=  $(CROSS_ENV)
-
-# some tweaking for cross compilation
-
-# doesn't work while cross compiling
-XORG_SERVER_ENV		+=  ac_cv_sys_linker_h=yes
-
-# isn't switched off correctly with --disable-builddocs, IMHO the test
-# should disable this as well (it is sgml documentation stuff)
-XORG_SERVER_ENV		+=  ac_cv_file__usr_share_X11_sgml_defs_ent=no
+XORG_SERVER_ENV 	:=  $(CROSS_ENV) \
+	ac_cv_sys_linker_h=yes \
+	ac_cv_file__usr_share_X11_sgml_defs_ent=no
 
 # FIXME: not all processors upports MTRR. Geode GX1 not for example. But it
 # is a 586 clone. configure decides always to support mtrr!
@@ -78,6 +71,7 @@ XORG_SERVER_ENV		+=  ac_cv_file__usr_share_X11_sgml_defs_ent=no
 #
 # don't put a := here! MESALIB_DIR won't get expanded then
 XORG_SERVER_AUTOCONF = $(CROSS_AUTOCONF_USR) \
+	$(XORG_OPTIONS_TRANS) \
 	--disable-dependency-tracking \
 	--localstatedir=/var \
 	--disable-builddocs
@@ -87,33 +81,6 @@ XORG_SERVER_AUTOCONF = $(CROSS_AUTOCONF_USR) \
 ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
 	XORG_SERVER_AUTOCONF += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 endif
-
-# Don't trust "./configure --help". It does not show
-# that it follows --disable-ipv6. But it does. Take
-# always a look into the configure script itself!
-#
-ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
-XORG_SERVER_AUTOCONF += --enable-ipv6
-else
-XORG_SERVER_AUTOCONF += --disable-ipv6
-endif
-#
-# same as above
-#
-ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
-XORG_SERVER_AUTOCONF	+= --enable-unix-transport
-else
-XORG_SERVER_AUTOCONF	+= --disable-unix-transport
-endif
-#
-# same as above
-#
-ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
-XORG_SERVER_AUTOCONF	+= --enable-tcp-transport
-else
-XORG_SERVER_AUTOCONF	+= --disable-tcp-transport
-endif
-
 
 ifdef PTXCONF_XORG_LIB_X11_XF86BIGFONT
 XORG_SERVER_AUTOCONF += --enable-xf86bigfont
