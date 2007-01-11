@@ -20,7 +20,6 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 PHP5_VERSION	:= 5.1.6
 PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.bz2
-#PHP5_URL	:= http://de2.php.net/get/$(PHP5).$(PHP5_SUFFIX)/from/de.php.net/mirror/
 PHP5_URL	:= http://de2.php.net/get/$(PHP5).$(PHP5_SUFFIX)
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
 PHP5_DIR	:= $(BUILDDIR)/$(PHP5)
