@@ -16,6 +16,7 @@ menu "SAPI Modules"
 config PHP5_SAPI_AOLSERVER
 	bool
 	prompt "aolserver"
+	depends on BROKEN
 	help
 	  Use AOLserver.
 
@@ -25,12 +26,15 @@ config PHP5_SAPI_MOD_CHARSET
 	help
 	  Enable transfer tables for mod_charset (Rus Apache)
 
-config PHP5_SAPI_APXS2FILTER
-	bool
-	prompt "apxs2filter"
-	help
-	  EXPERIMENTAL: Build shared Apache 2.0 Filter module. FILE is the optional
-	  pathname to the Apache apxs tool [apxs]
+#
+# FIXME: apxs2filter and apxs2 don't work together
+#
+#config PHP5_SAPI_APXS2FILTER
+#	bool
+#	prompt "apxs2filter"
+#	help
+#	  EXPERIMENTAL: Build shared Apache 2.0 Filter module. FILE is the optional
+#	  pathname to the Apache apxs tool [apxs]
 
 config PHP5_SAPI_APXS2
 	bool
@@ -41,6 +45,7 @@ config PHP5_SAPI_APXS2
 config PHP5_SAPI_CAUDIUM
 	bool
 	prompt "caudium"
+	depends on BROKEN
 	help
 	  Build PHP as a Pike module for use with Caudium.
 
@@ -53,6 +58,7 @@ config PHP5_SAPI_CLI
 config PHP5_SAPI_CONTINUITY
 	bool
 	prompt "continuity"
+	depends on BROKEN
 	help
 	  Build PHP as Continuity Server module.
 
@@ -65,54 +71,63 @@ config PHP5_SAPI_EMBEDDED
 config PHP5_SAPI_ISAPI
 	bool
 	prompt "isapi"
+	depends on BROKEN
 	help
 	  Build PHP as an ISAPI module for use with Zeus
 
 config PHP5_SAPI_MILTER
 	bool
 	prompt "milter"
+	depends on BROKEN
 	help
 	  Build PHP as Milter application.
 
 config PHP5_SAPI_NSAPI
 	bool
 	prompt "nsapi"
+	depends on BROKEN
 	help
 	  Build PHP as NSAPI module for Netscape/iPlanet/SunONE.
 
 config PHP5_SAPI_PHTTPD
 	bool
 	prompt "phttpd"
+	depends on BROKEN
 	help
 	  Build PHP as phttpd module.
 
 config PHP5_SAPI_PI3WEB
 	bool
 	prompt "pi3web"
+	depends on BROKEN
 	help
 	  Build PHP as Pi3Web module
 
 config PHP5_SAPI_ROXEN
 	bool
 	prompt "roxen"
+	depends on BROKEN
 	help
 	  Build PHP as a Pike module. DIR is the base Roxen
 
 config PHP5_SAPI_ROXEN_ZTS
 	bool
 	prompt "roxen-zts"
+	depends on BROKEN
 	help
 	  Build the Roxen module using Zend Thread Safety.
 
 config PHP5_SAPI_THTTPD
 	bool
 	prompt "thttpd"
+	depends on BROKEN
 	help
 	  Build PHP as thttpd module
 
 config PHP5_SAPI_TUX
 	bool
 	prompt "tux"
+	depends on BROKEN
 	help
 	  Build PHP as a TUX module.
 
