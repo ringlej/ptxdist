@@ -86,6 +86,7 @@ config XORG_LIB_XFONT_BUILTIN_FONTS
 	depends on XORG_LIB_XFONT
 	bool
 	prompt "Support builtin fonts"
+	default y
 	help
 	  Builtins (gzipped pcf format in .text segment). Enable this font type
 	  if you don't have any fonts on you target nor a font server in your
