@@ -2,7 +2,7 @@ TODO for 0.10.6
 ===============
 [ ] repair make makro 'install'. See procps.install for reference.
 
-[ ] jbe: ptxdist images fails for jffs2 fileimage creation
+[x] jbe: ptxdist images fails for jffs2 fileimage creation
 	it seems local-host/sbin is not in the PATH
 
 [ ] rsc: We have a problem with the dependency generator: if we have a
@@ -10,8 +10,6 @@ TODO for 0.10.6
     project, ptxdist includes _both_ .in files, resulting in the
     dependencies from the ptxdist version being superimposed on the
     local project ones.
-
-[ ] jbe: procps.install stage fails with:
 
 [ ] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
     looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
