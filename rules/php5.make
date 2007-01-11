@@ -91,12 +91,14 @@ endif
 ifdef PTXCONF_PHP5_SAPI_APXS2FILTER
 PHP5_AUTOCONF += --with-apxs2filter
 else
-#PHP5_AUTOCONF += --without-apxs2filter
+# FIXME: php5 interprets --without-... as --with ...
+# PHP5_AUTOCONF += --without-apxs2filter
 endif
 
 ifdef PTXCONF_PHP5_SAPI_APXS2
 PHP5_AUTOCONF += --with-apxs2=$(SYSROOT)/usr/bin/apxs
 else
+# FIXME: php5 interprets --without-... as --with ...
 # PHP5_AUTOCONF += --without-apxs2
 endif
 
@@ -107,6 +109,7 @@ endif
 ifdef PTXCONF_PHP5_SAPI_CAUDIUM
 PHP5_AUTOCONF += --with-caudium
 else
+# FIXME: php5 interprets --without-... as --with ...
 # PHP5_AUTOCONF += --without-caudium
 endif
 
