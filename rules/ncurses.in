@@ -1,7 +1,33 @@
 menuconfig NCURSES
 	bool "ncurses                     "
 	help
-	  FIXME: This item needs to be documented
+	  The ncurses libraries implement the curses API.  The panel, menu and
+	  forms libraries implement clones of the SVr4 panel, menu and forms
+	  APIs. The source code for these lives in the `ncurses', `panel',
+	  `menu', and `form' directories respectively.
+
+comment "build options ---"
+	depends on NCURSES
+
+config NCURSES_WIDE_CHAR
+	bool "Enable wide char support"
+	depends on NCURSES
+	help
+	  Build ncurses with wide-char/UTF-8 code support. This will create
+	  the wide character libraries used by some other programs to support
+	  utf8.
+
+config NCURSES_BIG_CORE
+	bool "Enable the big core"
+	depends on NCURSES
+	default y
+	help
+	  Disable this entry if your target machine has little memory.
+	  Note: Not all programs that need ncurses may run with this feature
+	  disabled.
+
+comment "install options ---"
+	depends on NCURSES
 
 #config NCURSES_NCURSES
 #	bool "Install libncurses on the target"
