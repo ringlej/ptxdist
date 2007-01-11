@@ -1,5 +1,7 @@
 TODO for 0.10.6
 ===============
+[ ] repair make makro 'install'. See procps.install for reference.
+
 [ ] jbe: ptxdist images fails for jffs2 fileimage creation
 	it seems local-host/sbin is not in the PATH
 
@@ -47,7 +49,7 @@ TODO for 0.10.6
 
 [x] ssh: server start scripts are missing
 
-[ ] ssh: key gen mechanics needed
+[x] ssh: key gen mechanics needed
 
 [x] dbus needs user messagebus -> /etc/passwd; jbe: needs other user,
     non-root; add this user to /etc/passwd. Debian has a user called
@@ -71,7 +73,7 @@ TODO for 0.10.6
 
 [ ] creating links into non existent directories fails, but does not break the build!
 
-[ ] discuss UID of user "nobody" and GID of "nogroup"
+[x] discuss UID of user "nobody" and GID of "nogroup"
 
 [ ] discuss UID of user "rpcuser"
 
