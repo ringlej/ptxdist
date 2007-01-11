@@ -64,30 +64,10 @@ XORG_LIB_XFONT_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XFONT_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XFONT_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	$(XORG_OPTIONS_TRANS)
 
-ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
-XORG_LIB_XFONT_AUTOCONF	+= --enable-unix-transport
-else
-XORG_LIB_XFONT_AUTOCONF	+= --disable-unix-transport
-endif
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
-XORG_LIB_XFONT_AUTOCONF	+= --enable-tcp-transport
-else
-XORG_LIB_XFONT_AUTOCONF	+= --disable-tcp-transport
-endif
-
-#
-# don't trust "./configure --help" for correct switches
-# Here its says "--disable-IPv6" would disable IPv6
-# But the configure script itself tests on --disable-ipv6!
-#
-ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
-XORG_LIB_XFONT_AUTOCONF	+= --enable-ipv6
-else
-XORG_LIB_XFONT_AUTOCONF	+= --disable-ipv6
-endif
 #
 # Use the global switch here to support freetype when
 # its present in the system
