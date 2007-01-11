@@ -21,6 +21,14 @@ shell() {
 }
 
 
+ptxd_get_ptxconf() {
+	if test -z "${PTXCONF_MODULES}"; then
+		source "${PTXCONFIG}"
+	fi
+
+	echo "${!1}"
+}
+
 #
 # $1	copy_back; "true" copies the .config file back to ptxdist
 # $2	function that is called
