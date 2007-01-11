@@ -113,9 +113,9 @@ $(STATEDIR)/zlib.targetinstall: $(zlib_targetinstall_deps_default)
 	@$(call install_fixup, zlib,DEPENDS,)
 	@$(call install_fixup, zlib,DESCRIPTION,missing)
 
-	@$(call install_copy, libz, 0, 0, 0644, $(ZLIB_DIR)/.libs/libz.so.0.0.0, /usr/lib/libz.so.0.0.0)
-	@$(call install_link, libz, libz.so.0.0.0, /usr/lib/libz.so.0)
-	@$(call install_link, libz, libz.so.0.0.0, /usr/lib/libz.so)
+	@$(call install_copy, zlib, 0, 0, 0644, $(ZLIB_DIR)/.libs/libz.so.0.0.0, /usr/lib/libz.so.0.0.0)
+	@$(call install_link, zlib, libz.so.0.0.0, /usr/lib/libz.so.0)
+	@$(call install_link, zlib, libz.so.0.0.0, /usr/lib/libz.so)
 
 	@$(call install_finish, zlib)
 
