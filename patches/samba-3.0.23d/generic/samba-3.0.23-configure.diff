@@ -1,0 +1,29 @@
+Index: source/configure.in
+===================================================================
+--- source/configure.in.orig
++++ source/configure.in
+@@ -1403,7 +1403,7 @@ AC_DEFINE(HAVE_PRCTL, 1, [Whether prctl 
+ case "$host_os" in
+     *linux*)
+        # glibc <= 2.3.2 has a broken getgrouplist
+-       AC_TRY_RUN([
++       AC_RUN_IFELSE([
+ #include <unistd.h>
+ #include <sys/utsname.h>
+ main() {
+@@ -1419,10 +1419,14 @@ main() {
+ #endif
+        exit(0);
+ }
+-], [linux_getgrouplist_ok=yes], [linux_getgrouplist_ok=no])
++], [linux_getgrouplist_ok=yes], [linux_getgrouplist_ok=no], [linux_getgrouplist_ok=maybe])
++
+        if test x"$linux_getgrouplist_ok" = x"yes"; then
+           AC_DEFINE(HAVE_GETGROUPLIST, 1, [Have good getgrouplist])
+        fi
++       if test x"$linux_getgrouplist_ok" = x"maybe"; then
++          AC_DEFINE(HAVE_GETGROUPLIST, 1, [Have good getgrouplist - guessed while crosscompiling])
++       fi
+        ;;
+     *)
+        AC_CHECK_FUNCS(getgrouplist)
