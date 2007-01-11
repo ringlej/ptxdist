@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -91,8 +91,8 @@ libpng_install: $(STATEDIR)/libpng.install
 $(STATEDIR)/libpng.install: $(libpng_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBPNG)
-	$(INSTALL) -m 755 -D $(LIBPNG_DIR)/libpng-config $(PTXCONF_PREFIX)/bin/libpng-config
-	$(INSTALL) -m 755 -D $(LIBPNG_DIR)/libpng12-config $(PTXCONF_PREFIX)/bin/libpng-config
+	$(INSTALL) -m 755 -D $(LIBPNG_DIR)/libpng-config $(PTXCONF_CROSS_PREFIXP)/bin/libpng-config
+	$(INSTALL) -m 755 -D $(LIBPNG_DIR)/libpng12-config $(PTXCONF_CROSS_PREFIX)/bin/libpng-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
