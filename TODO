@@ -5,11 +5,20 @@ TODO for 0.10.6
 [ ] jbe: ptxdist images fails for jffs2 fileimage creation
 	it seems local-host/sbin is not in the PATH
 
+[ ] rsc: We have a problem with the dependency generator: if we have a
+    packet which is already in ptxdist a second time in the local
+    project, ptxdist includes _both_ .in files, resulting in the
+    dependencies from the ptxdist version being superimposed on the
+    local project ones.
+
+[ ] jbe: procps.install stage fails with:
+
 [ ] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
     looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
     into the path somehow. Ask mkl.
 
 [x] jbe: procps.install stage fails with:
+
 	make: Ungültige Option -- y
 	make: Ungültige Option -- y
 	make: Ungültige Option -- L
@@ -43,9 +52,9 @@ TODO for 0.10.6
     this "class" mechanism and make sure it produces sane output. Check
     with mkl.
 
-[ ] rsc: check if we can update mtd-utils from 1.0.0 to 1.0.1; mkl has
+[x] rsc: check if we can update mtd-utils from 1.0.0 to 1.0.1; mkl has
     already prepared the patches; find out why the revision number was
-    not bumped.
+    not bumped. mkl: 1.0.1 needs acl, so we stay with 1.0.0
 
 [x] ssh: server start scripts are missing
 
