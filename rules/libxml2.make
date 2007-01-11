@@ -299,7 +299,7 @@ libxml2_install: $(STATEDIR)/libxml2.install
 $(STATEDIR)/libxml2.install: $(libxml2_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBXML2)
-	install -D $(LIBXML2_DIR)/xml2-config $(PTXCONF_PREFIX)/bin/xml2-config
+	install -D $(LIBXML2_DIR)/xml2-config $(PTXCONF_CROSS_PREFIX)/bin/xml2-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
