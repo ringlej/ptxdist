@@ -63,7 +63,7 @@ done
 # dir might not be available yet, but will be created later
 prefix_host="`ptxd_get_ptxconf PTXCONF_HOST_PREFIX`"
 if test -n "${prefix_host}"; then
-	export PATH="${prefix_host}:$PATH"
+	export PATH="${prefix_host}/bin:${prefix_host}/sbin:$PATH"
 fi
 
 #
