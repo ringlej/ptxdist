@@ -33,6 +33,7 @@ config FONTCONFIG_UTILS
 config FONTCONFIG_CONFS
 	bool "install configuration files for Fontconfig"
 	depends on FONTCONFIG
+	default y
 	help
 	  This installs configuration files of fontconfig, 
 	  subpixeling is turned on by default
