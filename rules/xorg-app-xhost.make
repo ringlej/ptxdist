@@ -65,26 +65,9 @@ XORG_APP_XHOST_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 XORG_APP_XHOST_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	$(XORG_OPTIONS_TRANS) \
 	--disable-dependency-tracking \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
-XORG_APP_XHOST_AUTOCONF += --enable-unix-transport
-else
-XORG_APP_XHOST_AUTOCONF += --disable-unix-transport
-endif
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
-XORG_APP_XHOST_AUTOCONF += --enable-tcp-transport
-else
-XORG_APP_XHOST_AUTOCONF += --disable-tcp-transport
-endif
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
-XORG_APP_XHOST_AUTOCONF += --enable-IPv6
-else
-XORG_APP_XHOST_AUTOCONF += --disable-IPv6
-endif
 
 ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
 XORG_APP_XHOST_AUTOCONF += --enable-secure-rpc

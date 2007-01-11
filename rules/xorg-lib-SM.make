@@ -64,26 +64,10 @@ XORG_LIB_SM_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_SM_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+XORG_LIB_SM_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	$(XORG_OPTIONS_TRANS) \
 	--disable-dependency-tracking
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
-XORG_LIB_SM_AUTOCONF	+= --enable-unix-transport
-else
-XORG_LIB_SM_AUTOCONF	+= --disable-unix-transport
-endif
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
-XORG_LIB_SM_AUTOCONF	+= --enable-tcp-transport
-else
-XORG_LIB_SM_AUTOCONF	+= --disable-tcp-transport
-endif
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
-XORG_LIB_SM_AUTOCONF	+= --enable-ipv6
-else
-XORG_LIB_SM_AUTOCONF	+= --disable-ipv6
-endif
 
 $(STATEDIR)/xorg-lib-SM.prepare: $(xorg-lib-SM_prepare_deps_default)
 	@$(call targetinfo, $@)

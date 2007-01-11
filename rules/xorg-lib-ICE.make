@@ -64,26 +64,10 @@ XORG_LIB_ICE_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_ICE_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+XORG_LIB_ICE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	$(XORG_OPTIONS_TRANS) \
 	--disable-dependency-tracking
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
-XORG_LIB_ICE_AUTOCONF	+= --enable-unix-transport
-else
-XORG_LIB_ICE_AUTOCONF	+= --disable-unix-transport
-endif
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
-XORG_LIB_ICE_AUTOCONF	+= --enable-tcp-transport
-else
-XORG_LIB_ICE_AUTOCONF	+= --disable-tcp-transport
-endif
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
-XORG_LIB_ICE_AUTOCONF	+= --enable-ipv6
-else
-XORG_LIB_ICE_AUTOCONF	+= --disable-ipv6
-endif
 
 $(STATEDIR)/xorg-lib-ICE.prepare: $(xorg-lib-ICE_prepare_deps_default)
 	@$(call targetinfo, $@)

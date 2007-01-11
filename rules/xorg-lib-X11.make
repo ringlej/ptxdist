@@ -66,6 +66,7 @@ XORG_LIB_X11_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_X11_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(XORG_OPTIONS_TRANS) \
 	--disable-malloc0returnsnull \
 	--disable-dependency-tracking \
 	--disable-man-pages
@@ -76,23 +77,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
 	XORG_LIB_X11_AUTOCONF   += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 endif
 
-ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
-XORG_LIB_X11_AUTOCONF	+= --enable-unix-transport
-else
-XORG_LIB_X11_AUTOCONF	+= --disable-unix-transport
-endif
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
-XORG_LIB_X11_AUTOCONF	+= --enable-tcp-transport
-else
-XORG_LIB_X11_AUTOCONF	+= --disable-tcp-transport
-endif
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
-XORG_LIB_X11_AUTOCONF	+= --enable-ipv6
-else
-XORG_LIB_X11_AUTOCONF	+= --disable-ipv6
-endif
 #
 # feature is marked as experimental if disabled!
 #
@@ -148,7 +132,7 @@ xorg-lib-X11_compile: $(STATEDIR)/xorg-lib-X11.compile
 
 $(STATEDIR)/xorg-lib-X11.compile: $(xorg-lib-X11_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_X11_DIR) && $(XORG_LIB_X11_PATH) $(XORG_LIB_X11_ENV) $(MAKE) $(PARALLELMFLAGS)
+	cd $(XORG_LIB_X11_DIR) && $(XORG_LIB_X11_PATH) $(MAKE) $(PARALLELMFLAGS) $(CROSS_ENV_CC_FOR_BUILD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
