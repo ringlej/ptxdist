@@ -1,0 +1,3 @@
+libdbus-c++-r9139_config_h.diff -p0
+libdbus-c++-r9139_autogen_headerfiles.diff -p0
+libdbus-c++-r9139_autogen_files.diff
