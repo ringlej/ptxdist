@@ -84,7 +84,7 @@ xorg-lib-Xres_compile: $(STATEDIR)/xorg-lib-Xres.compile
 
 $(STATEDIR)/xorg-lib-Xres.compile: $(xorg-lib-Xres_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XRES_DIR) && $(XORG_LIB_XRES_PATH) make
+	cd $(XORG_LIB_XRES_DIR) && $(XORG_LIB_XRES_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -101,7 +101,7 @@ xorg-lib-Xmu_compile: $(STATEDIR)/xorg-lib-Xmu.compile
 
 $(STATEDIR)/xorg-lib-Xmu.compile: $(xorg-lib-Xmu_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XMU_DIR) && $(XORG_LIB_XMU_PATH) make
+	cd $(XORG_LIB_XMU_DIR) && $(XORG_LIB_XMU_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

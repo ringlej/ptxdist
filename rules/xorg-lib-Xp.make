@@ -83,7 +83,7 @@ xorg-lib-Xp_compile: $(STATEDIR)/xorg-lib-Xp.compile
 
 $(STATEDIR)/xorg-lib-Xp.compile: $(xorg-lib-Xp_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XP_DIR) && $(XORG_LIB_XP_PATH) make
+	cd $(XORG_LIB_XP_DIR) && $(XORG_LIB_XP_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

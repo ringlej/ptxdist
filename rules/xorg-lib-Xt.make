@@ -91,7 +91,7 @@ xorg-lib-Xt_compile: $(STATEDIR)/xorg-lib-Xt.compile
 
 $(STATEDIR)/xorg-lib-Xt.compile: $(xorg-lib-Xt_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XT_DIR) && $(XORG_LIB_XT_PATH) $(XORG_LIB_XT_ENV) make
+	cd $(XORG_LIB_XT_DIR) && $(XORG_LIB_XT_PATH) $(MAKE) $(PARALLELMFLAGS) $(CROSS_ENV_CC_FOR_BUILD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

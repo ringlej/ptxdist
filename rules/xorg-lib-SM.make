@@ -101,7 +101,7 @@ xorg-lib-SM_compile: $(STATEDIR)/xorg-lib-SM.compile
 
 $(STATEDIR)/xorg-lib-SM.compile: $(xorg-lib-SM_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_SM_DIR) && $(XORG_LIB_SM_PATH) make
+	cd $(XORG_LIB_SM_DIR) && $(XORG_LIB_SM_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

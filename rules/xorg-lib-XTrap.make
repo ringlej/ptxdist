@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_XTRAP) += xorg-lib-XTrap
 XORG_LIB_XTRAP_VERSION	:= 1.0.0
 XORG_LIB_XTRAP		:= libXTrap-X11R7.0-$(XORG_LIB_XTRAP_VERSION)
 XORG_LIB_XTRAP_SUFFIX	:= tar.bz2
-XORG_LIB_XTRAP_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/lib//$(XORG_LIB_XTRAP).$(XORG_LIB_XTRAP_SUFFIX)
+XORG_LIB_XTRAP_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/lib/$(XORG_LIB_XTRAP).$(XORG_LIB_XTRAP_SUFFIX)
 XORG_LIB_XTRAP_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XTRAP).$(XORG_LIB_XTRAP_SUFFIX)
 XORG_LIB_XTRAP_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTRAP)
 
@@ -82,7 +82,7 @@ xorg-lib-XTrap_compile: $(STATEDIR)/xorg-lib-XTrap.compile
 
 $(STATEDIR)/xorg-lib-XTrap.compile: $(xorg-lib-XTrap_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XTRAP_DIR) && $(XORG_LIB_XTRAP_PATH) make
+	cd $(XORG_LIB_XTRAP_DIR) && $(XORG_LIB_XTRAP_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

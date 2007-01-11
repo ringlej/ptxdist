@@ -84,7 +84,7 @@ xorg-lib-Xext_compile: $(STATEDIR)/xorg-lib-Xext.compile
 
 $(STATEDIR)/xorg-lib-Xext.compile: $(xorg-lib-Xext_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XEXT_DIR) && $(XORG_LIB_XEXT_PATH) make
+	cd $(XORG_LIB_XEXT_DIR) && $(XORG_LIB_XEXT_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

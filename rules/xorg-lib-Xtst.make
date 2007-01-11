@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_XTST) += xorg-lib-Xtst
 XORG_LIB_XTST_VERSION	:= 1.0.1
 XORG_LIB_XTST		:= libXtst-X11R7.0-$(XORG_LIB_XTST_VERSION)
 XORG_LIB_XTST_SUFFIX	:= tar.bz2
-XORG_LIB_XTST_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/lib//$(XORG_LIB_XTST).$(XORG_LIB_XTST_SUFFIX)
+XORG_LIB_XTST_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/lib/$(XORG_LIB_XTST).$(XORG_LIB_XTST_SUFFIX)
 XORG_LIB_XTST_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XTST).$(XORG_LIB_XTST_SUFFIX)
 XORG_LIB_XTST_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTST)
 
@@ -82,7 +82,7 @@ xorg-lib-Xtst_compile: $(STATEDIR)/xorg-lib-Xtst.compile
 
 $(STATEDIR)/xorg-lib-Xtst.compile: $(xorg-lib-Xtst_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XTST_DIR) && $(XORG_LIB_XTST_PATH) make
+	cd $(XORG_LIB_XTST_DIR) && $(XORG_LIB_XTST_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

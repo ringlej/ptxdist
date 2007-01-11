@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_XAW) += xorg-lib-Xaw
 XORG_LIB_XAW_VERSION	:= 1.0.2
 XORG_LIB_XAW		:= libXaw-X11R7.1-$(XORG_LIB_XAW_VERSION)
 XORG_LIB_XAW_SUFFIX	:= tar.bz2
-XORG_LIB_XAW_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/lib//$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
+XORG_LIB_XAW_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/lib/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
 XORG_LIB_XAW_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
 XORG_LIB_XAW_DIR	:= $(BUILDDIR)/$(XORG_LIB_XAW)
 
@@ -101,7 +101,7 @@ xorg-lib-Xaw_compile: $(STATEDIR)/xorg-lib-Xaw.compile
 
 $(STATEDIR)/xorg-lib-Xaw.compile: $(xorg-lib-Xaw_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XAW_DIR) && $(XORG_LIB_XAW_PATH) make
+	cd $(XORG_LIB_XAW_DIR) && $(XORG_LIB_XAW_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -175,8 +175,8 @@ ifdef PTXCONF_XORG_LIB_XAW_V8
 		$(XORG_LIBDIR)/libXaw8.so.8.0.0)
 
 	@$(call install_link, xorg-lib-Xaw, \
- 		libXaw8.so.8.0.0, \
- 		$(XORG_LIBDIR)/libXaw8.so.8)
+		libXaw8.so.8.0.0, \
+		$(XORG_LIBDIR)/libXaw8.so.8)
 
 	@$(call install_link, xorg-lib-Xaw, \
 		libXaw8.so.8.0.0, \

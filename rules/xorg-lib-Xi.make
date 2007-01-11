@@ -84,7 +84,7 @@ xorg-lib-Xi_compile: $(STATEDIR)/xorg-lib-Xi.compile
 
 $(STATEDIR)/xorg-lib-Xi.compile: $(xorg-lib-Xi_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XI_DIR) && $(XORG_LIB_XI_PATH) make
+	cd $(XORG_LIB_XI_DIR) && $(XORG_LIB_XI_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

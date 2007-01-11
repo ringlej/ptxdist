@@ -82,7 +82,7 @@ xorg-lib-fontenc_compile: $(STATEDIR)/xorg-lib-fontenc.compile
 
 $(STATEDIR)/xorg-lib-fontenc.compile: $(xorg-lib-fontenc_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_FONTENC_DIR) && $(XORG_LIB_FONTENC_PATH) make
+	cd $(XORG_LIB_FONTENC_DIR) && $(XORG_LIB_FONTENC_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

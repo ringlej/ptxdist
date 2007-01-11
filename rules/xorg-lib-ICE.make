@@ -101,7 +101,7 @@ xorg-lib-ICE_compile: $(STATEDIR)/xorg-lib-ICE.compile
 
 $(STATEDIR)/xorg-lib-ICE.compile: $(xorg-lib-ICE_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_ICE_DIR) && $(XORG_LIB_ICE_PATH) make
+	cd $(XORG_LIB_ICE_DIR) && $(XORG_LIB_ICE_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

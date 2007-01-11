@@ -83,7 +83,7 @@ xorg-lib-Xpm_compile: $(STATEDIR)/xorg-lib-Xpm.compile
 
 $(STATEDIR)/xorg-lib-Xpm.compile: $(xorg-lib-Xpm_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XPM_DIR) && $(XORG_LIB_XPM_PATH) make
+	cd $(XORG_LIB_XPM_DIR) && $(XORG_LIB_XPM_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
