@@ -92,7 +92,7 @@ procps_install: $(STATEDIR)/procps.install
 
 $(STATEDIR)/procps.install: $(procps_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, PROCPS)
+#	$(call install, PROCPS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
