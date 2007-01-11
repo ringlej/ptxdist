@@ -64,9 +64,9 @@ XORG_LIB_XFONTCACHE_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XFONTCACHE_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-XORG_LIB_XFONTCACHE_AUTOCONF += --disable-malloc0returnsnull
+XORG_LIB_XFONTCACHE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-Xfontcache.prepare: $(xorg-lib-Xfontcache_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -84,7 +84,7 @@ xorg-lib-Xfontcache_compile: $(STATEDIR)/xorg-lib-Xfontcache.compile
 
 $(STATEDIR)/xorg-lib-Xfontcache.compile: $(xorg-lib-Xfontcache_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XFONTCACHE_DIR) && $(XORG_LIB_XFONTCACHE_PATH) make
+	cd $(XORG_LIB_XFONTCACHE_DIR) && $(XORG_LIB_XFONTCACHE_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
