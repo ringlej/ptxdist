@@ -1,7 +1,7 @@
 config XORG_FONT_BITSTREAM_TYPE1
 	bool
 	select XORG_FONTS
-	depends on XORG_FONT_SCALEABLE
+	depends on XORG_FONT_TYPE1
 	default y
 	prompt "Bitstream type1"
 	help

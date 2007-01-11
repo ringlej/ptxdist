@@ -5,6 +5,7 @@ source "rules/xorg-fonts.in"
 menuconfig MENU_XORG_FONTS
 	bool
 	prompt "xorg fonts            "
+	select XORG_LIB_XFONT_PCF_FONTS
 
 source "rules/xorg-font-util-alias.in"
 source "rules/xorg-font-base.in"
@@ -13,5 +14,7 @@ source "rules/xorg-font-100dpi.in"
 source "rules/xorg-font-100dpi-trans.in"
 source "rules/xorg-font-75dpi.in"
 source "rules/xorg-font-75dpi-trans.in"
-source "rules/xorg-font-scalable.in"
+source "rules/xorg-font-type1.in"
+source "rules/xorg-font-speedo.in"
+source "rules/xorg-font-ttf.in"
 source "rules/xorg-font-intl.in"
