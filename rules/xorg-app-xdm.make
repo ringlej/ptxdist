@@ -64,34 +64,17 @@ XORG_APP_XDM_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_APP_XDM_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_UNIX
-XORG_APP_XDM_AUTOCONF += --enable-unix-transport
-else
-XORG_APP_XDM_AUTOCONF += --disable-unix-transport
-endif
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_TCP
-XORG_APP_XDM_AUTOCONF += --enable-tcp-transport
-else
-XORG_APP_XDM_AUTOCONF += --disable-tcp-transport
-endif
-
-ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
-XORG_APP_XDM_AUTOCONF += --enable-IPv6
-else
-XORG_APP_XDM_AUTOCONF += --disable-IPv6
-endif
+XORG_APP_XDM_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	$(XORG_OPTIONS_TRANS) \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
+	--with-random-device=$(XORG_APP_XDM_DEV_RANDOM)
 
 ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
 XORG_APP_XDM_AUTOCONF += --enable-secure-rpc
 else
 XORG_APP_XDM_AUTOCONF += --disable-secure-rpc
 endif
-
-XORG_APP_XDM_AUTOCONF += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
-XORG_APP_XDM_AUTOCONF += --with-random-device=$(XORG_APP_XDM_DEV_RANDOM)
 
 XORG_APP_XDM_AUTOCONF += --enable-xpm-logos	# Display xpm logos in greeter
 XORG_APP_XDM_AUTOCONF += --disable-xprint	# FIXME XPrint support
@@ -115,7 +98,7 @@ xorg-app-xdm_compile: $(STATEDIR)/xorg-app-xdm.compile
 
 $(STATEDIR)/xorg-app-xdm.compile: $(xorg-app-xdm_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_APP_XDM_DIR) && $(XORG_APP_XDM_PATH) make
+	cd $(XORG_APP_XDM_DIR) && $(XORG_APP_XDM_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
