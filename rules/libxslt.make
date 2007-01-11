@@ -2,7 +2,7 @@
 # $Id: template 2878 2005-07-03 17:54:38Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -66,7 +66,7 @@ LIBXSLT_ENV 	=  $(CROSS_ENV)
 #
 LIBXSLT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 LIBXSLT_AUTOCONF += --with-libxml-libs-prefix=$(SYSROOT)/usr/lib
-LIBXSLT_AUTOCONF += --with-libxml-include-prefix=$(SYSROOT)/usr/include 
+LIBXSLT_AUTOCONF += --with-libxml-include-prefix=$(SYSROOT)/usr/include
 LIBXSLT_AUTOCONF += --without-python
 
 ifdef PTXCONF_LIBXSLT_CRYPTO
@@ -78,7 +78,7 @@ endif
 
 ifdef PTXCONF_LIBXSLT_PLUGINS
 	LIBXSLT_AUTOCONF += --with-plugins
-else	
+else
 	LIBXSLT_AUTOCONF += --without-plugins
 endif
 
@@ -86,7 +86,7 @@ endif
 ifdef PTXCONF_LIBXSLT_DEBUG
 	LIBXSLT_AUTOCONF += --with-debug
 	LIBXSLT_AUTOCONF += --with-debugger
-else	
+else
 	LIBXSLT_AUTOCONF += --without-debug
 	LIBXSLT_AUTOCONF += --without-debugger
 endif
@@ -120,10 +120,10 @@ libxslt_install: $(STATEDIR)/libxslt.install
 $(STATEDIR)/libxslt.install: $(libxslt_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, LIBXSLT)
-	
+
 	# FIXME: this probably has to be fixed upstream!
-	# libxslt installs xslt-config to wrong path. 
-	install $(LIBXSLT_DIR)/xslt-config $(PTXCONF_PREFIX)/bin/
+	# libxslt installs xslt-config to wrong path.
+	install $(LIBXSLT_DIR)/xslt-config $(PTXCONF_CROSS_PREFIX)/bin/
 
 	@$(call touch, $@)
 
