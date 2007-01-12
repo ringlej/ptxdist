@@ -14,14 +14,6 @@ TODO for 0.10.6
 [ ] unbreak host-zlib; it is necessary for host-umkimage if there is no
     zlib devel packet installed on the host.
 
-[ ] omitting glibc installation should be possible, first hack attempt done
-
-[ ] creating links into non existent directories fails, but does not break the build!
-
-[ ] discuss UID of user "rpcuser"
-
-[ ] discuss UIDs and GIDs of other important system users
-
 ---
 
 [ ] rsc: audit if 'ptxdist get' fetches all packets correctly
@@ -30,6 +22,17 @@ TODO for 0.10.6
 
 TODO for 0.10.x
 ===============
+
+[ ] jbe: creating links into non existent directories fails, but does
+    not break the build!
+
+    Update 2007-01-12:	rsc/mkl: the install_link macro has mkdir -p
+			calls in all relevant places; should not
+			happen -> jbe: retest.
+
+[ ] discuss UID of user "rpcuser"
+
+[ ] discuss UIDs and GIDs of other important system users
 
 [ ] jbe: reduce directory count on top level, combine build-* and
     local-* into a shared subdir rsc: we've agreed on this variant:
@@ -363,6 +366,13 @@ Old TODOs
 
 DONE
 ----
+
+[x] omitting glibc installation should be possible, first hack attempt
+    done
+
+    Update 2007-01-12:	No idea what the reason was; we don't have a
+    			concept for anything else than shared libs and
+			glibc.
 
 [x] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
     looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
