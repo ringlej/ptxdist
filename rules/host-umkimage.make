@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003-2006 by Pengutronix e.K., Hildesheim, Germany
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -58,7 +58,7 @@ $(STATEDIR)/host-umkimage.extract: $(host-umkimage_extract_deps_default)
 host-umkimage_prepare: $(STATEDIR)/host-umkimage.prepare
 
 HOST_UMKIMAGE_PATH	:= PATH=$(HOST_PATH)
-HOST_UMKIMAGE_ENV 	:= $(HOST_ENV)
+HOST_UMKIMAGE_ENV 	:= $(HOST_ENV) CFLAGS="$(HOST_CPPFLAGS)"
 
 $(STATEDIR)/host-umkimage.prepare: $(host-umkimage_prepare_deps_default)
 	@$(call targetinfo, $@)
