@@ -1,17 +1,35 @@
 TODO for 0.10.6
 ===============
 
-[ ] repair make makro 'install'. See procps.install for reference.
+[ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
+    this "class" mechanism and make sure it produces sane output. Check
+    with mkl.
 
-[ ] rsc: We have a problem with the dependency generator: if we have a
-    packet which is already in ptxdist a second time in the local
-    project, ptxdist includes _both_ .in files, resulting in the
-    dependencies from the ptxdist version being superimposed on the
-    local project ones.
+[ ] rsc: after release: update OSELAS.Toolchain and OSELAS.Crosstool to
+    use this version.
 
-[ ] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
-    looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
-    into the path somehow. Ask mkl.
+[ ] util-linux: re-calls automake during compile; audit the logfile of
+    AllYesArm for autotool calls
+
+[ ] unbreak host-zlib; it is necessary for host-umkimage if there is no
+    zlib devel packet installed on the host.
+
+[ ] omitting glibc installation should be possible, first hack attempt done
+
+[ ] creating links into non existent directories fails, but does not break the build!
+
+[ ] discuss UID of user "rpcuser"
+
+[ ] discuss UIDs and GIDs of other important system users
+
+---
+
+[ ] rsc: audit if 'ptxdist get' fetches all packets correctly
+
+[ ] update ChangeLog
+
+TODO for 0.10.x
+===============
 
 [ ] jbe: reduce directory count on top level, combine build-* and
     local-* into a shared subdir rsc: we've agreed on this variant:
@@ -23,47 +41,29 @@ TODO for 0.10.6
 	local-target/
 	local-cross/
 
-[ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
-    this "class" mechanism and make sure it produces sane output. Check
-    with mkl.
-
-[ ] rsc: audit if 'ptxdist get' fetches all packets correctly
-
-[ ] rsc: after release: update OSELAS.Toolchain and OSELAS.Crosstool to
-    use this version.
-
-[ ] util-linux: re-calls automake during compile; audit the logfile of
-    AllYesArm for autotool calls
-
-[ ] unbreak host-zlib; it is necessary for host-umkimage if there is no
-    zlib devel packet installed on the host.
-
-[ ] update ChangeLog
-
-[ ] omitting glibc installation should be possible, first hack attempt done
-
-[ ] creating links into non existent directories fails, but does not break the build!
-
-[ ] discuss UID of user "rpcuser"
-
-[ ] discuss UIDs and GIDs of other important system users
-
-TODO for 0.10.x
-===============
-
-[ ] jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
-    The output of
-    *** End of configuration.
-    *** Execute 'make' to build the project or try 'make help'.
-    is outdated...
-    rsc: while doing this, update to a recent kconfig version, with
-    saner colours instead of this unreadable yellow.
+[ ] repair make makro 'install'; there are sometimes three """.
+    See procps.install for reference.
 
 [ ] jbe: why does fam-2.7.0 always try to run the autotools? It fails on most
     modern systems -> mark as broken. rsc: real fix: find out why and fix.
 
 [ ] jbe: replacing an *.make file for project use is easy. But how to
     replace a *.in file? rsc: no 0.10.6 issue, defer
+
+    rsc: We have a problem with the dependency generator: if we have a
+    packet which is already in ptxdist a second time in the local
+    project, ptxdist includes _both_ .in files, resulting in the
+    dependencies from the ptxdist version being superimposed on the
+    local project ones.
+
+    jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
+    The output of
+    *** End of configuration.
+    *** Execute 'make' to build the project or try 'make help'.
+    is outdated...
+
+    rsc: while doing this, update to a recent kconfig version, with
+    saner colours instead of this unreadable yellow.
 
 [ ] we seem to need python2.3-dev, reported by Marco Cavallini:
 
@@ -363,6 +363,10 @@ Old TODOs
 
 DONE
 ----
+
+[x] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
+    looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
+    into the path somehow. Ask mkl.
 
 [x] Our current host tools use their target counterparts for getting the
     sources; if the target counterpart is not selected, the dependencies
