@@ -5,6 +5,9 @@ config XORG_APP_XDM
 	select XORG_LIB_XPM
 	select XORG_LIB_XMU
 	select XORG_LIB_XAW
+# FIX: When the X server supports Xinerama, this package needs
+# the library ready for use!
+	select XORG_LIB_XINERAMA if XORG_SERVER_EXT_XINERAMA
 	help
 	  XDM is the graphical login manager
 
