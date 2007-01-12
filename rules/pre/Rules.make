@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# This file contains global macro and environment definitions. 
+# This file contains global macro and environment definitions.
 #
 
 # ----------------------------------------------------------------------------
@@ -10,7 +10,7 @@
 
 # change this if you have some wired configuration :)
 
-# FIXME: cleanup 
+# FIXME: cleanup
 
 PTXUSER		= $(shell echo $$USER)
 GNU_BUILD	= $(shell $(PTXDIST_TOPDIR)/scripts/config.guess)
@@ -88,6 +88,7 @@ SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
 
 #
 # prepare the search path
+# In order to work correctly in cross path all local cross tools must be find first!
 #
 CROSS_PATH := $(PTX_PREFIX_CROSS)/bin:$(PTX_PREFIX_CROSS)/sbin:$(PTX_PREFIX_HOST)/bin:$(PTX_PREFIX_HOST)/sbin:$$PATH
 
@@ -107,8 +108,8 @@ SHORT_HOST		:= `echo $(GNU_HOST) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
 # CFLAGS / CXXFLAGS
 #
 
-# FIXME: this is not really consistent any more; we want the arch specific 
-#        stuff separate from other options, so we can do NATIVE builds. 
+# FIXME: this is not really consistent any more; we want the arch specific
+#        stuff separate from other options, so we can do NATIVE builds.
 
 ifdef NATIVE
 TARGET_CFLAGS		=
@@ -122,8 +123,8 @@ TARGET_CPPFLAGS		+= $(PTXCONF_TARGET_EXTRA_CPPFLAGS)
 TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
 
 ##
-## if we use an external crosschain set include and lib dirs correctly: 
-## 
+## if we use an external crosschain set include and lib dirs correctly:
+##
 ## - don't use system standard include paths
 ## - find out the compiler's sysincludedir
 ##
@@ -132,7 +133,7 @@ TARGET_CXXFLAGS		+= -isystem $(SYSROOT)/include
 TARGET_CXXFLAGS		+= -isystem $(SYSROOT)/usr/include
 TARGET_CPPFLAGS		+= -isystem $(SYSROOT)/include
 TARGET_CPPFLAGS		+= -isystem $(SYSROOT)/usr/include
-TARGET_LDFLAGS		+= -L$(SYSROOT)/lib 
+TARGET_LDFLAGS		+= -L$(SYSROOT)/lib
 TARGET_LDFLAGS		+= -L$(SYSROOT)/usr/lib -Wl,-rpath-link -Wl,$(SYSROOT)/usr/lib
 endif
 
@@ -200,13 +201,13 @@ CROSS_ENV_LDFLAGS		= LDFLAGS='$(strip $(CROSS_LDFLAGS))'
 CROSS_ENV_LDFLAGS_FOR_TARGET	= LDFLAGS_FOR_TARGET='$(strip $(CROSS_LDFLAGS))'
 endif
 
-# 
+#
 # CROSS_ENV is the environment usually set for all configure and compile
-# calls in the packet makefiles. 
+# calls in the packet makefiles.
 #
 # The ac_cv_* variables are needed to tell configure scripts not to use
 # AC_TRY_RUN and run cross compiled things on the development host
-# 
+#
 CROSS_ENV_PROGS := \
 	$(CROSS_ENV_AR) \
 	$(CROSS_ENV_AS) \
@@ -225,10 +226,10 @@ CROSS_ENV_PROGS := \
 	$(CROSS_ENV_DLLTOOL)
 
 #
-# prepare to use pkg-config with wrapper which takes care of $(SYSROOT). 
+# prepare to use pkg-config with wrapper which takes care of $(SYSROOT).
 # The wrapper's magic doesn't work when pkg-config strips out /usr/lib
 # and other system libs/cflags, so we leave them in; the wrapper
-# replaces them by proper $(SYSROOT) correspondees. 
+# replaces them by proper $(SYSROOT) correspondees.
 #
 
 CROSS_ENV_PKG_CONFIG := \
@@ -267,8 +268,8 @@ CROSS_ENV_DESTDIR := \
 #
 # We want to use DESTDIR and --prefix=/usr, to get no build paths in our
 # binaries. Unfortunately, not all packages support this, especially
-# libtool based packets seem to be broken. See for example: 
-# 
+# libtool based packets seem to be broken. See for example:
+#
 # https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=58664
 #
 # for a longer discussion [RSC]
@@ -306,8 +307,8 @@ CROSS_ENV := \
 	$(CROSS_ENV_PKG_CONFIG) \
 	$(CROSS_ENV_DESTDIR)
 
-CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR) 
-CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) 
+CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR)
+CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT)
 
 endif
 
@@ -352,8 +353,8 @@ HOST_AUTOCONF  := --prefix=$(PTX_PREFIX_HOST)
 #
 # Print out the targetinfo line on the terminal and perform the compiler
 # check to make sure we are using the right toolchain in case we want
-# to perform compile or prepare stages. 
-# 
+# to perform compile or prepare stages.
+#
 # $1: name of the target to be printed out
 #
 targetinfo = 							\
@@ -377,22 +378,22 @@ targetinfo = 							\
 # touch with prefix-creation
 #
 # $1: name of the target to be touched
-# 
+#
 touch =								\
 	touch $1;						\
 	echo "Finished target $(shell basename $1)";
 
 #
-# add_locale 
+# add_locale
 #
-# add locale support to locales-archive, if not exist, a new locale 
+# add locale support to locales-archive, if not exist, a new locale
 # archive will be created automaticly
 #
 # $1: localename: localename (i.E. zh_CN or zh_CN.GBK)
 # $2: localedef; locale definition file (i.E. de_DE or de_DE@euro)
 # $3: charmap; charachter encoding map (i.E. ISO-8859-1)
 # $4: prefix; installation prefix for locales-archive
-# 
+#
 #
 add_locale =							\
 	LOCALE_NAME=$(strip $(1));				\
@@ -404,11 +405,11 @@ add_locale =							\
 		-f $$CHARMAP -i $$LOCALE_DEF -p $$PREF -n $$LOCALE_NAME
 
 #
-# extract 
+# extract
 #
-# Extract a source archive into a directory. This stage is 
+# Extract a source archive into a directory. This stage is
 # skipped if $1_URL points to a local directory instead of
-# an archive or online URL. 
+# an archive or online URL.
 #
 # $1: Packet label; we extract $1_SOURCE
 # $2: dir to extract into; if $2 is not given we extract to $(BUILDDIR)
@@ -471,9 +472,9 @@ extract =							\
 #
 # Download a package from a given URL. This macro has some magic
 # to handle different URLs; as wget is not able to transfer
-# file URLs this case is being handed over to cp.  
+# file URLs this case is being handed over to cp.
 #
-# $1: Packet Label; this macro gets $1_URL 
+# $1: Packet Label; this macro gets $1_URL
 # $2: source directory
 #
 get =								\
@@ -541,12 +542,12 @@ get =								\
 		echo;						\
 		exit -1;					\
 		;;						\
-	esac;								
+	esac;
 
 
 #
 # get_options
-# 
+#
 # Returns an options from the ptxconfig file
 #
 # $1: regex, that's applied to the ptxconfig file
@@ -567,7 +568,7 @@ get_option =										\
 
 #
 # get_option_ext
-# 
+#
 # Returns an options from the .config file
 #
 # $1: regex, that's applied to the .config file
@@ -646,8 +647,8 @@ endif
 
 #
 # clean
-# 
-# Cleanup the given directory or file. 
+#
+# Cleanup the given directory or file.
 #
 clean =								\
 	DIR="$(strip $(1))";					\
@@ -658,7 +659,7 @@ clean =								\
 
 #
 # enable_c
-# 
+#
 # Enables a define, removes /* */
 #
 # (often found in .c or .h files)
@@ -675,7 +676,7 @@ enable_c =											\
 
 #
 # disable_c
-# 
+#
 # Disables a define with, adds /* */
 #
 # (often found in .c or .h files)
@@ -692,7 +693,7 @@ disable_c =											\
 
 #
 # enable_sh
-# 
+#
 # Enabled something, removes #
 #
 # often found in shell scripts, Makefiles
@@ -710,7 +711,7 @@ enable_sh =						\
 
 #
 # disable_sh
-# 
+#
 # Disables a comment, adds #
 #
 # often found in shell scripts, Makefiles
@@ -727,7 +728,7 @@ disable_sh =						\
 
 #
 # patchin
-# 
+#
 # Go into a directory and apply all patches from there into a
 # sourcetree. if a series file exists in that directory the
 # patches from the series file are used instead of all patches.
@@ -738,7 +739,7 @@ disable_sh =						\
 # This macro skips if $1 points to a local directory.
 #
 # $1: packet label; $($(1)_NAME) -> identifier
-# $2: path to source tree 
+# $2: path to source tree
 #     if this parameter is omitted, the path will be derived
 #     from the packet name
 # $3: abs path to series file
@@ -813,16 +814,16 @@ patchin =										\
 
 #
 # install_copy
-# 
+#
 # Installs a file with user/group ownership and permissions via
-# fakeroot. 
+# fakeroot.
 #
 # $1: packet label
 # $2: UID
 # $3: GID
 # $4: permissions (octal)
 # $5: source (for files); directory (for directories)
-# $6: destination (for files); empty (for directories). Prefixed with $(ROOTDIR), 
+# $6: destination (for files); empty (for directories). Prefixed with $(ROOTDIR),
 #     so it needs to have a leading /
 # $7: strip (for files; y|n); default is to strip
 #
@@ -894,7 +895,7 @@ install_copy = 											\
 
 #
 # install_alternative
-# 
+#
 # Installs a file with user/group ownership and permissions via
 # fakeroot.
 #
@@ -1079,8 +1080,8 @@ install_copy_toolchain_dl =									\
 
 #
 # install_link
-# 
-# Installs a soft link in root directory in an ipkg packet. 
+#
+# Installs a soft link in root directory in an ipkg packet.
 #
 # $1: packet label
 # $2: source
@@ -1201,16 +1202,16 @@ install_finish = 													\
 
 #
 # install_autoinstall
-# 
+#
 # Installs a file with user/group ownership and permissions via
-# fakeroot. 
+# fakeroot.
 #
 # $1: packet label
 # $2: UID
 # $3: GID
 # $4: permissions (octal)
 # $5: source (for files); directory (for directories)
-# $6: destination (for files); empty (for directories). Prefixed with $(ROOTDIR), 
+# $6: destination (for files); empty (for directories). Prefixed with $(ROOTDIR),
 #     so it needs to have a leading /
 # $7: strip (for files; y|n); default is to strip
 #
