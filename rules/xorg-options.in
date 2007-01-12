@@ -58,6 +58,7 @@ config XORG_DEFAULT_DATA_DIR
 config XORG_OPTIONS_TRANS_UNIX
 	bool
 	prompt "UNIX domain socket transport"
+	depends on XORG_LIB_X11
 	default y
 	help
 	  UNIX domain socket transport
@@ -65,6 +66,7 @@ config XORG_OPTIONS_TRANS_UNIX
 config XORG_OPTIONS_TRANS_TCP
 	bool
 	prompt "TCP socket transport"
+	depends on XORG_LIB_X11
 	default y
 	help
 	 TCP socket transport
