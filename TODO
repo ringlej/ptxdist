@@ -1,5 +1,8 @@
 TODO for 0.10.6
 ===============
+[ ] liboldX fails to build the ipkg but the build continues!
+
+[ ] Chrony fails to compile
 
 [ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
     this "class" mechanism and make sure it produces sane output. Check
