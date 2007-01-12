@@ -84,7 +84,7 @@ expat_compile: $(STATEDIR)/expat.compile
 $(STATEDIR)/expat.compile: $(expat_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(EXPAT_DIR) && \
-		$(EXPAT_PATH) make
+		$(EXPAT_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
