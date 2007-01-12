@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_SDL) += sdl
 SDL_VERSION	:= 1.2.10
 SDL		:= SDL-$(SDL_VERSION)
 SDL_SUFFIX	:= tar.gz
-SDL_URL		:= http://www.libsdl.org/release//$(SDL).$(SDL_SUFFIX)
+SDL_URL		:= http://www.libsdl.org/release/$(SDL).$(SDL_SUFFIX)
 SDL_SOURCE	:= $(SRCDIR)/$(SDL).$(SDL_SUFFIX)
 SDL_DIR		:= $(BUILDDIR)/$(SDL)
 
@@ -77,7 +77,7 @@ SDL_AUTOCONF += --disable-static
 endif
 
 ifdef PTXCONF_SDL_AUDIO
-SDL_AUTOCONF += --enable-audio      
+SDL_AUTOCONF += --enable-audio
 
  ifdef PTXCONF_SDL_OSS
  SDL_AUTOCONF += --enable-oss
@@ -86,12 +86,12 @@ SDL_AUTOCONF += --enable-audio
  endif
 
  ifdef PTXCONF_SDL_ALSA
- SDL_AUTOCONF += --enable-alsa     
- SDL_AUTOCONF += --disable-alsatest 
- #SDL_AUTOCONF += --with-alsa-prefix=PFX 
- #SDL_AUTOCONF += --with-alsa-inc-prefix=PFX 
+ SDL_AUTOCONF += --enable-alsa
+ SDL_AUTOCONF += --disable-alsatest
+ #SDL_AUTOCONF += --with-alsa-prefix=PFX
+ #SDL_AUTOCONF += --with-alsa-inc-prefix=PFX
   ifdef PTXCONF_SDL_ALSA_SHARED
-  SDL_AUTOCONF += --enable-alsa-shared  
+  SDL_AUTOCONF += --enable-alsa-shared
   else
   SDL_AUTOCONF += --disable-alsa-shared
   endif
@@ -100,12 +100,12 @@ SDL_AUTOCONF += --enable-audio
  endif
 
  ifdef PTXCONF_SDL_ESD
- SDL_AUTOCONF += --enable-esd   
+ SDL_AUTOCONF += --enable-esd
  SDL_AUTOCONF += --disable-esdtest
- #SDL_AUTOCONF += --with-esd-prefix=PFX 
- #SDL_AUTOCONF += --with-esd-exec-prefix=PFX 
+ #SDL_AUTOCONF += --with-esd-prefix=PFX
+ #SDL_AUTOCONF += --with-esd-exec-prefix=PFX
   ifdef PTXCONF_SDL_ESD_SHARED
-  SDL_AUTOCONF += --enable-esd-shared   
+  SDL_AUTOCONF += --enable-esd-shared
   else
   SDL_AUTOCONF += --disable-esd-shared
   endif
@@ -114,9 +114,9 @@ SDL_AUTOCONF += --enable-audio
  endif
 
  ifdef PTXCONF_SDL_ARTS
- SDL_AUTOCONF += --enable-arts         
+ SDL_AUTOCONF += --enable-arts
   ifdef PTXCONF_SDL_ARTS_SHARED
-  SDL_AUTOCONF += --enable-arts-shared  
+  SDL_AUTOCONF += --enable-arts-shared
   else
   SDL_AUTOCONF += --disable-arts-shared
   endif
@@ -125,13 +125,13 @@ SDL_AUTOCONF += --enable-audio
  endif
 
  ifdef PTXCONF_SDL_NAS
- SDL_AUTOCONF += --enable-nas       
+ SDL_AUTOCONF += --enable-nas
  else
  SDL_AUTOCONF += --disable-nas
  endif
 
  ifdef PTXCONF_SDL_DISKAUDIO
- SDL_AUTOCONF += --enable-diskaudio   
+ SDL_AUTOCONF += --enable-diskaudio
  else
  SDL_AUTOCONF += --disable-diskaudio
  endif
@@ -141,7 +141,7 @@ SDL_LIB_AUTOCONF += --disable-audio
 endif
 
 ifdef PTXCONF_SDL_VIDEO
-SDL_AUTOCONF += --enable-video  
+SDL_AUTOCONF += --enable-video
 
  ifdef PTXCONF_SDL_NANOX
  SDL_AUTOCONF += \
@@ -171,19 +171,19 @@ SDL_AUTOCONF += --enable-video
  endif
 
  ifdef PTXCONF_SDL_FBCON
- SDL_AUTOCONF += --enable-video-fbcon 
+ SDL_AUTOCONF += --enable-video-fbcon
  else
  SDL_AUTOCONF += --disable-video-fbcon
  endif
 
  ifdef PTXCONF_SDL_DIRECTFB
- SDL_AUTOCONF += --enable-video-directfb 
+ SDL_AUTOCONF += --enable-video-directfb
  else
  SDL_AUTOCONF += --disable-video-directfb
  endif
 
  ifdef PTXCONF_SDL_AALIB
- SDL_AUTOCONF += --enable-video-aalib 
+ SDL_AUTOCONF += --enable-video-aalib
  else
  SDL_AUTOCONF += --disable-video-aalib
  endif
@@ -199,31 +199,31 @@ SDL_AUTOCONF += --enable-video
  SDL_AUTOCONF += --disable-video-qtopia
 
 else
-SDL_AUTOCONF += --disable-video 
+SDL_AUTOCONF += --disable-video
 endif
 
 ifdef PTXCONF_SDL_EVENT
-SDL_AUTOCONF += --enable-events  
+SDL_AUTOCONF += --enable-events
 else
 SDL_AUTOCONF += --disable-events
 endif
 
 ifdef PTXCONF_SDL_JOYSTICK
-SDL_AUTOCONF += --enable-joystick  
+SDL_AUTOCONF += --enable-joystick
 else
 SDL_AUTOCONF += --disable-joystick
 endif
 
 ifdef PTXCONF_SDL_CDROM
-SDL_AUTOCONF += --enable-cdrom    
+SDL_AUTOCONF += --enable-cdrom
 else
 SDL_AUTOCONF += --disable-cdrom
 endif
 
 ifdef PTXCONF_SDL_THREADS
-SDL_AUTOCONF += --enable-threads  
+SDL_AUTOCONF += --enable-threads
  ifdef PTXCONF_SDL_PTH
- SDL_AUTOCONF += --enable-pth         
+ SDL_AUTOCONF += --enable-pth
  else
  SDL_AUTOCONF += --disable-pth
  endif
@@ -232,19 +232,19 @@ SDL_AUTOCONF += --disable-threads
 endif
 
 ifdef PTXCONF_SDL_TIMERS
-SDL_AUTOCONF += --enable-timers  
+SDL_AUTOCONF += --enable-timers
 else
 SDL_AUTOCONF += --disable-timers
 endif
 
 ifdef PTXCONF_SDL_ENDIAN
-SDL_AUTOCONF += --enable-endian 
+SDL_AUTOCONF += --enable-endian
 else
 SDL_AUTOCONF += --disable-endian
 endif
 
 ifdef PTXCONF_SDL_FILE
-SDL_AUTOCONF += --enable-file   
+SDL_AUTOCONF += --enable-file
 else
 SDL_AUTOCONF += --disable-file
 endif
@@ -256,7 +256,7 @@ SDL_AUTOCONF += --disable-cpuinfo
 endif
 
 ifdef PTXCONF_SDL_NASM
-SDL_AUTOCONF += --enable-nasm    
+SDL_AUTOCONF += --enable-nasm
 else
 SDL_AUTOCONF += --disable-nasm
 endif
