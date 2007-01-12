@@ -642,7 +642,7 @@ endif
 #
 ifdef PTXCONF_INETUTILS_RSHD
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@RSHD@, shell stream tcp nowait root /usr/sbin/rshd )
+		@RSHD@, "shell stream tcp nowait root /usr/sbin/rshd" )
 	@$(call install_replace, rootfs, /etc/services, \
 		@RSHD@, \
 		"shell 514/tcp cmd" )
