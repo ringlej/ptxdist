@@ -3,9 +3,6 @@ TODO for 0.10.6
 
 [ ] repair make makro 'install'. See procps.install for reference.
 
-[x] jbe: ptxdist images fails for jffs2 fileimage creation
-	it seems local-host/sbin is not in the PATH
-
 [ ] rsc: We have a problem with the dependency generator: if we have a
     packet which is already in ptxdist a second time in the local
     project, ptxdist includes _both_ .in files, resulting in the
@@ -15,17 +12,6 @@ TODO for 0.10.6
 [ ] rsc: fakeroot-the-hosttool seems not to be found - reported by wrap. It
     looks to me as if $(PTXDIST_WORKSPACE)/local/bin has to be included
     into the path somehow. Ask mkl.
-
-[x] jbe: procps.install stage fails with:
-
-	make: Ungültige Option -- y
-	make: Ungültige Option -- y
-	make: Ungültige Option -- L
-	make: Ungültige Option -- /
-	make: Ungültige Option -- L
-	make: Ungültige Option -- /
-
-	Seems the install macro emits: make [...] CFLAGS=""" LDFLAGS=""" [...]
 
 [ ] jbe: reduce directory count on top level, combine build-* and
     local-* into a shared subdir rsc: we've agreed on this variant:
@@ -37,32 +23,9 @@ TODO for 0.10.6
 	local-target/
 	local-cross/
 
-[x] jbe: udev needs rules to control permissions on device nodes; jbe
-    currently writes docs for this.
-
-[.] jbe/rsc: /etc/resolv.conf and /etc/nsswitch.conf:
-    Find a solution to generate DNS configuration files from other sources
-    like boardsetup (I have no clue what this means).
-    "Then either have no resolv.conf at all (use /etc/hosts only), or generate
-    resolv.conf from 'ptxdist boardsetup' information and generate a
-    sane nsswitch.conf."
-
 [ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
     this "class" mechanism and make sure it produces sane output. Check
     with mkl.
-
-[x] rsc: check if we can update mtd-utils from 1.0.0 to 1.0.1; mkl has
-    already prepared the patches; find out why the revision number was
-    not bumped. mkl: 1.0.1 needs acl, so we stay with 1.0.0
-
-[x] ssh: server start scripts are missing
-
-[x] ssh: key gen mechanics needed
-
-[x] dbus needs user messagebus -> /etc/passwd; jbe: needs other user,
-    non-root; add this user to /etc/passwd. Debian has a user called
-    "messagebus", we should do it the same way. Define a sane UID (ask
-    jbe)
 
 [ ] rsc: audit if 'ptxdist get' fetches all packets correctly
 
@@ -81,22 +44,9 @@ TODO for 0.10.6
 
 [ ] creating links into non existent directories fails, but does not break the build!
 
-[x] discuss UID of user "nobody" and GID of "nogroup"
-
 [ ] discuss UID of user "rpcuser"
 
 [ ] discuss UIDs and GIDs of other important system users
-
-[x] rsc: find out why mkl added this new dependency mechanism which
-    searches for ${${LABEL}_DIR}/.ptx-extract.
-
-[x] rsc: merge mkl's host/cross/target-pkg-config fixes. We need this to
-    have a proper x.org and host-dbus.
-
-[x] jbe: make DHCP client useful on the target. Currently only the binary
-    will be built and copied, but does not work on the target
-
-[x] jbe: update DHCP tp 3.0.5 or correct path to 3.0.4
 
 TODO for 0.10.x
 ===============
@@ -122,7 +72,7 @@ TODO for 0.10.x
 [ ] Profiling support (kernel and userspace)
     best with host visualisation
 
-[ ] jbe: more help texts
+[.] jbe: more help texts
 
 -------------------------------
 target: host-ipkg-utils.install
@@ -441,3 +391,52 @@ DONE
     about any available toolchain installed on this system.
 	 --> done: "ptxdist toolchain path" per project
 
+[x] discuss UID of user "nobody" and GID of "nogroup"
+
+[x] jbe: ptxdist images fails for jffs2 fileimage creation
+	it seems local-host/sbin is not in the PATH
+
+[x] jbe: procps.install stage fails with:
+
+	make: Ungültige Option -- y
+	make: Ungültige Option -- y
+	make: Ungültige Option -- L
+	make: Ungültige Option -- /
+	make: Ungültige Option -- L
+	make: Ungültige Option -- /
+
+	Seems the install macro emits: make [...] CFLAGS=""" LDFLAGS=""" [...]
+
+[x] jbe: udev needs rules to control permissions on device nodes; jbe
+    currently writes docs for this.
+
+[x] jbe/rsc: /etc/resolv.conf and /etc/nsswitch.conf:
+    Find a solution to generate DNS configuration files from other sources
+    like boardsetup (I have no clue what this means).
+    "Then either have no resolv.conf at all (use /etc/hosts only), or generate
+    resolv.conf from 'ptxdist boardsetup' information and generate a
+    sane nsswitch.conf."
+
+[x] rsc: check if we can update mtd-utils from 1.0.0 to 1.0.1; mkl has
+    already prepared the patches; find out why the revision number was
+    not bumped. mkl: 1.0.1 needs acl, so we stay with 1.0.0
+
+[x] ssh: server start scripts are missing
+
+[x] ssh: key gen mechanics needed
+
+[x] dbus needs user messagebus -> /etc/passwd; jbe: needs other user,
+    non-root; add this user to /etc/passwd. Debian has a user called
+    "messagebus", we should do it the same way. Define a sane UID (ask
+    jbe)
+
+[x] rsc: find out why mkl added this new dependency mechanism which
+    searches for ${${LABEL}_DIR}/.ptx-extract.
+
+[x] rsc: merge mkl's host/cross/target-pkg-config fixes. We need this to
+    have a proper x.org and host-dbus.
+
+[x] jbe: make DHCP client useful on the target. Currently only the binary
+    will be built and copied, but does not work on the target
+
+[x] jbe: update DHCP tp 3.0.5 or correct path to 3.0.4
