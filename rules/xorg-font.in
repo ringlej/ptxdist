@@ -6,6 +6,7 @@ menuconfig MENU_XORG_FONTS
 	bool
 	prompt "xorg fonts            "
 	select XORG_LIB_XFONT_PCF_FONTS
+	default y
 
 source "rules/xorg-font-util-alias.in"
 source "rules/xorg-font-base.in"
