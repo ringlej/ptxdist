@@ -5,20 +5,17 @@ TODO for 0.10.6
     this "class" mechanism and make sure it produces sane output. Check
     with mkl.
 
-[ ] rsc: after release: update OSELAS.Toolchain and OSELAS.Crosstool to
-    use this version.
-
 [ ] util-linux: re-calls automake during compile; audit the logfile of
     AllYesArm for autotool calls
-
-[ ] unbreak host-zlib; it is necessary for host-umkimage if there is no
-    zlib devel packet installed on the host.
 
 ---
 
 [ ] rsc: audit if 'ptxdist get' fetches all packets correctly
 
 [ ] update ChangeLog
+
+[ ] rsc: after release: update OSELAS.Toolchain and OSELAS.Crosstool to
+    use this version.
 
 TODO for 0.10.x
 ===============
@@ -366,6 +363,9 @@ Old TODOs
 
 DONE
 ----
+
+[x] unbreak host-zlib; it is necessary for host-umkimage if there is no
+    zlib devel packet installed on the host.
 
 [x] omitting glibc installation should be possible, first hack attempt
     done
