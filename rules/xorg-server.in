@@ -32,6 +32,8 @@ menuconfig XORG_SERVER
 	select XORG_PROTO_XF86BIGFONT
 	select XORG_LIB_FONTENC
 	select XORG_LIB_XFONT
+
+	select GLIBC_DL
 #
 # Required on demand
 #
