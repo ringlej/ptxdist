@@ -22,7 +22,9 @@ endif
 ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
 XORG_OPTIONS_TRANS	+= --enable-ipv6
 else
-XORG_OPTIONS_TRANS	+= --disable-ipv6
+XORG_OPTIONS_TRANS	+= \
+	--disable-ipv6 \
+	--disable-IPV6
 endif
 
 # vim: syntax=make
