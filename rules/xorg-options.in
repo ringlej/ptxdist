@@ -61,7 +61,8 @@ config XORG_OPTIONS_TRANS_UNIX
 	depends on XORG_LIB_X11
 	default y
 	help
-	  UNIX domain socket transport
+	  UNIX domain socket transport. You will need this feature if your
+	  X server and all X clients are running on the same host.
 
 config XORG_OPTIONS_TRANS_TCP
 	bool
@@ -69,7 +70,8 @@ config XORG_OPTIONS_TRANS_TCP
 	depends on XORG_LIB_X11
 	default y
 	help
-	 TCP socket transport
+	 TCP socket transport. You will need this feature if your X server
+	 runs on one host and at least one X client on another host.
 
 config XORG_OPTIONS_TRANS_IPV6
 	bool
