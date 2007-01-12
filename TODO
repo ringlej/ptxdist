@@ -20,6 +20,8 @@ TODO for 0.10.6
 
 [ ] rsc: audit if 'ptxdist get' fetches all packets correctly
     [ ] http://www.sqlite.org/sqlite-3.2.8.tar.gz does not exists any more
+    [ ] ftp://ftp.leo.org/historic/comp/os/unix/networking/mgetty/mgetty1.1.30-Dec16.tar.gz
+        503: Service Unavailable
 
 [ ] update ChangeLog
 
@@ -28,13 +30,6 @@ TODO for 0.10.6
 
 TODO for 0.10.x
 ===============
-
-[ ] jbe: creating links into non existent directories fails, but does
-    not break the build!
-
-    Update 2007-01-12:	rsc/mkl: the install_link macro has mkdir -p
-			calls in all relevant places; should not
-			happen -> jbe: retest.
 
 [ ] discuss UID of user "rpcuser"
 
@@ -463,3 +458,10 @@ DONE
     will be built and copied, but does not work on the target
 
 [x] jbe: update DHCP tp 3.0.5 or correct path to 3.0.4
+
+[x] jbe: creating links into non existent directories fails, but does
+    not break the build!
+
+    Update 2007-01-12:	rsc/mkl: the install_link macro has mkdir -p
+			calls in all relevant places; should not
+			happen -> jbe: retest.
