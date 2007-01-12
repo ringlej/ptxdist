@@ -5,8 +5,16 @@ TODO for 0.10.6
     this "class" mechanism and make sure it produces sane output. Check
     with mkl.
 
-[ ] util-linux: re-calls automake during compile; audit the logfile of
-    AllYesArm for autotool calls
+[ ] util-linux: re-calls automake during compile;
+
+[ ] audit the logfile of AllYesArm for autotool calls
+
+[ ] libxslt:  re-calls automake during compile;
+
+[ ] jbe: Adding "ant" to the required host tools. Emit a warning if its not
+    present, but not fail (required only to build jvisu)
+
+[ ] audit all packages if they change the target CPU (with --march or --mcpu)
 
 ---
 
