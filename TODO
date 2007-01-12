@@ -13,11 +13,13 @@ TODO for 0.10.6
 [ ] jbe: Adding "ant" to the required host tools. Emit a warning if its not
     present, but not fail (required only to build jvisu)
 
-[ ] audit all packages if they change the target CPU (with --march or --mcpu)
+[ ] audit all packages if they change the target CPU (with --march or --mtune)
+   [ ] openssl does so
 
 ---
 
 [ ] rsc: audit if 'ptxdist get' fetches all packets correctly
+    [ ] http://www.sqlite.org/sqlite-3.2.8.tar.gz does not exists any more
 
 [ ] update ChangeLog
 
