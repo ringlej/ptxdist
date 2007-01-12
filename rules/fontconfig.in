@@ -3,15 +3,15 @@ menuconfig FONTCONFIG
 	select FREETYPE
 	select EXPAT
 	help
-	  Fontconfig is a font configuration and 
-	  customization library, which does not depend on 
+	  Fontconfig is a font configuration and
+	  customization library, which does not depend on
 	  the X Window System.  It is designed to locate
- 	  fonts within the system and select them according 
+ 	  fonts within the system and select them according
 	  to requirements specified by applications.
- 	  
-	  Fontconfig is not a rasterization library, nor 
-	  does it impose a particular rasterization library 
-	  on the application.  The X-specific library 'Xft' 
+
+	  Fontconfig is not a rasterization library, nor
+	  does it impose a particular rasterization library
+	  on the application.  The X-specific library 'Xft'
 	  uses fontconfig along with freetype to specify and
  	  rasterize fonts.
 
@@ -19,15 +19,15 @@ config FONTCONFIG_UTILS
 	bool "install utilities for Fontconfig     "
 	depends on FONTCONFIG
 	help
-	  The fontconfig utilities package contains fc-list, 
-	  fc-match, and fc-cache. 
-	  fc-list lists fonts and styles available on the system 
+	  The fontconfig utilities package contains fc-list,
+	  fc-match, and fc-cache.
+	  fc-list lists fonts and styles available on the system
 	    for applications using fontconfig.
-	  fc-match  matches fontpattern (empty pattern by 
-	    default) using the normal fontconfig matching rules to 
+	  fc-match  matches fontpattern (empty pattern by
+	    default) using the normal fontconfig matching rules to
 	    find the best font available.
-	  fc-cache  scans the font directories on the system and 
-	    builds font information cache files for applications 
+	  fc-cache  scans the font directories on the system and
+	    builds font information cache files for applications
 	    using fontconfig for their font handling.
 
 config FONTCONFIG_CONFS
@@ -35,5 +35,5 @@ config FONTCONFIG_CONFS
 	depends on FONTCONFIG
 	default y
 	help
-	  This installs configuration files of fontconfig, 
+	  This installs configuration files of fontconfig,
 	  subpixeling is turned on by default
