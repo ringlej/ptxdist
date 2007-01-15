@@ -1,5 +1,11 @@
 TODO for 0.10.6
 ===============
+
+[ ] OSELAS.BSP-Pengutronix-TechPool-trunk$ p select ptxconfig.dotgnu
+    /home/rsc/svn/ptxdist-trunk/scripts/libptxdist.sh: line 26:
+    /media/rscusb1_plain/svn/oselas/bsp/pengutronix/huettinger/OSELAS.BSP-Pengutronix-TechPool-trunk/ptxconfig:
+    No such file or directory
+
 [ ] liboldX fails to build the ipkg but the build continues!
 
 [ ] Chrony fails to compile
@@ -7,6 +13,15 @@ TODO for 0.10.6
 [ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
     this "class" mechanism and make sure it produces sane output. Check
     with mkl.
+
+    Example: ptxdist newpacket host-existing-target:
+
+    - asks for version number, which should be derived from existing
+      target version
+    - asks for URL, but we want to use the download mechanics from
+      target
+    - should output warning that you have to change := into = for
+      corresponding target packet
 
 [ ] audit the logfile of AllYesArm for autotool calls
    [ ] util-linux: re-calls automake during compile;
