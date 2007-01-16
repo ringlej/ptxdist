@@ -6,9 +6,16 @@ TODO for 0.10.6
     /media/rscusb1_plain/svn/oselas/bsp/pengutronix/huettinger/OSELAS.BSP-Pengutronix-TechPool-trunk/ptxconfig:
     No such file or directory
 
-[ ] liboldX fails to build the ipkg but the build continues!
+[ ] jbe: starting with a new and empty project should provide the user with
+    a generic (and default) ptxconfig instead of an error message.
+    But it should not do it automatically! It should ask before doing it!
+    Otherwise we will end up with many ptxconfig files in many directories...
 
-[ ] Chrony fails to compile
+[ ] jbe: host-mknbi fails to build
+
+[ ] jbe: liboldX fails to build the ipkg but the build continues!
+
+[ ] jbe: Chrony fails to compile
 
 [ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
     this "class" mechanism and make sure it produces sane output. Check
