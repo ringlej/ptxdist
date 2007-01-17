@@ -90,38 +90,38 @@ ifdef PTXCONF_UCLIBC
 endif
 
 ifdef PTXCONF_UCLIBC_LIBC
-	@$(call install_copy_toolchain_lib, uclibc, libc.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libc.so)
 endif
 
 ifdef PTXCONF_UCLIBC_CRYPT
-	@$(call install_copy_toolchain_lib, uclibc, libcrypt.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libcrypt.so)
 endif
 
 ifdef PTXCONF_UCLIBC_DL
-	@$(call install_copy_toolchain_lib, uclibc, libdl.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libdl.so)
 endif
 
 ifdef PTXCONF_UCLIBC_M
-	@$(call install_copy_toolchain_lib, uclibc, libm.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libm.so)
 endif
 
 ifdef PTXCONF_UCLIBC_NSL
-	@$(call install_copy_toolchain_lib, uclibc, libnsl.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libnsl.so)
 endif
 
 ifdef PTXCONF_UCLIBC_PTHREAD
-	@$(call install_copy_toolchain_lib, uclibc, libpthread.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libpthread.so)
 ifdef PTXCONF_GDBSERVER
-	@$(call install_copy_toolchain_lib, uclibc, libthread_db.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libthread_db.so)
 endif
 endif
 
 ifdef PTXCONF_UCLIBC_RESOLV
-	@$(call install_copy_toolchain_lib, uclibc, libresolv.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libresolv.so)
 endif
 
 ifdef PTXCONF_UCLIBC_UTIL
-	@$(call install_copy_toolchain_lib, uclibc, libutil.so, /lib)
+	@$(call install_copy_toolchain_lib, uclibc, libutil.so)
 endif
 	@$(call install_finish, uclibc)
 
