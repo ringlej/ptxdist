@@ -1,10 +1,12 @@
 TODO for 0.10.6
 ===============
 
-[ ] OSELAS.BSP-Pengutronix-TechPool-trunk$ p select ptxconfig.dotgnu
+[x] OSELAS.BSP-Pengutronix-TechPool-trunk$ p select ptxconfig.dotgnu
     /home/rsc/svn/ptxdist-trunk/scripts/libptxdist.sh: line 26:
     /media/rscusb1_plain/svn/oselas/bsp/pengutronix/huettinger/OSELAS.BSP-Pengutronix-TechPool-trunk/ptxconfig:
     No such file or directory
+
+    Update 2007-01-19:	rsc: fixed
 
 [ ] jbe: starting with a new and empty project should provide the user with
     a generic (and default) ptxconfig instead of an error message.
