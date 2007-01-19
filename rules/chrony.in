@@ -1,18 +1,18 @@
 config CHRONY
-	bool             
+	bool
 	select READLINE
 	prompt "Chrony              "
 	help
 	  FIXME: remove READLINE select when 1.21 works again.
 
 	  This will install the Chrony NTPD Daemon (chronyd)
-	  Chrony is a pair of programs which are used to maintain 
-	  the accuracy of the system clock on a computer. The two 
+	  Chrony is a pair of programs which are used to maintain
+	  the accuracy of the system clock on a computer. The two
 	  programs are called  chronyd  and  chronyc .
 
-	  Chronyd is a background (daemon) program, which can be 
-	  started at boot time, Chronyc provides a user interface 
-	  to chronyd for monitoring its performance and configuring 
-	  various settings. 
+	  Chronyd is a background (daemon) program, which can be
+	  started at boot time, Chronyc provides a user interface
+	  to chronyd for monitoring its performance and configuring
+	  various settings.
 
 	  See http://chrony.sunsite.dk/ for details
