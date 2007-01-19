@@ -18,7 +18,9 @@ TODO for 0.10.6
 			the preferred way to start a new project is
 			cloning.
 
-[ ] jbe: host-mknbi fails to build
+[x] jbe: host-mknbi fails to build
+
+    Update 2007-01-19:	rsc: doesn't work, hasn't for ages, deleted
 
 [ ] jbe: liboldX fails to build the ipkg but the build continues!
 
