@@ -112,6 +112,12 @@ ncurses_install: $(STATEDIR)/ncurses.install
 $(STATEDIR)/ncurses.install: $(ncurses_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, NCURSES)
+	# tweak, tweak ...
+	if [ -f $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncursesw.so.5.5) ]; then \
+		ln -sf libncursesw.so.5.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so.5.5; \
+		ln -sf libncursesw.so.5.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so.5; \
+		ln -sf libncursesw.so.5.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so; \
+	fi
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -148,24 +154,54 @@ else
 endif
 
 ifdef PTXCONF_NCURSES_FORM
+ifdef PTXCONF_NCURSES_WIDE_CHAR
+	@$(call install_copy, ncurses, 0, 0, 0644, \
+		$(NCURSES_DIR)/lib/libformw.so.5.5, /lib/libformw.so.5.5)
+	@$(call install_link, ncurses, libformw.so.5.5, /lib/libformw.so.5)
+	@$(call install_link, ncurses, libformw.so.5.5, /lib/libformw.so)
+	@$(call install_link, ncurses, libformw.so.5.5, /lib/libform.so.5.5)
+	@$(call install_link, ncurses, libformw.so.5.5, /lib/libform.so.5)
+	@$(call install_link, ncurses, libformw.so.5.5, /lib/libform.so)
+else
 	@$(call install_copy, ncurses, 0, 0, 0644, \
 		$(NCURSES_DIR)/lib/libform.so.5.5, /lib/libform.so.5.5)
 	@$(call install_link, ncurses, libform.so.5.5, /lib/libform.so.5)
 	@$(call install_link, ncurses, libform.so.5.5, /lib/libform.so)
 endif
+endif
 
 ifdef PTXCONF_NCURSES_MENU
+ifdef PTXCONF_NCURSES_WIDE_CHAR
+	@$(call install_copy, ncurses, 0, 0, 0644, \
+		$(NCURSES_DIR)/lib/libmenuw.so.5.5, /lib/libmenuw.so.5.5)
+	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenuw.so.5)
+	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenuw.so)
+	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenu.so.5.5)
+	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenu.so.5)
+	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenu.so)
+else
 	@$(call install_copy, ncurses, 0, 0, 0644, \
 		$(NCURSES_DIR)/lib/libmenu.so.5.5, /lib/libmenu.so.5.5)
 	@$(call install_link, ncurses, libmenu.so.5.5, /lib/libmenu.so.5)
 	@$(call install_link, ncurses, libmenu.so.5.5, /lib/libmenu.so)
 endif
+endif
 
 ifdef PTXCONF_NCURSES_PANEL
+ifdef PTXCONF_NCURSES_WIDE_CHAR
+	@$(call install_copy, ncurses, 0, 0, 0644, \
+		$(NCURSES_DIR)/lib/libpanelw.so.5.5, /lib/libpanelw.so.5.5)
+	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanelw.so.5)
+	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanelw.so)
+	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanel.so.5.5)
+	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanel.so.5)
+	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanel.so)
+else
 	@$(call install_copy, ncurses, 0, 0, 0644, \
 		$(NCURSES_DIR)/lib/libpanel.so.5.5, /lib/libpanel.so.5.5)
 	@$(call install_link, ncurses, libpanel.so.5.5, /lib/libpanel.so.5)
 	@$(call install_link, ncurses, libpanel.so.5.5, /lib/libpanel.so)
+endif
 endif
 
 ifdef PTXCONF_NCURSES_TERMCAP
