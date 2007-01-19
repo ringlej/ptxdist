@@ -1,31 +1,6 @@
 TODO for 0.10.6
 ===============
 
-[x] OSELAS.BSP-Pengutronix-TechPool-trunk$ p select ptxconfig.dotgnu
-    /home/rsc/svn/ptxdist-trunk/scripts/libptxdist.sh: line 26:
-    /media/rscusb1_plain/svn/oselas/bsp/pengutronix/huettinger/OSELAS.BSP-Pengutronix-TechPool-trunk/ptxconfig:
-    No such file or directory
-
-    Update 2007-01-19:	rsc: fixed
-
-[x] jbe: starting with a new and empty project should provide the user with
-    a generic (and default) ptxconfig instead of an error message.
-    But it should not do it automatically! It should ask before doing it!
-    Otherwise we will end up with many ptxconfig files in many directories...
-
-    Update 2007-01-19:	rsc: it's not so easy as "touch ptxconfig &&
-			ptxdist oldconfig". Error message is improved
-			the preferred way to start a new project is
-			cloning.
-
-[x] jbe: host-mknbi fails to build
-
-    Update 2007-01-19:	rsc: doesn't work, hasn't for ages, deleted
-
-[ ] jbe: liboldX fails to build the ipkg but the build continues!
-
-[ ] jbe: Chrony fails to compile
-
 [ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
     this "class" mechanism and make sure it produces sane output. Check
     with mkl.
@@ -401,6 +376,37 @@ Old TODOs
 
 DONE
 ----
+
+[x] jbe: Chrony fails to compile
+
+    Update 2007-01-19:	rsc: fixed; ncurses didn't install the
+    			non-widechar variants of the libraries.
+
+[x] OSELAS.BSP-Pengutronix-TechPool-trunk$ p select ptxconfig.dotgnu
+    /home/rsc/svn/ptxdist-trunk/scripts/libptxdist.sh: line 26:
+    /media/rscusb1_plain/svn/oselas/bsp/pengutronix/huettinger/OSELAS.BSP-Pengutronix-TechPool-trunk/ptxconfig:
+    No such file or directory
+
+    Update 2007-01-19:	rsc: fixed
+
+[x] jbe: starting with a new and empty project should provide the user with
+    a generic (and default) ptxconfig instead of an error message.
+    But it should not do it automatically! It should ask before doing it!
+    Otherwise we will end up with many ptxconfig files in many directories...
+
+    Update 2007-01-19:	rsc: it's not so easy as "touch ptxconfig &&
+			ptxdist oldconfig". Error message is improved
+			the preferred way to start a new project is
+			cloning.
+
+[x] jbe: host-mknbi fails to build
+
+    Update 2007-01-19:	rsc: doesn't work, hasn't for ages, deleted
+
+[x] jbe: liboldX fails to build the ipkg but the build continues!
+
+    Update 2007-01-19:	rsc: fixed
+
 
 [x] unbreak host-zlib; it is necessary for host-umkimage if there is no
     zlib devel packet installed on the host.
