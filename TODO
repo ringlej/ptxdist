@@ -8,10 +8,15 @@ TODO for 0.10.6
 
     Update 2007-01-19:	rsc: fixed
 
-[ ] jbe: starting with a new and empty project should provide the user with
+[x] jbe: starting with a new and empty project should provide the user with
     a generic (and default) ptxconfig instead of an error message.
     But it should not do it automatically! It should ask before doing it!
     Otherwise we will end up with many ptxconfig files in many directories...
+
+    Update 2007-01-19:	rsc: it's not so easy as "touch ptxconfig &&
+			ptxdist oldconfig". Error message is improved
+			the preferred way to start a new project is
+			cloning.
 
 [ ] jbe: host-mknbi fails to build
 
