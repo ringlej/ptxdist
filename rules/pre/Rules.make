@@ -1197,6 +1197,7 @@ install_finish = 													\
 	echo -n "echo \"install_finish: packaging ipkg packet ... \"; ";					\
 	echo -n "$(PTXCONF_HOST_PREFIX)/bin/ipkg-build "; 							\
 	echo    "$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/$$PACKET/ipkg $(IMAGEDIR)") |$(FAKEROOT) -- 2>&1;	\
+	$(CHECK_PIPE_STATUS)											\
 	rm -rf $(IMAGEDIR)/$$PACKET;										\
 	echo "done.";
 
