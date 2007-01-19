@@ -664,6 +664,12 @@ projects() {
 	projects=
 	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
 		echo "${PROMPT}scanning ${projectdir}..."
+		if [ ! -d ${projectdir} ]; then
+			echo
+			echo "${PROMPT}error: directory does not exist"
+			echo "${PROMPT}please check PTXCONF_SETUP_PROJECTPATH in 'ptxdist setup'"
+			exit 1
+		fi
 		projects="$projects $(cd ${projectdir} && find .  -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;)"
 	done
 	IFS=$ifs_old
