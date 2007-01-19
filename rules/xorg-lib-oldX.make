@@ -1,8 +1,8 @@
 # -*-makefile-*-
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
-# Copyright (C) 2006 by Erwin rol
-#          
+# Copyright (C) 2006 by Erwin Rol
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_OLDX) += xorg-lib-oldX
 XORG_LIB_OLDX_VERSION	:= 1.0.1
 XORG_LIB_OLDX		:= liboldX-X11R7.0-$(XORG_LIB_OLDX_VERSION)
 XORG_LIB_OLDX_SUFFIX	:= tar.bz2
-XORG_LIB_OLDX_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/lib//$(XORG_LIB_OLDX).$(XORG_LIB_OLDX_SUFFIX)
+XORG_LIB_OLDX_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.0/src/lib/$(XORG_LIB_OLDX).$(XORG_LIB_OLDX_SUFFIX)
 XORG_LIB_OLDX_SOURCE	:= $(SRCDIR)/$(XORG_LIB_OLDX).$(XORG_LIB_OLDX_SUFFIX)
 XORG_LIB_OLDX_DIR	:= $(BUILDDIR)/$(XORG_LIB_OLDX)
 
@@ -107,7 +107,7 @@ $(STATEDIR)/xorg-lib-oldX.targetinstall: $(xorg-lib-oldX_targetinstall_deps_defa
 	@$(call targetinfo, $@)
 
 	@$(call install_init, xorg-lib-oldX)
-	@$(call install_fixup, xorg-lib-oldX,PACKAGE,xorg-lib-oldX)
+	@$(call install_fixup, xorg-lib-oldX,PACKAGE,xorg-lib-oldx)
 	@$(call install_fixup, xorg-lib-oldX,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-oldX,VERSION,$(XORG_LIB_OLDX_VERSION))
 	@$(call install_fixup, xorg-lib-oldX,SECTION,base)
@@ -126,6 +126,7 @@ $(STATEDIR)/xorg-lib-oldX.targetinstall: $(xorg-lib-oldX_targetinstall_deps_defa
 	@$(call install_link, xorg-lib-oldX, \
 		liboldX.so.6.0.0, \
 		$(XORG_LIBDIR)/liboldX.so)
+
 	@$(call install_finish, xorg-lib-oldX)
 
 	@$(call touch, $@)
