@@ -272,44 +272,6 @@ config IMAGE_EXT2_GZIP
 	help
 	  FIXME: This item needs to be documented
 
-config IMAGE_MKNBI
-	bool
-	select HOST_MKNBI
-	depends on IMAGE_EXT2
-	prompt "Generate images/${PROJECTNAME}.{elf|nbi}"
-	help
-	  Generate an image suitable for netboot
-
-choice
-	prompt "Image type"
-	default IMAGE_MKNBI_ELF
-	depends on IMAGE_MKNBI
-	help
-	  FIXME: This item needs to be documented
-
-config IMAGE_MKNBI_NBI
-	bool "nbi"
-
-config IMAGE_MKNBI_ELF
-	bool "elf"
-
-endchoice
-
-config IMAGE_MKNBI_EXT_KERNEL
-	string
-	default "${PTXCONF_KERNEL_DIR}/arch/i386/boot/bzImage"
-	prompt "Path to kernel image"
-	depends on IMAGE_MKNBI
-
-config IMAGE_MKNBI_APPEND
-	string
-	default "root=/dev/ram0 ramdisk_size=24000"
-	prompt "bootprompt append string"
-	depends on IMAGE_MKNBI
-	help
-	  If needed you can add extra arguments for mkelf-linux here
-	  (e.g. root=/dev/ram0)
-
 ##############################################################################
 comment "Image Creation for Host"
 ##############################################################################
