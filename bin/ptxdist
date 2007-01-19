@@ -107,6 +107,7 @@ check_ptxconfig() {
 	if [ ! -e "ptxconfig" ]; then
 		echo
 		echo "${PROMPT}error: ptxconfig file is missing"
+		echo "${PROMPT}error: please 'ptxdist clone' an existing project"
 		echo
 		exit 1
 	fi
