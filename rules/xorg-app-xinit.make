@@ -59,7 +59,10 @@ $(STATEDIR)/xorg-app-xinit.extract: $(xorg-app-xinit_extract_deps_default)
 xorg-app-xinit_prepare: $(STATEDIR)/xorg-app-xinit.prepare
 
 XORG_APP_XINIT_PATH	:=  PATH=$(CROSS_PATH)
-XORG_APP_XINIT_ENV 	:=  $(CROSS_ENV)
+XORG_APP_XINIT_ENV 	:=  $(CROSS_ENV) 
+XORG_APP_XINIT_MAKEVARS :=  XINITDIR=/etc/X11/xinit \
+			RAWCPP=$(COMPILER_PREFIX)cpp
+	#FIXME: damm ugly hack, should fix cpp check in configure instead
 
 #
 # autoconf
@@ -100,7 +103,7 @@ xorg-app-xinit_compile: $(STATEDIR)/xorg-app-xinit.compile
 
 $(STATEDIR)/xorg-app-xinit.compile: $(xorg-app-xinit_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_APP_XINIT_DIR) && $(XORG_APP_XINIT_PATH) make
+	cd $(XORG_APP_XINIT_DIR) && $(XORG_APP_XINIT_PATH) $(MAKE) $(XORG_APP_XINIT_MAKEVARS) 
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
