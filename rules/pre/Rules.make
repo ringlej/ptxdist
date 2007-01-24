@@ -423,19 +423,11 @@ extract =							\
 								\
 	case $$URL in						\
 	file*)							\
-		THING="$$(echo $$URL | sed s-file://-/-g)";	\
+		THING="$$(echo $$URL | sed s-file://--g)";	\
 		if [ -d "$$THING" ]; then			\
 			echo "local directory instead of tar file, linking build dir"; \
 			ln -sf $$THING $$PACKETDIR; 		\
 			exit 0; 				\
-		else						\
-			THING="$$(echo $$URL | sed s-file://-./-g)";	\
-			if [ -d "$$THING" ]; then		\
-				THING="$$(echo $$URL | sed s-file://-../-g)";	\
-				echo "local project directory instead of tar file, linking build dir"; \
-				ln -sf $$THING $$PACKETDIR; 	\
-				exit 0; 			\
-			fi;					\
 		fi; 						\
 		;;						\
 	esac; 							\
