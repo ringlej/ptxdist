@@ -5,6 +5,11 @@ if test -z "${PTXDIST_TOPDIR}"; then
     exit
 fi
 
+if test -z "${PTXDIST_WORKSPACE}"; then
+    echo PTXDIST_WORKSPACE is unset
+    exit
+fi
+
 . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh
 . ${SCRIPTSDIR}/libptxdist.sh
 PTXCONFIG=${PTXDIST_WORKSPACE}/ptxconfig
