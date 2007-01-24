@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -108,7 +108,7 @@ $(STATEDIR)/xorg-lib-AppleWM.targetinstall: $(xorg-lib-AppleWM_targetinstall_dep
 	@$(call targetinfo, $@)
 
 	@$(call install_init, xorg-lib-AppleWM)
-	@$(call install_fixup, xorg-lib-AppleWM,PACKAGE,xorg-lib-AppleWM)
+	@$(call install_fixup, xorg-lib-AppleWM,PACKAGE,xorg-lib-apple-wm)
 	@$(call install_fixup, xorg-lib-AppleWM,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-AppleWM,VERSION,$(XORG_LIB_APPLEWM_VERSION))
 	@$(call install_fixup, xorg-lib-AppleWM,SECTION,base)
