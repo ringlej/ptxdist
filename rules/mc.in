@@ -1,9 +1,34 @@
-config MC
+menuconfig MC
 	bool
 	select GLIB
-	select NCURSES
+	select NCURSES if MC_USES_NCURSES
+	select SLANG if MC_USES_SLANG
 	select GLIBC_NSL
-	prompt "midnight commander"
+	prompt "midnight commander  "
 	help
-	  midnight commander is a ncurses based file manager
+	  midnight commander is a text oriented file manager
 
+comment "build options   ---"
+	depends on MC
+
+choice
+	prompt "Kind of MMI"
+	default ROOTFS_ETC_INITD_CVS_DEFAULT
+	depends on MC
+
+config MC_USES_NO_PREFERENCE
+	bool "no preference"
+	help
+	  Build midnight commander without any external library
+
+config MC_USES_NCURSES
+	bool "Use ncurses"
+	help
+	  Build midnight commander with ncurses
+
+config MC_USES_SLANG
+	bool "Use slang"
+	help
+	  Build midnight commander with slang
+
+endchoice
