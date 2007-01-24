@@ -24,6 +24,8 @@ TODO for 0.10.6
 TODO for 0.10.x
 ===============
 
+[ ] jbe: uRamdisk should be build from ipkg packages instead of root/ content!
+
 [ ] rsc, bbu: audit THING mechanism in get stage, looks a little bit
     overcomplicated
 
