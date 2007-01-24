@@ -426,7 +426,7 @@ extract =							\
 		THING="$$(echo $$URL | sed s-file://--g)";	\
 		if [ -d "$$THING" ]; then			\
 			echo "local directory instead of tar file, linking build dir"; \
-			ln -sf $$THING $$PACKETDIR; 		\
+			ln -sf $$(cd `dirname $$THING` && pwd)/$$(basename $$THING) $$PACKETDIR; \
 			exit 0; 				\
 		fi; 						\
 		;;						\
