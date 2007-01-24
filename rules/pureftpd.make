@@ -66,8 +66,6 @@ PUREFTPD_ENV 	:= $(CROSS_ENV) \
 #
 PUREFTPD_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking \
-	--with-standalone \
-	--without-inetd \
 	--without-ascii \
 	--with-banner \
 	--without-pam \
@@ -93,6 +91,12 @@ PUREFTPD_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 # instead of target's one
 #
 # Can --with-probe-random-dev solve this?
+
+ifdef PTXCONF_PUREFTPD_INETD_SERVER
+PUREFTPD_AUTOCONF += --with-inetd --without-standalone
+else
+PUREFTPD_AUTOCONF += --without-inetd --with-standalone
+endif
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 PUREFTPD_AUTOCONF += --with-uploadscript
