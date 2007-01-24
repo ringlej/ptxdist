@@ -66,13 +66,6 @@ NANO_ENV 	=  $(CROSS_ENV)
 #
 NANO_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking
-# if ncurses support wide characters use of utf8 here is sane.
-# Otherwise it fails, because it tries to link agains the wide lib.
-ifdef PTXCONF_NCURSES_WIDE_CHAR
-NANO_AUTOCONF += --enable-utf8
-else
-NANO_AUTOCONF += --disable-utf8
-endif
 
 $(STATEDIR)/nano.prepare: $(nano_prepare_deps_default)
 	@$(call targetinfo, $@)
