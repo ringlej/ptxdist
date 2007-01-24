@@ -2,7 +2,7 @@
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -65,7 +65,17 @@ MC_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 MC_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-		--with-x=no
+		--with-x=no \
+		--without-gpm-mouse \
+		--disable-dependency-tracking
+
+ifdef PTXCONF_MC_USES_NCURSES
+MC_AUTOCONF += --with-screen=ncurses
+endif
+
+ifdef PTXCONF_MC_USES_SLANG
+MC_AUTOCONF += --with-screen=slang
+endif
 
 $(STATEDIR)/mc.prepare: $(mc_prepare_deps_default)
 	@$(call targetinfo, $@)
