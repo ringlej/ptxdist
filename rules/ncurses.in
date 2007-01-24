@@ -15,7 +15,16 @@ config NCURSES_WIDE_CHAR
 	help
 	  Build ncurses with wide-char/UTF-8 code support. This will create
 	  the wide character libraries used by some other programs to support
-	  utf8.
+	  utf8. They are backward API compatible with the non wide char libraries.
+
+config NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
+	bool "Create links for backward compatibility"
+	depends on NCURSES
+	depends on NCURSES_WIDE_CHAR
+	help
+	  Creates links to the wide char libraries with non wide names to support
+	  applications that are externally linked against the non wide libraries.
+	  This is not required for applications built within this project.
 
 config NCURSES_BIG_CORE
 	bool "Enable the big core"
@@ -28,11 +37,6 @@ config NCURSES_BIG_CORE
 
 comment "install options ---"
 	depends on NCURSES
-
-#config NCURSES_NCURSES
-#	bool "Install libncurses on the target"
-#	default y
-#	depends on NCURSES
 
 config NCURSES_TERMCAP
 	bool "install minimal set of termcap data files"
@@ -52,17 +56,32 @@ config NCURSES_FORM
 	bool "Install libform on the target"
 	depends on NCURSES
 	help
-	  FIXME: This item needs to be documented
+	  From the manual:
+	  If you have seen those forms on web pages which take input from users
+	  and do various kinds of things, you might be wondering how would any
+	  one create such forms in text mode display. It's quite difficult to
+	  write those nifty forms in plain ncurses. Forms library tries to provide
+	  a basic frame work to build and maintain forms with ease. It has lot
+	  of features(functions) which manage validation, dynamic expansion of
+	  fields etc..
 
 config NCURSES_MENU
 	bool "Install libmenu on the target"
 	depends on NCURSES
 	help
-	  FIXME: This item needs to be documented
+	  The menus library provides a nice extension to basic curses, through
+	  which you can create menus. It provides a set of functions to create
+	  menus. But they have to be customized to give a nicer look, with
+	  colors etc.
 
 config NCURSES_PANEL
 	bool "Install libpanel on the target"
 	depends on NCURSES
 	help
-	  FIXME: This item needs to be documented
-
+	  This library handles windows on the screen.
+	  From the manual:
+	  If you have lot of overlapping windows, then panels library is the way
+	  to go. It obviates the need of doing series of wnoutrefresh(),
+	  doupdate() and relieves the burden of doing it correctly(bottom up).
+	  The library maintains information about the order of windows, their
+ 	  overlapping and update the screen properly.
