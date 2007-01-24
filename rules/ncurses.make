@@ -71,7 +71,8 @@ NCURSES_AUTOCONF := \
 	--without-ada \
 	--enable-const \
 	--enable-overwrite \
-	--without-gpm
+	--without-gpm \
+	--with-debug
 # enable wide char support on demand only
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 NCURSES_AUTOCONF += --enable-widec
@@ -109,15 +110,40 @@ $(STATEDIR)/ncurses.compile: $(ncurses_compile_deps_default)
 
 ncurses_install: $(STATEDIR)/ncurses.install
 
+ifdef PTXCONF_NCURSES_WIDE_CHAR
+#
+# we need a tweak, to force all programs to use the wide char
+# library even if they request for the non wide char library
+# Done by forcing the linker to use the right library instead
+#
+NCURSES_LIBRARY_LIST := curses ncurses
+
+ifdef PTXCONF_NCURSES_FORM
+NCURSES_LIBRARY_LIST += form
+endif
+ifdef PTXCONF_NCURSES_MENU
+NCURSES_LIBRARY_LIST += menu
+endif
+ifdef PTXCONF_NCURSES_PANEL
+NCURSES_LIBRARY_LIST += panel
+endif
+#
+endif
+
 $(STATEDIR)/ncurses.install: $(ncurses_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, NCURSES)
-	# tweak, tweak ...
-	if [ -f $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncursesw.so.5.5) ]; then \
-		ln -sf libncursesw.so.5.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so.5.5; \
-		ln -sf libncursesw.so.5.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so.5; \
-		ln -sf libncursesw.so.5.5 $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses.so; \
-	fi
+
+ifdef PTXCONF_NCURSES_WIDE_CHAR
+# Note: This tweak only works if we build the application with these settings!
+# Already built applications may continue to use the non wide library!
+# For this, the links at runtime are required
+#
+	for lib in $(NCURSES_LIBRARY_LIST); do \
+		echo "INPUT(-l$${lib}w)" > $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/lib$${lib}.so ; \
+	done
+	ln -sf libncurses++w.a $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses++.a
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -143,9 +169,13 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 		$(NCURSES_DIR)/lib/libncursesw.so.5.5, /lib/libncursesw.so.5.5)
 	@$(call install_link, ncurses, libncursesw.so.5.5, /lib/libncursesw.so.5)
 	@$(call install_link, ncurses, libncursesw.so.5.5, /lib/libncursesw.so)
+ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 # for backward compatibility
+# only needed if any application is linked against the non wide variant
+# Note: Should not happen, if it is compiled by ptxdist!
 	@$(call install_link, ncurses, libncursesw.so.5.5, /lib/libncurses.so.5)
 	@$(call install_link, ncurses, libncursesw.so.5.5, /lib/libncurses.so)
+endif
 else
 	@$(call install_copy, ncurses, 0, 0, 0644, \
 		$(NCURSES_DIR)/lib/libncurses.so.5.5, /lib/libncurses.so.5.5)
@@ -159,9 +189,11 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 		$(NCURSES_DIR)/lib/libformw.so.5.5, /lib/libformw.so.5.5)
 	@$(call install_link, ncurses, libformw.so.5.5, /lib/libformw.so.5)
 	@$(call install_link, ncurses, libformw.so.5.5, /lib/libformw.so)
+ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	@$(call install_link, ncurses, libformw.so.5.5, /lib/libform.so.5.5)
 	@$(call install_link, ncurses, libformw.so.5.5, /lib/libform.so.5)
 	@$(call install_link, ncurses, libformw.so.5.5, /lib/libform.so)
+endif
 else
 	@$(call install_copy, ncurses, 0, 0, 0644, \
 		$(NCURSES_DIR)/lib/libform.so.5.5, /lib/libform.so.5.5)
@@ -176,9 +208,11 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 		$(NCURSES_DIR)/lib/libmenuw.so.5.5, /lib/libmenuw.so.5.5)
 	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenuw.so.5)
 	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenuw.so)
+ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenu.so.5.5)
 	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenu.so.5)
 	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenu.so)
+endif
 else
 	@$(call install_copy, ncurses, 0, 0, 0644, \
 		$(NCURSES_DIR)/lib/libmenu.so.5.5, /lib/libmenu.so.5.5)
@@ -193,9 +227,11 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 		$(NCURSES_DIR)/lib/libpanelw.so.5.5, /lib/libpanelw.so.5.5)
 	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanelw.so.5)
 	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanelw.so)
+ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanel.so.5.5)
 	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanel.so.5)
 	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanel.so)
+endif
 else
 	@$(call install_copy, ncurses, 0, 0, 0644, \
 		$(NCURSES_DIR)/lib/libpanel.so.5.5, /lib/libpanel.so.5.5)
