@@ -1,10 +1,6 @@
 TODO for 0.10.6
 ===============
 
-[ ] jbe: all local sources (file://) are still do a touch into the package directory.
-    (into "Source Directory"). If this file gets deleted, ptxdist builds the whole
-    package again (and recreate the file in the Source Directory).
-
 [ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
     this "class" mechanism and make sure it produces sane output. Check
     with mkl.
@@ -380,6 +376,13 @@ Old TODOs
 
 DONE
 ----
+
+[x] jbe: all local sources (file://) are still do a touch into the package directory.
+    (into "Source Directory"). If this file gets deleted, ptxdist builds the whole
+    package again (and recreate the file in the Source Directory).
+
+    Update 2007-01-24:	fixed; order of PACKET-empty check in extract
+    			was changed.
 
 [x] jbe: Chrony fails to compile
 
