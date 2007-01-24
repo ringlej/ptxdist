@@ -18,10 +18,10 @@
 # discuss with upstream
 #
 
-Index: libxslt-1.1.15/libexslt/Makefile.am
+Index: libexslt/Makefile.am
 ===================================================================
---- libxslt-1.1.15.orig/libexslt/Makefile.am
-+++ libxslt-1.1.15/libexslt/Makefile.am
+--- libexslt/Makefile.am.orig
++++ libexslt/Makefile.am
 @@ -1,6 +1,6 @@
  INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/libxslt -I$(top_srcdir)/libexslt \
  	   -I$(top_builddir) -I$(top_builddir)/libxslt \
@@ -30,20 +30,20 @@ Index: libxslt-1.1.15/libexslt/Makefile.am
  
  AM_CFLAGS = $(LIBGCRYPT_CFLAGS)
  
-Index: libxslt-1.1.15/libxslt/Makefile.am
+Index: libxslt/Makefile.am
 ===================================================================
---- libxslt-1.1.15.orig/libxslt/Makefile.am
-+++ libxslt-1.1.15/libxslt/Makefile.am
+--- libxslt/Makefile.am.orig
++++ libxslt/Makefile.am
 @@ -1,4 +1,4 @@
 -INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/libxslt $(LIBXML_CFLAGS)
 +INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/libxslt $(LIBXML2_CFLAGS)
  
  lib_LTLIBRARIES = libxslt.la
  
-Index: libxslt-1.1.15/python/Makefile.am
+Index: python/Makefile.am
 ===================================================================
---- libxslt-1.1.15.orig/python/Makefile.am
-+++ libxslt-1.1.15/python/Makefile.am
+--- python/Makefile.am.orig
++++ python/Makefile.am
 @@ -5,7 +5,7 @@ SUBDIRS= . tests
  
  INCLUDES = \
@@ -53,10 +53,10 @@ Index: libxslt-1.1.15/python/Makefile.am
  	-I$(top_srcdir)/libxslt \
  	-I$(top_srcdir) \
  	-I../libexslt
-Index: libxslt-1.1.15/tests/plugins/Makefile.am
+Index: tests/plugins/Makefile.am
 ===================================================================
---- libxslt-1.1.15.orig/tests/plugins/Makefile.am
-+++ libxslt-1.1.15/tests/plugins/Makefile.am
+--- tests/plugins/Makefile.am.orig
++++ tests/plugins/Makefile.am
 @@ -13,7 +13,7 @@ INCLUDES = -I$(top_srcdir) -I../../libxs
  
  noinst_LTLIBRARIES = xmlsoft_org_xslt_testplugin.la
@@ -66,10 +66,10 @@ Index: libxslt-1.1.15/tests/plugins/Makefile.am
  xmlsoft_org_xslt_testplugin_la_SOURCES = testplugin.c
  xmlsoft_org_xslt_testplugin_la_LIBADD = $(top_builddir)/libxslt/libxslt.la $(EXTRA_LIBS)
  xmlsoft_org_xslt_testplugin_la_LDFLAGS = -module -avoid-version 
-Index: libxslt-1.1.15/xsltproc/Makefile.am
+Index: xsltproc/Makefile.am
 ===================================================================
---- libxslt-1.1.15.orig/xsltproc/Makefile.am
-+++ libxslt-1.1.15/xsltproc/Makefile.am
+--- xsltproc/Makefile.am.orig
++++ xsltproc/Makefile.am
 @@ -1,6 +1,6 @@
  INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/libxslt -I$(top_srcdir)/libexslt \
             -I$(top_builddir) -I$(top_builddir)/libxslt \
@@ -91,10 +91,10 @@ Index: libxslt-1.1.15/xsltproc/Makefile.am
 -	$(CC) $(CFLAGS) -o xsltproc xsltproc.o ../libexslt/.libs/libexslt.a ../libxslt/.libs/libxslt.a @LIBXML_LIBS@ $(EXTRA_LIBS) $(LIBGCRYPT_LIBS)
 +	$(CC) $(CFLAGS) -o xsltproc xsltproc.o ../libexslt/.libs/libexslt.a ../libxslt/.libs/libxslt.a @LIBXML2_LIBS@ $(EXTRA_LIBS) $(LIBGCRYPT_LIBS)
  
-Index: libxslt-1.1.15/configure.in
+Index: configure.in
 ===================================================================
---- libxslt-1.1.15.orig/configure.in
-+++ libxslt-1.1.15/configure.in
+--- configure.in.orig
++++ configure.in
 @@ -15,7 +15,6 @@ PACKAGE=libxslt
  LIBEXSLT_MAJOR_VERSION=0
  LIBEXSLT_MINOR_VERSION=8
@@ -103,6 +103,15 @@ Index: libxslt-1.1.15/configure.in
  
  
  LIBXSLT_VERSION=$LIBXSLT_MAJOR_VERSION.$LIBXSLT_MINOR_VERSION.$LIBXSLT_MICRO_VERSION
+@@ -67,7 +66,7 @@ VERSION=${LIBXSLT_VERSION}
+ 
+ AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
+ 
+-# AM_MAINTAINER_MODE
++AM_MAINTAINER_MODE
+ 
+ AC_ARG_WITH(html-dir, [  --with-html-dir=PATH path to installed docs ])
+ 
 @@ -325,113 +324,15 @@ fi
  AC_SUBST(WITH_DEBUGGER)
  
