@@ -2,7 +2,7 @@
 # $Id: template,v 1.14 2004/07/01 16:08:08 rsc Exp $
 #
 # Copyright (C) 2004 by BSP
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -61,7 +61,6 @@ hexedit_prepare: $(STATEDIR)/hexedit.prepare
 
 HEXEDIT_PATH	=  PATH=$(CROSS_PATH)
 HEXEDIT_ENV 	=  $(CROSS_ENV)
-HEXEDIT_ENV	+= LDFLAGS='$(strip $(subst $(quote),,$(TARGET_LDFLAGS))) -static'
 HEXEDIT_ENV	+= CFLAGS='$(strip $(subst $(quote),,$(TARGET_CFLAGS))) $(strip $(subst $(quote),,$(TARGET_CPPFLAGS)))'
 
 #
@@ -116,7 +115,7 @@ $(STATEDIR)/hexedit.targetinstall: $(hexedit_targetinstall_deps_default)
 	@$(call install_fixup, hexedit,DEPENDS,)
 	@$(call install_fixup, hexedit,DESCRIPTION,missing)
 
-	@$(call install_copy, hexedit, 0, 0, 0755, $(HEXEDIT_DIR)/hexedit, /usr/bin/hexedit)	
+	@$(call install_copy, hexedit, 0, 0, 0755, $(HEXEDIT_DIR)/hexedit, /usr/bin/hexedit)
 
 	@$(call install_finish, hexedit)
 
