@@ -420,13 +420,6 @@ extract =							\
 	URL="$($(strip $(1))_URL)";				\
 	DEST="$(strip $(2))";					\
 	DEST="$${DEST:-$(BUILDDIR)}";				\
-	if [ "$$PACKET" = "" ]; then				\
-		echo;						\
-		echo Error: empty parameter to \"extract\(\)\";	\
-		echo;						\
-		exit -1;					\
-	fi;							\
-	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
 								\
 	case $$URL in						\
 	file*)							\
@@ -446,6 +439,15 @@ extract =							\
 		fi; 						\
 		;;						\
 	esac; 							\
+								\
+	if [ "$$PACKET" = "" ]; then				\
+		echo;						\
+		echo Error: empty parameter to \"extract\(\)\";	\
+		echo;						\
+		exit -1;					\
+	fi;							\
+	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
+								\
 								\
 	echo "extract: archive=$$PACKET";			\
 	echo "extract: dest=$$DEST";				\
