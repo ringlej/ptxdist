@@ -2,7 +2,7 @@ TODO for 0.10.6
 ===============
 
 [ ] audit the logfile of AllYesArm for autotool calls
-   [ ] util-linux: re-calls automake during compile;
+   [x] util-linux: re-calls automake during compile;
    [ ] libxslt: re-calls automake during compile
    [ ] pure-ftpd: re-calls automake during compile
 

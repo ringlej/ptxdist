@@ -1,4 +1,4 @@
 util-linux-2.13-pre7-conditional-iosched.diff
-util-linux-2.13-pre7-umount.diff
-util-linux-2.13-pre7-configure.diff
-util-linux-2.13-pre7-Makefile_in.diff
+util-linux-2.13-pre7-umount.diff -p0
+util-linux-2.13-pre7-autoreconf.diff -p1
+

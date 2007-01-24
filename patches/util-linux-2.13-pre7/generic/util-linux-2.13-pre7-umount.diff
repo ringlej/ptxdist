@@ -1,8 +1,17 @@
-Index: util-linux-2.13-pre7/configure.ac
+Index: configure.ac
 ===================================================================
---- util-linux-2.13-pre7.orig/configure.ac
-+++ util-linux-2.13-pre7/configure.ac
-@@ -45,6 +45,7 @@ AC_CHECK_FUNCS(updwtmp)
+--- configure.ac.orig
++++ configure.ac
+@@ -17,6 +17,8 @@ AC_PATH_PROG(PERL, perl)
+ 
+ AC_SYS_LARGEFILE
+ 
++AM_MAINTAINER_MODE
++
+ AC_CHECK_HEADERS(scsi/scsi.h)
+ AC_CHECK_HEADERS(linux/compiler.h)
+ AC_CHECK_HEADERS(linux/blkpg.h,,,[
+@@ -45,6 +47,7 @@ AC_CHECK_FUNCS(updwtmp)
  AC_FUNC_FSEEKO
  AC_CHECK_FUNCS(lchown)
  AC_CHECK_FUNCS(rpmatch)
@@ -10,10 +19,10 @@ Index: util-linux-2.13-pre7/configure.ac
  
  
  AC_CHECK_LIB(uuid, uuid_is_null)
-Index: util-linux-2.13-pre7/mount/umount.c
+Index: mount/umount.c
 ===================================================================
---- util-linux-2.13-pre7.orig/mount/umount.c
-+++ util-linux-2.13-pre7/mount/umount.c
+--- mount/umount.c.orig
++++ mount/umount.c
 @@ -29,28 +29,21 @@
  #include "nfsmount.h"
  #include <arpa/inet.h>
@@ -47,10 +56,10 @@ Index: util-linux-2.13-pre7/mount/umount.c
  
  #if !defined(MNT_FORCE)
  /* dare not try to include <linux/mount.h> -- lots of errors */
-Index: util-linux-2.13-pre7/mount/Makefile.am
+Index: mount/Makefile.am
 ===================================================================
---- util-linux-2.13-pre7.orig/mount/Makefile.am
-+++ util-linux-2.13-pre7/mount/Makefile.am
+--- mount/Makefile.am.orig
++++ mount/Makefile.am
 @@ -1,6 +1,6 @@
  include $(top_srcdir)/config/include-Makefile.am
  
