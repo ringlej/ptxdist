@@ -1,26 +1,10 @@
 TODO for 0.10.6
 ===============
 
-[ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
-    this "class" mechanism and make sure it produces sane output. Check
-    with mkl.
-
-    Example: ptxdist newpacket host-existing-target:
-
-    - asks for version number, which should be derived from existing
-      target version
-    - asks for URL, but we want to use the download mechanics from
-      target
-    - should output warning that you have to change := into = for
-      corresponding target packet
-
 [ ] audit the logfile of AllYesArm for autotool calls
    [ ] util-linux: re-calls automake during compile;
    [ ] libxslt: re-calls automake during compile
    [ ] pure-ftpd: re-calls automake during compile
-
-[ ] jbe: Adding "ant" to the required host tools. Emit a warning if its not
-    present, but not fail (required only to build jvisu)
 
 [ ] audit all packages if they change the target CPU (with --march or --mtune)
    [ ] openssl does so
@@ -39,6 +23,27 @@ TODO for 0.10.6
 
 TODO for 0.10.x
 ===============
+
+[ ] jbe: Adding "ant" to the required host tools. Emit a warning if its not
+    present, but not fail (required only to build jvisu)
+
+    Update 2007-01-24:	rsc: rejected. Ant is only needed by tools which
+			use Java, and we don't want a prerequisite to
+			java in PTXdist. Maybe add some loud warning if
+			packets are built which use java, such as jvisu.
+
+[ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
+    this "class" mechanism and make sure it produces sane output. Check
+    with mkl.
+
+    Example: ptxdist newpacket host-existing-target:
+
+    - asks for version number, which should be derived from existing
+      target version
+    - asks for URL, but we want to use the download mechanics from
+      target
+    - should output warning that you have to change := into = for
+      corresponding target packet
 
 [ ] discuss UID of user "rpcuser"
 
