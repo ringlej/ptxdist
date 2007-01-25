@@ -370,29 +370,9 @@ menuconfig ROOTFS_PROFILE
 			help
 			  This uses a user defined /etc/profile. PTXdist
 			  uses file projectroot/etc/profile in your local
-			  project. If you are using the placeholders @PS1@,
-			  @PS2@, and @PS3@ they will be replaced by the string
-			  settings below.
+			  project.
 
 	endchoice
-
-	config ROOTFS_ETC_PS1
-		depends on ROOTFS_PROFILE
-		string
-		default "\\u@\\h:\\w"
-		prompt "set PS1 in /etc/profile"
-
-	config ROOTFS_ETC_PS2
-		depends on ROOTFS_PROFILE
-		string
-		default ""
-		prompt "set PS2 in /etc/profile"
-
-	config ROOTFS_ETC_PS4
-		depends on ROOTFS_PROFILE
-		string
-		default ""
-		prompt "set PS4 in /etc/profile"
 
 #
 # /etc/protocols

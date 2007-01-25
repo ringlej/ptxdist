@@ -534,15 +534,6 @@ ifdef PTXCONF_ROOTFS_USER_PROFILE
 		$(PTXDIST_WORKSPACE)/projectroot/etc/profile, \
 		/etc/profile, n)
 endif
-	@$(call install_replace, rootfs, /etc/profile, \
-		@PS1@, \
-		\"$(PTXCONF_ROOTFS_ETC_PS1)\" )
-	@$(call install_replace, rootfs, /etc/profile, \
-		@PS2@, \
-		\"$(PTXCONF_ROOTFS_ETC_PS2)\" )
-	@$(call install_replace, rootfs, /etc/profile, \
-		@PS4@, \
-		\"$(PTXCONF_ROOTFS_ETC_PS4)\" )
 endif
 
 # -----------------------------------------------------------------------------

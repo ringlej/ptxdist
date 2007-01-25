@@ -13,9 +13,9 @@ if [ "$TERM" != "linux" ]; then
         stty erase ^H
 fi
 
-PS1=@PS1@
-PS2=@PS2@
-PS4=@PS4@
+PS1="\\u@\\h:\\w "
+PS2=" >"
+PS4="+ "
 
 alias vim='vi'
 alias l='ls -l'
