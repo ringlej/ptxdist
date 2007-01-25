@@ -351,9 +351,7 @@ HOST_AUTOCONF  := --prefix=$(PTX_PREFIX_HOST)
 #
 # targetinfo
 #
-# Print out the targetinfo line on the terminal and perform the compiler
-# check to make sure we are using the right toolchain in case we want
-# to perform compile or prepare stages.
+# Print out the targetinfo line on the terminal
 #
 # $1: name of the target to be printed out
 #
