@@ -578,16 +578,26 @@ ifdef PTXCONF_ROOTFS_GENERIC_IPKG_CONF
 endif
 
 # -----------------------------------------------------------------------------
+ifdef PTXCONF_ROOTFS_UDHCPC
+
 ifdef PTXCONF_ROOTFS_GENERIC_UDHCPC
 	@$(call install_copy, rootfs, 0, 0, 0754, \
 		$(PTXDIST_TOPDIR)/generic/etc/udhcpc.script, \
 		/etc/udhcpc.script, n)
+endif
+
+ifdef PTXCONF_ROOTFS_USER_UDHCPC
+	@$(call install_copy, rootfs, 0, 0, 0754, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/udhcpc.script, \
+		/etc/udhcpc.script, n)
+endif
+
 # udhcp expects the script to be called /usr/share/udhcpc/default.script,
 # so we make a link
 	@$(call install_link, rootfs, /etc/udhcpc.script, \
 		/usr/share/udhcpc/default.script)
-endif
 
+endif
 # -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_USER_CROND_CONF
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/cron)

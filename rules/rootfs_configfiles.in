@@ -464,11 +464,11 @@ config ROOTFS_ETC_MODULES
 
 #
 # /etc/udhcpc.script
+# specific to Busybox' udhcp-client
 #
 menuconfig ROOTFS_UDHCPC
 	depends on ROOTFS
 	depends on BB_CONFIG_UDHCPC
-	select ROOTFS_RESOLV
 	select BB_CONFIG_IFCONFIG
 	bool
 	prompt "/etc/udhcpc.script          "
@@ -478,6 +478,10 @@ menuconfig ROOTFS_UDHCPC
 	  You have checked busybox' udhcpc feature. It accepts the -s file or
 	  --script=file option. So this /etc/udhcpc.script will be run at dhcp
 	  events.
+	  If your network supports DNS, this script will generate /etc/resolv.conf.
+	  To use this feature, you also need a user defined /etc/nsswitch.conf
+	  file that enables DNS for name resolution. The generic one shipped
+	  with PTXdist does not so.
 
 	choice
 		prompt "Kind of /etc/udhcpc.script"
@@ -489,7 +493,7 @@ menuconfig ROOTFS_UDHCPC
 			prompt "Use generic"
 			help
 			  Install a generic /etc/udhcpc.script file. See
-			  <ptxdist-install>/generic/udhcpc.script.
+			  <ptxdist-install>/generic/etc/udhcpc.script.
 
 		config ROOTFS_USER_UDHCPC
 			bool
