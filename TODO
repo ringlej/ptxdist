@@ -56,7 +56,7 @@ TODO for 0.10.x
     	build-host/
 	build-target/
 	build-cross/
-	local-host/
+	local/
 	local-target/
 	local-cross/
 
@@ -85,8 +85,6 @@ TODO for 0.10.x
     saner colours instead of this unreadable yellow.
 
 [ ] we seem to need python2.3-dev, reported by Marco Cavallini:
-
-[ ] pureftp's configure runs twice and needs host's autotools!
 
 [ ] Profiling support (kernel and userspace)
     best with host visualisation
@@ -383,6 +381,8 @@ Old TODOs
 DONE
 ----
 
+[x] pureftp's configure runs twice and needs host's autotools!
+
 [x] audit the logfile of AllYesArm for autotool calls
 
     Update 2007-01-24:	rsc: the solution is simple: just add
@@ -403,8 +403,10 @@ DONE
 
 [x] jbe: Chrony fails to compile
 
+    Update 2007-01-25:	jbe: better fix; force chrony to use the wide ncurses lib
+			if present, else the non wide one
     Update 2007-01-19:	rsc: fixed; ncurses didn't install the
-    			non-widechar variants of the libraries.
+			non-widechar variants of the libraries.
 
 [x] OSELAS.BSP-Pengutronix-TechPool-trunk$ p select ptxconfig.dotgnu
     /home/rsc/svn/ptxdist-trunk/scripts/libptxdist.sh: line 26:
@@ -430,7 +432,6 @@ DONE
 [x] jbe: liboldX fails to build the ipkg but the build continues!
 
     Update 2007-01-19:	rsc: fixed
-
 
 [x] unbreak host-zlib; it is necessary for host-umkimage if there is no
     zlib devel packet installed on the host.
