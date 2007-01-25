@@ -180,7 +180,7 @@ endif
 ifdef PTXCONF_ROOTFS_ETC_SYSLOGNG_CONFIG_USER
 # install users one
 	@$(call install_copy, syslogng, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/generic/etc/syslog-ng.conf, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/syslog-ng.conf, \
 		/etc/syslog-ng.conf)
 endif
 endif
