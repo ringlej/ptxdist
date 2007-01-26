@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_NTP) += ntp
 NTP_VERSION	= 4.2.2p3
 NTP		= ntp-$(NTP_VERSION)
 NTP_SUFFIX	= tar.gz
-NTP_URL		= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/$(NTP).$(NTP_SUFFIX)
+NTP_URL		= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/$(NTP).$(NTP_SUFFIX)
 NTP_SOURCE	= $(SRCDIR)/$(NTP).$(NTP_SUFFIX)
 NTP_DIR		= $(BUILDDIR)/$(NTP)
 
