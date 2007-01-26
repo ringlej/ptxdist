@@ -991,6 +991,21 @@ install_copy_toolchain_lib =									\
 		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -l "$${LIB}" $${DST} -s "$${STRIP}"
 
 #
+# install_copy_toolchain_dl
+#
+# $1: packet label
+# $2: destination
+# $3: strip (y|n)	default is to strip
+#
+install_copy_toolchain_dl =									\
+	PACKET=$(strip $(1));									\
+	DST="$(strip $2)";									\
+	STRIP="$(strip $3)";									\
+	test "$${DST}" != "" && DST="-d $${DST}";						\
+	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)							\
+		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -l LINKER $${DST} -s "$${STRIP}"
+
+#
 # install_copy_toolchain_other
 #
 # $1: packet label
@@ -1006,69 +1021,6 @@ install_copy_toolchain_usr =									\
 	test "$${DST}" != "" && DST="-d $${DST}";						\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)							\
 		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -u "$${LIB}" $${DST} -s "$${STRIP}"
-
-#
-# install_copy_toolchain_dl
-#
-# $1: packet label
-# $2: destination
-# $3: strip (y|n)	default is to strip
-#
-install_copy_toolchain_dl =									\
-	PACKET=$(strip $(1));									\
-	DST="$(strip $2)";									\
-	STRIP="$(strip $3)";									\
-												\
-	LIB="`echo 'int main(void){return 0;}' | 						\
-		$(CROSS_CC) -x c -o /dev/null -v - 2>&1 | 					\
-		grep dynamic-linker | 								\
-		perl -n -p -e 's/.* -dynamic-linker ([^ ]*).*/\1/'`";				\
-												\
-	LIB="`basename $${LIB}`";								\
-												\
-	LIB_DIR=`$(CROSS_CC) -print-file-name=$${LIB} | sed -e "s,/$${LIB}\$$,,"`;		\
-												\
-	if test \! -d "$${LIB_DIR}"; then							\
-		echo "copy_toolchain_ld_root: lib=$${LIB} not found";				\
-		exit -1;									\
-	fi;											\
-												\
-	for FILE in `find $${LIB_DIR} -maxdepth 1 -type l -name "$${LIB}*"`; do			\
-		LIB=`basename $${FILE}`;							\
-		while test -n "$${LIB}"; do							\
-			echo "copy_toolchain_ld_root lib=$${LIB} dst=$${DST}";			\
-			rm -fr $(ROOTDIR)$${DST}/$${LIB};					\
-			mkdir -p $(ROOTDIR)$${DST};						\
-			rm -fr $(ROOTDIR_DEBUG)$${DST}/$${LIB};					\
-			mkdir -p $(ROOTDIR_DEBUG)$${DST};					\
-			rm -fr $(IMAGEDIR)/$$PACKET/ipkg/$${DST}/$${LIB};		\
-			mkdir -p $(IMAGEDIR)/$$PACKET/ipkg/$${DST};			\
-			if test -h $${LIB_DIR}/$${LIB}; then					\
-				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/;			\
-				cp -d $${LIB_DIR}/$${LIB} $(ROOTDIR_DEBUG)$${DST}/;		\
-				cp -d $${LIB_DIR}/$${LIB} $(IMAGEDIR)/$$PACKET/ipkg/$${DST}/;	\
-			elif test -f $${LIB_DIR}/$${LIB}; then					\
-				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR)$${DST}/$${LIB};	\
-				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(ROOTDIR_DEBUG)$${DST}/$${LIB};	\
-				$(INSTALL) -D $${LIB_DIR}/$${LIB} $(IMAGEDIR)/$$PACKET/ipkg/$${DST}/$${LIB};\
-				case "$${STRIP}" in						\
-				0 | n | no)							\
-					;;							\
-				*)								\
-					$(CROSS_STRIP) $(ROOTDIR)$${DST}/$${LIB};		\
-					$(CROSS_STRIP) $(ROOTDIR)$${DST}/$${LIB};	\
-					;;							\
-				esac;								\
-				mkdir -p $(IMAGEDIR)/$$PACKET;					\
-				echo "f:$${DST}/$${LIB}:0:0:755" >> $(STATEDIR)/$$PACKET.perms;	\
-			else									\
-				exit -1;							\
-			fi;									\
-			LIB="`readlink $${LIB_DIR}/$${LIB}`";					\
-		done;										\
-	done;											\
-												\
-	echo -n
 
 #
 # install_link

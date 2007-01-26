@@ -32,6 +32,20 @@ ptxd_get_lib_path() {
 
 
 #
+# out: dynamic linker name
+#
+ptxd_get_dl() {
+    local dl
+
+    dl="`echo 'int main(void){return 0;}' | \
+    	${CC} -x c -o /dev/null -v - 2>&1 | \
+	sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p'`"
+
+    echo "`basename ${dl}`"
+}
+
+
+#
 # $1: lib_path: canonicalized path to lib
 #
 # The work is done here!
@@ -305,6 +319,9 @@ ptxd_install_copy_toolchain() {
     done
 
     if test -n "${lib}"; then
+	if test "${lib}" == LINKER; then
+	    lib="`ptxd_get_dl`" || return $?
+	fi
 	lib_path="`ptxd_get_lib_path \"${lib}\"`" || return $?
 	ptxd_install_toolchain_lib "args=\"${args}"\" "lib_path=${lib_path}" || return $?
     elif test -n "${usr}"; then
