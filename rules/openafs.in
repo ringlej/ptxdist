@@ -1,9 +1,7 @@
-menu    "OpenAFS [BROKEN]    "
-
-config OPENAFS
+menuconfig OPENAFS
 	bool
+	prompt "OpenAFS                       "
 	depends on BROKEN
-	prompt "OpenAFS"
 	help
 	  AFS is a distributed filesystem allowing cross-platform
 	  sharing of files among multiple computers.  Facilities
@@ -12,13 +10,12 @@ config OPENAFS
 
 choice
 	prompt "OpenAFS Version"
+		depends on OPENAFS
 		default OPENAFS_1_2_11
 
 	config OPENAFS_1_2_11
-		depends on OPENAFS
 		bool
 		prompt "1.2.11"
 
 endchoice
 
-endmenu
