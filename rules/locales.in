@@ -1,6 +1,6 @@
 menuconfig LOCALES
 	bool
-	prompt "System locales"
+	prompt "system locales                "
 	depends on GLIBC
 	help
 	  select this to enable locale installation, otherwise your system will only
