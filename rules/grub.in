@@ -1,6 +1,6 @@
 
 menuconfig GRUB
-	bool "grub                "
+	bool "grub                          "
 	depends on ARCH_X86
 	help
 	  Grub - The GRand Unified Bootloader
@@ -31,7 +31,7 @@ config GRUB_PRESET_MENU
 	prompt "Preset Menu File"
 	depends on GRUB
 	help
-	  Add a path to a file here which will be used as a 
+	  Add a path to a file here which will be used as a
 	  preset menu (for example for serial console support)
 
 config GRUB_GUNZIP
