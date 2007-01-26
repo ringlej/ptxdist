@@ -1,7 +1,0 @@
-config HOST_MODUTILS
-	bool
-	depends on BROKEN
-	prompt "HOST_MODUTILS [BROKEN]"
-	help
-	  FIXME: This item needs to be documented
-
