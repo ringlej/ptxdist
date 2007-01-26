@@ -272,16 +272,3 @@ config IMAGE_EXT2_GZIP
 	help
 	  FIXME: This item needs to be documented
 
-##############################################################################
-comment "Image Creation for Host"
-##############################################################################
-
-config IMAGE_HOST_DEB
-	bool
-	prompt "Create Debian packets for host components"
-	help
-	  Usually the host side code is being installed during the
-	  "install" stages with "make install". If this option is
-	  checked, Debian .deb packets are created.
-
-

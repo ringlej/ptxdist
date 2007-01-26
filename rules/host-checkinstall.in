@@ -1,7 +1,0 @@
-config HOST_IMAGE_DEB
-	bool
-	depends on BROKEN
-	prompt "HOST_IMAGE_DEB [BROKEN]"
-	help
-	  FIXME: This item needs to be documented
-

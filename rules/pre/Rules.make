@@ -59,14 +59,6 @@ PARALLELMFLAGS  ?= -j$(shell if [ -r /proc/cpuinfo ];				\
 
 FAKEROOT	= $(PTXCONF_HOST_PREFIX)/bin/fakeroot
 
-ifdef PTXCONF_IMAGE_HOST_DEB
-CHECKINSTALL	=  INSTALLWATCH_PREFIX=$(PTXCONF_PREFIX)
-CHECKINSTALL	+= $(HOST_CHECKINSTALL_DIR)/checkinstall
-CHECKINSTALL	+= -D -y
-else
-CHECKINSTALL	=
-endif
-
 CHECK_PIPE_STATUS = \
 	for i in  "$${PIPESTATUS[@]}"; do [ $$i -gt 0 ] && {			\
 		echo;								\
@@ -589,22 +581,6 @@ get_option_ext =									\
 #
 # FIXME: if we don't use --install=no we can make one packet.
 #
-ifdef PTXCONF_IMAGE_HOST_DEB
-install = \
-	BUILDDIR="$($(strip $(1)_DIR))";				\
-	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
-	[ "$(strip $(3))" != "h" ] && DESTDIR="$(SYSROOT)";		\
-	cd $$BUILDDIR && 						\
-		$($(strip $(1))_ENV) 					\
-		$($(strip $(1))_PATH) 					\
-		INSTALLWATCH_PREFIX=$(PTXCONF_PREFIX)			\
-		$(HOST_CHECKINSTALL_DIR)/checkinstall			\
-		-D -y -pakdir=$(IMAGEDIR) --install=no -nodoc		\
-		make install $(4) 					\
-		$($(strip $(1))_MAKEVARS)				\
-		DESTDIR=$$DESTDIR;					\
-	#dpkg-deb -x blablabla $(SYSROOT)
-else
 install = \
 	BUILDDIR="$($(strip $(1))_DIR)";				\
 	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
@@ -634,7 +610,6 @@ install = \
 			fi;						\
 		done;							\
 	done
-endif
 
 
 #

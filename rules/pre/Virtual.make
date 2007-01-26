@@ -11,10 +11,6 @@
 virtual-cross-tools_install: $(STATEDIR)/virtual-cross-tools.install
 
 
-ifdef PTXCONF_IMAGE_HOST_DEB
-$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-checkinstall.install
-endif
-
 ifdef PTXCONF_IMAGE_JFFS2
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-mtd-utils.install
 endif

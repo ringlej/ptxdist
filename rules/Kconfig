@@ -241,10 +241,6 @@ source "rules/gail.in"
 source "rules/gmp3.in"
 source "rules/gmp4.in"
 source "rules/gtk1210.in"
-# these host in-files are probably not broken,
-# please check why they are not included anywhere...
-source "rules/host-checkinstall.in"
-# ---
 source "rules/konq-e.in"
 source "rules/libart.in"
 source "rules/libgd.in"
