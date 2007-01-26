@@ -1,11 +1,7 @@
 TODO for 0.10.6
 ===============
 
-[ ] audit all packages if they change the target CPU (with --march or --mtune)
-
-   [ ] openssl does so
-
----
+After branch:
 
 [ ] rsc: audit if 'ptxdist get' fetches all packets correctly
     [ ] http://www.sqlite.org/sqlite-3.2.8.tar.gz does not exists any more
@@ -14,11 +10,16 @@ TODO for 0.10.6
 
 [ ] update ChangeLog
 
-[ ] rsc: after release: update OSELAS.Toolchain and OSELAS.Crosstool to
-    use this version.
+After release:
+
+[ ] rsc: update OSELAS.Toolchain and OSELAS.Crosstool to use this version.
 
 TODO for 0.10.x
 ===============
+
+[ ] audit all packages if they change the target CPU (with --march or --mtune)
+
+   [ ] openssl does so
 
 [ ] jbe: uRamdisk should be built from ipkg packages instead of root/ content!
 
