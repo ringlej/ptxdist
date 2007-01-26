@@ -1068,6 +1068,15 @@ while [ "$#" != "0" ]; do
 			exit 0
 			;;
 	test)		shift
+			if [ -z "$1" ]; then
+				echo "No test given. try ptxdist test help for a list of available tests"
+				exit 0
+			fi
+			if [ "$1" = help ]; then
+				echo "available tests:"
+				find $PTXDIST_WORKSPACE/tests -maxdepth 1 -type f -exec basename {} \;
+				exit 0
+			fi
 			if [ -x "$PTXDIST_WORKSPACE/tests/$1" ]; then
 				echo
 				$PTXDIST_WORKSPACE/tests/$1 > ${PTXDIST_WORKSPACE}/test.log
