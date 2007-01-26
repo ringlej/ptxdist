@@ -122,6 +122,15 @@ config ROOTFS_ETC_INITD_PUREFTPD_LINK
 	  start pure ftp daemon when system starts. Keep this entry empty if
 	  you do not want to start this service automatically.
 
+config ROOTFS_ETC_INITD_SAMBA_LINK
+	depends on ROOTFS_ETC_INITD_SAMBA
+	string
+	prompt "samba link name"
+	default "S10_samba"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/samba to
+	  start the samba server.
+
 config ROOTFS_ETC_INITD_CVS_LINK
 	depends on CVS_STARTUP_TYPE_STANDALONE
 	string
