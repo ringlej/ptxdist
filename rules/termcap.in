@@ -2,11 +2,12 @@ menuconfig TERMCAP
 	bool "termcap                     "
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  This is a ligthwight curses library
 
 config TERMCAP_TERMCAP
 	bool "install termcap data file"
 	depends on TERMCAP
 	help
-	  FIXME: This item needs to be documented
+	  To handle different terminal capabilities this database is
+	  needed by applications.
 
