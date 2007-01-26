@@ -1,6 +1,7 @@
 config HOST_CRAMFS
 	bool
 	prompt "cramfs tools"
+	select HOST_ZLIB
 	help
 	  This package contains tools that let you construct a CramFs
 	  (Compressed ROM File System) image from the contents of a 
