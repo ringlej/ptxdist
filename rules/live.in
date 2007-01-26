@@ -1,5 +1,6 @@
 config LIVE_LIB
 	bool
+	depends on BROKEN
 	prompt "LIVE                   "
 	help
 	  FIXME
