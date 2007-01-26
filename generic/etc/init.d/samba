@@ -12,9 +12,9 @@ set -e
 case "$1" in
   start)
 	echo -n "Starting $DESC: "
-	start-stop-daemon -S -x "$DAEMON_SMB" -D
+	start-stop-daemon -S -x "$DAEMON_SMB" -- -D
 	echo -n "$DAEMON_SMB. "
-	start-stop-daemon -S -x "$DAEMON_NMB" -D
+	start-stop-daemon -S -x "$DAEMON_NMB" -- -D
 	echo -n "$DAEMON_NMB. "
 	echo "done"
 	;;
@@ -30,9 +30,9 @@ case "$1" in
 	echo -n "Restarting $DESC: "
 	start-stop-daemon -K -x "$DAEMON_SMB"
 	start-stop-daemon -K -x "$DAEMON_NMB"
-	start-stop-daemon -S -x "$DAEMON_SMB" -D
+	start-stop-daemon -S -x "$DAEMON_SMB" -- -D
 	echo -n "$DAEMON_SMB. "
-	start-stop-daemon -S -x "$DAEMON_NMB" -D
+	start-stop-daemon -S -x "$DAEMON_NMB" -- -D
 	echo -n "$DAEMON_NMB. "
 	echo "done"
 sleep 1
