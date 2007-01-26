@@ -1,0 +1,38 @@
+#
+# Submitted-By: Marc Kleine-Budde, 2007-01-26
+#
+# Error:
+#
+# project is not using automake, thus not saving CPPFLAGS and LDFLAGS during configure
+#
+# Description:
+#
+# added MY_CPPFLAGS variable, to provide cppflags from outside during
+# make. same goes for LDFLAGS
+#
+Index: Makefile
+===================================================================
+--- a/Makefile.orig
++++ b/Makefile
+@@ -14,7 +14,7 @@ pkgdatadir = $(datadir)/$(PACKAGE)
+ pkglibdir = $(libdir)/$(PACKAGE)
+ pkgincludedir = $(includedir)/$(PACKAGE)
+ 
+-CPPFLAGS=-DVERSION='"$(VERSION)"' -DRELEASE_DATE='"$(RELEASE_DATE)"' -I include
++CPPFLAGS=-DVERSION='"$(VERSION)"' -DRELEASE_DATE='"$(RELEASE_DATE)"' -I include $(MY_CPPFLAGS)
+ HOST_CPPFLAGS=$(CPPFLAGS)
+ I386_CPPFLAGS=$(CPPFLAGS) -I arch/i386/include
+ IA64_CPPFLAGS=$(CPPFLAGS) -I arch/ia64/include
+Index: Makefile.conf.in
+===================================================================
+--- a/Makefile.conf.in.orig
++++ b/Makefile.conf.in
+@@ -14,7 +14,7 @@ mandir=@mandir@
+ includedir=@includedir@
+ 
+ DEFS=@DEFS@
+-LIBS=@LIBS@
++LIBS=@LIBS@ $(LDFLAGS)
+ HOST_CC=@HOST_CC@
+ HOST_CFLAGS=@HOST_CFLAGS@  $(DEFS)
+ 
