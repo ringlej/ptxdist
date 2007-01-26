@@ -127,7 +127,7 @@ endif
 ifdef PTXCONF_NCURSES_PANEL
 NCURSES_LIBRARY_LIST += panel
 endif
-#
+
 endif
 
 $(STATEDIR)/ncurses.install: $(ncurses_install_deps_default)
@@ -140,9 +140,9 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 # For this, the links at runtime are required
 #
 	for lib in $(NCURSES_LIBRARY_LIST); do \
-		echo "INPUT(-l$${lib}w)" > $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/lib$${lib}.so ; \
+		echo "INPUT(-l$${lib}w)" > $(SYSROOT)/lib/lib$${lib}.so ; \
 	done
-	ln -sf libncurses++w.a $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/libncurses++.a
+	ln -sf libncurses++w.a $(SYSROOT)/lib/libncurses++.a
 endif
 	@$(call touch, $@)
 
