@@ -93,6 +93,21 @@ ptxd_abspath() {
 	echo `cd $DN && pwd`/`basename $1`
 }
 
+#
+# convert a human readable number with [kM] suffix or 0x prefix into a number
+#
+ptxd_human_to_number() {
+	local num
+	if [ "$#" != 1 ]; then
+		echo "usage: ptxd_human_to_number <number>"
+		exit 1
+	fi
+
+	num=$(echo "$1" | sed 's/m$/*1024*1024/I')
+	num=$(echo "$num" | sed 's/k$/*1024/I')
+
+	echo $((num))
+}
 
 #
 # customized exit functions
