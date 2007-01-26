@@ -1,6 +1,7 @@
 menuconfig KAFFE
 	prompt "kaffe               "
 	bool
+	depends on BROKEN
 	select HOST_KAFFE
 	help
 	  This packet needs an already installed Eclipse Java Compiler on the
