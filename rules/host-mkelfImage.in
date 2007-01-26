@@ -1,6 +1,7 @@
 config HOST_MKELFIMAGE
 	bool
 	select HOST_FAKEROOT
+	select HOST_ZLIB
 	prompt "mkelfimage"
 	help
 	  With mkelfImage you can create elf images from kernel

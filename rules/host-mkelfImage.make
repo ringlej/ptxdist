@@ -84,7 +84,8 @@ host-mkelfImage_compile: $(STATEDIR)/host-mkelfImage.compile
 
 $(STATEDIR)/host-mkelfImage.compile: $(host-mkelfImage_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_MKELFIMAGE_DIR) && $(HOST_MKELFIMAGE_ENV) $(HOST_MKELFIMAGE_PATH) make
+	cd $(HOST_MKELFIMAGE_DIR) && $(HOST_MKELFIMAGE_PATH) make \
+		MY_CPPFLAGS="$(HOST_CPPFLAGS)" LDFLAGS="$(HOST_LDFLAGS)"
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
