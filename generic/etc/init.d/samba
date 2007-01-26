@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON_SMB=/usr/sbin/smbd
+DAEMON_NMB=/usr/sbin/nmbd
+NAME=samba
+DESC="Samba server"
+
+set -e
+
+case "$1" in
+  start)
+	echo -n "Starting $DESC: "
+	start-stop-daemon -S -x "$DAEMON_SMB" -D
+	echo -n "$DAEMON_SMB. "
+	start-stop-daemon -S -x "$DAEMON_NMB" -D
+	echo -n "$DAEMON_NMB. "
+	echo "done"
+	;;
+  stop)
+	echo -n "Stopping $DESC: "
+	start-stop-daemon -K -x "$DAEMON_SMB"
+	echo -n "$DAEMON_SMB. "
+	start-stop-daemon -K -x "$DAEMON_NMB"
+	echo -n "$DAEMON_NMB."
+	echo "done"
+	;;
+  restart|force-reload)
+	echo -n "Restarting $DESC: "
+	start-stop-daemon -K -x "$DAEMON_SMB"
+	start-stop-daemon -K -x "$DAEMON_NMB"
+	start-stop-daemon -S -x "$DAEMON_SMB" -D
+	echo -n "$DAEMON_SMB. "
+	start-stop-daemon -S -x "$DAEMON_NMB" -D
+	echo -n "$DAEMON_NMB. "
+	echo "done"
+sleep 1
+	;;
+  *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
