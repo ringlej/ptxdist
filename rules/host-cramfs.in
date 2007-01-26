@@ -1,4 +1,4 @@
-config CRAMFS
+config HOST_CRAMFS
 	bool
 	prompt "cramfs tools"
 	help
