@@ -1,5 +1,9 @@
 config LTRACE
 	bool
+	# FIXME:
+	# make -C sysdeps/linux-gnueabi
+	# make: Entering an unknown directory
+	depends on BROKEN
 	prompt "ltrace"
 	select LIBELF
 	help
