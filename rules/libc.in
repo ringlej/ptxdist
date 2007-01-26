@@ -1,4 +1,4 @@
-menu "C Library           "
+menu "C library                     "
 
 source "rules/glibc.in"
 
