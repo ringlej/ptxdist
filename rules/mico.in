@@ -2,6 +2,7 @@
 
 menuconfig MICO
 	bool
+	depends on BROKEN
 	select HOST_MICO
 	prompt "mico                          "
 	help
