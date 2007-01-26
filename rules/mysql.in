@@ -3,9 +3,32 @@
 menuconfig MYSQL
 	bool
 	prompt "mysql                       "
-	select TERMCAP
+	select TERMCAP if MYSQL_TERMINAL_TERMCAP
+	select NCURSES if MYSQL_TERMINAL_NCURSES
 	select HOST_MYSQL
 	select ZLIB
+
+comment "build options   ---"
+	depends on MYSQL
+
+choice
+	prompt "terminal library   "
+	depends on MYSQL
+	default MYSQL_TERMINAL_NCURSES
+
+	config MYSQL_TERMINAL_NCURSES
+		bool
+		prompt "curses"
+		help
+		  MySQL will use dynamic curses library for its terminal manipulation
+
+	config MYSQL_TERMINAL_TERMCAP
+		bool
+		prompt "termcap"
+		help
+		  MySQL will use static termcap library for its terminal manipulation
+
+endchoice
 
 choice
 	prompt "default charset    "

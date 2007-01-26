@@ -74,6 +74,10 @@ MYSQL_AUTOCONF := \
 	--with-zlib-dir=$(SYSROOT)/usr \
 	--without-debug
 
+# FIXME: find a switch to force termcap or ncurses
+# currently it's not fixed. If the user selects termcap
+# but ncurses is present, it seems ncurses is used instead!
+#
 ifdef PTXCONF_MYSQL_DEFAULT_CHARSET_ARMSCII8
 MYSQL_AUTOCONF += --with-charset=armscii8
 endif
