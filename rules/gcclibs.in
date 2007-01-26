@@ -2,7 +2,7 @@
 # rules/gcclibs.in
 #
 
-menu "GCC Libraries       "
+menu "gcc libraries                 "
 
 config GCCLIBS
 	bool
