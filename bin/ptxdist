@@ -487,15 +487,29 @@ clean() {
 		done
 		rm -rf ${dir}
 	done
+
+	echo "${PROMPT}removing sysroot directories..."
+	ptxconf_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_PREFIX})
+	ptxconf_host_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_HOST_PREFIX})
+	ptxconf_cross_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_CROSS_PREFIX})
+
+	for dir in ${ptxconf_prefix} ${ptxconf_host_prefix} ${ptxconf_cross_prefix}; do
+		if test \! -d "${dir}"; then
+			continue
+		fi
+		case "${dir}" in
+		    (${PTXDIST_WORKSPACE}/*)
+			rm -rf "${dir}"
+		    ;;
+			(*)
+		    ;;
+		esac
+	done
+
 	echo "${PROMPT}removing deps..."
 	rm -f depend.out deptree-a4.ps deptree.ps
 	echo "${PROMPT}removing imagedir..."
 	rm -fr ${IMAGEDIR}
-	echo "${PROMPT}removing sysroot directory (local)..."
-	ptxconf_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_PREFIX})
-	ptxconf_host_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_HOST_PREFIX})
-	ptxconf_cross_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_CROSS_PREFIX})
-	rm -fr ${ptxconf_prefix} ${ptxconf_host_prefix} ${ptxconf_cross_prefix}
 	echo "${PROMPT}removing root..."
 	rm -fr ${ROOTDIR}
 	rm -fr ${ROOTDIR_DEBUG}
