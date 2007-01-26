@@ -7,7 +7,7 @@ menuconfig KERNEL
 	default y
 	select CROSS_MODULE_INIT_TOOLS if KERNEL_MODULES
 	select HOST_UMKIMAGE if KERNEL_IMAGE_U
-	prompt "linux kernel        "
+	prompt "linux kernel                  "
 
 comment "--------- Target's kernel ----------"
 	depends on KERNEL
