@@ -22,14 +22,16 @@ shell() {
 
 
 ptxd_get_ptxconf() {
-	if test -z "${PTXCONF_MODULES}"; then
-		if test -f ${PTXCONFIG}; then
-			source "${PTXCONFIG}"
-			echo "${!1}"
-		else
-			echo "ptxconfig_not_available_please_report_this_bug"
-		fi
+	if test -z "${_ptxd_get_ptxconf_sourced}"; then
+	    if test -f "${PTXCONFIG}"; then
+		source "${PTXCONFIG}"
+		_ptxd_get_ptxconf_sourced=true
+	    else
+		return
+	    fi
 	fi
+
+	echo "${!1}"
 }
 
 #
