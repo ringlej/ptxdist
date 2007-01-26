@@ -1,5 +1,6 @@
 menuconfig TERMCAP
 	bool "termcap                     "
+	depends on !NCURSES
 	default y
 	help
 	  This is a ligthwight curses library

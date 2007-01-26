@@ -5,6 +5,7 @@ menuconfig NCURSES
 	  forms libraries implement clones of the SVr4 panel, menu and forms
 	  APIs. The source code for these lives in the `ncurses', `panel',
 	  `menu', and `form' directories respectively.
+	  For a smaller library select the termcap package instead of ncurses.
 
 comment "build options ---"
 	depends on NCURSES
