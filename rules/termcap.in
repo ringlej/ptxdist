@@ -1,14 +1,27 @@
 menuconfig TERMCAP
 	bool "termcap                     "
-	depends on !NCURSES
-	default y
 	help
-	  This is a ligthwight curses library
+	  This is the GNU termcap library -- a library of C functions that
+	  enable programs to send control strings to terminals in a way
+	  independent of the terminal type.  The GNU termcap library does not
+	  place an arbitrary limit on the size of termcap entries, unlike most
+	  other termcap libraries.
+	  This is a static library only.
 
 config TERMCAP_TERMCAP
 	bool "install termcap data file"
 	depends on TERMCAP
+	default y
 	help
-	  To handle different terminal capabilities this database is
-	  needed by applications.
+	  This installs the latest official termcap data file into /etc/termcap.src.
+
+	  The current version contains some entries that are more than 1023 bytes
+	  long, which is the largest value that is safe to use with the many
+	  historical applications that only allocate a 1024 byte termcap buffer
+	  (telnet, for example). If you make sure that all of your programs
+	  allocate buffers of at least 2500 bytes, or let the termcap library do
+	  it by passing a NULL pointer, then it is safe to install the new
+	  termcap file.
+	  To handle different terminal capabilities this database is needed by
+	  applications on the target.
 
