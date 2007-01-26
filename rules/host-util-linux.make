@@ -74,7 +74,7 @@ endif
 ifdef PTXCONF_HOST_UTIL_LINUX_SFDISK
 	$(UTIL_LINUX_PATH) make -C $(HOST_UTIL_LINUX_DIR)/fdisk sfdisk
 endif
-
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Hosttool Install
