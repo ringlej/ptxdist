@@ -92,6 +92,8 @@ config LIBXML2_HTTP
 
 config LIBXML2_ICONV
 	bool
+	# FIXME: doesn't pick up correct LDADD flags
+	depends on BROKEN
 	default y
 	depends on LIBXML2
 	prompt "ICONV support"
