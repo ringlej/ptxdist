@@ -1,5 +1,6 @@
 config HOST_SLIRP
 	bool
+	depends on BROKEN
 	prompt "slirp"
 	help
 	  Slirp is a SLIP/PPP terminal emulator. For more details see
